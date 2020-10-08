@@ -2,48 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 095FA287C8C
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Oct 2020 21:38:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC32C287E6E
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Oct 2020 00:01:58 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6BF1C3FAD7;
-	Thu,  8 Oct 2020 19:38:11 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67636C32EA8;
+	Thu,  8 Oct 2020 22:01:58 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E77E3C3FAD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E12D2C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Oct 2020 19:38:08 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4C6hM36BgZz1s8NL;
- Thu,  8 Oct 2020 21:38:07 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4C6hM35vRNz1qvJ3;
- Thu,  8 Oct 2020 21:38:07 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id OO_t3nc8c0Mn; Thu,  8 Oct 2020 21:38:06 +0200 (CEST)
-X-Auth-Info: 9YIzH+INRh6CidONxHE0cpF6KlXgGs8wOy/Vr0+ETMw=
-Received: from desktop.lan (ip-89-176-112-137.net.upcbroadband.cz
- [89.176.112.137])
+ Thu,  8 Oct 2020 22:01:55 +0000 (UTC)
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Thu,  8 Oct 2020 21:38:06 +0200 (CEST)
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Thu,  8 Oct 2020 21:38:00 +0200
-Message-Id: <20201008193800.129513-2-marex@denx.de>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201008193800.129513-1-marex@denx.de>
-References: <20201008193800.129513-1-marex@denx.de>
+ by mail.kernel.org (Postfix) with ESMTPSA id 074C622242;
+ Thu,  8 Oct 2020 22:01:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1602194513;
+ bh=EVyvVTNpmJa/UPKAvAjxfvZgDTbHQqPP7CHorPAJG0I=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=vM5VX/caeJccko8pxOGsWKe4Js0eh0gUIKEymMMKDGBRUXqSrImM9VaLkRZaIwfPq
+ 9chkJ5QP6EzfHj13YfOQgIi9y+9AKBt2Cj926eqxYyiRTcn2vNuU5/6z930B1WGKEL
+ anzYLTkemExf4Y2rvv8NLnMX9js6x1fZNX5uqHoo=
+Date: Thu, 08 Oct 2020 23:01:51 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>, lgirdwood@gmail.com,
+ arnaud.pouliquen@st.com, tiwai@suse.com, perex@perex.cz,
+ alexandre.torgue@st.com
+In-Reply-To: <20201007153459.22155-1-olivier.moysan@st.com>
+References: <20201007153459.22155-1-olivier.moysan@st.com>
+Message-Id: <160219448332.29664.10143559083895905802.b4-ty@kernel.org>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: Add KS8851 on FMC2 to
-	STM32MP1 DHCOM
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 0/2] ASoC: stm32: dfsdm: change rate limits
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,75 +53,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add bindings for the KS8851 ethernet present on the STM32MP1 DHCOM SoM.
+On Wed, 7 Oct 2020 17:34:57 +0200, Olivier Moysan wrote:
+> Widening of the supported rate range in the STM32 DFSDM driver.
+> The rates were previously limited to 8kHz, 16kHz and 32kHz.
+> Allow rate capture in the whole range 8kHz-48kHz as there is no hardware
+> limitation to support it.
+> Actual sample resolution is dependent on audio rate and DFSDM configuration.
+> Add a trace to allow simple check of sample resolution.
+> 
+> [...]
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
----
- arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 35 ++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+Applied to
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-index bc6b2b33078d..f62bf170408e 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-@@ -11,6 +11,7 @@
- / {
- 	aliases {
- 		ethernet0 = &ethernet0;
-+		ethernet1 = &ksz8851;
- 	};
- 
- 	memory@c0000000 {
-@@ -132,6 +133,40 @@
- 	};
- };
- 
-+&fmc {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&fmc_pins_b>;
-+	pinctrl-1 = <&fmc_sleep_pins_b>;
-+	status = "okay";
-+
-+	ksz8851: ks8851mll@1,0 {
-+		compatible = "micrel,ks8851-mll";
-+		reg = <1 0x0 0x2>, <1 0x2 0x20000>;
-+		interrupt-parent = <&gpioc>;
-+		interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
-+		bank-width = <2>;
-+
-+		/* Timing values are in nS */
-+		st,fmc2-ebi-cs-mux-enable;
-+		st,fmc2-ebi-cs-transaction-type = <4>;
-+		st,fmc2-ebi-cs-buswidth = <16>;
-+		st,fmc2-ebi-cs-address-setup-ns = <5>;
-+		st,fmc2-ebi-cs-address-hold-ns = <5>;
-+		st,fmc2-ebi-cs-bus-turnaround-ns = <5>;
-+		st,fmc2-ebi-cs-data-setup-ns = <45>;
-+		st,fmc2-ebi-cs-data-hold-ns = <1>;
-+		st,fmc2-ebi-cs-write-address-setup-ns = <5>;
-+		st,fmc2-ebi-cs-write-address-hold-ns = <5>;
-+		st,fmc2-ebi-cs-write-bus-turnaround-ns = <5>;
-+		st,fmc2-ebi-cs-write-data-setup-ns = <45>;
-+		st,fmc2-ebi-cs-write-data-hold-ns = <1>;
-+	};
-+};
-+
-+&gpioc {
-+	status = "okay";
-+};
-+
- &i2c4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c4_pins_a>;
--- 
-2.28.0
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/2] ASoC: stm32: dfsdm: change rate limits
+      commit: 6101bf71192f543799a796274e160f7dfc10f2d2
+[2/2] ASoC: stm32: dfsdm: add actual resolution trace
+      commit: 41bceb1272164ee2a6fd1ac3bed97043c94b6636
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
