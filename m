@@ -2,75 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68F29288DBA
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Oct 2020 18:06:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDC70289A2F
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Oct 2020 23:08:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CB9FC32EA8;
-	Fri,  9 Oct 2020 16:06:33 +0000 (UTC)
-Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
- [209.85.218.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DC59C32EA8;
+	Fri,  9 Oct 2020 21:08:29 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A12F5C32EA3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 506B5C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Oct 2020 16:06:31 +0000 (UTC)
-Received: by mail-ej1-f65.google.com with SMTP id md26so13813065ejb.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 09 Oct 2020 09:06:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=mxO+I5LNxrcOwcYvX0IJyyJi/v9s48ckxPqo00HL+Xw=;
- b=XV+ZUq/hdjuq/ARetFqqjacQh/2BcONSA8rW35fw/sBgoXDcprcPgR6H8drf3Ey1Pb
- L+GksaUV5G7fhGeMBHTWbmOgZA5sI+gfr08BN2LCuIOvK0Vu1Gs/Z2AxWW+1OA9Pg0+h
- Q1ETKnshvjGqaUoBTGakzrxvMgWTxwYut+4KYvQlolNriey5VTfQAUwAX2Y6LAo309Js
- BN3WNNY5bYSedSO9dTY9IpWZJK3dAwBB/+dABgWpa0QDEG6owkzILh0unCZCRgjYn/lA
- RG2VnG/E+jnlD+FDd2JE30Ijeh3qIRRXHVnQuP2K4pfMfTmY89uzPfFo2k9/JRbMNtKU
- iZww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=mxO+I5LNxrcOwcYvX0IJyyJi/v9s48ckxPqo00HL+Xw=;
- b=HqfkBTSxJBPy0IRFAVPHe8txJybFs92+Mv+efEPX5t6ZJCizw1ASGzaMnk4lmQhia6
- lL5EfIVHs9mCs/p3Y52Ak34Tfff4098gS0qj6kuS5x5IJr6b0/ZlHm5davxmQK7RIEJA
- ZdmkYbziY+4ce71iMfqXPEeh8jEf8Nen70B4HpbJW2d64aYuyrwLk9rhFo3BQUvPJSup
- Mg8ftI/MLx/lq/xBorWOZ0Cq7lI9hnYyOAdx1SQgPMTi6ECQUq4Ej8OEtSzlBvlkgSgo
- jndwgGXZsVE8JHHtyD3M4kOhNt4yo3IZEBMNyhw7VpV1Dp5OedxO+AG/e/mWVQONVQWv
- 4VmQ==
-X-Gm-Message-State: AOAM533bHhLYuK/Ecfigcfpdz/XdpTjyF7n1l8XI7JE2+jeeX58RoPdv
- /oSHTs0vYtvvf85P5gJ4/ZY=
-X-Google-Smtp-Source: ABdhPJxnHXb6Br4QFjWPiyYOdwrFHi55f9ys4UhdL9yDCqWn2sQjviznQIoMH6qg+zFGiiJhaHuRNQ==
-X-Received: by 2002:a17:906:f0d8:: with SMTP id
- dk24mr14840855ejb.492.1602259591162; 
- Fri, 09 Oct 2020 09:06:31 -0700 (PDT)
-Received: from ?IPv6:2003:ea:8f00:6a00:e538:757:aee0:c25f?
- (p200300ea8f006a00e5380757aee0c25f.dip0.t-ipconnect.de.
- [2003:ea:8f00:6a00:e538:757:aee0:c25f])
- by smtp.googlemail.com with ESMTPSA id v14sm867268edy.68.2020.10.09.09.06.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Oct 2020 09:06:30 -0700 (PDT)
-To: Jakub Kicinski <kuba@kernel.org>
-References: <20201008162749.860521-1-john@metanate.com>
- <8036d473-68bd-7ee7-e2e9-677ff4060bd3@gmail.com>
- <20201009085805.65f9877a@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-From: Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <725ba7ca-0818-074b-c380-15abaa5d037b@gmail.com>
-Date: Fri, 9 Oct 2020 18:06:25 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+ Fri,  9 Oct 2020 21:08:26 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4C7LJp1f4Hz1qsZn;
+ Fri,  9 Oct 2020 23:08:26 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4C7LJp14lCz1qrF1;
+ Fri,  9 Oct 2020 23:08:26 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id 3M80byR1GlP6; Fri,  9 Oct 2020 23:08:24 +0200 (CEST)
+X-Auth-Info: P4wFYCl4tBxSLbTT3X7wTD2x4/hhNUrnAqhx0AkMZs4=
+Received: from desktop.lan (ip-89-176-112-137.net.upcbroadband.cz
+ [89.176.112.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri,  9 Oct 2020 23:08:24 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Fri,  9 Oct 2020 23:08:20 +0200
+Message-Id: <20201009210820.243659-1-marex@denx.de>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-In-Reply-To: <20201009085805.65f9877a@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-Content-Language: en-US
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, John Keeping <john@metanate.com>,
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Don't call _irqoff() with
-	hardirqs enabled
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Consistently enable internal
+	pull-ups for SD bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,20 +58,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 09.10.2020 17:58, Jakub Kicinski wrote:
-> On Fri, 9 Oct 2020 16:54:06 +0200 Heiner Kallweit wrote:
->> I'm thinking about a __napi_schedule version that disables hard irq's
->> conditionally, based on variable force_irqthreads, exported by the irq
->> subsystem. This would allow to behave correctly with threadirqs set,
->> whilst not loosing the _irqoff benefit with threadirqs unset.
->> Let me come up with a proposal.
-> 
-> I think you'd need to make napi_schedule_irqoff() behave like that,
-> right?  Are there any uses of napi_schedule_irqoff() that are disabling
-> irqs and not just running from an irq handler?
-> 
-Right, the best approach depends on the answer to the latter question.
-I didn't check this yet, therefore I described the least intrusive approach.
+The default state of SD bus and clock line is logical HI. SD card IO is
+open-drain and pulls the bus lines LO. Always enable the SD bus pull ups
+to guarantee this behavior. Note that on systems with bus voltage level
+shifter on the SD bus, the pull ups might also be built into the level
+shifter, however that should have no negative impact.
+
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index b2d19583450c..73d9a5b7f5ba 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -1291,13 +1291,13 @@ pins1 {
+ 				 <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
+ 			slew-rate = <1>;
+ 			drive-push-pull;
+-			bias-disable;
++			bias-pull-up;
+ 		};
+ 		pins2 {
+ 			pinmux = <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1_CK */
+ 			slew-rate = <2>;
+ 			drive-push-pull;
+-			bias-disable;
++			bias-pull-up;
+ 		};
+ 	};
+ 
+@@ -1447,13 +1447,13 @@ pins1 {
+ 				 <STM32_PINMUX('G', 6, AF10)>; /* SDMMC2_CMD */
+ 			slew-rate = <1>;
+ 			drive-push-pull;
+-			bias-disable;
++			bias-pull-up;
+ 		};
+ 		pins2 {
+ 			pinmux = <STM32_PINMUX('E', 3, AF9)>; /* SDMMC2_CK */
+ 			slew-rate = <2>;
+ 			drive-push-pull;
+-			bias-disable;
++			bias-pull-up;
+ 		};
+ 	};
+ 
+@@ -1510,7 +1510,7 @@ pins {
+ 				 <STM32_PINMUX('C', 7, AF10)>; /* SDMMC2_D7 */
+ 			slew-rate = <1>;
+ 			drive-push-pull;
+-			bias-disable;
++			bias-pull-up;
+ 		};
+ 	};
+ 
+-- 
+2.28.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
