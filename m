@@ -2,54 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0419428A6A3
-	for <lists+linux-stm32@lfdr.de>; Sun, 11 Oct 2020 11:24:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD78728A78E
+	for <lists+linux-stm32@lfdr.de>; Sun, 11 Oct 2020 15:42:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FEDEC3FADA;
-	Sun, 11 Oct 2020 09:24:50 +0000 (UTC)
-Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
- [209.85.208.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DB94C3FADA;
+	Sun, 11 Oct 2020 13:42:33 +0000 (UTC)
+Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
+ [209.85.208.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6094C32E90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BB77C3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Oct 2020 09:24:47 +0000 (UTC)
-Received: by mail-ed1-f65.google.com with SMTP id l16so13827176eds.3
+ Sun, 11 Oct 2020 13:42:29 +0000 (UTC)
+Received: by mail-ed1-f68.google.com with SMTP id 33so14119796edq.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Oct 2020 02:24:47 -0700 (PDT)
+ Sun, 11 Oct 2020 06:42:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=tH45RmioYS3HtwVDfkOZiUgyPKcw48joPJkjW+p/y2k=;
- b=I4BNsrv8kdOI9zLwYOShUS1WC28NH3JI55NT2p/R4GoG25X77zYu41TfPUjpWfK6L6
- CrN6+FYr6UsHfBU4nIA9q6XK+rrTxwC4FnJmbJI0rd1+7H2LHgBg5xpGA0iYB25niYES
- FsQi5hJrI/bc+7I2jObKzCpJFmVJQtrehfT0Y2u72mJhg0vwaDFIdyPn2uIBTS7NJxEO
- IHlwwgq6UNSg7WxdILIFu+16IHfzt+PXp+N021PMWPGl3eg9bxmyqtCUOJpa3TTBMq0A
- m50PD5Nks8px8WuVvot4h3YfBFwasRL6kpgQn6xzaRNAKQmOn3tclYQ1dCyRzLg1y1/J
- J38Q==
+ bh=hLxG0yZ5cZrExT3IP3K5DP3mD84GDhpB6hZtlMmQVmE=;
+ b=B5bQKrMxDEyYGZai4RbwquyXNF22aY0dhlPe6gAJ1zPbcZgSYCMzucXvoMjI2a2Sqb
+ Qtvl1es9qkwlyjowHg0oGGjkBKxu0o5HXu7hKobGGElCz7A6eq/5hPYdYs9inb+ZOfIi
+ RZQgdd/Zs6Qe+etdqbYBvY+pdMBqUJjFBUZoveL0KHQF1ME8XgvJK/mj6BRRjNAfbgkj
+ RbDQ1bV9LBWlIZCpkqxIzmILwfTPnresJ2Z/oK27RCJgNf8VbX9KJyryFqWgyt1Pgnvf
+ 0A9FVhZIdETnELehurtsJKB6vwZyD7qBLAL07nrq1ezTW15in2YYJPYrKKoPu3avwvLf
+ lFmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=tH45RmioYS3HtwVDfkOZiUgyPKcw48joPJkjW+p/y2k=;
- b=tByDfQFVGioT6U1d00VwjLD/p9G3KQF4MGbMlkmPVi5dMerdZmY7/hLXvKbdJ8tvfr
- 93caacl149X7Ala8CDYhWCzfxx6uc+JWLnJ6jNd8WPXl5lZXSfU0m4ICYZYZO7K9nrlF
- HLO51HxsP3Q+JmowrDAcVd6jlDIOtZi03d6sfk8p35OMmBUPaev1oPJpn5wzGGaFJfX1
- xLmZFkTAX9RDmuJSF/BKT1qb+nfEiXeSih4FOiodKG87vh6/DPE0RDyRBmJPpmpHdJsf
- q1+RvjTmSJ3QjbN+/s0Ie9IxSMzmWrTHwF1dUzDR8LpyrIbV6StAxon6zNICXEZMUeA5
- cvcA==
-X-Gm-Message-State: AOAM531n+FENJ6iBfusnBJITl95jVkPxuEyd8vBEVZIlknhzomdgXblU
- HBqvC28bdqflfmcfSE6PuJk=
-X-Google-Smtp-Source: ABdhPJzyinaKYsOUUr1JqCSL+yUoSM495atqvyfqafzGj+nvUDOiolEyh+13nkTGbyhXnvqIykjMIg==
-X-Received: by 2002:aa7:c948:: with SMTP id h8mr6689859edt.171.1602408287443; 
- Sun, 11 Oct 2020 02:24:47 -0700 (PDT)
+ bh=hLxG0yZ5cZrExT3IP3K5DP3mD84GDhpB6hZtlMmQVmE=;
+ b=ZiVvdpDLwMJ0a9ByklcN+NCs+g5K7nl35+6zIjHNRXiUZiG0wiupvZnzs+d5FGRepc
+ ACFCxFl4itciPtLcKB0OeS9FdMasTQV+ihEx01w7UwnkRtptuKzL2sC0HUUtZFed+nbR
+ d8hJQ/CQol9Pe8vY51wgddNIZiM2R5LIMOP2cvgMIv49PdmlNA/5JSp2+yO0Vw6K1Q80
+ S1Mkg2zyCFNdKF2wyEVVIfSVCKTQ9FgkDNabc6CXHE6u++NmV1Uoq3o9ogRk4SRsblqL
+ iRZltDkvhBb8kwGoo9W2yZUYL5W7uAOBkCWbp2HXxhLgsvdH1JOGKos7S5bTZeA0WE5J
+ dkGg==
+X-Gm-Message-State: AOAM531laVlOYpJiIY77X5/oIFvhpX4HrDpSIjIguXKxotxPnMWEl6f4
+ ug+VtpAYXgB5fX4XMFH/c4M=
+X-Google-Smtp-Source: ABdhPJxnDhlnbDVChei7DLsNpLX3y7RDHL/sAv8tUogZzC2FUdZ0LuoU57KmtX6qI0C/9D8WkYGi6g==
+X-Received: by 2002:a05:6402:3089:: with SMTP id
+ de9mr9497751edb.368.1602423748759; 
+ Sun, 11 Oct 2020 06:42:28 -0700 (PDT)
 Received: from ?IPv6:2003:ea:8f00:6a00:51b7:bf4f:604:7d3d?
  (p200300ea8f006a0051b7bf4f06047d3d.dip0.t-ipconnect.de.
  [2003:ea:8f00:6a00:51b7:bf4f:604:7d3d])
- by smtp.googlemail.com with ESMTPSA id x2sm8855899edr.65.2020.10.11.02.24.46
+ by smtp.googlemail.com with ESMTPSA id p12sm9093760edr.18.2020.10.11.06.42.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 11 Oct 2020 02:24:47 -0700 (PDT)
+ Sun, 11 Oct 2020 06:42:28 -0700 (PDT)
 To: Jakub Kicinski <kuba@kernel.org>
 References: <20201008162749.860521-1-john@metanate.com>
  <8036d473-68bd-7ee7-e2e9-677ff4060bd3@gmail.com>
@@ -58,8 +59,8 @@ References: <20201008162749.860521-1-john@metanate.com>
  <070b2b87-f38c-088d-4aaf-12045dbd92f7@gmail.com>
  <20201010082248.22cc7656@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 From: Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <c73866a9-2ee8-b549-f578-75d62b9263b4@gmail.com>
-Date: Sun, 11 Oct 2020 11:24:41 +0200
+Message-ID: <04d10b06-ca1c-3bfa-0a5f-730a9c8a2744@gmail.com>
+Date: Sun, 11 Oct 2020 15:42:24 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.1
 MIME-Version: 1.0
@@ -134,9 +135,34 @@ On 10.10.2020 17:22, Jakub Kicinski wrote:
 > context on anything but RT. I could be wrong.
 > 
 
-A similar discussion can be found e.g. here:
-https://lore.kernel.org/netdev/20191126222013.1904785-1-bigeasy@linutronix.de/
-However I don't see any actual outcome.
+Typically forced irq threading will not be enabled, therefore going
+back to use napi_schedule() in drivers in most cases will cause
+losing the benefit of the irqoff version. Something like the following
+should be better. Only small drawback I see is that in case of forced
+irq threading hrtimers will still run in hardirq context and we lose
+the benefit of the irqoff version in napi_watchdog().
+
+diff --git a/net/core/dev.c b/net/core/dev.c
+index a146bac84..7d18560b2 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -6393,7 +6393,11 @@ EXPORT_SYMBOL(napi_schedule_prep);
+  */
+ void __napi_schedule_irqoff(struct napi_struct *n)
+ {
+-	____napi_schedule(this_cpu_ptr(&softnet_data), n);
++	/* hard irqs may not be masked in case of forced irq threading */
++	if (force_irqthreads)
++		__napi_schedule(n);
++	else
++		____napi_schedule(this_cpu_ptr(&softnet_data), n);
+ }
+ EXPORT_SYMBOL(__napi_schedule_irqoff);
+ 
+-- 
+2.28.0
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
