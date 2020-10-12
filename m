@@ -2,39 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DB4A28BCA7
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Oct 2020 17:44:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8280B28BE9B
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Oct 2020 19:04:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1D68C3FAD5;
-	Mon, 12 Oct 2020 15:44:29 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C3ADC3FAD5;
+	Mon, 12 Oct 2020 17:04:19 +0000 (UTC)
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F987C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D7E4C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Oct 2020 15:44:29 +0000 (UTC)
-X-Originating-IP: 93.34.118.233
-Received: from uno.localdomain (93-34-118-233.ip49.fastwebnet.it
- [93.34.118.233]) (Authenticated sender: jacopo@jmondi.org)
- by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id 1F9C660009;
- Mon, 12 Oct 2020 15:44:25 +0000 (UTC)
-Date: Mon, 12 Oct 2020 17:48:26 +0200
-From: Jacopo Mondi <jacopo@jmondi.org>
-To: Hugues Fruchet <hugues.fruchet@st.com>
-Message-ID: <20201012154826.yeowe5dheyedkqen@uno.localdomain>
-References: <1602514303-22316-1-git-send-email-hugues.fruchet@st.com>
+ Mon, 12 Oct 2020 17:04:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=zJY3Dr6AnVYzWq6bCyK4S4rlKOnb0m8nFs+n4rj0aqA=; b=k/NrFvl5XJsTY+RGXOx8Q7rgV5
+ 6WNNASc5T2nH77d9p4WJ5StsyyoafuyjaX7OIUA/cx9AzZCWgCRdBuECQRkacLzZujA1K1NtbFU9c
+ KT8ra/6X+hfinxyRa8siQlResVDcawWPR3ET4bVDjn+XY2LOmvomALeWmTn4JL19k/gC+3IkGygGh
+ WGAyhJUf0R5CDBejIe3Sr7wUWTQl8qhMG11CkFDMgw3zPBV8NQ1L+CdhHkXbHHuBBNBLcUxWHtbMt
+ Q02yv7CcfFESjhKZTjKfgLviYlVIbGFNkkQZefNDtOBRrc2s4OMTLDJxaB1PKao2OkQWTGL3nL+ME
+ t4YRc7kQ==;
+Received: from [2600:1700:4830:165f::19e] (port=46758)
+ by vern.gendns.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david@lechnology.com>)
+ id 1kS1F6-00009H-9o; Mon, 12 Oct 2020 13:04:12 -0400
+To: William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Pavel Machek <pavel@ucw.cz>
+References: <cover.1601170670.git.vilhelm.gray@gmail.com>
+ <54190f9875b81b6aa5483a7710b084053a44abb8.1601170670.git.vilhelm.gray@gmail.com>
+ <20201008080909.GA31561@amd> <20201008122845.GA3314@shinobu>
+From: David Lechner <david@lechnology.com>
+Message-ID: <d06d5e47-5776-85ee-0dc5-8b624e36d83d@lechnology.com>
+Date: Mon, 12 Oct 2020 12:04:10 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1602514303-22316-1-git-send-email-hugues.fruchet@st.com>
-Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, Alain Volmat <alain.volmat@st.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Steve Longerbeam <slongerbeam@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] media: ov5640: fix support of BT656
-	bus mode
+In-Reply-To: <20201008122845.GA3314@shinobu>
+Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v5 4/5] docs: counter: Document character
+	device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,208 +73,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Hugues,
+On 10/8/20 7:28 AM, William Breathitt Gray wrote:
+> On Thu, Oct 08, 2020 at 10:09:09AM +0200, Pavel Machek wrote:
+>> Hi!
+>>
+>>> +        int main(void)
+>>> +        {
+>>> +                struct pollfd pfd = { .events = POLLIN };
+>>> +                struct counter_event event_data[2];
+>>> +
+>>> +                pfd.fd = open("/dev/counter0", O_RDWR);
+>>> +
+>>> +                ioctl(pfd.fd, COUNTER_SET_WATCH_IOCTL, watches);
+>>> +                ioctl(pfd.fd, COUNTER_SET_WATCH_IOCTL, watches + 1);
+>>> +                ioctl(pfd.fd, COUNTER_LOAD_WATCHES_IOCTL);
+>>> +
+>>> +                for (;;) {
+>>> +                        poll(&pfd, 1, -1);
+>>
+>> Why do poll, when you are doing blocking read?
+>>
+>>> +                        read(pfd.fd, event_data,  sizeof(event_data));
+>>
+>> Does your new chrdev always guarantee returning complete buffer?
+>>
+>> If so, should it behave like that?
+>>
+>> Best regards,
+>> 									Pavel
+>> -- 
+>> (english) http://www.livejournal.com/~pavelmachek
+>> (cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
+> 
+> I suppose you're right: a poll() should be redundant now with this
+> version of the character device implementation because buffers will
+> always return complete; so a blocking read() should achieve the same
+> behavior that a poll() with read() would.
+> 
+> I'll give some more time for additional feedback to come in for this
+> version of the patchset, and then likely remove support for poll() in
+> the v6 submission.
+> 
+> William Breathitt Gray
+> 
 
-On Mon, Oct 12, 2020 at 04:51:43PM +0200, Hugues Fruchet wrote:
-> Fix PCLK polarity not being taken into account.
-> Add comments about BT656 register control.
-> Remove useless ov5640_set_stream_bt656() function.
-> Refine comments about MIPI IO register control.
->
-> Fixes: 4039b03720f7 ("media: i2c: ov5640: Add support for BT656 mode")
-> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
-> ---
->  drivers/media/i2c/ov5640.c | 77 +++++++++++++++++++++++++++-------------------
->  1 file changed, 45 insertions(+), 32 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> index 8d0254d..c0ebf4c 100644
-> --- a/drivers/media/i2c/ov5640.c
-> +++ b/drivers/media/i2c/ov5640.c
-> @@ -1216,20 +1216,6 @@ static int ov5640_set_autogain(struct ov5640_dev *sensor, bool on)
->  			      BIT(1), on ? 0 : BIT(1));
->  }
->
-> -static int ov5640_set_stream_bt656(struct ov5640_dev *sensor, bool on)
-> -{
-> -	int ret;
-> -
-> -	ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
-> -			       on ? 0x1 : 0x00);
-> -	if (ret)
-> -		return ret;
-> -
-> -	return ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0, on ?
-> -				OV5640_REG_SYS_CTRL0_SW_PWUP :
-> -				OV5640_REG_SYS_CTRL0_SW_PWDN);
-> -}
-> -
->  static int ov5640_set_stream_dvp(struct ov5640_dev *sensor, bool on)
->  {
->  	return ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0, on ?
-> @@ -1994,6 +1980,7 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
->  static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->  {
->  	unsigned int flags = sensor->ep.bus.parallel.flags;
-> +	bool bt656 = sensor->ep.bus_type == V4L2_MBUS_BT656;
->  	u8 pclk_pol = 0;
->  	u8 hsync_pol = 0;
->  	u8 vsync_pol = 0;
-> @@ -2001,6 +1988,7 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->
->  	if (!on) {
->  		/* Reset settings to their default values. */
-> +		ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00, 0x00);
->  		ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x58);
->  		ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00, 0x20);
->  		ov5640_write_reg(sensor, OV5640_REG_PAD_OUTPUT_ENABLE01, 0x00);
-> @@ -2024,23 +2012,51 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->  	 * - VSYNC:	active high
->  	 * - HREF:	active low
->  	 * - PCLK:	active low
-> +	 *
-> +	 * VSYNC & HREF are not configured if BT656 bus mode is selected
->  	 */
-> +
->  	/*
-> -	 * configure parallel port control lines polarity
-> +	 * BT656 embedded synchronization configuration
->  	 *
-> -	 * POLARITY CTRL0
-> -	 * - [5]:	PCLK polarity (0: active low, 1: active high)
-> -	 * - [1]:	HREF polarity (0: active low, 1: active high)
-> -	 * - [0]:	VSYNC polarity (mismatch here between
-> -	 *		datasheet and hardware, 0 is active high
-> -	 *		and 1 is active low...)
-> +	 * CCIR656 CTRL00
-> +	 * - [7]:	SYNC code selection (0: auto generate sync code,
-> +	 *		1: sync code from regs 0x4732-0x4735)
-> +	 * - [6]:	f value in CCIR656 SYNC code when fixed f value
-> +	 * - [5]:	Fixed f value
-> +	 * - [4:3]:	Blank toggle data options (00: data=1'h040/1'h200,
-> +	 *		01: data from regs 0x4736-0x4738, 10: always keep 0)
-> +	 * - [1]:	Clip data disable
-> +	 * - [0]:	CCIR656 mode enable
-> +	 *
-> +	 * Default CCIR656 SAV/EAV mode with default codes
-> +	 * SAV=0xff000080 & EAV=0xff00009d is enabled here with settings:
-> +	 * - CCIR656 mode enable
-> +	 * - auto generation of sync codes
-> +	 * - blank toggle data 1'h040/1'h200
-> +	 * - clip reserved data (0x00 & 0xff changed to 0x01 & 0xfe)
->  	 */
-> -	if (sensor->ep.bus_type == V4L2_MBUS_PARALLEL) {
-> +	ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
-> +			       bt656 ? 0x01 : 0x00);
-> +	if (ret)
-> +		return ret;
+I hope that you mean that you will just remove it from the example
+and not from the chardev. Otherwise it won't be possible to
+integrate this with an event loop.
 
-All good so far
-
-> +
-> +	if (on) {
-
-But don't you have retained
-        if (!on)
-at the beginning of the function ?
-
-I would reflow this as:
-
-static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on) {
-        if (!on) {
-                ...
-        }
-
-        uint8_t polarities = 0;
-        if (!bt656) {
-                if (flags & V4L2_MBUS_HSYNC_ACTIVE_HIGH)
-        	        polarities |= BIT(1);
-                if (flags & V4L2_MBUS_VSYNC_ACTIVE_LOW)
-	                polarities |= BIT(0);
-        }
-        if (flags & V4L2_MBUS_PCLK_SAMPLE_RISING)
-	        polarities |= BIT(5);
-
-	ret = ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00,
-                               polarities);
-        if (ret)
-                return ret;
-
-        if (bt656) {
-                write_reg(CCIR656);
-        }
-
-        ....
-
-To make it more readable. What do you think ?
-
-> +		/*
-> +		 * configure parallel port control lines polarity
-> +		 *
-> +		 * POLARITY CTRL0
-> +		 * - [5]:	PCLK polarity (0: active low, 1: active high)
-> +		 * - [1]:	HREF polarity (0: active low, 1: active high)
-> +		 * - [0]:	VSYNC polarity (mismatch here between
-> +		 *		datasheet and hardware, 0 is active high
-> +		 *		and 1 is active low...)
-> +		 */
->  		if (flags & V4L2_MBUS_PCLK_SAMPLE_RISING)
->  			pclk_pol = 1;
-> -		if (flags & V4L2_MBUS_HSYNC_ACTIVE_HIGH)
-> +		if (!bt656 && flags & V4L2_MBUS_HSYNC_ACTIVE_HIGH)
->  			hsync_pol = 1;
-> -		if (flags & V4L2_MBUS_VSYNC_ACTIVE_LOW)
-> +		if (!bt656 && flags & V4L2_MBUS_VSYNC_ACTIVE_LOW)
->  			vsync_pol = 1;
->
->  		ret = ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00,
-> @@ -2052,12 +2068,12 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->  	}
->
-
-The part here below looks good!
-
->  	/*
-> -	 * powerdown MIPI TX/RX PHY & disable MIPI
-> +	 * powerdown MIPI TX/RX PHY & enable DVP
->  	 *
->  	 * MIPI CONTROL 00
-> -	 * 4:	 PWDN PHY TX
-> -	 * 3:	 PWDN PHY RX
-> -	 * 2:	 MIPI enable
-> +	 * [4] = 1	: Power down MIPI HS Tx
-> +	 * [3] = 1	: Power down MIPI LS Rx
-> +	 * [2] = 0	: DVP enable (MIPI disable)
->  	 */
->  	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x18);
->  	if (ret)
-> @@ -2074,8 +2090,7 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->  	 * - [3:0]:	D[9:6] output enable
->  	 */
->  	ret = ov5640_write_reg(sensor, OV5640_REG_PAD_OUTPUT_ENABLE01,
-> -			       sensor->ep.bus_type == V4L2_MBUS_PARALLEL ?
-> -			       0x7f : 0x1f);
-> +			       bt656 ? 0x1f : 0x7f);
->  	if (ret)
->  		return ret;
->
-> @@ -2925,8 +2940,6 @@ static int ov5640_s_stream(struct v4l2_subdev *sd, int enable)
->
->  		if (sensor->ep.bus_type == V4L2_MBUS_CSI2_DPHY)
->  			ret = ov5640_set_stream_mipi(sensor, enable);
-> -		else if (sensor->ep.bus_type == V4L2_MBUS_BT656)
-> -			ret = ov5640_set_stream_bt656(sensor, enable);
->  		else
->  			ret = ov5640_set_stream_dvp(sensor, enable);
->
-> --
-> 2.7.4
->
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
