@@ -2,64 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82F6328C70D
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Oct 2020 04:15:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2E8728C8EF
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Oct 2020 09:02:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F5F2C3FAD5;
-	Tue, 13 Oct 2020 02:15:09 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1147C3FAD5;
+	Tue, 13 Oct 2020 07:02:48 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1189C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4DD0C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Oct 2020 02:15:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=tcBt+ZIFfdDG4AQrVc2/3STIm09DLsIpLLHUc03KQmk=; b=uZ8bO3MitNYLQDhEGVXRN1alnp
- cfxhK2rk+QF79YZoRRN+QcFmlxTXGp+H/gBHkzVlFMeRqhKln5gNLewKVfUxZ59tKHvh3J6Jzj0LY
- tlTdYrMsy7KJ32EXIELCCruQORaOvw5gLucJyBxdguc546Z2w245jwUvgjwrgG3rYdYYbT1hxceJz
- KGkhjLgQSRUEd55TYsZBpz8Y9dGkfEFoqBhXx7QO40AEwmU8d3pKonatBi0V0O07SeZ9Zzq/SGkbr
- 30/3vk41qZBtA5Jpwcm86hbsWpoQSPB0U44RcL1P20sFZftxctg0NuCzpSHoo6mc7wPrHXAmLDZzn
- +eF9Cdjw==;
-Received: from [2600:1700:4830:165f::19e] (port=58328)
- by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david@lechnology.com>)
- id 1kS9qA-0007FQ-KP; Mon, 12 Oct 2020 22:15:02 -0400
-To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
-References: <cover.1601170670.git.vilhelm.gray@gmail.com>
- <e38f6dc3a08bf2510034334262776a6ed1df8b89.1601170670.git.vilhelm.gray@gmail.com>
-From: David Lechner <david@lechnology.com>
-Message-ID: <157d1edf-feec-33b5-7ad5-94f99316ca6e@lechnology.com>
-Date: Mon, 12 Oct 2020 21:15:00 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <e38f6dc3a08bf2510034334262776a6ed1df8b89.1601170670.git.vilhelm.gray@gmail.com>
+ Tue, 13 Oct 2020 07:02:44 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 09D6geo3027240; Tue, 13 Oct 2020 09:02:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=S2nHNvHbMokopb0Ic/PtvigwRTmfr5MwwhZRlZEscX8=;
+ b=gcLw5U5LFjsWdpqtKA0GSh0ZaSyFTQ5mPA3sXcbhjO6RlR1Lupws9O15GB0PYI0e0hj3
+ r7L5BnwiQHb96J7dOjIOnE7OsXQ43wjSmmQE7w2Mq0fJY8jQ0cKmlLAJNe5mmdyzzWs7
+ /Qe6iarjFIpducTdOM8IMryiI0O6CyV+76yQcZ5S9GdHDQ25PST0tPIUvU2Y/+VXArdB
+ Imkz7PdsaXAtn38W/V6ddL8oiUKKHOiXfZaV+kFMJrrEExczrvE+bq1tebhabfcrs/Zw
+ u7Z+4lkxI1RqWUl3xRgxB0xLKslS78ZZTWcXvcphiQ1zKs/LAtqXtbQ0gQXOSTFxNm88 1w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3455c88npv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 13 Oct 2020 09:02:21 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3433810002A;
+ Tue, 13 Oct 2020 09:02:20 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag1node2.st.com [10.75.127.2])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3271B21E20E;
+ Tue, 13 Oct 2020 09:02:19 +0200 (CEST)
+Received: from SFHDAG2NODE1.st.com (10.75.127.4) by SFHDAG1NODE2.st.com
+ (10.75.127.2) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 13 Oct
+ 2020 09:02:18 +0200
+Received: from SFHDAG2NODE1.st.com ([fe80::4413:c8c:992b:bb90]) by
+ SFHDAG2NODE1.st.com ([fe80::4413:c8c:992b:bb90%20]) with mapi id
+ 15.00.1473.003; Tue, 13 Oct 2020 09:02:18 +0200
+From: Yannick FERTRE <yannick.fertre@st.com>
+To: Sam Ravnborg <sam@ravnborg.org>
+Thread-Topic: [PATCH] drm/stm: dsi: Use dev_ based logging
+Thread-Index: AQHWkyXKfX9abUar20eb4rtFyqzMOal5TviAgBvGx4A=
+Date: Tue, 13 Oct 2020 07:02:18 +0000
+Message-ID: <9bcaaa2a-1a84-9d64-14a3-75b5f3094483@st.com>
+References: <20200925102233.18016-1-yannick.fertre@st.com>
+ <20200925145149.GB1929717@ravnborg.org>
+In-Reply-To: <20200925145149.GB1929717@ravnborg.org>
+Accept-Language: fr-FR, en-US
 Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 1/5] counter: Internalize sysfs
-	interface code
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.47]
+Content-ID: <249A09F460513341BEDEFDBB61763CB4@st.com>
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-10-13_02:2020-10-13,
+ 2020-10-13 signatures=0
+Cc: Daniel Vetter <daniel@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ David Airlie <airlied@linux.ie>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Vincent ABRIOU <vincent.abriou@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: Use dev_ based logging
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,198 +86,295 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 9/26/20 9:18 PM, William Breathitt Gray wrote:
-> This is a reimplementation of the Generic Counter driver interface.
+Hi Sam,
+thanks for the review. I'll send a new patch with the revert of function 
+dsi_color_from_mipi.
 
-I'll follow up if I find any problems while testing but here are some
-comments I had from looking over the patch.
+Best regards
 
-> diff --git a/drivers/counter/counter-core.c b/drivers/counter/counter-core.c
-> new file mode 100644
-> index 000000000000..987c6e8277eb
-> --- /dev/null
-> +++ b/drivers/counter/counter-core.c
+Yannick
 
-
-> +/**
-> + * counter_register - register Counter to the system
-> + * @counter:	pointer to Counter to register
-> + *
-> + * This function registers a Counter to the system. A sysfs "counter" directory
-> + * will be created and populated with sysfs attributes correlating with the
-> + * Counter Signals, Synapses, and Counts respectively.
-> + */
-> +int counter_register(struct counter_device *const counter)
-> +{
-> +	struct device *const dev = &counter->dev;
-> +	int err;
-> +
-> +	/* Acquire unique ID */
-> +	counter->id = ida_simple_get(&counter_ida, 0, 0, GFP_KERNEL);
-> +	if (counter->id < 0)
-> +		return counter->id;
-> +
-> +	/* Configure device structure for Counter */
-> +	dev->type = &counter_device_type;
-> +	dev->bus = &counter_bus_type;
-> +	if (counter->parent) {
-> +		dev->parent = counter->parent;
-> +		dev->of_node = counter->parent->of_node;
-> +	}
-> +	dev_set_name(dev, "counter%d", counter->id);
-> +	device_initialize(dev);> +	dev_set_drvdata(dev, counter);
-> +
-> +	/* Add Counter sysfs attributes */
-> +	err = counter_sysfs_add(counter);
-> +	if (err)
-> +		goto err_free_id;
-> +
-> +	/* Add device to system */
-> +	err = device_add(dev);
-> +	if (err) {
-> +		put_device(dev);
-> +		goto err_free_id;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_free_id:
-> +	/* get_device/put_device combo used to free managed resources */
-> +	get_device(dev);
-> +	put_device(dev);
-
-I've never seen this in a driver before, so it makes me think this is
-not the "right way" to do this. After device_initialize() is called, we
-already should have a reference to dev, so only device_put() is needed.
-
-
-> +	ida_simple_remove(&counter_ida, counter->id);
-
-In the case of error after device_initialize() is called, won't this
-result in ida_simple_remove() being called twice, once here and once in
-the release callback?
-
-> +	return err;
-> +}
-> +EXPORT_SYMBOL_GPL(counter_register);
-> +
-> +/**
-> + * counter_unregister - unregister Counter from the system
-> + * @counter:	pointer to Counter to unregister
-> + *
-> + * The Counter is unregistered from the system; all allocated memory is freed.
-> + */
-> +void counter_unregister(struct counter_device *const counter)
-> +{
-> +	if (!counter)
-> +		return;
-> +
-> +	device_unregister(&counter->dev);
-> +}
-> +EXPORT_SYMBOL_GPL(counter_unregister);
-> +
-> +static void devm_counter_unreg(struct device *dev, void *res)
-
-To be consistent, it would be nice to spell out unregister.
-
-> +{
-> +	counter_unregister(*(struct counter_device **)res);
-> +}
-> +
-
-> diff --git a/drivers/counter/counter-sysfs.c b/drivers/counter/counter-sysfs.c
-> new file mode 100644
-> index 000000000000..e66ed99dd5ea
-> --- /dev/null
-> +++ b/drivers/counter/counter-sysfs.c
-
-> +/**
-> + * counter_sysfs_add - Adds Counter sysfs attributes to the device structure
-> + * @counter:	Pointer to the Counter device structure
-> + *
-> + * Counter sysfs attributes are created and added to the respective device
-> + * structure for later registration to the system. Resource-managed memory
-> + * allocation is performed by this function, and this memory should be freed
-> + * when no longer needed (automatically by a device_unregister call, or
-> + * manually by a devres_release_all call).
-> + */
-> +int counter_sysfs_add(struct counter_device *const counter)
-> +{
-> +	struct device *const dev = &counter->dev;
-> +	const size_t num_groups = counter->num_signals + counter->num_counts +
-> +				  1;
-
-It is OK to go past 80 columns, especially for just for a few characters.
-
-> +	struct counter_attribute_group *groups;
-> +	size_t i, j;
-> +	int err;
-> +	struct attribute_group *group;
-> +	struct counter_attribute *p;
-> +
-> +	/* Allocate space for attribute groups (signals, counts, and ext) */
-> +	groups = devm_kcalloc(dev, num_groups, sizeof(*groups), GFP_KERNEL);
-> +	if (!groups)
-> +		return -ENOMEM;
-> +
-> +	/* Initialize attribute lists */
-> +	for (i = 0; i < num_groups; i++)
-> +		INIT_LIST_HEAD(&groups[i].attr_list);
-> +
-> +	/* Register Counter device attributes */
-> +	err = counter_device_register(counter, groups);
-
-This function name is a bit misleading. At first I though we were registering
-a new counter device (struct device). Maybe counter_sysfs_create_attrs()
-would be a better name? (I wouldn't mind having all functions in this
-file having a "counter_sysfs_" prefix for that matter.)
-
-
-> diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
-> index 1ff07faef27f..938085dead80 100644
-> --- a/drivers/counter/ti-eqep.c
-> +++ b/drivers/counter/ti-eqep.c
-
-
-> @@ -406,7 +414,7 @@ static int ti_eqep_probe(struct platform_device *pdev)
->   
->   	priv->counter.name = dev_name(dev);
->   	priv->counter.parent = dev;
-> -	priv->counter.ops = &ti_eqep_counter_ops;
-> +	priv->counter.parent = &ti_eqep_counter_ops;
->   	priv->counter.counts = ti_eqep_counts;
->   	priv->counter.num_counts = ARRAY_SIZE(ti_eqep_counts);
->   	priv->counter.signals = ti_eqep_signals;
-
-This looks like an unintentional change and causes a compile error.
-
-> diff --git a/include/linux/counter.h b/include/linux/counter.h
-> index 9dbd5df4cd34..132bfecca5c3 100644
-> --- a/include/linux/counter.h
-> +++ b/include/linux/counter.h
-> @@ -6,417 +6,195 @@
->   #ifndef _COUNTER_H_
->   #define _COUNTER_H_
->   
-> -#include <linux/counter_enum.h>
->   #include <linux/device.h>
-> +#include <linux/kernel.h>
-> +#include <linux/list.h>
-
-struct list_head is defined in linux/types.h. Is there something else
-we are using from linux/list.h in this file?
-
->   #include <linux/types.h>
->   
-
-
-It would be helpful to have kernel doc comments on everything in this file.
-
+On 9/25/20 4:51 PM, Sam Ravnborg wrote:
+> Hi Yannick.
+> 
+> On Fri, Sep 25, 2020 at 12:22:33PM +0200, Yannick Fertre wrote:
+>> Standardize on the dev_ based logging and drop the include of drm_print.h.
+> The patchs filas to drop the include mentioned here.
+> 
+>> Remove useless dsi_color_from_mipi function.
+> IMO the dsi_color_from_mipi() was nice, and inlining the helper
+> is no gain for readability.
+> 
+> 	Sam
+> 
+>>
+>> Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
+>> ---
+>>   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 87 ++++++++++++++-------------
+>>   1 file changed, 45 insertions(+), 42 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+>> index 164f79ef6269..93fa8bfd3127 100644
+>> --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+>> +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+>> @@ -76,6 +76,7 @@ enum dsi_color {
+>>   
+>>   struct dw_mipi_dsi_stm {
+>>   	void __iomem *base;
+>> +	struct device *dev;
+>>   	struct clk *pllref_clk;
+>>   	struct dw_mipi_dsi *dsi;
+>>   	u32 hw_version;
+>> @@ -110,23 +111,6 @@ static inline void dsi_update_bits(struct dw_mipi_dsi_stm *dsi, u32 reg,
+>>   	dsi_write(dsi, reg, (dsi_read(dsi, reg) & ~mask) | val);
+>>   }
+>>   
+>> -static enum dsi_color dsi_color_from_mipi(enum mipi_dsi_pixel_format fmt)
+>> -{
+>> -	switch (fmt) {
+>> -	case MIPI_DSI_FMT_RGB888:
+>> -		return DSI_RGB888;
+>> -	case MIPI_DSI_FMT_RGB666:
+>> -		return DSI_RGB666_CONF2;
+>> -	case MIPI_DSI_FMT_RGB666_PACKED:
+>> -		return DSI_RGB666_CONF1;
+>> -	case MIPI_DSI_FMT_RGB565:
+>> -		return DSI_RGB565_CONF1;
+>> -	default:
+>> -		DRM_DEBUG_DRIVER("MIPI color invalid, so we use rgb888\n");
+>> -	}
+>> -	return DSI_RGB888;
+>> -}
+>> -
+>>   static int dsi_pll_get_clkout_khz(int clkin_khz, int idf, int ndiv, int odf)
+>>   {
+>>   	int divisor = idf * odf;
+>> @@ -205,14 +189,14 @@ static int dw_mipi_dsi_phy_init(void *priv_data)
+>>   	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_RRS,
+>>   				 SLEEP_US, TIMEOUT_US);
+>>   	if (ret)
+>> -		DRM_DEBUG_DRIVER("!TIMEOUT! waiting REGU, let's continue\n");
+>> +		dev_dbg(dsi->dev, "!TIMEOUT! waiting REGU, let's continue\n");
+>>   
+>>   	/* Enable the DSI PLL & wait for its lock */
+>>   	dsi_set(dsi, DSI_WRPCR, WRPCR_PLLEN);
+>>   	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_PLLLS,
+>>   				 SLEEP_US, TIMEOUT_US);
+>>   	if (ret)
+>> -		DRM_DEBUG_DRIVER("!TIMEOUT! waiting PLL, let's continue\n");
+>> +		dev_dbg(dsi->dev, "!TIMEOUT! waiting PLL, let's continue\n");
+>>   
+>>   	return 0;
+>>   }
+>> @@ -221,7 +205,7 @@ static void dw_mipi_dsi_phy_power_on(void *priv_data)
+>>   {
+>>   	struct dw_mipi_dsi_stm *dsi = priv_data;
+>>   
+>> -	DRM_DEBUG_DRIVER("\n");
+>> +	dev_dbg(dsi->dev, "\n");
+>>   
+>>   	/* Enable the DSI wrapper */
+>>   	dsi_set(dsi, DSI_WCR, WCR_DSIEN);
+>> @@ -231,7 +215,7 @@ static void dw_mipi_dsi_phy_power_off(void *priv_data)
+>>   {
+>>   	struct dw_mipi_dsi_stm *dsi = priv_data;
+>>   
+>> -	DRM_DEBUG_DRIVER("\n");
+>> +	dev_dbg(dsi->dev, "\n");
+>>   
+>>   	/* Disable the DSI wrapper */
+>>   	dsi_clear(dsi, DSI_WCR, WCR_DSIEN);
+>> @@ -244,6 +228,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+>>   {
+>>   	struct dw_mipi_dsi_stm *dsi = priv_data;
+>>   	unsigned int idf, ndiv, odf, pll_in_khz, pll_out_khz;
+>> +	enum mipi_dsi_pixel_format fmt;
+>>   	int ret, bpp;
+>>   	u32 val;
+>>   
+>> @@ -267,11 +252,11 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+>>   
+>>   	if (pll_out_khz > dsi->lane_max_kbps) {
+>>   		pll_out_khz = dsi->lane_max_kbps;
+>> -		DRM_WARN("Warning max phy mbps is used\n");
+>> +		dev_warn(dsi->dev, "Warning max phy mbps is used\n");
+>>   	}
+>>   	if (pll_out_khz < dsi->lane_min_kbps) {
+>>   		pll_out_khz = dsi->lane_min_kbps;
+>> -		DRM_WARN("Warning min phy mbps is used\n");
+>> +		dev_warn(dsi->dev, "Warning min phy mbps is used\n");
+>>   	}
+>>   
+>>   	/* Compute best pll parameters */
+>> @@ -281,7 +266,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+>>   	ret = dsi_pll_get_params(dsi, pll_in_khz, pll_out_khz,
+>>   				 &idf, &ndiv, &odf);
+>>   	if (ret)
+>> -		DRM_WARN("Warning dsi_pll_get_params(): bad params\n");
+>> +		dev_warn(dsi->dev, "Warning dsi_pll_get_params(): bad params\n");
+>>   
+>>   	/* Get the adjusted pll out value */
+>>   	pll_out_khz = dsi_pll_get_clkout_khz(pll_in_khz, idf, ndiv, odf);
+>> @@ -297,14 +282,31 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
+>>   	/* Select video mode by resetting DSIM bit */
+>>   	dsi_clear(dsi, DSI_WCFGR, WCFGR_DSIM);
+>>   
+>> +	switch (format) {
+>> +	case MIPI_DSI_FMT_RGB888:
+>> +		fmt = DSI_RGB888;
+>> +		break;
+>> +	case MIPI_DSI_FMT_RGB666:
+>> +		fmt = DSI_RGB666_CONF2;
+>> +		break;
+>> +	case MIPI_DSI_FMT_RGB666_PACKED:
+>> +		fmt = DSI_RGB666_CONF1;
+>> +		break;
+>> +	case MIPI_DSI_FMT_RGB565:
+>> +		fmt = DSI_RGB565_CONF1;
+>> +		break;
+>> +	default:
+>> +		fmt = DSI_RGB888;
+>> +		dev_err(dsi->dev, "MIPI color invalid, so we use rgb888\n");
+>> +	}
+>> +
+>>   	/* Select the color coding */
+>> -	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX,
+>> -			dsi_color_from_mipi(format) << 1);
+>> +	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX, fmt << 1);
+>>   
+>>   	*lane_mbps = pll_out_khz / 1000;
+>>   
+>> -	DRM_DEBUG_DRIVER("pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n",
+>> -			 pll_in_khz, pll_out_khz, *lane_mbps);
+>> +	dev_dbg(dsi->dev, "pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n", pll_in_khz, pll_out_khz,
+>> +		*lane_mbps);
+>>   
+>>   	return 0;
+>>   }
+>> @@ -352,11 +354,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+>>   	if (!dsi)
+>>   		return -ENOMEM;
+>>   
+>> +	dsi->dev = dev;
+>> +
+>>   	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>>   	dsi->base = devm_ioremap_resource(dev, res);
+>>   	if (IS_ERR(dsi->base)) {
+>>   		ret = PTR_ERR(dsi->base);
+>> -		DRM_ERROR("Unable to get dsi registers %d\n", ret);
+>> +		dev_err(dev, "Unable to get dsi registers %d\n", ret);
+>>   		return ret;
+>>   	}
+>>   
+>> @@ -364,13 +368,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+>>   	if (IS_ERR(dsi->vdd_supply)) {
+>>   		ret = PTR_ERR(dsi->vdd_supply);
+>>   		if (ret != -EPROBE_DEFER)
+>> -			DRM_ERROR("Failed to request regulator: %d\n", ret);
+>> +			dev_err(dev, "Failed to request regulator: %d\n", ret);
+>>   		return ret;
+>>   	}
+>>   
+>>   	ret = regulator_enable(dsi->vdd_supply);
+>>   	if (ret) {
+>> -		DRM_ERROR("Failed to enable regulator: %d\n", ret);
+>> +		dev_err(dev, "Failed to enable regulator: %d\n", ret);
+>>   		return ret;
+>>   	}
+>>   
+>> @@ -378,27 +382,26 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+>>   	if (IS_ERR(dsi->pllref_clk)) {
+>>   		ret = PTR_ERR(dsi->pllref_clk);
+>>   		if (ret != -EPROBE_DEFER)
+>> -			DRM_ERROR("Unable to get pll reference clock: %d\n",
+>> -				  ret);
+>> +			dev_err(dev, "Unable to get pll reference clock: %d\n", ret);
+>>   		goto err_clk_get;
+>>   	}
+>>   
+>>   	ret = clk_prepare_enable(dsi->pllref_clk);
+>>   	if (ret) {
+>> -		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
+>> +		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
+>>   		goto err_clk_get;
+>>   	}
+>>   
+>>   	pclk = devm_clk_get(dev, "pclk");
+>>   	if (IS_ERR(pclk)) {
+>>   		ret = PTR_ERR(pclk);
+>> -		DRM_ERROR("Unable to get peripheral clock: %d\n", ret);
+>> +		dev_err(dev, "Unable to get peripheral clock: %d\n", ret);
+>>   		goto err_dsi_probe;
+>>   	}
+>>   
+>>   	ret = clk_prepare_enable(pclk);
+>>   	if (ret) {
+>> -		DRM_ERROR("%s: Failed to enable peripheral clk\n", __func__);
+>> +		dev_err(dev, "%s: Failed to enable peripheral clk\n", __func__);
+>>   		goto err_dsi_probe;
+>>   	}
+>>   
+>> @@ -407,7 +410,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+>>   
+>>   	if (dsi->hw_version != HWVER_130 && dsi->hw_version != HWVER_131) {
+>>   		ret = -ENODEV;
+>> -		DRM_ERROR("bad dsi hardware version\n");
+>> +		dev_err(dev, "bad dsi hardware version\n");
+>>   		goto err_dsi_probe;
+>>   	}
+>>   
+>> @@ -420,7 +423,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+>>   	if (IS_ERR(dsi->dsi)) {
+>>   		ret = PTR_ERR(dsi->dsi);
+>>   		if (ret != -EPROBE_DEFER)
+>> -			DRM_ERROR("Failed to initialize mipi dsi host: %d\n", ret);
+>> +			dev_err(dev, "Failed to initialize mipi dsi host: %d\n", ret);
+>>   		goto err_dsi_probe;
+>>   	}
+>>   
+>> @@ -449,7 +452,7 @@ static int __maybe_unused dw_mipi_dsi_stm_suspend(struct device *dev)
+>>   {
+>>   	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
+>>   
+>> -	DRM_DEBUG_DRIVER("\n");
+>> +	dev_dbg(dsi->dev, "\n");
+>>   
+>>   	clk_disable_unprepare(dsi->pllref_clk);
+>>   	regulator_disable(dsi->vdd_supply);
+>> @@ -462,18 +465,18 @@ static int __maybe_unused dw_mipi_dsi_stm_resume(struct device *dev)
+>>   	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
+>>   	int ret;
+>>   
+>> -	DRM_DEBUG_DRIVER("\n");
+>> +	dev_dbg(dsi->dev, "\n");
+>>   
+>>   	ret = regulator_enable(dsi->vdd_supply);
+>>   	if (ret) {
+>> -		DRM_ERROR("Failed to enable regulator: %d\n", ret);
+>> +		dev_err(dev, "Failed to enable regulator: %d\n", ret);
+>>   		return ret;
+>>   	}
+>>   
+>>   	ret = clk_prepare_enable(dsi->pllref_clk);
+>>   	if (ret) {
+>>   		regulator_disable(dsi->vdd_supply);
+>> -		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
+>> +		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
+>>   		return ret;
+>>   	}
+>>   
+>> -- 
+>> 2.17.1
+>>
+>> _______________________________________________
+>> dri-devel mailing list
+>> dri-devel@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
