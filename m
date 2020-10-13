@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2E8728C8EF
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Oct 2020 09:02:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D568F28CA6D
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Oct 2020 10:45:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1147C3FAD5;
-	Tue, 13 Oct 2020 07:02:48 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96241C3FADE;
+	Tue, 13 Oct 2020 08:45:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4DD0C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93865C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Oct 2020 07:02:44 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Tue, 13 Oct 2020 08:45:21 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09D6geo3027240; Tue, 13 Oct 2020 09:02:21 +0200
+ 09D8gwHl007224; Tue, 13 Oct 2020 10:45:06 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : references : in-reply-to : content-type : content-id
  : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=S2nHNvHbMokopb0Ic/PtvigwRTmfr5MwwhZRlZEscX8=;
- b=gcLw5U5LFjsWdpqtKA0GSh0ZaSyFTQ5mPA3sXcbhjO6RlR1Lupws9O15GB0PYI0e0hj3
- r7L5BnwiQHb96J7dOjIOnE7OsXQ43wjSmmQE7w2Mq0fJY8jQ0cKmlLAJNe5mmdyzzWs7
- /Qe6iarjFIpducTdOM8IMryiI0O6CyV+76yQcZ5S9GdHDQ25PST0tPIUvU2Y/+VXArdB
- Imkz7PdsaXAtn38W/V6ddL8oiUKKHOiXfZaV+kFMJrrEExczrvE+bq1tebhabfcrs/Zw
- u7Z+4lkxI1RqWUl3xRgxB0xLKslS78ZZTWcXvcphiQ1zKs/LAtqXtbQ0gQXOSTFxNm88 1w== 
+ bh=egbw1jKGOZA61qUoiejs3HBbyoCJjQOufVAk2JzGx3I=;
+ b=b2OhrHRh3Exzk9blVpSYQF9UMWVeSZjTMpzDYFJe/MckZe5uaCC2WnqSEuTxwfQH+ss7
+ ccgg10B91gX2BgONF6CYEIT29LhNugURF5oZjoL4nyfXXfqtPPmlyObGzzwH77oc+9xa
+ 3XyGwUwN5CVwOj1/xY9ZQONtiQE1A3KMgZi8oXebBbhyTOSdOM17RshCEP5LiVcW9HGA
+ qfPj1s29vYTaAjHI/wuESksFaxjsFxpnFjk7mImQ5JWYPgHR87KfAKOk3Bap653j+dnH
+ pMUFJDxcTwaZa+0RbXThTtLgJ7TXKt22X2+LuV7Sfft1GeGAq0FPGplh/bjRjLJAUij8 Cw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3455c88npv-1
+ by mx07-00178001.pphosted.com with ESMTP id 34356e5m2f-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Oct 2020 09:02:21 +0200
+ Tue, 13 Oct 2020 10:45:06 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3433810002A;
- Tue, 13 Oct 2020 09:02:20 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag1node2.st.com [10.75.127.2])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3271B21E20E;
- Tue, 13 Oct 2020 09:02:19 +0200 (CEST)
-Received: from SFHDAG2NODE1.st.com (10.75.127.4) by SFHDAG1NODE2.st.com
- (10.75.127.2) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 13 Oct
- 2020 09:02:18 +0200
-Received: from SFHDAG2NODE1.st.com ([fe80::4413:c8c:992b:bb90]) by
- SFHDAG2NODE1.st.com ([fe80::4413:c8c:992b:bb90%20]) with mapi id
- 15.00.1473.003; Tue, 13 Oct 2020 09:02:18 +0200
-From: Yannick FERTRE <yannick.fertre@st.com>
-To: Sam Ravnborg <sam@ravnborg.org>
-Thread-Topic: [PATCH] drm/stm: dsi: Use dev_ based logging
-Thread-Index: AQHWkyXKfX9abUar20eb4rtFyqzMOal5TviAgBvGx4A=
-Date: Tue, 13 Oct 2020 07:02:18 +0000
-Message-ID: <9bcaaa2a-1a84-9d64-14a3-75b5f3094483@st.com>
-References: <20200925102233.18016-1-yannick.fertre@st.com>
- <20200925145149.GB1929717@ravnborg.org>
-In-Reply-To: <20200925145149.GB1929717@ravnborg.org>
-Accept-Language: fr-FR, en-US
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5C70210002A;
+ Tue, 13 Oct 2020 10:45:05 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 09E0C2A9F5E;
+ Tue, 13 Oct 2020 10:45:05 +0200 (CEST)
+Received: from SFHDAG1NODE1.st.com (10.75.127.1) by SFHDAG3NODE3.st.com
+ (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 13 Oct
+ 2020 10:45:04 +0200
+Received: from SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f]) by
+ SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f%20]) with mapi id
+ 15.00.1473.003; Tue, 13 Oct 2020 10:45:04 +0200
+From: Hugues FRUCHET <hugues.fruchet@st.com>
+To: Jacopo Mondi <jacopo@jmondi.org>
+Thread-Topic: [PATCH v2] media: ov5640: fix support of BT656 bus mode
+Thread-Index: AQHWoKc05b6XwNbbukilsBYWkG/VOqmT+2kAgAEcCoA=
+Date: Tue, 13 Oct 2020 08:45:04 +0000
+Message-ID: <0b53e8be-a7d2-926e-3763-675dd18cdb36@st.com>
+References: <1602514303-22316-1-git-send-email-hugues.fruchet@st.com>
+ <20201012154826.yeowe5dheyedkqen@uno.localdomain>
+In-Reply-To: <20201012154826.yeowe5dheyedkqen@uno.localdomain>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -60,21 +60,22 @@ user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.47]
-Content-ID: <249A09F460513341BEDEFDBB61763CB4@st.com>
+x-originating-ip: [10.75.127.46]
+Content-ID: <3B211CB63C98594EB0C10CA12AC7BE42@st.com>
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
  definitions=2020-10-13_02:2020-10-13,
  2020-10-13 signatures=0
-Cc: Daniel Vetter <daniel@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- David Airlie <airlied@linux.ie>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vincent ABRIOU <vincent.abriou@st.com>,
+Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Hans
+ Verkuil <hverkuil@xs4all.nl>, Alain VOLMAT <alain.volmat@st.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Steve Longerbeam <slongerbeam@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: Use dev_ based logging
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2] media: ov5640: fix support of BT656
+	bus mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,290 +92,212 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sam,
-thanks for the review. I'll send a new patch with the revert of function 
-dsi_color_from_mipi.
+Hi Jacopo,
 
-Best regards
-
-Yannick
-
-On 9/25/20 4:51 PM, Sam Ravnborg wrote:
-> Hi Yannick.
+On 10/12/20 5:48 PM, Jacopo Mondi wrote:
+> Hi Hugues,
 > 
-> On Fri, Sep 25, 2020 at 12:22:33PM +0200, Yannick Fertre wrote:
->> Standardize on the dev_ based logging and drop the include of drm_print.h.
-> The patchs filas to drop the include mentioned here.
-> 
->> Remove useless dsi_color_from_mipi function.
-> IMO the dsi_color_from_mipi() was nice, and inlining the helper
-> is no gain for readability.
-> 
-> 	Sam
-> 
+> On Mon, Oct 12, 2020 at 04:51:43PM +0200, Hugues Fruchet wrote:
+>> Fix PCLK polarity not being taken into account.
+>> Add comments about BT656 register control.
+>> Remove useless ov5640_set_stream_bt656() function.
+>> Refine comments about MIPI IO register control.
 >>
->> Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
+>> Fixes: 4039b03720f7 ("media: i2c: ov5640: Add support for BT656 mode")
+>> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
 >> ---
->>   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 87 ++++++++++++++-------------
->>   1 file changed, 45 insertions(+), 42 deletions(-)
+>>   drivers/media/i2c/ov5640.c | 77 +++++++++++++++++++++++++++-------------------
+>>   1 file changed, 45 insertions(+), 32 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
->> index 164f79ef6269..93fa8bfd3127 100644
->> --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
->> +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
->> @@ -76,6 +76,7 @@ enum dsi_color {
->>   
->>   struct dw_mipi_dsi_stm {
->>   	void __iomem *base;
->> +	struct device *dev;
->>   	struct clk *pllref_clk;
->>   	struct dw_mipi_dsi *dsi;
->>   	u32 hw_version;
->> @@ -110,23 +111,6 @@ static inline void dsi_update_bits(struct dw_mipi_dsi_stm *dsi, u32 reg,
->>   	dsi_write(dsi, reg, (dsi_read(dsi, reg) & ~mask) | val);
+>> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+>> index 8d0254d..c0ebf4c 100644
+>> --- a/drivers/media/i2c/ov5640.c
+>> +++ b/drivers/media/i2c/ov5640.c
+>> @@ -1216,20 +1216,6 @@ static int ov5640_set_autogain(struct ov5640_dev *sensor, bool on)
+>>   			      BIT(1), on ? 0 : BIT(1));
 >>   }
->>   
->> -static enum dsi_color dsi_color_from_mipi(enum mipi_dsi_pixel_format fmt)
+>>
+>> -static int ov5640_set_stream_bt656(struct ov5640_dev *sensor, bool on)
 >> -{
->> -	switch (fmt) {
->> -	case MIPI_DSI_FMT_RGB888:
->> -		return DSI_RGB888;
->> -	case MIPI_DSI_FMT_RGB666:
->> -		return DSI_RGB666_CONF2;
->> -	case MIPI_DSI_FMT_RGB666_PACKED:
->> -		return DSI_RGB666_CONF1;
->> -	case MIPI_DSI_FMT_RGB565:
->> -		return DSI_RGB565_CONF1;
->> -	default:
->> -		DRM_DEBUG_DRIVER("MIPI color invalid, so we use rgb888\n");
->> -	}
->> -	return DSI_RGB888;
+>> -	int ret;
+>> -
+>> -	ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
+>> -			       on ? 0x1 : 0x00);
+>> -	if (ret)
+>> -		return ret;
+>> -
+>> -	return ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0, on ?
+>> -				OV5640_REG_SYS_CTRL0_SW_PWUP :
+>> -				OV5640_REG_SYS_CTRL0_SW_PWDN);
 >> -}
 >> -
->>   static int dsi_pll_get_clkout_khz(int clkin_khz, int idf, int ndiv, int odf)
+>>   static int ov5640_set_stream_dvp(struct ov5640_dev *sensor, bool on)
 >>   {
->>   	int divisor = idf * odf;
->> @@ -205,14 +189,14 @@ static int dw_mipi_dsi_phy_init(void *priv_data)
->>   	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_RRS,
->>   				 SLEEP_US, TIMEOUT_US);
->>   	if (ret)
->> -		DRM_DEBUG_DRIVER("!TIMEOUT! waiting REGU, let's continue\n");
->> +		dev_dbg(dsi->dev, "!TIMEOUT! waiting REGU, let's continue\n");
->>   
->>   	/* Enable the DSI PLL & wait for its lock */
->>   	dsi_set(dsi, DSI_WRPCR, WRPCR_PLLEN);
->>   	ret = readl_poll_timeout(dsi->base + DSI_WISR, val, val & WISR_PLLLS,
->>   				 SLEEP_US, TIMEOUT_US);
->>   	if (ret)
->> -		DRM_DEBUG_DRIVER("!TIMEOUT! waiting PLL, let's continue\n");
->> +		dev_dbg(dsi->dev, "!TIMEOUT! waiting PLL, let's continue\n");
->>   
->>   	return 0;
->>   }
->> @@ -221,7 +205,7 @@ static void dw_mipi_dsi_phy_power_on(void *priv_data)
+>>   	return ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0, on ?
+>> @@ -1994,6 +1980,7 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
+>>   static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
 >>   {
->>   	struct dw_mipi_dsi_stm *dsi = priv_data;
->>   
->> -	DRM_DEBUG_DRIVER("\n");
->> +	dev_dbg(dsi->dev, "\n");
->>   
->>   	/* Enable the DSI wrapper */
->>   	dsi_set(dsi, DSI_WCR, WCR_DSIEN);
->> @@ -231,7 +215,7 @@ static void dw_mipi_dsi_phy_power_off(void *priv_data)
->>   {
->>   	struct dw_mipi_dsi_stm *dsi = priv_data;
->>   
->> -	DRM_DEBUG_DRIVER("\n");
->> +	dev_dbg(dsi->dev, "\n");
->>   
->>   	/* Disable the DSI wrapper */
->>   	dsi_clear(dsi, DSI_WCR, WCR_DSIEN);
->> @@ -244,6 +228,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>   {
->>   	struct dw_mipi_dsi_stm *dsi = priv_data;
->>   	unsigned int idf, ndiv, odf, pll_in_khz, pll_out_khz;
->> +	enum mipi_dsi_pixel_format fmt;
->>   	int ret, bpp;
->>   	u32 val;
->>   
->> @@ -267,11 +252,11 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>   
->>   	if (pll_out_khz > dsi->lane_max_kbps) {
->>   		pll_out_khz = dsi->lane_max_kbps;
->> -		DRM_WARN("Warning max phy mbps is used\n");
->> +		dev_warn(dsi->dev, "Warning max phy mbps is used\n");
->>   	}
->>   	if (pll_out_khz < dsi->lane_min_kbps) {
->>   		pll_out_khz = dsi->lane_min_kbps;
->> -		DRM_WARN("Warning min phy mbps is used\n");
->> +		dev_warn(dsi->dev, "Warning min phy mbps is used\n");
->>   	}
->>   
->>   	/* Compute best pll parameters */
->> @@ -281,7 +266,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>   	ret = dsi_pll_get_params(dsi, pll_in_khz, pll_out_khz,
->>   				 &idf, &ndiv, &odf);
->>   	if (ret)
->> -		DRM_WARN("Warning dsi_pll_get_params(): bad params\n");
->> +		dev_warn(dsi->dev, "Warning dsi_pll_get_params(): bad params\n");
->>   
->>   	/* Get the adjusted pll out value */
->>   	pll_out_khz = dsi_pll_get_clkout_khz(pll_in_khz, idf, ndiv, odf);
->> @@ -297,14 +282,31 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
->>   	/* Select video mode by resetting DSIM bit */
->>   	dsi_clear(dsi, DSI_WCFGR, WCFGR_DSIM);
->>   
->> +	switch (format) {
->> +	case MIPI_DSI_FMT_RGB888:
->> +		fmt = DSI_RGB888;
->> +		break;
->> +	case MIPI_DSI_FMT_RGB666:
->> +		fmt = DSI_RGB666_CONF2;
->> +		break;
->> +	case MIPI_DSI_FMT_RGB666_PACKED:
->> +		fmt = DSI_RGB666_CONF1;
->> +		break;
->> +	case MIPI_DSI_FMT_RGB565:
->> +		fmt = DSI_RGB565_CONF1;
->> +		break;
->> +	default:
->> +		fmt = DSI_RGB888;
->> +		dev_err(dsi->dev, "MIPI color invalid, so we use rgb888\n");
->> +	}
->> +
->>   	/* Select the color coding */
->> -	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX,
->> -			dsi_color_from_mipi(format) << 1);
->> +	dsi_update_bits(dsi, DSI_WCFGR, WCFGR_COLMUX, fmt << 1);
->>   
->>   	*lane_mbps = pll_out_khz / 1000;
->>   
->> -	DRM_DEBUG_DRIVER("pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n",
->> -			 pll_in_khz, pll_out_khz, *lane_mbps);
->> +	dev_dbg(dsi->dev, "pll_in %ukHz pll_out %ukHz lane_mbps %uMHz\n", pll_in_khz, pll_out_khz,
->> +		*lane_mbps);
->>   
->>   	return 0;
->>   }
->> @@ -352,11 +354,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   	if (!dsi)
->>   		return -ENOMEM;
->>   
->> +	dsi->dev = dev;
->> +
->>   	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->>   	dsi->base = devm_ioremap_resource(dev, res);
->>   	if (IS_ERR(dsi->base)) {
->>   		ret = PTR_ERR(dsi->base);
->> -		DRM_ERROR("Unable to get dsi registers %d\n", ret);
->> +		dev_err(dev, "Unable to get dsi registers %d\n", ret);
->>   		return ret;
->>   	}
->>   
->> @@ -364,13 +368,13 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   	if (IS_ERR(dsi->vdd_supply)) {
->>   		ret = PTR_ERR(dsi->vdd_supply);
->>   		if (ret != -EPROBE_DEFER)
->> -			DRM_ERROR("Failed to request regulator: %d\n", ret);
->> +			dev_err(dev, "Failed to request regulator: %d\n", ret);
->>   		return ret;
->>   	}
->>   
->>   	ret = regulator_enable(dsi->vdd_supply);
->>   	if (ret) {
->> -		DRM_ERROR("Failed to enable regulator: %d\n", ret);
->> +		dev_err(dev, "Failed to enable regulator: %d\n", ret);
->>   		return ret;
->>   	}
->>   
->> @@ -378,27 +382,26 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   	if (IS_ERR(dsi->pllref_clk)) {
->>   		ret = PTR_ERR(dsi->pllref_clk);
->>   		if (ret != -EPROBE_DEFER)
->> -			DRM_ERROR("Unable to get pll reference clock: %d\n",
->> -				  ret);
->> +			dev_err(dev, "Unable to get pll reference clock: %d\n", ret);
->>   		goto err_clk_get;
->>   	}
->>   
->>   	ret = clk_prepare_enable(dsi->pllref_clk);
->>   	if (ret) {
->> -		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
->> +		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
->>   		goto err_clk_get;
->>   	}
->>   
->>   	pclk = devm_clk_get(dev, "pclk");
->>   	if (IS_ERR(pclk)) {
->>   		ret = PTR_ERR(pclk);
->> -		DRM_ERROR("Unable to get peripheral clock: %d\n", ret);
->> +		dev_err(dev, "Unable to get peripheral clock: %d\n", ret);
->>   		goto err_dsi_probe;
->>   	}
->>   
->>   	ret = clk_prepare_enable(pclk);
->>   	if (ret) {
->> -		DRM_ERROR("%s: Failed to enable peripheral clk\n", __func__);
->> +		dev_err(dev, "%s: Failed to enable peripheral clk\n", __func__);
->>   		goto err_dsi_probe;
->>   	}
->>   
->> @@ -407,7 +410,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   
->>   	if (dsi->hw_version != HWVER_130 && dsi->hw_version != HWVER_131) {
->>   		ret = -ENODEV;
->> -		DRM_ERROR("bad dsi hardware version\n");
->> +		dev_err(dev, "bad dsi hardware version\n");
->>   		goto err_dsi_probe;
->>   	}
->>   
->> @@ -420,7 +423,7 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
->>   	if (IS_ERR(dsi->dsi)) {
->>   		ret = PTR_ERR(dsi->dsi);
->>   		if (ret != -EPROBE_DEFER)
->> -			DRM_ERROR("Failed to initialize mipi dsi host: %d\n", ret);
->> +			dev_err(dev, "Failed to initialize mipi dsi host: %d\n", ret);
->>   		goto err_dsi_probe;
->>   	}
->>   
->> @@ -449,7 +452,7 @@ static int __maybe_unused dw_mipi_dsi_stm_suspend(struct device *dev)
->>   {
->>   	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
->>   
->> -	DRM_DEBUG_DRIVER("\n");
->> +	dev_dbg(dsi->dev, "\n");
->>   
->>   	clk_disable_unprepare(dsi->pllref_clk);
->>   	regulator_disable(dsi->vdd_supply);
->> @@ -462,18 +465,18 @@ static int __maybe_unused dw_mipi_dsi_stm_resume(struct device *dev)
->>   	struct dw_mipi_dsi_stm *dsi = dw_mipi_dsi_stm_plat_data.priv_data;
->>   	int ret;
->>   
->> -	DRM_DEBUG_DRIVER("\n");
->> +	dev_dbg(dsi->dev, "\n");
->>   
->>   	ret = regulator_enable(dsi->vdd_supply);
->>   	if (ret) {
->> -		DRM_ERROR("Failed to enable regulator: %d\n", ret);
->> +		dev_err(dev, "Failed to enable regulator: %d\n", ret);
->>   		return ret;
->>   	}
->>   
->>   	ret = clk_prepare_enable(dsi->pllref_clk);
->>   	if (ret) {
->>   		regulator_disable(dsi->vdd_supply);
->> -		DRM_ERROR("Failed to enable pllref_clk: %d\n", ret);
->> +		dev_err(dev, "Failed to enable pllref_clk: %d\n", ret);
->>   		return ret;
->>   	}
->>   
->> -- 
->> 2.17.1
+>>   	unsigned int flags = sensor->ep.bus.parallel.flags;
+>> +	bool bt656 = sensor->ep.bus_type == V4L2_MBUS_BT656;
+>>   	u8 pclk_pol = 0;
+>>   	u8 hsync_pol = 0;
+>>   	u8 vsync_pol = 0;
+>> @@ -2001,6 +1988,7 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
 >>
->> _______________________________________________
->> dri-devel mailing list
->> dri-devel@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>>   	if (!on) {
+>>   		/* Reset settings to their default values. */
+>> +		ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00, 0x00);
+>>   		ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x58);
+>>   		ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00, 0x20);
+>>   		ov5640_write_reg(sensor, OV5640_REG_PAD_OUTPUT_ENABLE01, 0x00);
+>> @@ -2024,23 +2012,51 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
+>>   	 * - VSYNC:	active high
+>>   	 * - HREF:	active low
+>>   	 * - PCLK:	active low
+>> +	 *
+>> +	 * VSYNC & HREF are not configured if BT656 bus mode is selected
+>>   	 */
+>> +
+>>   	/*
+>> -	 * configure parallel port control lines polarity
+>> +	 * BT656 embedded synchronization configuration
+>>   	 *
+>> -	 * POLARITY CTRL0
+>> -	 * - [5]:	PCLK polarity (0: active low, 1: active high)
+>> -	 * - [1]:	HREF polarity (0: active low, 1: active high)
+>> -	 * - [0]:	VSYNC polarity (mismatch here between
+>> -	 *		datasheet and hardware, 0 is active high
+>> -	 *		and 1 is active low...)
+>> +	 * CCIR656 CTRL00
+>> +	 * - [7]:	SYNC code selection (0: auto generate sync code,
+>> +	 *		1: sync code from regs 0x4732-0x4735)
+>> +	 * - [6]:	f value in CCIR656 SYNC code when fixed f value
+>> +	 * - [5]:	Fixed f value
+>> +	 * - [4:3]:	Blank toggle data options (00: data=1'h040/1'h200,
+>> +	 *		01: data from regs 0x4736-0x4738, 10: always keep 0)
+>> +	 * - [1]:	Clip data disable
+>> +	 * - [0]:	CCIR656 mode enable
+>> +	 *
+>> +	 * Default CCIR656 SAV/EAV mode with default codes
+>> +	 * SAV=0xff000080 & EAV=0xff00009d is enabled here with settings:
+>> +	 * - CCIR656 mode enable
+>> +	 * - auto generation of sync codes
+>> +	 * - blank toggle data 1'h040/1'h200
+>> +	 * - clip reserved data (0x00 & 0xff changed to 0x01 & 0xfe)
+>>   	 */
+>> -	if (sensor->ep.bus_type == V4L2_MBUS_PARALLEL) {
+>> +	ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
+>> +			       bt656 ? 0x01 : 0x00);
+>> +	if (ret)
+>> +		return ret;
+> 
+> All good so far
+> 
+>> +
+>> +	if (on) {
+> 
+> But don't you have retained
+>          if (!on)
+> at the beginning of the function ?
+> 
+> I would reflow this as:
+> 
+> static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on) {
+>          if (!on) {
+>                  ...
+>          }
+> 
+>          uint8_t polarities = 0;
+>          if (!bt656) {
+>                  if (flags & V4L2_MBUS_HSYNC_ACTIVE_HIGH)
+>          	        polarities |= BIT(1);
+>                  if (flags & V4L2_MBUS_VSYNC_ACTIVE_LOW)
+> 	                polarities |= BIT(0);
+>          }
+>          if (flags & V4L2_MBUS_PCLK_SAMPLE_RISING)
+> 	        polarities |= BIT(5);
+> 
+> 	ret = ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00,
+>                                 polarities);
+>          if (ret)
+>                  return ret;
+> 
+>          if (bt656) {
+>                  write_reg(CCIR656);
+>          }
+> 
+>          ....
+> 
+> To make it more readable. What do you think ?
+
+Fully agree.
+
+> 
+>> +		/*
+>> +		 * configure parallel port control lines polarity
+>> +		 *
+>> +		 * POLARITY CTRL0
+>> +		 * - [5]:	PCLK polarity (0: active low, 1: active high)
+>> +		 * - [1]:	HREF polarity (0: active low, 1: active high)
+>> +		 * - [0]:	VSYNC polarity (mismatch here between
+>> +		 *		datasheet and hardware, 0 is active high
+>> +		 *		and 1 is active low...)
+>> +		 */
+>>   		if (flags & V4L2_MBUS_PCLK_SAMPLE_RISING)
+>>   			pclk_pol = 1;
+>> -		if (flags & V4L2_MBUS_HSYNC_ACTIVE_HIGH)
+>> +		if (!bt656 && flags & V4L2_MBUS_HSYNC_ACTIVE_HIGH)
+>>   			hsync_pol = 1;
+>> -		if (flags & V4L2_MBUS_VSYNC_ACTIVE_LOW)
+>> +		if (!bt656 && flags & V4L2_MBUS_VSYNC_ACTIVE_LOW)
+>>   			vsync_pol = 1;
+>>
+>>   		ret = ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00,
+>> @@ -2052,12 +2068,12 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
+>>   	}
+>>
+> 
+> The part here below looks good!
+> 
+>>   	/*
+>> -	 * powerdown MIPI TX/RX PHY & disable MIPI
+>> +	 * powerdown MIPI TX/RX PHY & enable DVP
+>>   	 *
+>>   	 * MIPI CONTROL 00
+>> -	 * 4:	 PWDN PHY TX
+>> -	 * 3:	 PWDN PHY RX
+>> -	 * 2:	 MIPI enable
+>> +	 * [4] = 1	: Power down MIPI HS Tx
+>> +	 * [3] = 1	: Power down MIPI LS Rx
+>> +	 * [2] = 0	: DVP enable (MIPI disable)
+>>   	 */
+>>   	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x18);
+>>   	if (ret)
+>> @@ -2074,8 +2090,7 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
+>>   	 * - [3:0]:	D[9:6] output enable
+>>   	 */
+>>   	ret = ov5640_write_reg(sensor, OV5640_REG_PAD_OUTPUT_ENABLE01,
+>> -			       sensor->ep.bus_type == V4L2_MBUS_PARALLEL ?
+>> -			       0x7f : 0x1f);
+>> +			       bt656 ? 0x1f : 0x7f);
+>>   	if (ret)
+>>   		return ret;
+>>
+>> @@ -2925,8 +2940,6 @@ static int ov5640_s_stream(struct v4l2_subdev *sd, int enable)
+>>
+>>   		if (sensor->ep.bus_type == V4L2_MBUS_CSI2_DPHY)
+>>   			ret = ov5640_set_stream_mipi(sensor, enable);
+>> -		else if (sensor->ep.bus_type == V4L2_MBUS_BT656)
+>> -			ret = ov5640_set_stream_bt656(sensor, enable);
+>>   		else
+>>   			ret = ov5640_set_stream_dvp(sensor, enable);
+>>
+>> --
+>> 2.7.4
+>>
+
+BR,
+Hugues.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
