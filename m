@@ -2,40 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCD3728CACE
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Oct 2020 11:13:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D478F28CD20
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Oct 2020 13:57:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FFBCC3FADE;
-	Tue, 13 Oct 2020 09:13:07 +0000 (UTC)
-Received: from relay12.mail.gandi.net (relay12.mail.gandi.net [217.70.178.232])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66648C3FAD5;
+	Tue, 13 Oct 2020 11:57:36 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0303C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50E92C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Oct 2020 09:13:06 +0000 (UTC)
+ Tue, 13 Oct 2020 11:57:32 +0000 (UTC)
+X-Originating-IP: 93.34.118.233
 Received: from uno.localdomain (93-34-118-233.ip49.fastwebnet.it
  [93.34.118.233]) (Authenticated sender: jacopo@jmondi.org)
- by relay12.mail.gandi.net (Postfix) with ESMTPSA id 726CD200004;
- Tue, 13 Oct 2020 09:13:03 +0000 (UTC)
-Date: Tue, 13 Oct 2020 11:17:03 +0200
+ by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id 44E266000B;
+ Tue, 13 Oct 2020 11:57:30 +0000 (UTC)
+Date: Tue, 13 Oct 2020 14:01:30 +0200
 From: Jacopo Mondi <jacopo@jmondi.org>
-To: Hugues FRUCHET <hugues.fruchet@st.com>
-Message-ID: <20201013091703.odh7sgmhj6fbt4zj@uno.localdomain>
-References: <1602145756-4354-1-git-send-email-hugues.fruchet@st.com>
- <20201012153608.mex6m7qmjv7vy4s5@uno.localdomain>
- <aeb90bb7-d0b4-0620-c7ae-d1ba2f4186a3@st.com>
+To: Hugues Fruchet <hugues.fruchet@st.com>
+Message-ID: <20201013120130.fjfyksz5gy6hwipo@uno.localdomain>
+References: <1602579743-10286-1-git-send-email-hugues.fruchet@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aeb90bb7-d0b4-0620-c7ae-d1ba2f4186a3@st.com>
-Cc: Hans Verkuil <hverkuil@xs4all.nl>, Alain VOLMAT <alain.volmat@st.com>,
+In-Reply-To: <1602579743-10286-1-git-send-email-hugues.fruchet@st.com>
+Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Alain Volmat <alain.volmat@st.com>,
  Sakari Ailus <sakari.ailus@linux.intel.com>,
  Steve Longerbeam <slongerbeam@gmail.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v3] media: ov5640: add support of 160x120
-	resolution
+ linux-stm32@st-md-mailman.stormreply.com, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3] media: ov5640: fix support of BT656
+	bus mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,91 +53,183 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Hugues,
 
-On Tue, Oct 13, 2020 at 08:48:41AM +0000, Hugues FRUCHET wrote:
-> Hi Jacopo,
+On Tue, Oct 13, 2020 at 11:02:23AM +0200, Hugues Fruchet wrote:
+> Fix PCLK polarity not being taken into account.
+> Add comments about BT656 register control.
+> Remove useless ov5640_set_stream_bt656() function.
+> Refine comments about MIPI IO register control.
 >
-> On 10/12/20 5:36 PM, Jacopo Mondi wrote:
-> > Hi Hugues,
-> >
-> > On Thu, Oct 08, 2020 at 10:29:16AM +0200, Hugues Fruchet wrote:
-> >> Add support of 160x120 resolution.
-> >>
-> >> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
-> >
-> > Looks good, the new mode works for me on a CSI-2 2 lanes setup
-> >
-> > Tested-by: Jacopo Mondi <jacopo+renesas@jmondi.org>
-> >
-> >> ---
-> >> version 3:
-> >>    - fix wrong array affectation
-> >>
-> >> version 2:
-> >>    - fix missing max framerate
-> >>
-> >>   drivers/media/i2c/ov5640.c | 26 +++++++++++++++++++++++++-
-> >>   1 file changed, 25 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> >> index 8d0254d..40d6983 100644
-> >> --- a/drivers/media/i2c/ov5640.c
-> >> +++ b/drivers/media/i2c/ov5640.c
-> >> @@ -98,7 +98,8 @@
-> >>   #define OV5640_REG_AVG_READOUT		0x56a1
-> >>
-> >>   enum ov5640_mode_id {
-> >> -	OV5640_MODE_QCIF_176_144 = 0,
-> >> +	OV5640_MODE_QQVGA_160_120 = 0,
-> >> +	OV5640_MODE_QCIF_176_144,
-> >>   	OV5640_MODE_QVGA_320_240,
-> >>   	OV5640_MODE_VGA_640_480,
-> >>   	OV5640_MODE_NTSC_720_480,
-> >> @@ -416,6 +417,24 @@ static const struct reg_value ov5640_setting_QVGA_320_240[] = {
-> >>   	{0x3824, 0x02, 0, 0}, {0x5001, 0xa3, 0, 0},
-> >>   };
-> >>
-> >> +static const struct reg_value ov5640_setting_QQVGA_160_120[] = {
-> >> +	{0x3c07, 0x08, 0, 0},
-> >> +	{0x3c09, 0x1c, 0, 0}, {0x3c0a, 0x9c, 0, 0}, {0x3c0b, 0x40, 0, 0},
-> >> +	{0x3814, 0x31, 0, 0},
-> >> +	{0x3815, 0x31, 0, 0}, {0x3800, 0x00, 0, 0}, {0x3801, 0x00, 0, 0},
-> >> +	{0x3802, 0x00, 0, 0}, {0x3803, 0x04, 0, 0}, {0x3804, 0x0a, 0, 0},
-> >> +	{0x3805, 0x3f, 0, 0}, {0x3806, 0x07, 0, 0}, {0x3807, 0x9b, 0, 0},
-> >> +	{0x3810, 0x00, 0, 0},
-> >> +	{0x3811, 0x10, 0, 0}, {0x3812, 0x00, 0, 0}, {0x3813, 0x06, 0, 0},
-> >> +	{0x3618, 0x00, 0, 0}, {0x3612, 0x29, 0, 0}, {0x3708, 0x64, 0, 0},
-> >> +	{0x3709, 0x52, 0, 0}, {0x370c, 0x03, 0, 0}, {0x3a02, 0x03, 0, 0},
-> >> +	{0x3a03, 0xd8, 0, 0}, {0x3a08, 0x01, 0, 0}, {0x3a09, 0x27, 0, 0},
-> >> +	{0x3a0a, 0x00, 0, 0}, {0x3a0b, 0xf6, 0, 0}, {0x3a0e, 0x03, 0, 0},
-> >> +	{0x3a0d, 0x04, 0, 0}, {0x3a14, 0x03, 0, 0}, {0x3a15, 0xd8, 0, 0},
-> >> +	{0x4001, 0x02, 0, 0}, {0x4004, 0x02, 0, 0},
-> >> +	{0x4407, 0x04, 0, 0}, {0x5001, 0xa3, 0, 0},
-> >> +};
-> >> +
-> >>   static const struct reg_value ov5640_setting_QCIF_176_144[] = {
-> >>   	{0x3c07, 0x08, 0, 0},
-> >>   	{0x3c09, 0x1c, 0, 0}, {0x3c0a, 0x9c, 0, 0}, {0x3c0b, 0x40, 0, 0},
-> >> @@ -552,6 +571,11 @@ static const struct ov5640_mode_info ov5640_mode_init_data = {
-> >>
-> >>   static const struct ov5640_mode_info
-> >>   ov5640_mode_data[OV5640_NUM_MODES] = {
-> >> +	{OV5640_MODE_QQVGA_160_120, SUBSAMPLING,
-> >> +	 160, 1896, 120, 984,
-> >
-> > These values do not match what's actually applied on the sensor, but
-> > this is not only related to this patch.
-> >
-> > See ff66ea3a-bd2e-9bd6-894c-bf372de69a31@ti.com
-> > I should try to re-submit Tomi's patch and the on-top clock rework.
+> Fixes: 4039b03720f7 ("media: i2c: ov5640: Add support for BT656 mode")
+> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
+> ---
+> version 3:
+>   - reformat code as per Jacopo's comments
+> version 2:
+>   - keep reset to default without error check at power off
 >
-> Thanks Jacopo, but there is a problem with link above about Tomi's patch.
+>  drivers/media/i2c/ov5640.c | 82 +++++++++++++++++++++++++---------------------
+>  1 file changed, 45 insertions(+), 37 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+> index 8d0254d..8f0812e 100644
+> --- a/drivers/media/i2c/ov5640.c
+> +++ b/drivers/media/i2c/ov5640.c
+> @@ -1216,20 +1216,6 @@ static int ov5640_set_autogain(struct ov5640_dev *sensor, bool on)
+>  			      BIT(1), on ? 0 : BIT(1));
+>  }
+>
+> -static int ov5640_set_stream_bt656(struct ov5640_dev *sensor, bool on)
+> -{
+> -	int ret;
+> -
+> -	ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
+> -			       on ? 0x1 : 0x00);
+> -	if (ret)
+> -		return ret;
+> -
+> -	return ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0, on ?
+> -				OV5640_REG_SYS_CTRL0_SW_PWUP :
+> -				OV5640_REG_SYS_CTRL0_SW_PWDN);
+> -}
+> -
+>  static int ov5640_set_stream_dvp(struct ov5640_dev *sensor, bool on)
+>  {
+>  	return ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0, on ?
+> @@ -1994,13 +1980,13 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
+>  static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
+>  {
+>  	unsigned int flags = sensor->ep.bus.parallel.flags;
+> -	u8 pclk_pol = 0;
+> -	u8 hsync_pol = 0;
+> -	u8 vsync_pol = 0;
+> +	bool bt656 = sensor->ep.bus_type == V4L2_MBUS_BT656;
+> +	u8 polarities = 0;
+>  	int ret;
+>
+>  	if (!on) {
+>  		/* Reset settings to their default values. */
+> +		ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00, 0x00);
+>  		ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x58);
+>  		ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00, 0x20);
+>  		ov5640_write_reg(sensor, OV5640_REG_PAD_OUTPUT_ENABLE01, 0x00);
+> @@ -2024,7 +2010,35 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
+>  	 * - VSYNC:	active high
+>  	 * - HREF:	active low
+>  	 * - PCLK:	active low
+> +	 *
+> +	 * VSYNC & HREF are not configured if BT656 bus mode is selected
+>  	 */
+> +
+> +	/*
+> +	 * BT656 embedded synchronization configuration
+> +	 *
+> +	 * CCIR656 CTRL00
+> +	 * - [7]:	SYNC code selection (0: auto generate sync code,
+> +	 *		1: sync code from regs 0x4732-0x4735)
+> +	 * - [6]:	f value in CCIR656 SYNC code when fixed f value
+> +	 * - [5]:	Fixed f value
+> +	 * - [4:3]:	Blank toggle data options (00: data=1'h040/1'h200,
+> +	 *		01: data from regs 0x4736-0x4738, 10: always keep 0)
+> +	 * - [1]:	Clip data disable
+> +	 * - [0]:	CCIR656 mode enable
+> +	 *
+> +	 * Default CCIR656 SAV/EAV mode with default codes
+> +	 * SAV=0xff000080 & EAV=0xff00009d is enabled here with settings:
+> +	 * - CCIR656 mode enable
+> +	 * - auto generation of sync codes
+> +	 * - blank toggle data 1'h040/1'h200
+> +	 * - clip reserved data (0x00 & 0xff changed to 0x01 & 0xfe)
+> +	 */
+> +	ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
+> +			       bt656 ? 0x01 : 0x00);
+> +	if (ret)
+> +		return ret;
+> +
+>  	/*
+>  	 * configure parallel port control lines polarity
+>  	 *
+> @@ -2035,29 +2049,26 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
+>  	 *		datasheet and hardware, 0 is active high
+>  	 *		and 1 is active low...)
+>  	 */
+> -	if (sensor->ep.bus_type == V4L2_MBUS_PARALLEL) {
+> -		if (flags & V4L2_MBUS_PCLK_SAMPLE_RISING)
+> -			pclk_pol = 1;
+> +	if (!bt656) {
+>  		if (flags & V4L2_MBUS_HSYNC_ACTIVE_HIGH)
+> -			hsync_pol = 1;
+> +			polarities |= BIT(1);
+>  		if (flags & V4L2_MBUS_VSYNC_ACTIVE_LOW)
+> -			vsync_pol = 1;
 
-Yeah, that's the message-id not a link, a link would be more useful I
-agree:
-https://lore.kernel.org/linux-media/d0510b81-9ae1-9b6f-02c5-f4eb08e67bfa@ti.com/
+Ups, this doesn't match what's reported in the manual version I have
+(version 2.03, page 134) I read:
+
+VSYNC polarity  0: Active low
+                1: Active high
+
+Was this a bug already present in the code ?
+
+Anyway, this has not been introduced by this patch, but might be a
+good occasion to fix it.
+
+Reviewed-by: Jacopo Mondi <jacopo@jmondi.org>
 
 Thanks
   j
+
+> -
+> -		ret = ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00,
+> -				       (pclk_pol << 5) | (hsync_pol << 1) |
+> -				       vsync_pol);
+> -
+> -		if (ret)
+> -			return ret;
+> +			polarities |= BIT(0);
+>  	}
+> +	if (flags & V4L2_MBUS_PCLK_SAMPLE_RISING)
+> +		polarities |= BIT(5);
+> +
+> +	ret = ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00, polarities);
+> +	if (ret)
+> +		return ret;
+>
+>  	/*
+> -	 * powerdown MIPI TX/RX PHY & disable MIPI
+> +	 * powerdown MIPI TX/RX PHY & enable DVP
+>  	 *
+>  	 * MIPI CONTROL 00
+> -	 * 4:	 PWDN PHY TX
+> -	 * 3:	 PWDN PHY RX
+> -	 * 2:	 MIPI enable
+> +	 * [4] = 1	: Power down MIPI HS Tx
+> +	 * [3] = 1	: Power down MIPI LS Rx
+> +	 * [2] = 0	: DVP enable (MIPI disable)
+>  	 */
+>  	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x18);
+>  	if (ret)
+> @@ -2074,8 +2085,7 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
+>  	 * - [3:0]:	D[9:6] output enable
+>  	 */
+>  	ret = ov5640_write_reg(sensor, OV5640_REG_PAD_OUTPUT_ENABLE01,
+> -			       sensor->ep.bus_type == V4L2_MBUS_PARALLEL ?
+> -			       0x7f : 0x1f);
+> +			       bt656 ? 0x1f : 0x7f);
+>  	if (ret)
+>  		return ret;
+>
+> @@ -2925,8 +2935,6 @@ static int ov5640_s_stream(struct v4l2_subdev *sd, int enable)
+>
+>  		if (sensor->ep.bus_type == V4L2_MBUS_CSI2_DPHY)
+>  			ret = ov5640_set_stream_mipi(sensor, enable);
+> -		else if (sensor->ep.bus_type == V4L2_MBUS_BT656)
+> -			ret = ov5640_set_stream_bt656(sensor, enable);
+>  		else
+>  			ret = ov5640_set_stream_dvp(sensor, enable);
+>
+> --
+> 2.7.4
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
