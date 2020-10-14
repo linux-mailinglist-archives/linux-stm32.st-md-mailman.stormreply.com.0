@@ -2,62 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB8D628E097
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Oct 2020 14:36:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F6D28E0C6
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Oct 2020 14:55:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 906AEC424AF;
-	Wed, 14 Oct 2020 12:36:49 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 343A6C424BD;
+	Wed, 14 Oct 2020 12:55:24 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3C76C32E91
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 611BFC3FADE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Oct 2020 12:36:47 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Wed, 14 Oct 2020 12:55:22 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09ECRGnc023713; Wed, 14 Oct 2020 14:35:56 +0200
+ 09ECqvba015323; Wed, 14 Oct 2020 14:55:07 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=a6IV5Cv8z3GpD5NHvsPPGT16JAZW0AbP5VtlTBCZgbY=;
- b=0gW3dTGUMUCPCrLlHSKbLXNUakOrE1zSS5pc8R4iwImq9dmyN8jYSMPtrnaYSkyrykfV
- 7+fnKYW3/gxGpk1teSImS2SFtMyGBfTAQ1mSF+IxGduO+IT6i/MQMDTuxp2Q/R8s4O68
- EyH5zrjGFmkmZd61NQdVcNamD0ru9hXfZ0Jw+iTQxrWWSjYKw/Q+3BXTZ021nSyh6X1y
- RKcwAtrn9B01U+7SNaQOqIjhUTgEHeGTtwtlixKDnYtBmB+OuVLC7QWa5oN00DGtltbh
- +ZnktVyB3bRl2RVsa1n0IdnjMmckEGTKcr6PxZRQb516T16Jn8Z7Se3BCVfUq7uI8XB5 0g== 
+ bh=dnkYwDz5SS1iDJhEQKZPv8UZFz9BDhGoeNxvfvCK17U=;
+ b=oJf4wMO7MTpOWr0vouC5My5miUW9zEpWngcncd3sQaAZyzVMK8z9awfWZBEKAM8SoJ0u
+ XsNTEG3cWj6gALuT7/NiGj0c8zJOrdcLk56fIrM04kHGT/5+2S+H8tA173CKnN0eZv95
+ y5j5T4AH8Pz4dMr2WBaAy6TH5oRtIxeCSJRR1NP3zUq1QgjQILBkUQIATA2Vzq76ki5F
+ v4Y0aCIEkpatPNwQiquiBxVllDtZVvl/sMt7WbUC0EINvnZd04W8uZWXEv8C38f8CpRi
+ y1JsHdAP2Q3A3n26/4k/GpYP+RT2ophjJBS0uyAPUueTiye5UTEmelPGAmCeP/IRrjh9 Yw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3435875rh5-1
+ by mx07-00178001.pphosted.com with ESMTP id 3455c8hqqk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Oct 2020 14:35:56 +0200
+ Wed, 14 Oct 2020 14:55:07 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 732A010002A;
- Wed, 14 Oct 2020 14:35:54 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E8B382D0088;
- Wed, 14 Oct 2020 14:35:53 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 14 Oct 2020 14:35:53
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 09480100034;
+ Wed, 14 Oct 2020 14:55:07 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E93D32DA529;
+ Wed, 14 Oct 2020 14:55:06 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SFHDAG3NODE1.st.com (10.75.127.7)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 14 Oct 2020 14:55:06
  +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <alexandre.torgue@st.com>, <robh@kernel.org>,
- <mark.rutland@arm.com>, <olivier.moysan@st.com>
-Date: Wed, 14 Oct 2020 14:35:31 +0200
-Message-ID: <20201014123531.6991-1-olivier.moysan@st.com>
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+To: Rob Herring <robh@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>
+Date: Wed, 14 Oct 2020 14:54:37 +0200
+Message-ID: <20201014125441.2457-1-arnaud.pouliquen@st.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG2NODE2.st.com
- (10.75.127.5)
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
  definitions=2020-10-14_07:2020-10-14,
  2020-10-14 signatures=0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/1] ASoC: dt-bindings: stm32: convert audio
-	dfsdm to json-schema
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, devicetree@vger.kernel.org,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/4] ARM: stm32: add DT properties for
+	remote proc synchronisation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,134 +73,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert the STM32 DFSDM audio bindings to DT schema format
-using json-schema.
+This series implements the DT part associated to the commit 9276536f455b3
+("remoteproc: stm32: Parse syscon that will manage M4 synchronisation")
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- .../bindings/sound/st,stm32-adfsdm.txt        | 63 -------------------
- .../bindings/sound/st,stm32-adfsdm.yaml       | 42 +++++++++++++
- 2 files changed, 42 insertions(+), 63 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
- create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-adfsdm.yaml
+Delta vs V1 [1]
+- add Rob acked-by on patch 1/4
+- simplify yaml descriptions and align other syscon descriptions
 
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt b/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
-deleted file mode 100644
-index 864f5b00b031..000000000000
---- a/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
-+++ /dev/null
-@@ -1,63 +0,0 @@
--STMicroelectronics Audio Digital Filter Sigma Delta modulators(DFSDM)
--
--The DFSDM allows PDM microphones capture through SPI interface. The Audio
--interface is seems as a sub block of the DFSDM device.
--For details on DFSDM bindings refer to ../iio/adc/st,stm32-dfsdm-adc.txt
--
--Required properties:
--  - compatible: "st,stm32h7-dfsdm-dai".
--
--  - #sound-dai-cells : Must be equal to 0
--
--  - io-channels : phandle to iio dfsdm instance node.
--
--Example of a sound card using audio DFSDM node.
--
--	sound_card {
--		compatible = "audio-graph-card";
--
--		dais = <&cpu_port>;
--	};
--
--	dfsdm: dfsdm@40017000 {
--		compatible = "st,stm32h7-dfsdm";
--		reg = <0x40017000 0x400>;
--		clocks = <&rcc DFSDM1_CK>;
--		clock-names = "dfsdm";
--		#interrupt-cells = <1>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		dfsdm_adc0: filter@0 {
--			compatible = "st,stm32-dfsdm-dmic";
--			reg = <0>;
--			interrupts = <110>;
--			dmas = <&dmamux1 101 0x400 0x00>;
--			dma-names = "rx";
--			st,adc-channels = <1>;
--			st,adc-channel-names = "dmic0";
--			st,adc-channel-types = "SPI_R";
--			st,adc-channel-clk-src = "CLKOUT";
--			st,filter-order = <5>;
--
--			dfsdm_dai0: dfsdm-dai {
--				compatible = "st,stm32h7-dfsdm-dai";
--				#sound-dai-cells = <0>;
--				io-channels = <&dfsdm_adc0 0>;
--				cpu_port: port {
--				dfsdm_endpoint: endpoint {
--					remote-endpoint = <&dmic0_endpoint>;
--				};
--			};
--		};
--	};
--
--	dmic0: dmic@0 {
--		compatible = "dmic-codec";
--		#sound-dai-cells = <0>;
--		port {
--			dmic0_endpoint: endpoint {
--				remote-endpoint = <&dfsdm_endpoint>;
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.yaml b/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.yaml
-new file mode 100644
-index 000000000000..d953ec524ba2
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.yaml
-@@ -0,0 +1,42 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/st,stm32-adfsdm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics Audio Digital Filter Sigma Delta modulators(DFSDM)
-+
-+maintainers:
-+  - Olivier Moysan <olivier.moysan@st.com>
-+
-+description:
-+  The DFSDM allows PDM microphones capture through the SPI interface.
-+  The Audio interface is seen as a sub block of the DFSDM device.
-+  For details on DFSDM bindings refer to ../iio/adc/st,stm32-dfsdm-adc.yaml
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32h7-dfsdm-dai
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  io-channels:
-+    description: phandle to iio dfsdm instance node
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - "#sound-dai-cells"
-+  - io-channels
-+
-+examples:
-+  - |
-+    asoc_pdm0: dfsdm-dai {
-+      compatible = "st,stm32h7-dfsdm-dai";
-+      #sound-dai-cells = <0>;
-+      io-channels = <&dfsdm0 0>;
-+    };
-+
-+...
+[1]https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=339339
+
+Arnaud Pouliquen (4):
+  dt-bindings: arm: stm32: Add compatible for syscon tamp node
+  dt-bindings: remoteproc: stm32_rproc: update for firmware
+    synchronization
+  dt-bindings: remoteproc: stm32_rproc: update syscon descriptions
+  ARM: dts: stm32: update stm32mp151 for remote proc synchronization
+    support
+
+ .../bindings/arm/stm32/st,stm32-syscon.yaml   |  1 +
+ .../bindings/remoteproc/st,stm32-rproc.yaml   | 21 +++++++++++++------
+ arch/arm/boot/dts/stm32mp151.dtsi             |  7 +++++++
+ 3 files changed, 23 insertions(+), 6 deletions(-)
+
 -- 
 2.17.1
 
