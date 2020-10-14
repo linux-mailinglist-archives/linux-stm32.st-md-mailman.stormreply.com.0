@@ -2,81 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B5C928DF48
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Oct 2020 12:45:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB8D628E097
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Oct 2020 14:36:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45895C424AF;
-	Wed, 14 Oct 2020 10:45:09 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 906AEC424AF;
+	Wed, 14 Oct 2020 12:36:49 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A6C5C3FAD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3C76C32E91
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Oct 2020 10:45:05 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ Wed, 14 Oct 2020 12:36:47 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09EAh9Lw019937; Wed, 14 Oct 2020 12:43:43 +0200
+ 09ECRGnc023713; Wed, 14 Oct 2020 14:35:56 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=ecOelpSBGEEQOBA7CraIE87FEegexzTRyWZKnUVJtU0=;
- b=AV2h70z8X48oSxSNQ5yczg4FoAcHwN4yo0OhkUXOHvQhqz0hWxqkd50tztOR9LFqo4Pk
- B0cveBL4B4Y6yr2mXHlBu9pO+e8VwRf3a0+WnkfgLlV3tuGgjnzdTnjbcTc1P9xUGzHO
- gvIIAR9WVO21vK3U9wyW1ZkAd1k7JHZRvPvQ1b7V44HDWl4tsZhuCWiiUnv0fRT4JIUk
- uyn1WRFhGyK1viJ2A5ff303vOIyKz7/Hzm7xzvrA1Aqt3nHPXFNMP4JRHC/JLrZfgCYj
- /Ji/wrYN65lUiL4hrluhHc2lv9IZCO0h3yRUE32Y1N2a3h37jq0gggkHO44S8Wu1d3WC rg== 
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=a6IV5Cv8z3GpD5NHvsPPGT16JAZW0AbP5VtlTBCZgbY=;
+ b=0gW3dTGUMUCPCrLlHSKbLXNUakOrE1zSS5pc8R4iwImq9dmyN8jYSMPtrnaYSkyrykfV
+ 7+fnKYW3/gxGpk1teSImS2SFtMyGBfTAQ1mSF+IxGduO+IT6i/MQMDTuxp2Q/R8s4O68
+ EyH5zrjGFmkmZd61NQdVcNamD0ru9hXfZ0Jw+iTQxrWWSjYKw/Q+3BXTZ021nSyh6X1y
+ RKcwAtrn9B01U+7SNaQOqIjhUTgEHeGTtwtlixKDnYtBmB+OuVLC7QWa5oN00DGtltbh
+ +ZnktVyB3bRl2RVsa1n0IdnjMmckEGTKcr6PxZRQb516T16Jn8Z7Se3BCVfUq7uI8XB5 0g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34356ed0yd-1
+ by mx07-00178001.pphosted.com with ESMTP id 3435875rh5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Oct 2020 12:43:43 +0200
+ Wed, 14 Oct 2020 14:35:56 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 87DB810002A;
- Wed, 14 Oct 2020 12:43:41 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 330322B53E0;
- Wed, 14 Oct 2020 12:43:41 +0200 (CEST)
-Received: from SFHDAG1NODE1.st.com (10.75.127.1) by SFHDAG3NODE3.st.com
- (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 14 Oct
- 2020 12:43:40 +0200
-Received: from SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f]) by
- SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f%20]) with mapi id
- 15.00.1473.003; Wed, 14 Oct 2020 12:43:40 +0200
-From: Hugues FRUCHET <hugues.fruchet@st.com>
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Thread-Topic: [PATCH v2] media: ov5640: fix support of BT656 bus mode
-Thread-Index: AQHWoKc05b6XwNbbukilsBYWkG/VOqmV/N4AgADODgA=
-Date: Wed, 14 Oct 2020 10:43:40 +0000
-Message-ID: <bca05e8d-461f-87d5-67e6-c02877b16edb@st.com>
-References: <1602514303-22316-1-git-send-email-hugues.fruchet@st.com>
- <CA+V-a8sxrSgHO-Mm6Xc-DMKFmFr7P=XxU9R+0A3J8PbWeJ+0jA@mail.gmail.com>
-In-Reply-To: <CA+V-a8sxrSgHO-Mm6Xc-DMKFmFr7P=XxU9R+0A3J8PbWeJ+0jA@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.46]
-Content-ID: <D82C7A708A3A8C46AFC366BC561E2AC9@st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 732A010002A;
+ Wed, 14 Oct 2020 14:35:54 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E8B382D0088;
+ Wed, 14 Oct 2020 14:35:53 +0200 (CEST)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 14 Oct 2020 14:35:53
+ +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <alexandre.torgue@st.com>, <robh@kernel.org>,
+ <mark.rutland@arm.com>, <olivier.moysan@st.com>
+Date: Wed, 14 Oct 2020 14:35:31 +0200
+Message-ID: <20201014123531.6991-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG8NODE2.st.com (10.75.127.23) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
  definitions=2020-10-14_07:2020-10-14,
  2020-10-14 signatures=0
-Cc: Jacopo Mondi <jacopo@jmondi.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, Alain VOLMAT <alain.volmat@st.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Steve Longerbeam <slongerbeam@gmail.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-media <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2] media: ov5640: fix support of BT656
-	bus mode
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 1/1] ASoC: dt-bindings: stm32: convert audio
+	dfsdm to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,287 +74,137 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Prabhakar,
+Convert the STM32 DFSDM audio bindings to DT schema format
+using json-schema.
 
-On 10/14/20 12:26 AM, Lad, Prabhakar wrote:
-> Hi Hugues,
-> 
-> Thank you for catching the polarity bug.
-Y're welcome.
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+ .../bindings/sound/st,stm32-adfsdm.txt        | 63 -------------------
+ .../bindings/sound/st,stm32-adfsdm.yaml       | 42 +++++++++++++
+ 2 files changed, 42 insertions(+), 63 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-adfsdm.yaml
 
-> 
-> On Mon, Oct 12, 2020 at 3:55 PM Hugues Fruchet <hugues.fruchet@st.com> wrote:
->>
->> Fix PCLK polarity not being taken into account.
->> Add comments about BT656 register control.
->> Remove useless ov5640_set_stream_bt656() function.
->> Refine comments about MIPI IO register control.
->>
->> Fixes: 4039b03720f7 ("media: i2c: ov5640: Add support for BT656 mode")
->> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
->> ---
->>   drivers/media/i2c/ov5640.c | 77 +++++++++++++++++++++++++++-------------------
->>   1 file changed, 45 insertions(+), 32 deletions(-)
->>
->> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
->> index 8d0254d..c0ebf4c 100644
->> --- a/drivers/media/i2c/ov5640.c
->> +++ b/drivers/media/i2c/ov5640.c
->> @@ -1216,20 +1216,6 @@ static int ov5640_set_autogain(struct ov5640_dev *sensor, bool on)
->>                                BIT(1), on ? 0 : BIT(1));
->>   }
->>
->> -static int ov5640_set_stream_bt656(struct ov5640_dev *sensor, bool on)
->> -{
->> -       int ret;
->> -
->> -       ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
->> -                              on ? 0x1 : 0x00);
->> -       if (ret)
->> -               return ret;
->> -
->> -       return ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0, on ?
->> -                               OV5640_REG_SYS_CTRL0_SW_PWUP :
->> -                               OV5640_REG_SYS_CTRL0_SW_PWDN);
->> -}
->> -
->>   static int ov5640_set_stream_dvp(struct ov5640_dev *sensor, bool on)
->>   {
->>          return ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0, on ?
->> @@ -1994,6 +1980,7 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
->>   static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->>   {
->>          unsigned int flags = sensor->ep.bus.parallel.flags;
->> +       bool bt656 = sensor->ep.bus_type == V4L2_MBUS_BT656;
->>          u8 pclk_pol = 0;
->>          u8 hsync_pol = 0;
->>          u8 vsync_pol = 0;
->> @@ -2001,6 +1988,7 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->>
->>          if (!on) {
->>                  /* Reset settings to their default values. */
->> +               ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00, 0x00);
->>                  ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x58);
->>                  ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00, 0x20);
->>                  ov5640_write_reg(sensor, OV5640_REG_PAD_OUTPUT_ENABLE01, 0x00);
->> @@ -2024,23 +2012,51 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->>           * - VSYNC:     active high
->>           * - HREF:      active low
->>           * - PCLK:      active low
->> +        *
->> +        * VSYNC & HREF are not configured if BT656 bus mode is selected
->>           */
->> +
->>          /*
->> -        * configure parallel port control lines polarity
->> +        * BT656 embedded synchronization configuration
->>           *
->> -        * POLARITY CTRL0
->> -        * - [5]:       PCLK polarity (0: active low, 1: active high)
->> -        * - [1]:       HREF polarity (0: active low, 1: active high)
->> -        * - [0]:       VSYNC polarity (mismatch here between
->> -        *              datasheet and hardware, 0 is active high
->> -        *              and 1 is active low...)
->> +        * CCIR656 CTRL00
->> +        * - [7]:       SYNC code selection (0: auto generate sync code,
->> +        *              1: sync code from regs 0x4732-0x4735)
->> +        * - [6]:       f value in CCIR656 SYNC code when fixed f value
->> +        * - [5]:       Fixed f value
->> +        * - [4:3]:     Blank toggle data options (00: data=1'h040/1'h200,
->> +        *              01: data from regs 0x4736-0x4738, 10: always keep 0)
->> +        * - [1]:       Clip data disable
->> +        * - [0]:       CCIR656 mode enable
->> +        *
->> +        * Default CCIR656 SAV/EAV mode with default codes
->> +        * SAV=0xff000080 & EAV=0xff00009d is enabled here with settings:
->> +        * - CCIR656 mode enable
->> +        * - auto generation of sync codes
->> +        * - blank toggle data 1'h040/1'h200
->> +        * - clip reserved data (0x00 & 0xff changed to 0x01 & 0xfe)
->>           */
->> -       if (sensor->ep.bus_type == V4L2_MBUS_PARALLEL) {
->> +       ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
->> +                              bt656 ? 0x01 : 0x00);
-> Did you test bt656 on your platform ? with these changes BT.656 mode
-> doesn't work anymore on my platform. With the below diff on top of
-> your patch it works OK. Could you please test the same works on your
-> platform.
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt b/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
+deleted file mode 100644
+index 864f5b00b031..000000000000
+--- a/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
++++ /dev/null
+@@ -1,63 +0,0 @@
+-STMicroelectronics Audio Digital Filter Sigma Delta modulators(DFSDM)
+-
+-The DFSDM allows PDM microphones capture through SPI interface. The Audio
+-interface is seems as a sub block of the DFSDM device.
+-For details on DFSDM bindings refer to ../iio/adc/st,stm32-dfsdm-adc.txt
+-
+-Required properties:
+-  - compatible: "st,stm32h7-dfsdm-dai".
+-
+-  - #sound-dai-cells : Must be equal to 0
+-
+-  - io-channels : phandle to iio dfsdm instance node.
+-
+-Example of a sound card using audio DFSDM node.
+-
+-	sound_card {
+-		compatible = "audio-graph-card";
+-
+-		dais = <&cpu_port>;
+-	};
+-
+-	dfsdm: dfsdm@40017000 {
+-		compatible = "st,stm32h7-dfsdm";
+-		reg = <0x40017000 0x400>;
+-		clocks = <&rcc DFSDM1_CK>;
+-		clock-names = "dfsdm";
+-		#interrupt-cells = <1>;
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		dfsdm_adc0: filter@0 {
+-			compatible = "st,stm32-dfsdm-dmic";
+-			reg = <0>;
+-			interrupts = <110>;
+-			dmas = <&dmamux1 101 0x400 0x00>;
+-			dma-names = "rx";
+-			st,adc-channels = <1>;
+-			st,adc-channel-names = "dmic0";
+-			st,adc-channel-types = "SPI_R";
+-			st,adc-channel-clk-src = "CLKOUT";
+-			st,filter-order = <5>;
+-
+-			dfsdm_dai0: dfsdm-dai {
+-				compatible = "st,stm32h7-dfsdm-dai";
+-				#sound-dai-cells = <0>;
+-				io-channels = <&dfsdm_adc0 0>;
+-				cpu_port: port {
+-				dfsdm_endpoint: endpoint {
+-					remote-endpoint = <&dmic0_endpoint>;
+-				};
+-			};
+-		};
+-	};
+-
+-	dmic0: dmic@0 {
+-		compatible = "dmic-codec";
+-		#sound-dai-cells = <0>;
+-		port {
+-			dmic0_endpoint: endpoint {
+-				remote-endpoint = <&dfsdm_endpoint>;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.yaml b/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.yaml
+new file mode 100644
+index 000000000000..d953ec524ba2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.yaml
+@@ -0,0 +1,42 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/st,stm32-adfsdm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics Audio Digital Filter Sigma Delta modulators(DFSDM)
++
++maintainers:
++  - Olivier Moysan <olivier.moysan@st.com>
++
++description:
++  The DFSDM allows PDM microphones capture through the SPI interface.
++  The Audio interface is seen as a sub block of the DFSDM device.
++  For details on DFSDM bindings refer to ../iio/adc/st,stm32-dfsdm-adc.yaml
++
++properties:
++  compatible:
++    enum:
++      - st,stm32h7-dfsdm-dai
++
++  "#sound-dai-cells":
++    const: 0
++
++  io-channels:
++    description: phandle to iio dfsdm instance node
++    maxItems: 1
++
++required:
++  - compatible
++  - "#sound-dai-cells"
++  - io-channels
++
++examples:
++  - |
++    asoc_pdm0: dfsdm-dai {
++      compatible = "st,stm32h7-dfsdm-dai";
++      #sound-dai-cells = <0>;
++      io-channels = <&dfsdm0 0>;
++    };
++
++...
+-- 
+2.17.1
 
-Yes of course, tested on STM32MP1 evaluation board with OV5640/parallel 
-setup (stm32-dcmi capture driver). Several captures made, no issues.
-
-So in short you have to move the CCIR656 mode enable from set_power() to 
-set_stream(), this is similar to changes you've made in code recently
-around OV5640_REG_SYS_CTRL0 & SW_PWUP/DOWN, but the reason to do that is 
-still not understood, at least on my side.
-My understanding reading your patch was that OV5640_REG_SYS_CTRL0 -> 
-SW_PWUP trigs the real "stream on" of the sensor and only at that time 
-the data are produced by sensor, but if this is true, why do we need to 
-enable CCIR656 right before SW_PWUP instead of enabling it with other 
-DVP settings (DVP enable and so on...) ? This is not logical.
-
-I think that we have to understand what happens on your side before 
-going to more changes on this already so complex driver.
-
-> 
-> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> index 49e73ace8685..c5e45bc17bdf 100644
-> --- a/drivers/media/i2c/ov5640.c
-> +++ b/drivers/media/i2c/ov5640.c
-> @@ -1977,6 +1977,40 @@ static int ov5640_set_power_mipi(struct
-> ov5640_dev *sensor, bool on)
->          return 0;
->   }
-> 
-> +static int ov5640_set_stream_bt656(struct ov5640_dev *sensor, bool on)
-> +{
-> +       int ret;
-> +
-> +       /*
-> +        * BT656 embedded synchronization configuration
-> +        *
-> +        * CCIR656 CTRL00
-> +        * - [7]:       SYNC code selection (0: auto generate sync code,
-> +        *              1: sync code from regs 0x4732-0x4735)
-> +        * - [6]:       f value in CCIR656 SYNC code when fixed f value
-> +        * - [5]:       Fixed f value
-> +        * - [4:3]:     Blank toggle data options (00: data=1'h040/1'h200,
-> +        *              01: data from regs 0x4736-0x4738, 10: always keep 0)
-> +        * - [1]:       Clip data disable
-> +        * - [0]:       CCIR656 mode enable
-> +        *
-> +        * Default CCIR656 SAV/EAV mode with default codes
-> +        * SAV=0xff000080 & EAV=0xff00009d is enabled here with settings:
-> +        * - CCIR656 mode enable
-> +        * - auto generation of sync codes
-> +        * - blank toggle data 1'h040/1'h200
-> +        * - clip reserved data (0x00 & 0xff changed to 0x01 & 0xfe)
-> +        */
-> +       ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
-> +                              on ? 0x1 : 0x00);
-> +       if (ret)
-> +               return ret;
-> +
-> +       return ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0, on ?
-> +                               OV5640_REG_SYS_CTRL0_SW_PWUP :
-> +                               OV5640_REG_SYS_CTRL0_SW_PWDN);
-> +}
-> +
->   static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->   {
->          unsigned int flags = sensor->ep.bus.parallel.flags;
-> @@ -2014,31 +2048,6 @@ static int ov5640_set_power_dvp(struct
-> ov5640_dev *sensor, bool on)
->           * VSYNC & HREF are not configured if BT656 bus mode is selected
->           */
-> 
-> -       /*
-> -        * BT656 embedded synchronization configuration
-> -        *
-> -        * CCIR656 CTRL00
-> -        * - [7]:       SYNC code selection (0: auto generate sync code,
-> -        *              1: sync code from regs 0x4732-0x4735)
-> -        * - [6]:       f value in CCIR656 SYNC code when fixed f value
-> -        * - [5]:       Fixed f value
-> -        * - [4:3]:     Blank toggle data options (00: data=1'h040/1'h200,
-> -        *              01: data from regs 0x4736-0x4738, 10: always keep 0)
-> -        * - [1]:       Clip data disable
-> -        * - [0]:       CCIR656 mode enable
-> -        *
-> -        * Default CCIR656 SAV/EAV mode with default codes
-> -        * SAV=0xff000080 & EAV=0xff00009d is enabled here with settings:
-> -        * - CCIR656 mode enable
-> -        * - auto generation of sync codes
-> -        * - blank toggle data 1'h040/1'h200
-> -        * - clip reserved data (0x00 & 0xff changed to 0x01 & 0xfe)
-> -        */
-> -       ret = ov5640_write_reg(sensor, OV5640_REG_CCIR656_CTRL00,
-> -                              bt656 ? 0x01 : 0x00);
-> -       if (ret)
-> -               return ret;
-> -
->          /*
->           * configure parallel port control lines polarity
->           *
-> @@ -2935,6 +2944,8 @@ static int ov5640_s_stream(struct v4l2_subdev
-> *sd, int enable)
-> 
->                  if (sensor->ep.bus_type == V4L2_MBUS_CSI2_DPHY)
->                          ret = ov5640_set_stream_mipi(sensor, enable);
-> +               else if (sensor->ep.bus_type == V4L2_MBUS_BT656)
-> +                       ret = ov5640_set_stream_bt656(sensor, enable);
->                  else
->                          ret = ov5640_set_stream_dvp(sensor, enable);
-> 
-> Cheers,
-> Prabhakar
-> 
->> +       if (ret)
->> +               return ret;
->> +
->> +       if (on) {
->> +               /*
->> +                * configure parallel port control lines polarity
->> +                *
->> +                * POLARITY CTRL0
->> +                * - [5]:       PCLK polarity (0: active low, 1: active high)
->> +                * - [1]:       HREF polarity (0: active low, 1: active high)
->> +                * - [0]:       VSYNC polarity (mismatch here between
->> +                *              datasheet and hardware, 0 is active high
->> +                *              and 1 is active low...)
->> +                */
->>                  if (flags & V4L2_MBUS_PCLK_SAMPLE_RISING)
->>                          pclk_pol = 1;
->> -               if (flags & V4L2_MBUS_HSYNC_ACTIVE_HIGH)
->> +               if (!bt656 && flags & V4L2_MBUS_HSYNC_ACTIVE_HIGH)
->>                          hsync_pol = 1;
->> -               if (flags & V4L2_MBUS_VSYNC_ACTIVE_LOW)
->> +               if (!bt656 && flags & V4L2_MBUS_VSYNC_ACTIVE_LOW)
->>                          vsync_pol = 1;
->>
->>                  ret = ov5640_write_reg(sensor, OV5640_REG_POLARITY_CTRL00,
->> @@ -2052,12 +2068,12 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->>          }
->>
->>          /*
->> -        * powerdown MIPI TX/RX PHY & disable MIPI
->> +        * powerdown MIPI TX/RX PHY & enable DVP
->>           *
->>           * MIPI CONTROL 00
->> -        * 4:    PWDN PHY TX
->> -        * 3:    PWDN PHY RX
->> -        * 2:    MIPI enable
->> +        * [4] = 1      : Power down MIPI HS Tx
->> +        * [3] = 1      : Power down MIPI LS Rx
->> +        * [2] = 0      : DVP enable (MIPI disable)
->>           */
->>          ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x18);
->>          if (ret)
->> @@ -2074,8 +2090,7 @@ static int ov5640_set_power_dvp(struct ov5640_dev *sensor, bool on)
->>           * - [3:0]:     D[9:6] output enable
->>           */
->>          ret = ov5640_write_reg(sensor, OV5640_REG_PAD_OUTPUT_ENABLE01,
->> -                              sensor->ep.bus_type == V4L2_MBUS_PARALLEL ?
->> -                              0x7f : 0x1f);
->> +                              bt656 ? 0x1f : 0x7f);
->>          if (ret)
->>                  return ret;
->>
->> @@ -2925,8 +2940,6 @@ static int ov5640_s_stream(struct v4l2_subdev *sd, int enable)
->>
->>                  if (sensor->ep.bus_type == V4L2_MBUS_CSI2_DPHY)
->>                          ret = ov5640_set_stream_mipi(sensor, enable);
->> -               else if (sensor->ep.bus_type == V4L2_MBUS_BT656)
->> -                       ret = ov5640_set_stream_bt656(sensor, enable);
->>                  else
->>                          ret = ov5640_set_stream_dvp(sensor, enable);
->>
->> --
->> 2.7.4
->>
-
-BR,
-Hugues.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
