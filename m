@@ -2,54 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C91AA28E29E
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Oct 2020 16:55:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85FE428E4DD
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Oct 2020 18:51:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B52FC424B3;
-	Wed, 14 Oct 2020 14:55:45 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28A96C424AF;
+	Wed, 14 Oct 2020 16:51:28 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 164E4C424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30E38C3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Oct 2020 14:55:44 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4CBFpR4ZjJz1qrfk;
- Wed, 14 Oct 2020 16:55:43 +0200 (CEST)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4CBFpR3sgnz1qvgT;
- Wed, 14 Oct 2020 16:55:43 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id nqtM0Yd0cBB1; Wed, 14 Oct 2020 16:55:42 +0200 (CEST)
-X-Auth-Info: tNwAkfRU7WawolCE2fYNKgNvSG5C5MJ2HDuLlThs3FA=
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 14 Oct 2020 16:55:42 +0200 (CEST)
-To: Yann GAUTIER <yann.gautier@st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-References: <20201009210820.243659-1-marex@denx.de>
- <f842dd08-77d0-fd5b-63fd-26762a54be5e@st.com>
- <d49b410c-62fc-40d3-0f2a-6a7ac3214229@denx.de>
- <99663cc5-f897-8233-518b-1a485a2e15b6@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <808c1e29-a96f-f3f4-7e5d-7ba2dfed4142@denx.de>
-Date: Wed, 14 Oct 2020 16:55:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ Wed, 14 Oct 2020 16:51:26 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id w21so145207pfc.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 14 Oct 2020 09:51:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=0oKd/1+Q49pwBEic+j1QGYF+5cG+STAkikN4kllIFis=;
+ b=WpXfutAzKSb8AwlyKEbbrghfkcSB7k9AL+h07lEQEaZh1JMnxbsOzfEdql8BJsw0AK
+ zAY4oNLRQ46zuvgRYLjmZaA7DY2JdcJWwAuSgMq/VGmX2baResgV4wYE40yUGQhepKBL
+ gHIG87e6uDjv5VK46UVTRf8gwbs36NnMz3LDJuiL2NcN06VktehgQQRD73/rYb2/2Bp9
+ T3qhJKZr1bE5ms4+5reFbCR+JUrkCvxZp/l2+Tgng8uS0eqBG8wGl/L4evH4UH5CfpP0
+ quIjd6v8H9E2pzXFV+72SC+wtwBguzysisyXSZF1AehfVB8BhZgt+ZeY2eZu8eZF82t4
+ oebA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=0oKd/1+Q49pwBEic+j1QGYF+5cG+STAkikN4kllIFis=;
+ b=g+PHP7ioexAGM630FWxEit5NEsxWqHYB9CAJqjJKlUI6qHtbJNC9Xf8ql/czAUru9h
+ 6EqzRf0ElihRH4MtfMmNykhP9j0yHTKRFuISVu3NXe8Po5uVhIDhouispJP1Zj4AN5SU
+ broEjPQEUwEqEeKNJ1JFLBc/Pu9P/4qf+oFCwydHTFQsG8lEIMwgEGUdD3oXbfm5kjb+
+ 2HLtEFblnOTAa+GbB6v1FDmEyvhYKpjduuYmYYJ/ENsilf8MJnB8n9p9HMMD2al+KDCb
+ iRhyM+U1Y8frFz+MUF2attaWGlaDYZ7t+gztszR7qmaN8AW5XycMeAk66xC0lCEUuX+D
+ 3iJQ==
+X-Gm-Message-State: AOAM532Dj/m9RkvsYtIYtY3GIedo5UU7BUVApN1tsc4jYJKs5cUIZp1j
+ Aezgb+h29N2aAgLOet++IOLvCw==
+X-Google-Smtp-Source: ABdhPJyF+kMGcVCJWKBQTvA0HeUTDn2r3CiRgsDWATdxaTcjHEJZMUafV6IesWwPvzCk/d3d5GUc8A==
+X-Received: by 2002:a62:6507:0:b029:155:3b11:b458 with SMTP id
+ z7-20020a6265070000b02901553b11b458mr216999pfb.45.1602694284480; 
+ Wed, 14 Oct 2020 09:51:24 -0700 (PDT)
+Received: from xps15 (S0106002369de4dac.cg.shawcable.net. [68.147.8.254])
+ by smtp.gmail.com with ESMTPSA id j1sm94318pfj.202.2020.10.14.09.51.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Oct 2020 09:51:23 -0700 (PDT)
+Date: Wed, 14 Oct 2020 10:51:21 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Message-ID: <20201014165121.GA1406857@xps15>
+References: <20201014125441.2457-1-arnaud.pouliquen@st.com>
+ <20201014125441.2457-5-arnaud.pouliquen@st.com>
 MIME-Version: 1.0
-In-Reply-To: <99663cc5-f897-8233-518b-1a485a2e15b6@st.com>
-Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Patrick DELAUNAY <patrick.delaunay@st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Consistently enable
- internal pull-ups for SD bus
+Content-Disposition: inline
+In-Reply-To: <20201014125441.2457-5-arnaud.pouliquen@st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] ARM: dts: stm32: update stm32mp151
+ for remote proc synchronization support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,37 +79,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/14/20 4:52 PM, Yann GAUTIER wrote:
+On Wed, Oct 14, 2020 at 02:54:41PM +0200, Arnaud Pouliquen wrote:
+> Two backup registers are used to store the Cortex-M4 state and the resource
+> table address.
+> Declare the tamp node and add associated properties in m4_rproc node
+> to allow Linux to attach to a firmware loaded by the first boot stages.
 > 
+> Associated driver implementation is available in commit 9276536f455b3
+> ("remoteproc: stm32: Parse syscon that will manage M4 synchronisation").
 > 
-> On 10/14/20 3:30 PM, Marek Vasut wrote:
->> On 10/14/20 3:26 PM, Yann GAUTIER wrote:
->> [...]
->>>> diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
->>>> index b2d19583450c..73d9a5b7f5ba 100644
->>>> --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
->>>> +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
->>>> @@ -1291,13 +1291,13 @@ pins1 {
->>>>    				 <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
->>>>    			slew-rate = <1>;
->>>>    			drive-push-pull;
->>>> -			bias-disable;
->>>> +			bias-pull-up;
->>> Hi Marek,
->>
->> Hi,
->>
->>> This pin config is used by ST board, where we have a level shifter.
->>> This shouldn't be changed. We discussed this with Alex, and a new group
->>> should be added in this case.
->>
->> Is it a problem if we enable the pulls up unconditionally with the level
->> shifter present, to make the properties of the SD bus consistent ?
->>
-> The risk of having 2 parallel pull-ups is that the resulting value could 
-> be below the lower acceptable value for SD. I'll check if that can occur.
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+> ---
+>  arch/arm/boot/dts/stm32mp151.dtsi | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+> index bfe29023fbd5..842ecffae73a 100644
+> --- a/arch/arm/boot/dts/stm32mp151.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
+> @@ -1541,6 +1541,11 @@
+>  			status = "disabled";
+>  		};
+>  
+> +		tamp: tamp@5c00a000 {
+> +			compatible = "st,stm32-tamp", "syscon";
+> +			reg = <0x5c00a000 0x400>;
+> +		};
+> +
+>  		/*
+>  		 * Break node order to solve dependency probe issue between
+>  		 * pinctrl and exti.
+> @@ -1717,6 +1722,8 @@
+>  			st,syscfg-holdboot = <&rcc 0x10C 0x1>;
+>  			st,syscfg-tz = <&rcc 0x000 0x1>;
+>  			st,syscfg-pdds = <&pwr_mcu 0x0 0x1>;
+> +			st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
+> +			st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
 
-That's a good idea, thank you!
+Tested-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+
+>  			status = "disabled";
+>  		};
+>  	};
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
