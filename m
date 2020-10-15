@@ -2,89 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D7A728EE28
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Oct 2020 10:07:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E61CD28F28E
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Oct 2020 14:44:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAD26C3FADE;
-	Thu, 15 Oct 2020 08:07:18 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A63F0C424B3;
+	Thu, 15 Oct 2020 12:44:32 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49BCDC32E91
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C331FC424AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Oct 2020 08:07:18 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09F810KF022265; Thu, 15 Oct 2020 10:05:56 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=glhTCKVcnbc8lpjOZBjcwL/WddjOBnrvQMsvFgpIX9U=;
- b=0oTWPBOxS3dHCpvop3Yn8LtnhruTiBArA0yscaywKM5jRBukrtlORwr/OlTPsO/MuqpZ
- NxiXz4Nvydwfc6H86n+++QoVfKWlkVK6RwSl08U860IelLWDFi6VfYxV1c49lArFXN0l
- AFDe3yXM7+VozPw8LXqj2LRtKWO4kRrD6cgMmP7U9tLEM1gC6uz4J1P7UBVkolbWZPMC
- 0c23ip1jx4I4AYDVB506N+iPL276OKcmTrJwevYifEHpP48qXDA8TdK71per8cKZVT4H
- PfdxOAWlYV0XFPa9ElhEi0cBzBscOmgtycug9z9NV8KOyMMJP+rSe/YeUgH1QAaLqKx4 LA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34356ekf4q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Oct 2020 10:05:56 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0884E100034;
- Thu, 15 Oct 2020 10:05:47 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8D2CD20602D;
- Thu, 15 Oct 2020 10:05:47 +0200 (CEST)
-Received: from lmecxl0995.lme.st.com (10.75.127.49) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 15 Oct
- 2020 10:05:44 +0200
-To: Serge Semin <Sergey.Semin@baikalelectronics.ru>, Mathias Nyman
- <mathias.nyman@intel.com>, Felipe Balbi <balbi@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh+dt@kernel.org>, Alexey Brodkin <abrodkin@synopsys.com>,
- Vineet Gupta <vgupta@synopsys.com>, Hauke Mehrtens <hauke@hauke-m.de>,
- =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- <bcm-kernel-feedback-list@broadcom.com>, Wei Xu
- <xuwei5@hisilicon.com>, Vladimir Zapolskiy <vz@mleia.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- Paul Cercueil <paul@crapouillou.net>, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>, Matthias Brugger <matthias.bgg@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>, Paul Mackerras <paulus@samba.org>
-References: <20201014101402.18271-1-Sergey.Semin@baikalelectronics.ru>
- <20201014101402.18271-19-Sergey.Semin@baikalelectronics.ru>
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <a68552c5-3284-7196-3873-61711aaf5007@st.com>
-Date: Thu, 15 Oct 2020 10:05:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thu, 15 Oct 2020 12:44:30 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1kT2cQ-0008KB-0Y; Thu, 15 Oct 2020 14:44:30 +0200
+To: Yann GAUTIER <yann.gautier@st.com>, Marek Vasut <marex@denx.de>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+References: <20201009210820.243659-1-marex@denx.de>
+ <f842dd08-77d0-fd5b-63fd-26762a54be5e@st.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <a28a3842-0fcf-458e-ef26-aeffed035b32@pengutronix.de>
+Date: Thu, 15 Oct 2020 14:44:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-In-Reply-To: <20201014101402.18271-19-Sergey.Semin@baikalelectronics.ru>
+In-Reply-To: <f842dd08-77d0-fd5b-63fd-26762a54be5e@st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG4NODE3.st.com (10.75.127.12) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-10-15_03:2020-10-14,
- 2020-10-15 signatures=0
-Cc: devicetree@vger.kernel.org, linux-snps-arc@lists.infradead.org,
- linux-mips@vger.kernel.org, Neil Armstrong <narmstrong@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Serge Semin <fancer.lancer@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Manu Gautam <mgautam@codeaurora.org>, Andy Gross <agross@kernel.org>,
- linux-mediatek@lists.infradead.org,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
- Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Roger Quadros <rogerq@ti.com>
-Subject: Re: [Linux-stm32] [PATCH 18/20] arch: dts: Fix EHCI/OHCI DT nodes
-	name
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: hardware@linux-automation.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Patrick DELAUNAY <patrick.delaunay@st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Consistently enable
+ internal pull-ups for SD bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,51 +53,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Serge,
+Hello Yann,
 
-On 10/14/20 12:14 PM, Serge Semin wrote:
-> In accordance with the Generic EHCI/OHCI bindings the corresponding node
-> name is suppose to comply with the Generic USB HCD DT schema, which
-> requires the USB nodes to have the name acceptable by the regexp:
-> "^usb(@.*)?"  . Let's fix the DTS files, which have the nodes defined with
-> incompatible names.
-> 
-> Signed-off-by: Serge Semin<Sergey.Semin@baikalelectronics.ru>
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-> index bfe29023fbd5..576f7da564c5 100644
-> --- a/arch/arm/boot/dts/stm32mp151.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
-> @@ -1404,7 +1404,7 @@ ethernet0: ethernet@5800a000 {
->   			status = "disabled";
->   		};
->   
-> -		usbh_ohci: usbh-ohci@5800c000 {
-> +		usbh_ohci: usb@5800c000 {
->   			compatible = "generic-ohci";
->   			reg = <0x5800c000 0x1000>;
->   			clocks = <&rcc USBH>;
-> @@ -1413,7 +1413,7 @@ usbh_ohci: usbh-ohci@5800c000 {
->   			status = "disabled";
->   		};
->   
-> -		usbh_ehci: usbh-ehci@5800d000 {
-> +		usbh_ehci: usb@5800d000 {
->   			compatible = "generic-ehci";
->   			reg = <0x5800d000 0x1000>;
->   			clocks = <&rcc USBH>;
+thanks for pinging me.
 
-For STM32MP151:
+On 10/14/20 3:26 PM, Yann GAUTIER wrote:
+> On 10/9/20 11:08 PM, Marek Vasut wrote:
+>> @@ -1510,7 +1510,7 @@ pins {
+>>   				 <STM32_PINMUX('C', 7, AF10)>; /* SDMMC2_D7 */
+>>   			slew-rate = <1>;
+>>   			drive-push-pull;
+>> -			bias-disable;
+>> +			bias-pull-up;
+> This one is also used on Linux Automation MC-1 board, Ahmad, is it OK 
+> for you?
 
-Acked-by: Amelie Delaunay <amelie.delaunay@st.com>
+Hello Marek,
 
-Thanks,
-Amelie
+We already have 47K external pull-ups on all the SDMMC2's data lanes and we
+don't need the SoC-internal pull-up there as well.
+
+On the SDMMC1 we lack them, so they were added in the board DTS:
+
+  /* stm32mp157c-lxa-mc1.dts */
+  &sdmmc1_b4_pins_a {
+          /*
+           * board lacks external pull-ups on SDMMC lines. Class 10 SD refuses to
+           * work, thus enable internal pull-ups.
+           */
+          pins1 {
+                  /delete-property/ bias-disable;
+                  bias-pull-up;
+          };
+          pins2 {
+                  /delete-property/ bias-disable;
+                  bias-pull-up;
+          };
+  };
+
+I don't mind the central pinctrl settings changed to make them more widely applicable
+if current users get such override nodes inserted to maintain their existing settings.
+
+(My favorite would of course be to allow board DTS to just keep their own pinctrl
+ nodes outside stm32mp15-pinctrl.dtsi.)
+
+Cheers
+Ahmad
+ 
+
+
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
