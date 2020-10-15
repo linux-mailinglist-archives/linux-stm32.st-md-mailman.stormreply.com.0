@@ -2,80 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61C4328F603
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Oct 2020 17:42:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE47B28F634
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Oct 2020 17:52:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21156C424AF;
-	Thu, 15 Oct 2020 15:42:10 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68C81C424AF;
+	Thu, 15 Oct 2020 15:52:24 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72ACFC32EA7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0AF64C32EA7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Oct 2020 15:42:08 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Thu, 15 Oct 2020 15:52:21 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09FFWPqM021470; Thu, 15 Oct 2020 17:41:56 +0200
+ 09FFlVxm022682; Thu, 15 Oct 2020 17:52:12 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=5M9z+VJHpdMPslK5yQUX1WHh1hOOIDzT8UXdnP4viN8=;
- b=rpRhMwqOI8skSMIeeESJ2ENU7YmRahj/fKUC0OAR/VDOxL070/IAzAqpEuYaRtN83gR9
- xrhSVQPms7Vnmzq3WZHd06k/3/EW958yp6ioJC1FT1G7m+wVHLe5tnbCJYcrrzcoeJ6X
- Xzu6dJdsXq4uAa5aoZ6PheBdfCFMUvIQfZ7+Y1beFVRfJrdYzZOu35vj7QDJDrpvkJk5
- 2XyIVmPX3nQejPZZCer29rV97V7osWxtr4o8W1zAAY3urVsjT+06R5menn7YGm3c0+uM
- hIjLHbTGllfkYiuidDP8/B3W9FZW59/gxweGeoEs40Z9xyqlm/XsJPgJUv3+KXahV4Qa Jw== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=DQoZvXhZdY8zvlwqNoG3Kx2x3idDsD/0xwAEfYm3lmg=;
+ b=frC6C3Qvq4fZHf57420oWogSEGGUC0BWQGSoKkvNfjKDooZAj35VztML77in6NEUbC4q
+ duZOMxxT0PhTQ+hCu4VlNRBr9h2ObFtbdU9GZoFUr/Unatrl8Oo2B9MuapLnJ6YImI3z
+ 9U6jIoIg21ynWB5s63QMiOwy5S/FqDanX6lButpH2aMCBg/VB8YKISWCHpqT6uLsF/CG
+ OeeHKtCUHTIgUmK+U41hiokz+WKm/+67e5Ke1V1ctfHuZ9RZqMu1+F39s8QZCGazWF6V
+ 7rVw7Gac1Oj7gCUo3QEonj4WxVd4DeLasFVnm1NSc8YTd7QLhcjpRRvvprCee3LH329X QA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34353wqrkk-1
+ by mx07-00178001.pphosted.com with ESMTP id 343587e377-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Oct 2020 17:41:56 +0200
+ Thu, 15 Oct 2020 17:52:12 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C3BF1100034;
- Thu, 15 Oct 2020 17:41:55 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 930E810002A;
+ Thu, 15 Oct 2020 17:52:11 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A14452CA82E;
- Thu, 15 Oct 2020 17:41:55 +0200 (CEST)
-Received: from SFHDAG1NODE1.st.com (10.75.127.1) by SFHDAG3NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 781E22CD045;
+ Thu, 15 Oct 2020 17:52:11 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.49) by SFHDAG3NODE2.st.com
  (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 15 Oct
- 2020 17:41:55 +0200
-Received: from SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f]) by
- SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f%20]) with mapi id
- 15.00.1473.003; Thu, 15 Oct 2020 17:41:55 +0200
-From: Hugues FRUCHET <hugues.fruchet@st.com>
-To: Sakari Ailus <sakari.ailus@iki.fi>
-Thread-Topic: [PATCH] media: stm32-dcmi: add support of BT656 bus
-Thread-Index: AQHWoUBkV9IGF/l+kUSwjdCwug2yKamYr2IA
-Date: Thu, 15 Oct 2020 15:41:55 +0000
-Message-ID: <1e1eb9d1-75af-c560-7d06-14d25bb52b3f@st.com>
-References: <1602087290-18020-1-git-send-email-hugues.fruchet@st.com>
- <20201013090704.GL6413@valkosipuli.retiisi.org.uk>
-In-Reply-To: <20201013090704.GL6413@valkosipuli.retiisi.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ 2020 17:52:10 +0200
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Marek Vasut <marex@denx.de>, Yann
+ GAUTIER <yann.gautier@st.com>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>
+References: <20201009210820.243659-1-marex@denx.de>
+ <f842dd08-77d0-fd5b-63fd-26762a54be5e@st.com>
+ <a28a3842-0fcf-458e-ef26-aeffed035b32@pengutronix.de>
+ <a1f1138e-444d-5e3b-4e1a-614a3fc1981e@denx.de>
+ <33b2ff3f-3809-46db-a989-c7517d6e8369@pengutronix.de>
+ <11b92f1e-fda0-e98a-8db7-f53004f2404d@denx.de>
+ <e95247bd-7b1d-b44c-4a9e-c9951f37e6cf@pengutronix.de>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <0f815500-9ff3-da51-42b2-7a262d57f510@st.com>
+Date: Thu, 15 Oct 2020 17:51:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.48]
-Content-ID: <126D0E0F6D08C44292F7D889E518AF9A@st.com>
 MIME-Version: 1.0
+In-Reply-To: <e95247bd-7b1d-b44c-4a9e-c9951f37e6cf@pengutronix.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
  definitions=2020-10-15_09:2020-10-14,
  2020-10-15 signatures=0
-Cc: Yannick FERTRE <yannick.fertre@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, Alain VOLMAT <alain.volmat@st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
+Cc: hardware@linux-automation.com, Patrick DELAUNAY <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: add support of BT656
-	bus
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Consistently enable
+ internal pull-ups for SD bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,131 +81,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sakari,
+Hi
 
-Thanks for reviewing,
-
-On 10/13/20 11:07 AM, Sakari Ailus wrote:
-> Hi Hugues,
+On 10/15/20 3:47 PM, Ahmad Fatoum wrote:
+> Hello,
 > 
-> On Wed, Oct 07, 2020 at 06:14:50PM +0200, Hugues Fruchet wrote:
->> Add support of BT656 embedded synchronization bus.
->> This mode allows to save hardware synchro lines hsync & vsync
->> by replacing them with synchro codes embedded in data stream.
->> This bus type is only compatible with 8 bits width data bus.
->> Due to reserved values 0x00 & 0xff used for synchro codes,
->> valid data only vary from 0x1 to 0xfe, this is up to sensor
->> to clip accordingly pixel data. As a consequence of this
->> clipping, JPEG is not supported when using this bus type.
->> DCMI crop feature is also not available with this bus type.
-> 
-> You can have more than 62 characters per line. In fact, 75 is the
-> recommended maximum.
-> 
-> You should also amend the bindings to cover BT.656 mode. Also bus-type
-> should probably be made mandatory, too.
-Will do both.
-
-> 
+> On 10/15/20 3:40 PM, Marek Vasut wrote:
+>>>> Currently the
+>>>> stm32mp15-pinmux.dtsi is not consistent in that aspect. I am not arguing
+>>>> about any one single board, but about the dtsi, I suspect by default the
+>>>> pull ups should be enabled, and possibly on board-DT-level they should
+>>>> be disabled if not needed instead ?
+>>>
+>>> I think this is a good idea. But existing boards should be fixed up so that
+>>> their old behavior is maintained.
 >>
->> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
->> ---
->>   drivers/media/platform/stm32/stm32-dcmi.c | 37 +++++++++++++++++++++++++++++--
->>   1 file changed, 35 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
->> index fd1c41c..d7d7cdb 100644
->> --- a/drivers/media/platform/stm32/stm32-dcmi.c
->> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
->> @@ -157,6 +157,7 @@ struct stm32_dcmi {
->>   	struct vb2_queue		queue;
->>   
->>   	struct v4l2_fwnode_bus_parallel	bus;
->> +	enum v4l2_mbus_type		bus_type;
->>   	struct completion		complete;
->>   	struct clk			*mclk;
->>   	enum state			state;
->> @@ -777,6 +778,23 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
->>   	if (dcmi->bus.flags & V4L2_MBUS_PCLK_SAMPLE_RISING)
->>   		val |= CR_PCKPOL;
->>   
->> +	/*
->> +	 * BT656 embedded synchronisation bus mode.
->> +	 *
->> +	 * Default SAV/EAV mode is supported here with default codes
->> +	 * SAV=0xff000080 & EAV=0xff00009d.
->> +	 * With DCMI this means LSC=SAV=0x80 & LEC=EAV=0x9d.
->> +	 */
->> +	if (dcmi->bus_type == V4L2_MBUS_BT656) {
->> +		val |= CR_ESS;
->> +
->> +		/* Unmask all codes */
->> +		reg_write(dcmi->regs, DCMI_ESUR, 0xffffffff);/* FEC:LEC:LSC:FSC */
->> +
->> +		/* Trig on LSC=0x80 & LEC=0x9d codes, ignore FSC and FEC */
->> +		reg_write(dcmi->regs, DCMI_ESCR, 0xff9d80ff);/* FEC:LEC:LSC:FSC */
->> +	}
->> +
->>   	reg_write(dcmi->regs, DCMI_CR, val);
->>   
->>   	/* Set crop */
->> @@ -1067,8 +1085,9 @@ static int dcmi_set_fmt(struct stm32_dcmi *dcmi, struct v4l2_format *f)
->>   	if (ret)
->>   		return ret;
->>   
->> -	/* Disable crop if JPEG is requested */
->> -	if (pix->pixelformat == V4L2_PIX_FMT_JPEG)
->> +	/* Disable crop if JPEG is requested or BT656 bus is selected */
->> +	if (pix->pixelformat == V4L2_PIX_FMT_JPEG &&
->> +	    dcmi->bus_type != V4L2_MBUS_BT656)
->>   		dcmi->do_crop = false;
->>   
->>   	/* pix to mbus format */
->> @@ -1592,6 +1611,11 @@ static int dcmi_formats_init(struct stm32_dcmi *dcmi)
->>   			if (dcmi_formats[i].mbus_code != mbus_code.code)
->>   				continue;
->>   
->> +			/* Exclude JPEG if BT656 bus is selected */
->> +			if (dcmi_formats[i].fourcc == V4L2_PIX_FMT_JPEG &&
->> +			    dcmi->bus_type == V4L2_MBUS_BT656)
->> +				continue;
->> +
->>   			/* Code supported, have we got this fourcc yet? */
->>   			for (j = 0; j < num_fmts; j++)
->>   				if (sd_fmts[j]->fourcc ==
->> @@ -1873,9 +1897,18 @@ static int dcmi_probe(struct platform_device *pdev)
->>   		dev_err(&pdev->dev, "CSI bus not supported\n");
->>   		return -ENODEV;
->>   	}
->> +
->> +	if (ep.bus_type == V4L2_MBUS_BT656 &&
->> +	    ep.bus.parallel.bus_width != 8) {
->> +		dev_err(&pdev->dev, "BT656 bus conflicts with %d bits bus width (8 bits required)\n",
->> +			ep.bus.parallel.bus_width);
+>> So, which boards do we fix. The automation-1 board and the ST ones ?
 > 
-> bus_width is unsigned here.
-I will fix it.
+> fixed up, not fixed. I don't know if ST is fine with the changes, for
+> the MC-1, please do:
+> 
+> -------------- 8< -------------
+> diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> index 5700e6b700d3..7134466256b3 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> @@ -208,6 +208,14 @@ pins2 {
+>          };
+>   };
+> 
+> +&sdmmc2_d47_pins_b {
+> +       /* board already has external 47K pull-ups */
+> +
+> +       pins {
+> +               /delete-property/ bias-pull-up;
+> +               bias-disable;
+> +       };
+> +};
+> +
 
-> 
->> +		return -ENODEV;
->> +	}
->> +
->>   	dcmi->bus.flags = ep.bus.parallel.flags;
->>   	dcmi->bus.bus_width = ep.bus.parallel.bus_width;
->>   	dcmi->bus.data_shift = ep.bus.parallel.data_shift;
->> +	dcmi->bus_type = ep.bus_type;
->>   
->>   	irq = platform_get_irq(pdev, 0);
->>   	if (irq <= 0)
-> 
+This proposition remind me an old discussion we got with Marek about 
+"where pin definitions has to be done ?". My approach is to not define 
+pins groups inside board dts file mainly because pinmux is a SoC 
+configuration and a board only use one of those configurations blablabla 
+:). But counter-argument is that pull-up/pull-down, Open-drain push-pull 
+settings are "driven" by the board configuration and I agree.
 
-BR,
-Hugues.
+We are exactly in this case here but before to rework all STM32 DT to 
+split pin config I propose to keep what we have today, and to enable 
+bias-pull-up, (or other settings) in boards that need it.
+
+Marek, what's your feeling ?
+
+cheers
+alex
+
+
+
+>   &sdmmc2 {
+>          pinctrl-names = "default", "opendrain", "sleep";
+>          pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_b>;
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
