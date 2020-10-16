@@ -2,64 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A851A290754
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Oct 2020 16:41:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 681A32909A6
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Oct 2020 18:26:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 689E3C424BD;
-	Fri, 16 Oct 2020 14:41:11 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1335DC3FADE;
+	Fri, 16 Oct 2020 16:26:01 +0000 (UTC)
+Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71C89C3FADE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DE80C35E2B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Oct 2020 14:41:09 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09GEaXdi005795; Fri, 16 Oct 2020 16:40:49 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=uWA1bx9jQvPuk7yy9+gJUevbMdehUxJMVfuVa4kreuk=;
- b=UYFokRQWIGyuNmK0Cb30A2WeeWENUjbFi5cuNymnZHFBVcZLSkU2JR1leQWqyTyf+QqY
- j5qUGIw+GzOxlN/ZNMCAum7vCRxAhBhM6OHJ7HMXqLJKWBUv3ImGIUstJ1Sbqsj1gLec
- JuNSLbHE7z9ppDuzqPResJ6gbTubFTZfvKVZz6P+4mNIlkhOcVn39Tbnq3f1bEkv3MO7
- 2s+4CTA5dnW5l4eZfKgCH6wPkVYXHiePbJr4/gq2HQz3yuyBwEB4IQjQp17m78GCZmqB
- LfdKpqThGtzQ3RqUlkXRN0ah2wiZxyIvY8XQABzjjU31EQWKeT8p39WBhBF5cAPT2hkg tw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34353wx43u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Oct 2020 16:40:49 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F1A1F10002A;
- Fri, 16 Oct 2020 16:40:48 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E45652AF739;
- Fri, 16 Oct 2020 16:40:48 +0200 (CEST)
-Received: from localhost (10.75.127.47) by SFHDAG1NODE3.st.com (10.75.127.3)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 16 Oct 2020 16:40:48
- +0200
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <tglx@linutronix.de>, <jason@lakedaemon.net>, <maz@kernel.org>,
- <alexandre.torgue@st.com>
-Date: Fri, 16 Oct 2020 16:40:19 +0200
-Message-ID: <1602859219-15684-4-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1602859219-15684-1-git-send-email-fabrice.gasnier@st.com>
-References: <1602859219-15684-1-git-send-email-fabrice.gasnier@st.com>
+ Fri, 16 Oct 2020 16:25:59 +0000 (UTC)
+Received: from ravnborg.org (unknown [188.228.123.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk4.altibox.net (Postfix) with ESMTPS id 4DB4E80608;
+ Fri, 16 Oct 2020 18:25:55 +0200 (CEST)
+Date: Fri, 16 Oct 2020 18:25:53 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <20201016162553.GA1333109@ravnborg.org>
+References: <20201002230823.242147-1-marex@denx.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG1NODE3.st.com
- (10.75.127.3)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-10-16_07:2020-10-16,
- 2020-10-16 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, fabrice.gasnier@st.com,
+Content-Disposition: inline
+In-Reply-To: <20201002230823.242147-1-marex@denx.de>
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=fu7ymmwf c=1 sm=1 tr=0
+ a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
+ a=kj9zAlcOel0A:10 a=8b9GpE9nAAAA:8 a=hD80L64hAAAA:8 a=yC-0_ovQAAAA:8
+ a=P1BnusSwAAAA:8 a=pGLkceISAAAA:8 a=7gkXJVJtAAAA:8 a=JfrnYn6hAAAA:8
+ a=phlkwaE_AAAA:8 a=e5mUnYsNAAAA:8 a=6CZSjis6Rq6xaZBMZBsA:9
+ a=lKBsp2zljbJEqnF_:21 a=AoBWwtdSRskkJ9Z_:21 a=CjuIK1q_8ugA:10
+ a=T3LWEMljR5ZiDmsYVIUa:22 a=QsnFDINu91a9xkgZirup:22
+ a=D0XLA9XvdZm18NrgonBM:22 a=E9Po1WZjFZOl8hwRPBS3:22
+ a=1CNFftbPRP8L7MoqJWF3:22 a=uKTQOUHymn4LaG7oTSIC:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+Cc: Benjamin Gaignard <benjamin.gaignard@st.com>,
+ dri-devel@lists.freedesktop.org, Yannick Fertre <yannick.fertre@st.com>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Vincent Abriou <vincent.abriou@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: Add LP timer
-	wakeup-source on stm32mp151
+Subject: Re: [Linux-stm32] [RFC][PATCH] drm/bridge: lvds-codec: Add support
+ for pixel data sampling edge select
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,61 +62,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-LP timer can be used to wakeup from stop mode on stm32mp151.
-Add wakeup-source properties to all LP timer instances.
+Hi Marek.
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
- arch/arm/boot/dts/stm32mp151.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
+On Sat, Oct 03, 2020 at 01:08:23AM +0200, Marek Vasut wrote:
+> The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
+> select input pixel data sampling edge. Add DT property "pixelclk-active",
+> same as the one used by display timings, and configure bus flags based on
+> this DT property.
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 10d5e2b..0bf5fc2 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -358,6 +358,7 @@
- 			interrupts-extended = <&exti 47 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc LPTIM1_K>;
- 			clock-names = "mux";
-+			wakeup-source;
- 			status = "disabled";
- 
- 			pwm {
-@@ -1153,6 +1154,7 @@
- 			interrupts-extended = <&exti 48 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc LPTIM2_K>;
- 			clock-names = "mux";
-+			wakeup-source;
- 			status = "disabled";
- 
- 			pwm {
-@@ -1181,6 +1183,7 @@
- 			interrupts-extended = <&exti 50 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc LPTIM3_K>;
- 			clock-names = "mux";
-+			wakeup-source;
- 			status = "disabled";
- 
- 			pwm {
-@@ -1202,6 +1205,7 @@
- 			interrupts-extended = <&exti 52 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc LPTIM4_K>;
- 			clock-names = "mux";
-+			wakeup-source;
- 			status = "disabled";
- 
- 			pwm {
-@@ -1217,6 +1221,7 @@
- 			interrupts-extended = <&exti 53 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc LPTIM5_K>;
- 			clock-names = "mux";
-+			wakeup-source;
- 			status = "disabled";
- 
- 			pwm {
--- 
-2.7.4
+Why is it that this information cannot come from the panel driver?
+The property tell when data are sampled and the FIN3385 Parallel-to-LVDS
+is the one that transmit the data - not then one that samples the data.
+Correct?
 
+	Sam
+
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Andrzej Hajda <a.hajda@samsung.com>
+> Cc: Antonio Borneo <antonio.borneo@st.com>
+> Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
+> Cc: Biju Das <biju.das.jz@bp.renesas.com>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Philippe Cornu <philippe.cornu@st.com>
+> Cc: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Vincent Abriou <vincent.abriou@st.com>
+> Cc: Yannick Fertre <yannick.fertre@st.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: dri-devel@lists.freedesktop.org
+> ---
+>  drivers/gpu/drm/bridge/lvds-codec.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+> index f52ccffc1bd1..bc941d4fb5b9 100644
+> --- a/drivers/gpu/drm/bridge/lvds-codec.c
+> +++ b/drivers/gpu/drm/bridge/lvds-codec.c
+> @@ -19,6 +19,7 @@ struct lvds_codec {
+>  	struct device *dev;
+>  	struct drm_bridge bridge;
+>  	struct drm_bridge *panel_bridge;
+> +	struct drm_bridge_timings timings;
+>  	struct regulator *vcc;
+>  	struct gpio_desc *powerdown_gpio;
+>  	u32 connector_type;
+> @@ -80,6 +81,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+>  	struct device_node *panel_node;
+>  	struct drm_panel *panel;
+>  	struct lvds_codec *lvds_codec;
+> +	u32 val;
+>  	int ret;
+>  
+>  	lvds_codec = devm_kzalloc(dev, sizeof(*lvds_codec), GFP_KERNEL);
+> @@ -124,6 +126,12 @@ static int lvds_codec_probe(struct platform_device *pdev)
+>  	if (IS_ERR(lvds_codec->panel_bridge))
+>  		return PTR_ERR(lvds_codec->panel_bridge);
+>  
+> +	if (!of_property_read_u32(dev->of_node, "pixelclk-active", &val)) {
+> +		lvds_codec->timings.input_bus_flags = val ?
+> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE :
+> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE;
+> +	}
+> +
+>  	/*
+>  	 * The panel_bridge bridge is attached to the panel's of_node,
+>  	 * but we need a bridge attached to our of_node for our user
+> @@ -131,6 +139,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+>  	 */
+>  	lvds_codec->bridge.of_node = dev->of_node;
+>  	lvds_codec->bridge.funcs = &funcs;
+> +	lvds_codec->bridge.timings = &lvds_codec->timings;
+>  	drm_bridge_add(&lvds_codec->bridge);
+>  
+>  	platform_set_drvdata(pdev, lvds_codec);
+> -- 
+> 2.28.0
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
