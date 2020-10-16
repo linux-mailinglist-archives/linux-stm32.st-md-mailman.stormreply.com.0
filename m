@@ -2,41 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 681A32909A6
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Oct 2020 18:26:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51E8C290A67
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Oct 2020 19:16:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1335DC3FADE;
-	Fri, 16 Oct 2020 16:26:01 +0000 (UTC)
-Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0673BC3FADE;
+	Fri, 16 Oct 2020 17:16:29 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DE80C35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 912A6C32EA3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Oct 2020 16:25:59 +0000 (UTC)
-Received: from ravnborg.org (unknown [188.228.123.71])
+ Fri, 16 Oct 2020 17:16:27 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4CCXqt1MC1z1qs39;
+ Fri, 16 Oct 2020 19:16:26 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4CCXqs6tWNz1qvgZ;
+ Fri, 16 Oct 2020 19:16:25 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id rO_PnB00SBqX; Fri, 16 Oct 2020 19:16:23 +0200 (CEST)
+X-Auth-Info: u48+n1/+Hd+tGuTlZUlVRaBSedtZemDDrMYmC6ozLN0=
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by asavdk4.altibox.net (Postfix) with ESMTPS id 4DB4E80608;
- Fri, 16 Oct 2020 18:25:55 +0200 (CEST)
-Date: Fri, 16 Oct 2020 18:25:53 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <20201016162553.GA1333109@ravnborg.org>
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 16 Oct 2020 19:16:23 +0200 (CEST)
+To: Sam Ravnborg <sam@ravnborg.org>
 References: <20201002230823.242147-1-marex@denx.de>
+ <20201016162553.GA1333109@ravnborg.org>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <42115980-41ed-b73c-9c46-16af2b3a51a7@denx.de>
+Date: Fri, 16 Oct 2020 19:16:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201002230823.242147-1-marex@denx.de>
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=fu7ymmwf c=1 sm=1 tr=0
- a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
- a=kj9zAlcOel0A:10 a=8b9GpE9nAAAA:8 a=hD80L64hAAAA:8 a=yC-0_ovQAAAA:8
- a=P1BnusSwAAAA:8 a=pGLkceISAAAA:8 a=7gkXJVJtAAAA:8 a=JfrnYn6hAAAA:8
- a=phlkwaE_AAAA:8 a=e5mUnYsNAAAA:8 a=6CZSjis6Rq6xaZBMZBsA:9
- a=lKBsp2zljbJEqnF_:21 a=AoBWwtdSRskkJ9Z_:21 a=CjuIK1q_8ugA:10
- a=T3LWEMljR5ZiDmsYVIUa:22 a=QsnFDINu91a9xkgZirup:22
- a=D0XLA9XvdZm18NrgonBM:22 a=E9Po1WZjFZOl8hwRPBS3:22
- a=1CNFftbPRP8L7MoqJWF3:22 a=uKTQOUHymn4LaG7oTSIC:22
- a=Vxmtnl_E_bksehYqCbjh:22
+In-Reply-To: <20201016162553.GA1333109@ravnborg.org>
+Content-Language: en-US
 Cc: Benjamin Gaignard <benjamin.gaignard@st.com>,
  dri-devel@lists.freedesktop.org, Yannick Fertre <yannick.fertre@st.com>,
  Andrzej Hajda <a.hajda@samsung.com>,
@@ -62,89 +66,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek.
+On 10/16/20 6:25 PM, Sam Ravnborg wrote:
+> Hi Marek.
 
-On Sat, Oct 03, 2020 at 01:08:23AM +0200, Marek Vasut wrote:
-> The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
-> select input pixel data sampling edge. Add DT property "pixelclk-active",
-> same as the one used by display timings, and configure bus flags based on
-> this DT property.
+Hello Sam,
 
-Why is it that this information cannot come from the panel driver?
-The property tell when data are sampled and the FIN3385 Parallel-to-LVDS
-is the one that transmit the data - not then one that samples the data.
-Correct?
-
-	Sam
-
+> On Sat, Oct 03, 2020 at 01:08:23AM +0200, Marek Vasut wrote:
+>> The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
+>> select input pixel data sampling edge. Add DT property "pixelclk-active",
+>> same as the one used by display timings, and configure bus flags based on
+>> this DT property.
 > 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Andrzej Hajda <a.hajda@samsung.com>
-> Cc: Antonio Borneo <antonio.borneo@st.com>
-> Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
-> Cc: Biju Das <biju.das.jz@bp.renesas.com>
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Philippe Cornu <philippe.cornu@st.com>
-> Cc: Sam Ravnborg <sam@ravnborg.org>
-> Cc: Vincent Abriou <vincent.abriou@st.com>
-> Cc: Yannick Fertre <yannick.fertre@st.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: dri-devel@lists.freedesktop.org
-> ---
->  drivers/gpu/drm/bridge/lvds-codec.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
-> index f52ccffc1bd1..bc941d4fb5b9 100644
-> --- a/drivers/gpu/drm/bridge/lvds-codec.c
-> +++ b/drivers/gpu/drm/bridge/lvds-codec.c
-> @@ -19,6 +19,7 @@ struct lvds_codec {
->  	struct device *dev;
->  	struct drm_bridge bridge;
->  	struct drm_bridge *panel_bridge;
-> +	struct drm_bridge_timings timings;
->  	struct regulator *vcc;
->  	struct gpio_desc *powerdown_gpio;
->  	u32 connector_type;
-> @@ -80,6 +81,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
->  	struct device_node *panel_node;
->  	struct drm_panel *panel;
->  	struct lvds_codec *lvds_codec;
-> +	u32 val;
->  	int ret;
->  
->  	lvds_codec = devm_kzalloc(dev, sizeof(*lvds_codec), GFP_KERNEL);
-> @@ -124,6 +126,12 @@ static int lvds_codec_probe(struct platform_device *pdev)
->  	if (IS_ERR(lvds_codec->panel_bridge))
->  		return PTR_ERR(lvds_codec->panel_bridge);
->  
-> +	if (!of_property_read_u32(dev->of_node, "pixelclk-active", &val)) {
-> +		lvds_codec->timings.input_bus_flags = val ?
-> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE :
-> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE;
-> +	}
-> +
->  	/*
->  	 * The panel_bridge bridge is attached to the panel's of_node,
->  	 * but we need a bridge attached to our of_node for our user
-> @@ -131,6 +139,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
->  	 */
->  	lvds_codec->bridge.of_node = dev->of_node;
->  	lvds_codec->bridge.funcs = &funcs;
-> +	lvds_codec->bridge.timings = &lvds_codec->timings;
->  	drm_bridge_add(&lvds_codec->bridge);
->  
->  	platform_set_drvdata(pdev, lvds_codec);
-> -- 
-> 2.28.0
-> 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> Why is it that this information cannot come from the panel driver?
+
+Because the sampling edge of the panel can be different (is there even
+such an edge for LVDS panel?). What we care about specifying here is the
+edge on which the FIN3385 samples the data on the Parallel bus, and that
+is a property of the FIN3385, because that is configured via a dedicated
+pin on the FIN3385.
+
+> The property tell when data are sampled and the FIN3385 Parallel-to-LVDS
+> is the one that transmit the data - not then one that samples the data.
+> Correct?
+
+Not correct I'm afraid, see above.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
