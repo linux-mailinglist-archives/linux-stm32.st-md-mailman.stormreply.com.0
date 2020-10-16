@@ -2,63 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 054E7290032
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Oct 2020 10:52:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A47592903B4
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Oct 2020 13:02:42 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA5CCC3FADE;
-	Fri, 16 Oct 2020 08:52:43 +0000 (UTC)
-Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
- [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1079EC32EA3
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66965C3FADE;
+	Fri, 16 Oct 2020 11:02:42 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E016C32EA3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Oct 2020 08:52:42 +0000 (UTC)
-Received: from localhost (unknown [127.0.0.1])
- by mail.baikalelectronics.ru (Postfix) with ESMTP id 8039D8030808;
- Fri, 16 Oct 2020 08:52:41 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at baikalelectronics.ru
-Received: from mail.baikalelectronics.ru ([127.0.0.1])
- by localhost (mail.baikalelectronics.ru [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id PNU5UTBKGSXE; Fri, 16 Oct 2020 11:52:40 +0300 (MSK)
-Date: Fri, 16 Oct 2020 11:52:35 +0300
-From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-To: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <20201016085235.znzzbqxac4yvh3cz@mobilestation>
-References: <20201014101402.18271-1-Sergey.Semin@baikalelectronics.ru>
- <20201014101402.18271-19-Sergey.Semin@baikalelectronics.ru>
- <8a7af322-227b-9923-8fb6-f284af582b40@st.com>
+ Fri, 16 Oct 2020 11:02:41 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4CCNXc3nM1z1sNds;
+ Fri, 16 Oct 2020 13:02:40 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4CCNXc2pJ4z1qtZK;
+ Fri, 16 Oct 2020 13:02:40 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id q7nM7EvCOHoP; Fri, 16 Oct 2020 13:02:38 +0200 (CEST)
+X-Auth-Info: QDhZ3xTKUHbLJbyPsbqW8SkHXNXF34pTN1a82TaLl1M=
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 16 Oct 2020 13:02:38 +0200 (CEST)
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Yann GAUTIER <yann.gautier@st.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+References: <20201009210820.243659-1-marex@denx.de>
+ <f842dd08-77d0-fd5b-63fd-26762a54be5e@st.com>
+ <a28a3842-0fcf-458e-ef26-aeffed035b32@pengutronix.de>
+ <a1f1138e-444d-5e3b-4e1a-614a3fc1981e@denx.de>
+ <33b2ff3f-3809-46db-a989-c7517d6e8369@pengutronix.de>
+ <11b92f1e-fda0-e98a-8db7-f53004f2404d@denx.de>
+ <e95247bd-7b1d-b44c-4a9e-c9951f37e6cf@pengutronix.de>
+ <0f815500-9ff3-da51-42b2-7a262d57f510@st.com>
+ <3c77bddb-362e-37e4-eef0-85239df98906@pengutronix.de>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <a6777c9f-69ed-0605-5037-43352c4d7e37@denx.de>
+Date: Fri, 16 Oct 2020 13:02:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8a7af322-227b-9923-8fb6-f284af582b40@st.com>
-X-ClientProxiedBy: MAIL.baikal.int (192.168.51.25) To mail (192.168.51.25)
-Cc: Neil Armstrong <narmstrong@baylibre.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Paul Cercueil <paul@crapouillou.net>, Paul Mackerras <paulus@samba.org>,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
- linux-stm32@st-md-mailman.stormreply.com,
- Michael Ellerman <mpe@ellerman.id.au>,
- =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
- Alexey Brodkin <abrodkin@synopsys.com>, Wei Xu <xuwei5@hisilicon.com>,
- Andy Gross <agross@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
- Kevin Hilman <khilman@baylibre.com>, linux-snps-arc@lists.infradead.org,
- devicetree@vger.kernel.org, Mathias Nyman <mathias.nyman@intel.com>,
- Hauke Mehrtens <hauke@hauke-m.de>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- linux-arm-kernel@lists.infradead.org, Roger Quadros <rogerq@ti.com>,
- Felipe Balbi <balbi@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>, linux-kernel@vger.kernel.org,
- Manu Gautam <mgautam@codeaurora.org>,
+In-Reply-To: <3c77bddb-362e-37e4-eef0-85239df98906@pengutronix.de>
+Content-Language: en-US
+Cc: hardware@linux-automation.com, Patrick DELAUNAY <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vineet Gupta <vgupta@synopsys.com>, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [Linux-stm32] [PATCH 18/20] arch: dts: Fix EHCI/OHCI DT nodes
-	name
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Consistently enable
+ internal pull-ups for SD bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,65 +68,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Alexandre,
-
-On Fri, Oct 16, 2020 at 09:08:23AM +0200, Alexandre Torgue wrote:
-> Hi Serge,
-> 
-> On 10/14/20 12:14 PM, Serge Semin wrote:
-> > In accordance with the Generic EHCI/OHCI bindings the corresponding node
-> > name is suppose to comply with the Generic USB HCD DT schema, which
-> > requires the USB nodes to have the name acceptable by the regexp:
-> > "^usb(@.*)?" . Let's fix the DTS files, which have the nodes defined with
-> > incompatible names.
-> > 
-> > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-> > 
-> > ---
-> > 
-> > Please, test the patch out to make sure it doesn't brake the dependent DTS
-> > files. I did only a manual grepping of the possible nodes dependencies.
-> > ---
-> >   arch/arc/boot/dts/axs10x_mb.dtsi               | 4 ++--
-> >   arch/arc/boot/dts/hsdk.dts                     | 4 ++--
-> >   arch/arc/boot/dts/vdk_axs10x_mb.dtsi           | 2 +-
-> >   arch/arm/boot/dts/bcm5301x.dtsi                | 4 ++--
-> >   arch/arm/boot/dts/bcm53573.dtsi                | 4 ++--
-> >   arch/arm/boot/dts/hisi-x5hd2.dtsi              | 4 ++--
-> >   arch/arm/boot/dts/lpc18xx.dtsi                 | 4 ++--
-> >   arch/arm/boot/dts/stm32mp151.dtsi              | 4 ++--
-> >   arch/arm64/boot/dts/hisilicon/hi3798cv200.dtsi | 4 ++--
-> >   arch/arm64/boot/dts/hisilicon/hip06.dtsi       | 4 ++--
-> >   arch/arm64/boot/dts/hisilicon/hip07.dtsi       | 4 ++--
-> >   arch/mips/boot/dts/ingenic/jz4740.dtsi         | 2 +-
-> >   arch/mips/boot/dts/ingenic/jz4770.dtsi         | 2 +-
-> >   arch/mips/boot/dts/mti/sead3.dts               | 2 +-
-> >   arch/mips/boot/dts/ralink/mt7628a.dtsi         | 2 +-
-> >   arch/powerpc/boot/dts/akebono.dts              | 6 +++---
-> >   16 files changed, 28 insertions(+), 28 deletions(-)
-> > 
-> 
-
-> I surely missed something, but we have here in the same patch modifications
-> for different architectures and different vendors.
-> 
-> Do you plan to split this patch after getting some Acked-by / Tested-by ?
-
-Yeah, I'll split this patch and two next ones up in v3.
-
--Sergey
-
-> 
-> regards
-> Alex
-> 
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTAvMTYvMjAgODoxOSBBTSwgQWhtYWQgRmF0b3VtIHdyb3RlOgo+IEhlbGxvIEFsZXgsCgpI
+aSwKCj4gT24gMTAvMTUvMjAgNTo1MSBQTSwgQWxleGFuZHJlIFRvcmd1ZSB3cm90ZToKPj4gT24g
+MTAvMTUvMjAgMzo0NyBQTSwgQWhtYWQgRmF0b3VtIHdyb3RlOgo+Pj4gZml4ZWQgdXAsIG5vdCBm
+aXhlZC4gSSBkb24ndCBrbm93IGlmIFNUIGlzIGZpbmUgd2l0aCB0aGUgY2hhbmdlcywgZm9yCj4+
+PiB0aGUgTUMtMSwgcGxlYXNlIGRvOgo+Pj4KPj4+IC0tLS0tLS0tLS0tLS0tIDg8IC0tLS0tLS0t
+LS0tLS0KPj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy1seGEt
+bWMxLmR0cyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdjLWx4YS1tYzEuZHRzCj4+PiBp
+bmRleCA1NzAwZTZiNzAwZDMuLjcxMzQ0NjYyNTZiMyAxMDA2NDQKPj4+IC0tLSBhL2FyY2gvYXJt
+L2Jvb3QvZHRzL3N0bTMybXAxNTdjLWx4YS1tYzEuZHRzCj4+PiArKysgYi9hcmNoL2FybS9ib290
+L2R0cy9zdG0zMm1wMTU3Yy1seGEtbWMxLmR0cwo+Pj4gQEAgLTIwOCw2ICsyMDgsMTQgQEAgcGlu
+czIgewo+Pj4gwqDCoMKgwqDCoMKgwqDCoCB9Owo+Pj4gwqAgfTsKPj4+Cj4+PiArJnNkbW1jMl9k
+NDdfcGluc19iIHsKPj4+ICvCoMKgwqDCoMKgwqAgLyogYm9hcmQgYWxyZWFkeSBoYXMgZXh0ZXJu
+YWwgNDdLIHB1bGwtdXBzICovCj4+PiArCj4+PiArwqDCoMKgwqDCoMKgIHBpbnMgewo+Pj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgL2RlbGV0ZS1wcm9wZXJ0eS8gYmlhcy1wdWxsLXVw
+Owo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYmlhcy1kaXNhYmxlOwo+Pj4gK8Kg
+wqDCoMKgwqDCoCB9Owo+Pj4gK307Cj4+PiArCj4+Cj4+IFRoaXMgcHJvcG9zaXRpb24gcmVtaW5k
+IG1lIGFuIG9sZCBkaXNjdXNzaW9uIHdlIGdvdCB3aXRoIE1hcmVrIGFib3V0ICJ3aGVyZSBwaW4g
+ZGVmaW5pdGlvbnMgaGFzIHRvIGJlIGRvbmUgPyIuIE15IGFwcHJvYWNoIGlzIHRvIG5vdCBkZWZp
+bmUgcGlucyBncm91cHMgaW5zaWRlIGJvYXJkIGR0cyBmaWxlIG1haW5seSBiZWNhdXNlIHBpbm11
+eCBpcyBhIFNvQyBjb25maWd1cmF0aW9uIGFuZCBhIGJvYXJkIG9ubHkgdXNlIG9uZSBvZiB0aG9z
+ZSBjb25maWd1cmF0aW9ucyBibGFibGFibGEgOikuIEJ1dCBjb3VudGVyLWFyZ3VtZW50IGlzIHRo
+YXQgcHVsbC11cC9wdWxsLWRvd24sIE9wZW4tZHJhaW4gcHVzaC1wdWxsIHNldHRpbmdzIGFyZSAi
+ZHJpdmVuIiBieSB0aGUgYm9hcmQgY29uZmlndXJhdGlvbiBhbmQgSSBhZ3JlZS4KPiAKPiBXZSBj
+YW4gc3BsaXQgcGlubXV4IGF3YXkgZnJvbSBwaW5jb25mIGFuZCBzdGlsbCBoYXZlIGEgaGVhZGVy
+IHRvIGJlIGluY2x1ZGVkIGV2ZXJ5d2hlcmUKPiBmb3IgcGluIG11eGluZyBsaWtlIHRoZSBpLk1Y
+IGlzIGRvaW5nLCBlLmcuCj4gCj4gLyogc3RtMzJtcDE1LXBpbm11eC5oICovCj4gI2RlZmluZSBT
+VE0zMk1QMTVfUEM4X19TRE1NQzFfRDAJPFNUTTMyX1BJTk1VWCgnQycsICA4LCBBRjEyKT4KPiAj
+ZGVmaW5lIFNUTTMyTVAxNV9QQzlfX1NETU1DMV9EMQk8U1RNMzJfUElOTVVYKCdDJywgIDksIEFG
+MTIpPgo+ICNkZWZpbmUgU1RNMzJNUDE1X1BDMTBfX1NETU1DMV9EMgk8U1RNMzJfUElOTVVYKCdD
+JywgMTAsIEFGMTIpPgo+ICNkZWZpbmUgU1RNMzJNUDE1X1BDMTFfX1NETU1DMV9EMwk8U1RNMzJf
+UElOTVVYKCdDJywgMTEsIEFGMTIpPgo+IAo+IFRoZSBzL3N0bTMybXAxNS1waW5jdHJsLmR0c2kv
+c3RtMzJtcDE1LXBpbmNvbmYuZHRzaS8gY2FuIGJlIG1hZGUgdG8gdXNlIGl0IGFuZCBkZWZpbmUK
+PiB0aGUgcGluIGNvbmZpZ3VyYXRpb25zIHRoYXQgYXJlIGluIHVzZSBvbiB0aGUgU1QgYm9hcmRz
+IGFuZCB0aGF0IG1vc3Qgb2YgdGhlIGJvYXJkcyB3aWxsCj4gcHJvYmFibHkgY29weSBvZmYuCj4g
+Cj4gQm9hcmRzIERUUyBjYW4gdGhlbiBwaWNrIGFuZCBjaG9vc2Ugd2hpY2ggcGluY3RybCBncm91
+cHMgdG8gdGFrZSBmcm9tIHRoZSBTVCBvbmUuCj4gSWYgdGhleSBoYXZlIGN1c3RvbSBuZWVkcyB0
+aGV5IGp1c3QgZGVmaW5lIHRoZWlyIG93biBncm91cHMgaW5saW5lCj4gKEkga25vdyBJIHJlcGVh
+dCBteXNlbGYsIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LWFybS1rZXJuZWwvMzEwYWEz
+YTMtMDljZS00MmVmLWQxZWEtYjY1MzE2M2QxZDcyQHBlbmd1dHJvbml4LmRlLykKClRoZSBkb3du
+c2lkZSBvZiB0aGlzIGlzIHRoYXQgeW91IHdpbGwgZW5kIHVwIHdpdGggYSBsb3Qgb2YgZHVwbGlj
+YXRpb24Kb2YgInBpbiBncm91cHMiIGluIGJvYXJkIGZpbGVzLgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
