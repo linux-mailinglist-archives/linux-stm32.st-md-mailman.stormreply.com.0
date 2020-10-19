@@ -2,83 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB235292E93
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Oct 2020 21:42:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B175C292F56
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Oct 2020 22:25:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EE12C424B8;
-	Mon, 19 Oct 2020 19:42:30 +0000 (UTC)
-Received: from mail-pj1-f66.google.com (mail-pj1-f66.google.com
- [209.85.216.66])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72337C424B8;
+	Mon, 19 Oct 2020 20:25:30 +0000 (UTC)
+Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
+ [209.85.167.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE7DEC3FAE0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24C3CC3FAE0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Oct 2020 19:42:28 +0000 (UTC)
-Received: by mail-pj1-f66.google.com with SMTP id hk7so375107pjb.2
+ Mon, 19 Oct 2020 20:25:27 +0000 (UTC)
+Received: by mail-oi1-f196.google.com with SMTP id j7so1380330oie.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Oct 2020 12:42:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=no6WOfZDuAXhTDfVia9Vunkz4L7BthY0F8m0jo4//vs=;
- b=vqIoQqfPtCUD7ceHGEmbvFqqUZd/9dE0IpLQQ4p4nyONBXQMSFxBG5OzgCaJfT8eu8
- Ez0DMwUntzcU9c2WJzs/WqMvxG3bzlj0mstlcz+E4fW0gt02sZNjrL1HdU6SHVwmCE5R
- WFeHYzJRJuPZspqj8YJ2wlUmUN4Mc8MNrI6kLekCJ8yejCepkvkgEUeb7TbpDze1NnEh
- TP2SjhqdakZDUedR00qYjd62k5W2m7FgfHIpcuS/rhjqMGxVL3Apppn+UDRO/ftdIfoh
- duvoKavmXDacw9mysFV+xdp1Tg4QxCPiDxNSeCeZyO+34Y2S1kYSdX61NJzSKhmGsX5T
- HLpA==
+ Mon, 19 Oct 2020 13:25:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=no6WOfZDuAXhTDfVia9Vunkz4L7BthY0F8m0jo4//vs=;
- b=OinFAEFgeGpfFvfuMOPum8ynU76K1fZz8pQwHSAt9mpvUXu5qmETtYspi8SJldCAL3
- twvGlYyFF8GuFa1QFsYtfvmXJwqeUcfngNePHDAf2tywEMhsqWO923ows0O9LzeMkJZK
- 6I80zD8iSH6H6ty0ToGG5ObOH0GblXHGEF9fzHdtLxcBIUbE+rX3WCEoZDqKZpkmsxU+
- 7dhl/jrGNJl/lhC3HSVqRjgLFsBJg9qWkVk1xgJG5MU6wJvLYAuisrSztIS3/JVxLOz7
- aqyUvRuuWFGYP0/O56nW6isXkWDY44hWtvujBqsh7yELCxfDbdnzp/p39jwybimum2H+
- EHIA==
-X-Gm-Message-State: AOAM5336nSA5ynb2sSvh/bM+1nXfWHKlcycD6Y9XRoShEFoL1NK9WQKc
- siJS25C3gTYzynL6BwqvDw7fU4I9EKUm4Tf6RiC7BQ==
-X-Google-Smtp-Source: ABdhPJxy4K+2uRaBuhFTeTSlHPetqrP1uAAP7dKvm6UBZz10SCa23PJUxb54E5JJmlle9J/y892Qp+TTrKvO4GeNXIk=
-X-Received: by 2002:a17:90a:ee87:: with SMTP id i7mr921476pjz.25.1603136546933; 
- Mon, 19 Oct 2020 12:42:26 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=2eJvh+OiDExYcnw0fjD4IRdxMtw5g7kaSI+P1n3wmsQ=;
+ b=m+RIhj0Zo3ZDo/ewohOlMiePrlzMB5Vr0c9S8dcgJ8wWZyMoiOj7/N+tohUD0ehOFx
+ MtvAllp/oaRU0nXD9NJUt1651ewkniPtZEhdb3YhHF6Th7BBuLQ2pceAV+navynvM2hD
+ 3Z2gDfzMrtotqJylEhNQ82HjPu7dpKSFDZ8rIyPHC5ffwADImOt9WsCMv1Dff2XKUDNm
+ IA+7MwLnj0bAgrQnB3VjiVo/rM1+N7K3SOXNyjmmVpovtfBu5BxM5GVbrLJC02exOdV5
+ w74lknPgmiMPvcOiN9dHhfpdm4Hiy34wuguWdp/YNbEo9NGu+Mb/PMYGXyhv0VzUGu1g
+ 0bAQ==
+X-Gm-Message-State: AOAM533LcEOqmhvy9IWNSUUbnm13OtpVrXLp1koOXT+A76j01WJYrdXR
+ mXnJujoOvzRB7uGGfVmXLw==
+X-Google-Smtp-Source: ABdhPJztogXjATiDScTQzUAmCLK5ItkQoRw7qffd7jiZfUIT0HmuWhenym77skh/v47Cj3OLzspmqQ==
+X-Received: by 2002:aca:5058:: with SMTP id e85mr799620oib.79.1603139126431;
+ Mon, 19 Oct 2020 13:25:26 -0700 (PDT)
+Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id p10sm225896oig.37.2020.10.19.13.25.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Oct 2020 13:25:25 -0700 (PDT)
+Received: (nullmailer pid 3547145 invoked by uid 1000);
+ Mon, 19 Oct 2020 20:25:19 -0000
+Date: Mon, 19 Oct 2020 15:25:19 -0500
+From: Rob Herring <robh@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+Message-ID: <20201019202519.GA3541912@bogus>
+References: <20201014123531.6991-1-olivier.moysan@st.com>
 MIME-Version: 1.0
-References: <20201017160928.12698-1-trix@redhat.com>
- <20201018054332.GB593954@kroah.com>
-In-Reply-To: <20201018054332.GB593954@kroah.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Mon, 19 Oct 2020 12:42:15 -0700
-Message-ID: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
-To: Tom Rix <trix@redhat.com>
-Cc: alsa-devel@alsa-project.org,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- Greg KH <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org,
- nouveau@lists.freedesktop.org, storagedev@microchip.com,
- dri-devel <dri-devel@lists.freedesktop.org>,
- virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, ath10k@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
- linux-watchdog@vger.kernel.org, devel@driverdev.osuosl.org,
- linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-nvdimm <linux-nvdimm@lists.01.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, linux-acpi@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, industrypack-devel@lists.sourceforge.net,
- linux-pci@vger.kernel.org, spice-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-nfc@lists.01.org, linux-pm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-amlogic@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
- platform-driver-x86@vger.kernel.org, linux-integrity@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
- George Burgess <gbiv@google.com>, Network Development <netdev@vger.kernel.org>,
- linux-usb@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org,
- "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
- <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
- bpf <bpf@vger.kernel.org>, ocfs2-devel@oss.oracle.com,
- linux-power@fi.rohmeurope.com
-Subject: Re: [Linux-stm32] [RFC] treewide: cleanup unreachable breaks
+Content-Disposition: inline
+In-Reply-To: <20201014123531.6991-1-olivier.moysan@st.com>
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/1] ASoC: dt-bindings: stm32: convert
+ audio dfsdm to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,53 +69,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Oct 17, 2020 at 10:43 PM Greg KH <gregkh@linuxfoundation.org> wrote:
->
-> On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
-> > From: Tom Rix <trix@redhat.com>
-> >
-> > This is a upcoming change to clean up a new warning treewide.
-> > I am wondering if the change could be one mega patch (see below) or
-> > normal patch per file about 100 patches or somewhere half way by collecting
-> > early acks.
->
-> Please break it up into one-patch-per-subsystem, like normal, and get it
-> merged that way.
->
-> Sending us a patch, without even a diffstat to review, isn't going to
-> get you very far...
+On Wed, Oct 14, 2020 at 02:35:31PM +0200, Olivier Moysan wrote:
+> Convert the STM32 DFSDM audio bindings to DT schema format
+> using json-schema.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+> ---
+>  .../bindings/sound/st,stm32-adfsdm.txt        | 63 -------------------
+>  .../bindings/sound/st,stm32-adfsdm.yaml       | 42 +++++++++++++
+>  2 files changed, 42 insertions(+), 63 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-adfsdm.yaml
 
-Tom,
-If you're able to automate this cleanup, I suggest checking in a
-script that can be run on a directory.  Then for each subsystem you
-can say in your commit "I ran scripts/fix_whatever.py on this subdir."
- Then others can help you drive the tree wide cleanup.  Then we can
-enable -Wunreachable-code-break either by default, or W=2 right now
-might be a good idea.
+This is almost already documented in 
+Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml. You 
+should either make that complete or reference this.
 
-Ah, George (gbiv@, cc'ed), did an analysis recently of
-`-Wunreachable-code-loop-increment`, `-Wunreachable-code-break`, and
-`-Wunreachable-code-return` for Android userspace.  From the review:
-```
-Spoilers: of these, it seems useful to turn on
--Wunreachable-code-loop-increment and -Wunreachable-code-return by
-default for Android
-...
-While these conventions about always having break arguably became
-obsolete when we enabled -Wfallthrough, my sample turned up zero
-potential bugs caught by this warning, and we'd need to put a lot of
-effort into getting a clean tree. So this warning doesn't seem to be
-worth it.
-```
-Looks like there's an order of magnitude of `-Wunreachable-code-break`
-than the other two.
-
-We probably should add all 3 to W=2 builds (wrapped in cc-option).
-I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
-follow up on.
--- 
-Thanks,
-~Nick Desaulniers
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
