@@ -2,83 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC9E2294898
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Oct 2020 09:04:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40052294891
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Oct 2020 09:04:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 975CCC424BD;
-	Wed, 21 Oct 2020 07:04:41 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
- [96.44.175.130])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BF77C424C6;
+	Wed, 21 Oct 2020 07:04:38 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E01EBC3FAE2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D05DC3FAE0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Oct 2020 19:18:03 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by bedivere.hansenpartnership.com (Postfix) with ESMTP id 7A1D5128046A;
- Sun, 18 Oct 2020 12:18:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
- s=20151216; t=1603048682;
- bh=aTHhEGSm6DrUFNt/hKuOWL0f+WzaMvx/rc4IP5RJYRs=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=WcP5INjnqihCMCJ+2ZkHdzEWBsqi3wavZOcf0NGlcoun37UNiQ4GoZk+2AoMrr8hd
- 1s2t7Y8IzQcDUGm581+QcIuy/enpzpZm6HswhyX4zoKl9l3S5fk96frr/LU4I9kVw8
- r8s7AtR/5wOGbwEsua/QdQrVgo3j6VSqYIXYukhg=
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
- by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id ywWMwLsGscQI; Sun, 18 Oct 2020 12:18:02 -0700 (PDT)
-Received: from jarvis.int.hansenpartnership.com (unknown
- [IPv6:2601:600:8280:66d1::c447])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 340C31280456;
- Sun, 18 Oct 2020 12:18:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
- s=20151216; t=1603048682;
- bh=aTHhEGSm6DrUFNt/hKuOWL0f+WzaMvx/rc4IP5RJYRs=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=WcP5INjnqihCMCJ+2ZkHdzEWBsqi3wavZOcf0NGlcoun37UNiQ4GoZk+2AoMrr8hd
- 1s2t7Y8IzQcDUGm581+QcIuy/enpzpZm6HswhyX4zoKl9l3S5fk96frr/LU4I9kVw8
- r8s7AtR/5wOGbwEsua/QdQrVgo3j6VSqYIXYukhg=
-Message-ID: <0a739bcd421a3154c2521b49779b287e6c0d08a2.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Matthew Wilcox <willy@infradead.org>
-Date: Sun, 18 Oct 2020 12:17:59 -0700
-In-Reply-To: <20201018191618.GO20115@casper.infradead.org>
-References: <20201017160928.12698-1-trix@redhat.com>
- <20201018185943.GM20115@casper.infradead.org>
- <45efa7780c79972eae9ca9bdeb9f7edbab4f3643.camel@HansenPartnership.com>
- <20201018191618.GO20115@casper.infradead.org>
-User-Agent: Evolution 3.34.4 
-MIME-Version: 1.0
+ Mon, 19 Oct 2020 15:05:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1603119920;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:content-type:content-type;
+ bh=u7a+QTs7KK/u/ERH7j5xA9SS8bPqHeGvDR9yK7S64mA=;
+ b=c5W/8v1ae5F68uCL583yUzAW1bXFQZgMkAfWr+Ed1t9zluaoyL71oCrG/2sKEL1hBmHkev
+ kNGM6s/jtNu2dNJnr8TPf2FZu6En2znmVn26xtKYKJ3bUBjSU6rbA9SYR6JW6tKEfYLfnn
+ sZ43ipjEUFlzeXORN5b0ompjZ1lBSoY=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-481-lLyvQSLXPK-x2ZaHAqR_3g-1; Mon, 19 Oct 2020 11:05:16 -0400
+X-MC-Unique: lLyvQSLXPK-x2ZaHAqR_3g-1
+Received: by mail-qk1-f200.google.com with SMTP id n125so7415064qke.19
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Oct 2020 08:05:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=u7a+QTs7KK/u/ERH7j5xA9SS8bPqHeGvDR9yK7S64mA=;
+ b=Hm2QPYAOHxEeEgJ/vsplfeDcBp+pDeTmLhRC3Zqhe+jCR0+zG5vo0sbIeqy3TSgDwM
+ nbAqpsq+jao3vdZ3aThewSTzlktbNYoxJUeVtN32Lm7zfVgaTqGNAtEkfaq9Y9lnEQnx
+ 363bZSWWS57AzfSLEFQRtAEt21jMBk07RM46J2dtZS5TQnB+wh2EsE2UlNd/Z5b/WUs1
+ 8NwZbqJj8T3TbTYdYqu3YJUTLsVPRE+sq/2ObMd9V4q2NcXcb0sMqgPzhF4nip89msjl
+ mLpGmPWO3C4ZhRj2mG7cyrzdnCiXj5wCIt+WPzeGb4QgXxMHgo4h0HKU6zn8en1n6Qtd
+ MLDg==
+X-Gm-Message-State: AOAM530JhirC4WIhGKzUwyVQPoxjJYaF7CzPGkXRHf312tjfzez2fPXc
+ Ta+9FO3jVlEXgnPLkBF7c+e47gvcQSAyomldyqatY1hGM67gBUDt/hS8FyiLRQm9JqoC50nLBHN
+ Ans9p9VWj+12zOjzNI45p5D4x6ZvB+zWVBO3LIdvC
+X-Received: by 2002:a37:c441:: with SMTP id h1mr17142607qkm.298.1603119914412; 
+ Mon, 19 Oct 2020 08:05:14 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJw9EpuyV+FOQcDIlLURPRb83MEHY+24QKbvxUas2gGKvh9VVGfUlDCjyG2/R4+31wwf3KJuwA==
+X-Received: by 2002:a37:c441:: with SMTP id h1mr17142567qkm.298.1603119914140; 
+ Mon, 19 Oct 2020 08:05:14 -0700 (PDT)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id k64sm117193qkc.97.2020.10.19.08.05.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Oct 2020 08:05:13 -0700 (PDT)
+From: trix@redhat.com
+To: kvalo@codeaurora.org, davem@davemloft.net, kuba@kernel.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
+ ath9k-devel@qca.qualcomm.com, johannes.berg@intel.com,
+ emmanuel.grumbach@intel.com, luciano.coelho@intel.com, linuxwifi@intel.com,
+ chunkeey@googlemail.com, pkshih@realtek.com, sara.sharon@intel.com,
+ tova.mussai@intel.com, nathan.errera@intel.com, lior2.cohen@intel.com,
+ john@phrozen.org, shaul.triebitz@intel.com, shahar.s.matityahu@intel.com,
+ Larry.Finger@lwfinger.net, zhengbin13@huawei.com,
+ christophe.jaillet@wanadoo.fr, yanaijie@huawei.com, joe@perches.com,
+ saurav.girepunje@gmail.com
+Date: Mon, 19 Oct 2020 08:05:07 -0700
+Message-Id: <20201019150507.20574-1-trix@redhat.com>
+X-Mailer: git-send-email 2.18.1
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Mailman-Approved-At: Wed, 21 Oct 2020 07:04:31 +0000
-Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org, trix@redhat.com,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
- devel@driverdev.osuosl.org, linux-samsung-soc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- linux-nvdimm@lists.01.org, linux-pm@vger.kernel.org,
- ath10k@lists.infradead.org, linux-acpi@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, industrypack-devel@lists.sourceforge.net,
- nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-nfc@lists.01.org,
- linux-serial@vger.kernel.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- storagedev@microchip.com, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, platform-driver-x86@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, clang-built-linux@googlegroups.com,
- patches@opensource.cirrus.com, linux-crypto@vger.kernel.org,
- linux-integrity@vger.kernel.org, ocfs2-devel@oss.oracle.com,
- linux-power@fi.rohmeurope.com
-Subject: Re: [Linux-stm32] [Ocfs2-devel] [RFC] treewide: cleanup unreachable
-	breaks
+Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ath10k@lists.infradead.org,
+ Tom Rix <trix@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] wireless: remove unneeded break
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,41 +87,145 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 2020-10-18 at 20:16 +0100, Matthew Wilcox wrote:
-> On Sun, Oct 18, 2020 at 12:13:35PM -0700, James Bottomley wrote:
-> > On Sun, 2020-10-18 at 19:59 +0100, Matthew Wilcox wrote:
-> > > On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
-> > > > clang has a number of useful, new warnings see
-> > > > https://urldefense.com/v3/__https://clang.llvm.org/docs/DiagnosticsReference.html__;!!GqivPVa7Brio!Krxz78O3RKcB9JBMVo_F98FupVhj_jxX60ddN6tKGEbv_cnooXc1nnBmchm-e_O9ieGnyQ$ 
-> > > 
-> > > Please get your IT department to remove that stupidity.  If you
-> > > can't, please send email from a non-Red Hat email address.
-> > 
-> > Actually, the problem is at Oracle's end somewhere in the ocfs2
-> > list ... if you could fix it, that would be great.  The usual real
-> > mailing lists didn't get this transformation
-> > 
-> > https://lore.kernel.org/bpf/20201017160928.12698-1-trix@redhat.com/
-> > 
-> > but the ocfs2 list archive did:
-> > 
-> > https://oss.oracle.com/pipermail/ocfs2-devel/2020-October/015330.html
-> > 
-> > I bet Oracle IT has put some spam filter on the list that mangles
-> > URLs this way.
-> 
-> *sigh*.  I'm sure there's a way.  I've raised it with someone who
-> should be able to fix it.
+From: Tom Rix <trix@redhat.com>
 
-As someone who works for IBM I can only say I feel your pain ...
+A break is not needed if it is preceded by a return or goto
 
-James
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ drivers/net/wireless/ath/ath10k/htt_rx.c             | 1 -
+ drivers/net/wireless/ath/ath6kl/testmode.c           | 1 -
+ drivers/net/wireless/ath/ath9k/hw.c                  | 1 -
+ drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c    | 2 --
+ drivers/net/wireless/intersil/p54/eeprom.c           | 1 -
+ drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c  | 1 -
+ drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c  | 1 -
+ drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c | 3 ---
+ 8 files changed, 11 deletions(-)
 
+diff --git a/drivers/net/wireless/ath/ath10k/htt_rx.c b/drivers/net/wireless/ath/ath10k/htt_rx.c
+index 5c1af2021883..9c4e6cf2137a 100644
+--- a/drivers/net/wireless/ath/ath10k/htt_rx.c
++++ b/drivers/net/wireless/ath/ath10k/htt_rx.c
+@@ -3878,7 +3878,6 @@ bool ath10k_htt_t2h_msg_handler(struct ath10k *ar, struct sk_buff *skb)
+ 		return ath10k_htt_rx_proc_rx_frag_ind(htt,
+ 						      &resp->rx_frag_ind,
+ 						      skb);
+-		break;
+ 	}
+ 	case HTT_T2H_MSG_TYPE_TEST:
+ 		break;
+diff --git a/drivers/net/wireless/ath/ath6kl/testmode.c b/drivers/net/wireless/ath/ath6kl/testmode.c
+index f3906dbe5495..89c7c4e25169 100644
+--- a/drivers/net/wireless/ath/ath6kl/testmode.c
++++ b/drivers/net/wireless/ath/ath6kl/testmode.c
+@@ -94,7 +94,6 @@ int ath6kl_tm_cmd(struct wiphy *wiphy, struct wireless_dev *wdev,
+ 
+ 		return 0;
+ 
+-		break;
+ 	case ATH6KL_TM_CMD_RX_REPORT:
+ 	default:
+ 		return -EOPNOTSUPP;
+diff --git a/drivers/net/wireless/ath/ath9k/hw.c b/drivers/net/wireless/ath/ath9k/hw.c
+index 6609ce122e6e..b66eeb577272 100644
+--- a/drivers/net/wireless/ath/ath9k/hw.c
++++ b/drivers/net/wireless/ath/ath9k/hw.c
+@@ -2308,7 +2308,6 @@ void ath9k_hw_beaconinit(struct ath_hw *ah, u32 next_beacon, u32 beacon_period)
+ 		ath_dbg(ath9k_hw_common(ah), BEACON,
+ 			"%s: unsupported opmode: %d\n", __func__, ah->opmode);
+ 		return;
+-		break;
+ 	}
+ 
+ 	REG_WRITE(ah, AR_BEACON_PERIOD, beacon_period);
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c b/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c
+index cbdebefb854a..8698ca4d30de 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c
+@@ -1202,13 +1202,11 @@ static int iwl_mvm_mac_ctx_send(struct iwl_mvm *mvm, struct ieee80211_vif *vif,
+ 		return iwl_mvm_mac_ctxt_cmd_sta(mvm, vif, action,
+ 						force_assoc_off,
+ 						bssid_override);
+-		break;
+ 	case NL80211_IFTYPE_AP:
+ 		if (!vif->p2p)
+ 			return iwl_mvm_mac_ctxt_cmd_ap(mvm, vif, action);
+ 		else
+ 			return iwl_mvm_mac_ctxt_cmd_go(mvm, vif, action);
+-		break;
+ 	case NL80211_IFTYPE_MONITOR:
+ 		return iwl_mvm_mac_ctxt_cmd_listener(mvm, vif, action);
+ 	case NL80211_IFTYPE_P2P_DEVICE:
+diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
+index 5bd35c147e19..3ca9d26df174 100644
+--- a/drivers/net/wireless/intersil/p54/eeprom.c
++++ b/drivers/net/wireless/intersil/p54/eeprom.c
+@@ -870,7 +870,6 @@ int p54_parse_eeprom(struct ieee80211_hw *dev, void *eeprom, int len)
+ 			} else {
+ 				goto good_eeprom;
+ 			}
+-			break;
+ 		default:
+ 			break;
+ 		}
+diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c b/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c
+index 63f9ea21962f..bd9160b166c5 100644
+--- a/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c
++++ b/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c
+@@ -1226,7 +1226,6 @@ static int _rtl88ee_set_media_status(struct ieee80211_hw *hw,
+ 	default:
+ 		pr_err("Network type %d not support!\n", type);
+ 		return 1;
+-		break;
+ 	}
+ 
+ 	/* MSR_INFRA == Link in infrastructure network;
+diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c b/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c
+index a36dc6e726d2..f8a1de6e9849 100644
+--- a/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c
++++ b/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c
+@@ -1132,7 +1132,6 @@ static int _rtl8723e_set_media_status(struct ieee80211_hw *hw,
+ 	default:
+ 		pr_err("Network type %d not support!\n", type);
+ 		return 1;
+-		break;
+ 	}
+ 
+ 	/* MSR_INFRA == Link in infrastructure network;
+diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c b/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c
+index f41a7643b9c4..225b8cd44f23 100644
+--- a/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c
++++ b/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c
+@@ -2085,12 +2085,10 @@ bool rtl8812ae_phy_config_rf_with_headerfile(struct ieee80211_hw *hw,
+ 		return __rtl8821ae_phy_config_with_headerfile(hw,
+ 				radioa_array_table_a, radioa_arraylen_a,
+ 				_rtl8821ae_config_rf_radio_a);
+-		break;
+ 	case RF90_PATH_B:
+ 		return __rtl8821ae_phy_config_with_headerfile(hw,
+ 				radioa_array_table_b, radioa_arraylen_b,
+ 				_rtl8821ae_config_rf_radio_b);
+-		break;
+ 	case RF90_PATH_C:
+ 	case RF90_PATH_D:
+ 		pr_err("switch case %#x not processed\n", rfpath);
+@@ -2116,7 +2114,6 @@ bool rtl8821ae_phy_config_rf_with_headerfile(struct ieee80211_hw *hw,
+ 		return __rtl8821ae_phy_config_with_headerfile(hw,
+ 			radioa_array_table, radioa_arraylen,
+ 			_rtl8821ae_config_rf_radio_a);
+-		break;
+ 
+ 	case RF90_PATH_B:
+ 	case RF90_PATH_C:
+-- 
+2.18.1
 
 _______________________________________________
 Linux-stm32 mailing list
