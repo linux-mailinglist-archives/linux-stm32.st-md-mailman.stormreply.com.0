@@ -2,134 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43C7D292B8D
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Oct 2020 18:32:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB235292E93
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Oct 2020 21:42:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B081DC424B8;
-	Mon, 19 Oct 2020 16:32:39 +0000 (UTC)
-Received: from gateway21.websitewelcome.com (gateway21.websitewelcome.com
- [192.185.45.95])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EE12C424B8;
+	Mon, 19 Oct 2020 19:42:30 +0000 (UTC)
+Received: from mail-pj1-f66.google.com (mail-pj1-f66.google.com
+ [209.85.216.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFBD1C3FAE0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE7DEC3FAE0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Oct 2020 16:32:36 +0000 (UTC)
-Received: from cm17.websitewelcome.com (cm17.websitewelcome.com [100.42.49.20])
- by gateway21.websitewelcome.com (Postfix) with ESMTP id C86E2400C45E7
+ Mon, 19 Oct 2020 19:42:28 +0000 (UTC)
+Received: by mail-pj1-f66.google.com with SMTP id hk7so375107pjb.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Oct 2020 11:32:35 -0500 (CDT)
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
- id UY5LkM3YKPiqfUY5LkSYqV; Mon, 19 Oct 2020 11:32:35 -0500
-X-Authority-Reason: nr=8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=v58y/uoe8Kv3a3HEuASe1O7T7WVx11+I5SfIzUyKNiI=; b=vZfU3lti1WUzlZoCDEgltRah+f
- ag+ZD0dqhHrqTgHuxC5ZvSWs1RsIegE323WH5CV8RKTDeUCreRRjp7xv872aVSDe8Nb6kfb5FxHBA
- 7YQTq0P0wL01gXrNJ7LGwqMNuTiQSdnI8URKgeIf2MhJbAGkZ7/XRDpjNHjTPFiMdLA+OgeypxW0i
- Rd0Ps8Ki+Rwd704LRHvg89X8Laqu6RSrUgdCVnl7R+rrnRVuN/lXSgid5LRfuGC0VTh840LiTl8av
- sc9rbaP9e9tlCyGuST1j/6XSJinwzveQZHCiKtGEj8A5rg4HqZvAanZkHH5ZDYaC8eIfVm/mXBk0Y
- pvgs9DQg==;
-Received: from 187-162-31-110.static.axtel.net ([187.162.31.110]:32944
- helo=[192.168.15.4])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <gustavo@embeddedor.com>)
- id 1kUY5K-0023px-E1; Mon, 19 Oct 2020 11:32:34 -0500
-To: Joe Perches <joe@perches.com>, Christian Lamparter <chunkeey@gmail.com>,
- trix@redhat.com, kvalo@codeaurora.org, davem@davemloft.net, kuba@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- ath9k-devel@qca.qualcomm.com, johannes.berg@intel.com,
- emmanuel.grumbach@intel.com, luciano.coelho@intel.com, linuxwifi@intel.com,
- chunkeey@googlemail.com, pkshih@realtek.com, sara.sharon@intel.com,
- tova.mussai@intel.com, nathan.errera@intel.com, lior2.cohen@intel.com,
- john@phrozen.org, shaul.triebitz@intel.com, shahar.s.matityahu@intel.com,
- Larry.Finger@lwfinger.net, zhengbin13@huawei.com,
- christophe.jaillet@wanadoo.fr, yanaijie@huawei.com,
- saurav.girepunje@gmail.com
-References: <20201019150507.20574-1-trix@redhat.com>
- <b31478ea-979a-1c9c-65db-32325233a715@gmail.com>
- <859112e91c3d221dc599e381dbaecb90dd6467a1.camel@perches.com>
- <fb38b96a-b666-1a6d-211d-b79278a8d878@embeddedor.com>
- <5964d734e81c198421bb7f6516dabcad37c1740d.camel@perches.com>
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Autocrypt: addr=gustavo@embeddedor.com; keydata=
- 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
- AP7RWS474w==
-Message-ID: <715ddf72-978c-a525-0625-ea740a104f2a@embeddedor.com>
-Date: Mon, 19 Oct 2020 11:38:25 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon, 19 Oct 2020 12:42:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=no6WOfZDuAXhTDfVia9Vunkz4L7BthY0F8m0jo4//vs=;
+ b=vqIoQqfPtCUD7ceHGEmbvFqqUZd/9dE0IpLQQ4p4nyONBXQMSFxBG5OzgCaJfT8eu8
+ Ez0DMwUntzcU9c2WJzs/WqMvxG3bzlj0mstlcz+E4fW0gt02sZNjrL1HdU6SHVwmCE5R
+ WFeHYzJRJuPZspqj8YJ2wlUmUN4Mc8MNrI6kLekCJ8yejCepkvkgEUeb7TbpDze1NnEh
+ TP2SjhqdakZDUedR00qYjd62k5W2m7FgfHIpcuS/rhjqMGxVL3Apppn+UDRO/ftdIfoh
+ duvoKavmXDacw9mysFV+xdp1Tg4QxCPiDxNSeCeZyO+34Y2S1kYSdX61NJzSKhmGsX5T
+ HLpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=no6WOfZDuAXhTDfVia9Vunkz4L7BthY0F8m0jo4//vs=;
+ b=OinFAEFgeGpfFvfuMOPum8ynU76K1fZz8pQwHSAt9mpvUXu5qmETtYspi8SJldCAL3
+ twvGlYyFF8GuFa1QFsYtfvmXJwqeUcfngNePHDAf2tywEMhsqWO923ows0O9LzeMkJZK
+ 6I80zD8iSH6H6ty0ToGG5ObOH0GblXHGEF9fzHdtLxcBIUbE+rX3WCEoZDqKZpkmsxU+
+ 7dhl/jrGNJl/lhC3HSVqRjgLFsBJg9qWkVk1xgJG5MU6wJvLYAuisrSztIS3/JVxLOz7
+ aqyUvRuuWFGYP0/O56nW6isXkWDY44hWtvujBqsh7yELCxfDbdnzp/p39jwybimum2H+
+ EHIA==
+X-Gm-Message-State: AOAM5336nSA5ynb2sSvh/bM+1nXfWHKlcycD6Y9XRoShEFoL1NK9WQKc
+ siJS25C3gTYzynL6BwqvDw7fU4I9EKUm4Tf6RiC7BQ==
+X-Google-Smtp-Source: ABdhPJxy4K+2uRaBuhFTeTSlHPetqrP1uAAP7dKvm6UBZz10SCa23PJUxb54E5JJmlle9J/y892Qp+TTrKvO4GeNXIk=
+X-Received: by 2002:a17:90a:ee87:: with SMTP id i7mr921476pjz.25.1603136546933; 
+ Mon, 19 Oct 2020 12:42:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <5964d734e81c198421bb7f6516dabcad37c1740d.camel@perches.com>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 187.162.31.110
-X-Source-L: No
-X-Exim-ID: 1kUY5K-0023px-E1
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 187-162-31-110.static.axtel.net ([192.168.15.4])
- [187.162.31.110]:32944
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 32
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, ath10k@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] wireless: remove unneeded break
+References: <20201017160928.12698-1-trix@redhat.com>
+ <20201018054332.GB593954@kroah.com>
+In-Reply-To: <20201018054332.GB593954@kroah.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Mon, 19 Oct 2020 12:42:15 -0700
+Message-ID: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
+To: Tom Rix <trix@redhat.com>
+Cc: alsa-devel@alsa-project.org,
+ clang-built-linux <clang-built-linux@googlegroups.com>,
+ Greg KH <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, storagedev@microchip.com,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
+ linux-mtd@lists.infradead.org, ath10k@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
+ linux-watchdog@vger.kernel.org, devel@driverdev.osuosl.org,
+ linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-nvdimm <linux-nvdimm@lists.01.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, linux-acpi@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, industrypack-devel@lists.sourceforge.net,
+ linux-pci@vger.kernel.org, spice-devel@lists.freedesktop.org,
+ MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-nfc@lists.01.org, linux-pm@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-gpio@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-amlogic@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
+ platform-driver-x86@vger.kernel.org, linux-integrity@vger.kernel.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
+ George Burgess <gbiv@google.com>, Network Development <netdev@vger.kernel.org>,
+ linux-usb@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org,
+ "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+ <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
+ bpf <bpf@vger.kernel.org>, ocfs2-devel@oss.oracle.com,
+ linux-power@fi.rohmeurope.com
+Subject: Re: [Linux-stm32] [RFC] treewide: cleanup unreachable breaks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,36 +95,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Sat, Oct 17, 2020 at 10:43 PM Greg KH <gregkh@linuxfoundation.org> wrote:
+>
+> On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
+> > From: Tom Rix <trix@redhat.com>
+> >
+> > This is a upcoming change to clean up a new warning treewide.
+> > I am wondering if the change could be one mega patch (see below) or
+> > normal patch per file about 100 patches or somewhere half way by collecting
+> > early acks.
+>
+> Please break it up into one-patch-per-subsystem, like normal, and get it
+> merged that way.
+>
+> Sending us a patch, without even a diffstat to review, isn't going to
+> get you very far...
 
+Tom,
+If you're able to automate this cleanup, I suggest checking in a
+script that can be run on a directory.  Then for each subsystem you
+can say in your commit "I ran scripts/fix_whatever.py on this subdir."
+ Then others can help you drive the tree wide cleanup.  Then we can
+enable -Wunreachable-code-break either by default, or W=2 right now
+might be a good idea.
 
-On 10/19/20 11:20, Joe Perches wrote:
-> On Mon, 2020-10-19 at 10:54 -0500, Gustavo A. R. Silva wrote:
->> On 10/19/20 10:21, Joe Perches wrote:
->>> On Mon, 2020-10-19 at 17:14 +0200, Christian Lamparter wrote:
->>>> On 19/10/2020 17:05, trix@redhat.com wrote:
->>>>> From: Tom Rix <trix@redhat.com>
->>>>>
->>>>> A break is not needed if it is preceded by a return or goto
->>>>>
->>>>> Signed-off-by: Tom Rix <trix@redhat.com>
->>>>> diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
-> []
->>>>> @@ -870,7 +870,6 @@ int p54_parse_eeprom(struct ieee80211_hw *dev, void *eeprom, int len)
->>>>>   			} else {
->>>>>   				goto good_eeprom;
->>>>>   			}
->>>>> -			break;
->>>> Won't the compiler (gcc) now complain about a missing fallthrough annotation?
->>
->> Clang would definitely complain about this.
-> 
-> As far as I can tell, clang 10.0.0 doesn't complain.
+Ah, George (gbiv@, cc'ed), did an analysis recently of
+`-Wunreachable-code-loop-increment`, `-Wunreachable-code-break`, and
+`-Wunreachable-code-return` for Android userspace.  From the review:
+```
+Spoilers: of these, it seems useful to turn on
+-Wunreachable-code-loop-increment and -Wunreachable-code-return by
+default for Android
+...
+While these conventions about always having break arguably became
+obsolete when we enabled -Wfallthrough, my sample turned up zero
+potential bugs caught by this warning, and we'd need to put a lot of
+effort into getting a clean tree. So this warning doesn't seem to be
+worth it.
+```
+Looks like there's an order of magnitude of `-Wunreachable-code-break`
+than the other two.
 
-Oh, yeah. I didn't see the other "goto err;" in the if clause above. Clang doesn't
-complain because there is actually no chance of any implicit fall-through.
-
---
-Gustavo
+We probably should add all 3 to W=2 builds (wrapped in cc-option).
+I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
+follow up on.
+-- 
+Thanks,
+~Nick Desaulniers
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
