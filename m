@@ -2,65 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62327291953
-	for <lists+linux-stm32@lfdr.de>; Sun, 18 Oct 2020 21:16:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53A5E2920C5
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Oct 2020 02:55:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C025C3FAFE;
-	Sun, 18 Oct 2020 19:16:39 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0274BC3FAE3;
+	Mon, 19 Oct 2020 00:55:30 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F24CC3FAE2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97EFCC3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Oct 2020 19:16:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=jSZ48E7Pk5au6oJE5B/SpoPyGzHAu2LHc5e92XLrkbA=; b=iJ9Ua4Sb+7c2gBb5X093C2g3JF
- uPXvpy94QM9OfF4QdLHnbdoyPK+foTfLSCfptUIJX1L1QmBGwqRRLC+FO4yttdeacV1S+hl8hKo0C
- WTqtwQkEZQTbeO+X3m7Juje7eQPdNT7ZY2bxJ15gxf5bGTukHh/PFeI2Wotfd6qSzqn3KwhwiSJ8q
- nHMmLI1n6mOTyu1OQHnDgD5bqj+pk9E7DasCqQG55sL9hd/rW8umvQBQI/4FGFQAjFO02dSWITtwv
- yXkpHo9Iys1nXXFCivdyuKxTY6HM4UcykOYUxv1R/rziPsZPtETfWCfkBycLom8Snu0zA9/3jwQkF
- l4f6J+YQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kUEAE-0008Qi-Sy; Sun, 18 Oct 2020 19:16:19 +0000
-Date: Sun, 18 Oct 2020 20:16:18 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Message-ID: <20201018191618.GO20115@casper.infradead.org>
-References: <20201017160928.12698-1-trix@redhat.com>
- <20201018185943.GM20115@casper.infradead.org>
- <45efa7780c79972eae9ca9bdeb9f7edbab4f3643.camel@HansenPartnership.com>
+ Mon, 19 Oct 2020 00:55:25 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id C2705D6E;
+ Mon, 19 Oct 2020 02:55:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1603068924;
+ bh=tOXnkkRj98BJCVwTopIvEwnZ3JPBrNQuP3wdI26At4Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=j1xaqDWbIv84pyHUqAJ/tSWRY87/DnhRJxx5Q7r93QRm6ECrRC96Qqorr8eO4fx3O
+ Tqso2mDm7rJhNevt/1tDwEgKbQfPgs071VtDyT2Cyko7uuuq0bjvpoXSJlSYepQOu2
+ l0DKv+KErAOnIEmwlLkCOCC/19BliaMKoJf3jAIY=
+Date: Mon, 19 Oct 2020 03:54:38 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <20201019005438.GD4174@pendragon.ideasonboard.com>
+References: <20201002230823.242147-1-marex@denx.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <45efa7780c79972eae9ca9bdeb9f7edbab4f3643.camel@HansenPartnership.com>
-Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org, trix@redhat.com,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
- devel@driverdev.osuosl.org, linux-samsung-soc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- linux-nvdimm@lists.01.org, linux-pm@vger.kernel.org,
- ath10k@lists.infradead.org, linux-acpi@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, industrypack-devel@lists.sourceforge.net,
- nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
- MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-nfc@lists.01.org,
- linux-serial@vger.kernel.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- storagedev@microchip.com, linux-amlogic@lists.infradead.org,
- openipmi-developer@lists.sourceforge.net, platform-driver-x86@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, clang-built-linux@googlegroups.com,
- patches@opensource.cirrus.com, linux-crypto@vger.kernel.org,
- linux-integrity@vger.kernel.org, ocfs2-devel@oss.oracle.com,
- linux-power@fi.rohmeurope.com
-Subject: Re: [Linux-stm32] [Ocfs2-devel] [RFC] treewide: cleanup unreachable
-	breaks
+In-Reply-To: <20201002230823.242147-1-marex@denx.de>
+Cc: Vincent Abriou <vincent.abriou@st.com>, dri-devel@lists.freedesktop.org,
+ Yannick Fertre <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Benjamin Gaignard <benjamin.gaignard@st.com>
+Subject: Re: [Linux-stm32] [RFC][PATCH] drm/bridge: lvds-codec: Add support
+ for pixel data sampling edge select
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,30 +57,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Oct 18, 2020 at 12:13:35PM -0700, James Bottomley wrote:
-> On Sun, 2020-10-18 at 19:59 +0100, Matthew Wilcox wrote:
-> > On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
-> > > clang has a number of useful, new warnings see
-> > > https://urldefense.com/v3/__https://clang.llvm.org/docs/DiagnosticsReference.html__;!!GqivPVa7Brio!Krxz78O3RKcB9JBMVo_F98FupVhj_jxX60ddN6tKGEbv_cnooXc1nnBmchm-e_O9ieGnyQ$ 
-> > 
-> > Please get your IT department to remove that stupidity.  If you
-> > can't, please send email from a non-Red Hat email address.
-> 
-> Actually, the problem is at Oracle's end somewhere in the ocfs2 list
-> ... if you could fix it, that would be great.  The usual real mailing
-> lists didn't get this transformation
-> 
-> https://lore.kernel.org/bpf/20201017160928.12698-1-trix@redhat.com/
-> 
-> but the ocfs2 list archive did:
-> 
-> https://oss.oracle.com/pipermail/ocfs2-devel/2020-October/015330.html
-> 
-> I bet Oracle IT has put some spam filter on the list that mangles URLs
-> this way.
+Hi Marek,
 
-*sigh*.  I'm sure there's a way.  I've raised it with someone who should
-be able to fix it.
+Thank you for the patch.
+
+On Sat, Oct 03, 2020 at 01:08:23AM +0200, Marek Vasut wrote:
+> The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
+> select input pixel data sampling edge. Add DT property "pixelclk-active",
+> same as the one used by display timings, and configure bus flags based on
+> this DT property.
+
+The feature looks good to me. I however wonder if we shouldn't use the
+standard pclk-sample endpoint property (documented in [1]) instead of a
+custom properly.
+
+The DT bindings for the lvds-codec should be updated accordingly. And
+the property should only be taken into account when operating in encoder
+mode, as for decoder mode there's no polarity for the sampling of LVDS
+signals, as you've explained in a reply to Sam.
+
+[1] Documentation/devicetree/bindings/media/video-interfaces.txt
+
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Andrzej Hajda <a.hajda@samsung.com>
+> Cc: Antonio Borneo <antonio.borneo@st.com>
+> Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
+> Cc: Biju Das <biju.das.jz@bp.renesas.com>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Philippe Cornu <philippe.cornu@st.com>
+> Cc: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Vincent Abriou <vincent.abriou@st.com>
+> Cc: Yannick Fertre <yannick.fertre@st.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: dri-devel@lists.freedesktop.org
+> ---
+>  drivers/gpu/drm/bridge/lvds-codec.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+> index f52ccffc1bd1..bc941d4fb5b9 100644
+> --- a/drivers/gpu/drm/bridge/lvds-codec.c
+> +++ b/drivers/gpu/drm/bridge/lvds-codec.c
+> @@ -19,6 +19,7 @@ struct lvds_codec {
+>  	struct device *dev;
+>  	struct drm_bridge bridge;
+>  	struct drm_bridge *panel_bridge;
+> +	struct drm_bridge_timings timings;
+>  	struct regulator *vcc;
+>  	struct gpio_desc *powerdown_gpio;
+>  	u32 connector_type;
+> @@ -80,6 +81,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+>  	struct device_node *panel_node;
+>  	struct drm_panel *panel;
+>  	struct lvds_codec *lvds_codec;
+> +	u32 val;
+>  	int ret;
+>  
+>  	lvds_codec = devm_kzalloc(dev, sizeof(*lvds_codec), GFP_KERNEL);
+> @@ -124,6 +126,12 @@ static int lvds_codec_probe(struct platform_device *pdev)
+>  	if (IS_ERR(lvds_codec->panel_bridge))
+>  		return PTR_ERR(lvds_codec->panel_bridge);
+>  
+> +	if (!of_property_read_u32(dev->of_node, "pixelclk-active", &val)) {
+> +		lvds_codec->timings.input_bus_flags = val ?
+> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE :
+> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE;
+> +	}
+> +
+>  	/*
+>  	 * The panel_bridge bridge is attached to the panel's of_node,
+>  	 * but we need a bridge attached to our of_node for our user
+> @@ -131,6 +139,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+>  	 */
+>  	lvds_codec->bridge.of_node = dev->of_node;
+>  	lvds_codec->bridge.funcs = &funcs;
+> +	lvds_codec->bridge.timings = &lvds_codec->timings;
+>  	drm_bridge_add(&lvds_codec->bridge);
+>  
+>  	platform_set_drvdata(pdev, lvds_codec);
+
+-- 
+Regards,
+
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
