@@ -2,57 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AE6C292598
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Oct 2020 12:20:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96194292861
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Oct 2020 15:41:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F4F7C3FAE3;
-	Mon, 19 Oct 2020 10:20:19 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EF82C424B8;
+	Mon, 19 Oct 2020 13:41:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96C4AC35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06C32C424B3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Oct 2020 10:20:17 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Mon, 19 Oct 2020 13:41:31 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09JAHlFg030633; Mon, 19 Oct 2020 12:20:00 +0200
+ 09JDXm1D019143; Mon, 19 Oct 2020 15:41:15 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : references : in-reply-to : content-type : content-id
  : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=WGENNG6DUtyjPs25lMIjm++FozcEfG/A8smjVsEwavo=;
- b=lFyyHNbGn3d9+8PqWsm0aL00a6C/NFB6V6v3jtdm1O4IlE0m8Wyn0ZUW8oNsJeFPp87l
- XwypLjOFkln6gbkhgXvvGnizJa7f6YIIrEYfkdqRTyxoyO04IeHtZr9+RIkGOcKEKDWB
- nUj4zJnFukjsH96wmC3CvP2Yiw7VcjS3/UiYesISR0u7bOyKqG/klOhnQp5I9hwrrPgM
- KcPgYsErmyG4TEYgTENxsHSiNrrqNyGqa7h+dKv9SFw2ad+ZYCovZdksfvrE6RhmilP/
- j9RkDba+qqhV6iTG2Gz4LYAmnl5A3FmJKT06/JqsIyU1kqmSwvgoDkIbn4C+GcWH/6F+ gQ== 
+ bh=qiDSJYG4JrUyHoJV+yGD2ruYz4GvgF/R6IP10ItzI/4=;
+ b=QNJq680Wub6T84E/WWAdoSLnq07KwgmKSM99/Gd3WZ95LwTnyyoc+HslJZxA4OjPSHGC
+ z9ClmIGwqXLwCz0K55BAXGDAakbgnuUl26hUJ2tZiHQq21LQHoSnn8DYy2pvgUZ2xE5g
+ KDVcL07hoZTYaBJd88dBzQL3IE/FcXLUpqt5Fksw6eE5rF33PuXvTDTplvb84KUZBf/F
+ Jh5uDEkGtXf+1QVvoFggHn+7hgiRqaEMYE4cpJngZE/7B0ipbPQn0uR6bZK+RWYj6LXF
+ uhfCoOR47wed/Hgzv5Hb9qyHDzK4TXja7owo6O5TIx+CQZAcX7Xcp7AtnTH4m7UxE3X4 CA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 347p30aap9-1
+ by mx07-00178001.pphosted.com with ESMTP id 347qgfus3h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 19 Oct 2020 12:20:00 +0200
+ Mon, 19 Oct 2020 15:41:15 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 39E6C10002A;
- Mon, 19 Oct 2020 12:19:59 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag3node3.st.com [10.75.127.9])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0ED522AB724;
- Mon, 19 Oct 2020 12:19:59 +0200 (CEST)
-Received: from SFHDAG1NODE1.st.com (10.75.127.1) by SFHDAG3NODE3.st.com
- (10.75.127.9) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 19 Oct
- 2020 12:19:58 +0200
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E821C100034;
+ Mon, 19 Oct 2020 15:41:14 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C7A8A2CE4DB;
+ Mon, 19 Oct 2020 15:41:14 +0200 (CEST)
+Received: from SFHDAG1NODE1.st.com (10.75.127.1) by SFHDAG1NODE3.st.com
+ (10.75.127.3) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 19 Oct
+ 2020 15:40:26 +0200
 Received: from SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f]) by
  SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f%20]) with mapi id
- 15.00.1473.003; Mon, 19 Oct 2020 12:19:58 +0200
+ 15.00.1473.003; Mon, 19 Oct 2020 15:40:26 +0200
 From: Hugues FRUCHET <hugues.fruchet@st.com>
-To: Sakari Ailus <sakari.ailus@iki.fi>
-Thread-Topic: [PATCH] media: stm32-dcmi: add support of BT656 bus
-Thread-Index: AQHWoUBkV9IGF/l+kUSwjdCwug2yKamYr2IAgAXvYoA=
-Date: Mon, 19 Oct 2020 10:19:58 +0000
-Message-ID: <254e2f2e-94ca-2421-1a1b-bcd43a75b847@st.com>
-References: <1602087290-18020-1-git-send-email-hugues.fruchet@st.com>
- <20201013090704.GL6413@valkosipuli.retiisi.org.uk>
- <1e1eb9d1-75af-c560-7d06-14d25bb52b3f@st.com>
-In-Reply-To: <1e1eb9d1-75af-c560-7d06-14d25bb52b3f@st.com>
+To: Jacopo Mondi <jacopo@jmondi.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>
+Thread-Topic: [PATCH v2] media: ov5640: add support of V4L2_CID_LINK_FREQ
+Thread-Index: AQHVLQJlOjCpwYSvfEindPL7LJBZs6a3ZHgAgEyO9wCAAekzgIAUdQGAgodtnYA=
+Date: Mon, 19 Oct 2020 13:40:26 +0000
+Message-ID: <c1a0cc6f-a52a-3863-3c49-a52f92e6c944@st.com>
+References: <1561640224-24062-1-git-send-email-hugues.fruchet@st.com>
+ <20190627160518.ylc2xfvqdw5w77xc@paasikivi.fi.intel.com>
+ <5b43d59c-92d0-7234-71aa-b283e7462a84@st.com>
+ <20190820091311.GB5123@paasikivi.fi.intel.com>
+ <20190821142407.facveek5omjdide6@uno.localdomain>
+ <3a54de53-6a9b-f0e9-f4bb-77ccbb1f8ede@st.com>
+In-Reply-To: <3a54de53-6a9b-f0e9-f4bb-77ccbb1f8ede@st.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -61,22 +65,22 @@ user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.49]
-Content-ID: <950951452643D147BFF22B2EE1F82CD0@st.com>
+x-originating-ip: [10.75.127.45]
+Content-ID: <1649DD0D82353C41BC8404799A20FE8F@st.com>
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-10-19_02:2020-10-16,
+ definitions=2020-10-19_06:2020-10-16,
  2020-10-19 signatures=0
-Cc: Yannick FERTRE <yannick.fertre@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, Alain VOLMAT <alain.volmat@st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
+Cc: Laura Nao <laura.nao@kynetics.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Hans Verkuil <hverkuil@xs4all.nl>,
+ Sam Bobrowicz <sam@elite-embedded.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Steve Longerbeam <slongerbeam@gmail.com>, Mauro Carvalho
+ Chehab <mchehab@kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
  "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: add support of BT656
-	bus
+Subject: Re: [Linux-stm32] [PATCH v2] media: ov5640: add support of
+	V4L2_CID_LINK_FREQ
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,117 +92,615 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgU2FrYXJpLA0KDQpJIGhhdmUgcXVlc3Rpb25zIGFib3V0ICJidXMtdHlwZSIgaGFuZGxpbmcg
-YmVsb3cuDQoNCk9uIDEwLzE1LzIwIDU6NDEgUE0sIEh1Z3VlcyBGUlVDSEVUIHdyb3RlOg0KPiBI
-aSBTYWthcmksDQo+IA0KPiBUaGFua3MgZm9yIHJldmlld2luZywNCj4gDQo+IE9uIDEwLzEzLzIw
-IDExOjA3IEFNLCBTYWthcmkgQWlsdXMgd3JvdGU6DQo+PiBIaSBIdWd1ZXMsDQo+Pg0KPj4gT24g
-V2VkLCBPY3QgMDcsIDIwMjAgYXQgMDY6MTQ6NTBQTSArMDIwMCwgSHVndWVzIEZydWNoZXQgd3Jv
-dGU6DQo+Pj4gQWRkIHN1cHBvcnQgb2YgQlQ2NTYgZW1iZWRkZWQgc3luY2hyb25pemF0aW9uIGJ1
-cy4NCj4+PiBUaGlzIG1vZGUgYWxsb3dzIHRvIHNhdmUgaGFyZHdhcmUgc3luY2hybyBsaW5lcyBo
-c3luYyAmIHZzeW5jDQo+Pj4gYnkgcmVwbGFjaW5nIHRoZW0gd2l0aCBzeW5jaHJvIGNvZGVzIGVt
-YmVkZGVkIGluIGRhdGEgc3RyZWFtLg0KPj4+IFRoaXMgYnVzIHR5cGUgaXMgb25seSBjb21wYXRp
-YmxlIHdpdGggOCBiaXRzIHdpZHRoIGRhdGEgYnVzLg0KPj4+IER1ZSB0byByZXNlcnZlZCB2YWx1
-ZXMgMHgwMCAmIDB4ZmYgdXNlZCBmb3Igc3luY2hybyBjb2RlcywNCj4+PiB2YWxpZCBkYXRhIG9u
-bHkgdmFyeSBmcm9tIDB4MSB0byAweGZlLCB0aGlzIGlzIHVwIHRvIHNlbnNvcg0KPj4+IHRvIGNs
-aXAgYWNjb3JkaW5nbHkgcGl4ZWwgZGF0YS4gQXMgYSBjb25zZXF1ZW5jZSBvZiB0aGlzDQo+Pj4g
-Y2xpcHBpbmcsIEpQRUcgaXMgbm90IHN1cHBvcnRlZCB3aGVuIHVzaW5nIHRoaXMgYnVzIHR5cGUu
-DQo+Pj4gRENNSSBjcm9wIGZlYXR1cmUgaXMgYWxzbyBub3QgYXZhaWxhYmxlIHdpdGggdGhpcyBi
-dXMgdHlwZS4NCj4+DQo+PiBZb3UgY2FuIGhhdmUgbW9yZSB0aGFuIDYyIGNoYXJhY3RlcnMgcGVy
-IGxpbmUuIEluIGZhY3QsIDc1IGlzIHRoZQ0KPj4gcmVjb21tZW5kZWQgbWF4aW11bS4NCj4+DQo+
-PiBZb3Ugc2hvdWxkIGFsc28gYW1lbmQgdGhlIGJpbmRpbmdzIHRvIGNvdmVyIEJULjY1NiBtb2Rl
-LiBBbHNvIGJ1cy10eXBlDQo+PiBzaG91bGQgcHJvYmFibHkgYmUgbWFkZSBtYW5kYXRvcnksIHRv
-by4NCj4gV2lsbCBkbyBib3RoLg0KPiANCg0KTXkgdW5kZXJzdGFuZGluZyB3YXMgdGhhdCBwYXJh
-bGxlbCBCVDY1NiBidXMgaXMgaGFuZGxlZCBieSB0aGUgYWJzZW5jZSANCm9mIGhzeW5jL3ZzeW5j
-LWFjdGl2ZSwgYXMgc3RhdGVkIGluIA0KRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
-L21lZGlhL3ZpZGVvLWludGVyZmFjZXMudHh0Og0KIiAgTm90ZSwgdGhhdCBpZiBIU1lOQyBhbmQg
-VlNZTkMgcG9sYXJpdGllcyBhcmUgbm90IHNwZWNpZmllZCwgZW1iZWRkZWQNCiAgIHN5bmNocm9u
-aXphdGlvbiBtYXkgYmUgcmVxdWlyZWQsIHdoZXJlIHN1cHBvcnRlZC4gIg0KDQpEbyB5b3Ugd2Fu
-dCB0byBlbmZvcmNlIHVzYWdlIG9mICJidXMtdHlwZSIgbm93IGluIG9yZGVyIHRvIGJlIG1vcmUg
-DQpleHBsaWNpdCBvbiBwYXJhbGxlbCBvciBidDY1NiA/DQpJZiBJIGNoYW5nZSBiaW5kaW5nIHRv
-IG1ha2UgImJ1cy10eXBlIiByZXF1aXJlZCwgSSBoYXZlIHRvIGNoYW5nZSB0aGUgDQpjdXJyZW50
-IGJvYXJkIGRldmljZXRyZWUgZmlsZXMgdG8gYWRkIHN1cHBvcnQgb2YgaXQsIGFuZCBJIHdvdWxk
-IHByZWZlciANCnRvIG5vdCBkbyB0aGF0LiBJcyB0aGVyZSBhIHdheSB0byBwdXQgImJ1cy10eXBl
-IiBhcyBub3QgbWFuZGF0b3J5IGFuZCANCnJlbHkgb24gYWJzZW5jZSBvZiBoc3luYy92eXNuYyB0
-byB0cmlnIEJUNjU2ID8gSSB3aWxsIG5ldmVydGhlbGVzcyBhbWVuZCANCmJpbmRpbmdzIGluIG9y
-ZGVyIHRvIGRvY3VtZW50IHRoYXQuDQpXaGF0IGRvIHlvdSBzdWdnZXN0ID8NCg0KPj4NCj4+Pg0K
-Pj4+IFNpZ25lZC1vZmYtYnk6IEh1Z3VlcyBGcnVjaGV0IDxodWd1ZXMuZnJ1Y2hldEBzdC5jb20+
-DQo+Pj4gLS0tDQo+Pj4gwqAgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9zdG0zMi9zdG0zMi1kY21p
-LmMgfCAzNyANCj4+PiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tDQo+Pj4gwqAgMSBm
-aWxlIGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9zdG0zMi9zdG0zMi1kY21pLmMgDQo+
-Pj4gYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3N0bTMyL3N0bTMyLWRjbWkuYw0KPj4+IGluZGV4
-IGZkMWM0MWMuLmQ3ZDdjZGIgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9y
-bS9zdG0zMi9zdG0zMi1kY21pLmMNCj4+PiArKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3N0
-bTMyL3N0bTMyLWRjbWkuYw0KPj4+IEBAIC0xNTcsNiArMTU3LDcgQEAgc3RydWN0IHN0bTMyX2Rj
-bWkgew0KPj4+IMKgwqDCoMKgwqAgc3RydWN0IHZiMl9xdWV1ZcKgwqDCoMKgwqDCoMKgIHF1ZXVl
-Ow0KPj4+IMKgwqDCoMKgwqAgc3RydWN0IHY0bDJfZndub2RlX2J1c19wYXJhbGxlbMKgwqDCoCBi
-dXM7DQo+Pj4gK8KgwqDCoCBlbnVtIHY0bDJfbWJ1c190eXBlwqDCoMKgwqDCoMKgwqAgYnVzX3R5
-cGU7DQo+Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgY29tcGxldGlvbsKgwqDCoMKgwqDCoMKgIGNvbXBs
-ZXRlOw0KPj4+IMKgwqDCoMKgwqAgc3RydWN0IGNsa8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKm1j
-bGs7DQo+Pj4gwqDCoMKgwqDCoCBlbnVtIHN0YXRlwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdGF0
-ZTsNCj4+PiBAQCAtNzc3LDYgKzc3OCwyMyBAQCBzdGF0aWMgaW50IGRjbWlfc3RhcnRfc3RyZWFt
-aW5nKHN0cnVjdCB2YjJfcXVldWUgDQo+Pj4gKnZxLCB1bnNpZ25lZCBpbnQgY291bnQpDQo+Pj4g
-wqDCoMKgwqDCoCBpZiAoZGNtaS0+YnVzLmZsYWdzICYgVjRMMl9NQlVTX1BDTEtfU0FNUExFX1JJ
-U0lORykNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgdmFsIHw9IENSX1BDS1BPTDsNCj4+PiArwqDC
-oMKgIC8qDQo+Pj4gK8KgwqDCoMKgICogQlQ2NTYgZW1iZWRkZWQgc3luY2hyb25pc2F0aW9uIGJ1
-cyBtb2RlLg0KPj4+ICvCoMKgwqDCoCAqDQo+Pj4gK8KgwqDCoMKgICogRGVmYXVsdCBTQVYvRUFW
-IG1vZGUgaXMgc3VwcG9ydGVkIGhlcmUgd2l0aCBkZWZhdWx0IGNvZGVzDQo+Pj4gK8KgwqDCoMKg
-ICogU0FWPTB4ZmYwMDAwODAgJiBFQVY9MHhmZjAwMDA5ZC4NCj4+PiArwqDCoMKgwqAgKiBXaXRo
-IERDTUkgdGhpcyBtZWFucyBMU0M9U0FWPTB4ODAgJiBMRUM9RUFWPTB4OWQuDQo+Pj4gK8KgwqDC
-oMKgICovDQo+Pj4gK8KgwqDCoCBpZiAoZGNtaS0+YnVzX3R5cGUgPT0gVjRMMl9NQlVTX0JUNjU2
-KSB7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHZhbCB8PSBDUl9FU1M7DQo+Pj4gKw0KPj4+ICvCoMKg
-wqDCoMKgwqDCoCAvKiBVbm1hc2sgYWxsIGNvZGVzICovDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJl
-Z193cml0ZShkY21pLT5yZWdzLCBEQ01JX0VTVVIsIDB4ZmZmZmZmZmYpOy8qIA0KPj4+IEZFQzpM
-RUM6TFNDOkZTQyAqLw0KPj4+ICsNCj4+PiArwqDCoMKgwqDCoMKgwqAgLyogVHJpZyBvbiBMU0M9
-MHg4MCAmIExFQz0weDlkIGNvZGVzLCBpZ25vcmUgRlNDIGFuZCBGRUMgKi8NCj4+PiArwqDCoMKg
-wqDCoMKgwqAgcmVnX3dyaXRlKGRjbWktPnJlZ3MsIERDTUlfRVNDUiwgMHhmZjlkODBmZik7Lyog
-DQo+Pj4gRkVDOkxFQzpMU0M6RlNDICovDQo+Pj4gK8KgwqDCoCB9DQo+Pj4gKw0KPj4+IMKgwqDC
-oMKgwqAgcmVnX3dyaXRlKGRjbWktPnJlZ3MsIERDTUlfQ1IsIHZhbCk7DQo+Pj4gwqDCoMKgwqDC
-oCAvKiBTZXQgY3JvcCAqLw0KPj4+IEBAIC0xMDY3LDggKzEwODUsOSBAQCBzdGF0aWMgaW50IGRj
-bWlfc2V0X2ZtdChzdHJ1Y3Qgc3RtMzJfZGNtaSANCj4+PiAqZGNtaSwgc3RydWN0IHY0bDJfZm9y
-bWF0ICpmKQ0KPj4+IMKgwqDCoMKgwqAgaWYgKHJldCkNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
-cmV0dXJuIHJldDsNCj4+PiAtwqDCoMKgIC8qIERpc2FibGUgY3JvcCBpZiBKUEVHIGlzIHJlcXVl
-c3RlZCAqLw0KPj4+IC3CoMKgwqAgaWYgKHBpeC0+cGl4ZWxmb3JtYXQgPT0gVjRMMl9QSVhfRk1U
-X0pQRUcpDQo+Pj4gK8KgwqDCoCAvKiBEaXNhYmxlIGNyb3AgaWYgSlBFRyBpcyByZXF1ZXN0ZWQg
-b3IgQlQ2NTYgYnVzIGlzIHNlbGVjdGVkICovDQo+Pj4gK8KgwqDCoCBpZiAocGl4LT5waXhlbGZv
-cm1hdCA9PSBWNEwyX1BJWF9GTVRfSlBFRyAmJg0KPj4+ICvCoMKgwqDCoMKgwqDCoCBkY21pLT5i
-dXNfdHlwZSAhPSBWNEwyX01CVVNfQlQ2NTYpDQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGRjbWkt
-PmRvX2Nyb3AgPSBmYWxzZTsNCj4+PiDCoMKgwqDCoMKgIC8qIHBpeCB0byBtYnVzIGZvcm1hdCAq
-Lw0KPj4+IEBAIC0xNTkyLDYgKzE2MTEsMTEgQEAgc3RhdGljIGludCBkY21pX2Zvcm1hdHNfaW5p
-dChzdHJ1Y3Qgc3RtMzJfZGNtaSANCj4+PiAqZGNtaSkNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBpZiAoZGNtaV9mb3JtYXRzW2ldLm1idXNfY29kZSAhPSBtYnVzX2NvZGUuY29kZSkN
-Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRpbnVlOw0KPj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIEV4Y2x1ZGUgSlBFRyBpZiBCVDY1NiBidXMgaXMgc2Vs
-ZWN0ZWQgKi8NCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoZGNtaV9mb3JtYXRzW2ld
-LmZvdXJjYyA9PSBWNEwyX1BJWF9GTVRfSlBFRyAmJg0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgZGNtaS0+YnVzX3R5cGUgPT0gVjRMMl9NQlVTX0JUNjU2KQ0KPj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29udGludWU7DQo+Pj4gKw0KPj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIC8qIENvZGUgc3VwcG9ydGVkLCBoYXZlIHdlIGdvdCB0aGlzIGZv
-dXJjYyB5ZXQ/ICovDQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZm9yIChqID0gMDsg
-aiA8IG51bV9mbXRzOyBqKyspDQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBpZiAoc2RfZm10c1tqXS0+Zm91cmNjID09DQo+Pj4gQEAgLTE4NzMsOSArMTg5NywxOCBAQCBz
-dGF0aWMgaW50IGRjbWlfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSANCj4+PiAqcGRldikN
-Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2VycigmcGRldi0+ZGV2LCAiQ1NJIGJ1cyBub3Qg
-c3VwcG9ydGVkXG4iKTsNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FTk9ERVY7DQo+
-Pj4gwqDCoMKgwqDCoCB9DQo+Pj4gKw0KPj4+ICvCoMKgwqAgaWYgKGVwLmJ1c190eXBlID09IFY0
-TDJfTUJVU19CVDY1NiAmJg0KPj4+ICvCoMKgwqDCoMKgwqDCoCBlcC5idXMucGFyYWxsZWwuYnVz
-X3dpZHRoICE9IDgpIHsNCj4+PiArwqDCoMKgwqDCoMKgwqAgZGV2X2VycigmcGRldi0+ZGV2LCAi
-QlQ2NTYgYnVzIGNvbmZsaWN0cyB3aXRoICVkIGJpdHMgYnVzIA0KPj4+IHdpZHRoICg4IGJpdHMg
-cmVxdWlyZWQpXG4iLA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVwLmJ1cy5wYXJhbGxl
-bC5idXNfd2lkdGgpOw0KPj4NCj4+IGJ1c193aWR0aCBpcyB1bnNpZ25lZCBoZXJlLg0KPiBJIHdp
-bGwgZml4IGl0Lg0KPiANCj4+DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PREVWOw0K
-Pj4+ICvCoMKgwqAgfQ0KPj4+ICsNCj4+PiDCoMKgwqDCoMKgIGRjbWktPmJ1cy5mbGFncyA9IGVw
-LmJ1cy5wYXJhbGxlbC5mbGFnczsNCj4+PiDCoMKgwqDCoMKgIGRjbWktPmJ1cy5idXNfd2lkdGgg
-PSBlcC5idXMucGFyYWxsZWwuYnVzX3dpZHRoOw0KPj4+IMKgwqDCoMKgwqAgZGNtaS0+YnVzLmRh
-dGFfc2hpZnQgPSBlcC5idXMucGFyYWxsZWwuZGF0YV9zaGlmdDsNCj4+PiArwqDCoMKgIGRjbWkt
-PmJ1c190eXBlID0gZXAuYnVzX3R5cGU7DQo+Pj4gwqDCoMKgwqDCoCBpcnEgPSBwbGF0Zm9ybV9n
-ZXRfaXJxKHBkZXYsIDApOw0KPj4+IMKgwqDCoMKgwqAgaWYgKGlycSA8PSAwKQ0KPj4NCj4gDQo+
-IEJSLA0KPiBIdWd1ZXMuDQoNCkJSLA0KSHVndWVzLgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi Jacopo, all,
+
+Back on this subject recently, I've found interesting things around 
+register 0x4837 PCLK PERIOD thanks to Samuel Bobrowicz work on PLL 
+settings [1], but 0x4837 register value computation differs from what 
+I've understood/measured.
+
+The OV5640 PCLK_PERIOD register value must be in line with the
+ST MIPID02 CSI-2 receiver CLOCK_LANE_1 register, otherwise receptions 
+issues are encountered has shown in my previous mail.
+
+Configuring those 2 registers according to measured MIPI clock frequency
+allows to cover almost all resolutions/formats (RGB565, YUV422, JPEG).
+I've also measured with oscilloscope the MIPI clock-lane frequency and 
+verified that this is well matching computed one [2].
+Please note that due to platform limitation, I could not test link 
+frequency above 720p@15fps, so additional tests are needed with platform 
+that could handle 5Mp@15fps (OV5640 limit).
+
+In term of code, this mean:
+
+v4l2_ctrl_new_int_menu(hdl, ops, V4L2_CID_LINK_FREQ,
+        		  0, 0, link_freq_menu_items);
+
+ov5640_set_mipi_pclk(rate)
+{
+   mipi_sclk = ov5640_calc_sys_clk(sensor, rate, &prediv, &mult, &sysdiv);
+   link_freq = mipi_sclk / 2 / mipi_div; /* the CSI-2 clock-lane 
+frequency, measurements are matching */
+
+   _pclk_period = (u8) (2000000000UL / link_freq);/* expressed in ns and 
+with 1-bit decimal: 0x1=0.5ns, 0x2=1ns, 0x3=1.5ns and so on... */
+   ov5640_write_reg(sensor, OV5640_REG_PCLK_PERIOD, _pclk_period);
+
+   link_freq_menu_items[0] = link_freq;/* Currently a hack to inform 
+receiver about the dynamically computed clock frequency, I don't know 
+yet how to handle this correctly, please advise... */
+
+   ...
+}
+
+As explained in comment, I miss a V4L2 way to set dynamically 
+V4L2_CID_LINK_FREQ in order to propose a new patchset.
+
+
+[1] 
+https://patchwork.kernel.org/project/linux-media/patch/1539797508-127629-1-git-send-email-sam@elite-embedded.com/
+
+[2] measure of the CSI-2 clock frequency, tested with JPEG (easier to 
+check that capture is fine) and various resolutions:
+
+****************
+***  QQVGA  ****
+****************
+* JPEG QQVGA@15fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=15;v4l2-ctl 
+--set-fmt-video=width=160,height=120,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+[  371.459607] ov5640 1-003c: Bandwidth Per Lane=223879680, 160x120 from 
+1896x984
+[  371.465516] ov5640 1-003c: mipi_sclk=224000000, mipi_div=2, prediv=3, 
+mult=28, sysdiv=1
+[  371.473727] ov5640 1-003c: link freq=56000000 Hz
+[  371.478529] ov5640 1-003c: PCLK PERIOD 0x4837=0x23
+[  371.538193] st-mipid02 2-0014: clk_lane_reg1=0x8d
+<<<<<<<<<<<<<<<<< 15.09 fps
+<<<<<<<<<<<<<<< 15.04 fps
+<<<<<<<<<<<<<<< 15.03 fps
+<<<<<<<<<<<<<<< 15.02 fps
+<<<<<<<<<<<<<<< 15.01 fps
+Clock-lane frequency measured at #18ns (55.5MHz)
+
+
+* RGB565 QQVGA@15fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=15;v4l2-ctl 
+--set-fmt-video=width=160,height=120,pixelformat=RGBP --stream-mmap 
+--stream-count=-1
+[ 1229.422079] st-mipid02 2-0014: clk_lane_reg1=0x8d
+[ 1229.431758] ov5640 1-003c: Bandwidth Per Lane=223879680, 160x120 from 
+1896x984
+[ 1229.437905] ov5640 1-003c: mipi_sclk=224000000, mipi_div=2, prediv=3, 
+mult=28, sysdiv=1
+[ 1229.445620] ov5640 1-003c: link freq=56000000 Hz
+[ 1229.450397] ov5640 1-003c: PCLK PERIOD 0x4837=0x23
+<<<<<<<<<<<<<<<<< 15.09 fps
+<<<<<<<<<<<<<<< 15.04 fps
+<<<<<<<<<<<<<< 14.70 fps
+<<<<<<<<<<<<<<< 14.77 fps
+Measured #18ns (55.5MHz)
+
+
+**************
+***  VGA  ****
+**************
+* JPEG VGA@15fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=15;v4l2-ctl 
+--set-fmt-video=width=640,height=480,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+[ 1105.621884] ov5640 1-003c: Bandwidth Per Lane=245721600, 640x480 from 
+1896x1080
+[ 1105.627927] ov5640 1-003c: mipi_sclk=246000000, mipi_div=2, prediv=3, 
+mult=123, sysdiv=4
+[ 1105.641273] ov5640 1-003c: link freq=61500000 Hz
+[ 1105.646789] ov5640 1-003c: PCLK PERIOD 0x4837=0x40
+[ 1105.709626] st-mipid02 2-0014: clk_lane_reg1=0x81
+<<<<<<<<<<<<<<<<< 15.09 fps
+<<<<<<<<<<<<<<< 15.04 fps
+<<<<<<<<<<<<<<< 15.03 fps
+<<<<<<<<<<<<<<< 15.02 fps
+<<<<<<<<<<<<<<< 15.01 fps
+
+Measured #16ns (62.5MHz)
+
+
+* JPEG VGA@30fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=30;v4l2-ctl 
+--set-fmt-video=width=640,height=480,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+[ 1144.539082] ov5640 1-003c: Bandwidth Per Lane=491443200, 640x480 from 
+1896x1080
+[ 1144.545143] ov5640 1-003c: mipi_sclk=492000000, mipi_div=2, prediv=3, 
+mult=123, sysdiv=2
+[ 1144.558756] ov5640 1-003c: link freq=123000000 Hz
+[ 1144.562012] ov5640 1-003c: PCLK PERIOD 0x4837=0x20
+[ 1144.623895] st-mipid02 2-0014: clk_lane_reg1=0x41
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.09 fps
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.04 fps
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.13 fps
+
+Measured #8ns (125MHz)
+
+
+*******************
+***  1024x768  ****
+*******************
+* JPEG 1024x768@15fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=15;v4l2-ctl 
+--set-fmt-video=width=1024,height=768,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+<<<<<<<<<<<<<<<<< 15.09 fps
+<<<<<<<<<<<<<<< 15.04 fps
+<<<<<<<<<<<<<<< 15.03 fps
+<<<<<<<<<<<<<<< 15.02 fps
+
+Measured #16ns (62.5MHz)
+
+
+* JPEG 1024x768@30fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=30;v4l2-ctl 
+--set-fmt-video=width=1024,height=768,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+[ 1218.632061] ov5640 1-003c: Bandwidth Per Lane=491443200, 1024x768 
+from 1896x1080
+[ 1218.638216] ov5640 1-003c: mipi_sclk=492000000, mipi_div=2, prediv=3, 
+mult=123, sysdiv=2
+[ 1218.651788] ov5640 1-003c: link freq=123000000 Hz
+[ 1218.655345] ov5640 1-003c: PCLK PERIOD 0x4837=0x20
+[ 1218.724149] st-mipid02 2-0014: clk_lane_reg1=0x41
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.09 fps
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.04 fps
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.13 fps
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.09 fps
+Measured #8ns (125MHz)
+
+
+***************
+***  720p  ****
+***************
+* JPEG 720p@15fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=15;v4l2-ctl 
+--set-fmt-video=width=1280,height=720,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+[ 7781.232498] ov5640 1-003c: Bandwidth Per Lane=168009600, 1280x720 
+from 1892x740
+[ 7781.238554] ov5640 1-003c: mipi_sclk=169600000, mipi_div=1, prediv=3, 
+mult=106, sysdiv=5
+[ 7781.247117] ov5640 1-003c: link freq=84800000 Hz
+[ 7781.251116] ov5640 1-003c: PCLK PERIOD 0x4837=0x17
+[ 7781.316980] st-mipid02 2-0014: clk_lane_reg1=0x5d
+
+Measured #12ns (83MHz)
+
+* JPEG 720p@30fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=30;v4l2-ctl 
+--set-fmt-video=width=1280,height=720,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+[  515.548519] ov5640 1-003c: Bandwidth Per Lane=336019200, 1280x720 
+from 1892x740
+[  515.554646] ov5640 1-003c: mipi_sclk=340000000, mipi_div=1, prediv=3, 
+mult=85, sysdiv=2
+[  515.562406] ov5640 1-003c: link freq=170000000 Hz
+[  515.574376] ov5640 1-003c: PCLK PERIOD 0x4837=0xb
+[  515.639862] st-mipid02 2-0014: clk_lane_reg1=0x2d
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.39 fps
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.50 fps
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.36 fps
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.42 fps
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 30.40 fps
+Measured #6ns (166MHz)
+==> 30fps but image artefacts (out of MP1 capabilities)
+
+
+****************
+***  1080p  ****
+****************
+* JPEG HD@15fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=15;v4l2-ctl 
+--set-fmt-video=width=1920,height=1080,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+[ 1998.266915] ov5640 1-003c: Bandwidth Per Lane=336000000, 1920x1080 
+from 2500x1120
+[ 1998.273040] ov5640 1-003c: mipi_sclk=336000000, mipi_div=1, prediv=3, 
+mult=42, sysdiv=1
+[ 1998.280987] ov5640 1-003c: link freq=168000000 Hz
+[ 1998.286142] ov5640 1-003c: PCLK PERIOD 0x4837=0xb
+[ 1998.380206] st-mipid02 2-0014: clk_lane_reg1=0x2d
+<<< 1.88 fps
+<< 1.87 fps
+<< 1.88 fps
+<< 1.87 fps
+<< 1.87 fps
+Measured #6ns (166MHz)
+
+* JPEG HD@30fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=30;v4l2-ctl 
+--set-fmt-video=width=1920,height=1080,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+[ 2196.981767] ov5640 1-003c: Bandwidth Per Lane=672000000, 1920x1080 
+from 2500x1120
+[ 2196.987882] ov5640 1-003c: mipi_sclk=672000000, mipi_div=1, prediv=3, 
+mult=84, sysdiv=1
+[ 2196.996225] ov5640 1-003c: link freq=336000000 Hz
+[ 2197.000553] ov5640 1-003c: PCLK PERIOD 0x4837=0x5
+[ 2197.097244] st-mipid02 2-0014: clk_lane_reg1=0x15
+Measured #3ns (333MHz)
+
+==> no images but out of MP1 capabilities
+
+
+**************
+***  5Mp  ****
+**************
+* JPEG 5Mp@15fps
+v4l2-ctl --set-ctrl=test_pattern=1;v4l2-ctl --set-parm=15;v4l2-ctl 
+--set-fmt-video=width=2592,height=1944,pixelformat=JPEG --stream-mmap 
+--stream-count=-1
+
+[ 2479.203457] ov5640 1-003c: Bandwidth Per Lane=671639040, 2592x1944 
+from 2844x1968
+[ 2479.209647] ov5640 1-003c: mipi_sclk=672000000, mipi_div=1, prediv=3, 
+mult=84, sysdiv=1
+[ 2479.217961] ov5640 1-003c: link freq=336000000 Hz
+[ 2479.222240] ov5640 1-003c: PCLK PERIOD 0x4837=0x5
+[ 2479.388400] st-mipid02 2-0014: clk_lane_reg1=0x15
+
+Measured #3ns (333MHz)
+
+==> no images but out of MP1 capabilities
+
+
+
+On 9/3/19 4:48 PM, Hugues FRUCHET wrote:
+> Hi Jacopo,
+> 
+> On 8/21/19 4:24 PM, Jacopo Mondi wrote:
+>> Hello,
+>>      +laura who has been working on supporting RAW capture for this
+>>      driver.
+>>
+>> On Tue, Aug 20, 2019 at 12:13:12PM +0300, Sakari Ailus wrote:
+>>> Hi Hugues,
+>>>
+>>> On Tue, Jul 02, 2019 at 04:05:46PM +0000, Hugues FRUCHET wrote:
+>>>> Hi Sakari,
+>>>>
+>>>> On 6/27/19 6:05 PM, Sakari Ailus wrote:
+>>>>> Hi Hugues,
+>>>>>
+>>>>> On Thu, Jun 27, 2019 at 02:57:04PM +0200, Hugues Fruchet wrote:
+>>>>>> Add support of V4L2_CID_LINK_FREQ, this is needed
+>>>>>> by some CSI-2 receivers.
+>>>>>>
+>>>>>> 384MHz is exposed for the time being, corresponding
+>>>>>> to 96MHz pixel clock with 2 bytes per pixel on 2 data lanes.
+>>>>>>
+>>>>>> This setup has been tested successfully with ST MIPID02
+>>>>>> CSI-2 to parallel bridge.
+>>>>>>
+>>>>>> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
+>>>>>> ---
+>>>>>
+>>>>> Thanks for the patch.
+>>>>>
+>>>>> The driver calculates the sensor configuration based on its configuration,
+>>>>> and this needs to be reflected in the link frequency: it's not a static
+>>>>> value. See e.g. ov5640_calc_sys_clk().
+>>>>>
+>>>>
+>>>> I know this code, but for a reason I don't understand yet, this seems
+>>>> to not have effects on the CSI-2 link frequency.
+>>>>
+>>
+>> This seems unlikely to me, as the ov5640_calc_sys_clk() calculates the
+>> system clock, which then generates the MIPI CLK.
+>>
+>> I would really be interested to know if you could measure somehow the
+>> actual frequency of the clock lane, to make sure it actually
+>> changes according to to the driver calculations.
+>>
+>>>> This has been verified with MIPID02 CSI-2 bridge which only work with
+>>>> this fixed link frequency as input to program its ui_x4 register
+>>>> setting, see
+>>>> https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg2028171.html.
+>>>> All resolutions and all framerate have been tested succesfully with this
+>>>> setting.
+>>>>
+>>>> Initially I tried to set the link frequency according to the value
+>>>> computed in ov5640_calc_sys_clk() but it was only functional when
+>>>> resolutions/framerate was close to the 384MHz value...
+>>>>
+>>>> As OV5640 D3 engineering board has been initially developped for
+>>>> dragonboard, I'll dig into this and found this commit:
+>>>> https://lore.kernel.org/patchwork/patch/886794/
+>>>> which set a fixed pixel rate value to 96MHz, which match perfectly
+>>>> with the 384MHz value I found for link frequency...
+>>>>
+>>>> Perhaps other CSI-2 OV5640 users can comment about it and have the
+>>>> explanations of what I experiment...
+>>>> Maxime, Jacopo, do you have any idea about it ?
+>>>
+>>> I would also like to wee a comment from someone who's familiar with the
+>>> device. Yet I can tell a static value of 348 MHz is clearly incorrect as it
+>>> ignores sensor runtime configuration as well as platform configuration
+>>> (external clock frequency for instance).
+>>>
+>>> Generally speaking, configuring a CSI-2 receiver to expect a particular
+>>> frequency usually doesn't mean it's going to fail even if the transmitter
+>>> uses a different frequency, albeit the likelihood of it not working
+>>> increases as the difference grows. Could the problem be at the receiver's
+>>> end?
+>>>
+>>> Have you checked what kind of values ov5640_calc_pclk() returns for
+>>> different configurations? It would seem like that this is what the
+>>> LINK_FREQ (divided by lanes and multiplied by two) should be.
+>>
+>> Not exactly. ov5640_calc_pclk() is only used when computing the
+>> parallel bus pixel clock not for the CSI-2 bus.
+>>
+>> To obtain the link frequency for the MIPI interface I would consider
+>> the system clock frequency calculated by ov5640_calc_sys_clk(), which
+>> represents the bandwidth per lane in bits per second. This should then
+>> be divided by 2 to compensate the MIPI DDR mode [*] (no need to divide
+>> by the number of lanes, as this is already the bandwidth -per lane-)
+>>
+>> For 640x480 YUYV8_2X8 (and 1024x768) with 2 data lanes and 24MHz xclk
+>> I have calculated the following values:
+>>
+>> SYSCLK = 492MHz
+>> MIPISCLK = 256MHz
+>> PCLK = 61,50MHz
+>>
+>> For 1280x720 with the same setup
+>> SYSCLK = 340MHz
+>> MIPI_CLK = 170MHz
+>> PCLK = 42,50 (this seems veeery low according to datasheet)
+>>
+>> For 1920x1080
+>> SYSCLK = 680MHz
+>> MIPI_CLK = 340MHz
+>> PCLK = 85MHz (slightly slow according to the datasheet)
+>>
+>> All captured images seems fine...
+>>
+>> If you could confirm those values by probing the actual clock lane it
+>> would be just great.
+>>
+> 
+> I've made some measurements probing clock lane with YUYV 16 bits
+> grabbing, here are the results:
+> 
+> * VGA @ 30fps
+> v4l2-ctl --set-parm=30;v4l2-ctl
+> --set-fmt-video=width=640,height=480,pixelformat=YUYV --stream-mmap
+> [ 1624.854273] ov5640 0-003c: rate=491443200, 640x480 from 1896x1080
+> [ 1624.859192] ov5640 0-003c: sysclk=492000000, mipi_div=2
+> Measured clock lane frequency: 123MHz
+> 
+> * 1024x768 @ 30fps
+> v4l2-ctl --set-parm=30;v4l2-ctl
+> --set-fmt-video=width=1024,height=768,pixelformat=YUYV --stream-mmap
+> [  558.833885] ov5640 0-003c: rate=491443200, 1024x768 from 1896x1080
+> [  558.840188] ov5640 0-003c: sysclk=492000000, mipi_div=2
+> Measured clock lane frequency: 124MHz
+> 
+> * 720p @ 30fps
+> v4l2-ctl --set-parm=30;v4l2-ctl
+> --set-fmt-video=width=1280,height=720,pixelformat=YUYV --stream-mmap
+> [ 2920.785392] ov5640 0-003c: rate=336019200, 1280x720 from 1892x740
+> [ 2920.794771] ov5640 0-003c: sysclk=340000000, mipi_div=1
+> Measured clock lane frequency: 171MHz
+> 
+> * 1080p @ 30fps
+> v4l2-ctl --set-parm=30;v4l2-ctl
+> --set-fmt-video=width=1920,height=1080,pixelformat=YUYV --stream-mmap
+> [ 1650.143701] ov5640 0-003c: rate=672000000, 1920x1080 from 2500x1120
+> [ 1650.149876] ov5640 0-003c: sysclk=672000000, mipi_div=1
+> Measured clock lane frequency: 330MHz
+> 
+> So it seems that formula must also take care of mipi_div:
+> link_frequency = sys_div / 2 / mipi_div
+> 
+> 
+> Unfortunately, as said previously, when updating ov5640 codebase so that
+> CID_LINK_FREQUENCY returns this computed value instead of 384MHz fixed
+> value, the MIPID02 bridge has some troubles and some
+> resolutions/framerate are broken:
+> 
+> dmesg -n8
+> echo "format link_freq +p" > /sys/kernel/debug/dynamic_debug/control
+> 
+> * VGA @ 30fps => broken
+> v4l2-ctl --set-parm=30;v4l2-ctl
+> --set-fmt-video=width=640,height=480,pixelformat=YUYV --stream-mmap
+> [ 1624.854273] ov5640 0-003c: rate=491443200, 640x480 from 1896x1080
+> [ 1624.859192] ov5640 0-003c: sysclk=492000000, mipi_div=2
+> [ 1624.924287] st-mipid02 1-0014: detect link_freq = 123000000 Hz
+> ==> no frames sent to DCMI
+> 
+> * 720p @ 30fps => very slow framerate
+> v4l2-ctl --set-parm=30;v4l2-ctl
+> --set-fmt-video=width=1280,height=720,pixelformat=YUYV --stream-mmap
+> [ 1900.707822] ov5640 0-003c: rate=336019200, 1280x720 from 1892x740
+> [ 1900.712717] ov5640 0-003c: sysclk=340000000, mipi_div=1
+> [ 1900.782402] st-mipid02 1-0014: detect link_freq = 170000000 Hz
+> << 0.69 fps
+> < 0.67 fps
+> < 0.67 fps
+> 
+> * 1080p @ 30fps => very slow framerate
+> v4l2-ctl --set-parm=30;v4l2-ctl
+> --set-fmt-video=width=1920,height=1080,pixelformat=YUYV --stream-mmap
+> [ 1366.550832] ov5640 0-003c: rate=336000000, 1920x1080 from 2500x1120
+> [ 1366.555668] ov5640 0-003c: sysclk=336000000, mipi_div=1
+> Frame rate set to 30.000 fps
+> [ 1367.105503] ov5640 0-003c: rate=672000000, 1920x1080 from 2500x1120
+> [ 1367.110420] ov5640 0-003c: sysclk=672000000, mipi_div=1
+> [ 1367.214498] st-mipid02 1-0014: detect link_freq = 336000000 Hz
+> << 0.11 fps
+> < 0.11 fps
+> 
+> 
+> * 1080p @ 15fps => OK, 15fps as expected
+> v4l2-ctl --set-parm=15;v4l2-ctl
+> --set-fmt-video=width=1920,height=1080,pixelformat=YUYV --stream-mmap
+> [ 1327.417545] ov5640 0-003c: rate=336000000, 1920x1080 from 2500x1120
+> [ 1327.422560] ov5640 0-003c: sysclk=336000000, mipi_div=1
+> [ 1327.527852] st-mipid02 1-0014: detect link_freq = 168000000 Hz
+> <<<<<<<<<<<<<<<<< 15.09 fps
+> <<<<<<<<<<<<<<< 15.04 fps
+> 
+> 
+> One could argue that this is the mipid02 bridge codebase that is wrong:
+> drivers/media/i2c/st-mipid02.c:
+>     mipid02_configure_from_rx_speed()
+>       [...]
+>       bridge->r.clk_lane_reg1 |= (2000000000 / link_freq) << 2;
+> 
+> but computation is inline with MIPID02 spec:
+> 
+> "CLOCK LANE 1 REGISTER"
+> Bit_no   Bit_name
+> 7        ui_x4_clk_lane[5]
+> 6        ui_x4_clk_lane[4]
+> 5        ui_x4_clk_lane[3]
+> 4        ui_x4_clk_lane[2]
+> 3        ui_x4_clk_lane[1]
+> 2        ui_x4_clk_lane[0]
+> Unit interval time multiplied by four
+> This signal indicates the bit period in units of
+> 0.25 ns. If the unit interval is 3 ns, twelve (0x0C)
+> should be programmed. This value is used to
+> generate delays. Therefore, if the period is not a
+> multiple of 0.25 ns, the value should be rounded
+> down. For example, a 600 Mbit/s single lane
+> linkuses a unit interval of 1.667 ns. Multiplying
+> by four results in 6.667. In this case, a value of 6
+> (not 7) should be programmed.
+> 
+> 
+> Perhaps that someone which knows well CSI-2 interfaces could
+> detect what is wrong here, but personally I don't.
+> 
+> 
+>> However, this only work assuming the here below [*], and we're still
+>> missing something because RAW still doesn't work as expected :(
+>>
+>> Anyway, clock tree madness apart, fixing the LINK_FREQ control value
+>> to 96MHz seems like it does not reflect what the driver actual does.
+>>
+>> Could you try setting the control value to what the driver actually
+>> computes as here suggested?
+>>
+>> Thanks
+>>      j
+>>
+>> PS. I'm still confused why the have the link-frequencies property in
+>> DTS bindings. What is its purpose if all drivers compute or hardcode
+>> it?
+> 
+> I share this point of view, I don't know how to return a dynamically
+> computed link frequency. Current drivers are exposing a single one
+> or a set of discrete frequencies.
+> For a matter of test purpose, I've done this hack:
+> 
+> -static const s64 link_freq_menu_items[] = {
+> +static s64 link_freq_menu_items[] = {
+> 	384000000,
+> };
+> 
+> +	link_freq_menu_items[0] = _rate / 2 / mipi_div;
+> 
+> 
+>>
+>> [*] There is a big assumption here, that the MIPI bus clock gets
+>> generated by two different clock outputs depending if the mode goes
+>> through the the scaler or not. You can see this at line 967 in the
+>> driver code. If mode goes though the scaler, MIPI_DIV = 2 and you get
+>> the bus clock from the MIPISCLK signal. If it does not go through the
+>> scaler MIPI_DIV = 1 and then the MIPI bus clock gets provided by the
+>> MIPI_CLK signal. This is the result of several attempts to decode the
+>> ov5640 clock tree, but it has only been tested with modes with bpp =
+>> 16 and 2 data lanes. As it has been recently reported, for RAW mode,
+>> this does not work well, so the assumption might not be correct.
+>>
+>>>
+>>>>
+>>>>
+>>>>>> version 2:
+>>>>>>      - do not set control read only as per Hans' comment:
+>>>>>>        See https://www.mail-archive.com/linux-media@vger.kernel.org/msg147910.html
+>>>>>>
+>>>>>>     drivers/media/i2c/ov5640.c | 10 ++++++++++
+>>>>>>     1 file changed, 10 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+>>>>>> index 82d4ce9..e6307f3 100644
+>>>>>> --- a/drivers/media/i2c/ov5640.c
+>>>>>> +++ b/drivers/media/i2c/ov5640.c
+>>>>>> @@ -218,6 +218,7 @@ struct ov5640_ctrls {
+>>>>>>     	struct v4l2_ctrl *test_pattern;
+>>>>>>     	struct v4l2_ctrl *hflip;
+>>>>>>     	struct v4l2_ctrl *vflip;
+>>>>>> +	struct v4l2_ctrl *link_freq;
+>>>>>>     };
+>>>>>>
+>>>>>>     struct ov5640_dev {
+>>>>>> @@ -2198,6 +2199,10 @@ static int ov5640_try_fmt_internal(struct v4l2_subdev *sd,
+>>>>>>     	return 0;
+>>>>>>     }
+>>>>>>
+>>>>>> +static const s64 link_freq_menu_items[] = {
+>>>>>> +	384000000,
+>>>>>> +};
+>>>>>> +
+>>>>>>     static int ov5640_set_fmt(struct v4l2_subdev *sd,
+>>>>>>     			  struct v4l2_subdev_pad_config *cfg,
+>>>>>>     			  struct v4l2_subdev_format *format)
+>>>>>> @@ -2636,6 +2641,8 @@ static int ov5640_s_ctrl(struct v4l2_ctrl *ctrl)
+>>>>>>     	case V4L2_CID_VFLIP:
+>>>>>>     		ret = ov5640_set_ctrl_vflip(sensor, ctrl->val);
+>>>>>>     		break;
+>>>>>> +	case V4L2_CID_LINK_FREQ:
+>>>>>> +		return 0;
+>>>>>>     	default:
+>>>>>>     		ret = -EINVAL;
+>>>>>>     		break;
+>>>>>> @@ -2703,6 +2710,9 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
+>>>>>>     				       V4L2_CID_POWER_LINE_FREQUENCY_AUTO, 0,
+>>>>>>     				       V4L2_CID_POWER_LINE_FREQUENCY_50HZ);
+>>>>>>
+>>>>>> +	ctrls->link_freq = v4l2_ctrl_new_int_menu(hdl, ops, V4L2_CID_LINK_FREQ,
+>>>>>> +						  0, 0, link_freq_menu_items);
+>>>>>> +
+>>>>>>     	if (hdl->error) {
+>>>>>>     		ret = hdl->error;
+>>>>>>     		goto free_ctrls;
+>>>>>> --
+>>>>>> 2.7.4
+>>>>>>
+>>>>>
+>>>>
+>>>> BR,
+>>>> Hugues.
+>>>
+>>> --
+>>> Sakari Ailus
+>>> sakari.ailus@linux.intel.com
+> 
+> BR,
+> Hugues.
+> 
+BR,
+Hugues.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
