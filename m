@@ -2,80 +2,108 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F15E294893
+	by mail.lfdr.de (Postfix) with ESMTPS id A2162294895
 	for <lists+linux-stm32@lfdr.de>; Wed, 21 Oct 2020 09:04:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A1A9C424B3;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 674D5C424CF;
 	Wed, 21 Oct 2020 07:04:39 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3910FC424B7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 649ADC3FAE0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Oct 2020 12:59:13 +0000 (UTC)
+ Tue, 20 Oct 2020 13:56:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1603198752;
+ s=mimecast20190719; t=1603202163;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:content-type:content-type;
- bh=Qw1F19yZpnDVsqc+HFG0m1crxeHycCzf6HaecBeRc7s=;
- b=jLyhWrLy1cAseRZMHk7dYrcWzdHVCkaqw65dgVo50tgQK0L+dkf+DUa6VLCBtvBTmya8S8
- wrNu8qq2oU4CwQAhuuaV+m9H0xV1sjhRvbEVRZMqT1A0JqusViq1jwG0jU4rJNrfH1JecU
- o2MSQSfwv/40sEkKR13ReBW2m1en81k=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-421-sJzrhmpEM2WfU_nt3mHFmw-1; Tue, 20 Oct 2020 08:59:09 -0400
-X-MC-Unique: sJzrhmpEM2WfU_nt3mHFmw-1
-Received: by mail-qv1-f69.google.com with SMTP id s8so1230014qvv.18
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=HyQ28xr5/lapv6azTtFCvHFT5XQ1+OzeHk+84iEm66Y=;
+ b=QUp+Tm/49C2D2ArfwdGiXcYEZLmxY3ITF9bXZyS+HEfcJJoqaGxmch+2EHiNHeADDWpHNz
+ Ouzap4oFcZixuWmorb4Ub+lRVmWRZDipZO+0tL8W1vnU06zVM/xfLz81/8VfcBPp80A1RW
+ EdBHqnK2mgm1gY9dzcmZeB2rW1Al8Fc=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-591-hEJYy_g9Oe2D81QtKSwQHA-1; Tue, 20 Oct 2020 09:56:01 -0400
+X-MC-Unique: hEJYy_g9Oe2D81QtKSwQHA-1
+Received: by mail-qk1-f198.google.com with SMTP id q15so1781214qkq.23
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Oct 2020 05:59:09 -0700 (PDT)
+ Tue, 20 Oct 2020 06:56:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=Qw1F19yZpnDVsqc+HFG0m1crxeHycCzf6HaecBeRc7s=;
- b=beKf/0EQrNi4nhtAjaU6VH9WxqdQeTYcs2x0z6koRYQTGmllnk0Th+MiA3tpUlte7D
- OZe3vmDqDQOT5dr2/B1XUOAMZp4bURfgBKorXajCfTaEr1s5/2Xr+j5200t7fTqIitpq
- k6N6+4qVjBaq6ZVzYI9dT+WZL5kF71sxxzI45iqlZyYxkfUEvwL5YxCtNx/kXew8apak
- h2y8XgEY3Up3wOWxjD48NUFPrTPxSV387bWfp9xqxXXSPcE+TcF1w/Wj4CkqIQ1BzzFk
- 3sZDgdvzpa7eatBHT3TraSHAUP3ucB7rGoUBJvIgnimS+9cC7DoXgjjDZkxlFesNp/fm
- TXNQ==
-X-Gm-Message-State: AOAM530WIobTwHuLIuCGm67pOklK/hjmKlgC4PhHLddiKIsxikhZsd27
- 292cgq/Vn1UHBTrZ249CgI958rr7sKatx8BIGP3t92H7r6wrksDetkneXyy70jzaB/B+9a6hJVm
- vIx8gv26YP8GWDeWv/ddMH5aTihzSyCiXC8bY/Wse
-X-Received: by 2002:ac8:1ab4:: with SMTP id x49mr2308787qtj.39.1603198749166; 
- Tue, 20 Oct 2020 05:59:09 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzSYG8X66Ps2XgHiXhXkimRB74ySBTCmyKFNySnJWuGJUoj6A5ZTEg0bhWDVOn/3M0lAtzsnA==
-X-Received: by 2002:ac8:1ab4:: with SMTP id x49mr2308752qtj.39.1603198748879; 
- Tue, 20 Oct 2020 05:59:08 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=HyQ28xr5/lapv6azTtFCvHFT5XQ1+OzeHk+84iEm66Y=;
+ b=NLJubmMe+TReOKXmvlND2DL4jxsZ7Imb3jwOLJUCH3c4st9ej0BI0l3kyfBbkvGHrZ
+ U04wEocYg1s3U9xfUWZNdAuCRUFmr664hL2KVMT2lY/GS/PaXZh0aoEBkyblzo8JUVpC
+ mmgCxBuJKualzCQYDbRUmlA3oVMnYNPy5QhfVlNDCR5Vu6E7lztKCEWdqFjmfbeCDt3j
+ 0wh2lIONgaZsg4B5chijLlzxyaaU0kzUqqHr3BO8H+WNlh7GXwdtcAhqsTymrttK4Rqa
+ GPT9mKcycsOhrXw9oX8vfy1R3+eIrLPEVTtTtWpd584Z++4l8UJo/TK7Wqdf/boJDQU9
+ 6f5w==
+X-Gm-Message-State: AOAM531NfFqoIJ7c1siitH4jTQ4ohWkYN/dLY019O8GZaDfzhUtlh8xw
+ Biae2N8b7IYHGtGdxkzEVOTTFNvyW5YwaDodZtu7gGpqnNOMfj4uDqkcSvFxe7WHj8u/lUmkoEq
+ FzI8LgZ83pIUaBQcwGx9ibQjkgdgC2Q4EdN/WRAYS
+X-Received: by 2002:a05:6214:174f:: with SMTP id
+ dc15mr3370437qvb.25.1603202160688; 
+ Tue, 20 Oct 2020 06:56:00 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyLUAfqrAOJzxwKF3+voCBF5yQYNbMOvfOkDZhumkJj3bEnT15V4x8vUJ5iQ5pWt9KusIZtsQ==
+X-Received: by 2002:a05:6214:174f:: with SMTP id
+ dc15mr3370377qvb.25.1603202160139; 
+ Tue, 20 Oct 2020 06:56:00 -0700 (PDT)
 Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
  [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id a128sm698132qkc.92.2020.10.20.05.59.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2020 05:59:07 -0700 (PDT)
-From: trix@redhat.com
-To: kvalo@codeaurora.org, davem@davemloft.net, kuba@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- ath9k-devel@qca.qualcomm.com, johannes.berg@intel.com,
- emmanuel.grumbach@intel.com, luciano.coelho@intel.com, linuxwifi@intel.com,
- pkshih@realtek.com, lior2.cohen@intel.com, sara.sharon@intel.com,
- shahar.s.matityahu@intel.com, nathan.errera@intel.com,
- tova.mussai@intel.com, shaul.triebitz@intel.com, john@phrozen.org,
- Larry.Finger@lwfinger.net, christophe.jaillet@wanadoo.fr,
- zhengbin13@huawei.com, yanaijie@huawei.com, gustavoars@kernel.org,
- saurav.girepunje@gmail.com, joe@perches.com
-Date: Tue, 20 Oct 2020 05:58:41 -0700
-Message-Id: <20201020125841.26791-1-trix@redhat.com>
-X-Mailer: git-send-email 2.18.1
+ by smtp.gmail.com with ESMTPSA id b8sm775938qkn.133.2020.10.20.06.55.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Oct 2020 06:55:59 -0700 (PDT)
+To: Nick Desaulniers <ndesaulniers@google.com>
+References: <20201017160928.12698-1-trix@redhat.com>
+ <20201018054332.GB593954@kroah.com>
+ <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
+From: Tom Rix <trix@redhat.com>
+Message-ID: <ca1f50d6-1005-8e3d-8d5c-98c82a704338@redhat.com>
+Date: Tue, 20 Oct 2020 06:55:52 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 X-Mailman-Approved-At: Wed, 21 Oct 2020 07:04:31 +0000
-Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, ath10k@lists.infradead.org,
- Tom Rix <trix@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] wireless: remove unneeded break
+Cc: alsa-devel@alsa-project.org,
+ clang-built-linux <clang-built-linux@googlegroups.com>,
+ Greg KH <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ nouveau@lists.freedesktop.org, storagedev@microchip.com,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
+ linux-mtd@lists.infradead.org, ath10k@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
+ linux-watchdog@vger.kernel.org, devel@driverdev.osuosl.org,
+ linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-nvdimm <linux-nvdimm@lists.01.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, linux-acpi@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, industrypack-devel@lists.sourceforge.net,
+ linux-pci@vger.kernel.org, spice-devel@lists.freedesktop.org,
+ MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-nfc@lists.01.org, linux-pm@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-gpio@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-amlogic@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
+ platform-driver-x86@vger.kernel.org, linux-integrity@vger.kernel.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
+ George Burgess <gbiv@google.com>, Network Development <netdev@vger.kernel.org>,
+ linux-usb@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org,
+ "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+ <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
+ Joe Perches <joe@perches.com>, bpf <bpf@vger.kernel.org>,
+ ocfs2-devel@oss.oracle.com, linux-power@fi.rohmeurope.com
+Subject: Re: [Linux-stm32] [RFC] treewide: cleanup unreachable breaks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,136 +115,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Tom Rix <trix@redhat.com>
 
-A break is not needed if it is preceded by a return
+On 10/19/20 12:42 PM, Nick Desaulniers wrote:
+> On Sat, Oct 17, 2020 at 10:43 PM Greg KH <gregkh@linuxfoundation.org> wrote:
+>> On Sat, Oct 17, 2020 at 09:09:28AM -0700, trix@redhat.com wrote:
+>>> From: Tom Rix <trix@redhat.com>
+>>>
+>>> This is a upcoming change to clean up a new warning treewide.
+>>> I am wondering if the change could be one mega patch (see below) or
+>>> normal patch per file about 100 patches or somewhere half way by collecting
+>>> early acks.
+>> Please break it up into one-patch-per-subsystem, like normal, and get it
+>> merged that way.
+>>
+>> Sending us a patch, without even a diffstat to review, isn't going to
+>> get you very far...
+> Tom,
+> If you're able to automate this cleanup, I suggest checking in a
+> script that can be run on a directory.  Then for each subsystem you
+> can say in your commit "I ran scripts/fix_whatever.py on this subdir."
+>  Then others can help you drive the tree wide cleanup.  Then we can
+> enable -Wunreachable-code-break either by default, or W=2 right now
+> might be a good idea.
 
-Signed-off-by: Tom Rix <trix@redhat.com>
----
+I should have waited for Joe Perches's fixer addition to checkpatch :)
 
-v2: remove intersil/p54/eeprom.c
+The easy fixes I did only cover about 1/2 of the problems.
 
----
- drivers/net/wireless/ath/ath10k/htt_rx.c             | 1 -
- drivers/net/wireless/ath/ath6kl/testmode.c           | 1 -
- drivers/net/wireless/ath/ath9k/hw.c                  | 1 -
- drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c    | 2 --
- drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c  | 1 -
- drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c  | 1 -
- drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c | 3 ---
- 7 files changed, 10 deletions(-)
+Remaining are mostly nested switches, which from a complexity standpoint is bad.
 
-diff --git a/drivers/net/wireless/ath/ath10k/htt_rx.c b/drivers/net/wireless/ath/ath10k/htt_rx.c
-index 5c1af2021883..9c4e6cf2137a 100644
---- a/drivers/net/wireless/ath/ath10k/htt_rx.c
-+++ b/drivers/net/wireless/ath/ath10k/htt_rx.c
-@@ -3878,7 +3878,6 @@ bool ath10k_htt_t2h_msg_handler(struct ath10k *ar, struct sk_buff *skb)
- 		return ath10k_htt_rx_proc_rx_frag_ind(htt,
- 						      &resp->rx_frag_ind,
- 						      skb);
--		break;
- 	}
- 	case HTT_T2H_MSG_TYPE_TEST:
- 		break;
-diff --git a/drivers/net/wireless/ath/ath6kl/testmode.c b/drivers/net/wireless/ath/ath6kl/testmode.c
-index f3906dbe5495..89c7c4e25169 100644
---- a/drivers/net/wireless/ath/ath6kl/testmode.c
-+++ b/drivers/net/wireless/ath/ath6kl/testmode.c
-@@ -94,7 +94,6 @@ int ath6kl_tm_cmd(struct wiphy *wiphy, struct wireless_dev *wdev,
- 
- 		return 0;
- 
--		break;
- 	case ATH6KL_TM_CMD_RX_REPORT:
- 	default:
- 		return -EOPNOTSUPP;
-diff --git a/drivers/net/wireless/ath/ath9k/hw.c b/drivers/net/wireless/ath/ath9k/hw.c
-index 6609ce122e6e..b66eeb577272 100644
---- a/drivers/net/wireless/ath/ath9k/hw.c
-+++ b/drivers/net/wireless/ath/ath9k/hw.c
-@@ -2308,7 +2308,6 @@ void ath9k_hw_beaconinit(struct ath_hw *ah, u32 next_beacon, u32 beacon_period)
- 		ath_dbg(ath9k_hw_common(ah), BEACON,
- 			"%s: unsupported opmode: %d\n", __func__, ah->opmode);
- 		return;
--		break;
- 	}
- 
- 	REG_WRITE(ah, AR_BEACON_PERIOD, beacon_period);
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c b/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c
-index cbdebefb854a..8698ca4d30de 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c
-@@ -1202,13 +1202,11 @@ static int iwl_mvm_mac_ctx_send(struct iwl_mvm *mvm, struct ieee80211_vif *vif,
- 		return iwl_mvm_mac_ctxt_cmd_sta(mvm, vif, action,
- 						force_assoc_off,
- 						bssid_override);
--		break;
- 	case NL80211_IFTYPE_AP:
- 		if (!vif->p2p)
- 			return iwl_mvm_mac_ctxt_cmd_ap(mvm, vif, action);
- 		else
- 			return iwl_mvm_mac_ctxt_cmd_go(mvm, vif, action);
--		break;
- 	case NL80211_IFTYPE_MONITOR:
- 		return iwl_mvm_mac_ctxt_cmd_listener(mvm, vif, action);
- 	case NL80211_IFTYPE_P2P_DEVICE:
-diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c b/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c
-index 63f9ea21962f..bd9160b166c5 100644
---- a/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c
-+++ b/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c
-@@ -1226,7 +1226,6 @@ static int _rtl88ee_set_media_status(struct ieee80211_hw *hw,
- 	default:
- 		pr_err("Network type %d not support!\n", type);
- 		return 1;
--		break;
- 	}
- 
- 	/* MSR_INFRA == Link in infrastructure network;
-diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c b/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c
-index a36dc6e726d2..f8a1de6e9849 100644
---- a/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c
-+++ b/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c
-@@ -1132,7 +1132,6 @@ static int _rtl8723e_set_media_status(struct ieee80211_hw *hw,
- 	default:
- 		pr_err("Network type %d not support!\n", type);
- 		return 1;
--		break;
- 	}
- 
- 	/* MSR_INFRA == Link in infrastructure network;
-diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c b/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c
-index f41a7643b9c4..225b8cd44f23 100644
---- a/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c
-+++ b/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c
-@@ -2085,12 +2085,10 @@ bool rtl8812ae_phy_config_rf_with_headerfile(struct ieee80211_hw *hw,
- 		return __rtl8821ae_phy_config_with_headerfile(hw,
- 				radioa_array_table_a, radioa_arraylen_a,
- 				_rtl8821ae_config_rf_radio_a);
--		break;
- 	case RF90_PATH_B:
- 		return __rtl8821ae_phy_config_with_headerfile(hw,
- 				radioa_array_table_b, radioa_arraylen_b,
- 				_rtl8821ae_config_rf_radio_b);
--		break;
- 	case RF90_PATH_C:
- 	case RF90_PATH_D:
- 		pr_err("switch case %#x not processed\n", rfpath);
-@@ -2116,7 +2114,6 @@ bool rtl8821ae_phy_config_rf_with_headerfile(struct ieee80211_hw *hw,
- 		return __rtl8821ae_phy_config_with_headerfile(hw,
- 			radioa_array_table, radioa_arraylen,
- 			_rtl8821ae_config_rf_radio_a);
--		break;
- 
- 	case RF90_PATH_B:
- 	case RF90_PATH_C:
--- 
-2.18.1
+>
+> Ah, George (gbiv@, cc'ed), did an analysis recently of
+> `-Wunreachable-code-loop-increment`, `-Wunreachable-code-break`, and
+> `-Wunreachable-code-return` for Android userspace.  From the review:
+> ```
+> Spoilers: of these, it seems useful to turn on
+> -Wunreachable-code-loop-increment and -Wunreachable-code-return by
+> default for Android
+
+In my simple add-a-cflag bot, i see there are about 250
+
+issues for -Wunreachable-code-return.
+
+I'll see about doing this one next.
+
+> ...
+> While these conventions about always having break arguably became
+> obsolete when we enabled -Wfallthrough, my sample turned up zero
+> potential bugs caught by this warning, and we'd need to put a lot of
+> effort into getting a clean tree. So this warning doesn't seem to be
+> worth it.
+> ```
+> Looks like there's an order of magnitude of `-Wunreachable-code-break`
+> than the other two.
+>
+> We probably should add all 3 to W=2 builds (wrapped in cc-option).
+> I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
+> follow up on.
+
+Yes, i think think these should be added.
+
+Tom
 
 _______________________________________________
 Linux-stm32 mailing list
