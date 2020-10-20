@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1676029400D
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Oct 2020 17:58:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB8B9294033
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Oct 2020 18:06:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0614C424B9;
-	Tue, 20 Oct 2020 15:58:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F08AC424BA;
+	Tue, 20 Oct 2020 16:06:53 +0000 (UTC)
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30A5EC424B8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2EBCC424B8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Oct 2020 15:58:05 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09KFftEv008243; Tue, 20 Oct 2020 17:57:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=0NhB4w744ex1Ld0LhQH7gI4YdESY0PjtXTk+Jpsh0+k=;
- b=zIqV5ThP10kLzp7eDK8XzS13yQqtsZJBJAD/FCmHZMMyLgO8fGvTpTrNAntXZ3LhLd95
- oIka79m8/OPeHn7bJo+CWEIQti28DOPYiT1PgLLLRPW5X2hYKjgwFGF/ZKXREFvwl6vk
- UbdrOrbos97Q6qQAnbL9rKY1ER8C8d4lR8+MHiOKB6X1ldnR1U+jpPjoHVE+eUakjsHg
- aSuA5oUZjc07ASZuHC7Jn1S2eUhTz9/lx7ShxBfAirdHVgcevWZhK8Ei743Ol0NX+LIA
- IDAOCgkdkj3NgmwsZg/gBrgxluGsqZdpRa4N8OLCTvEcB9JC22Ae4mStLaU5FfpgDP5a ug== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 347pcwuuwb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 Oct 2020 17:57:15 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 33FD4100038;
- Tue, 20 Oct 2020 17:57:15 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 22AFF206290;
- Tue, 20 Oct 2020 17:57:15 +0200 (CEST)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 20 Oct 2020 17:57:14
- +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <alexandre.torgue@st.com>, <robh@kernel.org>,
- <mark.rutland@arm.com>, <olivier.moysan@st.com>
-Date: Tue, 20 Oct 2020 17:57:09 +0200
-Message-ID: <20201020155709.2621-3-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201020155709.2621-1-olivier.moysan@st.com>
-References: <20201020155709.2621-1-olivier.moysan@st.com>
+ Tue, 20 Oct 2020 16:06:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=974Pru8SQsTsWRztSFlkqkBRxzWVu5U32q4PL8EdyE0=; b=CFdn00D2yLVnQnBZSvE++F6RB2
+ hwgF2+hqz/F0vUmiYOqU0jaKg+NbntGRoJ8NITvlS2fLmSPmeVAdNLSU0FbE4o1eKZ/8N55HGaQwL
+ MipSGLiP92IMF/VwWfBSYkI5FD7RC3P/Zw5MoOHUGmhUnywHTnXKtvRNMYj5O9WM+fERe5dZUyoVG
+ U3WhL09Ez004/nBbSvA6nx14dJwQTz8yS1n+eEN6+7S/CMsxhAUZVLXh6FXBX8PSZkDbDXxAIaEvN
+ oEeStdGS5IfKzsKbh0LQzAnVgq5EM4wItLfeBOEEH3+4YYYd1IaGgKvb1iHXDLOl9iF2B2VGmFxN1
+ MI2z9Gqw==;
+Received: from [2600:1700:4830:165f::19e] (port=58074)
+ by vern.gendns.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david@lechnology.com>)
+ id 1kUu9s-0005nK-CI; Tue, 20 Oct 2020 12:06:44 -0400
+To: William Breathitt Gray <vilhelm.gray@gmail.com>
+References: <cover.1601170670.git.vilhelm.gray@gmail.com>
+ <00be1fccc672c5207f3b04fe4cc09c29e22641f4.1601170670.git.vilhelm.gray@gmail.com>
+ <cc1f7e4d-18d1-bc28-8ce3-e3edcd91bcab@lechnology.com>
+ <20201018165822.GE231549@shinobu>
+From: David Lechner <david@lechnology.com>
+Message-ID: <f2bac8b2-108d-fa4c-cb63-8ff85ce04d1f@lechnology.com>
+Date: Tue, 20 Oct 2020 11:06:42 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.737
- definitions=2020-10-20_08:2020-10-20,
- 2020-10-20 signatures=0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/2] dt-bindings: stm32: dfsdm: remove
-	stm32-adfsdm.txt binding
+In-Reply-To: <20201018165822.GE231549@shinobu>
+Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v5 3/5] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,94 +73,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Device tree audio configuration for STM32 DFSDM is already
-covered in the following binding:
-Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-Remove stm32-adfsdm.txt obsolete binding.
+On 10/18/20 11:58 AM, William Breathitt Gray wrote:
+> On Wed, Oct 14, 2020 at 05:40:44PM -0500, David Lechner wrote:
+>> On 9/26/20 9:18 PM, William Breathitt Gray wrote:
+>>> +static ssize_t counter_chrdev_read(struct file *filp, char __user *buf,
+>>> +				   size_t len, loff_t *f_ps)
+>>> +{
+>>> +	struct counter_device *const counter = filp->private_data;
+>>> +	int err;
+>>> +	unsigned long flags;
+>>> +	unsigned int copied;
+>>> +
+>>> +	if (len < sizeof(struct counter_event))
+>>> +		return -EINVAL;
+>>> +
+>>> +	do {
+>>> +		if (kfifo_is_empty(&counter->events)) {
+>>> +			if (filp->f_flags & O_NONBLOCK)
+>>> +				return -EAGAIN;
+>>> +
+>>> +			err = wait_event_interruptible(counter->events_wait,
+>>> +					!kfifo_is_empty(&counter->events));
+>>> +			if (err)
+>>> +				return err;
+>>> +		}
+>>> +
+>>> +		raw_spin_lock_irqsave(&counter->events_lock, flags);
+>>> +		err = kfifo_to_user(&counter->events, buf, len, &copied);
+>>> +		raw_spin_unlock_irqrestore(&counter->events_lock, flags);
+>>> +		if (err)
+>>> +			return err;
+>>> +	} while (!copied);
+>>> +
+>>> +	return copied;
+>>> +}
+>>
+>> All other uses of kfifo_to_user() I saw use a mutex instead of spin
+>> lock. I don't see a reason for disabling interrupts here.
+> 
+> The Counter character device interface is special in this case because
+> counter->events could be accessed from an interrupt context. This is
+> possible if counter_push_event() is called for an interrupt (as is the
+> case for the 104_quad_8 driver). In this case, we can't use mutex
+> because we can't sleep in an interrupt context, so our only option is to
+> use spin lock.
+> 
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- .../bindings/sound/st,stm32-adfsdm.txt        | 63 -------------------
- 1 file changed, 63 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
 
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt b/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
-deleted file mode 100644
-index 864f5b00b031..000000000000
---- a/Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
-+++ /dev/null
-@@ -1,63 +0,0 @@
--STMicroelectronics Audio Digital Filter Sigma Delta modulators(DFSDM)
--
--The DFSDM allows PDM microphones capture through SPI interface. The Audio
--interface is seems as a sub block of the DFSDM device.
--For details on DFSDM bindings refer to ../iio/adc/st,stm32-dfsdm-adc.txt
--
--Required properties:
--  - compatible: "st,stm32h7-dfsdm-dai".
--
--  - #sound-dai-cells : Must be equal to 0
--
--  - io-channels : phandle to iio dfsdm instance node.
--
--Example of a sound card using audio DFSDM node.
--
--	sound_card {
--		compatible = "audio-graph-card";
--
--		dais = <&cpu_port>;
--	};
--
--	dfsdm: dfsdm@40017000 {
--		compatible = "st,stm32h7-dfsdm";
--		reg = <0x40017000 0x400>;
--		clocks = <&rcc DFSDM1_CK>;
--		clock-names = "dfsdm";
--		#interrupt-cells = <1>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		dfsdm_adc0: filter@0 {
--			compatible = "st,stm32-dfsdm-dmic";
--			reg = <0>;
--			interrupts = <110>;
--			dmas = <&dmamux1 101 0x400 0x00>;
--			dma-names = "rx";
--			st,adc-channels = <1>;
--			st,adc-channel-names = "dmic0";
--			st,adc-channel-types = "SPI_R";
--			st,adc-channel-clk-src = "CLKOUT";
--			st,filter-order = <5>;
--
--			dfsdm_dai0: dfsdm-dai {
--				compatible = "st,stm32h7-dfsdm-dai";
--				#sound-dai-cells = <0>;
--				io-channels = <&dfsdm_adc0 0>;
--				cpu_port: port {
--				dfsdm_endpoint: endpoint {
--					remote-endpoint = <&dmic0_endpoint>;
--				};
--			};
--		};
--	};
--
--	dmic0: dmic@0 {
--		compatible = "dmic-codec";
--		#sound-dai-cells = <0>;
--		port {
--			dmic0_endpoint: endpoint {
--				remote-endpoint = <&dfsdm_endpoint>;
--			};
--		};
--	};
--- 
-2.17.1
-
+The way I understand it, locking is only needed for concurrent readers
+and locking between reader and writer is not needed.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
