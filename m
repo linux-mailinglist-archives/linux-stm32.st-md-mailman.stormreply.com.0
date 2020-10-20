@@ -2,103 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F35A929489B
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Oct 2020 09:04:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F15E294893
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Oct 2020 09:04:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF8DCC424CC;
-	Wed, 21 Oct 2020 07:04:41 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A1A9C424B3;
+	Wed, 21 Oct 2020 07:04:39 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C12FC424B7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3910FC424B7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Oct 2020 08:49:02 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8i7rI188082;
- Tue, 20 Oct 2020 08:48:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : message-id :
- content-type : mime-version : subject : date : in-reply-to : cc : to :
- references; s=corp-2020-01-29;
- bh=UBSvDuZX45rcdCwz1yIzvCzCqfd2joSCizhea4x+Xao=;
- b=q8gn83IPPWdFm1HT3taLhd9DUF/VTUU+yXtsd8f9nD6wriupB19ul4FsqzWGdtIZMcde
- GW+G9oeRVHaGmJfZ8muagtVwvuWLE6AywXuhak+OXkSgdFP6EIR2H2OqKDUhR7yIW2Vz
- zpamQMFlTWRfwdWHBA7I0p8HYGgPlEg7NOi5pNpKeOCI5/Zqu82RI3DyvlSb3YeNhNvu
- 1nAbi2LxPOnr/RtC4QoVHdNGHfdCdQB+x9xvmqx+BqjtbEr8lrxt1aMjIali/bjhTn7W
- dzqjxrXdOv4FjsFo2kwRKNjQX5RScYby9/qqSUitUFXIKeMy4YBvXYVTZYkhax1TMfnU 0w== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2120.oracle.com with ESMTP id 347s8msmp0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 20 Oct 2020 08:48:12 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 09K8is45150623;
- Tue, 20 Oct 2020 08:48:12 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by userp3030.oracle.com with ESMTP id 348ahw07cp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 20 Oct 2020 08:48:12 +0000
-Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 09K8mAEe159753;
- Tue, 20 Oct 2020 08:48:10 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 348ahw07bh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 20 Oct 2020 08:48:10 +0000
-Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 09K8lvTX021447;
- Tue, 20 Oct 2020 08:47:58 GMT
-Received: from [10.175.164.120] (/10.175.164.120)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 20 Oct 2020 01:47:57 -0700
-From: John Haxby <john.haxby@oracle.com>
-Message-Id: <27A23102-A7F5-48C5-8972-48CE4C283C6E@oracle.com>
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
-Date: Tue, 20 Oct 2020 09:47:45 +0100
-In-Reply-To: <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
-To: Nick Desaulniers <ndesaulniers@google.com>
-References: <20201017160928.12698-1-trix@redhat.com>
- <20201018054332.GB593954@kroah.com>
- <CAKwvOdkR_Ttfo7_JKUiZFVqr=Uh=4b05KCPCSuzwk=zaWtA2_Q@mail.gmail.com>
-X-Mailer: Apple Mail (2.3608.120.23.2.4)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9779
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- suspectscore=0
- lowpriorityscore=0 mlxlogscore=999 priorityscore=1501 spamscore=0
- phishscore=0 clxscore=1011 bulkscore=0 impostorscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010200059
-X-Mailman-Approved-At: Wed, 21 Oct 2020 07:04:33 +0000
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- linux-iio@vger.kernel.org, Tom Rix <trix@redhat.com>,
- linux-pci@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
- virtualization@lists.linux-foundation.org, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-stm32@st-md-mailman.stormreply.com, usb-storage@lists.one-eyed-alien.net,
- devel@driverdev.osuosl.org, linux-samsung-soc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- linux-pm@vger.kernel.org, ath10k@lists.infradead.org,
- linux-acpi@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
- industrypack-devel@lists.sourceforge.net, nouveau@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com,
- linux-media@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-nfc@lists.01.org, linux-serial@vger.kernel.org,
- linux-can@vger.kernel.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, storagedev@microchip.com,
- linux-amlogic@lists.infradead.org, openipmi-developer@lists.sourceforge.net,
- platform-driver-x86@vger.kernel.org, bpf <bpf@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org,
- Greg KH <gregkh@linuxfoundation.org>, linux-nvdimm <linux-nvdimm@lists.01.org>,
- linux-wireless <linux-wireless@vger.kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, linux-security-module@vger.kernel.org,
- George Burgess <gbiv@google.com>, Network Development <netdev@vger.kernel.org>,
- "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
- <linux-crypto@vger.kernel.org>, linux-integrity@vger.kernel.org,
- patches@opensource.cirrus.com, ocfs2-devel@oss.oracle.com,
- linux-power@fi.rohmeurope.com
-Subject: Re: [Linux-stm32] [Ocfs2-devel] [RFC] treewide: cleanup unreachable
-	breaks
+ Tue, 20 Oct 2020 12:59:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1603198752;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:content-type:content-type;
+ bh=Qw1F19yZpnDVsqc+HFG0m1crxeHycCzf6HaecBeRc7s=;
+ b=jLyhWrLy1cAseRZMHk7dYrcWzdHVCkaqw65dgVo50tgQK0L+dkf+DUa6VLCBtvBTmya8S8
+ wrNu8qq2oU4CwQAhuuaV+m9H0xV1sjhRvbEVRZMqT1A0JqusViq1jwG0jU4rJNrfH1JecU
+ o2MSQSfwv/40sEkKR13ReBW2m1en81k=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-421-sJzrhmpEM2WfU_nt3mHFmw-1; Tue, 20 Oct 2020 08:59:09 -0400
+X-MC-Unique: sJzrhmpEM2WfU_nt3mHFmw-1
+Received: by mail-qv1-f69.google.com with SMTP id s8so1230014qvv.18
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 20 Oct 2020 05:59:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=Qw1F19yZpnDVsqc+HFG0m1crxeHycCzf6HaecBeRc7s=;
+ b=beKf/0EQrNi4nhtAjaU6VH9WxqdQeTYcs2x0z6koRYQTGmllnk0Th+MiA3tpUlte7D
+ OZe3vmDqDQOT5dr2/B1XUOAMZp4bURfgBKorXajCfTaEr1s5/2Xr+j5200t7fTqIitpq
+ k6N6+4qVjBaq6ZVzYI9dT+WZL5kF71sxxzI45iqlZyYxkfUEvwL5YxCtNx/kXew8apak
+ h2y8XgEY3Up3wOWxjD48NUFPrTPxSV387bWfp9xqxXXSPcE+TcF1w/Wj4CkqIQ1BzzFk
+ 3sZDgdvzpa7eatBHT3TraSHAUP3ucB7rGoUBJvIgnimS+9cC7DoXgjjDZkxlFesNp/fm
+ TXNQ==
+X-Gm-Message-State: AOAM530WIobTwHuLIuCGm67pOklK/hjmKlgC4PhHLddiKIsxikhZsd27
+ 292cgq/Vn1UHBTrZ249CgI958rr7sKatx8BIGP3t92H7r6wrksDetkneXyy70jzaB/B+9a6hJVm
+ vIx8gv26YP8GWDeWv/ddMH5aTihzSyCiXC8bY/Wse
+X-Received: by 2002:ac8:1ab4:: with SMTP id x49mr2308787qtj.39.1603198749166; 
+ Tue, 20 Oct 2020 05:59:09 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzSYG8X66Ps2XgHiXhXkimRB74ySBTCmyKFNySnJWuGJUoj6A5ZTEg0bhWDVOn/3M0lAtzsnA==
+X-Received: by 2002:ac8:1ab4:: with SMTP id x49mr2308752qtj.39.1603198748879; 
+ Tue, 20 Oct 2020 05:59:08 -0700 (PDT)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id a128sm698132qkc.92.2020.10.20.05.59.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Oct 2020 05:59:07 -0700 (PDT)
+From: trix@redhat.com
+To: kvalo@codeaurora.org, davem@davemloft.net, kuba@kernel.org,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
+ ath9k-devel@qca.qualcomm.com, johannes.berg@intel.com,
+ emmanuel.grumbach@intel.com, luciano.coelho@intel.com, linuxwifi@intel.com,
+ pkshih@realtek.com, lior2.cohen@intel.com, sara.sharon@intel.com,
+ shahar.s.matityahu@intel.com, nathan.errera@intel.com,
+ tova.mussai@intel.com, shaul.triebitz@intel.com, john@phrozen.org,
+ Larry.Finger@lwfinger.net, christophe.jaillet@wanadoo.fr,
+ zhengbin13@huawei.com, yanaijie@huawei.com, gustavoars@kernel.org,
+ saurav.girepunje@gmail.com, joe@perches.com
+Date: Tue, 20 Oct 2020 05:58:41 -0700
+Message-Id: <20201020125841.26791-1-trix@redhat.com>
+X-Mailer: git-send-email 2.18.1
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Mailman-Approved-At: Wed, 21 Oct 2020 07:04:31 +0000
+Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ath10k@lists.infradead.org,
+ Tom Rix <trix@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] wireless: remove unneeded break
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,65 +87,138 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============9211928369501123157=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Tom Rix <trix@redhat.com>
 
---===============9211928369501123157==
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3";
-	protocol="application/pgp-signature";
-	micalg=pgp-sha256
+A break is not needed if it is preceded by a return
 
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
 
---Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
+v2: remove intersil/p54/eeprom.c
 
+---
+ drivers/net/wireless/ath/ath10k/htt_rx.c             | 1 -
+ drivers/net/wireless/ath/ath6kl/testmode.c           | 1 -
+ drivers/net/wireless/ath/ath9k/hw.c                  | 1 -
+ drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c    | 2 --
+ drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c  | 1 -
+ drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c  | 1 -
+ drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c | 3 ---
+ 7 files changed, 10 deletions(-)
 
-
-> On 19 Oct 2020, at 20:42, Nick Desaulniers <ndesaulniers@google.com> =
-wrote:
->=20
-> We probably should add all 3 to W=3D2 builds (wrapped in cc-option).
-> I've filed https://github.com/ClangBuiltLinux/linux/issues/1180 to
-> follow up on.
-
-It looks as though the URL mangling has been fixed.   If anyone sees =
-that specific URL mangled, please let me know.
-
-jch
-
---Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP
-
------BEGIN PGP SIGNATURE-----
-Comment: GPGTools - http://gpgtools.org
-
-iHUEAREIAB0WIQT+pxvb11CFWUkNSOVFC7t+lC+jyAUCX46kMQAKCRBFC7t+lC+j
-yBKiAP90JVXdPzuAwtRGkROpw1eVCo7wCaZ5nOa8Oo0sN6gC9gD/S0eGTqQhmg+n
-sXPJxPYqQsg09qmS6k/HX+AP5Oz2AMo=
-=xx66
------END PGP SIGNATURE-----
-
---Apple-Mail=_9F9749E9-79EA-41AB-B516-003ECE07BEE3--
-
---===============9211928369501123157==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/net/wireless/ath/ath10k/htt_rx.c b/drivers/net/wireless/ath/ath10k/htt_rx.c
+index 5c1af2021883..9c4e6cf2137a 100644
+--- a/drivers/net/wireless/ath/ath10k/htt_rx.c
++++ b/drivers/net/wireless/ath/ath10k/htt_rx.c
+@@ -3878,7 +3878,6 @@ bool ath10k_htt_t2h_msg_handler(struct ath10k *ar, struct sk_buff *skb)
+ 		return ath10k_htt_rx_proc_rx_frag_ind(htt,
+ 						      &resp->rx_frag_ind,
+ 						      skb);
+-		break;
+ 	}
+ 	case HTT_T2H_MSG_TYPE_TEST:
+ 		break;
+diff --git a/drivers/net/wireless/ath/ath6kl/testmode.c b/drivers/net/wireless/ath/ath6kl/testmode.c
+index f3906dbe5495..89c7c4e25169 100644
+--- a/drivers/net/wireless/ath/ath6kl/testmode.c
++++ b/drivers/net/wireless/ath/ath6kl/testmode.c
+@@ -94,7 +94,6 @@ int ath6kl_tm_cmd(struct wiphy *wiphy, struct wireless_dev *wdev,
+ 
+ 		return 0;
+ 
+-		break;
+ 	case ATH6KL_TM_CMD_RX_REPORT:
+ 	default:
+ 		return -EOPNOTSUPP;
+diff --git a/drivers/net/wireless/ath/ath9k/hw.c b/drivers/net/wireless/ath/ath9k/hw.c
+index 6609ce122e6e..b66eeb577272 100644
+--- a/drivers/net/wireless/ath/ath9k/hw.c
++++ b/drivers/net/wireless/ath/ath9k/hw.c
+@@ -2308,7 +2308,6 @@ void ath9k_hw_beaconinit(struct ath_hw *ah, u32 next_beacon, u32 beacon_period)
+ 		ath_dbg(ath9k_hw_common(ah), BEACON,
+ 			"%s: unsupported opmode: %d\n", __func__, ah->opmode);
+ 		return;
+-		break;
+ 	}
+ 
+ 	REG_WRITE(ah, AR_BEACON_PERIOD, beacon_period);
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c b/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c
+index cbdebefb854a..8698ca4d30de 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/mac-ctxt.c
+@@ -1202,13 +1202,11 @@ static int iwl_mvm_mac_ctx_send(struct iwl_mvm *mvm, struct ieee80211_vif *vif,
+ 		return iwl_mvm_mac_ctxt_cmd_sta(mvm, vif, action,
+ 						force_assoc_off,
+ 						bssid_override);
+-		break;
+ 	case NL80211_IFTYPE_AP:
+ 		if (!vif->p2p)
+ 			return iwl_mvm_mac_ctxt_cmd_ap(mvm, vif, action);
+ 		else
+ 			return iwl_mvm_mac_ctxt_cmd_go(mvm, vif, action);
+-		break;
+ 	case NL80211_IFTYPE_MONITOR:
+ 		return iwl_mvm_mac_ctxt_cmd_listener(mvm, vif, action);
+ 	case NL80211_IFTYPE_P2P_DEVICE:
+diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c b/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c
+index 63f9ea21962f..bd9160b166c5 100644
+--- a/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c
++++ b/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/hw.c
+@@ -1226,7 +1226,6 @@ static int _rtl88ee_set_media_status(struct ieee80211_hw *hw,
+ 	default:
+ 		pr_err("Network type %d not support!\n", type);
+ 		return 1;
+-		break;
+ 	}
+ 
+ 	/* MSR_INFRA == Link in infrastructure network;
+diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c b/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c
+index a36dc6e726d2..f8a1de6e9849 100644
+--- a/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c
++++ b/drivers/net/wireless/realtek/rtlwifi/rtl8723ae/hw.c
+@@ -1132,7 +1132,6 @@ static int _rtl8723e_set_media_status(struct ieee80211_hw *hw,
+ 	default:
+ 		pr_err("Network type %d not support!\n", type);
+ 		return 1;
+-		break;
+ 	}
+ 
+ 	/* MSR_INFRA == Link in infrastructure network;
+diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c b/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c
+index f41a7643b9c4..225b8cd44f23 100644
+--- a/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c
++++ b/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/phy.c
+@@ -2085,12 +2085,10 @@ bool rtl8812ae_phy_config_rf_with_headerfile(struct ieee80211_hw *hw,
+ 		return __rtl8821ae_phy_config_with_headerfile(hw,
+ 				radioa_array_table_a, radioa_arraylen_a,
+ 				_rtl8821ae_config_rf_radio_a);
+-		break;
+ 	case RF90_PATH_B:
+ 		return __rtl8821ae_phy_config_with_headerfile(hw,
+ 				radioa_array_table_b, radioa_arraylen_b,
+ 				_rtl8821ae_config_rf_radio_b);
+-		break;
+ 	case RF90_PATH_C:
+ 	case RF90_PATH_D:
+ 		pr_err("switch case %#x not processed\n", rfpath);
+@@ -2116,7 +2114,6 @@ bool rtl8821ae_phy_config_rf_with_headerfile(struct ieee80211_hw *hw,
+ 		return __rtl8821ae_phy_config_with_headerfile(hw,
+ 			radioa_array_table, radioa_arraylen,
+ 			_rtl8821ae_config_rf_radio_a);
+-		break;
+ 
+ 	case RF90_PATH_B:
+ 	case RF90_PATH_C:
+-- 
+2.18.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============9211928369501123157==--
