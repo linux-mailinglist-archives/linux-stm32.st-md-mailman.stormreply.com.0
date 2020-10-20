@@ -2,58 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1995293BC6
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Oct 2020 14:36:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B229C293E1B
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Oct 2020 16:06:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91387C424B9;
-	Tue, 20 Oct 2020 12:36:21 +0000 (UTC)
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
- [209.85.221.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B187C424B9;
+	Tue, 20 Oct 2020 14:06:02 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64666C424B7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02A81C3FAE0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Oct 2020 12:36:20 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id t9so1916134wrq.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Oct 2020 05:36:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=9E0XaHJUUaHIVQQLhbSv3W1m5lGWB1Z81RRGTj8SQgM=;
- b=Nr//LILXBEY19Zp2ZwAgRZuzETQ/4WP2b6EY766p8SApXde5FU7AuLDV5z9jUVQi+K
- DHCru4ebsS02Cmfs8bwaTuWrN1QzIoXI1w3LF7PNInM1Un6GgaibauWfqrd0gAF6+BPs
- AjaOWh/zwH+06MqB+zCpJtdjKXg+WTlXlxn4HCOvERHHzvjxKwOsVMsm12jS6mbZdmVL
- 54SDUGyu7OOkuXH/sXnF4v2jAWH4vBCIzjfHj0VA6vDDGaQ2yfNVzV9v1SEGE9ITs1IS
- pQfkVPoFpXi1Rlz/r+57VCegOM92nrVLocY+kB+JdBvLn09wsTmKGKdwELy+FKIdlbFc
- p1Xg==
-X-Gm-Message-State: AOAM531hwyeSENn82wrs09wJ417DNqNPdEZGPI9YSeygVr1JYzQ16xy3
- yVnZ3jigy8Gp9Wxy8X+LUT8=
-X-Google-Smtp-Source: ABdhPJySQ2bYIDKMxXNWGonvrg3VtWnutiZTJnpOXBv/JS//TqwJoxFk96jUN1VTZB5rWPOp0nDu/Q==
-X-Received: by 2002:adf:9282:: with SMTP id 2mr3198032wrn.43.1603197379879;
- Tue, 20 Oct 2020 05:36:19 -0700 (PDT)
-Received: from kozik-lap ([194.230.155.171])
- by smtp.googlemail.com with ESMTPSA id u133sm1037094wmb.6.2020.10.20.05.36.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2020 05:36:18 -0700 (PDT)
-Date: Tue, 20 Oct 2020 14:36:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-Message-ID: <20201020123616.GF127386@kozik-lap>
-References: <20201020115959.2658-1-Sergey.Semin@baikalelectronics.ru>
- <20201020115959.2658-9-Sergey.Semin@baikalelectronics.ru>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201020115959.2658-9-Sergey.Semin@baikalelectronics.ru>
-Cc: Felipe Balbi <balbi@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
- devicetree@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Tue, 20 Oct 2020 14:06:00 +0000 (UTC)
+Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1kUsGy-0003id-GA; Tue, 20 Oct 2020 16:05:56 +0200
+Received: from afa by dude.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1kUsGw-0000KI-My; Tue, 20 Oct 2020 16:05:54 +0200
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+To: Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 08/29] arm: dts: stm32: Harmonize
-	EHCI/OHCI DT nodes name
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Tue, 20 Oct 2020 16:04:51 +0200
+Message-Id: <20201020140450.29158-1-a.fatoum@pengutronix.de>
+X-Mailer: git-send-email 2.28.0
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
+X-SA-Exim-Mail-From: afa@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: update sdmmc IP version for
+	STM32MP157 SOC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,23 +56,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 20, 2020 at 02:59:38PM +0300, Serge Semin wrote:
-> In accordance with the Generic EHCI/OHCI bindings the corresponding node
-> name is suppose to comply with the Generic USB HCD DT schema, which
-> requires the USB nodes to have the name acceptable by the regexp:
-> "^usb(@.*)?" . Make sure the "generic-ehci" and "generic-ohci"-compatible
-> nodes are correctly named.
-> 
-> Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-> Acked-by: Amelie Delaunay <amelie.delaunay@st.com>
-> ---
->  arch/arm/boot/dts/stm32mp151.dtsi | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+From: Yann Gautier <yann.gautier@st.com>
 
-Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
+Update the IP version to v2.0, which supports linked lists in internal DMA,
+and is present in STM32MP1 SoCs.
 
-Best regards,
-Krzysztof
+The mmci driver supports the v2.0 periph id since 7a2a98be672b ("mmc: mmci:
+Add support for sdmmc variant revision 2.0"), so it's now Ok to add it into
+the SoC device tree to benefit from the improved DMA support.
+
+Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+Signed-off-by: Yann Gautier <yann.gautier@st.com>
+[afa: cherry-picked from https://github.com/STMicroelectronics/linux/commit/31e2a6bc8]
+[afa: extended commit message with reference to driver patch]
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+Cc: Ludovic Barre <ludovic.barre@st.com>
+---
+ arch/arm/boot/dts/stm32mp151.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+index bfe29023fbd5..b8d996d32dc0 100644
+--- a/arch/arm/boot/dts/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/stm32mp151.dtsi
+@@ -1040,7 +1040,7 @@ adc2: adc@100 {
+ 
+ 		sdmmc3: sdmmc@48004000 {
+ 			compatible = "arm,pl18x", "arm,primecell";
+-			arm,primecell-periphid = <0x10153180>;
++			arm,primecell-periphid = <0x00253180>;
+ 			reg = <0x48004000 0x400>;
+ 			interrupts = <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "cmd_irq";
+@@ -1338,7 +1338,7 @@ qspi: spi@58003000 {
+ 
+ 		sdmmc1: sdmmc@58005000 {
+ 			compatible = "arm,pl18x", "arm,primecell";
+-			arm,primecell-periphid = <0x10153180>;
++			arm,primecell-periphid = <0x00253180>;
+ 			reg = <0x58005000 0x1000>;
+ 			interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "cmd_irq";
+@@ -1353,7 +1353,7 @@ sdmmc1: sdmmc@58005000 {
+ 
+ 		sdmmc2: sdmmc@58007000 {
+ 			compatible = "arm,pl18x", "arm,primecell";
+-			arm,primecell-periphid = <0x10153180>;
++			arm,primecell-periphid = <0x00253180>;
+ 			reg = <0x58007000 0x1000>;
+ 			interrupts = <GIC_SPI 124 IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "cmd_irq";
+-- 
+2.28.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
