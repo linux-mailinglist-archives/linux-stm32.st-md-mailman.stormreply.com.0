@@ -2,61 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B718296135
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Oct 2020 16:57:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0297C29622D
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Oct 2020 17:59:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3768C424B3;
-	Thu, 22 Oct 2020 14:57:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F863C424B3;
+	Thu, 22 Oct 2020 15:59:53 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54B58C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07FBAC3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Oct 2020 14:57:32 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Thu, 22 Oct 2020 15:59:51 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09MEbIXu028547; Thu, 22 Oct 2020 16:56:18 +0200
+ 09MFg0v0023899; Thu, 22 Oct 2020 17:59:35 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : references : in-reply-to : content-type : content-id
  : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=BgPhbdVYlDxny8ooH2Pb459HocXmAZYh2XHNIPCGBRM=;
- b=zDu/u4116QgnTcyvRbmk9ZkDAg0EUALgwD3JsF+tr/WMEZrREP2eSQ3CKs6tArB6o3AT
- ckM4pFPSzILSpaIDoVyYOnNCekSD8ZTq+EUqcC/9RBkOZ6A/r4J4Ke0cj1lS6ez8ACO9
- r9PV5pJtjjo2HzKiMhLsAS0E8E2gAxceVg6WHps/hcehN+ayaA+jhKrYHsyYwtRAmEZo
- 0HWUNiYpgUFfSm1zSrswujh0BvqI6q/qwgAgIml2Ld59ZLhBu9lqKzGPqpFiYTxRMAqj
- MPjh0LYUeFmnG2EsfWbXtuqbe8yihlUCip1jyM3gnSsNdA2LYY3lBsAdCUjmEX0Gv0I4 BQ== 
+ bh=+540XUhYrrYVMFG6d2P41z+dQDAtAwvWzMbZT4dmoXI=;
+ b=GEAtKF1FEOvdzWRWYA8lC77dfa5tP+QJFixNLDxhOh2GgpIyfaQFzJj2XtZKpdBJNc/x
+ RUtgTWWDPplRQmw5UklKRxNnyB2xJYscfJQBwBTr9S91IlEwLdW3nSu8rNXujgVHTc+u
+ 6kQ099StVYZzScUAneY+4wGTO/pTkTh6lIH9U/qzOxdXyCAWy/17faVOaxccYmAR4/65
+ ohUYKgqW0NmgK53fTJj+UUhK3qXFTI8tQAexRJdU9GYJk4E0w9vfAJ0CJGnFHZSQBvEz
+ HRqWCLpzzM6Ht0Vdh+2zyftjoQ9RTzYva9scTG4nAphBLHUVd/KwigtrPmlWG69sTLqA 8g== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34apeeqbs6-1
+ by mx07-00178001.pphosted.com with ESMTP id 34apedfrnn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 Oct 2020 16:56:18 +0200
+ Thu, 22 Oct 2020 17:59:35 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D533C10002A;
- Thu, 22 Oct 2020 16:56:17 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B883A2C7115;
- Thu, 22 Oct 2020 16:56:17 +0200 (CEST)
-Received: from SFHDAG1NODE1.st.com (10.75.127.1) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 22 Oct
- 2020 16:56:17 +0200
-Received: from SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f]) by
- SFHDAG1NODE1.st.com ([fe80::91:9840:ca1f:420f%20]) with mapi id
- 15.00.1473.003; Thu, 22 Oct 2020 16:56:17 +0200
-From: Hugues FRUCHET <hugues.fruchet@st.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Jacopo Mondi
- <jacopo@jmondi.org>
-Thread-Topic: [PATCH v4 2/2] media: dt-bindings: media: st,stm32-dcmi: Add
- support of BT656
-Thread-Index: AQHWp6o+yOOEjcdb0U+f2PjTKsCmiqmh+tEAgAB6DACAASFDAA==
-Date: Thu, 22 Oct 2020 14:56:17 +0000
-Message-ID: <327ae9d5-8683-488f-7970-4983e2fec51d@st.com>
-References: <1603188889-23664-1-git-send-email-hugues.fruchet@st.com>
- <1603188889-23664-3-git-send-email-hugues.fruchet@st.com>
- <20201021130033.GI2703@paasikivi.fi.intel.com>
- <657634eb-690a-53a6-2ac1-de3c06a1cec4@st.com>
- <20201021214058.GJ2703@paasikivi.fi.intel.com>
-In-Reply-To: <20201021214058.GJ2703@paasikivi.fi.intel.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E5FB310002A;
+ Thu, 22 Oct 2020 17:59:34 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D09582C7133;
+ Thu, 22 Oct 2020 17:59:34 +0200 (CEST)
+Received: from SFHDAG2NODE1.st.com (10.75.127.4) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 22 Oct
+ 2020 17:59:34 +0200
+Received: from SFHDAG2NODE1.st.com ([fe80::4413:c8c:992b:bb90]) by
+ SFHDAG2NODE1.st.com ([fe80::4413:c8c:992b:bb90%20]) with mapi id
+ 15.00.1473.003; Thu, 22 Oct 2020 17:59:34 +0200
+From: Yann GAUTIER <yann.gautier@st.com>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Rob Herring <robh+dt@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre TORGUE
+ <alexandre.torgue@st.com>
+Thread-Topic: [PATCH] ARM: dts: stm32: update sdmmc IP version for STM32MP157
+ SOC
+Thread-Index: AQHWpuoj4CwDOfZXe066JGuHRV4x1KmjqU6A
+Date: Thu, 22 Oct 2020 15:59:34 +0000
+Message-ID: <493a8b1b-02e5-f7f4-4cdf-a091ce1d1387@st.com>
+References: <20201020140450.29158-1-a.fatoum@pengutronix.de>
+In-Reply-To: <20201020140450.29158-1-a.fatoum@pengutronix.de>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -65,23 +62,20 @@ user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.48]
-Content-ID: <D97D13016BC89E40AD0D4EC4C251C049@st.com>
+x-originating-ip: [10.75.127.44]
+Content-ID: <4F314D055A26BB41B82427788603D068@st.com>
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.737
- definitions=2020-10-22_10:2020-10-20,
+ definitions=2020-10-22_11:2020-10-20,
  2020-10-22 signatures=0
 Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, Alain VOLMAT <alain.volmat@st.com>,
- Rob Herring <robh+dt@kernel.org>, Yannick FERTRE <yannick.fertre@st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v4 2/2] media: dt-bindings: media: st,
- stm32-dcmi: Add support of BT656
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: update sdmmc IP version
+ for STM32MP157 SOC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,222 +92,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sakari,
-
-+ Jacopo for his work on ov772x binding related to BT656
-
-On 10/21/20 11:40 PM, Sakari Ailus wrote:
-> Hi Hugues,
+On 10/20/20 4:04 PM, Ahmad Fatoum wrote:
+> From: Yann Gautier <yann.gautier@st.com>
 > 
-> On Wed, Oct 21, 2020 at 02:24:08PM +0000, Hugues FRUCHET wrote:
->> Hi Sakari,
->>
->> On 10/21/20 3:00 PM, Sakari Ailus wrote:
->>> Hi Hugues,
->>>
->>> On Tue, Oct 20, 2020 at 12:14:49PM +0200, Hugues Fruchet wrote:
->>>> Add support of BT656 parallel bus mode in DCMI.
->>>> This mode is enabled when hsync-active & vsync-active
->>>> fields are not specified.
->>>>
->>>> Signed-off-by: Hugues Fruchet <hugues.fruchet@st.com>
->>>> ---
->>>>    .../devicetree/bindings/media/st,stm32-dcmi.yaml   | 30 ++++++++++++++++++++++
->>>>    1 file changed, 30 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
->>>> index 3fe778c..1ee521a 100644
->>>> --- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
->>>> +++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
->>>> @@ -44,6 +44,36 @@ properties:
->>>>          bindings defined in
->>>>          Documentation/devicetree/bindings/media/video-interfaces.txt.
->>>>    
->>>> +    properties:
->>>> +      endpoint:
->>>> +        type: object
->>>> +
->>>> +        properties:
->>>> +          bus-width: true
->>>> +
->>>> +          hsync-active:
->>>> +            description:
->>>> +              If both HSYNC and VSYNC polarities are not specified, BT656
->>>> +              embedded synchronization is selected.
->>>> +            default: 0
->>>> +
->>>> +          vsync-active:
->>>> +            description:
->>>> +              If both HSYNC and VSYNC polarities are not specified, BT656
->>>> +              embedded synchronization is selected.
->>>> +            default: 0
->>>
->>> Should I understand this as if the polarities were not specified, BT.656
->>> will be used?
->>
->> Yes, this is what is documented in video-interfaces.txt:
->> "
->>     Note, that if HSYNC and VSYNC polarities are not specified, embedded
->>     synchronization may be required, where supported.
->> "
->> and
->> "
->> 				/* If hsync-active/vsync-active are missing,
->> 				   embedded BT.656 sync is used */
->> 				hsync-active = <0>;	/* Active low */
->> 				vsync-active = <0>;	/* Active low */
->> "
->> and I found also this in
->> Documentation/devicetree/bindings/media/renesas,vin.yaml
->> "
->>             hsync-active:
->>               description:
->>                 If both HSYNC and VSYNC polarities are not specified,
->> embedded
->>                 synchronization is selected.
->>               default: 1
->>
->>             vsync-active:
->>               description:
->>                 If both HSYNC and VSYNC polarities are not specified,
->> embedded
->>                 synchronization is selected.
->>               default: 1
+> Update the IP version to v2.0, which supports linked lists in internal DMA,
+> and is present in STM32MP1 SoCs.
 > 
-> Having the defaults leads to somewhat weird behaviour: specifying the
-> default value on either property changes the bus type.
+> The mmci driver supports the v2.0 periph id since 7a2a98be672b ("mmc: mmci:
+> Add support for sdmmc variant revision 2.0"), so it's now Ok to add it into
+> the SoC device tree to benefit from the improved DMA support.
 > 
->> "
->>
->> In the other hand I've found few occurences of "bus-type"
->> (marvell,mmp2-ccic.yaml), it is why I asked you if "bus-type" is the new
->> way to go versus previous way to signal BT656 (without hsync/vsync) ?
->> As explained previously, I prefer this last way for backward compatibility.
+> Signed-off-by: Ludovic Barre <ludovic.barre@st.com>
+> Signed-off-by: Yann Gautier <yann.gautier@st.com>
+> [afa: cherry-picked from https://github.com/STMicroelectronics/linux/commit/31e2a6bc8]
+> [afa: extended commit message with reference to driver patch]
+> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+
+Hi Ahmad,
+
+Acked-by: Yann Gautier <yann.gautier@st.com>
+
+
+Regards,
+Yann
+
+> ---
+> Cc: Ludovic Barre <ludovic.barre@st.com>
+> ---
+>   arch/arm/boot/dts/stm32mp151.dtsi | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
 > 
-> If you have a default for bus-type (BT.601), this won't be a problem.
+> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+> index bfe29023fbd5..b8d996d32dc0 100644
+> --- a/arch/arm/boot/dts/stm32mp151.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
+> @@ -1040,7 +1040,7 @@ adc2: adc@100 {
+>   
+>   		sdmmc3: sdmmc@48004000 {
+>   			compatible = "arm,pl18x", "arm,primecell";
+> -			arm,primecell-periphid = <0x10153180>;
+> +			arm,primecell-periphid = <0x00253180>;
+>   			reg = <0x48004000 0x400>;
+>   			interrupts = <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>;
+>   			interrupt-names = "cmd_irq";
+> @@ -1338,7 +1338,7 @@ qspi: spi@58003000 {
+>   
+>   		sdmmc1: sdmmc@58005000 {
+>   			compatible = "arm,pl18x", "arm,primecell";
+> -			arm,primecell-periphid = <0x10153180>;
+> +			arm,primecell-periphid = <0x00253180>;
+>   			reg = <0x58005000 0x1000>;
+>   			interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
+>   			interrupt-names = "cmd_irq";
+> @@ -1353,7 +1353,7 @@ sdmmc1: sdmmc@58005000 {
+>   
+>   		sdmmc2: sdmmc@58007000 {
+>   			compatible = "arm,pl18x", "arm,primecell";
+> -			arm,primecell-periphid = <0x10153180>;
+> +			arm,primecell-periphid = <0x00253180>;
+>   			reg = <0x58007000 0x1000>;
+>   			interrupts = <GIC_SPI 124 IRQ_TYPE_LEVEL_HIGH>;
+>   			interrupt-names = "cmd_irq";
 > 
-> The old DT bindings were somewhat, well, opportunistic. The v4l2-of
-> framework-let did its best and sometimes it worked. The behaviour is still
-> supported but not encouraged in new bindings.
-> 
-
-OK, so let's go for the new way.
-I've found an interesting patch from Jacopo that is of great help:
-https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20200910162055.614089-4-jacopo+renesas@jmondi.org/
-
-Here is a draft proposal before I push a new version, please comment:
-
-         properties:
-           bus-type:
-             enum: [5, 6]
-             default: 5
-
-           bus-width:
-             enum: [8, 10, 12, 14]
-             default: 8
-
-           hsync-active:
-             enum: [0, 1]
-             default: 0
-
-           vsync-active:
-             enum: [0, 1]
-             default: 0
-
-           pclk-sample:
-             enum: [0, 1]
-             default: 0
-
-           remote-endpoint: true
-
-         allOf:
-           - if:
-               properties:
-                 bus-type:
-                   const: 6
-             then:
-               properties:
-                 hsync-active: false
-                 vsync-active: false
-                 bus-width:
-                   enum: [8]
-
-         required:
-           - remote-endpoint
-
-         unevaluatedProperties: false
-
-
-Unfortunately, the "default: 5" for bus-type is not working !!
-If we don't specify "bus-type" in example, dt_binding_check is failing 
-as if default was 6, it's hardly understandable (see below) !
-         port {
-              dcmi_0: endpoint {
-                    remote-endpoint = <&ov5640_0>;
-                    bus-width = <10>;
-                    hsync-active = <0>;
-                    vsync-active = <0>;
-                    pclk-sample = <1>;
-              };
-=> this should be OK but error claimed:
-   DTC 
-Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml
-   CHECK 
-Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml
-Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml: 
-dcmi@4c006000: port:endpoint:vsync-active: False schema does not allow [[0]]
-dcmi@4c006000: port:endpoint:hsync-active: False schema does not allow [[0]]
-dcmi@4c006000: port:endpoint:bus-width:0:0: 10 is not one of [8]
-	From schema: Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-
-=> if "bus-type" is explicitly set to 5, all is fine (see below) !
-         port {
-              dcmi_0: endpoint {
-                    remote-endpoint = <&ov5640_0>;
-                    bus-type = <5>;
-                    bus-width = <10>;
-                    hsync-active = <0>;
-                    vsync-active = <0>;
-                    pclk-sample = <1>;
-              };
-         };
-
-  DTC 
-Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml
-   CHECK 
-Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml
-~/.../media_tree$
-
-
->>
->>
->> The bindings previously documented BT.601 (parallel) only, so
->>> it was somewhat ambigious to begin with. Is there a risk of interpreting
->>> old BT.601 bindings as BT.656?
->> I don't think so.
->>
->> With bus-type property, I believe you could
->>> avoid at least that risk.
->> yes but as explained, I'll prefer not to amend current boards device
->> tree files.
-> 
-> I don't think it matters from this point of view --- you can have a
-> default bus-type.
-> 
->>
->>>
->>> Also not specifying at least one of the default values leads to BT.656
->>> without bus-type. That could be addressed by removing the defaults.
->>>
->> I'm new to yaml, I've taken that from renesas,vin.yaml. Should I just
->> drop the "default: 1" lines ?
-> 
-> That's one option, yes. Then you have to have those for BT.601 and it's no
-> longer ambiguous.
-> 
-
-BR,
-Hugues.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
