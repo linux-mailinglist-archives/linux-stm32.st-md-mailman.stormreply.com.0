@@ -2,41 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48D9297253
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Oct 2020 17:31:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB6C92979F5
+	for <lists+linux-stm32@lfdr.de>; Sat, 24 Oct 2020 02:28:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 558E8C424B9;
-	Fri, 23 Oct 2020 15:31:29 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEFD7C3FAE0
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BD3FC424BA;
+	Sat, 24 Oct 2020 00:28:57 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6B87C424B3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Oct 2020 15:31:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: aratiu) with ESMTPSA id 03D1F1F4684E
-From: Adrian Ratiu <adrian.ratiu@collabora.com>
-To: Neil Armstrong <narmstrong@baylibre.com>, Ezequiel Garcia
- <ezequiel@collabora.com>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>
-In-Reply-To: <e841d90b-0f1d-d5d9-9f67-f90d64c4fbc7@baylibre.com>
-References: <20200609174959.955926-1-adrian.ratiu@collabora.com>
- <c6f10db1-7f56-a156-36a1-125e764c8c1a@baylibre.com>
- <87lfk3kaj4.fsf@iwork.i-did-not-set--mail-host-address--so-tickle-me>
- <b318069fe873e456f18d07d11f5d165667c9b04a.camel@collabora.com>
- <e0d0efec-09e0-6bf8-bab7-44accd14fa52@baylibre.com>
- <e841d90b-0f1d-d5d9-9f67-f90d64c4fbc7@baylibre.com>
-Date: Fri, 23 Oct 2020 18:32:56 +0300
-Message-ID: <87ft65vtxz.fsf@iwork.i-did-not-set--mail-host-address--so-tickle-me>
+ Sat, 24 Oct 2020 00:28:56 +0000 (UTC)
+Received: from localhost (cpc102338-sgyl38-2-0-cust404.18-2.cable.virginm.net
+ [77.102.33.149])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id B76A42225E;
+ Sat, 24 Oct 2020 00:28:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1603499335;
+ bh=+FhP76HiOXe3pLSCqtvML2xh8BV++5Vbe3/EWxwGkS0=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=dQ4WtqDRR9mWnKyBXxnLs1n5kJnoMWQ+fNdXS+7h3F1eWUPtwmG/YfyflQSUmTckJ
+ xSD5QvPO5yw1C+LiYg1Az8ytrcMrDCZHcvBxNpCoKDe+qMjjf6bR40myzgnrLgS6QJ
+ XP5lQqGlOZopAoGcU4sp8UyUKud4YuN/z10SQ0s4=
+Date: Sat, 24 Oct 2020 01:28:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, perex@perex.cz, Olivier Moysan <olivier.moysan@st.com>,
+ alexandre.torgue@st.com, tiwai@suse.com, arnaud.patard@rtp-net.org
+In-Reply-To: <20201020150109.482-1-olivier.moysan@st.com>
+References: <20201020150109.482-1-olivier.moysan@st.com>
+Message-Id: <160349931941.28438.14503960964995572782.b4-ty@kernel.org>
 MIME-Version: 1.0
-Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Jonas Karlman <jonas@kwiboo.se>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yannick FERTRE <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
- linux-imx@nxp.com, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v9 00/11] Genericize DW MIPI DSI bridge
- and add i.MX 6 driver
+Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] ASoC: cs42l51: manage mclk shutdown
+	delay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,104 +49,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Neil,
+On Tue, 20 Oct 2020 17:01:09 +0200, Olivier Moysan wrote:
+> A delay must be introduced before the shutdown down of the mclk,
+> as stated in CS42L51 datasheet. Otherwise the codec may
+> produce some noise after the end of DAPM power down sequence.
+> The delay between DAC and CLOCK_SUPPLY widgets is too short.
+> Add a delay in mclk shutdown request to manage the shutdown delay
+> explicitly. From experiments, at least 10ms delay is necessary.
+> Set delay to 20ms as recommended in Documentation/timers/timers-howto.rst
+> when using msleep().
 
-On Tue, 15 Sep 2020, Neil Armstrong <narmstrong@baylibre.com> 
-wrote:
-> Hi Adrian, 
-> 
-> Gentle ping. 
-> 
-> can you rebase on drm-misc-next so I can apply the IMX and STM 
-> patches ?
+Applied to
 
-Sorry for the late reply, somehow missed this e-mail chain.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-I have a rebase of the series but further investigation revealed 
-we might regress Rockchip with a partial integration, so I'm 
-getting a panel for RK to test to be sure and will re-submit.
+Thanks!
 
->
-> On 24/08/2020 11:47, Neil Armstrong wrote:
->> Hi,
->> 
->> 
->> On 15/08/2020 15:05, Ezequiel Garcia wrote:
->>> Hi Neil,
->>>
->>> On Wed, 2020-07-01 at 09:35 +0300, Adrian Ratiu wrote:
->>>> Hi Neil,
->>>>
->>>> On Mon, 29 Jun 2020, Neil Armstrong <narmstrong@baylibre.com> 
->>>> wrote:
->>>>> Hi Adrian, 
->>>>>
->>>>> On 09/06/2020 19:49, Adrian Ratiu wrote: 
->> [...]
->>>>
->>>
->>> It's been a month so I think it's a good idea to go forward
->>> applying IMX and STM patches (probably with the usual
->>> rebase dance).
->>>
->>> As for Rockchip...
->>>
->>>> The binding API removal change which directly touches RK can also 
->>>> be applied separately, but unfortunately I do not have access to a 
->>>> RK board with a DSI display to test it (or the bridge regmap logic 
->>>> on RK btw...), I just "eye-balled" the RK code based on the public 
->>>> docs and it LGTM.
->>>>
->>>
->>> ... I'll be getting some DSI hardware to help with the pending
->>> Rockchip issues, so we can tackle Rockchip as well. I'm quite sure
->>> we'll loop Heiko as well if needed :-)
->> 
->> Sure, Adrian, can you rebase on drm-misc-next so I can apply the IMX and STM patches ?
->> 
->>>
->>> Cheers,
->>> Ezequiel
->>>
->>>>> Neil
->>>>>
->>>>>> Big thank you to everyone who has contributed to this up to now,
->>>>>> Adrian
->>>>>>
->>>>>> Adrian Ratiu (11):
->>>>>>   drm: bridge: dw_mipi_dsi: add initial regmap infrastructure
->>>>>>   drm: bridge: dw_mipi_dsi: abstract register access using reg_fields
->>>>>>   drm: bridge: dw_mipi_dsi: add dsi v1.01 support
->>>>>>   drm: bridge: dw_mipi_dsi: remove bind/unbind API
->>>>>>   dt-bindings: display: add i.MX6 MIPI DSI host controller doc
->>>>>>   ARM: dts: imx6qdl: add missing mipi dsi properties
->>>>>>   drm: imx: Add i.MX 6 MIPI DSI host platform driver
->>>>>>   drm: stm: dw-mipi-dsi: let the bridge handle the HW version check
->>>>>>   drm: bridge: dw-mipi-dsi: split low power cfg register into fields
->>>>>>   drm: bridge: dw-mipi-dsi: fix bad register field offsets
->>>>>>   Documentation: gpu: todo: Add dw-mipi-dsi consolidation plan
->>>>>>
->>>>>>  .../display/imx/fsl,mipi-dsi-imx6.yaml        | 112 +++
->>>>>>  Documentation/gpu/todo.rst                    |  25 +
->>>>>>  arch/arm/boot/dts/imx6qdl.dtsi                |   8 +
->>>>>>  drivers/gpu/drm/bridge/synopsys/Kconfig       |   1 +
->>>>>>  drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 713 ++++++++++++------
->>>>>>  drivers/gpu/drm/imx/Kconfig                   |   8 +
->>>>>>  drivers/gpu/drm/imx/Makefile                  |   1 +
->>>>>>  drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c        | 399 ++++++++++
->>>>>>  .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   |   7 +-
->>>>>>  drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         |  16 +-
->>>>>>  10 files changed, 1059 insertions(+), 231 deletions(-)
->>>>>>  create mode 100644 Documentation/devicetree/bindings/display/imx/fsl,mipi-dsi-imx6.yaml
->>>>>>  create mode 100644 drivers/gpu/drm/imx/dw_mipi_dsi-imx6.c
->>>>>>
->>>
->> 
+[1/1] ASoC: cs42l51: manage mclk shutdown delay
+      commit: 20afe581c9b980848ad097c4d54dde9bec7593ef
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
