@@ -2,61 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0456298295
-	for <lists+linux-stm32@lfdr.de>; Sun, 25 Oct 2020 17:37:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38DDE2982F6
+	for <lists+linux-stm32@lfdr.de>; Sun, 25 Oct 2020 18:53:42 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70DDEC35E3C;
-	Sun, 25 Oct 2020 16:37:17 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4C90C35E3C;
+	Sun, 25 Oct 2020 17:53:41 +0000 (UTC)
+Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
+ [209.85.160.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71F2FC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 482F9C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 Oct 2020 16:37:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NBfwltQtyYpg7GITsQ/G8RNoybCIgINYiN5thq4NeEg=; b=o4AC4MetqhXYPjVOnQ4oz2hZ/L
- fZeGe0nFQSh2RIXNFC638uS5DkWBm54/DizpesFLoggLIGkC02+2uY48Qb6pmYmX7kp5vJSiJn2k0
- /aRfILZIrKt1LulmlU5LvKl7rlSLQPB28PXxLTJU0Ixfs7aQL1tNQQBXBt1xXZaT3WC86aLrGnCOl
- H8HPL8jJqYrhhwBgAdXeEc0nCp+74MSUVucnGxpHX/ACut1i5iWOkqX6lUoLbhKaOZNGCpZn1V++h
- f1Tl9H0pkhL2942lcYJrSzbowJ0NFg8NKlhYbQRTHl+hkcDtO38wb4NnU90aIw2Fkm2KrXLWyLfxl
- EDG+cnrA==;
-Received: from [2600:1700:4830:165f::19e] (port=37618)
- by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david@lechnology.com>)
- id 1kWj13-0005Vi-VJ; Sun, 25 Oct 2020 12:37:10 -0400
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
+ Sun, 25 Oct 2020 17:53:39 +0000 (UTC)
+Received: by mail-qt1-f193.google.com with SMTP id h12so5145065qtu.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 25 Oct 2020 10:53:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=WnvTU6VDuLEf+Rt2Zn1Gdt5ZWfNTNLLVWS72IF0h6Yk=;
+ b=PqE+NIkCpidtvg9ccnzTZ8R6ZKaslUFa6jUfX78jzuqP4FeCXm1ehopZIeOpEIGvfV
+ zUwuE0941wfby2vncTggj2xmv+C0VoORDdNOy4uXuo6t84MB+9Jla4/6B2D3nBcAmUlC
+ aGa8wseNCWKTJIvsysxLs50d+eJ1g55WHEfTD7j9cwtlAf88IIkv6OPx1cr9xuFcHk+b
+ 5mSZhYaceFpLEH7rkUNZgE5+zS/aHWq0j4XV3a8tEOAtltuqSLK1g4N62B+dBd1H+EAK
+ Mi0g35eg6z2LdugxurSJut//sA73JpywiRfozrHFzOXvzEr3jekwqHflohiZowC6/zua
+ ofvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=WnvTU6VDuLEf+Rt2Zn1Gdt5ZWfNTNLLVWS72IF0h6Yk=;
+ b=UuEeAlANxfo/7zVONEFIhKGB8d9e3KUSjzZ4yQ+ja4bjeO0PvFT8XLPIThvBABBH6p
+ c57cdsfwH4vACevNQEZA64Nu7BHvSzyZO4MrHcFAzIz1+f7LofKVygPTWOo1+JFGiDLz
+ dL0ke6qt2s4e98KF6H5MWmkyQ9XkIFyXcfHFc+EUiIBXFUIq2ghRREZXu6Lar1hq75kn
+ NApD4t1VXGxrf9PUOwFl+HD5Tk4jLy1+EfngALGkPgz19X5/HkT7sXS+AgLtFjRfZ2vu
+ MHa2+kGBiUDT0K4gzjNmaw09tklv7kdtGXZ940NTXRfVunFW5bkIcoXfj0E0EeUxOt0h
+ 9/+g==
+X-Gm-Message-State: AOAM532xy7e2B9r29ac65iB+8ipPHmnCnqSi1LNq5NsGSV4hWQGuZETA
+ bPpwHSVSAzd3fulir2WPU2c=
+X-Google-Smtp-Source: ABdhPJzNvr9/llgZ98dNMu3rcpa5WW5aUblpGe3+LAoh76G4bw+2TtSIZwfILvnr82QMbJLFomHv6A==
+X-Received: by 2002:ac8:7c97:: with SMTP id y23mr13455309qtv.48.1603648418004; 
+ Sun, 25 Oct 2020 10:53:38 -0700 (PDT)
+Received: from shinobu (072-189-064-225.res.spectrum.com. [72.189.64.225])
+ by smtp.gmail.com with ESMTPSA id k64sm4949218qkc.97.2020.10.25.10.53.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 25 Oct 2020 10:53:36 -0700 (PDT)
+Date: Sun, 25 Oct 2020 13:53:22 -0400
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: David Lechner <david@lechnology.com>
+Message-ID: <20201025175322.GA14219@shinobu>
 References: <cover.1601170670.git.vilhelm.gray@gmail.com>
  <00be1fccc672c5207f3b04fe4cc09c29e22641f4.1601170670.git.vilhelm.gray@gmail.com>
- <181eb08a-be0a-f7cc-259d-b2a0f279950b@lechnology.com>
- <20201018164905.GD231549@shinobu>
- <fe46666a-4b2f-31f4-b91d-50c33aba0e56@lechnology.com>
- <20201025125557.GA3458@shinobu>
-From: David Lechner <david@lechnology.com>
-Message-ID: <e616b7f5-2e58-4b61-5a13-f64875c542d6@lechnology.com>
-Date: Sun, 25 Oct 2020 11:36:58 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <cc1f7e4d-18d1-bc28-8ce3-e3edcd91bcab@lechnology.com>
+ <20201018165822.GE231549@shinobu>
+ <f2bac8b2-108d-fa4c-cb63-8ff85ce04d1f@lechnology.com>
+ <20201025131809.GB3458@shinobu>
+ <e0b7989f-6a99-0fae-471c-8d06c8e951b0@lechnology.com>
 MIME-Version: 1.0
-In-Reply-To: <20201025125557.GA3458@shinobu>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+In-Reply-To: <e0b7989f-6a99-0fae-471c-8d06c8e951b0@lechnology.com>
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
  patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
@@ -75,74 +78,127 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0595176671579809188=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
->>>>> diff --git a/drivers/counter/counter-sysfs.c b/drivers/counter/counter-sysfs.c
->>>>> index e66ed99dd5ea..cefef61f170d 100644
->>>>> --- a/drivers/counter/counter-sysfs.c
->>>>> +++ b/drivers/counter/counter-sysfs.c
->>>>
->>>>
->>>> Not sure why sysfs changes are in the chrdev patch. Are these
->>>> changes related somehow?
->>>
->>> Sorry, I forgot to explain this in the cover letter. The changes here
->>> are only useful for the character device interface. These changes
->>> introduce the extensionZ_name and extensionZ_width sysfs attributes.
->>>
->>> In the character device interface, extensions are selected by their id
->>> number, and the value returned depends on the type of data. The new
->>> sysfs attributes introduced here allow users to match the id of an
->>> extension with its name, as well as the bit width of the value returned
->>> so that the user knows whether to use the value_u8 or value_u64 union
->>> member in struct counter_event.
->>>
->>
->> Are we sure that all value types will always be CPU-endian unsigned
->> integers? Or should we make an enum to describe the data type instead
->> of just the width?
-> 
-> It should be safe to assume that the character device interface will
-> only ever return CPU-endian unsigned integers. The device driver should
-> handle the conversion of any strange endianness from the device before
-> the character device interface, while userspace is the one responsible
-> for interpreting the meaning of count in the context of the application.
-> 
-> Let's create a scenario for the sake of example. Suppose we want to use
-> a counter device to track the vertical position of a component moved by
-> a linear actuator. The operator considers some vertical position as the
-> horizon, where anything above would be a positive position and anything
-> below a negative position. The counter device stores its count in
-> big-endian format; but the system CPU expects little-endian.
-> 
-> The flow of data for this scenario would look like the following (where
-> BE = big-endian, LE = little-endian):
-> 
-> +----------+         +---------------+          +--------+
-> | Raw data | - BE -> | Device driver | -> LE -> | chrdev | - u64 ->
-> +----------+         +---------------+          +--------+
-> 
-> At this point, the userspace application would read the unsigned integer
-> from the character device and determine how to interpret the position --
-> whether the count be converted to a signed value to represent a negative
-> physical position.
-> 
-> Whether or not a position should be considered negative is dependent on
-> the user application and context. Because the character device does not
-> know the context of the user application, it should only provide
-> unsigned integers in order to ensure a standard interface for counter
-> devices; userspace will be responsible for interpreting those counts to
-> something meaningful for the context of their applications.
-> 
-> William Breathitt Gray
-> 
+--===============0595176671579809188==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NzB8fVQJ5HfG6fxh"
+Content-Disposition: inline
 
-Sounds reasonable to me.
+
+--NzB8fVQJ5HfG6fxh
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Oct 25, 2020 at 11:34:43AM -0500, David Lechner wrote:
+> On 10/25/20 8:18 AM, William Breathitt Gray wrote:
+> > On Tue, Oct 20, 2020 at 11:06:42AM -0500, David Lechner wrote:
+> >> On 10/18/20 11:58 AM, William Breathitt Gray wrote:
+> >>> On Wed, Oct 14, 2020 at 05:40:44PM -0500, David Lechner wrote:
+> >>>> On 9/26/20 9:18 PM, William Breathitt Gray wrote:
+> >>>>> +static ssize_t counter_chrdev_read(struct file *filp, char __user =
+*buf,
+> >>>>> +				   size_t len, loff_t *f_ps)
+> >>>>> +{
+> >>>>> +	struct counter_device *const counter =3D filp->private_data;
+> >>>>> +	int err;
+> >>>>> +	unsigned long flags;
+> >>>>> +	unsigned int copied;
+> >>>>> +
+> >>>>> +	if (len < sizeof(struct counter_event))
+> >>>>> +		return -EINVAL;
+> >>>>> +
+> >>>>> +	do {
+> >>>>> +		if (kfifo_is_empty(&counter->events)) {
+> >>>>> +			if (filp->f_flags & O_NONBLOCK)
+> >>>>> +				return -EAGAIN;
+> >>>>> +
+> >>>>> +			err =3D wait_event_interruptible(counter->events_wait,
+> >>>>> +					!kfifo_is_empty(&counter->events));
+> >>>>> +			if (err)
+> >>>>> +				return err;
+> >>>>> +		}
+> >>>>> +
+> >>>>> +		raw_spin_lock_irqsave(&counter->events_lock, flags);
+> >>>>> +		err =3D kfifo_to_user(&counter->events, buf, len, &copied);
+> >>>>> +		raw_spin_unlock_irqrestore(&counter->events_lock, flags);
+> >>>>> +		if (err)
+> >>>>> +			return err;
+> >>>>> +	} while (!copied);
+> >>>>> +
+> >>>>> +	return copied;
+> >>>>> +}
+> >>>>
+> >>>> All other uses of kfifo_to_user() I saw use a mutex instead of spin
+> >>>> lock. I don't see a reason for disabling interrupts here.
+> >>>
+> >>> The Counter character device interface is special in this case because
+> >>> counter->events could be accessed from an interrupt context. This is
+> >>> possible if counter_push_event() is called for an interrupt (as is the
+> >>> case for the 104_quad_8 driver). In this case, we can't use mutex
+> >>> because we can't sleep in an interrupt context, so our only option is=
+ to
+> >>> use spin lock.
+> >>>
+> >>
+> >>
+> >> The way I understand it, locking is only needed for concurrent readers
+> >> and locking between reader and writer is not needed.
+> >=20
+> > You're right, it does say in the kfifo.h comments that with only one
+> > concurrent reader and one current write, we don't need extra locking to
+> > use these macros. Because we only have one kfifo_to_user() operating on
+> > counter->events, does that mean we don't need locking at all here for
+> > the counter_chrdev_read() function?
+> >=20
+> > William Breathitt Gray
+> >=20
+>=20
+> Even if we have the policy that only one file handle to the chrdev
+> can be open at a time, it is still possible that the it could be
+> read from multiple threads. So it I think it makes sense to keep
+> it just to be safe.
+
+All right, I'll keep the locks in the code for now to keep it safe in
+case we have multiple threads reading.
+
+William Breathitt Gray
+
+--NzB8fVQJ5HfG6fxh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl+Vu3IACgkQhvpINdm7
+VJL6Gg/+Mlx2N3lg0kRzevbHYdReGI0UFjEyLqM3u6BmeS5zhbkHY+/QYF9Ak2Th
+AEe1tI0KJ3KrTiPRH8oEkbZ5f1eY58AovHPYByxzOBMDHx9Z2PUtRmdDF9jqU1mA
+kw0x/SMHc/Rznkzu44VHl1vLTRxpPDJ3a91PmuKEe5prF0BufeCh+4WdMpwQq1yH
+RmeaXWg5aKjQtIpjVFivkLjp5sBlP2dh51r34bEd1LA9wQ1FcSdoDe3Jxwwt8Wnx
+wySRy7nh/RIDp0CkgxdtJfNgSskJ+m/5/bVWCIqKcRkVJCApndX5N02c7C0573so
+biLq7YKWbF27KjMIyl22XwPxdhBW0CfN+nXGDM0rv8WtzE2qqtEbRe1t3oYGfMZK
+6CtXjDL03JyGVIaZCT8XyeAkHhUJM5gxGKygfCRq+O1ftVdzsnDtlhxnmm4Wtn44
+YKJvjN2Na66BN1jObZZvfaCSU+iaBqNapkcImB1BHGo6uiAjo/u63ZZNYDABvbbK
+corwSbj3kgu3kHXgnX9u6sR2pSMZeqcGT+uBNXt3F8tPkDd7UwSNjKswADQrY5GN
+bNIeee2fI5kmxdqitRPqCYSM4OgB4P/WsI7KgLcLsbH3uFRpb2rIIHGRgdfnWCc5
+t/T9hQH0gczN1Beuyj+8MPM657zoQojz9l39rY1XA9dJ5iXhZuM=
+=gnpW
+-----END PGP SIGNATURE-----
+
+--NzB8fVQJ5HfG6fxh--
+
+--===============0595176671579809188==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0595176671579809188==--
