@@ -2,42 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB6C92979F5
-	for <lists+linux-stm32@lfdr.de>; Sat, 24 Oct 2020 02:28:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EE9B298190
+	for <lists+linux-stm32@lfdr.de>; Sun, 25 Oct 2020 13:06:34 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BD3FC424BA;
-	Sat, 24 Oct 2020 00:28:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CF5DC32EB6;
+	Sun, 25 Oct 2020 12:06:33 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6B87C424B3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A008FC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 Oct 2020 00:28:56 +0000 (UTC)
-Received: from localhost (cpc102338-sgyl38-2-0-cust404.18-2.cable.virginm.net
- [77.102.33.149])
+ Sun, 25 Oct 2020 12:06:30 +0000 (UTC)
+Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
+ [51.254.78.96])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B76A42225E;
- Sat, 24 Oct 2020 00:28:54 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id ACF3F22202;
+ Sun, 25 Oct 2020 12:06:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603499335;
- bh=+FhP76HiOXe3pLSCqtvML2xh8BV++5Vbe3/EWxwGkS0=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=dQ4WtqDRR9mWnKyBXxnLs1n5kJnoMWQ+fNdXS+7h3F1eWUPtwmG/YfyflQSUmTckJ
- xSD5QvPO5yw1C+LiYg1Az8ytrcMrDCZHcvBxNpCoKDe+qMjjf6bR40myzgnrLgS6QJ
- XP5lQqGlOZopAoGcU4sp8UyUKud4YuN/z10SQ0s4=
-Date: Sat, 24 Oct 2020 01:28:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, perex@perex.cz, Olivier Moysan <olivier.moysan@st.com>,
- alexandre.torgue@st.com, tiwai@suse.com, arnaud.patard@rtp-net.org
-In-Reply-To: <20201020150109.482-1-olivier.moysan@st.com>
-References: <20201020150109.482-1-olivier.moysan@st.com>
-Message-Id: <160349931941.28438.14503960964995572782.b4-ty@kernel.org>
+ s=default; t=1603627588;
+ bh=nUS2kYGYuhzsne/r04hu9MAGBT2diuzU21HdRmbbVqg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=PYj+khaNLYyL3OTVke9xc2SyeZgh8R0qQFdpGJRvgnqu1fKnl4aXO9GIFN9MbC72H
+ 4czmgTFqOpn36EB/108Kg4Eikqx9YJpBiIebtuNE2m9usdO9Y+clR9SsmwA5nPZLtE
+ OVG/DTfU9xGYDbZJOAKLwsU5yaEPC07WVOOZikbw=
+Received: from 78.163-31-62.static.virginmediabusiness.co.uk ([62.31.163.78]
+ helo=wait-a-minute.lan) by disco-boy.misterjones.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <maz@kernel.org>)
+ id 1kWen4-0043Ku-Sg; Sun, 25 Oct 2020 12:06:26 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: tglx@linutronix.de, alexandre.torgue@st.com,
+ Fabrice Gasnier <fabrice.gasnier@st.com>, jason@lakedaemon.net
+Date: Sun, 25 Oct 2020 12:06:23 +0000
+Message-Id: <160362752949.263598.6286411876181120842.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <1602859219-15684-1-git-send-email-fabrice.gasnier@st.com>
+References: <1602859219-15684-1-git-send-email-fabrice.gasnier@st.com>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] ASoC: cs42l51: manage mclk shutdown
-	delay
+X-SA-Exim-Connect-IP: 62.31.163.78
+X-SA-Exim-Rcpt-To: tglx@linutronix.de, alexandre.torgue@st.com,
+ fabrice.gasnier@st.com, jason@lakedaemon.net, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ robh+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
+Cc: devicetree@vger.kernel.org, robh+dt@kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 0/3] Add STM32 LP timer EXTI interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,43 +68,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 20 Oct 2020 17:01:09 +0200, Olivier Moysan wrote:
-> A delay must be introduced before the shutdown down of the mclk,
-> as stated in CS42L51 datasheet. Otherwise the codec may
-> produce some noise after the end of DAPM power down sequence.
-> The delay between DAC and CLOCK_SUPPLY widgets is too short.
-> Add a delay in mclk shutdown request to manage the shutdown delay
-> explicitly. From experiments, at least 10ms delay is necessary.
-> Set delay to 20ms as recommended in Documentation/timers/timers-howto.rst
-> when using msleep().
+On Fri, 16 Oct 2020 16:40:16 +0200, Fabrice Gasnier wrote:
+> STM32 LP timer that's available on STM32MP15x can wakeup the platform
+> using EXTI interrupts.
+> 
+> This series add:
+> - LP timer EXTI - GIC interrupt events to EXTI driver and device-tree
+> - LP timer wakeup-source to device-tree
+> 
+> [...]
 
-Applied to
+Applied to irq/irqchip-next, thanks!
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+[1/3] irqchip/stm32-exti: Add all LP timer exti direct events support
+      commit: a00e85b581fd5ee47e770b6b8d2038dbebbe81f9
 
-Thanks!
+Please route the last two patches via arm-soc.
 
-[1/1] ASoC: cs42l51: manage mclk shutdown delay
-      commit: 20afe581c9b980848ad097c4d54dde9bec7593ef
+Cheers,
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+	M.
+-- 
+Without deviation from the norm, progress is not possible.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
