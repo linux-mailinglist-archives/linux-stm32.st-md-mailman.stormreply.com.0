@@ -2,71 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38DDE2982F6
-	for <lists+linux-stm32@lfdr.de>; Sun, 25 Oct 2020 18:53:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5FDD298814
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Oct 2020 09:12:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4C90C35E3C;
-	Sun, 25 Oct 2020 17:53:41 +0000 (UTC)
-Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
- [209.85.160.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D35CC36B37;
+	Mon, 26 Oct 2020 08:12:17 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 482F9C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD12CC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 Oct 2020 17:53:39 +0000 (UTC)
-Received: by mail-qt1-f193.google.com with SMTP id h12so5145065qtu.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 Oct 2020 10:53:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=WnvTU6VDuLEf+Rt2Zn1Gdt5ZWfNTNLLVWS72IF0h6Yk=;
- b=PqE+NIkCpidtvg9ccnzTZ8R6ZKaslUFa6jUfX78jzuqP4FeCXm1ehopZIeOpEIGvfV
- zUwuE0941wfby2vncTggj2xmv+C0VoORDdNOy4uXuo6t84MB+9Jla4/6B2D3nBcAmUlC
- aGa8wseNCWKTJIvsysxLs50d+eJ1g55WHEfTD7j9cwtlAf88IIkv6OPx1cr9xuFcHk+b
- 5mSZhYaceFpLEH7rkUNZgE5+zS/aHWq0j4XV3a8tEOAtltuqSLK1g4N62B+dBd1H+EAK
- Mi0g35eg6z2LdugxurSJut//sA73JpywiRfozrHFzOXvzEr3jekwqHflohiZowC6/zua
- ofvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=WnvTU6VDuLEf+Rt2Zn1Gdt5ZWfNTNLLVWS72IF0h6Yk=;
- b=UuEeAlANxfo/7zVONEFIhKGB8d9e3KUSjzZ4yQ+ja4bjeO0PvFT8XLPIThvBABBH6p
- c57cdsfwH4vACevNQEZA64Nu7BHvSzyZO4MrHcFAzIz1+f7LofKVygPTWOo1+JFGiDLz
- dL0ke6qt2s4e98KF6H5MWmkyQ9XkIFyXcfHFc+EUiIBXFUIq2ghRREZXu6Lar1hq75kn
- NApD4t1VXGxrf9PUOwFl+HD5Tk4jLy1+EfngALGkPgz19X5/HkT7sXS+AgLtFjRfZ2vu
- MHa2+kGBiUDT0K4gzjNmaw09tklv7kdtGXZ940NTXRfVunFW5bkIcoXfj0E0EeUxOt0h
- 9/+g==
-X-Gm-Message-State: AOAM532xy7e2B9r29ac65iB+8ipPHmnCnqSi1LNq5NsGSV4hWQGuZETA
- bPpwHSVSAzd3fulir2WPU2c=
-X-Google-Smtp-Source: ABdhPJzNvr9/llgZ98dNMu3rcpa5WW5aUblpGe3+LAoh76G4bw+2TtSIZwfILvnr82QMbJLFomHv6A==
-X-Received: by 2002:ac8:7c97:: with SMTP id y23mr13455309qtv.48.1603648418004; 
- Sun, 25 Oct 2020 10:53:38 -0700 (PDT)
-Received: from shinobu (072-189-064-225.res.spectrum.com. [72.189.64.225])
- by smtp.gmail.com with ESMTPSA id k64sm4949218qkc.97.2020.10.25.10.53.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Oct 2020 10:53:36 -0700 (PDT)
-Date: Sun, 25 Oct 2020 13:53:22 -0400
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: David Lechner <david@lechnology.com>
-Message-ID: <20201025175322.GA14219@shinobu>
-References: <cover.1601170670.git.vilhelm.gray@gmail.com>
- <00be1fccc672c5207f3b04fe4cc09c29e22641f4.1601170670.git.vilhelm.gray@gmail.com>
- <cc1f7e4d-18d1-bc28-8ce3-e3edcd91bcab@lechnology.com>
- <20201018165822.GE231549@shinobu>
- <f2bac8b2-108d-fa4c-cb63-8ff85ce04d1f@lechnology.com>
- <20201025131809.GB3458@shinobu>
- <e0b7989f-6a99-0fae-471c-8d06c8e951b0@lechnology.com>
+ Mon, 26 Oct 2020 08:12:15 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 09Q86o30025180; Mon, 26 Oct 2020 09:12:12 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type :
+ mime-version; s=STMicroelectronics;
+ bh=dNYmghTPTHEHlwDFyNETUzc/OLhzLwlNOarXpAJGf6A=;
+ b=I1bYGn7G1iVi4iDIEK1P13wHVuTy78X/YrvzYdr4pO2F6GMcSvlzdzqTbRHBeuc2hbtL
+ dDRTwV3/P3Iu7zoSOI0RveIjHaPMR05qLHOX76DMnCjUXZ9uPQePZqz+YCEuAEKg7ETx
+ elmMpv9UG1ow633ymf8L6h+J8nlvKjz1uR4ShQNkLXImV40TKXM1KP6gTI02Bb+XWYT3
+ jPEl602DeswijOAdroZdLfBg0NDhsgjtq3Fkv1JW/yp6Fw3VZFYCHWES+VjuBqTfTSPU
+ tDFrti6Y3sx35V7/DAG4cWE89wp/OE8XzduoWQiNdwAPbc1e1G25Kr6C0j7haxyGoP/y 1Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34ccj1jbhw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 26 Oct 2020 09:12:12 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 71C0D10002A;
+ Mon, 26 Oct 2020 09:12:11 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 62EB32ADA17;
+ Mon, 26 Oct 2020 09:12:11 +0100 (CET)
+Received: from SFHDAG1NODE3.st.com (10.75.127.3) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 26 Oct
+ 2020 09:11:50 +0100
+Received: from SFHDAG1NODE3.st.com ([fe80::ad8b:a44d:504a:670d]) by
+ SFHDAG1NODE3.st.com ([fe80::ad8b:a44d:504a:670d%20]) with mapi id
+ 15.00.1473.003; Mon, 26 Oct 2020 09:11:50 +0100
+From: Fabien DESSENNE <fabien.dessenne@st.com>
+To: Martin Kaiser <martin@kaiser.cx>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre TORGUE
+ <alexandre.torgue@st.com>
+Thread-Topic: [PATCH 1/2] mailbox: stm32-ipcc: add COMPILE_TEST dependency
+Thread-Index: AQHWqgoYCsODtFZ/S06I0xGYLi0Fbqmpem+A
+Date: Mon, 26 Oct 2020 08:11:50 +0000
+Message-ID: <4541971e-7e2b-28c9-dbd6-ca3bffbfdcb0@st.com>
+References: <20201024133154.22767-1-martin@kaiser.cx>
+In-Reply-To: <20201024133154.22767-1-martin@kaiser.cx>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.45]
 MIME-Version: 1.0
-In-Reply-To: <e0b7989f-6a99-0fae-471c-8d06c8e951b0@lechnology.com>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v5 3/5] counter: Add character device
-	interface
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.737
+ definitions=2020-10-26_04:2020-10-26,
+ 2020-10-26 signatures=0
+Cc: "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 1/2] mailbox: stm32-ipcc: add COMPILE_TEST
+	dependency
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,119 +82,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0595176671579809188=="
+Content-Type: multipart/mixed; boundary="===============8382470442171113782=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+--===============8382470442171113782==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_4541971e7e2b28c9dbd6ca3bffbfdcb0stcom_"
 
---===============0595176671579809188==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NzB8fVQJ5HfG6fxh"
-Content-Disposition: inline
+--_000_4541971e7e2b28c9dbd6ca3bffbfdcb0stcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+SGkgTWFydGluDQoNCg0KVGhhbmsgeW91IGZvciB0aGUgcGF0Y2gNCg0KT24gMjQvMTAvMjAyMCAz
+OjMxIHBtLCBNYXJ0aW4gS2Fpc2VyIHdyb3RlOg0KDQpUaGlzIGFsbG93cyBjb21waWxpbmcgdGhl
+IGRyaXZlciBvbiBhcmNoaXRlY3R1cmVzIHdoZXJlIHRoZSBoYXJkd2FyZSBpcyBub3QNCmF2YWls
+YWJsZS4gTW9zdCBvdGhlciBtYWlsYm94IGRyaXZlcnMgc3VwcG9ydCB0aGlzIGFzIHdlbGwuDQoN
+ClNpZ25lZC1vZmYtYnk6IE1hcnRpbiBLYWlzZXIgPG1hcnRpbkBrYWlzZXIuY3g+PG1haWx0bzpt
+YXJ0aW5Aa2Fpc2VyLmN4Pg0KDQoNClJldmlld2VkLWJ5OiBGYWJpZW4gRGVzc2VubmUgPGZhYmll
+bi5kZXNzZW5uZUBzdC5jb20+PG1haWx0bzpmYWJpZW4uZGVzc2VubmVAc3QuY29tPg0KDQoNCg0K
+DQotLS0NCg0KSSB1c2VkIHRoaXMgZm9yIHRlc3RpbmcgdGhlIHRyaXZpYWwgcGF0Y2ggdGhhdCBy
+ZW1vdmVzIHRoZSBkdXBsaWNhdGUgZXJyb3INCm1lc3NhZ2UuIEFsc28sIGNvbXBpbGluZyB0aGUg
+ZHJpdmVyIG9uIHg4Nl82NCB3b3JrZWQgd2l0aG91dCBlcnJvcnMuDQoNCiBkcml2ZXJzL21haWxi
+b3gvS2NvbmZpZyB8IDIgKy0NCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVs
+ZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJveC9LY29uZmlnIGIvZHJpdmVy
+cy9tYWlsYm94L0tjb25maWcNCmluZGV4IDA1YjEwMDllMjgyMC4uYWJiZjVkNjdmZmEyIDEwMDY0
+NA0KLS0tIGEvZHJpdmVycy9tYWlsYm94L0tjb25maWcNCisrKyBiL2RyaXZlcnMvbWFpbGJveC9L
+Y29uZmlnDQpAQCAtMjAxLDcgKzIwMSw3IEBAIGNvbmZpZyBCQ01fRkxFWFJNX01CT1gNCg0KIGNv
+bmZpZyBTVE0zMl9JUENDDQogICAgICAgIHRyaXN0YXRlICJTVE0zMiBJUENDIE1haWxib3giDQot
+ICAgICAgIGRlcGVuZHMgb24gTUFDSF9TVE0zMk1QMTU3DQorICAgICAgIGRlcGVuZHMgb24gTUFD
+SF9TVE0zMk1QMTU3IHx8IENPTVBJTEVfVEVTVA0KICAgICAgICBoZWxwDQogICAgICAgICAgTWFp
+bGJveCBpbXBsZW1lbnRhdGlvbiBmb3IgU1RNaWNyb2VsZWN0b25pY3MgU1RNMzIgZmFtaWx5IGNo
+aXBzDQogICAgICAgICAgd2l0aCBoYXJkd2FyZSBmb3IgSW50ZXItUHJvY2Vzc29yIENvbW11bmlj
+YXRpb24gQ29udHJvbGxlciAoSVBDQykNCg0K
 
---NzB8fVQJ5HfG6fxh
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--_000_4541971e7e2b28c9dbd6ca3bffbfdcb0stcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <CD68BD9A661E1A40890A99F30872E881@st.com>
+Content-Transfer-Encoding: base64
 
-On Sun, Oct 25, 2020 at 11:34:43AM -0500, David Lechner wrote:
-> On 10/25/20 8:18 AM, William Breathitt Gray wrote:
-> > On Tue, Oct 20, 2020 at 11:06:42AM -0500, David Lechner wrote:
-> >> On 10/18/20 11:58 AM, William Breathitt Gray wrote:
-> >>> On Wed, Oct 14, 2020 at 05:40:44PM -0500, David Lechner wrote:
-> >>>> On 9/26/20 9:18 PM, William Breathitt Gray wrote:
-> >>>>> +static ssize_t counter_chrdev_read(struct file *filp, char __user =
-*buf,
-> >>>>> +				   size_t len, loff_t *f_ps)
-> >>>>> +{
-> >>>>> +	struct counter_device *const counter =3D filp->private_data;
-> >>>>> +	int err;
-> >>>>> +	unsigned long flags;
-> >>>>> +	unsigned int copied;
-> >>>>> +
-> >>>>> +	if (len < sizeof(struct counter_event))
-> >>>>> +		return -EINVAL;
-> >>>>> +
-> >>>>> +	do {
-> >>>>> +		if (kfifo_is_empty(&counter->events)) {
-> >>>>> +			if (filp->f_flags & O_NONBLOCK)
-> >>>>> +				return -EAGAIN;
-> >>>>> +
-> >>>>> +			err =3D wait_event_interruptible(counter->events_wait,
-> >>>>> +					!kfifo_is_empty(&counter->events));
-> >>>>> +			if (err)
-> >>>>> +				return err;
-> >>>>> +		}
-> >>>>> +
-> >>>>> +		raw_spin_lock_irqsave(&counter->events_lock, flags);
-> >>>>> +		err =3D kfifo_to_user(&counter->events, buf, len, &copied);
-> >>>>> +		raw_spin_unlock_irqrestore(&counter->events_lock, flags);
-> >>>>> +		if (err)
-> >>>>> +			return err;
-> >>>>> +	} while (!copied);
-> >>>>> +
-> >>>>> +	return copied;
-> >>>>> +}
-> >>>>
-> >>>> All other uses of kfifo_to_user() I saw use a mutex instead of spin
-> >>>> lock. I don't see a reason for disabling interrupts here.
-> >>>
-> >>> The Counter character device interface is special in this case because
-> >>> counter->events could be accessed from an interrupt context. This is
-> >>> possible if counter_push_event() is called for an interrupt (as is the
-> >>> case for the 104_quad_8 driver). In this case, we can't use mutex
-> >>> because we can't sleep in an interrupt context, so our only option is=
- to
-> >>> use spin lock.
-> >>>
-> >>
-> >>
-> >> The way I understand it, locking is only needed for concurrent readers
-> >> and locking between reader and writer is not needed.
-> >=20
-> > You're right, it does say in the kfifo.h comments that with only one
-> > concurrent reader and one current write, we don't need extra locking to
-> > use these macros. Because we only have one kfifo_to_user() operating on
-> > counter->events, does that mean we don't need locking at all here for
-> > the counter_chrdev_read() function?
-> >=20
-> > William Breathitt Gray
-> >=20
->=20
-> Even if we have the policy that only one file handle to the chrdev
-> can be open at a time, it is still possible that the it could be
-> read from multiple threads. So it I think it makes sense to keep
-> it just to be safe.
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPHA+SGkgTWFydGlu
+PC9wPg0KPHA+PGJyPg0KPC9wPg0KPHA+VGhhbmsgeW91IGZvciB0aGUgcGF0Y2g8YnI+DQo8L3A+
+DQo8ZGl2IGNsYXNzPSJtb3otY2l0ZS1wcmVmaXgiPk9uIDI0LzEwLzIwMjAgMzozMSBwbSwgTWFy
+dGluIEthaXNlciB3cm90ZTo8YnI+DQo8L2Rpdj4NCjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiIGNp
+dGU9Im1pZDoyMDIwMTAyNDEzMzE1NC4yMjc2Ny0xLW1hcnRpbkBrYWlzZXIuY3giPg0KPHByZSBj
+bGFzcz0ibW96LXF1b3RlLXByZSIgd3JhcD0iIj5UaGlzIGFsbG93cyBjb21waWxpbmcgdGhlIGRy
+aXZlciBvbiBhcmNoaXRlY3R1cmVzIHdoZXJlIHRoZSBoYXJkd2FyZSBpcyBub3QNCmF2YWlsYWJs
+ZS4gTW9zdCBvdGhlciBtYWlsYm94IGRyaXZlcnMgc3VwcG9ydCB0aGlzIGFzIHdlbGwuDQoNClNp
+Z25lZC1vZmYtYnk6IE1hcnRpbiBLYWlzZXIgPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2
+RSIgaHJlZj0ibWFpbHRvOm1hcnRpbkBrYWlzZXIuY3giPiZsdDttYXJ0aW5Aa2Fpc2VyLmN4Jmd0
+OzwvYT48L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxicj4NCjxwcmUgaXRlbXByb3A9ImFydGljbGVC
+b2R5IiBzdHlsZT0iY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250
+LXZhcmlhbnQtbGlnYXR1cmVzOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZv
+bnQtd2VpZ2h0OiA0MDA7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IG9ycGhhbnM6IDI7IHRleHQt
+YWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2lk
+b3dzOiAyOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4
+OyB0ZXh0LWRlY29yYXRpb24tc3R5bGU6IGluaXRpYWw7IHRleHQtZGVjb3JhdGlvbi1jb2xvcjog
+aW5pdGlhbDsiPlJldmlld2VkLWJ5OiBGYWJpZW4gRGVzc2VubmUgPGEgY2xhc3M9Im1vei10eHQt
+bGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmZhYmllbi5kZXNzZW5uZUBzdC5jb20iPiZsdDtm
+YWJpZW4uZGVzc2VubmVAc3QuY29tJmd0OzwvYT4NCg0KPC9wcmU+DQo8YmxvY2txdW90ZSB0eXBl
+PSJjaXRlIiBjaXRlPSJtaWQ6MjAyMDEwMjQxMzMxNTQuMjI3NjctMS1tYXJ0aW5Aa2Fpc2VyLmN4
+Ij4NCjxwcmUgY2xhc3M9Im1vei1xdW90ZS1wcmUiIHdyYXA9IiI+DQotLS0NCg0KSSB1c2VkIHRo
+aXMgZm9yIHRlc3RpbmcgdGhlIHRyaXZpYWwgcGF0Y2ggdGhhdCByZW1vdmVzIHRoZSBkdXBsaWNh
+dGUgZXJyb3INCm1lc3NhZ2UuIEFsc28sIGNvbXBpbGluZyB0aGUgZHJpdmVyIG9uIHg4Nl82NCB3
+b3JrZWQgd2l0aG91dCBlcnJvcnMuDQoNCiBkcml2ZXJzL21haWxib3gvS2NvbmZpZyB8IDIgJiM0
+MzstDQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCYjNDM7KSwgMSBkZWxldGlvbigtKQ0K
+DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9tYWlsYm94L0tjb25maWcgYi9kcml2ZXJzL21haWxib3gv
+S2NvbmZpZw0KaW5kZXggMDViMTAwOWUyODIwLi5hYmJmNWQ2N2ZmYTIgMTAwNjQ0DQotLS0gYS9k
+cml2ZXJzL21haWxib3gvS2NvbmZpZw0KJiM0MzsmIzQzOyYjNDM7IGIvZHJpdmVycy9tYWlsYm94
+L0tjb25maWcNCkBAIC0yMDEsNyAmIzQzOzIwMSw3IEBAIGNvbmZpZyBCQ01fRkxFWFJNX01CT1gN
+CiANCiBjb25maWcgU1RNMzJfSVBDQw0KIAl0cmlzdGF0ZSAmcXVvdDtTVE0zMiBJUENDIE1haWxi
+b3gmcXVvdDsNCi0JZGVwZW5kcyBvbiBNQUNIX1NUTTMyTVAxNTcNCiYjNDM7CWRlcGVuZHMgb24g
+TUFDSF9TVE0zMk1QMTU3IHx8IENPTVBJTEVfVEVTVA0KIAloZWxwDQogCSAgTWFpbGJveCBpbXBs
+ZW1lbnRhdGlvbiBmb3IgU1RNaWNyb2VsZWN0b25pY3MgU1RNMzIgZmFtaWx5IGNoaXBzDQogCSAg
+d2l0aCBoYXJkd2FyZSBmb3IgSW50ZXItUHJvY2Vzc29yIENvbW11bmljYXRpb24gQ29udHJvbGxl
+ciAoSVBDQykNCjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
-All right, I'll keep the locks in the code for now to keep it safe in
-case we have multiple threads reading.
+--_000_4541971e7e2b28c9dbd6ca3bffbfdcb0stcom_--
 
-William Breathitt Gray
-
---NzB8fVQJ5HfG6fxh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl+Vu3IACgkQhvpINdm7
-VJL6Gg/+Mlx2N3lg0kRzevbHYdReGI0UFjEyLqM3u6BmeS5zhbkHY+/QYF9Ak2Th
-AEe1tI0KJ3KrTiPRH8oEkbZ5f1eY58AovHPYByxzOBMDHx9Z2PUtRmdDF9jqU1mA
-kw0x/SMHc/Rznkzu44VHl1vLTRxpPDJ3a91PmuKEe5prF0BufeCh+4WdMpwQq1yH
-RmeaXWg5aKjQtIpjVFivkLjp5sBlP2dh51r34bEd1LA9wQ1FcSdoDe3Jxwwt8Wnx
-wySRy7nh/RIDp0CkgxdtJfNgSskJ+m/5/bVWCIqKcRkVJCApndX5N02c7C0573so
-biLq7YKWbF27KjMIyl22XwPxdhBW0CfN+nXGDM0rv8WtzE2qqtEbRe1t3oYGfMZK
-6CtXjDL03JyGVIaZCT8XyeAkHhUJM5gxGKygfCRq+O1ftVdzsnDtlhxnmm4Wtn44
-YKJvjN2Na66BN1jObZZvfaCSU+iaBqNapkcImB1BHGo6uiAjo/u63ZZNYDABvbbK
-corwSbj3kgu3kHXgnX9u6sR2pSMZeqcGT+uBNXt3F8tPkDd7UwSNjKswADQrY5GN
-bNIeee2fI5kmxdqitRPqCYSM4OgB4P/WsI7KgLcLsbH3uFRpb2rIIHGRgdfnWCc5
-t/T9hQH0gczN1Beuyj+8MPM657zoQojz9l39rY1XA9dJ5iXhZuM=
-=gnpW
------END PGP SIGNATURE-----
-
---NzB8fVQJ5HfG6fxh--
-
---===============0595176671579809188==
+--===============8382470442171113782==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -201,4 +173,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============0595176671579809188==--
+--===============8382470442171113782==--
