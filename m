@@ -2,56 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5FF9298F7A
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Oct 2020 15:37:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5190329916E
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Oct 2020 16:49:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B822C36B37;
-	Mon, 26 Oct 2020 14:37:00 +0000 (UTC)
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73A8EC36B37;
+	Mon, 26 Oct 2020 15:49:43 +0000 (UTC)
+Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
+ [209.85.167.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2125C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CB91C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Oct 2020 14:36:58 +0000 (UTC)
-Received: by mail-oi1-f193.google.com with SMTP id k27so10657102oij.11
+ Mon, 26 Oct 2020 15:49:40 +0000 (UTC)
+Received: by mail-oi1-f195.google.com with SMTP id k65so10375041oih.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Oct 2020 07:36:58 -0700 (PDT)
+ Mon, 26 Oct 2020 08:49:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=pZLcxZ2MnUfE2owgeO5H9FxVAp5GYsqgLY4ZhY+S9R8=;
+ b=jtSGr9LazkMCJoDk/IxFFP4G5Qs+Y/9svdQos1NCXU8w7ehGZ1EUP/P/1qM5Zn8/Jo
+ sdeFpgprcu3SWr7TpeAQolSe02ABLWQf+Pty2W6nb4JyLbLaeZn+PQi2twz5+iUeR+WL
+ 03CZsOTG45+8p7ykLyG/f2YL6cOKxOwa1DleYjm/yOQyV9F1o5xu8twZBHPHM6TMPbfi
+ HZdDc6zw/913iaREkqY3fNRuLIv5jELnWoD25g/3dDPPvbzNVn/oVekUMoMNW7G+/Sjw
+ kZ9nnGIUmmxoDjTd8cwh/QyFuWIVpvY47VBot6ALPeaPToOWxzeTVrSlIsJbWkdayyo5
+ om6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=3tEkDqcCTG0IzQXPAwhJWmsvNZknIocrF7E2OMjuhE0=;
- b=AaIKkVgF85IgK21d+3Xelvn5p1/rIMCfpy3wPEa9fcvHYColn9pu2GFAFpbc/9iNzC
- Koy7nJ3/jBCqrVtlX0q7BxCAHPuo7vihCHAfX2DHjVDOcT8kj9Z+FZtsii897dZCJFU1
- NWxpl4f5RoHmnwKmeaFMF9NJCoGl3QOILKWvyuH/tpiDt4X3CMpyLpl6zM3Vo+bbBJqz
- 8o4pqHmDtEho/KhdztNaOwzRIM/SFGi0w2mTVJWl8c2vaNY+jOqdi0lDiXdQR8+B88U0
- FW6hsStdtNNQTS4EtXNF7cw3E96wouMVcEQ932S/p8RHoAtVdEBxxJsvLlJC+3zPRk2h
- 6VYg==
-X-Gm-Message-State: AOAM530x/8l4MnZ8K/x7kyydNqcYYwWuQMU7kue7mCV8rQck9Qhkcxw5
- 8+Gx+XeFHF3KKupdvKUU8Fh6IDoCew==
-X-Google-Smtp-Source: ABdhPJzBqpRozB+mA8uEtko0jSmowYbYh7fKvDh0onqyFGNDBAaBRoW4U6MOniEhL45Ri9gx/NcHRQ==
-X-Received: by 2002:aca:a893:: with SMTP id r141mr10621763oie.50.1603723017545; 
- Mon, 26 Oct 2020 07:36:57 -0700 (PDT)
-Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id s27sm2574459otg.80.2020.10.26.07.36.56
+ bh=pZLcxZ2MnUfE2owgeO5H9FxVAp5GYsqgLY4ZhY+S9R8=;
+ b=TzA4ZL108sYQYl8M4NHgmL4igp2kti3sJQvjEprtAm0atpufNvA2lEbzejSV/oMMKz
+ k/gAF4tbBVBEdmsYnl75qv+eeQ2zBxt+IevJMBCl2nkqs1RnvdbMeAxtHgHiVrCBqZNi
+ 6kEp95yyM+hgmC+Sz6m9yVVIfJG/fsxbaElDfaKYuGfOLJteDgyJ0Hum/9elVy+NMsut
+ 3WynJIvc68fX2BRrbVYrBNx5tYdNuDX6XqbfWjsbsCzlbgQrteNFb3wdFx+h2r9zpeCM
+ be1jN2ylzKx4FbkMG0+jfnEQHydiq/+u/PLr5nwDMykAXzQoBlPqh/wIvhNxNxSZPlld
+ cqxA==
+X-Gm-Message-State: AOAM533TgmRoQHn11/Sa+XR/LJxpZMQpJw4TVoVb9ccUIaocOd0lZuDJ
+ cnnxnQv6hfkFnYQtPEPv8XLZJQ==
+X-Google-Smtp-Source: ABdhPJy5vzb4gSulEItGq7NAbNpQx1Rk+qmcaxsk1uEPTY3pthSMzWWPWLeRubLs4nUV8lHjyEbN1w==
+X-Received: by 2002:aca:4d06:: with SMTP id a6mr14494885oib.166.1603727379027; 
+ Mon, 26 Oct 2020 08:49:39 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id a16sm3807833otk.39.2020.10.26.08.49.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2020 07:36:56 -0700 (PDT)
-Received: (nullmailer pid 121443 invoked by uid 1000);
- Mon, 26 Oct 2020 14:36:56 -0000
-Date: Mon, 26 Oct 2020 09:36:56 -0500
-From: Rob Herring <robh@kernel.org>
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <20201026143656.GA118160@bogus>
-References: <20201021102855.18026-1-a.fatoum@pengutronix.de>
+ Mon, 26 Oct 2020 08:49:38 -0700 (PDT)
+Date: Mon, 26 Oct 2020 10:49:36 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+Message-ID: <20201026154936.GA178863@builder.lan>
+References: <20201014125441.2457-1-arnaud.pouliquen@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201021102855.18026-1-a.fatoum@pengutronix.de>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- kernel@pengutronix.de, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: arm: stm32: add
- simple-mfd compatible for tamp node
+In-Reply-To: <20201014125441.2457-1-arnaud.pouliquen@st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, Rob Herring <robh@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, devicetree@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] ARM: stm32: add DT properties for
+ remote proc synchronisation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,51 +78,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 21, 2020 at 12:28:55PM +0200, Ahmad Fatoum wrote:
-> The stm32mp1 TAMP (Tamper and backup registers) does tamper detection
-> and features 32 backup registers that, being in the RTC domain, may
-> survive even with Vdd switched off.
-> 
-> This makes it suitable for use to communicate a reboot mode from OS
-> to bootloader via the syscon-reboot-mode binding. Add a "simple-mfd"
-> to support probing such a child node. The actual reboot mode
-> node could then be defined in a board.dts or fixed up by the bootloader.
+On Wed 14 Oct 07:54 CDT 2020, Arnaud Pouliquen wrote:
 
-'simple-mfd' implies there is no dependency on the parent node for the 
-child (such as the regmap perhaps). Is that the case here?
+> This series implements the DT part associated to the commit 9276536f455b3
+> ("remoteproc: stm32: Parse syscon that will manage M4 synchronisation")
+> 
+> Delta vs V1 [1]
+> - add Rob acked-by on patch 1/4
+> - simplify yaml descriptions and align other syscon descriptions
+> 
+> [1]https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=339339
+> 
+> Arnaud Pouliquen (4):
+>   dt-bindings: arm: stm32: Add compatible for syscon tamp node
+>   dt-bindings: remoteproc: stm32_rproc: update for firmware
+>     synchronization
+>   dt-bindings: remoteproc: stm32_rproc: update syscon descriptions
 
+Applied the dt-bindings updates, expecting the dts change to go throught
+he ST soc tree.
+
+Thank you,
+Bjorn
+
+>   ARM: dts: stm32: update stm32mp151 for remote proc synchronization
+>     support
 > 
-> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
-> ---
-> v1 available here:
-> https://lore.kernel.org/linux-arm-kernel/20200916142216.25142-1-a.fatoum@pengutronix.de/
+>  .../bindings/arm/stm32/st,stm32-syscon.yaml   |  1 +
+>  .../bindings/remoteproc/st,stm32-rproc.yaml   | 21 +++++++++++++------
+>  arch/arm/boot/dts/stm32mp151.dtsi             |  7 +++++++
+>  3 files changed, 23 insertions(+), 6 deletions(-)
 > 
-> v1 -> v2:
->  - new patch, rebased on top of
->    https://lore.kernel.org/r/20201014125441.2457-1-arnaud.pouliquen@st.com
-> ---
->  .../devicetree/bindings/arm/stm32/st,stm32-syscon.yaml       | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> index 6634b3e0853e..4684017a42e4 100644
-> --- a/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> +++ b/Documentation/devicetree/bindings/arm/stm32/st,stm32-syscon.yaml
-> @@ -19,8 +19,11 @@ properties:
->                - st,stm32mp151-pwr-mcu
->                - st,stm32-syscfg
->                - st,stm32-power-config
-> -              - st,stm32-tamp
->            - const: syscon
-> +      - items:
-> +          - const: st,stm32-tamp
-> +          - const: syscon
-> +          - const: simple-mfd
->  
->    reg:
->      maxItems: 1
 > -- 
-> 2.28.0
+> 2.17.1
 > 
 _______________________________________________
 Linux-stm32 mailing list
