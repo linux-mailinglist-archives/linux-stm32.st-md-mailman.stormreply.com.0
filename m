@@ -2,38 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0DC929A56C
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Oct 2020 08:23:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5FAC29A529
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Oct 2020 08:03:47 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 604AFC3087A;
-	Tue, 27 Oct 2020 07:23:05 +0000 (UTC)
-Received: from viti.kaiser.cx (viti.kaiser.cx [85.214.81.225])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ECA2C36B37;
+	Tue, 27 Oct 2020 07:03:47 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96945C424BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBBDCC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 Oct 2020 13:32:27 +0000 (UTC)
-Received: from dslb-188-096-149-111.188.096.pools.vodafone-ip.de
- ([188.96.149.111] helo=martin-debian-2.paytec.ch)
- by viti.kaiser.cx with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.89) (envelope-from <martin@kaiser.cx>)
- id 1kWJej-0005I1-Bn; Sat, 24 Oct 2020 15:32:25 +0200
-From: Martin Kaiser <martin@kaiser.cx>
-To: Jassi Brar <jassisinghbrar@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Fabien Dessenne <fabien.dessenne@st.com>
-Date: Sat, 24 Oct 2020 15:31:54 +0200
-Message-Id: <20201024133154.22767-2-martin@kaiser.cx>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201024133154.22767-1-martin@kaiser.cx>
-References: <20201024133154.22767-1-martin@kaiser.cx>
+ Tue, 27 Oct 2020 07:03:43 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[127.0.0.1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1kXJ1C-00019L-Kr; Tue, 27 Oct 2020 08:03:42 +0100
+To: Alexander Dahl <post@lespocky.de>, Pavel Machek <pavel@ucw.cz>,
+ Dan Murphy <dmurphy@ti.com>, Rob Herring <robh+dt@kernel.org>
+References: <20201005203451.9985-1-post@lespocky.de>
+ <20201005203451.9985-11-post@lespocky.de>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <b387bda8-3643-1d27-4996-2aa4dc94d69f@pengutronix.de>
+Date: Tue, 27 Oct 2020 08:03:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 27 Oct 2020 07:23:03 +0000
-Cc: Martin Kaiser <martin@kaiser.cx>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/2] mailbox: stm32-ipcc: remove duplicate
-	error message
+In-Reply-To: <20201005203451.9985-11-post@lespocky.de>
+Content-Language: en-US
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-amlogic@lists.infradead.org,
+ linux-omap@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 10/12] ARM: dts: stm32: Fix schema
+ warnings for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,31 +60,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-platform_get_irq_byname already prints an error message if the requested irq
-was not found. Don't print another message in the driver.
+Hello Alexander,
 
-Signed-off-by: Martin Kaiser <martin@kaiser.cx>
----
- drivers/mailbox/stm32-ipcc.c | 3 ---
- 1 file changed, 3 deletions(-)
+On 10/5/20 10:34 PM, Alexander Dahl wrote:
+> The node names for devices using the pwm-leds driver follow a certain
+> naming scheme (now).  Parent node name is not enforced, but recommended
+> by DT project.
+> 
+>   DTC     arch/arm/boot/dts/stm32mp157c-lxa-mc1.dt.yaml
+>   CHECK   arch/arm/boot/dts/stm32mp157c-lxa-mc1.dt.yaml
+> /home/alex/build/linux/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dt.yaml: led-rgb: 'led-blue', 'led-green', 'led-red' do not match any of the regexes: '^led(-[0-9a-f]+)?$', 'pinctrl-[0-9]+'
+>         From schema: /home/alex/src/linux/leds/Documentation/devicetree/bindings/leds/leds-pwm.yaml
+> 
+> Signed-off-by: Alexander Dahl <post@lespocky.de>
 
-diff --git a/drivers/mailbox/stm32-ipcc.c b/drivers/mailbox/stm32-ipcc.c
-index ef966887aa15..ab8fe56af948 100644
---- a/drivers/mailbox/stm32-ipcc.c
-+++ b/drivers/mailbox/stm32-ipcc.c
-@@ -257,9 +257,6 @@ static int stm32_ipcc_probe(struct platform_device *pdev)
- 	for (i = 0; i < IPCC_IRQ_NUM; i++) {
- 		ipcc->irqs[i] = platform_get_irq_byname(pdev, irq_name[i]);
- 		if (ipcc->irqs[i] < 0) {
--			if (ipcc->irqs[i] != -EPROBE_DEFER)
--				dev_err(dev, "no IRQ specified %s\n",
--					irq_name[i]);
- 			ret = ipcc->irqs[i];
- 			goto err_clk;
- 		}
+Acked-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+
+But got two questions below:
+
+> ---
+> 
+> Notes:
+>     v6 -> v7:
+>       * split up patch (one per sub arch)
+>       * added actual warnings to commit message
+> 
+>  arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> index 5700e6b700d3..25d548cb975b 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> @@ -36,34 +36,34 @@
+>  		stdout-path = &uart4;
+>  	};
+>  
+> -	led-act {
+> +	led-controller-1 {
+>  		compatible = "gpio-leds";
+>  
+> -		led-green {
+> +		led-1 {
+>  			label = "mc1:green:act";
+>  			gpios = <&gpioa 13 GPIO_ACTIVE_LOW>;
+>  			linux,default-trigger = "heartbeat";
+>  		};
+>  	};
+>  
+> -	led-rgb {
+> +	led-controller-2 {
+
+Is a single RGB LED really a controller?
+
+>  		compatible = "pwm-leds";
+>  
+> -		led-red {
+> +		led-2 {
+
+Shouldn't this have been led-1 as well or is the numbering "global" ?
+
+>  			label = "mc1:red:rgb";
+>  			pwms = <&leds_pwm 1 1000000 0>;
+>  			max-brightness = <255>;
+>  			active-low;
+>  		};
+>  
+> -		led-green {
+> +		led-3 {
+>  			label = "mc1:green:rgb";
+>  			pwms = <&leds_pwm 2 1000000 0>;
+>  			max-brightness = <255>;
+>  			active-low;
+>  		};
+>  
+> -		led-blue {
+> +		led-4 {
+>  			label = "mc1:blue:rgb";
+>  			pwms = <&leds_pwm 3 1000000 0>;
+>  			max-brightness = <255>;
+> 
+
 -- 
-2.20.1
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
