@@ -2,50 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 330FA29AA24
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Oct 2020 11:58:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96A6929AB97
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Oct 2020 13:16:13 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA928C36B37;
-	Tue, 27 Oct 2020 10:58:13 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 304C5C36B37;
+	Tue, 27 Oct 2020 12:16:13 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B314C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53A88C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Oct 2020 10:58:12 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1kXMg7-00046a-Qk; Tue, 27 Oct 2020 11:58:11 +0100
-To: Pavel Machek <pavel@ucw.cz>, Dan Murphy <dmurphy@ti.com>,
- Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org
-References: <20201005203451.9985-1-post@lespocky.de>
- <20201005203451.9985-11-post@lespocky.de>
- <b387bda8-3643-1d27-4996-2aa4dc94d69f@pengutronix.de>
- <20201027100536.cpfizc67gwrolp2z@falbala.internal.home.lespocky.de>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <f6ed201d-51b6-f278-7a95-3e3e49dc19ee@pengutronix.de>
-Date: Tue, 27 Oct 2020 11:58:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ Tue, 27 Oct 2020 12:16:11 +0000 (UTC)
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com
+ [209.85.161.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8DEED24650
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 27 Oct 2020 12:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1603800969;
+ bh=rHy7m3RuiJVB+20ux7B22H/jeahOgDzJQVxUUqsPONE=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=nnslobMGiXfBKFGnGsYxOuqPAeWLHs9VXT5qE++xWWTVdGmCplAti2v3iFFzFaPmh
+ Aw2AlXxRpu2V1H8IMkogfIpWAvF+1iZ4KdGcyGqB3Mdx5Q8hdz0p0oleDQMcwMkW7I
+ Tm3oL/qRKuH7Eee2jicv4D49KxzNLOagtRWKlDNQ=
+Received: by mail-oo1-f43.google.com with SMTP id j41so169318oof.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 27 Oct 2020 05:16:09 -0700 (PDT)
+X-Gm-Message-State: AOAM530j5wLjzvL6wfz8AI/PjDPPlgIgQRarWtbqZu9TRYagdqW359/m
+ TaSJtRNCpp/AEZl0jLmvvdkxBCJWFGeKCrovlQ==
+X-Google-Smtp-Source: ABdhPJwWNPIQlF6Bp7SJfw0BWlotFu1Nk1SaBiaHNR8Jk/NmGn35wJqO0jl1Ihg5ANtyL/n3D9IZ22eRLIBU/rPXk3E=
+X-Received: by 2002:a4a:d453:: with SMTP id p19mr1528328oos.50.1603800968782; 
+ Tue, 27 Oct 2020 05:16:08 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20201027100536.cpfizc67gwrolp2z@falbala.internal.home.lespocky.de>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v7 10/12] ARM: dts: stm32: Fix schema
- warnings for pwm-leds
+References: <20201021102855.18026-1-a.fatoum@pengutronix.de>
+ <20201026143656.GA118160@bogus>
+ <23e423ba-25f2-c3ed-ea65-2c2d86ae9522@pengutronix.de>
+In-Reply-To: <23e423ba-25f2-c3ed-ea65-2c2d86ae9522@pengutronix.de>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 27 Oct 2020 07:15:57 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqL8sjw1o6PzCSRM9FtRx7XLDQg2bWXxo4Yw5t6fnroudw@mail.gmail.com>
+Message-ID: <CAL_JsqL8sjw1o6PzCSRM9FtRx7XLDQg2bWXxo4Yw5t6fnroudw@mail.gmail.com>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Cc: devicetree@vger.kernel.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Sascha Hauer <kernel@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: arm: stm32: add
+ simple-mfd compatible for tamp node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,89 +70,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello,
+On Mon, Oct 26, 2020 at 4:30 PM Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
+>
+> Hello Rob,
+>
+> On 10/26/20 3:36 PM, Rob Herring wrote:
+> > On Wed, Oct 21, 2020 at 12:28:55PM +0200, Ahmad Fatoum wrote:
+> >> The stm32mp1 TAMP (Tamper and backup registers) does tamper detection
+> >> and features 32 backup registers that, being in the RTC domain, may
+> >> survive even with Vdd switched off.
+> >>
+> >> This makes it suitable for use to communicate a reboot mode from OS
+> >> to bootloader via the syscon-reboot-mode binding. Add a "simple-mfd"
+> >> to support probing such a child node. The actual reboot mode
+> >> node could then be defined in a board.dts or fixed up by the bootloader.
+> >
+> > 'simple-mfd' implies there is no dependency on the parent node for the
+> > child (such as the regmap perhaps). Is that the case here?
+>
+> No, there's a dependency and the Linux driver does syscon_node_to_regmap
+> on the device tree node's parent but that's how the syscon-reboot-mode binding
+> is documented:
+>
+>   The SYSCON mapped register is retrieved from the
+>   parental dt-node plus the offset. So the SYSCON reboot-mode node
+>   should be represented as a sub-node of a "syscon", "simple-mfd" node.
+>
+> How would you prefer this being done instead?
 
-On 10/27/20 11:05 AM, Alexander Dahl wrote:
-> Hello Ahmad,
-> 
-> thanks for your feedback, comments below.
-> 
+Well, probably the syscon driver could just probe any children, but
+I'm not sure if that would break anyone. So I guess fine as-is.
 
->>> -	led-rgb {
->>> +	led-controller-2 {
->>
->> Is a single RGB LED really a controller?
-> 
-> I just followed the recommendations by Rob here.
+Reviewed-by: Rob Herring <robh@kernel.org>
 
-Do you happen to know if the new multicolor LED support could be used here?
-
-I find it unfortunate that the device tree loses information relevant to humans
-to adhere to a fixed nomenclature. Apparently led-controller isn't even codified
-in the YAML binding (It's just in the examples). If you respin, please add a
-comment that this is a single RGB led. I'd prefer to keep the information
-in the DTB as well though.
-
-
-
-> 
->>>  		compatible = "pwm-leds";
->>>  
->>> -		led-red {
->>> +		led-2 {
->>
->> Shouldn't this have been led-1 as well or is the numbering "global" ?
-> 
-> Also good question. This numbering is for dts only, it usually does
-> not correspond with LEDs on the board, so it could be numbered per
-> led-controller as well?
-
-I'd prefer that it starts by 1. That way it's aligned with PWM channel
-ID.
-
-Thanks for fixing the dtschema warnings by the way!
-
-Cheers,
-Ahmad
-
-> 
-> Greets
-> Alex
-> 
->>
->>>  			label = "mc1:red:rgb";
->>>  			pwms = <&leds_pwm 1 1000000 0>;
->>>  			max-brightness = <255>;
->>>  			active-low;
->>>  		};
->>>  
->>> -		led-green {
->>> +		led-3 {
->>>  			label = "mc1:green:rgb";
->>>  			pwms = <&leds_pwm 2 1000000 0>;
->>>  			max-brightness = <255>;
->>>  			active-low;
->>>  		};
->>>  
->>> -		led-blue {
->>> +		led-4 {
->>>  			label = "mc1:blue:rgb";
->>>  			pwms = <&leds_pwm 3 1000000 0>;
->>>  			max-brightness = <255>;
->>>
->>
->> -- 
->> Pengutronix e.K.                           |                             |
->> Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
->> 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
->> Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
-> 
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
