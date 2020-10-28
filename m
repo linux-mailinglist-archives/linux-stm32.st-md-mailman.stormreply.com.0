@@ -2,39 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FB0D29CE8C
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Oct 2020 08:50:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B2DB29CE86
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Oct 2020 08:34:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3D87C36B37;
-	Wed, 28 Oct 2020 07:50:18 +0000 (UTC)
-Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
- [98.124.60.144])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 584F5C36B0A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC32AC36B37;
+	Wed, 28 Oct 2020 07:34:50 +0000 (UTC)
+Received: from mail.thorsis.com (mail.thorsis.com [92.198.35.195])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0351C36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Oct 2020 03:26:25 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by kvm5.telegraphics.com.au (Postfix) with ESMTP id A654929A58;
- Tue, 27 Oct 2020 23:26:19 -0400 (EDT)
-Date: Wed, 28 Oct 2020 14:26:12 +1100 (AEDT)
-From: Finn Thain <fthain@telegraphics.com.au>
-To: Tom Rix <trix@redhat.com>
-In-Reply-To: <20201027164255.1573301-1-trix@redhat.com>
-Message-ID: <alpine.LNX.2.23.453.2010281344120.31@nippy.intranet>
-References: <20201027164255.1573301-1-trix@redhat.com>
-MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 28 Oct 2020 07:50:15 +0000
-Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
- linux-iio@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-rtc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-rdma@vger.kernel.org, qat-linux@intel.com, amd-gfx@lists.freedesktop.org,
- clang-built-linux@googlegroups.com, linux-pm@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-nfs@vger.kernel.org, netdev@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-crypto@vger.kernel.org, linux-btrfs@vger.kernel.org
-Subject: Re: [Linux-stm32] [RFC] clang tooling cleanups
+ Wed, 28 Oct 2020 07:34:48 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.thorsis.com (Postfix) with ESMTP id 957093D16
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 28 Oct 2020 08:34:47 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at mail.thorsis.com
+Received: from mail.thorsis.com ([127.0.0.1])
+ by localhost (mail.thorsis.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id R31Q6R5tKG9t
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 28 Oct 2020 08:34:47 +0100 (CET)
+Received: by mail.thorsis.com (Postfix, from userid 109)
+ id 43D123D41; Wed, 28 Oct 2020 08:34:46 +0100 (CET)
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,NO_RECEIVED,
+ NO_RELAYS autolearn=unavailable autolearn_force=no version=3.4.2
+From: Alexander Dahl <ada@thorsis.com>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Date: Wed, 28 Oct 2020 08:34:38 +0100
+Message-ID: <5231529.NqohY00Rok@ada>
+In-Reply-To: <f6ed201d-51b6-f278-7a95-3e3e49dc19ee@pengutronix.de>
+References: <20201005203451.9985-1-post@lespocky.de>
+ <20201027100536.cpfizc67gwrolp2z@falbala.internal.home.lespocky.de>
+ <f6ed201d-51b6-f278-7a95-3e3e49dc19ee@pengutronix.de>
+Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Dan Murphy <dmurphy@ti.com>, Pavel Machek <pavel@ucw.cz>,
+ linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v7 10/12] ARM: dts: stm32: Fix schema
+	warnings for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,46 +57,157 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello Ahmad,
 
-On Tue, 27 Oct 2020, trix@redhat.com wrote:
+Am Dienstag, 27. Oktober 2020, 11:58:10 CET schrieb Ahmad Fatoum:
+> Hello,
+> =
 
-> This rfc will describe
-> An upcoming treewide cleanup.
-> How clang tooling was used to programatically do the clean up.
-> Solicit opinions on how to generally use clang tooling.
-> 
+> On 10/27/20 11:05 AM, Alexander Dahl wrote:
+> > Hello Ahmad,
+> > =
 
-This tooling is very impressive. It makes possible an idea that I had a 
-while ago, to help make code review more efficient. It works like this. 
+> > thanks for your feedback, comments below.
+> > =
 
-Suppose a patch, p, is the difference between the new tree, n, and the old 
-tree, o. That is, p = n - o.
+> >>> -	led-rgb {
+> >>> +	led-controller-2 {
+> >> =
 
-Now let clang-tidy be the transformation 't'. This gets you a much more 
-readable patch submission, P = t(n) - t(o).
+> >> Is a single RGB LED really a controller?
+> > =
 
-The only difficulty is that, if I submit P intead of p then 'git am' will 
-probably reject it. This is solved by a little tooling around git, such 
-that, should a patch P fail to apply, the relevant files are automatically 
-reformatted with the officially endorsed transformation t, to generate a 
-minimal cleanup patch, such that P can be automatically applied on top.
+> > I just followed the recommendations by Rob here.
+> =
 
-If the patch submission process required* that every patch submission was 
-generated like P and not like p, it would immediately eliminate all 
-clean-up patches from the workload of all reviewers, and also make the 
-reviewers' job easier because all submissions are now formatted correctly, 
-and also avoid time lost to round-trips, such as, "you can have a 
-reviewed-by if you respin to fix some minor style issues".
+> Do you happen to know if the new multicolor LED support could be used her=
+e?
 
-* Enforcing this, e.g. with checkpatch, is slightly more complicated, but 
-it works the same way: generate a minimal cleanup patch for the relevant 
-files, apply the patch-to-be-submitted, and finally confirm that the 
-modified files are unchanged under t.
+AFAIK not yet. The multicolor class should be ready and it is used by some =
+
+drivers for I=B2C connected LED controllers, but if I understood Pavel =
+
+correctly, additional work has to be done for a gpio and/or pwm multicolor =
+
+driver. See this thread from August for example:
+
+https://lore.kernel.org/linux-leds/2530787.iFCFyWWcSu@g550jk/
+
+> =
+
+> I find it unfortunate that the device tree loses information relevant to
+> humans to adhere to a fixed nomenclature. Apparently led-controller isn't
+> even codified in the YAML binding (It's just in the examples). If you
+> respin, please add a comment that this is a single RGB led. I'd prefer to
+> keep the information in the DTB as well though.
+
+The "new" attributes 'function' and 'color' attributes should cover this =
+
+information. IIRC those were introduced sometime before v5.4 and documentat=
+ion =
+
+is in the leds/common.yaml binding. I don't see it in the scope of this pat=
+ch =
+
+series, but if we would merge this warning fix first, the information is lo=
+st, =
+
+so maybe those attributes should be added before? =
+
+
+My heuristics on that would be looking at the label and if there's a distin=
+ct =
+
+color in it, add the color property. I could do that for all pwm LEDs known=
+ to =
+
+the tree currently. That would be a bigger task for GPIO leds though. ;-)
+
+> =
+
+> >>>  		compatible =3D "pwm-leds";
+> >>> =
+
+> >>> -		led-red {
+> >>> +		led-2 {
+> >> =
+
+> >> Shouldn't this have been led-1 as well or is the numbering "global" ?
+> > =
+
+> > Also good question. This numbering is for dts only, it usually does
+> > not correspond with LEDs on the board, so it could be numbered per
+> > led-controller as well?
+> =
+
+> I'd prefer that it starts by 1. That way it's aligned with PWM channel
+> ID.
+
+Ack.
+
+> =
+
+> Thanks for fixing the dtschema warnings by the way!
+
+Well, I "introduced" them by converting the leds-pwm binding to yaml (not =
+
+merged yet), so I could as well fix the warnings then? ;-)
+
+Greets
+Alex
+
+> =
+
+> Cheers,
+> Ahmad
+> =
+
+> > Greets
+> > Alex
+> > =
+
+> >>>  			label =3D "mc1:red:rgb";
+> >>>  			pwms =3D <&leds_pwm 1 1000000 0>;
+> >>>  			max-brightness =3D <255>;
+> >>>  			active-low;
+> >>>  		=
+
+> >>>  		};
+> >>> =
+
+> >>> -		led-green {
+> >>> +		led-3 {
+> >>> =
+
+> >>>  			label =3D "mc1:green:rgb";
+> >>>  			pwms =3D <&leds_pwm 2 1000000 0>;
+> >>>  			max-brightness =3D <255>;
+> >>>  			active-low;
+> >>>  		=
+
+> >>>  		};
+> >>> =
+
+> >>> -		led-blue {
+> >>> +		led-4 {
+> >>> =
+
+> >>>  			label =3D "mc1:blue:rgb";
+> >>>  			pwms =3D <&leds_pwm 3 1000000 0>;
+> >>>  			max-brightness =3D <255>;
+
+
+-- =
+
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
