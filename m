@@ -2,39 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97BE429D1AD
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Oct 2020 20:21:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EB2629D21E
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Oct 2020 21:40:13 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51FADC3FAD5;
-	Wed, 28 Oct 2020 19:21:33 +0000 (UTC)
-Received: from relay12.mail.gandi.net (relay12.mail.gandi.net [217.70.178.232])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0738FC3FAD5;
+	Wed, 28 Oct 2020 20:40:13 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C27E4C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AC43C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Oct 2020 19:21:30 +0000 (UTC)
-Received: from localhost (lfbn-lyo-1-997-19.w86-194.abo.wanadoo.fr
- [86.194.74.19]) (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay12.mail.gandi.net (Postfix) with ESMTPSA id 7BCB2200002;
- Wed, 28 Oct 2020 19:21:28 +0000 (UTC)
-Date: Wed, 28 Oct 2020 20:21:28 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Pavel Machek <pavel@ucw.cz>, Alexander Dahl <post@lespocky.de>,
- Rob Herring <robh+dt@kernel.org>, Dan Murphy <dmurphy@ti.com>
-Message-ID: <20201028192128.GF12276@piout.net>
+ Wed, 28 Oct 2020 20:40:11 +0000 (UTC)
+Received: from methusalix.internal.home.lespocky.de ([92.117.45.118]) by
+ mrelayeu.kundenserver.de (mreue012 [212.227.15.167]) with ESMTPSA (Nemesis)
+ id 1MT7ip-1kxPjS40Ip-00UcI8; Wed, 28 Oct 2020 21:40:02 +0100
+Received: from falbala.internal.home.lespocky.de ([192.168.243.94])
+ by methusalix.internal.home.lespocky.de with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94)
+ (envelope-from <post@lespocky.de>)
+ id 1kXsEd-0002jR-O2; Wed, 28 Oct 2020 21:39:57 +0100
+Date: Wed, 28 Oct 2020 21:39:54 +0100
+From: Alexander Dahl <post@lespocky.de>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Russell King <linux@armlinux.org.uk>
+Message-ID: <20201028203953.eafmzeqba76qjlf2@falbala.internal.home.lespocky.de>
+Mail-Followup-To: Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Alexander Dahl <ada@thorsis.com>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-amlogic@lists.infradead.org, linux-mips@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>
 References: <20201005203451.9985-1-post@lespocky.de>
- <160391135997.385141.5554228268638639718.b4-ty@bootlin.com>
+ <20201005203451.9985-3-post@lespocky.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <160391135997.385141.5554228268638639718.b4-ty@bootlin.com>
+In-Reply-To: <20201005203451.9985-3-post@lespocky.de>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-Scan-Signature: e8e5211badca7b3e4c3721992337a85e
+X-Spam-Score: -2.9 (--)
+X-Provags-ID: V03:K1:dFwaWUg7Hs1+6BjOpddvhs45I+5MLeawNEbLKR27jHnbgCj5ifc
+ gYT8HigTxAZrbMDX6/JPdfbDaFolzE8kEuGksu+jJMbNPJOki4vC4J8UisS9GY0wG28NRRz
+ NcInnsvPQVTBr/DWp2r63TtWmZWlMAONcdpEQLgqv5Ki0n2Oa80UXdCA4ZDNLFt5URfJug4
+ cxtSV54v9p6WgHStsK5mQ==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:I9RLPycMdSk=:rNytMsCx2OX0u6t+OmQC5x
+ 6cd1O8aQdNigKMN+SGCUuZfNsSzKODX7tMy/r6QteX+Jtf1VMdWc/JWgvskQ83L3i5r5NccFD
+ XSryWPnQmsLX5s0IeBCUG2fCsmuvid6h/DK4YALtNYSJvg5zuatGrFAz9RHGibd1zqCgTJY54
+ dy9qMygqG4KHGNM9YXJ+vy9VspOS/Iw9Qzb3D38is2CSp4I3Pxs2IHuN1r5S0/lR50CrJSlqA
+ Xv0E6/+XsQk0ejAPaIbZY5GMceUHoCv9OGgYlVqtzosRa3t/oRmiHYesj5dFT4W+GEEcgOSzW
+ 65LC9Z3hVW7Ta3EXf6t32dCBwgB4xHcuHWgl3bs9td9IU67rNhf7XJFa9lA4vww4O3/vbn2lO
+ XIinw/bGaOaY8WSISOjn7/LQOWTBNsf6K7VH8NeOwJjxqeNBybkExm8kDzA+n
 Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-leds@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-mips@vger.kernel.org,
+ Alexander Dahl <post@lespocky.de>, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v7 00/12] leds: pwm: Make automatic labels
-	work
+ linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v7 02/12] dt-bindings: leds: Convert pwm
+	to yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,37 +73,266 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0410147747579521332=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 28/10/2020 19:56:14+0100, Alexandre Belloni wrote:
-> On Mon, 5 Oct 2020 22:34:39 +0200, Alexander Dahl wrote:
-> > Hei hei,
-> > 
-> > for leds-gpio you can use the properties 'function' and 'color' in the
-> > devicetree node and omit 'label', the label is constructed
-> > automatically.  This is a common feature supposed to be working for all
-> > LED drivers.  However it did not work until recently for the 'leds-pwm'
-> > driver.
-> > 
-> > [...]
-> 
-> Applied, thanks!
-> 
-> [1/2] ARM: dts: at91: smartkiz: Reference led node directly
->       commit: 02e46262af5db410da5a27783833d68e2bdfb352
-> [2/2] ARM: dts: at91: Fix schema warnings for pwm-leds
->       commit: 997ebd64df39f3916c37ca67a6eff58e79a13c73
 
-This was obviously 04/12 and 05/12.
+--===============0410147747579521332==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="nwkumzirho5iba4d"
+Content-Disposition: inline
 
--- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+--nwkumzirho5iba4d
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+Peter, Russel, could you please give your Acked-by or Signed-off-by on
+this patch?  Your ack is needed, because the license is now explicitly
+set (it was not explicit before), and you were the contributors to
+this binding before the conversion to yaml.
+
+Thanks and Greets
+Alex
+
+On Mon, Oct 05, 2020 at 10:34:41PM +0200, Alexander Dahl wrote:
+> The example was adapted in the following ways:
+>=20
+> - make use of the now supported 'function' and 'color' properties
+> - remove pwm nodes, those are documented elsewhere
+> - align node names to new dt schema rules and dt recommendations
+>=20
+> License was not explicitly set before.  The license set now is
+> recommended by DT project.
+>=20
+> Suggested-by: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+> Signed-off-by: Alexander Dahl <post@lespocky.de>
+> Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
+> Cc: Russell King <linux@armlinux.org.uk>
+> ---
+>=20
+> Notes:
+>     NOTE: Due to license set/change this needs Acked-by or Signed-off-by =
+=66rom:
+>       * Peter Ujfalusi
+>       * Russell King
+>    =20
+>     That was discussed already with Peter (original author), still waiting
+>     for Acked-by though =E2=80=A6
+>    =20
+>     Changelog
+>     ---------
+>     v6 -> v7:
+>       * added Reviewed-by (Krzysztof Kozlowski)
+>       * reworded commit message (suggested by Krzysztof)
+>       * added Reviewed-by (Rob Herring)
+>    =20
+>     v5 -> v6:
+>       * removed pwm nodes from example (Rob)
+>       * renamed led-controller node in example (Rob)
+>    =20
+>     v4 -> v5:
+>       * updated based on feedback by Rob Herring
+>       * removed Acked-by
+>    =20
+>     v3 -> v4:
+>       * added Cc to original author of the binding
+>    =20
+>     v2 -> v3:
+>       * changed license identifier to recommended one
+>       * added Acked-by
+>    =20
+>     v2:
+>       * added this patch to series (Suggested-by: Jacek Anaszewski)
+>=20
+>  .../devicetree/bindings/leds/leds-pwm.txt     | 50 -------------
+>  .../devicetree/bindings/leds/leds-pwm.yaml    | 70 +++++++++++++++++++
+>  2 files changed, 70 insertions(+), 50 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/leds/leds-pwm.txt
+>  create mode 100644 Documentation/devicetree/bindings/leds/leds-pwm.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/leds/leds-pwm.txt b/Docume=
+ntation/devicetree/bindings/leds/leds-pwm.txt
+> deleted file mode 100644
+> index 6c6583c35f2f..000000000000
+> --- a/Documentation/devicetree/bindings/leds/leds-pwm.txt
+> +++ /dev/null
+> @@ -1,50 +0,0 @@
+> -LED connected to PWM
+> -
+> -Required properties:
+> -- compatible : should be "pwm-leds".
+> -
+> -Each LED is represented as a sub-node of the pwm-leds device.  Each
+> -node's name represents the name of the corresponding LED.
+> -
+> -LED sub-node properties:
+> -- pwms : PWM property to point to the PWM device (phandle)/port (id) and=
+ to
+> -  specify the period time to be used: <&phandle id period_ns>;
+> -- pwm-names : (optional) Name to be used by the PWM subsystem for the PW=
+M device
+> -  For the pwms and pwm-names property please refer to:
+> -  Documentation/devicetree/bindings/pwm/pwm.txt
+> -- max-brightness : Maximum brightness possible for the LED
+> -- active-low : (optional) For PWMs where the LED is wired to supply
+> -  rather than ground.
+> -- label :  (optional)
+> -  see Documentation/devicetree/bindings/leds/common.txt
+> -- linux,default-trigger :  (optional)
+> -  see Documentation/devicetree/bindings/leds/common.txt
+> -
+> -Example:
+> -
+> -twl_pwm: pwm {
+> -	/* provides two PWMs (id 0, 1 for PWM1 and PWM2) */
+> -	compatible =3D "ti,twl6030-pwm";
+> -	#pwm-cells =3D <2>;
+> -};
+> -
+> -twl_pwmled: pwmled {
+> -	/* provides one PWM (id 0 for Charing indicator LED) */
+> -	compatible =3D "ti,twl6030-pwmled";
+> -	#pwm-cells =3D <2>;
+> -};
+> -
+> -pwmleds {
+> -	compatible =3D "pwm-leds";
+> -	kpad {
+> -		label =3D "omap4::keypad";
+> -		pwms =3D <&twl_pwm 0 7812500>;
+> -		max-brightness =3D <127>;
+> -	};
+> -
+> -	charging {
+> -		label =3D "omap4:green:chrg";
+> -		pwms =3D <&twl_pwmled 0 7812500>;
+> -		max-brightness =3D <255>;
+> -	};
+> -};
+> diff --git a/Documentation/devicetree/bindings/leds/leds-pwm.yaml b/Docum=
+entation/devicetree/bindings/leds/leds-pwm.yaml
+> new file mode 100644
+> index 000000000000..fe4d5fd25913
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/leds-pwm.yaml
+> @@ -0,0 +1,70 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/leds/leds-pwm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: LEDs connected to PWM
+> +
+> +maintainers:
+> +  - Pavel Machek <pavel@ucw.cz>
+> +
+> +description:
+> +  Each LED is represented as a sub-node of the pwm-leds device.  Each
+> +  node's name represents the name of the corresponding LED.
+> +
+> +properties:
+> +  compatible:
+> +    const: pwm-leds
+> +
+> +patternProperties:
+> +  "^led(-[0-9a-f]+)?$":
+> +    type: object
+> +
+> +    $ref: common.yaml#
+> +
+> +    properties:
+> +      pwms:
+> +        maxItems: 1
+> +
+> +      pwm-names: true
+> +
+> +      max-brightness:
+> +        description:
+> +          Maximum brightness possible for the LED
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +      active-low:
+> +        description:
+> +          For PWMs where the LED is wired to supply rather than ground.
+> +        type: boolean
+> +
+> +    required:
+> +      - pwms
+> +      - max-brightness
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +
+> +    #include <dt-bindings/leds/common.h>
+> +
+> +    led-controller {
+> +        compatible =3D "pwm-leds";
+> +
+> +        led-1 {
+> +            label =3D "omap4::keypad";
+> +            pwms =3D <&twl_pwm 0 7812500>;
+> +            max-brightness =3D <127>;
+> +        };
+> +
+> +        led-2 {
+> +            color =3D <LED_COLOR_ID_GREEN>;
+> +            function =3D LED_FUNCTION_CHARGING;
+> +            pwms =3D <&twl_pwmled 0 7812500>;
+> +            max-brightness =3D <255>;
+> +        };
+> +    };
+> +
+> +...
+> --=20
+> 2.20.1
+
+--=20
+/"\ ASCII RIBBON | =C2=BBWith the first link, the chain is forged. The first
+\ / CAMPAIGN     | speech censured, the first thought forbidden, the
+ X  AGAINST      | first freedom denied, chains us all irrevocably.=C2=AB
+/ \ HTML MAIL    | (Jean-Luc Picard, quoting Judge Aaron Satie)
+
+--nwkumzirho5iba4d
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEwo7muQJjlc+Prwj6NK3NAHIhXMYFAl+Z1xYACgkQNK3NAHIh
+XMa4dRAAwz5aGmTaCMVYq3Auo34qtLb+NsNbE0uPtTAJKafHT/YnSzgNgbf5urRz
+zKAeeoaiKjVICVDWeDrLdN607wylNBGn024FRat0tjDkZIOu08iMuyBvR9dOA8zd
+bp3xsK0f44DnZl+g0E/gIuuWe31PK/nY8h+etVAzcTqBsWVVDsT1zGBpXdYLpl6S
+DDjTaO+zUyK7gRBQt/qDUbmQAO1IIttfSy6qHUxxPgZliWI+/DpQgsFRdoZPV+QH
+bamaugY6vEaIkB5kr5O2QzHNmciUt/Jn7122YMMmVl7AE7ZPbGyVGtd/MXzQLXpQ
+IHz0CJKdh0SraLoDeeIOgWRdDD4qUgy4WuaxxIQB2VjnICRE3FHHZHM6BIOrNUjF
+sg+wsPXMnqRzAIa/ExjQCZBuhMrMLMNKRHLDwLTVgDz+qXb673vpHc0RyxrWC7YZ
+hhQpQkgaeSmCs23IgsI2jm0cKXMMq9yoDLGfVX+naP413sx/RiQPyKZNQnkXHOV/
+O48sd7eTz0BH6ZEBY6fSShd6SzQVUlYQGr2Ol4TXP1/Xa4LGlRzAvGvZOTiPukuX
+2kxyUpBKNHjR7+z9jJ0kAO6mIPiLgI0Ac698iEDWsLkKekuFyd1pYwAZLeMoFR8l
+J+PJ8ZiMqFxRQGr9QSHNwENi+KBFE4PweWPJ92XczoNxLhWyvBc=
+=tXqH
+-----END PGP SIGNATURE-----
+
+--nwkumzirho5iba4d--
+
+--===============0410147747579521332==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0410147747579521332==--
