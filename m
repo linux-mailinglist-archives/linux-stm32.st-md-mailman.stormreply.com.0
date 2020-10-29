@@ -2,57 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44B4F29ED60
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 14:46:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0FAC29EE49
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 15:31:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2D1AC3FAD5;
-	Thu, 29 Oct 2020 13:46:36 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75B8EC3FAD5;
+	Thu, 29 Oct 2020 14:31:14 +0000 (UTC)
+Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
+ [209.85.214.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7800EC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE83EC36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Oct 2020 13:46:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=cSTsxDYLnXEEi/bDWUeAA20te1rJNVjNLggcXmbtZpQ=; b=XhUb+9X5JMWVorM4JHpoQ7L3c
- AiUG1AryewCQipJ01tUvPuHknKuaIrwrLP6ZXuZXs/oD8Bh/wZrZovvYrMop17PDqM6/USIW2pUUD
- umeOebeU4JGnmlVdsho1/rbxzTzmR36nWoPKdVF/cS/Ixz9EubS/wlFCmkLc1s0dwgtIBpNbCTthj
- OGlL4pHZSq6Z1s4V0D/PZtQWWL1+2i5Ykl0ZKf5OlUxQUmiemIAvBUpvqt1BeXrkDiT25CoH0Xdjt
- O4P8O/bfqdcv2y8Xb1crnRD6S15I68jz5RalozAoTAaK5LcE0TRm+2WU8TO1uIelV+a0u1QGLSDt8
- gUmkphwwQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:52480)
- by pandora.armlinux.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <linux@armlinux.org.uk>)
- id 1kY8G7-0004Rb-Ip; Thu, 29 Oct 2020 13:46:31 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1kY8G6-0006AN-Hy; Thu, 29 Oct 2020 13:46:30 +0000
-Date: Thu, 29 Oct 2020 13:46:30 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Alexander Dahl <post@lespocky.de>
-Message-ID: <20201029134630.GE1559@shell.armlinux.org.uk>
-References: <20201005203451.9985-1-post@lespocky.de>
- <20201005203451.9985-3-post@lespocky.de>
- <20201028203953.eafmzeqba76qjlf2@falbala.internal.home.lespocky.de>
+ Thu, 29 Oct 2020 14:31:12 +0000 (UTC)
+Received: by mail-pl1-f194.google.com with SMTP id f21so1379289plr.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 29 Oct 2020 07:31:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:date:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=yGfVt0L4ftOqQYvVzpLAMtyqzm24yEPmmaeuYJHdcF4=;
+ b=L9Ve7M9gsRbGmqPW4y2GbZH/PW9XpRBJKr8bcNLgo2jmnTrKJveNfyczvv9XTx+HUl
+ YLInTPvtZFmjrEtguEph+0OATtBpSK8kwKDRVeByBXdRw0Buz+0hoaCPQT3R16L/79Yo
+ j2u3swusX6/w6211/RM5QFW6qgwWkr0uCufzlloq+m9sBQ6S/+YCJgMjBnxeO8POZKcm
+ GDWaaJnhiw4daofmYDRX9oZ4ehcZgPyqljtuIP8TlUBc9WWSKvz+hBiKPtri9cR0I/EM
+ X0BoWxpLqADftyN/1V/sAG0fokCqb0gmHPn/edQDvwR53UdSASGvA7sXOUjA/L/o9sXm
+ RMqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:date:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=yGfVt0L4ftOqQYvVzpLAMtyqzm24yEPmmaeuYJHdcF4=;
+ b=KccQOLC01Bqce23OBkqgp5k/EHS4vkRlNth63uQdCmBz/r/vblmFhL8kWl9GRqsvPy
+ Yu4eVSF4id/a/woH9cqFP5HT4mBuGCQtf2yeNUV2uRX9xNkrkOQ3bIm7rM8SVzgmXs+T
+ Mg+6/hpwVb20SgMrDk/qo4Q9+k5+q+hW3+92Iev5Tdn7ENORO7JuEVsxKGUbA4npGrmy
+ tAvod7m3RwwAmUHSYEncJZ+vb/mn+eazt3l+lF6+z2ZfU7cmPcD/BRWjkO3pOrrhgKzg
+ +SGZAM0glctT/ZpWE43fJ/XVea39VzgIDaNkwtl9jPFs0C+2fPwE0ZJd+ripaP6jhcjK
+ zmnw==
+X-Gm-Message-State: AOAM5302efHZgrgWUtaKC87kWZ7a0ZJgrkzkyTrxtulE5C2OxB/3YYDr
+ j6E4dy7klMnHSuvysk4P8as=
+X-Google-Smtp-Source: ABdhPJx5yXpyzx2qbpNT/+t79uGRA4TnLTSZjBRsP0DnQS9c1W8oAAwcmW263hQYx6j5y/UQ3EDlpA==
+X-Received: by 2002:a17:902:a50f:b029:d6:da2:aaa7 with SMTP id
+ s15-20020a170902a50fb02900d60da2aaa7mr4686870plq.42.1603981871290; 
+ Thu, 29 Oct 2020 07:31:11 -0700 (PDT)
+Received: from localhost ([2409:8a28:3c42:6840:9efc:e8ff:fef2:1cdc])
+ by smtp.gmail.com with ESMTPSA id p12sm2776972pgm.29.2020.10.29.07.31.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2020 07:31:10 -0700 (PDT)
+From: Coiby Xu <coiby.xu@gmail.com>
+X-Google-Original-From: Coiby Xu <Coiby.Xu@gmail.com>
+Date: Thu, 29 Oct 2020 22:18:57 +0800
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20201029141857.hts77kneb3j7aa67@Rk>
+References: <20201029074654.227263-1-coiby.xu@gmail.com>
+ <20201029074654.227263-5-coiby.xu@gmail.com>
+ <699f4908-1ea1-6075-3375-7f1dfc6fb225@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201028203953.eafmzeqba76qjlf2@falbala.internal.home.lespocky.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- Rob Herring <robh+dt@kernel.org>, linux-leds@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v7 02/12] dt-bindings: leds: Convert pwm
-	to yaml
+In-Reply-To: <699f4908-1ea1-6075-3375-7f1dfc6fb225@st.com>
+Cc: open list <linux-kernel@vger.kernel.org>,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
+ Alain VOLMAT <alain.volmat@st.com>, linux-i2c@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 5/5] i2c: stm32: remove unnecessary
+	CONFIG_PM_SLEEP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,137 +79,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBPY3QgMjgsIDIwMjAgYXQgMDk6Mzk6NTRQTSArMDEwMCwgQWxleGFuZGVyIERhaGwg
-d3JvdGU6Cj4gSGVsbG8sCj4gCj4gUGV0ZXIsIFJ1c3NlbCwgY291bGQgeW91IHBsZWFzZSBnaXZl
-IHlvdXIgQWNrZWQtYnkgb3IgU2lnbmVkLW9mZi1ieSBvbgo+IHRoaXMgcGF0Y2g/ICBZb3VyIGFj
-ayBpcyBuZWVkZWQsIGJlY2F1c2UgdGhlIGxpY2Vuc2UgaXMgbm93IGV4cGxpY2l0bHkKPiBzZXQg
-KGl0IHdhcyBub3QgZXhwbGljaXQgYmVmb3JlKSwgYW5kIHlvdSB3ZXJlIHRoZSBjb250cmlidXRv
-cnMgdG8KPiB0aGlzIGJpbmRpbmcgYmVmb3JlIHRoZSBjb252ZXJzaW9uIHRvIHlhbWwuCgpGb3Ig
-dGhlIGxpY2Vuc2UgY2hhbmdlIG9ubHk6CgpBY2tlZC1ieTogUnVzc2VsbCBLaW5nIDxybWsra2Vy
-bmVsQGFybWxpbnV4Lm9yZy51az4KCihQbGVhc2UgZHJvcCB0aGUgQ2MgYXR0cmlidXRhdGlvbiBp
-biB0aGUgY29tbWl0IHRvCmxpbnV4QGFybWxpbnV4Lm9yZy51ayB0aGFua3MuKQoKPiAKPiBUaGFu
-a3MgYW5kIEdyZWV0cwo+IEFsZXgKPiAKPiBPbiBNb24sIE9jdCAwNSwgMjAyMCBhdCAxMDozNDo0
-MVBNICswMjAwLCBBbGV4YW5kZXIgRGFobCB3cm90ZToKPiA+IFRoZSBleGFtcGxlIHdhcyBhZGFw
-dGVkIGluIHRoZSBmb2xsb3dpbmcgd2F5czoKPiA+IAo+ID4gLSBtYWtlIHVzZSBvZiB0aGUgbm93
-IHN1cHBvcnRlZCAnZnVuY3Rpb24nIGFuZCAnY29sb3InIHByb3BlcnRpZXMKPiA+IC0gcmVtb3Zl
-IHB3bSBub2RlcywgdGhvc2UgYXJlIGRvY3VtZW50ZWQgZWxzZXdoZXJlCj4gPiAtIGFsaWduIG5v
-ZGUgbmFtZXMgdG8gbmV3IGR0IHNjaGVtYSBydWxlcyBhbmQgZHQgcmVjb21tZW5kYXRpb25zCj4g
-PiAKPiA+IExpY2Vuc2Ugd2FzIG5vdCBleHBsaWNpdGx5IHNldCBiZWZvcmUuICBUaGUgbGljZW5z
-ZSBzZXQgbm93IGlzCj4gPiByZWNvbW1lbmRlZCBieSBEVCBwcm9qZWN0Lgo+ID4gCj4gPiBTdWdn
-ZXN0ZWQtYnk6IEphY2VrIEFuYXN6ZXdza2kgPGphY2VrLmFuYXN6ZXdza2lAZ21haWwuY29tPgo+
-ID4gU2lnbmVkLW9mZi1ieTogQWxleGFuZGVyIERhaGwgPHBvc3RAbGVzcG9ja3kuZGU+Cj4gPiBS
-ZXZpZXdlZC1ieTogS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6a0BrZXJuZWwub3JnPgo+ID4gUmV2
-aWV3ZWQtYnk6IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Cj4gPiBDYzogUGV0ZXIgVWpm
-YWx1c2kgPHBldGVyLnVqZmFsdXNpQHRpLmNvbT4KPiA+IENjOiBSdXNzZWxsIEtpbmcgPGxpbnV4
-QGFybWxpbnV4Lm9yZy51az4KPiA+IC0tLQo+ID4gCj4gPiBOb3RlczoKPiA+ICAgICBOT1RFOiBE
-dWUgdG8gbGljZW5zZSBzZXQvY2hhbmdlIHRoaXMgbmVlZHMgQWNrZWQtYnkgb3IgU2lnbmVkLW9m
-Zi1ieSBmcm9tOgo+ID4gICAgICAgKiBQZXRlciBVamZhbHVzaQo+ID4gICAgICAgKiBSdXNzZWxs
-IEtpbmcKPiA+ICAgICAKPiA+ICAgICBUaGF0IHdhcyBkaXNjdXNzZWQgYWxyZWFkeSB3aXRoIFBl
-dGVyIChvcmlnaW5hbCBhdXRob3IpLCBzdGlsbCB3YWl0aW5nCj4gPiAgICAgZm9yIEFja2VkLWJ5
-IHRob3VnaCDigKYKPiA+ICAgICAKPiA+ICAgICBDaGFuZ2Vsb2cKPiA+ICAgICAtLS0tLS0tLS0K
-PiA+ICAgICB2NiAtPiB2NzoKPiA+ICAgICAgICogYWRkZWQgUmV2aWV3ZWQtYnkgKEtyenlzenRv
-ZiBLb3psb3dza2kpCj4gPiAgICAgICAqIHJld29yZGVkIGNvbW1pdCBtZXNzYWdlIChzdWdnZXN0
-ZWQgYnkgS3J6eXN6dG9mKQo+ID4gICAgICAgKiBhZGRlZCBSZXZpZXdlZC1ieSAoUm9iIEhlcnJp
-bmcpCj4gPiAgICAgCj4gPiAgICAgdjUgLT4gdjY6Cj4gPiAgICAgICAqIHJlbW92ZWQgcHdtIG5v
-ZGVzIGZyb20gZXhhbXBsZSAoUm9iKQo+ID4gICAgICAgKiByZW5hbWVkIGxlZC1jb250cm9sbGVy
-IG5vZGUgaW4gZXhhbXBsZSAoUm9iKQo+ID4gICAgIAo+ID4gICAgIHY0IC0+IHY1Ogo+ID4gICAg
-ICAgKiB1cGRhdGVkIGJhc2VkIG9uIGZlZWRiYWNrIGJ5IFJvYiBIZXJyaW5nCj4gPiAgICAgICAq
-IHJlbW92ZWQgQWNrZWQtYnkKPiA+ICAgICAKPiA+ICAgICB2MyAtPiB2NDoKPiA+ICAgICAgICog
-YWRkZWQgQ2MgdG8gb3JpZ2luYWwgYXV0aG9yIG9mIHRoZSBiaW5kaW5nCj4gPiAgICAgCj4gPiAg
-ICAgdjIgLT4gdjM6Cj4gPiAgICAgICAqIGNoYW5nZWQgbGljZW5zZSBpZGVudGlmaWVyIHRvIHJl
-Y29tbWVuZGVkIG9uZQo+ID4gICAgICAgKiBhZGRlZCBBY2tlZC1ieQo+ID4gICAgIAo+ID4gICAg
-IHYyOgo+ID4gICAgICAgKiBhZGRlZCB0aGlzIHBhdGNoIHRvIHNlcmllcyAoU3VnZ2VzdGVkLWJ5
-OiBKYWNlayBBbmFzemV3c2tpKQo+ID4gCj4gPiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbGVk
-cy9sZWRzLXB3bS50eHQgICAgIHwgNTAgLS0tLS0tLS0tLS0tLQo+ID4gIC4uLi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL2xlZHMvbGVkcy1wd20ueWFtbCAgICB8IDcwICsrKysrKysrKysrKysrKysrKysK
-PiA+ICAyIGZpbGVzIGNoYW5nZWQsIDcwIGluc2VydGlvbnMoKyksIDUwIGRlbGV0aW9ucygtKQo+
-ID4gIGRlbGV0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-bGVkcy9sZWRzLXB3bS50eHQKPiA+ICBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9k
-ZXZpY2V0cmVlL2JpbmRpbmdzL2xlZHMvbGVkcy1wd20ueWFtbAo+ID4gCj4gPiBkaWZmIC0tZ2l0
-IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2xlZHMvbGVkcy1wd20udHh0IGIv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2xlZHMvbGVkcy1wd20udHh0Cj4gPiBk
-ZWxldGVkIGZpbGUgbW9kZSAxMDA2NDQKPiA+IGluZGV4IDZjNjU4M2MzNWYyZi4uMDAwMDAwMDAw
-MDAwCj4gPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbGVkcy9sZWRz
-LXB3bS50eHQKPiA+ICsrKyAvZGV2L251bGwKPiA+IEBAIC0xLDUwICswLDAgQEAKPiA+IC1MRUQg
-Y29ubmVjdGVkIHRvIFBXTQo+ID4gLQo+ID4gLVJlcXVpcmVkIHByb3BlcnRpZXM6Cj4gPiAtLSBj
-b21wYXRpYmxlIDogc2hvdWxkIGJlICJwd20tbGVkcyIuCj4gPiAtCj4gPiAtRWFjaCBMRUQgaXMg
-cmVwcmVzZW50ZWQgYXMgYSBzdWItbm9kZSBvZiB0aGUgcHdtLWxlZHMgZGV2aWNlLiAgRWFjaAo+
-ID4gLW5vZGUncyBuYW1lIHJlcHJlc2VudHMgdGhlIG5hbWUgb2YgdGhlIGNvcnJlc3BvbmRpbmcg
-TEVELgo+ID4gLQo+ID4gLUxFRCBzdWItbm9kZSBwcm9wZXJ0aWVzOgo+ID4gLS0gcHdtcyA6IFBX
-TSBwcm9wZXJ0eSB0byBwb2ludCB0byB0aGUgUFdNIGRldmljZSAocGhhbmRsZSkvcG9ydCAoaWQp
-IGFuZCB0bwo+ID4gLSAgc3BlY2lmeSB0aGUgcGVyaW9kIHRpbWUgdG8gYmUgdXNlZDogPCZwaGFu
-ZGxlIGlkIHBlcmlvZF9ucz47Cj4gPiAtLSBwd20tbmFtZXMgOiAob3B0aW9uYWwpIE5hbWUgdG8g
-YmUgdXNlZCBieSB0aGUgUFdNIHN1YnN5c3RlbSBmb3IgdGhlIFBXTSBkZXZpY2UKPiA+IC0gIEZv
-ciB0aGUgcHdtcyBhbmQgcHdtLW5hbWVzIHByb3BlcnR5IHBsZWFzZSByZWZlciB0bzoKPiA+IC0g
-IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9wd20vcHdtLnR4dAo+ID4gLS0gbWF4
-LWJyaWdodG5lc3MgOiBNYXhpbXVtIGJyaWdodG5lc3MgcG9zc2libGUgZm9yIHRoZSBMRUQKPiA+
-IC0tIGFjdGl2ZS1sb3cgOiAob3B0aW9uYWwpIEZvciBQV01zIHdoZXJlIHRoZSBMRUQgaXMgd2ly
-ZWQgdG8gc3VwcGx5Cj4gPiAtICByYXRoZXIgdGhhbiBncm91bmQuCj4gPiAtLSBsYWJlbCA6ICAo
-b3B0aW9uYWwpCj4gPiAtICBzZWUgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2xl
-ZHMvY29tbW9uLnR4dAo+ID4gLS0gbGludXgsZGVmYXVsdC10cmlnZ2VyIDogIChvcHRpb25hbCkK
-PiA+IC0gIHNlZSBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbGVkcy9jb21tb24u
-dHh0Cj4gPiAtCj4gPiAtRXhhbXBsZToKPiA+IC0KPiA+IC10d2xfcHdtOiBwd20gewo+ID4gLQkv
-KiBwcm92aWRlcyB0d28gUFdNcyAoaWQgMCwgMSBmb3IgUFdNMSBhbmQgUFdNMikgKi8KPiA+IC0J
-Y29tcGF0aWJsZSA9ICJ0aSx0d2w2MDMwLXB3bSI7Cj4gPiAtCSNwd20tY2VsbHMgPSA8Mj47Cj4g
-PiAtfTsKPiA+IC0KPiA+IC10d2xfcHdtbGVkOiBwd21sZWQgewo+ID4gLQkvKiBwcm92aWRlcyBv
-bmUgUFdNIChpZCAwIGZvciBDaGFyaW5nIGluZGljYXRvciBMRUQpICovCj4gPiAtCWNvbXBhdGli
-bGUgPSAidGksdHdsNjAzMC1wd21sZWQiOwo+ID4gLQkjcHdtLWNlbGxzID0gPDI+Owo+ID4gLX07
-Cj4gPiAtCj4gPiAtcHdtbGVkcyB7Cj4gPiAtCWNvbXBhdGlibGUgPSAicHdtLWxlZHMiOwo+ID4g
-LQlrcGFkIHsKPiA+IC0JCWxhYmVsID0gIm9tYXA0OjprZXlwYWQiOwo+ID4gLQkJcHdtcyA9IDwm
-dHdsX3B3bSAwIDc4MTI1MDA+Owo+ID4gLQkJbWF4LWJyaWdodG5lc3MgPSA8MTI3PjsKPiA+IC0J
-fTsKPiA+IC0KPiA+IC0JY2hhcmdpbmcgewo+ID4gLQkJbGFiZWwgPSAib21hcDQ6Z3JlZW46Y2hy
-ZyI7Cj4gPiAtCQlwd21zID0gPCZ0d2xfcHdtbGVkIDAgNzgxMjUwMD47Cj4gPiAtCQltYXgtYnJp
-Z2h0bmVzcyA9IDwyNTU+Owo+ID4gLQl9Owo+ID4gLX07Cj4gPiBkaWZmIC0tZ2l0IGEvRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2xlZHMvbGVkcy1wd20ueWFtbCBiL0RvY3VtZW50
-YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9sZWRzL2xlZHMtcHdtLnlhbWwKPiA+IG5ldyBmaWxl
-IG1vZGUgMTAwNjQ0Cj4gPiBpbmRleCAwMDAwMDAwMDAwMDAuLmZlNGQ1ZmQyNTkxMwo+ID4gLS0t
-IC9kZXYvbnVsbAo+ID4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2xl
-ZHMvbGVkcy1wd20ueWFtbAo+ID4gQEAgLTAsMCArMSw3MCBAQAo+ID4gKyMgU1BEWC1MaWNlbnNl
-LUlkZW50aWZpZXI6IChHUEwtMi4wLW9ubHkgT1IgQlNELTItQ2xhdXNlKQo+ID4gKyVZQU1MIDEu
-Mgo+ID4gKy0tLQo+ID4gKyRpZDogaHR0cDovL2RldmljZXRyZWUub3JnL3NjaGVtYXMvbGVkcy9s
-ZWRzLXB3bS55YW1sIwo+ID4gKyRzY2hlbWE6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9tZXRhLXNj
-aGVtYXMvY29yZS55YW1sIwo+ID4gKwo+ID4gK3RpdGxlOiBMRURzIGNvbm5lY3RlZCB0byBQV00K
-PiA+ICsKPiA+ICttYWludGFpbmVyczoKPiA+ICsgIC0gUGF2ZWwgTWFjaGVrIDxwYXZlbEB1Y3cu
-Y3o+Cj4gPiArCj4gPiArZGVzY3JpcHRpb246Cj4gPiArICBFYWNoIExFRCBpcyByZXByZXNlbnRl
-ZCBhcyBhIHN1Yi1ub2RlIG9mIHRoZSBwd20tbGVkcyBkZXZpY2UuICBFYWNoCj4gPiArICBub2Rl
-J3MgbmFtZSByZXByZXNlbnRzIHRoZSBuYW1lIG9mIHRoZSBjb3JyZXNwb25kaW5nIExFRC4KPiA+
-ICsKPiA+ICtwcm9wZXJ0aWVzOgo+ID4gKyAgY29tcGF0aWJsZToKPiA+ICsgICAgY29uc3Q6IHB3
-bS1sZWRzCj4gPiArCj4gPiArcGF0dGVyblByb3BlcnRpZXM6Cj4gPiArICAiXmxlZCgtWzAtOWEt
-Zl0rKT8kIjoKPiA+ICsgICAgdHlwZTogb2JqZWN0Cj4gPiArCj4gPiArICAgICRyZWY6IGNvbW1v
-bi55YW1sIwo+ID4gKwo+ID4gKyAgICBwcm9wZXJ0aWVzOgo+ID4gKyAgICAgIHB3bXM6Cj4gPiAr
-ICAgICAgICBtYXhJdGVtczogMQo+ID4gKwo+ID4gKyAgICAgIHB3bS1uYW1lczogdHJ1ZQo+ID4g
-Kwo+ID4gKyAgICAgIG1heC1icmlnaHRuZXNzOgo+ID4gKyAgICAgICAgZGVzY3JpcHRpb246Cj4g
-PiArICAgICAgICAgIE1heGltdW0gYnJpZ2h0bmVzcyBwb3NzaWJsZSBmb3IgdGhlIExFRAo+ID4g
-KyAgICAgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyCj4g
-PiArCj4gPiArICAgICAgYWN0aXZlLWxvdzoKPiA+ICsgICAgICAgIGRlc2NyaXB0aW9uOgo+ID4g
-KyAgICAgICAgICBGb3IgUFdNcyB3aGVyZSB0aGUgTEVEIGlzIHdpcmVkIHRvIHN1cHBseSByYXRo
-ZXIgdGhhbiBncm91bmQuCj4gPiArICAgICAgICB0eXBlOiBib29sZWFuCj4gPiArCj4gPiArICAg
-IHJlcXVpcmVkOgo+ID4gKyAgICAgIC0gcHdtcwo+ID4gKyAgICAgIC0gbWF4LWJyaWdodG5lc3MK
-PiA+ICsKPiA+ICthZGRpdGlvbmFsUHJvcGVydGllczogZmFsc2UKPiA+ICsKPiA+ICtleGFtcGxl
-czoKPiA+ICsgIC0gfAo+ID4gKwo+ID4gKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvbGVkcy9j
-b21tb24uaD4KPiA+ICsKPiA+ICsgICAgbGVkLWNvbnRyb2xsZXIgewo+ID4gKyAgICAgICAgY29t
-cGF0aWJsZSA9ICJwd20tbGVkcyI7Cj4gPiArCj4gPiArICAgICAgICBsZWQtMSB7Cj4gPiArICAg
-ICAgICAgICAgbGFiZWwgPSAib21hcDQ6OmtleXBhZCI7Cj4gPiArICAgICAgICAgICAgcHdtcyA9
-IDwmdHdsX3B3bSAwIDc4MTI1MDA+Owo+ID4gKyAgICAgICAgICAgIG1heC1icmlnaHRuZXNzID0g
-PDEyNz47Cj4gPiArICAgICAgICB9Owo+ID4gKwo+ID4gKyAgICAgICAgbGVkLTIgewo+ID4gKyAg
-ICAgICAgICAgIGNvbG9yID0gPExFRF9DT0xPUl9JRF9HUkVFTj47Cj4gPiArICAgICAgICAgICAg
-ZnVuY3Rpb24gPSBMRURfRlVOQ1RJT05fQ0hBUkdJTkc7Cj4gPiArICAgICAgICAgICAgcHdtcyA9
-IDwmdHdsX3B3bWxlZCAwIDc4MTI1MDA+Owo+ID4gKyAgICAgICAgICAgIG1heC1icmlnaHRuZXNz
-ID0gPDI1NT47Cj4gPiArICAgICAgICB9Owo+ID4gKyAgICB9Owo+ID4gKwo+ID4gKy4uLgo+ID4g
-LS0gCj4gPiAyLjIwLjEKPiAKPiAtLSAKPiAvIlwgQVNDSUkgUklCQk9OIHwgwrtXaXRoIHRoZSBm
-aXJzdCBsaW5rLCB0aGUgY2hhaW4gaXMgZm9yZ2VkLiBUaGUgZmlyc3QKPiBcIC8gQ0FNUEFJR04g
-ICAgIHwgc3BlZWNoIGNlbnN1cmVkLCB0aGUgZmlyc3QgdGhvdWdodCBmb3JiaWRkZW4sIHRoZQo+
-ICBYICBBR0FJTlNUICAgICAgfCBmaXJzdCBmcmVlZG9tIGRlbmllZCwgY2hhaW5zIHVzIGFsbCBp
-cnJldm9jYWJseS7Cqwo+IC8gXCBIVE1MIE1BSUwgICAgfCAoSmVhbi1MdWMgUGljYXJkLCBxdW90
-aW5nIEp1ZGdlIEFhcm9uIFNhdGllKQoKCgotLSAKUk1LJ3MgUGF0Y2ggc3lzdGVtOiBodHRwczov
-L3d3dy5hcm1saW51eC5vcmcudWsvZGV2ZWxvcGVyL3BhdGNoZXMvCkZUVFAgaXMgaGVyZSEgNDBN
-YnBzIGRvd24gMTBNYnBzIHVwLiBEZWNlbnQgY29ubmVjdGl2aXR5IGF0IGxhc3QhCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
-bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
-Cg==
+Hi Fabrice,
+
+On Thu, Oct 29, 2020 at 12:31:54PM +0100, Fabrice Gasnier wrote:
+>On 10/29/20 8:46 AM, Coiby Xu wrote:
+>> SET_SYSTEM_SLEEP_PM_OPS has already took good care of CONFIG_PM_CONFIG.
+>>
+>> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
+>> ---
+>>  drivers/i2c/busses/i2c-stm32f7.c | 2 --
+>>  1 file changed, 2 deletions(-)
+>>
+>> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+>> index f41f51a176a1..95ac9dfdf458 100644
+>> --- a/drivers/i2c/busses/i2c-stm32f7.c
+>> +++ b/drivers/i2c/busses/i2c-stm32f7.c
+>> @@ -2262,7 +2262,6 @@ static int __maybe_unused stm32f7_i2c_runtime_resume(struct device *dev)
+>>  	return 0;
+>>  }
+>>
+>> -#ifdef CONFIG_PM_SLEEP
+>
+>Hi Coiby,
+>
+>This generates warnings when building with W=1 and CONFIG_PM_SLEEP=n.
+>Could you please add also "__maybe_unused" for relevant routines below ?
+>
+>>  static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
+>             ^
+>e.g. insert: __maybe_unused
+>
+
+Thank you for the suggestion. I'll add "__maybe_unused" in v2.
+
+>Best regards,
+>Fabrice
+>>  {
+>>  	int ret;
+>> @@ -2356,7 +2355,6 @@ static int stm32f7_i2c_resume(struct device *dev)
+>>
+>>  	return 0;
+>>  }
+>> -#endif
+>>
+>>  static const struct dev_pm_ops stm32f7_i2c_pm_ops = {
+>>  	SET_RUNTIME_PM_OPS(stm32f7_i2c_runtime_suspend,
+>>
+
+--
+Best regards,
+Coiby
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
