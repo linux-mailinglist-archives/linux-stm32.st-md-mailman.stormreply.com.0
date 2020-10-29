@@ -2,90 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E36F29EEB7
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 15:49:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4309329F007
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 16:34:00 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8DA66C3FADA;
-	Thu, 29 Oct 2020 14:49:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3DB5C3FAD5;
+	Thu, 29 Oct 2020 15:33:59 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52826C3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8630BC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Oct 2020 14:49:30 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+ Thu, 29 Oct 2020 15:33:58 +0000 (UTC)
+Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com (unknown
+ [163.114.132.6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 029F1206E3;
- Thu, 29 Oct 2020 14:49:14 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0D82320731;
+ Thu, 29 Oct 2020 15:33:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603982968;
- bh=1M8zHKAHm8tfB8AOV5kFGjQ5L8HBiwt2lqvdGfEDgxQ=;
+ s=default; t=1603985636;
+ bh=B0ZPfDydtjlauMNDXnh+e1cHiw7UiIy4+A/TKExZ+1E=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=VwKBRazZTJNx5ayevPifAIJt6BcELHVSflPv1Pz3hhkIRLQu/hpqVx9zq6UOPHYwi
- 1Cr/eBqf+UTruLweRPs1uluGBSsUp8XS5oIZwMoDI9YYtGpTUHifWPeFkCnRe78Q3+
- 9acepxXtiAj1lspr5f5lKQxsgHU3+k3h2anx8nNM=
-Date: Thu, 29 Oct 2020 14:49:12 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Message-ID: <20201029144912.3c0a239b@archlinux>
-In-Reply-To: <4ebaaa0320101479e392ce2db4b62e24fdf15ef1.1603893146.git.mchehab+huawei@kernel.org>
-References: <cover.1603893146.git.mchehab+huawei@kernel.org>
- <4ebaaa0320101479e392ce2db4b62e24fdf15ef1.1603893146.git.mchehab+huawei@kernel.org>
-X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ b=JNc7cRbl3F0Vs/AievSvJbgeMx8PB5aqaUAgxRSpSspKaooWsniTDfZ/0ux4V4KpW
+ yi0JzUSB32dckJquFMcok3IhW3fuw03coQbPbuZweO6t4G3IJU6+YWeAdWiTSgP2wC
+ fl2Hs8DdP8MQ+rJVJTj1m3vY/oISJUy4ofajMLqE=
+Date: Thu, 29 Oct 2020 08:33:54 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <20201029083354.228d5465@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20201029065016.4781-1-m.szyprowski@samsung.com>
+References: <CGME20201029065029eucas1p225422e700c29e2e84e227cb14ea6de52@eucas1p2.samsung.com>
+ <20201029065016.4781-1-m.szyprowski@samsung.com>
 MIME-Version: 1.0
-Cc: "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Petr Mladek <pmladek@suse.com>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Nayna Jain <nayna@linux.ibm.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Mimi Zohar <zohar@linux.ibm.com>, Sebastian Reichel <sre@kernel.org>,
- Guenter Roeck <groeck@chromium.org>, Bruno Meneguele <bmeneg@redhat.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Pavel Machek <pavel@ucw.cz>, Hanjun Guo <guohanjun@huawei.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, netdev@vger.kernel.org,
- Oleh Kravchenko <oleg@kaa.org.ua>, Dan Williams <dan.j.williams@intel.com>,
- Andrew Donnellan <ajd@linux.ibm.com>,
- Javier =?UTF-8?B?R29uesOhbGV6?= <javier@javigon.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-acpi@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Mario Limonciello <mario.limonciello@dell.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, Frederic Barrat <fbarrat@linux.ibm.com>,
- Niklas Cassel <niklas.cassel@wdc.com>, Len Brown <lenb@kernel.org>,
- Juergen Gross <jgross@suse.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, Baolin Wang <baolin.wang7@gmail.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Dan Murphy <dmurphy@ti.com>,
- Orson Zhai <orsonzhai@gmail.com>, Philippe Bergheaud <felix@linux.ibm.com>,
- xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Benson Leung <bleung@chromium.org>, Konstantin Khlebnikov <koct9i@gmail.com>,
- Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
- Kranthi Kuntala <kranthi.kuntala@intel.com>, "Martin K.
- Petersen" <martin.petersen@oracle.com>, linux-mm@kvack.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-iio@vger.kernel.org,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Leonid Maksymchuk <leonmaxx@gmail.com>,
+Cc: linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Vineela Tummalapalli <vineela.tummalapalli@intel.com>,
- Peter Rosin <peda@axentia.se>, Mike Kravetz <mike.kravetz@oracle.com>
-Subject: Re: [Linux-stm32] [PATCH 20/33] docs: ABI: testing: make the files
- compatible with ReST output
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix channel lock
+	initialization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,203 +57,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 28 Oct 2020 15:23:18 +0100
-Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
+On Thu, 29 Oct 2020 07:50:16 +0100 Marek Szyprowski wrote:
+> Commit 0366f7e06a6b ("net: stmmac: add ethtool support for get/set
+> channels") refactored channel initialization, but during that operation,
+> the spinlock initialization got lost. Fix this. This fixes the following
+> lockdep warning:
 
-> From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-> 
-> Some files over there won't parse well by Sphinx.
-> 
-> Fix them.
-> 
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-
-Query below...  I'm going to guess a rebase issue?
-
-Other than that
-Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com> # for IIO
-
-
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32 b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
-> index b7259234ad70..a10a4de3e5fe 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
-> +++ b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
-> @@ -3,67 +3,85 @@ KernelVersion:	4.11
->  Contact:	benjamin.gaignard@st.com
->  Description:
->  		Reading returns the list possible master modes which are:
-> -		- "reset"     :	The UG bit from the TIMx_EGR register is
-> +
-> +
-> +		- "reset"
-> +				The UG bit from the TIMx_EGR register is
->  				used as trigger output (TRGO).
-> -		- "enable"    : The Counter Enable signal CNT_EN is used
-> +		- "enable"
-> +				The Counter Enable signal CNT_EN is used
->  				as trigger output.
-> -		- "update"    : The update event is selected as trigger output.
-> +		- "update"
-> +				The update event is selected as trigger output.
->  				For instance a master timer can then be used
->  				as a prescaler for a slave timer.
-> -		- "compare_pulse" : The trigger output send a positive pulse
-> -				    when the CC1IF flag is to be set.
-> -		- "OC1REF"    : OC1REF signal is used as trigger output.
-> -		- "OC2REF"    : OC2REF signal is used as trigger output.
-> -		- "OC3REF"    : OC3REF signal is used as trigger output.
-> -		- "OC4REF"    : OC4REF signal is used as trigger output.
-> +		- "compare_pulse"
-> +				The trigger output send a positive pulse
-> +				when the CC1IF flag is to be set.
-> +		- "OC1REF"
-> +				OC1REF signal is used as trigger output.
-> +		- "OC2REF"
-> +				OC2REF signal is used as trigger output.
-> +		- "OC3REF"
-> +				OC3REF signal is used as trigger output.
-> +		- "OC4REF"
-> +				OC4REF signal is used as trigger output.
-> +
->  		Additional modes (on TRGO2 only):
-> -		- "OC5REF"    : OC5REF signal is used as trigger output.
-> -		- "OC6REF"    : OC6REF signal is used as trigger output.
-> +
-> +		- "OC5REF"
-> +				OC5REF signal is used as trigger output.
-> +		- "OC6REF"
-> +				OC6REF signal is used as trigger output.
->  		- "compare_pulse_OC4REF":
-> -		  OC4REF rising or falling edges generate pulses.
-> +				OC4REF rising or falling edges generate pulses.
->  		- "compare_pulse_OC6REF":
-> -		  OC6REF rising or falling edges generate pulses.
-> +				OC6REF rising or falling edges generate pulses.
->  		- "compare_pulse_OC4REF_r_or_OC6REF_r":
-> -		  OC4REF or OC6REF rising edges generate pulses.
-> +				OC4REF or OC6REF rising edges generate pulses.
->  		- "compare_pulse_OC4REF_r_or_OC6REF_f":
-> -		  OC4REF rising or OC6REF falling edges generate pulses.
-> +				OC4REF rising or OC6REF falling edges generate
-> +				pulses.
->  		- "compare_pulse_OC5REF_r_or_OC6REF_r":
-> -		  OC5REF or OC6REF rising edges generate pulses.
-> +				OC5REF or OC6REF rising edges generate pulses.
->  		- "compare_pulse_OC5REF_r_or_OC6REF_f":
-> -		  OC5REF rising or OC6REF falling edges generate pulses.
-> +				OC5REF rising or OC6REF falling edges generate
-> +				pulses.
->  
-> -		+-----------+   +-------------+            +---------+
-> -		| Prescaler +-> | Counter     |        +-> | Master  | TRGO(2)
-> -		+-----------+   +--+--------+-+        |-> | Control +-->
-> -		                   |        |          ||  +---------+
-> -		                +--v--------+-+ OCxREF ||  +---------+
-> -		                | Chx compare +----------> | Output  | ChX
-> -		                +-----------+-+         |  | Control +-->
-> -		                      .     |           |  +---------+
-> -		                      .     |           |    .
-> -		                +-----------v-+ OC6REF  |    .
-> -		                | Ch6 compare +---------+>
-> -		                +-------------+
-> +		::
->  
-> -		Example with: "compare_pulse_OC4REF_r_or_OC6REF_r":
-> +		  +-----------+   +-------------+            +---------+
-> +		  | Prescaler +-> | Counter     |        +-> | Master  | TRGO(2)
-> +		  +-----------+   +--+--------+-+        |-> | Control +-->
-> +		                     |        |          ||  +---------+
-> +		                  +--v--------+-+ OCxREF ||  +---------+
-> +		                  | Chx compare +----------> | Output  | ChX
-> +		                  +-----------+-+         |  | Control +-->
-> +		                        .     |           |  +---------+
-> +		                        .     |           |    .
-> +		                  +-----------v-+ OC6REF  |    .
-> +		                  | Ch6 compare +---------+>
-> +		                  +-------------+
->  
-> -		                X
-> -		              X   X
-> -		            X .   . X
-> -		          X   .   .   X
-> -		        X     .   .     X
-> -		count X .     .   .     . X
-> -		        .     .   .     .
-> -		        .     .   .     .
-> -		        +---------------+
-> -		OC4REF  |     .   .     |
-> -		      +-+     .   .     +-+
-> -		        .     +---+     .
-> -		OC6REF  .     |   |     .
-> -		      +-------+   +-------+
-> -		        +-+   +-+
-> -		TRGO2   | |   | |
-> -		      +-+ +---+ +---------+
-> +		Example with: "compare_pulse_OC4REF_r_or_OC6REF_r"::
-> +
-> +		                  X
-> +		                X   X
-> +		              X .   . X
-> +		            X   .   .   X
-> +		          X     .   .     X
-> +		  count X .     .   .     . X
-> +		          .     .   .     .
-> +		          .     .   .     .
-> +		          +---------------+
-> +		  OC4REF  |     .   .     |
-> +		        +-+     .   .     +-+
-> +		          .     +---+     .
-> +		  OC6REF  .     |   |     .
-> +		        +-------+   +-------+
-> +		          +-+   +-+
-> +		  TRGO2   | |   | |
-> +		        +-+ +---+ +---------+
->  
->  What:		/sys/bus/iio/devices/triggerX/master_mode
->  KernelVersion:	4.11
-> @@ -91,6 +109,30 @@ Description:
->  		When counting down the counter start from preset value
->  		and fire event when reach 0.
->  
-
-Where did these come from?
-
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
-> +KernelVersion:	4.12
-> +Contact:	benjamin.gaignard@st.com
-> +Description:
-> +		Reading returns the list possible quadrature modes.
-> +
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
-> +KernelVersion:	4.12
-> +Contact:	benjamin.gaignard@st.com
-> +Description:
-> +		Configure the device counter quadrature modes:
-> +
-> +		channel_A:
-> +			Encoder A input servers as the count input and B as
-> +			the UP/DOWN direction control input.
-> +
-> +		channel_B:
-> +			Encoder B input serves as the count input and A as
-> +			the UP/DOWN direction control input.
-> +
-> +		quadrature:
-> +			Encoder A and B inputs are mixed to get direction
-> +			and count with a scale of 0.25.
-> +
->  What:		/sys/bus/iio/devices/iio:deviceX/in_count_enable_mode_available
->  KernelVersion:	4.12
->  Contact:	benjamin.gaignard@st.com
-> @@ -104,6 +146,7 @@ Description:
->  		Configure the device counter enable modes, in all case
->  		counting direction is set by in_count0_count_direction
->  		attribute and the counter is clocked by the internal clock.
-> +
->  		always:
->  			Counter is always ON.
->  
+You'll need to CC netdev.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
