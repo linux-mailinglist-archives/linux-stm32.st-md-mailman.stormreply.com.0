@@ -2,102 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1978A29F445
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 19:50:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B31329F585
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 20:46:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC38FC3FAD5;
-	Thu, 29 Oct 2020 18:50:47 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A91EC3FAD5;
+	Thu, 29 Oct 2020 19:46:33 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC269C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0971C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Oct 2020 18:50:44 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20201029185033euoutp01c64241846376b60b99d2f0304c85ec25~CiyrZIyzU1635816358euoutp01W
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Oct 2020 18:50:33 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20201029185033euoutp01c64241846376b60b99d2f0304c85ec25~CiyrZIyzU1635816358euoutp01W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1603997433;
- bh=rjGb/q462jUGsbZXYDSlLsq4C4w7bm1hZhL3PvZ+/BM=;
- h=From:To:Cc:Subject:Date:References:From;
- b=GQZ3dH6SHe90H2Z3hUvqyrnx3Ca79sjlVe+IrKW0YVav1LT3iV5bnPj+eyofptyzv
- 80zwDJ2WuTb3CaESBWwm1TTqAMYA5AVYnvPY9QIR2ADLSiQgMOnXktZ5d49AF/h7js
- Ini9Ztz0g5IKmh+VYpB5p9OUPx2W3QrEv7GW2nx4=
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20201029185023eucas1p2789b4a808985c7f2eb40fbf81295a592~Ciyif_ZTi1649416494eucas1p2F;
- Thu, 29 Oct 2020 18:50:23 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id F2.43.06318.FEE0B9F5; Thu, 29
- Oct 2020 18:50:23 +0000 (GMT)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20201029185023eucas1p21872d74eeb62643a3ff364af7cf2c6eb~CiyiBvPrf2458024580eucas1p2k;
- Thu, 29 Oct 2020 18:50:23 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20201029185023eusmtrp295679aeb95ca4ee4965895ccea5796c7~CiyiBC3So3194531945eusmtrp2M;
- Thu, 29 Oct 2020 18:50:23 +0000 (GMT)
-X-AuditID: cbfec7f5-38bff700000018ae-17-5f9b0eefd97f
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id EE.F3.06017.FEE0B9F5; Thu, 29
- Oct 2020 18:50:23 +0000 (GMT)
-Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20201029185022eusmtip1fe8aabd81a175186daff7d8ee008e7e0~Ciyhfy5HZ1231412314eusmtip1f;
- Thu, 29 Oct 2020 18:50:22 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Giuseppe Cavallaro
- <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>
-Date: Thu, 29 Oct 2020 19:50:11 +0100
-Message-Id: <20201029185011.4749-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.17.1
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprHKsWRmVeSWpSXmKPExsWy7djP87rv+WbHG6xabGyx8clpRouNM9az
- WjxZv4jNYs75FhaLe4vesVpc2NbHarHp8TVWi65rT1gt1h65y24x7+9aVotjC8Qs/r/eyujA
- 47Fl5U0mj52z7rJ7LN7zkslj06pONo/NS+o9+rasYvQ4uM/Q4+mPvcweW/Z/ZvT4vEkugCuK
- yyYlNSezLLVI3y6BK+PcapmCVqGKybfOsDYwPuTvYuTkkBAwkWg5OoUNxBYSWMEo8WpbdBcj
- F5D9hVFi+uY77BDOZ0aJ2c+OscN0rN+6hRWiYzmjxKcFRnAd3fdPM4Mk2AQMJbredrGBJEQE
- jjNKHOjrYwJxmAW2MEm8nN8L1i4sYCtx+Oh3FhCbRUBV4tyjbWA2r4CNxM6DC5gg1slLrN5w
- gBmkWUJgHrvEvtuPoRIuEg1PTjFC2MISr45vgbpPRuL/zvlMEA3NjBIPz61lh3B6GCUuN82A
- 6rCWuHPuF9CBHEA3aUqs36UPEXaU2P+qkRkkLCHAJ3HjrSBImBnInLRtOlSYV6KjTQiiWk1i
- 1vF1cGsPXrjEDGF7SCzrvsoICaJYiQ8P37FMYJSbhbBrASPjKkbx1NLi3PTUYuO81HK94sTc
- 4tK8dL3k/NxNjMBUc/rf8a87GPf9STrEKMDBqMTDe+H2zHgh1sSy4srcQ4wSHMxKIrxOZ0/H
- CfGmJFZWpRblxxeV5qQWH2KU5mBREuc1XvQyVkggPbEkNTs1tSC1CCbLxMEp1cA4pfPwP/7d
- Ad7dHWqVpdMZXOsjunU3dTEZNi945bO5+J+N/CMdzs6VfLvr3NcX7K5fF2tysixOJWzi9nVX
- +Wo35J0Sjf4eO/fmevbtU27v+XRM4/3loH0XM8rPvzxV+Tnw5qsZrVmPPsZss+/d9XRXvqLB
- ooz5Ty1/Plh8qigx7pM1e+b8442+SizFGYmGWsxFxYkALiyw2DEDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrCLMWRmVeSWpSXmKPExsVy+t/xu7rv+WbHGyy4JWKx8clpRouNM9az
- WjxZv4jNYs75FhaLe4vesVpc2NbHarHp8TVWi65rT1gt1h65y24x7+9aVotjC8Qs/r/eyujA
- 47Fl5U0mj52z7rJ7LN7zkslj06pONo/NS+o9+rasYvQ4uM/Q4+mPvcweW/Z/ZvT4vEkugCtK
- z6Yov7QkVSEjv7jEVina0MJIz9DSQs/IxFLP0Ng81srIVEnfziYlNSezLLVI3y5BL+PcapmC
- VqGKybfOsDYwPuTvYuTkkBAwkVi/dQtrFyMXh5DAUkaJdU1L2CESMhInpzWwQtjCEn+udbFB
- FH1ilGj73M0GkmATMJToetsFZosInGaUuHw8HaSIWWAHk8TeA7fBJgkL2EocPvqdBcRmEVCV
- OPdoG5jNK2AjsfPgAiaIDfISqzccYJ7AyLOAkWEVo0hqaXFuem6xkV5xYm5xaV66XnJ+7iZG
- YIhvO/Zzyw7GrnfBhxgFOBiVeHgv3J4ZL8SaWFZcmXuIUYKDWUmE1+ns6Tgh3pTEyqrUovz4
- otKc1OJDjKZAyycyS4km5wPjL68k3tDU0NzC0tDc2NzYzEJJnLdD4GCMkEB6YklqdmpqQWoR
- TB8TB6dUA2PW0pOhkleVWlotrSrmvfCItCqb19rsWu++pvmlwAWHk97S/7/XTImrvCzx9vC/
- 9o7zC1oapz7y3VYZ+/+ndaYtV8RaE59X93Rm/y640Pi2e3Pz0VnV7GkLOdVU/3it36PMN2mH
- hEvNir3vHrVcuvlbwDjipWa9zqbFe38rMZU9zLR3ajHj7VNiKc5INNRiLipOBAAlU3dPhwIA
- AA==
-X-CMS-MailID: 20201029185023eucas1p21872d74eeb62643a3ff364af7cf2c6eb
-X-Msg-Generator: CA
-X-RootMTR: 20201029185023eucas1p21872d74eeb62643a3ff364af7cf2c6eb
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20201029185023eucas1p21872d74eeb62643a3ff364af7cf2c6eb
-References: <CGME20201029185023eucas1p21872d74eeb62643a3ff364af7cf2c6eb@eucas1p2.samsung.com>
-Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S . Miller" <davem@davemloft.net>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [Linux-stm32] [PATCH] net: stmmac: Fix channel lock initialization
+ Thu, 29 Oct 2020 19:46:30 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4CMbY168Mmz1rsXc;
+ Thu, 29 Oct 2020 20:46:29 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4CMbY15Cxjz1qqkZ;
+ Thu, 29 Oct 2020 20:46:29 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id Woxv0gQzukMu; Thu, 29 Oct 2020 20:46:28 +0100 (CET)
+X-Auth-Info: 1yTtgfgDH6EEhbldNROnLVXh67+peN5BoCvYe+kmLeM=
+Received: from localhost.localdomain (ip-89-176-112-137.net.upcbroadband.cz
+ [89.176.112.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Thu, 29 Oct 2020 20:46:28 +0100 (CET)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Thu, 29 Oct 2020 20:46:17 +0100
+Message-Id: <20201029194617.357423-1-marex@denx.de>
+X-Mailer: git-send-email 2.28.0
+MIME-Version: 1.0
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Define VIO regulator supply
+	on DHCOM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,75 +53,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit 0366f7e06a6b ("net: stmmac: add ethtool support for get/set
-channels") refactored channel initialization, but during that operation,
-the spinlock initialization got lost. Fix this. This fixes the following
-lockdep warning:
+The VIO regulator is supplied by PMIC Buck3, describe this in the DT.
 
-meson8b-dwmac ff3f0000.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
-INFO: trying to register non-static key.
-the code is fine but needs lockdep annotation.
-turning off the locking correctness validator.
-CPU: 1 PID: 331 Comm: kworker/1:2H Not tainted 5.9.0-rc3+ #1858
-Hardware name: Hardkernel ODROID-N2 (DT)
-Workqueue: kblockd blk_mq_run_work_fn
-Call trace:
- dump_backtrace+0x0/0x1d0
- show_stack+0x14/0x20
- dump_stack+0xe8/0x154
- register_lock_class+0x58c/0x590
- __lock_acquire+0x7c/0x1790
- lock_acquire+0xf4/0x440
- _raw_spin_lock_irqsave+0x80/0xb0
- stmmac_tx_timer+0x4c/0xb0 [stmmac]
- call_timer_fn+0xc4/0x3e8
- run_timer_softirq+0x2b8/0x6c0
- efi_header_end+0x114/0x5f8
- irq_exit+0x104/0x110
- __handle_domain_irq+0x60/0xb8
- gic_handle_irq+0x58/0xb0
- el1_irq+0xbc/0x180
- _raw_spin_unlock_irqrestore+0x48/0x90
- mmc_blk_rw_wait+0x70/0x160
- mmc_blk_mq_issue_rq+0x510/0x830
- mmc_mq_queue_rq+0x13c/0x278
- blk_mq_dispatch_rq_list+0x2a0/0x698
- __blk_mq_do_dispatch_sched+0x254/0x288
- __blk_mq_sched_dispatch_requests+0x190/0x1d8
- blk_mq_sched_dispatch_requests+0x34/0x70
- __blk_mq_run_hw_queue+0xcc/0x148
- blk_mq_run_work_fn+0x20/0x28
- process_one_work+0x2a8/0x718
- worker_thread+0x48/0x460
- kthread+0x134/0x160
- ret_from_fork+0x10/0x1c
-
-Fixes: 0366f7e06a6b ("net: stmmac: add ethtool support for get/set channels")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Fixes: 34e0c7847dcf ("ARM: dts: stm32: Add DH Electronics DHCOM STM32MP1 SoM and PDK2 board")
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 1 +
+ arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 220626a8d499..d833908b660a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4757,6 +4757,7 @@ static void stmmac_napi_add(struct net_device *dev)
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+index 6b5899f61142..9caa0dfc7b22 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+@@ -69,6 +69,7 @@ ethernet_vio: vioregulator {
+ 		gpio = <&gpiog 3 GPIO_ACTIVE_LOW>;
+ 		regulator-always-on;
+ 		regulator-boot-on;
++		vin-supply = <&vdd>;
+ 	};
+ };
  
- 		ch->priv_data = priv;
- 		ch->index = queue;
-+		spin_lock_init(&ch->lock);
- 
- 		if (queue < priv->plat->rx_queues_to_use) {
- 			netif_napi_add(dev, &ch->rx_napi, stmmac_napi_poll_rx,
 -- 
-2.17.1
+2.28.0
 
 _______________________________________________
 Linux-stm32 mailing list
