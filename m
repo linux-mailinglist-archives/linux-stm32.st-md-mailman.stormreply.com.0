@@ -2,68 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F8729E518
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 08:52:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 058AC29E519
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 08:52:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A77D0C424CE;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B23B7C424D1;
 	Thu, 29 Oct 2020 07:52:06 +0000 (UTC)
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
- [209.85.210.196])
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
+ [209.85.215.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27C1DC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C27CAC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Oct 2020 07:47:46 +0000 (UTC)
-Received: by mail-pf1-f196.google.com with SMTP id j18so1672699pfa.0
+ Thu, 29 Oct 2020 07:51:13 +0000 (UTC)
+Received: by mail-pg1-f193.google.com with SMTP id s22so1653794pga.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Oct 2020 00:47:46 -0700 (PDT)
+ Thu, 29 Oct 2020 00:51:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=uv2FWQlSBJFmE706ogx6rH+lBxHwtXvvktU8G7mdeHE=;
- b=UkuEIBksTIBEx0rU9xx8YSrprU5SuhUkN7XbFd8Ss4WqdzUiRKgQToHyt959jtOKzE
- descPPhCAOW0XNzIJF1XRtujK2NMKSeIKOais3aepphrSUfUB3jAs7x01P+pOrYsaygI
- tksDMUUbjLTMKxTbn4Cb5pdlHLDgNO0QF4+tJM9jsZ6ThxQ7y5mXMg7ujImMn+wzmyRR
- 8i0IxBH/r//xZ1LE6r79PribG82uJ0XwUtm05Dd+IXedix0wIz0c9GdQkKf0oNQ3vD5Y
- elnrMVaYVrgf9Fb4wuKD93ftXMWvP7e9uCX8HlzzQ/4hXezZp/iJaHbuaZ1IQDyaoEUH
- xBEQ==
+ bh=NGq3AUw6ysMha/FfRYSK0ItKsIwpDFgIL0/PfPvnWrU=;
+ b=bnVSoLrbLDKak3wbA067m2XQ+pNeAm2plBFMKyCKdA6CEgzhXD/wXBT5lXDx0F+8u+
+ xYegieS/ReMqYyfPoM2IYge7/7qvFLjd5p4NxLM1GxnEauDnW2+Qrwu+tn3YNmWONFRY
+ TgS5K0YsDv7YYNr/facwK8WQaHhPXtmjgYdq+u34vTR9EUf3NDDQ5eKeO1zV9VpaNhEs
+ 9KtXX4PvOatAAYC5gUr9/ubfqsegV5th2OOTUNWlDOawIAPSzAw4xbzfxBij0rwLPFUM
+ 2xchontH33wuSdahu4mOyCKEF9c1qMiITDcq6/FB4VQz3YMJZkirx1xBZxhj28bGLJfS
+ I/rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=uv2FWQlSBJFmE706ogx6rH+lBxHwtXvvktU8G7mdeHE=;
- b=lnTJ5Y8vBmEiwDsWbBDrg4Llv/a1mA58oXXEL8DEMfPsvX/KFCZ8AO48QTYRN03zNZ
- leQkZ4g3gvCBTdydchXd6uRUi3QUVAGR2XSwfH1/jM8iN+0Drat9Bm6xRaa1IZ+XSF3q
- yH/aCfjhbA8MQyExaYU0sND4fJLEbr8SNXotoOefdeFcbAsDvsQwTb+MCxGsbLj6tqN9
- Gv8BSh1VywvUm48HsTShT12o5n+mUMEX5mQiK55GmtwwvzatdoMMVt3/cJ5aYU6eSaCv
- YVMOUSYa3GUOYfcLChd2c/VWxTSMM5E+o4jyTzWLWhFtJWXSTI+DgZQKLPYdqWs8y+1e
- NUUg==
-X-Gm-Message-State: AOAM5322T/muFn0RkaCKeredO2Xu2+hHU+xE+QOF3+pBZZz2jAxefv1e
- HEre/ZmjTYhOmYu5BYSyKoC3hg+iLzE01l9+
-X-Google-Smtp-Source: ABdhPJxKwsyEZXm+NRlnPeeDS94chF16rqocvuwXKW/X+8833uLeRKJCpBpQq0NAIMLEiiDLcXXemA==
-X-Received: by 2002:a17:90b:17c3:: with SMTP id
- me3mr2716736pjb.56.1603957664762; 
- Thu, 29 Oct 2020 00:47:44 -0700 (PDT)
-Received: from localhost ([160.16.113.140])
- by smtp.gmail.com with ESMTPSA id z5sm1834680pfn.20.2020.10.29.00.47.42
+ bh=NGq3AUw6ysMha/FfRYSK0ItKsIwpDFgIL0/PfPvnWrU=;
+ b=AwBVPteO3om/v9YFIkCGCMo3KyJkviPAuVi8z1P8WBtCy8WbdnBZn3CBnKzoiQCc8I
+ Lb7Sp68pKHN1rQSvHMR+iw/GklEOfWq70EpgoGQvCW5XrDQi5U9oJQuPfS5+1ux6G7Sb
+ IJTz1h1VnPIXxVectDGSvhfpJP85koLbpir6kf84hMPnvH8YSjKkY05PpjG3SLnBoXWs
+ OkE8ARMjCpnsdaPlkSqtACPzN558enjB0plqGzFbgxm0PdGBxczXpVXys07jWvuQB8S5
+ b9Jod3TiorbTj1+9uEaFBgtSUadjsStsASYzLGEY+S05sZM77LpuvlpifineebJ4+fEZ
+ WXsg==
+X-Gm-Message-State: AOAM532pxJFZhWOdgc/QXNZZ1/CFRh241NEbpQQJJmuKgW++N3D69/3Y
+ XRH9fYRDi4hBUmMeOywllaM=
+X-Google-Smtp-Source: ABdhPJyuOhugn9EpUqKcAqFDBehBdUAOq+V9klQLT4mpZNvgrUWTycwVHeRUf0JZ947fMhy6rQ4NGA==
+X-Received: by 2002:a17:90a:b303:: with SMTP id
+ d3mr3056205pjr.207.1603957872363; 
+ Thu, 29 Oct 2020 00:51:12 -0700 (PDT)
+Received: from localhost ([2409:8a28:3c42:6840:9efc:e8ff:fef2:1cdc])
+ by smtp.gmail.com with ESMTPSA id y1sm1932947pjl.12.2020.10.29.00.51.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2020 00:47:44 -0700 (PDT)
+ Thu, 29 Oct 2020 00:51:12 -0700 (PDT)
 From: Coiby Xu <coiby.xu@gmail.com>
-To: linux-i2c@vger.kernel.org
-Date: Thu, 29 Oct 2020 15:46:54 +0800
-Message-Id: <20201029074654.227263-5-coiby.xu@gmail.com>
+To: Lars-Peter Clausen <lars@metafoo.de>
+Date: Thu, 29 Oct 2020 15:49:05 +0800
+Message-Id: <20201029074910.227859-10-coiby.xu@gmail.com>
 X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201029074654.227263-1-coiby.xu@gmail.com>
-References: <20201029074654.227263-1-coiby.xu@gmail.com>
+In-Reply-To: <20201029074910.227859-1-coiby.xu@gmail.com>
+References: <20201029074910.227859-1-coiby.xu@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 29 Oct 2020 07:52:04 +0000
-Cc: open list <linux-kernel@vger.kernel.org>,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
+Cc: Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  "moderated list:ARM/STM32 ARCHITECTURE"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH 5/5] i2c: stm32: remove unnecessary
+ Jonathan Cameron <jic23@kernel.org>
+Subject: [Linux-stm32] [PATCH 10/15] iio: adc: stm32: remove unnecessary
 	CONFIG_PM_SLEEP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -85,29 +87,29 @@ SET_SYSTEM_SLEEP_PM_OPS has already took good care of CONFIG_PM_CONFIG.
 
 Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 2 --
+ drivers/iio/adc/stm32-adc.c | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index f41f51a176a1..95ac9dfdf458 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -2262,7 +2262,6 @@ static int __maybe_unused stm32f7_i2c_runtime_resume(struct device *dev)
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index b3f31f147347..42f9013730f8 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -1988,7 +1988,6 @@ static int stm32_adc_remove(struct platform_device *pdev)
  	return 0;
  }
  
--#ifdef CONFIG_PM_SLEEP
- static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
+-#if defined(CONFIG_PM_SLEEP)
+ static int stm32_adc_suspend(struct device *dev)
  {
- 	int ret;
-@@ -2356,7 +2355,6 @@ static int stm32f7_i2c_resume(struct device *dev)
+ 	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+@@ -2018,7 +2017,6 @@ static int stm32_adc_resume(struct device *dev)
  
- 	return 0;
+ 	return stm32_adc_buffer_postenable(indio_dev);
  }
 -#endif
  
- static const struct dev_pm_ops stm32f7_i2c_pm_ops = {
- 	SET_RUNTIME_PM_OPS(stm32f7_i2c_runtime_suspend,
+ #if defined(CONFIG_PM)
+ static int stm32_adc_runtime_suspend(struct device *dev)
 -- 
 2.28.0
 
