@@ -2,66 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5013A29E7F6
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 10:58:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4931029E85F
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 11:07:36 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12A43C3FAE0;
-	Thu, 29 Oct 2020 09:58:33 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFF3FC3FAD5;
+	Thu, 29 Oct 2020 10:07:35 +0000 (UTC)
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
+ [209.85.214.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA44DC36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CC98C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Oct 2020 09:58:31 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09T9v7YD009828; Thu, 29 Oct 2020 10:58:17 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=sYYTvityoCYrsSoKNe2qZDhh1lZpuC1PZ84KcUj9xUY=;
- b=B7K4zex4tKQKuc68r+D5m0ezftRYHf17UTo6dLNdC2ZNgEcHsXLnFpcfqbnqDv8UBYC3
- OO28vpGNtrk3p1XdEA/ysvapUz+hdSgpsXOKytrQoHzhVKZYfOzRpUwh65oS/Obrw2V4
- gNuHPWL28mOJad3Cndc7YLpYGBceXuaynBX445O1iLV7jyFDiXsUB9MQah7SmQWmE7I/
- YOXvJmvIeDmcit1cjOpOuLdG/um0AYOIgTi4HWLV8zx8CIr8l3eqjpaQxIstv0hm6Soh
- sY22mcxbwoKO689zEwW+No7CTiSHm4UvGC5r1wZlaLBhHFcMv55f53RYywgWDK3Sct1H Cw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34ccj278du-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 29 Oct 2020 10:58:17 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B7947100034;
- Thu, 29 Oct 2020 10:58:16 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A6CE8221F97;
- Thu, 29 Oct 2020 10:58:16 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 29 Oct 2020 10:58:16
- +0100
-From: Amelie Delaunay <amelie.delaunay@st.com>
-To: Rob Herring <robh+dt@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Russell King
- <linux@armlinux.org.uk>, Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Date: Thu, 29 Oct 2020 10:58:06 +0100
-Message-ID: <20201029095806.10648-5-amelie.delaunay@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201029095806.10648-1-amelie.delaunay@st.com>
-References: <20201029095806.10648-1-amelie.delaunay@st.com>
+ Thu, 29 Oct 2020 10:07:33 +0000 (UTC)
+Received: by mail-pl1-f196.google.com with SMTP id w11so1053164pll.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 29 Oct 2020 03:07:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=tI5oeu083/nL6GJhPsqc4gO0SNUKlgZsyMixSW/3ceg=;
+ b=nSAByfXcQaloLeZ8FOeVHFsqjjm2/caWkiYYZXQGPJqnlWz7Bn83icp5D9q1sD5/Bu
+ hSzqZO9EChV1mkauO5ZBbGCqt5JW9mikWmnMl91EKIGgiC5IveqOPDpGqEtiySDXdQKL
+ FcnRCoiC2OE7h1Q5Bs8eruWKmzC8N3i+77Nz2w3++hIa3+2dvpnToXmYSNVm9m1egVUA
+ pA+vQ3J5sdPBNGbK2Qt7Y/m3oCCXnLFN4jsmAVH4ug0s2BP4RVKkpRIusRhR375vuq64
+ /OfnD61VkY2Lc0GbORc7TmQn1OKouobuIr6SP3FrBT53Z5MAnxrt20UanKnbI/3lTnC+
+ zPsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=tI5oeu083/nL6GJhPsqc4gO0SNUKlgZsyMixSW/3ceg=;
+ b=rHRvnbTHQo5j1wAr0RtI2RhCrmRDXsKodD5VZUnphLxTqjlc6oQ935ApoUP+egWqbR
+ OB0m7Tfc8WxNpmUL0qCLsK6kPFfNwdiuZc+QIbYu4YVgdLTCkdNYCqZgzOZU77GTL3pd
+ AM4p/7/+uOl9s1AR4ppF+7Dvlg8owPfpKDkS/xX+Rf8Bv3U7Ak1AFwElJcGECsrGpJbD
+ rB66/PcRiGNkI7AUaEINdzwX6HmT8yXxkVnM3yo3xv4nUTOSmxpmuFRHIX5+QfloMuPU
+ TO+F/GyAzQlnRiGVXvC78ZTBVNqYs5kvjbJf9NCwu3N/MEu/UxjlQzX8KuXW7ROnx8u2
+ qRWQ==
+X-Gm-Message-State: AOAM5335lQZnHsV/bzl+dKmmzI6W0xSez9K27qoXfTHYSPoL2CNM+cX8
+ CCSgwfgFH4bMOtH38iexcm8=
+X-Google-Smtp-Source: ABdhPJwUIb6dKOxpzzTARpwdqzVB5dK/+w1vuIyMljKChJSLGbb8XuMUw6KK3ODz8tr1yXw6ppGc7A==
+X-Received: by 2002:a17:902:8c8a:b029:d6:42d5:1cb7 with SMTP id
+ t10-20020a1709028c8ab02900d642d51cb7mr3175494plo.73.1603966051875; 
+ Thu, 29 Oct 2020 03:07:31 -0700 (PDT)
+Received: from localhost ([2409:8a28:3c42:6840:9efc:e8ff:fef2:1cdc])
+ by smtp.gmail.com with ESMTPSA id l18sm2447529pfd.210.2020.10.29.03.07.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2020 03:07:31 -0700 (PDT)
+From: Coiby Xu <coiby.xu@gmail.com>
+To: Lee Jones <lee.jones@linaro.org>
+Date: Thu, 29 Oct 2020 18:06:44 +0800
+Message-Id: <20201029100647.233361-6-coiby.xu@gmail.com>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201029100647.233361-1-coiby.xu@gmail.com>
+References: <20201029100647.233361-1-coiby.xu@gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-10-29_03:2020-10-29,
- 2020-10-29 signatures=0
-Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [RESEND PATCH v3 4/4] ARM: multi_v7_defconfig: enable
-	STUSB160X Type-C port controller support
+Cc: "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: [Linux-stm32] [PATCH 6/9] mfd: stmfx: remove unnecessary
+	CONFIG_PM_SLEEP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,30 +80,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable support for the STMicroelectronics STUSB160X USB Type-C port
-controller driver by turning on CONFIG_TYPEC and CONFIG_TYPEC_STUSB160X as
-modules.
+SIMPLE_DEV_PM_OPS has already took good care of CONFIG_PM_CONFIG.
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
 ---
- arch/arm/configs/multi_v7_defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/mfd/stmfx.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index e731cdf7c88c..41d0def64ce6 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -828,6 +828,8 @@ CONFIG_USB_CONFIGFS_F_HID=y
- CONFIG_USB_CONFIGFS_F_UVC=y
- CONFIG_USB_CONFIGFS_F_PRINTER=y
- CONFIG_USB_ETH=m
-+CONFIG_TYPEC=m
-+CONFIG_TYPEC_STUSB160X=m
- CONFIG_MMC=y
- CONFIG_MMC_BLOCK_MINORS=16
- CONFIG_MMC_ARMMMCI=y
+diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
+index 5e680bfdf5c9..e760cf2be02e 100644
+--- a/drivers/mfd/stmfx.c
++++ b/drivers/mfd/stmfx.c
+@@ -469,7 +469,6 @@ static int stmfx_remove(struct i2c_client *client)
+ 	return stmfx_chip_exit(client);
+ }
+ 
+-#ifdef CONFIG_PM_SLEEP
+ static int stmfx_suspend(struct device *dev)
+ {
+ 	struct stmfx *stmfx = dev_get_drvdata(dev);
+@@ -535,7 +534,6 @@ static int stmfx_resume(struct device *dev)
+ 
+ 	return 0;
+ }
+-#endif
+ 
+ static SIMPLE_DEV_PM_OPS(stmfx_dev_pm_ops, stmfx_suspend, stmfx_resume);
+ 
 -- 
-2.17.1
+2.28.0
 
 _______________________________________________
 Linux-stm32 mailing list
