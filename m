@@ -2,46 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE4EF29D222
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Oct 2020 21:46:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8923D29E3C0
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 08:21:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F0A1C3FAD5;
-	Wed, 28 Oct 2020 20:46:22 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 060BDC3FAD5;
+	Thu, 29 Oct 2020 07:21:24 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77896C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6659CC36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Oct 2020 20:46:21 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4CM0wX6yxgz1rtyS;
- Wed, 28 Oct 2020 21:46:20 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4CM0wX6DDbz1qtZM;
- Wed, 28 Oct 2020 21:46:20 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id gSLKfzzWm5ku; Wed, 28 Oct 2020 21:46:19 +0100 (CET)
-X-Auth-Info: RrkbWK3czmt4tRncwh1f328OcEFa23IoboTVDGOF9ZU=
-Received: from localhost.localdomain (ip-89-176-112-137.net.upcbroadband.cz
- [89.176.112.137])
+ Thu, 29 Oct 2020 07:21:21 +0000 (UTC)
+Received: from coco.lan (ip5f5ad5de.dynamic.kabel-deutschland.de
+ [95.90.213.222])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed, 28 Oct 2020 21:46:19 +0100 (CET)
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Wed, 28 Oct 2020 21:46:17 +0100
-Message-Id: <20201028204617.280096-1-marex@denx.de>
-X-Mailer: git-send-email 2.28.0
+ by mail.kernel.org (Postfix) with ESMTPSA id 1D568206A1;
+ Thu, 29 Oct 2020 07:21:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1603956079;
+ bh=ydKKLjnIGAQnlNnBFT/eI5WDiCpUdvgjw4RkqNPBoTs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=AXef/AhAlPh1hi9YsdIj4o1ixVYaGEAZM4H9T1mWHDD5hcqq9AHBGqQYLJm4zvkzm
+ vDRNtmfz4vMaZ1nCDFiLdWyz0Wl7IBqlNL9mj+lYOyRgbN8ZBRkoI4V/HMDyMBFkDS
+ A+Vrm0psmwUp0NppXp1qjXj8jB9uy8mTt+24KpoY=
+Date: Thu, 29 Oct 2020 08:21:00 +0100
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Richard Cochran <richardcochran@gmail.com>
+Message-ID: <20201029082100.4820072c@coco.lan>
+In-Reply-To: <20201028174427.GE9364@hoboy.vegasvil.org>
+References: <cover.1603893146.git.mchehab+huawei@kernel.org>
+ <4ebaaa0320101479e392ce2db4b62e24fdf15ef1.1603893146.git.mchehab+huawei@kernel.org>
+ <20201028174427.GE9364@hoboy.vegasvil.org>
+X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+Cc: "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Petr Mladek <pmladek@suse.com>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Nayna Jain <nayna@linux.ibm.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Sebastian Reichel <sre@kernel.org>,
+ Guenter Roeck <groeck@chromium.org>, Bruno Meneguele <bmeneg@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Pavel Machek <pavel@ucw.cz>, Hanjun Guo <guohanjun@huawei.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, netdev@vger.kernel.org,
+ Oleh Kravchenko <oleg@kaa.org.ua>, Dan Williams <dan.j.williams@intel.com>,
+ Andrew Donnellan <ajd@linux.ibm.com>,
+ Javier =?UTF-8?B?R29uesOhbGV6?= <javier@javigon.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, linux-acpi@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Mario Limonciello <mario.limonciello@dell.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Frederic Barrat <fbarrat@linux.ibm.com>,
+ Niklas Cassel <niklas.cassel@wdc.com>, Len Brown <lenb@kernel.org>,
+ Juergen Gross <jgross@suse.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ Baolin Wang <baolin.wang7@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>,
+ Dan Murphy <dmurphy@ti.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Philippe Bergheaud <felix@linux.ibm.com>, xen-devel@lists.xenproject.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Benson Leung <bleung@chromium.org>, Konstantin Khlebnikov <koct9i@gmail.com>,
+ Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
+ Kranthi Kuntala <kranthi.kuntala@intel.com>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, linux-mm@kvack.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-iio@vger.kernel.org,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Leonid Maksymchuk <leonmaxx@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix LED5 on STM32MP1 DHCOM
-	PDK2
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Vineela Tummalapalli <vineela.tummalapalli@intel.com>,
+ Peter Rosin <peda@axentia.se>, Jonathan Cameron <jic23@kernel.org>,
+ Mike Kravetz <mike.kravetz@oracle.com>
+Subject: Re: [Linux-stm32] [PATCH 20/33] docs: ABI: testing: make the files
+ compatible with ReST output
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,38 +104,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On the prototype DHCOM, the LED5 was connected to pin PG2 of the
-STM32MP15xx, however on the production SoM this was changed to pin
-PC6. Update the connection in the DT.
+Hi Richard,
 
-Fixes: 81d5fc719798 ("ARM: dts: stm32: Add GPIO LEDs for STM32MP1 DHCOM PDK2")
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
----
- arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Em Wed, 28 Oct 2020 10:44:27 -0700
+Richard Cochran <richardcochran@gmail.com> escreveu:
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-index 3c279ca58ce8..283df559433b 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-@@ -82,7 +82,7 @@ led {
+> On Wed, Oct 28, 2020 at 03:23:18PM +0100, Mauro Carvalho Chehab wrote:
+> 
+> > diff --git a/Documentation/ABI/testing/sysfs-uevent b/Documentation/ABI/testing/sysfs-uevent
+> > index aa39f8d7bcdf..d0893dad3f38 100644
+> > --- a/Documentation/ABI/testing/sysfs-uevent
+> > +++ b/Documentation/ABI/testing/sysfs-uevent
+> > @@ -19,7 +19,8 @@ Description:
+> >                  a transaction identifier so it's possible to use the same UUID
+> >                  value for one or more synthetic uevents in which case we
+> >                  logically group these uevents together for any userspace
+> > -                listeners. The UUID value appears in uevent as
+> > +                listeners. The UUID value appears in uevent as:  
+> 
+> I know almost nothing about Sphinx, but why have one colon here ^^^ and ...
+
+Good point. After re-reading the text, this ":" doesn't belong here.
+
+> 
+> > +
+> >                  "SYNTH_UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" environment
+> >                  variable.
+> >  
+> > @@ -30,18 +31,19 @@ Description:
+> >                  It's possible to define zero or more pairs - each pair is then
+> >                  delimited by a space character ' '. Each pair appears in
+> >                  synthetic uevent as "SYNTH_ARG_KEY=VALUE". That means the KEY
+> > -                name gains "SYNTH_ARG_" prefix to avoid possible collisions
+> > +                name gains `SYNTH_ARG_` prefix to avoid possible collisions
+> >                  with existing variables.
+> >  
+> > -                Example of valid sequence written to the uevent file:
+> > +                Example of valid sequence written to the uevent file::  
+> 
+> ... two here?
+
+The main issue that this patch wants to solve is here:
+
+                This generates synthetic uevent including these variables::
+
+                    ACTION=add
+                    SYNTH_ARG_A=1
+                    SYNTH_ARG_B=abc
+                    SYNTH_UUID=fe4d7c9d-b8c6-4a70-9ef1-3d8a58d18eed
+
+On Sphinx, consecutive lines with the same indent belongs to the same
+paragraph. So, without "::", the above will be displayed on a single line,
+which is undesired.
+
+using "::" tells Sphinx to display as-is. It will also place it into a a 
+box (colored for html output) and using a monospaced font.
+
+The change at the "uevent file:" line was done just for coherency
+purposes.
+
+Yet, after re-reading the text, there are other things that are not
+coherent. So, I guess the enclosed patch will work better for sys-uevent.
+
+Thanks,
+Mauro
+
+docs: ABI: sysfs-uevent: make it compatible with ReST output
+
+- Replace " by ``, in order to use monospaced fonts;
+- mark literal blocks as such.
+
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+
+diff --git a/Documentation/ABI/testing/sysfs-uevent b/Documentation/ABI/testing/sysfs-uevent
+index aa39f8d7bcdf..0b6227706b35 100644
+--- a/Documentation/ABI/testing/sysfs-uevent
++++ b/Documentation/ABI/testing/sysfs-uevent
+@@ -6,42 +6,46 @@ Description:
+                 Enable passing additional variables for synthetic uevents that
+                 are generated by writing /sys/.../uevent file.
  
- 		led-0 {
- 			label = "green:led5";
--			gpios = <&gpiog 2 GPIO_ACTIVE_HIGH>;
-+			gpios = <&gpioc 6 GPIO_ACTIVE_HIGH>;
- 			default-state = "off";
- 		};
+-                Recognized extended format is ACTION [UUID [KEY=VALUE ...].
++                Recognized extended format is::
  
--- 
-2.28.0
-
+-                The ACTION is compulsory - it is the name of the uevent action
+-                ("add", "change", "remove"). There is no change compared to
+-                previous functionality here. The rest of the extended format
+-                is optional.
++			ACTION [UUID [KEY=VALUE ...]
++
++                The ACTION is compulsory - it is the name of the uevent
++                action (``add``, ``change``, ``remove``). There is no change
++                compared to previous functionality here. The rest of the
++                extended format is optional.
+ 
+                 You need to pass UUID first before any KEY=VALUE pairs.
+-                The UUID must be in "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
++                The UUID must be in ``xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx``
+                 format where 'x' is a hex digit. The UUID is considered to be
+                 a transaction identifier so it's possible to use the same UUID
+                 value for one or more synthetic uevents in which case we
+                 logically group these uevents together for any userspace
+                 listeners. The UUID value appears in uevent as
+-                "SYNTH_UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" environment
++                ``SYNTH_UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`` environment
+                 variable.
+ 
+                 If UUID is not passed in, the generated synthetic uevent gains
+-                "SYNTH_UUID=0" environment variable automatically.
++                ``SYNTH_UUID=0`` environment variable automatically.
+ 
+                 The KEY=VALUE pairs can contain alphanumeric characters only.
++
+                 It's possible to define zero or more pairs - each pair is then
+                 delimited by a space character ' '. Each pair appears in
+-                synthetic uevent as "SYNTH_ARG_KEY=VALUE". That means the KEY
+-                name gains "SYNTH_ARG_" prefix to avoid possible collisions
++                synthetic uevent as ``SYNTH_ARG_KEY=VALUE``. That means the KEY
++                name gains ``SYNTH_ARG_`` prefix to avoid possible collisions
+                 with existing variables.
+ 
+-                Example of valid sequence written to the uevent file:
++                Example of valid sequence written to the uevent file::
+ 
+                     add fe4d7c9d-b8c6-4a70-9ef1-3d8a58d18eed A=1 B=abc
+ 
+-                This generates synthetic uevent including these variables:
++                This generates synthetic uevent including these variables::
+ 
+                     ACTION=add
+                     SYNTH_ARG_A=1
+                     SYNTH_ARG_B=abc
+                     SYNTH_UUID=fe4d7c9d-b8c6-4a70-9ef1-3d8a58d18eed
++
+ Users:
+                 udev, userspace tools generating synthetic uevents
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
