@@ -2,72 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0FAC29EE49
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 15:31:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E36F29EEB7
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Oct 2020 15:49:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75B8EC3FAD5;
-	Thu, 29 Oct 2020 14:31:14 +0000 (UTC)
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
- [209.85.214.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8DA66C3FADA;
+	Thu, 29 Oct 2020 14:49:32 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE83EC36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52826C3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Oct 2020 14:31:12 +0000 (UTC)
-Received: by mail-pl1-f194.google.com with SMTP id f21so1379289plr.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Oct 2020 07:31:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:date:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=yGfVt0L4ftOqQYvVzpLAMtyqzm24yEPmmaeuYJHdcF4=;
- b=L9Ve7M9gsRbGmqPW4y2GbZH/PW9XpRBJKr8bcNLgo2jmnTrKJveNfyczvv9XTx+HUl
- YLInTPvtZFmjrEtguEph+0OATtBpSK8kwKDRVeByBXdRw0Buz+0hoaCPQT3R16L/79Yo
- j2u3swusX6/w6211/RM5QFW6qgwWkr0uCufzlloq+m9sBQ6S/+YCJgMjBnxeO8POZKcm
- GDWaaJnhiw4daofmYDRX9oZ4ehcZgPyqljtuIP8TlUBc9WWSKvz+hBiKPtri9cR0I/EM
- X0BoWxpLqADftyN/1V/sAG0fokCqb0gmHPn/edQDvwR53UdSASGvA7sXOUjA/L/o9sXm
- RMqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:date:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=yGfVt0L4ftOqQYvVzpLAMtyqzm24yEPmmaeuYJHdcF4=;
- b=KccQOLC01Bqce23OBkqgp5k/EHS4vkRlNth63uQdCmBz/r/vblmFhL8kWl9GRqsvPy
- Yu4eVSF4id/a/woH9cqFP5HT4mBuGCQtf2yeNUV2uRX9xNkrkOQ3bIm7rM8SVzgmXs+T
- Mg+6/hpwVb20SgMrDk/qo4Q9+k5+q+hW3+92Iev5Tdn7ENORO7JuEVsxKGUbA4npGrmy
- tAvod7m3RwwAmUHSYEncJZ+vb/mn+eazt3l+lF6+z2ZfU7cmPcD/BRWjkO3pOrrhgKzg
- +SGZAM0glctT/ZpWE43fJ/XVea39VzgIDaNkwtl9jPFs0C+2fPwE0ZJd+ripaP6jhcjK
- zmnw==
-X-Gm-Message-State: AOAM5302efHZgrgWUtaKC87kWZ7a0ZJgrkzkyTrxtulE5C2OxB/3YYDr
- j6E4dy7klMnHSuvysk4P8as=
-X-Google-Smtp-Source: ABdhPJx5yXpyzx2qbpNT/+t79uGRA4TnLTSZjBRsP0DnQS9c1W8oAAwcmW263hQYx6j5y/UQ3EDlpA==
-X-Received: by 2002:a17:902:a50f:b029:d6:da2:aaa7 with SMTP id
- s15-20020a170902a50fb02900d60da2aaa7mr4686870plq.42.1603981871290; 
- Thu, 29 Oct 2020 07:31:11 -0700 (PDT)
-Received: from localhost ([2409:8a28:3c42:6840:9efc:e8ff:fef2:1cdc])
- by smtp.gmail.com with ESMTPSA id p12sm2776972pgm.29.2020.10.29.07.31.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2020 07:31:10 -0700 (PDT)
-From: Coiby Xu <coiby.xu@gmail.com>
-X-Google-Original-From: Coiby Xu <Coiby.Xu@gmail.com>
-Date: Thu, 29 Oct 2020 22:18:57 +0800
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20201029141857.hts77kneb3j7aa67@Rk>
-References: <20201029074654.227263-1-coiby.xu@gmail.com>
- <20201029074654.227263-5-coiby.xu@gmail.com>
- <699f4908-1ea1-6075-3375-7f1dfc6fb225@st.com>
+ Thu, 29 Oct 2020 14:49:30 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 029F1206E3;
+ Thu, 29 Oct 2020 14:49:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1603982968;
+ bh=1M8zHKAHm8tfB8AOV5kFGjQ5L8HBiwt2lqvdGfEDgxQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=VwKBRazZTJNx5ayevPifAIJt6BcELHVSflPv1Pz3hhkIRLQu/hpqVx9zq6UOPHYwi
+ 1Cr/eBqf+UTruLweRPs1uluGBSsUp8XS5oIZwMoDI9YYtGpTUHifWPeFkCnRe78Q3+
+ 9acepxXtiAj1lspr5f5lKQxsgHU3+k3h2anx8nNM=
+Date: Thu, 29 Oct 2020 14:49:12 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Message-ID: <20201029144912.3c0a239b@archlinux>
+In-Reply-To: <4ebaaa0320101479e392ce2db4b62e24fdf15ef1.1603893146.git.mchehab+huawei@kernel.org>
+References: <cover.1603893146.git.mchehab+huawei@kernel.org>
+ <4ebaaa0320101479e392ce2db4b62e24fdf15ef1.1603893146.git.mchehab+huawei@kernel.org>
+X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <699f4908-1ea1-6075-3375-7f1dfc6fb225@st.com>
-Cc: open list <linux-kernel@vger.kernel.org>,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
- Alain VOLMAT <alain.volmat@st.com>, linux-i2c@vger.kernel.org,
+Cc: "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Petr Mladek <pmladek@suse.com>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Nayna Jain <nayna@linux.ibm.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Sebastian Reichel <sre@kernel.org>,
+ Guenter Roeck <groeck@chromium.org>, Bruno Meneguele <bmeneg@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Pavel Machek <pavel@ucw.cz>, Hanjun Guo <guohanjun@huawei.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, netdev@vger.kernel.org,
+ Oleh Kravchenko <oleg@kaa.org.ua>, Dan Williams <dan.j.williams@intel.com>,
+ Andrew Donnellan <ajd@linux.ibm.com>,
+ Javier =?UTF-8?B?R29uesOhbGV6?= <javier@javigon.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, linux-acpi@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Mario Limonciello <mario.limonciello@dell.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Frederic Barrat <fbarrat@linux.ibm.com>,
+ Niklas Cassel <niklas.cassel@wdc.com>, Len Brown <lenb@kernel.org>,
+ Juergen Gross <jgross@suse.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, Baolin Wang <baolin.wang7@gmail.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Dan Murphy <dmurphy@ti.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Philippe Bergheaud <felix@linux.ibm.com>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Benson Leung <bleung@chromium.org>, Konstantin Khlebnikov <koct9i@gmail.com>,
+ Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
+ Kranthi Kuntala <kranthi.kuntala@intel.com>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, linux-mm@kvack.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-iio@vger.kernel.org,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Leonid Maksymchuk <leonmaxx@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 5/5] i2c: stm32: remove unnecessary
-	CONFIG_PM_SLEEP
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Vineela Tummalapalli <vineela.tummalapalli@intel.com>,
+ Peter Rosin <peda@axentia.se>, Mike Kravetz <mike.kravetz@oracle.com>
+Subject: Re: [Linux-stm32] [PATCH 20/33] docs: ABI: testing: make the files
+ compatible with ReST output
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,61 +97,208 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Fabrice,
+On Wed, 28 Oct 2020 15:23:18 +0100
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
 
-On Thu, Oct 29, 2020 at 12:31:54PM +0100, Fabrice Gasnier wrote:
->On 10/29/20 8:46 AM, Coiby Xu wrote:
->> SET_SYSTEM_SLEEP_PM_OPS has already took good care of CONFIG_PM_CONFIG.
->>
->> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
->> ---
->>  drivers/i2c/busses/i2c-stm32f7.c | 2 --
->>  1 file changed, 2 deletions(-)
->>
->> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
->> index f41f51a176a1..95ac9dfdf458 100644
->> --- a/drivers/i2c/busses/i2c-stm32f7.c
->> +++ b/drivers/i2c/busses/i2c-stm32f7.c
->> @@ -2262,7 +2262,6 @@ static int __maybe_unused stm32f7_i2c_runtime_resume(struct device *dev)
->>  	return 0;
->>  }
->>
->> -#ifdef CONFIG_PM_SLEEP
->
->Hi Coiby,
->
->This generates warnings when building with W=1 and CONFIG_PM_SLEEP=n.
->Could you please add also "__maybe_unused" for relevant routines below ?
->
->>  static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
->             ^
->e.g. insert: __maybe_unused
->
+> From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+> 
+> Some files over there won't parse well by Sphinx.
+> 
+> Fix them.
+> 
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-Thank you for the suggestion. I'll add "__maybe_unused" in v2.
+Query below...  I'm going to guess a rebase issue?
 
->Best regards,
->Fabrice
->>  {
->>  	int ret;
->> @@ -2356,7 +2355,6 @@ static int stm32f7_i2c_resume(struct device *dev)
->>
->>  	return 0;
->>  }
->> -#endif
->>
->>  static const struct dev_pm_ops stm32f7_i2c_pm_ops = {
->>  	SET_RUNTIME_PM_OPS(stm32f7_i2c_runtime_suspend,
->>
+Other than that
+Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com> # for IIO
 
---
-Best regards,
-Coiby
+
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32 b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
+> index b7259234ad70..a10a4de3e5fe 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
+> @@ -3,67 +3,85 @@ KernelVersion:	4.11
+>  Contact:	benjamin.gaignard@st.com
+>  Description:
+>  		Reading returns the list possible master modes which are:
+> -		- "reset"     :	The UG bit from the TIMx_EGR register is
+> +
+> +
+> +		- "reset"
+> +				The UG bit from the TIMx_EGR register is
+>  				used as trigger output (TRGO).
+> -		- "enable"    : The Counter Enable signal CNT_EN is used
+> +		- "enable"
+> +				The Counter Enable signal CNT_EN is used
+>  				as trigger output.
+> -		- "update"    : The update event is selected as trigger output.
+> +		- "update"
+> +				The update event is selected as trigger output.
+>  				For instance a master timer can then be used
+>  				as a prescaler for a slave timer.
+> -		- "compare_pulse" : The trigger output send a positive pulse
+> -				    when the CC1IF flag is to be set.
+> -		- "OC1REF"    : OC1REF signal is used as trigger output.
+> -		- "OC2REF"    : OC2REF signal is used as trigger output.
+> -		- "OC3REF"    : OC3REF signal is used as trigger output.
+> -		- "OC4REF"    : OC4REF signal is used as trigger output.
+> +		- "compare_pulse"
+> +				The trigger output send a positive pulse
+> +				when the CC1IF flag is to be set.
+> +		- "OC1REF"
+> +				OC1REF signal is used as trigger output.
+> +		- "OC2REF"
+> +				OC2REF signal is used as trigger output.
+> +		- "OC3REF"
+> +				OC3REF signal is used as trigger output.
+> +		- "OC4REF"
+> +				OC4REF signal is used as trigger output.
+> +
+>  		Additional modes (on TRGO2 only):
+> -		- "OC5REF"    : OC5REF signal is used as trigger output.
+> -		- "OC6REF"    : OC6REF signal is used as trigger output.
+> +
+> +		- "OC5REF"
+> +				OC5REF signal is used as trigger output.
+> +		- "OC6REF"
+> +				OC6REF signal is used as trigger output.
+>  		- "compare_pulse_OC4REF":
+> -		  OC4REF rising or falling edges generate pulses.
+> +				OC4REF rising or falling edges generate pulses.
+>  		- "compare_pulse_OC6REF":
+> -		  OC6REF rising or falling edges generate pulses.
+> +				OC6REF rising or falling edges generate pulses.
+>  		- "compare_pulse_OC4REF_r_or_OC6REF_r":
+> -		  OC4REF or OC6REF rising edges generate pulses.
+> +				OC4REF or OC6REF rising edges generate pulses.
+>  		- "compare_pulse_OC4REF_r_or_OC6REF_f":
+> -		  OC4REF rising or OC6REF falling edges generate pulses.
+> +				OC4REF rising or OC6REF falling edges generate
+> +				pulses.
+>  		- "compare_pulse_OC5REF_r_or_OC6REF_r":
+> -		  OC5REF or OC6REF rising edges generate pulses.
+> +				OC5REF or OC6REF rising edges generate pulses.
+>  		- "compare_pulse_OC5REF_r_or_OC6REF_f":
+> -		  OC5REF rising or OC6REF falling edges generate pulses.
+> +				OC5REF rising or OC6REF falling edges generate
+> +				pulses.
+>  
+> -		+-----------+   +-------------+            +---------+
+> -		| Prescaler +-> | Counter     |        +-> | Master  | TRGO(2)
+> -		+-----------+   +--+--------+-+        |-> | Control +-->
+> -		                   |        |          ||  +---------+
+> -		                +--v--------+-+ OCxREF ||  +---------+
+> -		                | Chx compare +----------> | Output  | ChX
+> -		                +-----------+-+         |  | Control +-->
+> -		                      .     |           |  +---------+
+> -		                      .     |           |    .
+> -		                +-----------v-+ OC6REF  |    .
+> -		                | Ch6 compare +---------+>
+> -		                +-------------+
+> +		::
+>  
+> -		Example with: "compare_pulse_OC4REF_r_or_OC6REF_r":
+> +		  +-----------+   +-------------+            +---------+
+> +		  | Prescaler +-> | Counter     |        +-> | Master  | TRGO(2)
+> +		  +-----------+   +--+--------+-+        |-> | Control +-->
+> +		                     |        |          ||  +---------+
+> +		                  +--v--------+-+ OCxREF ||  +---------+
+> +		                  | Chx compare +----------> | Output  | ChX
+> +		                  +-----------+-+         |  | Control +-->
+> +		                        .     |           |  +---------+
+> +		                        .     |           |    .
+> +		                  +-----------v-+ OC6REF  |    .
+> +		                  | Ch6 compare +---------+>
+> +		                  +-------------+
+>  
+> -		                X
+> -		              X   X
+> -		            X .   . X
+> -		          X   .   .   X
+> -		        X     .   .     X
+> -		count X .     .   .     . X
+> -		        .     .   .     .
+> -		        .     .   .     .
+> -		        +---------------+
+> -		OC4REF  |     .   .     |
+> -		      +-+     .   .     +-+
+> -		        .     +---+     .
+> -		OC6REF  .     |   |     .
+> -		      +-------+   +-------+
+> -		        +-+   +-+
+> -		TRGO2   | |   | |
+> -		      +-+ +---+ +---------+
+> +		Example with: "compare_pulse_OC4REF_r_or_OC6REF_r"::
+> +
+> +		                  X
+> +		                X   X
+> +		              X .   . X
+> +		            X   .   .   X
+> +		          X     .   .     X
+> +		  count X .     .   .     . X
+> +		          .     .   .     .
+> +		          .     .   .     .
+> +		          +---------------+
+> +		  OC4REF  |     .   .     |
+> +		        +-+     .   .     +-+
+> +		          .     +---+     .
+> +		  OC6REF  .     |   |     .
+> +		        +-------+   +-------+
+> +		          +-+   +-+
+> +		  TRGO2   | |   | |
+> +		        +-+ +---+ +---------+
+>  
+>  What:		/sys/bus/iio/devices/triggerX/master_mode
+>  KernelVersion:	4.11
+> @@ -91,6 +109,30 @@ Description:
+>  		When counting down the counter start from preset value
+>  		and fire event when reach 0.
+>  
+
+Where did these come from?
+
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> +KernelVersion:	4.12
+> +Contact:	benjamin.gaignard@st.com
+> +Description:
+> +		Reading returns the list possible quadrature modes.
+> +
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+> +KernelVersion:	4.12
+> +Contact:	benjamin.gaignard@st.com
+> +Description:
+> +		Configure the device counter quadrature modes:
+> +
+> +		channel_A:
+> +			Encoder A input servers as the count input and B as
+> +			the UP/DOWN direction control input.
+> +
+> +		channel_B:
+> +			Encoder B input serves as the count input and A as
+> +			the UP/DOWN direction control input.
+> +
+> +		quadrature:
+> +			Encoder A and B inputs are mixed to get direction
+> +			and count with a scale of 0.25.
+> +
+>  What:		/sys/bus/iio/devices/iio:deviceX/in_count_enable_mode_available
+>  KernelVersion:	4.12
+>  Contact:	benjamin.gaignard@st.com
+> @@ -104,6 +146,7 @@ Description:
+>  		Configure the device counter enable modes, in all case
+>  		counting direction is set by in_count0_count_direction
+>  		attribute and the counter is clocked by the internal clock.
+> +
+>  		always:
+>  			Counter is always ON.
+>  
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
