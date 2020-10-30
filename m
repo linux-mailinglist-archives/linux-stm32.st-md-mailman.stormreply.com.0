@@ -2,37 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1CAA2A0025
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 09:36:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80D692A00AB
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 10:04:29 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3ADCC3FADA;
-	Fri, 30 Oct 2020 08:36:27 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42E86C3FAD5;
+	Fri, 30 Oct 2020 09:04:29 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 482F8C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 087BFC36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Oct 2020 08:36:24 +0000 (UTC)
-X-Originating-IP: 91.224.148.103
-Received: from xps13 (unknown [91.224.148.103])
- (Authenticated sender: miquel.raynal@bootlin.com)
- by relay5-d.mail.gandi.net (Postfix) with ESMTPSA id 071C21C0005;
- Fri, 30 Oct 2020 08:36:22 +0000 (UTC)
-Date: Fri, 30 Oct 2020 09:36:21 +0100
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Christophe Kerello <christophe.kerello@st.com>
-Message-ID: <20201030093621.6315ea1a@xps13>
-In-Reply-To: <d3073938-e714-6b5d-1dc9-36887b11de46@st.com>
-References: <1603989492-6670-1-git-send-email-christophe.kerello@st.com>
- <20201030091905.111aa7a4@xps13>
- <d3073938-e714-6b5d-1dc9-36887b11de46@st.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Fri, 30 Oct 2020 09:04:25 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4CMxFh1lXdz1rwvG;
+ Fri, 30 Oct 2020 10:04:24 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4CMxFh0ZYGz1qsWp;
+ Fri, 30 Oct 2020 10:04:24 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id 54Z8qHTvgzlZ; Fri, 30 Oct 2020 10:04:21 +0100 (CET)
+X-Auth-Info: h+X3VqnfpQvZL26n7uCjlXiwwu3HcfJAFYZjnmkI1BM=
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 30 Oct 2020 10:04:21 +0100 (CET)
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Arnd Bergmann <arnd@arndb.de>,
+ Olof Johansson <olof@lixom.net>, Kevin Hilman <khilman@baylibre.com>,
+ SoC Team <soc@kernel.org>, arm-soc <arm@kernel.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+References: <4ac236b3-b980-f653-f644-53e586570724@st.com>
+ <4bb5d090-df39-8d58-808f-1fe33c54de14@pengutronix.de>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <10efa774-946d-b02d-2d0c-37d451cb3ccd@denx.de>
+Date: Fri, 30 Oct 2020 10:04:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Cc: richard@nod.at, linux-stm32@st-md-mailman.stormreply.com,
- linux-mtd@lists.infradead.org, vigneshr@ti.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] mtd: rawnand: stm32_fmc2: fix broken ECC
+In-Reply-To: <4bb5d090-df39-8d58-808f-1fe33c54de14@pengutronix.de>
+Content-Language: en-US
+Cc: "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [GIT PULL] STM32 DT fixes for v5.10 #1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -44,80 +62,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQ2hyaXN0b3BoZSwKCkNocmlzdG9waGUgS2VyZWxsbyA8Y2hyaXN0b3BoZS5rZXJlbGxvQHN0
-LmNvbT4gd3JvdGUgb24gRnJpLCAzMCBPY3QKMjAyMCAwOTozMToyNSArMDEwMDoKCj4gSGkgTWlx
-dWVsLAo+IAo+IE9uIDEwLzMwLzIwIDk6MTkgQU0sIE1pcXVlbCBSYXluYWwgd3JvdGU6Cj4gPiBI
-aSBDaHJpc3RvcGhlLAo+ID4gCj4gPiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2Vy
-ZWxsb0BzdC5jb20+IHdyb3RlIG9uIFRodSwgMjkgT2N0Cj4gPiAyMDIwIDE3OjM4OjEyICswMTAw
-Ogo+ID4gICAKPiA+PiBTaW5jZSBjb21taXQgZDcxNTdmZjQ5YTViICgibXRkOiByYXduYW5kOiBV
-c2UgdGhlIEVDQyBmcmFtZXdvcmsgdXNlcgo+ID4+IGlucHV0IHBhcnNpbmcgYml0cyIpLCBFQ0Mg
-YXJlIGJyb2tlbiBpbiBGTUMyIGRyaXZlciBpbiBjYXNlIG9mCj4gPj4gbmFuZC1lY2Mtc3RlcC1z
-aXplIGFuZCBuYW5kLWVjYy1zdHJlbmd0aCBhcmUgbm90IHNldCBpbiB0aGUgZGV2aWNlIHRyZWUu
-Cj4gPj4gVGhlIGRlZmF1bHQgdXNlciBjb25maWd1cmF0aW9uIHNldCBpbiBGTUMyIGRyaXZlciBp
-cyBsb3N0IHdoZW4KPiA+PiByYXduYW5kX2R0X2luaXQgZnVuY3Rpb24gaXMgY2FsbGVkLiBUbyBh
-dm9pZCB0byBsb3NlIHRoZSBkZWZhdWx0IHVzZXIKPiA+PiBjb25maWd1cmF0aW9uLCBpdCBpcyBu
-ZWVkZWQgdG8gbW92ZSBpdCBpbiB0aGUgbmV3IHVzZXJfY29uZiBzdHJ1Y3R1cmUuCj4gPj4KPiA+
-PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxsb0Bz
-dC5jb20+Cj4gPj4gRml4ZXM6IGQ3MTU3ZmY0OWE1YiAoIm10ZDogcmF3bmFuZDogVXNlIHRoZSBF
-Q0MgZnJhbWV3b3JrIHVzZXIgaW5wdXQgcGFyc2luZyBiaXRzIikKPiA+PiAtLS0KPiA+PiAgIGRy
-aXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jIHwgOCArKysrKy0tLQo+ID4+ICAg
-MSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiA+Pgo+ID4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYyBiL2Ry
-aXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jCj4gPj4gaW5kZXggYjMxYTU4MS4u
-ZGM4NmFjOSAxMDA2NDQKPiA+PiAtLS0gYS9kcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMy
-X25hbmQuYwo+ID4+ICsrKyBiL2RyaXZlcnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5j
-Cj4gPj4gQEAgLTE4NDYsNiArMTg0Niw3IEBAIHN0YXRpYyBpbnQgc3RtMzJfZm1jMl9uZmNfcHJv
-YmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiA+PiAgIAlzdHJ1Y3QgcmVzb3VyY2Ug
-KnJlczsKPiA+PiAgIAlzdHJ1Y3QgbXRkX2luZm8gKm10ZDsKPiA+PiAgIAlzdHJ1Y3QgbmFuZF9j
-aGlwICpjaGlwOwo+ID4+ICsJc3RydWN0IG5hbmRfZGV2aWNlICpuYW5kZGV2Owo+ID4+ICAgCXN0
-cnVjdCByZXNvdXJjZSBjcmVzOwo+ID4+ICAgCWludCBjaGlwX2NzLCBtZW1fcmVnaW9uLCByZXQs
-IGlycTsKPiA+PiAgIAlpbnQgc3RhcnRfcmVnaW9uID0gMDsKPiA+PiBAQCAtMTk1MiwxMCArMTk1
-MywxMSBAQCBzdGF0aWMgaW50IHN0bTMyX2ZtYzJfbmZjX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9k
-ZXZpY2UgKnBkZXYpCj4gPj4gICAJY2hpcC0+b3B0aW9ucyB8PSBOQU5EX0JVU1dJRFRIX0FVVE8g
-fCBOQU5EX05PX1NVQlBBR0VfV1JJVEUgfAo+ID4+ICAgCQkJIE5BTkRfVVNFU19ETUE7ICAKPiA+
-PiAgID4+IC0JLyogRGVmYXVsdCBFQ0Mgc2V0dGluZ3MgKi8gIAo+ID4+ICsJLyogRGVmYXVsdCBF
-Q0MgdXNlciBzZXR0aW5ncyAqLwo+ID4+ICAgCWNoaXAtPmVjYy5lbmdpbmVfdHlwZSA9IE5BTkRf
-RUNDX0VOR0lORV9UWVBFX09OX0hPU1Q7Cj4gPj4gLQljaGlwLT5lY2Muc2l6ZSA9IEZNQzJfRUND
-X1NURVBfU0laRTsKPiA+PiAtCWNoaXAtPmVjYy5zdHJlbmd0aCA9IEZNQzJfRUNDX0JDSDg7Cj4g
-Pj4gKwluYW5kZGV2ID0gbXRkX3RvX25hbmRkZXYobXRkKTsKPiA+PiArCW5hbmRkZXYtPmVjYy51
-c2VyX2NvbmYuc3RlcF9zaXplID0gRk1DMl9FQ0NfU1RFUF9TSVpFOwo+ID4+ICsJbmFuZGRldi0+
-ZWNjLnVzZXJfY29uZi5zdHJlbmd0aCA9IEZNQzJfRUNDX0JDSDg7ICAKPiA+PiAgID4+ICAgCS8q
-IFNjYW4gdG8gZmluZCBleGlzdGVuY2Ugb2YgdGhlIGRldmljZSAqLyAgCj4gPj4gICAJcmV0ID0g
-bmFuZF9zY2FuKGNoaXAsIG5hbmQtPm5jcyk7ICAKPiA+IAo+ID4gU29ycnkgZm9yIGJyZWFraW5n
-IHRoZSBkcml2ZXIgd2l0aCB0aGlzIGNoYW5nZSwgYnV0IG5vdyBJIHRoaW5rIHdlCj4gPiBzaG91
-bGQgaGF2ZSBhbGwgRUNDIHJlbGF0ZWQgYml0cyBpbiAtPmF0dGFjaCgpIGluc3RlYWQgb2YgLT5w
-cm9iZSgpLgo+ID4gVGhlIC0+YXR0YWNoKCkgaG9vayBpcyBjYWxsZWQgZHVyaW5nIHRoZSBuYW5k
-X3NjYW4oKSBvcGVyYXRpb24gYW5kIGF0Cj4gPiB0aGlzIHBvaW50IHRoZSBjaGlwJ3MgcmVxdWly
-ZW1lbnRzL2xheW91dCBhcmUga25vd24gKG5vdCBiZWZvcmUpLiBJCj4gPiBrbm93IHRoYXQgY2Vy
-dGFpbiBjb250cm9sbGVycyBkb24ndCByZWFsbHkgY2FyZSBhYm91dCB0aGF0LCBoZXJlIHlvdXIK
-PiA+IHNpbXBseSBoYXJkY29kZSB0aGVzZSB0d28gZmllbGRzIGFuZCB5b3UgZG9uJ3QgbmVlZCB0
-byBrbm93IGFueXRoaW5nCj4gPiBhYm91dCB0aGUgY2hpcCdzIHByb3BlcnRpZXMuIEJ1dCBhcyBh
-IGJpZCB0byBoYXJtb25pemUgYWxsIGRyaXZlcnMgd2l0aAo+ID4gdGhlIHRhcmdldCBvZiBhIGdl
-bmVyaWMgRUNDIGVuZ2luZSBpbiBtaW5kLCBJIHRoaW5rIGl0J3Mgbm93IHRpbWUgdG8KPiA+IG1v
-dmUgdGhlc2UgdGhyZWUgbGluZXMgKGNoaXAtPmVjYy4qID0gLi4uKSBhdCB0aGUgdG9wIG9mIC0+
-YXR0YWNoKCkuCj4gPiBBbHNvLCB0aGVzZSBmaWVsZHMgc2hvdWxkIGhhdmUgYmVlbiBwb3B1bGF0
-ZWQgYnkgdGhlIGNvcmUgc28gcGVyaGFwcwo+ID4gdGhlIGJlc3QgYXBwcm9hY2ggaXMgdG8gY2hl
-Y2sgaWYgdGhlIHVzZXIgcmVxdWlyZW1lbnRzIGFyZSBzeW5jZWQgd2l0aAo+ID4gdGhlIGNvbnRy
-b2xsZXIncyBjYXBhYmlsaXRpZXMgYW5kIGVycm9yIG91dCBvdGhlcndpc2U/Cj4gPiAKPiA+IFdl
-IHBsYW4gdG8gc2VuZCBhIGZpeGVzIFBSIGZvciAtcmMyLCBpZiB0aGUgdjIgYXJyaXZlcyB0b2Rh
-eSBJJ2xsCj4gPiBpbnRlZ3JhdGUgaXQuICAKPiAKPiBPay4gSXNzdWUgaXMgdGhhdCB0aGUgY29u
-dHJvbGxlciBpcyBpbml0aWFsaXplZCB3aGVuIHN0bTMyX2ZtYzJfbmZjX3NlbGVjdF9jaGlwIGlz
-IGNhbGxlZC4gVGhpcyBmdW5jdGlvbiB3aWxsIGJlIGNhbGxlZCBiZWZvcmUgdGhlIC0+YXR0YWNo
-KCkgaG9vaywgd2hlbiB0aGUgZmlyc3QgY29tbWFuZCB3aWxsIGJlIHNlbnQgdG8gdGhlIE5BTkQg
-ZGV2aWNlIChyZXNldCBjb21tYW5kKS4gU28sIG1vdmluZyB0aGUgZGVmYXVsdCBFQ0MgaW5pdGlh
-bGl6YXRpb24KPiBuZWVkcyBwcm9iYWJseSBtb3JlIG1vZGlmaWNhdGlvbnMgaW4gdGhlIGRyaXZl
-ci4KPiBJIHdpbGwgdHJ5IHRvIHNlbmQgYSB2MiB0b2RheS4KClRoZSBFQ0MgZW5naW5lIGlzIG5v
-dCBzdXBwb3NlZCB0byBiZSB1c2VkIGJlZm9yZSBuYW5kX3NjYW4oKSBhbmQgaXRzCmRlZmF1bHQg
-c3RhdGUgc2hvdWxkIGJlIGRpc2FibGVkLiBNYXliZSB0aGlzIGRyaXZlciBuZWVkcyBhbiB1cGRh
-dGUKYWJvdXQgdGhhdCwgYnV0IHRoZW4gLWhvcGVmdWxseS0gaXQgd2lsbCBiZSBwcmV0dHkgc3Ry
-YWlnaHRmb3J3YXJkLgoKTm8gaHVycnkgdGhvdWdoLCBpZiB0aGUgZml4IGlzIG5vdCByZWFkeSB3
-ZSdsbCB3YWl0IGFuIGFkZGl0aW9uYWwgd2VlawooaXQgd2lsbCBiZSBpbiBuZXh0IGFzIHNvb24g
-YXMgaXQgaXMgcmVhZHkgYW55d2F5KS4KClRoYW5rcywKTWlxdcOobApfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On 10/28/20 6:38 PM, Ahmad Fatoum wrote:
+> Hello Alex,
+
+Hi,
+
+> On 10/28/20 4:28 PM, Alexandre Torgue wrote:
+>> Hi Arnd, Olof and Kevin,
+>>
+>> On v5.10-rc1 STM32 boards cannot boot. It is linked to a change in regulator framework which highlights that our supplies are not well described. This PR fixes it for STM32 boards that I have on my desk: ED1 and DKx.
+> 
+> Which change triggered the regression?
+
+I think it might be:
+aea6cb99703e ("regulator: resolve supply after creating regulator")
+which landed in 5.4.73 as
+0120ec32a777 ("regulator: resolve supply after creating regulator")
+
+>> I assume that same patch has to be done for other STM32 boards, but as I don't have schematics I can't provide it. So a round2 has to be done for:
+>> - stinger96
+>> - MC-1
+>> - Odyssey SOM
+>> - DHCOR /DHCOM
+>>
+>> Mani, Marek, Ahmad, Marcin can you please have a look on it and provide patches (then I'll provide round2). Thanks in advance.
+> 
+> Your change doesn't look right. If I set vref_ddr-supply to a fixed regulator,
+> the MC-1 now boots again as well, but that seems to just mask the real issue:
+> 
+>   - vref_ddr is an _output_ of the PMIC, why should one have to specify a supply for it?
+> 
+>   - This is actually incompatible with the binding. vref_ddr-supply isn't specified
+>     as an allowed property (not to mention a required one)
+> 
+>   - Isn't the kernel supposed to stay compatible to old device trees?
+> 
+> I think the stpmic driver is at fault here and that the regulator framework change just
+> made that apparent.
+
+I agree updating the DT is not the right approach.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
