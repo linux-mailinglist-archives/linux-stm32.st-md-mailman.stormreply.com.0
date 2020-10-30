@@ -2,58 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED68A2A0681
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 14:34:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 253D52A068E
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 14:36:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEECDC3FADA;
-	Fri, 30 Oct 2020 13:34:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF40BC3FADA;
+	Fri, 30 Oct 2020 13:36:32 +0000 (UTC)
+Received: from relay12.mail.gandi.net (relay12.mail.gandi.net [217.70.178.232])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29F1DC36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9D71C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Oct 2020 13:34:12 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09UDWJt9007267; Fri, 30 Oct 2020 14:34:04 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=9xPycxgddNCQRIwCKrfgnU5GFmmuJ6NyQaq4vP1TrmY=;
- b=U08f8vbdA9Td2YH4t+3PGJY6Ey2UrD9yBjtsmGtZcwdLUW0858O+Q7WB2m3dpbxJrvH/
- 5yFaXicbRaSsMOyODIJfiNPkLxF9p6ryTMZO2W/H9OnAZFnKot7Y+wnHf5rh3Z6ftT5M
- /vDOdHIz4fBpvj71bTtUiBDrQc1hHlgdapvyW8ZZq9HbVrWMFvDFu2QnZQW+wFUBBpwp
- XqtF0HCPE9Ds1gf8cygUJVZeBnV9bbJGbGiDrmARw/Vs1j+1Bo/RHfmM2cuCpYp5NG3R
- cVEJHw7fVgGPWEkLgyHioSlOc3Nj65uWS6RbVPdctXV9yE4DkMfUrDLZwG2n7JD+ma8e Yg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34ccmrgxsu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Oct 2020 14:34:04 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5E022100034;
- Fri, 30 Oct 2020 14:34:03 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 496FE20DDA6;
- Fri, 30 Oct 2020 14:34:03 +0100 (CET)
-Received: from localhost (10.75.127.51) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 30 Oct 2020 14:34:02
- +0100
-From: Christophe Kerello <christophe.kerello@st.com>
-To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>
-Date: Fri, 30 Oct 2020 14:33:39 +0100
-Message-ID: <1604064819-26861-1-git-send-email-christophe.kerello@st.com>
-X-Mailer: git-send-email 1.9.1
+ Fri, 30 Oct 2020 13:36:31 +0000 (UTC)
+Received: from xps13 (unknown [91.224.148.103])
+ (Authenticated sender: miquel.raynal@bootlin.com)
+ by relay12.mail.gandi.net (Postfix) with ESMTPSA id B132B200006;
+ Fri, 30 Oct 2020 13:36:28 +0000 (UTC)
+Date: Fri, 30 Oct 2020 14:36:27 +0100
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Christophe Kerello <christophe.kerello@st.com>
+Message-ID: <20201030143627.1a910cbc@xps13>
+In-Reply-To: <1604064819-26861-1-git-send-email-christophe.kerello@st.com>
+References: <1604064819-26861-1-git-send-email-christophe.kerello@st.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-10-30_04:2020-10-30,
- 2020-10-30 signatures=0
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2] mtd: rawnand: stm32_fmc2: fix broken ECC
+Cc: richard@nod.at, linux-stm32@st-md-mailman.stormreply.com,
+ linux-mtd@lists.infradead.org, vigneshr@ti.com, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2] mtd: rawnand: stm32_fmc2: fix broken
+	ECC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,70 +41,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since commit d7157ff49a5b ("mtd: rawnand: Use the ECC framework user
-input parsing bits"), ECC are broken in FMC2 driver in case of
-nand-ecc-step-size and nand-ecc-strength are not set in the device tree.
-To avoid this issue, the default settings are now set in
-stm32_fmc2_nfc_attach_chip function.
-
-Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
-Fixes: d7157ff49a5b ("mtd: rawnand: Use the ECC framework user input parsing bits")
----
-Changes in v2:
- - move default ECC settings in stm32_fmc2_nfc_attach_chip function.
-
- drivers/mtd/nand/raw/stm32_fmc2_nand.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/mtd/nand/raw/stm32_fmc2_nand.c b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-index b31a581..550bda4 100644
---- a/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-+++ b/drivers/mtd/nand/raw/stm32_fmc2_nand.c
-@@ -1708,6 +1708,13 @@ static int stm32_fmc2_nfc_attach_chip(struct nand_chip *chip)
- 		return -EINVAL;
- 	}
- 
-+	/* Default ECC settings in case they are not set in the device tree */
-+	if (!chip->ecc.size)
-+		chip->ecc.size = FMC2_ECC_STEP_SIZE;
-+
-+	if (!chip->ecc.strength)
-+		chip->ecc.strength = FMC2_ECC_BCH8;
-+
- 	ret = nand_ecc_choose_conf(chip, &stm32_fmc2_nfc_ecc_caps,
- 				   mtd->oobsize - FMC2_BBM_LEN);
- 	if (ret) {
-@@ -1727,8 +1734,7 @@ static int stm32_fmc2_nfc_attach_chip(struct nand_chip *chip)
- 
- 	mtd_set_ooblayout(mtd, &stm32_fmc2_nfc_ooblayout_ops);
- 
--	if (chip->options & NAND_BUSWIDTH_16)
--		stm32_fmc2_nfc_set_buswidth_16(nfc, true);
-+	stm32_fmc2_nfc_setup(chip);
- 
- 	return 0;
- }
-@@ -1952,11 +1958,6 @@ static int stm32_fmc2_nfc_probe(struct platform_device *pdev)
- 	chip->options |= NAND_BUSWIDTH_AUTO | NAND_NO_SUBPAGE_WRITE |
- 			 NAND_USES_DMA;
- 
--	/* Default ECC settings */
--	chip->ecc.engine_type = NAND_ECC_ENGINE_TYPE_ON_HOST;
--	chip->ecc.size = FMC2_ECC_STEP_SIZE;
--	chip->ecc.strength = FMC2_ECC_BCH8;
--
- 	/* Scan to find existence of the device */
- 	ret = nand_scan(chip, nand->ncs);
- 	if (ret)
--- 
-1.9.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQ2hyaXN0b3BoZSwKCkNocmlzdG9waGUgS2VyZWxsbyA8Y2hyaXN0b3BoZS5rZXJlbGxvQHN0
+LmNvbT4gd3JvdGUgb24gRnJpLCAzMCBPY3QKMjAyMCAxNDozMzozOSArMDEwMDoKCj4gU2luY2Ug
+Y29tbWl0IGQ3MTU3ZmY0OWE1YiAoIm10ZDogcmF3bmFuZDogVXNlIHRoZSBFQ0MgZnJhbWV3b3Jr
+IHVzZXIKPiBpbnB1dCBwYXJzaW5nIGJpdHMiKSwgRUNDIGFyZSBicm9rZW4gaW4gRk1DMiBkcml2
+ZXIgaW4gY2FzZSBvZgo+IG5hbmQtZWNjLXN0ZXAtc2l6ZSBhbmQgbmFuZC1lY2Mtc3RyZW5ndGgg
+YXJlIG5vdCBzZXQgaW4gdGhlIGRldmljZSB0cmVlLgo+IFRvIGF2b2lkIHRoaXMgaXNzdWUsIHRo
+ZSBkZWZhdWx0IHNldHRpbmdzIGFyZSBub3cgc2V0IGluCj4gc3RtMzJfZm1jMl9uZmNfYXR0YWNo
+X2NoaXAgZnVuY3Rpb24uCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoZSBLZXJlbGxvIDxj
+aHJpc3RvcGhlLmtlcmVsbG9Ac3QuY29tPgo+IEZpeGVzOiBkNzE1N2ZmNDlhNWIgKCJtdGQ6IHJh
+d25hbmQ6IFVzZSB0aGUgRUNDIGZyYW1ld29yayB1c2VyIGlucHV0IHBhcnNpbmcgYml0cyIpCj4g
+LS0tCj4gQ2hhbmdlcyBpbiB2MjoKPiAgLSBtb3ZlIGRlZmF1bHQgRUNDIHNldHRpbmdzIGluIHN0
+bTMyX2ZtYzJfbmZjX2F0dGFjaF9jaGlwIGZ1bmN0aW9uLgo+IAo+ICBkcml2ZXJzL210ZC9uYW5k
+L3Jhdy9zdG0zMl9mbWMyX25hbmQuYyB8IDE1ICsrKysrKysrLS0tLS0tLQo+ICAxIGZpbGUgY2hh
+bmdlZCwgOCBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYyBiL2RyaXZlcnMvbXRkL25hbmQv
+cmF3L3N0bTMyX2ZtYzJfbmFuZC5jCj4gaW5kZXggYjMxYTU4MS4uNTUwYmRhNCAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL210ZC9uYW5kL3Jhdy9zdG0zMl9mbWMyX25hbmQuYwo+ICsrKyBiL2RyaXZl
+cnMvbXRkL25hbmQvcmF3L3N0bTMyX2ZtYzJfbmFuZC5jCj4gQEAgLTE3MDgsNiArMTcwOCwxMyBA
+QCBzdGF0aWMgaW50IHN0bTMyX2ZtYzJfbmZjX2F0dGFjaF9jaGlwKHN0cnVjdCBuYW5kX2NoaXAg
+KmNoaXApCj4gIAkJcmV0dXJuIC1FSU5WQUw7Cj4gIAl9Cj4gIAo+ICsJLyogRGVmYXVsdCBFQ0Mg
+c2V0dGluZ3MgaW4gY2FzZSB0aGV5IGFyZSBub3Qgc2V0IGluIHRoZSBkZXZpY2UgdHJlZSAqLwo+
+ICsJaWYgKCFjaGlwLT5lY2Muc2l6ZSkKPiArCQljaGlwLT5lY2Muc2l6ZSA9IEZNQzJfRUNDX1NU
+RVBfU0laRTsKPiArCj4gKwlpZiAoIWNoaXAtPmVjYy5zdHJlbmd0aCkKPiArCQljaGlwLT5lY2Mu
+c3RyZW5ndGggPSBGTUMyX0VDQ19CQ0g4Owo+ICsKPiAgCXJldCA9IG5hbmRfZWNjX2Nob29zZV9j
+b25mKGNoaXAsICZzdG0zMl9mbWMyX25mY19lY2NfY2FwcywKPiAgCQkJCSAgIG10ZC0+b29ic2l6
+ZSAtIEZNQzJfQkJNX0xFTik7Cj4gIAlpZiAocmV0KSB7Cj4gQEAgLTE3MjcsOCArMTczNCw3IEBA
+IHN0YXRpYyBpbnQgc3RtMzJfZm1jMl9uZmNfYXR0YWNoX2NoaXAoc3RydWN0IG5hbmRfY2hpcCAq
+Y2hpcCkKPiAgCj4gIAltdGRfc2V0X29vYmxheW91dChtdGQsICZzdG0zMl9mbWMyX25mY19vb2Js
+YXlvdXRfb3BzKTsKPiAgCj4gLQlpZiAoY2hpcC0+b3B0aW9ucyAmIE5BTkRfQlVTV0lEVEhfMTYp
+Cj4gLQkJc3RtMzJfZm1jMl9uZmNfc2V0X2J1c3dpZHRoXzE2KG5mYywgdHJ1ZSk7Cj4gKwlzdG0z
+Ml9mbWMyX25mY19zZXR1cChjaGlwKTsKPiAgCj4gIAlyZXR1cm4gMDsKPiAgfQo+IEBAIC0xOTUy
+LDExICsxOTU4LDYgQEAgc3RhdGljIGludCBzdG0zMl9mbWMyX25mY19wcm9iZShzdHJ1Y3QgcGxh
+dGZvcm1fZGV2aWNlICpwZGV2KQo+ICAJY2hpcC0+b3B0aW9ucyB8PSBOQU5EX0JVU1dJRFRIX0FV
+VE8gfCBOQU5EX05PX1NVQlBBR0VfV1JJVEUgfAo+ICAJCQkgTkFORF9VU0VTX0RNQTsKPiAgCj4g
+LQkvKiBEZWZhdWx0IEVDQyBzZXR0aW5ncyAqLwo+IC0JY2hpcC0+ZWNjLmVuZ2luZV90eXBlID0g
+TkFORF9FQ0NfRU5HSU5FX1RZUEVfT05fSE9TVDsKPiAtCWNoaXAtPmVjYy5zaXplID0gRk1DMl9F
+Q0NfU1RFUF9TSVpFOwo+IC0JY2hpcC0+ZWNjLnN0cmVuZ3RoID0gRk1DMl9FQ0NfQkNIODsKPiAt
+Cj4gIAkvKiBTY2FuIHRvIGZpbmQgZXhpc3RlbmNlIG9mIHRoZSBkZXZpY2UgKi8KPiAgCXJldCA9
+IG5hbmRfc2NhbihjaGlwLCBuYW5kLT5uY3MpOwo+ICAJaWYgKHJldCkKClRoaXMgb3ZlcmFsbCBs
+b29rcyB2ZXJ5IGdvb2QgdG8gbWUsIHRoYW5rcyBmb3IgdGhpcyB1cGRhdGUhCgpDaGVlcnMsCk1p
+cXXDqGwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
