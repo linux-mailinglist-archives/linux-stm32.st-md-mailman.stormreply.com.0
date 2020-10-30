@@ -2,40 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1A492A0CF8
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 19:01:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 267CA2A0F34
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 21:09:27 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B5F4C3FADC;
-	Fri, 30 Oct 2020 18:01:05 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCEC0C3FADC;
+	Fri, 30 Oct 2020 20:09:26 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C11DFC3FAD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7EA4C3FAD5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Oct 2020 18:00:59 +0000 (UTC)
-X-Originating-IP: 93.34.118.233
-Received: from uno.localdomain (93-34-118-233.ip49.fastwebnet.it
- [93.34.118.233]) (Authenticated sender: jacopo@jmondi.org)
- by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id 21F4360009;
- Fri, 30 Oct 2020 18:00:56 +0000 (UTC)
-Date: Fri, 30 Oct 2020 19:00:56 +0100
-From: Jacopo Mondi <jacopo@jmondi.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <20201030180056.5b6a3dplgkmoporq@uno.localdomain>
+ Fri, 30 Oct 2020 20:09:24 +0000 (UTC)
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AA87E2075E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 30 Oct 2020 20:09:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604088562;
+ bh=dsb2fGpwSeCxaqOUaIEQtAt8Ev0KBIXRf/w3waNhKws=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=C7kxkKrxR6DMsZCWkCPW2z3xH1cj5sJoA50H0JjBsmJ5y+NZkzIscLRN8uh9+LmvV
+ rC5P1iFjJTq9PMYwOq6pLF4EksuZ9zTcv/WO0lE4JKrT+5pwQPfHId9AoRgXB1u1AJ
+ qyx82wFKRb9ICX5wZkT44IM9eVY6IWMXRzsQqGHk=
+Received: by mail-oi1-f177.google.com with SMTP id 9so7881789oir.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 30 Oct 2020 13:09:22 -0700 (PDT)
+X-Gm-Message-State: AOAM532sa/aRGlezx6V/MeLl+n6+YhtsbpPyfvL9J16zC2W/uyQkSw9h
+ BENYGtGhf8jvDyYa5QfE6G4J/3BbxFYIfVmCLw==
+X-Google-Smtp-Source: ABdhPJxMveXb1QdoW8X4k60f8AsyuwhhjJRLNbCCb75J76E+r24ilhIfqWLz6ySjO7R/sD1GTdxpf4/zJ14/IGJYpM0=
+X-Received: by 2002:aca:5dc2:: with SMTP id r185mr2849061oib.106.1604088561838; 
+ Fri, 30 Oct 2020 13:09:21 -0700 (PDT)
+MIME-Version: 1.0
 References: <1603188889-23664-1-git-send-email-hugues.fruchet@st.com>
  <1603188889-23664-3-git-send-email-hugues.fruchet@st.com>
  <20201021130033.GI2703@paasikivi.fi.intel.com>
  <657634eb-690a-53a6-2ac1-de3c06a1cec4@st.com>
  <20201021214058.GJ2703@paasikivi.fi.intel.com>
- <327ae9d5-8683-488f-7970-4983e2fec51d@st.com>
- <20201026141714.GA83693@bogus>
+ <327ae9d5-8683-488f-7970-4983e2fec51d@st.com> <20201026141714.GA83693@bogus>
  <20201030174236.GV26150@paasikivi.fi.intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20201030174236.GV26150@paasikivi.fi.intel.com>
-Cc: Rob Herring <robh@kernel.org>, Yannick FERTRE <yannick.fertre@st.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+From: Rob Herring <robh@kernel.org>
+Date: Fri, 30 Oct 2020 15:09:10 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+po4grPDJH6=ayFWrO5J=GzmSHNsgRjQ=ERsVCYzVXQg@mail.gmail.com>
+Message-ID: <CAL_Jsq+po4grPDJH6=ayFWrO5J=GzmSHNsgRjQ=ERsVCYzVXQg@mail.gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Jacopo Mondi <jacopo@jmondi.org>, Yannick FERTRE <yannick.fertre@st.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Hans Verkuil <hverkuil@xs4all.nl>, Alain VOLMAT <alain.volmat@st.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -61,9 +76,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sakari,
-
-On Fri, Oct 30, 2020 at 07:42:36PM +0200, Sakari Ailus wrote:
+On Fri, Oct 30, 2020 at 12:42 PM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
+>
 > Hi Rob,
 >
 > On Mon, Oct 26, 2020 at 09:17:14AM -0500, Rob Herring wrote:
@@ -128,10 +143,10 @@ On Fri, Oct 30, 2020 at 07:42:36PM +0200, Sakari Ailus wrote:
 > > > >> "
 > > > >> and
 > > > >> "
-> > > >> 				/* If hsync-active/vsync-active are missing,
-> > > >> 				   embedded BT.656 sync is used */
-> > > >> 				hsync-active = <0>;	/* Active low */
-> > > >> 				vsync-active = <0>;	/* Active low */
+> > > >>                          /* If hsync-active/vsync-active are missing,
+> > > >>                             embedded BT.656 sync is used */
+> > > >>                          hsync-active = <0>;     /* Active low */
+> > > >>                          vsync-active = <0>;     /* Active low */
 > > > >> "
 > > > >> and I found also this in
 > > > >> Documentation/devicetree/bindings/media/renesas,vin.yaml
@@ -173,11 +188,6 @@ On Fri, Oct 30, 2020 at 07:42:36PM +0200, Sakari Ailus wrote:
 >
 > I wonder if Jacopo tested it. The idea seems interesting nonetheless.
 >
-
-I think I did, but in my series bus-type was required so I guess I don't
-get bitten by the bus-type mismatch, if I got the below error right
-
-
 > > >
 > > > Here is a draft proposal before I push a new version, please comment:
 > > >
@@ -227,99 +237,12 @@ get bitten by the bus-type mismatch, if I got the below error right
 > only documented parallel mode, and thus didn't need bus-type. This is
 > actually quite common --- adding support for something that wasn't known or
 > cared for during the original review.
->
-> I guess this could be done in the driver, too, adding a comment that the
-> bindings earlier did not require it.
->
-> >
-> > >              then:
-> > >                properties:
-> > >                  hsync-active: false
-> > >                  vsync-active: false
-> > >                  bus-width:
-> > >                    enum: [8]
-> > >
-> > >          required:
-> > >            - remote-endpoint
-> > >
-> > >          unevaluatedProperties: false
-> > >
-> > >
-> > > Unfortunately, the "default: 5" for bus-type is not working !!
-> > > If we don't specify "bus-type" in example, dt_binding_check is failing
-> > > as if default was 6, it's hardly understandable (see below) !
-> > >          port {
-> > >               dcmi_0: endpoint {
-> > >                     remote-endpoint = <&ov5640_0>;
-> > >                     bus-width = <10>;
-> > >                     hsync-active = <0>;
-> > >                     vsync-active = <0>;
-> > >                     pclk-sample = <1>;
-> > >               };
-> > > => this should be OK but error claimed:
-> > >    DTC
-> > > Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml
-> > >    CHECK
-> > > Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml
-> > > Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml:
-> > > dcmi@4c006000: port:endpoint:vsync-active: False schema does not allow [[0]]
-> > > dcmi@4c006000: port:endpoint:hsync-active: False schema does not allow [[0]]
-> > > dcmi@4c006000: port:endpoint:bus-width:0:0: 10 is not one of [8]
-> > > 	From schema: Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> > >
-> > > => if "bus-type" is explicitly set to 5, all is fine (see below) !
-> > >          port {
-> > >               dcmi_0: endpoint {
-> > >                     remote-endpoint = <&ov5640_0>;
-> > >                     bus-type = <5>;
-> > >                     bus-width = <10>;
-> > >                     hsync-active = <0>;
-> > >                     vsync-active = <0>;
-> > >                     pclk-sample = <1>;
-> > >               };
-> > >          };
-> > >
-> > >   DTC
-> > > Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml
-> > >    CHECK
-> > > Documentation/devicetree/bindings/media/st,stm32-dcmi.example.dt.yaml
-> > > ~/.../media_tree$
-> > >
-> > >
-> > > >>
-> > > >>
-> > > >> The bindings previously documented BT.601 (parallel) only, so
-> > > >>> it was somewhat ambigious to begin with. Is there a risk of interpreting
-> > > >>> old BT.601 bindings as BT.656?
-> > > >> I don't think so.
-> > > >>
-> > > >> With bus-type property, I believe you could
-> > > >>> avoid at least that risk.
-> > > >> yes but as explained, I'll prefer not to amend current boards device
-> > > >> tree files.
-> > > >
-> > > > I don't think it matters from this point of view --- you can have a
-> > > > default bus-type.
-> > > >
-> > > >>
-> > > >>>
-> > > >>> Also not specifying at least one of the default values leads to BT.656
-> > > >>> without bus-type. That could be addressed by removing the defaults.
-> > > >>>
-> > > >> I'm new to yaml, I've taken that from renesas,vin.yaml. Should I just
-> > > >> drop the "default: 1" lines ?
-> > > >
-> > > > That's one option, yes. Then you have to have those for BT.601 and it's no
-> > > > longer ambiguous.
-> > > >
-> > >
-> > > BR,
-> > > Hugues.
->
-> --
-> Kind regards,
->
-> Sakari Ailus
+
+TBC, the 'required' here is required for the 'if' in the if/then
+schema to work as you want. It's not making 'bus-type' a required
+property.
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
