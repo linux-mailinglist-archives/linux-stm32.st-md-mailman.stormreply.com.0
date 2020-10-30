@@ -2,45 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F8262A0BBA
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 17:51:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 701782A0BF3
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 17:58:46 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 648D1C3FADC;
-	Fri, 30 Oct 2020 16:51:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3292CC3FADF;
+	Fri, 30 Oct 2020 16:58:46 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98448C3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C008BC3FADA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Oct 2020 16:51:10 +0000 (UTC)
+ Fri, 30 Oct 2020 16:58:43 +0000 (UTC)
 Received: from kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net (unknown
  [163.114.132.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5E03D20725;
- Fri, 30 Oct 2020 16:51:08 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9088320756;
+ Fri, 30 Oct 2020 16:58:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604076669;
- bh=2yuS3dPoBINhat1fzUGcPGhNP/ehJNmVIZDPEmcvgH8=;
+ s=default; t=1604077122;
+ bh=NQHYM8GVLTc+Q27yNaiylvcsHI8eawqNkhk71989hxU=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=cSMRkTjLBABZ/BOpIqeJA8KfpzG2hpnc2UCNTYVdm2jUbO9IsNkpP3n++pCxCiDBt
- 13NSg8ToSZnt5eEtxTzm0WGGagP0+Tziainba3JUxXEVhv1HcNBJwRHb0vGPGXzNdG
- a9tZKo7/lVxYbasbsSY+FoFWr8pz10wlFSh/Ij28=
-Date: Fri, 30 Oct 2020 09:51:07 -0700
+ b=xTLlkjIx4w09PWulJixzUroOxf9p9t7uJZJoFEYSFSwnio/kgEvB1ISxtBfQ1XhQO
+ CRonLlZtssrPFgKEqQDY0FuLA2qFvQfABK9owZaFrp0BCvur10RUbShdg33TeWq6Jt
+ 2NvO1IKjbZJwiA1TSwxzMSnux5FGzrLMgp9HcKps=
+Date: Fri, 30 Oct 2020 09:58:40 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Wong Vee Khee <vee.khee.wong@intel.com>
-Message-ID: <20201030095107.3cc31f3b@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
-In-Reply-To: <20201029093228.1741-1-vee.khee.wong@intel.com>
-References: <20201029093228.1741-1-vee.khee.wong@intel.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <20201030095840.5e999a1b@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
+In-Reply-To: <20201029185011.4749-1-m.szyprowski@samsung.com>
+References: <CGME20201029185023eucas1p21872d74eeb62643a3ff364af7cf2c6eb@eucas1p2.samsung.com>
+ <20201029185011.4749-1-m.szyprowski@samsung.com>
 MIME-Version: 1.0
-Cc: Voon Wei Feng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
  Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 1/1] stmmac: intel: Fix kernel panic
-	on pci probe
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix channel lock
+	initialization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,18 +58,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 29 Oct 2020 17:32:28 +0800 Wong Vee Khee wrote:
-> The commit "stmmac: intel: Adding ref clock 1us tic for LPI cntr"
-> introduced a regression which leads to the kernel panic duing loading
-> of the dwmac_intel module.
-> 
-> Move the code block after pci resources is obtained.
-> 
-> Fixes: b4c5f83ae3f3 ("stmmac: intel: Adding ref clock 1us tic for LPI cntr")
-> Cc: Voon Weifeng <weifeng.voon@intel.com>
-> Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+On Thu, 29 Oct 2020 19:50:11 +0100 Marek Szyprowski wrote:
+> Commit 0366f7e06a6b ("net: stmmac: add ethtool support for get/set
+> channels") refactored channel initialization, but during that operation,
+> the spinlock initialization got lost. Fix this. This fixes the following
+> lockdep warning:
+ 
+> Fixes: 0366f7e06a6b ("net: stmmac: add ethtool support for get/set channels")
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-Applied, thanks!
+Applied to net, thanks!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
