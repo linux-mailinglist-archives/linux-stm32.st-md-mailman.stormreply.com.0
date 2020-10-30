@@ -2,46 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 701782A0BF3
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 17:58:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08A652A0C56
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Oct 2020 18:26:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3292CC3FADF;
-	Fri, 30 Oct 2020 16:58:46 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEB08C3FADC;
+	Fri, 30 Oct 2020 17:26:04 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C008BC3FADA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C57AC3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Oct 2020 16:58:43 +0000 (UTC)
-Received: from kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net (unknown
- [163.114.132.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9088320756;
- Fri, 30 Oct 2020 16:58:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604077122;
- bh=NQHYM8GVLTc+Q27yNaiylvcsHI8eawqNkhk71989hxU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=xTLlkjIx4w09PWulJixzUroOxf9p9t7uJZJoFEYSFSwnio/kgEvB1ISxtBfQ1XhQO
- CRonLlZtssrPFgKEqQDY0FuLA2qFvQfABK9owZaFrp0BCvur10RUbShdg33TeWq6Jt
- 2NvO1IKjbZJwiA1TSwxzMSnux5FGzrLMgp9HcKps=
-Date: Fri, 30 Oct 2020 09:58:40 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <20201030095840.5e999a1b@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
-In-Reply-To: <20201029185011.4749-1-m.szyprowski@samsung.com>
-References: <CGME20201029185023eucas1p21872d74eeb62643a3ff364af7cf2c6eb@eucas1p2.samsung.com>
- <20201029185011.4749-1-m.szyprowski@samsung.com>
+ Fri, 30 Oct 2020 17:26:02 +0000 (UTC)
+X-Originating-IP: 91.224.148.103
+Received: from localhost.localdomain (unknown [91.224.148.103])
+ (Authenticated sender: miquel.raynal@bootlin.com)
+ by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id 80C97FF807;
+ Fri, 30 Oct 2020 17:26:01 +0000 (UTC)
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Christophe Kerello <christophe.kerello@st.com>, miquel.raynal@bootlin.com,
+ richard@nod.at, vigneshr@ti.com
+Date: Fri, 30 Oct 2020 18:26:00 +0100
+Message-Id: <20201030172600.28845-1-miquel.raynal@bootlin.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <1604064819-26861-1-git-send-email-christophe.kerello@st.com>
+References: 
 MIME-Version: 1.0
-Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix channel lock
-	initialization
+X-linux-mtd-patch-notification: thanks
+X-linux-mtd-patch-commit: 9efac6ce7f621c405d49a091e3e367be4250a27a
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2] mtd: rawnand: stm32_fmc2: fix broken
+	ECC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,16 +50,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 29 Oct 2020 19:50:11 +0100 Marek Szyprowski wrote:
-> Commit 0366f7e06a6b ("net: stmmac: add ethtool support for get/set
-> channels") refactored channel initialization, but during that operation,
-> the spinlock initialization got lost. Fix this. This fixes the following
-> lockdep warning:
- 
-> Fixes: 0366f7e06a6b ("net: stmmac: add ethtool support for get/set channels")
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+On Fri, 2020-10-30 at 13:33:39 UTC, Christophe Kerello wrote:
+> Since commit d7157ff49a5b ("mtd: rawnand: Use the ECC framework user
+> input parsing bits"), ECC are broken in FMC2 driver in case of
+> nand-ecc-step-size and nand-ecc-strength are not set in the device tree.
+> To avoid this issue, the default settings are now set in
+> stm32_fmc2_nfc_attach_chip function.
+> 
+> Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
+> Fixes: d7157ff49a5b ("mtd: rawnand: Use the ECC framework user input parsing bits")
 
-Applied to net, thanks!
+Applied to https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git mtd/fixes, thanks.
+
+Miquel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
