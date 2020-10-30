@@ -2,43 +2,123 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 791752A2033
-	for <lists+linux-stm32@lfdr.de>; Sun,  1 Nov 2020 18:15:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39E8B2A253C
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Nov 2020 08:32:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23D73C36B35;
-	Sun,  1 Nov 2020 17:15:27 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E9C7C36B0B
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Nov 2020 17:15:25 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA5BDC424BB;
+	Mon,  2 Nov 2020 07:32:22 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 063AE2231B;
- Sun,  1 Nov 2020 17:15:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604250923;
- bh=6VFErZqR8uFX57JRdQ80KB99XPR2HuNJX6M+lGgnBGM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=S4kTC88Bup+v8fkfc2ZRFuQ0gOM3McEeNJ+EHNRahZEfT1U1Sw21+WLf3xZcagapJ
- AUUs2IPZZ2HkqFlgJa14Q6uiGMDqX2VL0H1WhcBiBM3RDSzMlJ0PlfDxrfhYFgV9Y+
- 67gHCKX8irC/gwe8hC9WoJ71DbTvWIqsITaMAC9s=
-Date: Sun, 1 Nov 2020 17:15:18 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-Message-ID: <20201101171518.07d2b3df@archlinux>
-In-Reply-To: <20201021085313.5335-1-olivier.moysan@st.com>
-References: <20201021085313.5335-1-olivier.moysan@st.com>
-X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67302C36B37
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 30 Oct 2020 06:35:01 +0000 (UTC)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 09U6XMCn186747; Fri, 30 Oct 2020 02:33:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : cc : subject
+ : in-reply-to : references : date : message-id : mime-version :
+ content-type; s=pp1; bh=a5fAtWaCtw2lw0dSgLdjA+CSR8i93E5P4UH6V5O3U0U=;
+ b=ASUzYsr9w5PpIlo1FB1Ujvp4AT5YXH/OUre7Gkp3TDu90qGcpRmvyPjU0AUUYnRxmqG0
+ 7vmmN2sP3M7cVc/O+Rda3iOTvpOVji7shv3DHKfGIdcDJXRZZuSMGr6NLUnJbjG+tBFp
+ Juc6oDm95+h5SspcMspge/3HT+LWaYZ9I0uL4oB9nGfzicRJ6Wsfl7zvItlgDNcyTWt4
+ nnY2QLVyYwMf//UzG7l+fzLLAO4V6HLrUQRGqTEM11EUfSLTfK3Sys6tWbG+1CfiTrPZ
+ D3H7tFAQ317lT4utCRZMHCVhNuIYSoO8jmtflcv4DnHKDeKyWHhyzdUDndjk605C6MTD VA== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 34fww7sga3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Oct 2020 02:33:46 -0400
+Received: from m0098404.ppops.net (m0098404.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 09U6XjOW191034;
+ Fri, 30 Oct 2020 02:33:45 -0400
+Received: from ppma04fra.de.ibm.com (6a.4a.5195.ip4.static.sl-reverse.com
+ [149.81.74.106])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 34fww7sg85-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Oct 2020 02:33:45 -0400
+Received: from pps.filterd (ppma04fra.de.ibm.com [127.0.0.1])
+ by ppma04fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 09U6O1Zv017390;
+ Fri, 30 Oct 2020 06:33:41 GMT
+Received: from b06avi18626390.portsmouth.uk.ibm.com
+ (b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
+ by ppma04fra.de.ibm.com with ESMTP id 34f7s3s051-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 30 Oct 2020 06:33:41 +0000
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
+ id 09U6Xc8235455466
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 30 Oct 2020 06:33:38 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EA5E7AE04D;
+ Fri, 30 Oct 2020 06:33:37 +0000 (GMT)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EF445AE055;
+ Fri, 30 Oct 2020 06:33:04 +0000 (GMT)
+Received: from vajain21.in.ibm.com (unknown [9.79.209.23])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with SMTP;
+ Fri, 30 Oct 2020 06:33:04 +0000 (GMT)
+Received: by vajain21.in.ibm.com (sSMTP sendmail emulation);
+ Fri, 30 Oct 2020 12:03:03 +0530
+From: Vaibhav Jain <vaibhav@linux.ibm.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Linux Doc Mailing
+ List <linux-doc@vger.kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+In-Reply-To: <95ef2cf3a58f4e50f17d9e58e0d9440ad14d0427.1603893146.git.mchehab+huawei@kernel.org>
+References: <cover.1603893146.git.mchehab+huawei@kernel.org>
+ <95ef2cf3a58f4e50f17d9e58e0d9440ad14d0427.1603893146.git.mchehab+huawei@kernel.org>
+Date: Fri, 30 Oct 2020 12:03:03 +0530
+Message-ID: <87k0v8jk9s.fsf@vajain21.in.ibm.com>
 MIME-Version: 1.0
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- pmeerw@pmeerw.net, knaack.h@gmx.de, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/1] iio: adc: stm32-adc: fix a regression
- when using dma and irq
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-10-29_12:2020-10-29,
+ 2020-10-29 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=2 spamscore=0
+ clxscore=1011 mlxscore=0 priorityscore=1501 phishscore=0 adultscore=0
+ malwarescore=0 mlxlogscore=999 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010300048
+X-Mailman-Approved-At: Mon, 02 Nov 2020 07:32:20 +0000
+Cc: Andrew Lunn <andrew@lunn.ch>, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Peter Chen <peter.chen@nxp.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Jerry Snitselaar <jsnitsel@redhat.com>, dri-devel@lists.freedesktop.org,
+ "Barrat <fbarrat"@linux.ibm.com,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Pavel Machek <pavel@ucw.cz>, Hanjun Guo <guohanjun@huawei.com>,
+ Christian Gromm <christian.gromm@microchip.com>,
+ Oleh Kravchenko <oleg@kaa.org.ua>, Thomas Gleixner <tglx@linutronix.de>,
+ Kan Liang <kan.liang@linux.intel.com>, Frederic@d06av26.portsmouth.uk.ibm.com,
+ Lars-Peter Clausen <lars@metafoo.de>, Bart Van Assche <bvanassche@acm.org>,
+ Saravana Kannan <saravanak@google.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>,
+ Anton Vorontsov <anton@enomsg.org>,
+ Marek =?utf-8?Q?Marczykowski-G=C3=B3r?= =?utf-8?Q?ecki?=
+ <marmarek@invisiblethingslab.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-acpi@vger.kernel.org, Danil Kipnis <danil.kipnis@cloud.ionos.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Guenter Roeck <linux@roeck-us.net>, Wu Hao <hao.wu@intel.com>,
+ Ohad Ben-Cohen <ohad@wizery.com>,
+ Michael Hennerich <Michael.Hennerich@analog.com>, linux-pm@vger.kernel.org,
+ coresight@lists.linaro.org, linux-media@vger.kernel.org,
+ Simon Gaiser <simon@invisiblethingslab.com>, Avri Altman <avri.altman@wdc.com>,
+ Dan Murphy <dmurphy@ti.com>, ceph-devel@vger.kernel.org,
+ Stefan Achatz <erazor_de@users.sourceforge.net>,
+ Konstantin Khlebnikov <koct9i@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Alexander Antonov <alexander.antonov@linux.intel.com>,
+ Mathieu Malaterre <malat@debian.org>, Jingoo Han <jingoohan1@gmail.com>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, linux-kernel@vger.kernel.org,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Andrew Morton <akpm@linux-foundation.org>, Len Brown <lenb@kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: Re: [Linux-stm32] [PATCH 30/33] docs: ABI: cleanup several ABI
+	documents
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,260 +135,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 21 Oct 2020 10:53:13 +0200
-Olivier Moysan <olivier.moysan@st.com> wrote:
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> writes:
 
-> Since overrun interrupt support has been added, there's a regression when
-> two ADCs are used at the same time, with:
-> - an ADC configured to use IRQs. EOCIE bit is set. The handler is normally
->   called in this case.
-> - an ADC configured to use DMA. EOCIE bit isn't set. EOC triggers the DMA
->   request. It's then automatically cleared by DMA read. But the handler
->   gets called due to status bit is temporarily set (IRQ triggered by the
->   other ADC).
-> 
-> This is a regression as similar issue had been fixed earlier by
-> commit dcb10920179a ("iio: adc: stm32-adc:
-> fix a race when using several adcs with dma and irq").
-> Issue is that stm32_adc_eoc_enabled() returns non-zero value (always)
-> since OVR bit has been added and enabled for both DMA and IRQ case.
-> 
-> Remove OVR mask in IER register, and rely only on CSR status for overrun.
-> To avoid subsequent calls to interrupt routine on overrun, CSR OVR bit has
-> to be cleared. CSR OVR bit cannot be cleared directly by software.
-> To do this ADC must be stopped first, and OVR bit in ADC ISR has
-> to be cleared.
-> Also add a check in ADC IRQ handler to report spurious IRQs.
-> 
-> Fixes: cc06e67d8fa5 ("iio: adc: stm32-adc: Add check on overrun interrupt")
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> There are some ABI documents that, while they don't generate
+> any warnings, they have issues when parsed by get_abi.pl script
+> on its output result.
+>
+> Address them, in order to provide a clean output.
+>
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-Applied to the fixes-togreg branch of iio.git and marked for stable.
+<snip>
+> diff --git a/Documentation/ABI/testing/sysfs-bus-papr-pmem b/Documentation/ABI/testing/sysfs-bus-papr-pmem
+> index c1a67275c43f..8316c33862a0 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-papr-pmem
+> +++ b/Documentation/ABI/testing/sysfs-bus-papr-pmem
+> @@ -11,19 +11,26 @@ Description:
+>  		at 'Documentation/powerpc/papr_hcalls.rst' . Below are
+>  		the flags reported in this sysfs file:
+>  
+> -		* "not_armed"	: Indicates that NVDIMM contents will not
+> +		* "not_armed"
+> +				  Indicates that NVDIMM contents will not
+>  				  survive a power cycle.
+> -		* "flush_fail"	: Indicates that NVDIMM contents
+> +		* "flush_fail"
+> +				  Indicates that NVDIMM contents
+>  				  couldn't be flushed during last
+>  				  shut-down event.
+> -		* "restore_fail": Indicates that NVDIMM contents
+> +		* "restore_fail"
+> +				  Indicates that NVDIMM contents
+>  				  couldn't be restored during NVDIMM
+>  				  initialization.
+> -		* "encrypted"	: NVDIMM contents are encrypted.
+> -		* "smart_notify": There is health event for the NVDIMM.
+> -		* "scrubbed"	: Indicating that contents of the
+> +		* "encrypted"
+> +				  NVDIMM contents are encrypted.
+> +		* "smart_notify"
+> +				  There is health event for the NVDIMM.
+> +		* "scrubbed"
+> +				  Indicating that contents of the
+>  				  NVDIMM have been scrubbed.
+> -		* "locked"	: Indicating that NVDIMM contents cant
+> +		* "locked"
+> +				  Indicating that NVDIMM contents cant
+>  				  be modified until next power cycle.
+>  
+>  What:		/sys/bus/nd/devices/nmemX/papr/perf_stats
+> @@ -51,4 +58,4 @@ Description:
+>  		* "MedWDur " : Media Write Duration
+>  		* "CchRHCnt" : Cache Read Hit Count
+>  		* "CchWHCnt" : Cache Write Hit Count
+> -		* "FastWCnt" : Fast Write Count
+> \ No newline at end of file
+> +		* "FastWCnt" : Fast Write Count
+<snip>
 
 Thanks,
 
-Jonathan
+I am fine with proposed changes to sysfs-bus-papr-pmem.
 
-> ---
->  drivers/iio/adc/stm32-adc-core.c | 41 +++++++++++---------------
->  drivers/iio/adc/stm32-adc.c      | 50 ++++++++++++++++++++++++++++++--
->  2 files changed, 65 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> index cd870c089182..a83199b212a4 100644
-> --- a/drivers/iio/adc/stm32-adc-core.c
-> +++ b/drivers/iio/adc/stm32-adc-core.c
-> @@ -41,18 +41,16 @@
->   * struct stm32_adc_common_regs - stm32 common registers
->   * @csr:	common status register offset
->   * @ccr:	common control register offset
-> - * @eoc1_msk:	adc1 end of conversion flag in @csr
-> - * @eoc2_msk:	adc2 end of conversion flag in @csr
-> - * @eoc3_msk:	adc3 end of conversion flag in @csr
-> + * @eoc_msk:    array of eoc (end of conversion flag) masks in csr for adc1..n
-> + * @ovr_msk:    array of ovr (overrun flag) masks in csr for adc1..n
->   * @ier:	interrupt enable register offset for each adc
->   * @eocie_msk:	end of conversion interrupt enable mask in @ier
->   */
->  struct stm32_adc_common_regs {
->  	u32 csr;
->  	u32 ccr;
-> -	u32 eoc1_msk;
-> -	u32 eoc2_msk;
-> -	u32 eoc3_msk;
-> +	u32 eoc_msk[STM32_ADC_MAX_ADCS];
-> +	u32 ovr_msk[STM32_ADC_MAX_ADCS];
->  	u32 ier;
->  	u32 eocie_msk;
->  };
-> @@ -282,21 +280,20 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
->  static const struct stm32_adc_common_regs stm32f4_adc_common_regs = {
->  	.csr = STM32F4_ADC_CSR,
->  	.ccr = STM32F4_ADC_CCR,
-> -	.eoc1_msk = STM32F4_EOC1 | STM32F4_OVR1,
-> -	.eoc2_msk = STM32F4_EOC2 | STM32F4_OVR2,
-> -	.eoc3_msk = STM32F4_EOC3 | STM32F4_OVR3,
-> +	.eoc_msk = { STM32F4_EOC1, STM32F4_EOC2, STM32F4_EOC3},
-> +	.ovr_msk = { STM32F4_OVR1, STM32F4_OVR2, STM32F4_OVR3},
->  	.ier = STM32F4_ADC_CR1,
-> -	.eocie_msk = STM32F4_EOCIE | STM32F4_OVRIE,
-> +	.eocie_msk = STM32F4_EOCIE,
->  };
->  
->  /* STM32H7 common registers definitions */
->  static const struct stm32_adc_common_regs stm32h7_adc_common_regs = {
->  	.csr = STM32H7_ADC_CSR,
->  	.ccr = STM32H7_ADC_CCR,
-> -	.eoc1_msk = STM32H7_EOC_MST | STM32H7_OVR_MST,
-> -	.eoc2_msk = STM32H7_EOC_SLV | STM32H7_OVR_SLV,
-> +	.eoc_msk = { STM32H7_EOC_MST, STM32H7_EOC_SLV},
-> +	.ovr_msk = { STM32H7_OVR_MST, STM32H7_OVR_SLV},
->  	.ier = STM32H7_ADC_IER,
-> -	.eocie_msk = STM32H7_EOCIE | STM32H7_OVRIE,
-> +	.eocie_msk = STM32H7_EOCIE,
->  };
->  
->  static const unsigned int stm32_adc_offset[STM32_ADC_MAX_ADCS] = {
-> @@ -318,6 +315,7 @@ static void stm32_adc_irq_handler(struct irq_desc *desc)
->  {
->  	struct stm32_adc_priv *priv = irq_desc_get_handler_data(desc);
->  	struct irq_chip *chip = irq_desc_get_chip(desc);
-> +	int i;
->  	u32 status;
->  
->  	chained_irq_enter(chip, desc);
-> @@ -335,17 +333,12 @@ static void stm32_adc_irq_handler(struct irq_desc *desc)
->  	 * before invoking the interrupt handler (e.g. call ISR only for
->  	 * IRQ-enabled ADCs).
->  	 */
-> -	if (status & priv->cfg->regs->eoc1_msk &&
-> -	    stm32_adc_eoc_enabled(priv, 0))
-> -		generic_handle_irq(irq_find_mapping(priv->domain, 0));
-> -
-> -	if (status & priv->cfg->regs->eoc2_msk &&
-> -	    stm32_adc_eoc_enabled(priv, 1))
-> -		generic_handle_irq(irq_find_mapping(priv->domain, 1));
-> -
-> -	if (status & priv->cfg->regs->eoc3_msk &&
-> -	    stm32_adc_eoc_enabled(priv, 2))
-> -		generic_handle_irq(irq_find_mapping(priv->domain, 2));
-> +	for (i = 0; i < priv->cfg->num_irqs; i++) {
-> +		if ((status & priv->cfg->regs->eoc_msk[i] &&
-> +		     stm32_adc_eoc_enabled(priv, i)) ||
-> +		     (status & priv->cfg->regs->ovr_msk[i]))
-> +			generic_handle_irq(irq_find_mapping(priv->domain, i));
-> +	}
->  
->  	chained_irq_exit(chip, desc);
->  };
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index b3f31f147347..16c02c30dec7 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -154,6 +154,7 @@ struct stm32_adc;
->   * @start_conv:		routine to start conversions
->   * @stop_conv:		routine to stop conversions
->   * @unprepare:		optional unprepare routine (disable, power-down)
-> + * @irq_clear:		routine to clear irqs
->   * @smp_cycles:		programmable sampling time (ADC clock cycles)
->   */
->  struct stm32_adc_cfg {
-> @@ -166,6 +167,7 @@ struct stm32_adc_cfg {
->  	void (*start_conv)(struct iio_dev *, bool dma);
->  	void (*stop_conv)(struct iio_dev *);
->  	void (*unprepare)(struct iio_dev *);
-> +	void (*irq_clear)(struct iio_dev *indio_dev, u32 msk);
->  	const unsigned int *smp_cycles;
->  };
->  
-> @@ -621,6 +623,13 @@ static void stm32f4_adc_stop_conv(struct iio_dev *indio_dev)
->  			   STM32F4_ADON | STM32F4_DMA | STM32F4_DDS);
->  }
->  
-> +static void stm32f4_adc_irq_clear(struct iio_dev *indio_dev, u32 msk)
-> +{
-> +	struct stm32_adc *adc = iio_priv(indio_dev);
-> +
-> +	stm32_adc_clr_bits(adc, adc->cfg->regs->isr_eoc.reg, msk);
-> +}
-> +
->  static void stm32h7_adc_start_conv(struct iio_dev *indio_dev, bool dma)
->  {
->  	struct stm32_adc *adc = iio_priv(indio_dev);
-> @@ -659,6 +668,13 @@ static void stm32h7_adc_stop_conv(struct iio_dev *indio_dev)
->  	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR, STM32H7_DMNGT_MASK);
->  }
->  
-> +static void stm32h7_adc_irq_clear(struct iio_dev *indio_dev, u32 msk)
-> +{
-> +	struct stm32_adc *adc = iio_priv(indio_dev);
-> +	/* On STM32H7 IRQs are cleared by writing 1 into ISR register */
-> +	stm32_adc_set_bits(adc, adc->cfg->regs->isr_eoc.reg, msk);
-> +}
-> +
->  static int stm32h7_adc_exit_pwr_down(struct iio_dev *indio_dev)
->  {
->  	struct stm32_adc *adc = iio_priv(indio_dev);
-> @@ -1235,17 +1251,40 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
->  	}
->  }
->  
-> +static void stm32_adc_irq_clear(struct iio_dev *indio_dev, u32 msk)
-> +{
-> +	struct stm32_adc *adc = iio_priv(indio_dev);
-> +
-> +	adc->cfg->irq_clear(indio_dev, msk);
-> +}
-> +
->  static irqreturn_t stm32_adc_threaded_isr(int irq, void *data)
->  {
->  	struct iio_dev *indio_dev = data;
->  	struct stm32_adc *adc = iio_priv(indio_dev);
->  	const struct stm32_adc_regspec *regs = adc->cfg->regs;
->  	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
-> +	u32 mask = stm32_adc_readl(adc, regs->ier_eoc.reg);
->  
-> -	if (status & regs->isr_ovr.mask)
-> +	/* Check ovr status right now, as ovr mask should be already disabled */
-> +	if (status & regs->isr_ovr.mask) {
-> +		/*
-> +		 * Clear ovr bit to avoid subsequent calls to IRQ handler.
-> +		 * This requires to stop ADC first. OVR bit state in ISR,
-> +		 * is propaged to CSR register by hardware.
-> +		 */
-> +		adc->cfg->stop_conv(indio_dev);
-> +		stm32_adc_irq_clear(indio_dev, regs->isr_ovr.mask);
->  		dev_err(&indio_dev->dev, "Overrun, stopping: restart needed\n");
-> +		return IRQ_HANDLED;
-> +	}
->  
-> -	return IRQ_HANDLED;
-> +	if (!(status & mask))
-> +		dev_err_ratelimited(&indio_dev->dev,
-> +				    "Unexpected IRQ: IER=0x%08x, ISR=0x%08x\n",
-> +				    mask, status);
-> +
-> +	return IRQ_NONE;
->  }
->  
->  static irqreturn_t stm32_adc_isr(int irq, void *data)
-> @@ -1254,6 +1293,10 @@ static irqreturn_t stm32_adc_isr(int irq, void *data)
->  	struct stm32_adc *adc = iio_priv(indio_dev);
->  	const struct stm32_adc_regspec *regs = adc->cfg->regs;
->  	u32 status = stm32_adc_readl(adc, regs->isr_eoc.reg);
-> +	u32 mask = stm32_adc_readl(adc, regs->ier_eoc.reg);
-> +
-> +	if (!(status & mask))
-> +		return IRQ_WAKE_THREAD;
->  
->  	if (status & regs->isr_ovr.mask) {
->  		/*
-> @@ -2046,6 +2089,7 @@ static const struct stm32_adc_cfg stm32f4_adc_cfg = {
->  	.start_conv = stm32f4_adc_start_conv,
->  	.stop_conv = stm32f4_adc_stop_conv,
->  	.smp_cycles = stm32f4_adc_smp_cycles,
-> +	.irq_clear = stm32f4_adc_irq_clear,
->  };
->  
->  static const struct stm32_adc_cfg stm32h7_adc_cfg = {
-> @@ -2057,6 +2101,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
->  	.prepare = stm32h7_adc_prepare,
->  	.unprepare = stm32h7_adc_unprepare,
->  	.smp_cycles = stm32h7_adc_smp_cycles,
-> +	.irq_clear = stm32h7_adc_irq_clear,
->  };
->  
->  static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
-> @@ -2069,6 +2114,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
->  	.prepare = stm32h7_adc_prepare,
->  	.unprepare = stm32h7_adc_unprepare,
->  	.smp_cycles = stm32h7_adc_smp_cycles,
-> +	.irq_clear = stm32h7_adc_irq_clear,
->  };
->  
->  static const struct of_device_id stm32_adc_of_match[] = {
+Acked-by: Vaibhav Jain <vaibhav@linux.ibm.com> # for sysfs-bus-papr-pmem
 
 _______________________________________________
 Linux-stm32 mailing list
