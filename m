@@ -2,118 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F4D72A28AD
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Nov 2020 12:05:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1C172A28C4
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Nov 2020 12:10:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3BAEEC36B35;
-	Mon,  2 Nov 2020 11:05:20 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 935E0C36B35;
+	Mon,  2 Nov 2020 11:10:21 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C788C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24CB9C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Nov 2020 11:05:18 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A2B2ptP020099; Mon, 2 Nov 2020 12:04:45 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=c46BUwKMyDOK+b3xICLc4SPGOwqFHPWlLu+N0eBiDsc=;
- b=qlgXi6rP2TqaGZFGGpTYwMqvPmL90+2jNgkIDUekhb1daD59BN2gIpspD9UJNonwWatj
- OHUgUW/gkuHA03EmB0FarCr3OF9wq9SA2yCiOWRX+Ek9VIR1j/QRToM/UC2lNjWAf3Kq
- Gq1pybeCkQlXMIpdTOQ7P/iFELEu7O6whhQllNenKEe5/XK6+0VIIemg87dHr4bkgTaI
- jiPcxx/TlvDgIqRR4jdhdt3eOubNpSinANuzNPCvX7gJnJy8bY2eDVhF2FtvabV8/mVh
- TOcw0QoQ4k7AwJJMs4NADeWVkO0Uncs5SNpNP0tOBNteIl80ydQPyt/xaWqAI4BRaYqI hQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34h031a3kw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 02 Nov 2020 12:04:45 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 614FF100034;
- Mon,  2 Nov 2020 12:04:43 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 96E252AD9F8;
- Mon,  2 Nov 2020 12:04:42 +0100 (CET)
-Received: from [10.211.2.101] (10.75.127.45) by SFHDAG1NODE3.st.com
- (10.75.127.3) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 2 Nov
- 2020 12:04:37 +0100
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-References: <cover.1604042072.git.mchehab+huawei@kernel.org>
- <58cf3c2d611e0197fb215652719ebd82ca2658db.1604042072.git.mchehab+huawei@kernel.org>
- <5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
- <20201030110925.3e09d59e@coco.lan>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <cb586ea3-b6e6-4e48-2344-2bd641e5323f@st.com>
-Date: Mon, 2 Nov 2020 12:04:36 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon,  2 Nov 2020 11:10:21 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[127.0.0.1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1kZXjA-00056c-EY; Mon, 02 Nov 2020 12:10:20 +0100
+To: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, hardware@linux-automation.com
+References: <20201005203451.9985-1-post@lespocky.de>
+ <20201005203451.9985-11-post@lespocky.de>
+ <b387bda8-3643-1d27-4996-2aa4dc94d69f@pengutronix.de>
+ <20201027100536.cpfizc67gwrolp2z@falbala.internal.home.lespocky.de>
+ <f6ed201d-51b6-f278-7a95-3e3e49dc19ee@pengutronix.de>
+ <20201031135408.lgpiy5goa7l4cg2k@falbala.internal.home.lespocky.de>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <786c297d-d3c5-4a5c-ffc1-f6a8af1b7758@pengutronix.de>
+Date: Mon, 2 Nov 2020 12:10:20 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-In-Reply-To: <20201030110925.3e09d59e@coco.lan>
+In-Reply-To: <20201031135408.lgpiy5goa7l4cg2k@falbala.internal.home.lespocky.de>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG1NODE3.st.com
- (10.75.127.3)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-02_03:2020-11-02,
- 2020-11-02 signatures=0
-Cc: "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Petr Mladek <pmladek@suse.com>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Nayna Jain <nayna@linux.ibm.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Mimi Zohar <zohar@linux.ibm.com>, Sebastian Reichel <sre@kernel.org>,
- linux-mm@kvack.org, Bruno Meneguele <bmeneg@redhat.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Pavel Machek <pavel@ucw.cz>,
- Hanjun Guo <guohanjun@huawei.com>, Guenter Roeck <groeck@chromium.org>,
- netdev@vger.kernel.org, Oleh Kravchenko <oleg@kaa.org.ua>,
- Dan Williams <dan.j.williams@intel.com>, Andrew Donnellan <ajd@linux.ibm.com>,
- =?UTF-8?Q?Javier_Gonz=c3=a1lez?= <javier@javigon.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Mark Gross <mgross@linux.intel.com>,
- linux-acpi@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Mario Limonciello <mario.limonciello@dell.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, Tom Rix <trix@redhat.com>,
- Frederic Barrat <fbarrat@linux.ibm.com>, Niklas Cassel <niklas.cassel@wdc.com>,
- Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
- linuxppc-dev@lists.ozlabs.org,
- Mika Westerberg <mika.westerberg@linux.intel.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- Oded Gabbay <oded.gabbay@gmail.com>, Baolin Wang <baolin.wang7@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Dan Murphy <dmurphy@ti.com>,
- Orson Zhai <orsonzhai@gmail.com>, Philippe Bergheaud <felix@linux.ibm.com>,
- xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Benson Leung <bleung@chromium.org>, Konstantin Khlebnikov <koct9i@gmail.com>,
- Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
- Kranthi Kuntala <kranthi.kuntala@intel.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>, linux-usb@vger.kernel.org,
- "Rafael
- J. Wysocki" <rjw@rjwysocki.net>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- linux-iio@vger.kernel.org, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Leonid Maksymchuk <leonmaxx@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Vaibhav Jain <vaibhav@linux.ibm.com>,
- Vineela Tummalapalli <vineela.tummalapalli@intel.com>,
- Peter Rosin <peda@axentia.se>, Jonathan Cameron <jic23@kernel.org>,
- Mike Kravetz <mike.kravetz@oracle.com>
-Subject: Re: [Linux-stm32] [PATCH v2 20/39] docs: ABI: testing: make the
- files compatible with ReST output
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v7 10/12] ARM: dts: stm32: Fix schema
+ warnings for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,73 +59,131 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/30/20 11:09 AM, Mauro Carvalho Chehab wrote:
-> Em Fri, 30 Oct 2020 10:19:12 +0100
-> Fabrice Gasnier <fabrice.gasnier@st.com> escreveu:
-> 
->> Hi Mauro,
->>
->> [...]
->>
->>>  
->>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
->>> +KernelVersion:	4.12
->>> +Contact:	benjamin.gaignard@st.com
->>> +Description:
->>> +		Reading returns the list possible quadrature modes.
->>> +
->>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
->>> +KernelVersion:	4.12
->>> +Contact:	benjamin.gaignard@st.com
->>> +Description:
->>> +		Configure the device counter quadrature modes:
->>> +
->>> +		channel_A:
->>> +			Encoder A input servers as the count input and B as
->>> +			the UP/DOWN direction control input.
->>> +
->>> +		channel_B:
->>> +			Encoder B input serves as the count input and A as
->>> +			the UP/DOWN direction control input.
->>> +
->>> +		quadrature:
->>> +			Encoder A and B inputs are mixed to get direction
->>> +			and count with a scale of 0.25.
->>> +  
->>
-> 
-> Hi Fabrice,
-> 
->> I just noticed that since Jonathan question in v1.
->>
->> Above ABI has been moved in the past as discussed in [1]. You can take a
->> look at:
->> b299d00 IIO: stm32: Remove quadrature related functions from trigger driver
->>
->> Could you please remove the above chunk ?
->>
->> With that, for the stm32 part:
->> Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-> 
-> 
-> Hmm... probably those were re-introduced due to a rebase. This
-> series were originally written about 1,5 years ago.
-> 
-> I'll drop those hunks.
+Hello,
 
-Hi Mauro, Greg,
-
-I just figured out this patch has been applied with above hunk.
-
-This should be dropped: is there a fix on its way already ?
-(I may have missed it)
-
-Please advise,
-Fabrice
+On 10/31/20 2:54 PM, Alexander Dahl wrote:
+> Hei hei,
 > 
-> Thanks!
-> Mauro
+> On Tue, Oct 27, 2020 at 11:58:10AM +0100, Ahmad Fatoum wrote:
+>> Hello,
+>>
+>> On 10/27/20 11:05 AM, Alexander Dahl wrote:
+>>> Hello Ahmad,
+>>>
+>>> thanks for your feedback, comments below.
+>>>
+>>
+>>>>> -	led-rgb {
+>>>>> +	led-controller-2 {
+>>>>
+>>>> Is a single RGB LED really a controller?
+>>>
+>>> I just followed the recommendations by Rob here.
+>>
+>> Do you happen to know if the new multicolor LED support could be used here?
+>>
+>> I find it unfortunate that the device tree loses information relevant to humans
+>> to adhere to a fixed nomenclature. Apparently led-controller isn't even codified
+>> in the YAML binding (It's just in the examples). If you respin, please add a
+>> comment that this is a single RGB led. I'd prefer to keep the information
+>> in the DTB as well though.
 > 
+> Slightly off-topic, but while I was working on the patch based on your
+> feedback I tried to find some information on that Linux Automation
+> MC-1 board.  However I could not find any? Is there some website, some
+> datasheet or maybe a schematic online?  The vendor prefix says "Linux
+> Automation GmbH", but I find only that USB-SD-Mux on their page?
+Besides the test automation gadgets, Linux Automation offers engineering services
+("Design for mainline"; custom design with off-the-shelf components well-supported
+by mainline Linux) and the MC-1 was the Embedded World fair demonstrator for the
+concept.
+
+There is a blog post[0], a BSP[1] and even a Youtube video[2] on it,
+but as the MC-1 itself is not what's being sold, there is no technical documentation
+of the HW publicly available.
+
+If you got any questions regarding the device tree though, just send me an email. :-)
+
+[0]: https://www.pengutronix.de/en/software/distrokit.html
+[1]: https://www.pengutronix.de/de/blog/2020-02-26-embedded_world_2020.html
+[2]: https://www.youtube.com/watch?v=qs0ljuH3ZkQ
+
+Cheers,
+Ahmad
+
+
+> 
+> Greets
+> Alex
+> 
+>>
+>>
+>>
+>>>
+>>>>>  		compatible = "pwm-leds";
+>>>>>  
+>>>>> -		led-red {
+>>>>> +		led-2 {
+>>>>
+>>>> Shouldn't this have been led-1 as well or is the numbering "global" ?
+>>>
+>>> Also good question. This numbering is for dts only, it usually does
+>>> not correspond with LEDs on the board, so it could be numbered per
+>>> led-controller as well?
+>>
+>> I'd prefer that it starts by 1. That way it's aligned with PWM channel
+>> ID.
+>>
+>> Thanks for fixing the dtschema warnings by the way!
+>>
+>> Cheers,
+>> Ahmad
+>>
+>>>
+>>> Greets
+>>> Alex
+>>>
+>>>>
+>>>>>  			label = "mc1:red:rgb";
+>>>>>  			pwms = <&leds_pwm 1 1000000 0>;
+>>>>>  			max-brightness = <255>;
+>>>>>  			active-low;
+>>>>>  		};
+>>>>>  
+>>>>> -		led-green {
+>>>>> +		led-3 {
+>>>>>  			label = "mc1:green:rgb";
+>>>>>  			pwms = <&leds_pwm 2 1000000 0>;
+>>>>>  			max-brightness = <255>;
+>>>>>  			active-low;
+>>>>>  		};
+>>>>>  
+>>>>> -		led-blue {
+>>>>> +		led-4 {
+>>>>>  			label = "mc1:blue:rgb";
+>>>>>  			pwms = <&leds_pwm 3 1000000 0>;
+>>>>>  			max-brightness = <255>;
+>>>>>
+>>>>
+>>>> -- 
+>>>> Pengutronix e.K.                           |                             |
+>>>> Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+>>>> 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+>>>> Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+>>>
+>>
+>> -- 
+>> Pengutronix e.K.                           |                             |
+>> Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+>> 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+>> Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+> 
+
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
