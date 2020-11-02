@@ -2,51 +2,118 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DF172A2872
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Nov 2020 11:47:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F4D72A28AD
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Nov 2020 12:05:20 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26218C36B35;
-	Mon,  2 Nov 2020 10:47:10 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3BAEEC36B35;
+	Mon,  2 Nov 2020 11:05:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DDB7C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C788C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Nov 2020 10:47:09 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[127.0.0.1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1kZXMj-0002mr-0j; Mon, 02 Nov 2020 11:47:09 +0100
-To: Alexander Dahl <ada@thorsis.com>
-References: <20201005203451.9985-1-post@lespocky.de>
- <20201027100536.cpfizc67gwrolp2z@falbala.internal.home.lespocky.de>
- <f6ed201d-51b6-f278-7a95-3e3e49dc19ee@pengutronix.de>
- <5231529.NqohY00Rok@ada>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <cba67329-d79d-b474-c4b4-77b19aebe52f@pengutronix.de>
-Date: Mon, 2 Nov 2020 11:47:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ Mon,  2 Nov 2020 11:05:18 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A2B2ptP020099; Mon, 2 Nov 2020 12:04:45 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=c46BUwKMyDOK+b3xICLc4SPGOwqFHPWlLu+N0eBiDsc=;
+ b=qlgXi6rP2TqaGZFGGpTYwMqvPmL90+2jNgkIDUekhb1daD59BN2gIpspD9UJNonwWatj
+ OHUgUW/gkuHA03EmB0FarCr3OF9wq9SA2yCiOWRX+Ek9VIR1j/QRToM/UC2lNjWAf3Kq
+ Gq1pybeCkQlXMIpdTOQ7P/iFELEu7O6whhQllNenKEe5/XK6+0VIIemg87dHr4bkgTaI
+ jiPcxx/TlvDgIqRR4jdhdt3eOubNpSinANuzNPCvX7gJnJy8bY2eDVhF2FtvabV8/mVh
+ TOcw0QoQ4k7AwJJMs4NADeWVkO0Uncs5SNpNP0tOBNteIl80ydQPyt/xaWqAI4BRaYqI hQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34h031a3kw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 02 Nov 2020 12:04:45 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 614FF100034;
+ Mon,  2 Nov 2020 12:04:43 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 96E252AD9F8;
+ Mon,  2 Nov 2020 12:04:42 +0100 (CET)
+Received: from [10.211.2.101] (10.75.127.45) by SFHDAG1NODE3.st.com
+ (10.75.127.3) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 2 Nov
+ 2020 12:04:37 +0100
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+References: <cover.1604042072.git.mchehab+huawei@kernel.org>
+ <58cf3c2d611e0197fb215652719ebd82ca2658db.1604042072.git.mchehab+huawei@kernel.org>
+ <5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
+ <20201030110925.3e09d59e@coco.lan>
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <cb586ea3-b6e6-4e48-2344-2bd641e5323f@st.com>
+Date: Mon, 2 Nov 2020 12:04:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <5231529.NqohY00Rok@ada>
+In-Reply-To: <20201030110925.3e09d59e@coco.lan>
 Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Dan Murphy <dmurphy@ti.com>, Pavel Machek <pavel@ucw.cz>,
- linux-amlogic@lists.infradead.org, linux-omap@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v7 10/12] ARM: dts: stm32: Fix schema
- warnings for pwm-leds
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG1NODE3.st.com
+ (10.75.127.3)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-02_03:2020-11-02,
+ 2020-11-02 signatures=0
+Cc: "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Petr Mladek <pmladek@suse.com>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Nayna Jain <nayna@linux.ibm.com>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Sebastian Reichel <sre@kernel.org>,
+ linux-mm@kvack.org, Bruno Meneguele <bmeneg@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Pavel Machek <pavel@ucw.cz>,
+ Hanjun Guo <guohanjun@huawei.com>, Guenter Roeck <groeck@chromium.org>,
+ netdev@vger.kernel.org, Oleh Kravchenko <oleg@kaa.org.ua>,
+ Dan Williams <dan.j.williams@intel.com>, Andrew Donnellan <ajd@linux.ibm.com>,
+ =?UTF-8?Q?Javier_Gonz=c3=a1lez?= <javier@javigon.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Mark Gross <mgross@linux.intel.com>,
+ linux-acpi@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Mario Limonciello <mario.limonciello@dell.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Tom Rix <trix@redhat.com>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, Niklas Cassel <niklas.cassel@wdc.com>,
+ Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
+ linuxppc-dev@lists.ozlabs.org,
+ Mika Westerberg <mika.westerberg@linux.intel.com>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ Oded Gabbay <oded.gabbay@gmail.com>, Baolin Wang <baolin.wang7@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Dan Murphy <dmurphy@ti.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Philippe Bergheaud <felix@linux.ibm.com>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Benson Leung <bleung@chromium.org>, Konstantin Khlebnikov <koct9i@gmail.com>,
+ Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
+ Kranthi Kuntala <kranthi.kuntala@intel.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>, linux-usb@vger.kernel.org,
+ "Rafael
+ J. Wysocki" <rjw@rjwysocki.net>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ linux-iio@vger.kernel.org, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Leonid Maksymchuk <leonmaxx@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Vaibhav Jain <vaibhav@linux.ibm.com>,
+ Vineela Tummalapalli <vineela.tummalapalli@intel.com>,
+ Peter Rosin <peda@axentia.se>, Jonathan Cameron <jic23@kernel.org>,
+ Mike Kravetz <mike.kravetz@oracle.com>
+Subject: Re: [Linux-stm32] [PATCH v2 20/39] docs: ABI: testing: make the
+ files compatible with ReST output
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,75 +125,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gQWxleGFuZGVyLAoKT24gMTAvMjgvMjAgODozNCBBTSwgQWxleGFuZGVyIERhaGwgd3Jv
-dGU6Cj4gSGVsbG8gQWhtYWQsCj4gCj4gQW0gRGllbnN0YWcsIDI3LiBPa3RvYmVyIDIwMjAsIDEx
-OjU4OjEwIENFVCBzY2hyaWViIEFobWFkIEZhdG91bToKPj4gSGVsbG8sCj4+Cj4+IE9uIDEwLzI3
-LzIwIDExOjA1IEFNLCBBbGV4YW5kZXIgRGFobCB3cm90ZToKPj4+IEhlbGxvIEFobWFkLAo+Pj4K
-Pj4+IHRoYW5rcyBmb3IgeW91ciBmZWVkYmFjaywgY29tbWVudHMgYmVsb3cuCj4+Pgo+Pj4+PiAt
-CWxlZC1yZ2Igewo+Pj4+PiArCWxlZC1jb250cm9sbGVyLTIgewo+Pj4+Cj4+Pj4gSXMgYSBzaW5n
-bGUgUkdCIExFRCByZWFsbHkgYSBjb250cm9sbGVyPwo+Pj4KPj4+IEkganVzdCBmb2xsb3dlZCB0
-aGUgcmVjb21tZW5kYXRpb25zIGJ5IFJvYiBoZXJlLgo+Pgo+PiBEbyB5b3UgaGFwcGVuIHRvIGtu
-b3cgaWYgdGhlIG5ldyBtdWx0aWNvbG9yIExFRCBzdXBwb3J0IGNvdWxkIGJlIHVzZWQgaGVyZT8K
-PiAKPiBBRkFJSyBub3QgeWV0LiBUaGUgbXVsdGljb2xvciBjbGFzcyBzaG91bGQgYmUgcmVhZHkg
-YW5kIGl0IGlzIHVzZWQgYnkgc29tZSAKPiBkcml2ZXJzIGZvciBJwrJDIGNvbm5lY3RlZCBMRUQg
-Y29udHJvbGxlcnMsIGJ1dCBpZiBJIHVuZGVyc3Rvb2QgUGF2ZWwgCj4gY29ycmVjdGx5LCBhZGRp
-dGlvbmFsIHdvcmsgaGFzIHRvIGJlIGRvbmUgZm9yIGEgZ3BpbyBhbmQvb3IgcHdtIG11bHRpY29s
-b3IgCj4gZHJpdmVyLiBTZWUgdGhpcyB0aHJlYWQgZnJvbSBBdWd1c3QgZm9yIGV4YW1wbGU6Cj4g
-Cj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtbGVkcy8yNTMwNzg3LmlGQ0Z5V1djU3VA
-ZzU1MGprLwoKSSBzZWUuIFRoYW5rcyBmb3IgdGhlIGluZm8uCgo+PiBJIGZpbmQgaXQgdW5mb3J0
-dW5hdGUgdGhhdCB0aGUgZGV2aWNlIHRyZWUgbG9zZXMgaW5mb3JtYXRpb24gcmVsZXZhbnQgdG8K
-Pj4gaHVtYW5zIHRvIGFkaGVyZSB0byBhIGZpeGVkIG5vbWVuY2xhdHVyZS4gQXBwYXJlbnRseSBs
-ZWQtY29udHJvbGxlciBpc24ndAo+PiBldmVuIGNvZGlmaWVkIGluIHRoZSBZQU1MIGJpbmRpbmcg
-KEl0J3MganVzdCBpbiB0aGUgZXhhbXBsZXMpLiBJZiB5b3UKPj4gcmVzcGluLCBwbGVhc2UgYWRk
-IGEgY29tbWVudCB0aGF0IHRoaXMgaXMgYSBzaW5nbGUgUkdCIGxlZC4gSSdkIHByZWZlciB0bwo+
-PiBrZWVwIHRoZSBpbmZvcm1hdGlvbiBpbiB0aGUgRFRCIGFzIHdlbGwgdGhvdWdoLgo+IAo+IFRo
-ZSAibmV3IiBhdHRyaWJ1dGVzICdmdW5jdGlvbicgYW5kICdjb2xvcicgYXR0cmlidXRlcyBzaG91
-bGQgY292ZXIgdGhpcyAKPiBpbmZvcm1hdGlvbi4gSUlSQyB0aG9zZSB3ZXJlIGludHJvZHVjZWQg
-c29tZXRpbWUgYmVmb3JlIHY1LjQgYW5kIGRvY3VtZW50YXRpb24gCj4gaXMgaW4gdGhlIGxlZHMv
-Y29tbW9uLnlhbWwgYmluZGluZy4gSSBkb24ndCBzZWUgaXQgaW4gdGhlIHNjb3BlIG9mIHRoaXMg
-cGF0Y2ggCj4gc2VyaWVzLCBidXQgaWYgd2Ugd291bGQgbWVyZ2UgdGhpcyB3YXJuaW5nIGZpeCBm
-aXJzdCwgdGhlIGluZm9ybWF0aW9uIGlzIGxvc3QsIAo+IHNvIG1heWJlIHRob3NlIGF0dHJpYnV0
-ZXMgc2hvdWxkIGJlIGFkZGVkIGJlZm9yZT8KCkRvZXMgaXQ/IFRoZSBsYWJlbCBhbHJlYWR5IHNh
-eXMgaXQncyBhIGdyZWVuIExFRCwgYnV0IHRoZSBpbmZvcm1hdGlvbiB0aGF0Cml0J3MgYSBzaW5n
-bGUgcGh5c2ljYWwgTEVEICdidWxiJyBpcyBsb3N0LgoKPiAKPiBNeSBoZXVyaXN0aWNzIG9uIHRo
-YXQgd291bGQgYmUgbG9va2luZyBhdCB0aGUgbGFiZWwgYW5kIGlmIHRoZXJlJ3MgYSBkaXN0aW5j
-dCAKPiBjb2xvciBpbiBpdCwgYWRkIHRoZSBjb2xvciBwcm9wZXJ0eS4gSSBjb3VsZCBkbyB0aGF0
-IGZvciBhbGwgcHdtIExFRHMga25vd24gdG8gCj4gdGhlIHRyZWUgY3VycmVudGx5LiBUaGF0IHdv
-dWxkIGJlIGEgYmlnZ2VyIHRhc2sgZm9yIEdQSU8gbGVkcyB0aG91Z2guIDstKQoKSSB3b3VsZCBi
-ZSBvayB3aXRoIGp1c3QgdGhlIGxlZC1jb250YWluaW5nIG5vZGUgaGludGluZyB0aGF0IGl0J3Mg
-YSBzaW5nbGUgUkdCIGxlZC4KCkNoZWVycywKQWhtYWQKCj4gCj4+Cj4+Pj4+ICAJCWNvbXBhdGli
-bGUgPSAicHdtLWxlZHMiOwo+Pj4+Pgo+Pj4+PiAtCQlsZWQtcmVkIHsKPj4+Pj4gKwkJbGVkLTIg
-ewo+Pj4+Cj4+Pj4gU2hvdWxkbid0IHRoaXMgaGF2ZSBiZWVuIGxlZC0xIGFzIHdlbGwgb3IgaXMg
-dGhlIG51bWJlcmluZyAiZ2xvYmFsIiA/Cj4+Pgo+Pj4gQWxzbyBnb29kIHF1ZXN0aW9uLiBUaGlz
-IG51bWJlcmluZyBpcyBmb3IgZHRzIG9ubHksIGl0IHVzdWFsbHkgZG9lcwo+Pj4gbm90IGNvcnJl
-c3BvbmQgd2l0aCBMRURzIG9uIHRoZSBib2FyZCwgc28gaXQgY291bGQgYmUgbnVtYmVyZWQgcGVy
-Cj4+PiBsZWQtY29udHJvbGxlciBhcyB3ZWxsPwo+Pgo+PiBJJ2QgcHJlZmVyIHRoYXQgaXQgc3Rh
-cnRzIGJ5IDEuIFRoYXQgd2F5IGl0J3MgYWxpZ25lZCB3aXRoIFBXTSBjaGFubmVsCj4+IElELgo+
-IAo+IEFjay4KPiAKPj4KPj4gVGhhbmtzIGZvciBmaXhpbmcgdGhlIGR0c2NoZW1hIHdhcm5pbmdz
-IGJ5IHRoZSB3YXkhCj4gCj4gV2VsbCwgSSAiaW50cm9kdWNlZCIgdGhlbSBieSBjb252ZXJ0aW5n
-IHRoZSBsZWRzLXB3bSBiaW5kaW5nIHRvIHlhbWwgKG5vdCAKPiBtZXJnZWQgeWV0KSwgc28gSSBj
-b3VsZCBhcyB3ZWxsIGZpeCB0aGUgd2FybmluZ3MgdGhlbj8gOy0pCj4gCj4gR3JlZXRzCj4gQWxl
-eAo+IAo+Pgo+PiBDaGVlcnMsCj4+IEFobWFkCj4+Cj4+PiBHcmVldHMKPj4+IEFsZXgKPj4+Cj4+
-Pj4+ICAJCQlsYWJlbCA9ICJtYzE6cmVkOnJnYiI7Cj4+Pj4+ICAJCQlwd21zID0gPCZsZWRzX3B3
-bSAxIDEwMDAwMDAgMD47Cj4+Pj4+ICAJCQltYXgtYnJpZ2h0bmVzcyA9IDwyNTU+Owo+Pj4+PiAg
-CQkJYWN0aXZlLWxvdzsKPj4+Pj4gIAkJCj4+Pj4+ICAJCX07Cj4+Pj4+Cj4+Pj4+IC0JCWxlZC1n
-cmVlbiB7Cj4+Pj4+ICsJCWxlZC0zIHsKPj4+Pj4KPj4+Pj4gIAkJCWxhYmVsID0gIm1jMTpncmVl
-bjpyZ2IiOwo+Pj4+PiAgCQkJcHdtcyA9IDwmbGVkc19wd20gMiAxMDAwMDAwIDA+Owo+Pj4+PiAg
-CQkJbWF4LWJyaWdodG5lc3MgPSA8MjU1PjsKPj4+Pj4gIAkJCWFjdGl2ZS1sb3c7Cj4+Pj4+ICAJ
-CQo+Pj4+PiAgCQl9Owo+Pj4+Pgo+Pj4+PiAtCQlsZWQtYmx1ZSB7Cj4+Pj4+ICsJCWxlZC00IHsK
-Pj4+Pj4KPj4+Pj4gIAkJCWxhYmVsID0gIm1jMTpibHVlOnJnYiI7Cj4+Pj4+ICAJCQlwd21zID0g
-PCZsZWRzX3B3bSAzIDEwMDAwMDAgMD47Cj4+Pj4+ICAJCQltYXgtYnJpZ2h0bmVzcyA9IDwyNTU+
-Owo+IAo+IAoKLS0gClBlbmd1dHJvbml4IGUuSy4gICAgICAgICAgICAgICAgICAgICAgICAgICB8
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ClN0ZXVlcndhbGRlciBTdHIuIDIxICAgICAg
-ICAgICAgICAgICAgICAgICB8IGh0dHA6Ly93d3cucGVuZ3V0cm9uaXguZGUvICB8CjMxMTM3IEhp
-bGRlc2hlaW0sIEdlcm1hbnkgICAgICAgICAgICAgICAgICB8IFBob25lOiArNDktNTEyMS0yMDY5
-MTctMCAgICB8CkFtdHNnZXJpY2h0IEhpbGRlc2hlaW0sIEhSQSAyNjg2ICAgICAgICAgICB8IEZh
-eDogICArNDktNTEyMS0yMDY5MTctNTU1NSB8Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 10/30/20 11:09 AM, Mauro Carvalho Chehab wrote:
+> Em Fri, 30 Oct 2020 10:19:12 +0100
+> Fabrice Gasnier <fabrice.gasnier@st.com> escreveu:
+> 
+>> Hi Mauro,
+>>
+>> [...]
+>>
+>>>  
+>>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+>>> +KernelVersion:	4.12
+>>> +Contact:	benjamin.gaignard@st.com
+>>> +Description:
+>>> +		Reading returns the list possible quadrature modes.
+>>> +
+>>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+>>> +KernelVersion:	4.12
+>>> +Contact:	benjamin.gaignard@st.com
+>>> +Description:
+>>> +		Configure the device counter quadrature modes:
+>>> +
+>>> +		channel_A:
+>>> +			Encoder A input servers as the count input and B as
+>>> +			the UP/DOWN direction control input.
+>>> +
+>>> +		channel_B:
+>>> +			Encoder B input serves as the count input and A as
+>>> +			the UP/DOWN direction control input.
+>>> +
+>>> +		quadrature:
+>>> +			Encoder A and B inputs are mixed to get direction
+>>> +			and count with a scale of 0.25.
+>>> +  
+>>
+> 
+> Hi Fabrice,
+> 
+>> I just noticed that since Jonathan question in v1.
+>>
+>> Above ABI has been moved in the past as discussed in [1]. You can take a
+>> look at:
+>> b299d00 IIO: stm32: Remove quadrature related functions from trigger driver
+>>
+>> Could you please remove the above chunk ?
+>>
+>> With that, for the stm32 part:
+>> Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> 
+> 
+> Hmm... probably those were re-introduced due to a rebase. This
+> series were originally written about 1,5 years ago.
+> 
+> I'll drop those hunks.
+
+Hi Mauro, Greg,
+
+I just figured out this patch has been applied with above hunk.
+
+This should be dropped: is there a fix on its way already ?
+(I may have missed it)
+
+Please advise,
+Fabrice
+> 
+> Thanks!
+> Mauro
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
