@@ -2,44 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AA7E2A3D25
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Nov 2020 08:06:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D3872A46B7
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Nov 2020 14:39:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03226C3FAE3;
-	Tue,  3 Nov 2020 07:06:55 +0000 (UTC)
-Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B39BC36B35;
+	Tue,  3 Nov 2020 13:39:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DACAC36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E64FC36B0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Nov 2020 21:27:29 +0000 (UTC)
-Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with ESMTPSA id 4CQ5bg6Ktbz6r;
- Mon,  2 Nov 2020 22:27:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
- t=1604352448; bh=2g213xzmFT56VmXrFrh2NgIcRbPzT1GPUDOzlYzxpPQ=;
- h=Date:From:Subject:To:Cc:From;
- b=gVIkqZ7iRjeBncuOQ0cnSZcwWCsXYqymh1kbJZK3KJjzDqWhYr4nkk+yVdDfoU8Tr
- BlMxwtDapVD7E8TrPRZtbR765pzwlcZ+6vjENRYM26Wg4BUGt5CnT+tytcWsA2J7UF
- SwoqeazIKrfDRT99+QXuRZH9htZjfQ9DfBI7foUUp5xjHEll8e9BWgXbEXlxSl1t5E
- zPIFuYU8QxwgVOz9REmFP6wvZyeAuGqiPjEuhCqnTWhvDxF+c32QlTozv1PCx2+nbF
- 4I2WzNJgyPG2zEQCAGah3PENGb2OGJcCuIqQpRUO2hUaR019qBU9QG9H2aH6nlDtKB
- 12EmfapnFsCqg==
-X-Virus-Status: Clean
-X-Virus-Scanned: clamav-milter 0.102.4 at mail
-Date: Mon, 02 Nov 2020 22:27:27 +0100
-Message-Id: <a9041d68b4d35e4a2dd71629c8a6422662acb5ee.1604351936.git.mirq-linux@rere.qmqm.pl>
-From: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+ Tue,  3 Nov 2020 13:39:21 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A3DbkJe011808; Tue, 3 Nov 2020 14:38:30 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=veJLxaZum4JdTDrVxKHaiJiTG54WMzCcdpwiNPTXfGs=;
+ b=AC3Rtnim66NSR4Kc9Bid+9yMvnx84VoNGxN69+my2YlB88rFz2AimLb2cw/z4+5b9EZ1
+ 8HsTxSeH/lbUST1wQyNwjpn2T56IwucKy3/EaiMKQHwQbqTNEmzKH7l+YpiX50jpa7SZ
+ WyuJPqCUgC+8Rku/1ZPTUaUlTHgn7Jxwu4oMYEr/JS9pTIznRPg4gvgsjZRsVsQqJnAs
+ G/aaTzsfYXTT+XvhavkJcrkAkqXxAHrkcB29Wq+rf/oLIp2saCmJ9N8vnTmtI6tNd0pu
+ Iv/vIBlL3bdyttxNueFT/kzvT0th7ktp4PlQsWfX+2bekovJlbJTKwzZPtgTi/oOSzZ2 3w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34gywqspcx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 03 Nov 2020 14:38:30 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9F59F100034;
+ Tue,  3 Nov 2020 14:38:28 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1DA26254067;
+ Tue,  3 Nov 2020 14:38:28 +0100 (CET)
+Received: from SFHDAG2NODE2.st.com (10.75.127.5) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 3 Nov
+ 2020 14:38:27 +0100
+Received: from SFHDAG2NODE2.st.com ([fe80::14c2:73ff:db87:a27b]) by
+ SFHDAG2NODE2.st.com ([fe80::14c2:73ff:db87:a27b%20]) with mapi id
+ 15.00.1473.003; Tue, 3 Nov 2020 14:38:27 +0100
+From: Olivier MOYSAN <olivier.moysan@st.com>
+To: "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "broonie@kernel.org"
+ <broonie@kernel.org>, "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com"
+ <tiwai@suse.com>, Alexandre TORGUE <alexandre.torgue@st.com>,
+ "robh@kernel.org" <robh@kernel.org>, "mark.rutland@arm.com"
+ <mark.rutland@arm.com>, Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Thread-Topic: [PATCH 0/2] ASoC: stm32: i2s: add master clock provider
+Thread-Index: AQHWiBzGV/vdLD0mo0u9KLFGd/U756m2rDkA
+Date: Tue, 3 Nov 2020 13:38:27 +0000
+Message-ID: <20ed825b-10b6-e71f-9da4-91df38a950de@st.com>
+References: <20200911091952.14696-1-olivier.moysan@st.com>
+In-Reply-To: <20200911091952.14696-1-olivier.moysan@st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.50]
+Content-ID: <7BA6C81104F79949A06BE598EA49E90B@st.com>
 MIME-Version: 1.0
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- =?UTF-8?Q?Ond=C5=99ej?= Jirman <megous@megous.com>,
- Corentin Labbe <clabbe.montjoie@gmail.com>,
- Ahmad Fatoum <a.fatoum@pengutronix.de>,
-X-Mailman-Approved-At: Tue, 03 Nov 2020 07:06:52 +0000
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v1] regulator: defer probe when trying to get
- voltage from unresolved supply
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-03_08:2020-11-03,
+ 2020-11-03 signatures=0
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 0/2] ASoC: stm32: i2s: add master clock
+	provider
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,34 +88,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-cmVndWxhdG9yX2dldF92b2x0YWdlX3JkZXYoKSBpcyBjYWxsZWQgaW4gcmVndWxhdG9yIHByb2Jl
-KCkgd2hlbgphcHBseWluZyBtYWNoaW5lIGNvbnN0cmFpbnRzLiAgVGhlICJmaXhlZCIgY29tbWl0
-IGV4cG9zZWQgdGhlIHByb2JsZW0KdGhhdCBub24tYnlwYXNzZWQgcmVndWxhdG9ycyBjYW4gZm9y
-d2FyZCB0aGUgcmVxdWVzdCB0byBpdHMgcGFyZW50CihsaWtlIGJ5cGFzc2VkIG9uZXMpIHN1cHBs
-eS4gUmV0dXJuIC1FUFJPQkVfREVGRVIgd2hlbiB0aGUgc3VwcGx5CmlzIGV4cGVjdGVkIGJ1dCBu
-b3QgcmVzb2x2ZWQgeWV0LgoKRml4ZXM6IGFlYTZjYjk5NzAzZSAoInJlZ3VsYXRvcjogcmVzb2x2
-ZSBzdXBwbHkgYWZ0ZXIgY3JlYXRpbmcgcmVndWxhdG9yIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5l
-bC5vcmcKU2lnbmVkLW9mZi1ieTogTWljaGHFgiBNaXJvc8WCYXcgPG1pcnEtbGludXhAcmVyZS5x
-bXFtLnBsPgpSZXBvcnRlZC1ieTogT25kxZllaiBKaXJtYW4gPG1lZ291c0BtZWdvdXMuY29tPgpS
-ZXBvcnRlZC1ieTogQ29yZW50aW4gTGFiYmUgPGNsYWJiZS5tb250am9pZUBnbWFpbC5jb20+Ci0t
-LQogdjE6IHRoaXMgaXMgYSBiaXQgZGlmZmVyZW50IHNvbHV0aW9uIHRoYW4gdGhlIGhhY2sgc2Vu
-dCBlYXJsaWVyLiBJdCBzaG91bGQKICAgICBiZSBlcXVpdmFsZW50IChwdXR0aW5nIHRoZSBlcnJv
-ciBjb2RlIGF0IHRoZSBzb3VyY2UpLCBidXQgcGxlYXNlCiAgICAgdGVzdCBhZ2Fpbi4KLS0tCiBk
-cml2ZXJzL3JlZ3VsYXRvci9jb3JlLmMgfCAyICsrCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRp
-b25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9yZWd1bGF0b3IvY29yZS5jIGIvZHJpdmVycy9y
-ZWd1bGF0b3IvY29yZS5jCmluZGV4IGE0ZmZkNzE2OTZkYS4uYTVhZDU1M2RhOGNkIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL3JlZ3VsYXRvci9jb3JlLmMKKysrIGIvZHJpdmVycy9yZWd1bGF0b3IvY29y
-ZS5jCkBAIC00MTY1LDYgKzQxNjUsOCBAQCBpbnQgcmVndWxhdG9yX2dldF92b2x0YWdlX3JkZXYo
-c3RydWN0IHJlZ3VsYXRvcl9kZXYgKnJkZXYpCiAJCXJldCA9IHJkZXYtPmRlc2MtPmZpeGVkX3VW
-OwogCX0gZWxzZSBpZiAocmRldi0+c3VwcGx5KSB7CiAJCXJldCA9IHJlZ3VsYXRvcl9nZXRfdm9s
-dGFnZV9yZGV2KHJkZXYtPnN1cHBseS0+cmRldik7CisJfSBlbHNlIGlmIChyZGV2LT5zdXBwbHlf
-bmFtZSkgeworCQlyZXR1cm4gLUVQUk9CRV9ERUZFUjsKIAl9IGVsc2UgewogCQlyZXR1cm4gLUVJ
-TlZBTDsKIAl9Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Mark,
+
+Gentle reminder on this series, as it seems that there was no update 
+since Rob's "reviewed-by" for dt bindings, on 11/09.
+
+BRs
+Olivier
+
+On 9/11/20 11:19 AM, Olivier Moysan wrote:
+> Add master clock generation support in STM32 I2S driver.
+> 
+> Olivier Moysan (2):
+>    ASoC: dt-bindings: add mclk provider support to stm32 i2s
+>    ASoC: stm32: i2s: add master clock provider
+> 
+>   .../bindings/sound/st,stm32-i2s.yaml          |   4 +
+>   sound/soc/stm/stm32_i2s.c                     | 310 +++++++++++++++---
+>   2 files changed, 270 insertions(+), 44 deletions(-)
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
