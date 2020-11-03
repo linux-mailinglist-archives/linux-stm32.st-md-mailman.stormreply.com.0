@@ -2,72 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD582A496E
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Nov 2020 16:24:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C9222A4DF1
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Nov 2020 19:11:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90772C36B25;
-	Tue,  3 Nov 2020 15:24:31 +0000 (UTC)
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00CBFC36B35;
+	Tue,  3 Nov 2020 18:11:50 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BCC2C36B0A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECFC0C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Nov 2020 15:24:28 +0000 (UTC)
-Received: by mail-oo1-f50.google.com with SMTP id j6so4284706oot.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Nov 2020 07:24:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=N71Zs4qg4W+XUXzJvJITvEfPb9AWspIlQairrp1whfg=;
- b=rrVlj56yk2trpBYSpi4k2yd1xCK2bo7zfyPwMRTDKgj2zJFZf+rsg3l64hS6mNlXsJ
- /lsnCjsBYlscUhZQjxreix9yr1FDyyJ44isM98ku6PfR5nfH8ewfPGTyJoG+z8DaKf3B
- GC0lFyYci0jWLRuivuAjfzCGQfauYD+FIBoJ65Z0ysgZFvM7r9APNUcj/A/ERVF2MbLf
- yty4WBGjCP2WpSIZHr96/NF2lvOu9gyd0kH5dNJE6T16tbnf8/wDcP2ZEnVaZTeW+uv8
- AOywb/DHyLh7Si/JMqeCh4eS5XqaKQQMWQhjlysMgge2i4X83N4I6vLqLPfg4x7OeC6p
- Yirg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=N71Zs4qg4W+XUXzJvJITvEfPb9AWspIlQairrp1whfg=;
- b=j69Y3CKf+M7GNLT8N6rdV6F+KziwuejTJ/pT0+mgU/8pBq3SwcYdYazqy7O1Nxwq38
- zfrFDm6cQJJAIqYI/4ORt/xD6IhlhSOQ1Rj3on6HawQHluP17HTIXb1cHpgorkgxUlvt
- 9XQcTeAn95LUNIXoi69bQLSMuzhJ2swYFbKmVKr2ZbsVJJPKOG1S+vQ1+8+mrKXuYAPs
- o6p40g/Xf0nV1aFqfxMsDgEbznp4nQDwA6EhrGcbC1X+k7HvJkuv0g8o/fiDL9O4KJbQ
- DbNQum+SrlBX0bmNsmL0/kb6HYLy+ZwPuQwEdCAu0LarVO0Bru0DA0Y4u+TUf+c+Vm64
- y2Xg==
-X-Gm-Message-State: AOAM5328KsvHj+ajRuVOEGI4zk8c0bphzhqtr7+zIHYr4IkdShgw+KKQ
- CijU6anC2/y2ysSXsgnxd/7Xjw==
-X-Google-Smtp-Source: ABdhPJwU2NP+qjv7T5X33Bc5Qb64pjBRUiEN1Yk0nWz/TQ1GhwOuIu9xrFu+5vjm7/EyqQJ1LvpBNw==
-X-Received: by 2002:a4a:6b1a:: with SMTP id g26mr10661391ooc.13.1604417066733; 
- Tue, 03 Nov 2020 07:24:26 -0800 (PST)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id v5sm4548511otb.44.2020.11.03.07.24.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Nov 2020 07:24:25 -0800 (PST)
-Date: Tue, 3 Nov 2020 09:24:23 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Message-ID: <20201103004241.GD223412@builder.lan>
-References: <cover.1603893146.git.mchehab+huawei@kernel.org>
- <95ef2cf3a58f4e50f17d9e58e0d9440ad14d0427.1603893146.git.mchehab+huawei@kernel.org>
+ Tue,  3 Nov 2020 18:11:45 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4CQdCP0HCWz1qs0Y;
+ Tue,  3 Nov 2020 19:11:45 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4CQdCN6VtNz1qtZ6;
+ Tue,  3 Nov 2020 19:11:44 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id 9yCyy8kb8Fc2; Tue,  3 Nov 2020 19:11:43 +0100 (CET)
+X-Auth-Info: PIH8kX8fpZ2lCap2lTXEUkepn3Qqu25rgYoONv4USMU=
+Received: from localhost.localdomain (ip-89-176-112-137.net.upcbroadband.cz
+ [89.176.112.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Tue,  3 Nov 2020 19:11:43 +0100 (CET)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Tue,  3 Nov 2020 19:11:37 +0100
+Message-Id: <20201103181137.443586-1-marex@denx.de>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <95ef2cf3a58f4e50f17d9e58e0d9440ad14d0427.1603893146.git.mchehab+huawei@kernel.org>
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-iio@vger.kernel.org,
- netdev@vger.kernel.org, coresight@lists.linaro.org, linux-pm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-i3c@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- linux-fpga@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 30/33] docs: ABI: cleanup several ABI
-	documents
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Add DHCOM based PicoITX board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,16 +57,230 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed 28 Oct 09:23 CDT 2020, Mauro Carvalho Chehab wrote:
-[..]
->  .../ABI/testing/sysfs-class-remoteproc        |  14 +-
+Add DT for DH PicoITX unit, which is a bare-bones carrier board for
+the DHCOM. The board has ethernet port, USB, CAN, LEDs and a custom
+board-to-board expansion connector.
 
-for this:
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+ arch/arm/boot/dts/Makefile                    |   1 +
+ .../boot/dts/stm32mp157c-dhcom-picoitx.dts    |  35 +++++
+ .../boot/dts/stm32mp15xx-dhcom-picoitx.dtsi   | 143 ++++++++++++++++++
+ 3 files changed, 179 insertions(+)
+ create mode 100644 arch/arm/boot/dts/stm32mp157c-dhcom-picoitx.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi
 
-Acked-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index db0223cf47da..36ec449a8b4e 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1066,6 +1066,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
+ 	stm32mp157a-iot-box.dtb \
+ 	stm32mp157a-stinger96.dtb \
+ 	stm32mp157c-dhcom-pdk2.dtb \
++	stm32mp157c-dhcom-picoitx.dtb \
+ 	stm32mp157c-dk2.dtb \
+ 	stm32mp157c-ed1.dtb \
+ 	stm32mp157c-ev1.dtb \
+diff --git a/arch/arm/boot/dts/stm32mp157c-dhcom-picoitx.dts b/arch/arm/boot/dts/stm32mp157c-dhcom-picoitx.dts
+new file mode 100644
+index 000000000000..cfb8f8a0c82d
+--- /dev/null
++++ b/arch/arm/boot/dts/stm32mp157c-dhcom-picoitx.dts
+@@ -0,0 +1,35 @@
++// SPDX-License-Identifier: GPL-2.0+ OR BSD-3-Clause
++/*
++ * Copyright (C) 2020 Marek Vasut <marex@denx.de>
++ *
++ * DHCOM STM32MP1 variant:
++ * DHCM-STM32MP157C-C065-R102-F0819-SPI-E-CAN2-SD-RTC-T-DSI-I-01D2
++ * DHCOM PCB number: 587-200 or newer
++ * PicoITX PCB number: 487-600 or newer
++ */
++/dts-v1/;
++
++#include "stm32mp157.dtsi"
++#include "stm32mp15xc.dtsi"
++#include "stm32mp15xx-dhcom-som.dtsi"
++#include "stm32mp15xx-dhcom-picoitx.dtsi"
++
++/ {
++	model = "DH electronics STM32MP157C DHCOM PicoITX";
++	compatible = "dh,stm32mp157c-dhcom-picoitx", "dh,stm32mp157c-dhcom-som",
++		     "st,stm32mp157";
++};
++
++&m_can1 {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&m_can1_pins_a>;
++	pinctrl-1 = <&m_can1_sleep_pins_a>;
++	status = "okay";
++};
++
++&m_can2 {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&m_can2_pins_a>;
++	pinctrl-1 = <&m_can2_sleep_pins_a>;
++	status = "okay";
++};
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi
+new file mode 100644
+index 000000000000..356150d28c42
+--- /dev/null
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi
+@@ -0,0 +1,143 @@
++// SPDX-License-Identifier: GPL-2.0+ OR BSD-3-Clause
++/*
++ * Copyright (C) 2020 Marek Vasut <marex@denx.de>
++ */
++
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/pwm/pwm.h>
++
++/ {
++	aliases {
++		serial0 = &uart4;
++		serial1 = &usart3;
++		serial2 = &uart8;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	led {
++		compatible = "gpio-leds";
++
++		led-0 {
++			label = "yellow:led";
++			gpios = <&gpioi 3 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++	};
++};
++
++&adc {
++	status = "disabled";
++};
++
++&dac {
++	status = "disabled";
++};
++
++&gpioa {
++	/*
++	 * NOTE: The USB Port on the PicoITX needs a PWR_EN signal to enable
++	 * port power. This signal should be handled by USB power sequencing
++	 * in order to turn on port power when USB bus is powered up, but so
++	 * far there is no such functionality.
++	 */
++	usb-port-power {
++		gpio-hog;
++		gpios = <13 GPIO_ACTIVE_LOW>;
++		output-low;
++		line-name = "usb-port-power";
++	};
++};
++
++&gpioc {
++	gpio-line-names = "", "", "", "",
++			  "", "", "In1", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
++
++&gpiod {
++	gpio-line-names = "", "", "", "",
++			  "", "", "", "",
++			  "", "", "", "Out1",
++			  "Out2", "", "", "";
++};
++
++&gpiog {
++	gpio-line-names = "In2", "", "", "",
++			  "", "", "", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
++
++&i2c2 {	/* On board-to-board connector (optional) */
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c2_pins_a>;
++	i2c-scl-rising-time-ns = <185>;
++	i2c-scl-falling-time-ns = <20>;
++	status = "okay";
++	/* spare dmas for other usage */
++	/delete-property/dmas;
++	/delete-property/dma-names;
++};
++
++&i2c5 {	/* On board-to-board connector */
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c5_pins_a>;
++	i2c-scl-rising-time-ns = <185>;
++	i2c-scl-falling-time-ns = <20>;
++	status = "okay";
++	/* spare dmas for other usage */
++	/delete-property/dmas;
++	/delete-property/dma-names;
++};
++
++&usart3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&usart3_pins_a>;
++	status = "okay";
++};
++
++&uart8 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart8_pins_a &uart8_rtscts_pins_a>;
++	status = "okay";
++};
++
++&usbh_ehci {
++	phys = <&usbphyc_port0>;
++	status = "okay";
++};
++
++&usbh_ohci {
++	phys = <&usbphyc_port0>;
++	status = "okay";
++};
++
++&usbotg_hs {
++	dr_mode = "otg";
++	pinctrl-0 = <&usbotg_hs_pins_a>;
++	pinctrl-names = "default";
++	phy-names = "usb2-phy";
++	phys = <&usbphyc_port1 0>;
++	vbus-supply = <&vbus_otg>;
++	status = "okay";
++};
++
++&usbphyc {
++	status = "okay";
++};
++
++&usbphyc_port0 {
++	phy-supply = <&vdd_usb>;
++	vdda1v1-supply = <&reg11>;
++	vdda1v8-supply = <&reg18>;
++};
++
++&usbphyc_port1 {
++	phy-supply = <&vdd_usb>;
++	vdda1v1-supply = <&reg11>;
++	vdda1v8-supply = <&reg18>;
++};
+-- 
+2.28.0
 
-Thanks,
-Bjorn
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
