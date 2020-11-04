@@ -2,38 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B5A92A667B
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Nov 2020 15:36:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 089152A6BAF
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Nov 2020 18:32:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AAE0C32E90;
-	Wed,  4 Nov 2020 14:36:54 +0000 (UTC)
-Received: from smtprelay02.ispgateway.de (smtprelay02.ispgateway.de
- [80.67.29.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA978C3087A;
+	Wed,  4 Nov 2020 17:32:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BDE21C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C3CCC36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Nov 2020 14:15:59 +0000 (UTC)
-Received: from [89.1.81.74] (helo=mb-ubuntu.Ka-Ro.local)
- by smtprelay02.ispgateway.de with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.92.3)
- (envelope-from <mb@karo-electronics.de>)
- id 1kaJVT-0000qC-4I; Wed, 04 Nov 2020 15:11:23 +0100
-From: Markus Bauer <mb@karo-electronics.de>
-To: 
-Date: Wed,  4 Nov 2020 15:15:24 +0100
-Message-Id: <20201104141524.13044-1-mb@karo-electronics.de>
-X-Mailer: git-send-email 2.17.1
-X-Df-Sender: bWJAa2Fyby1lbGVjdHJvbmljcy5kb21haW5mYWN0b3J5LWt1bmRlLmRl
-X-Mailman-Approved-At: Wed, 04 Nov 2020 14:36:51 +0000
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Markus Bauer <mb@karo-electronics.de>
-Subject: [Linux-stm32] [PATCH] net: stmmac: Don't log error message in case
-	of -EPROBE_DEFER.
+ Wed,  4 Nov 2020 17:32:41 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A4HWDPo031393; Wed, 4 Nov 2020 18:32:26 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=0dGU7EjDFLfbmr+icg3Fbkz2c9T0BmmFtSmomDOPn/8=;
+ b=r32wWw0ILSyyemrPcRcdQkBs2p/wHEoF0ErSHQ1Tu3f2H0m8Y0OWsMatCqJET75jaB0y
+ 7tDQmlKwlW5GpTYWyByfPTz+N7GG7sWq9Wq2D0jCfSMmynFnLU0XyJ6Qoc/73y/BAqOg
+ 5NjyASLRVEzmaJhRL02F4lJDApMwIqPY3Bv3HdiCgPn8+4VjLd/sbxFYcFevpL288NMf
+ 1yxcXATEdf98acbeZuiKm+P8zAVNPoYR/dV5DSpo54tzgxQqlvQrQWV+yLVcLOa/Soei
+ qqRLqOymu9oKKTiNYNN+Rt5OZ0K+JHT2bhjXQ8hvIUqEgnvx5D1+d2cRt/NA1OzHbcVE nQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34h00egtyd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Nov 2020 18:32:26 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7038410002A;
+ Wed,  4 Nov 2020 18:32:25 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node1.st.com [10.75.127.1])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F24F5225C2A;
+ Wed,  4 Nov 2020 18:32:24 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG1NODE1.st.com (10.75.127.1)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 4 Nov 2020 18:32:24
+ +0100
+From: Hugues Fruchet <hugues.fruchet@st.com>
+To: Alexandre Torgue <alexandre.torgue@st.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Rob Herring <robh+dt@kernel.org>
+Date: Wed, 4 Nov 2020 18:32:08 +0100
+Message-ID: <1604511132-4014-1-git-send-email-hugues.fruchet@st.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG1NODE1.st.com
+ (10.75.127.1)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-04_12:2020-11-04,
+ 2020-11-04 signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Yannick Fertre <yannick.fertre@st.com>, Alain Volmat <alain.volmat@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v5 0/4] DCMI BT656 parallel bus mode support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -45,61 +69,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove error messages that might confuse users when error is just -517 / -EPROBE_DEFER.
+Add support of BT656 embedded synchronization bus.
+This mode allows to save hardware synchro lines hsync & vsync
+by replacing them with synchro codes embedded in data stream.
+Add "bus-type" property and make it required so that there is no
+ambiguity between parallel mode (bus-type=5) and BT656 mode (bus-type=6).
 
-[...]
-imx-dwmac 30bf0000.ethernet: Cannot register the MDIO bus                                                                          
-imx-dwmac 30bf0000.ethernet: stmmac_dvr_probe: MDIO bus (id: 0) registration failed
-[...]
+===========
+= history =
+===========
+version 5:
+  - Add revisited bindings and devicetree with explicit use of "bus-type"
 
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 ++++---
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 6 ++++--
- 2 files changed, 8 insertions(+), 5 deletions(-)
+version 4:
+  - Fix typo in commit message
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 33272a12989a..7d1cdd576b91 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4857,9 +4857,10 @@ int stmmac_dvr_probe(struct device *device,
- 		/* MDIO bus Registration */
- 		ret = stmmac_mdio_register(ndev);
- 		if (ret < 0) {
--			dev_err(priv->device,
--				"%s: MDIO bus (id: %d) registration failed",
--				__func__, priv->plat->bus_id);
-+			if (ret != -EPROBE_DEFER)
-+				dev_err(priv->device,
-+					"%s: MDIO bus (id: %d) registration failed, err=%d",
-+					__func__, priv->plat->bus_id, ret);
- 			goto error_mdio_register;
- 		}
- 	}
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index 226e5a4bf21c..8e202f63da31 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -401,8 +401,10 @@ int stmmac_mdio_register(struct net_device *ndev)
- 	new_bus->parent = priv->device;
- 
- 	err = of_mdiobus_register(new_bus, mdio_node);
--	if (err != 0) {
--		dev_err(dev, "Cannot register the MDIO bus\n");
-+	if (err) {
-+		if (err != -EPROBE_DEFER)
-+			dev_err(dev,
-+				"Cannot register the MDIO bus, err=%d\n", err);
- 		goto bus_register_fail;
- 	}
- 
+version 3:
+  - Fix bus_width print to %u as per Sakari comment
+
+version 2:
+  - As per Sakari remark, revisit commit message and document
+    BT656 parallel bus mode in bindings
+
+version 1:
+  - Initial submission
+
+Hugues Fruchet (4):
+  media: stm32-dcmi: add support of BT656 bus
+  media: dt-bindings: media: st,stm32-dcmi: add support of BT656 bus
+  ARM: dts: stm32: set bus-type in DCMI endpoint for stm32mp157c-ev1
+    board
+  ARM: dts: stm32: set bus-type in DCMI endpoint for stm32429i-eval
+    board
+
+ .../devicetree/bindings/media/st,stm32-dcmi.yaml   | 38 ++++++++++++++++++++++
+ arch/arm/boot/dts/stm32429i-eval.dts               |  1 +
+ arch/arm/boot/dts/stm32mp157c-ev1.dts              |  1 +
+ drivers/media/platform/stm32/stm32-dcmi.c          | 37 +++++++++++++++++++--
+ 4 files changed, 75 insertions(+), 2 deletions(-)
+
 -- 
-2.17.1
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
