@@ -2,65 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 490052A851C
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Nov 2020 18:39:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72EB82A865C
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Nov 2020 19:46:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0988BC3FAD4;
-	Thu,  5 Nov 2020 17:39:49 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33490C3FAD4;
+	Thu,  5 Nov 2020 18:46:21 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 016F5C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0750C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Nov 2020 17:39:47 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A5HM74i017207; Thu, 5 Nov 2020 18:39:27 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=vsR5ldt560beF0b1zd/ViQ5vBMqLihhw3wpz3tsDQzE=;
- b=NgwFkJrR13eJCbOeQncy7/0EXsyN/EBNRijv6a1KwAv83uRCZAvr3jX52ikSGpQunsHo
- wCOf1TU6eey4DZzyjeqvMf+RGIxoP1JeP/qJLUOWKkd2EgI2p9lUC7GYBRWbkRpmGFSm
- QMkUcXDwExZajkjboejUENQHdp+qIMSm1z79tl48CAfRtfv4Q2rwo91k5r/yv1HTaNIQ
- mzaFDQ81/y0ZHmkzURRFSeCM2XROgWCVU+KwpANXJl9jcW0j3QxuFRAzGGh1d1Jog94J
- qOXRtONZwHKoHZc/wRBxNU68MfCN/4jxt/C19vusUyY5CLFeLgQAtgwB7AaDbO01pWXb lA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34gywr9fa1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Nov 2020 18:39:27 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2C5D310002A;
- Thu,  5 Nov 2020 18:39:25 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EA2602255CE;
- Thu,  5 Nov 2020 18:39:24 +0100 (CET)
-Received: from [10.211.7.187] (10.75.127.44) by SFHDAG1NODE3.st.com
- (10.75.127.3) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 5 Nov
- 2020 18:38:28 +0100
-To: Olivier Moysan <olivier.moysan@st.com>, <jic23@kernel.org>,
- <knaack.h@gmx.de>, <lars@metafoo.de>, <pmeerw@pmeerw.net>,
- <alexandre.torgue@st.com>
-References: <20201105142941.27301-1-olivier.moysan@st.com>
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <8ed73130-57e7-4073-cdf2-5f31596e728c@st.com>
-Date: Thu, 5 Nov 2020 18:38:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thu,  5 Nov 2020 18:46:18 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1kakH2-0005Op-8u; Thu, 05 Nov 2020 19:46:16 +0100
+To: Benjamin Gaignard <benjamin.gaignard@st.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <e8c99989-f018-dd90-2144-e09c05a3731b@pengutronix.de>
+Date: Thu, 5 Nov 2020 19:46:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-In-Reply-To: <20201105142941.27301-1-olivier.moysan@st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG1NODE3.st.com
- (10.75.127.3)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-05_11:2020-11-05,
- 2020-11-05 signatures=0
-Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: dma transfers cleanup
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-iio@vger.kernel.org, William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: [Linux-stm32] Counter device Interface for reading out input capture
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,74 +54,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/5/20 3:29 PM, Olivier Moysan wrote:
-> - Remove processing related to DMA in irq handler as this
-> data transfer is managed directly in DMA callback.
-> - Update comment in stm32_adc_set_watermark() function.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Hello Benjamin,
+Hello Fabrice,
 
-Hi Olivier,
+In the stm32-timer-cnt driver I find unused #defines for TIM_CCMR_MASK and
+TIM_CCER_MASK, which to me hint that support for the "input capture mode"[1]
+was implemented but removed prior to upstreaming.
 
-Reviewed-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+It doesn't look like the counter device API is yet made to support such
+an input capture mode (latching a counter value on an external event, e.g.
+to timestamp incoming rising edges to measure jitter between pulses).
 
-Thanks,
-Fabrice
-> ---
->  drivers/iio/adc/stm32-adc.c | 29 ++++++-----------------------
->  1 file changed, 6 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index b3f31f147347..08be826f1462 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -1310,7 +1310,7 @@ static int stm32_adc_set_watermark(struct iio_dev *indio_dev, unsigned int val)
->  	 * dma cyclic transfers are used, buffer is split into two periods.
->  	 * There should be :
->  	 * - always one buffer (period) dma is working on
-> -	 * - one buffer (period) driver can push with iio_trigger_poll().
-> +	 * - one buffer (period) driver can push data.
->  	 */
->  	watermark = min(watermark, val * (unsigned)(sizeof(u16)));
->  	adc->rx_buf_sz = min(rx_buf_sz, watermark * 2 * adc->num_conv);
-> @@ -1573,31 +1573,14 @@ static irqreturn_t stm32_adc_trigger_handler(int irq, void *p)
->  
->  	dev_dbg(&indio_dev->dev, "%s bufi=%d\n", __func__, adc->bufi);
->  
-> -	if (!adc->dma_chan) {
-> -		/* reset buffer index */
-> -		adc->bufi = 0;
-> -		iio_push_to_buffers_with_timestamp(indio_dev, adc->buffer,
-> -						   pf->timestamp);
-> -	} else {
-> -		int residue = stm32_adc_dma_residue(adc);
-> -
-> -		while (residue >= indio_dev->scan_bytes) {
-> -			u16 *buffer = (u16 *)&adc->rx_buf[adc->bufi];
-> -
-> -			iio_push_to_buffers_with_timestamp(indio_dev, buffer,
-> -							   pf->timestamp);
-> -			residue -= indio_dev->scan_bytes;
-> -			adc->bufi += indio_dev->scan_bytes;
-> -			if (adc->bufi >= adc->rx_buf_sz)
-> -				adc->bufi = 0;
-> -		}
-> -	}
-> -
-> +	/* reset buffer index */
-> +	adc->bufi = 0;
-> +	iio_push_to_buffers_with_timestamp(indio_dev, adc->buffer,
-> +					   pf->timestamp);
->  	iio_trigger_notify_done(indio_dev->trig);
->  
->  	/* re-enable eoc irq */
-> -	if (!adc->dma_chan)
-> -		stm32_adc_conv_irq_enable(adc);
-> +	stm32_adc_conv_irq_enable(adc);
->  
->  	return IRQ_HANDLED;
->  }
-> 
+I am still very new to this, so I figured I ask whether you already have
+thoughts (or maybe code to share) on how to best integrate this with the
+counter device API.
+
+I've added linux-iio/linux-stm32 to the CC as well, so if someone else
+has an idea how to best do this, please share.
+
+[1]: 40.3.7 in RM0436 rev 3
+
+Cheers,
+Ahmad
+
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
