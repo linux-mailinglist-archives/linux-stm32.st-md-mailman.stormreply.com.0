@@ -2,68 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E30B92A7A67
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Nov 2020 10:27:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F71C2A7AB6
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Nov 2020 10:39:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95D0EC32E90;
-	Thu,  5 Nov 2020 09:27:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18261C3FAD4;
+	Thu,  5 Nov 2020 09:39:51 +0000 (UTC)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9418EC36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD7D1C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Nov 2020 09:27:24 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A59RCmh022319; Thu, 5 Nov 2020 10:27:14 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=90DBQmVTazKJUz/HsVZp0MWtq8Z4KmCVtWCSf/TO+FA=;
- b=jTqLMT2vzOFEeFQODMBv723JkV/M7U/yvqBGbKWKx5kb9aSlUo6ZXYZegOyZNfSudr2O
- vuvgZfPWQBw7AomkbPnuxfi3XK20c7L+PIqGsmKFe69Ws155ST4rEkTRqhmI2EskFDQ2
- UwfpVKBjmhtnnBnnNVdOA6C7OxPSDNJMKhRZy+8iKzulmaAUXnmdqqZOqesJ4gWN+JnE
- PyWplvQ3y0G+esOoFhvXbcjM6e5QkfhLVEXbL44qqQcD2/y4ssylLVlkMGiOzSxFbAkG
- 6a+qDJdoqYi8RL3cvdTh0I/2n+TnIWXN23+hyUx6xvBEJgNq/nUFS7bphfFEiFiziW93 zg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34h031ykye-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Nov 2020 10:27:14 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 92DC0100039;
- Thu,  5 Nov 2020 10:27:12 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7875D230660;
- Thu,  5 Nov 2020 10:27:12 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.50) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 5 Nov
- 2020 10:27:11 +0100
-To: Hugues Fruchet <hugues.fruchet@st.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Rob Herring <robh+dt@kernel.org>
-References: <1604511132-4014-1-git-send-email-hugues.fruchet@st.com>
-From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <016661fc-e9dd-bd4a-f26d-00e54626f030@st.com>
-Date: Thu, 5 Nov 2020 10:26:37 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thu,  5 Nov 2020 09:39:48 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id x12so924755wrm.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 05 Nov 2020 01:39:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=O1Ptw4Z6fyBehqHYaSzRs4kWOAuaPAg0Ode7nAckbcI=;
+ b=lKpQaFbU6i/iQQXHpRtJTGXfYs5EE0e3aodsqlp9QeGZmsffh7RlWk6IgDeVl3o0xu
+ pCR6lgT2aiZdhtCXaEuOujnJnud52nziMgKE/ONeqKy0MceI3gfkv1uZ9s99xqbjxUIO
+ Vpo4p2Ieo08cBXUL1E7nyc9W3Vw9jo8uYdI0Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=O1Ptw4Z6fyBehqHYaSzRs4kWOAuaPAg0Ode7nAckbcI=;
+ b=hSpo6VgbI+TnaRBy+Sh2vWTQ5AGz9Q3kxFjLYUtKS12pYt/nvY9ebQR3x6I+gxon8x
+ CNRKQx1G84APpyhawzZ9cFKX8ttchSmYsBOINvNgSGTcdLnhhE+KBTxymurXWRGYKW10
+ rO/4Fg7wWUy8gC3Rli3IkZMce/9sG+X6U++9kncjHud70Wu1AAAo/Rh91TvAAB5l8Yz+
+ j3y6xxxWYDvQ4duZKRDh7gacOAulKOe1a/By9rHaRuchk9FXnGWBXsi9riVzSpmBqHEk
+ Sui9HWPsIZ6NR+37pxWAhKHJAkZMI6h/LVfCB1kmO79gimmNrL4e1fRsCiAfCtTHwW3X
+ E0Mw==
+X-Gm-Message-State: AOAM531JOaVToFW4i0JP+OHGfqvKFGXwktlynLPkntXX7fP9Nlbg9lWP
+ WEefaJHLhFkmG9Qmc+xLQLzxhA==
+X-Google-Smtp-Source: ABdhPJx0auxQhwpogPi8nd2blZkbW8w0U5S07Gfgt4vJP6rs0bEwZ2m6v9NXVsnccnnz4cQ4Yr52UQ==
+X-Received: by 2002:a5d:424e:: with SMTP id s14mr1796145wrr.131.1604569188294; 
+ Thu, 05 Nov 2020 01:39:48 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id c2sm1720811wmf.47.2020.11.05.01.39.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2020 01:39:47 -0800 (PST)
+Date: Thu, 5 Nov 2020 10:39:45 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <20201105093945.GS401619@phenom.ffwll.local>
+References: <20201104125200.259639-1-marex@denx.de>
 MIME-Version: 1.0
-In-Reply-To: <1604511132-4014-1-git-send-email-hugues.fruchet@st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-05_05:2020-11-05,
- 2020-11-05 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Yannick Fertre <yannick.fertre@st.com>, Alain Volmat <alain.volmat@st.com>,
+Content-Disposition: inline
+In-Reply-To: <20201104125200.259639-1-marex@denx.de>
+X-Operating-System: Linux phenom 5.7.0-1-amd64 
+Cc: dri-devel@lists.freedesktop.org,
+ Yannick =?iso-8859-1?Q?Fertr=E9?= <yannick.fertre@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v5 0/4] DCMI BT656 parallel bus mode
-	support
+ Benjamin Gaignard <benjamin.gaignard@st.com>
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: Enable RPM during fbdev
+	registration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,58 +71,84 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Huges
+On Wed, Nov 04, 2020 at 01:52:00PM +0100, Marek Vasut wrote:
+> Enable runtime PM before registering the fbdev emulation and disable it
+> afterward, otherwise register access to the LTDC IP during the fbdev
+> emulation registration might hang the system.
+> =
 
-On 11/4/20 6:32 PM, Hugues Fruchet wrote:
-> Add support of BT656 embedded synchronization bus.
-> This mode allows to save hardware synchro lines hsync & vsync
-> by replacing them with synchro codes embedded in data stream.
-> Add "bus-type" property and make it required so that there is no
-> ambiguity between parallel mode (bus-type=5) and BT656 mode (bus-type=6).
-> 
-> ===========
-> = history =
-> ===========
-> version 5:
->    - Add revisited bindings and devicetree with explicit use of "bus-type"
-> 
-> version 4:
->    - Fix typo in commit message
-> 
-> version 3:
->    - Fix bus_width print to %u as per Sakari comment
-> 
-> version 2:
->    - As per Sakari remark, revisit commit message and document
->      BT656 parallel bus mode in bindings
-> 
-> version 1:
->    - Initial submission
-> 
-> Hugues Fruchet (4):
->    media: stm32-dcmi: add support of BT656 bus
->    media: dt-bindings: media: st,stm32-dcmi: add support of BT656 bus
->    ARM: dts: stm32: set bus-type in DCMI endpoint for stm32mp157c-ev1
->      board
->    ARM: dts: stm32: set bus-type in DCMI endpoint for stm32429i-eval
->      board
-> 
->   .../devicetree/bindings/media/st,stm32-dcmi.yaml   | 38 ++++++++++++++++++++++
->   arch/arm/boot/dts/stm32429i-eval.dts               |  1 +
->   arch/arm/boot/dts/stm32mp157c-ev1.dts              |  1 +
->   drivers/media/platform/stm32/stm32-dcmi.c          | 37 +++++++++++++++++++--
->   4 files changed, 75 insertions(+), 2 deletions(-)
-> 
+> The problem happens because RPM is activated at the end of ltdc_load(),
+> but the fbdev emulation registration happens only after that, and ends
+> up calling ltdc_crtc_mode_set_nofb(), which checks whether RPM is active
+> and only if it is not active, calls pm_runtime_get_sync() to enable the
+> clock and so on. If the clock are not enabled, any register access in
+> ltdc_crtc_mode_set_nofb() could hang the platform completely.
+> =
 
-I'll take DT patches on stm32-next tree.
+> This patch makes sure that ltdc_crtc_mode_set_nofb() is called within
+> pm_runtime_get_sync(), so with clock enabled.
+> =
 
-regards
-alex
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
+> Cc: Philippe Cornu <philippe.cornu@st.com>
+> Cc: Yannick Fertr=E9 <yannick.fertre@st.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+
+This looks like you're papering over a bug in your modeset code. If
+userspace later on does a setpar on the fbdev chardev, the exact same
+thing could happen. You need to fix your modeset code to avoid this, not
+sprinkle temporary rpm_get/put all over some top level entry points,
+because you can't even patch those all.
+-Daniel
+
+
+> ---
+>  drivers/gpu/drm/stm/drv.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> =
+
+> diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+> index 411103f013e2..d8921edc83db 100644
+> --- a/drivers/gpu/drm/stm/drv.c
+> +++ b/drivers/gpu/drm/stm/drv.c
+> @@ -197,7 +197,9 @@ static int stm_drm_platform_probe(struct platform_dev=
+ice *pdev)
+>  	if (ret)
+>  		goto err_put;
+>  =
+
+> +	pm_runtime_get_sync(ddev->dev);
+>  	drm_fbdev_generic_setup(ddev, 16);
+> +	pm_runtime_put_sync(ddev->dev);
+>  =
+
+>  	return 0;
+>  =
+
+> -- =
+
+> 2.28.0
+> =
+
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
