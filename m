@@ -2,59 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DECE2A97B0
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 15:32:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D6032A97AE
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 15:32:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 385A7C3FAD5;
-	Fri,  6 Nov 2020 14:32:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29756C3FAD4;
+	Fri,  6 Nov 2020 14:32:48 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B44EC36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18CEEC36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 14:32:51 +0000 (UTC)
+ Fri,  6 Nov 2020 14:32:47 +0000 (UTC)
 Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A6EWDku022669; Fri, 6 Nov 2020 15:32:34 +0100
+ 0A6EWDkl022669; Fri, 6 Nov 2020 15:32:27 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=TqUJuC3My8Iz9+K0q9sV4IpHuACP0Xg9U709fHwKzSI=;
- b=OY+Lsz1AS7s4dhnwlpkEjjLuTq8ydXIjIn//vhe3UoUwSJXfZeeJTC5S2Vlojd1oBPz1
- gqbp8CD5Sz6ND68jsN4uAcbOpudlrjC5tcWkcv9+uQTDs14AAa15Flb8DMHPbZEjFMzI
- IlgLEPMjpEONmM+0SDuJ4LdGKd5Pfib+0C68SpvHPbjzc8Vhlbyko/TjrITfpkwRRKd3
- fkOyIXR8gmWZ+t4lBT7878Jw00whMajQBunv6t6qGmktRnU6WbPGJ9D4MG6GOH5sPNbu
- 8WB9xCcoR9EnKXYzIhixweLUcV14clLSA0MvMeWKE8+UJeDD0vGYSvOIuOy6e+ryxWFn Sg== 
+ : date : message-id : in-reply-to : references : mime-version :
+ content-type; s=STMicroelectronics;
+ bh=gxL+3W7NeUQn84nqYpY2cBP3e8fFsOZ0M8nvt5bAy4I=;
+ b=QHQy1OMl/3gn+e9jj4//ePtm9KdrLveBFJClGr7P3aJwwKrhCdtv5LEBqOrbXiR7Ls3C
+ 0lv5rmOZA/XhKye9ixg2BsmhCj/INt7NG29Awzh2ysxXQDm+Fifik8zHECdbTbwOHtkn
+ buIcr/YMvuTy6QPnQ+b3EAvzcsZDI0hgPylb4PZTSwXYJ6c1Hpw8wRMfo0/SMxHPOyOm
+ uMdYa8sSw7+uMljlefDxiM9nLpYA8Apl06r8CTI/WjCzSGtSCb5HiwAs2DaDzjolxHhI
+ yeSp8wikLuuK8sBO6mfFyCt5gHEIXudGMkjXVLvrYstJggeovPi+wPiNp0OAlkQCYdJb bQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34h00evvkn-1
+ by mx07-00178001.pphosted.com with ESMTP id 34h00evvkm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Nov 2020 15:32:34 +0100
+ Fri, 06 Nov 2020 15:32:27 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B899F1000BC;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B85871000BB;
  Fri,  6 Nov 2020 15:23:55 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A161D2AD2B9;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A8BAB2AD2BA;
  Fri,  6 Nov 2020 15:23:55 +0100 (CET)
 Received: from localhost (10.75.127.46) by SFHDAG1NODE3.st.com (10.75.127.3)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov 2020 15:23:32
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov 2020 15:23:33
  +0100
 From: Christophe Roullier <christophe.roullier@st.com>
 To: <wim@linux-watchdog.org>, <linux@roeck-us.net>,
  <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>
-Date: Fri, 6 Nov 2020 15:23:26 +0100
-Message-ID: <20201106142327.3129-1-christophe.roullier@st.com>
+Date: Fri, 6 Nov 2020 15:23:27 +0100
+Message-ID: <20201106142327.3129-2-christophe.roullier@st.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201106142327.3129-1-christophe.roullier@st.com>
+References: <20201106142327.3129-1-christophe.roullier@st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG1NODE3.st.com
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG1NODE3.st.com
  (10.75.127.3)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
  definitions=2020-11-06_06:2020-11-05,
  2020-11-06 signatures=0
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-watchdog@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH V2 0/1] watchdog: stm32_iwdg: don't print an
+Cc: Etienne Carriere <etienne.carriere@st.com>, linux-watchdog@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH V2 1/1] watchdog: stm32_iwdg: don't print an
 	error on probe deferral
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -72,17 +76,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Etienne Carriere <etienne.carriere@st.com>
+
 Do not print an error trace when deferring probe for clock resources.
 
-Version 2: Remark from Guenter and Ahmad
-		use dev_err_probe instead 
-
-Etienne Carriere (1):
-  watchdog: stm32_iwdg: don't print an error on probe deferral
-
+Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+---
  drivers/watchdog/stm32_iwdg.c | 13 +++++--------
  1 file changed, 5 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+index 25188d6bbe15..a3436c296c97 100644
+--- a/drivers/watchdog/stm32_iwdg.c
++++ b/drivers/watchdog/stm32_iwdg.c
+@@ -162,18 +162,15 @@ static int stm32_iwdg_clk_init(struct platform_device *pdev,
+ 	u32 ret;
+ 
+ 	wdt->clk_lsi = devm_clk_get(dev, "lsi");
+-	if (IS_ERR(wdt->clk_lsi)) {
+-		dev_err(dev, "Unable to get lsi clock\n");
+-		return PTR_ERR(wdt->clk_lsi);
+-	}
++	if (IS_ERR(wdt->clk_lsi))
++		return dev_err_probe(dev, PTR_ERR(wdt->clk_lsi), "Unable to get lsi clock\n");
+ 
+ 	/* optional peripheral clock */
+ 	if (wdt->data->has_pclk) {
+ 		wdt->clk_pclk = devm_clk_get(dev, "pclk");
+-		if (IS_ERR(wdt->clk_pclk)) {
+-			dev_err(dev, "Unable to get pclk clock\n");
+-			return PTR_ERR(wdt->clk_pclk);
+-		}
++		if (IS_ERR(wdt->clk_pclk))
++			return dev_err_probe(dev, PTR_ERR(wdt->clk_pclk),
++					     "Unable to get pclk clock\n");
+ 
+ 		ret = clk_prepare_enable(wdt->clk_pclk);
+ 		if (ret) {
 -- 
 2.17.1
 
