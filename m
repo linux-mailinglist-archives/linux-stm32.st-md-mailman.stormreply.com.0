@@ -2,54 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E16BB2A9965
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 17:23:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD832A99E9
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 17:57:54 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F999C3FAD4;
-	Fri,  6 Nov 2020 16:23:52 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BF64C3FAD4;
+	Fri,  6 Nov 2020 16:57:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 465BAC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9018BC36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 16:23:49 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4CSQgS2Jttz1qsb3;
- Fri,  6 Nov 2020 17:23:48 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4CSQgS1CkCz1qqkp;
- Fri,  6 Nov 2020 17:23:48 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id 2SL-2vbKaimu; Fri,  6 Nov 2020 17:23:46 +0100 (CET)
-X-Auth-Info: S/hgMWz1M4XPXjC6yyBDoTpIhpuX5FSYTqbGWsx+7mo=
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Fri,  6 Nov 2020 17:23:46 +0100 (CET)
-To: Yannick FERTRE <yannick.fertre@st.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20201104125200.259639-1-marex@denx.de>
- <20201105093945.GS401619@phenom.ffwll.local>
- <e7bdd094-2109-34f1-77dc-165ff2706d20@denx.de>
- <66c438ec-42f6-0c1d-0eee-ee5501996668@st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <480e5923-9b5b-1684-93cc-65d912dd08b9@denx.de>
-Date: Fri, 6 Nov 2020 17:23:46 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ Fri,  6 Nov 2020 16:57:53 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A6Gq9uk030614; Fri, 6 Nov 2020 17:57:46 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=qJ5g4+BsJ2ro+DNS0P3N/BkqpRkYSggwgfeaYoIQ6QM=;
+ b=xi1OazMft+2qavfr8UxD/+1hpoLSv0oHMmIpkJLAJHZqtmT/ckum6tZZxw/f/si3uEFp
+ q+eIay4O64Mmb4MOVLJ+5XBi1M/0dE7N6wOg2AK4fwbtDhXCIR4CqEhGizRPJ4Q860UL
+ G5ZNe3dk9Axk8b/itmh7j0242INT0wk9yuxc9nASTsxpaeU6NHUGQp6q4J8cScKDk/0N
+ K3USH4SesgJejYP0LBcyewJVwOfXaRgjV/zmAw/zofzoeGguVuTqviWJU8HnDwXp0yTB
+ 7yt7adX0GaKQVXaO1jC4yVC/c5hijuoSBJc01eW5bbik3D1P4tcHLbd67rEP73CRaBpa kQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34h00ewjuk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Nov 2020 17:57:46 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3F52C10002A;
+ Fri,  6 Nov 2020 17:57:46 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2D2922C38D3;
+ Fri,  6 Nov 2020 17:57:46 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG1NODE3.st.com (10.75.127.3)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov 2020 17:57:45
+ +0100
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+To: <jic23@kernel.org>
+Date: Fri, 6 Nov 2020 17:57:26 +0100
+Message-ID: <1604681846-31234-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <66c438ec-42f6-0c1d-0eee-ee5501996668@st.com>
-Content-Language: en-US
-Cc: Benjamin GAIGNARD <benjamin.gaignard@st.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: Enable RPM during fbdev
-	registration
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG1NODE3.st.com
+ (10.75.127.3)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-06_06:2020-11-05,
+ 2020-11-06 signatures=0
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] iio: adc: stm32-adc: adapt clock duty cycle
+	for proper operation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,68 +67,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/6/20 5:13 PM, Yannick FERTRE wrote:
-> Hi Marek,
+For proper operation, STM32 ADC should be used with a clock duty cycle
+of 50%, in the range of 49% to 51%. Depending on the clock tree, divider
+can be used in case clock duty cycle is out of this range.
+In case clk_get_scaled_duty_cycle() returns an error, kindly apply a
+divider by default (don't make the probe fail).
 
-Hi,
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+---
+ drivers/iio/adc/stm32-adc-core.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-> On 11/5/20 10:45 AM, Marek Vasut wrote:
->> On 11/5/20 10:39 AM, Daniel Vetter wrote:
->>> On Wed, Nov 04, 2020 at 01:52:00PM +0100, Marek Vasut wrote:
->>>> Enable runtime PM before registering the fbdev emulation and disable it
->>>> afterward, otherwise register access to the LTDC IP during the fbdev
->>>> emulation registration might hang the system.
->>>>
->>>> The problem happens because RPM is activated at the end of ltdc_load(),
->>>> but the fbdev emulation registration happens only after that, and ends
->>>> up calling ltdc_crtc_mode_set_nofb(), which checks whether RPM is active
->>>> and only if it is not active, calls pm_runtime_get_sync() to enable the
->>>> clock and so on. If the clock are not enabled, any register access in
->>>> ltdc_crtc_mode_set_nofb() could hang the platform completely.
->>>>
->>>> This patch makes sure that ltdc_crtc_mode_set_nofb() is called within
->>>> pm_runtime_get_sync(), so with clock enabled.
->>
->> [...]
->>
->>> This looks like you're papering over a bug in your modeset code. If
->>> userspace later on does a setpar on the fbdev chardev, the exact same
->>> thing could happen. You need to fix your modeset code to avoid this, not
->>> sprinkle temporary rpm_get/put all over some top level entry points,
->>> because you can't even patch those all.
->>
->> I have a feeling all those pm_runtime_active() checks in the driver
->> might be the root cause of this ? I wonder why the code doesn't use
->> pm_runtime_{get,put}_sync() only when accessing registers. Thoughts?
-> 
-> First line of function ltdc_crtc_mode_set_nofb check the pm_runtime to
-> avoid to access registers without clock enabled.
-> 
-> 
-> 
-> static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
-> {
-> ...
-> 	if (!pm_runtime_active(ddev->dev)) {
-> 		ret = pm_runtime_get_sync(ddev->dev);
-> 
-> I test the fb with framebuffer console, & it works fine on my side.
-> Do you test fb on a old kernel?
-> How can I reproduce your issue?
+diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+index cd870c0..d64a9e8 100644
+--- a/drivers/iio/adc/stm32-adc-core.c
++++ b/drivers/iio/adc/stm32-adc-core.c
+@@ -202,7 +202,7 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+ {
+ 	u32 ckmode, presc, val;
+ 	unsigned long rate;
+-	int i, div;
++	int i, div, duty;
+ 
+ 	/* stm32h7 bus clock is common for all ADC instances (mandatory) */
+ 	if (!priv->bclk) {
+@@ -226,6 +226,11 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+ 			return -EINVAL;
+ 		}
+ 
++		/* If duty is an error, kindly use at least /2 divider */
++		duty = clk_get_scaled_duty_cycle(priv->aclk, 100);
++		if (duty < 0)
++			dev_warn(&pdev->dev, "adc clock duty: %d\n", duty);
++
+ 		for (i = 0; i < ARRAY_SIZE(stm32h7_adc_ckmodes_spec); i++) {
+ 			ckmode = stm32h7_adc_ckmodes_spec[i].ckmode;
+ 			presc = stm32h7_adc_ckmodes_spec[i].presc;
+@@ -234,6 +239,13 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+ 			if (ckmode)
+ 				continue;
+ 
++			/*
++			 * For proper operation, clock duty cycle range is 49%
++			 * to 51%. Apply at least /2 prescaler otherwise.
++			 */
++			if (div == 1 && (duty < 49 || duty > 51))
++				continue;
++
+ 			if ((rate / div) <= priv->max_clk_rate)
+ 				goto out;
+ 		}
+@@ -246,6 +258,10 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+ 		return -EINVAL;
+ 	}
+ 
++	duty = clk_get_scaled_duty_cycle(priv->bclk, 100);
++	if (duty < 0)
++		dev_warn(&pdev->dev, "bus clock duty: %d\n", duty);
++
+ 	for (i = 0; i < ARRAY_SIZE(stm32h7_adc_ckmodes_spec); i++) {
+ 		ckmode = stm32h7_adc_ckmodes_spec[i].ckmode;
+ 		presc = stm32h7_adc_ckmodes_spec[i].presc;
+@@ -254,6 +270,9 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+ 		if (!ckmode)
+ 			continue;
+ 
++		if (div == 1 && (duty < 49 || duty > 51))
++			continue;
++
+ 		if ((rate / div) <= priv->max_clk_rate)
+ 			goto out;
+ 	}
+-- 
+2.7.4
 
-I observed sporadic hangs and tracked it down to the fbdev registration, 
-which calls this code. Note that pm_runtime_active() here will return 0, 
-because it was already activated in ltdc_load().
-
-My question in reply to Daniel was more geared toward why do we even 
-have all these checks in the driver, wouldn't it be better to just 
-always call pm_runtime_get_sync()/pm_runtime_put_sync() in the code 
-which requires the hardware to be active ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
