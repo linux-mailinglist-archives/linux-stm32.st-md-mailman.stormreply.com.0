@@ -2,62 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B6852A9944
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 17:17:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E16BB2A9965
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 17:23:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B82EC3FAD4;
-	Fri,  6 Nov 2020 16:17:16 +0000 (UTC)
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
- [209.85.210.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F999C3FAD4;
+	Fri,  6 Nov 2020 16:23:52 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB8B1C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 465BAC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 16:17:12 +0000 (UTC)
-Received: by mail-ot1-f68.google.com with SMTP id g19so1688001otp.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Nov 2020 08:17:12 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=PHA0EidL03UfC8An9Xo/HRrV3J9easCIHZo3/RUQUy8=;
- b=KKbYOjKVnYUcT55PCcpGSuNY/L8qDOwCxnV4JhnA6FPIOeLmmVKKHYekDTlaKzFEUY
- d9ttFWumSgxXC0Qkywg3Tjfwa7ZxIKNL26cIcDiRl+j2DwU5nALSyayhtTxlqV92Mjk3
- oEdCeN+JJsjGoWi65St9TCCS2qJCUB1VKc+620ZQNnbPRoSEm0smkirETmG/bWK+/DyT
- KxXVlmyHs26T48JnQQtnlt5ij04ZaO9t6UoTThQmPbk3KEeZnYIjk0GOGkk21xg+8LXT
- HuXRQYL3THqy3LWSqsB8/nmqoh30fCjbqme/76o9+OqZWYlVDfbXFSrQpNkEmYoiw0lW
- MNJw==
-X-Gm-Message-State: AOAM532n6LjqpQRft8Z0SZirHVjyywR8ulOfvHREIEQOowB8cXPsqE0f
- oMnPkDcFbRlUAX9xVFXBbQ==
-X-Google-Smtp-Source: ABdhPJyUM2g1joTzdNeL4HLOcHzKbVxE71kOK6QziFU/66zPxzdPYxK0fs86RuyZf2tu+DP2kWBsow==
-X-Received: by 2002:a05:6830:c4:: with SMTP id
- x4mr1618752oto.183.1604679431223; 
- Fri, 06 Nov 2020 08:17:11 -0800 (PST)
-Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id n128sm353087oif.4.2020.11.06.08.17.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Nov 2020 08:17:10 -0800 (PST)
-Received: (nullmailer pid 3298198 invoked by uid 1000);
- Fri, 06 Nov 2020 16:17:09 -0000
-Date: Fri, 6 Nov 2020 10:17:09 -0600
-From: Rob Herring <robh@kernel.org>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Message-ID: <20201106161709.GA3297832@bogus>
-References: <20201106091854.14958-1-amelie.delaunay@st.com>
- <20201106091854.14958-3-amelie.delaunay@st.com>
+ Fri,  6 Nov 2020 16:23:49 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4CSQgS2Jttz1qsb3;
+ Fri,  6 Nov 2020 17:23:48 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4CSQgS1CkCz1qqkp;
+ Fri,  6 Nov 2020 17:23:48 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id 2SL-2vbKaimu; Fri,  6 Nov 2020 17:23:46 +0100 (CET)
+X-Auth-Info: S/hgMWz1M4XPXjC6yyBDoTpIhpuX5FSYTqbGWsx+7mo=
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri,  6 Nov 2020 17:23:46 +0100 (CET)
+To: Yannick FERTRE <yannick.fertre@st.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20201104125200.259639-1-marex@denx.de>
+ <20201105093945.GS401619@phenom.ffwll.local>
+ <e7bdd094-2109-34f1-77dc-165ff2706d20@denx.de>
+ <66c438ec-42f6-0c1d-0eee-ee5501996668@st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <480e5923-9b5b-1684-93cc-65d912dd08b9@denx.de>
+Date: Fri, 6 Nov 2020 17:23:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201106091854.14958-3-amelie.delaunay@st.com>
-Cc: devicetree@vger.kernel.org,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- Badhri Jagan Sridharan <badhri@google.com>, Rob Herring <robh+dt@kernel.org>,
- Jun Li <lijun.kernel@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 2/5] dt-bindings: usb: Add DT bindings
- for STUSB160x Type-C controller
+In-Reply-To: <66c438ec-42f6-0c1d-0eee-ee5501996668@st.com>
+Content-Language: en-US
+Cc: Benjamin GAIGNARD <benjamin.gaignard@st.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: Enable RPM during fbdev
+	registration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,46 +61,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 06 Nov 2020 10:18:51 +0100, Amelie Delaunay wrote:
-> Add binding documentation for the STMicroelectronics STUSB160x Type-C port
-> controller.
+On 11/6/20 5:13 PM, Yannick FERTRE wrote:
+> Hi Marek,
+
+Hi,
+
+> On 11/5/20 10:45 AM, Marek Vasut wrote:
+>> On 11/5/20 10:39 AM, Daniel Vetter wrote:
+>>> On Wed, Nov 04, 2020 at 01:52:00PM +0100, Marek Vasut wrote:
+>>>> Enable runtime PM before registering the fbdev emulation and disable it
+>>>> afterward, otherwise register access to the LTDC IP during the fbdev
+>>>> emulation registration might hang the system.
+>>>>
+>>>> The problem happens because RPM is activated at the end of ltdc_load(),
+>>>> but the fbdev emulation registration happens only after that, and ends
+>>>> up calling ltdc_crtc_mode_set_nofb(), which checks whether RPM is active
+>>>> and only if it is not active, calls pm_runtime_get_sync() to enable the
+>>>> clock and so on. If the clock are not enabled, any register access in
+>>>> ltdc_crtc_mode_set_nofb() could hang the platform completely.
+>>>>
+>>>> This patch makes sure that ltdc_crtc_mode_set_nofb() is called within
+>>>> pm_runtime_get_sync(), so with clock enabled.
+>>
+>> [...]
+>>
+>>> This looks like you're papering over a bug in your modeset code. If
+>>> userspace later on does a setpar on the fbdev chardev, the exact same
+>>> thing could happen. You need to fix your modeset code to avoid this, not
+>>> sprinkle temporary rpm_get/put all over some top level entry points,
+>>> because you can't even patch those all.
+>>
+>> I have a feeling all those pm_runtime_active() checks in the driver
+>> might be the root cause of this ? I wonder why the code doesn't use
+>> pm_runtime_{get,put}_sync() only when accessing registers. Thoughts?
 > 
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
-> ---
->  .../devicetree/bindings/usb/st,stusb160x.yaml | 85 +++++++++++++++++++
->  1 file changed, 85 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/st,stusb160x.yaml
+> First line of function ltdc_crtc_mode_set_nofb check the pm_runtime to
+> avoid to access registers without clock enabled.
 > 
+> 
+> 
+> static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
+> {
+> ...
+> 	if (!pm_runtime_active(ddev->dev)) {
+> 		ret = pm_runtime_get_sync(ddev->dev);
+> 
+> I test the fb with framebuffer console, & it works fine on my side.
+> Do you test fb on a old kernel?
+> How can I reproduce your issue?
 
+I observed sporadic hangs and tracked it down to the fbdev registration, 
+which calls this code. Note that pm_runtime_active() here will return 0, 
+because it was already activated in ltdc_load().
 
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/usb/st,stusb160x.yaml: 'additionalProperties' is a required property
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/usb/st,stusb160x.yaml: ignoring, error in schema: 
-warning: no schema found in file: ./Documentation/devicetree/bindings/usb/st,stusb160x.yaml
-
-
-See https://patchwork.ozlabs.org/patch/1395559
-
-The base for the patch is generally the last rc1. Any dependencies
-should be noted.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
-
+My question in reply to Daniel was more geared toward why do we even 
+have all these checks in the driver, wouldn't it be better to just 
+always call pm_runtime_get_sync()/pm_runtime_put_sync() in the code 
+which requires the hardware to be active ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
