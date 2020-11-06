@@ -2,67 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7C272A9B01
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 18:41:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABB5F2A9B2E
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 18:50:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CDB5C3FAD4;
-	Fri,  6 Nov 2020 17:41:15 +0000 (UTC)
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
- [209.85.210.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F4106C3FAD4;
+	Fri,  6 Nov 2020 17:50:48 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D580BC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25D18C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 17:41:12 +0000 (UTC)
-Received: by mail-ot1-f66.google.com with SMTP id 79so1951711otc.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Nov 2020 09:41:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=uLhEdPzLKPN9y0Y1FvDCW1msQK/rmAeoz0yPSS7CP/s=;
- b=jqRks1dh3gjGCUabb2ufNQxlNGI8bjL4On2wkLX9Ph8+OqEoK6yCVqP3PSAQrxYePZ
- OvlbZdByOacc3+0thZjFFoJm5sywILYb9ecoghyIdSRyo4SksjTqKEKwrv0eMEvFrDOH
- 8OeowFAovGAqDBPuc4PLswmyAHnzXKiTZzXvGce0fwYP1UM5Yl3dBudxTkPFCVe1S/7J
- HAOzPav18RCtb6VZLoE0ko9LqVCeZKOK/Wi1L+TMXcb9bf/CF+M8dfnVO41tpnENV2ly
- MAYEG4gwCPHWmHxXyrhyEG6xUqX8bAIUtALTw5Z+uyC7qKHjxcabmD2CZVoimVwI0eQf
- yZCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=uLhEdPzLKPN9y0Y1FvDCW1msQK/rmAeoz0yPSS7CP/s=;
- b=UOQjIHEB7boSY7h0QCVoq7xzm89IeGXfcPIy8JPoMmG5W1xSplSbPYV6kExvKRUygi
- y9F3dJ2+hz6LOV1gENquLVGhJVZv37TMJzC6oH70wgAgg5R5+EP2TpWgKO23IDVtDvQL
- cVmx5eCaP0Uw+D/zbzasfSY+4oqlEuzxFS11bWWzVSxC+O+VfiDyyBS2xb+lKHaEWZTq
- a6duskO0qapjY7r3TEzYz4db277ycyTFyIY8mXbuvS9bMHkUfZb/PNsffBQfn6ovwcm+
- YUXilvgf6w0mxNzB1StF4Y1W3Y8qaooVon5wME+A9aD6KYX2AqlCFGi3xUZ0X/iGbpmL
- dT9w==
-X-Gm-Message-State: AOAM531X2r8nCADz5EN/B6E9Y0g2Uljjqc8CH77DucTGPjwu0hyJvoLW
- /GgeLDTwzNfB5mKVkT/3biI=
-X-Google-Smtp-Source: ABdhPJxSjaZ0nuVUyMqzhEbLb4XE4zzKDOr9zqrn8ee4fvTdWOQ00WwQQvU2vC4TLwd24DGXXkbhCQ==
-X-Received: by 2002:a9d:720e:: with SMTP id u14mr1893659otj.65.1604684471589; 
- Fri, 06 Nov 2020 09:41:11 -0800 (PST)
-Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id e3sm464230ooq.0.2020.11.06.09.41.10
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 06 Nov 2020 09:41:10 -0800 (PST)
-Date: Fri, 6 Nov 2020 09:41:09 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Christophe Roullier <christophe.roullier@st.com>
-Message-ID: <20201106174109.GF14837@roeck-us.net>
-References: <20201106142327.3129-1-christophe.roullier@st.com>
- <20201106142327.3129-2-christophe.roullier@st.com>
+ Fri,  6 Nov 2020 17:50:46 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A6HmTgh004037; Fri, 6 Nov 2020 18:50:35 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=eMPMn91cCHyM/mIF1zD+SFO1I52TNwQPU0lvOZDdToE=;
+ b=0O4Jge/UIjwArzKM0JVlUhlUH2fxXAeEsWZ/yltz9MTsSYTFpAAsLtrDg5WdoAaQMkru
+ OkOK7UK0R3L+9OB6aiNpgOJos37Wn0LlneVS3Acz3XA1pRVfLxnzPOHsSZCK1in3fkcw
+ qaBmoSUorZLH8wyf974OfunbogdJ/BzF5uq45ziSn9U/0blx1S3KGzCrE8K+xkqcMMlj
+ 6YKylkhBXg9ycxHSdsWiWvQBtPN4c8aK69cxW+7mTPr5MSqBF7ehIk59p+Xc5IdqO29p
+ 0yTiYR3SFpJhRFkqcuv2eQtEUxcCcAGb1JrKjGihNHLsHOADmwMANFBpe7bs/w2ZaoeI eA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34h00ewstr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Nov 2020 18:50:35 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7865D100034;
+ Fri,  6 Nov 2020 18:50:34 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 67B612150EE;
+ Fri,  6 Nov 2020 18:50:34 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG1NODE3.st.com (10.75.127.3)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov 2020 18:50:33
+ +0100
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+To: <jic23@kernel.org>
+Date: Fri, 6 Nov 2020 18:50:16 +0100
+Message-ID: <1604685016-2434-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201106142327.3129-2-christophe.roullier@st.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Etienne Carriere <etienne.carriere@st.com>, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, wim@linux-watchdog.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-watchdog@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH V2 1/1] watchdog: stm32_iwdg: don't print
- an error on probe deferral
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG1NODE3.st.com
+ (10.75.127.3)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-06_06:2020-11-05,
+ 2020-11-06 signatures=0
+Cc: linux-doc@vger.kernel.org, mchehab+huawei@kernel.org,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] docs: ABI: testing: iio: stm32: remove
+	re-introduced unsupported ABI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,51 +73,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Nov 06, 2020 at 03:23:27PM +0100, Christophe Roullier wrote:
-> From: Etienne Carriere <etienne.carriere@st.com>
-> 
-> Do not print an error trace when deferring probe for clock resources.
-> 
-> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
-> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+Remove unsupported ABI that has been re-introduced due to a rebase hunk.
+This ABI has been moved in the past in commit b299d00420e2
+("IIO: stm32: Remove quadrature related functions from trigger driver")
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+This also fixes a couple of warnings seen with:
+./scripts/get_abi.pl validate 2>&1|grep iio
 
-> ---
->  drivers/watchdog/stm32_iwdg.c | 13 +++++--------
->  1 file changed, 5 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-> index 25188d6bbe15..a3436c296c97 100644
-> --- a/drivers/watchdog/stm32_iwdg.c
-> +++ b/drivers/watchdog/stm32_iwdg.c
-> @@ -162,18 +162,15 @@ static int stm32_iwdg_clk_init(struct platform_device *pdev,
->  	u32 ret;
->  
->  	wdt->clk_lsi = devm_clk_get(dev, "lsi");
-> -	if (IS_ERR(wdt->clk_lsi)) {
-> -		dev_err(dev, "Unable to get lsi clock\n");
-> -		return PTR_ERR(wdt->clk_lsi);
-> -	}
-> +	if (IS_ERR(wdt->clk_lsi))
-> +		return dev_err_probe(dev, PTR_ERR(wdt->clk_lsi), "Unable to get lsi clock\n");
->  
->  	/* optional peripheral clock */
->  	if (wdt->data->has_pclk) {
->  		wdt->clk_pclk = devm_clk_get(dev, "pclk");
-> -		if (IS_ERR(wdt->clk_pclk)) {
-> -			dev_err(dev, "Unable to get pclk clock\n");
-> -			return PTR_ERR(wdt->clk_pclk);
-> -		}
-> +		if (IS_ERR(wdt->clk_pclk))
-> +			return dev_err_probe(dev, PTR_ERR(wdt->clk_pclk),
-> +					     "Unable to get pclk clock\n");
->  
->  		ret = clk_prepare_enable(wdt->clk_pclk);
->  		if (ret) {
-> -- 
-> 2.17.1
-> 
+Fixes: 34433332841d ("docs: ABI: testing: make the files compatible with ReST output")
+
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+---
+ .../ABI/testing/sysfs-bus-iio-timer-stm32          | 24 ----------------------
+ 1 file changed, 24 deletions(-)
+
+diff --git a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32 b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
+index a10a4de..c4a4497 100644
+--- a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
++++ b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
+@@ -109,30 +109,6 @@ Description:
+ 		When counting down the counter start from preset value
+ 		and fire event when reach 0.
+ 
+-What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+-KernelVersion:	4.12
+-Contact:	benjamin.gaignard@st.com
+-Description:
+-		Reading returns the list possible quadrature modes.
+-
+-What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+-KernelVersion:	4.12
+-Contact:	benjamin.gaignard@st.com
+-Description:
+-		Configure the device counter quadrature modes:
+-
+-		channel_A:
+-			Encoder A input servers as the count input and B as
+-			the UP/DOWN direction control input.
+-
+-		channel_B:
+-			Encoder B input serves as the count input and A as
+-			the UP/DOWN direction control input.
+-
+-		quadrature:
+-			Encoder A and B inputs are mixed to get direction
+-			and count with a scale of 0.25.
+-
+ What:		/sys/bus/iio/devices/iio:deviceX/in_count_enable_mode_available
+ KernelVersion:	4.12
+ Contact:	benjamin.gaignard@st.com
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
