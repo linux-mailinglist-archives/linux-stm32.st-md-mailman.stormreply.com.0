@@ -2,71 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A4AB2A9A54
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 18:02:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7C272A9B01
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 18:41:15 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EA9EC3FAD4;
-	Fri,  6 Nov 2020 17:02:52 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CDB5C3FAD4;
+	Fri,  6 Nov 2020 17:41:15 +0000 (UTC)
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9E2AC36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D580BC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 17:02:50 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A6Gw9xf008252; Fri, 6 Nov 2020 18:01:36 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=uZBV8n4mMkde4jjAqjB9u7d5zjrddtyOYSHkQR0yWT0=;
- b=GlBrR15FDgSjHbKzcM3/S6sURlZ4LTote0SFOE3JGvwsW4BqbPstlzez9WdA/50hio8y
- NCCX24+58XBb+Ny0ivGmGE0udME7kHcEfFqHqVuVsz5dDO9ZzMgq6h3tl7L7BueR51un
- NFRCJ78mvNoStxdpaoLFCUOpvoXkpmnwi8La31op9HQ1+yQK5eL5WAfMkvJCJBPMtG2u
- bH5k+aWOsFX9DWHy7cKKldWka6icYwBD4DDHaLAHeFlcThMEzCpKxpPz/JAdGFoWmaCC
- 51Eo8dIPmiz53SJobt98YOJFgt5mUPHjr9x415rY+Cl5gRK5q3IqvR53vVoVuHLX0lh1 Ng== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34h00ewkg0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Nov 2020 18:01:36 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2AE0110002A;
- Fri,  6 Nov 2020 18:01:35 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 19DFB219D0E;
- Fri,  6 Nov 2020 18:01:35 +0100 (CET)
-Received: from lmecxl0995.lme.st.com (10.75.127.51) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov
- 2020 18:01:33 +0100
-To: Rob Herring <robh@kernel.org>
-References: <20201106091854.14958-1-amelie.delaunay@st.com>
- <20201106091854.14958-3-amelie.delaunay@st.com>
- <20201106161709.GA3297832@bogus>
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <aa30c00b-383d-29d4-c782-ae8781354de9@st.com>
-Date: Fri, 6 Nov 2020 18:01:33 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Fri,  6 Nov 2020 17:41:12 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id 79so1951711otc.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 06 Nov 2020 09:41:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=uLhEdPzLKPN9y0Y1FvDCW1msQK/rmAeoz0yPSS7CP/s=;
+ b=jqRks1dh3gjGCUabb2ufNQxlNGI8bjL4On2wkLX9Ph8+OqEoK6yCVqP3PSAQrxYePZ
+ OvlbZdByOacc3+0thZjFFoJm5sywILYb9ecoghyIdSRyo4SksjTqKEKwrv0eMEvFrDOH
+ 8OeowFAovGAqDBPuc4PLswmyAHnzXKiTZzXvGce0fwYP1UM5Yl3dBudxTkPFCVe1S/7J
+ HAOzPav18RCtb6VZLoE0ko9LqVCeZKOK/Wi1L+TMXcb9bf/CF+M8dfnVO41tpnENV2ly
+ MAYEG4gwCPHWmHxXyrhyEG6xUqX8bAIUtALTw5Z+uyC7qKHjxcabmD2CZVoimVwI0eQf
+ yZCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=uLhEdPzLKPN9y0Y1FvDCW1msQK/rmAeoz0yPSS7CP/s=;
+ b=UOQjIHEB7boSY7h0QCVoq7xzm89IeGXfcPIy8JPoMmG5W1xSplSbPYV6kExvKRUygi
+ y9F3dJ2+hz6LOV1gENquLVGhJVZv37TMJzC6oH70wgAgg5R5+EP2TpWgKO23IDVtDvQL
+ cVmx5eCaP0Uw+D/zbzasfSY+4oqlEuzxFS11bWWzVSxC+O+VfiDyyBS2xb+lKHaEWZTq
+ a6duskO0qapjY7r3TEzYz4db277ycyTFyIY8mXbuvS9bMHkUfZb/PNsffBQfn6ovwcm+
+ YUXilvgf6w0mxNzB1StF4Y1W3Y8qaooVon5wME+A9aD6KYX2AqlCFGi3xUZ0X/iGbpmL
+ dT9w==
+X-Gm-Message-State: AOAM531X2r8nCADz5EN/B6E9Y0g2Uljjqc8CH77DucTGPjwu0hyJvoLW
+ /GgeLDTwzNfB5mKVkT/3biI=
+X-Google-Smtp-Source: ABdhPJxSjaZ0nuVUyMqzhEbLb4XE4zzKDOr9zqrn8ee4fvTdWOQ00WwQQvU2vC4TLwd24DGXXkbhCQ==
+X-Received: by 2002:a9d:720e:: with SMTP id u14mr1893659otj.65.1604684471589; 
+ Fri, 06 Nov 2020 09:41:11 -0800 (PST)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id e3sm464230ooq.0.2020.11.06.09.41.10
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 06 Nov 2020 09:41:10 -0800 (PST)
+Date: Fri, 6 Nov 2020 09:41:09 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christophe Roullier <christophe.roullier@st.com>
+Message-ID: <20201106174109.GF14837@roeck-us.net>
+References: <20201106142327.3129-1-christophe.roullier@st.com>
+ <20201106142327.3129-2-christophe.roullier@st.com>
 MIME-Version: 1.0
-In-Reply-To: <20201106161709.GA3297832@bogus>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-06_06:2020-11-05,
- 2020-11-06 signatures=0
-Cc: devicetree@vger.kernel.org,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- Badhri Jagan Sridharan <badhri@google.com>, Rob Herring <robh+dt@kernel.org>,
- Jun Li <lijun.kernel@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 2/5] dt-bindings: usb: Add DT bindings
- for STUSB160x Type-C controller
+Content-Disposition: inline
+In-Reply-To: <20201106142327.3129-2-christophe.roullier@st.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Etienne Carriere <etienne.carriere@st.com>, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, wim@linux-watchdog.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-watchdog@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH V2 1/1] watchdog: stm32_iwdg: don't print
+ an error on probe deferral
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,58 +74,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, Nov 06, 2020 at 03:23:27PM +0100, Christophe Roullier wrote:
+> From: Etienne Carriere <etienne.carriere@st.com>
+> 
+> Do not print an error trace when deferring probe for clock resources.
+> 
+> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
 
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
 
-On 11/6/20 5:17 PM, Rob Herring wrote:
-> On Fri, 06 Nov 2020 10:18:51 +0100, Amelie Delaunay wrote:
->> Add binding documentation for the STMicroelectronics STUSB160x Type-C port
->> controller.
->>
->> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
->> ---
->>   .../devicetree/bindings/usb/st,stusb160x.yaml | 85 +++++++++++++++++++
->>   1 file changed, 85 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/usb/st,stusb160x.yaml
->>
+> ---
+>  drivers/watchdog/stm32_iwdg.c | 13 +++++--------
+>  1 file changed, 5 insertions(+), 8 deletions(-)
 > 
+> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+> index 25188d6bbe15..a3436c296c97 100644
+> --- a/drivers/watchdog/stm32_iwdg.c
+> +++ b/drivers/watchdog/stm32_iwdg.c
+> @@ -162,18 +162,15 @@ static int stm32_iwdg_clk_init(struct platform_device *pdev,
+>  	u32 ret;
+>  
+>  	wdt->clk_lsi = devm_clk_get(dev, "lsi");
+> -	if (IS_ERR(wdt->clk_lsi)) {
+> -		dev_err(dev, "Unable to get lsi clock\n");
+> -		return PTR_ERR(wdt->clk_lsi);
+> -	}
+> +	if (IS_ERR(wdt->clk_lsi))
+> +		return dev_err_probe(dev, PTR_ERR(wdt->clk_lsi), "Unable to get lsi clock\n");
+>  
+>  	/* optional peripheral clock */
+>  	if (wdt->data->has_pclk) {
+>  		wdt->clk_pclk = devm_clk_get(dev, "pclk");
+> -		if (IS_ERR(wdt->clk_pclk)) {
+> -			dev_err(dev, "Unable to get pclk clock\n");
+> -			return PTR_ERR(wdt->clk_pclk);
+> -		}
+> +		if (IS_ERR(wdt->clk_pclk))
+> +			return dev_err_probe(dev, PTR_ERR(wdt->clk_pclk),
+> +					     "Unable to get pclk clock\n");
+>  
+>  		ret = clk_prepare_enable(wdt->clk_pclk);
+>  		if (ret) {
+> -- 
+> 2.17.1
 > 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/usb/st,stusb160x.yaml: 'additionalProperties' is a required property
-> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/usb/st,stusb160x.yaml: ignoring, error in schema:
-> warning: no schema found in file: ./Documentation/devicetree/bindings/usb/st,stusb160x.yaml
-> 
-> 
-> See https://patchwork.ozlabs.org/patch/1395559
-> 
-> The base for the patch is generally the last rc1. Any dependencies
-> should be noted.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit.
-> 
-I already ran 'make dt_binding_check' but st-schema was not up to date, 
-despite a not so old upgrade.
-I note for next time to do the upgrade autotically before the 'make 
-dt_binding_check'.
-
-New version submitted.
-
-Thanks,
-Amelie
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
