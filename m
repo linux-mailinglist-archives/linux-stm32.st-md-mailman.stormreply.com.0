@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2640E2A9655
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 13:42:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A54752A96AF
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 14:06:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC30BC3FAD5
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 12:42:36 +0000 (UTC)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63933C3FAD4;
+	Fri,  6 Nov 2020 13:06:49 +0000 (UTC)
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56D45C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C607C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 12:42:35 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id y197so853767qkb.7
+ Fri,  6 Nov 2020 13:06:48 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id i18so1174933ots.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Nov 2020 04:42:35 -0800 (PST)
+ Fri, 06 Nov 2020 05:06:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=mmSROBLr7qTyDK5MeM29D+hPI+10Zlk+TD1mvS+sayA=;
- b=fLIkLfFLJao5C5NhVKY9MYO0q9vG2+SyXw6EleHWU0ykhsL5/MGhuN1gY8+T4AtM+r
- bJwVq9gmxCE9AOIY4W1b/4XMcek6fBSKiY+3AlYJujQ65TLY4uKvhDKn6IiY+sl5wzTF
- 2K3sDSy58RcC+D8i9pxvIMXh96kBDn4i5SsrNy6TKLRaJJJqxJ4E6OOr5LnLoi2NAPtG
- 3inSqyEl1/DMp8+VHeEpP7aN3GKl60xDXaQT8QJsHgbEPK4uIm11u3AiefZMfgGlK5Sy
- PpkjfWJjx1fzE9/Dmwt1BfdLaqiKIf2FGMbyRWlw/BzNePNiDHar2yIVKjJbJbQKAY4F
- gdnA==
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=fRK20G4/BGOrBRLDBmiiL7+5bvGQEl0XDwSOBPWbBI8=;
+ b=JotNPZjcRcLLMkuJh6BLaDMSDw0g7P04Xc5AxvNd8vw3seVk1bWBFK5HRpSVUYTO6n
+ oOVRugi+2iuG0C6UdIMZjoi/IByn0JrN3JEzxY7fSYsz8ESmjt/RCRwwOqbEYnDBBpIy
+ 41R+7lhPGbrQTBqfYfZ9oQuw4l6XJhIiowlsXRb8iAHInVIlyFk8RviH1mSHXniuRGX3
+ yiYwEdEyYCYv8B0a1m8nctmtQldvR+L5yZczLKgmns6QXJOfDpnjYK9feNC8fURO1UJc
+ HfrPDHlI41/nLcozi0PMKg3XF1J2oeW2TOXAvlPgpMFCSPzToEUMp/rHeSCxIlNEEUFo
+ QAaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=mmSROBLr7qTyDK5MeM29D+hPI+10Zlk+TD1mvS+sayA=;
- b=Am5M4oRNsK9O9HtUlRBC8hj0SJKbqLqypm/Ebg9h8xXNRNRsxyAFxniH+d/jg+7q3P
- ZlNqN6hzXQMCCY5Kt5ll+YiFCBz6w94PpT+jp+9/4uthwRTF8pPyMWUWVGbeEzzluhyd
- lUyvl9KMW2iP9mN19xZ1I8Q1vXyBsNjOdexVwD/C5d1EXJU432yBKVaKti/xT3liseN+
- FWm3TUcUuyo8UYDezZKEmQ4NgoeNKURbZkSOfnWp66VsIohV+gzR4mPM+XlcIPpecJEj
- vDCe95gNWhEPFP0THOFValGPPUDVtzHOkP/Y7APLbREpm6ehct/z6Yaius/QSYvN+bOU
- B+yg==
-X-Gm-Message-State: AOAM5336KSKeqmN6n9WVjpYZY2Cb2hm/Hxu3oviq1ZDnpzXE5xHyw+pN
- qPQQnKtMu30fnENktGKf8+A=
-X-Google-Smtp-Source: ABdhPJz+x7n4rUjf4oIoJdeh6d8gec6X3dn+fZEHdSdzVcqy/djqfsTjZZnpdAHVnrTYcxSoPB/C+g==
-X-Received: by 2002:a37:a80b:: with SMTP id r11mr1232848qke.380.1604666554176; 
- Fri, 06 Nov 2020 04:42:34 -0800 (PST)
-Received: from shinobu (072-189-064-225.res.spectrum.com. [72.189.64.225])
- by smtp.gmail.com with ESMTPSA id h9sm387832qth.78.2020.11.06.04.42.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Nov 2020 04:42:33 -0800 (PST)
-Date: Fri, 6 Nov 2020 07:42:17 -0500
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <20201106124217.GA4015@shinobu>
-References: <e8c99989-f018-dd90-2144-e09c05a3731b@pengutronix.de>
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=fRK20G4/BGOrBRLDBmiiL7+5bvGQEl0XDwSOBPWbBI8=;
+ b=hcesSpPgFuYnmmp5RCy0rPxLGAa8nmrZhBRDp0Pl1zLgbmRGWeDCiXLKv+nPdwsM16
+ ANGHb+EGEk63YIQ7Kmg/4VX+qIo54dXXRfDECdZtnDOBAdlu0L47LWaHti8AE25F2aKB
+ RHCXUIu0WRbn9Wvgth2s8Bi6LHANM6yzabFh+GL06FqHfJcvhQoN6LTAZMXmYAn2Zx5e
+ uZoQQ2GOVjyUW0aEzzKbhiwwT4nw0ABL8Idc8bhCubIXyDvwDblndRd8W9JJ1I0ytaqX
+ u/4QXflIOWYJTqS2cr2IGCyk0vuKF6yR7r5R1A/YG/E/FtFffQYc4MY+jCDzvHSOZg1C
+ vIjA==
+X-Gm-Message-State: AOAM530a1IIErS4zeYHOeyMaTnCcglyS5tZUmaA6ruo32erS1p2TkuZ7
+ jZYpcxfilZkQ/5BzeAfreBY=
+X-Google-Smtp-Source: ABdhPJzRc9hhnOoI4fdYnfJ7tHtsKnHiE1V8K23BxTe2pXu/JQNI10YNh9dPjDG0eyzVTDtu3k11Xw==
+X-Received: by 2002:a9d:6c4b:: with SMTP id g11mr1010166otq.265.1604668006787; 
+ Fri, 06 Nov 2020 05:06:46 -0800 (PST)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id m10sm294602oon.27.2020.11.06.05.06.45
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 06 Nov 2020 05:06:46 -0800 (PST)
+Date: Fri, 6 Nov 2020 05:06:44 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Christophe Roullier <christophe.roullier@st.com>
+Message-ID: <20201106130644.GA14837@roeck-us.net>
+References: <20201106094627.21132-1-christophe.roullier@st.com>
 MIME-Version: 1.0
-In-Reply-To: <e8c99989-f018-dd90-2144-e09c05a3731b@pengutronix.de>
-Cc: Fabrice Gasnier <fabrice.gasnier@st.com>, linux-iio@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Benjamin Gaignard <benjamin.gaignard@st.com>
-Subject: Re: [Linux-stm32] Counter device Interface for reading out input
-	capture
+Content-Disposition: inline
+In-Reply-To: <20201106094627.21132-1-christophe.roullier@st.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Etienne Carriere <etienne.carriere@st.com>, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, wim@linux-watchdog.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-watchdog@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 1/1] watchdog: stm32_iwdg: don't print an
+ error on probe deferral
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,103 +73,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2311685688165470311=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, Nov 06, 2020 at 10:46:27AM +0100, Christophe Roullier wrote:
+> From: Etienne Carriere <etienne.carriere@st.com>
+> 
+> Do not print an error trace when deferring probe for clock resources.
+> 
+> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+> Signed-off-by: Christophe Roullier <christophe.roullier@st.com>
+> ---
+>  drivers/watchdog/stm32_iwdg.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+> index 25188d6bbe15..1b71c205cee0 100644
+> --- a/drivers/watchdog/stm32_iwdg.c
+> +++ b/drivers/watchdog/stm32_iwdg.c
+> @@ -163,7 +163,8 @@ static int stm32_iwdg_clk_init(struct platform_device *pdev,
+>  
+>  	wdt->clk_lsi = devm_clk_get(dev, "lsi");
+>  	if (IS_ERR(wdt->clk_lsi)) {
+> -		dev_err(dev, "Unable to get lsi clock\n");
+> +		if (PTR_ERR(wdt->clk_lsi) != -EPROBE_DEFER)
+> +			dev_err(dev, "Unable to get lsi clock\n");
+>  		return PTR_ERR(wdt->clk_lsi);
 
---===============2311685688165470311==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ikeVEW9yuYc//A+q"
-Content-Disposition: inline
+I would suggest to use
+		return dev_err_probe(dev, PTR_ERR(wdt->clk_lsi), "Unable to get lsi clock\n");
 
+Guenter
 
---ikeVEW9yuYc//A+q
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Nov 05, 2020 at 07:46:14PM +0100, Ahmad Fatoum wrote:
-> Hello Benjamin,
-> Hello Fabrice,
->=20
-> In the stm32-timer-cnt driver I find unused #defines for TIM_CCMR_MASK and
-> TIM_CCER_MASK, which to me hint that support for the "input capture mode"=
-[1]
-> was implemented but removed prior to upstreaming.
->=20
-> It doesn't look like the counter device API is yet made to support such
-> an input capture mode (latching a counter value on an external event, e.g.
-> to timestamp incoming rising edges to measure jitter between pulses).
->=20
-> I am still very new to this, so I figured I ask whether you already have
-> thoughts (or maybe code to share) on how to best integrate this with the
-> counter device API.
->=20
-> I've added linux-iio/linux-stm32 to the CC as well, so if someone else
-> has an idea how to best do this, please share.
->=20
-> [1]: 40.3.7 in RM0436 rev 3
->=20
-> Cheers,
-> Ahmad
->=20
-> --=20
-> Pengutronix e.K.                           |                             |
-> Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-> 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-> Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
-
-Hi Ahmad,
-
-Regarding the Counter subsystem, I'm developing a Counter character
-device API that supports timestamps for counter devices:
-https://lore.kernel.org/linux-arm-kernel/157d1edf-feec-33b5-7ad5-94f99316ca=
-6e@lechnology.com/T/
-
-My aim is to get this functionality picked up for the Linux 5.11 merge
-window. I have one more revision at least that should be ready in a
-couple weeks -- I'll CC you for that patchset to keep you in the loop;
-I force-push periodically to my personal repo when as I develop, so you
-can take a look at the current state of this next revision if you're
-curious:
-https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v6
-
-Sincerely,
-
-William Breathitt Gray
-
---ikeVEW9yuYc//A+q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl+lRJEACgkQhvpINdm7
-VJJo5RAAi1RnWj35dtmsJ5bISyBJFuQsbOFlQ38c5s7gHy6I9/02Yo2kU6JDYB6B
-qL2J/FCVaP6FI9ufoWnfKsy2e2Un33gvJ261GL60sfL7UcEUCUKdvFb0iBiDcoFA
-CLtNRDqsT0fx/yFNgr7nzRdnBZIjKAzDY7ObEpLBxkFKBSVfjxlIUut2ATetTdmM
-j1kvzOrBjzqxxp7WxkysJB7b8lU+S/oXvlW6cwKgcwDu+9guCvzlh2GEQMBHWRsb
-6ndxohTkV2rO+JCTrDYJ5SusZq9WPv2s1xbj5w3A1mXxfWlMqYYZdT8TtXBXrmAB
-H7aG2D9FPSwztJX4HKSDzFuBZbpiHHpWpYjTfr+enYJibi7pqVJL+isA6HvOPZRa
-H8LuudhNtZotEaQNvOqzEumgHf8auWO38OQ1BczmRZdnQPlKGjgoEv20oSsevBli
-vJRycnjgrN7uJtcPfafPAMnbEczO5bNczkbHxZOv0nExPtwko806MDRrYwFsE5MO
-F1CjeUz4uEQ5lW41RYPwbV4SZSYVXR0Tk93vySY6CVkpuFI4L/qgQ7cdSsuskXmI
-6fnVAmNcqYbYWtAkcsoOt9OKvJkXgo4oTkuoJMNVar5jLbl635jcb/mgwFCeTnBG
-95tl27AdMquOj9O1kLvYgNHQbW9ZAo8Zt62BZhWGFARIdcHladw=
-=3mUG
------END PGP SIGNATURE-----
-
---ikeVEW9yuYc//A+q--
-
---===============2311685688165470311==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>  	}
+>  
+> @@ -171,7 +172,8 @@ static int stm32_iwdg_clk_init(struct platform_device *pdev,
+>  	if (wdt->data->has_pclk) {
+>  		wdt->clk_pclk = devm_clk_get(dev, "pclk");
+>  		if (IS_ERR(wdt->clk_pclk)) {
+> -			dev_err(dev, "Unable to get pclk clock\n");
+> +			if (PTR_ERR(wdt->clk_pclk) != -EPROBE_DEFER)
+> +				dev_err(dev, "Unable to get pclk clock\n");
+>  			return PTR_ERR(wdt->clk_pclk);
+>  		}
+>  
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2311685688165470311==--
