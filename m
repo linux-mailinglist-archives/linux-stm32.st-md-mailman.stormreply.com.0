@@ -2,28 +2,28 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E704C2A8FDC
+	by mail.lfdr.de (Postfix) with ESMTPS id E87602A8FDD
 	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 08:04:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 987DEC3FAD5;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A370DC3FAE3;
 	Fri,  6 Nov 2020 07:04:51 +0000 (UTC)
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D336EC36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48DAEC36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 01:41:38 +0000 (UTC)
-Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.60])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4CS35P2VrXzLrWD;
- Fri,  6 Nov 2020 09:41:29 +0800 (CST)
-Received: from huawei.com (10.90.53.225) by DGGEMS401-HUB.china.huawei.com
- (10.3.19.201) with Microsoft SMTP Server id 14.3.487.0; Fri, 6 Nov 2020
- 09:41:33 +0800
+ Fri,  6 Nov 2020 01:43:21 +0000 (UTC)
+Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4CS37N2v5YzkYXv;
+ Fri,  6 Nov 2020 09:43:12 +0800 (CST)
+Received: from huawei.com (10.90.53.225) by DGGEMS412-HUB.china.huawei.com
+ (10.3.19.212) with Microsoft SMTP Server id 14.3.487.0; Fri, 6 Nov 2020
+ 09:43:12 +0800
 From: Zhang Qilong <zhangqilong3@huawei.com>
 To: <broonie@kernel.org>, <mcoquelin.stm32@gmail.com>,
  <alexandre.torgue@st.com>
-Date: Fri, 6 Nov 2020 09:52:17 +0800
-Message-ID: <20201106015217.140476-1-zhangqilong3@huawei.com>
+Date: Fri, 6 Nov 2020 09:53:57 +0800
+Message-ID: <20201106015357.141235-1-zhangqilong3@huawei.com>
 X-Mailer: git-send-email 2.26.0.106.g9fadedd
 MIME-Version: 1.0
 X-Originating-IP: [10.90.53.225]
@@ -31,8 +31,8 @@ X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Fri, 06 Nov 2020 07:04:49 +0000
 Cc: linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] spi: stm32: fix reference leak in
-	stm32_spi_resume
+Subject: [Linux-stm32] [PATCH] spi: stm32-qspi: fix reference leak in stm32
+	qspi operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,26 +51,43 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 pm_runtime_get_sync will increment pm usage counter even it
 failed. Forgetting to pm_runtime_put_noidle will result in
-reference leak in stm32_spi_resume, so we should fix it.
+reference leak in two callers(stm32_qspi_exec_op and
+stm32_qspi_setup), so we should fix it.
 
-Fixes: db96bf976a4fc ("spi: stm32: fixes suspend/resume management")
+Fixes: 9d282c17b023a ("spi: stm32-qspi: Add pm_runtime support")
 Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
 ---
- drivers/spi/spi-stm32.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/spi/spi-stm32-qspi.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index 2cc850eb8922..471dedf3d339 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -2062,6 +2062,7 @@ static int stm32_spi_resume(struct device *dev)
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index a900962b4336..947e6b9dc9f4 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -434,8 +434,10 @@ static int stm32_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	int ret;
  
- 	ret = pm_runtime_get_sync(dev);
- 	if (ret < 0) {
-+		pm_runtime_put_noidle(dev);
- 		dev_err(dev, "Unable to power device:%d\n", ret);
+ 	ret = pm_runtime_get_sync(qspi->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(qspi->dev);
  		return ret;
- 	}
++	}
+ 
+ 	mutex_lock(&qspi->lock);
+ 	ret = stm32_qspi_send(mem, op);
+@@ -462,8 +464,10 @@ static int stm32_qspi_setup(struct spi_device *spi)
+ 		return -EINVAL;
+ 
+ 	ret = pm_runtime_get_sync(qspi->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(qspi->dev);
+ 		return ret;
++	}
+ 
+ 	presc = DIV_ROUND_UP(qspi->clk_rate, spi->max_speed_hz) - 1;
+ 
 -- 
 2.17.1
 
