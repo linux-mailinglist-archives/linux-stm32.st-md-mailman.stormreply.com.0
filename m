@@ -2,67 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED6152A99F5
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 17:58:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A4AB2A9A54
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 18:02:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B19FAC3FAE3;
-	Fri,  6 Nov 2020 16:58:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EA9EC3FAD4;
+	Fri,  6 Nov 2020 17:02:52 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39723C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9E2AC36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 16:58:34 +0000 (UTC)
+ Fri,  6 Nov 2020 17:02:50 +0000 (UTC)
 Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A6GwBWQ008264; Fri, 6 Nov 2020 17:58:17 +0100
+ 0A6Gw9xf008252; Fri, 6 Nov 2020 18:01:36 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=5CCBWSPpY2LWeU+v1BMKbE0dfzDcb6O0clQonhwRrS0=;
- b=tM/K12L4+LE4GkKl6PBDhLmilx/H0ZuElKoV5K4Y8s6s2rgCNYQ9K5KqMnZPgeym9BDW
- 26fBuS/aceArntsxivV4PXhRgFrI9w/a6zsYI013x7rvG6ROnEFkT9y/WelCVW6RuGMp
- b02Vd+0GEFc7vzFc1cWIy2LcSfHN7hfFPybgO/RyFITHnhZih0I9ckhVQRzYgFIhLiSi
- 9GrhfqpbKZs2aNXu6L68lZ3lUBf7sZB5fb0+xmFonzB5K+dMk3+zbVEBdJSVzijQo+vc
- voQA5Qw9WTIXk9ymfWIq9eQ87moeaqQo2vrLLvPXhEHbGJKcmr26dwLgqnKTv2TuWjIo lA== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=uZBV8n4mMkde4jjAqjB9u7d5zjrddtyOYSHkQR0yWT0=;
+ b=GlBrR15FDgSjHbKzcM3/S6sURlZ4LTote0SFOE3JGvwsW4BqbPstlzez9WdA/50hio8y
+ NCCX24+58XBb+Ny0ivGmGE0udME7kHcEfFqHqVuVsz5dDO9ZzMgq6h3tl7L7BueR51un
+ NFRCJ78mvNoStxdpaoLFCUOpvoXkpmnwi8La31op9HQ1+yQK5eL5WAfMkvJCJBPMtG2u
+ bH5k+aWOsFX9DWHy7cKKldWka6icYwBD4DDHaLAHeFlcThMEzCpKxpPz/JAdGFoWmaCC
+ 51Eo8dIPmiz53SJobt98YOJFgt5mUPHjr9x415rY+Cl5gRK5q3IqvR53vVoVuHLX0lh1 Ng== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34h00ewjwu-1
+ by mx07-00178001.pphosted.com with ESMTP id 34h00ewkg0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Nov 2020 17:58:17 +0100
+ Fri, 06 Nov 2020 18:01:36 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9FF0910002A;
- Fri,  6 Nov 2020 17:58:16 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2AE0110002A;
+ Fri,  6 Nov 2020 18:01:35 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8CE002C41E8;
- Fri,  6 Nov 2020 17:58:16 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov 2020 17:58:16
- +0100
-From: Amelie Delaunay <amelie.delaunay@st.com>
-To: Rob Herring <robh+dt@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Russell King
- <linux@armlinux.org.uk>, Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Badhri Jagan Sridharan <badhri@google.com>, Jun Li <lijun.kernel@gmail.com>
-Date: Fri, 6 Nov 2020 17:58:05 +0100
-Message-ID: <20201106165805.31534-6-amelie.delaunay@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201106165805.31534-1-amelie.delaunay@st.com>
-References: <20201106165805.31534-1-amelie.delaunay@st.com>
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 19DFB219D0E;
+ Fri,  6 Nov 2020 18:01:35 +0100 (CET)
+Received: from lmecxl0995.lme.st.com (10.75.127.51) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov
+ 2020 18:01:33 +0100
+To: Rob Herring <robh@kernel.org>
+References: <20201106091854.14958-1-amelie.delaunay@st.com>
+ <20201106091854.14958-3-amelie.delaunay@st.com>
+ <20201106161709.GA3297832@bogus>
+From: Amelie DELAUNAY <amelie.delaunay@st.com>
+Message-ID: <aa30c00b-383d-29d4-c782-ae8781354de9@st.com>
+Date: Fri, 6 Nov 2020 18:01:33 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG3NODE2.st.com
+In-Reply-To: <20201106161709.GA3297832@bogus>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
  definitions=2020-11-06_06:2020-11-05,
  2020-11-06 signatures=0
-Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
+Cc: devicetree@vger.kernel.org,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Badhri Jagan Sridharan <badhri@google.com>, Rob Herring <robh+dt@kernel.org>,
+ Jun Li <lijun.kernel@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 5/5] ARM: multi_v7_defconfig: enable
-	STUSB160X Type-C port controller support
+Subject: Re: [Linux-stm32] [PATCH v4 2/5] dt-bindings: usb: Add DT bindings
+ for STUSB160x Type-C controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,36 +78,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable support for the STMicroelectronics STUSB160X USB Type-C port
-controller driver by turning on CONFIG_TYPEC and CONFIG_TYPEC_STUSB160X as
-modules.
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
----
- arch/arm/configs/multi_v7_defconfig | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index a611b0c1e540..47eed80268e2 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -829,6 +829,8 @@ CONFIG_USB_CONFIGFS_F_HID=y
- CONFIG_USB_CONFIGFS_F_UVC=y
- CONFIG_USB_CONFIGFS_F_PRINTER=y
- CONFIG_USB_ETH=m
-+CONFIG_TYPEC=m
-+CONFIG_TYPEC_STUSB160X=m
- CONFIG_MMC=y
- CONFIG_MMC_BLOCK_MINORS=16
- CONFIG_MMC_ARMMMCI=y
--- 
-2.17.1
+On 11/6/20 5:17 PM, Rob Herring wrote:
+> On Fri, 06 Nov 2020 10:18:51 +0100, Amelie Delaunay wrote:
+>> Add binding documentation for the STMicroelectronics STUSB160x Type-C port
+>> controller.
+>>
+>> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+>> ---
+>>   .../devicetree/bindings/usb/st,stusb160x.yaml | 85 +++++++++++++++++++
+>>   1 file changed, 85 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/usb/st,stusb160x.yaml
+>>
+> 
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/usb/st,stusb160x.yaml: 'additionalProperties' is a required property
+> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/usb/st,stusb160x.yaml: ignoring, error in schema:
+> warning: no schema found in file: ./Documentation/devicetree/bindings/usb/st,stusb160x.yaml
+> 
+> 
+> See https://patchwork.ozlabs.org/patch/1395559
+> 
+> The base for the patch is generally the last rc1. Any dependencies
+> should be noted.
+> 
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+> 
+> pip3 install dtschema --upgrade
+> 
+> Please check and re-submit.
+> 
+I already ran 'make dt_binding_check' but st-schema was not up to date, 
+despite a not so old upgrade.
+I note for next time to do the upgrade autotically before the 'make 
+dt_binding_check'.
 
+New version submitted.
+
+Thanks,
+Amelie
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
