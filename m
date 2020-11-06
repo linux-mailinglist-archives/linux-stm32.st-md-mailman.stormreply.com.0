@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EB522A9247
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 10:19:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D9A52A9244
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 10:19:29 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 455CDC424BA;
-	Fri,  6 Nov 2020 09:19:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D131C3FAD9;
+	Fri,  6 Nov 2020 09:19:29 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE8B1C3FAD4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DDA4C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 09:19:28 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Fri,  6 Nov 2020 09:19:27 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A6984US008664; Fri, 6 Nov 2020 10:19:10 +0100
+ 0A6986Ak017490; Fri, 6 Nov 2020 10:19:11 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-type; s=STMicroelectronics;
- bh=6qq/quNVzbBGlASaodU021u7lBejVGsfqPJlwc9JOcI=;
- b=euEg+Yvyqqg6lWYfcWv2ryupYlJKtPQJHMMQseV9aFHFzWfUM+w2Jv7ja2CJSRx5bGZD
- 1WmIe2EYxow+rpxqgpiG5LpQXkHn9D3WOFZ9YPmOfH1Zbvno64GopgfN8Zp0cKE0q46r
- qoplgLjC307ShZcj/udeaJCOg4yDzp/ddKOkjw83266NLE67vfezhsIOUZ87Q+Sd6UBl
- u4SdJLXl9yORNjLHM3nvxmtWLUUXmSbInCm11CiyjMPU1EFpidexO/Xd1+JwkN/ez0fT
- cYWXTaD+VsYcix/aVmErslH9cKLV1hz2Po684dCImxr2S/MP5W55zVuhky7MqJGW/F0L 3w== 
+ bh=IGPnOh+9SPD7m7d9LxFZDLIelJ0BJYFR0sbDaodrGMA=;
+ b=IbkPWnqD2Hg9oMDBjlDXOJPor9+BDvEMfy3PDtcsahQAGBkBRIDsRxVHduClHRHBgvaF
+ 8M8afcieQxJpGTtUs66fBN9tzBjM3EPMKbUUd3tMQl9qK2MANBqXaQB9IBr40lsAZO8k
+ Vxk4j5vhSJJa8SPURTggvpLAmwAUwXAocGQ7BzEf4MsRnrSKn8wkQ9paHk9HsC2/6jgn
+ 2bWeR91LQ+UvOcXjN624em8zDGmpyyfXiBrhfE6e3eVBtGctjKJ2DGvj/qXboHqSMpPJ
+ Dm8kdz/yio19lw9mQ8Xvz9qzMfRBvooqZifhgRzss/Wn8vJk1rhJob82WEZgmD2bKfTE fQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34gyw1uws6-1
+ by mx07-00178001.pphosted.com with ESMTP id 34h00eu8ge-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Nov 2020 10:19:10 +0100
+ Fri, 06 Nov 2020 10:19:11 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E0A6C100034;
- Fri,  6 Nov 2020 10:19:09 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 12023100034;
+ Fri,  6 Nov 2020 10:19:11 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D1D92233E9D;
- Fri,  6 Nov 2020 10:19:09 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov 2020 10:19:09
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F2B45233E9D;
+ Fri,  6 Nov 2020 10:19:10 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov 2020 10:19:10
  +0100
 From: Amelie Delaunay <amelie.delaunay@st.com>
 To: Rob Herring <robh+dt@kernel.org>, Greg Kroah-Hartman
@@ -46,14 +46,14 @@ To: Rob Herring <robh+dt@kernel.org>, Greg Kroah-Hartman
  Alexandre Torgue <alexandre.torgue@st.com>, Russell King
  <linux@armlinux.org.uk>, Heikki Krogerus <heikki.krogerus@linux.intel.com>,
  Badhri Jagan Sridharan <badhri@google.com>, Jun Li <lijun.kernel@gmail.com>
-Date: Fri, 6 Nov 2020 10:18:51 +0100
-Message-ID: <20201106091854.14958-3-amelie.delaunay@st.com>
+Date: Fri, 6 Nov 2020 10:18:52 +0100
+Message-ID: <20201106091854.14958-4-amelie.delaunay@st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201106091854.14958-1-amelie.delaunay@st.com>
 References: <20201106091854.14958-1-amelie.delaunay@st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG3NODE2.st.com
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
  definitions=2020-11-06_03:2020-11-05,
@@ -61,8 +61,8 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
 Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, Fabrice Gasnier <fabrice.gasnier@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 2/5] dt-bindings: usb: Add DT bindings for
-	STUSB160x Type-C controller
+Subject: [Linux-stm32] [PATCH v4 3/5] usb: typec: stusb160x: fix
+	power-opmode property with typec-power-opmode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,106 +79,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add binding documentation for the STMicroelectronics STUSB160x Type-C port
-controller.
+Device tree property is named typec-power-opmode, not power-opmode.
 
+Fixes: da0cb6310094 ("usb: typec: add support for STUSB160x Type-C controller family")
 Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
 ---
- .../devicetree/bindings/usb/st,stusb160x.yaml | 85 +++++++++++++++++++
- 1 file changed, 85 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/st,stusb160x.yaml
+ drivers/usb/typec/stusb160x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/usb/st,stusb160x.yaml b/Documentation/devicetree/bindings/usb/st,stusb160x.yaml
-new file mode 100644
-index 000000000000..882450571db6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/st,stusb160x.yaml
-@@ -0,0 +1,85 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: "http://devicetree.org/schemas/usb/st,stusb160x.yaml#"
-+$schema: "http://devicetree.org/meta-schemas/core.yaml#"
-+
-+title: STMicroelectronics STUSB160x Type-C controller bindings
-+
-+maintainers:
-+  - Amelie Delaunay <amelie.delaunay@st.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stusb1600
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: main power supply (4.1V-22V)
-+
-+  vsys-supply:
-+    description: low power supply (3.0V-5.5V)
-+
-+  vconn-supply:
-+    description: power supply (2.7V-5.5V) used to supply VConn on CC pin in
-+      source or dual power role
-+
-+  connector:
-+    type: object
-+
-+    allOf:
-+      - $ref: ../connector/usb-connector.yaml
-+
-+    properties:
-+      compatible:
-+        const: usb-c-connector
-+
-+      power-role: true
-+
-+      typec-power-opmode: true
-+
-+    required:
-+      - compatible
-+
-+required:
-+  - compatible
-+  - reg
-+  - connector
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c4 {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        typec: stusb1600@28 {
-+            compatible = "st,stusb1600";
-+            reg = <0x28>;
-+            vdd-supply = <&vbus_drd>;
-+            vsys-supply = <&vdd_usb>;
-+            interrupts = <11 IRQ_TYPE_EDGE_FALLING>;
-+            interrupt-parent = <&gpioi>;
-+
-+            typec_con: connector {
-+                compatible = "usb-c-connector";
-+                label = "USB-C";
-+                power-role = "dual";
-+                data-role = "dual";
-+                typec-power-opmode = "default";
-+
-+                port {
-+                    typec_con_ep: endpoint {
-+                        remote-endpoint = <&usbotg_hs_ep>;
-+                    };
-+                };
-+            };
-+        };
-+    };
-+...
+diff --git a/drivers/usb/typec/stusb160x.c b/drivers/usb/typec/stusb160x.c
+index 2a618f02f4f1..d21750bbbb44 100644
+--- a/drivers/usb/typec/stusb160x.c
++++ b/drivers/usb/typec/stusb160x.c
+@@ -562,7 +562,7 @@ static int stusb160x_get_fw_caps(struct stusb160x *chip,
+ 	 * Supported power operation mode can be configured through device tree
+ 	 * else it is read from chip registers in stusb160x_get_caps.
+ 	 */
+-	ret = fwnode_property_read_string(fwnode, "power-opmode", &cap_str);
++	ret = fwnode_property_read_string(fwnode, "typec-power-opmode", &cap_str);
+ 	if (!ret) {
+ 		ret = typec_find_pwr_opmode(cap_str);
+ 		/* Power delivery not yet supported */
 -- 
 2.17.1
 
