@@ -2,61 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABB5F2A9B2E
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Nov 2020 18:50:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A0852AA4B4
+	for <lists+linux-stm32@lfdr.de>; Sat,  7 Nov 2020 12:36:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F4106C3FAD4;
-	Fri,  6 Nov 2020 17:50:48 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3647BC3FAD4;
+	Sat,  7 Nov 2020 11:36:05 +0000 (UTC)
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25D18C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7843CC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 17:50:46 +0000 (UTC)
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A6HmTgh004037; Fri, 6 Nov 2020 18:50:35 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=eMPMn91cCHyM/mIF1zD+SFO1I52TNwQPU0lvOZDdToE=;
- b=0O4Jge/UIjwArzKM0JVlUhlUH2fxXAeEsWZ/yltz9MTsSYTFpAAsLtrDg5WdoAaQMkru
- OkOK7UK0R3L+9OB6aiNpgOJos37Wn0LlneVS3Acz3XA1pRVfLxnzPOHsSZCK1in3fkcw
- qaBmoSUorZLH8wyf974OfunbogdJ/BzF5uq45ziSn9U/0blx1S3KGzCrE8K+xkqcMMlj
- 6YKylkhBXg9ycxHSdsWiWvQBtPN4c8aK69cxW+7mTPr5MSqBF7ehIk59p+Xc5IdqO29p
- 0yTiYR3SFpJhRFkqcuv2eQtEUxcCcAGb1JrKjGihNHLsHOADmwMANFBpe7bs/w2ZaoeI eA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34h00ewstr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Nov 2020 18:50:35 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7865D100034;
- Fri,  6 Nov 2020 18:50:34 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 67B612150EE;
- Fri,  6 Nov 2020 18:50:34 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG1NODE3.st.com (10.75.127.3)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Nov 2020 18:50:33
- +0100
-From: Fabrice Gasnier <fabrice.gasnier@st.com>
-To: <jic23@kernel.org>
-Date: Fri, 6 Nov 2020 18:50:16 +0100
-Message-ID: <1604685016-2434-1-git-send-email-fabrice.gasnier@st.com>
-X-Mailer: git-send-email 2.7.4
+ Sat,  7 Nov 2020 11:35:59 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1604748962; h=Date: Message-Id: Cc: To: References:
+ In-Reply-To: From: Subject: Content-Transfer-Encoding: MIME-Version:
+ Content-Type: Sender; bh=tprYRfhJAGs+dRGMRvpWISe7Mh6nCJ9stashzLxk+jo=;
+ b=Uz2PWZpZWajU1WHPr5L20gfXYSRrOPLbuvyfDeUpyIdExSEKiJ8y6LvN4+AqOQl4zXAPizeQ
+ WVa4fsmOm5xkiZ9LeXHHIxpm6aKCSUqiDR6+QUQM+6xRV5Hem6qDFgCfQg5w0tXtTV9iLV59
+ 3uPf1hA5DNUvj1NFohM8rX5uBfY=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI1Njk0YyIsICJsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIiwgImJlOWU0YSJd
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 5fa6866151f9d6623ffccbc0 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 07 Nov 2020 11:34:57
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 98EB5C4339C; Sat,  7 Nov 2020 11:34:56 +0000 (UTC)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+ aws-us-west-2-caf-mail-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,BAYES_00,
+ MISSING_DATE,MISSING_MID,SPF_FAIL autolearn=no autolearn_force=no
+ version=3.4.0
+Received: from potku.adurom.net (88-114-240-156.elisa-laajakaista.fi
+ [88.114.240.156])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: kvalo)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 544D9C433C8;
+ Sat,  7 Nov 2020 11:34:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 544D9C433C8
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=kvalo@codeaurora.org
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG1NODE3.st.com
- (10.75.127.3)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-06_06:2020-11-05,
- 2020-11-06 signatures=0
-Cc: linux-doc@vger.kernel.org, mchehab+huawei@kernel.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] docs: ABI: testing: iio: stm32: remove
-	re-introduced unsupported ABI
+From: Kalle Valo <kvalo@codeaurora.org>
+In-Reply-To: <20201020125841.26791-1-trix@redhat.com>
+References: <20201020125841.26791-1-trix@redhat.com>
+To: trix@redhat.com
+User-Agent: pwcli/0.1.0-git (https://github.com/kvalo/pwcli/) Python/3.5.2
+Message-Id: <20201107113456.98EB5C4339C@smtp.codeaurora.org>
+Date: Sat,  7 Nov 2020 11:34:56 +0000 (UTC)
+Cc: emmanuel.grumbach@intel.com, tova.mussai@intel.com,
+ Tom Rix <trix@redhat.com>, ath9k-devel@qca.qualcomm.com,
+ saurav.girepunje@gmail.com, luciano.coelho@intel.com,
+ shahar.s.matityahu@intel.com, linux-stm32@st-md-mailman.stormreply.com,
+ shaul.triebitz@intel.com, lior2.cohen@intel.com, pkshih@realtek.com,
+ ath10k@lists.infradead.org, kuba@kernel.org, johannes.berg@intel.com,
+ linuxwifi@intel.com, sara.sharon@intel.com, linux-kernel@vger.kernel.org,
+ christophe.jaillet@wanadoo.fr, john@phrozen.org,
+ linux-arm-kernel@lists.infradead.org, yanaijie@huawei.com,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org, gustavoars@kernel.org,
+ nathan.errera@intel.com, zhengbin13@huawei.com, mcoquelin.stm32@gmail.com,
+ joe@perches.com, davem@davemloft.net, Larry.Finger@lwfinger.net
+Subject: Re: [Linux-stm32] [PATCH v2] wireless: remove unneeded break
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,57 +85,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove unsupported ABI that has been re-introduced due to a rebase hunk.
-This ABI has been moved in the past in commit b299d00420e2
-("IIO: stm32: Remove quadrature related functions from trigger driver")
+trix@redhat.com wrote:
 
-This also fixes a couple of warnings seen with:
-./scripts/get_abi.pl validate 2>&1|grep iio
+> From: Tom Rix <trix@redhat.com>
+> 
+> A break is not needed if it is preceded by a return
+> 
+> Signed-off-by: Tom Rix <trix@redhat.com>
 
-Fixes: 34433332841d ("docs: ABI: testing: make the files compatible with ReST output")
+Patch applied to wireless-drivers-next.git, thanks.
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
----
- .../ABI/testing/sysfs-bus-iio-timer-stm32          | 24 ----------------------
- 1 file changed, 24 deletions(-)
+3287953b0399 wireless: remove unneeded break
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32 b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
-index a10a4de..c4a4497 100644
---- a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
-+++ b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
-@@ -109,30 +109,6 @@ Description:
- 		When counting down the counter start from preset value
- 		and fire event when reach 0.
- 
--What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
--KernelVersion:	4.12
--Contact:	benjamin.gaignard@st.com
--Description:
--		Reading returns the list possible quadrature modes.
--
--What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
--KernelVersion:	4.12
--Contact:	benjamin.gaignard@st.com
--Description:
--		Configure the device counter quadrature modes:
--
--		channel_A:
--			Encoder A input servers as the count input and B as
--			the UP/DOWN direction control input.
--
--		channel_B:
--			Encoder B input serves as the count input and A as
--			the UP/DOWN direction control input.
--
--		quadrature:
--			Encoder A and B inputs are mixed to get direction
--			and count with a scale of 0.25.
--
- What:		/sys/bus/iio/devices/iio:deviceX/in_count_enable_mode_available
- KernelVersion:	4.12
- Contact:	benjamin.gaignard@st.com
 -- 
-2.7.4
+https://patchwork.kernel.org/project/linux-wireless/patch/20201020125841.26791-1-trix@redhat.com/
+
+https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
 
 _______________________________________________
 Linux-stm32 mailing list
