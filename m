@@ -2,73 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A0852AA4B4
-	for <lists+linux-stm32@lfdr.de>; Sat,  7 Nov 2020 12:36:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CAC02AA866
+	for <lists+linux-stm32@lfdr.de>; Sun,  8 Nov 2020 00:36:39 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3647BC3FAD4;
-	Sat,  7 Nov 2020 11:36:05 +0000 (UTC)
-Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6FE2C3FAD4;
+	Sat,  7 Nov 2020 23:36:38 +0000 (UTC)
+Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
+ [209.85.208.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7843CC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64A5BC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Nov 2020 11:35:59 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1604748962; h=Date: Message-Id: Cc: To: References:
- In-Reply-To: From: Subject: Content-Transfer-Encoding: MIME-Version:
- Content-Type: Sender; bh=tprYRfhJAGs+dRGMRvpWISe7Mh6nCJ9stashzLxk+jo=;
- b=Uz2PWZpZWajU1WHPr5L20gfXYSRrOPLbuvyfDeUpyIdExSEKiJ8y6LvN4+AqOQl4zXAPizeQ
- WVa4fsmOm5xkiZ9LeXHHIxpm6aKCSUqiDR6+QUQM+6xRV5Hem6qDFgCfQg5w0tXtTV9iLV59
- 3uPf1hA5DNUvj1NFohM8rX5uBfY=
-X-Mailgun-Sending-Ip: 104.130.96.5
-X-Mailgun-Sid: WyI1Njk0YyIsICJsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
- 5fa6866151f9d6623ffccbc0 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 07 Nov 2020 11:34:57
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 98EB5C4339C; Sat,  7 Nov 2020 11:34:56 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- MISSING_DATE,MISSING_MID,SPF_FAIL autolearn=no autolearn_force=no
- version=3.4.0
-Received: from potku.adurom.net (88-114-240-156.elisa-laajakaista.fi
- [88.114.240.156])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: kvalo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 544D9C433C8;
- Sat,  7 Nov 2020 11:34:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 544D9C433C8
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=kvalo@codeaurora.org
+ Sat,  7 Nov 2020 23:36:37 +0000 (UTC)
+Received: by mail-lj1-f193.google.com with SMTP id m16so5604245ljo.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 07 Nov 2020 15:36:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BAsmVBERLtIkPKSJ/BkTRWhkFllTaoPPg4wptJs5664=;
+ b=poX5pAv3AOQHHZmM+Gav0NU4a+LwsQfDRy0vVeqVkcgYU0LOj8Jy5tEM6jWyB7Ol3Q
+ s0AV8D6db2DKMZ+L9Wex3RJgUcs7Qtt++/7/nOh1NtcOpK0spqD9kCfFJgbOOohTOO/L
+ VtSMx6f/QI8q8IWON+suc6oMDzKIpY74xo7ps0D1+YfQji8jFI3K3lVK9CZATnAvkiUh
+ jAYM7mDR7wqa58MQRy5h2sXqWZaiD59Z+WY/juDjqsBO7H9uxxQpW/JFqlPYzJK/Motk
+ 58tZKjHMmR9ry2ip4XY6pLJZGN3eP9/H1baA6VZCodqcTY/WHCiLRcN6YoRF3j6RZNiI
+ VCYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=BAsmVBERLtIkPKSJ/BkTRWhkFllTaoPPg4wptJs5664=;
+ b=uGjuDcUPeGD7OW9KKhMotCVHCevQHqrt0SSTb0gOmbTt73eM/p94Az2Js4dAm9hEKv
+ ux34zzN0WbIrWhR58h9LJorOw48oncbY0W1fwWm/0opUeMnBtrPwVUo+Sypv4uMV0PTq
+ MFHqDyuXUvYaxIdUUDcMBc6ftDsjLgYgCtuUf1lgsjDlBBTajfcPLQDNyQCDwCuBmmlB
+ ymr/uvqSrZj7v4yvyF6Hg2JjBYSRjgQjH1eOFKc4EHoD0j7jcnpQRTL/CICPnywChk7Y
+ jp67b9fDiXVq3+obaQDpdyJoNWC8vXUO4FOzTXCaM2eG0c3efuVbTBg7KEo0/+Du6WMq
+ ZinA==
+X-Gm-Message-State: AOAM532kWb5S6FNhhptql2hYXnuuK8RwQYZHkHGio1YrM5aPPE1idNsx
+ S0vyD4xFDkGdt9kz7we6bkE=
+X-Google-Smtp-Source: ABdhPJxSOMHDT1FfYuwhl+GENcESSIMAcfVtTuE8fwfTk0I7FTy+FSLRnnTDASsRo8ReOLKPlxJf9w==
+X-Received: by 2002:a2e:9449:: with SMTP id o9mr3023985ljh.457.1604792196622; 
+ Sat, 07 Nov 2020 15:36:36 -0800 (PST)
+Received: from localhost.localdomain (h-155-4-221-112.NA.cust.bahnhof.se.
+ [155.4.221.112])
+ by smtp.gmail.com with ESMTPSA id j23sm782772lfm.16.2020.11.07.15.36.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 07 Nov 2020 15:36:35 -0800 (PST)
+From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+To: Ohad Ben-Cohen <ohad@wizery.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+Date: Sun,  8 Nov 2020 00:36:28 +0100
+Message-Id: <20201107233630.9728-1-rikard.falkeborn@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-From: Kalle Valo <kvalo@codeaurora.org>
-In-Reply-To: <20201020125841.26791-1-trix@redhat.com>
-References: <20201020125841.26791-1-trix@redhat.com>
-To: trix@redhat.com
-User-Agent: pwcli/0.1.0-git (https://github.com/kvalo/pwcli/) Python/3.5.2
-Message-Id: <20201107113456.98EB5C4339C@smtp.codeaurora.org>
-Date: Sat,  7 Nov 2020 11:34:56 +0000 (UTC)
-Cc: emmanuel.grumbach@intel.com, tova.mussai@intel.com,
- Tom Rix <trix@redhat.com>, ath9k-devel@qca.qualcomm.com,
- saurav.girepunje@gmail.com, luciano.coelho@intel.com,
- shahar.s.matityahu@intel.com, linux-stm32@st-md-mailman.stormreply.com,
- shaul.triebitz@intel.com, lior2.cohen@intel.com, pkshih@realtek.com,
- ath10k@lists.infradead.org, kuba@kernel.org, johannes.berg@intel.com,
- linuxwifi@intel.com, sara.sharon@intel.com, linux-kernel@vger.kernel.org,
- christophe.jaillet@wanadoo.fr, john@phrozen.org,
- linux-arm-kernel@lists.infradead.org, yanaijie@huawei.com,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org, gustavoars@kernel.org,
- nathan.errera@intel.com, zhengbin13@huawei.com, mcoquelin.stm32@gmail.com,
- joe@perches.com, davem@davemloft.net, Larry.Finger@lwfinger.net
-Subject: Re: [Linux-stm32] [PATCH v2] wireless: remove unneeded break
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] remoteproc: Constify static struct
+	rproc_ops
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,22 +78,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-trix@redhat.com wrote:
+Constify two static struct rproc_ops which are never modified. These two
+changes makes all static instances of rproc_ops in the kernel const.
 
-> From: Tom Rix <trix@redhat.com>
-> 
-> A break is not needed if it is preceded by a return
-> 
-> Signed-off-by: Tom Rix <trix@redhat.com>
+Rikard Falkeborn (2):
+  remoteproc: ingenic: Constify ingenic_rproc_ops
+  remoteproc: stm32: Constify st_rproc_ops
 
-Patch applied to wireless-drivers-next.git, thanks.
-
-3287953b0399 wireless: remove unneeded break
+ drivers/remoteproc/ingenic_rproc.c | 2 +-
+ drivers/remoteproc/stm32_rproc.c   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 -- 
-https://patchwork.kernel.org/project/linux-wireless/patch/20201020125841.26791-1-trix@redhat.com/
-
-https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
+2.29.2
 
 _______________________________________________
 Linux-stm32 mailing list
