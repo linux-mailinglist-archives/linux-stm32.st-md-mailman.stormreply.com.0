@@ -2,43 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9C552AABEE
-	for <lists+linux-stm32@lfdr.de>; Sun,  8 Nov 2020 16:32:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DE462AAC54
+	for <lists+linux-stm32@lfdr.de>; Sun,  8 Nov 2020 17:56:41 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BF7DC3FAE2;
-	Sun,  8 Nov 2020 15:32:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E64AC3FAE2;
+	Sun,  8 Nov 2020 16:56:41 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54C72C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C228C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  8 Nov 2020 15:32:12 +0000 (UTC)
+ Sun,  8 Nov 2020 16:56:39 +0000 (UTC)
 Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
  [82.4.196.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4B492206E0;
- Sun,  8 Nov 2020 15:32:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 289C720678;
+ Sun,  8 Nov 2020 16:56:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604849530;
- bh=hzzEOE8KcptRT00HXVKeMWjrWy6JY/zrHz1aMOEGi3E=;
+ s=default; t=1604854597;
+ bh=HmpnTGD+sCqkzYKB+VNNoQPDyYLZ8DVZYqWfmSgpAfA=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=jHVr2WECv/0IdgCFKzHdh5muE4w7tm8d8q1IPaWS+X4OAPlhyEAGFJkde8FiIeMw7
- PpLE+x4nTEoWiBHYrMyZbYkyj+892C4WspqY480pRssqTNn6VxETb3aNBjmBqb9JCm
- CyifnZdf8bO4i/KdGGqVDbXVEQYXf0HwiODXa1SQ=
-Date: Sun, 8 Nov 2020 15:32:05 +0000
+ b=jTr8zTsz0WaJ6nnvT5Eg1Ll2ihGmqcyn+2SF+Wf/mrD2qllK/kFqFW/v7wcgZNefk
+ zS7dIr/q6PaG6DfI7dBacAjjo5nnHikNbE1GU0b2Tz2VVRAwvJAMwi+yrMpSam0vAS
+ yISkL1OxDj/prQqrSSSyaYuB90OjYqoYVe7sJd6Y=
+Date: Sun, 8 Nov 2020 16:56:21 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20201108153205.7aa4fa28@archlinux>
-In-Reply-To: <8ed73130-57e7-4073-cdf2-5f31596e728c@st.com>
-References: <20201105142941.27301-1-olivier.moysan@st.com>
- <8ed73130-57e7-4073-cdf2-5f31596e728c@st.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Message-ID: <20201108165621.4d0da3f4@archlinux>
+In-Reply-To: <20201102154250.45bee17f@coco.lan>
+References: <cover.1604042072.git.mchehab+huawei@kernel.org>
+ <58cf3c2d611e0197fb215652719ebd82ca2658db.1604042072.git.mchehab+huawei@kernel.org>
+ <5326488b-4185-9d67-fc09-79b911fbb3b8@st.com>
+ <20201030110925.3e09d59e@coco.lan>
+ <cb586ea3-b6e6-4e48-2344-2bd641e5323f@st.com>
+ <20201102124641.GA881895@kroah.com>
+ <20201102154250.45bee17f@coco.lan>
 X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- pmeerw@pmeerw.net, knaack.h@gmx.de, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: dma transfers cleanup
+Cc: "Gautham R. Shenoy" <ego@linux.vnet.ibm.com>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Petr Mladek <pmladek@suse.com>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Nayna Jain <nayna@linux.ibm.com>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Sebastian Reichel <sre@kernel.org>,
+ linux-mm@kvack.org, Bruno Meneguele <bmeneg@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Pavel Machek <pavel@ucw.cz>, Hanjun Guo <guohanjun@huawei.com>,
+ Guenter Roeck <groeck@chromium.org>, netdev@vger.kernel.org,
+ Oleh Kravchenko <oleg@kaa.org.ua>, Dan Williams <dan.j.williams@intel.com>,
+ Andrew Donnellan <ajd@linux.ibm.com>,
+ Javier =?UTF-8?B?R29uesOhbGV6?= <javier@javigon.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>, Mark Gross <mgross@linux.intel.com>,
+ linux-acpi@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Mario Limonciello <mario.limonciello@dell.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Tom Rix <trix@redhat.com>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, Niklas Cassel <niklas.cassel@wdc.com>,
+ Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
+ linuxppc-dev@lists.ozlabs.org,
+ Mika Westerberg <mika.westerberg@linux.intel.com>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ Oded Gabbay <oded.gabbay@gmail.com>, Baolin Wang <baolin.wang7@gmail.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Dan Murphy <dmurphy@ti.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Philippe Bergheaud <felix@linux.ibm.com>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Benson Leung <bleung@chromium.org>, Konstantin Khlebnikov <koct9i@gmail.com>,
+ Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
+ Kranthi Kuntala <kranthi.kuntala@intel.com>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-iio@vger.kernel.org,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Leonid Maksymchuk <leonmaxx@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Vaibhav Jain <vaibhav@linux.ibm.com>,
+ Vineela Tummalapalli <vineela.tummalapalli@intel.com>,
+ Peter Rosin <peda@axentia.se>, Mike Kravetz <mike.kravetz@oracle.com>
+Subject: Re: [Linux-stm32] [PATCH v2 20/39] docs: ABI: testing: make the
+ files compatible with ReST output
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,84 +111,146 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 5 Nov 2020 18:38:27 +0100
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+On Mon, 2 Nov 2020 15:42:50 +0100
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
 
-> On 11/5/20 3:29 PM, Olivier Moysan wrote:
-> > - Remove processing related to DMA in irq handler as this
-> > data transfer is managed directly in DMA callback.
-> > - Update comment in stm32_adc_set_watermark() function.
+> Em Mon, 2 Nov 2020 13:46:41 +0100
+> Greg Kroah-Hartman <gregkh@linuxfoundation.org> escreveu:
+> 
+> > On Mon, Nov 02, 2020 at 12:04:36PM +0100, Fabrice Gasnier wrote:  
+> > > On 10/30/20 11:09 AM, Mauro Carvalho Chehab wrote:    
+> > > > Em Fri, 30 Oct 2020 10:19:12 +0100
+> > > > Fabrice Gasnier <fabrice.gasnier@st.com> escreveu:
+> > > >     
+> > > >> Hi Mauro,
+> > > >>
+> > > >> [...]
+> > > >>    
+> > > >>>  
+> > > >>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> > > >>> +KernelVersion:	4.12
+> > > >>> +Contact:	benjamin.gaignard@st.com
+> > > >>> +Description:
+> > > >>> +		Reading returns the list possible quadrature modes.
+> > > >>> +
+> > > >>> +What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+> > > >>> +KernelVersion:	4.12
+> > > >>> +Contact:	benjamin.gaignard@st.com
+> > > >>> +Description:
+> > > >>> +		Configure the device counter quadrature modes:
+> > > >>> +
+> > > >>> +		channel_A:
+> > > >>> +			Encoder A input servers as the count input and B as
+> > > >>> +			the UP/DOWN direction control input.
+> > > >>> +
+> > > >>> +		channel_B:
+> > > >>> +			Encoder B input serves as the count input and A as
+> > > >>> +			the UP/DOWN direction control input.
+> > > >>> +
+> > > >>> +		quadrature:
+> > > >>> +			Encoder A and B inputs are mixed to get direction
+> > > >>> +			and count with a scale of 0.25.
+> > > >>> +      
+> > > >>    
+> > > > 
+> > > > Hi Fabrice,
+> > > >     
+> > > >> I just noticed that since Jonathan question in v1.
+> > > >>
+> > > >> Above ABI has been moved in the past as discussed in [1]. You can take a
+> > > >> look at:
+> > > >> b299d00 IIO: stm32: Remove quadrature related functions from trigger driver
+> > > >>
+> > > >> Could you please remove the above chunk ?
+> > > >>
+> > > >> With that, for the stm32 part:
+> > > >> Acked-by: Fabrice Gasnier <fabrice.gasnier@st.com>    
+> > > > 
+> > > > 
+> > > > Hmm... probably those were re-introduced due to a rebase. This
+> > > > series were originally written about 1,5 years ago.
+> > > > 
+> > > > I'll drop those hunks.    
+> > > 
+> > > Hi Mauro, Greg,
+> > > 
+> > > I just figured out this patch has been applied with above hunk.
+> > > 
+> > > This should be dropped: is there a fix on its way already ?
+> > > (I may have missed it)    
 > > 
-> > Signed-off-by: Olivier Moysan <olivier.moysan@st.com>  
+> > Can you send a fix for just this hunk?  
 > 
-> Hi Olivier,
+> Hmm...
 > 
-> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@st.com>
-Applied to the togreg branch of iio.git and pushed out as testing for
-the autobuilders to poke at it.
+> 	$ git grep /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> 	Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:What:                /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> 	Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:What:             /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> 	Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:What:               /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> 
+> Even re-doing the changes from 
+> changeset b299d00420e2 ("IIO: stm32: Remove quadrature related functions from trigger driver")
+> at Documentation/ABI/testing/sysfs-bus-iio-timer-stm32, there's still
+> a third duplicate of some of those, as reported by the script:
+> 
+> 	$ ./scripts/get_abi.pl validate 2>&1|grep quadra
+> 	Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:117  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:14
+> 	Warning: /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available is defined 3 times:  Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:111  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:8
+> 
+> As in_count_quadrature_mode_available is also defined at:
+> 	Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2
+> 
+> The best here seems to have a patch that will also drop the other
+> duplication of this, probably moving in_count_quadrature_mode_available
+> to a generic node probably placing it inside 
+> Documentation/ABI/testing/sysfs-bus-iio.
 
-Thanks,
+In this particular case it may be valid to do that, but it's not in
+general without loosing information - see below.
+
+> 
+> Comments?
+> 
+> Thanks,
+> Mauro
+> 
+> PS.: the IIO subsystem is the one that currently has more duplicated
+> ABI entries:
+
+That was intentional.  Often these provide more information on the
+ABI for a particular device than is present in the base ABI doc.
+
+A bit like when we have additional description for dt binding properties
+for a particular device, even though they are standard properties.
+
+Often a standard property allows for more values than the specific
+one for a particular device.  There can also be obscuring coupling
+between sysfs attributes due to hardware restrictions that we would
+like to provide some explanatory info on.
+
+I suppose we could add all this information to the parent doc but
+that is pretty ugly and will make that doc very nasty to read.
 
 Jonathan
 
 > 
-> Thanks,
-> Fabrice
-> > ---
-> >  drivers/iio/adc/stm32-adc.c | 29 ++++++-----------------------
-> >  1 file changed, 6 insertions(+), 23 deletions(-)
-> > 
-> > diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> > index b3f31f147347..08be826f1462 100644
-> > --- a/drivers/iio/adc/stm32-adc.c
-> > +++ b/drivers/iio/adc/stm32-adc.c
-> > @@ -1310,7 +1310,7 @@ static int stm32_adc_set_watermark(struct iio_dev *indio_dev, unsigned int val)
-> >  	 * dma cyclic transfers are used, buffer is split into two periods.
-> >  	 * There should be :
-> >  	 * - always one buffer (period) dma is working on
-> > -	 * - one buffer (period) driver can push with iio_trigger_poll().
-> > +	 * - one buffer (period) driver can push data.
-> >  	 */
-> >  	watermark = min(watermark, val * (unsigned)(sizeof(u16)));
-> >  	adc->rx_buf_sz = min(rx_buf_sz, watermark * 2 * adc->num_conv);
-> > @@ -1573,31 +1573,14 @@ static irqreturn_t stm32_adc_trigger_handler(int irq, void *p)
-> >  
-> >  	dev_dbg(&indio_dev->dev, "%s bufi=%d\n", __func__, adc->bufi);
-> >  
-> > -	if (!adc->dma_chan) {
-> > -		/* reset buffer index */
-> > -		adc->bufi = 0;
-> > -		iio_push_to_buffers_with_timestamp(indio_dev, adc->buffer,
-> > -						   pf->timestamp);
-> > -	} else {
-> > -		int residue = stm32_adc_dma_residue(adc);
-> > -
-> > -		while (residue >= indio_dev->scan_bytes) {
-> > -			u16 *buffer = (u16 *)&adc->rx_buf[adc->bufi];
-> > -
-> > -			iio_push_to_buffers_with_timestamp(indio_dev, buffer,
-> > -							   pf->timestamp);
-> > -			residue -= indio_dev->scan_bytes;
-> > -			adc->bufi += indio_dev->scan_bytes;
-> > -			if (adc->bufi >= adc->rx_buf_sz)
-> > -				adc->bufi = 0;
-> > -		}
-> > -	}
-> > -
-> > +	/* reset buffer index */
-> > +	adc->bufi = 0;
-> > +	iio_push_to_buffers_with_timestamp(indio_dev, adc->buffer,
-> > +					   pf->timestamp);
-> >  	iio_trigger_notify_done(indio_dev->trig);
-> >  
-> >  	/* re-enable eoc irq */
-> > -	if (!adc->dma_chan)
-> > -		stm32_adc_conv_irq_enable(adc);
-> > +	stm32_adc_conv_irq_enable(adc);
-> >  
-> >  	return IRQ_HANDLED;
-> >  }
-> >   
+> $ ./scripts/get_abi.pl validate 2>&1|grep iio
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:0  Documentation/ABI/testing/sysfs-bus-iio:394
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:1  Documentation/ABI/testing/sysfs-bus-iio:395
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_accel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:2  Documentation/ABI/testing/sysfs-bus-iio:396
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_x_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:3  Documentation/ABI/testing/sysfs-bus-iio:397
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_y_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:4  Documentation/ABI/testing/sysfs-bus-iio:398
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_anglvel_z_calibbias is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-icm42600:5  Documentation/ABI/testing/sysfs-bus-iio:399
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_preset is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:100  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:0
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:117  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:14
+> Warning: /sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available is defined 3 times:  Documentation/ABI/testing/sysfs-bus-iio-counter-104-quad-8:2  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:111  Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:8
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:0  Documentation/ABI/testing/sysfs-bus-iio:599
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4371:36  Documentation/ABI/testing/sysfs-bus-iio:588
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_currentY_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-light-lm3533-als:43  Documentation/ABI/testing/sysfs-bus-iio-health-afe440x:38
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:0  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:0
+> Warning: /sys/bus/iio/devices/iio:deviceX/out_current_heater_raw_available is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc2010:1  Documentation/ABI/testing/sysfs-bus-iio-humidity-hdc100x:1
+> Warning: /sys/bus/iio/devices/iio:deviceX/sensor_sensitivity is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-distance-srf08:0  Documentation/ABI/testing/sysfs-bus-iio-proximity-as3935:8
+> Warning: /sys/bus/iio/devices/triggerX/sampling_frequency is defined 2 times:  Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:92  Documentation/ABI/testing/sysfs-bus-iio:45
 
 _______________________________________________
 Linux-stm32 mailing list
