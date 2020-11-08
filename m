@@ -2,47 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2E8E2AB1D6
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Nov 2020 08:44:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32EF22AB1D7
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Nov 2020 08:44:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C30EC3FAE3;
-	Mon,  9 Nov 2020 07:44:14 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F206BC424B7;
+	Mon,  9 Nov 2020 07:44:16 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 044D7C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0329C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Nov 2020 17:16:54 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[127.0.0.1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <h.assmann@pengutronix.de>)
- id 1kb5M4-0004FQ-MM; Fri, 06 Nov 2020 18:16:52 +0100
-To: Fabrice Gasnier <fabrice.gasnier@st.com>,
- Ahmad Fatoum <a.fatoum@pengutronix.de>
-References: <e8c99989-f018-dd90-2144-e09c05a3731b@pengutronix.de>
- <f9f26c15-f214-0fa5-3d12-10a5ec3b6202@st.com>
-From: Holger Assmann <h.assmann@pengutronix.de>
-Message-ID: <f076d2e7-f4fc-ec66-b4a9-56ce3d4606be@pengutronix.de>
-Date: Fri, 6 Nov 2020 18:16:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Sun,  8 Nov 2020 00:20:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604794804;
+ bh=VrFPOva6ikR5xt+0caMzsE0TfHfCkHNpLJdyh/JG3pI=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=0HmQTEeCv2ziNYxuqrYU2UrNJDDXbn4b3k6yIeCWPlPtTCZu8l3J78z1rt10bIgWP
+ dVwEzO5egm4qEw9DBvgXUVLEMhuqZFPhuXiQCxfLnrorKvXjBQ99NVgo8hFISQE3lB
+ hmUCQWZTHLFzzIzKg98L02vCmtA46gtZopjOsLb8=
 MIME-Version: 1.0
-In-Reply-To: <f9f26c15-f214-0fa5-3d12-10a5ec3b6202@st.com>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: h.assmann@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <160479480419.12285.2221862141442440852.git-patchwork-notify@kernel.org>
+Date: Sun, 08 Nov 2020 00:20:04 +0000
+References: <20201106094341.4241-1-vee.khee.wong@intel.com>
+In-Reply-To: <20201106094341.4241-1-vee.khee.wong@intel.com>
+To: Wong Vee Khee <vee.khee.wong@intel.com>
 X-Mailman-Approved-At: Mon, 09 Nov 2020 07:44:13 +0000
-Cc: linux-iio@vger.kernel.org, William Breathitt Gray <vilhelm.gray@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: Re: [Linux-stm32] Counter device Interface for reading out input
-	capture
+Cc: weifeng.voon@intel.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ boon.leong.ong@intel.com, peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: change all
+ EHL/TGL to auto detect phy addr
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,31 +46,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Fabrice,
+Hello:
 
-On Fri, Nov 06, 2020 at 10:11:07 +0100, Fabrice Gasnier wrote:
-> May I ask a bit more information regarding your needs here?
+This patch was applied to netdev/net-next.git (refs/heads/master):
 
-We basically want to latch the current counter value into the
-respective Capture/Compare Register when a pulse occurs at the
-corresponding ICx input.
-Our goal is to measure the jitter (and timing offset) between two or
-more data lines which are supposed to carry the same signal at the
-same time. Every line is thus connected to one of the four channels.
+On Fri,  6 Nov 2020 17:43:41 +0800 you wrote:
+> From: Voon Weifeng <weifeng.voon@intel.com>
+> 
+> Set all EHL/TGL phy_addr to -1 so that the driver will automatically
+> detect it at run-time by probing all the possible 32 addresses.
+> 
+> Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
+> Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+> 
+> [...]
 
- From my understanding the PWM capture interface already goes into the
-right direction, although we obviously require to utilize more than
-one channel of the timer (and in return only need one C/C Register
-per channel). I will therefore take your hint and have a closer look
-at the pwm-stm32.c - thanks!
+Here is the summary with links:
+  - [net-next,1/1] stmmac: intel: change all EHL/TGL to auto detect phy addr
+    https://git.kernel.org/netdev/net-next/c/bff6f1db91e3
 
-Regards,
-Holger
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
