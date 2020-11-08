@@ -2,67 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C6172AA86B
-	for <lists+linux-stm32@lfdr.de>; Sun,  8 Nov 2020 00:36:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93E6F2AABC7
+	for <lists+linux-stm32@lfdr.de>; Sun,  8 Nov 2020 16:09:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10A84C3FAFE;
-	Sat,  7 Nov 2020 23:36:41 +0000 (UTC)
-Received: from mail-lf1-f65.google.com (mail-lf1-f65.google.com
- [209.85.167.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40630C3FAE2;
+	Sun,  8 Nov 2020 15:09:24 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5CB1EC3FAD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 405D4C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Nov 2020 23:36:39 +0000 (UTC)
-Received: by mail-lf1-f65.google.com with SMTP id f11so832078lfs.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 07 Nov 2020 15:36:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ZPk64J/LdH72s7qNPb60/1YSvZ1La3jkk8O0W53U28U=;
- b=g8SbYwJCs9zn6d+LbKtveqnsZblPzD0Z2Ra5QJ2I6RRLbp8OQcilcL0IkxQhkFct79
- OErVaGcpwFzpRMpjj4e8Cp44O0M4PVQERfF7/uNhDAYsShGTRVOP2R1yNP/hNYriLkPN
- G7gE5BTlvBPrgoUyTpZyiDxnIBKTlUF8l7wgIiGRCOTYp3JAlVVPJbwFDAUJBdTRF6ml
- FrYZt94/Lrf5qK2CKx0Sfmhe7c6Bz3Cfb+ShrY21cTtxSdms2KI0sa8R/BfCr0T+lwcy
- UdoJkMlW5Q3xJtP2tO6n310qhGJysUqXhBkWjJTLGGZ4TQfRyyLgIOuLmV2scQtGO7BL
- Aw1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ZPk64J/LdH72s7qNPb60/1YSvZ1La3jkk8O0W53U28U=;
- b=IqfD3O7s9JNNG96/0SImkcb8g7vlPKVW9xz1u2C7LPyKtwxbuMZu/3JZbNZnEZkmuk
- vbvDBMnmV4R8USq2TUwtwmZWA/SmE2YkPZPunBqx/gJqGsf91AN/A9qN/AMRQoDS2R4H
- +EUP4Wx1bdapEQzUK1dHFssUbshuz6IsFgQLP6KcAyHFzSrN1QQPacppe5DBKPwHH21j
- mfPqQo9w7g6cRPHMncaG5T8t0gNS+yOwYOkO3rqXbpWznFkQERQmvcqsSPm/lsSAdDp9
- +IH7IGNQyKA5aWRz1hCUHuWdEULQda4o4eja/V8rhJMmampo58OOA6YHOIczC8IEsC2s
- 3Vnw==
-X-Gm-Message-State: AOAM531a98GPgkthCyXOFt/9e1cNdce+cBFXEBYef4QKJW5RXs6TlkXB
- MPne+cF7+sLL/qQxXGBg5EQ=
-X-Google-Smtp-Source: ABdhPJz+syd0FX/vzuZMTG1A+beDoADnelVvLuxQWYXbKBfLUhJGhgVxDvaFgNZgMpfS9QQDZKcfBA==
-X-Received: by 2002:ac2:4422:: with SMTP id w2mr2964750lfl.219.1604792198857; 
- Sat, 07 Nov 2020 15:36:38 -0800 (PST)
-Received: from localhost.localdomain (h-155-4-221-112.NA.cust.bahnhof.se.
- [155.4.221.112])
- by smtp.gmail.com with ESMTPSA id j23sm782772lfm.16.2020.11.07.15.36.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Nov 2020 15:36:38 -0800 (PST)
-From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
-To: Ohad Ben-Cohen <ohad@wizery.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Date: Sun,  8 Nov 2020 00:36:30 +0100
-Message-Id: <20201107233630.9728-3-rikard.falkeborn@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201107233630.9728-1-rikard.falkeborn@gmail.com>
-References: <20201107233630.9728-1-rikard.falkeborn@gmail.com>
+ Sun,  8 Nov 2020 15:09:22 +0000 (UTC)
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C8A1C206F4;
+ Sun,  8 Nov 2020 15:09:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604848160;
+ bh=+G82V53b9PyT+zW/wrnJYL5mP1AcSdZGFD2/L00uskw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=iJ9BgLAp5BO+FjJ5wUnfFEbtqufgynTcWd82BqyOUura7c+NvGJpSDHFdHlsLSqe1
+ eQeVKrhM/QTfI5VtOF2Oi5l17Bg4WUzLE2F0zsrloiksmRP8CXfNg2zIReMtA6jo97
+ KWDiENDjM+YZQNSPQh9YdM7xMd6eVSAtg97BffUw=
+Date: Sun, 8 Nov 2020 15:09:21 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <20201108150921.11d9aefc@archlinux>
+In-Reply-To: <1604685016-2434-1-git-send-email-fabrice.gasnier@st.com>
+References: <1604685016-2434-1-git-send-email-fabrice.gasnier@st.com>
+X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rikard Falkeborn <rikard.falkeborn@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] remoteproc: stm32: Constify st_rproc_ops
+Cc: linux-doc@vger.kernel.org, mchehab+huawei@kernel.org,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] docs: ABI: testing: iio: stm32: remove
+ re-introduced unsupported ABI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,30 +56,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The only usage of st_rproc_ops is to pass its address to rproc_alloc()
-which accepts a const pointer. Make it const to allow the compiler to
-put it in read-only memory.
+On Fri, 6 Nov 2020 18:50:16 +0100
+Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
 
-Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
----
- drivers/remoteproc/stm32_rproc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Remove unsupported ABI that has been re-introduced due to a rebase hunk.
+> This ABI has been moved in the past in commit b299d00420e2
+> ("IIO: stm32: Remove quadrature related functions from trigger driver")
+> 
+> This also fixes a couple of warnings seen with:
+> ./scripts/get_abi.pl validate 2>&1|grep iio
+> 
+> Fixes: 34433332841d ("docs: ABI: testing: make the files compatible with ReST output")
+> 
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+Hi Fabrice,
 
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index d2414cc1d90d..a180aeae9675 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -541,7 +541,7 @@ static void stm32_rproc_kick(struct rproc *rproc, int vqid)
- 	}
- }
- 
--static struct rproc_ops st_rproc_ops = {
-+static const struct rproc_ops st_rproc_ops = {
- 	.start		= stm32_rproc_start,
- 	.stop		= stm32_rproc_stop,
- 	.attach		= stm32_rproc_attach,
--- 
-2.29.2
+I guess this got accidentally applied given I thought we'd flagged up those
+chunks in the patch as needing fixing.
+
+Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+
+> ---
+>  .../ABI/testing/sysfs-bus-iio-timer-stm32          | 24 ----------------------
+>  1 file changed, 24 deletions(-)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32 b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
+> index a10a4de..c4a4497 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio-timer-stm32
+> @@ -109,30 +109,6 @@ Description:
+>  		When counting down the counter start from preset value
+>  		and fire event when reach 0.
+>  
+> -What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> -KernelVersion:	4.12
+> -Contact:	benjamin.gaignard@st.com
+> -Description:
+> -		Reading returns the list possible quadrature modes.
+> -
+> -What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+> -KernelVersion:	4.12
+> -Contact:	benjamin.gaignard@st.com
+> -Description:
+> -		Configure the device counter quadrature modes:
+> -
+> -		channel_A:
+> -			Encoder A input servers as the count input and B as
+> -			the UP/DOWN direction control input.
+> -
+> -		channel_B:
+> -			Encoder B input serves as the count input and A as
+> -			the UP/DOWN direction control input.
+> -
+> -		quadrature:
+> -			Encoder A and B inputs are mixed to get direction
+> -			and count with a scale of 0.25.
+> -
+>  What:		/sys/bus/iio/devices/iio:deviceX/in_count_enable_mode_available
+>  KernelVersion:	4.12
+>  Contact:	benjamin.gaignard@st.com
 
 _______________________________________________
 Linux-stm32 mailing list
