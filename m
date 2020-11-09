@@ -2,31 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ADED2AC8D5
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Nov 2020 23:47:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 301402AC985
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Nov 2020 00:46:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D18BC3FAE2;
-	Mon,  9 Nov 2020 22:47:44 +0000 (UTC)
-Received: from aposti.net (aposti.net [89.234.176.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E41DBC3FAE2;
+	Mon,  9 Nov 2020 23:46:48 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3B82C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D7EFC36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Nov 2020 22:47:41 +0000 (UTC)
-Date: Mon, 09 Nov 2020 22:47:27 +0000
-From: Paul Cercueil <paul@crapouillou.net>
-To: Rikard Falkeborn <rikard.falkeborn@gmail.com>
-Message-Id: <3NWJJQ.S916PME9WPQT@crapouillou.net>
-In-Reply-To: <20201107233630.9728-2-rikard.falkeborn@gmail.com>
-References: <20201107233630.9728-1-rikard.falkeborn@gmail.com>
- <20201107233630.9728-2-rikard.falkeborn@gmail.com>
+ Mon,  9 Nov 2020 23:46:46 +0000 (UTC)
+IronPort-SDR: YOo755bI8I4Q5mvYYJ0qnn8Jpozl5VwDFvY/agRGPav5WjqI5vpH4uQDMLyx0FYv0uToDSwyGA
+ Ci8RDSZpFIiA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9800"; a="231518952"
+X-IronPort-AV: E=Sophos;i="5.77,464,1596524400"; d="scan'208";a="231518952"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2020 15:46:44 -0800
+IronPort-SDR: 8yHss2GP6+rx8lVgQdr/uzPkKA29kGB2KjnH0jlk4TvqNbcBsIWE49xMSQn2O3Fv4/GjzKsE0J
+ 28pYfrGVjMbA==
+X-IronPort-AV: E=Sophos;i="5.77,464,1596524400"; d="scan'208";a="541089940"
+Received: from paasikivi.fi.intel.com ([10.237.72.42])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2020 15:46:41 -0800
+Received: by paasikivi.fi.intel.com (Postfix, from userid 1000)
+ id 89C3220867; Tue, 10 Nov 2020 01:46:38 +0200 (EET)
+Date: Tue, 10 Nov 2020 01:46:38 +0200
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <20201109234638.GQ26150@paasikivi.fi.intel.com>
+References: <1604511132-4014-1-git-send-email-hugues.fruchet@st.com>
+ <016661fc-e9dd-bd4a-f26d-00e54626f030@st.com>
+ <20201106115308.GO26150@paasikivi.fi.intel.com>
+ <027a0bb1-788e-dc73-a941-4d55c8ec5481@st.com>
 MIME-Version: 1.0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] remoteproc: ingenic: Constify
-	ingenic_rproc_ops
+Content-Disposition: inline
+In-Reply-To: <027a0bb1-788e-dc73-a941-4d55c8ec5481@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, Yannick Fertre <yannick.fertre@st.com>,
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ Alain Volmat <alain.volmat@st.com>, Rob Herring <robh+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v5 0/4] DCMI BT656 parallel bus mode
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -38,57 +61,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+On Mon, Nov 09, 2020 at 09:37:51AM +0100, Alexandre Torgue wrote:
+> Hi Sakari
+> 
+> On 11/6/20 12:53 PM, Sakari Ailus wrote:
+> > Hi Alexandre,
+> > 
+> > On Thu, Nov 05, 2020 at 10:26:37AM +0100, Alexandre Torgue wrote:
+> > > Hi Huges
+> > > 
+> > > On 11/4/20 6:32 PM, Hugues Fruchet wrote:
+> > > > Add support of BT656 embedded synchronization bus.
+> > > > This mode allows to save hardware synchro lines hsync & vsync
+> > > > by replacing them with synchro codes embedded in data stream.
+> > > > Add "bus-type" property and make it required so that there is no
+> > > > ambiguity between parallel mode (bus-type=5) and BT656 mode (bus-type=6).
+> > > > 
+> > > > ===========
+> > > > = history =
+> > > > ===========
+> > > > version 5:
+> > > >     - Add revisited bindings and devicetree with explicit use of "bus-type"
+> > > > 
+> > > > version 4:
+> > > >     - Fix typo in commit message
+> > > > 
+> > > > version 3:
+> > > >     - Fix bus_width print to %u as per Sakari comment
+> > > > 
+> > > > version 2:
+> > > >     - As per Sakari remark, revisit commit message and document
+> > > >       BT656 parallel bus mode in bindings
+> > > > 
+> > > > version 1:
+> > > >     - Initial submission
+> > > > 
+> > > > Hugues Fruchet (4):
+> > > >     media: stm32-dcmi: add support of BT656 bus
+> > > >     media: dt-bindings: media: st,stm32-dcmi: add support of BT656 bus
+> > > >     ARM: dts: stm32: set bus-type in DCMI endpoint for stm32mp157c-ev1
+> > > >       board
+> > > >     ARM: dts: stm32: set bus-type in DCMI endpoint for stm32429i-eval
+> > > >       board
+> > > > 
+> > > >    .../devicetree/bindings/media/st,stm32-dcmi.yaml   | 38 ++++++++++++++++++++++
+> > > >    arch/arm/boot/dts/stm32429i-eval.dts               |  1 +
+> > > >    arch/arm/boot/dts/stm32mp157c-ev1.dts              |  1 +
+> > > >    drivers/media/platform/stm32/stm32-dcmi.c          | 37 +++++++++++++++++++--
+> > > >    4 files changed, 75 insertions(+), 2 deletions(-)
+> > > > 
+> > > 
+> > > I'll take DT patches on stm32-next tree.
+> > 
+> > Just checking: that is only the two last patches in the set, or also the
+> > binding patch?
+> 
+> Usually I let drivers/subsystem maintainer taking dt-bindings patches with
+> drivers patches.
+> (If binding changes come only with dts(i) patches I take them in my tree)
+> 
+> -->So yes I'll take only the last two patches.
 
-Le dim. 8 nov. 2020 =E0 0:36, Rikard Falkeborn =
+Ack, thanks!
 
-<rikard.falkeborn@gmail.com> a =E9crit :
-> The only usage of ingenic_rproc_ops is to pass its address to
-> devm_rproc_alloc(), which accepts a const pointer. Make it const to
-> allow the compiler to put it in read-only memory.
-> =
-
-> Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
-
-Acked-by: Paul Cercueil <paul@crapouillou.net>
-
-Cheers,
--Paul
-
-> ---
->  drivers/remoteproc/ingenic_rproc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> =
-
-> diff --git a/drivers/remoteproc/ingenic_rproc.c =
-
-> b/drivers/remoteproc/ingenic_rproc.c
-> index 1c2b21a5d178..26e19e6143b7 100644
-> --- a/drivers/remoteproc/ingenic_rproc.c
-> +++ b/drivers/remoteproc/ingenic_rproc.c
-> @@ -135,7 +135,7 @@ static void *ingenic_rproc_da_to_va(struct rproc =
-
-> *rproc, u64 da, size_t len)
->  	return (__force void *)va;
->  }
-> =
-
-> -static struct rproc_ops ingenic_rproc_ops =3D {
-> +static const struct rproc_ops ingenic_rproc_ops =3D {
->  	.prepare =3D ingenic_rproc_prepare,
->  	.unprepare =3D ingenic_rproc_unprepare,
->  	.start =3D ingenic_rproc_start,
-> --
-> 2.29.2
-> =
-
-
-
+-- 
+Sakari Ailus
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
