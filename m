@@ -2,91 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB1CA2AB22F
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Nov 2020 09:09:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F8292AB28D
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Nov 2020 09:38:53 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8544DC3FAE2;
-	Mon,  9 Nov 2020 08:09:26 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680040.outbound.protection.outlook.com [40.107.68.40])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3A0FC3FAE2;
+	Mon,  9 Nov 2020 08:38:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63467C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81DF7C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Nov 2020 08:09:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IUK3XGvU24Z6erpJHKIwWoGMY3XuYuC/dv7A0laXiqQn11w+BjJpYbwN7zjgGM8ivYQ9dtnb5w57ESuKSH586rVxJRmVCYa8tpZnUv7uhf49BLUjTaY6ap/pkQMoAoqp17H/Rv611FwMilhVTL75fw5SDs8tuwyUkc/+eSAtrjGQKOGdzTyp144NCOzXIbmIu37EtA2Hwjt1M7hJRIx/A0rPKWuKK6Gkxc1jETOxj768QX48y37oky5P/NEJqfLUBJNENxzju8aW22HHtvHYPiKyZ0YC5fB+1JDiG2YdD9lliJcFVdMaZ/HweyFAGP8SjZykw4LFJoSaT0Uw3fE/KQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NeA8XPqu6J6oj+l/n+V1tpX30ykZIQjdgF34coqDul0=;
- b=LugJr5yrZQAbqgcScvz4x8/tjqD+7MsoYnyTZxlFzgQUBciRCq85C5Bb/2u+Eh8Vi6joxpImqmMs5Z90MciRWJRX4DO/pqsSU0NziBydYdtthbRXotd/StUjxGy2cgFBFnXh9pDSRTJbwINVYXzMa8IWnwbPGuPPRq7pGstBFWjt0KMb0YmUWs/Zl8bZyyquu435Uz593tOqMEHv9GOVh5ef0nx9L9S8Ko/zyWoYBGmI6uXvy5knpX5POwkKC5Pdx+1fdFys3Ab0AaciGaLnu+6gnOY+wW+zSvQfwh6Zop1YxAwxGeWZhwTG0xoUjCH98lwUVicHmEw8cZG5zTnpeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synaptics.com; dmarc=pass action=none
- header.from=synaptics.com; dkim=pass header.d=synaptics.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=Synaptics.onmicrosoft.com; s=selector2-Synaptics-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NeA8XPqu6J6oj+l/n+V1tpX30ykZIQjdgF34coqDul0=;
- b=FSUFWXT5aXf2wsRHtjr84GvkxrddCHV44f5AZffq3Nlhks5wRbfbK7QIrO4irusdNFOvgi7zZ0aJMeIsIqH2vh/jKYGSl2eXe1tuwj7p/iPkveAfysIsC2cR5ycSK5dPgfzgBmaUBYBVOsExQdH6XND4F/yR+yK8RgtKxvp7cy4=
-Authentication-Results: st.com; dkim=none (message not signed)
- header.d=none;st.com; dmarc=none action=none header.from=synaptics.com;
-Received: from SN2PR03MB2383.namprd03.prod.outlook.com (2603:10b6:804:d::23)
- by SN6PR03MB3616.namprd03.prod.outlook.com (2603:10b6:805:4b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.28; Mon, 9 Nov
- 2020 08:09:22 +0000
-Received: from SN2PR03MB2383.namprd03.prod.outlook.com
- ([fe80::49be:5ea3:8961:a22]) by SN2PR03MB2383.namprd03.prod.outlook.com
- ([fe80::49be:5ea3:8961:a22%6]) with mapi id 15.20.3541.024; Mon, 9 Nov 2020
- 08:09:22 +0000
-Date: Mon, 9 Nov 2020 16:09:10 +0800
-From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
- <alexandre.torgue@st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
- Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Philipp Zabel
- <p.zabel@pengutronix.de>
-Message-ID: <20201109160855.24e911b6@xhacker.debian>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-X-Originating-IP: [192.147.44.204]
-X-ClientProxiedBy: SJ0PR03CA0205.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef::30) To SN2PR03MB2383.namprd03.prod.outlook.com
- (2603:10b6:804:d::23)
+ Mon,  9 Nov 2020 08:38:50 +0000 (UTC)
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A98WYdR009701; Mon, 9 Nov 2020 09:38:35 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=vHLS0bIzw5/h0yGMsmkOgooOEMMNvU/GzA5iF0cEp9g=;
+ b=1DoW/1wfhl7PPBsyuC7OgVxCKu67Jf2DvVdkL/aAXDpFHZaxrp+wvtHb+A6EKoCnFsu3
+ Qx3zE9IEKTPi9IiZ1hwY1GA4x80q2kbKz+LXZBI7sbJaBLHcA0ydMOSLf8bOPyj9IKGO
+ rWsJ1eCoMzFCsXl8AHAfXoMUl4CroKnmf/mPD5GRQ+OjYMIwieUdpitPhb1F1r4CdLqE
+ 6bvw3jKWM8keGX5rezccYdOdZaSxIVs1ZnJQxJCyWX2eNfqu56I1+A0ruX6obkwSsF7g
+ e9PMhllfeSp1N/jp/0GjlZvbmSbDvcfqXHnxWTy4O0GF3rcCRyoTQr+RQZlvrFjR/ZkO vQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34nj80gspj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Nov 2020 09:38:35 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B085B10002A;
+ Mon,  9 Nov 2020 09:38:34 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 36963230480;
+ Mon,  9 Nov 2020 09:38:34 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.46) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 9 Nov
+ 2020 09:38:33 +0100
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+References: <1604511132-4014-1-git-send-email-hugues.fruchet@st.com>
+ <016661fc-e9dd-bd4a-f26d-00e54626f030@st.com>
+ <20201106115308.GO26150@paasikivi.fi.intel.com>
+From: Alexandre Torgue <alexandre.torgue@st.com>
+Message-ID: <027a0bb1-788e-dc73-a941-4d55c8ec5481@st.com>
+Date: Mon, 9 Nov 2020 09:37:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from xhacker.debian (192.147.44.204) by
- SJ0PR03CA0205.namprd03.prod.outlook.com (2603:10b6:a03:2ef::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.19 via Frontend
- Transport; Mon, 9 Nov 2020 08:09:19 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4f2649b3-46b5-4efd-e0e9-08d88486c433
-X-MS-TrafficTypeDiagnostic: SN6PR03MB3616:
-X-Microsoft-Antispam-PRVS: <SN6PR03MB36160419F4E9D81E8E6192C7EDEA0@SN6PR03MB3616.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:245;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8nSzezWrOi4E6FLd9HqxRGPnuITdgR7oEBPYtF/Mt31kc5GH793kPuAbMxhkAyh0YfAb6Uepbm4yziGvWo59eUFQFommD7t8g3fESLukFhC98U/gCEqdwCOSfcl7cRpAJ8FxO7QeX6bxgLh6vGCuGU1t28h4Fo0+jiDnoF8AYeajoBe6+qB2/Rpgp4Vq4cdnX2+2/bBq3VoB6T2hbDGawFMOjB8/aUd5mBr5NxCy6iAjK2VdDNaje45afQizkSZuKaD1V/hRiHLgooU8qYJhq79Boh3QZXlOY1wM3gMcqL2GP4OXvhtnX/ELVxIpQaxJ/vTUy1yq7QhATIJvhC/1dw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN2PR03MB2383.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(39850400004)(346002)(136003)(376002)(66476007)(66946007)(9686003)(66556008)(2906002)(8936002)(8676002)(55016002)(478600001)(956004)(6666004)(7696005)(110136005)(83380400001)(5660300002)(4326008)(16526019)(6506007)(86362001)(186003)(1076003)(316002)(52116002)(26005)(7416002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: rz5PzpdyP0VkTtzH7CYPaGqgnPYxq9dVkEwpwv49vA94wMAjxZ5f9lCAyQpLAEvgi/WwwpFkMqrekpsXNRF5EoRVqOB9G66hrYQK+Xt5l70y7i6crz0rJ/Cf+cee/R+WMKwR+xZjUEoKzQoWW2A3MPONpKcqQ5HT+1Su48Uzw+sS2lwoNi9X1P27OVjuBiothHmY6ybDJVrqUopV4echs/d5Hl9N2IfXp72etWBATRGoaSzfblaBCiPYg/VcISam7KXiQbiuCdvVccglaqaNhfnmf93lZEaZRr6PkM+6cZDDLa1yW2fkjxxLTcVo1JUToH4fSSy7rU87X1nNT7MfmdvxsSZewt5lt04vsVEiXZyl94fsdtR9kxKRMqVGxPy/rXVIfIewbQEO/t9S726oxoOW10+zfAys0plIqQTGnpwrxOeMqEKCN4X2aYcS9QeurDy+C/ZRKsVzYtK7/r8J7qtxQZtZhdjUfYQxGNZL5HhyVoOgPbRZ+EWCYwspycbf6LrWyrNOuDxjtiMPOsJC5DqPe4HkKnbQAIw+Uo4Lh7or6/afp1SlURCwuHA/GxQ4QSB4dw2P9nBJlhDXwkW5QHDIfArlaDnOHNjUSgqRkd/Ht2fu/KdEKTZc3IUDgkNZ77M4Bj1J6WBkpJhHwz0Q8g==
-X-OriginatorOrg: synaptics.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f2649b3-46b5-4efd-e0e9-08d88486c433
-X-MS-Exchange-CrossTenant-AuthSource: SN2PR03MB2383.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2020 08:09:22.6492 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MO0zKEU3Ecpl/excJUd76AnEii0mBesNlglI/JP8hIQ9++gvRkw6WMWx6WmeWDEqXPMa1sGf3U/YpPkjv2fPrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR03MB3616
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: platform: use optional
- clk/reset get APIs
+In-Reply-To: <20201106115308.GO26150@paasikivi.fi.intel.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-09_02:2020-11-05,
+ 2020-11-09 signatures=0
+Cc: devicetree@vger.kernel.org, Yannick Fertre <yannick.fertre@st.com>,
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ Alain Volmat <alain.volmat@st.com>, Rob Herring <robh+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v5 0/4] DCMI BT656 parallel bus mode
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,76 +77,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use the devm_reset_control_get_optional() and devm_clk_get_optional()
-rather than open coding them.
+Hi Sakari
 
-Signed-off-by: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
----
- .../ethernet/stmicro/stmmac/stmmac_platform.c | 21 +++++++------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+On 11/6/20 12:53 PM, Sakari Ailus wrote:
+> Hi Alexandre,
+> 
+> On Thu, Nov 05, 2020 at 10:26:37AM +0100, Alexandre Torgue wrote:
+>> Hi Huges
+>>
+>> On 11/4/20 6:32 PM, Hugues Fruchet wrote:
+>>> Add support of BT656 embedded synchronization bus.
+>>> This mode allows to save hardware synchro lines hsync & vsync
+>>> by replacing them with synchro codes embedded in data stream.
+>>> Add "bus-type" property and make it required so that there is no
+>>> ambiguity between parallel mode (bus-type=5) and BT656 mode (bus-type=6).
+>>>
+>>> ===========
+>>> = history =
+>>> ===========
+>>> version 5:
+>>>     - Add revisited bindings and devicetree with explicit use of "bus-type"
+>>>
+>>> version 4:
+>>>     - Fix typo in commit message
+>>>
+>>> version 3:
+>>>     - Fix bus_width print to %u as per Sakari comment
+>>>
+>>> version 2:
+>>>     - As per Sakari remark, revisit commit message and document
+>>>       BT656 parallel bus mode in bindings
+>>>
+>>> version 1:
+>>>     - Initial submission
+>>>
+>>> Hugues Fruchet (4):
+>>>     media: stm32-dcmi: add support of BT656 bus
+>>>     media: dt-bindings: media: st,stm32-dcmi: add support of BT656 bus
+>>>     ARM: dts: stm32: set bus-type in DCMI endpoint for stm32mp157c-ev1
+>>>       board
+>>>     ARM: dts: stm32: set bus-type in DCMI endpoint for stm32429i-eval
+>>>       board
+>>>
+>>>    .../devicetree/bindings/media/st,stm32-dcmi.yaml   | 38 ++++++++++++++++++++++
+>>>    arch/arm/boot/dts/stm32429i-eval.dts               |  1 +
+>>>    arch/arm/boot/dts/stm32mp157c-ev1.dts              |  1 +
+>>>    drivers/media/platform/stm32/stm32-dcmi.c          | 37 +++++++++++++++++++--
+>>>    4 files changed, 75 insertions(+), 2 deletions(-)
+>>>
+>>
+>> I'll take DT patches on stm32-next tree.
+> 
+> Just checking: that is only the two last patches in the set, or also the
+> binding patch?
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index af34a4cadbb0..f1d5b2ce1039 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -399,6 +399,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
- 	struct device_node *np = pdev->dev.of_node;
- 	struct plat_stmmacenet_data *plat;
- 	struct stmmac_dma_cfg *dma_cfg;
-+	void *ret;
- 	int rc;
- 
- 	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
-@@ -576,12 +577,10 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
- 		clk_prepare_enable(plat->stmmac_clk);
- 	}
- 
--	plat->pclk = devm_clk_get(&pdev->dev, "pclk");
-+	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
- 	if (IS_ERR(plat->pclk)) {
--		if (PTR_ERR(plat->pclk) == -EPROBE_DEFER)
--			goto error_pclk_get;
--
--		plat->pclk = NULL;
-+		ret = plat->pclk;
-+		goto error_pclk_get;
- 	}
- 	clk_prepare_enable(plat->pclk);
- 
-@@ -596,14 +595,10 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
- 		dev_dbg(&pdev->dev, "PTP rate %d\n", plat->clk_ptp_rate);
- 	}
- 
--	plat->stmmac_rst = devm_reset_control_get(&pdev->dev,
--						  STMMAC_RESOURCE_NAME);
-+	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev, STMMAC_RESOURCE_NAME);
- 	if (IS_ERR(plat->stmmac_rst)) {
--		if (PTR_ERR(plat->stmmac_rst) == -EPROBE_DEFER)
--			goto error_hw_init;
--
--		dev_info(&pdev->dev, "no reset control found\n");
--		plat->stmmac_rst = NULL;
-+		ret = plat->stmmac_rst;
-+		goto error_hw_init;
- 	}
- 
- 	return plat;
-@@ -613,7 +608,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
- error_pclk_get:
- 	clk_disable_unprepare(plat->stmmac_clk);
- 
--	return ERR_PTR(-EPROBE_DEFER);
-+	return ret;
- }
- 
- /**
--- 
-2.29.2
+Usually I let drivers/subsystem maintainer taking dt-bindings patches 
+with drivers patches.
+(If binding changes come only with dts(i) patches I take them in my tree)
+
+-->So yes I'll take only the last two patches.
+
+Regards
+alex
 
 _______________________________________________
 Linux-stm32 mailing list
