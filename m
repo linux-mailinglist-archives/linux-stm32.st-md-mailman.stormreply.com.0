@@ -2,78 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E5A12AC08B
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Nov 2020 17:11:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB3222AC10D
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Nov 2020 17:37:38 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5442EC3FAE3;
-	Mon,  9 Nov 2020 16:11:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86FCFC3FAE2;
+	Mon,  9 Nov 2020 16:37:38 +0000 (UTC)
+Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
+ [209.85.167.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B85DC36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7425C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Nov 2020 16:11:40 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A9G6gYf018377; Mon, 9 Nov 2020 17:11:24 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=STMicroelectronics;
- bh=aCuGZs5eFBxNDdr6XK+cc45jKE8mNbTQVuJd3YqSDyI=;
- b=SICcsM0bDwrICeXlXedAfHnciIycGgN7hgSIfXCDeMFU4Dxqz5LoPxuTTvYD9EbLIISl
- uCIJzIkU6lBcAT0jYPODRsAwwd5H9m7qGFDvDLBQMnN9VzhB2c4wpKBbg1gj8KKArOy0
- 6Jjw0GIFa0s2bT1ECTHMvN5UV3x6E8Z3CodtVxXlil4cgh/M6bXJFQMRq5DHPUe62T3s
- OWK9nxaUWm02GG9Onxc5cH5JMuVxjVdgFqoSI1dei+yQJrwLa9F8kVO4DZTKDR+yDiIU
- WTjgrheR8f0fkfYN6kOXkgHtNTOzvF/nsYdyTfmXj1tvlImSMDMIU3oyt1OaffDEz9jC +A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34nkbmu273-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 09 Nov 2020 17:11:23 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0E36D100034;
- Mon,  9 Nov 2020 17:11:23 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E79982397AB;
- Mon,  9 Nov 2020 17:11:22 +0100 (CET)
-Received: from lmecxl0995.lme.st.com (10.75.127.44) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 9 Nov
- 2020 17:10:23 +0100
-To: Rob Herring <robh+dt@kernel.org>
-References: <20201106165805.31534-1-amelie.delaunay@st.com>
- <20201106165805.31534-2-amelie.delaunay@st.com>
- <CAL_Jsq+A=nixpdrT3Omq7Osat=_Egb5g6VGao=gY4CEssOe+xQ@mail.gmail.com>
- <a0e0bde1-5657-c0f9-9123-6b1dd5a1bd73@st.com>
- <CAL_JsqLcTNNWm7ChBjhFaTvfDm-kSYXrppcGU8uFTGEEuaT5Tg@mail.gmail.com>
-From: Amelie DELAUNAY <amelie.delaunay@st.com>
-Message-ID: <5df74edf-b6f9-3397-4c85-683987dd5743@st.com>
-Date: Mon, 9 Nov 2020 17:10:23 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon,  9 Nov 2020 16:37:35 +0000 (UTC)
+Received: by mail-oi1-f193.google.com with SMTP id t143so10821489oif.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 09 Nov 2020 08:37:35 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=tq7rUzr/gw10MEoyCZnSq/EiwnB2bInd24MzCsWxH8k=;
+ b=Z8KEfN4dmx43TgNsiSzpGyUxIrMm1iTLDy4mswpX00mcmrCOy5is6s007lBwMIac6H
+ k+7ip5UNPdoAWo7IPQkcZrZVo0M8ZikUaI/n1mmsgyVi5kbyS/SWK9v8/zozw6Jy8W+U
+ uUaQhpl0Xo1+uOVvgk/M3NQWrDuvhtDSv8P+kn0aRa9MhAg/BCmeDtZNEwznmVxriLtr
+ pC9LTYDsdnxRSlmLsmkkf8dz52mnh3ZH+CdivwOJry5CViyon7S6qczpMKaOSUDO3a5Y
+ z8LqfohK5eAYYq5AbCU+WTWC6sbYPn9WHEsrQ8ubQrFngkhgO3ZEMO70rTrh6tuoO+Ta
+ Likw==
+X-Gm-Message-State: AOAM533Fbq+MFUXfNU9c0ekvCe4pCUIk8ERXH/ulruBQZV/IliRWILtm
+ RQGO0ook/VtMP0A+GbdhYA==
+X-Google-Smtp-Source: ABdhPJwLqQONMstaMXV/iyNOCJ8sCnMO9TUIGoYg1lmfIEQEeF/LXCOWXsWVAAtsy+AIrYmyia3DLQ==
+X-Received: by 2002:a05:6808:b24:: with SMTP id
+ t4mr8942748oij.93.1604939854580; 
+ Mon, 09 Nov 2020 08:37:34 -0800 (PST)
+Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id e15sm1176458otj.43.2020.11.09.08.37.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Nov 2020 08:37:33 -0800 (PST)
+Received: (nullmailer pid 1410944 invoked by uid 1000);
+ Mon, 09 Nov 2020 16:37:33 -0000
+Date: Mon, 9 Nov 2020 10:37:33 -0600
+From: Rob Herring <robh@kernel.org>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <20201109163733.GA1404197@bogus>
+References: <20201104113932.30702-1-a.fatoum@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqLcTNNWm7ChBjhFaTvfDm-kSYXrppcGU8uFTGEEuaT5Tg@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-09_08:2020-11-05,
- 2020-11-09 signatures=0
-Cc: devicetree@vger.kernel.org,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux USB List <linux-usb@vger.kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Badhri Jagan Sridharan <badhri@google.com>, Jun Li <lijun.kernel@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v5 1/5] dt-bindings: connector: add
- typec-power-opmode property to usb-connector
+Content-Disposition: inline
+In-Reply-To: <20201104113932.30702-1-a.fatoum@pengutronix.de>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, kernel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1] dt-bindings: arm: stm32: lxa,
+ stm32mp157c-mc1: add extra SiP compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,89 +64,84 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 11/9/20 5:02 PM, Rob Herring wrote:
-> On Mon, Nov 9, 2020 at 9:54 AM Amelie DELAUNAY <amelie.delaunay@st.com> wrote:
->>
->> On 11/9/20 4:03 PM, Rob Herring wrote:
->>> On Fri, Nov 6, 2020 at 10:58 AM Amelie Delaunay <amelie.delaunay@st.com> wrote:
->>>>
->>>> Power operation mode may depends on hardware design, so, add the optional
->>>> property typec-power-opmode for usb-c connector to select the power
->>>> operation mode capability.
->>>>
->>>> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
->>>> ---
->>>> Hi Bahdri, Rob,
->>>>
->>>> I've added the exlusion with FRS property, but new FRS property name
->>>> should be use here so, be careful.
->>>>
->>>> ---
->>>>    .../bindings/connector/usb-connector.yaml     | 24 +++++++++++++++++++
->>>>    1 file changed, 24 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/connector/usb-connector.yaml b/Documentation/devicetree/bindings/connector/usb-connector.yaml
->>>> index 62781518aefc..a84464b3e1f2 100644
->>>> --- a/Documentation/devicetree/bindings/connector/usb-connector.yaml
->>>> +++ b/Documentation/devicetree/bindings/connector/usb-connector.yaml
->>>> @@ -93,6 +93,24 @@ properties:
->>>>          - device
->>>>          - dual
->>>>
->>>> +  typec-power-opmode:
->>>> +    description: Determines the power operation mode that the Type C connector
->>>> +      will support and will advertise through CC pins when it has no power
->>>> +      delivery support.
->>>> +      - "default" corresponds to default USB voltage and current defined by the
->>>> +        USB 2.0 and USB 3.2 specifications, 5V 500mA for USB 2.0 ports and
->>>> +        5V 900mA or 1500mA for USB 3.2 ports in single-lane or dual-lane
->>>> +        operation respectively.
->>>> +      - "1.5A" and "3.0A", 5V 1.5A and 5V 3.0A respectively, as defined in USB
->>>> +        Type-C Cable and Connector specification, when Power Delivery is not
->>>> +        supported.
->>>> +    allOf:
->>>> +      - $ref: /schemas/types.yaml#definitions/string
->>>> +    enum:
->>>> +      - default
->>>> +      - 1.5A
->>>> +      - 3.0A
->>>
->>> Use the enums here. Unless you want to define it as actual current as
->>> a numerical value.
->>
->> If I understand your point correctly, I think I should remove allOf here
->> and stick with what is done to describe power-role and data-role
->> property. Right ?
+On Wed, Nov 04, 2020 at 12:39:31PM +0100, Ahmad Fatoum wrote:
+> The Linux Automation MC-1 is built around a SIP with CPU, RAM, PMIC,
+> Oscillator and EEPROM. Add a further compatible identifying the SiP,
+> so boot firmware can match against it to apply fixups if necessary.
 > 
-> No, use the numerical values like FRS:
+> To avoid intermittent dtbs_check breakage in the sole upstream device
+> tree that uses that SiP, patch it here as well.
 > 
-> +      "1" refers to default USB power level as described by "Table
-> 6-14 Fixed Supply PDO - Sink".
-> +      "2" refers to 1.5A@5V.
-> +      "3" refers to 3.0A@5V.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [1, 2, 3]
+> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+> ---
+> I know that bindings and device tree patches should be separate. Does
+> this apply here as well? Should I split the dts change into a follow-up
+> commit? 
 
-But it changes the type-c class philosophy. There is already an API to 
-convert string into enum, the same kind is used for data-role and 
-power-role properties.
-Moveover, FRS values doesn't fit with typec_pwr_opmode enum:
-enum typec_pwr_opmode {
-	TYPEC_PWR_MODE_USB,
-	TYPEC_PWR_MODE_1_5A,
-	TYPEC_PWR_MODE_3_0A,
-	TYPEC_PWR_MODE_PD,
-};
+Yes.
 
-Regards
-Amelie
+> Is it ok that dtbs_check will report an intermittent breakage?
+
+If the binding comes first, it won't break.
+
+But generally, 'dtbs_check' being warning free is not yet a requirement. 
+That will probably first have to be per platform.
+
+> ---
+>  Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 8 +++++++-
+>  arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts              | 2 +-
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> index 009b424e456e..9127094f0208 100644
+> --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> @@ -40,7 +40,6 @@ properties:
+>        - items:
+>            - enum:
+>                - arrow,stm32mp157a-avenger96 # Avenger96
+> -              - lxa,stm32mp157c-mc1
+>                - shiratech,stm32mp157a-iot-box # IoT Box
+>                - shiratech,stm32mp157a-stinger96 # Stinger96
+>                - st,stm32mp157c-ed1
+> @@ -52,6 +51,13 @@ properties:
+>            - const: st,stm32mp157c-ev1
+>            - const: st,stm32mp157c-ed1
+>            - const: st,stm32mp157
+> +      - description: Octavo OSD32MP15x System-in-Package based boards
+> +        items:
+> +          - enum:
+> +              - lxa,stm32mp157c-mc1 # Linux Automation MC-1
+> +          - const: oct,stm32mp15xx-osd32
+
+'oct' is not docuemnted in vendor-prefixes.yaml.
+
+> +          - enum:
+> +              - st,stm32mp157
+>        - description: Odyssey STM32MP1 SoM based Boards
+>          items:
+>            - enum:
+> diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> index 1e5333fd437f..cda8e871f999 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
+> @@ -15,7 +15,7 @@
+>  
+>  / {
+>  	model = "Linux Automation MC-1 board";
+> -	compatible = "lxa,stm32mp157c-mc1", "st,stm32mp157";
+> +	compatible = "lxa,stm32mp157c-mc1", "oct,stm32mp15xx-osd32", "st,stm32mp157";
+>  
+>  	aliases {
+>  		ethernet0 = &ethernet0;
+> -- 
+> 2.28.0
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
