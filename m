@@ -2,53 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D4AE2AD42F
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Nov 2020 11:57:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44FE82AD68F
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Nov 2020 13:43:43 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F845C35E2B;
-	Tue, 10 Nov 2020 10:57:40 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08682C35E2B;
+	Tue, 10 Nov 2020 12:43:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 425B5C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64864C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Nov 2020 10:57:36 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1kcRLD-0003ml-TI; Tue, 10 Nov 2020 11:57:35 +0100
-To: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
-References: <20201021183149.GA8436@Red> <20201023134201.GA533@Red>
- <20201023203943.GA21435@Red> <20201024115307.GA2745@qmqm.qmqm.pl>
- <8a580d12-fa4a-6cd8-4d82-3e3b784e348b@pengutronix.de>
- <20201102202727.GA20042@qmqm.qmqm.pl>
- <124b90a8-72c7-c6cb-790f-7a22ef7510eb@pengutronix.de>
- <20201105025706.GE17266@qmqm.qmqm.pl>
- <7edc2b69-b77b-3546-63d7-108dab95fc91@pengutronix.de>
- <20201108170807.GA10914@qmqm.qmqm.pl>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <939ef8f1-9f64-d7c3-f765-ae7c2f1178de@pengutronix.de>
-Date: Tue, 10 Nov 2020 11:57:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ Tue, 10 Nov 2020 12:43:41 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0AACMZqk016416; Tue, 10 Nov 2020 13:43:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=9T8vtd07a5HU5hAvStohIwEdj6wRptIRJ0QOWk8SQKU=;
+ b=bMOJ8gzCQMwYyHGNpdQIwXjJUUx7rJ/2EKcuAadH7/Ut1NUshxJCgo5t7fxNb1Ti+M3I
+ t2omcnlhSandbOxGmaozfdJWvX0ZhLENLwOONWbStRI4UnbOCf27u5QH+cnfXwNngEdI
+ +6zWEohtFUL4p4WJixQnY48euhg6sO7tbextEIO+Nw7ij9QLXFWhCRqYzVYcNL5m2Zr4
+ Mcz8J8FwJc9VoSaoC/wn82IXpqJe25+EnYvIiuXyHEFlFKlkPa2AAZqa/SZS9twT8Iup
+ uC7Ihc+O4vCvM9rfw65MNWnSUNBNhDQd9E5uIUyw2CKUb+4rKbZBb9bJfY8CVgxXBoYo /g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34nhx501rh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 10 Nov 2020 13:43:28 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8E39010002A;
+ Tue, 10 Nov 2020 13:43:27 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7B33D251B8E;
+ Tue, 10 Nov 2020 13:43:27 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG3NODE2.st.com (10.75.127.8)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 10 Nov 2020 13:43:26
+ +0100
+From: Amelie Delaunay <amelie.delaunay@st.com>
+To: Rob Herring <robh+dt@kernel.org>, Kishon Vijay Abraham I <kishon@ti.com>, 
+ Vinod Koul <vkoul@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Tue, 10 Nov 2020 13:43:26 +0100
+Message-ID: <20201110124326.4682-1-amelie.delaunay@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20201108170807.GA10914@qmqm.qmqm.pl>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: lgirdwood@gmail.com, mripard@kernel.org, linux-kernel@vger.kernel.org,
- wens@csie.org, broonie@kernel.org, Corentin Labbe <clabbe.montjoie@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [BUG] Error applying setting,
- reverse things back on lot of devices
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG3NODE2.st.com
+ (10.75.127.8)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-10_05:2020-11-10,
+ 2020-11-10 signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 1/1] dt-bindings: phy: phy-stm32-usbphyc:
+	convert bindings to json-schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,165 +68,246 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello,
+Convert the STM32 USB PHY Controller (USBPHYC) bindings to DT schema format
+using json-schema.
 
-On 11/8/20 6:08 PM, Micha=B3 Miros=B3aw wrote:
-> On Thu, Nov 05, 2020 at 10:11:30AM +0100, Ahmad Fatoum wrote:
-> It seems that final regulator_resolve_supply() is spinning recursively.
-> Is the regulator name the same as its supply_name? Can you try the patch
-> below to verify this?
+Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
+---
+ .../bindings/phy/phy-stm32-usbphyc.txt        |  73 ----------
+ .../bindings/phy/phy-stm32-usbphyc.yaml       | 136 ++++++++++++++++++
+ 2 files changed, 136 insertions(+), 73 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.txt
+ create mode 100644 Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
 
-Indeed that seems to be the case:
+diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.txt b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.txt
+deleted file mode 100644
+index 725ae71ae653..000000000000
+--- a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.txt
++++ /dev/null
+@@ -1,73 +0,0 @@
+-STMicroelectronics STM32 USB HS PHY controller
+-
+-The STM32 USBPHYC block contains a dual port High Speed UTMI+ PHY and a UTMI
+-switch. It controls PHY configuration and status, and the UTMI+ switch that
+-selects either OTG or HOST controller for the second PHY port. It also sets
+-PLL configuration.
+-
+-USBPHYC
+-      |_ PLL
+-      |
+-      |_ PHY port#1 _________________ HOST controller
+-      |                    _                 |
+-      |                  / 1|________________|
+-      |_ PHY port#2 ----|   |________________
+-      |                  \_0|                |
+-      |_ UTMI switch_______|          OTG controller
+-
+-
+-Phy provider node
+-=================
+-
+-Required properties:
+-- compatible: must be "st,stm32mp1-usbphyc"
+-- reg: address and length of the usb phy control register set
+-- clocks: phandle + clock specifier for the PLL phy clock
+-- #address-cells: number of address cells for phys sub-nodes, must be <1>
+-- #size-cells: number of size cells for phys sub-nodes, must be <0>
+-
+-Optional properties:
+-- assigned-clocks: phandle + clock specifier for the PLL phy clock
+-- assigned-clock-parents: the PLL phy clock parent
+-- resets: phandle + reset specifier
+-
+-Required nodes: one sub-node per port the controller provides.
+-
+-Phy sub-nodes
+-==============
+-
+-Required properties:
+-- reg: phy port index
+-- phy-supply: phandle to the regulator providing 3V3 power to the PHY,
+-	      see phy-bindings.txt in the same directory.
+-- vdda1v1-supply: phandle to the regulator providing 1V1 power to the PHY
+-- vdda1v8-supply: phandle to the regulator providing 1V8 power to the PHY
+-- #phy-cells: see phy-bindings.txt in the same directory, must be <0> for PHY
+-  port#1 and must be <1> for PHY port#2, to select USB controller
+-
+-
+-Example:
+-		usbphyc: usb-phy@5a006000 {
+-			compatible = "st,stm32mp1-usbphyc";
+-			reg = <0x5a006000 0x1000>;
+-			clocks = <&rcc_clk USBPHY_K>;
+-			resets = <&rcc_rst USBPHY_R>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			usbphyc_port0: usb-phy@0 {
+-				reg = <0>;
+-				phy-supply = <&vdd_usb>;
+-				vdda1v1-supply = <&reg11>;
+-				vdda1v8-supply = <&reg18>
+-				#phy-cells = <0>;
+-			};
+-
+-			usbphyc_port1: usb-phy@1 {
+-				reg = <1>;
+-				phy-supply = <&vdd_usb>;
+-				vdda1v1-supply = <&reg11>;
+-				vdda1v8-supply = <&reg18>
+-				#phy-cells = <1>;
+-			};
+-		};
+diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+new file mode 100644
+index 000000000000..09064bbb68dc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+@@ -0,0 +1,136 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/phy-stm32-usbphyc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 USB HS PHY controller binding
++
++description:
++
++  The STM32 USBPHYC block contains a dual port High Speed UTMI+ PHY and a UTMI
++  switch. It controls PHY configuration and status, and the UTMI+ switch that
++  selects either OTG or HOST controller for the second PHY port. It also sets
++  PLL configuration.
++
++  USBPHYC
++  |_ PLL
++  |
++  |_ PHY port#1 _________________ HOST controller
++  |                   __                 |
++  |                  / 1|________________|
++  |_ PHY port#2 ----|   |________________
++  |                  \_0|                |
++  |_ UTMI switch_______|          OTG controller
++
++maintainers:
++  - Amelie Delaunay <amelie.delaunay@st.com>
++
++properties:
++  compatible:
++    const: st,stm32mp1-usbphyc
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 0
++
++#Required child nodes:
++
++patternProperties:
++  "^usb-phy@[0|1]$":
++    type: object
++    description:
++      Each port the controller provides must be represented as a sub-node.
++
++    properties:
++      reg:
++        description: phy port index.
++        maxItems: 1
++
++      phy-supply:
++        description: regulator providing 3V3 power supply to the PHY.
++
++      vdda1v1-supply:
++        description: regulator providing 1V1 power supply to the PLL block
++
++      vdda1v8-supply:
++        description: regulator providing 1V8 power supply to the PLL block
++
++      "#phy-cells":
++        enum: [ 0x0, 0x1 ]
++
++    allOf:
++      - if:
++          properties:
++            reg:
++              const: 0
++        then:
++          properties:
++            "#phy-cells":
++              const: 0
++        else:
++          properties:
++            "#phy-cells":
++              const: 1
++              description:
++                The value is used to select UTMI switch output.
++                0 for OTG controller and 1 for Host controller.
++
++    required:
++      - reg
++      - phy-supply
++      - vdda1v1-supply
++      - vdda1v8-supply
++      - "#phy-cells"
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - "#address-cells"
++  - "#size-cells"
++  - usb-phy@0
++  - usb-phy@1
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    #include <dt-bindings/reset/stm32mp1-resets.h>
++    usbphyc: usbphyc@5a006000 {
++        compatible = "st,stm32mp1-usbphyc";
++        reg = <0x5a006000 0x1000>;
++        clocks = <&rcc USBPHY_K>;
++        resets = <&rcc USBPHY_R>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        usbphyc_port0: usb-phy@0 {
++            reg = <0>;
++            phy-supply = <&vdd_usb>;
++            vdda1v1-supply = <&reg11>;
++            vdda1v8-supply = <&reg18>;
++            #phy-cells = <0>;
++        };
++
++        usbphyc_port1: usb-phy@1 {
++            reg = <1>;
++            phy-supply = <&vdd_usb>;
++            vdda1v1-supply = <&reg11>;
++            vdda1v8-supply = <&reg18>;
++            #phy-cells = <1>;
++        };
++    };
++...
+-- 
+2.17.1
 
-[    1.299103] stpmic1 1-0033: PMIC Chip Version: 0x10
-[    1.307872] vddcore: 1200 <--> 1350 mV at 1200 mV, enabled
-[    1.312173] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply buck1 for BUCK1
-[    1.321083] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up buck1-supply from device tree
-[    1.330838] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up buck1-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fa=
-iled
-[    1.344650] vddcore: supplied by regulator-dummy
-[    1.352016] vdd_ddr: 1350 mV, enabled
-[    1.354421] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply buck2 for BUCK2
-[    1.363341] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up buck2-supply from device tree
-[    1.373124] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up buck2-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fa=
-iled
-[    1.386921] vdd_ddr: supplied by regulator-dummy
-[    1.394230] vdd: 3300 mV, enabled
-[    1.396307] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply buck3 for BUCK3
-[    1.405186] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up buck3-supply from device tree
-[    1.414962] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up buck3-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fa=
-iled
-[    1.428790] vdd: supplied by regulator-dummy
-[    1.435880] v3v3: 3300 mV, enabled
-[    1.438008] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply buck4 for BUCK4
-[    1.446934] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up buck4-supply from device tree
-[    1.456681] v3v3: supplied by 5V2
-[    1.462533] v1v8_audio: 1800 mV, enabled
-[    1.465218] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply ldo1 for LDO1
-[    1.473906] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up ldo1-supply from device tree
-[    1.483611] v1v8_audio: supplied by v3v3
-[    1.490978] v3v3_hdmi: 3300 mV, enabled
-[    1.493551] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply ldo2 for LDO2
-[    1.502309] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up ldo2-supply from device tree
-[    1.511959] v3v3_hdmi: supplied by 5V2
-[    1.516320] vtt_ddr: override max_uV, 750000 -> 500000
-[    1.523538] vtt_ddr: 500 mV, enabled
-[    1.525881] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply ldo3 for LDO3
-[    1.534555] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up ldo3-supply from device tree
-[    1.544285] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up ldo3-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fai=
-led
-[    1.558017] vtt_ddr: supplied by regulator-dummy
-[    1.562874] vdd_usb: 3300 mV, enabled
-[    1.566585] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply ldo4 for LDO4
-[    1.575297] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up ldo4-supply from device tree
-[    1.585031] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up ldo4-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fai=
-led
-[    1.598716] vdd_usb: supplied by regulator-dummy
-[    1.605030] edt_ft5x06 0-0038: touchscreen probe failed
-[    1.606247] vdda: 2900 mV, enabled
-[    1.612496] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply ldo5 for LDO5
-[    1.621251] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up ldo5-supply from device tree
-[    1.630888] vdda: supplied by 5V2
-[    1.637155] v1v2_hdmi: 1200 mV, enabled
-[    1.639742] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply ldo6 for LDO6
-[    1.648473] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up ldo6-supply from device tree
-[    1.658143] v1v2_hdmi: supplied by v3v3
-[    1.664926] vref_ddr: at 500 mV, enabled
-[    1.667597] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply vref_ddr for VREF_DDR
-[    1.677055] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up vref_ddr-supply from device tree
-[    1.687091] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up vref_ddr-supply property in node /soc/i2c@5c002000/stpmic@33/regulators=
- failed
-[    1.701181] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Supply =
-for VREF_DDR (vref_ddr) resolved to itself
-[    1.711713] vref_ddr: unable to resolve supply
-[    1.716413] bst_out: at 5000 mV, disabled
-[    1.720445] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply vref_ddr for VREF_DDR
-[    1.729920] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up vref_ddr-supply from device tree
-[    1.739966] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up vref_ddr-supply property in node /soc/i2c@5c002000/stpmic@33/regulators=
- failed
-[    1.754044] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Supply =
-for VREF_DDR (vref_ddr) resolved to itself
-[    1.764580] vref_ddr: unable to resolve supply
-[    1.769108] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply boost for BOOST
-[    1.778156] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up boost-supply from device tree
-[    1.787919] bst_out: supplied by 5V2
-[    1.791945] vbus_otg: at 5000 mV, disabled
-[    1.795905] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply vref_ddr for VREF_DDR
-[    1.805314] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up vref_ddr-supply from device tree
-[    1.815360] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up vref_ddr-supply property in node /soc/i2c@5c002000/stpmic@33/regulators=
- failed
-[    1.829446] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Supply =
-for VREF_DDR (vref_ddr) resolved to itself
-[    1.839987] vref_ddr: unable to resolve supply
-[    1.844497] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply pwr_sw1 for VBUS_OTG
-[    1.854003] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up pwr_sw1-supply from device tree
-[    1.863959] vbus_otg: supplied by bst_out
-[    1.868406] vbus_sw: at 5000 mV, disabled
-[    1.872223] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply vref_ddr for VREF_DDR
-[    1.881698] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up vref_ddr-supply from device tree
-[    1.891731] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up vref_ddr-supply property in node /soc/i2c@5c002000/stpmic@33/regulators=
- failed
-[    1.905814] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Supply =
-for VREF_DDR (vref_ddr) resolved to itself
-[    1.916362] vref_ddr: unable to resolve supply
-[    1.920863] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
-ng supply pwr_sw2 for SW_OUT
-[    1.930192] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
- up pwr_sw2-supply from device tree
-[    1.940131] vbus_sw: supplied by bst_out
-
--- =
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
