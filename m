@@ -2,50 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86B7B2AD3C0
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Nov 2020 11:28:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D4AE2AD42F
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Nov 2020 11:57:40 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52211C3FAE2;
-	Tue, 10 Nov 2020 10:28:03 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F845C35E2B;
+	Tue, 10 Nov 2020 10:57:40 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60B49C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 425B5C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Nov 2020 10:28:01 +0000 (UTC)
+ Tue, 10 Nov 2020 10:57:36 +0000 (UTC)
 Received: from gallifrey.ext.pengutronix.de
  ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <a.fatoum@pengutronix.de>)
- id 1kcQsX-0000Gu-S8; Tue, 10 Nov 2020 11:27:57 +0100
-To: Alexandre Torgue <alexandre.torgue@st.com>
-References: <20201021102855.18026-1-a.fatoum@pengutronix.de>
- <20201026143656.GA118160@bogus>
- <23e423ba-25f2-c3ed-ea65-2c2d86ae9522@pengutronix.de>
- <CAL_JsqL8sjw1o6PzCSRM9FtRx7XLDQg2bWXxo4Yw5t6fnroudw@mail.gmail.com>
+ id 1kcRLD-0003ml-TI; Tue, 10 Nov 2020 11:57:35 +0100
+To: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
+References: <20201021183149.GA8436@Red> <20201023134201.GA533@Red>
+ <20201023203943.GA21435@Red> <20201024115307.GA2745@qmqm.qmqm.pl>
+ <8a580d12-fa4a-6cd8-4d82-3e3b784e348b@pengutronix.de>
+ <20201102202727.GA20042@qmqm.qmqm.pl>
+ <124b90a8-72c7-c6cb-790f-7a22ef7510eb@pengutronix.de>
+ <20201105025706.GE17266@qmqm.qmqm.pl>
+ <7edc2b69-b77b-3546-63d7-108dab95fc91@pengutronix.de>
+ <20201108170807.GA10914@qmqm.qmqm.pl>
 From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <20d5ccf8-c98f-fe3c-767b-1ad99be9dd19@pengutronix.de>
-Date: Tue, 10 Nov 2020 11:27:57 +0100
+Message-ID: <939ef8f1-9f64-d7c3-f765-ae7c2f1178de@pengutronix.de>
+Date: Tue, 10 Nov 2020 11:57:34 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.3.1
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqL8sjw1o6PzCSRM9FtRx7XLDQg2bWXxo4Yw5t6fnroudw@mail.gmail.com>
+In-Reply-To: <20201108170807.GA10914@qmqm.qmqm.pl>
 Content-Language: en-US
 X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
 X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
+Cc: lgirdwood@gmail.com, mripard@kernel.org, linux-kernel@vger.kernel.org,
+ wens@csie.org, broonie@kernel.org, Corentin Labbe <clabbe.montjoie@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Sascha Hauer <kernel@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: arm: stm32: add
- simple-mfd compatible for tamp node
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [BUG] Error applying setting,
+ reverse things back on lot of devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,54 +60,161 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Alex,
+Hello,
 
-On 10/27/20 1:15 PM, Rob Herring wrote:
-> On Mon, Oct 26, 2020 at 4:30 PM Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
->>
->> Hello Rob,
->>
->> On 10/26/20 3:36 PM, Rob Herring wrote:
->>> On Wed, Oct 21, 2020 at 12:28:55PM +0200, Ahmad Fatoum wrote:
->>>> The stm32mp1 TAMP (Tamper and backup registers) does tamper detection
->>>> and features 32 backup registers that, being in the RTC domain, may
->>>> survive even with Vdd switched off.
->>>>
->>>> This makes it suitable for use to communicate a reboot mode from OS
->>>> to bootloader via the syscon-reboot-mode binding. Add a "simple-mfd"
->>>> to support probing such a child node. The actual reboot mode
->>>> node could then be defined in a board.dts or fixed up by the bootloader.
->>>
->>> 'simple-mfd' implies there is no dependency on the parent node for the
->>> child (such as the regmap perhaps). Is that the case here?
->>
->> No, there's a dependency and the Linux driver does syscon_node_to_regmap
->> on the device tree node's parent but that's how the syscon-reboot-mode binding
->> is documented:
->>
->>   The SYSCON mapped register is retrieved from the
->>   parental dt-node plus the offset. So the SYSCON reboot-mode node
->>   should be represented as a sub-node of a "syscon", "simple-mfd" node.
->>
->> How would you prefer this being done instead?
-> 
-> Well, probably the syscon driver could just probe any children, but
-> I'm not sure if that would break anyone. So I guess fine as-is.
-> 
-> Reviewed-by: Rob Herring <robh@kernel.org>
+On 11/8/20 6:08 PM, Micha=B3 Miros=B3aw wrote:
+> On Thu, Nov 05, 2020 at 10:11:30AM +0100, Ahmad Fatoum wrote:
+> It seems that final regulator_resolve_supply() is spinning recursively.
+> Is the regulator name the same as its supply_name? Can you try the patch
+> below to verify this?
 
-Gentle ping.
+Indeed that seems to be the case:
 
-> 
-> Rob
-> 
+[    1.299103] stpmic1 1-0033: PMIC Chip Version: 0x10
+[    1.307872] vddcore: 1200 <--> 1350 mV at 1200 mV, enabled
+[    1.312173] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply buck1 for BUCK1
+[    1.321083] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up buck1-supply from device tree
+[    1.330838] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up buck1-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fa=
+iled
+[    1.344650] vddcore: supplied by regulator-dummy
+[    1.352016] vdd_ddr: 1350 mV, enabled
+[    1.354421] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply buck2 for BUCK2
+[    1.363341] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up buck2-supply from device tree
+[    1.373124] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up buck2-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fa=
+iled
+[    1.386921] vdd_ddr: supplied by regulator-dummy
+[    1.394230] vdd: 3300 mV, enabled
+[    1.396307] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply buck3 for BUCK3
+[    1.405186] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up buck3-supply from device tree
+[    1.414962] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up buck3-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fa=
+iled
+[    1.428790] vdd: supplied by regulator-dummy
+[    1.435880] v3v3: 3300 mV, enabled
+[    1.438008] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply buck4 for BUCK4
+[    1.446934] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up buck4-supply from device tree
+[    1.456681] v3v3: supplied by 5V2
+[    1.462533] v1v8_audio: 1800 mV, enabled
+[    1.465218] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply ldo1 for LDO1
+[    1.473906] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up ldo1-supply from device tree
+[    1.483611] v1v8_audio: supplied by v3v3
+[    1.490978] v3v3_hdmi: 3300 mV, enabled
+[    1.493551] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply ldo2 for LDO2
+[    1.502309] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up ldo2-supply from device tree
+[    1.511959] v3v3_hdmi: supplied by 5V2
+[    1.516320] vtt_ddr: override max_uV, 750000 -> 500000
+[    1.523538] vtt_ddr: 500 mV, enabled
+[    1.525881] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply ldo3 for LDO3
+[    1.534555] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up ldo3-supply from device tree
+[    1.544285] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up ldo3-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fai=
+led
+[    1.558017] vtt_ddr: supplied by regulator-dummy
+[    1.562874] vdd_usb: 3300 mV, enabled
+[    1.566585] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply ldo4 for LDO4
+[    1.575297] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up ldo4-supply from device tree
+[    1.585031] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up ldo4-supply property in node /soc/i2c@5c002000/stpmic@33/regulators fai=
+led
+[    1.598716] vdd_usb: supplied by regulator-dummy
+[    1.605030] edt_ft5x06 0-0038: touchscreen probe failed
+[    1.606247] vdda: 2900 mV, enabled
+[    1.612496] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply ldo5 for LDO5
+[    1.621251] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up ldo5-supply from device tree
+[    1.630888] vdda: supplied by 5V2
+[    1.637155] v1v2_hdmi: 1200 mV, enabled
+[    1.639742] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply ldo6 for LDO6
+[    1.648473] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up ldo6-supply from device tree
+[    1.658143] v1v2_hdmi: supplied by v3v3
+[    1.664926] vref_ddr: at 500 mV, enabled
+[    1.667597] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply vref_ddr for VREF_DDR
+[    1.677055] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up vref_ddr-supply from device tree
+[    1.687091] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up vref_ddr-supply property in node /soc/i2c@5c002000/stpmic@33/regulators=
+ failed
+[    1.701181] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Supply =
+for VREF_DDR (vref_ddr) resolved to itself
+[    1.711713] vref_ddr: unable to resolve supply
+[    1.716413] bst_out: at 5000 mV, disabled
+[    1.720445] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply vref_ddr for VREF_DDR
+[    1.729920] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up vref_ddr-supply from device tree
+[    1.739966] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up vref_ddr-supply property in node /soc/i2c@5c002000/stpmic@33/regulators=
+ failed
+[    1.754044] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Supply =
+for VREF_DDR (vref_ddr) resolved to itself
+[    1.764580] vref_ddr: unable to resolve supply
+[    1.769108] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply boost for BOOST
+[    1.778156] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up boost-supply from device tree
+[    1.787919] bst_out: supplied by 5V2
+[    1.791945] vbus_otg: at 5000 mV, disabled
+[    1.795905] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply vref_ddr for VREF_DDR
+[    1.805314] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up vref_ddr-supply from device tree
+[    1.815360] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up vref_ddr-supply property in node /soc/i2c@5c002000/stpmic@33/regulators=
+ failed
+[    1.829446] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Supply =
+for VREF_DDR (vref_ddr) resolved to itself
+[    1.839987] vref_ddr: unable to resolve supply
+[    1.844497] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply pwr_sw1 for VBUS_OTG
+[    1.854003] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up pwr_sw1-supply from device tree
+[    1.863959] vbus_otg: supplied by bst_out
+[    1.868406] vbus_sw: at 5000 mV, disabled
+[    1.872223] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply vref_ddr for VREF_DDR
+[    1.881698] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up vref_ddr-supply from device tree
+[    1.891731] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up vref_ddr-supply property in node /soc/i2c@5c002000/stpmic@33/regulators=
+ failed
+[    1.905814] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Supply =
+for VREF_DDR (vref_ddr) resolved to itself
+[    1.916362] vref_ddr: unable to resolve supply
+[    1.920863] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Resolvi=
+ng supply pwr_sw2 for SW_OUT
+[    1.930192] stpmic1-regulator 5c002000.i2c:stpmic@33:regulators: Looking=
+ up pwr_sw2-supply from device tree
+[    1.940131] vbus_sw: supplied by bst_out
 
--- 
+-- =
+
 Pengutronix e.K.                           |                             |
 Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
