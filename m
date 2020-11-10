@@ -2,46 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C47B42AD3AB
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Nov 2020 11:26:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 140C42AD3B1
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Nov 2020 11:26:29 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8DAB5C3FAE2;
-	Tue, 10 Nov 2020 10:26:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D49F5C3FAE2;
+	Tue, 10 Nov 2020 10:26:28 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76209C36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71D6CC36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Nov 2020 10:26:05 +0000 (UTC)
-Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <afa@pengutronix.de>)
- id 1kcQqZ-0008HS-KB; Tue, 10 Nov 2020 11:25:55 +0100
-Received: from afa by dude.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <afa@pengutronix.de>)
- id 1kcQqZ-00029s-5d; Tue, 10 Nov 2020 11:25:55 +0100
+ Tue, 10 Nov 2020 10:26:27 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1kcQr3-00005S-9h; Tue, 10 Nov 2020 11:26:25 +0100
+To: Rob Herring <robh@kernel.org>
+References: <20201104113932.30702-1-a.fatoum@pengutronix.de>
+ <20201109163733.GA1404197@bogus>
 From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-To: Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-Date: Tue, 10 Nov 2020 11:25:51 +0100
-Message-Id: <20201110102552.7270-3-a.fatoum@pengutronix.de>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201110102552.7270-1-a.fatoum@pengutronix.de>
-References: <20201110102552.7270-1-a.fatoum@pengutronix.de>
+Message-ID: <decb0b4e-e6bf-98c5-df77-6b5f2405ae7f@pengutronix.de>
+Date: Tue, 10 Nov 2020 11:26:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
-X-SA-Exim-Mail-From: afa@pengutronix.de
+In-Reply-To: <20201109163733.GA1404197@bogus>
+Content-Language: en-US
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 3/3] ARM: dts: stm32: lxa-mc1: add
-	OSD32MP15x to list of compatibles
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, kernel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1] dt-bindings: arm: stm32: lxa,
+ stm32mp157c-mc1: add extra SiP compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,33 +56,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Earlier commit modified the binding, so the SiP is to be specified
-as well. Adjust the device tree accordingly.
+Hello Rob,
 
-Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
----
-v1 -> v2:
-  - split up binding and device tree change
----
- arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 11/9/20 5:37 PM, Rob Herring wrote:
+> On Wed, Nov 04, 2020 at 12:39:31PM +0100, Ahmad Fatoum wrote:
+>> I know that bindings and device tree patches should be separate. Does
+>> this apply here as well? Should I split the dts change into a follow-up
+>> commit? 
+> 
+> Yes.
+> 
+>> Is it ok that dtbs_check will report an intermittent breakage?
+> 
+> If the binding comes first, it won't break.
+> 
+> But generally, 'dtbs_check' being warning free is not yet a requirement. 
+> That will probably first have to be per platform.
 
-diff --git a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-index 1e5333fd437f..cda8e871f999 100644
---- a/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts
-@@ -15,7 +15,7 @@
- 
- / {
- 	model = "Linux Automation MC-1 board";
--	compatible = "lxa,stm32mp157c-mc1", "st,stm32mp157";
-+	compatible = "lxa,stm32mp157c-mc1", "oct,stm32mp15xx-osd32", "st,stm32mp157";
- 
- 	aliases {
- 		ethernet0 = &ethernet0;
+here the old binding is deleted, so between the patches, there will be
+a dtbs_check warning, which is why I asked. I've now split it up with
+binding first.
+
+>> +          - const: oct,stm32mp15xx-osd32
+> 
+> 'oct' is not docuemnted in vendor-prefixes.yaml.
+
+Huh, I only checked whether it's in use, not if it's documented.
+I just sent out a v2 with your points addressed.
+
+Thanks for review,
+Ahmad
+
 -- 
-2.28.0
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
