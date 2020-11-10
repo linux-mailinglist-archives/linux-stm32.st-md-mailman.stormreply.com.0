@@ -2,61 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8471C2AD713
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Nov 2020 14:05:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E83352AD721
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Nov 2020 14:11:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45B33C35E2B;
-	Tue, 10 Nov 2020 13:05:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A69EAC35E2B;
+	Tue, 10 Nov 2020 13:11:08 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BDE8BC36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B1B1C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Nov 2020 13:05:42 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Tue, 10 Nov 2020 13:11:06 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0AAD1oiR027641; Tue, 10 Nov 2020 14:05:33 +0100
+ 0AAD6jQR001164; Tue, 10 Nov 2020 14:11:01 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
  h=from : to : cc : subject
  : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=MuYQyOZreHtwFmW6B23D6vQIwX6LkmB9NG2Ttxx8lrs=;
- b=VS9i6dw/B/t2ScqTK7Mmv5L1ZqSm5IRsXCuFVe4SLMfDvHcXjB9b/N+HHecXaUWxnD7I
- 9XO5YJ6IHkpAw2rsh8KYPIfGCQ8vKCsOY9i0UZG7VVae4+01+arKmHjZHk5aqjsKv5XT
- QgE+xu5xELJtRw2+RISaHX+Tg0w3CUUFa2ZfKXyvnpRTJh0PkRB+pEI7yHtpMUOnLw4K
- rWfnYrCZTOkwkuQpm3uF76AAj7UwUZigXQNjLMUGwsgqicOVAQ7SQj36T8w1hAwyswxo
- Bu8AEJqMto3IGw4k8d0G77k+YWcvBoo3dRUpD/fR3iZs8D4YU0/mvA/2qYSn8OfN+Ond iQ== 
+ bh=dz3uy1uS3yrC7MAuzXgVSQsUS5/oZbhpsYzOyu9fKxg=;
+ b=giYuP6bYJvvgeeNMHgvaF/lU1UrIPrf8hdEOOuoe9D11fWdBo1iEhRj0TPKpad16vM5U
+ lZeLqWJPdU9dJNSAEnlQu3RMUnbbro0VqqtiJ8tOoMCuHywDrTtCadODCqMBzXleee9X
+ e6Y0ALEnxXJdHmUSPRDWW9e0v0VGjKiNwMvs5FgJd2dIPFNuH7ObgM3lw+kUyD3Tea4D
+ L6GYbHkVJqOVfrcTGKC6Rm9/5FrhfFj8Z//OTqmbaX4CvNvbDzJJJsBrrKGE9/Co6Tq2
+ yGdsD+L5L/NQWtRgw3foW7GbART0WpKO8QbnGqwPPaOhPAYrMLdaBQqTUnOfc1fX2HCK Yg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34nhkcrr1p-1
+ by mx07-00178001.pphosted.com with ESMTP id 34nkbn0aua-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Nov 2020 14:05:33 +0100
+ Tue, 10 Nov 2020 14:11:01 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 69873100038;
- Tue, 10 Nov 2020 14:05:32 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A106E100034;
+ Tue, 10 Nov 2020 14:11:00 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5967825613B;
- Tue, 10 Nov 2020 14:05:32 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8FD1425E09F;
+ Tue, 10 Nov 2020 14:11:00 +0100 (CET)
 Received: from localhost (10.75.127.44) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 10 Nov 2020 14:05:31
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 10 Nov 2020 14:11:00
  +0100
 From: Amelie Delaunay <amelie.delaunay@st.com>
-To: Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Etienne Carriere <etienne.carriere@st.com>
-Date: Tue, 10 Nov 2020 14:05:31 +0100
-Message-ID: <20201110130531.7610-1-amelie.delaunay@st.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Rob Herring <robh+dt@kernel.org>
+Date: Tue, 10 Nov 2020 14:10:59 +0100
+Message-ID: <20201110131059.7826-1-amelie.delaunay@st.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG3NODE2.st.com
+X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG3NODE2.st.com
  (10.75.127.8)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
  definitions=2020-11-10_05:2020-11-10,
  2020-11-10 signatures=0
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 1/2] phy: stm32: don't print an error on
-	probe deferral
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 1/1] ARM: dts: stm32: adjust USB OTG gadget
+	fifo sizes in stm32mp151
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,35 +72,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Change stm32-usbphyc driver to not print an error message when the device
-probe operation is deferred.
+Defaut use case on stm32mp151 USB OTG is ethernet gadget, using EP1 bulk
+endpoint (MPS=512 bytes) and EP2 interrupt endpoint (MPS=16 bytes).
+This patch optimizes USB OTG FIFO sizes accordingly.
 
-Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
 Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
 ---
-v2: add missing return
----
- drivers/phy/st/phy-stm32-usbphyc.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ arch/arm/boot/dts/stm32mp151.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
-index 2b3639cba51a..3630f83dea53 100644
---- a/drivers/phy/st/phy-stm32-usbphyc.c
-+++ b/drivers/phy/st/phy-stm32-usbphyc.c
-@@ -328,11 +328,8 @@ static int stm32_usbphyc_probe(struct platform_device *pdev)
- 		return PTR_ERR(usbphyc->base);
- 
- 	usbphyc->clk = devm_clk_get(dev, NULL);
--	if (IS_ERR(usbphyc->clk)) {
--		ret = PTR_ERR(usbphyc->clk);
--		dev_err(dev, "clk get failed: %d\n", ret);
--		return ret;
--	}
-+	if (IS_ERR(usbphyc->clk))
-+		return dev_err_probe(dev, PTR_ERR(usbphyc->clk), "clk get_failed\n");
- 
- 	ret = clk_prepare_enable(usbphyc->clk);
- 	if (ret) {
+diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+index 6ffcf06dc0e8..928e31db1526 100644
+--- a/arch/arm/boot/dts/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/stm32mp151.dtsi
+@@ -1070,9 +1070,9 @@
+ 			resets = <&rcc USBO_R>;
+ 			reset-names = "dwc2";
+ 			interrupts = <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>;
+-			g-rx-fifo-size = <256>;
++			g-rx-fifo-size = <512>;
+ 			g-np-tx-fifo-size = <32>;
+-			g-tx-fifo-size = <128 128 64 64 64 64 32 32>;
++			g-tx-fifo-size = <256 16 16 16 16 16 16 16>;
+ 			dr_mode = "otg";
+ 			usb33d-supply = <&usb33>;
+ 			status = "disabled";
 -- 
 2.17.1
 
