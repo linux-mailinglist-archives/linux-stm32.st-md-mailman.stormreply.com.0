@@ -2,89 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E3BF2B13AF
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Nov 2020 02:09:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54C6B2B172D
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Nov 2020 09:27:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA4CBC424B0;
-	Fri, 13 Nov 2020 01:09:50 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2067.outbound.protection.outlook.com [40.107.94.67])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11562C56611;
+	Fri, 13 Nov 2020 08:27:24 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B0DDC3FAE2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51D48C0692F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Nov 2020 01:09:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K5KPWi50jg1zOQyYxFHUtjPWP4xhfeLJ/dK8QR8g6+NXGKEehWuHBuKDVilgTdmFAdeAYBgtelRge86AVYWlLGAMh/LilcZzPFZcZibB/kmmgT7YAaT0lpSBkFXjv9W52z+zs9G2FuxmGNJBBwkSN5XZe2gFU3TSbzo21no8mRAJ+fXG+5RIg5NKXD6llmopKYkO8+lU1wDfGOANrb18f+1DNAj4cEQp6SmkcfuIk2wlEhgJsrCO/Tf5+DaDUAq9XtO7Oz5itf8Fc4iKMUtpqw2ZybfiLE6EwNss/mKx47yqf0AizkbRBdMZcwgus3LVkz4jD9sfujAScwWvV6WlQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HhESFavzaKU15ChczYkGQ1rzdorjERuiwDgQb9ApXAI=;
- b=jidGbrUbyDBa4iDdw+1hchhBXeGBqc3H55VwEixptkYq9rF3fblqgsLFUZZIG1VYGVZURlK9a6CUJ5c3rM/nQohb4Z0bIFpQCNcci2+RFt2Zj1BvtVoEAheh+eurR0N8oqtLGNHoE2uhU0xB//MCs63uoXf7MATsqz83ewZ7Lj15QeI+jDSC0ZWePgTRz21KbytIqVum/D+nOF6QTD7kqgYiudxD080+eOkJTpsNpDnLpBTvIzf6/bqs3O76yP5pciKF5mVeOo2h3zy0V7d70bAmpv0ChXVWik7QBSYnRvKsdv8zmBD0sMdirRlk6Q67AwaABC9fzhicA7U0iq5TWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synaptics.com; dmarc=pass action=none
- header.from=synaptics.com; dkim=pass header.d=synaptics.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=Synaptics.onmicrosoft.com; s=selector2-Synaptics-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HhESFavzaKU15ChczYkGQ1rzdorjERuiwDgQb9ApXAI=;
- b=Xw8pnGz1N8UkCdRoeoxzj7vqholbW8CVXiVlcxT41wW7zFuobzpqSC4wmbprj8Hr7NVba5l83HcTUn38MeJtH1zPt+b7xm4gNVDLzGvGJDqrOOTwYMZJUDRjEL0yHBawxR73TsSIXdkrRn1ZsjBmf+cXbnpskNGjKoowaKNJG6g=
-Authentication-Results: st.com; dkim=none (message not signed)
- header.d=none;st.com; dmarc=none action=none header.from=synaptics.com;
-Received: from SN2PR03MB2383.namprd03.prod.outlook.com (2603:10b6:804:d::23)
- by SN6PR03MB4543.namprd03.prod.outlook.com (2603:10b6:805:fb::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3541.21; Fri, 13 Nov
- 2020 01:09:46 +0000
-Received: from SN2PR03MB2383.namprd03.prod.outlook.com
- ([fe80::49be:5ea3:8961:a22]) by SN2PR03MB2383.namprd03.prod.outlook.com
- ([fe80::49be:5ea3:8961:a22%6]) with mapi id 15.20.3541.025; Fri, 13 Nov 2020
- 01:09:46 +0000
-Date: Fri, 13 Nov 2020 09:09:02 +0800
-From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
- <alexandre.torgue@st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
- Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>
-Message-ID: <20201113090902.5c7aab1a@xhacker.debian>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-X-Originating-IP: [192.147.44.204]
-X-ClientProxiedBy: PH0PR07CA0005.namprd07.prod.outlook.com
- (2603:10b6:510:5::10) To SN2PR03MB2383.namprd03.prod.outlook.com
- (2603:10b6:804:d::23)
+ Fri, 13 Nov 2020 08:27:21 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0AD8RCT7028783; Fri, 13 Nov 2020 09:27:12 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=STMicroelectronics;
+ bh=ofrXjoO1UDhDTqrPQH8FB+yGKCEcamxbT6TXyX1/+70=;
+ b=DR76wqlWXhLbdLq2CtcFaDAMzJD/eNZFyZyO5rUT876cgeCZ+Tq2G/iONC9yxQXQTYZX
+ fiHYEFPNbuztxPTyYbZkzDCzn8YOSrCaHwEOY0iGKadei9mUm7QDxukhoWaNPHRJ19Ss
+ 60CAdl0hdceVRb+pVLTVDegHCm+ZDbu332fW25sWdD63bQCDKU4Z2NWy/+bbYOwGv4Sd
+ y3jEPEPYMxs/xI37qfZnjjcmV2MPGKxF9Bhm+FKcQanK4jasXEDqAO4MPcpEeNnzd/G1
+ G1FEwz8z5g09GQn+ydgOBKkA1ibtNxXJlajS+5NkMo6v4V+YBjeTLfKfEERGruIqBL48 LA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34nkbnjc2b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 Nov 2020 09:27:12 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C4314100034;
+ Fri, 13 Nov 2020 09:27:06 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AB66A22A4C0;
+ Fri, 13 Nov 2020 09:27:06 +0100 (CET)
+Received: from [10.211.4.198] (10.75.127.47) by SFHDAG1NODE3.st.com
+ (10.75.127.3) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 13 Nov
+ 2020 09:27:05 +0100
+To: Jonathan Cameron <jic23@kernel.org>
+References: <1604681846-31234-1-git-send-email-fabrice.gasnier@st.com>
+ <20201108151835.5d78ebca@archlinux>
+From: Fabrice Gasnier <fabrice.gasnier@st.com>
+Message-ID: <0d7c4b81-3f4e-e952-892f-35296c87f987@st.com>
+Date: Fri, 13 Nov 2020 09:27:03 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from xhacker.debian (192.147.44.204) by
- PH0PR07CA0005.namprd07.prod.outlook.com (2603:10b6:510:5::10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3541.21 via Frontend Transport; Fri, 13 Nov 2020 01:09:42 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9da37048-c95b-4e8f-0c35-08d88770cf53
-X-MS-TrafficTypeDiagnostic: SN6PR03MB4543:
-X-Microsoft-Antispam-PRVS: <SN6PR03MB4543742F46D00126BFE0907FEDE60@SN6PR03MB4543.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3nT+4mK5XG+8ahAA2wUs6AQO3PUsfX23/+X8CLNhxGlWT4rg1cxVIaijIg7YNDb1/+03PJc7e/mU4KpTFqPPPNcYG3vaQEkrTIpHhY4ki6IwxNVldA9MrbDeYc2GyViQMiJjMf1F/yj8/OAUrvNlJRXNGLxMnC2aKRSyZEUPhm2pMeb6R0OqWnQkGKCERAmmLgj5tYMEI7HpxcXoarxTsIvHmRrahU+KmNpRQBEoQMT4iBxNy/yOep81yJN1ZPnw/veGfoYHNR9MTvAqgZ2BeDE8lViy3kGm9T3fLHSfwEagKgU0q6hu+oa6qEVh4QZjLSZlyJkxXeOaF+PYexfl3VgKqzL08zomlGNInUhTK5QBpWxwfWU4JQgqKTj/aG4twJyMpVwGyXk9m0wDb8p/IQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN2PR03MB2383.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(376002)(396003)(366004)(136003)(346002)(52116002)(186003)(16526019)(6506007)(4744005)(83380400001)(55016002)(5660300002)(956004)(8936002)(110136005)(7416002)(8676002)(7696005)(6666004)(26005)(316002)(478600001)(66946007)(66556008)(86362001)(2906002)(9686003)(4326008)(1076003)(66476007)(161623001)(147533002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: YTJ3lkjuZW08rGdiYy892fksMHq9kJX4ZF2DQzxaGPlOe1InyOZrCGabLsFE98SBQHzqkPjpTWWHtiZts6LxqIZrL/VdleVO5tPp2M2Ci+p7V2au1pXZVu5NNgqKApsDv0o/IfpleoUEXaeJLhZWjMUV7HajlnLhlUmD96W6rC2sBvdN/WFn7zYZJdsErzl8AYYBBHMR0nDbThAEoNuKMNtrQa/ZcIlRmroqnXxF7cS2YT6VEBUFwKtlepmmhjEmSjFMxA9ywhmNKvJlImNCLITo9/ygBsoPvq+drKiwJfnWNfXxbdI+SMrueyuRRxlxCfNiwky9T9wAJzWNcJNQswVICWNbXlFmmDJ+FJwjTTErJMN1EgpGqQBg5Bk1UJpAIsSzQnX07rn1vSSY62hVuBgc26e5hNCcyqWz8wKcAV19eOCu8gyL0e8YTYRG+5vpFrHfY3yQLkFmGbl9OsxwyCet8r7kkJx8U2j9XWBjXo06UnZFHgEy2LTOV+NLss2kTHc1ihRmhn40OtYpIDmmBF4yQ8qV2wUl/TViFUFFiLxz/LvzFfdFRSBOz011AAdDVjE+vJDSQoE4KhCT2755lpYDwb2VGo4alEWKia/BuijTKPWxogJe1PIHcCxXmmr5iqYvTl+Y/tmXbLBJBTagOA==
-X-OriginatorOrg: synaptics.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9da37048-c95b-4e8f-0c35-08d88770cf53
-X-MS-Exchange-CrossTenant-AuthSource: SN2PR03MB2383.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2020 01:09:45.9237 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wX2nCq8xSClDDi0pNY5wxvlnLunWJiRxFkJLM/pePIPpQj848355dYSxqumXMBmd7oisFq4MK6RiAKffVkv12g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR03MB4543
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: dwmac_lib: enlarge dma reset
-	timeout
+In-Reply-To: <20201108151835.5d78ebca@archlinux>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG1NODE3.st.com
+ (10.75.127.3)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-13_05:2020-11-12,
+ 2020-11-13 signatures=0
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: adapt clock duty
+ cycle for proper operation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,30 +77,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If the phy enables power saving technology, the dwmac's software reset
-needs more time to complete, enlarge dma reset timeout to 200000us.
+On 11/8/20 4:18 PM, Jonathan Cameron wrote:
+> On Fri, 6 Nov 2020 17:57:26 +0100
+> Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
+> 
+>> For proper operation, STM32 ADC should be used with a clock duty cycle
+>> of 50%, in the range of 49% to 51%. Depending on the clock tree, divider
+>> can be used in case clock duty cycle is out of this range.
+>> In case clk_get_scaled_duty_cycle() returns an error, kindly apply a
+>> divider by default (don't make the probe fail).
+>>
+>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>
+> Hi Fabrice,
+> 
+> This sounds like it's a fix for a situation in which the device is not
+> currently working?  If so, please let me know a fixes tag.
 
-Signed-off-by: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi Jonathan,
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
-index cb87d31a99df..57a53a600aa5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
-@@ -23,7 +23,7 @@ int dwmac_dma_reset(void __iomem *ioaddr)
- 
- 	return readl_poll_timeout(ioaddr + DMA_BUS_MODE, value,
- 				 !(value & DMA_BUS_MODE_SFT_RESET),
--				 10000, 100000);
-+				 10000, 200000);
- }
- 
- /* CSR1 enables the transmit DMA to check for new descriptor */
--- 
-2.29.2
+That's a good point. I also thought about adding a fixes tag. Currently
+I think this can't be hit upstream, as clock tree is tuned to fit duty
+cycle constraints. So far, nobody seems to complain about it. So this
+can probably go through the normal tree.
 
+Thanks,
+Fabrice
+
+> 
+> Thanks,
+> 
+> Jonathan
+> 
+>> ---
+>>  drivers/iio/adc/stm32-adc-core.c | 21 ++++++++++++++++++++-
+>>  1 file changed, 20 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+>> index cd870c0..d64a9e8 100644
+>> --- a/drivers/iio/adc/stm32-adc-core.c
+>> +++ b/drivers/iio/adc/stm32-adc-core.c
+>> @@ -202,7 +202,7 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+>>  {
+>>  	u32 ckmode, presc, val;
+>>  	unsigned long rate;
+>> -	int i, div;
+>> +	int i, div, duty;
+>>  
+>>  	/* stm32h7 bus clock is common for all ADC instances (mandatory) */
+>>  	if (!priv->bclk) {
+>> @@ -226,6 +226,11 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+>>  			return -EINVAL;
+>>  		}
+>>  
+>> +		/* If duty is an error, kindly use at least /2 divider */
+>> +		duty = clk_get_scaled_duty_cycle(priv->aclk, 100);
+>> +		if (duty < 0)
+>> +			dev_warn(&pdev->dev, "adc clock duty: %d\n", duty);
+>> +
+>>  		for (i = 0; i < ARRAY_SIZE(stm32h7_adc_ckmodes_spec); i++) {
+>>  			ckmode = stm32h7_adc_ckmodes_spec[i].ckmode;
+>>  			presc = stm32h7_adc_ckmodes_spec[i].presc;
+>> @@ -234,6 +239,13 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+>>  			if (ckmode)
+>>  				continue;
+>>  
+>> +			/*
+>> +			 * For proper operation, clock duty cycle range is 49%
+>> +			 * to 51%. Apply at least /2 prescaler otherwise.
+>> +			 */
+>> +			if (div == 1 && (duty < 49 || duty > 51))
+>> +				continue;
+>> +
+>>  			if ((rate / div) <= priv->max_clk_rate)
+>>  				goto out;
+>>  		}
+>> @@ -246,6 +258,10 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+>>  		return -EINVAL;
+>>  	}
+>>  
+>> +	duty = clk_get_scaled_duty_cycle(priv->bclk, 100);
+>> +	if (duty < 0)
+>> +		dev_warn(&pdev->dev, "bus clock duty: %d\n", duty);
+>> +
+>>  	for (i = 0; i < ARRAY_SIZE(stm32h7_adc_ckmodes_spec); i++) {
+>>  		ckmode = stm32h7_adc_ckmodes_spec[i].ckmode;
+>>  		presc = stm32h7_adc_ckmodes_spec[i].presc;
+>> @@ -254,6 +270,9 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
+>>  		if (!ckmode)
+>>  			continue;
+>>  
+>> +		if (div == 1 && (duty < 49 || duty > 51))
+>> +			continue;
+>> +
+>>  		if ((rate / div) <= priv->max_clk_rate)
+>>  			goto out;
+>>  	}
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
