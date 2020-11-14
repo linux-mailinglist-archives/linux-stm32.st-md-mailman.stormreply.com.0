@@ -2,44 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A14AA2B2E3B
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Nov 2020 16:52:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 818782B30AD
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Nov 2020 21:45:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E1F8C5660F;
-	Sat, 14 Nov 2020 15:52:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28FD9C5660F;
+	Sat, 14 Nov 2020 20:45:11 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 623CBC3089F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B047C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Nov 2020 15:52:36 +0000 (UTC)
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
+ Sat, 14 Nov 2020 20:45:09 +0000 (UTC)
+Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com
+ (c-67-180-217-166.hsd1.ca.comcast.net [67.180.217.166])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A65CE22254;
- Sat, 14 Nov 2020 15:52:33 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8E31922245;
+ Sat, 14 Nov 2020 20:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605369154;
- bh=xk91UWzq0VQNigupjrFtq1zJtnXg2NTOQlVQGJW9XxE=;
+ s=default; t=1605386708;
+ bh=55zxoyo1mw5dFVi7p+0C1p3Xc0RC5j9O+Cjwpd28/ws=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Y71MEsMaltBMne/YYlSsmvOHnpYMiIbXL5MWltokzPlSW5tvCelbCR/ppwJEF/xoD
- IbWoeWqTUi61ZZ5yxAJe001/c0wqZGA71Vq77tsm8a4+3EmqL3YjRT2yBtO1mKhl0H
- 0oVVPd+1LiyEL+l86LWtiLlJROk9UQ7zAV45N45E=
-Date: Sat, 14 Nov 2020 15:52:28 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>
-Message-ID: <20201114155228.5b78b7d6@archlinux>
-In-Reply-To: <0d7c4b81-3f4e-e952-892f-35296c87f987@st.com>
-References: <1604681846-31234-1-git-send-email-fabrice.gasnier@st.com>
- <20201108151835.5d78ebca@archlinux>
- <0d7c4b81-3f4e-e952-892f-35296c87f987@st.com>
-X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ b=ckAxn0Pt2y0h2Lt0+FbrNqdH6Du3v4N1NoglM7MmQ3sJfy5ol4xd2jl2BHcP8sA4w
+ xYvXpui1Y4e6m6f5ofe+Dqwv9Kgy1Tb0f4wmI1lnsfE4lt8DfSAGR8lMRK8FR0h7Ul
+ fLU/rFawQBFiJRPnQ7K/QDpubI/U2bqdjnqt8ot8=
+Date: Sat, 14 Nov 2020 12:45:06 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Wong Vee Khee <vee.khee.wong@intel.com>
+Message-ID: <20201114124506.13847db4@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20201112144948.3042-1-vee.khee.wong@intel.com>
+References: <20201112144948.3042-1-vee.khee.wong@intel.com>
 MIME-Version: 1.0
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: adapt clock duty
- cycle for proper operation
+Cc: Voon Wei Feng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
+ Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Use rtnl_lock/unlock
+ on netif_set_real_num_rx_queues() call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,113 +57,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 13 Nov 2020 09:27:03 +0100
-Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
-
-> On 11/8/20 4:18 PM, Jonathan Cameron wrote:
-> > On Fri, 6 Nov 2020 17:57:26 +0100
-> > Fabrice Gasnier <fabrice.gasnier@st.com> wrote:
-> >   
-> >> For proper operation, STM32 ADC should be used with a clock duty cycle
-> >> of 50%, in the range of 49% to 51%. Depending on the clock tree, divider
-> >> can be used in case clock duty cycle is out of this range.
-> >> In case clk_get_scaled_duty_cycle() returns an error, kindly apply a
-> >> divider by default (don't make the probe fail).
-> >>
-> >> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@st.com>  
-> > Hi Fabrice,
-> > 
-> > This sounds like it's a fix for a situation in which the device is not
-> > currently working?  If so, please let me know a fixes tag.  
+On Thu, 12 Nov 2020 22:49:48 +0800 Wong Vee Khee wrote:
+> Fix an issue where dump stack is printed on suspend resume flow due to
+> netif_set_real_num_rx_queues() is not called with rtnl_lock held().
 > 
-> Hi Jonathan,
+> Fixes: 686cff3d7022 ("net: stmmac: Fix incorrect location to set real_num_rx|tx_queues")
+> Reported-by: Christophe ROULLIER <christophe.roullier@st.com>
+> Tested-by: Christophe ROULLIER <christophe.roullier@st.com>
+> Cc: Alexandre TORGUE <alexandre.torgue@st.com>
+> Reviewed-by: Ong Boon Leong <boon.leong.ong@intel.com>
+> Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> That's a good point. I also thought about adding a fixes tag. Currently
-> I think this can't be hit upstream, as clock tree is tuned to fit duty
-> cycle constraints. So far, nobody seems to complain about it. So this
-> can probably go through the normal tree.
-> 
-Applied.  Will be interesting to see if the bot finds this one as a possible
-candidate for backports.  I'll keep an eye on those coming through and suggest
-this isn't backported if it does show up.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index ba855465a2db..33e280040000 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -5278,7 +5278,10 @@ int stmmac_resume(struct device *dev)
+>  
+>  	stmmac_clear_descriptors(priv);
+>  
+> +	rtnl_lock();
+>  	stmmac_hw_setup(ndev, false);
+> +	rtnl_unlock();
+> +
+>  	stmmac_init_coalesce(priv);
+>  	stmmac_set_rx_mode(ndev);
+>  
 
-Thanks,
+Doesn't look quite right. This is under the priv->lock which is
+sometimes taken under rtnl_lock. So theoretically there could be
+a deadlock.
 
-Jonathan
-> Thanks,
-> Fabrice
-> 
-> > 
-> > Thanks,
-> > 
-> > Jonathan
-> >   
-> >> ---
-> >>  drivers/iio/adc/stm32-adc-core.c | 21 ++++++++++++++++++++-
-> >>  1 file changed, 20 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> >> index cd870c0..d64a9e8 100644
-> >> --- a/drivers/iio/adc/stm32-adc-core.c
-> >> +++ b/drivers/iio/adc/stm32-adc-core.c
-> >> @@ -202,7 +202,7 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
-> >>  {
-> >>  	u32 ckmode, presc, val;
-> >>  	unsigned long rate;
-> >> -	int i, div;
-> >> +	int i, div, duty;
-> >>  
-> >>  	/* stm32h7 bus clock is common for all ADC instances (mandatory) */
-> >>  	if (!priv->bclk) {
-> >> @@ -226,6 +226,11 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
-> >>  			return -EINVAL;
-> >>  		}
-> >>  
-> >> +		/* If duty is an error, kindly use at least /2 divider */
-> >> +		duty = clk_get_scaled_duty_cycle(priv->aclk, 100);
-> >> +		if (duty < 0)
-> >> +			dev_warn(&pdev->dev, "adc clock duty: %d\n", duty);
-> >> +
-> >>  		for (i = 0; i < ARRAY_SIZE(stm32h7_adc_ckmodes_spec); i++) {
-> >>  			ckmode = stm32h7_adc_ckmodes_spec[i].ckmode;
-> >>  			presc = stm32h7_adc_ckmodes_spec[i].presc;
-> >> @@ -234,6 +239,13 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
-> >>  			if (ckmode)
-> >>  				continue;
-> >>  
-> >> +			/*
-> >> +			 * For proper operation, clock duty cycle range is 49%
-> >> +			 * to 51%. Apply at least /2 prescaler otherwise.
-> >> +			 */
-> >> +			if (div == 1 && (duty < 49 || duty > 51))
-> >> +				continue;
-> >> +
-> >>  			if ((rate / div) <= priv->max_clk_rate)
-> >>  				goto out;
-> >>  		}
-> >> @@ -246,6 +258,10 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
-> >>  		return -EINVAL;
-> >>  	}
-> >>  
-> >> +	duty = clk_get_scaled_duty_cycle(priv->bclk, 100);
-> >> +	if (duty < 0)
-> >> +		dev_warn(&pdev->dev, "bus clock duty: %d\n", duty);
-> >> +
-> >>  	for (i = 0; i < ARRAY_SIZE(stm32h7_adc_ckmodes_spec); i++) {
-> >>  		ckmode = stm32h7_adc_ckmodes_spec[i].ckmode;
-> >>  		presc = stm32h7_adc_ckmodes_spec[i].presc;
-> >> @@ -254,6 +270,9 @@ static int stm32h7_adc_clk_sel(struct platform_device *pdev,
-> >>  		if (!ckmode)
-> >>  			continue;
-> >>  
-> >> +		if (div == 1 && (duty < 49 || duty > 51))
-> >> +			continue;
-> >> +
-> >>  		if ((rate / div) <= priv->max_clk_rate)
-> >>  			goto out;
-> >>  	}  
-> >   
+You should probably take rtnl_lock() before priv->lock and release 
+it after. It's pretty common for drivers to hold rtnl_lock around 
+most of the resume method.
 
+With larger context:
+ 
+
+        mutex_lock(&priv->lock);
+ 
+        stmmac_reset_queues_param(priv);
+ 
+        stmmac_clear_descriptors(priv);
+ 
++       rtnl_lock();
+        stmmac_hw_setup(ndev, false);
++       rtnl_unlock();
++
+        stmmac_init_coalesce(priv);
+        stmmac_set_rx_mode(ndev);
+ 
+        stmmac_restore_hw_vlan_rx_fltr(priv, ndev, priv->hw);
+ 
+        stmmac_enable_all_queues(priv);
+ 
+        mutex_unlock(&priv->lock);
+ 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
