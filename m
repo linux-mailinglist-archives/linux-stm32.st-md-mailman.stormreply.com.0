@@ -2,45 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 818782B30AD
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Nov 2020 21:45:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 160452B3188
+	for <lists+linux-stm32@lfdr.de>; Sun, 15 Nov 2020 01:10:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28FD9C5660F;
-	Sat, 14 Nov 2020 20:45:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5F35C5660F;
+	Sun, 15 Nov 2020 00:10:07 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B047C32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 623AEC3089F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Nov 2020 20:45:09 +0000 (UTC)
-Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com
- (c-67-180-217-166.hsd1.ca.comcast.net [67.180.217.166])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8E31922245;
- Sat, 14 Nov 2020 20:45:07 +0000 (UTC)
+ Sun, 15 Nov 2020 00:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605386708;
- bh=55zxoyo1mw5dFVi7p+0C1p3Xc0RC5j9O+Cjwpd28/ws=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ckAxn0Pt2y0h2Lt0+FbrNqdH6Du3v4N1NoglM7MmQ3sJfy5ol4xd2jl2BHcP8sA4w
- xYvXpui1Y4e6m6f5ofe+Dqwv9Kgy1Tb0f4wmI1lnsfE4lt8DfSAGR8lMRK8FR0h7Ul
- fLU/rFawQBFiJRPnQ7K/QDpubI/U2bqdjnqt8ot8=
-Date: Sat, 14 Nov 2020 12:45:06 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Wong Vee Khee <vee.khee.wong@intel.com>
-Message-ID: <20201114124506.13847db4@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20201112144948.3042-1-vee.khee.wong@intel.com>
-References: <20201112144948.3042-1-vee.khee.wong@intel.com>
+ s=default; t=1605399004;
+ bh=uUKVVimvuZudJEMDjKpPdA9M2QalJ+mdThNBWwucmdw=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=OSXvUaYcXiW89UaUavuc2MFpCvyfCpo1TbCCeTCY5PZ7VCFnoUdd7o1y9xH125Gv3
+ 4RIgb6DNdpxHb55o3JQ6K4LowC92OXL/M4tMrOozPB/BtuuvLP/CUwca7PYHZXGgbR
+ loaQsCsIs0YgGmjIVPOjEd5R5v3V+xfgJTA39sZ8=
 MIME-Version: 1.0
-Cc: Voon Wei Feng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Use rtnl_lock/unlock
- on netif_set_real_num_rx_queues() call
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <160539900468.21843.5491714824652750943.git-patchwork-notify@kernel.org>
+Date: Sun, 15 Nov 2020 00:10:04 +0000
+References: <20201113090902.5c7aab1a@xhacker.debian>
+In-Reply-To: <20201113090902.5c7aab1a@xhacker.debian>
+To: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac_lib: enlarge dma reset
+	timeout
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,66 +49,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 12 Nov 2020 22:49:48 +0800 Wong Vee Khee wrote:
-> Fix an issue where dump stack is printed on suspend resume flow due to
-> netif_set_real_num_rx_queues() is not called with rtnl_lock held().
+Hello:
+
+This patch was applied to netdev/net.git (refs/heads/master):
+
+On Fri, 13 Nov 2020 09:09:02 +0800 you wrote:
+> If the phy enables power saving technology, the dwmac's software reset
+> needs more time to complete, enlarge dma reset timeout to 200000us.
 > 
-> Fixes: 686cff3d7022 ("net: stmmac: Fix incorrect location to set real_num_rx|tx_queues")
-> Reported-by: Christophe ROULLIER <christophe.roullier@st.com>
-> Tested-by: Christophe ROULLIER <christophe.roullier@st.com>
-> Cc: Alexandre TORGUE <alexandre.torgue@st.com>
-> Reviewed-by: Ong Boon Leong <boon.leong.ong@intel.com>
-> Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+> Signed-off-by: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index ba855465a2db..33e280040000 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5278,7 +5278,10 @@ int stmmac_resume(struct device *dev)
->  
->  	stmmac_clear_descriptors(priv);
->  
-> +	rtnl_lock();
->  	stmmac_hw_setup(ndev, false);
-> +	rtnl_unlock();
-> +
->  	stmmac_init_coalesce(priv);
->  	stmmac_set_rx_mode(ndev);
->  
+>  drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Doesn't look quite right. This is under the priv->lock which is
-sometimes taken under rtnl_lock. So theoretically there could be
-a deadlock.
+Here is the summary with links:
+  - net: stmmac: dwmac_lib: enlarge dma reset timeout
+    https://git.kernel.org/netdev/net/c/56311a315da7
 
-You should probably take rtnl_lock() before priv->lock and release 
-it after. It's pretty common for drivers to hold rtnl_lock around 
-most of the resume method.
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-With larger context:
- 
 
-        mutex_lock(&priv->lock);
- 
-        stmmac_reset_queues_param(priv);
- 
-        stmmac_clear_descriptors(priv);
- 
-+       rtnl_lock();
-        stmmac_hw_setup(ndev, false);
-+       rtnl_unlock();
-+
-        stmmac_init_coalesce(priv);
-        stmmac_set_rx_mode(ndev);
- 
-        stmmac_restore_hw_vlan_rx_fltr(priv, ndev, priv->hw);
- 
-        stmmac_enable_all_queues(priv);
- 
-        mutex_unlock(&priv->lock);
- 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
