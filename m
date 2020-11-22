@@ -2,102 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C2D92BC8D4
-	for <lists+linux-stm32@lfdr.de>; Sun, 22 Nov 2020 20:54:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 741112BC91F
+	for <lists+linux-stm32@lfdr.de>; Sun, 22 Nov 2020 21:30:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEBC7C5663D;
-	Sun, 22 Nov 2020 19:54:03 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
- [96.44.175.130])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E58ABC5663D;
+	Sun, 22 Nov 2020 20:30:13 +0000 (UTC)
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0655CC424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9FB64C32EA7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 22 Nov 2020 19:54:01 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by bedivere.hansenpartnership.com (Postfix) with ESMTP id 5AE091280408;
- Sun, 22 Nov 2020 11:53:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=hansenpartnership.com; s=20151216; t=1606074839;
- bh=VEGy54rcLCho40R+6JbprsRZooc9e7x1ylV8+ruCN0g=;
- h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
- b=Xy60wiIzsyTeElUeeJd3QYsiHNZfzmGET/Nzo9eZo2OJxmb5EOyvszf5Q8Et12YN3
- QzMj8C6lMBcV0iKMn2xQmIYhyRP6O8RGeJWdk6ZnR1Mz2fkvBJLWRT04tHjc221TnA
- rtTRX0GCrDoOkJiVFq/y98T9XhefjbMkzX0sdCSc=
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
- by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id KaMwHtHCHbnw; Sun, 22 Nov 2020 11:53:59 -0800 (PST)
-Received: from jarvis.int.hansenpartnership.com (unknown
- [IPv6:2601:600:8280:66d1::527])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id D0B171280404;
- Sun, 22 Nov 2020 11:53:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=hansenpartnership.com; s=20151216; t=1606074839;
- bh=VEGy54rcLCho40R+6JbprsRZooc9e7x1ylV8+ruCN0g=;
- h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
- b=Xy60wiIzsyTeElUeeJd3QYsiHNZfzmGET/Nzo9eZo2OJxmb5EOyvszf5Q8Et12YN3
- QzMj8C6lMBcV0iKMn2xQmIYhyRP6O8RGeJWdk6ZnR1Mz2fkvBJLWRT04tHjc221TnA
- rtTRX0GCrDoOkJiVFq/y98T9XhefjbMkzX0sdCSc=
-Message-ID: <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Joe Perches <joe@perches.com>, Kees Cook <keescook@chromium.org>, Jakub
- Kicinski <kuba@kernel.org>
-Date: Sun, 22 Nov 2020 11:53:55 -0800
-In-Reply-To: <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
- <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
- <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
-User-Agent: Evolution 3.34.4 
+ Sun, 22 Nov 2020 20:30:11 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id v143so14763755qkb.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 22 Nov 2020 12:30:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kFhanjy6cq9u6pCyJCDCCRZRA7jLll7R0Ehj4TdK5o0=;
+ b=N4ywAcKD2IvWeShu0qjc9ql+G8i0AyKLEQGeqLAX04FUo8WFkupSvGjf6I5PinnkpY
+ 6KF9/k1gOcY832IArpj9f/54rNcebtRsmh9n08YwLmQ7IBG/CP7foNwWTRLJgxlX6mzr
+ Pku/98VSxlAXi9yWYKctM+f3tJkZw4PD7GZ9LPC2p6ZoxxE7QH8/5zgABnVb5DbzG9pi
+ u/y3d9WNjqhT+gldyR6dsHZyXEXAyQnISKn1cTo5MWlG8VkhpDFzuLKAExbe0VOhP61b
+ 5PzZKvHVYWp9bojqZYUSAL0c1x9B1eGZZ8h+vXtfzHv/aeSconyzYn5a2mgkD7hIOFrW
+ vvBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kFhanjy6cq9u6pCyJCDCCRZRA7jLll7R0Ehj4TdK5o0=;
+ b=GM476FGKWdP5gYO7IKNUQ5Oh4Eyje0YNO4xrdND/mHFvmcEOSV8NRoUwcyUOEY2imf
+ ICgLY81u+UNJQFaAtlUk0Bb68Hubq508DL+01bq59MnPliozSOzpg3BooYV4aUuu8ODp
+ gE4U3oWQ3y0T1nUlMQ6jFi7NEynSgVVPxH/1AjpJQmi1NLwy2qYKdRMH+zqdZtyq6d2k
+ G0eV4WllnzKY+YfrppVYRibRcord7iHK+TzLSQ2n5CpQmvEOMdJ6QrTWTcZwjm/VUK8z
+ 3FaMExbn13DPoW9Zu2jBRrcnx8nzfUb1QxsSYFq1Q2YSogtGiJrpixzwr8CJGzkIiwP9
+ VMJA==
+X-Gm-Message-State: AOAM531Wvm4de3TLRxiIh5aBRBdtMZ05Mwcrq2hLNiejJjoZ1RnJKJM/
+ LFZW7i4p4U/an8vSsfOqCy4=
+X-Google-Smtp-Source: ABdhPJzq54eLjNm5Ffz3tvoJrUF/q/GsxjpylgX1f2FqFwqX4injx0UeWHvV3YrXi1CDe/3CrnEYaQ==
+X-Received: by 2002:a37:5103:: with SMTP id f3mr6622004qkb.460.1606077010337; 
+ Sun, 22 Nov 2020 12:30:10 -0800 (PST)
+Received: from localhost.localdomain (072-189-064-225.res.spectrum.com.
+ [72.189.64.225])
+ by smtp.gmail.com with ESMTPSA id p73sm7446522qka.79.2020.11.22.12.30.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 22 Nov 2020 12:30:09 -0800 (PST)
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: jic23@kernel.org
+Date: Sun, 22 Nov 2020 15:29:51 -0500
+Message-Id: <cover.1606075915.git.vilhelm.gray@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
- linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net,
- linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- virtualization@lists.linux-foundation.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- x86@kernel.org, linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- linux-mm@kvack.org, netdev@vger.kernel.org,
- linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
- linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
- linux-integrity@vger.kernel.org, target-devel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 000/141] Fix fall-through warnings for
-	Clang
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v6 0/5] Introduce the Counter character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,32 +79,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 2020-11-22 at 11:22 -0800, Joe Perches wrote:
-> On Sun, 2020-11-22 at 11:12 -0800, James Bottomley wrote:
-> > On Sun, 2020-11-22 at 10:25 -0800, Joe Perches wrote:
-> > > On Sun, 2020-11-22 at 10:21 -0800, James Bottomley wrote:
-> > > > Please tell me our reward for all this effort isn't a single
-> > > > missing error print.
-> > > 
-> > > There were quite literally dozens of logical defects found
-> > > by the fallthrough additions.  Very few were logging only.
-> > 
-> > So can you give us the best examples (or indeed all of them if
-> > someone is keeping score)?  hopefully this isn't a US election
-> > situation ...
-> 
-> Gustavo?  Are you running for congress now?
-> 
-> https://lwn.net/Articles/794944/
+Changes in v6:
+ - Consolidated the value member of struct counter_event down to a
+   single u64; u64 should be capable of representing all component
+   values
+ - Removed extension width sysfs attributes; no longer needed when value
+   is always u64
+ - Implemented COUNTER_COMPONENT_DUMMY to allow timestamp grabs without
+   component data reads
+ - Implemented events_config() callback; called during
+   COUNTER_CLEAR_WATCHES_IOCTL and COUNTER_LOAD_WATCHES_IOCTL in order
+   to allow devices a chance to adjust (enable/disable IRQ, etc.) for
+   the new events configuration requested by the user
+ - Simplified example code in Documentation by removing confusing use of
+   poll() call
+ - Removed redundant ida_simple_remove() from counter_register()
+ - Renamed devm_counter_unreg() to devm_counter_unregister()
+ - Renamed functions in counter-sysfs.c to be clearer
+ - Fixed miscellaneous typos throughout files
+ - Added more kernel doc comments; I've left some defines without
+   comments if they seemed obvious -- but please let me know if further
+   documentation is needed
+ - Refactored quad8_irq_handler() to use WARN_ONCE() instead of
+   returning on error; this should prevent interrupts from entering an
+   endless loop
+ - General refactoring and additional comments for clarity
+ - Returns EOPNOTSUPP instead of EFAULT now if a Counter watch is added
+   for unsupported component
+ - Renamed COUNTER_SET_WATCH_IOCTL TO COUNTER_ADD_WATCH_IOCTL to make
+   the use clear
+ - Reimplemented the parent and id members of struct counter_component
+   as __u8 instead of __u64; it's unlikely we'll ever have a device that
+   supports more than 255 components
+ - Reimplement __u64 variables in include/uapi/linux/counter.h as
+   __aligned_u64 to prevent 32-bit vs 64-bit alignment issues
+ - Fixed return value bug in counter_comp_u8_store(); enums set to a
+   value with index > 0 should now work correctly
+ - Fixed spectre issues in counter-chrdev.c
+ - Removed redundant get_device() call from counter_register()
+ - Moved put_device() to after the events_list is freed lest we leak
+   memory
 
-That's 21 reported fixes of which about 50% seem to produce no change
-in code behaviour at all, a quarter seem to have no user visible effect
-with the remaining quarter producing unexpected errors on obscure
-configuration parameters, which is why no-one really noticed them
-before.
+I'm skipping the introduction blurb because it was just a rehashing of
+information included in the documentation patches within this patchset.
+Instead I will focus this cover letter on discussions about this
+patchset and the userspace interface implications.
 
-James
+1. Should standard Counter component data types be defined as u8 or u32?
 
+   Many standard Counter component types such COUNTER_COMP_SIGNAL_LEVEL
+   have standard values defined (e.g. COUNTER_SIGNAL_LEVEL_LOW and
+   COUNTER_SIGNAL_LEVEL_HIGH). These values are currently handled by the
+   Counter subsystem code as u8 data types.
+
+   If u32 is used for these values instead, C enum structures could be
+   used by driver authors to implicitly cast these values via the driver
+   callback parameters.
+
+   This question is primarily addressed to David Lechner. I'm somewhat
+   confused about how this setup would look in device drivers. I've gone
+   ahead and refactored the code to support u32 enums, and pushed it to
+   a separate branch on my repository called counter_chrdev_v6_u32_enum:
+   https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v6_u32_enum
+
+   Please check it out and let me know what you think. Is this the
+   support you had in mind? I'm curious to see an example of how would
+   your driver callback functions would look in this case. Is everything
+   works out fine, then I'll submit this branch as v7 of this patchset.
+
+2. How should we handle "raw" timestamps?
+
+   Ahmad Fatoum brought up the possibility of returning "raw" timestamps
+   similar to what the network stack offers (see the network stack
+   SOF_TIMESTAMPING_{RAW,SYS}_HARDWARE support).
+
+   I'm not very familiar with the networking stack code, but if I
+   understand correctly the SOF_TIMESTAMPING_RAW_HARDWARE timestamps are
+   values returned from the device. If so, I suspect we would be able to
+   support these "raw" timestamps by defining them as Counter Extensions
+   and returning them in struct counter_event elements similar to the
+   other Extension values.
+
+William Breathitt Gray (5):
+  counter: Internalize sysfs interface code
+  docs: counter: Update to reflect sysfs internalization
+  counter: Add character device interface
+  docs: counter: Document character device interface
+  counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
+
+ Documentation/ABI/testing/sysfs-bus-counter   |   18 +-
+ .../ABI/testing/sysfs-bus-counter-104-quad-8  |   32 +
+ Documentation/driver-api/generic-counter.rst  |  411 ++++-
+ .../userspace-api/ioctl/ioctl-number.rst      |    1 +
+ MAINTAINERS                                   |    2 +-
+ drivers/counter/104-quad-8.c                  |  778 +++++----
+ drivers/counter/Kconfig                       |    6 +-
+ drivers/counter/Makefile                      |    1 +
+ drivers/counter/counter-chrdev.c              |  476 ++++++
+ drivers/counter/counter-chrdev.h              |   16 +
+ drivers/counter/counter-core.c                |  183 ++
+ drivers/counter/counter-sysfs.c               |  806 +++++++++
+ drivers/counter/counter-sysfs.h               |   13 +
+ drivers/counter/counter.c                     | 1496 -----------------
+ drivers/counter/ftm-quaddec.c                 |   60 +-
+ drivers/counter/microchip-tcb-capture.c       |  114 +-
+ drivers/counter/stm32-lptimer-cnt.c           |  175 +-
+ drivers/counter/stm32-timer-cnt.c             |  145 +-
+ drivers/counter/ti-eqep.c                     |  224 +--
+ include/linux/counter.h                       |  676 ++++----
+ include/linux/counter_enum.h                  |   45 -
+ include/uapi/linux/counter.h                  |  105 ++
+ 22 files changed, 3094 insertions(+), 2689 deletions(-)
+ create mode 100644 drivers/counter/counter-chrdev.c
+ create mode 100644 drivers/counter/counter-chrdev.h
+ create mode 100644 drivers/counter/counter-core.c
+ create mode 100644 drivers/counter/counter-sysfs.c
+ create mode 100644 drivers/counter/counter-sysfs.h
+ delete mode 100644 drivers/counter/counter.c
+ delete mode 100644 include/linux/counter_enum.h
+ create mode 100644 include/uapi/linux/counter.h
+
+-- 
+2.29.2
 
 _______________________________________________
 Linux-stm32 mailing list
