@@ -2,50 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 244782C16A6
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Nov 2020 21:40:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 889FF2C17DE
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Nov 2020 22:46:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAEF7C56632;
-	Mon, 23 Nov 2020 20:40:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7428EC56631;
+	Mon, 23 Nov 2020 21:46:43 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37C9EC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7739CC32EA7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Nov 2020 20:40:54 +0000 (UTC)
+ Mon, 23 Nov 2020 21:46:41 +0000 (UTC)
 Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
  [92.233.91.117])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BC74E204FD;
- Mon, 23 Nov 2020 20:40:52 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 47C43205F4;
+ Mon, 23 Nov 2020 21:46:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606164053;
- bh=l4oI3EJf9twL417qKLDDDLHkuxNIhLOKXfN3lkF6Kxg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dI6Y/FEBhMomP9yXJDZL18c5N1fJUnSufmLsfsEErCEx1I73uujBVn+VmR2nTBil2
- 7st2qM1JoV+aEr2XQJCNbg/JTowpnkJOkAAUW5m9jaxq8C/w1ZUMTqrjWm7inA4kgh
- US9uOR3tP2rC+WdSErFnKjZ9+DgugTP0ToQkJ/y8=
-Date: Mon, 23 Nov 2020 20:40:30 +0000
+ s=default; t=1606167999;
+ bh=h1WrtCqHFEifntLejOukfoRyk+72OOTTFpb+0uydT44=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=hOY17cav9OLxzc4q5+yNWYMZC3qBgOxIfojY1YOrnf4XOvN5GnRqe2qoqBUGAZHBA
+ ae4HOcBIcnqe12QMccsN8KNeGUyjqf7hrRyVVB3mMpwje/pQkISelRy2G91TIW7Vjv
+ pu9FWfoprlxHwl7um2xKEdveD59KlqDgZhpU0KzY=
+Date: Mon, 23 Nov 2020 21:46:16 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20201123204030.GA21709@sirena.org.uk>
-References: <20201116175133.402553-1-krzk@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <20201116175133.402553-1-krzk@kernel.org>
-X-Cookie: Will stain.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
+To: linux-kernel@vger.kernel.org, Neil Armstrong <narmstrong@baylibre.com>,
+ Takashi Iwai <tiwai@suse.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, alsa-devel@alsa-project.org,
+ Jaroslav Kysela <perex@perex.cz>, Alexandre Torgue <alexandre.torgue@st.com>,
+ Olivier Moysan <olivier.moysan@st.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, linux-arm-kernel@lists.infradead.org,
+ Arnaud Pouliquen <arnaud.pouliquen@st.com>, linux-amlogic@lists.infradead.org,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- kernel test robot <lkp@intel.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Jerome Brunet <jbrunet@baylibre.com>
+ Jerome Brunet <jbrunet@baylibre.com>, linux-stm32@st-md-mailman.stormreply.com
+In-Reply-To: <20201116175133.402553-1-krzk@kernel.org>
+References: <20201116175133.402553-1-krzk@kernel.org>
+Message-Id: <160616797659.26421.3555642178452735947.b4-ty@kernel.org>
+MIME-Version: 1.0
+Cc: kernel test robot <lkp@intel.com>
 Subject: Re: [Linux-stm32] [PATCH 1/4] ASoC: meson: depend on COMMON_CLK to
- fix compile tests
+	fix compile tests
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,54 +56,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8600703495298045716=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============8600703495298045716==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OXfL5xGRrasGEqWY"
-Content-Disposition: inline
-
-
---OXfL5xGRrasGEqWY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Nov 16, 2020 at 06:51:30PM +0100, Krzysztof Kozlowski wrote:
+On Mon, 16 Nov 2020 18:51:30 +0100, Krzysztof Kozlowski wrote:
 > The Meson SoC sound drivers use Common Clock Framework thus they cannot
 > be built on platforms without it (e.g. compile test on MIPS with RALINK
 > and SOC_RT305X):
+> 
+>     /usr/bin/mips-linux-gnu-ld: sound/soc/meson/aiu-encoder-spdif.o: in function `aiu_encoder_spdif_startup':
+>     aiu-encoder-spdif.c:(.text+0x3a0): undefined reference to `clk_set_parent'
+>     /usr/bin/mips-linux-gnu-ld: sound/soc/meson/axg-tdm-formatter.o: in function `axg_tdm_formatter_event':
+>     (.text+0x7ec): undefined reference to `clk_set_parent'
 
-This doesn't apply against current code, please check and resend.
+Applied to
 
---OXfL5xGRrasGEqWY
-Content-Type: application/pgp-signature; name="signature.asc"
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
------BEGIN PGP SIGNATURE-----
+Thanks!
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+8Hj0ACgkQJNaLcl1U
-h9BQUQf/Zb+qnudCOxcpsy60ses8As7w+FYZS80ubduXvGWgILbXemT1oMzbNgmK
-OBkiqTnFNc6tff+PV8KL223IYl0NE87wbj+TZtPLS2kwcmLzGYN5Nk6tOJ/BqNaL
-NZGwQweuvCXNOZgVaqRuCp2am79NZzjniDlGELtbcdX1bnrbKQqrpfl+OQYOXBxs
-u/xwWXzpd63eM4B4tN8a4S3TsUzJvuypdWshYHELUV5vsxSCXp1NWiire0N1SPO7
-bnkqkZUg10ymAq75x5OE6laeMbsDfwWnS9tRnOJxnN4H8oTMcmzxTQiFD0922P0s
-w0Jrqx6xOb9ZoR7U22kR1FHwhkpH8Q==
-=Zs8x
------END PGP SIGNATURE-----
+[1/4] ASoC: meson: depend on COMMON_CLK to fix compile tests
+      (no commit info)
+[2/4] ASoC: sh: depend on COMMON_CLK to fix compile tests
+      commit: c3d900dc905b78788c94f3a063b769bdbad16a98
+[3/4] ASoC: stm: depend on COMMON_CLK to fix compile tests
+      commit: 82ceffce96336ee9863f3dfde63aef5748ca4ab1
+[4/4] ASoC: ti: depend on COMMON_CLK to fix compile tests
+      commit: b3cf78e0dacb7fba50d0c1eb9dfa6f92d31529e2
 
---OXfL5xGRrasGEqWY--
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---===============8600703495298045716==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8600703495298045716==--
