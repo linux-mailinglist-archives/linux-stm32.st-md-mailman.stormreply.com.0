@@ -2,47 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D4C22C135B
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Nov 2020 19:56:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E30B42C1694
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Nov 2020 21:38:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DF06C56631;
-	Mon, 23 Nov 2020 18:56:16 +0000 (UTC)
-Received: from mail-yb1-f195.google.com (mail-yb1-f195.google.com
- [209.85.219.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9340AC56631;
+	Mon, 23 Nov 2020 20:38:07 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+ [96.44.175.130])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31ED0C32EA7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 210F4C32EA7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Nov 2020 18:56:13 +0000 (UTC)
-Received: by mail-yb1-f195.google.com with SMTP id e81so15320460ybc.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Nov 2020 10:56:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KNG9rf3jiBLOHJ1Qe+5HClUHwDC8G2v5PJoNSRMQj2o=;
- b=ZA1WcoeOdsWbRfOoumZEJTLTRH6V2Lpq2CDbZ0VVs1hbOT/vd/v8/YkJaULhb4MkV5
- MHmDtgQZ7Y6vQOoRafNcjdab1m8jmYbh8Ox0xcyAJF866JXyArBCoNYzebFkQV1wRZF3
- r3hM3WSnIq7Ht5VQ2PIwvurJMfamtV7PLgYZxEoHoT74qEv3IGeXPryfDRdu7AW/qetQ
- L1ocOXaYsoIrsq1AVQ8cgaa4G2qWRkZviQ+mOBHOVW/MFUti3ALLJAr2MKUeWh+s4BW6
- tAJsdEl41qUIuUvcW5DdLnVlmhWMC8lZFuXyyo4x1R3eX3DaWLHh1JzDrRZDt/CN6qga
- 036w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KNG9rf3jiBLOHJ1Qe+5HClUHwDC8G2v5PJoNSRMQj2o=;
- b=cyGT4FbY5DLFlVccRzmlO1MNGp3RsyihMkU2pAAdbVkRvzDN2LOr/1WDmsBUpZwd3g
- W1kTV08k92mXRQb8++8u+ZiluZxnjqk/7IQLayZNqMzYI070fkKiJRSW4TblhXLX0u6W
- 4kYmXmqnoB1NAKS9H6TjO5LJiAAKttV/jZ3c6CLbc2QafFqDOwn4/46eZd3IGPhwhpG6
- CCXo7H/ajrrLvvTVeMsjaT751pil/AuuiuchJQ5KSQtShUscQ+D3fY+EYcK9EWFHITzv
- DrIXPhKRdtcWb50UysMtFkJGG5/R9AoKh1xiqvLnu5UOwLM7XnMhMBUdNvAlpVOwJFm8
- 55BQ==
-X-Gm-Message-State: AOAM533w9jbkSLWG+MHd60p3rnJVtKZi0xpjPDZ2J0dnr3reSrZqjlOa
- fE2Wo3v3mnTR0EeAh3vMWpt40pxioG5j1ozZs1E=
-X-Google-Smtp-Source: ABdhPJyhWLCSkpSmtD0p55Cmpr9Ao1aJs0IYHWLu4Tcyj9q39OBvqgrIxMZMaEy7w1zacpD3mVr5R93EsjzwMBkGuSA=
-X-Received: by 2002:a25:df55:: with SMTP id w82mr977719ybg.135.1606157772316; 
- Mon, 23 Nov 2020 10:56:12 -0800 (PST)
-MIME-Version: 1.0
+ Mon, 23 Nov 2020 20:38:05 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by bedivere.hansenpartnership.com (Postfix) with ESMTP id 81FC7128092C;
+ Mon, 23 Nov 2020 12:38:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606163883;
+ bh=+EDGs3PYzl3z47JpXWUueALZlElPDdJywkYLk/HcIjg=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=Tyy0xQy0htMQEdpfMUvFUuPG04g7ZXvYvYsCjWoq+QOlUp2WQfo8Vk+CnXXw5nkQT
+ a3Wz7+ONj/4K4WJ6m4qOiNdEl9e5tbHlW07s/zxEoMhv+eMdbQKfvYZ25zqNb6Olj/
+ onXIz2W3FBWOnXIoTYXwnsUNPzdRLL+aS2e3QsY4=
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+ by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id Fm687JPabQpA; Mon, 23 Nov 2020 12:38:03 -0800 (PST)
+Received: from jarvis.int.hansenpartnership.com (unknown
+ [IPv6:2601:600:8280:66d1::527])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id EBC5C128091E;
+ Mon, 23 Nov 2020 12:37:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606163883;
+ bh=+EDGs3PYzl3z47JpXWUueALZlElPDdJywkYLk/HcIjg=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=Tyy0xQy0htMQEdpfMUvFUuPG04g7ZXvYvYsCjWoq+QOlUp2WQfo8Vk+CnXXw5nkQT
+ a3Wz7+ONj/4K4WJ6m4qOiNdEl9e5tbHlW07s/zxEoMhv+eMdbQKfvYZ25zqNb6Olj/
+ onXIz2W3FBWOnXIoTYXwnsUNPzdRLL+aS2e3QsY4=
+Message-ID: <4993259d01a0064f8bb22770503490f9252f3659.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 23 Nov 2020 12:37:58 -0800
+In-Reply-To: <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
 References: <cover.1605896059.git.gustavoars@kernel.org>
  <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
  <202011201129.B13FDB3C@keescook>
@@ -53,11 +56,9 @@ References: <cover.1605896059.git.gustavoars@kernel.org>
  <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
  <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
  <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-In-Reply-To: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 23 Nov 2020 19:56:01 +0100
-Message-ID: <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
+ <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
+User-Agent: Evolution 3.34.4 
+MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
  reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-wireless <linux-wireless@vger.kernel.org>, linux-fbdev@vger.kernel.org,
@@ -118,63 +119,108 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Nov 23, 2020 at 4:58 PM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
->
-> Well, I used git.  It says that as of today in Linus' tree we have 889
-> patches related to fall throughs and the first series went in in
-> october 2017 ... ignoring a couple of outliers back to February.
+On Mon, 2020-11-23 at 19:56 +0100, Miguel Ojeda wrote:
+> On Mon, Nov 23, 2020 at 4:58 PM James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > Well, I used git.  It says that as of today in Linus' tree we have
+> > 889 patches related to fall throughs and the first series went in
+> > in october 2017 ... ignoring a couple of outliers back to February.
+> 
+> I can see ~10k insertions over ~1k commits and 15 years that mention
+> a fallthrough in the entire repo. That is including some commits
+> (like the biggest one, 960 insertions) that have nothing to do with C
+> fallthrough. A single kernel release has an order of magnitude more
+> changes than this...
+> 
+> But if we do the math, for an author, at even 1 minute per line
+> change and assuming nothing can be automated at all, it would take 1
+> month of work. For maintainers, a couple of trivial lines is noise
+> compared to many other patches.
 
-I can see ~10k insertions over ~1k commits and 15 years that mention a
-fallthrough in the entire repo. That is including some commits (like
-the biggest one, 960 insertions) that have nothing to do with C
-fallthrough. A single kernel release has an order of magnitude more
-changes than this...
+So you think a one line patch should take one minute to produce ... I
+really don't think that's grounded in reality.  I suppose a one line
+patch only takes a minute to merge with b4 if no-one reviews or tests
+it, but that's not really desirable.
 
-But if we do the math, for an author, at even 1 minute per line change
-and assuming nothing can be automated at all, it would take 1 month of
-work. For maintainers, a couple of trivial lines is noise compared to
-many other patches.
+> In fact, this discussion probably took more time than the time it
+> would take to review the 200 lines. :-)
 
-In fact, this discussion probably took more time than the time it
-would take to review the 200 lines. :-)
+I'm framing the discussion in terms of the whole series of changes we
+have done for fall through, both what's in the tree currently (889
+patches) both in terms of the produce and the consumer.  That's what I
+used for my figures for cost.
 
-> We're also complaining about the inability to recruit maintainers:
->
-> https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
->
-> And burn out:
->
-> http://antirez.com/news/129
+> > We're also complaining about the inability to recruit maintainers:
+> > 
+> > https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
+> > 
+> > And burn out:
+> > 
+> > http://antirez.com/news/129
+> 
+> Accepting trivial and useful 1-line patches
 
-Accepting trivial and useful 1-line patches is not what makes a
-voluntary maintainer quit... Thankless work with demanding deadlines is.
+Part of what I'm trying to measure is the "and useful" bit because
+that's not a given.
 
-> The whole crux of your argument seems to be maintainers' time isn't
-> important so we should accept all trivial patches
+> is not what makes a voluntary maintainer quit...
 
-I have not said that, at all. In fact, I am a voluntary one and I
-welcome patches like this. It takes very little effort on my side to
-review and it helps the kernel overall. Paid maintainers are the ones
-that can take care of big features/reviews.
+so the proverb "straw which broke the camel's back" uniquely doesn't
+apply to maintainers
 
-> What I'm actually trying to articulate is a way of measuring value of
-> the patch vs cost ... it has nothing really to do with who foots the
-> actual bill.
+>  Thankless work with demanding deadlines is.
 
-I understand your point, but you were the one putting it in terms of a
-junior FTE. In my view, 1 month-work (worst case) is very much worth
-removing a class of errors from a critical codebase.
+That's another potential reason, but it doesn't may other reasons less
+valid.
 
-> One thesis I'm actually starting to formulate is that this continual
-> devaluing of maintainers is why we have so much difficulty keeping and
-> recruiting them.
+> > The whole crux of your argument seems to be maintainers' time isn't
+> > important so we should accept all trivial patches
+> 
+> I have not said that, at all. In fact, I am a voluntary one and I
+> welcome patches like this. It takes very little effort on my side to
+> review and it helps the kernel overall.
 
-That may very well be true, but I don't feel anybody has devalued
-maintainers in this discussion.
+Well, you know, subsystems are very different in terms of the amount of
+patches a maintainer has to process per release cycle of the kernel. 
+If a maintainer is close to capacity, additional patches, however
+trivial, become a problem.  If a maintainer has spare cycles, trivial
+patches may look easy.
 
-Cheers,
-Miguel
+> Paid maintainers are the ones that can take care of big
+> features/reviews.
+> 
+> > What I'm actually trying to articulate is a way of measuring value
+> > of the patch vs cost ... it has nothing really to do with who foots
+> > the actual bill.
+> 
+> I understand your point, but you were the one putting it in terms of
+> a junior FTE.
+
+No, I evaluated the producer side in terms of an FTE.  What we're
+mostly arguing about here is the consumer side: the maintainers and
+people who have to rework their patch sets. I estimated that at 100h.
+
+>  In my view, 1 month-work (worst case) is very much worth
+> removing a class of errors from a critical codebase.
+> 
+> > One thesis I'm actually starting to formulate is that this
+> > continual devaluing of maintainers is why we have so much
+> > difficulty keeping and recruiting them.
+> 
+> That may very well be true, but I don't feel anybody has devalued
+> maintainers in this discussion.
+
+You seem to be saying that because you find it easy to merge trivial
+patches, everyone should.  I'm reminded of a friend long ago who
+thought being a Tees River Pilot was a sinecure because he could
+navigate the Tees blindfold.  What he forgot, of course, is that just
+because it's easy with a trawler doesn't mean it's easy with an oil
+tanker.  In fact it takes longer to qualify as a Tees River Pilot than
+it does to get a PhD.
+
+James
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
