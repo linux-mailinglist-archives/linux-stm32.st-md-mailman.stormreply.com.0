@@ -2,63 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29BC82C1130
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Nov 2020 18:02:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D4C22C135B
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Nov 2020 19:56:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7D45C56632;
-	Mon, 23 Nov 2020 17:02:00 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DF06C56631;
+	Mon, 23 Nov 2020 18:56:16 +0000 (UTC)
+Received: from mail-yb1-f195.google.com (mail-yb1-f195.google.com
+ [209.85.219.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2E7CC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31ED0C32EA7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Nov 2020 17:01:57 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0ANGwAOD021308; Mon, 23 Nov 2020 18:01:44 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=9w8mN5GvPkMDb3E6ad2TU5MMiiDehUaWOyE2Fad563s=;
- b=pdhBLN6AG66Ifc1d0mvKGJ5LFSF4OAWyVsIp6MyLgwrqQN4M3eFYZwvrAG57u9Oae64u
- HZuGbiQGiK6kY0VGK/AlHS3jrbVElyD4nfgBWrDw/V/vNQCfOpTg2LyZgnbGT1UE53L7
- IzG2ySgiS4rn6C7Lb8XP+O4Ng6o+jLUo7oP0NgcQQWIyt4Ta3xJ2jHiPEsnTd1v1TP85
- ugNrpo4obfNECCPlJNqH/788q7XBcQLOlAi13H6vmqcuXn51oYydeLMmHqkHOeF4m4aO
- /FqCi34ZPx3pRH4LPz999aT0xtb/jf7PeVvpJQeT3axo5eX/EeeXsC4RqUDArf5ycdB3 tA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34y05h2euj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Nov 2020 18:01:44 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 30CA5100038;
- Mon, 23 Nov 2020 18:01:44 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2310A2BA2D0;
- Mon, 23 Nov 2020 18:01:44 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG3NODE2.st.com (10.75.127.8)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 23 Nov 2020 18:01:43
- +0100
-From: Amelie Delaunay <amelie.delaunay@st.com>
-To: Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>, Rob
- Herring <robh+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 23 Nov 2020 18:01:32 +0100
-Message-ID: <20201123170132.17859-7-amelie.delaunay@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201123170132.17859-1-amelie.delaunay@st.com>
-References: <20201123170132.17859-1-amelie.delaunay@st.com>
+ Mon, 23 Nov 2020 18:56:13 +0000 (UTC)
+Received: by mail-yb1-f195.google.com with SMTP id e81so15320460ybc.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 23 Nov 2020 10:56:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KNG9rf3jiBLOHJ1Qe+5HClUHwDC8G2v5PJoNSRMQj2o=;
+ b=ZA1WcoeOdsWbRfOoumZEJTLTRH6V2Lpq2CDbZ0VVs1hbOT/vd/v8/YkJaULhb4MkV5
+ MHmDtgQZ7Y6vQOoRafNcjdab1m8jmYbh8Ox0xcyAJF866JXyArBCoNYzebFkQV1wRZF3
+ r3hM3WSnIq7Ht5VQ2PIwvurJMfamtV7PLgYZxEoHoT74qEv3IGeXPryfDRdu7AW/qetQ
+ L1ocOXaYsoIrsq1AVQ8cgaa4G2qWRkZviQ+mOBHOVW/MFUti3ALLJAr2MKUeWh+s4BW6
+ tAJsdEl41qUIuUvcW5DdLnVlmhWMC8lZFuXyyo4x1R3eX3DaWLHh1JzDrRZDt/CN6qga
+ 036w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KNG9rf3jiBLOHJ1Qe+5HClUHwDC8G2v5PJoNSRMQj2o=;
+ b=cyGT4FbY5DLFlVccRzmlO1MNGp3RsyihMkU2pAAdbVkRvzDN2LOr/1WDmsBUpZwd3g
+ W1kTV08k92mXRQb8++8u+ZiluZxnjqk/7IQLayZNqMzYI070fkKiJRSW4TblhXLX0u6W
+ 4kYmXmqnoB1NAKS9H6TjO5LJiAAKttV/jZ3c6CLbc2QafFqDOwn4/46eZd3IGPhwhpG6
+ CCXo7H/ajrrLvvTVeMsjaT751pil/AuuiuchJQ5KSQtShUscQ+D3fY+EYcK9EWFHITzv
+ DrIXPhKRdtcWb50UysMtFkJGG5/R9AoKh1xiqvLnu5UOwLM7XnMhMBUdNvAlpVOwJFm8
+ 55BQ==
+X-Gm-Message-State: AOAM533w9jbkSLWG+MHd60p3rnJVtKZi0xpjPDZ2J0dnr3reSrZqjlOa
+ fE2Wo3v3mnTR0EeAh3vMWpt40pxioG5j1ozZs1E=
+X-Google-Smtp-Source: ABdhPJyhWLCSkpSmtD0p55Cmpr9Ao1aJs0IYHWLu4Tcyj9q39OBvqgrIxMZMaEy7w1zacpD3mVr5R93EsjzwMBkGuSA=
+X-Received: by 2002:a25:df55:: with SMTP id w82mr977719ybg.135.1606157772316; 
+ Mon, 23 Nov 2020 10:56:12 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG3NODE2.st.com
- (10.75.127.8)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-23_14:2020-11-23,
- 2020-11-23 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 6/6] phy: stm32: rework PLL Lock detection
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011201129.B13FDB3C@keescook>
+ <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011220816.8B6591A@keescook>
+ <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
+ <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
+ <1c7d7fde126bc0acf825766de64bf2f9b888f216.camel@HansenPartnership.com>
+ <CANiq72m22Jb5_+62NnwX8xds2iUdWDMAqD8PZw9cuxdHd95W0A@mail.gmail.com>
+ <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+In-Reply-To: <fc45750b6d0277c401015b7aa11e16cd15f32ab2.camel@HansenPartnership.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 23 Nov 2020 19:56:01 +0100
+Message-ID: <CANiq72k5tpDoDPmJ0ZWc1DGqm+81Gi-uEENAtvEs9v3SZcx6_Q@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
+ reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-wireless <linux-wireless@vger.kernel.org>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
+ dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+ GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+ samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+ linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+ usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
+ devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
+ rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
+ linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
+ linux-acpi@vger.kernel.org, coreteam@netfilter.org,
+ intel-wired-lan@lists.osuosl.org, linux-input <linux-input@vger.kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Ext4 Developers List <linux-ext4@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+ xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
+ linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-nfs@vger.kernel.org,
+ GR-Linux-NIC-Dev@marvell.com, tipc-discussion@lists.sourceforge.net,
+ Linux-MM <linux-mm@kvack.org>, Network Development <netdev@vger.kernel.org>,
+ linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ linux-integrity@vger.kernel.org, target-devel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 000/141] Fix fall-through warnings for
+	Clang
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,202 +118,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-USBPHYC has a register per phy to control and monitor the debug interface
-of the HS PHY through a digital debug access.
-With this register, it is possible to know if PLL Lock input to phy is
-high. That means the PLL is ready for HS operation.
-Instead of using an hard-coded delay after PLL enable and PLL disable, use
-this bit to ensure good operating of the HS PHY.
-Also use an atomic counter (n_pll_cons) to count the actual number of PLL
-consumers and get rid of stm32_usbphyc_has_one_phy_active.
-The boolean active in the usbphyc_phy structure is kept, because we need to
-know in remove if a phy_exit is required to properly disable the PLL.
+On Mon, Nov 23, 2020 at 4:58 PM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+>
+> Well, I used git.  It says that as of today in Linus' tree we have 889
+> patches related to fall throughs and the first series went in in
+> october 2017 ... ignoring a couple of outliers back to February.
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
----
- drivers/phy/st/phy-stm32-usbphyc.c | 88 ++++++++++++++++++------------
- 1 file changed, 54 insertions(+), 34 deletions(-)
+I can see ~10k insertions over ~1k commits and 15 years that mention a
+fallthrough in the entire repo. That is including some commits (like
+the biggest one, 960 insertions) that have nothing to do with C
+fallthrough. A single kernel release has an order of magnitude more
+changes than this...
 
-diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
-index 8b11d95b2c20..d08fbb180e43 100644
---- a/drivers/phy/st/phy-stm32-usbphyc.c
-+++ b/drivers/phy/st/phy-stm32-usbphyc.c
-@@ -17,6 +17,7 @@
- 
- #define STM32_USBPHYC_PLL	0x0
- #define STM32_USBPHYC_MISC	0x8
-+#define STM32_USBPHYC_MONITOR(X) (0x108 + ((X) * 0x100))
- #define STM32_USBPHYC_VERSION	0x3F4
- 
- /* STM32_USBPHYC_PLL bit fields */
-@@ -32,12 +33,16 @@
- /* STM32_USBPHYC_MISC bit fields */
- #define SWITHOST		BIT(0)
- 
-+/* STM32_USBPHYC_MONITOR bit fields */
-+#define STM32_USBPHYC_MON_OUT	GENMASK(3, 0)
-+#define STM32_USBPHYC_MON_SEL	GENMASK(8, 4)
-+#define STM32_USBPHYC_MON_SEL_LOCKP 0x1F
-+#define STM32_USBPHYC_MON_OUT_LOCKP BIT(3)
-+
- /* STM32_USBPHYC_VERSION bit fields */
- #define MINREV			GENMASK(3, 0)
- #define MAJREV			GENMASK(7, 4)
- 
--#define PLL_LOCK_TIME_US	100
--#define PLL_PWR_DOWN_TIME_US	5
- #define PLL_FVCO_MHZ		2880
- #define PLL_INFF_MIN_RATE_HZ	19200000
- #define PLL_INFF_MAX_RATE_HZ	38400000
-@@ -64,6 +69,7 @@ struct stm32_usbphyc {
- 	int nphys;
- 	struct regulator *vdda1v1;
- 	struct regulator *vdda1v8;
-+	atomic_t n_pll_cons;
- 	int switch_setup;
- };
- 
-@@ -171,35 +177,27 @@ static int stm32_usbphyc_pll_init(struct stm32_usbphyc *usbphyc)
- 	return 0;
- }
- 
--static bool stm32_usbphyc_has_one_phy_active(struct stm32_usbphyc *usbphyc)
-+static int __stm32_usbphyc_pll_disable(struct stm32_usbphyc *usbphyc)
- {
--	int i;
-+	void __iomem *pll_reg = usbphyc->base + STM32_USBPHYC_PLL;
-+	u32 pllen;
-+
-+	stm32_usbphyc_clr_bits(pll_reg, PLLEN);
- 
--	for (i = 0; i < usbphyc->nphys; i++)
--		if (usbphyc->phys[i]->active)
--			return true;
-+	/* Wait for minimum width of powerdown pulse (ENABLE = Low) */
-+	if (readl_relaxed_poll_timeout(pll_reg, pllen, !(pllen & PLLEN), 5, 50))
-+		dev_err(usbphyc->dev, "PLL not reset\n");
- 
--	return false;
-+	return stm32_usbphyc_regulators_disable(usbphyc);
- }
- 
- static int stm32_usbphyc_pll_disable(struct stm32_usbphyc *usbphyc)
- {
--	void __iomem *pll_reg = usbphyc->base + STM32_USBPHYC_PLL;
--
--	/* Check if other phy port active */
--	if (stm32_usbphyc_has_one_phy_active(usbphyc))
-+	/* Check if a phy port is still active or clk48 in use */
-+	if (atomic_dec_return(&usbphyc->n_pll_cons) > 0)
- 		return 0;
- 
--	stm32_usbphyc_clr_bits(pll_reg, PLLEN);
--	/* Wait for minimum width of powerdown pulse (ENABLE = Low) */
--	udelay(PLL_PWR_DOWN_TIME_US);
--
--	if (readl_relaxed(pll_reg) & PLLEN) {
--		dev_err(usbphyc->dev, "PLL not reset\n");
--		return -EIO;
--	}
--
--	return stm32_usbphyc_regulators_disable(usbphyc);
-+	return __stm32_usbphyc_pll_disable(usbphyc);
- }
- 
- static int stm32_usbphyc_pll_enable(struct stm32_usbphyc *usbphyc)
-@@ -208,39 +206,43 @@ static int stm32_usbphyc_pll_enable(struct stm32_usbphyc *usbphyc)
- 	bool pllen = readl_relaxed(pll_reg) & PLLEN;
- 	int ret;
- 
--	/* Check if one phy port has already configured the pll */
--	if (pllen && stm32_usbphyc_has_one_phy_active(usbphyc))
-+	/*
-+	 * Check if a phy port or clk48 prepare has configured the pll
-+	 * and ensure the PLL is enabled
-+	 */
-+	if (atomic_inc_return(&usbphyc->n_pll_cons) > 1 && pllen)
- 		return 0;
- 
- 	if (pllen) {
--		ret = stm32_usbphyc_pll_disable(usbphyc);
-+		/*
-+		 * PLL shouldn't be enabled without known consumer,
-+		 * disable it and reinit n_pll_cons
-+		 */
-+		dev_warn(usbphyc->dev, "PLL enabled without known consumers\n");
-+
-+		ret = __stm32_usbphyc_pll_disable(usbphyc);
- 		if (ret)
- 			return ret;
- 	}
- 
- 	ret = stm32_usbphyc_regulators_enable(usbphyc);
- 	if (ret)
--		return ret;
-+		goto dec_n_pll_cons;
- 
- 	ret = stm32_usbphyc_pll_init(usbphyc);
- 	if (ret)
- 		goto reg_disable;
- 
- 	stm32_usbphyc_set_bits(pll_reg, PLLEN);
--	/* Wait for maximum lock time */
--	udelay(PLL_LOCK_TIME_US);
--
--	if (!(readl_relaxed(pll_reg) & PLLEN)) {
--		dev_err(usbphyc->dev, "PLLEN not set\n");
--		ret = -EIO;
--		goto reg_disable;
--	}
- 
- 	return 0;
- 
- reg_disable:
- 	stm32_usbphyc_regulators_disable(usbphyc);
- 
-+dec_n_pll_cons:
-+	atomic_dec(&usbphyc->n_pll_cons);
-+
- 	return ret;
- }
- 
-@@ -248,15 +250,33 @@ static int stm32_usbphyc_phy_init(struct phy *phy)
- {
- 	struct stm32_usbphyc_phy *usbphyc_phy = phy_get_drvdata(phy);
- 	struct stm32_usbphyc *usbphyc = usbphyc_phy->usbphyc;
-+	u32 reg_mon = STM32_USBPHYC_MONITOR(usbphyc_phy->index);
-+	u32 monsel = FIELD_PREP(STM32_USBPHYC_MON_SEL,
-+				STM32_USBPHYC_MON_SEL_LOCKP);
-+	u32 monout;
- 	int ret;
- 
- 	ret = stm32_usbphyc_pll_enable(usbphyc);
- 	if (ret)
- 		return ret;
- 
-+	/* Check that PLL Lock input to PHY is High */
-+	writel_relaxed(monsel, usbphyc->base + reg_mon);
-+	ret = readl_relaxed_poll_timeout(usbphyc->base + reg_mon, monout,
-+					 (monout & STM32_USBPHYC_MON_OUT_LOCKP),
-+					 100, 1000);
-+	if (ret) {
-+		dev_err(usbphyc->dev, "PLL Lock input to PHY is Low (val=%x)\n",
-+			(u32)(monout & STM32_USBPHYC_MON_OUT));
-+		goto pll_disable;
-+	}
-+
- 	usbphyc_phy->active = true;
- 
- 	return 0;
-+
-+pll_disable:
-+	return stm32_usbphyc_pll_disable(usbphyc);
- }
- 
- static int stm32_usbphyc_phy_exit(struct phy *phy)
--- 
-2.17.1
+But if we do the math, for an author, at even 1 minute per line change
+and assuming nothing can be automated at all, it would take 1 month of
+work. For maintainers, a couple of trivial lines is noise compared to
+many other patches.
 
+In fact, this discussion probably took more time than the time it
+would take to review the 200 lines. :-)
+
+> We're also complaining about the inability to recruit maintainers:
+>
+> https://www.theregister.com/2020/06/30/hard_to_find_linux_maintainers_says_torvalds/
+>
+> And burn out:
+>
+> http://antirez.com/news/129
+
+Accepting trivial and useful 1-line patches is not what makes a
+voluntary maintainer quit... Thankless work with demanding deadlines is.
+
+> The whole crux of your argument seems to be maintainers' time isn't
+> important so we should accept all trivial patches
+
+I have not said that, at all. In fact, I am a voluntary one and I
+welcome patches like this. It takes very little effort on my side to
+review and it helps the kernel overall. Paid maintainers are the ones
+that can take care of big features/reviews.
+
+> What I'm actually trying to articulate is a way of measuring value of
+> the patch vs cost ... it has nothing really to do with who foots the
+> actual bill.
+
+I understand your point, but you were the one putting it in terms of a
+junior FTE. In my view, 1 month-work (worst case) is very much worth
+removing a class of errors from a critical codebase.
+
+> One thesis I'm actually starting to formulate is that this continual
+> devaluing of maintainers is why we have so much difficulty keeping and
+> recruiting them.
+
+That may very well be true, but I don't feel anybody has devalued
+maintainers in this discussion.
+
+Cheers,
+Miguel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
