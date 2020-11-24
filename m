@@ -2,49 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86D432C2974
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Nov 2020 15:27:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56E462C29D2
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Nov 2020 15:40:35 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DAB1C56631;
-	Tue, 24 Nov 2020 14:27:20 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A678C56630;
+	Tue, 24 Nov 2020 14:40:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6191C5662F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DF6AC32EA3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Nov 2020 14:27:18 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1khZHm-00012a-Hb; Tue, 24 Nov 2020 15:27:14 +0100
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-To: Antonio Borneo <antonio.borneo@st.com>, Jakub Kicinski <kuba@kernel.org>
-References: <20191007154306.95827-1-antonio.borneo@st.com>
- <20191007154306.95827-5-antonio.borneo@st.com>
- <20191009152618.33b45c2d@cakuba.netronome.com>
- <42960ede-9355-1277-9a6f-4eac3c22365c@pengutronix.de>
-Message-ID: <6d314a48-8d01-5a31-63de-8159e68d665e@pengutronix.de>
-Date: Tue, 24 Nov 2020 15:27:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ Tue, 24 Nov 2020 14:40:34 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0AOEWCAQ017400; Tue, 24 Nov 2020 15:40:05 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=STMicroelectronics;
+ bh=/gBlAC28FXcb6RG+VvW/oP4Fyova5QfXA8ljSa5ZgMM=;
+ b=N5aQzoJB5+owiet0hUrQ8lbEAFlZleMRGjdeT6Oh8/jBfDPLADy5462QlHPHxEJ6yODd
+ pj/9ZMumQRigtx0i19nrP2K6ENE/+2zkmt2FHinnf6ZQeT2ktT8O6vKHPFhIXNO5dQF6
+ 0juf8LtcOVS2gnP9faz3xzv11hchL/eI6cEep62CH0Jg5ToIsuXpinDTjPC4TNHoXan8
+ qFfWRPBWNobDL+S7QTi5L9ukzqLGTHRtJYdlPUEVE6vIRosksPbwuQA0GuAQbR1Vp291
+ 7U3Beyh7n85UsF5XuVHfm+GqssLhAB4vnQtFEW7ocC30jXVa7p8GqsOmdCnrAnyjgANq ew== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34y05h80b7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Nov 2020 15:40:05 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D8FCA10002A;
+ Tue, 24 Nov 2020 15:40:00 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AEBA82BA2BB;
+ Tue, 24 Nov 2020 15:40:00 +0100 (CET)
+Received: from localhost (10.75.127.50) by SFHDAG1NODE3.st.com (10.75.127.3)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 24 Nov 2020 15:40:00
+ +0100
+From: Antonio Borneo <antonio.borneo@st.com>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, <netdev@vger.kernel.org>,
+ Yonglong Liu <liuyonglong@huawei.com>
+Date: Tue, 24 Nov 2020 15:38:48 +0100
+Message-ID: <20201124143848.874894-1-antonio.borneo@st.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-In-Reply-To: <42960ede-9355-1277-9a6f-4eac3c22365c@pengutronix.de>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, has <has@pengutronix.de>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: add flexible PPS to dwmac
-	4.10a
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG4NODE3.st.com (10.75.127.12) To SFHDAG1NODE3.st.com
+ (10.75.127.3)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-24_04:2020-11-24,
+ 2020-11-24 signatures=0
+Cc: Salil Mehta <salil.mehta@huawei.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, linuxarm@huawei.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] net: phy: fix auto-negotiation in case of
+	'down-shift'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,52 +77,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-To += Jakub's new address
+If the auto-negotiation fails to establish a gigabit link, the phy
+can try to 'down-shift': it resets the bits in MII_CTRL1000 to
+stop advertising 1Gbps and retries the negotiation at 100Mbps.
 
-On 24.11.20 15:15, Ahmad Fatoum wrote:
-> Hello Jakub,
-> 
-> On 10.10.19 00:26, Jakub Kicinski wrote:
->> On Mon, 7 Oct 2019 17:43:06 +0200, Antonio Borneo wrote:
->>> All the registers and the functionalities used in the callback
->>> dwmac5_flex_pps_config() are common between dwmac 4.10a [1] and
->>> 5.00a [2].
->>>
->>> Reuse the same callback for dwmac 4.10a too.
->>>
->>> Tested on STM32MP15x, based on dwmac 4.10a.
->>>
->>> [1] DWC Ethernet QoS Databook 4.10a October 2014
->>> [2] DWC Ethernet QoS Databook 5.00a September 2017
->>>
->>> Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
->>
->> Applied to net-next.
-> 
-> This patch seems to have been fuzzily applied at the wrong location.
-> The diff describes extension of dwmac 4.10a and so does the @@ line:
-> 
->   @@ -864,6 +864,7 @@ const struct stmmac_ops dwmac410_ops = {
-> 
-> The patch was applied mainline as 757926247836 ("net: stmmac: add
-> flexible PPS to dwmac 4.10a"), but it extends dwmac4_ops instead:
-> 
->   @@ -938,6 +938,7 @@ const struct stmmac_ops dwmac4_ops = {
-> 
-> I don't know if dwmac4 actually supports FlexPPS, so I think it's
-> better to be on the safe side and revert 757926247836 and add the
-> change for the correct variant.
-> 
-> Cheers,
-> Ahmad
-> 
-> 
+From commit 5502b218e001 ("net: phy: use phy_resolve_aneg_linkmode
+in genphy_read_status") the content of MII_CTRL1000 is not checked
+anymore at the end of the negotiation, preventing the detection of
+phy 'down-shift'.
+In case of 'down-shift' phydev->advertising gets out-of-sync wrt
+MII_CTRL1000 and still includes modes that the phy have already
+dropped. The link partner could still advertise higher speeds,
+while the link is established at one of the common lower speeds.
+The logic 'and' in phy_resolve_aneg_linkmode() between
+phydev->advertising and phydev->lp_advertising will report an
+incorrect mode.
 
+Issue detected with a local phy rtl8211f connected with a gigabit
+capable router through a two-pairs network cable.
+
+After auto-negotiation, read back MII_CTRL1000 and mask-out from
+phydev->advertising the modes that have been eventually discarded
+due to the 'down-shift'.
+
+Fixes: 5502b218e001 ("net: phy: use phy_resolve_aneg_linkmode in genphy_read_status")
+Cc: stable@vger.kernel.org # v5.1+
+Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+Link: https://lore.kernel.org/r/478f871a-583d-01f1-9cc5-2eea56d8c2a7@huawei.com
+---
+To: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+To: "David S. Miller" <davem@davemloft.net>
+To: Jakub Kicinski <kuba@kernel.org>
+To: netdev@vger.kernel.org
+To: Yonglong Liu <liuyonglong@huawei.com>
+Cc: linuxarm@huawei.com
+Cc: Salil Mehta <salil.mehta@huawei.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-kernel@vger.kernel.org
+Cc: Antonio Borneo <antonio.borneo@st.com>
+
+ drivers/net/phy/phy_device.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 5dab6be6fc38..5d1060aa1b25 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -2331,7 +2331,7 @@ EXPORT_SYMBOL(genphy_read_status_fixed);
+  */
+ int genphy_read_status(struct phy_device *phydev)
+ {
+-	int err, old_link = phydev->link;
++	int adv, err, old_link = phydev->link;
+ 
+ 	/* Update the link, but return if there was an error */
+ 	err = genphy_update_link(phydev);
+@@ -2356,6 +2356,14 @@ int genphy_read_status(struct phy_device *phydev)
+ 		return err;
+ 
+ 	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete) {
++		if (phydev->is_gigabit_capable) {
++			adv = phy_read(phydev, MII_CTRL1000);
++			if (adv < 0)
++				return adv;
++			/* update advertising in case of 'down-shift' */
++			mii_ctrl1000_mod_linkmode_adv_t(phydev->advertising,
++							adv);
++		}
+ 		phy_resolve_aneg_linkmode(phydev);
+ 	} else if (phydev->autoneg == AUTONEG_DISABLE) {
+ 		err = genphy_read_status_fixed(phydev);
+
+base-commit: d549699048b4b5c22dd710455bcdb76966e55aa3
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.29.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
