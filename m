@@ -2,53 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 690302C2A83
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Nov 2020 15:57:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6F72C2AA9
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Nov 2020 16:03:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2610FC56631;
-	Tue, 24 Nov 2020 14:57:08 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D6F4C56630;
+	Tue, 24 Nov 2020 15:03:48 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+ [209.85.128.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A7EAC5662F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38114C32EA3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Nov 2020 14:57:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=J0J3E7b9p8oawWwuEj7kpUYKxWq5ce28QVykTXRpMWw=; b=u05sgykDakZ+56Z95sUEBTtjp
- o6F/rDI/sDO5xwz4tL2EqZb4Nczft02XO9EvJeef0tCFxtkfG3cgkaQo2KgjQLRGhubJNJpywtEIT
- ZFBFz89nuHKzIvvs8qkcu/caoeaqh24A3ZiVIv2g8JUdxJXbvGt/vnQHJOWj2xkQ4jtCEKb/qbtjb
- qQO41vt/Sa7p67hJ6Vvg4/cG25PG75Gw5FmDTMwNm/05G0mVRt7tosUcEVMZclmLUoITntUoYBOpV
- L1GN41vjd/d18I+Y1Sy6FW/DIQl7queUHwgp2UBZzvBBJs6xzJEujOXaF3Vbo/WQEFixU5PWuaWOs
- KIB7801zQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35532)
- by pandora.armlinux.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <linux@armlinux.org.uk>)
- id 1khZkS-0007qo-Q0; Tue, 24 Nov 2020 14:56:52 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1khZkN-0007Qk-I3; Tue, 24 Nov 2020 14:56:47 +0000
-Date: Tue, 24 Nov 2020 14:56:47 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Antonio Borneo <antonio.borneo@st.com>
-Message-ID: <20201124145647.GF1551@shell.armlinux.org.uk>
+ Tue, 24 Nov 2020 15:03:46 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id c198so2711331wmd.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 24 Nov 2020 07:03:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding;
+ bh=HFdlhJaaYtVAHZoZx+O2cfNnd2v0cgIEGMNjYfyBtsM=;
+ b=ZeuxxeGJizVrTQ8/+drC2BXOjRHNr8TNITrPHM54Kju6SErP4aUNRGzd2no43NToYD
+ GdUOSa+9BSjoQiP7X9sNWQ1giuNJPUv72hBAZXSCVj4MRdTf0HYgdM+tAR3fMuYvagD9
+ aOs6Dsgc8B7gcIHIz3Fenf0FpsxsbUQ4dR0YImjAtUWhpYyJJHznwBpsjgiP7MmQvPtH
+ j2bxpkbKc3T6wGJ6ono2W6k/NDP5bzUzFG9wyD4fI0ps2BZ5QDv73Q4CHF3bZz4iUKSy
+ Cw58Ivn2TvJpbCBhBu+BUT66wspodlZlJu6QPslG71dFXtiDQ10NrADNfnNilXlL8kQS
+ LlkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding;
+ bh=HFdlhJaaYtVAHZoZx+O2cfNnd2v0cgIEGMNjYfyBtsM=;
+ b=X8vmcGTRjm33qDt02c56cHJZXbM1BmYJuEPEkOOijcboE5HZgFWHSJ4ZtCNupHWdne
+ pXS7/ww4i4+J2JAuMtwFcsLwuWi+mDE/sxUze3g51HUsAwaagXh2NFr9wMJYee6qgtvy
+ /LNpJQwnnN0JYF2SaCCh193Rk2wQJlJiMQk/01slV6mVpNROXgl+nuFHNxeKnIwE3Iwt
+ zPpIAGkB6KxlCEh2LgxLDPUyqkapNe/HE1nrMenUYi68juES+/T6eJfCrJuABuhmRUxv
+ URcHHhZx4/W0v9Y4wFTQ+v1YEVQUoOo4QgZamFlz1PmpMMN9EFlGjiJn0EQOJOxmLTfF
+ PeRQ==
+X-Gm-Message-State: AOAM533+LDF2AoX2Nn9ILoN7Dvljn82aialTTHJZrkXctDTPhnL851fJ
+ tz5jiKYmp/WzLx4RCuiHcCs=
+X-Google-Smtp-Source: ABdhPJww+D+Kpjg5W65A9K3BrPYYERd+hjbvhkiesPVWAgqYd7TEqnJVbB08jzGFXDLnyziJPgEzhQ==
+X-Received: by 2002:a1c:3d05:: with SMTP id k5mr5093414wma.151.1606230225625; 
+ Tue, 24 Nov 2020 07:03:45 -0800 (PST)
+Received: from ?IPv6:2003:ea:8f23:2800:4cf3:cdf5:5d2a:5c8c?
+ (p200300ea8f2328004cf3cdf55d2a5c8c.dip0.t-ipconnect.de.
+ [2003:ea:8f23:2800:4cf3:cdf5:5d2a:5c8c])
+ by smtp.googlemail.com with ESMTPSA id u5sm5669309wml.13.2020.11.24.07.03.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Nov 2020 07:03:44 -0800 (PST)
+To: Antonio Borneo <antonio.borneo@st.com>, Andrew Lunn <andrew@lunn.ch>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ netdev@vger.kernel.org, Yonglong Liu <liuyonglong@huawei.com>
 References: <20201124143848.874894-1-antonio.borneo@st.com>
+From: Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <4684304a-37f5-e0cd-91cf-3f86318979c3@gmail.com>
+Date: Tue, 24 Nov 2020 16:03:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20201124143848.874894-1-antonio.borneo@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Andrew Lunn <andrew@lunn.ch>, Salil Mehta <salil.mehta@huawei.com>,
- netdev@vger.kernel.org, linuxarm@huawei.com, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Yonglong Liu <liuyonglong@huawei.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org,
- Heiner Kallweit <hkallweit1@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Salil Mehta <salil.mehta@huawei.com>,
+ linuxarm@huawei.com, stable@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] [PATCH] net: phy: fix auto-negotiation in case of
 	'down-shift'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -67,12 +82,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 24, 2020 at 03:38:48PM +0100, Antonio Borneo wrote:
+Am 24.11.2020 um 15:38 schrieb Antonio Borneo:
 > If the auto-negotiation fails to establish a gigabit link, the phy
 > can try to 'down-shift': it resets the bits in MII_CTRL1000 to
 > stop advertising 1Gbps and retries the negotiation at 100Mbps.
 > 
-> From commit 5502b218e001 ("net: phy: use phy_resolve_aneg_linkmode
+I see that Russell answered already. My 2cts:
+
+Are you sure all PHY's supporting downshift adjust the
+advertisement bits? IIRC an Aquantia PHY I dealt with does not.
+And if a PHY does so I'd consider this problematic:
+Let's say you have a broken cable and the PHY downshifts to
+100Mbps. If you change the cable then the PHY would still negotiate
+100Mbps only.
+
+Also I think phydev->advertising reflects what the user wants to
+advertise, as mentioned by Russell before.
+
+
+>>From commit 5502b218e001 ("net: phy: use phy_resolve_aneg_linkmode
 > in genphy_read_status") the content of MII_CTRL1000 is not checked
 > anymore at the end of the negotiation, preventing the detection of
 > phy 'down-shift'.
@@ -90,10 +118,44 @@ On Tue, Nov 24, 2020 at 03:38:48PM +0100, Antonio Borneo wrote:
 > After auto-negotiation, read back MII_CTRL1000 and mask-out from
 > phydev->advertising the modes that have been eventually discarded
 > due to the 'down-shift'.
-
-Sorry, but no. While your solution will appear to work, in
-introduces unexpected changes to the user visible APIs.
-
+> 
+> Fixes: 5502b218e001 ("net: phy: use phy_resolve_aneg_linkmode in genphy_read_status")
+> Cc: stable@vger.kernel.org # v5.1+
+> Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+> Link: https://lore.kernel.org/r/478f871a-583d-01f1-9cc5-2eea56d8c2a7@huawei.com
+> ---
+> To: Andrew Lunn <andrew@lunn.ch>
+> To: Heiner Kallweit <hkallweit1@gmail.com>
+> To: Russell King <linux@armlinux.org.uk>
+> To: "David S. Miller" <davem@davemloft.net>
+> To: Jakub Kicinski <kuba@kernel.org>
+> To: netdev@vger.kernel.org
+> To: Yonglong Liu <liuyonglong@huawei.com>
+> Cc: linuxarm@huawei.com
+> Cc: Salil Mehta <salil.mehta@huawei.com>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-kernel@vger.kernel.org
+> Cc: Antonio Borneo <antonio.borneo@st.com>
+> 
+>  drivers/net/phy/phy_device.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 5dab6be6fc38..5d1060aa1b25 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -2331,7 +2331,7 @@ EXPORT_SYMBOL(genphy_read_status_fixed);
+>   */
+>  int genphy_read_status(struct phy_device *phydev)
+>  {
+> -	int err, old_link = phydev->link;
+> +	int adv, err, old_link = phydev->link;
+>  
+>  	/* Update the link, but return if there was an error */
+>  	err = genphy_update_link(phydev);
+> @@ -2356,6 +2356,14 @@ int genphy_read_status(struct phy_device *phydev)
+>  		return err;
+>  
 >  	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete) {
 > +		if (phydev->is_gigabit_capable) {
 > +			adv = phy_read(phydev, MII_CTRL1000);
@@ -102,21 +164,14 @@ introduces unexpected changes to the user visible APIs.
 > +			/* update advertising in case of 'down-shift' */
 > +			mii_ctrl1000_mod_linkmode_adv_t(phydev->advertising,
 > +							adv);
+> +		}
+>  		phy_resolve_aneg_linkmode(phydev);
+>  	} else if (phydev->autoneg == AUTONEG_DISABLE) {
+>  		err = genphy_read_status_fixed(phydev);
+> 
+> base-commit: d549699048b4b5c22dd710455bcdb76966e55aa3
+> 
 
-If a down-shift occurs, this will cause the configured advertising
-mask to lose the 1G speed, which will be visible to userspace.
-Userspace doesn't expect the advertising mask to change beneath it.
-Since updates from userspace are done using a read-modify-write of
-the ksettings, this can have the undesired effect of removing 1G
-from the configured advertising mask.
-
-We've had other PHYs have this behaviour; the correct solution is for
-the PHY driver to implement reading the resolution from the PHY rather
-than relying on the generic implementation if it can down-shift.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
