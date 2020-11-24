@@ -2,107 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC0472C32EE
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Nov 2020 22:32:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 836072C339F
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Nov 2020 23:00:55 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A081C56630;
-	Tue, 24 Nov 2020 21:32:49 +0000 (UTC)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
- [209.85.215.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17282C56630;
+	Tue, 24 Nov 2020 22:00:55 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F054C32EA7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8C81C32EA7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Nov 2020 21:32:48 +0000 (UTC)
-Received: by mail-pg1-f193.google.com with SMTP id j19so371089pgg.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Nov 2020 13:32:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=nUebvx46WK355IC8BSYKhA86maU/C5TyOra9y/oS07E=;
- b=lzAwh4po+9zegkg/2K9x7CHiUUthvj2PFJyxHwt1QdcZQIdrGCSiE3JgzWuDiv+VMN
- KwBJ/6n/jsAIvSMb6eOJqvl2BVv6D2OMXP8giSKXaaH9JwLNdR2oULKAXe3g8bDVfAub
- 65Ll+320/JpDsvMBOWCFVSOrRLSDK1WOgK6ns=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=nUebvx46WK355IC8BSYKhA86maU/C5TyOra9y/oS07E=;
- b=KO31ERbGJjBJxczLC2XHiA+m5u27x6rlY0QKDi6uut4rA+NlO8rvtT9HMF6Fl1dIra
- b8ZgerEJMzXzKF2I7trx2c6Qm7+AIN8APMS+xzlEMhSDqISk0479zn1cO7hed2VUVuOO
- OnkwsjHng8Dph1ck2V47iSA0zdwB2P9Qi8P0e+vtfg+XCfxpYEZV+avWPtKWOz0vaLDd
- 5b/AmsTk9rTNCQGxf2GbYHQu7k/J0vzvVuHMtQPgwGRoajyiSJPgu5AJYDZMnrGv+EdI
- 1vyMhmgO6DPj4HJLwwPHDP+2yVBpkOqvyKjDdUqqLUMz6nyXHf1UgOhAkvV1hpEQaPkU
- 4aAA==
-X-Gm-Message-State: AOAM530NwRzhrnMvNhrBLgWen9rrSIJm8OcawQvnvmhW6Ox0Kht1Vn80
- gTCA6L6ColIdm088rpoVi+mgWg==
-X-Google-Smtp-Source: ABdhPJxq53hoH5g966jwbYjUDwfs6lHQ9KOfN5qCJ8fiAFBBjxy/+X2rEoTmF5zSw2rlwmYa8QmuBA==
-X-Received: by 2002:aa7:9af2:0:b029:198:273c:6be8 with SMTP id
- y18-20020aa79af20000b0290198273c6be8mr329847pfp.4.1606253566848; 
- Tue, 24 Nov 2020 13:32:46 -0800 (PST)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id j74sm15845pfd.43.2020.11.24.13.32.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2020 13:32:45 -0800 (PST)
-Date: Tue, 24 Nov 2020 13:32:44 -0800
-From: Kees Cook <keescook@chromium.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <202011241327.BB28F12F6@keescook>
-References: <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
- <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
- <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
- <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
- <20201123130348.GA3119@embeddedor>
- <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
+ Tue, 24 Nov 2020 22:00:54 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0AOLwW2m018710; Tue, 24 Nov 2020 23:00:26 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding : content-type; s=STMicroelectronics;
+ bh=/nsqPmbt8hlWF/ePqLKnAQe8oN8M+aSPJvRRrQxajqw=;
+ b=RvyzlBTd8uOvpig9x0ILiM4nOLUyL916s2Yhq6xCThcQFgQoHVYNr1veNP/0zPjb5yjA
+ o8Y3eNO4p2s0U3O+vnrdwOkZTN4TGRQ1Jdfu5vzfoQ465gCJx3JrKKn2bxiIXsIGOpMv
+ mgIi3VReKPF2BH/TMCSAvVC0Bv+u973Fc5MhqK6hhbyez1jtb01wJGYEzsDrrh99Caro
+ IDoF3AQQVaqFyi0wCzHZeGY7UiXIxlKWaS3fw1DOdrSZRtBjE7QHkSUFHtoNdCrNf8Ry
+ biylLd6+YnDlZn1UFQsMNdLIWldRUNrGMaVmYUAHACjcuNo2npTlnX/pHFkwxAk4Zj/v kQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34y05h9w0s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Nov 2020 23:00:26 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6004910002A;
+ Tue, 24 Nov 2020 23:00:25 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3FF85207403;
+ Tue, 24 Nov 2020 23:00:25 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG1NODE3.st.com (10.75.127.3)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 24 Nov 2020 23:00:24
+ +0100
+From: Antonio Borneo <antonio.borneo@st.com>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, <netdev@vger.kernel.org>,
+ Yonglong Liu <liuyonglong@huawei.com>, Willy Liu <willy.liu@realtek.com>
+Date: Tue, 24 Nov 2020 22:59:32 +0100
+Message-ID: <20201124215932.885306-1-antonio.borneo@st.com>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201124143848.874894-1-antonio.borneo@st.com>
+References: <20201124143848.874894-1-antonio.borneo@st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
- target-devel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
- linux-iio@vger.kernel.org, samba-technical@lists.samba.org,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
- wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
- linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
- linux-mmc@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- linux-ext4@vger.kernel.org, virtualization@lists.linux-foundation.org,
- netfilter-devel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-sctp@vger.kernel.org, reiserfs-devel@vger.kernel.org,
- linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-mediatek@lists.infradead.org, xen-devel@lists.xenproject.org,
- nouveau@lists.freedesktop.org, linux-hams@vger.kernel.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- Nick Desaulniers <ndesaulniers@google.com>, linux-nfs@vger.kernel.org,
- GR-Linux-NIC-Dev@marvell.com, linux-mm@kvack.org, netdev@vger.kernel.org,
- linux-decnet-user@lists.sourceforge.net, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, x86@kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [Linux-stm32] [Intel-wired-lan] [PATCH 000/141] Fix
- fall-through warnings for Clang
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG1NODE3.st.com
+ (10.75.127.3)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-24_09:2020-11-24,
+ 2020-11-24 signatures=0
+Cc: linux-kernel@vger.kernel.org, Salil Mehta <salil.mehta@huawei.com>,
+ linuxarm@huawei.com, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2] net: phy: realtek: read actual speed on
+	rtl8211f to detect downshift
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,34 +78,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Nov 23, 2020 at 08:31:30AM -0800, James Bottomley wrote:
-> Really, no ... something which produces no improvement has no value at
-> all ... we really shouldn't be wasting maintainer time with it because
-> it has a cost to merge.  I'm not sure we understand where the balance
-> lies in value vs cost to merge but I am confident in the zero value
-> case.
+The rtl8211f supports downshift and before commit 5502b218e001
+("net: phy: use phy_resolve_aneg_linkmode in genphy_read_status")
+the read-back of register MII_CTRL1000 was used to detect the
+negotiated link speed.
+The code added in commit d445dff2df60 ("net: phy: realtek: read
+actual speed to detect downshift") is working fine also for this
+phy and it's trivial re-using it to restore the downshift
+detection on rtl8211f.
 
-What? We can't measure how many future bugs aren't introduced because the
-kernel requires explicit case flow-control statements for all new code.
+Add the phy specific read_status() pointing to the existing
+function rtlgen_read_status().
 
-We already enable -Wimplicit-fallthrough globally, so that's not the
-discussion. The issue is that Clang is (correctly) even more strict
-than GCC for this, so these are the remaining ones to fix for full Clang
-coverage too.
+Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+Link: https://lore.kernel.org/r/478f871a-583d-01f1-9cc5-2eea56d8c2a7@huawei.com
+---
+To: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+To: "David S. Miller" <davem@davemloft.net>
+To: Jakub Kicinski <kuba@kernel.org>
+To: netdev@vger.kernel.org
+To: Yonglong Liu <liuyonglong@huawei.com>
+To: Willy Liu <willy.liu@realtek.com>
+Cc: linuxarm@huawei.com
+Cc: Salil Mehta <salil.mehta@huawei.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-kernel@vger.kernel.org
+In-Reply-To: <20201124143848.874894-1-antonio.borneo@st.com>
 
-People have spent more time debating this already than it would have
-taken to apply the patches. :)
+V1 => V2
+	move from a generic implementation affecting every phy
+	to a rtl8211f specific implementation
+---
+ drivers/net/phy/realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-This is about robustness and language wrangling. It's a big code-base,
-and this is the price of our managing technical debt for permanent
-robustness improvements. (The numbers I ran from Gustavo's earlier
-patches were that about 10% of the places adjusted were identified as
-legitimate bugs being fixed. This final series may be lower, but there
-are still bugs being found from it -- we need to finish this and shut
-the door on it for good.)
+diff --git a/drivers/net/phy/realtek.c b/drivers/net/phy/realtek.c
+index 575580d3ffe0..8ff8a4edc173 100644
+--- a/drivers/net/phy/realtek.c
++++ b/drivers/net/phy/realtek.c
+@@ -621,6 +621,7 @@ static struct phy_driver realtek_drvs[] = {
+ 		PHY_ID_MATCH_EXACT(0x001cc916),
+ 		.name		= "RTL8211F Gigabit Ethernet",
+ 		.config_init	= &rtl8211f_config_init,
++		.read_status	= rtlgen_read_status,
+ 		.ack_interrupt	= &rtl8211f_ack_interrupt,
+ 		.config_intr	= &rtl8211f_config_intr,
+ 		.suspend	= genphy_suspend,
 
+base-commit: 9bd2702d292cb7b565b09e949d30288ab7a26d51
 -- 
-Kees Cook
+2.29.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
