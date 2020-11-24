@@ -2,65 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39BFE2C2B3B
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Nov 2020 16:26:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A4832C2B5D
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Nov 2020 16:32:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E337CC56631;
-	Tue, 24 Nov 2020 15:26:53 +0000 (UTC)
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
- [209.85.221.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59E7BC56630;
+	Tue, 24 Nov 2020 15:32:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2165AC5662F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C143FC32EA7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Nov 2020 15:26:50 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id r3so4430390wrt.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Nov 2020 07:26:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding;
- bh=k+Iagc0aS3/EnNIwiIo6ZqVN4M6qIqWHIstOKgb6RBM=;
- b=TGjvJ/O8mQ4BBtCTUOVEuvsV/ulyv9D3/nkqLq3r4zf6F7FGNZdEDkcWnlyy4a+l7U
- P043tqdh98oNoPbqC//vEqQcPSrD07vn+8jH3FwcRaW6FAVACV6ZPVWYs+UywSdYXPWm
- JD35x6fSFaLzfOKw/PiTl2n1NS9OVamy9frAiCvPPnkoxUNuaObcfq1XcPzxu2xVc4il
- BhoDo2nUI0+EEB1ECp/CaDUJS/LOXHGY5P2Tz94BbS7SbLoT/fGHNUDGgRd2JXRVcA8I
- FgmrO0BpEOffA/txtAGYaVFgaUCs6KQzQZ7oaQvrzP9Dnz9hTvLa30tTHcozdCFFmDf1
- 8Hwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding;
- bh=k+Iagc0aS3/EnNIwiIo6ZqVN4M6qIqWHIstOKgb6RBM=;
- b=nF4bwC/NjSC1FsehCq2gbauXreDqtu3gRT8phj8MjiFeEbJVbgzdQ8lN/PbpMkTSVn
- 4tzl3FI36gOz02EpmQ21+VnwDVOMCiYcl9oZ0F7Jmynf72ZMhJSncDyMaViflpEVLhMu
- N2zmPWu/+epQbURBg4TtUAB7Fgg8oHhDm4Xd4wN5jxkXYsvcqXZpbkfAu4VlR4YJRwnC
- OFEkQiYMh+KDMaE8SA3nHLt1914bUZDqoW7ECBT5lFjC/u1ElvYzFKsYWTtU94XskLUb
- 8cTZjOXc7MGxZw9e+BvrZcjf2VjHRTzRH1uWCMxAjC6TNwkQ0qIY4v+ob/onGL+iqgCr
- d/6Q==
-X-Gm-Message-State: AOAM530h0nWmURcefn4wmhuoQRIl8Vto2/uU2Jy9S8ZLegXn2jIAIYFg
- vmVh2Avxy85lb2MBIcStCKc=
-X-Google-Smtp-Source: ABdhPJzo+2coZTD3QonwH13kAa3QAamwILg9Hc5MxylE0mG7e5z8jQKj9Ha49b3oHAPAyOhQC2sNtg==
-X-Received: by 2002:a5d:4004:: with SMTP id n4mr5768370wrp.230.1606231609659; 
- Tue, 24 Nov 2020 07:26:49 -0800 (PST)
-Received: from ?IPv6:2003:ea:8f23:2800:4cf3:cdf5:5d2a:5c8c?
- (p200300ea8f2328004cf3cdf55d2a5c8c.dip0.t-ipconnect.de.
- [2003:ea:8f23:2800:4cf3:cdf5:5d2a:5c8c])
- by smtp.googlemail.com with ESMTPSA id g131sm6426505wma.35.2020.11.24.07.26.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Nov 2020 07:26:49 -0800 (PST)
-To: Antonio Borneo <antonio.borneo@st.com>,
- Russell King - ARM Linux admin <linux@armlinux.org.uk>
+ Tue, 24 Nov 2020 15:32:49 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0AOFWFUL031036; Tue, 24 Nov 2020 16:32:33 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=message-id : subject :
+ from : to : cc : date : in-reply-to : references : content-type :
+ mime-version : content-transfer-encoding; s=STMicroelectronics;
+ bh=Ypt08g8yC5E1a0xePLAiZgQfojweHehBCCzNvuLtWM8=;
+ b=ct7IcYWFG9R1S++YtI/eB2Q8vNwL6mXtwZlS2wUZq07usEjhSZD7BLNSBiVxQgI0YE6H
+ 50lJkKkHklPp1rD9O+aZhvbEGPFdmniLjpQjP4Wns0NEuLQEUlLdm7z7cUWH8Fg/t5oR
+ /Wf+o7sMQr29/Ks6YbiDniNXGqF/tWNDE3u9i72WtV4mVxe6DXg50Y4OcKG7DMkLXl6u
+ cHalXrkDGDXFofZnexU1DdnXaJ+A6K7Namw3ZmD3tbzRNbmXo4srOuXSqDWpWAMwoZPK
+ xRA8Uys5hcX8RKXplwdNcgGh0HO9ZvL+Gfj39jTMBSkm8L37ycix4du1ZtEdtuAdqnWi mw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34y05h898p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Nov 2020 16:32:33 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7000F10002A;
+ Tue, 24 Nov 2020 16:32:32 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 562A52568E0;
+ Tue, 24 Nov 2020 16:32:32 +0100 (CET)
+Received: from [10.129.7.42] (10.75.127.50) by SFHDAG1NODE3.st.com
+ (10.75.127.3) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 24 Nov
+ 2020 16:32:30 +0100
+Message-ID: <e6cd5bdc3b50dedc4b751f86b8769dad6219591e.camel@st.com>
+From: Antonio Borneo <antonio.borneo@st.com>
+To: Russell King - ARM Linux admin <linux@armlinux.org.uk>, Heiner Kallweit
+ <hkallweit1@gmail.com>
+Date: Tue, 24 Nov 2020 16:31:40 +0100
+In-Reply-To: <20201124151716.GG1551@shell.armlinux.org.uk>
 References: <20201124143848.874894-1-antonio.borneo@st.com>
- <20201124145647.GF1551@shell.armlinux.org.uk>
- <bd83b9c15f6cfed5df90da4f6b50d1a3f479b831.camel@st.com>
-From: Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <2dc7ad93-5719-dd8a-44a9-8667a22a3b19@gmail.com>
-Date: Tue, 24 Nov 2020 16:26:43 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+ <4684304a-37f5-e0cd-91cf-3f86318979c3@gmail.com>
+ <20201124151716.GG1551@shell.armlinux.org.uk>
+User-Agent: Evolution 3.38.2 
 MIME-Version: 1.0
-In-Reply-To: <bd83b9c15f6cfed5df90da4f6b50d1a3f479b831.camel@st.com>
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG1NODE3.st.com
+ (10.75.127.3)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-24_04:2020-11-24,
+ 2020-11-24 signatures=0
 Cc: Andrew Lunn <andrew@lunn.ch>, Salil Mehta <salil.mehta@huawei.com>,
  netdev@vger.kernel.org, linuxarm@huawei.com, stable@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
@@ -79,59 +75,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-QW0gMjQuMTEuMjAyMCB1bSAxNjoxNyBzY2hyaWViIEFudG9uaW8gQm9ybmVvOgo+IE9uIFR1ZSwg
-MjAyMC0xMS0yNCBhdCAxNDo1NiArMDAwMCwgUnVzc2VsbCBLaW5nIC0gQVJNIExpbnV4IGFkbWlu
-IHdyb3RlOgo+PiBPbiBUdWUsIE5vdiAyNCwgMjAyMCBhdCAwMzozODo0OFBNICswMTAwLCBBbnRv
-bmlvIEJvcm5lbyB3cm90ZToKPj4+IElmIHRoZSBhdXRvLW5lZ290aWF0aW9uIGZhaWxzIHRvIGVz
-dGFibGlzaCBhIGdpZ2FiaXQgbGluaywgdGhlIHBoeQo+Pj4gY2FuIHRyeSB0byAnZG93bi1zaGlm
-dCc6IGl0IHJlc2V0cyB0aGUgYml0cyBpbiBNSUlfQ1RSTDEwMDAgdG8KPj4+IHN0b3AgYWR2ZXJ0
-aXNpbmcgMUdicHMgYW5kIHJldHJpZXMgdGhlIG5lZ290aWF0aW9uIGF0IDEwME1icHMuCj4+Pgo+
-Pj4gRnJvbSBjb21taXQgNTUwMmIyMThlMDAxICgibmV0OiBwaHk6IHVzZSBwaHlfcmVzb2x2ZV9h
-bmVnX2xpbmttb2RlCj4+PiBpbiBnZW5waHlfcmVhZF9zdGF0dXMiKSB0aGUgY29udGVudCBvZiBN
-SUlfQ1RSTDEwMDAgaXMgbm90IGNoZWNrZWQKPj4+IGFueW1vcmUgYXQgdGhlIGVuZCBvZiB0aGUg
-bmVnb3RpYXRpb24sIHByZXZlbnRpbmcgdGhlIGRldGVjdGlvbiBvZgo+Pj4gcGh5ICdkb3duLXNo
-aWZ0Jy4KPj4+IEluIGNhc2Ugb2YgJ2Rvd24tc2hpZnQnIHBoeWRldi0+YWR2ZXJ0aXNpbmcgZ2V0
-cyBvdXQtb2Ytc3luYyB3cnQKPj4+IE1JSV9DVFJMMTAwMCBhbmQgc3RpbGwgaW5jbHVkZXMgbW9k
-ZXMgdGhhdCB0aGUgcGh5IGhhdmUgYWxyZWFkeQo+Pj4gZHJvcHBlZC4gVGhlIGxpbmsgcGFydG5l
-ciBjb3VsZCBzdGlsbCBhZHZlcnRpc2UgaGlnaGVyIHNwZWVkcywKPj4+IHdoaWxlIHRoZSBsaW5r
-IGlzIGVzdGFibGlzaGVkIGF0IG9uZSBvZiB0aGUgY29tbW9uIGxvd2VyIHNwZWVkcy4KPj4+IFRo
-ZSBsb2dpYyAnYW5kJyBpbiBwaHlfcmVzb2x2ZV9hbmVnX2xpbmttb2RlKCkgYmV0d2Vlbgo+Pj4g
-cGh5ZGV2LT5hZHZlcnRpc2luZyBhbmQgcGh5ZGV2LT5scF9hZHZlcnRpc2luZyB3aWxsIHJlcG9y
-dCBhbgo+Pj4gaW5jb3JyZWN0IG1vZGUuCj4+Pgo+Pj4gSXNzdWUgZGV0ZWN0ZWQgd2l0aCBhIGxv
-Y2FsIHBoeSBydGw4MjExZiBjb25uZWN0ZWQgd2l0aCBhIGdpZ2FiaXQKPj4+IGNhcGFibGUgcm91
-dGVyIHRocm91Z2ggYSB0d28tcGFpcnMgbmV0d29yayBjYWJsZS4KPj4+Cj4+PiBBZnRlciBhdXRv
-LW5lZ290aWF0aW9uLCByZWFkIGJhY2sgTUlJX0NUUkwxMDAwIGFuZCBtYXNrLW91dCBmcm9tCj4+
-PiBwaHlkZXYtPmFkdmVydGlzaW5nIHRoZSBtb2RlcyB0aGF0IGhhdmUgYmVlbiBldmVudHVhbGx5
-IGRpc2NhcmRlZAo+Pj4gZHVlIHRvIHRoZSAnZG93bi1zaGlmdCcuCj4+Cj4+IFNvcnJ5LCBidXQg
-bm8uIFdoaWxlIHlvdXIgc29sdXRpb24gd2lsbCBhcHBlYXIgdG8gd29yaywgaW4KPj4gaW50cm9k
-dWNlcyB1bmV4cGVjdGVkIGNoYW5nZXMgdG8gdGhlIHVzZXIgdmlzaWJsZSBBUElzLgo+Pgo+Pj4g
-wqAJaWYgKHBoeWRldi0+YXV0b25lZyA9PSBBVVRPTkVHX0VOQUJMRSAmJiBwaHlkZXYtPmF1dG9u
-ZWdfY29tcGxldGUpIHsKPj4+ICsJCWlmIChwaHlkZXYtPmlzX2dpZ2FiaXRfY2FwYWJsZSkgewo+
-Pj4gKwkJCWFkdiA9IHBoeV9yZWFkKHBoeWRldiwgTUlJX0NUUkwxMDAwKTsKPj4+ICsJCQlpZiAo
-YWR2IDwgMCkKPj4+ICsJCQkJcmV0dXJuIGFkdjsKPj4+ICsJCQkvKiB1cGRhdGUgYWR2ZXJ0aXNp
-bmcgaW4gY2FzZSBvZiAnZG93bi1zaGlmdCcgKi8KPj4+ICsJCQltaWlfY3RybDEwMDBfbW9kX2xp
-bmttb2RlX2Fkdl90KHBoeWRldi0+YWR2ZXJ0aXNpbmcsCj4+PiArCQkJCQkJCWFkdik7Cj4+Cj4+
-IElmIGEgZG93bi1zaGlmdCBvY2N1cnMsIHRoaXMgd2lsbCBjYXVzZSB0aGUgY29uZmlndXJlZCBh
-ZHZlcnRpc2luZwo+PiBtYXNrIHRvIGxvc2UgdGhlIDFHIHNwZWVkLCB3aGljaCB3aWxsIGJlIHZp
-c2libGUgdG8gdXNlcnNwYWNlLgo+IAo+IFlvdSBhcmUgcmlnaHQsIGl0IGdldHMgcHJvcGFnYXRl
-ZCB0byB1c2VyIHRoYXQgMUdicHMgaXMgbm90IGFkdmVydGlzZWQKPiAKPj4gVXNlcnNwYWNlIGRv
-ZXNuJ3QgZXhwZWN0IHRoZSBhZHZlcnRpc2luZyBtYXNrIHRvIGNoYW5nZSBiZW5lYXRoIGl0Lgo+
-PiBTaW5jZSB1cGRhdGVzIGZyb20gdXNlcnNwYWNlIGFyZSBkb25lIHVzaW5nIGEgcmVhZC1tb2Rp
-Znktd3JpdGUgb2YKPj4gdGhlIGtzZXR0aW5ncywgdGhpcyBjYW4gaGF2ZSB0aGUgdW5kZXNpcmVk
-IGVmZmVjdCBvZiByZW1vdmluZyAxRwo+PiBmcm9tIHRoZSBjb25maWd1cmVkIGFkdmVydGlzaW5n
-IG1hc2suCj4+Cj4+IFdlJ3ZlIGhhZCBvdGhlciBQSFlzIGhhdmUgdGhpcyBiZWhhdmlvdXI7IHRo
-ZSBjb3JyZWN0IHNvbHV0aW9uIGlzIGZvcgo+PiB0aGUgUEhZIGRyaXZlciB0byBpbXBsZW1lbnQg
-cmVhZGluZyB0aGUgcmVzb2x1dGlvbiBmcm9tIHRoZSBQSFkgcmF0aGVyCj4+IHRoYW4gcmVseWlu
-ZyBvbiB0aGUgZ2VuZXJpYyBpbXBsZW1lbnRhdGlvbiBpZiBpdCBjYW4gZG93bi1zaGlmdAo+IAo+
-IElmIGl0J3MgYWxyZWFkeSB1cHN0cmVhbSwgY291bGQgeW91IHBsZWFzZSBwb2ludCB0byBvbmUg
-b2YgdGhlIHBoeSBkcml2ZXIKPiB0aGF0IGFscmVhZHkgaW1wbGVtZW50cyB0aGlzIHByb3Blcmx5
-Pwo+IAoKU2VlIGUuZy4gYXFyMTA3X3JlYWRfcmF0ZSgpLCB1c2VkIGJ5IGFxcjEwN19yZWFkX3N0
-YXR1cygpLgoKPiBUaGFua3MKPiBBbnRvbmlvCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Tue, 2020-11-24 at 15:17 +0000, Russell King - ARM Linux admin wrote:
+> On Tue, Nov 24, 2020 at 04:03:40PM +0100, Heiner Kallweit wrote:
+> > Am 24.11.2020 um 15:38 schrieb Antonio Borneo:
+> > > If the auto-negotiation fails to establish a gigabit link, the phy
+> > > can try to 'down-shift': it resets the bits in MII_CTRL1000 to
+> > > stop advertising 1Gbps and retries the negotiation at 100Mbps.
+> > > 
+> > I see that Russell answered already. My 2cts:
+> > 
+> > Are you sure all PHY's supporting downshift adjust the
+> > advertisement bits? IIRC an Aquantia PHY I dealt with does not.
+> > And if a PHY does so I'd consider this problematic:
+> > Let's say you have a broken cable and the PHY downshifts to
+> > 100Mbps. If you change the cable then the PHY would still negotiate
+> > 100Mbps only.
+> 
+> From what I've seen, that is not how downshift works, at least on
+> the PHYs I've seen.
+> 
+> When the PHY downshifts, it modifies the advertisement registers,
+> but it also remembers the original value. When the cable is
+> unplugged, it restores the setting to what was previously set.
+
+In fact, at least rtl8211f is able to recover the original settings and
+returns to 1Gbps once a decent cable gets plugged-in.
+
+> 
+> It is _far_ from nice, but the fact is that your patch that Antonio
+> identified has broken previously working support, something that I
+> brought up when I patched one of the PHY drivers that was broken by
+> this very same problem by your patch.
+
+The idea to fix it for a general case was indeed triggered by the fact that
+before commit 5502b218e001 this was the norm. I considered it as a
+regression.
+
+> 
+> That said, _if_ the PHY has a way to read the resolved state rather
+> than reading the advertisement registers, that is what should be
+> used (as I said previously) rather than trying to decode the
+> advertisement registers ourselves. That is normally more reliable
+> for speed and duplex.
+> 
+
+Wrt rtl8211f I don't have info other then the public datasheet, and there I
+didn't found any way other than reading the advertisement register.
+
+I have read the latest comment from Heiner. I will check aqr107!
+
+Thanks
+Antonio
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
