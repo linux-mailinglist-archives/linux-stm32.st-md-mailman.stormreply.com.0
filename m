@@ -2,48 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0ED22C4A5A
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Nov 2020 23:09:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9975B2C4B6A
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Nov 2020 00:22:01 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9B01C5662F;
-	Wed, 25 Nov 2020 22:09:44 +0000 (UTC)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
- [209.85.214.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FA1FC32EA3
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 485E8C5662F;
+	Wed, 25 Nov 2020 23:22:01 +0000 (UTC)
+Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
+ [98.124.60.144])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19C66C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Nov 2020 22:09:42 +0000 (UTC)
-Received: by mail-pl1-f196.google.com with SMTP id k5so94294plt.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Nov 2020 14:09:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/ob3FEJdYP5qhdHPeLajEb6PUDm9frxLF1mdXzRdH3M=;
- b=L3KZpP3LXxZlW/DP5AmTnD4MuZ72/rcy+coOeUVeCNTiwrWtzoVQx/hBMoKUsqDMm0
- Foet9vcyJsJZ2PSgueU+Q+MvDj0KUWyeWX5guwBWRMdbnXZ08cX56htqXhsZrxHUuRIn
- vYFnIpmbgrasg1vSD5AH5hKwOy9NejMhVovtjBrzY+2P0ug3w3+5RlYsOk03C83VD9da
- OdGtf9c6uotPHdYcmuyOqbnF5k3fP8Yo6l5eFDVR7n6m5okfFX1oHlXNOB3u6UsnrVGE
- wa6MluYkHn1XOYZTDyrE2KQmcun7Qe6vVmhaYurLDnZVMQG/lFJsGakXcuEY3+Obie2U
- RVfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/ob3FEJdYP5qhdHPeLajEb6PUDm9frxLF1mdXzRdH3M=;
- b=fAHYwJphWV03gWaEKrThemAR+/pwICvzH0v5UKTOS+pZPNLan/4AfCVQ6Empc7iXV8
- TN4QeO3zGvYCWM1n1cfnkthNsdm7rToE2q81M1zbUCOcl/aK4o3Mcoaryazg0nNB8+GW
- PJKcdpSKXTwUTa9UuY4EPEXWTeq7NjGcf6W2CZqlFQ4C1u7qcBY3MCqechQBpE9mC0X5
- hDypc/N6aSHnzvbb7Uv515PHwaVqPuqrcuxaozI7wsO40A2pyvC9Z46IsaEfbLOp87ZA
- yht2HG4Xyy++r+cx7u9nTV+B3Q4hPz7sYI/zTVXvbzgtwiEyw2Dya8uvbK9qCAzZjbD9
- JIOw==
-X-Gm-Message-State: AOAM530ZmqRMcZ/NQ2EKNERcpYVwI76C2c4pfo4IvELi4LbFG2vDAzuZ
- Uneq1PBpa4Y0CHOOY0VATC0yQ//0LS2ALR2LF6PiyQ==
-X-Google-Smtp-Source: ABdhPJz8lLt/1COGEMpWkFDfyIK6h7HwbxIAa+xtHaAqLUfnjsVh22wexUgkVgdtXLczfRnuDI51yr8PXCWqKuZKul4=
-X-Received: by 2002:a17:902:c14a:b029:d8:dc05:d7ef with SMTP id
- 10-20020a170902c14ab02900d8dc05d7efmr4885886plj.83.1606342180784; Wed, 25 Nov
- 2020 14:09:40 -0800 (PST)
-MIME-Version: 1.0
+ Wed, 25 Nov 2020 23:21:59 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by kvm5.telegraphics.com.au (Postfix) with ESMTP id 414EA2A490;
+ Wed, 25 Nov 2020 18:21:54 -0500 (EST)
+Date: Thu, 26 Nov 2020 10:21:54 +1100 (AEDT)
+From: Finn Thain <fthain@telegraphics.com.au>
+To: Nick Desaulniers <ndesaulniers@google.com>
+In-Reply-To: <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
+Message-ID: <alpine.LNX.2.23.453.2011260918510.6@nippy.intranet>
 References: <202011201129.B13FDB3C@keescook>
  <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
  <202011220816.8B6591A@keescook>
@@ -58,11 +34,8 @@ References: <202011201129.B13FDB3C@keescook>
  <a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
  <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
  <alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
-In-Reply-To: <alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Wed, 25 Nov 2020 14:09:29 -0800
-Message-ID: <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
-To: Finn Thain <fthain@telegraphics.com.au>
+ <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
+MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
  target-devel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
  linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
@@ -110,7 +83,7 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
  Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
  linux-nfs@vger.kernel.org, linux-hardening@vger.kernel.org
 Subject: Re: [Linux-stm32] [Intel-wired-lan] [PATCH 000/141] Fix
-	fall-through warnings for Clang
+ fall-through warnings for Clang
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,36 +100,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Nov 25, 2020 at 1:33 PM Finn Thain <fthain@telegraphics.com.au> wrote:
->
-> Or do you think that a codebase can somehow satisfy multiple checkers and
-> their divergent interpretations of the language spec?
+On Wed, 25 Nov 2020, Nick Desaulniers wrote:
 
-Have we found any cases yet that are divergent? I don't think so.  It
-sounds to me like GCC's cases it warns for is a subset of Clang's.
-Having additional coverage with Clang then should ensure coverage for
-both.
-
-> > This is not a shiny new warning; it's already on for GCC and has existed
-> > in both compilers for multiple releases.
+> On Wed, Nov 25, 2020 at 1:33 PM Finn Thain <fthain@telegraphics.com.au> 
+> wrote:
 > >
->
-> Perhaps you're referring to the compiler feature that lead to the
-> ill-fated, tree-wide /* fallthrough */ patch series.
->
-> When the ink dries on the C23 language spec and the implementations figure
-> out how to interpret it then sure, enforce the warning for new code -- the
-> cost/benefit analysis is straight forward. However, the case for patching
-> existing mature code is another story.
+> > Or do you think that a codebase can somehow satisfy multiple checkers 
+> > and their divergent interpretations of the language spec?
+> 
+> Have we found any cases yet that are divergent? I don't think so.
 
-I don't think we need to wait for the ink to dry on the C23 language
-spec to understand that implicit fallthrough is an obvious defect of
-the C language.  While the kernel is a mature codebase, it's not
-immune to bugs.  And its maturity has yet to slow its rapid pace of
-development.
--- 
-Thanks,
-~Nick Desaulniers
+There are many implementations, so I think you are guaranteed to find more 
+divergence if you look. That's because the spec is full of language like 
+this: "implementations are encouraged not to emit a diagnostic" and 
+"implementations are encouraged to issue a diagnostic".
+
+Some implementations will decide to not emit (under the premise that vast 
+amounts of existing code would have to get patched until the compiler goes 
+quiet) whereas other implementations will decide to emit (under the 
+premise that the author is doing the checking and not the janitor or the 
+packager).
+
+> It sounds to me like GCC's cases it warns for is a subset of Clang's. 
+> Having additional coverage with Clang then should ensure coverage for 
+> both.
+> 
+
+If that claim were true, the solution would be simple. (It's not.)
+
+For the benefit of projects that enable -Werror and projects that 
+nominated gcc as their preferred compiler, clang would simply need a flag 
+to enable conformance with gcc by suppressing those additional warnings 
+that clang would normally produce.
+
+This simple solution is, of course, completely unworkable, since it would 
+force clang to copy some portion of gcc's logic (rewritten under LLVM's 
+unique license) and then to track future changes to that portion of gcc 
+indefinitely.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
