@@ -2,69 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7883E2C44D7
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Nov 2020 17:24:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 884CF2C4618
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Nov 2020 17:57:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3845FC5662F;
-	Wed, 25 Nov 2020 16:24:14 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44FD5C5662F;
+	Wed, 25 Nov 2020 16:57:48 +0000 (UTC)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1888C424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0B21C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Nov 2020 16:24:12 +0000 (UTC)
-Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com (unknown
- [163.114.132.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 867952067C;
- Wed, 25 Nov 2020 16:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606321450;
- bh=GZ2k+AA6ahSTxK1Lb66nxQ5QpMsxQMwUtXM6UrJuD5k=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=o0jPLXU5vRd5gkErOG+l7hZeBdnc0mPNkdd6O5DWsXDAKIVZ2C96zG0tcOWSvOOEW
- +aPDAqgCVL2k+j5MKH8XxKfk9jsHh44ZvIyml45/mV5SL7Kf2RcLQB8xCvtxafIM4N
- usaGZavY91klVUpIE9ogGjcSBu1B0MRmyXV9nrIc=
-Date: Wed, 25 Nov 2020 08:24:05 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Message-ID: <20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
-References: <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
- <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
- <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
- <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
- <20201123130348.GA3119@embeddedor>
- <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
- <202011241327.BB28F12F6@keescook>
- <a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
- <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
+ Wed, 25 Nov 2020 16:57:45 +0000 (UTC)
+Received: from dggeme760-chm.china.huawei.com (unknown [172.30.72.56])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4Ch6WC6T31z4xMb;
+ Thu, 26 Nov 2020 00:57:11 +0800 (CST)
+Received: from [127.0.0.1] (10.57.36.170) by dggeme760-chm.china.huawei.com
+ (10.3.19.106) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1913.5; Thu, 26
+ Nov 2020 00:57:38 +0800
+From: Yonglong Liu <liuyonglong@huawei.com>
+To: Antonio Borneo <antonio.borneo@st.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ <netdev@vger.kernel.org>, Willy Liu <willy.liu@realtek.com>
+References: <20201124143848.874894-1-antonio.borneo@st.com>
+ <20201124230756.887925-1-antonio.borneo@st.com>
+ <d62710c3-7813-7506-f209-fcfa65931778@huawei.com>
+Message-ID: <f24476cc-39f0-ea5f-d6af-faad481e3235@huawei.com>
+Date: Thu, 26 Nov 2020 00:57:37 +0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.0.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
-	open@stm-ict-prod-mailman-01.stormreply.prv,
-	"list:HARDWARE"@stm-ict-prod-mailman-01.stormreply.prv,
-	RANDOM@stm-ict-prod-mailman-01.stormreply.prv,
-	NUMBER@stm-ict-prod-mailman-01.stormreply.prv,
-	GENERATOR@stm-ict-prod-mailman-01.stormreply.prv,
-	CORE@stm-ict-prod-mailman-01.stormreply.prv,
-	"          <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,  linux-integrity@vger.kernel.org, target-devel@vger.kernel.org,  linux-hardening@vger.kernel.org, Jonathan Cameron  <Jonathan.Cameron@huawei.com>, Greg KH <gregkh@linuxfoundation.org>,  linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,  linux-fbdev@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,  "@stm-ict-prod-mailman-01.stormreply.prv,
-	Gustavo@stm-ict-prod-mailman-01.stormreply.prv,
-	A.R.Silva@stm-ict-prod-mailman-01.stormreply.prv,
-	" <gustavoars@kernel.org>,  James Bottomley <James.Bottomley@hansenpartnership.com>,  linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,  linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,  wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,  linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,  drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,  linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,  linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,  linux-rdma@vger.kernel.org, oss-drivers@netronome.com,  linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,  amd-gfx list <amd-gfx@lists.freedesktop.org>,  linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,  usb-storage@lists.one-eyed-alien.net, linux-mmc@vger.kernel.org,  coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,  linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,  xen-devel@lists.xenproject.org, linux-ext
- 4@vger.kernel.org,  virtualization@lists.linux-foundation.org, netfilter-devel@vger.kernel.org,  linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,  selinux@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,  intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,  reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,  linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,  op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,  nouveau@lists.freedesktop.org, linux-hams@vger.kernel.org,  Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,  Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,  "@stm-ict-prod-mailman-01.stormreply.prv,
-	"maintainer:X86"@stm-ict-prod-mailman-01.stormreply.prv,
-	ARCHITECTURE@stm-ict-prod-mailman-01.stormreply.prv,
-	"(32-BIT"@stm-ict-prod-mailman-01.stormreply.prv,
-	AND@stm-ict-prod-mailman-01.stormreply.prv,
-	"64-BIT)"@stm-ict-prod-mailman-01.stormreply.prv,
-	" <x86@kernel.org>,  linux-watchdog@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,  Linux Memory Management List <linux-mm@kvack.org>,  Network Development <netdev@vger.kernel.org>,  linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,  LKML <linux-kernel@vger.kernel.org>,  Linux-Renesas <linux-renesas-soc@vger.kernel.org>,  linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,  tipc-discussion@lists.sourceforge.net, Joe Perches <joe@perches.com>,  linux-nfs@vger.kernel.org"@stm-ict-prod-mailman-01.stormreply.prv
-Subject: Re: [Linux-stm32] [Intel-wired-lan] [PATCH 000/141] Fix
- fall-through warnings for Clang
+In-Reply-To: <d62710c3-7813-7506-f209-fcfa65931778@huawei.com>
+Content-Language: en-US
+X-Originating-IP: [10.57.36.170]
+X-ClientProxiedBy: dggeme720-chm.china.huawei.com (10.1.199.116) To
+ dggeme760-chm.china.huawei.com (10.3.19.106)
+X-CFilter-Loop: Reflected
+Cc: Salil Mehta <salil.mehta@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linuxarm@huawei.com
+Subject: Re: [Linux-stm32] [PATCH v3 net-next] net: phy: realtek: read
+ actual speed on rtl8211f to detect downshift
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,56 +55,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 25 Nov 2020 04:24:27 -0800 Nick Desaulniers wrote:
-> I even agree that most of the churn comes from
-> 
-> case 0:
->   ++x;
-> default:
->   break;
-
-And just to spell it out,
-
-case ENUM_VALUE1:
-	bla();
-	break;
-case ENUM_VALUE2:
-	bla();
-default:
-	break;
-
-is a fairly idiomatic way of indicating that not all values of the enum
-are expected to be handled by the switch statement. 
-
-I really hope the Clang folks are reasonable and merge your patch.
-
-> If trivial patches are adding too much to your workload, consider
-> training a co-maintainer or asking for help from one of your reviewers
-> whom you trust.  I don't doubt it's hard to find maintainers, but
-> existing maintainers should go out of their way to entrust
-> co-maintainers especially when they find their workload becomes too
-> high.  And reviewing/picking up trivial patches is probably a great
-> way to get started.  If we allow too much knowledge of any one
-> subsystem to collect with one maintainer, what happens when that
-> maintainer leaves the community (which, given a finite lifespan, is an
-> inevitability)?
-
-The burn out point is about enjoying your work and feeling that it
-matters. It really doesn't make much difference if you're doing
-something you don't like for 12 hours every day or only in shifts with
-another maintainer. You'll dislike it either way.
-
-Applying a real patch set and then getting a few follow ups the next day
-for trivial coding things like fallthrough missing or static missing,
-just because I didn't have the full range of compilers to check with
-before applying makes me feel pretty shitty, like I'm not doing a good
-job. YMMV.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksIEFudG9uaW86CgogwqDCoMKgIENvdWxkIHlvdSBoZWxwIHRvIHByb3ZpZGUgYSBkb3duc2hp
+ZnQgd2FybmluZyBtZXNzYWdlIHdoZW4gdGhpcyAKaGFwcGVuPwoKIMKgwqDCoCBJdCdzIGEgbGl0
+dGxlIHN0cmFuZ2UgdGhhdCB0aGUgYWR2IGFuZCB0aGUgbHBhIHN1cHBvcnQgMTAwME0sIGJ1dCAK
+ZmluYWxseSB0aGUgbGluayBzcGVlZCBpcyAxMDBNLgoKU2V0dGluZ3MgZm9yIGV0aDU6CiAgICAg
+ICAgIFN1cHBvcnRlZCBwb3J0czogWyBUUCBdCiAgICAgICAgIFN1cHBvcnRlZCBsaW5rIG1vZGVz
+OiAgIDEwYmFzZVQvSGFsZiAxMGJhc2VUL0Z1bGwKICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgMTAwYmFzZVQvSGFsZiAxMDBiYXNlVC9GdWxsCiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIDEwMDBiYXNlVC9GdWxsCiAgICAgICAgIFN1cHBvcnRlZCBwYXVzZSBmcmFtZSB1
+c2U6IFN5bW1ldHJpYyBSZWNlaXZlLW9ubHkKICAgICAgICAgU3VwcG9ydHMgYXV0by1uZWdvdGlh
+dGlvbjogWWVzCiAgICAgICAgIFN1cHBvcnRlZCBGRUMgbW9kZXM6IE5vdCByZXBvcnRlZAogICAg
+ICAgICAqQWR2ZXJ0aXNlZCBsaW5rIG1vZGVzOiAgMTBiYXNlVC9IYWxmIDEwYmFzZVQvRnVsbAog
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMDBiYXNlVC9IYWxmIDEwMGJhc2VUL0Z1
+bGwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTAwMGJhc2VUL0Z1bGwqCiAgICAg
+ICAgIEFkdmVydGlzZWQgcGF1c2UgZnJhbWUgdXNlOiBTeW1tZXRyaWMKICAgICAgICAgQWR2ZXJ0
+aXNlZCBhdXRvLW5lZ290aWF0aW9uOiBZZXMKICAgICAgICAgQWR2ZXJ0aXNlZCBGRUMgbW9kZXM6
+IE5vdCByZXBvcnRlZAogICAgICAgICAqTGluayBwYXJ0bmVyIGFkdmVydGlzZWQgbGluayBtb2Rl
+czogIDEwYmFzZVQvSGFsZiAxMGJhc2VUL0Z1bGwKICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDEwMGJhc2VUL0hhbGYgMTAwYmFzZVQvRnVsbAogICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTAwMGJhc2VUL0Z1bGwqCiAgICAg
+ICAgIExpbmsgcGFydG5lciBhZHZlcnRpc2VkIHBhdXNlIGZyYW1lIHVzZTogU3ltbWV0cmljCiAg
+ICAgICAgIExpbmsgcGFydG5lciBhZHZlcnRpc2VkIGF1dG8tbmVnb3RpYXRpb246IFllcwogICAg
+ICAgICBMaW5rIHBhcnRuZXIgYWR2ZXJ0aXNlZCBGRUMgbW9kZXM6IE5vdCByZXBvcnRlZAogICAg
+ICAgICAqU3BlZWQ6IDEwME1iL3MqCiAgICAgICAgIER1cGxleDogRnVsbAogICAgICAgICBQb3J0
+OiBNSUkKICAgICAgICAgUEhZQUQ6IDMKICAgICAgICAgVHJhbnNjZWl2ZXI6IGludGVybmFsCiAg
+ICAgICAgIEF1dG8tbmVnb3RpYXRpb246IG9uCiAgICAgICAgIEN1cnJlbnQgbWVzc2FnZSBsZXZl
+bDogMHgwMDAwMDAzNiAoNTQpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcHJvYmUg
+bGluayBpZmRvd24gaWZ1cAogICAgICAgICBMaW5rIGRldGVjdGVkOiB5ZXMKCgogICAgIAoKT24g
+MjAyMC8xMS8yNSAyMzowMywgWW9uZ2xvbmcgTGl1IHdyb3RlOgo+IFRlc3RlZC1ieTogWW9uZ2xv
+bmcgTGl1IDxsaXV5b25nbG9uZ0BodWF3ZWkuY29tPgo+Cj4gT24gMjAyMC8xMS8yNSA3OjA3LCBB
+bnRvbmlvIEJvcm5lbyB3cm90ZToKPj4gVGhlIHJ0bDgyMTFmIHN1cHBvcnRzIGRvd25zaGlmdCBh
+bmQgYmVmb3JlIGNvbW1pdCA1NTAyYjIxOGUwMDEKPj4gKCJuZXQ6IHBoeTogdXNlIHBoeV9yZXNv
+bHZlX2FuZWdfbGlua21vZGUgaW4gZ2VucGh5X3JlYWRfc3RhdHVzIikKPj4gdGhlIHJlYWQtYmFj
+ayBvZiByZWdpc3RlciBNSUlfQ1RSTDEwMDAgd2FzIHVzZWQgdG8gZGV0ZWN0IHRoZQo+PiBuZWdv
+dGlhdGVkIGxpbmsgc3BlZWQuCj4+IFRoZSBjb2RlIGFkZGVkIGluIGNvbW1pdCBkNDQ1ZGZmMmRm
+NjAgKCJuZXQ6IHBoeTogcmVhbHRlazogcmVhZAo+PiBhY3R1YWwgc3BlZWQgdG8gZGV0ZWN0IGRv
+d25zaGlmdCIpIGlzIHdvcmtpbmcgZmluZSBhbHNvIGZvciB0aGlzCj4+IHBoeSBhbmQgaXQncyB0
+cml2aWFsIHJlLXVzaW5nIGl0IHRvIHJlc3RvcmUgdGhlIGRvd25zaGlmdAo+PiBkZXRlY3Rpb24g
+b24gcnRsODIxMWYuCj4+Cj4+IEFkZCB0aGUgcGh5IHNwZWNpZmljIHJlYWRfc3RhdHVzKCkgcG9p
+bnRpbmcgdG8gdGhlIGV4aXN0aW5nCj4+IGZ1bmN0aW9uIHJ0bGdlbl9yZWFkX3N0YXR1cygpLgo+
+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBBbnRvbmlvIEJvcm5lbyA8YW50b25pby5ib3JuZW9Ac3QuY29t
+Pgo+PiBMaW5rOiAKPj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci80NzhmODcxYS01ODNkLTAx
+ZjEtOWNjNS0yZWVhNTZkOGMyYTdAaHVhd2VpLmNvbQo+PiAtLS0KPj4gVG86IEFuZHJldyBMdW5u
+IDxhbmRyZXdAbHVubi5jaD4KPj4gVG86IEhlaW5lciBLYWxsd2VpdCA8aGthbGx3ZWl0MUBnbWFp
+bC5jb20+Cj4+IFRvOiBSdXNzZWxsIEtpbmcgPGxpbnV4QGFybWxpbnV4Lm9yZy51az4KPj4gVG86
+ICJEYXZpZCBTLiBNaWxsZXIiIDxkYXZlbUBkYXZlbWxvZnQubmV0Pgo+PiBUbzogSmFrdWIgS2lj
+aW5za2kgPGt1YmFAa2VybmVsLm9yZz4KPj4gVG86IG5ldGRldkB2Z2VyLmtlcm5lbC5vcmcKPj4g
+VG86IFlvbmdsb25nIExpdSA8bGl1eW9uZ2xvbmdAaHVhd2VpLmNvbT4KPj4gVG86IFdpbGx5IExp
+dSA8d2lsbHkubGl1QHJlYWx0ZWsuY29tPgo+PiBDYzogbGludXhhcm1AaHVhd2VpLmNvbQo+PiBD
+YzogU2FsaWwgTWVodGEgPHNhbGlsLm1laHRhQGh1YXdlaS5jb20+Cj4+IENjOiBsaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCj4+IENjOiBsaW51eC1rZXJuZWxAdmdlci5r
+ZXJuZWwub3JnCj4+IEluLVJlcGx5LVRvOiA8MjAyMDExMjQxNDM4NDguODc0ODk0LTEtYW50b25p
+by5ib3JuZW9Ac3QuY29tPgo+Pgo+PiBWMSA9PiBWMgo+PiDCoMKgwqDCoG1vdmUgZnJvbSBhIGdl
+bmVyaWMgaW1wbGVtZW50YXRpb24gYWZmZWN0aW5nIGV2ZXJ5IHBoeQo+PiDCoMKgwqDCoHRvIGEg
+cnRsODIxMWYgc3BlY2lmaWMgaW1wbGVtZW50YXRpb24KPj4gVjIgPT4gVjMKPj4gwqDCoMKgwqBy
+ZWJhc2Ugb24gbmV0ZGV2LW5leHQsIHJlc29sdmluZyBtaW5vciBjb25mbGljdCBhZnRlcgo+PiDC
+oMKgwqDCoG1lcmdlIG9mIDhiNDMzNTdmZmY2MQo+PiAtLS0KPj4gwqAgZHJpdmVycy9uZXQvcGh5
+L3JlYWx0ZWsuYyB8IDEgKwo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPj4K
+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3BoeS9yZWFsdGVrLmMgYi9kcml2ZXJzL25ldC9w
+aHkvcmVhbHRlay5jCj4+IGluZGV4IGY3MWVkYTk0NWM2YS4uOTllY2Q2YzRjMTVhIDEwMDY0NAo+
+PiAtLS0gYS9kcml2ZXJzL25ldC9waHkvcmVhbHRlay5jCj4+ICsrKyBiL2RyaXZlcnMvbmV0L3Bo
+eS9yZWFsdGVrLmMKPj4gQEAgLTcyOSw2ICs3MjksNyBAQCBzdGF0aWMgc3RydWN0IHBoeV9kcml2
+ZXIgcmVhbHRla19kcnZzW10gPSB7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBQSFlfSURfTUFUQ0hf
+RVhBQ1QoMHgwMDFjYzkxNiksCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCAubmFtZcKgwqDCoMKgwqDC
+oMKgID0gIlJUTDgyMTFGIEdpZ2FiaXQgRXRoZXJuZXQiLAo+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
+LmNvbmZpZ19pbml0wqDCoMKgID0gJnJ0bDgyMTFmX2NvbmZpZ19pbml0LAo+PiArwqDCoMKgwqDC
+oMKgwqAgLnJlYWRfc3RhdHVzwqDCoMKgID0gcnRsZ2VuX3JlYWRfc3RhdHVzLAo+PiDCoMKgwqDC
+oMKgwqDCoMKgwqAgLmNvbmZpZ19pbnRywqDCoMKgID0gJnJ0bDgyMTFmX2NvbmZpZ19pbnRyLAo+
+PiDCoMKgwqDCoMKgwqDCoMKgwqAgLmhhbmRsZV9pbnRlcnJ1cHQgPSBydGw4MjExZl9oYW5kbGVf
+aW50ZXJydXB0LAo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgLnN1c3BlbmTCoMKgwqAgPSBnZW5waHlf
+c3VzcGVuZCwKPj4KPj4gYmFzZS1jb21taXQ6IDFkMTU1ZGZkZjUwZWZjMmIwNzkzYmNlOTNjMDZk
+MWE1YjIzZDA4NzcKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCj4gTGludXhhcm0gbWFpbGluZyBsaXN0Cj4gTGludXhhcm1AaHVhd2VpLmNvbQo+IGh0
+dHA6Ly9odWxrLmh1YXdlaS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eGFybQo+Cj4gLgoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
+bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
+cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
+c3RtMzIK
