@@ -2,68 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF01A2C40E4
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Nov 2020 14:07:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9D502C42B8
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Nov 2020 16:14:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EE48C5662F;
-	Wed, 25 Nov 2020 13:07:59 +0000 (UTC)
-Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
- [209.85.160.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F6A8C5662F;
+	Wed, 25 Nov 2020 15:14:45 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00E9CC36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02E56C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Nov 2020 13:07:57 +0000 (UTC)
-Received: by mail-qt1-f195.google.com with SMTP id 7so1513534qtp.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Nov 2020 05:07:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=mMhr7if+ZnRG9MhMHI+KNa2LdhxLLABqJa+FncSk4Ss=;
- b=T2xVHBnpNinPB/LWXNXkxkZaoP24VjjodPX8UKsm9aU4/4wtS2oZiNVbe4q2HAc82w
- uIuIz3s3DmRGkSqO8C9p8QmFJ+3qOeB8jzVRoYrab4wNEV8mPfVTcknf3fWoP2Gd1cvy
- 6/7Dezb5IR3UGkhu4LcNp+SxlNdl9Xa8qmG9ScF3kkn5HcfpDMScgQO8CuNlGNu2naYA
- B9T0NFIvhaXQGVMtdjdWHJp1Kdm2rdi7bg1iOk8joFKeXKzNzRnIv7nYGL0lzxmZf6Ul
- bpVsDhpULPZGJWHGfELInwZ1AlWdV17bmHYtbKolm0S3edmhrIf5+wDbsB2slnXqHz3N
- XKQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=mMhr7if+ZnRG9MhMHI+KNa2LdhxLLABqJa+FncSk4Ss=;
- b=DudFxfZqmfhJpsX5GxuEMGESnKUIg3gGYxTr+UR/2Qgdjsx4CW0uTKNIgT/Q3o7uaZ
- d33qeP8u+BAaqu6RQguE+4Qnc5HcQ1lss7RlI6zx2cP88yrCMz3+pomWLjV9pZjCKZLS
- OD/YnFhA5CaSHLdfuYyLLnyga2MVmF1+2+/1YLAb616kZUz9ZO24WtJGFKLLDhLH44z1
- yAGS0hvLAtvw9wVtag5n1m60CD868PJtO4u9hvSsZL0R+uA/CQa/4FBA/IzEZvmaidVF
- afT+lg993uhNfdv85pSddX4eD4LUXKDXfocYC1/efcs9Ssbbv0+2zug4WT5juPr4EbHC
- fdFw==
-X-Gm-Message-State: AOAM533Ba33KP8EE0cJ+WMMbHGu0IWmEjA4nd8Td22eA36UZwtkOgKvP
- JqkDhhbWzBsM/M7VgEu5lSU=
-X-Google-Smtp-Source: ABdhPJxJb4TUF0NizrQVHPOB3OFujzxO1AeeC8RmjaIrDGlIDfo14gqg/cJv0Tldd1XkjLq0l7zMfw==
-X-Received: by 2002:ac8:71d5:: with SMTP id i21mr3049929qtp.4.1606309676849;
- Wed, 25 Nov 2020 05:07:56 -0800 (PST)
-Received: from shinobu (072-189-064-225.res.spectrum.com. [72.189.64.225])
- by smtp.gmail.com with ESMTPSA id c6sm2443740qkg.54.2020.11.25.05.07.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2020 05:07:55 -0800 (PST)
-Date: Wed, 25 Nov 2020 08:07:53 -0500
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: david@lechnology.com
-Message-ID: <X75XKTy+8cqPyzlH@shinobu>
-References: <cover.1606075915.git.vilhelm.gray@gmail.com>
- <950660d49af7d12b09bc9d3b1db6f8ff74209c26.1606075915.git.vilhelm.gray@gmail.com>
+ Wed, 25 Nov 2020 15:03:53 +0000 (UTC)
+Received: from dggeme760-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Ch4014WkYzQksm;
+ Wed, 25 Nov 2020 23:03:29 +0800 (CST)
+Received: from [127.0.0.1] (10.57.36.170) by dggeme760-chm.china.huawei.com
+ (10.3.19.106) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1913.5; Wed, 25
+ Nov 2020 23:03:47 +0800
+To: Antonio Borneo <antonio.borneo@st.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ <netdev@vger.kernel.org>, Willy Liu <willy.liu@realtek.com>
+References: <20201124143848.874894-1-antonio.borneo@st.com>
+ <20201124230756.887925-1-antonio.borneo@st.com>
+From: Yonglong Liu <liuyonglong@huawei.com>
+Message-ID: <d62710c3-7813-7506-f209-fcfa65931778@huawei.com>
+Date: Wed, 25 Nov 2020 23:03:46 +0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.0.1
 MIME-Version: 1.0
-In-Reply-To: <950660d49af7d12b09bc9d3b1db6f8ff74209c26.1606075915.git.vilhelm.gray@gmail.com>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
- Dan Carpenter <dan.carpenter@oracle.com>, fabrice.gasnier@st.com,
- syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v6 1/5] counter: Internalize sysfs
-	interface code
+In-Reply-To: <20201124230756.887925-1-antonio.borneo@st.com>
+Content-Language: en-US
+X-Originating-IP: [10.57.36.170]
+X-ClientProxiedBy: dggeme719-chm.china.huawei.com (10.1.199.115) To
+ dggeme760-chm.china.huawei.com (10.3.19.106)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Wed, 25 Nov 2020 15:14:43 +0000
+Cc: linux-kernel@vger.kernel.org, Salil Mehta <salil.mehta@huawei.com>,
+ linuxarm@huawei.com, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 net-next] net: phy: realtek: read
+ actual speed on rtl8211f to detect downshift
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,72 +54,69 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2721659516409020557=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Tested-by: Yonglong Liu <liuyonglong@huawei.com>
 
---===============2721659516409020557==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="51cx/e7mr9ap1Ofv"
-Content-Disposition: inline
-
-
---51cx/e7mr9ap1Ofv
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Nov 22, 2020 at 03:29:52PM -0500, William Breathitt Gray wrote:
-> @@ -117,62 +112,95 @@ static int ti_eqep_count_write(struct counter_devic=
-e *counter,
->  	return regmap_write(priv->regmap32, QPOSCNT, val);
->  }
-> =20
-> -static int ti_eqep_function_get(struct counter_device *counter,
-> -				struct counter_count *count, size_t *function)
-> +static const u8 ti_qep_t2c_functions_map[] =3D {
-> +};
-
-Just a heads-up: this ti_qep_t2c_functions_map array is left over from
-some code I was testing. It's not used at all -- I simply forgot to
-remove it -- so I'll make sure to take it out in the next patchset. I'll
-give this v6 patchset some more time for people to review and comment
-before I submit the v7 revision.
-
-William Breathitt Gray
-
---51cx/e7mr9ap1Ofv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl++VykACgkQhvpINdm7
-VJKYVA//dqccbhIoBaceJes3TqLXOFW/M8mwfy+XZ+rP/ih/h8l24f0y0gLPWYnH
-g9rV4GH9VOeKz17Lkocb5dKgPhBR6ugL7IAWWOSh7SI4BTg9eT8iVQI9AVYAbXD5
-vmZHxvt5zhEjO7l2l5fBstZObzpgTv4eJW+cjZle/ZaCdTVXm0/m8kPNzQU1xtgP
-sa/6twzxxE8i6PwHBk+aP7MKYSMYp8hjtAZPVtniAAFj0XdRgTIn4GckYmp4zt6E
-gdlh9KdSAnf/vcG7zR2OrXk4YMUOE4grLqBkx+KUWsNi7AlvLX+XHBXeVCAgnljx
-KIkro97m6rULfD6yHL48aAce/MMu0r4s5tZ5nRa7yL6pE3mY8Ajvi6k9lTu55NYN
-CKTLFUf85+GRs/GUZsW0VwGVmwsGT5wawJZiTkPxYFfa+dgMEBMoaCjUEEZrw7cm
-bxk2k/ffuIIi/UGQWtXWPUKXyCIaRm05+rNxK6s7OP/EhwCOdbBKvFLc998AwdyY
-Vl7+tPLntu7H9j3vuZBr/tPm3PiTCTcIzGa4WfaYhJMDw0WXKYLrXGdQ0SUvnk2k
-BnF2ob6wDL/E/x2wFJABYB6OH8biuob2S/LuBdlTNBAOCzMlDTPylFVhjSxSJ8jt
-tWyXUjmfq1xws9/39/0J6vW7QBxpgOOuc3vFP4Q3y6mnBSTEJcs=
-=388v
------END PGP SIGNATURE-----
-
---51cx/e7mr9ap1Ofv--
-
---===============2721659516409020557==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+On 2020/11/25 7:07, Antonio Borneo wrote:
+> The rtl8211f supports downshift and before commit 5502b218e001
+> ("net: phy: use phy_resolve_aneg_linkmode in genphy_read_status")
+> the read-back of register MII_CTRL1000 was used to detect the
+> negotiated link speed.
+> The code added in commit d445dff2df60 ("net: phy: realtek: read
+> actual speed to detect downshift") is working fine also for this
+> phy and it's trivial re-using it to restore the downshift
+> detection on rtl8211f.
+>
+> Add the phy specific read_status() pointing to the existing
+> function rtlgen_read_status().
+>
+> Signed-off-by: Antonio Borneo <antonio.borneo@st.com>
+> Link: https://lore.kernel.org/r/478f871a-583d-01f1-9cc5-2eea56d8c2a7@huawei.com
+> ---
+> To: Andrew Lunn <andrew@lunn.ch>
+> To: Heiner Kallweit <hkallweit1@gmail.com>
+> To: Russell King <linux@armlinux.org.uk>
+> To: "David S. Miller" <davem@davemloft.net>
+> To: Jakub Kicinski <kuba@kernel.org>
+> To: netdev@vger.kernel.org
+> To: Yonglong Liu <liuyonglong@huawei.com>
+> To: Willy Liu <willy.liu@realtek.com>
+> Cc: linuxarm@huawei.com
+> Cc: Salil Mehta <salil.mehta@huawei.com>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-kernel@vger.kernel.org
+> In-Reply-To: <20201124143848.874894-1-antonio.borneo@st.com>
+>
+> V1 => V2
+> 	move from a generic implementation affecting every phy
+> 	to a rtl8211f specific implementation
+> V2 => V3
+> 	rebase on netdev-next, resolving minor conflict after
+> 	merge of 8b43357fff61
+> ---
+>   drivers/net/phy/realtek.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/net/phy/realtek.c b/drivers/net/phy/realtek.c
+> index f71eda945c6a..99ecd6c4c15a 100644
+> --- a/drivers/net/phy/realtek.c
+> +++ b/drivers/net/phy/realtek.c
+> @@ -729,6 +729,7 @@ static struct phy_driver realtek_drvs[] = {
+>   		PHY_ID_MATCH_EXACT(0x001cc916),
+>   		.name		= "RTL8211F Gigabit Ethernet",
+>   		.config_init	= &rtl8211f_config_init,
+> +		.read_status	= rtlgen_read_status,
+>   		.config_intr	= &rtl8211f_config_intr,
+>   		.handle_interrupt = rtl8211f_handle_interrupt,
+>   		.suspend	= genphy_suspend,
+>
+> base-commit: 1d155dfdf50efc2b0793bce93c06d1a5b23d0877
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2721659516409020557==--
