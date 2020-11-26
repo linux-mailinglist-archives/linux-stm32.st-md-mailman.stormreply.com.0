@@ -2,88 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B30AF2C4C09
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Nov 2020 01:30:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6D2F2C4C72
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Nov 2020 02:15:06 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68AF7C424AF;
-	Thu, 26 Nov 2020 00:30:43 +0000 (UTC)
-Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
- [98.124.60.144])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2556C36B36
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6591EC424AF;
+	Thu, 26 Nov 2020 01:15:06 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86711C36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Nov 2020 00:30:41 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by kvm5.telegraphics.com.au (Postfix) with ESMTP id 742A42A495;
- Wed, 25 Nov 2020 19:30:37 -0500 (EST)
-Date: Thu, 26 Nov 2020 11:30:36 +1100 (AEDT)
-From: Finn Thain <fthain@telegraphics.com.au>
-To: Nick Desaulniers <ndesaulniers@google.com>
-In-Reply-To: <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
-Message-ID: <alpine.LNX.2.23.453.2011261031290.6@nippy.intranet>
-References: <202011201129.B13FDB3C@keescook>
- <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <202011220816.8B6591A@keescook>
- <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
- <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
- <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
- <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
- <dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
- <20201123130348.GA3119@embeddedor>
- <8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
- <202011241327.BB28F12F6@keescook>
- <a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
- <CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
- <alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
- <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
+ Thu, 26 Nov 2020 01:15:04 +0000 (UTC)
+Received: from dggeme760-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4ChKYD6vgTz4yNM;
+ Thu, 26 Nov 2020 09:14:40 +0800 (CST)
+Received: from [127.0.0.1] (10.57.36.170) by dggeme760-chm.china.huawei.com
+ (10.3.19.106) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1913.5; Thu, 26
+ Nov 2020 09:15:01 +0800
+To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+References: <20201124143848.874894-1-antonio.borneo@st.com>
+ <20201124230756.887925-1-antonio.borneo@st.com>
+ <d62710c3-7813-7506-f209-fcfa65931778@huawei.com>
+ <f24476cc-39f0-ea5f-d6af-faad481e3235@huawei.com>
+ <20201125170714.GK1551@shell.armlinux.org.uk>
+From: Yonglong Liu <liuyonglong@huawei.com>
+Message-ID: <3fdb1d11-d59e-9d3d-a5a8-8f20e4ca7f0a@huawei.com>
+Date: Thu, 26 Nov 2020 09:15:01 +0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.0.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
- target-devel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
- linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>, linux-fbdev@vger.kernel.org,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
- wcn36xx@lists.infradead.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
- linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- usb-storage@lists.one-eyed-alien.net, linux-mmc@vger.kernel.org,
- coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
- linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
- virtualization@lists.linux-foundation.org, netfilter-devel@vger.kernel.org,
- linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,
- selinux@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
- reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, nouveau@lists.freedesktop.org,
- linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
- linux-can@vger.kernel.org, Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-hwmon@vger.kernel.org,
- "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
- linux-watchdog@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- Linux Memory Management List <linux-mm@kvack.org>,
- Network Development <netdev@vger.kernel.org>,
- linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
- LKML <linux-kernel@vger.kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net,
- "open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
- <linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
- Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [Linux-stm32] [Intel-wired-lan] [PATCH 000/141] Fix
- fall-through warnings for Clang
+In-Reply-To: <20201125170714.GK1551@shell.armlinux.org.uk>
+Content-Language: en-US
+X-Originating-IP: [10.57.36.170]
+X-ClientProxiedBy: dggeme715-chm.china.huawei.com (10.1.199.111) To
+ dggeme760-chm.china.huawei.com (10.3.19.106)
+X-CFilter-Loop: Reflected
+Cc: Andrew Lunn <andrew@lunn.ch>, Salil Mehta <salil.mehta@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
+ linuxarm@huawei.com, Willy Liu <willy.liu@realtek.com>,
+ linux-kernel@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v3 net-next] net: phy: realtek: read
+ actual speed on rtl8211f to detect downshift
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,60 +57,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On Wed, 25 Nov 2020, Nick Desaulniers wrote:
-
-> On Wed, Nov 25, 2020 at 1:33 PM Finn Thain <fthain@telegraphics.com.au> wrote:
-> >
-> > Or do you think that a codebase can somehow satisfy multiple checkers 
-> > and their divergent interpretations of the language spec?
-> 
-> Have we found any cases yet that are divergent? I don't think so. 
-
-You mean, aside from -Wimplicit-fallthrough? I'm glad you asked. How about 
--Wincompatible-pointer-types and -Wframe-larger-than?
-
-All of the following files have been affected by divergent diagnostics 
-produced by clang and gcc.
-
-arch/arm64/include/asm/neon-intrinsics.h
-arch/powerpc/xmon/Makefile
-drivers/gpu/drm/i915/Makefile
-drivers/gpu/drm/i915/i915_utils.h
-drivers/staging/media/atomisp/pci/atomisp_subdev.c
-fs/ext4/super.c
-include/trace/events/qla.h
-net/mac80211/rate.c
-tools/lib/string.c
-tools/perf/util/setup.py
-tools/scripts/Makefile.include
-
-And if I searched for 'smatch' or 'coverity' instead of 'clang' I'd 
-probably find more divergence.
-
-Here are some of the relevant commits.
-
-0738c8b5915c7eaf1e6007b441008e8f3b460443
-9c87156cce5a63735d1218f0096a65c50a7a32aa
-babaab2f473817f173a2d08e410c25abf5ed0f6b
-065e5e559555e2f100bc95792a8ef1b609bbe130
-93f56de259376d7e4fff2b2d104082e1fa66e237
-6c4798d3f08b81c2c52936b10e0fa872590c96ae
-b7a313d84e853049062011d78cb04b6decd12f5c
-093b75ef5995ea35d7f6bdb6c7b32a42a1999813
-
-And before you object, "but -Wconstant-logical-operand is a clang-only 
-warning! it can't be divergent with gcc!", consider that the special cases 
-added to deal with clang-only warnings have to be removed when gcc catches 
-up, which is more churn. Now multiply that by the number of checkers you 
-care about.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksIFJ1c3NlbGw6CgogwqDCoMKgIEkgZm91bmQgdGhpcyBtZXNzYWdlIGluIGtlcm5lbCBsb2cs
+IHRoYW5rcyEKCk9uIDIwMjAvMTEvMjYgMTowNywgUnVzc2VsbCBLaW5nIC0gQVJNIExpbnV4IGFk
+bWluIHdyb3RlOgo+IE9uIFRodSwgTm92IDI2LCAyMDIwIGF0IDEyOjU3OjM3QU0gKzA4MDAsIFlv
+bmdsb25nIExpdSB3cm90ZToKPj4gSGksIEFudG9uaW86Cj4+Cj4+ICDCoMKgwqAgQ291bGQgeW91
+IGhlbHAgdG8gcHJvdmlkZSBhIGRvd25zaGlmdCB3YXJuaW5nIG1lc3NhZ2Ugd2hlbiB0aGlzIGhh
+cHBlbj8KPj4KPj4gIMKgwqDCoCBJdCdzIGEgbGl0dGxlIHN0cmFuZ2UgdGhhdCB0aGUgYWR2IGFu
+ZCB0aGUgbHBhIHN1cHBvcnQgMTAwME0sIGJ1dAo+PiBmaW5hbGx5IHRoZSBsaW5rIHNwZWVkIGlz
+IDEwME0uCj4gVGhhdCBpcyBhbiBpZGVudGlmeWluZyBmZWF0dXJlIG9mIGRvd25zaGlmdC4KPgo+
+IERvd25zaGlmdCBjYW4gaGFwcGVuIGF0IGVpdGhlciBlbmQgb2YgdGhlIGxpbmssIGFuZCBzaW5j
+ZSB3ZSBtdXN0IG5vdAo+IGNoYW5nZSB0aGUgIkFkdmVydGlzZWQgbGluayBtb2RlcyIgc2luY2Ug
+dGhpcyBpcyB3aGF0IHVzZXJzcGFjZQo+IGNvbmZpZ3VyZWQsIGlmIGEgZG93bnNoaWZ0IG9jY3Vy
+cyBhdCB0aGUgbG9jYWwgZW5kLCB0aGVuIHlvdSB3aWxsIGdldAo+IHRoZSBldGh0b29sIG91dHB1
+dCB5b3UgcHJvdmlkZSwgd2hlcmUgdGhlIHNwZWVkIGRvZXMgbm90IGFncmVlIHdpdGgKPiB0aGUg
+cmVwb3J0ZWQgYWR2ZXJ0aXNlbWVudHMuCj4KPiBZb3Ugc2hvdWxkIGFscmVhZHkgYmUgZ2V0dGlu
+ZyBhIHdhcm5pbmcgaW4gdGhlIGtlcm5lbCBsb2cgd2hlbiB0aGlzCj4gaGFwcGVuczsgcGh5X2No
+ZWNrX2Rvd25zaGlmdCgpIHdoaWNoIGlzIHBhcnQgb2YgdGhlIHBoeWxpYiBjb3JlIGNvZGUKPiB3
+aWxsIGNoZWNrIHRoaXMgZXZlcnkgdGltZSB0aGUgbGluayBjb21lcyB1cC4gWW91IHNob3VsZCBh
+bHJlYWR5Cj4gaGF2ZSBhIG1lc3NhZ2UgIkRvd25zaGlmdCBvY2N1cnJlZCAuLi4iIGluIHlvdXIg
+a2VybmVsIGxvZy4gUGxlYXNlCj4gY2hlY2suCj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
