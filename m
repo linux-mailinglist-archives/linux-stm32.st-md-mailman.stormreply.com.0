@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDB092C61FD
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Nov 2020 10:41:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9079F2C61FC
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Nov 2020 10:41:25 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9EE2C56632;
-	Fri, 27 Nov 2020 09:41:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58D70C56632;
+	Fri, 27 Nov 2020 09:41:25 +0000 (UTC)
 Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5D33C56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAD80C56631
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Nov 2020 09:41:27 +0000 (UTC)
+ Fri, 27 Nov 2020 09:41:22 +0000 (UTC)
 Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.60])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Cj8l413vfzhgR2;
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Cj8l41HTzzhjF1;
  Fri, 27 Nov 2020 17:41:04 +0800 (CST)
 Received: from localhost.localdomain.localdomain (10.175.113.25) by
  DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
- 14.3.487.0; Fri, 27 Nov 2020 17:41:10 +0800
+ 14.3.487.0; Fri, 27 Nov 2020 17:41:11 +0800
 From: Qinglang Miao <miaoqinglang@huawei.com>
 To: Vinod Koul <vkoul@kernel.org>, Dan Williams <dan.j.williams@intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
  <alexandre.torgue@st.com>
-Date: Fri, 27 Nov 2020 17:45:24 +0800
-Message-ID: <20201127094525.121388-3-miaoqinglang@huawei.com>
+Date: Fri, 27 Nov 2020 17:45:25 +0800
+Message-ID: <20201127094525.121388-4-miaoqinglang@huawei.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201127094525.121388-1-miaoqinglang@huawei.com>
 References: <20201127094525.121388-1-miaoqinglang@huawei.com>
@@ -34,8 +34,8 @@ X-CFilter-Loop: Reflected
 Cc: dmaengine@vger.kernel.org, Qinglang Miao <miaoqinglang@huawei.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/3] dmaengine: stm32-dmamux: fix reference
-	leak in stm32_dmamux
+Subject: [Linux-stm32] [PATCH 3/3] dmaengine: stm32-mdma: fix reference leak
+	in stm32-mdma
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,38 +62,29 @@ leak by replacing it with new funtion.
 
 [0] dd8088d5a896 ("PM: runtime: Add  pm_runtime_resume_and_get to deal with usage counter")
 
-Fixes: f65c2e14b096 ("dmaengine: stm32-dmamux: add suspend/resume power management support")
+Fixes: 7cb819c856d9 ("dmaengine: stm32-mdma: add suspend/resume power management support")
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
 ---
- drivers/dma/stm32-dmamux.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/dma/stm32-mdma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma/stm32-dmamux.c b/drivers/dma/stm32-dmamux.c
-index a10ccd964..bddd3b23f 100644
---- a/drivers/dma/stm32-dmamux.c
-+++ b/drivers/dma/stm32-dmamux.c
-@@ -137,7 +137,7 @@ static void *stm32_dmamux_route_allocate(struct of_phandle_args *dma_spec,
+diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
+index 08cfbfab8..9d4739237 100644
+--- a/drivers/dma/stm32-mdma.c
++++ b/drivers/dma/stm32-mdma.c
+@@ -1448,7 +1448,7 @@ static int stm32_mdma_alloc_chan_resources(struct dma_chan *c)
+ 		return -ENOMEM;
+ 	}
  
- 	/* Set dma request */
- 	spin_lock_irqsave(&dmamux->lock, flags);
--	ret = pm_runtime_get_sync(&pdev->dev);
-+	ret = pm_runtime_resume_and_get(&pdev->dev);
- 	if (ret < 0) {
- 		spin_unlock_irqrestore(&dmamux->lock, flags);
- 		goto error;
-@@ -336,7 +336,7 @@ static int stm32_dmamux_suspend(struct device *dev)
- 	struct stm32_dmamux_data *stm32_dmamux = platform_get_drvdata(pdev);
- 	int i, ret;
- 
--	ret = pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
+-	ret = pm_runtime_get_sync(dmadev->ddev.dev);
++	ret = pm_runtime_resume_and_get(dmadev->ddev.dev);
  	if (ret < 0)
  		return ret;
  
-@@ -361,7 +361,7 @@ static int stm32_dmamux_resume(struct device *dev)
- 	if (ret < 0)
- 		return ret;
+@@ -1714,7 +1714,7 @@ static int stm32_mdma_pm_suspend(struct device *dev)
+ 	u32 ccr, id;
+ 	int ret;
  
 -	ret = pm_runtime_get_sync(dev);
 +	ret = pm_runtime_resume_and_get(dev);
