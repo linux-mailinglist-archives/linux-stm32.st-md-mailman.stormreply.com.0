@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC9E92C6200
+	by mail.lfdr.de (Postfix) with ESMTPS id 958FB2C61FF
 	for <lists+linux-stm32@lfdr.de>; Fri, 27 Nov 2020 10:42:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65337C5663C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5357BC56635;
 	Fri, 27 Nov 2020 09:42:08 +0000 (UTC)
 Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE4B8C56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC7A7C56631
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 27 Nov 2020 09:42:05 +0000 (UTC)
 Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Cj8ln2rQGzhjMF;
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Cj8ln3429zhjMJ;
  Fri, 27 Nov 2020 17:41:41 +0800 (CST)
 Received: from localhost.localdomain.localdomain (10.175.113.25) by
  DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
- 14.3.487.0; Fri, 27 Nov 2020 17:41:54 +0800
+ 14.3.487.0; Fri, 27 Nov 2020 17:41:55 +0800
 From: Qinglang Miao <miaoqinglang@huawei.com>
 To: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller"
  <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  "Alexandre Torgue" <alexandre.torgue@st.com>
-Date: Fri, 27 Nov 2020 17:46:08 +0800
-Message-ID: <20201127094609.121614-2-miaoqinglang@huawei.com>
+Date: Fri, 27 Nov 2020 17:46:09 +0800
+Message-ID: <20201127094609.121614-3-miaoqinglang@huawei.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201127094609.121614-1-miaoqinglang@huawei.com>
 References: <20201127094609.121614-1-miaoqinglang@huawei.com>
@@ -34,8 +34,8 @@ X-CFilter-Loop: Reflected
 Cc: linux-kernel@vger.kernel.org, Qinglang Miao <miaoqinglang@huawei.com>,
  linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 1/2] crypto: stm32/cryp - fix reference leak
-	in stm32_cryp_remove
+Subject: [Linux-stm32] [PATCH 2/2] crypto: stm32/hash - fix reference leak
+	in stm32_hash_remove
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,23 +62,23 @@ leak by replacing it with new funtion.
 
 [0] dd8088d5a896 ("PM: runtime: Add  pm_runtime_resume_and_get to deal with usage counter")
 
-Fixes: 65f9aa36ee47 ("crypto: stm32/cryp - Add power management support")
+Fixes: 8b4d566de6a5 ("crypto: stm32/hash - Add power management support")
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
 ---
- drivers/crypto/stm32/stm32-cryp.c | 2 +-
+ drivers/crypto/stm32/stm32-hash.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/crypto/stm32/stm32-cryp.c b/drivers/crypto/stm32/stm32-cryp.c
-index 2670c3033..7f3b84973 100644
---- a/drivers/crypto/stm32/stm32-cryp.c
-+++ b/drivers/crypto/stm32/stm32-cryp.c
-@@ -2043,7 +2043,7 @@ static int stm32_cryp_remove(struct platform_device *pdev)
- 	if (!cryp)
+diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+index e3e25278a..16bb52836 100644
+--- a/drivers/crypto/stm32/stm32-hash.c
++++ b/drivers/crypto/stm32/stm32-hash.c
+@@ -1565,7 +1565,7 @@ static int stm32_hash_remove(struct platform_device *pdev)
+ 	if (!hdev)
  		return -ENODEV;
  
--	ret = pm_runtime_get_sync(cryp->dev);
-+	ret = pm_runtime_resume_and_get(cryp->dev);
+-	ret = pm_runtime_get_sync(hdev->dev);
++	ret = pm_runtime_resume_and_get(hdev->dev);
  	if (ret < 0)
  		return ret;
  
