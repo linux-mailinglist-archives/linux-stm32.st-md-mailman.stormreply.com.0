@@ -2,55 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78A392C70FC
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Nov 2020 22:54:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CFC52C711A
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Nov 2020 22:54:40 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 194D8C56632;
-	Sat, 28 Nov 2020 21:54:24 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28AF8C56632;
+	Sat, 28 Nov 2020 21:54:40 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90C99C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EC7FC36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Nov 2020 21:54:21 +0000 (UTC)
+ Sat, 28 Nov 2020 21:54:39 +0000 (UTC)
 Received: from methusalix.internal.home.lespocky.de ([92.117.45.147]) by
- mrelayeu.kundenserver.de (mreue012 [212.227.15.167]) with ESMTPSA (Nemesis)
- id 1MdwRi-1kAL7K2rmY-00b77Y; Sat, 28 Nov 2020 22:54:20 +0100
+ mrelayeu.kundenserver.de (mreue011 [212.227.15.167]) with ESMTPSA (Nemesis)
+ id 1Mbzdn-1kCp1h3pip-00dVpA; Sat, 28 Nov 2020 22:54:35 +0100
 Received: from lemmy.internal.home.lespocky.de ([192.168.243.175]
  helo=lemmy.home.lespocky.de)
  by methusalix.internal.home.lespocky.de with esmtpsa (TLS1.3) tls
  TLS_AES_256_GCM_SHA384 (Exim 4.94)
  (envelope-from <alex@home.lespocky.de>)
- id 1kj8AZ-00027T-9a; Sat, 28 Nov 2020 22:54:16 +0100
-Received: (nullmailer pid 4070 invoked by uid 2001);
- Sat, 28 Nov 2020 21:54:14 -0000
+ id 1kj8Ap-00027n-QE; Sat, 28 Nov 2020 22:54:33 +0100
+Received: (nullmailer pid 4098 invoked by uid 2001);
+ Sat, 28 Nov 2020 21:54:31 -0000
 From: Alexander Dahl <post@lespocky.de>
 To: Rob Herring <robh+dt@kernel.org>
-Date: Sat, 28 Nov 2020 22:53:48 +0100
-Message-Id: <20201128215353.3991-1-post@lespocky.de>
+Date: Sat, 28 Nov 2020 22:53:49 +0100
+Message-Id: <20201128215353.3991-2-post@lespocky.de>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201128215353.3991-1-post@lespocky.de>
+References: <20201128215353.3991-1-post@lespocky.de>
 MIME-Version: 1.0
-X-Scan-Signature: e9056562e10c809dee3344e50e145a1f
+X-Scan-Signature: 53f17ed7acf4619e77ac9411375ac493
 X-Spam-Score: -2.9 (--)
-X-Provags-ID: V03:K1:QBfiUPuOf14kX4Nz47jAYJt1cUoOTDn1E/pEQC0D93UIwKSk9LO
- pApkfselXX82TbxUTNh8KHQ+CU+2c4pzwJtAt9bworExKtWkMMo11sQBGbbaRZV4CvXMvnA
- 9YBrjc9ERoyaWnteYtxeb1ArUz7jfIMFuB3eBRAU64w3d7VMMmtayx6rnaFNch45egLYrE8
- ndlA9RHZPJuId6tbeCmew==
+X-Provags-ID: V03:K1:EV7J6yS0bGPfutnvWVxMCCVlSgPwiskXwos5S6beCfiCo9yItBc
+ VP7B501UjpYvDbqaI2nyNkcHkzh61wxAc9T6vG6yPKDIogjV5FQGR5Cuz5hqkLY1WwnXh+S
+ SrLCNFf7dWlqZ3etQu8AuAe3VYnmp3Z7wt55/0Z9hb5Y0+C/2KTJTpxFdAIxYw5bdKgBvv9
+ K4zjotGQiLPn+HdjITW8Q==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:db2FVXCJ0IQ=:rGUF+QkkUhs0EKaPyIQuUg
- ybFnHRPwkBnLFoJzP1nJuiDJYGMjkgvpHNfYJxhkOZGHhhqCNRb0Ltb6SZlhGIYo9iYB/4GV/
- 4hCM3Vpve/XfUOsEGEpDlviPUYPXT+dRUt+wvBYHXc9TFbAJKTYR0QXj33O1ix2/YHCZRiFMS
- 13KuMpQPkCGx3Y9ZbSTiEEW4els06BHzfagxTp1J+uTDlYI2xG0g8t1MOgFafvkwk0EEHc6K8
- ZyoznGlLSkcEWOEJgdDfnffdgfsM2u+zzIfNIF+RXTUvJV5Ij1AgcURwSHcbZqBEC5zjUs+p6
- sprAnKWfh3tMH+DBc8RM0osqot7HMr6L633xcdNiBzLSws/ycSa1TWmphHF/JLCakwdGNVq+b
- 6V9cGMQzbwbU8Ae1QPCF5ke3HFEBTQDThzImW9foPNqjDdH9no6dCZ1GYks3quFcTwkKsosxR
- tdtiik2UTg==
-Cc: devicetree@vger.kernel.org, Alexander Dahl <ada@thorsis.com>,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
- Alexander Dahl <post@lespocky.de>, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v8 0/5] leds: pwm: Make automatic labels work
+X-UI-Out-Filterresults: notjunk:1;V03:K0:ELxZVikg6TI=:PmypatW+rzOMpdxBmlAY1n
+ EdFBUyFl74PH/aQCYuElzcbYc/o1pIlryiqJ/lRB9OEjdGS6ahQosWWII4CanGexPuhY79yDa
+ /kCCTAHMK9v5s++x3s/ssR/w+WeIGiOHE7FoA5m8bueMTcEJWDnXYxjKDe5ArWKU/f5Am5qzc
+ 8/EoNSfStwQQI7EStFPMBEqyuTqf7S4n/4NHWqC9O+iyCE8ged/Ek4Vg9OAR1pYiuukqi6wNp
+ fNM5SdUFIw6s/P0DPbMXRYLsjCypIi74xl9ohS87pwHygZ4/dbNR4IDdWYy/Ciu78w38tCCZv
+ US86sU16i4I5Vx/952629q+pUPXPoSTGalk4qR+WUXPCSOhzenFmhcm+Uw8DbOSO5Jpilxnu9
+ 36kxQU4emB3a9Y+fck8F/eg7Id66dJgFm263GeC60oCEl3YzzWct7mLmzgGRKZsshSeILowJP
+ N9PyGKn/yQ==
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, Alexander Dahl <post@lespocky.de>,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ Jeff LaBundy <jeff@labundy.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v8 1/5] dt-bindings: mfd: Fix schema warnings
+	for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,71 +66,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVpIGhlaSwKCnRoZXNlIGFyZSB0aGUgbm90IHlldCB0YWtlbiBwYXRjaGVzIGZyb20gYSBzZXJp
-ZXMgd2hpY2ggb3JpZ2luYWxseSBmaXhlZAphIG1pbm9yIGlzc3VlIGluIHRoZSBsZWRzIHB3bSBk
-cml2ZXIsIHRoZW4gbWlncmF0ZWQgdGhlIGxlZHMgcHdtIGR0cwpkb2NzIHRvIHlhbWwgKGJ5IHJl
-cXVlc3QpLCBhbmQgdGhlbiBmaXhlZCBhbGwgdGhlIGR0cyBmaWxlcyB0cmlnZ2VyaW5nCndhcm5p
-bmdzIG9uIHRob3NlIG5ldyBiaW5kaW5ncy4gIFRoZSByZW1haW5pbmcgZml2ZSBwYXRjaGVzIG5v
-dyBvbmx5IGZpeAp3YXJuaW5ncywgdGhlIGJhc2UgZml4IGFuZCB0aGUgeWFtbCBjb252ZXJzaW9u
-IGlzIGFscmVhZHkgdGFrZW4gYnkKc3Vic3lzdGVtIG1haW50YWluZXJzLiAgQWx0aG91Z2ggdGhp
-cyBpcyBvbmx5IGR0cyBjb250ZW50IG5vdywgSSByZWJhc2VkCml0IG9uIHRoZSBjdXJyZW50IGZv
-ci1uZXh0IHRyZWUgb2YgdGhlIGxlZHMgc3Vic3lzdGVtIG1haW50YWluZXIsCmJlY2F1c2UgdGhh
-dCBjb250YWlucyB0aGUgeWFtbC1jb252ZXJzaW9uIGNoYW5nZXNldC4KClNlcmllcyBjaGFuZ2Vs
-b2cgYmVsb3cg4oCmCgpHcmVldHMKQWxleAoKdjg6Ci0gcmViYXNlZCBzZXJpZXMgb24gcmVjZW50
-IHBhdmVsL2Zvci1uZXh0IChwb3N0IHY1LjEwLXJjMSkKLSByZW1vdmVkIGFscmVhZHkgYXBwbGll
-ZCBwYXRjaGVzCi0gYWRkZWQgQWNrZWQtYnkgb24gcGF0Y2ggMS81Ci0gdXBkYXRlZCBwYXRjaCAz
-LzUgYmFzZWQgb24gY29tbWVudHMgYnkgQWhtYWQgRmF0b3VtCgp2NzoKLSByZWJhc2VkIHNlcmll
-cyBvbiByZWNlbnQgcGF2ZWwvZm9yLW5leHQKLSBzcGxpdCB1cCBhcm0gZHRzIHBhdGNoIGJ5IGFy
-bSBzdWIgYXJjaCAoc3VnZ2VzdGVkIGJ5IEtyenlzenRvZiBLb3psb3dza2kpCi0gYWRkZWQgbXVs
-dGlwbGUgUmV2aWV3ZWQtYnkgdGFncwotIHNsaWdodGx5IHJld29yZGVkIGNvbW1pdCBtZXNzYWdl
-cyAoc3VnZ2VzdGVkIGJ5IEtyenlzenRvZiBLb3psb3dza2kpCi0gYWRkZWQgYWN0dWFsIGR0YnNf
-Y2hlY2sgd2FybmluZ3MgdG8gY29tbWl0IG1lc3NhZ2VzCi0gYWRkZWQgUnVzc2VsbCBLaW5nIHRv
-IENjIGZvciBiaW5kaW5nIGNvbnZlcnNpb24gcGF0Y2ggKGJlY2F1c2UgbGljZW5zZSkKCnY2Ogot
-IHJlYmFzZWQgc2VyaWVzIG9uIHJlY2VudCBwYXZlbC9mb3ItbmV4dAotIGFkZGVkIFJldmlld2Vk
-LWJ5IGZyb20gTWFyZWsgdG8gcGF0Y2ggMQotIHBhdGNoIDIgZnJvbSB2NSB3YXMgcGlja2VkIGJ5
-IFBhdmVsIGFuZCBpcyBhbHJlYWR5IGluIGhpcyBmb3ItbmV4dAogIGJyYW5jaAotIHByZXZpb3Vz
-IHBhdGNoIDMvMyAobm93IDIvNykgd2FzIHJld29ya2VkIGJhc2VkIG9uIGZlZWRiYWNrIGJ5IFJv
-YgotIGFkZGVkIG1vcmUgZHQgcGF0Y2hlcyBmaXhpbmcgd2FybmluZ3MgYWZ0ZXIgYmluZGluZyBj
-b252ZXJzaW9uIHRvIHlhbWwKCnY1OgotIHJlcGxhY2VkIHBhdGNoIDEvMyBieSBhIG5ldyBwYXRj
-aCByZW1vdmluZyBwbGF0Zm9ybV9kYXRhIHN1cHBvcnQgZm9yCiAgdGhlIGxlZHMtcHdtIGRyaXZl
-cgotIGxpdHRsZSByZXdvcmRpbmcgb2YgY29tbWl0IG1lc3NhZ2UgaW4gcGF0Y2ggMi8zCi0gdXBk
-YXRlZCBwYXRjaCAzLzMgYmFzZWQgb24gZmVlZGJhY2sgYnkgUm9iIEhlcnJpbmcKLSBhZGRlZCBN
-YXJlayBCZWjDum4gdG8gQ2MsIGJlY2F1c2UgaGUgYWxzbyB3b3JrcyBvbiByZW1vdmluZwogIHBs
-YXRmb3JtX2RhdGEgc3VwcG9ydAotIHJlYmFzZWQgc2VyaWVzIG9uIHBhdmVsL2Zvci1uZXh0Cgp2
-NDoKLSBhZGRlZCBsZWQtY2xhc3MgcGF0Y2ggaGFuZGxpbmcgZndub2RlIHBhc3NpbmcgZGlmZmVy
-ZW50bHkgKHBhdGNoIDEvMykKLSBhZGFwdGVkIGxlZHMtcHdtIHBhdGNoIHRvIG5ldyBsZWQtY2xh
-c3MgKHBhdGNoIDIvMykKLSBjb250YWN0ZWQgb3JpZ2luYWwgYXV0aG9yIG9mIGxlZHMtcHdtIGR0
-IGJpbmRpbmcgb24gbGljZW5zZSBpc3N1ZQogIChwYXRjaCAzLzMpCgp2MzoKLSBzZXJpZXMgcmVi
-YXNlZCBvbiB2NS45LXJjNAotIGNoYW5nZWQgbGljZW5zZSBvZiAueWFtbCBmaWxlIHRvIHJlY29t
-bWVuZGVkIG9uZSAocGF0Y2ggMi8yKQotIGFkZGVkIEFja2VkLWJ5IHRvIGJvdGggcGF0Y2hlcwoK
-djI6Ci0gc2VyaWVzIHJlYmFzZWQgb24gdjUuOS1yYzMKLSBhZGRlZCB0aGUgZHQtYmluZGluZ3Mg
-dXBkYXRlIHBhdGNoICgyLzIpCgp2MToKLSBiYXNlZCBvbiB2NS45LXJjMgotIGJhY2twb3J0IG9u
-IHY1LjQuNTkgdGVzdGVkIGFuZCB3b3JraW5nCgpDYzogbGludXgtbGVkc0B2Z2VyLmtlcm5lbC5v
-cmcKQ2M6IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnCkNjOiBsaW51eC1rZXJuZWxAdmdlci5r
-ZXJuZWwub3JnCkNjOiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKQ2M6IGxp
-bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KQ2M6IGxpbnV4LWFtbG9naWNA
-bGlzdHMuaW5mcmFkZWFkLm9yZwpDYzogbGludXgtbWlwc0B2Z2VyLmtlcm5lbC5vcmcKCgpBbGV4
-YW5kZXIgRGFobCAoNSk6CiAgZHQtYmluZGluZ3M6IG1mZDogRml4IHNjaGVtYSB3YXJuaW5ncyBm
-b3IgcHdtLWxlZHMKICBBUk06IGR0czogYmVybGluOiBGaXggc2NoZW1hIHdhcm5pbmdzIGZvciBw
-d20tbGVkcwogIEFSTTogZHRzOiBzdG0zMjogRml4IHNjaGVtYSB3YXJuaW5ncyBmb3IgcHdtLWxl
-ZHMKICBhcm02NDogZHRzOiBtZXNvbjogRml4IHNjaGVtYSB3YXJuaW5ncyBmb3IgcHdtLWxlZHMK
-ICBNSVBTOiBEVFM6IGltZzogRml4IHNjaGVtYSB3YXJuaW5ncyBmb3IgcHdtLWxlZHMKCiBEb2N1
-bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWZkL2lxczYyeC55YW1sICAgfCAgNSArKyst
-LQogYXJjaC9hcm0vYm9vdC9kdHMvYmVybGluMmNkLWdvb2dsZS1jaHJvbWVjYXN0LmR0cyAgIHwg
-IDYgKysrLS0tCiBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy1seGEtbWMxLmR0cyAgICAg
-ICAgICAgfCAxMyArKysrKysrLS0tLS0tCiAuLi4vYm9vdC9kdHMvYW1sb2dpYy9tZXNvbi1neGwt
-czkwNXgta2hhZGFzLXZpbS5kdHMgfCAgNCArKy0tCiAuLi4vYm9vdC9kdHMvYW1sb2dpYy9tZXNv
-bi1neG0ta2hhZGFzLXZpbTIuZHRzICAgICAgfCAgNCArKy0tCiBhcmNoL2FybTY0L2Jvb3QvZHRz
-L2FtbG9naWMvbWVzb24tc20xLXNlaTYxMC5kdHMgICAgfCAgOCArKysrLS0tLQogYXJjaC9taXBz
-L2Jvb3QvZHRzL2ltZy9waXN0YWNoaW9fbWFyZHVrLmR0cyAgICAgICAgIHwgIDUgKysrLS0KIDcg
-ZmlsZXMgY2hhbmdlZCwgMjQgaW5zZXJ0aW9ucygrKSwgMjEgZGVsZXRpb25zKC0pCgoKYmFzZS1j
-b21taXQ6IDk4NjUwYjA4NzQxNzFjYzQ0MzI1MWY3YjM2OWQzYjE1NDRkYjlkNGUKLS0gCjIuMjAu
-MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+The node names for devices using the pwm-leds driver follow a certain
+naming scheme (now).  Parent node name is not enforced, but recommended
+by DT project.
+
+  DTC     Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
+  CHECK   Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
+/home/alex/build/linux/Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml: pwmleds: 'panel' does not match any of the regexes: '^led(-[0-9a-f]+)?$', 'pinctrl-[0-9]+'
+        From schema: /home/alex/src/linux/leds/Documentation/devicetree/bindings/leds/leds-pwm.yaml
+
+Signed-off-by: Alexander Dahl <post@lespocky.de>
+Acked-by: Rob Herring <robh@kernel.org>
+---
+
+Notes:
+    v7 -> v8:
+      * rebased on v5.10-rc1
+      * added Acked-by (Rob Herring)
+    
+    v6 -> v7:
+      * added warning message to commit message (Krzysztof Kozlowski)
+    
+    v6:
+      * added this patch to series
+
+ Documentation/devicetree/bindings/mfd/iqs62x.yaml | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/mfd/iqs62x.yaml b/Documentation/devicetree/bindings/mfd/iqs62x.yaml
+index 541b06d80e73..92dc48a8dfa7 100644
+--- a/Documentation/devicetree/bindings/mfd/iqs62x.yaml
++++ b/Documentation/devicetree/bindings/mfd/iqs62x.yaml
+@@ -90,10 +90,11 @@ examples:
+             };
+     };
+ 
+-    pwmleds {
++    led-controller {
+             compatible = "pwm-leds";
+ 
+-            panel {
++            led-1 {
++                    label = "panel";
+                     pwms = <&iqs620a_pwm 0 1000000>;
+                     max-brightness = <255>;
+             };
+-- 
+2.20.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
