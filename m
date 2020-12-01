@@ -2,48 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53EA12CA101
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Dec 2020 12:13:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 751112CA105
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Dec 2020 12:14:53 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 150FBC5663C;
-	Tue,  1 Dec 2020 11:13:44 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FD21C5663D;
+	Tue,  1 Dec 2020 11:14:53 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6204C3089F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0F99C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Dec 2020 11:13:42 +0000 (UTC)
+ Tue,  1 Dec 2020 11:14:52 +0000 (UTC)
 Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4Clfc626D3z1qskH;
- Tue,  1 Dec 2020 12:13:42 +0100 (CET)
+ by mail-out.m-online.net (Postfix) with ESMTP id 4ClfdQ4KvZz1rxwf;
+ Tue,  1 Dec 2020 12:14:50 +0100 (CET)
 Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4Clfc61lbWz1qw6Q;
- Tue,  1 Dec 2020 12:13:42 +0100 (CET)
+ by mail.m-online.net (Postfix) with ESMTP id 4ClfdQ3d7Yz1qw6V;
+ Tue,  1 Dec 2020 12:14:50 +0100 (CET)
 X-Virus-Scanned: amavisd-new at mnet-online.de
 Received: from mail.mnet-online.de ([192.168.8.182])
  by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
  port 10024)
- with ESMTP id WnMzTuwrbA8W; Tue,  1 Dec 2020 12:13:41 +0100 (CET)
-X-Auth-Info: UPCmHi4VEgQpDRSwA/Uq0NoKqW/MZwmuGnduFh+ZGco=
+ with ESMTP id 4bFU_uvacZji; Tue,  1 Dec 2020 12:14:47 +0100 (CET)
+X-Auth-Info: 4yBPKgQHQxyYZIAk8QQL6yLZS+Udp0gAwEbNSjvJda8=
 Received: from localhost.localdomain (ip-89-176-112-137.net.upcbroadband.cz
  [89.176.112.137])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
  by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue,  1 Dec 2020 12:13:41 +0100 (CET)
+ Tue,  1 Dec 2020 12:14:47 +0100 (CET)
 From: Marek Vasut <marex@denx.de>
 To: linux-arm-kernel@lists.infradead.org
-Date: Tue,  1 Dec 2020 12:13:31 +0100
-Message-Id: <20201201111331.138177-3-marex@denx.de>
+Date: Tue,  1 Dec 2020 12:14:40 +0100
+Message-Id: <20201201111441.138289-1-marex@denx.de>
 X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201201111331.138177-1-marex@denx.de>
-References: <20201201111331.138177-1-marex@denx.de>
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: Disable WP on DHCOM uSD
-	slot
+Subject: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: Enable internal pull-ups
+	for SDMMC1 on DHCOM SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,9 +58,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The uSD slot has no WP detection, disable it.
+The default state of SD bus and clock line is logical HI. SD card IO is
+open-drain and pulls the bus lines LO. Always enable the SD bus pull ups
+to guarantee this behavior on DHCOM SoM. Note that on SoMs with SD bus
+voltage level shifter, the pull ups are built into the level shifter,
+however that has no negative impact.
 
-Fixes: 34e0c7847dcf ("ARM: dts: stm32: Add DH Electronics DHCOM STM32MP1 SoM and PDK2 board")
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
@@ -71,21 +72,34 @@ Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 ---
- arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-index c77ab1bfdd3e..daff5318f301 100644
+index daff5318f301..97c6e0cd582c 100644
 --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-@@ -391,6 +391,7 @@ &sdmmc1 {
- 	pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_dir_pins_a>;
- 	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a &sdmmc1_dir_sleep_pins_a>;
- 	cd-gpios = <&gpiog 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+	disable-wp;
- 	st,sig-dir;
- 	st,neg-edge;
- 	st,use-ckin;
+@@ -400,6 +400,20 @@ &sdmmc1 {
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	/*
++	 * SD bus pull-up resistors:
++	 * - optional on SoMs with SD voltage translator
++	 * - mandatory on SoMs without SD voltage translator
++	 */
++	pins1 {
++		bias-pull-up;
++	};
++	pins2 {
++		bias-pull-up;
++	};
++};
++
+ &sdmmc2 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
 -- 
 2.29.2
 
