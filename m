@@ -2,78 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 896E72C9901
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Dec 2020 09:21:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B6C32C9C85
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Dec 2020 10:23:59 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35B63C424C0;
-	Tue,  1 Dec 2020 08:21:29 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07F50C424BF;
+	Tue,  1 Dec 2020 09:23:59 +0000 (UTC)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66B3EC424BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F645C3089F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Dec 2020 08:21:26 +0000 (UTC)
-Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 94ECB20659;
- Tue,  1 Dec 2020 08:21:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606810884;
- bh=xHTFstOj6O/KMLPWIJ9livXkeh5E3cNJZoMEX1ICbl0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=0ugfFVtmDEFz3qweRxNJGIbdlhHbJEbe+SPrGbc9I44gM+O6I2rVgrcZagGiPQlJe
- qDa/e9cJY/n7rREFFqWQI6CYR7sTmaWJfiub5J4ReXH3L76qQfPF0XWoTZ+/KCqBa1
- 43uSa/AsDxhQJOFTJrlenu8ULt+S2HlexiyIiZjk=
-Date: Tue, 1 Dec 2020 02:20:47 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: "Martin K. Petersen" <martin.petersen@oracle.com>
-Message-ID: <20201201082047.GA11832@embeddedor>
-References: <cover.1605896059.git.gustavoars@kernel.org>
- <yq1h7p6gjkk.fsf@ca-mkp.ca.oracle.com>
+ Tue,  1 Dec 2020 09:23:55 +0000 (UTC)
+Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Clc914QZJzhXtc;
+ Tue,  1 Dec 2020 17:23:33 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
+ 14.3.487.0; Tue, 1 Dec 2020 17:23:46 +0800
+From: Qinglang Miao <miaoqinglang@huawei.com>
+To: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>
+Date: Tue, 1 Dec 2020 17:31:45 +0800
+Message-ID: <20201201093145.113270-1-miaoqinglang@huawei.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201201092924.112461-1-miaoqinglang@huawei.com>
+References: <20201201092924.112461-1-miaoqinglang@huawei.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <yq1h7p6gjkk.fsf@ca-mkp.ca.oracle.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
- reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
- linux-iio@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
- dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
- samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
- linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
- usb-storage@lists.one-eyed-alien.net, target-devel@vger.kernel.org,
- devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
- rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
- linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
- linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, tipc-discussion@lists.sourceforge.net,
- linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
- xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
- linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- x86@kernel.org, linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
- Kees Cook <keescook@chromium.org>, linux-mm@kvack.org, netdev@vger.kernel.org,
- linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org,
- netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
- patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 000/141] Fix fall-through warnings for
-	Clang
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
+Cc: linux-kernel@vger.kernel.org, Qinglang Miao <miaoqinglang@huawei.com>,
+ linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 7/8] i2c: stm32f7: fix reference leak when
+	pm_runtime_get_sync fails
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,20 +51,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 01, 2020 at 12:52:27AM -0500, Martin K. Petersen wrote:
-> 
-> Gustavo,
-> 
-> > This series aims to fix almost all remaining fall-through warnings in
-> > order to enable -Wimplicit-fallthrough for Clang.
-> 
-> Applied 20-22,54,120-124 to 5.11/scsi-staging, thanks.
+The PM reference count is not expected to be incremented on
+return in these stm32f7_i2c_xx serious functions.
 
-Awesome! :)
+However, pm_runtime_get_sync will increment the PM reference
+count even failed. Forgetting to putting operation will result
+in a reference leak here.
 
-Thanks, Martin.
---
-Gustavo
+Replace it with pm_runtime_resume_and_get to keep usage
+counter balanced.
+
+Fixes: ea6dd25deeb5 ("i2c: stm32f7: add PM_SLEEP suspend/resume support")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
+---
+ drivers/i2c/busses/i2c-stm32f7.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+index f41f51a17..72fd5bdd6 100644
+--- a/drivers/i2c/busses/i2c-stm32f7.c
++++ b/drivers/i2c/busses/i2c-stm32f7.c
+@@ -1643,7 +1643,7 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	i2c_dev->msg_id = 0;
+ 	f7_msg->smbus = false;
+ 
+-	ret = pm_runtime_get_sync(i2c_dev->dev);
++	ret = pm_runtime_resume_and_get(i2c_dev->dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -1689,7 +1689,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
+ 	f7_msg->read_write = read_write;
+ 	f7_msg->smbus = true;
+ 
+-	ret = pm_runtime_get_sync(dev);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -1790,7 +1790,7 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = pm_runtime_get_sync(dev);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -1871,7 +1871,7 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
+ 
+ 	WARN_ON(!i2c_dev->slave[id]);
+ 
+-	ret = pm_runtime_get_sync(i2c_dev->dev);
++	ret = pm_runtime_resume_and_get(i2c_dev->dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -2268,7 +2268,7 @@ static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
+ 	int ret;
+ 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
+ 
+-	ret = pm_runtime_get_sync(i2c_dev->dev);
++	ret = pm_runtime_resume_and_get(i2c_dev->dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -2290,7 +2290,7 @@ static int stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
+ 	int ret;
+ 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
+ 
+-	ret = pm_runtime_get_sync(i2c_dev->dev);
++	ret = pm_runtime_resume_and_get(i2c_dev->dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-- 
+2.23.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
