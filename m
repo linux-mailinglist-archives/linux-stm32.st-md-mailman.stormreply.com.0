@@ -2,39 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B6C32C9C85
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Dec 2020 10:23:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 415502CA0FF
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Dec 2020 12:13:43 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07F50C424BF;
-	Tue,  1 Dec 2020 09:23:59 +0000 (UTC)
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E776CC424BF;
+	Tue,  1 Dec 2020 11:13:42 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F645C3089F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE126C3089F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Dec 2020 09:23:55 +0000 (UTC)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Clc914QZJzhXtc;
- Tue,  1 Dec 2020 17:23:33 +0800 (CST)
-Received: from localhost.localdomain.localdomain (10.175.113.25) by
- DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
- 14.3.487.0; Tue, 1 Dec 2020 17:23:46 +0800
-From: Qinglang Miao <miaoqinglang@huawei.com>
-To: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>
-Date: Tue, 1 Dec 2020 17:31:45 +0800
-Message-ID: <20201201093145.113270-1-miaoqinglang@huawei.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201201092924.112461-1-miaoqinglang@huawei.com>
-References: <20201201092924.112461-1-miaoqinglang@huawei.com>
+ Tue,  1 Dec 2020 11:13:40 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4Clfc40FDzz1qsb0;
+ Tue,  1 Dec 2020 12:13:40 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4Clfc36ZRVz1qw6N;
+ Tue,  1 Dec 2020 12:13:39 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id agPnv4ISp7im; Tue,  1 Dec 2020 12:13:38 +0100 (CET)
+X-Auth-Info: ql9bmE66MNxEy4iEpD4IMEQvcb1IdSjHuMWQpNwUR8k=
+Received: from localhost.localdomain (ip-89-176-112-137.net.upcbroadband.cz
+ [89.176.112.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Tue,  1 Dec 2020 12:13:38 +0100 (CET)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Tue,  1 Dec 2020 12:13:29 +0100
+Message-Id: <20201201111331.138177-1-marex@denx.de>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-X-Originating-IP: [10.175.113.25]
-X-CFilter-Loop: Reflected
-Cc: linux-kernel@vger.kernel.org, Qinglang Miao <miaoqinglang@huawei.com>,
- linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+Cc: Marek Vasut <marex@denx.de>, Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 7/8] i2c: stm32f7: fix reference leak when
-	pm_runtime_get_sync fails
+Subject: [Linux-stm32] [PATCH 1/3] ARM: dts: stm32: Fix polarity of the DH
+	DRC02 uSD card detect
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,83 +58,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The PM reference count is not expected to be incremented on
-return in these stm32f7_i2c_xx serious functions.
+The uSD card detect signal on the DH DRC02 is active-high, with
+a default pull down resistor on the board. Invert the polarity.
 
-However, pm_runtime_get_sync will increment the PM reference
-count even failed. Forgetting to putting operation will result
-in a reference leak here.
-
-Replace it with pm_runtime_resume_and_get to keep usage
-counter balanced.
-
-Fixes: ea6dd25deeb5 ("i2c: stm32f7: add PM_SLEEP suspend/resume support")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
+Fixes: fde180f06d7b ("ARM: dts: stm32: Add DHSOM based DRC02 board")
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+--
+Note that this could not be tested on prototype SoMs, now that it is
+tested, this issue surfaced, so it needs to be fixed.
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index f41f51a17..72fd5bdd6 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1643,7 +1643,7 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
- 	i2c_dev->msg_id = 0;
- 	f7_msg->smbus = false;
- 
--	ret = pm_runtime_get_sync(i2c_dev->dev);
-+	ret = pm_runtime_resume_and_get(i2c_dev->dev);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -1689,7 +1689,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
- 	f7_msg->read_write = read_write;
- 	f7_msg->smbus = true;
- 
--	ret = pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -1790,7 +1790,7 @@ static int stm32f7_i2c_reg_slave(struct i2c_client *slave)
- 	if (ret)
- 		return ret;
- 
--	ret = pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -1871,7 +1871,7 @@ static int stm32f7_i2c_unreg_slave(struct i2c_client *slave)
- 
- 	WARN_ON(!i2c_dev->slave[id]);
- 
--	ret = pm_runtime_get_sync(i2c_dev->dev);
-+	ret = pm_runtime_resume_and_get(i2c_dev->dev);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -2268,7 +2268,7 @@ static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
- 	int ret;
- 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
- 
--	ret = pm_runtime_get_sync(i2c_dev->dev);
-+	ret = pm_runtime_resume_and_get(i2c_dev->dev);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -2290,7 +2290,7 @@ static int stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
- 	int ret;
- 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
- 
--	ret = pm_runtime_get_sync(i2c_dev->dev);
-+	ret = pm_runtime_resume_and_get(i2c_dev->dev);
- 	if (ret < 0)
- 		return ret;
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
+index 62ab23824a3e..3299a42d8063 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
+@@ -104,7 +104,7 @@ &sdmmc3 {
+ 	 * are used for on-board microSD slot instead.
+ 	 */
+ 	/delete-property/broken-cd;
+-	cd-gpios = <&gpioi 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
++	cd-gpios = <&gpioi 10 GPIO_ACTIVE_HIGH>;
+ 	disable-wp;
+ };
  
 -- 
-2.23.0
+2.29.2
 
 _______________________________________________
 Linux-stm32 mailing list
