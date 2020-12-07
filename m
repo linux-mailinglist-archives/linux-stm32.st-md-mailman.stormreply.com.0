@@ -2,109 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E62912D224C
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Dec 2020 05:53:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D4422D242F
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Dec 2020 08:19:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93923C3FADC;
-	Tue,  8 Dec 2020 04:53:19 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC78EC3FADA
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E62B3C3FADC;
+	Tue,  8 Dec 2020 07:19:07 +0000 (UTC)
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AF91C3FAD8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Dec 2020 04:53:17 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B84nPNV064006;
- Tue, 8 Dec 2020 04:52:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=1e3cV7XKyt5cBPHNeWYhYMHu3W87CKppja6U1Jvw5F4=;
- b=V+G180Fh0lHbcmydQJqS5i+cerb42SoRrRI9QCXlQMjyWKKfj0acXqExTQUiK+7OEtft
- OuMy/8L57grCegXY4FPi2mfpdUD9NETOrjU6XyLEGnB6yCKU9e30d2WSgQTsYBxq/cMN
- 5junVfgiRpfFB5rc1EfDtZHP43anCs3FIrUtz16u4yPsKG0NCInMT5yeMTaPCX1MMJeq
- qZ1GHIcbwNatFRQ/tELhwJDJybfqjlIskC/pDoCLpTPJ2KTrod7PX9rst5aaRTC3xIQA
- veh/+mbPHLjYXfePq5oiUCHv2+7Gowf8M2KKiHFzojpZKSSSQD2meZy2nTRpI8CVh6TQ Yg== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 35825m0srq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 08 Dec 2020 04:52:35 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B84ocw5155469;
- Tue, 8 Dec 2020 04:52:34 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by userp3020.oracle.com with ESMTP id 358kys9m8s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 08 Dec 2020 04:52:34 +0000
-Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0B84qX4M159553;
- Tue, 8 Dec 2020 04:52:33 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3020.oracle.com with ESMTP id 358kys9m7s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 08 Dec 2020 04:52:33 +0000
-Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B84qDZf015901;
- Tue, 8 Dec 2020 04:52:15 GMT
-Received: from ca-mkp.ca.oracle.com (/10.156.108.201)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 07 Dec 2020 20:52:13 -0800
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-To: linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Date: Mon,  7 Dec 2020 23:52:01 -0500
-Message-Id: <160740299787.710.4201881220590518200.b4-ty@oracle.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
-References: <cover.1605896059.git.gustavoars@kernel.org>
+ Mon,  7 Dec 2020 10:33:17 +0000 (UTC)
+Received: from uucp (helo=alpha)
+ by elvis.franken.de with local-bsmtp (Exim 3.36 #1)
+ id 1kmDpT-00058D-00; Mon, 07 Dec 2020 11:33:15 +0100
+Received: by alpha.franken.de (Postfix, from userid 1000)
+ id A2790C02EA; Mon,  7 Dec 2020 11:32:21 +0100 (CET)
+Date: Mon, 7 Dec 2020 11:32:21 +0100
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Alexander Dahl <post@lespocky.de>
+Message-ID: <20201207103221.GA15686@alpha.franken.de>
+References: <20201128215353.3991-1-post@lespocky.de>
+ <20201128215353.3991-6-post@lespocky.de>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9828
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- adultscore=0 bulkscore=0
- phishscore=0 mlxlogscore=380 clxscore=1015 priorityscore=1501 mlxscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012080029
-Cc: linux-fbdev@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- linux-stm32@st-md-mailman.stormreply.com, linux-iio@vger.kernel.org,
- linux-wireless@vger.kernel.org, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, linux-ide@vger.kernel.org, dm-devel@redhat.com,
- keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-hardening@vger.kernel.org, wcn36xx@lists.infradead.org,
- linux-i3c@lists.infradead.org, linux-decnet-user@lists.sourceforge.net,
- ceph-devel@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- Kees Cook <keescook@chromium.org>, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- linux1394-devel@lists.sourceforge.net, linux-scsi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com, x86@kernel.org,
- amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
- cluster-devel@redhat.com, linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
- linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
- bridge@lists.linux-foundation.org, linux-watchdog@vger.kernel.org,
- selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, reiserfs-devel@vger.kernel.org,
- linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-mediatek@lists.infradead.org, samba-technical@lists.samba.org,
- drbd-dev@tron.linbit.com, linux-hams@vger.kernel.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-nfs@vger.kernel.org,
- GR-Linux-NIC-Dev@marvell.com, tipc-discussion@lists.sourceforge.net,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- nouveau@lists.freedesktop.org, patches@opensource.cirrus.com,
- linux-usb@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
- linux-sctp@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-security-module@vger.kernel.org, target-devel@vger.kernel.org,
- netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, GR-everest-linux-l2@marvell.com
-Subject: Re: [Linux-stm32] (subset) [PATCH 000/141] Fix fall-through
-	warnings for Clang
+Content-Disposition: inline
+In-Reply-To: <20201128215353.3991-6-post@lespocky.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Tue, 08 Dec 2020 07:19:04 +0000
+Cc: devicetree@vger.kernel.org, James Hartley <james.hartley@sondrel.com>,
+ Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Rahul Bedarkar <rahulbedarkar89@gmail.com>, linux-amlogic@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v8 5/5] MIPS: DTS: img: Fix schema
+	warnings for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,24 +51,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 20 Nov 2020 12:21:39 -0600, Gustavo A. R. Silva wrote:
-
-> This series aims to fix almost all remaining fall-through warnings in
-> order to enable -Wimplicit-fallthrough for Clang.
+On Sat, Nov 28, 2020 at 10:53:53PM +0100, Alexander Dahl wrote:
+> The node names for devices using the pwm-leds driver follow a certain
+> naming scheme (now).  Parent node name is not enforced, but recommended
+> by DT project.
 > 
-> In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
-> add multiple break/goto/return/fallthrough statements instead of just
-> letting the code fall through to the next case.
+> Signed-off-by: Alexander Dahl <post@lespocky.de>
+> ---
 > 
-> [...]
+> Notes:
+>     v7 -> v8:
+>       * rebased on v5.10-rc1
+>     
+>     v6 -> v7:
+>       * added another explaining sentence to commit message
+>     
+>     v6:
+>       * added this patch to series
+> 
+>  arch/mips/boot/dts/img/pistachio_marduk.dts | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 
-Applied to 5.11/scsi-queue, thanks!
+applied to mips-next.
 
-[054/141] target: Fix fall-through warnings for Clang
-          https://git.kernel.org/mkp/scsi/c/492096ecfa39
+Thomas.
 
 -- 
-Martin K. Petersen	Oracle Linux Engineering
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
