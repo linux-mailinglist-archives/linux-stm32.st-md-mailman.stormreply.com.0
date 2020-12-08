@@ -2,58 +2,109 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D535D2D1DBC
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Dec 2020 23:50:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E62912D224C
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Dec 2020 05:53:19 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8165EC3FADC;
-	Mon,  7 Dec 2020 22:50:29 +0000 (UTC)
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93923C3FADC;
+	Tue,  8 Dec 2020 04:53:19 +0000 (UTC)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFD91C3FADA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC78EC3FADA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Dec 2020 22:50:26 +0000 (UTC)
-Received: by mail-oi1-f194.google.com with SMTP id s75so14269855oih.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 07 Dec 2020 14:50:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=OOjXvzmUiGjPiWQnDBF3fUFBdTIAN342UXa8biTDBZY=;
- b=W29qkID8+QXAhpQ+mFU4oVV1dHscqCcfUZPL4MdHLjIP2Xh28LHtxPS7qEbIJE+XCr
- YXx8Hewzxep459CBNNf69ko/CVTeZFGnBiQuk9L9AFyAQ253V3PJW3bUgqmXfky4Z6Ti
- oCOSlRww0SZfawha/iNh7UhWet+PfMMD2LTyrQswaY1N3IRbwvCFJDwSKU9T1SNN1Uv7
- BYsXJUL0R/5HPSW4rgSVYqCGv16Ywnc7knkljKTDJ66fOG3RLNEqesEbC8bLGTT5zbOE
- vhEI1lfoYivGgu5YdQ8qgBcFqppMRiMn99qvmSVa1unPvu+rmtl4zNMCdAKx5M0bk8+l
- BRSA==
-X-Gm-Message-State: AOAM530dwJ9Io9xSZENz/MHgCIHJVD6Hg27Br9NuhE162WN4vXYfTACP
- 6rffiyXO8rktQdb4EcLYcg==
-X-Google-Smtp-Source: ABdhPJxjmuWPyB2q7LBKu3uvUIWs2vkBHsFks2mtNMtTNthmYmCU6ILC/3dqCqhbfOBYUbHUIugK/Q==
-X-Received: by 2002:aca:6103:: with SMTP id v3mr806928oib.64.1607381425377;
- Mon, 07 Dec 2020 14:50:25 -0800 (PST)
-Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id h8sm2834490oom.41.2020.12.07.14.50.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Dec 2020 14:50:24 -0800 (PST)
-Received: (nullmailer pid 990371 invoked by uid 1000);
- Mon, 07 Dec 2020 22:50:23 -0000
-Date: Mon, 7 Dec 2020 16:50:23 -0600
-From: Rob Herring <robh@kernel.org>
-To: Amelie Delaunay <amelie.delaunay@st.com>
-Message-ID: <20201207225023.GA990319@robh.at.kernel.org>
-References: <20201123170132.17859-1-amelie.delaunay@st.com>
- <20201123170132.17859-2-amelie.delaunay@st.com>
+ Tue,  8 Dec 2020 04:53:17 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B84nPNV064006;
+ Tue, 8 Dec 2020 04:52:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=1e3cV7XKyt5cBPHNeWYhYMHu3W87CKppja6U1Jvw5F4=;
+ b=V+G180Fh0lHbcmydQJqS5i+cerb42SoRrRI9QCXlQMjyWKKfj0acXqExTQUiK+7OEtft
+ OuMy/8L57grCegXY4FPi2mfpdUD9NETOrjU6XyLEGnB6yCKU9e30d2WSgQTsYBxq/cMN
+ 5junVfgiRpfFB5rc1EfDtZHP43anCs3FIrUtz16u4yPsKG0NCInMT5yeMTaPCX1MMJeq
+ qZ1GHIcbwNatFRQ/tELhwJDJybfqjlIskC/pDoCLpTPJ2KTrod7PX9rst5aaRTC3xIQA
+ veh/+mbPHLjYXfePq5oiUCHv2+7Gowf8M2KKiHFzojpZKSSSQD2meZy2nTRpI8CVh6TQ Yg== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 35825m0srq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 08 Dec 2020 04:52:35 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B84ocw5155469;
+ Tue, 8 Dec 2020 04:52:34 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by userp3020.oracle.com with ESMTP id 358kys9m8s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 08 Dec 2020 04:52:34 +0000
+Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0B84qX4M159553;
+ Tue, 8 Dec 2020 04:52:33 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3020.oracle.com with ESMTP id 358kys9m7s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 08 Dec 2020 04:52:33 +0000
+Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B84qDZf015901;
+ Tue, 8 Dec 2020 04:52:15 GMT
+Received: from ca-mkp.ca.oracle.com (/10.156.108.201)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 07 Dec 2020 20:52:13 -0800
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+To: linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Date: Mon,  7 Dec 2020 23:52:01 -0500
+Message-Id: <160740299787.710.4201881220590518200.b4-ty@oracle.com>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
+References: <cover.1605896059.git.gustavoars@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201123170132.17859-2-amelie.delaunay@st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/6] dt-bindings: phy: phy-stm32-usbphyc:
- move PLL supplies to parent node
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9828
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ adultscore=0 bulkscore=0
+ phishscore=0 mlxlogscore=380 clxscore=1015 priorityscore=1501 mlxscore=0
+ spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012080029
+Cc: linux-fbdev@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+ linux-stm32@st-md-mailman.stormreply.com, linux-iio@vger.kernel.org,
+ linux-wireless@vger.kernel.org, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, linux-ide@vger.kernel.org, dm-devel@redhat.com,
+ keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-hardening@vger.kernel.org, wcn36xx@lists.infradead.org,
+ linux-i3c@lists.infradead.org, linux-decnet-user@lists.sourceforge.net,
+ ceph-devel@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ Kees Cook <keescook@chromium.org>, devel@driverdev.osuosl.org,
+ linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
+ linux1394-devel@lists.sourceforge.net, linux-scsi@vger.kernel.org,
+ linux-rdma@vger.kernel.org, oss-drivers@netronome.com, x86@kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
+ cluster-devel@redhat.com, linux-acpi@vger.kernel.org, coreteam@netfilter.org,
+ intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
+ linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
+ bridge@lists.linux-foundation.org, linux-watchdog@vger.kernel.org,
+ selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, reiserfs-devel@vger.kernel.org,
+ linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
+ linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-mediatek@lists.infradead.org, samba-technical@lists.samba.org,
+ drbd-dev@tron.linbit.com, linux-hams@vger.kernel.org,
+ Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-nfs@vger.kernel.org,
+ GR-Linux-NIC-Dev@marvell.com, tipc-discussion@lists.sourceforge.net,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ nouveau@lists.freedesktop.org, patches@opensource.cirrus.com,
+ linux-usb@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-sctp@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-security-module@vger.kernel.org, target-devel@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, Joe Perches <joe@perches.com>,
+ linux-integrity@vger.kernel.org, GR-everest-linux-l2@marvell.com
+Subject: Re: [Linux-stm32] (subset) [PATCH 000/141] Fix fall-through
+	warnings for Clang
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,29 +121,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 23 Nov 2020 18:01:27 +0100, Amelie Delaunay wrote:
-> PLL block requires to be powered with 1v1 and 1v8 supplies to catch ENABLE
-> signal.
-> Currently, supplies are managed through phy_ops .power_on/off, and PLL
-> activation/deactivation is managed through phy_ops .init/exit.
-> The sequence of phy_ops .power_on/.phy_init, .power_off/.exit is USB
-> drivers dependent.
-> To ensure a good behavior of the PLL, supplies have to be managed at PLL
-> activation/deactivation. That means the supplies need to be put in usbphyc
-> parent node and not in phy children nodes.
-> 
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@st.com>
-> ---
-> Note that even with bindings change, it doesn't break the backward
-> compatibility: old device trees are still compatible, USB is still
-> functional. Device trees will be updated with this new bindings
-> when approved.
-> ---
->  .../bindings/phy/phy-stm32-usbphyc.yaml       | 22 +++++++++----------
->  1 file changed, 10 insertions(+), 12 deletions(-)
-> 
+On Fri, 20 Nov 2020 12:21:39 -0600, Gustavo A. R. Silva wrote:
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+> This series aims to fix almost all remaining fall-through warnings in
+> order to enable -Wimplicit-fallthrough for Clang.
+> 
+> In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
+> add multiple break/goto/return/fallthrough statements instead of just
+> letting the code fall through to the next case.
+> 
+> [...]
+
+Applied to 5.11/scsi-queue, thanks!
+
+[054/141] target: Fix fall-through warnings for Clang
+          https://git.kernel.org/mkp/scsi/c/492096ecfa39
+
+-- 
+Martin K. Petersen	Oracle Linux Engineering
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
