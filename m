@@ -2,36 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA4A72D5181
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Dec 2020 04:40:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10E092D56A8
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Dec 2020 10:18:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 953DBC3FADB;
-	Thu, 10 Dec 2020 03:40:46 +0000 (UTC)
-Received: from mail.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 764ABC32E90
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF44BC3FADB;
+	Thu, 10 Dec 2020 09:18:10 +0000 (UTC)
+Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
+ [87.245.175.226])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C69CC32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Dec 2020 03:40:44 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2601:601:9f00:477:9e51:a893:b0fe:602a])
- by mail.monkeyblade.net (Postfix) with ESMTPSA id 11FDB4D259C21;
- Wed,  9 Dec 2020 19:40:42 -0800 (PST)
-Date: Wed, 09 Dec 2020 19:40:41 -0800 (PST)
-Message-Id: <20201209.194041.84161587477984240.davem@davemloft.net>
-To: vee.khee.wong@intel.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20201209224700.30295-1-vee.khee.wong@intel.com>
-References: <20201209224700.30295-1-vee.khee.wong@intel.com>
-X-Mailer: Mew version 6.8 on Emacs 27.1
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2
- (mail.monkeyblade.net [0.0.0.0]); Wed, 09 Dec 2020 19:40:42 -0800 (PST)
-Cc: weifeng.voon@intel.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, boon.leong.ong@intel.com, peppe.cavallaro@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 net-next 1/1] net: stmmac: allow stmmac
- to probe for C45 PHY devices
+ Thu, 10 Dec 2020 09:18:08 +0000 (UTC)
+From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+To: Felipe Balbi <balbi@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Florian Fainelli <f.fainelli@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Thu, 10 Dec 2020 12:17:45 +0300
+Message-ID: <20201210091756.18057-1-Sergey.Semin@baikalelectronics.ru>
+MIME-Version: 1.0
+X-ClientProxiedBy: MAIL.baikal.int (192.168.51.25) To mail (192.168.51.25)
+Cc: Andrew Lunn <andrew@lunn.ch>, Tony Lindgren <tony@atomide.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Patrice Chotard <patrice.chotard@st.com>, Paul Cercueil <paul@crapouillou.net>,
+ Paul Mackerras <paulus@samba.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Khuong Dinh <khuong@os.amperecomputing.com>, linux-samsung-soc@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Rafal Milecki <zajec5@gmail.com>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Wei Xu <xuwei5@hisilicon.com>, Chen-Yu Tsai <wens@csie.org>,
+ Andy Gross <agross@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
+ linux-arm-msm@vger.kernel.org, linux-snps-arc@lists.infradead.org,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ devicetree@vger.kernel.org, Jason Cooper <jason@lakedaemon.net>,
+ linux-omap@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>,
+ linuxppc-dev@lists.ozlabs.org, Maxime Ripard <mripard@kernel.org>,
+ Vladimir Zapolskiy <vz@mleia.com>, Jun Li <lijun.kernel@gmail.com>,
+ Santosh Shilimkar <ssantosh@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org,
+ Vineet Gupta <vgupta@synopsys.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Li Yang <leoyang.li@nxp.com>, Serge Semin <Sergey.Semin@baikalelectronics.ru>,
+ Kukjin Kim <kgene@kernel.org>, Benoit Cousson <bcousson@baylibre.com>,
+ linux-mediatek@lists.infradead.org, Shawn Guo <shawnguo@kernel.org>
+Subject: [Linux-stm32] [PATCH RESEND v4 00/10] dt-bindings: usb: Harmonize
+	xHCI/EHCI/OHCI/DWC3 nodes name
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,18 +65,168 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Wong Vee Khee <vee.khee.wong@intel.com>
-Date: Thu, 10 Dec 2020 06:47:00 +0800
+As the subject states this series is an attempt to harmonize the xHCI,
+EHCI, OHCI and DWC USB3 DT nodes with the DT schema introduced in the
+framework of the patchset [1].
 
-> Assign stmmac's mdio_bus probe capabilities to MDIOBUS_C22_C45.
-> This extended the probing of C45 PHY devices on the MDIO bus.
-> 
-> Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
-> ---
-> v2 changelog:
-> - Added conditional check for gmac4.
+Firstly as Krzysztof suggested we've deprecated a support of DWC USB3
+controllers with "synopsys,"-vendor prefix compatible string in favor of
+the ones with valid "snps,"-prefix. It's done in all the DTS files,
+which have been unfortunate to define such nodes.
 
-Applied, thanks.
+Secondly we suggest to fix the snps,quirk-frame-length-adjustment property
+declaration in the Amlogic meson-g12-common.dtsi DTS file, since it has
+been erroneously declared as boolean while having uint32 type. Neil said
+it was ok to init that property with 0x20 value.
+
+Thirdly the main part of the patchset concern fixing the xHCI, EHCI/OHCI
+and DWC USB3 DT nodes name as in accordance with their DT schema the
+corresponding node name is suppose to comply with the Generic USB HCD DT
+schema, which requires the USB nodes to have the name acceptable by the
+regexp: "^usb(@.*)?". Such requirement had been applicable even before we
+introduced the new DT schema in [1], but as we can see it hasn't been
+strictly implemented for a lot the DTS files. Since DT schema is now
+available the automated DTS validation shall make sure that the rule isn't
+violated.
+
+Note most of these patches have been a part of the last three patches of
+[1]. But since there is no way to have them merged in in a combined
+manner, I had to move them to the dedicated series and split them up so to
+be accepted by the corresponding subsystem maintainers one-by-one.
+
+[1] Link: https://lore.kernel.org/linux-usb/20201014101402.18271-1-Sergey.Semin@baikalelectronics.ru/
+Changelog v1:
+- As Krzysztof suggested I've created a script which checked whether the
+  node names had been also updated in all the depended dts files. As a
+  result I found two more files which should have been also modified:
+  arch/arc/boot/dts/{axc003.dtsi,axc003_idu.dtsi}
+- Correct the USB DWC3 nodes name found in
+  arch/arm64/boot/dts/apm/{apm-storm.dtsi,apm-shadowcat.dtsi} too.
+
+Link: https://lore.kernel.org/linux-usb/20201020115959.2658-1-Sergey.Semin@baikalelectronics.ru
+Changelog v2:
+- Drop the patch:
+  [PATCH 01/29] usb: dwc3: Discard synopsys,dwc3 compatibility string
+  and get back the one which marks the "synopsys,dwc3" compatible string
+  as deprecated into the DT schema related series.
+- Drop the patches:
+  [PATCH 03/29] arm: dts: am437x: Correct DWC USB3 compatible string
+  [PATCH 04/29] arm: dts: exynos: Correct DWC USB3 compatible string
+  [PATCH 07/29] arm: dts: bcm53x: Harmonize EHCI/OHCI DT nodes name
+  [PATCH 08/29] arm: dts: stm32: Harmonize EHCI/OHCI DT nodes name
+  [PATCH 16/29] arm: dts: bcm5301x: Harmonize xHCI DT nodes name
+  [PATCH 19/29] arm: dts: exynos: Harmonize DWC USB3 DT nodes name
+  [PATCH 21/29] arm: dts: ls1021a: Harmonize DWC USB3 DT nodes name
+  [PATCH 22/29] arm: dts: omap5: Harmonize DWC USB3 DT nodes name
+  [PATCH 24/29] arm64: dts: allwinner: h6: Harmonize DWC USB3 DT nodes name
+  [PATCH 26/29] arm64: dts: exynos: Harmonize DWC USB3 DT nodes name
+  [PATCH 27/29] arm64: dts: layerscape: Harmonize DWC USB3 DT nodes name
+  since they have been applied to the corresponding maintainers repos.
+- Fix drivers/usb/dwc3/dwc3-qcom.c to be looking for the "usb@"-prefixed
+  sub-node and falling back to the "dwc3@"-prefixed one on failure.
+
+Link: https://lore.kernel.org/linux-usb/20201111091552.15593-1-Sergey.Semin@baikalelectronics.ru
+Changelog v3:
+- Drop the patches:
+  [PATCH v2 04/18] arm: dts: hisi-x5hd2: Harmonize EHCI/OHCI DT nodes name
+  [PATCH v2 06/18] arm64: dts: hisi: Harmonize EHCI/OHCI DT nodes name
+  [PATCH v2 07/18] mips: dts: jz47x: Harmonize EHCI/OHCI DT nodes name
+  [PATCH v2 08/18] mips: dts: sead3: Harmonize EHCI/OHCI DT nodes name
+  [PATCH v2 09/18] mips: dts: ralink: mt7628a: Harmonize EHCI/OHCI DT nodes name
+  [PATCH v2 11/18] arm64: dts: marvell: cp11x: Harmonize xHCI DT nodes name
+  [PATCH v2 12/18] arm: dts: marvell: armada-375: Harmonize DWC USB3 DT nodes name
+  [PATCH v2 16/18] arm64: dts: hi3660: Harmonize DWC USB3 DT nodes name
+  since they have been applied to the corresponding maintainers repos.
+
+Link: https://lore.kernel.org/linux-usb/20201205155621.3045-1-Sergey.Semin@baikalelectronics.ru
+Changelog v4:
+- Just resend.
+
+Cc: Vineet Gupta <vgupta@synopsys.com>
+Cc: Rafal Milecki <zajec5@gmail.com>
+Cc: Wei Xu <xuwei5@hisilicon.com>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Jason Cooper <jason@lakedaemon.net>
+Cc: Santosh Shilimkar <ssantosh@kernel.org>
+Cc: Shawn Guo <shawnguo@kernel.org>
+Cc: Benoit Cousson <bcousson@baylibre.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Khuong Dinh <khuong@os.amperecomputing.com>
+Cc: Andy Gross <agross@kernel.org>
+Cc: Alexey Brodkin <abrodkin@synopsys.com>
+Cc: Hauke Mehrtens <hauke@hauke-m.de>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Amelie Delaunay <amelie.delaunay@st.com>
+Cc: Vladimir Zapolskiy <vz@mleia.com>
+Cc: Paul Cercueil <paul@crapouillou.net>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Paul Mackerras <paulus@samba.org>
+Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: Gregory Clement <gregory.clement@bootlin.com>
+Cc: Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Cc: Kukjin Kim <kgene@kernel.org>
+Cc: Li Yang <leoyang.li@nxp.com>
+Cc: Tony Lindgren <tony@atomide.com>
+Cc: Chen-Yu Tsai <wens@csie.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Jun Li <lijun.kernel@gmail.com>
+Cc: linux-snps-arc@lists.infradead.org
+Cc: bcm-kernel-feedback-list@broadcom.com
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-mips@vger.kernel.org
+Cc: linux-mediatek@lists.infradead.org
+Cc: linuxppc-dev@lists.ozlabs.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: linux-omap@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+Serge Semin (10):
+  arm: dts: keystone: Correct DWC USB3 compatible string
+  arm64: dts: amlogic: meson-g12: Set FL-adj property value
+  arc: dts: Harmonize EHCI/OHCI DT nodes name
+  arm: dts: lpc18xx: Harmonize EHCI/OHCI DT nodes name
+  powerpc: dts: akebono: Harmonize EHCI/OHCI DT nodes name
+  arm: dts: keystone: Harmonize DWC USB3 DT nodes name
+  arm: dts: stih407-family: Harmonize DWC USB3 DT nodes name
+  arm64: dts: apm: Harmonize DWC USB3 DT nodes name
+  usb: dwc3: qcom: Detect DWC3 DT-nodes with "usb"-prefixed names
+  arm64: dts: qcom: Harmonize DWC USB3 DT nodes name
+
+ arch/arc/boot/dts/axc003.dtsi                     | 4 ++--
+ arch/arc/boot/dts/axc003_idu.dtsi                 | 4 ++--
+ arch/arc/boot/dts/axs10x_mb.dtsi                  | 4 ++--
+ arch/arc/boot/dts/hsdk.dts                        | 4 ++--
+ arch/arc/boot/dts/vdk_axs10x_mb.dtsi              | 2 +-
+ arch/arm/boot/dts/keystone-k2e.dtsi               | 6 +++---
+ arch/arm/boot/dts/keystone.dtsi                   | 4 ++--
+ arch/arm/boot/dts/lpc18xx.dtsi                    | 4 ++--
+ arch/arm/boot/dts/stih407-family.dtsi             | 2 +-
+ arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi | 2 +-
+ arch/arm64/boot/dts/apm/apm-shadowcat.dtsi        | 4 ++--
+ arch/arm64/boot/dts/apm/apm-storm.dtsi            | 6 +++---
+ arch/arm64/boot/dts/qcom/apq8096-db820c.dtsi      | 4 ++--
+ arch/arm64/boot/dts/qcom/ipq8074.dtsi             | 4 ++--
+ arch/arm64/boot/dts/qcom/msm8996.dtsi             | 4 ++--
+ arch/arm64/boot/dts/qcom/msm8998.dtsi             | 2 +-
+ arch/arm64/boot/dts/qcom/qcs404-evb.dtsi          | 2 +-
+ arch/arm64/boot/dts/qcom/qcs404.dtsi              | 4 ++--
+ arch/arm64/boot/dts/qcom/sc7180.dtsi              | 2 +-
+ arch/arm64/boot/dts/qcom/sdm845.dtsi              | 4 ++--
+ arch/arm64/boot/dts/qcom/sm8150.dtsi              | 2 +-
+ arch/powerpc/boot/dts/akebono.dts                 | 6 +++---
+ drivers/usb/dwc3/dwc3-qcom.c                      | 3 ++-
+ 23 files changed, 42 insertions(+), 41 deletions(-)
+
+-- 
+2.29.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
