@@ -2,66 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E0402D913E
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 00:58:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 832562D94A3
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 10:16:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41709C3FAD4;
-	Sun, 13 Dec 2020 23:58:34 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83DFDC36B35
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27D41C3FAD5;
+	Mon, 14 Dec 2020 09:16:24 +0000 (UTC)
+Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
+ [87.245.175.226])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D76EC3FAD4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 13 Dec 2020 23:58:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rMQZwv/LURS0wqCtEAe0Ma2QSEL/VCwH1AdaCaJQmAE=; b=qYqmw2F3ymJtHU9hPxmPp46weq
- 6gPiwIGDJyL6oreZi3+hguPJMzoz80cUQluzmQARGcskF275lFeH5l+RMqnbH8zZbQm5ABnMrPy9B
- gBfRjwuS0tjSk7Taz+yCyM+SARjB6K4yWz6op3vI7mU+nTqhAem+GaYtc8lKsS5ZLmv1Ry1KU4FpN
- ylznW+cyH2/yCTFyU9+79ycMPq8OVzoRG/R2AP8Bx0ah+Z6BXlE3WNkaC6ubf3my23TMgcN9FNx8Z
- Wm31ymDvIIdxBgni0Ru1SZqGgLpxKK1jBvE/QTNPOyGTJ+37rtad1HjIH3nbcjg6tUihvF1d4hv0d
- lgbybIiQ==;
-Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
- ([108.198.5.147]:39024 helo=[192.168.0.134])
- by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <david@lechnology.com>)
- id 1kobFz-0002Qr-Ub; Sun, 13 Dec 2020 18:58:28 -0500
-To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
-References: <cover.1606075915.git.vilhelm.gray@gmail.com>
- <b52a62196399d33221f78a1689276ac193c10229.1606075915.git.vilhelm.gray@gmail.com>
-From: David Lechner <david@lechnology.com>
-Message-ID: <b5d49a3a-99ab-e5c0-3f0b-601eed9b54f5@lechnology.com>
-Date: Sun, 13 Dec 2020 17:58:26 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon, 14 Dec 2020 09:16:21 +0000 (UTC)
+From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
+ <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose
+ Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, Jakub
+ Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Maxime Ripard
+ <mripard@kernel.org>, Joao Pinto <jpinto@synopsys.com>, Lars Persson
+ <larper@axis.com>
+Date: Mon, 14 Dec 2020 12:15:50 +0300
+Message-ID: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
-In-Reply-To: <b52a62196399d33221f78a1689276ac193c10229.1606075915.git.vilhelm.gray@gmail.com>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- Dan Carpenter <dan.carpenter@oracle.com>, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
+X-ClientProxiedBy: MAIL.baikal.int (192.168.51.25) To mail (192.168.51.25)
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
+ Serge Semin <Sergey.Semin@baikalelectronics.ru>,
+ Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
+ Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v6 3/5] counter: Add character device
-	interface
+Subject: [Linux-stm32] [PATCH 00/25] net: stmmac: Fix clocks/reset-related
+	procedures
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,321 +44,147 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/22/20 2:29 PM, William Breathitt Gray wrote:
-> This patch introduces a character device interface for the Counter
-> subsystem. Device data is exposed through standard character device read
-> operations. Device data is gathered when a Counter event is pushed by
-> the respective Counter device driver. Configuration is handled via ioctl
-> operations on the respective Counter character device node.
-> 
-> Cc: David Lechner <david@lechnology.com>
-> Cc: Gwendal Grignou <gwendal@chromium.org>
-> Cc: Dan Carpenter <dan.carpenter@oracle.com>
-> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-> ---
+Baikal-T1 SoC is equipped with two Synopsys DesignWare GMAC v3.73a-based
+ethernet interfaces with no internal Ethernet PHY attached. The IP-cores
+are configured as GMAC-AXI with CSR interface clocked by a dedicated
+signal. Each of which has got Rx/Tx FIFOs of 16KB, up to 8 MAC addresses
+capability, no embedded filter hash table logic, EEE enabled, IEEE 1588
+and 1588-2008 Advanced timestamping capabilities, power management with
+remote wake-up, IP CSUM hardware acceleration, a single PHY interface -
+RGMII with MDIO bus, 1xGPI and 1xGPO.
 
+This is a very first series of patches with fixes we've found to be
+required in order to make things working well for our setup. The series
+has turned to be rather large, but most of the patches are trivial and
+some of them are just cleanups, so it shouldn't be that hard to review.
 
+The series starts with fixes of the PBL (Programmable DMA Burst length)
+DT-property, which is supposed to be defined for each DW *MAC IP-core, but
+not only for a Allwinner sun* GMAC and DW xGMAC. The number of possible
+PBL values need to be also extended in accordance with the DW *MAC manual.
+Then the TSO flag property should be also declared free of the
+vendor-specific conditional schema, because the driver expects the
+compatible string to have the IP-core version specified anyway and none of
+the glue-drivers refer to the property directly.
 
-> diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter/counter-chrdev.c
-> new file mode 100644
-> index 000000000000..96fa7fbeef92
-> --- /dev/null
-> +++ b/drivers/counter/counter-chrdev.c
+Then we suggest to refactor the "snps,{axi,mtl-rx,mtl-tx}-config"
+properties/nodes declaration, so the configs would be able to be defined
+as the sub-nodes of the DW *MAC DT nodes. The reason is that the DW MAC
+DT-schema doesn't validate them at the moment and having them defined as
+separate from the DW MAC nodes isn't descriptive at all. (Please note the
+patch log, since the DT-schema tool needs to be fixed in order to make the
+change working).
 
+Another big modification of the DW *MAC bindings file is the generic
+DT-properties and generic DT-nodes schema splitting up. So in order to
+improve the DW *MAC bindings maintainability we suggest to leave the
+generic DW *MAC properties definition in the "snps,dwmac.yaml" file and
+move the bindings for the generic DW *MAC DT-nodes validation in the
+dedicated DT-schema "snps,dwmac-generic.yaml".
 
-> +static ssize_t counter_chrdev_read(struct file *filp, char __user *buf,
-> +				   size_t len, loff_t *f_ps)
-> +{
-> +	struct counter_device *const counter = filp->private_data;
-> +	int err;
-> +	unsigned long flags;
-> +	unsigned int copied;
-> +
-> +	if (len < sizeof(struct counter_event))
-> +		return -EINVAL;
-> +
-> +	do {
-> +		if (kfifo_is_empty(&counter->events)) {
-> +			if (filp->f_flags & O_NONBLOCK)
-> +				return -EAGAIN;
-> +
-> +			err = wait_event_interruptible(counter->events_wait,
-> +					!kfifo_is_empty(&counter->events));
-> +			if (err)
-> +				return err;
-> +		}
-> +
-> +		raw_spin_lock_irqsave(&counter->events_lock, flags);
+Another concern has been related with the System/CSR clocks. We have
+discovered that currently the "stmmaceth" clocks are considered by the
+driver as the combined system+CSR clocks, while in fact CSR interface can
+be equipped with a dedicated clock source (this is our case). If so then
+the clock with "pclk" can be used to define the later one. But neither
+bindings are descriptive enough nor the DW *MAC driver is fixed to support
+that feature. So first we suggest to elaborate stmmaceth/pclk description
+in the bindings file and then fix the MDIO-bus clock selection procedure
+so pclk would be used there if specified. The DW QoS Eth MAC driver is
+also fixed in accordance with that modification.
 
-As mentioned in my previous review, I think it would be fine to use a
-mutex here instead of disabling interrupts. In fact, I think copy_to_user()
-might sleep, in which case we really don't want to call this with
-interrupts disabled.
+The biggest part of the series concerns adding the generic Tx/Rx clocks
+support to the DT-schema and to the DW MAC drivers and with fixed related
+to that. It is really a good decision to add the generic Tx/Rx clocks,
+because a lot of the glue-drivers expect them to be specified in the
+DT-node. So first we add the "tx"/"rx" clocks declaration in the generic
+DW MAC DT-schema. Then the glue-drivers like
+dwmac-rk/dwmac-sti/dwmac-stm32 remove() callbacks need to be fixed to call
+stmmac_remove_config_dt() otherwise the resources allocated in the
+stmmac_probe_config_dt() won't be freed on the device removal. A small
+modification needs to be provided for the cleanup-on-failure path of the
+stmmac_probe_config_dt() method in order to improve its maintainability.
+Then we've discovered that the "stmmaceth" and "pclk" clocks while being
+acquired and enabled in the stmmac_probe_config_dt() method are disabled
+in the stmmac_dvr_remove() function, which is erroneous for every
+cleanup-on-failure path of the glue-driver probe methods. Finally before
+adding the Tx/Rx clocks support we provide a set of optimizations of the
+"stmmaceth"/"pclk"/"ptp_clk" clocks and the "stmmaceth" reset procedures
+by removing the manual optional resources acquisition/enable/disable
+implementation with the one provided by the corresponding subsystems.
+Since the generic Tx/Rx clocks have been added we can freely remove the
+similar clocks handling from the glue-drivers.
 
-> +		err = kfifo_to_user(&counter->events, buf, len, &copied);
-> +		raw_spin_unlock_irqrestore(&counter->events_lock, flags);
-> +		if (err)
-> +			return err;
-> +	} while (!copied);
-> +
-> +	return copied;
-> +}
-> +
+(Please note I have also discovered, but didn't try to fix the Allwinner
+Sun8i cleanup-on-failure path implemented in the DW MAC probe() procedure.
+It has been broken since don't know what time and it's a bit too
+complicated to be fixed with no hardware at hands.)
 
+That's it for now. The next series will concern the GPIOs support and
+Baikal-T1 SoC specific bindings.
 
-> +static int counter_add_watch(struct counter_device *const counter,
-> +			     const unsigned long arg)
-> +{
-> +	void __user *const uwatch = (void __user *)arg;
-> +	struct counter_watch watch;
-> +	struct counter_comp_node comp_node = {0};
-> +	size_t parent, id;
-> +	struct counter_comp *ext;
-> +	size_t num_ext;
-> +
-> +	if (copy_from_user(&watch, uwatch, sizeof(watch)))
-> +		return -EFAULT;
-> +
-> +	/* Dummy components can skip evaluation */
-> +	if (watch.component.type == COUNTER_COMPONENT_DUMMY)
+Fixes: d2ed0a7755fe ("net: ethernet: stmmac: fix of-node and fixed-link-phydev leaks")
+Fixes: f573c0b9c4e0 ("stmmac: move stmmac_clk, pclk, clk_ptp_ref and stmmac_rst to platform structure")
+Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+Cc: Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>
+Cc: Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>
+Cc: Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-I think "none" would be a better name than "dummy". Then it just
-naturally makes sense why we would skip the evaluation.
+Serge Semin (25):
+  dt-bindings: net: dwmac: Validate PBL for all IP-cores
+  dt-bindings: net: dwmac: Extend number of PBL values
+  dt-bindings: net: dwmac: Fix the TSO property declaration
+  dt-bindings: net: dwmac: Refactor snps,*-config properties
+  dt-bindings: net: dwmac: Elaborate stmmaceth/pclk description
+  dt-bindings: net: dwmac: Add Tx/Rx clock sources
+  dt-bindings: net: dwmac: Detach Generic DW MAC bindings
+  net: stmmac: Add snps,*-config sub-nodes support
+  net: stmmac: dwmac-rk: Cleanup STMMAC DT-config in remove cb
+  net: stmmac: dwmac-sti: Cleanup STMMAC DT-config in remove cb
+  net: stmmac: dwmac-stm32: Cleanup STMMAC DT-config in remove cb
+  net: stmmac: Directly call reverse methods in stmmac_probe_config_dt()
+  net: stmmac: Fix clocks left enabled on glue-probes failure
+  net: stmmac: Use optional clock request method to get stmmaceth
+  net: stmmac: Use optional clock request method to get pclk
+  net: stmmac: Use optional clock request method to get ptp_clk
+  net: stmmac: Use optional reset control API to work with stmmaceth
+  net: stmmac: dwc-qos: Cleanup STMMAC platform data clock pointers
+  net: stmmac: dwc-qos: Use dev_err_probe() for probe errors handling
+  net: stmmac: Add Tx/Rx platform clocks support
+  net: stmmac: dwc-qos: Discard Tx/Rx clocks request
+  net: stmmac: dwmac-imx: Discard Tx clock request
+  net: stmmac: Call stmmaceth clock as system clock in warn-message
+  net: stmmac: Use pclk to set MDC clock frequency
+  net: stmmac: dwc-qos: Save master/slave clocks in the plat-data
 
-> +		goto dummy_component;
-> +
-> +	parent = watch.component.parent;
-> +
-> +	/* Configure parent component info for comp node */
-> +	switch (watch.component.scope) {
-> +	case COUNTER_SCOPE_DEVICE:
-> +		ext = counter->ext;
-> +		num_ext = counter->num_ext;
-> +		break;
-> +	case COUNTER_SCOPE_SIGNAL:
-> +		if (parent >= counter->num_signals)
-> +			return -EINVAL;
-> +		parent = array_index_nospec(parent, counter->num_signals);
-> +
-> +		comp_node.parent = counter->signals + parent;
-> +
-> +		ext = counter->signals[parent].ext;
-> +		num_ext = counter->signals[parent].num_ext;
-> +		break;
-> +	case COUNTER_SCOPE_COUNT:
-> +		if (parent >= counter->num_counts)
-> +			return -EINVAL;
-> +		parent = array_index_nospec(parent, counter->num_counts);
-> +
-> +		comp_node.parent = counter->counts + parent;
-> +
-> +		ext = counter->counts[parent].ext;
-> +		num_ext = counter->counts[parent].num_ext;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	id = watch.component.id;
-> +
-> +	/* Configure component info for comp node */
-> +	switch (watch.component.type) {
-> +	case COUNTER_COMPONENT_SIGNAL:
-> +		if (watch.component.scope != COUNTER_SCOPE_SIGNAL)
-> +			return -EINVAL;
-> +
-> +		comp_node.comp.type = COUNTER_COMP_SIGNAL_LEVEL;
-> +		comp_node.comp.signal_u8_read = counter->ops->signal_read;
-> +		break;
-> +	case COUNTER_COMPONENT_COUNT:
-> +		if (watch.component.scope != COUNTER_SCOPE_COUNT)
-> +			return -EINVAL;
-> +
-> +		comp_node.comp.type = COUNTER_COMP_U64;
-> +		comp_node.comp.count_u64_read = counter->ops->count_read;
-> +		break;
-> +	case COUNTER_COMPONENT_FUNCTION:
-> +		if (watch.component.scope != COUNTER_SCOPE_COUNT)
-> +			return -EINVAL;
-> +
-> +		comp_node.comp.type = COUNTER_COMP_FUNCTION;
-> +		comp_node.comp.count_u8_read = counter->ops->function_read;
-> +		break;
-> +	case COUNTER_COMPONENT_SYNAPSE_ACTION:
-> +		if (watch.component.scope != COUNTER_SCOPE_COUNT)
-> +			return -EINVAL;
-> +		if (id >= counter->counts[parent].num_synapses)
-> +			return -EINVAL;
-> +		id = array_index_nospec(id, counter->counts[parent].num_synapses);
-> +
-> +		comp_node.comp.type = COUNTER_COMP_SYNAPSE_ACTION;
-> +		comp_node.comp.action_read = counter->ops->action_read;
-> +		comp_node.comp.priv = counter->counts[parent].synapses + id;
-> +		break;
-> +	case COUNTER_COMPONENT_EXTENSION:
-> +		if (id >= num_ext)
-> +			return -EINVAL;
-> +		id = array_index_nospec(id, num_ext);
-> +
-> +		comp_node.comp = ext[id];
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +	/* Check if any read callback is set; this is part of a union */
-> +	if (!comp_node.comp.count_u8_read)
-> +		return -EOPNOTSUPP;
-> +
-> +dummy_component:
-> +	comp_node.component = watch.component;
+ .../bindings/net/snps,dwmac-generic.yaml      | 148 +++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   | 569 ++++++++++--------
+ .../stmicro/stmmac/dwmac-dwc-qos-eth.c        |  91 +--
+ .../net/ethernet/stmicro/stmmac/dwmac-imx.c   |  21 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |   2 +
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    |   3 +
+ .../net/ethernet/stmicro/stmmac/dwmac-sti.c   |   3 +
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c |   2 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  31 +-
+ .../ethernet/stmicro/stmmac/stmmac_platform.c | 104 ++--
+ include/linux/stmmac.h                        |   2 +
+ 11 files changed, 611 insertions(+), 365 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/snps,dwmac-generic.yaml
 
+-- 
+2.29.2
 
-In my experiments, I added a events_validate driver callback here to
-validate each event as it is added. This way the user can know exactly
-which event caused the problem rather than waiting for the event_config
-callback.
-
-
-> +
-> +	return counter_set_event_node(counter, &watch, &comp_node);
-> +}
-> +
-
-
-> +static int counter_chrdev_open(struct inode *inode, struct file *filp)
-> +{
-> +	struct counter_device *const counter = container_of(inode->i_cdev,
-> +							    typeof(*counter),
-> +							    chrdev);
-> +
-> +	get_device(&counter->dev);
-> +	filp->private_data = counter;
-> +
-> +	return nonseekable_open(inode, filp);
-> +}
-> +
-> +static int counter_chrdev_release(struct inode *inode, struct file *filp)
-> +{
-> +	struct counter_device *const counter = filp->private_data;
-> +	unsigned long flags;
-> +
-> +	raw_spin_lock_irqsave(&counter->events_lock, flags);
-> +	counter_events_list_free(&counter->events_list);
-
-Do we need to call the events_config callback here?
-
-> +	raw_spin_unlock_irqrestore(&counter->events_lock, flags);
-> +	counter_events_list_free(&counter->next_events_list);
-> +
-> +	put_device(&counter->dev);
-> +
-> +	return 0;
-> +}
-
-
-> +/**
-> + * counter_push_event - queue event for userspace reading
-> + * @counter:	pointer to Counter structure
-> + * @event:	triggered event
-> + * @channel:	event channel
-> + *
-> + * Note: If no one is watching for the respective event, it is silently
-> + * discarded.
-> + *
-> + * RETURNS:
-> + * 0 on success, negative error number on failure.
-> + */
-> +int counter_push_event(struct counter_device *const counter, const u8 event,
-> +		       const u8 channel)
-> +{
-> +	struct counter_event ev = {0};
-> +	unsigned int copied = 0;
-> +	unsigned long flags;
-> +	struct counter_event_node *event_node;
-> +	struct counter_comp_node *comp_node;
-> +	int err = 0;
-> +
-> +	ev.timestamp = ktime_get_ns();
-> +	ev.watch.event = event;
-> +	ev.watch.channel = channel;
-> +
-> +	raw_spin_lock_irqsave(&counter->events_lock, flags);
-> +
-> +	/* Search for event in the list */
-> +	list_for_each_entry(event_node, &counter->events_list, l)
-> +		if (event_node->event == event &&
-> +		    event_node->channel == channel)
-> +			break;
-> +
-> +	/* If event is not in the list */
-> +	if (&event_node->l == &counter->events_list)
-> +		goto exit_early;
-> +
-> +	/* Read and queue relevant comp for userspace */
-> +	list_for_each_entry(comp_node, &event_node->comp_list, l) {
-> +		err = counter_get_data(counter, comp_node, &ev.value);
-> +		if (err)
-> +			goto exit_early;
-
-It looks like this will skip an event even if just one watch value
-has an error. This doesn't seem so great.
-
-
-> +
-> +		ev.watch.component = comp_node->component;
-> +
-> +		copied += kfifo_put(&counter->events, ev);
-> +	}
-> +
-> +	if (copied)
-> +		wake_up_poll(&counter->events_wait, EPOLLIN);
-> +
-> +exit_early:
-> +	raw_spin_unlock_irqrestore(&counter->events_lock, flags);
-> +
-> +	return err;
-
-Interrupt handlers can't really do anything about the error here.
-It could be nice to instead add an error field to the userspace
-event struct, then userspace would know when an error occurred
-and could do something about it. And it also fixes the one-error-
-skips-all problem I mentioned above.
-
-> +}
-> +EXPORT_SYMBOL_GPL(counter_push_event);
-
-
-
-> diff --git a/include/linux/counter.h b/include/linux/counter.h
-> index 3f3f8ba6c1b4..98cd7c035968 100644
-> --- a/include/linux/counter.h
-
-
-> 
-> +/**
-> + * struct counter_event_node - Counter Event node
-> + * @l:		list of current watching Counter events
-> + * @event:	event that triggers
-> + * @channel:	event channel
-> + * @comp_list:	list of components to watch when event triggers
-> + */
-> +struct counter_event_node {
-> +	struct list_head l;
-> +	u8 event;
-> +	u8 channel;
-> +	struct list_head comp_list;
-> +};
-> +
-
-
-Unless this is needed outside of the drivers/counter/ directory, I
-would suggest putting it in drivers/counter/counter-chrdev.h instead
-of include/linux/counter.h.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
