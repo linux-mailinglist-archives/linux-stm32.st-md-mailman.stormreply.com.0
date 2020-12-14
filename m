@@ -2,16 +2,16 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C53032D94B2
+	by mail.lfdr.de (Postfix) with ESMTPS id D386A2D94B3
 	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 10:16:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F5F0C5716D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99F55C57170;
 	Mon, 14 Dec 2020 09:16:33 +0000 (UTC)
 Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
  [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A078FC57163
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7AEEEC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Dec 2020 09:16:31 +0000 (UTC)
+ Mon, 14 Dec 2020 09:16:32 +0000 (UTC)
 From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose
@@ -19,8 +19,8 @@ To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Maxime Ripard
  <mripard@kernel.org>, Joao Pinto <jpinto@synopsys.com>, Lars Persson
  <larper@axis.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 14 Dec 2020 12:16:05 +0300
-Message-ID: <20201214091616.13545-16-Sergey.Semin@baikalelectronics.ru>
+Date: Mon, 14 Dec 2020 12:16:06 +0300
+Message-ID: <20201214091616.13545-17-Sergey.Semin@baikalelectronics.ru>
 In-Reply-To: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 References: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
@@ -32,8 +32,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 15/25] net: stmmac: Use optional clock request
-	method to get pclk
+Subject: [Linux-stm32] [PATCH 16/25] net: stmmac: Use optional clock request
+	method to get ptp_clk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,42 +50,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Let's replace the manual implementation of the optional "pclk"
-functionality with using devm_clk_get_optional(). By doing so we'll
-improve the code maintainability, and fix a hidden bug which will cause
-problems if the "pclk" clock has been actually passed to the device, but
-the clock framework failed to request it.
+Let's replace the manual implementation of the optional ptp_clk
+functionality with method devm_clk_get_optional() provided by the common
+clock kernel framework. First of all it will be better from
+maintainability point of view. Secondly by doing so we'll also fix a
+potential problem, which will come out if the PTP clock has been actually
+specified, but the clock framework failed to request it.
+
+Note since we are switching the code to using the optional common clock
+API, then there is no need in checking the clk_ptp_ref pointer for being
+not NULL before calling the clk_prepare_enable() method. The later will
+correctly handle it. So just discard the conditional statement of
+priv->plat->clk_ptp_ref pointer value testing in the stmmac_resume()
+method.
 
 Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_platform.c    | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 3 +--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 7 +++++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 13681027dd09..e9003684efc8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5230,8 +5230,7 @@ int stmmac_resume(struct device *dev)
+ 		/* enable the clk previously disabled */
+ 		clk_prepare_enable(priv->plat->stmmac_clk);
+ 		clk_prepare_enable(priv->plat->pclk);
+-		if (priv->plat->clk_ptp_ref)
+-			clk_prepare_enable(priv->plat->clk_ptp_ref);
++		clk_prepare_enable(priv->plat->clk_ptp_ref);
+ 		/* reset the phy so that it's ready */
+ 		if (priv->mii)
+ 			stmmac_mdio_reset(priv->mii);
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index e79b3e3351a9..3809b00d3077 100644
+index 3809b00d3077..367d1458d66d 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -579,15 +579,13 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
- 
- 	clk_prepare_enable(plat->stmmac_clk);
- 
--	plat->pclk = devm_clk_get(&pdev->dev, "pclk");
-+	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
- 	if (IS_ERR(plat->pclk)) {
--		if (PTR_ERR(plat->pclk) == -EPROBE_DEFER) {
--			rc = PTR_ERR(plat->pclk);
--			goto error_pclk_get;
--		}
--
--		plat->pclk = NULL;
-+		rc = PTR_ERR(plat->pclk);
-+		dev_err_probe(&pdev->dev, rc, "Cannot get CSR clock\n");
-+		goto error_pclk_get;
- 	}
-+
+@@ -589,10 +589,13 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
  	clk_prepare_enable(plat->pclk);
  
  	/* Fall-back to main clock in case of no PTP ref is passed */
+-	plat->clk_ptp_ref = devm_clk_get(&pdev->dev, "ptp_ref");
++	plat->clk_ptp_ref = devm_clk_get_optional(&pdev->dev, "ptp_ref");
+ 	if (IS_ERR(plat->clk_ptp_ref)) {
++		rc = PTR_ERR(plat->clk_ptp_ref);
++		dev_err_probe(&pdev->dev, rc, "Cannot get PTP clock\n");
++		goto error_hw_init;
++	} else if (!plat->clk_ptp_ref) {
+ 		plat->clk_ptp_rate = clk_get_rate(plat->stmmac_clk);
+-		plat->clk_ptp_ref = NULL;
+ 		dev_info(&pdev->dev, "PTP uses main clock\n");
+ 	} else {
+ 		plat->clk_ptp_rate = clk_get_rate(plat->clk_ptp_ref);
 -- 
 2.29.2
 
