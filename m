@@ -2,16 +2,16 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB8AC2D94B1
+	by mail.lfdr.de (Postfix) with ESMTPS id C53032D94B2
 	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 10:16:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84E90C5716A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F5F0C5716D;
 	Mon, 14 Dec 2020 09:16:33 +0000 (UTC)
 Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
  [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2D82C57169
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A078FC57163
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Dec 2020 09:16:30 +0000 (UTC)
+ Mon, 14 Dec 2020 09:16:31 +0000 (UTC)
 From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose
@@ -19,8 +19,8 @@ To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Maxime Ripard
  <mripard@kernel.org>, Joao Pinto <jpinto@synopsys.com>, Lars Persson
  <larper@axis.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 14 Dec 2020 12:16:04 +0300
-Message-ID: <20201214091616.13545-15-Sergey.Semin@baikalelectronics.ru>
+Date: Mon, 14 Dec 2020 12:16:05 +0300
+Message-ID: <20201214091616.13545-16-Sergey.Semin@baikalelectronics.ru>
 In-Reply-To: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 References: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
@@ -32,8 +32,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 14/25] net: stmmac: Use optional clock request
-	method to get stmmaceth
+Subject: [Linux-stm32] [PATCH 15/25] net: stmmac: Use optional clock request
+	method to get pclk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,56 +50,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The "stmmaceth" clock is expected to be optional by the current driver
-design, but there are several problems in the implementation. First if the
-clock is specified, but failed to be requested due to an internal error or
-due to not being ready yet for configuration, then the DT-probe procedure
-will just proceed with further initializations. It is erroneous in both
-cases. Secondly if we'd use the clock API, which expect the clock being
-optional we wouldn't have needed to avoid the clock request procedure for
-the "snps,dwc-qos-ethernet-4.10"-compatible devices to prevent the error
-message from being printed. All of that can be fixed by using the
-devm_clk_get_optional() method here provided by the common clock
-framework.
+Let's replace the manual implementation of the optional "pclk"
+functionality with using devm_clk_get_optional(). By doing so we'll
+improve the code maintainability, and fix a hidden bug which will cause
+problems if the "pclk" clock has been actually passed to the device, but
+the clock framework failed to request it.
 
 Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 ---
- .../ethernet/stmicro/stmmac/stmmac_platform.c | 20 ++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c    | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 56419f511a48..e79b3e3351a9 100644
+index e79b3e3351a9..3809b00d3077 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -566,17 +566,19 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
- 	if (rc)
- 		goto error_dma_cfg_alloc;
+@@ -579,15 +579,13 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
  
--	/* clock setup */
--	if (!of_device_is_compatible(np, "snps,dwc-qos-ethernet-4.10")) {
--		plat->stmmac_clk = devm_clk_get(&pdev->dev,
--						STMMAC_RESOURCE_NAME);
--		if (IS_ERR(plat->stmmac_clk)) {
--			dev_warn(&pdev->dev, "Cannot get CSR clock\n");
--			plat->stmmac_clk = NULL;
--		}
--		clk_prepare_enable(plat->stmmac_clk);
-+	/* All clocks are optional since the sub-drivers can have a specific
-+	 * clocks set and their naming.
-+	 */
-+	plat->stmmac_clk = devm_clk_get_optional(&pdev->dev,
-+						 STMMAC_RESOURCE_NAME);
-+	if (IS_ERR(plat->stmmac_clk)) {
-+		rc = PTR_ERR(plat->stmmac_clk);
-+		dev_err_probe(&pdev->dev, rc, "Cannot get CSR clock\n");
-+		goto error_dma_cfg_alloc;
- 	}
+ 	clk_prepare_enable(plat->stmmac_clk);
  
-+	clk_prepare_enable(plat->stmmac_clk);
-+
- 	plat->pclk = devm_clk_get(&pdev->dev, "pclk");
+-	plat->pclk = devm_clk_get(&pdev->dev, "pclk");
++	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
  	if (IS_ERR(plat->pclk)) {
- 		if (PTR_ERR(plat->pclk) == -EPROBE_DEFER) {
+-		if (PTR_ERR(plat->pclk) == -EPROBE_DEFER) {
+-			rc = PTR_ERR(plat->pclk);
+-			goto error_pclk_get;
+-		}
+-
+-		plat->pclk = NULL;
++		rc = PTR_ERR(plat->pclk);
++		dev_err_probe(&pdev->dev, rc, "Cannot get CSR clock\n");
++		goto error_pclk_get;
+ 	}
++
+ 	clk_prepare_enable(plat->pclk);
+ 
+ 	/* Fall-back to main clock in case of no PTP ref is passed */
 -- 
 2.29.2
 
