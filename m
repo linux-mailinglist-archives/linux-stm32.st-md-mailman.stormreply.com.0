@@ -2,14 +2,14 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9588C2D94A4
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 10:16:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12A292D94A5
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 10:16:25 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45696C3FADF;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAD99C424B3;
 	Mon, 14 Dec 2020 09:16:24 +0000 (UTC)
 Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
  [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F552C3FAD5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0998CC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 14 Dec 2020 09:16:21 +0000 (UTC)
 From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
@@ -19,8 +19,8 @@ To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Maxime Ripard
  <mripard@kernel.org>, Joao Pinto <jpinto@synopsys.com>, Lars Persson
  <larper@axis.com>
-Date: Mon, 14 Dec 2020 12:15:52 +0300
-Message-ID: <20201214091616.13545-3-Sergey.Semin@baikalelectronics.ru>
+Date: Mon, 14 Dec 2020 12:15:53 +0300
+Message-ID: <20201214091616.13545-4-Sergey.Semin@baikalelectronics.ru>
 In-Reply-To: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 References: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
@@ -33,8 +33,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 02/25] dt-bindings: net: dwmac: Extend number
-	of PBL values
+Subject: [Linux-stm32] [PATCH 03/25] dt-bindings: net: dwmac: Fix the TSO
+	property declaration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,59 +51,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In accordance with [1] the permitted PBL values can be set as one of
-[1, 2, 4, 8, 16, 32]. The rest of the values results in undefined
-behavior. At the same time some of the permitted values can be also
-invalid depending on the controller FIFOs size and the data bus width.
-Seeing due to having too many variables all the possible PBL property
-constraints can't be implemented in the bindings schema, let's extend
-the set of permitted PBL values to be as much as the configuration
-register supports leaving the undefined behaviour cases for developers
-to handle.
+Indeed the STMMAC driver doesn't take the vendor-specific compatible
+string into account to parse the "snps,tso" boolean property. It just
+makes sure the node is compatible with DW MAC 4.x, 5.x and DW xGMAC
+IP-cores. Fix the conditional statement so the TSO-property would be
+evaluated for the compatibles having the corresponding IP-core version.
 
-[1] DesignWare Cores Ethernet MAC Universal Databook, Revision 3.73a,
-    October 2013, p. 380.
+While at it move the whole allOf-block from the tail of the binding file
+to the head of it, as it's normally done in the most of the DT schemas.
 
 Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+
 ---
- Documentation/devicetree/bindings/net/snps,dwmac.yaml | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+
+Note this won't break the bindings description, since the "snps,tso"
+property isn't parsed by the Allwinner SunX GMAC glue driver, but only
+by the generic platform DT-parser.
+---
+ .../devicetree/bindings/net/snps,dwmac.yaml   | 52 +++++++++----------
+ 1 file changed, 24 insertions(+), 28 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 4b672499f20d..e084fbbf976e 100644
+index e084fbbf976e..0dd543c6c08e 100644
 --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
 +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -264,23 +264,26 @@ properties:
+@@ -37,6 +37,30 @@ select:
+   required:
+     - compatible
  
-   snps,pbl:
-     description:
--      Programmable Burst Length (tx and rx)
-+      Programmable Burst Length (tx and rx). Note some of these values
-+      can be still invalid due to HW limitations connected with the data
-+      bus width and the FIFOs depth, so a total length of a single DMA
-+      burst shouldn't exceed half the FIFO depth.
-     $ref: /schemas/types.yaml#definitions/uint32
--    enum: [2, 4, 8]
-+    enum: [1, 2, 4, 8, 16, 32]
++allOf:
++  - $ref: "ethernet-controller.yaml#"
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - snps,dwmac-4.00
++              - snps,dwmac-4.10a
++              - snps,dwmac-4.20a
++              - snps,dwmac-5.10a
++              - snps,dwxgmac
++              - snps,dwxgmac-2.10
++
++      required:
++        - compatible
++    then:
++      properties:
++        snps,tso:
++          $ref: /schemas/types.yaml#definitions/flag
++          description:
++            Enables the TSO feature otherwise it will be managed by
++            MAC HW capability register.
++
+ properties:
  
-   snps,txpbl:
-     description:
-       Tx Programmable Burst Length. If set, DMA tx will use this
-       value rather than snps,pbl.
-     $ref: /schemas/types.yaml#definitions/uint32
--    enum: [2, 4, 8]
-+    enum: [1, 2, 4, 8, 16, 32]
+   # We need to include all the compatibles from schemas that will
+@@ -314,34 +338,6 @@ dependencies:
+   snps,reset-active-low: ["snps,reset-gpio"]
+   snps,reset-delay-us: ["snps,reset-gpio"]
  
-   snps,rxpbl:
-     description:
-       Rx Programmable Burst Length. If set, DMA rx will use this
-       value rather than snps,pbl.
-     $ref: /schemas/types.yaml#definitions/uint32
--    enum: [2, 4, 8]
-+    enum: [1, 2, 4, 8, 16, 32]
+-allOf:
+-  - $ref: "ethernet-controller.yaml#"
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+-              - allwinner,sun7i-a20-gmac
+-              - allwinner,sun8i-a83t-emac
+-              - allwinner,sun8i-h3-emac
+-              - allwinner,sun8i-r40-emac
+-              - allwinner,sun8i-v3s-emac
+-              - allwinner,sun50i-a64-emac
+-              - snps,dwmac-4.00
+-              - snps,dwmac-4.10a
+-              - snps,dwmac-4.20a
+-              - snps,dwxgmac
+-              - snps,dwxgmac-2.10
+-              - st,spear600-gmac
+-
+-    then:
+-      properties:
+-        snps,tso:
+-          $ref: /schemas/types.yaml#definitions/flag
+-          description:
+-            Enables the TSO feature otherwise it will be managed by
+-            MAC HW capability register.
+-
+ additionalProperties: true
  
-   snps,no-pbl-x8:
-     $ref: /schemas/types.yaml#definitions/flag
+ examples:
 -- 
 2.29.2
 
