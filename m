@@ -2,16 +2,16 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 659E92D94B4
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 10:16:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E9282D94B5
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 10:16:39 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29819C57164;
-	Mon, 14 Dec 2020 09:16:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37266C57163;
+	Mon, 14 Dec 2020 09:16:39 +0000 (UTC)
 Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
  [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECC5AC57171
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45FC8C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Dec 2020 09:16:33 +0000 (UTC)
+ Mon, 14 Dec 2020 09:16:35 +0000 (UTC)
 From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose
@@ -19,8 +19,8 @@ To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Maxime Ripard
  <mripard@kernel.org>, Joao Pinto <jpinto@synopsys.com>, Lars Persson
  <larper@axis.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 14 Dec 2020 12:16:07 +0300
-Message-ID: <20201214091616.13545-18-Sergey.Semin@baikalelectronics.ru>
+Date: Mon, 14 Dec 2020 12:16:08 +0300
+Message-ID: <20201214091616.13545-19-Sergey.Semin@baikalelectronics.ru>
 In-Reply-To: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 References: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
@@ -32,8 +32,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 17/25] net: stmmac: Use optional reset control
-	API to work with stmmaceth
+Subject: [Linux-stm32] [PATCH 18/25] net: stmmac: dwc-qos: Cleanup STMMAC
+	platform data clock pointers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,86 +50,135 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace the manual implementation of the optional device reset control
-functionality with using the devm_reset_control_get_optional() method in
-order to improve the code maintainability and fix a potential bug. It
-will come out if the reset control handler has been specified, but the
-reset framework failed to request it.
-
-Note there is no need in checking the priv->plat->stmmac_rst pointer for
-being not NULL in order to perform the reset control assertion/deassertion
-because the passed NULL will be considered by the reset framework as
-absent optional reset control handler anyway.
+The pointers need to be nullified otherwise the stmmac_remove_config_dt()
+method called after them being initialized will disable the clocks. That
+then will cause a WARN() backtrace being printed since the clocks would be
+also disabled in the locally defined remove method.
 
 Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 ++++++++-----------
- .../ethernet/stmicro/stmmac/stmmac_platform.c | 14 +++++---------
- 2 files changed, 13 insertions(+), 20 deletions(-)
+ .../stmicro/stmmac/dwmac-dwc-qos-eth.c        | 42 ++++++++++++++-----
+ 1 file changed, 32 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index e9003684efc8..7f4d54d2fc72 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4889,15 +4889,13 @@ int stmmac_dvr_probe(struct device *device,
- 	if ((phyaddr >= 0) && (phyaddr <= 31))
- 		priv->plat->phy_addr = phyaddr;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+index 2342d497348e..31ca299a1cfd 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+@@ -123,39 +123,46 @@ static void *dwc_qos_probe(struct platform_device *pdev,
+ 			   struct plat_stmmacenet_data *plat_dat,
+ 			   struct stmmac_resources *stmmac_res)
+ {
++	struct clk *clk;
+ 	int err;
  
--	if (priv->plat->stmmac_rst) {
--		ret = reset_control_assert(priv->plat->stmmac_rst);
--		reset_control_deassert(priv->plat->stmmac_rst);
--		/* Some reset controllers have only reset callback instead of
--		 * assert + deassert callbacks pair.
--		 */
--		if (ret == -ENOTSUPP)
--			reset_control_reset(priv->plat->stmmac_rst);
--	}
-+	ret = reset_control_assert(priv->plat->stmmac_rst);
-+	reset_control_deassert(priv->plat->stmmac_rst);
-+	/* Some reset controllers have only reset callback instead of
-+	 * assert + deassert callbacks pair.
+-	plat_dat->stmmac_clk = devm_clk_get(&pdev->dev, "apb_pclk");
+-	if (IS_ERR(plat_dat->stmmac_clk)) {
++	clk = devm_clk_get(&pdev->dev, "apb_pclk");
++	if (IS_ERR(clk)) {
+ 		dev_err(&pdev->dev, "apb_pclk clock not found.\n");
+-		return ERR_CAST(plat_dat->stmmac_clk);
++		return ERR_CAST(clk);
+ 	}
+ 
+-	err = clk_prepare_enable(plat_dat->stmmac_clk);
++	err = clk_prepare_enable(clk);
+ 	if (err < 0) {
+ 		dev_err(&pdev->dev, "failed to enable apb_pclk clock: %d\n",
+ 			err);
+ 		return ERR_PTR(err);
+ 	}
+ 
+-	plat_dat->pclk = devm_clk_get(&pdev->dev, "phy_ref_clk");
+-	if (IS_ERR(plat_dat->pclk)) {
++	plat_dat->stmmac_clk = clk;
++
++	clk = devm_clk_get(&pdev->dev, "phy_ref_clk");
++	if (IS_ERR(clk)) {
+ 		dev_err(&pdev->dev, "phy_ref_clk clock not found.\n");
+-		err = PTR_ERR(plat_dat->pclk);
++		err = PTR_ERR(clk);
+ 		goto disable;
+ 	}
+ 
+-	err = clk_prepare_enable(plat_dat->pclk);
++	err = clk_prepare_enable(clk);
+ 	if (err < 0) {
+ 		dev_err(&pdev->dev, "failed to enable phy_ref clock: %d\n",
+ 			err);
+ 		goto disable;
+ 	}
+ 
++	plat_dat->pclk = clk;
++
+ 	return NULL;
+ 
+ disable:
+ 	clk_disable_unprepare(plat_dat->stmmac_clk);
++	plat_dat->stmmac_clk = NULL;
++
+ 	return ERR_PTR(err);
+ }
+ 
+@@ -164,8 +171,15 @@ static int dwc_qos_remove(struct platform_device *pdev)
+ 	struct net_device *ndev = platform_get_drvdata(pdev);
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+ 
++	/* Cleanup the pointers to the clock handlers hidden in the platform
++	 * data so the stmmac_remove_config_dt() method wouldn't have disabled
++	 * the clocks too.
 +	 */
-+	if (ret == -ENOTSUPP)
-+		reset_control_reset(priv->plat->stmmac_rst);
+ 	clk_disable_unprepare(priv->plat->pclk);
++	priv->plat->pclk = NULL;
++
+ 	clk_disable_unprepare(priv->plat->stmmac_clk);
++	priv->plat->stmmac_clk = NULL;
  
- 	/* Init MAC and get the capabilities */
- 	ret = stmmac_hw_init(priv);
-@@ -5101,8 +5099,7 @@ int stmmac_dvr_remove(struct device *dev)
- 	stmmac_exit_fs(ndev);
- #endif
- 	phylink_destroy(priv->phylink);
--	if (priv->plat->stmmac_rst)
--		reset_control_assert(priv->plat->stmmac_rst);
-+	reset_control_assert(priv->plat->stmmac_rst);
- 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
- 	    priv->hw->pcs != STMMAC_PCS_RTBI)
- 		stmmac_mdio_unregister(ndev);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 367d1458d66d..38e8836861c4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -602,16 +602,12 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
- 		dev_dbg(&pdev->dev, "PTP rate %d\n", plat->clk_ptp_rate);
+ 	return 0;
+ }
+@@ -303,12 +317,12 @@ static void *tegra_eqos_probe(struct platform_device *pdev,
+ 		goto disable_master;
  	}
  
--	plat->stmmac_rst = devm_reset_control_get(&pdev->dev,
--						  STMMAC_RESOURCE_NAME);
-+	plat->stmmac_rst = devm_reset_control_get_optional(&pdev->dev,
-+							   STMMAC_RESOURCE_NAME);
- 	if (IS_ERR(plat->stmmac_rst)) {
--		if (PTR_ERR(plat->stmmac_rst) == -EPROBE_DEFER) {
--			rc = PTR_ERR(plat->stmmac_rst);
--			goto error_hw_init;
--		}
+-	data->stmmac_clk = eqos->clk_slave;
 -
--		dev_info(&pdev->dev, "no reset control found\n");
--		plat->stmmac_rst = NULL;
-+		rc = PTR_ERR(plat->stmmac_rst);
-+		dev_err_probe(&pdev->dev, rc, "Cannot get reset control\n");
-+		goto error_hw_init;
- 	}
+ 	err = clk_prepare_enable(eqos->clk_slave);
+ 	if (err < 0)
+ 		goto disable_master;
  
- 	return plat;
++	data->stmmac_clk = eqos->clk_slave;
++
+ 	eqos->clk_rx = devm_clk_get(&pdev->dev, "rx");
+ 	if (IS_ERR(eqos->clk_rx)) {
+ 		err = PTR_ERR(eqos->clk_rx);
+@@ -381,6 +395,7 @@ static void *tegra_eqos_probe(struct platform_device *pdev,
+ 	clk_disable_unprepare(eqos->clk_rx);
+ disable_slave:
+ 	clk_disable_unprepare(eqos->clk_slave);
++	data->stmmac_clk = NULL;
+ disable_master:
+ 	clk_disable_unprepare(eqos->clk_master);
+ error:
+@@ -390,6 +405,7 @@ static void *tegra_eqos_probe(struct platform_device *pdev,
+ 
+ static int tegra_eqos_remove(struct platform_device *pdev)
+ {
++	struct stmmac_priv *priv = netdev_priv(platform_get_drvdata(pdev));
+ 	struct tegra_eqos *eqos = get_stmmac_bsp_priv(&pdev->dev);
+ 
+ 	reset_control_assert(eqos->rst);
+@@ -399,6 +415,12 @@ static int tegra_eqos_remove(struct platform_device *pdev)
+ 	clk_disable_unprepare(eqos->clk_slave);
+ 	clk_disable_unprepare(eqos->clk_master);
+ 
++	/* Cleanup the pointers to the clock handlers hidden in the platform
++	 * data so the stmmac_remove_config_dt() method wouldn't have disabled
++	 * the clocks too.
++	 */
++	priv->plat->stmmac_clk = NULL;
++
+ 	return 0;
+ }
+ 
 -- 
 2.29.2
 
