@@ -2,16 +2,16 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 553C82D94AD
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 10:16:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B6162D94AE
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Dec 2020 10:16:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AFB4C57166;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D543EC5716A;
 	Mon, 14 Dec 2020 09:16:30 +0000 (UTC)
 Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
  [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D95DC57171
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3174FC36B36
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Dec 2020 09:16:27 +0000 (UTC)
+ Mon, 14 Dec 2020 09:16:28 +0000 (UTC)
 From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose
@@ -19,8 +19,8 @@ To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Maxime Ripard
  <mripard@kernel.org>, Joao Pinto <jpinto@synopsys.com>, Lars Persson
  <larper@axis.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 14 Dec 2020 12:16:00 +0300
-Message-ID: <20201214091616.13545-11-Sergey.Semin@baikalelectronics.ru>
+Date: Mon, 14 Dec 2020 12:16:01 +0300
+Message-ID: <20201214091616.13545-12-Sergey.Semin@baikalelectronics.ru>
 In-Reply-To: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 References: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
@@ -32,8 +32,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 10/25] net: stmmac: dwmac-sti: Cleanup STMMAC
-	DT-config in remove cb
+Subject: [Linux-stm32] [PATCH 11/25] net: stmmac: dwmac-stm32: Cleanup
+	STMMAC DT-config in remove cb
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,28 +57,22 @@ requested.
 Fixes: d2ed0a7755fe ("net: ethernet: stmmac: fix of-node and fixed-link-phydev leaks")
 Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-index e1b63df6f96f..3454c5eff822 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-@@ -370,11 +370,14 @@ static int sti_dwmac_probe(struct platform_device *pdev)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+index 5d4df4c5254e..b45aab38c7b0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+@@ -426,6 +426,8 @@ static int stm32_dwmac_remove(struct platform_device *pdev)
  
- static int sti_dwmac_remove(struct platform_device *pdev)
- {
-+	struct stmmac_priv *priv = netdev_priv(platform_get_drvdata(pdev));
- 	struct sti_dwmac *dwmac = get_stmmac_bsp_priv(&pdev->dev);
- 	int ret = stmmac_dvr_remove(&pdev->dev);
- 
- 	clk_disable_unprepare(dwmac->clk);
+ 	stm32_dwmac_clk_disable(priv->plat->bsp_priv);
  
 +	stmmac_remove_config_dt(pdev, priv->plat);
 +
- 	return ret;
- }
- 
+ 	if (dwmac->irq_pwr_wakeup >= 0) {
+ 		dev_pm_clear_wake_irq(&pdev->dev);
+ 		device_init_wakeup(&pdev->dev, false);
 -- 
 2.29.2
 
