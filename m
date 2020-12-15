@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8592C2DB26E
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Dec 2020 18:22:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EA852DB295
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Dec 2020 18:30:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 442A1C3FAD4;
-	Tue, 15 Dec 2020 17:22:45 +0000 (UTC)
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
- [209.85.210.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDCC0C32E90;
+	Tue, 15 Dec 2020 17:30:43 +0000 (UTC)
+Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
+ [209.85.167.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD0E4C36B36
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3271EC36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Dec 2020 17:22:44 +0000 (UTC)
-Received: by mail-ot1-f68.google.com with SMTP id j12so20110592ota.7
+ Tue, 15 Dec 2020 17:30:43 +0000 (UTC)
+Received: by mail-oi1-f194.google.com with SMTP id s75so24196798oih.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Dec 2020 09:22:43 -0800 (PST)
+ Tue, 15 Dec 2020 09:30:43 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=TPedXdl2PY6JHGKX0f/qlnbwmUVBy3y2nBUN43lCo10=;
- b=rpo5cflUZ/eW3zO3zxxlriF47VYoDLliYDHolP5HaBKPZ8W8NpzGMaevevMB0K3HiC
- UApj53JmvKEULw0lyUN/FMs9HxlcKm1+xYtbZTN3dbzkuPHS2cjFv3zfbaWuYa/pyyZG
- d/oJ6rw3nZta6KCliddDisgJLrL0tr7VEyUU8TE84xXHT6qhCI/Ot/Otck5g4RuB2MLp
- MBi4/vw5FqyEycmDx8R4thnuK2hD4oIFwQ9TRoveZoJCtc+UPX7j9E7XmTEooHqQUOKd
- oEMXrtx1+jFEBx2ggBCUndLpL07NlASRoz6hadLnhORGRvqy1Y60PI2gfQXHdaLHktxf
- hHcw==
-X-Gm-Message-State: AOAM530tseqvZFgXsuYihiXZRJBzVoTdYl2NmZOd+Eog0srZ1X3etnf8
- dzsTO5cMTnbLiRBlUYcEtw==
-X-Google-Smtp-Source: ABdhPJzYe/1d+PtO64iiDzUljskow3Y88N+EV3ueO8nk0GUixOHeB/tzaf6tSb2hz8UTo5IMx0i3NA==
-X-Received: by 2002:a05:6830:159a:: with SMTP id
- i26mr23203338otr.315.1608052962799; 
- Tue, 15 Dec 2020 09:22:42 -0800 (PST)
+ bh=f37RWrXwsiv+0EoW1Yj6ZpyoDuIYg2z238UxVLI0rTM=;
+ b=dKgKHtN11Jsc6+BBol3Kd9iEEF0mzQj1B/nXsEetfQYDH9xUOQ13xPaJ0RDLgVmudq
+ qj+JDM0kqhVE9efHvkE28d7ZG8c/175DD+kPgEUn3rg3BJ0P7R4ohkKa5+llgccMB+mk
+ JWJdJC7SIoHIz9Rkb/dYH6OoePiWclF5GfoZvl8RLPGqD9e9TarxiCDGyFMG6aGmYN96
+ rC4grZ6RtnGCxzTCPzItMHRYzQ4+GgrYs/xCPDnMkgA2/pwPGUTW+P08rSwuYsjGGThV
+ TAuMuNJMSjll/fGrOBqhM7NzKj/wCWyT6+WxLqbfN7uVIMitSigCiGsCEgXH8jfOsYqh
+ Z7mg==
+X-Gm-Message-State: AOAM5310C35bR49bc5HgYkHk4aT0XQa+N4dNyzUT7DJSXd+r/WgYGyiD
+ S3+K0I6FCxKw/WEHyqqDKw==
+X-Google-Smtp-Source: ABdhPJy+h89dvJUr6gfADjtGId8WiKWymjBfz57RzC+lV7rbruhDVmEpT328hNNnZ8Hu5ffbr8zbtA==
+X-Received: by 2002:aca:cd85:: with SMTP id d127mr21918090oig.59.1608053441932; 
+ Tue, 15 Dec 2020 09:30:41 -0800 (PST)
 Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id l132sm5125659oia.23.2020.12.15.09.22.41
+ by smtp.gmail.com with ESMTPSA id v17sm1517451oou.41.2020.12.15.09.30.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Dec 2020 09:22:42 -0800 (PST)
-Received: (nullmailer pid 4059538 invoked by uid 1000);
- Tue, 15 Dec 2020 17:22:40 -0000
-Date: Tue, 15 Dec 2020 11:22:40 -0600
+ Tue, 15 Dec 2020 09:30:41 -0800 (PST)
+Received: (nullmailer pid 4072081 invoked by uid 1000);
+ Tue, 15 Dec 2020 17:30:39 -0000
+Date: Tue, 15 Dec 2020 11:30:39 -0600
 From: Rob Herring <robh@kernel.org>
 To: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-Message-ID: <20201215172240.GA4047815@robh.at.kernel.org>
+Message-ID: <20201215173039.GA4072051@robh.at.kernel.org>
 References: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
- <20201214091616.13545-4-Sergey.Semin@baikalelectronics.ru>
+ <20201214091616.13545-6-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201214091616.13545-4-Sergey.Semin@baikalelectronics.ru>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+In-Reply-To: <20201214091616.13545-6-Sergey.Semin@baikalelectronics.ru>
+Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
  Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- Lars Persson <larper@axis.com>, linux-stm32@st-md-mailman.stormreply.com,
- Johan Hovold <johan@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- Jose Abreu <joabreu@synopsys.com>, Serge Semin <fancer.lancer@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>,
+ Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
+ Rob Herring <robh+dt@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lars Persson <larper@axis.com>,
+ Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>,
  Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>
-Subject: Re: [Linux-stm32] [PATCH 03/25] dt-bindings: net: dwmac: Fix the
- TSO property declaration
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 05/25] dt-bindings: net: dwmac: Elaborate
+ stmmaceth/pclk description
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,111 +78,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 14, 2020 at 12:15:53PM +0300, Serge Semin wrote:
-> Indeed the STMMAC driver doesn't take the vendor-specific compatible
-> string into account to parse the "snps,tso" boolean property. It just
-> makes sure the node is compatible with DW MAC 4.x, 5.x and DW xGMAC
-> IP-cores. Fix the conditional statement so the TSO-property would be
-> evaluated for the compatibles having the corresponding IP-core version.
+On Mon, 14 Dec 2020 12:15:55 +0300, Serge Semin wrote:
+> Current clocks description doesn't provide a comprehensive notion about
+> what "stmmaceth" and "pclk" actually represent from the IP-core manual
+> point of view. The bindings file states:
+> stmmaceth - "GMAC main clock",
+> apb - "Peripheral registers interface clock".
+> It isn't that easy to understand what they actually mean especially seeing
+> the DW *MAC manual operates with clock definitions like Application,
+> System, Host, CSR, Transmit, Receive, etc clocks. Moreover the clocks
+> usage in the driver doesn't shade a full light on their essence. What
+> inferred from there is that the "stmmaceth" name has been assigned to the
+> common clock, which feeds both system and CSR interfaces. But what about
+> "apb"? The bindings defines it as the clock for "peripheral registers
+> interface". So it's close to the CSR clock in the IP-core manual notation.
+> If so then when "apb" clock is specified aside with the "stmmaceth", it
+> represents a case when the DW *MAC is synthesized with CSR_SLV_CLK=y
+> (separate system and CSR clocks). But even though the "apb" clock is
+> requested in the MAC driver, the driver doesn't actually use it as a
+> separate CSR clock where the IP-core manual requires. All of that makes me
+> thinking that the case of separate system and CSR clocks isn't correctly
+> implemented in the driver.
 > 
-> While at it move the whole allOf-block from the tail of the binding file
-> to the head of it, as it's normally done in the most of the DT schemas.
+> Let's start with elaborating the clocks description so anyone reading
+> the DW *MAC bindings file would understand that "stmmaceth" is the
+> system clock and "pclk" is actually the CSR clock. Indeed in accordance
+> with sheets depicted in [1]:
+> system/application clock can be either of: hclk_i, aclk_i, clk_app_i;
+> CSR clock can be either of: hclk_i, aclk_i, clk_app_i, clk_csr_i.
+> (Most likely the similar definitions present in the others IP-core
+> manuals.) So the CSR clock can be tied to the application clock
+> considering the later as the main clock, but not the other way around. In
+> case if there is only "stmmaceth" clock specified in a DT node, then it
+> will be considered as a source of clocks for both application and CSR. But
+> if "pclk" is also specified in the list of the device clocks, then it will
+> be perceived as the separate CSR clock.
+> 
+> [1] DesignWare Cores Ethernet MAC Universal Databook, Revision 3.73a,
+>     October 2013, p. 564.
 > 
 > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-> 
 > ---
+>  .../devicetree/bindings/net/snps,dwmac.yaml          | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
 > 
-> Note this won't break the bindings description, since the "snps,tso"
-> property isn't parsed by the Allwinner SunX GMAC glue driver, but only
-> by the generic platform DT-parser.
 
-But still should be valid for Allwinner?
-
-> ---
->  .../devicetree/bindings/net/snps,dwmac.yaml   | 52 +++++++++----------
->  1 file changed, 24 insertions(+), 28 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> index e084fbbf976e..0dd543c6c08e 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -37,6 +37,30 @@ select:
->    required:
->      - compatible
->  
-> +allOf:
-> +  - $ref: "ethernet-controller.yaml#"
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - snps,dwmac-4.00
-> +              - snps,dwmac-4.10a
-> +              - snps,dwmac-4.20a
-> +              - snps,dwmac-5.10a
-> +              - snps,dwxgmac
-> +              - snps,dwxgmac-2.10
-> +
-> +      required:
-> +        - compatible
-> +    then:
-> +      properties:
-> +        snps,tso:
-> +          $ref: /schemas/types.yaml#definitions/flag
-> +          description:
-> +            Enables the TSO feature otherwise it will be managed by
-> +            MAC HW capability register.
-
-BTW, I prefer that properties are defined unconditionally, and then 
-restricted in conditional schemas (or ones that include this schema).
-
-> +
->  properties:
->  
->    # We need to include all the compatibles from schemas that will
-> @@ -314,34 +338,6 @@ dependencies:
->    snps,reset-active-low: ["snps,reset-gpio"]
->    snps,reset-delay-us: ["snps,reset-gpio"]
->  
-> -allOf:
-> -  - $ref: "ethernet-controller.yaml#"
-> -  - if:
-> -      properties:
-> -        compatible:
-> -          contains:
-> -            enum:
-> -              - allwinner,sun7i-a20-gmac
-
-This does not have a fallback, so snps,tso is no longer validated. I 
-didn't check the rest.
-
-> -              - allwinner,sun8i-a83t-emac
-> -              - allwinner,sun8i-h3-emac
-> -              - allwinner,sun8i-r40-emac
-> -              - allwinner,sun8i-v3s-emac
-> -              - allwinner,sun50i-a64-emac
-> -              - snps,dwmac-4.00
-> -              - snps,dwmac-4.10a
-> -              - snps,dwmac-4.20a
-> -              - snps,dwxgmac
-> -              - snps,dwxgmac-2.10
-> -              - st,spear600-gmac
-> -
-> -    then:
-> -      properties:
-> -        snps,tso:
-> -          $ref: /schemas/types.yaml#definitions/flag
-> -          description:
-> -            Enables the TSO feature otherwise it will be managed by
-> -            MAC HW capability register.
-> -
->  additionalProperties: true
->  
->  examples:
-> -- 
-> 2.29.2
-> 
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
