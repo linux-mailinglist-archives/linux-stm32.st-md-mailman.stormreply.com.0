@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EA852DB295
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Dec 2020 18:30:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5900C2DB29A
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Dec 2020 18:32:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDCC0C32E90;
-	Tue, 15 Dec 2020 17:30:43 +0000 (UTC)
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC4FEC32E90;
+	Tue, 15 Dec 2020 17:32:08 +0000 (UTC)
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
+ [209.85.210.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3271EC36B35
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2818C36B35
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Dec 2020 17:30:43 +0000 (UTC)
-Received: by mail-oi1-f194.google.com with SMTP id s75so24196798oih.1
+ Tue, 15 Dec 2020 17:32:07 +0000 (UTC)
+Received: by mail-ot1-f67.google.com with SMTP id a109so20144637otc.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Dec 2020 09:30:43 -0800 (PST)
+ Tue, 15 Dec 2020 09:32:07 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=f37RWrXwsiv+0EoW1Yj6ZpyoDuIYg2z238UxVLI0rTM=;
- b=dKgKHtN11Jsc6+BBol3Kd9iEEF0mzQj1B/nXsEetfQYDH9xUOQ13xPaJ0RDLgVmudq
- qj+JDM0kqhVE9efHvkE28d7ZG8c/175DD+kPgEUn3rg3BJ0P7R4ohkKa5+llgccMB+mk
- JWJdJC7SIoHIz9Rkb/dYH6OoePiWclF5GfoZvl8RLPGqD9e9TarxiCDGyFMG6aGmYN96
- rC4grZ6RtnGCxzTCPzItMHRYzQ4+GgrYs/xCPDnMkgA2/pwPGUTW+P08rSwuYsjGGThV
- TAuMuNJMSjll/fGrOBqhM7NzKj/wCWyT6+WxLqbfN7uVIMitSigCiGsCEgXH8jfOsYqh
- Z7mg==
-X-Gm-Message-State: AOAM5310C35bR49bc5HgYkHk4aT0XQa+N4dNyzUT7DJSXd+r/WgYGyiD
- S3+K0I6FCxKw/WEHyqqDKw==
-X-Google-Smtp-Source: ABdhPJy+h89dvJUr6gfADjtGId8WiKWymjBfz57RzC+lV7rbruhDVmEpT328hNNnZ8Hu5ffbr8zbtA==
-X-Received: by 2002:aca:cd85:: with SMTP id d127mr21918090oig.59.1608053441932; 
- Tue, 15 Dec 2020 09:30:41 -0800 (PST)
+ bh=5yaEryw6XNLMEgGskzSLFE6j4zs11TlaPsMd8R+3tYU=;
+ b=pa8QaukOKH1TI1F4pXwNx9vsNUfjplM3xttIGSX/pWZVdG4vIa1GUWy+nCJWhbfZKZ
+ IaA7Rk8xOOQ/CoMsPabPGTxJohyDZCERiDB8uw33mbj/4j4cXWlV2dOhZSa8Lgp3psr4
+ zIXteMfz4IaPDyInhMT1hQ5DxcVobaLZKDZ8RVgtMiEat156teGu+fqHnhikdchK0WQL
+ oPPpqz3rDSd36cWjPCW4wWkEv+rBsjZdJu47mL01D9fYKtIW+xkBwFGvQK8WfxWrgixd
+ U2E+wIbDguYAkt0DcS3iwizDcLP+/v6XYst59hPRfSmsjVEpx7FvjdrCtw70oJlxOvOc
+ Yhmg==
+X-Gm-Message-State: AOAM533FrVpVil0vO+Ii1RbGVbW2TDT1Ut7sRK2JfyIBd5RRcAqPn1A9
+ rM4plZ00eh3Dy9hXUzxF6A==
+X-Google-Smtp-Source: ABdhPJz+DY6y44Ux4FcF2FQdoyK9exddTpaOa4EWcrlXxajMaOLwPQ8+7pZrd+v329TzX5euhJ8YfQ==
+X-Received: by 2002:a05:6830:1e41:: with SMTP id
+ e1mr24207426otj.143.1608053526489; 
+ Tue, 15 Dec 2020 09:32:06 -0800 (PST)
 Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id v17sm1517451oou.41.2020.12.15.09.30.40
+ by smtp.gmail.com with ESMTPSA id q4sm4825687ooo.1.2020.12.15.09.32.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Dec 2020 09:30:41 -0800 (PST)
-Received: (nullmailer pid 4072081 invoked by uid 1000);
- Tue, 15 Dec 2020 17:30:39 -0000
-Date: Tue, 15 Dec 2020 11:30:39 -0600
+ Tue, 15 Dec 2020 09:32:05 -0800 (PST)
+Received: (nullmailer pid 4074363 invoked by uid 1000);
+ Tue, 15 Dec 2020 17:32:04 -0000
+Date: Tue, 15 Dec 2020 11:32:04 -0600
 From: Rob Herring <robh@kernel.org>
 To: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-Message-ID: <20201215173039.GA4072051@robh.at.kernel.org>
+Message-ID: <20201215173204.GA4072234@robh.at.kernel.org>
 References: <20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru>
- <20201214091616.13545-6-Sergey.Semin@baikalelectronics.ru>
+ <20201214091616.13545-7-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201214091616.13545-6-Sergey.Semin@baikalelectronics.ru>
-Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+In-Reply-To: <20201214091616.13545-7-Sergey.Semin@baikalelectronics.ru>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
+ Lars Persson <larper@axis.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Johan Hovold <johan@kernel.org>, Maxime Ripard <mripard@kernel.org>,
  Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- Rob Herring <robh+dt@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lars Persson <larper@axis.com>,
- Jakub Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Serge Semin <fancer.lancer@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 05/25] dt-bindings: net: dwmac: Elaborate
- stmmaceth/pclk description
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>
+Subject: Re: [Linux-stm32] [PATCH 06/25] dt-bindings: net: dwmac: Add Tx/Rx
+	clock sources
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,52 +78,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 14 Dec 2020 12:15:55 +0300, Serge Semin wrote:
-> Current clocks description doesn't provide a comprehensive notion about
-> what "stmmaceth" and "pclk" actually represent from the IP-core manual
-> point of view. The bindings file states:
-> stmmaceth - "GMAC main clock",
-> apb - "Peripheral registers interface clock".
-> It isn't that easy to understand what they actually mean especially seeing
-> the DW *MAC manual operates with clock definitions like Application,
-> System, Host, CSR, Transmit, Receive, etc clocks. Moreover the clocks
-> usage in the driver doesn't shade a full light on their essence. What
-> inferred from there is that the "stmmaceth" name has been assigned to the
-> common clock, which feeds both system and CSR interfaces. But what about
-> "apb"? The bindings defines it as the clock for "peripheral registers
-> interface". So it's close to the CSR clock in the IP-core manual notation.
-> If so then when "apb" clock is specified aside with the "stmmaceth", it
-> represents a case when the DW *MAC is synthesized with CSR_SLV_CLK=y
-> (separate system and CSR clocks). But even though the "apb" clock is
-> requested in the MAC driver, the driver doesn't actually use it as a
-> separate CSR clock where the IP-core manual requires. All of that makes me
-> thinking that the case of separate system and CSR clocks isn't correctly
-> implemented in the driver.
-> 
-> Let's start with elaborating the clocks description so anyone reading
-> the DW *MAC bindings file would understand that "stmmaceth" is the
-> system clock and "pclk" is actually the CSR clock. Indeed in accordance
-> with sheets depicted in [1]:
-> system/application clock can be either of: hclk_i, aclk_i, clk_app_i;
-> CSR clock can be either of: hclk_i, aclk_i, clk_app_i, clk_csr_i.
-> (Most likely the similar definitions present in the others IP-core
-> manuals.) So the CSR clock can be tied to the application clock
-> considering the later as the main clock, but not the other way around. In
-> case if there is only "stmmaceth" clock specified in a DT node, then it
-> will be considered as a source of clocks for both application and CSR. But
-> if "pclk" is also specified in the list of the device clocks, then it will
-> be perceived as the separate CSR clock.
-> 
-> [1] DesignWare Cores Ethernet MAC Universal Databook, Revision 3.73a,
->     October 2013, p. 564.
+On Mon, Dec 14, 2020 at 12:15:56PM +0300, Serge Semin wrote:
+> Generic DW *MAC can be connected to an external Tramit and Receive clock
+
+s/Tramit/Transmit/
+
+> generators. Add the corresponding clocks description and clock-names to
+> the generic bindings schema so new DW *MAC-based bindings wouldn't declare
+> its own names of the same clocks.
 > 
 > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 > ---
->  .../devicetree/bindings/net/snps,dwmac.yaml          | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
+>  .../devicetree/bindings/net/snps,dwmac.yaml        | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 > 
-
-Reviewed-by: Rob Herring <robh@kernel.org>
+> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> index e1ebe5c8b1da..74820f491346 100644
+> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> @@ -126,6 +126,18 @@ properties:
+>            MCI, CSR and SMA interfaces run on this clock. If it's omitted,
+>            the CSR interfaces are considered as synchronous to the system
+>            clock domain.
+> +      - description:
+> +          GMAC Tx clock or so called Transmit clock. The clock is supplied
+> +          by an external with respect to the DW MAC clock generator.
+> +          The clock source and its frequency depends on the DW MAC xMII mode.
+> +          In case if it's supplied by PHY/SerDes this property can be
+> +          omitted.
+> +      - description:
+> +          GMAC Rx clock or so called Receive clock. The clock is supplied
+> +          by an external with respect to the DW MAC clock generator.
+> +          The clock source and its frequency depends on the DW MAC xMII mode.
+> +          In case if it's supplied by PHY/SerDes or it's synchronous to
+> +          the Tx clock this property can be omitted.
+>        - description:
+>            PTP reference clock. This clock is used for programming the
+>            Timestamp Addend Register. If not passed then the system
+> @@ -139,6 +151,8 @@ properties:
+>        enum:
+>          - stmmaceth
+>          - pclk
+> +        - tx
+> +        - rx
+>          - ptp_ref
+>  
+>    resets:
+> -- 
+> 2.29.2
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
