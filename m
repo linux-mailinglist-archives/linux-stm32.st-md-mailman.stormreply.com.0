@@ -2,61 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A51F12E81F4
-	for <lists+linux-stm32@lfdr.de>; Thu, 31 Dec 2020 21:37:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 030162E915D
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Jan 2021 09:02:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 584D1C57188;
-	Thu, 31 Dec 2020 20:37:57 +0000 (UTC)
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C439C5718C;
+	Mon,  4 Jan 2021 08:02:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47EF3C56631
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0A0AC5717D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Dec 2020 20:37:52 +0000 (UTC)
-Received: by mail-ot1-f42.google.com with SMTP id i6so18862761otr.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Dec 2020 12:37:52 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=33mJBDwSaLXSZq9uIF9tHwsSa4/sQ0g8ozhF1F4Sc6E=;
- b=eoO4uguJLjj3fHIg1FQHC8UfQ3PZLde3SwD8tn7f3FixL1JprF2FWt5arsDT+KyiYE
- laVX3Tt1CxNUfVTRqA2piSubnE1MT9YLpo64MLkHPEf6L/4AvgwUT69tbz752aZUvVLM
- tMeK5hbJVcI0ckr+6z5vBt8oGTcL/gmM5n3msw3ckN/PCwQxKw9HOailkr/iiIdwuXp5
- D0dsYl6U5mMpjn0CwgsSLFWak4fKiDczNGlB/CVe5N0B9xV3dETTuv9TxynnSAc3aa05
- as9B8GnMHNOQdCMWmK71Kjlrvr79pslSRnQXDeCgjzufODMdcR4VfTb+gVVu06bkQnd6
- gqiQ==
-X-Gm-Message-State: AOAM530ZZZ/QeYhtbz9925WSpJ5lJzOPHFMgPWiURZEoOdueKc9qyMAR
- 1tjEuYWWgS9VKRby3p2eAA==
-X-Google-Smtp-Source: ABdhPJzuS6mrQN9/NoCc6lwKj14DfBKazPXicm33pfgZnY6bLolOGpW9iV1iY/aGl6PBWH0MZYg+NQ==
-X-Received: by 2002:a05:6830:1252:: with SMTP id
- s18mr42780191otp.4.1609447071769; 
- Thu, 31 Dec 2020 12:37:51 -0800 (PST)
-Received: from robh.at.kernel.org ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id j126sm11281512oib.13.2020.12.31.12.37.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Dec 2020 12:37:50 -0800 (PST)
-Received: (nullmailer pid 2321274 invoked by uid 1000);
- Thu, 31 Dec 2020 20:37:49 -0000
-Date: Thu, 31 Dec 2020 13:37:49 -0700
-From: Rob Herring <robh@kernel.org>
-To: Erwan Le Ray <erwan.leray@foss.st.com>
-Message-ID: <20201231203749.GA2321239@robh.at.kernel.org>
-References: <20201218190020.1572-1-erwan.leray@foss.st.com>
- <20201218190020.1572-6-erwan.leray@foss.st.com>
+ Fri, 18 Dec 2020 19:00:41 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0BIIusIs011760; Fri, 18 Dec 2020 20:00:27 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type :
+ content-transfer-encoding; s=selector1;
+ bh=8b7meip5c3anz5ISPIJdzkp6HNWVOIs8d92UiRmxRUo=;
+ b=PCi1WDFDNvaqiYUVQZuMXyuIiyxvx45AYpOkPPQfBshAJIoeBpHiE1199Qo4Dd3zbmNJ
+ QSSc4bxXym96AU61VKbKM9d6oE4lIJGFbXjXoTN3lkNUItIe8OKHrkCSYeysWUjGGpTq
+ 4f4+i1nCzun7PcW8+XosBzCB7V6CVeZ1MxFcMHjRS3znStgB/ILwEsXE53Slsi7DCiFX
+ NGVSXsw0sVuoukdSLuBKY+lXOqqEIynssjx8BYSDdxT0uT0gWYHP/QYfRMe3bvub0YYo
+ PUhgaikMMKOT84SlW4CUgVLRNHqDH6PDTpUk/y5d79ouXhl/EI0nQstGABvVHvsVrvxd /w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 35cpt9ux3q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 18 Dec 2020 20:00:27 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 462D310002A;
+ Fri, 18 Dec 2020 20:00:24 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 34A26231C3D;
+ Fri, 18 Dec 2020 20:00:24 +0100 (CET)
+Received: from localhost (10.75.127.48) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 18 Dec 2020 20:00:23
+ +0100
+From: Erwan Le Ray <erwan.leray@foss.st.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jslaby@suse.com>, Rob Herring <robh+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri, 18 Dec 2020 20:00:11 +0100
+Message-ID: <20201218190020.1572-1-erwan.leray@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201218190020.1572-6-erwan.leray@foss.st.com>
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG4NODE1.st.com (10.75.127.10) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2020-12-18_12:2020-12-18,
+ 2020-12-18 signatures=0
+X-Mailman-Approved-At: Mon, 04 Jan 2021 08:02:42 +0000
 Cc: devicetree@vger.kernel.org, Valentin Caron <valentin.caron@foss.st.com>,
- linux-serial@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jiri Slaby <jslaby@suse.com>,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 5/8] dt-bindings: serial: stm32: update
- rts-gpios and cts-gpios
+Subject: [Linux-stm32] [PATCH 0/7] STM32 uart cleanup and improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,22 +76,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 18 Dec 2020 20:00:16 +0100, Erwan Le Ray wrote:
-> Update rts-gpios and cts-gpios:
-> - remove max-items as already defined in serial.yaml
-> - add a note describing rts-gpios and cts-gpios usage with stm32
-> 
-> Document the use of cts-gpios and rts-gpios for flow control in STM32 UART
-> controller. These properties can be used instead of 'uart-has-rtscts' or
-> 'st,hw-flow-ctrl' (deprecated) for making use of any gpio pins for flow
-> control instead of dedicated pins.
-> It should be noted that both cts-gpios/rts-gpios and 'uart-has-rtscts' or
-> 'st,hw-flow-ctrl' (deprecated) properties cannot co-exist in a design.
-> 
-> Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
-> 
+This series brings various fixes, cleanups and improvements to stm32-usart
+driver.
 
-Acked-by: Rob Herring <robh@kernel.org>
+Erwan Le Ray (8):
+  serial: stm32: fix -Wall W=1 compilation warnings
+  serial: stm32: fix code cleaning warnings and checks
+  serial: stm32: add "_usart" prefix in functions name
+  serial: stm32: add author
+  dt-bindings: serial: stm32: update rts-gpios and cts-gpios
+  serial: stm32: update conflicting RTS/CTS config comment
+  serial: stm32: clean probe and remove port deinit
+  serial: stm32: update transmission complete error message in shutdown
+
+ .../bindings/serial/st,stm32-uart.yaml        |  13 +-
+ drivers/tty/serial/stm32-usart.c              | 417 +++++++++---------
+ 2 files changed, 227 insertions(+), 203 deletions(-)
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
