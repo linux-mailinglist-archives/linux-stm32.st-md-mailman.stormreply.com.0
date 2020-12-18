@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90C1C2E9160
+	by mail.lfdr.de (Postfix) with ESMTPS id A4C052E9163
 	for <lists+linux-stm32@lfdr.de>; Mon,  4 Jan 2021 09:02:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C225C5719A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AD88C57A43;
 	Mon,  4 Jan 2021 08:02:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B172C5717F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01B64C5717D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Dec 2020 19:00:43 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Fri, 18 Dec 2020 19:00:44 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0BIIumlG011714; Fri, 18 Dec 2020 20:00:29 +0100
+ 0BIIviuG021973; Fri, 18 Dec 2020 20:00:30 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
- content-type : content-transfer-encoding; s=selector1;
- bh=gIZmSQvht2ZB5w+rQ8RvzG0lqz+JQaLSQmiALoML+oU=;
- b=M2gYJCj+7y3HyUa2Dz+UKHEiKejyT1mbh4tofUcEZzl+5LUbfEopI28JnMKzkhxhR98D
- VAbII1nN5r4xw0MarrhP6U6b0KrJDnWFcPclEuGCxDXDSqHtAbmAs8t4+hLjfja9/WAd
- RNW0cJGEh16P+Z/SKzDLw67wLoVqyTLKuJxHTJdkPuf3uQW1pdAWf+bn5DTKCOFyVkTw
- KZpAgaaOBPKh/71qEYvLTIK9+L78FTluQ20Z8VjLVU1BnAfF2EBO2apih0xe2rGoJo8V
- 7/ZAqRNj/HoCYsPgP+iLv3AfPsYZGs6DJr0HfOFP727hOLMH85rW2CgbRvO87dvTxxUf Mw== 
+ content-type; s=selector1;
+ bh=CHpNSWEz7IxlEunBAvqrckY+hacS/RfitpwbipXC5us=;
+ b=Qz5ePYox8Qh4MX2xgPGNjEgzM1c0mBn3+zgg7y4WQ3sd9qr+wIESfoReJbHKRIz9G0Zj
+ z/8kHpkcoci5xX9mCWOyBhEg5G2QP2qwhMzecfSHJUm07EzJ883+uqHZl6ipIdaRg80I
+ gBIkC7ZktYvArViZIcu1tP9tyRbE3CYSnb5TTCh8AGV2O6javJ9S69jkF3j7A1pRx7Wc
+ Zz5aam9DiYWFXXRO+1y4Z1gC/i0uh5cR7Di9khEwQVIKhtGQ8wiohxi3adbiXFfygryF
+ QQ7fFSwtpw7GCi8tlUwPj3jP6uXKqQCiLHhxcTNzN5+OMhsL1wbajxv4D78aLQTrWmu0 pg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 35cpt9ux3u-1
+ by mx07-00178001.pphosted.com with ESMTP id 35cq03gdya-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 18 Dec 2020 20:00:29 +0100
+ Fri, 18 Dec 2020 20:00:30 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF8D710002A;
- Fri, 18 Dec 2020 20:00:28 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 46312100034;
+ Fri, 18 Dec 2020 20:00:29 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A21CE231C3D;
- Fri, 18 Dec 2020 20:00:28 +0100 (CET)
-Received: from localhost (10.75.127.49) by SFHDAG2NODE3.st.com (10.75.127.6)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 38E0D225E48;
+ Fri, 18 Dec 2020 20:00:29 +0100 (CET)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
  with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 18 Dec 2020 20:00:28
  +0100
 From: Erwan Le Ray <erwan.leray@foss.st.com>
@@ -45,14 +45,14 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
  <jslaby@suse.com>, Rob Herring <robh+dt@kernel.org>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 18 Dec 2020 20:00:12 +0100
-Message-ID: <20201218190020.1572-2-erwan.leray@foss.st.com>
+Date: Fri, 18 Dec 2020 20:00:13 +0100
+Message-ID: <20201218190020.1572-3-erwan.leray@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201218190020.1572-1-erwan.leray@foss.st.com>
 References: <20201218190020.1572-1-erwan.leray@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
  definitions=2020-12-18_12:2020-12-18,
@@ -61,8 +61,8 @@ X-Mailman-Approved-At: Mon, 04 Jan 2021 08:02:42 +0000
 Cc: devicetree@vger.kernel.org, Valentin Caron <valentin.caron@foss.st.com>,
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/8] serial: stm32: fix -Wall W=1 compilation
-	warnings
+Subject: [Linux-stm32] [PATCH 2/8] serial: stm32: fix code cleaning warnings
+	and checks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,55 +74,146 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Rml4IGNvbXBpbGF0aW9ucyB3YXJuaW5nIGRldGVjdGVkIGJ5IC1XYWxsIFc9MSBjb21waWxhdGlv
-biBvcHRpb246Ci0gd2FybmluZzogdmFyaWFibGUg4oCYY29va2ll4oCZIHNldCBidXQgbm90IHVz
-ZWQKCkZpeGVzOiAzNDg5MTg3MjA0ZWIgKCJzZXJpYWw6IHN0bTMyOiBhZGRpbmcgZG1hIHN1cHBv
-cnQiKQpTaWduZWQtb2ZmLWJ5OiBFcndhbiBMZSBSYXkgPGVyd2FuLmxlcmF5QGZvc3Muc3QuY29t
-PgoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvdHR5L3NlcmlhbC9zdG0zMi11c2FydC5jIGIvZHJpdmVy
-cy90dHkvc2VyaWFsL3N0bTMyLXVzYXJ0LmMKaW5kZXggZWU2Yzc3NjJkMzU1Li42MjQ4MzA0YTAw
-MWYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvdHR5L3NlcmlhbC9zdG0zMi11c2FydC5jCisrKyBiL2Ry
-aXZlcnMvdHR5L3NlcmlhbC9zdG0zMi11c2FydC5jCkBAIC0zNTAsNyArMzUwLDYgQEAgc3RhdGlj
-IHZvaWQgc3RtMzJfdHJhbnNtaXRfY2hhcnNfZG1hKHN0cnVjdCB1YXJ0X3BvcnQgKnBvcnQpCiAJ
-c3RydWN0IHN0bTMyX3VzYXJ0X29mZnNldHMgKm9mcyA9ICZzdG0zMnBvcnQtPmluZm8tPm9mczsK
-IAlzdHJ1Y3QgY2lyY19idWYgKnhtaXQgPSAmcG9ydC0+c3RhdGUtPnhtaXQ7CiAJc3RydWN0IGRt
-YV9hc3luY190eF9kZXNjcmlwdG9yICpkZXNjID0gTlVMTDsKLQlkbWFfY29va2llX3QgY29va2ll
-OwogCXVuc2lnbmVkIGludCBjb3VudCwgaTsKIAogCWlmIChzdG0zMnBvcnQtPnR4X2RtYV9idXN5
-KQpAQCAtMzg0LDE3ICszODMsMTggQEAgc3RhdGljIHZvaWQgc3RtMzJfdHJhbnNtaXRfY2hhcnNf
-ZG1hKHN0cnVjdCB1YXJ0X3BvcnQgKnBvcnQpCiAJCQkJCSAgIERNQV9NRU1fVE9fREVWLAogCQkJ
-CQkgICBETUFfUFJFUF9JTlRFUlJVUFQpOwogCi0JaWYgKCFkZXNjKSB7Ci0JCWZvciAoaSA9IGNv
-dW50OyBpID4gMDsgaS0tKQotCQkJc3RtMzJfdHJhbnNtaXRfY2hhcnNfcGlvKHBvcnQpOwotCQly
-ZXR1cm47Ci0JfQorCWlmICghZGVzYykKKwkJZ290byBmYWxsYmFja19lcnI7CiAKIAlkZXNjLT5j
-YWxsYmFjayA9IHN0bTMyX3R4X2RtYV9jb21wbGV0ZTsKIAlkZXNjLT5jYWxsYmFja19wYXJhbSA9
-IHBvcnQ7CiAKIAkvKiBQdXNoIGN1cnJlbnQgRE1BIFRYIHRyYW5zYWN0aW9uIGluIHRoZSBwZW5k
-aW5nIHF1ZXVlICovCi0JY29va2llID0gZG1hZW5naW5lX3N1Ym1pdChkZXNjKTsKKwlpZiAoZG1h
-X3N1Ym1pdF9lcnJvcihkbWFlbmdpbmVfc3VibWl0KGRlc2MpKSkgeworCQkvKiBkbWEgbm8geWV0
-IHN0YXJ0ZWQsIHNhZmUgdG8gZnJlZSByZXNvdXJjZXMgKi8KKwkJZG1hZW5naW5lX3Rlcm1pbmF0
-ZV9hc3luYyhzdG0zMnBvcnQtPnR4X2NoKTsKKwkJZ290byBmYWxsYmFja19lcnI7CisJfQogCiAJ
-LyogSXNzdWUgcGVuZGluZyBETUEgVFggcmVxdWVzdHMgKi8KIAlkbWFfYXN5bmNfaXNzdWVfcGVu
-ZGluZyhzdG0zMnBvcnQtPnR4X2NoKTsKQEAgLTQwMyw2ICs0MDMsMTEgQEAgc3RhdGljIHZvaWQg
-c3RtMzJfdHJhbnNtaXRfY2hhcnNfZG1hKHN0cnVjdCB1YXJ0X3BvcnQgKnBvcnQpCiAKIAl4bWl0
-LT50YWlsID0gKHhtaXQtPnRhaWwgKyBjb3VudCkgJiAoVUFSVF9YTUlUX1NJWkUgLSAxKTsKIAlw
-b3J0LT5pY291bnQudHggKz0gY291bnQ7CisJcmV0dXJuOworCitmYWxsYmFja19lcnI6CisJZm9y
-IChpID0gY291bnQ7IGkgPiAwOyBpLS0pCisJCXN0bTMyX3RyYW5zbWl0X2NoYXJzX3Bpbyhwb3J0
-KTsKIH0KIAogc3RhdGljIHZvaWQgc3RtMzJfdHJhbnNtaXRfY2hhcnMoc3RydWN0IHVhcnRfcG9y
-dCAqcG9ydCkKQEAgLTEwODcsNyArMTA5Miw2IEBAIHN0YXRpYyBpbnQgc3RtMzJfb2ZfZG1hX3J4
-X3Byb2JlKHN0cnVjdCBzdG0zMl9wb3J0ICpzdG0zMnBvcnQsCiAJc3RydWN0IGRldmljZSAqZGV2
-ID0gJnBkZXYtPmRldjsKIAlzdHJ1Y3QgZG1hX3NsYXZlX2NvbmZpZyBjb25maWc7CiAJc3RydWN0
-IGRtYV9hc3luY190eF9kZXNjcmlwdG9yICpkZXNjID0gTlVMTDsKLQlkbWFfY29va2llX3QgY29v
-a2llOwogCWludCByZXQ7CiAKIAkvKiBSZXF1ZXN0IERNQSBSWCBjaGFubmVsICovCkBAIC0xMTMy
-LDcgKzExMzYsMTEgQEAgc3RhdGljIGludCBzdG0zMl9vZl9kbWFfcnhfcHJvYmUoc3RydWN0IHN0
-bTMyX3BvcnQgKnN0bTMycG9ydCwKIAlkZXNjLT5jYWxsYmFja19wYXJhbSA9IE5VTEw7CiAKIAkv
-KiBQdXNoIGN1cnJlbnQgRE1BIHRyYW5zYWN0aW9uIGluIHRoZSBwZW5kaW5nIHF1ZXVlICovCi0J
-Y29va2llID0gZG1hZW5naW5lX3N1Ym1pdChkZXNjKTsKKwlyZXQgPSBkbWFfc3VibWl0X2Vycm9y
-KGRtYWVuZ2luZV9zdWJtaXQoZGVzYykpOworCWlmIChyZXQpIHsKKwkJZG1hZW5naW5lX3Rlcm1p
-bmF0ZV9zeW5jKHN0bTMycG9ydC0+cnhfY2gpOworCQlnb3RvIGNvbmZpZ19lcnI7CisJfQogCiAJ
-LyogSXNzdWUgcGVuZGluZyBETUEgcmVxdWVzdHMgKi8KIAlkbWFfYXN5bmNfaXNzdWVfcGVuZGlu
-ZyhzdG0zMnBvcnQtPnJ4X2NoKTsKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
-bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Fixes checkpatch --strict warnings and checks:
+- checkpatch --strict "Unnecessary parentheses"
+- checkpatch --strict "Blank lines aren't necessary before a close brace
+- checkpatch --strict "Alignment should match open parenthesis"
+- checkpatch --strict "Please don't use multiple blank lines"
+- checkpatch --strict "Comparison to NULL could be written ..."
+- visual check code ordering warning
+
+Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
+
+diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+index 6248304a001f..a0ef86d71317 100644
+--- a/drivers/tty/serial/stm32-usart.c
++++ b/drivers/tty/serial/stm32-usart.c
+@@ -176,8 +176,7 @@ static int stm32_pending_rx(struct uart_port *port, u32 *sr, int *last_res,
+ 		status = dmaengine_tx_status(stm32_port->rx_ch,
+ 					     stm32_port->rx_ch->cookie,
+ 					     &state);
+-		if ((status == DMA_IN_PROGRESS) &&
+-		    (*last_res != state.residue))
++		if (status == DMA_IN_PROGRESS && (*last_res != state.residue))
+ 			return 1;
+ 		else
+ 			return 0;
+@@ -464,7 +463,7 @@ static irqreturn_t stm32_interrupt(int irq, void *ptr)
+ 		writel_relaxed(USART_ICR_RTOCF,
+ 			       port->membase + ofs->icr);
+ 
+-	if ((sr & USART_SR_WUF) && (ofs->icr != UNDEF_REG))
++	if ((sr & USART_SR_WUF) && ofs->icr != UNDEF_REG)
+ 		writel_relaxed(USART_ICR_WUCF,
+ 			       port->membase + ofs->icr);
+ 
+@@ -620,7 +619,6 @@ static void stm32_stop_rx(struct uart_port *port)
+ 	stm32_clr_bits(port, ofs->cr1, stm32_port->cr1_irq);
+ 	if (stm32_port->cr3_irq)
+ 		stm32_clr_bits(port, ofs->cr3, stm32_port->cr3_irq);
+-
+ }
+ 
+ /* Handle breaks - ignored by us */
+@@ -724,7 +722,7 @@ static unsigned int stm32_get_databits(struct ktermios *termios)
+ }
+ 
+ static void stm32_set_termios(struct uart_port *port, struct ktermios *termios,
+-			    struct ktermios *old)
++			      struct ktermios *old)
+ {
+ 	struct stm32_port *stm32_port = to_stm32_port(port);
+ 	struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+@@ -923,7 +921,7 @@ stm32_verify_port(struct uart_port *port, struct serial_struct *ser)
+ }
+ 
+ static void stm32_pm(struct uart_port *port, unsigned int state,
+-		unsigned int oldstate)
++		     unsigned int oldstate)
+ {
+ 	struct stm32_port *stm32port = container_of(port,
+ 			struct stm32_port, port);
+@@ -973,18 +971,17 @@ static int stm32_init_port(struct stm32_port *stm32port,
+ 	struct resource *res;
+ 	int ret;
+ 
++	ret = platform_get_irq(pdev, 0);
++	if (ret <= 0)
++		return ret ? : -ENODEV;
++
+ 	port->iotype	= UPIO_MEM;
+ 	port->flags	= UPF_BOOT_AUTOCONF;
+ 	port->ops	= &stm32_uart_ops;
+ 	port->dev	= &pdev->dev;
+ 	port->fifosize	= stm32port->info->cfg.fifosize;
+ 	port->has_sysrq = IS_ENABLED(CONFIG_SERIAL_STM32_CONSOLE);
+-
+-	ret = platform_get_irq(pdev, 0);
+-	if (ret <= 0)
+-		return ret ? : -ENODEV;
+ 	port->irq = ret;
+-
+ 	port->rs485_config = stm32_config_rs485;
+ 
+ 	ret = stm32_init_rs485(port, pdev);
+@@ -1101,8 +1098,8 @@ static int stm32_of_dma_rx_probe(struct stm32_port *stm32port,
+ 		return -ENODEV;
+ 	}
+ 	stm32port->rx_buf = dma_alloc_coherent(&pdev->dev, RX_BUF_L,
+-						 &stm32port->rx_dma_buf,
+-						 GFP_KERNEL);
++					       &stm32port->rx_dma_buf,
++					       GFP_KERNEL);
+ 	if (!stm32port->rx_buf) {
+ 		ret = -ENOMEM;
+ 		goto alloc_err;
+@@ -1177,8 +1174,8 @@ static int stm32_of_dma_tx_probe(struct stm32_port *stm32port,
+ 		return -ENODEV;
+ 	}
+ 	stm32port->tx_buf = dma_alloc_coherent(&pdev->dev, TX_BUF_L,
+-						 &stm32port->tx_dma_buf,
+-						 GFP_KERNEL);
++					       &stm32port->tx_dma_buf,
++					       GFP_KERNEL);
+ 	if (!stm32port->tx_buf) {
+ 		ret = -ENOMEM;
+ 		goto alloc_err;
+@@ -1322,7 +1319,6 @@ static int stm32_serial_remove(struct platform_device *pdev)
+ 	return err;
+ }
+ 
+-
+ #ifdef CONFIG_SERIAL_STM32_CONSOLE
+ static void stm32_console_putchar(struct uart_port *port, int ch)
+ {
+@@ -1335,7 +1331,8 @@ static void stm32_console_putchar(struct uart_port *port, int ch)
+ 	writel_relaxed(ch, port->membase + ofs->tdr);
+ }
+ 
+-static void stm32_console_write(struct console *co, const char *s, unsigned cnt)
++static void stm32_console_write(struct console *co, const char *s,
++				unsigned int cnt)
+ {
+ 	struct uart_port *port = &stm32_ports[co->index].port;
+ 	struct stm32_port *stm32_port = to_stm32_port(port);
+@@ -1388,7 +1385,7 @@ static int stm32_console_setup(struct console *co, char *options)
+ 	 * this to be called during the uart port registration when the
+ 	 * driver gets probed and the port should be mapped at that point.
+ 	 */
+-	if (stm32port->port.mapbase == 0 || stm32port->port.membase == NULL)
++	if (stm32port->port.mapbase == 0 || !stm32port->port.membase)
+ 		return -ENXIO;
+ 
+ 	if (options)
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
