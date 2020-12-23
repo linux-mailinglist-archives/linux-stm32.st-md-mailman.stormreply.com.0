@@ -2,62 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5385A2E1B73
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Dec 2020 12:08:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C97EB2E20B7
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Dec 2020 20:15:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAC83C57183;
-	Wed, 23 Dec 2020 11:08:35 +0000 (UTC)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7106DC57183;
+	Wed, 23 Dec 2020 19:15:48 +0000 (UTC)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18FECC5660F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A764CC5660F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Dec 2020 11:08:34 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id i5so2339131pgo.1
+ Wed, 23 Dec 2020 19:15:46 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id e2so136539plt.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Dec 2020 03:08:34 -0800 (PST)
+ Wed, 23 Dec 2020 11:15:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amarulasolutions.com; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=gRczQcEVREVIHP/xCIGe+pHjWpZBhd9/8Bmyk1xi1h0=;
- b=Tdm+aRo5fz3I6o6oofiQYP4Dg5J+sA3cDlWHv8d/4XsG4r8Eylj/i+aIK+XiBTRHb/
- XIY8Y3JA71pVKMxR8MSTEUeKDtuyefm1g9aCi74H4BU1zKeNNbE4lh2RqvES7a/p42Y4
- EOp0tEPBR3XlgULoCOO+Df6derhRdWd/w/kRc=
+ bh=ALRcLK4O4+D5f37pUZG4i9TvZILQCAE+H6Afc3wmxiQ=;
+ b=Su8AVDFmrOjPvMr6V+fcjbSTsmzpK729Jx+V31N47wJjGaIr10pxavsx/8lpmUVSnG
+ Ci/W3O9rOZIuEz6S8Qgsue/v5s0IuaPo/OV2pmZe+l+Dl3uSbBz7ifp7VCuLQU7SXYTY
+ 3tWA0qrYk/Hmbm51roluWdyAZEv4rbHOIVA7E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=gRczQcEVREVIHP/xCIGe+pHjWpZBhd9/8Bmyk1xi1h0=;
- b=k3TGbRjvrDTdwSgYDel406bcVJDiaYPVN+AoO/2bpZvmV5eMAyYYavJM1eAwpFlIgy
- 9J108Q6EWhRUJSZSByDyeGe4hUpgeLviFPBg+8wsgbLGmszOR+qoZDieZF6U8sgzHb3y
- S5G+NZSIJZDSojffjt++bOLi4eAe2G6FozyW7qCqzmkKgmz8ixytHUwT2+o1pie4ZlPR
- N9rTPV601ItF3tHE19BbLhRPChlfBSzLPPhZzeQCKc5GDsNDgtZt6MlHoNbLr2Y0kXty
- bg77mS7ccNxJ9p3vL+l44bsD+lW2Q5OIbGL8qMswqoUOR+DOYPYNZZoKhgd1KlWgK8Ae
- KkDA==
-X-Gm-Message-State: AOAM530RefMym8d1kWZgBq+sSAJvC5s7EUScpsDerwcrZ4TKL2vqLU4y
- XlTOkjEEQlAhLfd8HxXthh1rVQ==
-X-Google-Smtp-Source: ABdhPJxI0lVlTeQudtwo04v0ZQt+J5cepsKS4VBuncWNGWBA6WddhHvJkit9Q34ifSZGrmUAvmjknQ==
-X-Received: by 2002:a63:4746:: with SMTP id w6mr563080pgk.377.1608721713343;
- Wed, 23 Dec 2020 03:08:33 -0800 (PST)
-Received: from localhost.localdomain ([2405:201:c00a:a884:eca4:40c1:8784:571c])
- by smtp.gmail.com with ESMTPSA id d4sm23031093pfo.127.2020.12.23.03.08.15
+ bh=ALRcLK4O4+D5f37pUZG4i9TvZILQCAE+H6Afc3wmxiQ=;
+ b=HuXc4Kf1P/c67LD5zTx/NIPgHzLBFOtn0E7MJm6m3NJgvcp5DJ+VioQG4WcATuFCN/
+ 9sNDMbjfQEajEbeFMHZQ0VBTzzCofiZ3N2idJd7vzUUAkaMXKkWpFfM8PaMPJ5h9de9g
+ Z6XWveXm9J3GJzvhArx4Vhk60i9QEnbe4l6OcPwL6/zVFawDy/qZ7lzMNEAqrLuB+Lb9
+ ydvm+EtGPokQ08p2hSVcmeSN+oBMTy5hxi/xDCc3v3fX0aMW1yE9pDGbd/QOuU58/n9B
+ B3gtECpneTkAe5MxuCX4N7+wKqEPAWqbsYgjg6BBKp/fAO421naJUDDM8/CZsWGa6QQK
+ oQFA==
+X-Gm-Message-State: AOAM533eJmfFZ9UATDQIG44rWH4E8gzgtIAUFCB9yK0CAh12VeeOjf+0
+ kve2TnWLbuH0NSJjT5yYDdlQSw==
+X-Google-Smtp-Source: ABdhPJzHHsKKA8084Hskzd1mlI1QvZ3SKWcsCeQXrWzvCLkGCuL8qKsUSiCpa3sQ6tsy0wTJbGphpw==
+X-Received: by 2002:a17:902:ed45:b029:da:c274:d7ac with SMTP id
+ y5-20020a170902ed45b02900dac274d7acmr26550233plb.69.1608750945056; 
+ Wed, 23 Dec 2020 11:15:45 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:c00a:a884:29f0:6e54:608c:e1b9])
+ by smtp.gmail.com with ESMTPSA id i2sm397640pjd.21.2020.12.23.11.15.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Dec 2020 03:08:32 -0800 (PST)
+ Wed, 23 Dec 2020 11:15:44 -0800 (PST)
 From: Jagan Teki <jagan@amarulasolutions.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
  Rob Herring <robh+dt@kernel.org>
-Date: Wed, 23 Dec 2020 16:37:57 +0530
-Message-Id: <20201223110757.126937-1-jagan@amarulasolutions.com>
+Date: Thu, 24 Dec 2020 00:43:57 +0530
+Message-Id: <20201223191402.378560-1-jagan@amarulasolutions.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Add STM32MP1 I2C6 SDA/SCL
-	pinmux
+Subject: [Linux-stm32] [PATCH 0/5] ARM: dts: stm32: Add Engicam MicroGEA
+	STM32MP1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,43 +75,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add SDA/SCL pinmux lines for I2C6 on STM32MP1.
+This is the initial series to support Engicam MicroGEA STM32MP1
+SoM and it's associated carrier board dts(i) support.
 
-This support adds both in default and sleep states.
+MicroGEA STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
 
-Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
----
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+MicroGEA STM32MP1 needs to mount on top of Engicam carrier boards for
+creating complete platform boards.
 
-diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index 20a59e8f7a33..2036c1d0d798 100644
---- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -2018,6 +2018,23 @@ pins {
- 		};
- 	};
- 
-+	i2c6_pins_a: i2c6-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('Z', 6, AF2)>, /* I2C6_SCL */
-+				 <STM32_PINMUX('Z', 7, AF2)>; /* I2C6_SDA */
-+			bias-disable;
-+			drive-open-drain;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	i2c6_sleep_pins_a: i2c6-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('Z', 6, ANALOG)>, /* I2C6_SCL */
-+				 <STM32_PINMUX('Z', 7, ANALOG)>; /* I2C6_SDA */
-+		};
-+	};
-+
- 	spi1_pins_a: spi1-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('Z', 0, AF5)>, /* SPI1_SCK */
+Possible carrier boards are,
+- MicroDev 2.0
+- MicroDev 7" Open Frame.
+
+Any inputs?
+Jagan.
+
+Jagan Teki (5):
+  dt-bindings: arm: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0
+  ARM: dts: stm32: Add Engicam MicroGEA STM32MP1 SoM
+  ARM: dts: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0 board
+  dt-bindings: arm: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0 7" OF
+  ARM: dts: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0 7" OF
+
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |   9 ++
+ arch/arm/boot/dts/Makefile                    |   2 +
+ .../dts/stm32mp157a-engicam-microdev2.0.dtsi  |  44 ++++++
+ ...157a-microgea-stm32mp1-microdev2.0-of7.dts | 120 ++++++++++++++
+ ...32mp157a-microgea-stm32mp1-microdev2.0.dts |  21 +++
+ .../dts/stm32mp157a-microgea-stm32mp1.dtsi    | 147 ++++++++++++++++++
+ 6 files changed, 343 insertions(+)
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-engicam-microdev2.0.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
+
 -- 
 2.25.1
 
