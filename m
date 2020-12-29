@@ -2,39 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E6BD2E7289
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Dec 2020 18:14:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A89742E72D4
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Dec 2020 18:55:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACD86C5717E;
-	Tue, 29 Dec 2020 17:14:51 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55F35C5662E
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Dec 2020 17:14:48 +0000 (UTC)
-Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
- [81.101.6.87])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A4EBC5717E;
+	Tue, 29 Dec 2020 17:55:44 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4F6A021D94;
- Tue, 29 Dec 2020 17:14:44 +0000 (UTC)
-Date: Tue, 29 Dec 2020 17:14:41 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20201229171441.5bfa812b@archlinux>
-In-Reply-To: <ccf4d36d-dbb0-aea0-5625-4aaf6850c73d@foss.st.com>
-References: <20201218093512.871-1-vulab@iscas.ac.cn>
- <ccf4d36d-dbb0-aea0-5625-4aaf6850c73d@foss.st.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3885C56638
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 29 Dec 2020 17:55:41 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4D52Bz64NWz1rtyj;
+ Tue, 29 Dec 2020 18:55:39 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4D52Bz5BC3z1tSR0;
+ Tue, 29 Dec 2020 18:55:39 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id qxErJKSDsSSz; Tue, 29 Dec 2020 18:55:38 +0100 (CET)
+X-Auth-Info: Uf8aOeLWqI5ehp43TZdu6NmwvfbTs2kBozYO4vBwyhQ=
+Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Tue, 29 Dec 2020 18:55:38 +0100 (CET)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Tue, 29 Dec 2020 18:55:20 +0100
+Message-Id: <20201229175521.268234-1-marex@denx.de>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Cc: etienne.carriere@st.com, lars@metafoo.de, pmeerw@pmeerw.net,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, krzk@kernel.org,
- peter.ujfalusi@ti.com, andy.shevchenko@gmail.com, Xu Wang <vulab@iscas.ac.cn>,
- mcoquelin.stm32@gmail.com, alexandru.ardelean@analog.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: Remove redundant
- null check before clk_prepare_enable/clk_disable_unprepare
+Cc: Marek Vasut <marex@denx.de>, Patrice Chotard <patrice.chotard@st.com>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: Fix GPIO hog flags on
+	DHCOM PicoITX
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,131 +58,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 18 Dec 2020 15:32:32 +0100
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+The GPIO hog flags are ignored by gpiolib-of.c now, set the flags to 0.
+Due to a change in gpiolib-of.c, setting flags to GPIO_ACTIVE_LOW and
+using output-low DT property leads to the GPIO being set high instead.
 
-> On 12/18/20 10:35 AM, Xu Wang wrote:
-> > Because clk_prepare_enable() and clk_disable_unprepare() already checked
-> > NULL clock parameter, so the additional checks are unnecessary, just
-> > remove them.
-> > 
-> > Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
-> > ---
-> >  drivers/iio/adc/stm32-adc-core.c | 29 +++++++++++------------------
-> >  drivers/iio/adc/stm32-adc.c      | 14 +++++---------
-> >  2 files changed, 16 insertions(+), 27 deletions(-)  
-> 
-> Hi Xu,
-> 
-> Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Applied,
+Fixes: ac68793f49de ("ARM: dts: stm32: Add DHCOM based PicoITX board")
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+ arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-thanks,
-
-Jonathan
-
-> 
-> Thanks for your patch,
-> Best Regards,
-> Fabrice
-> 
-> > 
-> > diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-> > index 9d1ad6e38e85..c088cb990193 100644
-> > --- a/drivers/iio/adc/stm32-adc-core.c
-> > +++ b/drivers/iio/adc/stm32-adc-core.c
-> > @@ -535,20 +535,16 @@ static int stm32_adc_core_hw_start(struct device *dev)
-> >  		goto err_switches_dis;
-> >  	}
-> >  
-> > -	if (priv->bclk) {
-> > -		ret = clk_prepare_enable(priv->bclk);
-> > -		if (ret < 0) {
-> > -			dev_err(dev, "bus clk enable failed\n");
-> > -			goto err_regulator_disable;
-> > -		}
-> > +	ret = clk_prepare_enable(priv->bclk);
-> > +	if (ret < 0) {
-> > +		dev_err(dev, "bus clk enable failed\n");
-> > +		goto err_regulator_disable;
-> >  	}
-> >  
-> > -	if (priv->aclk) {
-> > -		ret = clk_prepare_enable(priv->aclk);
-> > -		if (ret < 0) {
-> > -			dev_err(dev, "adc clk enable failed\n");
-> > -			goto err_bclk_disable;
-> > -		}
-> > +	ret = clk_prepare_enable(priv->aclk);
-> > +	if (ret < 0) {
-> > +		dev_err(dev, "adc clk enable failed\n");
-> > +		goto err_bclk_disable;
-> >  	}
-> >  
-> >  	writel_relaxed(priv->ccr_bak, priv->common.base + priv->cfg->regs->ccr);
-> > @@ -556,8 +552,7 @@ static int stm32_adc_core_hw_start(struct device *dev)
-> >  	return 0;
-> >  
-> >  err_bclk_disable:
-> > -	if (priv->bclk)
-> > -		clk_disable_unprepare(priv->bclk);
-> > +	clk_disable_unprepare(priv->bclk);
-> >  err_regulator_disable:
-> >  	regulator_disable(priv->vref);
-> >  err_switches_dis:
-> > @@ -575,10 +570,8 @@ static void stm32_adc_core_hw_stop(struct device *dev)
-> >  
-> >  	/* Backup CCR that may be lost (depends on power state to achieve) */
-> >  	priv->ccr_bak = readl_relaxed(priv->common.base + priv->cfg->regs->ccr);
-> > -	if (priv->aclk)
-> > -		clk_disable_unprepare(priv->aclk);
-> > -	if (priv->bclk)
-> > -		clk_disable_unprepare(priv->bclk);
-> > +	clk_disable_unprepare(priv->aclk);
-> > +	clk_disable_unprepare(priv->bclk);
-> >  	regulator_disable(priv->vref);
-> >  	stm32_adc_core_switches_supply_dis(priv);
-> >  	regulator_disable(priv->vdda);
-> > diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> > index c067c994dae2..f7c53cea509a 100644
-> > --- a/drivers/iio/adc/stm32-adc.c
-> > +++ b/drivers/iio/adc/stm32-adc.c
-> > @@ -546,8 +546,7 @@ static int stm32_adc_hw_stop(struct device *dev)
-> >  	if (adc->cfg->unprepare)
-> >  		adc->cfg->unprepare(indio_dev);
-> >  
-> > -	if (adc->clk)
-> > -		clk_disable_unprepare(adc->clk);
-> > +	clk_disable_unprepare(adc->clk);
-> >  
-> >  	return 0;
-> >  }
-> > @@ -558,11 +557,9 @@ static int stm32_adc_hw_start(struct device *dev)
-> >  	struct stm32_adc *adc = iio_priv(indio_dev);
-> >  	int ret;
-> >  
-> > -	if (adc->clk) {
-> > -		ret = clk_prepare_enable(adc->clk);
-> > -		if (ret)
-> > -			return ret;
-> > -	}
-> > +	ret = clk_prepare_enable(adc->clk);
-> > +	if (ret)
-> > +		return ret;
-> >  
-> >  	stm32_adc_set_res(adc);
-> >  
-> > @@ -575,8 +572,7 @@ static int stm32_adc_hw_start(struct device *dev)
-> >  	return 0;
-> >  
-> >  err_clk_dis:
-> > -	if (adc->clk)
-> > -		clk_disable_unprepare(adc->clk);
-> > +	clk_disable_unprepare(adc->clk);
-> >  
-> >  	return ret;
-> >  }
-> >   
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi
+index 25528a1c096f..757707766fa0 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi
+@@ -49,7 +49,7 @@ &gpioa {
+ 	 */
+ 	usb-port-power-hog {
+ 		gpio-hog;
+-		gpios = <13 GPIO_ACTIVE_LOW>;
++		gpios = <13 0>;
+ 		output-low;
+ 		line-name = "usb-port-power";
+ 	};
+-- 
+2.29.2
 
 _______________________________________________
 Linux-stm32 mailing list
