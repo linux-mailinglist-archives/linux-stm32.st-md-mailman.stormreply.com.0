@@ -2,36 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CD4B2E7BFA
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Dec 2020 19:54:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFBCA2E7CB1
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Dec 2020 22:36:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CEFAC5718A;
-	Wed, 30 Dec 2020 18:54:44 +0000 (UTC)
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C853C57188;
+	Wed, 30 Dec 2020 21:36:44 +0000 (UTC)
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E44C4C56638
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84C00C56638
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Dec 2020 18:54:42 +0000 (UTC)
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
- id 1838D1C0B79; Wed, 30 Dec 2020 19:54:40 +0100 (CET)
-Date: Wed, 30 Dec 2020 19:54:39 +0100
-From: Pavel Machek <pavel@ucw.cz>
-To: Alexander Dahl <post@lespocky.de>
-Message-ID: <20201230185439.GC25903@duo.ucw.cz>
-References: <20201228163217.32520-1-post@lespocky.de>
- <20201228163217.32520-2-post@lespocky.de>
+ Wed, 30 Dec 2020 21:36:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=+X56aQz2Xxt34I0apf6tUs9ZclkxahPRlOH//OiXMdg=; b=dmEgL5yAFDUPmj9oy2SfDLKcT6
+ WnQVbaHHFQAb6xe6WV0+gA47Oj156sCu4C+e96Vaz9t/hXv7NinJVprz2DnJ4V96dshzH4M2NG0RN
+ CUUu0luQEnB/dtmvzMegwAhb4Wwcu2AJAqypmXB6hPNNVoKRJmV6CqEXWNb5FCM4/OGNLfWWqubYt
+ QGdbwZYOJ5hb+yAQKVKS2l/+7bVk3gUinA643TMM1iEIje0mmsmCFPEYyyn6c2KtZaxXvReDxGcNy
+ /7LxEMpzaeUDdTzXiZx/iewTVI8eWNkIerlVwDclEVgYkwMtSdbQU8VX8D/s7H52MCw5mknwO1GVt
+ C+oVCg8w==;
+Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
+ ([108.198.5.147]:38790 helo=[192.168.0.134])
+ by vern.gendns.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david@lechnology.com>)
+ id 1kuj92-0004DA-Bj; Wed, 30 Dec 2020 16:36:36 -0500
+To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
+References: <cover.1608935587.git.vilhelm.gray@gmail.com>
+ <57bc509273bf288d74835e6ebdaebf27b4991888.1608935587.git.vilhelm.gray@gmail.com>
+From: David Lechner <david@lechnology.com>
+Message-ID: <e9102ed7-d4e1-0c81-96f3-8d3c297d037f@lechnology.com>
+Date: Wed, 30 Dec 2020 15:36:35 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201228163217.32520-2-post@lespocky.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, Jeff LaBundy <jeff@labundy.com>,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-leds@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v9 1/4] dt-bindings: mfd: Fix schema
-	warnings for pwm-leds
+In-Reply-To: <57bc509273bf288d74835e6ebdaebf27b4991888.1608935587.git.vilhelm.gray@gmail.com>
+Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
+ Dan Carpenter <dan.carpenter@oracle.com>, kernel@pengutronix.de,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 3/5] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -43,67 +73,172 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5710958280331141381=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 12/25/20 6:15 PM, William Breathitt Gray wrote:
 
---===============5710958280331141381==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="/e2eDi0V/xtL+Mc8"
-Content-Disposition: inline
+> diff --git a/include/uapi/linux/counter.h b/include/uapi/linux/counter.h
+> new file mode 100644
+> index 000000000000..7585dc9db19d
+> --- /dev/null
+> +++ b/include/uapi/linux/counter.h
+> @@ -0,0 +1,123 @@
+> +/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
+> +/*
+> + * Userspace ABI for Counter character devices
+> + * Copyright (C) 2020 William Breathitt Gray
+> + */
+> +#ifndef _UAPI_COUNTER_H_
+> +#define _UAPI_COUNTER_H_
+> +
+> +#include <linux/ioctl.h>
+> +#include <linux/types.h>
+> +
+> +/* Component type definitions */
+> +enum counter_component_type {
+> +	COUNTER_COMPONENT_NONE,
+> +	COUNTER_COMPONENT_SIGNAL,
+> +	COUNTER_COMPONENT_COUNT,
+> +	COUNTER_COMPONENT_FUNCTION,
+> +	COUNTER_COMPONENT_SYNAPSE_ACTION,
+> +	COUNTER_COMPONENT_EXTENSION,
+> +};
+> +
+> +/* Component scope definitions */
+> +enum counter_scope {
 
+Do we need COUNTER_SCOPE_NONE to go with COUNTER_COMPONENT_NONE?
 
---/e2eDi0V/xtL+Mc8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> +	COUNTER_SCOPE_DEVICE,
+> +	COUNTER_SCOPE_SIGNAL,
+> +	COUNTER_SCOPE_COUNT,
+> +};
+> +
+> +/**
+> + * struct counter_component - Counter component identification
+> + * @type: component type (Count, extension, etc.)
 
-Hi!
+Instead of "Count, extension, etc.", it could be more helpful
+to say one of enum counter_component_type.
 
-> The node names for devices using the pwm-leds driver follow a certain
-> naming scheme (now).  Parent node name is not enforced, but recommended
-> by DT project.
->=20
->   DTC     Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
->   CHECK   Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
-> /home/alex/build/linux/Documentation/devicetree/bindings/mfd/iqs62x.examp=
-le.dt.yaml: pwmleds: 'panel' does not match any of the regexes: '^led(-[0-9=
-a-f]+)?$', 'pinctrl-[0-9]+'
->         From schema: /home/alex/src/linux/leds/Documentation/devicetree/b=
-indings/leds/leds-pwm.yaml
->=20
-> Signed-off-by: Alexander Dahl <post@lespocky.de>
-> Acked-by: Jeff LaBundy <jeff@labundy.com>
-> Acked-by: Rob Herring <robh@kernel.org>
+> + * @scope: component scope (Device, Count, or Signal)
 
-Thanks, applied.
-								Pavel
-							=09
---=20
-http://www.livejournal.com/~pavelmachek
+Same here. @scope must be one of enum counter_scope.
 
---/e2eDi0V/xtL+Mc8
-Content-Type: application/pgp-signature; name="signature.asc"
+> + * @parent: parent component identification number
+> + * @id: component identification number
 
------BEGIN PGP SIGNATURE-----
+It could be helpful to say that these id numbers match
+the X/Y/Z in the sysfs paths as described in the sysfs
+ABI.
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCX+zM7wAKCRAw5/Bqldv6
-8sT8AJ4sSbkyvZGGUOSissG3vFkVRFGtRQCff5oybsiqQBdqq0XQhBEAK+ofAG8=
-=bqv7
------END PGP SIGNATURE-----
+> + */
+> +struct counter_component {
+> +	__u8 type;
+> +	__u8 scope;
+> +	__u8 parent;
+> +	__u8 id;
+> +};
+> +
+> +/* Event type definitions */
+> +enum counter_event_type {
+> +	COUNTER_EVENT_OVERFLOW,
+> +	COUNTER_EVENT_UNDERFLOW,
+> +	COUNTER_EVENT_OVERFLOW_UNDERFLOW,
+> +	COUNTER_EVENT_THRESHOLD,
+> +	COUNTER_EVENT_INDEX,
+> +};
+> +
+> +/**
+> + * struct counter_watch - Counter component watch configuration
+> + * @component: component to watch when event triggers
+> + * @event: event that triggers
 
---/e2eDi0V/xtL+Mc8--
+It would be helpful to say that @event must be one of
+enum counter_event_type.
 
---===============5710958280331141381==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> + * @channel: event channel
+
+It would be useful to say that @channel should be 0 unless
+a component has more than one event of the same type.
+
+> + */
+> +struct counter_watch {
+> +	struct counter_component component;
+> +	__u8 event;
+> +	__u8 channel;
+> +};
+> +
+> +/* ioctl commands */
+> +#define COUNTER_CLEAR_WATCHES_IOCTL _IO(0x3E, 0x00)
+> +#define COUNTER_ADD_WATCH_IOCTL _IOW(0x3E, 0x01, struct counter_watch)
+> +#define COUNTER_LOAD_WATCHES_IOCTL _IO(0x3E, 0x02)
+> +
+> +/**
+> + * struct counter_event - Counter event data
+> + * @timestamp: best estimate of time of event occurrence, in nanoseconds
+> + * @value: component value
+> + * @watch: component watch configuration
+> + * @errno: system error number
+> + */
+> +struct counter_event {
+> +	__aligned_u64 timestamp;
+> +	__aligned_u64 value;
+> +	struct counter_watch watch;
+> +	__u8 errno;
+
+There are error codes larger than 255. Probably better
+make this __u32.
+
+> +};
+> +
+> +/* Count direction values */
+> +enum counter_count_direction {
+> +	COUNTER_COUNT_DIRECTION_FORWARD,
+> +	COUNTER_COUNT_DIRECTION_BACKWARD,
+> +};
+> +
+> +/* Count mode values */
+> +enum counter_count_mode {
+> +	COUNTER_COUNT_MODE_NORMAL,
+> +	COUNTER_COUNT_MODE_RANGE_LIMIT,
+> +	COUNTER_COUNT_MODE_NON_RECYCLE,
+> +	COUNTER_COUNT_MODE_MODULO_N,
+> +};
+> +
+> +/* Count function values */
+> +enum counter_function {
+> +	COUNTER_FUNCTION_INCREASE,
+> +	COUNTER_FUNCTION_DECREASE,
+> +	COUNTER_FUNCTION_PULSE_DIRECTION,
+> +	COUNTER_FUNCTION_QUADRATURE_X1_A,
+> +	COUNTER_FUNCTION_QUADRATURE_X1_B,
+> +	COUNTER_FUNCTION_QUADRATURE_X2_A,
+> +	COUNTER_FUNCTION_QUADRATURE_X2_B,
+> +	COUNTER_FUNCTION_QUADRATURE_X4,
+> +};
+> +
+> +/* Signal values */
+> +enum counter_signal_level {
+> +	COUNTER_SIGNAL_LEVEL_LOW,
+> +	COUNTER_SIGNAL_LEVEL_HIGH,
+> +};
+> +
+> +/* Action mode values */
+> +enum counter_synapse_action {
+> +	COUNTER_SYNAPSE_ACTION_NONE,
+> +	COUNTER_SYNAPSE_ACTION_RISING_EDGE,
+> +	COUNTER_SYNAPSE_ACTION_FALLING_EDGE,
+> +	COUNTER_SYNAPSE_ACTION_BOTH_EDGES,
+> +};
+> +
+> +#endif /* _UAPI_COUNTER_H_ */
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5710958280331141381==--
