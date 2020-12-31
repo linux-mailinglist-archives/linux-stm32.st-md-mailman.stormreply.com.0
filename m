@@ -2,49 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86ABC2E7EC6
-	for <lists+linux-stm32@lfdr.de>; Thu, 31 Dec 2020 09:53:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49F0E2E7F06
+	for <lists+linux-stm32@lfdr.de>; Thu, 31 Dec 2020 10:39:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3544C57188;
-	Thu, 31 Dec 2020 08:53:38 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C9EAC32EA6
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D258C57188;
+	Thu, 31 Dec 2020 09:39:51 +0000 (UTC)
+Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D24AC32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Dec 2020 08:53:37 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.241])
- by APP-01 (Coremail) with SMTP id qwCowABHThaFke1f1bhfAA--.41536S2;
- Thu, 31 Dec 2020 16:53:25 +0800 (CST)
-From: Xu Wang <vulab@iscas.ac.cn>
-To: jic23@kernel.org, lars@metafoo.de, pmeerw@pmeerw.net,
- mcoquelin.stm32@gmail.com, alexandre.torgue@st.com, krzk@kernel.org,
- andy.shevchenko@gmail.com, bobo.shaobowang@huawei.com,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Thu, 31 Dec 2020 08:53:22 +0000
-Message-Id: <20201231085322.24398-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: qwCowABHThaFke1f1bhfAA--.41536S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZFy8CFy8Aw1xGryrKr48Zwb_yoW3tFXEy3
- WUu39rKF4aqrnay3y8WFn8Zr90vry8Zws3ur10yrWrGFy7Z3y7ZrWavr43Jw1UAanFya47
- A3WDX34fAr1xCjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbV8YjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
- 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
- 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
- cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8Jr0_Cr
- 1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kI
- c2xKxwCY02Avz4vE14v_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvE
- x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
- DU0xZFpf9x07jeApnUUUUU=
-X-Originating-IP: [124.16.141.241]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQkHA102Z1ecAwAAsA
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: Remove redundant null
-	check before clk_disable_unprepare
+ Thu, 31 Dec 2020 09:39:48 +0000 (UTC)
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+ id 9BFEC1C0B77; Thu, 31 Dec 2020 10:39:46 +0100 (CET)
+Date: Thu, 31 Dec 2020 10:39:45 +0100
+From: Pavel Machek <pavel@ucw.cz>
+To: Lee Jones <lee.jones@linaro.org>
+Message-ID: <20201231093945.GA22962@amd>
+References: <20201228163217.32520-1-post@lespocky.de>
+ <20201228163217.32520-2-post@lespocky.de>
+ <20201230185439.GC25903@duo.ucw.cz> <20201231083317.GB4413@dell>
+MIME-Version: 1.0
+In-Reply-To: <20201231083317.GB4413@dell>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Alexander Dahl <post@lespocky.de>,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ Jeff LaBundy <jeff@labundy.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-leds@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v9 1/4] dt-bindings: mfd: Fix schema
+	warnings for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,38 +44,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0122033264595091828=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ecause clk_disable_unprepare() already checked NULL clock parameter,
-so the additional check is unnecessary, just remove it.
 
-Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
----
- drivers/iio/adc/stm32-dfsdm-core.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+--===============0122033264595091828==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="ZPt4rx8FFjLCG7dd"
+Content-Disposition: inline
 
-diff --git a/drivers/iio/adc/stm32-dfsdm-core.c b/drivers/iio/adc/stm32-dfsdm-core.c
-index 42a7377704a4..bb925a11c8ae 100644
---- a/drivers/iio/adc/stm32-dfsdm-core.c
-+++ b/drivers/iio/adc/stm32-dfsdm-core.c
-@@ -117,8 +117,7 @@ static void stm32_dfsdm_clk_disable_unprepare(struct stm32_dfsdm *dfsdm)
- {
- 	struct dfsdm_priv *priv = to_stm32_dfsdm_priv(dfsdm);
- 
--	if (priv->aclk)
--		clk_disable_unprepare(priv->aclk);
-+	clk_disable_unprepare(priv->aclk);
- 	clk_disable_unprepare(priv->clk);
- }
- 
--- 
-2.17.1
+
+--ZPt4rx8FFjLCG7dd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi!
+
+> > > The node names for devices using the pwm-leds driver follow a certain
+> > > naming scheme (now).  Parent node name is not enforced, but recommend=
+ed
+> > > by DT project.
+> > >=20
+> > >   DTC     Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
+> > >   CHECK   Documentation/devicetree/bindings/mfd/iqs62x.example.dt.yaml
+> > > /home/alex/build/linux/Documentation/devicetree/bindings/mfd/iqs62x.e=
+xample.dt.yaml: pwmleds: 'panel' does not match any of the regexes: '^led(-=
+[0-9a-f]+)?$', 'pinctrl-[0-9]+'
+> > >         From schema: /home/alex/src/linux/leds/Documentation/devicetr=
+ee/bindings/leds/leds-pwm.yaml
+> > >=20
+> > > Signed-off-by: Alexander Dahl <post@lespocky.de>
+> > > Acked-by: Jeff LaBundy <jeff@labundy.com>
+> > > Acked-by: Rob Herring <robh@kernel.org>
+> >=20
+> > Thanks, applied.
+>=20
+> Sorry, what?
+>=20
+> Applied to what tree?
+
+I took it to (local copy) of leds-next tree on. But now I realised it
+is mfd, not a LED patch, so I undone that. Sorry for the confusion.
+
+Anyway, patch still looks good to me:
+
+Acked-by: Pavel Machek <pavel@ucw.cz>
+								Pavel
+--=20
+http://www.livejournal.com/~pavelmachek
+
+--ZPt4rx8FFjLCG7dd
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAl/tnGEACgkQMOfwapXb+vL2VgCgjU5/nc2bmfwpIcF1pD2ZODxv
+cMgAnR+qCehDZ4rG7JzcCf8qqHL+x3Wu
+=uRXv
+-----END PGP SIGNATURE-----
+
+--ZPt4rx8FFjLCG7dd--
+
+--===============0122033264595091828==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0122033264595091828==--
