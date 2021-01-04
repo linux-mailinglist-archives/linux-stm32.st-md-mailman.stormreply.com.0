@@ -2,61 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 805262E99A4
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Jan 2021 17:03:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D91E2E9A8A
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Jan 2021 17:13:26 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3ACCEC56634;
-	Mon,  4 Jan 2021 16:03:33 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF2B3C56638;
+	Mon,  4 Jan 2021 16:13:25 +0000 (UTC)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C97C8C32EB1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BD43C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Jan 2021 16:03:29 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 104FvlpW020449; Mon, 4 Jan 2021 17:03:23 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=w4/gjtHkd2EK3mGDJKe3DGUgymeWaM5SmaC+6x8gEuY=;
- b=anOltMjWWldvqZeeYDe7HesNOJ9BjpnqAX0M1drUPPTlvTdkTeMkKMrr0O+lidWx4NSs
- OKtckD58hKAIJtuH+yz9JeEPwnLLs4FeyMN99IbyKGPrPKE9l7IpjfacP0bH2yIsnaWO
- sBJsgJ6lnv4V0l/U/g3bykYWxIhjXyn/Ea+XcuzzdFw3LLlx4q/S+mxw43QUCYU/velK
- nESCaleMkWQXKzz0FoisWMkYYDsQde8u1b9XACdhNFm96X5QHVpxmZfo8ePeex3X2b3/
- XDEiHITN6dH5v5AVPo4tQaxWfaAqhjSnDbiSTMdmR1I+6R2ByH5ShiUN1Bgyz1JBnmgo Nw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 35tgkmjuyf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 04 Jan 2021 17:03:23 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B5BD510002A;
- Mon,  4 Jan 2021 17:03:22 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9CF94225ED1;
- Mon,  4 Jan 2021 17:03:22 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 4 Jan 2021 17:03:22
- +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Lee Jones <lee.jones@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 4 Jan 2021 17:03:21 +0100
-Message-ID: <20210104160321.31403-1-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ Mon,  4 Jan 2021 16:13:23 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id x126so16683094pfc.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 04 Jan 2021 08:13:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:in-reply-to:references:date:message-id
+ :mime-version; bh=XDfsTJvF8BHWT/MwLCJjoGuI8FbQRWjKjuVmDMQxU8M=;
+ b=mVSg0/91IdSUQNfDZ1CuvV95N73XydEpcMZEkS9cLA7xrpuWEiKRa2CwBZBPaqSQbf
+ ocOEQT2NMLlRGb0bYAlWV0tAEwWiBQT6oD0B3R2HBOzslWIJuKCKxOvRcA8YVg8RuZCJ
+ d+vXwIENA93kVBVD0o4HxoNca6TMZj6dR+MSqlqg3SsF3LCbMyiItxYf45L2Fx9mIXCT
+ EgYSdh8fowgKMvxdlF0b62BbRW/O/kTFqHWpWr2nu2pXEiS1+moU7WAnHxO4/Vxa9+fC
+ DCn11syJR9zxjIk3rNxjyZn4kIqPwvbR2yyRVqEYwC7dBZ1wEJnAMiB02GypqSDIEU8r
+ wvfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:in-reply-to:references:date
+ :message-id:mime-version;
+ bh=XDfsTJvF8BHWT/MwLCJjoGuI8FbQRWjKjuVmDMQxU8M=;
+ b=DjAN/Xr5wqVaOR1tIPM1b+WWSz1W6ewUbC7GtSMTOLmfy5r+vmPWxHGgZeXaV5Ap3X
+ ETeTEcnv1BgDCe67AG/OzyFr0BFyoWzkcvMbbRr8ZcbXvNpIk/lKF5yVC/SK8RKEaAQf
+ 7IlcsjPD38k0LNz47nvEaqdzCEEsojmOit1x3f2p7gNYcK1+T3jgFmlzJmINQXm6p7f8
+ GmHDDEHEbEBLeEFXZIWnqlKLlvjBYkTQa0f06ji5IOfDrI9fPAb1m4rJGU9tY8mEMnm1
+ HGFZaKDb4dqBrLfeTpTO52Fwarfc/UJYlxtgIjJq1DjZypmVd93EiuWhCzPCzChm/gm7
+ czVQ==
+X-Gm-Message-State: AOAM531TORx912goSuQfYCJ+YN2Mhl44venKSEJP4c8eqNoOLGX7uoNr
+ aQeupTTMfYdZFlwP7ilg/CoKug==
+X-Google-Smtp-Source: ABdhPJxiSbquKtEEXiVFyDA3gyCmMk8WaU6Pzjy6k497zwZtHFZ3/TlUj90UnzII6zSWOz9L7Y+WYQ==
+X-Received: by 2002:a65:6659:: with SMTP id z25mr61934189pgv.427.1609776801878; 
+ Mon, 04 Jan 2021 08:13:21 -0800 (PST)
+Received: from localhost (c-71-197-186-152.hsd1.wa.comcast.net.
+ [71.197.186.152])
+ by smtp.gmail.com with ESMTPSA id q23sm57413879pfg.18.2021.01.04.08.13.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Jan 2021 08:13:21 -0800 (PST)
+From: Kevin Hilman <khilman@baylibre.com>
+To: Alexander Dahl <post@lespocky.de>, Rob Herring <robh+dt@kernel.org>
+In-Reply-To: <20201228163217.32520-5-post@lespocky.de>
+References: <20201228163217.32520-1-post@lespocky.de>
+ <20201228163217.32520-5-post@lespocky.de>
+Date: Mon, 04 Jan 2021 08:13:20 -0800
+Message-ID: <7hv9ccn0in.fsf@baylibre.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-04_10:2021-01-04,
- 2021-01-04 signatures=0
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 1/1] mfd: stmfx: remove .of_compatible from
-	stmfx_cells for idd and ts
+Cc: devicetree@vger.kernel.org, Neil Armstrong <narmstrong@baylibre.com>,
+ Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Alexander Dahl <post@lespocky.de>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-leds@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [Linux-stm32] [PATCH v9 4/4] arm64: dts: meson: Fix schema
+	warnings for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,47 +80,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-idd and ts features are not described in stmfx bindings. Remove the
-.of_compatible field from relative mfd_cells to avoid having to add
-corresponding disabled node in device trees using stmfx:
-		stmfx_idd: idd {
-			compatible = "st,stmfx-0300-idd";
-			status = "disabled";
-		};
-		stmfx_ts: stmfx_ts {
-			compatible = "st,stmfx-0300-ts";
-			status = "disabled";
-		};
-The warning "Failed to locate of_node [id: -1]" won't appear anymore.
-.of_compatible could be added as soon as idd or ts bindings are described
-and drivers available.
+Alexander Dahl <post@lespocky.de> writes:
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- drivers/mfd/stmfx.c | 2 --
- 1 file changed, 2 deletions(-)
+> The node names for devices using the pwm-leds driver follow a certain
+> naming scheme (now).  Parent node name is not enforced, but recommended
+> by DT project.
+>
+> Signed-off-by: Alexander Dahl <post@lespocky.de>
+> Reviewed-by: Neil Armstrong <narmstrong@baylibre.com>
 
-diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
-index e095a3930142..b411d2958c18 100644
---- a/drivers/mfd/stmfx.c
-+++ b/drivers/mfd/stmfx.c
-@@ -81,13 +81,11 @@ static struct mfd_cell stmfx_cells[] = {
- 		.num_resources = ARRAY_SIZE(stmfx_pinctrl_resources),
- 	},
- 	{
--		.of_compatible = "st,stmfx-0300-idd",
- 		.name = "stmfx-idd",
- 		.resources = stmfx_idd_resources,
- 		.num_resources = ARRAY_SIZE(stmfx_idd_resources),
- 	},
- 	{
--		.of_compatible = "st,stmfx-0300-ts",
- 		.name = "stmfx-ts",
- 		.resources = stmfx_ts_resources,
- 		.num_resources = ARRAY_SIZE(stmfx_ts_resources),
--- 
-2.17.1
+Queued for 5.12,
 
+Thanks,
+
+Kevin
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
