@@ -2,67 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 835D52EA2E0
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Jan 2021 02:33:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C1EC2EA6E1
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Jan 2021 10:05:47 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D3B2C56634;
-	Tue,  5 Jan 2021 01:33:25 +0000 (UTC)
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D677EC56638;
+	Tue,  5 Jan 2021 09:05:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A3E3C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DF77C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Jan 2021 01:33:23 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id q205so34312629oig.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 04 Jan 2021 17:33:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=YjjrmI1TJBpi7Irm0qGvA6ztJhR4MpSEaSWj5uIitYo=;
- b=Di+a2AWDW7bd7YL5Yy80WByU19A7SQge1qLnYyRquxiKeEe5mhx/0UUZzRsJ4r44gn
- P9MuPLf9UJxmhScHLeMqGpCdbc92Yp1WDrpmLh9wnBVvpFa9Y9qZ4Z04g7jP8cKFQ2tA
- wxgjt0cI1B0zWKZ4fb3pYdnfYC+H1I+oR+1agtcjXXZ5LAIXiB8YLpShQgOCr/iLV0Wq
- r4hBj7NRvT3SwP5Bd6WUYxrp8BOI+mv3EOZu8Bd719jcGXTlznSKH1m0FKn0hJHSR04h
- iasIhbhKOFUzIL+w0lLiM8pDgKLPiv3WXa3sVXVgn1g+VuxXpZGu66/MAJ/I6PPIa7nf
- q0Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=YjjrmI1TJBpi7Irm0qGvA6ztJhR4MpSEaSWj5uIitYo=;
- b=GOsfoBPsD9ghzdP0al8m1UCPdOTkdhfKpExDNrJNY9FYOetjYhXvGDJ1qDf6eUQyKq
- 1yuSQJql4HaTsO6uBHETS9VrvRYxqHKCnNFP8MhEW6pKvmESv8VFUTFxhReZ8SGpeJZW
- 7BbMgGjNsoeWF/TY8rDFUnOAH441JvMGwXjdFjE6TsbPWe0s/mbat9OSfVxvoOfTGDDB
- lNZCA7OGnhT6fbl/Fe03ojxbWesbEY8Y+4NSZavNgVX0+coOGpdBH02nXu/oBuByHxP4
- DBkrrEK8LL3zIj+q5+3PREGLbl78kIhpa5DtmqyuvwOIAdu8Vn5wGebL4jE/xWoTXPWg
- TsqA==
-X-Gm-Message-State: AOAM531QRcoaCtMyPjX6bGRcDLwrod1uooKZ7fMC5KIm2+ymBwfXVIvK
- fSR3fIFBx138KlhanzALQ0XIzw==
-X-Google-Smtp-Source: ABdhPJxnvz9nFenxvDKifxzOuMYNP+KpJ7Ygm/gMu16A7P1BreWCnaI2rkRhKLuHaw3KqV0bXaWMPw==
-X-Received: by 2002:aca:7544:: with SMTP id q65mr1170662oic.51.1609810402083; 
- Mon, 04 Jan 2021 17:33:22 -0800 (PST)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id n16sm13601112oov.23.2021.01.04.17.33.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Jan 2021 17:33:21 -0800 (PST)
-Date: Mon, 4 Jan 2021 19:33:19 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <X/PB3z4tMnfvzBnx@builder.lan>
-References: <20201222105726.16906-1-arnaud.pouliquen@foss.st.com>
- <20201222105726.16906-5-arnaud.pouliquen@foss.st.com>
+ Tue,  5 Jan 2021 09:05:44 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 10593qwo012400; Tue, 5 Jan 2021 10:05:34 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=O140SVpPX52EvSpVTor2Elkzvf+rEN1U4v684qmVLoY=;
+ b=PvK3OvbOtFQ0yUNjOpkKI+9CE+OeBi67C8GjeW3ObL0jQvPpksRcCIEWo0Pr7cdpxPcv
+ iU3KLx9xHe8gosx8L1NvEZ3W0EQmUcCO3Nnf2vSH4t58sLiQsvUBABtizhhTgyrAfvz2
+ L2LL7syqqfF+SryntfV4OOxfPnJ9EgARUhYZjYCVAdy+GJ/IGQKiIH0A8z/HOEnMoMId
+ K/DKWCIEix7Xp4VdDCm/XKxKMqayiRthnw5hjQ4/T01IsYWWR/ATc/gGjYJOR65TC9Zv
+ CDoVfrBVgfOdLEmfdhCxzDJopoCSvoDw41QVyGbXmq3OpvaLB5RqRXrzqNaqxqW5KCbI Nw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 35teuuywx6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 05 Jan 2021 10:05:34 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 44094100034;
+ Tue,  5 Jan 2021 10:05:33 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2D52322AA5B;
+ Tue,  5 Jan 2021 10:05:33 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 5 Jan 2021 10:05:32
+ +0100
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+To: Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>, Rob
+ Herring <robh+dt@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Tue, 5 Jan 2021 10:05:19 +0100
+Message-ID: <20210105090525.23164-1-amelie.delaunay@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201222105726.16906-5-arnaud.pouliquen@foss.st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andy Gross <agross@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 04/16] rpmsg: ctrl: implement the ioctl
- function to create device
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-05_01:2021-01-05,
+ 2021-01-05 signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2 0/6] STM32 USBPHYC PLL management rework
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,103 +72,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue 22 Dec 04:57 CST 2020, Arnaud Pouliquen wrote:
+STM32 USBPHYC controls the USB PLL. PLL requires to be powered with 1v1 and 1v8
+supplies. To ensure a good behavior of the PLL, during boot, runtime and
+suspend/resume sequences, this series reworks its management to fix regulators
+issues and improve PLL status reliability.
 
-> Implement the ioctl function that parses the list of
-> rpmsg drivers registered to create an associated device.
-> To be ISO user API, in a first step, the driver_override
-> is only allowed for the RPMsg raw service, supported by the
-> rpmsg_char driver.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
->  drivers/rpmsg/rpmsg_ctrl.c | 43 ++++++++++++++++++++++++++++++++++++--
->  1 file changed, 41 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
-> index 065e2e304019..8381b5b2b794 100644
-> --- a/drivers/rpmsg/rpmsg_ctrl.c
-> +++ b/drivers/rpmsg/rpmsg_ctrl.c
-> @@ -56,12 +56,51 @@ static int rpmsg_ctrl_dev_open(struct inode *inode, struct file *filp)
->  	return 0;
->  }
->  
-> +static const char *rpmsg_ctrl_get_drv_name(u32 service)
-> +{
-> +	struct rpmsg_ctl_info *drv_info;
-> +
-> +	list_for_each_entry(drv_info, &rpmsg_drv_list, node) {
-> +		if (drv_info->ctrl->service == service)
-> +			return drv_info->ctrl->drv_name;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
->  static long rpmsg_ctrl_dev_ioctl(struct file *fp, unsigned int cmd,
->  				 unsigned long arg)
->  {
->  	struct rpmsg_ctrl_dev *ctrldev = fp->private_data;
-> -
-> -	dev_info(&ctrldev->dev, "Control not yet implemented\n");
-> +	void __user *argp = (void __user *)arg;
-> +	struct rpmsg_channel_info chinfo;
-> +	struct rpmsg_endpoint_info eptinfo;
-> +	struct rpmsg_device *newch;
-> +
-> +	if (cmd != RPMSG_CREATE_EPT_IOCTL)
-> +		return -EINVAL;
-> +
-> +	if (copy_from_user(&eptinfo, argp, sizeof(eptinfo)))
-> +		return -EFAULT;
-> +
-> +	/*
-> +	 * In a frst step only the rpmsg_raw service is supported.
-> +	 * The override is foorced to RPMSG_RAW_SERVICE
-> +	 */
-> +	chinfo.driver_override = rpmsg_ctrl_get_drv_name(RPMSG_RAW_SERVICE);
-> +	if (!chinfo.driver_override)
-> +		return -ENODEV;
-> +
-> +	memcpy(chinfo.name, eptinfo.name, RPMSG_NAME_SIZE);
-> +	chinfo.name[RPMSG_NAME_SIZE - 1] = '\0';
-> +	chinfo.src = eptinfo.src;
-> +	chinfo.dst = eptinfo.dst;
-> +
-> +	newch = rpmsg_create_channel(ctrldev->rpdev, &chinfo);
+---
+Changes in v2:
+- Move author mail address from @st.com to @foss.st.com
+- Add Rob's Reviewed-by on bindings patch 1/6
 
-Afaict this would create and announce and endpoint (or possibly find a
-endpoint announced by the other side of the link).
+Amelie Delaunay (6):
+  dt-bindings: phy: phy-stm32-usbphyc: move PLL supplies to parent node
+  phy: stm32: manage 1v1 and 1v8 supplies at pll activation/deactivation
+  phy: stm32: replace regulator_bulk* by multiple regulator_*
+  phy: stm32: ensure pll is disabled before phys creation
+  phy: stm32: ensure phy are no more active when removing the driver
+  phy: stm32: rework PLL Lock detection
 
-In the case of the Qualcomm transports, and as been discussed to
-introduce for virtio in the past, the channel actually have a state. So
-opening/announcing it here means that we have no way to close and reopen
-this channel later?
+ .../bindings/phy/phy-stm32-usbphyc.yaml       |  22 +-
+ drivers/phy/st/phy-stm32-usbphyc.c            | 222 +++++++++++-------
+ 2 files changed, 153 insertions(+), 91 deletions(-)
 
+-- 
+2.17.1
 
-It would also mean that we announce to the firmware that there's an
-application in Linux now ready to receive data on this channel - but
-that won't be the case until someone actually open the created cdev (or
-tty in your case) - which quite likely will result in data loss.
-
-I think instead of piggybacking on the rpmsg_device we should just carry
-these "raw exports to userspace" in some other construct - perhaps a
-auxiliary_bus, or if we still only care for char and tty, not split them
-up at all using the device model.
-
-Regards,
-Bjorn
-
-> +	if (!newch) {
-> +		dev_err(&ctrldev->dev, "rpmsg_create_channel failed\n");
-> +		return -ENXIO;
-> +	}
->  
->  	return 0;
->  };
-> -- 
-> 2.17.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
