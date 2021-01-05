@@ -2,44 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CCB42EACF4
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Jan 2021 15:07:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A454B2EB099
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Jan 2021 17:53:27 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B703DC56638;
-	Tue,  5 Jan 2021 14:07:33 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 562FAC56638;
+	Tue,  5 Jan 2021 16:53:27 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56A6DC32EA7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 198B3C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Jan 2021 14:07:32 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4D9DpW4SRZz1qs38;
- Tue,  5 Jan 2021 15:07:31 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4D9DpW3rRxz1sFWp;
- Tue,  5 Jan 2021 15:07:31 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id Wx0msX0_tPlo; Tue,  5 Jan 2021 15:07:30 +0100 (CET)
-X-Auth-Info: 73tb2RG168XdqUxSe0oNWr82/PTU0f5ofULC8IKJLiI=
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue,  5 Jan 2021 15:07:30 +0100 (CET)
-From: Marek Vasut <marex@denx.de>
-To: linux-mmc@vger.kernel.org
-Date: Tue,  5 Jan 2021 15:07:18 +0100
-Message-Id: <20210105140718.122752-1-marex@denx.de>
-X-Mailer: git-send-email 2.29.2
+ Tue,  5 Jan 2021 16:53:25 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 105GhHOG026506; Tue, 5 Jan 2021 17:53:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=PYh8uP+cLCBEt0dTKTjsI7bBJjnHyuuerqReO0sAe18=;
+ b=2DSEAvkigRKTyND9nH3lEfYnsgV7pV6/GnXsJsWw/Q+WM9KndI8pHLd0319OJZc1BC5B
+ gyhtIhtWypFr8KGnDsgOQlKfKWuQ8oray8ybfQ7n+YwSANw7rxshxQJVKJXxOjkQrCjk
+ Fcqa57gxUGOKpTNzdLjhj9Q41AIuQTW1GcPyBY5KyReVUR/dO6JlLWqsvJnfSOW4fPlF
+ Nhy0utUCjNfIDg11DB1rxRC4sOtRaYLNX6k/k8+7dPDHgT5F6kwZiSuM7dMGey5G0lCl
+ ASF3eIa0cMpPd0HcRRq6U8ovMlgHfIaOtqmz13VFW+ODOeyseFmykQi80Q/l/b4eB+hb Eg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 35tf66x4gx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 05 Jan 2021 17:53:22 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C1820100034;
+ Tue,  5 Jan 2021 17:53:21 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1D5D42349DE;
+ Tue,  5 Jan 2021 17:53:21 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.51) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 5 Jan
+ 2021 17:53:20 +0100
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <20201222105726.16906-1-arnaud.pouliquen@foss.st.com>
+ <20201222105726.16906-3-arnaud.pouliquen@foss.st.com>
+ <X/O0JC9z2s9MNRWa@builder.lan>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <f5a30755-cec6-2748-cf3e-bd67cc1613fc@foss.st.com>
+Date: Tue, 5 Jan 2021 17:53:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Ulf Hansson <ulf.hansson@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] [RFC] mmc: mmci: Add support for probing bus
-	voltage level translator
+In-Reply-To: <X/O0JC9z2s9MNRWa@builder.lan>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG4NODE3.st.com (10.75.127.12) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-05_03:2021-01-05,
+ 2021-01-05 signatures=0
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-arm-msm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andy Gross <agross@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 02/16] rpmsg: add RPMsg control API to
+	register service
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,193 +80,189 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for testing whether bus voltage level translator is present
-and operational. This is useful on systems where the bus voltage level
-translator is optional, as the translator can be auto-detected by the
-driver and the feedback clock functionality can be disabled if it is
-not present.
 
-This requires additional pinmux state, "init", where the CMD, CK, CKIN
-lines are not configured, so they can be claimed as GPIOs early on in
-probe(). The translator test sets CMD high to avoid interfering with a
-card, and then verifies whether signal set on CK is detected on CKIN.
-If the signal is detected, translator is present, otherwise the CKIN
-feedback clock are disabled.
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Ludovic Barre <ludovic.barre@st.com>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
-NOTE: I would prefer this solution over having a custom DT per SoM,
-      since it reduces the amount of DT combinations.
----
- arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 32 ++++++++-
- drivers/mmc/host/mmci.c                      | 70 ++++++++++++++++++--
- 2 files changed, 96 insertions(+), 6 deletions(-)
+On 1/5/21 1:34 AM, Bjorn Andersson wrote:
+> On Tue 22 Dec 04:57 CST 2020, Arnaud Pouliquen wrote:
+> 
+>> Add API to register a RPMsg service to the control device.
+>> The rpmsg_drv_ctrl_info structure links a service to its driver.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>>  drivers/rpmsg/rpmsg_ctrl.c | 57 ++++++++++++++++++++++++++++++++++++++
+>>  include/linux/rpmsg.h      | 31 +++++++++++++++++++++
+>>  include/uapi/linux/rpmsg.h | 14 ++++++++++
+>>  3 files changed, 102 insertions(+)
+>>
+>> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
+>> index 425c3e32ada4..065e2e304019 100644
+>> --- a/drivers/rpmsg/rpmsg_ctrl.c
+>> +++ b/drivers/rpmsg/rpmsg_ctrl.c
+>> @@ -27,6 +27,20 @@ struct rpmsg_ctrl_dev {
+>>  	struct device dev;
+>>  };
+>>  
+>> +/**
+>> + * struct rpmsg_ctl_info - control info list node
+>> + * @ctrl:	control driver info
+>> + * @node:	list node
+>> + *
+>> + * This structure is used by rpmsg_ctl to list the registered drivers services
+>> + */
+>> +struct rpmsg_ctl_info {
+>> +	const struct rpmsg_drv_ctrl_info *ctrl;
+>> +	struct list_head node;
+>> +};
+>> +
+>> +static LIST_HEAD(rpmsg_drv_list);
+>> +
+>>  static DEFINE_IDA(rpmsg_ctrl_ida);
+>>  static DEFINE_IDA(rpmsg_minor_ida);
+>>  
+>> @@ -175,6 +189,49 @@ static struct rpmsg_driver rpmsg_ctrl_driver = {
+>>  	.remove = rpmsg_ctrl_remove,
+>>  };
+>>  
+>> +/**
+>> + * rpmsg_ctrl_register_ctl() -register control for the associated service
+>> + * @ctrl: rpmsg driver information
+>> + *
+>> + * This function is called by the rpmsg driver to register a service that will
+>> + * be exposed to be instantiate by the application.
+>> + */
+>> +int  rpmsg_ctrl_register_ctl(const struct rpmsg_drv_ctrl_info *ctrl)
+>> +{
+>> +	struct rpmsg_ctl_info *drv_info;
+>> +
+>> +	drv_info =  kzalloc(sizeof(*drv_info), GFP_KERNEL);
+>> +	if (!drv_info)
+>> +		return -ENOMEM;
+>> +
+>> +	drv_info->ctrl = ctrl;
+>> +
+>> +	list_add_tail(&drv_info->node, &rpmsg_drv_list);
+>> +
+>> +	return 0;
+>> +}
+>> +EXPORT_SYMBOL(rpmsg_ctrl_register_ctl);
+>> +
+>> +/**
+>> + * rpmsg_ctrl_unregister_ctl() -unregister control for the associated service
+>> + * @ctrl: the rpmsg control information
+>> + *
+>> + * This function is called by the rpmsg driver to unregister the associated
+>> + * service.
+>> + */
+>> +void rpmsg_ctrl_unregister_ctl(const struct rpmsg_drv_ctrl_info *ctrl)
+>> +{
+>> +	struct rpmsg_ctl_info *drv_info, *tmp;
+>> +
+>> +	list_for_each_entry_safe(drv_info, tmp, &rpmsg_drv_list, node) {
+>> +		if (drv_info->ctrl == ctrl) {
+>> +			list_del(&drv_info->node);
+>> +			kfree(drv_info);
+>> +		}
+>> +	}
+>> +}
+>> +EXPORT_SYMBOL(rpmsg_ctrl_unregister_ctl);
+>> +
+>>  static int rpmsg_ctrl_init(void)
+>>  {
+>>  	int ret;
+>> diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
+>> index a5db828b2420..5d64704c2346 100644
+>> --- a/include/linux/rpmsg.h
+>> +++ b/include/linux/rpmsg.h
+>> @@ -26,6 +26,19 @@ struct rpmsg_endpoint;
+>>  struct rpmsg_device_ops;
+>>  struct rpmsg_endpoint_ops;
+>>  
+>> +/**
+>> + * struct rpmsg_drv_ctrl_info - rpmsg ctrl structure
+>> + * @drv_name:	name of the associated driver
+>> + * @service:	the associated rpmsg service listed in @rpmsg_services
+>> + *
+>> + * This structure is used by rpmsg_ctl to link the endpoint creation to the
+>> + * service rpmsg driver.
+>> + */
+>> +struct rpmsg_drv_ctrl_info {
+>> +	const char *drv_name;
+>> +	u32  service;
+>> +};
+>> +
+>>  /**
+>>   * struct rpmsg_channel_info - channel info representation
+>>   * @name: name of service
+>> @@ -315,4 +328,22 @@ static inline __poll_t rpmsg_poll(struct rpmsg_endpoint *ept,
+>>  	module_driver(__rpmsg_driver, register_rpmsg_driver, \
+>>  			unregister_rpmsg_driver)
+>>  
+>> +#if IS_ENABLED(CONFIG_RPMSG_CTRL)
+>> +
+>> +int  rpmsg_ctrl_register_ctl(const struct rpmsg_drv_ctrl_info *ctrl);
+>> +void rpmsg_ctrl_unregister_ctl(const struct rpmsg_drv_ctrl_info *ctrl);
+>> +
+>> +#else
+>> +
+>> +static inline int rpmsg_ctrl_register_ctl(const struct rpmsg_drv_ctrl_info *ctrl)
+>> +{
+>> +	return 0;
+>> +}
+>> +
+>> +static inline void rpmsg_ctrl_unregister_ctl(const struct rpmsg_drv_ctrl_info *ctrl)
+>> +{
+>> +}
+>> +
+>> +#endif /* IS_ENABLED(CONFIG_RPMSG_CTRL) */
+>> +
+>>  #endif /* _LINUX_RPMSG_H */
+>> diff --git a/include/uapi/linux/rpmsg.h b/include/uapi/linux/rpmsg.h
+>> index e14c6dab4223..0b0cb028e0b3 100644
+>> --- a/include/uapi/linux/rpmsg.h
+>> +++ b/include/uapi/linux/rpmsg.h
+>> @@ -9,6 +9,20 @@
+>>  #include <linux/ioctl.h>
+>>  #include <linux/types.h>
+>>  
+>> +/**
+>> + * enum rpmsg_services - list of supported RPMsg services
+>> + *
+>> + * @RPMSG_RAW_SERVICE: char device RPMSG service
+>> + * @RPMSG_START_PRIVATE_SERVICES: private services have to be declared after.
+>> + */
+>> +enum rpmsg_services {
+>> +	/* Reserved services */
+>> +	RPMSG_RAW_SERVICE =  0,
+>> +
+> 
+> What kind of things do you envision this list to contain in a year from
+> now?
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-index dc70ddd09e9d..a69cae19d92d 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-@@ -401,15 +401,45 @@ &rtc {
- 	status = "okay";
- };
- 
-+&pinctrl {
-+	sdmmc1_b4_init_pins_a: sdmmc1-init-b4-0 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
-+				 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
-+				 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
-+				 <STM32_PINMUX('C', 11, AF12)>; /* SDMMC1_D3 */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-disable;
-+		};
-+	};
-+
-+	sdmmc1_dir_init_pins_a: sdmmc1-init-dir-0 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('F', 2, AF11)>, /* SDMMC1_D0DIR */
-+				 <STM32_PINMUX('C', 7, AF8)>, /* SDMMC1_D123DIR */
-+				 <STM32_PINMUX('B', 9, AF11)>; /* SDMMC1_CDIR */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+	};
-+};
-+
- &sdmmc1 {
--	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-names = "default", "opendrain", "sleep", "init";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
- 	pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_dir_pins_a>;
- 	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a &sdmmc1_dir_sleep_pins_a>;
-+	pinctrl-3 = <&sdmmc1_b4_init_pins_a &sdmmc1_dir_init_pins_a>;
- 	cd-gpios = <&gpiog 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
- 	disable-wp;
- 	st,sig-dir;
- 	st,neg-edge;
-+	st,use-ckin;
-+	st,cmd-gpios = <&gpiod 2 0>;
-+	st,ck-gpios = <&gpioc 12 0>;
-+	st,ckin-gpios = <&gpioe 4 0>;
- 	bus-width = <4>;
- 	vmmc-supply = <&vdd_sd>;
- 	status = "okay";
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index b5a41a7ce165..1bc674577ff9 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -36,6 +36,7 @@
- #include <linux/types.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/reset.h>
-+#include <linux/gpio/consumer.h>
- 
- #include <asm/div64.h>
- #include <asm/io.h>
-@@ -1888,6 +1889,65 @@ static struct mmc_host_ops mmci_ops = {
- 	.start_signal_voltage_switch = mmci_sig_volt_switch,
- };
- 
-+static void mmci_probe_level_translator(struct mmc_host *mmc)
-+{
-+	struct device *dev = mmc_dev(mmc);
-+	struct mmci_host *host = mmc_priv(mmc);
-+	struct gpio_desc *cmd_gpio;
-+	struct gpio_desc *ck_gpio;
-+	struct gpio_desc *ckin_gpio;
-+	int clk_hi, clk_lo;
-+
-+	/*
-+	 * Assume the level translator is present if st,use-ckin is set.
-+	 * This is to cater for DTs which do not implement this test.
-+	 */
-+	host->clk_reg_add |= MCI_STM32_CLK_SELCKIN;
-+
-+	cmd_gpio = gpiod_get(dev, "st,cmd", GPIOD_OUT_HIGH);
-+	if (IS_ERR(cmd_gpio))
-+		goto exit_cmd;
-+
-+	ck_gpio = gpiod_get(dev, "st,ck", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ck_gpio))
-+		goto exit_ck;
-+
-+	ckin_gpio = gpiod_get(dev, "st,ckin", GPIOD_IN);
-+	if (IS_ERR(ckin_gpio))
-+		goto exit_ckin;
-+
-+	/* All GPIOs are valid, test whether level translator works */
-+
-+	/* Sample CKIN */
-+	clk_hi = !!gpiod_get_value(ckin_gpio);
-+
-+	/* Set CK low */
-+	gpiod_set_value(ck_gpio, 0);
-+
-+	/* Sample CKIN */
-+	clk_lo = !!gpiod_get_value(ckin_gpio);
-+
-+	/* Tristate all */
-+	gpiod_direction_input(cmd_gpio);
-+	gpiod_direction_input(ck_gpio);
-+
-+	/* Level translator is present if CK signal is propagated to CKIN */
-+	if (!clk_hi || clk_lo) {
-+		host->clk_reg_add &= ~MCI_STM32_CLK_SELCKIN;
-+		dev_warn(dev,
-+			 "Level translator inoperable, CK signal not detected on CKIN, disabling.\n");
-+	}
-+
-+	gpiod_put(ckin_gpio);
-+
-+exit_ckin:
-+	gpiod_put(ck_gpio);
-+exit_ck:
-+	gpiod_put(cmd_gpio);
-+exit_cmd:
-+	pinctrl_select_default_state(dev);
-+}
-+
- static int mmci_of_parse(struct device_node *np, struct mmc_host *mmc)
- {
- 	struct mmci_host *host = mmc_priv(mmc);
-@@ -1913,7 +1973,7 @@ static int mmci_of_parse(struct device_node *np, struct mmc_host *mmc)
- 	if (of_get_property(np, "st,neg-edge", NULL))
- 		host->clk_reg_add |= MCI_STM32_CLK_NEGEDGE;
- 	if (of_get_property(np, "st,use-ckin", NULL))
--		host->clk_reg_add |= MCI_STM32_CLK_SELCKIN;
-+		mmci_probe_level_translator(mmc);
- 
- 	if (of_get_property(np, "mmc-cap-mmc-highspeed", NULL))
- 		mmc->caps |= MMC_CAP_MMC_HIGHSPEED;
-@@ -1949,15 +2009,15 @@ static int mmci_probe(struct amba_device *dev,
- 	if (!mmc)
- 		return -ENOMEM;
- 
--	ret = mmci_of_parse(np, mmc);
--	if (ret)
--		goto host_free;
--
- 	host = mmc_priv(mmc);
- 	host->mmc = mmc;
- 	host->mmc_ops = &mmci_ops;
- 	mmc->ops = &mmci_ops;
- 
-+	ret = mmci_of_parse(np, mmc);
-+	if (ret)
-+		goto host_free;
-+
- 	/*
- 	 * Some variant (STM32) doesn't have opendrain bit, nevertheless
- 	 * pins can be set accordingly using pinctrl
--- 
-2.29.2
+The next one is the TTY, and perhaps the RPMsg I2C that allows to share a I2C
+bus between the main and a remote processor.
 
+Please notice that this field will also has to be added in a second step to the
+rpmsg_endpoint_info struct, to allow the applications to select the expected
+service.
+
+Regards
+Arnaud
+
+> 
+> Regards,
+> Bjorn
+> 
+>> +	/* Private services */
+>> +	RPMSG_START_PRIVATE_SERVICES =  1024,
+>> +};
+>> +
+>>  /**
+>>   * struct rpmsg_endpoint_info - endpoint info representation
+>>   * @name: name of service
+>> -- 
+>> 2.17.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
