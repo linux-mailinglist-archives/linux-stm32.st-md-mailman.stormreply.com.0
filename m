@@ -2,67 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C7852EB97F
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jan 2021 06:29:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B662EB983
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jan 2021 06:31:13 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1928FC56638;
-	Wed,  6 Jan 2021 05:29:39 +0000 (UTC)
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B343C56638;
+	Wed,  6 Jan 2021 05:31:13 +0000 (UTC)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3775EC56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 87763C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Jan 2021 05:29:36 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id w1so2052139pjc.0
+ Wed,  6 Jan 2021 05:31:11 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id z12so990808pjn.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 05 Jan 2021 21:29:36 -0800 (PST)
+ Tue, 05 Jan 2021 21:31:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=hOGze9DgXpm0gt+vBnhQVhta/mGdE6h/HGR0vUoYLzc=;
- b=OHUCL11vF4yJqF64mxEIhfOQvKfdNwwAwJ/aCx+33nhEqrfzg9jMeYeaHMH2xuTLAG
- esVUtQtrOWI84nm6dBn6WhdXD+Ii69/WoV65dN7hYF6dGYW/S4ZtCJGFWVbUytKO7ExN
- pziyWfvjvVGFa9Iu4hP+x4JoZvT+30SmFMyngUtnhM9gn3UifsJKxUExYjMCnl8JZJ4e
- gI+MZfLzb3nAlHIQuIooylomnU8G65qHg+BsiMaZO8t7S4yheZ1EqcuB/GJRQrqBderm
- yzdi88ZDfcl1YznHrt7J2RlawO1K3k13aqKUibh+mQ1Yj/rL0NnGaRcd9XIEuWuCcS/y
- x3Rg==
+ bh=rjwtCC4s5qF5toeFU9GqGpGwIgLC0h9CcPJ0B42v4CQ=;
+ b=RccYso2/RvfnZPsOPln1soDDi57lHypQ9ziIwjDaB1mI1AtFwVwLmUpLhmiCyQ8SY5
+ XLT1LEBooSNcVA/pX9ZggD/PtJZABE7GjlpTMzgfrii4pVTQgdFWVGnXUUcHDC1olw7w
+ xrKu6zO8tWzeWJHbNvBOowUQubckFC0G/ax3ER44SmtxJ2tKZY20yInAzCjdM1nq7zWW
+ gQKZeIYTVfPq6/4mLomEL0VSXyNfKs2l8EjJugp8NBcHcBP+hZndk7IeZWxsxQcXi0f4
+ RWFL6eZmWdYlUEz6WIbEWf5rg5ez52VptftTN4H/TYBYop0Hl2jgRiiPP18DemXCRyt5
+ rTHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=hOGze9DgXpm0gt+vBnhQVhta/mGdE6h/HGR0vUoYLzc=;
- b=n/vemZ2o0CdKYbRC8+lGWQHx9IgOGUWh03QHFpdaNzCTmwuBnL5vprLFI/tQHmsDAK
- 9KlsOQhfRQNG1+XYjFu7SXx1HSFaLy0Jlw+WeoLHFucPLBvxTCOx4oMI2Y7WSe9qtJaI
- mX5TnYZijz/qOhY2YHUgZdQXJD7x+tiCyS+X0alQW7ogCaprlIzoYqokt/0jUirWGMLW
- IE4ZqeMiePpfi0KEkdtiTtKtdZW7hZAMo5uS9AUo3xiBENqLVr98s27bibPhIjjdUxJx
- VoauzSp3S/5UyCGmWEWb4qk3QLn1A6Ronrfye6iIjecBBeLrc2qXSz8dcBknBv3Bh9QC
- Jqtg==
-X-Gm-Message-State: AOAM531yOCt3fcEVRvBXXqEp2WzMX1txiOPXGRLqhSWE4rtZ8/1NRr9i
- ocmdvjQlhoNszCulKPMi6mg=
-X-Google-Smtp-Source: ABdhPJyTza6OFX58O1ZtxKbuFduSV3nk0HA/uLR752GboGjO7C9zQWW2xXABJQa8YI+aD7xHDPH8Lg==
-X-Received: by 2002:a17:90b:4b06:: with SMTP id
- lx6mr2579783pjb.224.1609910974430; 
- Tue, 05 Jan 2021 21:29:34 -0800 (PST)
+ bh=rjwtCC4s5qF5toeFU9GqGpGwIgLC0h9CcPJ0B42v4CQ=;
+ b=q7LOt5mj0y0ubtBkioL4HK2THc3hTBdpf27vdDnrFRsxufQprJYvz6lcKavZu9IKbI
+ 3FQ5LclLNavVt9Mq4RHlrAzLuwHr/dQgv5CBhT2eMIX27Khc6vAMWtbCMYIm6dmSJM1h
+ SVXfRPe7gy/sJevpDYWTsm5PlJZA9WPjHnRaonVgPZJGOmUb2CtvLqTvt0Z9QvKxKsD5
+ UqIqHF0LZ2tG6Js01jthFbVip0FvurbvB6LqFz7+MVcOZkO6/qWLK4fEoZVo4lStXi0M
+ bUHyvFI5QJu4WFj/1/hfmYZGcldgd4u7d/LSaxiEgNHggAIROfVAhzs1MJVYMH7BzFoN
+ 5Tig==
+X-Gm-Message-State: AOAM530wfC9UzDdGyjuNgmf+R/U7AAEIWgeicENzCnkEWEkPbcmv6skV
+ YHAYCiwOcOYfpcyiwkUr/PM=
+X-Google-Smtp-Source: ABdhPJzePowiEcDtoDOO8mVrej19Pwo3YcDLae7GCXSALEteC7xAeNRoG2w+P4XOe/IgaZlQxsHmNQ==
+X-Received: by 2002:a17:902:cb95:b029:dc:3a38:c7df with SMTP id
+ d21-20020a170902cb95b02900dc3a38c7dfmr2906008ply.49.1609911069942; 
+ Tue, 05 Jan 2021 21:31:09 -0800 (PST)
 Received: from shinobu ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id t1sm908329pfg.212.2021.01.05.21.29.26
+ by smtp.gmail.com with ESMTPSA id u12sm978052pgi.91.2021.01.05.21.31.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Jan 2021 21:29:33 -0800 (PST)
-Date: Wed, 6 Jan 2021 14:29:23 +0900
+ Tue, 05 Jan 2021 21:31:09 -0800 (PST)
+Date: Wed, 6 Jan 2021 14:30:59 +0900
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <X/VKsxuYGkgMhx80@shinobu>
+To: David Lechner <david@lechnology.com>
+Message-ID: <X/VLE0wPPifNZFhT@shinobu>
 References: <cover.1608935587.git.vilhelm.gray@gmail.com>
  <fc40ab7f4a38e80d86715daa5eaf744dd645a75b.1608935587.git.vilhelm.gray@gmail.com>
- <20201230143719.28a90914@archlinux>
+ <2f950b79-fb83-9800-2690-ec81c6be6348@lechnology.com>
 MIME-Version: 1.0
-In-Reply-To: <20201230143719.28a90914@archlinux>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+In-Reply-To: <2f950b79-fb83-9800-2690-ec81c6be6348@lechnology.com>
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, Dan Carpenter <dan.carpenter@oracle.com>,
- kernel@pengutronix.de, fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
+ Dan Carpenter <dan.carpenter@oracle.com>, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jic23@kernel.org
 Subject: Re: [Linux-stm32] [PATCH v7 1/5] counter: Internalize sysfs
 	interface code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -76,398 +77,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3605808525224667529=="
+Content-Type: multipart/mixed; boundary="===============7085141063155021723=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============3605808525224667529==
+--===============7085141063155021723==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sk+7ExK6E/6TxWPH"
+	protocol="application/pgp-signature"; boundary="TS0nwI4oX3M9MM/u"
 Content-Disposition: inline
 
 
---sk+7ExK6E/6TxWPH
+--TS0nwI4oX3M9MM/u
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 30, 2020 at 02:37:19PM +0000, Jonathan Cameron wrote:
-> On Fri, 25 Dec 2020 19:15:34 -0500
-> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+On Wed, Dec 30, 2020 at 05:24:34PM -0600, David Lechner wrote:
+> On 12/25/20 6:15 PM, William Breathitt Gray wrote:
 >=20
-> > This is a reimplementation of the Generic Counter driver interface.
-> > There are no modifications to the Counter subsystem userspace interface,
-> > so existing userspace applications should continue to run seamlessly.
-> Hi William
->=20
-> Been a while since I looked at this series.  Its rather big and I'm lazy
-> (or busy depending on who I'm talking to :)
->=20
-> Hmm. I'm a bit in two minds about how you should handle the huge amount of
-> description here.  Some of it clearly belongs in the kernel docs (and some
-> is I think put there in a later patch).  Other parts are specific to
-> this series, but I'm not 100% sure this much detail is really useful in t=
-he
-> git log.   Note that we now have links to the threads for all patches app=
-lied
-> using b4 (which this will be) so it's fine to have really detailed stuff
-> in cover letters rather than the individual patches.
-
-I'll simplify the description here to something more succinct.
-
-> One thing that would be handy for review, might be if you put up a tree
-> somewhere with this applied and included a link.
-
-This is such a large set of changes that having a tree to checkout for
-review would be convenient. I typically push to my personal tree, so you
-can check out the changes there in the counter_chrdev_v* branches:
-https://gitlab.com/vilhelmgray/iio
-
-I'll include a link to it again in the cover letter for v8 when it's
-ready.
-
-> Mind you I don't feel that strongly about it if it you do want to maintain
-> it in the individual patch descriptions.
->=20
-> I've been a bit lazy and not cropped this down as much as I ideally should
-> have done (to include only bits I'm commenting on).
->=20
-> Anyhow, various minor things inline but this fundamentally looks fine to =
-me.
->=20
-> Jonathan
+> > diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
+> > index a60aee1a1a29..6c058b93dc98 100644
+> > --- a/drivers/counter/ti-eqep.c
+> > +++ b/drivers/counter/ti-eqep.c
 >=20
 >=20
-> >=20
-> > Overview
-> > =3D=3D=3D=3D=3D=3D=3D=3D
-> >=20
-> > The purpose of this patch is to internalize the sysfs interface code
-> > among the various counter drivers into a shared module. Counter drivers
-> > pass and take data natively (i.e. u8, u64, etc.) and the shared counter
-> > module handles the translation between the sysfs interface.
->=20
-> Confusing statement.  Between the sysfs interface and what?
-> Perhaps "handles the translation to/from the sysfs interface."
-
-Looks like I cut that line short by accident; it should read: "between
-the sysfs interface and the device drivers". I'll fix this up.
-
-> > This
-> > guarantees a standard userspace interface for all counter drivers, and
-> > helps generalize the Generic Counter driver ABI in order to support the
-> > Generic Counter chrdev interface (introduced in a subsequent patch)
-> > without significant changes to the existing counter drivers.
-> >=20
-> > A high-level view of how a count value is passed down from a counter
-> > driver is exemplified by the following. The driver callbacks are first
-> > registered to the Counter core component for use by the Counter
-> > userspace interface components:
-> >=20
-> >                         +----------------------------+
-> > 	                | Counter device driver      |
->=20
-> Looks like something snuck a tab in amongst your spaces.
-
-Ack.
-
-> >  static int quad8_signal_read(struct counter_device *counter,
-> > -	struct counter_signal *signal, enum counter_signal_value *val)
-> > +			     struct counter_signal *signal,
-> > +			     enum counter_signal_level *level)
-> >  {
-> >  	const struct quad8_iio *const priv =3D counter->priv;
-> >  	unsigned int state;
-> > @@ -633,13 +634,13 @@ static int quad8_signal_read(struct counter_devic=
-e *counter,
-> >  	state =3D inb(priv->base + QUAD8_REG_INDEX_INPUT_LEVELS)
-> >  		& BIT(signal->id - 16);
-> > =20
-> > -	*val =3D (state) ? COUNTER_SIGNAL_HIGH : COUNTER_SIGNAL_LOW;
-> > +	*level =3D (state) ? COUNTER_SIGNAL_LEVEL_HIGH : COUNTER_SIGNAL_LEVEL=
-_LOW;
->=20
-> This bit of refactoring / renaming could have been split out as a precurs=
-or patch
-> I think.  There may be other opportunities.=20
-
-Ack. I'll look around for additional changes I can pull out as precursor
-patches too.
-
-> > =20
-> >  	return 0;
-> >  }
-> > =20
-> >  static int quad8_count_read(struct counter_device *counter,
-> > -	struct counter_count *count, unsigned long *val)
-> > +			    struct counter_count *count, u64 *val)
->=20
-> Could the type change for val have been done as a precursor?
-
-I don't think we can pull this one out as a precursor unfortunately.
-Since unsigned long is passed in as pointer, we could get a type
-mismatch if we're on a 32-bit system. For this to work, it requires the
-u64 change in struct counter_ops and subsequent dependent code, so we'll
-have to keep it as part of this patch for now.
-
-> > @@ -785,18 +782,21 @@ static int quad8_function_set(struct counter_devi=
-ce *counter,
-> >  		*quadrature_mode =3D 1;
-> > =20
-> >  		switch (function) {
-> > -		case QUAD8_COUNT_FUNCTION_QUADRATURE_X1:
-> > +		case COUNTER_FUNCTION_QUADRATURE_X1_A:
-> >  			*scale =3D 0;
-> >  			mode_cfg |=3D QUAD8_CMR_QUADRATURE_X1;
-> >  			break;
-> > -		case QUAD8_COUNT_FUNCTION_QUADRATURE_X2:
-> > +		case COUNTER_FUNCTION_QUADRATURE_X2_A:
-> >  			*scale =3D 1;
-> >  			mode_cfg |=3D QUAD8_CMR_QUADRATURE_X2;
-> >  			break;
-> > -		case QUAD8_COUNT_FUNCTION_QUADRATURE_X4:
-> > +		case COUNTER_FUNCTION_QUADRATURE_X4:
-> >  			*scale =3D 2;
-> >  			mode_cfg |=3D QUAD8_CMR_QUADRATURE_X4;
-> >  			break;
-> > +		default:
-> > +			mutex_unlock(&priv->lock);
-> > +			return -EINVAL;
->=20
-> This looks like a sensible precaution / cleanup but could have been
-> done separately to the rest of the patch I think?
-
-Ack.
-
-> > @@ -1229,30 +1194,28 @@ static ssize_t quad8_count_ceiling_write(struct=
- counter_device *counter,
-> > =20
-> >  	mutex_unlock(&priv->lock);
-> > =20
-> > -	return len;
-> > +	return -EINVAL;
->=20
-> ?  That looks like the good exit path to me.
-
-You're right, this should be a return 0.
-
-> > +/**
-> > + * counter_register - register Counter to the system
-> > + * @counter:	pointer to Counter to register
-> > + *
-> > + * This function registers a Counter to the system. A sysfs "counter" =
-directory
-> > + * will be created and populated with sysfs attributes correlating wit=
-h the
-> > + * Counter Signals, Synapses, and Counts respectively.
->=20
-> Where easy to do it's worth documenting return values.
-
-Ack.
-
-> > +static void devm_counter_unregister(struct device *dev, void *res)
-> > +{
-> > +	counter_unregister(*(struct counter_device **)res);
->=20
-> Rename this. It looks like it's a generic way of unwinding
-> devm_counter_register which it is definitely not...
-
-Ack.
-
-> > +/**
-> > + * struct counter_attribute - Counter sysfs attribute
-> > + * @dev_attr:	device attribute for sysfs
-> > + * @l:		node to add Counter attribute to attribute group list
-> > + * @comp:	Counter component callbacks and data
-> > + * @scope:	Counter scope of the attribute
-> > + * @parent:	pointer to the parent component
-> > + */
-> > +struct counter_attribute {
-> > +	struct device_attribute dev_attr;
-> > +	struct list_head l;
-> > +
-> > +	struct counter_comp comp;
-> > +	__u8 scope;
->=20
-> Why not an enum?
-
-This should be enum; I missed it from the previous revision.
-
-> > +	switch (a->comp.type) {
-> > +	case COUNTER_COMP_FUNCTION:
-> > +		return sprintf(buf, "%s\n", counter_function_str[data]);
-> > +	case COUNTER_COMP_SIGNAL_LEVEL:
-> > +		return sprintf(buf, "%s\n", counter_signal_value_str[data]);
-> > +	case COUNTER_COMP_SYNAPSE_ACTION:
-> > +		return sprintf(buf, "%s\n", counter_synapse_action_str[data]);
-> > +	case COUNTER_COMP_ENUM:
-> > +		return sprintf(buf, "%s\n", avail->strs[data]);
-> > +	case COUNTER_COMP_COUNT_DIRECTION:
-> > +		return sprintf(buf, "%s\n", counter_count_direction_str[data]);
-> > +	case COUNTER_COMP_COUNT_MODE:
-> > +		return sprintf(buf, "%s\n", counter_count_mode_str[data]);
-> > +	default:
->=20
-> Perhaps move the below return sprintf() up here?
-
-Ack.
-
-> > +		break;
-> > +	}
-> > +
-> > +	return sprintf(buf, "%u\n", (unsigned int)data);
-> > +}
-> > +
-> > +static int find_in_string_array(u32 *const enum_item, const u32 *const=
- enums,
-> > +				const size_t num_enums, const char *const buf,
-> > +				const char *const string_array[])
->=20
-> Please avoid defining such generically named functions.  High chance of a=
- clash
-> with something that turns up in generic headers sometime in the future.
-
-Ack.
-
-> > +static ssize_t enums_available_show(const u32 *const enums,
-> > +				    const size_t num_enums,
-> > +				    const char *const strs[], char *buf)
-> > +{
-> > +	size_t len =3D 0;
-> > +	size_t index;
-> > +
-> > +	for (index =3D 0; index < num_enums; index++)
-> > +		len +=3D sprintf(buf + len, "%s\n", strs[enums[index]]);
->=20
-> Probably better to add protections on overrunning the buffer to this.
-> Sure it won't actually happen but that may not be obvious to someone read=
-ing
-> this code in future.
->=20
-> Look at new sysfs_emit * family for this.
->=20
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3D2efc459d06f1630001e3984854848a5647086232
-
-Ack.
-
-> > +static ssize_t counter_comp_available_show(struct device *dev,
-> > +					   struct device_attribute *attr,
-> > +					   char *buf)
-> > +{
-> > +	const struct counter_attribute *const a =3D to_counter_attribute(attr=
-);
-> > +	const struct counter_count *const count =3D a->parent;
-> > +	const struct counter_synapse *const synapse =3D a->comp.priv;
-> > +	const struct counter_available *const avail =3D a->comp.priv;
-> > +
-> > +	switch (a->comp.type) {
-> > +	case COUNTER_COMP_FUNCTION:
-> > +		return enums_available_show(count->functions_list,
-> > +					    count->num_functions,
-> > +					    counter_function_str, buf);
-> > +	case COUNTER_COMP_SYNAPSE_ACTION:
-> > +		return enums_available_show(synapse->actions_list,
-> > +					    synapse->num_actions,
-> > +					    counter_synapse_action_str, buf);
-> > +	case COUNTER_COMP_ENUM:
-> > +		return strs_available_show(avail, buf);
-> > +	case COUNTER_COMP_COUNT_MODE:
-> > +		return enums_available_show(avail->enums, avail->num_items,
-> > +					    counter_count_mode_str, buf);
-> > +	default:
-> > +		break;
->=20
-> Might as well return -EINVAL; here
-
-Ack.
-
-> > +	/* Store list node */
-> > +	list_add(&counter_attr->l, &group->attr_list);
-> > +	group->num_attr++;
-> > +
-> > +	switch (comp->type) {
-> > +	case COUNTER_COMP_FUNCTION:
-> > +	case COUNTER_COMP_SYNAPSE_ACTION:
-> > +	case COUNTER_COMP_ENUM:
-> > +	case COUNTER_COMP_COUNT_MODE:
-> > +		return counter_avail_attr_create(dev, group, comp, parent);
-> > +	default:
-> > +		break;
->=20
-> return 0 in here.  Also add a comment on why it isn't an error.
-
-Ack.
-
-> > +static int counter_sysfs_synapses_add(struct counter_device *const cou=
+> > -static ssize_t ti_eqep_position_floor_write(struct counter_device *cou=
 nter,
-> > +	struct counter_attribute_group *const group,
-> > +	struct counter_count *const count)
-> > +{
-> > +	const __u8 scope =3D COUNTER_SCOPE_COUNT;
-> > +	struct device *const dev =3D &counter->dev;
-> > +	size_t i;
-> > +	struct counter_synapse *synapse;
-> > +	size_t id;
-> > +	struct counter_comp comp;
-> > +	int err;
-> > +
-> > +	/* Add each Synapse */
-> > +	for (i =3D 0; i < count->num_synapses; i++) {
-> Could reduce scope and make code a bit more readable by
-> pulling
+> > -					    struct counter_count *count,
+> > -					    void *ext_priv, const char *buf,
+> > -					    size_t len)
+> > +static int ti_eqep_position_floor_write(struct counter_device *counter,
+> > +					struct counter_count *count, u64 floor)
+> >   {
+> >   	struct ti_eqep_cnt *priv =3D counter->priv;
+> > -	int err;
+> > -	u32 res;
+> >  =20
+> > -	err =3D kstrtouint(buf, 0, &res);
+> > -	if (err < 0)
+> > -		return err;
+> > +	if (floor !=3D (u32)floor)
+> > +		return -ERANGE;
+> >  =20
+> > -	regmap_write(priv->regmap32, QPOSINIT, res);
+> > +	regmap_write(priv->regmap32, QPOSINIT, floor);
+> >  =20
+> > -	return len;
+> > +	return 0;
+> >   }
 >=20
-> struct counter_synapse *synapse;
-> struct counter_comp comp;
-> size_t id;
->=20
-> and maybe other things in here.  Makes it clear their scope
-> is just within this loop.
+> This will conflict with 2ba7b50893de "counter:ti-eqep: remove floor"
+> (in Jonathan's fixes-togreg branch) which removes these functions.
 
-Ack.
-
-> >  /**
-> >   * struct counter_synapse - Counter Synapse node
-> > - * @action:		index of current action mode
-> >   * @actions_list:	array of available action modes
-> >   * @num_actions:	number of action modes specified in @actions_list
-> > - * @signal:		pointer to associated signal
-> > + * @signal:		pointer to the associated Signal
->=20
-> Might have been nice to pull the cases that were purely capitalization ou=
-t as
-> a separate patch immediately following this one. There aren't
-> a huge number, but from a review point of view it's a noop patch
-> so doesn't need the reviewer to be awake :)
-
-Ack.
+Ack, I'll rebase and remove these changes.
 
 William Breathitt Gray
 
---sk+7ExK6E/6TxWPH
+--TS0nwI4oX3M9MM/u
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl/1SqAACgkQhvpINdm7
-VJIndQ/6Am6yxb8q8CFpvW0tp1/UlZUCwDYZEagvSmRXDQboQa8NZr0LAP3DzOKW
-ZT8y6PI7XvI9foabuqf5JZsFsDh2ITOM0GSzfekRHkLWZ5Q9fsRrUH2Actt4IVns
-itwKRzqYDAstn9rS8e+DizXgG53xMkgw/vArIKRCkTe61ww3zMxhvdqC1DGfqNfp
-VbqlteY/xB1/zA06qSY76O34L5Qqe9mrzB7wepA/IegMrTCg1Tw8WhtpH5XnlW3o
-jULZzLOaEOLWOwtruKDmBcB8QgWzyBv/mGfOjqjVN30v6+QTtAl+IcrKj/Ignf4f
-qWD2ad5lHHUPYpiIEVgf+y0jDLxCV6n2qFJkXLk33YdvTrfZ2fNxVoZABRYhyqUG
-Q4LEv5Eupq2mD8blZZ6MJKd1KGvkSYxNOgDKexTBCuOgVWoksVjGLtXazZTBs0UT
-J0G+dxMNE7t594rbVXenOcFk10fsRw6b5jfWq4ZpJNNAKh5IxYMl5KPODNArdziO
-mF9kfvCunFal5A6nG3EwnssGMVeQ76IZXBG32px7Yx+Sq7C05Bgn/+Qk+ordyJB4
-hToilC5Djks+JzwHKKcveQGymUBcUbT3FfW8SIParMzxu9btlE9xrZLG1bxyOZwH
-XMJROKVwkZtW9Dwpto8glpZ7Kci5d+OF0+bRDBVGJhTuED0jDws=
-=AN0Y
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl/1SxMACgkQhvpINdm7
+VJKIcw/+LDra2XrlrRaFeux8tWBB93EDHYQEEzd7WeMlC09xQ0aZwEeUojZtJ5/E
+IV1ZeWHxVRikgxL9GMBjwLO+IAg2fsiko74ruXbmylQad1AOuI/MDCLfN7Z6vSXW
+BMYXiXq5bH/cKGRLf0bqRWJNRCUPvd7wrh4G3l8Q91BsKWeUNAxypwVjmfFtpspJ
+7Y0EqvmDD890fNFPZOajKU8EbGEBzfUt+mDuFNXkkhM38bhGT+8PQ6APoaA1OQ3W
+xhpjtzW4mEg0V8DnMFdpmeI0MHsV6yYM8tnK+NvY/EbbGRQbfy5x1tqnjSR+KKZm
+TIlYCJnI/95mdjEmNL0qvC7K8gypB6F1ScmNZ2LiaNqT4ztoJebFXIpqVhiWl9X1
+j7pGX+0xGHiLBKJ+1cubpuyoqoYWLWKzZuxv5GAAQ7BYP4b02iaUqmahKciQlrGX
+cieLke92Mhi6YOQf3/FA+kw1wOGtIOTBbHc3Ng4fL7JYztKSg7FQ48H1jnLKhlNe
+QOHBVz7tXasa2GxtDAYKa1fPLXv9Hz8pADP105UJEDaLDoSggWwnrItGvXT5CBjM
+1+VTNc9PR5kqyo5yDRe3fIBHn1+GOCwNBDZcF85RQcccwYce6s3WmHe77IK24Kgy
+TIeVZYUz5l7HWnI3eM4hl0PCL2yHFj4lLPkiVnQ8Qg3MoPm+JSE=
+=iNKk
 -----END PGP SIGNATURE-----
 
---sk+7ExK6E/6TxWPH--
+--TS0nwI4oX3M9MM/u--
 
---===============3605808525224667529==
+--===============7085141063155021723==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -478,4 +167,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============3605808525224667529==--
+--===============7085141063155021723==--
