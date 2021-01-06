@@ -2,70 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B662EB983
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jan 2021 06:31:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1D852EBEC6
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jan 2021 14:38:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B343C56638;
-	Wed,  6 Jan 2021 05:31:13 +0000 (UTC)
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76377C56638;
+	Wed,  6 Jan 2021 13:38:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 87763C5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B7C3C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Jan 2021 05:31:11 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id z12so990808pjn.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 05 Jan 2021 21:31:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=rjwtCC4s5qF5toeFU9GqGpGwIgLC0h9CcPJ0B42v4CQ=;
- b=RccYso2/RvfnZPsOPln1soDDi57lHypQ9ziIwjDaB1mI1AtFwVwLmUpLhmiCyQ8SY5
- XLT1LEBooSNcVA/pX9ZggD/PtJZABE7GjlpTMzgfrii4pVTQgdFWVGnXUUcHDC1olw7w
- xrKu6zO8tWzeWJHbNvBOowUQubckFC0G/ax3ER44SmtxJ2tKZY20yInAzCjdM1nq7zWW
- gQKZeIYTVfPq6/4mLomEL0VSXyNfKs2l8EjJugp8NBcHcBP+hZndk7IeZWxsxQcXi0f4
- RWFL6eZmWdYlUEz6WIbEWf5rg5ez52VptftTN4H/TYBYop0Hl2jgRiiPP18DemXCRyt5
- rTHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=rjwtCC4s5qF5toeFU9GqGpGwIgLC0h9CcPJ0B42v4CQ=;
- b=q7LOt5mj0y0ubtBkioL4HK2THc3hTBdpf27vdDnrFRsxufQprJYvz6lcKavZu9IKbI
- 3FQ5LclLNavVt9Mq4RHlrAzLuwHr/dQgv5CBhT2eMIX27Khc6vAMWtbCMYIm6dmSJM1h
- SVXfRPe7gy/sJevpDYWTsm5PlJZA9WPjHnRaonVgPZJGOmUb2CtvLqTvt0Z9QvKxKsD5
- UqIqHF0LZ2tG6Js01jthFbVip0FvurbvB6LqFz7+MVcOZkO6/qWLK4fEoZVo4lStXi0M
- bUHyvFI5QJu4WFj/1/hfmYZGcldgd4u7d/LSaxiEgNHggAIROfVAhzs1MJVYMH7BzFoN
- 5Tig==
-X-Gm-Message-State: AOAM530wfC9UzDdGyjuNgmf+R/U7AAEIWgeicENzCnkEWEkPbcmv6skV
- YHAYCiwOcOYfpcyiwkUr/PM=
-X-Google-Smtp-Source: ABdhPJzePowiEcDtoDOO8mVrej19Pwo3YcDLae7GCXSALEteC7xAeNRoG2w+P4XOe/IgaZlQxsHmNQ==
-X-Received: by 2002:a17:902:cb95:b029:dc:3a38:c7df with SMTP id
- d21-20020a170902cb95b02900dc3a38c7dfmr2906008ply.49.1609911069942; 
- Tue, 05 Jan 2021 21:31:09 -0800 (PST)
-Received: from shinobu ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id u12sm978052pgi.91.2021.01.05.21.31.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Jan 2021 21:31:09 -0800 (PST)
-Date: Wed, 6 Jan 2021 14:30:59 +0900
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: David Lechner <david@lechnology.com>
-Message-ID: <X/VLE0wPPifNZFhT@shinobu>
-References: <cover.1608935587.git.vilhelm.gray@gmail.com>
- <fc40ab7f4a38e80d86715daa5eaf744dd645a75b.1608935587.git.vilhelm.gray@gmail.com>
- <2f950b79-fb83-9800-2690-ec81c6be6348@lechnology.com>
+ Wed,  6 Jan 2021 13:38:13 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 106DbLiD014027; Wed, 6 Jan 2021 14:38:12 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=fFRoI9/vVcCXoEXjQQYHbpRW8fDaWqXof3RiPcHIjvY=;
+ b=FCEKrG7mdVGcfhr8yaOrtsUyQ2TK5+dKPllHIJW5Po6+XGEYx56Z1deOcPLCEZ1oeN7i
+ Wei0y4HOZsbnwASDiMSiN4yXdXtFG2LUzPB5m23SVDFoabITaZKorFxKG3t36bxkKtL2
+ fQNpSQYK+bACybg8w4mfP2fb7d3+HaLygUmVyX3QMngqkNSzjao8loXKIHrq+0fK0OlP
+ HcMtuGaM6tb8s6/HNqZ2J3Cj+6ImWO/yTKHpAYkdCdODoJbgaGWA67pmeCKBZNjc4QKS
+ ZpxqE9S9Jf9gZb+PD2WrYp/MYGYpcMS4F+xRwTbs271RSp27u/p/AIZHzKWh7MPraoE4 Yw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 35tf6738cy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 06 Jan 2021 14:38:12 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F85D10002A;
+ Wed,  6 Jan 2021 14:38:11 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6C3D62AD2B0;
+ Wed,  6 Jan 2021 14:38:11 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 6 Jan 2021 14:38:10
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Wed, 6 Jan 2021 14:37:14 +0100
+Message-ID: <20210106133714.9984-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <2f950b79-fb83-9800-2690-ec81c6be6348@lechnology.com>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
- Dan Carpenter <dan.carpenter@oracle.com>, fabrice.gasnier@st.com,
- syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v7 1/5] counter: Internalize sysfs
-	interface code
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-06_06:2021-01-06,
+ 2021-01-06 signatures=0
+Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] rpmsg: char: return an error if device
+	already open
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,94 +67,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7085141063155021723=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+The rpmsg_create_ept function is invoked when the device is opened.
+As only one endpoint must be created per device. It is not
+possible to open the same device twice.
+The fix consists in returning -EBUSY when device is already
+opened.
 
---===============7085141063155021723==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TS0nwI4oX3M9MM/u"
-Content-Disposition: inline
+Fixes: c0cdc19f84a4 ("rpmsg: Driver for user space endpoint interface")
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
+ drivers/rpmsg/rpmsg_char.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-
---TS0nwI4oX3M9MM/u
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Dec 30, 2020 at 05:24:34PM -0600, David Lechner wrote:
-> On 12/25/20 6:15 PM, William Breathitt Gray wrote:
->=20
-> > diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
-> > index a60aee1a1a29..6c058b93dc98 100644
-> > --- a/drivers/counter/ti-eqep.c
-> > +++ b/drivers/counter/ti-eqep.c
->=20
->=20
-> > -static ssize_t ti_eqep_position_floor_write(struct counter_device *cou=
-nter,
-> > -					    struct counter_count *count,
-> > -					    void *ext_priv, const char *buf,
-> > -					    size_t len)
-> > +static int ti_eqep_position_floor_write(struct counter_device *counter,
-> > +					struct counter_count *count, u64 floor)
-> >   {
-> >   	struct ti_eqep_cnt *priv =3D counter->priv;
-> > -	int err;
-> > -	u32 res;
-> >  =20
-> > -	err =3D kstrtouint(buf, 0, &res);
-> > -	if (err < 0)
-> > -		return err;
-> > +	if (floor !=3D (u32)floor)
-> > +		return -ERANGE;
-> >  =20
-> > -	regmap_write(priv->regmap32, QPOSINIT, res);
-> > +	regmap_write(priv->regmap32, QPOSINIT, floor);
-> >  =20
-> > -	return len;
-> > +	return 0;
-> >   }
->=20
-> This will conflict with 2ba7b50893de "counter:ti-eqep: remove floor"
-> (in Jonathan's fixes-togreg branch) which removes these functions.
-
-Ack, I'll rebase and remove these changes.
-
-William Breathitt Gray
-
---TS0nwI4oX3M9MM/u
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAl/1SxMACgkQhvpINdm7
-VJKIcw/+LDra2XrlrRaFeux8tWBB93EDHYQEEzd7WeMlC09xQ0aZwEeUojZtJ5/E
-IV1ZeWHxVRikgxL9GMBjwLO+IAg2fsiko74ruXbmylQad1AOuI/MDCLfN7Z6vSXW
-BMYXiXq5bH/cKGRLf0bqRWJNRCUPvd7wrh4G3l8Q91BsKWeUNAxypwVjmfFtpspJ
-7Y0EqvmDD890fNFPZOajKU8EbGEBzfUt+mDuFNXkkhM38bhGT+8PQ6APoaA1OQ3W
-xhpjtzW4mEg0V8DnMFdpmeI0MHsV6yYM8tnK+NvY/EbbGRQbfy5x1tqnjSR+KKZm
-TIlYCJnI/95mdjEmNL0qvC7K8gypB6F1ScmNZ2LiaNqT4ztoJebFXIpqVhiWl9X1
-j7pGX+0xGHiLBKJ+1cubpuyoqoYWLWKzZuxv5GAAQ7BYP4b02iaUqmahKciQlrGX
-cieLke92Mhi6YOQf3/FA+kw1wOGtIOTBbHc3Ng4fL7JYztKSg7FQ48H1jnLKhlNe
-QOHBVz7tXasa2GxtDAYKa1fPLXv9Hz8pADP105UJEDaLDoSggWwnrItGvXT5CBjM
-1+VTNc9PR5kqyo5yDRe3fIBHn1+GOCwNBDZcF85RQcccwYce6s3WmHe77IK24Kgy
-TIeVZYUz5l7HWnI3eM4hl0PCL2yHFj4lLPkiVnQ8Qg3MoPm+JSE=
-=iNKk
------END PGP SIGNATURE-----
-
---TS0nwI4oX3M9MM/u--
-
---===============7085141063155021723==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+index 4bbbacdbf3bb..360a1ab0a9c4 100644
+--- a/drivers/rpmsg/rpmsg_char.c
++++ b/drivers/rpmsg/rpmsg_char.c
+@@ -127,6 +127,9 @@ static int rpmsg_eptdev_open(struct inode *inode, struct file *filp)
+ 	struct rpmsg_device *rpdev = eptdev->rpdev;
+ 	struct device *dev = &eptdev->dev;
+ 
++	if (eptdev->ept)
++		return -EBUSY;
++
+ 	get_device(dev);
+ 
+ 	ept = rpmsg_create_ept(rpdev, rpmsg_ept_cb, eptdev, eptdev->chinfo);
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7085141063155021723==--
