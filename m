@@ -2,60 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1D852EBEC6
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jan 2021 14:38:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E37712EC107
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jan 2021 17:22:35 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76377C56638;
-	Wed,  6 Jan 2021 13:38:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B19BC5718D;
+	Wed,  6 Jan 2021 16:22:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B7C3C5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0798C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Jan 2021 13:38:13 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Wed,  6 Jan 2021 16:22:31 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 106DbLiD014027; Wed, 6 Jan 2021 14:38:12 +0100
+ 106GI4Bs000344; Wed, 6 Jan 2021 17:22:22 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : mime-version : content-type; s=selector1;
- bh=fFRoI9/vVcCXoEXjQQYHbpRW8fDaWqXof3RiPcHIjvY=;
- b=FCEKrG7mdVGcfhr8yaOrtsUyQ2TK5+dKPllHIJW5Po6+XGEYx56Z1deOcPLCEZ1oeN7i
- Wei0y4HOZsbnwASDiMSiN4yXdXtFG2LUzPB5m23SVDFoabITaZKorFxKG3t36bxkKtL2
- fQNpSQYK+bACybg8w4mfP2fb7d3+HaLygUmVyX3QMngqkNSzjao8loXKIHrq+0fK0OlP
- HcMtuGaM6tb8s6/HNqZ2J3Cj+6ImWO/yTKHpAYkdCdODoJbgaGWA67pmeCKBZNjc4QKS
- ZpxqE9S9Jf9gZb+PD2WrYp/MYGYpcMS4F+xRwTbs271RSp27u/p/AIZHzKWh7MPraoE4 Yw== 
+ bh=ikH5iN8ZWitS2tO4VWYFgymi3kis4h647LOv4FmivAo=;
+ b=Q1ri9XLMxaNR0Alo7XVZQgEPHxsMC43NPOgImNiSihk7ckeebKE7GKknu23FA0sq4MyS
+ vkkTSgWPYWCuUgKnyI7wXMr3dMni1d8NTDVwd+01pxEdInUwwffLJgjv63ZUCbZH7bLb
+ jo3lu0eocTA5kbknI0zXvD9BVCe6xf9/oPK+14aanHRZ/mB52x2/aZl9PIHDPrIQW7pd
+ Friaymsk3f9RQ7+x7Z7V4vUv6q9dkdwEN5JFYUH8l2YTnJO9fFAWG4peRvk55EQLjKLh
+ LySAYfq89LIK7bLLGdnAdBQwvAW7sHsl1/RW4U+NFdhD9UYgoeGikCQif4MdjNEZkGYq Xg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 35tf6738cy-1
+ by mx07-00178001.pphosted.com with ESMTP id 35teuv8mvv-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 06 Jan 2021 14:38:12 +0100
+ Wed, 06 Jan 2021 17:22:22 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F85D10002A;
- Wed,  6 Jan 2021 14:38:11 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF1F9100034;
+ Wed,  6 Jan 2021 17:22:19 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6C3D62AD2B0;
- Wed,  6 Jan 2021 14:38:11 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 6 Jan 2021 14:38:10
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9CAF12A4D83;
+ Wed,  6 Jan 2021 17:22:19 +0100 (CET)
+Received: from localhost (10.75.127.50) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 6 Jan 2021 17:22:19
  +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
- <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Wed, 6 Jan 2021 14:37:14 +0100
-Message-ID: <20210106133714.9984-1-arnaud.pouliquen@foss.st.com>
+From: Erwan Le Ray <erwan.leray@foss.st.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jslaby@suse.com>, Rob Herring <robh+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Wed, 6 Jan 2021 17:21:55 +0100
+Message-ID: <20210106162203.28854-1-erwan.leray@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG4NODE3.st.com (10.75.127.12) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-06_06:2021-01-06,
+ definitions=2021-01-06_09:2021-01-06,
  2021-01-06 signatures=0
-Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] rpmsg: char: return an error if device
-	already open
+Cc: devicetree@vger.kernel.org, Valentin Caron <valentin.caron@foss.st.com>,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/7] STM32 uart cleanup and improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,32 +74,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The rpmsg_create_ept function is invoked when the device is opened.
-As only one endpoint must be created per device. It is not
-possible to open the same device twice.
-The fix consists in returning -EBUSY when device is already
-opened.
+This series brings various fixes, cleanups and improvements to stm32-usart
+driver.
 
-Fixes: c0cdc19f84a4 ("rpmsg: Driver for user space endpoint interface")
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/rpmsg/rpmsg_char.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v2:
+- delete DMA cookie variables removal from V1 patch as already done by a
+previous patch
+- update commit message as DMA cookie variables removal is no more
+included in this patch
 
-diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-index 4bbbacdbf3bb..360a1ab0a9c4 100644
---- a/drivers/rpmsg/rpmsg_char.c
-+++ b/drivers/rpmsg/rpmsg_char.c
-@@ -127,6 +127,9 @@ static int rpmsg_eptdev_open(struct inode *inode, struct file *filp)
- 	struct rpmsg_device *rpdev = eptdev->rpdev;
- 	struct device *dev = &eptdev->dev;
- 
-+	if (eptdev->ept)
-+		return -EBUSY;
-+
- 	get_device(dev);
- 
- 	ept = rpmsg_create_ept(rpdev, rpmsg_ept_cb, eptdev, eptdev->chinfo);
+Erwan Le Ray (8):
+  serial: stm32: fix DMA initialization error handling
+  serial: stm32: fix code cleaning warnings and checks
+  serial: stm32: add "_usart" prefix in functions name
+  serial: stm32: add author
+  dt-bindings: serial: stm32: update rts-gpios and cts-gpios
+  serial: stm32: update conflicting RTS/CTS config comment
+  serial: stm32: clean probe and remove port deinit
+  serial: stm32: update transmission complete error message in shutdown
+
+ .../bindings/serial/st,stm32-uart.yaml        |  13 +-
+ drivers/tty/serial/stm32-usart.c              | 415 +++++++++---------
+ 2 files changed, 227 insertions(+), 201 deletions(-)
+
 -- 
 2.17.1
 
