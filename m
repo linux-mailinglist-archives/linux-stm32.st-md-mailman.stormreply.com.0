@@ -2,48 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 422432EC553
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Jan 2021 21:44:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3DE2ECBB1
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Jan 2021 09:27:09 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A5E5C5718D;
-	Wed,  6 Jan 2021 20:44:11 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BDCDC56638;
+	Thu,  7 Jan 2021 08:27:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 897AAC57196
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF5F4C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Jan 2021 20:44:07 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4DB1Yg1RvSz1rvBT;
- Wed,  6 Jan 2021 21:44:07 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4DB1Yg0mDnz1sFWf;
- Wed,  6 Jan 2021 21:44:07 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id TF9yA5no_c5z; Wed,  6 Jan 2021 21:44:06 +0100 (CET)
-X-Auth-Info: bcvsxlurtDuSZV38+U8TOoo/Uv/rXcEnaYy5wh8f2IY=
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Wed,  6 Jan 2021 21:44:06 +0100 (CET)
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Wed,  6 Jan 2021 21:43:47 +0100
-Message-Id: <20210106204347.475920-4-marex@denx.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210106204347.475920-1-marex@denx.de>
-References: <20210106204347.475920-1-marex@denx.de>
+ Thu,  7 Jan 2021 08:27:06 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 1078LNPk025289; Thu, 7 Jan 2021 09:26:49 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=4tF/JarS6SNf7Z2YbkbvKZ6l54Xi5C7snXD0THCu/gk=;
+ b=eEWsEexC1sTKTpHB3kzMRJsbpjU1vEjExLGPAtFY2fzaL6yMIJ/Vk1wnWwIHsrqdrDyO
+ ymOhbNQivBhJbPaDBvlPQ5PbCulPMKEOmuuRkdusUJaHAtgmmY5NB/M9/R3I2fa8e2E9
+ NwG4dJYadK7Mg50jT5ss7KGbOvT0aeSyWsN8XiuMRrGBl3YCVmL8PJ9D4YG4wXcSgPB6
+ vqnJTXfpqZSIKbBSJFYIR7znPBXFixWYK/+5lVO5Zhi8xsVMrrOuEUik59t/ErjEi4SI
+ u+cEIRMGur58U2yLOdubH2B7r9bXeJ2JYsyjonlYBqHuEDsqupWxu1ybKVa2NTlx+FMJ Ow== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 35wt32h5mr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 07 Jan 2021 09:26:49 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C490210002A;
+ Thu,  7 Jan 2021 09:26:47 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A0EFB22AA65;
+ Thu,  7 Jan 2021 09:26:47 +0100 (CET)
+Received: from SFHDAG2NODE1.st.com (10.75.127.4) by SFHDAG1NODE3.st.com
+ (10.75.127.3) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 7 Jan
+ 2021 09:26:47 +0100
+Received: from SFHDAG2NODE1.st.com ([fe80::4413:c8c:992b:bb90]) by
+ SFHDAG2NODE1.st.com ([fe80::4413:c8c:992b:bb90%20]) with mapi id
+ 15.00.1473.003; Thu, 7 Jan 2021 09:26:47 +0100
+From: Yannick FERTRE <yannick.fertre@st.com>
+To: Marek Vasut <marex@denx.de>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Thread-Topic: [PATCH V2] drm/stm: Fix bus_flags handling
+Thread-Index: AQHW2bzOILrKXc2q+UyiFZreMH9ZZ6ob2W8A
+Date: Thu, 7 Jan 2021 08:26:47 +0000
+Message-ID: <8e46e07d-b0c7-f0f5-fa2e-2d84623fa599@st.com>
+References: <20201224061953.92229-1-marex@denx.de>
+In-Reply-To: <20201224061953.92229-1-marex@denx.de>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.49]
+Content-ID: <2E15316A989AA94CABB31D1E17777FC4@st.com>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Patrice Chotard <patrice.chotard@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 4/4] [RFC] ARM: dts: stm32: Switch DWMAC RMII
-	clock to MCO2 on DHCOM
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-07_04:2021-01-06,
+ 2021-01-07 signatures=0
+Cc: Vincent ABRIOU <vincent.abriou@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Benjamin Gaignard <benjamin.gaignard@st.com>
+Subject: Re: [Linux-stm32] [PATCH V2] drm/stm: Fix bus_flags handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,58 +84,92 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Using the MCO2 output for the LAN8710i PHY clock and feedback clock
-into the DWMAC reduces EMI, switch to MCO2.
-
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
----
- arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-index dc70ddd09e9d..ff70bd03a017 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-@@ -110,15 +110,21 @@ &dts {
- 	status = "okay";
- };
- 
-+&clk_eth_rx {
-+	clocks = <&rcc CK_MCO2>;
-+	assigned-clocks = <&rcc CK_MCO2>;
-+	assigned-clock-parents = <&rcc PLL4_P>;
-+	assigned-clock-rates = <50000000>;
-+};
-+
- &ethernet0 {
- 	status = "okay";
--	pinctrl-0 = <&ethernet0_rmii_pins_a>;
--	pinctrl-1 = <&ethernet0_rmii_sleep_pins_a>;
-+	pinctrl-0 = <&ethernet0_rmii_pins_b &mco2_pins_a>;
-+	pinctrl-1 = <&ethernet0_rmii_sleep_pins_b &mco2_sleep_pins_a>;
- 	pinctrl-names = "default", "sleep";
- 	phy-mode = "rmii";
- 	max-speed = <100>;
- 	phy-handle = <&phy0>;
--	st,eth-ref-clk-sel;
- 	phy-reset-gpios = <&gpioh 3 GPIO_ACTIVE_LOW>;
- 
- 	mdio0 {
--- 
-2.29.2
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgTWFyZWssDQp0aGFua3MgZm9yIHRoZSBwYXRjaC4gSXQgd29ya3MgZmluZSBvbiBzdG0zMm1w
+MSBldmFsIGJvYXJkIHdpdGggYnJpZGdlIA0KRFNJICYgRFBJIHBhbmVsLg0KDQpUZXN0ZWQtYnk6
+IFlhbm5pY2sgRmVydHLDqSA8eWFubmljay5mZXJ0cmVAc3QuY29tPg0KDQpCZXN0IHJlZ2FyZHMN
+Cg0KT24gMTIvMjQvMjAgNzoxOSBBTSwgTWFyZWsgVmFzdXQgd3JvdGU6DQo+IFRoZSBkcm1fZGlz
+cGxheV9tb2RlX3RvX3ZpZGVvbW9kZSgpIGRvZXMgbm90IHBvcHVsYXRlIERJU1BMQVlfRkxBR1Nf
+REVfTE9XDQo+IG9yIERJU1BMQVlfRkxBR1NfUElYREFUQV9ORUdFREdFIGZsYWdzIGluIHN0cnVj
+dCB2aWRlb21vZGUuIFRoZXJlZm9yZSwgbm8NCj4gbWF0dGVyIHdoYXQgcG9sYXJpdHkgdGhlIG5l
+eHQgYnJpZGdlIG9yIGRpc3BsYXkgbWlnaHQgcmVxdWlyZSwgdGhlc2UgZmxhZ3MNCj4gYXJlIG5l
+dmVyIHNldCwgYW5kIHRodXMgdGhlIExUREMgR0NSX0RFUE9MIGFuZCBHQ1JfUENQT0wgYml0cyBh
+cmUgbmV2ZXIgc2V0LA0KPiBhbmQgdGhlIExUREMgYmVoYXZlcyBhcyBpZiBib3RoIERJU1BMQVlf
+RkxBR1NfUElYREFUQV9QT1NFREdFIGFuZA0KPiBESVNQTEFZX0ZMQUdTX0RFX0hJR0ggd2VyZSBh
+bHdheXMgc2V0Lg0KPiANCj4gVGhlIGZpeCBmb3IgdGhpcyBwcm9ibGVtIGlzIHRha2VuIGFsbW9z
+dCB2ZXJiYXRpbSBmcm9tIE1YU0ZCIGRyaXZlci4gSW4NCj4gY2FzZSB0aGVyZSBpcyBhIGJyaWRn
+ZSBhdHRhY2hlZCB0byB0aGUgTFREQywgdGhlIGJyaWRnZSBtaWdodCBoYXZlIGV4dHJhDQo+IHBv
+bGFyaXR5IHJlcXVpcmVtZW50cywgc28gZXh0cmFjdCBidXNfZmxhZ3MgZnJvbSB0aGUgYnJpZGdl
+IGFuZCB1c2UgdGhlbQ0KPiBmb3IgTFREQyBjb25maWd1cmF0aW9uLiBPdGhlcndpc2UsIGV4dHJh
+Y3QgYnVzX2ZsYWdzIGZyb20gdGhlIGNvbm5lY3RvciwNCj4gd2hpY2ggaXMgdGhlIGRpc3BsYXku
+DQo+IA0KPiBGaXhlczogYjc1OTAxMmM1ZmE3ICgiZHJtL3N0bTogQWRkIFNUTTMyIExUREMgZHJp
+dmVyIikNCj4gU2lnbmVkLW9mZi1ieTogTWFyZWsgVmFzdXQgPG1hcmV4QGRlbnguZGU+DQo+IENj
+OiBBbGV4YW5kcmUgVG9yZ3VlIDxhbGV4YW5kcmUudG9yZ3VlQHN0LmNvbT4NCj4gQ2M6IEFudG9u
+aW8gQm9ybmVvIDxhbnRvbmlvLmJvcm5lb0BzdC5jb20+DQo+IENjOiBCZW5qYW1pbiBHYWlnbmFy
+ZCA8YmVuamFtaW4uZ2FpZ25hcmRAc3QuY29tPg0KPiBDYzogTWF4aW1lIENvcXVlbGluIDxtY29x
+dWVsaW4uc3RtMzJAZ21haWwuY29tPg0KPiBDYzogUGhpbGlwcGUgQ29ybnUgPHBoaWxpcHBlLmNv
+cm51QHN0LmNvbT4NCj4gQ2M6IFNhbSBSYXZuYm9yZyA8c2FtQHJhdm5ib3JnLm9yZz4NCj4gQ2M6
+IFZpbmNlbnQgQWJyaW91IDx2aW5jZW50LmFicmlvdUBzdC5jb20+DQo+IENjOiBZYW5uaWNrIEZl
+cnRyZSA8eWFubmljay5mZXJ0cmVAc3QuY29tPg0KPiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0
+cy5pbmZyYWRlYWQub3JnDQo+IENjOiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tDQo+IFRvOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IC0tLQ0KPiBW
+MjogQ2hlY2sgaWYgbGRldi0+YnJpZGdlLT50aW1pbmdzIGlzIG5vbi1OVUxMIGJlZm9yZSBhY2Nl
+c3NpbmcgaXQNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMgfCAyMiArKysr
+KysrKysrKysrKysrKysrKy0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmggfCAgMiAr
+Kw0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkN
+Cj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9zdG0vbHRkYy5jDQo+IGluZGV4IDFjOWYxOGI0YWRmYy4uMjJjN2U5ZmE1YWI3IDEw
+MDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYw0KPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vc3RtL2x0ZGMuYw0KPiBAQCAtNTQ2LDExICs1NDYsMTcgQEAgc3RhdGljIHZvaWQg
+bHRkY19jcnRjX21vZGVfc2V0X25vZmIoc3RydWN0IGRybV9jcnRjICpjcnRjKQ0KPiAgIAlzdHJ1
+Y3QgZHJtX2RldmljZSAqZGRldiA9IGNydGMtPmRldjsNCj4gICAJc3RydWN0IGRybV9kaXNwbGF5
+X21vZGUgKm1vZGUgPSAmY3J0Yy0+c3RhdGUtPmFkanVzdGVkX21vZGU7DQo+ICAgCXN0cnVjdCB2
+aWRlb21vZGUgdm07DQo+ICsJdTMyIGJ1c19mbGFncyA9IDA7DQo+ICAgCXUzMiBoc3luYywgdnN5
+bmMsIGFjY3VtX2hicCwgYWNjdW1fdmJwLCBhY2N1bV9hY3RfdywgYWNjdW1fYWN0X2g7DQo+ICAg
+CXUzMiB0b3RhbF93aWR0aCwgdG90YWxfaGVpZ2h0Ow0KPiAgIAl1MzIgdmFsOw0KPiAgIAlpbnQg
+cmV0Ow0KPiAgIA0KPiArCWlmIChsZGV2LT5icmlkZ2UgJiYgbGRldi0+YnJpZGdlLT50aW1pbmdz
+KQ0KPiArCQlidXNfZmxhZ3MgPSBsZGV2LT5icmlkZ2UtPnRpbWluZ3MtPmlucHV0X2J1c19mbGFn
+czsNCj4gKwllbHNlIGlmIChsZGV2LT5jb25uZWN0b3IpDQo+ICsJCWJ1c19mbGFncyA9IGxkZXYt
+PmNvbm5lY3Rvci0+ZGlzcGxheV9pbmZvLmJ1c19mbGFnczsNCj4gKw0KPiAgIAlpZiAoIXBtX3J1
+bnRpbWVfYWN0aXZlKGRkZXYtPmRldikpIHsNCj4gICAJCXJldCA9IHBtX3J1bnRpbWVfZ2V0X3N5
+bmMoZGRldi0+ZGV2KTsNCj4gICAJCWlmIChyZXQpIHsNCj4gQEAgLTU4NiwxMCArNTkyLDEwIEBA
+IHN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19tb2RlX3NldF9ub2ZiKHN0cnVjdCBkcm1fY3J0YyAqY3J0
+YykNCj4gICAJaWYgKHZtLmZsYWdzICYgRElTUExBWV9GTEFHU19WU1lOQ19ISUdIKQ0KPiAgIAkJ
+dmFsIHw9IEdDUl9WU1BPTDsNCj4gICANCj4gLQlpZiAodm0uZmxhZ3MgJiBESVNQTEFZX0ZMQUdT
+X0RFX0xPVykNCj4gKwlpZiAoYnVzX2ZsYWdzICYgRFJNX0JVU19GTEFHX0RFX0xPVykNCj4gICAJ
+CXZhbCB8PSBHQ1JfREVQT0w7DQo+ICAgDQo+IC0JaWYgKHZtLmZsYWdzICYgRElTUExBWV9GTEFH
+U19QSVhEQVRBX05FR0VER0UpDQo+ICsJaWYgKGJ1c19mbGFncyAmIERSTV9CVVNfRkxBR19QSVhE
+QVRBX0RSSVZFX05FR0VER0UpDQo+ICAgCQl2YWwgfD0gR0NSX1BDUE9MOw0KPiAgIA0KPiAgIAly
+ZWdfdXBkYXRlX2JpdHMobGRldi0+cmVncywgTFREQ19HQ1IsDQo+IEBAIC0xMDk4LDYgKzExMDQs
+OCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9lbmNvZGVyX2hlbHBlcl9mdW5jcyBsdGRjX2Vu
+Y29kZXJfaGVscGVyX2Z1bmNzID0gew0KPiAgIA0KPiAgIHN0YXRpYyBpbnQgbHRkY19lbmNvZGVy
+X2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYsIHN0cnVjdCBkcm1fYnJpZGdlICpicmlkZ2Up
+DQo+ICAgew0KPiArCXN0cnVjdCBsdGRjX2RldmljZSAqbGRldiA9IGRkZXYtPmRldl9wcml2YXRl
+Ow0KPiArCXN0cnVjdCBkcm1fY29ubmVjdG9yX2xpc3RfaXRlciBpdGVyOw0KPiAgIAlzdHJ1Y3Qg
+ZHJtX2VuY29kZXIgKmVuY29kZXI7DQo+ICAgCWludCByZXQ7DQo+ICAgDQo+IEBAIC0xMTE5LDYg
+KzExMjcsMTYgQEAgc3RhdGljIGludCBsdGRjX2VuY29kZXJfaW5pdChzdHJ1Y3QgZHJtX2Rldmlj
+ZSAqZGRldiwgc3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZSkNCj4gICAJCXJldHVybiAtRUlOVkFM
+Ow0KPiAgIAl9DQo+ICAgDQo+ICsJbGRldi0+YnJpZGdlID0gYnJpZGdlOw0KPiArDQo+ICsJLyoN
+Cj4gKwkgKiBHZXQgaG9sZCBvZiB0aGUgY29ubmVjdG9yLiBUaGlzIGlzIGEgYml0IG9mIGEgaGFj
+aywgdW50aWwgdGhlIGJyaWRnZQ0KPiArCSAqIEFQSSBnaXZlcyB1cyBidXMgZmxhZ3MgYW5kIGZv
+cm1hdHMuDQo+ICsJICovDQo+ICsJZHJtX2Nvbm5lY3Rvcl9saXN0X2l0ZXJfYmVnaW4oZGRldiwg
+Jml0ZXIpOw0KPiArCWxkZXYtPmNvbm5lY3RvciA9IGRybV9jb25uZWN0b3JfbGlzdF9pdGVyX25l
+eHQoJml0ZXIpOw0KPiArCWRybV9jb25uZWN0b3JfbGlzdF9pdGVyX2VuZCgmaXRlcik7DQo+ICsN
+Cj4gICAJRFJNX0RFQlVHX0RSSVZFUigiQnJpZGdlIGVuY29kZXI6JWQgY3JlYXRlZFxuIiwgZW5j
+b2Rlci0+YmFzZS5pZCk7DQo+ICAgDQo+ICAgCXJldHVybiAwOw0KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL3N0bS9sdGRjLmggYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuaA0KPiBp
+bmRleCBmMTUzYjkwOGM3MGUuLmQwZDJjODFkZTI5YSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL3N0bS9sdGRjLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmgNCj4g
+QEAgLTM4LDYgKzM4LDggQEAgc3RydWN0IGx0ZGNfZGV2aWNlIHsNCj4gICAJdTMyIGlycV9zdGF0
+dXM7DQo+ICAgCXN0cnVjdCBmcHNfaW5mbyBwbGFuZV9mcHNpW0xURENfTUFYX0xBWUVSXTsNCj4g
+ICAJc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN1c3BlbmRfc3RhdGU7DQo+ICsJc3RydWN0IGRy
+bV9icmlkZ2UgKmJyaWRnZTsNCj4gKwlzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yOw0K
+PiAgIH07DQo+ICAgDQo+ICAgaW50IGx0ZGNfbG9hZChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldik7
+DQo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
+eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
+by9saW51eC1zdG0zMgo=
