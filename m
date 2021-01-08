@@ -2,46 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B193C2ED33A
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Jan 2021 16:08:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AC262EEB62
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Jan 2021 03:41:37 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A142C57194;
-	Thu,  7 Jan 2021 15:08:07 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A1C5C57194;
+	Fri,  8 Jan 2021 02:41:37 +0000 (UTC)
+Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
+ [209.85.166.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF0EBC5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B97CDC5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Jan 2021 15:08:00 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4DBV3M3htJz1rynt;
- Thu,  7 Jan 2021 16:07:59 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4DBV3M34bCz1qqkB;
- Thu,  7 Jan 2021 16:07:59 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id vuNr1LJ8M3Vr; Thu,  7 Jan 2021 16:07:58 +0100 (CET)
-X-Auth-Info: ivAhJMXzKx6+DhfMubUs2KppPTsZD0eIrV9FVQi3AW0=
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Thu,  7 Jan 2021 16:07:58 +0100 (CET)
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Thu,  7 Jan 2021 16:07:42 +0100
-Message-Id: <20210107150742.166630-1-marex@denx.de>
-X-Mailer: git-send-email 2.29.2
+ Fri,  8 Jan 2021 02:41:35 +0000 (UTC)
+Received: by mail-il1-f174.google.com with SMTP id x15so8921341ilq.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 07 Jan 2021 18:41:35 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=UReZgsEeNazDb1E0tvnMlZgxkV/SKchhzjq/uOzNftA=;
+ b=I18mcVuiOZctRtZBS2HKIMZb4GCrwB8rYw0IwXALOBDecz5kjDE7Z+sIkyGKcJ5YxC
+ yK7qC8WVhmKxpz/+vXIn2nrLNgVFkNxqkPJmUg6PJr5MwqMSRtjycWzB0k4JSxQY2CBp
+ P+86UFOuV02e7aML6KXsMqUw9ZeNq1mXKSF/LgVzslbgRHkTG7IuNUNqycowUHIi7VJ/
+ AXvvWZZwVHIlhoGScji+KWzisVAAQXgV9AGjZv9YCUIzHzu+pDdw6yasqOoZOFJDN4WH
+ 8ynmtnglfrQU5+5E4oQla59xG0jYEYNt3Rjwc79heB3dW/U+Vx2WWoqPzXg3WiwDoykA
+ WmRQ==
+X-Gm-Message-State: AOAM532ycX5WgGVvnU+dWJqn9b6IKSLry68eZwQZpiUEVNx0oHayE24E
+ rjaPq//AVTRuQWv40hDV2g==
+X-Google-Smtp-Source: ABdhPJxzJ8EBfjRzhw77Uq2UvKWCik2FGY5zfXOrBWgNrJ1t2elsxK6eFsDm54ajklXduSQSYmSkEQ==
+X-Received: by 2002:a05:6e02:1311:: with SMTP id
+ g17mr1746135ilr.223.1610073694571; 
+ Thu, 07 Jan 2021 18:41:34 -0800 (PST)
+Received: from robh.at.kernel.org ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id c9sm589879ili.34.2021.01.07.18.41.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Jan 2021 18:41:33 -0800 (PST)
+Received: (nullmailer pid 1768224 invoked by uid 1000);
+ Fri, 08 Jan 2021 02:41:31 -0000
+Date: Thu, 7 Jan 2021 19:41:31 -0700
+From: Rob Herring <robh@kernel.org>
+To: Jagan Teki <jagan@amarulasolutions.com>
+Message-ID: <20210108024131.GA1768173@robh.at.kernel.org>
+References: <20201223191402.378560-1-jagan@amarulasolutions.com>
+ <20201223191402.378560-5-jagan@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Patrice Chotard <patrice.chotard@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Disable optional TSC2004 on
-	DRC02 board
+Content-Disposition: inline
+In-Reply-To: <20201223191402.378560-5-jagan@amarulasolutions.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/5] dt-bindings: arm: stm32: Add Engicam
+ MicroGEA STM32MP1 MicroDev 2.0 7" OF
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,43 +71,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DRC02 has no use for the on-SoM touchscreen controller, and the
-on-SoM touchscreen controller may not even be populated, which then
-results in error messages in kernel log. Disable the touchscreen
-controller in DT.
+On Thu, 24 Dec 2020 00:44:01 +0530, Jagan Teki wrote:
+> MicroGEA STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
+> 
+> MicroDev 2.0 is a general purpose miniature carrier board with CAN,
+> LTE and LVDS panel interfaces.
+> 
+> 7" OF is a capacitive touch 7" Open Frame panel solutions.
+> 
+> MicroGEA STM32MP1 needs to mount on top of MicroDev 2.0 board with
+> pluged 7" OF for creating complete MicroGEA STM32MP1 MicroDev 2.0
+> 7" Open Frame Solution board.
+> 
+> Add bindings for it.
+> 
+> Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+> ---
+>  Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
 
-Fixes: fde180f06d7b ("ARM: dts: stm32: Add DHSOM based DRC02 board")
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
----
- arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
-index 8d1fea332665..5088dd3a301b 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
-@@ -87,6 +87,12 @@ eeprom@50 {
- 	};
- };
- 
-+&i2c4 {
-+	touchscreen@49 {
-+		status = "disabled";
-+	};
-+};
-+
- &i2c5 {	/* TP7/TP8 */
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c5_pins_a>;
--- 
-2.29.2
-
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
