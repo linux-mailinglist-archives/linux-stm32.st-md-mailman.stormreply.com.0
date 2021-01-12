@@ -2,61 +2,111 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 922362F330A
+	by mail.lfdr.de (Postfix) with ESMTPS id AA6832F330B
 	for <lists+linux-stm32@lfdr.de>; Tue, 12 Jan 2021 15:37:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CFE5C424C0;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A3D2C56635;
 	Tue, 12 Jan 2021 14:37:51 +0000 (UTC)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
- [209.85.215.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr140071.outbound.protection.outlook.com [40.107.14.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62AA5C32EA7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B26CFC32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Jan 2021 08:53:19 +0000 (UTC)
-Received: by mail-pg1-f193.google.com with SMTP id c132so1007457pga.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Jan 2021 00:53:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=iCD56C5pg1d1NTNumNDFp4t2vfpUV33Zv3uz34vtHcM=;
- b=cgvc90vIzF3OIyMlOfnqqxO/AsGLIEc5lSv8L3t2RrsXjaJSpeCOzyADwRMLDX80mh
- XpILvChB1UGanSwSh6JXbZ8EScoCziyl+K42gASbMI+uL3K0M5xenZza2PmsE8rxiewr
- RmrdDkT78NsO6+6ElPSNuO05ompOuvhNXk0PiqqbSUs27UsWrZIvvWL1WFTD5Es//tkj
- /REpahA1UzM1SenWXb0wydnkdyTr1V3jNmT/sK4JbxNp5RolCN6t4fWA8PWmch0bwevM
- 5Pm0JULrnTj4LU7tpifvD5+Yq4FbhTHKF9P8iL02bH7IJIP8r55DIomBY10uwBILvvXi
- YBOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=iCD56C5pg1d1NTNumNDFp4t2vfpUV33Zv3uz34vtHcM=;
- b=Tpc7wfQUiJP7WQuZy8LhvDi7xTa3fKALaUc957VEITeAspBY2geiR/0zwML/oXcwmt
- WO4fEVvDwwbqn3saAcLOxWpAla2Q3+UtOTzTGDl/HgGK9qo1SetlY3q8qEZ5gRpbSXs2
- sYD/V8Zz7wrnG7FA/fsPaifRwPQdj9fRRR8kO1+HYo7sKYCCgHogF1Q0hS6u1iD5JcIK
- LtrGYpIU4p9X3+fH/kHnZG2qsVQoBaLBW5mgD1hg/ElLQDpzM1IIXzJeWxiJb8uxEz4u
- 3e+PmgHA80dIDJ+ev3aX4QiZErKZnDRY568ZtpPwZa+mKf7YtNQ/WpaqVkZIxd2CPezE
- ns2A==
-X-Gm-Message-State: AOAM532iO2Q52lEldH4Uphdyu5ztR9OLolzLH6pnki8qs7ZpP/nkNVLd
- 0htj1QP3T5bCRGGZC3vWuZg=
-X-Google-Smtp-Source: ABdhPJwWcJw4BGKctgBn3fXpdsTZXyGdlSBNAKK3KdVpgrKCr7T/XRv51DVD9EnvtC9WsP84zj53Ww==
-X-Received: by 2002:a63:d246:: with SMTP id t6mr3727099pgi.283.1610441598288; 
- Tue, 12 Jan 2021 00:53:18 -0800 (PST)
-Received: from localhost.localdomain ([178.236.46.205])
- by smtp.gmail.com with ESMTPSA id 198sm2392803pfw.29.2021.01.12.00.53.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Jan 2021 00:53:17 -0800 (PST)
-From: menglong8.dong@gmail.com
-X-Google-Original-From: dong.menglong@zte.com.cn
-To: pierre-yves.mordret@st.com
-Date: Tue, 12 Jan 2021 00:53:11 -0800
-Message-Id: <20210112085311.7308-1-dong.menglong@zte.com.cn>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Tue, 12 Jan 2021 14:37:49 +0000
-Cc: Menglong Dong <dong.menglong@zte.com.cn>, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] i2c: remove redundant error print in
-	stm32f7_i2c_probe
+ Tue, 12 Jan 2021 14:02:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FmhR/LCBvscoLYGiAPEIRHSbglWw5FNqObxAkhyPsbHQgk574w6N1PlB5w15jEnbF0yXXqrWFqhgxvkbb/Ens9BqFRwU5Ll6qvF/6io7TfqbD4jkVwvlHpancMPMdsyC13ifYPQcnb86Z04HkZwklB4f4pqTMaJaxToYo3nfKdRmIR5ZSkYniMb/7toR5ycPx7Pl7kL2eBlOvm9EfcB2xEwQK0U2HoW+XipsZprhKgK1Nd68UEzph2VSWlKYASbYenq8Rj8tPwWWBN7AM/lCDpbeOB+GNrRUYl6DlL6jgFuEN4vDPhXwfDNbZC3f/IOmY+ZmGD/XhL4+wM26IapeDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ehBycB5eXTd3bmYogDncW5KLnftnx2BuFFovkO4PtKs=;
+ b=oajjP3GbLr8Jx0aVfgy02Xm7vSV5W8/+IfisF3fxfJO2njPSNAmSWv/dK8lFCj2PqIBC2BUfs06XkS4vYt7Lpe1qA1jN5bPApAQUASJz/ArKsSHIw2fwny9N8WmRvWvB7fUgyktIJuMJ8gepgkkxkOARa1V1PBnBycXA6RQAVz5gihmYKz0fntLC9DSXsvO0GAiaxD5g4UI17drfgxF3pDSzU/3piS5ZoUsvfpzejg1ATQGWC3tvYmCfM1zlCP7VfQmdo+LuUBegbQyjPNjLaTm29bB1UGHw+H1XeQzJFBHLp29AX5gth/IbNup4TUmy1IsmYLiC+JT7uFFNWPsHjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector2-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ehBycB5eXTd3bmYogDncW5KLnftnx2BuFFovkO4PtKs=;
+ b=WW6PyNSgmJ9Dk2C/wr+oIRq7HGyGgf1IhbG6ueaPTB4EY6HGNkubVH5Yf7QT2a5JYEAjC8D5X614nT0AEIo3tR0Gsr/2MD7eAyDqv/RcEW7hwq3WjQ4b3FQbA5GuQlNmCssBAwJoEiR6lzcxoc03Jnisyjc+JXfuOHdrXy6Wh6g=
+Authentication-Results: st.com; dkim=none (message not signed)
+ header.d=none;st.com; dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR0401MB2671.eurprd04.prod.outlook.com
+ (2603:10a6:800:55::10) by VI1PR04MB4318.eurprd04.prod.outlook.com
+ (2603:10a6:803:47::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3763.9; Tue, 12 Jan
+ 2021 14:02:43 +0000
+Received: from VI1PR0401MB2671.eurprd04.prod.outlook.com
+ ([fe80::dd31:2096:170b:c947]) by VI1PR0401MB2671.eurprd04.prod.outlook.com
+ ([fe80::dd31:2096:170b:c947%5]) with mapi id 15.20.3742.012; Tue, 12 Jan 2021
+ 14:02:43 +0000
+From: Sebastien Laveze <sebastien.laveze@oss.nxp.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 12 Jan 2021 15:01:22 +0100
+Message-Id: <20210112140121.1487619-1-sebastien.laveze@oss.nxp.com>
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [84.102.252.120]
+X-ClientProxiedBy: AM3PR04CA0131.eurprd04.prod.outlook.com (2603:10a6:207::15)
+ To VI1PR0401MB2671.eurprd04.prod.outlook.com
+ (2603:10a6:800:55::10)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (84.102.252.120) by
+ AM3PR04CA0131.eurprd04.prod.outlook.com (2603:10a6:207::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3742.6 via Frontend Transport; Tue, 12 Jan 2021 14:02:41 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 94f2fb19-e0ce-4790-1358-08d8b702bb22
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4318:
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-Microsoft-Antispam-PRVS: <VI1PR04MB4318179CA2A00AE0EC5FF089CDAA0@VI1PR04MB4318.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: drSEMZEBU3OGZJ5Xmf/E9xm644l1/ZuE4mc27zbGR/gpNv8bn/sWro4CCxba3+kxSeAUiy2lLlW8rQcDmzPGVvNYzSh3u64sbs5eZEE2QAH7rpbOOBQe+v6ioB4n+KAtx6rXZ48JAjLBBJ/fxFB8daoIMiSZ58fguX7nhJgV7ix2893rFQW4JHz0uKDpAl27UdlqxkC2nqD5esZshc9pXyx8T+jDB9x8ipmlyj+h3jOxjYbLp5DFcrbQWmo/RMERBkL28/tvuZLZIFTjgzTuQdpyzUmL/HIukeXFab6SpcuTb5EQUTYZqs3Ga9lDIGW1r6T59h7ZE+U6Gx68oEhfp+zYywR3HBxOthXLO1N3FjxZwNwgVA9VWgdtMypcdTP+j1CjpZOpJPJ0HeaFwjJdWOjfqHqYLhZZGE9JzcN73ftdHZfXuYI0c0eXL6lY0da9GcdJXWemrvCfXbE7I9Aecg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR0401MB2671.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(366004)(136003)(39850400004)(396003)(26005)(7416002)(16526019)(6486002)(186003)(2616005)(5660300002)(956004)(8676002)(83380400001)(6512007)(2906002)(921005)(4326008)(1076003)(52116002)(110136005)(8936002)(6506007)(66476007)(44832011)(66946007)(66556008)(86362001)(478600001)(6666004)(69590400011)(316002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?8Z/0PkI/Glfe2z/CCMLrMoYms8rqXRumPm9avjfuCkkg5ebqL4QVuLThSwBP?=
+ =?us-ascii?Q?zWeDYs6c4tHmKJWUIfUeg9pXSDaJyQlDYO70r1MvGVD8lh7PhGE0vlAF5oVI?=
+ =?us-ascii?Q?Ae7aHtAYZGPUYMU2vUD6IcbZCWjl+LqhSKffVYgUfbTOdlLQAWZEk7W7OaCJ?=
+ =?us-ascii?Q?zQaJTg4FZhb4PCRmdxsegTFpxRtGyZi7pnMVEHAEw+D0FPayOOp6So0vrvp0?=
+ =?us-ascii?Q?S6zUS/y8otd7RO7r3giVoyssZGkaMI5GOS6fR/jyAvXhiUttmN/lvu6MX13M?=
+ =?us-ascii?Q?9uRLUf/JUbB4LrY7rHTcPkHRFBR0bQkXEazfd16lIXiSZXgh5oaxEAIEgcFZ?=
+ =?us-ascii?Q?9q2FVJEF6rrxmkQxhiF0hZcNY2dGmgJA4vwD0689N4xPC4k/6kM2SKMhXcZd?=
+ =?us-ascii?Q?is1jCAJIWfprlgGt6FzQy+bwWT43zRJDeeQ+q4QXQetDwxczckcgTvHo0Sjp?=
+ =?us-ascii?Q?D30ABDdDdPumsZjSL8/BxhjH9Zqt1l2BxhliGY7rgSZnVK0v9ku+DlCUMCMy?=
+ =?us-ascii?Q?O6ShXfLjGbcfHzIcJKhVIdHWdf3BzIHj4QHZ5AfGXtk29FpAtOqUW6/b/9Jw?=
+ =?us-ascii?Q?hKJLDg1RTQxl10lbunlve6mveKpT48mukOHfJjluLoampWBAlYUueKMepMog?=
+ =?us-ascii?Q?LDfNyfUhs9s64FI2MFbCFG9LDeiu3jZgkKzVLpTlIFHjifAZweXMYSUTdGhI?=
+ =?us-ascii?Q?q5nnms5tpNdrde3i8z4S6sNbIKmQursHG5VvOzOGOnKj70fs/Of6NMCCEUGr?=
+ =?us-ascii?Q?dI5fP6TjslW1TvUagpqVGJ8W0TH7TO3a1XLWl7buZIX2m2G5gBAy7IOBHNDl?=
+ =?us-ascii?Q?v/s8JibEK6qCtMXlGva2DJ7zcchpASC0GUJB5IkfsDTzvk8l5JMWVOX0d5Aq?=
+ =?us-ascii?Q?2THf1Vpf0ZcSo8JW+/kaGt1jwte82ot8WuOGamPyvwDjBXAqGXNI4m03ByFX?=
+ =?us-ascii?Q?3f/Wu7OnHguCOIyqmK50Rm+w0UPq3z8Y+AeIFxW3RnWlIfM2i8MyoAL4R9YZ?=
+ =?us-ascii?Q?s9Yh?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR0401MB2671.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2021 14:02:42.8866 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94f2fb19-e0ce-4790-1358-08d8b702bb22
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DBXZVWb1ihzz3hOlAcHFwKWLETcUNxu4FA5j0zRTckibPah5DbGHivFumNNwA9BD3Yt1k927X5lbzmIT5azjZOFR9wZtllHRhUQOCTRsMUE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4318
+X-Mailman-Approved-At: Tue, 12 Jan 2021 14:37:48 +0000
+Cc: linux-rt-users@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: use __napi_schedule() for
+	PREEMPT_RT
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,43 +118,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Menglong Dong <dong.menglong@zte.com.cn>
+From: Seb Laveze <sebastien.laveze@nxp.com>
 
-Coccinelle reports a redundant error print in stm32f7_i2c_probe.
-As 'platform_get_irq' already prints the error message, error
-print here is redundant and can be removed.
+Use of __napi_schedule_irqoff() is not safe with PREEMPT_RT in which
+hard interrupts are not disabled while running the threaded interrupt.
 
-Signed-off-by: Menglong Dong <dong.menglong@zte.com.cn>
+Using __napi_schedule() works for both PREEMPT_RT and mainline Linux,
+just at the cost of an additional check if interrupts are disabled for
+mainline (since they are already disabled).
+
+Similar to the fix done for enetc:
+215602a8d212 ("enetc: use napi_schedule to be compatible with PREEMPT_RT")
+
+Signed-off-by: Seb Laveze <sebastien.laveze@nxp.com>
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 9aa8e65b511e..adba496e1e31 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -2026,12 +2026,8 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 5b1c12ff98c0..2d90d6856ec5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2184,7 +2184,7 @@ static int stmmac_napi_check(struct stmmac_priv *priv, u32 chan)
+ 			spin_lock_irqsave(&ch->lock, flags);
+ 			stmmac_disable_dma_irq(priv, priv->ioaddr, chan, 1, 0);
+ 			spin_unlock_irqrestore(&ch->lock, flags);
+-			__napi_schedule_irqoff(&ch->rx_napi);
++			__napi_schedule(&ch->rx_napi);
+ 		}
  	}
  
- 	irq_error = platform_get_irq(pdev, 1);
--	if (irq_error <= 0) {
--		if (irq_error != -EPROBE_DEFER)
--			dev_err(&pdev->dev, "Failed to get IRQ error: %d\n",
--				irq_error);
-+	if (irq_error <= 0)
- 		return irq_error ? : -ENOENT;
--	}
+@@ -2193,7 +2193,7 @@ static int stmmac_napi_check(struct stmmac_priv *priv, u32 chan)
+ 			spin_lock_irqsave(&ch->lock, flags);
+ 			stmmac_disable_dma_irq(priv, priv->ioaddr, chan, 0, 1);
+ 			spin_unlock_irqrestore(&ch->lock, flags);
+-			__napi_schedule_irqoff(&ch->tx_napi);
++			__napi_schedule(&ch->tx_napi);
+ 		}
+ 	}
  
- 	i2c_dev->wakeup_src = of_property_read_bool(pdev->dev.of_node,
- 						    "wakeup-source");
 -- 
-2.17.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
