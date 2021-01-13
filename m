@@ -2,43 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 265A52F4E2D
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Jan 2021 16:10:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 415CA2F4E8A
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Jan 2021 16:29:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D86D6C5660F;
-	Wed, 13 Jan 2021 15:10:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB0BEC5660F;
+	Wed, 13 Jan 2021 15:29:06 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 087F9C424BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D66BEC424BE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Jan 2021 15:10:44 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 55B202337F;
- Wed, 13 Jan 2021 15:10:42 +0000 (UTC)
+ Wed, 13 Jan 2021 15:29:05 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9F54F233EA;
+ Wed, 13 Jan 2021 15:29:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610550643;
- bh=49EcqNO3BNtm9SgsIEaZe12aoA3Tw/mLHvfiTqlGjXs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=etqN7VUMPx4jO+i41MW0+eU5VpDprOhFXusdoR3MrJsnkCxH44Ykn5OVU/hNixV1t
- 6tSGJHAr1b9EM2+pHqwoTwfU0EYLBs3Nr5mKxxLHYb0wxJ28NbipKKpNBlpbO6gDTG
- c9BzrY1Yu1dkyPAYNcuYGfM32vU7+qsZGGMNEY4rqWjMSkuKhnO95L4D8EBv6SMiLp
- UNsHwmQLCx5khdJa2JKCwoGwl24SOuawSqLssT9UZcoarrxRkMq5QDPDZebC0BSVOj
- OzDqjVtcuencdVxTrQksJSrw+hcUcOhgKCKI9bWzCQ+BuXd2bv+rg6WP6x5J474dqC
- 0Mx6ns/MHqLkg==
-Date: Wed, 13 Jan 2021 20:40:33 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <20210113151033.GU2771@vkoul-mobl>
-References: <20210105090525.23164-1-amelie.delaunay@foss.st.com>
+ s=k20201202; t=1610551744;
+ bh=bWsINNChrgBVID6nsVHR+SPM6eCH/SYMN0yzKSvyWLI=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=XMP2/xx8ExtxJfyOqTZWgN0c/YBvqPnFh8VaLHcBswHGtFWbgsfN9YKpB0TMerCPJ
+ yZPW+qv5gJ/qfncbHsAQF/GFt7RVJfeQcEDveTY3ijkQvRuzkNktbhUZBIN20nTlFF
+ gQi3LJbBcBuK3+6tckwmyRd2NGuLS7rqIcUE8tS1412Or/Q6oXaHbFmfn5YZA+PrUA
+ oBhZuSnErzsjj1IKDV3NJUVn9/y8Ju1SI0U6gUbaCyCCBNAzqCm/rmePtfkfF7bDQg
+ T/h0UOeT7daQN8SuwBrygx1o8UiK58yhPOZQMbSxVjA5JybE/zIG6Tg4EYZMmM6EQG
+ d9xq+l1SD+iZw==
+From: Mark Brown <broonie@kernel.org>
+To: linux-spi@vger.kernel.org, Marek Vasut <marex@denx.de>
+In-Reply-To: <20210104123114.261596-1-marex@denx.de>
+References: <20210104123114.261596-1-marex@denx.de>
+Message-Id: <161055171029.21847.15772313801435250449.b4-ty@kernel.org>
+Date: Wed, 13 Jan 2021 15:28:30 +0000
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210105090525.23164-1-amelie.delaunay@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
+Cc: Alain Volmat <alain.volmat@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Roman Guskov <rguskov@dh-electronics.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/6] STM32 USBPHYC PLL management rework
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32: Simplify
+	stm32h7_spi_prepare_fthlv()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,16 +54,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 05-01-21, 10:05, Amelie Delaunay wrote:
-> STM32 USBPHYC controls the USB PLL. PLL requires to be powered with 1v1 and 1v8
-> supplies. To ensure a good behavior of the PLL, during boot, runtime and
-> suspend/resume sequences, this series reworks its management to fix regulators
-> issues and improve PLL status reliability.
+On Mon, 4 Jan 2021 13:31:14 +0100, Marek Vasut wrote:
+> Simplify stm32h7_spi_prepare_fthlv() function implementation,
+> no functional change intended.
 
-Applied, thanks
+Applied to
 
--- 
-~Vinod
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+
+Thanks!
+
+[1/1] spi: stm32: Simplify stm32h7_spi_prepare_fthlv()
+      commit: 970e8eaa08195a26ba99ec0843968cbc7ad8e947
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
