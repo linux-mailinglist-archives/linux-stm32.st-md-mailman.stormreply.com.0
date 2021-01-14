@@ -2,64 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64B6D2F66EE
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jan 2021 18:13:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D46272F66EA
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jan 2021 18:13:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3186C57193;
-	Thu, 14 Jan 2021 17:13:33 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D603C56635;
+	Thu, 14 Jan 2021 17:13:24 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACA12C5660F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A57AC5660F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Jan 2021 17:13:32 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10EHC1CD011542; Thu, 14 Jan 2021 18:13:27 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=3Fnau9VjgNR74S0Cjwr64Hdn4b2pMFnAyPJqBCtPQs8=;
- b=zA/7vAaW7tl1oEmqInd+2Uka/SBvPTU3BmQJk5EE/f0OctvEMwIEIMso2iZP6A203Ib5
- K0baDuOJYeEx3Cf7mIXc3+CobCBAwD47hUfd3qSNRKc389bcNXt6swEwcO6cDC5Wz1qQ
- x1fy5yDsn7uzeuWGOdzh8Pk/M75VvVkS9UaRIOTRF+Y0e8qwppsoGYrK90cQanmJ2UYd
- /p377JXankjvwLdrn91qskenj70VSLCkfXWGwxGb6E7YSn8pW2LEvQe59CA71iY/vKww
- RPHNyel+gPnFWi7puVO/tXU4L/hrEK9UV04XMabr/Zrb08JPpiYdsh/0Bn6QiU9NQWDX /Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 35y5gxea5s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Jan 2021 18:13:27 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F3FD610002A;
- Thu, 14 Jan 2021 18:13:26 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E5BC625D03A;
- Thu, 14 Jan 2021 18:13:26 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 14 Jan 2021 18:13:25
- +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>, Rob
- Herring <robh+dt@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Thu, 14 Jan 2021 18:13:14 +0100
-Message-ID: <20210114171314.18946-3-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210114171314.18946-1-amelie.delaunay@foss.st.com>
-References: <20210114171314.18946-1-amelie.delaunay@foss.st.com>
+ Thu, 14 Jan 2021 17:13:21 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4DGrVn07dtz1rxMB;
+ Thu, 14 Jan 2021 18:13:20 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4DGrVm4H3Bz1tYVl;
+ Thu, 14 Jan 2021 18:13:20 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id fZrOGiiw3jBl; Thu, 14 Jan 2021 18:13:19 +0100 (CET)
+X-Auth-Info: F12FPjym3JLfYswfpsjMD/f+Tu/Bnz80znXtyf7xNOk=
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Thu, 14 Jan 2021 18:13:19 +0100 (CET)
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ linux-arm-kernel@lists.infradead.org
+References: <20201229175521.268234-1-marex@denx.de>
+ <c893ad3e-dba2-e1b2-ed7a-24937532d0e6@foss.st.com>
+ <30988ce3-93c2-85be-8039-1a886a3f57dc@denx.de>
+ <d0ff80e5-5298-c822-ca9f-b4365464fc5a@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <ba2efe46-9e5e-f5bf-02d7-537b5667f76a@denx.de>
+Date: Thu, 14 Jan 2021 18:13:18 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-14_06:2021-01-14,
- 2021-01-14 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 2/2] phy: stm32: register usbphyc as clock
-	provider of ck_usbo_48m clock
+In-Reply-To: <d0ff80e5-5298-c822-ca9f-b4365464fc5a@foss.st.com>
+Content-Language: en-US
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Patrice Chotard <patrice.chotard@st.com>
+Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: Fix GPIO hog flags
+	on DHCOM PicoITX
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,146 +62,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ck_usbo_48m is generated by usbphyc PLL and used by OTG controller
-for Full-Speed use cases with dedicated Full-Speed transceiver.
-
-ck_usbo_48m is available as soon as the PLL is enabled.
-
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
-Changes in v2:
-- fix COMMON_CLK dependency issue reported by kernel test robot
----
- drivers/phy/st/Kconfig             |  1 +
- drivers/phy/st/phy-stm32-usbphyc.c | 66 ++++++++++++++++++++++++++++++
- 2 files changed, 67 insertions(+)
-
-diff --git a/drivers/phy/st/Kconfig b/drivers/phy/st/Kconfig
-index b32f44ff9033..3fc3d0781fb8 100644
---- a/drivers/phy/st/Kconfig
-+++ b/drivers/phy/st/Kconfig
-@@ -36,6 +36,7 @@ config PHY_STIH407_USB
- config PHY_STM32_USBPHYC
- 	tristate "STMicroelectronics STM32 USB HS PHY Controller driver"
- 	depends on ARCH_STM32 || COMPILE_TEST
-+	depends on COMMON_CLK
- 	select GENERIC_PHY
- 	help
- 	  Enable this to support the High-Speed USB transceivers that are part
-diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
-index d08fbb180e43..349976259112 100644
---- a/drivers/phy/st/phy-stm32-usbphyc.c
-+++ b/drivers/phy/st/phy-stm32-usbphyc.c
-@@ -7,6 +7,7 @@
-  */
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/clk-provider.h>
- #include <linux/delay.h>
- #include <linux/iopoll.h>
- #include <linux/kernel.h>
-@@ -70,6 +71,7 @@ struct stm32_usbphyc {
- 	struct regulator *vdda1v1;
- 	struct regulator *vdda1v8;
- 	atomic_t n_pll_cons;
-+	struct clk_hw clk48_hw;
- 	int switch_setup;
- };
- 
-@@ -295,6 +297,61 @@ static const struct phy_ops stm32_usbphyc_phy_ops = {
- 	.owner = THIS_MODULE,
- };
- 
-+static int stm32_usbphyc_clk48_prepare(struct clk_hw *hw)
-+{
-+	struct stm32_usbphyc *usbphyc = container_of(hw, struct stm32_usbphyc, clk48_hw);
-+
-+	return stm32_usbphyc_pll_enable(usbphyc);
-+}
-+
-+static void stm32_usbphyc_clk48_unprepare(struct clk_hw *hw)
-+{
-+	struct stm32_usbphyc *usbphyc = container_of(hw, struct stm32_usbphyc, clk48_hw);
-+
-+	stm32_usbphyc_pll_disable(usbphyc);
-+}
-+
-+static unsigned long stm32_usbphyc_clk48_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
-+{
-+	return 48000000;
-+}
-+
-+static const struct clk_ops usbphyc_clk48_ops = {
-+	.prepare = stm32_usbphyc_clk48_prepare,
-+	.unprepare = stm32_usbphyc_clk48_unprepare,
-+	.recalc_rate = stm32_usbphyc_clk48_recalc_rate,
-+};
-+
-+static void stm32_usbphyc_clk48_unregister(void *data)
-+{
-+	struct stm32_usbphyc *usbphyc = data;
-+
-+	of_clk_del_provider(usbphyc->dev->of_node);
-+	clk_hw_unregister(&usbphyc->clk48_hw);
-+}
-+
-+static int stm32_usbphyc_clk48_register(struct stm32_usbphyc *usbphyc)
-+{
-+	struct device_node *node = usbphyc->dev->of_node;
-+	struct clk_init_data init = { };
-+	int ret = 0;
-+
-+	init.name = "ck_usbo_48m";
-+	init.ops = &usbphyc_clk48_ops;
-+
-+	usbphyc->clk48_hw.init = &init;
-+
-+	ret = clk_hw_register(usbphyc->dev, &usbphyc->clk48_hw);
-+	if (ret)
-+		return ret;
-+
-+	ret = of_clk_add_hw_provider(node, of_clk_hw_simple_get, &usbphyc->clk48_hw);
-+	if (ret)
-+		clk_hw_unregister(&usbphyc->clk48_hw);
-+
-+	return ret;
-+}
-+
- static void stm32_usbphyc_switch_setup(struct stm32_usbphyc *usbphyc,
- 				       u32 utmi_switch)
- {
-@@ -473,6 +530,13 @@ static int stm32_usbphyc_probe(struct platform_device *pdev)
- 		goto clk_disable;
- 	}
- 
-+	ret = stm32_usbphyc_clk48_register(usbphyc);
-+	if (ret) {
-+		dev_err(dev,
-+			"failed to register ck_usbo_48m clock: %d\n", ret);
-+		goto clk_disable;
-+	}
-+
- 	version = readl_relaxed(usbphyc->base + STM32_USBPHYC_VERSION);
- 	dev_info(dev, "registered rev:%lu.%lu\n",
- 		 FIELD_GET(MAJREV, version), FIELD_GET(MINREV, version));
-@@ -497,6 +561,8 @@ static int stm32_usbphyc_remove(struct platform_device *pdev)
- 		if (usbphyc->phys[port]->active)
- 			stm32_usbphyc_phy_exit(usbphyc->phys[port]->phy);
- 
-+	stm32_usbphyc_clk48_unregister(usbphyc);
-+
- 	clk_disable_unprepare(usbphyc->clk);
- 
- 	return 0;
--- 
-2.17.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMS8xNC8yMSA2OjExIFBNLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgo+IAo+IAo+IE9uIDEv
+MTQvMjEgNjowOCBQTSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+IE9uIDEvMTQvMjEgNDoxMSBQTSwg
+QWxleGFuZHJlIFRPUkdVRSB3cm90ZToKPj4+IEhpIE1hcmVrCj4+Cj4+IEhpLAo+Pgo+PiBbLi4u
+XQo+Pgo+Pj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNv
+bS1waWNvaXR4LmR0c2kgCj4+Pj4gYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNv
+bS1waWNvaXR4LmR0c2kKPj4+PiBpbmRleCAyNTUyOGExYzA5NmYuLjc1NzcwNzc2NmZhMCAxMDA2
+NDQKPj4+PiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvbS1waWNvaXR4
+LmR0c2kKPj4+PiArKysgYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvbS1waWNv
+aXR4LmR0c2kKPj4+PiBAQCAtNDksNyArNDksNyBAQCAmZ3Bpb2Egewo+Pj4+IMKgwqDCoMKgwqDC
+oCAqLwo+Pj4+IMKgwqDCoMKgwqAgdXNiLXBvcnQtcG93ZXItaG9nIHsKPj4+Cj4+PiBPbiBteSB0
+cmVlIHRoaXMgbm9kZSBpcyAidXNiLXBvcnQtcG93ZXIiLiBEbyB5b3Ugd2FudCB0byB1cGRhdGUg
+dGhlIAo+Pj4gbm9kZSBuYW1lIHRvbyA/IEkgY2FuIGRvIGl0IGRpcmVjdGx5IGR1cmluZyB0aGUg
+bWVyZ2UgaWYgeW91IHdhbnQuCj4+PiAoTm90ZSwgaXQgaXMgdGhlIGNhc2UgZm9yIERSQzAyIGhv
+ZyB1cGRhdGUpLgo+Pgo+PiBQbGVhc2UgcGljayAiW1BBVENIXSBBUk06IGR0czogc3RtMzI6IEZp
+eCBHUElPIGhvZyBuYW1lcyBvbiBESENPTSIgCj4+IGZpcnN0LCB0aGVuIHRoaXMgcGF0Y2ggc2hv
+dWxkIGFwcGx5IGNsZWFubHkuCj4gCj4gWWVzIEkganVzdCBzYXcgdGhpcyBvbmUuIEl0IGRvZXNu
+J3QgY29udGFpbiBhIGZpeGVzIHRhZywgSSBjYW4gYWRkIHRoZSAKPiBzYW1lIHRoYW4gZm9yIG90
+aGVyIGhvZyBwYXRjaGVzID8KCklmIHRoYXQgaXMgT0sgd2l0aCB5b3UsIHBsZWFzZSBkby4gVGhh
+bmtzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
+LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2xpbnV4LXN0bTMyCg==
