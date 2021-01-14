@@ -2,55 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D46272F66EA
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jan 2021 18:13:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72CBF2F6749
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jan 2021 18:19:04 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D603C56635;
-	Thu, 14 Jan 2021 17:13:24 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3062BC424C0;
+	Thu, 14 Jan 2021 17:19:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A57AC5660F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B500DC32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Jan 2021 17:13:21 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4DGrVn07dtz1rxMB;
- Thu, 14 Jan 2021 18:13:20 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4DGrVm4H3Bz1tYVl;
- Thu, 14 Jan 2021 18:13:20 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id fZrOGiiw3jBl; Thu, 14 Jan 2021 18:13:19 +0100 (CET)
-X-Auth-Info: F12FPjym3JLfYswfpsjMD/f+Tu/Bnz80znXtyf7xNOk=
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Thu, 14 Jan 2021 18:13:19 +0100 (CET)
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20201229175521.268234-1-marex@denx.de>
- <c893ad3e-dba2-e1b2-ed7a-24937532d0e6@foss.st.com>
- <30988ce3-93c2-85be-8039-1a886a3f57dc@denx.de>
- <d0ff80e5-5298-c822-ca9f-b4365464fc5a@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <ba2efe46-9e5e-f5bf-02d7-537b5667f76a@denx.de>
-Date: Thu, 14 Jan 2021 18:13:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ Thu, 14 Jan 2021 17:19:01 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 10EHGteL013630; Thu, 14 Jan 2021 18:18:55 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=cUj1yf2hybpTigFaCAblbQIfka7vGPKUzsMBvqfy8/8=;
+ b=2brnYtg+uCRlmhchREuRQhrp5OuoZ2YrYtHKhM4pe9iukUbae2LZKrplex/W00torm3n
+ /e0SYTFyFFdoV/ZxObj1stqNNDTJs25Z1dS//INg1kCFMOsqlnnFlDs6qhf3xoxaAZNf
+ yrdpuP8Vc+pcviepXqtVJ/dw8Rx0JB2It4AiC4AT26soihi97RJz1eewyuQ5JhHos806
+ w8AF8ftC6pzuGhhP18SivUrAoOdttm2QQOlEBe8dnktNeYDuXVDerM7lCYwcDAMpFHCM
+ cQvL3oGSXFFzoFFebU56U/HghN4Ne62TSaEFXf0haDTutcbX8B3xawOGKG4Vheyc7rH5 dQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 35yp3y3uug-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 14 Jan 2021 18:18:55 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1170B10002A;
+ Thu, 14 Jan 2021 18:18:55 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 066832C38A1;
+ Thu, 14 Jan 2021 18:18:55 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.49) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 14 Jan
+ 2021 18:18:54 +0100
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20201224062438.92582-1-marex@denx.de>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <07c83c12-e167-0458-e6f2-cc5fcac943d6@foss.st.com>
+Date: Thu, 14 Jan 2021 18:18:54 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <d0ff80e5-5298-c822-ca9f-b4365464fc5a@foss.st.com>
+In-Reply-To: <20201224062438.92582-1-marex@denx.de>
 Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-14_06:2021-01-14,
+ 2021-01-14 signatures=0
+Cc: Patrick Delaunay <patrick.delaunay@st.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: Fix GPIO hog flags
-	on DHCOM PicoITX
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix GPIO hog names on
+	DHCOM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,30 +74,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMS8xNC8yMSA2OjExIFBNLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgo+IAo+IAo+IE9uIDEv
-MTQvMjEgNjowOCBQTSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+IE9uIDEvMTQvMjEgNDoxMSBQTSwg
-QWxleGFuZHJlIFRPUkdVRSB3cm90ZToKPj4+IEhpIE1hcmVrCj4+Cj4+IEhpLAo+Pgo+PiBbLi4u
-XQo+Pgo+Pj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNv
-bS1waWNvaXR4LmR0c2kgCj4+Pj4gYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNv
-bS1waWNvaXR4LmR0c2kKPj4+PiBpbmRleCAyNTUyOGExYzA5NmYuLjc1NzcwNzc2NmZhMCAxMDA2
-NDQKPj4+PiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvbS1waWNvaXR4
-LmR0c2kKPj4+PiArKysgYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvbS1waWNv
-aXR4LmR0c2kKPj4+PiBAQCAtNDksNyArNDksNyBAQCAmZ3Bpb2Egewo+Pj4+IMKgwqDCoMKgwqDC
-oCAqLwo+Pj4+IMKgwqDCoMKgwqAgdXNiLXBvcnQtcG93ZXItaG9nIHsKPj4+Cj4+PiBPbiBteSB0
-cmVlIHRoaXMgbm9kZSBpcyAidXNiLXBvcnQtcG93ZXIiLiBEbyB5b3Ugd2FudCB0byB1cGRhdGUg
-dGhlIAo+Pj4gbm9kZSBuYW1lIHRvbyA/IEkgY2FuIGRvIGl0IGRpcmVjdGx5IGR1cmluZyB0aGUg
-bWVyZ2UgaWYgeW91IHdhbnQuCj4+PiAoTm90ZSwgaXQgaXMgdGhlIGNhc2UgZm9yIERSQzAyIGhv
-ZyB1cGRhdGUpLgo+Pgo+PiBQbGVhc2UgcGljayAiW1BBVENIXSBBUk06IGR0czogc3RtMzI6IEZp
-eCBHUElPIGhvZyBuYW1lcyBvbiBESENPTSIgCj4+IGZpcnN0LCB0aGVuIHRoaXMgcGF0Y2ggc2hv
-dWxkIGFwcGx5IGNsZWFubHkuCj4gCj4gWWVzIEkganVzdCBzYXcgdGhpcyBvbmUuIEl0IGRvZXNu
-J3QgY29udGFpbiBhIGZpeGVzIHRhZywgSSBjYW4gYWRkIHRoZSAKPiBzYW1lIHRoYW4gZm9yIG90
-aGVyIGhvZyBwYXRjaGVzID8KCklmIHRoYXQgaXMgT0sgd2l0aCB5b3UsIHBsZWFzZSBkby4gVGhh
-bmtzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+Hi Marek
+
+On 12/24/20 7:24 AM, Marek Vasut wrote:
+> The GPIO hog node name should match regex '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$',
+> make it so and fix the following two make dtbs_check warnings:
+> 
+> arch/arm/boot/dts/stm32mp157c-dhcom-picoitx.dt.yaml: hog-usb-port-power: $nodename:0: 'hog-usb-port-power' does not match '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$'
+> arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dt.yaml: hog-usb-hub: $nodename:0: 'hog-usb-hub' does not match '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$'
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Patrice Chotard <patrice.chotard@st.com>
+> Cc: Patrick Delaunay <patrick.delaunay@st.com>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: linux-arm-kernel@lists.infradead.org
+> ---
+>   arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi   | 4 ++--
+>   arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi | 2 +-
+>   2 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
+> index 62ab23824a3e..cb68afbbea68 100644
+> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
+> @@ -33,7 +33,7 @@ &gpiob {
+>   	 * during TX anyway and that it only controls drive enable DE
+>   	 * line. Hence, the RX is always enabled here.
+>   	 */
+> -	rs485-rx-en {
+> +	rs485-rx-en-hog {
+>   		gpio-hog;
+>   		gpios = <8 GPIO_ACTIVE_HIGH>;
+>   		output-low;
+> @@ -61,7 +61,7 @@ &gpioi {
+>   	 * order to reset the Hub when USB bus is powered down, but
+>   	 * so far there is no such functionality.
+>   	 */
+> -	usb-hub {
+> +	usb-hub-hog {
+>   		gpio-hog;
+>   		gpios = <2 GPIO_ACTIVE_HIGH>;
+>   		output-high;
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi
+> index 356150d28c42..b99f2b891629 100644
+> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi
+> @@ -43,7 +43,7 @@ &gpioa {
+>   	 * in order to turn on port power when USB bus is powered up, but so
+>   	 * far there is no such functionality.
+>   	 */
+> -	usb-port-power {
+> +	usb-port-power-hog {
+>   		gpio-hog;
+>   		gpios = <13 GPIO_ACTIVE_LOW>;
+>   		output-low;
+> 
+
+Applied on stm32-fixes with a Fixes tag added.
+
+Thanks.
+Alex
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
