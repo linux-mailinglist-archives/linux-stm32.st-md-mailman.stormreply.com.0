@@ -2,67 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 635B32F5CDD
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jan 2021 10:06:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 975B02F5E3B
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jan 2021 11:03:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 080C3C5660F;
-	Thu, 14 Jan 2021 09:06:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 470BDC5660F;
+	Thu, 14 Jan 2021 10:03:17 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99470C32EA8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E23A7C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Jan 2021 09:06:25 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10E922US020227; Thu, 14 Jan 2021 10:06:21 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=iOusNVKYpK/rUzV9p2n9FI3ih0zBi6c6lWLF2Wo9T2E=;
- b=6SbEn1F8DEZRaoW3tB7wsnwd/an7oQhOAYQyFaSBPL5y94qEkZDRW0oUOCyMO7GXkkRF
- pdTS0FTHYVNps92luQgioXH057rQR1EYkgq40QKA2++C738t59x1i2bZPzf8se+UnfSf
- 9+C13zqU9c8tQ+aVY9aP6LRbfwzmByoQD0RnZ5Jwkt4SKz3MhinueBmjgrdUc0fxN7Gs
- Jm85AW7eMgU5mdKpmD9fkd+b24QiYcv9E+A0LDgPWh6Isug7L4edZ1TVEEhtbbP9pc6R
- 07MAEDdYd+DVtfaw2z2meXFgbmJ1Hf0Li/V6itt2r05UxqAotx1WQ0lqG+Ou2OvpHzNJ FA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 362379c85y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Jan 2021 10:06:21 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0188210002A;
- Thu, 14 Jan 2021 10:06:20 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DDBFC2283F5;
- Thu, 14 Jan 2021 10:06:20 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.50) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 14 Jan
- 2021 10:06:20 +0100
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20201222105726.16906-1-arnaud.pouliquen@foss.st.com>
- <20210113203143.GA229796@xps15>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <d1daa198-dcf1-a63d-309d-868741088d09@foss.st.com>
-Date: Thu, 14 Jan 2021 10:05:59 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thu, 14 Jan 2021 10:03:15 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id q18so5138258wrn.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 14 Jan 2021 02:03:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=oVf5kDc7i4gGrzg222CFywiTCholDlEVEzBooRbeXN8=;
+ b=lNr9TM2KRK50yFUSVqvQRC2+d8NR6/ezTC8nz87RztuEm0sg8oFVZ8y/GwJu5fmbuy
+ fYHUI2RWogLsikN9SnHQipAiHDGDc1iscx3mN0jbaxwjTcDQ0ZVtTW8fUsLtiGBQW1Q1
+ AKfeQ1ODq0/1MA3AOJBalS1gNW0n1axzkT2WZXyba4RRsLVzZn2saNJpv/dEYHRUicJF
+ cy5rlCwzCpe0zLOzmTd1UhR5H8lUdW/NIPwujCtBAv7zdrfaCFXLG4Tew5MNdkvkGGm0
+ 1fvVpBLtBl0dMLy8xB3oQ4gsFCDJ3uv0n491bAWkFkP/SVR3QtNXDcjHubOMox2quEnn
+ hbJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=oVf5kDc7i4gGrzg222CFywiTCholDlEVEzBooRbeXN8=;
+ b=IA4HQWYfMryXcLfSUb1PyoPov1zZolP50EINW9Fv3MIlP+z87VGxsPKhmNIPJ+hluo
+ raIAv+VIvQQ5AXMGw+3X7kV8Qn77pdQUv/h2lIc6zuFqa5yZnTvo5FLZYyJk6gxM8xFl
+ aqspuAE5zZ+HEeTltegu7WxUN2X4ou91F/50zs3tNSXJaEl/zgFKY2TgXlbIUIxebFY0
+ qzoWf1Ai+DhvypdXyEPIzmTghhB594AWOa0oDmOY2GP4fvxocnpzwR9Hm9AxffvYnbP5
+ 3tkYrAgrMaz59nuETBmOC/Il3m5skXUfKpDtRTj+gY/+2SU/k8hmi6NyDU4Iw7lcj4VP
+ zNdQ==
+X-Gm-Message-State: AOAM530r9FIQZ7uRHH3+m+1SUNNO3YsG1Zku8f5x6kZ0vRaw7QYcXe/h
+ 8ZwFC0HQQR1WxuzGtYQ+eTp/dg==
+X-Google-Smtp-Source: ABdhPJx/ZTFqNdbwMrPPQXGb4a5AARaWdvmncwYK2q1w7//JoVyn/n68+kesxeF+gvUR8rMoynCXCw==
+X-Received: by 2002:adf:ef06:: with SMTP id e6mr6917001wro.231.1610618595259; 
+ Thu, 14 Jan 2021 02:03:15 -0800 (PST)
+Received: from dell ([91.110.221.178])
+ by smtp.gmail.com with ESMTPSA id b3sm2474771wrn.70.2021.01.14.02.03.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Jan 2021 02:03:14 -0800 (PST)
+Date: Thu, 14 Jan 2021 10:03:12 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Alexander Dahl <post@lespocky.de>
+Message-ID: <20210114100312.GL3975472@dell>
+References: <20201228163217.32520-1-post@lespocky.de>
+ <20201228163217.32520-2-post@lespocky.de>
 MIME-Version: 1.0
-In-Reply-To: <20210113203143.GA229796@xps15>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-14_03:2021-01-13,
- 2021-01-14 signatures=0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 00/16] introduce generic IOCTL
- interface for RPMsg channels management
+Content-Disposition: inline
+In-Reply-To: <20201228163217.32520-2-post@lespocky.de>
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Alexander Dahl <ada@thorsis.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, Jeff LaBundy <jeff@labundy.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v9 1/4] dt-bindings: mfd: Fix schema
+	warnings for pwm-leds
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,93 +75,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Mathieu,
-
-On 1/13/21 9:31 PM, Mathieu Poirier wrote:
-> Hi Arnaud,
-> 
-> [...]
-> 
->>
->> Arnaud Pouliquen (16):
->>   rpmsg: introduce RPMsg control driver for channel creation
->>   rpmsg: add RPMsg control API to register service
->>   rpmsg: add override field in channel info
->>   rpmsg: ctrl: implement the ioctl function to create device
->>   rpmsg: ns: initialize channel info override field
->>   rpmsg: add helper to register the rpmsg ctrl device
->>   rpmsg: char: clean up rpmsg class
->>   rpmsg: char: make char rpmsg a rpmsg device without the control part
->>   rpmsg: char: register RPMsg raw service to the ioctl interface.
->>   rpmsg: char: allow only one endpoint per device
->>   rpmsg: char: check destination address is not null
->>   rpmsg: virtio: use the driver_override in channel creation ops
->>   rpmsg: virtio: probe the rpmsg_ctl device
->>   rpmsg: glink: add create and release rpmsg channel ops
->>   rpmsg: smd: add create and release rpmsg channel ops
->>   rpmsg: replace rpmsg_chrdev_register_device use
->>
->>  drivers/rpmsg/Kconfig             |   8 +
->>  drivers/rpmsg/Makefile            |   1 +
->>  drivers/rpmsg/qcom_glink_native.c |  96 +++++++--
->>  drivers/rpmsg/qcom_smd.c          |  59 +++++-
->>  drivers/rpmsg/rpmsg_char.c        | 246 ++++++-----------------
->>  drivers/rpmsg/rpmsg_ctrl.c        | 320 ++++++++++++++++++++++++++++++
->>  drivers/rpmsg/rpmsg_internal.h    |  14 --
->>  drivers/rpmsg/rpmsg_ns.c          |   1 +
->>  drivers/rpmsg/virtio_rpmsg_bus.c  |  38 +++-
->>  include/linux/rpmsg.h             |  40 ++++
->>  include/uapi/linux/rpmsg.h        |  14 ++
->>  11 files changed, 606 insertions(+), 231 deletions(-)
->>  create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
-> 
-> I am finally coming around to review this set.  I see that you already had an
-> extensive conversation with Bjorn - did you want me to have a look as well or
-> should I wait for the next revision?
-
-Based on Bjorn first feedback, my understanding is that the management based on
-create/destroy channel does not match with the QCOM RPMsg backend
-implementation. I think this is the blocking point of my V2 implementation.
-
-Before sending a new revision i would hope that we have a roundtable discussion
-to clarify the direction to move forward, to avoid sending useless revisions.
-
-As discussed in [1], there are different alternatives, that probably depend on
-the features we expect to support.
-I tried to sum-up the requirement I have in mind in [1].
-
-The 2 main directions I can see are:
-- rework the rpmsg_char to match with all rpmsg backend (V2 implementation)
-    to be honest i don't know how to move forward in this direction as QCOM and
-    virtio backends are rather different.
-- not modify the rpmsg_char but create the rpmsg_ctrl (and perhaps also a
-rpmsg_raw for a /dev/rpmsg data interface) that would use the create/destroy
-channel such as the rpmsg ns (V1 implementation).
-    one advantage of this solution is that this does not impact QCOM drivers.
-    one drawback is that we duplicate the code.
-
-[1]
-https://patchwork.kernel.org/project/linux-remoteproc/patch/20201222105726.16906-5-arnaud.pouliquen@foss.st.com/
-
-[2] https://patchwork.kernel.org/project/linux-remoteproc/list/?series=327277
-
-Thanks,
-Arnaud
-
-> 
-> Thanks,
-> Mathieu
-> 
->>
->> -- 
->> 2.17.1
->>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCAyOCBEZWMgMjAyMCwgQWxleGFuZGVyIERhaGwgd3JvdGU6Cgo+IFRoZSBub2RlIG5h
+bWVzIGZvciBkZXZpY2VzIHVzaW5nIHRoZSBwd20tbGVkcyBkcml2ZXIgZm9sbG93IGEgY2VydGFp
+bgo+IG5hbWluZyBzY2hlbWUgKG5vdykuICBQYXJlbnQgbm9kZSBuYW1lIGlzIG5vdCBlbmZvcmNl
+ZCwgYnV0IHJlY29tbWVuZGVkCj4gYnkgRFQgcHJvamVjdC4KPiAKPiAgIERUQyAgICAgRG9jdW1l
+bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9pcXM2MnguZXhhbXBsZS5kdC55YW1sCj4g
+ICBDSEVDSyAgIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvaXFzNjJ4LmV4
+YW1wbGUuZHQueWFtbAo+IC9ob21lL2FsZXgvYnVpbGQvbGludXgvRG9jdW1lbnRhdGlvbi9kZXZp
+Y2V0cmVlL2JpbmRpbmdzL21mZC9pcXM2MnguZXhhbXBsZS5kdC55YW1sOiBwd21sZWRzOiAncGFu
+ZWwnIGRvZXMgbm90IG1hdGNoIGFueSBvZiB0aGUgcmVnZXhlczogJ15sZWQoLVswLTlhLWZdKyk/
+JCcsICdwaW5jdHJsLVswLTldKycKPiAgICAgICAgIEZyb20gc2NoZW1hOiAvaG9tZS9hbGV4L3Ny
+Yy9saW51eC9sZWRzL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9sZWRzL2xlZHMt
+cHdtLnlhbWwKPiAKPiBTaWduZWQtb2ZmLWJ5OiBBbGV4YW5kZXIgRGFobCA8cG9zdEBsZXNwb2Nr
+eS5kZT4KPiBBY2tlZC1ieTogSmVmZiBMYUJ1bmR5IDxqZWZmQGxhYnVuZHkuY29tPgo+IEFja2Vk
+LWJ5OiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPgo+IC0tLQo+IAo+IE5vdGVzOgo+ICAg
+ICB2OCAtPiB2OToKPiAgICAgICAqIGFkZGVkIGZvcmdvdHRlbiBBY2tlZC1ieSAoSmVmZiBMYUJ1
+bmR5KQo+ICAgICAgICogcmViYXNlZCBvbiB2NS4xMS1yYzEKPiAgICAgCj4gICAgIHY3IC0+IHY4
+Ogo+ICAgICAgICogcmViYXNlZCBvbiByZWNlbnQgcGF2ZWwvZm9yLW5leHQgKHBvc3QgdjUuMTAt
+cmMxKQo+ICAgICAgICogYWRkZWQgQWNrZWQtYnkgKFJvYiBIZXJyaW5nKQo+ICAgICAKPiAgICAg
+djYgLT4gdjc6Cj4gICAgICAgKiBhZGRlZCB3YXJuaW5nIG1lc3NhZ2UgdG8gY29tbWl0IG1lc3Nh
+Z2UgKEtyenlzenRvZiBLb3psb3dza2kpCj4gICAgIAo+ICAgICB2NjoKPiAgICAgICAqIGFkZGVk
+IHRoaXMgcGF0Y2ggdG8gc2VyaWVzCj4gCj4gIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
+aW5ncy9tZmQvaXFzNjJ4LnlhbWwgfCA1ICsrKy0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2Vy
+dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpGYWlsZWQgdG8gYXBwbHk6CgpBcHBseWluZzogZHQt
+YmluZGluZ3M6IG1mZDogRml4IHNjaGVtYSB3YXJuaW5ncyBmb3IgcHdtLWxlZHMKVXNpbmcgaW5k
+ZXggaW5mbyB0byByZWNvbnN0cnVjdCBhIGJhc2UgdHJlZS4uLgpNCURvY3VtZW50YXRpb24vZGV2
+aWNldHJlZS9iaW5kaW5ncy9tZmQvaXFzNjJ4LnlhbWwKL2hvbWUvbGVlL3Byb2plY3RzL2xpbnV4
+L2tlcm5lbC8uZ2l0L3dvcmt0cmVlcy9tZmQvcmViYXNlLWFwcGx5L3BhdGNoOjM0OiBpbmRlbnQg
+d2l0aCBzcGFjZXMuCiAgICAgICAgICAgIGxlZC0xIHsKL2hvbWUvbGVlL3Byb2plY3RzL2xpbnV4
+L2tlcm5lbC8uZ2l0L3dvcmt0cmVlcy9tZmQvcmViYXNlLWFwcGx5L3BhdGNoOjM1OiBpbmRlbnQg
+d2l0aCBzcGFjZXMuCiAgICAgICAgICAgICAgICAgICAgbGFiZWwgPSAicGFuZWwiOwp3YXJuaW5n
+OiAyIGxpbmVzIGFkZCB3aGl0ZXNwYWNlIGVycm9ycy4KRmFsbGluZyBiYWNrIHRvIHBhdGNoaW5n
+IGJhc2UgYW5kIDMtd2F5IG1lcmdlLi4uCkF1dG8tbWVyZ2luZyBEb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbWZkL2lxczYyeC55YW1sCkNPTkZMSUNUIChjb250ZW50KTogTWVyZ2Ug
+Y29uZmxpY3QgaW4gRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9pcXM2Mngu
+eWFtbApSZWNvcmRlZCBwcmVpbWFnZSBmb3IgJ0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
+aW5ncy9tZmQvaXFzNjJ4LnlhbWwnCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dClNlbmlvciBU
+ZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2aWNlcwpMaW5hcm8ub3JnIOKUgiBPcGVuIHNv
+dXJjZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9sbG93IExpbmFybzogRmFjZWJvb2sgfCBUd2l0
+dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
+aXN0aW5mby9saW51eC1zdG0zMgo=
