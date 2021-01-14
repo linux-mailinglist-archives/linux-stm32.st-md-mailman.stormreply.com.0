@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBCC52F5E86
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jan 2021 11:20:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF5F92F5E84
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Jan 2021 11:20:13 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93456C56635;
-	Thu, 14 Jan 2021 10:20:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86BBEC56639;
+	Thu, 14 Jan 2021 10:20:13 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41DC8C3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BA05C424C0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Jan 2021 10:20:12 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Thu, 14 Jan 2021 10:20:11 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10EAGhJT019216; Thu, 14 Jan 2021 11:20:01 +0100
+ 10EAGtIE027251; Thu, 14 Jan 2021 11:20:02 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=6NLucdUqmHyWd27yJHnFanUEc5ps4adpeJm9ZLYOksg=;
- b=6/nk6PA66Qg7P1kZBvADltprpCOwuNhfJTlpF1W4ZEMid91mjiWTpM8oPMuJ5Q0DH42+
- 034AhHNKH+il78vEW7lc6qZUj+WdIntCrZP/vRTk+EwdyAJitlbF6Xc5PyznjJxkvU+g
- /OlE2B3CclVG0pKvPNyqkNp8vdbDYvRZ7o3U5S7ALK5ChdhfM0A18dYqXpXXpFis7gEr
- 8SfJtbOQtoO4ghbU0hlEOKNexE1LY2l7jxJI26lwsj6qUtHAXdXoMiRH84GMXpvqbcoG
- JU3J5BNnMvvXAPUCIXm7TdxnDmnihzLkp00dyOu0F1srOoP9efKCV/iO+gCwimqXutQg ww== 
+ bh=DDk9Rejbn/sUw5+U6OTrWK27xmNxoSdD8bZ1t4GVGKo=;
+ b=1AxBlQbqbqQhSgppZxaDfF/TCBm2YvG7bjmcKJW6GfBORr90VdaXg6tm8FfMAXS3VTK6
+ qEzdXRYPeatGtwgQUPRhyoGLJBCk9WoolSCISRa5yHgl/SWQLpMVbAG+GabgiVHEhO5H
+ 1/kttBPrued2kvqHfDElJEx0e7wvsUjPOnsLn0Xs/VhTVEEk2Ndn5+cXAuEX8DbbwhrZ
+ zOLs/NnG2YTVLFS3/tbamcA0+dazmkN8TLmBYzSbRCADIy0QAwt5hndAI98mT58L49Ug
+ NbStre5cUZJGJn7we2gBDHbFC50TFo01MWtX1XQScZq73U68oHT3qKSutOSxlJG737ub lg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 35y5kyw0an-1
+ by mx07-00178001.pphosted.com with ESMTP id 35yp3y1p96-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Jan 2021 11:20:01 +0100
+ Thu, 14 Jan 2021 11:20:02 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C2DF3100038;
- Thu, 14 Jan 2021 11:20:00 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BA71A10002A;
+ Thu, 14 Jan 2021 11:20:01 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AEE6822E763;
- Thu, 14 Jan 2021 11:20:00 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 14 Jan 2021 11:20:00
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A976222E763;
+ Thu, 14 Jan 2021 11:20:01 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 14 Jan 2021 11:20:01
  +0100
 From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 To: Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>, Rob
  Herring <robh+dt@kernel.org>, Alexandre Torgue
  <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Thu, 14 Jan 2021 11:19:48 +0100
-Message-ID: <20210114101949.23859-2-amelie.delaunay@foss.st.com>
+Date: Thu, 14 Jan 2021 11:19:49 +0100
+Message-ID: <20210114101949.23859-3-amelie.delaunay@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210114101949.23859-1-amelie.delaunay@foss.st.com>
 References: <20210114101949.23859-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
  definitions=2021-01-14_03:2021-01-13,
  2021-01-14 signatures=0
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 1/2] dt-bindings: phy: phy-stm32-usbphyc: add
-	#clock-cells required property
+Subject: [Linux-stm32] [PATCH 2/2] phy: stm32: register usbphyc as clock
+	provider of ck_usbo_48m clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,48 +76,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-usbphyc provides a unique clock called ck_usbo_48m.
-STM32 USB OTG needs a 48Mhz clock (utmifs_clk48) for Full-Speed operation.
-ck_usbo_48m is a possible parent clock for USB OTG 48Mhz clock.
+ck_usbo_48m is generated by usbphyc PLL and used by OTG controller
+for Full-Speed use cases with dedicated Full-Speed transceiver.
 
 ck_usbo_48m is available as soon as the PLL is enabled.
 
 Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 ---
- .../devicetree/bindings/phy/phy-stm32-usbphyc.yaml          | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/phy/st/phy-stm32-usbphyc.c | 66 ++++++++++++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
-index 46df6786727a..4e4da64b8e01 100644
---- a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
-+++ b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
-@@ -51,6 +51,10 @@ properties:
-   vdda1v8-supply:
-     description: regulator providing 1V8 power supply to the PLL block
+diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
+index d08fbb180e43..349976259112 100644
+--- a/drivers/phy/st/phy-stm32-usbphyc.c
++++ b/drivers/phy/st/phy-stm32-usbphyc.c
+@@ -7,6 +7,7 @@
+  */
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
++#include <linux/clk-provider.h>
+ #include <linux/delay.h>
+ #include <linux/iopoll.h>
+ #include <linux/kernel.h>
+@@ -70,6 +71,7 @@ struct stm32_usbphyc {
+ 	struct regulator *vdda1v1;
+ 	struct regulator *vdda1v8;
+ 	atomic_t n_pll_cons;
++	struct clk_hw clk48_hw;
+ 	int switch_setup;
+ };
  
-+  '#clock-cells':
-+    description: number of clock cells for ck_usbo_48m consumer
-+    const: 0
+@@ -295,6 +297,61 @@ static const struct phy_ops stm32_usbphyc_phy_ops = {
+ 	.owner = THIS_MODULE,
+ };
+ 
++static int stm32_usbphyc_clk48_prepare(struct clk_hw *hw)
++{
++	struct stm32_usbphyc *usbphyc = container_of(hw, struct stm32_usbphyc, clk48_hw);
 +
- #Required child nodes:
++	return stm32_usbphyc_pll_enable(usbphyc);
++}
++
++static void stm32_usbphyc_clk48_unprepare(struct clk_hw *hw)
++{
++	struct stm32_usbphyc *usbphyc = container_of(hw, struct stm32_usbphyc, clk48_hw);
++
++	stm32_usbphyc_pll_disable(usbphyc);
++}
++
++static unsigned long stm32_usbphyc_clk48_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
++{
++	return 48000000;
++}
++
++static const struct clk_ops usbphyc_clk48_ops = {
++	.prepare = stm32_usbphyc_clk48_prepare,
++	.unprepare = stm32_usbphyc_clk48_unprepare,
++	.recalc_rate = stm32_usbphyc_clk48_recalc_rate,
++};
++
++static void stm32_usbphyc_clk48_unregister(void *data)
++{
++	struct stm32_usbphyc *usbphyc = data;
++
++	of_clk_del_provider(usbphyc->dev->of_node);
++	clk_hw_unregister(&usbphyc->clk48_hw);
++}
++
++static int stm32_usbphyc_clk48_register(struct stm32_usbphyc *usbphyc)
++{
++	struct device_node *node = usbphyc->dev->of_node;
++	struct clk_init_data init = { };
++	int ret = 0;
++
++	init.name = "ck_usbo_48m";
++	init.ops = &usbphyc_clk48_ops;
++
++	usbphyc->clk48_hw.init = &init;
++
++	ret = clk_hw_register(usbphyc->dev, &usbphyc->clk48_hw);
++	if (ret)
++		return ret;
++
++	ret = of_clk_add_hw_provider(node, of_clk_hw_simple_get, &usbphyc->clk48_hw);
++	if (ret)
++		clk_hw_unregister(&usbphyc->clk48_hw);
++
++	return ret;
++}
++
+ static void stm32_usbphyc_switch_setup(struct stm32_usbphyc *usbphyc,
+ 				       u32 utmi_switch)
+ {
+@@ -473,6 +530,13 @@ static int stm32_usbphyc_probe(struct platform_device *pdev)
+ 		goto clk_disable;
+ 	}
  
- patternProperties:
-@@ -102,6 +106,7 @@ required:
-   - "#size-cells"
-   - vdda1v1-supply
-   - vdda1v8-supply
-+  - '#clock-cells'
-   - usb-phy@0
-   - usb-phy@1
++	ret = stm32_usbphyc_clk48_register(usbphyc);
++	if (ret) {
++		dev_err(dev,
++			"failed to register ck_usbo_48m clock: %d\n", ret);
++		goto clk_disable;
++	}
++
+ 	version = readl_relaxed(usbphyc->base + STM32_USBPHYC_VERSION);
+ 	dev_info(dev, "registered rev:%lu.%lu\n",
+ 		 FIELD_GET(MAJREV, version), FIELD_GET(MINREV, version));
+@@ -497,6 +561,8 @@ static int stm32_usbphyc_remove(struct platform_device *pdev)
+ 		if (usbphyc->phys[port]->active)
+ 			stm32_usbphyc_phy_exit(usbphyc->phys[port]->phy);
  
-@@ -120,6 +125,7 @@ examples:
-         vdda1v8-supply = <&reg18>;
-         #address-cells = <1>;
-         #size-cells = <0>;
-+        #clock-cells = <0>;
++	stm32_usbphyc_clk48_unregister(usbphyc);
++
+ 	clk_disable_unprepare(usbphyc->clk);
  
-         usbphyc_port0: usb-phy@0 {
-             reg = <0>;
+ 	return 0;
 -- 
 2.17.1
 
