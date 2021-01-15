@@ -2,95 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 322242F8789
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Jan 2021 22:20:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA2CC2F88BA
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Jan 2021 23:47:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8AA3C424C0;
-	Fri, 15 Jan 2021 21:20:41 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FD05C424C0;
+	Fri, 15 Jan 2021 22:47:21 +0000 (UTC)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F41A5C32EA8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B22E4C32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Jan 2021 21:20:39 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6241F58B;
- Fri, 15 Jan 2021 22:20:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1610745638;
- bh=gBrtw5MNkdCbuPvi2cTqhl5za5Pqp/q6zVdWl/a94uc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DpGlh+3zv26rFKiVKPMFcYE9SIJo78wTzt+f/qWBARm/BpkTmg6EAErEFPBPbbPhX
- fh5IdmlIWmtQSiBr7ktLcqDESDp5TwoTZAovDL33H8Kodwu6i7gIW5IBgS4KdC5rwv
- RKLhIq/ekLRDmOepJkHy4FhmHBsfknCCplWClCys=
-Date: Fri, 15 Jan 2021 23:20:21 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YAIHFTYiry6ebUsY@pendragon.ideasonboard.com>
-References: <20210115125703.1315064-1-maxime@cerno.tech>
- <20210115125703.1315064-10-maxime@cerno.tech>
+ Fri, 15 Jan 2021 22:47:18 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id b10so12060595ljp.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 15 Jan 2021 14:47:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=9JcunmaqxuV2RjWZuDakfWhxW78qDBNreP2tnmJNECY=;
+ b=d4cYqIaW97sNeqddOMl6t4zbFsfSnOz6l2Q+adKCLOAKFDpIAwrp4SOPaWqeHFINIU
+ p0WEJ/wlkhYhPTATAknESy/DdAq6dQDpR++DmECyVPZS0ylMaljSXvWVCgwT+DZkxLcz
+ zSuk4wPeiFMLfPplPY4ifSjk/J/e5ucJLsw1//4KxGcCdiBdvM/k64QUULCZQtQuksFI
+ rhZAo+mh8k959nEuIsEHnIqLhY/HMuLXo3Embd2c2GB4jjO9W2Zx/RwFLMnEFwdeIfRO
+ coSfZFhysKyh/3uGlmheComNtQuz5QAONiMlcORVXOaL0JUmd/5lhMWN9ER1DZJngKgV
+ RkZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9JcunmaqxuV2RjWZuDakfWhxW78qDBNreP2tnmJNECY=;
+ b=DV6ULuf2LY6tP5RKxGyccywDxkrUNnxn6QQUo/sgwfCpNIa/0XATGVjBBGH+DALAF3
+ 4/BSz884dHCUW9VsjrtOQ00LI8Y3jlTYlg7XGxiq0QlBfqiR79umKF18V2ebXYC4xAXj
+ uBsCSDyz4icLtwlmMttEyfUpqKMVxO+rAtAm5jFtTq35p0tBe/H1wcexqlWsG4MjOxGc
+ LadzUiqho0ocbF9TH/L7O0h5gwA4yapGWbVIKCvrtrPEy7YKvcWhK9JPMMEjVQk3WTXH
+ D2ijyV6JbVTn+wwpfGLgQ4OCtKQ1A20ra16zVa0Vk+ly/dvsoCYO2Qz9wKH8cATq1f1H
+ +uSg==
+X-Gm-Message-State: AOAM533cDJnYmnTpnOzsWC1NE9/XVS//YlIM/DpwYp+v15RCF/4sVWdP
+ NRvMxajvHSLAPWUWiAbHsm3xRWsJzrRWO/FulxwDhQ==
+X-Google-Smtp-Source: ABdhPJywHaYa2mFTmpDpAbt8I8/ZgHBOUBv+erYIpLSkGqiPcPpS/VQ3WtQXK20h9hLlVX/yH4Zxxq2jd8LM80+6p/g=
+X-Received: by 2002:a2e:9dc3:: with SMTP id x3mr6180188ljj.326.1610750837816; 
+ Fri, 15 Jan 2021 14:47:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210115125703.1315064-10-maxime@cerno.tech>
-Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Xinliang Liu <xinliang.liu@linaro.org>, dri-devel@lists.freedesktop.org,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, Vincent Abriou <vincent.abriou@st.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- NXP Linux Team <linux-imx@nxp.com>, spice-devel@lists.freedesktop.org,
- Sascha Hauer <s.hauer@pengutronix.de>, Roland Scheidegger <sroland@vmware.com>,
- Inki Dae <inki.dae@samsung.com>, Sean Paul <sean@poorly.run>,
- Hyun Kwon <hyun.kwon@xilinx.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
- freedreno@lists.freedesktop.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- David Airlie <airlied@linux.ie>, Edmund Dea <edmund.j.dea@intel.com>,
- virtualization@lists.linux-foundation.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Fabio Estevam <festevam@gmail.com>,
- Alexey Brodkin <abrodkin@synopsys.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Dave Airlie <airlied@redhat.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- John Stultz <john.stultz@linaro.org>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Boris Brezillon <bbrezillon@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Brian Starkey <brian.starkey@arm.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Sam Ravnborg <sam@ravnborg.org>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
- Alison Wang <alison.wang@nxp.com>, Daniel Vetter <daniel@ffwll.ch>,
- Tomi Valkeinen <tomba@kernel.org>, Philippe Cornu <philippe.cornu@st.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- Liviu Dudau <liviu.dudau@arm.com>, Paul Cercueil <paul@crapouillou.net>,
- Marek Vasut <marex@denx.de>, linux-renesas-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, Russell King <linux@armlinux.org.uk>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Rob Clark <robdclark@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jyri Sarha <jyri.sarha@iki.fi>,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH 10/10] drm: Use state helper instead of
- the plane state pointer
+References: <20210105140718.122752-1-marex@denx.de>
+In-Reply-To: <20210105140718.122752-1-marex@denx.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 15 Jan 2021 23:47:06 +0100
+Message-ID: <CACRpkda618dRmXKwJyvONoF1Bn-AOZRjaJfVCVPpPetfZny5xQ@mail.gmail.com>
+To: Marek Vasut <marex@denx.de>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-mmc <linux-mmc@vger.kernel.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] [RFC] mmc: mmci: Add support for probing
+ bus voltage level translator
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,122 +70,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Maxime,
+Hi Marek,
 
-Thank you for the patch.
+thanks for your patch!
 
-On Fri, Jan 15, 2021 at 01:57:02PM +0100, Maxime Ripard wrote:
-> Many drivers reference the plane->state pointer in order to get the
-> current plane state in their atomic_update or atomic_disable hooks,
+In general this patch is pretty much how I imagine I would
+have solved it myself. It's a really fringe situation but STM32
+is pushing the envelope with this block so here we are.
 
-Please don't use the word "current", it's ambiguous. Do you mean old
-state or new state ?
+The pinmux core is definitely designed to handle stuff like
+this and I'm happy that it seems to work for you.
 
-> which would be the new plane state in the global atomic state since
-> _swap_state happened when those hooks are run.
+On Tue, Jan 5, 2021 at 3:08 PM Marek Vasut <marex@denx.de> wrote:
 
-Is this relevant ? drm_atomic_helper_swap_state() doesn't change the
-old_state and new_state pointers in drm_atomic_state as far as I can
-tell.
+> NOTE: I would prefer this solution over having a custom DT per SoM,
+>       since it reduces the amount of DT combinations.
 
-> Use the drm_atomic_get_new_plane_state helper to get that state to make it
-> more obvious.
-> 
-> This was made using the coccinelle script below:
-> 
-> @ plane_atomic_func @
-> identifier helpers;
-> identifier func;
-> @@
-> 
-> (
->  static const struct drm_plane_helper_funcs helpers = {
->  	...,
->  	.atomic_disable = func,
-> 	...,
->  };
-> |
->  static const struct drm_plane_helper_funcs helpers = {
->  	...,
->  	.atomic_update = func,
-> 	...,
->  };
-> )
-> 
-> @ adds_new_state @
-> identifier plane_atomic_func.func;
-> identifier plane, state;
-> identifier new_state;
-> @@
-> 
->  func(struct drm_plane *plane, struct drm_atomic_state *state)
->  {
->  	...
-> -	struct drm_plane_state *new_state = plane->state;
-> +	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
-> 	...
->  }
-> 
-> @ include depends on adds_new_state @
-> @@
-> 
->  #include <drm/drm_atomic.h>
-> 
-> @ no_include depends on !include && adds_new_state @
-> @@
-> 
-> + #include <drm/drm_atomic.h>
->   #include <drm/...>
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> ---
+I don't see any problem with this approach.
 
-[snip]
+>  &sdmmc1 {
+> -       pinctrl-names = "default", "opendrain", "sleep";
+> +       pinctrl-names = "default", "opendrain", "sleep", "init";
+>         pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
+>         pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_dir_pins_a>;
+>         pinctrl-2 = <&sdmmc1_b4_sleep_pins_a &sdmmc1_dir_sleep_pins_a>;
+> +       pinctrl-3 = <&sdmmc1_b4_init_pins_a &sdmmc1_dir_init_pins_a>;
+>         cd-gpios = <&gpiog 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+>         disable-wp;
+>         st,sig-dir;
+>         st,neg-edge;
+> +       st,use-ckin;
+> +       st,cmd-gpios = <&gpiod 2 0>;
+> +       st,ck-gpios = <&gpioc 12 0>;
+> +       st,ckin-gpios = <&gpioe 4 0>;
 
->  drivers/gpu/drm/omapdrm/omap_plane.c            | 6 ++++--
->  drivers/gpu/drm/rcar-du/rcar_du_plane.c         | 3 ++-
->  drivers/gpu/drm/rcar-du/rcar_du_vsp.c           | 3 ++-
->  drivers/gpu/drm/xlnx/zynqmp_disp.c              | 3 ++-
+Fair enough, when submitting the final device tree, add som verbose
+comments as to what is going on here so people get it.
 
-[snip]
+I got reminded that the MMCI bindings are not converted to device
+tree so I spent some time on that. I will send out an RFC.
 
-> diff --git a/drivers/gpu/drm/omapdrm/omap_plane.c b/drivers/gpu/drm/omapdrm/omap_plane.c
-> index cd8cf7c786b5..021a94de84a1 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_plane.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_plane.c
-> @@ -44,7 +44,8 @@ static void omap_plane_atomic_update(struct drm_plane *plane,
->  {
->  	struct omap_drm_private *priv = plane->dev->dev_private;
->  	struct omap_plane *omap_plane = to_omap_plane(plane);
-> -	struct drm_plane_state *new_state = plane->state;
+> +static void mmci_probe_level_translator(struct mmc_host *mmc)
 
-This seems to imply that you're interested in the new state.
+This probing function looks good.
 
-> +	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state,
-> +									   plane);
+>         if (of_get_property(np, "st,use-ckin", NULL))
+> -               host->clk_reg_add |= MCI_STM32_CLK_SELCKIN;
+> +               mmci_probe_level_translator(mmc);
 
-Does this really make things more obvious ?
+This activates the probing based on solely the existance of this
+device tree flag.
 
->  	struct omap_overlay_info info;
->  	int ret;
->  
-> @@ -89,7 +90,8 @@ static void omap_plane_atomic_update(struct drm_plane *plane,
->  static void omap_plane_atomic_disable(struct drm_plane *plane,
->  				      struct drm_atomic_state *state)
->  {
-> -	struct drm_plane_state *new_state = plane->state;
-> +	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state,
-> +									   plane);
->  	struct omap_drm_private *priv = plane->dev->dev_private;
->  	struct omap_plane *omap_plane = to_omap_plane(plane);
->  
+It's not a problem in this patch but we should probably only look
+for some of these attributes if we determine that it's an
+STM32 platform block.
 
-[snip]
-
--- 
-Regards,
-
-Laurent Pinchart
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
