@@ -2,56 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45E452F8DB7
-	for <lists+linux-stm32@lfdr.de>; Sat, 16 Jan 2021 18:01:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6DD72F8E76
+	for <lists+linux-stm32@lfdr.de>; Sat, 16 Jan 2021 18:53:42 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3AAFC57190;
-	Sat, 16 Jan 2021 17:01:42 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B6D9C57190;
+	Sat, 16 Jan 2021 17:53:42 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B04D1C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A764AC3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 Jan 2021 17:01:41 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4DJ48P2BKzz1qs3P;
- Sat, 16 Jan 2021 18:01:41 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4DJ48P13wzz1qqkg;
- Sat, 16 Jan 2021 18:01:41 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id SPIid7DNw8xB; Sat, 16 Jan 2021 18:01:38 +0100 (CET)
-X-Auth-Info: Q/8e0/Sk8jFUkUxIG+y7hdvNjjWkCNCi/yrfjz1Egmo=
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ Sat, 16 Jan 2021 17:53:40 +0000 (UTC)
+Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Sat, 16 Jan 2021 18:01:38 +0100 (CET)
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20210106204347.475920-1-marex@denx.de>
- <20210106204347.475920-3-marex@denx.de>
- <e7ccdf7c-c7fa-4d03-2400-d4d89815d5d0@foss.st.com>
- <73f6d2cc-8dd7-b005-7faa-db9956f46aa5@denx.de>
- <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
-Date: Sat, 16 Jan 2021 18:01:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ by mail.kernel.org (Postfix) with ESMTPSA id ED47A2246B;
+ Sat, 16 Jan 2021 17:53:36 +0000 (UTC)
+Date: Sat, 16 Jan 2021 17:53:33 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <20210116175333.4d8684c5@archlinux>
+In-Reply-To: <20210112152441.20665-1-a.fatoum@pengutronix.de>
+References: <20210112152441.20665-1-a.fatoum@pengutronix.de>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
-Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH 3/4] [RFC] ARM: dts: stm32: Add mux for
-	ETHRX clock
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Holger Assmann <has@pengutronix.de>,
+ Thomas Gleixner <tglx@linutronix.de>, Fabrice Gasnier <fabrice.gasnier@st.com>,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix erroneous
+ handling of spurious IRQs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,107 +48,77 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMS8xNS8yMSA0OjIyIFBNLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgoKSGksCgpbLi4uXQoK
-Pj4+PiBUaGUgaW1wbGVtZW50YXRpb24gb2YgRVRIX1JYX0NMSy9FVEhfUkVGX0NMSyBoYW5kbGlu
-ZyBjdXJyZW50bHkgZG9lcyAKPj4+PiBub3QKPj4+PiBwZXJtaXQgc2VsZWN0aW5nIHRoZSBjbG9j
-ayBpbnB1dCBmcm9tIFNvQyBwYWQuIFRvIG1ha2UgdGhpbmdzIHdvcnNlLCAKPj4+PiB0aGUKPj4+
-PiBpbXBsZW1lbnRhdGlvbiBvZiB0aGlzIGlzIHBhcnRseSBwcmVzZW50IGFuZCBpcyBzcGxpdCBi
-ZXR3ZWVuIHRoZSBjbG9jawo+Pj4+IGRyaXZlciBhbmQgZHdtYWM0IGRyaXZlci4gTW9yZW92ZXIs
-IHRoZSBFVEhSWCBjbG9jayBwYXJlbnQgaXMgCj4+Pj4gaW5jb3JyZWN0Lgo+Pj4KPj4+IFNvcnJ5
-IGJ1dCBJIGRvbid0IHVuZGVyc3RhbmQgd2hpY2ggY29uZmlndXJhdGlvbiBpcyBtaXNzaW5nLiBJ
-IHRoaW5rIAo+Pj4gd2UgY2FuIGhhbmRsZSBhbGwgcG9zc2libGUgY2FzZXMgZm9yIFJNSUkuIEF0
-IHRoZSBnbHVlIGxheWVyIAo+Pj4gKGR3bWFjLXN0bTMyLmMpIGNsb2NrcyBnYXRlcyBhbmQgc3lz
-Y2ZnIGFyZSBzZXQgcmVnYXJkaW5nIGRldmljZSB0cmVlIAo+Pj4gYmluZGluZyAoc2VlIHRoZSB0
-YWIgaW4gZHdtYWMtc3RtMzIuYykuIFlvdSBjb3VsZCBoYXZlIGEgbG9vayBoZXJlIAo+Pj4gZm9y
-IG1vcmUgZGV0YWlsczogCj4+PiBodHRwczovL3dpa2kuc3QuY29tL3N0bTMybXB1L3dpa2kvRXRo
-ZXJuZXRfZGV2aWNlX3RyZWVfY29uZmlndXJhdGlvbgo+Pj4KPj4+IFJlZ2FyZGluZyB0aGUgY2xv
-Y2sgcGFyZW50LCB5ZXMgaXQgaXMgbm90IGF0IHRoZSB3ZWxsIGZyZXF1ZW5jeSBpZiAKPj4+IHlv
-dSB3YW50IHRvIHNlbGVjdCB0aGlzIHBhdGguIE91ciBjdXJyZW50ICJjbG9jayB0cmVlIiBpcyBk
-b25lIHRvIGZpdCAKPj4+IHdpdGggb3VyIFNUIHJlZmVyZW5jZSBib2FyZHMgKHdlIGhhdmUgbW9y
-ZSBwZXJpcGhlcmFscyB0aGFuIFBMTCAKPj4+IG91dHB1dHMgc28gd2UgaGF2ZSB0byBtYWtlIGNo
-b2ljZXMpLiBTbyB5ZXMgZm9yIGN1c3RvbWVyL3BhcnRuZXJzIAo+Pj4gYm9hcmRzIHRoaXMgY2xv
-Y2sgdHJlZSBoYXMgdG8gYmUgbW9kaWZpZWQgdG8gYmV0dGVyIGZpdCB3aXRoIHRoZSBuZWVkIAo+
-Pj4gKGVpdGhlciB1c2luZyBhc3NpZ25lZC1jbG9jay1wYXJlbnQgb3IgYnkgbW9kaWZ5aW5nIGJv
-b3Rsb2FkZXIgY2xvY2sgCj4+PiB0cmVlICh0Zi1hIG9yIHUtYm9vdCkpLgo+Pgo+PiBJIGRvbid0
-IHRoaW5rIHlvdSBoYW5kbGUgYWxsIHRoZSBjb25maWd1cmF0aW9uIG9wdGlvbnMsIGJ1dCBJIG1p
-Z2h0IAo+PiBhbHNvIGJlIGNvbmZ1c2VkLgo+Pgo+PiBTZWUgRmlndXJlIDgzLiBQZXJpcGhlcmFs
-IGNsb2NrIGRpc3RyaWJ1dGlvbiBmb3IgRXRoZXJuZXQgaW4gdGhlIE1QMSAKPj4gZGF0YXNoZWV0
-IGZvciB0aGUgYmVsb3cuCj4+Cj4+IFRoZSBjdXJyZW50IHNldHVwIEkgaGF2ZSBuZWVkcyA1MCBN
-SHogb24gU29DIHBhZCBQQTEgdG8gZHJpdmUgdGhlIFBIWSAKPj4gY2xvY2ssIGFuZCB1c2VzIGV0
-aF9jbGtfZmIgdG8gc3VwcGx5IEVUSF9SWF9DTEsuIEhvd2V2ZXIsIHRoZSA1MCBNSHogCj4+IGlz
-IHNvdXJjZWQgZGlyZWN0bHkgZnJvbSBQTEw0UCwgd2hpY2ggdGhlbiBoYXMgdG8gcnVuIGF0IDUw
-IE1IeiBhbmQgCj4+IHRoYXQgaW4gdHVybiByZWR1Y2VzIGNsb2NrIGZyZXF1ZW5jeSBmb3Igb3Ro
-ZXIgYmxvY2tzIGNvbm5lY3RlZCB0byAKPj4gUExMNFAgKGUuZy4gU0RNTUMsIHdoZXJlIHRoZSBp
-bXBhY3QgaXMgbm90aWNhYmxlKS4KPiAKPiBPayB0aGF0J3MgdGhlIGNvbW1vbiBwYXRoIHRvIGNs
-b2NrIGEgUEhZIGEgNTBNSHogd2l0aG91dCB1c2luZyB0aGUgCj4gcmVmX2NsayBjb21pbmcgZnJv
-bSB0aGUgUEhZLiBBbmQgeWVzIEkgY2FuIHVuZGVyc3RhbmQgdGhhdCB0aGUgZHJhd2JhY2sgCj4g
-aXMgaHVnZSkuCgpTbyBsZXRzIGZpeCBpdC4KCj4+IFNvLCB3aGF0IEkgd2FudCB0byBtb2RlbCBo
-ZXJlIGlzIHRoaXM6Cj4+Cj4+IFBMTDRQID0gMTAwIE1Iego+PiBNQ08yIGlzIHN1cHBsaWVkIGJ5
-IFBMTDRQIGFuZCBzZXQgdG8gLzIgLCBzbyBNQ08yID0gNTAgTUh6Cj4+IFNvQyBwYWQgUEcyIGlz
-IHNldCBhcyBNQ08yIG91dHB1dCwgdGh1cyBhIHNvdXJjZSBvZiA1MCBNSHogc2lnbmFsCj4+IFNv
-QyBwYWQgUEExIGlzIHNldCBhcyBFVEhfUlhfQ0xLIGFuZCBjb25uZWN0ZWQgdG8gUEcyCj4gCj4g
-T2sgSSBzZWUgKHRvIGJlIGhvbmVzdCBJSVdSIHdlIGRpZG4ndCB0ZXN0IGkgOiQpIGJ1dCBpdCBz
-aG91bGQgd29yay4KCkl0IGRvZXMgd29yaywgSSBoYXZlIGJvYXJkcyB3aGljaCB1c2UgdGhpcyBz
-ZXR1cCBhbHJlYWR5LgoKPj4gVGhpcyB3b3JrcyBmaW5lIGluIHByYWN0aWNlLCBleGNlcHQgaXQg
-Y2Fubm90IGJlIG1vZGVsZWQgdXNpbmcgY3VycmVudCAKPj4gRFQgYmluZGluZ3MsIGV2ZW4gdGhv
-dWdoIGl0IHNob3VsZCBiZSBwb3NzaWJsZSB0byBtb2RlbCBpdC4KPiAKPiBGb3IgZHdtYWMgcG9p
-bnQgb2YgdmlldyBpdCdzIHF1aXRlIHRoZSBzYW1lIHRoaW5nIHRvIGhhdmUgeW91ciBQSFkgCj4g
-Y2xvY2tpbmcgYnkgTUNPIG9yIGJ5IGEgY3J5c3RhbC4gWW91IGp1c3QgbmVlZCB0byBjb25maWd1
-cmUgUlhfUkVGIHBhZCAKPiBhbmQgRVRIX0NMS19TRUwgdG8gZ2V0IHRoZSA1MCBNSHogUk1JSSBy
-ZWZlcmVuY2UgY2xvY2suCgpZZXMKCj4+Pj4gRmlyc3QsIHRoZSBFVEhSWCBjbG9jayBpbiBjbGst
-c3RtMzJtcDEuYyBvbmx5IHJlcHJlc2VudHMgdGhlIEVUSFJYRU4gCj4+Pj4gZ2F0ZSwKPj4+PiBo
-b3dldmVyIGl0IHNob3VsZCByZXByZXNlbnQgYWxzbyBFVEhfUkVGX0NMS19TRUwgbXV4LiBUaGUg
-cHJvYmxlbSBpcyAKPj4+PiB0aGF0Cj4+Pj4gdGhlIEVUSF9SRUZfQ0xLX1NFTCBtdXggaXMgY3Vy
-cmVudGx5IGNvbmZpZ3VyZWQgaW4gdGhlIERXTUFDNCBkcml2ZXIgCj4+Pj4gYW5kCj4+Pj4gdGhl
-IEVUSF9SRUZfQ0xLX1NFTCBiaXQgaXMgcGFydCBvZiBTWVNDRkcgYmxvY2ssIG5vdCB0aGUgRFdN
-QUM0IG9yIHRoZQo+Pj4+IGNsb2NrIGJsb2NrLgo+Pj4KPj4+IGR3bWFjNC1zdG0zMiBkb2Vzbid0
-IGNvbnRhaW4gY29kZSBmb3IgZHdtYWM0IGJ1dCBpdCBjb250YWlucyB0aGUgZ2x1ZSAKPj4+IGFy
-b3VuZCB0aGUgZHdtYWM0OiBzeXNjZmcsIGNsb2NrcyAuLi4KPj4KPj4gVGhlIHByb2JsZW0gaXMg
-dGhhdCBkd21hYzQtc3RtMzIgaXNuJ3QgdGhlIHJpZ2h0IHBsYWNlIHRvIGNvbmZpZ3VyZSAKPj4g
-dGhlIEVUSFJYIGNsb2NrIG11eCwgdGhhdCBzaG91bGQgYmUgaW4gdGhlIGNsb2NrIGRyaXZlci4g
-U28gdGhlIHN0bTMyIAo+PiBjbG9jayBkcml2ZXIgc2hvdWxkIGhhdmUgU1lTQ0ZHIGhhbmRsZSBh
-bmQgY29uZmlndXJlIEVUSF9SRUZfQ0xLX1NFTCAKPj4gbXV4LiBUaGUgInN0LGV0aC1yZWYtY2xr
-LXNlbCIgRFQgcHJvcCB3b3VsZCB0aGVuIG5vdCBiZSBuZWVkZWQgYXQgYWxsLCAKPj4gYXMgdGhl
-IHJlZmVyZW5jZSBjbG9jayBzZWxlY3Qgd291bGQgYmUgY29uZmlndXJlZCB1c2luZyAKPj4gYXNz
-aWduZWQtY2xvY2tzIGluIERULgo+IAo+IElkZWEgd2FzIHRvIGtlZXAgYXQgdGhlIHNhbWUgcGxh
-Y2UgdGhlIEV0aGVybmV0IGdsdWUgY29uZmlndXJhdGlvbi4gV2UgCj4gY2FuJ3QgbW92ZSBhbGwg
-dGhpcyBnbHVlIGludG8gY2xvY2sgZHJpdmVyIGFzIHBoeSBpbnRlcmZhY2UgaXMgbmVlZGVkIHRv
-IAo+IHdlbGwgY29uZmlndXJlIHNvbWUgc3lzY29uZiByZWdpc3RlcnMuCgpUaGlzIGNvbmZpZ3Vy
-YXRpb24gY2FuIGJlIGRvbmUgYnkgdGhlIGNsb2NrIGRyaXZlciB0b28uIEFuZCBpbiBmYWN0LCBJ
-IApiZWxpZXZlIGl0IHNob3VsZCBiZSBkb25lIGJ5IHRoZSBjbG9jayBkcml2ZXIsIGp1c3QgbGlr
-ZSBpdCdzIGRvbmUgZm9yIAphbGwgdGhlIG90aGVyIGNsb2NrIG11eGVzIHdpdGggZ2F0ZXMgaW4g
-dGhlIGNsb2NrIGRyaXZlciwgZXhjZXB0IGluIHRoaXMgCmNhc2UgdGhlIG11eCBpcyBpbiBzeXNj
-ZmcgYW5kIGdhdGUgaXMgaW4gcmNjLgoKPiBDdXJyZW50IGR3YW1jLXN0bTMyIGdsdWUgaXMgCj4g
-d29ya2luZyBhbmQgZG9jdW1lbnRlZC4gSSdtIG5vdCBjb252aW5jZWQgdG8gZGV2ZWxvcCBhIG5l
-dyBvbmUgYnkgCj4gc3BsaXR0aW5nIGNsb2NrIHN5c2NvbmYgaW4gY2xvY2sgZHJpdmVyIGFuZCBw
-aHkgaW50ZXJmYWNlIG1hbmFnZW1lbnQgYXQgCj4gZXRoZXJuZXQgbGV2ZWwuIEkgdGhpbmsgd2Ug
-d2lsbCBnZXQgdGhlIHNhbWUgZnVuY3Rpb25hbCByZXN1bHQgKGJ1dCB5ZXMgCj4gbWF5YmUgbW9y
-ZSB1bmRlcnN0YW5kYWJsZSBhdCBkdC1iaW5kaW5ncyBsZXZlbCkuIFdlIGNvdWxkIG1heWJlIHVw
-ZGF0ZSAKPiBiaW5kaW5nIG5hbWUgdG8gYmUgbW9yZSBjbGVhci4KCllvdSBkb24ndCBnZXQgdGhl
-IHNhbWUgcmVzdWx0LCBzaW5jZSB5b3UgY2Fubm90IG1vZGVsIHRoZSBNQ08yIGlucHV0IAppbnRv
-IEVUSFJYLiBPciBjYW4geW91ID8KCkkgYWxzbyB0aGluayB0aGF0IHdlIHdvbid0IG5lZWQgbmV3
-IGJpbmRpbmcgYWx0b2dldGhlciwganVzdCBhIHNsaWdodCAKdHdlYWsgdG8gdGhlIGV4aXN0aW5n
-IG9uZXMgd2hpY2ggd291bGQgcGVybWl0IG1vZGVsaW5nIHRoZSBNQ08yIGlucHV0IAppbnRvIEVU
-SFJYLCBJIGFtIG9wZW4gdG8gc3VnZ2VzdGlvbnMgaG93IHRvIGRvIGl0LiBOb3RlIHRoYXQgdGhl
-IGNsb2NrIApmcmFtZXdvcmsgbXVzdCBiZSBhYmxlIHRvIHR1cm4gb2ZmIGJvdGggRVRIUlggZ2F0
-ZSwgTUNPMiBhbmQgYWxsIHRoZSB3YXkgCnVwIHRoZSB0cmVlIGlmIEVUSFJYIGlzIHR1cm5lZCBv
-ZmYuCgo+PiBUaGUgZGVmYXVsdCBhc3NpZ25lZC1jbG9ja3Mgc2hvdWxkIGJlIGV0aF9jbGtfZmIg
-LCBidXQgdGhlIHVzZXIgY2FuIAo+PiBvdmVycmlkZSBpdCBpbiB0aGUgRFQgYW5kIHByb3ZpZGUg
-YW5vdGhlciBjbG9jayBzb3VyY2UgKGUuZy4gaW4gbXkgCj4+IGNhc2UsIHRoYXQgd291bGQgYmUg
-UExMNFAtPk1DTzItPkVUSFJYKS4KPj4KPj4+PiBTZWNvbmQsIHRoZSBFVEhSWCBwYXJlbnQgY2xv
-Y2sgaXMgZWl0aGVyIGV0aF9jbGtfZmIgKEVUSENLX0spIG9yIAo+Pj4+IGV4dGVybmFsCj4+Pj4g
-RVRIX1JYX0NMSy9FVEhfUkVGX0NMS19TRUwsIGl0IGlzIG5ldmVyIENLX0FYSS4KPj4+Cj4+PiBX
-aHkgQ0tfQVhJID8KPj4KPj4gU2VlIGRyaXZlcnMvY2xrL2Nsay1zdG0zMm1wMS5jOgo+PiDCoMKg
-IDE4OTXCoMKgwqDCoMKgwqDCoMKgwqAgUENMSyhFVEhSWCwgImV0aHJ4IiwgImNrX2F4aSIsIDAs
-IEdfRVRIUlgpLAo+Pgo+IAo+IE9rIEkgc2VlLCBhbmQgaXQgaXMgdGhlIHNhbWUgY2FzZSBmb3Ig
-VFggYWxzby4gRGlzY3Vzc2luZyB3aXRoIG91ciBjbG9jayAKPiBleHBlcnQgaXQgd2FzIGRvbmUg
-Zm9yIHNpbXBsaWZpY2F0aW9uLgoKU28sIGhvdyBzaGFsbCB3ZSBwcm9jZWVkIGhlcmUgPwpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+On Tue, 12 Jan 2021 16:24:42 +0100
+Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
+
+> 1c6c69525b40 ("genirq: Reject bogus threaded irq requests") makes sure
+> that threaded IRQs either
+>   - have IRQF_ONESHOT set
+>   - don't have the default just return IRQ_WAKE_THREAD primary handler
+> 
+> This is necessary because level-triggered interrupts need to be masked,
+> either at device or irqchip, to avoid an interrupt storm.
+> 
+> For spurious interrupts, the STM32 ADC driver still does this bogus
+> request though:
+>   - It doesn't set IRQF_ONESHOT
+>   - Its primary handler just returns IRQ_WAKE_THREAD if the interrupt
+>     is unexpected, i.e. !(status & enabled_mask)
+
+This seems 'unusual'.  If this is a spurious interrupt we should be
+returning IRQ_NONE and letting the spurious interrupt protection
+stuff kick in.
+
+The only reason I can see that it does this is print an error message.
+I'm not sure why we need to go into the thread to do that given
+it's not supposed to happen. If we need that message at all, I'd
+suggest doing it in the interrupt handler then return IRQ_NONE;
+
+>   - stm32mp151.dtsi describes the ADC interrupt as level-triggered
+> 
+> Fix this by setting IRQF_ONESHOT to have the irqchip mask the IRQ
+> until the IRQ thread has finished.
+> 
+> IRQF_ONESHOT also has the effect that the primary handler is no longer
+> forced into a thread. This makes the issue with spurious interrupts
+> interrupts disappear when reading the ADC on a threadirqs=1 kernel.
+> This used to result in following kernel error message:
+> 
+> 	iio iio:device1: Unexpected IRQ: IER=0x00000000, ISR=0x0000100e
+> or
+> 	iio iio:device1: Unexpected IRQ: IER=0x00000004, ISR=0x0000100a
+> 
+> But with this patch applied (or threaded IRQs disabled), this no longer
+> occurs.
+> 
+> Cc: Lucas Stach <l.stach@pengutronix.de>
+> Reported-by: Holger Assmann <has@pengutronix.de>
+> Fixes: 695e2f5c289b ("iio: adc: stm32-adc: fix a regression when using dma and irq")
+> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+> ---
+>  drivers/iio/adc/stm32-adc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> index c067c994dae2..7e0e21c79ac8 100644
+> --- a/drivers/iio/adc/stm32-adc.c
+> +++ b/drivers/iio/adc/stm32-adc.c
+> @@ -1910,7 +1910,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
+>  
+>  	ret = devm_request_threaded_irq(&pdev->dev, adc->irq, stm32_adc_isr,
+>  					stm32_adc_threaded_isr,
+> -					0, pdev->name, indio_dev);
+> +					IRQF_ONESHOT, pdev->name, indio_dev);
+>  	if (ret) {
+>  		dev_err(&pdev->dev, "failed to request IRQ\n");
+>  		return ret;
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
