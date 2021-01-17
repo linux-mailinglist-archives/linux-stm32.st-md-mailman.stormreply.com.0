@@ -2,46 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F53E2F8E8C
-	for <lists+linux-stm32@lfdr.de>; Sat, 16 Jan 2021 19:05:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB152F8FFA
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 Jan 2021 01:59:19 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC89AC57191;
-	Sat, 16 Jan 2021 18:05:35 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79883C57190;
+	Sun, 17 Jan 2021 00:59:19 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2DA8C5718F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56E6EC57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 Jan 2021 18:05:34 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4DJ5Z64Qcbz1qs0p;
- Sat, 16 Jan 2021 19:05:34 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4DJ5Z63jNfz1qqkn;
- Sat, 16 Jan 2021 19:05:34 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id YsgKP4Ot00dp; Sat, 16 Jan 2021 19:05:33 +0100 (CET)
-X-Auth-Info: DgP2Scq84PJFIgJmKrhhYnT8L6xBn47Wx0HdBALYiys=
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Sat, 16 Jan 2021 19:05:33 +0100 (CET)
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Sat, 16 Jan 2021 19:05:27 +0100
-Message-Id: <20210116180527.57532-1-marex@denx.de>
-X-Mailer: git-send-email 2.29.2
+ Sun, 17 Jan 2021 00:59:17 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 297F722BEA;
+ Sun, 17 Jan 2021 00:59:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1610845155;
+ bh=tSvaCGk0aGCNFtliffn2jp5B4ukLkm0tvq5XS8ex8ms=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=gobF7UkZ6zQb7p6QOThEsdi2tUKlW+6yOgTW721zh8mn/M0OmYbuIQcKbWHxpBmub
+ 31ZxlQgLccAavCrPdPeqvk2z4zMPR1tbi9xtiY3r3QzA7gXmUZyL3856d0odD6w2AU
+ urKIdPrGaikuDtLUHipcnhiXbhkW8zSC49wgVgEePupvomUQ9jFr+SuocseRoh3Gbf
+ MrnJclJJdgFdmhDnD6vO8VRD2i16xzKxsJyg6GXbuZ+JWhNVk3vLMqKnugAauaZ21j
+ EGFXLf094z5XiyxHdafrOaGavgxbCodtvA1yIQdURqCmNxQcz2mjFvjEe43L/voBHR
+ XbspO/7N4mmyg==
+Date: Sat, 16 Jan 2021 16:59:14 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jan Kiszka <jan.kiszka@siemens.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Message-ID: <20210116165914.31b6ca5f@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <bf5170d1-62a9-b2dc-cb5a-d568830c947a@siemens.com>
+References: <20201106094341.4241-1-vee.khee.wong@intel.com>
+ <bf5170d1-62a9-b2dc-cb5a-d568830c947a@siemens.com>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Rename mmc controller nodes
-	to mmc@
+Cc: Alexandre Torgue <alexandre.torgue@st.com>,
+ Voon Wei Feng <weifeng.voon@intel.com>,
+ Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: change all
+ EHL/TGL to auto detect phy addr
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,90 +61,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Per mmc-controller.yaml, the node pattern is "^mmc(@.*)?$" ,
-so adjust the node.
+On Sat, 16 Jan 2021 10:12:21 +0100 Jan Kiszka wrote:
+> On 06.11.20 10:43, Wong Vee Khee wrote:
+> > From: Voon Weifeng <weifeng.voon@intel.com>
+> > 
+> > Set all EHL/TGL phy_addr to -1 so that the driver will automatically
+> > detect it at run-time by probing all the possible 32 addresses.
+> > 
+> > Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
+> > Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+> 
+> This fixes PHY detection on one of our EHL-based boards. Can this also
+> be applied to stable 5.10?
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Ludovic Barre <ludovic.barre@st.com>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: devicetree@vger.kernel.org
----
- arch/arm/boot/dts/stm32f429.dtsi  | 2 +-
- arch/arm/boot/dts/stm32f746.dtsi  | 4 ++--
- arch/arm/boot/dts/stm32mp151.dtsi | 6 +++---
- 3 files changed, 6 insertions(+), 6 deletions(-)
+Sure.
 
-diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
-index ad715a0e1c9a..f6530d724d00 100644
---- a/arch/arm/boot/dts/stm32f429.dtsi
-+++ b/arch/arm/boot/dts/stm32f429.dtsi
-@@ -566,7 +566,7 @@ adc3: adc@200 {
- 			};
- 		};
- 
--		sdio: sdio@40012c00 {
-+		sdio: mmc@40012c00 {
- 			compatible = "arm,pl180", "arm,primecell";
- 			arm,primecell-periphid = <0x00880180>;
- 			reg = <0x40012c00 0x400>;
-diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
-index 640ff54ed00c..e1df603fc981 100644
---- a/arch/arm/boot/dts/stm32f746.dtsi
-+++ b/arch/arm/boot/dts/stm32f746.dtsi
-@@ -473,7 +473,7 @@ usart6: serial@40011400 {
- 			status = "disabled";
- 		};
- 
--		sdio2: sdio2@40011c00 {
-+		sdio2: mmc@40011c00 {
- 			compatible = "arm,pl180", "arm,primecell";
- 			arm,primecell-periphid = <0x00880180>;
- 			reg = <0x40011c00 0x400>;
-@@ -484,7 +484,7 @@ sdio2: sdio2@40011c00 {
- 			status = "disabled";
- 		};
- 
--		sdio1: sdio1@40012c00 {
-+		sdio1: mmc@40012c00 {
- 			compatible = "arm,pl180", "arm,primecell";
- 			arm,primecell-periphid = <0x00880180>;
- 			reg = <0x40012c00 0x400>;
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 8c2a5d0875d8..33777a80799a 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -1055,7 +1055,7 @@ adc2: adc@100 {
- 			};
- 		};
- 
--		sdmmc3: sdmmc@48004000 {
-+		sdmmc3: mmc@48004000 {
- 			compatible = "arm,pl18x", "arm,primecell";
- 			arm,primecell-periphid = <0x00253180>;
- 			reg = <0x48004000 0x400>;
-@@ -1375,7 +1375,7 @@ qspi: spi@58003000 {
- 			status = "disabled";
- 		};
- 
--		sdmmc1: sdmmc@58005000 {
-+		sdmmc1: mmc@58005000 {
- 			compatible = "arm,pl18x", "arm,primecell";
- 			arm,primecell-periphid = <0x00253180>;
- 			reg = <0x58005000 0x1000>;
-@@ -1390,7 +1390,7 @@ sdmmc1: sdmmc@58005000 {
- 			status = "disabled";
- 		};
- 
--		sdmmc2: sdmmc@58007000 {
-+		sdmmc2: mmc@58007000 {
- 			compatible = "arm,pl18x", "arm,primecell";
- 			arm,primecell-periphid = <0x00253180>;
- 			reg = <0x58007000 0x1000>;
--- 
-2.29.2
+Greg, we'd like to request a backport of the following commit to 5.10.
 
+commit bff6f1db91e330d7fba56f815cdbc412c75fe163
+Author: Voon Weifeng <weifeng.voon@intel.com>
+Date:   Fri Nov 6 17:43:41 2020 +0800
+
+    stmmac: intel: change all EHL/TGL to auto detect phy addr
+    
+    Set all EHL/TGL phy_addr to -1 so that the driver will automatically
+    detect it at run-time by probing all the possible 32 addresses.
+    
+    Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
+    Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+    Link: https://lore.kernel.org/r/20201106094341.4241-1-vee.khee.wong@intel.com
+    Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+
+It's relatively small, and Jan reports it makes his boards detect the
+PHY. The change went in via -next and into Linus's tree during the 5.11
+merge window.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
