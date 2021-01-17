@@ -2,49 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFB152F8FFA
-	for <lists+linux-stm32@lfdr.de>; Sun, 17 Jan 2021 01:59:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA48A2F9255
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 Jan 2021 13:34:54 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79883C57190;
-	Sun, 17 Jan 2021 00:59:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77AE3C3FADB;
+	Sun, 17 Jan 2021 12:34:54 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56E6EC57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFC15C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 Jan 2021 00:59:17 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 297F722BEA;
- Sun, 17 Jan 2021 00:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610845155;
- bh=tSvaCGk0aGCNFtliffn2jp5B4ukLkm0tvq5XS8ex8ms=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=gobF7UkZ6zQb7p6QOThEsdi2tUKlW+6yOgTW721zh8mn/M0OmYbuIQcKbWHxpBmub
- 31ZxlQgLccAavCrPdPeqvk2z4zMPR1tbi9xtiY3r3QzA7gXmUZyL3856d0odD6w2AU
- urKIdPrGaikuDtLUHipcnhiXbhkW8zSC49wgVgEePupvomUQ9jFr+SuocseRoh3Gbf
- MrnJclJJdgFdmhDnD6vO8VRD2i16xzKxsJyg6GXbuZ+JWhNVk3vLMqKnugAauaZ21j
- EGFXLf094z5XiyxHdafrOaGavgxbCodtvA1yIQdURqCmNxQcz2mjFvjEe43L/voBHR
- XbspO/7N4mmyg==
-Date: Sat, 16 Jan 2021 16:59:14 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jan Kiszka <jan.kiszka@siemens.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-Message-ID: <20210116165914.31b6ca5f@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <bf5170d1-62a9-b2dc-cb5a-d568830c947a@siemens.com>
-References: <20201106094341.4241-1-vee.khee.wong@intel.com>
- <bf5170d1-62a9-b2dc-cb5a-d568830c947a@siemens.com>
+ Sun, 17 Jan 2021 12:34:52 +0000 (UTC)
+Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 448A0206F4;
+ Sun, 17 Jan 2021 12:34:49 +0000 (UTC)
+Date: Sun, 17 Jan 2021 12:34:42 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Xu Wang <vulab@iscas.ac.cn>
+Message-ID: <20210117123442.5156a509@archlinux>
+In-Reply-To: <20201231085322.24398-1-vulab@iscas.ac.cn>
+References: <20201231085322.24398-1-vulab@iscas.ac.cn>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: Alexandre Torgue <alexandre.torgue@st.com>,
- Voon Wei Feng <weifeng.voon@intel.com>,
- Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: change all
- EHL/TGL to auto detect phy addr
+Cc: lars@metafoo.de, pmeerw@pmeerw.net, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, krzk@kernel.org, bobo.shaobowang@huawei.com,
+ andy.shevchenko@gmail.com, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: Remove redundant
+ null check before clk_disable_unprepare
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,41 +50,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 16 Jan 2021 10:12:21 +0100 Jan Kiszka wrote:
-> On 06.11.20 10:43, Wong Vee Khee wrote:
-> > From: Voon Weifeng <weifeng.voon@intel.com>
-> > 
-> > Set all EHL/TGL phy_addr to -1 so that the driver will automatically
-> > detect it at run-time by probing all the possible 32 addresses.
-> > 
-> > Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
-> > Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+On Thu, 31 Dec 2020 08:53:22 +0000
+Xu Wang <vulab@iscas.ac.cn> wrote:
+
+> ecause clk_disable_unprepare() already checked NULL clock parameter,
+> so the additional check is unnecessary, just remove it.
 > 
-> This fixes PHY detection on one of our EHL-based boards. Can this also
-> be applied to stable 5.10?
+> Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
+Applied to the togreg branch of iio.git and pushed out as testing for the
+autobuilders to see if we missed anything.
 
-Sure.
+thanks,
 
-Greg, we'd like to request a backport of the following commit to 5.10.
+Jonathan
 
-commit bff6f1db91e330d7fba56f815cdbc412c75fe163
-Author: Voon Weifeng <weifeng.voon@intel.com>
-Date:   Fri Nov 6 17:43:41 2020 +0800
+> ---
+>  drivers/iio/adc/stm32-dfsdm-core.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-dfsdm-core.c b/drivers/iio/adc/stm32-dfsdm-core.c
+> index 42a7377704a4..bb925a11c8ae 100644
+> --- a/drivers/iio/adc/stm32-dfsdm-core.c
+> +++ b/drivers/iio/adc/stm32-dfsdm-core.c
+> @@ -117,8 +117,7 @@ static void stm32_dfsdm_clk_disable_unprepare(struct stm32_dfsdm *dfsdm)
+>  {
+>  	struct dfsdm_priv *priv = to_stm32_dfsdm_priv(dfsdm);
+>  
+> -	if (priv->aclk)
+> -		clk_disable_unprepare(priv->aclk);
+> +	clk_disable_unprepare(priv->aclk);
+>  	clk_disable_unprepare(priv->clk);
+>  }
+>  
 
-    stmmac: intel: change all EHL/TGL to auto detect phy addr
-    
-    Set all EHL/TGL phy_addr to -1 so that the driver will automatically
-    detect it at run-time by probing all the possible 32 addresses.
-    
-    Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
-    Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
-    Link: https://lore.kernel.org/r/20201106094341.4241-1-vee.khee.wong@intel.com
-    Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-
-It's relatively small, and Jan reports it makes his boards detect the
-PHY. The change went in via -next and into Linus's tree during the 5.11
-merge window.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
