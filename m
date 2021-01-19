@@ -2,70 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924B22FB755
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Jan 2021 15:22:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC4A12FBBD1
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Jan 2021 17:00:41 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95B14C3FADA;
-	Tue, 19 Jan 2021 14:22:53 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A573C3FADA;
+	Tue, 19 Jan 2021 16:00:41 +0000 (UTC)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31CA7C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76861C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Jan 2021 14:22:51 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10JEDDUY023322; Tue, 19 Jan 2021 15:22:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=UvHs684uAeD3bFunUh/ZA4myF0Q6gk6gMB70PXJxIjE=;
- b=QCLXI6/HOvFgfT4D28a3yWwJHglhJbIVhGZ7chesWbxNodmKk10TeJ+CdRCy5YcAmjNz
- AlOXjsO5am1Aau5zHR63KTcJc3KvHKzheXwL62JX7Ji+SnSy0Ce+VWdnh91bsvuJ0ADS
- R1MFaoMFF2Gl2h8SLloNPcllVHKQ9STH5NWFypJ5XkrY3CzkFzyEDRPgD58hwPVprzpP
- 0yewEl+qQWxXt2IJZyAxin/IvjHWWHijSJzhoTqkaaDbOaGLclXiMyUEBNnddRhEOtZ/
- E+kpVKSDJCWut664z4Q0RyG+7pGtdlfS0peF1KAYfc6fj7Jick8D4fxq/8prmaKsORxi UQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 363qwnga5j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 19 Jan 2021 15:22:47 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A1110100034;
- Tue, 19 Jan 2021 15:22:45 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7AD8A25D007;
- Tue, 19 Jan 2021 15:22:45 +0100 (CET)
-Received: from lmecxl0995.lme.st.com (10.75.127.48) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 19 Jan
- 2021 15:22:44 +0100
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Jules Maselbas
- <jmaselbas@kalray.eu>, <linux-usb@vger.kernel.org>
-References: <6cd01e79-fdc0-3bd4-32b5-a85142533f8a@pengutronix.de>
- <20210112170124.14148-1-jmaselbas@kalray.eu>
- <20c8617b-069c-e9a5-f394-4e5a8e67deb4@pengutronix.de>
-From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
-Message-ID: <ccfd600c-112e-2dbd-0117-8cef6f591d45@foss.st.com>
-Date: Tue, 19 Jan 2021 15:22:44 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Tue, 19 Jan 2021 16:00:38 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id l23so156356pjg.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 Jan 2021 08:00:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=cjhn+ON+hkziQZDm4FU1RytdB4SSkjTn8+uofKtncf4=;
+ b=d37eDwdiYcgU786B2/oaZHUv37IdCecqnYg5R1vsCoQXglwTHd6hvsG8k4V4VTmhcI
+ 7eH4JakNM29vrQ5BTQznO5HiZId7FzqVQfIDWL4w3qL6DbXiZZx2y8Sdtjyta8s9qdm7
+ 58paqu2uAH9OqJriHMFZf95FoRcXWnPa3Ph/Criww5sb744sR5UDVUWIuyHPYuAWnbQJ
+ Ab1VaspMUK7s5AWhZZn+bUqNMdtLogYc/KzmJjTPybx8zbPRe+C0Oen2HgpqugmcynNx
+ hLrFIDKWdEgryGNYcJVa4wklOvfNPST3pgCq28zYKBmIK/nnpo5tMBoR8XVRYfIg0p5A
+ gZpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=cjhn+ON+hkziQZDm4FU1RytdB4SSkjTn8+uofKtncf4=;
+ b=clfbny1hZmBnnj3+XP7lhdUDGG/slRduW9ZrTAyjhtjS1eKiMp9pR4vm7FB24UjvB+
+ FzRKnUo4ckM2k4xCkjW6OgiHr3Ce30wSTMTKceeK8SODf3QNH38But2ZagQkLY4QBK4v
+ /AgXjohWUdqF43zwMdCAD2BBsVRCdR9mLEtOp3kz7nPnIgXMfI0Xgo9JOrE5Qn7i7yM6
+ ASo46/Y+E4GOdTYeRDyX2FA4rqzyS37pOGxMky/vL6hzgy909aLgjp6kobk0yaNjtRNu
+ 9lzBNgMbanyRdasNou6qa/BPmrigdzh0LRnWd5Dxr8Xr1NSC0tGl7/+SDv6PqQecLEnh
+ xX8g==
+X-Gm-Message-State: AOAM532m3i5sRJ6+S8kSzn1b+XFqEwefzV9kz8L4o00zIwqO8ng0d6B1
+ k98CzB2fb6mPmZGjG5H+ecgMkhioViu33A==
+X-Google-Smtp-Source: ABdhPJxxn9wfy3oMuHByRv7nVJi+Gxq6rGK6r1XgFPfGojJ12MEt28w4sbqXtyE0KooTYGUlUjCNCQ==
+X-Received: by 2002:a17:902:d893:b029:da:72d4:8343 with SMTP id
+ b19-20020a170902d893b02900da72d48343mr5435514plz.84.1611072036147; 
+ Tue, 19 Jan 2021 08:00:36 -0800 (PST)
+Received: from xps15 (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id ne6sm4003328pjb.44.2021.01.19.08.00.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Jan 2021 08:00:35 -0800 (PST)
+Date: Tue, 19 Jan 2021 09:00:33 -0700
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Message-ID: <20210119160033.GB611676@xps15>
+References: <20210106133714.9984-1-arnaud.pouliquen@foss.st.com>
+ <20210114190543.GB255481@xps15>
+ <6de9ff8f-0be1-387a-df7e-7d77dd859513@st.com>
 MIME-Version: 1.0
-In-Reply-To: <20c8617b-069c-e9a5-f394-4e5a8e67deb4@pengutronix.de>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-19_04:2021-01-18,
- 2021-01-19 signatures=0
-Cc: Minas Harutyunyan <hminas@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Content-Disposition: inline
+In-Reply-To: <6de9ff8f-0be1-387a-df7e-7d77dd859513@st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Arnaud POULIQUEN - foss <arnaud.pouliquen@foss.st.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Kishon Vijay Abraham I <kishon@ti.com>
-Subject: Re: [Linux-stm32] [PATCH] usb: dwc2: Change ordering of phy_init
- and phy_power_on
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH] rpmsg: char: return an error if device
+ already open
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,120 +78,92 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Ahmad, Jules,
+On Fri, Jan 15, 2021 at 10:13:35AM +0100, Arnaud POULIQUEN wrote:
+> Hi Mathieu,
+> 
+> 
+> On 1/14/21 8:05 PM, Mathieu Poirier wrote:
+> > On Wed, Jan 06, 2021 at 02:37:14PM +0100, Arnaud Pouliquen wrote:
+> >> The rpmsg_create_ept function is invoked when the device is opened.
+> >> As only one endpoint must be created per device. It is not
+> >> possible to open the same device twice.
+> >> The fix consists in returning -EBUSY when device is already
+> >> opened.
+> >>
+> >> Fixes: c0cdc19f84a4 ("rpmsg: Driver for user space endpoint interface")
+> >> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> >> ---
+> >>  drivers/rpmsg/rpmsg_char.c | 3 +++
+> >>  1 file changed, 3 insertions(+)
+> >>
+> >> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+> >> index 4bbbacdbf3bb..360a1ab0a9c4 100644
+> >> --- a/drivers/rpmsg/rpmsg_char.c
+> >> +++ b/drivers/rpmsg/rpmsg_char.c
+> >> @@ -127,6 +127,9 @@ static int rpmsg_eptdev_open(struct inode *inode, struct file *filp)
+> >>  	struct rpmsg_device *rpdev = eptdev->rpdev;
+> >>  	struct device *dev = &eptdev->dev;
+> >>  
+> >> +	if (eptdev->ept)
+> >> +		return -EBUSY;
+> >> +
+> > 
+> > I rarely had to work so hard to review a 2 line patch...
+> 
+> That means that my commit description was not enough explicit...
+> 
+> > 
+> > As far as I can tell the actual code is doing the right thing.  If user space is
+> > trying to open the same eptdev more than once function rpmsg_create_ept() should
+> > complain and the operation denied, wich is what the current code is doing.  
+> > 
+> > There is currently two customers for this API - SMD and GLINK.  The SMD code is
+> > quite clear that if the channel is already open, the operation will be
+> > denied [1].  The GLINK code isn't as clear but the fact that it returns NULL on
+> > error conditions [2] is a good indication that things are working the same way.
+> > 
+> > What kind of use case are you looking to address?  Is there any way you can use
+> > rpdev->ops->create_ept() as it is currently done?
+> 
+> This patch was part of the IOCTL rpmsg series. I sent it separately at Bjorn's
+> request [1].
+>
 
-On 1/12/21 10:30 PM, Ahmad Fatoum wrote:
-> Hello Jules,
+I am looking at [1] later today - I will get back to this patch when I have more
+context.
+ 
+> I detect the issue using the RPMSG_ADDR_ANY for the source address when tested
+> it with the rpmsf_virtio bus. In this case at each sys open of the device, a new
+> endpoint is created because a new source address is allocated.
 > 
-> + linux-stm32 and Amelie, who upstreamed dwc2 glue for the stm32mp1.
+> [1]https://patchwork.kernel.org/project/linux-remoteproc/patch/20201222105726.16906-11-arnaud.pouliquen@foss.st.com/
 > 
-> [ some context: https://lore.kernel.org/lkml/6cd01e79-fdc0-3bd4-32b5-a85142533f8a@pengutronix.de/ ]
+> Thanks,
+> Arnaud
 > 
-> On 12.01.21 18:01, Jules Maselbas wrote:
->> Call phy_init before phy_power_on as this is the intended way of using
->> the generic phy api.
-> 
-> Even if the PHY driver code itself doesn't show an apparent dependency
-> between the power on and init operation, the hardware may expect things to
-> happen in a defined order. This is at least the case for the stm32-usbphyc
-> and would be violated if we just swap the order in the controller.
-> 
-> Instead, why not take it slow:
-> 
->   - Document that phy_init -> phy_power_on is the correct order
->   - Throw a warning when the order is violated
->   - Ask for this patch to marinate a while in linux-next, so people
->     have a chance to sort out incompatibilities with their PHY drivers
-> 
-
-I agree with Ahmad, this should be documented somewhere.
-
-Even if, with latest stm32-usbphyc updates 
-(https://lore.kernel.org/patchwork/project/lkml/list/?series=478783), 
-the order phy_init() then phy_power_on() would ensure a recommendation 
-of STM32MP15 AN5031 [1].
-
-Regards,
-Amelie
-
-[1] 
-https://www.st.com/resource/en/application_note/dm00389996-getting-started-with-stm32mp151-stm32mp153-and-stm32mp157-line-hardware-development-stmicroelectronics.pdf
-
-> Cheers,
-> Ahmad
-> 
->>
->> Signed-off-by: Jules Maselbas <jmaselbas@kalray.eu>
->> Cc: Ahmad Fatoum <a.fatoum@pengutronix.de>
->> Cc: Minas Harutyunyan <hminas@synopsys.com>
->> Cc: Kishon Vijay Abraham I <kishon@ti.com>
->>
->> ---
->>
->> I have quickly looked at usb-phy if this change could break something or
->> not. The following cmd list the compatible strings for usb-phy used by dwc2:
->>
->> git grep 'snps,dwc2' -- arch/ | sed 's/:.*$//' | { while read file; do \
->>          phyname=$(git grep -A10 'snps,dwc2' -- "$file" | \
->>                  sed -n '/phys/{s/.*<&\([^ >]*\).*/\1/p}'); \
->>          [ "$phyname" ] && { \
->> 	        git grep -A10 "${phyname}: " -- "$file" | \
->>                  grep -m1 'compatible'; \
->>          }; done };
->>
->>  From this output I took a look at:
->>   - brcm,kona-usb2-phy
->>   - samsung,exynos3250-usb2-phy
->>   - rockchip,rk3288-usb
->>   - amlogic,meson-gxbb-usb2-phy
->>   - amlogic,meson-gxl-usb2-phy
->>   - img,pistachio-usb-phy
->>
->> Most of these phys only defines .power_on and .power_off;
->> brcm,kona-usb2-phy also defines .init; and amlogic,meson-gxl-usb2-phy defines
->> .init .exit and .reset
->>
->>  From what I've seen it seems to be OK for these two phy to call
->> init/exit first and then power_on/power_off.
->> ---
->>   drivers/usb/dwc2/platform.c | 8 ++++----
->>   1 file changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/usb/dwc2/platform.c b/drivers/usb/dwc2/platform.c
->> index b58ce996add7..a07dff088a26 100644
->> --- a/drivers/usb/dwc2/platform.c
->> +++ b/drivers/usb/dwc2/platform.c
->> @@ -142,9 +142,9 @@ static int __dwc2_lowlevel_hw_enable(struct dwc2_hsotg *hsotg)
->>   	} else if (hsotg->plat && hsotg->plat->phy_init) {
->>   		ret = hsotg->plat->phy_init(pdev, hsotg->plat->phy_type);
->>   	} else {
->> -		ret = phy_power_on(hsotg->phy);
->> +		ret = phy_init(hsotg->phy);
->>   		if (ret == 0)
->> -			ret = phy_init(hsotg->phy);
->> +			ret = phy_power_on(hsotg->phy);
->>   	}
->>   
->>   	return ret;
->> @@ -176,9 +176,9 @@ static int __dwc2_lowlevel_hw_disable(struct dwc2_hsotg *hsotg)
->>   	} else if (hsotg->plat && hsotg->plat->phy_exit) {
->>   		ret = hsotg->plat->phy_exit(pdev, hsotg->plat->phy_type);
->>   	} else {
->> -		ret = phy_exit(hsotg->phy);
->> +		ret = phy_power_off(hsotg->phy);
->>   		if (ret == 0)
->> -			ret = phy_power_off(hsotg->phy);
->> +			ret = phy_exit(hsotg->phy);
->>   	}
->>   	if (ret)
->>   		return ret;
->>
-> 
+> > 
+> > Thanks,
+> > Mathieu
+> > 
+> > [1]. https://elixir.bootlin.com/linux/v5.11-rc3/source/drivers/rpmsg/qcom_smd.c#L920
+> > [2]. https://elixir.bootlin.com/linux/v5.11-rc3/source/drivers/rpmsg/qcom_glink_native.c#L1149
+> > 
+> >>  	get_device(dev);
+> >>  
+> >>  	ept = rpmsg_create_ept(rpdev, rpmsg_ept_cb, eptdev, eptdev->chinfo);
+> >> -- 
+> >> 2.17.1
+> >>
+> > _______________________________________________
+> > Linux-stm32 mailing list
+> > Linux-stm32@st-md-mailman.stormreply.com
+> > https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+> > 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
