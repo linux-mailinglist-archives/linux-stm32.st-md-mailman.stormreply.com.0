@@ -2,42 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D7442FCAEA
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Jan 2021 07:08:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D00962FCD8E
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Jan 2021 10:50:28 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFBF9C3FADA;
-	Wed, 20 Jan 2021 06:08:19 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A823CC3FADA;
+	Wed, 20 Jan 2021 09:50:27 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50399C3089F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8DD1C3089F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Jan 2021 06:08:18 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C44C6217BA;
- Wed, 20 Jan 2021 06:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611122897;
- bh=RR54Qs4HyvFncXLjeeZ8ZNoWbpER2eGQN67MAA65J8g=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=n8ZMmcVpD1uURQ5NGIAawLGiLgoRL2IAUVgy9CnCdUSYva1zb9C/4vq4IQ4uIJ7EM
- HGTqKG7/BNZL4PfOqcKP3WNISw6EtYR1OrQaf/ea19W3qq8JLPmfrwkdWXwOH5qQk2
- q9U+gthlT1Pz61jqJBZR2LNKJ8OPL7aAMeg2UFJJaFrNJB/4dHuLljKNc2s12Tqki+
- SqiWM0xJNMLD1oIZPU6ay0Mh1AitLYMB6UCbBVKVrYm7jji9KAke9dlTjN+azi7ufg
- 2yp5Xo9bYxFK6y+BhMS1cNATbYAiH39s4auOZJ7lz9TlsRiLBo3rsH+HRRR8nWE2hx
- zD5LenpclqHHQ==
-Date: Tue, 19 Jan 2021 22:08:15 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Message-ID: <20210119220815.039ac330@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20210120012602.769683-28-sashal@kernel.org>
-References: <20210120012602.769683-1-sashal@kernel.org>
- <20210120012602.769683-28-sashal@kernel.org>
+ Tue, 19 Jan 2021 10:51:38 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 10JAlo8w024026; Tue, 19 Jan 2021 11:51:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=9YMOD6MmU6S+E9nQgamOnACAlveEyKVrfmoJphPUeHU=;
+ b=TBRRBHg6sjVJRAb6kZJ2/Ebv4/CRq3EEuXNvCtjLq4JKisvSqNqd4ZTMRMvD7r22BdQd
+ cMhQfLO98aTKU/6pn/U5C3k8COoorD8AZX3DXauwY91Z0qioIIxl10BUtWdYAI3Xd+Jq
+ gmkALxqJ2wzxjlDx5o2aAt6ctAgZ4OqmOvhRoLLTzezpBt/EDFMJh/99IMWDo+ndVRQ0
+ b7HfXs+cdX/YCIv6sbnPcZ3sOzJo6S2qOBpYnbIO+B29fVEa93xre4KEirOlYYNjiOk4
+ YtWvFUjCcqKc1KZ5hc6a7tkfT8ZN6H8CFdm3ehguGzHSJryXVsROBbtNFYHnTtvry3Ty Zw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 363p5dfdet-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Jan 2021 11:51:22 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C43F6100034;
+ Tue, 19 Jan 2021 11:51:20 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B341A2296E0;
+ Tue, 19 Jan 2021 11:51:20 +0100 (CET)
+Received: from lmecxl0602.lme.st.com (10.75.127.48) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 19 Jan
+ 2021 11:51:19 +0100
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Rob Herring <robh+dt@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+References: <20210119095241.17888-1-a.fatoum@pengutronix.de>
+From: Lionel DEBIEVE <lionel.debieve@foss.st.com>
+Message-ID: <d14933ea-2c77-7cca-8e2b-3972ea47d733@foss.st.com>
+Date: Tue, 19 Jan 2021 11:50:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, David Wu <david.wu@rock-chips.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH AUTOSEL 5.10 28/45] net: stmmac: Fixed mtu
- channged by cache aligned
+In-Reply-To: <20210119095241.17888-1-a.fatoum@pengutronix.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-19_02:2021-01-18,
+ 2021-01-19 signatures=0
+X-Mailman-Approved-At: Wed, 20 Jan 2021 09:50:26 +0000
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: enable STM32MP1
+ crypto/CRC accelerators unconditionally
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,29 +75,249 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 19 Jan 2021 20:25:45 -0500 Sasha Levin wrote:
-> From: David Wu <david.wu@rock-chips.com>
-> 
-> [ Upstream commit 5b55299eed78538cc4746e50ee97103a1643249c ]
-> 
-> Since the original mtu is not used when the mtu is updated,
-> the mtu is aligned with cache, this will get an incorrect.
-> For example, if you want to configure the mtu to be 1500,
-> but mtu 1536 is configured in fact.
-> 
-> Fixed: eaf4fac478077 ("net: stmmac: Do not accept invalid MTU values")
-> Signed-off-by: David Wu <david.wu@rock-chips.com>
-> Link: https://lore.kernel.org/r/20210113034109.27865-1-david.wu@rock-chips.com
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Hi Ahmad,
 
-This was applied 6 days ago, I thought you said you wait two weeks.
-What am I missing?
+These IPs could be enabled in the secure side. To avoid any concurrency 
+access, I prefer to keep all that crypto IPs status disable.
+For examples, RNG can be managed in OP-TEE, so it will remain disable in 
+Linux.
+BR,
+
+Lionel
+
+On 1/19/21 10:52 AM, Ahmad Fatoum wrote:
+> There is no SoC-external hardware support needed for the hash1, rng1,
+> crc1 and cryp1 IP blocks to function. Enable them thus unconditionally
+> instead of replicating their enablement in board device trees.
+>
+> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+> ---
+>   arch/arm/boot/dts/stm32mp151.dtsi              |  3 ---
+>   arch/arm/boot/dts/stm32mp157a-stinger96.dtsi   |  4 ----
+>   arch/arm/boot/dts/stm32mp157c-dk2.dts          |  4 ----
+>   arch/arm/boot/dts/stm32mp157c-ed1.dts          | 16 ----------------
+>   arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi |  4 ----
+>   arch/arm/boot/dts/stm32mp15xc.dtsi             |  1 -
+>   arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi   |  8 --------
+>   arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi   |  4 ----
+>   arch/arm/boot/dts/stm32mp15xx-dkx.dtsi         | 12 ------------
+>   arch/arm/boot/dts/stm32mp15xx-osd32.dtsi       |  4 ----
+>   10 files changed, 60 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+> index 3c75abacb374..c2d998343b6a 100644
+> --- a/arch/arm/boot/dts/stm32mp151.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
+> @@ -1297,7 +1297,6 @@ hash1: hash@54002000 {
+>   			dmas = <&mdma1 31 0x2 0x1000A02 0x0 0x0>;
+>   			dma-names = "in";
+>   			dma-maxburst = <2>;
+> -			status = "disabled";
+>   		};
+>   
+>   		rng1: rng@54003000 {
+> @@ -1305,7 +1304,6 @@ rng1: rng@54003000 {
+>   			reg = <0x54003000 0x400>;
+>   			clocks = <&rcc RNG1_K>;
+>   			resets = <&rcc RNG1_R>;
+> -			status = "disabled";
+>   		};
+>   
+>   		mdma1: dma-controller@58000000 {
+> @@ -1402,7 +1400,6 @@ crc1: crc@58009000 {
+>   			compatible = "st,stm32f7-crc";
+>   			reg = <0x58009000 0x400>;
+>   			clocks = <&rcc CRC1>;
+> -			status = "disabled";
+>   		};
+>   
+>   		stmmac_axi_config_0: stmmac-axi-config {
+> diff --git a/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi b/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
+> index 58275bcf9e26..268a99291d79 100644
+> --- a/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
+> @@ -253,10 +253,6 @@ &pwr_regulators {
+>   	vdd_3v3_usbfs-supply = <&vdd_usb>;
+>   };
+>   
+> -&rng1 {
+> -	status = "okay";
+> -};
+> -
+>   &rtc {
+>   	status = "okay";
+>   };
+> diff --git a/arch/arm/boot/dts/stm32mp157c-dk2.dts b/arch/arm/boot/dts/stm32mp157c-dk2.dts
+> index 2bc92ef3aeb9..045636555ddd 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-dk2.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-dk2.dts
+> @@ -29,10 +29,6 @@ chosen {
+>   	};
+>   };
+>   
+> -&cryp1 {
+> -	status = "okay";
+> -};
+> -
+>   &dsi {
+>   	status = "okay";
+>   	phy-dsi-supply = <&reg18>;
+> diff --git a/arch/arm/boot/dts/stm32mp157c-ed1.dts b/arch/arm/boot/dts/stm32mp157c-ed1.dts
+> index 81a7d5849db4..f69622097e89 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-ed1.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-ed1.dts
+> @@ -115,14 +115,6 @@ adc1: adc@0 {
+>   	};
+>   };
+>   
+> -&crc1 {
+> -	status = "okay";
+> -};
+> -
+> -&cryp1 {
+> -	status = "okay";
+> -};
+> -
+>   &dac {
+>   	pinctrl-names = "default";
+>   	pinctrl-0 = <&dac_ch1_pins_a &dac_ch2_pins_a>;
+> @@ -144,10 +136,6 @@ &gpu {
+>   	contiguous-area = <&gpu_reserved>;
+>   };
+>   
+> -&hash1 {
+> -	status = "okay";
+> -};
+> -
+>   &i2c4 {
+>   	pinctrl-names = "default", "sleep";
+>   	pinctrl-0 = <&i2c4_pins_a>;
+> @@ -325,10 +313,6 @@ &pwr_regulators {
+>   	vdd_3v3_usbfs-supply = <&vdd_usb>;
+>   };
+>   
+> -&rng1 {
+> -	status = "okay";
+> -};
+> -
+>   &rtc {
+>   	status = "okay";
+>   };
+> diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
+> index 6cf49a0a9e69..a2aca1982bf6 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
+> @@ -250,10 +250,6 @@ &m4_rproc {
+>   	status = "okay";
+>   };
+>   
+> -&rng1 {
+> -	status = "okay";
+> -};
+> -
+>   &rtc {
+>   	status = "okay";
+>   };
+> diff --git a/arch/arm/boot/dts/stm32mp15xc.dtsi b/arch/arm/boot/dts/stm32mp15xc.dtsi
+> index b06a55a2fa18..86953d7ddde0 100644
+> --- a/arch/arm/boot/dts/stm32mp15xc.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xc.dtsi
+> @@ -12,7 +12,6 @@ cryp1: cryp@54001000 {
+>   			interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
+>   			clocks = <&rcc CRYP1>;
+>   			resets = <&rcc CRYP1_R>;
+> -			status = "disabled";
+>   		};
+>   	};
+>   };
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+> index ac46ab363e1b..603c14054509 100644
+> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+> @@ -377,14 +377,6 @@ flash0: mx66l51235l@0 {
+>   	};
+>   };
+>   
+> -&rng1 {
+> -	status = "okay";
+> -};
+> -
+> -&rtc {
+> -	status = "okay";
+> -};
+> -
+>   &sdmmc1 {
+>   	pinctrl-names = "default", "opendrain", "sleep";
+>   	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
+> index 803eb8bc9c85..3f4af430aaf4 100644
+> --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
+> @@ -204,10 +204,6 @@ flash0: spi-flash@0 {
+>   	};
+>   };
+>   
+> -&rng1 {
+> -	status = "okay";
+> -};
+> -
+>   &rtc {
+>   	status = "okay";
+>   };
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
+> index 89c0e1ddc387..0cca6c3ff4a0 100644
+> --- a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
+> @@ -124,10 +124,6 @@ &cec {
+>   	status = "okay";
+>   };
+>   
+> -&crc1 {
+> -	status = "okay";
+> -};
+> -
+>   &dts {
+>   	status = "okay";
+>   };
+> @@ -155,10 +151,6 @@ &gpu {
+>   	contiguous-area = <&gpu_reserved>;
+>   };
+>   
+> -&hash1 {
+> -	status = "okay";
+> -};
+> -
+>   &i2c1 {
+>   	pinctrl-names = "default", "sleep";
+>   	pinctrl-0 = <&i2c1_pins_a>;
+> @@ -482,10 +474,6 @@ &pwr_regulators {
+>   	vdd_3v3_usbfs-supply = <&vdd_usb>;
+>   };
+>   
+> -&rng1 {
+> -	status = "okay";
+> -};
+> -
+>   &rtc {
+>   	status = "okay";
+>   };
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi b/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
+> index 713485a95795..d03d4d12133c 100644
+> --- a/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
+> @@ -224,7 +224,3 @@ &m4_rproc {
+>   	interrupts = <68 1>;
+>   	status = "okay";
+>   };
+> -
+> -&rng1 {
+> -	status = "okay";
+> -};
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
