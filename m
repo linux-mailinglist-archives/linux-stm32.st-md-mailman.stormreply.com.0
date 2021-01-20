@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B35F22FC66E
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Jan 2021 02:26:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24502FC686
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Jan 2021 02:27:30 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72C94C424BE;
-	Wed, 20 Jan 2021 01:26:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E5E0C424C0;
+	Wed, 20 Jan 2021 01:27:30 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1C12C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14343C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Jan 2021 01:26:41 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E26C4206F9;
- Wed, 20 Jan 2021 01:26:38 +0000 (UTC)
+ Wed, 20 Jan 2021 01:27:28 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AC64923405;
+ Wed, 20 Jan 2021 01:27:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1611105999;
- bh=Q2T+Gg657rvxrNNOM9O3dL87n9iUIoz0iudYxSTxRKw=;
+ s=k20201202; t=1611106046;
+ bh=jmecdH5m1sZMM1i2nSpyh9TsmuTOVzBLpDjaKJ7LffY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CpZfwWdRWtppd3/gJkxkoJ1h66kJaIIpHEnQaBQpPSrfV6Lmp+ILjluamFCIVgCd6
- 9ncX9+c3nH02vRcKJCW0HL9eWumA32lrc1bFQ8EncbbYvGPtmgWutDW4NqI7W8jFYq
- ypz/iB8vOphXJ36wDedbIWbTlO7e1iAWlN48e1WrQxK/VObBv9Cac18l1R9FJ40QE4
- X5sQalphfI+hi0YwV8E2gwKtpnmuk5uGiTAdfbQRW4T0TxyYyyTfr8VyWi0hqv+d+J
- c8PBaxISB9T3BVe8HX5I6LUeFxHebUUl6tSflgRuFFyBw0J9MdZemBUbTMComWLnEW
- jZfj19EQgcFrg==
+ b=V3PnYBbcdaMCK4tZ0i+cSJmggBqQ9710r3B0en+UXK+nN09gRNNXHyCc/b9EzdMB3
+ x9fCIhBEJWwtDFf5AKVc0qyfQANaq5KWE914bBnRen4WD2AHxZWYe3Vgz+PfhXXY5S
+ vhCbk1hp8OSxhBgrlPsv2u1OWy4hajtDslSNbJWkrwqao3UVwjnKvlHG+qGJKRkiI9
+ w0fT9jkJXOiyIx1rVldU9gpEA15ZTu4xsjWkNN37zrjtr/N+Llg8ZKOaBiTIWAPdfd
+ +d7TrySXjOAPA+4fLrUlM8fjGtFvGfRAVmOqouEZ/EzGQOI5VQ9irTz7GP+keIM1VA
+ U0HeEi2Q5YWHw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 19 Jan 2021 20:25:45 -0500
-Message-Id: <20210120012602.769683-28-sashal@kernel.org>
+Date: Tue, 19 Jan 2021 20:26:53 -0500
+Message-Id: <20210120012704.770095-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210120012602.769683-1-sashal@kernel.org>
-References: <20210120012602.769683-1-sashal@kernel.org>
+In-Reply-To: <20210120012704.770095-1-sashal@kernel.org>
+References: <20210120012704.770095-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
  David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 28/45] net: stmmac: Fixed mtu
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 16/26] net: stmmac: Fixed mtu
 	channged by cache aligned
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -76,10 +76,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index cb39f6dbf72b8..b3d6d8e3f4de9 100644
+index 18c5a9bb6759c..ce5d3e9e5dff4 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3996,6 +3996,7 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+@@ -3739,6 +3739,7 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
  {
  	struct stmmac_priv *priv = netdev_priv(dev);
  	int txfifosz = priv->plat->tx_fifo_size;
@@ -87,7 +87,7 @@ index cb39f6dbf72b8..b3d6d8e3f4de9 100644
  
  	if (txfifosz == 0)
  		txfifosz = priv->dma_cap.tx_fifo_size;
-@@ -4013,7 +4014,7 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+@@ -3756,7 +3757,7 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
  	if ((txfifosz < new_mtu) || (new_mtu > BUF_SIZE_16KiB))
  		return -EINVAL;
  
