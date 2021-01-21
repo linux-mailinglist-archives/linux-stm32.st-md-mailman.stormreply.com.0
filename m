@@ -2,59 +2,98 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F0B2FF6B0
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Jan 2021 22:05:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D36E02FF85E
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 00:04:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF4B6C424BE;
-	Thu, 21 Jan 2021 21:05:13 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9089EC424BE;
+	Thu, 21 Jan 2021 23:04:05 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25645C3FADB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE264C3FADB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Jan 2021 21:05:08 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id q8so4517375lfm.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Jan 2021 13:05:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=WZugsqJA8Q1yl6+4pzBVXRUwd28mrT2JYS1TJy5ykuI=;
- b=YZQNwK9UXQfz9pmNXG+BE9nTpQ1H3yg4Pm0NyVdfyCJei4NEyQk3cPtrjgVYXMsUVo
- sZmVCS33nXSZejVP6BWBFLZXnNgos5V6rjdEdEzEkx6XbE6+o7WAf+f9naTYJoA9sIqZ
- jM3zvaGq1f/rOnmDRHR0AExrBbzYlB18dk1u2tFKI+2MN1z5PsxKySH6pMKxWPrb0dsL
- wbtdnXQB0hj0KJYIJ3YljQs5SsvotZfi09SpNVapVNC/jiZaWXtVepOOM8+dQGOPT8DD
- v3kE6Efrsaail7nvexEiC/amqISp1CrHMjyCzwINhNxPNrBfixtDh8sl5KCkoPZI5N9C
- 3IHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=WZugsqJA8Q1yl6+4pzBVXRUwd28mrT2JYS1TJy5ykuI=;
- b=MVLe7vR24edUEzPOWA4xnZioGMpd1faEAceF0G+Vv/ST7UQFbV2nBzbKuEPRlQqUuA
- SnQT4A7SSXprwECA8G5mTZMgbNvoVqsXA1PrC1qOeCtnAs6hIPmKmpVNoHIXrYdu/ZJg
- J4qrK3HOtbUbpq+i6NQG6TLpbrf710lT+ONxvRn7lUN7sgefQYKRpOWD6x1AO25LRdi3
- slx3mLwNSGCkFJsl2j9o2kh5XF8yq9RRz2z4HFHQJxcJcJ63lsUa1EbkWENiH85J/TNZ
- O1FjK7hOSAkiMhKCdV4zejUPPh/aI4apd+b3TBK7H33o1MwD0wDp0YmypP52JilaNI0y
- kbuw==
-X-Gm-Message-State: AOAM530qBJBOuElEpvjU5llVwMfIbkr6rJKlFKmnnF8CZ62zkF02DUck
- YpuDUrkq8g04j/UlONAbUQ4eP3nmpldDs2p2GIkPEQ==
-X-Google-Smtp-Source: ABdhPJympICjXFgiTKputbVjOoWvR0HAhO3o4V0dJu/d9HzUmXivyzv2TH8oXsJx6QgTxw4WQsKRjZ9LH75RgC5N3yg=
-X-Received: by 2002:ac2:5597:: with SMTP id v23mr487223lfg.649.1611263107527; 
- Thu, 21 Jan 2021 13:05:07 -0800 (PST)
+ Thu, 21 Jan 2021 23:04:02 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2451050E;
+ Fri, 22 Jan 2021 00:04:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1611270241;
+ bh=T5NVDr46xcwrXL27T8VCCkqqocibkcaVgjkVgGiO8ZY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Y8cyClLX8kCaKU5wMc7DQBaagAtpgNWmTZ3+p386BcnpRP0PMgaNeQ9iuSFglc0Sw
+ yxD8mSPCVAnyIXOWj5xsNFm7Htaoj3caG3DKUBN0MGRlEjztlQ48iKJbFja/DHFBKL
+ ztANltlmDf+im+ixzdUmFqsBKC+TOLRQSVr+juDg=
+Date: Fri, 22 Jan 2021 01:03:42 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Message-ID: <YAoITqHbG1UeiAHV@pendragon.ideasonboard.com>
+References: <20210121163537.1466118-1-maxime@cerno.tech>
+ <20210121163537.1466118-9-maxime@cerno.tech>
 MIME-Version: 1.0
-References: <20210116180424.57331-1-marex@denx.de>
- <20210116180424.57331-2-marex@denx.de>
-In-Reply-To: <20210116180424.57331-2-marex@denx.de>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 21 Jan 2021 22:04:56 +0100
-Message-ID: <CACRpkdapEtphavg5zWgu=2trYg8LYMd31roHzfebsiyWFBn=uw@mail.gmail.com>
-To: Marek Vasut <marex@denx.de>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-mmc <linux-mmc@vger.kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 2/4] mmc: mmci: Add support for probing
-	bus voltage level translator
+Content-Disposition: inline
+In-Reply-To: <20210121163537.1466118-9-maxime@cerno.tech>
+Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Xinliang Liu <xinliang.liu@linaro.org>, dri-devel@lists.freedesktop.org,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, Vincent Abriou <vincent.abriou@st.com>,
+ Michal Simek <michal.simek@xilinx.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Roland Scheidegger <sroland@vmware.com>,
+ Inki Dae <inki.dae@samsung.com>, Sean Paul <sean@poorly.run>,
+ Hyun Kwon <hyun.kwon@xilinx.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ freedreno@lists.freedesktop.org, Zack Rusin <zackr@vmware.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ David Airlie <airlied@linux.ie>, Edmund Dea <edmund.j.dea@intel.com>,
+ virtualization@lists.linux-foundation.org, Eric Anholt <eric@anholt.net>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>,
+ Fabio Estevam <festevam@gmail.com>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ "James \(Qian\) Wang" <james.qian.wang@arm.com>,
+ Dave Airlie <airlied@redhat.com>, Alexandre Torgue <alexandre.torgue@st.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ John Stultz <john.stultz@linaro.org>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Boris Brezillon <bbrezillon@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Brian Starkey <brian.starkey@arm.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, Stefan Agner <stefan@agner.ch>,
+ Melissa Wen <melissa.srw@gmail.com>, linux-tegra@vger.kernel.org,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Sam Ravnborg <sam@ravnborg.org>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
+ Alison Wang <alison.wang@nxp.com>, spice-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Tomi Valkeinen <tomba@kernel.org>,
+ Philippe Cornu <philippe.cornu@st.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
+ Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>,
+ linux-renesas-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
+ Russell King <linux@armlinux.org.uk>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, linux-mips@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Linux-stm32] [PATCH v2 09/11] drm/atomic: Pass the full state
+ to planes atomic disable and update
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,32 +110,193 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Jan 16, 2021 at 7:04 PM Marek Vasut <marex@denx.de> wrote:
+Hi Maxime,
 
-> Add support for testing whether bus voltage level translator is present
-> and operational. This is useful on systems where the bus voltage level
-> translator is optional, as the translator can be auto-detected by the
-> driver and the feedback clock functionality can be disabled if it is
-> not present.
->
-> This requires additional pinmux state, "init", where the CMD, CK, CKIN
-> lines are not configured, so they can be claimed as GPIOs early on in
-> probe(). The translator test sets CMD high to avoid interfering with a
-> card, and then verifies whether signal set on CK is detected on CKIN.
-> If the signal is detected, translator is present, otherwise the CKIN
-> feedback clock are disabled.
->
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Ludovic Barre <ludovic.barre@st.com>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
+Thank you for the patch.
 
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+On Thu, Jan 21, 2021 at 05:35:34PM +0100, Maxime Ripard wrote:
+> The current atomic helpers have either their object state being passed as
+> an argument or the full atomic state.
+> 
+> The former is the pattern that was done at first, before switching to the
+> latter for new hooks or when it was needed.
+> 
+> Let's convert the remaining helpers to provide a consistent interface,
+> this time with the planes atomic_update and atomic_disable.
+> 
+> The conversion was done using the coccinelle script below, built tested on
+> all the drivers.
+> 
+> @@
+> identifier plane, plane_state;
+> symbol state;
+> @@
+> 
+>  struct drm_plane_helper_funcs {
+>  	...
+> 	void (*atomic_update)(struct drm_plane *plane,
+> -			      struct drm_plane_state *plane_state);
+> +			      struct drm_atomic_state *state);
+>  	...
+>  }
+> 
+> @@
+> identifier plane, plane_state;
+> symbol state;
+> @@
+> 
+>  struct drm_plane_helper_funcs {
+> 	...
+> 	void (*atomic_disable)(struct drm_plane *plane,
+> -			       struct drm_plane_state *plane_state);
+> +			       struct drm_atomic_state *state);
+> 	...
+>  }
+> 
+> @ plane_atomic_func @
+> identifier helpers;
+> identifier func;
+> @@
+> 
+> (
+>  static const struct drm_plane_helper_funcs helpers = {
+>  	...,
+>  	.atomic_update = func,
+> 	...,
+>  };
+> |
+>  static const struct drm_plane_helper_funcs helpers = {
+>  	...,
+>  	.atomic_disable = func,
+> 	...,
+>  };
+> )
+> 
+> @@
+> struct drm_plane_helper_funcs *FUNCS;
+> identifier f;
+> identifier crtc_state;
+> identifier plane, plane_state, state;
+> expression e;
+> @@
+> 
+>  f(struct drm_crtc_state *crtc_state)
+>  {
+>  	...
+>  	struct drm_atomic_state *state = e;
+>  	<+...
+> (
+> -	FUNCS->atomic_disable(plane, plane_state)
+> +	FUNCS->atomic_disable(plane, state)
+> |
+> -	FUNCS->atomic_update(plane, plane_state)
+> +	FUNCS->atomic_update(plane, state)
+> )
+>  	...+>
+>  }
+> 
+> @@
+> identifier plane_atomic_func.func;
+> identifier plane;
+> symbol state;
+> @@
+> 
+>  func(struct drm_plane *plane,
+> -    struct drm_plane_state *state)
+> +    struct drm_plane_state *old_plane_state)
+>  {
+> 	<...
+> -	state
+> +	old_plane_state
+> 	...>
+>  }
+> 
+> @ ignores_old_state @
+> identifier plane_atomic_func.func;
+> identifier plane, old_state;
+> @@
+> 
+>  func(struct drm_plane *plane, struct drm_plane_state *old_state)
+>  {
+> 	... when != old_state
+>  }
+> 
+> @ adds_old_state depends on plane_atomic_func && !ignores_old_state @
+> identifier plane_atomic_func.func;
+> identifier plane, plane_state;
+> @@
+> 
+>  func(struct drm_plane *plane, struct drm_plane_state *plane_state)
+>  {
+> +	struct drm_plane_state *plane_state = drm_atomic_get_old_plane_state(state, plane);
+>  	...
+>  }
+> 
+> @ depends on plane_atomic_func @
+> identifier plane_atomic_func.func;
+> identifier plane, plane_state;
+> @@
+> 
+>  func(struct drm_plane *plane,
+> -     struct drm_plane_state *plane_state
+> +     struct drm_atomic_state *state
+>      )
+>  { ... }
+> 
+> @ include depends on adds_old_state @
+> @@
+> 
+>  #include <drm/drm_atomic.h>
+> 
+> @ no_include depends on !include && adds_old_state @
+> @@
+> 
+> + #include <drm/drm_atomic.h>
+>   #include <drm/...>
+> 
+> @@
+> identifier plane_atomic_func.func;
+> identifier plane, state;
+> identifier plane_state;
+> @@
+> 
+>  func(struct drm_plane *plane, struct drm_atomic_state *state) {
+>  	...
+>  	struct drm_plane_state *plane_state = drm_atomic_get_old_plane_state(state, plane);
+>  	<+...
+> -	plane_state->state
+> +	state
+>  	...+>
+>  }
+> 
+> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+> 
+> ---
+> 
+> Changes from v1:
+>   - Reintroduce the old_plane_state check in zynqmp_disp_crtc_atomic_disable
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c               |  8 ++++----
+>  drivers/gpu/drm/drm_simple_kms_helper.c           |  4 +++-
+>  drivers/gpu/drm/mxsfb/mxsfb_kms.c                 |  6 ++++--
+>  drivers/gpu/drm/omapdrm/omap_plane.c              |  4 ++--
+>  drivers/gpu/drm/rcar-du/rcar_du_plane.c           |  4 +++-
+>  drivers/gpu/drm/rcar-du/rcar_du_vsp.c             |  4 +++-
+>  drivers/gpu/drm/tidss/tidss_plane.c               |  4 ++--
+>  drivers/gpu/drm/tilcdc/tilcdc_plane.c             |  2 +-
+>  drivers/gpu/drm/xlnx/zynqmp_disp.c                | 15 ++++++++-------
+>  include/drm/drm_modeset_helper_vtables.h          |  4 ++--
 
-Yours,
-Linus Walleij
+For these,
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
+>  58 files changed, 211 insertions(+), 123 deletions(-)
+
+-- 
+Regards,
+
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
