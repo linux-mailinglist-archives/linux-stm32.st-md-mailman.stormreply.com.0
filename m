@@ -2,62 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DF712FECCF
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Jan 2021 15:23:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E031A2FED08
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Jan 2021 15:39:30 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BB46C3FADB;
-	Thu, 21 Jan 2021 14:23:38 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95F83C3FADC;
+	Thu, 21 Jan 2021 14:39:30 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 079D9C32EA8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBD3AC3FADA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Jan 2021 14:23:35 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10LEMvnx030032; Thu, 21 Jan 2021 15:23:24 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=U9FsoHzVxU/pOZkbNb54dcTo9vqdTnlxm3Qvz96EFUQ=;
- b=yffoLAJ2cGRHYuI3VMDCfwYdGF2LUYCb5hhpRXrfiXQvWfXMHz+mrExrYaR+p0CIlUC4
- QYfxXyUfN22XSlYxmtscEuJ+RRidQ8KEy+IcJbIHBEJz+Rg6scKH+HjlAquMcOdjnlIU
- mF7FfDO0kAFXwckve10ZonSimYYEZEVeyCtul9FWz/+7qNiOGtqAlP/98kMOJpWmX/ra
- MxPBbYi5sbDokKrEKEFE0RrVYLCWo6Klc1qh2lYdpeczlm0CCTrlSqwIJXzb1CUWnw5z
- +kRZcZc5ePOj5Aaq32Plgf+InO+hB2GMSHE875pPWOF/jxxvcALzvKHvhj3tDWqo4KKS sA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3668q03nr3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Jan 2021 15:23:24 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E231B100034;
- Thu, 21 Jan 2021 15:23:22 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D011F2AD2D3;
- Thu, 21 Jan 2021 15:23:22 +0100 (CET)
-Received: from localhost (10.75.127.48) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 21 Jan 2021 15:23:22
- +0100
-From: Erwan Le Ray <erwan.leray@foss.st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jslaby@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 21 Jan 2021 15:23:09 +0100
-Message-ID: <20210121142309.6327-1-erwan.leray@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ Thu, 21 Jan 2021 14:39:28 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1l2b7Q-0003ca-0u; Thu, 21 Jan 2021 15:39:28 +0100
+To: Sasha Levin <sashal@kernel.org>, Jakub Kicinski <kuba@kernel.org>
+References: <20210120012602.769683-1-sashal@kernel.org>
+ <20210120012602.769683-28-sashal@kernel.org>
+ <20210119220815.039ac330@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <20210120142659.GC4035784@sasha-vm>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <7564ebe1-20e9-36d5-11a7-bcfe27f70987@pengutronix.de>
+Date: Thu, 21 Jan 2021 15:39:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-21_08:2021-01-21,
- 2021-01-21 signatures=0
-Cc: Valentin Caron <valentin.caron@foss.st.com>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/1] serial: stm32: improve platform_get_irq
-	condition handling in init_port
+In-Reply-To: <20210120142659.GC4035784@sasha-vm>
+Content-Language: en-US
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, David Wu <david.wu@rock-chips.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH AUTOSEL 5.10 28/45] net: stmmac: Fixed mtu
+ channged by cache aligned
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,47 +58,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace "ret" variable by "irq" variable from platform_get_irq condition
-handling in stm32_init_port as suggested by Jiri in "STM32 uart cleanup and
-improvement" series review.
-This change will prevent port->irq to be unexpectly modified by a potential
-change of "ret" value introduced by a new patch.
+Hello Sasha,
 
-Suggested-by: Jiri Slaby <jirislaby@kernel.org>
-Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
+On 20.01.21 15:26, Sasha Levin wrote:
+> On Tue, Jan 19, 2021 at 10:08:15PM -0800, Jakub Kicinski wrote:
+>> On Tue, 19 Jan 2021 20:25:45 -0500 Sasha Levin wrote:
+>>> From: David Wu <david.wu@rock-chips.com>
+>>>
+>>> [ Upstream commit 5b55299eed78538cc4746e50ee97103a1643249c ]
+>>>
+>>> Since the original mtu is not used when the mtu is updated,
+>>> the mtu is aligned with cache, this will get an incorrect.
+>>> For example, if you want to configure the mtu to be 1500,
+>>> but mtu 1536 is configured in fact.
+>>>
+>>> Fixed: eaf4fac478077 ("net: stmmac: Do not accept invalid MTU values")
+>>> Signed-off-by: David Wu <david.wu@rock-chips.com>
+>>> Link: https://lore.kernel.org/r/20210113034109.27865-1-david.wu@rock-chips.com
+>>> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+>>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>>
+>> This was applied 6 days ago, I thought you said you wait two weeks.
+>> What am I missing?
+> 
+> The "AUTOSEL" review cycle is an additional hurdle automatically
+> selected patches need to clear before being queued up. There are 7 days
+> between the day I sent the review for these and the first day I might
+> queue them up.
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index 6a9a5ef5f5ba..dde6d526362d 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -981,11 +981,11 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
- {
- 	struct uart_port *port = &stm32port->port;
- 	struct resource *res;
--	int ret;
-+	int ret, irq;
- 
--	ret = platform_get_irq(pdev, 0);
--	if (ret <= 0)
--		return ret ? : -ENODEV;
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq <= 0)
-+		return irq ? : -ENODEV;
- 
- 	port->iotype	= UPIO_MEM;
- 	port->flags	= UPF_BOOT_AUTOCONF;
-@@ -993,7 +993,7 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
- 	port->dev	= &pdev->dev;
- 	port->fifosize	= stm32port->info->cfg.fifosize;
- 	port->has_sysrq = IS_ENABLED(CONFIG_SERIAL_STM32_CONSOLE);
--	port->irq = ret;
-+	port->irq = irq;
- 	port->rs485_config = stm32_usart_config_rs485;
- 
- 	ret = stm32_usart_init_rs485(port, pdev);
+I guess this could benefit from being documented in
+Documentation/process/stable-kernel-rules.rst? Or is this documented
+elsewhere?
+
+> 
+> This mail isn't an indication that the patch has been added to the
+> queue, it's just an extra step to give folks time to object.
+> 
+> If you add up all the days you'll get >14 :)
+> 
+
 -- 
-2.17.1
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
