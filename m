@@ -2,98 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D36E02FF85E
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 00:04:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81EB12FF8EB
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 00:31:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9089EC424BE;
-	Thu, 21 Jan 2021 23:04:05 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D230C424BE;
+	Thu, 21 Jan 2021 23:31:08 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE264C3FADB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1840C3FADA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Jan 2021 23:04:02 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2451050E;
- Fri, 22 Jan 2021 00:04:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1611270241;
- bh=T5NVDr46xcwrXL27T8VCCkqqocibkcaVgjkVgGiO8ZY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Y8cyClLX8kCaKU5wMc7DQBaagAtpgNWmTZ3+p386BcnpRP0PMgaNeQ9iuSFglc0Sw
- yxD8mSPCVAnyIXOWj5xsNFm7Htaoj3caG3DKUBN0MGRlEjztlQ48iKJbFja/DHFBKL
- ztANltlmDf+im+ixzdUmFqsBKC+TOLRQSVr+juDg=
-Date: Fri, 22 Jan 2021 01:03:42 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YAoITqHbG1UeiAHV@pendragon.ideasonboard.com>
-References: <20210121163537.1466118-1-maxime@cerno.tech>
- <20210121163537.1466118-9-maxime@cerno.tech>
+ Thu, 21 Jan 2021 23:31:06 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id y12so2645206pji.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 21 Jan 2021 15:31:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=v3GYhUFCubjfs+r9cjEqyb1QXcfSibvYYmDx522Iqyk=;
+ b=RiuQ4NYnZLKbiGAp+5ngyptmcvYmD3jUmq8TAnBTs5siBcITh7/q2SBL8uuSxjtNbT
+ WwBzo5UE4AMznf6aB8mTYPMMtT79OAU/0du2Ks+ih+uMbmYMjDgwK58HYFnuS1VDabb0
+ PCTRTAdKcZaVdOWCZrkPPHWkBKfp/MjoWArjb+7kn87yldD35mgTyl9Rd4eo3/ZOF0G2
+ oEMfhdTREZWUilqv+HnT4BQbhZskcZ6yE9IjyAWTNZftmmcoKlGF+IXiA5+bDM4SgkUs
+ oKeNJy0wykafym6ndxVQ3ODNb8qzqus6L1r9a6++QoDwRZSob9tO1iGKGu2sNAABW6k2
+ 0Z2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=v3GYhUFCubjfs+r9cjEqyb1QXcfSibvYYmDx522Iqyk=;
+ b=sSXZiN6BM9TVw3lRiMFIjEeps9htfVlaFfaEEJilNk7M75YIwT5Iq3ZrQgGSnTGop/
+ +GPSH/2CjqpVpgLvfyV1Z5+rs2DK84BcGhZ+kauH3/b8fIZ16l8IxAYdXJUWCs2+wz65
+ yAsSeDIdq8ft2bx+E31jqUQmT6/Nt5lVt5rbT2lTifOCEKY+3P6EmktZ0s8urgSlZbRm
+ YuUjnzykcItCU6IKWjIDuo1PQ7nCB+qJU0uYW147wR/FE0VP9VNuBx9nZ3xrgAeQok2I
+ C4J0/GWD0AOvpOzhFySjZ3nbdBqiYa0zY1OOiXPROwDeeXkYF9pQfvbVgnv1YF2qBNyw
+ m6HQ==
+X-Gm-Message-State: AOAM533Imu4OV+YJ0E9pSmMVRWusQ3mjWXH1PWG5meeVmW2VTfNkD4Uu
+ bPgcrEY6UrzYqbHeFkJsUzwCbQ==
+X-Google-Smtp-Source: ABdhPJzx741zyVTdofnFEivSzW1NDis38rymge8GkmAUN5dRe1w2oZH3h6ZhoF9QiHcvsmezkQ6MFw==
+X-Received: by 2002:a17:90a:9503:: with SMTP id
+ t3mr1943161pjo.189.1611271865173; 
+ Thu, 21 Jan 2021 15:31:05 -0800 (PST)
+Received: from xps15 (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id b2sm6576371pff.79.2021.01.21.15.31.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Jan 2021 15:31:04 -0800 (PST)
+Date: Thu, 21 Jan 2021 16:31:02 -0700
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20210121233102.GE611676@xps15>
+References: <20201222105726.16906-1-arnaud.pouliquen@foss.st.com>
+ <20201222105726.16906-2-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210121163537.1466118-9-maxime@cerno.tech>
-Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Xinliang Liu <xinliang.liu@linaro.org>, dri-devel@lists.freedesktop.org,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, Vincent Abriou <vincent.abriou@st.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- NXP Linux Team <linux-imx@nxp.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Roland Scheidegger <sroland@vmware.com>,
- Inki Dae <inki.dae@samsung.com>, Sean Paul <sean@poorly.run>,
- Hyun Kwon <hyun.kwon@xilinx.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
- freedreno@lists.freedesktop.org, Zack Rusin <zackr@vmware.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- David Airlie <airlied@linux.ie>, Edmund Dea <edmund.j.dea@intel.com>,
- virtualization@lists.linux-foundation.org, Eric Anholt <eric@anholt.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>,
- Fabio Estevam <festevam@gmail.com>, Alexey Brodkin <abrodkin@synopsys.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
- "James \(Qian\) Wang" <james.qian.wang@arm.com>,
- Dave Airlie <airlied@redhat.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- John Stultz <john.stultz@linaro.org>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Boris Brezillon <bbrezillon@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, Brian Starkey <brian.starkey@arm.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Neil Armstrong <narmstrong@baylibre.com>, Stefan Agner <stefan@agner.ch>,
- Melissa Wen <melissa.srw@gmail.com>, linux-tegra@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Sam Ravnborg <sam@ravnborg.org>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Chen Feng <puck.chen@hisilicon.com>,
- Alison Wang <alison.wang@nxp.com>, spice-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Tomi Valkeinen <tomba@kernel.org>,
- Philippe Cornu <philippe.cornu@st.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- Liviu Dudau <liviu.dudau@arm.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>,
- linux-renesas-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
- Russell King <linux@armlinux.org.uk>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, linux-mips@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH v2 09/11] drm/atomic: Pass the full state
- to planes atomic disable and update
+In-Reply-To: <20201222105726.16906-2-arnaud.pouliquen@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 01/16] rpmsg: introduce RPMsg control
+ driver for channel creation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,193 +79,291 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Maxime,
+Hi Arnaud,
 
-Thank you for the patch.
-
-On Thu, Jan 21, 2021 at 05:35:34PM +0100, Maxime Ripard wrote:
-> The current atomic helpers have either their object state being passed as
-> an argument or the full atomic state.
+On Tue, Dec 22, 2020 at 11:57:11AM +0100, Arnaud Pouliquen wrote:
+> The RPMsg_ctrl driver is a duplication of the ioctrl part of the
+> rpmsg_char driver to make generic the ioctl to manage channels by
+> the userspace applications.
 > 
-> The former is the pattern that was done at first, before switching to the
-> latter for new hooks or when it was needed.
+> As a first step, this driver just creates the /dev/rpmsg_ctl<x>
+> ( <x> is the instance value). The ioctl is not implemented.
 > 
-> Let's convert the remaining helpers to provide a consistent interface,
-> this time with the planes atomic_update and atomic_disable.
+> Notice that this driver is associated to a RPMsg device with no endpoint.
+> Instantiating this device as an RPMsg device allows to retrieve the
+> associated RPMsg backend.
 > 
-> The conversion was done using the coccinelle script below, built tested on
-> all the drivers.
-> 
-> @@
-> identifier plane, plane_state;
-> symbol state;
-> @@
-> 
->  struct drm_plane_helper_funcs {
->  	...
-> 	void (*atomic_update)(struct drm_plane *plane,
-> -			      struct drm_plane_state *plane_state);
-> +			      struct drm_atomic_state *state);
->  	...
->  }
-> 
-> @@
-> identifier plane, plane_state;
-> symbol state;
-> @@
-> 
->  struct drm_plane_helper_funcs {
-> 	...
-> 	void (*atomic_disable)(struct drm_plane *plane,
-> -			       struct drm_plane_state *plane_state);
-> +			       struct drm_atomic_state *state);
-> 	...
->  }
-> 
-> @ plane_atomic_func @
-> identifier helpers;
-> identifier func;
-> @@
-> 
-> (
->  static const struct drm_plane_helper_funcs helpers = {
->  	...,
->  	.atomic_update = func,
-> 	...,
->  };
-> |
->  static const struct drm_plane_helper_funcs helpers = {
->  	...,
->  	.atomic_disable = func,
-> 	...,
->  };
-> )
-> 
-> @@
-> struct drm_plane_helper_funcs *FUNCS;
-> identifier f;
-> identifier crtc_state;
-> identifier plane, plane_state, state;
-> expression e;
-> @@
-> 
->  f(struct drm_crtc_state *crtc_state)
->  {
->  	...
->  	struct drm_atomic_state *state = e;
->  	<+...
-> (
-> -	FUNCS->atomic_disable(plane, plane_state)
-> +	FUNCS->atomic_disable(plane, state)
-> |
-> -	FUNCS->atomic_update(plane, plane_state)
-> +	FUNCS->atomic_update(plane, state)
-> )
->  	...+>
->  }
-> 
-> @@
-> identifier plane_atomic_func.func;
-> identifier plane;
-> symbol state;
-> @@
-> 
->  func(struct drm_plane *plane,
-> -    struct drm_plane_state *state)
-> +    struct drm_plane_state *old_plane_state)
->  {
-> 	<...
-> -	state
-> +	old_plane_state
-> 	...>
->  }
-> 
-> @ ignores_old_state @
-> identifier plane_atomic_func.func;
-> identifier plane, old_state;
-> @@
-> 
->  func(struct drm_plane *plane, struct drm_plane_state *old_state)
->  {
-> 	... when != old_state
->  }
-> 
-> @ adds_old_state depends on plane_atomic_func && !ignores_old_state @
-> identifier plane_atomic_func.func;
-> identifier plane, plane_state;
-> @@
-> 
->  func(struct drm_plane *plane, struct drm_plane_state *plane_state)
->  {
-> +	struct drm_plane_state *plane_state = drm_atomic_get_old_plane_state(state, plane);
->  	...
->  }
-> 
-> @ depends on plane_atomic_func @
-> identifier plane_atomic_func.func;
-> identifier plane, plane_state;
-> @@
-> 
->  func(struct drm_plane *plane,
-> -     struct drm_plane_state *plane_state
-> +     struct drm_atomic_state *state
->      )
->  { ... }
-> 
-> @ include depends on adds_old_state @
-> @@
-> 
->  #include <drm/drm_atomic.h>
-> 
-> @ no_include depends on !include && adds_old_state @
-> @@
-> 
-> + #include <drm/drm_atomic.h>
->   #include <drm/...>
-> 
-> @@
-> identifier plane_atomic_func.func;
-> identifier plane, state;
-> identifier plane_state;
-> @@
-> 
->  func(struct drm_plane *plane, struct drm_atomic_state *state) {
->  	...
->  	struct drm_plane_state *plane_state = drm_atomic_get_old_plane_state(state, plane);
->  	<+...
-> -	plane_state->state
-> +	state
->  	...+>
->  }
-> 
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 > ---
+>  drivers/rpmsg/Kconfig      |   8 ++
+>  drivers/rpmsg/Makefile     |   1 +
+>  drivers/rpmsg/rpmsg_ctrl.c | 208 +++++++++++++++++++++++++++++++++++++
+>  3 files changed, 217 insertions(+)
+>  create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
 > 
-> Changes from v1:
->   - Reintroduce the old_plane_state check in zynqmp_disp_crtc_atomic_disable
-> ---
->  drivers/gpu/drm/drm_atomic_helper.c               |  8 ++++----
->  drivers/gpu/drm/drm_simple_kms_helper.c           |  4 +++-
->  drivers/gpu/drm/mxsfb/mxsfb_kms.c                 |  6 ++++--
->  drivers/gpu/drm/omapdrm/omap_plane.c              |  4 ++--
->  drivers/gpu/drm/rcar-du/rcar_du_plane.c           |  4 +++-
->  drivers/gpu/drm/rcar-du/rcar_du_vsp.c             |  4 +++-
->  drivers/gpu/drm/tidss/tidss_plane.c               |  4 ++--
->  drivers/gpu/drm/tilcdc/tilcdc_plane.c             |  2 +-
->  drivers/gpu/drm/xlnx/zynqmp_disp.c                | 15 ++++++++-------
->  include/drm/drm_modeset_helper_vtables.h          |  4 ++--
+> diff --git a/drivers/rpmsg/Kconfig b/drivers/rpmsg/Kconfig
+> index 0b4407abdf13..c9e602016c3b 100644
+> --- a/drivers/rpmsg/Kconfig
+> +++ b/drivers/rpmsg/Kconfig
+> @@ -23,6 +23,14 @@ config RPMSG_NS
+>  	  channel that probes the associated RPMsg device on remote endpoint
+>  	  service announcement.
+>  
+> +config RPMSG_CTRL
+> +	tristate "RPMSG control interface"
+> +	depends on RPMSG
+> +	help
+> +	  Say Y here to enable the support of the /dev/rpmsg_ctl API. this API
+> +	  allows user-space programs to create channels with specific name,
+> +	  source and destination addresses.
+> +
+>  config RPMSG_MTK_SCP
+>  	tristate "MediaTek SCP"
+>  	depends on MTK_SCP
+> diff --git a/drivers/rpmsg/Makefile b/drivers/rpmsg/Makefile
+> index 8d452656f0ee..3c1bce9d0228 100644
+> --- a/drivers/rpmsg/Makefile
+> +++ b/drivers/rpmsg/Makefile
+> @@ -2,6 +2,7 @@
+>  obj-$(CONFIG_RPMSG)		+= rpmsg_core.o
+>  obj-$(CONFIG_RPMSG_CHAR)	+= rpmsg_char.o
+>  obj-$(CONFIG_RPMSG_NS)		+= rpmsg_ns.o
+> +obj-$(CONFIG_RPMSG_CTRL)	+= rpmsg_ctrl.o
+>  obj-$(CONFIG_RPMSG_MTK_SCP)	+= mtk_rpmsg.o
+>  qcom_glink-objs			:= qcom_glink_native.o qcom_glink_ssr.o
+>  obj-$(CONFIG_RPMSG_QCOM_GLINK) += qcom_glink.o
+> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
+> new file mode 100644
+> index 000000000000..425c3e32ada4
+> --- /dev/null
+> +++ b/drivers/rpmsg/rpmsg_ctrl.c
+> @@ -0,0 +1,208 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) STMicroelectronics 2020
+> + */
+> +
+> +#include <linux/cdev.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/slab.h>
+> +#include "rpmsg_internal.h"
+> +#include <uapi/linux/rpmsg.h>
+> +
+> +#define RPMSG_DEV_MAX	(MINORMASK + 1)
+> +
+> +#define dev_to_ctrldev(dev) container_of(dev, struct rpmsg_ctrl_dev, dev)
+> +#define cdev_to_ctrldev(i_cdev) container_of(i_cdev, struct rpmsg_ctrl_dev, cdev)
+> +
+> +/**
+> + * struct rpmsg_ctrl_dev - control device for instantiating endpoint devices
+> + * @rpdev:	underlaying rpmsg device
+> + * @cdev:	cdev for the ctrl device
+> + * @dev:	device for the ctrl device
+> + */
+> +struct rpmsg_ctrl_dev {
+> +	struct rpmsg_device *rpdev;
+> +	struct cdev cdev;
+> +	struct device dev;
+> +};
 
-For these,
+As Bjorn pointed out it would be better modify rpmsg_char.c to what you want it
+to be rather than spinning off a parallel implementation.  One immediate
+advantage would be to avoid the creation of new structures that are identical to
+existing ones.  There's also the problem of bisecting...  If I remember
+correctly there are a few instances where applying this set would break a bisect
+session.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> +
+> +static DEFINE_IDA(rpmsg_ctrl_ida);
+> +static DEFINE_IDA(rpmsg_minor_ida);
+> +
+> +static dev_t rpmsg_major;
+> +
+> +static int rpmsg_ctrl_dev_open(struct inode *inode, struct file *filp)
+> +{
+> +	struct rpmsg_ctrl_dev *ctrldev = cdev_to_ctrldev(inode->i_cdev);
+> +
+> +	get_device(&ctrldev->dev);
+> +	filp->private_data = ctrldev;
+> +
+> +	return 0;
+> +}
+> +
+> +static long rpmsg_ctrl_dev_ioctl(struct file *fp, unsigned int cmd,
+> +				 unsigned long arg)
+> +{
+> +	struct rpmsg_ctrl_dev *ctrldev = fp->private_data;
+> +
+> +	dev_info(&ctrldev->dev, "Control not yet implemented\n");
+> +
+> +	return 0;
+> +};
+> +
+> +static int rpmsg_ctrl_dev_release(struct inode *inode, struct file *filp)
+> +{
+> +	struct rpmsg_ctrl_dev *ctrldev = cdev_to_ctrldev(inode->i_cdev);
+> +
+> +	put_device(&ctrldev->dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static void rpmsg_ctrl_dev_release_device(struct device *dev)
+> +{
+> +	struct rpmsg_ctrl_dev *ctrldev = dev_to_ctrldev(dev);
+> +
+> +	dev_err(dev, "%s\n", __func__);
 
->  58 files changed, 211 insertions(+), 123 deletions(-)
+Debug left over.
 
--- 
-Regards,
+> +
+> +	ida_simple_remove(&rpmsg_ctrl_ida, dev->id);
+> +	ida_simple_remove(&rpmsg_minor_ida, MINOR(dev->devt));
+> +	cdev_del(&ctrldev->cdev);
+> +	kfree(ctrldev);
+> +}
+> +
+> +static const struct file_operations rpmsg_ctrl_fops = {
+> +	.owner = THIS_MODULE,
+> +	.open = rpmsg_ctrl_dev_open,
+> +	.release = rpmsg_ctrl_dev_release,
+> +	.unlocked_ioctl = rpmsg_ctrl_dev_ioctl,
+> +	.compat_ioctl = compat_ptr_ioctl,
+> +};
+> +
+> +static int rpmsg_ctrl_add_control(struct rpmsg_ctrl_dev *ctrldev)
+> +{
+> +	struct device *dev = &ctrldev->dev;
+> +	int ret;
+> +
+> +	cdev_init(&ctrldev->cdev, &rpmsg_ctrl_fops);
+> +	ctrldev->cdev.owner = THIS_MODULE;
+> +
+> +	ret = ida_simple_get(&rpmsg_minor_ida, 0, RPMSG_DEV_MAX, GFP_KERNEL);
+> +	if (ret < 0)
+> +		return ret;
+> +	dev->devt = MKDEV(MAJOR(rpmsg_major), ret);
+> +
+> +	dev_set_name(dev, "rpmsg_ctrl%d", dev->id);
 
-Laurent Pinchart
+Here "rpmsg_ctrl" is used but the changelog and refers to "rpmsg_ctl".  Using
+the latter would, as Bjorn pointed out, break existing implementation.
+
+> +
+> +	ret = cdev_add(&ctrldev->cdev, dev->devt, 1);
+> +	if (ret)
+> +		goto free_minor_ida;
+> +
+> +	dev_info(dev, "add %s control for %s driver\n",
+> +		 dev_name(dev),  dev_name(dev->parent));
+> +
+> +	return 0;
+> +
+> +free_minor_ida:
+> +	ida_simple_remove(&rpmsg_minor_ida, MINOR(dev->devt));
+> +
+> +	return ret;
+> +}
+> +
+> +static int rpmsg_ctrl_probe(struct rpmsg_device *rpdev)
+> +{
+> +	struct rpmsg_ctrl_dev *ctrldev;
+> +	struct device *dev;
+> +	int ret;
+> +
+> +	ctrldev = kzalloc(sizeof(*ctrldev), GFP_KERNEL);
+> +	if (!ctrldev)
+> +		return -ENOMEM;
+> +
+> +	ctrldev->rpdev = rpdev;
+> +
+> +	dev = &ctrldev->dev;
+> +	device_initialize(dev);
+> +	dev->parent = &rpdev->dev;
+> +
+> +	ret = ida_simple_get(&rpmsg_ctrl_ida, 0, 0, GFP_KERNEL);
+> +	if (ret < 0)
+> +		goto free_ctrldev;
+> +
+> +	dev->id = ret;
+> +
+> +	ret = rpmsg_ctrl_add_control(ctrldev);
+> +	if (ret < 0)
+> +		goto free_ctrl_ida;
+> +
+> +	/* We can now rely on the release function for cleanup */
+> +	dev->release = rpmsg_ctrl_dev_release_device;
+> +
+> +	ret = device_add(dev);
+> +	if (ret) {
+> +		dev_err(&rpdev->dev, "device_add failed: %d\n", ret);
+> +		put_device(dev);
+> +		goto free_ctrl_ida;
+> +	}
+> +
+> +	dev_set_drvdata(dev, ctrldev);
+> +	dev_set_drvdata(&rpdev->dev, ctrldev);
+> +
+> +	return 0;
+> +
+> +free_ctrl_ida:
+> +	ida_simple_remove(&rpmsg_ctrl_ida, dev->id);
+> +free_ctrldev:
+> +	put_device(dev);
+> +	kfree(ctrldev);
+> +
+> +	return ret;
+> +}
+> +
+> +static void rpmsg_ctrl_remove(struct rpmsg_device *rpdev)
+> +{
+> +	struct rpmsg_ctrl_dev *ctrldev = dev_get_drvdata(&rpdev->dev);
+> +
+> +	device_del(&ctrldev->dev);
+> +	put_device(&ctrldev->dev);
+> +}
+> +
+> +static struct rpmsg_driver rpmsg_ctrl_driver = {
+> +	.drv.name = KBUILD_MODNAME,
+> +	.probe = rpmsg_ctrl_probe,
+> +	.remove = rpmsg_ctrl_remove,
+> +};
+> +
+> +static int rpmsg_ctrl_init(void)
+> +{
+> +	int ret;
+> +
+> +	ret = alloc_chrdev_region(&rpmsg_major, 0, RPMSG_DEV_MAX, "rpmsg");
+> +	if (ret < 0) {
+> +		pr_err("rpmsg_ctrl: failed to allocate char dev region\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = register_rpmsg_driver(&rpmsg_ctrl_driver);
+> +	if (ret < 0) {
+> +		pr_err("rpmsg_ctrl: failed to register rpmsg driver\n");
+> +		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
+> +	}
+> +
+> +	return ret;
+> +}
+> +postcore_initcall(rpmsg_ctrl_init);
+> +
+> +static void rpmsg_ctrl_exit(void)
+> +{
+> +	unregister_rpmsg_driver(&rpmsg_ctrl_driver);
+> +	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
+> +}
+> +module_exit(rpmsg_ctrl_exit);
+> +
+> +MODULE_DESCRIPTION("ioctl rpmsg driver");
+> +MODULE_AUTHOR("Arnaud Pouliquen <arnaud.pouliquen@st.com>");
+> +MODULE_ALIAS("rpmsg:" KBUILD_MODNAME);
+> +MODULE_LICENSE("GPL v2");
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
