@@ -2,55 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DEB52FF323
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Jan 2021 19:27:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40F0B2FF6B0
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Jan 2021 22:05:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 262CFC424BE;
-	Thu, 21 Jan 2021 18:27:47 +0000 (UTC)
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
- [185.176.79.56])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF4B6C424BE;
+	Thu, 21 Jan 2021 21:05:13 +0000 (UTC)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B088CC3FADB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25645C3FADB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Jan 2021 18:27:44 +0000 (UTC)
-Received: from fraeml701-chm.china.huawei.com (unknown [172.18.147.201])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4DM9ht26mvz67cZB;
- Fri, 22 Jan 2021 02:22:06 +0800 (CST)
-Received: from lhreml710-chm.china.huawei.com (10.201.108.61) by
- fraeml701-chm.china.huawei.com (10.206.15.50) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2106.2; Thu, 21 Jan 2021 19:27:40 +0100
-Received: from localhost (10.47.68.198) by lhreml710-chm.china.huawei.com
- (10.201.108.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2; Thu, 21 Jan
- 2021 18:27:39 +0000
-Date: Thu, 21 Jan 2021 18:26:58 +0000
-From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210121182658.00000d95@Huawei.com>
-In-Reply-To: <YAk1PzXYQaJvhGSj@shinobu>
-References: <cover.1606075915.git.vilhelm.gray@gmail.com>
- <b52a62196399d33221f78a1689276ac193c10229.1606075915.git.vilhelm.gray@gmail.com>
- <20210119092022.GA14502@pengutronix.de> <YAk1PzXYQaJvhGSj@shinobu>
-Organization: Huawei Technologies Research and Development (UK) Ltd.
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; i686-w64-mingw32)
+ Thu, 21 Jan 2021 21:05:08 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id q8so4517375lfm.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 21 Jan 2021 13:05:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=WZugsqJA8Q1yl6+4pzBVXRUwd28mrT2JYS1TJy5ykuI=;
+ b=YZQNwK9UXQfz9pmNXG+BE9nTpQ1H3yg4Pm0NyVdfyCJei4NEyQk3cPtrjgVYXMsUVo
+ sZmVCS33nXSZejVP6BWBFLZXnNgos5V6rjdEdEzEkx6XbE6+o7WAf+f9naTYJoA9sIqZ
+ jM3zvaGq1f/rOnmDRHR0AExrBbzYlB18dk1u2tFKI+2MN1z5PsxKySH6pMKxWPrb0dsL
+ wbtdnXQB0hj0KJYIJ3YljQs5SsvotZfi09SpNVapVNC/jiZaWXtVepOOM8+dQGOPT8DD
+ v3kE6Efrsaail7nvexEiC/amqISp1CrHMjyCzwINhNxPNrBfixtDh8sl5KCkoPZI5N9C
+ 3IHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=WZugsqJA8Q1yl6+4pzBVXRUwd28mrT2JYS1TJy5ykuI=;
+ b=MVLe7vR24edUEzPOWA4xnZioGMpd1faEAceF0G+Vv/ST7UQFbV2nBzbKuEPRlQqUuA
+ SnQT4A7SSXprwECA8G5mTZMgbNvoVqsXA1PrC1qOeCtnAs6hIPmKmpVNoHIXrYdu/ZJg
+ J4qrK3HOtbUbpq+i6NQG6TLpbrf710lT+ONxvRn7lUN7sgefQYKRpOWD6x1AO25LRdi3
+ slx3mLwNSGCkFJsl2j9o2kh5XF8yq9RRz2z4HFHQJxcJcJ63lsUa1EbkWENiH85J/TNZ
+ O1FjK7hOSAkiMhKCdV4zejUPPh/aI4apd+b3TBK7H33o1MwD0wDp0YmypP52JilaNI0y
+ kbuw==
+X-Gm-Message-State: AOAM530qBJBOuElEpvjU5llVwMfIbkr6rJKlFKmnnF8CZ62zkF02DUck
+ YpuDUrkq8g04j/UlONAbUQ4eP3nmpldDs2p2GIkPEQ==
+X-Google-Smtp-Source: ABdhPJympICjXFgiTKputbVjOoWvR0HAhO3o4V0dJu/d9HzUmXivyzv2TH8oXsJx6QgTxw4WQsKRjZ9LH75RgC5N3yg=
+X-Received: by 2002:ac2:5597:: with SMTP id v23mr487223lfg.649.1611263107527; 
+ Thu, 21 Jan 2021 13:05:07 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.47.68.198]
-X-ClientProxiedBy: lhreml719-chm.china.huawei.com (10.201.108.70) To
- lhreml710-chm.china.huawei.com (10.201.108.61)
-X-CFilter-Loop: Reflected
-Cc: kernel@pengutronix.de, kamel.bouhara@bootlin.com, gwendal@chromium.org,
- david@lechnology.com, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, jic23@kernel.org,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Dan Carpenter <dan.carpenter@oracle.com>, mcoquelin.stm32@gmail.com,
- David Jander <david@protonic.nl>, fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v6 3/5] counter: Add character device
-	interface
+References: <20210116180424.57331-1-marex@denx.de>
+ <20210116180424.57331-2-marex@denx.de>
+In-Reply-To: <20210116180424.57331-2-marex@denx.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 21 Jan 2021 22:04:56 +0100
+Message-ID: <CACRpkdapEtphavg5zWgu=2trYg8LYMd31roHzfebsiyWFBn=uw@mail.gmail.com>
+To: Marek Vasut <marex@denx.de>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-mmc <linux-mmc@vger.kernel.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 2/4] mmc: mmci: Add support for probing
+	bus voltage level translator
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,140 +71,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 21 Jan 2021 17:03:11 +0900
-William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+On Sat, Jan 16, 2021 at 7:04 PM Marek Vasut <marex@denx.de> wrote:
 
-> On Tue, Jan 19, 2021 at 10:20:22AM +0100, Oleksij Rempel wrote:
-> > On Sun, Nov 22, 2020 at 03:29:54PM -0500, William Breathitt Gray wrote:  
-> > > This patch introduces a character device interface for the Counter
-> > > subsystem. Device data is exposed through standard character device read
-> > > operations. Device data is gathered when a Counter event is pushed by
-> > > the respective Counter device driver. Configuration is handled via ioctl
-> > > operations on the respective Counter character device node.
-> > > 
-> > > Cc: David Lechner <david@lechnology.com>
-> > > Cc: Gwendal Grignou <gwendal@chromium.org>
-> > > Cc: Dan Carpenter <dan.carpenter@oracle.com>
-> > > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-> > > ---  
-> > 
-> > Hello William,
-> > 
-> > the series looks quite interesting, we have some thoughts... see below:
-> > 
-> > [...]  
-> > > +/**
-> > > + * counter_push_event - queue event for userspace reading
-> > > + * @counter:	pointer to Counter structure
-> > > + * @event:	triggered event
-> > > + * @channel:	event channel
-> > > + *
-> > > + * Note: If no one is watching for the respective event, it is silently
-> > > + * discarded.
-> > > + *
-> > > + * RETURNS:
-> > > + * 0 on success, negative error number on failure.
-> > > + */
-> > > +int counter_push_event(struct counter_device *const counter, const u8 event,
-> > > +		       const u8 channel)
-> > > +{
-> > > +	struct counter_event ev = {0};
-> > > +	unsigned int copied = 0;
-> > > +	unsigned long flags;
-> > > +	struct counter_event_node *event_node;
-> > > +	struct counter_comp_node *comp_node;
-> > > +	int err = 0;
-> > > +
-> > > +	ev.timestamp = ktime_get_ns();
-> > > +	ev.watch.event = event;
-> > > +	ev.watch.channel = channel;
-> > > +
-> > > +	raw_spin_lock_irqsave(&counter->events_lock, flags);
-> > > +
-> > > +	/* Search for event in the list */
-> > > +	list_for_each_entry(event_node, &counter->events_list, l)
-> > > +		if (event_node->event == event &&
-> > > +		    event_node->channel == channel)
-> > > +			break;
-> > > +
-> > > +	/* If event is not in the list */
-> > > +	if (&event_node->l == &counter->events_list)
-> > > +		goto exit_early;
-> > > +
-> > > +	/* Read and queue relevant comp for userspace */
-> > > +	list_for_each_entry(comp_node, &event_node->comp_list, l) {
-> > > +		err = counter_get_data(counter, comp_node, &ev.value);
-> > > +		if (err)
-> > > +			goto exit_early;
-> > > +
-> > > +		ev.watch.component = comp_node->component;
-> > > +
-> > > +		copied += kfifo_put(&counter->events, ev);  
-> > 
-> > We want to calculate the frequency of some IRQ pulses in user space and
-> > counter values with time stamps really fits well here. As the pulses are
-> > from a physical system (rotating wheel), they will only change at a
-> > certain rate. We want to have the possibility to read from the counter
-> > device less often, we intentionally want to skip (meaning miss)
-> > events.
-> > 
-> > When reading we're interested in the newest events. The kfifo implements
-> > a "tail" drop FIFO, which means new values are added at the end, and if
-> > the FIFO is full, they are dropped. We need a "head" drop FIFO which
-> > discards the oldest events, keeping only the recent ones.
-> > 
-> > As far as we know, kfifo doesn't offer a head drop mode, but I think
-> > this can be added.  
-> 
-> I'm not sure if kfifo has this kind of mode, but it seems like something
-> that should be there if it is not already -- I imagine this kind of
-> operation mode would be pretty common. Perhaps someone knows how to
-> achieve this and will share here.
-> 
+> Add support for testing whether bus voltage level translator is present
+> and operational. This is useful on systems where the bus voltage level
+> translator is optional, as the translator can be auto-detected by the
+> driver and the feedback clock functionality can be disabled if it is
+> not present.
+>
+> This requires additional pinmux state, "init", where the CMD, CK, CKIN
+> lines are not configured, so they can be claimed as GPIOs early on in
+> probe(). The translator test sets CMD high to avoid interfering with a
+> card, and then verifies whether signal set on CK is detected on CKIN.
+> If the signal is detected, translator is present, otherwise the CKIN
+> feedback clock are disabled.
+>
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Ludovic Barre <ludovic.barre@st.com>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
 
-I don't think it does.  In IIO we started with a ring (effectively this)
-- hopefully no one else remembers the horrible mess I made of it ;),
-but eventually decided that there were very few usecases that
-actually demanded it so just switched over to kfifo.
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-It's actually pretty rare that you aren't better off draining to
-a backing store of some type.
-
-Not had any demand to bring a ring back to IIO since we dropped it.
-
-
-> > 
-> > [...]
-> >   
-> > >  struct counter_device {
-> > >  	const char *name;
-> > > @@ -270,12 +270,20 @@ struct counter_device {
-> > >  
-> > >  	int id;
-> > >  	struct device dev;
-> > > +	struct cdev chrdev;
-> > > +	raw_spinlock_t events_lock;
-> > > +	struct list_head events_list;
-> > > +	struct list_head next_events_list;
-> > > +	DECLARE_KFIFO(events, struct counter_event, 64);  
-> > 
-> > Do you plan to make the size of the FIFO configurable?
-> > 
-> > regards,
-> > Oleksij & Marc  
-> 
-> I suppose it wouldn't be a problem to make this a configurable setting;
-> I think I can implement this via kfifo_alloc() and kfifo_free(). How
-> would users control this -- maybe using a sysfs attribute?
-
-Would make sense to do it from sysfs.
-
-Jonathan
-
-> 
-> William Breathitt Gray
-> 
-
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
