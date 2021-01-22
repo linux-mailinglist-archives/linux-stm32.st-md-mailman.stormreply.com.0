@@ -2,68 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E95693003BB
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 14:05:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 211BC3004B0
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 15:00:59 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DB8DC424BE;
-	Fri, 22 Jan 2021 13:05:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0812C424BE;
+	Fri, 22 Jan 2021 14:00:58 +0000 (UTC)
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE878C3089F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0204EC36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Jan 2021 13:05:33 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10MCvbnC029248; Fri, 22 Jan 2021 14:05:30 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=nPpz1WrwyqWQrfwOg/BonJwTKWbHkY3gUQZtdcp4cIo=;
- b=WwSeDM1kTPW9sCLx5UoIS44MqWuCIAgDJbzau3DQlq4ADEogUHeU9B2tZEOrXQxuPmKs
- zW97ZTXcxBV74rXlq9bBNQXxKlqU2oFOQ3n5saqRG391A1t1Sh93BtkFFyWGJCAesSlg
- 0SxI+DM2lA6PY2R3VG6ZicRKGmOXIB90uQc8qUF5Aw3SF0xiNmKEoWhDzwRN1hiLjttJ
- 74GRfUUcK3mYrGpOgkyqB1s2k9zIWXZHHaMCWSiyWu/GUsHhe7k0qtW65rqJGRxA7Gz9
- 1VnA/+607W5gx06/SFFd+jLAVGj5N0Lz/X5VgNxAMyBIl0iiOuCDs7GRKJd1X80m/3YT 0w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3668pe27sn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Jan 2021 14:05:30 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5967210002A;
- Fri, 22 Jan 2021 14:05:29 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3FA9A23BD33;
- Fri, 22 Jan 2021 14:05:29 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.45) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 22 Jan
- 2021 14:05:28 +0100
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20201222105726.16906-1-arnaud.pouliquen@foss.st.com>
- <20201222105726.16906-5-arnaud.pouliquen@foss.st.com>
- <20210121235258.GG611676@xps15>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <1b76bf93-9647-c658-b4dd-1b10264a1189@foss.st.com>
-Date: Fri, 22 Jan 2021 14:05:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20210121235258.GG611676@xps15>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-22_09:2021-01-21,
- 2021-01-22 signatures=0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 04/16] rpmsg: ctrl: implement the ioctl
- function to create device
+ Fri, 22 Jan 2021 14:00:55 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id r189so6047422oih.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 22 Jan 2021 06:00:55 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=EUaxXtMWBR0BSS8k6na/vc+HlfNaGeb+7ZCL4OicyZo=;
+ b=K3z+k8UOuRS6Y0AUbn34PL8/ZXTyIpDBRilmtQY5VPdjBJUqdFRfKPNBtCtvMY4zfS
+ GSnpdm7gTYAflwzCBgTk4JuxJImOrGWbYUwPpuQCPOtpWt+F15qV/zyWjjBZW/MEvEC2
+ aTxs5xlP3x5TyWg+0Tdr5nwNFNAGpH8N1Ud1Gcl0l7jFSAEcKxMb7cy8tlrcHZef1U1u
+ 18JjLvqvEX3VfAYm4prYBotG+OzRhh5HWgpPSH+NXPJfzR6zzN6GgReuGh5MjfAEBn/o
+ +7bDcqBXFzctMEKcb4muO589OwMCQJmI2iHLrjTtYl7xWsskLBzzrJ712WY+SAjoVQKe
+ tNcg==
+X-Gm-Message-State: AOAM5316hAFVSK2H1ah4kLo06uyXLdwWqX2c5Y+iwURdFwyjS7SAYVDY
+ IqsbSDoVNPsflink4JF2FA==
+X-Google-Smtp-Source: ABdhPJzuup2G8I4By0nwY5GjTeCgXxvfBNcb5i/dqcjgAbP+KwX1KNzEuKUqEobX9LeiIvN8oDTXpw==
+X-Received: by 2002:aca:3cc5:: with SMTP id j188mr3361372oia.54.1611324054240; 
+ Fri, 22 Jan 2021 06:00:54 -0800 (PST)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id p4sm1719630oib.24.2021.01.22.06.00.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Jan 2021 06:00:53 -0800 (PST)
+Received: (nullmailer pid 674375 invoked by uid 1000);
+ Fri, 22 Jan 2021 14:00:45 -0000
+From: Rob Herring <robh@kernel.org>
+To: gabriel.fernandez@foss.st.com
+In-Reply-To: <20210122105101.27374-14-gabriel.fernandez@foss.st.com>
+References: <20210122105101.27374-1-gabriel.fernandez@foss.st.com>
+ <20210122105101.27374-14-gabriel.fernandez@foss.st.com>
+Date: Fri, 22 Jan 2021 08:00:45 -0600
+Message-Id: <1611324045.701742.674374.nullmailer@robh.at.kernel.org>
+Cc: Etienne Carriere <etienne.carriere@st.com>, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>, Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 13/14] dt-bindings: clock: stm32mp1 new
+	compatible for secure rcc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,151 +67,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Mathieu,
-
-On 1/22/21 12:52 AM, Mathieu Poirier wrote:
-> On Tue, Dec 22, 2020 at 11:57:14AM +0100, Arnaud Pouliquen wrote:
->> Implement the ioctl function that parses the list of
->> rpmsg drivers registered to create an associated device.
->> To be ISO user API, in a first step, the driver_override
->> is only allowed for the RPMsg raw service, supported by the
->> rpmsg_char driver.
->>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> ---
->>  drivers/rpmsg/rpmsg_ctrl.c | 43 ++++++++++++++++++++++++++++++++++++--
->>  1 file changed, 41 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
->> index 065e2e304019..8381b5b2b794 100644
->> --- a/drivers/rpmsg/rpmsg_ctrl.c
->> +++ b/drivers/rpmsg/rpmsg_ctrl.c
->> @@ -56,12 +56,51 @@ static int rpmsg_ctrl_dev_open(struct inode *inode, struct file *filp)
->>  	return 0;
->>  }
->>  
->> +static const char *rpmsg_ctrl_get_drv_name(u32 service)
->> +{
->> +	struct rpmsg_ctl_info *drv_info;
->> +
->> +	list_for_each_entry(drv_info, &rpmsg_drv_list, node) {
->> +		if (drv_info->ctrl->service == service)
->> +			return drv_info->ctrl->drv_name;
->> +	}
->> +
+On Fri, 22 Jan 2021 11:51:00 +0100, gabriel.fernandez@foss.st.com wrote:
+> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 > 
-> I'm unsure about the above... To me this looks like what the .match() function
-> of a bus would do.  And when I read Bjorn's comment he brought up the
-> auxiliary_bus.  I don't know about the auxiliary_bus but it is worth looking
-> into.  Registering with a bus would streamline a lot of the code in this
-> patchset.
-
-As answered Bjorn, we already have the RPMsg bus to manage the rpmsg devices.
-Look like duplication from my POV, except if the IOCTL does not manage channel
-but only endpoint.
-
-In my design I considered that the rpmsg_ctrl creates a channel associated to a
-rpmsg_device such as the RPMsg ns_announcement.
-
-Based on this assumption, if we implement the auxiliary_bus (or other) for the
-rpmsg_ctrl a RPMsg driver will have to manage the probe by rpmsg_bus and by the
-auxillary bus. The probe from the auxiliary bus would lead to the creation of an
-RPMsg device on the rpmsg_bus, so a duplication with cross dependencies and
-would probably make tricky the remove part.
-
-That said, I think the design depends on the functionality that should be
-implemented in the rpmsg_ctrl. Here is an alternative approach based on the
-auxiliary bus, which I'm starting to think about:
-
-The current approach of the rpmsg_char driver is to use the IOCTRL interface to
-instantiate a cdev with an endpoint (the RPMsg device is associated with the
-ioctl dev). This would correspond to the use of an auxiliary bus to manage local
-endpoint creations.
-
-We could therefore consider an RPMsg name service based on an RPmsg device. This
-RPMsg device would register a kind of "RPMsg service endpoint" driver on the
-auxiliary rpmsg_ioctl bus.
-The rpmsg_ctrl will be used to instantiate the endpoints for this RPMsg device.
-on user application request the rpmsg_ctrl will call the appropriate auxiliary
-device to create an endpoint.
-
-If we consider that one objective of this series is to allow application to
-initiate the communication with the remote processor, so to be able to initiate
-the service (ns announcement sent to the remote processor).
-This implies that:
--either the RPMsg device has been probed first by a remote ns announcement or by
-a Linux kernel driver using the "driver_override", to register an auxiliary
-device. In this case an endpoint will be created associated to the RPMsg service
-- or create a RPMsg device on first ioctl endpoint creation request, if it does
-not exist (that could trig a NS announcement to remote processor).
-
-But I'm not sure that this approach would work with QCOM RPMsg backends...
-
+> Introduce new compatible string "st,stm32mp1-rcc-secure" for
+> stm32mp1 clock driver when the device is configured with RCC
+> security support hardened.
 > 
-> I'm out of time for today - I will continue tomorrow.
-
-It seems to me that the main point to step forward is to clarify the global
-design and features of the rpmsg-ctrl.
-Depending on the decision taken, this series could be trashed and rewritten from
-a blank page...To not lost to much time on the series don't hesitate to limit
-the review to the minimum.
-
-Thanks,
-Arnaud
-
+> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> ---
+>  Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> Thanks,
-> Mathieu
-> 
->> +	return NULL;
->> +}
->> +
->>  static long rpmsg_ctrl_dev_ioctl(struct file *fp, unsigned int cmd,
->>  				 unsigned long arg)
->>  {
->>  	struct rpmsg_ctrl_dev *ctrldev = fp->private_data;
->> -
->> -	dev_info(&ctrldev->dev, "Control not yet implemented\n");
->> +	void __user *argp = (void __user *)arg;
->> +	struct rpmsg_channel_info chinfo;
->> +	struct rpmsg_endpoint_info eptinfo;
->> +	struct rpmsg_device *newch;
->> +
->> +	if (cmd != RPMSG_CREATE_EPT_IOCTL)
->> +		return -EINVAL;
->> +
->> +	if (copy_from_user(&eptinfo, argp, sizeof(eptinfo)))
->> +		return -EFAULT;
->> +
->> +	/*
->> +	 * In a frst step only the rpmsg_raw service is supported.
->> +	 * The override is foorced to RPMSG_RAW_SERVICE
->> +	 */
->> +	chinfo.driver_override = rpmsg_ctrl_get_drv_name(RPMSG_RAW_SERVICE);
->> +	if (!chinfo.driver_override)
->> +		return -ENODEV;
->> +
->> +	memcpy(chinfo.name, eptinfo.name, RPMSG_NAME_SIZE);
->> +	chinfo.name[RPMSG_NAME_SIZE - 1] = '\0';
->> +	chinfo.src = eptinfo.src;
->> +	chinfo.dst = eptinfo.dst;
->> +
->> +	newch = rpmsg_create_channel(ctrldev->rpdev, &chinfo);
->> +	if (!newch) {
->> +		dev_err(&ctrldev->dev, "rpmsg_create_channel failed\n");
->> +		return -ENXIO;
->> +	}
->>  
->>  	return 0;
->>  };
->> -- 
->> 2.17.1
->>
+
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.example.dt.yaml: rcc@50000000: compatible:1: 'st,stm32mp1-rcc' was expected
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.example.dt.yaml: rcc@50000000: compatible: ['st,stm32mp1-rcc-secure', 'syscon'] is too short
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
+
+See https://patchwork.ozlabs.org/patch/1430316
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
