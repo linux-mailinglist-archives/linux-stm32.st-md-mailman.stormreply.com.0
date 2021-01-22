@@ -2,69 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AC5430032B
+	by mail.lfdr.de (Postfix) with ESMTPS id 81FE130032D
 	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 13:34:46 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CDF2C57B44;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46D1BC57B4A;
 	Fri, 22 Jan 2021 12:34:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE4CDC57A44
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 418D7C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Jan 2021 10:51:41 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10MAmG88002482; Fri, 22 Jan 2021 11:51:30 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=KBEHlzZfeXt0Wny9pLnYEhapcASdkiKxPZRpUa+smeo=;
- b=eZu+HmaZtIOk24w1Qay5MT808V/QD2Pdys1gK5AfSBD08loniUXLF+wc64l78X7M2H1I
- Vv1o+4RK/R192ZAEgR9/cWfR0Q15Bn1DLDNw22cJcz5n7hC2LhSxVLmKsm5szl2bJi68
- Du6EauAbFby/2Nxx5U7YlSrjbFCIJfDYJkcazKuD9Qc2EUWcUkQLYIULUVN0uSBrAdAp
- dRqtkp3DoL0qSqz0WWZbb9epafIcbG2ThGy31k62Skl8x0YenCQPUq3CZ0wA4PZiwKU8
- erxWU5pqpDAN9tINn96KdQ3w3iZwxhIxR86+cYO6LoCmBmC83y8cUXLP0LPREu6G8WlN yw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3668pqhdvh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Jan 2021 11:51:30 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E0FC8100034;
- Fri, 22 Jan 2021 11:51:28 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D2C4D22DBCA;
- Fri, 22 Jan 2021 11:51:28 +0100 (CET)
-Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 22 Jan 2021 11:51:28
- +0100
-From: <gabriel.fernandez@foss.st.com>
-To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Etienne Carriere
- <etienne.carriere@st.com>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Fri, 22 Jan 2021 11:51:01 +0100
-Message-ID: <20210122105101.27374-15-gabriel.fernandez@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210122105101.27374-1-gabriel.fernandez@foss.st.com>
-References: <20210122105101.27374-1-gabriel.fernandez@foss.st.com>
+ Fri, 22 Jan 2021 12:15:26 +0000 (UTC)
+IronPort-SDR: DQCYzT4Ed5zM0pvxlgNjk6d9hKLcK6OCZ6ytVu4Mhu5+Rqn8hTVI2UfQb1j/6oTRNHlo/G2Ef/
+ ksUFj1IrtDJQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9871"; a="198192077"
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="198192077"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2021 04:15:19 -0800
+IronPort-SDR: vxhEFHoBM4hXws2Gfq3XVEXWbVHJjZt+mKNZqWwfpNFtZ+x/7C1X0hk8QBjs48BMnxsKHMbW17
+ KXS9hV06ZNpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,366,1602572400"; d="scan'208";a="467909062"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga001.fm.intel.com with SMTP; 22 Jan 2021 04:15:08 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 22 Jan 2021 14:15:07 +0200
+Date: Fri, 22 Jan 2021 14:15:07 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Message-ID: <YArBy2DKdCct5cYW@intel.com>
+References: <20210121163537.1466118-1-maxime@cerno.tech>
+ <20210121163537.1466118-8-maxime@cerno.tech>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-22_06:2021-01-21,
- 2021-01-22 signatures=0
+Content-Disposition: inline
+In-Reply-To: <20210121163537.1466118-8-maxime@cerno.tech>
+X-Patchwork-Hint: comment
 X-Mailman-Approved-At: Fri, 22 Jan 2021 12:34:43 +0000
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 14/14] ARM: dts: stm32: introduce basic boot
-	include on stm32mp15x board
+Cc: , Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Marek Vasut <marex@denx.de>, linux-samsung-soc@vger.kernel.org,
+ Joonyoung Shim <jy0922.shim@samsung.com>, linux-rockchip@lists.infradead.org,
+ Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, Sandy Huang <hjc@rock-chips.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Chen Feng <puck.chen@hisilicon.com>,
+ Dave Airlie <airlied@redhat.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Alison Wang <alison.wang@nxp.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-mediatek@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tomi Valkeinen <tomba@kernel.org>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Philippe Cornu <philippe.cornu@st.com>, linux-kernel@vger.kernel.org,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Tian Tao <tiantao6@hisilicon.com>,
+ freedreno@lists.freedesktop.org
+Subject: Re: [Linux-stm32] [PATCH v2 08/11] drm: Rename plane->state
+ variables in atomic update and disable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,191 +84,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+On Thu, Jan 21, 2021 at 05:35:33PM +0100, Maxime Ripard wrote:
+> Some drivers are storing the plane->state pointer in atomic_update and
+> atomic_disable in a variable simply called state, while the state passed
+> as an argument is called old_state.
+> =
 
-Include this .dtsi file to be backward compatible with old basic bootchain.
+> In order to ease subsequent reworks and to avoid confusing or
+> inconsistent names, let's rename those variables to new_state.
+> =
 
-For example add:
-#include "stm32mp15-no-scmi.dtsi" in a stm32mp157c*.dts file.
+> This was done using the following coccinelle script, plus some manual
+> changes for mtk and tegra.
+> =
 
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
----
- arch/arm/boot/dts/stm32mp15-no-scmi.dtsi | 158 +++++++++++++++++++++++
- 1 file changed, 158 insertions(+)
- create mode 100644 arch/arm/boot/dts/stm32mp15-no-scmi.dtsi
+> @ plane_atomic_func @
+> identifier helpers;
+> identifier func;
+> @@
+> =
 
-diff --git a/arch/arm/boot/dts/stm32mp15-no-scmi.dtsi b/arch/arm/boot/dts/stm32mp15-no-scmi.dtsi
-new file mode 100644
-index 000000000000..4939f96da739
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp15-no-scmi.dtsi
-@@ -0,0 +1,158 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (C) STMicroelectronics 2020 - All Rights Reserved
-+ * Author: Gabriel Fernandez <gabriel.fernandez@st.com> for STMicroelectronics.
-+ */
-+
-+/ {
-+
-+	clocks {
-+		clk_hse: clk-hse {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <24000000>;
-+		};
-+
-+		clk_hsi: clk-hsi {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <64000000>;
-+		};
-+
-+		clk_lse: clk-lse {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <32768>;
-+		};
-+
-+		clk_lsi: clk-lsi {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <32000>;
-+		};
-+
-+		clk_csi: clk-csi {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <4000000>;
-+		};
-+	};
-+
-+	cpus {
-+		cpu0: cpu@0 {
-+			clocks = <&rcc CK_MPU>;
-+		};
-+
-+		cpu1: cpu@1 {
-+			clocks = <&rcc CK_MPU>;
-+		};
-+	};
-+
-+	reboot {
-+		compatible = "syscon-reboot";
-+		regmap = <&rcc>;
-+		offset = <0x404>;
-+		mask = <0x1>;
-+	};
-+
-+	soc {
-+		m_can1: can@4400e000 {
-+			clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
-+		};
-+
-+		m_can2: can@4400f000 {
-+			clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
-+		};
-+
-+		cryp1: cryp@54001000 {
-+			clocks = <&rcc CRYP1>;
-+			resets = <&rcc CRYP1_R>;
-+		};
-+
-+		dsi: dsi@5a000000 {
-+			clocks = <&rcc DSI_K>, <&clk_hse>, <&rcc DSI_PX>;
-+		};
-+	};
-+
-+	ahb {
-+		m4_rproc: m4@10000000 {
-+			resets = <&rcc MCU_R>, <&rcc MCU_HOLD_BOOT_R>;
-+
-+			m4_system_resources {
-+				m4_cec: cec@40016000 {
-+					clocks = <&rcc CEC_K>, <&rcc CK_LSE>;
-+				};
-+
-+				m4_m_can1: can@4400e000 {
-+					clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
-+				};
-+
-+				m4_m_can2: can@4400f000 {
-+					clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
-+				};
-+			};
-+		};
-+	};
-+
-+	firmware {
-+		/delete-node/ scmi0;
-+		/delete-node/ scmi1;
-+	};
-+	/delete-node/ sram@2ffff000;
-+};
-+
-+&cec {
-+	clocks = <&rcc CEC_K>, <&clk_lse>;
-+};
-+
-+&gpioz {
-+	clocks = <&rcc GPIOZ>;
-+};
-+
-+&hash1 {
-+	clocks = <&rcc HASH1>;
-+	resets = <&rcc HASH1_R>;
-+};
-+
-+&i2c4 {
-+	clocks = <&rcc I2C4_K>;
-+	resets = <&rcc I2C4_R>;
-+};
-+
-+&i2c6 {
-+	clocks = <&rcc I2C6_K>;
-+	resets = <&rcc I2C6_R>;
-+};
-+
-+&iwdg2 {
-+	clocks = <&rcc IWDG2>, <&rcc CK_LSI>;
-+};
-+
-+&mdma1 {
-+	clocks = <&rcc MDMA>;
-+	resets = <&rcc MDMA_R>;
-+};
-+
-+&rcc {
-+	compatible = "st,stm32mp1-rcc", "syscon";
-+	clocks = <&clk_hse>, <&clk_hsi>, <&clk_csi>, <&clk_lse>, <&clk_lsi>;
-+};
-+
-+&rng1 {
-+	clocks = <&rcc RNG1_K>;
-+	resets = <&rcc RNG1_R>;
-+};
-+
-+&rtc {
-+	clocks = <&rcc RTCAPB>, <&rcc RTC>;
-+};
-+
-+&spi6 {
-+	clocks = <&rcc SPI6_K>;
-+	resets = <&rcc SPI6_R>;
-+};
-+
-+&usart1 {
-+	clocks = <&rcc USART1_K>;
-+	resets = <&rcc USART1_R>;
-+};
--- 
-2.17.1
+> (
+>  static const struct drm_plane_helper_funcs helpers =3D {
+>  	...,
+>  	.atomic_disable =3D func,
+> 	...,
+>  };
+> |
+>  static const struct drm_plane_helper_funcs helpers =3D {
+>  	...,
+>  	.atomic_update =3D func,
+> 	...,
+>  };
+> )
+> =
 
+> @ moves_new_state_old_state @
+> identifier plane_atomic_func.func;
+> identifier plane;
+> symbol old_state;
+> symbol state;
+> @@
+> =
+
+>  func(struct drm_plane *plane, struct drm_plane_state *old_state)
+>  {
+>  	...
+> -	struct drm_plane_state *state =3D plane->state;
+> +	struct drm_plane_state *new_state =3D plane->state;
+> 	...
+>  }
+> =
+
+> @ depends on moves_new_state_old_state @
+> identifier plane_atomic_func.func;
+> identifier plane;
+> identifier old_state;
+> symbol state;
+> @@
+> =
+
+>  func(struct drm_plane *plane, struct drm_plane_state *old_state)
+>  {
+>  	<...
+> -	state
+> +	new_state
+> 	...>
+
+Was going to say that this migh eat something else, but I guess
+the dependency prevents that?
+
+Another way to avoid that I suppose would be to declare 'state'
+as
+symbol moves_new_state_old_state.state;
+
+That would probably make the intent a bit more obvious, even with
+the dependency. Or does a dependency somehow automagically imply
+that?
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
