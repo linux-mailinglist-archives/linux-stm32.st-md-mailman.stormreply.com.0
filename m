@@ -2,45 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D51FA3001AE
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 12:35:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95F073002B8
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 13:19:06 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 363C9C424BE;
-	Fri, 22 Jan 2021 11:35:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 402F0C424BE;
+	Fri, 22 Jan 2021 12:19:06 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01433C3FADB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A214C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Jan 2021 11:35:10 +0000 (UTC)
-Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <afa@pengutronix.de>)
- id 1l2uiX-0001iv-7n; Fri, 22 Jan 2021 12:35:05 +0100
-Received: from afa by dude.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <afa@pengutronix.de>)
- id 1l2uiV-0004DT-Fd; Fri, 22 Jan 2021 12:35:03 +0100
+ Fri, 22 Jan 2021 12:19:02 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1l2vP2-00087l-Ob; Fri, 22 Jan 2021 13:19:00 +0100
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Jonathan Cameron <jic23@kernel.org>, Olivier Moysan <olivier.moysan@st.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>
+References: <20210112152441.20665-1-a.fatoum@pengutronix.de>
+ <20210116175333.4d8684c5@archlinux>
+ <47b0905a-4496-2f21-3b17-91988aa88e91@pengutronix.de>
+ <7668b126-d77c-7339-029f-50333d03fbd9@foss.st.com>
 From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-Date: Fri, 22 Jan 2021 12:33:55 +0100
-Message-Id: <20210122113355.32384-1-a.fatoum@pengutronix.de>
-X-Mailer: git-send-email 2.30.0
+Message-ID: <e542035e-d5fe-0680-4780-4554ed165e0e@pengutronix.de>
+Date: Fri, 22 Jan 2021 13:18:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
-X-SA-Exim-Mail-From: afa@pengutronix.de
+In-Reply-To: <7668b126-d77c-7339-029f-50333d03fbd9@foss.st.com>
+Content-Language: en-US
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de, Holger Assmann <has@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] iio: adc: stm32-adc: enable timestamping
-	for non-DMA usage
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Holger Assmann <has@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Thomas Gleixner <tglx@linutronix.de>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: fix erroneous
+ handling of spurious IRQs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,122 +59,124 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-For non-DMA usage, we have an easy way to associate a timestamp with a
-sample: iio_pollfunc_store_time stores a timestamp in the primary
-trigger IRQ handler and stm32_adc_trigger_handler runs in the IRQ thread
-to push out the buffer along with the timestamp.
-
-For this to work, the driver needs to register an IIO_TIMESTAMP channel.
-Do this.
-
-For DMA, it's not as easy, because we don't push the buffers out of
-stm32_adc_trigger, but out of stm32_adc_dma_buffer_done, which runs in
-a tasklet scheduled after a DMA completion.
-
-Preferably, the DMA controller would copy us the timestamp into that buffer
-as well. Until this is implemented, restrict timestamping support to
-only PIO. For low-frequency sampling, PIO is probably good enough.
-
-Cc: Holger Assmann <has@pengutronix.de>
-Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
----
-v1 -> v2:
-  - Added comment about timestamping being PIO only (Fabrice)
-  - Added missing DMA resource clean up in error path (Fabrice)
-  - Added Fabrice's Acked-by
----
- drivers/iio/adc/stm32-adc.c | 35 +++++++++++++++++++++++++++++------
- 1 file changed, 29 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index c067c994dae2..885bb514503c 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -1718,7 +1718,7 @@ static void stm32_adc_chan_init_one(struct iio_dev *indio_dev,
- 	}
- }
- 
--static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
-+static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
- {
- 	struct device_node *node = indio_dev->dev.of_node;
- 	struct stm32_adc *adc = iio_priv(indio_dev);
-@@ -1766,6 +1766,9 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
- 		return -EINVAL;
- 	}
- 
-+	if (timestamping)
-+		num_channels++;
-+
- 	channels = devm_kcalloc(&indio_dev->dev, num_channels,
- 				sizeof(struct iio_chan_spec), GFP_KERNEL);
- 	if (!channels)
-@@ -1816,6 +1819,19 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
- 		stm32_adc_smpr_init(adc, channels[i].channel, smp);
- 	}
- 
-+	if (timestamping) {
-+		struct iio_chan_spec *timestamp = &channels[scan_index];
-+
-+		timestamp->type = IIO_TIMESTAMP;
-+		timestamp->channel = -1;
-+		timestamp->scan_index = scan_index;
-+		timestamp->scan_type.sign = 's';
-+		timestamp->scan_type.realbits = 64;
-+		timestamp->scan_type.storagebits = 64;
-+
-+		scan_index++;
-+	}
-+
- 	indio_dev->num_channels = scan_index;
- 	indio_dev->channels = channels;
- 
-@@ -1875,6 +1891,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	irqreturn_t (*handler)(int irq, void *p) = NULL;
- 	struct stm32_adc *adc;
-+	bool timestamping = false;
- 	int ret;
- 
- 	if (!pdev->dev.of_node)
-@@ -1931,16 +1948,22 @@ static int stm32_adc_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = stm32_adc_chan_of_init(indio_dev);
--	if (ret < 0)
--		return ret;
--
- 	ret = stm32_adc_dma_request(dev, indio_dev);
- 	if (ret < 0)
- 		return ret;
- 
--	if (!adc->dma_chan)
-+	if (!adc->dma_chan) {
-+		/* For PIO mode only, iio_pollfunc_store_time stores a timestamp
-+		 * in the primary trigger IRQ handler and stm32_adc_trigger_handler
-+		 * runs in the IRQ thread to push out buffer along with timestamp.
-+		 */
- 		handler = &stm32_adc_trigger_handler;
-+		timestamping = true;
-+	}
-+
-+	ret = stm32_adc_chan_of_init(indio_dev, timestamping);
-+	if (ret < 0)
-+		goto err_dma_disable;
- 
- 	ret = iio_triggered_buffer_setup(indio_dev,
- 					 &iio_pollfunc_store_time, handler,
--- 
-2.30.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gRmFicmljZSwKCk9uIDE5LjAxLjIxIDE4OjU2LCBGYWJyaWNlIEdhc25pZXIgd3JvdGU6
+Cj4gT24gMS8xOC8yMSAxMjo0MiBQTSwgQWhtYWQgRmF0b3VtIHdyb3RlOgo+PiBIZWxsbyBKb25h
+dGhhbiwKPj4KPj4gT24gMTYuMDEuMjEgMTg6NTMsIEpvbmF0aGFuIENhbWVyb24gd3JvdGU6Cj4+
+PiBPbiBUdWUsIDEyIEphbiAyMDIxIDE2OjI0OjQyICswMTAwCj4+PiBBaG1hZCBGYXRvdW0gPGEu
+ZmF0b3VtQHBlbmd1dHJvbml4LmRlPiB3cm90ZToKPj4+Cj4+Pj4gMWM2YzY5NTI1YjQwICgiZ2Vu
+aXJxOiBSZWplY3QgYm9ndXMgdGhyZWFkZWQgaXJxIHJlcXVlc3RzIikgbWFrZXMgc3VyZQo+Pj4+
+IHRoYXQgdGhyZWFkZWQgSVJRcyBlaXRoZXIKPj4+PiAgIC0gaGF2ZSBJUlFGX09ORVNIT1Qgc2V0
+Cj4+Pj4gICAtIGRvbid0IGhhdmUgdGhlIGRlZmF1bHQganVzdCByZXR1cm4gSVJRX1dBS0VfVEhS
+RUFEIHByaW1hcnkgaGFuZGxlcgo+Pj4+Cj4+Pj4gVGhpcyBpcyBuZWNlc3NhcnkgYmVjYXVzZSBs
+ZXZlbC10cmlnZ2VyZWQgaW50ZXJydXB0cyBuZWVkIHRvIGJlIG1hc2tlZCwKPj4+PiBlaXRoZXIg
+YXQgZGV2aWNlIG9yIGlycWNoaXAsIHRvIGF2b2lkIGFuIGludGVycnVwdCBzdG9ybS4KPj4+Pgo+
+Pj4+IEZvciBzcHVyaW91cyBpbnRlcnJ1cHRzLCB0aGUgU1RNMzIgQURDIGRyaXZlciBzdGlsbCBk
+b2VzIHRoaXMgYm9ndXMKPj4+PiByZXF1ZXN0IHRob3VnaDoKPj4+PiAgIC0gSXQgZG9lc24ndCBz
+ZXQgSVJRRl9PTkVTSE9UCj4+Pj4gICAtIEl0cyBwcmltYXJ5IGhhbmRsZXIganVzdCByZXR1cm5z
+IElSUV9XQUtFX1RIUkVBRCBpZiB0aGUgaW50ZXJydXB0Cj4+Pj4gICAgIGlzIHVuZXhwZWN0ZWQs
+IGkuZS4gIShzdGF0dXMgJiBlbmFibGVkX21hc2spCj4+PiBUaGlzIHNlZW1zICd1bnVzdWFsJy4g
+IElmIHRoaXMgaXMgYSBzcHVyaW91cyBpbnRlcnJ1cHQgd2Ugc2hvdWxkIGJlCj4+PiByZXR1cm5p
+bmcgSVJRX05PTkUgYW5kIGxldHRpbmcgdGhlIHNwdXJpb3VzIGludGVycnVwdCBwcm90ZWN0aW9u
+Cj4+PiBzdHVmZiBraWNrIGluLgo+Pj4KPj4+IFRoZSBvbmx5IHJlYXNvbiBJIGNhbiBzZWUgdGhh
+dCBpdCBkb2VzIHRoaXMgaXMgcHJpbnQgYW4gZXJyb3IgbWVzc2FnZS4KPj4+IEknbSBub3Qgc3Vy
+ZSB3aHkgd2UgbmVlZCB0byBnbyBpbnRvIHRoZSB0aHJlYWQgdG8gZG8gdGhhdCBnaXZlbgo+Pj4g
+aXQncyBub3Qgc3VwcG9zZWQgdG8gaGFwcGVuLiBJZiB3ZSBuZWVkIHRoYXQgbWVzc2FnZSBhdCBh
+bGwsIEknZAo+Pj4gc3VnZ2VzdCBkb2luZyBpdCBpbiB0aGUgaW50ZXJydXB0IGhhbmRsZXIgdGhl
+biByZXR1cm4gSVJRX05PTkU7Cj4+IEFzIGRlc2NyaWJlZCwgSSBydW4gaW50byB0aGUgc3B1cmlv
+dXMgSVJRIGNhc2UsIHNvIEkgdGhpbmsgdGhlIG1lc3NhZ2UgaXMKPj4gc3RpbGwgdXNlZnVsICh1
+bnRpbCB0aGF0J3MgcHJvcGVybHkgZml4ZWQpLCBidXQgeWVzLCBpdCBzaG91bGQndmUgcmV0dXJu
+ZWQKPj4gSVJRX05PTkUgaW4gdGhhdCBjYXNlLgo+Pgo+PiBXaXRoIHRoZXNlIGNoYW5nZXMsIElS
+UUZfT05FU0hPVCBzaG91bGRuJ3QgYmUgbmVjZXNzYXJ5LCBidXQgaW4gcHJhY3RpY2UKPj4gdGhl
+IGRyaXZlciBkb2Vzbid0IGZ1bmN0aW9uIGNvcnJlY3RseSB3aXRoIHRoZSBwcmltYXJ5IElSUSBo
+YW5kbGVyIHRocmVhZGVkLgo+Pgo+PiBPbGl2aWVyLCBGYWJyaWNlOiBBcmUgeW91IGF3YXJlIG9m
+IHRoaXMgcHJvYmxlbT8KPiAKPiAKPiBIaSBBaG1hZCwgSm9uYXRoYW4sCj4gCj4gSSB3YXNuJ3Qg
+YXdhcmUgb2YgdGhpcyB1cCB0byBub3cuIEkgY29uZmlybSB3ZSd2ZSB0aGUgc2FtZSBiZWhhdmlv
+ciBhdAo+IG91ciBlbmQgd2l0aCB0aHJlYWRpcnFzPTEuCj4gCj4gT2xpdmllciBhbmQgSSBzdGFy
+dGVkIHRvIGxvb2sgYXQgdGhpcy4gSW5kZWVkLCB0aGUgSVJRRl9PTkVTSE9UIG1ha2VzCj4gdGhl
+IGlzc3VlIHRvIGRpc2FwcGVhci4KPiBJJ20gbm90IHN1cmUgMTAwJSB0aGF0J3MgZm9yIHRoZSBh
+Ym92ZSByZWFzb25zLiBQbGVhc2UgbGV0IG1lIHNoYXJlIHNvbWUKPiBwaWVjZSBvZiBsb2dzLCBh
+bmFseXNpcyBhbmQgdGhvdWdodHMuCgpUaGFua3MgZm9yIGxvb2tpbmcgYXQgdGhpcy4KCj4gSSBt
+YXkgbWlzcyBpdCBidXQsIHRoZSBwYXRjaCAiZ2VuaXJxOiBSZWplY3QgYm9ndXMgdGhyZWFkZWQg
+aXJxCj4gcmVxdWVzdHMiIHNlZW1zIHRvIGhhbmRsZSB0aGUgY2FzZSB3aGVyZSBubyBIVyBoYW5k
+bGVyIGlzIHByb3ZpZGVkLCBidXQKPiBvbmx5IHRoZSB0aHJlYWRlZCBwYXJ0PwoKVGhlcmUgaXMg
+c3RpbGwgYSBwcmltYXJ5IGhhbmRsZXIsIGJ1dCB0aGF0IG9uZSBkb2VzIG9ubHkgZG8gSVJRX1dB
+S0VfVEhSRUFELApzbyBJIGFzc3VtZWQgdGhhdCB3b3VsZCBiZSBlcXVpdmFsZW50IHRvIHdoYXQg
+dGhlIGRyaXZlciBpcyBkb2luZyBpbiB0aGUKc3B1cmlvdXMgSVJRIGNhc2UuCgo+IEluIHRoZSBz
+dG0zMi1hZGMgYm90aCBhcmUgcHJvdmlkZWQuIEFsc28gdGhlIElSUSBkb21haW4gaW4KPiBzdG0z
+Mi1hZGMtY29yZSBtYXliZSBhIGtleSBoZXJlID8KCk9oLCBtaXNzZWQgY29tcGxldGVseSB0aGF0
+IHRoZSBzdG0zMi1hZGMtY29yZSBkb2VzIHRoZSBpbnRlcnJ1cHQgcm91dGluZy4KCj4gV2UgZGlk
+IHNvbWUgdGVzdGluZywgZnRyYWNlIGFuZCBvYnNlcnZlZCBmb2xsb3dpbmcgYmVoYXZpb3IgZm9y
+IG9uZQo+IGNhcHR1cmUgKGEgc2luZ2xlIGNhdCBpbl92b2x0YWdlLi4uX3JhdykgOgo+IAo+IGlu
+IHN0bTMyLWFkYy1jb3JlLCBhcyBJUlEgc291cmNlIGlzIHN0aWxsIGFjdGl2ZSB1bnRpbCB0aGUg
+SVJRIHRocmVhZAo+IGNhbiBleGVjdXRlOgo+IC0gc3RtMzJfYWRjX2lycV9oYW5kbGVyIDwtLSBn
+ZW5lcmljX2hhbmRsZV9pcnEKPiAtIHN0bTMyX2FkY19pcnFfaGFuZGxlciA8LS0gZ2VuZXJpY19o
+YW5kbGVfaXJxCj4gLSBzdG0zMl9hZGNfaXJxX2hhbmRsZXIgPC0tIGdlbmVyaWNfaGFuZGxlX2ly
+cQo+IC4uLgo+IAo+IC0gc2NoZWRfc3dpdGNoIHRvIHRoZSAxc3QgSVJRIHRocmVhZAo+IC0gc3Rt
+MzJfYWRjX2lycV9oYW5kbGVyIDwtLSBnZW5lcmljX2hhbmRsZV9pcnEgKGFnYWluIHVudGlsIERS
+IGdldCByZWFkKQo+IAo+IC0gc3RtMzJfYWRjX2lzciA8LS0gaXJxX2ZvcmNlZF90aHJlYWRfZm4g
+KGZyb20gc3RtMzItYWRjKQo+IMKgIERSIHJlYWQsIGNsZWFycyB0aGUgYWN0aXZlIGZsYWcKPiAt
+IHN0bTMyX2FkY19pc3IgPC0tIGlycV9mb3JjZWRfdGhyZWFkX2ZuCj4gwqAgd2FrZXMgdGhlIDJu
+ZCBJUlEgdGhyZWFkIHRvIHByaW50IGFuIGVycm9yICh1bmV4cGVjdGVkLi4uKQo+IAo+IHNjaGVk
+X3N3aXRjaCB0byB0aGUgMm5kIElSUSB0aHJlYWQgdGhhdCBwcmludHMgdGhlIG1lc3NhZ2UuCj4g
+Cj4gLSBzdG0zMl9hZGNfdGhyZWFkZWRfaXNyIDwtLSBpcnFfdGhyZWFkX2ZuCj4gCj4gCj4gU28g
+bXkgdW5kZXJzdGFuZGluZyBpczogdGhlIGNhdXNlIHNlZW1zIHRvIGJlIHRoZSBjb25jdXJyZW5j
+eSBiZXR3ZWVuCj4gCj4gLSBzdG0zMl9hZGNfaXJxX2hhbmRsZXIoKSBzdG9ybSBjYWxscyBpbiBz
+dG0zMi1hZGMtY29yZQo+IC0gc3RtMzJfYWRjX2lzcigpIGNhbGwgdG8gY2xlYXIgdGhlIGNhdXNl
+IChmb3JjZWQgaW50byBhIHRocmVhZCB3aXRoCj4gdGhyZWFkaXJxcz0xKS4KCkkgY2FuJ3QgZm9s
+bG93IGhlcmUuIFdoZXJlIGRvZXMgc3RtMzJfYWRjX2lzcigpIGNsZWFyIHRoZSBJUlEgY2F1c2U/
+CkkgYXNzdW1lZCBpdCBjYW4ndCBiZSBpc3Jfb3ZyLm1hc2ssIGJlY2F1c2UgdGhhdCdzIGNoZWNr
+ZWQgaW4gdGhlCnByaW1hcnkgaGFuZGxlci4KCj4gVG8gcHJvcGVybHkgd29yaywgdGhlIHN0bTMy
+X2FkY19pcnFfaGFuZGxlcigpIHNob3VsZCBiZSBtYXNrZWQgaW4gYmV0d2Vlbi4KPiAKPiBBcyB5
+b3UgZXhwbGFpbiwgdGhpcyB3b3JrcyBpbiB0aGlzIGNhc2U6IHRoZSBjYWxsIHRvIHN0bTMyX2Fk
+Y19pc3IgKGluCj4gc3RtMzItYWRjKSBpc24ndCBsb25nZXIgZm9yY2VkIHRocmVhZGVkIHdpdGgg
+SVJRRl9PTkVTSE9ULgo+IAo+IEl0IGxvb2tzIGxpa2UgSVJRRl9OT19USFJFQUQgZm9yIGZvcmNl
+ZCB0aHJlYWRpbmcgd291bGQgaGF2ZSBzaW1pbGFyCj4gZWZmZWN0PyBNYXliZSB0aGUgc2FtZSB3
+b3VsZCBiZSBhcHBsaWNhYmxlIGhlcmUgPyAoSSBoYXZlbid0IHRlc3RlZC4uLikKCkkgZ3Vlc3Mg
+SVJRRl9OT19USFJFQUQgaXMgbWVhbnQgZm9yIHVzZSB3aXRoIHJlcXVlc3RfaXJxIGFuZApJUlFG
+X09ORVNIT1QgZm9yIHJlcXVlc3RfdGhyZWFkZWRfaXJxPwogCj4gSG9wZWZ1bGx5IHRoaXMgaGVs
+cHMgYW5kIGlzIHNpbWlsYXIgdG8gd2hhdCB5b3Ugb2JzZXJ2ZWQuCgpDaGVlcnMsCkFobWFkCgo+
+IAo+IFRoYW5rcyBhbmQgYmVzdCByZWdhcmRzLAo+IEZhYnJpY2UKPiAKPj4KPj4gQ2hlZXJzLAo+
+PiBBaG1hZAo+Pgo+Pj4+ICAgLSBzdG0zMm1wMTUxLmR0c2kgZGVzY3JpYmVzIHRoZSBBREMgaW50
+ZXJydXB0IGFzIGxldmVsLXRyaWdnZXJlZAo+Pj4+Cj4+Pj4gRml4IHRoaXMgYnkgc2V0dGluZyBJ
+UlFGX09ORVNIT1QgdG8gaGF2ZSB0aGUgaXJxY2hpcCBtYXNrIHRoZSBJUlEKPj4+PiB1bnRpbCB0
+aGUgSVJRIHRocmVhZCBoYXMgZmluaXNoZWQuCj4+Pj4KPj4+PiBJUlFGX09ORVNIT1QgYWxzbyBo
+YXMgdGhlIGVmZmVjdCB0aGF0IHRoZSBwcmltYXJ5IGhhbmRsZXIgaXMgbm8gbG9uZ2VyCj4+Pj4g
+Zm9yY2VkIGludG8gYSB0aHJlYWQuIFRoaXMgbWFrZXMgdGhlIGlzc3VlIHdpdGggc3B1cmlvdXMg
+aW50ZXJydXB0cwo+Pj4+IGludGVycnVwdHMgZGlzYXBwZWFyIHdoZW4gcmVhZGluZyB0aGUgQURD
+IG9uIGEgdGhyZWFkaXJxcz0xIGtlcm5lbC4KPj4+PiBUaGlzIHVzZWQgdG8gcmVzdWx0IGluIGZv
+bGxvd2luZyBrZXJuZWwgZXJyb3IgbWVzc2FnZToKPj4+Pgo+Pj4+IAlpaW8gaWlvOmRldmljZTE6
+IFVuZXhwZWN0ZWQgSVJROiBJRVI9MHgwMDAwMDAwMCwgSVNSPTB4MDAwMDEwMGUKPj4+PiBvcgo+
+Pj4+IAlpaW8gaWlvOmRldmljZTE6IFVuZXhwZWN0ZWQgSVJROiBJRVI9MHgwMDAwMDAwNCwgSVNS
+PTB4MDAwMDEwMGEKPj4+Pgo+Pj4+IEJ1dCB3aXRoIHRoaXMgcGF0Y2ggYXBwbGllZCAob3IgdGhy
+ZWFkZWQgSVJRcyBkaXNhYmxlZCksIHRoaXMgbm8gbG9uZ2VyCj4+Pj4gb2NjdXJzLgo+Pj4+Cj4+
+Pj4gQ2M6IEx1Y2FzIFN0YWNoIDxsLnN0YWNoQHBlbmd1dHJvbml4LmRlPgo+Pj4+IFJlcG9ydGVk
+LWJ5OiBIb2xnZXIgQXNzbWFubiA8aGFzQHBlbmd1dHJvbml4LmRlPgo+Pj4+IEZpeGVzOiA2OTVl
+MmY1YzI4OWIgKCJpaW86IGFkYzogc3RtMzItYWRjOiBmaXggYSByZWdyZXNzaW9uIHdoZW4gdXNp
+bmcgZG1hIGFuZCBpcnEiKQo+Pj4+IFNpZ25lZC1vZmYtYnk6IEFobWFkIEZhdG91bSA8YS5mYXRv
+dW1AcGVuZ3V0cm9uaXguZGU+Cj4+Pj4gLS0tCj4+Pj4gIGRyaXZlcnMvaWlvL2FkYy9zdG0zMi1h
+ZGMuYyB8IDIgKy0KPj4+PiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
+aW9uKC0pCj4+Pj4KPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy5j
+IGIvZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy5jCj4+Pj4gaW5kZXggYzA2N2M5OTRkYWUyLi43
+ZTBlMjFjNzlhYzggMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy5j
+Cj4+Pj4gKysrIGIvZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy5jCj4+Pj4gQEAgLTE5MTAsNyAr
+MTkxMCw3IEBAIHN0YXRpYyBpbnQgc3RtMzJfYWRjX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZp
+Y2UgKnBkZXYpCj4+Pj4gIAo+Pj4+ICAJcmV0ID0gZGV2bV9yZXF1ZXN0X3RocmVhZGVkX2lycSgm
+cGRldi0+ZGV2LCBhZGMtPmlycSwgc3RtMzJfYWRjX2lzciwKPj4+PiAgCQkJCQlzdG0zMl9hZGNf
+dGhyZWFkZWRfaXNyLAo+Pj4+IC0JCQkJCTAsIHBkZXYtPm5hbWUsIGluZGlvX2Rldik7Cj4+Pj4g
+KwkJCQkJSVJRRl9PTkVTSE9ULCBwZGV2LT5uYW1lLCBpbmRpb19kZXYpOwo+Pj4+ICAJaWYgKHJl
+dCkgewo+Pj4+ICAJCWRldl9lcnIoJnBkZXYtPmRldiwgImZhaWxlZCB0byByZXF1ZXN0IElSUVxu
+Iik7Cj4+Pj4gIAkJcmV0dXJuIHJldDsKPj4+Cj4gCgotLSAKUGVuZ3V0cm9uaXggZS5LLiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKU3Rl
+dWVyd2FsZGVyIFN0ci4gMjEgICAgICAgICAgICAgICAgICAgICAgIHwgaHR0cDovL3d3dy5wZW5n
+dXRyb25peC5kZS8gIHwKMzExMzcgSGlsZGVzaGVpbSwgR2VybWFueSAgICAgICAgICAgICAgICAg
+IHwgUGhvbmU6ICs0OS01MTIxLTIwNjkxNy0wICAgIHwKQW10c2dlcmljaHQgSGlsZGVzaGVpbSwg
+SFJBIDI2ODYgICAgICAgICAgIHwgRmF4OiAgICs0OS01MTIxLTIwNjkxNy01NTU1IHwKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
+bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
+Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
+MzIK
