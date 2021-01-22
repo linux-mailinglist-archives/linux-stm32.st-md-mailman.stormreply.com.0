@@ -2,48 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 462423000FB
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 12:02:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D51FA3001AE
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 12:35:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0363C424BE;
-	Fri, 22 Jan 2021 11:02:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 363C9C424BE;
+	Fri, 22 Jan 2021 11:35:16 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1D90C3089F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01433C3FADB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Jan 2021 11:02:41 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1l2uDA-00066G-SP; Fri, 22 Jan 2021 12:02:40 +0100
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Fri, 22 Jan 2021 11:35:10 +0000 (UTC)
+Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1l2uiX-0001iv-7n; Fri, 22 Jan 2021 12:35:05 +0100
+Received: from afa by dude.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1l2uiV-0004DT-Fd; Fri, 22 Jan 2021 12:35:03 +0100
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
  Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@st.com>
-References: <20210121180228.30621-1-a.fatoum@pengutronix.de>
- <52a8a7db-72ee-a00f-7ef5-ada85cfe4774@foss.st.com>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <b9e39aa7-35a2-598a-770b-3ae336c15cf3@pengutronix.de>
-Date: Fri, 22 Jan 2021 12:02:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+Date: Fri, 22 Jan 2021 12:33:55 +0100
+Message-Id: <20210122113355.32384-1-a.fatoum@pengutronix.de>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-In-Reply-To: <52a8a7db-72ee-a00f-7ef5-ada85cfe4774@foss.st.com>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
+X-SA-Exim-Mail-From: afa@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Holger Assmann <has@pengutronix.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de, Holger Assmann <has@pengutronix.de>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: enable timestamping
- for non-DMA usage
+Subject: [Linux-stm32] [PATCH v2] iio: adc: stm32-adc: enable timestamping
+	for non-DMA usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,88 +52,122 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksCgpPbiAyMi4wMS4yMSAxMToyMywgRmFicmljZSBHYXNuaWVyIHdyb3RlOgo+IE9uIDEvMjEv
-MjEgNzowMiBQTSwgQWhtYWQgRmF0b3VtIHdyb3RlOgo+PiBGb3Igbm9uLURNQSB1c2FnZSwgd2Ug
-aGF2ZSBhbiBlYXN5IHdheSB0byBhc3NvY2lhdGUgYSB0aW1lc3RhbXAgd2l0aCBhCj4+IHNhbXBs
-ZTogaWlvX3BvbGxmdW5jX3N0b3JlX3RpbWUgc3RvcmVzIGEgdGltZXN0YW1wIGluIHRoZSBwcmlt
-YXJ5Cj4+IHRyaWdnZXIgSVJRIGhhbmRsZXIgYW5kIHN0bTMyX2FkY190cmlnZ2VyX2hhbmRsZXIg
-cnVucyBpbiB0aGUgSVJRIHRocmVhZAo+PiB0byBwdXNoIG91dCB0aGUgYnVmZmVyIGFsb25nIHdp
-dGggdGhlIHRpbWVzdGFtcC4KPj4KPj4gRm9yIHRoaXMgdG8gd29yaywgdGhlIGRyaXZlciBuZWVk
-cyB0byByZWdpc3RlciBhbiBJSU9fVElNRVNUQU1QIGNoYW5uZWwuCj4+IERvIHRoaXMuCj4+Cj4+
-IEZvciBETUEsIGl0J3Mgbm90IGFzIGVhc3ksIGJlY2F1c2Ugd2UgZG9uJ3QgcHVzaCB0aGUgYnVm
-ZmVycyBvdXQgb2YKPj4gc3RtMzJfYWRjX3RyaWdnZXIsIGJ1dCBvdXQgb2Ygc3RtMzJfYWRjX2Rt
-YV9idWZmZXJfZG9uZSwgd2hpY2ggcnVucyBpbgo+PiBhIHRhc2tsZXQgc2NoZWR1bGVkIGFmdGVy
-IGEgRE1BIGNvbXBsZXRpb24uCj4+Cj4+IFByZWZlcmFibHksIHRoZSBETUEgY29udHJvbGxlciB3
-b3VsZCBjb3B5IHVzIHRoZSB0aW1lc3RhbXAgaW50byB0aGF0IGJ1ZmZlcgo+PiBhcyB3ZWxsLiBV
-bnRpbCB0aGlzIGlzIGltcGxlbWVudGVkLCByZXN0cmljdCB0aW1lc3RhbXBpbmcgc3VwcG9ydCB0
-bwo+PiBvbmx5IFBJTy4gRm9yIGxvdy1mcmVxdWVuY3kgc2FtcGxpbmcsIFBJTyBpcyBwcm9iYWJs
-eSBnb29kIGVub3VnaC4KPj4KPj4gQ2M6IEhvbGdlciBBc3NtYW5uIDxoYXNAcGVuZ3V0cm9uaXgu
-ZGU+Cj4+IFNpZ25lZC1vZmYtYnk6IEFobWFkIEZhdG91bSA8YS5mYXRvdW1AcGVuZ3V0cm9uaXgu
-ZGU+Cj4+IC0tLQo+PiAgZHJpdmVycy9paW8vYWRjL3N0bTMyLWFkYy5jIHwgMzEgKysrKysrKysr
-KysrKysrKysrKysrKysrKy0tLS0tLQo+PiAgMSBmaWxlIGNoYW5nZWQsIDI1IGluc2VydGlvbnMo
-KyksIDYgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2lpby9hZGMvc3Rt
-MzItYWRjLmMgYi9kcml2ZXJzL2lpby9hZGMvc3RtMzItYWRjLmMKPj4gaW5kZXggYzA2N2M5OTRk
-YWUyLi45MWQ5NDgzZTFmNWYgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvaWlvL2FkYy9zdG0zMi1h
-ZGMuYwo+PiArKysgYi9kcml2ZXJzL2lpby9hZGMvc3RtMzItYWRjLmMKPj4gQEAgLTE3MTgsNyAr
-MTcxOCw3IEBAIHN0YXRpYyB2b2lkIHN0bTMyX2FkY19jaGFuX2luaXRfb25lKHN0cnVjdCBpaW9f
-ZGV2ICppbmRpb19kZXYsCj4+ICAJfQo+PiAgfQo+PiAgCj4+IC1zdGF0aWMgaW50IHN0bTMyX2Fk
-Y19jaGFuX29mX2luaXQoc3RydWN0IGlpb19kZXYgKmluZGlvX2RldikKPj4gK3N0YXRpYyBpbnQg
-c3RtMzJfYWRjX2NoYW5fb2ZfaW5pdChzdHJ1Y3QgaWlvX2RldiAqaW5kaW9fZGV2LCBib29sIHRp
-bWVzdGFtcGluZykKPj4gIHsKPj4gIAlzdHJ1Y3QgZGV2aWNlX25vZGUgKm5vZGUgPSBpbmRpb19k
-ZXYtPmRldi5vZl9ub2RlOwo+PiAgCXN0cnVjdCBzdG0zMl9hZGMgKmFkYyA9IGlpb19wcml2KGlu
-ZGlvX2Rldik7Cj4+IEBAIC0xNzY2LDYgKzE3NjYsOSBAQCBzdGF0aWMgaW50IHN0bTMyX2FkY19j
-aGFuX29mX2luaXQoc3RydWN0IGlpb19kZXYgKmluZGlvX2RldikKPj4gIAkJcmV0dXJuIC1FSU5W
-QUw7Cj4+ICAJfQo+PiAgCj4+ICsJaWYgKHRpbWVzdGFtcGluZykKPj4gKwkJbnVtX2NoYW5uZWxz
-Kys7Cj4+ICsKPj4gIAljaGFubmVscyA9IGRldm1fa2NhbGxvYygmaW5kaW9fZGV2LT5kZXYsIG51
-bV9jaGFubmVscywKPj4gIAkJCQlzaXplb2Yoc3RydWN0IGlpb19jaGFuX3NwZWMpLCBHRlBfS0VS
-TkVMKTsKPj4gIAlpZiAoIWNoYW5uZWxzKQo+PiBAQCAtMTgxNiw2ICsxODE5LDE5IEBAIHN0YXRp
-YyBpbnQgc3RtMzJfYWRjX2NoYW5fb2ZfaW5pdChzdHJ1Y3QgaWlvX2RldiAqaW5kaW9fZGV2KQo+
-PiAgCQlzdG0zMl9hZGNfc21wcl9pbml0KGFkYywgY2hhbm5lbHNbaV0uY2hhbm5lbCwgc21wKTsK
-Pj4gIAl9Cj4+ICAKPj4gKwlpZiAodGltZXN0YW1waW5nKSB7Cj4+ICsJCXN0cnVjdCBpaW9fY2hh
-bl9zcGVjICp0aW1lc3RhbXAgPSAmY2hhbm5lbHNbc2Nhbl9pbmRleF07Cj4+ICsKPj4gKwkJdGlt
-ZXN0YW1wLT50eXBlID0gSUlPX1RJTUVTVEFNUDsKPj4gKwkJdGltZXN0YW1wLT5jaGFubmVsID0g
-LTE7Cj4+ICsJCXRpbWVzdGFtcC0+c2Nhbl9pbmRleCA9IHNjYW5faW5kZXg7Cj4+ICsJCXRpbWVz
-dGFtcC0+c2Nhbl90eXBlLnNpZ24gPSAncyc7Cj4+ICsJCXRpbWVzdGFtcC0+c2Nhbl90eXBlLnJl
-YWxiaXRzID0gNjQ7Cj4+ICsJCXRpbWVzdGFtcC0+c2Nhbl90eXBlLnN0b3JhZ2ViaXRzID0gNjQ7
-Cj4+ICsKPj4gKwkJc2Nhbl9pbmRleCsrOwo+PiArCX0KPj4gKwo+PiAgCWluZGlvX2Rldi0+bnVt
-X2NoYW5uZWxzID0gc2Nhbl9pbmRleDsKPj4gIAlpbmRpb19kZXYtPmNoYW5uZWxzID0gY2hhbm5l
-bHM7Cj4+ICAKPj4gQEAgLTE4NzUsNiArMTg5MSw3IEBAIHN0YXRpYyBpbnQgc3RtMzJfYWRjX3By
-b2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+ICAJc3RydWN0IGRldmljZSAqZGV2
-ID0gJnBkZXYtPmRldjsKPj4gIAlpcnFyZXR1cm5fdCAoKmhhbmRsZXIpKGludCBpcnEsIHZvaWQg
-KnApID0gTlVMTDsKPj4gIAlzdHJ1Y3Qgc3RtMzJfYWRjICphZGM7Cj4+ICsJYm9vbCB0aW1lc3Rh
-bXBpbmcgPSBmYWxzZTsKPj4gIAlpbnQgcmV0Owo+PiAgCj4+ICAJaWYgKCFwZGV2LT5kZXYub2Zf
-bm9kZSkKPj4gQEAgLTE5MzEsMTYgKzE5NDgsMTggQEAgc3RhdGljIGludCBzdG0zMl9hZGNfcHJv
-YmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPj4gIAlpZiAocmV0IDwgMCkKPj4gIAkJ
-cmV0dXJuIHJldDsKPj4gIAo+PiAtCXJldCA9IHN0bTMyX2FkY19jaGFuX29mX2luaXQoaW5kaW9f
-ZGV2KTsKPj4gLQlpZiAocmV0IDwgMCkKPj4gLQkJcmV0dXJuIHJldDsKPj4gLQo+PiAgCXJldCA9
-IHN0bTMyX2FkY19kbWFfcmVxdWVzdChkZXYsIGluZGlvX2Rldik7Cj4+ICAJaWYgKHJldCA8IDAp
-Cj4+ICAJCXJldHVybiByZXQ7Cj4+ICAKPj4gLQlpZiAoIWFkYy0+ZG1hX2NoYW4pCj4+ICsJaWYg
-KCFhZGMtPmRtYV9jaGFuKSB7Cj4+ICAJCWhhbmRsZXIgPSAmc3RtMzJfYWRjX3RyaWdnZXJfaGFu
-ZGxlcjsKPiAKPiBIaSBBaG1hZCwKPiAKPiBKdXN0IHN1Z2dlc3Rpbmc6IG1heWJlIGFkZCBhIHF1
-aWNrIGNvbW1lbnQgdG8gaW5kaWNhdGUgdGhhdCB0aW1lc3RhbXBpbmcKPiBpcyBzdXBwb3J0ZWQg
-aW4gUElPIG1vZGUgKG9ubHkpLCBhcyBETUEgZG9lc24ndCBmaWxsIGl0IGludG8gdGhlIGJ1ZmZl
-cgo+ICh3ZWxsIGRlc2NyaWJlZCBpbiB0aGUgY29tbWl0IG1lc3NhZ2UpLgoKV2lsbCBkby4KCj4g
-Cj4+ICsJCXRpbWVzdGFtcGluZyA9IHRydWU7Cj4+ICsJfQo+PiArCj4+ICsJcmV0ID0gc3RtMzJf
-YWRjX2NoYW5fb2ZfaW5pdChpbmRpb19kZXYsIHRpbWVzdGFtcGluZyk7Cj4+ICsJaWYgKHJldCA8
-IDApCj4+ICsJCXJldHVybiByZXQ7Cj4gCj4gCj4gRE1BIHJlc291cmNlcyBuZWVkIHRvIGJlIGZy
-ZWVkLCBpbnN0ZWFkIG9mIHJldHVybmluZyBkaXJlY3RseSBoZXJlLCBpbgo+IGNhc2Ugb2YgZXJy
-b3I6Cj4gCj4gwqDCoMKgwqAgZ290byBlcnJfZG1hX2Rpc2FibGU7CgpPdWNoLCB0aGFua3MgZm9y
-IHNwb3R0aW5nLiBXaWxsIHJlc3Bpbi4KCj4gCj4gV2l0aCB0aGF0IGZpeGVkLCB5b3UgY2FuIGFk
-ZCBteSA6Cj4gCj4gQWNrZWQtYnk6IEZhYnJpY2UgR2FzbmllciA8ZmFicmljZS5nYXNuaWVyQGZv
-c3Muc3QuY29tPgoKVGhhbmtzLApBaG1hZAoKPiAKPiBUaGFua3MsCj4gCj4gRmFicmljZQo+IAo+
-IAo+PiAgCj4+ICAJcmV0ID0gaWlvX3RyaWdnZXJlZF9idWZmZXJfc2V0dXAoaW5kaW9fZGV2LAo+
-PiAgCQkJCQkgJmlpb19wb2xsZnVuY19zdG9yZV90aW1lLCBoYW5kbGVyLAo+IAoKLS0gClBlbmd1
-dHJvbml4IGUuSy4gICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICB8ClN0ZXVlcndhbGRlciBTdHIuIDIxICAgICAgICAgICAgICAgICAgICAgICB8
-IGh0dHA6Ly93d3cucGVuZ3V0cm9uaXguZGUvICB8CjMxMTM3IEhpbGRlc2hlaW0sIEdlcm1hbnkg
-ICAgICAgICAgICAgICAgICB8IFBob25lOiArNDktNTEyMS0yMDY5MTctMCAgICB8CkFtdHNnZXJp
-Y2h0IEhpbGRlc2hlaW0sIEhSQSAyNjg2ICAgICAgICAgICB8IEZheDogICArNDktNTEyMS0yMDY5
-MTctNTU1NSB8Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+For non-DMA usage, we have an easy way to associate a timestamp with a
+sample: iio_pollfunc_store_time stores a timestamp in the primary
+trigger IRQ handler and stm32_adc_trigger_handler runs in the IRQ thread
+to push out the buffer along with the timestamp.
+
+For this to work, the driver needs to register an IIO_TIMESTAMP channel.
+Do this.
+
+For DMA, it's not as easy, because we don't push the buffers out of
+stm32_adc_trigger, but out of stm32_adc_dma_buffer_done, which runs in
+a tasklet scheduled after a DMA completion.
+
+Preferably, the DMA controller would copy us the timestamp into that buffer
+as well. Until this is implemented, restrict timestamping support to
+only PIO. For low-frequency sampling, PIO is probably good enough.
+
+Cc: Holger Assmann <has@pengutronix.de>
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+v1 -> v2:
+  - Added comment about timestamping being PIO only (Fabrice)
+  - Added missing DMA resource clean up in error path (Fabrice)
+  - Added Fabrice's Acked-by
+---
+ drivers/iio/adc/stm32-adc.c | 35 +++++++++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index c067c994dae2..885bb514503c 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -1718,7 +1718,7 @@ static void stm32_adc_chan_init_one(struct iio_dev *indio_dev,
+ 	}
+ }
+ 
+-static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
++static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
+ {
+ 	struct device_node *node = indio_dev->dev.of_node;
+ 	struct stm32_adc *adc = iio_priv(indio_dev);
+@@ -1766,6 +1766,9 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
+ 		return -EINVAL;
+ 	}
+ 
++	if (timestamping)
++		num_channels++;
++
+ 	channels = devm_kcalloc(&indio_dev->dev, num_channels,
+ 				sizeof(struct iio_chan_spec), GFP_KERNEL);
+ 	if (!channels)
+@@ -1816,6 +1819,19 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
+ 		stm32_adc_smpr_init(adc, channels[i].channel, smp);
+ 	}
+ 
++	if (timestamping) {
++		struct iio_chan_spec *timestamp = &channels[scan_index];
++
++		timestamp->type = IIO_TIMESTAMP;
++		timestamp->channel = -1;
++		timestamp->scan_index = scan_index;
++		timestamp->scan_type.sign = 's';
++		timestamp->scan_type.realbits = 64;
++		timestamp->scan_type.storagebits = 64;
++
++		scan_index++;
++	}
++
+ 	indio_dev->num_channels = scan_index;
+ 	indio_dev->channels = channels;
+ 
+@@ -1875,6 +1891,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	irqreturn_t (*handler)(int irq, void *p) = NULL;
+ 	struct stm32_adc *adc;
++	bool timestamping = false;
+ 	int ret;
+ 
+ 	if (!pdev->dev.of_node)
+@@ -1931,16 +1948,22 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = stm32_adc_chan_of_init(indio_dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = stm32_adc_dma_request(dev, indio_dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	if (!adc->dma_chan)
++	if (!adc->dma_chan) {
++		/* For PIO mode only, iio_pollfunc_store_time stores a timestamp
++		 * in the primary trigger IRQ handler and stm32_adc_trigger_handler
++		 * runs in the IRQ thread to push out buffer along with timestamp.
++		 */
+ 		handler = &stm32_adc_trigger_handler;
++		timestamping = true;
++	}
++
++	ret = stm32_adc_chan_of_init(indio_dev, timestamping);
++	if (ret < 0)
++		goto err_dma_disable;
+ 
+ 	ret = iio_triggered_buffer_setup(indio_dev,
+ 					 &iio_pollfunc_store_time, handler,
+-- 
+2.30.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
