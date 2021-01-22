@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 561D1300329
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AC5430032B
 	for <lists+linux-stm32@lfdr.de>; Fri, 22 Jan 2021 13:34:46 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14F41C57A51;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CDF2C57B44;
 	Fri, 22 Jan 2021 12:34:46 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF58CC57A42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE4CDC57A44
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Jan 2021 10:51:39 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Fri, 22 Jan 2021 10:51:41 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10MAlUGJ011277; Fri, 22 Jan 2021 11:51:28 +0100
+ 10MAmG88002482; Fri, 22 Jan 2021 11:51:30 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=tRfkUbsOHdsqqLC7XEqLwhsAVzj6M9H/lhJ1kalkBTY=;
- b=i/N24KvBNjMxlVMSsZ/V9qlY7SqHiKNM8JNoXCOKK3CjcOuhh284iH3uNp7ylO2Z68rn
- CIBByFnYMgfZSOMx2FW88lCrmJYKxklP6ezKmeyhhGbjD8O793+0v69kMDn+pFhJ/YZ7
- S8dhqd24XO0l59TlLkFoqz/HAVeqdFBN5DmLqrpZTE3Cy3bKEPz97fZn9Q7nJPQjBnF2
- Lt/87kyCxAqL94x0tb/VpwycU4aVDrGV936dPGGPaPjM8DAI215p23lmlWaby3Fovmao
- 2xtsql6RXGnFbo7ywE9NjrnomOcd2fHju+DTbMwzYOP9yoV71FhGBvhRzvFdP3WZUArt LA== 
+ bh=KBEHlzZfeXt0Wny9pLnYEhapcASdkiKxPZRpUa+smeo=;
+ b=eZu+HmaZtIOk24w1Qay5MT808V/QD2Pdys1gK5AfSBD08loniUXLF+wc64l78X7M2H1I
+ Vv1o+4RK/R192ZAEgR9/cWfR0Q15Bn1DLDNw22cJcz5n7hC2LhSxVLmKsm5szl2bJi68
+ Du6EauAbFby/2Nxx5U7YlSrjbFCIJfDYJkcazKuD9Qc2EUWcUkQLYIULUVN0uSBrAdAp
+ dRqtkp3DoL0qSqz0WWZbb9epafIcbG2ThGy31k62Skl8x0YenCQPUq3CZ0wA4PZiwKU8
+ erxWU5pqpDAN9tINn96KdQ3w3iZwxhIxR86+cYO6LoCmBmC83y8cUXLP0LPREu6G8WlN yw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3668pe1e2e-1
+ by mx07-00178001.pphosted.com with ESMTP id 3668pqhdvh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Jan 2021 11:51:28 +0100
+ Fri, 22 Jan 2021 11:51:30 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 41FC310002A;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E0FC8100034;
  Fri, 22 Jan 2021 11:51:28 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3348B22DBCA;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D2C4D22DBCA;
  Fri, 22 Jan 2021 11:51:28 +0100 (CET)
 Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 22 Jan 2021 11:51:27
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 22 Jan 2021 11:51:28
  +0100
 From: <gabriel.fernandez@foss.st.com>
 To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
@@ -47,14 +47,14 @@ To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
  Philipp Zabel <p.zabel@pengutronix.de>, Etienne Carriere
  <etienne.carriere@st.com>,
  Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Fri, 22 Jan 2021 11:51:00 +0100
-Message-ID: <20210122105101.27374-14-gabriel.fernandez@foss.st.com>
+Date: Fri, 22 Jan 2021 11:51:01 +0100
+Message-ID: <20210122105101.27374-15-gabriel.fernandez@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210122105101.27374-1-gabriel.fernandez@foss.st.com>
 References: <20210122105101.27374-1-gabriel.fernandez@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
  definitions=2021-01-22_06:2021-01-21,
@@ -63,8 +63,8 @@ X-Mailman-Approved-At: Fri, 22 Jan 2021 12:34:43 +0000
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 13/14] dt-bindings: clock: stm32mp1 new
-	compatible for secure rcc
+Subject: [Linux-stm32] [PATCH 14/14] ARM: dts: stm32: introduce basic boot
+	include on stm32mp15x board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,37 +83,181 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-Introduce new compatible string "st,stm32mp1-rcc-secure" for
-stm32mp1 clock driver when the device is configured with RCC
-security support hardened.
+Include this .dtsi file to be backward compatible with old basic bootchain.
 
-Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+For example add:
+#include "stm32mp15-no-scmi.dtsi" in a stm32mp157c*.dts file.
+
 Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 ---
- Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/stm32mp15-no-scmi.dtsi | 158 +++++++++++++++++++++++
+ 1 file changed, 158 insertions(+)
+ create mode 100644 arch/arm/boot/dts/stm32mp15-no-scmi.dtsi
 
-diff --git a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-index 4e385508f516..95f5990775c4 100644
---- a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-@@ -54,6 +54,7 @@ properties:
- 
-   compatible:
-     items:
-+      - const: st,stm32mp1-rcc-secure
-       - const: st,stm32mp1-rcc
-       - const: syscon
- 
-@@ -71,7 +72,7 @@ additionalProperties: false
- examples:
-   - |
-     rcc: rcc@50000000 {
--        compatible = "st,stm32mp1-rcc", "syscon";
-+        compatible = "st,stm32mp1-rcc-secure", "syscon";
-         reg = <0x50000000 0x1000>;
-         #clock-cells = <1>;
-         #reset-cells = <1>;
+diff --git a/arch/arm/boot/dts/stm32mp15-no-scmi.dtsi b/arch/arm/boot/dts/stm32mp15-no-scmi.dtsi
+new file mode 100644
+index 000000000000..4939f96da739
+--- /dev/null
++++ b/arch/arm/boot/dts/stm32mp15-no-scmi.dtsi
+@@ -0,0 +1,158 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (C) STMicroelectronics 2020 - All Rights Reserved
++ * Author: Gabriel Fernandez <gabriel.fernandez@st.com> for STMicroelectronics.
++ */
++
++/ {
++
++	clocks {
++		clk_hse: clk-hse {
++			#clock-cells = <0>;
++			compatible = "fixed-clock";
++			clock-frequency = <24000000>;
++		};
++
++		clk_hsi: clk-hsi {
++			#clock-cells = <0>;
++			compatible = "fixed-clock";
++			clock-frequency = <64000000>;
++		};
++
++		clk_lse: clk-lse {
++			#clock-cells = <0>;
++			compatible = "fixed-clock";
++			clock-frequency = <32768>;
++		};
++
++		clk_lsi: clk-lsi {
++			#clock-cells = <0>;
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++		};
++
++		clk_csi: clk-csi {
++			#clock-cells = <0>;
++			compatible = "fixed-clock";
++			clock-frequency = <4000000>;
++		};
++	};
++
++	cpus {
++		cpu0: cpu@0 {
++			clocks = <&rcc CK_MPU>;
++		};
++
++		cpu1: cpu@1 {
++			clocks = <&rcc CK_MPU>;
++		};
++	};
++
++	reboot {
++		compatible = "syscon-reboot";
++		regmap = <&rcc>;
++		offset = <0x404>;
++		mask = <0x1>;
++	};
++
++	soc {
++		m_can1: can@4400e000 {
++			clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
++		};
++
++		m_can2: can@4400f000 {
++			clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
++		};
++
++		cryp1: cryp@54001000 {
++			clocks = <&rcc CRYP1>;
++			resets = <&rcc CRYP1_R>;
++		};
++
++		dsi: dsi@5a000000 {
++			clocks = <&rcc DSI_K>, <&clk_hse>, <&rcc DSI_PX>;
++		};
++	};
++
++	ahb {
++		m4_rproc: m4@10000000 {
++			resets = <&rcc MCU_R>, <&rcc MCU_HOLD_BOOT_R>;
++
++			m4_system_resources {
++				m4_cec: cec@40016000 {
++					clocks = <&rcc CEC_K>, <&rcc CK_LSE>;
++				};
++
++				m4_m_can1: can@4400e000 {
++					clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
++				};
++
++				m4_m_can2: can@4400f000 {
++					clocks = <&rcc CK_HSE>, <&rcc FDCAN_K>;
++				};
++			};
++		};
++	};
++
++	firmware {
++		/delete-node/ scmi0;
++		/delete-node/ scmi1;
++	};
++	/delete-node/ sram@2ffff000;
++};
++
++&cec {
++	clocks = <&rcc CEC_K>, <&clk_lse>;
++};
++
++&gpioz {
++	clocks = <&rcc GPIOZ>;
++};
++
++&hash1 {
++	clocks = <&rcc HASH1>;
++	resets = <&rcc HASH1_R>;
++};
++
++&i2c4 {
++	clocks = <&rcc I2C4_K>;
++	resets = <&rcc I2C4_R>;
++};
++
++&i2c6 {
++	clocks = <&rcc I2C6_K>;
++	resets = <&rcc I2C6_R>;
++};
++
++&iwdg2 {
++	clocks = <&rcc IWDG2>, <&rcc CK_LSI>;
++};
++
++&mdma1 {
++	clocks = <&rcc MDMA>;
++	resets = <&rcc MDMA_R>;
++};
++
++&rcc {
++	compatible = "st,stm32mp1-rcc", "syscon";
++	clocks = <&clk_hse>, <&clk_hsi>, <&clk_csi>, <&clk_lse>, <&clk_lsi>;
++};
++
++&rng1 {
++	clocks = <&rcc RNG1_K>;
++	resets = <&rcc RNG1_R>;
++};
++
++&rtc {
++	clocks = <&rcc RTCAPB>, <&rcc RTC>;
++};
++
++&spi6 {
++	clocks = <&rcc SPI6_K>;
++	resets = <&rcc SPI6_R>;
++};
++
++&usart1 {
++	clocks = <&rcc USART1_K>;
++	resets = <&rcc USART1_R>;
++};
 -- 
 2.17.1
 
