@@ -2,44 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1F31301DD8
-	for <lists+linux-stm32@lfdr.de>; Sun, 24 Jan 2021 18:14:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF9C4301F6E
+	for <lists+linux-stm32@lfdr.de>; Sun, 24 Jan 2021 23:51:59 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9926CC57181;
-	Sun, 24 Jan 2021 17:14:05 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 815E0C5663B;
+	Sun, 24 Jan 2021 22:51:59 +0000 (UTC)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D5A1C5717F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C70B1C3FADA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 Jan 2021 17:14:03 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4DP02z2D0Pz1qsk3;
- Sun, 24 Jan 2021 18:14:03 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4DP02z1sH4z1tYWg;
- Sun, 24 Jan 2021 18:14:03 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id 3Du5Cc7Qxx50; Sun, 24 Jan 2021 18:14:02 +0100 (CET)
-X-Auth-Info: eCk19K91CQHGFYaRbuI87wX32B/F76R5cMPk+s7BkwQ=
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Sun, 24 Jan 2021 18:14:02 +0100 (CET)
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Sun, 24 Jan 2021 18:13:57 +0100
-Message-Id: <20210124171357.33385-1-marex@denx.de>
-X-Mailer: git-send-email 2.29.2
+ Sun, 24 Jan 2021 22:51:57 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id f17so13076367ljg.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 24 Jan 2021 14:51:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4HuGZS3FXmpI/CZ9WRJi1GTxY4eR6JlbnQlmIWJDvhs=;
+ b=NUPplP+vwWcGNZku67kF6v0Zc3+oX52TgC4UVnC9NbzphbJ7yOo3lZgx0NHXvAzi4/
+ xnRCAIHE0ruAJ8HvkZDbaiyl/5VEQFlcXHUyUOg5W0tXmw8xRR/9ZGxYRibTCKQd2Em3
+ JGzKjFrj8IqxAGlyzt9x8qfsWUU1NwCPVqpRz2nhXoRxd+1G7sHECm9fdWqcPoKOiUDE
+ xoPn9xr3ZkalTIBSogHq2aR3gkTcYeyYoFzZivXKeIY/XR4ENYkwdlJ7WamTamtbwtXi
+ hTYSsVxmsDFQD9NO4GyfrEW+6KtsLs3TFca+J5YdXQ+PCtX8ME9+98DFYwf/wy+DY0Rd
+ Gc0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4HuGZS3FXmpI/CZ9WRJi1GTxY4eR6JlbnQlmIWJDvhs=;
+ b=pOKFKSxNQbrb/+4cxJt/PeruwmpPutaQlb2KlVjxXgV4KcR5M6Cu5N8njEV40GzQVz
+ MzKHyNa7AUeXvZKuFFZtDsvQQlF6LKgsVnpaFMjdrifs35weXKvjetoRaFDXDlHVdIGk
+ FUUIfgarS0hhn96W/8v9JKzLvdsEiHZUPpk3KwAH8I9sdVXN01ejHoT7XKE72z1u7IrO
+ dPCJiMagxDeBpeHigaztMwVA8jaiNfei5KwkVlBBed7zY+4GXyjPwWU2WkVJPFQNA1nA
+ VwzmCeZMOsXR2QaZKteyRrYPckh6IlVyfwLpOO2UW8hPzyQqgBzxprHLcYI3xqoYwO8T
+ AyHg==
+X-Gm-Message-State: AOAM530RoFVwAYRk8BuVcwq/iPE9qnd5UG4pNV6CDhc3eKrARTNcVWa+
+ w97IJ2rGkf1p6HwcAPKpvyzHpRg1HXPKMSII8iicsw==
+X-Google-Smtp-Source: ABdhPJxQyfKzJabalN+bedwoS7NGWpYLLpd54boyq2sKBZ7lVn6U5490067UEc04d3r+vv3OMoYA394NyqYfuciT6KQ=
+X-Received: by 2002:a2e:9ec3:: with SMTP id h3mr120887ljk.200.1611528716487;
+ Sun, 24 Jan 2021 14:51:56 -0800 (PST)
 MIME-Version: 1.0
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- Fabien DESSENNE <fabien.dessenne@st.com>, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Add IPCC wakeup management
-	on stm32mp157c
+References: <20210124170258.32862-1-marex@denx.de>
+In-Reply-To: <20210124170258.32862-1-marex@denx.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sun, 24 Jan 2021 23:51:45 +0100
+Message-ID: <CACRpkdaLN_Q9rmMnuVhB8wuZJzMMzqdc+O54WOKfc4a2bgnUwQ@mail.gmail.com>
+To: Marek Vasut <marex@denx.de>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ linux-mmc <linux-mmc@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH V2 1/4] mmc: mmci: Add bindings to operate
+ CMD, CK, CKIN pins as GPIO
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,38 +72,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Alexandre Torgue <alexandre.torgue@st.com>
+On Sun, Jan 24, 2021 at 6:03 PM Marek Vasut <marex@denx.de> wrote:
 
-This commit adds the EXTI line 61 to IPCC node which will be used for
-wakeup from CStop and adds IPCC device to "pd_core" power domain.
+> Add DT bindings to describe GPIO line associated with CMD, CK, CKIN pins.
+>
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Ludovic Barre <ludovic.barre@st.com>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: devicetree@vger.kernel.org
+> ---
+> V2: Rebase on next-20210122
 
-Signed-off-by: Alexandre Torgue <alexandre.torgue@st.com>
-Tested-by: Fabien DESSENNE <fabien.dessenne@st.com>
----
- arch/arm/boot/dts/stm32mp151.dtsi | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 169b7bdd832e..c3f813e39ff7 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -1084,10 +1084,9 @@ ipcc: mailbox@4c001000 {
- 			reg = <0x4c001000 0x400>;
- 			st,proc-id = <0>;
- 			interrupts-extended =
--				<&intc GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
--				<&intc GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
--				<&exti 61 1>;
--			interrupt-names = "rx", "tx", "wakeup";
-+				<&exti 61 1>,
-+				<&intc GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "rx", "tx";
- 			clocks = <&rcc IPCC>;
- 			wakeup-source;
- 			status = "disabled";
--- 
-2.29.2
+I would probably add an example as well, but that can be
+done separately and isn't super-important.
 
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
