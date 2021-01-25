@@ -2,46 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C31D0302443
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 12:29:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AB4930247D
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 12:52:56 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75D99C57181;
-	Mon, 25 Jan 2021 11:29:25 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D032C5717F;
+	Mon, 25 Jan 2021 11:52:56 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A22CAC5717F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D95B2C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Jan 2021 11:29:23 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1l403e-0003BU-Q1; Mon, 25 Jan 2021 12:29:22 +0100
-To: Lionel DEBIEVE <lionel.debieve@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20210119095241.17888-1-a.fatoum@pengutronix.de>
- <d14933ea-2c77-7cca-8e2b-3972ea47d733@foss.st.com>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <55578a12-2049-ef17-e6bb-9c2e4b1da5ea@pengutronix.de>
-Date: Mon, 25 Jan 2021 12:29:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ Mon, 25 Jan 2021 11:52:52 +0000 (UTC)
+IronPort-SDR: GBH1aIAlG51WofP80WxpUAM/33zjBd5Vw+z4YQx06FzoFx8EC4olsGBNU7S4mzZIp5SBB9wWKo
+ u3Xbh8QVcyvw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9874"; a="158889319"
+X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="158889319"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2021 03:52:51 -0800
+IronPort-SDR: 48DaYsnvHv+gYU3iB0lIM7aytVWrCoDavD2mjf0kyTM07tuyUD4vfRcB0epq/cCvtOYMGfxoLJ
+ ZQzg2k7suibA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="472167193"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga001.fm.intel.com with SMTP; 25 Jan 2021 03:52:39 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 25 Jan 2021 13:52:38 +0200
+Date: Mon, 25 Jan 2021 13:52:38 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maxime Ripard <maxime@cerno.tech>
+Message-ID: <YA6xBuECFjzjY7gG@intel.com>
+References: <20210121163537.1466118-1-maxime@cerno.tech>
+ <20210121163537.1466118-8-maxime@cerno.tech>
+ <YArBy2DKdCct5cYW@intel.com>
+ <20210125105218.kv63vjbxz5b35hdo@gilmour>
 MIME-Version: 1.0
-In-Reply-To: <d14933ea-2c77-7cca-8e2b-3972ea47d733@foss.st.com>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: enable STM32MP1
- crypto/CRC accelerators unconditionally
+Content-Disposition: inline
+In-Reply-To: <20210125105218.kv63vjbxz5b35hdo@gilmour>
+X-Patchwork-Hint: comment
+Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Marek Vasut <marex@denx.de>, linux-samsung-soc@vger.kernel.org,
+ Joonyoung Shim <jy0922.shim@samsung.com>, linux-rockchip@lists.infradead.org,
+ Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, Sandy Huang <hjc@rock-chips.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Chen Feng <puck.chen@hisilicon.com>,
+ Dave Airlie <airlied@redhat.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ Alison Wang <alison.wang@nxp.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-mediatek@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tomi Valkeinen <tomba@kernel.org>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Philippe Cornu <philippe.cornu@st.com>, linux-kernel@vger.kernel.org,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Tian Tao <tiantao6@hisilicon.com>,
+ freedreno@lists.freedesktop.org
+Subject: Re: [Linux-stm32] [PATCH v2 08/11] drm: Rename plane->state
+ variables in atomic update and disable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,281 +85,115 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="windows-1252"
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Lionel,
-
-On 19.01.21 11:50, Lionel DEBIEVE wrote:
-> Hi Ahmad,
+On Mon, Jan 25, 2021 at 11:52:18AM +0100, Maxime Ripard wrote:
+> Hi Ville,
 > =
 
-> These IPs could be enabled in the secure side. To avoid any concurrency a=
-ccess, I prefer to keep all that crypto IPs status disable.
-> For examples, RNG can be managed in OP-TEE, so it will remain disable in =
-Linux.
-You could extend that reasoning (OP-TEE might use them) to all peripherals.
-As the device tree is supposed to describe the hardware., I'd assume whether
-something is enabled in Linux or OP-TEE should be project-specific configur=
-ation
-(or fixed up by boot firmware).
+> On Fri, Jan 22, 2021 at 02:15:07PM +0200, Ville Syrj=E4l=E4 wrote:
+> > On Thu, Jan 21, 2021 at 05:35:33PM +0100, Maxime Ripard wrote:
+> > > Some drivers are storing the plane->state pointer in atomic_update and
+> > > atomic_disable in a variable simply called state, while the state pas=
+sed
+> > > as an argument is called old_state.
+> > > =
 
-But I don't feel too strongly about it. Please dismiss and thanks for the c=
-larification.
+> > > In order to ease subsequent reworks and to avoid confusing or
+> > > inconsistent names, let's rename those variables to new_state.
+> > > =
 
-Cheers,
-Ahmad
+> > > This was done using the following coccinelle script, plus some manual
+> > > changes for mtk and tegra.
+> > > =
 
+> > > @ plane_atomic_func @
+> > > identifier helpers;
+> > > identifier func;
+> > > @@
+> > > =
 
-> BR,
+> > > (
+> > >  static const struct drm_plane_helper_funcs helpers =3D {
+> > >  	...,
+> > >  	.atomic_disable =3D func,
+> > > 	...,
+> > >  };
+> > > |
+> > >  static const struct drm_plane_helper_funcs helpers =3D {
+> > >  	...,
+> > >  	.atomic_update =3D func,
+> > > 	...,
+> > >  };
+> > > )
+> > > =
+
+> > > @ moves_new_state_old_state @
+> > > identifier plane_atomic_func.func;
+> > > identifier plane;
+> > > symbol old_state;
+> > > symbol state;
+> > > @@
+> > > =
+
+> > >  func(struct drm_plane *plane, struct drm_plane_state *old_state)
+> > >  {
+> > >  	...
+> > > -	struct drm_plane_state *state =3D plane->state;
+> > > +	struct drm_plane_state *new_state =3D plane->state;
+> > > 	...
+> > >  }
+> > > =
+
+> > > @ depends on moves_new_state_old_state @
+> > > identifier plane_atomic_func.func;
+> > > identifier plane;
+> > > identifier old_state;
+> > > symbol state;
+> > > @@
+> > > =
+
+> > >  func(struct drm_plane *plane, struct drm_plane_state *old_state)
+> > >  {
+> > >  	<...
+> > > -	state
+> > > +	new_state
+> > > 	...>
+> > =
+
+> > Was going to say that this migh eat something else, but I guess
+> > the dependency prevents that?
 > =
 
-> Lionel
+> Yeah, the dependency takes care of this
 > =
 
-> On 1/19/21 10:52 AM, Ahmad Fatoum wrote:
->> There is no SoC-external hardware support needed for the hash1, rng1,
->> crc1 and cryp1 IP blocks to function. Enable them thus unconditionally
->> instead of replicating their enablement in board device trees.
->>
->> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
->> ---
->> =A0 arch/arm/boot/dts/stm32mp151.dtsi=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 |=A0 3 ---
->> =A0 arch/arm/boot/dts/stm32mp157a-stinger96.dtsi=A0=A0 |=A0 4 ----
->> =A0 arch/arm/boot/dts/stm32mp157c-dk2.dts=A0=A0=A0=A0=A0=A0=A0=A0=A0 |=
-=A0 4 ----
->> =A0 arch/arm/boot/dts/stm32mp157c-ed1.dts=A0=A0=A0=A0=A0=A0=A0=A0=A0 | 1=
-6 ----------------
->> =A0 arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi |=A0 4 ----
->> =A0 arch/arm/boot/dts/stm32mp15xc.dtsi=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0 |=A0 1 -
->> =A0 arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi=A0=A0 |=A0 8 --------
->> =A0 arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi=A0=A0 |=A0 4 ----
->> =A0 arch/arm/boot/dts/stm32mp15xx-dkx.dtsi=A0=A0=A0=A0=A0=A0=A0=A0 | 12 =
-------------
->> =A0 arch/arm/boot/dts/stm32mp15xx-osd32.dtsi=A0=A0=A0=A0=A0=A0 |=A0 4 --=
---
->> =A0 10 files changed, 60 deletions(-)
->>
->> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32=
-mp151.dtsi
->> index 3c75abacb374..c2d998343b6a 100644
->> --- a/arch/arm/boot/dts/stm32mp151.dtsi
->> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
->> @@ -1297,7 +1297,6 @@ hash1: hash@54002000 {
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dmas =3D <&mdma1 31 0x2 0x1000A0=
-2 0x0 0x0>;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dma-names =3D "in";
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dma-maxburst =3D <2>;
->> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 status =3D "disabled";
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 };
->> =A0 =A0=A0=A0=A0=A0=A0=A0=A0=A0 rng1: rng@54003000 {
->> @@ -1305,7 +1304,6 @@ rng1: rng@54003000 {
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 reg =3D <0x54003000 0x400>;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clocks =3D <&rcc RNG1_K>;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 resets =3D <&rcc RNG1_R>;
->> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 status =3D "disabled";
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 };
->> =A0 =A0=A0=A0=A0=A0=A0=A0=A0=A0 mdma1: dma-controller@58000000 {
->> @@ -1402,7 +1400,6 @@ crc1: crc@58009000 {
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 compatible =3D "st,stm32f7-crc";
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 reg =3D <0x58009000 0x400>;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clocks =3D <&rcc CRC1>;
->> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 status =3D "disabled";
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 };
->> =A0 =A0=A0=A0=A0=A0=A0=A0=A0=A0 stmmac_axi_config_0: stmmac-axi-config {
->> diff --git a/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi b/arch/arm/boo=
-t/dts/stm32mp157a-stinger96.dtsi
->> index 58275bcf9e26..268a99291d79 100644
->> --- a/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
->> +++ b/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
->> @@ -253,10 +253,6 @@ &pwr_regulators {
->> =A0=A0=A0=A0=A0 vdd_3v3_usbfs-supply =3D <&vdd_usb>;
->> =A0 };
->> =A0 -&rng1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &rtc {
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0 };
->> diff --git a/arch/arm/boot/dts/stm32mp157c-dk2.dts b/arch/arm/boot/dts/s=
-tm32mp157c-dk2.dts
->> index 2bc92ef3aeb9..045636555ddd 100644
->> --- a/arch/arm/boot/dts/stm32mp157c-dk2.dts
->> +++ b/arch/arm/boot/dts/stm32mp157c-dk2.dts
->> @@ -29,10 +29,6 @@ chosen {
->> =A0=A0=A0=A0=A0 };
->> =A0 };
->> =A0 -&cryp1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &dsi {
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0=A0=A0=A0=A0 phy-dsi-supply =3D <&reg18>;
->> diff --git a/arch/arm/boot/dts/stm32mp157c-ed1.dts b/arch/arm/boot/dts/s=
-tm32mp157c-ed1.dts
->> index 81a7d5849db4..f69622097e89 100644
->> --- a/arch/arm/boot/dts/stm32mp157c-ed1.dts
->> +++ b/arch/arm/boot/dts/stm32mp157c-ed1.dts
->> @@ -115,14 +115,6 @@ adc1: adc@0 {
->> =A0=A0=A0=A0=A0 };
->> =A0 };
->> =A0 -&crc1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> -&cryp1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &dac {
->> =A0=A0=A0=A0=A0 pinctrl-names =3D "default";
->> =A0=A0=A0=A0=A0 pinctrl-0 =3D <&dac_ch1_pins_a &dac_ch2_pins_a>;
->> @@ -144,10 +136,6 @@ &gpu {
->> =A0=A0=A0=A0=A0 contiguous-area =3D <&gpu_reserved>;
->> =A0 };
->> =A0 -&hash1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &i2c4 {
->> =A0=A0=A0=A0=A0 pinctrl-names =3D "default", "sleep";
->> =A0=A0=A0=A0=A0 pinctrl-0 =3D <&i2c4_pins_a>;
->> @@ -325,10 +313,6 @@ &pwr_regulators {
->> =A0=A0=A0=A0=A0 vdd_3v3_usbfs-supply =3D <&vdd_usb>;
->> =A0 };
->> =A0 -&rng1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &rtc {
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0 };
->> diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi b/arch/arm/b=
-oot/dts/stm32mp157c-odyssey-som.dtsi
->> index 6cf49a0a9e69..a2aca1982bf6 100644
->> --- a/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
->> +++ b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
->> @@ -250,10 +250,6 @@ &m4_rproc {
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0 };
->> =A0 -&rng1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &rtc {
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0 };
->> diff --git a/arch/arm/boot/dts/stm32mp15xc.dtsi b/arch/arm/boot/dts/stm3=
-2mp15xc.dtsi
->> index b06a55a2fa18..86953d7ddde0 100644
->> --- a/arch/arm/boot/dts/stm32mp15xc.dtsi
->> +++ b/arch/arm/boot/dts/stm32mp15xc.dtsi
->> @@ -12,7 +12,6 @@ cryp1: cryp@54001000 {
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 interrupts =3D <GIC_SPI 79 IRQ_T=
-YPE_LEVEL_HIGH>;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 clocks =3D <&rcc CRYP1>;
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 resets =3D <&rcc CRYP1_R>;
->> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 status =3D "disabled";
->> =A0=A0=A0=A0=A0=A0=A0=A0=A0 };
->> =A0=A0=A0=A0=A0 };
->> =A0 };
->> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boo=
-t/dts/stm32mp15xx-dhcom-som.dtsi
->> index ac46ab363e1b..603c14054509 100644
->> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
->> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
->> @@ -377,14 +377,6 @@ flash0: mx66l51235l@0 {
->> =A0=A0=A0=A0=A0 };
->> =A0 };
->> =A0 -&rng1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> -&rtc {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &sdmmc1 {
->> =A0=A0=A0=A0=A0 pinctrl-names =3D "default", "opendrain", "sleep";
->> =A0=A0=A0=A0=A0 pinctrl-0 =3D <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
->> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boo=
-t/dts/stm32mp15xx-dhcor-som.dtsi
->> index 803eb8bc9c85..3f4af430aaf4 100644
->> --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
->> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
->> @@ -204,10 +204,6 @@ flash0: spi-flash@0 {
->> =A0=A0=A0=A0=A0 };
->> =A0 };
->> =A0 -&rng1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &rtc {
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0 };
->> diff --git a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/=
-stm32mp15xx-dkx.dtsi
->> index 89c0e1ddc387..0cca6c3ff4a0 100644
->> --- a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
->> +++ b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
->> @@ -124,10 +124,6 @@ &cec {
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0 };
->> =A0 -&crc1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &dts {
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0 };
->> @@ -155,10 +151,6 @@ &gpu {
->> =A0=A0=A0=A0=A0 contiguous-area =3D <&gpu_reserved>;
->> =A0 };
->> =A0 -&hash1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &i2c1 {
->> =A0=A0=A0=A0=A0 pinctrl-names =3D "default", "sleep";
->> =A0=A0=A0=A0=A0 pinctrl-0 =3D <&i2c1_pins_a>;
->> @@ -482,10 +474,6 @@ &pwr_regulators {
->> =A0=A0=A0=A0=A0 vdd_3v3_usbfs-supply =3D <&vdd_usb>;
->> =A0 };
->> =A0 -&rng1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
->> -
->> =A0 &rtc {
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0 };
->> diff --git a/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi b/arch/arm/boot/dt=
-s/stm32mp15xx-osd32.dtsi
->> index 713485a95795..d03d4d12133c 100644
->> --- a/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
->> +++ b/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
->> @@ -224,7 +224,3 @@ &m4_rproc {
->> =A0=A0=A0=A0=A0 interrupts =3D <68 1>;
->> =A0=A0=A0=A0=A0 status =3D "okay";
->> =A0 };
->> -
->> -&rng1 {
->> -=A0=A0=A0 status =3D "okay";
->> -};
+> > Another way to avoid that I suppose would be to declare 'state'
+> > as
+> > symbol moves_new_state_old_state.state;
+> > =
+
+> > That would probably make the intent a bit more obvious, even with
+> > the dependency. Or does a dependency somehow automagically imply
+> > that?
 > =
 
+> I'm not sure if it does, but it's a symbol here not an identifier or an
+> expression, so here moves_new_state_old_state.state would always resolve
+> to state (and only state) anyway
+
+Hm. Right. OK, cocci bits look good to me. Variable naming
+bikeshed I'll leave to others :)
+
+Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 
 -- =
 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
