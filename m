@@ -2,71 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC6D8302569
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 14:22:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61B2B302587
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 14:33:18 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84A5FC5663B;
-	Mon, 25 Jan 2021 13:22:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20B1BC56639;
+	Mon, 25 Jan 2021 13:33:18 +0000 (UTC)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A0E8C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE6F0C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Jan 2021 13:22:19 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10PDHo7R021408; Mon, 25 Jan 2021 14:22:05 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=RYio32/XADuCDh9xsQeRZ48FrT1zC9Njdms8Qb4Uj9s=;
- b=gCc7aA0Wl0MzH86uU6H2G0UZ19O4+GnYdbw3F7wpNQfifUiWgoB/iGFh2sHJa6Kw7sFT
- WnWko94/0h8aT2wKLTHDjdsep2ZwnjvM3qaxCHFW0wcPDaUPNfO02I8samOXjEfidCqa
- WM1Eo0dP+R16qFNYTOTMzR8jsuj8lyb52nT5S7/Ibnc8xDxyFHtD/JFXIvH0PD+ED2CE
- ltC8x2Bmca1gPJGfUGqhcLF2gGZqmoL7UjB3lghbvqaDscvpjo7qk63v5gMScKC8ZluE
- rr0dsRSq1a2osF7swxiU8wKVkus53blWye9jGJTjVFBe+i6cAqWdG3HdZk3BDQs+LVGG 1w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 368bjn31kg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Jan 2021 14:22:05 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8AD5A10002A;
- Mon, 25 Jan 2021 14:22:04 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5D15121824D;
- Mon, 25 Jan 2021 14:22:04 +0100 (CET)
-Received: from lmecxl0572.lme.st.com (10.75.127.46) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 25 Jan
- 2021 14:22:03 +0100
-To: Rob Herring <robh@kernel.org>
-References: <20210122105101.27374-1-gabriel.fernandez@foss.st.com>
- <20210122105101.27374-14-gabriel.fernandez@foss.st.com>
- <1611324045.701742.674374.nullmailer@robh.at.kernel.org>
-From: "gabriel.fernandez@foss.st.com" <gabriel.fernandez@foss.st.com>
-Message-ID: <1e713377-c5e0-fc4f-3f32-d35be4367091@foss.st.com>
-Date: Mon, 25 Jan 2021 14:22:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon, 25 Jan 2021 13:33:16 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id o10so17696279lfl.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 25 Jan 2021 05:33:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=L4R/wl3TDCRclCdmZUfeMtDP0T5U411eEJj27c7YynE=;
+ b=vtEe/N1ZmZ6Sl95ijm7xhnVcVMDIiPgQn3B1Zk7BbNlmSXhDhonrNJVUrvrEOmRl31
+ n+bBVKKmdlWBnuq6jwTEoMGMeQKCsxfDLbu7L9IL6qOzppHBhq18Dw6NKWB1PYwQt3yg
+ rL2R6XOfWpwHsruEKJKuWeS52N+CCWMVTGkbP9zOSLljpxV4oGByj5scciQxnDFVPklF
+ ETuPOgsUqSnmXb/Od0f+KgKf2lwcTCLTa8NhL4jnyrebVJm480ZtXAJ5XMjEp/soCrLl
+ dBZRHrLkEKijyDzHlTgKnXfgXZVVr5ApDcdGB1q0eNtNYputeooewEsT9e7afBdtDq/H
+ upFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=L4R/wl3TDCRclCdmZUfeMtDP0T5U411eEJj27c7YynE=;
+ b=qfU/1z3JfXsAd4op3l1w0xuSa4TL5fC4h72a++OnAomy2VJ9CtXR2IPV4A7kr3JnzG
+ 5kfWi7uohbqogoTMdnEuAnhmUnrwtEeq7sCaOh1DFN4zz4+Rxh9M6tytWjUbQmxne0m5
+ Bw1ahzr7j3OiCfthPur43dPtMhscYWDz1cu5auPFviFxJzYFGuei5I91Dc/uRTMfqHwE
+ GkpPVTQ8qOuIGagcgyJasviVKvM72tAHv/SKD7y5OkiK4xgpSPHsSvf1SPUzi3OuFHsV
+ 1k8L+rDJwemd6ol+WOK65BnnqxuZ+VJ9z8dTW0jJFioj3zr6r9K+4iRnxL/rPLVAZUca
+ MzFg==
+X-Gm-Message-State: AOAM531wGQTOsErO9qJSPnJYdabMIu7MN/lylpXlvuM2mSf12yaVgXu0
+ 07u9JFV+WSJZCyEpBkt9wbRKY89xT8qzJGpV6MJ2yA==
+X-Google-Smtp-Source: ABdhPJzIYl0XNdKXzQjkkZZ6qYmMBvr3r3ONv9DtPEzzZpl4dtywviUhglPRlZYE0y3qz8iD/SWMLszr9br1P5H0zVE=
+X-Received: by 2002:a19:fc06:: with SMTP id a6mr274138lfi.529.1611581596094;
+ Mon, 25 Jan 2021 05:33:16 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1611324045.701742.674374.nullmailer@robh.at.kernel.org>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-25_04:2021-01-25,
- 2021-01-25 signatures=0
-Cc: Etienne Carriere <etienne.carriere@st.com>, devicetree@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 13/14] dt-bindings: clock: stm32mp1 new
- compatible for secure rcc
+References: <20210124170337.32917-1-marex@denx.de>
+ <eb8c62eb-87c1-0011-49ae-260239daf79e@foss.st.com>
+In-Reply-To: <eb8c62eb-87c1-0011-49ae-260239daf79e@foss.st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 25 Jan 2021 14:33:05 +0100
+Message-ID: <CACRpkdZi6SeTa8_R6+8W6gZpSOshJg+ziXUx-Qi5mcsUXMdMvw@mail.gmail.com>
+To: Yann GAUTIER <yann.gautier@foss.st.com>
+Cc: Marek Vasut <marex@denx.de>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
+ Sudeep Holla <sudeep.holla@arm.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH V2] ARM: dts: stm32: Rename mmc controller
+ nodes to mmc@
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,56 +71,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob,
+On Mon, Jan 25, 2021 at 1:58 PM Yann GAUTIER <yann.gautier@foss.st.com> wrote:
 
-many thanks i will send a v2.
+> Do you know if similar patches are planned for other platform using this
+> IP (Qualcom, ST-Ericsson, Arm vexpress...)?
+> I found issues with them when running this command:
+> make -k dtbs_check
+> DT_SCHEMA_FILES=Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+>
+> Maybe Linus already sent the info?
 
-Best regards
+I sent patches fixing the Ux500 and Nomadik platforms.
 
-Gabriel
+The ARM platforms use mmc@ when I looked at it briefly but
+else point it out to me and I'll fix it up.
 
-On 1/22/21 3:00 PM, Rob Herring wrote:
-> On Fri, 22 Jan 2021 11:51:00 +0100, gabriel.fernandez@foss.st.com wrote:
->> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
->>
->> Introduce new compatible string "st,stm32mp1-rcc-secure" for
->> stm32mp1 clock driver when the device is configured with RCC
->> security support hardened.
->>
->> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
->> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
->> ---
->>   Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
-> My bot found errors running 'make dt_binding_check' on your patch:
->
-> yamllint warnings/errors:
->
-> dtschema/dtc warnings/errors:
-> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.example.dt.yaml: rcc@50000000: compatible:1: 'st,stm32mp1-rcc' was expected
-> 	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
-> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.example.dt.yaml: rcc@50000000: compatible: ['st,stm32mp1-rcc-secure', 'syscon'] is too short
-> 	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
->
-> See https://patchwork.ozlabs.org/patch/1430316
->
-> This check can fail if there are any dependencies. The base for a patch
-> series is generally the most recent rc1.
->
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
->
-> pip3 install dtschema --upgrade
->
-> Please check and re-submit.
->
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
