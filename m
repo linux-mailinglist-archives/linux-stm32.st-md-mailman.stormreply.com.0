@@ -2,45 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05808302BEE
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 20:48:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 680C4302E14
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 22:40:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAEF6C5663B;
-	Mon, 25 Jan 2021 19:48:39 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21B9CC5663B;
+	Mon, 25 Jan 2021 21:40:48 +0000 (UTC)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37244C56639
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D335BC56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Jan 2021 19:48:38 +0000 (UTC)
-Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <afa@pengutronix.de>)
- id 1l47qf-0006N0-C0; Mon, 25 Jan 2021 20:48:29 +0100
-Received: from afa by dude.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <afa@pengutronix.de>)
- id 1l47qb-0007yC-C9; Mon, 25 Jan 2021 20:48:25 +0100
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-Date: Mon, 25 Jan 2021 20:48:23 +0100
-Message-Id: <20210125194824.30549-1-a.fatoum@pengutronix.de>
-X-Mailer: git-send-email 2.30.0
+ Mon, 25 Jan 2021 21:40:46 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id e70so14245482ote.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 25 Jan 2021 13:40:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=jFvGGF+GApXU3mEuRZRMts4wWuIR4lLZDNcLcWjS4Os=;
+ b=s820kHzt9bvLdDndmCep/TJu1bSdcc0VZrfIBMnpBPr4w0QeZgzE6SMXSJWcw7Kudz
+ FBqsBarzj9bLaFGbhCT13cM9pe43Qe9Pflt9RW6pwwcTTs7cSOz3SBgHR3ct1exUVONX
+ /LFNcfCe87XkzFjnsBfBGSUW+LgFoFrxcMGq2s02gbWvK/GWIjrc8LlXvTSf2ntjV/yM
+ cmd5iThsJl34Iv9bOG6xoIbQxDbU9d/9+CiGTn5XXOifGJUDFqzy3bP7OE3pRuqraODS
+ yXJi7KHCVbjKCwKPpygfh69RxeBF4cQQdHpm3B/zJWTLakYlLqd1Mpa+5ehBZxMUP/Ux
+ 03dg==
+X-Gm-Message-State: AOAM533y87DH0fQOnjFlXEwDnqDOg5Nu4Hy8/O2efcWasLV4OXepYViG
+ Xr0uLwo1119IWK3d46S6fQ==
+X-Google-Smtp-Source: ABdhPJzZDgcSoRHUG+fj06W9B8eAhd0yh8E5shntkS8AUWYZc/Zr9QKzD38zD0jd0vq74wHnVHC4iA==
+X-Received: by 2002:a05:6830:1589:: with SMTP id
+ i9mr1772550otr.127.1611610844768; 
+ Mon, 25 Jan 2021 13:40:44 -0800 (PST)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id t65sm3726614oie.25.2021.01.25.13.40.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Jan 2021 13:40:43 -0800 (PST)
+Received: (nullmailer pid 1053015 invoked by uid 1000);
+ Mon, 25 Jan 2021 21:40:42 -0000
+Date: Mon, 25 Jan 2021 15:40:42 -0600
+From: Rob Herring <robh@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Message-ID: <20210125214042.GA1049362@robh.at.kernel.org>
+References: <20210114171314.18946-1-amelie.delaunay@foss.st.com>
+ <20210114171314.18946-2-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
-X-SA-Exim-Mail-From: afa@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de, Holger Assmann <has@pengutronix.de>,
+Content-Disposition: inline
+In-Reply-To: <20210114171314.18946-2-amelie.delaunay@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4] iio: adc: stm32-adc: enable timestamping
-	for non-DMA usage
+Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: phy:
+ phy-stm32-usbphyc: add #clock-cells required property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,139 +73,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-For non-DMA usage, we have an easy way to associate a timestamp with a
-sample: iio_pollfunc_store_time stores a timestamp in the primary
-trigger IRQ handler and stm32_adc_trigger_handler runs in the IRQ thread
-to push out the buffer along with the timestamp.
+On Thu, Jan 14, 2021 at 06:13:13PM +0100, Amelie Delaunay wrote:
+> usbphyc provides a unique clock called ck_usbo_48m.
+> STM32 USB OTG needs a 48Mhz clock (utmifs_clk48) for Full-Speed operation.
+> ck_usbo_48m is a possible parent clock for USB OTG 48Mhz clock.
+> 
+> ck_usbo_48m is available as soon as the PLL is enabled.
+> 
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> ---
+> No change in v2.
+> ---
+>  .../devicetree/bindings/phy/phy-stm32-usbphyc.yaml          | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+> index 46df6786727a..4e4da64b8e01 100644
+> --- a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+> +++ b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+> @@ -51,6 +51,10 @@ properties:
+>    vdda1v8-supply:
+>      description: regulator providing 1V8 power supply to the PLL block
+>  
+> +  '#clock-cells':
+> +    description: number of clock cells for ck_usbo_48m consumer
+> +    const: 0
+> +
+>  #Required child nodes:
+>  
+>  patternProperties:
+> @@ -102,6 +106,7 @@ required:
+>    - "#size-cells"
+>    - vdda1v1-supply
+>    - vdda1v8-supply
+> +  - '#clock-cells'
 
-For this to work, the driver needs to register an IIO_TIMESTAMP channel.
-Do this.
+You can't really make new properties required as it's not backwards 
+compatible. If things can never work without or the binding has never 
+been used, then you can. You just need to spell this out in the commit 
+msg.
 
-For DMA, it's not as easy, because we don't push the buffers out of
-stm32_adc_trigger, but out of stm32_adc_dma_buffer_done, which runs in
-a tasklet scheduled after a DMA completion.
-
-Preferably, the DMA controller would copy us the timestamp into that buffer
-as well. Until this is implemented, restrict timestamping support to
-only PIO. For low-frequency sampling, PIO is probably good enough.
-
-Cc: Holger Assmann <has@pengutronix.de>
-Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
----
-v3 -> v4:
-  - descrease buffer size to correct size (Marc)
-v2 -> v3:
-  - explicitly specify alignment (Jonathan)
-  - increase buffer size to hold additional timestamp
-v1 -> v2:
-  - Added comment about timestamping being PIO only (Fabrice)
-  - Added missing DMA resource clean up in error path (Fabrice)
-  - Added Fabrice's Acked-by
----
- drivers/iio/adc/stm32-adc.c | 39 +++++++++++++++++++++++++++++--------
- 1 file changed, 31 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index c067c994dae2..5ebbd28e45ca 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -177,7 +177,7 @@ struct stm32_adc_cfg {
-  * @offset:		ADC instance register offset in ADC block
-  * @cfg:		compatible configuration data
-  * @completion:		end of single conversion completion
-- * @buffer:		data buffer
-+ * @buffer:		data buffer + 8 bytes for timestamp if enabled
-  * @clk:		clock for this adc instance
-  * @irq:		interrupt for this adc instance
-  * @lock:		spinlock
-@@ -200,7 +200,7 @@ struct stm32_adc {
- 	u32			offset;
- 	const struct stm32_adc_cfg	*cfg;
- 	struct completion	completion;
--	u16			buffer[STM32_ADC_MAX_SQ];
-+	u16			buffer[STM32_ADC_MAX_SQ + 4] __aligned(8);
- 	struct clk		*clk;
- 	int			irq;
- 	spinlock_t		lock;		/* interrupt lock */
-@@ -1718,7 +1718,7 @@ static void stm32_adc_chan_init_one(struct iio_dev *indio_dev,
- 	}
- }
- 
--static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
-+static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
- {
- 	struct device_node *node = indio_dev->dev.of_node;
- 	struct stm32_adc *adc = iio_priv(indio_dev);
-@@ -1766,6 +1766,9 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
- 		return -EINVAL;
- 	}
- 
-+	if (timestamping)
-+		num_channels++;
-+
- 	channels = devm_kcalloc(&indio_dev->dev, num_channels,
- 				sizeof(struct iio_chan_spec), GFP_KERNEL);
- 	if (!channels)
-@@ -1816,6 +1819,19 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
- 		stm32_adc_smpr_init(adc, channels[i].channel, smp);
- 	}
- 
-+	if (timestamping) {
-+		struct iio_chan_spec *timestamp = &channels[scan_index];
-+
-+		timestamp->type = IIO_TIMESTAMP;
-+		timestamp->channel = -1;
-+		timestamp->scan_index = scan_index;
-+		timestamp->scan_type.sign = 's';
-+		timestamp->scan_type.realbits = 64;
-+		timestamp->scan_type.storagebits = 64;
-+
-+		scan_index++;
-+	}
-+
- 	indio_dev->num_channels = scan_index;
- 	indio_dev->channels = channels;
- 
-@@ -1875,6 +1891,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	irqreturn_t (*handler)(int irq, void *p) = NULL;
- 	struct stm32_adc *adc;
-+	bool timestamping = false;
- 	int ret;
- 
- 	if (!pdev->dev.of_node)
-@@ -1931,16 +1948,22 @@ static int stm32_adc_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = stm32_adc_chan_of_init(indio_dev);
--	if (ret < 0)
--		return ret;
--
- 	ret = stm32_adc_dma_request(dev, indio_dev);
- 	if (ret < 0)
- 		return ret;
- 
--	if (!adc->dma_chan)
-+	if (!adc->dma_chan) {
-+		/* For PIO mode only, iio_pollfunc_store_time stores a timestamp
-+		 * in the primary trigger IRQ handler and stm32_adc_trigger_handler
-+		 * runs in the IRQ thread to push out buffer along with timestamp.
-+		 */
- 		handler = &stm32_adc_trigger_handler;
-+		timestamping = true;
-+	}
-+
-+	ret = stm32_adc_chan_of_init(indio_dev, timestamping);
-+	if (ret < 0)
-+		goto err_dma_disable;
- 
- 	ret = iio_triggered_buffer_setup(indio_dev,
- 					 &iio_pollfunc_store_time, handler,
--- 
-2.30.0
-
+>    - usb-phy@0
+>    - usb-phy@1
+>  
+> @@ -120,6 +125,7 @@ examples:
+>          vdda1v8-supply = <&reg18>;
+>          #address-cells = <1>;
+>          #size-cells = <0>;
+> +        #clock-cells = <0>;
+>  
+>          usbphyc_port0: usb-phy@0 {
+>              reg = <0>;
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
