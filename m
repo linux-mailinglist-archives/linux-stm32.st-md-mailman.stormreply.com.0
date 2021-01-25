@@ -2,105 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 653F23023E4
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 11:52:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35EAC30242D
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 12:21:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30A07C5663B;
-	Mon, 25 Jan 2021 10:52:30 +0000 (UTC)
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE0DEC5717F;
+	Mon, 25 Jan 2021 11:21:44 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A830C3FADA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 779C8C5717F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Jan 2021 10:52:24 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 8C6885805B3;
- Mon, 25 Jan 2021 05:52:23 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Mon, 25 Jan 2021 05:52:23 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=7Q7Nv0bqu4rlGBtYQ+gbUns0wJu
- h6GuAiFJdP+cGZnE=; b=SvMo/+4j2yNGhwp07OIeEeAwIPd3uLOkCRwQa21lHhP
- uBTNRs15VHVc0Wnm9juBrZh1WRoUfbAjl6OGg+3BMqWfLxbqr0GfnnNKvhRLv6z8
- Ht3Sogfq/tair/mlm5M0Ws4IhMxyYJJ5aB3ZMTsXfj7rPgB4UyKFB1tZPz0DRliK
- BHwi/farpZU9725kMRANiZjHMFssH8S/rOxF64POXubAjGC5dTdmZE9SM5r6LpI6
- 3qeQ+jTkTpu2F1mx8CbaWl09kJjYGCSK7wcAudZIvP/ea20jayJYzTRZs3bFHtVl
- zCtbT3ZRCuxdI95cj5o9sQvZsw9/YnQhvwNRcBsm0nQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=7Q7Nv0
- bqu4rlGBtYQ+gbUns0wJuh6GuAiFJdP+cGZnE=; b=YeHVXlHvXL396hBceHKuI1
- 2nodfeUi1jgIMhqjbIrcZLxiFtsltIkSU/rRD+IJBCKaviaCLZGCkHZUipzKh8aI
- YIp/m5NnLSU2gciUh/8Z1vTesObQnehVBhj4ngYN/Pf+cMEOkKiXjciatPw7K5uH
- KudFDbebfOFPHJfhLJKCfaWkyxBtzj2zcRrPeBXnnOG5RFH0coWQFtNlbSwC8t7p
- TYDH6qiIQ9QsegeQ3ZYr4Evcty2XIdgHyKS9BpK2qBedU/+5qgGyO94tCOGu/vcn
- UzMGe0Zs8hFTbEAt0SgII0xE2YdNu782KoFPPFHrfDCKzEbkhEw4It5xt1I0TUJQ
- ==
-X-ME-Sender: <xms:5KIOYDZkCzKlxmwF8Past7gGnV8Uu1VXOKwdgl0zmSdGh9xjQbNWAg>
- <xme:5KIOYCZLoAjv-K3leKcmvRZVhKYdfz_zGHRxi7HJpYazyr5W-FBA4vqiKhw3PnUiN
- dI4Zs7rTFLuMm2vbSs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdefgddukecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdejvdfg
- veenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:5KIOYF97LOISc2dVRzhdQbFgqL728_iJgSiKzU_LiMVXRb_tAllfVA>
- <xmx:5KIOYJpNP6bhZmkQKa-vcXo4QiLVKipRoitsrZ-mefMbXdAgiZY_EQ>
- <xmx:5KIOYOoq6PpxB4uFJVQhpgn3Wdr7RMwSOm8PVBhZdr68RJcXL3U17Q>
- <xmx:56IOYKw_xK1eOvHH4mUywKNmdsPDFtUqeoCTBix2hFA5DpClw3NKwg>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id E512724005A;
- Mon, 25 Jan 2021 05:52:19 -0500 (EST)
-Date: Mon, 25 Jan 2021 11:52:18 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Message-ID: <20210125105218.kv63vjbxz5b35hdo@gilmour>
-References: <20210121163537.1466118-1-maxime@cerno.tech>
- <20210121163537.1466118-8-maxime@cerno.tech>
- <YArBy2DKdCct5cYW@intel.com>
+ Mon, 25 Jan 2021 11:21:43 +0000 (UTC)
+Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1l3zw7-0002WJ-2C; Mon, 25 Jan 2021 12:21:35 +0100
+Received: from afa by dude.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1l3zw4-0000Ya-Ku; Mon, 25 Jan 2021 12:21:32 +0100
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Mon, 25 Jan 2021 12:21:27 +0100
+Message-Id: <20210125112127.1583-1-a.fatoum@pengutronix.de>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-In-Reply-To: <YArBy2DKdCct5cYW@intel.com>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Marek Vasut <marex@denx.de>, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-rockchip@lists.infradead.org,
- Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, Sandy Huang <hjc@rock-chips.com>,
- NXP Linux Team <linux-imx@nxp.com>, Chen Feng <puck.chen@hisilicon.com>,
- Dave Airlie <airlied@redhat.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Alison Wang <alison.wang@nxp.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mediatek@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tomi Valkeinen <tomba@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Philippe Cornu <philippe.cornu@st.com>, linux-kernel@vger.kernel.org,
- Yannick Fertre <yannick.fertre@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Tian Tao <tiantao6@hisilicon.com>,
- freedreno@lists.freedesktop.org
-Subject: Re: [Linux-stm32] [PATCH v2 08/11] drm: Rename plane->state
- variables in atomic update and disable
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
+X-SA-Exim-Mail-From: afa@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de, Holger Assmann <has@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3] iio: adc: stm32-adc: enable timestamping
+	for non-DMA usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,125 +52,143 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2693900173598001995=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+For non-DMA usage, we have an easy way to associate a timestamp with a
+sample: iio_pollfunc_store_time stores a timestamp in the primary
+trigger IRQ handler and stm32_adc_trigger_handler runs in the IRQ thread
+to push out the buffer along with the timestamp.
 
---===============2693900173598001995==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="aovqw5rvxy3ynmws"
-Content-Disposition: inline
+For this to work, the driver needs to register an IIO_TIMESTAMP channel.
+Do this.
 
+For DMA, it's not as easy, because we don't push the buffers out of
+stm32_adc_trigger, but out of stm32_adc_dma_buffer_done, which runs in
+a tasklet scheduled after a DMA completion.
 
---aovqw5rvxy3ynmws
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Preferably, the DMA controller would copy us the timestamp into that buffer
+as well. Until this is implemented, restrict timestamping support to
+only PIO. For low-frequency sampling, PIO is probably good enough.
 
-Hi Ville,
+Cc: Holger Assmann <has@pengutronix.de>
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+v2 -> v3:
+  - explicitly specify alignment (Jonathan)
+  - increase buffer size to hold additional timestamp
+v1 -> v2:
+  - Added comment about timestamping being PIO only (Fabrice)
+  - Added missing DMA resource clean up in error path (Fabrice)
+  - Added Fabrice's Acked-by
+---
+ drivers/iio/adc/stm32-adc.c | 39 +++++++++++++++++++++++++++++--------
+ 1 file changed, 31 insertions(+), 8 deletions(-)
 
-On Fri, Jan 22, 2021 at 02:15:07PM +0200, Ville Syrj=E4l=E4 wrote:
-> On Thu, Jan 21, 2021 at 05:35:33PM +0100, Maxime Ripard wrote:
-> > Some drivers are storing the plane->state pointer in atomic_update and
-> > atomic_disable in a variable simply called state, while the state passed
-> > as an argument is called old_state.
-> >=20
-> > In order to ease subsequent reworks and to avoid confusing or
-> > inconsistent names, let's rename those variables to new_state.
-> >=20
-> > This was done using the following coccinelle script, plus some manual
-> > changes for mtk and tegra.
-> >=20
-> > @ plane_atomic_func @
-> > identifier helpers;
-> > identifier func;
-> > @@
-> >=20
-> > (
-> >  static const struct drm_plane_helper_funcs helpers =3D {
-> >  	...,
-> >  	.atomic_disable =3D func,
-> > 	...,
-> >  };
-> > |
-> >  static const struct drm_plane_helper_funcs helpers =3D {
-> >  	...,
-> >  	.atomic_update =3D func,
-> > 	...,
-> >  };
-> > )
-> >=20
-> > @ moves_new_state_old_state @
-> > identifier plane_atomic_func.func;
-> > identifier plane;
-> > symbol old_state;
-> > symbol state;
-> > @@
-> >=20
-> >  func(struct drm_plane *plane, struct drm_plane_state *old_state)
-> >  {
-> >  	...
-> > -	struct drm_plane_state *state =3D plane->state;
-> > +	struct drm_plane_state *new_state =3D plane->state;
-> > 	...
-> >  }
-> >=20
-> > @ depends on moves_new_state_old_state @
-> > identifier plane_atomic_func.func;
-> > identifier plane;
-> > identifier old_state;
-> > symbol state;
-> > @@
-> >=20
-> >  func(struct drm_plane *plane, struct drm_plane_state *old_state)
-> >  {
-> >  	<...
-> > -	state
-> > +	new_state
-> > 	...>
->=20
-> Was going to say that this migh eat something else, but I guess
-> the dependency prevents that?
-
-Yeah, the dependency takes care of this
-
-> Another way to avoid that I suppose would be to declare 'state'
-> as
-> symbol moves_new_state_old_state.state;
->=20
-> That would probably make the intent a bit more obvious, even with
-> the dependency. Or does a dependency somehow automagically imply
-> that?
-
-I'm not sure if it does, but it's a symbol here not an identifier or an
-expression, so here moves_new_state_old_state.state would always resolve
-to state (and only state) anyway
-
-Maxime
-
---aovqw5rvxy3ynmws
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYA6i4gAKCRDj7w1vZxhR
-xXQfAQCpHFLAgzbOGuPHlUIw6srwonDWlJwZ5pDLwhp1/pTOIgEAwAm6K8CkMgzh
-mwxW8RrOr5SMiQknGuS5OfDWZlYZBwo=
-=AjKT
------END PGP SIGNATURE-----
-
---aovqw5rvxy3ynmws--
-
---===============2693900173598001995==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index c067c994dae2..ab2f440d7afb 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -177,7 +177,7 @@ struct stm32_adc_cfg {
+  * @offset:		ADC instance register offset in ADC block
+  * @cfg:		compatible configuration data
+  * @completion:		end of single conversion completion
+- * @buffer:		data buffer
++ * @buffer:		data buffer + 8 bytes for timestamp if enabled
+  * @clk:		clock for this adc instance
+  * @irq:		interrupt for this adc instance
+  * @lock:		spinlock
+@@ -200,7 +200,7 @@ struct stm32_adc {
+ 	u32			offset;
+ 	const struct stm32_adc_cfg	*cfg;
+ 	struct completion	completion;
+-	u16			buffer[STM32_ADC_MAX_SQ];
++	u16			buffer[STM32_ADC_MAX_SQ + 8] __aligned(8);
+ 	struct clk		*clk;
+ 	int			irq;
+ 	spinlock_t		lock;		/* interrupt lock */
+@@ -1718,7 +1718,7 @@ static void stm32_adc_chan_init_one(struct iio_dev *indio_dev,
+ 	}
+ }
+ 
+-static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
++static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
+ {
+ 	struct device_node *node = indio_dev->dev.of_node;
+ 	struct stm32_adc *adc = iio_priv(indio_dev);
+@@ -1766,6 +1766,9 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
+ 		return -EINVAL;
+ 	}
+ 
++	if (timestamping)
++		num_channels++;
++
+ 	channels = devm_kcalloc(&indio_dev->dev, num_channels,
+ 				sizeof(struct iio_chan_spec), GFP_KERNEL);
+ 	if (!channels)
+@@ -1816,6 +1819,19 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
+ 		stm32_adc_smpr_init(adc, channels[i].channel, smp);
+ 	}
+ 
++	if (timestamping) {
++		struct iio_chan_spec *timestamp = &channels[scan_index];
++
++		timestamp->type = IIO_TIMESTAMP;
++		timestamp->channel = -1;
++		timestamp->scan_index = scan_index;
++		timestamp->scan_type.sign = 's';
++		timestamp->scan_type.realbits = 64;
++		timestamp->scan_type.storagebits = 64;
++
++		scan_index++;
++	}
++
+ 	indio_dev->num_channels = scan_index;
+ 	indio_dev->channels = channels;
+ 
+@@ -1875,6 +1891,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	irqreturn_t (*handler)(int irq, void *p) = NULL;
+ 	struct stm32_adc *adc;
++	bool timestamping = false;
+ 	int ret;
+ 
+ 	if (!pdev->dev.of_node)
+@@ -1931,16 +1948,22 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = stm32_adc_chan_of_init(indio_dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = stm32_adc_dma_request(dev, indio_dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	if (!adc->dma_chan)
++	if (!adc->dma_chan) {
++		/* For PIO mode only, iio_pollfunc_store_time stores a timestamp
++		 * in the primary trigger IRQ handler and stm32_adc_trigger_handler
++		 * runs in the IRQ thread to push out buffer along with timestamp.
++		 */
+ 		handler = &stm32_adc_trigger_handler;
++		timestamping = true;
++	}
++
++	ret = stm32_adc_chan_of_init(indio_dev, timestamping);
++	if (ret < 0)
++		goto err_dma_disable;
+ 
+ 	ret = iio_triggered_buffer_setup(indio_dev,
+ 					 &iio_pollfunc_store_time, handler,
+-- 
+2.30.0
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2693900173598001995==--
