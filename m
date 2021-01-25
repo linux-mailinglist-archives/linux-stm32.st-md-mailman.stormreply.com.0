@@ -2,71 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 685C8302898
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 18:19:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05808302BEE
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 20:48:41 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D8A9C5663B;
-	Mon, 25 Jan 2021 17:19:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAEF6C5663B;
+	Mon, 25 Jan 2021 19:48:39 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78773C3FADA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37244C56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Jan 2021 17:19:13 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10PHHpPD006876; Mon, 25 Jan 2021 18:19:12 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=RyqhFivtd4rFZG+7AJ8QF845UIBd+GmRh8eyFKGG/cY=;
- b=DcskUFtVPsGYZHR0oigOKd+hby6prfRTocXipg4DtgDmTNHUTJuVwaazTp3Y323qWsbA
- 678VwkXcpLDi2U+XSI+WrHrN2X69pUcUmNIOcw10MRinaPzZo7Mn1nHy3ESQdDecD6DW
- 1TG1nszo5LtaU4fz/XYcFgN/HhiVwq3GxIbR8Tzww2IR3I4SjrWET4TrbukeG6kOEMQi
- t2FjlQsNLZvMV8c7HO8MpUjBNP8tqAODU8gzvRlgK9Qkw1B03buTPCTAeREFV8ScO8/Z
- ciPdgjb0wRP8nF6Ba3qloEwPkhRriEn6JmWJ34/kRisRUbfCFwuHJs6VoCjwCU8SQZtU Mw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 368bjn45hm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Jan 2021 18:19:12 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BCD7010002A;
- Mon, 25 Jan 2021 18:19:11 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A7CA522740E;
- Mon, 25 Jan 2021 18:19:11 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.49) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 25 Jan
- 2021 18:19:11 +0100
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Arnaud POULIQUEN
- <arnaud.pouliquen@st.com>
-References: <20210106133714.9984-1-arnaud.pouliquen@foss.st.com>
- <20210114190543.GB255481@xps15> <6de9ff8f-0be1-387a-df7e-7d77dd859513@st.com>
- <YA7kNj0/lbUhqJBd@builder.lan>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <bd33a7de-5a02-406a-c8e3-e00749adce8e@foss.st.com>
-Date: Mon, 25 Jan 2021 18:19:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon, 25 Jan 2021 19:48:38 +0000 (UTC)
+Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1l47qf-0006N0-C0; Mon, 25 Jan 2021 20:48:29 +0100
+Received: from afa by dude.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <afa@pengutronix.de>)
+ id 1l47qb-0007yC-C9; Mon, 25 Jan 2021 20:48:25 +0100
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Mon, 25 Jan 2021 20:48:23 +0100
+Message-Id: <20210125194824.30549-1-a.fatoum@pengutronix.de>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-In-Reply-To: <YA7kNj0/lbUhqJBd@builder.lan>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-25_07:2021-01-25,
- 2021-01-25 signatures=0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] rpmsg: char: return an error if device
- already open
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
+X-SA-Exim-Mail-From: afa@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de, Holger Assmann <has@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v4] iio: adc: stm32-adc: enable timestamping
+	for non-DMA usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,129 +57,139 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Bjorn,
+For non-DMA usage, we have an easy way to associate a timestamp with a
+sample: iio_pollfunc_store_time stores a timestamp in the primary
+trigger IRQ handler and stm32_adc_trigger_handler runs in the IRQ thread
+to push out the buffer along with the timestamp.
 
-On 1/25/21 4:31 PM, Bjorn Andersson wrote:
-> On Fri 15 Jan 03:13 CST 2021, Arnaud POULIQUEN wrote:
-> 
->> Hi Mathieu,
->>
->>
->> On 1/14/21 8:05 PM, Mathieu Poirier wrote:
->>> On Wed, Jan 06, 2021 at 02:37:14PM +0100, Arnaud Pouliquen wrote:
->>>> The rpmsg_create_ept function is invoked when the device is opened.
->>>> As only one endpoint must be created per device. It is not
->>>> possible to open the same device twice.
->>>> The fix consists in returning -EBUSY when device is already
->>>> opened.
->>>>
->>>> Fixes: c0cdc19f84a4 ("rpmsg: Driver for user space endpoint interface")
->>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->>>> ---
->>>>  drivers/rpmsg/rpmsg_char.c | 3 +++
->>>>  1 file changed, 3 insertions(+)
->>>>
->>>> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
->>>> index 4bbbacdbf3bb..360a1ab0a9c4 100644
->>>> --- a/drivers/rpmsg/rpmsg_char.c
->>>> +++ b/drivers/rpmsg/rpmsg_char.c
->>>> @@ -127,6 +127,9 @@ static int rpmsg_eptdev_open(struct inode *inode, struct file *filp)
->>>>  	struct rpmsg_device *rpdev = eptdev->rpdev;
->>>>  	struct device *dev = &eptdev->dev;
->>>>  
->>>> +	if (eptdev->ept)
->>>> +		return -EBUSY;
->>>> +
->>>
->>> I rarely had to work so hard to review a 2 line patch...
->>
->> That means that my commit description was not enough explicit...
->>
->>>
->>> As far as I can tell the actual code is doing the right thing.  If user space is
->>> trying to open the same eptdev more than once function rpmsg_create_ept() should
->>> complain and the operation denied, wich is what the current code is doing.  
->>>
->>> There is currently two customers for this API - SMD and GLINK.  The SMD code is
->>> quite clear that if the channel is already open, the operation will be
->>> denied [1].  The GLINK code isn't as clear but the fact that it returns NULL on
->>> error conditions [2] is a good indication that things are working the same way.
->>>
->>> What kind of use case are you looking to address?  Is there any way you can use
->>> rpdev->ops->create_ept() as it is currently done?
->>
->> This patch was part of the IOCTL rpmsg series. I sent it separately at Bjorn's
->> request [1].
->>
-> 
-> I apparently didn't spend as much effort as Mathieu thinking about the
-> details. I do believe that he's right, at least both GLINK and SMD
-> _should_ return -EBUSY if we try to open an already open channel -
-> either because the kernel has bound a driver to the channel or because
-> rpmsg_char already has it opened.
-> 
->> I detect the issue using the RPMSG_ADDR_ANY for the source address when tested
->> it with the rpmsf_virtio bus. In this case at each sys open of the device, a new
->> endpoint is created because a new source address is allocated.
->>
-> 
-> In SMD and GLINK channels are identified solely by their name and hence
-> it's not possible to have duplicates. As this isn't the case for virtio
-> I didn't have any objections to it and that's why I asked you to resend
-> it separately.
-> 
-> But in line with GLINK/SMD, what would the expected behavior be if I
-> with the virtio backend open a rpmsg_char which is already bound to a
-> kernel driver?
+For this to work, the driver needs to register an IIO_TIMESTAMP channel.
+Do this.
 
-I guess that user applications should expect same behavior, regardless of the
-backend. So this patch would ensure the check at RPMsg service level.
+For DMA, it's not as easy, because we don't push the buffers out of
+stm32_adc_trigger, but out of stm32_adc_dma_buffer_done, which runs in
+a tasklet scheduled after a DMA completion.
 
-> 
-> Do you think we should get another "channel" or do you think the virtio
-> driver should detect this and return -EBUSY? (I.e. render this patch
-> unnecessary)
+Preferably, the DMA controller would copy us the timestamp into that buffer
+as well. Until this is implemented, restrict timestamping support to
+only PIO. For low-frequency sampling, PIO is probably good enough.
 
-Regarding virtio implementation we could create a new channel only if either the
-channel name, either the local address or the remote address is different.
-So a channel would be created only if one address is set to RPMSG_ADDR_ANY.
-But could be a nightmare to handle it, in case of multi open/close.
+Cc: Holger Assmann <has@pengutronix.de>
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+v3 -> v4:
+  - descrease buffer size to correct size (Marc)
+v2 -> v3:
+  - explicitly specify alignment (Jonathan)
+  - increase buffer size to hold additional timestamp
+v1 -> v2:
+  - Added comment about timestamping being PIO only (Fabrice)
+  - Added missing DMA resource clean up in error path (Fabrice)
+  - Added Fabrice's Acked-by
+---
+ drivers/iio/adc/stm32-adc.c | 39 +++++++++++++++++++++++++++++--------
+ 1 file changed, 31 insertions(+), 8 deletions(-)
 
-In my opinion the channel should be created only on /dev/rpmsgX creation.
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index c067c994dae2..5ebbd28e45ca 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -177,7 +177,7 @@ struct stm32_adc_cfg {
+  * @offset:		ADC instance register offset in ADC block
+  * @cfg:		compatible configuration data
+  * @completion:		end of single conversion completion
+- * @buffer:		data buffer
++ * @buffer:		data buffer + 8 bytes for timestamp if enabled
+  * @clk:		clock for this adc instance
+  * @irq:		interrupt for this adc instance
+  * @lock:		spinlock
+@@ -200,7 +200,7 @@ struct stm32_adc {
+ 	u32			offset;
+ 	const struct stm32_adc_cfg	*cfg;
+ 	struct completion	completion;
+-	u16			buffer[STM32_ADC_MAX_SQ];
++	u16			buffer[STM32_ADC_MAX_SQ + 4] __aligned(8);
+ 	struct clk		*clk;
+ 	int			irq;
+ 	spinlock_t		lock;		/* interrupt lock */
+@@ -1718,7 +1718,7 @@ static void stm32_adc_chan_init_one(struct iio_dev *indio_dev,
+ 	}
+ }
+ 
+-static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
++static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
+ {
+ 	struct device_node *node = indio_dev->dev.of_node;
+ 	struct stm32_adc *adc = iio_priv(indio_dev);
+@@ -1766,6 +1766,9 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
+ 		return -EINVAL;
+ 	}
+ 
++	if (timestamping)
++		num_channels++;
++
+ 	channels = devm_kcalloc(&indio_dev->dev, num_channels,
+ 				sizeof(struct iio_chan_spec), GFP_KERNEL);
+ 	if (!channels)
+@@ -1816,6 +1819,19 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
+ 		stm32_adc_smpr_init(adc, channels[i].channel, smp);
+ 	}
+ 
++	if (timestamping) {
++		struct iio_chan_spec *timestamp = &channels[scan_index];
++
++		timestamp->type = IIO_TIMESTAMP;
++		timestamp->channel = -1;
++		timestamp->scan_index = scan_index;
++		timestamp->scan_type.sign = 's';
++		timestamp->scan_type.realbits = 64;
++		timestamp->scan_type.storagebits = 64;
++
++		scan_index++;
++	}
++
+ 	indio_dev->num_channels = scan_index;
+ 	indio_dev->channels = channels;
+ 
+@@ -1875,6 +1891,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	irqreturn_t (*handler)(int irq, void *p) = NULL;
+ 	struct stm32_adc *adc;
++	bool timestamping = false;
+ 	int ret;
+ 
+ 	if (!pdev->dev.of_node)
+@@ -1931,16 +1948,22 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = stm32_adc_chan_of_init(indio_dev);
+-	if (ret < 0)
+-		return ret;
+-
+ 	ret = stm32_adc_dma_request(dev, indio_dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	if (!adc->dma_chan)
++	if (!adc->dma_chan) {
++		/* For PIO mode only, iio_pollfunc_store_time stores a timestamp
++		 * in the primary trigger IRQ handler and stm32_adc_trigger_handler
++		 * runs in the IRQ thread to push out buffer along with timestamp.
++		 */
+ 		handler = &stm32_adc_trigger_handler;
++		timestamping = true;
++	}
++
++	ret = stm32_adc_chan_of_init(indio_dev, timestamping);
++	if (ret < 0)
++		goto err_dma_disable;
+ 
+ 	ret = iio_triggered_buffer_setup(indio_dev,
+ 					 &iio_pollfunc_store_time, handler,
+-- 
+2.30.0
 
-That said, if this patch generates too much discussion. we can also leave it on
-hold until figure out how to adapt the RPMsg char for the virtio backend.
-
-Thanks,
-Arnaud
-
-> 
-> Regards,
-> Bjorn
-> 
->> [1]https://patchwork.kernel.org/project/linux-remoteproc/patch/20201222105726.16906-11-arnaud.pouliquen@foss.st.com/
->>
->> Thanks,
->> Arnaud
->>
->>>
->>> Thanks,
->>> Mathieu
->>>
->>> [1]. https://elixir.bootlin.com/linux/v5.11-rc3/source/drivers/rpmsg/qcom_smd.c#L920
->>> [2]. https://elixir.bootlin.com/linux/v5.11-rc3/source/drivers/rpmsg/qcom_glink_native.c#L1149
->>>
->>>>  	get_device(dev);
->>>>  
->>>>  	ept = rpmsg_create_ept(rpdev, rpmsg_ept_cb, eptdev, eptdev->chinfo);
->>>> -- 
->>>> 2.17.1
->>>>
->>> _______________________________________________
->>> Linux-stm32 mailing list
->>> Linux-stm32@st-md-mailman.stormreply.com
->>> https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
->>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
