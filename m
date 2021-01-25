@@ -2,78 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AB4930247D
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 12:52:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D6B6302482
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Jan 2021 12:57:32 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D032C5717F;
-	Mon, 25 Jan 2021 11:52:56 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AA1AC5663B;
+	Mon, 25 Jan 2021 11:57:32 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D95B2C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C54F3C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Jan 2021 11:52:52 +0000 (UTC)
-IronPort-SDR: GBH1aIAlG51WofP80WxpUAM/33zjBd5Vw+z4YQx06FzoFx8EC4olsGBNU7S4mzZIp5SBB9wWKo
- u3Xbh8QVcyvw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9874"; a="158889319"
-X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="158889319"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2021 03:52:51 -0800
-IronPort-SDR: 48DaYsnvHv+gYU3iB0lIM7aytVWrCoDavD2mjf0kyTM07tuyUD4vfRcB0epq/cCvtOYMGfxoLJ
- ZQzg2k7suibA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,373,1602572400"; d="scan'208";a="472167193"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by fmsmga001.fm.intel.com with SMTP; 25 Jan 2021 03:52:39 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 25 Jan 2021 13:52:38 +0200
-Date: Mon, 25 Jan 2021 13:52:38 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YA6xBuECFjzjY7gG@intel.com>
-References: <20210121163537.1466118-1-maxime@cerno.tech>
- <20210121163537.1466118-8-maxime@cerno.tech>
- <YArBy2DKdCct5cYW@intel.com>
- <20210125105218.kv63vjbxz5b35hdo@gilmour>
+ Mon, 25 Jan 2021 11:57:30 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1l40Uq-0006VJ-Rx; Mon, 25 Jan 2021 12:57:28 +0100
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+ Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+References: <20210125112127.1583-1-a.fatoum@pengutronix.de>
+ <b649a0fd-b229-8a54-b374-72ecedca9e64@pengutronix.de>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <b6413a27-9cdf-9f60-be49-03398ee3f1f6@pengutronix.de>
+Date: Mon, 25 Jan 2021 12:57:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210125105218.kv63vjbxz5b35hdo@gilmour>
-X-Patchwork-Hint: comment
-Cc: Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Daniel Vetter <daniel.vetter@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Marek Vasut <marex@denx.de>, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-rockchip@lists.infradead.org,
- Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, Sandy Huang <hjc@rock-chips.com>,
- NXP Linux Team <linux-imx@nxp.com>, Chen Feng <puck.chen@hisilicon.com>,
- Dave Airlie <airlied@redhat.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Alison Wang <alison.wang@nxp.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mediatek@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, Sean Paul <sean@poorly.run>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tomi Valkeinen <tomba@kernel.org>,
- Jyri Sarha <jyri.sarha@iki.fi>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Philippe Cornu <philippe.cornu@st.com>, linux-kernel@vger.kernel.org,
- Yannick Fertre <yannick.fertre@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Tian Tao <tiantao6@hisilicon.com>,
- freedreno@lists.freedesktop.org
-Subject: Re: [Linux-stm32] [PATCH v2 08/11] drm: Rename plane->state
- variables in atomic update and disable
+In-Reply-To: <b649a0fd-b229-8a54-b374-72ecedca9e64@pengutronix.de>
+Content-Language: en-US
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Holger Assmann <has@pengutronix.de>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3] iio: adc: stm32-adc: enable
+ timestamping for non-DMA usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,115 +55,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 25, 2021 at 11:52:18AM +0100, Maxime Ripard wrote:
-> Hi Ville,
-> =
 
-> On Fri, Jan 22, 2021 at 02:15:07PM +0200, Ville Syrj=E4l=E4 wrote:
-> > On Thu, Jan 21, 2021 at 05:35:33PM +0100, Maxime Ripard wrote:
-> > > Some drivers are storing the plane->state pointer in atomic_update and
-> > > atomic_disable in a variable simply called state, while the state pas=
-sed
-> > > as an argument is called old_state.
-> > > =
 
-> > > In order to ease subsequent reworks and to avoid confusing or
-> > > inconsistent names, let's rename those variables to new_state.
-> > > =
+On 25.01.21 12:49, Marc Kleine-Budde wrote:
+> On 1/25/21 12:21 PM, Ahmad Fatoum wrote:
+>> For non-DMA usage, we have an easy way to associate a timestamp with a
+>> sample: iio_pollfunc_store_time stores a timestamp in the primary
+>> trigger IRQ handler and stm32_adc_trigger_handler runs in the IRQ thread
+>> to push out the buffer along with the timestamp.
+>>
+>> For this to work, the driver needs to register an IIO_TIMESTAMP channel.
+>> Do this.
+>>
+>> For DMA, it's not as easy, because we don't push the buffers out of
+>> stm32_adc_trigger, but out of stm32_adc_dma_buffer_done, which runs in
+>> a tasklet scheduled after a DMA completion.
+>>
+>> Preferably, the DMA controller would copy us the timestamp into that buffer
+>> as well. Until this is implemented, restrict timestamping support to
+>> only PIO. For low-frequency sampling, PIO is probably good enough.
+>>
+>> Cc: Holger Assmann <has@pengutronix.de>
+>> Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+>> ---
+>> v2 -> v3:
+>>   - explicitly specify alignment (Jonathan)
+>>   - increase buffer size to hold additional timestamp
+>> v1 -> v2:
+>>   - Added comment about timestamping being PIO only (Fabrice)
+>>   - Added missing DMA resource clean up in error path (Fabrice)
+>>   - Added Fabrice's Acked-by
+>> ---
+>>  drivers/iio/adc/stm32-adc.c | 39 +++++++++++++++++++++++++++++--------
+>>  1 file changed, 31 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+>> index c067c994dae2..ab2f440d7afb 100644
+>> --- a/drivers/iio/adc/stm32-adc.c
+>> +++ b/drivers/iio/adc/stm32-adc.c
+>> @@ -177,7 +177,7 @@ struct stm32_adc_cfg {
+>>   * @offset:		ADC instance register offset in ADC block
+>>   * @cfg:		compatible configuration data
+>>   * @completion:		end of single conversion completion
+>> - * @buffer:		data buffer
+>> + * @buffer:		data buffer + 8 bytes for timestamp if enabled
+>                                       ^
+>>   * @clk:		clock for this adc instance
+>>   * @irq:		interrupt for this adc instance
+>>   * @lock:		spinlock
+>> @@ -200,7 +200,7 @@ struct stm32_adc {
+>>  	u32			offset;
+>>  	const struct stm32_adc_cfg	*cfg;
+>>  	struct completion	completion;
+>> -	u16			buffer[STM32_ADC_MAX_SQ];
+>> +	u16			buffer[STM32_ADC_MAX_SQ + 8] __aligned(8);
+>          ^^                                               ^
+> 
+> How does that fit together?
 
-> > > This was done using the following coccinelle script, plus some manual
-> > > changes for mtk and tegra.
-> > > =
+Ah indeed, that's a little longer than needed.
+Thanks for catching.
 
-> > > @ plane_atomic_func @
-> > > identifier helpers;
-> > > identifier func;
-> > > @@
-> > > =
+> 
+> Marc
+> 
+> 
 
-> > > (
-> > >  static const struct drm_plane_helper_funcs helpers =3D {
-> > >  	...,
-> > >  	.atomic_disable =3D func,
-> > > 	...,
-> > >  };
-> > > |
-> > >  static const struct drm_plane_helper_funcs helpers =3D {
-> > >  	...,
-> > >  	.atomic_update =3D func,
-> > > 	...,
-> > >  };
-> > > )
-> > > =
-
-> > > @ moves_new_state_old_state @
-> > > identifier plane_atomic_func.func;
-> > > identifier plane;
-> > > symbol old_state;
-> > > symbol state;
-> > > @@
-> > > =
-
-> > >  func(struct drm_plane *plane, struct drm_plane_state *old_state)
-> > >  {
-> > >  	...
-> > > -	struct drm_plane_state *state =3D plane->state;
-> > > +	struct drm_plane_state *new_state =3D plane->state;
-> > > 	...
-> > >  }
-> > > =
-
-> > > @ depends on moves_new_state_old_state @
-> > > identifier plane_atomic_func.func;
-> > > identifier plane;
-> > > identifier old_state;
-> > > symbol state;
-> > > @@
-> > > =
-
-> > >  func(struct drm_plane *plane, struct drm_plane_state *old_state)
-> > >  {
-> > >  	<...
-> > > -	state
-> > > +	new_state
-> > > 	...>
-> > =
-
-> > Was going to say that this migh eat something else, but I guess
-> > the dependency prevents that?
-> =
-
-> Yeah, the dependency takes care of this
-> =
-
-> > Another way to avoid that I suppose would be to declare 'state'
-> > as
-> > symbol moves_new_state_old_state.state;
-> > =
-
-> > That would probably make the intent a bit more obvious, even with
-> > the dependency. Or does a dependency somehow automagically imply
-> > that?
-> =
-
-> I'm not sure if it does, but it's a symbol here not an identifier or an
-> expression, so here moves_new_state_old_state.state would always resolve
-> to state (and only state) anyway
-
-Hm. Right. OK, cocci bits look good to me. Variable naming
-bikeshed I'll leave to others :)
-
-Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
