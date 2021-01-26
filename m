@@ -2,62 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E723B304488
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 18:08:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27B4D304556
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 18:30:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DEDEC57183;
-	Tue, 26 Jan 2021 17:08:58 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C3EDC57181
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5C6DC57181;
+	Tue, 26 Jan 2021 17:30:47 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CE56C32EA8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 17:08:56 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 843DFD6E;
- Tue, 26 Jan 2021 09:08:55 -0800 (PST)
-Received: from [10.57.40.145] (unknown [10.57.40.145])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 099A63F66E;
- Tue, 26 Jan 2021 09:08:45 -0800 (PST)
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Russell King <linux@armlinux.org.uk>, Matt Mackall <mpm@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Vinod Koul <vkoul@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>, Eric Anholt <eric@anholt.net>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Ulf Hansson <ulf.hansson@linaro.org>, Alessandro Zummo
- <a.zummo@towertech.it>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Mark Brown <broonie@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Cornelia Huck <cohuck@redhat.com>, Wim Van Sebroeck
- <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+ Tue, 26 Jan 2021 17:30:46 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D541121919;
+ Tue, 26 Jan 2021 17:30:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1611682245;
+ bh=p9tGPF9ccd/d++aM4n9LyAfYAIV1RaM4Dz9iiSI4D3c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=upI/kMhl7eE4+5uUph8S2tnMemQz5UbOopsKlNTDclqyTUBBILQcZKMXkwORHX8Yq
+ cJWujimFLxD3PUXP3Q6R5vs2zcoQMtooqvBAs2SfrBJr86tAjNEuPYdfB5MvusQjhA
+ rfnXzeJTXEVfQT42qqoxlu/1tgXRz2T+JTiZP73bnjiQwVao3xvBwc5M7G4UXf469U
+ VF6liyETyFxIuLw+hAqs6DjITpSX4hILsnFHO/EYiFxk0F2hgX4ucJit2xkGTa6SJ/
+ LEzImN7uvO2sCqNSCL4qH0V6E+R6lLaPerEq4KlBRAb7BizMVwvcu+25e7achCvt2Z
+ DlVP64TyyHfRA==
+Date: Tue, 26 Jan 2021 23:00:40 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20210126173040.GY2771@vkoul-mobl>
 References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
  <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-Message-ID: <3e42b2ea-c713-31b2-9c86-c49a70d8e1f4@arm.com>
-Date: Tue, 26 Jan 2021 17:08:40 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
 MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
-Content-Language: en-GB
-Cc: linux-rtc@vger.kernel.org, kvm@vger.kernel.org, linux-fbdev@vger.kernel.org,
- linux-serial@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- coresight@lists.linaro.org, linux-input@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
- linux-i2c@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-crypto@vger.kernel.org, kernel@pengutronix.de,
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
+ kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Eric Anholt <eric@anholt.net>, linux-i2c@vger.kernel.org,
+ linux-spi@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
+ Herbert Xu <herbert@gondor.apana.org.au>, Russell King <linux@armlinux.org.uk>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ Guenter Roeck <linux@roeck-us.net>, Mike Leach <mike.leach@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Arnd Bergmann <arnd@arndb.de>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
+ Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
+ linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
+ linux-watchdog@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Leo Yan <leo.yan@linaro.org>, dmaengine@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
+ alsa-devel@alsa-project.org
 Subject: Re: [Linux-stm32] [PATCH v3 4/5] amba: Make the remove callback
 	return void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -71,34 +76,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkKCk9uIDEvMjYvMjEgNDo1OCBQTSwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gQWxsIGFt
-YmEgZHJpdmVycyByZXR1cm4gMCBpbiB0aGVpciByZW1vdmUgY2FsbGJhY2suIFRvZ2V0aGVyIHdp
-dGggdGhlCj4gZHJpdmVyIGNvcmUgaWdub3JpbmcgdGhlIHJldHVybiB2YWx1ZSBhbnlob3csIGl0
-IGRvZXNuJ3QgbWFrZSBzZW5zZSB0bwo+IHJldHVybiBhIHZhbHVlIGhlcmUuCj4gCj4gQ2hhbmdl
-IHRoZSByZW1vdmUgcHJvdG90eXBlIHRvIHJldHVybiB2b2lkLCB3aGljaCBtYWtlcyBpdCBleHBs
-aWNpdCB0aGF0Cj4gcmV0dXJuaW5nIGFuIGVycm9yIHZhbHVlIGRvZXNuJ3Qgd29yayBhcyBleHBl
-Y3RlZC4gVGhpcyBzaW1wbGlmaWVzIGNoYW5naW5nCj4gdGhlIGNvcmUgcmVtb3ZlIGNhbGxiYWNr
-IHRvIHJldHVybiB2b2lkLCB0b28uCj4gCj4gUmV2aWV3ZWQtYnk6IFVsZiBIYW5zc29uIDx1bGYu
-aGFuc3NvbkBsaW5hcm8ub3JnPgo+IFJldmlld2VkLWJ5OiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFy
-bmRiLmRlPgo+IEFja2VkLWJ5OiBBbGV4YW5kcmUgQmVsbG9uaSA8YWxleGFuZHJlLmJlbGxvbmlA
-Ym9vdGxpbi5jb20+Cj4gQWNrZWQtYnk6IERtaXRyeSBUb3Jva2hvdiA8ZG1pdHJ5LnRvcm9raG92
-QGdtYWlsLmNvbT4KPiBBY2tlZC1ieTogS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6a0BrZXJuZWwu
-b3JnPiAjIGZvciBkcml2ZXJzL21lbW9yeQo+IEFja2VkLWJ5OiBNYXJrIEJyb3duIDxicm9vbmll
-QGtlcm5lbC5vcmc+CiAgPiBBY2tlZC1ieTogRG1pdHJ5IFRvcm9raG92IDxkbWl0cnkudG9yb2to
-b3ZAZ21haWwuY29tPgo+IEFja2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxp
-bmFyby5vcmc+Cj4gU2lnbmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtv
-ZW5pZ0BwZW5ndXRyb25peC5kZT4KCgo+ICAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2Nv
-cmVzaWdodC1ldG00eC1jb3JlLmMgfCA0ICstLS0KCllvdSBhcmUgbW9zdCBsaWtlbHkgdG8gaGF2
-ZSBhIGNvbmZsaWN0IGZvciB0aGUgYWJvdmUgZmlsZSwgd2l0aCB3aGF0IGlzCmluIGNvcmVzaWdo
-dC9uZXh0LiBJdCBzaG91bGQgYmUgZWFzeSB0byByZXNvbHZlLgoKT3RoZXJ3aXNlLCB0aGUgY2hh
-bmdlcyBsb29rIGdvb2QgZm9yIHRoZSBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvKgoKQWNr
-ZWQtYnk6IFN1enVraSBLIFBvdWxvc2UgPHN1enVraS5wb3Vsb3NlQGFybS5jb20+Cl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
-bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
-Cg==
+On 26-01-21, 17:58, Uwe Kleine-K=F6nig wrote:
+> All amba drivers return 0 in their remove callback. Together with the
+> driver core ignoring the return value anyhow, it doesn't make sense to
+> return a value here.
+> =
+
+> Change the remove prototype to return void, which makes it explicit that
+> returning an error value doesn't work as expected. This simplifies changi=
+ng
+> the core remove callback to return void, too.
+> =
+
+> Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+> Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Acked-by: Krzysztof Kozlowski <krzk@kernel.org> # for drivers/memory
+> Acked-by: Mark Brown <broonie@kernel.org>
+> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Acked-by: Linus Walleij <linus.walleij@linaro.org>
+> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+> ---
+>  drivers/amba/bus.c                                 | 5 ++---
+>  drivers/char/hw_random/nomadik-rng.c               | 3 +--
+>  drivers/dma/pl330.c                                | 3 +--
+
+For dmaengine:
+
+Acked-By: Vinod Koul <vkoul@kernel.org>
+
+-- =
+
+~Vinod
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
