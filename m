@@ -2,75 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06CFE303E8F
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 14:25:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22E083042BE
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 16:40:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2A7DC57183;
-	Tue, 26 Jan 2021 13:24:59 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5314C57182;
+	Tue, 26 Jan 2021 15:40:49 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF8A6C56639
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A586AC56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 13:24:57 +0000 (UTC)
-IronPort-SDR: kKFVvK8j4Q9VyDuL7QpoWeKv5R1Qx31xx34nXYa8+F8CncCuIhFSMpGo9NuCQmMPFHisr4H3/l
- Lp+BW0yC69FA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9875"; a="159674556"
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="159674556"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2021 05:24:54 -0800
-IronPort-SDR: g4Zswe3qz4zMid/EyEG5xz4WWhFPriWd/t2t5KrG0ShP0j9WNEEJayXNCJQTEkRkM2/IHRNzgx
- zk+bb8SSGplQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="369103591"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga002.jf.intel.com with SMTP; 26 Jan 2021 05:24:36 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 26 Jan 2021 15:24:35 +0200
-Date: Tue, 26 Jan 2021 15:24:35 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <maxime@cerno.tech>
-Message-ID: <YBAYE4YH4bgURmuf@intel.com>
-References: <20210121163537.1466118-1-maxime@cerno.tech>
- <20210121163537.1466118-10-maxime@cerno.tech>
+ Tue, 26 Jan 2021 15:40:47 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 10QFC2f1020456; Tue, 26 Jan 2021 16:40:39 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=wXgynC/79CtvCwkExgL8YUI/Jvq124FdErwt4xPizxA=;
+ b=0qw0BKewbpc+n23eC6FuYNgrEM47e/MiSWzHm5qfBllUkpZ77cgK24GKhIjNvuSIN/S3
+ CoHFOhPJwuSAnPoSfXbFcuPTpXutr5LZKjhUllPwW0yAma5TF0c6KrS81Z3ccP39foIv
+ jPu7kK+MJde+utCqTupTGzzC5tFfgZbDsjkF/twhhjkzJYHmGjtTjIw4rEKryuM/EAq5
+ mH61Hid1gM2csFuWMoYkDcjTae9YSlNdy4Gcy4KQxabjpzZzuScseRskblakGEsaupzk
+ AKowpJ4MoNw8brIN/PoYHCWptsi+2VXYUcnQSuUGnUrgqgc0HhnVuyFrwJEtZk2Nm3oY Sw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 368bjn9wp7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Jan 2021 16:40:38 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 150E710002A;
+ Tue, 26 Jan 2021 16:40:38 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F22D323BD42;
+ Tue, 26 Jan 2021 16:40:37 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.44) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan
+ 2021 16:40:37 +0100
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20210106204347.475920-1-marex@denx.de>
+ <20210106204347.475920-3-marex@denx.de>
+ <e7ccdf7c-c7fa-4d03-2400-d4d89815d5d0@foss.st.com>
+ <73f6d2cc-8dd7-b005-7faa-db9956f46aa5@denx.de>
+ <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
+ <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
+ <3c5a4ac9-7874-2d4e-f353-5cf3ad79cfe1@foss.st.com>
+ <9c41ae2b-06f2-b09f-d708-0f4ec96e67b6@denx.de>
+ <ee8dd8c4-6437-227d-c0bb-6f6d9d12e472@foss.st.com>
+ <57ff08b6-36c1-9e00-a55f-54bf8ade2b69@denx.de>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <45443b53-3b48-afb6-b7d2-f84e0c33e85b@foss.st.com>
+Date: Tue, 26 Jan 2021 16:40:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210121163537.1466118-10-maxime@cerno.tech>
-X-Patchwork-Hint: comment
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
- Russell King <linux@armlinux.org.uk>, Paul Cercueil <paul@crapouillou.net>,
- Thierry Reding <thierry.reding@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Jerome Brunet <jbrunet@baylibre.com>, Marek Vasut <marex@denx.de>,
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-rockchip@lists.infradead.org,
- Alexey Brodkin <abrodkin@synopsys.com>, Michal Simek <michal.simek@xilinx.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Roland Scheidegger <sroland@vmware.com>,
- Xinliang Liu <xinliang.liu@linaro.org>, Chen-Yu Tsai <wens@csie.org>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- NXP Linux Team <linux-imx@nxp.com>, Chen Feng <puck.chen@hisilicon.com>,
- Dave Airlie <airlied@redhat.com>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+In-Reply-To: <57ff08b6-36c1-9e00-a55f-54bf8ade2b69@denx.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-26_08:2021-01-26,
+ 2021-01-26 signatures=0
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@st.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- Alison Wang <alison.wang@nxp.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mips@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
- linux-tegra@vger.kernel.org, virtualization@lists.linux-foundation.org,
- linux-mediatek@lists.infradead, Hyun Kwon <hyun.kwon@xilinx.com>,
- Philippe Cornu <philippe.cornu@st.com>, Sandy Huang <hjc@rock-chips.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, freedreno@lists.freedesktop.org
-Subject: Re: [Linux-stm32] [PATCH v2 10/11] drm: Use state helper instead of
- the plane state pointer
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Patrice Chotard <patrice.chotard@st.com>
+Subject: Re: [Linux-stm32] [PATCH 3/4] [RFC] ARM: dts: stm32: Add mux for
+	ETHRX clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,88 +83,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 21, 2021 at 05:35:35PM +0100, Maxime Ripard wrote:
-> Many drivers reference the plane->state pointer in order to get the
-> current plane state in their atomic_update or atomic_disable hooks,
-> which would be the new plane state in the global atomic state since
-> _swap_state happened when those hooks are run.
-> =
 
-> Use the drm_atomic_get_new_plane_state helper to get that state to make it
-> more obvious.
-> =
 
-> This was made using the coccinelle script below:
-> =
+On 1/26/21 1:59 PM, Marek Vasut wrote:
+> On 1/26/21 11:54 AM, Alexandre TORGUE wrote:
+> [...]
+>>>>>>>>> The implementation of ETH_RX_CLK/ETH_REF_CLK handling currently 
+>>>>>>>>> does not
+>>>>>>>>> permit selecting the clock input from SoC pad. To make things 
+>>>>>>>>> worse, the
+>>>>>>>>> implementation of this is partly present and is split between 
+>>>>>>>>> the clock
+>>>>>>>>> driver and dwmac4 driver. Moreover, the ETHRX clock parent is 
+>>>>>>>>> incorrect.
+>>>>>>>>
+>>>>>>>> Sorry but I don't understand which configuration is missing. I 
+>>>>>>>> think we can handle all possible cases for RMII. At the glue 
+>>>>>>>> layer (dwmac-stm32.c) clocks gates and syscfg are set regarding 
+>>>>>>>> device tree binding (see the tab in dwmac-stm32.c). You could 
+>>>>>>>> have a look here for more details: 
+>>>>>>>> https://wiki.st.com/stm32mpu/wiki/Ethernet_device_tree_configuration 
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> Regarding the clock parent, yes it is not at the well frequency 
+>>>>>>>> if you want to select this path. Our current "clock tree" is 
+>>>>>>>> done to fit with our ST reference boards (we have more 
+>>>>>>>> peripherals than PLL outputs so we have to make choices). So yes 
+>>>>>>>> for customer/partners boards this clock tree has to be modified 
+>>>>>>>> to better fit with the need (either using assigned-clock-parent 
+>>>>>>>> or by modifying bootloader clock tree (tf-a or u-boot)).
+>>>>>>>
+>>>>>>> I don't think you handle all the configuration options, but I 
+>>>>>>> might also be confused.
+>>>>>>>
+>>>>>>> See Figure 83. Peripheral clock distribution for Ethernet in the 
+>>>>>>> MP1 datasheet for the below.
+>>>>>>>
+>>>>>>> The current setup I have needs 50 MHz on SoC pad PA1 to drive the 
+>>>>>>> PHY clock, and uses eth_clk_fb to supply ETH_RX_CLK. However, the 
+>>>>>>> 50 MHz is sourced directly from PLL4P, which then has to run at 
+>>>>>>> 50 MHz and that in turn reduces clock frequency for other blocks 
+>>>>>>> connected to PLL4P (e.g. SDMMC, where the impact is noticable).
+>>>>>>
+>>>>>> Ok that's the common path to clock a PHY a 50MHz without using the 
+>>>>>> ref_clk coming from the PHY. And yes I can understand that the 
+>>>>>> drawback is huge).
+>>>>>
+>>>>> So lets fix it.
+>>>>
+>>>> There is no issue in code. It is just clock tree configuration 
+>>>> issue. Either you don't use PLL4P for Ethernet (what you're doing) 
+>>>> or you don't use PLL4P for SDMMC. But yes, there are not a lot of 
+>>>> possibilities.
+>>>
+>>> I am supplying MCO2 with PLL4P, that is PLL4P->MCO2->ETHRX . To 
+>>> enable this entire chain of clock, I need the correct clock tree. 
+>>> Currently that cannot be modeled, can it?
+>>>
+>>
+>> Maybe I miss something, I thought your setup was like that:
+>>
+>> First clock path to your PHY:
+>> --------------------
+>>
+>> PLL4P ---> MCO2 ---> X1 (PHY input clock which replaces crystal)
+>> It is not directly linked to the dwmac-stm32. You "just" provide a 
+>> clock to MCO2. After that you can use MCO2 pins for any usages.
+>>
+>> Second clock patch:
+>> --------------------
+>>
+>> 50MHz (refclk coming from phy) --> ETH_REF_CLK pad
+>> This one is already covered in dwmac-stm32.
+>>
+>> Why do you want to link the both clock paths ?
+> 
+> Because the X1 (MCO2 output) is the same net as 50 MHz ETH_REF_CLK 
+> input. MCO2 output is routed on a SoC pin and that is connected with a 
+> wire to ETH_REF_CLK SoC pin (input).
 
-> @ plane_atomic_func @
-> identifier helpers;
-> identifier func;
-> @@
-> =
+Ok I see, but I don't think you have to link both clocks.
 
-> (
->  static const struct drm_plane_helper_funcs helpers =3D {
->  	...,
->  	.atomic_disable =3D func,
-> 	...,
->  };
-> |
->  static const struct drm_plane_helper_funcs helpers =3D {
->  	...,
->  	.atomic_update =3D func,
-> 	...,
->  };
-> )
-> =
 
-> @ adds_new_state @
-> identifier plane_atomic_func.func;
-> identifier plane, state;
-> identifier new_state;
-> @@
-> =
 
->  func(struct drm_plane *plane, struct drm_atomic_state *state)
->  {
->  	...
-> -	struct drm_plane_state *new_state =3D plane->state;
-> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(st=
-ate, plane);
-> 	...
->  }
-> =
-
-> @ include depends on adds_new_state @
-> @@
-> =
-
->  #include <drm/drm_atomic.h>
-> =
-
-> @ no_include depends on !include && adds_new_state @
-> @@
-> =
-
-> + #include <drm/drm_atomic.h>
->   #include <drm/...>
-> =
-
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-
-Looks great.
-
-Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
