@@ -2,72 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05034303A04
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 11:18:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E8EF303ADD
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 11:56:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0932C57182;
-	Tue, 26 Jan 2021 10:18:05 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAD3FC57182;
+	Tue, 26 Jan 2021 10:56:06 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E6C6C3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EFF5AC3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 10:18:04 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10QABkr8003148; Tue, 26 Jan 2021 11:18:00 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=04lhCgOV+l/d8oZQRf3kHCBd+ILyWIFlLiEYxMnIuQQ=;
- b=BBejsulwRwwg8Z1AaE4+ZxPUHQHioRkBNdSJuRjh1N4qy/L6IvhZd2j6TcmHHcW9LuU6
- DFkH8MpHhdy7/F19ioGTLIVRMm2iq7SlCRqxRT6gowZsJdYJiaIieWd62Yme+wrPeGgM
- U+7Qtt9jqB8O9Ggt+zHDZMUQIsKth5z0VYrwPnziEOSxsvCNBILHWJB2DTGnYT1OnMcz
- nsRTyGes1Rj+eulX94EgFsMlfdKQ0L4a01s1skYq++ea8E+meZ6XhJ0NQEGqTEFqF515
- tq50Aw2QgO/LahXJM/mqvwKl5VIywFDY88wesg9tnAwcBUpzqbpoPnhCVqpVrCdAxzNj MQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 368c15qxb2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Jan 2021 11:18:00 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 93379100039;
- Tue, 26 Jan 2021 11:17:59 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7EE9323192F;
- Tue, 26 Jan 2021 11:17:59 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.47) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan
- 2021 11:17:58 +0100
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20210106204347.475920-1-marex@denx.de>
- <20210106204347.475920-3-marex@denx.de>
- <e7ccdf7c-c7fa-4d03-2400-d4d89815d5d0@foss.st.com>
- <73f6d2cc-8dd7-b005-7faa-db9956f46aa5@denx.de>
- <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
- <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <3c5a4ac9-7874-2d4e-f353-5cf3ad79cfe1@foss.st.com>
-Date: Tue, 26 Jan 2021 11:17:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-26_06:2021-01-25,
- 2021-01-26 signatures=0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
+ Tue, 26 Jan 2021 10:08:51 +0000 (UTC)
+IronPort-SDR: USPt6cFUlXFWPEkAPmtwbKeGTF8nUjm6iL12jKAwu1HRO4HYZ+UgGwTk69DcIjS/3M7/INN5E4
+ 5m+YS39T5s3g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9875"; a="264701943"
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="264701943"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2021 02:08:49 -0800
+IronPort-SDR: aOPYzlnUI5z73Xm81GemkPBlFpsFjjVE4RsRDWTTjJ8JtCpdtb8tQY4d9VJ+8kcW3SKVZj51Vh
+ LYP/kOlYhtWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="361931330"
+Received: from mismail5-ilbpg0.png.intel.com ([10.88.229.82])
+ by fmsmga008.fm.intel.com with ESMTP; 26 Jan 2021 02:08:46 -0800
+From: mohammad.athari.ismail@intel.com
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH 3/4] [RFC] ARM: dts: stm32: Add mux for
-	ETHRX clock
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Tue, 26 Jan 2021 18:08:44 +0800
+Message-Id: <20210126100844.30326-1-mohammad.athari.ismail@intel.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Tue, 26 Jan 2021 10:56:04 +0000
+Cc: Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mohammad.athari.ismail@intel.com,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] stmmac: intel: Configure EHL PSE0 GbE and
+	PSE1 GbE to 32 bits DMA addressing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,119 +53,98 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAxLzE2LzIxIDY6MDEgUE0sIE1hcmVrIFZhc3V0IHdyb3RlOgo+IE9uIDEvMTUvMjEgNDoy
-MiBQTSwgQWxleGFuZHJlIFRPUkdVRSB3cm90ZToKPiAKPiBIaSwKPiAKPiBbLi4uXQo+IAo+Pj4+
-PiBUaGUgaW1wbGVtZW50YXRpb24gb2YgRVRIX1JYX0NMSy9FVEhfUkVGX0NMSyBoYW5kbGluZyBj
-dXJyZW50bHkgCj4+Pj4+IGRvZXMgbm90Cj4+Pj4+IHBlcm1pdCBzZWxlY3RpbmcgdGhlIGNsb2Nr
-IGlucHV0IGZyb20gU29DIHBhZC4gVG8gbWFrZSB0aGluZ3MgCj4+Pj4+IHdvcnNlLCB0aGUKPj4+
-Pj4gaW1wbGVtZW50YXRpb24gb2YgdGhpcyBpcyBwYXJ0bHkgcHJlc2VudCBhbmQgaXMgc3BsaXQg
-YmV0d2VlbiB0aGUgCj4+Pj4+IGNsb2NrCj4+Pj4+IGRyaXZlciBhbmQgZHdtYWM0IGRyaXZlci4g
-TW9yZW92ZXIsIHRoZSBFVEhSWCBjbG9jayBwYXJlbnQgaXMgCj4+Pj4+IGluY29ycmVjdC4KPj4+
-Pgo+Pj4+IFNvcnJ5IGJ1dCBJIGRvbid0IHVuZGVyc3RhbmQgd2hpY2ggY29uZmlndXJhdGlvbiBp
-cyBtaXNzaW5nLiBJIHRoaW5rIAo+Pj4+IHdlIGNhbiBoYW5kbGUgYWxsIHBvc3NpYmxlIGNhc2Vz
-IGZvciBSTUlJLiBBdCB0aGUgZ2x1ZSBsYXllciAKPj4+PiAoZHdtYWMtc3RtMzIuYykgY2xvY2tz
-IGdhdGVzIGFuZCBzeXNjZmcgYXJlIHNldCByZWdhcmRpbmcgZGV2aWNlIAo+Pj4+IHRyZWUgYmlu
-ZGluZyAoc2VlIHRoZSB0YWIgaW4gZHdtYWMtc3RtMzIuYykuIFlvdSBjb3VsZCBoYXZlIGEgbG9v
-ayAKPj4+PiBoZXJlIGZvciBtb3JlIGRldGFpbHM6IAo+Pj4+IGh0dHBzOi8vd2lraS5zdC5jb20v
-c3RtMzJtcHUvd2lraS9FdGhlcm5ldF9kZXZpY2VfdHJlZV9jb25maWd1cmF0aW9uCj4+Pj4KPj4+
-PiBSZWdhcmRpbmcgdGhlIGNsb2NrIHBhcmVudCwgeWVzIGl0IGlzIG5vdCBhdCB0aGUgd2VsbCBm
-cmVxdWVuY3kgaWYgCj4+Pj4geW91IHdhbnQgdG8gc2VsZWN0IHRoaXMgcGF0aC4gT3VyIGN1cnJl
-bnQgImNsb2NrIHRyZWUiIGlzIGRvbmUgdG8gCj4+Pj4gZml0IHdpdGggb3VyIFNUIHJlZmVyZW5j
-ZSBib2FyZHMgKHdlIGhhdmUgbW9yZSBwZXJpcGhlcmFscyB0aGFuIFBMTCAKPj4+PiBvdXRwdXRz
-IHNvIHdlIGhhdmUgdG8gbWFrZSBjaG9pY2VzKS4gU28geWVzIGZvciBjdXN0b21lci9wYXJ0bmVy
-cyAKPj4+PiBib2FyZHMgdGhpcyBjbG9jayB0cmVlIGhhcyB0byBiZSBtb2RpZmllZCB0byBiZXR0
-ZXIgZml0IHdpdGggdGhlIAo+Pj4+IG5lZWQgKGVpdGhlciB1c2luZyBhc3NpZ25lZC1jbG9jay1w
-YXJlbnQgb3IgYnkgbW9kaWZ5aW5nIGJvb3Rsb2FkZXIgCj4+Pj4gY2xvY2sgdHJlZSAodGYtYSBv
-ciB1LWJvb3QpKS4KPj4+Cj4+PiBJIGRvbid0IHRoaW5rIHlvdSBoYW5kbGUgYWxsIHRoZSBjb25m
-aWd1cmF0aW9uIG9wdGlvbnMsIGJ1dCBJIG1pZ2h0IAo+Pj4gYWxzbyBiZSBjb25mdXNlZC4KPj4+
-Cj4+PiBTZWUgRmlndXJlIDgzLiBQZXJpcGhlcmFsIGNsb2NrIGRpc3RyaWJ1dGlvbiBmb3IgRXRo
-ZXJuZXQgaW4gdGhlIE1QMSAKPj4+IGRhdGFzaGVldCBmb3IgdGhlIGJlbG93Lgo+Pj4KPj4+IFRo
-ZSBjdXJyZW50IHNldHVwIEkgaGF2ZSBuZWVkcyA1MCBNSHogb24gU29DIHBhZCBQQTEgdG8gZHJp
-dmUgdGhlIFBIWSAKPj4+IGNsb2NrLCBhbmQgdXNlcyBldGhfY2xrX2ZiIHRvIHN1cHBseSBFVEhf
-UlhfQ0xLLiBIb3dldmVyLCB0aGUgNTAgTUh6IAo+Pj4gaXMgc291cmNlZCBkaXJlY3RseSBmcm9t
-IFBMTDRQLCB3aGljaCB0aGVuIGhhcyB0byBydW4gYXQgNTAgTUh6IGFuZCAKPj4+IHRoYXQgaW4g
-dHVybiByZWR1Y2VzIGNsb2NrIGZyZXF1ZW5jeSBmb3Igb3RoZXIgYmxvY2tzIGNvbm5lY3RlZCB0
-byAKPj4+IFBMTDRQIChlLmcuIFNETU1DLCB3aGVyZSB0aGUgaW1wYWN0IGlzIG5vdGljYWJsZSku
-Cj4+Cj4+IE9rIHRoYXQncyB0aGUgY29tbW9uIHBhdGggdG8gY2xvY2sgYSBQSFkgYSA1ME1IeiB3
-aXRob3V0IHVzaW5nIHRoZSAKPj4gcmVmX2NsayBjb21pbmcgZnJvbSB0aGUgUEhZLiBBbmQgeWVz
-IEkgY2FuIHVuZGVyc3RhbmQgdGhhdCB0aGUgCj4+IGRyYXdiYWNrIGlzIGh1Z2UpLgo+IAo+IFNv
-IGxldHMgZml4IGl0LgoKVGhlcmUgaXMgbm8gaXNzdWUgaW4gY29kZS4gSXQgaXMganVzdCBjbG9j
-ayB0cmVlIGNvbmZpZ3VyYXRpb24gaXNzdWUuIApFaXRoZXIgeW91IGRvbid0IHVzZSBQTEw0UCBm
-b3IgRXRoZXJuZXQgKHdoYXQgeW91J3JlIGRvaW5nKSBvciB5b3UgZG9uJ3QgCnVzZSBQTEw0UCBm
-b3IgU0RNTUMuIEJ1dCB5ZXMsIHRoZXJlIGFyZSBub3QgYSBsb3Qgb2YgcG9zc2liaWxpdGllcy4K
-Cj4gCj4+PiBTbywgd2hhdCBJIHdhbnQgdG8gbW9kZWwgaGVyZSBpcyB0aGlzOgo+Pj4KPj4+IFBM
-TDRQID0gMTAwIE1Iego+Pj4gTUNPMiBpcyBzdXBwbGllZCBieSBQTEw0UCBhbmQgc2V0IHRvIC8y
-ICwgc28gTUNPMiA9IDUwIE1Iego+Pj4gU29DIHBhZCBQRzIgaXMgc2V0IGFzIE1DTzIgb3V0cHV0
-LCB0aHVzIGEgc291cmNlIG9mIDUwIE1IeiBzaWduYWwKPj4+IFNvQyBwYWQgUEExIGlzIHNldCBh
-cyBFVEhfUlhfQ0xLIGFuZCBjb25uZWN0ZWQgdG8gUEcyCj4+Cj4+IE9rIEkgc2VlICh0byBiZSBo
-b25lc3QgSUlXUiB3ZSBkaWRuJ3QgdGVzdCBpIDokKSBidXQgaXQgc2hvdWxkIHdvcmsuCj4gCj4g
-SXQgZG9lcyB3b3JrLCBJIGhhdmUgYm9hcmRzIHdoaWNoIHVzZSB0aGlzIHNldHVwIGFscmVhZHku
-Cj4gCj4+PiBUaGlzIHdvcmtzIGZpbmUgaW4gcHJhY3RpY2UsIGV4Y2VwdCBpdCBjYW5ub3QgYmUg
-bW9kZWxlZCB1c2luZyAKPj4+IGN1cnJlbnQgRFQgYmluZGluZ3MsIGV2ZW4gdGhvdWdoIGl0IHNo
-b3VsZCBiZSBwb3NzaWJsZSB0byBtb2RlbCBpdC4KPj4KPj4gRm9yIGR3bWFjIHBvaW50IG9mIHZp
-ZXcgaXQncyBxdWl0ZSB0aGUgc2FtZSB0aGluZyB0byBoYXZlIHlvdXIgUEhZIAo+PiBjbG9ja2lu
-ZyBieSBNQ08gb3IgYnkgYSBjcnlzdGFsLiBZb3UganVzdCBuZWVkIHRvIGNvbmZpZ3VyZSBSWF9S
-RUYgcGFkIAo+PiBhbmQgRVRIX0NMS19TRUwgdG8gZ2V0IHRoZSA1MCBNSHogUk1JSSByZWZlcmVu
-Y2UgY2xvY2suCj4gCj4gWWVzCj4gCj4+Pj4+IEZpcnN0LCB0aGUgRVRIUlggY2xvY2sgaW4gY2xr
-LXN0bTMybXAxLmMgb25seSByZXByZXNlbnRzIHRoZSAKPj4+Pj4gRVRIUlhFTiBnYXRlLAo+Pj4+
-PiBob3dldmVyIGl0IHNob3VsZCByZXByZXNlbnQgYWxzbyBFVEhfUkVGX0NMS19TRUwgbXV4LiBU
-aGUgcHJvYmxlbSAKPj4+Pj4gaXMgdGhhdAo+Pj4+PiB0aGUgRVRIX1JFRl9DTEtfU0VMIG11eCBp
-cyBjdXJyZW50bHkgY29uZmlndXJlZCBpbiB0aGUgRFdNQUM0IAo+Pj4+PiBkcml2ZXIgYW5kCj4+
-Pj4+IHRoZSBFVEhfUkVGX0NMS19TRUwgYml0IGlzIHBhcnQgb2YgU1lTQ0ZHIGJsb2NrLCBub3Qg
-dGhlIERXTUFDNCBvciB0aGUKPj4+Pj4gY2xvY2sgYmxvY2suCj4+Pj4KPj4+PiBkd21hYzQtc3Rt
-MzIgZG9lc24ndCBjb250YWluIGNvZGUgZm9yIGR3bWFjNCBidXQgaXQgY29udGFpbnMgdGhlIAo+
-Pj4+IGdsdWUgYXJvdW5kIHRoZSBkd21hYzQ6IHN5c2NmZywgY2xvY2tzIC4uLgo+Pj4KPj4+IFRo
-ZSBwcm9ibGVtIGlzIHRoYXQgZHdtYWM0LXN0bTMyIGlzbid0IHRoZSByaWdodCBwbGFjZSB0byBj
-b25maWd1cmUgCj4+PiB0aGUgRVRIUlggY2xvY2sgbXV4LCB0aGF0IHNob3VsZCBiZSBpbiB0aGUg
-Y2xvY2sgZHJpdmVyLiBTbyB0aGUgc3RtMzIgCj4+PiBjbG9jayBkcml2ZXIgc2hvdWxkIGhhdmUg
-U1lTQ0ZHIGhhbmRsZSBhbmQgY29uZmlndXJlIEVUSF9SRUZfQ0xLX1NFTCAKPj4+IG11eC4gVGhl
-ICJzdCxldGgtcmVmLWNsay1zZWwiIERUIHByb3Agd291bGQgdGhlbiBub3QgYmUgbmVlZGVkIGF0
-IAo+Pj4gYWxsLCBhcyB0aGUgcmVmZXJlbmNlIGNsb2NrIHNlbGVjdCB3b3VsZCBiZSBjb25maWd1
-cmVkIHVzaW5nIAo+Pj4gYXNzaWduZWQtY2xvY2tzIGluIERULgo+Pgo+PiBJZGVhIHdhcyB0byBr
-ZWVwIGF0IHRoZSBzYW1lIHBsYWNlIHRoZSBFdGhlcm5ldCBnbHVlIGNvbmZpZ3VyYXRpb24uIFdl
-IAo+PiBjYW4ndCBtb3ZlIGFsbCB0aGlzIGdsdWUgaW50byBjbG9jayBkcml2ZXIgYXMgcGh5IGlu
-dGVyZmFjZSBpcyBuZWVkZWQgCj4+IHRvIHdlbGwgY29uZmlndXJlIHNvbWUgc3lzY29uZiByZWdp
-c3RlcnMuCj4gCj4gVGhpcyBjb25maWd1cmF0aW9uIGNhbiBiZSBkb25lIGJ5IHRoZSBjbG9jayBk
-cml2ZXIgdG9vLiBBbmQgaW4gZmFjdCwgSSAKPiBiZWxpZXZlIGl0IHNob3VsZCBiZSBkb25lIGJ5
-IHRoZSBjbG9jayBkcml2ZXIsIGp1c3QgbGlrZSBpdCdzIGRvbmUgZm9yIAo+IGFsbCB0aGUgb3Ro
-ZXIgY2xvY2sgbXV4ZXMgd2l0aCBnYXRlcyBpbiB0aGUgY2xvY2sgZHJpdmVyLCBleGNlcHQgaW4g
-dGhpcyAKPiBjYXNlIHRoZSBtdXggaXMgaW4gc3lzY2ZnIGFuZCBnYXRlIGlzIGluIHJjYy4KCkFz
-IHNhaWQsIGNob2ljZSBoYXMgYmVlbiBkb25lIHRvIGRvIGl0IGluIGR3bWFjLXN0bTMyLCBhbmQg
-c29ycnkgSSBzZWUgCm1vcmUgZHJhd2JhY2tzIHRoYW4gYmVuZWZpdHMgdG8gbW92ZSBpdCBub3cu
-Cgo+IAo+PiBDdXJyZW50IGR3YW1jLXN0bTMyIGdsdWUgaXMgd29ya2luZyBhbmQgZG9jdW1lbnRl
-ZC4gSSdtIG5vdCBjb252aW5jZWQgCj4+IHRvIGRldmVsb3AgYSBuZXcgb25lIGJ5IHNwbGl0dGlu
-ZyBjbG9jayBzeXNjb25mIGluIGNsb2NrIGRyaXZlciBhbmQgCj4+IHBoeSBpbnRlcmZhY2UgbWFu
-YWdlbWVudCBhdCBldGhlcm5ldCBsZXZlbC4gSSB0aGluayB3ZSB3aWxsIGdldCB0aGUgCj4+IHNh
-bWUgZnVuY3Rpb25hbCByZXN1bHQgKGJ1dCB5ZXMgbWF5YmUgbW9yZSB1bmRlcnN0YW5kYWJsZSBh
-dCAKPj4gZHQtYmluZGluZ3MgbGV2ZWwpLiBXZSBjb3VsZCBtYXliZSB1cGRhdGUgYmluZGluZyBu
-YW1lIHRvIGJlIG1vcmUgY2xlYXIuCj4gCj4gWW91IGRvbid0IGdldCB0aGUgc2FtZSByZXN1bHQs
-IHNpbmNlIHlvdSBjYW5ub3QgbW9kZWwgdGhlIE1DTzIgaW5wdXQgCj4gaW50byBFVEhSWC4gT3Ig
-Y2FuIHlvdSA/CgpXaHkgZG8geW91IHdhbnQgdG8gbW9kZWwgTUNPMiBpbnRvIEVUSFJYID8gTUNP
-MiBqdXN0IHJlcGxhY2UgYSBjcnlzdGFsLCAKYW5kIHdoZW4gYSBjcnlzdGFsIGlzIHVzZWQsIGl0
-IGlzIG5vdCBtb2RlbGVkLiBJIHRoaW5rIGlzIGl0IHRoZSBzYW1lIApjYXNlIGZvciBNQ08yLgoK
-PiAKPiBJIGFsc28gdGhpbmsgdGhhdCB3ZSB3b24ndCBuZWVkIG5ldyBiaW5kaW5nIGFsdG9nZXRo
-ZXIsIGp1c3QgYSBzbGlnaHQgCj4gdHdlYWsgdG8gdGhlIGV4aXN0aW5nIG9uZXMgd2hpY2ggd291
-bGQgcGVybWl0IG1vZGVsaW5nIHRoZSBNQ08yIGlucHV0IAo+IGludG8gRVRIUlgsIEkgYW0gb3Bl
-biB0byBzdWdnZXN0aW9ucyBob3cgdG8gZG8gaXQuIE5vdGUgdGhhdCB0aGUgY2xvY2sgCj4gZnJh
-bWV3b3JrIG11c3QgYmUgYWJsZSB0byB0dXJuIG9mZiBib3RoIEVUSFJYIGdhdGUsIE1DTzIgYW5k
-IGFsbCB0aGUgd2F5IAo+IHVwIHRoZSB0cmVlIGlmIEVUSFJYIGlzIHR1cm5lZCBvZmYuCj4gCj4+
-PiBUaGUgZGVmYXVsdCBhc3NpZ25lZC1jbG9ja3Mgc2hvdWxkIGJlIGV0aF9jbGtfZmIgLCBidXQg
-dGhlIHVzZXIgY2FuIAo+Pj4gb3ZlcnJpZGUgaXQgaW4gdGhlIERUIGFuZCBwcm92aWRlIGFub3Ro
-ZXIgY2xvY2sgc291cmNlIChlLmcuIGluIG15IAo+Pj4gY2FzZSwgdGhhdCB3b3VsZCBiZSBQTEw0
-UC0+TUNPMi0+RVRIUlgpLgo+Pj4KPj4+Pj4gU2Vjb25kLCB0aGUgRVRIUlggcGFyZW50IGNsb2Nr
-IGlzIGVpdGhlciBldGhfY2xrX2ZiIChFVEhDS19LKSBvciAKPj4+Pj4gZXh0ZXJuYWwKPj4+Pj4g
-RVRIX1JYX0NMSy9FVEhfUkVGX0NMS19TRUwsIGl0IGlzIG5ldmVyIENLX0FYSS4KPj4+Pgo+Pj4+
-IFdoeSBDS19BWEkgPwo+Pj4KPj4+IFNlZSBkcml2ZXJzL2Nsay9jbGstc3RtMzJtcDEuYzoKPj4+
-IMKgwqAgMTg5NcKgwqDCoMKgwqDCoMKgwqDCoCBQQ0xLKEVUSFJYLCAiZXRocngiLCAiY2tfYXhp
-IiwgMCwgR19FVEhSWCksCj4+Pgo+Pgo+PiBPayBJIHNlZSwgYW5kIGl0IGlzIHRoZSBzYW1lIGNh
-c2UgZm9yIFRYIGFsc28uIERpc2N1c3Npbmcgd2l0aCBvdXIgCj4+IGNsb2NrIGV4cGVydCBpdCB3
-YXMgZG9uZSBmb3Igc2ltcGxpZmljYXRpb24uCj4gCj4gU28sIGhvdyBzaGFsbCB3ZSBwcm9jZWVk
-IGhlcmUgPwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+From: Voon Weifeng <weifeng.voon@intel.com>
+
+Fix an issue where dump stack is printed and Reset Adapter occurs when
+PSE0 GbE or/and PSE1 GbE is/are enabled. EHL PSE0 GbE and PSE1 GbE use
+32 bits DMA addressing whereas EHL PCH GbE uses 64 bits DMA addressing.
+
+[   25.535095] ------------[ cut here ]------------
+[   25.540276] NETDEV WATCHDOG: enp0s29f2 (intel-eth-pci): transmit queue 2 timed out
+[   25.548749] WARNING: CPU: 2 PID: 0 at net/sched/sch_generic.c:443 dev_watchdog+0x259/0x260
+[   25.558004] Modules linked in: 8021q bnep bluetooth ecryptfs snd_hda_codec_hdmi intel_gpy marvell intel_ishtp_loader intel_ishtp_hid iTCO_wdt mei_hdcp iTCO_vendor_support x86_pkg_temp_thermal kvm_intel dwmac_intel stmmac kvm igb pcs_xpcs irqbypass phylink snd_hda_intel intel_rapl_msr pcspkr dca snd_hda_codec i915 i2c_i801 i2c_smbus libphy intel_ish_ipc snd_hda_core mei_me intel_ishtp mei spi_dw_pci 8250_lpss spi_dw thermal dw_dmac_core parport_pc tpm_crb tpm_tis parport tpm_tis_core tpm intel_pmc_core sch_fq_codel uhid fuse configfs snd_sof_pci snd_sof_intel_byt snd_sof_intel_ipc snd_sof_intel_hda_common snd_sof_xtensa_dsp snd_sof snd_soc_acpi_intel_match snd_soc_acpi snd_intel_dspcfg ledtrig_audio snd_soc_core snd_compress ac97_bus snd_pcm snd_timer snd soundcore
+[   25.633795] CPU: 2 PID: 0 Comm: swapper/2 Tainted: G     U            5.11.0-rc4-intel-lts-MISMAIL5+ #5
+[   25.644306] Hardware name: Intel Corporation Elkhart Lake Embedded Platform/ElkhartLake LPDDR4x T4 RVP1, BIOS EHLSFWI1.R00.2434.A00.2010231402 10/23/2020
+[   25.659674] RIP: 0010:dev_watchdog+0x259/0x260
+[   25.664650] Code: e8 3b 6b 60 ff eb 98 4c 89 ef c6 05 ec e7 bf 00 01 e8 fb e5 fa ff 89 d9 4c 89 ee 48 c7 c7 78 31 d2 9e 48 89 c2 e8 79 1b 18 00 <0f> 0b e9 77 ff ff ff 0f 1f 44 00 00 48 c7 47 08 00 00 00 00 48 c7
+[   25.685647] RSP: 0018:ffffb7ca80160eb8 EFLAGS: 00010286
+[   25.691498] RAX: 0000000000000000 RBX: 0000000000000002 RCX: 0000000000000103
+[   25.699483] RDX: 0000000080000103 RSI: 00000000000000f6 RDI: 00000000ffffffff
+[   25.707465] RBP: ffff985709ce0440 R08: 0000000000000000 R09: c0000000ffffefff
+[   25.715455] R10: ffffb7ca80160cf0 R11: ffffb7ca80160ce8 R12: ffff985709ce039c
+[   25.723438] R13: ffff985709ce0000 R14: 0000000000000008 R15: ffff9857068af940
+[   25.731425] FS:  0000000000000000(0000) GS:ffff985864300000(0000) knlGS:0000000000000000
+[   25.740481] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   25.746913] CR2: 00005567f8bb76b8 CR3: 00000001f8e0a000 CR4: 0000000000350ee0
+[   25.754900] Call Trace:
+[   25.757631]  <IRQ>
+[   25.759891]  ? qdisc_put_unlocked+0x30/0x30
+[   25.764565]  ? qdisc_put_unlocked+0x30/0x30
+[   25.769245]  call_timer_fn+0x2e/0x140
+[   25.773346]  run_timer_softirq+0x1f3/0x430
+[   25.777932]  ? __hrtimer_run_queues+0x12c/0x2c0
+[   25.783005]  ? ktime_get+0x3e/0xa0
+[   25.786812]  __do_softirq+0xa6/0x2ef
+[   25.790816]  asm_call_irq_on_stack+0xf/0x20
+[   25.795501]  </IRQ>
+[   25.797852]  do_softirq_own_stack+0x5d/0x80
+[   25.802538]  irq_exit_rcu+0x94/0xb0
+[   25.806475]  sysvec_apic_timer_interrupt+0x42/0xc0
+[   25.811836]  asm_sysvec_apic_timer_interrupt+0x12/0x20
+[   25.817586] RIP: 0010:cpuidle_enter_state+0xd9/0x370
+[   25.823142] Code: 85 c0 0f 8f 0a 02 00 00 31 ff e8 22 d5 7e ff 45 84 ff 74 12 9c 58 f6 c4 02 0f 85 47 02 00 00 31 ff e8 7b a0 84 ff fb 45 85 f6 <0f> 88 ab 00 00 00 49 63 ce 48 2b 2c 24 48 89 c8 48 6b d1 68 48 c1
+[   25.844140] RSP: 0018:ffffb7ca800f7e80 EFLAGS: 00000206
+[   25.849996] RAX: ffff985864300000 RBX: 0000000000000003 RCX: 000000000000001f
+[   25.857975] RDX: 00000005f2028ea8 RSI: ffffffff9ec5907f RDI: ffffffff9ec62a5d
+[   25.865961] RBP: 00000005f2028ea8 R08: 0000000000000000 R09: 0000000000029d00
+[   25.873947] R10: 000000137b0e0508 R11: ffff9858643294e4 R12: ffff9858643336d0
+[   25.881935] R13: ffffffff9ef74b00 R14: 0000000000000003 R15: 0000000000000000
+[   25.889918]  cpuidle_enter+0x29/0x40
+[   25.893922]  do_idle+0x24a/0x290
+[   25.897536]  cpu_startup_entry+0x19/0x20
+[   25.901930]  start_secondary+0x128/0x160
+[   25.906326]  secondary_startup_64_no_verify+0xb0/0xbb
+[   25.911983] ---[ end trace b4c0c8195d0ba61f ]---
+[   25.917193] intel-eth-pci 0000:00:1d.2 enp0s29f2: Reset adapter.
+
+Fixes: 67c08ac4140a ("net: stmmac: add EHL PSE0 & PSE1 1Gbps PCI info and PCI ID")
+Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
+Co-developed-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
+Signed-off-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 9a6a519426a0..103d2448e9e0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -375,6 +375,7 @@ static int ehl_pse0_common_data(struct pci_dev *pdev,
+ 				struct plat_stmmacenet_data *plat)
+ {
+ 	plat->bus_id = 2;
++	plat->addr64 = 32;
+ 	return ehl_common_data(pdev, plat);
+ }
+ 
+@@ -406,6 +407,7 @@ static int ehl_pse1_common_data(struct pci_dev *pdev,
+ 				struct plat_stmmacenet_data *plat)
+ {
+ 	plat->bus_id = 3;
++	plat->addr64 = 32;
+ 	return ehl_common_data(pdev, plat);
+ }
+ 
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
