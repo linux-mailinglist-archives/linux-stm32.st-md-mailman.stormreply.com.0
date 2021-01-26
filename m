@@ -2,60 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E164E303DE7
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 13:59:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6342303E5D
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 14:16:34 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C42CC57183;
-	Tue, 26 Jan 2021 12:59:15 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 918BDC57183;
+	Tue, 26 Jan 2021 13:16:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A10C2C56639
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BC0EC56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 12:59:14 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4DQ6J211Wgz1qsbF;
- Tue, 26 Jan 2021 13:59:13 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4DQ6J12yMBz1sP6V;
- Tue, 26 Jan 2021 13:59:13 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id RePoT6s1bXbN; Tue, 26 Jan 2021 13:59:10 +0100 (CET)
-X-Auth-Info: 3lD2EvboVJIFSy9UoScJIkdzEAXEeR0+38qb2RtjmyQ=
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 26 Jan 2021 13:59:10 +0100 (CET)
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20210106204347.475920-1-marex@denx.de>
- <20210106204347.475920-3-marex@denx.de>
- <e7ccdf7c-c7fa-4d03-2400-d4d89815d5d0@foss.st.com>
- <73f6d2cc-8dd7-b005-7faa-db9956f46aa5@denx.de>
- <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
- <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
- <3c5a4ac9-7874-2d4e-f353-5cf3ad79cfe1@foss.st.com>
- <9c41ae2b-06f2-b09f-d708-0f4ec96e67b6@denx.de>
- <ee8dd8c4-6437-227d-c0bb-6f6d9d12e472@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <57ff08b6-36c1-9e00-a55f-54bf8ade2b69@denx.de>
-Date: Tue, 26 Jan 2021 13:59:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ Tue, 26 Jan 2021 13:16:32 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 10QDBudM001701; Tue, 26 Jan 2021 14:16:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=xa70l9azV9gym1p2Ripu8D6jOM/EugA2+SDeRh0kXyk=;
+ b=bi8dvUsDIojjZW9RBUV6RKY2HotQGbjq2Cbe6j/LhP3ck3z9ezQMoRCW3cHcDyT6EMGb
+ q7jike30y135mSloXCFi9EwFiVmPweh9Gn9rWhvybj/YuUdum9gIrLMD2lSQv/DAmI2q
+ GcImUFHmNAZ+nND5uCFsZ4CmCNGCvKgrT1o+YGiPkvKESqc01NVidoVB+DCk/phfZctp
+ 2rYgN9ERsO+zhwJIYADOqbs+6VERt8WGkTHfB/dKgw1bAM5JXiBVYuev7jVWqGF4iLQz
+ ltvPA4MO1h1sSKzDlyBq0mVSBrlyOUyGaCwX5yXSIIwRPfEXaBg9/Y2vpiu6g4FAdDfm WA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 368bjn94de-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Jan 2021 14:16:22 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF6FB10002A;
+ Tue, 26 Jan 2021 14:16:20 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9BEA7243718;
+ Tue, 26 Jan 2021 14:16:20 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.44) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan
+ 2021 14:16:20 +0100
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>
+References: <20210114131524.3298-1-amelie.delaunay@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <9e6fe1ab-bbd7-e313-b491-570070be3e6e@foss.st.com>
+Date: Tue, 26 Jan 2021 14:16:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <ee8dd8c4-6437-227d-c0bb-6f6d9d12e472@foss.st.com>
+In-Reply-To: <20210114131524.3298-1-amelie.delaunay@foss.st.com>
 Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH 3/4] [RFC] ARM: dts: stm32: Add mux for
-	ETHRX clock
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-26_07:2021-01-26,
+ 2021-01-26 signatures=0
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/3] ARM: stm32: USBPHYC updates on
+	stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,86 +72,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 1/26/21 11:54 AM, Alexandre TORGUE wrote:
-[...]
->>>>>>>> The implementation of ETH_RX_CLK/ETH_REF_CLK handling currently 
->>>>>>>> does not
->>>>>>>> permit selecting the clock input from SoC pad. To make things 
->>>>>>>> worse, the
->>>>>>>> implementation of this is partly present and is split between 
->>>>>>>> the clock
->>>>>>>> driver and dwmac4 driver. Moreover, the ETHRX clock parent is 
->>>>>>>> incorrect.
->>>>>>>
->>>>>>> Sorry but I don't understand which configuration is missing. I 
->>>>>>> think we can handle all possible cases for RMII. At the glue 
->>>>>>> layer (dwmac-stm32.c) clocks gates and syscfg are set regarding 
->>>>>>> device tree binding (see the tab in dwmac-stm32.c). You could 
->>>>>>> have a look here for more details: 
->>>>>>> https://wiki.st.com/stm32mpu/wiki/Ethernet_device_tree_configuration
->>>>>>>
->>>>>>> Regarding the clock parent, yes it is not at the well frequency 
->>>>>>> if you want to select this path. Our current "clock tree" is done 
->>>>>>> to fit with our ST reference boards (we have more peripherals 
->>>>>>> than PLL outputs so we have to make choices). So yes for 
->>>>>>> customer/partners boards this clock tree has to be modified to 
->>>>>>> better fit with the need (either using assigned-clock-parent or 
->>>>>>> by modifying bootloader clock tree (tf-a or u-boot)).
->>>>>>
->>>>>> I don't think you handle all the configuration options, but I 
->>>>>> might also be confused.
->>>>>>
->>>>>> See Figure 83. Peripheral clock distribution for Ethernet in the 
->>>>>> MP1 datasheet for the below.
->>>>>>
->>>>>> The current setup I have needs 50 MHz on SoC pad PA1 to drive the 
->>>>>> PHY clock, and uses eth_clk_fb to supply ETH_RX_CLK. However, the 
->>>>>> 50 MHz is sourced directly from PLL4P, which then has to run at 50 
->>>>>> MHz and that in turn reduces clock frequency for other blocks 
->>>>>> connected to PLL4P (e.g. SDMMC, where the impact is noticable).
->>>>>
->>>>> Ok that's the common path to clock a PHY a 50MHz without using the 
->>>>> ref_clk coming from the PHY. And yes I can understand that the 
->>>>> drawback is huge).
->>>>
->>>> So lets fix it.
->>>
->>> There is no issue in code. It is just clock tree configuration issue. 
->>> Either you don't use PLL4P for Ethernet (what you're doing) or you 
->>> don't use PLL4P for SDMMC. But yes, there are not a lot of 
->>> possibilities.
->>
->> I am supplying MCO2 with PLL4P, that is PLL4P->MCO2->ETHRX . To enable 
->> this entire chain of clock, I need the correct clock tree. Currently 
->> that cannot be modeled, can it?
->>
-> 
-> Maybe I miss something, I thought your setup was like that:
-> 
-> First clock path to your PHY:
-> --------------------
-> 
-> PLL4P ---> MCO2 ---> X1 (PHY input clock which replaces crystal)
-> It is not directly linked to the dwmac-stm32. You "just" provide a clock 
-> to MCO2. After that you can use MCO2 pins for any usages.
-> 
-> Second clock patch:
-> --------------------
-> 
-> 50MHz (refclk coming from phy) --> ETH_REF_CLK pad
-> This one is already covered in dwmac-stm32.
-> 
-> Why do you want to link the both clock paths ?
-
-Because the X1 (MCO2 output) is the same net as 50 MHz ETH_REF_CLK 
-input. MCO2 output is routed on a SoC pin and that is connected with a 
-wire to ETH_REF_CLK SoC pin (input).
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQW3DqWxpZSwKCk9uIDEvMTQvMjEgMjoxNSBQTSwgQW1lbGllIERlbGF1bmF5IHdyb3RlOgo+
+IFRoaXMgc2VyaWVzIHVwZGF0ZXMgdXNicGh5YyBwYXJlbnQgYW5kIGNoaWxkIG5vZGVzIHRvIGZv
+bGxvdyBsYXRlc3QgRFQKPiBiaW5kaW5ncy4KPiAKPiAtLS0KPiBDaGFuZ2VzIGluIHYyOgo+IC0g
+c3F1YXNoIGFsbCBEVCBib2FyZCBwYXRjaGVzIGluIG9uZSBwYXRjaAo+IC0gdXBkYXRlIGFsc28g
+bm9uLVNUIERUCj4gCj4gQW1lbGllIERlbGF1bmF5ICgzKToKPiAgICBBUk06IGR0czogc3RtMzI6
+IGFkZCB1c2JwaHljIHZkZGExdjEgYW5kIHZkZGExdjggc3VwcGxpZXMgb24KPiAgICAgIHN0bTMy
+bXAxNTEKPiAgICBBUk06IGR0czogc3RtMzI6IHJlbW92ZSB1c2JwaHljIHBvcnRzIHZkZGExdjEg
+JiB2ZGRhMXY4IG9uIHN0bTMybXAxNQo+ICAgICAgYm9hcmRzCj4gICAgQVJNOiBkdHM6IHN0bTMy
+OiBhZGQgI2Nsb2NrLWNlbGxzIHByb3BlcnR5IHRvIHVzYnBoeWMgbm9kZSBvbgo+ICAgICAgc3Rt
+MzJtcDE1MQo+IAo+ICAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1MS5kdHNpICAgICAgICAg
+ICAgICAgICAgfCAzICsrKwo+ICAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1N2Etc3Rpbmdl
+cjk2LmR0c2kgICAgICAgfCA0IC0tLS0KPiAgIGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdj
+LWVkMS5kdHMgICAgICAgICAgICAgIHwgNCAtLS0tCj4gICBhcmNoL2FybS9ib290L2R0cy9zdG0z
+Mm1wMTV4eC1kaGNvbS1kcmMwMi5kdHNpICAgICB8IDIgLS0KPiAgIGFyY2gvYXJtL2Jvb3QvZHRz
+L3N0bTMybXAxNXh4LWRoY29tLXBkazIuZHRzaSAgICAgIHwgNCAtLS0tCj4gICBhcmNoL2FybS9i
+b290L2R0cy9zdG0zMm1wMTV4eC1kaGNvbS1waWNvaXR4LmR0c2kgICB8IDQgLS0tLQo+ICAgYXJj
+aC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb3ItYXZlbmdlcjk2LmR0c2kgfCA0IC0tLS0K
+PiAgIGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRreC5kdHNpICAgICAgICAgICAgIHwg
+NCAtLS0tCj4gICA4IGZpbGVzIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMjYgZGVsZXRpb25z
+KC0pCj4gCgpEVCBwYXRjaGVzIGFwcGxpZWQgb24gc3RtMzItbmV4dC4KClRoYW5rcwpBbGV4Cl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
+IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
+dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
+LXN0bTMyCg==
