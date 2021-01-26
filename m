@@ -2,52 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D947303702
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 08:04:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77F60303867
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 09:55:01 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C30BBC57180;
-	Tue, 26 Jan 2021 07:04:32 +0000 (UTC)
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
- [209.85.166.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 324E6C57182;
+	Tue, 26 Jan 2021 08:55:01 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E7B3C3FADA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F56DC56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 02:49:56 +0000 (UTC)
-Received: by mail-io1-f49.google.com with SMTP id e22so30897030iog.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Jan 2021 18:49:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=Y2OMCYury8maPiWxpt+7CFHDCbLbUypfXTudWpQDpr0=;
- b=ckPLG/urYBLo55XHt4hmNuPlsjVgkcuI9XxWAx3xfGd2xHBPTDukj7Xx9HAuDgvheb
- MLIaiA5VfoIJgdZ2SDssJmJgEA7G1Y9XxHoaiJpiSO+l1Cl6fh6tAT9rJVx5LrP1MDmN
- LkLD4hYLyIAjquocsZ0F2YOBgSwLlrke2RlsFNscEAnXC3vNoUTWnIyArgEANcHO1yiF
- WDOgah/JDcMUgO2YhQBgscv9NiJJ5kHsAFMxlIhvJieT+nOwPR8jBInItWOwFY12N58z
- LqvGLboJl5hR5pPvWp2jVILk/60gDups4I6bsbiiDQzEIH4/kutDTJF6JgJfAv0W8Xbf
- v+Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=Y2OMCYury8maPiWxpt+7CFHDCbLbUypfXTudWpQDpr0=;
- b=kkXqcjnyo5PhoxbLnrro5ba4JlbC4shGyEAOnT0arwXDbUh9sEG5BPPG3vCh3pxDF0
- aQMMXlW9CTYoo0g1vknxFeKiObek0rqJlGARW3cs5Rpqi5KbdaMRUuXn1zbc2jBjYR4D
- HVN83VhAenSklNTpraQAxue3c8pf8maIbVAF92n3RrxRdDllcTWy1F1u+dk+2s2NUTz8
- YOiPQFK/3IUCxMgU38Kb+AychYOObCvmifLUXqPInBT5c40de2YfRfvWLXI43ve6D9Or
- awjxDASKyHWhAjH95g7+TXNbz7Ss7uBBx6cncFIrpTPGaUhtGhvQaof/84zVQvfWgp3J
- mLxQ==
-X-Gm-Message-State: AOAM53210inpaBothgmdr9nK8oQMNPnPi0P2Y5M6IW1Kr0Pjb+P5CUD9
- ZXMyrwUrR1iYOfVqhK0tEOIS4rlPa8emT1VG0C7+/hPC
-X-Google-Smtp-Source: ABdhPJxNp8CcbgR7HXWgSIA71g464Xdz/T9/isOHwLG6XL8m+f5wMwqHVLrHwIUdZQne096ZEBuQnUyCNseFisJFLyw=
-X-Received: by 2002:a92:8e4b:: with SMTP id k11mr2842701ilh.192.1611629394718; 
- Mon, 25 Jan 2021 18:49:54 -0800 (PST)
-MIME-Version: 1.0
-From: Dave Flogeras <dflogeras2@gmail.com>
-Date: Mon, 25 Jan 2021 22:49:43 -0400
-Message-ID: <CANB0TnTx2RfWpmxR2BTQrytrxeJuZiB9kmv-ZHZiX6skPTVwEQ@mail.gmail.com>
-To: linux-stm32@st-md-mailman.stormreply.com
-X-Mailman-Approved-At: Tue, 26 Jan 2021 07:04:28 +0000
-Subject: [Linux-stm32] STM32F769 discovery, ethernet and/or VFP
+ Tue, 26 Jan 2021 08:54:59 +0000 (UTC)
+IronPort-SDR: taz/F0uWbTC5PWbWV/ikklEAq73oQ7KIvzN2mrCEfDLI/22DMiQclal2G4MxjAI5GQXWAaDidH
+ vd7CgbEtrAug==
+X-IronPort-AV: E=McAfee;i="6000,8403,9875"; a="243950322"
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="243950322"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2021 00:54:53 -0800
+IronPort-SDR: HiSh2Eab8nbapDkJt/yoex7HLrUMn5c6fcYl8n6fDvfcicaBSFH5j4xuk/qLprrEo+P/BqLUc8
+ LTbakaIISQ5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.79,375,1602572400"; d="scan'208";a="393680509"
+Received: from glass.png.intel.com ([10.158.65.51])
+ by orsmga007.jf.intel.com with ESMTP; 26 Jan 2021 00:54:49 -0800
+From: Wong Vee Khee <vee.khee.wong@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Tue, 26 Jan 2021 16:58:32 +0800
+Message-Id: <20210126085832.3814-1-vee.khee.wong@intel.com>
+X-Mailer: git-send-email 2.17.0
+Cc: Voon Wei Feng <weifeng.voon@intel.com>,
+ Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: Add ADL-S 1Gbps
+	PCI IDs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,76 +52,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1716624475590714112=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============1716624475590714112==
-Content-Type: multipart/alternative; boundary="00000000000094f30605b9c4b5d8"
+From: "Wong, Vee Khee" <vee.khee.wong@intel.com>
 
---00000000000094f30605b9c4b5d8
-Content-Type: text/plain; charset="UTF-8"
+Added PCI IDs for both Ethernet TSN Controllers on the ADL-S.
 
-Hi list,
+Also, skip SerDes programming sequences as these are being carried out
+at the BIOS level for ADL-S.
 
-I've recently started hacking Linux on my STM32F769 disc1 board.  Just
-interested in what is/isn't working, and what I can get working on this
-board.
+Signed-off-by: Wong, Vee Khee <vee.khee.wong@intel.com>
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-So far I've built u-boot, the 5.4.x kernel, and a buildroot userspace.
-After a few stumbles, I'm able to bootstrap the board, load the kernel and
-run a basic shell.  Next I'd like to get the ethernet peripheral up and
-running.  I notice that while u-boot supports ethernet on this board, the
-kernel's dts files don't seem to include anything ethernet related
-(compared with the F4 dts files).  When I built the DWMAC_STM32 driver, no
-device seems to appear after booting.
-
-Is this a feasible idea to get going?  Is it just something I'm missing, or
-not currently implemented at all?
-
-
-The other major thing I'd like to enable is floating point support.  It
-seems the mainline kernel only supports VFP on armv7.  The old emcraft
-kernel seems to have had some patches relating to float on armv7m.  What is
-the current state of this?  A pipe-dream?
-
-Thanks for any pointers,
-Dave
-
---00000000000094f30605b9c4b5d8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi list,<div><br></div><div>I&#39;ve recently started hack=
-ing Linux on my STM32F769 disc1 board.=C2=A0 Just interested in what is/isn=
-&#39;t working, and what I can get working on this board.</div><div><br></d=
-iv><div>So far I&#39;ve built u-boot, the 5.4.x kernel, and a buildroot use=
-rspace.=C2=A0 After a few stumbles, I&#39;m able to bootstrap the board, lo=
-ad the kernel and run a basic shell.=C2=A0 Next I&#39;d like to get the eth=
-ernet peripheral up and running.=C2=A0 I notice that while u-boot supports =
-ethernet on this board, the kernel&#39;s dts files don&#39;t seem to includ=
-e anything ethernet related (compared with the F4 dts files).=C2=A0 When I =
-built the DWMAC_STM32 driver, no device seems to appear after booting.</div=
-><div><br></div><div>Is this a feasible idea to get going?=C2=A0 Is it just=
- something I&#39;m missing, or not currently implemented at all?</div><div>=
-<br></div><div><br></div><div>The other major thing I&#39;d like to enable =
-is floating point support.=C2=A0 It seems the mainline kernel only supports=
- VFP on armv7.=C2=A0 The old emcraft kernel seems to have had some patches =
-relating to float on armv7m.=C2=A0 What is the current state of this?=C2=A0=
- A pipe-dream?</div><div><br></div><div>Thanks for any pointers,</div><div>=
-Dave</div></div>
-
---00000000000094f30605b9c4b5d8--
-
---===============1716624475590714112==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 9a6a519426a0..9c272a241136 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -457,6 +457,21 @@ static struct stmmac_pci_info tgl_sgmii1g_info = {
+ 	.setup = tgl_sgmii_data,
+ };
+ 
++static int adls_sgmii_data(struct pci_dev *pdev,
++			   struct plat_stmmacenet_data *plat)
++{
++	plat->bus_id = 1;
++	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
++
++	/* SerDes power up and power down are done in BIOS for ADL */
++
++	return tgl_common_data(pdev, plat);
++}
++
++static struct stmmac_pci_info adls_sgmii1g_info = {
++	.setup = adls_sgmii_data,
++};
++
+ static const struct stmmac_pci_func_data galileo_stmmac_func_data[] = {
+ 	{
+ 		.func = 6,
+@@ -724,6 +739,8 @@ static SIMPLE_DEV_PM_OPS(intel_eth_pm_ops, intel_eth_pci_suspend,
+ #define PCI_DEVICE_ID_INTEL_TGLH_SGMII1G_0_ID		0x43ac
+ #define PCI_DEVICE_ID_INTEL_TGLH_SGMII1G_1_ID		0x43a2
+ #define PCI_DEVICE_ID_INTEL_TGL_SGMII1G_ID		0xa0ac
++#define PCI_DEVICE_ID_INTEL_ADLS_SGMII1G_0_ID		0x7aac
++#define PCI_DEVICE_ID_INTEL_ADLS_SGMII1G_1_ID		0x7aad
+ 
+ static const struct pci_device_id intel_eth_pci_id_table[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, QUARK_ID, &quark_info) },
+@@ -739,6 +756,8 @@ static const struct pci_device_id intel_eth_pci_id_table[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, TGL_SGMII1G_ID, &tgl_sgmii1g_info) },
+ 	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_0_ID, &tgl_sgmii1g_info) },
+ 	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_1_ID, &tgl_sgmii1g_info) },
++	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_0_ID, &adls_sgmii1g_info) },
++	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_1_ID, &adls_sgmii1g_info) },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(pci, intel_eth_pci_id_table);
+-- 
+2.17.0
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1716624475590714112==--
