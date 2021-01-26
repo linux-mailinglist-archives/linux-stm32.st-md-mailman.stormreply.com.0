@@ -2,60 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDB2B3039A9
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 10:58:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05034303A04
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 11:18:06 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93024C57183;
-	Tue, 26 Jan 2021 09:58:53 +0000 (UTC)
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
- [209.85.221.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0932C57182;
+	Tue, 26 Jan 2021 10:18:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57EA7C57181
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E6C6C3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 09:58:52 +0000 (UTC)
-Received: by mail-vk1-f175.google.com with SMTP id a6so3749006vkb.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 01:58:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OJ9v9Eswuw8AGGiIrKPTyPin8ZlyKUfcCAR1/7Zh/xM=;
- b=cyDIRjpO4ZFnV9DET3FtMjX1D/Hxer5/id5g72v3adkfwmLW9gVcnnTXjc5RCcMLH7
- doX76Bobh/BCQcD6YSmWuKwQJcEKNLMhjhdumwRK7lhyz25Oo9CtfOs6oM1orZ9Q713x
- 1hPeiBG1hTkxvTC+PrPd0ULC9K/wPIGUl/RbJmyvPy7/8K3xL2rDF4MthNFxMM9hVOOX
- xYYrnAZJvBul/Cu/0OEyWtOHNEW1vC6MKQ9/Tc6TFpOr/py0SYAZP1IC4EcJfJgthd/K
- wx9RPXFarfoUIEHSn0WnmHP0EYv0JDfXHesZMTyRN/DBa/058FPVpc4zfUTNwJoZSbd0
- Copw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OJ9v9Eswuw8AGGiIrKPTyPin8ZlyKUfcCAR1/7Zh/xM=;
- b=OHU6+qjjr336MNXgKg8U1nf+4FFv76ZTqRy935KAXxbJdLMumwdee4A9X0cS7Nck3G
- FTqc8kXPDdbJbJBFvwJ3PjX6d0f/rdnCcvmKUgP8Kj98SO3Tvoa873rXKln7GuLFW6yZ
- yQpTmK8nlpNFEGROGKQEidkYxbAsZBS+5phdguw0R0bI4FhcnvChx+OOel3W4pJeqf9l
- zHBoRpMhg3zXVNT1DKChoNs5dg8+s4tgS6RdPGEWY31/3lL2r6hYM9cDb0zdKnQ50RFl
- dwpoCWcHJWBG16RJXMWoW+WcMNlMwn4zW4orBsjxSSnhdjItb6e7NqCXAOlFuJ1AZjkV
- 8tJQ==
-X-Gm-Message-State: AOAM533bA+6TvB9HQp0FD0/7pabY0gBcaHafFCd0QlBYjfqsSrDAossF
- UlJCfNP2gHRVWW5lRr4uJF1hvAx99+/CEXwqh922rA==
-X-Google-Smtp-Source: ABdhPJzC9akXFrbRt4Jm1DTTTS+O1MYoHbnyPrNkFvF2mxlHPqUwHojEqZvYDAxg5Ar2kbdE6A5vZRDISwvvG+EKCIM=
-X-Received: by 2002:a1f:2b58:: with SMTP id r85mr3612849vkr.6.1611655131305;
- Tue, 26 Jan 2021 01:58:51 -0800 (PST)
+ Tue, 26 Jan 2021 10:18:04 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 10QABkr8003148; Tue, 26 Jan 2021 11:18:00 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=04lhCgOV+l/d8oZQRf3kHCBd+ILyWIFlLiEYxMnIuQQ=;
+ b=BBejsulwRwwg8Z1AaE4+ZxPUHQHioRkBNdSJuRjh1N4qy/L6IvhZd2j6TcmHHcW9LuU6
+ DFkH8MpHhdy7/F19ioGTLIVRMm2iq7SlCRqxRT6gowZsJdYJiaIieWd62Yme+wrPeGgM
+ U+7Qtt9jqB8O9Ggt+zHDZMUQIsKth5z0VYrwPnziEOSxsvCNBILHWJB2DTGnYT1OnMcz
+ nsRTyGes1Rj+eulX94EgFsMlfdKQ0L4a01s1skYq++ea8E+meZ6XhJ0NQEGqTEFqF515
+ tq50Aw2QgO/LahXJM/mqvwKl5VIywFDY88wesg9tnAwcBUpzqbpoPnhCVqpVrCdAxzNj MQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 368c15qxb2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Jan 2021 11:18:00 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 93379100039;
+ Tue, 26 Jan 2021 11:17:59 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7EE9323192F;
+ Tue, 26 Jan 2021 11:17:59 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.47) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan
+ 2021 11:17:58 +0100
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20210106204347.475920-1-marex@denx.de>
+ <20210106204347.475920-3-marex@denx.de>
+ <e7ccdf7c-c7fa-4d03-2400-d4d89815d5d0@foss.st.com>
+ <73f6d2cc-8dd7-b005-7faa-db9956f46aa5@denx.de>
+ <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
+ <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <3c5a4ac9-7874-2d4e-f353-5cf3ad79cfe1@foss.st.com>
+Date: Tue, 26 Jan 2021 11:17:58 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20210124170258.32862-1-marex@denx.de>
- <20210124170258.32862-2-marex@denx.de>
-In-Reply-To: <20210124170258.32862-2-marex@denx.de>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 26 Jan 2021 10:58:14 +0100
-Message-ID: <CAPDyKFpn1PZWPnGTP-NdizVjwRgtdfPpw=Wf1g++Cf0y4dYxgA@mail.gmail.com>
-To: =?UTF-8?B?TWFyZWsgVmHFoXV0?= <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH V2 2/4] mmc: mmci: Add support for probing
- bus voltage level translator
+In-Reply-To: <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-26_06:2021-01-25,
+ 2021-01-26 signatures=0
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Patrice Chotard <patrice.chotard@st.com>
+Subject: Re: [Linux-stm32] [PATCH 3/4] [RFC] ARM: dts: stm32: Add mux for
+	ETHRX clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,158 +79,119 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 24 Jan 2021 at 18:03, Marek Vasut <marex@denx.de> wrote:
->
-> Add support for testing whether bus voltage level translator is present
-> and operational. This is useful on systems where the bus voltage level
-> translator is optional, as the translator can be auto-detected by the
-> driver and the feedback clock functionality can be disabled if it is
-> not present.
->
-> This requires additional pinmux state, "init", where the CMD, CK, CKIN
-> lines are not configured, so they can be claimed as GPIOs early on in
-> probe(). The translator test sets CMD high to avoid interfering with a
-> card, and then verifies whether signal set on CK is detected on CKIN.
-> If the signal is detected, translator is present, otherwise the CKIN
-> feedback clock are disabled.
->
-> Tested-by: Yann Gautier <yann.gautier@foss.st.com>
-> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Ludovic Barre <ludovic.barre@st.com>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-
-Applied for next, thanks!
-
-Kind regards
-Uffe
-
-
-> ---
-> V2: Rebase on next-20210122, add TB and RB
-> ---
->  drivers/mmc/host/mmci.c | 70 ++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 65 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-> index b5a41a7ce165..1bc674577ff9 100644
-> --- a/drivers/mmc/host/mmci.c
-> +++ b/drivers/mmc/host/mmci.c
-> @@ -36,6 +36,7 @@
->  #include <linux/types.h>
->  #include <linux/pinctrl/consumer.h>
->  #include <linux/reset.h>
-> +#include <linux/gpio/consumer.h>
->
->  #include <asm/div64.h>
->  #include <asm/io.h>
-> @@ -1888,6 +1889,65 @@ static struct mmc_host_ops mmci_ops = {
->         .start_signal_voltage_switch = mmci_sig_volt_switch,
->  };
->
-> +static void mmci_probe_level_translator(struct mmc_host *mmc)
-> +{
-> +       struct device *dev = mmc_dev(mmc);
-> +       struct mmci_host *host = mmc_priv(mmc);
-> +       struct gpio_desc *cmd_gpio;
-> +       struct gpio_desc *ck_gpio;
-> +       struct gpio_desc *ckin_gpio;
-> +       int clk_hi, clk_lo;
-> +
-> +       /*
-> +        * Assume the level translator is present if st,use-ckin is set.
-> +        * This is to cater for DTs which do not implement this test.
-> +        */
-> +       host->clk_reg_add |= MCI_STM32_CLK_SELCKIN;
-> +
-> +       cmd_gpio = gpiod_get(dev, "st,cmd", GPIOD_OUT_HIGH);
-> +       if (IS_ERR(cmd_gpio))
-> +               goto exit_cmd;
-> +
-> +       ck_gpio = gpiod_get(dev, "st,ck", GPIOD_OUT_HIGH);
-> +       if (IS_ERR(ck_gpio))
-> +               goto exit_ck;
-> +
-> +       ckin_gpio = gpiod_get(dev, "st,ckin", GPIOD_IN);
-> +       if (IS_ERR(ckin_gpio))
-> +               goto exit_ckin;
-> +
-> +       /* All GPIOs are valid, test whether level translator works */
-> +
-> +       /* Sample CKIN */
-> +       clk_hi = !!gpiod_get_value(ckin_gpio);
-> +
-> +       /* Set CK low */
-> +       gpiod_set_value(ck_gpio, 0);
-> +
-> +       /* Sample CKIN */
-> +       clk_lo = !!gpiod_get_value(ckin_gpio);
-> +
-> +       /* Tristate all */
-> +       gpiod_direction_input(cmd_gpio);
-> +       gpiod_direction_input(ck_gpio);
-> +
-> +       /* Level translator is present if CK signal is propagated to CKIN */
-> +       if (!clk_hi || clk_lo) {
-> +               host->clk_reg_add &= ~MCI_STM32_CLK_SELCKIN;
-> +               dev_warn(dev,
-> +                        "Level translator inoperable, CK signal not detected on CKIN, disabling.\n");
-> +       }
-> +
-> +       gpiod_put(ckin_gpio);
-> +
-> +exit_ckin:
-> +       gpiod_put(ck_gpio);
-> +exit_ck:
-> +       gpiod_put(cmd_gpio);
-> +exit_cmd:
-> +       pinctrl_select_default_state(dev);
-> +}
-> +
->  static int mmci_of_parse(struct device_node *np, struct mmc_host *mmc)
->  {
->         struct mmci_host *host = mmc_priv(mmc);
-> @@ -1913,7 +1973,7 @@ static int mmci_of_parse(struct device_node *np, struct mmc_host *mmc)
->         if (of_get_property(np, "st,neg-edge", NULL))
->                 host->clk_reg_add |= MCI_STM32_CLK_NEGEDGE;
->         if (of_get_property(np, "st,use-ckin", NULL))
-> -               host->clk_reg_add |= MCI_STM32_CLK_SELCKIN;
-> +               mmci_probe_level_translator(mmc);
->
->         if (of_get_property(np, "mmc-cap-mmc-highspeed", NULL))
->                 mmc->caps |= MMC_CAP_MMC_HIGHSPEED;
-> @@ -1949,15 +2009,15 @@ static int mmci_probe(struct amba_device *dev,
->         if (!mmc)
->                 return -ENOMEM;
->
-> -       ret = mmci_of_parse(np, mmc);
-> -       if (ret)
-> -               goto host_free;
-> -
->         host = mmc_priv(mmc);
->         host->mmc = mmc;
->         host->mmc_ops = &mmci_ops;
->         mmc->ops = &mmci_ops;
->
-> +       ret = mmci_of_parse(np, mmc);
-> +       if (ret)
-> +               goto host_free;
-> +
->         /*
->          * Some variant (STM32) doesn't have opendrain bit, nevertheless
->          * pins can be set accordingly using pinctrl
-> --
-> 2.29.2
->
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAxLzE2LzIxIDY6MDEgUE0sIE1hcmVrIFZhc3V0IHdyb3RlOgo+IE9uIDEvMTUvMjEgNDoy
+MiBQTSwgQWxleGFuZHJlIFRPUkdVRSB3cm90ZToKPiAKPiBIaSwKPiAKPiBbLi4uXQo+IAo+Pj4+
+PiBUaGUgaW1wbGVtZW50YXRpb24gb2YgRVRIX1JYX0NMSy9FVEhfUkVGX0NMSyBoYW5kbGluZyBj
+dXJyZW50bHkgCj4+Pj4+IGRvZXMgbm90Cj4+Pj4+IHBlcm1pdCBzZWxlY3RpbmcgdGhlIGNsb2Nr
+IGlucHV0IGZyb20gU29DIHBhZC4gVG8gbWFrZSB0aGluZ3MgCj4+Pj4+IHdvcnNlLCB0aGUKPj4+
+Pj4gaW1wbGVtZW50YXRpb24gb2YgdGhpcyBpcyBwYXJ0bHkgcHJlc2VudCBhbmQgaXMgc3BsaXQg
+YmV0d2VlbiB0aGUgCj4+Pj4+IGNsb2NrCj4+Pj4+IGRyaXZlciBhbmQgZHdtYWM0IGRyaXZlci4g
+TW9yZW92ZXIsIHRoZSBFVEhSWCBjbG9jayBwYXJlbnQgaXMgCj4+Pj4+IGluY29ycmVjdC4KPj4+
+Pgo+Pj4+IFNvcnJ5IGJ1dCBJIGRvbid0IHVuZGVyc3RhbmQgd2hpY2ggY29uZmlndXJhdGlvbiBp
+cyBtaXNzaW5nLiBJIHRoaW5rIAo+Pj4+IHdlIGNhbiBoYW5kbGUgYWxsIHBvc3NpYmxlIGNhc2Vz
+IGZvciBSTUlJLiBBdCB0aGUgZ2x1ZSBsYXllciAKPj4+PiAoZHdtYWMtc3RtMzIuYykgY2xvY2tz
+IGdhdGVzIGFuZCBzeXNjZmcgYXJlIHNldCByZWdhcmRpbmcgZGV2aWNlIAo+Pj4+IHRyZWUgYmlu
+ZGluZyAoc2VlIHRoZSB0YWIgaW4gZHdtYWMtc3RtMzIuYykuIFlvdSBjb3VsZCBoYXZlIGEgbG9v
+ayAKPj4+PiBoZXJlIGZvciBtb3JlIGRldGFpbHM6IAo+Pj4+IGh0dHBzOi8vd2lraS5zdC5jb20v
+c3RtMzJtcHUvd2lraS9FdGhlcm5ldF9kZXZpY2VfdHJlZV9jb25maWd1cmF0aW9uCj4+Pj4KPj4+
+PiBSZWdhcmRpbmcgdGhlIGNsb2NrIHBhcmVudCwgeWVzIGl0IGlzIG5vdCBhdCB0aGUgd2VsbCBm
+cmVxdWVuY3kgaWYgCj4+Pj4geW91IHdhbnQgdG8gc2VsZWN0IHRoaXMgcGF0aC4gT3VyIGN1cnJl
+bnQgImNsb2NrIHRyZWUiIGlzIGRvbmUgdG8gCj4+Pj4gZml0IHdpdGggb3VyIFNUIHJlZmVyZW5j
+ZSBib2FyZHMgKHdlIGhhdmUgbW9yZSBwZXJpcGhlcmFscyB0aGFuIFBMTCAKPj4+PiBvdXRwdXRz
+IHNvIHdlIGhhdmUgdG8gbWFrZSBjaG9pY2VzKS4gU28geWVzIGZvciBjdXN0b21lci9wYXJ0bmVy
+cyAKPj4+PiBib2FyZHMgdGhpcyBjbG9jayB0cmVlIGhhcyB0byBiZSBtb2RpZmllZCB0byBiZXR0
+ZXIgZml0IHdpdGggdGhlIAo+Pj4+IG5lZWQgKGVpdGhlciB1c2luZyBhc3NpZ25lZC1jbG9jay1w
+YXJlbnQgb3IgYnkgbW9kaWZ5aW5nIGJvb3Rsb2FkZXIgCj4+Pj4gY2xvY2sgdHJlZSAodGYtYSBv
+ciB1LWJvb3QpKS4KPj4+Cj4+PiBJIGRvbid0IHRoaW5rIHlvdSBoYW5kbGUgYWxsIHRoZSBjb25m
+aWd1cmF0aW9uIG9wdGlvbnMsIGJ1dCBJIG1pZ2h0IAo+Pj4gYWxzbyBiZSBjb25mdXNlZC4KPj4+
+Cj4+PiBTZWUgRmlndXJlIDgzLiBQZXJpcGhlcmFsIGNsb2NrIGRpc3RyaWJ1dGlvbiBmb3IgRXRo
+ZXJuZXQgaW4gdGhlIE1QMSAKPj4+IGRhdGFzaGVldCBmb3IgdGhlIGJlbG93Lgo+Pj4KPj4+IFRo
+ZSBjdXJyZW50IHNldHVwIEkgaGF2ZSBuZWVkcyA1MCBNSHogb24gU29DIHBhZCBQQTEgdG8gZHJp
+dmUgdGhlIFBIWSAKPj4+IGNsb2NrLCBhbmQgdXNlcyBldGhfY2xrX2ZiIHRvIHN1cHBseSBFVEhf
+UlhfQ0xLLiBIb3dldmVyLCB0aGUgNTAgTUh6IAo+Pj4gaXMgc291cmNlZCBkaXJlY3RseSBmcm9t
+IFBMTDRQLCB3aGljaCB0aGVuIGhhcyB0byBydW4gYXQgNTAgTUh6IGFuZCAKPj4+IHRoYXQgaW4g
+dHVybiByZWR1Y2VzIGNsb2NrIGZyZXF1ZW5jeSBmb3Igb3RoZXIgYmxvY2tzIGNvbm5lY3RlZCB0
+byAKPj4+IFBMTDRQIChlLmcuIFNETU1DLCB3aGVyZSB0aGUgaW1wYWN0IGlzIG5vdGljYWJsZSku
+Cj4+Cj4+IE9rIHRoYXQncyB0aGUgY29tbW9uIHBhdGggdG8gY2xvY2sgYSBQSFkgYSA1ME1IeiB3
+aXRob3V0IHVzaW5nIHRoZSAKPj4gcmVmX2NsayBjb21pbmcgZnJvbSB0aGUgUEhZLiBBbmQgeWVz
+IEkgY2FuIHVuZGVyc3RhbmQgdGhhdCB0aGUgCj4+IGRyYXdiYWNrIGlzIGh1Z2UpLgo+IAo+IFNv
+IGxldHMgZml4IGl0LgoKVGhlcmUgaXMgbm8gaXNzdWUgaW4gY29kZS4gSXQgaXMganVzdCBjbG9j
+ayB0cmVlIGNvbmZpZ3VyYXRpb24gaXNzdWUuIApFaXRoZXIgeW91IGRvbid0IHVzZSBQTEw0UCBm
+b3IgRXRoZXJuZXQgKHdoYXQgeW91J3JlIGRvaW5nKSBvciB5b3UgZG9uJ3QgCnVzZSBQTEw0UCBm
+b3IgU0RNTUMuIEJ1dCB5ZXMsIHRoZXJlIGFyZSBub3QgYSBsb3Qgb2YgcG9zc2liaWxpdGllcy4K
+Cj4gCj4+PiBTbywgd2hhdCBJIHdhbnQgdG8gbW9kZWwgaGVyZSBpcyB0aGlzOgo+Pj4KPj4+IFBM
+TDRQID0gMTAwIE1Iego+Pj4gTUNPMiBpcyBzdXBwbGllZCBieSBQTEw0UCBhbmQgc2V0IHRvIC8y
+ICwgc28gTUNPMiA9IDUwIE1Iego+Pj4gU29DIHBhZCBQRzIgaXMgc2V0IGFzIE1DTzIgb3V0cHV0
+LCB0aHVzIGEgc291cmNlIG9mIDUwIE1IeiBzaWduYWwKPj4+IFNvQyBwYWQgUEExIGlzIHNldCBh
+cyBFVEhfUlhfQ0xLIGFuZCBjb25uZWN0ZWQgdG8gUEcyCj4+Cj4+IE9rIEkgc2VlICh0byBiZSBo
+b25lc3QgSUlXUiB3ZSBkaWRuJ3QgdGVzdCBpIDokKSBidXQgaXQgc2hvdWxkIHdvcmsuCj4gCj4g
+SXQgZG9lcyB3b3JrLCBJIGhhdmUgYm9hcmRzIHdoaWNoIHVzZSB0aGlzIHNldHVwIGFscmVhZHku
+Cj4gCj4+PiBUaGlzIHdvcmtzIGZpbmUgaW4gcHJhY3RpY2UsIGV4Y2VwdCBpdCBjYW5ub3QgYmUg
+bW9kZWxlZCB1c2luZyAKPj4+IGN1cnJlbnQgRFQgYmluZGluZ3MsIGV2ZW4gdGhvdWdoIGl0IHNo
+b3VsZCBiZSBwb3NzaWJsZSB0byBtb2RlbCBpdC4KPj4KPj4gRm9yIGR3bWFjIHBvaW50IG9mIHZp
+ZXcgaXQncyBxdWl0ZSB0aGUgc2FtZSB0aGluZyB0byBoYXZlIHlvdXIgUEhZIAo+PiBjbG9ja2lu
+ZyBieSBNQ08gb3IgYnkgYSBjcnlzdGFsLiBZb3UganVzdCBuZWVkIHRvIGNvbmZpZ3VyZSBSWF9S
+RUYgcGFkIAo+PiBhbmQgRVRIX0NMS19TRUwgdG8gZ2V0IHRoZSA1MCBNSHogUk1JSSByZWZlcmVu
+Y2UgY2xvY2suCj4gCj4gWWVzCj4gCj4+Pj4+IEZpcnN0LCB0aGUgRVRIUlggY2xvY2sgaW4gY2xr
+LXN0bTMybXAxLmMgb25seSByZXByZXNlbnRzIHRoZSAKPj4+Pj4gRVRIUlhFTiBnYXRlLAo+Pj4+
+PiBob3dldmVyIGl0IHNob3VsZCByZXByZXNlbnQgYWxzbyBFVEhfUkVGX0NMS19TRUwgbXV4LiBU
+aGUgcHJvYmxlbSAKPj4+Pj4gaXMgdGhhdAo+Pj4+PiB0aGUgRVRIX1JFRl9DTEtfU0VMIG11eCBp
+cyBjdXJyZW50bHkgY29uZmlndXJlZCBpbiB0aGUgRFdNQUM0IAo+Pj4+PiBkcml2ZXIgYW5kCj4+
+Pj4+IHRoZSBFVEhfUkVGX0NMS19TRUwgYml0IGlzIHBhcnQgb2YgU1lTQ0ZHIGJsb2NrLCBub3Qg
+dGhlIERXTUFDNCBvciB0aGUKPj4+Pj4gY2xvY2sgYmxvY2suCj4+Pj4KPj4+PiBkd21hYzQtc3Rt
+MzIgZG9lc24ndCBjb250YWluIGNvZGUgZm9yIGR3bWFjNCBidXQgaXQgY29udGFpbnMgdGhlIAo+
+Pj4+IGdsdWUgYXJvdW5kIHRoZSBkd21hYzQ6IHN5c2NmZywgY2xvY2tzIC4uLgo+Pj4KPj4+IFRo
+ZSBwcm9ibGVtIGlzIHRoYXQgZHdtYWM0LXN0bTMyIGlzbid0IHRoZSByaWdodCBwbGFjZSB0byBj
+b25maWd1cmUgCj4+PiB0aGUgRVRIUlggY2xvY2sgbXV4LCB0aGF0IHNob3VsZCBiZSBpbiB0aGUg
+Y2xvY2sgZHJpdmVyLiBTbyB0aGUgc3RtMzIgCj4+PiBjbG9jayBkcml2ZXIgc2hvdWxkIGhhdmUg
+U1lTQ0ZHIGhhbmRsZSBhbmQgY29uZmlndXJlIEVUSF9SRUZfQ0xLX1NFTCAKPj4+IG11eC4gVGhl
+ICJzdCxldGgtcmVmLWNsay1zZWwiIERUIHByb3Agd291bGQgdGhlbiBub3QgYmUgbmVlZGVkIGF0
+IAo+Pj4gYWxsLCBhcyB0aGUgcmVmZXJlbmNlIGNsb2NrIHNlbGVjdCB3b3VsZCBiZSBjb25maWd1
+cmVkIHVzaW5nIAo+Pj4gYXNzaWduZWQtY2xvY2tzIGluIERULgo+Pgo+PiBJZGVhIHdhcyB0byBr
+ZWVwIGF0IHRoZSBzYW1lIHBsYWNlIHRoZSBFdGhlcm5ldCBnbHVlIGNvbmZpZ3VyYXRpb24uIFdl
+IAo+PiBjYW4ndCBtb3ZlIGFsbCB0aGlzIGdsdWUgaW50byBjbG9jayBkcml2ZXIgYXMgcGh5IGlu
+dGVyZmFjZSBpcyBuZWVkZWQgCj4+IHRvIHdlbGwgY29uZmlndXJlIHNvbWUgc3lzY29uZiByZWdp
+c3RlcnMuCj4gCj4gVGhpcyBjb25maWd1cmF0aW9uIGNhbiBiZSBkb25lIGJ5IHRoZSBjbG9jayBk
+cml2ZXIgdG9vLiBBbmQgaW4gZmFjdCwgSSAKPiBiZWxpZXZlIGl0IHNob3VsZCBiZSBkb25lIGJ5
+IHRoZSBjbG9jayBkcml2ZXIsIGp1c3QgbGlrZSBpdCdzIGRvbmUgZm9yIAo+IGFsbCB0aGUgb3Ro
+ZXIgY2xvY2sgbXV4ZXMgd2l0aCBnYXRlcyBpbiB0aGUgY2xvY2sgZHJpdmVyLCBleGNlcHQgaW4g
+dGhpcyAKPiBjYXNlIHRoZSBtdXggaXMgaW4gc3lzY2ZnIGFuZCBnYXRlIGlzIGluIHJjYy4KCkFz
+IHNhaWQsIGNob2ljZSBoYXMgYmVlbiBkb25lIHRvIGRvIGl0IGluIGR3bWFjLXN0bTMyLCBhbmQg
+c29ycnkgSSBzZWUgCm1vcmUgZHJhd2JhY2tzIHRoYW4gYmVuZWZpdHMgdG8gbW92ZSBpdCBub3cu
+Cgo+IAo+PiBDdXJyZW50IGR3YW1jLXN0bTMyIGdsdWUgaXMgd29ya2luZyBhbmQgZG9jdW1lbnRl
+ZC4gSSdtIG5vdCBjb252aW5jZWQgCj4+IHRvIGRldmVsb3AgYSBuZXcgb25lIGJ5IHNwbGl0dGlu
+ZyBjbG9jayBzeXNjb25mIGluIGNsb2NrIGRyaXZlciBhbmQgCj4+IHBoeSBpbnRlcmZhY2UgbWFu
+YWdlbWVudCBhdCBldGhlcm5ldCBsZXZlbC4gSSB0aGluayB3ZSB3aWxsIGdldCB0aGUgCj4+IHNh
+bWUgZnVuY3Rpb25hbCByZXN1bHQgKGJ1dCB5ZXMgbWF5YmUgbW9yZSB1bmRlcnN0YW5kYWJsZSBh
+dCAKPj4gZHQtYmluZGluZ3MgbGV2ZWwpLiBXZSBjb3VsZCBtYXliZSB1cGRhdGUgYmluZGluZyBu
+YW1lIHRvIGJlIG1vcmUgY2xlYXIuCj4gCj4gWW91IGRvbid0IGdldCB0aGUgc2FtZSByZXN1bHQs
+IHNpbmNlIHlvdSBjYW5ub3QgbW9kZWwgdGhlIE1DTzIgaW5wdXQgCj4gaW50byBFVEhSWC4gT3Ig
+Y2FuIHlvdSA/CgpXaHkgZG8geW91IHdhbnQgdG8gbW9kZWwgTUNPMiBpbnRvIEVUSFJYID8gTUNP
+MiBqdXN0IHJlcGxhY2UgYSBjcnlzdGFsLCAKYW5kIHdoZW4gYSBjcnlzdGFsIGlzIHVzZWQsIGl0
+IGlzIG5vdCBtb2RlbGVkLiBJIHRoaW5rIGlzIGl0IHRoZSBzYW1lIApjYXNlIGZvciBNQ08yLgoK
+PiAKPiBJIGFsc28gdGhpbmsgdGhhdCB3ZSB3b24ndCBuZWVkIG5ldyBiaW5kaW5nIGFsdG9nZXRo
+ZXIsIGp1c3QgYSBzbGlnaHQgCj4gdHdlYWsgdG8gdGhlIGV4aXN0aW5nIG9uZXMgd2hpY2ggd291
+bGQgcGVybWl0IG1vZGVsaW5nIHRoZSBNQ08yIGlucHV0IAo+IGludG8gRVRIUlgsIEkgYW0gb3Bl
+biB0byBzdWdnZXN0aW9ucyBob3cgdG8gZG8gaXQuIE5vdGUgdGhhdCB0aGUgY2xvY2sgCj4gZnJh
+bWV3b3JrIG11c3QgYmUgYWJsZSB0byB0dXJuIG9mZiBib3RoIEVUSFJYIGdhdGUsIE1DTzIgYW5k
+IGFsbCB0aGUgd2F5IAo+IHVwIHRoZSB0cmVlIGlmIEVUSFJYIGlzIHR1cm5lZCBvZmYuCj4gCj4+
+PiBUaGUgZGVmYXVsdCBhc3NpZ25lZC1jbG9ja3Mgc2hvdWxkIGJlIGV0aF9jbGtfZmIgLCBidXQg
+dGhlIHVzZXIgY2FuIAo+Pj4gb3ZlcnJpZGUgaXQgaW4gdGhlIERUIGFuZCBwcm92aWRlIGFub3Ro
+ZXIgY2xvY2sgc291cmNlIChlLmcuIGluIG15IAo+Pj4gY2FzZSwgdGhhdCB3b3VsZCBiZSBQTEw0
+UC0+TUNPMi0+RVRIUlgpLgo+Pj4KPj4+Pj4gU2Vjb25kLCB0aGUgRVRIUlggcGFyZW50IGNsb2Nr
+IGlzIGVpdGhlciBldGhfY2xrX2ZiIChFVEhDS19LKSBvciAKPj4+Pj4gZXh0ZXJuYWwKPj4+Pj4g
+RVRIX1JYX0NMSy9FVEhfUkVGX0NMS19TRUwsIGl0IGlzIG5ldmVyIENLX0FYSS4KPj4+Pgo+Pj4+
+IFdoeSBDS19BWEkgPwo+Pj4KPj4+IFNlZSBkcml2ZXJzL2Nsay9jbGstc3RtMzJtcDEuYzoKPj4+
+IMKgwqAgMTg5NcKgwqDCoMKgwqDCoMKgwqDCoCBQQ0xLKEVUSFJYLCAiZXRocngiLCAiY2tfYXhp
+IiwgMCwgR19FVEhSWCksCj4+Pgo+Pgo+PiBPayBJIHNlZSwgYW5kIGl0IGlzIHRoZSBzYW1lIGNh
+c2UgZm9yIFRYIGFsc28uIERpc2N1c3Npbmcgd2l0aCBvdXIgCj4+IGNsb2NrIGV4cGVydCBpdCB3
+YXMgZG9uZSBmb3Igc2ltcGxpZmljYXRpb24uCj4gCj4gU28sIGhvdyBzaGFsbCB3ZSBwcm9jZWVk
+IGhlcmUgPwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
