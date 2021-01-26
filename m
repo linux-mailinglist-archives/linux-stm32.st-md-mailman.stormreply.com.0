@@ -2,69 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6A0E303964
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 10:49:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70F623039A8
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 10:58:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96B69C57182;
-	Tue, 26 Jan 2021 09:49:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F54FC57182;
+	Tue, 26 Jan 2021 09:58:50 +0000 (UTC)
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com
+ [209.85.217.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 516C3C3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECB46C3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 09:49:41 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10Q9WvNK027767; Tue, 26 Jan 2021 10:49:33 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=jc22SqmdYibgtAaJq3omeHgrRDIC9ZnXdKisEe+EuSc=;
- b=EWr7NECmAp0pEZ7oHXJO+C8QvdWfHvPmVLkH3Og0PUxq69dszHgi9j8JctB84suqYLYL
- SDDL5PLSFiHvzz/C80My3uBiZ/MkGsmmYgdvAPzlMr7fNOKykVNnvguF78Daae1Zw/G1
- GggsRmb2V9sZMQc/7dSbLlqIthkTV4ZfYY/2DIgJmVpW5snbHUC42fF0qzGUT65B3gHF
- z4PXfeFnxNVByH8vjDplOoPZ70R5cQVYnOPNDSeJal8rtcZ61SmojYmgc3E1kdOJ4X2R
- aC3TaGDOzCSlZLgeCQ5us87ypr4sZD6S2t5ZHpQ4mBIwDKVyxe9rnciu3itCskmJhOcy YQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3689tdrb4r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Jan 2021 10:49:33 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1464910002A;
- Tue, 26 Jan 2021 10:49:33 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 012E3230361;
- Tue, 26 Jan 2021 10:49:33 +0100 (CET)
-Received: from lmecxl0995.lme.st.com (10.75.127.51) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan
- 2021 10:49:32 +0100
-To: Rob Herring <robh@kernel.org>
-References: <20210114171314.18946-1-amelie.delaunay@foss.st.com>
- <20210114171314.18946-2-amelie.delaunay@foss.st.com>
- <20210125214042.GA1049362@robh.at.kernel.org>
-From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
-Message-ID: <be0f4e5f-3e7d-d178-160b-ea90e9e00147@foss.st.com>
-Date: Tue, 26 Jan 2021 10:49:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Tue, 26 Jan 2021 09:58:48 +0000 (UTC)
+Received: by mail-vs1-f47.google.com with SMTP id n18so8693787vsa.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 26 Jan 2021 01:58:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=l2QpuY8rM4toyVpou9vFx2TY09PAPQwcRntc7oTA0is=;
+ b=REheRH86QOMZ/fp5spJI+HYISUR+or1vKvxmyLai8utojsCRMMqRZNCOUCtr9iDzzT
+ XKCjgZykN3eQ+Yd4tWF8Nx84mDqCcPaAX51DnmV1EQb0s+BU7FQ4/dGwbq8Hjyx4lb8X
+ 1bz23M3gWrmtbp0qNqGFhbDKnqcf/r4Nv8yHm996ztOvPdgDCz+F3cpsXgpcSvwX9/BB
+ 5M1Ld2sSZPlcwZEZgnauow/fO1i+zZ2dRrWkLhVtJm6FyvYm7Mzu7FdKu0qA41KQHY+c
+ 5mtgGQP6aqes5Uoo/O6YvxTu2aLRM9Al9fxuL8529+GWQY26Y2Za0GGLeltGrnjt6kff
+ l6Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=l2QpuY8rM4toyVpou9vFx2TY09PAPQwcRntc7oTA0is=;
+ b=mK8R1CnpdU2qhLNc9Yzpd/JKqeYzDV6892v5rVopqIB9lXjSKAqjyVT64uiPMtvL7w
+ FvFKK3GVEiFwQvG9zVTHHS75bEfKwKGe2BTVvxrZluPcPcPDEe9FeMNUz3DKkw7NXNhT
+ 2f3X0CjGCt965wf4m/oZmmDTMLetGEZpgVTX5fyf++93q+pLAXWPChJYPdjcB6Eh7AyG
+ em+wrAQ+Qqk7AqudgN9Nr5FULRF2cbt6Mc/I7BYnHVPdb4+jtexz/9T7o7DVtpMs6Z4G
+ GgbhUpMewwKmD93dtGa9mbCc0Qsts7aeFiNdbaTXqobJH9HMKGzq2DKKqxfZ4Q92mgtO
+ /dNQ==
+X-Gm-Message-State: AOAM5304uCyT2lGLGcnP6pAljDEndn1ZrrGlfQJ/XbvmqF6EArzCrCA7
+ 0MbZy6vhPqhaPvrJaEAX4MLQQUNZnwUzrwAsHJS+dw==
+X-Google-Smtp-Source: ABdhPJyTySMXS2eZMh5eS03L32cNf15ToE5AvKZz7eICs1uJdhhGYno+oad4aRW7fF20tSBBSv54Xp63sFrSLCAF2oM=
+X-Received: by 2002:a67:f997:: with SMTP id b23mr3471696vsq.34.1611655127850; 
+ Tue, 26 Jan 2021 01:58:47 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210125214042.GA1049362@robh.at.kernel.org>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-26_06:2021-01-25,
- 2021-01-26 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: phy:
- phy-stm32-usbphyc: add #clock-cells required property
+References: <20210124170258.32862-1-marex@denx.de>
+In-Reply-To: <20210124170258.32862-1-marex@denx.de>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Tue, 26 Jan 2021 10:58:11 +0100
+Message-ID: <CAPDyKFrUnx4XSyxx=H8reDV=_vRORe7fE=6HQivC9T7OkHfyRg@mail.gmail.com>
+To: =?UTF-8?B?TWFyZWsgVmHFoXV0?= <marex@denx.de>
+Cc: DTML <devicetree@vger.kernel.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH V2 1/4] mmc: mmci: Add bindings to operate
+ CMD, CK, CKIN pins as GPIO
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,82 +67,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob,
+On Sun, 24 Jan 2021 at 18:03, Marek Vasut <marex@denx.de> wrote:
+>
+> Add DT bindings to describe GPIO line associated with CMD, CK, CKIN pins.
+>
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Linus Walleij <linus.walleij@linaro.org>
+> Cc: Ludovic Barre <ludovic.barre@st.com>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Ulf Hansson <ulf.hansson@linaro.org>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: devicetree@vger.kernel.org
 
-On 1/25/21 10:40 PM, Rob Herring wrote:
-> On Thu, Jan 14, 2021 at 06:13:13PM +0100, Amelie Delaunay wrote:
->> usbphyc provides a unique clock called ck_usbo_48m.
->> STM32 USB OTG needs a 48Mhz clock (utmifs_clk48) for Full-Speed operation.
->> ck_usbo_48m is a possible parent clock for USB OTG 48Mhz clock.
->>
->> ck_usbo_48m is available as soon as the PLL is enabled.
->>
->> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
->> ---
->> No change in v2.
->> ---
->>   .../devicetree/bindings/phy/phy-stm32-usbphyc.yaml          | 6 ++++++
->>   1 file changed, 6 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
->> index 46df6786727a..4e4da64b8e01 100644
->> --- a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
->> +++ b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
->> @@ -51,6 +51,10 @@ properties:
->>     vdda1v8-supply:
->>       description: regulator providing 1V8 power supply to the PLL block
->>   
->> +  '#clock-cells':
->> +    description: number of clock cells for ck_usbo_48m consumer
->> +    const: 0
->> +
->>   #Required child nodes:
->>   
->>   patternProperties:
->> @@ -102,6 +106,7 @@ required:
->>     - "#size-cells"
->>     - vdda1v1-supply
->>     - vdda1v8-supply
->> +  - '#clock-cells'
-> 
-> You can't really make new properties required as it's not backwards
-> compatible. If things can never work without or the binding has never
-> been used, then you can. You just need to spell this out in the commit
-> msg.
-> 
+Applied for next, thanks!
 
-In fact things can work without this property. But I made this new 
-property required because in clock-bindings, #clock-cells property is a 
-required property for clock providers.
+Kind regards
+Uffe
 
-phy-stm32-usbphyc bindings are only used in stm32mp151.dtsi, which will 
-be updated with this new property as soon as this bindings will be reviewed.
 
-I can remove this new property from required ones, but is it okay as 
-#clock-cells property is a required property for clock providers?
-
-Regards,
-Amelie
-
->>     - usb-phy@0
->>     - usb-phy@1
->>   
->> @@ -120,6 +125,7 @@ examples:
->>           vdda1v8-supply = <&reg18>;
->>           #address-cells = <1>;
->>           #size-cells = <0>;
->> +        #clock-cells = <0>;
->>   
->>           usbphyc_port0: usb-phy@0 {
->>               reg = <0>;
->> -- 
->> 2.17.1
->>
+> ---
+> V2: Rebase on next-20210122
+> ---
+>  .../devicetree/bindings/mmc/arm,pl18x.yaml    | 20 +++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> index eddc1f6bdbe5..47595cb483be 100644
+> --- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> @@ -127,6 +127,26 @@ properties:
+>        driver to sample the receive data (for example with a voltage switch
+>        transceiver).
+>
+> +  st,cmd-gpios:
+> +    maxItems: 1
+> +    description:
+> +      The GPIO matching the CMD pin.
+> +
+> +  st,ck-gpios:
+> +    maxItems: 1
+> +    description:
+> +      The GPIO matching the CK pin.
+> +
+> +  st,ckin-gpios:
+> +    maxItems: 1
+> +    description:
+> +      The GPIO matching the CKIN pin.
+> +
+> +dependencies:
+> +  st,cmd-gpios: [ "st,use-ckin" ]
+> +  st,ck-gpios: [ "st,use-ckin" ]
+> +  st,ckin-gpios: [ "st,use-ckin" ]
+> +
+>  unevaluatedProperties: false
+>
+>  required:
+> --
+> 2.29.2
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
