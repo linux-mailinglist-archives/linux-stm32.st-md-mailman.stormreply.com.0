@@ -2,64 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 161EA3047A3
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 20:11:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0171130487C
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 20:24:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9DD6C57181;
-	Tue, 26 Jan 2021 19:11:15 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B085DC57181;
+	Tue, 26 Jan 2021 19:24:50 +0000 (UTC)
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
+ [209.85.210.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56E0BC3FAD8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69C68C3FAD8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 19:11:14 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4DQGYF6FhGz1qtdy;
- Tue, 26 Jan 2021 20:11:13 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4DQGYF4FS4z1sP6X;
- Tue, 26 Jan 2021 20:11:13 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id OMhAGWVwO4_a; Tue, 26 Jan 2021 20:11:11 +0100 (CET)
-X-Auth-Info: JnPaiCUI0EhaLPPGr5oGnK/F64fp8jvk6cqfY1p+sfI=
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Tue, 26 Jan 2021 20:11:11 +0100 (CET)
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20210106204347.475920-1-marex@denx.de>
- <20210106204347.475920-3-marex@denx.de>
- <e7ccdf7c-c7fa-4d03-2400-d4d89815d5d0@foss.st.com>
- <73f6d2cc-8dd7-b005-7faa-db9956f46aa5@denx.de>
- <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
- <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
- <3c5a4ac9-7874-2d4e-f353-5cf3ad79cfe1@foss.st.com>
- <9c41ae2b-06f2-b09f-d708-0f4ec96e67b6@denx.de>
- <ee8dd8c4-6437-227d-c0bb-6f6d9d12e472@foss.st.com>
- <57ff08b6-36c1-9e00-a55f-54bf8ade2b69@denx.de>
- <45443b53-3b48-afb6-b7d2-f84e0c33e85b@foss.st.com>
- <538d5520-7491-9cfe-7449-766d836784da@denx.de>
- <e93de917-56cd-7956-ae2a-37f3c714c575@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <b33f2d0c-3204-3c4d-74e6-a33ee9824766@denx.de>
-Date: Tue, 26 Jan 2021 20:11:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ Tue, 26 Jan 2021 19:24:48 +0000 (UTC)
+Received: by mail-ot1-f44.google.com with SMTP id i20so17359082otl.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 26 Jan 2021 11:24:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=D1ltTrh6GrF621pynXjIu633fPh/vCcW4NA4RWi0JI8=;
+ b=BQcvX/vQcepwH9xkYrXWBsXyP8EzoUQrPHntu3FzocQDFkWdoHdRmOqDmBMUzF6Vt6
+ +4I/ggUiEP0uSbmhNSv9l689w0NEYu9+/U4Ku6pddmk+FFimlLFKLEyx8kBde2EzWFpN
+ mKDZydMe8+bvT308qklZD6bLxSIVhjvVPOjsC+4yyMjzYCO43amUZCqiWhsjYXTk2Z16
+ 9TGuNPUaLBDga0oZC8QANu2kLQ2IOqpUwCVhZlDpYV0zc9+8fspZjfp/8jqfJK1F8Ulm
+ zAVdGK42Q4bBXtvVNcAlWHedmlHtXl9GEqV+cfMqJcm4E7yFkd39JqQJ0lUqFaiY1RtY
+ SeWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to:user-agent;
+ bh=D1ltTrh6GrF621pynXjIu633fPh/vCcW4NA4RWi0JI8=;
+ b=F5C2lhEtjRFRYVPHfocku8ZMG3bZVp5Prp+iR2pI5MC0p9JwIehJ8O3Q/HB+ulBoXN
+ 0IynN9/ODxf2O9Hd4HDsw0v7iUd/9N3C+wY/3n4B/LTveRsiPOx51qDSdgS3O7Kymya5
+ uZR7YLc3kJ05o9CYOFkfIsYHoJf8Hv/IU24NOGTRUaTF4nNFtCPbWU9lCTUSTYuSAeWy
+ xG7fwMOM6rFFPYX9sGORHYwsthehTHsc4tmES31wJvpojhQNaxOgXy+XMSYSZcj0srRj
+ dNO2wq7IV+SGNp/5W0xoxSj5AeBvjm2ICa1RxrUZmcTk//0JugYsYes/zmnmm2v/IgV9
+ o+xg==
+X-Gm-Message-State: AOAM531eirwUq9xFle8dCWpvkV2MprQXkJUsYfNQArWSv0MqEoVtlI8e
+ /MGXlysTfOsYzAh0tohJIYU=
+X-Google-Smtp-Source: ABdhPJztb/3InwKiBBmxTEbYz5EWr2nHE2g3SB5DNkH/uYrp0J/4XMeexHk4NVLAcP5G/37TRay4lQ==
+X-Received: by 2002:a9d:1d04:: with SMTP id m4mr4855021otm.142.1611689086737; 
+ Tue, 26 Jan 2021 11:24:46 -0800 (PST)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id d17sm4307875otk.3.2021.01.26.11.24.44
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 26 Jan 2021 11:24:45 -0800 (PST)
+Date: Tue, 26 Jan 2021 11:24:43 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20210126192443.GA31936@roeck-us.net>
+References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
+ <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <e93de917-56cd-7956-ae2a-37f3c714c575@foss.st.com>
-Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Content-Disposition: inline
+In-Reply-To: <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
+ kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Eric Anholt <eric@anholt.net>, linux-i2c@vger.kernel.org,
+ linux-spi@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH 3/4] [RFC] ARM: dts: stm32: Add mux for
-	ETHRX clock
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
+ Herbert Xu <herbert@gondor.apana.org.au>, Russell King <linux@armlinux.org.uk>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ Mike Leach <mike.leach@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Arnd Bergmann <arnd@arndb.de>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ coresight@lists.linaro.org, Vladimir Zapolskiy <vz@mleia.com>,
+ Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
+ linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
+ linux-watchdog@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
+ dmaengine@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [Linux-stm32] [PATCH v3 4/5] amba: Make the remove callback
+	return void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,107 +100,830 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 1/26/21 5:47 PM, Alexandre TORGUE wrote:
-> 
-> 
-> On 1/26/21 4:42 PM, Marek Vasut wrote:
->> On 1/26/21 4:40 PM, Alexandre TORGUE wrote:
->>>
->>>
->>> On 1/26/21 1:59 PM, Marek Vasut wrote:
->>>> On 1/26/21 11:54 AM, Alexandre TORGUE wrote:
->>>> [...]
->>>>>>>>>>>> The implementation of ETH_RX_CLK/ETH_REF_CLK handling 
->>>>>>>>>>>> currently does not
->>>>>>>>>>>> permit selecting the clock input from SoC pad. To make 
->>>>>>>>>>>> things worse, the
->>>>>>>>>>>> implementation of this is partly present and is split 
->>>>>>>>>>>> between the clock
->>>>>>>>>>>> driver and dwmac4 driver. Moreover, the ETHRX clock parent 
->>>>>>>>>>>> is incorrect.
->>>>>>>>>>>
->>>>>>>>>>> Sorry but I don't understand which configuration is missing. 
->>>>>>>>>>> I think we can handle all possible cases for RMII. At the 
->>>>>>>>>>> glue layer (dwmac-stm32.c) clocks gates and syscfg are set 
->>>>>>>>>>> regarding device tree binding (see the tab in dwmac-stm32.c). 
->>>>>>>>>>> You could have a look here for more details: 
->>>>>>>>>>> https://wiki.st.com/stm32mpu/wiki/Ethernet_device_tree_configuration 
->>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>> Regarding the clock parent, yes it is not at the well 
->>>>>>>>>>> frequency if you want to select this path. Our current "clock 
->>>>>>>>>>> tree" is done to fit with our ST reference boards (we have 
->>>>>>>>>>> more peripherals than PLL outputs so we have to make 
->>>>>>>>>>> choices). So yes for customer/partners boards this clock tree 
->>>>>>>>>>> has to be modified to better fit with the need (either using 
->>>>>>>>>>> assigned-clock-parent or by modifying bootloader clock tree 
->>>>>>>>>>> (tf-a or u-boot)).
->>>>>>>>>>
->>>>>>>>>> I don't think you handle all the configuration options, but I 
->>>>>>>>>> might also be confused.
->>>>>>>>>>
->>>>>>>>>> See Figure 83. Peripheral clock distribution for Ethernet in 
->>>>>>>>>> the MP1 datasheet for the below.
->>>>>>>>>>
->>>>>>>>>> The current setup I have needs 50 MHz on SoC pad PA1 to drive 
->>>>>>>>>> the PHY clock, and uses eth_clk_fb to supply ETH_RX_CLK. 
->>>>>>>>>> However, the 50 MHz is sourced directly from PLL4P, which then 
->>>>>>>>>> has to run at 50 MHz and that in turn reduces clock frequency 
->>>>>>>>>> for other blocks connected to PLL4P (e.g. SDMMC, where the 
->>>>>>>>>> impact is noticable).
->>>>>>>>>
->>>>>>>>> Ok that's the common path to clock a PHY a 50MHz without using 
->>>>>>>>> the ref_clk coming from the PHY. And yes I can understand that 
->>>>>>>>> the drawback is huge).
->>>>>>>>
->>>>>>>> So lets fix it.
->>>>>>>
->>>>>>> There is no issue in code. It is just clock tree configuration 
->>>>>>> issue. Either you don't use PLL4P for Ethernet (what you're 
->>>>>>> doing) or you don't use PLL4P for SDMMC. But yes, there are not a 
->>>>>>> lot of possibilities.
->>>>>>
->>>>>> I am supplying MCO2 with PLL4P, that is PLL4P->MCO2->ETHRX . To 
->>>>>> enable this entire chain of clock, I need the correct clock tree. 
->>>>>> Currently that cannot be modeled, can it?
->>>>>>
->>>>>
->>>>> Maybe I miss something, I thought your setup was like that:
->>>>>
->>>>> First clock path to your PHY:
->>>>> --------------------
->>>>>
->>>>> PLL4P ---> MCO2 ---> X1 (PHY input clock which replaces crystal)
->>>>> It is not directly linked to the dwmac-stm32. You "just" provide a 
->>>>> clock to MCO2. After that you can use MCO2 pins for any usages.
->>>>>
->>>>> Second clock patch:
->>>>> --------------------
->>>>>
->>>>> 50MHz (refclk coming from phy) --> ETH_REF_CLK pad
->>>>> This one is already covered in dwmac-stm32.
->>>>>
->>>>> Why do you want to link the both clock paths ?
->>>>
->>>> Because the X1 (MCO2 output) is the same net as 50 MHz ETH_REF_CLK 
->>>> input. MCO2 output is routed on a SoC pin and that is connected with 
->>>> a wire to ETH_REF_CLK SoC pin (input).
->>>
->>> Ok I see, but I don't think you have to link both clocks.
->>
->> If I don't, then MCO2 will not have any consumer and would be turned 
->> off by the kernel.
-> 
-> I agree, but IMO the MCO clock should be declared with CLK_IGNORE_UNUSED 
-> flag in stm32mp1 clock driver.
+On Tue, Jan 26, 2021 at 05:58:34PM +0100, Uwe Kleine-K=F6nig wrote:
+> All amba drivers return 0 in their remove callback. Together with the
+> driver core ignoring the return value anyhow, it doesn't make sense to
+> return a value here.
+> =
 
-Why? It can be safely turned off if it is only used to supply ETHRX. And 
-if the clock tree is correctly modeled, that is what happens.
+> Change the remove prototype to return void, which makes it explicit that
+> returning an error value doesn't work as expected. This simplifies changi=
+ng
+> the core remove callback to return void, too.
+> =
+
+> Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+> Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Acked-by: Krzysztof Kozlowski <krzk@kernel.org> # for drivers/memory
+> Acked-by: Mark Brown <broonie@kernel.org>
+> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Acked-by: Linus Walleij <linus.walleij@linaro.org>
+> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+
+For watchdog:
+
+Acked-by: Guenter Roeck <linux@roeck-us.net>
+
+Guenter
+
+> ---
+>  drivers/amba/bus.c                                 | 5 ++---
+>  drivers/char/hw_random/nomadik-rng.c               | 3 +--
+>  drivers/dma/pl330.c                                | 3 +--
+>  drivers/gpu/drm/pl111/pl111_drv.c                  | 4 +---
+>  drivers/hwtracing/coresight/coresight-catu.c       | 3 +--
+>  drivers/hwtracing/coresight/coresight-cpu-debug.c  | 4 +---
+>  drivers/hwtracing/coresight/coresight-cti-core.c   | 4 +---
+>  drivers/hwtracing/coresight/coresight-etb10.c      | 4 +---
+>  drivers/hwtracing/coresight/coresight-etm3x-core.c | 4 +---
+>  drivers/hwtracing/coresight/coresight-etm4x-core.c | 4 +---
+>  drivers/hwtracing/coresight/coresight-funnel.c     | 4 ++--
+>  drivers/hwtracing/coresight/coresight-replicator.c | 4 ++--
+>  drivers/hwtracing/coresight/coresight-stm.c        | 4 +---
+>  drivers/hwtracing/coresight/coresight-tmc-core.c   | 4 +---
+>  drivers/hwtracing/coresight/coresight-tpiu.c       | 4 +---
+>  drivers/i2c/busses/i2c-nomadik.c                   | 4 +---
+>  drivers/input/serio/ambakmi.c                      | 3 +--
+>  drivers/memory/pl172.c                             | 4 +---
+>  drivers/memory/pl353-smc.c                         | 4 +---
+>  drivers/mmc/host/mmci.c                            | 4 +---
+>  drivers/rtc/rtc-pl030.c                            | 4 +---
+>  drivers/rtc/rtc-pl031.c                            | 4 +---
+>  drivers/spi/spi-pl022.c                            | 5 ++---
+>  drivers/tty/serial/amba-pl010.c                    | 4 +---
+>  drivers/tty/serial/amba-pl011.c                    | 3 +--
+>  drivers/vfio/platform/vfio_amba.c                  | 3 +--
+>  drivers/video/fbdev/amba-clcd.c                    | 4 +---
+>  drivers/watchdog/sp805_wdt.c                       | 4 +---
+>  include/linux/amba/bus.h                           | 2 +-
+>  sound/arm/aaci.c                                   | 4 +---
+>  30 files changed, 34 insertions(+), 80 deletions(-)
+> =
+
+> diff --git a/drivers/amba/bus.c b/drivers/amba/bus.c
+> index 8c4a42df47c6..48b5d4b4e889 100644
+> --- a/drivers/amba/bus.c
+> +++ b/drivers/amba/bus.c
+> @@ -300,11 +300,10 @@ static int amba_remove(struct device *dev)
+>  {
+>  	struct amba_device *pcdev =3D to_amba_device(dev);
+>  	struct amba_driver *drv =3D to_amba_driver(dev->driver);
+> -	int ret =3D 0;
+>  =
+
+>  	pm_runtime_get_sync(dev);
+>  	if (drv->remove)
+> -		ret =3D drv->remove(pcdev);
+> +		drv->remove(pcdev);
+>  	pm_runtime_put_noidle(dev);
+>  =
+
+>  	/* Undo the runtime PM settings in amba_probe() */
+> @@ -315,7 +314,7 @@ static int amba_remove(struct device *dev)
+>  	amba_put_disable_pclk(pcdev);
+>  	dev_pm_domain_detach(dev, true);
+>  =
+
+> -	return ret;
+> +	return 0;
+>  }
+>  =
+
+>  static void amba_shutdown(struct device *dev)
+> diff --git a/drivers/char/hw_random/nomadik-rng.c b/drivers/char/hw_rando=
+m/nomadik-rng.c
+> index b0ded41eb865..67947a19aa22 100644
+> --- a/drivers/char/hw_random/nomadik-rng.c
+> +++ b/drivers/char/hw_random/nomadik-rng.c
+> @@ -69,11 +69,10 @@ static int nmk_rng_probe(struct amba_device *dev, con=
+st struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int nmk_rng_remove(struct amba_device *dev)
+> +static void nmk_rng_remove(struct amba_device *dev)
+>  {
+>  	amba_release_regions(dev);
+>  	clk_disable(rng_clk);
+> -	return 0;
+>  }
+>  =
+
+>  static const struct amba_id nmk_rng_ids[] =3D {
+> diff --git a/drivers/dma/pl330.c b/drivers/dma/pl330.c
+> index bc0f66af0f11..fd8d2bc3be9f 100644
+> --- a/drivers/dma/pl330.c
+> +++ b/drivers/dma/pl330.c
+> @@ -3195,7 +3195,7 @@ pl330_probe(struct amba_device *adev, const struct =
+amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int pl330_remove(struct amba_device *adev)
+> +static void pl330_remove(struct amba_device *adev)
+>  {
+>  	struct pl330_dmac *pl330 =3D amba_get_drvdata(adev);
+>  	struct dma_pl330_chan *pch, *_p;
+> @@ -3235,7 +3235,6 @@ static int pl330_remove(struct amba_device *adev)
+>  =
+
+>  	if (pl330->rstc)
+>  		reset_control_assert(pl330->rstc);
+> -	return 0;
+>  }
+>  =
+
+>  static const struct amba_id pl330_ids[] =3D {
+> diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl=
+111_drv.c
+> index 40e6708fbbe2..1fb5eacefd2d 100644
+> --- a/drivers/gpu/drm/pl111/pl111_drv.c
+> +++ b/drivers/gpu/drm/pl111/pl111_drv.c
+> @@ -320,7 +320,7 @@ static int pl111_amba_probe(struct amba_device *amba_=
+dev,
+>  	return ret;
+>  }
+>  =
+
+> -static int pl111_amba_remove(struct amba_device *amba_dev)
+> +static void pl111_amba_remove(struct amba_device *amba_dev)
+>  {
+>  	struct device *dev =3D &amba_dev->dev;
+>  	struct drm_device *drm =3D amba_get_drvdata(amba_dev);
+> @@ -331,8 +331,6 @@ static int pl111_amba_remove(struct amba_device *amba=
+_dev)
+>  		drm_panel_bridge_remove(priv->bridge);
+>  	drm_dev_put(drm);
+>  	of_reserved_mem_device_release(dev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  /*
+> diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtra=
+cing/coresight/coresight-catu.c
+> index a61313f320bd..8e19e8cdcce5 100644
+> --- a/drivers/hwtracing/coresight/coresight-catu.c
+> +++ b/drivers/hwtracing/coresight/coresight-catu.c
+> @@ -567,12 +567,11 @@ static int catu_probe(struct amba_device *adev, con=
+st struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int catu_remove(struct amba_device *adev)
+> +static void catu_remove(struct amba_device *adev)
+>  {
+>  	struct catu_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
+>  =
+
+>  	coresight_unregister(drvdata->csdev);
+> -	return 0;
+>  }
+>  =
+
+>  static struct amba_id catu_ids[] =3D {
+> diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/=
+hwtracing/coresight/coresight-cpu-debug.c
+> index e1d232411d8d..2dcf13de751f 100644
+> --- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
+> +++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
+> @@ -627,7 +627,7 @@ static int debug_probe(struct amba_device *adev, cons=
+t struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int debug_remove(struct amba_device *adev)
+> +static void debug_remove(struct amba_device *adev)
+>  {
+>  	struct device *dev =3D &adev->dev;
+>  	struct debug_drvdata *drvdata =3D amba_get_drvdata(adev);
+> @@ -642,8 +642,6 @@ static int debug_remove(struct amba_device *adev)
+>  =
+
+>  	if (!--debug_count)
+>  		debug_func_exit();
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static const struct amba_cs_uci_id uci_id_debug[] =3D {
+> diff --git a/drivers/hwtracing/coresight/coresight-cti-core.c b/drivers/h=
+wtracing/coresight/coresight-cti-core.c
+> index 61dbc1afd8da..30e48809ba00 100644
+> --- a/drivers/hwtracing/coresight/coresight-cti-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-cti-core.c
+> @@ -836,7 +836,7 @@ static void cti_device_release(struct device *dev)
+>  	if (drvdata->csdev_release)
+>  		drvdata->csdev_release(dev);
+>  }
+> -static int cti_remove(struct amba_device *adev)
+> +static void cti_remove(struct amba_device *adev)
+>  {
+>  	struct cti_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
+>  =
+
+> @@ -845,8 +845,6 @@ static int cti_remove(struct amba_device *adev)
+>  	mutex_unlock(&ect_mutex);
+>  =
+
+>  	coresight_unregister(drvdata->csdev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static int cti_probe(struct amba_device *adev, const struct amba_id *id)
+> diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtr=
+acing/coresight/coresight-etb10.c
+> index 0cf6f0b947b6..51c801c05e5c 100644
+> --- a/drivers/hwtracing/coresight/coresight-etb10.c
+> +++ b/drivers/hwtracing/coresight/coresight-etb10.c
+> @@ -803,7 +803,7 @@ static int etb_probe(struct amba_device *adev, const =
+struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int etb_remove(struct amba_device *adev)
+> +static void etb_remove(struct amba_device *adev)
+>  {
+>  	struct etb_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
+>  =
+
+> @@ -814,8 +814,6 @@ static int etb_remove(struct amba_device *adev)
+>  	 */
+>  	misc_deregister(&drvdata->miscdev);
+>  	coresight_unregister(drvdata->csdev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  #ifdef CONFIG_PM
+> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers=
+/hwtracing/coresight/coresight-etm3x-core.c
+> index 5bf5a5a4ce6d..683a69e88efd 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
+> @@ -909,7 +909,7 @@ static void clear_etmdrvdata(void *info)
+>  	etmdrvdata[cpu] =3D NULL;
+>  }
+>  =
+
+> -static int etm_remove(struct amba_device *adev)
+> +static void etm_remove(struct amba_device *adev)
+>  {
+>  	struct etm_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
+>  =
+
+> @@ -932,8 +932,6 @@ static int etm_remove(struct amba_device *adev)
+>  	cpus_read_unlock();
+>  =
+
+>  	coresight_unregister(drvdata->csdev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  #ifdef CONFIG_PM
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers=
+/hwtracing/coresight/coresight-etm4x-core.c
+> index b20b6ff17cf6..82787cba537d 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> @@ -1680,7 +1680,7 @@ static void clear_etmdrvdata(void *info)
+>  	etmdrvdata[cpu] =3D NULL;
+>  }
+>  =
+
+> -static int etm4_remove(struct amba_device *adev)
+> +static void etm4_remove(struct amba_device *adev)
+>  {
+>  	struct etmv4_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
+>  =
+
+> @@ -1703,8 +1703,6 @@ static int etm4_remove(struct amba_device *adev)
+>  	cpus_read_unlock();
+>  =
+
+>  	coresight_unregister(drvdata->csdev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static const struct amba_id etm4_ids[] =3D {
+> diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwt=
+racing/coresight/coresight-funnel.c
+> index 071c723227db..01f8f9285168 100644
+> --- a/drivers/hwtracing/coresight/coresight-funnel.c
+> +++ b/drivers/hwtracing/coresight/coresight-funnel.c
+> @@ -370,9 +370,9 @@ static int dynamic_funnel_probe(struct amba_device *a=
+dev,
+>  	return funnel_probe(&adev->dev, &adev->res);
+>  }
+>  =
+
+> -static int dynamic_funnel_remove(struct amba_device *adev)
+> +static void dynamic_funnel_remove(struct amba_device *adev)
+>  {
+> -	return funnel_remove(&adev->dev);
+> +	funnel_remove(&adev->dev);
+>  }
+>  =
+
+>  static const struct amba_id dynamic_funnel_ids[] =3D {
+> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers=
+/hwtracing/coresight/coresight-replicator.c
+> index 7e2a2b7f503f..34fc2f6f3ea9 100644
+> --- a/drivers/hwtracing/coresight/coresight-replicator.c
+> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
+> @@ -388,9 +388,9 @@ static int dynamic_replicator_probe(struct amba_devic=
+e *adev,
+>  	return replicator_probe(&adev->dev, &adev->res);
+>  }
+>  =
+
+> -static int dynamic_replicator_remove(struct amba_device *adev)
+> +static void dynamic_replicator_remove(struct amba_device *adev)
+>  {
+> -	return replicator_remove(&adev->dev);
+> +	replicator_remove(&adev->dev);
+>  }
+>  =
+
+>  static const struct amba_id dynamic_replicator_ids[] =3D {
+> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtrac=
+ing/coresight/coresight-stm.c
+> index 99791773f682..423df0d30d9c 100644
+> --- a/drivers/hwtracing/coresight/coresight-stm.c
+> +++ b/drivers/hwtracing/coresight/coresight-stm.c
+> @@ -951,15 +951,13 @@ static int stm_probe(struct amba_device *adev, cons=
+t struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int stm_remove(struct amba_device *adev)
+> +static void stm_remove(struct amba_device *adev)
+>  {
+>  	struct stm_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
+>  =
+
+>  	coresight_unregister(drvdata->csdev);
+>  =
+
+>  	stm_unregister_device(&drvdata->stm);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  #ifdef CONFIG_PM
+> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/h=
+wtracing/coresight/coresight-tmc-core.c
+> index 8169dff5a9f6..e29b3914fc0f 100644
+> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
+> @@ -559,7 +559,7 @@ static void tmc_shutdown(struct amba_device *adev)
+>  	spin_unlock_irqrestore(&drvdata->spinlock, flags);
+>  }
+>  =
+
+> -static int tmc_remove(struct amba_device *adev)
+> +static void tmc_remove(struct amba_device *adev)
+>  {
+>  	struct tmc_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
+>  =
+
+> @@ -570,8 +570,6 @@ static int tmc_remove(struct amba_device *adev)
+>  	 */
+>  	misc_deregister(&drvdata->miscdev);
+>  	coresight_unregister(drvdata->csdev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static const struct amba_id tmc_ids[] =3D {
+> diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtra=
+cing/coresight/coresight-tpiu.c
+> index d5dfee9ee556..f77c4b0ea4aa 100644
+> --- a/drivers/hwtracing/coresight/coresight-tpiu.c
+> +++ b/drivers/hwtracing/coresight/coresight-tpiu.c
+> @@ -173,13 +173,11 @@ static int tpiu_probe(struct amba_device *adev, con=
+st struct amba_id *id)
+>  	return PTR_ERR(drvdata->csdev);
+>  }
+>  =
+
+> -static int tpiu_remove(struct amba_device *adev)
+> +static void tpiu_remove(struct amba_device *adev)
+>  {
+>  	struct tpiu_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
+>  =
+
+>  	coresight_unregister(drvdata->csdev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  #ifdef CONFIG_PM
+> diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-no=
+madik.c
+> index d4b1b0865f67..a3363b20f168 100644
+> --- a/drivers/i2c/busses/i2c-nomadik.c
+> +++ b/drivers/i2c/busses/i2c-nomadik.c
+> @@ -1055,7 +1055,7 @@ static int nmk_i2c_probe(struct amba_device *adev, =
+const struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int nmk_i2c_remove(struct amba_device *adev)
+> +static void nmk_i2c_remove(struct amba_device *adev)
+>  {
+>  	struct resource *res =3D &adev->res;
+>  	struct nmk_i2c_dev *dev =3D amba_get_drvdata(adev);
+> @@ -1068,8 +1068,6 @@ static int nmk_i2c_remove(struct amba_device *adev)
+>  	i2c_clr_bit(dev->virtbase + I2C_CR, I2C_CR_PE);
+>  	clk_disable_unprepare(dev->clk);
+>  	release_mem_region(res->start, resource_size(res));
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static struct i2c_vendor_data vendor_stn8815 =3D {
+> diff --git a/drivers/input/serio/ambakmi.c b/drivers/input/serio/ambakmi.c
+> index ecdeca147ed7..4408245b61d2 100644
+> --- a/drivers/input/serio/ambakmi.c
+> +++ b/drivers/input/serio/ambakmi.c
+> @@ -159,7 +159,7 @@ static int amba_kmi_probe(struct amba_device *dev,
+>  	return ret;
+>  }
+>  =
+
+> -static int amba_kmi_remove(struct amba_device *dev)
+> +static void amba_kmi_remove(struct amba_device *dev)
+>  {
+>  	struct amba_kmi_port *kmi =3D amba_get_drvdata(dev);
+>  =
+
+> @@ -168,7 +168,6 @@ static int amba_kmi_remove(struct amba_device *dev)
+>  	iounmap(kmi->base);
+>  	kfree(kmi);
+>  	amba_release_regions(dev);
+> -	return 0;
+>  }
+>  =
+
+>  static int __maybe_unused amba_kmi_resume(struct device *dev)
+> diff --git a/drivers/memory/pl172.c b/drivers/memory/pl172.c
+> index 575fadbffa30..9eb8cc7de494 100644
+> --- a/drivers/memory/pl172.c
+> +++ b/drivers/memory/pl172.c
+> @@ -273,14 +273,12 @@ static int pl172_probe(struct amba_device *adev, co=
+nst struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int pl172_remove(struct amba_device *adev)
+> +static void pl172_remove(struct amba_device *adev)
+>  {
+>  	struct pl172_data *pl172 =3D amba_get_drvdata(adev);
+>  =
+
+>  	clk_disable_unprepare(pl172->clk);
+>  	amba_release_regions(adev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static const struct amba_id pl172_ids[] =3D {
+> diff --git a/drivers/memory/pl353-smc.c b/drivers/memory/pl353-smc.c
+> index 73bd3023202f..3b5b1045edd9 100644
+> --- a/drivers/memory/pl353-smc.c
+> +++ b/drivers/memory/pl353-smc.c
+> @@ -426,14 +426,12 @@ static int pl353_smc_probe(struct amba_device *adev=
+, const struct amba_id *id)
+>  	return err;
+>  }
+>  =
+
+> -static int pl353_smc_remove(struct amba_device *adev)
+> +static void pl353_smc_remove(struct amba_device *adev)
+>  {
+>  	struct pl353_smc_data *pl353_smc =3D amba_get_drvdata(adev);
+>  =
+
+>  	clk_disable_unprepare(pl353_smc->memclk);
+>  	clk_disable_unprepare(pl353_smc->aclk);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static const struct amba_id pl353_ids[] =3D {
+> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+> index b5a41a7ce165..32f52d070bbd 100644
+> --- a/drivers/mmc/host/mmci.c
+> +++ b/drivers/mmc/host/mmci.c
+> @@ -2195,7 +2195,7 @@ static int mmci_probe(struct amba_device *dev,
+>  	return ret;
+>  }
+>  =
+
+> -static int mmci_remove(struct amba_device *dev)
+> +static void mmci_remove(struct amba_device *dev)
+>  {
+>  	struct mmc_host *mmc =3D amba_get_drvdata(dev);
+>  =
+
+> @@ -2223,8 +2223,6 @@ static int mmci_remove(struct amba_device *dev)
+>  		clk_disable_unprepare(host->clk);
+>  		mmc_free_host(mmc);
+>  	}
+> -
+> -	return 0;
+>  }
+>  =
+
+>  #ifdef CONFIG_PM
+> diff --git a/drivers/rtc/rtc-pl030.c b/drivers/rtc/rtc-pl030.c
+> index 5a880516f3e8..39038c0754ee 100644
+> --- a/drivers/rtc/rtc-pl030.c
+> +++ b/drivers/rtc/rtc-pl030.c
+> @@ -137,7 +137,7 @@ static int pl030_probe(struct amba_device *dev, const=
+ struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int pl030_remove(struct amba_device *dev)
+> +static void pl030_remove(struct amba_device *dev)
+>  {
+>  	struct pl030_rtc *rtc =3D amba_get_drvdata(dev);
+>  =
+
+> @@ -146,8 +146,6 @@ static int pl030_remove(struct amba_device *dev)
+>  	free_irq(dev->irq[0], rtc);
+>  	iounmap(rtc->base);
+>  	amba_release_regions(dev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static struct amba_id pl030_ids[] =3D {
+> diff --git a/drivers/rtc/rtc-pl031.c b/drivers/rtc/rtc-pl031.c
+> index 224bbf096262..620c8dc33647 100644
+> --- a/drivers/rtc/rtc-pl031.c
+> +++ b/drivers/rtc/rtc-pl031.c
+> @@ -280,7 +280,7 @@ static int pl031_set_alarm(struct device *dev, struct=
+ rtc_wkalrm *alarm)
+>  	return 0;
+>  }
+>  =
+
+> -static int pl031_remove(struct amba_device *adev)
+> +static void pl031_remove(struct amba_device *adev)
+>  {
+>  	struct pl031_local *ldata =3D dev_get_drvdata(&adev->dev);
+>  =
+
+> @@ -289,8 +289,6 @@ static int pl031_remove(struct amba_device *adev)
+>  	if (adev->irq[0])
+>  		free_irq(adev->irq[0], ldata);
+>  	amba_release_regions(adev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static int pl031_probe(struct amba_device *adev, const struct amba_id *i=
+d)
+> diff --git a/drivers/spi/spi-pl022.c b/drivers/spi/spi-pl022.c
+> index d1776fea287e..fd74ddfbb686 100644
+> --- a/drivers/spi/spi-pl022.c
+> +++ b/drivers/spi/spi-pl022.c
+> @@ -2314,13 +2314,13 @@ static int pl022_probe(struct amba_device *adev, =
+const struct amba_id *id)
+>  	return status;
+>  }
+>  =
+
+> -static int
+> +static void
+>  pl022_remove(struct amba_device *adev)
+>  {
+>  	struct pl022 *pl022 =3D amba_get_drvdata(adev);
+>  =
+
+>  	if (!pl022)
+> -		return 0;
+> +		return;
+>  =
+
+>  	/*
+>  	 * undo pm_runtime_put() in probe.  I assume that we're not
+> @@ -2335,7 +2335,6 @@ pl022_remove(struct amba_device *adev)
+>  	clk_disable_unprepare(pl022->clk);
+>  	amba_release_regions(adev);
+>  	tasklet_disable(&pl022->pump_transfers);
+> -	return 0;
+>  }
+>  =
+
+>  #ifdef CONFIG_PM_SLEEP
+> diff --git a/drivers/tty/serial/amba-pl010.c b/drivers/tty/serial/amba-pl=
+010.c
+> index 3284f34e9dfe..3f96edfe569c 100644
+> --- a/drivers/tty/serial/amba-pl010.c
+> +++ b/drivers/tty/serial/amba-pl010.c
+> @@ -754,7 +754,7 @@ static int pl010_probe(struct amba_device *dev, const=
+ struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int pl010_remove(struct amba_device *dev)
+> +static void pl010_remove(struct amba_device *dev)
+>  {
+>  	struct uart_amba_port *uap =3D amba_get_drvdata(dev);
+>  	int i;
+> @@ -770,8 +770,6 @@ static int pl010_remove(struct amba_device *dev)
+>  =
+
+>  	if (!busy)
+>  		uart_unregister_driver(&amba_reg);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  #ifdef CONFIG_PM_SLEEP
+> diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl=
+011.c
+> index c255476cce28..4ead0c9048a8 100644
+> --- a/drivers/tty/serial/amba-pl011.c
+> +++ b/drivers/tty/serial/amba-pl011.c
+> @@ -2679,13 +2679,12 @@ static int pl011_probe(struct amba_device *dev, c=
+onst struct amba_id *id)
+>  	return pl011_register_port(uap);
+>  }
+>  =
+
+> -static int pl011_remove(struct amba_device *dev)
+> +static void pl011_remove(struct amba_device *dev)
+>  {
+>  	struct uart_amba_port *uap =3D amba_get_drvdata(dev);
+>  =
+
+>  	uart_remove_one_port(&amba_reg, &uap->port);
+>  	pl011_unregister_port(uap);
+> -	return 0;
+>  }
+>  =
+
+>  #ifdef CONFIG_PM_SLEEP
+> diff --git a/drivers/vfio/platform/vfio_amba.c b/drivers/vfio/platform/vf=
+io_amba.c
+> index 7b3ebf1558e1..3626c2150101 100644
+> --- a/drivers/vfio/platform/vfio_amba.c
+> +++ b/drivers/vfio/platform/vfio_amba.c
+> @@ -71,14 +71,13 @@ static int vfio_amba_probe(struct amba_device *adev, =
+const struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int vfio_amba_remove(struct amba_device *adev)
+> +static void vfio_amba_remove(struct amba_device *adev)
+>  {
+>  	struct vfio_platform_device *vdev =3D
+>  		vfio_platform_remove_common(&adev->dev);
+>  =
+
+>  	kfree(vdev->name);
+>  	kfree(vdev);
+> -	return 0;
+>  }
+>  =
+
+>  static const struct amba_id pl330_ids[] =3D {
+> diff --git a/drivers/video/fbdev/amba-clcd.c b/drivers/video/fbdev/amba-c=
+lcd.c
+> index b7682de412d8..33595cc4778e 100644
+> --- a/drivers/video/fbdev/amba-clcd.c
+> +++ b/drivers/video/fbdev/amba-clcd.c
+> @@ -925,7 +925,7 @@ static int clcdfb_probe(struct amba_device *dev, cons=
+t struct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int clcdfb_remove(struct amba_device *dev)
+> +static void clcdfb_remove(struct amba_device *dev)
+>  {
+>  	struct clcd_fb *fb =3D amba_get_drvdata(dev);
+>  =
+
+> @@ -942,8 +942,6 @@ static int clcdfb_remove(struct amba_device *dev)
+>  	kfree(fb);
+>  =
+
+>  	amba_release_regions(dev);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static const struct amba_id clcdfb_id_table[] =3D {
+> diff --git a/drivers/watchdog/sp805_wdt.c b/drivers/watchdog/sp805_wdt.c
+> index 958dc32a708f..58a00e1ab23b 100644
+> --- a/drivers/watchdog/sp805_wdt.c
+> +++ b/drivers/watchdog/sp805_wdt.c
+> @@ -305,14 +305,12 @@ sp805_wdt_probe(struct amba_device *adev, const str=
+uct amba_id *id)
+>  	return ret;
+>  }
+>  =
+
+> -static int sp805_wdt_remove(struct amba_device *adev)
+> +static void sp805_wdt_remove(struct amba_device *adev)
+>  {
+>  	struct sp805_wdt *wdt =3D amba_get_drvdata(adev);
+>  =
+
+>  	watchdog_unregister_device(&wdt->wdd);
+>  	watchdog_set_drvdata(&wdt->wdd, NULL);
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static int __maybe_unused sp805_wdt_suspend(struct device *dev)
+> diff --git a/include/linux/amba/bus.h b/include/linux/amba/bus.h
+> index 0bbfd647f5c6..6cc93ab5b809 100644
+> --- a/include/linux/amba/bus.h
+> +++ b/include/linux/amba/bus.h
+> @@ -76,7 +76,7 @@ struct amba_device {
+>  struct amba_driver {
+>  	struct device_driver	drv;
+>  	int			(*probe)(struct amba_device *, const struct amba_id *);
+> -	int			(*remove)(struct amba_device *);
+> +	void			(*remove)(struct amba_device *);
+>  	void			(*shutdown)(struct amba_device *);
+>  	const struct amba_id	*id_table;
+>  };
+> diff --git a/sound/arm/aaci.c b/sound/arm/aaci.c
+> index a0996c47e58f..b326a5f5f0d5 100644
+> --- a/sound/arm/aaci.c
+> +++ b/sound/arm/aaci.c
+> @@ -1055,7 +1055,7 @@ static int aaci_probe(struct amba_device *dev,
+>  	return ret;
+>  }
+>  =
+
+> -static int aaci_remove(struct amba_device *dev)
+> +static void aaci_remove(struct amba_device *dev)
+>  {
+>  	struct snd_card *card =3D amba_get_drvdata(dev);
+>  =
+
+> @@ -1066,8 +1066,6 @@ static int aaci_remove(struct amba_device *dev)
+>  		snd_card_free(card);
+>  		amba_release_regions(dev);
+>  	}
+> -
+> -	return 0;
+>  }
+>  =
+
+>  static struct amba_id aaci_ids[] =3D {
+> -- =
+
+> 2.29.2
+> =
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
