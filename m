@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5BCA303896
+	by mail.lfdr.de (Postfix) with ESMTPS id C78C0303895
 	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 10:04:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C9ACC57A49;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E0C2C57A46;
 	Tue, 26 Jan 2021 09:04:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AA01C57A46
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D741C57A45
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 26 Jan 2021 09:04:48 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10Q8v017012790; Tue, 26 Jan 2021 10:04:39 +0100
+ 10Q8tfZk000604; Tue, 26 Jan 2021 10:04:39 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=k6uscXkXABTNJTneIu2qnrDFpyKKioS22qyjfIif7ss=;
- b=N8iBKEpqEWEP022q+rZqm7+J3l/PVobuB9lozp4zODiZXjieCvuz4cwnLOLBUVP4aUHV
- cseTpUST7qMKSQCHfh16u3w51YlcNTG4sdsEA3ZNTwV3rQ4a4JvuiiyVOvbIjqDEGVie
- O943fbVyZlwmUMJUC/oGEydVBpwklPzjAdfH0zJpl8YHHVAz3Wc9DXtRZzDHr9ufsZOs
- 8QeKMIjV3z+QFMzroFyD61R32+yaJAIOgLRkQ+HN/WOzAoQ3p0KhZBec6zo4Hw7KQ4Os
- AZnMG6PS9j8/FkH2rPZJByqDt9ff+7L60WNt/2uCaeYzde9YzhZ7QnI+hNDQVzOV2xU2 7w== 
+ bh=JulSSnbmn/ODg792hatyNg+R8GdjukARkpZyZAZHMmA=;
+ b=Wykc02L3WaxELF5pkUp8Q7eHeNGJdCEIJt5Mc/cUEbEAU/jYOodPuiV37IQRdV2I8QwY
+ GI/e3GvufmEksKL6mtjh2HyezTqB6pe1a5m5JA1SGnlT++Q/EiMuQ5AEzr+iQJ7zW3F/
+ C5KxfZ308C5ctYVgIkAJScVIaL8/il3AWB87jZi2JgLlOb8hfN3r3ggPHRP3GMNAmDcv
+ 3Z3abQjrJLpnZ72cGGnZHHGwYN3QgIPnw1P3inbLOgCZMkCiiMsllJLwGyg5ttiDh2RJ
+ BVjKgUOB17Q/YmgqkQ4gKoj4IynpvAUhzOkafzjdPPNAFlncXdbPB6k4hKPpyJAYQtAK Zw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3689tdr2kp-1
+ by mx07-00178001.pphosted.com with ESMTP id 368c15qgjd-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Tue, 26 Jan 2021 10:04:39 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2332C100034;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BF61B10002A;
  Tue, 26 Jan 2021 10:04:38 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 133412288C8;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B100B2288C8;
  Tue, 26 Jan 2021 10:04:38 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan 2021 10:04:37
+Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan 2021 10:04:38
  +0100
 From: <gabriel.fernandez@foss.st.com>
 To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
@@ -47,13 +47,13 @@ To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
  Philipp Zabel <p.zabel@pengutronix.de>, Etienne Carriere
  <etienne.carriere@st.com>,
  Gabriel Fernandez <gabriel.fernandez@foss.st.com>, <marex@denx.de>
-Date: Tue, 26 Jan 2021 10:01:13 +0100
-Message-ID: <20210126090120.19900-8-gabriel.fernandez@foss.st.com>
+Date: Tue, 26 Jan 2021 10:01:14 +0100
+Message-ID: <20210126090120.19900-9-gabriel.fernandez@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210126090120.19900-1-gabriel.fernandez@foss.st.com>
 References: <20210126090120.19900-1-gabriel.fernandez@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
+X-Originating-IP: [10.75.127.44]
 X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
@@ -62,8 +62,8 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 07/14] dt-bindings: clock: add IDs for SCMI
-	clocks on stm32mp15
+Subject: [Linux-stm32] [PATCH v2 08/14] dt-bindings: reset: add IDs for SCMI
+	reset domains on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,56 +82,45 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-stm32mp15 TZ secure firmware provides SCMI clocks for oscillators, some
-PLL output and few secure aware interfaces.
-This change defines the SCMI clock identifiers used by SCMI agents
-and servers.
-Server SCMI0 exposes clocks and reset controllers for resources under
-RCC[TZEN] configuration control.
-Server SCMI1 exposes clocks for resources under RCC[MCKPROT] control.
+stm32mp15 TZ secure firmware provides SCMI reset domains for
+secure resources. This change defines the SCMI reset domain
+identifiers used by SCMI agents and servers.
+
+Stm32mp15 TZ secure firmware provides SCMI clocks for oscillators, some
+PLL output and few secure aware interfaces. This change defines the
+SCMI clock identifiers used by SCMI agents and servers.
+
+Server SCMI0 exposes reset controllers for resources under RCC[TZEN]
+configuration control.
 
 Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
 Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 ---
- include/dt-bindings/clock/stm32mp1-clks.h | 27 +++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ include/dt-bindings/reset/stm32mp1-resets.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/include/dt-bindings/clock/stm32mp1-clks.h b/include/dt-bindings/clock/stm32mp1-clks.h
-index 4cdaf135829c..e02770b98e6c 100644
---- a/include/dt-bindings/clock/stm32mp1-clks.h
-+++ b/include/dt-bindings/clock/stm32mp1-clks.h
-@@ -248,4 +248,31 @@
+diff --git a/include/dt-bindings/reset/stm32mp1-resets.h b/include/dt-bindings/reset/stm32mp1-resets.h
+index f0c3aaef67a0..bc71924faa54 100644
+--- a/include/dt-bindings/reset/stm32mp1-resets.h
++++ b/include/dt-bindings/reset/stm32mp1-resets.h
+@@ -105,4 +105,17 @@
+ #define GPIOJ_R		19785
+ #define GPIOK_R		19786
  
- #define STM32MP1_LAST_CLK 232
- 
-+/* SCMI clock identifiers */
-+#define CK_SCMI0_HSE		0
-+#define CK_SCMI0_HSI		1
-+#define CK_SCMI0_CSI		2
-+#define CK_SCMI0_LSE		3
-+#define CK_SCMI0_LSI		4
-+#define CK_SCMI0_PLL2_Q		5
-+#define CK_SCMI0_PLL2_R		6
-+#define CK_SCMI0_MPU		7
-+#define CK_SCMI0_AXI		8
-+#define CK_SCMI0_BSEC		9
-+#define CK_SCMI0_CRYP1		10
-+#define CK_SCMI0_GPIOZ		11
-+#define CK_SCMI0_HASH1		12
-+#define CK_SCMI0_I2C4		13
-+#define CK_SCMI0_I2C6		14
-+#define CK_SCMI0_IWDG1		15
-+#define CK_SCMI0_RNG1		16
-+#define CK_SCMI0_RTC		17
-+#define CK_SCMI0_RTCAPB		18
-+#define CK_SCMI0_SPI6		19
-+#define CK_SCMI0_USART1		20
++/* SCMI reset domain identifiers */
++#define RST_SCMI0_SPI6		0
++#define RST_SCMI0_I2C4		1
++#define RST_SCMI0_I2C6		2
++#define RST_SCMI0_USART1	3
++#define RST_SCMI0_STGEN		4
++#define RST_SCMI0_GPIOZ		5
++#define RST_SCMI0_CRYP1		6
++#define RST_SCMI0_HASH1		7
++#define RST_SCMI0_RNG1		8
++#define RST_SCMI0_MDMA		9
++#define RST_SCMI0_MCU		10
 +
-+#define CK_SCMI1_PLL3_Q		0
-+#define CK_SCMI1_PLL3_R		1
-+#define CK_SCMI1_MCU		2
-+
- #endif /* _DT_BINDINGS_STM32MP1_CLKS_H_ */
+ #endif /* _DT_BINDINGS_STM32MP1_RESET_H_ */
 -- 
 2.17.1
 
