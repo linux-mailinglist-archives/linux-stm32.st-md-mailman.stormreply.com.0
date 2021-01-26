@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE987303894
+	by mail.lfdr.de (Postfix) with ESMTPS id D5BCA303896
 	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 10:04:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E2E1C57A43;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C9ACC57A49;
 	Tue, 26 Jan 2021 09:04:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 002B5C56639
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AA01C57A46
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 09:04:46 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Tue, 26 Jan 2021 09:04:48 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10Q8te45000597; Tue, 26 Jan 2021 10:04:38 +0100
+ 10Q8v017012790; Tue, 26 Jan 2021 10:04:39 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=12HwvlPBuSR/zDssyt6nTVihM14VFcWDtTsZr7M56ac=;
- b=FpPMotRQOWUfYcIXD3Qeew24EOBA4iAV1mQwfHOOdrTGdb7j1G06jGYLCJa+AV+4PhQo
- Kh/Il2TwnQ85qlEsi96Y0Wc0wzLHMLk9YRTfcPXCsa3A9ZqXeHY6C/qPOLyG/tta4WkG
- WysXHk35vYnLx2omJZOIpcQBPhsspPNq2vli8IIFQg5xDTztMp+5/NBn+EDl6rHHpo/i
- Hkiybc29KDWYXPT8U747utjP1AdYaMmqoFO+XqldU0TCGSxDp4hlr1EFzs5Bz9TpuBIW
- nMsCwMMw6UPzmlGEHxUDd4aqviXXG02fszZmGk5eNvGhz0DreeMytEair0lIyEmGz+6A pQ== 
+ bh=k6uscXkXABTNJTneIu2qnrDFpyKKioS22qyjfIif7ss=;
+ b=N8iBKEpqEWEP022q+rZqm7+J3l/PVobuB9lozp4zODiZXjieCvuz4cwnLOLBUVP4aUHV
+ cseTpUST7qMKSQCHfh16u3w51YlcNTG4sdsEA3ZNTwV3rQ4a4JvuiiyVOvbIjqDEGVie
+ O943fbVyZlwmUMJUC/oGEydVBpwklPzjAdfH0zJpl8YHHVAz3Wc9DXtRZzDHr9ufsZOs
+ 8QeKMIjV3z+QFMzroFyD61R32+yaJAIOgLRkQ+HN/WOzAoQ3p0KhZBec6zo4Hw7KQ4Os
+ AZnMG6PS9j8/FkH2rPZJByqDt9ff+7L60WNt/2uCaeYzde9YzhZ7QnI+hNDQVzOV2xU2 7w== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 368c15qgjb-1
+ by mx07-00178001.pphosted.com with ESMTP id 3689tdr2kp-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Jan 2021 10:04:38 +0100
+ Tue, 26 Jan 2021 10:04:39 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5BD7D10002A;
- Tue, 26 Jan 2021 10:04:37 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2332C100034;
+ Tue, 26 Jan 2021 10:04:38 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4C90D2288C8;
- Tue, 26 Jan 2021 10:04:37 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan 2021 10:04:36
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 133412288C8;
+ Tue, 26 Jan 2021 10:04:38 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan 2021 10:04:37
  +0100
 From: <gabriel.fernandez@foss.st.com>
 To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
@@ -47,14 +47,14 @@ To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
  Philipp Zabel <p.zabel@pengutronix.de>, Etienne Carriere
  <etienne.carriere@st.com>,
  Gabriel Fernandez <gabriel.fernandez@foss.st.com>, <marex@denx.de>
-Date: Tue, 26 Jan 2021 10:01:12 +0100
-Message-ID: <20210126090120.19900-7-gabriel.fernandez@foss.st.com>
+Date: Tue, 26 Jan 2021 10:01:13 +0100
+Message-ID: <20210126090120.19900-8-gabriel.fernandez@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210126090120.19900-1-gabriel.fernandez@foss.st.com>
 References: <20210126090120.19900-1-gabriel.fernandez@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
  definitions=2021-01-26_06:2021-01-25,
@@ -62,8 +62,8 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 06/14] reset: stm32mp1: remove stm32mp1
-	reset
+Subject: [Linux-stm32] [PATCH v2 07/14] dt-bindings: clock: add IDs for SCMI
+	clocks on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,166 +82,56 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-st32mp1 RCC reset driver was moved into stm32mp1 RCC clock driver.
+stm32mp15 TZ secure firmware provides SCMI clocks for oscillators, some
+PLL output and few secure aware interfaces.
+This change defines the SCMI clock identifiers used by SCMI agents
+and servers.
+Server SCMI0 exposes clocks and reset controllers for resources under
+RCC[TZEN] configuration control.
+Server SCMI1 exposes clocks for resources under RCC[MCKPROT] control.
 
+Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
 Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 ---
- drivers/reset/Kconfig          |   6 --
- drivers/reset/Makefile         |   1 -
- drivers/reset/reset-stm32mp1.c | 115 ---------------------------------
- 3 files changed, 122 deletions(-)
- delete mode 100644 drivers/reset/reset-stm32mp1.c
+ include/dt-bindings/clock/stm32mp1-clks.h | 27 +++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index 71ab75a46491..6c58056f1732 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -188,12 +188,6 @@ config RESET_SIMPLE
- 	   - Allwinner SoCs
- 	   - ZTE's zx2967 family
+diff --git a/include/dt-bindings/clock/stm32mp1-clks.h b/include/dt-bindings/clock/stm32mp1-clks.h
+index 4cdaf135829c..e02770b98e6c 100644
+--- a/include/dt-bindings/clock/stm32mp1-clks.h
++++ b/include/dt-bindings/clock/stm32mp1-clks.h
+@@ -248,4 +248,31 @@
  
--config RESET_STM32MP157
--	bool "STM32MP157 Reset Driver" if COMPILE_TEST
--	default MACH_STM32MP157
--	help
--	  This enables the RCC reset controller driver for STM32 MPUs.
--
- config RESET_SOCFPGA
- 	bool "SoCFPGA Reset Driver" if COMPILE_TEST && !ARCH_SOCFPGA
- 	default ARCH_SOCFPGA
-diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
-index 1054123fd187..c17f5b3c641e 100644
---- a/drivers/reset/Makefile
-+++ b/drivers/reset/Makefile
-@@ -25,7 +25,6 @@ obj-$(CONFIG_RESET_QCOM_PDC) += reset-qcom-pdc.o
- obj-$(CONFIG_RESET_RASPBERRYPI) += reset-raspberrypi.o
- obj-$(CONFIG_RESET_SCMI) += reset-scmi.o
- obj-$(CONFIG_RESET_SIMPLE) += reset-simple.o
--obj-$(CONFIG_RESET_STM32MP157) += reset-stm32mp1.o
- obj-$(CONFIG_RESET_SOCFPGA) += reset-socfpga.o
- obj-$(CONFIG_RESET_SUNXI) += reset-sunxi.o
- obj-$(CONFIG_RESET_TI_SCI) += reset-ti-sci.o
-diff --git a/drivers/reset/reset-stm32mp1.c b/drivers/reset/reset-stm32mp1.c
-deleted file mode 100644
-index b221a28041fa..000000000000
---- a/drivers/reset/reset-stm32mp1.c
-+++ /dev/null
-@@ -1,115 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * Copyright (C) STMicroelectronics 2018 - All Rights Reserved
-- * Author: Gabriel Fernandez <gabriel.fernandez@st.com> for STMicroelectronics.
-- */
--
--#include <linux/device.h>
--#include <linux/err.h>
--#include <linux/io.h>
--#include <linux/of.h>
--#include <linux/platform_device.h>
--#include <linux/reset-controller.h>
--
--#define CLR_OFFSET 0x4
--
--struct stm32_reset_data {
--	struct reset_controller_dev	rcdev;
--	void __iomem			*membase;
--};
--
--static inline struct stm32_reset_data *
--to_stm32_reset_data(struct reset_controller_dev *rcdev)
--{
--	return container_of(rcdev, struct stm32_reset_data, rcdev);
--}
--
--static int stm32_reset_update(struct reset_controller_dev *rcdev,
--			      unsigned long id, bool assert)
--{
--	struct stm32_reset_data *data = to_stm32_reset_data(rcdev);
--	int reg_width = sizeof(u32);
--	int bank = id / (reg_width * BITS_PER_BYTE);
--	int offset = id % (reg_width * BITS_PER_BYTE);
--	void __iomem *addr;
--
--	addr = data->membase + (bank * reg_width);
--	if (!assert)
--		addr += CLR_OFFSET;
--
--	writel(BIT(offset), addr);
--
--	return 0;
--}
--
--static int stm32_reset_assert(struct reset_controller_dev *rcdev,
--			      unsigned long id)
--{
--	return stm32_reset_update(rcdev, id, true);
--}
--
--static int stm32_reset_deassert(struct reset_controller_dev *rcdev,
--				unsigned long id)
--{
--	return stm32_reset_update(rcdev, id, false);
--}
--
--static int stm32_reset_status(struct reset_controller_dev *rcdev,
--			      unsigned long id)
--{
--	struct stm32_reset_data *data = to_stm32_reset_data(rcdev);
--	int reg_width = sizeof(u32);
--	int bank = id / (reg_width * BITS_PER_BYTE);
--	int offset = id % (reg_width * BITS_PER_BYTE);
--	u32 reg;
--
--	reg = readl(data->membase + (bank * reg_width));
--
--	return !!(reg & BIT(offset));
--}
--
--static const struct reset_control_ops stm32_reset_ops = {
--	.assert		= stm32_reset_assert,
--	.deassert	= stm32_reset_deassert,
--	.status		= stm32_reset_status,
--};
--
--static const struct of_device_id stm32_reset_dt_ids[] = {
--	{ .compatible = "st,stm32mp1-rcc"},
--	{ /* sentinel */ },
--};
--
--static int stm32_reset_probe(struct platform_device *pdev)
--{
--	struct device *dev = &pdev->dev;
--	struct stm32_reset_data *data;
--	void __iomem *membase;
--	struct resource *res;
--
--	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
--	if (!data)
--		return -ENOMEM;
--
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	membase = devm_ioremap_resource(dev, res);
--	if (IS_ERR(membase))
--		return PTR_ERR(membase);
--
--	data->membase = membase;
--	data->rcdev.owner = THIS_MODULE;
--	data->rcdev.nr_resets = resource_size(res) * BITS_PER_BYTE;
--	data->rcdev.ops = &stm32_reset_ops;
--	data->rcdev.of_node = dev->of_node;
--
--	return devm_reset_controller_register(dev, &data->rcdev);
--}
--
--static struct platform_driver stm32_reset_driver = {
--	.probe	= stm32_reset_probe,
--	.driver = {
--		.name		= "stm32mp1-reset",
--		.of_match_table	= stm32_reset_dt_ids,
--	},
--};
--
--builtin_platform_driver(stm32_reset_driver);
+ #define STM32MP1_LAST_CLK 232
+ 
++/* SCMI clock identifiers */
++#define CK_SCMI0_HSE		0
++#define CK_SCMI0_HSI		1
++#define CK_SCMI0_CSI		2
++#define CK_SCMI0_LSE		3
++#define CK_SCMI0_LSI		4
++#define CK_SCMI0_PLL2_Q		5
++#define CK_SCMI0_PLL2_R		6
++#define CK_SCMI0_MPU		7
++#define CK_SCMI0_AXI		8
++#define CK_SCMI0_BSEC		9
++#define CK_SCMI0_CRYP1		10
++#define CK_SCMI0_GPIOZ		11
++#define CK_SCMI0_HASH1		12
++#define CK_SCMI0_I2C4		13
++#define CK_SCMI0_I2C6		14
++#define CK_SCMI0_IWDG1		15
++#define CK_SCMI0_RNG1		16
++#define CK_SCMI0_RTC		17
++#define CK_SCMI0_RTCAPB		18
++#define CK_SCMI0_SPI6		19
++#define CK_SCMI0_USART1		20
++
++#define CK_SCMI1_PLL3_Q		0
++#define CK_SCMI1_PLL3_R		1
++#define CK_SCMI1_MCU		2
++
+ #endif /* _DT_BINDINGS_STM32MP1_CLKS_H_ */
 -- 
 2.17.1
 
