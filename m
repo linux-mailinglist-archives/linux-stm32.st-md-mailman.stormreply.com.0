@@ -2,78 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77B493043F8
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 17:47:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42636304448
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Jan 2021 18:01:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E53BC57181;
-	Tue, 26 Jan 2021 16:47:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1A19C57181;
+	Tue, 26 Jan 2021 17:01:16 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23504C3FAD8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1FFBC3FAD8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Jan 2021 16:47:55 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10QGhFaf013001; Tue, 26 Jan 2021 17:47:48 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=vlLeGXsHsMnjnV3FmScq6oQRQ7q52q4oUzJsAS0IeXs=;
- b=cTkWNGF9LNMZasacEvdp8O29sCKZBqRCqRWgBcmgbXYtHYSvElL0pDXNb4GOVC4LZGT5
- OjzjXbH/jX1RSxEscpgfRZhYpjtHrTZ7S8KZm2F2bZMdsdZ7u9MHIeBozhnrkbwiKunW
- ZuxcfK60DdieKnrk/8lmrRmyYyolf9TBk5s9OTSpN++kwo23zv4DiK5d1Th+AZJQ6dEF
- mKNbF6ZvNCH90swuY97WrECz6lewcCNiYBiP12QBRcSACJGNj8ziTjiyuW1csykV9dsV
- oqusg0HioF5e0KPZE/PQ8sRtSpOjocEI1OrFip+vGW2WK9BeEjeOlsY1zwR9PFfm84iy Dg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3689tdtje8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Jan 2021 17:47:48 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EFB7310002A;
- Tue, 26 Jan 2021 17:47:46 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E15C02AD2C3;
- Tue, 26 Jan 2021 17:47:46 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.47) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 26 Jan
- 2021 17:47:46 +0100
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20210106204347.475920-1-marex@denx.de>
- <20210106204347.475920-3-marex@denx.de>
- <e7ccdf7c-c7fa-4d03-2400-d4d89815d5d0@foss.st.com>
- <73f6d2cc-8dd7-b005-7faa-db9956f46aa5@denx.de>
- <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
- <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
- <3c5a4ac9-7874-2d4e-f353-5cf3ad79cfe1@foss.st.com>
- <9c41ae2b-06f2-b09f-d708-0f4ec96e67b6@denx.de>
- <ee8dd8c4-6437-227d-c0bb-6f6d9d12e472@foss.st.com>
- <57ff08b6-36c1-9e00-a55f-54bf8ade2b69@denx.de>
- <45443b53-3b48-afb6-b7d2-f84e0c33e85b@foss.st.com>
- <538d5520-7491-9cfe-7449-766d836784da@denx.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <e93de917-56cd-7956-ae2a-37f3c714c575@foss.st.com>
-Date: Tue, 26 Jan 2021 17:47:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <538d5520-7491-9cfe-7449-766d836784da@denx.de>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-26_09:2021-01-26,
- 2021-01-26 signatures=0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
+ Tue, 26 Jan 2021 17:01:15 +0000 (UTC)
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1l4RgD-00045p-EA; Tue, 26 Jan 2021 17:59:01 +0100
+Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1l4Rg3-0003hY-Ft; Tue, 26 Jan 2021 17:58:51 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Russell King <linux@armlinux.org.uk>, Matt Mackall <mpm@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Vinod Koul <vkoul@kernel.org>,
+ Dan Williams <dan.j.williams@intel.com>, Eric Anholt <eric@anholt.net>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH 3/4] [RFC] ARM: dts: stm32: Add mux for
-	ETHRX clock
+ Linus Walleij <linus.walleij@linaro.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Mark Brown <broonie@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Cornelia Huck <cohuck@redhat.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Date: Tue, 26 Jan 2021 17:58:30 +0100
+Message-Id: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.29.2
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig.org@pengutronix.de>,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, Mike Leach <mike.leach@linaro.org>,
+ linux-watchdog@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-crypto@vger.kernel.org, kernel@pengutronix.de,
+ Leo Yan <leo.yan@linaro.org>, dmaengine@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v3 0/5] amba: minor fix and various cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,104 +78,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 1/26/21 4:42 PM, Marek Vasut wrote:
-> On 1/26/21 4:40 PM, Alexandre TORGUE wrote:
->>
->>
->> On 1/26/21 1:59 PM, Marek Vasut wrote:
->>> On 1/26/21 11:54 AM, Alexandre TORGUE wrote:
->>> [...]
->>>>>>>>>>> The implementation of ETH_RX_CLK/ETH_REF_CLK handling 
->>>>>>>>>>> currently does not
->>>>>>>>>>> permit selecting the clock input from SoC pad. To make things 
->>>>>>>>>>> worse, the
->>>>>>>>>>> implementation of this is partly present and is split between 
->>>>>>>>>>> the clock
->>>>>>>>>>> driver and dwmac4 driver. Moreover, the ETHRX clock parent is 
->>>>>>>>>>> incorrect.
->>>>>>>>>>
->>>>>>>>>> Sorry but I don't understand which configuration is missing. I 
->>>>>>>>>> think we can handle all possible cases for RMII. At the glue 
->>>>>>>>>> layer (dwmac-stm32.c) clocks gates and syscfg are set 
->>>>>>>>>> regarding device tree binding (see the tab in dwmac-stm32.c). 
->>>>>>>>>> You could have a look here for more details: 
->>>>>>>>>> https://wiki.st.com/stm32mpu/wiki/Ethernet_device_tree_configuration 
->>>>>>>>>>
->>>>>>>>>>
->>>>>>>>>> Regarding the clock parent, yes it is not at the well 
->>>>>>>>>> frequency if you want to select this path. Our current "clock 
->>>>>>>>>> tree" is done to fit with our ST reference boards (we have 
->>>>>>>>>> more peripherals than PLL outputs so we have to make choices). 
->>>>>>>>>> So yes for customer/partners boards this clock tree has to be 
->>>>>>>>>> modified to better fit with the need (either using 
->>>>>>>>>> assigned-clock-parent or by modifying bootloader clock tree 
->>>>>>>>>> (tf-a or u-boot)).
->>>>>>>>>
->>>>>>>>> I don't think you handle all the configuration options, but I 
->>>>>>>>> might also be confused.
->>>>>>>>>
->>>>>>>>> See Figure 83. Peripheral clock distribution for Ethernet in 
->>>>>>>>> the MP1 datasheet for the below.
->>>>>>>>>
->>>>>>>>> The current setup I have needs 50 MHz on SoC pad PA1 to drive 
->>>>>>>>> the PHY clock, and uses eth_clk_fb to supply ETH_RX_CLK. 
->>>>>>>>> However, the 50 MHz is sourced directly from PLL4P, which then 
->>>>>>>>> has to run at 50 MHz and that in turn reduces clock frequency 
->>>>>>>>> for other blocks connected to PLL4P (e.g. SDMMC, where the 
->>>>>>>>> impact is noticable).
->>>>>>>>
->>>>>>>> Ok that's the common path to clock a PHY a 50MHz without using 
->>>>>>>> the ref_clk coming from the PHY. And yes I can understand that 
->>>>>>>> the drawback is huge).
->>>>>>>
->>>>>>> So lets fix it.
->>>>>>
->>>>>> There is no issue in code. It is just clock tree configuration 
->>>>>> issue. Either you don't use PLL4P for Ethernet (what you're doing) 
->>>>>> or you don't use PLL4P for SDMMC. But yes, there are not a lot of 
->>>>>> possibilities.
->>>>>
->>>>> I am supplying MCO2 with PLL4P, that is PLL4P->MCO2->ETHRX . To 
->>>>> enable this entire chain of clock, I need the correct clock tree. 
->>>>> Currently that cannot be modeled, can it?
->>>>>
->>>>
->>>> Maybe I miss something, I thought your setup was like that:
->>>>
->>>> First clock path to your PHY:
->>>> --------------------
->>>>
->>>> PLL4P ---> MCO2 ---> X1 (PHY input clock which replaces crystal)
->>>> It is not directly linked to the dwmac-stm32. You "just" provide a 
->>>> clock to MCO2. After that you can use MCO2 pins for any usages.
->>>>
->>>> Second clock patch:
->>>> --------------------
->>>>
->>>> 50MHz (refclk coming from phy) --> ETH_REF_CLK pad
->>>> This one is already covered in dwmac-stm32.
->>>>
->>>> Why do you want to link the both clock paths ?
->>>
->>> Because the X1 (MCO2 output) is the same net as 50 MHz ETH_REF_CLK 
->>> input. MCO2 output is routed on a SoC pin and that is connected with 
->>> a wire to ETH_REF_CLK SoC pin (input).
->>
->> Ok I see, but I don't think you have to link both clocks.
-> 
-> If I don't, then MCO2 will not have any consumer and would be turned off 
-> by the kernel.
-
-I agree, but IMO the MCO clock should be declared with CLK_IGNORE_UNUSED 
-flag in stm32mp1 clock driver.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RnJvbTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZy5vcmdAcGVuZ3V0cm9uaXgu
+ZGUKCkhlbGxvLAoKQ2hhbmdlcyBzaW5jZSB2MiBzZW50IHdpdGggTWVzc2FnZS1JZDoKMjAyMDEx
+MjQxMzMxMzkuMzA3MjEyNC0xLXV3ZUBrbGVpbmUta29lbmlnLm9yZzoKCiAtIFJlYmFzZSB0byB2
+NS4xMS1yYzEgKHdoaWNoIHJlc3VsdGVkIGluIGEgZmV3IGNvbmZsaWN0cyBpbgogICBkcml2ZXJz
+L2h3dHJhY2luZykuCiAtIEFkZCB2YXJpb3VzIEFja3MuCiAtIFNlbmQgdG8gbW9yZSBtYWludGFp
+bmVycyBkaXJlY3RseSAod2hpY2ggSSB0aGluayBpcyBvbmUgb2YgdGhlCiAgIHJlYXNvbnMgd2h5
+IHRoZXJlIGFyZSBzbyBmZXcgQWNrcykuCgpGb3IgbXkgdGFzdGUgcGF0Y2ggNCBuZWVkcyBzb21l
+IG1vcmUgYWNrcyAoZHJpdmVycy9jaGFyL2h3X3JhbmRvbSwKZHJpdmVycy9kbWEsIGRyaXZlcnMv
+Z3B1L2RybS9wbDExMSwgZHJpdmVycy9pMmMsIGRyaXZlcnMvbW1jLApkcml2ZXJzL3ZmaW8sIGRy
+aXZlcnMvd2F0Y2hkb2cgYW5kIHNvdW5kL2FybSBoYXZlIG5vIG1haW50YWluZXIgZmVlZGJhY2sK
+eWV0KS4KCk15IHN1Z2dlc3Rpb24gaXMgdG8gbGV0IHRoaXMgc2VyaWVzIGdvIGluIHZpYSBSdXNz
+ZWxsIEtpbmcgKHdobyBjYXJlcwpmb3IgYW1iYSkuIE9uY2UgZW5vdWdoIEFja3MgYXJlIHRoZXJl
+IEkgY2FuIGFsc28gcHJvdmlkZSBhIHRhZyBmb3IKbWVyZ2luZyBpbnRvIGRpZmZlcmVudCB0cmVl
+cy4gSnVzdCB0ZWxsIG1lIGlmIHlvdSBwcmVmZXIgdGhpcyBzb2x1dGlvbi4KCldvdWxkIGJlIGdy
+ZWF0IGlmIHRoaXMgY291bGQgbWFrZSBpdCBmb3IgdjUuMTIsIGJ1dCBJJ20gYXdhcmUgaXQncwph
+bHJlYWR5IGxhdGUgaW4gdGhlIHY1LjExIGN5Y2xlIHNvIGl0IG1pZ2h0IGhhdmUgdG8gd2FpdCBm
+b3IgdjUuMTMuCgpCZXN0IHJlZ2FyZHMKVXdlCgpVd2UgS2xlaW5lLUvDtm5pZyAoNSk6CiAgYW1i
+YTogRml4IHJlc291cmNlIGxlYWsgZm9yIGRyaXZlcnMgd2l0aG91dCAucmVtb3ZlCiAgYW1iYTog
+cmVvcmRlciBmdW5jdGlvbnMKICB2ZmlvOiBwbGF0Zm9ybTogc2ltcGxpZnkgZGV2aWNlIHJlbW92
+YWwKICBhbWJhOiBNYWtlIHRoZSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuIHZvaWQKICBhbWJhOiBN
+YWtlIHVzZSBvZiBidXNfdHlwZSBmdW5jdGlvbnMKCiBkcml2ZXJzL2FtYmEvYnVzLmMgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgfCAyMzQgKysrKysrKysrLS0tLS0tLS0tCiBkcml2ZXJzL2No
+YXIvaHdfcmFuZG9tL25vbWFkaWstcm5nLmMgICAgICAgICAgfCAgIDMgKy0KIGRyaXZlcnMvZG1h
+L3BsMzMwLmMgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMyArLQogZHJpdmVycy9ncHUv
+ZHJtL3BsMTExL3BsMTExX2Rydi5jICAgICAgICAgICAgIHwgICA0ICstCiBkcml2ZXJzL2h3dHJh
+Y2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWNhdHUuYyAgfCAgIDMgKy0KIC4uLi9od3RyYWNpbmcv
+Y29yZXNpZ2h0L2NvcmVzaWdodC1jcHUtZGVidWcuYyB8ICAgNCArLQogLi4uL2h3dHJhY2luZy9j
+b3Jlc2lnaHQvY29yZXNpZ2h0LWN0aS1jb3JlLmMgIHwgICA0ICstCiBkcml2ZXJzL2h3dHJhY2lu
+Zy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0YjEwLmMgfCAgIDQgKy0KIC4uLi9jb3Jlc2lnaHQvY29y
+ZXNpZ2h0LWV0bTN4LWNvcmUuYyAgICAgICAgICB8ICAgNCArLQogLi4uL2NvcmVzaWdodC9jb3Jl
+c2lnaHQtZXRtNHgtY29yZS5jICAgICAgICAgIHwgICA0ICstCiAuLi4vaHd0cmFjaW5nL2NvcmVz
+aWdodC9jb3Jlc2lnaHQtZnVubmVsLmMgICAgfCAgIDQgKy0KIC4uLi9jb3Jlc2lnaHQvY29yZXNp
+Z2h0LXJlcGxpY2F0b3IuYyAgICAgICAgICB8ICAgNCArLQogZHJpdmVycy9od3RyYWNpbmcvY29y
+ZXNpZ2h0L2NvcmVzaWdodC1zdG0uYyAgIHwgICA0ICstCiAuLi4vaHd0cmFjaW5nL2NvcmVzaWdo
+dC9jb3Jlc2lnaHQtdG1jLWNvcmUuYyAgfCAgIDQgKy0KIGRyaXZlcnMvaHd0cmFjaW5nL2NvcmVz
+aWdodC9jb3Jlc2lnaHQtdHBpdS5jICB8ICAgNCArLQogZHJpdmVycy9pMmMvYnVzc2VzL2kyYy1u
+b21hZGlrLmMgICAgICAgICAgICAgIHwgICA0ICstCiBkcml2ZXJzL2lucHV0L3NlcmlvL2FtYmFr
+bWkuYyAgICAgICAgICAgICAgICAgfCAgIDMgKy0KIGRyaXZlcnMvbWVtb3J5L3BsMTcyLmMgICAg
+ICAgICAgICAgICAgICAgICAgICB8ICAgNCArLQogZHJpdmVycy9tZW1vcnkvcGwzNTMtc21jLmMg
+ICAgICAgICAgICAgICAgICAgIHwgICA0ICstCiBkcml2ZXJzL21tYy9ob3N0L21tY2kuYyAgICAg
+ICAgICAgICAgICAgICAgICAgfCAgIDQgKy0KIGRyaXZlcnMvcnRjL3J0Yy1wbDAzMC5jICAgICAg
+ICAgICAgICAgICAgICAgICB8ICAgNCArLQogZHJpdmVycy9ydGMvcnRjLXBsMDMxLmMgICAgICAg
+ICAgICAgICAgICAgICAgIHwgICA0ICstCiBkcml2ZXJzL3NwaS9zcGktcGwwMjIuYyAgICAgICAg
+ICAgICAgICAgICAgICAgfCAgIDUgKy0KIGRyaXZlcnMvdHR5L3NlcmlhbC9hbWJhLXBsMDEwLmMg
+ICAgICAgICAgICAgICB8ICAgNCArLQogZHJpdmVycy90dHkvc2VyaWFsL2FtYmEtcGwwMTEuYyAg
+ICAgICAgICAgICAgIHwgICAzICstCiBkcml2ZXJzL3ZmaW8vcGxhdGZvcm0vdmZpb19hbWJhLmMg
+ICAgICAgICAgICAgfCAgMTUgKy0KIGRyaXZlcnMvdmlkZW8vZmJkZXYvYW1iYS1jbGNkLmMgICAg
+ICAgICAgICAgICB8ICAgNCArLQogZHJpdmVycy93YXRjaGRvZy9zcDgwNV93ZHQuYyAgICAgICAg
+ICAgICAgICAgIHwgICA0ICstCiBpbmNsdWRlL2xpbnV4L2FtYmEvYnVzLmggICAgICAgICAgICAg
+ICAgICAgICAgfCAgIDIgKy0KIHNvdW5kL2FybS9hYWNpLmMgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICB8ICAgNCArLQogMzAgZmlsZXMgY2hhbmdlZCwgMTU3IGluc2VydGlvbnMoKyksIDE5
+OCBkZWxldGlvbnMoLSkKCgpiYXNlLWNvbW1pdDogNWM4ZmU1ODNjY2U1NDJhYTBiODRhZGM5Mzlj
+ZTg1MjkzZGUzNmU1ZQotLSAKMi4yOS4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
