@@ -2,65 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C447305AA2
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Jan 2021 13:03:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA79A307237
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Jan 2021 10:04:32 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DAA7C57183;
-	Wed, 27 Jan 2021 12:03:16 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D39AC57183;
+	Thu, 28 Jan 2021 09:04:32 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24537C5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 647D4C57180
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Jan 2021 12:03:13 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1227220773;
- Wed, 27 Jan 2021 12:03:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1611748991;
- bh=s9FyWRqQBYLlzUUdBkv3FZQxudbP70KKsuwRkeHWHEI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=M8giB4ORvL3mx55LaDcj1/tIi+BhFJb4mO4m9pyBQqvZIwgP2vqkgkDOQ4I1vn8HH
- U8aP648RT1pUgCmU92gSCKiLyN0XGWtBCyfjACVz8RiJzgpFsPQ6OWW77wlJfo28NM
- bwp9LYhhA6QMhnElnHGF3hN0OdPBasyFUrm9T7kg=
-Date: Wed, 27 Jan 2021 13:03:08 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <YBFWfOmndoPckN1A@kroah.com>
-References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
- <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
+ Thu, 28 Jan 2021 09:04:29 +0000 (UTC)
+Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1l53Az-0005JR-0y; Thu, 28 Jan 2021 10:01:17 +0100
+Received: from ore by dude.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ore@pengutronix.de>)
+ id 1l53Av-0003Jb-3S; Thu, 28 Jan 2021 10:01:13 +0100
+Date: Thu, 28 Jan 2021 10:01:13 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>
+Message-ID: <20210128090113.GA8734@pengutronix.de>
+References: <cover.1608935587.git.vilhelm.gray@gmail.com>
+ <57bc509273bf288d74835e6ebdaebf27b4991888.1608935587.git.vilhelm.gray@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210126165835.687514-5-u.kleine-koenig@pengutronix.de>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
- kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Linus Walleij <linus.walleij@linaro.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Eric Anholt <eric@anholt.net>, linux-i2c@vger.kernel.org,
- linux-spi@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Guenter Roeck <linux@roeck-us.net>, Mike Leach <mike.leach@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Arnd Bergmann <arnd@arndb.de>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
- Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
- linux-watchdog@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
- dmaengine@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: Re: [Linux-stm32] [PATCH v3 4/5] amba: Make the remove callback
-	return void
+In-Reply-To: <57bc509273bf288d74835e6ebdaebf27b4991888.1608935587.git.vilhelm.gray@gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-IRC: #ptxdist @freenode
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-Uptime: 09:50:15 up 44 days, 16:58, 76 users,  load average: 0.25, 19.96,
+ 32.07
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org, kamel.bouhara@bootlin.com,
+ gwendal@chromium.org, david@lechnology.com, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com, linux-stm32@st-md-mailman.stormreply.com,
+ alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
+ Dan Carpenter <dan.carpenter@oracle.com>, mcoquelin.stm32@gmail.com,
+ fabrice.gasnier@st.com, syednwaris@gmail.com, kernel@pengutronix.de,
+ jic23@kernel.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v7 3/5] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,34 +64,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 26, 2021 at 05:58:34PM +0100, Uwe Kleine-K=F6nig wrote:
-> All amba drivers return 0 in their remove callback. Together with the
-> driver core ignoring the return value anyhow, it doesn't make sense to
-> return a value here.
-> =
+Hello William,
 
-> Change the remove prototype to return void, which makes it explicit that
-> returning an error value doesn't work as expected. This simplifies changi=
-ng
-> the core remove callback to return void, too.
-> =
 
-> Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
-> Reviewed-by: Arnd Bergmann <arnd@arndb.de>
-> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Acked-by: Krzysztof Kozlowski <krzk@kernel.org> # for drivers/memory
-> Acked-by: Mark Brown <broonie@kernel.org>
-> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Acked-by: Linus Walleij <linus.walleij@linaro.org>
-> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+On Fri, Dec 25, 2020 at 07:15:36PM -0500, William Breathitt Gray wrote:
+> This patch introduces a character device interface for the Counter
+> subsystem. Device data is exposed through standard character device read
+> operations. Device data is gathered when a Counter event is pushed by
+> the respective Counter device driver. Configuration is handled via ioctl
+> operations on the respective Counter character device node.
+> 
+> Cc: David Lechner <david@lechnology.com>
+> Cc: Gwendal Grignou <gwendal@chromium.org>
+> Cc: Dan Carpenter <dan.carpenter@oracle.com>
+> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> ---
+...
+> +struct counter_event {
+> +	__aligned_u64 timestamp;
+> +	__aligned_u64 value;
+> +	struct counter_watch watch;
+> +	__u8 errno;
 
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+This variable clashed in user space, as soon as you include errno.h,
+with the libc's "magic" definition of errno. What about "err" instead.
+I'm not sure it an __u8 is the proper type, IIRC usually it's an int.
+
+Regards,
+Oleksij
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
