@@ -2,66 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DCC130978E
-	for <lists+linux-stm32@lfdr.de>; Sat, 30 Jan 2021 19:36:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E3D83097A6
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 Jan 2021 19:50:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECF75C5718C;
-	Sat, 30 Jan 2021 18:36:15 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3AD5C5718C;
+	Sat, 30 Jan 2021 18:50:20 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC038C56639
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6BF1C56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Jan 2021 18:36:14 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4DSjb1725sz1qsZn;
- Sat, 30 Jan 2021 19:36:13 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4DSjb15D5Rz1tYTW;
- Sat, 30 Jan 2021 19:36:13 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id cRGbL42KBVxR; Sat, 30 Jan 2021 19:36:11 +0100 (CET)
-X-Auth-Info: Qv6DOycKgnrp3RAbb23CnS1O4IkclZhUqSOMG1BDRCo=
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ Sat, 30 Jan 2021 18:50:18 +0000 (UTC)
+Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Sat, 30 Jan 2021 19:36:11 +0100 (CET)
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20210106204347.475920-1-marex@denx.de>
- <20210106204347.475920-3-marex@denx.de>
- <e7ccdf7c-c7fa-4d03-2400-d4d89815d5d0@foss.st.com>
- <73f6d2cc-8dd7-b005-7faa-db9956f46aa5@denx.de>
- <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
- <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
- <3c5a4ac9-7874-2d4e-f353-5cf3ad79cfe1@foss.st.com>
- <9c41ae2b-06f2-b09f-d708-0f4ec96e67b6@denx.de>
- <ee8dd8c4-6437-227d-c0bb-6f6d9d12e472@foss.st.com>
- <57ff08b6-36c1-9e00-a55f-54bf8ade2b69@denx.de>
- <45443b53-3b48-afb6-b7d2-f84e0c33e85b@foss.st.com>
- <538d5520-7491-9cfe-7449-766d836784da@denx.de>
- <e93de917-56cd-7956-ae2a-37f3c714c575@foss.st.com>
- <b33f2d0c-3204-3c4d-74e6-a33ee9824766@denx.de>
- <503d9902-6a23-f0fe-9616-cde02a9df2d9@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <a7f6c579-9aaf-bbd8-b0b6-1dc977f1ef11@denx.de>
-Date: Sat, 30 Jan 2021 19:36:10 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ by mail.kernel.org (Postfix) with ESMTPSA id 9B91D64E11;
+ Sat, 30 Jan 2021 18:50:14 +0000 (UTC)
+Date: Sat, 30 Jan 2021 18:50:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <20210130185010.6be82858@archlinux>
+In-Reply-To: <1611926542-2490-1-git-send-email-fabrice.gasnier@foss.st.com>
+References: <1611926542-2490-1-git-send-email-fabrice.gasnier@foss.st.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <503d9902-6a23-f0fe-9616-cde02a9df2d9@foss.st.com>
-Content-Language: en-US
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH 3/4] [RFC] ARM: dts: stm32: Add mux for
-	ETHRX clock
+Cc: alexandre.torgue@st.com, linux-doc@vger.kernel.org,
+ mchehab+huawei@kernel.org, linux-kernel@vger.kernel.org,
+ vilhelm.gray@gmail.com, linux-iio@vger.kernel.org, lukas.bulwahn@gmail.com,
+ fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] counter: stm32-lptimer-cnt: remove iio
+	counter abi
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,118 +45,498 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 1/29/21 4:19 PM, Alexandre TORGUE wrote:
-> 
-> 
-> On 1/26/21 8:11 PM, Marek Vasut wrote:
->> On 1/26/21 5:47 PM, Alexandre TORGUE wrote:
->>>
->>>
->>> On 1/26/21 4:42 PM, Marek Vasut wrote:
->>>> On 1/26/21 4:40 PM, Alexandre TORGUE wrote:
->>>>>
->>>>>
->>>>> On 1/26/21 1:59 PM, Marek Vasut wrote:
->>>>>> On 1/26/21 11:54 AM, Alexandre TORGUE wrote:
->>>>>> [...]
->>>>>>>>>>>>>> The implementation of ETH_RX_CLK/ETH_REF_CLK handling 
->>>>>>>>>>>>>> currently does not
->>>>>>>>>>>>>> permit selecting the clock input from SoC pad. To make 
->>>>>>>>>>>>>> things worse, the
->>>>>>>>>>>>>> implementation of this is partly present and is split 
->>>>>>>>>>>>>> between the clock
->>>>>>>>>>>>>> driver and dwmac4 driver. Moreover, the ETHRX clock parent 
->>>>>>>>>>>>>> is incorrect.
->>>>>>>>>>>>>
->>>>>>>>>>>>> Sorry but I don't understand which configuration is 
->>>>>>>>>>>>> missing. I think we can handle all possible cases for RMII. 
->>>>>>>>>>>>> At the glue layer (dwmac-stm32.c) clocks gates and syscfg 
->>>>>>>>>>>>> are set regarding device tree binding (see the tab in 
->>>>>>>>>>>>> dwmac-stm32.c). You could have a look here for more 
->>>>>>>>>>>>> details: 
->>>>>>>>>>>>> https://wiki.st.com/stm32mpu/wiki/Ethernet_device_tree_configuration 
->>>>>>>>>>>>>
->>>>>>>>>>>>>
->>>>>>>>>>>>> Regarding the clock parent, yes it is not at the well 
->>>>>>>>>>>>> frequency if you want to select this path. Our current 
->>>>>>>>>>>>> "clock tree" is done to fit with our ST reference boards 
->>>>>>>>>>>>> (we have more peripherals than PLL outputs so we have to 
->>>>>>>>>>>>> make choices). So yes for customer/partners boards this 
->>>>>>>>>>>>> clock tree has to be modified to better fit with the need 
->>>>>>>>>>>>> (either using assigned-clock-parent or by modifying 
->>>>>>>>>>>>> bootloader clock tree (tf-a or u-boot)).
->>>>>>>>>>>>
->>>>>>>>>>>> I don't think you handle all the configuration options, but 
->>>>>>>>>>>> I might also be confused.
->>>>>>>>>>>>
->>>>>>>>>>>> See Figure 83. Peripheral clock distribution for Ethernet in 
->>>>>>>>>>>> the MP1 datasheet for the below.
->>>>>>>>>>>>
->>>>>>>>>>>> The current setup I have needs 50 MHz on SoC pad PA1 to 
->>>>>>>>>>>> drive the PHY clock, and uses eth_clk_fb to supply 
->>>>>>>>>>>> ETH_RX_CLK. However, the 50 MHz is sourced directly from 
->>>>>>>>>>>> PLL4P, which then has to run at 50 MHz and that in turn 
->>>>>>>>>>>> reduces clock frequency for other blocks connected to PLL4P 
->>>>>>>>>>>> (e.g. SDMMC, where the impact is noticable).
->>>>>>>>>>>
->>>>>>>>>>> Ok that's the common path to clock a PHY a 50MHz without 
->>>>>>>>>>> using the ref_clk coming from the PHY. And yes I can 
->>>>>>>>>>> understand that the drawback is huge).
->>>>>>>>>>
->>>>>>>>>> So lets fix it.
->>>>>>>>>
->>>>>>>>> There is no issue in code. It is just clock tree configuration 
->>>>>>>>> issue. Either you don't use PLL4P for Ethernet (what you're 
->>>>>>>>> doing) or you don't use PLL4P for SDMMC. But yes, there are not 
->>>>>>>>> a lot of possibilities.
->>>>>>>>
->>>>>>>> I am supplying MCO2 with PLL4P, that is PLL4P->MCO2->ETHRX . To 
->>>>>>>> enable this entire chain of clock, I need the correct clock 
->>>>>>>> tree. Currently that cannot be modeled, can it?
->>>>>>>>
->>>>>>>
->>>>>>> Maybe I miss something, I thought your setup was like that:
->>>>>>>
->>>>>>> First clock path to your PHY:
->>>>>>> --------------------
->>>>>>>
->>>>>>> PLL4P ---> MCO2 ---> X1 (PHY input clock which replaces crystal)
->>>>>>> It is not directly linked to the dwmac-stm32. You "just" provide 
->>>>>>> a clock to MCO2. After that you can use MCO2 pins for any usages.
->>>>>>>
->>>>>>> Second clock patch:
->>>>>>> --------------------
->>>>>>>
->>>>>>> 50MHz (refclk coming from phy) --> ETH_REF_CLK pad
->>>>>>> This one is already covered in dwmac-stm32.
->>>>>>>
->>>>>>> Why do you want to link the both clock paths ?
->>>>>>
->>>>>> Because the X1 (MCO2 output) is the same net as 50 MHz ETH_REF_CLK 
->>>>>> input. MCO2 output is routed on a SoC pin and that is connected 
->>>>>> with a wire to ETH_REF_CLK SoC pin (input).
->>>>>
->>>>> Ok I see, but I don't think you have to link both clocks.
->>>>
->>>> If I don't, then MCO2 will not have any consumer and would be turned 
->>>> off by the kernel.
->>>
->>> I agree, but IMO the MCO clock should be declared with 
->>> CLK_IGNORE_UNUSED flag in stm32mp1 clock driver.
->>
->> Why? It can be safely turned off if it is only used to supply ETHRX. 
->> And if the clock tree is correctly modeled, that is what happens.
-> 
-> You're right. I think we could only add an optional clock inside dwmac 
-> stm32 glue to take this phy clock (here MCO2)
+On Fri, 29 Jan 2021 14:22:22 +0100
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-But you already do have clock in the glue, it's the ETHRX clock. There 
-are no additional clock that have to be added to the glue.
+> Currently, the STM32 LP Timer counter driver registers into both IIO and
+> counter subsystems, which is redundant.
+> 
+> Remove the IIO counter ABI and IIO registration from the STM32 LP Timer
+> counter driver since it's been superseded by the Counter subsystem
+> as discussed in [1].
+> 
+> Keep only the counter subsystem related part.
+> Move a part of the ABI documentation into a driver comment.
+> 
+> This also removes a duplicate ABI warning
+> $ scripts/get_abi.pl validate
+> ...
+> /sys/bus/iio/devices/iio:deviceX/in_count0_preset is defined 2 times:
+>   ./Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:100
+>   ./Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:0
+> 
+> [1] https://lkml.org/lkml/2021/1/19/347
+> 
+> Acked-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+The mod_devicetable.h include confused me for a bit, but then I realised
+that iio.h includes of.h (which it almost certainly shouldn't).
+I guess that's one to clean up at somepoint!
+
+Applied to the togreg branch of iio.git and pushed out as testing.
+
+Thanks,
+
+Jonathan
+
+> ---
+> Changes in v2:
+> - remove dependency on IIO subsustem, as spotted by William
+> ---
+>  .../ABI/testing/sysfs-bus-iio-lptimer-stm32        |  62 -----
+>  drivers/counter/Kconfig                            |   2 +-
+>  drivers/counter/stm32-lptimer-cnt.c                | 297 +++------------------
+>  3 files changed, 37 insertions(+), 324 deletions(-)
+>  delete mode 100644 Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32 b/Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32
+> deleted file mode 100644
+> index 73498ff..00000000
+> --- a/Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32
+> +++ /dev/null
+> @@ -1,62 +0,0 @@
+> -What:		/sys/bus/iio/devices/iio:deviceX/in_count0_preset
+> -KernelVersion:	4.13
+> -Contact:	fabrice.gasnier@st.com
+> -Description:
+> -		Reading returns the current preset value. Writing sets the
+> -		preset value. Encoder counts continuously from 0 to preset
+> -		value, depending on direction (up/down).
+> -
+> -What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
+> -KernelVersion:	4.13
+> -Contact:	fabrice.gasnier@st.com
+> -Description:
+> -		Reading returns the list possible quadrature modes.
+> -
+> -What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
+> -KernelVersion:	4.13
+> -Contact:	fabrice.gasnier@st.com
+> -Description:
+> -		Configure the device counter quadrature modes:
+> -
+> -		- non-quadrature:
+> -			Encoder IN1 input servers as the count input (up
+> -			direction).
+> -
+> -		- quadrature:
+> -			Encoder IN1 and IN2 inputs are mixed to get direction
+> -			and count.
+> -
+> -What:		/sys/bus/iio/devices/iio:deviceX/in_count_polarity_available
+> -KernelVersion:	4.13
+> -Contact:	fabrice.gasnier@st.com
+> -Description:
+> -		Reading returns the list possible active edges.
+> -
+> -What:		/sys/bus/iio/devices/iio:deviceX/in_count0_polarity
+> -KernelVersion:	4.13
+> -Contact:	fabrice.gasnier@st.com
+> -Description:
+> -		Configure the device encoder/counter active edge:
+> -
+> -		- rising-edge
+> -		- falling-edge
+> -		- both-edges
+> -
+> -		In non-quadrature mode, device counts up on active edge.
+> -
+> -		In quadrature mode, encoder counting scenarios are as follows:
+> -
+> -		+---------+----------+--------------------+--------------------+
+> -		| Active  | Level on |      IN1 signal    |     IN2 signal     |
+> -		| edge    | opposite +----------+---------+----------+---------+
+> -		|         | signal   |  Rising  | Falling |  Rising  | Falling |
+> -		+---------+----------+----------+---------+----------+---------+
+> -		| Rising  | High ->  |   Down   |    -    |   Up     |    -    |
+> -		| edge    | Low  ->  |   Up     |    -    |   Down   |    -    |
+> -		+---------+----------+----------+---------+----------+---------+
+> -		| Falling | High ->  |    -     |   Up    |    -     |   Down  |
+> -		| edge    | Low  ->  |    -     |   Down  |    -     |   Up    |
+> -		+---------+----------+----------+---------+----------+---------+
+> -		| Both    | High ->  |   Down   |   Up    |   Up     |   Down  |
+> -		| edges   | Low  ->  |   Up     |   Down  |   Down   |   Up    |
+> -		+---------+----------+----------+---------+----------+---------+
+> diff --git a/drivers/counter/Kconfig b/drivers/counter/Kconfig
+> index 2de53ab..cbdf842 100644
+> --- a/drivers/counter/Kconfig
+> +++ b/drivers/counter/Kconfig
+> @@ -41,7 +41,7 @@ config STM32_TIMER_CNT
+>  
+>  config STM32_LPTIMER_CNT
+>  	tristate "STM32 LP Timer encoder counter driver"
+> -	depends on (MFD_STM32_LPTIMER || COMPILE_TEST) && IIO
+> +	depends on MFD_STM32_LPTIMER || COMPILE_TEST
+>  	help
+>  	  Select this option to enable STM32 Low-Power Timer quadrature encoder
+>  	  and counter driver.
+> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+> index fd6828e..9374396 100644
+> --- a/drivers/counter/stm32-lptimer-cnt.c
+> +++ b/drivers/counter/stm32-lptimer-cnt.c
+> @@ -12,8 +12,8 @@
+>  
+>  #include <linux/bitfield.h>
+>  #include <linux/counter.h>
+> -#include <linux/iio/iio.h>
+>  #include <linux/mfd/stm32-lptimer.h>
+> +#include <linux/mod_devicetable.h>
+>  #include <linux/module.h>
+>  #include <linux/pinctrl/consumer.h>
+>  #include <linux/platform_device.h>
+> @@ -107,249 +107,27 @@ static int stm32_lptim_setup(struct stm32_lptim_cnt *priv, int enable)
+>  	return regmap_update_bits(priv->regmap, STM32_LPTIM_CFGR, mask, val);
+>  }
+>  
+> -static int stm32_lptim_write_raw(struct iio_dev *indio_dev,
+> -				 struct iio_chan_spec const *chan,
+> -				 int val, int val2, long mask)
+> -{
+> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
+> -	int ret;
+> -
+> -	switch (mask) {
+> -	case IIO_CHAN_INFO_ENABLE:
+> -		if (val < 0 || val > 1)
+> -			return -EINVAL;
+> -
+> -		/* Check nobody uses the timer, or already disabled/enabled */
+> -		ret = stm32_lptim_is_enabled(priv);
+> -		if ((ret < 0) || (!ret && !val))
+> -			return ret;
+> -		if (val && ret)
+> -			return -EBUSY;
+> -
+> -		ret = stm32_lptim_setup(priv, val);
+> -		if (ret)
+> -			return ret;
+> -		return stm32_lptim_set_enable_state(priv, val);
+> -
+> -	default:
+> -		return -EINVAL;
+> -	}
+> -}
+> -
+> -static int stm32_lptim_read_raw(struct iio_dev *indio_dev,
+> -				struct iio_chan_spec const *chan,
+> -				int *val, int *val2, long mask)
+> -{
+> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
+> -	u32 dat;
+> -	int ret;
+> -
+> -	switch (mask) {
+> -	case IIO_CHAN_INFO_RAW:
+> -		ret = regmap_read(priv->regmap, STM32_LPTIM_CNT, &dat);
+> -		if (ret)
+> -			return ret;
+> -		*val = dat;
+> -		return IIO_VAL_INT;
+> -
+> -	case IIO_CHAN_INFO_ENABLE:
+> -		ret = stm32_lptim_is_enabled(priv);
+> -		if (ret < 0)
+> -			return ret;
+> -		*val = ret;
+> -		return IIO_VAL_INT;
+> -
+> -	case IIO_CHAN_INFO_SCALE:
+> -		/* Non-quadrature mode: scale = 1 */
+> -		*val = 1;
+> -		*val2 = 0;
+> -		if (priv->quadrature_mode) {
+> -			/*
+> -			 * Quadrature encoder mode:
+> -			 * - both edges, quarter cycle, scale is 0.25
+> -			 * - either rising/falling edge scale is 0.5
+> -			 */
+> -			if (priv->polarity > 1)
+> -				*val2 = 2;
+> -			else
+> -				*val2 = 1;
+> -		}
+> -		return IIO_VAL_FRACTIONAL_LOG2;
+> -
+> -	default:
+> -		return -EINVAL;
+> -	}
+> -}
+> -
+> -static const struct iio_info stm32_lptim_cnt_iio_info = {
+> -	.read_raw = stm32_lptim_read_raw,
+> -	.write_raw = stm32_lptim_write_raw,
+> -};
+> -
+> -static const char *const stm32_lptim_quadrature_modes[] = {
+> -	"non-quadrature",
+> -	"quadrature",
+> -};
+> -
+> -static int stm32_lptim_get_quadrature_mode(struct iio_dev *indio_dev,
+> -					   const struct iio_chan_spec *chan)
+> -{
+> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
+> -
+> -	return priv->quadrature_mode;
+> -}
+> -
+> -static int stm32_lptim_set_quadrature_mode(struct iio_dev *indio_dev,
+> -					   const struct iio_chan_spec *chan,
+> -					   unsigned int type)
+> -{
+> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
+> -
+> -	if (stm32_lptim_is_enabled(priv))
+> -		return -EBUSY;
+> -
+> -	priv->quadrature_mode = type;
+> -
+> -	return 0;
+> -}
+> -
+> -static const struct iio_enum stm32_lptim_quadrature_mode_en = {
+> -	.items = stm32_lptim_quadrature_modes,
+> -	.num_items = ARRAY_SIZE(stm32_lptim_quadrature_modes),
+> -	.get = stm32_lptim_get_quadrature_mode,
+> -	.set = stm32_lptim_set_quadrature_mode,
+> -};
+> -
+> -static const char * const stm32_lptim_cnt_polarity[] = {
+> -	"rising-edge", "falling-edge", "both-edges",
+> -};
+> -
+> -static int stm32_lptim_cnt_get_polarity(struct iio_dev *indio_dev,
+> -					const struct iio_chan_spec *chan)
+> -{
+> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
+> -
+> -	return priv->polarity;
+> -}
+> -
+> -static int stm32_lptim_cnt_set_polarity(struct iio_dev *indio_dev,
+> -					const struct iio_chan_spec *chan,
+> -					unsigned int type)
+> -{
+> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
+> -
+> -	if (stm32_lptim_is_enabled(priv))
+> -		return -EBUSY;
+> -
+> -	priv->polarity = type;
+> -
+> -	return 0;
+> -}
+> -
+> -static const struct iio_enum stm32_lptim_cnt_polarity_en = {
+> -	.items = stm32_lptim_cnt_polarity,
+> -	.num_items = ARRAY_SIZE(stm32_lptim_cnt_polarity),
+> -	.get = stm32_lptim_cnt_get_polarity,
+> -	.set = stm32_lptim_cnt_set_polarity,
+> -};
+> -
+> -static ssize_t stm32_lptim_cnt_get_ceiling(struct stm32_lptim_cnt *priv,
+> -					   char *buf)
+> -{
+> -	return snprintf(buf, PAGE_SIZE, "%u\n", priv->ceiling);
+> -}
+> -
+> -static ssize_t stm32_lptim_cnt_set_ceiling(struct stm32_lptim_cnt *priv,
+> -					   const char *buf, size_t len)
+> -{
+> -	int ret;
+> -
+> -	if (stm32_lptim_is_enabled(priv))
+> -		return -EBUSY;
+> -
+> -	ret = kstrtouint(buf, 0, &priv->ceiling);
+> -	if (ret)
+> -		return ret;
+> -
+> -	if (priv->ceiling > STM32_LPTIM_MAX_ARR)
+> -		return -EINVAL;
+> -
+> -	return len;
+> -}
+> -
+> -static ssize_t stm32_lptim_cnt_get_preset_iio(struct iio_dev *indio_dev,
+> -					      uintptr_t private,
+> -					      const struct iio_chan_spec *chan,
+> -					      char *buf)
+> -{
+> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
+> -
+> -	return stm32_lptim_cnt_get_ceiling(priv, buf);
+> -}
+> -
+> -static ssize_t stm32_lptim_cnt_set_preset_iio(struct iio_dev *indio_dev,
+> -					      uintptr_t private,
+> -					      const struct iio_chan_spec *chan,
+> -					      const char *buf, size_t len)
+> -{
+> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
+> -
+> -	return stm32_lptim_cnt_set_ceiling(priv, buf, len);
+> -}
+> -
+> -/* LP timer with encoder */
+> -static const struct iio_chan_spec_ext_info stm32_lptim_enc_ext_info[] = {
+> -	{
+> -		.name = "preset",
+> -		.shared = IIO_SEPARATE,
+> -		.read = stm32_lptim_cnt_get_preset_iio,
+> -		.write = stm32_lptim_cnt_set_preset_iio,
+> -	},
+> -	IIO_ENUM("polarity", IIO_SEPARATE, &stm32_lptim_cnt_polarity_en),
+> -	IIO_ENUM_AVAILABLE("polarity", &stm32_lptim_cnt_polarity_en),
+> -	IIO_ENUM("quadrature_mode", IIO_SEPARATE,
+> -		 &stm32_lptim_quadrature_mode_en),
+> -	IIO_ENUM_AVAILABLE("quadrature_mode", &stm32_lptim_quadrature_mode_en),
+> -	{}
+> -};
+> -
+> -static const struct iio_chan_spec stm32_lptim_enc_channels = {
+> -	.type = IIO_COUNT,
+> -	.channel = 0,
+> -	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> -			      BIT(IIO_CHAN_INFO_ENABLE) |
+> -			      BIT(IIO_CHAN_INFO_SCALE),
+> -	.ext_info = stm32_lptim_enc_ext_info,
+> -	.indexed = 1,
+> -};
+> -
+> -/* LP timer without encoder (counter only) */
+> -static const struct iio_chan_spec_ext_info stm32_lptim_cnt_ext_info[] = {
+> -	{
+> -		.name = "preset",
+> -		.shared = IIO_SEPARATE,
+> -		.read = stm32_lptim_cnt_get_preset_iio,
+> -		.write = stm32_lptim_cnt_set_preset_iio,
+> -	},
+> -	IIO_ENUM("polarity", IIO_SEPARATE, &stm32_lptim_cnt_polarity_en),
+> -	IIO_ENUM_AVAILABLE("polarity", &stm32_lptim_cnt_polarity_en),
+> -	{}
+> -};
+> -
+> -static const struct iio_chan_spec stm32_lptim_cnt_channels = {
+> -	.type = IIO_COUNT,
+> -	.channel = 0,
+> -	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> -			      BIT(IIO_CHAN_INFO_ENABLE) |
+> -			      BIT(IIO_CHAN_INFO_SCALE),
+> -	.ext_info = stm32_lptim_cnt_ext_info,
+> -	.indexed = 1,
+> -};
+> -
+>  /**
+>   * enum stm32_lptim_cnt_function - enumerates LPTimer counter & encoder modes
+>   * @STM32_LPTIM_COUNTER_INCREASE: up count on IN1 rising, falling or both edges
+>   * @STM32_LPTIM_ENCODER_BOTH_EDGE: count on both edges (IN1 & IN2 quadrature)
+> + *
+> + * In non-quadrature mode, device counts up on active edge.
+> + * In quadrature mode, encoder counting scenarios are as follows:
+> + * +---------+----------+--------------------+--------------------+
+> + * | Active  | Level on |      IN1 signal    |     IN2 signal     |
+> + * | edge    | opposite +----------+---------+----------+---------+
+> + * |         | signal   |  Rising  | Falling |  Rising  | Falling |
+> + * +---------+----------+----------+---------+----------+---------+
+> + * | Rising  | High ->  |   Down   |    -    |   Up     |    -    |
+> + * | edge    | Low  ->  |   Up     |    -    |   Down   |    -    |
+> + * +---------+----------+----------+---------+----------+---------+
+> + * | Falling | High ->  |    -     |   Up    |    -     |   Down  |
+> + * | edge    | Low  ->  |    -     |   Down  |    -     |   Up    |
+> + * +---------+----------+----------+---------+----------+---------+
+> + * | Both    | High ->  |   Down   |   Up    |   Up     |   Down  |
+> + * | edges   | Low  ->  |   Up     |   Down  |   Down   |   Up    |
+> + * +---------+----------+----------+---------+----------+---------+
+>   */
+>  enum stm32_lptim_cnt_function {
+>  	STM32_LPTIM_COUNTER_INCREASE,
+> @@ -484,7 +262,7 @@ static ssize_t stm32_lptim_cnt_ceiling_read(struct counter_device *counter,
+>  {
+>  	struct stm32_lptim_cnt *const priv = counter->priv;
+>  
+> -	return stm32_lptim_cnt_get_ceiling(priv, buf);
+> +	return snprintf(buf, PAGE_SIZE, "%u\n", priv->ceiling);
+>  }
+>  
+>  static ssize_t stm32_lptim_cnt_ceiling_write(struct counter_device *counter,
+> @@ -493,8 +271,22 @@ static ssize_t stm32_lptim_cnt_ceiling_write(struct counter_device *counter,
+>  					     const char *buf, size_t len)
+>  {
+>  	struct stm32_lptim_cnt *const priv = counter->priv;
+> +	unsigned int ceiling;
+> +	int ret;
+> +
+> +	if (stm32_lptim_is_enabled(priv))
+> +		return -EBUSY;
+> +
+> +	ret = kstrtouint(buf, 0, &ceiling);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (ceiling > STM32_LPTIM_MAX_ARR)
+> +		return -EINVAL;
+> +
+> +	priv->ceiling = ceiling;
+>  
+> -	return stm32_lptim_cnt_set_ceiling(priv, buf, len);
+> +	return len;
+>  }
+>  
+>  static const struct counter_count_ext stm32_lptim_cnt_ext[] = {
+> @@ -630,32 +422,19 @@ static int stm32_lptim_cnt_probe(struct platform_device *pdev)
+>  {
+>  	struct stm32_lptimer *ddata = dev_get_drvdata(pdev->dev.parent);
+>  	struct stm32_lptim_cnt *priv;
+> -	struct iio_dev *indio_dev;
+> -	int ret;
+>  
+>  	if (IS_ERR_OR_NULL(ddata))
+>  		return -EINVAL;
+>  
+> -	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*priv));
+> -	if (!indio_dev)
+> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+>  		return -ENOMEM;
+>  
+> -	priv = iio_priv(indio_dev);
+>  	priv->dev = &pdev->dev;
+>  	priv->regmap = ddata->regmap;
+>  	priv->clk = ddata->clk;
+>  	priv->ceiling = STM32_LPTIM_MAX_ARR;
+>  
+> -	/* Initialize IIO device */
+> -	indio_dev->name = dev_name(&pdev->dev);
+> -	indio_dev->dev.of_node = pdev->dev.of_node;
+> -	indio_dev->info = &stm32_lptim_cnt_iio_info;
+> -	if (ddata->has_encoder)
+> -		indio_dev->channels = &stm32_lptim_enc_channels;
+> -	else
+> -		indio_dev->channels = &stm32_lptim_cnt_channels;
+> -	indio_dev->num_channels = 1;
+> -
+>  	/* Initialize Counter device */
+>  	priv->counter.name = dev_name(&pdev->dev);
+>  	priv->counter.parent = &pdev->dev;
+> @@ -673,10 +452,6 @@ static int stm32_lptim_cnt_probe(struct platform_device *pdev)
+>  
+>  	platform_set_drvdata(pdev, priv);
+>  
+> -	ret = devm_iio_device_register(&pdev->dev, indio_dev);
+> -	if (ret)
+> -		return ret;
+> -
+>  	return devm_counter_register(&pdev->dev, &priv->counter);
+>  }
+>  
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
