@@ -2,80 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9831D3089D1
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Jan 2021 16:19:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86DE33091ED
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 Jan 2021 05:59:46 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 203E4C57183;
-	Fri, 29 Jan 2021 15:19:53 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B27DC57183;
+	Sat, 30 Jan 2021 04:59:46 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24D28C56639
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0988BC56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Jan 2021 15:19:51 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 10TFHNgW014509; Fri, 29 Jan 2021 16:19:43 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=Ca3BOa2WWkxe/CptYgocM33WFJAogMgeI+/E5b18XA4=;
- b=G/v5Nvym2sLwKAeKXYw9LLWxDjvU+TQl9vXv8iweeaWGLcXXWikMJYpRwN9ipybrY4uS
- GC1Hv3LnoXOhTEB31+am2SSRrneESJ/0rI2+Elz6jBYe5UeQj1dZ6cJ94ndIbPlzC5Rm
- DeyU7S5nq4L4ZzWXwmNiokIOD4QVqrOw0RMcjqlaaBW/CDd6hgRnEU1TqL2RxIlcJBBM
- UDNE6xPVBSPJ7hD7+iwaPuizyH53kQgs/F9lBl4nxXAUStYPPPtCLI2Ctb9TenZZHWJg
- 5z9FeY5G0pbeSdBsFhFWotuf+Uz6aabW9lreBDRaiAdbT30uo9zMP8/pRv39KZqex2mG Cg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 368a576m7j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Jan 2021 16:19:43 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8A99210002A;
- Fri, 29 Jan 2021 16:19:41 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 75FB02C4202;
- Fri, 29 Jan 2021 16:19:41 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 29 Jan
- 2021 16:19:40 +0100
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20210106204347.475920-1-marex@denx.de>
- <20210106204347.475920-3-marex@denx.de>
- <e7ccdf7c-c7fa-4d03-2400-d4d89815d5d0@foss.st.com>
- <73f6d2cc-8dd7-b005-7faa-db9956f46aa5@denx.de>
- <332e7c43-8489-d8b2-e8e1-1fb0d6fde1ee@foss.st.com>
- <adb57565-a83a-ec3f-633c-ae3daa6db62a@denx.de>
- <3c5a4ac9-7874-2d4e-f353-5cf3ad79cfe1@foss.st.com>
- <9c41ae2b-06f2-b09f-d708-0f4ec96e67b6@denx.de>
- <ee8dd8c4-6437-227d-c0bb-6f6d9d12e472@foss.st.com>
- <57ff08b6-36c1-9e00-a55f-54bf8ade2b69@denx.de>
- <45443b53-3b48-afb6-b7d2-f84e0c33e85b@foss.st.com>
- <538d5520-7491-9cfe-7449-766d836784da@denx.de>
- <e93de917-56cd-7956-ae2a-37f3c714c575@foss.st.com>
- <b33f2d0c-3204-3c4d-74e6-a33ee9824766@denx.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <503d9902-6a23-f0fe-9616-cde02a9df2d9@foss.st.com>
-Date: Fri, 29 Jan 2021 16:19:40 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Sat, 30 Jan 2021 04:59:43 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id q20so7529884pfu.8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 29 Jan 2021 20:59:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=iuWsF8GDl/hi9MxuXzy2n4gX9Xml0dieu92Tb2P0Obw=;
+ b=uuAZ7w9gMS/po3hziG54J7JhVOhSPc9YguELWtu4lK2bZIBX1QQHUlgf8TfbqITj+W
+ +X+I/w+67aHJClZC/822/6x3fYwgBvw61vF9dzhyJrxTPuRGG1Nlc8/T1aZsuT2aU/u5
+ pfcT72QnFyByl1pftmipjHpIGilcjirPJ76LYLqVcLRiTyatBfAyqAFBg5rI4VqBR660
+ QNCIb8Z+osMJ1XZYYuCgiel8pgG3HASC8VlubOLBXtOE0FfTFVvJsom4zocaWLNPGCJN
+ ZlOIeqkc4Y7GXPNO4Q/lxT3DcVEfZ4Dhe/auKmkOlunOB+uLfSmtyI/urM3IpYX49kz6
+ 96Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=iuWsF8GDl/hi9MxuXzy2n4gX9Xml0dieu92Tb2P0Obw=;
+ b=AR1cKFlOVIBhr8VqOtUIglZ2pF/OkYGsA27v71JfHgdtklDqGftpyhcS7WUefo4agH
+ 3gFy52GzkqvGJRbsZALv5knO2zdMERcxIRGndLpLbJQP1yvvaBH0dn3rXZDlYcAZ5ICK
+ litaIwtePWDLYkrnfQWYX3i5YZHtr5KXL3H7g4DrATX5nhgilvJiGf87GMjxKp7Pjaw1
+ R7HMnwuDbkSAPb7PHSfR+owXHTiWxQ/QNILLzbT5S6BEOW+ToG1v2ITVs1aVo0Cof6Bs
+ 9l05XyaLy04ljqiwmhypMxL40XL7RpQE1xseN6L9EM7Jr8/iKX5Il/2XRGGunovSuvoN
+ kHeA==
+X-Gm-Message-State: AOAM530wzEVbjO5NoO+jRh4wIvLcHvxX+f0sizkoRDN+zZZ8oAi5r5Ek
+ WeK+C4YKLEL0o+M06A6d9OA=
+X-Google-Smtp-Source: ABdhPJwKSxuQV6xtbs3H20e4fo5ykBo6wQEM2X4e8TrZUG+ZaQQVEgQZpBjCyI1pZchR5sLW4mv+rA==
+X-Received: by 2002:a63:33c4:: with SMTP id z187mr7777053pgz.312.1611982782449; 
+ Fri, 29 Jan 2021 20:59:42 -0800 (PST)
+Received: from shinobu (113x33x126x33.ap113.ftth.ucom.ne.jp. [113.33.126.33])
+ by smtp.gmail.com with ESMTPSA id
+ l2sm9463930pju.25.2021.01.29.20.59.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Jan 2021 20:59:41 -0800 (PST)
+Date: Sat, 30 Jan 2021 13:59:31 +0900
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: David Lechner <david@lechnology.com>
+Message-ID: <YBTns6IzaNUrMSsq@shinobu>
+References: <cover.1608935587.git.vilhelm.gray@gmail.com>
+ <57bc509273bf288d74835e6ebdaebf27b4991888.1608935587.git.vilhelm.gray@gmail.com>
+ <e9102ed7-d4e1-0c81-96f3-8d3c297d037f@lechnology.com>
 MIME-Version: 1.0
-In-Reply-To: <b33f2d0c-3204-3c4d-74e6-a33ee9824766@denx.de>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
- definitions=2021-01-29_05:2021-01-29,
- 2021-01-29 signatures=0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH 3/4] [RFC] ARM: dts: stm32: Add mux for
-	ETHRX clock
+In-Reply-To: <e9102ed7-d4e1-0c81-96f3-8d3c297d037f@lechnology.com>
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
+ Dan Carpenter <dan.carpenter@oracle.com>, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jic23@kernel.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v7 3/5] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,115 +77,191 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1240868016978892997=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
+--===============1240868016978892997==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ELMJ14pDjrGcIjMp"
+Content-Disposition: inline
 
-On 1/26/21 8:11 PM, Marek Vasut wrote:
-> On 1/26/21 5:47 PM, Alexandre TORGUE wrote:
->>
->>
->> On 1/26/21 4:42 PM, Marek Vasut wrote:
->>> On 1/26/21 4:40 PM, Alexandre TORGUE wrote:
->>>>
->>>>
->>>> On 1/26/21 1:59 PM, Marek Vasut wrote:
->>>>> On 1/26/21 11:54 AM, Alexandre TORGUE wrote:
->>>>> [...]
->>>>>>>>>>>>> The implementation of ETH_RX_CLK/ETH_REF_CLK handling 
->>>>>>>>>>>>> currently does not
->>>>>>>>>>>>> permit selecting the clock input from SoC pad. To make 
->>>>>>>>>>>>> things worse, the
->>>>>>>>>>>>> implementation of this is partly present and is split 
->>>>>>>>>>>>> between the clock
->>>>>>>>>>>>> driver and dwmac4 driver. Moreover, the ETHRX clock parent 
->>>>>>>>>>>>> is incorrect.
->>>>>>>>>>>>
->>>>>>>>>>>> Sorry but I don't understand which configuration is missing. 
->>>>>>>>>>>> I think we can handle all possible cases for RMII. At the 
->>>>>>>>>>>> glue layer (dwmac-stm32.c) clocks gates and syscfg are set 
->>>>>>>>>>>> regarding device tree binding (see the tab in 
->>>>>>>>>>>> dwmac-stm32.c). You could have a look here for more details: 
->>>>>>>>>>>> https://wiki.st.com/stm32mpu/wiki/Ethernet_device_tree_configuration 
->>>>>>>>>>>>
->>>>>>>>>>>>
->>>>>>>>>>>> Regarding the clock parent, yes it is not at the well 
->>>>>>>>>>>> frequency if you want to select this path. Our current 
->>>>>>>>>>>> "clock tree" is done to fit with our ST reference boards (we 
->>>>>>>>>>>> have more peripherals than PLL outputs so we have to make 
->>>>>>>>>>>> choices). So yes for customer/partners boards this clock 
->>>>>>>>>>>> tree has to be modified to better fit with the need (either 
->>>>>>>>>>>> using assigned-clock-parent or by modifying bootloader clock 
->>>>>>>>>>>> tree (tf-a or u-boot)).
->>>>>>>>>>>
->>>>>>>>>>> I don't think you handle all the configuration options, but I 
->>>>>>>>>>> might also be confused.
->>>>>>>>>>>
->>>>>>>>>>> See Figure 83. Peripheral clock distribution for Ethernet in 
->>>>>>>>>>> the MP1 datasheet for the below.
->>>>>>>>>>>
->>>>>>>>>>> The current setup I have needs 50 MHz on SoC pad PA1 to drive 
->>>>>>>>>>> the PHY clock, and uses eth_clk_fb to supply ETH_RX_CLK. 
->>>>>>>>>>> However, the 50 MHz is sourced directly from PLL4P, which 
->>>>>>>>>>> then has to run at 50 MHz and that in turn reduces clock 
->>>>>>>>>>> frequency for other blocks connected to PLL4P (e.g. SDMMC, 
->>>>>>>>>>> where the impact is noticable).
->>>>>>>>>>
->>>>>>>>>> Ok that's the common path to clock a PHY a 50MHz without using 
->>>>>>>>>> the ref_clk coming from the PHY. And yes I can understand that 
->>>>>>>>>> the drawback is huge).
->>>>>>>>>
->>>>>>>>> So lets fix it.
->>>>>>>>
->>>>>>>> There is no issue in code. It is just clock tree configuration 
->>>>>>>> issue. Either you don't use PLL4P for Ethernet (what you're 
->>>>>>>> doing) or you don't use PLL4P for SDMMC. But yes, there are not 
->>>>>>>> a lot of possibilities.
->>>>>>>
->>>>>>> I am supplying MCO2 with PLL4P, that is PLL4P->MCO2->ETHRX . To 
->>>>>>> enable this entire chain of clock, I need the correct clock tree. 
->>>>>>> Currently that cannot be modeled, can it?
->>>>>>>
->>>>>>
->>>>>> Maybe I miss something, I thought your setup was like that:
->>>>>>
->>>>>> First clock path to your PHY:
->>>>>> --------------------
->>>>>>
->>>>>> PLL4P ---> MCO2 ---> X1 (PHY input clock which replaces crystal)
->>>>>> It is not directly linked to the dwmac-stm32. You "just" provide a 
->>>>>> clock to MCO2. After that you can use MCO2 pins for any usages.
->>>>>>
->>>>>> Second clock patch:
->>>>>> --------------------
->>>>>>
->>>>>> 50MHz (refclk coming from phy) --> ETH_REF_CLK pad
->>>>>> This one is already covered in dwmac-stm32.
->>>>>>
->>>>>> Why do you want to link the both clock paths ?
->>>>>
->>>>> Because the X1 (MCO2 output) is the same net as 50 MHz ETH_REF_CLK 
->>>>> input. MCO2 output is routed on a SoC pin and that is connected 
->>>>> with a wire to ETH_REF_CLK SoC pin (input).
->>>>
->>>> Ok I see, but I don't think you have to link both clocks.
->>>
->>> If I don't, then MCO2 will not have any consumer and would be turned 
->>> off by the kernel.
->>
->> I agree, but IMO the MCO clock should be declared with 
->> CLK_IGNORE_UNUSED flag in stm32mp1 clock driver.
-> 
-> Why? It can be safely turned off if it is only used to supply ETHRX. And 
-> if the clock tree is correctly modeled, that is what happens.
 
-You're right. I think we could only add an optional clock inside dwmac 
-stm32 glue to take this phy clock (here MCO2)
+--ELMJ14pDjrGcIjMp
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Dec 30, 2020 at 03:36:35PM -0600, David Lechner wrote:
+> On 12/25/20 6:15 PM, William Breathitt Gray wrote:
+>=20
+> > diff --git a/include/uapi/linux/counter.h b/include/uapi/linux/counter.h
+> > new file mode 100644
+> > index 000000000000..7585dc9db19d
+> > --- /dev/null
+> > +++ b/include/uapi/linux/counter.h
+> > @@ -0,0 +1,123 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
+> > +/*
+> > + * Userspace ABI for Counter character devices
+> > + * Copyright (C) 2020 William Breathitt Gray
+> > + */
+> > +#ifndef _UAPI_COUNTER_H_
+> > +#define _UAPI_COUNTER_H_
+> > +
+> > +#include <linux/ioctl.h>
+> > +#include <linux/types.h>
+> > +
+> > +/* Component type definitions */
+> > +enum counter_component_type {
+> > +	COUNTER_COMPONENT_NONE,
+> > +	COUNTER_COMPONENT_SIGNAL,
+> > +	COUNTER_COMPONENT_COUNT,
+> > +	COUNTER_COMPONENT_FUNCTION,
+> > +	COUNTER_COMPONENT_SYNAPSE_ACTION,
+> > +	COUNTER_COMPONENT_EXTENSION,
+> > +};
+> > +
+> > +/* Component scope definitions */
+> > +enum counter_scope {
+>=20
+> Do we need COUNTER_SCOPE_NONE to go with COUNTER_COMPONENT_NONE?
+
+COUNTER_COMPONENT_NONE alone should be fine because it already indicates
+that the 'component' member of the struct counter_watch is to be ignored
+(i.e. type, scope, etc. will not be evaluated and that section of code
+is bypassed).
+
+> > +	COUNTER_SCOPE_DEVICE,
+> > +	COUNTER_SCOPE_SIGNAL,
+> > +	COUNTER_SCOPE_COUNT,
+> > +};
+> > +
+> > +/**
+> > + * struct counter_component - Counter component identification
+> > + * @type: component type (Count, extension, etc.)
+>=20
+> Instead of "Count, extension, etc.", it could be more helpful
+> to say one of enum counter_component_type.
+
+Ack.
+
+> > + * @scope: component scope (Device, Count, or Signal)
+>=20
+> Same here. @scope must be one of enum counter_scope.
+
+Ack.
+
+> > + * @parent: parent component identification number
+> > + * @id: component identification number
+>=20
+> It could be helpful to say that these id numbers match
+> the X/Y/Z in the sysfs paths as described in the sysfs
+> ABI.
+
+Ack.
+
+> > + */
+> > +struct counter_component {
+> > +	__u8 type;
+> > +	__u8 scope;
+> > +	__u8 parent;
+> > +	__u8 id;
+> > +};
+> > +
+> > +/* Event type definitions */
+> > +enum counter_event_type {
+> > +	COUNTER_EVENT_OVERFLOW,
+> > +	COUNTER_EVENT_UNDERFLOW,
+> > +	COUNTER_EVENT_OVERFLOW_UNDERFLOW,
+> > +	COUNTER_EVENT_THRESHOLD,
+> > +	COUNTER_EVENT_INDEX,
+> > +};
+> > +
+> > +/**
+> > + * struct counter_watch - Counter component watch configuration
+> > + * @component: component to watch when event triggers
+> > + * @event: event that triggers
+>=20
+> It would be helpful to say that @event must be one of
+> enum counter_event_type.
+
+Ack.
+
+> > + * @channel: event channel
+>=20
+> It would be useful to say that @channel should be 0 unless
+> a component has more than one event of the same type.
+
+I'll make this clearer.
+
+> > + */
+> > +struct counter_watch {
+> > +	struct counter_component component;
+> > +	__u8 event;
+> > +	__u8 channel;
+> > +};
+> > +
+> > +/* ioctl commands */
+> > +#define COUNTER_CLEAR_WATCHES_IOCTL _IO(0x3E, 0x00)
+> > +#define COUNTER_ADD_WATCH_IOCTL _IOW(0x3E, 0x01, struct counter_watch)
+> > +#define COUNTER_LOAD_WATCHES_IOCTL _IO(0x3E, 0x02)
+> > +
+> > +/**
+> > + * struct counter_event - Counter event data
+> > + * @timestamp: best estimate of time of event occurrence, in nanosecon=
+ds
+> > + * @value: component value
+> > + * @watch: component watch configuration
+> > + * @errno: system error number
+> > + */
+> > +struct counter_event {
+> > +	__aligned_u64 timestamp;
+> > +	__aligned_u64 value;
+> > +	struct counter_watch watch;
+> > +	__u8 errno;
+>=20
+> There are error codes larger than 255. Probably better
+> make this __u32.
+
+Are error codes larger than 255 actually useful in this case? I noticed
+the exit() function will only return the least significant byte of
+status to the parent: https://man7.org/linux/man-pages/man3/exit.3.html
+
+William Breathitt Gray
+
+--ELMJ14pDjrGcIjMp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmAU57MACgkQhvpINdm7
+VJJRZRAApPY7C5W6wFI/RES8FynKQPvVbA8y2f9aCWjF2ir1uxdCF/vQQXNDxa46
+O06eBUhB6NWeXG8bKWvCnQ+84mBbnH+v9wlXiX0NbYUhQ44kKSVcJ26n+78Vj5l0
+tJTPLtIgtQktPuu8Uuqtzxh4LAvSd/vn2exidqqLfpsF3EwucLRQa/++j+/uXUTu
+fPp0zi9sLUUcohSDAgf404mllaRTyeivwHyqRoztLUN/QDWI42UakQYGmg1gRItu
+v3UHxYKh+mFpfWM28fJQXvqsErUZQpEfu3zwddn3rVSLpW/9Ja28NCPfIqR0dlhB
+19OhtYT0MmfLpmuR+E+2M0ht41F2gJadXp7+/c8dZ3LsnOM7eqKZlH8/mgTlLRmm
+tphEIh/uAIN8jm7SACr2bH4VbjoTRfug56k5X25APg4TEYmRvrEBXlkOU7hOAKvx
+UA+7c5ql0QpeGRNQtztn7Cxt6agQNoZScmQ6y3wc2pWfC+dOZwiw/A+u1BrhrQ0Y
+gfFwZ2A/X8Q+oevhNzmwPq/zqiEyr60gmLPvt2RzznnjkzyCPq3EceHKe5DGGEA1
+Vzo6UIaAihwYAB1nivmVg7wzMRnMf/mdTzkLjBrlkoZ6aGZBQV0BJAvXaYOsToV4
+7SRyLCgmHi9e758Vdo6CH4B/k9wRoOQ0da6epTmoYDkp9u0hsTE=
+=zNAQ
+-----END PGP SIGNATURE-----
+
+--ELMJ14pDjrGcIjMp--
+
+--===============1240868016978892997==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1240868016978892997==--
