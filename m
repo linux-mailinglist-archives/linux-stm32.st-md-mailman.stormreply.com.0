@@ -2,38 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E3D83097A6
-	for <lists+linux-stm32@lfdr.de>; Sat, 30 Jan 2021 19:50:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56D5F309B63
+	for <lists+linux-stm32@lfdr.de>; Sun, 31 Jan 2021 11:47:04 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3AD5C5718C;
-	Sat, 30 Jan 2021 18:50:20 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00845C57181;
+	Sun, 31 Jan 2021 10:47:04 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6BF1C56639
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E15B6C56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Jan 2021 18:50:18 +0000 (UTC)
+ Sun, 31 Jan 2021 10:47:00 +0000 (UTC)
 Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
  [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9B91D64E11;
- Sat, 30 Jan 2021 18:50:14 +0000 (UTC)
-Date: Sat, 30 Jan 2021 18:50:10 +0000
+ by mail.kernel.org (Postfix) with ESMTPSA id E14BE64E1F;
+ Sun, 31 Jan 2021 10:46:56 +0000 (UTC)
+Date: Sun, 31 Jan 2021 10:46:53 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20210130185010.6be82858@archlinux>
-In-Reply-To: <1611926542-2490-1-git-send-email-fabrice.gasnier@foss.st.com>
-References: <1611926542-2490-1-git-send-email-fabrice.gasnier@foss.st.com>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <20210131104653.02b971e6@archlinux>
+In-Reply-To: <04385c49-8f27-a159-b033-a62cdfbda824@pengutronix.de>
+References: <20210122113355.32384-1-a.fatoum@pengutronix.de>
+ <20210124152212.5bc39e57@archlinux>
+ <04385c49-8f27-a159-b033-a62cdfbda824@pengutronix.de>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: alexandre.torgue@st.com, linux-doc@vger.kernel.org,
- mchehab+huawei@kernel.org, linux-kernel@vger.kernel.org,
- vilhelm.gray@gmail.com, linux-iio@vger.kernel.org, lukas.bulwahn@gmail.com,
- fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] counter: stm32-lptimer-cnt: remove iio
-	counter abi
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Holger Assmann <has@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32-adc: enable
+ timestamping for non-DMA usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,492 +53,176 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 29 Jan 2021 14:22:22 +0100
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+On Mon, 25 Jan 2021 12:21:35 +0100
+Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
 
-> Currently, the STM32 LP Timer counter driver registers into both IIO and
-> counter subsystems, which is redundant.
+> Hello Jonathan,
 > 
-> Remove the IIO counter ABI and IIO registration from the STM32 LP Timer
-> counter driver since it's been superseded by the Counter subsystem
-> as discussed in [1].
+> On 24.01.21 16:22, Jonathan Cameron wrote:
+> > On Fri, 22 Jan 2021 12:33:55 +0100
+> > Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
+> >   
+> >> For non-DMA usage, we have an easy way to associate a timestamp with a
+> >> sample: iio_pollfunc_store_time stores a timestamp in the primary
+> >> trigger IRQ handler and stm32_adc_trigger_handler runs in the IRQ thread
+> >> to push out the buffer along with the timestamp.
+> >>
+> >> For this to work, the driver needs to register an IIO_TIMESTAMP channel.
+> >> Do this.
+> >>
+> >> For DMA, it's not as easy, because we don't push the buffers out of
+> >> stm32_adc_trigger, but out of stm32_adc_dma_buffer_done, which runs in
+> >> a tasklet scheduled after a DMA completion.
+> >>
+> >> Preferably, the DMA controller would copy us the timestamp into that buffer
+> >> as well. Until this is implemented, restrict timestamping support to
+> >> only PIO. For low-frequency sampling, PIO is probably good enough.
+> >>
+> >> Cc: Holger Assmann <has@pengutronix.de>
+> >> Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> >> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>  
+> > 
+> > This patch itself is fine, but it will expose a potential bug.
+> > 
+> > The buffer passed to iio_push_to_buffers_with_timestamp needs to be suitably
+> > aligned to take an 8 byte timestamp and large enough to do so.
+> >  Currently, in this driver it isn't.
+> > 	u16			buffer[STM32_ADC_MAX_SQ];
+> > Appears to be the same length as the channel count, and isn't 8 byte
+> > aligned. (add __aligned(8) to fix that)
+> > 
+> > Could you add that fix to this patch as well?  
 > 
-> Keep only the counter subsystem related part.
-> Move a part of the ABI documentation into a driver comment.
+> Just done so, thanks. But I think it's very surprising API to expect a void *
+> to have a specific alignment. Should this perhaps be encoded into
+> the function signature? e.g.
 > 
-> This also removes a duplicate ABI warning
-> $ scripts/get_abi.pl validate
-> ...
-> /sys/bus/iio/devices/iio:deviceX/in_count0_preset is defined 2 times:
->   ./Documentation/ABI/testing/sysfs-bus-iio-timer-stm32:100
->   ./Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32:0
+> typedef void __aligned_u64_void __aligned(8);
+> static inline int iio_push_to_buffers_with_timestamp(struct iio_dev *indio_dev,
+>         __aligned_u64_void *data, int64_t timestamp);
 > 
-> [1] https://lkml.org/lkml/2021/1/19/347
-> 
-> Acked-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-The mod_devicetable.h include confused me for a bit, but then I realised
-that iio.h includes of.h (which it almost certainly shouldn't).
-I guess that's one to clean up at somepoint!
+Hmm. Didn't realise you could put __aligned() on a parameter.  May well make sense
+but we can't do it yet.   There are a few left over drivers that don't yet
+guarantee the alignment.  On some architectures that's fine.  Once we've
+done a final pass and fixed those up, we can tidy this up.
+Note that we had this problem for a good 5-10 years before one report of actually
+running into a problem.
 
-Applied to the togreg branch of iio.git and pushed out as testing.
+> [I assume put_unaligned_* isn't used for performance reasons?)
 
-Thanks,
+No, it's actually about expectations of where that buffer might go.  There
+are lots of potential consumers and many of them can assume a fixed
+structure and hence assume alignment.
+
+I agree, it's a very odd ABI requirement :(
+Would probably have done things differently if we'd registered the built in
+alignment issue earlier.  
 
 Jonathan
 
-> ---
-> Changes in v2:
-> - remove dependency on IIO subsustem, as spotted by William
-> ---
->  .../ABI/testing/sysfs-bus-iio-lptimer-stm32        |  62 -----
->  drivers/counter/Kconfig                            |   2 +-
->  drivers/counter/stm32-lptimer-cnt.c                | 297 +++------------------
->  3 files changed, 37 insertions(+), 324 deletions(-)
->  delete mode 100644 Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32
+
 > 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32 b/Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32
-> deleted file mode 100644
-> index 73498ff..00000000
-> --- a/Documentation/ABI/testing/sysfs-bus-iio-lptimer-stm32
-> +++ /dev/null
-> @@ -1,62 +0,0 @@
-> -What:		/sys/bus/iio/devices/iio:deviceX/in_count0_preset
-> -KernelVersion:	4.13
-> -Contact:	fabrice.gasnier@st.com
-> -Description:
-> -		Reading returns the current preset value. Writing sets the
-> -		preset value. Encoder counts continuously from 0 to preset
-> -		value, depending on direction (up/down).
-> -
-> -What:		/sys/bus/iio/devices/iio:deviceX/in_count_quadrature_mode_available
-> -KernelVersion:	4.13
-> -Contact:	fabrice.gasnier@st.com
-> -Description:
-> -		Reading returns the list possible quadrature modes.
-> -
-> -What:		/sys/bus/iio/devices/iio:deviceX/in_count0_quadrature_mode
-> -KernelVersion:	4.13
-> -Contact:	fabrice.gasnier@st.com
-> -Description:
-> -		Configure the device counter quadrature modes:
-> -
-> -		- non-quadrature:
-> -			Encoder IN1 input servers as the count input (up
-> -			direction).
-> -
-> -		- quadrature:
-> -			Encoder IN1 and IN2 inputs are mixed to get direction
-> -			and count.
-> -
-> -What:		/sys/bus/iio/devices/iio:deviceX/in_count_polarity_available
-> -KernelVersion:	4.13
-> -Contact:	fabrice.gasnier@st.com
-> -Description:
-> -		Reading returns the list possible active edges.
-> -
-> -What:		/sys/bus/iio/devices/iio:deviceX/in_count0_polarity
-> -KernelVersion:	4.13
-> -Contact:	fabrice.gasnier@st.com
-> -Description:
-> -		Configure the device encoder/counter active edge:
-> -
-> -		- rising-edge
-> -		- falling-edge
-> -		- both-edges
-> -
-> -		In non-quadrature mode, device counts up on active edge.
-> -
-> -		In quadrature mode, encoder counting scenarios are as follows:
-> -
-> -		+---------+----------+--------------------+--------------------+
-> -		| Active  | Level on |      IN1 signal    |     IN2 signal     |
-> -		| edge    | opposite +----------+---------+----------+---------+
-> -		|         | signal   |  Rising  | Falling |  Rising  | Falling |
-> -		+---------+----------+----------+---------+----------+---------+
-> -		| Rising  | High ->  |   Down   |    -    |   Up     |    -    |
-> -		| edge    | Low  ->  |   Up     |    -    |   Down   |    -    |
-> -		+---------+----------+----------+---------+----------+---------+
-> -		| Falling | High ->  |    -     |   Up    |    -     |   Down  |
-> -		| edge    | Low  ->  |    -     |   Down  |    -     |   Up    |
-> -		+---------+----------+----------+---------+----------+---------+
-> -		| Both    | High ->  |   Down   |   Up    |   Up     |   Down  |
-> -		| edges   | Low  ->  |   Up     |   Down  |   Down   |   Up    |
-> -		+---------+----------+----------+---------+----------+---------+
-> diff --git a/drivers/counter/Kconfig b/drivers/counter/Kconfig
-> index 2de53ab..cbdf842 100644
-> --- a/drivers/counter/Kconfig
-> +++ b/drivers/counter/Kconfig
-> @@ -41,7 +41,7 @@ config STM32_TIMER_CNT
->  
->  config STM32_LPTIMER_CNT
->  	tristate "STM32 LP Timer encoder counter driver"
-> -	depends on (MFD_STM32_LPTIMER || COMPILE_TEST) && IIO
-> +	depends on MFD_STM32_LPTIMER || COMPILE_TEST
->  	help
->  	  Select this option to enable STM32 Low-Power Timer quadrature encoder
->  	  and counter driver.
-> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
-> index fd6828e..9374396 100644
-> --- a/drivers/counter/stm32-lptimer-cnt.c
-> +++ b/drivers/counter/stm32-lptimer-cnt.c
-> @@ -12,8 +12,8 @@
->  
->  #include <linux/bitfield.h>
->  #include <linux/counter.h>
-> -#include <linux/iio/iio.h>
->  #include <linux/mfd/stm32-lptimer.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/module.h>
->  #include <linux/pinctrl/consumer.h>
->  #include <linux/platform_device.h>
-> @@ -107,249 +107,27 @@ static int stm32_lptim_setup(struct stm32_lptim_cnt *priv, int enable)
->  	return regmap_update_bits(priv->regmap, STM32_LPTIM_CFGR, mask, val);
->  }
->  
-> -static int stm32_lptim_write_raw(struct iio_dev *indio_dev,
-> -				 struct iio_chan_spec const *chan,
-> -				 int val, int val2, long mask)
-> -{
-> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
-> -	int ret;
-> -
-> -	switch (mask) {
-> -	case IIO_CHAN_INFO_ENABLE:
-> -		if (val < 0 || val > 1)
-> -			return -EINVAL;
-> -
-> -		/* Check nobody uses the timer, or already disabled/enabled */
-> -		ret = stm32_lptim_is_enabled(priv);
-> -		if ((ret < 0) || (!ret && !val))
-> -			return ret;
-> -		if (val && ret)
-> -			return -EBUSY;
-> -
-> -		ret = stm32_lptim_setup(priv, val);
-> -		if (ret)
-> -			return ret;
-> -		return stm32_lptim_set_enable_state(priv, val);
-> -
-> -	default:
-> -		return -EINVAL;
-> -	}
-> -}
-> -
-> -static int stm32_lptim_read_raw(struct iio_dev *indio_dev,
-> -				struct iio_chan_spec const *chan,
-> -				int *val, int *val2, long mask)
-> -{
-> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
-> -	u32 dat;
-> -	int ret;
-> -
-> -	switch (mask) {
-> -	case IIO_CHAN_INFO_RAW:
-> -		ret = regmap_read(priv->regmap, STM32_LPTIM_CNT, &dat);
-> -		if (ret)
-> -			return ret;
-> -		*val = dat;
-> -		return IIO_VAL_INT;
-> -
-> -	case IIO_CHAN_INFO_ENABLE:
-> -		ret = stm32_lptim_is_enabled(priv);
-> -		if (ret < 0)
-> -			return ret;
-> -		*val = ret;
-> -		return IIO_VAL_INT;
-> -
-> -	case IIO_CHAN_INFO_SCALE:
-> -		/* Non-quadrature mode: scale = 1 */
-> -		*val = 1;
-> -		*val2 = 0;
-> -		if (priv->quadrature_mode) {
-> -			/*
-> -			 * Quadrature encoder mode:
-> -			 * - both edges, quarter cycle, scale is 0.25
-> -			 * - either rising/falling edge scale is 0.5
-> -			 */
-> -			if (priv->polarity > 1)
-> -				*val2 = 2;
-> -			else
-> -				*val2 = 1;
-> -		}
-> -		return IIO_VAL_FRACTIONAL_LOG2;
-> -
-> -	default:
-> -		return -EINVAL;
-> -	}
-> -}
-> -
-> -static const struct iio_info stm32_lptim_cnt_iio_info = {
-> -	.read_raw = stm32_lptim_read_raw,
-> -	.write_raw = stm32_lptim_write_raw,
-> -};
-> -
-> -static const char *const stm32_lptim_quadrature_modes[] = {
-> -	"non-quadrature",
-> -	"quadrature",
-> -};
-> -
-> -static int stm32_lptim_get_quadrature_mode(struct iio_dev *indio_dev,
-> -					   const struct iio_chan_spec *chan)
-> -{
-> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
-> -
-> -	return priv->quadrature_mode;
-> -}
-> -
-> -static int stm32_lptim_set_quadrature_mode(struct iio_dev *indio_dev,
-> -					   const struct iio_chan_spec *chan,
-> -					   unsigned int type)
-> -{
-> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
-> -
-> -	if (stm32_lptim_is_enabled(priv))
-> -		return -EBUSY;
-> -
-> -	priv->quadrature_mode = type;
-> -
-> -	return 0;
-> -}
-> -
-> -static const struct iio_enum stm32_lptim_quadrature_mode_en = {
-> -	.items = stm32_lptim_quadrature_modes,
-> -	.num_items = ARRAY_SIZE(stm32_lptim_quadrature_modes),
-> -	.get = stm32_lptim_get_quadrature_mode,
-> -	.set = stm32_lptim_set_quadrature_mode,
-> -};
-> -
-> -static const char * const stm32_lptim_cnt_polarity[] = {
-> -	"rising-edge", "falling-edge", "both-edges",
-> -};
-> -
-> -static int stm32_lptim_cnt_get_polarity(struct iio_dev *indio_dev,
-> -					const struct iio_chan_spec *chan)
-> -{
-> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
-> -
-> -	return priv->polarity;
-> -}
-> -
-> -static int stm32_lptim_cnt_set_polarity(struct iio_dev *indio_dev,
-> -					const struct iio_chan_spec *chan,
-> -					unsigned int type)
-> -{
-> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
-> -
-> -	if (stm32_lptim_is_enabled(priv))
-> -		return -EBUSY;
-> -
-> -	priv->polarity = type;
-> -
-> -	return 0;
-> -}
-> -
-> -static const struct iio_enum stm32_lptim_cnt_polarity_en = {
-> -	.items = stm32_lptim_cnt_polarity,
-> -	.num_items = ARRAY_SIZE(stm32_lptim_cnt_polarity),
-> -	.get = stm32_lptim_cnt_get_polarity,
-> -	.set = stm32_lptim_cnt_set_polarity,
-> -};
-> -
-> -static ssize_t stm32_lptim_cnt_get_ceiling(struct stm32_lptim_cnt *priv,
-> -					   char *buf)
-> -{
-> -	return snprintf(buf, PAGE_SIZE, "%u\n", priv->ceiling);
-> -}
-> -
-> -static ssize_t stm32_lptim_cnt_set_ceiling(struct stm32_lptim_cnt *priv,
-> -					   const char *buf, size_t len)
-> -{
-> -	int ret;
-> -
-> -	if (stm32_lptim_is_enabled(priv))
-> -		return -EBUSY;
-> -
-> -	ret = kstrtouint(buf, 0, &priv->ceiling);
-> -	if (ret)
-> -		return ret;
-> -
-> -	if (priv->ceiling > STM32_LPTIM_MAX_ARR)
-> -		return -EINVAL;
-> -
-> -	return len;
-> -}
-> -
-> -static ssize_t stm32_lptim_cnt_get_preset_iio(struct iio_dev *indio_dev,
-> -					      uintptr_t private,
-> -					      const struct iio_chan_spec *chan,
-> -					      char *buf)
-> -{
-> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
-> -
-> -	return stm32_lptim_cnt_get_ceiling(priv, buf);
-> -}
-> -
-> -static ssize_t stm32_lptim_cnt_set_preset_iio(struct iio_dev *indio_dev,
-> -					      uintptr_t private,
-> -					      const struct iio_chan_spec *chan,
-> -					      const char *buf, size_t len)
-> -{
-> -	struct stm32_lptim_cnt *priv = iio_priv(indio_dev);
-> -
-> -	return stm32_lptim_cnt_set_ceiling(priv, buf, len);
-> -}
-> -
-> -/* LP timer with encoder */
-> -static const struct iio_chan_spec_ext_info stm32_lptim_enc_ext_info[] = {
-> -	{
-> -		.name = "preset",
-> -		.shared = IIO_SEPARATE,
-> -		.read = stm32_lptim_cnt_get_preset_iio,
-> -		.write = stm32_lptim_cnt_set_preset_iio,
-> -	},
-> -	IIO_ENUM("polarity", IIO_SEPARATE, &stm32_lptim_cnt_polarity_en),
-> -	IIO_ENUM_AVAILABLE("polarity", &stm32_lptim_cnt_polarity_en),
-> -	IIO_ENUM("quadrature_mode", IIO_SEPARATE,
-> -		 &stm32_lptim_quadrature_mode_en),
-> -	IIO_ENUM_AVAILABLE("quadrature_mode", &stm32_lptim_quadrature_mode_en),
-> -	{}
-> -};
-> -
-> -static const struct iio_chan_spec stm32_lptim_enc_channels = {
-> -	.type = IIO_COUNT,
-> -	.channel = 0,
-> -	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> -			      BIT(IIO_CHAN_INFO_ENABLE) |
-> -			      BIT(IIO_CHAN_INFO_SCALE),
-> -	.ext_info = stm32_lptim_enc_ext_info,
-> -	.indexed = 1,
-> -};
-> -
-> -/* LP timer without encoder (counter only) */
-> -static const struct iio_chan_spec_ext_info stm32_lptim_cnt_ext_info[] = {
-> -	{
-> -		.name = "preset",
-> -		.shared = IIO_SEPARATE,
-> -		.read = stm32_lptim_cnt_get_preset_iio,
-> -		.write = stm32_lptim_cnt_set_preset_iio,
-> -	},
-> -	IIO_ENUM("polarity", IIO_SEPARATE, &stm32_lptim_cnt_polarity_en),
-> -	IIO_ENUM_AVAILABLE("polarity", &stm32_lptim_cnt_polarity_en),
-> -	{}
-> -};
-> -
-> -static const struct iio_chan_spec stm32_lptim_cnt_channels = {
-> -	.type = IIO_COUNT,
-> -	.channel = 0,
-> -	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> -			      BIT(IIO_CHAN_INFO_ENABLE) |
-> -			      BIT(IIO_CHAN_INFO_SCALE),
-> -	.ext_info = stm32_lptim_cnt_ext_info,
-> -	.indexed = 1,
-> -};
-> -
->  /**
->   * enum stm32_lptim_cnt_function - enumerates LPTimer counter & encoder modes
->   * @STM32_LPTIM_COUNTER_INCREASE: up count on IN1 rising, falling or both edges
->   * @STM32_LPTIM_ENCODER_BOTH_EDGE: count on both edges (IN1 & IN2 quadrature)
-> + *
-> + * In non-quadrature mode, device counts up on active edge.
-> + * In quadrature mode, encoder counting scenarios are as follows:
-> + * +---------+----------+--------------------+--------------------+
-> + * | Active  | Level on |      IN1 signal    |     IN2 signal     |
-> + * | edge    | opposite +----------+---------+----------+---------+
-> + * |         | signal   |  Rising  | Falling |  Rising  | Falling |
-> + * +---------+----------+----------+---------+----------+---------+
-> + * | Rising  | High ->  |   Down   |    -    |   Up     |    -    |
-> + * | edge    | Low  ->  |   Up     |    -    |   Down   |    -    |
-> + * +---------+----------+----------+---------+----------+---------+
-> + * | Falling | High ->  |    -     |   Up    |    -     |   Down  |
-> + * | edge    | Low  ->  |    -     |   Down  |    -     |   Up    |
-> + * +---------+----------+----------+---------+----------+---------+
-> + * | Both    | High ->  |   Down   |   Up    |   Up     |   Down  |
-> + * | edges   | Low  ->  |   Up     |   Down  |   Down   |   Up    |
-> + * +---------+----------+----------+---------+----------+---------+
->   */
->  enum stm32_lptim_cnt_function {
->  	STM32_LPTIM_COUNTER_INCREASE,
-> @@ -484,7 +262,7 @@ static ssize_t stm32_lptim_cnt_ceiling_read(struct counter_device *counter,
->  {
->  	struct stm32_lptim_cnt *const priv = counter->priv;
->  
-> -	return stm32_lptim_cnt_get_ceiling(priv, buf);
-> +	return snprintf(buf, PAGE_SIZE, "%u\n", priv->ceiling);
->  }
->  
->  static ssize_t stm32_lptim_cnt_ceiling_write(struct counter_device *counter,
-> @@ -493,8 +271,22 @@ static ssize_t stm32_lptim_cnt_ceiling_write(struct counter_device *counter,
->  					     const char *buf, size_t len)
->  {
->  	struct stm32_lptim_cnt *const priv = counter->priv;
-> +	unsigned int ceiling;
-> +	int ret;
-> +
-> +	if (stm32_lptim_is_enabled(priv))
-> +		return -EBUSY;
-> +
-> +	ret = kstrtouint(buf, 0, &ceiling);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (ceiling > STM32_LPTIM_MAX_ARR)
-> +		return -EINVAL;
-> +
-> +	priv->ceiling = ceiling;
->  
-> -	return stm32_lptim_cnt_set_ceiling(priv, buf, len);
-> +	return len;
->  }
->  
->  static const struct counter_count_ext stm32_lptim_cnt_ext[] = {
-> @@ -630,32 +422,19 @@ static int stm32_lptim_cnt_probe(struct platform_device *pdev)
->  {
->  	struct stm32_lptimer *ddata = dev_get_drvdata(pdev->dev.parent);
->  	struct stm32_lptim_cnt *priv;
-> -	struct iio_dev *indio_dev;
-> -	int ret;
->  
->  	if (IS_ERR_OR_NULL(ddata))
->  		return -EINVAL;
->  
-> -	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*priv));
-> -	if (!indio_dev)
-> +	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
->  		return -ENOMEM;
->  
-> -	priv = iio_priv(indio_dev);
->  	priv->dev = &pdev->dev;
->  	priv->regmap = ddata->regmap;
->  	priv->clk = ddata->clk;
->  	priv->ceiling = STM32_LPTIM_MAX_ARR;
->  
-> -	/* Initialize IIO device */
-> -	indio_dev->name = dev_name(&pdev->dev);
-> -	indio_dev->dev.of_node = pdev->dev.of_node;
-> -	indio_dev->info = &stm32_lptim_cnt_iio_info;
-> -	if (ddata->has_encoder)
-> -		indio_dev->channels = &stm32_lptim_enc_channels;
-> -	else
-> -		indio_dev->channels = &stm32_lptim_cnt_channels;
-> -	indio_dev->num_channels = 1;
-> -
->  	/* Initialize Counter device */
->  	priv->counter.name = dev_name(&pdev->dev);
->  	priv->counter.parent = &pdev->dev;
-> @@ -673,10 +452,6 @@ static int stm32_lptim_cnt_probe(struct platform_device *pdev)
->  
->  	platform_set_drvdata(pdev, priv);
->  
-> -	ret = devm_iio_device_register(&pdev->dev, indio_dev);
-> -	if (ret)
-> -		return ret;
-> -
->  	return devm_counter_register(&pdev->dev, &priv->counter);
->  }
->  
+> Cheers,
+> Ahmad
+> 
+> > 
+> > Thanks,
+> > 
+> > Jonathan
+> > 
+> >   
+> >> ---
+> >> v1 -> v2:
+> >>   - Added comment about timestamping being PIO only (Fabrice)
+> >>   - Added missing DMA resource clean up in error path (Fabrice)
+> >>   - Added Fabrice's Acked-by
+> >> ---
+> >>  drivers/iio/adc/stm32-adc.c | 35 +++++++++++++++++++++++++++++------
+> >>  1 file changed, 29 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> >> index c067c994dae2..885bb514503c 100644
+> >> --- a/drivers/iio/adc/stm32-adc.c
+> >> +++ b/drivers/iio/adc/stm32-adc.c
+> >> @@ -1718,7 +1718,7 @@ static void stm32_adc_chan_init_one(struct iio_dev *indio_dev,
+> >>  	}
+> >>  }
+> >>  
+> >> -static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
+> >> +static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
+> >>  {
+> >>  	struct device_node *node = indio_dev->dev.of_node;
+> >>  	struct stm32_adc *adc = iio_priv(indio_dev);
+> >> @@ -1766,6 +1766,9 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
+> >>  		return -EINVAL;
+> >>  	}
+> >>  
+> >> +	if (timestamping)
+> >> +		num_channels++;
+> >> +
+> >>  	channels = devm_kcalloc(&indio_dev->dev, num_channels,
+> >>  				sizeof(struct iio_chan_spec), GFP_KERNEL);
+> >>  	if (!channels)
+> >> @@ -1816,6 +1819,19 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev)
+> >>  		stm32_adc_smpr_init(adc, channels[i].channel, smp);
+> >>  	}
+> >>  
+> >> +	if (timestamping) {
+> >> +		struct iio_chan_spec *timestamp = &channels[scan_index];
+> >> +
+> >> +		timestamp->type = IIO_TIMESTAMP;
+> >> +		timestamp->channel = -1;
+> >> +		timestamp->scan_index = scan_index;
+> >> +		timestamp->scan_type.sign = 's';
+> >> +		timestamp->scan_type.realbits = 64;
+> >> +		timestamp->scan_type.storagebits = 64;
+> >> +
+> >> +		scan_index++;
+> >> +	}
+> >> +
+> >>  	indio_dev->num_channels = scan_index;
+> >>  	indio_dev->channels = channels;
+> >>  
+> >> @@ -1875,6 +1891,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
+> >>  	struct device *dev = &pdev->dev;
+> >>  	irqreturn_t (*handler)(int irq, void *p) = NULL;
+> >>  	struct stm32_adc *adc;
+> >> +	bool timestamping = false;
+> >>  	int ret;
+> >>  
+> >>  	if (!pdev->dev.of_node)
+> >> @@ -1931,16 +1948,22 @@ static int stm32_adc_probe(struct platform_device *pdev)
+> >>  	if (ret < 0)
+> >>  		return ret;
+> >>  
+> >> -	ret = stm32_adc_chan_of_init(indio_dev);
+> >> -	if (ret < 0)
+> >> -		return ret;
+> >> -
+> >>  	ret = stm32_adc_dma_request(dev, indio_dev);
+> >>  	if (ret < 0)
+> >>  		return ret;
+> >>  
+> >> -	if (!adc->dma_chan)
+> >> +	if (!adc->dma_chan) {
+> >> +		/* For PIO mode only, iio_pollfunc_store_time stores a timestamp
+> >> +		 * in the primary trigger IRQ handler and stm32_adc_trigger_handler
+> >> +		 * runs in the IRQ thread to push out buffer along with timestamp.
+> >> +		 */
+> >>  		handler = &stm32_adc_trigger_handler;
+> >> +		timestamping = true;
+> >> +	}
+> >> +
+> >> +	ret = stm32_adc_chan_of_init(indio_dev, timestamping);
+> >> +	if (ret < 0)
+> >> +		goto err_dma_disable;
+> >>  
+> >>  	ret = iio_triggered_buffer_setup(indio_dev,
+> >>  					 &iio_pollfunc_store_time, handler,  
+> > 
+> >   
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
