@@ -2,79 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5763430BC5E
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Feb 2021 11:51:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EAFC30C04A
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Feb 2021 14:54:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 093AEC57186;
-	Tue,  2 Feb 2021 10:51:09 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39AD0C57186;
+	Tue,  2 Feb 2021 13:54:17 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA092C57181
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7118C0692F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Feb 2021 10:51:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QUFoL1M4pevTeMyLwnDogHEMlQrHMZssskb6wG1LFcA=; b=wg2o6QP/gHbhqBuIhn1RZoUGj
- 2iHotGU7ufXkLAWPw4UwYFPNHzUu8ddsLF6ZH7DAZK9ibPxZPao37pY3QUiSj2kNvPg18QoU3RIbp
- SB9YdTsgzRp09KPTWE899TVtBN6b7+9uCVpM084z3RB+393ttTKlzy9IbXmuACxRaE7AQP1axErmx
- 9bdLyqL5Tzp+2AR1s8H8Ra8HKPn+VaEgvK7MKLCh/WvBYIcLxWRrMqhYn6+wAR7lOhqYiExSBYnla
- 2ZSGKUuSlOCD0mvUg9A5mz9A1bzzWPt0jeQ/XhpyrV3IGp6JHZ9fsbmIMsvJ8Mev9a6w8QLTZD9/a
- CRpSMItzA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:38176)
- by pandora.armlinux.org.uk with esmtpsa
+ Tue,  2 Feb 2021 13:54:16 +0000 (UTC)
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <linux@armlinux.org.uk>)
- id 1l6tFN-0004FH-LS; Tue, 02 Feb 2021 10:49:25 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1l6tFE-0002yZ-0J; Tue, 02 Feb 2021 10:49:16 +0000
-Date: Tue, 2 Feb 2021 10:49:15 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <20210202104915.GK1463@shell.armlinux.org.uk>
+ (envelope-from <ukl@pengutronix.de>)
+ id 1l6w82-0000fW-TE; Tue, 02 Feb 2021 14:54:02 +0100
+Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1l6w7u-0006bW-5D; Tue, 02 Feb 2021 14:53:54 +0100
+Date: Tue, 2 Feb 2021 14:53:50 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Russell King <linux+pull@armlinux.org.uk>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <20210202135350.36nj3dmcoq3t7gcf@pengutronix.de>
 References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Cornelia Huck <cohuck@redhat.com>,
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-fbdev@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>,
  kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Linus Walleij <linus.walleij@linaro.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
  dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
  Eric Anholt <eric@anholt.net>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig.org@pengutronix.de>,
- linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
- Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig.org@pengutronix.de>,
+ linux-i2c@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Takashi Iwai <tiwai@suse.com>,
  Krzysztof Kozlowski <krzk@kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
  linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Guenter Roeck <linux@roeck-us.net>, Mike Leach <mike.leach@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Arnd Bergmann <arnd@arndb.de>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
- Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Guenter Roeck <linux@roeck-us.net>,
+ Mike Leach <mike.leach@linaro.org>, linux-watchdog@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, Alessandro Zummo <a.zummo@towertech.it>,
+ coresight@lists.linaro.org, Vladimir Zapolskiy <vz@mleia.com>,
+ Eric Auger <eric.auger@redhat.com>,
  Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- linux-fbdev@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
+ Matt Mackall <mpm@selenic.com>, Daniel Vetter <daniel@ffwll.ch>,
  Dan Williams <dan.j.williams@intel.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
- linux-watchdog@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
  Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
- dmaengine@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/5] amba: minor fix and various
-	cleanups
+ kernel@pengutronix.de, Leo Yan <leo.yan@linaro.org>, dmaengine@vger.kernel.org
+Subject: [Linux-stm32] [GIT PULL] immutable branch for amba changes
+	targeting v5.12-rc1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,55 +79,118 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="===============1475688862579389766=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 26, 2021 at 05:58:30PM +0100, Uwe Kleine-K=F6nig wrote:
-> From: Uwe Kleine-K=F6nig <u.kleine-koenig.org@pengutronix.de
-> =
 
-> Hello,
-> =
+--===============1475688862579389766==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ofqcafd7fzy3m7fk"
+Content-Disposition: inline
 
-> Changes since v2 sent with Message-Id:
-> 20201124133139.3072124-1-uwe@kleine-koenig.org:
-> =
 
->  - Rebase to v5.11-rc1 (which resulted in a few conflicts in
->    drivers/hwtracing).
->  - Add various Acks.
->  - Send to more maintainers directly (which I think is one of the
->    reasons why there are so few Acks).
-> =
+--ofqcafd7fzy3m7fk
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> For my taste patch 4 needs some more acks (drivers/char/hw_random,
-> drivers/dma, drivers/gpu/drm/pl111, drivers/i2c, drivers/mmc,
-> drivers/vfio, drivers/watchdog and sound/arm have no maintainer feedback
-> yet).
-> =
+Hello,
 
-> My suggestion is to let this series go in via Russell King (who cares
-> for amba). Once enough Acks are there I can also provide a tag for
-> merging into different trees. Just tell me if you prefer this solution.
-> =
+the following changes since commit 5c8fe583cce542aa0b84adc939ce85293de36e5e:
 
-> Would be great if this could make it for v5.12, but I'm aware it's
-> already late in the v5.11 cycle so it might have to wait for v5.13.
+  Linux 5.11-rc1 (2020-12-27 15:30:22 -0800)
 
-I think you need to have a 6th patch which moves the
-probe/remove/shutdown methods into the bus_type - if you're setting
-them for every struct device_driver, then there's no point doing that
-and they may as well be in the bus_type.
+are available in the Git repository at:
 
-Apart from that, it looks good.
+  https://git.pengutronix.de/git/ukl/linux tags/amba-make-remove-return-void
 
--- =
+for you to fetch changes up to f170b59fedd733b92f58c4d7c8357fbf7601d623:
 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+  amba: Make use of bus_type functions (2021-02-02 14:26:02 +0100)
+
+I expect this tag to be merged by Russell King as amba maintainer and by
+Mathieu Poirier (or Greg Kroah-Hartman?) for coresight as there are some
+pending conflicting changes. These are not hard to resolve but also
+non-trivial. Tell me if you need assistance for resolving, also if it's onl=
+y a
+second pair of eyes to judge your resolution.
+
+Best regards,
+Uwe
+
+----------------------------------------------------------------
+Tag for adaptions to struct amba_driver::remove changing prototype
+
+----------------------------------------------------------------
+Uwe Kleine-K=F6nig (5):
+      amba: Fix resource leak for drivers without .remove
+      amba: reorder functions
+      vfio: platform: simplify device removal
+      amba: Make the remove callback return void
+      amba: Make use of bus_type functions
+
+ drivers/amba/bus.c                                 | 234 +++++++++++++++++=
+++++++++++++++++------------------------------
+ drivers/char/hw_random/nomadik-rng.c               |   3 +-
+ drivers/dma/pl330.c                                |   3 +-
+ drivers/gpu/drm/pl111/pl111_drv.c                  |   4 +-
+ drivers/hwtracing/coresight/coresight-catu.c       |   3 +-
+ drivers/hwtracing/coresight/coresight-cpu-debug.c  |   4 +-
+ drivers/hwtracing/coresight/coresight-cti-core.c   |   4 +-
+ drivers/hwtracing/coresight/coresight-etb10.c      |   4 +-
+ drivers/hwtracing/coresight/coresight-etm3x-core.c |   4 +-
+ drivers/hwtracing/coresight/coresight-etm4x-core.c |   4 +-
+ drivers/hwtracing/coresight/coresight-funnel.c     |   4 +-
+ drivers/hwtracing/coresight/coresight-replicator.c |   4 +-
+ drivers/hwtracing/coresight/coresight-stm.c        |   4 +-
+ drivers/hwtracing/coresight/coresight-tmc-core.c   |   4 +-
+ drivers/hwtracing/coresight/coresight-tpiu.c       |   4 +-
+ drivers/i2c/busses/i2c-nomadik.c                   |   4 +-
+ drivers/input/serio/ambakmi.c                      |   3 +-
+ drivers/memory/pl172.c                             |   4 +-
+ drivers/memory/pl353-smc.c                         |   4 +-
+ drivers/mmc/host/mmci.c                            |   4 +-
+ drivers/rtc/rtc-pl030.c                            |   4 +-
+ drivers/rtc/rtc-pl031.c                            |   4 +-
+ drivers/spi/spi-pl022.c                            |   5 +-
+ drivers/tty/serial/amba-pl010.c                    |   4 +-
+ drivers/tty/serial/amba-pl011.c                    |   3 +-
+ drivers/vfio/platform/vfio_amba.c                  |  15 ++--
+ drivers/video/fbdev/amba-clcd.c                    |   4 +-
+ drivers/watchdog/sp805_wdt.c                       |   4 +-
+ include/linux/amba/bus.h                           |   2 +-
+ sound/arm/aaci.c                                   |   4 +-
+ 30 files changed, 157 insertions(+), 198 deletions(-)
+
+
+
+--ofqcafd7fzy3m7fk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmAZWWsACgkQwfwUeK3K
+7AnMhQgAhyeAx45pa3ebR9ymvzFG1Knp32GwFPlyLYw03yZzLsNR5n+d0kvDNZ1l
+vNIrU0g5WSS1SUWhs+m3WDRIcTlCHcgc3yoCKltLSNWiPXie9G9BZ0815b0gomXY
+eBSKiHZg/Ie8WhIspQcl0IA0P/2nOmTXF8qJx3CFow5WowriUutdf7n1ycTDq86a
+18Xpf2lW+esLut8MHM/98aHJUl6Jkj5PYfQfjgORIXKwNmNDltuK6lwvUU+pw+Vr
+0bDYXdXlaKLkNtSYYHSbDrKALiQccxhXYPg404KZV3FIHpOxKlq6im8hsFHWOOlu
+n9j2wq/tpGso23vYKdErmsE3GDncuQ==
+=P/zp
+-----END PGP SIGNATURE-----
+
+--ofqcafd7fzy3m7fk--
+
+--===============1475688862579389766==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1475688862579389766==--
