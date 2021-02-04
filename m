@@ -2,82 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C631730F889
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Feb 2021 17:52:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D110930F88D
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Feb 2021 17:53:27 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80AB0C57B52;
-	Thu,  4 Feb 2021 16:52:55 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 999FAC57B52;
+	Thu,  4 Feb 2021 16:53:27 +0000 (UTC)
+Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
+ [209.85.166.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14A73C424BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1ACB1C424BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Feb 2021 16:52:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rU7kGtAV6x4h9PYVWyoXz+PtjR1Ekd/aEUlrk7YawjA=; b=VTPukyRsHKDa6AiBC7g1A33pB
- SwzVRoY12CgfihopuGU84sVuVRYsUfiv6b3Emwm8BDSGMl47NJ4gm0qIsiqAwyM3pSwTIf2l6vha2
- cDzPmBjk1ljXfebW71uB6xJtMeptgxH+fOQ7FkYaFWun/B6T1rfINwGd+rlb8M/Klezy3l/ReCdrv
- V0d4qDQKYRRMYic1iTAdlcZh5yvqjMKyuvjs8Wsy37fKFKVUMlPg8hW+P5sXiwO/tuao+vtETwe0A
- yHWeGg7btn+Meuk+vfx/5ICUUCrM+vrThjyBDk8k7p21ma/Hklw+jYC+vHctVDNhR+i6P6uievpnI
- PK8/XvaQg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39164)
- by pandora.armlinux.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <linux@armlinux.org.uk>)
- id 1l7hrw-0006on-3V; Thu, 04 Feb 2021 16:52:36 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1l7hrk-0005Ka-VR; Thu, 04 Feb 2021 16:52:24 +0000
-Date: Thu, 4 Feb 2021 16:52:24 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <20210204165224.GA1463@shell.armlinux.org.uk>
-References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
- <20210202135350.36nj3dmcoq3t7gcf@pengutronix.de>
- <YBlcTXlxemmC2lgr@kroah.com>
+ Thu,  4 Feb 2021 16:53:26 +0000 (UTC)
+Received: by mail-io1-f48.google.com with SMTP id s24so3930944iob.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 04 Feb 2021 08:53:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tMoigY62yIJ7YQaLvSh4gO6ndgFj/k+MzZAps0WdCQs=;
+ b=OE8iFElv37z11BKMC5+6KSNhX01GCu8+++7vUS94adQ9iwXQQnxf147b25qPiqp+hX
+ Hgobvl6Ru5cEOpk0jtdEb1B87VV+tohUA8qDl4s2vocK9ekMW1S5U2YLfto46yuNmT1i
+ fP0SH18Y95ac34e5yi6J1rDzbFFjDaJKLVASWjP+uf9VMFRPpkV2gLnKKb2DC6K9zA8b
+ JqixsoMYE7s8YOI4GNLG1BmQ2e+ubgjQOKR4Jvq+01CH37dW0ONjBao3ToP+kXxzyJ5L
+ w19dokqqy6+LcS2IpZnVmeOQwtB7d72qMuk3Iapgveh2qYLp647jsezdEI10KuGSs5Fk
+ l1NQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tMoigY62yIJ7YQaLvSh4gO6ndgFj/k+MzZAps0WdCQs=;
+ b=c4fpdJrh0yFTYcZh3lvilCJvMNjml9k+KAWGetUs/dzqATtux2pon4Ee9Lztd43Avy
+ kqC5byp8+o2N4I3z3imbLQv+PG3g2LprATzlUlVSRNS4rAQd7nbtw3R0QcAc5ifP222Q
+ CAQturLsr1Ot9ZDBjP5zMZ9A95pUVfgZu+QWo2jy88JCckhM+PNAdGjCmXQ63ujbSUN8
+ qFb2kH3uoAxtRfac8ax4S0gNWKuWtuUHmXLFsFq2NPZx1vKIggdEJzH2D+3wQ9pgXYN9
+ nOanor1tyPpTBCUizdFayHo4HYtkQ3p8lhDxF0OhYQoLG8qMDJ/tm+peu740rNFBfXy9
+ N5ow==
+X-Gm-Message-State: AOAM5317iXNbwruOUR4zrSuen2oQZWP+zbW2jmFl2VBQrgepOfDfagvv
+ gGdGKV3NLdj24DSInax+TVNQ1VXYNWCNFTjW+mkkrw==
+X-Google-Smtp-Source: ABdhPJzO7TUlQbNvG8Aoc7Cz2V5sQT7YSsyfoUAEWn1aZ1T8jBPXSoj10FQUGe52QiWokGGHWxeONpr4LBRCD0s1vl8=
+X-Received: by 2002:a05:6638:1928:: with SMTP id
+ p40mr428995jal.71.1612457604904; 
+ Thu, 04 Feb 2021 08:53:24 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YBlcTXlxemmC2lgr@kroah.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-fbdev@vger.kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
- kvm@vger.kernel.org, Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Eric Anholt <eric@anholt.net>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig.org@pengutronix.de>,
- linux-i2c@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
- Cornelia Huck <cohuck@redhat.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- Takashi Iwai <tiwai@suse.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- David Airlie <airlied@linux.ie>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Ulf Hansson <ulf.hansson@linaro.org>, Guenter Roeck <linux@roeck-us.net>,
- Mike Leach <mike.leach@linaro.org>, linux-watchdog@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- coresight@lists.linaro.org,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- Matt Mackall <mpm@selenic.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dan Williams <dan.j.williams@intel.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- kernel@pengutronix.de, Leo Yan <leo.yan@linaro.org>, dmaengine@vger.kernel.org
-Subject: Re: [Linux-stm32] [GIT PULL] immutable branch for amba changes
-	targeting v5.12-rc1
+References: <20210204084534.10516-7-arnaud.pouliquen@foss.st.com>
+ <202102042006.UBNrTXCE-lkp@intel.com>
+ <c853e1f6-d5f9-4270-5a78-2e9730e5089e@foss.st.com>
+In-Reply-To: <c853e1f6-d5f9-4270-5a78-2e9730e5089e@foss.st.com>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Thu, 4 Feb 2021 09:53:13 -0700
+Message-ID: <CANLsYky5r2BjBxjXaB4xNFNcb+zyVJshWZzgMUqf6C5Q9op9BA@mail.gmail.com>
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, kbuild-all@lists.01.org,
+ kernel test robot <lkp@intel.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ linux-remoteproc <linux-remoteproc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 06/15] rpmsg: update
+	rpmsg_chrdev_register_device function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,19 +77,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 02, 2021 at 03:06:05PM +0100, Greg Kroah-Hartman wrote:
-> I'm glad to take this through my char/misc tree, as that's where the
-> other coresight changes flow through.  So if no one else objects, I will
-> do so...
+On Thu, 4 Feb 2021 at 08:11, Arnaud POULIQUEN
+<arnaud.pouliquen@foss.st.com> wrote:
+>
+>
+>
+> On 2/4/21 1:44 PM, kernel test robot wrote:
+> > Hi Arnaud,
+> >
+> > I love your patch! Yet something to improve:
+> >
+> > [auto build test ERROR on linus/master]
+> > [also build test ERROR on v5.11-rc6 next-20210125]
+> > [cannot apply to rpmsg/for-next agross-msm/qcom/for-next]
+> > [If your patch is applied to the wrong git tree, kindly drop us a note.
+> > And when submitting patch, we suggest to use '--base' as documented in
+> > https://git-scm.com/docs/git-format-patch]
+> >
+> > url:    https://github.com/0day-ci/linux/commits/Arnaud-Pouliquen/introduce-a-generic-IOCTL-interface-for-RPMsg-channels-management/20210204-165337
+> > base:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 61556703b610a104de324e4f061dc6cf7b218b46
+> > config: openrisc-randconfig-r001-20210204 (attached as .config)
+> > compiler: or1k-linux-gcc (GCC) 9.3.0
+> > reproduce (this is a W=1 build):
+> >         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+> >         chmod +x ~/bin/make.cross
+> >         # https://github.com/0day-ci/linux/commit/23c166e0b157f0695fa7daefb8c5e30f383c3efd
+> >         git remote add linux-review https://github.com/0day-ci/linux
+> >         git fetch --no-tags linux-review Arnaud-Pouliquen/introduce-a-generic-IOCTL-interface-for-RPMsg-channels-management/20210204-165337
+> >         git checkout 23c166e0b157f0695fa7daefb8c5e30f383c3efd
+> >         # save the attached .config to linux build tree
+> >         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-9.3.0 make.cross ARCH=openrisc
+> >
+> > If you fix the issue, kindly add following tag as appropriate
+> > Reported-by: kernel test robot <lkp@intel.com>>
+> > All errors (new ones prefixed by >>):
+> >
+> >    or1k-linux-ld: drivers/rpmsg/qcom_glink_native.o: in function `qcom_glink_native_probe':
+> >>> qcom_glink_native.c:(.text+0x2e88): undefined reference to `rpmsg_ctrl_register_device'
+> >    qcom_glink_native.c:(.text+0x2e88): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `rpmsg_ctrl_register_device'
+>
+> Thanks for highlighting it!
+>
+> I await further review comments first, but I will address this in my next
+> revision, if it still relevant.
 
-Greg, did you end up pulling this after all? If not, Uwe produced a v2.
-I haven't merged v2 yet as I don't know what you've done.
+I will be surprised if I get to look at your patchset before February
+22nd so it may be better to address the above.
 
-Thanks.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+>
+> >
+> > ---
+> > 0-DAY CI Kernel Test Service, Intel Corporation
+> > https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+> >
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
