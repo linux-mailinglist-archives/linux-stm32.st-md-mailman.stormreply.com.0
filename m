@@ -2,37 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF2D30F8B6
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Feb 2021 17:56:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D43E30F8D8
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Feb 2021 18:00:00 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E86F7C57B54;
-	Thu,  4 Feb 2021 16:56:56 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FF79C57B54;
+	Thu,  4 Feb 2021 17:00:00 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B025C57B52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CDC6C57B52
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Feb 2021 16:56:55 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3066164F47;
- Thu,  4 Feb 2021 16:56:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1612457813;
- bh=05Tu6gC1988yql3jwqZ8bSalZpjvaviDpH2tuIfYvRM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V/2phKRBrdShTJynlnGGMW3l9x/SW1hWhKF8xex4OBeo3mDEeK0o2kKM2vS0bAe4F
- Wdi0g4ASLrOIJhcENuzivXIyn+HAG/m8sXtb1YJRFkCDu6LHLMMfsvATC2CS2VT9DI
- IeA8zLWPa9FQgRD8cqb7Rt1bnqdVVBXlJNczgsbo=
-Date: Thu, 4 Feb 2021 17:56:50 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-Message-ID: <YBwnUrQqlAz2LDPI@kroah.com>
+ Thu,  4 Feb 2021 16:59:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=wbVme97LTyZtZvghkEGRoTiuc1SViBhjvsMeN4jw9jo=; b=PWpDFRnC/pQI+UGrPjtu0HbEN
+ L43RKr1nxKtBjtMtRi4xXHxwvekb3ibhraif6lER0dky75uQXrGFEXQG6NhjCA1fCxUTz+ddAydTm
+ bKGNXkikKkpPPxYKlnRpcmercjWMc157NMyq5VGBlktOBU4v01FOUgoDwrAz/6rmXKc3s5uGItTGb
+ dNZ/w+Dn4u+hez+MLEwKJ4lcAEjJtpMn+NmpWK3E6iHfHaP25TIOZvIkmdEqS/QgEh2MDEP2cCleD
+ QaNVcBSlDNa3dxdHeD+0ZqIiVN2POoOv7P4kP6Hmp/WoLdRJMDuQzDE1oihQUuFsLZjY16MLN5oha
+ hd1Wb2fKg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39166)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1l7hyz-0006q2-Je; Thu, 04 Feb 2021 16:59:53 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1l7hyx-0005Kk-Sm; Thu, 04 Feb 2021 16:59:51 +0000
+Date: Thu, 4 Feb 2021 16:59:51 +0000
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <20210204165951.GB1463@shell.armlinux.org.uk>
 References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
  <20210202135350.36nj3dmcoq3t7gcf@pengutronix.de>
  <YBlcTXlxemmC2lgr@kroah.com>
  <20210204165224.GA1463@shell.armlinux.org.uk>
+ <YBwnUrQqlAz2LDPI@kroah.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210204165224.GA1463@shell.armlinux.org.uk>
+In-Reply-To: <YBwnUrQqlAz2LDPI@kroah.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: linux-fbdev@vger.kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
  kvm@vger.kernel.org, Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
@@ -82,24 +96,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 04, 2021 at 04:52:24PM +0000, Russell King - ARM Linux admin wrote:
-> On Tue, Feb 02, 2021 at 03:06:05PM +0100, Greg Kroah-Hartman wrote:
-> > I'm glad to take this through my char/misc tree, as that's where the
-> > other coresight changes flow through.  So if no one else objects, I will
-> > do so...
+On Thu, Feb 04, 2021 at 05:56:50PM +0100, Greg Kroah-Hartman wrote:
+> On Thu, Feb 04, 2021 at 04:52:24PM +0000, Russell King - ARM Linux admin wrote:
+> > On Tue, Feb 02, 2021 at 03:06:05PM +0100, Greg Kroah-Hartman wrote:
+> > > I'm glad to take this through my char/misc tree, as that's where the
+> > > other coresight changes flow through.  So if no one else objects, I will
+> > > do so...
+> > 
+> > Greg, did you end up pulling this after all? If not, Uwe produced a v2.
+> > I haven't merged v2 yet as I don't know what you've done.
 > 
-> Greg, did you end up pulling this after all? If not, Uwe produced a v2.
-> I haven't merged v2 yet as I don't know what you've done.
+> I thought you merged this?
 
-I thought you merged this?
+I took v1, and put it in a branch I've promised in the past not to
+rebase/rewind. Uwe is now asking for me to take a v2 or apply a patch
+on top.
 
-Did you take v1?
+The only reason to produce an "immutable" branch is if it's the basis
+for some dependent work and you need that branch merged into other
+people's trees... so the whole "lets produce a v2" is really odd
+workflow... I'm confused about what I should do, and who has to be
+informed which option I take.
 
-I am totally lost here...
+I'm rather lost here too.
 
-thanks,
-
-greg k-h
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
