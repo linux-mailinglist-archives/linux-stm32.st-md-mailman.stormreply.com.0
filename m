@@ -2,47 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF15E310E13
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 17:44:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45896310E8A
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 18:23:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F7A2C57B51;
-	Fri,  5 Feb 2021 16:44:53 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2CA0C57B51;
+	Fri,  5 Feb 2021 17:23:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FAADC3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAE56C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Feb 2021 16:44:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 33D8064E41;
- Fri,  5 Feb 2021 16:44:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612543490;
- bh=PXiONkiHLFyycY0uLa3iLGkOkJkNgYGXd95uCU3KPkw=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=d/emirZYV79/LFZ3gcUyV5l56jL3WETg3Tl0W4quAHJh6baGjqwHdUigr3RvkssZH
- 7rRo6FTU+6yosPVjiSmbpm8FL8oBmgElYdmGmuZFRgnPXm6i8//rWwVhypXA3JKmcO
- O7ZS5z7EfOOO0QGYylkGCv4xQDyvsz1hylOMW1XSc1sf2r6Q8+NAMLGKWrOiAoEt/Z
- En8YP9+vOpYDBoye/bsuuNPQHN/wGrGCM3JfqhN7+SSXu9Wn5BVTBwyt2h20lJ+YMw
- fwRyeHwERI/4RHORm7R4JYB5loFa+XrnhHiOv7/2chbT1vJm9SmJSaDVLc292zgxH9
- V72ed8/lbTvpA==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Olivier Moysan <olivier.moysan@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Jaroslav Kysela <perex@perex.cz>,
- Arnaud Pouliquen <arnaud.pouliquen@st.com>, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20210205104404.18786-1-olivier.moysan@foss.st.com>
-References: <20210205104404.18786-1-olivier.moysan@foss.st.com>
-Message-Id: <161254344059.9495.3602816971823494322.b4-ty@kernel.org>
-Date: Fri, 05 Feb 2021 16:44:00 +0000
+ Fri,  5 Feb 2021 17:23:54 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 115HKjfw028480; Fri, 5 Feb 2021 18:23:47 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=date : from : to :
+ cc : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=selector1; bh=+LWNApjAf8DcKkiePDnRirGOK1rD4544v3if96uJetI=;
+ b=Sb5L6Qa8IoG8EZ+XqiYmFr4eNa4c0ZCRFecO3z6bft6MLNwxmfw4THXbnCvU26pO/vU0
+ Z9Cyz6KVmiPtcYtBRFZu+wIiBaOXjxNaABy6Ce5ugh4MFJrLmkgaStALXaTF+eIeob5m
+ 5UgpnJSHf1Sr1JWwXCxCxc3WuZNpEX2NZg3dc5eOGSqWIp3OLPMgjVJ8u3ertUnyfdzk
+ CAKzySopELWNgsRuuu+kuZl6a7PUcKR30gV6vltvJV8hzLYwlobknUvvWw7RkMxWUPwV
+ HJ0lunmQSYRTtIijAibzwxjkAqdaBgOOdNe1lbBFgbkxzGZMtSgvQZNfXW8+e9c9xwlu lA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36ey7hhrah-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Feb 2021 18:23:47 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 20ABC10002A;
+ Fri,  5 Feb 2021 18:23:47 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1213025F3FD;
+ Fri,  5 Feb 2021 18:23:47 +0100 (CET)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.50) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 5 Feb
+ 2021 18:23:46 +0100
+Date: Fri, 5 Feb 2021 18:23:43 +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20210205172343.GA26795@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Mark Brown <broonie@kernel.org>,
+ amelie.delaunay@foss.st.com, linux-kernel@vger.kernel.org,
+ alexandre.torgue@foss.st.com, fabrice.gasnier@foss.st.com,
+ mcoquelin.stm32@gmail.com, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <1612523342-10466-1-git-send-email-alain.volmat@foss.st.com>
+ <1612523342-10466-6-git-send-email-alain.volmat@foss.st.com>
+ <20210205164154.GA8179@sirena.org.uk>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [RESEND PATCH 0/2] ASoC: stm32: i2s: add master
-	clock provider
+Content-Disposition: inline
+In-Reply-To: <20210205164154.GA8179@sirena.org.uk>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
+ definitions=2021-02-05_10:2021-02-05,
+ 2021-02-05 signatures=0
+Cc: alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 5/8] spi: stm32: defer probe for reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,45 +82,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 5 Feb 2021 11:44:02 +0100, Olivier Moysan wrote:
-> Add master clock generation support in STM32 I2S driver.
-> Resend of patch https://lkml.org/lkml/2020/9/11/264
+Hi Mark,
+
+sorry about that, I've just noticed the issue. This is probably due to
+modification of patches ordering I did. STM32H7_SPI_TSIZE_MAX is introduced
+in the PATCH 6/8 and this is the reason why PATCH 5/8 doesn't build properly.
+I'll rework that to ensure that all patches compile properly.
+
+Sorry again,
+Alain
+
+On Fri, Feb 05, 2021 at 04:41:54PM +0000, Mark Brown wrote:
+> On Fri, Feb 05, 2021 at 12:08:59PM +0100, Alain Volmat wrote:
+> > Defer the probe operation when a reset controller device is expected
+> > but have not yet been probed.
+> > 
+> > This change replaces use of devm_reset_control_get_exclusive() with
+> > devm_reset_control_get_optional_exclusive() as reset controller is
+> > optional which is now explicitly stated.
 > 
-> Olivier Moysan (2):
->   ASoC: dt-bindings: add mclk provider support to stm32 i2s
->   ASoC: stm32: i2s: add master clock provider
+> This has trouble building an x86 allmodconfig build:
 > 
-> [...]
+> /mnt/kernel/drivers/spi/spi-stm32.c: In function 'stm32_spi_prepare_msg':
+> /mnt/kernel/drivers/spi/spi-stm32.c:1022:9: error: 'STM32H7_SPI_TSIZE_MAX' undeclared (first use in this function); did you mean 'STM32H7_SPI_CR1_MASRX'?
+>          STM32H7_SPI_TSIZE_MAX,
+>          ^~~~~~~~~~~~~~~~~~~~~
+>          STM32H7_SPI_CR1_MASRX
+> /mnt/kernel/drivers/spi/spi-stm32.c:1022:9: note: each undeclared identifier is reported only once for each function it appears in
+> 
+> This may be due to an earlier patch in the series, my script is working
+> back through the patch series.
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/2] ASoC: dt-bindings: add mclk provider support to stm32 i2s
-      commit: df91785a22e2505d2ac668f1d3e6b6e6d8ba627a
-[2/2] ASoC: stm32: i2s: add master clock provider
-      commit: 8a262e614ef8675cfde924c6ddf873a95db0be6a
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
