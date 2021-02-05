@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D83631108D
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C2D631108A
 	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 20:00:00 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED3BEC57B67;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCA14C57B5B;
 	Fri,  5 Feb 2021 18:59:59 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A20EC57B54
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F0A0C57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Feb 2021 18:59:57 +0000 (UTC)
+ Fri,  5 Feb 2021 18:59:56 +0000 (UTC)
 Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 115Iq5xm022849; Fri, 5 Feb 2021 19:59:47 +0100
+ 115IqUdl022920; Fri, 5 Feb 2021 19:59:48 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=l4mRyO192tK5wz+06edKoCMrS6nJXWsrYPSp+UIM/7o=;
- b=SJONXusMQrcm2wJ82A7R37W/7X0DALzp1OtE/td8hd6dem3Qcdr+3tOneyhcFcnZLNWv
- +Gl520HIX14HrOiKfa+881UGMEqKtl4DawkWXItJnnkjrMFcUJHdBmeaQtdfmXidTF4R
- S/lt04Q7NngEaCdgYOE/Idl4IxfseZV1Zq4HrpBJmrst2ZH++dzzj99qUspYWthNcxe9
- rJwbhS66AHWNYiZ8KbvGODXA/HXQzWg4zSDxwj7Je5z56yFneqcAlA1BQrtgZwaDwfSF
- Ad8IKpNCC3TyDuI7XQDjbr8/bzk2be5oq0/bXdY6wB29YuPffwFMOQyTZwYIq7qAwGx7 uQ== 
+ bh=OkZFHNYnhjbbf1kCBZcnGUNg3u7g/BZ3dQTwhvXRqmc=;
+ b=Qgkt1pVGd7fexyKuFYD4rt9iRqsFwG2LjQdNECroZViX/7lT373U09DZpctfOcV/3OFC
+ uWzsln7zHeGtAWl77dT6BWFG3UvqWrOnf6/aWT8hs0q1Ln+vAu36IHP+5FeRcH314RhD
+ hVhsqtLJbrXIuTD/HxOD+R+J6PI2CZoQax/xLNXkax9rg65rEpO4K/fpqiu1fR9Ajpl/
+ spBpe+5lqPaVD3Elu/jUV+YZEHBnA5j2LUtHd8gG8aZ6iITJJ3+yglY3hgbQwhlbpArA
+ js4hgnh/Gk6iP7DMmvIB2oe0IrHSlR/T6H/9AAKVgJi5ZkJSBM0onKlKx03KsHuJVLyo aA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36d0fsgjqr-1
+ by mx07-00178001.pphosted.com with ESMTP id 36d0fsgjqs-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Feb 2021 19:59:47 +0100
+ Fri, 05 Feb 2021 19:59:48 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 557E0100038;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B429D10002A;
  Fri,  5 Feb 2021 19:59:47 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4B8582C38D3;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A79652C38D3;
  Fri,  5 Feb 2021 19:59:47 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
  with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 5 Feb 2021 19:59:47
  +0100
 From: Alain Volmat <alain.volmat@foss.st.com>
 To: <broonie@kernel.org>, <amelie.delaunay@foss.st.com>
-Date: Fri, 5 Feb 2021 19:59:29 +0100
-Message-ID: <1612551572-495-6-git-send-email-alain.volmat@foss.st.com>
+Date: Fri, 5 Feb 2021 19:59:30 +0100
+Message-ID: <1612551572-495-7-git-send-email-alain.volmat@foss.st.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1612551572-495-1-git-send-email-alain.volmat@foss.st.com>
 References: <1612551572-495-1-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
  definitions=2021-02-05_10:2021-02-05,
@@ -57,8 +57,7 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
 Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
  mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com, linux-spi@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 5/8] spi: stm32: driver uses reset
-	controller only at init
+Subject: [Linux-stm32] [PATCH v2 6/8] spi: stm32: defer probe for reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,64 +74,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Etienne Carriere <etienne.carriere@st.com>
+Defer the probe operation when a reset controller device is expected
+but have not yet been probed.
 
-Remove reset controller device reference from the device private
-structure since it is used only at probe time and can be discarded
-once used to reset the SPI device.
+This change replaces use of devm_reset_control_get_exclusive() with
+devm_reset_control_get_optional_exclusive() as reset controller is
+optional which is now explicitly stated.
 
-Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
 v2: reordered within the serie
 
- drivers/spi/spi-stm32.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/spi/spi-stm32.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index 8e4db219b95d..561234829110 100644
+index 561234829110..54196cecfe2e 100644
 --- a/drivers/spi/spi-stm32.c
 +++ b/drivers/spi/spi-stm32.c
-@@ -263,7 +263,6 @@ struct stm32_spi_cfg {
-  * @base: virtual memory area
-  * @clk: hw kernel clock feeding the SPI clock generator
-  * @clk_rate: rate of the hw kernel clock feeding the SPI clock generator
-- * @rst: SPI controller reset line
-  * @lock: prevent I/O concurrent access
-  * @irq: SPI controller interrupt line
-  * @fifo_size: size of the embedded fifo in bytes
-@@ -289,7 +288,6 @@ struct stm32_spi {
- 	void __iomem *base;
- 	struct clk *clk;
- 	u32 clk_rate;
--	struct reset_control *rst;
- 	spinlock_t lock; /* prevent I/O concurrent access */
- 	int irq;
- 	unsigned int fifo_size;
-@@ -1811,6 +1809,7 @@ static int stm32_spi_probe(struct platform_device *pdev)
- 	struct spi_master *master;
- 	struct stm32_spi *spi;
- 	struct resource *res;
-+	struct reset_control *rst;
- 	int ret;
- 
- 	master = spi_alloc_master(&pdev->dev, sizeof(struct stm32_spi));
-@@ -1872,11 +1871,11 @@ static int stm32_spi_probe(struct platform_device *pdev)
+@@ -1871,8 +1871,14 @@ static int stm32_spi_probe(struct platform_device *pdev)
  		goto err_clk_disable;
  	}
  
--	spi->rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
--	if (!IS_ERR(spi->rst)) {
--		reset_control_assert(spi->rst);
-+	rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
-+	if (!IS_ERR(rst)) {
-+		reset_control_assert(rst);
+-	rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
+-	if (!IS_ERR(rst)) {
++	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
++	if (rst) {
++		if (IS_ERR(rst)) {
++			ret = dev_err_probe(&pdev->dev, PTR_ERR(rst),
++					    "failed to get reset\n");
++			goto err_clk_disable;
++		}
++
+ 		reset_control_assert(rst);
  		udelay(2);
--		reset_control_deassert(spi->rst);
-+		reset_control_deassert(rst);
- 	}
- 
- 	if (spi->cfg->has_fifo)
+ 		reset_control_deassert(rst);
 -- 
 2.17.1
 
