@@ -2,67 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC875310966
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 11:45:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B93C31099A
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 11:56:26 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7486C57B53;
-	Fri,  5 Feb 2021 10:45:48 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54266C57B53;
+	Fri,  5 Feb 2021 10:56:26 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93588C57B51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C88BBC57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Feb 2021 10:45:46 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 115AeiHv023391; Fri, 5 Feb 2021 11:45:04 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=vn7AJEws6oioE8XLmvySJJ+6r15eUGv/1k+XuTuQR34=;
- b=Bil8WcOE5ccWIc4Ew3ISYKO9otzAk0J9XJUraBgIiGCqq9R5RG73pR6r2Twh9e4/DxnZ
- fJJSiwQCwVblfVB3IMrsslLyVT7Lx/x7Gatd9jUMSrU7dpiR/r7lyuUQIHVRxALZ11ss
- A9XlWWGiv+Pw1y/j35g7159v+O6n8hiPU+fT5QDxhi3okGYL5sdCavR0HRlL3g0DG7/4
- 1mMxJnLqTSl9EWQkYZWMBOCPxlh41RCDSZWRJdOfnhSrepiRjJeC96FpyuPIb4ZODGD7
- x4alRXIv5sxKgGKyhABDKsD0BM+ss3w3MTo/kchE8qghQMeA8TciMTbycTvELYr4oqZV bA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36ey7hfpb7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Feb 2021 11:45:04 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D43A210002A;
- Fri,  5 Feb 2021 11:45:03 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BD22E2298CD;
- Fri,  5 Feb 2021 11:45:03 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 5 Feb 2021 11:45:03
- +0100
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Alexandre Torgue <alexandre.torgue@st.com>, Arnaud Pouliquen
- <arnaud.pouliquen@st.com>, Jaroslav Kysela <perex@perex.cz>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Olivier Moysan <olivier.moysan@st.com>, "Rob
- Herring" <robh+dt@kernel.org>, Takashi Iwai <tiwai@suse.com>
-Date: Fri, 5 Feb 2021 11:44:04 +0100
-Message-ID: <20210205104404.18786-3-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210205104404.18786-1-olivier.moysan@foss.st.com>
-References: <20210205104404.18786-1-olivier.moysan@foss.st.com>
+ Fri,  5 Feb 2021 10:56:24 +0000 (UTC)
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1l7ymj-00035C-2Q; Fri, 05 Feb 2021 11:56:21 +0100
+Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1l7ymd-0004Fb-NN; Fri, 05 Feb 2021 11:56:15 +0100
+Date: Fri, 5 Feb 2021 11:56:15 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <20210205105615.qumu45huvntf2v4j@pengutronix.de>
+References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
+ <20210202135350.36nj3dmcoq3t7gcf@pengutronix.de>
+ <YBlcTXlxemmC2lgr@kroah.com>
+ <20210204165224.GA1463@shell.armlinux.org.uk>
+ <YBwnUrQqlAz2LDPI@kroah.com>
+ <20210204165951.GB1463@shell.armlinux.org.uk>
+ <20210204181551.ethtuzm65flujmwe@pengutronix.de>
+ <20210205093744.kr4rc7yvfiq6wimq@pengutronix.de>
+ <YB0baUzgvpd+EoO6@kroah.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
- definitions=2021-02-05_06:2021-02-05,
- 2021-02-05 signatures=0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [RESEND PATCH 2/2] ASoC: stm32: i2s: add master clock
-	provider
+In-Reply-To: <YB0baUzgvpd+EoO6@kroah.com>
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, kvm@vger.kernel.org,
+ David Airlie <airlied@linux.ie>, Linus Walleij <linus.walleij@linaro.org>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Jaroslav Kysela <perex@perex.cz>, Eric Anholt <eric@anholt.net>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig.org@pengutronix.de>,
+ linux-i2c@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-watchdog@vger.kernel.org,
+ linux-rtc@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
+ Takashi Iwai <tiwai@suse.com>,
+ Russell King - ARM Linux admin <linux@armlinux.org.uk>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ Ulf Hansson <ulf.hansson@linaro.org>, Guenter Roeck <linux@roeck-us.net>,
+ Mike Leach <mike.leach@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, alsa-devel@alsa-project.org,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
+ Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Matt Mackall <mpm@selenic.com>, Dan Williams <dan.j.williams@intel.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Cornelia Huck <cohuck@redhat.com>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-crypto@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Leo Yan <leo.yan@linaro.org>, dmaengine@vger.kernel.org
+Subject: Re: [Linux-stm32] [GIT PULL] immutable branch for amba changes
+	targeting v5.12-rc1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,449 +85,153 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2060084739898644044=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Olivier Moysan <olivier.moysan@st.com>
 
-Add master clock generation support in STM32 I2S driver.
-The master clock provided by I2S can be used to feed a codec.
+--===============2060084739898644044==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vslstwmibba5nymi"
+Content-Disposition: inline
 
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
----
- sound/soc/stm/stm32_i2s.c | 310 ++++++++++++++++++++++++++++++++------
- 1 file changed, 266 insertions(+), 44 deletions(-)
 
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 7c4d63c33f15..7d1672cf78cc 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -8,6 +8,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/clk-provider.h>
- #include <linux/delay.h>
- #include <linux/module.h>
- #include <linux/of_irq.h>
-@@ -196,6 +197,9 @@ enum i2s_datlen {
- #define STM32_I2S_IS_MASTER(x)		((x)->ms_flg == I2S_MS_MASTER)
- #define STM32_I2S_IS_SLAVE(x)		((x)->ms_flg == I2S_MS_SLAVE)
- 
-+#define STM32_I2S_NAME_LEN		32
-+#define STM32_I2S_RATE_11K		11025
-+
- /**
-  * struct stm32_i2s_data - private data of I2S
-  * @regmap_conf: I2S register map configuration pointer
-@@ -206,6 +210,7 @@ enum i2s_datlen {
-  * @dma_data_rx: dma configuration data for tx channel
-  * @substream: PCM substream data pointer
-  * @i2sclk: kernel clock feeding the I2S clock generator
-+ * @i2smclk: master clock from I2S mclk provider
-  * @pclk: peripheral clock driving bus interface
-  * @x8kclk: I2S parent clock for sampling frequencies multiple of 8kHz
-  * @x11kclk: I2S parent clock for sampling frequencies multiple of 11kHz
-@@ -215,6 +220,9 @@ enum i2s_datlen {
-  * @irq_lock: prevent race condition with IRQ
-  * @mclk_rate: master clock frequency (Hz)
-  * @fmt: DAI protocol
-+ * @divider: prescaler division ratio
-+ * @div: prescaler div field
-+ * @odd: prescaler odd field
-  * @refcount: keep count of opened streams on I2S
-  * @ms_flg: master mode flag.
-  */
-@@ -227,6 +235,7 @@ struct stm32_i2s_data {
- 	struct snd_dmaengine_dai_dma_data dma_data_rx;
- 	struct snd_pcm_substream *substream;
- 	struct clk *i2sclk;
-+	struct clk *i2smclk;
- 	struct clk *pclk;
- 	struct clk *x8kclk;
- 	struct clk *x11kclk;
-@@ -236,10 +245,210 @@ struct stm32_i2s_data {
- 	spinlock_t irq_lock; /* used to prevent race condition with IRQ */
- 	unsigned int mclk_rate;
- 	unsigned int fmt;
-+	unsigned int divider;
-+	unsigned int div;
-+	bool odd;
- 	int refcount;
- 	int ms_flg;
- };
- 
-+struct stm32_i2smclk_data {
-+	struct clk_hw hw;
-+	unsigned long freq;
-+	struct stm32_i2s_data *i2s_data;
-+};
-+
-+#define to_mclk_data(_hw) container_of(_hw, struct stm32_i2smclk_data, hw)
-+
-+static int stm32_i2s_calc_clk_div(struct stm32_i2s_data *i2s,
-+				  unsigned long input_rate,
-+				  unsigned long output_rate)
-+{
-+	unsigned int ratio, div, divider = 1;
-+	bool odd;
-+
-+	ratio = DIV_ROUND_CLOSEST(input_rate, output_rate);
-+
-+	/* Check the parity of the divider */
-+	odd = ratio & 0x1;
-+
-+	/* Compute the div prescaler */
-+	div = ratio >> 1;
-+
-+	/* If div is 0 actual divider is 1 */
-+	if (div) {
-+		divider = ((2 * div) + odd);
-+		dev_dbg(&i2s->pdev->dev, "Divider: 2*%d(div)+%d(odd) = %d\n",
-+			div, odd, divider);
-+	}
-+
-+	/* Division by three is not allowed by I2S prescaler */
-+	if ((div == 1 && odd) || div > I2S_CGFR_I2SDIV_MAX) {
-+		dev_err(&i2s->pdev->dev, "Wrong divider setting\n");
-+		return -EINVAL;
-+	}
-+
-+	if (input_rate % divider)
-+		dev_dbg(&i2s->pdev->dev,
-+			"Rate not accurate. requested (%ld), actual (%ld)\n",
-+			output_rate, input_rate / divider);
-+
-+	i2s->div = div;
-+	i2s->odd = odd;
-+	i2s->divider = divider;
-+
-+	return 0;
-+}
-+
-+static int stm32_i2s_set_clk_div(struct stm32_i2s_data *i2s)
-+{
-+	u32 cgfr, cgfr_mask;
-+
-+	cgfr = I2S_CGFR_I2SDIV_SET(i2s->div) | (i2s->odd << I2S_CGFR_ODD_SHIFT);
-+	cgfr_mask = I2S_CGFR_I2SDIV_MASK | I2S_CGFR_ODD;
-+
-+	return regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
-+				  cgfr_mask, cgfr);
-+}
-+
-+static int stm32_i2s_set_parent_clock(struct stm32_i2s_data *i2s,
-+				      unsigned int rate)
-+{
-+	struct platform_device *pdev = i2s->pdev;
-+	struct clk *parent_clk;
-+	int ret;
-+
-+	if (!(rate % STM32_I2S_RATE_11K))
-+		parent_clk = i2s->x11kclk;
-+	else
-+		parent_clk = i2s->x8kclk;
-+
-+	ret = clk_set_parent(i2s->i2sclk, parent_clk);
-+	if (ret)
-+		dev_err(&pdev->dev,
-+			"Error %d setting i2sclk parent clock\n", ret);
-+
-+	return ret;
-+}
-+
-+static long stm32_i2smclk_round_rate(struct clk_hw *hw, unsigned long rate,
-+				     unsigned long *prate)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+	struct stm32_i2s_data *i2s = mclk->i2s_data;
-+	int ret;
-+
-+	ret = stm32_i2s_calc_clk_div(i2s, *prate, rate);
-+	if (ret)
-+		return ret;
-+
-+	mclk->freq = *prate / i2s->divider;
-+
-+	return mclk->freq;
-+}
-+
-+static unsigned long stm32_i2smclk_recalc_rate(struct clk_hw *hw,
-+					       unsigned long parent_rate)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+
-+	return mclk->freq;
-+}
-+
-+static int stm32_i2smclk_set_rate(struct clk_hw *hw, unsigned long rate,
-+				  unsigned long parent_rate)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+	struct stm32_i2s_data *i2s = mclk->i2s_data;
-+	int ret;
-+
-+	ret = stm32_i2s_calc_clk_div(i2s, parent_rate, rate);
-+	if (ret)
-+		return ret;
-+
-+	ret = stm32_i2s_set_clk_div(i2s);
-+	if (ret)
-+		return ret;
-+
-+	mclk->freq = rate;
-+
-+	return 0;
-+}
-+
-+static int stm32_i2smclk_enable(struct clk_hw *hw)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+	struct stm32_i2s_data *i2s = mclk->i2s_data;
-+
-+	dev_dbg(&i2s->pdev->dev, "Enable master clock\n");
-+
-+	return regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
-+				    I2S_CGFR_MCKOE, I2S_CGFR_MCKOE);
-+}
-+
-+static void stm32_i2smclk_disable(struct clk_hw *hw)
-+{
-+	struct stm32_i2smclk_data *mclk = to_mclk_data(hw);
-+	struct stm32_i2s_data *i2s = mclk->i2s_data;
-+
-+	dev_dbg(&i2s->pdev->dev, "Disable master clock\n");
-+
-+	regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG, I2S_CGFR_MCKOE, 0);
-+}
-+
-+static const struct clk_ops mclk_ops = {
-+	.enable = stm32_i2smclk_enable,
-+	.disable = stm32_i2smclk_disable,
-+	.recalc_rate = stm32_i2smclk_recalc_rate,
-+	.round_rate = stm32_i2smclk_round_rate,
-+	.set_rate = stm32_i2smclk_set_rate,
-+};
-+
-+static int stm32_i2s_add_mclk_provider(struct stm32_i2s_data *i2s)
-+{
-+	struct clk_hw *hw;
-+	struct stm32_i2smclk_data *mclk;
-+	struct device *dev = &i2s->pdev->dev;
-+	const char *pname = __clk_get_name(i2s->i2sclk);
-+	char *mclk_name, *p, *s = (char *)pname;
-+	int ret, i = 0;
-+
-+	mclk = devm_kzalloc(dev, sizeof(*mclk), GFP_KERNEL);
-+	if (!mclk)
-+		return -ENOMEM;
-+
-+	mclk_name = devm_kcalloc(dev, sizeof(char),
-+				 STM32_I2S_NAME_LEN, GFP_KERNEL);
-+	if (!mclk_name)
-+		return -ENOMEM;
-+
-+	/*
-+	 * Forge mclk clock name from parent clock name and suffix.
-+	 * String after "_" char is stripped in parent name.
-+	 */
-+	p = mclk_name;
-+	while (*s && *s != '_' && (i < (STM32_I2S_NAME_LEN - 7))) {
-+		*p++ = *s++;
-+		i++;
-+	}
-+	strcat(p, "_mclk");
-+
-+	mclk->hw.init = CLK_HW_INIT(mclk_name, pname, &mclk_ops, 0);
-+	mclk->i2s_data = i2s;
-+	hw = &mclk->hw;
-+
-+	dev_dbg(dev, "Register master clock %s\n", mclk_name);
-+	ret = devm_clk_hw_register(&i2s->pdev->dev, hw);
-+	if (ret) {
-+		dev_err(dev, "mclk register fails with error %d\n", ret);
-+		return ret;
-+	}
-+	i2s->i2smclk = hw->clk;
-+
-+	/* register mclk provider */
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, hw);
-+}
-+
- static irqreturn_t stm32_i2s_isr(int irq, void *devid)
- {
- 	struct stm32_i2s_data *i2s = (struct stm32_i2s_data *)devid;
-@@ -405,18 +614,46 @@ static int stm32_i2s_set_sysclk(struct snd_soc_dai *cpu_dai,
- 				int clk_id, unsigned int freq, int dir)
- {
- 	struct stm32_i2s_data *i2s = snd_soc_dai_get_drvdata(cpu_dai);
-+	int ret = 0;
- 
--	dev_dbg(cpu_dai->dev, "I2S MCLK frequency is %uHz\n", freq);
-+	dev_dbg(cpu_dai->dev, "I2S MCLK frequency is %uHz. mode: %s, dir: %s\n",
-+		freq, STM32_I2S_IS_MASTER(i2s) ? "master" : "slave",
-+		dir ? "output" : "input");
- 
--	if ((dir == SND_SOC_CLOCK_OUT) && STM32_I2S_IS_MASTER(i2s)) {
--		i2s->mclk_rate = freq;
-+	/* MCLK generation is available only in master mode */
-+	if (dir == SND_SOC_CLOCK_OUT && STM32_I2S_IS_MASTER(i2s)) {
-+		if (!i2s->i2smclk) {
-+			dev_dbg(cpu_dai->dev, "No MCLK registered\n");
-+			return 0;
-+		}
- 
--		/* Enable master clock if master mode and mclk-fs are set */
--		return regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
--					  I2S_CGFR_MCKOE, I2S_CGFR_MCKOE);
-+		/* Assume shutdown if requested frequency is 0Hz */
-+		if (!freq) {
-+			/* Release mclk rate only if rate was actually set */
-+			if (i2s->mclk_rate) {
-+				clk_rate_exclusive_put(i2s->i2smclk);
-+				i2s->mclk_rate = 0;
-+			}
-+			return regmap_update_bits(i2s->regmap,
-+						  STM32_I2S_CGFR_REG,
-+						  I2S_CGFR_MCKOE, 0);
-+		}
-+		/* If master clock is used, set parent clock now */
-+		ret = stm32_i2s_set_parent_clock(i2s, freq);
-+		if (ret)
-+			return ret;
-+		ret = clk_set_rate_exclusive(i2s->i2smclk, freq);
-+		if (ret) {
-+			dev_err(cpu_dai->dev, "Could not set mclk rate\n");
-+			return ret;
-+		}
-+		ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
-+					 I2S_CGFR_MCKOE, I2S_CGFR_MCKOE);
-+		if (!ret)
-+			i2s->mclk_rate = freq;
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static int stm32_i2s_configure_clock(struct snd_soc_dai *cpu_dai,
-@@ -424,11 +661,10 @@ static int stm32_i2s_configure_clock(struct snd_soc_dai *cpu_dai,
- {
- 	struct stm32_i2s_data *i2s = snd_soc_dai_get_drvdata(cpu_dai);
- 	unsigned long i2s_clock_rate;
--	unsigned int tmp, div, real_div, nb_bits, frame_len;
-+	unsigned int nb_bits, frame_len;
- 	unsigned int rate = params_rate(params);
-+	u32 cgfr;
- 	int ret;
--	u32 cgfr, cgfr_mask;
--	bool odd;
- 
- 	if (!(rate % 11025))
- 		clk_set_parent(i2s->i2sclk, i2s->x11kclk);
-@@ -449,7 +685,10 @@ static int stm32_i2s_configure_clock(struct snd_soc_dai *cpu_dai,
- 	 *   dsp mode : div = i2s_clk / (nb_bits x ws)
- 	 */
- 	if (i2s->mclk_rate) {
--		tmp = DIV_ROUND_CLOSEST(i2s_clock_rate, i2s->mclk_rate);
-+		ret = stm32_i2s_calc_clk_div(i2s, i2s_clock_rate,
-+					     i2s->mclk_rate);
-+		if (ret)
-+			return ret;
- 	} else {
- 		frame_len = 32;
- 		if ((i2s->fmt & SND_SOC_DAIFMT_FORMAT_MASK) ==
-@@ -462,34 +701,13 @@ static int stm32_i2s_configure_clock(struct snd_soc_dai *cpu_dai,
- 			return ret;
- 
- 		nb_bits = frame_len * ((cgfr & I2S_CGFR_CHLEN) + 1);
--		tmp = DIV_ROUND_CLOSEST(i2s_clock_rate, (nb_bits * rate));
--	}
--
--	/* Check the parity of the divider */
--	odd = tmp & 0x1;
--
--	/* Compute the div prescaler */
--	div = tmp >> 1;
--
--	cgfr = I2S_CGFR_I2SDIV_SET(div) | (odd << I2S_CGFR_ODD_SHIFT);
--	cgfr_mask = I2S_CGFR_I2SDIV_MASK | I2S_CGFR_ODD;
--
--	real_div = ((2 * div) + odd);
--	dev_dbg(cpu_dai->dev, "I2S clk: %ld, SCLK: %d\n",
--		i2s_clock_rate, rate);
--	dev_dbg(cpu_dai->dev, "Divider: 2*%d(div)+%d(odd) = %d\n",
--		div, odd, real_div);
--
--	if (((div == 1) && odd) || (div > I2S_CGFR_I2SDIV_MAX)) {
--		dev_err(cpu_dai->dev, "Wrong divider setting\n");
--		return -EINVAL;
-+		ret = stm32_i2s_calc_clk_div(i2s, i2s_clock_rate,
-+					     (nb_bits * rate));
-+		if (ret)
-+			return ret;
- 	}
- 
--	if (!div && !odd)
--		dev_warn(cpu_dai->dev, "real divider forced to 1\n");
--
--	ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
--				 cgfr_mask, cgfr);
-+	ret = stm32_i2s_set_clk_div(i2s);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -694,9 +912,6 @@ static void stm32_i2s_shutdown(struct snd_pcm_substream *substream,
- 	struct stm32_i2s_data *i2s = snd_soc_dai_get_drvdata(cpu_dai);
- 	unsigned long flags;
- 
--	regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
--			   I2S_CGFR_MCKOE, (unsigned int)~I2S_CGFR_MCKOE);
--
- 	clk_disable_unprepare(i2s->i2sclk);
- 
- 	spin_lock_irqsave(&i2s->irq_lock, flags);
-@@ -861,6 +1076,13 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 		return PTR_ERR(i2s->x11kclk);
- 	}
- 
-+	/* Register mclk provider if requested */
-+	if (of_find_property(np, "#clock-cells", NULL)) {
-+		ret = stm32_i2s_add_mclk_provider(i2s);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
- 	/* Get irqs */
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
-@@ -906,16 +1128,16 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 	if (!i2s)
- 		return -ENOMEM;
- 
--	ret = stm32_i2s_parse_dt(pdev, i2s);
--	if (ret)
--		return ret;
--
- 	i2s->pdev = pdev;
- 	i2s->ms_flg = I2S_MS_NOT_SET;
- 	spin_lock_init(&i2s->lock_fd);
- 	spin_lock_init(&i2s->irq_lock);
- 	platform_set_drvdata(pdev, i2s);
- 
-+	ret = stm32_i2s_parse_dt(pdev, i2s);
-+	if (ret)
-+		return ret;
-+
- 	ret = stm32_i2s_dais_init(pdev, i2s);
- 	if (ret)
- 		return ret;
--- 
-2.17.1
+--vslstwmibba5nymi
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Feb 05, 2021 at 11:18:17AM +0100, Greg Kroah-Hartman wrote:
+> On Fri, Feb 05, 2021 at 10:37:44AM +0100, Uwe Kleine-K=F6nig wrote:
+> > Hello Russell, hello Greg,
+> >=20
+> > On Thu, Feb 04, 2021 at 07:15:51PM +0100, Uwe Kleine-K=F6nig wrote:
+> > > On Thu, Feb 04, 2021 at 04:59:51PM +0000, Russell King - ARM Linux ad=
+min wrote:
+> > > > On Thu, Feb 04, 2021 at 05:56:50PM +0100, Greg Kroah-Hartman wrote:
+> > > > > On Thu, Feb 04, 2021 at 04:52:24PM +0000, Russell King - ARM Linu=
+x admin wrote:
+> > > > > > On Tue, Feb 02, 2021 at 03:06:05PM +0100, Greg Kroah-Hartman wr=
+ote:
+> > > > > > > I'm glad to take this through my char/misc tree, as that's wh=
+ere the
+> > > > > > > other coresight changes flow through.  So if no one else obje=
+cts, I will
+> > > > > > > do so...
+> > > > > >=20
+> > > > > > Greg, did you end up pulling this after all? If not, Uwe produc=
+ed a v2.
+> > > > > > I haven't merged v2 yet as I don't know what you've done.
+> > > > >=20
+> > > > > I thought you merged this?
+> > > >=20
+> > > > I took v1, and put it in a branch I've promised in the past not to
+> > > > rebase/rewind. Uwe is now asking for me to take a v2 or apply a pat=
+ch
+> > > > on top.
+> > > >=20
+> > > > The only reason to produce an "immutable" branch is if it's the bas=
+is
+> > > > for some dependent work and you need that branch merged into other
+> > > > people's trees... so the whole "lets produce a v2" is really odd
+> > > > workflow... I'm confused about what I should do, and who has to be
+> > > > informed which option I take.
+> > > >=20
+> > > > I'm rather lost here too.
+> > >=20
+> > > Sorry to have cause this confusion. After I saw that my initial tag
+> > > missed to adapt a driver I wanted to make it easy for you to fix the
+> > > situation.
+> > > So I created a patch to fix it and created a second tag with the patch
+> > > squashed in. Obviously only one of them have to be picked and I hoped
+> > > you (=3D Russell + Greg) would agree which option to pick.
+> > >=20
+> > > My preference would be if you both pick up v2 of the tag to yield a
+> > > history that is bisectable without build problems, but if Russell (who
+> > > already picked up the broken tag) considers his tree immutable and so
+> > > isn't willing to rebase, then picking up the patch is the way to go.
+> >=20
+> > OK, the current state is that Russell applied the patch fixing
+> > drivers/mailbox/arm_mhuv2.c on top of merging my first tag.
+> >=20
+> > So the way forward now is that Greg pulls
+> >=20
+> > 	git://git.armlinux.org.uk/~rmk/linux-arm.git devel-stable
+> >=20
+> > which currently points to=20
+> >=20
+> > 	860660fd829e ("ARM: 9055/1: mailbox: arm_mhuv2: make remove callback r=
+eturn void")
+> >=20
+> > , into his tree that contains the hwtracing changes that conflict with =
+my
+> > changes. @Greg: Is this good enough, or do you require a dedicated tag
+> > to pull that?
+> >=20
+> > I think these conflicting hwtracing changes are not yet in any of Greg's
+> > trees (at least they are not in next).
+> >=20
+> > When I pull
+> >=20
+> > 	https://git.kernel.org/pub/scm/linux/kernel/git/coresight/linux.git ne=
+xt
+> >=20
+> > (currently pointing to 4e73ff249184 ("coresight: etm4x: Handle accesses
+> > to TRCSTALLCTLR")) into 860660fd829e, I get a conflict in
+> > drivers/hwtracing/coresight/coresight-etm4x-core.c as expected. My
+> > resolution looks as follows:
+>=20
+> Ok, my resolution looked a bit different.
+>=20
+> Can you pull my char-misc-testing branch and verify I got this all
+> pulled in correctly?
+
+minor side-note: mentioning the repo url would have simplified that test.
+
+I looked at
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git char-=
+misc-testing
+
+commit 0573d3fa48640f0fa6b105ff92dcb02b94d6c1ab now.
+
+I didn't compile test, but I'm willing to bet your resolution is wrong.
+You have no return statement in etm4_remove_dev() but its return type is
+int and etm4_remove_amba() still returns int but should return void.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--vslstwmibba5nymi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmAdJEwACgkQwfwUeK3K
+7AkhPggAk0ucNSGkkTWYbQF9BBYOZDKVlqvPHzvkMilvBGuAa1EXhuHHKu3esHxh
+NZf5xH5Lh7cnNyXodWF4Mp20NZfV0VFjzhbfNFexDfO2QfKJhJbATh9YiJ5onzsT
+cbMDvw+fQNUmooGN1gOW4OCiRvEPcYf8Z/TdrAkBXuRDaCYLiqJBPX1PCFTumEr3
+8Lxp3+k4zN9Wpkt17sqmgJxalvUHqNFOuL+1II2APrzMSZHB6T5fNtxEzMXUGXHx
+LzNGWjnnUKovRddHUyjFZu+rr6B/MUELKSYf9WH7lPI6osLnyjQf6vtczDdyZmlP
+PmCOMN9d1QJAKEMe6RJZvyfO22d11w==
+=kmsA
+-----END PGP SIGNATURE-----
+
+--vslstwmibba5nymi--
+
+--===============2060084739898644044==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2060084739898644044==--
