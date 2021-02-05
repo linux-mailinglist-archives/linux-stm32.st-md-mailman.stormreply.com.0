@@ -2,43 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C76C310E0A
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 17:42:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF15E310E13
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 17:44:53 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43E24C57B51;
-	Fri,  5 Feb 2021 16:42:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F7A2C57B51;
+	Fri,  5 Feb 2021 16:44:53 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C60BC3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FAADC3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Feb 2021 16:42:45 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6668964EE0;
- Fri,  5 Feb 2021 16:42:43 +0000 (UTC)
+ Fri,  5 Feb 2021 16:44:52 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 33D8064E41;
+ Fri,  5 Feb 2021 16:44:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612543364;
- bh=Z2xR3YEsMozd9AyI+P+EUP0GmbkPKQfSuwpY0Cq0H9Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=swGUw+mQ4bIYUUhZhteYutOf+pkR0+VMNeyWaPIohGmo55Bg6ribIYoWtTST+wZbH
- zZ68lQGIK1hp/cOI26fD/DYSV327ZrkLP17UBW7EdO3V/7Gs6dvWuDUFigaPYuQ2KQ
- pvnojUsPq4fMlg/sMPV8wtuwgfPF93b3hBr/vh4OwSwknOoNMnYy6g3NRLORfmfqlM
- afaCFvHKBTdmYu+BiVMOgjxWjjnxgVV9CEiWu5mNks8KmcovTTy6/DSmuSIS2Vxgbr
- NvVzKFhur3LxTh3Ow4mR+5jfgaelPVCAza8via4uxDW5+pIQcSBopgqzSH6ZXs0c5u
- YRUQ2OujKo1Fg==
-Date: Fri, 5 Feb 2021 16:41:54 +0000
+ s=k20201202; t=1612543490;
+ bh=PXiONkiHLFyycY0uLa3iLGkOkJkNgYGXd95uCU3KPkw=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=d/emirZYV79/LFZ3gcUyV5l56jL3WETg3Tl0W4quAHJh6baGjqwHdUigr3RvkssZH
+ 7rRo6FTU+6yosPVjiSmbpm8FL8oBmgElYdmGmuZFRgnPXm6i8//rWwVhypXA3JKmcO
+ O7ZS5z7EfOOO0QGYylkGCv4xQDyvsz1hylOMW1XSc1sf2r6Q8+NAMLGKWrOiAoEt/Z
+ En8YP9+vOpYDBoye/bsuuNPQHN/wGrGCM3JfqhN7+SSXu9Wn5BVTBwyt2h20lJ+YMw
+ fwRyeHwERI/4RHORm7R4JYB5loFa+XrnhHiOv7/2chbT1vJm9SmJSaDVLc292zgxH9
+ V72ed8/lbTvpA==
 From: Mark Brown <broonie@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20210205164154.GA8179@sirena.org.uk>
-References: <1612523342-10466-1-git-send-email-alain.volmat@foss.st.com>
- <1612523342-10466-6-git-send-email-alain.volmat@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Olivier Moysan <olivier.moysan@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Jaroslav Kysela <perex@perex.cz>,
+ Arnaud Pouliquen <arnaud.pouliquen@st.com>, Takashi Iwai <tiwai@suse.com>
+In-Reply-To: <20210205104404.18786-1-olivier.moysan@foss.st.com>
+References: <20210205104404.18786-1-olivier.moysan@foss.st.com>
+Message-Id: <161254344059.9495.3602816971823494322.b4-ty@kernel.org>
+Date: Fri, 05 Feb 2021 16:44:00 +0000
 MIME-Version: 1.0
-In-Reply-To: <1612523342-10466-6-git-send-email-alain.volmat@foss.st.com>
-X-Cookie: Sentient plasmoids are a gas.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 5/8] spi: stm32: defer probe for reset
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [RESEND PATCH 0/2] ASoC: stm32: i2s: add master
+	clock provider
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,71 +54,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3273573668430952796=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, 5 Feb 2021 11:44:02 +0100, Olivier Moysan wrote:
+> Add master clock generation support in STM32 I2S driver.
+> Resend of patch https://lkml.org/lkml/2020/9/11/264
+> 
+> Olivier Moysan (2):
+>   ASoC: dt-bindings: add mclk provider support to stm32 i2s
+>   ASoC: stm32: i2s: add master clock provider
+> 
+> [...]
 
---===============3273573668430952796==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6TrnltStXW4iwmi0"
-Content-Disposition: inline
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
---6TrnltStXW4iwmi0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks!
 
-On Fri, Feb 05, 2021 at 12:08:59PM +0100, Alain Volmat wrote:
-> Defer the probe operation when a reset controller device is expected
-> but have not yet been probed.
->=20
-> This change replaces use of devm_reset_control_get_exclusive() with
-> devm_reset_control_get_optional_exclusive() as reset controller is
-> optional which is now explicitly stated.
+[1/2] ASoC: dt-bindings: add mclk provider support to stm32 i2s
+      commit: df91785a22e2505d2ac668f1d3e6b6e6d8ba627a
+[2/2] ASoC: stm32: i2s: add master clock provider
+      commit: 8a262e614ef8675cfde924c6ddf873a95db0be6a
 
-This has trouble building an x86 allmodconfig build:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-/mnt/kernel/drivers/spi/spi-stm32.c: In function 'stm32_spi_prepare_msg':
-/mnt/kernel/drivers/spi/spi-stm32.c:1022:9: error: 'STM32H7_SPI_TSIZE_MAX' =
-undeclared (first use in this function); did you mean 'STM32H7_SPI_CR1_MASR=
-X'?
-         STM32H7_SPI_TSIZE_MAX,
-         ^~~~~~~~~~~~~~~~~~~~~
-         STM32H7_SPI_CR1_MASRX
-/mnt/kernel/drivers/spi/spi-stm32.c:1022:9: note: each undeclared identifie=
-r is reported only once for each function it appears in
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-This may be due to an earlier patch in the series, my script is working
-back through the patch series.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---6TrnltStXW4iwmi0
-Content-Type: application/pgp-signature; name="signature.asc"
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmAddVEACgkQJNaLcl1U
-h9D5ngf/U0NKtBGQTpM/vYV8lyZzpsFLniAZnJzyq4E6SXXJQeY6+VmQt/7XWygG
-t8Q0KgHNLRep+Ks7DeqdFPbTQU2dzJ6hExzybysoHSyzsEz+Tbjvt7qaoQq9jnY5
-WQwFDz5Xsurc8zbWoSlZmKv9DhGPxxGaUAnMt6z0WjNcc5XQr8EboNJO6piMXMkY
-uMKmHUI/zRiFRm0vpgodW2dKa/Y4InIoRg9IESu2+p4Gv5fa3mVAApx5LWB0oFg4
-qMwbjllQl6XUuCJySDPQk/GjIXFN0h4nrE98uZAi8P6zgceT+6q2p3jWl+LvyBQZ
-MzLSVjaf7lv3SPp3b2/pFO2jeGt98A==
-=JrV5
------END PGP SIGNATURE-----
-
---6TrnltStXW4iwmi0--
-
---===============3273573668430952796==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3273573668430952796==--
