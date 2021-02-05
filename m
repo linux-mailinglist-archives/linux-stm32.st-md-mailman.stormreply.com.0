@@ -2,63 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4753531108E
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 20:00:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C52E5311214
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 21:16:59 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E692C57B6A;
-	Fri,  5 Feb 2021 19:00:00 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B7E9C57B51;
+	Fri,  5 Feb 2021 20:16:59 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 017A1C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3411C3FADB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Feb 2021 18:59:57 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 115IpxT5022513; Fri, 5 Feb 2021 19:59:49 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=rpRVpeMqY05scC8ONlNNaolclDZcKJC+t70jj36hAoE=;
- b=f1V0IYOOI24Pt7bgd2jRMqxC0ko9o/lBf26YJQsx8R8BYVRS1S9vZ1XNZx/q0DqCNtX3
- sRB0S5EgNWpQ3rfP+2KHcYESr74+M9aPG6E7Q++NXzL14w4G7jcZCnaPWnvM3q1LCYgb
- LtTUjWv3zJpvD5KIX25D1okxQEfbpDEdJZZqWGbm42kOMD3kkJJKnYMZm16XUlhCtdJR
- 0+RbSufwwQZoaEc4/Ea3jq9ZaAQi/xNf4QkMCp81tzD/Q0EoHVqoHo8izzDIbslP1Fmn
- vPX9eGiviPQ8nNyorhmro/T/QCJVigkGPJ+Z2/gTDWGV61IObAIgivbSyTsiGVCvQad/ 0w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36d0fsgjqt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Feb 2021 19:59:48 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9160510002A;
- Fri,  5 Feb 2021 19:59:48 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 863282C38D3;
- Fri,  5 Feb 2021 19:59:48 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 5 Feb 2021 19:59:48
- +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <broonie@kernel.org>, <amelie.delaunay@foss.st.com>
-Date: Fri, 5 Feb 2021 19:59:32 +0100
-Message-ID: <1612551572-495-9-git-send-email-alain.volmat@foss.st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1612551572-495-1-git-send-email-alain.volmat@foss.st.com>
-References: <1612551572-495-1-git-send-email-alain.volmat@foss.st.com>
+ Fri,  5 Feb 2021 20:16:58 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B795564FDC;
+ Fri,  5 Feb 2021 20:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612556217;
+ bh=L89irc7kubpj8fG6KjNnFLp+C8E3d91kIby1JkgGdVw=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=RMJWBHUtcxFaPY/CKkHCfLqlkXdvHFzoZPtkRpKDvwAMgaOqN75fl2RKBudGqFQK5
+ TPMFoX674ae4V1E+yr+3Ipb1tLIA3a0HfSUWjuzdwZM6eImml16bJ/BLzE/kagW5n0
+ HeP+rsAFae6whB/Ju17J/LgrMDaRYRaPQxedKto4bBb87kSiZInOo6xfLPi5ILT0f4
+ eNWgEGvYpqLh5enGNsL4UoRO1wEbU+ovfplAY0Byf5gec+rnkb8WHrWkX3SU7ynb0G
+ U1sBrwucKnyUxeU/e+6dvGLyFMGzeiHPLQUVnF2qdGNvUgTYBYfEafp0hfagUf4gkm
+ Bs/WVTLHvqaKA==
+From: Mark Brown <broonie@kernel.org>
+To: amelie.delaunay@foss.st.com, Alain Volmat <alain.volmat@foss.st.com>
+In-Reply-To: <1612523342-10466-1-git-send-email-alain.volmat@foss.st.com>
+References: <1612523342-10466-1-git-send-email-alain.volmat@foss.st.com>
+Message-Id: <161255616019.56748.10125284929138523865.b4-ty@kernel.org>
+Date: Fri, 05 Feb 2021 20:16:00 +0000
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
- definitions=2021-02-05_10:2021-02-05,
- 2021-02-05 signatures=0
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com, linux-spi@vger.kernel.org,
+Cc: alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, mcoquelin.stm32@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 8/8] spi: stm32: make spurious and overrun
-	interrupts visible
+Subject: Re: [Linux-stm32] (subset) [PATCH 0/8] spi: stm32: fix and
+	enhancements for spi-stm32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,56 +53,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-We do not expect to receive spurious interrupts so rise a warning
-if it happens.
+On Fri, 5 Feb 2021 12:08:54 +0100, Alain Volmat wrote:
+> The serie provides a fix for the spi-stm32 driver, allowing to properly
+> handle 0 byte transfer (and thus being able to run spi-loopback-test).
+> 
+> In addition to that, important enhancements are implemented, among them,
+> supporting transfer larger that what the IP can setup in one go or
+> allowing to use the SPI bus without cs_gpio.
+> 
+> [...]
 
-RX overrun is an error condition that signals a corrupted RX
-stream both in dma and in irq modes. Report the error and
-abort the transfer in either cases.
+Applied to
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
-v2: identical to v1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
- drivers/spi/spi-stm32.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+Thanks!
 
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index f3a4ff60ac4b..25c076461011 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -895,8 +895,8 @@ static irqreturn_t stm32h7_spi_irq_thread(int irq, void *dev_id)
- 		mask |= STM32H7_SPI_SR_RXP;
- 
- 	if (!(sr & mask)) {
--		dev_dbg(spi->dev, "spurious IT (sr=0x%08x, ier=0x%08x)\n",
--			sr, ier);
-+		dev_warn(spi->dev, "spurious IT (sr=0x%08x, ier=0x%08x)\n",
-+			 sr, ier);
- 		spin_unlock_irqrestore(&spi->lock, flags);
- 		return IRQ_NONE;
- 	}
-@@ -923,15 +923,8 @@ static irqreturn_t stm32h7_spi_irq_thread(int irq, void *dev_id)
- 	}
- 
- 	if (sr & STM32H7_SPI_SR_OVR) {
--		dev_warn(spi->dev, "Overrun: received value discarded\n");
--		if (!spi->cur_usedma && (spi->rx_buf && (spi->rx_len > 0)))
--			stm32h7_spi_read_rxfifo(spi, false);
--		/*
--		 * If overrun is detected while using DMA, it means that
--		 * something went wrong, so stop the current transfer
--		 */
--		if (spi->cur_usedma)
--			end = true;
-+		dev_err(spi->dev, "Overrun: RX data lost\n");
-+		end = true;
- 	}
- 
- 	if (sr & STM32H7_SPI_SR_EOT) {
--- 
-2.17.1
+[2/8] spi: stm32: do not mandate cs_gpio
+      commit: 8f8d0e3e33e36ba63416cad64b9a9ad6b0129eed
+[3/8] spi: stm32h7: ensure message are smaller than max size
+      commit: 084de5232820c9e857ccc2282c3d94f33f92a381
+[4/8] spi: stm32: driver uses reset controller only at init
+      commit: 1c75cfd53e213044523141b464eb06813e39ecea
+[5/8] spi: stm32: defer probe for reset
+      commit: c63b95b76e69b679b9b95014552db099eb77a4fa
+[6/8] spi: stm32: use bitfield macros
+      commit: 5a380b833ad437123dca91bf900a696709d9b6ab
+[7/8] spi: stm32h7: replace private SPI_1HZ_NS with NSEC_PER_SEC
+      commit: e1e2093b16cb1cefe4dc483b00e73d1333260784
+[8/8] spi: stm32: make spurious and overrun interrupts visible
+      commit: c64e7efe46b7de21937ef4b3594d9b1fc74f07df
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
