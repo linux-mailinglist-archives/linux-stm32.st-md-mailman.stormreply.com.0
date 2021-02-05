@@ -2,46 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB46311AB3
-	for <lists+linux-stm32@lfdr.de>; Sat,  6 Feb 2021 05:10:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B87AE312B39
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Feb 2021 08:43:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42B14C57B51;
-	Sat,  6 Feb 2021 04:10:12 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED787C57189;
+	Mon,  8 Feb 2021 07:43:48 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C964C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C1BCC3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  6 Feb 2021 04:10:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 27E9664F05;
- Sat,  6 Feb 2021 04:10:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1612584608;
- bh=wNYQu/XGEnEp/U0vSlR2d/tI2XllSHqm5QJmAMSR/Hc=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=ZPA7h8UNjLg4JMlI7m2dAXpCKlIgftzuGnojlniUkUWHScnyeKc5xIDBvIsixKTyy
- TUGEHISiTglTrM6NBLpson4PWSG42qqy6GmcrEs/c5iMBxedLCgwvpKC95Uh2ZHo5f
- QvBQPhcHeFljn8I8rYF+phoqZCuhfS8diziSq7DTmsBInkrz2Go6F7/fYpsB4JkEG1
- JD0yOE4CFKIU3rxSZBK25t5d0J5Mv+FNw8S9OyTSvuOCbgONAfW0uI9BVl3ynuB7cT
- PKgk+vXgOGzq2ZRpGzj6ZEJy3XuGUUJNJkzri56iuS+GTPyylais1LGWwaD8UkKD9i
- 6sry15QYibZ0Q==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 0F677609F6;
- Sat,  6 Feb 2021 04:10:08 +0000 (UTC)
-MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161258460805.22008.14706374158148847125.git-patchwork-notify@kernel.org>
-Date: Sat, 06 Feb 2021 04:10:08 +0000
-References: <1612447396-20351-1-git-send-email-yoong.siang.song@intel.com>
+ Fri,  5 Feb 2021 22:39:17 +0000 (UTC)
+IronPort-SDR: mqW9QPVDjFGHm6Fy6aeRiLQS6TBbEWxjoRLKTA9e3nVd9aBcHzBr0lhKfLbvzDm3z0Vpn26ZMu
+ MFWuiqARicFw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9886"; a="177991643"
+X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="177991643"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2021 14:39:15 -0800
+IronPort-SDR: KFM8S8tiDOmPq7MD68erqsL7cRkFyJbtugSKuT6jXOfB2SS0Ua3XNKA6uUnESEWmyhRTtrCDFC
+ AGacYmQyPwAA==
+X-IronPort-AV: E=Sophos;i="5.81,156,1610438400"; d="scan'208";a="373541870"
+Received: from iayoung-mobl1.amr.corp.intel.com (HELO
+ vcostago-mobl2.amr.corp.intel.com) ([10.212.100.97])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2021 14:39:14 -0800
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+To: Song Yoong Siang <yoong.siang.song@intel.com>, Giuseppe Cavallaro
+ <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose
+ Abreu <joabreu@synopsys.com>, "David S .
+ Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>
 In-Reply-To: <1612447396-20351-1-git-send-email-yoong.siang.song@intel.com>
-To: Song Yoong Siang <yoong.siang.song@intel.com>
-Cc: alexandre.torgue@st.com, weifeng.voon@intel.com, vee.khee.wong@intel.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, vinicius.gomes@intel.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- boon.leong.ong@intel.com, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
+MIME-Version: 1.0
+References: <1612447396-20351-1-git-send-email-yoong.siang.song@intel.com>
+Date: Fri, 05 Feb 2021 14:38:57 -0800
+Message-ID: <8735yap2bi.fsf@vcostago-mobl2.amr.corp.intel.com>
+X-Mailman-Approved-At: Mon, 08 Feb 2021 07:43:46 +0000
+Cc: Voon Wei Feng <weifeng.voon@intel.com>,
+ Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: set TxQ mode back to
  DCB after disabling CBS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -60,30 +62,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Song Yoong Siang <yoong.siang.song@intel.com> writes:
 
-This patch was applied to netdev/net.git (refs/heads/master):
-
-On Thu,  4 Feb 2021 22:03:16 +0800 you wrote:
 > From: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
-> 
+>
 > When disable CBS, mode_to_use parameter is not updated even the operation
 > mode of Tx Queue is changed to Data Centre Bridging (DCB). Therefore,
 > when tc_setup_cbs() function is called to re-enable CBS, the operation
 > mode of Tx Queue remains at DCB, which causing CBS fails to work.
-> 
-> [...]
+>
+> This patch updates the value of mode_to_use parameter to MTL_QUEUE_DCB
+> after operation mode of Tx Queue is changed to DCB in stmmac_dma_qmode()
+> callback function.
+>
+> Fixes: 1f705bc61aee ("net: stmmac: Add support for CBS QDISC")
+> Suggested-by: Gomes, Vinicius <vinicius.gomes@intel.com>
 
-Here is the summary with links:
-  - [net,1/1] net: stmmac: set TxQ mode back to DCB after disabling CBS
-    https://git.kernel.org/netdev/net/c/f317e2ea8c88
+Just a nitpick/formality, I would prefer if you used:
 
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Suggested-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
 
+> Signed-off-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
+> Signed-off-by: Song, Yoong Siang <yoong.siang.song@intel.com>
 
+Patch looks good.
+
+Acked-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+
+Cheers,
+-- 
+Vinicius
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
