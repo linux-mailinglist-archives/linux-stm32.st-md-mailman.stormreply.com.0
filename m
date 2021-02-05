@@ -2,75 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 547503109CC
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 12:07:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C66E3109DF
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 12:09:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A552C57B52;
-	Fri,  5 Feb 2021 11:07:17 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFD4FC57B54;
+	Fri,  5 Feb 2021 11:09:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B954EC5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D1B4C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Feb 2021 11:07:14 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7C71064E27;
- Fri,  5 Feb 2021 11:07:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1612523232;
- bh=Nwtz3BUqSevf1s1e0A4/LfXqpax1F3NKU3Zl0rZrhyU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=z3iM1B16HIK+kzq5DdPhk4pYYltyyjSK8c9ulRSTyKEvO41jovJreH8Xz0RMtHOV2
- ruA/A2WS6VMUHJz0QfdlmNKVJNNXdklaLg6Lm8dDlfDgKTxOW/tbDIbscItS3ul0Kr
- ikt5qpBkp9i1zI8aVEMs6D0Sc58DYFERyojRWtGY=
-Date: Fri, 5 Feb 2021 12:07:09 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <YB0m3ecbL2t1JFbw@kroah.com>
-References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
- <20210202135350.36nj3dmcoq3t7gcf@pengutronix.de>
- <YBlcTXlxemmC2lgr@kroah.com>
- <20210204165224.GA1463@shell.armlinux.org.uk>
- <YBwnUrQqlAz2LDPI@kroah.com>
- <20210204165951.GB1463@shell.armlinux.org.uk>
- <20210204181551.ethtuzm65flujmwe@pengutronix.de>
- <20210205093744.kr4rc7yvfiq6wimq@pengutronix.de>
- <YB0baUzgvpd+EoO6@kroah.com>
- <20210205105615.qumu45huvntf2v4j@pengutronix.de>
+ Fri,  5 Feb 2021 11:09:53 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 115ApxOY025610; Fri, 5 Feb 2021 12:09:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=YeuxeCKivkO4bocM+bAAWh+MLssKuYcIKxZRPYP51Pc=;
+ b=D1ABM/7ZaDtBB5YphD51ZytOi+x98oEaMOSsu/TVw3A6dnunWyNxzRbXelAZ9CSx6e2/
+ As+hwLf3r5JFUGmt1MYOoPPy9A65JGTQMILveQENnFe7IueqWtnZl5GZmsaSceuTKqxM
+ WdDaXY7URtboPnuW3bckr+1Et6csdhee7cx2JR7Q8x7Vvj7RmE8OkgscTyQb3NIXxsws
+ Z1Pq6XQZ9+n2GcYpVH92q0lF0myvU7R3HUrhg/tCzJxjc8xprcoPIhRpTWn+LzcoVJHh
+ kAO8jriuOskn8pKV1NXdHDUOpEfnEHmPhPRE/VJrCSlmPmg3uOyS23hltlqPcvXBQbCc LQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36d0fse9j3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Feb 2021 12:09:44 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1618D10002A;
+ Fri,  5 Feb 2021 12:09:44 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 04CA8229F3C;
+ Fri,  5 Feb 2021 12:09:44 +0100 (CET)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 5 Feb 2021 12:09:43
+ +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: <broonie@kernel.org>, <amelie.delaunay@foss.st.com>
+Date: Fri, 5 Feb 2021 12:08:54 +0100
+Message-ID: <1612523342-10466-1-git-send-email-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210205105615.qumu45huvntf2v4j@pengutronix.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, kvm@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Linus Walleij <linus.walleij@linaro.org>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Jaroslav Kysela <perex@perex.cz>, Eric Anholt <eric@anholt.net>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig.org@pengutronix.de>,
- linux-i2c@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-watchdog@vger.kernel.org,
- linux-rtc@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
- Takashi Iwai <tiwai@suse.com>,
- Russell King - ARM Linux admin <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Ulf Hansson <ulf.hansson@linaro.org>, Guenter Roeck <linux@roeck-us.net>,
- Mike Leach <mike.leach@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, alsa-devel@alsa-project.org,
- Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
- Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
- Matt Mackall <mpm@selenic.com>, Dan Williams <dan.j.williams@intel.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, Alessandro Zummo <a.zummo@towertech.it>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Cornelia Huck <cohuck@redhat.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-crypto@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Leo Yan <leo.yan@linaro.org>, dmaengine@vger.kernel.org
-Subject: Re: [Linux-stm32] [GIT PULL] immutable branch for amba changes
-	targeting v5.12-rc1
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
+ definitions=2021-02-05_06:2021-02-05,
+ 2021-02-05 signatures=0
+Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/8] spi: stm32: fix and enhancements for
+	spi-stm32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,149 +67,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Feb 05, 2021 at 11:56:15AM +0100, Uwe Kleine-K=F6nig wrote:
-> On Fri, Feb 05, 2021 at 11:18:17AM +0100, Greg Kroah-Hartman wrote:
-> > On Fri, Feb 05, 2021 at 10:37:44AM +0100, Uwe Kleine-K=F6nig wrote:
-> > > Hello Russell, hello Greg,
-> > > =
+The serie provides a fix for the spi-stm32 driver, allowing to properly
+handle 0 byte transfer (and thus being able to run spi-loopback-test).
 
-> > > On Thu, Feb 04, 2021 at 07:15:51PM +0100, Uwe Kleine-K=F6nig wrote:
-> > > > On Thu, Feb 04, 2021 at 04:59:51PM +0000, Russell King - ARM Linux =
-admin wrote:
-> > > > > On Thu, Feb 04, 2021 at 05:56:50PM +0100, Greg Kroah-Hartman wrot=
-e:
-> > > > > > On Thu, Feb 04, 2021 at 04:52:24PM +0000, Russell King - ARM Li=
-nux admin wrote:
-> > > > > > > On Tue, Feb 02, 2021 at 03:06:05PM +0100, Greg Kroah-Hartman =
-wrote:
-> > > > > > > > I'm glad to take this through my char/misc tree, as that's =
-where the
-> > > > > > > > other coresight changes flow through.  So if no one else ob=
-jects, I will
-> > > > > > > > do so...
-> > > > > > > =
+In addition to that, important enhancements are implemented, among them,
+supporting transfer larger that what the IP can setup in one go or
+allowing to use the SPI bus without cs_gpio.
 
-> > > > > > > Greg, did you end up pulling this after all? If not, Uwe prod=
-uced a v2.
-> > > > > > > I haven't merged v2 yet as I don't know what you've done.
-> > > > > > =
+Alain Volmat (5):
+  spi: stm32: properly handle 0 byte transfer
+  spi: stm32: do not mandate cs_gpio
+  spi: stm32h7: ensure message are smaller than max size
+  spi: stm32: defer probe for reset
+  spi: stm32: make spurious and overrun interrupts visible
 
-> > > > > > I thought you merged this?
-> > > > > =
+Amelie Delaunay (2):
+  spi: stm32: use bitfield macros
+  spi: stm32h7: replace private SPI_1HZ_NS with NSEC_PER_SEC
 
-> > > > > I took v1, and put it in a branch I've promised in the past not to
-> > > > > rebase/rewind. Uwe is now asking for me to take a v2 or apply a p=
-atch
-> > > > > on top.
-> > > > > =
+Etienne Carriere (1):
+  spi: stm32: driver uses reset controller only at init
 
-> > > > > The only reason to produce an "immutable" branch is if it's the b=
-asis
-> > > > > for some dependent work and you need that branch merged into other
-> > > > > people's trees... so the whole "lets produce a v2" is really odd
-> > > > > workflow... I'm confused about what I should do, and who has to be
-> > > > > informed which option I take.
-> > > > > =
+ drivers/spi/spi-stm32.c | 116 +++++++++++++++++++---------------------
+ 1 file changed, 54 insertions(+), 62 deletions(-)
 
-> > > > > I'm rather lost here too.
-> > > > =
+-- 
+2.17.1
 
-> > > > Sorry to have cause this confusion. After I saw that my initial tag
-> > > > missed to adapt a driver I wanted to make it easy for you to fix the
-> > > > situation.
-> > > > So I created a patch to fix it and created a second tag with the pa=
-tch
-> > > > squashed in. Obviously only one of them have to be picked and I hop=
-ed
-> > > > you (=3D Russell + Greg) would agree which option to pick.
-> > > > =
-
-> > > > My preference would be if you both pick up v2 of the tag to yield a
-> > > > history that is bisectable without build problems, but if Russell (=
-who
-> > > > already picked up the broken tag) considers his tree immutable and =
-so
-> > > > isn't willing to rebase, then picking up the patch is the way to go.
-> > > =
-
-> > > OK, the current state is that Russell applied the patch fixing
-> > > drivers/mailbox/arm_mhuv2.c on top of merging my first tag.
-> > > =
-
-> > > So the way forward now is that Greg pulls
-> > > =
-
-> > > 	git://git.armlinux.org.uk/~rmk/linux-arm.git devel-stable
-> > > =
-
-> > > which currently points to =
-
-> > > =
-
-> > > 	860660fd829e ("ARM: 9055/1: mailbox: arm_mhuv2: make remove callback=
- return void")
-> > > =
-
-> > > , into his tree that contains the hwtracing changes that conflict wit=
-h my
-> > > changes. @Greg: Is this good enough, or do you require a dedicated tag
-> > > to pull that?
-> > > =
-
-> > > I think these conflicting hwtracing changes are not yet in any of Gre=
-g's
-> > > trees (at least they are not in next).
-> > > =
-
-> > > When I pull
-> > > =
-
-> > > 	https://git.kernel.org/pub/scm/linux/kernel/git/coresight/linux.git =
-next
-> > > =
-
-> > > (currently pointing to 4e73ff249184 ("coresight: etm4x: Handle access=
-es
-> > > to TRCSTALLCTLR")) into 860660fd829e, I get a conflict in
-> > > drivers/hwtracing/coresight/coresight-etm4x-core.c as expected. My
-> > > resolution looks as follows:
-> > =
-
-> > Ok, my resolution looked a bit different.
-> > =
-
-> > Can you pull my char-misc-testing branch and verify I got this all
-> > pulled in correctly?
-> =
-
-> minor side-note: mentioning the repo url would have simplified that test.
-
-Sorry, I thought you had it based on the above info.
-
-> I looked at
-> =
-
-> 	https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git cha=
-r-misc-testing
-> =
-
-> commit 0573d3fa48640f0fa6b105ff92dcb02b94d6c1ab now.
-> =
-
-> I didn't compile test, but I'm willing to bet your resolution is wrong.
-> You have no return statement in etm4_remove_dev() but its return type is
-> int and etm4_remove_amba() still returns int but should return void.
-
-Can you send a patch to fix this up?
-
-thanks,
-
-greg k-h
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
