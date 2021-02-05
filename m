@@ -2,51 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C66E3109DF
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FF143109E0
 	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 12:09:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFD4FC57B54;
-	Fri,  5 Feb 2021 11:09:56 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B3ECC57B52;
+	Fri,  5 Feb 2021 11:09:57 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D1B4C5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B8F2C57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri,  5 Feb 2021 11:09:53 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 115ApxOY025610; Fri, 5 Feb 2021 12:09:44 +0100
+ 115AojUa021324; Fri, 5 Feb 2021 12:09:44 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=YeuxeCKivkO4bocM+bAAWh+MLssKuYcIKxZRPYP51Pc=;
- b=D1ABM/7ZaDtBB5YphD51ZytOi+x98oEaMOSsu/TVw3A6dnunWyNxzRbXelAZ9CSx6e2/
- As+hwLf3r5JFUGmt1MYOoPPy9A65JGTQMILveQENnFe7IueqWtnZl5GZmsaSceuTKqxM
- WdDaXY7URtboPnuW3bckr+1Et6csdhee7cx2JR7Q8x7Vvj7RmE8OkgscTyQb3NIXxsws
- Z1Pq6XQZ9+n2GcYpVH92q0lF0myvU7R3HUrhg/tCzJxjc8xprcoPIhRpTWn+LzcoVJHh
- kAO8jriuOskn8pKV1NXdHDUOpEfnEHmPhPRE/VJrCSlmPmg3uOyS23hltlqPcvXBQbCc LQ== 
+ subject : date : message-id : in-reply-to : references : mime-version :
+ content-type; s=selector1;
+ bh=FCkDrTxbZDwU9CwRDiOr3Qlvt+6CQ9SFda6Q14KRmtE=;
+ b=AjNDAZ4Tbg5BNwegVqNxY5TyOVFFJXz6OlNZGrZyQ60+NP4YBrjW6NlS9WsX4d6mjV8+
+ YWXYOZNfwJjULdfC9AAjWJVCNCh4fYC3RTu7rVeiDLSLpfj88Pnhm8HmEVTre8mTKXUq
+ VKmgSNa1THWYkcuDYIPoFRYpHWCAS1BD6LtzYAqM4husMsyaU+rHuXR3rBd3cNtZDfM/
+ /SNeqFysEM4GmrUJB9O0ihjbm6nGq18cLji9ZVY/psL0Vylg+pfysYHBpSXca0wZFFPF
+ IbpgIC4+xc3cBvmixVmSYDJlfetFWdJDFYc2ftNVJcw8l5pUR9F8ZI7CJTWDHAJocDha /A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36d0fse9j3-1
+ by mx07-00178001.pphosted.com with ESMTP id 36ey7hfu2j-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Fri, 05 Feb 2021 12:09:44 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1618D10002A;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 762C4100034;
  Fri,  5 Feb 2021 12:09:44 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 04CA8229F3C;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 66AA4229F3C;
  Fri,  5 Feb 2021 12:09:44 +0100 (CET)
-Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 5 Feb 2021 12:09:43
+Received: from localhost (10.75.127.50) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 5 Feb 2021 12:09:44
  +0100
 From: Alain Volmat <alain.volmat@foss.st.com>
 To: <broonie@kernel.org>, <amelie.delaunay@foss.st.com>
-Date: Fri, 5 Feb 2021 12:08:54 +0100
-Message-ID: <1612523342-10466-1-git-send-email-alain.volmat@foss.st.com>
+Date: Fri, 5 Feb 2021 12:08:55 +0100
+Message-ID: <1612523342-10466-2-git-send-email-alain.volmat@foss.st.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1612523342-10466-1-git-send-email-alain.volmat@foss.st.com>
+References: <1612523342-10466-1-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
  definitions=2021-02-05_06:2021-02-05,
@@ -54,8 +57,8 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
 Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
  mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com, linux-spi@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/8] spi: stm32: fix and enhancements for
-	spi-stm32
+Subject: [Linux-stm32] [PATCH 1/8] spi: stm32: properly handle 0 byte
+	transfer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,30 +75,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The serie provides a fix for the spi-stm32 driver, allowing to properly
-handle 0 byte transfer (and thus being able to run spi-loopback-test).
+On 0 byte transfer request, return straight from the
+xfer function after finalizing the transfer.
 
-In addition to that, important enhancements are implemented, among them,
-supporting transfer larger that what the IP can setup in one go or
-allowing to use the SPI bus without cs_gpio.
+Fixes: dcbe0d84dfa5 ("spi: add driver for STM32 SPI controller")
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+---
+ drivers/spi/spi-stm32.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Alain Volmat (5):
-  spi: stm32: properly handle 0 byte transfer
-  spi: stm32: do not mandate cs_gpio
-  spi: stm32h7: ensure message are smaller than max size
-  spi: stm32: defer probe for reset
-  spi: stm32: make spurious and overrun interrupts visible
-
-Amelie Delaunay (2):
-  spi: stm32: use bitfield macros
-  spi: stm32h7: replace private SPI_1HZ_NS with NSEC_PER_SEC
-
-Etienne Carriere (1):
-  spi: stm32: driver uses reset controller only at init
-
- drivers/spi/spi-stm32.c | 116 +++++++++++++++++++---------------------
- 1 file changed, 54 insertions(+), 62 deletions(-)
-
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index db3e305d9ec4..137213633e6d 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -1657,6 +1657,12 @@ static int stm32_spi_transfer_one(struct spi_master *master,
+ 	struct stm32_spi *spi = spi_master_get_devdata(master);
+ 	int ret;
+ 
++	/* Don't do anything on 0 bytes transfers */
++	if (transfer->len == 0) {
++		spi_finalize_current_transfer(master);
++		return 0;
++	}
++
+ 	spi->tx_buf = transfer->tx_buf;
+ 	spi->rx_buf = transfer->rx_buf;
+ 	spi->tx_len = spi->tx_buf ? transfer->len : 0;
 -- 
 2.17.1
 
