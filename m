@@ -2,31 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25BB531080C
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 10:38:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A03533108D2
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Feb 2021 11:18:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFE71C57B52;
-	Fri,  5 Feb 2021 09:38:48 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E27AC57B52;
+	Fri,  5 Feb 2021 10:18:24 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52DE9C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 481A1C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Feb 2021 09:38:44 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1l7xYm-0002y5-Rk; Fri, 05 Feb 2021 10:37:52 +0100
-Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1l7xYf-0000Uu-2W; Fri, 05 Feb 2021 10:37:45 +0100
-Date: Fri, 5 Feb 2021 10:37:44 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Russell King - ARM Linux admin <linux@armlinux.org.uk>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <20210205093744.kr4rc7yvfiq6wimq@pengutronix.de>
+ Fri,  5 Feb 2021 10:18:22 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CEC5A64FED;
+ Fri,  5 Feb 2021 10:18:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1612520300;
+ bh=s6zOJkZnJEbm1xu0sX2TF5RgsugvUfGcTGQRbF8fYFQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=l8kKbOl3cDdM3E0eg11Cb78ojX1U42q1MLOpEbO9ohJ6ZsUhbIINgE9AGpi57xg07
+ nrjjNaNlf57dKR3WfAKi/M4HzTfRDGroizd8ACmJPeidm7+lvaabIXe7cQPaeWn9o/
+ A7dwUkMkXN6n1qunw/7DRnw+YFcS0Z5Mmkh9/ecc=
+Date: Fri, 5 Feb 2021 11:18:17 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <YB0baUzgvpd+EoO6@kroah.com>
 References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
  <20210202135350.36nj3dmcoq3t7gcf@pengutronix.de>
  <YBlcTXlxemmC2lgr@kroah.com>
@@ -34,30 +33,28 @@ References: <20210126165835.687514-1-u.kleine-koenig@pengutronix.de>
  <YBwnUrQqlAz2LDPI@kroah.com>
  <20210204165951.GB1463@shell.armlinux.org.uk>
  <20210204181551.ethtuzm65flujmwe@pengutronix.de>
+ <20210205093744.kr4rc7yvfiq6wimq@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <20210204181551.ethtuzm65flujmwe@pengutronix.de>
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: alsa-devel@alsa-project.org, Cornelia Huck <cohuck@redhat.com>,
+Content-Disposition: inline
+In-Reply-To: <20210205093744.kr4rc7yvfiq6wimq@pengutronix.de>
+Cc: linux-fbdev@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>,
  kvm@vger.kernel.org, David Airlie <airlied@linux.ie>,
- Linus Walleij <linus.walleij@linaro.org>, linux-fbdev@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
  dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
  Eric Anholt <eric@anholt.net>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig.org@pengutronix.de>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig.org@pengutronix.de>,
  linux-i2c@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@st.com>, linux-rtc@vger.kernel.org,
  Herbert Xu <herbert@gondor.apana.org.au>,
+ Russell King - ARM Linux admin <linux@armlinux.org.uk>,
  Krzysztof Kozlowski <krzk@kernel.org>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
  linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
  Ulf Hansson <ulf.hansson@linaro.org>, Guenter Roeck <linux@roeck-us.net>,
  Mike Leach <mike.leach@linaro.org>, linux-watchdog@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ alsa-devel@alsa-project.org, Suzuki K Poulose <suzuki.poulose@arm.com>,
  linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
  Vladimir Zapolskiy <vz@mleia.com>, Eric Auger <eric.auger@redhat.com>,
  Alex Williamson <alex.williamson@redhat.com>, Mark Brown <broonie@kernel.org>,
@@ -68,9 +65,9 @@ Cc: alsa-devel@alsa-project.org, Cornelia Huck <cohuck@redhat.com>,
  Mathieu Poirier <mathieu.poirier@linaro.org>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, linux-spi@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Leo Yan <leo.yan@linaro.org>,
- dmaengine@vger.kernel.org
+ Vinod Koul <vkoul@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Leo Yan <leo.yan@linaro.org>, dmaengine@vger.kernel.org
 Subject: Re: [Linux-stm32] [GIT PULL] immutable branch for amba changes
 	targeting v5.12-rc1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -84,164 +81,114 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8366502524831727299=="
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, Feb 05, 2021 at 10:37:44AM +0100, Uwe Kleine-K=F6nig wrote:
+> Hello Russell, hello Greg,
+> =
 
---===============8366502524831727299==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dwvdydyqhaortnqv"
-Content-Disposition: inline
+> On Thu, Feb 04, 2021 at 07:15:51PM +0100, Uwe Kleine-K=F6nig wrote:
+> > On Thu, Feb 04, 2021 at 04:59:51PM +0000, Russell King - ARM Linux admi=
+n wrote:
+> > > On Thu, Feb 04, 2021 at 05:56:50PM +0100, Greg Kroah-Hartman wrote:
+> > > > On Thu, Feb 04, 2021 at 04:52:24PM +0000, Russell King - ARM Linux =
+admin wrote:
+> > > > > On Tue, Feb 02, 2021 at 03:06:05PM +0100, Greg Kroah-Hartman wrot=
+e:
+> > > > > > I'm glad to take this through my char/misc tree, as that's wher=
+e the
+> > > > > > other coresight changes flow through.  So if no one else object=
+s, I will
+> > > > > > do so...
+> > > > > =
 
+> > > > > Greg, did you end up pulling this after all? If not, Uwe produced=
+ a v2.
+> > > > > I haven't merged v2 yet as I don't know what you've done.
+> > > > =
 
---dwvdydyqhaortnqv
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> > > > I thought you merged this?
+> > > =
 
-Hello Russell, hello Greg,
+> > > I took v1, and put it in a branch I've promised in the past not to
+> > > rebase/rewind. Uwe is now asking for me to take a v2 or apply a patch
+> > > on top.
+> > > =
 
-On Thu, Feb 04, 2021 at 07:15:51PM +0100, Uwe Kleine-K=F6nig wrote:
-> On Thu, Feb 04, 2021 at 04:59:51PM +0000, Russell King - ARM Linux admin =
-wrote:
-> > On Thu, Feb 04, 2021 at 05:56:50PM +0100, Greg Kroah-Hartman wrote:
-> > > On Thu, Feb 04, 2021 at 04:52:24PM +0000, Russell King - ARM Linux ad=
-min wrote:
-> > > > On Tue, Feb 02, 2021 at 03:06:05PM +0100, Greg Kroah-Hartman wrote:
-> > > > > I'm glad to take this through my char/misc tree, as that's where =
-the
-> > > > > other coresight changes flow through.  So if no one else objects,=
- I will
-> > > > > do so...
-> > > >=20
-> > > > Greg, did you end up pulling this after all? If not, Uwe produced a=
- v2.
-> > > > I haven't merged v2 yet as I don't know what you've done.
-> > >=20
-> > > I thought you merged this?
-> >=20
-> > I took v1, and put it in a branch I've promised in the past not to
-> > rebase/rewind. Uwe is now asking for me to take a v2 or apply a patch
-> > on top.
-> >=20
-> > The only reason to produce an "immutable" branch is if it's the basis
-> > for some dependent work and you need that branch merged into other
-> > people's trees... so the whole "lets produce a v2" is really odd
-> > workflow... I'm confused about what I should do, and who has to be
-> > informed which option I take.
-> >=20
-> > I'm rather lost here too.
->=20
-> Sorry to have cause this confusion. After I saw that my initial tag
-> missed to adapt a driver I wanted to make it easy for you to fix the
-> situation.
-> So I created a patch to fix it and created a second tag with the patch
-> squashed in. Obviously only one of them have to be picked and I hoped
-> you (=3D Russell + Greg) would agree which option to pick.
->=20
-> My preference would be if you both pick up v2 of the tag to yield a
-> history that is bisectable without build problems, but if Russell (who
-> already picked up the broken tag) considers his tree immutable and so
-> isn't willing to rebase, then picking up the patch is the way to go.
+> > > The only reason to produce an "immutable" branch is if it's the basis
+> > > for some dependent work and you need that branch merged into other
+> > > people's trees... so the whole "lets produce a v2" is really odd
+> > > workflow... I'm confused about what I should do, and who has to be
+> > > informed which option I take.
+> > > =
 
-OK, the current state is that Russell applied the patch fixing
-drivers/mailbox/arm_mhuv2.c on top of merging my first tag.
+> > > I'm rather lost here too.
+> > =
 
-So the way forward now is that Greg pulls
+> > Sorry to have cause this confusion. After I saw that my initial tag
+> > missed to adapt a driver I wanted to make it easy for you to fix the
+> > situation.
+> > So I created a patch to fix it and created a second tag with the patch
+> > squashed in. Obviously only one of them have to be picked and I hoped
+> > you (=3D Russell + Greg) would agree which option to pick.
+> > =
 
-	git://git.armlinux.org.uk/~rmk/linux-arm.git devel-stable
+> > My preference would be if you both pick up v2 of the tag to yield a
+> > history that is bisectable without build problems, but if Russell (who
+> > already picked up the broken tag) considers his tree immutable and so
+> > isn't willing to rebase, then picking up the patch is the way to go.
+> =
 
-which currently points to=20
+> OK, the current state is that Russell applied the patch fixing
+> drivers/mailbox/arm_mhuv2.c on top of merging my first tag.
+> =
 
-	860660fd829e ("ARM: 9055/1: mailbox: arm_mhuv2: make remove callback retur=
-n void")
+> So the way forward now is that Greg pulls
+> =
 
-, into his tree that contains the hwtracing changes that conflict with my
-changes. @Greg: Is this good enough, or do you require a dedicated tag
-to pull that?
+> 	git://git.armlinux.org.uk/~rmk/linux-arm.git devel-stable
+> =
 
-I think these conflicting hwtracing changes are not yet in any of Greg's
-trees (at least they are not in next).
+> which currently points to =
 
-When I pull
+> =
 
-	https://git.kernel.org/pub/scm/linux/kernel/git/coresight/linux.git next
+> 	860660fd829e ("ARM: 9055/1: mailbox: arm_mhuv2: make remove callback ret=
+urn void")
+> =
 
-(currently pointing to 4e73ff249184 ("coresight: etm4x: Handle accesses
-to TRCSTALLCTLR")) into 860660fd829e, I get a conflict in
-drivers/hwtracing/coresight/coresight-etm4x-core.c as expected. My
-resolution looks as follows:
+> , into his tree that contains the hwtracing changes that conflict with my
+> changes. @Greg: Is this good enough, or do you require a dedicated tag
+> to pull that?
+> =
 
-diff --cc drivers/hwtracing/coresight/coresight-etm4x-core.c
-index 82787cba537d,5017d33ba4f5..000000000000
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@@ -1703,6 -1906,28 +1906,27 @@@ static int __exit etm4_remove_dev(struc
-  	cpus_read_unlock();
- =20
-  	coresight_unregister(drvdata->csdev);
-+=20
-+ 	return 0;
-+ }
-+=20
- -static int __exit etm4_remove_amba(struct amba_device *adev)
-++static void __exit etm4_remove_amba(struct amba_device *adev)
-+ {
-+ 	struct etmv4_drvdata *drvdata =3D dev_get_drvdata(&adev->dev);
-+=20
-+ 	if (drvdata)
- -		return etm4_remove_dev(drvdata);
- -	return 0;
-++		etm4_remove_dev(drvdata);
-+ }
-+=20
-+ static int __exit etm4_remove_platform_dev(struct platform_device *pdev)
-+ {
-+ 	int ret =3D 0;
-+ 	struct etmv4_drvdata *drvdata =3D dev_get_drvdata(&pdev->dev);
-+=20
-+ 	if (drvdata)
-+ 		ret =3D etm4_remove_dev(drvdata);
-+ 	pm_runtime_disable(&pdev->dev);
-+ 	return ret;
-  }
- =20
-  static const struct amba_id etm4_ids[] =3D {
+> I think these conflicting hwtracing changes are not yet in any of Greg's
+> trees (at least they are not in next).
+> =
 
-Best regards
-Uwe
+> When I pull
+> =
 
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+> 	https://git.kernel.org/pub/scm/linux/kernel/git/coresight/linux.git next
+> =
 
---dwvdydyqhaortnqv
-Content-Type: application/pgp-signature; name="signature.asc"
+> (currently pointing to 4e73ff249184 ("coresight: etm4x: Handle accesses
+> to TRCSTALLCTLR")) into 860660fd829e, I get a conflict in
+> drivers/hwtracing/coresight/coresight-etm4x-core.c as expected. My
+> resolution looks as follows:
 
------BEGIN PGP SIGNATURE-----
+Ok, my resolution looked a bit different.
 
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmAdEeUACgkQwfwUeK3K
-7Ane0Qf9H0OwQL3TRduboeQKbgkaD83Bg/PYQdMDZUa5dVcE0RU0HyCLlq9GoMuz
-KrRmhln3aYFhE4V9gj+XxGnEwOjL33RzaKsx19Z3dt8Pr8nNrL/vuZnyAMaA5vTZ
-0EqjJssY68yu0JIKUorjKKUUA2mbDP7Go8cLatIepLPN8TIK9kSO3LXxPp1YvBqk
-gSxN/QtokRPZIfXz3AJLBLWYVnTTIv0UEomfkkOnfattTycwKhpMwAxdvLjAUoXw
-LOjVyp/jJ2dF6tM7oivKXffLZ2/w1i88cLU4JloNlRIqW+QNgWN+yKANQhPEYYzA
-1gxRAaLiMaiyEYmYSpsVZyRDdzWUBw==
-=YQY8
------END PGP SIGNATURE-----
+Can you pull my char-misc-testing branch and verify I got this all
+pulled in correctly?
 
---dwvdydyqhaortnqv--
+thanks,
 
---===============8366502524831727299==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+greg k-h
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8366502524831727299==--
