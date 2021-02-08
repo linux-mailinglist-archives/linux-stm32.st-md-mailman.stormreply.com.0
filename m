@@ -2,38 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 205123133FB
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Feb 2021 14:56:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2829313443
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Feb 2021 15:03:47 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D70ABC57B64;
-	Mon,  8 Feb 2021 13:56:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6485DC57B54;
+	Mon,  8 Feb 2021 14:03:47 +0000 (UTC)
 Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
  [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8261CC57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25C57C57188
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Feb 2021 13:56:28 +0000 (UTC)
+ Mon,  8 Feb 2021 14:03:46 +0000 (UTC)
 From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
- <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose
- Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, Jakub
- Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Maxime Ripard
- <mripard@kernel.org>, Joao Pinto <jpinto@synopsys.com>, Lars Persson
- <larper@axis.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 8 Feb 2021 16:56:08 +0300
-Message-ID: <20210208135609.7685-25-Sergey.Semin@baikalelectronics.ru>
-In-Reply-To: <20210208135609.7685-1-Sergey.Semin@baikalelectronics.ru>
-References: <20210208135609.7685-1-Sergey.Semin@baikalelectronics.ru>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
+ Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Joao Pinto
+ <Joao.Pinto@synopsys.com>, Jose Abreu <Jose.Abreu@synopsys.com>
+Date: Mon, 8 Feb 2021 17:03:21 +0300
+Message-ID: <20210208140341.9271-1-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
 X-ClientProxiedBy: MAIL.baikal.int (192.168.51.25) To mail (192.168.51.25)
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Serge Semin <fancer.lancer@gmail.com>,
  Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
  Serge Semin <Sergey.Semin@baikalelectronics.ru>,
  Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 24/24] net: stmmac: dwc-qos: Save
-	master/slave clocks in the plat-data
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [PATCH 00/20] net: stmmac: Obvious cleanups and
+	several fixes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,66 +49,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently the "master_bus" clock of the DW QoS Eth controller isn't
-preserved in the STMMAC platform data, while the "slave_bus" clock is
-assigned to the stmmaceth clock pointer. It isn't correct from the
-platform clock bindings point of view. The "stmmaceth" clock is supposed
-to be the system clock, which is responsible for clocking the DMA
-transfers from/to the controller FIFOs to/from the system memory and the
-CSR interface if the later isn't separately clocked. If it's clocked
-separately then the STMMAC platform code expects to also have "pclk"
-specified. So in order to have the STMMAC platform data properly
-initialized we need to set the "master_bus" clock handler to the
-"stmmaceth" clock pointer, and the "slave_bus" clock handler to the "pclk"
-clock pointer.
+This series consists of a preparation patches before adding DW MAC GPIOs
+and final Baikal-T1 GMAC support. (The later will be done in the framework
+of the Generic DW MAC glue-driver though.) It's mainly about cleaning the
+code up here and there by removing unused data and macro names, but also
+includes several bugs and design fixes.
 
+The patchset starts from fixing the Realtek PHYs driver. In particular it
+has been discovered that disabling RXC in LPI (EEE) causes RTL8211E PHY
+partial freeze until the next MDIO read operation from the PHY CSRs. We
+suggest to fix that problem by dummy reading from the MMD Data register
+each time the PC1R.10 bit is intended to be set.
+
+Then the series evolves in a set of bug fixes discovered in the main
+STMMAC driver code. First of all the cleanup-on-error path has been
+incorrectly implemented in the DMA descriptor allocation procedure due to
+which in case Tx DMA resources allocation failures the Rx DMA descriptors
+will be left unfreed. Secondly it has been discovered that the MTL IRQs
+handling procedure didn't do that quite well, so any MTL RX overflow
+errors will be handled for queues with higher order too, which most likely
+isn't what the code author originally intended. Thirdly the DW MAC reset
+control de-assetion should be performed after the MDIO-bus
+de-registration, because the later may need to access PHY registers, which
+is supposed to be done via the MAC SMA interface. Fourthly we've found out
+that DW MAC v4.x code was using a generic dwmac4_disable_dma_irq() method
+to disable DMA IRQs instead of having the dedicated
+dwmac410_disable_dma_irq() method utilized. That didn't cause any problem
+because the modified bits matches in both IP-core revisions, but for
+consistency we suggest to fix that. Fifthly for the same reason of the
+naming consistency the GMAC_INT_STATUS_PMT macro constant should be used
+instead of GMAC_INT_DISABLE_PMT to check the PMT IRQs status. Finally it's
+strange that the problem hasn't been discovered before, but it is most
+likely wrong to initialized Tx/Rx DMA descriptors, and then clean them up.
+That specifically concerns the Tx DMA descriptors initialization procedure
+in the Chain-mode. Please the patch for details.
+
+The patchset then proceed with multiple optimizations and cleanups
+performed here and there in the code: fix typo in the XGMAC_L3_ADDR3 macro
+name, discard unused mii_irq array from the private data, discard nothing
+changing Rx copybreak ethtool setting, discard redundant index variable
+usage in the dirty_rx initialization method, discard dwmac1000_dma_ops
+declaration from dwmac100.h, move DMA Tx/Rx init methods to the DW MAC lib
+since they match for DW MAC and DW GMA IP-cores, discard pointless
+STMMAC_RESETING flag, discard conditional service task execution since
+it's called from CMWQ anyway (it's also errors prone, since any event
+happening during the service task execution will be lost), add 'cause' arg
+to the service task executioner to generalize the deferred events handling
+interface. Finally in the framework of the code cleanup procedure we
+suggest to extend the stmmac_hw_teardown() functionality with all the
+necessary hardware cleanups, which for some reason were directly performed
+in the network device release callback. That concerns PTP clocks
+disabling, DMA channels and MAC Tx/Rx de-activation.
+
+Note the STMMAC driver is having much more weak design patterns and style
+problems (like calculating the total number of queues every time it's
+needed, or antagonist/cleanup methods absence while having the reversal
+code added in the remove/cleanup paths), than what is fixed in the
+framework of this series, which make the code hard to read, comprehend,
+maintain and extend with new features. Most likely the situation turned to
+be like that due to a long history of the driver evolving to support many
+different IP-core versions and vendor-specific MAC extensions. Anyway it
+would have taken not a single patches series to fix all of the problems.
+Since it hasn't been my primary target, here in this series I've
+introduced the cleanups and fixes, which prepared the corresponding parts
+of the code for easier alterations in the framework of adding the DW MAC
+GPIOs and Baikal-T1 GMAC support into the driver.
+
+The series is supposed to be applied on top of the last revision of the
+next patchset:
+Link: https://lore.kernel.org/netdev/20201214091616.13545-1-Sergey.Semin@baikalelectronics.ru/
+otherwise a few patches won't get merged in cleanly.
+
+Fixes: 7bac4e1ec3ca ("net: stmmac: stmmac interrupt treatment prepared for multiple queues")
+Fixes: 021bd5e36970 ("net: stmmac: Let TX and RX interrupts be independently enabled/disabled")
 Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Cc: Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>
+Cc: Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>
+Cc: Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-index f315ca395e12..bb2297638805 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-@@ -313,6 +313,8 @@ static int tegra_eqos_probe(struct platform_device *pdev,
- 	if (err < 0)
- 		goto error;
- 
-+	data->stmmac_clk = eqos->clk_master;
-+
- 	eqos->clk_slave = devm_clk_get(&pdev->dev, "slave_bus");
- 	if (IS_ERR(eqos->clk_slave)) {
- 		err = PTR_ERR(eqos->clk_slave);
-@@ -323,7 +325,7 @@ static int tegra_eqos_probe(struct platform_device *pdev,
- 	if (err < 0)
- 		goto disable_master;
- 
--	data->stmmac_clk = eqos->clk_slave;
-+	data->pclk = eqos->clk_slave;
- 
- 	eqos->reset = devm_gpiod_get(&pdev->dev, "phy-reset", GPIOD_OUT_HIGH);
- 	if (IS_ERR(eqos->reset)) {
-@@ -371,9 +373,10 @@ static int tegra_eqos_probe(struct platform_device *pdev,
- 	gpiod_set_value(eqos->reset, 1);
- disable_slave:
- 	clk_disable_unprepare(eqos->clk_slave);
--	data->stmmac_clk = NULL;
-+	data->pclk = NULL;
- disable_master:
- 	clk_disable_unprepare(eqos->clk_master);
-+	data->stmmac_clk = NULL;
- error:
- 	return err;
- }
-@@ -392,6 +395,7 @@ static int tegra_eqos_remove(struct platform_device *pdev)
- 	 * data so the stmmac_remove_config_dt() method wouldn't have disabled
- 	 * the clocks too.
- 	 */
-+	priv->plat->pclk = NULL;
- 	priv->plat->stmmac_clk = NULL;
- 
- 	return 0;
+Serge Semin (20):
+  net: phy: realtek: Fix events detection failure in LPI mode
+  net: stmmac: Free Rx descs on Tx allocation failure
+  net: stmmac: Fix false MTL RX overflow handling for higher queues
+  net: stmmac: Assert reset control after MDIO de-registration
+  net: stmmac: Use dwmac410_disable_dma_irq for DW MAC v4.10 DMA
+  net: stmmac: Use LPI IRQ status-related macro in DW MAC1000 isr
+  net: stmmac: Clear descriptors before initializing them
+  net: stmmac: Fix typo in the XGMAC_L3_ADDR3 macro name
+  net: stmmac: Discard mii_irq array from private data
+  net: stmmac: Discard Rx copybreak ethtool setting
+  net: stmmac: Discard index usage in the dirty_rx init
+  net: stmmac: Discard dwmac1000_dma_ops declaration from dwmac100.h
+  net: stmmac: Move DMA Tx/Rx init methods to DW MAC lib
+  net: stmmac: Add DW GMAC disable LPI IRQ mask macro
+  net: stmmac: Discard STMMAC_RESETING flag
+  net: stmmac: Discard conditional service task execution
+  net: stmmac: Add 'cause' arg to the service task executioner
+  net: stmmac: Move PTP clock enabling to PTP-init method
+  net: stmmac: Move DMA stop procedure to HW-setup antagonist
+  net: stmmac: Move MAC Tx/Rx disabling to HW-setup antagonist
+
+ .../net/ethernet/stmicro/stmmac/dwmac1000.h   |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac1000_core.c  |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac1000_dma.c   | 20 +----
+ .../ethernet/stmicro/stmmac/dwmac100_dma.c    | 20 +----
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac_dma.h   |  4 +
+ .../net/ethernet/stmicro/stmmac/dwmac_lib.c   | 14 ++++
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  5 --
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 39 ---------
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 81 +++++++++----------
+ drivers/net/phy/realtek.c                     | 37 +++++++++
+ 12 files changed, 102 insertions(+), 126 deletions(-)
+
 -- 
 2.29.2
 
