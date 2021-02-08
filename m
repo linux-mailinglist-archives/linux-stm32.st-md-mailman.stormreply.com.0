@@ -2,16 +2,16 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 394263133F0
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Feb 2021 14:56:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CFCB3133F1
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Feb 2021 14:56:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 028EFC57B55;
-	Mon,  8 Feb 2021 13:56:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 168A9C57B58;
+	Mon,  8 Feb 2021 13:56:24 +0000 (UTC)
 Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
  [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E9F4C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 409A1C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Feb 2021 13:56:20 +0000 (UTC)
+ Mon,  8 Feb 2021 13:56:21 +0000 (UTC)
 From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose
@@ -19,8 +19,8 @@ To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Maxime Ripard
  <mripard@kernel.org>, Joao Pinto <jpinto@synopsys.com>, Lars Persson
  <larper@axis.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 8 Feb 2021 16:55:57 +0300
-Message-ID: <20210208135609.7685-14-Sergey.Semin@baikalelectronics.ru>
+Date: Mon, 8 Feb 2021 16:55:58 +0300
+Message-ID: <20210208135609.7685-15-Sergey.Semin@baikalelectronics.ru>
 In-Reply-To: <20210208135609.7685-1-Sergey.Semin@baikalelectronics.ru>
 References: <20210208135609.7685-1-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
@@ -32,8 +32,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 13/24] net: stmmac: Fix clocks left enabled
-	on glue-probes failure
+Subject: [Linux-stm32] [PATCH v2 14/24] net: stmmac: Use optional clock
+	request method to get stmmaceth
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,71 +50,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The generic clocks request and preparation have been moved from
-stmmac_dvr_probe()/stmmac_init_ptp() to the stmmac_probe_config_dt()
-method in the framework of commit f573c0b9c4e0 ("stmmac: move stmmac_clk,
-pclk, clk_ptp_ref and stmmac_rst to platform structure"). At the same time
-the clocks disabling and reset assertion have been left in
-stmmac_dvr_remove() instead of also being moved to the symmetric
-antagonistic method - stmmac_remove_config_dt(). Due to that all the glue
-drivers probe cleanup-on-failure paths don't perform the generic clocks
-disable/unprepare procedure, which of course is wrong. Fix it by moving
-the clocks disable/unprepare methods invocation to the
-stmmac_remove_config_dt() function.
+The "stmmaceth" clock is expected to be optional by the current driver
+design, but there are several problems in the implementation. First if the
+clock is specified, but failed to be requested due to an internal error or
+due to not being ready yet for configuration, then the DT-probe procedure
+will just proceed with further initializations. It is erroneous in both
+cases. Secondly if we'd use the clock API, which expect the clock being
+optional we wouldn't have needed to avoid the clock request procedure for
+the "snps,dwc-qos-ethernet-4.10"-compatible devices to prevent the error
+message from being printed. All of that can be fixed by using the
+devm_clk_get_optional() method here provided by the common clock
+framework.
 
-Fixes: f573c0b9c4e0 ("stmmac: move stmmac_clk, pclk, clk_ptp_ref and stmmac_rst to platform structure")
 Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c     | 2 ++
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 2 --
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 4 +++-
- 3 files changed, 5 insertions(+), 3 deletions(-)
+ .../ethernet/stmicro/stmmac/stmmac_platform.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 103d2448e9e0..56b914b5527a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -665,6 +665,8 @@ static void intel_eth_pci_remove(struct pci_dev *pdev)
- 
- 	pci_free_irq_vectors(pdev);
- 
-+	clk_disable_unprepare(priv->plat->stmmac_clk);
-+
- 	clk_unregister_fixed_rate(priv->plat->stmmac_clk);
- 
- 	pcim_iounmap_regions(pdev, BIT(0));
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 26b971cd4da5..b371842d9337 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5157,8 +5157,6 @@ int stmmac_dvr_remove(struct device *dev)
- 	phylink_destroy(priv->phylink);
- 	if (priv->plat->stmmac_rst)
- 		reset_control_assert(priv->plat->stmmac_rst);
--	clk_disable_unprepare(priv->plat->pclk);
--	clk_disable_unprepare(priv->plat->stmmac_clk);
- 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
- 	    priv->hw->pcs != STMMAC_PCS_RTBI)
- 		stmmac_mdio_unregister(ndev);
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index c9feac70ca77..ff66c470f07f 100644
+index ff66c470f07f..a66467baf30a 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -621,11 +621,13 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
-  * @pdev: platform_device structure
-  * @plat: driver data platform structure
-  *
-- * Release resources claimed by stmmac_probe_config_dt().
-+ * Disable and release resources claimed by stmmac_probe_config_dt().
-  */
- void stmmac_remove_config_dt(struct platform_device *pdev,
- 			     struct plat_stmmacenet_data *plat)
- {
-+	clk_disable_unprepare(plat->pclk);
-+	clk_disable_unprepare(plat->stmmac_clk);
- 	of_node_put(plat->phy_node);
- 	of_node_put(plat->mdio_node);
- }
+@@ -566,16 +566,17 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
+ 	if (rc)
+ 		goto error_dma_cfg_alloc;
+ 
+-	/* clock setup */
+-	if (!of_device_is_compatible(np, "snps,dwc-qos-ethernet-4.10")) {
+-		plat->stmmac_clk = devm_clk_get(&pdev->dev,
+-						STMMAC_RESOURCE_NAME);
+-		if (IS_ERR(plat->stmmac_clk)) {
+-			dev_warn(&pdev->dev, "Cannot get CSR clock\n");
+-			plat->stmmac_clk = NULL;
+-		}
+-		clk_prepare_enable(plat->stmmac_clk);
++	/* All clocks are optional since the sub-drivers may use the platform
++	 * clocks pointers to preserve their own clock-descriptors.
++	 */
++	plat->stmmac_clk = devm_clk_get_optional(&pdev->dev,
++						 STMMAC_RESOURCE_NAME);
++	if (IS_ERR(plat->stmmac_clk)) {
++		rc = PTR_ERR(plat->stmmac_clk);
++		dev_err_probe(&pdev->dev, rc, "Cannot get CSR clock\n");
++		goto error_dma_cfg_alloc;
+ 	}
++	clk_prepare_enable(plat->stmmac_clk);
+ 
+ 	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
+ 	if (IS_ERR(plat->pclk)) {
 -- 
 2.29.2
 
