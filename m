@@ -2,28 +2,25 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE49E3133F8
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Feb 2021 14:56:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0473E3133F9
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Feb 2021 14:56:30 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1CA4C57B59;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0F8DC57B5E;
 	Mon,  8 Feb 2021 13:56:29 +0000 (UTC)
 Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
  [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7DD7C57B5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A8A5C57B5B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Feb 2021 13:56:26 +0000 (UTC)
+ Mon,  8 Feb 2021 13:56:27 +0000 (UTC)
 From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 To: Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro
  <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose
  Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, Jakub
  Kicinski <kuba@kernel.org>, Johan Hovold <johan@kernel.org>, Maxime Ripard
  <mripard@kernel.org>, Joao Pinto <jpinto@synopsys.com>, Lars Persson
- <larper@axis.com>, Shawn Guo <shawnguo@kernel.org>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 8 Feb 2021 16:56:05 +0300
-Message-ID: <20210208135609.7685-22-Sergey.Semin@baikalelectronics.ru>
+ <larper@axis.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Mon, 8 Feb 2021 16:56:06 +0300
+Message-ID: <20210208135609.7685-23-Sergey.Semin@baikalelectronics.ru>
 In-Reply-To: <20210208135609.7685-1-Sergey.Semin@baikalelectronics.ru>
 References: <20210208135609.7685-1-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
@@ -35,8 +32,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
  Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 21/24] net: stmmac: dwmac-imx: Discard Tx
-	clock request
+Subject: [Linux-stm32] [PATCH v2 22/24] net: stmmac: Call stmmaceth clock as
+	system clock in warn-message
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,96 +50,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since the Tx clock is now requested and enabled/disabled in the STMMAC
-DT-based platform config method, there is no need in duplicating the same
-procedures in the DW MAC iMX sub-driver.
+By all means of the stmmac_clk clock usage it isn't CSR clock, but the
+system or application clock, which in particular cases can be used as a
+clock source for the CSR interface. Make sure the warning message
+correctly identify the clock. While at it add error message printout if
+actual CSR clock failed to be requested.
 
 Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 21 +++++--------------
- 1 file changed, 5 insertions(+), 16 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-index 223f69da7e95..8b2c7f1ba745 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-@@ -40,7 +40,6 @@ struct imx_dwmac_ops {
- 
- struct imx_priv_data {
- 	struct device *dev;
--	struct clk *clk_tx;
- 	struct clk *clk_mem;
- 	struct regmap *intf_regmap;
- 	u32 intf_reg_off;
-@@ -104,12 +103,6 @@ static int imx_dwmac_init(struct platform_device *pdev, void *priv)
- 		return ret;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index a6e35c84e135..7cbde9d99133 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -573,7 +573,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
+ 						 STMMAC_RESOURCE_NAME);
+ 	if (IS_ERR(plat->stmmac_clk)) {
+ 		rc = PTR_ERR(plat->stmmac_clk);
+-		dev_err_probe(&pdev->dev, rc, "Cannot get CSR clock\n");
++		dev_err_probe(&pdev->dev, rc, "Cannot get system clock\n");
+ 		goto error_dma_cfg_alloc;
  	}
- 
--	ret = clk_prepare_enable(dwmac->clk_tx);
--	if (ret) {
--		dev_err(&pdev->dev, "tx clock enable failed\n");
--		goto clk_tx_en_failed;
--	}
--
- 	if (dwmac->ops->set_intf_mode) {
- 		ret = dwmac->ops->set_intf_mode(plat_dat);
- 		if (ret)
-@@ -119,8 +112,6 @@ static int imx_dwmac_init(struct platform_device *pdev, void *priv)
- 	return 0;
- 
- intf_mode_failed:
--	clk_disable_unprepare(dwmac->clk_tx);
--clk_tx_en_failed:
- 	clk_disable_unprepare(dwmac->clk_mem);
- 	return ret;
- }
-@@ -129,7 +120,6 @@ static void imx_dwmac_exit(struct platform_device *pdev, void *priv)
- {
- 	struct imx_priv_data *dwmac = priv;
- 
--	clk_disable_unprepare(dwmac->clk_tx);
- 	clk_disable_unprepare(dwmac->clk_mem);
- }
- 
-@@ -162,7 +152,7 @@ static void imx_dwmac_fix_speed(void *priv, unsigned int speed)
- 		return;
+ 	clk_prepare_enable(plat->stmmac_clk);
+@@ -581,6 +581,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
+ 	plat->pclk = devm_clk_get_optional(&pdev->dev, "pclk");
+ 	if (IS_ERR(plat->pclk)) {
+ 		rc = PTR_ERR(plat->pclk);
++		dev_err_probe(&pdev->dev, rc, "Cannot get CSR clock\n");
+ 		goto error_pclk_get;
  	}
- 
--	err = clk_set_rate(dwmac->clk_tx, rate);
-+	err = clk_set_rate(plat_dat->tx_clk, rate);
- 	if (err < 0)
- 		dev_err(dwmac->dev, "failed to set tx rate %lu\n", rate);
- }
-@@ -176,10 +166,9 @@ imx_dwmac_parse_dt(struct imx_priv_data *dwmac, struct device *dev)
- 	if (of_get_property(np, "snps,rmii_refclk_ext", NULL))
- 		dwmac->rmii_refclk_ext = true;
- 
--	dwmac->clk_tx = devm_clk_get(dev, "tx");
--	if (IS_ERR(dwmac->clk_tx)) {
--		dev_err(dev, "failed to get tx clock\n");
--		return PTR_ERR(dwmac->clk_tx);
-+	if (!dwmac->plat_dat->tx_clk) {
-+		dev_err(dev, "no tx clock found\n");
-+		return -EINVAL;
- 	}
- 
- 	dwmac->clk_mem = NULL;
-@@ -239,6 +228,7 @@ static int imx_dwmac_probe(struct platform_device *pdev)
- 
- 	dwmac->ops = data;
- 	dwmac->dev = &pdev->dev;
-+	dwmac->plat_dat = plat_dat;
- 
- 	ret = imx_dwmac_parse_dt(dwmac, &pdev->dev);
- 	if (ret) {
-@@ -251,7 +241,6 @@ static int imx_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->exit = imx_dwmac_exit;
- 	plat_dat->fix_mac_speed = imx_dwmac_fix_speed;
- 	plat_dat->bsp_priv = dwmac;
--	dwmac->plat_dat = plat_dat;
- 
- 	ret = imx_dwmac_init(pdev, dwmac);
- 	if (ret)
+ 	clk_prepare_enable(plat->pclk);
 -- 
 2.29.2
 
