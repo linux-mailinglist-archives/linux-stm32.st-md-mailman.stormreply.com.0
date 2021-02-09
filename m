@@ -2,123 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F246315FB6
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Feb 2021 07:49:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2778C3160F1
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Feb 2021 09:27:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27143C57B52;
-	Wed, 10 Feb 2021 06:49:45 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2063.outbound.protection.outlook.com [40.107.92.63])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2150C57B52;
+	Wed, 10 Feb 2021 08:27:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E63E3C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04F59C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Feb 2021 06:49:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y04cUwmiZ/OTV5iz0cthQRQsT0JJoyXTE567ubEqGwFbT0tRZ8T2uh5mOad7RnBxnUuSoqlvdwj5kVH93iEc9M0fyjkzQMkur7Rnb3G4kv0EGBa0W6W/aseDftsQj635lq0GgusfcHY8v2z18Mdg/GiEeVR1LRH9xpqZEAX2gAioRIpMaDhs2Wnl2iP9OiyKueraRAq1Od8ym9HsrFqGq2g3GMbP2OXInNkp6aEGsrwOQ3bqMBqlENd5+u6MJkJ6qKRMy69KwcjyxfdA0JhEBVdLUM64JObPwaBMYDbT9s3b5RmUAAOroXYUaxnlpYxdmF17nTVmIfJmLc1FddcIIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PbV6nW5baTyjEmzuxlXSA8LwDdhJlWEPQRcn+9oiSRA=;
- b=Kcom0pmEDlCEbIZ1+aa/1qy160REz0XRa+/AJ0GG1B2xN2AfWQg7cwJv7EQdUwCGghTnSSVqv/0I303GheOtPQFwe8a/qGcnq/Y5BvmSg7B4GtYzK0kQHDSXG/RsxciD2VtrkODiZMeducYjw+pwXmCbfPGx61oxQfooiSFKM3XniwWBF/e3JfBObSE20MCS0dYT4zjEPlvvJO7mXXa21DNSTZpN2Uu2itxZwkwOQ/CLBF20lFtNfCIrB2mbuto8a1s1khEWuUZMVc7srtVlPuNM67z4awSe8oqC0HNMgvwwExaDP2HCdJc6agoxlqKyo8+ADRcRNnzvHdzIe/WoRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synaptics.com; dmarc=pass action=none
- header.from=synaptics.com; dkim=pass header.d=synaptics.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=Synaptics.onmicrosoft.com; s=selector2-Synaptics-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PbV6nW5baTyjEmzuxlXSA8LwDdhJlWEPQRcn+9oiSRA=;
- b=P4SpLiKhAeagExrJvYzlWHqoC05SI2JkEHVfcEDuJe0E04szMA+kkU08irTcZhvaa7b8GKXgcdsO1jPzw0NBAPQG3A8vrYIp/8QdomxgjWkIzGSZra3yDOxbfVT5n0RI5ucBhI2xJt7xpqvVi+XJkzJ9+gYXT5j4kVW7pZ9LQZ4=
-Authentication-Results: baikalelectronics.ru; dkim=none (message not signed)
- header.d=none;baikalelectronics.ru; dmarc=none action=none
- header.from=synaptics.com;
-Received: from BN8PR03MB4724.namprd03.prod.outlook.com (2603:10b6:408:96::21)
- by BN6PR03MB2660.namprd03.prod.outlook.com (2603:10b6:404:53::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.25; Wed, 10 Feb
- 2021 06:49:37 +0000
-Received: from BN8PR03MB4724.namprd03.prod.outlook.com
- ([fe80::34cf:5dc3:971:82a7]) by BN8PR03MB4724.namprd03.prod.outlook.com
- ([fe80::34cf:5dc3:971:82a7%5]) with mapi id 15.20.3846.026; Wed, 10 Feb 2021
- 06:49:37 +0000
-Date: Wed, 10 Feb 2021 14:49:24 +0800
-From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
-To: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-Message-ID: <20210210144924.6b8e7a11@xhacker.debian>
-In-Reply-To: <20210208135609.7685-17-Sergey.Semin@baikalelectronics.ru>
-References: <20210208135609.7685-1-Sergey.Semin@baikalelectronics.ru>
- <20210208135609.7685-17-Sergey.Semin@baikalelectronics.ru>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-X-Originating-IP: [192.147.44.204]
-X-ClientProxiedBy: BY5PR04CA0025.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0::35) To BN8PR03MB4724.namprd03.prod.outlook.com
- (2603:10b6:408:96::21)
+ Tue,  9 Feb 2021 10:05:01 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 119A3J5D013945; Tue, 9 Feb 2021 11:04:51 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=Zj/l8ff2MIZmWBD3LcqbfDM/Ef46Cl4XOGv3ADgIyNc=;
+ b=PWfDQFPyU4OuTbue0ooJSSoXsO8IztiRA3CedEem0X8kEpS4ERcnDyauK8Nuqkr7SBUr
+ ftkj86/VVHQaExX6iXMvdWn4B5NpTIHWThwgZsdyAth8YzP+OV6HbmfK0O08UkeahC2s
+ 01SYWhpKizqsqraniYg0fdQpBIua/DNWPtLmTyGdGRC54zYrPzf1r2dWCZ3u4MA+yENs
+ oWZYujdLgg5Deo4Sfb7SkF/h4TR7qcuC1N8v0zkGNj+9niF/zVBK+U39uori/8Mb8McL
+ Zyg1uEP/Z3iKVOFhzOmaNQ105TeflBzQTsNbCPrjVKr8m3XMqgk+9shKO+jBb9W+f9w0 5w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36hr31frb9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 09 Feb 2021 11:04:51 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 885E110002A;
+ Tue,  9 Feb 2021 11:04:49 +0100 (CET)
+Received: from Webmail-eu.st.com (gpxdag2node6.st.com [10.75.127.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 72E9B22453E;
+ Tue,  9 Feb 2021 11:04:49 +0100 (CET)
+Received: from localhost (10.75.127.122) by GPXDAG2NODE6.st.com (10.75.127.70)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Tue, 9 Feb 2021 11:04:48 +0100
+From: Valentin Caron <valentin.caron@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Tue, 9 Feb 2021 10:59:48 +0100
+Message-ID: <20210209095948.15889-1-valentin.caron@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from xhacker.debian (192.147.44.204) by
- BY5PR04CA0025.namprd04.prod.outlook.com (2603:10b6:a03:1d0::35) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.25 via Frontend
- Transport; Wed, 10 Feb 2021 06:49:30 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1a66cb2f-6bb1-4de2-2a86-08d8cd900874
-X-MS-TrafficTypeDiagnostic: BN6PR03MB2660:
-X-Microsoft-Antispam-PRVS: <BN6PR03MB26606B5FB6AE9163D74730B2ED8D9@BN6PR03MB2660.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: B8Ytj37ZQUkkx2BbY5EchVa2+3amlGpcZWpLOX073vszfmqP29GpQ+7Po4CStvOJdMkO4c840s+LMwK0rIFQLlvXKFxaFY1Iy8fWkD/4hyzqc3ZFir6OiilZFjIS6PuJmgQjowLNOqws5LgVpYx1MC7qVQgr24DNOyETuxC06Slt1rGWtbBtcTu99o26i9vY+w/mALdJBke8EE6IWR9Xe4mqnqbCT4RymxT+Y+yep7X4GsjFPyzWrPjG1HT1oRWrQiXO+YVOrFf6wyYgbz4GViW9pmJVbFthQxdJJiv0SRr9XD+5F1NdLFIxvG2VOvGA+OtbrtZySej0WoVVn94N7aEzj/hz2fwR3k4MqCTri+Dn4CERP+4pc2cK4h6fcm94Yg9goHkm+UapsovMEFTE5emrjiruXcuLjppmP8vZx0CgFZ2aXSG0vBGTAo/0Bkh/rijkIYpmEfG3NdvgrvKhSntVsq+5XaiHEKp7L0UigX4BSvtIX/SXyga76SZtlIOVk3u5aY38FZ0nQmnHCoKnzg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR03MB4724.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(346002)(136003)(366004)(376002)(396003)(39860400002)(6916009)(6506007)(956004)(186003)(6666004)(16526019)(7416002)(86362001)(4326008)(8676002)(9686003)(316002)(55016002)(83380400001)(26005)(478600001)(66946007)(54906003)(1076003)(5660300002)(52116002)(2906002)(7696005)(66476007)(66556008)(8936002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?KDUSGnfrGT/DW3R8hCPzuG0fBRjiLE3wLDqxAKvyahhLdrZGmtCCC+XylVNb?=
- =?us-ascii?Q?kRUvaBTjas1Ag2Hz3Oc8bOsc8d4kiei04oJmGlm0SiuEwwQLPFrUpkSumIVN?=
- =?us-ascii?Q?4u0vyYWOJo/uur4MPBJOmJ+2hZSutM5eezSX31efT3GkZOUWxLB99JSNKfxN?=
- =?us-ascii?Q?2R0/diL/yFmCm2ZETcEC3Hp4I7zESUcvnblZk/5O8C972DOvyxbyHXucuxop?=
- =?us-ascii?Q?emktR6kCAykjIVhg1qCAGE6+heLBl/YodtQ/d0L6inAZ7k6O5Ba9xMesKMYn?=
- =?us-ascii?Q?M1DIun2fdT/V/cPlNcRSAHtvnEC54uX5VNDhdoDcZuiGHX22++kidp/bfPfC?=
- =?us-ascii?Q?eGERhX71djpONja7LbDA/M99gLlEOKXu1tu+4FrKXFKk9GNrtqw0fk6t3F5/?=
- =?us-ascii?Q?XseH+DU8o66aYsY6Y5hfssa92H5HIAujDjrKONGGkG/wSSevlw0Q0l6VwvCk?=
- =?us-ascii?Q?BgL/ubur0X2h8bxzWhaQq1cV8BMoJcB4cYphtM3HPQY8rdKZAAm8N8V1/HfS?=
- =?us-ascii?Q?bbv8Orf97SERClZbPn7tciPEC1rqhwpE1iH1IJThop/PK5/Y+GyD7D+yrvO7?=
- =?us-ascii?Q?0IdKIHFSFaPHwt7qY3hThAbk4G62/fu8lm4AhAz5cWaEcEhEsULvGNzFjB5L?=
- =?us-ascii?Q?792NvbyJsfdVlwqeCmzZg5QbGNNaIvjIEheNzBv0Bt46mSWrrAV57P2t5Uks?=
- =?us-ascii?Q?jxyb6pEL10Mpuuzr0e4htJfA+P8FAqjEPMkyJwiZGmcUsXGwPEZ+ICtFL9Te?=
- =?us-ascii?Q?SbQ84I8JUF3WJpmaWG2FH7VMNBdg5A+MuahEqf6XblvmvPxGeNlAPujiBsXx?=
- =?us-ascii?Q?yQkkFkvr5ugYjo6d1ZS0RfoamxbrXaZUgrWS4Og/L/+yYD1bXIHLGyYxSKJb?=
- =?us-ascii?Q?VXLOJy7qqz0HumIvrpT7SsTdElg7T5ORDk+k/TLgJvAxV0EHQAJYKdC/RbUC?=
- =?us-ascii?Q?kN5ML2xjEe8nHeQCsZZihEhb1EvY7jLIcM1LCxVRslQri0IbanSQuY4vo939?=
- =?us-ascii?Q?f6/xwDrxcgGCXbNgZeByFHXDNE2cxDd8GT8B86QCCR8PSm7i8/r5FC5R4m+u?=
- =?us-ascii?Q?WrD/Kz95AgiRZAkX5hhHqSXc60MdPe/0QOFOsMk9wlbTi6Th+Ptj+lEikXjS?=
- =?us-ascii?Q?U2EDLUh7w2cZ5Ew02bZZMxKYxK7mdl3Q+3eYIddVD+SocnKiaROyUXBmE6jf?=
- =?us-ascii?Q?DSex7HkMT19RN2wcdMlkSNJRZJgNwUbIBYNmmrdunfcfH5/rZy7rwMryiI8E?=
- =?us-ascii?Q?C4T5K8FEUulh6FqPGbqHbLh1kKrL4+eCpQuPObF9SjOT3aTg61+9kG5bgIkF?=
- =?us-ascii?Q?vxNdCwsN6UDvqkaVf+Xj861E?=
-X-OriginatorOrg: synaptics.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a66cb2f-6bb1-4de2-2a86-08d8cd900874
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR03MB4724.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2021 06:49:37.4610 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gAV/9lfUEpc/xkeXpDRa8Snkk+P9mtmqbKLM1fxLJZn5ckEFXaZDd73/fLiko/ij3EVwLebDxadfoQ8PZvYVaw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR03MB2660
-Cc: Jose Abreu <joabreu@synopsys.com>, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, devicetree@vger.kernel.org,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- Lars Persson <larper@axis.com>, linux-stm32@st-md-mailman.stormreply.com,
- Johan Hovold <johan@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- Rob Herring <robh+dt@kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>
-Subject: Re: [Linux-stm32] [PATCH v2 16/24] net: stmmac: Use optional reset
- control API to work with stmmaceth
+X-Originating-IP: [10.75.127.122]
+X-ClientProxiedBy: GPXDAG1NODE5.st.com (10.75.127.66) To GPXDAG2NODE6.st.com
+ (10.75.127.70)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
+ definitions=2021-02-09_02:2021-02-09,
+ 2021-02-09 signatures=0
+X-Mailman-Approved-At: Wed, 10 Feb 2021 08:27:55 +0000
+Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: serial: stm32: add examples
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,75 +74,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+From: Valentin Caron <valentin.caron@st.com>
 
-On Mon, 8 Feb 2021 16:56:00 +0300 Serge Semin wrote:
+Add examples to show more use cases :
+ - uart2 with hardware flow control
+ - uart4 without flow control
 
+Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+---
+ .../bindings/serial/st,stm32-uart.yaml        | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-> 
-> Since commit bb3222f71b57 ("net: stmmac: platform: use optional clk/reset
-> get APIs") a manual implementation of the optional device reset control
-> functionality has been replaced with using the
-> devm_reset_control_get_optional() method. But for some reason the optional
-> reset control handler usage hasn't been fixed and preserved the
-> NULL-checking statements. There is no need in that in order to perform the
-> reset control assertion/deassertion because the passed NULL will be
-> considered by the reset framework as absent optional reset control handler
-> anyway.
-> 
-> Fixes: bb3222f71b57 ("net: stmmac: platform: use optional clk/reset get APIs")
-
-The patch itself looks good, but the Fix tag isn't necessary since the
-patch is a clean up rather than a bug fix. Can you please drop it in next
-version?
-
-Thanks
-
-> Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-> ---
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 ++++++++-----------
->  1 file changed, 8 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 4f1bf8f6538b..a8dec219c295 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4935,15 +4935,13 @@ int stmmac_dvr_probe(struct device *device,
->         if ((phyaddr >= 0) && (phyaddr <= 31))
->                 priv->plat->phy_addr = phyaddr;
-> 
-> -       if (priv->plat->stmmac_rst) {
-> -               ret = reset_control_assert(priv->plat->stmmac_rst);
-> -               reset_control_deassert(priv->plat->stmmac_rst);
-> -               /* Some reset controllers have only reset callback instead of
-> -                * assert + deassert callbacks pair.
-> -                */
-> -               if (ret == -ENOTSUPP)
-> -                       reset_control_reset(priv->plat->stmmac_rst);
-> -       }
-> +       ret = reset_control_assert(priv->plat->stmmac_rst);
-> +       reset_control_deassert(priv->plat->stmmac_rst);
-> +       /* Some reset controllers have only reset callback instead of
-> +        * assert + deassert callbacks pair.
-> +        */
-> +       if (ret == -ENOTSUPP)
-> +               reset_control_reset(priv->plat->stmmac_rst);
-> 
->         /* Init MAC and get the capabilities */
->         ret = stmmac_hw_init(priv);
-> @@ -5155,8 +5153,7 @@ int stmmac_dvr_remove(struct device *dev)
->         stmmac_exit_fs(ndev);
->  #endif
->         phylink_destroy(priv->phylink);
-> -       if (priv->plat->stmmac_rst)
-> -               reset_control_assert(priv->plat->stmmac_rst);
-> +       reset_control_assert(priv->plat->stmmac_rst);
->         if (priv->hw->pcs != STMMAC_PCS_TBI &&
->             priv->hw->pcs != STMMAC_PCS_RTBI)
->                 stmmac_mdio_unregister(ndev);
-> --
-> 2.29.2
-> 
+diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+index 06d5f251ec88..3a4aab5d1862 100644
+--- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+@@ -82,6 +82,26 @@ additionalProperties: false
+ examples:
+   - |
+     #include <dt-bindings/clock/stm32mp1-clks.h>
++
++    usart4: serial@40004c00 {
++      compatible = "st,stm32-uart";
++      reg = <0x40004c00 0x400>;
++      interrupts = <52>;
++      clocks = <&clk_pclk1>;
++      pinctrl-names = "default";
++      pinctrl-0 = <&pinctrl_usart4>;
++    };
++
++    usart2: serial@40004400 {
++      compatible = "st,stm32-uart";
++      reg = <0x40004400 0x400>;
++      interrupts = <38>;
++      clocks = <&clk_pclk1>;
++      st,hw-flow-ctrl;
++      pinctrl-names = "default";
++      pinctrl-0 = <&pinctrl_usart2 &pinctrl_usart2_rtscts>;
++    };
++
+     usart1: serial@40011000 {
+       compatible = "st,stm32-uart";
+       reg = <0x40011000 0x400>;
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
