@@ -2,62 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5534D31556F
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Feb 2021 18:56:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50AF83158F6
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Feb 2021 22:54:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EBCCC57B55;
-	Tue,  9 Feb 2021 17:56:21 +0000 (UTC)
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com
- [209.85.161.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A2A2C57B54;
+	Tue,  9 Feb 2021 21:54:08 +0000 (UTC)
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2418C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62F16C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Feb 2021 17:56:18 +0000 (UTC)
-Received: by mail-oo1-f51.google.com with SMTP id g46so4452268ooi.9
+ Tue,  9 Feb 2021 21:54:05 +0000 (UTC)
+Received: by mail-oi1-f178.google.com with SMTP id l3so11158979oii.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Feb 2021 09:56:18 -0800 (PST)
+ Tue, 09 Feb 2021 13:54:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=vBG1WNZ+VYDg58Hj0p0C8XiVqBI5eXydWO/NFf/WXAw=;
- b=SjoFNQZ44iav3SvDVg6UamXzz+1A4N9o7a9axy822DbJKCVOqfJsStB23FbX4GIjMq
- Alyq3B1/uHVaGZCSR4rW7r1rYKlzOwYPw1Fj052T0gqezgqcuRQary6nk1rJq2HJinAX
- tgI6DoCWdByiEy8Et2BjpFVfCK6mnuMCotNbPgrfbKtcJjhkIVUI1K2e4JAX8gyYtZ/C
- GmSerPldgpEVHgDj4/rqCFs2LWu+RCd9bf4iUP4DhQbX4u9odkWYlqgyUcxQp//XtkVZ
- 0PMAr9smlzcwFZ2vIbv9Dw9SjKuevrozHBfnQKJhUyqJTc4vDa3P9rLuskCoia/j9TBK
- KeoQ==
-X-Gm-Message-State: AOAM532bjG0o+bT9c2rtnkm67AjNuNxYJKhK9j4iCzuLDhI0OFq0htUb
- MWwQHx5IG1rnxO03fnwjfA==
-X-Google-Smtp-Source: ABdhPJwDyWG7JxVSQrPKKUjAO9gUPF8tm8MuPSOj8dj3+6IQC3cBmate/FqH6XfP1vsC+kwAHHQdBA==
-X-Received: by 2002:a4a:c489:: with SMTP id f9mr16497336ooq.49.1612893377147; 
- Tue, 09 Feb 2021 09:56:17 -0800 (PST)
+ bh=bOiEgQJc9F4c/q7bHFCKm4lcHmd+4+4DEwd4LTgy3IY=;
+ b=o7d93w7m2i4rHt4iHzQdLY5Pg4d3NQkaRwmFYCsuKj5SzGQN0gX4oJL1YSdRL9DYIs
+ BaWZ4O5/n6MsbsAVq2IOOHgCwux31ofeyCho0SXABilXRBNycu3aLgCy6mGEE0+ZEZf3
+ 7ftV6PW9MnyXxgK596Xl93zWTx+tO6Qdy46pYSL4XXRXk7mRZcIbkFF9YLRl1RigSUfw
+ A1+f/QBBQtHpM8R1HeCK+dyokb7Ylex0CQYFqRmhSl+BrqB8eB0RaeKikzq/sBIBMsPz
+ Qy60nSY/hFGl0TdgzJsDDu+YwFPHEysJ/J2RTcsiw3tim5NzWgn31ZmAkoJDe35N6oJs
+ 9jBw==
+X-Gm-Message-State: AOAM532CdkIgy0+9ZFsNXh9O7CgfQ+iF+0Ni9w3g/LPBsRBLqCof83Ze
+ A2fqyrVv+n05PJYBZFwnVw==
+X-Google-Smtp-Source: ABdhPJx4uyiqqNf8J2Db0GfnFr86BDYIdEH1ii5Rx3XOwGmxWp5YiGpid9GYa8CRIZoTR6fO/8pZuw==
+X-Received: by 2002:a05:6808:a01:: with SMTP id
+ n1mr3914674oij.19.1612907644210; 
+ Tue, 09 Feb 2021 13:54:04 -0800 (PST)
 Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id a63sm4498903otc.75.2021.02.09.09.56.15
+ by smtp.gmail.com with ESMTPSA id a18sm4791oia.0.2021.02.09.13.54.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Feb 2021 09:56:15 -0800 (PST)
-Received: (nullmailer pid 4039705 invoked by uid 1000);
- Tue, 09 Feb 2021 17:56:14 -0000
-Date: Tue, 9 Feb 2021 11:56:14 -0600
+ Tue, 09 Feb 2021 13:54:02 -0800 (PST)
+Received: (nullmailer pid 268551 invoked by uid 1000);
+ Tue, 09 Feb 2021 21:54:00 -0000
+Date: Tue, 9 Feb 2021 15:54:00 -0600
 From: Rob Herring <robh@kernel.org>
-To: gabriel.fernandez@foss.st.com
-Message-ID: <20210209175614.GA4039647@robh.at.kernel.org>
-References: <20210126090120.19900-1-gabriel.fernandez@foss.st.com>
- <20210126090120.19900-14-gabriel.fernandez@foss.st.com>
+To: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+Message-ID: <20210209215400.GA268498@robh.at.kernel.org>
+References: <20210208135609.7685-1-Sergey.Semin@baikalelectronics.ru>
+ <20210208135609.7685-4-Sergey.Semin@baikalelectronics.ru>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210126090120.19900-14-gabriel.fernandez@foss.st.com>
-Cc: marex@denx.de, Etienne Carriere <etienne.carriere@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, devicetree@vger.kernel.org,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 13/14] dt-bindings: clock: stm32mp1 new
- compatible for secure rcc
+In-Reply-To: <20210208135609.7685-4-Sergey.Semin@baikalelectronics.ru>
+Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
+ "David S. Miller" <davem@davemloft.net>, Joao Pinto <jpinto@synopsys.com>,
+ netdev@vger.kernel.org, Lars Persson <larper@axis.com>,
+ Johan Hovold <johan@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Serge Semin <fancer.lancer@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Subject: Re: [Linux-stm32] [PATCH v2 03/24] dt-bindings: net: dwmac: Fix the
+ TSO property declaration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,21 +82,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 26 Jan 2021 10:01:19 +0100, gabriel.fernandez@foss.st.com wrote:
-> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+On Mon, 08 Feb 2021 16:55:47 +0300, Serge Semin wrote:
+> Indeed the STMMAC driver doesn't take the vendor-specific compatible
+> string into account to parse the "snps,tso" boolean property. It just
+> makes sure the node is compatible with DW MAC 4.x, 5.x and DW xGMAC
+> IP-cores. The original allwinner sunXi bindings file also didn't have the
+> TSO-related property declared. Taking all of that into account fix the
+> conditional statement so the TSO-property would be evaluated for the
+> compatibles having the corresponding IP-core version.
 > 
-> Introduce new compatible string "st,stm32mp1-rcc-secure" for
-> stm32mp1 clock driver when the device is configured with RCC
-> security support hardened.
+> While at it move the whole allOf-block from the tail of the binding file
+> to the head of it, as it's normally done in the most of the DT schemas.
 > 
-> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+> 
 > ---
->  .../devicetree/bindings/clock/st,stm32mp1-rcc.yaml          | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> Note this won't break the bindings description, since the "snps,tso"
+> property isn't parsed by the Allwinner SunX GMAC glue driver, but only
+> by the generic platform DT-parser.
+> 
+> Changelog v2:
+> - Use correct syntax of the JSON pointers, so the later would begin
+>   with a '/' after the '#'.
+> ---
+>  .../devicetree/bindings/net/snps,dwmac.yaml   | 52 +++++++++----------
+>  1 file changed, 24 insertions(+), 28 deletions(-)
 > 
 
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
