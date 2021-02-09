@@ -2,80 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71E62314019
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Feb 2021 21:14:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD22C3149D7
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Feb 2021 09:00:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E153C5718A;
-	Mon,  8 Feb 2021 20:14:16 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90500C57189;
+	Tue,  9 Feb 2021 08:00:45 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64A6BC57188
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0FECC3FADB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Feb 2021 20:14:14 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id m13so18682917wro.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 08 Feb 2021 12:14:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=to:cc:references:from:subject:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=OUh/84sIyniswzX8ah1LDDp71Tfd3ZoLrA0XAN17eZU=;
- b=rOBlwegdw+wasDBf6XqUsr7z8cAF4XwNo4YBJhPomGCHLaAx8dI9yXJ6FOZRHIruw2
- mUhpT1Y7RAhVooVYFKanYan6pZaRSJ0ALGceKovNVZX+Vaym5VgqzBIwVoFTyQjgcu9Y
- iN/+ftTaVmpIcKcRwbyOyL4jlJILklEpfev42bFOruz/B4/G+8hfYSpgpWJ/7srLXAsj
- NQLGXGSVUIVqRXSg5m+A+EdQ/S01L3zDTEQZeUvrHhF+2ES+IPNLK/y/zcl8vMy+kpH2
- yeMMvYPIumFGm58eav/LAWdPmTNOhr68Fs2rlbzzsSvrk7ZUo7EYaOQvFqNYPMobwxd4
- boeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:cc:references:from:subject:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=OUh/84sIyniswzX8ah1LDDp71Tfd3ZoLrA0XAN17eZU=;
- b=eR78FzPbZh0z7RfK2dkkaXLjbkjWNeil25xW5gwJuybVwjtuUDvys44JXEb85KNOdy
- Kynk4KEvpv1MVq35voFQFfx1eGJrlI0/RgeW/VGbFpuv0pW3PySY6VL06/5TYfTqt6uz
- zGfwimaMvgomebUSfb0QIu1CDCs+BbD5id/p/PWvp13UOkuS1XzCF8YFsNXLp2wXoKek
- VDt96xqvh+0JjNCxEVxROHnJ3pJa6GH/dIz63nic9FUVGzZEneWkmZsfhaaW3s1xEh2o
- HfTBZ7W2gp2n+6ZuUQiQJSljk2G+2C0DJgB6yOVtaXeBxfPgGJsTDdXXgglFmGL+nJa3
- 2hhg==
-X-Gm-Message-State: AOAM531tJPX/p6Uesj8XwRSbK4obFzNUBQHjlLi6a91F9exMl+ai/5Co
- 1rpSCRyUog8kXDdfRWbszcc=
-X-Google-Smtp-Source: ABdhPJzKlwzMStUUKKnjrHt7O1icNkl7L0iRGnE9pd6UFl4QxImBc3lc3ymv/8dEALTTipgSSMBoqg==
-X-Received: by 2002:adf:e705:: with SMTP id c5mr1768118wrm.39.1612815253875;
- Mon, 08 Feb 2021 12:14:13 -0800 (PST)
-Received: from ?IPv6:2003:ea:8f1f:ad00:f9e7:a381:9de9:80df?
- (p200300ea8f1fad00f9e7a3819de980df.dip0.t-ipconnect.de.
- [2003:ea:8f1f:ad00:f9e7:a381:9de9:80df])
- by smtp.googlemail.com with ESMTPSA id o9sm33181629wrw.81.2021.02.08.12.14.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Feb 2021 12:14:12 -0800 (PST)
-To: Serge Semin <Sergey.Semin@baikalelectronics.ru>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Jose Abreu
- <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Joao Pinto <Joao.Pinto@synopsys.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- Russell King <linux@armlinux.org.uk>
-References: <20210208140341.9271-1-Sergey.Semin@baikalelectronics.ru>
- <20210208140341.9271-2-Sergey.Semin@baikalelectronics.ru>
-From: Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <8300d9ca-b877-860f-a975-731d6d3a93a5@gmail.com>
-Date: Mon, 8 Feb 2021 21:14:02 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ Tue,  9 Feb 2021 08:00:43 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 27CCC64E6F;
+ Tue,  9 Feb 2021 08:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1612857642;
+ bh=PrZKwTBAEkhO9oVwFzz9vR4RpjecGA222H6u+Smz3/g=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=RZfSdW4MONU6xyHZcAlXF3UuyrNKwqpNx49sUuIUYtO86OB+31RzMa1O7dF6M8YBN
+ S9MNPiFRGvoUA8A7uoT3UZCXdmXkFdNWGQbJ+sjvPOwuF+KFSBJW6x2gxRNadUf4bP
+ TGupFGxUhX0KPEaei1olRQFWoplvhuVhF2qYSql41c20wThIpVrLDHHKFENyYOEJl2
+ h6MSfwndGoBOY8w349HyrpUO+EjDiPP8L/NShDsheNvOfjRpZ9QV9QdZU2yJWTiPRZ
+ i9t4psH+djtVZrQpkwSgDJim/iW8woBnt+ZvJELngCF1WqDRt/z1M9KYOY8Du/SNoX
+ y0os1dyaKr6Yg==
 MIME-Version: 1.0
-In-Reply-To: <20210208140341.9271-2-Sergey.Semin@baikalelectronics.ru>
-Content-Language: en-US
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
- Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
+In-Reply-To: <20210126090120.19900-3-gabriel.fernandez@foss.st.com>
+References: <20210126090120.19900-1-gabriel.fernandez@foss.st.com>
+ <20210126090120.19900-3-gabriel.fernandez@foss.st.com>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Alexandre Torgue <alexandre.torgue@st.com>,
+ Etienne Carriere <etienne.carriere@st.com>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 01/20] net: phy: realtek: Fix events
- detection failure in LPI mode
+ Michael Turquette <mturquette@baylibre.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>,
+ marex@denx.de
+Date: Tue, 09 Feb 2021 00:00:40 -0800
+Message-ID: <161285764074.418021.15522379930579131077@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 02/14] clk: stm32mp1: merge
+	'ck_hse_rtc' and 'ck_rtc' into one clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,90 +61,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 08.02.2021 15:03, Serge Semin wrote:
-> It has been noticed that RTL8211E PHY stops detecting and reporting events
-> when EEE is successfully advertised and RXC stopping in LPI is enabled.
-> The freeze happens right after 3.0.10 bit (PC1R "Clock Stop Enable"
-> register) is set. At the same time LED2 stops blinking as if EEE mode has
-> been disabled. Notably the network traffic still flows through the PHY
-> with no obvious problem. Anyway if any MDIO read procedure is performed
-> after the "RXC stop in LPI" mode is enabled PHY gets to be unfrozen, LED2
-> starts blinking and PHY interrupts happens again. The problem has been
-> noticed on RTL8211E PHY working together with DW GMAC 3.73a MAC and
-> reporting its event via a dedicated IRQ signal. (Obviously the problem has
-> been unnoticed in the polling mode, since it gets naturally fixed by the
-> periodic MDIO read procedure from the PHY status register - BMSR.)
+Quoting gabriel.fernandez@foss.st.com (2021-01-26 01:01:08)
+> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 > 
-> In order to fix that problem we suggest to locally re-implement the MMD
-> write method for RTL8211E PHY and perform a dummy read right after the
-> PC1R register is accessed to enable the RXC stopping in LPI mode.
+> 'ck_rtc' has multiple clocks as input (ck_hsi, ck_lsi, and ck_hse).
+> A divider is available only on the specific rtc input for ck_hse.
+> This Merge will facilitate to have a more coherent clock tree
+> in no trusted / trusted world.
 > 
-> Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 > ---
->  drivers/net/phy/realtek.c | 37 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
+>  drivers/clk/clk-stm32mp1.c | 49 +++++++++++++++++++++++++++++++++-----
+>  1 file changed, 43 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/net/phy/realtek.c b/drivers/net/phy/realtek.c
-> index 99ecd6c4c15a..cbb86c257aae 100644
-> --- a/drivers/net/phy/realtek.c
-> +++ b/drivers/net/phy/realtek.c
-> @@ -559,6 +559,42 @@ static int rtl822x_write_mmd(struct phy_device *phydev, int devnum, u16 regnum,
->  	return ret;
+> diff --git a/drivers/clk/clk-stm32mp1.c b/drivers/clk/clk-stm32mp1.c
+> index 35d5aee8f9b0..0e1d4427a8df 100644
+> --- a/drivers/clk/clk-stm32mp1.c
+> +++ b/drivers/clk/clk-stm32mp1.c
+> @@ -245,7 +245,7 @@ static const char * const dsi_src[] = {
+>  };
+>  
+>  static const char * const rtc_src[] = {
+> -       "off", "ck_lse", "ck_lsi", "ck_hse_rtc"
+> +       "off", "ck_lse", "ck_lsi", "ck_hse"
+>  };
+>  
+>  static const char * const mco1_src[] = {
+> @@ -1031,6 +1031,42 @@ static struct clk_hw *clk_register_cktim(struct device *dev, const char *name,
+>         return hw;
 >  }
 >  
-> +static int rtl8211e_write_mmd(struct phy_device *phydev, int devnum, u16 regnum,
-> +			      u16 val)
+> +/* The divider of RTC clock concerns only ck_hse clock */
+> +#define HSE_RTC 3
+> +
+> +static unsigned long clk_divider_rtc_recalc_rate(struct clk_hw *hw,
+> +                                                unsigned long parent_rate)
 > +{
-> +	int ret;
+> +       if (clk_hw_get_parent(hw) == clk_hw_get_parent_by_index(hw, HSE_RTC))
+> +               return clk_divider_ops.recalc_rate(hw, parent_rate);
 > +
-> +	/* Write to the MMD registers by using the standard control/data pair.
-> +	 * The only difference is that we need to perform a dummy read after
-> +	 * the PC1R.CLKSTOP_EN bit is set. It's required to workaround an issue
-> +	 * of a partial core freeze so LED2 stops blinking in EEE mode, PHY
-> +	 * stops detecting the link change and raising IRQs until any read from
-> +	 * its registers performed. That happens only if and right after the PHY
-> +	 * is enabled to stop RXC in LPI mode.
-> +	 */
-> +	ret = __phy_write(phydev, MII_MMD_CTRL, devnum);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = __phy_write(phydev, MII_MMD_DATA, regnum);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = __phy_write(phydev, MII_MMD_CTRL, devnum | MII_MMD_CTRL_NOINCR);
-> +	if (ret)
-> +		return ret;
-> +
-
-Nice analysis. Alternatively to duplicating this code piece we could
-export mmd_phy_indirect(). But up to you.
-
-> +	ret = __phy_write(phydev, MII_MMD_DATA, val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (devnum == MDIO_MMD_PCS && regnum == MDIO_CTRL1 &&
-> +	    val & MDIO_PCS_CTRL1_CLKSTOP_EN)
-> +		ret =  __phy_read(phydev, MII_MMD_DATA);
-> +
-> +	return ret < 0 ? ret : 0;
+> +       return parent_rate;
 > +}
 > +
->  static int rtl822x_get_features(struct phy_device *phydev)
->  {
->  	int val;
-> @@ -725,6 +761,7 @@ static struct phy_driver realtek_drvs[] = {
->  		.resume		= genphy_resume,
->  		.read_page	= rtl821x_read_page,
->  		.write_page	= rtl821x_write_page,
-> +		.write_mmd	= rtl8211e_write_mmd,
->  	}, {
->  		PHY_ID_MATCH_EXACT(0x001cc916),
->  		.name		= "RTL8211F Gigabit Ethernet",
-> 
+> +static long clk_divider_rtc_round_rate(struct clk_hw *hw, unsigned long rate,
+> +                                      unsigned long *prate)
+> +{
+> +       if (clk_hw_get_parent(hw) == clk_hw_get_parent_by_index(hw, HSE_RTC))
 
+This clk op can be called at basically any time. Maybe this should use
+the determine rate op and then look to see what the parent is that comes
+in via the rate request structure? Or is the intention to keep this
+pinned to one particular parent? Looking at this right now it doesn't
+really make much sense why the current parent state should play into
+what rate the clk can round to, unless there is some more clk flags
+going on that constrain the ability to change this clk's parent.
+
+> +               return clk_divider_ops.round_rate(hw, rate, prate);
+> +
+> +       return *prate;
+> +}
+> +
+> +static int clk_divider_rtc_set_rate(struct clk_hw *hw, unsigned long rate,
+> +                                   unsigned long parent_rate)
+> +{
+> +       if (clk_hw_get_parent(hw) == clk_hw_get_parent_by_index(hw, HSE_RTC))
+> +               return clk_divider_ops.set_rate(hw, rate, parent_rate);
+> +
+> +       return parent_rate;
+> +}
+> +
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
