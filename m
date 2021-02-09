@@ -2,43 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 676F0315141
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Feb 2021 15:11:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96072315564
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Feb 2021 18:52:42 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21D5AC57B53;
-	Tue,  9 Feb 2021 14:11:55 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42BD1C57B54;
+	Tue,  9 Feb 2021 17:52:42 +0000 (UTC)
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
+ [209.85.210.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4ED19C32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 173F2C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Feb 2021 14:11:53 +0000 (UTC)
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
- (envelope-from <andrew@lunn.ch>)
- id 1l9Tjx-0057rG-Nl; Tue, 09 Feb 2021 15:11:41 +0100
-Date: Tue, 9 Feb 2021 15:11:41 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-Message-ID: <YCKYHay9PsR2o04z@lunn.ch>
-References: <20210208140820.10410-1-Sergey.Semin@baikalelectronics.ru>
- <YCGSwZnSXIz5Ssef@lunn.ch>
- <20210209111609.tjxoqr6stkcf22jy@mobilestation>
+ Tue,  9 Feb 2021 17:52:40 +0000 (UTC)
+Received: by mail-ot1-f44.google.com with SMTP id k10so15908646otl.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 09 Feb 2021 09:52:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=p0jcMoP1zdNYZ/i9r9D2TVX6lIvZeuJzpwgY33snses=;
+ b=lKCBXvdo3L962TafdosPqt7RjwyzDyaWwvihOANxQkItdiaH75e1T8mxNHE9KHPUjn
+ K8HLgGrIj7QR/umn3C8Qvff4/GVoKpgfq3EuKTgbwFZps93PoWStHrU54z7r3WGKdAGj
+ bkFsAhwpc1zwF+w88qlAhvdDM8hjiq6/Dz5q1ozzAtkIAF6HZHR5UE/nuHndRjORKlMG
+ DV5aHgITejZ90yHmccDSdzoU93LgOX5JyL+uMVUT2ty2YD+fjb2GGKYsA2aoQ9Pk2/4u
+ Ew0b4ftMFoESSL2qr8uXiYmkw3lb02L5Vi9yq+pXPLR4ZM+uYMLoaX4Dz+C3bzEtxbo4
+ koCA==
+X-Gm-Message-State: AOAM533QRqpRbkOn9KYXlgFkbKbZHz38axdADgH1CqMBz9wnCLDLNq4E
+ A6isRtRWo+49bIOUlokmtw==
+X-Google-Smtp-Source: ABdhPJwmuWp6tTbWnSQ2IizYcSJo7pRxp1UJAGJBCc/J9iE3yPA1PUXrjaX/PbRV1oI5evxkC1IZrQ==
+X-Received: by 2002:a05:6830:191:: with SMTP id
+ q17mr16277282ota.110.1612893158858; 
+ Tue, 09 Feb 2021 09:52:38 -0800 (PST)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id k21sm2886850otl.27.2021.02.09.09.52.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Feb 2021 09:52:37 -0800 (PST)
+Received: (nullmailer pid 4032920 invoked by uid 1000);
+ Tue, 09 Feb 2021 17:52:35 -0000
+Date: Tue, 9 Feb 2021 11:52:35 -0600
+From: Rob Herring <robh@kernel.org>
+To: gabriel.fernandez@foss.st.com
+Message-ID: <20210209175235.GA4032862@robh.at.kernel.org>
+References: <20210126090120.19900-1-gabriel.fernandez@foss.st.com>
+ <20210126090120.19900-8-gabriel.fernandez@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210209111609.tjxoqr6stkcf22jy@mobilestation>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
- Rob Herring <robh+dt@kernel.org>,
- Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- Jose Abreu <joabreu@synopsys.com>, Serge Semin <fancer.lancer@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>
-Subject: Re: [Linux-stm32] [PATCH 00/16] net: stmmac: Add DW MAC GPIOs and
- Baikal-T1 GMAC support
+In-Reply-To: <20210126090120.19900-8-gabriel.fernandez@foss.st.com>
+Cc: marex@denx.de, Etienne Carriere <etienne.carriere@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Subject: Re: [Linux-stm32] [PATCH v2 07/14] dt-bindings: clock: add IDs for
+ SCMI clocks on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,22 +75,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> Regarding splitting the series up. I don't see a problem in just
-> sending the cover-letter patch and actual GPIO-related patches to
-> the GPIO-maintainers with no need to have them added to Cc in the rest
-> of the series.
+On Tue, 26 Jan 2021 10:01:13 +0100, gabriel.fernandez@foss.st.com wrote:
+> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> 
+> stm32mp15 TZ secure firmware provides SCMI clocks for oscillators, some
+> PLL output and few secure aware interfaces.
+> This change defines the SCMI clock identifiers used by SCMI agents
+> and servers.
+> Server SCMI0 exposes clocks and reset controllers for resources under
+> RCC[TZEN] configuration control.
+> Server SCMI1 exposes clocks for resources under RCC[MCKPROT] control.
+> 
+> Signed-off-by: Etienne Carriere <etienne.carriere@st.com>
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> ---
+>  include/dt-bindings/clock/stm32mp1-clks.h | 27 +++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+> 
 
-The Linux community has to handle a large number of patches. I don't
-particularly want patches which are of no relevance to me landing in
-my mailbox. It might take 4 or 5 rounds for the preparation patches to
-be accepted. That is 4 or 5 times you are spamming the GPIO
-maintainers with stuff which is not relevant to them.
-
-One of the unfortunately things about the kernel process is, there are
-a lot of developers, and not many maintainers. So the processes need
-to make the life of maintainers easier, and not spamming them helps.
-
-   Andrew
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
