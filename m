@@ -2,58 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0055316EF4
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Feb 2021 19:43:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D41BC31711B
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Feb 2021 21:19:20 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D547C57B53;
-	Wed, 10 Feb 2021 18:43:18 +0000 (UTC)
-Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
- [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D08C7C3FADC
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D410C57B53;
+	Wed, 10 Feb 2021 20:19:20 +0000 (UTC)
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com
+ [209.85.161.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A53ADC5718A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Feb 2021 18:43:15 +0000 (UTC)
-Date: Wed, 10 Feb 2021 21:43:11 +0300
-From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-To: Florian Fainelli <f.fainelli@gmail.com>
-Message-ID: <20210210184311.ouc6zft675kybyjx@mobilestation>
-References: <20210210172850.20849-1-Sergey.Semin@baikalelectronics.ru>
- <e169630f-1255-7597-86f2-63ee8760cc8c@gmail.com>
+ Wed, 10 Feb 2021 20:19:19 +0000 (UTC)
+Received: by mail-oo1-f48.google.com with SMTP id j20so263330oor.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 10 Feb 2021 12:19:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=noYHEwVngp0MCW7P3WaZktPMzdf19liz0sKGmntgNy0=;
+ b=Rsrq+R+0T6itgiI+cXC0Rl4rOm+EmO+BFfa4UMTdw598SWrYS8PTQNdMEOTMb291W7
+ 6eGYPEZPyQpVURo9/AIRxKCaYhuf5NBZq1z4+vHq9ZUnMXlko3L+TA1vMuu2wN6cupbd
+ qGEfcaSj9lKyK2Q82XRGAh0bEKv95cSSZcla4GCazY4gU6ZZSlnpLCPpWNmgf4ioZgh8
+ vK98qmddaaLANmC+LWwejgDkyyb3qdRnEauoNtlYfjGLJMN9q4sKb3xIPJk2vP0cPGer
+ 1CUa98dHSNjLJHoc9jYTBR8yWCMPqSSlczTLs4nLzh86nYO2nXeW6VXxhAfg+R9iqwOF
+ sqeg==
+X-Gm-Message-State: AOAM533IPoN+8KHH5Lq4k7HtP2SlwzMxOURTSYWDUeB7lSRh3bclhLOV
+ CQ4cd3ex5JFzVC2eNYUJkw==
+X-Google-Smtp-Source: ABdhPJy8wefpU5pDQ9Fp79GZwiz6/pTPGaxuaccPU03yNTblR5fx4HkuOdEx1FI8cQ2sBeqrA2kysA==
+X-Received: by 2002:a4a:d10c:: with SMTP id k12mr3365088oor.74.1612988358484; 
+ Wed, 10 Feb 2021 12:19:18 -0800 (PST)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id t71sm669600oih.45.2021.02.10.12.19.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Feb 2021 12:19:17 -0800 (PST)
+Received: (nullmailer pid 2690943 invoked by uid 1000);
+ Wed, 10 Feb 2021 20:19:16 -0000
+Date: Wed, 10 Feb 2021 14:19:16 -0600
+From: Rob Herring <robh@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Message-ID: <20210210201916.GA2690885@robh.at.kernel.org>
+References: <20210208114659.15269-1-amelie.delaunay@foss.st.com>
+ <20210208114659.15269-2-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <e169630f-1255-7597-86f2-63ee8760cc8c@gmail.com>
-X-ClientProxiedBy: MAIL.baikal.int (192.168.51.25) To mail (192.168.51.25)
-Cc: Andrew Lunn <andrew@lunn.ch>, Amelie Delaunay <amelie.delaunay@st.com>,
- Tony Lindgren <tony@atomide.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Paul Cercueil <paul@crapouillou.net>, Paul Mackerras <paulus@samba.org>,
- Wei Xu <xuwei5@hisilicon.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
- Khuong Dinh <khuong@os.amperecomputing.com>, linux-samsung-soc@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Rafal Milecki <zajec5@gmail.com>, Alexey Brodkin <abrodkin@synopsys.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Andy Gross <agross@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
- linux-arm-msm@vger.kernel.org, linux-snps-arc@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- devicetree@vger.kernel.org, Jason Cooper <jason@lakedaemon.net>,
- Hauke Mehrtens <hauke@hauke-m.de>, linuxppc-dev@lists.ozlabs.org,
- Maxime Ripard <mripard@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>,
- Rob Herring <robh+dt@kernel.org>, Jun Li <lijun.kernel@gmail.com>,
- Santosh Shilimkar <ssantosh@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Felipe Balbi <balbi@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Patrice Chotard <patrice.chotard@st.com>,
- Serge Semin <fancer.lancer@gmail.com>, Li Yang <leoyang.li@nxp.com>,
- Kukjin Kim <kgene@kernel.org>, Benoit Cousson <bcousson@baylibre.com>,
- Vineet Gupta <vgupta@synopsys.com>, linux-mediatek@lists.infradead.org,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH RESEND v6 00/10] dt-bindings: usb:
- Harmonize xHCI/EHCI/OHCI/DWC3 nodes name
+In-Reply-To: <20210208114659.15269-2-amelie.delaunay@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: phy:
+ phy-stm32-usbphyc: add #clock-cells property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,112 +72,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Feb 10, 2021 at 10:21:47AM -0800, Florian Fainelli wrote:
-> On 2/10/21 9:28 AM, Serge Semin wrote:
-> > As the subject states this series is an attempt to harmonize the xHCI,
-> > EHCI, OHCI and DWC USB3 DT nodes with the DT schema introduced in the
-> > framework of the patchset [1].
-> > 
-> > Firstly as Krzysztof suggested we've deprecated a support of DWC USB3
-> > controllers with "synopsys,"-vendor prefix compatible string in favor of
-> > the ones with valid "snps,"-prefix. It's done in all the DTS files,
-> > which have been unfortunate to define such nodes.
-> > 
-> > Secondly we suggest to fix the snps,quirk-frame-length-adjustment property
-> > declaration in the Amlogic meson-g12-common.dtsi DTS file, since it has
-> > been erroneously declared as boolean while having uint32 type. Neil said
-> > it was ok to init that property with 0x20 value.
-> > 
-> > Thirdly the main part of the patchset concern fixing the xHCI, EHCI/OHCI
-> > and DWC USB3 DT nodes name as in accordance with their DT schema the
-> > corresponding node name is suppose to comply with the Generic USB HCD DT
-> > schema, which requires the USB nodes to have the name acceptable by the
-> > regexp: "^usb(@.*)?". Such requirement had been applicable even before we
-> > introduced the new DT schema in [1], but as we can see it hasn't been
-> > strictly implemented for a lot the DTS files. Since DT schema is now
-> > available the automated DTS validation shall make sure that the rule isn't
-> > violated.
-> > 
-> > Note most of these patches have been a part of the last three patches of
-> > [1]. But since there is no way to have them merged in in a combined
-> > manner, I had to move them to the dedicated series and split them up so to
-> > be accepted by the corresponding subsystem maintainers one-by-one.
-> > 
-> > [1] Link: https://lore.kernel.org/linux-usb/20201014101402.18271-1-Sergey.Semin@baikalelectronics.ru/
-> > Changelog v1:
-> > - As Krzysztof suggested I've created a script which checked whether the
-> >   node names had been also updated in all the depended dts files. As a
-> >   result I found two more files which should have been also modified:
-> >   arch/arc/boot/dts/{axc003.dtsi,axc003_idu.dtsi}
-> > - Correct the USB DWC3 nodes name found in
-> >   arch/arm64/boot/dts/apm/{apm-storm.dtsi,apm-shadowcat.dtsi} too.
-> > 
-> > Link: https://lore.kernel.org/linux-usb/20201020115959.2658-1-Sergey.Semin@baikalelectronics.ru
-> > Changelog v2:
-> > - Drop the patch:
-> >   [PATCH 01/29] usb: dwc3: Discard synopsys,dwc3 compatibility string
-> >   and get back the one which marks the "synopsys,dwc3" compatible string
-> >   as deprecated into the DT schema related series.
-> > - Drop the patches:
-> >   [PATCH 03/29] arm: dts: am437x: Correct DWC USB3 compatible string
-> >   [PATCH 04/29] arm: dts: exynos: Correct DWC USB3 compatible string
-> >   [PATCH 07/29] arm: dts: bcm53x: Harmonize EHCI/OHCI DT nodes name
-> >   [PATCH 08/29] arm: dts: stm32: Harmonize EHCI/OHCI DT nodes name
-> >   [PATCH 16/29] arm: dts: bcm5301x: Harmonize xHCI DT nodes name
-> >   [PATCH 19/29] arm: dts: exynos: Harmonize DWC USB3 DT nodes name
-> >   [PATCH 21/29] arm: dts: ls1021a: Harmonize DWC USB3 DT nodes name
-> >   [PATCH 22/29] arm: dts: omap5: Harmonize DWC USB3 DT nodes name
-> >   [PATCH 24/29] arm64: dts: allwinner: h6: Harmonize DWC USB3 DT nodes name
-> >   [PATCH 26/29] arm64: dts: exynos: Harmonize DWC USB3 DT nodes name
-> >   [PATCH 27/29] arm64: dts: layerscape: Harmonize DWC USB3 DT nodes name
-> >   since they have been applied to the corresponding maintainers repos.
-> > - Fix drivers/usb/dwc3/dwc3-qcom.c to be looking for the "usb@"-prefixed
-> >   sub-node and falling back to the "dwc3@"-prefixed one on failure.
-> > 
-> > Link: https://lore.kernel.org/linux-usb/20201111091552.15593-1-Sergey.Semin@baikalelectronics.ru
-> > Changelog v3:
-> > - Drop the patches:
-> >   [PATCH v2 04/18] arm: dts: hisi-x5hd2: Harmonize EHCI/OHCI DT nodes name
-> >   [PATCH v2 06/18] arm64: dts: hisi: Harmonize EHCI/OHCI DT nodes name
-> >   [PATCH v2 07/18] mips: dts: jz47x: Harmonize EHCI/OHCI DT nodes name
-> >   [PATCH v2 08/18] mips: dts: sead3: Harmonize EHCI/OHCI DT nodes name
-> >   [PATCH v2 09/18] mips: dts: ralink: mt7628a: Harmonize EHCI/OHCI DT nodes name
-> >   [PATCH v2 11/18] arm64: dts: marvell: cp11x: Harmonize xHCI DT nodes name
-> >   [PATCH v2 12/18] arm: dts: marvell: armada-375: Harmonize DWC USB3 DT nodes name
-> >   [PATCH v2 16/18] arm64: dts: hi3660: Harmonize DWC USB3 DT nodes name
-> >   since they have been applied to the corresponding maintainers repos.
-> > 
-> > Link: https://lore.kernel.org/linux-usb/20201205155621.3045-1-Sergey.Semin@baikalelectronics.ru
-> > Changelog v4:
-> > - Just resend.
-> > 
-> > Link: https://lore.kernel.org/linux-usb/20201210091756.18057-1-Sergey.Semin@baikalelectronics.ru/
-> > Changelog v5:
-> > - Drop the patch:
-> >   [PATCH v4 02/10] arm64: dts: amlogic: meson-g12: Set FL-adj property value
-> >   since it has been applied to the corresponding maintainers repos.
-> > - Get back the patch:
-> >   [PATCH 21/29] arm: dts: ls1021a: Harmonize DWC USB3 DT nodes name
-> >   as it has been missing in the kernel 5.11-rc7
-> > - Rebase onto the kernel 5.11-rc7
-> > 
-> > Link: https://lore.kernel.org/lkml/20210208135154.6645-1-Sergey.Semin@baikalelectronics.ru/
-> > Changelog v6:
-> > - Just resend and add linux-usb.vger.kernel.org to the list of Ccecipients.
+On Mon, 08 Feb 2021 12:46:58 +0100, Amelie Delaunay wrote:
+> usbphyc provides a unique clock called ck_usbo_48m.
+> STM32 USB OTG needs a 48Mhz clock (utmifs_clk48) for Full-Speed operation.
+> ck_usbo_48m is a possible parent clock for USB OTG 48Mhz clock.
 > 
+> ck_usbo_48m is available as soon as the PLL is enabled.
+> 
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> ---
+> Changes in v3:
+> - remove #clock-cells from required properties
+> ---
+>  Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
 
-> If this needs to go on, can you drop the people who already took your
-> patches (trying to lower my email amount to something manageable).
-> Thank you.
-
-Ah, sorry for the noise. I'll clean the Cc-list up in the next attempt
-to have this finally fully accepted.
-
--Sergey
-
-> -- 
-> Florian
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
