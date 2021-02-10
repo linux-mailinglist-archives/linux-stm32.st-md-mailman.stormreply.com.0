@@ -2,66 +2,123 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 293473159FA
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Feb 2021 00:24:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F246315FB6
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Feb 2021 07:49:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2133C57B52;
-	Tue,  9 Feb 2021 23:24:16 +0000 (UTC)
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27143C57B52;
+	Wed, 10 Feb 2021 06:49:45 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2063.outbound.protection.outlook.com [40.107.92.63])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9534EC3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E63E3C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Feb 2021 23:24:14 +0000 (UTC)
-Received: by mail-oi1-f181.google.com with SMTP id h6so23088oie.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Feb 2021 15:24:14 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=c0+mQvbUzr0QHjab9b+cDuiuwKG7CNWq4G/aggiV8ko=;
- b=ExdcmZwixEeWUFwA5PkTknuHNiQQ51fbR2VS/h1N1YRJPE9xDrqf7TzD4t855rtKQh
- caCRjuLfF6RHaYNpbkJVdCLO2vmlXbEAUGBYcloaXFA3kT5NTPn9xGQATR1OkluAZvyt
- +TvX6EEv/UAnROqane3BPGattzQCH/ha+aryHulu7ovJaH73XbnBX9rBDIIw7LRU5ZqI
- jgZs6213TcYkCQ8yxCfKQ8hkMN9arXs36Q8s1hN11vPC+UOaRbajQ5pFaiXy8KfnUQ+T
- vG0x6Da7TSwLFJ8Z3TAUOyeFkDEXv6VR8+eLwYtwEHjrkui+xmZgdEvoDX/71JWWI3OL
- KKjQ==
-X-Gm-Message-State: AOAM532n9ZNYmJ4kCBPqzdVnyaUSxrvbuX5nrrAFEz3VORsg1/etcagq
- HFw7zVWX5qc9X9EyAhzz/Q==
-X-Google-Smtp-Source: ABdhPJz6qtqiolUfmqOCucOTDw4UZsTDHjUdAxJoYxLAfMasBXNXmWyKEfqfN3viNqLICssfBelF6g==
-X-Received: by 2002:aca:570d:: with SMTP id l13mr91914oib.159.1612913053378;
- Tue, 09 Feb 2021 15:24:13 -0800 (PST)
-Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id q3sm51946oih.35.2021.02.09.15.24.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Feb 2021 15:24:11 -0800 (PST)
-Received: (nullmailer pid 428235 invoked by uid 1000);
- Tue, 09 Feb 2021 23:24:10 -0000
-Date: Tue, 9 Feb 2021 17:24:10 -0600
-From: Rob Herring <robh@kernel.org>
+ Wed, 10 Feb 2021 06:49:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Y04cUwmiZ/OTV5iz0cthQRQsT0JJoyXTE567ubEqGwFbT0tRZ8T2uh5mOad7RnBxnUuSoqlvdwj5kVH93iEc9M0fyjkzQMkur7Rnb3G4kv0EGBa0W6W/aseDftsQj635lq0GgusfcHY8v2z18Mdg/GiEeVR1LRH9xpqZEAX2gAioRIpMaDhs2Wnl2iP9OiyKueraRAq1Od8ym9HsrFqGq2g3GMbP2OXInNkp6aEGsrwOQ3bqMBqlENd5+u6MJkJ6qKRMy69KwcjyxfdA0JhEBVdLUM64JObPwaBMYDbT9s3b5RmUAAOroXYUaxnlpYxdmF17nTVmIfJmLc1FddcIIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PbV6nW5baTyjEmzuxlXSA8LwDdhJlWEPQRcn+9oiSRA=;
+ b=Kcom0pmEDlCEbIZ1+aa/1qy160REz0XRa+/AJ0GG1B2xN2AfWQg7cwJv7EQdUwCGghTnSSVqv/0I303GheOtPQFwe8a/qGcnq/Y5BvmSg7B4GtYzK0kQHDSXG/RsxciD2VtrkODiZMeducYjw+pwXmCbfPGx61oxQfooiSFKM3XniwWBF/e3JfBObSE20MCS0dYT4zjEPlvvJO7mXXa21DNSTZpN2Uu2itxZwkwOQ/CLBF20lFtNfCIrB2mbuto8a1s1khEWuUZMVc7srtVlPuNM67z4awSe8oqC0HNMgvwwExaDP2HCdJc6agoxlqKyo8+ADRcRNnzvHdzIe/WoRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synaptics.com; dmarc=pass action=none
+ header.from=synaptics.com; dkim=pass header.d=synaptics.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=Synaptics.onmicrosoft.com; s=selector2-Synaptics-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PbV6nW5baTyjEmzuxlXSA8LwDdhJlWEPQRcn+9oiSRA=;
+ b=P4SpLiKhAeagExrJvYzlWHqoC05SI2JkEHVfcEDuJe0E04szMA+kkU08irTcZhvaa7b8GKXgcdsO1jPzw0NBAPQG3A8vrYIp/8QdomxgjWkIzGSZra3yDOxbfVT5n0RI5ucBhI2xJt7xpqvVi+XJkzJ9+gYXT5j4kVW7pZ9LQZ4=
+Authentication-Results: baikalelectronics.ru; dkim=none (message not signed)
+ header.d=none;baikalelectronics.ru; dmarc=none action=none
+ header.from=synaptics.com;
+Received: from BN8PR03MB4724.namprd03.prod.outlook.com (2603:10b6:408:96::21)
+ by BN6PR03MB2660.namprd03.prod.outlook.com (2603:10b6:404:53::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.25; Wed, 10 Feb
+ 2021 06:49:37 +0000
+Received: from BN8PR03MB4724.namprd03.prod.outlook.com
+ ([fe80::34cf:5dc3:971:82a7]) by BN8PR03MB4724.namprd03.prod.outlook.com
+ ([fe80::34cf:5dc3:971:82a7%5]) with mapi id 15.20.3846.026; Wed, 10 Feb 2021
+ 06:49:37 +0000
+Date: Wed, 10 Feb 2021 14:49:24 +0800
+From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
 To: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-Message-ID: <20210209232410.GA410815@robh.at.kernel.org>
-References: <20210208140820.10410-1-Sergey.Semin@baikalelectronics.ru>
- <20210208140820.10410-3-Sergey.Semin@baikalelectronics.ru>
+Message-ID: <20210210144924.6b8e7a11@xhacker.debian>
+In-Reply-To: <20210208135609.7685-17-Sergey.Semin@baikalelectronics.ru>
+References: <20210208135609.7685-1-Sergey.Semin@baikalelectronics.ru>
+ <20210208135609.7685-17-Sergey.Semin@baikalelectronics.ru>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+X-Originating-IP: [192.147.44.204]
+X-ClientProxiedBy: BY5PR04CA0025.namprd04.prod.outlook.com
+ (2603:10b6:a03:1d0::35) To BN8PR03MB4724.namprd03.prod.outlook.com
+ (2603:10b6:408:96::21)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210208140820.10410-3-Sergey.Semin@baikalelectronics.ru>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
- Serge Semin <fancer.lancer@gmail.com>,
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from xhacker.debian (192.147.44.204) by
+ BY5PR04CA0025.namprd04.prod.outlook.com (2603:10b6:a03:1d0::35) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3846.25 via Frontend
+ Transport; Wed, 10 Feb 2021 06:49:30 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1a66cb2f-6bb1-4de2-2a86-08d8cd900874
+X-MS-TrafficTypeDiagnostic: BN6PR03MB2660:
+X-Microsoft-Antispam-PRVS: <BN6PR03MB26606B5FB6AE9163D74730B2ED8D9@BN6PR03MB2660.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: B8Ytj37ZQUkkx2BbY5EchVa2+3amlGpcZWpLOX073vszfmqP29GpQ+7Po4CStvOJdMkO4c840s+LMwK0rIFQLlvXKFxaFY1Iy8fWkD/4hyzqc3ZFir6OiilZFjIS6PuJmgQjowLNOqws5LgVpYx1MC7qVQgr24DNOyETuxC06Slt1rGWtbBtcTu99o26i9vY+w/mALdJBke8EE6IWR9Xe4mqnqbCT4RymxT+Y+yep7X4GsjFPyzWrPjG1HT1oRWrQiXO+YVOrFf6wyYgbz4GViW9pmJVbFthQxdJJiv0SRr9XD+5F1NdLFIxvG2VOvGA+OtbrtZySej0WoVVn94N7aEzj/hz2fwR3k4MqCTri+Dn4CERP+4pc2cK4h6fcm94Yg9goHkm+UapsovMEFTE5emrjiruXcuLjppmP8vZx0CgFZ2aXSG0vBGTAo/0Bkh/rijkIYpmEfG3NdvgrvKhSntVsq+5XaiHEKp7L0UigX4BSvtIX/SXyga76SZtlIOVk3u5aY38FZ0nQmnHCoKnzg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR03MB4724.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(136003)(366004)(376002)(396003)(39860400002)(6916009)(6506007)(956004)(186003)(6666004)(16526019)(7416002)(86362001)(4326008)(8676002)(9686003)(316002)(55016002)(83380400001)(26005)(478600001)(66946007)(54906003)(1076003)(5660300002)(52116002)(2906002)(7696005)(66476007)(66556008)(8936002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?KDUSGnfrGT/DW3R8hCPzuG0fBRjiLE3wLDqxAKvyahhLdrZGmtCCC+XylVNb?=
+ =?us-ascii?Q?kRUvaBTjas1Ag2Hz3Oc8bOsc8d4kiei04oJmGlm0SiuEwwQLPFrUpkSumIVN?=
+ =?us-ascii?Q?4u0vyYWOJo/uur4MPBJOmJ+2hZSutM5eezSX31efT3GkZOUWxLB99JSNKfxN?=
+ =?us-ascii?Q?2R0/diL/yFmCm2ZETcEC3Hp4I7zESUcvnblZk/5O8C972DOvyxbyHXucuxop?=
+ =?us-ascii?Q?emktR6kCAykjIVhg1qCAGE6+heLBl/YodtQ/d0L6inAZ7k6O5Ba9xMesKMYn?=
+ =?us-ascii?Q?M1DIun2fdT/V/cPlNcRSAHtvnEC54uX5VNDhdoDcZuiGHX22++kidp/bfPfC?=
+ =?us-ascii?Q?eGERhX71djpONja7LbDA/M99gLlEOKXu1tu+4FrKXFKk9GNrtqw0fk6t3F5/?=
+ =?us-ascii?Q?XseH+DU8o66aYsY6Y5hfssa92H5HIAujDjrKONGGkG/wSSevlw0Q0l6VwvCk?=
+ =?us-ascii?Q?BgL/ubur0X2h8bxzWhaQq1cV8BMoJcB4cYphtM3HPQY8rdKZAAm8N8V1/HfS?=
+ =?us-ascii?Q?bbv8Orf97SERClZbPn7tciPEC1rqhwpE1iH1IJThop/PK5/Y+GyD7D+yrvO7?=
+ =?us-ascii?Q?0IdKIHFSFaPHwt7qY3hThAbk4G62/fu8lm4AhAz5cWaEcEhEsULvGNzFjB5L?=
+ =?us-ascii?Q?792NvbyJsfdVlwqeCmzZg5QbGNNaIvjIEheNzBv0Bt46mSWrrAV57P2t5Uks?=
+ =?us-ascii?Q?jxyb6pEL10Mpuuzr0e4htJfA+P8FAqjEPMkyJwiZGmcUsXGwPEZ+ICtFL9Te?=
+ =?us-ascii?Q?SbQ84I8JUF3WJpmaWG2FH7VMNBdg5A+MuahEqf6XblvmvPxGeNlAPujiBsXx?=
+ =?us-ascii?Q?yQkkFkvr5ugYjo6d1ZS0RfoamxbrXaZUgrWS4Og/L/+yYD1bXIHLGyYxSKJb?=
+ =?us-ascii?Q?VXLOJy7qqz0HumIvrpT7SsTdElg7T5ORDk+k/TLgJvAxV0EHQAJYKdC/RbUC?=
+ =?us-ascii?Q?kN5ML2xjEe8nHeQCsZZihEhb1EvY7jLIcM1LCxVRslQri0IbanSQuY4vo939?=
+ =?us-ascii?Q?f6/xwDrxcgGCXbNgZeByFHXDNE2cxDd8GT8B86QCCR8PSm7i8/r5FC5R4m+u?=
+ =?us-ascii?Q?WrD/Kz95AgiRZAkX5hhHqSXc60MdPe/0QOFOsMk9wlbTi6Th+Ptj+lEikXjS?=
+ =?us-ascii?Q?U2EDLUh7w2cZ5Ew02bZZMxKYxK7mdl3Q+3eYIddVD+SocnKiaROyUXBmE6jf?=
+ =?us-ascii?Q?DSex7HkMT19RN2wcdMlkSNJRZJgNwUbIBYNmmrdunfcfH5/rZy7rwMryiI8E?=
+ =?us-ascii?Q?C4T5K8FEUulh6FqPGbqHbLh1kKrL4+eCpQuPObF9SjOT3aTg61+9kG5bgIkF?=
+ =?us-ascii?Q?vxNdCwsN6UDvqkaVf+Xj861E?=
+X-OriginatorOrg: synaptics.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a66cb2f-6bb1-4de2-2a86-08d8cd900874
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR03MB4724.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2021 06:49:37.4610 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gAV/9lfUEpc/xkeXpDRa8Snkk+P9mtmqbKLM1fxLJZn5ckEFXaZDd73/fLiko/ij3EVwLebDxadfoQ8PZvYVaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR03MB2660
+Cc: Jose Abreu <joabreu@synopsys.com>, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>, devicetree@vger.kernel.org,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ Lars Persson <larper@axis.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Johan Hovold <johan@kernel.org>, Maxime Ripard <mripard@kernel.org>,
  Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- Jose Abreu <joabreu@synopsys.com>,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
+ Rob Herring <robh+dt@kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 02/16] dt-bindings: net: Add Baikal-T1
-	GMAC bindings
+ Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>
+Subject: Re: [Linux-stm32] [PATCH v2 16/24] net: stmmac: Use optional reset
+ control API to work with stmmaceth
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,49 +135,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 08, 2021 at 05:08:06PM +0300, Serge Semin wrote:
-> Baikal-T1 SoC is equipped with two DW GMAC v3.73a-based 1GBE ethernet
-> interfaces synthesized with: RGMII PHY interface, AXI-DMA and APB3 CSR,
-> 16KB Tx/Rx FIFOs and PBL up to half of that, PTP, PMT, TCP/IP CoE, up to 4
-> outstanding AXI read/write requests, maximum AXI burst length of 16 beats,
-> up to eight MAC address slots, one GPI and one GPO ports. Generic DW
-> MAC/STMMAC driver will easily handle the DT-node describing the Baikal-T1
-> GMAC network devices, but the bindings still needs to be created to have a
-> better understanding of what the interface looks like.
+Hi,
+
+On Mon, 8 Feb 2021 16:56:00 +0300 Serge Semin wrote:
+
+
 > 
+> Since commit bb3222f71b57 ("net: stmmac: platform: use optional clk/reset
+> get APIs") a manual implementation of the optional device reset control
+> functionality has been replaced with using the
+> devm_reset_control_get_optional() method. But for some reason the optional
+> reset control handler usage hasn't been fixed and preserved the
+> NULL-checking statements. There is no need in that in order to perform the
+> reset control assertion/deassertion because the passed NULL will be
+> considered by the reset framework as absent optional reset control handler
+> anyway.
+> 
+> Fixes: bb3222f71b57 ("net: stmmac: platform: use optional clk/reset get APIs")
+
+The patch itself looks good, but the Fix tag isn't necessary since the
+patch is a clean up rather than a bug fix. Can you please drop it in next
+version?
+
+Thanks
+
 > Signed-off-by: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-> 
 > ---
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 ++++++++-----------
+>  1 file changed, 8 insertions(+), 11 deletions(-)
 > 
-> Rob, please note I couldn't declare the axi-config object properties constraints
-> without specifying the properties type and description. If I remove them the
-> dt_binding_check will curse with the error:
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 4f1bf8f6538b..a8dec219c295 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4935,15 +4935,13 @@ int stmmac_dvr_probe(struct device *device,
+>         if ((phyaddr >= 0) && (phyaddr <= 31))
+>                 priv->plat->phy_addr = phyaddr;
 > 
-> >> .../baikal,bt1-gmac.yaml: properties:axi-config:properties:snps,blen: 'description' is a required property
-> >> .../baikal,bt1-gmac.yaml: properties:axi-config:properties:snps,wr_osr_lmt: 'oneOf' conditional failed, one must be fixed:
->         'type' is a required property
->         Additional properties are not allowed ('maximum' was unexpected)
-> >> ...
+> -       if (priv->plat->stmmac_rst) {
+> -               ret = reset_control_assert(priv->plat->stmmac_rst);
+> -               reset_control_deassert(priv->plat->stmmac_rst);
+> -               /* Some reset controllers have only reset callback instead of
+> -                * assert + deassert callbacks pair.
+> -                */
+> -               if (ret == -ENOTSUPP)
+> -                       reset_control_reset(priv->plat->stmmac_rst);
+> -       }
+> +       ret = reset_control_assert(priv->plat->stmmac_rst);
+> +       reset_control_deassert(priv->plat->stmmac_rst);
+> +       /* Some reset controllers have only reset callback instead of
+> +        * assert + deassert callbacks pair.
+> +        */
+> +       if (ret == -ENOTSUPP)
+> +               reset_control_reset(priv->plat->stmmac_rst);
 > 
-> I did't know what to do with these errors, so I just created normal sub-node
-> properties with stricter constraints than they are specified in the main
-> snps,dwmac.yaml schema. Any suggestion what is a better way to apply
-> additional constraints on sub-node properties?
+>         /* Init MAC and get the capabilities */
+>         ret = stmmac_hw_init(priv);
+> @@ -5155,8 +5153,7 @@ int stmmac_dvr_remove(struct device *dev)
+>         stmmac_exit_fs(ndev);
+>  #endif
+>         phylink_destroy(priv->phylink);
+> -       if (priv->plat->stmmac_rst)
+> -               reset_control_assert(priv->plat->stmmac_rst);
+> +       reset_control_assert(priv->plat->stmmac_rst);
+>         if (priv->hw->pcs != STMMAC_PCS_TBI &&
+>             priv->hw->pcs != STMMAC_PCS_RTBI)
+>                 stmmac_mdio_unregister(ndev);
+> --
+> 2.29.2
+> 
 
-Yes, that's known problem which I don't have a solution for. I think the 
-solution is checking all properties have a type defined once and only 
-once. That would also make sure we don't have 2 property names with 
-different types. With that we can loosen the meta-schema checks. In the 
-vast majority of cases though we need a type, so the exceptions like 
-here will need to duplicate the type and description.
-
-
-Reviewed-by: Rob Herring <robh@kernel.org>
-
-> ---
->  .../bindings/net/baikal,bt1-gmac.yaml         | 150 ++++++++++++++++++
->  1 file changed, 150 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/baikal,bt1-gmac.yaml
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
