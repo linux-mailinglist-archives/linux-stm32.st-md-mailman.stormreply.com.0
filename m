@@ -2,47 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8DC4318894
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Feb 2021 11:52:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC6E03188F0
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Feb 2021 12:07:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95F7DC57B56;
-	Thu, 11 Feb 2021 10:52:47 +0000 (UTC)
-Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
- [87.245.175.226])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83AFEC57189
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A7FDC57B56;
+	Thu, 11 Feb 2021 11:07:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC7E8C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Feb 2021 10:52:45 +0000 (UTC)
-Date: Thu, 11 Feb 2021 13:52:42 +0300
-From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
-To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-Message-ID: <20210211105242.xqdxdcnxrsgwbcvx@mobilestation>
-References: <20210208140341.9271-1-Sergey.Semin@baikalelectronics.ru>
- <20210208140341.9271-2-Sergey.Semin@baikalelectronics.ru>
- <8300d9ca-b877-860f-a975-731d6d3a93a5@gmail.com>
- <20210209101528.3lf47ouaedfgq74n@mobilestation>
- <a652c69b-94d3-9dc6-c529-1ebc0ed407ac@gmail.com>
- <20210209105646.GP1463@shell.armlinux.org.uk>
- <20210210164720.migzigazyqsuxwc6@mobilestation>
- <20210211103941.GW1463@shell.armlinux.org.uk>
+ Thu, 11 Feb 2021 11:07:14 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 11BB74Bv028238; Thu, 11 Feb 2021 12:07:05 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : content-type : content-transfer-encoding :
+ mime-version; s=selector1;
+ bh=OeVb/YX9vc0dVFhSp2zIejtpz3jrgkcK0rTNlrGiJj4=;
+ b=CpzT8oAZ5Hu7FV8crOCSrZWHKjASxYMNY2/yKUdKbAkkEVGu/tK0jxTht0f0ZCDACCRL
+ fbAZbOpHpDtiJokRokQs5Dg9HBSFBtNCKxESk6huJuU6eIFrTJNQnUqDLzqYU7pHfszN
+ 0u3ERONsLSyjFBjwB2AvgwG7b6GarPd8k1x6a1w5UzA0iKUOwcFCA8gXvhdALKX6pQ9k
+ cazu+tV4p5v4+DluT+UzALR+6l73A20X2mDUvowP9OA24/cp4kbgk3Fo5kIp6SMlCU7+
+ el6Ra4I6NQGcVV2p7WRpAtlPoRWIvOkanP61QAjtqqrhMfYjNcFLUaW3RGSY5S19Ph0J dg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36hr2cp4mk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Feb 2021 12:07:05 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3CBDD10002A;
+ Thu, 11 Feb 2021 12:07:04 +0100 (CET)
+Received: from Webmail-eu.st.com (gpxdag2node6.st.com [10.75.127.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2BDDC225892;
+ Thu, 11 Feb 2021 12:07:04 +0100 (CET)
+Received: from GPXDAG2NODE6.st.com (10.75.127.70) by GPXDAG2NODE6.st.com
+ (10.75.127.70) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 11 Feb
+ 2021 12:07:03 +0100
+Received: from GPXDAG2NODE6.st.com ([fe80::bc43:6900:9b0:6519]) by
+ GPXDAG2NODE6.st.com ([fe80::bc43:6900:9b0:6519%19]) with mapi id
+ 15.00.1473.003; Thu, 11 Feb 2021 12:07:03 +0100
+From: Valentin CARON - foss <valentin.caron@foss.st.com>
+To: Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>
+Thread-Topic: [PATCH] ARM: dts: stm32: fix usart 2 & 3 pinconf to wake up with
+ flow control
+Thread-Index: AQHXAGYHV6g+MvDZYkWHZvdvB4+Udw==
+Date: Thu, 11 Feb 2021 11:07:03 +0000
+Message-ID: <20210211110620.31594-1-valentin.caron@foss.st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.119]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210211103941.GW1463@shell.armlinux.org.uk>
-X-ClientProxiedBy: MAIL.baikal.int (192.168.51.25) To mail (192.168.51.25)
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- Joao Pinto <Joao.Pinto@synopsys.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
- Jose Abreu <joabreu@synopsys.com>,
- Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 01/20] net: phy: realtek: Fix events
- detection failure in LPI mode
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
+ definitions=2021-02-11_05:2021-02-10,
+ 2021-02-11 signatures=0
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: fix usart 2 & 3 pinconf to
+ wake up with flow control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,47 +85,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 11, 2021 at 10:39:41AM +0000, Russell King - ARM Linux admin wrote:
-> On Wed, Feb 10, 2021 at 07:47:20PM +0300, Serge Semin wrote:
-> > On Tue, Feb 09, 2021 at 10:56:46AM +0000, Russell King - ARM Linux admin wrote:
-> > > On Tue, Feb 09, 2021 at 11:37:29AM +0100, Heiner Kallweit wrote:
-> > > > Right, adding something like a genphy_{read,write}_mmd() doesn't make
-> > > > too much sense for now. What I meant is just exporting mmd_phy_indirect().
-> > > > Then you don't have to open-code the first three steps of a mmd read/write.
-> > > > And it requires no additional code in phylib.
-> > > 
-> > > ... but at the cost that the compiler can no longer inline that code,
-> > > as I mentioned in my previous reply. (However, the cost of the accesses
-> > > will be higher.) On the plus side, less I-cache footprint, and smaller
-> > > kernel code.
-> > 
-> > Just to note mmd_phy_indirect() isn't defined with inline specifier,
-> > but just as static and it's used twice in the
-> > drivers/net/phy/phy-core.c unit. So most likely the compiler won't
-> > inline the function code in there.
-> 
-> You can't always tell whether the compiler will inline a static function
-> or not.
-> 
-> > Anyway it's up to the PHY
-> > library maintainers to decide. Please settle the issue with Heiner and
-> > Andrew then. I am ok with both solutions and will do as you decide.
-> 
+Modify usart 2 & 3 pins to allow wake up from low power mode while the
+hardware flow control is activated. UART RTS pin need to stay configure
+in idle mode to receive characters in order to wake up.
 
-> FYI, *I* am one of the phylib maintainers.
+Fixes: 842ed898a757 ("ARM: dts: stm32: add usart2, usart3 and uart7 pins in stm32mp15-pinctrl")
 
-Of course I saw you in the list of maintainers. My message was that
-currently two maintainers claims contradicting requests. Thus in order
-to go further with this patch first you need to get to some agreement
-between yourself. That's why we need to have a response from Hainer
-about your arguments against his suggestion.
+Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
--Sergey
-
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index 7b4249ed1983..060baa8b7e9d 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -1891,10 +1891,15 @@
+ 	usart2_idle_pins_c: usart2-idle-2 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('D', 5, ANALOG)>, /* USART2_TX */
+-				 <STM32_PINMUX('D', 4, ANALOG)>, /* USART2_RTS */
+ 				 <STM32_PINMUX('D', 3, ANALOG)>; /* USART2_CTS_NSS */
+ 		};
+ 		pins2 {
++			pinmux = <STM32_PINMUX('D', 4, AF7)>; /* USART2_RTS */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <3>;
++		};
++		pins3 {
+ 			pinmux = <STM32_PINMUX('D', 6, AF7)>; /* USART2_RX */
+ 			bias-disable;
+ 		};
+@@ -1940,10 +1945,15 @@
+ 	usart3_idle_pins_b: usart3-idle-1 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('B', 10, ANALOG)>, /* USART3_TX */
+-				 <STM32_PINMUX('G', 8, ANALOG)>, /* USART3_RTS */
+ 				 <STM32_PINMUX('I', 10, ANALOG)>; /* USART3_CTS_NSS */
+ 		};
+ 		pins2 {
++			pinmux = <STM32_PINMUX('G', 8, AF8)>; /* USART3_RTS */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins3 {
+ 			pinmux = <STM32_PINMUX('B', 12, AF8)>; /* USART3_RX */
+ 			bias-disable;
+ 		};
+@@ -1976,10 +1986,15 @@
+ 	usart3_idle_pins_c: usart3-idle-2 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('B', 10, ANALOG)>, /* USART3_TX */
+-				 <STM32_PINMUX('G', 8, ANALOG)>, /* USART3_RTS */
+ 				 <STM32_PINMUX('B', 13, ANALOG)>; /* USART3_CTS_NSS */
+ 		};
+ 		pins2 {
++			pinmux = <STM32_PINMUX('G', 8, AF8)>; /* USART3_RTS */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins3 {
+ 			pinmux = <STM32_PINMUX('B', 12, AF8)>; /* USART3_RX */
+ 			bias-disable;
+ 		};
+-- 
+2.17.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
