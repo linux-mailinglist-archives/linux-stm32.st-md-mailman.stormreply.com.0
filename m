@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0835B319E01
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 13:14:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C200319E02
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 13:14:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C314FC57B5B;
-	Fri, 12 Feb 2021 12:14:42 +0000 (UTC)
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5B93C57B5B;
+	Fri, 12 Feb 2021 12:14:48 +0000 (UTC)
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
+ [209.85.222.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18A2AC57B59
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11503C57B59
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 12:14:41 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id m144so8400905qke.10
+ Fri, 12 Feb 2021 12:14:47 +0000 (UTC)
+Received: by mail-qk1-f181.google.com with SMTP id t63so8425844qkc.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 04:14:41 -0800 (PST)
+ Fri, 12 Feb 2021 04:14:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=4RVacsqoYzmylNKCath3c3Ne8oWPnlwk8NYh3tn8zeA=;
- b=SKctp4vDgTsV14fVKI7dhcglVl2L1UAIHQ/X/m4dhyJAABbwmQIbaHLQCJV0LfpTNg
- 9QGhruNMC84onXhOn1rLtQD4JFNzmReZndfh6wDUcHzvjmDxvfMpOz5M9Vsph/RE5cad
- BmB90edCp+b5pgdhWxp08y1zSRWSZRrhLlKg26/XsPy6H580e23NRioA9rG25ER/fHUq
- 6aCc9iN9h6RQcgwtuGrvn1kBXuhLfDfLbNt4eNqduF+6iHhx5zcYWsE12yuwhoeOEiDu
- rQ/8qWqSVjmUFqiMoTx2jJ5R5upBh+b1dXfxZkPcSMVF/u4QwuxQ/DdEnDFQGcPhbJVd
- Wzpw==
+ bh=wQvnOEOCiwFowILdQGnHkV7MlEe+qaKqvDn1S6Ccy7g=;
+ b=bdsQe4Txc9lwEijLlKMFaPEa0e+EzyJkmU6+anMzUqwzXzWjrQXX64zJKXVt0J5UwR
+ Sebzf93XCIn8+aRZ3aSRjMh+8Z6VrllNvRhbQKeV5yZH1a4BTDW3PCalIrpOuAykH5kN
+ 8rhVzzN3PrKmsuEogm98LrAzrgYK9Q+Rr18zR7idWcoa0vQcRT4oW5/Ua80kIxgWK37k
+ d2yhgZbOWUHkvIrHsLCHEUfjqs8XP7AbNP5zMCFnX/tlbJpVPlbvXUZx3P1FdD/hsCqA
+ WnUvEaIDGn8AZTn4/xcX2rnTujLNcXlfYXIRydGQ6rep13ggvlj0qn3LDZwmzAQx9wxV
+ 4ziQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=4RVacsqoYzmylNKCath3c3Ne8oWPnlwk8NYh3tn8zeA=;
- b=jRfX5dDAbDD4m/ZZUsj+HbdGkAicdYfIWsLK0wzzpaw6bgLI7F1B6Sx01LytXMSmbk
- idqhI647sAZl4M4AKE+EkMXgVkf6Whc8GaQTtk2u9dzp3JwLw+OzWOLfKIjiLHDTYQ8f
- R8i0LS04cDYCrsm4GFFNRM06SqxQxGNahlNwWXfky6K/P+YeSJbLqKaCBXjXc3ph+EUG
- H1PIihCpIHBok6glUC+w7IT1LNAt6gxQM6VHQWf4YdaWByPCmjT03peVZS4mbVMWwxAg
- JjKDPSqtICkldi2Fx4vz1sHqg2KV1KVPH7tO92wqKtEmgvg7UW2byl69hrJM0/MNFQpH
- V+qg==
-X-Gm-Message-State: AOAM530vPxbV4iBiUzvdjq+KNBOarXevOZq8u5sV1QhZeK2hQyHGEXUC
- HjEhXmyNF3nu39bPRDQqBUk=
-X-Google-Smtp-Source: ABdhPJyAo21v5popAcAZAA/3yEpMI6qCZtg0s/4jH5oGtDgCZb40rgb3q4w+8k/AySBSxaYjvVEV0w==
-X-Received: by 2002:a37:6484:: with SMTP id y126mr2179765qkb.430.1613132080125; 
- Fri, 12 Feb 2021 04:14:40 -0800 (PST)
+ bh=wQvnOEOCiwFowILdQGnHkV7MlEe+qaKqvDn1S6Ccy7g=;
+ b=hgeR3fQPpD9JzTNHikPVw5HQQn9luR5XQrVemXgmtYZAwvruhLr2uY7PqJNjYubGMv
+ kf5c16NlOT/yNnekp39QF6zYM3Xfa1I6Nnaw1NBbFXbWLxJwLjYqoFxyj0SlDNmyLQJX
+ ikKkixLeL5Br6Mvz49PyGVZ2Gv6zhxWzeXPW4nY/LrwnWRNuktaKn1VBnlwsC6q4SjRo
+ OmbyhchwOEr5GtBXM1dfNmByoJuw02o/EY/xkWaYv0XmSKDy3SzBivn3sp68+ITC526i
+ 8ijwIL2lKypNZMOba1YyxRnietBqp5wCf4jXOglbY5jVhFVdymCfGIFSd2AJQ8hn2+pT
+ LXlg==
+X-Gm-Message-State: AOAM531Cgk7UeJlBy9CysaOfxgMaRuDj5+jfyQgrXV0DAAhKDRjBbWe2
+ 5NMFnt+83A5OF7THmm+DoNs=
+X-Google-Smtp-Source: ABdhPJwelSEgslAQWW2y09Ci4d8oryQY/d8G2mwivnjD0nkdPt3Wu1h6AiyrWucXHLu1Rw4Qq6YYTw==
+X-Received: by 2002:a37:4242:: with SMTP id p63mr2258218qka.396.1613132086087; 
+ Fri, 12 Feb 2021 04:14:46 -0800 (PST)
 Received: from localhost.localdomain ([193.27.12.132])
- by smtp.gmail.com with ESMTPSA id y135sm6278534qkb.14.2021.02.12.04.14.34
+ by smtp.gmail.com with ESMTPSA id y135sm6278534qkb.14.2021.02.12.04.14.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Feb 2021 04:14:39 -0800 (PST)
+ Fri, 12 Feb 2021 04:14:45 -0800 (PST)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Fri, 12 Feb 2021 21:13:31 +0900
-Message-Id: <0ae8373f4e587981a409a36cfea70328b5153ed3.1613131238.git.vilhelm.gray@gmail.com>
+Date: Fri, 12 Feb 2021 21:13:32 +0900
+Message-Id: <9089abe5800ba8a761c6bf1a83e77dfd2686e656.1613131238.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <cover.1613131238.git.vilhelm.gray@gmail.com>
 References: <cover.1613131238.git.vilhelm.gray@gmail.com>
@@ -62,7 +62,7 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v8 07/22] counter: 104-quad-8: Add const
+Subject: [Linux-stm32] [PATCH v8 08/22] counter: ftm-quaddec: Add const
 	qualifier for actions_list array
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -82,34 +82,27 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The struct counter_synapse actions_list member expects a const enum
 counter_synapse_action array. This patch adds the const qualifier to the
-quad8_index_actions_list and quad8_synapse_actions_list to match
-actions_list.
+ftm_quaddec_synapse_actions to match actions_list.
 
-Cc: Syed Nayyar Waris <syednwaris@gmail.com>
+Cc: Patrick Havelange <patrick.havelange@essensium.com>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- drivers/counter/104-quad-8.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/counter/ftm-quaddec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
-index af4e0503b074..9a96296b0625 100644
---- a/drivers/counter/104-quad-8.c
-+++ b/drivers/counter/104-quad-8.c
-@@ -305,12 +305,12 @@ enum quad8_synapse_action {
- 	QUAD8_SYNAPSE_ACTION_BOTH_EDGES
+diff --git a/drivers/counter/ftm-quaddec.c b/drivers/counter/ftm-quaddec.c
+index c2b3fdfd8b77..9371532406ca 100644
+--- a/drivers/counter/ftm-quaddec.c
++++ b/drivers/counter/ftm-quaddec.c
+@@ -162,7 +162,7 @@ enum ftm_quaddec_synapse_action {
+ 	FTM_QUADDEC_SYNAPSE_ACTION_BOTH_EDGES,
  };
  
--static enum counter_synapse_action quad8_index_actions_list[] = {
-+static const enum counter_synapse_action quad8_index_actions_list[] = {
- 	[QUAD8_SYNAPSE_ACTION_NONE] = COUNTER_SYNAPSE_ACTION_NONE,
- 	[QUAD8_SYNAPSE_ACTION_RISING_EDGE] = COUNTER_SYNAPSE_ACTION_RISING_EDGE
+-static enum counter_synapse_action ftm_quaddec_synapse_actions[] = {
++static const enum counter_synapse_action ftm_quaddec_synapse_actions[] = {
+ 	[FTM_QUADDEC_SYNAPSE_ACTION_BOTH_EDGES] =
+ 	COUNTER_SYNAPSE_ACTION_BOTH_EDGES
  };
- 
--static enum counter_synapse_action quad8_synapse_actions_list[] = {
-+static const enum counter_synapse_action quad8_synapse_actions_list[] = {
- 	[QUAD8_SYNAPSE_ACTION_NONE] = COUNTER_SYNAPSE_ACTION_NONE,
- 	[QUAD8_SYNAPSE_ACTION_RISING_EDGE] = COUNTER_SYNAPSE_ACTION_RISING_EDGE,
- 	[QUAD8_SYNAPSE_ACTION_FALLING_EDGE] = COUNTER_SYNAPSE_ACTION_FALLING_EDGE,
 -- 
 2.30.0
 
