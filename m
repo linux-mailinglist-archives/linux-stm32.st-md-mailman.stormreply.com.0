@@ -2,42 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3F37319C74
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 11:16:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1E4C319CB4
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 11:36:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D481C57B5A;
-	Fri, 12 Feb 2021 10:16:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8030AC57B5A;
+	Fri, 12 Feb 2021 10:36:14 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F3C6C3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2221CC57B58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 10:16:03 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6F9CE64E57;
- Fri, 12 Feb 2021 10:16:00 +0000 (UTC)
+ Fri, 12 Feb 2021 10:36:14 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0AB8B64E6C;
+ Fri, 12 Feb 2021 10:36:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1613124962;
- bh=VFUsungzZqooziKm9KBKtUmrjVmAmKtrpEiMVbY0kQg=;
+ s=k20201202; t=1613126172;
+ bh=l1HVYolc9K5zoog78E0hg6Q9NscFKBn5UiLoKkcCsIk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AEF4kCQin2Brrzoz2QDUTScLq3WAuguEp+3tLn2z76Ozg7sqcPfMgRQxH4OJXjYEk
- PJKdwdBgQ8uLwG5eW75qp07CMAuTIZtC5fsnEObU14w8QUi3/6aSwPAiNzVedHEqly
- zeBjzWn0QEqP1MSvL5AKm5k9wLe3T9Q1hHIq4gG/+NpbLC2sux7o/8tTNEWcUBIJkj
- Sc+KS/7hPemmrVYPlqk4EouZgveDMR+C3oDBOkdj0Jmo3oVMEnlAxdqccF7M/m6+59
- ptL3cg+jPCJR4zcDeeLdhyec32rRmI6qIVxnroP13c3yAjv2YHgEo3JNqDm37XBul4
- NCccg+tmFLmAw==
-Date: Fri, 12 Feb 2021 11:15:54 +0100
+ b=bm+6w43eahWDKpTKO5a8Ic37OrDmUsbmK9OwoGL2tGsLEcoAJV/BsN9fl7bLGkGpu
+ AGS+ZlMBfZWAhCeBUHiJqcFi3I+2sPo9yUkD8qfguMQAgTMBMa+AJoqV94BTuuFuJJ
+ qEc4D+OJtZfq5J+MEcPk6dmMOKD1tNIcF7cVQ06bpIki++3wVeDl7XlezODsQ6aUns
+ KsZkaOlIP6UmUx5K+7VX0+fITHQcWS2UkhiWN6JqVbDCKi99gXjAea4SpyPJ5H7zIy
+ rd86qUF195JJ5tpMVNUXuIJ8R0dSwqVccHdfpPZUBRRd83WLWw54DGVTWp+oEfcc/j
+ 1/oM9yEyV+3Og==
+Date: Fri, 12 Feb 2021 11:36:07 +0100
 From: Wolfram Sang <wsa@kernel.org>
-To: menglong8.dong@gmail.com
-Message-ID: <20210212101554.GB8038@ninjato>
-References: <20210112085311.7308-1-dong.menglong@zte.com.cn>
+To: Alain Volmat <alain.volmat@foss.st.com>
+Message-ID: <20210212103607.GC8038@ninjato>
+References: <1612515104-838-1-git-send-email-alain.volmat@foss.st.com>
+ <1612515104-838-2-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <20210112085311.7308-1-dong.menglong@zte.com.cn>
-Cc: Menglong Dong <dong.menglong@zte.com.cn>, alexandre.torgue@st.com,
- linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com,
+In-Reply-To: <1612515104-838-2-git-send-email-alain.volmat@foss.st.com>
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
  linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] i2c: remove redundant error print in
-	stm32f7_i2c_probe
+Subject: Re: [Linux-stm32] [PATCH 1/5] i2c: stm32f7: fix configuration of
+	the digital filter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,60 +50,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0952262755416325771=="
+Content-Type: multipart/mixed; boundary="===============7792661699121732447=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============0952262755416325771==
+--===============7792661699121732447==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="b5gNqxB1S1yM7hjW"
+	protocol="application/pgp-signature"; boundary="TYecfFk8j8mZq+dy"
 Content-Disposition: inline
 
 
---b5gNqxB1S1yM7hjW
+--TYecfFk8j8mZq+dy
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jan 12, 2021 at 12:53:11AM -0800, menglong8.dong@gmail.com wrote:
-> From: Menglong Dong <dong.menglong@zte.com.cn>
+On Fri, Feb 05, 2021 at 09:51:40AM +0100, Alain Volmat wrote:
+> The digital filter related computation are present in the driver
+> however the programming of the filter within the IP is missing.
+> The maximum value for the DNF is wrong and should be 15 instead of 16.
 >=20
-> Coccinelle reports a redundant error print in stm32f7_i2c_probe.
-> As 'platform_get_irq' already prints the error message, error
-> print here is redundant and can be removed.
+> Fixes: aeb068c57214 ("i2c: i2c-stm32f7: add driver")
 >=20
-> Signed-off-by: Menglong Dong <dong.menglong@zte.com.cn>
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 
-Applied to for-next, thanks!
+Applied to for-current, thanks!
 
-@maintainers: it would be helpful/faster if I could get an ack from you
-beforehand.
+The rest will go in within the next cycle.
 
 
---b5gNqxB1S1yM7hjW
+--TYecfFk8j8mZq+dy
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmAmVVoACgkQFA3kzBSg
-KbYKAw/+PDeUcjlo2xoGrNaTwJoDDUrsWYVwsC+nASaoztdWl9k0lj9jyAJGEd2R
-U+iuCErfC/dHQodaeuWzMZU3Agh55DwCDj3//DIlJ6ctt81gAYRqQTBF2DPudX8t
-MTsKl/Um6uHVuX3MK97yxtjPS/G41TlCB9ezeVfMyNfdNjmsHgXFySI8VxFdfaS2
-QxqSKj1WmNnalBE3ruNAKuNRKEpHyCGz2SOvhldlG789qSIdn92Pod5E6oAbxaEt
-O7w5aSeGYANShNGZCZwT7uGYyL5Sw6eKTHuPNJX659KrboDr5d8zOXIhzVBxJMNQ
-PqIRmx8aLUVLnXZ0WoZ4G++ehLTTJI6UCMlpJ1CUGfiPKRMZfmd95eZuqeiNg/RN
-1z+7bgCJo5PFQmH7hu7qP2xtG2Pm9nyGWx1Xg+JhRiXeX4Cos9x3bGiMYT9Q1Kdb
-ujRK53S6KFW1ePYpjMcWze5KENNf2WKgmUusauAToXb1GsHhKQWuQg/JAyANorvQ
-vCYIfoLITDQmJr8OATyp+oK1PncvxcPetBgwHOfIOOfKxPDEcafVskvKlfO9MPXg
-lZJAnGB5wUdkvdGQrI4GUb4ubywt2CnxB5GoR/mKNDKYZgSl7aq2RDmQgnC0ASQ0
-ZHIyh9Jvo2D8cyWFRPIM7FKC4gyz/IIeUuo1Caj9C2/32qMyydw=
-=O1pu
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmAmWhcACgkQFA3kzBSg
+KbYsWA/9GOAvOK+8eTc0vi7v5AZ7i77HxG3vZXq6Bm4XBBtXmV0eqg/U+Mr3IIC5
+m6eq7LSkVtalSlJFl1penaXyJ+/d8EEWsZ2sPAFtolODkx5qzL7tZuyT3eu7br0H
+VBSmAJeXUzqfdv96xL5WO2ypeMH8WljsClbp57fUxVqePxZQ9Tq0RVUD0ayyiwG+
+m7tA1uMjQNn+RpYUxF7XdO7TmmN4SHqojOvGYX9qZytKXhD9Ytiw+490a31N2f9r
+dHR/HN4CQdP1kIK0lKPvgQzd2b8/WuBokde7TA3fTwMog0C0Ywe0mPYjRYDwg126
+znIoc646reRXWDNIAdr3g7BiZrDI1E76LzCsqaypoo5E3hz8pkPuo5gO8Mrrt6wN
+aPOf6n8DxTFLvUi6XCDTpbItWC8L2Wi/XRj1gwHS0i67KHh9LZuMns6KDK6JxGyT
+ve4dfYZgG4B0KTdwTrX+EfTLkAQWpr/szYaxqtfg2L//62feBuF98A4IyXJ6eQkB
+mDCYjrQ8ZKGmnEHWV1+dr26M21WeoLcq6eDMOntne4zCEKOCxndtkZTCnDWUS7A/
+FXTWHU3TEIYHaVuDhpqEs4ulCEITApDkNseJToMjbAWaxVmQ4xBetlJ44F4+ZTrs
+YYERqcUpxvea2Iz07wgqChCMCurqPNxrKPivgn+6KKePfx634/o=
+=RiX0
 -----END PGP SIGNATURE-----
 
---b5gNqxB1S1yM7hjW--
+--TYecfFk8j8mZq+dy--
 
---===============0952262755416325771==
+--===============7792661699121732447==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -113,4 +113,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============0952262755416325771==--
+--===============7792661699121732447==--
