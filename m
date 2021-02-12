@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35B91319E03
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 13:14:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9220319E04
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 13:15:01 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0319FC57B5B;
-	Fri, 12 Feb 2021 12:14:55 +0000 (UTC)
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 794D1C57B5B;
+	Fri, 12 Feb 2021 12:15:01 +0000 (UTC)
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
+ [209.85.219.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF6B9C57B59
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 193CBC57B59
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 12:14:52 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id o21so6502533qtr.3
+ Fri, 12 Feb 2021 12:14:59 +0000 (UTC)
+Received: by mail-qv1-f44.google.com with SMTP id p6so4033314qvm.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 04:14:52 -0800 (PST)
+ Fri, 12 Feb 2021 04:14:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ckwJFnHA3Ef54UBvumcIhohktCn1MgimffdexzCqvp8=;
- b=rID13hQE22qt9kcq+wLvY7Fe0EkTknHvuhduTdt/5CijZn42zVE6W2yBGpK5X/36w+
- m17P0l7fxXZ3a189boYzBOGrvZsP9+/6W0Fc8KhvFqq2lpXCIjVD+u8sp2In6bOkOFuQ
- tDxesjYyKRpOclTKC4CWsFILYh1w6krnHWyDeDVMzG7LWke+CQUd2+0oZCxJjwYd7hgt
- apQt8lTpx8babc/c5f8XadWmQh+zcVwWexRzLedYpyn6rNJRVzO+NJw55QLynIg8bAWk
- Alkplvh+kP+5ClxDSAtQ/RHGp5BrBAew8TifCB1k5DHbJGE1FucPVtYZwckOF0oTm9E1
- Mo+A==
+ bh=GMBo1ioqzSWP/+ctxewh1wOwLDNrQeon20dNDOAUAHw=;
+ b=hQ0Mp5RpZlnJ4z7vBeY7wfDFk7YmZgacLz9RZUwVCSvVP3N1CQLZvJ2TvXO7rCvuvV
+ z37Fi3XcatNtV1SOTkawn4TtfwGaU0t66rIF5Q88q+Z4YdrjF6leoL7K3RLGZs5ZTEua
+ LKq7PBLsjiZJUH8F5/BV8At8laep9rTiJD32bLubMRVrySWSYtbN+8uIuS15dy52UAsx
+ w6xlOJC0BJN/Y2gKGEnU3NSSFzAyCS9paLiv97kmnL6iLz/CMM8zB+BKbeQB6YkLsSAz
+ rqvNntr3HKHG1VNCd7aNL3Rr0iqsf24x/qITyyj75jWXaplyVeD1Dzyhc/m4Q6K80u5o
+ OWmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ckwJFnHA3Ef54UBvumcIhohktCn1MgimffdexzCqvp8=;
- b=bWzup0GAIZ4MNsCRy/5bhmA+2nvNbWSqDGVbTkVdQ7wenxDvAfpk+p7zcCveZSkBWV
- 5ZCgzpXtMZzeFaVCRaEbaRWE/fuFj0UQIpNiO3ocrb3D3Qe+974ehnQj79m4lAMbQNcI
- Dl/TrGzPiSfO4yIYg+TjzATQqU13ylMem729uafq2oCEBb7jYhVNyZPVWhop4llb+Q6I
- J5q38DPkcJs0fMEW6soLSa30al9scU4KHzSeRui6fZ1SxVKPJzjnlKl5LW4dIe49sFnY
- R0iRYgfqxwiiHEm2BCusnobqCHA+/eCYgGvlRmnaqOGduA3rj8ArfBBjmwaoyRaVdXZf
- zDuQ==
-X-Gm-Message-State: AOAM532DJPWW9D0lRIIEMIAcc6qiCCwhtfUespijxJkAkIKmPj6tU5AU
- aJM7liHwJzm8ktUPc2+CwiQ=
-X-Google-Smtp-Source: ABdhPJzPXPFhdl3w1dHI2M/nPQxpkVoxksZtolDQFvMNNntM0Z1oUbvll2KQyXp6re8HSM36Xkdm0A==
-X-Received: by 2002:aed:2e42:: with SMTP id j60mr2050905qtd.189.1613132091879; 
- Fri, 12 Feb 2021 04:14:51 -0800 (PST)
+ bh=GMBo1ioqzSWP/+ctxewh1wOwLDNrQeon20dNDOAUAHw=;
+ b=exuVgQnN9Hrv9hksBXtqTmlUlU9BYo7iQrB1nHVsRhcY6jLcVdTM89U0WiguJoRQku
+ i2ZevNXDcP+ekoA6QkQ6uhz6myfN2Md4i7dqcUdS8aBrzfgZ1qwZAWdpw9aylynonSVF
+ EDYOJ050zEgVHwUnOqC+cYnBIaq+0Wz+IVGrhPFHHFb2LMJ0Y/15YhgDoh0DkDsqCT0S
+ hoYZB7YpTeoNyGzKZXfGXURdsFp5yNg92pEGlX3Ec9b3/IFa7h5CxEWcZMEISVUbbNJI
+ 3kYe0u4NKnnquhVHTh+E0MBcBJfJ6SsGROfdzePriy7u1L81IU73kVAkqQi14hAISE0a
+ HBXw==
+X-Gm-Message-State: AOAM531vZPsqTgNSv/YppCH8WuUxyr3riZhlLE3RIkdJESJ/YXvdP7J9
+ GF8PUs+EfwlpgjoYzQNtj19CaVgEZ7Q=
+X-Google-Smtp-Source: ABdhPJyz0q+/nPHNN5O8M7RjDuPNfxOYsgS2grh/B4LOITzmnACa6UfxzpaYY/SEWbBLqAPpQ27sYA==
+X-Received: by 2002:ad4:4693:: with SMTP id bq19mr2242483qvb.43.1613132098140; 
+ Fri, 12 Feb 2021 04:14:58 -0800 (PST)
 Received: from localhost.localdomain ([193.27.12.132])
- by smtp.gmail.com with ESMTPSA id y135sm6278534qkb.14.2021.02.12.04.14.46
+ by smtp.gmail.com with ESMTPSA id y135sm6278534qkb.14.2021.02.12.04.14.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Feb 2021 04:14:51 -0800 (PST)
+ Fri, 12 Feb 2021 04:14:57 -0800 (PST)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Fri, 12 Feb 2021 21:13:33 +0900
-Message-Id: <58e7c59bb7c7bb94c8655903308842d9d9e9907a.1613131238.git.vilhelm.gray@gmail.com>
+Date: Fri, 12 Feb 2021 21:13:34 +0900
+Message-Id: <7fa80c10fcd10d1d47d1bddced2b2cca3ff59ba9.1613131238.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <cover.1613131238.git.vilhelm.gray@gmail.com>
 References: <cover.1613131238.git.vilhelm.gray@gmail.com>
@@ -62,8 +62,8 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v8 09/22] counter: Return error code on
-	invalid modes
+Subject: [Linux-stm32] [PATCH v8 10/22] counter: Standardize to ERANGE for
+	limit exceeded errors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,144 +80,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Only a select set of modes (function, action, etc.) are valid for a
-given device configuration. This patch ensures that invalid modes result
-in a return -EINVAL. Such a situation should never occur in reality, but
-it's good to define a default switch cases for the sake of making the
-intent of the code clear.
+ERANGE is a semantically better error code to return when an argument
+value falls outside the supported limit range of a device.
 
 Cc: Syed Nayyar Waris <syednwaris@gmail.com>
-Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>
 Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: David Lechner <david@lechnology.com>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- drivers/counter/104-quad-8.c            | 10 ++++++++++
- drivers/counter/microchip-tcb-capture.c |  6 ++++++
- drivers/counter/stm32-lptimer-cnt.c     | 10 ++++++----
- drivers/counter/stm32-timer-cnt.c       |  3 +++
- drivers/counter/ti-eqep.c               |  3 +++
- 5 files changed, 28 insertions(+), 4 deletions(-)
+ drivers/counter/104-quad-8.c        | 6 +++---
+ drivers/counter/stm32-lptimer-cnt.c | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
-index 9a96296b0625..674263b4d2c4 100644
+index 674263b4d2c4..a2cabb028db0 100644
 --- a/drivers/counter/104-quad-8.c
 +++ b/drivers/counter/104-quad-8.c
-@@ -273,6 +273,10 @@ static int quad8_function_set(struct counter_device *counter,
- 			*scale = 2;
- 			mode_cfg |= QUAD8_CMR_QUADRATURE_X4;
- 			break;
-+		default:
-+			/* should never reach this path */
-+			mutex_unlock(&priv->lock);
-+			return -EINVAL;
- 		}
- 	}
+@@ -154,7 +154,7 @@ static int quad8_count_write(struct counter_device *counter,
  
-@@ -367,6 +371,9 @@ static int quad8_action_get(struct counter_device *counter,
- 	case QUAD8_COUNT_FUNCTION_QUADRATURE_X4:
- 		*action = QUAD8_SYNAPSE_ACTION_BOTH_EDGES;
- 		break;
-+	default:
-+		/* should never reach this path */
-+		return -EINVAL;
- 	}
- 
- 	return 0;
-@@ -529,6 +536,9 @@ static int quad8_count_mode_set(struct counter_device *counter,
- 	case COUNTER_COUNT_MODE_MODULO_N:
- 		cnt_mode = 3;
- 		break;
-+	default:
-+		/* should never reach this path */
-+		return -EINVAL;
- 	}
+ 	/* Only 24-bit values are supported */
+ 	if (val > 0xFFFFFF)
+-		return -EINVAL;
++		return -ERANGE;
  
  	mutex_lock(&priv->lock);
-diff --git a/drivers/counter/microchip-tcb-capture.c b/drivers/counter/microchip-tcb-capture.c
-index 710acc0a3704..ee979b011012 100644
---- a/drivers/counter/microchip-tcb-capture.c
-+++ b/drivers/counter/microchip-tcb-capture.c
-@@ -133,6 +133,9 @@ static int mchp_tc_count_function_set(struct counter_device *counter,
- 		bmr |= ATMEL_TC_QDEN | ATMEL_TC_POSEN;
- 		cmr |= ATMEL_TC_ETRGEDG_RISING | ATMEL_TC_ABETRG | ATMEL_TC_XC0;
- 		break;
-+	default:
-+		/* should never reach this path */
-+		return -EINVAL;
- 	}
  
- 	regmap_write(priv->regmap, ATMEL_TC_BMR, bmr);
-@@ -226,6 +229,9 @@ static int mchp_tc_count_action_set(struct counter_device *counter,
- 	case MCHP_TC_SYNAPSE_ACTION_BOTH_EDGE:
- 		edge = ATMEL_TC_ETRGEDG_BOTH;
- 		break;
-+	default:
-+		/* should never reach this path */
-+		return -EINVAL;
- 	}
+@@ -671,7 +671,7 @@ static ssize_t quad8_count_preset_write(struct counter_device *counter,
  
- 	return regmap_write_bits(priv->regmap,
+ 	/* Only 24-bit values are supported */
+ 	if (preset > 0xFFFFFF)
+-		return -EINVAL;
++		return -ERANGE;
+ 
+ 	mutex_lock(&priv->lock);
+ 
+@@ -716,7 +716,7 @@ static ssize_t quad8_count_ceiling_write(struct counter_device *counter,
+ 
+ 	/* Only 24-bit values are supported */
+ 	if (ceiling > 0xFFFFFF)
+-		return -EINVAL;
++		return -ERANGE;
+ 
+ 	mutex_lock(&priv->lock);
+ 
 diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
-index 937439635d53..daf988e7b208 100644
+index daf988e7b208..d5f9d580d06d 100644
 --- a/drivers/counter/stm32-lptimer-cnt.c
 +++ b/drivers/counter/stm32-lptimer-cnt.c
-@@ -206,9 +206,10 @@ static int stm32_lptim_cnt_function_set(struct counter_device *counter,
- 		priv->quadrature_mode = 1;
- 		priv->polarity = STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES;
- 		return 0;
-+	default:
-+		/* should never reach this path */
-+		return -EINVAL;
- 	}
--
--	return -EINVAL;
- }
+@@ -283,7 +283,7 @@ static ssize_t stm32_lptim_cnt_ceiling_write(struct counter_device *counter,
+ 		return ret;
  
- static ssize_t stm32_lptim_cnt_enable_read(struct counter_device *counter,
-@@ -326,9 +327,10 @@ static int stm32_lptim_cnt_action_get(struct counter_device *counter,
- 	case STM32_LPTIM_ENCODER_BOTH_EDGE:
- 		*action = priv->polarity;
- 		return 0;
-+	default:
-+		/* should never reach this path */
-+		return -EINVAL;
- 	}
--
--	return -EINVAL;
- }
+ 	if (ceiling > STM32_LPTIM_MAX_ARR)
+-		return -EINVAL;
++		return -ERANGE;
  
- static int stm32_lptim_cnt_action_set(struct counter_device *counter,
-diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index ef2a974a2f10..431a3d08ed6c 100644
---- a/drivers/counter/stm32-timer-cnt.c
-+++ b/drivers/counter/stm32-timer-cnt.c
-@@ -296,6 +296,9 @@ static int stm32_action_get(struct counter_device *counter,
- 		/* counts up/down on both TI1FP1 and TI2FP2 edges */
- 		*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
- 		break;
-+	default:
-+		/* should never reach this path */
-+		return -EINVAL;
- 	}
+ 	priv->ceiling = ceiling;
  
- 	return 0;
-diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
-index a60aee1a1a29..7844fdf78a97 100644
---- a/drivers/counter/ti-eqep.c
-+++ b/drivers/counter/ti-eqep.c
-@@ -192,6 +192,9 @@ static int ti_eqep_action_get(struct counter_device *counter,
- 			break;
- 		}
- 		break;
-+	default:
-+		/* should never reach this path */
-+		return -EINVAL;
- 	}
- 
- 	return 0;
 -- 
 2.30.0
 
