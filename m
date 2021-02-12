@@ -2,69 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB2483199F0
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 07:32:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3854D319B03
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 09:09:04 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 981BEC57B5A;
-	Fri, 12 Feb 2021 06:32:25 +0000 (UTC)
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
- [209.85.160.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E99D7C57B5A;
+	Fri, 12 Feb 2021 08:09:03 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8DE2C5718A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D9BBC57B58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 06:32:23 +0000 (UTC)
-Received: by mail-qt1-f175.google.com with SMTP id c5so6065074qth.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Feb 2021 22:32:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=YpdyqTTIfUaE/xKGvquExFqY3IIyGF7XvCEZZkDqm0w=;
- b=PEH3n7H2JHE0OeIyomMC7MNrnsAxMbGOwkycCmXW/v3qNAp3iTb4TfnNqEoN8jyLWr
- mfJ8wNJQ4B9+ZCZToBFIQdiCoKaxFPboLOXn98qaa9v7HnkLNBMpPitjD2CrgPyStlID
- sQsB9255hKAk/1JqRwZ3x1c7qQdG42kykUjQydNQrYVByw+IH0ApseMNrUG/7kGyTKsj
- BfkvbnEJg2GAbj6dOU/2uQk94Fz9HbA+Bzl0VvFlE2NXsuyikuHMkP7harjuy/CT3sxi
- zpr7WqIFGxCdDj25y73SLgIC/Lt/JJPogNXF4N2K5Ntv+8pxh88/fGwXWX9GJxX+emy/
- j6qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=YpdyqTTIfUaE/xKGvquExFqY3IIyGF7XvCEZZkDqm0w=;
- b=rpVQX46slpopQhFXxPGdMIEmLrGO98J+6+g7W5JZjXz6+Fsgl5nYnWIO7apHuVpW+8
- CzTNOuc21raNqHhUs6i3Da/2iTm9ijx9UyMjOXsQoa/EItsHtcie+nqIBUMAHHg5ndpG
- N+iHEcOunbt/h2HG5JZVnEt6wi1ksn1GXdVj4LleIcy6/eTEXbTJfDB1wJj6oLrRZSdr
- jrhXJN00fR0sE95IRdmB+9aZ4G0THVcuwon9n9xRO5sMyN3Qkp9dwYLFOz7cguMvxFZE
- Miubm4bRBGcBaVnRQQtK/kTfiBZzm9u/E2maU5jpxFVgkcom9isYbfG14Tk3Bn9Ru4hW
- GtAQ==
-X-Gm-Message-State: AOAM530Xirhl1xwcUBDAdEHGYx/VW960n5BZY+0Z7+gsXySQxpoM/pHe
- aaBiYZ/XUndtSbterndFmyk=
-X-Google-Smtp-Source: ABdhPJykoum8SlFYEq4qIDiUVmjCNungJ8LPedsQkCkS86BCab+ez01mnwN1qgig72D9vAhu2LiZVQ==
-X-Received: by 2002:ac8:1494:: with SMTP id l20mr1260768qtj.151.1613111542162; 
- Thu, 11 Feb 2021 22:32:22 -0800 (PST)
-Received: from shinobu ([193.27.12.132])
- by smtp.gmail.com with ESMTPSA id v30sm5016239qte.26.2021.02.11.22.32.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Feb 2021 22:32:21 -0800 (PST)
-Date: Fri, 12 Feb 2021 15:32:12 +0900
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <YCYg7Eiu4u1t9VxE@shinobu>
-References: <cover.1608935587.git.vilhelm.gray@gmail.com>
- <57bc509273bf288d74835e6ebdaebf27b4991888.1608935587.git.vilhelm.gray@gmail.com>
- <20201230150440.0723cab9@archlinux>
+ Fri, 12 Feb 2021 08:09:02 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 11C86l2M029175; Fri, 12 Feb 2021 09:08:42 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=DHLRE2UmB8C4wlDYI8k7uWIN7I9RjaZ2KYe3yihptMU=;
+ b=SgPTIN9lqgwaVVpkZ+RZC5gItARGIhGqsdMWlXL1ng4qFgK0ZH84btADnmv2q3JCF1Kz
+ Dmm8a8gSrwSDMO0D/E6d5q5JaEgv4K3d87myhQStAeUWyuC7qJOksxTAQBeSwdOWURPx
+ ADunrwMYfVxgYkq92XrWDWIargGuzOOt21Smh5SMBGs+RR4AUNP8Ppm3HJlgp8Wl1L3L
+ qpyzqABA08S0MaSiIztNlXwubfAVtZjlMe/h6QK33DVRHc1uo3jFzQ+SGyQzc+mgnteI
+ Qp8BlbUt3PgDCwhlMPga9upVHJ81MNFkgF1QFs9PlyRuIRW2bpgZ5t0JkMJYhHd8OGUg jg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36hravbcje-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 12 Feb 2021 09:08:42 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DCD72100034;
+ Fri, 12 Feb 2021 09:08:41 +0100 (CET)
+Received: from Webmail-eu.st.com (gpxdag2node6.st.com [10.75.127.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B967B219D40;
+ Fri, 12 Feb 2021 09:08:41 +0100 (CET)
+Received: from lmecxl0572.lme.st.com (10.75.127.121) by GPXDAG2NODE6.st.com
+ (10.75.127.70) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 12 Feb
+ 2021 09:08:40 +0100
+To: Stephen Boyd <sboyd@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Etienne Carriere <etienne.carriere@st.com>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, Michael Turquette
+ <mturquette@baylibre.com>, Philipp Zabel <p.zabel@pengutronix.de>, "Rob
+ Herring" <robh+dt@kernel.org>, <marex@denx.de>
+References: <20210126090120.19900-1-gabriel.fernandez@foss.st.com>
+ <20210126090120.19900-3-gabriel.fernandez@foss.st.com>
+ <161285764074.418021.15522379930579131077@swboyd.mtv.corp.google.com>
+From: "gabriel.fernandez@foss.st.com" <gabriel.fernandez@foss.st.com>
+Message-ID: <5cc12945-0347-820c-1125-30ab4a947a00@foss.st.com>
+Date: Fri, 12 Feb 2021 09:08:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201230150440.0723cab9@archlinux>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, Dan Carpenter <dan.carpenter@oracle.com>,
- kernel@pengutronix.de, fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v7 3/5] counter: Add character device
-	interface
+In-Reply-To: <161285764074.418021.15522379930579131077@swboyd.mtv.corp.google.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.121]
+X-ClientProxiedBy: GPXDAG1NODE5.st.com (10.75.127.66) To GPXDAG2NODE6.st.com
+ (10.75.127.70)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
+ definitions=2021-02-12_02:2021-02-12,
+ 2021-02-12 signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 02/14] clk: stm32mp1: merge
+ 'ck_hse_rtc' and 'ck_rtc' into one clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,272 +78,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5132850980905182458=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============5132850980905182458==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nmunDh9PKWC61MXK"
-Content-Disposition: inline
-
-
---nmunDh9PKWC61MXK
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Dec 30, 2020 at 03:04:40PM +0000, Jonathan Cameron wrote:
-> On Fri, 25 Dec 2020 19:15:36 -0500
-> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
->=20
-> > This patch introduces a character device interface for the Counter
-> > subsystem. Device data is exposed through standard character device read
-> > operations. Device data is gathered when a Counter event is pushed by
-> > the respective Counter device driver. Configuration is handled via ioctl
-> > operations on the respective Counter character device node.
-> >=20
-> > Cc: David Lechner <david@lechnology.com>
-> > Cc: Gwendal Grignou <gwendal@chromium.org>
-> > Cc: Dan Carpenter <dan.carpenter@oracle.com>
-> > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
->=20
-> There are a few things in here that could profitably be pulled out as pre=
-cursor
-> patches.  I don't really understand the connection of extension_name to t=
-he
-> addition of a chardev for example.  Might be needed to provide enough
-> info to actually use the chardev, but does it have meaning without that?
-> Either way, definitely feels like it can be done in a separate patch.
-
-The extension_name attributes are needed so chrdev users have enough
-info to identify which extension number corresponds to which extension.
-I'll move this to change to a separate patch and provide an appropriate
-explanation there to make things clearer.
-
-> > +static long counter_chrdev_ioctl(struct file *filp, unsigned int cmd,
-> > +				 unsigned long arg)
-> > +{
-> > +	struct counter_device *const counter =3D filp->private_data;
-> > +	unsigned long flags;
-> > +	int err =3D 0;
-> > +
-> > +	switch (cmd) {
-> > +	case COUNTER_CLEAR_WATCHES_IOCTL:
-> > +		return counter_clear_watches(counter);
-> > +	case COUNTER_ADD_WATCH_IOCTL:
-> > +		return counter_add_watch(counter, arg);
-> > +	case COUNTER_LOAD_WATCHES_IOCTL:
-> > +		raw_spin_lock_irqsave(&counter->events_list_lock, flags);
-> > +
-> > +		counter_events_list_free(&counter->events_list);
-> > +		list_replace_init(&counter->next_events_list,
-> > +				  &counter->events_list);
-> > +
-> > +		if (counter->ops->events_configure)
-> > +			err =3D counter->ops->events_configure(counter);
-> > +
-> > +		raw_spin_unlock_irqrestore(&counter->events_list_lock, flags);
-> > +		break;
->=20
-> return here.=20
-
-Ack.
-
-> > +static int counter_get_data(struct counter_device *const counter,
-> > +			    const struct counter_comp_node *const comp_node,
-> > +			    u64 *const value)
-> > +{
-> > +	const struct counter_comp *const comp =3D &comp_node->comp;
-> > +	void *const parent =3D comp_node->parent;
-> > +	int err =3D 0;
-> > +	u8 value_u8 =3D 0;
-> > +	u32 value_u32 =3D 0;
-> > +
-> > +	if (comp_node->component.type =3D=3D COUNTER_COMPONENT_NONE)
-> > +		return 0;
-> > +
-> > +	switch (comp->type) {
-> > +	case COUNTER_COMP_U8:
-> > +	case COUNTER_COMP_BOOL:
-> > +		switch (comp_node->component.scope) {
-> > +		case COUNTER_SCOPE_DEVICE:
-> > +			err =3D comp->device_u8_read(counter, &value_u8);
-> > +			break;
-> > +		case COUNTER_SCOPE_SIGNAL:
-> > +			err =3D comp->signal_u8_read(counter, parent, &value_u8);
-> > +			break;
-> > +		case COUNTER_SCOPE_COUNT:
-> > +			err =3D comp->count_u8_read(counter, parent, &value_u8);
-> > +			break;
-> > +		}
-> > +		*value =3D value_u8;
-> > +		break;
-> > +	case COUNTER_COMP_SIGNAL_LEVEL:
-> > +	case COUNTER_COMP_FUNCTION:
-> > +	case COUNTER_COMP_ENUM:
-> > +	case COUNTER_COMP_COUNT_DIRECTION:
-> > +	case COUNTER_COMP_COUNT_MODE:
-> > +		switch (comp_node->component.scope) {
-> > +		case COUNTER_SCOPE_DEVICE:
-> > +			err =3D comp->device_u32_read(counter, &value_u32);
-> > +			break;
-> > +		case COUNTER_SCOPE_SIGNAL:
-> > +			err =3D comp->signal_u32_read(counter, parent,
-> > +						    &value_u32);
-> > +			break;
-> > +		case COUNTER_SCOPE_COUNT:
-> > +			err =3D comp->count_u32_read(counter, parent, &value_u32);
-> > +			break;
-> > +		}
-> > +		*value =3D value_u32;
->=20
-> Seems like a return here would make more sense as no shared stuff to do at
-> end of the switch. Same in other similar cases.
-
-Ack.
-
-> > +		break;
-> > +	case COUNTER_COMP_U64:
-> > +		switch (comp_node->component.scope) {
-> > +		case COUNTER_SCOPE_DEVICE:
-> > +			return comp->device_u64_read(counter, value);
-> > +		case COUNTER_SCOPE_SIGNAL:
-> > +			return comp->signal_u64_read(counter, parent, value);
-> > +		case COUNTER_SCOPE_COUNT:
-> > +			return comp->count_u64_read(counter, parent, value);
-> > +		}
-> > +		break;
-> > +	case COUNTER_COMP_SYNAPSE_ACTION:
-> > +		err =3D comp->action_read(counter, parent, comp->priv,
-> > +					&value_u32);
-> > +		*value =3D value_u32;
-> > +		break;
-> > +	}
-> > +
-> > +	return err;
-> > +}
-> > +
-> > +/**
-> > + * counter_push_event - queue event for userspace reading
-> > + * @counter:	pointer to Counter structure
-> > + * @event:	triggered event
-> > + * @channel:	event channel
-> > + *
-> > + * Note: If no one is watching for the respective event, it is silently
-> > + * discarded.
-> > + */
-> > +void counter_push_event(struct counter_device *const counter, const u8=
- event,
-> > +			const u8 channel)
-> > +{
-> > +	struct counter_event ev =3D {0};
-> > +	unsigned int copied =3D 0;
-> > +	unsigned long flags;
-> > +	struct counter_event_node *event_node;
-> > +	struct counter_comp_node *comp_node;
-> > +
-> > +	ev.timestamp =3D ktime_get_ns();
-> > +	ev.watch.event =3D event;
-> > +	ev.watch.channel =3D channel;
-> > +
-> > +	raw_spin_lock_irqsave(&counter->events_list_lock, flags);
->=20
-> For a raw spin lock, we definitely want to see comments on why it
-> is necessary.
-
-Ack.
-
-> > @@ -650,7 +670,7 @@ static int counter_count_attrs_create(struct counte=
-r_device *const counter,
-> >  		return err;
-> > =20
-> >  	/* Create Count name attribute */
-> > -	err =3D counter_name_attr_create(dev, group, count->name);
-> > +	err =3D counter_name_attr_create(dev, group, "name", count->name);
->=20
-> This refactoring could also be pulled out to a precusor patch.
-
-Ack. This will be part of the extension_name patch.
-
-> > @@ -319,12 +315,21 @@ struct counter_device {
-> > =20
-> >  	int id;
-> >  	struct device dev;
-> > +	struct cdev chrdev;
-> > +	struct list_head events_list;
-> > +	raw_spinlock_t events_list_lock;
-> > +	struct list_head next_events_list;
-> > +	DECLARE_KFIFO(events, struct counter_event, 64);
->=20
-> Why 64?  Probably want that to be somewhat dynamic, even if only at build=
- time.
-
-Ack. This will be dynamically configurable via sysfs attribute in v8.
-
-> > +	wait_queue_head_t events_wait;
-> > +	struct mutex events_lock;
-> >  };
-> > =20
-> >  int counter_register(struct counter_device *const counter);
-> >  void counter_unregister(struct counter_device *const counter);
-> >  int devm_counter_register(struct device *dev,
-> >  			  struct counter_device *const counter);
-> > +void counter_push_event(struct counter_device *const counter, const u8=
- event,
-> > +			const u8 channel);
-> > =20
-> >  #define COUNTER_COMP_DEVICE_U8(_name, _read, _write) \
-> >  { \
-> > diff --git a/include/uapi/linux/counter.h b/include/uapi/linux/counter.h
-> > new file mode 100644
-> > index 000000000000..7585dc9db19d
-> > --- /dev/null
-> > +++ b/include/uapi/linux/counter.h
-> Small thing but I would have been tempted to do a precursor patch to the
-> main change simply putting in place the userspace header.
->=20
-> Classic Nop patch that makes it easier to focus on the real stuff in this
-> patch by getting that noise out of the way!
->=20
-> Jonathan
-
-Ack.
-
-William Breathitt Gray
-
---nmunDh9PKWC61MXK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmAmIOwACgkQhvpINdm7
-VJLTlw//cJaxYjnD+n4pnRnze6CezjGL0dEENF8QzlY3ren7gJXOTJgkwHVWzYd5
-sq7WaVSZUoxkug07sYTckZQq2mohvTQQE6BhUv51lM+rkkoVhnvMzDWdB3ygyur9
-d+rssNdhUMg0RrXdxRi4gH0hh23K1SQAI5/Choecz1YoGPMCSBh+0zTOkJ+UDszN
-hjaYmdVGnc2hxMuoZLoM0twTkmTJWXyvHRQqCbDgWlc4cUEyziTjldqyklJTSSqK
-ovJxjA6NXmEh3/zWJeFwKLsnYe+eqsv3S9CHg6B+gVWnIiE7VyDkv6vh2s2wE7cg
-r67ebRddj7MBqrAq34G6xN4W0wqhWSAQZ4xUYSRzIgzUwnAl1umZb2Qi5Un4bPtk
-BHNCYB6GnBLETxmIRSUDLMbaUe8XJjQXc7ogLc8qimN4oRmN4fByhuiKM5wirCAv
-jq6UXRPHv1SI+00SgzVj0yPKPVFv5raZvEjwErekjNFoq7JNhdWkZ59eS0xHwLNZ
-82TbRtwZvM78g+fHFCTgcgAkk2l3cJ4Kx/PNJ/J6kb+8ahTMtd89K6S0hZ/w6zCo
-xCxYYV6q5FXQMr6siKpCxyI4fGORc7vqlPX8xnZJi/aREc4cVhKxGEWPqp8yqRkG
-zVots+ppRy1D262LDn7OBsAqg52fLigQDw+WX+t3o/GuVaUBzRE=
-=x9JT
------END PGP SIGNATURE-----
-
---nmunDh9PKWC61MXK--
-
---===============5132850980905182458==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5132850980905182458==--
+Ck9uIDIvOS8yMSA5OjAwIEFNLCBTdGVwaGVuIEJveWQgd3JvdGU6Cj4gUXVvdGluZyBnYWJyaWVs
+LmZlcm5hbmRlekBmb3NzLnN0LmNvbSAoMjAyMS0wMS0yNiAwMTowMTowOCkKPj4gRnJvbTogR2Fi
+cmllbCBGZXJuYW5kZXogPGdhYnJpZWwuZmVybmFuZGV6QGZvc3Muc3QuY29tPgo+Pgo+PiAnY2tf
+cnRjJyBoYXMgbXVsdGlwbGUgY2xvY2tzIGFzIGlucHV0IChja19oc2ksIGNrX2xzaSwgYW5kIGNr
+X2hzZSkuCj4+IEEgZGl2aWRlciBpcyBhdmFpbGFibGUgb25seSBvbiB0aGUgc3BlY2lmaWMgcnRj
+IGlucHV0IGZvciBja19oc2UuCj4+IFRoaXMgTWVyZ2Ugd2lsbCBmYWNpbGl0YXRlIHRvIGhhdmUg
+YSBtb3JlIGNvaGVyZW50IGNsb2NrIHRyZWUKPj4gaW4gbm8gdHJ1c3RlZCAvIHRydXN0ZWQgd29y
+bGQuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEdhYnJpZWwgRmVybmFuZGV6IDxnYWJyaWVsLmZlcm5h
+bmRlekBmb3NzLnN0LmNvbT4KPj4gLS0tCj4+ICAgZHJpdmVycy9jbGsvY2xrLXN0bTMybXAxLmMg
+fCA0OSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLQo+PiAgIDEgZmlsZSBj
+aGFuZ2VkLCA0MyBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9jbGsvY2xrLXN0bTMybXAxLmMgYi9kcml2ZXJzL2Nsay9jbGstc3RtMzJtcDEu
+Ywo+PiBpbmRleCAzNWQ1YWVlOGY5YjAuLjBlMWQ0NDI3YThkZiAxMDA2NDQKPj4gLS0tIGEvZHJp
+dmVycy9jbGsvY2xrLXN0bTMybXAxLmMKPj4gKysrIGIvZHJpdmVycy9jbGsvY2xrLXN0bTMybXAx
+LmMKPj4gQEAgLTI0NSw3ICsyNDUsNyBAQCBzdGF0aWMgY29uc3QgY2hhciAqIGNvbnN0IGRzaV9z
+cmNbXSA9IHsKPj4gICB9Owo+PiAgIAo+PiAgIHN0YXRpYyBjb25zdCBjaGFyICogY29uc3QgcnRj
+X3NyY1tdID0gewo+PiAtICAgICAgICJvZmYiLCAiY2tfbHNlIiwgImNrX2xzaSIsICJja19oc2Vf
+cnRjIgo+PiArICAgICAgICJvZmYiLCAiY2tfbHNlIiwgImNrX2xzaSIsICJja19oc2UiCj4+ICAg
+fTsKPj4gICAKPj4gICBzdGF0aWMgY29uc3QgY2hhciAqIGNvbnN0IG1jbzFfc3JjW10gPSB7Cj4+
+IEBAIC0xMDMxLDYgKzEwMzEsNDIgQEAgc3RhdGljIHN0cnVjdCBjbGtfaHcgKmNsa19yZWdpc3Rl
+cl9ja3RpbShzdHJ1Y3QgZGV2aWNlICpkZXYsIGNvbnN0IGNoYXIgKm5hbWUsCj4+ICAgICAgICAg
+IHJldHVybiBodzsKPj4gICB9Cj4+ICAgCj4+ICsvKiBUaGUgZGl2aWRlciBvZiBSVEMgY2xvY2sg
+Y29uY2VybnMgb25seSBja19oc2UgY2xvY2sgKi8KPj4gKyNkZWZpbmUgSFNFX1JUQyAzCj4+ICsK
+Pj4gK3N0YXRpYyB1bnNpZ25lZCBsb25nIGNsa19kaXZpZGVyX3J0Y19yZWNhbGNfcmF0ZShzdHJ1
+Y3QgY2xrX2h3ICpodywKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHVuc2lnbmVkIGxvbmcgcGFyZW50X3JhdGUpCj4+ICt7Cj4+ICsgICAgICAgaWYg
+KGNsa19od19nZXRfcGFyZW50KGh3KSA9PSBjbGtfaHdfZ2V0X3BhcmVudF9ieV9pbmRleChodywg
+SFNFX1JUQykpCj4+ICsgICAgICAgICAgICAgICByZXR1cm4gY2xrX2RpdmlkZXJfb3BzLnJlY2Fs
+Y19yYXRlKGh3LCBwYXJlbnRfcmF0ZSk7Cj4+ICsKPj4gKyAgICAgICByZXR1cm4gcGFyZW50X3Jh
+dGU7Cj4+ICt9Cj4+ICsKPj4gK3N0YXRpYyBsb25nIGNsa19kaXZpZGVyX3J0Y19yb3VuZF9yYXRl
+KHN0cnVjdCBjbGtfaHcgKmh3LCB1bnNpZ25lZCBsb25nIHJhdGUsCj4+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgKnByYXRlKQo+PiArewo+PiAr
+ICAgICAgIGlmIChjbGtfaHdfZ2V0X3BhcmVudChodykgPT0gY2xrX2h3X2dldF9wYXJlbnRfYnlf
+aW5kZXgoaHcsIEhTRV9SVEMpKQo+IFRoaXMgY2xrIG9wIGNhbiBiZSBjYWxsZWQgYXQgYmFzaWNh
+bGx5IGFueSB0aW1lLiBNYXliZSB0aGlzIHNob3VsZCB1c2UKPiB0aGUgZGV0ZXJtaW5lIHJhdGUg
+b3AgYW5kIHRoZW4gbG9vayB0byBzZWUgd2hhdCB0aGUgcGFyZW50IGlzIHRoYXQgY29tZXMKPiBp
+biB2aWEgdGhlIHJhdGUgcmVxdWVzdCBzdHJ1Y3R1cmU/IE9yIGlzIHRoZSBpbnRlbnRpb24gdG8g
+a2VlcCB0aGlzCj4gcGlubmVkIHRvIG9uZSBwYXJ0aWN1bGFyIHBhcmVudD8gTG9va2luZyBhdCB0
+aGlzIHJpZ2h0IG5vdyBpdCBkb2Vzbid0Cj4gcmVhbGx5IG1ha2UgbXVjaCBzZW5zZSB3aHkgdGhl
+IGN1cnJlbnQgcGFyZW50IHN0YXRlIHNob3VsZCBwbGF5IGludG8KPiB3aGF0IHJhdGUgdGhlIGNs
+ayBjYW4gcm91bmQgdG8sIHVubGVzcyB0aGVyZSBpcyBzb21lIG1vcmUgY2xrIGZsYWdzCj4gZ29p
+bmcgb24gdGhhdCBjb25zdHJhaW4gdGhlIGFiaWxpdHkgdG8gY2hhbmdlIHRoaXMgY2xrJ3MgcGFy
+ZW50LgoKWWVzIHRoZSBpbnRlbnRpb24gaXMgdG8ga2VlcCB0aGlzIHBpbm5lZCBmb3Igb25lIHBh
+cnRpY3VsYXIgcGFyZW50LgoKVGhpcyBkaXZpZGVyIGlzIG9ubHkgYXBwbGllZCBvbiB0aGUgNHRo
+IGlucHV0IG9mIHRoZSBNVVggb2YgdGhlIFJUQyBhbmQKCmRvZXNuJ3QgYWZmZWN0IHRoZSBIU0Ug
+ZnJlcXVlbmN5IGZvciBhbGwgdGhlIHN5c3RlbS4KCgpPc2NpbGxhdG9ycwogwqAtLS0tLQp8IGxz
+ZSB8LS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tPiBja19sc2UKIMKgLS0tLS3CoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8CiDCoC0tLS0twqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgfAp8IGxzaSB8LS0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0t
+PiBja19sc2kKIMKgLS0tLS3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgfAogwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIHwKIMKgLS0tLS3CoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgfMKgwqAgfAp8IGhzZSB8LS0tLSstLS0tLS0tfC0tLXwtLS0tLS0tLS0t
+LS0tLS0tPiBja19oc2UKIMKgLS0tLS3CoMKgwqDCoCB8wqDCoMKgwqDCoMKgIHzCoMKgIHwKIMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqAgfMKgwqAgfMKgwqDCoMKgwqDCoMKgwqAg
+fFwgbXV4CiDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgIHzCoMKgIHzCoCBPRkYg
+LS0+fCBcCiDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgIHzCoMKgIHzCoMKgwqDC
+oMKgwqDCoMKgIHzCoCBcwqDCoMKgwqAgZ2F0ZQogwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDC
+oMKgwqDCoCB8wqDCoCAtLS0tLS0tLS0+fMKgIHzCoMKgwqDCoCAtLS0KIMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIHzCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgfC0tLT58
+wqDCoCB8LS0+IGNrX3J0YwogwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoCAtLS0t
+LS0tLS0tLS0tPnzCoCB8wqDCoMKgwqAgLS0tCiDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKg
+IC0tLS0tLS0tLS0twqDCoMKgwqDCoCB8wqAgfAogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAtLS0t
+fCAlIDEgdG8gNjQgfC0tLT58IC8KIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC0t
+LS0tLS0tLS0twqDCoMKgwqAgfC8KIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBkaXZpZGVyCgpJIG1hbmFnZSB0aGUgUlRDIHdpdGggYSBjbG9jayBjb21wb3NpdGUgd2l0aCBh
+IGdhdGUgYSBtdXggYW5kIGEgc3BlY2lmaWMgCnJhdGUgb3BzIGZvciBoc2UgaW5wdXQuCgpUaGF0
+IHdoeSBpIG5lZWQgdG8gdGhlIHBhcmVudCBzdGF0ZS4KCkJlc3QgUmVnYXJkcwoKR2FicmllbAoK
+Cj4+ICsgICAgICAgICAgICAgICByZXR1cm4gY2xrX2RpdmlkZXJfb3BzLnJvdW5kX3JhdGUoaHcs
+IHJhdGUsIHByYXRlKTsKPj4gKwo+PiArICAgICAgIHJldHVybiAqcHJhdGU7Cj4+ICt9Cj4+ICsK
+Pj4gK3N0YXRpYyBpbnQgY2xrX2RpdmlkZXJfcnRjX3NldF9yYXRlKHN0cnVjdCBjbGtfaHcgKmh3
+LCB1bnNpZ25lZCBsb25nIHJhdGUsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHVuc2lnbmVkIGxvbmcgcGFyZW50X3JhdGUpCj4+ICt7Cj4+ICsgICAgICAgaWYgKGNsa19o
+d19nZXRfcGFyZW50KGh3KSA9PSBjbGtfaHdfZ2V0X3BhcmVudF9ieV9pbmRleChodywgSFNFX1JU
+QykpCj4+ICsgICAgICAgICAgICAgICByZXR1cm4gY2xrX2RpdmlkZXJfb3BzLnNldF9yYXRlKGh3
+LCByYXRlLCBwYXJlbnRfcmF0ZSk7Cj4+ICsKPj4gKyAgICAgICByZXR1cm4gcGFyZW50X3JhdGU7
+Cj4+ICt9Cj4+ICsKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
+bGlzdGluZm8vbGludXgtc3RtMzIK
