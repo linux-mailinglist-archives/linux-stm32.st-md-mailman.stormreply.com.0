@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA1F8319DFD
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 13:14:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC0B319DFE
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 13:14:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87683C57B5B;
-	Fri, 12 Feb 2021 12:14:19 +0000 (UTC)
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D21BC57B5B;
+	Fri, 12 Feb 2021 12:14:24 +0000 (UTC)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2DD1C57B59
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A264AC57B5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 12:14:17 +0000 (UTC)
-Received: by mail-qt1-f172.google.com with SMTP id z32so6473776qtd.8
+ Fri, 12 Feb 2021 12:14:23 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id b14so8448747qkk.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 04:14:17 -0800 (PST)
+ Fri, 12 Feb 2021 04:14:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=zYNQDVBttWuol9Nr7vZ9TZ0pD01e0D8AxvqzWcKy2yQ=;
- b=aM0sxgfW7EgiObp2+TZrx7/lpr8sKMXQGE4XaF94+aL5T5kix2W8sOsAr8u0jENXVE
- 7ifeOIOq16yrovXrbb8oiyDkt+ArzI+PtEZez5zjEvlJFN3ZFsbl6RvIAoza1oNUOCX1
- olEGary8VS5UP6uiSlIR5HLqcnjrgFztryrCUkJeSMUKk70QmoHERtWMIrvjqQqulxX0
- xMyTRO5H7Say1S18oBN+GhBXNe6kuL1byvWTOHo9i5zCEEshHdM0dxUrf0Ud9pvL7rOj
- OxFXDTRj2LBOa+80VR1/rN5SRZ27oq6IRHXOM8rvgNHGumKKjlrG3dNbN0m3JfnPzCSa
- zSRg==
+ bh=6xiffz/2juDPYZZmbqjFbaJKECdvS7YcRGaS6EInCRI=;
+ b=mZwTrnYBpzn4XVHU4cjflgs4dw3om1p7+bsPTTIGiZD2NCewK4MDA6YLmPTaDa6DMu
+ Ge04VhdsHPF4MRQu30KIcCqwXytSwbkASdr+K1rrR67Uv9HT8pQZivCSWDLOaNXHa+3M
+ TGh9iaQ4NiaLDiIFFXI1FEPic/hMSPuaFhzexZOXuh9Mc6E5AxBlw1Mnt7EhujKKYvK3
+ sWRt1tNWuoZz4jm/M7mZWE2JOvL1aQF6cEuA5eracV6uuSMk+BARM+N/EVLNw/fUJA4v
+ 7kebs8UyURXh0sS+M8bV0F8gP2jaAGrrDKi6gl38qEe+fn80R4JoTK3zJb+lSPfxZKxI
+ +ZBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=zYNQDVBttWuol9Nr7vZ9TZ0pD01e0D8AxvqzWcKy2yQ=;
- b=adQgwELV6CMufgY2b9fYK2TLN/3TBqpYAeew60tfjLe6FS8Ao6oEw3AbWBftar6FLx
- A4M2yHuMI/AzkpDWaWj+TO5d04Mr0L34+sgqPDUwfKpwbiBtta6qOxLOUNNKBd2mkXzN
- ImtKwO+gkL+OVjM8pU6V9mt55Z5gAV41uY8kUt4EP+DxhEnDDhNfTxDzi5LX8UFO5gJ0
- jBS8YJO8NFWV96xsFhRg3A7dxa/rxlCL/OjcvEiH1/jVcGG72SCvR5+gjcthYCGtue3J
- +cOXF2lInwgnPp2BtedAf+Rs2mGKyssv/eQvCU+hw3L5VksrAGb9Quug3TGNzDjnP8Zw
- Z6ZA==
-X-Gm-Message-State: AOAM533MRsoED9OS6VebrK1qJ3wvJeqHrSSLDTDHbMtf5FZ8fkQOkZEI
- 8f4C9+BudgR96vPOeXp1QLc=
-X-Google-Smtp-Source: ABdhPJwnyJ+R/neIAfUAIjSjngmjsVTVRQEo+iuZDMXLDZrsRJ6K4GTnnYIMjHvxF2iySoUNHUa4Gg==
-X-Received: by 2002:ac8:5894:: with SMTP id t20mr2078682qta.194.1613132056934; 
- Fri, 12 Feb 2021 04:14:16 -0800 (PST)
+ bh=6xiffz/2juDPYZZmbqjFbaJKECdvS7YcRGaS6EInCRI=;
+ b=D56U01SpXRVGZ1sRQPg4M/TDfl4e8brtwDvTXuqvPCq+wk0zf+BlMBKIH0FieTT58l
+ hQ+vwW/inly3b/FsSaONJ9a45IizmU+Wx5Qoe8qtPHhHXwSln/L31gY8fb2ulQD0KlNr
+ o+92uULlJ5y8XBLPFE9wqLDMo2AN5T1bQ75UidD9rm75jqlnlf40o1T3/EGq5i6fsoiS
+ kiIhlzRyxMP4Gi96hk6jbkQ4f30fn/vk1Iw/Nb8n203qsb4OUIl8DmtEhRB9UIXZa0xb
+ PsfJKA4ij8tQ8MRoqjMFEuhr/bJOF77asAPORG6KjnE4A/7UmCky5WVscG6VcI2OHAJ/
+ YRMA==
+X-Gm-Message-State: AOAM532p6PV1Ly9Ofi8QA97A/j6Gwo6uikGQamn9glauGSYDNZLhtCVy
+ zEzPIvZEFAcD4tfbQBPPTm8=
+X-Google-Smtp-Source: ABdhPJwoTxWbQejBvfQ1z5Et+JABQcqujW3McbDYqiMJyzm1dfG/tggH8StL/8Q1BhTbF/53po07Dw==
+X-Received: by 2002:a37:6cc6:: with SMTP id h189mr1325495qkc.195.1613132062689; 
+ Fri, 12 Feb 2021 04:14:22 -0800 (PST)
 Received: from localhost.localdomain ([193.27.12.132])
- by smtp.gmail.com with ESMTPSA id y135sm6278534qkb.14.2021.02.12.04.14.11
+ by smtp.gmail.com with ESMTPSA id y135sm6278534qkb.14.2021.02.12.04.14.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Feb 2021 04:14:16 -0800 (PST)
+ Fri, 12 Feb 2021 04:14:22 -0800 (PST)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Fri, 12 Feb 2021 21:13:27 +0900
-Message-Id: <2be0c071e7730ea16b8faa1efcd3d0d908e7f9db.1613131238.git.vilhelm.gray@gmail.com>
+Date: Fri, 12 Feb 2021 21:13:28 +0900
+Message-Id: <b16b0f7e882a80924d785f022f8ff6b160f9d288.1613131238.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <cover.1613131238.git.vilhelm.gray@gmail.com>
 References: <cover.1613131238.git.vilhelm.gray@gmail.com>
@@ -62,8 +62,8 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v8 03/22] counter: 104-quad-8: Return error
-	when invalid mode during ceiling_write
+Subject: [Linux-stm32] [PATCH v8 04/22] counter: 104-quad-8: Annotate
+	hardware config module parameter
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,39 +80,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The 104-QUAD-8 only has two count modes where a ceiling value makes
-sense: Range Limit and Modulo-N. Outside of these two modes, setting a
-ceiling value is an invalid operation -- so let's report it as such by
-returning -EINVAL.
+When the kernel is running in secure boot mode, we lock down the kernel to
+prevent userspace from modifying the running kernel image.  Whilst this
+includes prohibiting access to things like /dev/mem, it must also prevent
+access by means of configuring driver modules in such a way as to cause a
+device to access or modify the kernel image.
 
-Fixes: fc069262261c ("counter: 104-quad-8: Add lock guards - generic interface")
+To this end, annotate module_param* statements that refer to hardware
+configuration and indicate for future reference what type of parameter they
+specify.  The parameter parser in the core sees this information and can
+skip such parameters with an error message if the kernel is locked down.
+The module initialisation then runs as normal, but just sees whatever the
+default values for those parameters is.
+
+Note that we do still need to do the module initialisation because some
+drivers have viable defaults set in case parameters aren't specified and
+some drivers support automatic configuration (e.g. PNP or PCI) in addition
+to manually coded parameters.
+
+This patch annotates the 104-QUAD-8 driver.
+
 Cc: Syed Nayyar Waris <syednwaris@gmail.com>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- drivers/counter/104-quad-8.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/counter/104-quad-8.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
-index 9691f8612be8..f0608b21196a 100644
+index f0608b21196a..37551d3016de 100644
 --- a/drivers/counter/104-quad-8.c
 +++ b/drivers/counter/104-quad-8.c
-@@ -714,13 +714,14 @@ static ssize_t quad8_count_ceiling_write(struct counter_device *counter,
- 	switch (priv->count_mode[count->id]) {
- 	case 1:
- 	case 3:
-+		mutex_unlock(&priv->lock);
- 		quad8_preset_register_set(priv, count->id, ceiling);
--		break;
-+		return len;
- 	}
+@@ -21,7 +21,7 @@
  
- 	mutex_unlock(&priv->lock);
+ static unsigned int base[max_num_isa_dev(QUAD8_EXTENT)];
+ static unsigned int num_quad8;
+-module_param_array(base, uint, &num_quad8, 0);
++module_param_hw_array(base, uint, ioport, &num_quad8, 0);
+ MODULE_PARM_DESC(base, "ACCES 104-QUAD-8 base addresses");
  
--	return len;
-+	return -EINVAL;
- }
- 
- static ssize_t quad8_count_preset_enable_read(struct counter_device *counter,
+ #define QUAD8_NUM_COUNTERS 8
 -- 
 2.30.0
 
