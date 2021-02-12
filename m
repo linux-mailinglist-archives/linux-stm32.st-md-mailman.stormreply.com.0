@@ -2,55 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBC0B319DFE
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 13:14:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E025E319DFF
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Feb 2021 13:14:30 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D21BC57B5B;
-	Fri, 12 Feb 2021 12:14:24 +0000 (UTC)
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
- [209.85.222.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA6E5C57B5B;
+	Fri, 12 Feb 2021 12:14:30 +0000 (UTC)
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
+ [209.85.222.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A264AC57B5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D8CEC57B59
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 12:14:23 +0000 (UTC)
-Received: by mail-qk1-f172.google.com with SMTP id b14so8448747qkk.0
+ Fri, 12 Feb 2021 12:14:29 +0000 (UTC)
+Received: by mail-qk1-f179.google.com with SMTP id 81so65356qkf.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Feb 2021 04:14:23 -0800 (PST)
+ Fri, 12 Feb 2021 04:14:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=6xiffz/2juDPYZZmbqjFbaJKECdvS7YcRGaS6EInCRI=;
- b=mZwTrnYBpzn4XVHU4cjflgs4dw3om1p7+bsPTTIGiZD2NCewK4MDA6YLmPTaDa6DMu
- Ge04VhdsHPF4MRQu30KIcCqwXytSwbkASdr+K1rrR67Uv9HT8pQZivCSWDLOaNXHa+3M
- TGh9iaQ4NiaLDiIFFXI1FEPic/hMSPuaFhzexZOXuh9Mc6E5AxBlw1Mnt7EhujKKYvK3
- sWRt1tNWuoZz4jm/M7mZWE2JOvL1aQF6cEuA5eracV6uuSMk+BARM+N/EVLNw/fUJA4v
- 7kebs8UyURXh0sS+M8bV0F8gP2jaAGrrDKi6gl38qEe+fn80R4JoTK3zJb+lSPfxZKxI
- +ZBA==
+ bh=BjJkilAOMGiWiSD9J4QR2aEeHu+r/1qYrSNyG3boNpc=;
+ b=BLt4sjlCky7CbAc9/dLfGcwAvsWUzPTf4qP6jWbY9HDc4vxvHbqwfw2gO5Yb8HOjf6
+ rkst6aD34iVSCEHlOGhRA3Yn8niNgmuNNuu6RoICNh9W+VjiTpdSd+SB+i32v3pHjPZr
+ HAg1MwfATZpc6EcnxaUdfEZHfs4ZSE8O0oZtiZOvC3dIzl4es1cUiFXTc60qjE6tn7/V
+ /LwRKPjXtzfhMbSyMkJuDNEY+/JMupnGIj0Y5XmcpZvDcH9EkjMSsJkYM3zlwjfJwQsk
+ r8ZQuH9ohwU6xO6YH41XKAn41CX5Viei5boWdFpNW43QCp0+cYQkxzM6eTkcpqZZGI4c
+ dmKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=6xiffz/2juDPYZZmbqjFbaJKECdvS7YcRGaS6EInCRI=;
- b=D56U01SpXRVGZ1sRQPg4M/TDfl4e8brtwDvTXuqvPCq+wk0zf+BlMBKIH0FieTT58l
- hQ+vwW/inly3b/FsSaONJ9a45IizmU+Wx5Qoe8qtPHhHXwSln/L31gY8fb2ulQD0KlNr
- o+92uULlJ5y8XBLPFE9wqLDMo2AN5T1bQ75UidD9rm75jqlnlf40o1T3/EGq5i6fsoiS
- kiIhlzRyxMP4Gi96hk6jbkQ4f30fn/vk1Iw/Nb8n203qsb4OUIl8DmtEhRB9UIXZa0xb
- PsfJKA4ij8tQ8MRoqjMFEuhr/bJOF77asAPORG6KjnE4A/7UmCky5WVscG6VcI2OHAJ/
- YRMA==
-X-Gm-Message-State: AOAM532p6PV1Ly9Ofi8QA97A/j6Gwo6uikGQamn9glauGSYDNZLhtCVy
- zEzPIvZEFAcD4tfbQBPPTm8=
-X-Google-Smtp-Source: ABdhPJwoTxWbQejBvfQ1z5Et+JABQcqujW3McbDYqiMJyzm1dfG/tggH8StL/8Q1BhTbF/53po07Dw==
-X-Received: by 2002:a37:6cc6:: with SMTP id h189mr1325495qkc.195.1613132062689; 
- Fri, 12 Feb 2021 04:14:22 -0800 (PST)
+ bh=BjJkilAOMGiWiSD9J4QR2aEeHu+r/1qYrSNyG3boNpc=;
+ b=J6yUq30Ju9SsVSixpcGe1DlZn8h2cFbZm2HycvvyPWBnrhI/+xfoAzaXjZUkf5c+z+
+ XwsgYetuBhFZzV6Eg6Qv65gbmo2R0tg+RQhIR7XF53hYCZ+GfwSJmMZ660islAO7K4I4
+ MFXXIEjOUquFpTwDyVEteF7sQR7yms7DIMjS5iLCbDIO4CATFPpRuvLtI2d54+4qKmzS
+ EGaSALpQVI4lrRxNcXmvZgWmQ6SSPodlLugaCNE80HJLnkch4ZQSljeFQkIkI7kQCY1d
+ lENI119GxSzZOURQyyBFd5j9R6FFpuFSI9Y51fLSk28H82cSDCt3+r5ais9m99t/56a8
+ zKkA==
+X-Gm-Message-State: AOAM533MsedNegk9wU6ID5vl82eEd0+GXREcwA36zseTpVxuW0L1bflL
+ 94J8g/Ylx89YyJTpnl6O6Uc=
+X-Google-Smtp-Source: ABdhPJzGvQvyQZE7dX5RO3K9tktCugN52yaK4b68hwIqb2DyJmUOu4SVpRBxm3I5s1tE3VfsUB2Hig==
+X-Received: by 2002:a05:620a:38e:: with SMTP id
+ q14mr2251979qkm.239.1613132068379; 
+ Fri, 12 Feb 2021 04:14:28 -0800 (PST)
 Received: from localhost.localdomain ([193.27.12.132])
- by smtp.gmail.com with ESMTPSA id y135sm6278534qkb.14.2021.02.12.04.14.17
+ by smtp.gmail.com with ESMTPSA id y135sm6278534qkb.14.2021.02.12.04.14.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Feb 2021 04:14:22 -0800 (PST)
+ Fri, 12 Feb 2021 04:14:28 -0800 (PST)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Fri, 12 Feb 2021 21:13:28 +0900
-Message-Id: <b16b0f7e882a80924d785f022f8ff6b160f9d288.1613131238.git.vilhelm.gray@gmail.com>
+Date: Fri, 12 Feb 2021 21:13:29 +0900
+Message-Id: <92f7ef2bc516c1f9d54b3904bf78b908497a1978.1613131238.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <cover.1613131238.git.vilhelm.gray@gmail.com>
 References: <cover.1613131238.git.vilhelm.gray@gmail.com>
@@ -62,8 +63,8 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v8 04/22] counter: 104-quad-8: Annotate
-	hardware config module parameter
+Subject: [Linux-stm32] [PATCH v8 05/22] counter: 104-quad-8: Add const
+	qualifiers for quad8_preset_register_set
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,45 +81,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When the kernel is running in secure boot mode, we lock down the kernel to
-prevent userspace from modifying the running kernel image.  Whilst this
-includes prohibiting access to things like /dev/mem, it must also prevent
-access by means of configuring driver modules in such a way as to cause a
-device to access or modify the kernel image.
-
-To this end, annotate module_param* statements that refer to hardware
-configuration and indicate for future reference what type of parameter they
-specify.  The parameter parser in the core sees this information and can
-skip such parameters with an error message if the kernel is locked down.
-The module initialisation then runs as normal, but just sees whatever the
-default values for those parameters is.
-
-Note that we do still need to do the module initialisation because some
-drivers have viable defaults set in case parameters aren't specified and
-some drivers support automatic configuration (e.g. PNP or PCI) in addition
-to manually coded parameters.
-
-This patch annotates the 104-QUAD-8 driver.
+Add some safety by qualifying the quad8_preset_register_set() function
+parameters as const.
 
 Cc: Syed Nayyar Waris <syednwaris@gmail.com>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- drivers/counter/104-quad-8.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/counter/104-quad-8.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
-index f0608b21196a..37551d3016de 100644
+index 37551d3016de..70383b792ec6 100644
 --- a/drivers/counter/104-quad-8.c
 +++ b/drivers/counter/104-quad-8.c
-@@ -21,7 +21,7 @@
+@@ -632,8 +632,8 @@ static ssize_t quad8_count_preset_read(struct counter_device *counter,
+ 	return sprintf(buf, "%u\n", priv->preset[count->id]);
+ }
  
- static unsigned int base[max_num_isa_dev(QUAD8_EXTENT)];
- static unsigned int num_quad8;
--module_param_array(base, uint, &num_quad8, 0);
-+module_param_hw_array(base, uint, ioport, &num_quad8, 0);
- MODULE_PARM_DESC(base, "ACCES 104-QUAD-8 base addresses");
- 
- #define QUAD8_NUM_COUNTERS 8
+-static void quad8_preset_register_set(struct quad8 *priv, int id,
+-				      unsigned int preset)
++static void quad8_preset_register_set(struct quad8 *const priv, const int id,
++				      const unsigned int preset)
+ {
+ 	const unsigned int base_offset = priv->base + 2 * id;
+ 	int i;
 -- 
 2.30.0
 
