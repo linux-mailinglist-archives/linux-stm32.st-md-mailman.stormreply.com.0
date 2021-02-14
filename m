@@ -2,42 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 351F131B192
-	for <lists+linux-stm32@lfdr.de>; Sun, 14 Feb 2021 18:32:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00A1A31B1A4
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Feb 2021 18:48:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2CFAC5719A;
-	Sun, 14 Feb 2021 17:32:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FA0FC5719A;
+	Sun, 14 Feb 2021 17:48:30 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A73BC32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0D75C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Feb 2021 17:32:15 +0000 (UTC)
+ Sun, 14 Feb 2021 17:48:27 +0000 (UTC)
 Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
  [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C518760235;
- Sun, 14 Feb 2021 17:32:10 +0000 (UTC)
-Date: Sun, 14 Feb 2021 17:32:07 +0000
+ by mail.kernel.org (Postfix) with ESMTPSA id 528EC64DA5;
+ Sun, 14 Feb 2021 17:48:23 +0000 (UTC)
+Date: Sun, 14 Feb 2021 17:48:19 +0000
 From: Jonathan Cameron <jic23@kernel.org>
 To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210214173207.19fc810b@archlinux>
-In-Reply-To: <3fc2580af0efd6312a64a0e107bd6fa758f0d466.1613131238.git.vilhelm.gray@gmail.com>
+Message-ID: <20210214174819.6757e2b0@archlinux>
+In-Reply-To: <350cafba81d3220b64efdb019bd76c08eb1e5d10.1613131238.git.vilhelm.gray@gmail.com>
 References: <cover.1613131238.git.vilhelm.gray@gmail.com>
- <3fc2580af0efd6312a64a0e107bd6fa758f0d466.1613131238.git.vilhelm.gray@gmail.com>
+ <350cafba81d3220b64efdb019bd76c08eb1e5d10.1613131238.git.vilhelm.gray@gmail.com>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
  alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
- Dan Carpenter <dan.carpenter@oracle.com>, kernel@pengutronix.de,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
  fabrice.gasnier@st.com, syednwaris@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v8 13/22] counter: Internalize sysfs
-	interface code
+Subject: Re: [Linux-stm32] [PATCH v8 18/22] docs: counter: Document
+ character device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,200 +53,319 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 12 Feb 2021 21:13:37 +0900
+On Fri, 12 Feb 2021 21:13:42 +0900
 William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 
-> This is a reimplementation of the Generic Counter driver interface.
-> There are no modifications to the Counter subsystem userspace interface,
-> so existing userspace applications should continue to run seamlessly.
+> This patch adds high-level documentation about the Counter subsystem
+> character device interface.
 > 
-> The purpose of this patch is to internalize the sysfs interface code
-> among the various counter drivers into a shared module. Counter drivers
-> pass and take data natively (i.e. u8, u64, etc.) and the shared counter
-> module handles the translation between the sysfs interface and the
-> device drivers. This guarantees a standard userspace interface for all
-> counter drivers, and helps generalize the Generic Counter driver ABI in
-> order to support the Generic Counter chrdev interface (introduced in a
-> subsequent patch) without significant changes to the existing counter
-> drivers.
-> 
-> Note, Counter device registration is the same as before: drivers
-> populate a struct counter_device with components and callbacks, then
-> pass the structure to the devm_counter_register function. However,
-> what's different now is how the Counter subsystem code handles this
-> registration internally.
-> 
-> Whereas before callbacks would interact directly with sysfs data, this
-> interaction is now abstracted and instead callbacks interact with native
-> C data types. The counter_comp structure forms the basis for Counter
-> extensions.
-> 
-> The counter-sysfs.c file contains the code to parse through the
-> counter_device structure and register the requested components and
-> extensions. Attributes are created and populated based on type, with
-> respective translation functions to handle the mapping between sysfs and
-> the counter driver callbacks.
-> 
-> The translation performed for each attribute is straightforward: the
-> attribute type and data is parsed from the counter_attribute structure,
-> the respective counter driver read/write callback is called, and sysfs
-> I/O is handled before or after the driver read/write function is called.
-> 
-> Cc: Syed Nayyar Waris <syednwaris@gmail.com>
-> Cc: Patrick Havelange <patrick.havelange@essensium.com>
-> Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>
-> Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: David Lechner <david@lechnology.com>
-> Cc: Dan Carpenter <dan.carpenter@oracle.com>
 > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-
-A few minor comments inline.
-
-This set is still huge, so I've only looked at the core code
-for this version.  Hopefully driver maintainers will do the thorough
-review of how it effects the individual drivers!
-
-Jonathan
-
 > ---
->  MAINTAINERS                             |    1 -
->  drivers/counter/104-quad-8.c            |  449 +++----
->  drivers/counter/Makefile                |    1 +
->  drivers/counter/counter-core.c          |  153 +++
->  drivers/counter/counter-sysfs.c         |  833 +++++++++++++
->  drivers/counter/counter-sysfs.h         |   13 +
->  drivers/counter/counter.c               | 1496 -----------------------
->  drivers/counter/ftm-quaddec.c           |   56 +-
->  drivers/counter/microchip-tcb-capture.c |   87 +-
->  drivers/counter/stm32-lptimer-cnt.c     |  164 ++-
->  drivers/counter/stm32-timer-cnt.c       |  142 +--
->  drivers/counter/ti-eqep.c               |  211 ++--
->  include/linux/counter.h                 |  631 +++++-----
->  include/linux/counter_enum.h            |   45 -
->  14 files changed, 1816 insertions(+), 2466 deletions(-)
->  create mode 100644 drivers/counter/counter-core.c
->  create mode 100644 drivers/counter/counter-sysfs.c
->  create mode 100644 drivers/counter/counter-sysfs.h
->  delete mode 100644 drivers/counter/counter.c
->  delete mode 100644 include/linux/counter_enum.h
+>  Documentation/driver-api/generic-counter.rst  | 243 +++++++++++++++---
+>  .../userspace-api/ioctl/ioctl-number.rst      |   1 +
+>  2 files changed, 203 insertions(+), 41 deletions(-)
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d858582c917b..94a19606d947 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -4543,7 +4543,6 @@ F:	Documentation/ABI/testing/sysfs-bus-counter
->  F:	Documentation/driver-api/generic-counter.rst
->  F:	drivers/counter/
->  F:	include/linux/counter.h
-> -F:	include/linux/counter_enum.h
+> diff --git a/Documentation/driver-api/generic-counter.rst b/Documentation/driver-api/generic-counter.rst
+> index f6397218aa4c..3be109dc81bb 100644
+> --- a/Documentation/driver-api/generic-counter.rst
+> +++ b/Documentation/driver-api/generic-counter.rst
+> @@ -223,19 +223,6 @@ whether an input line is differential or single-ended) and instead focus
+>  on the core idea of what the data and process represent (e.g. position
+>  as interpreted from quadrature encoding data).
 >  
->  CPMAC ETHERNET DRIVER
->  M:	Florian Fainelli <f.fainelli@gmail.com>
-> diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
-> index eca3f6482719..41fdbd228be3 100644
-> --- a/drivers/counter/104-quad-8.c
-> +++ b/drivers/counter/104-quad-8.c
-> @@ -116,7 +116,7 @@ static int quad8_signal_read(struct counter_device *counter,
-...
-
-> diff --git a/drivers/counter/counter-sysfs.c b/drivers/counter/counter-sysfs.c
-> new file mode 100644
-> index 000000000000..52513a213cc5
-> --- /dev/null
-> +++ b/drivers/counter/counter-sysfs.c
-> @@ -0,0 +1,833 @@
-
-...
-
-> +
-> +static ssize_t counter_comp_u8_show(struct device *dev,
-> +				    struct device_attribute *attr, char *buf)
-> +{
-> +	const struct counter_attribute *const a = to_counter_attribute(attr);
-> +	struct counter_device *const counter = dev_get_drvdata(dev);
-> +	int err;
-> +	u8 data = 0;
-> +
-> +	switch (a->scope) {
-> +	case COUNTER_SCOPE_DEVICE:
-> +		err = a->comp.device_u8_read(counter, &data);
-> +		break;
-> +	case COUNTER_SCOPE_SIGNAL:
-> +		err = a->comp.signal_u8_read(counter, a->parent, &data);
-> +		break;
-> +	case COUNTER_SCOPE_COUNT:
-> +		err = a->comp.count_u8_read(counter, a->parent, &data);
-> +		break;
-
-I'd add a default in here just to make it obvious anything else is
-an error.  Same in other similar cases that follow.
-
-> +	}
-> +	if (err < 0)
-> +		return err;
-> +
-> +	if (a->comp.type == COUNTER_COMP_BOOL)
-> +		data = !!data;
-> +
-> +	return sprintf(buf, "%u\n", (unsigned int)data);
-> +}
-> +
-
-
-...
-
-> +
-> +static int counter_name_attr_create(struct device *const dev,
-> +				    struct counter_attribute_group *const group,
-> +				    const char *const name)
-> +{
-> +	struct counter_attribute *counter_attr;
-> +
-> +	/* Allocate Counter attribute */
-> +	counter_attr = devm_kzalloc(dev, sizeof(*counter_attr), GFP_KERNEL);
-> +	if (!counter_attr)
-> +		return -ENOMEM;
-> +
-> +	/* Configure Counter attribute */
-> +	counter_attr->comp.name = name;
-> +
-> +	/* Configure device attribute */
-> +	sysfs_attr_init(&counter_attr->dev_attr.attr);
-> +	counter_attr->dev_attr.attr.name = "name";
-> +	counter_attr->dev_attr.attr.mode = 0444;
-> +	counter_attr->dev_attr.show = counter_comp_name_show;
-> +
-> +	/* Store list node */
-> +	list_add(&counter_attr->l, &group->attr_list);
-> +	group->num_attr++;
-> +
-> +	return 0;
-> +}
-
-Trivial but one too many blank lines.
-
-> +
-> +
-> +static struct counter_comp counter_signal_comp = {
-> +	.type = COUNTER_COMP_SIGNAL_LEVEL,
-> +	.name = "signal",
-> +};
-
-...
-
-
->  static struct counter_synapse ti_eqep_position_synapses[] = {
-> diff --git a/include/linux/counter.h b/include/linux/counter.h
-> index d16ce2819b48..76b0b06dd5db 100644
-> --- a/include/linux/counter.h
-> +++ b/include/linux/counter.h
-> @@ -6,42 +6,184 @@
->  #ifndef _COUNTER_H_
->  #define _COUNTER_H_
+> -Userspace Interface
+> -===================
+> -
+> -Several sysfs attributes are generated by the Generic Counter interface,
+> -and reside under the /sys/bus/counter/devices/counterX directory, where
+> -counterX refers to the respective counter device. Please see
+> -Documentation/ABI/testing/sysfs-bus-counter for detailed
+> -information on each Generic Counter interface sysfs attribute.
+> -
+> -Through these sysfs attributes, programs and scripts may interact with
+> -the Generic Counter paradigm Counts, Signals, and Synapses of respective
+> -counter devices.
+> -
+>  Driver API
+>  ==========
 >  
-...
+> @@ -388,16 +375,16 @@ userspace interface components::
+>                          / driver callbacks /
+>                          -------------------
+>                                  |
+> -                +---------------+
+> -                |
+> -                V
+> -        +--------------------+
+> -        | Counter sysfs      |
+> -        +--------------------+
+> -        | Translates to the  |
+> -        | standard Counter   |
+> -        | sysfs output       |
+> -        +--------------------+
+> +                +---------------+---------------+
+> +                |                               |
+> +                V                               V
+> +        +--------------------+          +---------------------+
+> +        | Counter sysfs      |          | Counter chrdev      |
+> +        +--------------------+          +---------------------+
+> +        | Translates to the  |          | Translates to the   |
+> +        | standard Counter   |          | standard Counter    |
+> +        | sysfs output       |          | character device    |
+> +        +--------------------+          +---------------------+
+>  
+>  Thereafter, data can be transferred directly between the Counter device
+>  driver and Counter userspace interface::
+> @@ -428,23 +415,30 @@ driver and Counter userspace interface::
+>                          / u64     /
+>                          ----------
+>                                  |
+> -                +---------------+
+> -                |
+> -                V
+> -        +--------------------+
+> -        | Counter sysfs      |
+> -        +--------------------+
+> -        | Translates to the  |
+> -        | standard Counter   |
+> -        | sysfs output       |
+> -        |--------------------|
+> -        | Type: const char * |
+> -        | Value: "42"        |
+> -        +--------------------+
+> -                |
+> -         ---------------
+> -        / const char * /
+> -        ---------------
+> +                +---------------+---------------+
+> +                |                               |
+> +                V                               V
+> +        +--------------------+          +---------------------+
+> +        | Counter sysfs      |          | Counter chrdev      |
+> +        +--------------------+          +---------------------+
+> +        | Translates to the  |          | Translates to the   |
+> +        | standard Counter   |          | standard Counter    |
+> +        | sysfs output       |          | character device    |
+> +        |--------------------|          |---------------------|
+> +        | Type: const char * |          | Type: u64           |
+> +        | Value: "42"        |          | Value: 42           |
+> +        +--------------------+          +---------------------+
+> +                |                               |
+> +         ---------------                 -----------------------
+> +        / const char * /                / struct counter_event /
+> +        ---------------                 -----------------------
+> +                |                               |
+> +                |                               V
+> +                |                       +-----------+
+> +                |                       | read      |
+> +                |                       +-----------+
+> +                |                       \ Count: 42 /
+> +                |                        -----------
+>                  |
+>                  V
+>          +--------------------------------------------------+
+> @@ -453,7 +447,7 @@ driver and Counter userspace interface::
+>          \ Count: "42"                                      /
+>           --------------------------------------------------
+>  
+> -There are three primary components involved:
+> +There are four primary components involved:
+>  
+>  Counter device driver
+>  ---------------------
+> @@ -473,3 +467,170 @@ and vice versa.
+>  Please refer to the ``Documentation/ABI/testing/sysfs-bus-counter`` file
+>  for a detailed breakdown of the available Generic Counter interface
+>  sysfs attributes.
+> +
+> +Counter chrdev
+> +--------------
+> +Translates counter data to the standard Counter character device; data
+> +is transferred via standard character device read calls, while Counter
+> +events are configured via ioctl calls.
+> +
+> +Sysfs Interface
+> +===============
+> +
+> +Several sysfs attributes are generated by the Generic Counter interface,
+> +and reside under the ``/sys/bus/counter/devices/counterX`` directory,
+> +where ``X`` is to the respective counter device id. Please see
+> +``Documentation/ABI/testing/sysfs-bus-counter`` for detailed information
+> +on each Generic Counter interface sysfs attribute.
+> +
+> +Through these sysfs attributes, programs and scripts may interact with
+> +the Generic Counter paradigm Counts, Signals, and Synapses of respective
+> +counter devices.
+> +
+> +Counter Character Device
+> +========================
+> +
+> +Counter character device nodes are created under the ``/dev`` directory
+> +as ``counterX``, where ``X`` is the respective counter device id.
+> +Defines for the standard Counter data types are exposed via the
+> +userspace ``include/uapi/linux/counter.h`` file.
+> +
+> +Counter events
+> +--------------
+> +Counter device drivers can support Counter events by utilizing the
+> +``counter_push_event`` function::
+> +
+> +        void counter_push_event(struct counter_device *const counter, const u8 event,
+> +                                const u8 channel);
+> +
+> +The event id is specified by the ``event`` parameter; the event channel
+> +id is specified by the ``channel`` parameter. When this function is
+> +called, the Counter data associated with the respective event is
+> +gathered, and a ``struct counter_event`` is generated for each datum and
+> +pushed to userspace.
+> +
+> +Counter events can be configured by users to report various Counter
+> +data of interest. This can be conceptualized as a list of Counter
+> +component read calls to perform. For example::
+> +
+> +        +~~~~~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~~~~~+
+> +        | COUNTER_EVENT_OVERFLOW | COUNTER_EVENT_INDEX    |
+> +        +~~~~~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~~~~~+
+> +        | Channel 0              | Channel 0              |
+> +        +------------------------+------------------------+
+> +        | * Count 0              | * Signal 0             |
+> +        | * Count 1              | * Signal 0 Extension 0 |
+> +        | * Signal 3             | * Extension 4          |
+> +        | * Count 4 Extension 2  +------------------------+
+> +        | * Signal 5 Extension 0 | Channel 1              |
+> +        |                        +------------------------+
+> +        |                        | * Signal 4             |
+> +        |                        | * Signal 4 Extension 0 |
+> +        |                        | * Count 7              |
+> +        +------------------------+------------------------+
+> +
+> +When ``counter_push_event(counter, COUNTER_EVENT_INDEX, 1)`` is called
+> +for example, it will go down the list for the ``COUNTER_EVENT_INDEX``
+> +event channel 1 and execute the read callbacks for Signal 4, Signal 4
+> +Extension 0, and Count 4 -- the data returned for each is pushed to a
+> +kfifo as a ``struct counter_event``, which userspace can retrieve via a
+> +standard read operation on the respective character device node.
+> +
+> +Userspace
+> +---------
+> +Userspace applications can configure Counter events via ioctl operations
+> +on the Counter character device node. There following ioctl codes are
+> +supported and provided by the ``linux/counter.h`` userspace header file:
+> +
+> +* COUNTER_ADD_WATCH_IOCTL:
+> +  Queues a Counter watch for the specified event. The queued watches
+> +  will not be applied until ``COUNTER_ENABLE_EVENTS_IOCTL`` is called.
+> +
+> +* COUNTER_ENABLE_EVENTS_IOCTL:
+> +  Enables monitoring the events specified by the Counter watches that
+> +  were queued by ``COUNTER_ADD_WATCH_IOCTL``. If events are already
+> +  enabled, the new set of watches replaces the old one. Calling this
+> +  ioctl also has the effect of clearing the queue of watches added by
+> +  ``COUNTER_ADD_WATCH_IOCTL``.
+> +
+> +* COUNTER_DISABLE_EVENTS_IOCTL:
+> +  Stops monitoring the previously enabled events.
+
+Is there a way to remove a watch? 
+
+> +
+> +To configure events to gather Counter data, users first populate a
+> +``struct counter_watch`` with the relevant event id, event channel id,
+> +and the information for the desired Counter component from which to
+> +read, and then pass it via the ``COUNTER_ADD_WATCH_IOCTL`` ioctl
+> +command.
+> +
+> +Note that an event can be watched without gathering Counter data by
+> +setting the ``component.type`` member equal to
+> +``COUNTER_COMPONENT_NONE``. With this configuration the Counter
+> +character device will simply populate the event timestamps for those
+> +respective ``struct counter_event`` elements and ignore the component
+> +value.
+> +
+> +The ``COUNTER_ADD_WATCH_IOCTL`` command will buffer these Counter
+> +watches. When ready, the ``COUNTER_ENABLE_EVENTS_IOCTL`` ioctl command
+> +may be used to activate these Counter watches.
+> +
+> +Userspace applications can then execute a ``read`` operation (optionally
+> +calling ``poll`` first) on the Counter character device node to retrieve
+> +``struct counter_event`` elements with the desired data.
+> +
+> +For example, the following userspace code opens ``/dev/counter0``,
+> +configures the ``COUNTER_EVENT_INDEX`` event channel 0 to gather Count 0
+> +and Count 1, and prints out the data as it becomes available on the
+> +character device node::
+> +
+
+Consider adding an example program under tools/
+
+> +        #include <fcntl.h>
+> +        #include <linux/counter.h>
+> +        #include <stdio.h>
+> +        #include <string.h>
+> +        #include <sys/ioctl.h>
+> +        #include <unistd.h>
+> +
+> +        struct counter_watch watches[2] = {
+> +                {
+> +                        .component.type = COUNTER_COMPONENT_COUNT,
+> +                        .component.scope = COUNTER_SCOPE_COUNT,
+> +                        .component.parent = 0,
+
+Good to add comments on what these elements actually are?
+
+> +                        .event = COUNTER_EVENT_INDEX,
+> +                        .channel = 0,
+> +                },
+> +                {
+> +                        .component.type = COUNTER_COMPONENT_COUNT,
+> +                        .component.scope = COUNTER_SCOPE_COUNT,
+> +                        .component.parent = 1,
+> +                        .event = COUNTER_EVENT_INDEX,
+> +                        .channel = 0,
+> +                },
+> +        };
+> +
+> +        int main(void)
+> +        {
+> +                int fd;
+> +                struct counter_event event_data[2];
+> +
+> +                fd = open("/dev/counter0", O_RDWR);
+> +
+> +                ioctl(fd, COUNTER_ADD_WATCH_IOCTL, watches);
+> +                ioctl(fd, COUNTER_ADD_WATCH_IOCTL, watches + 1);
+> +                ioctl(fd, COUNTER_ENABLE_EVENTS_IOCTL);
+> +
+> +                for (;;) {
+> +                        read(fd, event_data, sizeof(event_data));
+> +
+> +                        printf("Timestamp 0: %llu\tCount 0: %llu\n"
+> +                               "Error Message 0: %s\n"
+> +                               "Timestamp 1: %llu\tCount 1: %llu\n"
+> +                               "Error Message 1: %s\n",
+> +                               (unsigned long long)event_data[0].timestamp,
+> +                               (unsigned long long)event_data[0].value,
+> +                               strerror(event_data[0].status),
+> +                               (unsigned long long)event_data[1].timestamp,
+> +                               (unsigned long long)event_data[1].value,
+> +                               strerror(event_data[1].status));
+> +                }
+> +
+> +                return 0;
+> +        }
+> diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
+> index a4c75a28c839..8ddca931ec4e 100644
+> --- a/Documentation/userspace-api/ioctl/ioctl-number.rst
+> +++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
+> @@ -88,6 +88,7 @@ Code  Seq#    Include File                                           Comments
+>                                                                       <http://infiniband.sourceforge.net/>
+>  0x20  all    drivers/cdrom/cm206.h
+>  0x22  all    scsi/sg.h
+> +0x3E  00-0F  linux/counter.h                                         <mailto:linux-iio@vger.kernel.org>
+>  '!'   00-1F  uapi/linux/seccomp.h
+>  '#'   00-3F                                                          IEEE 1394 Subsystem
+>                                                                       Block for the entire subsystem
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
