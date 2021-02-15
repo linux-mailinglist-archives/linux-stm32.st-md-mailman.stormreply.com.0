@@ -2,56 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBBAE31B657
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Feb 2021 10:24:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5332F31B7C3
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Feb 2021 12:05:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75EB5C5719A;
-	Mon, 15 Feb 2021 09:24:37 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1AE6C5719A;
+	Mon, 15 Feb 2021 11:05:30 +0000 (UTC)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CB71C3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF35EC3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Feb 2021 09:24:35 +0000 (UTC)
-Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ore@pengutronix.de>)
- id 1lBa75-0005Zp-Rx; Mon, 15 Feb 2021 10:24:15 +0100
-Received: from ore by pty.hi.pengutronix.de with local (Exim 4.89)
- (envelope-from <ore@pengutronix.de>)
- id 1lBa72-0000zq-6l; Mon, 15 Feb 2021 10:24:12 +0100
-Date: Mon, 15 Feb 2021 10:24:12 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210215092412.ptbngqge7m7nyivp@pengutronix.de>
+ Mon, 15 Feb 2021 11:05:29 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id t29so3956028pfg.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 15 Feb 2021 03:05:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=skRj3SiFYGU2FzoN8kd7HGllD8VylOwSjGHxSNwYAec=;
+ b=FaxRQ5deUk0JFii2YaZJibjTP24hmSM8BZR0+RLufkX2FYW6uqMaE3Sp4YHHvAmYQ6
+ jeQ+TdgDHS6sN/7cJ27uyXQ67xSlR9jsnD71Byalm5LZ+o/nJlxIWR2qB6S28iLjHxWt
+ fCc7BFQgAkC4rAaz9iouSxSHLoFY+0q3BoA03iwTEEGKhRdfX65N+tbVQu7QWRsE4lxP
+ pAgQa5myRn9CslysXU/jsocFy6WSOt8F1LNtnetUpNjd9aWuU7taeoV+uTZiXRnchqht
+ +xg2vfa6waKGRp8ysp91PepEPVSyNtQK6+UwItBeC6A/umMJF0QHUpqZxhSFozgDxnk3
+ EOMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=skRj3SiFYGU2FzoN8kd7HGllD8VylOwSjGHxSNwYAec=;
+ b=IVPVOOkcs1oQ/5yCgkXYCM4xozBY5POhkQrn8Gz5Bgdv2OWoK/rs/LuazhK6UiyK9z
+ AeORuD50kOwmdcso5c3yIvITKl93pPEBEISDd12z/VbVHf4nm4eR8rWov2vIjtvI5sDN
+ /jihuPIrbDJexEiLd03opPFauVB1eR7+Nj22Zkm3bWSnFrZhrD//UufUqPWglq0P07GX
+ 0NO8UlFfww/NO5YY8O57zh9sNDvdYK8WzBmY+Lh/KAvKWqb5oq/bMDDyzAOVZwfedybK
+ M9BcNKfvwvAQevNI97yUrH/tAF3hjjlYqAbZoc2tar6bfJprr3ZIPZ574YXr/dqh024+
+ RROw==
+X-Gm-Message-State: AOAM532xn+vVYt4uRiOvQPMFZKhosvXNAveG2Yi86XGOHj80QAnV5dmR
+ D1tYXMjspBk8g4h/+qeTCvE=
+X-Google-Smtp-Source: ABdhPJyL0U399rgcXtbM41RY2V0OAgXVvbu7kbig2ImxEBX+/o63OOWU7N7ZrsIB0Rpe5hxKxMPmXg==
+X-Received: by 2002:a63:c60b:: with SMTP id w11mr14098269pgg.215.1613387128336; 
+ Mon, 15 Feb 2021 03:05:28 -0800 (PST)
+Received: from shinobu ([156.146.35.76])
+ by smtp.gmail.com with ESMTPSA id v1sm2379937pjh.29.2021.02.15.03.05.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Feb 2021 03:05:27 -0800 (PST)
+Date: Mon, 15 Feb 2021 20:05:20 +0900
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <YCpVcInGhe382jXf@shinobu>
 References: <cover.1613131238.git.vilhelm.gray@gmail.com>
- <720278e3aaf3f249657ec18d158eca3f962baf8e.1613131238.git.vilhelm.gray@gmail.com>
+ <362a71a1eba98108d009db8c929170a6ed8cf110.1613131238.git.vilhelm.gray@gmail.com>
+ <20210214165752.59d41f98@archlinux>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <720278e3aaf3f249657ec18d158eca3f962baf8e.1613131238.git.vilhelm.gray@gmail.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-IRC: #ptxdist @freenode
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-Uptime: 10:18:43 up 74 days, 23:25, 42 users,  load average: 0.03, 0.08, 0.04
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
-X-SA-Exim-Mail-From: ore@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org, kamel.bouhara@bootlin.com,
- gwendal@chromium.org, david@lechnology.com, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, linux-stm32@st-md-mailman.stormreply.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- Dan Carpenter <dan.carpenter@oracle.com>, mcoquelin.stm32@gmail.com,
- fabrice.gasnier@st.com, syednwaris@gmail.com, kernel@pengutronix.de,
- jic23@kernel.org, alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v8 17/22] counter: Add character device
-	interface
+In-Reply-To: <20210214165752.59d41f98@archlinux>
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v8 01/22] docs: counter: Consolidate
+ Counter sysfs attributes documentation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,77 +76,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0411235647580494652=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi William,
 
-On Fri, Feb 12, 2021 at 09:13:41PM +0900, William Breathitt Gray wrote:
-> This patch introduces a character device interface for the Counter
-> subsystem. Device data is exposed through standard character device read
-> operations. Device data is gathered when a Counter event is pushed by
-> the respective Counter device driver. Configuration is handled via ioctl
-> operations on the respective Counter character device node.
+--===============0411235647580494652==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Z1Nwiqk3OqT2bUBx"
+Content-Disposition: inline
 
-.....
 
-> +/**
-> + * counter_push_event - queue event for userspace reading
-> + * @counter:	pointer to Counter structure
-> + * @event:	triggered event
-> + * @channel:	event channel
-> + *
-> + * Note: If no one is watching for the respective event, it is silently
-> + * discarded.
-> + */
-> +void counter_push_event(struct counter_device *const counter, const u8 event,
-> +			const u8 channel)
-> +{
-> +	struct counter_event ev = {0};
-> +	unsigned int copied = 0;
-> +	unsigned long flags;
-> +	struct counter_event_node *event_node;
-> +	struct counter_comp_node *comp_node;
-> +
-> +	ev.timestamp = ktime_get_ns();
-> +	ev.watch.event = event;
-> +	ev.watch.channel = channel;
-> +
-> +	/* Could be in an interrupt context, so use a raw spin lock */
-> +	raw_spin_lock_irqsave(&counter->events_list_lock, flags);
-> +
-> +	/* Search for event in the list */
-> +	list_for_each_entry(event_node, &counter->events_list, l)
-> +		if (event_node->event == event &&
-> +		    event_node->channel == channel)
-> +			break;
-> +
-> +	/* If event is not in the list */
-> +	if (&event_node->l == &counter->events_list)
-> +		goto exit_early;
+--Z1Nwiqk3OqT2bUBx
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-To cover my "interrupt-counter" use case, I added following line here to
-convert the tail drop fifo to the head drop fifo:
+On Sun, Feb 14, 2021 at 04:57:52PM +0000, Jonathan Cameron wrote:
+> On Fri, 12 Feb 2021 21:13:25 +0900
+> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+>=20
+> > Duplicate ABIs are not valid, so let's consolidate these sysfs
+> > attributes into the main sysfs-bus-counter documentation file.
+>=20
+> This is sensible to do, but is there any duplicate ABI?  I went
+> looking for any resulting build problems and couldn't see what was
+> actually duplicated.
+>=20
+> Jonathan
 
-+       list_for_each_entry(comp_node, &event_node->comp_list, l)
-+               to_copy += sizeof(ev);
-+
-+       while (kfifo_avail(&counter->events) < to_copy)
-+               kfifo_skip(&counter->events);
+There's no duplication currently, so this is just a preventative
+measure. These files were started for the purpose of permitting future
+duplication; now that duplication is explicitly disallowed, we're better
+off consolidating these now in order to prevent fragmentation of the
+documentation.
 
-May be it make sense to make it optional and integrate in to you patches
-before it goes mainline?
+William Breathitt Gray
 
-Regards,
-Oleksij
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+--Z1Nwiqk3OqT2bUBx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmAqVUsACgkQhvpINdm7
+VJL2fQ//UMSW3JVs9UZ4whCZuEsMnzlKrLYLeY6s2SYByXA6mjOQwUsGoBwSdKGo
+l1Eir4rSVWbCumt+wP6aGDNNK6lCy9SeNY5pyVKdxAn0zn5HMAl2NCPlw7NNkJa5
+Q6Os47gfO8SzkcKZGpEAiKFT67py+lJTrBM1b8pb4Dyqn9/wmj8jTTMbrsziyx0y
+L30uc2ywYiN3EUMbWs9OGgV2c7CPlnK3CawORqIfZIRW4vpCRsA08nKGNKzwJIIV
+3yILgcHWACBDyaHYYahavAD6ZOIah20nBns/goJ4gUcoKe1Xw2XjthSkgk5+Srrl
+CvAZAQycYuISG2ieQWZUBMHH8OG/iI683RWBmww8KstSSFOfTvsOdSwFp4R/9OV+
+u52ONKDHklV1XhT4vlLpbLo5TOZppjwCpgUMQ/6AX2vCLSwjad9lbPy2izCk8xyu
+VyoUdl8L8CyFb8wzsZ+Mb0LZa/tslC5iMIl+r32710t8i0u426MzJkUcNZroddcT
+sidFuXWAECPyExu0hRCjfYLXf9NS57vI7Sya/pwAWmHg4JPRqIthkLatFwbZWiDS
+XVDtUQNPmXPlNYrOyWn20xxUEJHKbRTe5yMv5kHiK3dv9PLI11tp4ZKKGYNGzbuW
+w87j+h++r238nsrQV+pVXYf1UqWJ7mLQCIrIexEGy6qSYtCmZrw=
+=hPFv
+-----END PGP SIGNATURE-----
+
+--Z1Nwiqk3OqT2bUBx--
+
+--===============0411235647580494652==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0411235647580494652==--
