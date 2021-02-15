@@ -2,69 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5332F31B7C3
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Feb 2021 12:05:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64BB731B993
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Feb 2021 13:47:26 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1AE6C5719A;
-	Mon, 15 Feb 2021 11:05:30 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF35EC3087A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26678C5718D;
+	Mon, 15 Feb 2021 12:47:26 +0000 (UTC)
+Received: from m12-12.163.com (m12-12.163.com [220.181.12.12])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with SMTP id 6BD75C3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Feb 2021 11:05:29 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id t29so3956028pfg.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Feb 2021 03:05:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=skRj3SiFYGU2FzoN8kd7HGllD8VylOwSjGHxSNwYAec=;
- b=FaxRQ5deUk0JFii2YaZJibjTP24hmSM8BZR0+RLufkX2FYW6uqMaE3Sp4YHHvAmYQ6
- jeQ+TdgDHS6sN/7cJ27uyXQ67xSlR9jsnD71Byalm5LZ+o/nJlxIWR2qB6S28iLjHxWt
- fCc7BFQgAkC4rAaz9iouSxSHLoFY+0q3BoA03iwTEEGKhRdfX65N+tbVQu7QWRsE4lxP
- pAgQa5myRn9CslysXU/jsocFy6WSOt8F1LNtnetUpNjd9aWuU7taeoV+uTZiXRnchqht
- +xg2vfa6waKGRp8ysp91PepEPVSyNtQK6+UwItBeC6A/umMJF0QHUpqZxhSFozgDxnk3
- EOMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=skRj3SiFYGU2FzoN8kd7HGllD8VylOwSjGHxSNwYAec=;
- b=IVPVOOkcs1oQ/5yCgkXYCM4xozBY5POhkQrn8Gz5Bgdv2OWoK/rs/LuazhK6UiyK9z
- AeORuD50kOwmdcso5c3yIvITKl93pPEBEISDd12z/VbVHf4nm4eR8rWov2vIjtvI5sDN
- /jihuPIrbDJexEiLd03opPFauVB1eR7+Nj22Zkm3bWSnFrZhrD//UufUqPWglq0P07GX
- 0NO8UlFfww/NO5YY8O57zh9sNDvdYK8WzBmY+Lh/KAvKWqb5oq/bMDDyzAOVZwfedybK
- M9BcNKfvwvAQevNI97yUrH/tAF3hjjlYqAbZoc2tar6bfJprr3ZIPZ574YXr/dqh024+
- RROw==
-X-Gm-Message-State: AOAM532xn+vVYt4uRiOvQPMFZKhosvXNAveG2Yi86XGOHj80QAnV5dmR
- D1tYXMjspBk8g4h/+qeTCvE=
-X-Google-Smtp-Source: ABdhPJyL0U399rgcXtbM41RY2V0OAgXVvbu7kbig2ImxEBX+/o63OOWU7N7ZrsIB0Rpe5hxKxMPmXg==
-X-Received: by 2002:a63:c60b:: with SMTP id w11mr14098269pgg.215.1613387128336; 
- Mon, 15 Feb 2021 03:05:28 -0800 (PST)
-Received: from shinobu ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id v1sm2379937pjh.29.2021.02.15.03.05.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Feb 2021 03:05:27 -0800 (PST)
-Date: Mon, 15 Feb 2021 20:05:20 +0900
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <YCpVcInGhe382jXf@shinobu>
-References: <cover.1613131238.git.vilhelm.gray@gmail.com>
- <362a71a1eba98108d009db8c929170a6ed8cf110.1613131238.git.vilhelm.gray@gmail.com>
- <20210214165752.59d41f98@archlinux>
+ Mon, 15 Feb 2021 10:42:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=errhG
+ B/dNXQnBjvPfS6mCK4LM81vQByDgSK+Rbhb0fQ=; b=eksNk+Sc39fsBtEnsZvu2
+ ewCtxZi1NuEAwU2ggZs+NBG7ogJ0AOHVIiBc7dAGHAEa3e8DSATPOVVStCI+fokV
+ tF3CImjQRglQ19asrym495Tpj0cns58wBgowPStkhaNxDxZbbCe6ndZQhvkyEIMQ
+ VFIKUAstiqDiwKbOB4vH80=
+Received: from yangjunlin.ccdomain.com (unknown [119.137.55.63])
+ by smtp8 (Coremail) with SMTP id DMCowABnqdySTypgUVn9Qg--.6622S2;
+ Mon, 15 Feb 2021 18:40:20 +0800 (CST)
+From: angkery <angkery@163.com>
+To: linus.walleij@linaro.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@st.com, maz@kernel.org, etienne.carriere@st.com,
+ geert+renesas@glider.be, matti.vaittinen@fi.rohmeurope.com,
+ fabien.dessenne@st.com, marex@denx.de
+Date: Mon, 15 Feb 2021 18:36:43 +0800
+Message-Id: <20210215103643.898-1-angkery@163.com>
+X-Mailer: git-send-email 2.24.0.windows.2
 MIME-Version: 1.0
-In-Reply-To: <20210214165752.59d41f98@archlinux>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
+X-CM-TRANSID: DMCowABnqdySTypgUVn9Qg--.6622S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWrZF1kur15GryDZw1kCryUZFb_yoW8JF45pF
+ sxCry3K39xt390kryjyw1UZryaga1xKFW8Kw4Ig34xXFySyFWDJr13KFyUXr4DCFWxXa90
+ kFy7Kay7ua1rWFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jrXo7UUUUU=
+X-Originating-IP: [119.137.55.63]
+X-CM-SenderInfo: 5dqjyvlu16il2tof0z/xtbBRhQ6I13l+nA-mAAAse
+X-Mailman-Approved-At: Mon, 15 Feb 2021 12:47:25 +0000
+Cc: Junlin Yang <yangjunlin@yulong.com>, linux-gpio@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v8 01/22] docs: counter: Consolidate
- Counter sysfs attributes documentation
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] pinctrl: stm32: add missing of_node_put
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,74 +52,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0411235647580494652=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Junlin Yang <yangjunlin@yulong.com>
 
---===============0411235647580494652==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Z1Nwiqk3OqT2bUBx"
-Content-Disposition: inline
+Fix OF node leaks by calling of_node_put in
+for_each_available_child_of_node when the cycle returns.
 
+Generated by: scripts/coccinelle/iterators/for_each_child.cocci
 
---Z1Nwiqk3OqT2bUBx
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Junlin Yang <yangjunlin@yulong.com>
+---
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-On Sun, Feb 14, 2021 at 04:57:52PM +0000, Jonathan Cameron wrote:
-> On Fri, 12 Feb 2021 21:13:25 +0900
-> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
->=20
-> > Duplicate ABIs are not valid, so let's consolidate these sysfs
-> > attributes into the main sysfs-bus-counter documentation file.
->=20
-> This is sensible to do, but is there any duplicate ABI?  I went
-> looking for any resulting build problems and couldn't see what was
-> actually duplicated.
->=20
-> Jonathan
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index 7d9bded..da72e3e 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -1542,8 +1542,10 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 		if (of_property_read_bool(child, "gpio-controller")) {
+ 			bank->rstc = of_reset_control_get_exclusive(child,
+ 								    NULL);
+-			if (PTR_ERR(bank->rstc) == -EPROBE_DEFER)
++			if (PTR_ERR(bank->rstc) == -EPROBE_DEFER) {
++				of_node_put(child);
+ 				return -EPROBE_DEFER;
++			}
+ 
+ 			bank->clk = of_clk_get_by_name(child, NULL);
+ 			if (IS_ERR(bank->clk)) {
+@@ -1551,6 +1553,7 @@ int stm32_pctl_probe(struct platform_device *pdev)
+ 					dev_err(dev,
+ 						"failed to get clk (%ld)\n",
+ 						PTR_ERR(bank->clk));
++				of_node_put(child);
+ 				return PTR_ERR(bank->clk);
+ 			}
+ 			i++;
+-- 
+1.9.1
 
-There's no duplication currently, so this is just a preventative
-measure. These files were started for the purpose of permitting future
-duplication; now that duplication is explicitly disallowed, we're better
-off consolidating these now in order to prevent fragmentation of the
-documentation.
-
-William Breathitt Gray
-
---Z1Nwiqk3OqT2bUBx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmAqVUsACgkQhvpINdm7
-VJL2fQ//UMSW3JVs9UZ4whCZuEsMnzlKrLYLeY6s2SYByXA6mjOQwUsGoBwSdKGo
-l1Eir4rSVWbCumt+wP6aGDNNK6lCy9SeNY5pyVKdxAn0zn5HMAl2NCPlw7NNkJa5
-Q6Os47gfO8SzkcKZGpEAiKFT67py+lJTrBM1b8pb4Dyqn9/wmj8jTTMbrsziyx0y
-L30uc2ywYiN3EUMbWs9OGgV2c7CPlnK3CawORqIfZIRW4vpCRsA08nKGNKzwJIIV
-3yILgcHWACBDyaHYYahavAD6ZOIah20nBns/goJ4gUcoKe1Xw2XjthSkgk5+Srrl
-CvAZAQycYuISG2ieQWZUBMHH8OG/iI683RWBmww8KstSSFOfTvsOdSwFp4R/9OV+
-u52ONKDHklV1XhT4vlLpbLo5TOZppjwCpgUMQ/6AX2vCLSwjad9lbPy2izCk8xyu
-VyoUdl8L8CyFb8wzsZ+Mb0LZa/tslC5iMIl+r32710t8i0u426MzJkUcNZroddcT
-sidFuXWAECPyExu0hRCjfYLXf9NS57vI7Sya/pwAWmHg4JPRqIthkLatFwbZWiDS
-XVDtUQNPmXPlNYrOyWn20xxUEJHKbRTe5yMv5kHiK3dv9PLI11tp4ZKKGYNGzbuW
-w87j+h++r238nsrQV+pVXYf1UqWJ7mLQCIrIexEGy6qSYtCmZrw=
-=hPFv
------END PGP SIGNATURE-----
-
---Z1Nwiqk3OqT2bUBx--
-
---===============0411235647580494652==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0411235647580494652==--
