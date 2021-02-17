@@ -2,42 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A78DF31D0F1
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Feb 2021 20:27:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F55831D71E
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Feb 2021 10:53:26 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65917C5718D;
-	Tue, 16 Feb 2021 19:27:30 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D445C32EA6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Feb 2021 19:27:28 +0000 (UTC)
-Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
- [81.101.6.87])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FE51C5718D;
+	Wed, 17 Feb 2021 09:53:26 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A079F64ED0;
- Tue, 16 Feb 2021 19:27:23 +0000 (UTC)
-Date: Tue, 16 Feb 2021 19:27:20 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210216192720.75082d22@archlinux>
-In-Reply-To: <YCsq42hXqdRWrSEd@shinobu>
-References: <cover.1613131238.git.vilhelm.gray@gmail.com>
- <d2e72eac404ca5b7c99d8a642f2c07ebb2eb240a.1613131238.git.vilhelm.gray@gmail.com>
- <20210214181946.1d2f7e78@archlinux> <YCsq42hXqdRWrSEd@shinobu>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v8 21/22] counter: 104-quad-8: Replace
- mutex with spinlock
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 626A2C3FADC
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 17 Feb 2021 09:53:19 +0000 (UTC)
+IronPort-SDR: layHwtQl45GOjj7olA00NZNkIxN39tUkGinn2TO56+L24E3bwuZfA13Tk8KhbakKFnmsfEtTpo
+ Lg5tHlSJJ3ZQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9897"; a="183279701"
+X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="183279701"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Feb 2021 01:53:16 -0800
+IronPort-SDR: dX9qS/mBPVuRlhyR92/GwDld8pE4SCeO/Q2gieLHME5cB1d7vIm6tSK+qkyus4IgLVk5ZsZ7A/
+ 0cQlIXue7ivA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="589549452"
+Received: from glass.png.intel.com ([10.158.65.51])
+ by fmsmga006.fm.intel.com with ESMTP; 17 Feb 2021 01:53:13 -0800
+From: Wong Vee Khee <vee.khee.wong@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Wed, 17 Feb 2021 17:57:05 +0800
+Message-Id: <20210217095705.13806-1-vee.khee.wong@intel.com>
+X-Mailer: git-send-email 2.17.0
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: Add PCI bus info to
+	ethtool driver query output
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,51 +50,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 16 Feb 2021 11:16:03 +0900
-William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+This patch populates the PCI bus info in the ethtool driver query data.
 
-> On Sun, Feb 14, 2021 at 06:19:46PM +0000, Jonathan Cameron wrote:
-> > On Fri, 12 Feb 2021 21:13:45 +0900
-> > William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
-> >   
-> > > This patch replaces the mutex I/O lock with a spinlock. This is in
-> > > preparation for a subsequent patch adding IRQ support for 104-QUAD-8
-> > > devices; we can't sleep in an interrupt context, so we'll need to use a
-> > > spinlock instead.
-> > > 
-> > > Cc: Syed Nayyar Waris <syednwaris@gmail.com>
-> > > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>  
-> > 
-> > Why do these need to be raw_spin_locks?
-> > Normally only need to do that if in code related to interrupt chips etc,
-> > not their use.
-> > 
-> > Jonathan  
-> 
-> This lock can be taken in an interrupt context in a subsequent patch:
-> counter_push_event() called by quad8_irq_handler() can end up calling
-> the Counter component callbacks which take this lock. We can't use a
-> mutex nor a regular spinlock because those can sleep on RT setups [1]
+Users will be able to view PCI bus info using 'ethtool -i <interface>'.
 
-But on RT setups the interrupts become threads and are preemptable etc,
-so that shouldn't matter.  There are a few corner cases that cause
-trouble, but in most normal drivers you should be fine with a
-spin_lock.
+Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c    | 1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 4 ++++
+ include/linux/stmmac.h                               | 1 +
+ 3 files changed, 6 insertions(+)
 
-Jonathan
-
-
-> which would result in a deadlock due to the interrupt context here -- so
-> therefore we're left with using raw_spin_lock.
-> 
-> [1] https://lwn.net/Articles/367219/
-> 
-> William Breathitt Gray
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 1c9c67b641a2..751dfdeec41c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -236,6 +236,7 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 	int ret;
+ 	int i;
+ 
++	plat->pdev = pdev;
+ 	plat->phy_addr = -1;
+ 	plat->clk_csr = 5;
+ 	plat->has_gmac = 0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 9e54f953634b..c5642985ef95 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -268,6 +268,10 @@ static void stmmac_ethtool_getdrvinfo(struct net_device *dev,
+ 		strlcpy(info->driver, MAC100_ETHTOOL_NAME,
+ 			sizeof(info->driver));
+ 
++	if (priv->plat->pdev) {
++		strlcpy(info->bus_info, pci_name(priv->plat->pdev),
++			sizeof(info->bus_info));
++	}
+ 	strlcpy(info->version, DRV_MODULE_VERSION, sizeof(info->version));
+ }
+ 
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 15ca6b4167cc..a302982de2d7 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -202,5 +202,6 @@ struct plat_stmmacenet_data {
+ 	bool vlan_fail_q_en;
+ 	u8 vlan_fail_q;
+ 	unsigned int eee_usecs_rate;
++	struct pci_dev *pdev;
+ };
+ #endif
+-- 
+2.17.0
 
 _______________________________________________
 Linux-stm32 mailing list
