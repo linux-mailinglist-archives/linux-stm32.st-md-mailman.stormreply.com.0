@@ -2,43 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F55831D71E
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Feb 2021 10:53:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5448031DA6B
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Feb 2021 14:30:55 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FE51C5718D;
-	Wed, 17 Feb 2021 09:53:26 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2516C5718D;
+	Wed, 17 Feb 2021 13:30:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 626A2C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64099C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Feb 2021 09:53:19 +0000 (UTC)
-IronPort-SDR: layHwtQl45GOjj7olA00NZNkIxN39tUkGinn2TO56+L24E3bwuZfA13Tk8KhbakKFnmsfEtTpo
- Lg5tHlSJJ3ZQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9897"; a="183279701"
-X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="183279701"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2021 01:53:16 -0800
-IronPort-SDR: dX9qS/mBPVuRlhyR92/GwDld8pE4SCeO/Q2gieLHME5cB1d7vIm6tSK+qkyus4IgLVk5ZsZ7A/
- 0cQlIXue7ivA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="589549452"
-Received: from glass.png.intel.com ([10.158.65.51])
- by fmsmga006.fm.intel.com with ESMTP; 17 Feb 2021 01:53:13 -0800
-From: Wong Vee Khee <vee.khee.wong@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Wed, 17 Feb 2021 17:57:05 +0800
-Message-Id: <20210217095705.13806-1-vee.khee.wong@intel.com>
-X-Mailer: git-send-email 2.17.0
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: Add PCI bus info to
-	ethtool driver query output
+ Wed, 17 Feb 2021 13:30:51 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 11HDSWZ2001051; Wed, 17 Feb 2021 14:30:47 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=bs5hl1wFsAOJu6X9Hycte2PvBsx11N4FQTR9gCM28rE=;
+ b=Rq+WeZxfJKEzCW5WAxI7Pq9xij5zduCIl8/NEiPqAI4XeupiO0sBxkFlWfosF+yWkM6m
+ /wHvgEanq68ssinIUGXqFCKNai3WKh6YVlAUZZkSgm7OEeqQI3sjWM2zDYLAxWcq1Byp
+ 676gwijN38/TCnmIitNy/v13uCqYpA711go8NMJVL0anWDYfEWHg36MR9dBn6c8WIZX9
+ 6FewH84Z9pyBK87CZVwNwnpwfQnKnsQkaHTUhFSl0vHgCNJezNil0+06ABR4MN62Wyzj
+ /dFeHqsRa2hCAiFFBuBePQK1MY3PwZ02Rqt1r5ir2rOR+fq2FcdQ94f4pM1g0gkss66N Ng== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36p4sffbv5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Feb 2021 14:30:47 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4A08F10002A;
+ Wed, 17 Feb 2021 14:30:47 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 16BAD2370C9;
+ Wed, 17 Feb 2021 14:30:47 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 17 Feb 2021 14:30:46
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>, Andy Gross
+ <agross@kernel.org>
+Date: Wed, 17 Feb 2021 14:28:49 +0100
+Message-ID: <20210217132905.1485-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-02-17_11:2021-02-16,
+ 2021-02-17 signatures=0
+Cc: linux-arm-msm@vger.kernel.org, arnaud.pouliquen@foss.st.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v4 00/16] introduce a generic IOCTL interface
+	for RPMsg channels management
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,63 +69,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch populates the PCI bus info in the ethtool driver query data.
+This series restructures the RPMsg char driver to decorrelate the control part and to
+create a generic RPMsg ioctl interface compatible with other RPMsg services.
 
-Users will be able to view PCI bus info using 'ethtool -i <interface>'.
+The V4 fixes compilation issue reported by the kernel test robot <lkp@intel.com>
 
-Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c    | 1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 4 ++++
- include/linux/stmmac.h                               | 1 +
- 3 files changed, 6 insertions(+)
+The V3 is based on the guideline proposed by Mathieu Poirier to keep as much as possible
+the legacy implementation of the rpmsg_char used by the GLINK and SMD platforms.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 1c9c67b641a2..751dfdeec41c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -236,6 +236,7 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
- 	int ret;
- 	int i;
- 
-+	plat->pdev = pdev;
- 	plat->phy_addr = -1;
- 	plat->clk_csr = 5;
- 	plat->has_gmac = 0;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index 9e54f953634b..c5642985ef95 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -268,6 +268,10 @@ static void stmmac_ethtool_getdrvinfo(struct net_device *dev,
- 		strlcpy(info->driver, MAC100_ETHTOOL_NAME,
- 			sizeof(info->driver));
- 
-+	if (priv->plat->pdev) {
-+		strlcpy(info->bus_info, pci_name(priv->plat->pdev),
-+			sizeof(info->bus_info));
-+	}
- 	strlcpy(info->version, DRV_MODULE_VERSION, sizeof(info->version));
- }
- 
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 15ca6b4167cc..a302982de2d7 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -202,5 +202,6 @@ struct plat_stmmacenet_data {
- 	bool vlan_fail_q_en;
- 	u8 vlan_fail_q;
- 	unsigned int eee_usecs_rate;
-+	struct pci_dev *pdev;
- };
- #endif
+Objectives of the series:
+- Allow to create a service from Linux user application:
+  - with a specific name
+  - with or without name service announcement.
+- Allow to probe the same service by receiving either a NS announcement from the remote firmware
+  or a Linux user application request.
+- Use these services independently of the RPMsg transport implementation (e.g be able to use
+  RPMSg char with the RPMsg virtio bus).
+
+Steps in the series:
+  - Extract the control part of the char dev and create the rpmsg_ctrl.c file (patches 1 to 5)
+  - Enable the use of the chardev with the virtio backend (patches 6 to 10)
+  - Introduce the RPMSG_CREATE_DEV_IOCTL IOCTL to instantiate RPMsg devices (patch 11)
+    The application can then create or release a channel by specifying:
+       - the name service of the device to instantiate.   
+       - the source address.
+       - the destination address.
+  - Instantiate the /dev/rpmsg interface on remote NS announcement (patches 12 to 15)
+
+In this revision, I do not divide the series into several parts in order to show a complete
+picture of the proposed evolution. To simplify the review, as a next step, I can send it in
+several steps listed above.
+
+Known current Limitations:
+- Tested only with virtio RPMsg bus. The glink and smd drivers adaptations have not been tested
+  (not able to test it).
+- For the virtio backend: No NS announcement is sent to the remote processor if the source
+  address is set to RPMSG_ADDR_ANY.
+- For the virtio backend: the existing RPMSG_CREATE_EPT_IOCTL is working but the endpoints are
+  not attached to an exiting channel.
+- to limit patches the pending RPMSG_DESTROY_DEV_IOCTL has not ben implemented. This will be
+  proposed in a second step.
+
+This series can be applied on git/andersson/remoteproc.git for-next branch (d9ff3a5789cb).
+
+This series can be tested using rpmsgexport, rpmsgcreatedev and ping tools available here:
+https://github.com/arnopo/rpmsgexport.git
+
+Reference to the V3 discussion thread: https://lkml.org/lkml/2021/2/4/194
+
+Arnaud Pouliquen (16):
+  rpmsg: char: rename rpmsg_char_init to rpmsg_chrdev_init
+  rpmsg: move RPMSG_ADDR_ANY in user API
+  rpmsg: add short description of the IOCTL defined in UAPI.
+  rpmsg: char: export eptdev create an destroy functions
+  rpmsg: char: dissociate the control device from the rpmsg class
+  rpmsg: move the rpmsg control device from rpmsg_char to rpmsg_ctrl
+  rpmsg: update rpmsg_chrdev_register_device function
+  rpmsg: glink: add sendto and trysendto ops
+  rpmsg: smd: add sendto and trysendto ops
+  rpmsg: char: use sendto to specify the message destination address
+  rpmsg: virtio: register the rpmsg_ctrl device
+  rpmsg: ctrl: introduce RPMSG_CREATE_DEV_IOCTL
+  rpmsg: char: introduce __rpmsg_chrdev_create_eptdev function
+  rpmsg: char: introduce a RPMsg driver for the RPMsg char device
+  rpmsg: char: no dynamic endpoint management for the default one
+  rpmsg: char: return an error if device already open
+
+ drivers/rpmsg/Kconfig             |   9 ++
+ drivers/rpmsg/Makefile            |   1 +
+ drivers/rpmsg/qcom_glink_native.c |  18 ++-
+ drivers/rpmsg/qcom_smd.c          |  18 ++-
+ drivers/rpmsg/rpmsg_char.c        | 237 +++++++++++-------------------
+ drivers/rpmsg/rpmsg_char.h        |  51 +++++++
+ drivers/rpmsg/rpmsg_ctrl.c        | 229 +++++++++++++++++++++++++++++
+ drivers/rpmsg/rpmsg_internal.h    |  10 +-
+ drivers/rpmsg/virtio_rpmsg_bus.c  |  37 ++++-
+ include/linux/rpmsg.h             |   3 +-
+ include/uapi/linux/rpmsg.h        |  18 ++-
+ 11 files changed, 469 insertions(+), 162 deletions(-)
+ create mode 100644 drivers/rpmsg/rpmsg_char.h
+ create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
+
 -- 
-2.17.0
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
