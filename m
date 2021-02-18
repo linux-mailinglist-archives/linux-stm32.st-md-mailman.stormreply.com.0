@@ -2,80 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF6731EC47
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Feb 2021 17:35:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FA1A31ED06
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Feb 2021 18:15:03 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6FD3C5719E;
-	Thu, 18 Feb 2021 16:35:24 +0000 (UTC)
-Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
- [64.147.123.27])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C61DDC5719E;
+	Thu, 18 Feb 2021 17:15:02 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC317C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B3B6C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Feb 2021 16:35:22 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.west.internal (Postfix) with ESMTP id DF1EFE1F;
- Thu, 18 Feb 2021 11:35:18 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Thu, 18 Feb 2021 11:35:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=9glu1NqYQ89GMrISno2hyWbjb5g
- /OTCuIq2T05YOits=; b=G6pm+BxV6Dh9oiD6SJUz1xXNJ7zPPCZpBW9AEchzgQY
- SsCnHwIhIZleE9PczJeaxSABPuNfyZNS1u3Zj2kDGJdZzYOuF3md0m5GftSNoeev
- ZavMKbuw+WSPSBcY4VpVTBkV/ddPDz1xHbCCETt+RAuJ3CD0g/aAsRM9ST0bJ2+t
- +6ifUhzBy+1w+NmK0Bu03Ar0ji4npJeGmU9jySby/2b7puTSkKn/YECDpUC+LyuL
- 6Guj5EkOzfnyrZ7fuCEdeNrI7VmN9ZSWN6LpeNmu5/FnzVAUNcjxOj673ayo+RK2
- 5fiMH3d3rCy4RcepJW9kS8GD2lNioOxaP+2WrEFLkFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=9glu1N
- qYQ89GMrISno2hyWbjb5g/OTCuIq2T05YOits=; b=F8tizhTRDZ1QmkV4IX/nKz
- GFGeeljOv0nlv95ycFp0ze5k8JaZwhxcx+uGwtKUsVGuJaf3wBvlVHShQ6AEUuUa
- nYa/M+CR3Q7nQv96fSu/CfaeIwuzJxRKrhn2B8yNMcGRvghgtZ0Vp/RbSek1ItaO
- Huq8VE54K1HbMzSfgJ/qk4vTktg7KPqCaeXhHlIBqpyMVIsKqMHjMXcuPGS+ft/T
- 80Nr4qrm62gEv7vJ1wWgcbm6pcoegFAPfttgQ+bfSTEtA0b5vB4AgmFNGzLe9Jjp
- 2mDgst8VHznkjEYhvASc+FuMU+CJuXELKFptery4MIiY6qnvOy5wsWIYxYIQt8qA
- ==
-X-ME-Sender: <xms:Q5cuYNHGf4DP6s5Yrk94g87bEt9maVsvZUvIZ5_OSwOa3ygXsvSckA>
- <xme:Q5cuYCWJqVHxc0TBvW8RaM0wSdODYkxfn4yClOKahSKwcF7ZJMIFzdXO9brx_KJON
- wVOak8LO-iBIzeTj3U>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjeeggdekjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeelkeeghefhuddtleejgfeljeffheffgfeijefhgfeufefhtdevteegheeiheeg
- udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:Q5cuYPL64pGtEXDOIjB2LytBtepgEjTDIlirUSWB4Z_2bk7CHwRyNw>
- <xmx:Q5cuYDGxFYNq90q1Kozd9_sE8xI5mkNSdlmaFJwB_t_-qpDhKS53yA>
- <xmx:Q5cuYDU83mA2iruvPx6pKrkqUS3fSvQrhe9kV_x71Rp0kdmagu5q-g>
- <xmx:RpcuYHmzfxpDFq6rYEjERoNkSWa7GUcR73y9VFLtc6uo7hgIIot_W0suCF8>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id DE99E24005C;
- Thu, 18 Feb 2021 11:35:14 -0500 (EST)
-Date: Thu, 18 Feb 2021 17:35:12 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20210218163512.arnmixdkygysxrqk@gilmour>
-References: <20210211081636.28311-1-tzimmermann@suse.de>
+ Thu, 18 Feb 2021 17:14:59 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 11IH2Hsm025869; Thu, 18 Feb 2021 18:14:43 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=FKu9hAFwKbK54X9LStJOfdhqjR42nJOoMInpWiJfAOg=;
+ b=n2iWMUhKqJGwqpRDvQEQz00gAX+Z2EGWNZO/DhtudiEi+wQzWaJkuOvH9xJA1YYvIIIl
+ kFrg51jRSIA4Q/b7tCVFobRu8vPIUM17VvtigsU7MZU7K2HYA8riwMEz+7/Ocf9sZWyt
+ ZpwAkNiOHhAEQf1Yzt/9iDF3RctbnsGjfo9DFUmOoDSN1ldh39VbwlVMp1kag/Z/yrJd
+ wA9CRgBscxb4piJUSotBH3eEaBDx8uFV1FwurBmiwMxHHWdKWYOgHN/nlCmJ72Go9ZTX
+ p04/wYUN9pi+soPFuIcHnmPZns0Vsu45wUYMZq21j2o7ReHWxzcivyz9N1ulH57yrBPs EQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36p706wsej-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 18 Feb 2021 18:14:43 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1D14010002A;
+ Thu, 18 Feb 2021 18:14:38 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 28AA125D03E;
+ Thu, 18 Feb 2021 18:14:38 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.49) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 18 Feb
+ 2021 18:14:37 +0100
+To: Dan Carpenter <dan.carpenter@oracle.com>, <kbuild@lists.01.org>, Bjorn
+ Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Andy Gross <agross@kernel.org>
+References: <20210218122715.GJ2087@kadam>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <d8259e24-d470-ceb9-5d79-3258628c4823@foss.st.com>
+Date: Thu, 18 Feb 2021 18:14:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210211081636.28311-1-tzimmermann@suse.de>
-Cc: linaro-mm-sig@lists.linaro.org, linux-aspeed@lists.ozlabs.org,
- airlied@linux.ie, linux-arm-msm@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, linux-mips@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- daniel@ffwll.ch, xen-devel@lists.xenproject.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, freedreno@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] drm/gem: Move drm_gem_fb_prepare_fb()
- to GEM atomic helpers
+In-Reply-To: <20210218122715.GJ2087@kadam>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-02-18_08:2021-02-18,
+ 2021-02-18 signatures=0
+Cc: kbuild-all@lists.01.org, lkp@intel.com, linux-arm-msm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v4 11/16] rpmsg: virtio: register the
+	rpmsg_ctrl device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,68 +75,247 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8778367518994669448=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Dan,
 
---===============8778367518994669448==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="qyrmapmaovukaths"
-Content-Disposition: inline
+On 2/18/21 1:27 PM, Dan Carpenter wrote:
+> Hi Arnaud,
+> 
+> url:    https://github.com/0day-ci/linux/commits/Arnaud-Pouliquen/introduce-a-generic-IOCTL-interface-for-RPMsg-channels-management/20210217-214044
+> base:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git f40ddce88593482919761f74910f42f4b84c004b
+> config: x86_64-randconfig-m001-20210215 (attached as .config)
+> compiler: gcc-9 (Debian 9.3.0-15) 9.3.0
+> 
+> If you fix the issue, kindly add following tag as appropriate
+> Reported-by: kernel test robot <lkp@intel.com>
+> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+> 
+> smatch warnings:
+> drivers/rpmsg/virtio_rpmsg_bus.c:977 rpmsg_probe() error: uninitialized symbol 'vch'.
+> 
+> vim +/vch +977 drivers/rpmsg/virtio_rpmsg_bus.c
+> 
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  845  static int rpmsg_probe(struct virtio_device *vdev)
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  846  {
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  847  	vq_callback_t *vq_cbs[] = { rpmsg_recv_done, rpmsg_xmit_done };
+> f7ad26ff952b3c Stefan Hajnoczi      2015-12-17  848  	static const char * const names[] = { "input", "output" };
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  849  	struct virtqueue *vqs[2];
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  850  	struct virtproc_info *vrp;
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  851  	struct virtio_rpmsg_channel *vch;
+> e3bba4363fe87b Arnaud Pouliquen     2021-02-17  852  	struct rpmsg_device *rpdev_ns = NULL, *rpdev_ctrl = NULL;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  853  	void *bufs_va;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  854  	int err = 0, i;
+> b1b9891441fa33 Suman Anna           2014-09-16  855  	size_t total_buf_space;
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  856  	bool notify;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  857  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  858  	vrp = kzalloc(sizeof(*vrp), GFP_KERNEL);
+> 
+> You might want to consider updating this stuff to devm_kzalloc() which
+> is trendy with the kids these days.  It's cleaned up automatically when
+> the module is released.
+> 
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  859  	if (!vrp)
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  860  		return -ENOMEM;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  861  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  862  	vrp->vdev = vdev;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  863  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  864  	idr_init(&vrp->endpoints);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  865  	mutex_init(&vrp->endpoints_lock);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  866  	mutex_init(&vrp->tx_lock);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  867  	init_waitqueue_head(&vrp->sendq);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  868  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  869  	/* We expect two virtqueues, rx and tx (and in this order) */
+> 9b2bbdb2275884 Michael S. Tsirkin   2017-03-06  870  	err = virtio_find_vqs(vdev, 2, vqs, vq_cbs, names, NULL);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  871  	if (err)
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  872  		goto free_vrp;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  873  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  874  	vrp->rvq = vqs[0];
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  875  	vrp->svq = vqs[1];
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  876  
+> b1b9891441fa33 Suman Anna           2014-09-16  877  	/* we expect symmetric tx/rx vrings */
+> b1b9891441fa33 Suman Anna           2014-09-16  878  	WARN_ON(virtqueue_get_vring_size(vrp->rvq) !=
+> b1b9891441fa33 Suman Anna           2014-09-16  879  		virtqueue_get_vring_size(vrp->svq));
+> b1b9891441fa33 Suman Anna           2014-09-16  880  
+> b1b9891441fa33 Suman Anna           2014-09-16  881  	/* we need less buffers if vrings are small */
+> b1b9891441fa33 Suman Anna           2014-09-16  882  	if (virtqueue_get_vring_size(vrp->rvq) < MAX_RPMSG_NUM_BUFS / 2)
+> b1b9891441fa33 Suman Anna           2014-09-16  883  		vrp->num_bufs = virtqueue_get_vring_size(vrp->rvq) * 2;
+> b1b9891441fa33 Suman Anna           2014-09-16  884  	else
+> b1b9891441fa33 Suman Anna           2014-09-16  885  		vrp->num_bufs = MAX_RPMSG_NUM_BUFS;
+> b1b9891441fa33 Suman Anna           2014-09-16  886  
+> f93848f9eeb0f8 Loic Pallardy        2017-03-28  887  	vrp->buf_size = MAX_RPMSG_BUF_SIZE;
+> f93848f9eeb0f8 Loic Pallardy        2017-03-28  888  
+> f93848f9eeb0f8 Loic Pallardy        2017-03-28  889  	total_buf_space = vrp->num_bufs * vrp->buf_size;
+> b1b9891441fa33 Suman Anna           2014-09-16  890  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  891  	/* allocate coherent memory for the buffers */
+> d999b622fcfb39 Loic Pallardy        2019-01-10  892  	bufs_va = dma_alloc_coherent(vdev->dev.parent,
+> b1b9891441fa33 Suman Anna           2014-09-16  893  				     total_buf_space, &vrp->bufs_dma,
+> b1b9891441fa33 Suman Anna           2014-09-16  894  				     GFP_KERNEL);
+> 3119b487e03650 Wei Yongjun          2013-04-29  895  	if (!bufs_va) {
+> 3119b487e03650 Wei Yongjun          2013-04-29  896  		err = -ENOMEM;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  897  		goto vqs_del;
+> 3119b487e03650 Wei Yongjun          2013-04-29  898  	}
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  899  
+> de4064af76537f Suman Anna           2018-10-23  900  	dev_dbg(&vdev->dev, "buffers: va %pK, dma %pad\n",
+> 8d95b322ba34b1 Anna, Suman          2016-08-12  901  		bufs_va, &vrp->bufs_dma);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  902  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  903  	/* half of the buffers is dedicated for RX */
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  904  	vrp->rbufs = bufs_va;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  905  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  906  	/* and half is dedicated for TX */
+> b1b9891441fa33 Suman Anna           2014-09-16  907  	vrp->sbufs = bufs_va + total_buf_space / 2;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  908  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  909  	/* set up the receive buffers */
+> b1b9891441fa33 Suman Anna           2014-09-16  910  	for (i = 0; i < vrp->num_bufs / 2; i++) {
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  911  		struct scatterlist sg;
+> f93848f9eeb0f8 Loic Pallardy        2017-03-28  912  		void *cpu_addr = vrp->rbufs + i * vrp->buf_size;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  913  
+> 9dd87c2af651b0 Loic Pallardy        2017-03-28  914  		rpmsg_sg_init(&sg, cpu_addr, vrp->buf_size);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  915  
+> cee51d69a45b6c Rusty Russell        2013-03-20  916  		err = virtqueue_add_inbuf(vrp->rvq, &sg, 1, cpu_addr,
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  917  					  GFP_KERNEL);
+> 57e1a37347d31c Rusty Russell        2012-10-16  918  		WARN_ON(err); /* sanity check; this can't really happen */
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  919  	}
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  920  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  921  	/* suppress "tx-complete" interrupts */
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  922  	virtqueue_disable_cb(vrp->svq);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  923  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  924  	vdev->priv = vrp;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  925  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  926  	/* if supported by the remote processor, enable the name service */
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  927  	if (virtio_has_feature(vdev, VIRTIO_RPMSG_F_NS)) {
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  928  		vch = kzalloc(sizeof(*vch), GFP_KERNEL);
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  929  		if (!vch) {
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  930  			err = -ENOMEM;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  931  			goto free_coherent;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  932  		}
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  933  
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  934  		/* Link the channel to our vrp */
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  935  		vch->vrp = vrp;
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  936  
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  937  		/* Assign public information to the rpmsg_device */
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  938  		rpdev_ns = &vch->rpdev;
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  939  		rpdev_ns->ops = &virtio_rpmsg_ops;
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  940  		rpdev_ns->little_endian = virtio_is_little_endian(vrp->vdev);
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  941  
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  942  		rpdev_ns->dev.parent = &vrp->vdev->dev;
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  943  		rpdev_ns->dev.release = virtio_rpmsg_release_device;
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  944  
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  945  		err = rpmsg_ns_register_device(rpdev_ns);
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  946  		if (err)
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20  947  			goto free_coherent;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  948  	}
+> 
+> "vch" not initialized on else path.  Also keep in mind that "rpdev_ctrl"
+> is NULL at this point.
+> 
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  949  
+> e3bba4363fe87b Arnaud Pouliquen     2021-02-17  950  	rpdev_ctrl = rpmsg_virtio_add_char_dev(vdev);
+>                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 
+> e3bba4363fe87b Arnaud Pouliquen     2021-02-17  951  	if (IS_ERR(rpdev_ctrl)) {
+> e3bba4363fe87b Arnaud Pouliquen     2021-02-17  952  		err = PTR_ERR(rpdev_ctrl);
+> e3bba4363fe87b Arnaud Pouliquen     2021-02-17  953  		goto free_coherent;
+> 
+> I should create a Smatch warning for this as well.
+> 
+> e3bba4363fe87b Arnaud Pouliquen     2021-02-17  954  	}
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  955  	/*
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  956  	 * Prepare to kick but don't notify yet - we can't do this before
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  957  	 * device is ready.
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  958  	 */
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  959  	notify = virtqueue_kick_prepare(vrp->rvq);
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  960  
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  961  	/* From this point on, we can notify and get callbacks. */
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  962  	virtio_device_ready(vdev);
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  963  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  964  	/* tell the remote processor it can start sending messages */
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  965  	/*
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  966  	 * this might be concurrent with callbacks, but we are only
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  967  	 * doing notify, not a full kick here, so that's ok.
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  968  	 */
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  969  	if (notify)
+> 71e4b8bf0482fc Michael S. Tsirkin   2015-03-12  970  		virtqueue_notify(vrp->rvq);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  971  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  972  	dev_info(&vdev->dev, "rpmsg host is online\n");
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  973  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  974  	return 0;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  975  
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  976  free_coherent:
+> 950a7388f02bf7 Arnaud Pouliquen     2020-11-20 @977  	kfree(vch);
+>                                                         ^^^^^^^^^^
+> Uninitalized.
+> 
+> e3bba4363fe87b Arnaud Pouliquen     2021-02-17  978  	kfree(to_virtio_rpmsg_channel(rpdev_ctrl));
+> 
+> Now, let's say that "rpdev_ctrl" is NULL.  That's fine because
+> to_virtio_rpmsg_channel() is a no-op so it becomes kfree(NULL) which
+> is a no-op.  But why even have the to_virtio_rpmsg_channel() function
+> if we are going to rely on it being a no-op?
+> 
+> If "rpdev_ctrl" is an error pointer this will crash.  The problem is we
+> are freeing stuff that was not allocated.  The fix for this is:
+> 
+> 1) Free the most recent successful allocation.
+> 2) The unwind code should mirror the allocation code.
+> 3) Choose label names which say what the goto does.  If the most recent
+>    allocation was "vch" the goto should be "goto free_vch;"
+> 4) Every allocation function should have a matching free function.  It's
+>    a layering violation to have to know that the internals of
+>    rpmsg_virtio_add_char_dev().
+> 
+> So create function:
+> 
+> void rpmsg_virtio_del_char_dev(struct rpmsg_device *rpdev_ctrl)
+> {
+> 	if (!rpdev_ctrl)
+> 		return;
+> 	kfree(to_virtio_rpmsg_channel(rpdev_ctrl));
+> }
+> 
+> The clean up code looks like this:
+> 
+> 	return 0;
+> 
+> free_vch:
+> 	if (virtio_has_feature(vdev, VIRTIO_RPMSG_F_NS))
+> 		kfree(vch);
+> free_ctrl:
+> 	rpmsg_virtio_del_char_dev(rpdev_ctrl);
+> free_coherent:
+> 	dma_free_coherent(vdev->dev.parent, total_buf_space,
+> 			  bufs_va, vrp->bufs_dma);
+> vqs_del:
+> 	vdev->config->del_vqs(vrp->vdev);
+> 
+> Then just go through the function and as you read down the code keep
+> track of the most recent successful allocation and goto the correct
+> free label.
 
+You're right, my error management is very bad here. I will fix this based on
+your recommandation.
 
---qyrmapmaovukaths
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks,
+Arnaud
 
-Hi,
-
-On Thu, Feb 11, 2021 at 09:16:36AM +0100, Thomas Zimmermann wrote:
-> diff --git a/include/drm/drm_gem_framebuffer_helper.h b/include/drm/drm_gem_framebuffer_helper.h
-> index 6b013154911d..495d174d9989 100644
-> --- a/include/drm/drm_gem_framebuffer_helper.h
-> +++ b/include/drm/drm_gem_framebuffer_helper.h
-> @@ -9,9 +9,11 @@ struct drm_framebuffer;
->  struct drm_framebuffer_funcs;
->  struct drm_gem_object;
->  struct drm_mode_fb_cmd2;
-> +#if 0
->  struct drm_plane;
->  struct drm_plane_state;
->  struct drm_simple_display_pipe;
-> +#endif
-
-That's probably not what you meant?
-
-With that fixed,
-Acked-by: Maxime Ripard <mripard@kernel.org>
-
-Thanks!
-Maxime
-
---qyrmapmaovukaths
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCYC6XQAAKCRDj7w1vZxhR
-xeYjAQDBp12JMmHuiBCHQBmWyl9fGbmCMg6R9psxq9edd+0vigD+MjBWZAmh8A1d
-2S0DtBQtnfgH07vDxZs1Eb8jJZ+x/QQ=
-=WmxA
------END PGP SIGNATURE-----
-
---qyrmapmaovukaths--
-
---===============8778367518994669448==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> d999b622fcfb39 Loic Pallardy        2019-01-10  979  	dma_free_coherent(vdev->dev.parent, total_buf_space,
+> eeb0074f36d1ab Fernando Guzman Lugo 2012-08-29  980  			  bufs_va, vrp->bufs_dma);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  981  vqs_del:
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  982  	vdev->config->del_vqs(vrp->vdev);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  983  free_vrp:
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  984  	kfree(vrp);
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  985  	return err;
+> bcabbccabffe73 Ohad Ben-Cohen       2011-10-20  986  }
+> 
+> ---
+> 0-DAY CI Kernel Test Service, Intel Corporation
+> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8778367518994669448==--
