@@ -2,64 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23EEC31FE2A
+	by mail.lfdr.de (Postfix) with ESMTPS id 9089B31FE2C
 	for <lists+linux-stm32@lfdr.de>; Fri, 19 Feb 2021 18:47:55 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E10A1C57B6A;
-	Fri, 19 Feb 2021 17:47:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BC57C57B71;
+	Fri, 19 Feb 2021 17:47:55 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33A2AC57B6A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C227C57B6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 19 Feb 2021 17:47:52 +0000 (UTC)
 Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 11JHkqJJ024119; Fri, 19 Feb 2021 18:47:45 +0100
+ 11JHkikv023716; Fri, 19 Feb 2021 18:47:46 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=fMJ24Xri3vVcNu2Vq/Vx+1pHFd+Ja3tCMqTlYd2Fdoc=;
- b=YXvlZdG1FIEm456l27P5NWkGIWKheI/TudWptxOamYDZ/40eBXcbCOyCNPGp+e+QaJPl
- SZS54TVCzoiu0RwUbLOIEn+bPRtVjtiU05GHIhqg6ooO0x+GciLqwaWFZPRA2nwqDdBn
- Wj+c2yFLKG7OhcK9S1Rznm1G7h12HoUfZ6som+9ZpmT0jIx1mTAEFiWTBX6lCELLe+4J
- rDE7Ea9YZmKlPi6mZ9dDW1mtmiYpdFXRMkMw6V7h0j65nuCNJvpb87x00bMikehLQCfX
- LNRoCR7f46ZfNrf+9vLur4qIoyug9g4aqIHYNuzzC43i12+gg42RdIwXLLki8/0KSO+g SA== 
+ bh=oT5JTvAM53dwKFgww5JLsVZM1FQTpTtR54IUoX6HT3I=;
+ b=TY5TYDywRS5Fv29nBGpdNKHBJDto+O+H4MEM/i7BejIdhkdeLkYCPbYN3vuTpFvA5oob
+ gPlAttrutepKfido5kfYoBYrKgdp7ZGRWTI27ML0sQuGjccXS5LQ4qiiMPA09Vp8BCTO
+ cgMq3blT+nqG2QuAp1b5ctVrjtHe2BWv8H6OBIQbtNXMnGBavlind8cZDAAqi9o7J/6w
+ l+kdHd3xcYEv80zNuwRuPZNwK3vSZpg6QZD4BNH7xu8oTzPxThm4UAvVeC/kl3pLUkYl
+ di1U1TJ+NcEGoBIlJ6ODIlvXGf/KWHVcnhUc80ImT2nPozONQcY54awbHsa6rPtoZuio DA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36sse4125m-1
+ by mx07-00178001.pphosted.com with ESMTP id 36sse4125q-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 Feb 2021 18:47:45 +0100
+ Fri, 19 Feb 2021 18:47:46 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4FCFD10002A;
- Fri, 19 Feb 2021 18:47:45 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3A6D810002A;
+ Fri, 19 Feb 2021 18:47:46 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4463225F3FC;
- Fri, 19 Feb 2021 18:47:45 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 19 Feb 2021 18:47:44
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2EF7A25F3FC;
+ Fri, 19 Feb 2021 18:47:46 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 19 Feb 2021 18:47:45
  +0100
 From: Erwan Le Ray <erwan.leray@foss.st.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
  <jslaby@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
  Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 19 Feb 2021 18:47:28 +0100
-Message-ID: <20210219174736.1022-6-erwan.leray@foss.st.com>
+Date: Fri, 19 Feb 2021 18:47:29 +0100
+Message-ID: <20210219174736.1022-7-erwan.leray@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210219174736.1022-1-erwan.leray@foss.st.com>
 References: <20210219174736.1022-1-erwan.leray@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  definitions=2021-02-19_08:2021-02-18,
  2021-02-19 signatures=0
 Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 05/13] serial: stm32: fix a deadlock condition
-	with wakeup event
+Subject: [Linux-stm32] [PATCH 06/13] serial: stm32: fix wake-up flag handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,105 +75,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Deadlock issue is seen when enabling CONFIG_PROVE_LOCKING=Y, and uart
-console as wakeup source. Deadlock occurs when resuming from low power
-mode if system is waked up via usart console.
-The deadlock is triggered 100% when also disabling console suspend prior
-to go to suspend.
+This patch fixes several issue with wake-up handling:
+- the WUF irq is handled several times at wake-up
+- the USART is disabled / enabled at suspend to set wake-up flag.
+It can cause glitches during RX.
 
-Simplified call stack, deadlock condition:
-- stm32_console_write <-- spin_lock already held
-- print_circular_bug
-- pm_wakeup_dev_event <-- triggers lockdep as seen above
-- stm32_receive_chars
-- stm32_interrupt <-- wakeup via uart console, takes the lock
+This patch fix those issues:
+- clear wake-up flag and disable wake-up irq in WUF irq handling
+- enable wake-up from low power on start bit detection at port
+configuration
+- Unmask the wake-up flag irq at suspend and mask it at resume
 
-So, revisit spin_lock in stm32-usart driver:
-- there is no need to hold the lock to access ICR (atomic clear of status
-  flags)
-- only hold the lock inside stm32_receive_chars() routine (no need to
-  call pm_wakeup_dev_event with lock held)
-- keep stm32_transmit_chars() routine called with lock held
+In addition, pm_wakeup_event handling is moved from receice_chars to WUF
+irq handling.
 
-Fixes: 48a6092fb41f ("serial: stm32-usart: Add STM32 USART Driver")
+Fixes: 270e5a74fe4c ("serial: stm32: add wakeup mechanism")
 Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
 diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index d409a23806b1..524c55751023 100644
+index 524c55751023..14011183edfe 100644
 --- a/drivers/tty/serial/stm32-usart.c
 +++ b/drivers/tty/serial/stm32-usart.c
-@@ -214,13 +214,18 @@ static void stm32_usart_receive_chars(struct uart_port *port, bool threaded)
- 	struct tty_port *tport = &port->state->port;
- 	struct stm32_port *stm32_port = to_stm32_port(port);
- 	struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
--	unsigned long c;
-+	unsigned long c, flags;
+@@ -218,9 +218,6 @@ static void stm32_usart_receive_chars(struct uart_port *port, bool threaded)
  	u32 sr;
  	char flag;
  
- 	if (irqd_is_wakeup_set(irq_get_irq_data(port->irq)))
- 		pm_wakeup_event(tport->tty->dev, 0);
- 
-+	if (threaded)
-+		spin_lock_irqsave(&port->lock, flags);
-+	else
-+		spin_lock(&port->lock);
-+
- 	while (stm32_usart_pending_rx(port, &sr, &stm32_port->last_res,
- 				      threaded)) {
- 		sr |= USART_SR_DUMMY_RX;
-@@ -276,9 +281,12 @@ static void stm32_usart_receive_chars(struct uart_port *port, bool threaded)
- 		uart_insert_char(port, sr, USART_SR_ORE, c, flag);
- 	}
- 
--	spin_unlock(&port->lock);
-+	if (threaded)
-+		spin_unlock_irqrestore(&port->lock, flags);
-+	else
-+		spin_unlock(&port->lock);
-+
- 	tty_flip_buffer_push(tport);
--	spin_lock(&port->lock);
- }
- 
- static void stm32_usart_tx_dma_complete(void *arg)
-@@ -459,8 +467,6 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+-	if (irqd_is_wakeup_set(irq_get_irq_data(port->irq)))
+-		pm_wakeup_event(tport->tty->dev, 0);
+-
+ 	if (threaded)
+ 		spin_lock_irqsave(&port->lock, flags);
+ 	else
+@@ -463,6 +460,7 @@ static void stm32_usart_transmit_chars(struct uart_port *port)
+ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+ {
+ 	struct uart_port *port = ptr;
++	struct tty_port *tport = &port->state->port;
+ 	struct stm32_port *stm32_port = to_stm32_port(port);
  	struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
  	u32 sr;
+@@ -473,9 +471,14 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+ 		writel_relaxed(USART_ICR_RTOCF,
+ 			       port->membase + ofs->icr);
  
--	spin_lock(&port->lock);
--
- 	sr = readl_relaxed(port->membase + ofs->isr);
- 
- 	if ((sr & USART_SR_RTOF) && ofs->icr != UNDEF_REG)
-@@ -474,10 +480,11 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
- 	if ((sr & USART_SR_RXNE) && !(stm32_port->rx_ch))
- 		stm32_usart_receive_chars(port, false);
- 
--	if ((sr & USART_SR_TXE) && !(stm32_port->tx_ch))
-+	if ((sr & USART_SR_TXE) && !(stm32_port->tx_ch)) {
-+		spin_lock(&port->lock);
- 		stm32_usart_transmit_chars(port);
--
--	spin_unlock(&port->lock);
-+		spin_unlock(&port->lock);
+-	if ((sr & USART_SR_WUF) && ofs->icr != UNDEF_REG)
++	if ((sr & USART_SR_WUF) && ofs->icr != UNDEF_REG) {
++		/* Clear wake up flag and disable wake up interrupt */
+ 		writel_relaxed(USART_ICR_WUCF,
+ 			       port->membase + ofs->icr);
++		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_WUFIE);
++		if (irqd_is_wakeup_set(irq_get_irq_data(port->irq)))
++			pm_wakeup_event(tport->tty->dev, 0);
 +	}
  
- 	if (stm32_port->rx_ch)
- 		return IRQ_WAKE_THREAD;
-@@ -490,13 +497,9 @@ static irqreturn_t stm32_usart_threaded_interrupt(int irq, void *ptr)
- 	struct uart_port *port = ptr;
+ 	if ((sr & USART_SR_RXNE) && !(stm32_port->rx_ch))
+ 		stm32_usart_receive_chars(port, false);
+@@ -901,6 +904,12 @@ static void stm32_usart_set_termios(struct uart_port *port,
+ 		cr1 &= ~(USART_CR1_DEDT_MASK | USART_CR1_DEAT_MASK);
+ 	}
+ 
++	/* Configure wake up from low power on start bit detection */
++	if (stm32_port->wakeirq > 0) {
++		cr3 &= ~USART_CR3_WUS_MASK;
++		cr3 |= USART_CR3_WUS_START_BIT;
++	}
++
+ 	writel_relaxed(cr3, port->membase + ofs->cr3);
+ 	writel_relaxed(cr2, port->membase + ofs->cr2);
+ 	writel_relaxed(cr1, port->membase + ofs->cr1);
+@@ -1479,23 +1488,20 @@ static void __maybe_unused stm32_usart_serial_en_wakeup(struct uart_port *port,
+ {
  	struct stm32_port *stm32_port = to_stm32_port(port);
+ 	struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+-	struct stm32_usart_config *cfg = &stm32_port->info->cfg;
+-	u32 val;
  
--	spin_lock(&port->lock);
--
- 	if (stm32_port->rx_ch)
- 		stm32_usart_receive_chars(port, true);
+ 	if (stm32_port->wakeirq <= 0)
+ 		return;
  
--	spin_unlock(&port->lock);
--
- 	return IRQ_HANDLED;
++	/*
++	 * Enable low-power wake-up and wake-up irq if argument is set to
++	 * "enable", disable low-power wake-up and wake-up irq otherwise
++	 */
+ 	if (enable) {
+-		stm32_usart_clr_bits(port, ofs->cr1, BIT(cfg->uart_enable_bit));
+ 		stm32_usart_set_bits(port, ofs->cr1, USART_CR1_UESM);
+-		val = readl_relaxed(port->membase + ofs->cr3);
+-		val &= ~USART_CR3_WUS_MASK;
+-		/* Enable Wake up interrupt from low power on start bit */
+-		val |= USART_CR3_WUS_START_BIT | USART_CR3_WUFIE;
+-		writel_relaxed(val, port->membase + ofs->cr3);
+-		stm32_usart_set_bits(port, ofs->cr1, BIT(cfg->uart_enable_bit));
++		stm32_usart_set_bits(port, ofs->cr3, USART_CR3_WUFIE);
+ 	} else {
+ 		stm32_usart_clr_bits(port, ofs->cr1, USART_CR1_UESM);
++		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_WUFIE);
+ 	}
  }
  
 -- 
