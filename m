@@ -2,66 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFF7F31F6E9
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Feb 2021 10:59:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E69C431F809
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Feb 2021 12:18:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB03BC5719E;
-	Fri, 19 Feb 2021 09:59:30 +0000 (UTC)
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72C59C57B63;
+	Fri, 19 Feb 2021 11:18:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E29C6C32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5AB53C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Feb 2021 09:59:28 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id t2so3851249pjq.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Feb 2021 01:59:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rO0e+NuITIQhnPgueO8o0H2uruJAZQF5INjcDz5MY5k=;
- b=Y0IzD+lGc6c+loGdb8VZjnxwjd1fqDUpS+RfBDHINBazzFZ176nBqigOl3s29SmnBr
- WEQbA6KkV+cfYe4DR6GmreHByy2Vac8HAJReV/SdlTzw+OEOZUG6U5UvqMfLJSG5Jpdx
- 9V03pBgHlaHX/jUbPbd+Ehu9F5eeHavFCLmLM4ysAGKlooCjRy/nPOTYHC2sRpKBbRRj
- wlWT8vvlBKbyvO2Ya94J0l94I7TS1T2uQmONsFgrnWLn8fpSr4NU3Gfy1b7vLMO5GUBS
- I0ZG9DYKFhEupLXhumjB5aqjLQcodfeqlHhkx96h79Zf7UlW3PJ5Ei7pK4DSxxlnx6HV
- I7bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=rO0e+NuITIQhnPgueO8o0H2uruJAZQF5INjcDz5MY5k=;
- b=b1HK0nAWSnK4CnZkEzgaM0MixqQ5hR5M9tPEBSz0r7/0lH7RAhd9+hWtrAuNZ+k5+W
- 7koo3mFBd6oodGpQJhpVTWI8eVSodx4fVYHsLTKfEi0N13m1FvOVbB1KSgPlUxLB84ZZ
- WBLunqAQW5JJVbK5syDCEKl5FVIMWm/3czMGRgBC6kJyMo26tmf8d7f3lJLSbF46tsGz
- e6iIRuVu88JgLodufPfuRRMYKIaMIP90KE6gVYejbtnN105QuwG5PV/dAsoojPdPEJZc
- scqndVksRmSynnJDT8/kHnT/h8QVWOP218Cyq5A37ag/Nln7OpLzcz2x/VxZfdnGdV6b
- pyag==
-X-Gm-Message-State: AOAM531vvh4zH94p3xk6MMiMB517S0ZlXLs36A2XDlUbXNcDicIi/ovK
- VYWhogk0PcAm7D4MPDRHUwg=
-X-Google-Smtp-Source: ABdhPJw8JkW1fb08x5fPxcAAg6KungWG6R/Q1ALRmTD5unlLBcDpQTcqEeIR3O2PwX08iUi89mc7Fw==
-X-Received: by 2002:a17:90a:b282:: with SMTP id
- c2mr8635023pjr.54.1613728767387; 
- Fri, 19 Feb 2021 01:59:27 -0800 (PST)
-Received: from localhost.localdomain (113x37x72x20.ap113.ftth.ucom.ne.jp.
- [113.37.72.20])
- by smtp.gmail.com with ESMTPSA id y16sm8361475pgg.20.2021.02.19.01.59.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Feb 2021 01:59:26 -0800 (PST)
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: jic23@kernel.org
-Date: Fri, 19 Feb 2021 18:59:06 +0900
-Message-Id: <20210219095906.220382-1-vilhelm.gray@gmail.com>
-X-Mailer: git-send-email 2.30.1
+ Fri, 19 Feb 2021 11:18:04 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 11JBCOi5009228; Fri, 19 Feb 2021 12:17:59 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=aNSiq1WuZ5PT7Y3v8+mQF2IY08hpA6ycnBtHBmLuxKI=;
+ b=VDjFFxmOTtTMt5hIWGnNdA6OM5xDDe+ivSbjqjy2D88iaBhJc65JNI7gSZ1ztgYQUxws
+ cUDe6JeRF+Ep7YgaeRbDRBqcdhSAXJGC7eZjcaPWy4FAkUCqOm+YEO/n8ci7Layw8UnI
+ IaTqw51Fm9AbcHasZzgsURnZteIeTOqzG14OZJ0SHGwpQ0lilzgTu4WR4VWesoQly595
+ H9UYH6bDmwg5v6CoSAuCBsHPm2misoy86xfwMbx8h6+7Mpq95JIDu9VdZdpLEmDo6cJ2
+ h9pzt5BQlDfGbev77iaWkFtcPToixBARNQxGOZKhi2+gdc+F+eGei4LkHJGig3Rhfam6 FA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36sqadeymx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 Feb 2021 12:17:59 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D282110002A;
+ Fri, 19 Feb 2021 12:17:58 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BEDA82266D7;
+ Fri, 19 Feb 2021 12:17:58 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 19 Feb 2021 12:17:58
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>, Andy Gross
+ <agross@kernel.org>
+Date: Fri, 19 Feb 2021 12:14:45 +0100
+Message-ID: <20210219111501.14261-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Cc: Alexandre Torgue <alexandre.torgue@st.com>, linux-iio@vger.kernel.org,
- William Breathitt Gray <vilhelm.gray@gmail.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: Report count
-	function when SLAVE_MODE_DISABLED
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-02-19_04:2021-02-18,
+ 2021-02-19 signatures=0
+Cc: linux-arm-msm@vger.kernel.org, arnaud.pouliquen@foss.st.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v5 00/16] introduce a generic IOCTL interface
+	for RPMsg channels management
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,101 +74,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When in SLAVE_MODE_DISABLED mode, the count still increases if the
-counter is enabled because an internal clock is used. This patch fixes
-the stm32_count_function_get() function to properly report this
-behavior.
+This series restructures the RPMsg char driver to decorrelate the control part and to
+create a generic RPMsg ioctl interface compatible with other RPMsg services.
 
-Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
-Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
----
- drivers/counter/stm32-timer-cnt.c | 31 +++++++++++++++++++------------
- 1 file changed, 19 insertions(+), 12 deletions(-)
+The V4 and V5 fix compilation issues reported by the kernel test robot <lkp@intel.com>
+and analyzed by Dan Carpenter <dan.carpenter@oracle.com>.
 
-diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index ef2a974a2f10..ec6d9e89c028 100644
---- a/drivers/counter/stm32-timer-cnt.c
-+++ b/drivers/counter/stm32-timer-cnt.c
-@@ -44,13 +44,14 @@ struct stm32_timer_cnt {
-  * @STM32_COUNT_ENCODER_MODE_3: counts on both TI1FP1 and TI2FP2 edges
-  */
- enum stm32_count_function {
--	STM32_COUNT_SLAVE_MODE_DISABLED = -1,
-+	STM32_COUNT_SLAVE_MODE_DISABLED,
- 	STM32_COUNT_ENCODER_MODE_1,
- 	STM32_COUNT_ENCODER_MODE_2,
- 	STM32_COUNT_ENCODER_MODE_3,
- };
- 
- static enum counter_count_function stm32_count_functions[] = {
-+	[STM32_COUNT_SLAVE_MODE_DISABLED] = COUNTER_COUNT_FUNCTION_INCREASE,
- 	[STM32_COUNT_ENCODER_MODE_1] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A,
- 	[STM32_COUNT_ENCODER_MODE_2] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_B,
- 	[STM32_COUNT_ENCODER_MODE_3] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
-@@ -99,9 +100,10 @@ static int stm32_count_function_get(struct counter_device *counter,
- 	case 3:
- 		*function = STM32_COUNT_ENCODER_MODE_3;
- 		return 0;
-+	default:
-+		*function = STM32_COUNT_SLAVE_MODE_DISABLED;
-+		return 0;
- 	}
--
--	return -EINVAL;
- }
- 
- static int stm32_count_function_set(struct counter_device *counter,
-@@ -274,31 +276,36 @@ static int stm32_action_get(struct counter_device *counter,
- 	size_t function;
- 	int err;
- 
--	/* Default action mode (e.g. STM32_COUNT_SLAVE_MODE_DISABLED) */
--	*action = STM32_SYNAPSE_ACTION_NONE;
--
- 	err = stm32_count_function_get(counter, count, &function);
- 	if (err)
--		return 0;
-+		return err;
- 
- 	switch (function) {
- 	case STM32_COUNT_ENCODER_MODE_1:
- 		/* counts up/down on TI1FP1 edge depending on TI2FP2 level */
- 		if (synapse->signal->id == count->synapses[0].signal->id)
- 			*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
--		break;
-+		else
-+			*action = STM32_SYNAPSE_ACTION_NONE;
-+		return 0;
- 	case STM32_COUNT_ENCODER_MODE_2:
- 		/* counts up/down on TI2FP2 edge depending on TI1FP1 level */
- 		if (synapse->signal->id == count->synapses[1].signal->id)
- 			*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
--		break;
-+		else
-+			*action = STM32_SYNAPSE_ACTION_NONE;
-+		return 0;
- 	case STM32_COUNT_ENCODER_MODE_3:
- 		/* counts up/down on both TI1FP1 and TI2FP2 edges */
- 		*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
--		break;
-+		return 0;
-+	case STM32_COUNT_SLAVE_MODE_DISABLED:
-+		/* counts on internal clock when CEN=1 */
-+		*action = STM32_SYNAPSE_ACTION_NONE;
-+		return 0;
-+	default:
-+		return -EINVAL;
- 	}
--
--	return 0;
- }
- 
- static const struct counter_ops stm32_timer_cnt_ops = {
+The V3 is based on the guideline proposed by Mathieu Poirier to keep as much as possible
+the legacy implementation of the rpmsg_char used by the GLINK and SMD platforms.
+
+Objectives of the series:
+- Allow to create a service from Linux user application:
+  - with a specific name
+  - with or without name service announcement.
+- Allow to probe the same service by receiving either a NS announcement from the remote firmware
+  or a Linux user application request.
+- Use these services independently of the RPMsg transport implementation (e.g be able to use
+  RPMSg char with the RPMsg virtio bus).
+
+Steps in the series:
+  - Extract the control part of the char dev and create the rpmsg_ctrl.c file (patches 1 to 6)
+  - Enable the use of the chardev with the virtio backend (patches 7 to 11)
+  - Introduce the RPMSG_CREATE_DEV_IOCTL IOCTL to instantiate RPMsg devices (patch 12)
+    The application can then create or release a channel by specifying:
+       - the name service of the device to instantiate.   
+       - the source address.
+       - the destination address.
+  - Instantiate the /dev/rpmsg interface on remote NS announcement (patches 13 to 16)
+
+In this revision, I do not divide the series into several parts in order to show a complete
+picture of the proposed evolution. To simplify the review, if requested, I can send it in
+several steps listed above.
+
+Known current Limitations:
+- Tested only with virtio RPMsg bus. The glink and smd drivers adaptations have not been tested
+  (not able to test it).
+- For the virtio backend: No NS announcement is sent to the remote processor if the source
+  address is set to RPMSG_ADDR_ANY.
+- For the virtio backend: the existing RPMSG_CREATE_EPT_IOCTL is working but the endpoints are
+  not attached to an exiting channel.
+- to limit patches the pending RPMSG_DESTROY_DEV_IOCTL has not ben implemented. This will be
+  proposed in a second step.
+
+This series can be applied on git/andersson/remoteproc.git for-next branch (d9ff3a5789cb).
+
+This series can be tested using rpmsgexport, rpmsgcreatedev and ping tools available here:
+https://github.com/arnopo/rpmsgexport.git
+
+Reference to the V4 discussion thread: https://lkml.org/lkml/2021/2/17/384
+
+Arnaud Pouliquen (16):
+  rpmsg: char: rename rpmsg_char_init to rpmsg_chrdev_init
+  rpmsg: move RPMSG_ADDR_ANY in user API
+  rpmsg: add short description of the IOCTL defined in UAPI.
+  rpmsg: char: export eptdev create an destroy functions
+  rpmsg: char: dissociate the control device from the rpmsg class
+  rpmsg: move the rpmsg control device from rpmsg_char to rpmsg_ctrl
+  rpmsg: update rpmsg_chrdev_register_device function
+  rpmsg: glink: add sendto and trysendto ops
+  rpmsg: smd: add sendto and trysendto ops
+  rpmsg: char: use sendto to specify the message destination address
+  rpmsg: virtio: register the rpmsg_ctrl device
+  rpmsg: ctrl: introduce RPMSG_CREATE_DEV_IOCTL
+  rpmsg: char: introduce __rpmsg_chrdev_create_eptdev function
+  rpmsg: char: introduce a RPMsg driver for the RPMsg char device
+  rpmsg: char: no dynamic endpoint management for the default one
+  rpmsg: char: return an error if device already open
+
+ drivers/rpmsg/Kconfig             |   9 ++
+ drivers/rpmsg/Makefile            |   1 +
+ drivers/rpmsg/qcom_glink_native.c |  18 ++-
+ drivers/rpmsg/qcom_smd.c          |  18 ++-
+ drivers/rpmsg/rpmsg_char.c        | 237 +++++++++++-------------------
+ drivers/rpmsg/rpmsg_char.h        |  51 +++++++
+ drivers/rpmsg/rpmsg_ctrl.c        | 229 +++++++++++++++++++++++++++++
+ drivers/rpmsg/rpmsg_internal.h    |  10 +-
+ drivers/rpmsg/virtio_rpmsg_bus.c  |  57 ++++++-
+ include/linux/rpmsg.h             |   3 +-
+ include/uapi/linux/rpmsg.h        |  18 ++-
+ 11 files changed, 485 insertions(+), 166 deletions(-)
+ create mode 100644 drivers/rpmsg/rpmsg_char.h
+ create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
+
 -- 
-2.30.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
