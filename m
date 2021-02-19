@@ -2,50 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C62331F39D
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Feb 2021 02:27:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB35931F612
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Feb 2021 09:51:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 157B0C5719E;
-	Fri, 19 Feb 2021 01:27:43 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57842C5719E;
+	Fri, 19 Feb 2021 08:51:51 +0000 (UTC)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8C32C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF3A5C3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Feb 2021 01:27:40 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2943264E44;
- Fri, 19 Feb 2021 01:27:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1613698059;
- bh=vWgi1IgDLknPnKXAMTJycompoZMC4N1ouo1Y/N5cBx0=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=Qzmx9dC+3vApwuP5wEBO8oKHzeW5JcAUAC11CMPcGakyVGmALk8bb1kJwomFauaE2
- xsud0EDvOC07dRVVuIM8DBxoOrRdZJeecjunByqbcGnRDlj/5HNBtRpCjazZsdo3Z2
- 06kOQM0trY+E8RGjNTIYTU83cKToav1802GFXfdoaY+c0s8A0or8aS6Qgxr+qYNZnr
- 06lUDGp1PQxU8XyW+wXlGRS+sxVNPit/JlyP4WVjXojAg3OHBbEFWNOKdHsisPMMyS
- HZm8doYo+58ZNvMTPrQ2ZPzqtKgh8KRk4FBbONuXegi1jv1z3R02praH1QzJHRV/Mo
- C4rlIE+LMkk1Q==
+ Fri, 19 Feb 2021 08:51:47 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id o38so3412015pgm.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 19 Feb 2021 00:51:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=ZX/0vn+4d0GadCfE6C+zcMHKBe8kMLF0TT0FFLEZWko=;
+ b=gp4UIalZOAkD+9D6/YZrYAsj+BWkWdjYpymhbfYsJdSc12qD46kAFL5uvCxfrFjTbW
+ NcDYnMQx1ZWnR3ySqHQa3vtiWKgIcZVF3XZJd9w4bkUwiOdkKPZoLlLMmOW2vIDLKfzb
+ 7zjfoWmNZG7CeLrWRX09+llAZjfJqGUvPME8IT+n631hYDJmWqsMDAvgJSUKgioqBMOT
+ /tI+Jdo3RCp3jQ4QioB0NrgHMFA9A8XPPgvDv9Ey+E4FLGUribU3P8NorDCvTXkE9wyx
+ 1Je/Gw/CDt2XdROS6IEmxswI4ITvAXcHy9uCGGxcdokOtjn7yP4hUSA9rOFvAZFnsTgp
+ I22A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ZX/0vn+4d0GadCfE6C+zcMHKBe8kMLF0TT0FFLEZWko=;
+ b=TTG78/UbReYpvOjY0ZYVbK2woZf4NQt5L/Z7qqSBEYDhkiK3SM/PClyHMC2OKA98s2
+ wTg+eFgFLO+dEkNUICW5x1F9jMVs2bWu9T6kwIjuwBxEY7HKmyBrZEc+27dAXrEdw+Zn
+ 3fqj+MVBydenXmy3Eb3rWk1llG+d7u9x8EESYxqqjxCby/mpUk+9S7PfREQ0VkZawjot
+ 5wxzUS/jFRWhtaO89AitKHtNgt8YROR8gkD6xWTl8i1kgjIh0HkMBL3yL7nxPeLwCcN3
+ r7E4F7TaWzNF3Aw5fLS9eOc3zSqFWLEKG2EPCVcm1UGnfoCkQwbXjs7deUSrmTl2Pn+i
+ 7RDw==
+X-Gm-Message-State: AOAM530Y2Qa8WvGUuuoJvVvVZpv3Wd4F5veMvMUQDpbrYj5zePlqzwqx
+ TgJPD+sRJGTfUDL1xIi1jqc=
+X-Google-Smtp-Source: ABdhPJz1tkjQ5wEB6PWfTQeIvZWmVYTed76QBMR8Bc1Hd5itPLBAQDEmnH8GyFqWxdto3uAN+Stk0g==
+X-Received: by 2002:a63:ca45:: with SMTP id o5mr7730598pgi.48.1613724706449;
+ Fri, 19 Feb 2021 00:51:46 -0800 (PST)
+Received: from shinobu (113x37x72x20.ap113.ftth.ucom.ne.jp. [113.37.72.20])
+ by smtp.gmail.com with ESMTPSA id u20sm8301896pjy.36.2021.02.19.00.51.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Feb 2021 00:51:45 -0800 (PST)
+Date: Fri, 19 Feb 2021 17:51:37 +0900
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <YC98GTwzwt+pkzMO@shinobu>
+References: <cover.1613131238.git.vilhelm.gray@gmail.com>
+ <c9b55d1cff6acac692a7853b0a25777ecf017b12.1613131238.git.vilhelm.gray@gmail.com>
+ <20210214180913.05bd3498@archlinux>
 MIME-Version: 1.0
-In-Reply-To: <5cc12945-0347-820c-1125-30ab4a947a00@foss.st.com>
-References: <20210126090120.19900-1-gabriel.fernandez@foss.st.com>
- <20210126090120.19900-3-gabriel.fernandez@foss.st.com>
- <161285764074.418021.15522379930579131077@swboyd.mtv.corp.google.com>
- <5cc12945-0347-820c-1125-30ab4a947a00@foss.st.com>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Alexandre Torgue <alexandre.torgue@st.com>,
- Etienne Carriere <etienne.carriere@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>,
- gabriel.fernandez@foss.st.com <gabriel.fernandez@foss.st.com>, marex@denx.de
-Date: Thu, 18 Feb 2021 17:27:37 -0800
-Message-ID: <161369805767.1254594.5233096495913117772@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 02/14] clk: stm32mp1: merge
-	'ck_hse_rtc' and 'ck_rtc' into one clock
+In-Reply-To: <20210214180913.05bd3498@archlinux>
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ Dan Carpenter <dan.carpenter@oracle.com>, kernel@pengutronix.de,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v8 19/22] counter: Implement
+ extension*_name sysfs attributes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,85 +77,98 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============5064598525157843460=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-UXVvdGluZyBnYWJyaWVsLmZlcm5hbmRlekBmb3NzLnN0LmNvbSAoMjAyMS0wMi0xMiAwMDowODo0
-MCkKPiAKPiBPbiAyLzkvMjEgOTowMCBBTSwgU3RlcGhlbiBCb3lkIHdyb3RlOgo+ID4gUXVvdGlu
-ZyBnYWJyaWVsLmZlcm5hbmRlekBmb3NzLnN0LmNvbSAoMjAyMS0wMS0yNiAwMTowMTowOCkKPiA+
-PiBGcm9tOiBHYWJyaWVsIEZlcm5hbmRleiA8Z2FicmllbC5mZXJuYW5kZXpAZm9zcy5zdC5jb20+
-Cj4gPj4KPiA+PiAnY2tfcnRjJyBoYXMgbXVsdGlwbGUgY2xvY2tzIGFzIGlucHV0IChja19oc2ks
-IGNrX2xzaSwgYW5kIGNrX2hzZSkuCj4gPj4gQSBkaXZpZGVyIGlzIGF2YWlsYWJsZSBvbmx5IG9u
-IHRoZSBzcGVjaWZpYyBydGMgaW5wdXQgZm9yIGNrX2hzZS4KPiA+PiBUaGlzIE1lcmdlIHdpbGwg
-ZmFjaWxpdGF0ZSB0byBoYXZlIGEgbW9yZSBjb2hlcmVudCBjbG9jayB0cmVlCj4gPj4gaW4gbm8g
-dHJ1c3RlZCAvIHRydXN0ZWQgd29ybGQuCj4gPj4KPiA+PiBTaWduZWQtb2ZmLWJ5OiBHYWJyaWVs
-IEZlcm5hbmRleiA8Z2FicmllbC5mZXJuYW5kZXpAZm9zcy5zdC5jb20+Cj4gPj4gLS0tCj4gPj4g
-ICBkcml2ZXJzL2Nsay9jbGstc3RtMzJtcDEuYyB8IDQ5ICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKy0tLS0tCj4gPj4gICAxIGZpbGUgY2hhbmdlZCwgNDMgaW5zZXJ0aW9ucygrKSwg
-NiBkZWxldGlvbnMoLSkKPiA+Pgo+ID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2Nsay9jbGstc3Rt
-MzJtcDEuYyBiL2RyaXZlcnMvY2xrL2Nsay1zdG0zMm1wMS5jCj4gPj4gaW5kZXggMzVkNWFlZThm
-OWIwLi4wZTFkNDQyN2E4ZGYgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9jbGsvY2xrLXN0bTMy
-bXAxLmMKPiA+PiArKysgYi9kcml2ZXJzL2Nsay9jbGstc3RtMzJtcDEuYwo+ID4+IEBAIC0yNDUs
-NyArMjQ1LDcgQEAgc3RhdGljIGNvbnN0IGNoYXIgKiBjb25zdCBkc2lfc3JjW10gPSB7Cj4gPj4g
-ICB9Owo+ID4+ICAgCj4gPj4gICBzdGF0aWMgY29uc3QgY2hhciAqIGNvbnN0IHJ0Y19zcmNbXSA9
-IHsKPiA+PiAtICAgICAgICJvZmYiLCAiY2tfbHNlIiwgImNrX2xzaSIsICJja19oc2VfcnRjIgo+
-ID4+ICsgICAgICAgIm9mZiIsICJja19sc2UiLCAiY2tfbHNpIiwgImNrX2hzZSIKPiA+PiAgIH07
-Cj4gPj4gICAKPiA+PiAgIHN0YXRpYyBjb25zdCBjaGFyICogY29uc3QgbWNvMV9zcmNbXSA9IHsK
-PiA+PiBAQCAtMTAzMSw2ICsxMDMxLDQyIEBAIHN0YXRpYyBzdHJ1Y3QgY2xrX2h3ICpjbGtfcmVn
-aXN0ZXJfY2t0aW0oc3RydWN0IGRldmljZSAqZGV2LCBjb25zdCBjaGFyICpuYW1lLAo+ID4+ICAg
-ICAgICAgIHJldHVybiBodzsKPiA+PiAgIH0KPiA+PiAgIAo+ID4+ICsvKiBUaGUgZGl2aWRlciBv
-ZiBSVEMgY2xvY2sgY29uY2VybnMgb25seSBja19oc2UgY2xvY2sgKi8KPiA+PiArI2RlZmluZSBI
-U0VfUlRDIDMKPiA+PiArCj4gPj4gK3N0YXRpYyB1bnNpZ25lZCBsb25nIGNsa19kaXZpZGVyX3J0
-Y19yZWNhbGNfcmF0ZShzdHJ1Y3QgY2xrX2h3ICpodywKPiA+PiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBwYXJlbnRfcmF0ZSkK
-PiA+PiArewo+ID4+ICsgICAgICAgaWYgKGNsa19od19nZXRfcGFyZW50KGh3KSA9PSBjbGtfaHdf
-Z2V0X3BhcmVudF9ieV9pbmRleChodywgSFNFX1JUQykpCj4gPj4gKyAgICAgICAgICAgICAgIHJl
-dHVybiBjbGtfZGl2aWRlcl9vcHMucmVjYWxjX3JhdGUoaHcsIHBhcmVudF9yYXRlKTsKPiA+PiAr
-Cj4gPj4gKyAgICAgICByZXR1cm4gcGFyZW50X3JhdGU7Cj4gPj4gK30KPiA+PiArCj4gPj4gK3N0
-YXRpYyBsb25nIGNsa19kaXZpZGVyX3J0Y19yb3VuZF9yYXRlKHN0cnVjdCBjbGtfaHcgKmh3LCB1
-bnNpZ25lZCBsb25nIHJhdGUsCj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgdW5zaWduZWQgbG9uZyAqcHJhdGUpCj4gPj4gK3sKPiA+PiArICAgICAgIGlmIChjbGtf
-aHdfZ2V0X3BhcmVudChodykgPT0gY2xrX2h3X2dldF9wYXJlbnRfYnlfaW5kZXgoaHcsIEhTRV9S
-VEMpKQo+ID4gVGhpcyBjbGsgb3AgY2FuIGJlIGNhbGxlZCBhdCBiYXNpY2FsbHkgYW55IHRpbWUu
-IE1heWJlIHRoaXMgc2hvdWxkIHVzZQo+ID4gdGhlIGRldGVybWluZSByYXRlIG9wIGFuZCB0aGVu
-IGxvb2sgdG8gc2VlIHdoYXQgdGhlIHBhcmVudCBpcyB0aGF0IGNvbWVzCj4gPiBpbiB2aWEgdGhl
-IHJhdGUgcmVxdWVzdCBzdHJ1Y3R1cmU/IE9yIGlzIHRoZSBpbnRlbnRpb24gdG8ga2VlcCB0aGlz
-Cj4gPiBwaW5uZWQgdG8gb25lIHBhcnRpY3VsYXIgcGFyZW50PyBMb29raW5nIGF0IHRoaXMgcmln
-aHQgbm93IGl0IGRvZXNuJ3QKPiA+IHJlYWxseSBtYWtlIG11Y2ggc2Vuc2Ugd2h5IHRoZSBjdXJy
-ZW50IHBhcmVudCBzdGF0ZSBzaG91bGQgcGxheSBpbnRvCj4gPiB3aGF0IHJhdGUgdGhlIGNsayBj
-YW4gcm91bmQgdG8sIHVubGVzcyB0aGVyZSBpcyBzb21lIG1vcmUgY2xrIGZsYWdzCj4gPiBnb2lu
-ZyBvbiB0aGF0IGNvbnN0cmFpbiB0aGUgYWJpbGl0eSB0byBjaGFuZ2UgdGhpcyBjbGsncyBwYXJl
-bnQuCj4gCj4gWWVzIHRoZSBpbnRlbnRpb24gaXMgdG8ga2VlcCB0aGlzIHBpbm5lZCBmb3Igb25l
-IHBhcnRpY3VsYXIgcGFyZW50Lgo+IAo+IFRoaXMgZGl2aWRlciBpcyBvbmx5IGFwcGxpZWQgb24g
-dGhlIDR0aCBpbnB1dCBvZiB0aGUgTVVYIG9mIHRoZSBSVEMgYW5kCj4gCj4gZG9lc24ndCBhZmZl
-Y3QgdGhlIEhTRSBmcmVxdWVuY3kgZm9yIGFsbCB0aGUgc3lzdGVtLgo+IAo+IAo+IE9zY2lsbGF0
-b3JzCj4gIMKgLS0tLS0KPiB8IGxzZSB8LS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0t
-PiBja19sc2UKPiAgwqAtLS0tLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwKPiAg
-wqAtLS0tLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwKPiB8IGxzaSB8LS0tLS0t
-LS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tPiBja19sc2kKPiAgwqAtLS0tLcKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCB8wqDCoCB8Cj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB8wqDCoCB8Cj4gIMKgLS0tLS3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgfAo+
-IHwgaHNlIHwtLS0tKy0tLS0tLS18LS0tfC0tLS0tLS0tLS0tLS0tLS0+IGNrX2hzZQo+ICDCoC0t
-LS0twqDCoMKgwqAgfMKgwqDCoMKgwqDCoCB8wqDCoCB8Cj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHzCoMKgwqDCoMKgwqAgfMKgwqAgfMKgwqDCoMKgwqDCoMKgwqAgfFwgbXV4Cj4gIMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqAgfMKgwqAgfMKgIE9GRiAtLT58IFwKPiAgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoCB8wqDCoCB8wqDCoMKgwqDCoMKgwqDCoCB8wqAg
-XMKgwqDCoMKgIGdhdGUKPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoCB8wqDC
-oCAtLS0tLS0tLS0+fMKgIHzCoMKgwqDCoCAtLS0KPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKg
-wqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCB8LS0tPnzCoMKgIHwtLT4g
-Y2tfcnRjCj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgwqDCoMKgwqAgLS0tLS0tLS0tLS0t
-LT58wqAgfMKgwqDCoMKgIC0tLQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgIC0tLS0t
-LS0tLS0twqDCoMKgwqDCoCB8wqAgfAo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC0tLS18ICUg
-MSB0byA2NCB8LS0tPnwgLwo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAtLS0t
-LS0tLS0tLcKgwqDCoMKgIHwvCj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBkaXZpZGVyCj4gCj4gSSBtYW5hZ2UgdGhlIFJUQyB3aXRoIGEgY2xvY2sgY29tcG9zaXRlIHdp
-dGggYSBnYXRlIGEgbXV4IGFuZCBhIHNwZWNpZmljIAo+IHJhdGUgb3BzIGZvciBoc2UgaW5wdXQu
-Cj4gCj4gVGhhdCB3aHkgaSBuZWVkIHRvIHRoZSBwYXJlbnQgc3RhdGUuCj4gCgpTbyB3b3VsZCB1
-c2luZyBkZXRlcm1pbmVfcmF0ZSBvcCBpbnN0ZWFkIG9mIHJvdW5kX3JhdGUgb3AgaGVscCBoZXJl
-PyBUaGF0CndpbGwgcHJvdmlkZSB0aGUgY3VycmVudCBwYXJlbnQgcmF0ZSBhbmQgaHcgcG9pbnRl
-ciBpbiB0aGUgcmF0ZSByZXF1ZXN0CnN0cnVjdHVyZS4KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
-bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+--===============5064598525157843460==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Z+ATVKzf56OJTET9"
+Content-Disposition: inline
+
+
+--Z+ATVKzf56OJTET9
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Feb 14, 2021 at 06:09:13PM +0000, Jonathan Cameron wrote:
+> On Fri, 12 Feb 2021 21:13:43 +0900
+> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+>=20
+> > The Generic Counter chrdev interface expects users to supply extension
+> > IDs in order to select extensions for requests. In order for users to
+> > know what extension ID belongs to which extension this information must
+> > be exposed. The extension*_name attribute provides a way for users to
+> > discover what extension ID belongs to which extension by reading the
+> > respective extension name for an extension ID.
+> >=20
+> > Cc: David Lechner <david@lechnology.com>
+> > Cc: Gwendal Grignou <gwendal@chromium.org>
+> > Cc: Dan Carpenter <dan.carpenter@oracle.com>
+> > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> > ---
+> >  Documentation/ABI/testing/sysfs-bus-counter |  9 ++++
+> >  drivers/counter/counter-sysfs.c             | 51 +++++++++++++++++----
+> >  2 files changed, 50 insertions(+), 10 deletions(-)
+> >=20
+> > diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Documentatio=
+n/ABI/testing/sysfs-bus-counter
+> > index 6353f0a2f8f8..847e96f19d19 100644
+> > --- a/Documentation/ABI/testing/sysfs-bus-counter
+> > +++ b/Documentation/ABI/testing/sysfs-bus-counter
+> > @@ -100,6 +100,15 @@ Description:
+> >  		Read-only attribute that indicates whether excessive noise is
+> >  		present at the channel Y counter inputs.
+> > =20
+> > +What:		/sys/bus/counter/devices/counterX/countY/extensionZ_name
+> > +What:		/sys/bus/counter/devices/counterX/extensionZ_name
+> > +What:		/sys/bus/counter/devices/counterX/signalY/extensionZ_name
+> > +KernelVersion:	5.13
+> > +Contact:	linux-iio@vger.kernel.org
+> > +Description:
+> > +		Read-only attribute that indicates the component name of
+> > +		Extension Z.
+>=20
+> Good to say what form this takes.
+
+Do you mean a description like this: "Read-only string attribute that
+indicates the component name of Extension Z"?
+
+William Breathitt Gray
+
+--Z+ATVKzf56OJTET9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmAvfBkACgkQhvpINdm7
+VJIzrRAAiZ+eMLbJ0vaW9ezjJpkSnHfiyB5JKIbYfzn7RticBncbdaXLrFHbq9y/
+cWxBrgijMQ9h2SwX8gW+ovh6u7cfCW+FFvLtS9UAb9jiM/jTangdAASyMmjLTFDb
+04zodzHmS88tT+Wd5AQICiAR3MRAglHfyED3Utq2DSDvSkgB6vMo3JfuVrdQaKaS
+haOt0+djMIYtjoqk6HuvokA3Fwq4SBh2Ey8miBy9TXedsiMpeEMv7BO/rOoMIyJH
+OsKqnvQVR0OncdCYzWL1ENnu8NQo/4GIgDrwHTQXMTYXune1u8oM8vAkLXeJ8tlU
+TLUBRTjQaHt5E5Qz+vyxYsahSyZ6G/qDJ4oDRApSpfHhXuZmF4a1yqzzWOoFviuh
+kqubzCcDzYb5svEbp1T5N9Wqi1Q4By8r2Y3JQA6kt4Y0YGqlRZP5uMbwS0kvplYS
+AMqnslpxOWbEBQgxpjEHhAP3iB1yHmopGBvBWJX4X2oTOslVK9tv3BpRXIHDOCz4
+1+cxy4DNAS0KdskIv0jOhEfbyPzEYi7n424aA+Mhgs0LSgkDjCXw4WqPmJX2CS+Q
+pCgwMJfgqW61pZBeMfv6HaqKw1DKzESf1DUrqgWry1zvdO43xozbqdvat8iAJO/N
+UIm9sFwsQDTAym3cvbPuNCePtvb0rqN7Wo4QnZfOBHBa+9Oifgc=
+=Rifk
+-----END PGP SIGNATURE-----
+
+--Z+ATVKzf56OJTET9--
+
+--===============5064598525157843460==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5064598525157843460==--
