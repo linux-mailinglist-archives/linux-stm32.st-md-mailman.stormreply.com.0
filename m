@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BD53320648
-	for <lists+linux-stm32@lfdr.de>; Sat, 20 Feb 2021 17:48:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3254132064C
+	for <lists+linux-stm32@lfdr.de>; Sat, 20 Feb 2021 17:53:07 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D71CC5719D;
-	Sat, 20 Feb 2021 16:48:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF858C5719D;
+	Sat, 20 Feb 2021 16:53:06 +0000 (UTC)
 Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80221C32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2707C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 Feb 2021 16:48:51 +0000 (UTC)
+ Sat, 20 Feb 2021 16:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
  In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
  :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=vNEM/tON1M86XHMaCI4bAnuASZzABcq6rX1zJ37Bdqo=; b=IVQz5B8XsyLuXnlRA4Cbg7u2Fx
- 6UQnBt0S6+qDgbUG0yL6Yaj6J3LShaR5qB96dF7gO4MVOTm8CzTQ+KP0yjgdFkVkYzW9+OW0MzeLE
- pb7P8heKA+mtCk5DPs/AqurYPWmYMRIck7c8XYDrXrrDduV9zRiCZkf9D4E7EVWjh0xV3Oo83k5E+
- 5/5zD8rV7OVG6ReTeNMO7BJnPWvIvEt16djjQ5LHwGJoiP/f2PhXTh+PkA7mYwbOZExpjyZ9RqV+H
- j0BMGl4lXXvNrUz0AsNx8wdASRpwJ+JQLuhIL4WCjdRR+BXjKbukrzk03/lB8UV6LnmHudX01cDYW
- qD7eRZzQ==;
+ bh=gI9i43bA74+KIvpHnez9regT5UCWQr8nQrFICFaEcwI=; b=Gsv7ssHzORq4nVf8gz8YRYYNKE
+ /xh6LcvyKROxq1IEIoq8oIYCIi7uqKeGjkqpiG4YFSYSmlxwjiSgNECXCmK6XTeWJyfRzv1oB8j5g
+ QaBQFrSd6GWIbR5juJTD+3NA/9LYRA5xp2S0+IeJI9gPpF49v6NwNRWYqJJVoMpqg9vYg6mgyAK2K
+ dWkO3lVDCR5cTE26aSSXajbp047xgAY2ydi9P98URv5c2w2pJjSLZ5AGzaPQv/nREDZBmMA6X+xOY
+ V9QBqpZqGtbEPRZd+R81PLdA+PYmMYJTaVPBmuBFijxTSFQKvC1AtrJ2O9VTGoKwEHl3O1n5jAtAF
+ hteci1Tw==;
 Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
- ([108.198.5.147]:57734 helo=[192.168.0.134])
+ ([108.198.5.147]:57782 helo=[192.168.0.134])
  by vern.gendns.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
  (envelope-from <david@lechnology.com>)
- id 1lDVR0-0003Fq-US; Sat, 20 Feb 2021 11:48:47 -0500
+ id 1lDVV6-0004bI-4C; Sat, 20 Feb 2021 11:53:00 -0500
 To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
 References: <cover.1613131238.git.vilhelm.gray@gmail.com>
- <7fa80c10fcd10d1d47d1bddced2b2cca3ff59ba9.1613131238.git.vilhelm.gray@gmail.com>
+ <c07454c388991d7e2432c1ef838405c9df9dd02f.1613131238.git.vilhelm.gray@gmail.com>
 From: David Lechner <david@lechnology.com>
-Message-ID: <f382ce84-8a47-6315-9bdb-9d9957f1800b@lechnology.com>
-Date: Sat, 20 Feb 2021 10:48:45 -0600
+Message-ID: <43f8004c-54cf-fe26-bc00-723d6f8ad557@lechnology.com>
+Date: Sat, 20 Feb 2021 10:52:58 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <7fa80c10fcd10d1d47d1bddced2b2cca3ff59ba9.1613131238.git.vilhelm.gray@gmail.com>
+In-Reply-To: <c07454c388991d7e2432c1ef838405c9df9dd02f.1613131238.git.vilhelm.gray@gmail.com>
 Content-Language: en-US
 X-AntiAbuse: This header was added to track abuse,
  please include it with any abuse report
@@ -60,8 +60,8 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
  o.rempel@pengutronix.de, kernel@pengutronix.de, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v8 10/22] counter: Standardize to ERANGE
- for limit exceeded errors
+Subject: Re: [Linux-stm32] [PATCH v8 11/22] counter: Rename
+ counter_signal_value to counter_signal_level
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,20 +79,15 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 2/12/21 6:13 AM, William Breathitt Gray wrote:
-> ERANGE is a semantically better error code to return when an argument
-> value falls outside the supported limit range of a device.
+> Signal values will always be levels so let's be explicit it about it to
+> make the intent of the code clear.
 > 
 > Cc: Syed Nayyar Waris <syednwaris@gmail.com>
-> Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>
 > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 > ---
 
 Reviewed-by: David Lechner <david@lechnology.com>
-
-(I agree with William's assessment that this use of ERANGE
-is consistent with other uses in the kernel.)
 
 
 _______________________________________________
