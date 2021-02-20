@@ -2,64 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9E631FE35
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Feb 2021 18:48:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEAEA32048A
+	for <lists+linux-stm32@lfdr.de>; Sat, 20 Feb 2021 10:02:55 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F26CAC57B69;
-	Fri, 19 Feb 2021 17:48:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB72BC57B6C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B1FFC57B64;
+	Sat, 20 Feb 2021 09:02:55 +0000 (UTC)
+Received: from mail.baikalelectronics.ru (mail.baikalelectronics.com
+ [87.245.175.226])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBF51C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Feb 2021 17:47:59 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 11JHkUH3018180; Fri, 19 Feb 2021 18:47:53 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=zy1EbYrt/cGzcvtGhzDvwy8smSDarjqQyjUb30S6vmo=;
- b=egPhgpKW1d2P7T+AFixcdA9HGKykKqTX6L6PvygwdeGMnOYPAnlFWH1uy2TiCtv85sc0
- O8VxmQI9zn9z8rObrtdFJx2h5S2ajLg70OZdVLGSFnhvaW73LEgCxTRqvjaZfdchgDaO
- G5WBMBxwL4D2mdrAuVBx09RxRTXRbxizpMiwjnCP5U7jkmhTGWeQmx5lSD8l19KyMz1A
- lGjFUnpJnHD+0UUxeOKLVwOvp2As8KHhmtOjeNUhKe3kTGaEiT2YerDHzJfNghxq17Oa
- VhciBTqe1MFoBXAt+kN7sGXGmSUnzFuw9iJPNFrqNPJPRpEZT1FZ9GV6GLQfMJqsBnZG HQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36p707551p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 Feb 2021 18:47:53 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A280010002A;
- Fri, 19 Feb 2021 18:47:52 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9612925F3FD;
- Fri, 19 Feb 2021 18:47:52 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 19 Feb 2021 18:47:52
- +0100
-From: Erwan Le Ray <erwan.leray@foss.st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jslaby@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 19 Feb 2021 18:47:36 +0100
-Message-ID: <20210219174736.1022-14-erwan.leray@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210219174736.1022-1-erwan.leray@foss.st.com>
-References: <20210219174736.1022-1-erwan.leray@foss.st.com>
+ Sat, 20 Feb 2021 09:02:52 +0000 (UTC)
+Date: Sat, 20 Feb 2021 12:02:48 +0300
+From: Serge Semin <Sergey.Semin@baikalelectronics.ru>
+To: Russell King - ARM Linux admin <linux@armlinux.org.uk>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Andrew Lunn <andrew@lunn.ch>
+Message-ID: <20210220090248.oiyonlfucvmgzw6d@mobilestation>
+References: <20210208140341.9271-1-Sergey.Semin@baikalelectronics.ru>
+ <20210208140341.9271-2-Sergey.Semin@baikalelectronics.ru>
+ <8300d9ca-b877-860f-a975-731d6d3a93a5@gmail.com>
+ <20210209101528.3lf47ouaedfgq74n@mobilestation>
+ <a652c69b-94d3-9dc6-c529-1ebc0ed407ac@gmail.com>
+ <20210209105646.GP1463@shell.armlinux.org.uk>
+ <20210210164720.migzigazyqsuxwc6@mobilestation>
+ <20210211103941.GW1463@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-02-19_08:2021-02-18,
- 2021-02-19 signatures=0
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <20210211103941.GW1463@shell.armlinux.org.uk>
+X-ClientProxiedBy: MAIL.baikal.int (192.168.51.25) To mail (192.168.51.25)
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Joao Pinto <Joao.Pinto@synopsys.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Alexey Malahov <Alexey.Malahov@baikalelectronics.ru>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Pavel Parkhomenko <Pavel.Parkhomenko@baikalelectronics.ru>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Vyacheslav Mitrofanov <Vyacheslav.Mitrofanov@baikalelectronics.ru>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 13/13] serial: stm32: add support for
-	"flush_buffer" ops
+Subject: Re: [Linux-stm32] [PATCH 01/20] net: phy: realtek: Fix events
+ detection failure in LPI mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,47 +58,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the support for "flush_buffer" ops in order to flush any write buffers,
-reset any DMA state and stop any ongoing DMA transfers when the
-port->state->xmit circular buffer is cleared.
+On Thu, Feb 11, 2021 at 10:39:41AM +0000, Russell King - ARM Linux admin wrote:
+> On Wed, Feb 10, 2021 at 07:47:20PM +0300, Serge Semin wrote:
+> > On Tue, Feb 09, 2021 at 10:56:46AM +0000, Russell King - ARM Linux admin wrote:
+> > > On Tue, Feb 09, 2021 at 11:37:29AM +0100, Heiner Kallweit wrote:
+> > > > Right, adding something like a genphy_{read,write}_mmd() doesn't make
+> > > > too much sense for now. What I meant is just exporting mmd_phy_indirect().
+> > > > Then you don't have to open-code the first three steps of a mmd read/write.
+> > > > And it requires no additional code in phylib.
+> > > 
+> > > ... but at the cost that the compiler can no longer inline that code,
+> > > as I mentioned in my previous reply. (However, the cost of the accesses
+> > > will be higher.) On the plus side, less I-cache footprint, and smaller
+> > > kernel code.
+> > 
+> > Just to note mmd_phy_indirect() isn't defined with inline specifier,
+> > but just as static and it's used twice in the
+> > drivers/net/phy/phy-core.c unit. So most likely the compiler won't
+> > inline the function code in there.
+> 
+> You can't always tell whether the compiler will inline a static function
+> or not.
 
-Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
+Andrew, Heiner, Russell, what is your final decision about this? Shall
+we export the mmd_phy_indirect() method, implement new
+genphy_{read,write}_mmd() or just leave the patch as is manually
+accessing the MMD register in the driver?
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index 114408f3892a..92836068e5ec 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -597,6 +597,19 @@ static void stm32_usart_start_tx(struct uart_port *port)
- 	stm32_usart_transmit_chars(port);
- }
- 
-+/* Flush the transmit buffer. */
-+static void stm32_usart_flush_buffer(struct uart_port *port)
-+{
-+	struct stm32_port *stm32_port = to_stm32_port(port);
-+	struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
-+
-+	if (stm32_port->tx_ch) {
-+		dmaengine_terminate_async(stm32_port->tx_ch);
-+		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_DMAT);
-+		stm32_port->tx_dma_busy = false;
-+	}
-+}
-+
- /* Throttle the remote when input buffer is about to overflow. */
- static void stm32_usart_throttle(struct uart_port *port)
- {
-@@ -992,6 +1005,7 @@ static const struct uart_ops stm32_uart_ops = {
- 	.break_ctl	= stm32_usart_break_ctl,
- 	.startup	= stm32_usart_startup,
- 	.shutdown	= stm32_usart_shutdown,
-+	.flush_buffer	= stm32_usart_flush_buffer,
- 	.set_termios	= stm32_usart_set_termios,
- 	.pm		= stm32_usart_pm,
- 	.type		= stm32_usart_type,
--- 
-2.17.1
+-Sergey
 
+> 
+> > Anyway it's up to the PHY
+> > library maintainers to decide. Please settle the issue with Heiner and
+> > Andrew then. I am ok with both solutions and will do as you decide.
+> 
+> FYI, *I* am one of the phylib maintainers.
+> 
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
