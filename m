@@ -2,43 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 246A7320AE1
-	for <lists+linux-stm32@lfdr.de>; Sun, 21 Feb 2021 15:05:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68F2B320B8E
+	for <lists+linux-stm32@lfdr.de>; Sun, 21 Feb 2021 16:51:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5D1DC57191;
-	Sun, 21 Feb 2021 14:05:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 191CBC57191;
+	Sun, 21 Feb 2021 15:51:50 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE3E3C5718A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CF11C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 21 Feb 2021 14:05:15 +0000 (UTC)
+ Sun, 21 Feb 2021 15:51:48 +0000 (UTC)
 Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
  [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0315061481;
- Sun, 21 Feb 2021 14:05:10 +0000 (UTC)
-Date: Sun, 21 Feb 2021 14:05:07 +0000
+ by mail.kernel.org (Postfix) with ESMTPSA id BAF9F64DA8;
+ Sun, 21 Feb 2021 15:51:43 +0000 (UTC)
+Date: Sun, 21 Feb 2021 15:51:40 +0000
 From: Jonathan Cameron <jic23@kernel.org>
 To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210221140507.0a5ef57f@archlinux>
-In-Reply-To: <YC98GTwzwt+pkzMO@shinobu>
+Message-ID: <20210221155140.3e1ef13c@archlinux>
+In-Reply-To: <YC5CMLuKnXbkZond@shinobu>
 References: <cover.1613131238.git.vilhelm.gray@gmail.com>
- <c9b55d1cff6acac692a7853b0a25777ecf017b12.1613131238.git.vilhelm.gray@gmail.com>
- <20210214180913.05bd3498@archlinux> <YC98GTwzwt+pkzMO@shinobu>
+ <013b2b8682ddc3c85038083e6d5567696b6254b3.1613131238.git.vilhelm.gray@gmail.com>
+ <20210214181146.66d43da7@archlinux> <YC5CMLuKnXbkZond@shinobu>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
  alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
- Dan Carpenter <dan.carpenter@oracle.com>, kernel@pengutronix.de,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
  fabrice.gasnier@st.com, syednwaris@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v8 19/22] counter: Implement
- extension*_name sysfs attributes
+Subject: Re: [Linux-stm32] [PATCH v8 20/22] counter: Implement
+ events_queue_size sysfs attribute
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,59 +54,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 19 Feb 2021 17:51:37 +0900
+On Thu, 18 Feb 2021 19:32:16 +0900
 William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 
-> On Sun, Feb 14, 2021 at 06:09:13PM +0000, Jonathan Cameron wrote:
-> > On Fri, 12 Feb 2021 21:13:43 +0900
+> On Sun, Feb 14, 2021 at 06:11:46PM +0000, Jonathan Cameron wrote:
+> > On Fri, 12 Feb 2021 21:13:44 +0900
 > > William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 > >   
-> > > The Generic Counter chrdev interface expects users to supply extension
-> > > IDs in order to select extensions for requests. In order for users to
-> > > know what extension ID belongs to which extension this information must
-> > > be exposed. The extension*_name attribute provides a way for users to
-> > > discover what extension ID belongs to which extension by reading the
-> > > respective extension name for an extension ID.
+> > > The events_queue_size sysfs attribute provides a way for users to
+> > > dynamically configure the Counter events queue size for the Counter
+> > > character device interface. The size is in number of struct
+> > > counter_event data structures. The number of elements will be rounded-up
+> > > to a power of 2 due to a requirement of the kfifo_alloc function called
+> > > during reallocation of the queue.
 > > > 
-> > > Cc: David Lechner <david@lechnology.com>
-> > > Cc: Gwendal Grignou <gwendal@chromium.org>
-> > > Cc: Dan Carpenter <dan.carpenter@oracle.com>
+> > > Cc: Oleksij Rempel <o.rempel@pengutronix.de>
 > > > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 > > > ---
-> > >  Documentation/ABI/testing/sysfs-bus-counter |  9 ++++
-> > >  drivers/counter/counter-sysfs.c             | 51 +++++++++++++++++----
-> > >  2 files changed, 50 insertions(+), 10 deletions(-)
+> > >  Documentation/ABI/testing/sysfs-bus-counter |  8 +++++++
+> > >  drivers/counter/counter-chrdev.c            | 23 +++++++++++++++++++
+> > >  drivers/counter/counter-chrdev.h            |  2 ++
+> > >  drivers/counter/counter-sysfs.c             | 25 +++++++++++++++++++++
+> > >  4 files changed, 58 insertions(+)
 > > > 
 > > > diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Documentation/ABI/testing/sysfs-bus-counter
-> > > index 6353f0a2f8f8..847e96f19d19 100644
+> > > index 847e96f19d19..f6cb2a8b08a7 100644
 > > > --- a/Documentation/ABI/testing/sysfs-bus-counter
 > > > +++ b/Documentation/ABI/testing/sysfs-bus-counter
-> > > @@ -100,6 +100,15 @@ Description:
-> > >  		Read-only attribute that indicates whether excessive noise is
-> > >  		present at the channel Y counter inputs.
+> > > @@ -212,6 +212,14 @@ Description:
+> > >  		both edges:
+> > >  			Any state transition.
 > > >  
-> > > +What:		/sys/bus/counter/devices/counterX/countY/extensionZ_name
-> > > +What:		/sys/bus/counter/devices/counterX/extensionZ_name
-> > > +What:		/sys/bus/counter/devices/counterX/signalY/extensionZ_name
+> > > +What:		/sys/bus/counter/devices/counterX/events_queue_size
 > > > +KernelVersion:	5.13
 > > > +Contact:	linux-iio@vger.kernel.org
 > > > +Description:
-> > > +		Read-only attribute that indicates the component name of
-> > > +		Extension Z.  
+> > > +		Size of the Counter events queue in number of struct
+> > > +		counter_event data structures. The number of elements will be
+> > > +		rounded-up to a power of 2.
+> > > +
+> > >  What:		/sys/bus/counter/devices/counterX/name
+> > >  KernelVersion:	5.2
+> > >  Contact:	linux-iio@vger.kernel.org
+> > > diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter/counter-chrdev.c
+> > > index 16f02df7f73d..53eea894e13f 100644
+> > > --- a/drivers/counter/counter-chrdev.c
+> > > +++ b/drivers/counter/counter-chrdev.c
+> > > @@ -375,6 +375,29 @@ void counter_chrdev_remove(struct counter_device *const counter)
+> > >  	cdev_del(&counter->chrdev);
+> > >  }
+> > >  
+> > > +int counter_chrdev_realloc_queue(struct counter_device *const counter,
+> > > +				 size_t queue_size)
+> > > +{
+> > > +	int err;
+> > > +	DECLARE_KFIFO_PTR(events, struct counter_event);
+> > > +	unsigned long flags;
+> > > +
+> > > +	/* Allocate new events queue */
+> > > +	err = kfifo_alloc(&events, queue_size, GFP_ATOMIC);  
 > > 
-> > Good to say what form this takes.  
+> > Is there any potential for losing events?  
 > 
-> Do you mean a description like this: "Read-only string attribute that
-> indicates the component name of Extension Z"?
+> We take the events_list_lock down below so we're safe against missing an
+> event, but past events currently unread in the queue will be lost.
+> 
+> Shortening the size of the queue is inherently a destructive process if
+> we have more events in the current queue than can fit in the new queue.
+> Because we a liable to lose some events in such a case, I think it's
+> best to keep the behavior of this reallocation consistent and have it
+> provide a fresh empty queue every time, as opposed to sometimes dropping
+> events and sometimes not.
+> 
+> I also suspect an actual user would be setting the size of their queue
+> to the required amount before they begin watching events, rather than
+> adjusting it sporadically during a live operation.
+>
 
-My expectation would be that the possible strings are tightly constrained
-(perhaps via review). So I'd like to see what they are and a brief description
-of what each one means.
+Absolutely agree.   As such I wonder if you are better off enforcing this
+behaviour?  If the cdev is open for reading, don't allow the fifo to be
+resized. 
 
 Jonathan
 
-> 
-> William Breathitt Gray
 
 _______________________________________________
 Linux-stm32 mailing list
