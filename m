@@ -2,42 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F15D0320AD9
-	for <lists+linux-stm32@lfdr.de>; Sun, 21 Feb 2021 15:03:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 246A7320AE1
+	for <lists+linux-stm32@lfdr.de>; Sun, 21 Feb 2021 15:05:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B017CC57191;
-	Sun, 21 Feb 2021 14:03:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5D1DC57191;
+	Sun, 21 Feb 2021 14:05:16 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7E92C5718A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE3E3C5718A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 21 Feb 2021 14:03:19 +0000 (UTC)
+ Sun, 21 Feb 2021 14:05:15 +0000 (UTC)
 Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
  [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8E86E64EE0;
- Sun, 21 Feb 2021 14:03:15 +0000 (UTC)
-Date: Sun, 21 Feb 2021 14:03:12 +0000
+ by mail.kernel.org (Postfix) with ESMTPSA id 0315061481;
+ Sun, 21 Feb 2021 14:05:10 +0000 (UTC)
+Date: Sun, 21 Feb 2021 14:05:07 +0000
 From: Jonathan Cameron <jic23@kernel.org>
 To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210221140312.299b0e5a@archlinux>
-In-Reply-To: <YCsfXGzfEgRAD9p9@shinobu>
+Message-ID: <20210221140507.0a5ef57f@archlinux>
+In-Reply-To: <YC98GTwzwt+pkzMO@shinobu>
 References: <cover.1613131238.git.vilhelm.gray@gmail.com>
- <7fa80c10fcd10d1d47d1bddced2b2cca3ff59ba9.1613131238.git.vilhelm.gray@gmail.com>
- <20210214171021.41b3e4e3@archlinux> <YCsfXGzfEgRAD9p9@shinobu>
+ <c9b55d1cff6acac692a7853b0a25777ecf017b12.1613131238.git.vilhelm.gray@gmail.com>
+ <20210214180913.05bd3498@archlinux> <YC98GTwzwt+pkzMO@shinobu>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
  alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ Dan Carpenter <dan.carpenter@oracle.com>, kernel@pengutronix.de,
  fabrice.gasnier@st.com, syednwaris@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v8 10/22] counter: Standardize to ERANGE
- for limit exceeded errors
+Subject: Re: [Linux-stm32] [PATCH v8 19/22] counter: Implement
+ extension*_name sysfs attributes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,45 +55,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 16 Feb 2021 10:26:52 +0900
+On Fri, 19 Feb 2021 17:51:37 +0900
 William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 
-> On Sun, Feb 14, 2021 at 05:10:21PM +0000, Jonathan Cameron wrote:
-> > On Fri, 12 Feb 2021 21:13:34 +0900
+> On Sun, Feb 14, 2021 at 06:09:13PM +0000, Jonathan Cameron wrote:
+> > On Fri, 12 Feb 2021 21:13:43 +0900
 > > William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 > >   
-> > > ERANGE is a semantically better error code to return when an argument
-> > > value falls outside the supported limit range of a device.  
+> > > The Generic Counter chrdev interface expects users to supply extension
+> > > IDs in order to select extensions for requests. In order for users to
+> > > know what extension ID belongs to which extension this information must
+> > > be exposed. The extension*_name attribute provides a way for users to
+> > > discover what extension ID belongs to which extension by reading the
+> > > respective extension name for an extension ID.
+> > > 
+> > > Cc: David Lechner <david@lechnology.com>
+> > > Cc: Gwendal Grignou <gwendal@chromium.org>
+> > > Cc: Dan Carpenter <dan.carpenter@oracle.com>
+> > > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> > > ---
+> > >  Documentation/ABI/testing/sysfs-bus-counter |  9 ++++
+> > >  drivers/counter/counter-sysfs.c             | 51 +++++++++++++++++----
+> > >  2 files changed, 50 insertions(+), 10 deletions(-)
+> > > 
+> > > diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Documentation/ABI/testing/sysfs-bus-counter
+> > > index 6353f0a2f8f8..847e96f19d19 100644
+> > > --- a/Documentation/ABI/testing/sysfs-bus-counter
+> > > +++ b/Documentation/ABI/testing/sysfs-bus-counter
+> > > @@ -100,6 +100,15 @@ Description:
+> > >  		Read-only attribute that indicates whether excessive noise is
+> > >  		present at the channel Y counter inputs.
+> > >  
+> > > +What:		/sys/bus/counter/devices/counterX/countY/extensionZ_name
+> > > +What:		/sys/bus/counter/devices/counterX/extensionZ_name
+> > > +What:		/sys/bus/counter/devices/counterX/signalY/extensionZ_name
+> > > +KernelVersion:	5.13
+> > > +Contact:	linux-iio@vger.kernel.org
+> > > +Description:
+> > > +		Read-only attribute that indicates the component name of
+> > > +		Extension Z.  
 > > 
-> > #define	ERANGE		34	/* Math result not representable */
-> > 
-> > Not generally applicable to a parameter being out of range
-> > despite the name.
-> > #define	EINVAL		22	/* Invalid argument */
-> > Is probably closer to what we want to describe here.
-> > 
-> > Jonathan  
+> > Good to say what form this takes.  
 > 
-> The comment for ERANGE in error-base.h may be terse to a fault. I
-> believe there's a connotation here provided by ERANGE that is absent
-> from EINVAL: primarily that the device buffer is incapable of supporting
-> the desired value (i.e. there is a hardware limitation).
-> 
-> This is why strtoul() returns ERANGE if the correct value is outside the
-> range of representable values: the result of the operation is valid in
-> theory (it would be an unsigned integer), but it cannot be returned to
-> the user due to a limitation of the hardware to support that value (e.g.
-> 32-bit registers) [1].
-> 
-> The changes in this patch follow the same logic: these are arguments
-> that are valid in theory (e.g. they are unsigned integers), but the
-> underlying devices are incapable of processing such a value (e.g. the
-> 104-QUAD-8 can only handle 24-bit values).
-> 
-> [1] https://stackoverflow.com/a/34981398/1806289
+> Do you mean a description like this: "Read-only string attribute that
+> indicates the component name of Extension Z"?
 
-Its a bit of a stretch, but I can't claim to feel that strongly about
-this.
+My expectation would be that the possible strings are tightly constrained
+(perhaps via review). So I'd like to see what they are and a brief description
+of what each one means.
 
 Jonathan
 
