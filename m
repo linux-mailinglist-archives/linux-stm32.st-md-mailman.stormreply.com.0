@@ -2,51 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7651B3237D9
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Feb 2021 08:24:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89573323F2B
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Feb 2021 15:32:18 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1736FC5718F;
-	Wed, 24 Feb 2021 07:24:43 +0000 (UTC)
-Received: from mo-csw.securemx.jp (mo-csw1115.securemx.jp [210.130.202.157])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CBDEC57B59;
+	Wed, 24 Feb 2021 14:32:18 +0000 (UTC)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0728EC36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D32CC57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Feb 2021 23:12:04 +0000 (UTC)
-Received: by mo-csw.securemx.jp (mx-mo-csw1115) id 11NNBZvb015639;
- Wed, 24 Feb 2021 08:11:35 +0900
-X-Iguazu-Qid: 2wGqzdZmdWlkl6DMhf
-X-Iguazu-QSIG: v=2; s=0; t=1614121895; q=2wGqzdZmdWlkl6DMhf;
- m=UNlr817M4TvvIjBZ8CwXvC0NvBivXhmHbbpNKdPAmwU=
-Received: from imx2-a.toshiba.co.jp (imx2-a.toshiba.co.jp [106.186.93.35])
- by relay.securemx.jp (mx-mr1111) id 11NNBXDv000778
- (version=TLSv1.2 cipher=AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 24 Feb 2021 08:11:34 +0900
-Received: from enc01.toshiba.co.jp (enc01.toshiba.co.jp [106.186.93.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by imx2-a.toshiba.co.jp (Postfix) with ESMTPS id BA2AC100096;
- Wed, 24 Feb 2021 08:11:33 +0900 (JST)
-Received: from hop001.toshiba.co.jp ([133.199.164.63])
- by enc01.toshiba.co.jp  with ESMTP id 11NNBXDC009419;
- Wed, 24 Feb 2021 08:11:33 +0900
-Date: Wed, 24 Feb 2021 08:11:20 +0900
-From: Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
-To: Wei Yongjun <weiyongjun1@huawei.com>
-X-TSB-HOP: ON
-Message-ID: <20210223231120.cwjwihml4zu2qnau@toshiba.co.jp>
-References: <20210223104803.4047281-1-weiyongjun1@huawei.com>
+ Wed, 24 Feb 2021 14:16:05 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id f1so3274636lfu.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 24 Feb 2021 06:16:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=flowbird.group; s=google;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=v3HKl8MAdzjkZRpkKqO0HYBnFos8syG4zKo3F6fh+Go=;
+ b=rD8LEX94d5BixtRBlNjexCsc/guNkhDs1ACcK5IKU0GDrodPL3VD3eNBak4b9Z4DyB
+ uC5LJxo532jQM1DmdTRzeykzROlbcQBsBgJPrDg5UEY5dG35BRlEdvdW5XE5Kgu0NNk8
+ i+ap4FFqUXzHBfrTCJ2j8NuciVDyBS0H/KlhiFo3lJChTyO8rgmJ9LAfPJQhOKqGLU+L
+ muWaaHP3xsf1HtViaX0XXbqZf392GZ1QHERwIFgaD/mti1PNEvYMP0+1fK8Kgs7zLYbC
+ WF6l8CNRAqY6Kj+SqrYmjlmJulLXvCM9ehF+/Ge02qbY4V3C73yl6FXbRS8tcLTzEfow
+ sk0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=v3HKl8MAdzjkZRpkKqO0HYBnFos8syG4zKo3F6fh+Go=;
+ b=P2XLo7Wi95BfiyQJWc7dEe5vtO85EvqZ1SgZb6Hba5qwz/AKHbXrogWK3/dvD5VoJo
+ fa8J6IXAIrbJyCe99HM5Kk/KJUokCZ22CS9MSUYepmQUvnYWXUOnRyHmEpwnac1WdMrq
+ zaqHK0eCcjzGVagWbDqIiW8qG3ExO6urmg8UQT+nW/t52yEzho1XjSsE6LzPazrriRBH
+ fhdwAXg18173ZjMQj0sUMvimnZKZHOAuYZ+cEZ8rrJDDEJHTjYhz4aNf/PmO8EEmqdBy
+ hojAOfgibPdpJ5L80WMtaWzz4fzW8Tnn4cTOPXQWT86EhyZMrCtj13a026qM7TdvGd1j
+ w+fQ==
+X-Gm-Message-State: AOAM533t6sot26+zCYec4Ht8EVCbbJ7zkWs5draUww2X335jdlUSTX5X
+ 5yryhN1j1CKeq0mWm257wy7mfswBWsQE2Kon2zwMbikASzDWhw==
+X-Google-Smtp-Source: ABdhPJxwdS0rsx4pN6IE+T8Krt3X6uXvFL8VBMtuY30EVaeDol3AY031+/PXhW9f9lKdTAiCGwOzzsuSa4zcAkj0xnY=
+X-Received: by 2002:ac2:54ab:: with SMTP id w11mr3786966lfk.260.1614176164055; 
+ Wed, 24 Feb 2021 06:16:04 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210223104803.4047281-1-weiyongjun1@huawei.com>
-X-Mailman-Approved-At: Wed, 24 Feb 2021 07:24:42 +0000
-Cc: Alexandre Torgue <alexandre.torgue@st.com>, netdev@vger.kernel.org,
- Hulk Robot <hulkci@huawei.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix missing spin_lock_init
- in visconti_eth_dwmac_probe()
+From: "Fuzzey, Martin" <martin.fuzzey@flowbird.group>
+Date: Wed, 24 Feb 2021 15:15:53 +0100
+Message-ID: <CANh8Qzy9B5qCkwZLiWaJahQX4oMg07dn0276vqeCzEcqgXTd+g@mail.gmail.com>
+To: linux-stm32@st-md-mailman.stormreply.com
+X-Mailman-Approved-At: Wed, 24 Feb 2021 14:32:17 +0000
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Subject: [Linux-stm32] [BUG] stm32mp1 gpiod_to_irq() can cause "interrupt
+	stealing"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,39 +69,88 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi,
 
-On Tue, Feb 23, 2021 at 10:48:03AM +0000, Wei Yongjun wrote:
-> The driver allocates the spinlock but not initialize it.
-> Use spin_lock_init() on it to initialize it correctly.
-> 
-> Fixes: b38dd98ff8d0 ("net: stmmac: Add Toshiba Visconti SoCs glue driver")
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+I have run into a rather nasty problem on STM32MP1 and I'm not quite
+sure of the right way to fix it (otherwise I would have sent a patch).
 
-Thanks for your fix.
+It is possible for one driver to break another driver's GPIO interrupts.
+In fact it is even possible for userspace to break a driver's interrupts.
 
-Acked-by: Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
+On STM32MP1 the external GPIO interrupts go through the EXTI module
+which has 16 interrupt lines connected to the ARM GIC.
+The EXTI maps the GPIO interrupts by line number (so GPIOA_0, GPIOB_0
+...) all share one GIC interrupt line and only one can
+be used at any time (selected by a multiplexer register in the EXTI)
 
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-> index b7a0c57dfbfb..d23be45a64e5 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-> @@ -218,6 +218,7 @@ static int visconti_eth_dwmac_probe(struct platform_device *pdev)
->  		goto remove_config;
->  	}
->  
-> +	spin_lock_init(&dwmac->lock);
->  	dwmac->reg = stmmac_res.addr;
->  	plat_dat->bsp_priv = dwmac;
->  	plat_dat->fix_mac_speed = visconti_eth_fix_mac_speed;
-> 
->
+The existing stm32mp1 pinctrl driver already handles this, both the
+setting of the EXTI multiplexer and mutual exclusion.
 
-Best regards,
-  Nobuhiro
+However consider a driver which does something like
+
+    int irq = gpiod_to_irq(gpiod);
+    int ret = devm_request_irq(dev, irq, ...)
+
+Suppose there are 2 such drivers using a gpiod configured from DT that
+happen to both have the same line number
+(eg GPIOA0 and GPIOB0)
+
+In this case everything works fine initially for the first driver to probe.
+When the second driver probes gpiod_to_irq() obtains a linux virq
+number but devm_request_irq() returns -EBUSY.
+So far so good, the DT configuration was not compatible with the
+hardware constraints so it is expected to fail.
+
+However, after the second driver calls gpiod_to_irq(), the interrupt
+already successfully obtained by the first driver no longer receives
+any interrupts.
+
+The reason is that gpiod_to_irq() calls the .alloc function of the
+EXTI interrupt controller which, in turn calls .alloc of the parent
+GIC interrupt controller.
+That not only allocates a linux virq number but also changes the
+mapping of the GIC interrupt line to the new VIRQ.
+
+So when an interrupt occurs on the GPIO used by the first driver it
+will now be mapped to the VIRQ allocated by the second driver and
+ignored...
+
+When using the legacy sysfs gpio interface it is even worse because it
+is possible to break the interrupts of a kernel driver without even
+explicitly requesting
+an interrupt from userspace.
+
+drivers/gpio/gpiolib-sysfs.c contains this function
+
+static umode_t gpio_is_visible(struct kobject *kobj, struct attribute *attr,
+                               int n)
+{
+...
+        if (attr == &dev_attr_direction.attr) {
+                if (!show_direction)
+                        mode = 0;
+        } else if (attr == &dev_attr_edge.attr) {
+                if (gpiod_to_irq(desc) < 0)
+                        mode = 0;
+                if (!show_direction && test_bit(FLAG_IS_OUT, &desc->flags))
+                        mode = 0;
+        }
+
+        return mode;
+}
+
+The purpose of this is to hide the "edge" attribute if the GPIO does
+not support interrupts (even if no interrupt has yet been requested
+for that GPIO)
+It does this using the call to gpiod_to_irq() and hiding the attribute
+if it fails.
+
+So, merely exporting to userspace via sysfs a GPIO (even not as an
+interrupt) having the same line number as another GPIO used by a
+kernel driver will break interrupts for
+that driver...
+
+Regards,
+
+Martin
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
