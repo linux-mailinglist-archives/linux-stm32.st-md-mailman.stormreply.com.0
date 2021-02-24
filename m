@@ -2,55 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89573323F2B
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Feb 2021 15:32:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B26A8323F37
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Feb 2021 15:43:00 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CBDEC57B59;
-	Wed, 24 Feb 2021 14:32:18 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73573C57B59;
+	Wed, 24 Feb 2021 14:43:00 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D32CC57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6480FC3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Feb 2021 14:16:05 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id f1so3274636lfu.3
+ Wed, 24 Feb 2021 14:42:58 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id p3so2009027wmc.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Feb 2021 06:16:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=flowbird.group; s=google;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=v3HKl8MAdzjkZRpkKqO0HYBnFos8syG4zKo3F6fh+Go=;
- b=rD8LEX94d5BixtRBlNjexCsc/guNkhDs1ACcK5IKU0GDrodPL3VD3eNBak4b9Z4DyB
- uC5LJxo532jQM1DmdTRzeykzROlbcQBsBgJPrDg5UEY5dG35BRlEdvdW5XE5Kgu0NNk8
- i+ap4FFqUXzHBfrTCJ2j8NuciVDyBS0H/KlhiFo3lJChTyO8rgmJ9LAfPJQhOKqGLU+L
- muWaaHP3xsf1HtViaX0XXbqZf392GZ1QHERwIFgaD/mti1PNEvYMP0+1fK8Kgs7zLYbC
- WF6l8CNRAqY6Kj+SqrYmjlmJulLXvCM9ehF+/Ge02qbY4V3C73yl6FXbRS8tcLTzEfow
- sk0A==
+ Wed, 24 Feb 2021 06:42:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=4kcaWc3A3e2JpDYvEG1HkJ7RHkTySsh0QGk3axijlk0=;
+ b=zAWYfmcRa81N8ayfCtv7YISYLImGL3DtFIgXnH8YZ82jEbqtH8t1om/1yRzEU80h8S
+ uv5Y98HkbEi/Mb/lBNbhpZa931kwWUymnps+vlG0AsrbjF4qB8d77f6R9s1pR14nfDy3
+ NQBi6DnKQRCqNEna/JcrzS8YAdLVnkiThf/49nhLv7kTFLJzHt5Wh1rUpjp0caU4M5V3
+ 4C7hGu6Yfonujcxtycnfrka4VAEYXKUV+SFES403HdoKD50OPG5cUJeXOSqfx/bhKRG0
+ eltMsneu9FwwFUEzgJv1vAOO/WprVJWcEe+lVtkdzDXQVUgU2GYyr/EAVOmYPx2mVJwW
+ RQ5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=v3HKl8MAdzjkZRpkKqO0HYBnFos8syG4zKo3F6fh+Go=;
- b=P2XLo7Wi95BfiyQJWc7dEe5vtO85EvqZ1SgZb6Hba5qwz/AKHbXrogWK3/dvD5VoJo
- fa8J6IXAIrbJyCe99HM5Kk/KJUokCZ22CS9MSUYepmQUvnYWXUOnRyHmEpwnac1WdMrq
- zaqHK0eCcjzGVagWbDqIiW8qG3ExO6urmg8UQT+nW/t52yEzho1XjSsE6LzPazrriRBH
- fhdwAXg18173ZjMQj0sUMvimnZKZHOAuYZ+cEZ8rrJDDEJHTjYhz4aNf/PmO8EEmqdBy
- hojAOfgibPdpJ5L80WMtaWzz4fzW8Tnn4cTOPXQWT86EhyZMrCtj13a026qM7TdvGd1j
- w+fQ==
-X-Gm-Message-State: AOAM533t6sot26+zCYec4Ht8EVCbbJ7zkWs5draUww2X335jdlUSTX5X
- 5yryhN1j1CKeq0mWm257wy7mfswBWsQE2Kon2zwMbikASzDWhw==
-X-Google-Smtp-Source: ABdhPJxwdS0rsx4pN6IE+T8Krt3X6uXvFL8VBMtuY30EVaeDol3AY031+/PXhW9f9lKdTAiCGwOzzsuSa4zcAkj0xnY=
-X-Received: by 2002:ac2:54ab:: with SMTP id w11mr3786966lfk.260.1614176164055; 
- Wed, 24 Feb 2021 06:16:04 -0800 (PST)
-MIME-Version: 1.0
-From: "Fuzzey, Martin" <martin.fuzzey@flowbird.group>
-Date: Wed, 24 Feb 2021 15:15:53 +0100
-Message-ID: <CANh8Qzy9B5qCkwZLiWaJahQX4oMg07dn0276vqeCzEcqgXTd+g@mail.gmail.com>
-To: linux-stm32@st-md-mailman.stormreply.com
-X-Mailman-Approved-At: Wed, 24 Feb 2021 14:32:17 +0000
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Subject: [Linux-stm32] [BUG] stm32mp1 gpiod_to_irq() can cause "interrupt
-	stealing"
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=4kcaWc3A3e2JpDYvEG1HkJ7RHkTySsh0QGk3axijlk0=;
+ b=d2F5I0QI/XDZRuZWATNSFC3xLKSg82heWqq7Of8fNeZ9Ecuva3Eaz+y8klUVshrVIk
+ eSVjtBgitTJHk2IUsTGuNSDru+oYwN7UawUabTQI8MdP+dvFHvSRngOBrcdGIFMtL/bQ
+ aUXB05jULbFnWf/7kHEcU71OFWv0YqzLDrrRMn9IZFs3AfQD5+JbtROogs4EsPerIc24
+ 05mzoTnagfMRx6rcRwaIdBVgOsYwkqOQ80BKVXlemFJ7yae5k/19k9yWxGiAth2ZLkS6
+ CeRDZ6I0xZ+QZNb4ZcwoAGmkBm4Eal4TtPmHzlj3Ik9UicFO0PQG0NSveHiY39Y46mbC
+ feqQ==
+X-Gm-Message-State: AOAM530XlJWrujihLAQQH+fGsNT6g+6FB0LXfwURnl7GptaHyPa/R0SZ
+ AHZYyoYBE1xOsWgaQ9+0hmrcbg==
+X-Google-Smtp-Source: ABdhPJyZD7BW+LIu4wbjkLZsjSoMWfexoyGfPB8WVBh3k+PENCICivX461RCP92G6r8IrNnAdG9zrw==
+X-Received: by 2002:a1c:65d6:: with SMTP id z205mr4037793wmb.88.1614177777616; 
+ Wed, 24 Feb 2021 06:42:57 -0800 (PST)
+Received: from localhost.localdomain
+ (lns-bzn-59-82-252-157-252.adsl.proxad.net. [82.252.157.252])
+ by smtp.gmail.com with ESMTPSA id p3sm4170669wro.55.2021.02.24.06.42.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Feb 2021 06:42:57 -0800 (PST)
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+To: rafael@kernel.org,
+	andriy.shevchenko@linux.intel.com
+Date: Wed, 24 Feb 2021 15:42:19 +0100
+Message-Id: <20210224144222.23762-9-daniel.lezcano@linaro.org>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210224144222.23762-1-daniel.lezcano@linaro.org>
+References: <20210224144222.23762-1-daniel.lezcano@linaro.org>
+Cc: Etienne Carriere <etienne.carriere@st.com>,
+ Amelie Delaunay <amelie.delaunay@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-kernel@vger.kernel.org,
+ Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH v2 9/9] phy/drivers/stm32: Use HZ macros
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,95 +76,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+HZ unit conversion macros are available in units.h, use them and
+remove the duplicate definition.
 
-I have run into a rather nasty problem on STM32MP1 and I'm not quite
-sure of the right way to fix it (otherwise I would have sent a patch).
+Signed-off-by: Daniel Lezcano <daniel.lezcano@linaro.org>
+---
+ drivers/phy/st/phy-stm32-usbphyc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-It is possible for one driver to break another driver's GPIO interrupts.
-In fact it is even possible for userspace to break a driver's interrupts.
+diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
+index a54317e96c41..02dd12bb4692 100644
+--- a/drivers/phy/st/phy-stm32-usbphyc.c
++++ b/drivers/phy/st/phy-stm32-usbphyc.c
+@@ -14,6 +14,7 @@
+ #include <linux/of_platform.h>
+ #include <linux/phy/phy.h>
+ #include <linux/reset.h>
++#include <linux/units.h>
+ 
+ #define STM32_USBPHYC_PLL	0x0
+ #define STM32_USBPHYC_MISC	0x8
+@@ -48,7 +49,6 @@ static const char * const supplies_names[] = {
+ #define PLL_FVCO_MHZ		2880
+ #define PLL_INFF_MIN_RATE_HZ	19200000
+ #define PLL_INFF_MAX_RATE_HZ	38400000
+-#define HZ_PER_MHZ		1000000L
+ 
+ struct pll_params {
+ 	u8 ndiv;
+-- 
+2.17.1
 
-On STM32MP1 the external GPIO interrupts go through the EXTI module
-which has 16 interrupt lines connected to the ARM GIC.
-The EXTI maps the GPIO interrupts by line number (so GPIOA_0, GPIOB_0
-...) all share one GIC interrupt line and only one can
-be used at any time (selected by a multiplexer register in the EXTI)
-
-The existing stm32mp1 pinctrl driver already handles this, both the
-setting of the EXTI multiplexer and mutual exclusion.
-
-However consider a driver which does something like
-
-    int irq = gpiod_to_irq(gpiod);
-    int ret = devm_request_irq(dev, irq, ...)
-
-Suppose there are 2 such drivers using a gpiod configured from DT that
-happen to both have the same line number
-(eg GPIOA0 and GPIOB0)
-
-In this case everything works fine initially for the first driver to probe.
-When the second driver probes gpiod_to_irq() obtains a linux virq
-number but devm_request_irq() returns -EBUSY.
-So far so good, the DT configuration was not compatible with the
-hardware constraints so it is expected to fail.
-
-However, after the second driver calls gpiod_to_irq(), the interrupt
-already successfully obtained by the first driver no longer receives
-any interrupts.
-
-The reason is that gpiod_to_irq() calls the .alloc function of the
-EXTI interrupt controller which, in turn calls .alloc of the parent
-GIC interrupt controller.
-That not only allocates a linux virq number but also changes the
-mapping of the GIC interrupt line to the new VIRQ.
-
-So when an interrupt occurs on the GPIO used by the first driver it
-will now be mapped to the VIRQ allocated by the second driver and
-ignored...
-
-When using the legacy sysfs gpio interface it is even worse because it
-is possible to break the interrupts of a kernel driver without even
-explicitly requesting
-an interrupt from userspace.
-
-drivers/gpio/gpiolib-sysfs.c contains this function
-
-static umode_t gpio_is_visible(struct kobject *kobj, struct attribute *attr,
-                               int n)
-{
-...
-        if (attr == &dev_attr_direction.attr) {
-                if (!show_direction)
-                        mode = 0;
-        } else if (attr == &dev_attr_edge.attr) {
-                if (gpiod_to_irq(desc) < 0)
-                        mode = 0;
-                if (!show_direction && test_bit(FLAG_IS_OUT, &desc->flags))
-                        mode = 0;
-        }
-
-        return mode;
-}
-
-The purpose of this is to hide the "edge" attribute if the GPIO does
-not support interrupts (even if no interrupt has yet been requested
-for that GPIO)
-It does this using the call to gpiod_to_irq() and hiding the attribute
-if it fails.
-
-So, merely exporting to userspace via sysfs a GPIO (even not as an
-interrupt) having the same line number as another GPIO used by a
-kernel driver will break interrupts for
-that driver...
-
-Regards,
-
-Martin
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
