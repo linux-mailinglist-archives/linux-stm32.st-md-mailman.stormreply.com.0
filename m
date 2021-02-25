@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA1F6324EFF
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Feb 2021 12:19:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3223E32504A
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Feb 2021 14:22:12 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 895DFC57B59;
-	Thu, 25 Feb 2021 11:19:36 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB705C57B59;
+	Thu, 25 Feb 2021 13:22:11 +0000 (UTC)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13E31C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 054E3C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Feb 2021 11:19:35 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 11PBHF5r006407; Thu, 25 Feb 2021 12:19:26 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=CMTm/gPp7SHBgmvKDTH9L2sSez0dNF3orqXJb1JT8M4=;
- b=MvAR4Vv/NHFJsNA0pv6LrnxkIuwZSUtNrUvWrBXo0SthxC6nF3KtidapmIO5QY/f5M3Y
- bxoONQEw5hO7tv23xOkXyF62AHTjNfLewBoyfnbFOLdSpR31ACHQWKZODGlOREIH7JF/
- AQPXmzqtZaGDi+JOyWU31Ums/ms7LV/q1XYdjftFs2DcUamHJnG1e08Z95p2Of/nFEy3
- BMPV/Ad9zkCO90nd19ZDMjnwcAzfE910H3U2+AxtoJE3uGEla5qhqPKwIGiN2DJya9bH
- 35btoWnIfhT8uIxctSmhof5jOMMWVqhdlNlDrjUIt8fubQpS7+QtuMh4SXMqq7cWle7q 3A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36w66cn91j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Feb 2021 12:19:26 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DE3A710002A;
- Thu, 25 Feb 2021 12:19:24 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4A25F22529A;
- Thu, 25 Feb 2021 12:19:20 +0100 (CET)
-Received: from [10.211.6.253] (10.75.127.49) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 25 Feb
- 2021 12:19:19 +0100
-To: William Breathitt Gray <vilhelm.gray@gmail.com>, <jic23@kernel.org>
+ Thu, 25 Feb 2021 13:22:09 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id t25so3778864pga.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 25 Feb 2021 05:22:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=dbkQpNd5Wc1Bh81qcstyrrHXrqv5XpRWDvj0O1psJbw=;
+ b=QXwYFJOhkT8yELYTe4PluG9O0HQW6nlLuRYLCjSRfqgEOnYGTpRJ8WeIR8HmVytLly
+ uYwbFi7yoRwLFrZ9O2Fs0sWMPlm9DWu8pIo1HB0TAgsSvIm5gaCurN2T3nKvKCO9pbXN
+ U5114B7otySof1hdMyh24EBAnoRcn/GADeIC/0bTN8cY26tyfsu42X0DFEAzlChD1Exf
+ vZl0y4Lv44GXNxkhpDVeefrA2fVUMk/jNLCCGTeO1tn9yYk6EjORqeg53bwa6GzjlEyr
+ iNIcqq5Oo5FxiuZ16dDR8cv0IMlPaPg0snZKKwEbKMPv3dw72m6Uh7/KBhjbpzVCuL9l
+ 2+7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=dbkQpNd5Wc1Bh81qcstyrrHXrqv5XpRWDvj0O1psJbw=;
+ b=gj23OlCZSINYsfv+uNjsQiaZIC49hffAlKJ0i77DRsWn9n0RDIq4GdrddUeSWX+EHP
+ 6wphCgp+6r0uAUpxnHpoViMAMKc6JM2L6TRGQwLUZwLZXc5hwXlo5DoubEDqDNACBgha
+ YxXR14XKJgFKsSZWwn4LfKO8S5PmdqOWHsDqAPkmOYRcjuBZX6AJeqmLqBviUC6+6NiH
+ 4FwKKQxq6h+8xlU9qGXEC2F9XJJVU9nB0e6LruWyzwuTr9JRktWpimXc8Sml8J5qzMji
+ sePffOXZlUWjIZsn6ncZrpiOhYc4uLCK0SqSNOk482X9DbirVYuAKbUDJyyXJoR3UNZO
+ ybBQ==
+X-Gm-Message-State: AOAM531Xfoa6tfEn/u/G3OF3JVhggpOaaSIDwzL1t86ZYKCUSlYvxmXD
+ iNn2LkNk072xaYQqVocciCw=
+X-Google-Smtp-Source: ABdhPJx5B2zDz1NmyernrPD2VdZbdhb3KcHlWxb8WvzeAKI+vSi5tRZbFee/JCtsAEfn4B7UccP5Hw==
+X-Received: by 2002:a63:2164:: with SMTP id s36mr3017110pgm.268.1614259327859; 
+ Thu, 25 Feb 2021 05:22:07 -0800 (PST)
+Received: from shinobu (113x37x72x20.ap113.ftth.ucom.ne.jp. [113.37.72.20])
+ by smtp.gmail.com with ESMTPSA id a2sm6424041pfi.64.2021.02.25.05.22.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Feb 2021 05:22:06 -0800 (PST)
+Date: Thu, 25 Feb 2021 22:22:00 +0900
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <YDekeKfygdUht3HL@shinobu>
 References: <20210219095906.220382-1-vilhelm.gray@gmail.com>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <288929fc-6984-072b-359a-10e163056bad@foss.st.com>
-Date: Thu, 25 Feb 2021 12:19:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <288929fc-6984-072b-359a-10e163056bad@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <20210219095906.220382-1-vilhelm.gray@gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-02-25_06:2021-02-24,
- 2021-02-25 signatures=0
+In-Reply-To: <288929fc-6984-072b-359a-10e163056bad@foss.st.com>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org
 Subject: Re: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: Report count
  function when SLAVE_MODE_DISABLED
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -72,96 +72,273 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0631697112358784976=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMi8xOS8yMSAxMDo1OSBBTSwgV2lsbGlhbSBCcmVhdGhpdHQgR3JheSB3cm90ZToKPiBXaGVu
-IGluIFNMQVZFX01PREVfRElTQUJMRUQgbW9kZSwgdGhlIGNvdW50IHN0aWxsIGluY3JlYXNlcyBp
-ZiB0aGUKPiBjb3VudGVyIGlzIGVuYWJsZWQgYmVjYXVzZSBhbiBpbnRlcm5hbCBjbG9jayBpcyB1
-c2VkLiBUaGlzIHBhdGNoIGZpeGVzCj4gdGhlIHN0bTMyX2NvdW50X2Z1bmN0aW9uX2dldCgpIGZ1
-bmN0aW9uIHRvIHByb3Blcmx5IHJlcG9ydCB0aGlzCj4gYmVoYXZpb3IuCgpIaSBXaWxsaWFtLAoK
-VGhhbmtzIGZvciB0aGUgcGF0Y2gsIHRoYXQncyBzb21ldGhpbmcgSSBhbHNvIG5vdGljZWQgZWFy
-bGllci4KUGxlYXNlIGZpbmQgZmV3IGNvbW1lbnQgYmVsb3cuCgo+IAo+IEZpeGVzOiBhZDI5OTM3
-ZTIwNmYgKCJjb3VudGVyOiBBZGQgU1RNMzIgVGltZXIgcXVhZHJhdHVyZSBlbmNvZGVyIikKPiBD
-YzogRmFicmljZSBHYXNuaWVyIDxmYWJyaWNlLmdhc25pZXJAc3QuY29tPgo+IENjOiBNYXhpbWUg
-Q29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20+Cj4gQ2M6IEFsZXhhbmRyZSBUb3Jn
-dWUgPGFsZXhhbmRyZS50b3JndWVAc3QuY29tPgo+IFNpZ25lZC1vZmYtYnk6IFdpbGxpYW0gQnJl
-YXRoaXR0IEdyYXkgPHZpbGhlbG0uZ3JheUBnbWFpbC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvY291
-bnRlci9zdG0zMi10aW1lci1jbnQuYyB8IDMxICsrKysrKysrKysrKysrKysrKystLS0tLS0tLS0t
-LS0KPiAgMSBmaWxlIGNoYW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDEyIGRlbGV0aW9ucygtKQo+
-IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXItY250LmMgYi9kcml2
-ZXJzL2NvdW50ZXIvc3RtMzItdGltZXItY250LmMKPiBpbmRleCBlZjJhOTc0YTJmMTAuLmVjNmQ5
-ZTg5YzAyOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXItY250LmMK
-PiArKysgYi9kcml2ZXJzL2NvdW50ZXIvc3RtMzItdGltZXItY250LmMKPiBAQCAtNDQsMTMgKzQ0
-LDE0IEBAIHN0cnVjdCBzdG0zMl90aW1lcl9jbnQgewo+ICAgKiBAU1RNMzJfQ09VTlRfRU5DT0RF
-Ul9NT0RFXzM6IGNvdW50cyBvbiBib3RoIFRJMUZQMSBhbmQgVEkyRlAyIGVkZ2VzCj4gICAqLwo+
-ICBlbnVtIHN0bTMyX2NvdW50X2Z1bmN0aW9uIHsKPiAtCVNUTTMyX0NPVU5UX1NMQVZFX01PREVf
-RElTQUJMRUQgPSAtMSwKPiArCVNUTTMyX0NPVU5UX1NMQVZFX01PREVfRElTQUJMRUQsCj4gIAlT
-VE0zMl9DT1VOVF9FTkNPREVSX01PREVfMSwKPiAgCVNUTTMyX0NPVU5UX0VOQ09ERVJfTU9ERV8y
-LAo+ICAJU1RNMzJfQ09VTlRfRU5DT0RFUl9NT0RFXzMsCj4gIH07Cj4gIAo+ICBzdGF0aWMgZW51
-bSBjb3VudGVyX2NvdW50X2Z1bmN0aW9uIHN0bTMyX2NvdW50X2Z1bmN0aW9uc1tdID0gewo+ICsJ
-W1NUTTMyX0NPVU5UX1NMQVZFX01PREVfRElTQUJMRURdID0gQ09VTlRFUl9DT1VOVF9GVU5DVElP
-Tl9JTkNSRUFTRSwKPiAgCVtTVE0zMl9DT1VOVF9FTkNPREVSX01PREVfMV0gPSBDT1VOVEVSX0NP
-VU5UX0ZVTkNUSU9OX1FVQURSQVRVUkVfWDJfQSwKPiAgCVtTVE0zMl9DT1VOVF9FTkNPREVSX01P
-REVfMl0gPSBDT1VOVEVSX0NPVU5UX0ZVTkNUSU9OX1FVQURSQVRVUkVfWDJfQiwKPiAgCVtTVE0z
-Ml9DT1VOVF9FTkNPREVSX01PREVfM10gPSBDT1VOVEVSX0NPVU5UX0ZVTkNUSU9OX1FVQURSQVRV
-UkVfWDQsCj4gQEAgLTk5LDkgKzEwMCwxMCBAQCBzdGF0aWMgaW50IHN0bTMyX2NvdW50X2Z1bmN0
-aW9uX2dldChzdHJ1Y3QgY291bnRlcl9kZXZpY2UgKmNvdW50ZXIsCj4gIAljYXNlIDM6Cj4gIAkJ
-KmZ1bmN0aW9uID0gU1RNMzJfQ09VTlRfRU5DT0RFUl9NT0RFXzM7Cj4gIAkJcmV0dXJuIDA7Cj4g
-KwlkZWZhdWx0OgoKSSdkIHJhdGhlciBhZGQgYSAnY2FzZSAwJywgYXMgdGhhdCdzIHRoZSByZWFs
-IHZhbHVlIGZvciBzbGF2ZSBtb2RlCmRpc2FibGVkLiBGb3IgcmVmZXJlbmNlLCBoZXJlJ3Mgd2hh
-dCB0aGUgU1RNMzIgdGltZXIgc3BlYyBzYXlzIG9uIHNsYXZlCm1vZGUgc2VsZWN0aW9uOgowMDAw
-OiBTbGF2ZSBtb2RlIGRpc2FibGVkIC0gaWYgQ0VOID0g4oCYMeKAmSB0aGVuIHRoZSBwcmVzY2Fs
-ZXIgaXMgY2xvY2tlZApkaXJlY3RseSBieSB0aGUgaW50ZXJuYWwgY2xvY2suCgo+ICsJCSpmdW5j
-dGlvbiA9IFNUTTMyX0NPVU5UX1NMQVZFX01PREVfRElTQUJMRUQ7Cj4gKwkJcmV0dXJuIDA7Cj4g
-IAl9Cj4gLQo+IC0JcmV0dXJuIC1FSU5WQUw7CgpPdGhlciBzbGF2ZSBtb2RlcyBjb3VsZCBiZSBh
-ZGRlZCBsYXRlciAobGlrZSBjb3VudGluZyBvbiBleHRlcm5hbApzaWduYWxzOiBjaGFubmVsIEEs
-IEIsIEVUUiBvciBvdGhlciBzaWduYWxzKS4gQnV0IHRoaXMgaXNuJ3Qgc3VwcG9ydGVkCnJpZ2h0
-IG5vdyBpbiB0aGUgZHJpdmVyLgpUaGVuIEkgc3VnZ2VzdCB0byBrZWVwIHRoZSByZXR1cm5pbmcg
-LUVJTlZBTCBmb3IgdGhlIGRlZmF1bHQgY2FzZSBoZXJlLgpEbyB5b3UgYWdyZWUgd2l0aCB0aGlz
-IGFwcHJvYWNoID8KCj4gIH0KPiAgCj4gIHN0YXRpYyBpbnQgc3RtMzJfY291bnRfZnVuY3Rpb25f
-c2V0KHN0cnVjdCBjb3VudGVyX2RldmljZSAqY291bnRlciwKPiBAQCAtMjc0LDMxICsyNzYsMzYg
-QEAgc3RhdGljIGludCBzdG0zMl9hY3Rpb25fZ2V0KHN0cnVjdCBjb3VudGVyX2RldmljZSAqY291
-bnRlciwKPiAgCXNpemVfdCBmdW5jdGlvbjsKPiAgCWludCBlcnI7Cj4gIAo+IC0JLyogRGVmYXVs
-dCBhY3Rpb24gbW9kZSAoZS5nLiBTVE0zMl9DT1VOVF9TTEFWRV9NT0RFX0RJU0FCTEVEKSAqLwo+
-IC0JKmFjdGlvbiA9IFNUTTMyX1NZTkFQU0VfQUNUSU9OX05PTkU7Cj4gLQo+ICAJZXJyID0gc3Rt
-MzJfY291bnRfZnVuY3Rpb25fZ2V0KGNvdW50ZXIsIGNvdW50LCAmZnVuY3Rpb24pOwo+ICAJaWYg
-KGVycikKPiAtCQlyZXR1cm4gMDsKPiArCQlyZXR1cm4gZXJyOwoKVGhpcyBtYWtlcyBzZW5zZSwg
-aW4gY2FzZSB0aGUgZXJyb3IgcmVwb3J0aW5nIGlzIGtlcHQgYWJvdmUuIE90aGVyd2lzZSwKaXQg
-YWx3YXlzIHJldHVybnMgMC4KCj4gIAo+ICAJc3dpdGNoIChmdW5jdGlvbikgewo+ICAJY2FzZSBT
-VE0zMl9DT1VOVF9FTkNPREVSX01PREVfMToKPiAgCQkvKiBjb3VudHMgdXAvZG93biBvbiBUSTFG
-UDEgZWRnZSBkZXBlbmRpbmcgb24gVEkyRlAyIGxldmVsICovCj4gIAkJaWYgKHN5bmFwc2UtPnNp
-Z25hbC0+aWQgPT0gY291bnQtPnN5bmFwc2VzWzBdLnNpZ25hbC0+aWQpCj4gIAkJCSphY3Rpb24g
-PSBTVE0zMl9TWU5BUFNFX0FDVElPTl9CT1RIX0VER0VTOwo+IC0JCWJyZWFrOwo+ICsJCWVsc2UK
-PiArCQkJKmFjdGlvbiA9IFNUTTMyX1NZTkFQU0VfQUNUSU9OX05PTkU7CgpNb3JlIGEgcXVlc3Rp
-b24gaGVyZS4uLgoKPiArCQlyZXR1cm4gMDsKPiAgCWNhc2UgU1RNMzJfQ09VTlRfRU5DT0RFUl9N
-T0RFXzI6Cj4gIAkJLyogY291bnRzIHVwL2Rvd24gb24gVEkyRlAyIGVkZ2UgZGVwZW5kaW5nIG9u
-IFRJMUZQMSBsZXZlbCAqLwo+ICAJCWlmIChzeW5hcHNlLT5zaWduYWwtPmlkID09IGNvdW50LT5z
-eW5hcHNlc1sxXS5zaWduYWwtPmlkKQo+ICAJCQkqYWN0aW9uID0gU1RNMzJfU1lOQVBTRV9BQ1RJ
-T05fQk9USF9FREdFUzsKPiAtCQlicmVhazsKPiArCQllbHNlCj4gKwkJCSphY3Rpb24gPSBTVE0z
-Ml9TWU5BUFNFX0FDVElPTl9OT05FOwoKLi4uLCBub3QgcmVsYXRlZCB0byB5b3VyIGZpeDogSW4g
-InF1YWRyYXR1cmUgeDIgYSIgb3IgInF1YWRyYXR1cmUgeDIgYiIsCnRoZSBvdGhlciBzaWduYWwg
-ZGV0ZXJtaW5lcyB0aGUgY291bnRpbmcgZGlyZWN0aW9uLgpJIGZlZWwgbGlrZSB0aGlzIGlzbid0
-IHJlYWxseSByZXByZXNlbnRlZCB3aXRoIHRoZSAibm9uZSIgYWN0aW9uLgoKSSBqdXN0IHJlYWxp
-emVkIGlmIHdlIHdhbnQgdG8gZXh0ZW5kIHRoaXMgZHJpdmVyIHRvIGFkZCBuZXcgc2lnbmFscwoo
-ZS5nLiBsaWtlIGNvdW50aW5nIG9uIGNoQSwgY2hCIG9yIGV2ZW4gYnkgYWRkaW5nIG90aGVyIHNp
-Z25hbHMgbGlrZSBFVFIKb24gU1RNMzIgd2l0aCB0aGUgaW5jcmVhc2UgZnVuY3Rpb24pLCB0aGlz
-IG1heSBzdGFydCB0byBiZSBjb25mdXNpbmcuCkN1cnJlbnRseSBvbmx5IHRoZSB0d28gc2lnbmFs
-IG5hbWVzIGNvdWxkIGdpdmUgc29tZSBoaW50IChzbyBpdCdzIHJhdGhlcgpvYnZpb3VzIGN1cnJl
-bnRseSkuCgpNYXliZSB0aGVyZSBjb3VsZCBiZSBzb21lIGNoYW5nZSBsYXRlciB0byBpbmRpY2F0
-ZSB0aGUgb3RoZXIgc2lnbmFsCihjaGFubmVsIEEgb3IgY2hhbm5lbCBCKSBwYXJ0aWNpcGF0ZXMg
-aW4gcXVhZHJhdHVyZSBlbmNvZGluZyA/CgoKVGhhbmtzIGFuZCBiZXN0IHJlZ2FyZHMsCkZhYnJp
-Y2UKCj4gKwkJcmV0dXJuIDA7Cj4gIAljYXNlIFNUTTMyX0NPVU5UX0VOQ09ERVJfTU9ERV8zOgo+
-ICAJCS8qIGNvdW50cyB1cC9kb3duIG9uIGJvdGggVEkxRlAxIGFuZCBUSTJGUDIgZWRnZXMgKi8K
-PiAgCQkqYWN0aW9uID0gU1RNMzJfU1lOQVBTRV9BQ1RJT05fQk9USF9FREdFUzsKPiAtCQlicmVh
-azsKPiArCQlyZXR1cm4gMDsKPiArCWNhc2UgU1RNMzJfQ09VTlRfU0xBVkVfTU9ERV9ESVNBQkxF
-RDoKPiArCQkvKiBjb3VudHMgb24gaW50ZXJuYWwgY2xvY2sgd2hlbiBDRU49MSAqLwo+ICsJCSph
-Y3Rpb24gPSBTVE0zMl9TWU5BUFNFX0FDVElPTl9OT05FOwo+ICsJCXJldHVybiAwOwo+ICsJZGVm
-YXVsdDoKPiArCQlyZXR1cm4gLUVJTlZBTDsKPiAgCX0KPiAtCj4gLQlyZXR1cm4gMDsKPiAgfQo+
-ICAKPiAgc3RhdGljIGNvbnN0IHN0cnVjdCBjb3VudGVyX29wcyBzdG0zMl90aW1lcl9jbnRfb3Bz
-ID0gewo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+
+--===============0631697112358784976==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4fpeKnoH9IErCEuJ"
+Content-Disposition: inline
+
+
+--4fpeKnoH9IErCEuJ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Feb 25, 2021 at 12:19:18PM +0100, Fabrice Gasnier wrote:
+> On 2/19/21 10:59 AM, William Breathitt Gray wrote:
+> > When in SLAVE_MODE_DISABLED mode, the count still increases if the
+> > counter is enabled because an internal clock is used. This patch fixes
+> > the stm32_count_function_get() function to properly report this
+> > behavior.
+>=20
+> Hi William,
+>=20
+> Thanks for the patch, that's something I also noticed earlier.
+> Please find few comment below.
+>=20
+> >=20
+> > Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
+> > Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
+> > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> > Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> > ---
+> >  drivers/counter/stm32-timer-cnt.c | 31 +++++++++++++++++++------------
+> >  1 file changed, 19 insertions(+), 12 deletions(-)
+> >=20
+> > diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-=
+timer-cnt.c
+> > index ef2a974a2f10..ec6d9e89c028 100644
+> > --- a/drivers/counter/stm32-timer-cnt.c
+> > +++ b/drivers/counter/stm32-timer-cnt.c
+> > @@ -44,13 +44,14 @@ struct stm32_timer_cnt {
+> >   * @STM32_COUNT_ENCODER_MODE_3: counts on both TI1FP1 and TI2FP2 edges
+> >   */
+> >  enum stm32_count_function {
+> > -	STM32_COUNT_SLAVE_MODE_DISABLED =3D -1,
+> > +	STM32_COUNT_SLAVE_MODE_DISABLED,
+> >  	STM32_COUNT_ENCODER_MODE_1,
+> >  	STM32_COUNT_ENCODER_MODE_2,
+> >  	STM32_COUNT_ENCODER_MODE_3,
+> >  };
+> > =20
+> >  static enum counter_count_function stm32_count_functions[] =3D {
+> > +	[STM32_COUNT_SLAVE_MODE_DISABLED] =3D COUNTER_COUNT_FUNCTION_INCREASE,
+> >  	[STM32_COUNT_ENCODER_MODE_1] =3D COUNTER_COUNT_FUNCTION_QUADRATURE_X2=
+_A,
+> >  	[STM32_COUNT_ENCODER_MODE_2] =3D COUNTER_COUNT_FUNCTION_QUADRATURE_X2=
+_B,
+> >  	[STM32_COUNT_ENCODER_MODE_3] =3D COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
+> > @@ -99,9 +100,10 @@ static int stm32_count_function_get(struct counter_=
+device *counter,
+> >  	case 3:
+> >  		*function =3D STM32_COUNT_ENCODER_MODE_3;
+> >  		return 0;
+> > +	default:
+>=20
+> I'd rather add a 'case 0', as that's the real value for slave mode
+> disabled. For reference, here's what the STM32 timer spec says on slave
+> mode selection:
+> 0000: Slave mode disabled - if CEN =3D =E2=80=981=E2=80=99 then the presc=
+aler is clocked
+> directly by the internal clock.
+
+Ack.
+
+> > +		*function =3D STM32_COUNT_SLAVE_MODE_DISABLED;
+> > +		return 0;
+> >  	}
+> > -
+> > -	return -EINVAL;
+>=20
+> Other slave modes could be added later (like counting on external
+> signals: channel A, B, ETR or other signals). But this isn't supported
+> right now in the driver.
+> Then I suggest to keep the returning -EINVAL for the default case here.
+> Do you agree with this approach ?
+
+That should be fine; we'll fill in the additional cases as the
+functionalities are introduced to this driver in the future.
+
+> >  }
+> > =20
+> >  static int stm32_count_function_set(struct counter_device *counter,
+> > @@ -274,31 +276,36 @@ static int stm32_action_get(struct counter_device=
+ *counter,
+> >  	size_t function;
+> >  	int err;
+> > =20
+> > -	/* Default action mode (e.g. STM32_COUNT_SLAVE_MODE_DISABLED) */
+> > -	*action =3D STM32_SYNAPSE_ACTION_NONE;
+> > -
+> >  	err =3D stm32_count_function_get(counter, count, &function);
+> >  	if (err)
+> > -		return 0;
+> > +		return err;
+>=20
+> This makes sense, in case the error reporting is kept above. Otherwise,
+> it always returns 0.
+
+Conceptually, a nonzero value from the function_get() callback should
+indicate an invalid function mode for a Counter driver. The changes in
+this patch should bring us to that behavior so fortunately we won't have
+to worry about remembering whether the stm32_count_function_get() return
+value is valid or not.
+
+> > =20
+> >  	switch (function) {
+> >  	case STM32_COUNT_ENCODER_MODE_1:
+> >  		/* counts up/down on TI1FP1 edge depending on TI2FP2 level */
+> >  		if (synapse->signal->id =3D=3D count->synapses[0].signal->id)
+> >  			*action =3D STM32_SYNAPSE_ACTION_BOTH_EDGES;
+> > -		break;
+> > +		else
+> > +			*action =3D STM32_SYNAPSE_ACTION_NONE;
+>=20
+> More a question here...
+>=20
+> > +		return 0;
+> >  	case STM32_COUNT_ENCODER_MODE_2:
+> >  		/* counts up/down on TI2FP2 edge depending on TI1FP1 level */
+> >  		if (synapse->signal->id =3D=3D count->synapses[1].signal->id)
+> >  			*action =3D STM32_SYNAPSE_ACTION_BOTH_EDGES;
+> > -		break;
+> > +		else
+> > +			*action =3D STM32_SYNAPSE_ACTION_NONE;
+>=20
+> ..., not related to your fix: In "quadrature x2 a" or "quadrature x2 b",
+> the other signal determines the counting direction.
+> I feel like this isn't really represented with the "none" action.
+
+Be careful not to confuse the Generic Counter paradigm with the hardware
+description of your device. Within the context of the Generic Counter
+paradigm, Synapse actions are the trigger conditions of a hypothetical
+counting function evaluating Signals for an idealized Counter. In other
+words, a Synapse action indicates whether a Signal triggers a change in
+the Count value, not whether the Signal value is evaluated by the
+counting function.
+
+"Quadrature x2 A" and "Quadrature x2 B" are two different counting
+functions. Both happen to evaluate two Signals, but only one of those
+Signals is ever triggering the counting function evaluation to update
+the Count value. In other words, the Signal serving as a direction can
+change value as much as you like but it will never trigger a change in
+the respective Count's value; i.e. that Signal's Synapse action is
+"none" because it does not trigger the count function evaluation.
+
+> I just realized if we want to extend this driver to add new signals
+> (e.g. like counting on chA, chB or even by adding other signals like ETR
+> on STM32 with the increase function), this may start to be confusing.
+> Currently only the two signal names could give some hint (so it's rather
+> obvious currently).
+>=20
+> Maybe there could be some change later to indicate the other signal
+> (channel A or channel B) participates in quadrature encoding ?
+>=20
+>=20
+> Thanks and best regards,
+> Fabrice
+
+Well, one thing could try is to introduce new count functions in the
+future if there is some configuration you want to support with a count
+function evaluation that doesn't really fit one of the ones currently
+available; we can create a new enum counter_count_function constant to
+represent it.
+
+Remember that in the Generic Counter paradigm we are not necessarily
+matching hardware layout of your device, but rather abstracting its
+functionality. Because of that, you can associate multiple Signals to
+your Count component, even if your hardware device has only two physical
+lines.
+
+For example, let's say a counter device has 3 modes: quadrature lines,
+external pulses, clock source. In quadrature lines mode, a "QUADA" and
+"QUADB" signal are evaluate as a quadrature x4 encoding; in external
+pulses mode, a "PULSE" signal is evaluated for both falling and rising
+edges; and in clock source mode, a "CLOCK" signal is evaluated for
+rising edges.
+
+Using the Generic Counter paradigm, we would construct a Count with 4
+Synapes associating the four Signals: QUADA, QUADB, PULSE, CLOCK. There
+would be 2 count functions: COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
+COUNTER_COUNT_FUNCTION_INCREASE. The following 3 configurations would be
+possible:
+
+* Count Function: COUNTER_COUNT_FUNCTION_QUADRATURE_X4
+  Synapse Actions: QUADA =3D> COUNTER_SYNAPSE_ACTION_BOTH_EDGES
+                   QUADB =3D> COUNTER_SYNAPSE_ACTION_BOTH_EDGES
+		   PULSE =3D> COUNTER_SYNAPSE_ACTION_NONE
+		   CLOCK =3D> COUNTER_SYNAPSE_ACTION_NONE
+
+* Count Function: COUNTER_COUNT_FUNCTION_INCREASE
+  Synapse Actions: QUADA =3D> COUNTER_SYNAPSE_ACTION_NONE
+                   QUADB =3D> COUNTER_SYNAPSE_ACTION_NONE
+		   PULSE =3D> COUNTER_SYNAPSE_ACTION_BOTH_EDGES
+		   CLOCK =3D> COUNTER_SYNAPSE_ACTION_NONE
+
+* Count Function: COUNTER_COUNT_FUNCTION_INCREASE
+  Synapse Actions: QUADA =3D> COUNTER_SYNAPSE_ACTION_NONE
+                   QUADB =3D> COUNTER_SYNAPSE_ACTION_NONE
+		   PULSE =3D> COUNTER_SYNAPSE_ACTION_NONE
+		   CLOCK =3D> COUNTER_SYNAPSE_ACTION_RISING_EDGE
+
+So a Synapse action isn't where the differentiation occurs between which
+Signals are evaluated by a particular count function; the Synapse
+actions only indicate whether a change in the respective Signal value
+will trigger an update of the associated Count value.
+
+However, I see what you mean that this does leave some ambiguity when we
+have multiple Signals associated to the same Count, yet various possible
+count functions that only evaluate a subsection of those Signals.
+
+Perhaps one solution is to create a second Count component dedicated to
+just those Signals: so we impose a requirement that the only Signals
+associated with a particular Count component are Signals that are
+evaluated by all the specified count functions. Alternatively, perhaps
+we can expose a new attribute to communicate which Signals are
+evaluated.
+
+We're starting to go off on a tangent here though, so lets postpone
+this discussion to a later time, perhaps when support for the ETR signal
+is proposed for this driver.
+
+William Breathitt Gray
+
+--4fpeKnoH9IErCEuJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmA3pFwACgkQhvpINdm7
+VJIz8xAAkNBJ9CbKbEINNZHmehMRuz8Jh0VyG8CB8730GBAcPVHiRvgt/GAO1okb
+NiDnZrTpThAnA6Wq2FJqDmeMIOqgxzgogeS/XD8zSLaXxnDELC72zbZA2adyBUX1
+9E7gtWPXDLiuXyt371sWSCmJFV2AnMVyNrmoY6qT7Gm5iODQvkFpiqS47r4mRSFs
+cdGbBf3t1vvB15wMvs2fGT48Tf6Cxc85nx/Qfcmp1D5DPsUb1MKJwBw3EvlkExpw
+qpqgacIjmIqAUitqJRS8g/8qo4BRZ/pyqP74QIMgovOfnzAffdhuD9BJ7rotHMjo
+axVmrrBxZuwinvbhfmRwq4RntKpXW+oLrgcKJe/cpnKqh9IvEUyXvUNZb2szbsZD
+9tbtMwMMHzVQjNnRLyLuaZG8H2LcdVtHeZtkkJL635xSLMirPv+pnpa7d4wbNtNu
+BCLbGnXq17S7jAE8DeiaGATrIevkA+njaQnlxoo8Vxvtw/33mJZB1ha0S2/N1r2d
+klYM/88HSgMBywGiDF6lZSbKlavX/56OfMjWyjzHy+0ZukMXySYqIatfT29koIYh
+Z85TrkWz9QjdHzHt/ngq8EjkEIwdl/mjq/ZVbg5FDs2NhiLYUywOrrbjSzmgAmk6
+rE3/TYDLdO1zZ9j4h9v7XfLgHkZV3Fkeq4kigsVoZa0GuSfScMw=
+=Hwqs
+-----END PGP SIGNATURE-----
+
+--4fpeKnoH9IErCEuJ--
+
+--===============0631697112358784976==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0631697112358784976==--
