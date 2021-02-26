@@ -2,71 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 516C1325ADB
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Feb 2021 01:27:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3132325B4D
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Feb 2021 02:29:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B3DDC57B59;
-	Fri, 26 Feb 2021 00:27:32 +0000 (UTC)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A42BC57B59;
+	Fri, 26 Feb 2021 01:29:49 +0000 (UTC)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B47BC57189
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76250C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Feb 2021 00:27:29 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id l18so4787222pji.3
+ Fri, 26 Feb 2021 01:29:47 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id p5so4415676plo.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Feb 2021 16:27:29 -0800 (PST)
+ Thu, 25 Feb 2021 17:29:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=s+E1myvL+FQNMLBHh7YhNNO6xrcap4dEx+GlOPcwYn0=;
- b=eqbKJ6bIiWeOJUgULqrl1KIIkrtbyYy+Q6N60mi+a7TonVXtuRDW47W+klAkHew56a
- 2W5OMyFOTJmXsVT5ETL7ck42vyFPTugKtM9M5pxmfAloxRQo4kqtZE+7Ig9bAlilN6N+
- Xj48m0+LYl6kOx+D7P5/MUB7wVWiOKlpm+1FiXLjDNfv14jPHAVxPZF+4NbyOWMkyajt
- NfYif2Jp42/SPKVTI6o0GzYcv+jJVpbP8qCbbR9qJ41+02K7X2oDtocSruSSHI+wfzE4
- 6zNhoUPLJcWgLpngoIcl9nOmuRYUOKl6UtA85P8na522ytOHPZn2/UxSSbYS7lN0ryp1
- YAIw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=XmwUKf+hUjG27sz2bJqruSzlU36nwLMx6Yr1Y6X8O/s=;
+ b=MUdlHZntR8igfGXzxHRYarSsJ1VNGC47LvAonEOY8JSg3/voXJcOe3iDjmLmjdWvLD
+ KMQxxUFn4AJKArwdElca1UiZ4WmORYgbm4q+yfMsgHRSIO/XwZ6smKLQ+zbl2qx/x19k
+ tYcVIoLCSGkXu9Qn9ocH+OsddRAXQ3WYhrfkyCfjTpuXv8iAo1cJyB/vJd+Xl8PR4car
+ gL7ieHzLY58KcoC3VYLAyBHw2rL+aRQ8W1z2YFBTExa1mEZSpZIgZF8o4uKKFHVT/l2o
+ JpDztCwRXGCdtsE0AbIfVd6QVjZlomLGclNvkjnxs5FAvR4eowQO5epx2bYWE5rywPnL
+ D1tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=s+E1myvL+FQNMLBHh7YhNNO6xrcap4dEx+GlOPcwYn0=;
- b=BWqH3oPVitbpfin84BpXIcl/2Dchw9oLGWXYed8UTefZHGCzddPlGqTOIhEOdiJK7v
- ikctlVg02893OxUjV0zU+xDBi6sYrUyxjOez+fNOJ26Pt5YoAl3Yfp9Ham58RaLAKtSz
- NDdifvJtiAt1H8GCY/a/8EEHUTxyTNTvEINVNMfnkWDIQWMPdU+4qLTd+fi3FsgyDQYR
- bsuANo4maTC3f/O9KgdrNRBfVk7YH97WH45pCw+mXbdlWP/Z7yhpJ7aZv9JKikgh5plb
- aD0fxi5nThjO5j1KaNPkPqoBVcjdLrJWIxWszt//3WiN0hUpgvUqORJIkvgQaX0WXOHG
- UMWg==
-X-Gm-Message-State: AOAM5319at3zXcShiJv+vZAJ88Bl5V+VRtMpWDruGzWf3JVes2i/yzSU
- CQcGrnYX8C6o+XauAaYUi34=
-X-Google-Smtp-Source: ABdhPJyBWK8l+Vs9F7nSxWHA9Ox00Bl2mkrTMaen0lTs6mgq6C+dK8ZKuwfA4zP9ufteNrOiEt1yzw==
-X-Received: by 2002:a17:90b:4a0b:: with SMTP id
- kk11mr514890pjb.95.1614299248296; 
- Thu, 25 Feb 2021 16:27:28 -0800 (PST)
-Received: from shinobu (113x37x72x20.ap113.ftth.ucom.ne.jp. [113.37.72.20])
- by smtp.gmail.com with ESMTPSA id q4sm7800846pfq.103.2021.02.25.16.27.22
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=XmwUKf+hUjG27sz2bJqruSzlU36nwLMx6Yr1Y6X8O/s=;
+ b=bV+KEe88b0jReli/yEWi2vjGv4fkScBFGmc+uHtDkRCYlmJK+EppIHMLt3RPL1yg69
+ Kxja1azqTATc+siD700Am/90hgCS08MVC6sygSD7X62U8kSzLQqvTIa9wmRpIWyDRAjz
+ /gM4LoiL8KHP0YQa+v9x+7vkEQJHQA6cMnblIOT9HR2ppwYzqIdMSc6iMRnq/yJy5POc
+ uBo/Tbne4Kxc6f8bNXYRNjEv9ZJQvhqhfNL9L1AXScGLBBT2EdhKycBnRSj+Z75SasdF
+ RDPSNv/BED/11HpR0337vEYYjIl7mQ4XXwmNMJZdIKYhaefgu7OE72T3fldeK1n4vN+V
+ bTOA==
+X-Gm-Message-State: AOAM530CVKcG0se9UkTrnKlkADtStoDRykM7pNBRvQ0U0SvBjYedC9Ga
+ hF9HGYdjbDOoV5UmVoE16Pc=
+X-Google-Smtp-Source: ABdhPJzDOcY0htBukhNsAGlPVzopVjSgvQVb9Vo/MdNoJwT2X1CB9g6ODBTdELCMsls/NK6rrrmQ3w==
+X-Received: by 2002:a17:902:e54f:b029:e2:8f59:6fe0 with SMTP id
+ n15-20020a170902e54fb02900e28f596fe0mr618450plf.76.1614302985633; 
+ Thu, 25 Feb 2021 17:29:45 -0800 (PST)
+Received: from localhost.localdomain ([156.146.35.76])
+ by smtp.gmail.com with ESMTPSA id c6sm7773242pfc.94.2021.02.25.17.29.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Feb 2021 16:27:27 -0800 (PST)
-Date: Fri, 26 Feb 2021 09:27:19 +0900
+ Thu, 25 Feb 2021 17:29:44 -0800 (PST)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <YDhAZ5bQ9fqd3FWB@shinobu>
-References: <cover.1613131238.git.vilhelm.gray@gmail.com>
- <350cafba81d3220b64efdb019bd76c08eb1e5d10.1613131238.git.vilhelm.gray@gmail.com>
- <20210214174819.6757e2b0@archlinux> <20210222101133.GB14587@amd>
+To: jic23@kernel.org
+Date: Fri, 26 Feb 2021 10:29:31 +0900
+Message-Id: <20210226012931.161429-1-vilhelm.gray@gmail.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
-In-Reply-To: <20210222101133.GB14587@amd>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v8 18/22] docs: counter: Document
- character device interface
+Cc: alexandre.torgue@st.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, William Breathitt Gray <vilhelm.gray@gmail.com>,
+ mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ benjamin.gaignard@st.com
+Subject: [Linux-stm32] [PATCH v2] counter: stm32-timer-cnt: Report count
+	function when SLAVE_MODE_DISABLED
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,122 +72,140 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0211016529325330807=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+When in SLAVE_MODE_DISABLED mode, the count still increases if the
+counter is enabled because an internal clock is used. This patch fixes
+the stm32_count_function_get() and stm32_count_function_set() functions
+to properly handle this behavior.
 
---===============0211016529325330807==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EjvxlyKqXuKwBAVF"
-Content-Disposition: inline
+Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
+Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+---
+Changes in v2:
+ - Support an explicit 0 case for function_get()/function_set()
 
+ drivers/counter/stm32-timer-cnt.c | 39 ++++++++++++++++++++-----------
+ 1 file changed, 25 insertions(+), 14 deletions(-)
 
---EjvxlyKqXuKwBAVF
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Feb 22, 2021 at 11:11:33AM +0100, Pavel Machek wrote:
-> Hi!
->=20
-> > > +* COUNTER_ENABLE_EVENTS_IOCTL:
-> > > +  Enables monitoring the events specified by the Counter watches that
-> > > +  were queued by ``COUNTER_ADD_WATCH_IOCTL``. If events are already
-> > > +  enabled, the new set of watches replaces the old one. Calling this
-> > > +  ioctl also has the effect of clearing the queue of watches added by
-> > > +  ``COUNTER_ADD_WATCH_IOCTL``.
-> > > +
-> > > +* COUNTER_DISABLE_EVENTS_IOCTL:
-> > > +  Stops monitoring the previously enabled events.
-> >=20
-> > Is there a way to remove a watch?=20
->=20
-> Is there a way to eat all kernel memory and crash the system by adding
-> too many watches?
-
-There can only ever be as many watches as there are Counter components
-for the respective Counter device. This is enforced by
-counter_set_event_node() which checks whether a particular watch has
-been created before and returns an EINVAL if it so has.
-
-> > > +For example, the following userspace code opens ``/dev/counter0``,
-> > > +configures the ``COUNTER_EVENT_INDEX`` event channel 0 to gather Cou=
-nt 0
-> > > +and Count 1, and prints out the data as it becomes available on the
-> > > +character device node::
-> > > +
-> >=20
-> > Consider adding an example program under tools/
-> >=20
-> > > +        #include <fcntl.h>
-> > > +        #include <linux/counter.h>
-> > > +        #include <stdio.h>
-> > > +        #include <string.h>
-> > > +        #include <sys/ioctl.h>
-> > > +        #include <unistd.h>
-> > > +
-> > > +        struct counter_watch watches[2] =3D {
-> > > +                {
-> > > +                        .component.type =3D COUNTER_COMPONENT_COUNT,
-> > > +                        .component.scope =3D COUNTER_SCOPE_COUNT,
-> > > +                        .component.parent =3D 0,
-> >=20
-> > Good to add comments on what these elements actually are?
->=20
-> > > +                fd =3D open("/dev/counter0", O_RDWR);
-> > > +
-> > > +                ioctl(fd, COUNTER_ADD_WATCH_IOCTL, watches);
-> > > +                ioctl(fd, COUNTER_ADD_WATCH_IOCTL, watches + 1);
-> > > +                ioctl(fd, COUNTER_ENABLE_EVENTS_IOCTL);
->=20
-> > > +                for (;;) {
-> > > +                        read(fd, event_data, sizeof(event_data));
->=20
-> If this goes to tools it really should have error handling and
-> handling of short read.
->=20
-> Best regards,
-> 							Pavel
->=20
-> --=20
-> http://www.livejournal.com/~pavelmachek
-
-Ack. I'll improve the error handling for this.
-
-William Breathitt Gray
-
---EjvxlyKqXuKwBAVF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmA4QGcACgkQhvpINdm7
-VJKWJw/9GRJWjfb/0hc9uFqEfRRMHfpTYcUMnoHAZLdRvq4x0y+IvSO+GwI+knBV
-/peeZ3Pb7Y+LgR859jKBq3eGAjQutYpTGf06a8KyWFBmC8mZklZGfMrxNRsQfvCJ
-Ug2UrJRi/pfFN+/NuFBws/oEORNMkra+xF81HOc877HJXVchWEwoHos7mNVGrBeZ
-iLJOOLW6s5o4CrjJE9voDUthSCkZBvqjZo6Y0ulFyX/Z2rMv9Ey0v/+rRzAbWRRo
-4/T4ITdlDxN56OX0HV5CMMt1gZhACQDdNLO8owXc+8qXxGPsKnyHhYbswFVk7iv6
-xS05D4XJnic6orhBlvWq6WJ43IgHGtLTmOrbdpeuP8DBpHBZx50EDpNysajG2sr9
-5v7twAvRJGVe1boJryMZ1sfb0/07CxvifSeJNzvrK/wHjHQyZk62w3Jx9eZ5t45c
-8mqSyUbpSFdoUN2XivYYXpAu+m0myUKFr2iGT9uATuW+xLFb1T6qv4sKwgQpNv7c
-hLS1OFzLHSy9QsOOM0/oU4Ian53VZKMk+BNck2shidCXIYzt8vsqJgqHYpOV41MK
-YpnCriW4/fTS1LQoBDJKPNREtN7X7+QA3O+TvsPwnIxlBgnDmzuK85N3ofg55Eyy
-N51/6UHDZLWvqY+jrzrB1ZHHDiMQfNYmbMqEfl3nha1c4hC02QU=
-=ULaJ
------END PGP SIGNATURE-----
-
---EjvxlyKqXuKwBAVF--
-
---===============0211016529325330807==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
+index ef2a974a2f10..cd50dc12bd02 100644
+--- a/drivers/counter/stm32-timer-cnt.c
++++ b/drivers/counter/stm32-timer-cnt.c
+@@ -44,13 +44,14 @@ struct stm32_timer_cnt {
+  * @STM32_COUNT_ENCODER_MODE_3: counts on both TI1FP1 and TI2FP2 edges
+  */
+ enum stm32_count_function {
+-	STM32_COUNT_SLAVE_MODE_DISABLED = -1,
++	STM32_COUNT_SLAVE_MODE_DISABLED,
+ 	STM32_COUNT_ENCODER_MODE_1,
+ 	STM32_COUNT_ENCODER_MODE_2,
+ 	STM32_COUNT_ENCODER_MODE_3,
+ };
+ 
+ static enum counter_count_function stm32_count_functions[] = {
++	[STM32_COUNT_SLAVE_MODE_DISABLED] = COUNTER_COUNT_FUNCTION_INCREASE,
+ 	[STM32_COUNT_ENCODER_MODE_1] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A,
+ 	[STM32_COUNT_ENCODER_MODE_2] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_B,
+ 	[STM32_COUNT_ENCODER_MODE_3] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
+@@ -90,6 +91,9 @@ static int stm32_count_function_get(struct counter_device *counter,
+ 	regmap_read(priv->regmap, TIM_SMCR, &smcr);
+ 
+ 	switch (smcr & TIM_SMCR_SMS) {
++	case 0:
++		*function = STM32_COUNT_SLAVE_MODE_DISABLED;
++		return 0;
+ 	case 1:
+ 		*function = STM32_COUNT_ENCODER_MODE_1;
+ 		return 0;
+@@ -99,9 +103,9 @@ static int stm32_count_function_get(struct counter_device *counter,
+ 	case 3:
+ 		*function = STM32_COUNT_ENCODER_MODE_3;
+ 		return 0;
++	default:
++		return -EINVAL;
+ 	}
+-
+-	return -EINVAL;
+ }
+ 
+ static int stm32_count_function_set(struct counter_device *counter,
+@@ -112,6 +116,9 @@ static int stm32_count_function_set(struct counter_device *counter,
+ 	u32 cr1, sms;
+ 
+ 	switch (function) {
++	case STM32_COUNT_SLAVE_MODE_DISABLED:
++		sms = 0;
++		break;
+ 	case STM32_COUNT_ENCODER_MODE_1:
+ 		sms = 1;
+ 		break;
+@@ -122,8 +129,7 @@ static int stm32_count_function_set(struct counter_device *counter,
+ 		sms = 3;
+ 		break;
+ 	default:
+-		sms = 0;
+-		break;
++		return -EINVAL;
+ 	}
+ 
+ 	/* Store enable status */
+@@ -274,31 +280,36 @@ static int stm32_action_get(struct counter_device *counter,
+ 	size_t function;
+ 	int err;
+ 
+-	/* Default action mode (e.g. STM32_COUNT_SLAVE_MODE_DISABLED) */
+-	*action = STM32_SYNAPSE_ACTION_NONE;
+-
+ 	err = stm32_count_function_get(counter, count, &function);
+ 	if (err)
+-		return 0;
++		return err;
+ 
+ 	switch (function) {
++	case STM32_COUNT_SLAVE_MODE_DISABLED:
++		/* counts on internal clock when CEN=1 */
++		*action = STM32_SYNAPSE_ACTION_NONE;
++		return 0;
+ 	case STM32_COUNT_ENCODER_MODE_1:
+ 		/* counts up/down on TI1FP1 edge depending on TI2FP2 level */
+ 		if (synapse->signal->id == count->synapses[0].signal->id)
+ 			*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
+-		break;
++		else
++			*action = STM32_SYNAPSE_ACTION_NONE;
++		return 0;
+ 	case STM32_COUNT_ENCODER_MODE_2:
+ 		/* counts up/down on TI2FP2 edge depending on TI1FP1 level */
+ 		if (synapse->signal->id == count->synapses[1].signal->id)
+ 			*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
+-		break;
++		else
++			*action = STM32_SYNAPSE_ACTION_NONE;
++		return 0;
+ 	case STM32_COUNT_ENCODER_MODE_3:
+ 		/* counts up/down on both TI1FP1 and TI2FP2 edges */
+ 		*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
+-		break;
++		return 0;
++	default:
++		return -EINVAL;
+ 	}
+-
+-	return 0;
+ }
+ 
+ static const struct counter_ops stm32_timer_cnt_ops = {
+-- 
+2.30.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0211016529325330807==--
