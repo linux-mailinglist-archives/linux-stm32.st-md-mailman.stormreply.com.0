@@ -2,65 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3132325B4D
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Feb 2021 02:29:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7578C325DD8
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Feb 2021 08:03:27 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A42BC57B59;
-	Fri, 26 Feb 2021 01:29:49 +0000 (UTC)
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 287D6C57B61;
+	Fri, 26 Feb 2021 07:03:27 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76250C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9C83C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Feb 2021 01:29:47 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id p5so4415676plo.4
+ Fri, 26 Feb 2021 07:03:24 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id d12so3106796pfo.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Feb 2021 17:29:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ Thu, 25 Feb 2021 23:03:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=XmwUKf+hUjG27sz2bJqruSzlU36nwLMx6Yr1Y6X8O/s=;
- b=MUdlHZntR8igfGXzxHRYarSsJ1VNGC47LvAonEOY8JSg3/voXJcOe3iDjmLmjdWvLD
- KMQxxUFn4AJKArwdElca1UiZ4WmORYgbm4q+yfMsgHRSIO/XwZ6smKLQ+zbl2qx/x19k
- tYcVIoLCSGkXu9Qn9ocH+OsddRAXQ3WYhrfkyCfjTpuXv8iAo1cJyB/vJd+Xl8PR4car
- gL7ieHzLY58KcoC3VYLAyBHw2rL+aRQ8W1z2YFBTExa1mEZSpZIgZF8o4uKKFHVT/l2o
- JpDztCwRXGCdtsE0AbIfVd6QVjZlomLGclNvkjnxs5FAvR4eowQO5epx2bYWE5rywPnL
- D1tw==
+ bh=+j5qJuOZSbQysXD/JvLKk0ZQswOeC5SGkz/d6BdcFcg=;
+ b=N2XLogZuLsxAgBn8YmeZBrAP87b2Ul4RMTTf5CT3klEH9Un+lFYDL8t2qz4GlaWOFP
+ TSBNgirKvPcQ0ttYcHMluSYqirsjgDJiPo7v4m6CL9Iwb4ZMp6l1I7QXGikpBenmvKvK
+ fE3ugSlT+/xBqvULXQLNlvp2rpaa8dk3BIChc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=XmwUKf+hUjG27sz2bJqruSzlU36nwLMx6Yr1Y6X8O/s=;
- b=bV+KEe88b0jReli/yEWi2vjGv4fkScBFGmc+uHtDkRCYlmJK+EppIHMLt3RPL1yg69
- Kxja1azqTATc+siD700Am/90hgCS08MVC6sygSD7X62U8kSzLQqvTIa9wmRpIWyDRAjz
- /gM4LoiL8KHP0YQa+v9x+7vkEQJHQA6cMnblIOT9HR2ppwYzqIdMSc6iMRnq/yJy5POc
- uBo/Tbne4Kxc6f8bNXYRNjEv9ZJQvhqhfNL9L1AXScGLBBT2EdhKycBnRSj+Z75SasdF
- RDPSNv/BED/11HpR0337vEYYjIl7mQ4XXwmNMJZdIKYhaefgu7OE72T3fldeK1n4vN+V
- bTOA==
-X-Gm-Message-State: AOAM530CVKcG0se9UkTrnKlkADtStoDRykM7pNBRvQ0U0SvBjYedC9Ga
- hF9HGYdjbDOoV5UmVoE16Pc=
-X-Google-Smtp-Source: ABdhPJzDOcY0htBukhNsAGlPVzopVjSgvQVb9Vo/MdNoJwT2X1CB9g6ODBTdELCMsls/NK6rrrmQ3w==
-X-Received: by 2002:a17:902:e54f:b029:e2:8f59:6fe0 with SMTP id
- n15-20020a170902e54fb02900e28f596fe0mr618450plf.76.1614302985633; 
- Thu, 25 Feb 2021 17:29:45 -0800 (PST)
-Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id c6sm7773242pfc.94.2021.02.25.17.29.42
+ bh=+j5qJuOZSbQysXD/JvLKk0ZQswOeC5SGkz/d6BdcFcg=;
+ b=kCWbTZcUaVu+ll9rlf+Is4GIuqm6iZZGy+LX4sqhLaKHA7Wxpy7hqeaGrwm2HHgBRp
+ 7mnkFaHOis30zPKGCeCxfbjMP+L4yFuwJWe9WTJQOYjqK7bEy2XoMBhT5FCv2lGHV5mX
+ 2vcdV/Sxn2noFhuDMsE+MsMJT+Yhf5stXGdI2paogZBaGpRkTApR6tNsrrii+nhC3RQY
+ cjBFh2YEjvfe1qImcdZcqMQH7TOQ0iJCLPkBQu6HZMHOPLJwTLJSjgCy+iBRo0i4UKCY
+ IuaHg6Ypk4VmLmSzhOrV8uTCkYNLxIJXCPSMQ6+hfDZbOyA+//Qqlm4VkORSd2UOWzZO
+ f+OA==
+X-Gm-Message-State: AOAM5331Jn0DG8cmARsC9O1x8RHhc1KeMMKuf3fUDYJ+pm+IJhsu0frp
+ DJE0ijzk0IAmEu34Vzb53833Vg==
+X-Google-Smtp-Source: ABdhPJwYBClGgFC8cYKGWzWdFhfQORrre5aTlESCiZ/M7eXTZMRntwBrV1DvM3urLS5FLfHk1E5oow==
+X-Received: by 2002:a62:1e41:0:b029:1e6:fe13:b78e with SMTP id
+ e62-20020a621e410000b02901e6fe13b78emr1911923pfe.26.1614323003138; 
+ Thu, 25 Feb 2021 23:03:23 -0800 (PST)
+Received: from ub-XPS-13-9350.domain.name ([103.161.30.220])
+ by smtp.gmail.com with ESMTPSA id f7sm7592156pjh.45.2021.02.25.23.03.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Feb 2021 17:29:44 -0800 (PST)
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: jic23@kernel.org
-Date: Fri, 26 Feb 2021 10:29:31 +0900
-Message-Id: <20210226012931.161429-1-vilhelm.gray@gmail.com>
-X-Mailer: git-send-email 2.30.1
+ Thu, 25 Feb 2021 23:03:22 -0800 (PST)
+From: Jagan Teki <jagan@amarulasolutions.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Rob Herring <robh+dt@kernel.org>
+Date: Fri, 26 Feb 2021 12:32:54 +0530
+Message-Id: <20210226070304.8028-1-jagan@amarulasolutions.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: alexandre.torgue@st.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, William Breathitt Gray <vilhelm.gray@gmail.com>,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- benjamin.gaignard@st.com
-Subject: [Linux-stm32] [PATCH v2] counter: stm32-timer-cnt: Report count
-	function when SLAVE_MODE_DISABLED
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 00/10] ARM: dts: stm32: Add Engicam
+	STM32MP1 SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,133 +75,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When in SLAVE_MODE_DISABLED mode, the count still increases if the
-counter is enabled because an internal clock is used. This patch fixes
-the stm32_count_function_get() and stm32_count_function_set() functions
-to properly handle this behavior.
+This is the initial series to support Engicam MicroGEA STM32MP1 and
+i.Core STM32MP1 SoM and it's associated carrier board dts(i) support.
 
-Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
-Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
----
-Changes in v2:
- - Support an explicit 0 case for function_get()/function_set()
+Changes for v2:
+- fixed v1 comments
+- add i.Core STM32MP1 SoM 
 
- drivers/counter/stm32-timer-cnt.c | 39 ++++++++++++++++++++-----------
- 1 file changed, 25 insertions(+), 14 deletions(-)
+Jagan Teki (10):
+  dt-bindings: arm: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0
+  ARM: dts: stm32: Add Engicam MicroGEA STM32MP1 SoM
+  ARM: dts: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0 board
+  dt-bindings: arm: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0 7" OF
+  ARM: dts: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0 7" OF
+  dt-bindings: arm: stm32: Add Engicam i.Core STM32MP1 C.TOUCH 2.0
+  ARM: dts: stm32: Add Engicam i.Core STM32MP1 SoM
+  ARM: dts: stm32: Add Engicam i.Core STM32MP1 C.TOUCH 2.0
+  dt-bindings: arm: stm32: Add Engicam i.Core STM32MP1 EDIMM2.2 Starter Kit
+  ARM: dts: stm32: Add Engicam i.Core STM32MP1 EDIMM2.2 Starter Kit
 
-diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index ef2a974a2f10..cd50dc12bd02 100644
---- a/drivers/counter/stm32-timer-cnt.c
-+++ b/drivers/counter/stm32-timer-cnt.c
-@@ -44,13 +44,14 @@ struct stm32_timer_cnt {
-  * @STM32_COUNT_ENCODER_MODE_3: counts on both TI1FP1 and TI2FP2 edges
-  */
- enum stm32_count_function {
--	STM32_COUNT_SLAVE_MODE_DISABLED = -1,
-+	STM32_COUNT_SLAVE_MODE_DISABLED,
- 	STM32_COUNT_ENCODER_MODE_1,
- 	STM32_COUNT_ENCODER_MODE_2,
- 	STM32_COUNT_ENCODER_MODE_3,
- };
- 
- static enum counter_count_function stm32_count_functions[] = {
-+	[STM32_COUNT_SLAVE_MODE_DISABLED] = COUNTER_COUNT_FUNCTION_INCREASE,
- 	[STM32_COUNT_ENCODER_MODE_1] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A,
- 	[STM32_COUNT_ENCODER_MODE_2] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_B,
- 	[STM32_COUNT_ENCODER_MODE_3] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
-@@ -90,6 +91,9 @@ static int stm32_count_function_get(struct counter_device *counter,
- 	regmap_read(priv->regmap, TIM_SMCR, &smcr);
- 
- 	switch (smcr & TIM_SMCR_SMS) {
-+	case 0:
-+		*function = STM32_COUNT_SLAVE_MODE_DISABLED;
-+		return 0;
- 	case 1:
- 		*function = STM32_COUNT_ENCODER_MODE_1;
- 		return 0;
-@@ -99,9 +103,9 @@ static int stm32_count_function_get(struct counter_device *counter,
- 	case 3:
- 		*function = STM32_COUNT_ENCODER_MODE_3;
- 		return 0;
-+	default:
-+		return -EINVAL;
- 	}
--
--	return -EINVAL;
- }
- 
- static int stm32_count_function_set(struct counter_device *counter,
-@@ -112,6 +116,9 @@ static int stm32_count_function_set(struct counter_device *counter,
- 	u32 cr1, sms;
- 
- 	switch (function) {
-+	case STM32_COUNT_SLAVE_MODE_DISABLED:
-+		sms = 0;
-+		break;
- 	case STM32_COUNT_ENCODER_MODE_1:
- 		sms = 1;
- 		break;
-@@ -122,8 +129,7 @@ static int stm32_count_function_set(struct counter_device *counter,
- 		sms = 3;
- 		break;
- 	default:
--		sms = 0;
--		break;
-+		return -EINVAL;
- 	}
- 
- 	/* Store enable status */
-@@ -274,31 +280,36 @@ static int stm32_action_get(struct counter_device *counter,
- 	size_t function;
- 	int err;
- 
--	/* Default action mode (e.g. STM32_COUNT_SLAVE_MODE_DISABLED) */
--	*action = STM32_SYNAPSE_ACTION_NONE;
--
- 	err = stm32_count_function_get(counter, count, &function);
- 	if (err)
--		return 0;
-+		return err;
- 
- 	switch (function) {
-+	case STM32_COUNT_SLAVE_MODE_DISABLED:
-+		/* counts on internal clock when CEN=1 */
-+		*action = STM32_SYNAPSE_ACTION_NONE;
-+		return 0;
- 	case STM32_COUNT_ENCODER_MODE_1:
- 		/* counts up/down on TI1FP1 edge depending on TI2FP2 level */
- 		if (synapse->signal->id == count->synapses[0].signal->id)
- 			*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
--		break;
-+		else
-+			*action = STM32_SYNAPSE_ACTION_NONE;
-+		return 0;
- 	case STM32_COUNT_ENCODER_MODE_2:
- 		/* counts up/down on TI2FP2 edge depending on TI1FP1 level */
- 		if (synapse->signal->id == count->synapses[1].signal->id)
- 			*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
--		break;
-+		else
-+			*action = STM32_SYNAPSE_ACTION_NONE;
-+		return 0;
- 	case STM32_COUNT_ENCODER_MODE_3:
- 		/* counts up/down on both TI1FP1 and TI2FP2 edges */
- 		*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
--		break;
-+		return 0;
-+	default:
-+		return -EINVAL;
- 	}
--
--	return 0;
- }
- 
- static const struct counter_ops stm32_timer_cnt_ops = {
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |  17 ++
+ arch/arm/boot/dts/Makefile                    |   4 +
+ .../stm32mp157a-icore-stm32mp1-ctouch2.dts    |  47 +++++
+ .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   |  47 +++++
+ .../boot/dts/stm32mp157a-icore-stm32mp1.dtsi  | 195 ++++++++++++++++++
+ ...157a-microgea-stm32mp1-microdev2.0-of7.dts | 154 ++++++++++++++
+ ...32mp157a-microgea-stm32mp1-microdev2.0.dts |  55 +++++
+ .../dts/stm32mp157a-microgea-stm32mp1.dtsi    | 147 +++++++++++++
+ 8 files changed, 666 insertions(+)
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-icore-stm32mp1.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0.dts
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
+
 -- 
-2.30.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
