@@ -2,65 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91A46325DD9
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Feb 2021 08:03:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BA05325DDA
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Feb 2021 08:03:34 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B500C57B61;
-	Fri, 26 Feb 2021 07:03:30 +0000 (UTC)
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68761C57B61;
+	Fri, 26 Feb 2021 07:03:34 +0000 (UTC)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E448C57B62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B596C57B59
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Feb 2021 07:03:28 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id s23so5555091pji.1
+ Fri, 26 Feb 2021 07:03:33 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id i14so3830316pjz.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Feb 2021 23:03:28 -0800 (PST)
+ Thu, 25 Feb 2021 23:03:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amarulasolutions.com; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ydvIgxOmjmtqfE+xKiN5KcJPEjgA9fZIcPJEUX/WuAM=;
- b=B1UBaSFh2mk74rH1StciX/kRrgwOc+4VAV1DfySJFKUYhoImWg1F/x69MMylGtk5YY
- irFCXgVxF9p8AOhjKWu7vzjoXaYcFjeKszsO+9HyOE23kk/3zNC/0HuFAq7WIl8p3Sj2
- DiFhN3JUeD9rKVTzwk48bdl7jM2MbuKEwoFx8=
+ bh=6WNcoMTUVL/TQoEetougRy4ClMiduSo3uj9jsME+M3w=;
+ b=p0mtj1P1EFejlCrQoCdFRU1deZhOgK3WbhtkB055ej+7A69R6fWJUKeiYulaRBnrD2
+ IQ8DJ6bj+INlUjj/SchigUxG11fQ9wHl+RqW8A/6qUlIZs41qIwrChUhGg99FWMCNRx3
+ pEBM+RY3YaykzMmrH9kklIh63j58ykLaSId4Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ydvIgxOmjmtqfE+xKiN5KcJPEjgA9fZIcPJEUX/WuAM=;
- b=msvNv8E5nbN/NBP0OTaDzo6+vRlJFNkC1uIL+oJnGwMXs0BVhhOGNIJBmYWdv68ogj
- qMOjRGOmFC2XfrUhjUIshS4EhSbmw9prAfMczxaih4S1940UDznV8TdvD/whW95MdIdh
- wG1N0Wb9f2BqEkgGnvOC2Uk6XfT87ysbUNuBQ1Uclbr8p6k3GMeG0zj6ZsZf3WuCNoVE
- PfM5OCaAyOrKqEfaFVv1XyDNpMTL1igJ2xtu679ACQ+xxpJEqOSeowXaXDuf9ATgBeml
- 6Jbuxm4kIAaV9CEdjiwlF1un0lQQW1CWxL8xSuZnZ1XkFi7JZw7eGlVO5ZVp5/d5Ql4N
- ppdA==
-X-Gm-Message-State: AOAM5322lU/PZcLb6YI8+hCjCruCzz2ZdIh5USGZ+zfObxWcgwOheKwa
- v4NOJinA/8jzQVQwBet0hy39QQ==
-X-Google-Smtp-Source: ABdhPJw5sSWi/Lr2Jhk69jCnXKBWOfVI+hjw2QCEtcG8QS5n5oApjApq7NeRIFFCdvsWr6uJlONUog==
-X-Received: by 2002:a17:902:7006:b029:e3:dd4d:85ac with SMTP id
- y6-20020a1709027006b02900e3dd4d85acmr1755908plk.41.1614323007007; 
- Thu, 25 Feb 2021 23:03:27 -0800 (PST)
+ bh=6WNcoMTUVL/TQoEetougRy4ClMiduSo3uj9jsME+M3w=;
+ b=GrHVf8XTqyTvZDoO5QRX7reHPHw1ngaoWFWeDqZMYQBynAGm2LcW1SNzjGMf4jLWo+
+ 2g/q72jPqZ+dc2bQLqmk7BckaM9IeEWEANw2BYNTiq9CBAsO3IFipwnfnUGyVObyrbyb
+ AszCvrtOX8/+96/NUvT6EnYvPzj0n4UxvwlBEQXz3v20oHhWfnv2pdhIs2qqRkbc5UZF
+ cuCuSOR8x0RwsIZcx0UJjzoLGWV9nqKZFTv7nX1nueNeiFiqAyDr1geYLkreAn6femsq
+ U9UumfkAeYaCADSG+lFoTEY/2FMdXww+CHrCp6F2fEKLqNojRl04W8bqfFwJiHGAFZAO
+ GGRg==
+X-Gm-Message-State: AOAM5303hyHExUdXjUqpbDkLvYJK7CldqIYLKRdcQ2LDR0XLDqZYryTg
+ +Lo81WsVgA5c8j9TtovYV6cFLg==
+X-Google-Smtp-Source: ABdhPJwZN2h/0zXAuejlOgsfpF4c33i3nD75c5BT9LXteQeL3N2t+TE+ru9CFOP8YtLNqcOPmKuEoA==
+X-Received: by 2002:a17:902:b902:b029:e4:156d:68be with SMTP id
+ bf2-20020a170902b902b02900e4156d68bemr1758350plb.19.1614323011778; 
+ Thu, 25 Feb 2021 23:03:31 -0800 (PST)
 Received: from ub-XPS-13-9350.domain.name ([103.161.30.220])
- by smtp.gmail.com with ESMTPSA id f7sm7592156pjh.45.2021.02.25.23.03.23
+ by smtp.gmail.com with ESMTPSA id f7sm7592156pjh.45.2021.02.25.23.03.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Feb 2021 23:03:26 -0800 (PST)
+ Thu, 25 Feb 2021 23:03:31 -0800 (PST)
 From: Jagan Teki <jagan@amarulasolutions.com>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
  Rob Herring <robh+dt@kernel.org>
-Date: Fri, 26 Feb 2021 12:32:55 +0530
-Message-Id: <20210226070304.8028-2-jagan@amarulasolutions.com>
+Date: Fri, 26 Feb 2021 12:32:56 +0530
+Message-Id: <20210226070304.8028-3-jagan@amarulasolutions.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210226070304.8028-1-jagan@amarulasolutions.com>
 References: <20210226070304.8028-1-jagan@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 01/10] dt-bindings: arm: stm32: Add Engicam
-	MicroGEA STM32MP1 MicroDev 2.0
+Cc: devicetree@vger.kernel.org, Matteo Lisi <matteo.lisi@engicam.com>,
+ Francesco Utel <francesco.utel@engicam.com>, linux-kernel@vger.kernel.org,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Mirko Ardinghi <mirko.ardinghi@engicam.com>,
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 02/10] ARM: dts: stm32: Add Engicam
+	MicroGEA STM32MP1 SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,40 +82,182 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 MicroGEA STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
 
-MicroDev 2.0 is a general purpose miniature carrier board with CAN,
-LTE and LVDS panel interfaces.
+General features:
+- STM32MP157AAC
+- Up to 1GB DDR3L-800
+- 512MB Nand flash
+- I2S
 
-MicroGEA STM32MP1 needs to mount on top of this MicroDev 2.0 board
-for creating complete MicroGEA STM32MP1 MicroDev 2.0 Carrier board.
+MicroGEA STM32MP1 needs to mount on top of Engicam MicroDev carrier
+boards for creating complete platform solutions.
 
-Add bindings for it.
+Add support for it.
 
+Signed-off-by: Matteo Lisi <matteo.lisi@engicam.com>
+Signed-off-by: Francesco Utel <francesco.utel@engicam.com>
+Signed-off-by: Mirko Ardinghi <mirko.ardinghi@engicam.com>
 Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
 ---
 Changes for v2:
 - none
 
- Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../dts/stm32mp157a-microgea-stm32mp1.dtsi    | 147 ++++++++++++++++++
+ 1 file changed, 147 insertions(+)
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-index e7525a3395e5..56b7e0b800b3 100644
---- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -64,6 +64,13 @@ properties:
-           - const: st,stm32mp157c-ev1
-           - const: st,stm32mp157c-ed1
-           - const: st,stm32mp157
+diff --git a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
+new file mode 100644
+index 000000000000..97d569107bfe
+--- /dev/null
++++ b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
+@@ -0,0 +1,147 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
++ * Copyright (c) 2020 Engicam srl
++ * Copyright (c) 2020 Amarula Solutons(India)
++ */
 +
-+      - description: Engicam MicroGEA STM32MP1 SoM based Boards
-+        items:
-+          - const: engicam,microgea-stm32mp1-microdev2.0
-+          - const: engicam,microgea-stm32mp1
-+          - const: st,stm32mp157
++/ {
++	compatible = "engicam,microgea-stm32mp1", "st,stm32mp157";
 +
-       - description: Octavo OSD32MP15x System-in-Package based boards
-         items:
-           - enum:
++	memory@c0000000 {
++		reg = <0xc0000000 0x10000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		mcuram2: mcuram2@10000000 {
++			compatible = "shared-dma-pool";
++			reg = <0x10000000 0x40000>;
++			no-map;
++		};
++
++		vdev0vring0: vdev0vring0@10040000 {
++			compatible = "shared-dma-pool";
++			reg = <0x10040000 0x1000>;
++			no-map;
++		};
++
++		vdev0vring1: vdev0vring1@10041000 {
++			compatible = "shared-dma-pool";
++			reg = <0x10041000 0x1000>;
++			no-map;
++		};
++
++		vdev0buffer: vdev0buffer@10042000 {
++			compatible = "shared-dma-pool";
++			reg = <0x10042000 0x4000>;
++			no-map;
++		};
++
++		mcuram: mcuram@30000000 {
++			compatible = "shared-dma-pool";
++			reg = <0x30000000 0x40000>;
++			no-map;
++		};
++
++		retram: retram@38000000 {
++			compatible = "shared-dma-pool";
++			reg = <0x38000000 0x10000>;
++			no-map;
++		};
++	};
++
++	vin: regulator-vin {
++		compatible = "regulator-fixed";
++		regulator-name = "vin";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-always-on;
++	};
++
++	vddcore: regulator-vddcore {
++		compatible = "regulator-fixed";
++		regulator-name = "vddcore";
++		regulator-min-microvolt = <1200000>;
++		regulator-max-microvolt = <1200000>;
++		regulator-always-on;
++		vin-supply = <&vin>;
++	};
++
++	vdd: regulator-vdd {
++		compatible = "regulator-fixed";
++		regulator-name = "vdd";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
++		vin-supply = <&vin>;
++	};
++
++	vddq_ddr: regulator-vddq-ddr {
++		compatible = "regulator-fixed";
++		regulator-name = "vddq_ddr";
++		regulator-min-microvolt = <1350000>;
++		regulator-max-microvolt = <1350000>;
++		regulator-always-on;
++		vin-supply = <&vin>;
++	};
++};
++
++&dts {
++	status = "okay";
++};
++
++&fmc {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&fmc_pins_a>;
++	pinctrl-1 = <&fmc_sleep_pins_a>;
++	status = "okay";
++
++	nand-controller@4,0 {
++		status = "okay";
++
++		nand@0 {
++			reg = <0>;
++			nand-on-flash-bbt;
++			#address-cells = <1>;
++			#size-cells = <1>;
++		};
++	};
++};
++
++&ipcc {
++	status = "okay";
++};
++
++&iwdg2{
++	timeout-sec = <32>;
++	status = "okay";
++};
++
++&m4_rproc{
++	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
++			<&vdev0vring1>, <&vdev0buffer>;
++	mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
++	mbox-names = "vq0", "vq1", "shutdown";
++	interrupt-parent = <&exti>;
++	interrupts = <68 1>;
++	status = "okay";
++};
++
++&rng1 {
++	status = "okay";
++};
++
++&rtc{
++	status = "okay";
++};
++
++&vrefbuf {
++	regulator-min-microvolt = <2500000>;
++	regulator-max-microvolt = <2500000>;
++	vdda-supply = <&vdd>;
++	status = "okay";
++};
 -- 
 2.25.1
 
