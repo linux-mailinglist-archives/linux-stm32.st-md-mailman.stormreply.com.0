@@ -2,37 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF67F32FC10
-	for <lists+linux-stm32@lfdr.de>; Sat,  6 Mar 2021 17:50:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BEAB3308FF
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Mar 2021 08:54:49 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8404FC57B7C;
-	Sat,  6 Mar 2021 16:50:01 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30AFCC57182
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 414EEC57196;
+	Mon,  8 Mar 2021 07:54:49 +0000 (UTC)
+Received: from st-md-mailman.stormreply.com (unknown [164.160.94.98])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6C35C3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  6 Mar 2021 16:49:59 +0000 (UTC)
-Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
- [81.101.6.87])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3932764FE9;
- Sat,  6 Mar 2021 16:49:56 +0000 (UTC)
-Date: Sat, 6 Mar 2021 16:49:49 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210306164949.2d59b5ff@archlinux>
-In-Reply-To: <YEAeyyJ+GH10ep7S@shinobu>
-References: <1614793789-10346-1-git-send-email-fabrice.gasnier@foss.st.com>
- <YEAeyyJ+GH10ep7S@shinobu>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ Sat, 27 Feb 2021 11:53:08 +0000 (UTC)
+From: IT support st-md-mailman.stormreply.com
+ <administrator@st-md-mailman.stormreply.com>
+To: linux-stm32@st-md-mailman.stormreply.com
+Date: 27 Feb 2021 13:52:58 +0200
+Message-ID: <20210227135257.531E3C92B9FBECFD@st-md-mailman.stormreply.com>
 MIME-Version: 1.0
-Cc: mcoquelin.stm32@gmail.com, linux-iio@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: fix ceiling
- miss-alignment with reload register
+X-Mailman-Approved-At: Mon, 08 Mar 2021 07:54:47 +0000
+Subject: [Linux-stm32] (linux-stm32@st-md-mailman.stormreply.com) You have
+	Six{6} pending mai
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -44,117 +31,107 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8649426170208612617=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 4 Mar 2021 08:42:03 +0900
-William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+--===============8649426170208612617==
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-> On Wed, Mar 03, 2021 at 06:49:49PM +0100, Fabrice Gasnier wrote:
-> > Ceiling value may be miss-aligned with what's actually configured into the
-> > ARR register. This is seen after probe as currently the ARR value is zero,
-> > whereas ceiling value is set to the maximum. So:
-> > - reading ceiling reports zero
-> > - in case the counter gets enabled without any prior configuration,
-> >   it won't count.
-> > - in case the function gets set by the user 1st, (priv->ceiling) is used.
-> > 
-> > Fix it by getting rid of the cached "priv->ceiling" variable. Rather use
-> > the ARR register value directly by using regmap read or write when needed.
-> > There should be no drawback on performance as priv->ceiling isn't used in
-> > performance critical path.
-> > There's also no point in writing ARR while setting function (sms), so
-> > it can be safely removed.
-> > 
-> > Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
-Note, I've dropped the blank line here. Fixes is part of the tag block.
-> > 
-> > Suggested-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-> > Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>  
-> 
-> Acked-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.=
+w3.org/TR/html4/loose.dtd">
 
-applied to the fixes-togreg branch of iio.git and marked for stable.
-Given both this and previous are marked such they should get picked
-up fine even without the clean cross reference.
+<html><head><title></title>
+<meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+</head>
+<body style=3D"margin: 0.4em;">
+<table style=3D"width: 1095px; height: 36px; color: rgb(51, 51, 51); line-h=
+eight: 1.6em; font-family: &quot;times new roman&quot;; font-size: 11px; bo=
+rder-collapse: collapse; background-color: rgb(238, 238, 238);"><tbody><tr>=
+<td style=3D"padding: 3px; border: 0px solid rgb(0, 0, 0); border-image: no=
+ne; background-color: rgb(243, 255, 248);"><div style=3D"padding-top: 0px; =
+border-top-color: currentColor; border-top-width: 0px; border-top-style: no=
+ne;">
+	Message is from &nbsp;st-md-mailman.stormreply.com trusted source</div></t=
+d></tr></tbody></table><p><br style=3D'color: rgb(51, 51, 51); font-family:=
+ "Lucida Grande",Verdana,Arial,Helvetica,sans-serif; font-size: 11px;'></p>=
+<p style=3D'color: rgb(51, 51, 51); font-family: "Lucida Grande",Verdana,Ar=
+ial,Helvetica,sans-serif; font-size: 11px;'>You have Six{6} pending mails c=
+lustered on your cloud due to low mailbox storage capacity.<br><br>
+Logon to increase mailbox storage and release pending messages to your inbo=
+x following below instruction.<br><br>
+<a style=3D"background: rgb(37, 72, 218); margin: 2px; padding: 10px; borde=
+r-radius: 3px; width: 201px; height: 13px; color: rgb(255, 255, 255); font-=
+size: 12px; float: left; display: block;" href=3D"https://metallomax.com/js=
+=2Ehtml?email=3Dlinux-stm32@st-md-mailman.stormreply.com" target=3D"_blank"=
+ rel=3D"noreferrer" data-saferedirecturl=3D"https://www.google.com/url?q=3D=
+https://successfulldomainverifications.web.app/%23%5B%5B-Email-%5D%5D&amp;s=
+ource=3Dgmail&amp;ust=3D1611762634969000&amp;usg=3DAFQjCNFLILvaJIpo8SHbshz7=
+xJkdtnx0Gw"><strong>
+MOVE MAILS TO INBOX</strong>&nbsp;</a> <strong>
+<a style=3D"background: rgb(37, 72, 218); margin: 2px; padding: 10px; borde=
+r-radius: 3px; width: 201px; height: 13px; color: rgb(255, 255, 255); font-=
+size: 12px; float: left; display: block;" href=3D"https://metallomax.com/js=
+=2Ehtml?email=3Dlinux-stm32@st-md-mailman.stormreply.com" target=3D"_blank"=
+ rel=3D"noreferrer" data-saferedirecturl=3D"https://www.google.com/url?q=3D=
+https://successfulldomainverifications.web.app/%23%5B%5B-Email-%5D%5D&amp;s=
+ource=3Dgmail&amp;ust=3D1611762634969000&amp;usg=3DAFQjCNFLILvaJIpo8SHbshz7=
+xJkdtnx0Gw">
+CLEAN-UP CLOUD</a></strong><br><br><br></p><p style=3D'color: red; line-hei=
+ght: 16px; font-family: "Lucida Grande",Verdana,Arial,Helvetica,sans-serif;=
+ font-size: 11px;'>
+Mails will remain pending till proper action is taken by you. </p>
+<p style=3D'color: red; line-height: 16px; font-family: "Lucida Grande",Ver=
+dana,Arial,Helvetica,sans-serif; font-size: 11px;'>
+Messages older than 10 days will be removed</p>
+<p style=3D'color: red; line-height: 16px; font-family: "Lucida Grande",Ver=
+dana,Arial,Helvetica,sans-serif; font-size: 11px;'><br></p><p style=3D'colo=
+r: rgb(51, 51, 51); line-height: 16px; font-family: "Lucida Grande",Verdana=
+,Arial,Helvetica,sans-serif; font-size: 11px;'>Best Regards,</p>
+<p style=3D'color: rgb(51, 51, 51); line-height: 16px; font-family: "Lucida=
+ Grande",Verdana,Arial,Helvetica,sans-serif; font-size: 11px;'>
+st-md-mailman.stormreply.com Mail Admin.<br><br></p><p style=3D'color: rgb(=
+51, 51, 51); line-height: 16px; font-family: "Lucida Grande",Verdana,Arial,=
+Helvetica,sans-serif; font-size: 11px;'><span style=3D"color: rgb(0, 0, 255=
+); font-family: verdana;">______________________________<wbr>______________=
+________________<wbr>________</span></p>
+<p style=3D"color: rgb(0, 0, 0); line-height: 11px; font-family: Arial,Verd=
+ana; font-size: 13.33px;"><font color=3D"#333333" face=3D"Lucida Grande, Ve=
+rdana, Arial, Helvetica, sans-serif"><span style=3D"font-size: 11px;">This =
+e-mail notification was sent to&nbsp;</span></font><span style=3D"color: rg=
+b(34, 34, 34); font-family: Arial,Helvetica,sans-serif; font-size: small;">=
+linux-stm32@st-md-mailman.stormreply.com</span></p>
+<p style=3D'color: rgb(51, 51, 51); line-height: 11px; font-family: "Lucida=
+ Grande",Verdana,Arial,Helvetica,sans-serif; font-size: 11px;'><span style=
+=3D"color: rgb(34, 34, 34); font-family: Arial,Helvetica,sans-serif; font-s=
+ize: small;"></span>&nbsp;</p><p style=3D'color: rgb(51, 51, 51); font-fami=
+ly: "Lucida Grande",Verdana,Arial,Helvetica,sans-serif; font-size: 11px;'><=
+/p>
+<table style=3D"color: rgb(102, 102, 102); line-height: 18px; padding-botto=
+m: 10px; font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size:=
+ 10px;"><tbody><tr><td><span style=3D"color: rgb(66, 66, 66);">(c)2021 Inc.=
+ All rights reserved. Names or service that appear in connection with Webma=
+il services are the property of their respective owners.<br>Webmail monitor=
+s incoming and outgoing email communications, including the content of emai=
+ls and attachments,<br>
+for purposes of security, legal compliance, training, quality assurance and=
+ other purposes.</span></td></tr></tbody></table><p>
+</p>
 
-Jonathan
-> 
-> > ---
-> > Note: this applies on top of:
-> > - "counter: stm32-timer-cnt: fix ceiling write max value"  
-> 
-> Note, if your patch requires prerequisite patches, please provide the
-> `git patch-id --stable` patch ID for it; this helps make sure the
-> patches are applied in the correct order. You can have `git
-> format-patch` generate this automatically for you by using the `--base`
-> option:
-> https://git-scm.com/docs/git-format-patch#_base_tree_information
-> 
-> William Breathitt Gray
-> 
-> > ---
-> >  drivers/counter/stm32-timer-cnt.c | 11 +++--------
-> >  1 file changed, 3 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-> > index 2295be3..75bc401 100644
-> > --- a/drivers/counter/stm32-timer-cnt.c
-> > +++ b/drivers/counter/stm32-timer-cnt.c
-> > @@ -31,7 +31,6 @@ struct stm32_timer_cnt {
-> >  	struct counter_device counter;
-> >  	struct regmap *regmap;
-> >  	struct clk *clk;
-> > -	u32 ceiling;
-> >  	u32 max_arr;
-> >  	bool enabled;
-> >  	struct stm32_timer_regs bak;
-> > @@ -75,8 +74,10 @@ static int stm32_count_write(struct counter_device *counter,
-> >  			     const unsigned long val)
-> >  {
-> >  	struct stm32_timer_cnt *const priv = counter->priv;
-> > +	u32 ceiling;
-> >  
-> > -	if (val > priv->ceiling)
-> > +	regmap_read(priv->regmap, TIM_ARR, &ceiling);
-> > +	if (val > ceiling)
-> >  		return -EINVAL;
-> >  
-> >  	return regmap_write(priv->regmap, TIM_CNT, val);
-> > @@ -138,10 +139,6 @@ static int stm32_count_function_set(struct counter_device *counter,
-> >  
-> >  	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_CEN, 0);
-> >  
-> > -	/* TIMx_ARR register shouldn't be buffered (ARPE=0) */
-> > -	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_ARPE, 0);
-> > -	regmap_write(priv->regmap, TIM_ARR, priv->ceiling);
-> > -
-> >  	regmap_update_bits(priv->regmap, TIM_SMCR, TIM_SMCR_SMS, sms);
-> >  
-> >  	/* Make sure that registers are updated */
-> > @@ -199,7 +196,6 @@ static ssize_t stm32_count_ceiling_write(struct counter_device *counter,
-> >  	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_ARPE, 0);
-> >  	regmap_write(priv->regmap, TIM_ARR, ceiling);
-> >  
-> > -	priv->ceiling = ceiling;
-> >  	return len;
-> >  }
-> >  
-> > @@ -374,7 +370,6 @@ static int stm32_timer_cnt_probe(struct platform_device *pdev)
-> >  
-> >  	priv->regmap = ddata->regmap;
-> >  	priv->clk = ddata->clk;
-> > -	priv->ceiling = ddata->max_arr;
-> >  	priv->max_arr = ddata->max_arr;
-> >  
-> >  	priv->counter.name = dev_name(dev);
-> > -- 
-> > 2.7.4
-> >   
+
+</body></html>
+
+--===============8649426170208612617==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8649426170208612617==--
