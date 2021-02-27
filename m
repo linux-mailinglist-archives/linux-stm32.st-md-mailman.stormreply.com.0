@@ -2,65 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D4C5326587
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Feb 2021 17:27:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35C83326AAA
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Feb 2021 01:14:41 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 313E2C57B59;
-	Fri, 26 Feb 2021 16:27:20 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7B31C57B59;
+	Sat, 27 Feb 2021 00:14:40 +0000 (UTC)
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6A19C36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DE60C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Feb 2021 16:27:18 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id l12so11702716edt.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Feb 2021 08:27:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6BKeyIcRjzR84A9x0lbwBUm0rSexnKSuimviQvcPYuc=;
- b=ZNm9FG8njbw0YZco/bpGOrjR44E9M4EuVHzJWtnNljcMn+/7OAywDvaSfqRF+bFY8V
- u4RHzYU2KDaWUvFw5zG5IwplF0PP8NYmvTNt0YtH/JR1OSf7/jkdBN69W2gVcV9azTi9
- H1mOZu4ojoYmbnwXuBl9fLil8YuZXP+ALRuUU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6BKeyIcRjzR84A9x0lbwBUm0rSexnKSuimviQvcPYuc=;
- b=KXn3dUN8+976JX7jIiNGWdtB5+lSyrW3L347l8ivY2AkO54WLZHe/Us8++wtp45ECC
- doGT9ciLQmq8FM+Rca3TdeT7nnQgqUK4hWdwARHeisEaP8YmT+QVI89d6XUoR30ahSGD
- Wu9t74mHeWY3tWrkvCjFjlXubuxr+5kzC7fAFoCCXQIYJhG5V43LfXl48q42UTYGfUZw
- Gq/zwW4gSA1575XGc6C/mptK4ohZkWHRboMow2V8rsb1BZ+UQTw0qeiIM88/F38CPhnP
- nAKz3CMPFaMYykIq1Y6ue+Y4LZO3FrG+0V8AHCZmUisuLHlXUVEGIikqKMLQU2qj2xjD
- sC4Q==
-X-Gm-Message-State: AOAM5310elkJpThvl5Mu2DvyHpHd9/TpMOYexqjW9+XWleFNP6GYWbfn
- CNXU1xFfi/ig9+tWzwjft604rLNA/qkSmdWvDoAiiA==
-X-Google-Smtp-Source: ABdhPJwGCKt7zsL/y6NObCIYi35f4/YHkGRmg7kLDOYW+erS32FwkDnZ/eKzy1gDTP1pjLSdLD6kXvv5BmZCemgFzak=
-X-Received: by 2002:a50:d307:: with SMTP id g7mr4302596edh.204.1614356838561; 
- Fri, 26 Feb 2021 08:27:18 -0800 (PST)
+ Sat, 27 Feb 2021 00:14:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=s16MGPq7cmMC6iNOsv2GUH6wTNHOr8Jp0D2VwkY95zg=; b=WdqLnQAWYjusoziOcrrjFj5HhY
+ 0rcJETlMmTmJvyP9fOd9mmWivdwn6cj4K7n21WeuP2UAmM4/S3kbjJX7y8PrCcaX2OYkI83bhQcBv
+ dxdu44MxZvXI7GtgInJpnBX0pkWpcKq220NjdJzRwLCN0mGHmagQr4rEq4DJdJg/IsfffblTgxBZN
+ a6jCAnkL7blx66u1Vg0xESqYw/iXJyi9BgzvOGCn1UmBdOoQfWfNfnNSGB72jUz9TbxnQbtGmeprP
+ jV/tdANz/7VPPgO0iuf9sD/Q8zkO6Cr/TAybOHKkf33vc6Yod1BryFqhML3+qwZYanIPZWLYwHKyF
+ j11p8JGQ==;
+Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
+ ([108.198.5.147]:52154 helo=[192.168.0.134])
+ by vern.gendns.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <david@lechnology.com>)
+ id 1lFnFg-0001uQ-IX; Fri, 26 Feb 2021 19:14:32 -0500
+To: William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>
+References: <cover.1613131238.git.vilhelm.gray@gmail.com>
+ <013b2b8682ddc3c85038083e6d5567696b6254b3.1613131238.git.vilhelm.gray@gmail.com>
+ <20210214181146.66d43da7@archlinux> <YC5CMLuKnXbkZond@shinobu>
+ <20210221155140.3e1ef13c@archlinux> <YDg65OmLa05g53qc@shinobu>
+From: David Lechner <david@lechnology.com>
+Message-ID: <37ea96a2-d4a1-7d4c-a68a-8dc82896e86c@lechnology.com>
+Date: Fri, 26 Feb 2021 18:14:12 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-References: <20210226070304.8028-1-jagan@amarulasolutions.com>
- <20210226070304.8028-3-jagan@amarulasolutions.com>
- <611bce6f-7adb-f0b5-0c9b-d5d7bb8b90fb@foss.st.com>
-In-Reply-To: <611bce6f-7adb-f0b5-0c9b-d5d7bb8b90fb@foss.st.com>
-From: Jagan Teki <jagan@amarulasolutions.com>
-Date: Fri, 26 Feb 2021 21:57:07 +0530
-Message-ID: <CAMty3ZAKZ=ODtNMBu-XoFCmNRR8XCA42wTD1H8f_6wC+sn+wPg@mail.gmail.com>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Cc: devicetree <devicetree@vger.kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Francesco Utel <francesco.utel@engicam.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mirko Ardinghi <mirko.ardinghi@engicam.com>,
- linux-amarula <linux-amarula@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Matteo Lisi <matteo.lisi@engicam.com>
-Subject: Re: [Linux-stm32] [PATCH v2 02/10] ARM: dts: stm32: Add Engicam
-	MicroGEA STM32MP1 SoM
+In-Reply-To: <YDg65OmLa05g53qc@shinobu>
+Content-Language: en-US
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
+ o.rempel@pengutronix.de, kernel@pengutronix.de, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v8 20/22] counter: Implement
+ events_queue_size sysfs attribute
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,85 +76,111 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alexandre,
+On 2/25/21 6:03 PM, William Breathitt Gray wrote:
+> On Sun, Feb 21, 2021 at 03:51:40PM +0000, Jonathan Cameron wrote:
+>> On Thu, 18 Feb 2021 19:32:16 +0900
+>> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+>>
+>>> On Sun, Feb 14, 2021 at 06:11:46PM +0000, Jonathan Cameron wrote:
+>>>> On Fri, 12 Feb 2021 21:13:44 +0900
+>>>> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+>>>>    
+>>>>> The events_queue_size sysfs attribute provides a way for users to
+>>>>> dynamically configure the Counter events queue size for the Counter
+>>>>> character device interface. The size is in number of struct
+>>>>> counter_event data structures. The number of elements will be rounded-up
+>>>>> to a power of 2 due to a requirement of the kfifo_alloc function called
+>>>>> during reallocation of the queue.
+>>>>>
+>>>>> Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+>>>>> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+>>>>> ---
+>>>>>   Documentation/ABI/testing/sysfs-bus-counter |  8 +++++++
+>>>>>   drivers/counter/counter-chrdev.c            | 23 +++++++++++++++++++
+>>>>>   drivers/counter/counter-chrdev.h            |  2 ++
+>>>>>   drivers/counter/counter-sysfs.c             | 25 +++++++++++++++++++++
+>>>>>   4 files changed, 58 insertions(+)
+>>>>>
+>>>>> diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Documentation/ABI/testing/sysfs-bus-counter
+>>>>> index 847e96f19d19..f6cb2a8b08a7 100644
+>>>>> --- a/Documentation/ABI/testing/sysfs-bus-counter
+>>>>> +++ b/Documentation/ABI/testing/sysfs-bus-counter
+>>>>> @@ -212,6 +212,14 @@ Description:
+>>>>>   		both edges:
+>>>>>   			Any state transition.
+>>>>>   
+>>>>> +What:		/sys/bus/counter/devices/counterX/events_queue_size
+>>>>> +KernelVersion:	5.13
+>>>>> +Contact:	linux-iio@vger.kernel.org
+>>>>> +Description:
+>>>>> +		Size of the Counter events queue in number of struct
+>>>>> +		counter_event data structures. The number of elements will be
+>>>>> +		rounded-up to a power of 2.
+>>>>> +
+>>>>>   What:		/sys/bus/counter/devices/counterX/name
+>>>>>   KernelVersion:	5.2
+>>>>>   Contact:	linux-iio@vger.kernel.org
+>>>>> diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter/counter-chrdev.c
+>>>>> index 16f02df7f73d..53eea894e13f 100644
+>>>>> --- a/drivers/counter/counter-chrdev.c
+>>>>> +++ b/drivers/counter/counter-chrdev.c
+>>>>> @@ -375,6 +375,29 @@ void counter_chrdev_remove(struct counter_device *const counter)
+>>>>>   	cdev_del(&counter->chrdev);
+>>>>>   }
+>>>>>   
+>>>>> +int counter_chrdev_realloc_queue(struct counter_device *const counter,
+>>>>> +				 size_t queue_size)
+>>>>> +{
+>>>>> +	int err;
+>>>>> +	DECLARE_KFIFO_PTR(events, struct counter_event);
+>>>>> +	unsigned long flags;
+>>>>> +
+>>>>> +	/* Allocate new events queue */
+>>>>> +	err = kfifo_alloc(&events, queue_size, GFP_ATOMIC);
+>>>>
+>>>> Is there any potential for losing events?
+>>>
+>>> We take the events_list_lock down below so we're safe against missing an
+>>> event, but past events currently unread in the queue will be lost.
+>>>
+>>> Shortening the size of the queue is inherently a destructive process if
+>>> we have more events in the current queue than can fit in the new queue.
+>>> Because we a liable to lose some events in such a case, I think it's
+>>> best to keep the behavior of this reallocation consistent and have it
+>>> provide a fresh empty queue every time, as opposed to sometimes dropping
+>>> events and sometimes not.
+>>>
+>>> I also suspect an actual user would be setting the size of their queue
+>>> to the required amount before they begin watching events, rather than
+>>> adjusting it sporadically during a live operation.
+>>>
+>>
+>> Absolutely agree.   As such I wonder if you are better off enforcing this
+>> behaviour?  If the cdev is open for reading, don't allow the fifo to be
+>> resized.
+>>
+>> Jonathan
+> 
+> I can't really think of a good reason not to, so let's enforce it: if
+> the cdev is open, then we'll return an EINVAL if the user attempts to
+> resize the queue.
+> 
+> What is a good way to check for this condition? Should I just call
+> kref_read() and see if it's greater than 1? For example, in
+> counter_chrdev_realloc_queue():
+> 
+> 	if (kref_read(&counter->dev.kobj.kref) > 1)
+> 		return -EINVAL;
+> 
+> William Breathitt Gray
+> 
 
-On Fri, Feb 26, 2021 at 9:42 PM Alexandre TORGUE
-<alexandre.torgue@foss.st.com> wrote:
->
-> Hi Jagan
->
-> On 2/26/21 8:02 AM, Jagan Teki wrote:
-> > MicroGEA STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
-> >
-> > General features:
-> > - STM32MP157AAC
-> > - Up to 1GB DDR3L-800
-> > - 512MB Nand flash
-> > - I2S
-> >
-> > MicroGEA STM32MP1 needs to mount on top of Engicam MicroDev carrier
-> > boards for creating complete platform solutions.
-> >
-> > Add support for it.
-> >
-> > Signed-off-by: Matteo Lisi <matteo.lisi@engicam.com>
-> > Signed-off-by: Francesco Utel <francesco.utel@engicam.com>
-> > Signed-off-by: Mirko Ardinghi <mirko.ardinghi@engicam.com>
-> > Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
->
-> Minor question: if the stm32mp157 is soldered on Microdev boards why do
-> you mention it in this commit message ?
-
-It was there in the commit message:
-
-> > General features:
-> > - STM32MP157AAC
-> > - Up to 1GB DDR3L-800
-> > - 512MB Nand flash
-> > - I2S
-
->
-> + a minor comment bellow.
->
-> thanks
-> Alex
->
-> > ---
-> > Changes for v2:
-> > - none
-> >
-> >   .../dts/stm32mp157a-microgea-stm32mp1.dtsi    | 147 ++++++++++++++++++
-> >   1 file changed, 147 insertions(+)
-> >   create mode 100644 arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
-> >
-> > diff --git a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
-> > new file mode 100644
-> > index 000000000000..97d569107bfe
-> > --- /dev/null
-> > +++ b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
-> > @@ -0,0 +1,147 @@
-> > +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> > +/*
-> > + * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
-> > + * Copyright (c) 2020 Engicam srl
-> > + * Copyright (c) 2020 Amarula Solutons(India)
-> > + */
-> > +
-> > +/ {
-> > +     compatible = "engicam,microgea-stm32mp1", "st,stm32mp157";
-> > +
-> > +     memory@c0000000 {
->
-> you could add           device_type = "memory";
-
-Okay.
-
-Jagan.
+Wouldn't EBUSY make more sense?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
