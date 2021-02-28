@@ -2,39 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33DDC326DBC
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Feb 2021 17:11:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ADAA327017
+	for <lists+linux-stm32@lfdr.de>; Sun, 28 Feb 2021 03:46:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2624C57B59;
-	Sat, 27 Feb 2021 16:11:26 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D257CC57B59;
+	Sun, 28 Feb 2021 02:46:57 +0000 (UTC)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7B14C3087A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08F47C3087A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Feb 2021 16:11:24 +0000 (UTC)
-Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
- [81.101.6.87])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AE30A64E4D;
- Sat, 27 Feb 2021 16:11:21 +0000 (UTC)
-Date: Sat, 27 Feb 2021 16:11:15 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <20210227161115.28fdda76@archlinux>
-In-Reply-To: <d6ae294d-5d49-bb3f-6456-a485a247323c@foss.st.com>
-References: <20210226012931.161429-1-vilhelm.gray@gmail.com>
- <d6ae294d-5d49-bb3f-6456-a485a247323c@foss.st.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ Sun, 28 Feb 2021 02:46:55 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id k1so2816477vkb.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 27 Feb 2021 18:46:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=31l/lnqbUifU6Dg4hvfS5WIgYBTmn85Mx5y8Nkr10UM=;
+ b=f5v1uk3hj7oZW8O45g+xIRysJgAMj0gl2X4RgUy8FektFeAk1hKTFBTHrG3VssSyAd
+ bbjNRdQ636Ur0mRBcNvbck2R4jHqpYNRME0R8OM5ctV9G1Z0nPk6b4uBPVOjxyWzmATn
+ 6bOcBWJ9uc0Q2mMbiV51hXtIOOuwZ9Nv/FUuT7FBIb14B4JCWEqbMxv3G/pboSJEKblz
+ FBQZhhfAjalp9UP7p56/ekb/avq392t/rwHhGK4A6fjtDqSgcv2IgUSF0Ke7chY1IZR9
+ 6bsXzusTX34n6Y7nc5VBJdxOa5HO4LWDuzJgvEvMIqbNEuOQUpdE90dxEMaflnWSt44W
+ 8nag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=31l/lnqbUifU6Dg4hvfS5WIgYBTmn85Mx5y8Nkr10UM=;
+ b=WYfCXlo+biIWYRQ4beA6TIp8Ig6caZfMGZ9o5ou76xoGgQ1dJ942qLVnznPEBTM/+a
+ SiXR3BQ3/vY1gam+lRxSEobY+4jdSXOWAcX9Dj1ZQG2PPyoaR4lLyU73nIyekPnk5JvT
+ pUpyWJ8KcL1+f8+XTZKpRHUSPNlxkhDyx8PFoe3fXfVWDzN8Fh6CTdmvBVNI5SEk0abj
+ 5PJapy/P+c6pFWjWooCVeOoaCrJJ1oMVop0DLCHcwsvCtuwVEwA8h2yh//oUjBU0vrPm
+ PbYug1eZ52s5m66x2SKneYDdqXTSiAApxUKhkgIZeV2TiYn6SFms/Qfzjs27GgedaUQV
+ qfSw==
+X-Gm-Message-State: AOAM531XXohgWYDmsGOKOtPAoAwCvtF7MaaNs9THKCaCW1UlO/0kC/gW
+ QXilYiaQacX+wSHaGAptuuE=
+X-Google-Smtp-Source: ABdhPJzTplQlXWLb9EDdWScETcVIfG6slwgp9MPTrNb7ePipfKjNKIPBG/ON7KHVKxBRznPLbFalMw==
+X-Received: by 2002:a05:6122:1058:: with SMTP id
+ z24mr5372446vkn.5.1614480414838; 
+ Sat, 27 Feb 2021 18:46:54 -0800 (PST)
+Received: from shinobu ([193.27.12.132])
+ by smtp.gmail.com with ESMTPSA id x206sm291346vsx.5.2021.02.27.18.46.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 27 Feb 2021 18:46:53 -0800 (PST)
+Date: Sun, 28 Feb 2021 11:46:46 +0900
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <YDsEFgXvSAzBGoAw@shinobu>
+References: <cover.1613131238.git.vilhelm.gray@gmail.com>
+ <013b2b8682ddc3c85038083e6d5567696b6254b3.1613131238.git.vilhelm.gray@gmail.com>
+ <20210214181146.66d43da7@archlinux> <YC5CMLuKnXbkZond@shinobu>
+ <20210221155140.3e1ef13c@archlinux> <YDg65OmLa05g53qc@shinobu>
+ <20210227151847.074864df@archlinux>
 MIME-Version: 1.0
-Cc: alexandre.torgue@st.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, William Breathitt Gray <vilhelm.gray@gmail.com>,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com,
+In-Reply-To: <20210227151847.074864df@archlinux>
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- benjamin.gaignard@st.com
-Subject: Re: [Linux-stm32] [PATCH v2] counter: stm32-timer-cnt: Report count
- function when SLAVE_MODE_DISABLED
+ alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v8 20/22] counter: Implement
+ events_queue_size sysfs attribute
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,159 +79,189 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2313160250330946663=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 26 Feb 2021 16:24:32 +0100
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-> On 2/26/21 2:29 AM, William Breathitt Gray wrote:
-> > When in SLAVE_MODE_DISABLED mode, the count still increases if the
-> > counter is enabled because an internal clock is used. This patch fixes
-> > the stm32_count_function_get() and stm32_count_function_set() functions
-> > to properly handle this behavior.
-> > 
-> > Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
-> > Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
-> > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> > Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-> > ---
-> > Changes in v2:
-> >  - Support an explicit 0 case for function_get()/function_set()
-> > 
-> >  drivers/counter/stm32-timer-cnt.c | 39 ++++++++++++++++++++-----------
-> >  1 file changed, 25 insertions(+), 14 deletions(-)  
-> 
-> Hi William,
-> 
-> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Applied to the fixes-togreg branch of iio.git
+--===============2313160250330946663==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6d8kyOSDhuZ1wuv9"
+Content-Disposition: inline
 
-Thanks,
 
-Jonathan
+--6d8kyOSDhuZ1wuv9
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> Many thanks for this fix.
-> Best Regards,
-> Fabrice
-> 
-> 
-> > 
-> > diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-> > index ef2a974a2f10..cd50dc12bd02 100644
-> > --- a/drivers/counter/stm32-timer-cnt.c
-> > +++ b/drivers/counter/stm32-timer-cnt.c
-> > @@ -44,13 +44,14 @@ struct stm32_timer_cnt {
-> >   * @STM32_COUNT_ENCODER_MODE_3: counts on both TI1FP1 and TI2FP2 edges
-> >   */
-> >  enum stm32_count_function {
-> > -	STM32_COUNT_SLAVE_MODE_DISABLED = -1,
-> > +	STM32_COUNT_SLAVE_MODE_DISABLED,
-> >  	STM32_COUNT_ENCODER_MODE_1,
-> >  	STM32_COUNT_ENCODER_MODE_2,
-> >  	STM32_COUNT_ENCODER_MODE_3,
-> >  };
-> >  
-> >  static enum counter_count_function stm32_count_functions[] = {
-> > +	[STM32_COUNT_SLAVE_MODE_DISABLED] = COUNTER_COUNT_FUNCTION_INCREASE,
-> >  	[STM32_COUNT_ENCODER_MODE_1] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A,
-> >  	[STM32_COUNT_ENCODER_MODE_2] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_B,
-> >  	[STM32_COUNT_ENCODER_MODE_3] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
-> > @@ -90,6 +91,9 @@ static int stm32_count_function_get(struct counter_device *counter,
-> >  	regmap_read(priv->regmap, TIM_SMCR, &smcr);
-> >  
-> >  	switch (smcr & TIM_SMCR_SMS) {
-> > +	case 0:
-> > +		*function = STM32_COUNT_SLAVE_MODE_DISABLED;
-> > +		return 0;
-> >  	case 1:
-> >  		*function = STM32_COUNT_ENCODER_MODE_1;
-> >  		return 0;
-> > @@ -99,9 +103,9 @@ static int stm32_count_function_get(struct counter_device *counter,
-> >  	case 3:
-> >  		*function = STM32_COUNT_ENCODER_MODE_3;
-> >  		return 0;
-> > +	default:
-> > +		return -EINVAL;
-> >  	}
-> > -
-> > -	return -EINVAL;
-> >  }
-> >  
-> >  static int stm32_count_function_set(struct counter_device *counter,
-> > @@ -112,6 +116,9 @@ static int stm32_count_function_set(struct counter_device *counter,
-> >  	u32 cr1, sms;
-> >  
-> >  	switch (function) {
-> > +	case STM32_COUNT_SLAVE_MODE_DISABLED:
-> > +		sms = 0;
-> > +		break;
-> >  	case STM32_COUNT_ENCODER_MODE_1:
-> >  		sms = 1;
-> >  		break;
-> > @@ -122,8 +129,7 @@ static int stm32_count_function_set(struct counter_device *counter,
-> >  		sms = 3;
-> >  		break;
-> >  	default:
-> > -		sms = 0;
-> > -		break;
-> > +		return -EINVAL;
-> >  	}
-> >  
-> >  	/* Store enable status */
-> > @@ -274,31 +280,36 @@ static int stm32_action_get(struct counter_device *counter,
-> >  	size_t function;
-> >  	int err;
-> >  
-> > -	/* Default action mode (e.g. STM32_COUNT_SLAVE_MODE_DISABLED) */
-> > -	*action = STM32_SYNAPSE_ACTION_NONE;
-> > -
-> >  	err = stm32_count_function_get(counter, count, &function);
-> >  	if (err)
-> > -		return 0;
-> > +		return err;
-> >  
-> >  	switch (function) {
-> > +	case STM32_COUNT_SLAVE_MODE_DISABLED:
-> > +		/* counts on internal clock when CEN=1 */
-> > +		*action = STM32_SYNAPSE_ACTION_NONE;
-> > +		return 0;
-> >  	case STM32_COUNT_ENCODER_MODE_1:
-> >  		/* counts up/down on TI1FP1 edge depending on TI2FP2 level */
-> >  		if (synapse->signal->id == count->synapses[0].signal->id)
-> >  			*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
-> > -		break;
-> > +		else
-> > +			*action = STM32_SYNAPSE_ACTION_NONE;
-> > +		return 0;
-> >  	case STM32_COUNT_ENCODER_MODE_2:
-> >  		/* counts up/down on TI2FP2 edge depending on TI1FP1 level */
-> >  		if (synapse->signal->id == count->synapses[1].signal->id)
-> >  			*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
-> > -		break;
-> > +		else
-> > +			*action = STM32_SYNAPSE_ACTION_NONE;
-> > +		return 0;
-> >  	case STM32_COUNT_ENCODER_MODE_3:
-> >  		/* counts up/down on both TI1FP1 and TI2FP2 edges */
-> >  		*action = STM32_SYNAPSE_ACTION_BOTH_EDGES;
-> > -		break;
-> > +		return 0;
-> > +	default:
-> > +		return -EINVAL;
-> >  	}
-> > -
-> > -	return 0;
-> >  }
-> >  
-> >  static const struct counter_ops stm32_timer_cnt_ops = {
-> >   
+On Sat, Feb 27, 2021 at 03:18:47PM +0000, Jonathan Cameron wrote:
+> On Fri, 26 Feb 2021 09:03:48 +0900
+> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+>=20
+> > On Sun, Feb 21, 2021 at 03:51:40PM +0000, Jonathan Cameron wrote:
+> > > On Thu, 18 Feb 2021 19:32:16 +0900
+> > > William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+> > >  =20
+> > > > On Sun, Feb 14, 2021 at 06:11:46PM +0000, Jonathan Cameron wrote: =
+=20
+> > > > > On Fri, 12 Feb 2021 21:13:44 +0900
+> > > > > William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+> > > > >    =20
+> > > > > > The events_queue_size sysfs attribute provides a way for users =
+to
+> > > > > > dynamically configure the Counter events queue size for the Cou=
+nter
+> > > > > > character device interface. The size is in number of struct
+> > > > > > counter_event data structures. The number of elements will be r=
+ounded-up
+> > > > > > to a power of 2 due to a requirement of the kfifo_alloc functio=
+n called
+> > > > > > during reallocation of the queue.
+> > > > > >=20
+> > > > > > Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+> > > > > > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> > > > > > ---
+> > > > > >  Documentation/ABI/testing/sysfs-bus-counter |  8 +++++++
+> > > > > >  drivers/counter/counter-chrdev.c            | 23 +++++++++++++=
+++++++
+> > > > > >  drivers/counter/counter-chrdev.h            |  2 ++
+> > > > > >  drivers/counter/counter-sysfs.c             | 25 +++++++++++++=
+++++++++
+> > > > > >  4 files changed, 58 insertions(+)
+> > > > > >=20
+> > > > > > diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Docu=
+mentation/ABI/testing/sysfs-bus-counter
+> > > > > > index 847e96f19d19..f6cb2a8b08a7 100644
+> > > > > > --- a/Documentation/ABI/testing/sysfs-bus-counter
+> > > > > > +++ b/Documentation/ABI/testing/sysfs-bus-counter
+> > > > > > @@ -212,6 +212,14 @@ Description:
+> > > > > >  		both edges:
+> > > > > >  			Any state transition.
+> > > > > > =20
+> > > > > > +What:		/sys/bus/counter/devices/counterX/events_queue_size
+> > > > > > +KernelVersion:	5.13
+> > > > > > +Contact:	linux-iio@vger.kernel.org
+> > > > > > +Description:
+> > > > > > +		Size of the Counter events queue in number of struct
+> > > > > > +		counter_event data structures. The number of elements will be
+> > > > > > +		rounded-up to a power of 2.
+> > > > > > +
+> > > > > >  What:		/sys/bus/counter/devices/counterX/name
+> > > > > >  KernelVersion:	5.2
+> > > > > >  Contact:	linux-iio@vger.kernel.org
+> > > > > > diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter=
+/counter-chrdev.c
+> > > > > > index 16f02df7f73d..53eea894e13f 100644
+> > > > > > --- a/drivers/counter/counter-chrdev.c
+> > > > > > +++ b/drivers/counter/counter-chrdev.c
+> > > > > > @@ -375,6 +375,29 @@ void counter_chrdev_remove(struct counter_=
+device *const counter)
+> > > > > >  	cdev_del(&counter->chrdev);
+> > > > > >  }
+> > > > > > =20
+> > > > > > +int counter_chrdev_realloc_queue(struct counter_device *const =
+counter,
+> > > > > > +				 size_t queue_size)
+> > > > > > +{
+> > > > > > +	int err;
+> > > > > > +	DECLARE_KFIFO_PTR(events, struct counter_event);
+> > > > > > +	unsigned long flags;
+> > > > > > +
+> > > > > > +	/* Allocate new events queue */
+> > > > > > +	err =3D kfifo_alloc(&events, queue_size, GFP_ATOMIC);   =20
+> > > > >=20
+> > > > > Is there any potential for losing events?   =20
+> > > >=20
+> > > > We take the events_list_lock down below so we're safe against missi=
+ng an
+> > > > event, but past events currently unread in the queue will be lost.
+> > > >=20
+> > > > Shortening the size of the queue is inherently a destructive proces=
+s if
+> > > > we have more events in the current queue than can fit in the new qu=
+eue.
+> > > > Because we a liable to lose some events in such a case, I think it's
+> > > > best to keep the behavior of this reallocation consistent and have =
+it
+> > > > provide a fresh empty queue every time, as opposed to sometimes dro=
+pping
+> > > > events and sometimes not.
+> > > >=20
+> > > > I also suspect an actual user would be setting the size of their qu=
+eue
+> > > > to the required amount before they begin watching events, rather th=
+an
+> > > > adjusting it sporadically during a live operation.
+> > > > =20
+> > >=20
+> > > Absolutely agree.   As such I wonder if you are better off enforcing =
+this
+> > > behaviour?  If the cdev is open for reading, don't allow the fifo to =
+be
+> > > resized.=20
+> > >=20
+> > > Jonathan =20
+> >=20
+> > I can't really think of a good reason not to, so let's enforce it: if
+> > the cdev is open, then we'll return an EINVAL if the user attempts to
+> > resize the queue.
+> >=20
+> > What is a good way to check for this condition? Should I just call
+> > kref_read() and see if it's greater than 1? For example, in
+> > counter_chrdev_realloc_queue():
+> >=20
+> > 	if (kref_read(&counter->dev.kobj.kref) > 1)
+> > 		return -EINVAL;
+> In theory at least you might want the kobj.kref to be incremented
+> for other reasons than just open.   So to keep different concepts
+> separate, perhaps it's worth a separate variable somewhere to
+> track whether the file is open currently.
+>=20
+> However, it's reasonable (I think) to assume the kref will have a
+> minimum value if open, so perhaps what you suggest works fine.
+>=20
+> Jonathan
+
+I noticed an open() operation could occur right after this check, so
+we'll need a mutex here to ensure the the queue size is not modified
+during use. Because of that, I'll create a separate variable to track
+this and use a mutex_trylock() instead of the kref to test whether to
+return -EBUSY.
+
+William Breathitt Gray
+
+--6d8kyOSDhuZ1wuv9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmA7BBYACgkQhvpINdm7
+VJIZaBAAtfzHPcYQo2dhRO+1Fhe8SpWJXu3Ff1Da5SBMeZhLArBBsVz/N/pm9ByZ
+NrVUyy4UfzzzixdyAM4RXvQtF8PfLzgEukF/CiukANKjcUQT8Lj5/JUocQj2vwj9
+BPgy+osNwzHmUZ096kLIpNRs+9kwCiKU6nS4TF0YMlEYReCxF//APNpr5J6K7EZM
+3kWGaIBAyxmngcDiWBK8nG980r9x90w9mLv7OEYJkfDO8HlWMNFSEYOvBJAoJ6Fu
+RU/XZCpAMpVVSAJD0TnfgrkfvRY9EwwPaSUGQjHWA0zTYxH8lQxyDQe0Mv/rKT+Y
+9kkeXsLungqUH0/v2MoewD8IwIstpEcBiaUW0GwS2R4V7hD3rttMKXIRWJwvNbgw
+YXcOWAeT8Oz7yonA8RDRtnJ7BT8UGjw2KXpkOgsoiUt51dee2F03TXnGQ3mhY6jr
+kQcXEYNifkG9T4T7WVsXfRP188QgppZKfju7yCm29fWFaKK1u07thMbvF4CcKxnL
+ko8hVP+po79eI+h4f33AaamnBIw/2FAaj1wgVK1X6qw/DE9ptgIYFpbFpF/1sY4e
+YJJcwx1F6P6+yeB6ejkGqJn9UkPBCTqb/Xjew7EDXRZNsaNfONs8/j5z4q/jDqP1
+ZyOGx32DXLNSA0JNeTiIpWmKB+7xs43giJENcJbAUzfE0/5zBA0=
+=NNgg
+-----END PGP SIGNATURE-----
+
+--6d8kyOSDhuZ1wuv9--
+
+--===============2313160250330946663==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2313160250330946663==--
