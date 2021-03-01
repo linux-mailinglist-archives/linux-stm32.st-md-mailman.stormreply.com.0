@@ -2,65 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 904A232731A
-	for <lists+linux-stm32@lfdr.de>; Sun, 28 Feb 2021 16:44:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD0A9327C16
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Mar 2021 11:29:10 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D8A4C57B6F;
-	Sun, 28 Feb 2021 15:44:27 +0000 (UTC)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 793E3C56635;
+	Mon,  1 Mar 2021 10:29:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1221FC36B37
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5207C36B37
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 28 Feb 2021 15:44:26 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id o6so9840456pjf.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 28 Feb 2021 07:44:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=P8xuLB+PW3vzd/2H+nv/FYwlg2xPXL9X/0ZCidUY03A=;
- b=GTHfepeMME8ETHJ9D17UUQlIWYTFf4lYClQwCQIUOC1oKAGJgzR3euzonM0vWhJci7
- TSppLrKhyfNsWCsXIJqzg5FXr0v1J95UnRMiUrzOyX8byY+RtVKhUubnX9B9qNo442jJ
- Fnnv6pSzMiAS8udimqeZ651R7iVF1iwjSC0cY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=P8xuLB+PW3vzd/2H+nv/FYwlg2xPXL9X/0ZCidUY03A=;
- b=RkHFBUfHyxnatyBb+NMe6ftagIAS+HomMt6CMrcSydbYodmFp2Ihv3IsZdBabFeXhQ
- iA/vhyDuGdNZQQMOIbBALNNq2WBPZLcZlkw96Js7G0J72VuTLohMVSQm0smpdd37BwMv
- R3Aat3JNFPUuqRj5kyANXK5UasBw7N+BUjw1ttIdTtFQ/LP+GNrCHU51Imem6Sjdrlin
- Ogibi5nP2d4IeBs8jtdcRIfU7m4/2hOdNrMegyekb8099qGLgiXH/moTt2+xi9tSoCb1
- lXmjuy97YtFzjn6g6ohKqUde/RCaYJdokvepD8Ecp4KLFb7OmwyVWMWbcm7QuyRfUy0P
- WAkw==
-X-Gm-Message-State: AOAM531ZpJz252zBy3I8OTT8/B04K0AOo34oZMAd2GBQLj+56feTaRqr
- zfv+Zh3nSXm4CrW10ErgB7JsMQ==
-X-Google-Smtp-Source: ABdhPJxfIBewbERSLjK/TGwJqJEMQTPLphwQZKKTzUvXvWHtlP24xZS8O3qwJbFmLnm3mZesUyhs+g==
-X-Received: by 2002:a17:903:1cc:b029:de:98bb:d46d with SMTP id
- e12-20020a17090301ccb02900de98bbd46dmr11601415plh.54.1614527064698; 
- Sun, 28 Feb 2021 07:44:24 -0800 (PST)
-Received: from ub-XPS-13-9350.domain.name ([103.161.30.225])
- by smtp.gmail.com with ESMTPSA id j3sm13522133pgk.24.2021.02.28.07.44.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 28 Feb 2021 07:44:24 -0800 (PST)
-From: Jagan Teki <jagan@amarulasolutions.com>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Rob Herring <robh+dt@kernel.org>
-Date: Sun, 28 Feb 2021 21:13:23 +0530
-Message-Id: <20210228154323.76911-11-jagan@amarulasolutions.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210228154323.76911-1-jagan@amarulasolutions.com>
-References: <20210228154323.76911-1-jagan@amarulasolutions.com>
+ Mon,  1 Mar 2021 10:29:07 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 121ARlbj002304; Mon, 1 Mar 2021 11:28:54 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=0iba9ds30bxpbJDZZJN9+EAyGhkT4XykKVq3jr281PQ=;
+ b=ev38jqefIMorbnUTPQ6Kefjkh03E84Y5ZK++8Ldi7gYQucan/f6wD08NVT6/CKFLffNS
+ nlEkAlj5c9CZPo8MFSJyw7DAIlUpNkeNrFWBuVgWHBPIHz/zk2fWcYYjZ13bECoCu+E+
+ KWM4Q3xsLWNT+W9k6G/9atLaLLX9mo9htQ2vOz02pRnkin4PbJjp7DQcAAOGUNtLIfJV
+ K9CLvDEAq0S7uCw0asm7s5hR0du+DlkluhSeIQ0abFTlysVIY6b+9HRQ2qJkM6YkJc8k
+ K9UTSP9CpNKj37OojLQcG1fKDHi8a1t9Xa1glKCcKcRBgWiKa9Puhc0T0nxt9lg+XFuA Yg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36yfdxua6d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 01 Mar 2021 11:28:54 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 30925100034;
+ Mon,  1 Mar 2021 11:28:53 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0B72922671E;
+ Mon,  1 Mar 2021 11:28:53 +0100 (CET)
+Received: from [10.211.4.172] (10.75.127.51) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 1 Mar
+ 2021 11:28:51 +0100
+To: Martin Devera <devik@eaxlabs.cz>, <linux-kernel@vger.kernel.org>
+References: <CAL_JsqK8+M=Vg0PiDXP2f1LrEp4hSVea6piAASMGu1H=pxme6Q@mail.gmail.com>
+ <20210227164157.30971-1-devik@eaxlabs.cz>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <439a0d7a-cc0e-764b-7ed8-668b5a85f4a7@foss.st.com>
+Date: Mon, 1 Mar 2021 11:28:50 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 10/10] ARM: dts: stm32: Add Engicam i.Core
-	STM32MP1 EDIMM2.2 Starter Kit
+In-Reply-To: <20210227164157.30971-1-devik@eaxlabs.cz>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-01_05:2021-02-26,
+ 2021-03-01 signatures=0
+Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh+dt@kernel.org>, Le Ray <erwan.leray@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/2] tty/serial: Add rx-tx-swap OF
+ option to stm32-usart
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,108 +81,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Engicam EDIMM2.2 Starter Kit is an EDIMM 2.2 Form Factor Capacitive
-Evaluation Board.
+On 2/27/21 5:41 PM, Martin Devera wrote:
+> STM32 F7/H7 usarts supports RX & TX pin swapping.
+> Add option to turn it on.
+> Tested on STM32MP157.
+> 
+> Signed-off-by: Martin Devera <devik@eaxlabs.cz>
+> ---
+>  drivers/tty/serial/stm32-usart.c | 3 ++-
+>  drivers/tty/serial/stm32-usart.h | 1 +
+>  2 files changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+> index b3675cf25a69..3650c8798061 100644
+> --- a/drivers/tty/serial/stm32-usart.c
+> +++ b/drivers/tty/serial/stm32-usart.c
+> @@ -758,7 +758,7 @@ static void stm32_usart_set_termios(struct uart_port *port,
+>  	cr1 = USART_CR1_TE | USART_CR1_RE;
+>  	if (stm32_port->fifoen)
+>  		cr1 |= USART_CR1_FIFOEN;
+> -	cr2 = 0;
+> +	cr2 = stm32_port->swap ? USART_CR2_SWAP : 0;
 
-Genaral features:
-- LCD 7" C.Touch
-- microSD slot
-- Ethernet 1Gb
-- Wifi/BT
-- 2x LVDS Full HD interfaces
-- 3x USB 2.0
-- 1x USB 3.0
-- HDMI Out
-- Mini PCIe
-- MIPI CSI
-- 2x CAN
-- Audio Out
+Hi Martin,
 
-i.Core STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
+Same could be done in the startup routine, that enables the port for
+reception (as described in Documentation/driver-api/serial/driver.rst)
 
-i.Core STM32MP1 needs to mount on top of this Evaluation board for
-creating complete i.Core STM32MP1 EDIMM2.2 Starter Kit.
+>  	cr3 = readl_relaxed(port->membase + ofs->cr3);
+>  	cr3 &= USART_CR3_TXFTIE | USART_CR3_RXFTCFG_MASK | USART_CR3_RXFTIE
+>  		| USART_CR3_TXFTCFG_MASK;
+> @@ -1078,6 +1078,7 @@ static struct stm32_port *stm32_usart_of_get_port(struct platform_device *pdev)
+>  	stm32_ports[id].hw_flow_control =
+>  		of_property_read_bool (np, "st,hw-flow-ctrl") /*deprecated*/ ||
+>  		of_property_read_bool (np, "uart-has-rtscts");
+> +	stm32_ports[id].swap = of_property_read_bool(np, "rx-tx-swap");
 
-Add support for it.
+The swap option/bit is available starting with stm32f7 (e.g. not on
+stm32f4).
 
-Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
----
-Changes for v3:
-- none 
+This could be added to compatible data, e.g. as done for other
+capabilities in stm32-usart.h. E.g you could add a "has_swap" in struct
+stm32_usart_config, then use it at probe time:
+	if (cfg->has_swap)
+		stm32_ports[id].swap = ...;
 
- arch/arm/boot/dts/Makefile                    |  1 +
- .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   | 47 +++++++++++++++++++
- 2 files changed, 48 insertions(+)
- create mode 100644 arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+Thanks for your patch,
+Best regards,
+Fabrice
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 6dc39bddaf7e..e86c46d7ca66 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1074,6 +1074,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp157a-microgea-stm32mp1-microdev2.0.dtb \
- 	stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dtb \
- 	stm32mp157a-icore-stm32mp1-ctouch2.dtb \
-+	stm32mp157a-icore-stm32mp1-edimm2.2.dtb \
- 	stm32mp157a-stinger96.dtb \
- 	stm32mp157c-dhcom-pdk2.dtb \
- 	stm32mp157c-dhcom-picoitx.dtb \
-diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-new file mode 100644
-index 000000000000..ec9f1d1cd50f
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-@@ -0,0 +1,47 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
-+ * Copyright (c) 2020 Engicam srl
-+ * Copyright (c) 2020 Amarula Solutons(India)
-+ */
-+
-+/dts-v1/;
-+#include "stm32mp157.dtsi"
-+#include "stm32mp157a-icore-stm32mp1.dtsi"
-+#include "stm32mp15-pinctrl.dtsi"
-+#include "stm32mp15xxaa-pinctrl.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "Engicam i.Core STM32MP1 EDIMM2.2 Starter Kit";
-+	compatible = "engicam,icore-stm32mp1-edimm2.2",
-+		     "engicam,icore-stm32mp1", "st,stm32mp157";
-+
-+	aliases {
-+		serial0 = &uart4;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&sdmmc1 {
-+	bus-width = <4>;
-+	disable-wp;
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	st,neg-edge;
-+	vmmc-supply = <&v3v3>;
-+	status = "okay";
-+};
-+
-+&uart4 {
-+	pinctrl-names = "default", "sleep", "idle";
-+	pinctrl-0 = <&uart4_pins_a>;
-+	pinctrl-1 = <&uart4_sleep_pins_a>;
-+	pinctrl-2 = <&uart4_idle_pins_a>;
-+	status = "okay";
-+};
--- 
-2.25.1
-
+>  	stm32_ports[id].port.line = id;
+>  	stm32_ports[id].cr1_irq = USART_CR1_RXNEIE;
+>  	stm32_ports[id].cr3_irq = 0;
+> diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
+> index cb4f327c46db..2f054e2dc0ab 100644
+> --- a/drivers/tty/serial/stm32-usart.h
+> +++ b/drivers/tty/serial/stm32-usart.h
+> @@ -271,6 +271,7 @@ struct stm32_port {
+>  	int last_res;
+>  	bool tx_dma_busy;	 /* dma tx busy               */
+>  	bool hw_flow_control;
+> +	bool swap;		 /* swap RX & TX pins */
+>  	bool fifoen;
+>  	int wakeirq;
+>  	int rdr_mask;		/* receive data register mask */
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
