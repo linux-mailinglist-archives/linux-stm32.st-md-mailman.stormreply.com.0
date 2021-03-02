@@ -2,70 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB36C327C47
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Mar 2021 11:36:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97C30329707
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Mar 2021 09:53:12 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 013B2C56635;
-	Mon,  1 Mar 2021 10:36:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42DC7C57189;
+	Tue,  2 Mar 2021 08:53:12 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11D9DC3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A61CC56634
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Mar 2021 10:36:26 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 121AVgYH020544; Mon, 1 Mar 2021 11:36:16 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=i63qanHvq06PqbvkfcT0nX7SZDJtNaIWa9wC1GqN/1g=;
- b=UTWhfdYTlpHgopZiO+LUtNP+V5RR/XNoWjs1q7hmvdyeNqAyDzRdYj7JkCZRIoZW811C
- xPWbHraa2tqB+Zen4IeVTL0iGQxHMhwPZE8DBW6I980t4IJjwDfB4I0VaJPh7/54CMWg
- BwxxWaXujlhXGRVENLNRkTDk+xbUdviNH6qVZA1MN5nEcMoLB/vm2/uFTD3qmfdCJp5i
- FWRX49w3xB2WHO84IfQaQ2c7JULqQ/AvpRI9s3d8Rn9va99vY5e1vAXaxogAb3tnmZ/u
- dxuGr9IXIfdGwIQNNMDN8EX3DCh6iDHCZUxzZtuW6D4SmsCH/PWX+tubbvAJ6KEjNP9r Bg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36yfc3k9tv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 01 Mar 2021 11:36:16 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1AEB3100034;
- Mon,  1 Mar 2021 11:36:16 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 07CFA227E04;
- Mon,  1 Mar 2021 11:36:16 +0100 (CET)
-Received: from [10.211.4.172] (10.75.127.48) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 1 Mar
- 2021 11:36:14 +0100
-To: Martin Devera <devik@eaxlabs.cz>, <linux-kernel@vger.kernel.org>
-References: <CAL_JsqK8+M=Vg0PiDXP2f1LrEp4hSVea6piAASMGu1H=pxme6Q@mail.gmail.com>
- <20210227164157.30971-1-devik@eaxlabs.cz>
- <20210227164157.30971-2-devik@eaxlabs.cz>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <fecd3c15-7796-7c12-6aaa-d77c7407980d@foss.st.com>
-Date: Mon, 1 Mar 2021 11:36:14 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20210227164157.30971-2-devik@eaxlabs.cz>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-01_05:2021-02-26,
- 2021-03-01 signatures=0
-Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh+dt@kernel.org>, Le Ray <erwan.leray@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
- Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] dt-bindings: serial: Add
-	rx-tx-swap to stm32-usart
+ Tue,  2 Mar 2021 08:53:10 +0000 (UTC)
+IronPort-SDR: Ta5MaFiG64p8XPv0OXZXkP2lEsWCRQVPBkxXvMPo03Jr1xTx2gDodPTMBP5t8e7pniY6qGgbXN
+ +vMoLuWJmCxw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9910"; a="271750562"
+X-IronPort-AV: E=Sophos;i="5.81,216,1610438400"; d="scan'208";a="271750562"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2021 00:53:07 -0800
+IronPort-SDR: oVg+7B6EV3pFoM4+wfvh8NYW635JPptoOQwO7Gfi44Hk0MgtrFRy3g94xkSWGCZ0PlOdYlZ4kT
+ MRccacM2lcPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,216,1610438400"; d="scan'208";a="398581626"
+Received: from glass.png.intel.com ([10.158.65.65])
+ by fmsmga008.fm.intel.com with ESMTP; 02 Mar 2021 00:53:04 -0800
+From: Wong Vee Khee <vee.khee.wong@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Tue,  2 Mar 2021 16:57:21 +0800
+Message-Id: <20210302085721.3168-1-vee.khee.wong@intel.com>
+X-Mailer: git-send-email 2.17.0
+Cc: Voon Weifeng <weifeng.voon@intel.com>,
+ Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@intel.com>,
+ Muhammad Husaini Zulkifli <muhammad.husaini.zulkifli@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net 1/1] stmmac: intel: Fix mdio bus
+	registration issue for TGL-H/ADL-S
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,48 +54,159 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Intel platforms which consist of two Ethernet Controllers such as
+TGL-H and ADL-S, a unique MDIO bus id is required for MDIO bus to be
+successful registered:
 
+[   13.076133] sysfs: cannot create duplicate filename '/class/mdio_bus/stmmac-1'
+[   13.083404] CPU: 8 PID: 1898 Comm: systemd-udevd Tainted: G     U            5.11.0-net-next #106
+[   13.092410] Hardware name: Intel Corporation Alder Lake Client Platform/AlderLake-S ADP-S DRR4 CRB, BIOS ADLIFSI1.R00.1494.B00.2012031421 12/03/2020
+[   13.105709] Call Trace:
+[   13.108176]  dump_stack+0x64/0x7c
+[   13.111553]  sysfs_warn_dup+0x56/0x70
+[   13.115273]  sysfs_do_create_link_sd.isra.2+0xbd/0xd0
+[   13.120371]  device_add+0x4df/0x840
+[   13.123917]  ? complete_all+0x2a/0x40
+[   13.127636]  __mdiobus_register+0x98/0x310 [libphy]
+[   13.132572]  stmmac_mdio_register+0x1c5/0x3f0 [stmmac]
+[   13.137771]  ? stmmac_napi_add+0xa5/0xf0 [stmmac]
+[   13.142493]  stmmac_dvr_probe+0x806/0xee0 [stmmac]
+[   13.147341]  intel_eth_pci_probe+0x1cb/0x250 [dwmac_intel]
+[   13.152884]  pci_device_probe+0xd2/0x150
+[   13.156897]  really_probe+0xf7/0x4d0
+[   13.160527]  driver_probe_device+0x5d/0x140
+[   13.164761]  device_driver_attach+0x4f/0x60
+[   13.168996]  __driver_attach+0xa2/0x140
+[   13.172891]  ? device_driver_attach+0x60/0x60
+[   13.177300]  bus_for_each_dev+0x76/0xc0
+[   13.181188]  bus_add_driver+0x189/0x230
+[   13.185083]  ? 0xffffffffc0795000
+[   13.188446]  driver_register+0x5b/0xf0
+[   13.192249]  ? 0xffffffffc0795000
+[   13.195577]  do_one_initcall+0x4d/0x210
+[   13.199467]  ? kmem_cache_alloc_trace+0x2ff/0x490
+[   13.204228]  do_init_module+0x5b/0x21c
+[   13.208031]  load_module+0x2a0c/0x2de0
+[   13.211838]  ? __do_sys_finit_module+0xb1/0x110
+[   13.216420]  __do_sys_finit_module+0xb1/0x110
+[   13.220825]  do_syscall_64+0x33/0x40
+[   13.224451]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[   13.229515] RIP: 0033:0x7fc2b1919ccd
+[   13.233113] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 93 31 0c 00 f7 d8 64 89 01 48
+[   13.251912] RSP: 002b:00007ffcea2e5b98 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+[   13.259527] RAX: ffffffffffffffda RBX: 0000560558920f10 RCX: 00007fc2b1919ccd
+[   13.266706] RDX: 0000000000000000 RSI: 00007fc2b1a881e3 RDI: 0000000000000012
+[   13.273887] RBP: 0000000000020000 R08: 0000000000000000 R09: 0000000000000000
+[   13.281036] R10: 0000000000000012 R11: 0000000000000246 R12: 00007fc2b1a881e3
+[   13.288183] R13: 0000000000000000 R14: 0000000000000000 R15: 00007ffcea2e5d58
+[   13.295389] libphy: mii_bus stmmac-1 failed to register
 
-On 2/27/21 5:41 PM, Martin Devera wrote:
-> Add new rx-tx-swap property to allow for RX & TX pin swapping.
-> 
-> Signed-off-by: Martin Devera <devik@eaxlabs.cz>
-> ---
->  Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> index 8631678283f9..45f2a19997da 100644
-> --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> @@ -40,6 +40,10 @@ properties:
->  
->    uart-has-rtscts: true
->  
-> +  rx-tx-swap:
-> +    type: boolean
-> +    maxItems: 1
-> +
+Fixes: 88af9bd4efbd ("stmmac: intel: Add ADL-S 1Gbps PCI IDs")
+Fixes: 8450e23f142f ("stmmac: intel: Add PCI IDs for TGL-H platform")
+Signed-off-by: Wong Vee Khee <vee.khee.wong@intel.com>
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 54 ++++++++++++++-----
+ 1 file changed, 41 insertions(+), 13 deletions(-)
 
-Hi Martin,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 74b14d647619..e6eaf378e8e7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -462,8 +462,8 @@ static int tgl_common_data(struct pci_dev *pdev,
+ 	return intel_mgbe_common_data(pdev, plat);
+ }
+ 
+-static int tgl_sgmii_data(struct pci_dev *pdev,
+-			  struct plat_stmmacenet_data *plat)
++static int tgl_sgmii_phy0_data(struct pci_dev *pdev,
++			       struct plat_stmmacenet_data *plat)
+ {
+ 	plat->bus_id = 1;
+ 	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
+@@ -472,12 +472,26 @@ static int tgl_sgmii_data(struct pci_dev *pdev,
+ 	return tgl_common_data(pdev, plat);
+ }
+ 
+-static struct stmmac_pci_info tgl_sgmii1g_info = {
+-	.setup = tgl_sgmii_data,
++static struct stmmac_pci_info tgl_sgmii1g_phy0_info = {
++	.setup = tgl_sgmii_phy0_data,
+ };
+ 
+-static int adls_sgmii_data(struct pci_dev *pdev,
+-			   struct plat_stmmacenet_data *plat)
++static int tgl_sgmii_phy1_data(struct pci_dev *pdev,
++			       struct plat_stmmacenet_data *plat)
++{
++	plat->bus_id = 2;
++	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
++	plat->serdes_powerup = intel_serdes_powerup;
++	plat->serdes_powerdown = intel_serdes_powerdown;
++	return tgl_common_data(pdev, plat);
++}
++
++static struct stmmac_pci_info tgl_sgmii1g_phy1_info = {
++	.setup = tgl_sgmii_phy1_data,
++};
++
++static int adls_sgmii_phy0_data(struct pci_dev *pdev,
++				struct plat_stmmacenet_data *plat)
+ {
+ 	plat->bus_id = 1;
+ 	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
+@@ -487,10 +501,24 @@ static int adls_sgmii_data(struct pci_dev *pdev,
+ 	return tgl_common_data(pdev, plat);
+ }
+ 
+-static struct stmmac_pci_info adls_sgmii1g_info = {
+-	.setup = adls_sgmii_data,
++static struct stmmac_pci_info adls_sgmii1g_phy0_info = {
++	.setup = adls_sgmii_phy0_data,
+ };
+ 
++static int adls_sgmii_phy1_data(struct pci_dev *pdev,
++				struct plat_stmmacenet_data *plat)
++{
++	plat->bus_id = 2;
++	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
++
++	/* SerDes power up and power down are done in BIOS for ADL */
++
++	return tgl_common_data(pdev, plat);
++}
++
++static struct stmmac_pci_info adls_sgmii1g_phy1_info = {
++	.setup = adls_sgmii_phy1_data,
++};
+ static const struct stmmac_pci_func_data galileo_stmmac_func_data[] = {
+ 	{
+ 		.func = 6,
+@@ -772,11 +800,11 @@ static const struct pci_device_id intel_eth_pci_id_table[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, EHL_PSE1_RGMII1G_ID, &ehl_pse1_rgmii1g_info) },
+ 	{ PCI_DEVICE_DATA(INTEL, EHL_PSE1_SGMII1G_ID, &ehl_pse1_sgmii1g_info) },
+ 	{ PCI_DEVICE_DATA(INTEL, EHL_PSE1_SGMII2G5_ID, &ehl_pse1_sgmii1g_info) },
+-	{ PCI_DEVICE_DATA(INTEL, TGL_SGMII1G_ID, &tgl_sgmii1g_info) },
+-	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_0_ID, &tgl_sgmii1g_info) },
+-	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_1_ID, &tgl_sgmii1g_info) },
+-	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_0_ID, &adls_sgmii1g_info) },
+-	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_1_ID, &adls_sgmii1g_info) },
++	{ PCI_DEVICE_DATA(INTEL, TGL_SGMII1G_ID, &tgl_sgmii1g_phy0_info) },
++	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_0_ID, &tgl_sgmii1g_phy0_info) },
++	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_1_ID, &tgl_sgmii1g_phy1_info) },
++	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_0_ID, &adls_sgmii1g_phy0_info) },
++	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_1_ID, &adls_sgmii1g_phy1_info) },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(pci, intel_eth_pci_id_table);
+-- 
+2.17.0
 
-This could be restricted to st,stm32f7-uart and st,stm32h7-uart
-compatibles. This option isn't available on stm32f4 (e.g. st,stm32-uart
-compatible)
-
-Thanks for your patch,
-Best Regards,
-Fabrice
-
->    dmas:
->      minItems: 1
->      maxItems: 2
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
