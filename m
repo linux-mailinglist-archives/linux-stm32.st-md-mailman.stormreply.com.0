@@ -2,67 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ABC732A6E4
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Mar 2021 18:04:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C2432A876
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Mar 2021 18:44:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41A9DC56638;
-	Tue,  2 Mar 2021 17:04:52 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5C7FC56638;
+	Tue,  2 Mar 2021 17:44:57 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B737C36B24
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F5F4C36B24
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Mar 2021 17:04:51 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Tue,  2 Mar 2021 17:44:56 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 122H1sYa016196; Tue, 2 Mar 2021 18:03:43 +0100
+ 122Hg4EI029636; Tue, 2 Mar 2021 18:44:29 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=MPuDgAI8bly3BZ6l6If7B5CFn09WiiZifHi7p1VUgfM=;
- b=hRHRtutXrKv510SgyVvetOCL3HRxze1NoX5YPPb0qyvX/3dbvcBY2GT79kpPY8IKXfUJ
- fPnXHH4Kc7tUvmzVAcr07orC1L4+vGm6vNUJKQWPcBxz/HY46YqrMyhcK0EJO+puRYX5
- WZoj1W5jYEayMKhHLRCxNFEJHPeL18hDHxY4iO2ww/imgUVpSWdBdfwWVjWJ/m/sygRj
- Spn7wpWcRR7Ydvb4s+QybY5vfsFP4uCOophKl13NftkCSYNc8VhVHF6GWcRHTHps69xg
- J+9WFb00mfwbIAXWPXXAUA6SL3TeYeFkjUf+KD4vS8553zwD5agCAmj0Fj+CNQpN9Y9r MQ== 
+ bh=AIIENbd8XJBrwtDccNfZiND92r0txJ7IKAeeaDH+8kI=;
+ b=5Vsnol/QyAmRTbkR4R1MWGIcRcMhwWpMHQU0fmxI3BpiLWmEquYeXsFYnVPKU9DVZdXx
+ vX0cK+SJNkxmo+49VbOd94g3Eiqrbd40r9tIvXbjIDLkZ+31aCm/r0QV1WWxFL2hmcHJ
+ fkkHRru9Tv6HYJ2R6GqjxbrauEk1mC7Ih51buEJesoVejqQ4aU9HzPnXfTqkSnlCPi2x
+ QkUhDO22Ch9dT674YCIHMffwTl76t57ZKvUaAuP0y1MH2CjLT7ds2RAltxi2DeuTQlfp
+ fYQ8v5NhIo9x9LSw5NI66nkpJhxYtMtNmzdSDgdckUFtvZQUPoRUFkL3AZeEwHOkZ9Nd nw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36yfc3uh6w-1
+ by mx07-00178001.pphosted.com with ESMTP id 36yfdy3p9h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 Mar 2021 18:03:43 +0100
+ Tue, 02 Mar 2021 18:44:29 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 858D810002A;
- Tue,  2 Mar 2021 18:03:42 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1B3E810002A;
+ Tue,  2 Mar 2021 18:44:27 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 735CA2160F0;
- Tue,  2 Mar 2021 18:03:42 +0100 (CET)
-Received: from [10.211.13.170] (10.75.127.44) by SFHDAG2NODE3.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DD6BD21FE91;
+ Tue,  2 Mar 2021 18:44:27 +0100 (CET)
+Received: from [10.211.13.170] (10.75.127.45) by SFHDAG2NODE3.st.com
  (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 2 Mar
- 2021 18:03:41 +0100
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-References: <1614696235-24088-1-git-send-email-fabrice.gasnier@foss.st.com>
- <YD5SLrdttn+95M7N@shinobu>
+ 2021 18:44:26 +0100
+To: Martin Devera <devik@eaxlabs.cz>, <linux-kernel@vger.kernel.org>
+References: <439a0d7a-cc0e-764b-7ed8-668b5a85f4a7@foss.st.com>
+ <20210302131558.19375-1-devik@eaxlabs.cz>
+ <20210302131558.19375-2-devik@eaxlabs.cz>
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <e54d1446-b583-9625-1ab3-09e54d6a7456@foss.st.com>
-Date: Tue, 2 Mar 2021 18:03:25 +0100
+Message-ID: <aeefa74e-fa19-6c31-5240-0f14fca89298@foss.st.com>
+Date: Tue, 2 Mar 2021 18:44:26 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <YD5SLrdttn+95M7N@shinobu>
+In-Reply-To: <20210302131558.19375-2-devik@eaxlabs.cz>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  definitions=2021-03-02_08:2021-03-01,
  2021-03-02 signatures=0
-Cc: linux-iio@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- jic23@kernel.org, david@lechnology.com
-Subject: Re: [Linux-stm32] [PATCH] counter: stm32-timer-cnt: fix ceiling
-	write max value
+Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Le Ray <erwan.leray@st.com>
+Subject: Re: [Linux-stm32] [PATCH v3 2/2] tty/serial: Add rx-tx-swap OF
+ option to stm32-usart
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,98 +82,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/2/21 3:56 PM, William Breathitt Gray wrote:
-> On Tue, Mar 02, 2021 at 03:43:55PM +0100, Fabrice Gasnier wrote:
->> The ceiling value isn't checked before writing it into registers. The user
->> could write a value higher than the counter resolution (e.g. 16 or 32 bits
->> indicated by max_arr). This makes most significant bits to be truncated.
->> Fix it by checking the max_arr to report a range error [1] to the user.
->>
->> Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
->>
->> [1] https://lkml.org/lkml/2021/2/12/358
->>
->> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+On 3/2/21 2:15 PM, Martin Devera wrote:
+> STM32 F7/H7 usarts supports RX & TX pin swapping.
+> Add option to turn it on.
+> Tested on STM32MP157.
 > 
-> Acked-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> Signed-off-by: Martin Devera <devik@eaxlabs.cz>
+> ---
+>  drivers/tty/serial/stm32-usart.c | 11 ++++++++++-
+>  drivers/tty/serial/stm32-usart.h |  5 +++++
+>  2 files changed, 15 insertions(+), 1 deletion(-)
 > 
-> Side question: if priv->ceiling is tracking the current ceiling
-> configuration, would it make sense to change stm32_count_ceiling_read()
-> to print the value of priv->ceiling instead of doing a regmap_read()
-> call?
+> diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+> index b3675cf25a69..d390f7da1441 100644
+> --- a/drivers/tty/serial/stm32-usart.c
+> +++ b/drivers/tty/serial/stm32-usart.c
+> @@ -644,6 +644,12 @@ static int stm32_usart_startup(struct uart_port *port)
+>  	if (ret)
+>  		return ret;
+>  
+> +	if (stm32_port->swap) {
+> +		val = readl_relaxed(port->membase + ofs->cr2);
+> +		val |= USART_CR2_SWAP;
+> +		writel_relaxed(val, port->membase + ofs->cr2);
+> +	}
+> +
+>  	/* RX FIFO Flush */
+>  	if (ofs->rqr != UNDEF_REG)
+>  		stm32_usart_set_bits(port, ofs->rqr, USART_RQR_RXFRQ);
+> @@ -758,7 +764,7 @@ static void stm32_usart_set_termios(struct uart_port *port,
+>  	cr1 = USART_CR1_TE | USART_CR1_RE;
+>  	if (stm32_port->fifoen)
+>  		cr1 |= USART_CR1_FIFOEN;
+> -	cr2 = 0;
+> +	cr2 = stm32_port->swap ? USART_CR2_SWAP : 0;
+>  	cr3 = readl_relaxed(port->membase + ofs->cr3);
+>  	cr3 &= USART_CR3_TXFTIE | USART_CR3_RXFTCFG_MASK | USART_CR3_RXFTIE
+>  		| USART_CR3_TXFTCFG_MASK;
+> @@ -1006,6 +1012,9 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
+>  			return stm32port->wakeirq ? : -ENODEV;
+>  	}
+>  
+> +	stm32port->swap = stm32port->info->cfg.has_swap &&
+> +		of_property_read_bool(pdev->dev.of_node, "rx-tx-swap");
+> +
+>  	stm32port->fifoen = stm32port->info->cfg.has_fifo;
+>  
+>  	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
+> index cb4f327c46db..bd18dd1c1bcd 100644
+> --- a/drivers/tty/serial/stm32-usart.h
+> +++ b/drivers/tty/serial/stm32-usart.h
+> @@ -25,6 +25,7 @@ struct stm32_usart_offsets {
+>  struct stm32_usart_config {
+>  	u8 uart_enable_bit; /* USART_CR1_UE */
+>  	bool has_7bits_data;
+> +	bool has_swap;
+>  	bool has_wakeup;
+>  	bool has_fifo;
+>  	int fifosize;
+> @@ -55,6 +56,7 @@ struct stm32_usart_info stm32f4_info = {
+>  	.cfg = {
+>  		.uart_enable_bit = 13,
+>  		.has_7bits_data = false,
+> +		.has_swap = false,
 
-Hi William,
+Hi Martin,
 
-Thanks for reviewing.
+Only one minor comment from me here. No need to add a false (zero)
+initialization in this struct. I'm not sure why this is the case for the
+has_7bits_data here...
 
-I'd be fine either way. So no objection to move to the priv->ceiling
-(cached) value. It could also here here.
-By looking at this, I figured out there's probably another thing to fix
-here, for initial conditions.
+With that fixed, you can add my:
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-At probe time priv->ceiling is initialized to max value (ex 65535 for a
-16 bits counter). But the register content is 0 (clear by mfd driver at
-probe time).
-
-- So, reading ceiling from sysfs currently reports 0 (regmap_read())
-after booting and probing.
-
-I see two cases at this point:
-- In case the counter gets enabled without any prior configuration, it
-won't count: ceiling value (e.g. 65535) should be written to register
-before it is enabled, so the counter will actually count. So there's
-room for a fix here.
-
-- In case function gets set (ex: quadrature x4), priv->ceiling (e.g.
-65535) gets written to the register (although it's been read earlier as
-0 from sysfs).
-This could be fixed by reading the priv->ceiling in
-stm32_count_ceiling_read() as you're asking (provided 1st case has been
-fixed as well)
-
-I'll probably prepare one or two patches for the above cases, if you agree ?
-
+Thanks for your patch,
 Best Regards,
 Fabrice
 
+>  		.fifosize = 1,
+>  	}
+>  };
+> @@ -76,6 +78,7 @@ struct stm32_usart_info stm32f7_info = {
+>  	.cfg = {
+>  		.uart_enable_bit = 0,
+>  		.has_7bits_data = true,
+> +		.has_swap = true,
+>  		.fifosize = 1,
+>  	}
+>  };
+> @@ -97,6 +100,7 @@ struct stm32_usart_info stm32h7_info = {
+>  	.cfg = {
+>  		.uart_enable_bit = 0,
+>  		.has_7bits_data = true,
+> +		.has_swap = true,
+>  		.has_wakeup = true,
+>  		.has_fifo = true,
+>  		.fifosize = 16,
+> @@ -271,6 +275,7 @@ struct stm32_port {
+>  	int last_res;
+>  	bool tx_dma_busy;	 /* dma tx busy               */
+>  	bool hw_flow_control;
+> +	bool swap;		 /* swap RX & TX pins */
+>  	bool fifoen;
+>  	int wakeirq;
+>  	int rdr_mask;		/* receive data register mask */
 > 
->> ---
->>  drivers/counter/stm32-timer-cnt.c | 5 +++++
->>  1 file changed, 5 insertions(+)
->>
->> diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
->> index ef2a974..2cf0c05 100644
->> --- a/drivers/counter/stm32-timer-cnt.c
->> +++ b/drivers/counter/stm32-timer-cnt.c
->> @@ -32,6 +32,7 @@ struct stm32_timer_cnt {
->>  	struct regmap *regmap;
->>  	struct clk *clk;
->>  	u32 ceiling;
->> +	u32 max_arr;
->>  	bool enabled;
->>  	struct stm32_timer_regs bak;
->>  };
->> @@ -185,6 +186,9 @@ static ssize_t stm32_count_ceiling_write(struct counter_device *counter,
->>  	if (ret)
->>  		return ret;
->>  
->> +	if (ceiling > priv->max_arr)
->> +		return -ERANGE;
->> +
->>  	/* TIMx_ARR register shouldn't be buffered (ARPE=0) */
->>  	regmap_update_bits(priv->regmap, TIM_CR1, TIM_CR1_ARPE, 0);
->>  	regmap_write(priv->regmap, TIM_ARR, ceiling);
->> @@ -360,6 +364,7 @@ static int stm32_timer_cnt_probe(struct platform_device *pdev)
->>  	priv->regmap = ddata->regmap;
->>  	priv->clk = ddata->clk;
->>  	priv->ceiling = ddata->max_arr;
->> +	priv->max_arr = ddata->max_arr;
->>  
->>  	priv->counter.name = dev_name(dev);
->>  	priv->counter.parent = dev;
->> -- 
->> 2.7.4
->>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
