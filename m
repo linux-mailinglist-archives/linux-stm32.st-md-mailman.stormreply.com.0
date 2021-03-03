@@ -2,68 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5D2B32B8C9
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 15:59:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 123EB32B911
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 17:07:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEAA5C57B64;
-	Wed,  3 Mar 2021 14:59:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8EC1C57B64;
+	Wed,  3 Mar 2021 16:07:22 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2B88C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 802E5C56634
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Mar 2021 14:59:40 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Wed,  3 Mar 2021 16:07:21 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 123Ew12m007034; Wed, 3 Mar 2021 15:59:36 +0100
+ 123Fw3pB025953; Wed, 3 Mar 2021 17:07:04 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=92T9jk1GqeaNdUj7VE7tM3zOJWrXiP55EaybpQYEma8=;
- b=s0XgAapWiw5d6J7WEhcn1yGiHWcuz0Bu8HSk+cZ8l3krhN/mfT1OmcGuWU7WbjW5rb/C
- 9Il390mWfMpeuqGGK5rwG9hsDfaeuTRdqX+MwzJyQMgdeh3mVAsMhhHRvzbVakwO2qBu
- q1dtdkxrX71cawrRikhila1rAp6Kb/aB3CA+CdeEVC9y0RgOVtz+z2BdhNqBe8bWPU6t
- JtLJerTRMhGfj4sZwr+Dk1AbgltSKibZH13W1ZfbR+wlr9efeRg4uYy6Ekv/BDyMa34x
- T3yhAOuINmG4x7vYKRiT3jWIFjw4widG8ciH48H/T0Lcu/RAyGTkjlz9wVj+0FctWoir XQ== 
+ bh=6XrNF2FBTRm5vIZXZ80vSSbpY42QqabopStluBgmVxU=;
+ b=p4lHUpeym4MzT9nPE64GVdGV2rdRb2TLz+VwbSAJ9TIXod0v6MvD21WNfVq/VZGXsDWY
+ oirQBIYAwBxf18GVmYLimAnlmYRkizajjaxqMd6plN7Ds90GjKyNs8exV/pO/XzeGc84
+ B9fN3cUxcdHZOyTcguoxGF6mHfTf58Kp9cNEUq8MiCo1JD3AmfqB0oUruzr6/UfCVA62
+ AGVsFDW4aqZhNKsIjjvBOwGyRT1YE7hArovFH2g/apdta2sSAK481dd9XwhIQEsnIwVt
+ fIB/8R7WXXj/rgt3k3uM0fLQXZsDwGeZ9trVWUQ10R3GrRwcORb/jbyh8dP3D1MlY7h1 bg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 36yfdy9h74-1
+ by mx07-00178001.pphosted.com with ESMTP id 36yfc41v7c-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Mar 2021 15:59:36 +0100
+ Wed, 03 Mar 2021 17:07:04 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A039110002A;
- Wed,  3 Mar 2021 15:59:35 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5806910002A;
+ Wed,  3 Mar 2021 17:07:02 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 92B0B244F58;
- Wed,  3 Mar 2021 15:59:35 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.46) by SFHDAG2NODE3.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 02D6623A299;
+ Wed,  3 Mar 2021 17:07:02 +0100 (CET)
+Received: from [10.211.2.167] (10.75.127.49) by SFHDAG2NODE3.st.com
  (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 3 Mar
- 2021 15:59:34 +0100
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20210219111501.14261-1-arnaud.pouliquen@foss.st.com>
- <20210219111501.14261-7-arnaud.pouliquen@foss.st.com>
- <20210302183516.GC3791957@xps15>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <64760ba3-5b23-bf74-6961-b77813919abc@foss.st.com>
-Date: Wed, 3 Mar 2021 15:59:34 +0100
+ 2021 17:07:00 +0100
+To: Martin Devera <devik@eaxlabs.cz>, <linux-kernel@vger.kernel.org>
+References: <aeefa74e-fa19-6c31-5240-0f14fca89298@foss.st.com>
+ <20210302190303.28630-1-devik@eaxlabs.cz>
+ <20210302190303.28630-2-devik@eaxlabs.cz>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <4cea70f9-833b-2be3-de41-f591f17d4301@foss.st.com>
+Date: Wed, 3 Mar 2021 17:06:59 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210302183516.GC3791957@xps15>
+In-Reply-To: <20210302190303.28630-2-devik@eaxlabs.cz>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-03_04:2021-03-03,
+ definitions=2021-03-03_05:2021-03-03,
  2021-03-03 signatures=0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v5 06/16] rpmsg: move the rpmsg control
- device from rpmsg_char to rpmsg_ctrl
+Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Le Ray <erwan.leray@st.com>
+Subject: Re: [Linux-stm32] [PATCH v4 2/2] tty/serial: Add rx-tx-swap OF
+ option to stm32-usart
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,508 +82,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 3/2/21 7:35 PM, Mathieu Poirier wrote:
-> On Fri, Feb 19, 2021 at 12:14:51PM +0100, Arnaud Pouliquen wrote:
->> Move the code related to the rpmsg_ctrl char device to the new
->> rpmsg_ctrl.c module.
->> Manage the dependency in the kconfig.
->>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> ---
->>  drivers/rpmsg/Kconfig      |   9 ++
->>  drivers/rpmsg/Makefile     |   1 +
->>  drivers/rpmsg/rpmsg_char.c | 163 ----------------------------
->>  drivers/rpmsg/rpmsg_ctrl.c | 216 +++++++++++++++++++++++++++++++++++++
->>  4 files changed, 226 insertions(+), 163 deletions(-)
->>  create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
->>
->> diff --git a/drivers/rpmsg/Kconfig b/drivers/rpmsg/Kconfig
->> index 0b4407abdf13..2d0cd7fdd710 100644
->> --- a/drivers/rpmsg/Kconfig
->> +++ b/drivers/rpmsg/Kconfig
->> @@ -10,11 +10,20 @@ config RPMSG_CHAR
->>  	tristate "RPMSG device interface"
->>  	depends on RPMSG
->>  	depends on NET
->> +	select RPMSG_CTRL
->>  	help
->>  	  Say Y here to export rpmsg endpoints as device files, usually found
->>  	  in /dev. They make it possible for user-space programs to send and
->>  	  receive rpmsg packets.
->>  
->> +config RPMSG_CTRL
->> +	tristate "RPMSG control interface"
->> +	depends on RPMSG
->> +	help
->> +	  Say Y here to enable the support of the /dev/rpmsg_ctlX API. This API
+On 3/2/21 8:03 PM, Martin Devera wrote:
+> STM32 F7/H7 usarts supports RX & TX pin swapping.
+> Add option to turn it on.
+> Tested on STM32MP157.
 > 
-> s/rpmsg_ctlX/rpmsg_ctrlX
+> Signed-off-by: Martin Devera <devik@eaxlabs.cz>
+> ---
+>  drivers/tty/serial/stm32-usart.c | 11 ++++++++++-
+>  drivers/tty/serial/stm32-usart.h |  4 ++++
+>  2 files changed, 14 insertions(+), 1 deletion(-)
 
-Good catch!
+Hi Martin,
+
+You can add my:
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+Thanks for your patch,
+Best Regards,
+Fabrice
 
 > 
->> +	  allows user-space programs to create endpoints with specific service name,
->> +	  source and destination addresses.
->> +
->>  config RPMSG_NS
->>  	tristate "RPMSG name service announcement"
->>  	depends on RPMSG
->> diff --git a/drivers/rpmsg/Makefile b/drivers/rpmsg/Makefile
->> index 8d452656f0ee..58e3b382e316 100644
->> --- a/drivers/rpmsg/Makefile
->> +++ b/drivers/rpmsg/Makefile
->> @@ -1,6 +1,7 @@
->>  # SPDX-License-Identifier: GPL-2.0
->>  obj-$(CONFIG_RPMSG)		+= rpmsg_core.o
->>  obj-$(CONFIG_RPMSG_CHAR)	+= rpmsg_char.o
->> +obj-$(CONFIG_RPMSG_CTRL)	+= rpmsg_ctrl.o
->>  obj-$(CONFIG_RPMSG_NS)		+= rpmsg_ns.o
->>  obj-$(CONFIG_RPMSG_MTK_SCP)	+= mtk_rpmsg.o
->>  qcom_glink-objs			:= qcom_glink_native.o qcom_glink_ssr.o
->> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
->> index 23e369a00531..83c10b39b139 100644
->> --- a/drivers/rpmsg/rpmsg_char.c
->> +++ b/drivers/rpmsg/rpmsg_char.c
->> @@ -31,28 +31,12 @@
->>  static dev_t rpmsg_major;
->>  static struct class *rpmsg_class;
->>  
->> -static DEFINE_IDA(rpmsg_ctrl_ida);
->>  static DEFINE_IDA(rpmsg_ept_ida);
->>  static DEFINE_IDA(rpmsg_minor_ida);
->>  
->>  #define dev_to_eptdev(dev) container_of(dev, struct rpmsg_eptdev, dev)
->>  #define cdev_to_eptdev(i_cdev) container_of(i_cdev, struct rpmsg_eptdev, cdev)
->>  
->> -#define dev_to_ctrldev(dev) container_of(dev, struct rpmsg_ctrldev, dev)
->> -#define cdev_to_ctrldev(i_cdev) container_of(i_cdev, struct rpmsg_ctrldev, cdev)
->> -
->> -/**
->> - * struct rpmsg_ctrldev - control device for instantiating endpoint devices
->> - * @rpdev:	underlaying rpmsg device
->> - * @cdev:	cdev for the ctrl device
->> - * @dev:	device for the ctrl device
->> - */
->> -struct rpmsg_ctrldev {
->> -	struct rpmsg_device *rpdev;
->> -	struct cdev cdev;
->> -	struct device dev;
->> -};
+> diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+> index b3675cf25a69..d390f7da1441 100644
+> --- a/drivers/tty/serial/stm32-usart.c
+> +++ b/drivers/tty/serial/stm32-usart.c
+> @@ -644,6 +644,12 @@ static int stm32_usart_startup(struct uart_port *port)
+>  	if (ret)
+>  		return ret;
+>  
+> +	if (stm32_port->swap) {
+> +		val = readl_relaxed(port->membase + ofs->cr2);
+> +		val |= USART_CR2_SWAP;
+> +		writel_relaxed(val, port->membase + ofs->cr2);
+> +	}
+> +
+>  	/* RX FIFO Flush */
+>  	if (ofs->rqr != UNDEF_REG)
+>  		stm32_usart_set_bits(port, ofs->rqr, USART_RQR_RXFRQ);
+> @@ -758,7 +764,7 @@ static void stm32_usart_set_termios(struct uart_port *port,
+>  	cr1 = USART_CR1_TE | USART_CR1_RE;
+>  	if (stm32_port->fifoen)
+>  		cr1 |= USART_CR1_FIFOEN;
+> -	cr2 = 0;
+> +	cr2 = stm32_port->swap ? USART_CR2_SWAP : 0;
+>  	cr3 = readl_relaxed(port->membase + ofs->cr3);
+>  	cr3 &= USART_CR3_TXFTIE | USART_CR3_RXFTCFG_MASK | USART_CR3_RXFTIE
+>  		| USART_CR3_TXFTCFG_MASK;
+> @@ -1006,6 +1012,9 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
+>  			return stm32port->wakeirq ? : -ENODEV;
+>  	}
+>  
+> +	stm32port->swap = stm32port->info->cfg.has_swap &&
+> +		of_property_read_bool(pdev->dev.of_node, "rx-tx-swap");
+> +
+>  	stm32port->fifoen = stm32port->info->cfg.has_fifo;
+>  
+>  	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
+> index cb4f327c46db..a85391e71e8e 100644
+> --- a/drivers/tty/serial/stm32-usart.h
+> +++ b/drivers/tty/serial/stm32-usart.h
+> @@ -25,6 +25,7 @@ struct stm32_usart_offsets {
+>  struct stm32_usart_config {
+>  	u8 uart_enable_bit; /* USART_CR1_UE */
+>  	bool has_7bits_data;
+> +	bool has_swap;
+>  	bool has_wakeup;
+>  	bool has_fifo;
+>  	int fifosize;
+> @@ -76,6 +77,7 @@ struct stm32_usart_info stm32f7_info = {
+>  	.cfg = {
+>  		.uart_enable_bit = 0,
+>  		.has_7bits_data = true,
+> +		.has_swap = true,
+>  		.fifosize = 1,
+>  	}
+>  };
+> @@ -97,6 +99,7 @@ struct stm32_usart_info stm32h7_info = {
+>  	.cfg = {
+>  		.uart_enable_bit = 0,
+>  		.has_7bits_data = true,
+> +		.has_swap = true,
+>  		.has_wakeup = true,
+>  		.has_fifo = true,
+>  		.fifosize = 16,
+> @@ -271,6 +274,7 @@ struct stm32_port {
+>  	int last_res;
+>  	bool tx_dma_busy;	 /* dma tx busy               */
+>  	bool hw_flow_control;
+> +	bool swap;		 /* swap RX & TX pins */
+>  	bool fifoen;
+>  	int wakeirq;
+>  	int rdr_mask;		/* receive data register mask */
 > 
-> This showed up in rpmsg_ctrl.c as rpmsg_ctrl.  The same goes for many functions
-> names - they are removed here and re-introduced under a different name, which
-> makes it very hard to follow.  What ends up in the new file should be a carbon
-> copy of what was moved.
-
-Ok i will split it in 2 steps.
-
-Thanks
-Arnaud
-
-> 
-> I'm out of time for today, more comments tomorrow.
-> 
-> Thanks,
-> Mathieu
-> 
->> -
->>  /**
->>   * struct rpmsg_eptdev - endpoint device context
->>   * @dev:	endpoint device
->> @@ -411,145 +395,6 @@ int rpmsg_chrdev_create_eptdev(struct rpmsg_device *rpdev, struct device *parent
->>  }
->>  EXPORT_SYMBOL(rpmsg_chrdev_create_eptdev);
->>  
->> -static int rpmsg_ctrldev_open(struct inode *inode, struct file *filp)
->> -{
->> -	struct rpmsg_ctrldev *ctrldev = cdev_to_ctrldev(inode->i_cdev);
->> -
->> -	get_device(&ctrldev->dev);
->> -	filp->private_data = ctrldev;
->> -
->> -	return 0;
->> -}
->> -
->> -static int rpmsg_ctrldev_release(struct inode *inode, struct file *filp)
->> -{
->> -	struct rpmsg_ctrldev *ctrldev = cdev_to_ctrldev(inode->i_cdev);
->> -
->> -	put_device(&ctrldev->dev);
->> -
->> -	return 0;
->> -}
->> -
->> -static long rpmsg_ctrldev_ioctl(struct file *fp, unsigned int cmd,
->> -				unsigned long arg)
->> -{
->> -	struct rpmsg_ctrldev *ctrldev = fp->private_data;
->> -	void __user *argp = (void __user *)arg;
->> -	struct rpmsg_endpoint_info eptinfo;
->> -	struct rpmsg_channel_info chinfo;
->> -
->> -	if (cmd != RPMSG_CREATE_EPT_IOCTL)
->> -		return -EINVAL;
->> -
->> -	if (copy_from_user(&eptinfo, argp, sizeof(eptinfo)))
->> -		return -EFAULT;
->> -
->> -	memcpy(chinfo.name, eptinfo.name, RPMSG_NAME_SIZE);
->> -	chinfo.name[RPMSG_NAME_SIZE-1] = '\0';
->> -	chinfo.src = eptinfo.src;
->> -	chinfo.dst = eptinfo.dst;
->> -
->> -	return rpmsg_chrdev_create_eptdev(ctrldev->rpdev, &ctrldev->dev, chinfo);
->> -};
->> -
->> -static const struct file_operations rpmsg_ctrldev_fops = {
->> -	.owner = THIS_MODULE,
->> -	.open = rpmsg_ctrldev_open,
->> -	.release = rpmsg_ctrldev_release,
->> -	.unlocked_ioctl = rpmsg_ctrldev_ioctl,
->> -	.compat_ioctl = compat_ptr_ioctl,
->> -};
->> -
->> -static void rpmsg_ctrldev_release_device(struct device *dev)
->> -{
->> -	struct rpmsg_ctrldev *ctrldev = dev_to_ctrldev(dev);
->> -
->> -	ida_simple_remove(&rpmsg_ctrl_ida, dev->id);
->> -	ida_simple_remove(&rpmsg_minor_ida, MINOR(dev->devt));
->> -	cdev_del(&ctrldev->cdev);
->> -	kfree(ctrldev);
->> -}
->> -
->> -static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
->> -{
->> -	struct rpmsg_ctrldev *ctrldev;
->> -	struct device *dev;
->> -	int ret;
->> -
->> -	ctrldev = kzalloc(sizeof(*ctrldev), GFP_KERNEL);
->> -	if (!ctrldev)
->> -		return -ENOMEM;
->> -
->> -	ctrldev->rpdev = rpdev;
->> -
->> -	dev = &ctrldev->dev;
->> -	device_initialize(dev);
->> -	dev->parent = &rpdev->dev;
->> -
->> -	cdev_init(&ctrldev->cdev, &rpmsg_ctrldev_fops);
->> -	ctrldev->cdev.owner = THIS_MODULE;
->> -
->> -	ret = ida_simple_get(&rpmsg_minor_ida, 0, RPMSG_DEV_MAX, GFP_KERNEL);
->> -	if (ret < 0)
->> -		goto free_ctrldev;
->> -	dev->devt = MKDEV(MAJOR(rpmsg_major), ret);
->> -
->> -	ret = ida_simple_get(&rpmsg_ctrl_ida, 0, 0, GFP_KERNEL);
->> -	if (ret < 0)
->> -		goto free_minor_ida;
->> -	dev->id = ret;
->> -	dev_set_name(&ctrldev->dev, "rpmsg_ctrl%d", ret);
->> -
->> -	ret = cdev_add(&ctrldev->cdev, dev->devt, 1);
->> -	if (ret)
->> -		goto free_ctrl_ida;
->> -
->> -	/* We can now rely on the release function for cleanup */
->> -	dev->release = rpmsg_ctrldev_release_device;
->> -
->> -	ret = device_add(dev);
->> -	if (ret) {
->> -		dev_err(&rpdev->dev, "device_add failed: %d\n", ret);
->> -		put_device(dev);
->> -	}
->> -
->> -	dev_set_drvdata(&rpdev->dev, ctrldev);
->> -
->> -	return ret;
->> -
->> -free_ctrl_ida:
->> -	ida_simple_remove(&rpmsg_ctrl_ida, dev->id);
->> -free_minor_ida:
->> -	ida_simple_remove(&rpmsg_minor_ida, MINOR(dev->devt));
->> -free_ctrldev:
->> -	put_device(dev);
->> -	kfree(ctrldev);
->> -
->> -	return ret;
->> -}
->> -
->> -static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
->> -{
->> -	struct rpmsg_ctrldev *ctrldev = dev_get_drvdata(&rpdev->dev);
->> -	int ret;
->> -
->> -	/* Destroy all endpoints */
->> -	ret = device_for_each_child(&ctrldev->dev, NULL, rpmsg_chrdev_eptdev_destroy);
->> -	if (ret)
->> -		dev_warn(&rpdev->dev, "failed to nuke endpoints: %d\n", ret);
->> -
->> -	device_del(&ctrldev->dev);
->> -	put_device(&ctrldev->dev);
->> -}
->> -
->> -static struct rpmsg_driver rpmsg_chrdev_driver = {
->> -	.probe = rpmsg_chrdev_probe,
->> -	.remove = rpmsg_chrdev_remove,
->> -	.drv = {
->> -		.name = "rpmsg_chrdev",
->> -	},
->> -};
->> -
->>  static int rpmsg_chrdev_init(void)
->>  {
->>  	int ret;
->> @@ -567,20 +412,12 @@ static int rpmsg_chrdev_init(void)
->>  		return PTR_ERR(rpmsg_class);
->>  	}
->>  
->> -	ret = register_rpmsg_driver(&rpmsg_chrdev_driver);
->> -	if (ret < 0) {
->> -		pr_err("rpmsgchr: failed to register rpmsg driver\n");
->> -		class_destroy(rpmsg_class);
->> -		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->> -	}
->> -
->>  	return ret;
->>  }
->>  postcore_initcall(rpmsg_chrdev_init);
->>  
->>  static void rpmsg_chrdev_exit(void)
->>  {
->> -	unregister_rpmsg_driver(&rpmsg_chrdev_driver);
->>  	class_destroy(rpmsg_class);
->>  	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->>  }
->> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
->> new file mode 100644
->> index 000000000000..fa05b67d24da
->> --- /dev/null
->> +++ b/drivers/rpmsg/rpmsg_ctrl.c
->> @@ -0,0 +1,216 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (C) 2021, STMicroelectronics
->> + * Copyright (c) 2016, Linaro Ltd.
->> + * Copyright (c) 2012, Michal Simek <monstr@monstr.eu>
->> + * Copyright (c) 2012, PetaLogix
->> + * Copyright (c) 2011, Texas Instruments, Inc.
->> + * Copyright (c) 2011, Google, Inc.
->> + *
->> + * Based on rpmsg performance statistics driver by Michal Simek, which in turn
->> + * was based on TI & Google OMX rpmsg driver.
->> + */
->> +#include <linux/cdev.h>
->> +#include <linux/device.h>
->> +#include <linux/fs.h>
->> +#include <linux/idr.h>
->> +#include <linux/kernel.h>
->> +#include <linux/module.h>
->> +#include <linux/rpmsg.h>
->> +#include <linux/slab.h>
->> +#include <uapi/linux/rpmsg.h>
->> +
->> +#include "rpmsg_char.h"
->> +#include "rpmsg_internal.h"
->> +
->> +#define RPMSG_DEV_MAX	(MINORMASK + 1)
->> +
->> +static dev_t rpmsg_major;
->> +
->> +static DEFINE_IDA(rpmsg_ctrl_ida);
->> +static DEFINE_IDA(rpmsg_minor_ida);
->> +
->> +#define dev_to_ctrldev(dev) container_of(dev, struct rpmsg_ctrl, dev)
->> +#define cdev_to_ctrldev(i_cdev) container_of(i_cdev, struct rpmsg_ctrl, cdev)
->> +
->> +/**
->> + * struct rpmsg_ctrl - control device for instantiating endpoint devices
->> + * @rpdev:	underlaying rpmsg device
->> + * @cdev:	cdev for the ctrl device
->> + * @dev:	device for the ctrl device
->> + */
->> +struct rpmsg_ctrl {
->> +	struct rpmsg_device *rpdev;
->> +	struct cdev cdev;
->> +	struct device dev;
->> +};
->> +
->> +static int rpmsg_ctrl_open(struct inode *inode, struct file *filp)
->> +{
->> +	struct rpmsg_ctrl *ctrldev = cdev_to_ctrldev(inode->i_cdev);
->> +
->> +	get_device(&ctrldev->dev);
->> +	filp->private_data = ctrldev;
->> +
->> +	return 0;
->> +}
->> +
->> +static int rpmsg_ctrl_release(struct inode *inode, struct file *filp)
->> +{
->> +	struct rpmsg_ctrl *ctrldev = cdev_to_ctrldev(inode->i_cdev);
->> +
->> +	put_device(&ctrldev->dev);
->> +
->> +	return 0;
->> +}
->> +
->> +static long rpmsg_ctrl_ioctl(struct file *fp, unsigned int cmd, unsigned long arg)
->> +{
->> +	struct rpmsg_ctrl *ctrldev = fp->private_data;
->> +	void __user *argp = (void __user *)arg;
->> +	struct rpmsg_endpoint_info eptinfo;
->> +	struct rpmsg_channel_info chinfo;
->> +
->> +	if (cmd != RPMSG_CREATE_EPT_IOCTL)
->> +		return -EINVAL;
->> +
->> +	if (copy_from_user(&eptinfo, argp, sizeof(eptinfo)))
->> +		return -EFAULT;
->> +
->> +	memcpy(chinfo.name, eptinfo.name, RPMSG_NAME_SIZE);
->> +	chinfo.name[RPMSG_NAME_SIZE - 1] = '\0';
->> +	chinfo.src = eptinfo.src;
->> +	chinfo.dst = eptinfo.dst;
->> +
->> +	return rpmsg_chrdev_create_eptdev(ctrldev->rpdev, &ctrldev->dev, chinfo);
->> +};
->> +
->> +static const struct file_operations rpmsg_ctrl_fops = {
->> +	.owner = THIS_MODULE,
->> +	.open = rpmsg_ctrl_open,
->> +	.release = rpmsg_ctrl_release,
->> +	.unlocked_ioctl = rpmsg_ctrl_ioctl,
->> +	.compat_ioctl = compat_ptr_ioctl,
->> +};
->> +
->> +static void rpmsg_ctrl_release_device(struct device *dev)
->> +{
->> +	struct rpmsg_ctrl *ctrldev = dev_to_ctrldev(dev);
->> +
->> +	ida_simple_remove(&rpmsg_ctrl_ida, dev->id);
->> +	ida_simple_remove(&rpmsg_minor_ida, MINOR(dev->devt));
->> +	cdev_del(&ctrldev->cdev);
->> +	kfree(ctrldev);
->> +}
->> +
->> +static int rpmsg_ctrl_probe(struct rpmsg_device *rpdev)
->> +{
->> +	struct rpmsg_ctrl *ctrldev;
->> +	struct device *dev;
->> +	int ret;
->> +
->> +	ctrldev = kzalloc(sizeof(*ctrldev), GFP_KERNEL);
->> +	if (!ctrldev)
->> +		return -ENOMEM;
->> +
->> +	ctrldev->rpdev = rpdev;
->> +
->> +	dev = &ctrldev->dev;
->> +	device_initialize(dev);
->> +	dev->parent = &rpdev->dev;
->> +
->> +	cdev_init(&ctrldev->cdev, &rpmsg_ctrl_fops);
->> +	ctrldev->cdev.owner = THIS_MODULE;
->> +
->> +	ret = ida_simple_get(&rpmsg_minor_ida, 0, RPMSG_DEV_MAX, GFP_KERNEL);
->> +	if (ret < 0)
->> +		goto free_ctrldev;
->> +	dev->devt = MKDEV(MAJOR(rpmsg_major), ret);
->> +
->> +	ret = ida_simple_get(&rpmsg_ctrl_ida, 0, 0, GFP_KERNEL);
->> +	if (ret < 0)
->> +		goto free_minor_ida;
->> +	dev->id = ret;
->> +	dev_set_name(&ctrldev->dev, "rpmsg_ctrl%d", ret);
->> +
->> +	ret = cdev_add(&ctrldev->cdev, dev->devt, 1);
->> +	if (ret)
->> +		goto free_ctrl_ida;
->> +
->> +	/* We can now rely on the release function for cleanup */
->> +	dev->release = rpmsg_ctrl_release_device;
->> +
->> +	ret = device_add(dev);
->> +	if (ret) {
->> +		dev_err(&rpdev->dev, "device_add failed: %d\n", ret);
->> +		put_device(dev);
->> +	}
->> +
->> +	dev_set_drvdata(&rpdev->dev, ctrldev);
->> +
->> +	return ret;
->> +
->> +free_ctrl_ida:
->> +	ida_simple_remove(&rpmsg_ctrl_ida, dev->id);
->> +free_minor_ida:
->> +	ida_simple_remove(&rpmsg_minor_ida, MINOR(dev->devt));
->> +free_ctrldev:
->> +	put_device(dev);
->> +	kfree(ctrldev);
->> +
->> +	return ret;
->> +}
->> +
->> +static void rpmsg_ctrl_remove(struct rpmsg_device *rpdev)
->> +{
->> +	struct rpmsg_ctrl *ctrldev = dev_get_drvdata(&rpdev->dev);
->> +	int ret;
->> +
->> +	/* Destroy all endpoints */
->> +	ret = device_for_each_child(&ctrldev->dev, NULL,
->> +				    rpmsg_chrdev_eptdev_destroy);
->> +	if (ret)
->> +		dev_warn(&rpdev->dev, "failed to nuke endpoints: %d\n", ret);
->> +
->> +	device_del(&ctrldev->dev);
->> +	put_device(&ctrldev->dev);
->> +}
->> +
->> +static struct rpmsg_driver rpmsg_ctrl_driver = {
->> +	.probe = rpmsg_ctrl_probe,
->> +	.remove = rpmsg_ctrl_remove,
->> +	.drv = {
->> +		.name = "rpmsg_chrdev",
->> +	},
->> +};
->> +
->> +static int rpmsg_ctrl_init(void)
->> +{
->> +	int ret;
->> +
->> +	ret = alloc_chrdev_region(&rpmsg_major, 0, RPMSG_DEV_MAX, "rpmsg");
->> +	if (ret < 0) {
->> +		pr_err("rpmsg: failed to allocate char dev region\n");
->> +		return ret;
->> +	}
->> +
->> +	ret = register_rpmsg_driver(&rpmsg_ctrl_driver);
->> +	if (ret < 0) {
->> +		pr_err("rpmsg ctrl: failed to register rpmsg driver\n");
->> +		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->> +	}
->> +
->> +	return ret;
->> +}
->> +postcore_initcall(rpmsg_ctrl_init);
->> +
->> +static void rpmsg_ctrl_exit(void)
->> +{
->> +	unregister_rpmsg_driver(&rpmsg_ctrl_driver);
->> +	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->> +}
->> +module_exit(rpmsg_ctrl_exit);
->> +
->> +MODULE_DESCRIPTION("rpmsg control interface");
->> +MODULE_ALIAS("rpmsg:" KBUILD_MODNAME);
->> +MODULE_LICENSE("GPL v2");
->> -- 
->> 2.17.1
->>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
