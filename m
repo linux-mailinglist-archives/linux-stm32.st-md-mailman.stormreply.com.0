@@ -2,66 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C62FF32B95B
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 18:01:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5276F32B96B
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 18:23:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FE72C57B64;
-	Wed,  3 Mar 2021 17:01:37 +0000 (UTC)
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F31B2C57B64;
+	Wed,  3 Mar 2021 17:23:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9661C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7C38C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Mar 2021 17:01:35 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id o38so16805360pgm.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 03 Mar 2021 09:01:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=NS5lTDaGXttSrOQ5MHO4aoL/JPMPWoX9kViqNvHNTVw=;
- b=VsTPW062qCBbmWlJ6C89JwMPfX2rDXIXP6PJpEDWU5cAcLYJV//2F9SQV7xbWGyQ6t
- N/Rrr+z55FyTSfysrWPPFGBI9GzuwfbuCLjvmLihq1RUVnJaIoexXJkZqixLZeCccfIt
- qgu8mRlb9Glv1h6/OEu5+c6Xh/SwIKfMpq2/E0JcnV1pqjbdfki1j1vR/5H3xQ2moPQI
- v0WAlKnK9Y3T6+iwkwiLboG/ZK2GiXhnegwLcW4zGDaCuqubIh953KIf0nquF0PWc+0T
- br0mTrp+RzZOS3Gp9zTRIYGKyfqgWoc9vCbsN2yl3IhVr3pdWDrUGArTIAcV8rFiyJD8
- yGsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=NS5lTDaGXttSrOQ5MHO4aoL/JPMPWoX9kViqNvHNTVw=;
- b=DaLHjnpMJdkKgP0QOEt+rjIUriZvgAhQGJCvBZAb5o8/LEZyFX5V1BhgPEbwCrNb64
- 64I71lm1Y8SvgHt0TD88AK3iCkSjQYsnwNLjJBg1Ie6EvOUZ1CSz36zJZvavU0ubHt4Q
- +47TkGxHZzKVc/tTTdLG8Wh0sxRtN3oRZUbWEOHoxtPiW2rqyw80zj4em1wekALyJ3B1
- 6XSuxk6Gq+zZccJPJoslMaHjWPPUZTI4/9hnaEIIlbc55EZWpyRDwvDxUe8JXjF3ndCZ
- Z37PNMXQvBgdsT6+CdVBAPBb0yIOWIS2B66FCb5BOyBlIIES0f2Imhhj6ObWO79SKbRM
- zYMA==
-X-Gm-Message-State: AOAM532Pxyy5KDdsId1/CVFfgI4WrVydrbgN5hf/pqH7SzaBmppGW0Ql
- rEkhfUF9FQIN5XV1wL/5UcufMw==
-X-Google-Smtp-Source: ABdhPJwnSJtlw+7CYzN3TJ1B9S6jcmKYC9LYLbDS05Ed7kcO8bdthFTmHZaaIeoVlr9rJGVEnmxWAQ==
-X-Received: by 2002:a63:4a44:: with SMTP id j4mr23741977pgl.199.1614790893689; 
- Wed, 03 Mar 2021 09:01:33 -0800 (PST)
-Received: from xps15 (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
- by smtp.gmail.com with ESMTPSA id 132sm3438070pfu.158.2021.03.03.09.01.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Mar 2021 09:01:31 -0800 (PST)
-Date: Wed, 3 Mar 2021 10:01:30 -0700
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <20210303170130.GC3817330@xps15>
-References: <20210219111501.14261-1-arnaud.pouliquen@foss.st.com>
- <20210219111501.14261-8-arnaud.pouliquen@foss.st.com>
+ Wed,  3 Mar 2021 17:23:49 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 123HI5r2010143; Wed, 3 Mar 2021 18:23:27 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=VZlYydjoa19ZfjiGy/7lae6d4RmJH4yQmK8Bw6psmbI=;
+ b=Wg3ENRICMBCFHPNUtQPnFZC83FWwJbdPyPaY5UsoYMtvOIvB23fu7ukniD+S77ZcpysY
+ 8tDhE1lAqGIq+/Djb1ml0SkXuXtaeYRLyGGAkErLEcxnmfeUEshPbey1k3/DXzQiOAhL
+ 6VMJZrytZ85knSx6Gr6BgtBz6kT4NSGAuYPPLFuurg5Vpe2CbEVGokG53gMlplcj+Jwk
+ JWA6akb4QX3MdTencFg/WWxjXSw5q5dpDF3NVAVHfLsvghFPl0VUkN7iYxQwdD+Jxsex
+ mlqW6RwVUroKM3S4+pv3thNPyUeXMR0UlPQI+BlioeMq2T6FjbQQhyQS1J/M7v6odhsx FQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36yf9qaac5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 03 Mar 2021 18:23:27 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 43B82100034;
+ Wed,  3 Mar 2021 18:23:27 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2412520CE3A;
+ Wed,  3 Mar 2021 18:23:27 +0100 (CET)
+Received: from [10.211.2.167] (10.75.127.51) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 3 Mar
+ 2021 18:23:25 +0100
+To: Martin Devera <devik@eaxlabs.cz>, <linux-kernel@vger.kernel.org>
+References: <aeefa74e-fa19-6c31-5240-0f14fca89298@foss.st.com>
+ <20210302190303.28630-1-devik@eaxlabs.cz>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <86ae0975-0f6b-f121-09c4-d909f081a635@foss.st.com>
+Date: Wed, 3 Mar 2021 18:23:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210219111501.14261-8-arnaud.pouliquen@foss.st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v5 07/16] rpmsg: update
- rpmsg_chrdev_register_device function
+In-Reply-To: <20210302190303.28630-1-devik@eaxlabs.cz>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-03_05:2021-03-03,
+ 2021-03-03 signatures=0
+Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Le Ray <erwan.leray@st.com>
+Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: serial: Add
+	rx-tx-swap to stm32-usart
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,91 +81,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Feb 19, 2021 at 12:14:52PM +0100, Arnaud Pouliquen wrote:
-> As driver is now the rpmsg_ioctl, rename the function.
-> In addition, initialize the rpdev addresses to RPMSG_ADDR_ANY as not
-> defined.
-
-This patch works but the changelog needs a rework.  The title reflects the
-essence of changes but the text of the changelog doesn't.
-
+On 3/2/21 8:03 PM, Martin Devera wrote:
+> Add new rx-tx-swap property to allow for RX & TX pin swapping.
 > 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> Signed-off-by: Martin Devera <devik@eaxlabs.cz>
 > ---
->  drivers/rpmsg/qcom_glink_native.c |  2 +-
->  drivers/rpmsg/qcom_smd.c          |  2 +-
->  drivers/rpmsg/rpmsg_ctrl.c        |  2 +-
->  drivers/rpmsg/rpmsg_internal.h    | 10 ++++++----
->  4 files changed, 9 insertions(+), 7 deletions(-)
+>  .../devicetree/bindings/serial/st,stm32-uart.yaml  | 32 +++++++++++++++-------
+>  1 file changed, 22 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
-> index 27a05167c18c..d4e4dd482614 100644
-> --- a/drivers/rpmsg/qcom_glink_native.c
-> +++ b/drivers/rpmsg/qcom_glink_native.c
-> @@ -1625,7 +1625,7 @@ static int qcom_glink_create_chrdev(struct qcom_glink *glink)
->  	rpdev->dev.parent = glink->dev;
->  	rpdev->dev.release = qcom_glink_device_release;
+
+Hi Martin,
+
+I'm only wondering on moving the allOf and the st,hw-flow-ctrl prop. But
+others may comment on this.
+
+Feel free to add my:
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+Thanks!
+Fabrice
+
+> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> index 8631678283f9..6eab2debebb5 100644
+> --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> @@ -9,9 +9,6 @@ maintainers:
 >  
-> -	return rpmsg_chrdev_register_device(rpdev);
-> +	return rpmsg_ctrl_register_device(rpdev);
->  }
+>  title: STMicroelectronics STM32 USART bindings
 >  
->  struct qcom_glink *qcom_glink_native_probe(struct device *dev,
-> diff --git a/drivers/rpmsg/qcom_smd.c b/drivers/rpmsg/qcom_smd.c
-> index 19903de6268d..40a1c415c775 100644
-> --- a/drivers/rpmsg/qcom_smd.c
-> +++ b/drivers/rpmsg/qcom_smd.c
-> @@ -1097,7 +1097,7 @@ static int qcom_smd_create_chrdev(struct qcom_smd_edge *edge)
->  	qsdev->rpdev.dev.parent = &edge->dev;
->  	qsdev->rpdev.dev.release = qcom_smd_release_device;
+> -allOf:
+> -  - $ref: rs485.yaml
+> -
+>  properties:
+>    compatible:
+>      enum:
+> @@ -40,6 +37,10 @@ properties:
 >  
-> -	return rpmsg_chrdev_register_device(&qsdev->rpdev);
-> +	return rpmsg_ctrl_register_device(&qsdev->rpdev);
->  }
+>    uart-has-rtscts: true
 >  
->  /*
-> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
-> index fa05b67d24da..2e43b4096aa8 100644
-> --- a/drivers/rpmsg/rpmsg_ctrl.c
-> +++ b/drivers/rpmsg/rpmsg_ctrl.c
-> @@ -180,7 +180,7 @@ static struct rpmsg_driver rpmsg_ctrl_driver = {
->  	.probe = rpmsg_ctrl_probe,
->  	.remove = rpmsg_ctrl_remove,
->  	.drv = {
-> -		.name = "rpmsg_chrdev",
-> +		.name = KBUILD_MODNAME,
->  	},
->  };
+> +  rx-tx-swap:
+> +    type: boolean
+> +    maxItems: 1
+> +
+>    dmas:
+>      minItems: 1
+>      maxItems: 2
+> @@ -66,13 +67,24 @@ properties:
+>    linux,rs485-enabled-at-boot-time: true
+>    rs485-rx-during-tx: true
 >  
-> diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
-> index a76c344253bf..7428f4465d17 100644
-> --- a/drivers/rpmsg/rpmsg_internal.h
-> +++ b/drivers/rpmsg/rpmsg_internal.h
-> @@ -82,16 +82,18 @@ struct rpmsg_device *rpmsg_create_channel(struct rpmsg_device *rpdev,
->  int rpmsg_release_channel(struct rpmsg_device *rpdev,
->  			  struct rpmsg_channel_info *chinfo);
->  /**
-> - * rpmsg_chrdev_register_device() - register chrdev device based on rpdev
-> + * rpmsg_ctrl_register_device() - register a char device for control based on rpdev
->   * @rpdev:	prepared rpdev to be used for creating endpoints
->   *
->   * This function wraps rpmsg_register_device() preparing the rpdev for use as
->   * basis for the rpmsg chrdev.
->   */
-> -static inline int rpmsg_chrdev_register_device(struct rpmsg_device *rpdev)
-> +static inline int rpmsg_ctrl_register_device(struct rpmsg_device *rpdev)
->  {
-> -	strcpy(rpdev->id.name, "rpmsg_chrdev");
-> -	rpdev->driver_override = "rpmsg_chrdev";
-> +	strcpy(rpdev->id.name, "rpmsg_ctrl");
-> +	rpdev->driver_override = "rpmsg_ctrl";
-> +	rpdev->src = RPMSG_ADDR_ANY;
-> +	rpdev->dst = RPMSG_ADDR_ANY;
+> -if:
+> -  required:
+> -    - st,hw-flow-ctrl
+> -then:
+> -  properties:
+> -    cts-gpios: false
+> -    rts-gpios: false
+> +allOf:
+> +  - $ref: rs485.yaml
+> +  - if:
+> +      required:
+> +        - st,hw-flow-ctrl
+> +    then:
+> +      properties:
+> +        cts-gpios: false
+> +        rts-gpios: false
+> +  - if:
+> +      required:
+> +        - rx-tx-swap
+> +    then:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - st,stm32f7-uart
+> +            - st,stm32h7-uart
 >  
->  	return rpmsg_register_device(rpdev);
->  }
-> -- 
-> 2.17.1
+>  required:
+>    - compatible
 > 
 _______________________________________________
 Linux-stm32 mailing list
