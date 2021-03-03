@@ -2,38 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7A0632B5CD
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 08:46:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9348A32B5D4
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 09:05:26 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73887C57B70;
-	Wed,  3 Mar 2021 07:46:14 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44E61C57B70;
+	Wed,  3 Mar 2021 08:05:26 +0000 (UTC)
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
+ [209.85.210.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D57F8C56634
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82F71C56634
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Mar 2021 07:46:12 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5ABFEAE85;
- Wed,  3 Mar 2021 07:46:12 +0000 (UTC)
-To: Jagan Teki <jagan@amarulasolutions.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Philippe Cornu <philippe.cornu@st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Vincent Abriou <vincent.abriou@st.com>
-References: <20210302175700.28640-1-jagan@amarulasolutions.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <f3b319f3-a590-59d9-34e6-ea9585e4b987@suse.de>
-Date: Wed, 3 Mar 2021 08:46:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <20210302175700.28640-1-jagan@amarulasolutions.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amarula@amarulasolutions.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: Use simple encoder
+ Wed,  3 Mar 2021 08:05:24 +0000 (UTC)
+Received: by mail-pf1-f170.google.com with SMTP id m6so15715606pfk.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 03 Mar 2021 00:05:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=eEHmW1L8oXnw1xKZQFNIdptSZuFAiD16Fplx3COkLXQ=;
+ b=cubLM2Xr2VUGBMoGOmJ3YozVd9/DT6cNXEFWWgdvooUPrxGaim0M81JVFgQrkcyaEb
+ 0vbJpLxVVvIMZyHKLNF26/vVubtXIg5iZAwQuzYtP9kKJf/kN/IF+8alBS6Ks0P39LuB
+ K6yNrrKSNYV1qyyS04MsQAky/UrZ/hCVXnhQylDIVE9XSX+lCnzgBg25FJvNTW2yT/sp
+ cPGbn2xxCHxqiEVlh/GtG+eFTudSWSyxKYpr4yCa6vg29uYKoqekKEi19QJqQu55mjAI
+ A9dh+ZKNslsI6IuESgtBKVs/Os0geMt7E0nzcVfmLCnm5sI6MFj1Vy/gxKPi68+PB1OH
+ xATg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=eEHmW1L8oXnw1xKZQFNIdptSZuFAiD16Fplx3COkLXQ=;
+ b=E1ZynTy+4JDPGCQc7dDmk/CDP9+zAVydTVKfTrGwQEzc05UT7JGH7HiDFIuWAl4dek
+ 6Xvn8WKs86pYW8T3YLzvXsyiC891EQVKa1frkkKNf4pgenf6xaWaxa3bEHj1rVAMUDFO
+ 9GNV2sfqcxsqrvepaIwOjwVMHFThoW1ZZvLOdH9Kz6UaRLtQOVLj8pKPylj5aDhzBUUa
+ yHvFaocI4jaQO6oZ8bScahBmiTni+R1AQKl15sEoE7/3tvUGiPo0jXcov4Vpe3OsKw1B
+ GUD87/cruVSjN9dl+ZvcsL1TK/8RddJJGg4E8AV9Mpr3cyvUCLzE9mo0Nu9kU+Y+nmAJ
+ a1WQ==
+X-Gm-Message-State: AOAM530Qe/2YNptC/wBZbL0ywygO0yIkKAeSyD89akZ6Sxv53oXpZcsl
+ 5v85EEze4+677MkALo007PQ=
+X-Google-Smtp-Source: ABdhPJzZQAK2wGLpeLTSbFC08npR8WI/FNiq3sq4tFPV9XT7xMDHICu2/zZNReZRDvXWluYb/4AR2w==
+X-Received: by 2002:a63:e045:: with SMTP id n5mr21779245pgj.220.1614758722912; 
+ Wed, 03 Mar 2021 00:05:22 -0800 (PST)
+Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
+ by smtp.gmail.com with ESMTPSA id h6sm22260887pfv.84.2021.03.03.00.05.20
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 03 Mar 2021 00:05:22 -0800 (PST)
+From: dillon.minfei@gmail.com
+To: robh+dt@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux@armlinux.org.uk, vladimir.murzin@arm.com, afzal.mohd.ma@gmail.com
+Date: Wed,  3 Mar 2021 16:05:09 +0800
+Message-Id: <1614758717-18223-1-git-send-email-dillon.minfei@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Cc: dillon min <dillon.minfei@gmail.com>
+Subject: [Linux-stm32] [PATCH 0/8] ARM: STM32: add art-pi(stm32h750xbh6)
+	board support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -45,138 +67,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============9183757678982990467=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============9183757678982990467==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="bl6v7NspN0i9e20DD9xHGMKbj2G05wY3M"
+From: dillon min <dillon.minfei@gmail.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---bl6v7NspN0i9e20DD9xHGMKbj2G05wY3M
-Content-Type: multipart/mixed; boundary="9TvzBKred9dq2nu7AoCV2JSXFpzq1yehy";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Jagan Teki <jagan@amarulasolutions.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Philippe Cornu <philippe.cornu@st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Vincent Abriou <vincent.abriou@st.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-amarula@amarulasolutions.com,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Message-ID: <f3b319f3-a590-59d9-34e6-ea9585e4b987@suse.de>
-Subject: Re: [PATCH] drm/stm: ltdc: Use simple encoder
-References: <20210302175700.28640-1-jagan@amarulasolutions.com>
-In-Reply-To: <20210302175700.28640-1-jagan@amarulasolutions.com>
+This patchset intend to add art-pi board support, this board developed
+by rt-thread(https://www.rt-thread.org/).
 
---9TvzBKred9dq2nu7AoCV2JSXFpzq1yehy
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Board resources:
 
+8MiB QSPI flash
+16MiB SPI flash
+32MiB SDRAM
+AP6212 wifi,bt,fm comb
 
+sw context:
+- as stm32h750 just has 128k bytes internal flash, so running a fw on
+  internal flash to download u-boot/kernel to qspi flash, boot
+  u-boot/kernel from qspi flash. this fw is based on rt-thread.
+- kernel can be xip on qspi flash or load to sdram
+- root filesystem is jffs2(created by buildroot), stored on spi flash
 
-Am 02.03.21 um 18:57 schrieb Jagan Teki:
-> STM ltdc driver uses an empty implementation for its encoder.
-> Replace the code with the generic simple encoder.
->=20
-> Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+to support the boad, add following changes.
+- fix r0-r3, r12 register restore failed after svc call, 
+- add dts binding
+- update yaml doc
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+dillon min (8):
+  ARM: ARMv7-M: Fix register restore corrupt after svc call
+  Documentation: arm: stm32: Add stm32h750 value line
+  dt-bindings: arm: stm32: Add compatible strings for ART-PI board
+  dt-bindings: pinctrl: stm32: Add stm32h750 pinctrl
+  ARM: dts: stm32: introduce stm32h7-pinctrl.dtsi to support stm32h75x
+  ARM: dts: stm32: add stm32h750-pinctrl.dtsi
+  ARM: dts: stm32: add support for art-pi board based on stm32h750xbh6
+  ARM: stm32: add initial support for stm32h750
 
-> ---
->   drivers/gpu/drm/stm/ltdc.c | 12 ++----------
->   1 file changed, 2 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index 7812094f93d6..aeeb43524ca0 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -31,6 +31,7 @@
->   #include <drm/drm_of.h>
->   #include <drm/drm_plane_helper.h>
->   #include <drm/drm_probe_helper.h>
-> +#include <drm/drm_simple_kms_helper.h>
->   #include <drm/drm_vblank.h>
->  =20
->   #include <video/videomode.h>
-> @@ -1020,14 +1021,6 @@ static int ltdc_crtc_init(struct drm_device *dde=
-v, struct drm_crtc *crtc)
->   	return ret;
->   }
->  =20
-> -/*
-> - * DRM_ENCODER
-> - */
-> -
-> -static const struct drm_encoder_funcs ltdc_encoder_funcs =3D {
-> -	.destroy =3D drm_encoder_cleanup,
-> -};
-> -
->   static void ltdc_encoder_disable(struct drm_encoder *encoder)
->   {
->   	struct drm_device *ddev =3D encoder->dev;
-> @@ -1088,8 +1081,7 @@ static int ltdc_encoder_init(struct drm_device *d=
-dev, struct drm_bridge *bridge)
->   	encoder->possible_crtcs =3D CRTC_MASK;
->   	encoder->possible_clones =3D 0;	/* No cloning support */
->  =20
-> -	drm_encoder_init(ddev, encoder, &ltdc_encoder_funcs,
-> -			 DRM_MODE_ENCODER_DPI, NULL);
-> +	drm_simple_encoder_init(ddev, encoder, DRM_MODE_ENCODER_DPI);
->  =20
->   	drm_encoder_helper_add(encoder, &ltdc_encoder_helper_funcs);
->  =20
->=20
+ Documentation/arm/index.rst                        |   1 +
+ Documentation/arm/stm32/stm32h750-overview.rst     |  33 ++
+ .../devicetree/bindings/arm/stm32/stm32.yaml       |   4 +
+ .../bindings/pinctrl/st,stm32-pinctrl.yaml         |   1 +
+ arch/arm/boot/dts/Makefile                         |   1 +
+ arch/arm/boot/dts/stm32h7-pinctrl.dtsi             | 392 +++++++++++++++++++++
+ arch/arm/boot/dts/stm32h743-pinctrl.dtsi           | 307 +---------------
+ arch/arm/boot/dts/stm32h743.dtsi                   |  30 ++
+ arch/arm/boot/dts/stm32h750-pinctrl.dtsi           |  11 +
+ arch/arm/boot/dts/stm32h750.dtsi                   |   5 +
+ arch/arm/boot/dts/stm32h750i-art-pi.dts            | 227 ++++++++++++
+ arch/arm/mach-stm32/board-dt.c                     |   1 +
+ arch/arm/mm/proc-v7m.S                             |   5 +-
+ 13 files changed, 716 insertions(+), 302 deletions(-)
+ create mode 100644 Documentation/arm/stm32/stm32h750-overview.rst
+ create mode 100644 arch/arm/boot/dts/stm32h7-pinctrl.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32h750-pinctrl.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32h750.dtsi
+ create mode 100644 arch/arm/boot/dts/stm32h750i-art-pi.dts
 
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---9TvzBKred9dq2nu7AoCV2JSXFpzq1yehy--
-
---bl6v7NspN0i9e20DD9xHGMKbj2G05wY3M
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmA/PsMFAwAAAAAACgkQlh/E3EQov+Dr
-UBAAuXXQEQ3csuHxGxgGgnNutgeRgkO2kZGVoMKdxgPNNBAaimSJkdJsITzIOJrXogBcTjal0j0t
-cdYJUmcCp1Gx5eSF40LqYioc5kyCSRCiNZt4TZtm7IGjv9IyOPrIUXAXNAuvzSlIFJkqmv/HN1ji
-6f5RH2HrN8JDSROD8ps4F7Y4JRfyItQ2uTMcgfkExn3jwEsprPFnSmJ34AadEVvxDB3l7xK04J+O
-ooCQak7yvK6rmUvV+AwcDzh83wLVRdyMT40vGJEx40w2BBbdqCy+KvnnciA3RH1RfbmWwihf0EXb
-W32BPvD49/0NcscEdigpBIul8vkPFSdv2rxU4SfZAawGpmTlp/0eJehnf10QwxPuBtY/OMaiXhjR
-eXmP3I73XHjWfsC8cFX8ILJ5ctOLNczjvOwDf3+01G17i9cPCE6yoY1lmwdc4lSQdMO+xN5YFUNr
-UChIgbDbnfZx/6WauXfIZmRwtlx5l1bv6bLz913QL4FxtEMra3bt4A71mV3l00rZ6JU+AjFfwcaB
-S/vLAlhVP4Nk6e4YWT1KZNfdAN642+HYFiAs0CYTT49q0f0W5h45Wh10WZnXmtnCJsFCIOyGcaP9
-r2Bfydaol9+YB7+N+WMh4HQhXPqdx2TDOxuHIzOoD64dTWo77IPKUR2KHmUq8N1Sa4ha0YitXq7c
-F94=
-=9Vnb
------END PGP SIGNATURE-----
-
---bl6v7NspN0i9e20DD9xHGMKbj2G05wY3M--
-
---===============9183757678982990467==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============9183757678982990467==--
