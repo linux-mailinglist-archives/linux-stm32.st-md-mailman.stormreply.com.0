@@ -2,64 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3850632B5DC
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 09:05:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCDAF32B5E2
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 09:15:35 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2769C57B72;
-	Wed,  3 Mar 2021 08:05:48 +0000 (UTC)
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 884DCC57B70;
+	Wed,  3 Mar 2021 08:15:35 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58738C57B72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81473C56634
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Mar 2021 08:05:48 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id jx13so3668494pjb.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 03 Mar 2021 00:05:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=sDbztN44X/B/8dJkz0MmLiQc+JMIMWoneNFLgfTEAQg=;
- b=V18aHYAjb+sB7qRw721z+elzxN9FQUiIKjmzgUevEjnfPIOycyzsaOTwMoWZvI2f8O
- /87tyRjLuwT+MVqNxtVPjMzgE4TDQEwWwK/3rsAWY5t/b2oO0WlFW65jUAG/CuJvPDt4
- oaDcWbNI0Cee29rSQx3roq11xg4U8LBZK27I7ysA3vLChWzT5aMd/CrNy9+Spg8rRkqV
- HXE9GP21dXlMGeO0CHvyn2EpkINRIloS5fZV1YyXnu1D9/MVkW91YrdnXdR/6swF5fBT
- SUvGtVO46Uz16aGaxKXF1mKwBZ/H/e/gTxwS+cnSTIwM9+ofA0c44oMLgerZ8L9Wa/2y
- 1eJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=sDbztN44X/B/8dJkz0MmLiQc+JMIMWoneNFLgfTEAQg=;
- b=RwfshKh6pw/fYJ4rs5tDg+b91PaP04o0xUFsyAY9Y6oOzCczBrSqFzcSZoiCfXM9Fd
- AanaR9iuUZn4gJ9bU7QflWPL587o/+0abf/h5DhBhJtzinyKiNzXAZGETFxKJe7+ZH7+
- UWYjCvBUUSS8dcYjaq6fsOwMjTMyzUy+l53pdAPcxEvvB6PuUybiHkx7A1Hxs9DnDhzA
- MKiLnH9xnguLvz82mZdvlW4wSbRL+XGeR9MHgOlTqU8bovbhK9mQLjdre1gruO6lNZeG
- B3bcU17UP5KRCm5kyId9iz8cFn2eHXTa9DIB2e1F5n5lzB9HcWGZYE9httxILZrqmxvY
- NdeQ==
-X-Gm-Message-State: AOAM531ealpMGxu8Zk6z8FGzNU4cyg/J1MClostu8W9OrxSGyWDhZfr6
- 30pNWki4DHaHj9LYYmlNtiePKOzfPtc=
-X-Google-Smtp-Source: ABdhPJw35HqF3ZjssyHn/UOSrDZ5l/gwsM+pD3UYkZksJ9N/8eqHLXTzgTIoUI0o2SZXNpEJJUULnQ==
-X-Received: by 2002:a17:90a:4f85:: with SMTP id
- q5mr8157503pjh.42.1614758747054; 
- Wed, 03 Mar 2021 00:05:47 -0800 (PST)
-Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id h6sm22260887pfv.84.2021.03.03.00.05.44
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Mar 2021 00:05:46 -0800 (PST)
-From: dillon.minfei@gmail.com
-To: robh+dt@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux@armlinux.org.uk, vladimir.murzin@arm.com, afzal.mohd.ma@gmail.com
-Date: Wed,  3 Mar 2021 16:05:17 +0800
-Message-Id: <1614758717-18223-9-git-send-email-dillon.minfei@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1614758717-18223-1-git-send-email-dillon.minfei@gmail.com>
-References: <1614758717-18223-1-git-send-email-dillon.minfei@gmail.com>
-Cc: dillon min <dillon.minfei@gmail.com>
-Subject: [Linux-stm32] [PATCH 8/8] ARM: stm32: add initial support for
-	stm32h750
+ Wed,  3 Mar 2021 08:15:34 +0000 (UTC)
+IronPort-SDR: RrEpAzjZLLDFUQxqRPyTWel6ze8TfxpWHkY03MpxNqbNRFYvqWQkCIyzBxMYoZJcx+WDQ1lBST
+ r6z4AKGKtAEw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9911"; a="248541548"
+X-IronPort-AV: E=Sophos;i="5.81,219,1610438400"; d="scan'208";a="248541548"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2021 00:15:29 -0800
+IronPort-SDR: Jl1gDOt18Yx3Wc3FOkcfIFLNuc3RejNsIXAn65v97ohTHqhTMI8M/7DjMCF88L5gQLcyzhIZ1W
+ ZKMMVTPRr2mQ==
+X-IronPort-AV: E=Sophos;i="5.81,219,1610438400"; d="scan'208";a="383900135"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2021 00:15:27 -0800
+Received: from andy by smile with local (Exim 4.94)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1lHMfD-009afi-Vm; Wed, 03 Mar 2021 10:15:23 +0200
+Date: Wed, 3 Mar 2021 10:15:23 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+Message-ID: <YD9Fm2qOf7ABYjZK@smile.fi.intel.com>
+References: <20210302234710.74455-1-rikard.falkeborn@gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210302234710.74455-1-rikard.falkeborn@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: Alexandre Torgue <alexandre.torgue@st.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] mfd: stmpe: Revert "Constify static
+	struct resource"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,33 +54,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: dillon min <dillon.minfei@gmail.com>
+On Wed, Mar 03, 2021 at 12:47:10AM +0100, Rikard Falkeborn wrote:
+> Andy noted that constification of some static resource structs in
 
-Signed-off-by: dillon min <dillon.minfei@gmail.com>
----
- arch/arm/mach-stm32/board-dt.c | 1 +
- 1 file changed, 1 insertion(+)
+(If you wish, you may use Reported-by:, I'm fine with either way)
 
-diff --git a/arch/arm/mach-stm32/board-dt.c b/arch/arm/mach-stm32/board-dt.c
-index 011d57b488c2..a766310d8dca 100644
---- a/arch/arm/mach-stm32/board-dt.c
-+++ b/arch/arm/mach-stm32/board-dt.c
-@@ -17,6 +17,7 @@ static const char *const stm32_compat[] __initconst = {
- 	"st,stm32f746",
- 	"st,stm32f769",
- 	"st,stm32h743",
-+	"st,stm32h750",
- 	"st,stm32mp157",
- 	NULL
- };
+> intel_quark_i2c_gpio.c were incorrect. It turns out there is another
+> change from the same series that is also incorrect in stmpe.c.
+> These structures are modified at init and can not be made const.
+> 
+> This reverts commit 8d7b3a6dac4eae22c58b0853696cbd256966741b.
+
+I recommend to add a comment in the code as I did so nobody (okay, who reads
+the comments) will change that again.
+
+Thanks!
+
+> Fixes: 8d7b3a6dac4e ("mfd: stmpe: Constify static struct resource")
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+> ---
+> I went through the series and this was the only additional issue I
+> found. Sorry about that.
+> 
+>  drivers/mfd/stmpe.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/mfd/stmpe.c b/drivers/mfd/stmpe.c
+> index 90f3292230c9..1aee3b3253fc 100644
+> --- a/drivers/mfd/stmpe.c
+> +++ b/drivers/mfd/stmpe.c
+> @@ -312,7 +312,7 @@ EXPORT_SYMBOL_GPL(stmpe_set_altfunc);
+>   * GPIO (all variants)
+>   */
+>  
+> -static const struct resource stmpe_gpio_resources[] = {
+> +static struct resource stmpe_gpio_resources[] = {
+>  	/* Start and end filled dynamically */
+>  	{
+>  		.flags	= IORESOURCE_IRQ,
+> @@ -336,7 +336,7 @@ static const struct mfd_cell stmpe_gpio_cell_noirq = {
+>   * Keypad (1601, 2401, 2403)
+>   */
+>  
+> -static const struct resource stmpe_keypad_resources[] = {
+> +static struct resource stmpe_keypad_resources[] = {
+>  	{
+>  		.name	= "KEYPAD",
+>  		.flags	= IORESOURCE_IRQ,
+> @@ -357,7 +357,7 @@ static const struct mfd_cell stmpe_keypad_cell = {
+>  /*
+>   * PWM (1601, 2401, 2403)
+>   */
+> -static const struct resource stmpe_pwm_resources[] = {
+> +static struct resource stmpe_pwm_resources[] = {
+>  	{
+>  		.name	= "PWM0",
+>  		.flags	= IORESOURCE_IRQ,
+> @@ -445,7 +445,7 @@ static struct stmpe_variant_info stmpe801_noirq = {
+>   * Touchscreen (STMPE811 or STMPE610)
+>   */
+>  
+> -static const struct resource stmpe_ts_resources[] = {
+> +static struct resource stmpe_ts_resources[] = {
+>  	{
+>  		.name	= "TOUCH_DET",
+>  		.flags	= IORESOURCE_IRQ,
+> @@ -467,7 +467,7 @@ static const struct mfd_cell stmpe_ts_cell = {
+>   * ADC (STMPE811)
+>   */
+>  
+> -static const struct resource stmpe_adc_resources[] = {
+> +static struct resource stmpe_adc_resources[] = {
+>  	{
+>  		.name	= "STMPE_TEMP_SENS",
+>  		.flags	= IORESOURCE_IRQ,
+> -- 
+> 2.30.1
+> 
+
 -- 
-2.7.4
+With Best Regards,
+Andy Shevchenko
+
 
 _______________________________________________
 Linux-stm32 mailing list
