@@ -2,47 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCDAF32B5E2
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 09:15:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 580DF32B658
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Mar 2021 10:52:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 884DCC57B70;
-	Wed,  3 Mar 2021 08:15:35 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81473C56634
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0871AC57B62;
+	Wed,  3 Mar 2021 09:52:05 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFFE7C56634
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Mar 2021 08:15:34 +0000 (UTC)
-IronPort-SDR: RrEpAzjZLLDFUQxqRPyTWel6ze8TfxpWHkY03MpxNqbNRFYvqWQkCIyzBxMYoZJcx+WDQ1lBST
- r6z4AKGKtAEw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9911"; a="248541548"
-X-IronPort-AV: E=Sophos;i="5.81,219,1610438400"; d="scan'208";a="248541548"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2021 00:15:29 -0800
-IronPort-SDR: Jl1gDOt18Yx3Wc3FOkcfIFLNuc3RejNsIXAn65v97ohTHqhTMI8M/7DjMCF88L5gQLcyzhIZ1W
- ZKMMVTPRr2mQ==
-X-IronPort-AV: E=Sophos;i="5.81,219,1610438400"; d="scan'208";a="383900135"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2021 00:15:27 -0800
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1lHMfD-009afi-Vm; Wed, 03 Mar 2021 10:15:23 +0200
-Date: Wed, 3 Mar 2021 10:15:23 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Rikard Falkeborn <rikard.falkeborn@gmail.com>
-Message-ID: <YD9Fm2qOf7ABYjZK@smile.fi.intel.com>
-References: <20210302234710.74455-1-rikard.falkeborn@gmail.com>
+ Wed,  3 Mar 2021 09:52:02 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F066A1FB;
+ Wed,  3 Mar 2021 01:52:01 -0800 (PST)
+Received: from [10.57.12.223] (unknown [10.57.12.223])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 33BFD3F73B;
+ Wed,  3 Mar 2021 01:52:00 -0800 (PST)
+To: dillon.minfei@gmail.com, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@st.com, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux@armlinux.org.uk, afzal.mohd.ma@gmail.com
+References: <1614758717-18223-1-git-send-email-dillon.minfei@gmail.com>
+ <1614758717-18223-2-git-send-email-dillon.minfei@gmail.com>
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+Message-ID: <5284d390-c03a-4035-df5a-10d6cd60e47b@arm.com>
+Date: Wed, 3 Mar 2021 09:52:07 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210302234710.74455-1-rikard.falkeborn@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: Alexandre Torgue <alexandre.torgue@st.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] mfd: stmpe: Revert "Constify static
-	struct resource"
+In-Reply-To: <1614758717-18223-2-git-send-email-dillon.minfei@gmail.com>
+Content-Language: en-US
+Subject: Re: [Linux-stm32] [PATCH 1/8] ARM: ARMv7-M: Fix register restore
+ corrupt after svc call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,89 +50,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Mar 03, 2021 at 12:47:10AM +0100, Rikard Falkeborn wrote:
-> Andy noted that constification of some static resource structs in
-
-(If you wish, you may use Reported-by:, I'm fine with either way)
-
-> intel_quark_i2c_gpio.c were incorrect. It turns out there is another
-> change from the same series that is also incorrect in stmpe.c.
-> These structures are modified at init and can not be made const.
+On 3/3/21 8:05 AM, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
 > 
-> This reverts commit 8d7b3a6dac4eae22c58b0853696cbd256966741b.
+> For some case, kernel not boot by u-boot(single thread),
+> but by rtos , as most rtos use pendsv to do context switch.
 
-I recommend to add a comment in the code as I did so nobody (okay, who reads
-the comments) will change that again.
 
-Thanks!
+Hmm, does it mean that it starts kernel from process context?
 
-> Fixes: 8d7b3a6dac4e ("mfd: stmpe: Constify static struct resource")
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
+I'd assume that it is not only kernel who expects MSP. So, what
+if RTOS you mentioned want to boot other RTOS (even itself)? What
+if you have no access to the source code for those RTOS(es) to
+patch MSP/PSP switch?
+
+I'd very much prefer to keep stack switching logic outside kernel,
+say, in some shim which RTOS/bootloader can maintain.
+
+Cheers
+Vladimir
+
+> 
+> So, we need add an lr check after svc call, to find out should
+> use psp or msp. else register restore after svc call might be
+> corrupted.
+> 
+> Fixes: b70cd406d7fe ("ARM: 8671/1: V7M: Preserve registers across switch from Thread to Handler mode")
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
 > ---
-> I went through the series and this was the only additional issue I
-> found. Sorry about that.
+>  arch/arm/mm/proc-v7m.S | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
->  drivers/mfd/stmpe.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+> diff --git a/arch/arm/mm/proc-v7m.S b/arch/arm/mm/proc-v7m.S
+> index 84459c1d31b8..c93d2757312d 100644
+> --- a/arch/arm/mm/proc-v7m.S
+> +++ b/arch/arm/mm/proc-v7m.S
+> @@ -137,7 +137,10 @@ __v7m_setup_cont:
+>  1:	cpsid	i
+>  	/* Calculate exc_ret */
+>  	orr	r10, lr, #EXC_RET_THREADMODE_PROCESSSTACK
+> -	ldmia	sp, {r0-r3, r12}
+> +	tst	lr, #EXC_RET_STACK_MASK
+> +	mrsne	r4, psp
+> +	moveq	r4, sp
+> +	ldmia	r4!, {r0-r3, r12}
+>  	str	r5, [r12, #11 * 4]	@ restore the original SVC vector entry
+>  	mov	lr, r6			@ restore LR
+>  
 > 
-> diff --git a/drivers/mfd/stmpe.c b/drivers/mfd/stmpe.c
-> index 90f3292230c9..1aee3b3253fc 100644
-> --- a/drivers/mfd/stmpe.c
-> +++ b/drivers/mfd/stmpe.c
-> @@ -312,7 +312,7 @@ EXPORT_SYMBOL_GPL(stmpe_set_altfunc);
->   * GPIO (all variants)
->   */
->  
-> -static const struct resource stmpe_gpio_resources[] = {
-> +static struct resource stmpe_gpio_resources[] = {
->  	/* Start and end filled dynamically */
->  	{
->  		.flags	= IORESOURCE_IRQ,
-> @@ -336,7 +336,7 @@ static const struct mfd_cell stmpe_gpio_cell_noirq = {
->   * Keypad (1601, 2401, 2403)
->   */
->  
-> -static const struct resource stmpe_keypad_resources[] = {
-> +static struct resource stmpe_keypad_resources[] = {
->  	{
->  		.name	= "KEYPAD",
->  		.flags	= IORESOURCE_IRQ,
-> @@ -357,7 +357,7 @@ static const struct mfd_cell stmpe_keypad_cell = {
->  /*
->   * PWM (1601, 2401, 2403)
->   */
-> -static const struct resource stmpe_pwm_resources[] = {
-> +static struct resource stmpe_pwm_resources[] = {
->  	{
->  		.name	= "PWM0",
->  		.flags	= IORESOURCE_IRQ,
-> @@ -445,7 +445,7 @@ static struct stmpe_variant_info stmpe801_noirq = {
->   * Touchscreen (STMPE811 or STMPE610)
->   */
->  
-> -static const struct resource stmpe_ts_resources[] = {
-> +static struct resource stmpe_ts_resources[] = {
->  	{
->  		.name	= "TOUCH_DET",
->  		.flags	= IORESOURCE_IRQ,
-> @@ -467,7 +467,7 @@ static const struct mfd_cell stmpe_ts_cell = {
->   * ADC (STMPE811)
->   */
->  
-> -static const struct resource stmpe_adc_resources[] = {
-> +static struct resource stmpe_adc_resources[] = {
->  	{
->  		.name	= "STMPE_TEMP_SENS",
->  		.flags	= IORESOURCE_IRQ,
-> -- 
-> 2.30.1
-> 
-
--- 
-With Best Regards,
-Andy Shevchenko
-
 
 _______________________________________________
 Linux-stm32 mailing list
