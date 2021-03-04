@@ -2,36 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDCE532CE47
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Mar 2021 09:21:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C51432CEC1
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Mar 2021 09:50:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 988EEC57B76;
-	Thu,  4 Mar 2021 08:21:08 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46E68C57B76;
+	Thu,  4 Mar 2021 08:50:11 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A752C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD996C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Mar 2021 08:21:07 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BDC00AAC5;
- Thu,  4 Mar 2021 08:21:06 +0000 (UTC)
-To: Jagan Teki <jagan@amarulasolutions.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Philippe Cornu <philippe.cornu@st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Vincent Abriou <vincent.abriou@st.com>
+ Thu,  4 Mar 2021 08:50:10 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 1248m3Ze014700; Thu, 4 Mar 2021 09:49:57 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=FVNy8tJa/zBb6Dg12zoReyCjkz82aSQwtAndHZjvGrI=;
+ b=U4rIj9FWvU3QrNu8eC7iMsPaO5M3+VYijeR/qKqVEbkIfB7bFhgMVHqzx2bQhAM41bx1
+ uy0xUuy6JQNL5m8T8+Is/l3X+nj4KssdJO7kbSkQz3itCywduFAAiz8a/B3A3NTBfP68
+ zGwDozSj3w34/pGoCMkvRsQW4Fe+9K5JxWvV8RVYkK2Xyg2r97vQ+kfpohr2FoLRcsJ9
+ lddIy1QAgdQZFazh2hzvpvxniYNTTl4JNBYwNy1Mmsp1OgYG+vZu2AyiP7kJcJkvxye8
+ 8jhPiss1zGvUcgoAJz4IqG4BY0qMqHItC1/pW9qwjxl2ig1TdNB+IqOR90DiwcNuuEXN Dg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36yfdye49s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 04 Mar 2021 09:49:57 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9FEEF10002A;
+ Thu,  4 Mar 2021 09:49:56 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 74D7A228C23;
+ Thu,  4 Mar 2021 09:49:56 +0100 (CET)
+Received: from lmecxl0951.lme.st.com (10.75.127.51) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 4 Mar
+ 2021 09:49:55 +0100
+To: Thomas Zimmermann <tzimmermann@suse.de>, Jagan Teki
+ <jagan@amarulasolutions.com>, Yannick Fertre <yannick.fertre@st.com>,
+ Philippe Cornu <philippe.cornu@st.com>, Benjamin Gaignard
+ <benjamin.gaignard@linaro.org>, Vincent Abriou <vincent.abriou@st.com>
 References: <20210302175700.28640-1-jagan@amarulasolutions.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <791a6f75-3603-9b84-c267-76c24fb77ee2@suse.de>
-Date: Thu, 4 Mar 2021 09:21:05 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ <791a6f75-3603-9b84-c267-76c24fb77ee2@suse.de>
+From: yannick Fertre <yannick.fertre@foss.st.com>
+Message-ID: <1d6ff4e2-9213-6e13-214d-b1705199610e@foss.st.com>
+Date: Thu, 4 Mar 2021 09:49:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210302175700.28640-1-jagan@amarulasolutions.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amarula@amarulasolutions.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+In-Reply-To: <791a6f75-3603-9b84-c267-76c24fb77ee2@suse.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-04_02:2021-03-03,
+ 2021-03-04 signatures=0
+Cc: dri-devel@lists.freedesktop.org, linux-amarula@amarulasolutions.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: Use simple encoder
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -45,137 +75,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============9008075177141496052=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============9008075177141496052==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="j2ZI2tgr2HFWGwvR1rVkDX8CF1cKP4vlo"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---j2ZI2tgr2HFWGwvR1rVkDX8CF1cKP4vlo
-Content-Type: multipart/mixed; boundary="AK4xx3qya29Jz8JQWpNRhf5ZcjrKlNi2q";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Jagan Teki <jagan@amarulasolutions.com>,
- Yannick Fertre <yannick.fertre@st.com>,
- Philippe Cornu <philippe.cornu@st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Vincent Abriou <vincent.abriou@st.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-amarula@amarulasolutions.com,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Message-ID: <791a6f75-3603-9b84-c267-76c24fb77ee2@suse.de>
-Subject: Re: [PATCH] drm/stm: ltdc: Use simple encoder
-References: <20210302175700.28640-1-jagan@amarulasolutions.com>
-In-Reply-To: <20210302175700.28640-1-jagan@amarulasolutions.com>
-
---AK4xx3qya29Jz8JQWpNRhf5ZcjrKlNi2q
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-shall I merge this patch?
-
-Am 02.03.21 um 18:57 schrieb Jagan Teki:
-> STM ltdc driver uses an empty implementation for its encoder.
-> Replace the code with the generic simple encoder.
->=20
-> Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
-> ---
->   drivers/gpu/drm/stm/ltdc.c | 12 ++----------
->   1 file changed, 2 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index 7812094f93d6..aeeb43524ca0 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -31,6 +31,7 @@
->   #include <drm/drm_of.h>
->   #include <drm/drm_plane_helper.h>
->   #include <drm/drm_probe_helper.h>
-> +#include <drm/drm_simple_kms_helper.h>
->   #include <drm/drm_vblank.h>
->  =20
->   #include <video/videomode.h>
-> @@ -1020,14 +1021,6 @@ static int ltdc_crtc_init(struct drm_device *dde=
-v, struct drm_crtc *crtc)
->   	return ret;
->   }
->  =20
-> -/*
-> - * DRM_ENCODER
-> - */
-> -
-> -static const struct drm_encoder_funcs ltdc_encoder_funcs =3D {
-> -	.destroy =3D drm_encoder_cleanup,
-> -};
-> -
->   static void ltdc_encoder_disable(struct drm_encoder *encoder)
->   {
->   	struct drm_device *ddev =3D encoder->dev;
-> @@ -1088,8 +1081,7 @@ static int ltdc_encoder_init(struct drm_device *d=
-dev, struct drm_bridge *bridge)
->   	encoder->possible_crtcs =3D CRTC_MASK;
->   	encoder->possible_clones =3D 0;	/* No cloning support */
->  =20
-> -	drm_encoder_init(ddev, encoder, &ltdc_encoder_funcs,
-> -			 DRM_MODE_ENCODER_DPI, NULL);
-> +	drm_simple_encoder_init(ddev, encoder, DRM_MODE_ENCODER_DPI);
->  =20
->   	drm_encoder_helper_add(encoder, &ltdc_encoder_helper_funcs);
->  =20
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---AK4xx3qya29Jz8JQWpNRhf5ZcjrKlNi2q--
-
---j2ZI2tgr2HFWGwvR1rVkDX8CF1cKP4vlo
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmBAmHEFAwAAAAAACgkQlh/E3EQov+BW
-LhAAtB/ROfja0It2G8hWcRI1jXKJrtGPKUZIpEwiBosfhFdoBUfLdpOGtOi0znaiJ4dRHDk+4khw
-wm0kT8mbAiTAT/TZhQRuoemVyZGsirZ4ICHNmw2E9h02hAtiPCkKy9rRrbu8+y1bvxZxumWjENo6
-Ci/tDyehZM1vExRGZxddNVwsU7leHcd4wCr6jNhQ0fFktMkaGhbSY/COIRg5m4yLdGNsnexEm3CT
-FOlO7DJCOysCFdsx5Uoy38H4NUxPMbM1S6Qg5pr+nEyfI/d4iitPbbY5NA83/34xMYnQzZVQIPYw
-ZCENZyrIFHOoU0eLsq37X8V0c/8tXM/mJ/GcnahFGlH8NdhG1ctBazEG/lJJgMinYHwb78gv+dgq
-SSiN73IfbtYSl14tY+62kvwlUYCythX4HchKxB8OEmrlt6wo3JQabarUViOM8/VZMAlBCz6MjOH5
-HCKgEo7IIf9ApMFSV/oSJVuuqPQy6drWK0A1umrDHedwk2Oym1cOk0/q3ca/3XGOUQM8bwol6pFN
-Sb8X8HKNay9VvUCIwOVljUmAfJUeT1ux8sdwpP7RizOLQbs8r4tLcmHV9LG71E+8AibF1FnsZeap
-Q2mhgZiG+0y0nTCqmIwUNFwYcRPc8yF8FDc8snsqhTfD9Ykp2MhmOlyH/Tv2BOkrrdRTpF5aLDRv
-Bac=
-=kdMO
------END PGP SIGNATURE-----
-
---j2ZI2tgr2HFWGwvR1rVkDX8CF1cKP4vlo--
-
---===============9008075177141496052==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============9008075177141496052==--
+SGkgVGhvbWFzLApJIHdhaXQgYSBmZXcgZGF5cyBiZWZvcmUgbWVyZ2luZyBpdC4KVGhhbmsgeW91
+IGZvciB5b3VyIGhlbHAuCgpCZXN0IHJlZ2FyZHMKCllhbm5pY2sKCgpPbiAzLzQvMjEgOToyMSBB
+TSwgVGhvbWFzIFppbW1lcm1hbm4gd3JvdGU6Cj4gSGksCj4gCj4gc2hhbGwgSSBtZXJnZSB0aGlz
+IHBhdGNoPwo+IAo+IEFtIDAyLjAzLjIxIHVtIDE4OjU3IHNjaHJpZWIgSmFnYW4gVGVraToKPj4g
+U1RNIGx0ZGMgZHJpdmVyIHVzZXMgYW4gZW1wdHkgaW1wbGVtZW50YXRpb24gZm9yIGl0cyBlbmNv
+ZGVyLgo+PiBSZXBsYWNlIHRoZSBjb2RlIHdpdGggdGhlIGdlbmVyaWMgc2ltcGxlIGVuY29kZXIu
+Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEphZ2FuIFRla2kgPGphZ2FuQGFtYXJ1bGFzb2x1dGlvbnMu
+Y29tPgo+PiAtLS0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMgfCAxMiArKy0tLS0t
+LS0tLS0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25z
+KC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9zdG0vbHRkYy5jCj4+IGluZGV4IDc4MTIwOTRmOTNkNi4uYWVlYjQzNTI0Y2Ew
+IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwo+PiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwo+PiBAQCAtMzEsNiArMzEsNyBAQAo+PiDCoCAjaW5jbHVk
+ZSA8ZHJtL2RybV9vZi5oPgo+PiDCoCAjaW5jbHVkZSA8ZHJtL2RybV9wbGFuZV9oZWxwZXIuaD4K
+Pj4gwqAgI2luY2x1ZGUgPGRybS9kcm1fcHJvYmVfaGVscGVyLmg+Cj4+ICsjaW5jbHVkZSA8ZHJt
+L2RybV9zaW1wbGVfa21zX2hlbHBlci5oPgo+PiDCoCAjaW5jbHVkZSA8ZHJtL2RybV92Ymxhbmsu
+aD4KPj4gwqAgI2luY2x1ZGUgPHZpZGVvL3ZpZGVvbW9kZS5oPgo+PiBAQCAtMTAyMCwxNCArMTAy
+MSw2IEBAIHN0YXRpYyBpbnQgbHRkY19jcnRjX2luaXQoc3RydWN0IGRybV9kZXZpY2UgCj4+ICpk
+ZGV2LCBzdHJ1Y3QgZHJtX2NydGMgKmNydGMpCj4+IMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPj4g
+wqAgfQo+PiAtLyoKPj4gLSAqIERSTV9FTkNPREVSCj4+IC0gKi8KPj4gLQo+PiAtc3RhdGljIGNv
+bnN0IHN0cnVjdCBkcm1fZW5jb2Rlcl9mdW5jcyBsdGRjX2VuY29kZXJfZnVuY3MgPSB7Cj4+IC3C
+oMKgwqAgLmRlc3Ryb3kgPSBkcm1fZW5jb2Rlcl9jbGVhbnVwLAo+PiAtfTsKPj4gLQo+PiDCoCBz
+dGF0aWMgdm9pZCBsdGRjX2VuY29kZXJfZGlzYWJsZShzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29k
+ZXIpCj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiA9IGVuY29k
+ZXItPmRldjsKPj4gQEAgLTEwODgsOCArMTA4MSw3IEBAIHN0YXRpYyBpbnQgbHRkY19lbmNvZGVy
+X2luaXQoc3RydWN0IGRybV9kZXZpY2UgCj4+ICpkZGV2LCBzdHJ1Y3QgZHJtX2JyaWRnZSAqYnJp
+ZGdlKQo+PiDCoMKgwqDCoMKgIGVuY29kZXItPnBvc3NpYmxlX2NydGNzID0gQ1JUQ19NQVNLOwo+
+PiDCoMKgwqDCoMKgIGVuY29kZXItPnBvc3NpYmxlX2Nsb25lcyA9IDA7wqDCoMKgIC8qIE5vIGNs
+b25pbmcgc3VwcG9ydCAqLwo+PiAtwqDCoMKgIGRybV9lbmNvZGVyX2luaXQoZGRldiwgZW5jb2Rl
+ciwgJmx0ZGNfZW5jb2Rlcl9mdW5jcywKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBEUk1f
+TU9ERV9FTkNPREVSX0RQSSwgTlVMTCk7Cj4+ICvCoMKgwqAgZHJtX3NpbXBsZV9lbmNvZGVyX2lu
+aXQoZGRldiwgZW5jb2RlciwgRFJNX01PREVfRU5DT0RFUl9EUEkpOwo+PiDCoMKgwqDCoMKgIGRy
+bV9lbmNvZGVyX2hlbHBlcl9hZGQoZW5jb2RlciwgJmx0ZGNfZW5jb2Rlcl9oZWxwZXJfZnVuY3Mp
+Owo+Pgo+IAo+IAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ry
+aS1kZXZlbAo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
+aXN0aW5mby9saW51eC1zdG0zMgo=
