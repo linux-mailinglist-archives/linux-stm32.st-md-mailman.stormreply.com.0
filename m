@@ -2,56 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4470F32D9B6
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Mar 2021 19:55:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 626D832D9FB
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Mar 2021 20:06:04 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8659C57B75;
-	Thu,  4 Mar 2021 18:55:29 +0000 (UTC)
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 198A1C57B75;
+	Thu,  4 Mar 2021 19:06:04 +0000 (UTC)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E18DDC3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C44A9C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Mar 2021 18:55:27 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id 18so4760355pfo.6
+ Thu,  4 Mar 2021 19:06:00 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id l2so19544203pgb.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 04 Mar 2021 10:55:27 -0800 (PST)
+ Thu, 04 Mar 2021 11:06:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=X7AZqrsRrcth+0vhIoZwJc17+iOSIdFnS/9ezQsHyQQ=;
- b=xSTFsW+hrccBHxvVPtlkcY8CGpQI2Nq2GgtdkOJdhbhCXFFqCWd8vx/b6SteK+K3sx
- O7CpZtlT2qht9yecYV3E1H+KjKow7dwfq5RgjuBtTWPpfSX7vsQH5QW3qJdEzbt7B1+P
- KwJx7UgNgcKunhOVZ/7ZbrxXjSlXrfiVKuZUCJ3m3l3F/Yqhi/Qt/FgRxDzAz5Gv96C7
- O8SRmEUPbIA4WXIvdZSqk9GPZywHWI9acmID8dKrMIIA9363DOP0/BRQXWSwTLM/p+KL
- +3s08yEl/5vuEBH97+Owc2XBgbVs2r1yggCYLaaF0MuoTddjrfNNTXW8GaAWQYtg4lNS
- 3VYw==
+ bh=rbbyP4f7puqulTra1fDP6OcDsptLygIaw3JP1xb77tM=;
+ b=fadB5UiTzffTtxrnqdd8PhIkKLTzeY5XXE5bdX4vJi9wo5p/1BA58D1ACxEGMuIXJo
+ uRdV+JdUT+4TivRh1Y40BT7tBt05iF3Tz+jLltT8q+VcbuFdOFg+2BbGlOhl2nPI5mQN
+ 4lwwe1QpLvzBeIwu2bP1lHAPbZMo0UurQ8Q2ArljOCzw8/qTlcmYslAtXIPic2EMbECj
+ cdZCaoCA3q4OIWue/ZYMje4G8wQSt2UGacFpsykcWPznbxJR2tF86woEKSo30D3ge1IK
+ TvQkapUM9mbMHGPF+Jmp2IgSipfBrZoPAOUpOpk9yVHDrrFEj5JMOGn1W1Dtcak7NGNR
+ 2P5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=X7AZqrsRrcth+0vhIoZwJc17+iOSIdFnS/9ezQsHyQQ=;
- b=YMp+BKhtjtpF3oJXiCFvx/iQZcSYyM+V9QPJNNZlGjCl0jQ3j//g3af5wj22zDU0Zc
- fN3TMh5bKfSafZgZlAzZM8qMh6Ghrx32LtG9UOM1bJp12ZUwyC8IrWJtDvOzmivwDRw1
- jcr4VDM1EV1y3lgKFubf4Xqd+C8S2qFvx9WbMpKMkORhEIShl90xOGu/CVnlVjEnKqr7
- gUSH0N1p3/N86SwwS3qA65P4t1Y6DfqG9mfHlzIhxwrrysqPQD/h2c9+WVUgUqDN6rjk
- zJ/lhVwGHbX3+Vmz6UTtal3mImOyqFWPeYwhMtMM6TfYj42PVDaAdI92olFQN729KrFw
- 4JFA==
-X-Gm-Message-State: AOAM531yzdbyVJsuzoECJF+FNqohjchUAQq6vf5teWtDbA2oqXH43jsI
- fPByJgQeDRgC8OmZLf480+bvZw==
-X-Google-Smtp-Source: ABdhPJzszkC/1+6RyebxySsHQ7RkcPuJ6V9QsqjSOJNVdr6UKz2Z+8c3UoA2uw2WhPBEvSd3uoTFnQ==
-X-Received: by 2002:a05:6a00:138f:b029:1b8:b9d5:3a2c with SMTP id
- t15-20020a056a00138fb02901b8b9d53a2cmr5230356pfg.10.1614884126417; 
- Thu, 04 Mar 2021 10:55:26 -0800 (PST)
+ bh=rbbyP4f7puqulTra1fDP6OcDsptLygIaw3JP1xb77tM=;
+ b=WINt53TqKo9000HkSh3w62wnS1o1pqras+bT8pgCp7tC7RAGl7+U8A/JGlSYLSpZCp
+ 4kp2er6QfCz9SFfKNob666phOQJn8hUwE4Ssg+DoBeXGOZ1Cqb584ILTO5pc6RJF0+qD
+ bZ1lNwxNqleqk/kc4AHh9V93b/mVpNWhJPzV5Z1hHpAR7p8utha4xErTRBwhA6VO/cEq
+ VVO76ZWakucVXAcCrJCvqY3033PqpChvXDqh+7Pu2KxFXNgfnYUJ0Kp3rwbKYMiFemvR
+ vgPcznNj/v8ErPBr+D2KFlByE0Bnr/vRH3yc+m4ZektXcMINoUx1ltmjSVhoOPjCFzu6
+ vXTA==
+X-Gm-Message-State: AOAM531GjRHLhwGjRiMxHfyvQJtmZ/tyraG1oRdmj8ulxDXgZ5Do4Ewg
+ 5/aFhiYZkRtSiI7ck5JZVoUorQ==
+X-Google-Smtp-Source: ABdhPJzM5524ccpy7qBq9OHI+RD9DcNp/2ZQOTkWThKPhkwH8zqKQJ3k0rww2CocJYdIxOK9EbiFlA==
+X-Received: by 2002:a63:4241:: with SMTP id p62mr4758259pga.453.1614884759096; 
+ Thu, 04 Mar 2021 11:05:59 -0800 (PST)
 Received: from xps15 (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
- by smtp.gmail.com with ESMTPSA id o1sm165048pgq.1.2021.03.04.10.55.22
+ by smtp.gmail.com with ESMTPSA id 188sm146234pfz.119.2021.03.04.11.05.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Mar 2021 10:55:22 -0800 (PST)
-Date: Thu, 4 Mar 2021 11:55:20 -0700
+ Thu, 04 Mar 2021 11:05:55 -0800 (PST)
+Date: Thu, 4 Mar 2021 12:05:53 -0700
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
 To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <20210304185520.GC3854911@xps15>
+Message-ID: <20210304190553.GD3854911@xps15>
 References: <20210219111501.14261-1-arnaud.pouliquen@foss.st.com>
  <20210219111501.14261-14-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
@@ -82,8 +81,25 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 On Fri, Feb 19, 2021 at 12:14:58PM +0100, Arnaud Pouliquen wrote:
 > Introduce the __rpmsg_chrdev_create_eptdev internal function that returns
 > the rpmsg_eptdev context structure.
+
+Add newlines between paragraphs.
+
 > This patch prepares the introduction of a RPMsg device for the
 > char device. the RPMsg device will need a reference to the context.
+
+s/the/The
+
+s/RPMsg/RPMSG - throughout the patchset.
+
+As a general note please be mindful of patch changelogs.  I often find myself
+having to decipher the ideas being conveyed.
+
+I am done reviewing this set.  There are things I will want to come back to but
+the general goals behind the patchset are being achieved.
+
+Thanks,
+Mathieu
+
 > 
 > Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 > ---
@@ -138,9 +154,6 @@ On Fri, Feb 19, 2021 at 12:14:58PM +0100, Arnaud Pouliquen wrote:
 > +	struct rpmsg_eptdev *eptdev;
 > +
 > +	eptdev = __rpmsg_chrdev_create_eptdev(rpdev, &rpdev->dev, chinfo);
-
-Shouldn't the second argument to __rpmsg_chrdev_create_eptdev() be @parent?
-
 > +	if (IS_ERR(eptdev))
 > +		return PTR_ERR(eptdev);
 > +
