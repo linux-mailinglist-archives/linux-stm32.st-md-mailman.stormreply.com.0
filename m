@@ -2,47 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64D3832E606
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Mar 2021 11:18:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DABC532E69F
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Mar 2021 11:46:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15B42C57B7D;
-	Fri,  5 Mar 2021 10:18:42 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 986D2C57B7D;
+	Fri,  5 Mar 2021 10:46:21 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EF83C56631
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 032EAC57B7B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Mar 2021 10:18:39 +0000 (UTC)
-IronPort-SDR: Y0hs8zLYcwhm571Jmo7nzs/GH/XU2XkGR06YxY4Uc66iuzCcMuCUumwylaUp7kgtZCgvywNCPu
- BAvtayemI+Lw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9913"; a="174733900"
-X-IronPort-AV: E=Sophos;i="5.81,224,1610438400"; d="scan'208";a="174733900"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2021 02:18:36 -0800
-IronPort-SDR: WWc9C3FxVSf9WalrZTEPUKZssB4unKhpo9fXKPA2/ab2PH4KOwIAqukM+KCAiTat61SUL21f7g
- WLK58LpPz8kQ==
-X-IronPort-AV: E=Sophos;i="5.81,224,1610438400"; d="scan'208";a="507951556"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2021 02:18:34 -0800
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1lI7XU-00A60q-40; Fri, 05 Mar 2021 12:18:32 +0200
-Date: Fri, 5 Mar 2021 12:18:32 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Rikard Falkeborn <rikard.falkeborn@gmail.com>
-Message-ID: <YEIFeJQvyyYRYm+W@smile.fi.intel.com>
-References: <20210304230709.3217-1-rikard.falkeborn@gmail.com>
+ Fri,  5 Mar 2021 10:46:19 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 125AcLOY026340; Fri, 5 Mar 2021 11:46:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=e8RgWyuTLeswgNcGA3ifo/dI3vZUFn59Nt++mY73tcI=;
+ b=VonhnXj3mFxSVt4fitfX6UjULmCRSRubQAuM/KrvVZQYZA2ouOHyqHGFDp1YJ8DEB9ro
+ I0QcpwTClTRndysEA8HG/jmCKXNlxHoyd7LCH/G1z4qX8z85WYmyEAb6qdepctdKo3mQ
+ 88yjp/BA+l36bpxpKuwSTW/Qxyi5M8IwTArCu0e8IQsvq8kU2s1WERqTrjYaKMRRkNTA
+ CFM8txCfIsXKACS9iBZ3BTsn4iiJdZmJgsCWUY7WMvNw7mRr/C3gvAiyHzqpuvVv0pUz
+ RjIJpFqj3Z3/JpnysWjFkKRCNb8WuOP/ELMyanHLuMOvdtVPwgayUcPZXHhL1Xnb+7mU TQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 36yfc4dq0k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Mar 2021 11:46:15 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9D66910002A;
+ Fri,  5 Mar 2021 11:46:14 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 85D252425CB;
+ Fri,  5 Mar 2021 11:46:14 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.51) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 5 Mar
+ 2021 11:46:13 +0100
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20210219111501.14261-1-arnaud.pouliquen@foss.st.com>
+ <20210219111501.14261-9-arnaud.pouliquen@foss.st.com>
+ <20210304191129.GE3854911@xps15>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <e0f60693-3184-55c1-db67-1725a5f9c24d@foss.st.com>
+Date: Fri, 5 Mar 2021 11:46:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210304230709.3217-1-rikard.falkeborn@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: Alexandre Torgue <alexandre.torgue@st.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] mfd: stmpe: Revert "Constify static
-	struct resource"
+In-Reply-To: <20210304191129.GE3854911@xps15>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-05_05:2021-03-03,
+ 2021-03-05 signatures=0
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v5 08/16] rpmsg: glink: add sendto and
+	trysendto ops
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,91 +80,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 05, 2021 at 12:07:09AM +0100, Rikard Falkeborn wrote:
-> In stmpe_devices_init(), the start and end field of these structs are
-> modified, so they can not be const. Add a comment to those structs that
-> lacked it to reduce the risk that this happens again.
-> 
-> This reverts commit 8d7b3a6dac4eae22c58b0853696cbd256966741b.
+Hi Mathieu,
 
-FWIW,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-> Fixes: 8d7b3a6dac4e ("mfd: stmpe: Constify static struct resource")
-> Reported-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
-> ---
-> Changes
-> V1-V2: Add comments to the structs that they are dynamically modified
->        Rewrite commit message.
+On 3/4/21 8:11 PM, Mathieu Poirier wrote:
+> On Fri, Feb 19, 2021 at 12:14:53PM +0100, Arnaud Pouliquen wrote:
+>> Implement the sendto ops to support the future rpmsg_char update for the
+>> vitio backend support.
 > 
-> V1: https://lore.kernel.org/lkml/20210302234710.74455-1-rikard.falkeborn@gmail.com/
+> Add a new line, otherwise it is very easy to read.
 > 
->  drivers/mfd/stmpe.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
+>> The use of sendto in rpmsg_char is needed as a destination address is
+>> requested at least by the virtio backend.
 > 
-> diff --git a/drivers/mfd/stmpe.c b/drivers/mfd/stmpe.c
-> index 90f3292230c9..1dd39483e7c1 100644
-> --- a/drivers/mfd/stmpe.c
-> +++ b/drivers/mfd/stmpe.c
-> @@ -312,7 +312,7 @@ EXPORT_SYMBOL_GPL(stmpe_set_altfunc);
->   * GPIO (all variants)
->   */
->  
-> -static const struct resource stmpe_gpio_resources[] = {
-> +static struct resource stmpe_gpio_resources[] = {
->  	/* Start and end filled dynamically */
->  	{
->  		.flags	= IORESOURCE_IRQ,
-> @@ -336,7 +336,8 @@ static const struct mfd_cell stmpe_gpio_cell_noirq = {
->   * Keypad (1601, 2401, 2403)
->   */
->  
-> -static const struct resource stmpe_keypad_resources[] = {
-> +static struct resource stmpe_keypad_resources[] = {
-> +	/* Start and end filled dynamically */
->  	{
->  		.name	= "KEYPAD",
->  		.flags	= IORESOURCE_IRQ,
-> @@ -357,7 +358,8 @@ static const struct mfd_cell stmpe_keypad_cell = {
->  /*
->   * PWM (1601, 2401, 2403)
->   */
-> -static const struct resource stmpe_pwm_resources[] = {
-> +static struct resource stmpe_pwm_resources[] = {
-> +	/* Start and end filled dynamically */
->  	{
->  		.name	= "PWM0",
->  		.flags	= IORESOURCE_IRQ,
-> @@ -445,7 +447,8 @@ static struct stmpe_variant_info stmpe801_noirq = {
->   * Touchscreen (STMPE811 or STMPE610)
->   */
->  
-> -static const struct resource stmpe_ts_resources[] = {
-> +static struct resource stmpe_ts_resources[] = {
-> +	/* Start and end filled dynamically */
->  	{
->  		.name	= "TOUCH_DET",
->  		.flags	= IORESOURCE_IRQ,
-> @@ -467,7 +470,8 @@ static const struct mfd_cell stmpe_ts_cell = {
->   * ADC (STMPE811)
->   */
->  
-> -static const struct resource stmpe_adc_resources[] = {
-> +static struct resource stmpe_adc_resources[] = {
-> +	/* Start and end filled dynamically */
->  	{
->  		.name	= "STMPE_TEMP_SENS",
->  		.flags	= IORESOURCE_IRQ,
-> -- 
-> 2.30.1
+> Same here and throughout the patchset.
 > 
+>> The glink implementation does not need a destination address so ignores it.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>>  drivers/rpmsg/qcom_glink_native.c | 16 ++++++++++++++++
+>>  1 file changed, 16 insertions(+)
+>>
+>> diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
+>> index d4e4dd482614..ae2c03b59c55 100644
+>> --- a/drivers/rpmsg/qcom_glink_native.c
+>> +++ b/drivers/rpmsg/qcom_glink_native.c
+>> @@ -1332,6 +1332,20 @@ static int qcom_glink_trysend(struct rpmsg_endpoint *ept, void *data, int len)
+>>  	return __qcom_glink_send(channel, data, len, false);
+>>  }
+>>  
+>> +static int qcom_glink_sendto(struct rpmsg_endpoint *ept, void *data, int len, u32 dst)
+>> +{
+>> +	struct glink_channel *channel = to_glink_channel(ept);
+>> +
+>> +	return __qcom_glink_send(channel, data, len, true);
+>> +}
+>> +
+>> +static int qcom_glink_trysendto(struct rpmsg_endpoint *ept, void *data, int len, u32 dst)
+>> +{
+>> +	struct glink_channel *channel = to_glink_channel(ept);
+>> +
+>> +	return __qcom_glink_send(channel, data, len, false);
+>> +}
+> 
+> Just rename send() to sendto() and trysend() to trysendto() and ignore the
+> destination address.  
 
--- 
-With Best Regards,
-Andy Shevchenko
+Function prototypes have to match with rpmsg_endpoint_ops structure defined
+below. So seems to me not possible to just rename the functions.
+Please could you clarify if i missed something?
 
+> The same goes for the next patch.  I would fold patch 08
+> and 09 into 10 to help get the big picture.
 
+I'm going to squash all in one.
+
+Thanks,
+Arnaud
+
+> 
+>> +
+>>  /*
+>>   * Finds the device_node for the glink child interested in this channel.
+>>   */
+>> @@ -1364,7 +1378,9 @@ static const struct rpmsg_device_ops glink_device_ops = {
+>>  static const struct rpmsg_endpoint_ops glink_endpoint_ops = {
+>>  	.destroy_ept = qcom_glink_destroy_ept,
+>>  	.send = qcom_glink_send,
+>> +	.sendto = qcom_glink_sendto,
+>>  	.trysend = qcom_glink_trysend,
+>> +	.trysendto = qcom_glink_trysendto,
+>>  };
+>>  
+>>  static void qcom_glink_rpdev_release(struct device *dev)
+>> -- 
+>> 2.17.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
