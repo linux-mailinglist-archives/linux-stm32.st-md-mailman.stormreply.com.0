@@ -2,69 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5D6F32F06D
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Mar 2021 17:55:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BDC632F17A
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Mar 2021 18:39:51 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E33DC57B7C;
-	Fri,  5 Mar 2021 16:55:16 +0000 (UTC)
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E73B9C57B7C;
+	Fri,  5 Mar 2021 17:39:50 +0000 (UTC)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B81D4C57182
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CCEAC56631
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Mar 2021 16:55:14 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id s7so1702455plg.5
+ Fri,  5 Mar 2021 17:39:50 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id s7so1766005plg.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Mar 2021 08:55:14 -0800 (PST)
+ Fri, 05 Mar 2021 09:39:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=5oX7JDjpyFM6sShOZapWIE6sOYsNksokkCB2Em8FcMw=;
- b=EqxN9e8rDjI2I2gJOSPPG/q05JnU5yymLBDDd9p6ny16eovxkKkAUbrCkuQSTOB2WH
- g6zlxso1OMmg9Ebdk6Nbnx5o4aQNreFt48edMlEaavtiJJ7mCrS65A3BOLEdjVhSZ+mg
- svQQmF4n7dUqon7+f5JiNK/WxfI40+U7YPB4bBRw/Kp+EaQmtNgMxtI9sp7A7OxE3EjE
- o7KtladbbuHryn65Vt1m/aXtqDmcRDiV/Bass2bcD0rWOKHvsdb54zCUGsLPAeLZK2Qu
- kwjtxw9epGtY+6puNn5zLVMj+37z++zRhGSFrBWhgb8EC2qCS0sCjNMal2DihjLtBYY/
- lBDg==
+ bh=0U/5k+q/HJ1YlYlyAATLdvdzgFw3Kh+iX+qoDNdFdc8=;
+ b=AYGddGvVV9JNaZ72VmtfGsuOKbRA/FCZWvlh7Z3BV10+vNHMqUrtA9h2RhaLtW3+80
+ GFTs756gi65p5PmZDecnyP8D9yJu1lz1sk7Os77rlIfpZUi60RAPHUEEsTWbuyn+5F7b
+ 8S8rioR5X3rcx0s3pFQDnD/9CJd9fPg1CIsKSfMbLhljqfsa25USxt1V10bemt1Y3oyR
+ RSU2KDzfEtiNYNgpjbL3zz1HzMywgh8p4CQBVvNM6Zxx5bNIyDFG5hD7V1HKFcxx6MyA
+ c5ald3CQqVEsuXGJyBSuhlrVlxwoHX4Tiwn5hiKnbNc0xRLcI99GatlWWvxQX9W47e3r
+ bF5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=5oX7JDjpyFM6sShOZapWIE6sOYsNksokkCB2Em8FcMw=;
- b=QQvmq9msoYlAk4toPnvqfSQQNvlIfqs18rlWQr2CrEMlAtKv/zuYn5WQq8wOGzHHEV
- d8aqbuxSB6IVs1k/NvjCf44yFsr5L6AocDcT95SIc/1vyET6iFHOlZOFLYNww3HwgTjq
- YQA4664x8H2dK7FX+OogIZPCo2L2Qp4L9OlZ8nUIHwY0bgh1xhHl6LTZVyT76hIxvqVS
- M6sCGYHcZDg3R211G53pViPX+paTNz3jpqNEMoDYfNua4X0/HBcfNXJOcuGo+akDUz9u
- lbcqsriipAmi5AfSpDZwlyqHxyo6Hfyqjg3t7wLMcF4ydSywSfaXp1N/ViQAr//VKpT3
- WZpQ==
-X-Gm-Message-State: AOAM531GTKBG+7/rAfgSSVKh86XDq/NgecRG8j6SNey8afopFVuhUI9X
- f0/ZDz2PqhlZ3MAWycZJEG3gtw==
-X-Google-Smtp-Source: ABdhPJxstzqvocrEH0wIvecZMQR/AbxctNSmn+OMgpLPNverTVBu8owjd2rr+kRGcTeQBx+lLo4/RQ==
-X-Received: by 2002:a17:90a:4d07:: with SMTP id
- c7mr11296018pjg.104.1614963313231; 
- Fri, 05 Mar 2021 08:55:13 -0800 (PST)
+ bh=0U/5k+q/HJ1YlYlyAATLdvdzgFw3Kh+iX+qoDNdFdc8=;
+ b=n4Ne84Z9phb8BqgUOA0LeTU1jh9aisLBBA3fNOkTQeIvtTzakdsuQmS7i81yMiEKKu
+ 2A5twFA8mwrW3v9oe1h2Z2lHj7lmCmi+L3+vWH5gNxM6GCM4GOjc1cN8Jzc1HHzN/xdK
+ q0jHoQ0dn2X0UznBub19TyABA7IO4NqqKQVEnilB9OzDjOoBe+mrWVPX/wmny/5gFesU
+ y999dfZ0sIJ2xfBSWUy3EQINPwDTEvOyXdDGcPWyzklUhLneZlKPBMWjQ8qay5b+JFmA
+ 61mHyhVHWcPT9N0Q5N4Mwg9wxkMHCBYr0LhEyXq0sXxlYvRMxvqEfca2ctKHkOw/oSER
+ 5Y/g==
+X-Gm-Message-State: AOAM530UssDkfmmPpZupOG/cU/pn/Y483LbdtilfR/F8a7/u+1tVbF2p
+ FwdLhq3rpQz/+jG+OK9DaZ+Rcw==
+X-Google-Smtp-Source: ABdhPJzQuiVScsJZfLsQeeYPIMvlqkVTgipz2lTEd++UI4HjY8Nuw1xrqt+7oZEme9eA+6nAx101bg==
+X-Received: by 2002:a17:90a:540c:: with SMTP id
+ z12mr11003937pjh.163.1614965987931; 
+ Fri, 05 Mar 2021 09:39:47 -0800 (PST)
 Received: from xps15 (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
- by smtp.gmail.com with ESMTPSA id mw13sm2794442pjb.42.2021.03.05.08.55.11
+ by smtp.gmail.com with ESMTPSA id d6sm2681398pjs.38.2021.03.05.09.39.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Mar 2021 08:55:12 -0800 (PST)
-Date: Fri, 5 Mar 2021 09:55:10 -0700
+ Fri, 05 Mar 2021 09:39:47 -0800 (PST)
+Date: Fri, 5 Mar 2021 10:39:45 -0700
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
 To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <20210305165510.GA3885132@xps15>
+Message-ID: <20210305173945.GB3885132@xps15>
 References: <20210219111501.14261-1-arnaud.pouliquen@foss.st.com>
- <20210219111501.14261-9-arnaud.pouliquen@foss.st.com>
- <20210304191129.GE3854911@xps15>
- <e0f60693-3184-55c1-db67-1725a5f9c24d@foss.st.com>
+ <20210219111501.14261-16-arnaud.pouliquen@foss.st.com>
+ <20210304184034.GA3854911@xps15>
+ <d5a451e1-3dac-f665-aabd-bd72afc88b75@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <e0f60693-3184-55c1-db67-1725a5f9c24d@foss.st.com>
+In-Reply-To: <d5a451e1-3dac-f665-aabd-bd72afc88b75@foss.st.com>
 Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
  linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  Bjorn Andersson <bjorn.andersson@linaro.org>, Andy Gross <agross@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v5 08/16] rpmsg: glink: add sendto and
-	trysendto ops
+Subject: Re: [Linux-stm32] [PATCH v5 15/16] rpmsg: char: no dynamic endpoint
+ management for the default one
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,65 +81,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-[...]
-
-> >>  }
-> >>  
-> >> +static int qcom_glink_sendto(struct rpmsg_endpoint *ept, void *data, int len, u32 dst)
-> >> +{
-> >> +	struct glink_channel *channel = to_glink_channel(ept);
-> >> +
-> >> +	return __qcom_glink_send(channel, data, len, true);
-> >> +}
-> >> +
-> >> +static int qcom_glink_trysendto(struct rpmsg_endpoint *ept, void *data, int len, u32 dst)
-> >> +{
-> >> +	struct glink_channel *channel = to_glink_channel(ept);
-> >> +
-> >> +	return __qcom_glink_send(channel, data, len, false);
-> >> +}
+On Fri, Mar 05, 2021 at 12:09:37PM +0100, Arnaud POULIQUEN wrote:
+> 
+> 
+> On 3/4/21 7:40 PM, Mathieu Poirier wrote:
+> > There has to be a capital letter at the start of the title:
 > > 
-> > Just rename send() to sendto() and trysend() to trysendto() and ignore the
-> > destination address.  
+> > rpmsg: char: No dynamic endpoint management for the default one
+> > 
+> > Please fix for all the patches.
 > 
+> Ok, I will update the subjects with capital letter in my next revision.
+> 
+> Just for my information, is it a new rule? kernel documentation [1] gives a
+> canonical subject and an example without capital letter.
 
-Apologies for not being clear.
-
-> Function prototypes have to match with rpmsg_endpoint_ops structure defined
-> below. So seems to me not possible to just rename the functions.
-> Please could you clarify if i missed something?
-
-I don't think rproc_ops::send() and rproc_ops::trysend() are used anywhere else.
-So replace them with rproc_ops::sendto() and rproc_ops::trysendto() where the
-destination address would be ingnored.
+I don't think it is a rule but in the past few years the trend has been to
+use a capital letter.  I was convinced the documentation had a capital letter
+but you have proven that it doesn't so you can ignore this part if you wish.
 
 > 
-> > The same goes for the next patch.  I would fold patch 08
-> > and 09 into 10 to help get the big picture.
+> [1]
+> https://www.kernel.org/doc/html/v4.17/process/submitting-patches.html#the-canonical-patch-format
 > 
-> I'm going to squash all in one.
+> > 
+> > On Fri, Feb 19, 2021 at 12:15:00PM +0100, Arnaud Pouliquen wrote:
+> >> Do not dynamically manage the default endpoint. The ept address must
+> >> not change.
+> >> This update is needed to manage the RPMSG_CREATE_DEV_IOCTL. In this
+> >> case a default endpoint is used and it's address must not change or
+> >> been reused by another service.
+> > 
+> > The above is very difficult to understand.  I am not sure about introducing
+> > RPMSG_CREATE_DEV_IOCTL in this patchset.  More on that in an upcoming comment.
+> 
+> The purpose of this revision was mainly to provide a view of what we could do to
+> provide a more generic control interface.
+> 
+> To simplify the review I can remove the RPMSG_CREATE_DEV_IOCTL management and
+> send it as a next step, in a separate patchset.
 
-Perfect
+Yes, it would make this patchset quite simple.
 
+> 
+> > 
+> >>
+> >> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> >> ---
+> >>  drivers/rpmsg/rpmsg_char.c | 28 +++++++++++++++++++++-------
+> >>  1 file changed, 21 insertions(+), 7 deletions(-)
+> >>
+> >> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+> >> index c98b0e69679b..8d3f9d6c20ad 100644
+> >> --- a/drivers/rpmsg/rpmsg_char.c
+> >> +++ b/drivers/rpmsg/rpmsg_char.c
+> >> @@ -114,14 +114,23 @@ static int rpmsg_eptdev_open(struct inode *inode, struct file *filp)
+> >>  	struct rpmsg_endpoint *ept;
+> >>  	struct rpmsg_device *rpdev = eptdev->rpdev;
+> >>  	struct device *dev = &eptdev->dev;
+> >> +	u32 addr = eptdev->chinfo.src;
+> >>  
+> >>  	get_device(dev);
+> >>  
+> >> -	ept = rpmsg_create_ept(rpdev, rpmsg_ept_cb, eptdev, eptdev->chinfo);
+> >> -	if (!ept) {
+> >> -		dev_err(dev, "failed to open %s\n", eptdev->chinfo.name);
+> >> -		put_device(dev);
+> >> -		return -EINVAL;
+> >> +	/*
+> >> +	 * The RPMsg device can has been created by a ns announcement. In this
+> >> +	 * case a default endpoint has been created. Reuse it to avoid to manage
+> >> +	 * a new address on each open close.
+> >> +	 */
+> > 
+> > Here too it is very difficult to understand because the comment
+> > doesn't not describe what the code does.  The code creates an enpoint if it
+> > has not been created, which means /dev/rpmsgX was created from the ioctl. 
+> 
+> Right, not enough explicit
 > 
 > Thanks,
 > Arnaud
 > 
 > > 
-> >> +
-> >>  /*
-> >>   * Finds the device_node for the glink child interested in this channel.
-> >>   */
-> >> @@ -1364,7 +1378,9 @@ static const struct rpmsg_device_ops glink_device_ops = {
-> >>  static const struct rpmsg_endpoint_ops glink_endpoint_ops = {
-> >>  	.destroy_ept = qcom_glink_destroy_ept,
-> >>  	.send = qcom_glink_send,
-> >> +	.sendto = qcom_glink_sendto,
-> >>  	.trysend = qcom_glink_trysend,
-> >> +	.trysendto = qcom_glink_trysendto,
-> >>  };
+> >> +	ept = rpdev->ept;
+> >> +	if (!ept || addr != ept->addr) {
+> >> +		ept = rpmsg_create_ept(rpdev, rpmsg_ept_cb, eptdev, eptdev->chinfo);
+> >> +		if (!ept) {
+> >> +			dev_err(dev, "failed to open %s\n", eptdev->chinfo.name);
+> >> +			put_device(dev);
+> >> +			return -EINVAL;
+> >> +		}
+> >>  	}
 > >>  
-> >>  static void qcom_glink_rpdev_release(struct device *dev)
+> >>  	eptdev->ept = ept;
+> >> @@ -133,12 +142,17 @@ static int rpmsg_eptdev_open(struct inode *inode, struct file *filp)
+> >>  static int rpmsg_eptdev_release(struct inode *inode, struct file *filp)
+> >>  {
+> >>  	struct rpmsg_eptdev *eptdev = cdev_to_eptdev(inode->i_cdev);
+> >> +	struct rpmsg_device *rpdev = eptdev->rpdev;
+> >>  	struct device *dev = &eptdev->dev;
+> >>  
+> >> -	/* Close the endpoint, if it's not already destroyed by the parent */
+> >> +	/*
+> >> +	 * Close the endpoint, if it's not already destroyed by the parent and it is not the
+> >> +	 * default one.
+> >> +	 */
+> >>  	mutex_lock(&eptdev->ept_lock);
+> >>  	if (eptdev->ept) {
+> >> -		rpmsg_destroy_ept(eptdev->ept);
+> >> +		if (eptdev->ept != rpdev->ept)
+> >> +			rpmsg_destroy_ept(eptdev->ept);
+> >>  		eptdev->ept = NULL;
+> >>  	}
+> >>  	mutex_unlock(&eptdev->ept_lock);
 > >> -- 
 > >> 2.17.1
 > >>
