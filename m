@@ -2,60 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAC2333171C
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Mar 2021 20:20:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E56A83317B7
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Mar 2021 20:50:23 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94360C57195;
-	Mon,  8 Mar 2021 19:20:46 +0000 (UTC)
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F13EC57195;
+	Mon,  8 Mar 2021 19:50:23 +0000 (UTC)
+Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
+ [209.85.166.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15B57C5718B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E266C56631
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Mar 2021 19:20:43 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id i18so9847306ilq.13
+ Mon,  8 Mar 2021 19:50:22 +0000 (UTC)
+Received: by mail-il1-f181.google.com with SMTP id e7so9952897ile.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 08 Mar 2021 11:20:43 -0800 (PST)
+ Mon, 08 Mar 2021 11:50:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=1L6btlnZFWT2wUztSO9tevXV6NJv+ZeIlELKczZZaFw=;
- b=I0iymfGeJznwVQOt3TEprn7VUXnOlBBgKfO/k146h6NwO0NXEjBLhvxUWkI45znXb2
- ZA9QvNxtwuDfjV+e5tgaBuJBxaPrQBCZi+Z6no3pSnljiwR21lplmZq5TzGtTyNzm/wG
- PR46qDy+eoXY275BWZaTwnAFfkTcNz6CI9hVbdW1XkYWMpEDX53M7327P7BLDDsUo3No
- +LEX629lDA6obsSOlkA5lDe84YZjb0rLcG9Qsw0gkUKnphyrhc8G0+uoj/s2EUHJsRNP
- 8rdKg+cplv4of9fDvlmCoZqVJF0cCc4SUOqm5KiohvlNAE6goWdfhM7BC6d1HuAz47Xc
- GEqQ==
-X-Gm-Message-State: AOAM5304EgicDcZDr0/k7F29o2t0gfqxKH90XvTBJaB2otH3snoiaojp
- GT+LS0Bmehveph6cZ0Khxg==
-X-Google-Smtp-Source: ABdhPJxNZi/akTGS5KF27FuIlkC3rfNJTzbmnPnH89Rfz7vgq18ujwtUCYa7gJdG40A1z3VSgdqRRA==
-X-Received: by 2002:a92:c102:: with SMTP id p2mr21010388ile.227.1615231242427; 
- Mon, 08 Mar 2021 11:20:42 -0800 (PST)
+ bh=DSUyG3mu0/9jdTY7TVQwj3v3J1C7FTS41+rTEskb/9k=;
+ b=apbyyJsoK0BOCbmcyyS0sLNym28IfdM4MTzpocSNuotC9iU3LyZ7P1kug0AkpwN1lt
+ edG6meFb1qCyCuoR/OR55cW0KgdKznM/y6jlqsxHzxzdmrkkmy70C7qbWsAL1qbKWSMO
+ eAGdRmYfiGwrsiFuO9p9CAo29YpG/5RbYFMEFZlBLt4kJo/M7Z7APpj19Sknx+JtA1KJ
+ 550xXVa8UvzjNb20W2MJap3Yya3M6u+Fu56jE7hBBjIICIVGAm7fVzNcHIqGDPMUHr9C
+ Wgj9yV38eYMeaTR+T+u44DBy2vbc8OcnQWtAH2Y+gI+EiMzw9L4oIteSPJEMilEzEsz3
+ qlPQ==
+X-Gm-Message-State: AOAM530lwi2oF+CvkGm45jqj5sKmCNJBIpLhRbyiStmUduiDz+2bBojM
+ jpxAnEoJ1qAMRuHAD8XTMw==
+X-Google-Smtp-Source: ABdhPJxMFNZcs6lXUDVILq/ibVdC1V2O1oNCmei56AYh5VP3lqbdu8fcx8woUMSADxSUMJboA4LdTQ==
+X-Received: by 2002:a05:6e02:1a03:: with SMTP id
+ s3mr22436148ild.178.1615233020999; 
+ Mon, 08 Mar 2021 11:50:20 -0800 (PST)
 Received: from robh.at.kernel.org ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id a4sm3426705iow.55.2021.03.08.11.20.40
+ by smtp.gmail.com with ESMTPSA id b9sm1966901ioz.49.2021.03.08.11.50.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Mar 2021 11:20:41 -0800 (PST)
-Received: (nullmailer pid 2816246 invoked by uid 1000);
- Mon, 08 Mar 2021 19:20:40 -0000
-Date: Mon, 8 Mar 2021 12:20:40 -0700
+ Mon, 08 Mar 2021 11:50:20 -0800 (PST)
+Received: (nullmailer pid 2854890 invoked by uid 1000);
+ Mon, 08 Mar 2021 19:50:17 -0000
+Date: Mon, 8 Mar 2021 12:50:17 -0700
 From: Rob Herring <robh@kernel.org>
-To: Martin Devera <devik@eaxlabs.cz>
-Message-ID: <20210308192040.GA2807217@robh.at.kernel.org>
-References: <aeefa74e-fa19-6c31-5240-0f14fca89298@foss.st.com>
- <20210302190303.28630-1-devik@eaxlabs.cz>
+To: dillon.minfei@gmail.com
+Message-ID: <20210308195017.GA2854839@robh.at.kernel.org>
+References: <1614758717-18223-1-git-send-email-dillon.minfei@gmail.com>
+ <1614758717-18223-4-git-send-email-dillon.minfei@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210302190303.28630-1-devik@eaxlabs.cz>
-Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
- Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Le Ray <erwan.leray@st.com>
-Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: serial: Add
-	rx-tx-swap to stm32-usart
+In-Reply-To: <1614758717-18223-4-git-send-email-dillon.minfei@gmail.com>
+Cc: devicetree@vger.kernel.org, vladimir.murzin@arm.com,
+ alexandre.torgue@st.com, linux@armlinux.org.uk, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, mcoquelin.stm32@gmail.com, afzal.mohd.ma@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 3/8] dt-bindings: arm: stm32: Add
+ compatible strings for ART-PI board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,87 +71,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 02, 2021 at 08:03:02PM +0100, Martin Devera wrote:
-> Add new rx-tx-swap property to allow for RX & TX pin swapping.
+On Wed, 03 Mar 2021 16:05:12 +0800, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
 > 
-> Signed-off-by: Martin Devera <devik@eaxlabs.cz>
+> Art-pi based on stm32h750xbh6, with following resources:
+> 
+> -8MiB QSPI flash
+> -16MiB SPI flash
+> -32MiB SDRAM
+> -AP6212 wifi, bt, fm
+> 
+> detail information can be found at:
+> https://art-pi.gitee.io/website/
+> 
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
 > ---
->  .../devicetree/bindings/serial/st,stm32-uart.yaml  | 32 +++++++++++++++-------
->  1 file changed, 22 insertions(+), 10 deletions(-)
+>  Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> index 8631678283f9..6eab2debebb5 100644
-> --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> @@ -9,9 +9,6 @@ maintainers:
->  
->  title: STMicroelectronics STM32 USART bindings
->  
-> -allOf:
-> -  - $ref: rs485.yaml
-> -
->  properties:
->    compatible:
->      enum:
-> @@ -40,6 +37,10 @@ properties:
->  
->    uart-has-rtscts: true
->  
-> +  rx-tx-swap:
-> +    type: boolean
-> +    maxItems: 1
 
-Type is boolean, but 'maxItems' applies to arrays.
-
-In any case, this is already defined in serial.yaml, so just 
-'rx-tx-swap: true' here.
-
-> +
->    dmas:
->      minItems: 1
->      maxItems: 2
-> @@ -66,13 +67,24 @@ properties:
->    linux,rs485-enabled-at-boot-time: true
->    rs485-rx-during-tx: true
->  
-> -if:
-> -  required:
-> -    - st,hw-flow-ctrl
-> -then:
-> -  properties:
-> -    cts-gpios: false
-> -    rts-gpios: false
-> +allOf:
-
-And add '- $ref: serial.yaml#' here.
-
-> +  - $ref: rs485.yaml
-> +  - if:
-> +      required:
-> +        - st,hw-flow-ctrl
-> +    then:
-> +      properties:
-> +        cts-gpios: false
-> +        rts-gpios: false
-> +  - if:
-> +      required:
-> +        - rx-tx-swap
-> +    then:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - st,stm32f7-uart
-> +            - st,stm32h7-uart
-
-The normal pattern is the 'if' has compatible. You can put the other 
-compatible strings in the if, and then 'then' is:
-
-then:
-  properties:
-    rx-tx-swap: false
-
-
-Rob
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
