@@ -2,70 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE0E9332683
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Mar 2021 14:21:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 101C9332684
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Mar 2021 14:21:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4BCAC57B78;
-	Tue,  9 Mar 2021 13:21:12 +0000 (UTC)
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9CFEC57B78;
+	Tue,  9 Mar 2021 13:21:16 +0000 (UTC)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D417C57B77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43D08C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Mar 2021 13:21:10 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id t29so9339684pfg.11
+ Tue,  9 Mar 2021 13:21:15 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id g4so8757272pgj.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Mar 2021 05:21:10 -0800 (PST)
+ Tue, 09 Mar 2021 05:21:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=GNvPFH0nbH03EWMVb853Te4h5hOebkH389D/4/Ar3Gc=;
- b=oHsuOiqMdMxnXlvuMVnuJtbCtO6m8GaPBzu1TtoNuV/yMutJbslbGT93vPW6pcL0qA
- E0QsNVaJRX6FG2ROv+fQUG6WEiyDTo8YHATz03XYW16NghpHEhJd/AAH06zrrfwJjBWQ
- fLBvXF+gmx6rqoJj25pjIxs0PmYuigH9GCxrirLNUvKeW9lfqW9sxg6i/GSlX3OlqS3b
- CRfxOYwVwIWcd8gAPZPyMDSnhG4/v30MZQMxqNHUVvjR++z6lOysCgS5gJ9kQkFqtOLi
- 3LwS4D6yUCljHjF4s86ICVhzqenEdJge6p3VwyMcj5k4Qc/gXohYgSEVxqCF4TwLzgaD
- eAqg==
+ bh=ZWre/5BlgKXL1iyhEnRSRabCNrSj07MKqwX9rpON0N0=;
+ b=EPzgiswKRcoUeRnTBjq6Tx6uWKKDlWfj9SXcpEIGX2skUnRDOEjyOUn+jjyGxouEEv
+ YMCtoqmhuTgfDRjRy1NYIHZVORxf4YhW8Kz4z8O5QQ8NEDV5RfsFvfs5pzaVEOoTjMDJ
+ 8s2C1k8e7ZHi/cDyYDaAuNjVNgUzNKTI5Z/RUdmDiRyMkvBsJSI7l9tcffOce9RNxK/h
+ gMy9LgWYczmXXhK+QOos5Wb/c35vxbnrxV1oHjrVYv6NK//hd1qMDrXIWg3i/rN5ljJw
+ sjdOGduippNTDY+jLvalvicHZymCaCWQnU0RBGfdcjx+nYIjZzu/qE/SKH5exRTqg0i7
+ iAQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=GNvPFH0nbH03EWMVb853Te4h5hOebkH389D/4/Ar3Gc=;
- b=mUbscjjbn3HYl62RurdEUkQwZFC9gDZRU6HEl4XFrerzCW0Neb6Kw3/B3U3xDp3K7j
- MwlfeseTDmdNHUtlW+4pnpQ3y2RDc1yLBYJ1y2duzCRphu4dEEgycOgBMRyhIO6VdajD
- rbEURCr1brkQOl5DlNGTMBEy1spKezTbv9kETJJN4rLX2p9fNA2BW/9UaWtJZdHYutjB
- 4FMOhUYFLYaHXqYV4Qc+AZTiB+aupugTZVEEPkZCNSuHwh3jcBZlDPIbY9r7jF8l9l4d
- kKqGxEm5MCpOzr4ItrTsLq64S/BSnmnbihVLxGCYs1kjXRceFVXPIWxJzLmoSGtZTuhZ
- eiIg==
-X-Gm-Message-State: AOAM5335kehtciXREgEzkFMjJj6FtvzWQVQxAY4mgFzFyznfIbvWjc0b
- 75V8bTUhJc5PLAF81oaPPkU=
-X-Google-Smtp-Source: ABdhPJwIKDxPC96PkVg3vgpek6rrcJkG+VKEdqIg1FFHHf4+K1TPcqyv7FyM+65t0sLIKaMaxK5uTw==
-X-Received: by 2002:aa7:91d2:0:b029:1ed:b10b:5a7 with SMTP id
- z18-20020aa791d20000b02901edb10b05a7mr3666547pfa.2.1615296068948; 
- Tue, 09 Mar 2021 05:21:08 -0800 (PST)
+ bh=ZWre/5BlgKXL1iyhEnRSRabCNrSj07MKqwX9rpON0N0=;
+ b=oTg942siES98IR9ikL/5a0uXYY+eA8JnxPpGUNx3fwTUueZN1RA536wLBH8v8eJKxu
+ O3WPWZytTpZ3I5WjWflKfez8xE4+vvK0QabTo0BCyE73GT584nlGi3zuMdvgsqflwOU7
+ ssvl1GgxJDfYvqvnlhKuGnZDtySZNUbscNyFjl2KLreOJV3Vt+R0jiKOFVXd6hkrJy3U
+ ybRnhwfkZjyGVhSP0BAHssOTW/fAsWGnkdpwJHoUBWvml/n1moK8aAD7NP3VsVO8PDuq
+ iiKb4SxMW430lfNUZc3nOvexbTgD/CpTmPTmCmLMO7wlIzQxM0xefhUk5TLj3jWVkV/Y
+ WUFA==
+X-Gm-Message-State: AOAM5337z4tr5zq2G+h1eNjN5FsSTjGahSHssX5EdaWZ94KwqqYindsh
+ Q+dqTbz8ZBuhz3QYGVRGrmo=
+X-Google-Smtp-Source: ABdhPJx+4sNzc6b+jcn9nwYXMErpaUoVChItdCn/vQu7L4lcitioJp3OEfACaGLCYqRp1bdW5bK69A==
+X-Received: by 2002:a63:5014:: with SMTP id e20mr24895866pgb.152.1615296073915; 
+ Tue, 09 Mar 2021 05:21:13 -0800 (PST)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id y9sm7647421pfl.201.2021.03.09.05.21.04
+ by smtp.gmail.com with ESMTPSA id y9sm7647421pfl.201.2021.03.09.05.21.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Mar 2021 05:21:08 -0800 (PST)
+ Tue, 09 Mar 2021 05:21:13 -0800 (PST)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Tue,  9 Mar 2021 22:19:24 +0900
-Message-Id: <84fc37f8c32e8b9b52ca55e0ffeda67cd93e16f5.1615293276.git.vilhelm.gray@gmail.com>
+Date: Tue,  9 Mar 2021 22:19:25 +0900
+Message-Id: <fcfbb9a605bf094e11a3ae436257e11c5186ef44.1615293276.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <cover.1615293276.git.vilhelm.gray@gmail.com>
 References: <cover.1615293276.git.vilhelm.gray@gmail.com>
 MIME-Version: 1.0
-Cc: Benjamin Gaignard <benjamin.gaignard@st.com>, kamel.bouhara@bootlin.com,
- gwendal@chromium.org, david@lechnology.com, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, alexandre.belloni@bootlin.com,
- mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, kernel@pengutronix.de,
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v9 11/33] counter: stm32-timer-cnt: Add const
-	qualifier for functions_list array
+Subject: [Linux-stm32] [PATCH v9 12/33] counter: 104-quad-8: Add const
+	qualifier for actions_list array
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,30 +80,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The struct counter_count functions_list member expects a const enum
-counter_count_function array. This patch adds the const qualifier to the
-stm32_count_functions to match functions_list.
+The struct counter_synapse actions_list member expects a const enum
+counter_synapse_action array. This patch adds the const qualifier to the
+quad8_index_actions_list and quad8_synapse_actions_list to match
+actions_list.
 
-Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
+Cc: Syed Nayyar Waris <syednwaris@gmail.com>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- drivers/counter/stm32-timer-cnt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/counter/104-quad-8.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index 75bc401fdd18..0c18573a7837 100644
---- a/drivers/counter/stm32-timer-cnt.c
-+++ b/drivers/counter/stm32-timer-cnt.c
-@@ -50,7 +50,7 @@ enum stm32_count_function {
- 	STM32_COUNT_ENCODER_MODE_3,
+diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
+index ae89ad7a91c6..09d779544969 100644
+--- a/drivers/counter/104-quad-8.c
++++ b/drivers/counter/104-quad-8.c
+@@ -305,12 +305,12 @@ enum quad8_synapse_action {
+ 	QUAD8_SYNAPSE_ACTION_BOTH_EDGES
  };
  
--static enum counter_count_function stm32_count_functions[] = {
-+static const enum counter_count_function stm32_count_functions[] = {
- 	[STM32_COUNT_SLAVE_MODE_DISABLED] = COUNTER_COUNT_FUNCTION_INCREASE,
- 	[STM32_COUNT_ENCODER_MODE_1] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A,
- 	[STM32_COUNT_ENCODER_MODE_2] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_B,
+-static enum counter_synapse_action quad8_index_actions_list[] = {
++static const enum counter_synapse_action quad8_index_actions_list[] = {
+ 	[QUAD8_SYNAPSE_ACTION_NONE] = COUNTER_SYNAPSE_ACTION_NONE,
+ 	[QUAD8_SYNAPSE_ACTION_RISING_EDGE] = COUNTER_SYNAPSE_ACTION_RISING_EDGE
+ };
+ 
+-static enum counter_synapse_action quad8_synapse_actions_list[] = {
++static const enum counter_synapse_action quad8_synapse_actions_list[] = {
+ 	[QUAD8_SYNAPSE_ACTION_NONE] = COUNTER_SYNAPSE_ACTION_NONE,
+ 	[QUAD8_SYNAPSE_ACTION_RISING_EDGE] = COUNTER_SYNAPSE_ACTION_RISING_EDGE,
+ 	[QUAD8_SYNAPSE_ACTION_FALLING_EDGE] = COUNTER_SYNAPSE_ACTION_FALLING_EDGE,
 -- 
 2.30.1
 
