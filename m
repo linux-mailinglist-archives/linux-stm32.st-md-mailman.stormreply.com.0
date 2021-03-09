@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A815033207F
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Mar 2021 09:26:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAEBB332672
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Mar 2021 14:20:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64997C57B77;
-	Tue,  9 Mar 2021 08:26:59 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C6B1C57196;
+	Tue,  9 Mar 2021 13:20:14 +0000 (UTC)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB9ACC57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27043C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Mar 2021 08:26:55 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 1298Pxog010515; Tue, 9 Mar 2021 09:26:41 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=oLvuUpvGKibfsuzVWM/OQOO33y/CmonVA+gnsrS2MG4=;
- b=iM3dT3iXVISHDFgS/6+r/4AKqRjQn+21NhR9/fMU7OvkIs7CxfFbsAFqAHMC4+Z/zu+v
- xykVU21CCUo1NnppJLanqbdVuRbUDZ2+yYY0aXcqM1GePrrTf79fqWz1B8gxCRQB18lk
- GaE1w9XTGlNVOABbtNfhJRhLWoMt8yHG57JAQQzUHiEaJnsnZZkVFlhWgnWNPfn6WXPz
- 4RUD9n5EAIqH2Y36SnbHh56hUGOC+xLPI7EzYVUaVQO9OCX9US5lYTuAFyxAko0WA0Kn
- SZV69LjuVHO+BZLc7xOtqA7IzPmkWODidByntkeDS6XWxO9TADKf2OiPyFGTdkbJ0we5 ig== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3741y6qrj4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 09 Mar 2021 09:26:41 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 16AE3100034;
- Tue,  9 Mar 2021 09:26:41 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 05C88221795;
- Tue,  9 Mar 2021 09:26:41 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 9 Mar 2021 09:26:40
- +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>, Rob
- Herring <robh+dt@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Tue, 9 Mar 2021 09:26:33 +0100
-Message-ID: <20210309082633.8213-3-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210309082633.8213-1-amelie.delaunay@foss.st.com>
-References: <20210309082633.8213-1-amelie.delaunay@foss.st.com>
+ Tue,  9 Mar 2021 13:20:13 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id l2so8750589pgb.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 09 Mar 2021 05:20:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/UQXlkoZL9oIV4Vm/y3H2dkMxHwkxK4VsNYeOuqh9c0=;
+ b=nZnVTGDqVOA4wPPRl/vxLH1zpDwIVKmhxegagbYco/EsThrlk3Npxs2ax9l80v9SZR
+ eh4cODZzz7wtWcxfM9hn9d/S1TLT0Q0ChkQsGT7Q1p33e6p+b8siIF1XyXaL59XMZV0I
+ zWrT6K2nVkesRY1+lzmYTRI26kicxcvBVr4sBr3VjMWZX1fxDAPsHC95UrE7sXYBQ6G0
+ k2JvmPiTlIREN8r7fcBsyXb2N0LEJy1AtU4colTytxWyt/H5IDS8OkfXzwE5O/gKhoxL
+ 3Ab/9iu7DQIU9qRIYPuHmBKAJTZEgLRxIivVDziEUxJphgGo9k+v5a/ZRCcplClA3UAF
+ ZvrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/UQXlkoZL9oIV4Vm/y3H2dkMxHwkxK4VsNYeOuqh9c0=;
+ b=nngpFXJakdbizfW3i3+fdPpAdfWRCHo2KNIp5lECKeJckqvKOOd2Z//33XXhS9oMCR
+ WxPwOEkMsgVCAubtveezAFw54Qlvyg5VkcvQcGXMyvj1ieoC8oABHZsKUGAtpV8tg2eJ
+ QLK1zvvQKq5hsXQqCQCOKMfFhFpchXC1CkhssjnlAJnn9oHFkx1ElA406T+ROo7AcA5n
+ h6Y44/2wSChZVRU9imqRHChaY8Ik0rcK8PaZoLw44Pweldhhdr9xFUBGJON+paJjJN4+
+ gxZ17iepgjpmqGUqOQctjOzRCYgcsKNUT7mkZQ74NaOofn/l7ivH8WL1bX5zSvU2qcNU
+ HkUg==
+X-Gm-Message-State: AOAM5338JXky3HQNa9KUgsaxm2mXWhcTIm1ECeaCy0O0+NFUQY0qW7un
+ jr1wzSgosQ8oXJ+qwwFrU04=
+X-Google-Smtp-Source: ABdhPJxITphI+0Q1/mUBxAdrWpnlO5YBUHufs2D1Mk5a7ka6o7dmWAEbqklf8Zm62u5NOVP0XmW32A==
+X-Received: by 2002:a63:df10:: with SMTP id u16mr7437528pgg.308.1615296011574; 
+ Tue, 09 Mar 2021 05:20:11 -0800 (PST)
+Received: from localhost.localdomain ([156.146.35.76])
+ by smtp.gmail.com with ESMTPSA id y9sm7647421pfl.201.2021.03.09.05.20.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Mar 2021 05:20:10 -0800 (PST)
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: jic23@kernel.org
+Date: Tue,  9 Mar 2021 22:19:13 +0900
+Message-Id: <cover.1615293276.git.vilhelm.gray@gmail.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-09_06:2021-03-08,
- 2021-03-09 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [RESEND PATCH v3 2/2] phy: stm32: register usbphyc as
-	clock provider of ck_usbo_48m clock
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: [Linux-stm32] [PATCH v9 00/33] Introduce the Counter character
+	device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,139 +78,151 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ck_usbo_48m is generated by usbphyc PLL and used by OTG controller
-for Full-Speed use cases with dedicated Full-Speed transceiver.
+Changes in v9:
+ - Implemented example userspace counter application under tools/counter
+ - Replaced extension*_name attributes with *_component_id attributes;
+   this should hopefully be a more intuitive way to find the desired IDs
+ - Changed to use regular spinlock because raw_spinlock is not needed
+ - Implemented chrdev_lock mutex to limit chrdev to a single open() at a
+   time
+ - Improved struct counter_component documentation with examples
+ - Reverted "counter_count_function" to "counter_function" naming change
+   for drivers; individual maintainers can change this if they so desire
+ - Utilized "return 0" in switch blocks to return early where possible
+ - Utilized default cases in switch blocks to improve clarity and intent
+ - Refactored counter_register to make use of cdev_add_device();
+   counter_chrdev_add() has been simplified as a result
+ - Inlined counter_chrdev_realloc_queue() because it is only used by the
+   events_queue_size sysfs attribute
+ - Replaced deprecated ida_simple_* calls with ida_alloc()/ida_free()
+ - Made use of struct device "id" member to construct the cdev node name
+ - Made use of kfifo_size() instead of rolling my own
+ - Implemented changes necessary to migrate interrupt-cnt driver
 
-ck_usbo_48m is available as soon as the PLL is enabled.
+Note that this revision is based on top of 5 prerequisite patches:
+* counter: add IRQ or GPIO based counter
+* dt-bindings: counter: add interrupt-counter binding
+* counter: stm32-timer-cnt: fix ceiling miss-alignment with reload register
+* counter: stm32-timer-cnt: fix ceiling write max value
+* counter: stm32-timer-cnt: Report count function when SLAVE_MODE_DISABLED
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
-No changes in v3.
-Changes in v2:
-- fix COMMON_CLK dependency issue reported by kernel test robot
----
- drivers/phy/st/Kconfig             |  1 +
- drivers/phy/st/phy-stm32-usbphyc.c | 65 ++++++++++++++++++++++++++++++
- 2 files changed, 66 insertions(+)
+I pulled out a lot of bits and pieces to their own patches; hopefully
+that makes reviewing this patchset much simpler than before. This
+patchset is also available on my personal public git repo for anyone who
+wants a quick way to clone:
+https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v9
 
-diff --git a/drivers/phy/st/Kconfig b/drivers/phy/st/Kconfig
-index b32f44ff9033..3fc3d0781fb8 100644
---- a/drivers/phy/st/Kconfig
-+++ b/drivers/phy/st/Kconfig
-@@ -36,6 +36,7 @@ config PHY_STIH407_USB
- config PHY_STM32_USBPHYC
- 	tristate "STMicroelectronics STM32 USB HS PHY Controller driver"
- 	depends on ARCH_STM32 || COMPILE_TEST
-+	depends on COMMON_CLK
- 	select GENERIC_PHY
- 	help
- 	  Enable this to support the High-Speed USB transceivers that are part
-diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
-index d08fbb180e43..c184f4e34584 100644
---- a/drivers/phy/st/phy-stm32-usbphyc.c
-+++ b/drivers/phy/st/phy-stm32-usbphyc.c
-@@ -7,6 +7,7 @@
-  */
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/clk-provider.h>
- #include <linux/delay.h>
- #include <linux/iopoll.h>
- #include <linux/kernel.h>
-@@ -70,6 +71,7 @@ struct stm32_usbphyc {
- 	struct regulator *vdda1v1;
- 	struct regulator *vdda1v8;
- 	atomic_t n_pll_cons;
-+	struct clk_hw clk48_hw;
- 	int switch_setup;
- };
- 
-@@ -295,6 +297,61 @@ static const struct phy_ops stm32_usbphyc_phy_ops = {
- 	.owner = THIS_MODULE,
- };
- 
-+static int stm32_usbphyc_clk48_prepare(struct clk_hw *hw)
-+{
-+	struct stm32_usbphyc *usbphyc = container_of(hw, struct stm32_usbphyc, clk48_hw);
-+
-+	return stm32_usbphyc_pll_enable(usbphyc);
-+}
-+
-+static void stm32_usbphyc_clk48_unprepare(struct clk_hw *hw)
-+{
-+	struct stm32_usbphyc *usbphyc = container_of(hw, struct stm32_usbphyc, clk48_hw);
-+
-+	stm32_usbphyc_pll_disable(usbphyc);
-+}
-+
-+static unsigned long stm32_usbphyc_clk48_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
-+{
-+	return 48000000;
-+}
-+
-+static const struct clk_ops usbphyc_clk48_ops = {
-+	.prepare = stm32_usbphyc_clk48_prepare,
-+	.unprepare = stm32_usbphyc_clk48_unprepare,
-+	.recalc_rate = stm32_usbphyc_clk48_recalc_rate,
-+};
-+
-+static void stm32_usbphyc_clk48_unregister(void *data)
-+{
-+	struct stm32_usbphyc *usbphyc = data;
-+
-+	of_clk_del_provider(usbphyc->dev->of_node);
-+	clk_hw_unregister(&usbphyc->clk48_hw);
-+}
-+
-+static int stm32_usbphyc_clk48_register(struct stm32_usbphyc *usbphyc)
-+{
-+	struct device_node *node = usbphyc->dev->of_node;
-+	struct clk_init_data init = { };
-+	int ret = 0;
-+
-+	init.name = "ck_usbo_48m";
-+	init.ops = &usbphyc_clk48_ops;
-+
-+	usbphyc->clk48_hw.init = &init;
-+
-+	ret = clk_hw_register(usbphyc->dev, &usbphyc->clk48_hw);
-+	if (ret)
-+		return ret;
-+
-+	ret = of_clk_add_hw_provider(node, of_clk_hw_simple_get, &usbphyc->clk48_hw);
-+	if (ret)
-+		clk_hw_unregister(&usbphyc->clk48_hw);
-+
-+	return ret;
-+}
-+
- static void stm32_usbphyc_switch_setup(struct stm32_usbphyc *usbphyc,
- 				       u32 utmi_switch)
- {
-@@ -473,6 +530,12 @@ static int stm32_usbphyc_probe(struct platform_device *pdev)
- 		goto clk_disable;
- 	}
- 
-+	ret = stm32_usbphyc_clk48_register(usbphyc);
-+	if (ret) {
-+		dev_err(dev, "failed to register ck_usbo_48m clock: %d\n", ret);
-+		goto clk_disable;
-+	}
-+
- 	version = readl_relaxed(usbphyc->base + STM32_USBPHYC_VERSION);
- 	dev_info(dev, "registered rev:%lu.%lu\n",
- 		 FIELD_GET(MAJREV, version), FIELD_GET(MINREV, version));
-@@ -497,6 +560,8 @@ static int stm32_usbphyc_remove(struct platform_device *pdev)
- 		if (usbphyc->phys[port]->active)
- 			stm32_usbphyc_phy_exit(usbphyc->phys[port]->phy);
- 
-+	stm32_usbphyc_clk48_unregister(usbphyc);
-+
- 	clk_disable_unprepare(usbphyc->clk);
- 
- 	return 0;
+The patches preceding "counter: Internalize sysfs interface code" are
+primarily cleanup and fixes that can be picked up and applied now to the
+IIO tree if so desired. The "counter: Internalize sysfs interface code"
+patch as well may be considered for pickup because it is relatively safe
+and makes no changes to the userspace interface.
+
+To summarize the main points of this patchset: there are no changes to
+the existing Counter sysfs userspace interface; a Counter character
+device interface is introduced that allows Counter events and associated
+data to be read() by userspace; the events_configure() and
+watch_validate() driver callbacks are introduced to support Counter
+events; and IRQ support is added to the 104-QUAD-8 driver, serving as an
+example of how to support the new Counter events functionality.
+
+Something that should still be discussed: should the struct
+counter_event "status" member be 8 bits or 32 bits wide? This member
+will provide the return status (system error number) of an event
+operation.
+
+William Breathitt Gray (33):
+  docs: counter: Consolidate Counter sysfs attributes documentation
+  docs: counter: Fix spelling
+  counter: 104-quad-8: Remove pointless comment
+  counter: 104-quad-8: Return error when invalid mode during
+    ceiling_write
+  counter: 104-quad-8: Annotate hardware config module parameter
+  counter: 104-quad-8: Add const qualifiers for
+    quad8_preset_register_set
+  counter: 104-quad-8: Add const qualifier for functions_list array
+  counter: interrupt-cnt: Add const qualifier for functions_list array
+  counter: microchip-tcb-capture: Add const qualifier for functions_list
+    array
+  counter: stm32-lptimer-cnt: Add const qualifier for functions_list
+    array
+  counter: stm32-timer-cnt: Add const qualifier for functions_list array
+  counter: 104-quad-8: Add const qualifier for actions_list array
+  counter: ftm-quaddec: Add const qualifier for actions_list array
+  counter: interrupt-cnt: Add const qualifier for actions_list array
+  counter: microchip-tcb-capture: Add const qualifier for actions_list
+    array
+  counter: stm32-lptimer-cnt: Add const qualifier for actions_list array
+  counter: stm32-timer-cnt: Add const qualifier for actions_list array
+  counter: Return error code on invalid modes
+  counter: Standardize to ERANGE for limit exceeded errors
+  counter: Rename counter_signal_value to counter_signal_level
+  counter: Rename counter_count_function to counter_function
+  counter: Internalize sysfs interface code
+  counter: Update counter.h comments to reflect sysfs internalization
+  docs: counter: Update to reflect sysfs internalization
+  counter: Move counter enums to uapi header
+  counter: Add character device interface
+  docs: counter: Document character device interface
+  tools/counter: Create Counter tools
+  counter: Implement signalZ_action_component_id sysfs attribute
+  counter: Implement *_component_id sysfs attributes
+  counter: Implement events_queue_size sysfs attribute
+  counter: 104-quad-8: Replace mutex with spinlock
+  counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
+
+ Documentation/ABI/testing/sysfs-bus-counter   |  112 +-
+ .../ABI/testing/sysfs-bus-counter-104-quad-8  |   61 -
+ .../ABI/testing/sysfs-bus-counter-ftm-quaddec |   16 -
+ Documentation/driver-api/generic-counter.rst  |  368 +++-
+ .../userspace-api/ioctl/ioctl-number.rst      |    1 +
+ MAINTAINERS                                   |    7 +-
+ drivers/counter/104-quad-8.c                  |  739 ++++----
+ drivers/counter/Kconfig                       |    6 +-
+ drivers/counter/Makefile                      |    1 +
+ drivers/counter/counter-chrdev.c              |  486 ++++++
+ drivers/counter/counter-chrdev.h              |   14 +
+ drivers/counter/counter-core.c                |  192 +++
+ drivers/counter/counter-sysfs.c               |  953 +++++++++++
+ drivers/counter/counter-sysfs.h               |   13 +
+ drivers/counter/counter.c                     | 1496 -----------------
+ drivers/counter/ftm-quaddec.c                 |   61 +-
+ drivers/counter/interrupt-cnt.c               |   75 +-
+ drivers/counter/microchip-tcb-capture.c       |  105 +-
+ drivers/counter/stm32-lptimer-cnt.c           |  176 +-
+ drivers/counter/stm32-timer-cnt.c             |  149 +-
+ drivers/counter/ti-eqep.c                     |  221 +--
+ include/linux/counter.h                       |  716 ++++----
+ include/linux/counter_enum.h                  |   45 -
+ include/uapi/linux/counter.h                  |  133 ++
+ tools/Makefile                                |   13 +-
+ tools/counter/Build                           |    1 +
+ tools/counter/Makefile                        |   53 +
+ tools/counter/counter_example.c               |   95 ++
+ 28 files changed, 3522 insertions(+), 2786 deletions(-)
+ delete mode 100644 Documentation/ABI/testing/sysfs-bus-counter-104-quad-8
+ delete mode 100644 Documentation/ABI/testing/sysfs-bus-counter-ftm-quaddec
+ create mode 100644 drivers/counter/counter-chrdev.c
+ create mode 100644 drivers/counter/counter-chrdev.h
+ create mode 100644 drivers/counter/counter-core.c
+ create mode 100644 drivers/counter/counter-sysfs.c
+ create mode 100644 drivers/counter/counter-sysfs.h
+ delete mode 100644 drivers/counter/counter.c
+ delete mode 100644 include/linux/counter_enum.h
+ create mode 100644 include/uapi/linux/counter.h
+ create mode 100644 tools/counter/Build
+ create mode 100644 tools/counter/Makefile
+ create mode 100644 tools/counter/counter_example.c
+
+
+base-commit: 4ef57c4862e38e6034978d8b247a511292d7055a
+prerequisite-patch-id: 41fda3a386861edad110c644567fad373a5a175e
+prerequisite-patch-id: c6c2ab3173f5a0136d1e9b7b96ccd115fa35d66e
+prerequisite-patch-id: 7e3cd78924d79890b690f3029e0d4f5b3902a73c
+prerequisite-patch-id: 98f0a6c1d188a7dec01a5587fb7566ac637385a1
+prerequisite-patch-id: 884299e23b6426ea43282e9701996e794cb6aa34
 -- 
-2.17.1
+2.30.1
 
 _______________________________________________
 Linux-stm32 mailing list
