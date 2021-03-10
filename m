@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD2BB333BA5
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Mar 2021 12:43:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAE5F333BA9
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Mar 2021 12:44:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68C3DC57196;
-	Wed, 10 Mar 2021 11:43:44 +0000 (UTC)
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
- [209.85.166.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85132C57196;
+	Wed, 10 Mar 2021 11:44:21 +0000 (UTC)
+Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
+ [209.85.166.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BDCDEC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C486C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Mar 2021 11:43:42 +0000 (UTC)
-Received: by mail-io1-f54.google.com with SMTP id f20so17512319ioo.10
+ Wed, 10 Mar 2021 11:44:19 +0000 (UTC)
+Received: by mail-io1-f51.google.com with SMTP id u8so17500658ior.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Mar 2021 03:43:42 -0800 (PST)
+ Wed, 10 Mar 2021 03:44:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7MDculd5PWLFOFwl290sy7CTqICAtBb0zJmC/83JNiY=;
- b=jyhuw1uUViTVh9mqzgoJ/J29crJCPM2TJeyX7WB/RlRW8RVVbQjnWXpzdkbCZfVK7y
- RRrsVERxnfxdAdkz2Wf6fgMQwHQl2It5TUvgjZbP1buY9VW1KR7M/9aF3D/QnUKV/wEi
- 0eV7hG5BSbChAnQSi7vhkbAdfpTyn3eiIwZbKdRdU1FMzRH0XrE0EyxjNo5CgF+fzKAm
- i08ouwrBHH3ksVRAE7HJ7qX2f2p4KcP8AQz2XuiChoZ72uOpj1oWu0rCxwH1MzwczzzS
- lDyySAebm6U41iADqPqpRAQMBt1vPFmbIYT316NfnAOljlhkKJhuins3NibQAaRdQNd0
- 0cOA==
+ :cc; bh=op8MuAs4SRxmTKVvah22QByz3q7Mi3iArZEjUk+Thxk=;
+ b=tbZ0SW438zSVkyxkrUhPs282MdsJiT0nydSL1+q+VaeYCp1wR8gU7zUe/TUlSYglgs
+ iIIIODc35S1SjI7uAF2/h03PXLNXux2vFLXcDxyq/ltPNbSZZ+PQHSXmj/FRCFuqxbto
+ lxjj5dWzSescFEfPuLEUc5QVzR9hZEli26Wt4Q5IAuiWYr35c/1Xe+qihbPXQ9JSDBqH
+ YPQ8wM3w5MZBkLolu9DGVN443g1F1hXK4D9B1/hjCnDMAeLrNQDuck9jIUCkskFy6Ezb
+ /0N+E/Ry/VxfIWVLKcCCb5RLWGmjPoNitIV/QJL26I8g429kqEVv8PTtGYxzzuTnST9l
+ yKUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=7MDculd5PWLFOFwl290sy7CTqICAtBb0zJmC/83JNiY=;
- b=iRsT1dXI0dDck497nhpIJWUxyxTONvQBaiUBRJXb0CFzzQY1b4WeFMhe9KkTW4tghn
- nE2LDhji/3VvyXE0H/jPDNCTBexPbSq5wRUqOcreF3w7TV5YAIoyatTOTbac0a67+3nK
- i53kEpekoS2bjy5pKBUmn8AfHtHZ6qMU8QwtWB5qPocjjxgq4QWS44WIaMKv10CmxRrh
- CorVq9LMZiiIxljNJLvAP3KsXftCz8Fgbl42w7U7nsNwVlwvTuHodbUG+8P7AaKuBPqy
- 3mlWa9cpFCbU3Yd+FpBSfGAKvk9Xy3GZe0cld/AHWmkpxPueobgfkbE4mykcEzLNKRDQ
- rIAg==
-X-Gm-Message-State: AOAM531j0QkUB9c0K/4GqzBo0Yoj7EShEYdtgS9szSYC9AiTOgNGZoNU
- ErlRLl2pFX/QHm16RI8DzqCR/vbpa/OT4MPgxaw=
-X-Google-Smtp-Source: ABdhPJymqoFFgZdz05brxOTgEYkI3NFm4i5o0rEnCSDmm6k2DAHa0k4EB+ukDihO1Mqa2o6zn3/4hb1NiTISMd094i4=
-X-Received: by 2002:a6b:4f09:: with SMTP id d9mr2013952iob.60.1615376621486;
- Wed, 10 Mar 2021 03:43:41 -0800 (PST)
+ bh=op8MuAs4SRxmTKVvah22QByz3q7Mi3iArZEjUk+Thxk=;
+ b=pAMIE0GgcpPJMmEyjBmwZLMyJKoira7B22RA3xXSrhhnKO8qeGO5Mja/AL1zy4RIUZ
+ 1zs2SDVZ+poVh2IqDu3shEYA/X5uVZsgLq7Ydxfpxa+V/s5odqdpSQVdmKKsezNsGtut
+ b3tiifZnD9sjsOq9X9mqBmc3FmNDqDEIpOh+k/6Djwft3TUZKDkovSP/sUt0AtTgwB6W
+ rZqJWQ5ic7rbj4anAd4wCmagjHJc6VFQuCzRxagfGdzqHvquNo5OSjfO56fk3BJ1quF2
+ L7POu26IGQtoczxXxQIvCvQRNtBHXFAP8d5V9PJm+Ek9DPoOf3H+RZtyOkT7VL6yF2Xy
+ +cEA==
+X-Gm-Message-State: AOAM533nd1F2+4ttAE3/gbNR2VmO6/vOOROfaOUy3W4E1DUV0KaDyAd8
+ 0PY+Qf9FuMnxGZkB+0lzLY6/EK7beCsa3mcr3oY=
+X-Google-Smtp-Source: ABdhPJz5M2eWPKf4NxOL+8DZYRTGWBX7CV9I1yHd6MspCfR/Ca1EfgXEzeeymZdkKrLM+bP4UCLuaOhuoetCi1bJpNg=
+X-Received: by 2002:a5e:a519:: with SMTP id 25mr1857796iog.3.1615376658157;
+ Wed, 10 Mar 2021 03:44:18 -0800 (PST)
 MIME-Version: 1.0
 References: <1590564453-24499-1-git-send-email-dillon.minfei@gmail.com>
- <1590564453-24499-6-git-send-email-dillon.minfei@gmail.com>
- <159056850384.88029.10852284922297394339@swboyd.mtv.corp.google.com>
-In-Reply-To: <159056850384.88029.10852284922297394339@swboyd.mtv.corp.google.com>
+ <1590564453-24499-7-git-send-email-dillon.minfei@gmail.com>
+ <159056850835.88029.9264848839121822798@swboyd.mtv.corp.google.com>
+In-Reply-To: <159056850835.88029.9264848839121822798@swboyd.mtv.corp.google.com>
 From: dillon min <dillon.minfei@gmail.com>
-Date: Wed, 10 Mar 2021 19:43:05 +0800
-Message-ID: <CAL9mu0+Uh84UGQ-1EW4+eVE1cFxuxJxLTLAa0rgJ_5C2pchUgA@mail.gmail.com>
+Date: Wed, 10 Mar 2021 19:43:42 +0800
+Message-ID: <CAL9mu0KBKVufGx96=_5dWokC0uJBW35TnFxEofXA44QhpEK6-g@mail.gmail.com>
 To: Stephen Boyd <sboyd@kernel.org>
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>,
@@ -67,8 +67,8 @@ Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, p.zabel@pengutronix.de,
  Sam Ravnborg <sam@ravnborg.org>, Michael Turquette <mturquette@baylibre.com>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v6 5/9] clk: stm32: Fix stm32f429's ltdc
- driver hang in set clock rate
+Subject: Re: [Linux-stm32] [PATCH v6 6/9] clk: stm32: Fix ltdc's clock turn
+ off by clk_disable_unused() after kernel startup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,22 +89,20 @@ still need more expert to review, so just a gentle ping for this patch
 
 On Wed, May 27, 2020 at 4:35 PM Stephen Boyd <sboyd@kernel.org> wrote:
 >
-> Quoting dillon.minfei@gmail.com (2020-05-27 00:27:29)
+> Quoting dillon.minfei@gmail.com (2020-05-27 00:27:30)
 > > From: dillon min <dillon.minfei@gmail.com>
 > >
-> > This is due to misuse \u2018PLL_VCO_SAI' and'PLL_SAI' in clk-stm32f4.c
-> > 'PLL_SAI' is 2, 'PLL_VCO_SAI' is 7(defined in
-> > include/dt-bindings/clock/stm32fx-clock.h).
+> > stm32's clk driver register two ltdc gate clk to clk core by
+> > clk_hw_register_gate() and clk_hw_register_composite()
 > >
-> > 'post_div' point to 'post_div_data[]', 'post_div->pll_num'
-> > is PLL_I2S or PLL_SAI.
+> > first: 'stm32f429_gates[]', clk name is 'ltdc', which no user to use.
+> > second: 'stm32f429_aux_clk[]', clk name is 'lcd-tft', used by ltdc driver
 > >
-> > 'clks[PLL_VCO_SAI]' has valid 'struct clk_hw* ' return
-> > from stm32f4_rcc_register_pll() but, at line 1777 of
-> > driver/clk/clk-stm32f4.c, use the 'clks[post_div->pll_num]',
-> > equal to 'clks[PLL_SAI]', this is invalid array member at that time.
+> > both of them point to the same offset of stm32's RCC register. after
+> > kernel enter console, clk core turn off ltdc's clk as 'stm32f429_gates[]'
+> > is no one to use. but, actually 'stm32f429_aux_clk[]' is in use.
 > >
-> > Fixes: 517633ef630e ("clk: stm32f4: Add post divisor for I2S & SAI PLLs")
+> > Fixes: daf2d117cbca ("clk: stm32f4: Add lcd-tft clock")
 > > Signed-off-by: dillon min <dillon.minfei@gmail.com>
 > > ---
 >
