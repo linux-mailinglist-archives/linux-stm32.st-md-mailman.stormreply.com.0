@@ -2,72 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEFBB33434A
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Mar 2021 17:42:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5D2533439B
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Mar 2021 17:49:19 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F8A2C5718D;
-	Wed, 10 Mar 2021 16:42:35 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76621C5718D;
+	Wed, 10 Mar 2021 16:49:19 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB65AC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7138CC36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Mar 2021 16:42:32 +0000 (UTC)
-Received: from mail-ot1-f53.google.com ([209.85.210.53]) by
+ Wed, 10 Mar 2021 16:49:16 +0000 (UTC)
+Received: from mail-ot1-f46.google.com ([209.85.210.46]) by
  mrelayeu.kundenserver.de (mreue010 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1N4A1h-1lkSkb0no1-01062Y for <linux-stm32@st-md-mailman.stormreply.com>; Wed,
- 10 Mar 2021 17:42:32 +0100
-Received: by mail-ot1-f53.google.com with SMTP id x28so2234317otr.6
+ 1N2Dgk-1ljdYb3LVm-013gIy for <linux-stm32@st-md-mailman.stormreply.com>; Wed,
+ 10 Mar 2021 17:49:16 +0100
+Received: by mail-ot1-f46.google.com with SMTP id n23so11386342otq.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Mar 2021 08:42:31 -0800 (PST)
-X-Gm-Message-State: AOAM532RXZzza5LicRKwnZ+JqcNNnbYXlJIlQ+L53yZM6a4zNKXtpbeO
- hZPfkl0CWAE3GNAXUEvluA7ByqE0bETc8GcCAR0=
-X-Google-Smtp-Source: ABdhPJwWKWol/izxVLT1AnVOt4GuD9z3iMz5KYY704sE+gXiB+rSpGmz56qGx1HmOVASlj0OW4Sd2OtpS9wyLv30UgQ=
+ Wed, 10 Mar 2021 08:49:15 -0800 (PST)
+X-Gm-Message-State: AOAM533FLYNNa4vLGGG90o1bMJZHzgbyKEaNvxksCzguN8cL9lUIH43c
+ 6td+sX8dPuMYVsPaUu3t+uQzvykN9MS0DzLfcIU=
+X-Google-Smtp-Source: ABdhPJw1kIhr8ttdGXD5g+DpuAzvAToYG1aFxOSVPDl56eSY4x70c4eQdWZH4tiH2ZUpEN9KrRB/9/YZCrDgnKY8YZU=
 X-Received: by 2002:a05:6830:14c1:: with SMTP id
- t1mr3205568otq.305.1615394550932; 
- Wed, 10 Mar 2021 08:42:30 -0800 (PST)
+ t1mr3227502otq.305.1615394954588; 
+ Wed, 10 Mar 2021 08:49:14 -0800 (PST)
 MIME-Version: 1.0
 References: <20210310083327.480837-1-krzysztof.kozlowski@canonical.com>
  <20210310083840.481615-1-krzysztof.kozlowski@canonical.com>
- <20210310094527.GA701493@dell>
- <35c39c81-08e4-24c8-f683-2fa7a7ea71de@redhat.com>
- <1c06cb74-f0b0-66e5-a594-ed1ee9bc876e@canonical.com>
- <CAK8P3a1CCQwbeH4KiUgif+-HdubVjjZBkMXimEjYkgeh4eJ7cg@mail.gmail.com>
- <52d0489f-0f77-76a2-3269-e3004c6b6c07@canonical.com>
- <ba2536a6-7c74-0cca-023f-cc6179950d37@canonical.com>
-In-Reply-To: <ba2536a6-7c74-0cca-023f-cc6179950d37@canonical.com>
+ <20210310083840.481615-3-krzysztof.kozlowski@canonical.com>
+In-Reply-To: <20210310083840.481615-3-krzysztof.kozlowski@canonical.com>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 10 Mar 2021 17:42:14 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a1k7c5X5x=-_-=f=ACwY+uQQ8YEcAGXYfdTdSnqpo96sA@mail.gmail.com>
-Message-ID: <CAK8P3a1k7c5X5x=-_-=f=ACwY+uQQ8YEcAGXYfdTdSnqpo96sA@mail.gmail.com>
+Date: Wed, 10 Mar 2021 17:48:58 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a27hAExCKtsO7k1HQwLKk-5Q8uxYYt_G2v-Osq8RZv2tg@mail.gmail.com>
+Message-ID: <CAK8P3a27hAExCKtsO7k1HQwLKk-5Q8uxYYt_G2v-Osq8RZv2tg@mail.gmail.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-X-Provags-ID: V03:K1:DSUprnHvMLAG/9jVRG/dY2/ejgfylu4zDGUyqVQHTjRUUUJtpup
- P6EcBPrBtLntuFYvcjRpnzk2TdPoUmxT/tm4knQFSVuD/SNZygmHrHevjx2ur1I4xr/URFj
- C90FhLI1hJtqqXnCyi9BlZtP3cOni79rYDOnaI+d/PXfM3XQkKOGDKZSd1GqeCDhmb9UnBn
- x42N9YqJ72uJZxYxFrGFw==
+X-Provags-ID: V03:K1:1q5AuCFLV6R4DgLDlgM1UdiRnxtM4t0cMKFgmx02wRWpZOjy/il
+ vmtVoBrQ7lLlL2a69vfbEGE35mCqBnIZG35Qao9+jVt4RiB+255qWwUGcM1U4mQovdeWRNl
+ glGvrGR9F9gkonnVcDHnnOBL082y1h3Yir/9/yuRrmPX99J/Cs8b3C9yEFcVrVixYT75AOX
+ ILkv/uc5QjqHGNq0RCfeg==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:SCI9WchWKgU=:b8ZS9NBMkefPh3BdcHQftc
- rkyGjEf+ZUR9bfmME+RBg8VhCDkfivzjrDar8DkGkGj9M5bgcmtuCII4o6KV/PZ2I7I+BMBDb
- r5E2vahFUNOBVridrygeZHt3Y7udthyB/8zHI92MmVTkSfsyYQaY+5wBL74r/NtmG6FJqBMkz
- Zg8uBrS5tJ5eRhsGndycd5iekADWxkiNGM+yWWc51sB0F30KmZ+dO1A5KUAyumSJyaD3JIBXu
- 5mX70jh4PfdOvYzH+XDLb4cZB9GDzdWeA9WpWOH6BrsJLwt5BaDluR9iQAHXlJ3Tv8csDiJfV
- cKDNW0/bFjIlGZWbp7/p7hzXp7WBJs9W7DzUTklmbkA7kVwtxGJTgO6QZUXbjubDYHtrezlC4
- uwDEWi3e23elwipYf8qPfRkeBZHeTF2FRwRWjQFGLzmCXA9olik9Sus1sHpSDHQq12hYXq4ES
- DPYbdymN2HI7598vk4xG230f69M2qAIfiztu7WIYvhvxFQq7qvdqM6+AzsNZgtYQH0dSXAJdK
- JNm+b2UXREOI3sQnA2uxGG8WXGu7YT6ts6wjrk0W6GTqbKSA7OuMq4QwxsJwM6z8w==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:jd6FRlfbC+Q=:zf+bUf+ebTEI27vMNDiXUT
+ vEJ39xsH9iIF8s35LFEaHAkR8hvXNJmzBUINrCjJ5P0HX9JBt7xFElafuec/8bSOEqMX4+hkZ
+ lNO4jXSsakz4v4O0ee9bjK/VKQdkV6rAUh4um+gdTNkttm5/rxfkkxrS7n3UZbyx9zsi/+6/N
+ /WzUcKuiRitwLrWtgOFetmOty+28sLUngywM1wH+C+lpDeZ7MLReM1YX2vWean2rS2qszT49x
+ 2cm9B+l5XsIvxqomzIMAKQlwpuSZiA1t/ydiBWFs2qlIAoYp0VeOA8U/dKDNiBhPGGxXMibfz
+ J2jtKOCkHlo+dtvqbHSzYLvdiL4W7UhAvo2C3UYYXmZfGl2j9SvpkniDY3ITJb4wzVJFJVReq
+ KReZ5kvZFpaSNkCWSxP9V2L2YKoy5Ju1OjNY85r9ce0nufWEn5K5RsCWh3TFvu8Rbs5Prr7z5
+ DR/9f30ZwtStmIloF48Bos940sO50gvxZk9Ekad7Z6NGHqmcwOaa07440XEQMgeBEJOaBjkkh
+ gMIBc/naN0RSGcyt8qxZ1+A1vS5+LlpOeYNWm07H5rVwzRuV2noVBqxK7dvQL0esg==
 Cc: DTML <devicetree@vger.kernel.org>, arm-soc <arm@kernel.org>,
- Will Deacon <will@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Tom Rix <trix@redhat.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Michael Turquette <mturquette@baylibre.com>,
  Networking <netdev@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, Dinh Nguyen <dinguyen@kernel.org>,
- SoC Team <soc@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Moritz Fischer <mdf@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- Olof Johansson <olof@lixom.net>, linux-fpga@vger.kernel.org,
- Lee Jones <lee.jones@linaro.org>, linux-clk <linux-clk@vger.kernel.org>,
+ linux-fpga@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Moritz Fischer <mdf@kernel.org>, Tom Rix <trix@redhat.com>,
+ Olof Johansson <olof@lixom.net>, SoC Team <soc@kernel.org>,
+ Lee Jones <lee.jones@linaro.org>, Will Deacon <will@kernel.org>,
+ linux-clk <linux-clk@vger.kernel.org>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-edac@vger.kernel.org
-Subject: Re: [Linux-stm32] [RFC v2 3/5] arm64: socfpga: rename
-	ARCH_STRATIX10 to ARCH_SOCFPGA64
+Subject: Re: [Linux-stm32] [RFC v2 5/5] clk: socfpga: allow compile testing
+ of Stratix 10 / Agilex clocks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,27 +80,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Mar 10, 2021 at 4:54 PM Krzysztof Kozlowski
+On Wed, Mar 10, 2021 at 9:38 AM Krzysztof Kozlowski
 <krzysztof.kozlowski@canonical.com> wrote:
-> On 10/03/2021 16:47, Krzysztof Kozlowski wrote:
-> > This edac Altera driver is very weird... it uses the same compatible
-> > differently depending whether this is 32-bit or 64-bit (e.g. Stratix
-> > 10)! On ARMv7 the compatible means for example one IRQ... On ARMv8, we
-> > have two. It's quite a new code (2019 from Intel), not some ancient
-> > legacy, so it should never have been accepted...
->
-> Oh, it's not that horrible as it sounds. They actually have different
-> compatibles for edac driver with these differences (e.g. in interrupts).
-> They just do not use them and instead check for the basic (common?)
-> compatible and architecture... Anyway without testing I am not the
-> person to fix the edac driver.
+> --- a/drivers/clk/socfpga/Kconfig
+> +++ b/drivers/clk/socfpga/Kconfig
+> @@ -1,6 +1,17 @@
+>  # SPDX-License-Identifier: GPL-2.0
+> +config COMMON_CLK_SOCFPGA
+> +       bool "Intel SoCFPGA family clock support" if COMPILE_TEST && !ARCH_SOCFPGA && !ARCH_SOCFPGA64
+> +       depends on ARCH_SOCFPGA || ARCH_SOCFPGA64 || COMPILE_TEST
+> +       default y if ARCH_SOCFPGA || ARCH_SOCFPGA64
 
-Ok, This should be fixed properly as you describe, but as a quick hack
-it wouldn't be hard to just change the #ifdef to check for CONFIG_64BIT
-instead of CONFIG_ARCH_STRATIX10 during the rename of the config
-symbol.
+I think the 'depends on' line here is redundant if you also have the
+'if' line and the default.
 
-       Arnd
+        Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
