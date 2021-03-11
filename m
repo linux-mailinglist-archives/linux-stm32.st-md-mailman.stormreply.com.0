@@ -2,56 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95D643372B5
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Mar 2021 13:35:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2C42337320
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Mar 2021 13:54:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 622EEC5718B;
-	Thu, 11 Mar 2021 12:35:07 +0000 (UTC)
-Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
- [209.85.166.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D3C3C5718B;
+	Thu, 11 Mar 2021 12:54:52 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D19EFC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60C8FC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Mar 2021 12:35:05 +0000 (UTC)
-Received: by mail-il1-f176.google.com with SMTP id r7so3127033ilb.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Mar 2021 04:35:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kD+l4kkxKKdUXJQ23AQkR8FXXJ0y04WGuJHxzgDJRv8=;
- b=MP98FclJzXBmegZ2Hfg3NslxwABrao5gudQXwGIRkIt0/b4bN97IOmPAzrA8NPZ4V1
- 63Bkgl1x3VgSkyV4E5c633NfHfefkJ8aCnc0BHLJuDDRVS23pUVoRzO348MqUMV0y/Ro
- GkCO6rMuMm5jEZzXh49AMdDXjSnAe7oJZHqDHI/2/NpUtFnoLAZPxMbzmCl6scxu/TW8
- Nux+nl0RSz09QtfaKddJZoWe4KNIvo3ErRoGMXDoCW5DQJe/9YqZRWjspfSPlxSbFSV1
- w//suhuA5GOw3GfBHKF780pCI0ZVx9URuGjJYqd3HcpC7vVGniH7eIHA4/Z4Zntf0mse
- uEVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kD+l4kkxKKdUXJQ23AQkR8FXXJ0y04WGuJHxzgDJRv8=;
- b=aE0Luv4NKdiChNu77QBsLymauWab/8DQOkZ+6VCV7Tf8dYRt2YXalevZOlmSdW5fYv
- H7XvdAiAnt/hNBhtw9T2kK02Ohp2ZXpHXMnuJYUVUQSpYjBkWnUcg34tUC9YE7E36Y+u
- hxSEpEu+1yNtygUN6gS1nyjet2k/TNKGBa6Vet/cnSv9BGQQZF4rLqyZ+8Fa1ox6STXL
- pKk+xDfZF8dUQ3HEhm4G3rU7gvluUeyF3ICjXscEqqjLqJ7yNQrtreD1rdKDrr3uHdwK
- hDjidE2kgZ1O+OK+iqXI2wyz9aCVslgnKgRZmdpmYrcN6qR6whBWLcdZmXUVyeWNbK2R
- IrnQ==
-X-Gm-Message-State: AOAM533QD+LryFLKFVdH5FfbEY5bjUUywoUflYbr9KtPjFZvrMDUi9Ji
- PxwGUlJEF8BwCUETT1jpcfEETwaRJpyls5UjCcg=
-X-Google-Smtp-Source: ABdhPJzVtEakATdWW4VtfwUZKd0SXkdKNnUM5sILMsU4t79IaXrM/CeslMV4JekVnYf9MqTbg/ZxExNZ8xXnbCrWWFs=
-X-Received: by 2002:a05:6e02:156e:: with SMTP id
- k14mr4381915ilu.200.1615466104755; 
- Thu, 11 Mar 2021 04:35:04 -0800 (PST)
-MIME-Version: 1.0
+ Thu, 11 Mar 2021 12:54:51 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1lKKq2-0005KZ-KO; Thu, 11 Mar 2021 13:54:50 +0100
+To: dillon min <dillon.minfei@gmail.com>,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>
 References: <1614758717-18223-1-git-send-email-dillon.minfei@gmail.com>
- <1614758717-18223-9-git-send-email-dillon.minfei@gmail.com>
- <a5b4a06c-60c4-ba56-5f5b-dd7a8c5a0d6d@foss.st.com>
-In-Reply-To: <a5b4a06c-60c4-ba56-5f5b-dd7a8c5a0d6d@foss.st.com>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Thu, 11 Mar 2021 20:34:28 +0800
-Message-ID: <CAL9mu0K9f2rDsFeiVKT0izutxQzAU_=YBo6x7w1m=8gDhK9uOw@mail.gmail.com>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+ <1614758717-18223-6-git-send-email-dillon.minfei@gmail.com>
+ <b5f96460-dcdf-f40a-89d7-89def5669d7b@foss.st.com>
+ <CAL9mu0+YFC97OBNLH-gip+MFKfdX4rAaxsFB4rMNrgjmhc5=Rw@mail.gmail.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <d2549995-2b46-3f9a-e3d5-0e2bc21465d7@pengutronix.de>
+Date: Thu, 11 Mar 2021 13:54:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
+MIME-Version: 1.0
+In-Reply-To: <CAL9mu0+YFC97OBNLH-gip+MFKfdX4rAaxsFB4rMNrgjmhc5=Rw@mail.gmail.com>
+Content-Language: en-US
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  <devicetree@vger.kernel.org>, Vladimir Murzin <vladimir.murzin@arm.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
@@ -59,8 +45,8 @@ Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, afzal.mohd.ma@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 8/8] ARM: stm32: add initial support for
-	stm32h750
+Subject: Re: [Linux-stm32] [PATCH 5/8] ARM: dts: stm32: introduce
+ stm32h7-pinctrl.dtsi to support stm32h75x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,44 +58,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alexandre
-
-On Thu, Mar 11, 2021 at 6:43 PM Alexandre TORGUE
-<alexandre.torgue@foss.st.com> wrote:
->
-> Hi Dillon
->
-> On 3/3/21 9:05 AM, dillon.minfei@gmail.com wrote:
-> > From: dillon min <dillon.minfei@gmail.com>
-> >
->
-> No empty commit message please
-Okay, thanks for remind.
->
-> > Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> > ---
-> >   arch/arm/mach-stm32/board-dt.c | 1 +
-> >   1 file changed, 1 insertion(+)
-> >
-> > diff --git a/arch/arm/mach-stm32/board-dt.c b/arch/arm/mach-stm32/board-dt.c
-> > index 011d57b488c2..a766310d8dca 100644
-> > --- a/arch/arm/mach-stm32/board-dt.c
-> > +++ b/arch/arm/mach-stm32/board-dt.c
-> > @@ -17,6 +17,7 @@ static const char *const stm32_compat[] __initconst = {
-> >       "st,stm32f746",
-> >       "st,stm32f769",
-> >       "st,stm32h743",
-> > +     "st,stm32h750",
-> >       "st,stm32mp157",
-> >       NULL
-> >   };
-> >
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gRGlsbG9uLAoKT24gMTEuMDMuMjEgMTM6MjMsIGRpbGxvbiBtaW4gd3JvdGU6Cj4gRm9y
+IHN0bTMyaDcncyBuZXcgYm9hcmQgc3VwcG9ydCAsIEkgZ3Vlc3MgZm9sbG93aW5nIHRoZSBzdG0z
+MmY3L3N0bTMyZjQncyBzdHlsZQo+IGlzIGEgcmVhc29uYWJsZSB3YXkgdG8gZG8gaXQsIGJ1dCBh
+ZGQgYSBsaXR0bGUgb3B0aW1pemF0aW9u44CCCj4gd2hpY2ggbWVhbnMgOgo+IG9sZCBzdHJ1Y3R1
+cmUKPiBzdG0zMmg3LXBpbmN0cmwuZHRzaSAtLT4gc3RtMzJoNzQzLXBpbmN0cmwuZHRzaSAgKHJl
+ZmVyZW5jZWQgYnkKPiBzdG0zMmg3NDNpLWRpc2NvLCAtZXZhbCkKPiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHwtLT4gc3RtMzJoNzUwLXBpbmN0cmwuZHRzaQo+IChyZWZlcmVuY2Vk
+IGJ5IHN0bTMyaDc1MGktYXJ0LXBpLCBldGMpCj4gYWRkIGFydC1waSBvdGhlciBib2FyZCdzIHBp
+biBkZWZpbml0aW9uIGluIHN0bTMyaDc1MC1waW5jdHJsLmR0c2kgd2l0aAo+IHh4eF9waW5zX2Es
+IHh4eF9waW5zX2IKPiB4eHhfcGluc19hIHVzZWQgZm9yIGFydC1waSwgeHh4X3BpbnNfYiB1c2Vk
+IGZvciBvdGhlciBib2FyZHMuCj4gCj4gYWZ0ZXIgbW9yZSBib2FyZHMgYWRkIGluIHN1cHBvcnQs
+IHRoZXJlIHdpbGwgYmUgbW9yZSB4eHhfcGluX2MsIC4uLi4gZGVmaW5lZAo+IAo+IGFzIHRoZSBw
+aW4gbWFwIGlzIGFjY29yZGluZyB0byB0aGUgaGFyZHdhcmUgc2NoZW1hdGljIGRpYWdyYW0gaW8g
+Y29ubmVjdGlvbi4KPiBzbywgd2h5IG5vdCBtb3ZlIHh4eF9waW5feCB0byBhIGJvYXJkIHNwZWNp
+ZmljIHBsYWNlLiBzdWNoIGFzCj4gc3RtMzJoNzUwaS1hcnQtcGkuZHRzCj4gCj4gbmV3IHN0cnVj
+dHVyZToKPiAxLCByZW5hbWUgc3RtMzJoNzQzLXBpbmN0cmwuZHRzaSB0byBzdG0zMmg3LXBpbmN0
+cmwuZHRzaSAob25seQo+IHByZXNlcnZlIGdwaW9hLi4uaywpCj4gMiwgbW92ZSB4eHhfcGluc194
+IGZyb20gc3RtMzJoNy1waW5jdHJsLmR0c2kgdG8KPiBzdG0zMmg3eHgtZGlzY28vZXZhbC9hcnQt
+cGkvZXRjLmR0cyAoYXMgdGhleSBkZXBlbmRzIG9uIGhhcmR3YXJlCj4gc2NoZW1hdGljKQo+IAo+
+IHN0bTMyaDctcGluY3RybC5kdHNpIC0tPiBzdG0zMmg3NDNpLWRpc2Nvbi5kdHMKPiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHwtLT4gc3RtMzJoNzQzaS1ldmFsLmR0cwo+ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgfC0tPiBzdG0zMmg3NTBpLWFydC1waS5kdHMKPiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwtLT4gc3RtMzJoN3h4eC5kdHMKPiB3b3Vs
+ZCB5b3UgYWdyZWUgdGhpcyA/CgpJZiB0aGUgb3B0aW1pemF0aW9uIHlvdSBpbnRlbmQgaXMgcmVk
+dWNpbmcgRFRCIHNpemUsIHlvdSBjYW4gZmxhZwphbGwgcGluY3RybCBncm91cHMgd2l0aCAvb21p
+dC1pZi1uby1yZWYvIHRvIGhhdmUgZHRjIHRocm93IHRoZW0KYXdheSBpZiB0aGV5IGFyZSB1bnVz
+ZWQuCgooQnV0IGluIGdlbmVyYWwsIEkgYW0gaW4gZmF2b3Igb2YgaGF2aW5nIGJvYXJkLXNwZWNp
+ZmljIGNvbmZpZ3VyYXRpb24KIGluIHRoZSBib2FyZCBkdHMpCgpDaGVlcnMsCkFobWFkCgotLSAK
+UGVuZ3V0cm9uaXggZS5LLiAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHwKU3RldWVyd2FsZGVyIFN0ci4gMjEgICAgICAgICAgICAgICAgICAg
+ICAgIHwgaHR0cDovL3d3dy5wZW5ndXRyb25peC5kZS8gIHwKMzExMzcgSGlsZGVzaGVpbSwgR2Vy
+bWFueSAgICAgICAgICAgICAgICAgIHwgUGhvbmU6ICs0OS01MTIxLTIwNjkxNy0wICAgIHwKQW10
+c2dlcmljaHQgSGlsZGVzaGVpbSwgSFJBIDI2ODYgICAgICAgICAgIHwgRmF4OiAgICs0OS01MTIx
+LTIwNjkxNy01NTU1IHwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
+YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
