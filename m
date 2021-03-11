@@ -2,81 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF55B337771
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Mar 2021 16:27:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B9F3377E9
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Mar 2021 16:35:33 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8E20C57B77;
-	Thu, 11 Mar 2021 15:27:59 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BF73C5718B;
+	Thu, 11 Mar 2021 15:35:33 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FDB3C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3074C56631
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Mar 2021 15:27:58 +0000 (UTC)
-Received: from mail-lf1-f71.google.com ([209.85.167.71])
- by youngberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lKNED-0005pe-Km
- for linux-stm32@st-md-mailman.stormreply.com; Thu, 11 Mar 2021 15:27:57 +0000
-Received: by mail-lf1-f71.google.com with SMTP id j6so6868085lfg.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Mar 2021 07:27:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=LkS1dLaLUNf0Tu13eWfZQBLP6fiimg7+EWMMMS6XyYM=;
- b=lnU/wZXUnNVXtDIld4GHyNKSufm7DLoweprZyvOWudEoo4TJvxsZYCwthOybonqW9/
- uGqU2j3u0MA8n5ON52gKv7tZCcoIHXkTRrDhMnhkFM7D5oe2FOE5keeuNZH9AYMOcWyV
- EIeD8XkDwyYQepSskcIC0gZfKtPgUcBV7aYOmyzC3Hxy5wCjUkZmc/5dz2sVKgBcfQkA
- xUBSVOWSLuEx46EDSKE5PibkqNp4aM3jdB7Fk9sIzkvcFI2nY0u+I+2r30mb6EsyFHem
- tJsw3fcbRCfWAJxDxfes0LlwXZNBMIzGXBr7wReAqHYpRIQBiGf1o8DAteytSQ5LKHhY
- sQAQ==
-X-Gm-Message-State: AOAM530LcJVHMxWPlda+VHstm9n2+6Zkw3+phEelRrst+KKvrpDFg3Ps
- Ym38NAoxGEadbm/ywc0D1iq5LgxIjHg+aLkkAShyGilDnNBIkZGWJ6yJThmV+GkHDO9J6jXEA76
- q/CWX68lyJ0S12JiaU8PFrzd9oVS2zE7RRDrdm65Iv3TLPzLnEnp0s05U8Q==
-X-Received: by 2002:a05:6402:10c9:: with SMTP id
- p9mr9186819edu.268.1615476466827; 
- Thu, 11 Mar 2021 07:27:46 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwiRng9hU7KaBQ9hI2y61WSuJDlIqArf08ScSxAu55vb9/puMamEp/Rnnmw5+yqMGNTUgkwAA==
-X-Received: by 2002:a05:6402:10c9:: with SMTP id
- p9mr9186761edu.268.1615476466574; 
- Thu, 11 Mar 2021 07:27:46 -0800 (PST)
-Received: from localhost.localdomain (adsl-84-226-167-205.adslplus.ch.
- [84.226.167.205])
- by smtp.gmail.com with ESMTPSA id t15sm1518545edc.34.2021.03.11.07.27.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Mar 2021 07:27:46 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
- Olof Johansson <olof@lixom.net>, soc@kernel.org,
- Rob Herring <robh+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
- James Morse <james.morse@arm.com>, Robert Richter <rric@kernel.org>,
- Moritz Fischer <mdf@kernel.org>, Tom Rix <trix@redhat.com>,
- Lee Jones <lee.jones@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-fpga@vger.kernel.org, linux-i2c@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Thu, 11 Mar 2021 16:27:44 +0100
-Message-Id: <20210311152744.1318653-1-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210311152545.1317581-1-krzysztof.kozlowski@canonical.com>
+ Thu, 11 Mar 2021 15:35:31 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F214964F46;
+ Thu, 11 Mar 2021 15:35:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615476929;
+ bh=zAgboUjHHYtSTApDhEwGuBzEumVnZm12d8hI44Sy55c=;
+ h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To:From;
+ b=Ke6tN8VnwcrLmL2Q2jUfC9ZA9s7EyGy3T54ZcGRmWIGRpDgIwLttVr6Ehce8IONoe
+ xFb1SF7rEYR+atDV344GT0OHFUTDY35SXRhp7RczqKREG5yS2OzC+ZGFvjUJSbtHFv
+ kOS2EJ7aJJdtCnT4cPC4/RTEEtOSoBUFxdepUD2Kv5SUmKZ6rPY3P412xnr7Btgc2Z
+ vjE993D2QXRIBGCygPLXYpqXi7d8ABSoIyRyIlK+J9TZMHeJmqbOjk9V5VU8JvBRbt
+ BTpzQJl8s4MyyjVjchocujVQYU/niPELw49UEURznPD8vVbFDtDG4M/7e4MWqurAHm
+ EPHL/5qFywnWg==
+Date: Thu, 11 Mar 2021 16:35:25 +0100
+From: Wolfram Sang <wsa@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <20210311153525.GI3566@ninjato>
 References: <20210311152545.1317581-1-krzysztof.kozlowski@canonical.com>
+ <20210311152738.1318541-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Subject: [Linux-stm32] [PATCH v3 15/15] ARM: socfpga: drop ARCH_SOCFPGA
+In-Reply-To: <20210311152738.1318541-1-krzysztof.kozlowski@canonical.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+ Michael Turquette <mturquette@baylibre.com>, linux-i2c@vger.kernel.org,
+ Lee Jones <lee.jones@linaro.org>, linux-clk@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Tom Rix <trix@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-fpga@vger.kernel.org, devicetree@vger.kernel.org,
+ Robert Richter <rric@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>,
+ Arnd Bergmann <arnd@arndb.de>, dmaengine@vger.kernel.org, soc@kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Moritz Fischer <mdf@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+ Tony Luck <tony.luck@intel.com>, Stephen Boyd <sboyd@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dinh Nguyen <dinguyen@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ James Morse <james.morse@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Olof Johansson <olof@lixom.net>, Borislav Petkov <bp@alien8.de>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 13/15] i2c: altera: use
+ ARCH_INTEL_SOCFPGA also for 32-bit ARM SoCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,79 +64,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3920682221096495179=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Simplify 32-bit and 64-bit Intel SoCFPGA Kconfig options by having only
-one for both of them.  After conversion of all
-drivers to use the new ARCH_INTEL_SOCFPGA, the remaining ARM option can
-be removed.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
----
- arch/arm/configs/multi_v7_defconfig | 2 +-
- arch/arm/configs/socfpga_defconfig  | 2 +-
- arch/arm/mach-socfpga/Kconfig       | 8 ++------
- 3 files changed, 4 insertions(+), 8 deletions(-)
+--===============3920682221096495179==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5uO961YFyoDlzFnP"
+Content-Disposition: inline
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index 3823da605430..591b15164e3d 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -79,7 +79,7 @@ CONFIG_ARCH_MSM8960=y
- CONFIG_ARCH_MSM8974=y
- CONFIG_ARCH_ROCKCHIP=y
- CONFIG_ARCH_RENESAS=y
--CONFIG_ARCH_SOCFPGA=y
-+CONFIG_ARCH_INTEL_SOCFPGA=y
- CONFIG_PLAT_SPEAR=y
- CONFIG_ARCH_SPEAR13XX=y
- CONFIG_MACH_SPEAR1310=y
-diff --git a/arch/arm/configs/socfpga_defconfig b/arch/arm/configs/socfpga_defconfig
-index 0c60eb382c80..2d9404ea52c6 100644
---- a/arch/arm/configs/socfpga_defconfig
-+++ b/arch/arm/configs/socfpga_defconfig
-@@ -9,7 +9,7 @@ CONFIG_NAMESPACES=y
- CONFIG_BLK_DEV_INITRD=y
- CONFIG_EMBEDDED=y
- CONFIG_PROFILING=y
--CONFIG_ARCH_SOCFPGA=y
-+CONFIG_ARCH_INTEL_SOCFPGA=y
- CONFIG_ARM_THUMBEE=y
- CONFIG_SMP=y
- CONFIG_NR_CPUS=2
-diff --git a/arch/arm/mach-socfpga/Kconfig b/arch/arm/mach-socfpga/Kconfig
-index e43ed0ca6860..43ddec677c0b 100644
---- a/arch/arm/mach-socfpga/Kconfig
-+++ b/arch/arm/mach-socfpga/Kconfig
-@@ -1,8 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
--menuconfig ARCH_SOCFPGA
-+menuconfig ARCH_INTEL_SOCFPGA
- 	bool "Altera SOCFPGA family"
- 	depends on ARCH_MULTI_V7
--	select ARCH_INTEL_SOCFPGA
- 	select ARCH_SUPPORTS_BIG_ENDIAN
- 	select ARM_AMBA
- 	select ARM_GIC
-@@ -20,10 +19,7 @@ menuconfig ARCH_SOCFPGA
- 	select PL310_ERRATA_753970 if PL310
- 	select PL310_ERRATA_769419
- 
--if ARCH_SOCFPGA
--config ARCH_INTEL_SOCFPGA
--	bool
--
-+if ARCH_INTEL_SOCFPGA
- config SOCFPGA_SUSPEND
- 	bool "Suspend to RAM on SOCFPGA"
- 	help
--- 
-2.25.1
+
+--5uO961YFyoDlzFnP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Mar 11, 2021 at 04:27:38PM +0100, Krzysztof Kozlowski wrote:
+> ARCH_SOCFPGA is being renamed to ARCH_INTEL_SOCFPGA so adjust the
+> 32-bit ARM drivers to rely on new symbol.
+>=20
+> The side effect is that the I2C_ALTERA will now be available for both
+> 32-bit and 64-bit Intel SoCFPGA, even though it is used only for 32-bit.
+>=20
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+
+Acked-by: Wolfram Sang <wsa@kernel.org>
+
+
+--5uO961YFyoDlzFnP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmBKOLkACgkQFA3kzBSg
+KbbZ/w/9GRR5AjuL/bna/Vk8wI5mY1iTWUuqDmvXapF1EgH2dIRC1PQbIpNEndNW
+xqCH2kRbwlPINKD0E+N99R+T/wsk2qMu5hSkl+IQHHRzuF9ZeThFUnJCDzUF0UMS
+WoMTLrYyl1/ei2jJHzvbC5mmsOg3ckJA3c/wI9oATNu8yHQ5ptkYGBYPzh8IcPQS
+Z3WMvWz6Ir4NBpy68lJ0EPW5/mgLdBGI+6/JRNh+8CABa9IU/eZsHxWVj4fOE92W
+Eao/3P9oVGI+fcNxIp0oMrWFkw0emhGlcS+XyiKtvHhBlvmlkeenrOYU3ARDllNj
+Lv+Lrp0fT7H6kTUcJEAzLAza8h6v94J9KOdRR0Ll1sBALSv7OA5HHNgmfutZpWSs
+grYmZqs34BbSr8NGOdU90f02peBMLDYt4kiV7OtbjhSnV71xI1F6dyQCLaFEXAz7
+J/AAKzgBbFTtO1wtE3jwSeBGSSc7QeuKyPAERwFWjN2f2J37/bC/R6c/AxAmCNXi
++jcMDrOwQWlbaYFYQLo75tdowmM1LrEmptykTH0dWpDx2RXdmsSz6VGamqHdfTM3
+FJ/VRIuqVu20LB55FSNLCxmwxnTVvv/OcnDwMAYDlQIYMsFigLTBWFNtRVmvGNPK
+WHUoXN5NBygSwkUPKGDji5EAKyZBa/QMW3C9Nn1aU4MXlAFKZFk=
+=53ZM
+-----END PGP SIGNATURE-----
+
+--5uO961YFyoDlzFnP--
+
+--===============3920682221096495179==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3920682221096495179==--
