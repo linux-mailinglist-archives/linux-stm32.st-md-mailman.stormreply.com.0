@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE9933771D
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Mar 2021 16:26:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DCA7337719
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Mar 2021 16:25:55 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DEE1C57B55;
-	Thu, 11 Mar 2021 15:26:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5744DC5718D;
+	Thu, 11 Mar 2021 15:25:55 +0000 (UTC)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 229A8C5718B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2623C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Mar 2021 15:26:04 +0000 (UTC)
-Received: from mail-lj1-f199.google.com ([209.85.208.199])
+ Thu, 11 Mar 2021 15:25:54 +0000 (UTC)
+Received: from mail-ed1-f70.google.com ([209.85.208.70])
  by youngberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lKNCN-0004xj-JO
- for linux-stm32@st-md-mailman.stormreply.com; Thu, 11 Mar 2021 15:26:03 +0000
-Received: by mail-lj1-f199.google.com with SMTP id 6so8657080ljr.11
+ id 1lKNCD-0004m5-Ma
+ for linux-stm32@st-md-mailman.stormreply.com; Thu, 11 Mar 2021 15:25:53 +0000
+Received: by mail-ed1-f70.google.com with SMTP id o15so10075240edv.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Mar 2021 07:26:03 -0800 (PST)
+ Thu, 11 Mar 2021 07:25:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=p7A+DSDQBb7c5EIU5TSfMWRw1BEprqFYaBkLJEF1chQ=;
- b=pxhLtd6a86qtduxFfitWofkBpeU67k0ciknVaXmhB1EbBkBVKaB29LTM8K3JF2Fmub
- mUUyu/Tbi0cfOhg7N7yC6NsRr/jIHhlsGxpInFfNI4S0j47tocYY5GM5xazudTWaK3up
- Kua7o0X0aPnJ+nTNCPJjmWKG2ywbY8smIoC5yRHo5khZw4CX6V6G2vU+jzksVlhJxSrm
- 8OPEf5S287+BcsC4JlG1YKE3Q0GKn7JgUwWHCEbiRmJp9aDszhBT/4aTmXwRqugXU81k
- FFc2mFjBC7QigKyRyJgKzNOdL0fQ60J28yD/bJTqd4oGT8nKsxNrIB7sS3aESSNOng9d
- FpgQ==
-X-Gm-Message-State: AOAM5329fjX7ilPGEe3mRs5Lwa6JkTPcGZb3Ox5NYt+8fbKl15EackNb
- oJDvCFVvBt1rC5K2kF3RNWAN7Z0a4hUelqRtAcAhbcL/jQ4uv3FRoNR5HHB8V6CxiFaIn4ttRxL
- 2FuFlBE/EYWDnmaq8Gjgmkv1c+wGbx5lEJZi+9+wYaNxJh6WxiO8Phb3/Xg==
-X-Received: by 2002:a17:907:ea3:: with SMTP id
- ho35mr3611142ejc.219.1615476352239; 
- Thu, 11 Mar 2021 07:25:52 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyz6VZBJQtyn1vJqNDMxNUwbfgoz1dh4Krocm3RNptCj8qhNdcuXhZNjAdYrrhTwPdtlG670g==
-X-Received: by 2002:a17:907:ea3:: with SMTP id
- ho35mr3611099ejc.219.1615476351969; 
- Thu, 11 Mar 2021 07:25:51 -0800 (PST)
+ bh=WNNBQoeYbiaXwIioLMfeHDmEpvN4s0z+f2iELsIEM3g=;
+ b=Yii4kP0vzkUSc0FFRJfXGqeZ7qHX5+SlW8jRNl0CAMT9qcJJuylEGqbOLgoxMNU4B6
+ XYlDRdhd2t83lIcv2zHEGFiRxM7mqb/xmX9xtd3wEmAer68jaGe1w0woYDVPk1kccwTp
+ 3QyZF6GLW2JrvTczWjs8u1ZPioQ5A4n27F+CdZhb/ObIJkDxAGz/xMXgKYCSkMI0yUku
+ I9evvECNu81DD/7qYgf3wVfVeK/I/A+BfBYpdYLqcmYGqM94VmdxHn9Z1voxiPVVQJSa
+ 0tGCVjrst2St1nFnIfg0ovl7Hkms8KoWXjd+4iGGX89RyO7uKBERkmCzHcH4V1RLktBp
+ 00mA==
+X-Gm-Message-State: AOAM532stOZppbwfzNsp8yRQiKGyZxEXOzUqF7+ItaKKD1mFiiN4ZddK
+ FXKBjeMD3ja6p7BvDQ0uGByumVizPbxUPhz1xjAakx4e5F09vNP3ZAKLrDMgAJF8vyJ6Q/DH5aC
+ TGaIHsMDeKgML6lLh8ILrncq9GyZFfUMwoXvmKh5gLeCa/94ATLurqizNrA==
+X-Received: by 2002:a05:6402:2215:: with SMTP id
+ cq21mr9274792edb.281.1615476353415; 
+ Thu, 11 Mar 2021 07:25:53 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJz84GEivsrxMtPNo4w3XJQXVZ55xsq/2JYDwU24XYid3WZpGznITM5djSJ6+HC1Qzj5FYXbTw==
+X-Received: by 2002:a05:6402:2215:: with SMTP id
+ cq21mr9274760edb.281.1615476353246; 
+ Thu, 11 Mar 2021 07:25:53 -0800 (PST)
 Received: from localhost.localdomain (adsl-84-226-167-205.adslplus.ch.
  [84.226.167.205])
- by smtp.gmail.com with ESMTPSA id v25sm1517826edr.18.2021.03.11.07.25.50
+ by smtp.gmail.com with ESMTPSA id v25sm1517826edr.18.2021.03.11.07.25.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Mar 2021 07:25:51 -0800 (PST)
+ Thu, 11 Mar 2021 07:25:52 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
  Olof Johansson <olof@lixom.net>, soc@kernel.org,
@@ -69,15 +69,15 @@ To: Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
  dmaengine@vger.kernel.org, linux-edac@vger.kernel.org,
  linux-fpga@vger.kernel.org, linux-i2c@vger.kernel.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Thu, 11 Mar 2021 16:25:31 +0100
-Message-Id: <20210311152545.1317581-2-krzysztof.kozlowski@canonical.com>
+Date: Thu, 11 Mar 2021 16:25:32 +0100
+Message-Id: <20210311152545.1317581-3-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210311152545.1317581-1-krzysztof.kozlowski@canonical.com>
 References: <20210311152545.1317581-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Subject: [Linux-stm32] [PATCH v3 01/15] clk: socfpga: allow building N5X
-	clocks with ARCH_N5X
+Subject: [Linux-stm32] [PATCH v3 02/15] ARM: socfpga: introduce common
+	ARCH_INTEL_SOCFPGA
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,76 +94,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Intel's eASIC N5X (ARCH_N5X) architecture shares a lot with Agilex
-(ARCH_AGILEX) so it uses the same socfpga_agilex.dtsi, with minor
-changes.  Also the clock drivers are the same.
-
-However the clock drivers won't be build without ARCH_AGILEX.  One could
-assume that ARCH_N5X simply depends on ARCH_AGILEX but this was not
-modeled in Kconfig.  In current stage the ARCH_N5X is simply
-unbootable.
-
-Add a separate Kconfig entry for clocks used by both ARCH_N5X and
-ARCH_AGILEX so the necessary objects will be built if either of them is
-selected.
+Simplify 32-bit and 64-bit Intel SoCFPGA Kconfig options by having only
+one for both of them.  This the common practice for other platforms.
+Additionally, the ARCH_SOCFPGA is too generic as SoCFPGA designs come
+from multiple vendors.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- drivers/clk/Kconfig          | 1 +
- drivers/clk/Makefile         | 1 +
- drivers/clk/socfpga/Kconfig  | 6 ++++++
- drivers/clk/socfpga/Makefile | 4 ++--
- 4 files changed, 10 insertions(+), 2 deletions(-)
- create mode 100644 drivers/clk/socfpga/Kconfig
+ arch/arm/Kconfig                    | 2 +-
+ arch/arm/Kconfig.debug              | 6 +++---
+ arch/arm/Makefile                   | 2 +-
+ arch/arm/boot/dts/Makefile          | 2 +-
+ arch/arm/mach-socfpga/Kconfig       | 4 ++++
+ arch/arm64/Kconfig.platforms        | 4 ++++
+ arch/arm64/boot/dts/altera/Makefile | 2 +-
+ 7 files changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index a588d56502d4..1d1891b9cad2 100644
---- a/drivers/clk/Kconfig
-+++ b/drivers/clk/Kconfig
-@@ -394,6 +394,7 @@ source "drivers/clk/renesas/Kconfig"
- source "drivers/clk/rockchip/Kconfig"
- source "drivers/clk/samsung/Kconfig"
- source "drivers/clk/sifive/Kconfig"
-+source "drivers/clk/socfpga/Kconfig"
- source "drivers/clk/sprd/Kconfig"
- source "drivers/clk/sunxi/Kconfig"
- source "drivers/clk/sunxi-ng/Kconfig"
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index b22ae4f81e0b..12e46b12e587 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -106,6 +106,7 @@ obj-$(CONFIG_COMMON_CLK_SAMSUNG)	+= samsung/
- obj-$(CONFIG_CLK_SIFIVE)		+= sifive/
- obj-$(CONFIG_ARCH_SOCFPGA)		+= socfpga/
- obj-$(CONFIG_ARCH_AGILEX)		+= socfpga/
-+obj-$(CONFIG_ARCH_N5X)			+= socfpga/
- obj-$(CONFIG_ARCH_STRATIX10)		+= socfpga/
- obj-$(CONFIG_PLAT_SPEAR)		+= spear/
- obj-y					+= sprd/
-diff --git a/drivers/clk/socfpga/Kconfig b/drivers/clk/socfpga/Kconfig
-new file mode 100644
-index 000000000000..3c30617169bf
---- /dev/null
-+++ b/drivers/clk/socfpga/Kconfig
-@@ -0,0 +1,6 @@
-+# SPDX-License-Identifier: GPL-2.0
-+config CLK_INTEL_SOCFPGA64
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index 853aab5ab327..37f94cf0cfdb 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -1320,7 +1320,7 @@ config ARM_PSCI
+ # selected platforms.
+ config ARCH_NR_GPIO
+ 	int
+-	default 2048 if ARCH_SOCFPGA
++	default 2048 if ARCH_INTEL_SOCFPGA
+ 	default 1024 if ARCH_BRCMSTB || ARCH_RENESAS || ARCH_TEGRA || \
+ 		ARCH_ZYNQ || ARCH_ASPEED
+ 	default 512 if ARCH_EXYNOS || ARCH_KEYSTONE || SOC_OMAP5 || \
+diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
+index 9e0b5e7f12af..36016497b1b3 100644
+--- a/arch/arm/Kconfig.debug
++++ b/arch/arm/Kconfig.debug
+@@ -1087,7 +1087,7 @@ choice
+ 		  on SD5203 UART.
+ 
+ 	config DEBUG_SOCFPGA_UART0
+-		depends on ARCH_SOCFPGA
++		depends on ARCH_INTEL_SOCFPGA
+ 		bool "Use SOCFPGA UART0 for low-level debug"
+ 		select DEBUG_UART_8250
+ 		help
+@@ -1095,7 +1095,7 @@ choice
+ 		  on SOCFPGA(Cyclone 5 and Arria 5) based platforms.
+ 
+ 	config DEBUG_SOCFPGA_ARRIA10_UART1
+-		depends on ARCH_SOCFPGA
++		depends on ARCH_INTEL_SOCFPGA
+ 		bool "Use SOCFPGA Arria10 UART1 for low-level debug"
+ 		select DEBUG_UART_8250
+ 		help
+@@ -1103,7 +1103,7 @@ choice
+ 		  on SOCFPGA(Arria 10) based platforms.
+ 
+ 	config DEBUG_SOCFPGA_CYCLONE5_UART1
+-		depends on ARCH_SOCFPGA
++		depends on ARCH_INTEL_SOCFPGA
+ 		bool "Use SOCFPGA Cyclone 5 UART1 for low-level debug"
+ 		select DEBUG_UART_8250
+ 		help
+diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+index dad5502ecc28..415c3514573a 100644
+--- a/arch/arm/Makefile
++++ b/arch/arm/Makefile
+@@ -209,7 +209,7 @@ machine-$(CONFIG_PLAT_SAMSUNG)		+= s3c
+ machine-$(CONFIG_ARCH_S5PV210)		+= s5pv210
+ machine-$(CONFIG_ARCH_SA1100)		+= sa1100
+ machine-$(CONFIG_ARCH_RENESAS)	 	+= shmobile
+-machine-$(CONFIG_ARCH_SOCFPGA)		+= socfpga
++machine-$(CONFIG_ARCH_INTEL_SOCFPGA)	+= socfpga
+ machine-$(CONFIG_ARCH_STI)		+= sti
+ machine-$(CONFIG_ARCH_STM32)		+= stm32
+ machine-$(CONFIG_ARCH_SUNXI)		+= sunxi
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 53b6e06bf19a..fe8f7c349f1d 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1033,7 +1033,7 @@ dtb-$(CONFIG_ARCH_S5PV210) += \
+ 	s5pv210-smdkc110.dtb \
+ 	s5pv210-smdkv210.dtb \
+ 	s5pv210-torbreck.dtb
+-dtb-$(CONFIG_ARCH_SOCFPGA) += \
++dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
+ 	socfpga_arria5_socdk.dtb \
+ 	socfpga_arria10_socdk_nand.dtb \
+ 	socfpga_arria10_socdk_qspi.dtb \
+diff --git a/arch/arm/mach-socfpga/Kconfig b/arch/arm/mach-socfpga/Kconfig
+index c3bb68d57cea..e43ed0ca6860 100644
+--- a/arch/arm/mach-socfpga/Kconfig
++++ b/arch/arm/mach-socfpga/Kconfig
+@@ -2,6 +2,7 @@
+ menuconfig ARCH_SOCFPGA
+ 	bool "Altera SOCFPGA family"
+ 	depends on ARCH_MULTI_V7
++	select ARCH_INTEL_SOCFPGA
+ 	select ARCH_SUPPORTS_BIG_ENDIAN
+ 	select ARM_AMBA
+ 	select ARM_GIC
+@@ -20,6 +21,9 @@ menuconfig ARCH_SOCFPGA
+ 	select PL310_ERRATA_769419
+ 
+ if ARCH_SOCFPGA
++config ARCH_INTEL_SOCFPGA
 +	bool
-+	# Intel Agilex / N5X clock controller support
-+	default (ARCH_AGILEX || ARCH_N5X)
-+	depends on ARCH_AGILEX || ARCH_N5X
-diff --git a/drivers/clk/socfpga/Makefile b/drivers/clk/socfpga/Makefile
-index bf736f8d201a..c6db8dd4ab35 100644
---- a/drivers/clk/socfpga/Makefile
-+++ b/drivers/clk/socfpga/Makefile
-@@ -3,5 +3,5 @@ obj-$(CONFIG_ARCH_SOCFPGA) += clk.o clk-gate.o clk-pll.o clk-periph.o
- obj-$(CONFIG_ARCH_SOCFPGA) += clk-pll-a10.o clk-periph-a10.o clk-gate-a10.o
- obj-$(CONFIG_ARCH_STRATIX10) += clk-s10.o
- obj-$(CONFIG_ARCH_STRATIX10) += clk-pll-s10.o clk-periph-s10.o clk-gate-s10.o
--obj-$(CONFIG_ARCH_AGILEX) += clk-agilex.o
--obj-$(CONFIG_ARCH_AGILEX) += clk-pll-s10.o clk-periph-s10.o clk-gate-s10.o
-+obj-$(CONFIG_CLK_INTEL_SOCFPGA64) += clk-agilex.o
-+obj-$(CONFIG_CLK_INTEL_SOCFPGA64) += clk-pll-s10.o clk-periph-s10.o clk-gate-s10.o
++
+ config SOCFPGA_SUSPEND
+ 	bool "Suspend to RAM on SOCFPGA"
+ 	help
+diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+index cdfd5fed457f..ecab67a1afb8 100644
+--- a/arch/arm64/Kconfig.platforms
++++ b/arch/arm64/Kconfig.platforms
+@@ -256,9 +256,13 @@ config ARCH_SEATTLE
+ 
+ config ARCH_STRATIX10
+ 	bool "Altera's Stratix 10 SoCFPGA Family"
++	select ARCH_INTEL_SOCFPGA
+ 	help
+ 	  This enables support for Altera's Stratix 10 SoCFPGA Family.
+ 
++config ARCH_INTEL_SOCFPGA
++	bool
++
+ config ARCH_SYNQUACER
+ 	bool "Socionext SynQuacer SoC Family"
+ 
+diff --git a/arch/arm64/boot/dts/altera/Makefile b/arch/arm64/boot/dts/altera/Makefile
+index 10119c7ab437..4db83fbeb115 100644
+--- a/arch/arm64/boot/dts/altera/Makefile
++++ b/arch/arm64/boot/dts/altera/Makefile
+@@ -1,3 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-dtb-$(CONFIG_ARCH_STRATIX10) += socfpga_stratix10_socdk.dtb \
++dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += socfpga_stratix10_socdk.dtb \
+ 				socfpga_stratix10_socdk_nand.dtb
 -- 
 2.25.1
 
