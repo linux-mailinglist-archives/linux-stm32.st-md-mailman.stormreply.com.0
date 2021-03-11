@@ -2,41 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53384337FEF
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Mar 2021 22:54:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5E94338192
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Mar 2021 00:38:06 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7D04C5718B;
-	Thu, 11 Mar 2021 21:54:21 +0000 (UTC)
-Received: from smtp.wifcom.cz (smtp.wifcom.cz [85.207.3.150])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D443C5718B;
+	Thu, 11 Mar 2021 23:38:06 +0000 (UTC)
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
+ [209.85.167.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8CE2C56631
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23CCDC56631
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Mar 2021 21:54:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=eaxlabs.cz;
- s=mail; 
- h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
- bh=+eJYocYta1yRGzhhxPi392ziGWhQ3NokAmXjS+Zjhks=; 
- b=Xl3qJz66BkN8iWIvcxd2J69AwdaTimQY9pIxpGf2ADlbOjk8ZQueD4E7+mYAO8izsjWrw4b316tTgyFfGdlvRL85tGw4JRo/TDq6VuBFC3eXXQCBZYv86k1iSsXgj2XcpeOLaYhtw2K+DSThLHQLyy+6VIc/GgugsoOzMxp17A4=;
-From: Martin Devera <devik@eaxlabs.cz>
-To: linux-kernel@vger.kernel.org
-Date: Thu, 11 Mar 2021 22:51:53 +0100
-Message-Id: <20210311215153.676-2-devik@eaxlabs.cz>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20210311215153.676-1-devik@eaxlabs.cz>
-References: <20210308192040.GA2807217@robh.at.kernel.org>
- <20210311215153.676-1-devik@eaxlabs.cz>
-X-Antivirus-Scanner: Clean mail though you should still use an Antivirus
-X-Wif-ss: -2.9 (--)
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Martin Devera <devik@eaxlabs.cz>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
- Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Le Ray <erwan.leray@st.com>
-Subject: [Linux-stm32] [PATCH v5 2/2] tty/serial: Add rx-tx-swap OF option
-	to stm32-usart
+ Thu, 11 Mar 2021 23:38:05 +0000 (UTC)
+Received: by mail-oi1-f180.google.com with SMTP id w65so25005799oie.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 11 Mar 2021 15:38:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=y7PZLngnSiOO6tUFoYHe7nczWb/djDzvqn8CynT2y7o=;
+ b=b2rJ6NYdtpvRsYrTydu07Hbmx4KuucnrL02ilCVLMbWyGoSCM5JuPNA0SIk20Buxrw
+ Oh7oUZvjjjC0iQHpcwiYsGwSmlZp3cPbWR34ABrpQwzFL/BM3NX+sV+8FPYzCPOw+ofi
+ VzULisEMofG367pN45L/GSPzAd+IR9TP6WzLklrASPitwJGBnwKsB41AUiiYv8Af4Oag
+ soqwhhbg7skLH9mj/+yzDctmKgkUlK/mjPc53IbweQF4YwS39hFqhrrVqT4JQC8twf9n
+ tzySqGOhOX9aVvGEGiQM9cPpOxzOmfyLIsxdAoV+ujtciMM/eNpufnB5In28l9oJdP0X
+ QWqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=y7PZLngnSiOO6tUFoYHe7nczWb/djDzvqn8CynT2y7o=;
+ b=J9ZR60xLeo7B1JsEuyuHBupzhYFtMqMfcu+6lqnF7+LGqo5APW9ZbDrnAe4yePCyjd
+ fcpt0r36XUbUaJ1u60nNX90z0gc8FppxXQLqHffQTNdXAyTnQ1/e5pOtNcgnG3esyvBz
+ GscFS8pS49hyyIeiG/nwxvPEIQ0pNyOJeyQwrPF+VpdsNuIgMMqCrd8+n0JUJGbpbUg/
+ TaeDF3Xgs2QBx6IBBy9Cl1cQ6+OeUz34YBjgCcB0K87KFi0yYEXGIYFF9WSunvsj+U+q
+ vOt4FekgRxjXrpANqlwCMhd4oNFZniKYUADu/4uTNSPeB1Q4fgS6itp5i7mm5A9Wgve/
+ f0jg==
+X-Gm-Message-State: AOAM533T/PvbrxUyzhBv2MS4AYRvw0qo+W10HO3mLfyTAE0xilhC+CNe
+ TaRE8rjxPLosp7cNAh93yhFmjw==
+X-Google-Smtp-Source: ABdhPJy3trbQfPJf8Jw30MXwWRENujdAMmMOYHCnCoFk8D7mpra/ivKmRip+qDmcJtYBYf2nNtZqnw==
+X-Received: by 2002:a05:6808:140e:: with SMTP id
+ w14mr8230991oiv.176.1615505883760; 
+ Thu, 11 Mar 2021 15:38:03 -0800 (PST)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id z8sm987590otp.14.2021.03.11.15.38.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Mar 2021 15:38:03 -0800 (PST)
+Date: Thu, 11 Mar 2021 17:38:01 -0600
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <YEqp2US8OykaUAa/@builder.lan>
+References: <20210311140413.31725-1-arnaud.pouliquen@foss.st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210311140413.31725-1-arnaud.pouliquen@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-arm-msm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andy Gross <agross@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 0/6] rpmsg: enable the use of the
+ rpmsg_char device for the Virtio backend
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,98 +74,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32 F7/H7 usarts supports RX & TX pin swapping.
-Add option to turn it on.
-Tested on STM32MP157.
+On Thu 11 Mar 08:04 CST 2021, Arnaud Pouliquen wrote:
 
-Signed-off-by: Martin Devera <devik@eaxlabs.cz>
-Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- drivers/tty/serial/stm32-usart.c | 11 ++++++++++-
- drivers/tty/serial/stm32-usart.h |  4 ++++
- 2 files changed, 14 insertions(+), 1 deletion(-)
+> This series is the first step in the division of the series: 
+> "Introduce a generic IOCTL interface for RPMsg channels management"[1]
+> 
+> The main goal here is to enable the RPMsg char interface for
+> the virtio RPMsg backend. 
+> 
+> In addition some patches have been includes in order to document the
+> interface and rename the rpmsg_char_init function.
+> 
+> It also includes Mathieu Poirier's comments made on [1]
+> 
+> Patchsets that should be the next steps:
+>  - Extract the control part of the char dev and create the rpmsg_ctrl.c
+>    file
+>  - Introduce the RPMSG_CREATE_DEV_IOCTL IOCTL to instantiate RPMsg devices
+> 
+> 
+> [1]: https://patchwork.kernel.org/project/linux-remoteproc/list/?series=435523
+> 
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index b3675cf25a69..d390f7da1441 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -644,6 +644,12 @@ static int stm32_usart_startup(struct uart_port *port)
- 	if (ret)
- 		return ret;
- 
-+	if (stm32_port->swap) {
-+		val = readl_relaxed(port->membase + ofs->cr2);
-+		val |= USART_CR2_SWAP;
-+		writel_relaxed(val, port->membase + ofs->cr2);
-+	}
-+
- 	/* RX FIFO Flush */
- 	if (ofs->rqr != UNDEF_REG)
- 		stm32_usart_set_bits(port, ofs->rqr, USART_RQR_RXFRQ);
-@@ -758,7 +764,7 @@ static void stm32_usart_set_termios(struct uart_port *port,
- 	cr1 = USART_CR1_TE | USART_CR1_RE;
- 	if (stm32_port->fifoen)
- 		cr1 |= USART_CR1_FIFOEN;
--	cr2 = 0;
-+	cr2 = stm32_port->swap ? USART_CR2_SWAP : 0;
- 	cr3 = readl_relaxed(port->membase + ofs->cr3);
- 	cr3 &= USART_CR3_TXFTIE | USART_CR3_RXFTCFG_MASK | USART_CR3_RXFTIE
- 		| USART_CR3_TXFTCFG_MASK;
-@@ -1006,6 +1012,9 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
- 			return stm32port->wakeirq ? : -ENODEV;
- 	}
- 
-+	stm32port->swap = stm32port->info->cfg.has_swap &&
-+		of_property_read_bool(pdev->dev.of_node, "rx-tx-swap");
-+
- 	stm32port->fifoen = stm32port->info->cfg.has_fifo;
- 
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
-index cb4f327c46db..a85391e71e8e 100644
---- a/drivers/tty/serial/stm32-usart.h
-+++ b/drivers/tty/serial/stm32-usart.h
-@@ -25,6 +25,7 @@ struct stm32_usart_offsets {
- struct stm32_usart_config {
- 	u8 uart_enable_bit; /* USART_CR1_UE */
- 	bool has_7bits_data;
-+	bool has_swap;
- 	bool has_wakeup;
- 	bool has_fifo;
- 	int fifosize;
-@@ -76,6 +77,7 @@ struct stm32_usart_info stm32f7_info = {
- 	.cfg = {
- 		.uart_enable_bit = 0,
- 		.has_7bits_data = true,
-+		.has_swap = true,
- 		.fifosize = 1,
- 	}
- };
-@@ -97,6 +99,7 @@ struct stm32_usart_info stm32h7_info = {
- 	.cfg = {
- 		.uart_enable_bit = 0,
- 		.has_7bits_data = true,
-+		.has_swap = true,
- 		.has_wakeup = true,
- 		.has_fifo = true,
- 		.fifosize = 16,
-@@ -271,6 +274,7 @@ struct stm32_port {
- 	int last_res;
- 	bool tx_dma_busy;	 /* dma tx busy               */
- 	bool hw_flow_control;
-+	bool swap;		 /* swap RX & TX pins */
- 	bool fifoen;
- 	int wakeirq;
- 	int rdr_mask;		/* receive data register mask */
--- 
-2.11.0
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
+Regards,
+Bjorn
+
+> Arnaud Pouliquen (6):
+>   rpmsg: char: Rename rpmsg_char_init to rpmsg_chrdev_init
+>   rpmsg: Move RPMSG_ADDR_ANY in user API
+>   rpmsg: Add short description of the IOCTL defined in UAPI.
+>   rpmsg: char: Use rpmsg_sendto to specify the message destination
+>     address
+>   rpmsg: virtio: Register the rpmsg_char device
+>   rpmsg: char: Return an error if device already open
+> 
+>  drivers/rpmsg/qcom_glink_native.c | 16 ++++++++
+>  drivers/rpmsg/qcom_smd.c          | 16 ++++++++
+>  drivers/rpmsg/rpmsg_char.c        | 11 ++++--
+>  drivers/rpmsg/virtio_rpmsg_bus.c  | 62 ++++++++++++++++++++++++++++---
+>  include/linux/rpmsg.h             |  3 +-
+>  include/uapi/linux/rpmsg.h        | 13 ++++++-
+>  6 files changed, 108 insertions(+), 13 deletions(-)
+> 
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
