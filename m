@@ -2,68 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 261C13370D7
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Mar 2021 12:08:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01033337160
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Mar 2021 12:30:47 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0DE4C5718D;
-	Thu, 11 Mar 2021 11:08:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC788C5718D;
+	Thu, 11 Mar 2021 11:30:46 +0000 (UTC)
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+ [209.85.166.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 806C2CFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D73EC57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Mar 2021 11:08:40 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12BB71vr007933; Thu, 11 Mar 2021 12:08:33 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=OkqMTQRlY95MowGjpWpOMwJs3OwDCODKW0EREFO2LDk=;
- b=PlSp072KAq0ETEh1TFvqP2wtL9xTdVJdnTtJXhyNum/M6GAoI7C7FaBx3I5LoqDR5smm
- IdT1nwOO8beOSN1d/WNSZx5RmL5eBjwh8i3UtYgBNC/rV+CihAgYIO77l4cqoBD9Zdr0
- 2Sc+2tgp6IKLNmbFMD0o6oGwUtWmOdrckR2PFRa4ajB5+e690VP8loPrmRSMgezl5iEH
- pKcE9S5nOa+5FBooh2XYK285ojD6hbSOMqJFE/dVO+6ZYpNkULvX7KIPdTKtX9b6DuQv
- I+rTYduy6IM3CZmQsyo23rLMSLl1TdBzSJv1xyjxLDE/6e13gCUxUuQzZoj4an52rIUB sg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3740376aw2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 11 Mar 2021 12:08:33 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 114C810002A;
- Thu, 11 Mar 2021 12:08:33 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F3CEA231DEA;
- Thu, 11 Mar 2021 12:08:32 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.51) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 11 Mar
- 2021 12:08:32 +0100
-To: Valentin CARON - foss <valentin.caron@foss.st.com>
-References: <20210211110620.31594-1-valentin.caron@foss.st.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <6dffddbe-235b-a607-a82c-5f3c3756e3a7@foss.st.com>
-Date: Thu, 11 Mar 2021 12:08:31 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thu, 11 Mar 2021 11:30:45 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id 81so21478964iou.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 11 Mar 2021 03:30:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=f3gZoSD9XMt2F+FjYcYEcTAHARCmwRCAu6NWB4KbPUE=;
+ b=PUY5Pqimw/LtaQS015tDeEsb0Na1mCtDp83x5RGTdUv3LPLgMI0AS1uPnsWjW3RtL4
+ E3lmr9npg1f/OhjGISD7SW+x/US8XNtv2uAi3aE9c9nwAA1LgOqMZK0RnUYqSV5H8m5N
+ 3t7ZNkkRdX4VfodDBiHIgA8LzBFnji403cpsyiMCX6jmm1pAded7oBSHIranPa3UJOzs
+ DsmR+5/O1UWJoz9DhzF9BkWhHSVUtEDokhRe4PxBYH+cC8Gg3QuklgkC3jJdFHGonWOg
+ xT87mWU0eiUgrN0sk1XQ4IZjmcNgtKMJUqu779INoY8UXdPawwQ5kNvSVfh/BsjOmWVo
+ Ok2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=f3gZoSD9XMt2F+FjYcYEcTAHARCmwRCAu6NWB4KbPUE=;
+ b=rn5ufuTbx622NBa5++ugelyZagtXgT8ckS30vSciBoQddfcc5E9a68alkKQw+sLvW2
+ eTB6TcAerYVUAAK9fVl4u7+wus+NY1Os2Jeurtup15iwJyrZ7oXbCO7VObsxSbm/Keau
+ tF2/wLRRcRI/UfqwFQaLtDIPqyFuVnOky+112+rfZee4R8XjOWM35jch3lqEtHOU26ap
+ bhzWX0vz31ZZ0BuDhVB8+Qk/11soLNcRGEChuoUtuosHUX2xlvgN9wTuX/tacRzdDWZQ
+ zT3/tt6hYmVm2XmwzxrhODW1MKLIquRBxX6dv+5X+WYSgDBpRizayR0HHznm5muO8D9/
+ yhOg==
+X-Gm-Message-State: AOAM531prG0urI5UGCTZqoZqHECGFA7UfUG21/5RFjwQa+iAyVI5SGoU
+ WalFcnz2L7YhAfMIU+l8bvM7EjjnDOjCMS6EiK4=
+X-Google-Smtp-Source: ABdhPJx75yQq9Oic5WhR5n+pmSd8IkVz6UYuv4TvW8OiGFfJTLOtXs7bupKajR21pW+rwaCgPveGvcy7/KWFeTD88rs=
+X-Received: by 2002:a05:6638:388e:: with SMTP id
+ b14mr3156986jav.62.1615462244043; 
+ Thu, 11 Mar 2021 03:30:44 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210211110620.31594-1-valentin.caron@foss.st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-11_04:2021-03-10,
- 2021-03-11 signatures=0
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+References: <1614758717-18223-1-git-send-email-dillon.minfei@gmail.com>
+ <CAL9mu0LwT7GqWQY1Dpw3zLnS+oX8KFq=Lrp6NSBJvSgcsxEQVQ@mail.gmail.com>
+ <AS8PR10MB47127FD40F6782B279B5998BEE909@AS8PR10MB4712.EURPRD10.PROD.OUTLOOK.COM>
+In-Reply-To: <AS8PR10MB47127FD40F6782B279B5998BEE909@AS8PR10MB4712.EURPRD10.PROD.OUTLOOK.COM>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Thu, 11 Mar 2021 19:30:07 +0800
+Message-ID: <CAL9mu0LMrtJ+cSdhyTNx-_rsTxZ1jq5Wk7P2R5rOH0OnCHneDA@mail.gmail.com>
+To: Alexandre TORGUE <alexandre.torgue@st.com>, Alexandre.torgue@foss.st.com
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Vladimir Murzin <vladimir.murzin@arm.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "afzal.mohd.ma@gmail.com" <afzal.mohd.ma@gmail.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: fix usart 2 & 3 pinconf
- to wake up with flow control
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 0/8] ARM: STM32: add art-pi(stm32h750xbh6)
+	board support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,87 +74,107 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Valentin
+Hi Alexandre,
 
-On 2/11/21 12:07 PM, Valentin CARON - foss wrote:
-> Modify usart 2 & 3 pins to allow wake up from low power mode while the
-> hardware flow control is activated. UART RTS pin need to stay configure
-> in idle mode to receive characters in order to wake up.
-> 
-> Fixes: 842ed898a757 ("ARM: dts: stm32: add usart2, usart3 and uart7 pins in stm32mp15-pinctrl")
-> 
-> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
-> ---
+Thanks for quickly responding.
 
-Applied on stm32-fixes.
-
-Thanks
-Alex
-
->   arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 21 ++++++++++++++++++---
->   1 file changed, 18 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> index 7b4249ed1983..060baa8b7e9d 100644
-> --- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-> @@ -1891,10 +1891,15 @@
->   	usart2_idle_pins_c: usart2-idle-2 {
->   		pins1 {
->   			pinmux = <STM32_PINMUX('D', 5, ANALOG)>, /* USART2_TX */
-> -				 <STM32_PINMUX('D', 4, ANALOG)>, /* USART2_RTS */
->   				 <STM32_PINMUX('D', 3, ANALOG)>; /* USART2_CTS_NSS */
->   		};
->   		pins2 {
-> +			pinmux = <STM32_PINMUX('D', 4, AF7)>; /* USART2_RTS */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <3>;
-> +		};
-> +		pins3 {
->   			pinmux = <STM32_PINMUX('D', 6, AF7)>; /* USART2_RX */
->   			bias-disable;
->   		};
-> @@ -1940,10 +1945,15 @@
->   	usart3_idle_pins_b: usart3-idle-1 {
->   		pins1 {
->   			pinmux = <STM32_PINMUX('B', 10, ANALOG)>, /* USART3_TX */
-> -				 <STM32_PINMUX('G', 8, ANALOG)>, /* USART3_RTS */
->   				 <STM32_PINMUX('I', 10, ANALOG)>; /* USART3_CTS_NSS */
->   		};
->   		pins2 {
-> +			pinmux = <STM32_PINMUX('G', 8, AF8)>; /* USART3_RTS */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <0>;
-> +		};
-> +		pins3 {
->   			pinmux = <STM32_PINMUX('B', 12, AF8)>; /* USART3_RX */
->   			bias-disable;
->   		};
-> @@ -1976,10 +1986,15 @@
->   	usart3_idle_pins_c: usart3-idle-2 {
->   		pins1 {
->   			pinmux = <STM32_PINMUX('B', 10, ANALOG)>, /* USART3_TX */
-> -				 <STM32_PINMUX('G', 8, ANALOG)>, /* USART3_RTS */
->   				 <STM32_PINMUX('B', 13, ANALOG)>; /* USART3_CTS_NSS */
->   		};
->   		pins2 {
-> +			pinmux = <STM32_PINMUX('G', 8, AF8)>; /* USART3_RTS */
-> +			bias-disable;
-> +			drive-push-pull;
-> +			slew-rate = <0>;
-> +		};
-> +		pins3 {
->   			pinmux = <STM32_PINMUX('B', 12, AF8)>; /* USART3_RX */
->   			bias-disable;
->   		};
-> 
+On Thu, Mar 11, 2021 at 6:26 PM Alexandre TORGUE
+<alexandre.torgue@st.com> wrote:
+>
+> Hi Dillon
+>
+> > -----Original Message-----
+> > From: dillon min <dillon.minfei@gmail.com>
+> > Sent: mercredi 10 mars 2021 12:48
+> > To: Rob Herring <robh+dt@kernel.org>; Maxime Coquelin
+> > <mcoquelin.stm32@gmail.com>; Alexandre TORGUE
+> > <alexandre.torgue@st.com>; open list:OPEN FIRMWARE AND FLATTENED
+> > DEVICE TREE BINDINGS <devicetree@vger.kernel.org>; linux-stm32@st-md-
+> > mailman.stormreply.com; Linux ARM <linux-arm-
+> > kernel@lists.infradead.org>; Linux Kernel Mailing List <linux-
+> > kernel@vger.kernel.org>; linux@armlinux.org.uk; Vladimir Murzin
+> > <vladimir.murzin@arm.com>; afzal.mohd.ma@gmail.com
+> > Subject: Re: [PATCH 0/8] ARM: STM32: add art-pi(stm32h750xbh6) board
+> > support
+> >
+> > for the device tree part , still waiting review. just a gentle ping.
+> > if Mr Alexandre torgue can take a look, would be great.
+> >
+>
+> Sorry for the delay. For next versions can you send it to
+> Alexandre.torgue@foss.st.com please
+Okay, I will add your new e-mail address to next review mailing list.
+>
+> Thanks
+> Alex
+>
+> > thanks,
+> >
+> > On Wed, Mar 3, 2021 at 4:05 PM <dillon.minfei@gmail.com> wrote:
+> > >
+> > > From: dillon min <dillon.minfei@gmail.com>
+> > >
+> > > This patchset intend to add art-pi board support, this board developed
+> > > by rt-thread(https://www.rt-thread.org/).
+> > >
+> > > Board resources:
+> > >
+> > > 8MiB QSPI flash
+> > > 16MiB SPI flash
+> > > 32MiB SDRAM
+> > > AP6212 wifi,bt,fm comb
+> > >
+> > > sw context:
+> > > - as stm32h750 just has 128k bytes internal flash, so running a fw on
+> > >   internal flash to download u-boot/kernel to qspi flash, boot
+> > >   u-boot/kernel from qspi flash. this fw is based on rt-thread.
+> > > - kernel can be xip on qspi flash or load to sdram
+> > > - root filesystem is jffs2(created by buildroot), stored on spi flash
+> > >
+> > > to support the boad, add following changes.
+> > > - fix r0-r3, r12 register restore failed after svc call,
+> > > - add dts binding
+> > > - update yaml doc
+> > >
+> > > dillon min (8):
+> > >   ARM: ARMv7-M: Fix register restore corrupt after svc call
+> > >   Documentation: arm: stm32: Add stm32h750 value line
+> > >   dt-bindings: arm: stm32: Add compatible strings for ART-PI board
+> > >   dt-bindings: pinctrl: stm32: Add stm32h750 pinctrl
+> > >   ARM: dts: stm32: introduce stm32h7-pinctrl.dtsi to support stm32h75x
+> > >   ARM: dts: stm32: add stm32h750-pinctrl.dtsi
+> > >   ARM: dts: stm32: add support for art-pi board based on stm32h750xbh6
+> > >   ARM: stm32: add initial support for stm32h750
+> > >
+> > >  Documentation/arm/index.rst                        |   1 +
+> > >  Documentation/arm/stm32/stm32h750-overview.rst     |  33 ++
+> > >  .../devicetree/bindings/arm/stm32/stm32.yaml       |   4 +
+> > >  .../bindings/pinctrl/st,stm32-pinctrl.yaml         |   1 +
+> > >  arch/arm/boot/dts/Makefile                         |   1 +
+> > >  arch/arm/boot/dts/stm32h7-pinctrl.dtsi             | 392
+> > +++++++++++++++++++++
+> > >  arch/arm/boot/dts/stm32h743-pinctrl.dtsi           | 307 +---------------
+> > >  arch/arm/boot/dts/stm32h743.dtsi                   |  30 ++
+> > >  arch/arm/boot/dts/stm32h750-pinctrl.dtsi           |  11 +
+> > >  arch/arm/boot/dts/stm32h750.dtsi                   |   5 +
+> > >  arch/arm/boot/dts/stm32h750i-art-pi.dts            | 227 ++++++++++++
+> > >  arch/arm/mach-stm32/board-dt.c                     |   1 +
+> > >  arch/arm/mm/proc-v7m.S                             |   5 +-
+> > >  13 files changed, 716 insertions(+), 302 deletions(-)  create mode
+> > > 100644 Documentation/arm/stm32/stm32h750-overview.rst
+> > >  create mode 100644 arch/arm/boot/dts/stm32h7-pinctrl.dtsi
+> > >  create mode 100644 arch/arm/boot/dts/stm32h750-pinctrl.dtsi
+> > >  create mode 100644 arch/arm/boot/dts/stm32h750.dtsi  create mode
+> > > 100644 arch/arm/boot/dts/stm32h750i-art-pi.dts
+> > >
+> > > --
+> > > 2.7.4
+> > >
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
