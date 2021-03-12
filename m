@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7DE1338BE8
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Mar 2021 12:53:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67370338EE1
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Mar 2021 14:34:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A27CDC5718B;
-	Fri, 12 Mar 2021 11:53:38 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DA0DC57B53;
+	Fri, 12 Mar 2021 13:34:50 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E158BC56631
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49ECFC3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Mar 2021 11:53:36 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12CBoTQ8009447; Fri, 12 Mar 2021 12:53:28 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=BfJXcClY5SWuajOCVotJOU0beBsi1AE3kA5YqGfUDLk=;
- b=K37OZF+Y8tnuZ9oQvdyYNxIkDjNbBbq8zMsRH1mVRlPMT9JRcASrf3Y0LjVB14BGhhZ5
- /OCAUem3niOJBEdDN4g8C5JI9l68bER3+ORr+PEjk8yQvky3+tuJrEyqXz64IFEolBB/
- YHhtv0oDbd/nXw0fePk+A557O1rVJOuhZwqlvk9Ack69COYdDFcwbCWDkRbGy33iJjiw
- +ewDZBaqCujC+wNLG5Um5Y9Lbk9/9Hd2MzgFGxuo9weUe90t2U+0aSeM0F/HEVDR7Qrn
- 5LORTtNg3c9vgjxOMcE83gR/bFkKdg3LOtWWE7Y4JG41WA5O4asiGPr7Jtzz74fC01r+ rQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3741y7c7xf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 12 Mar 2021 12:53:28 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 033BA10002A;
- Fri, 12 Mar 2021 12:53:27 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E28A52336D5;
- Fri, 12 Mar 2021 12:53:27 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 12 Mar 2021 12:53:27
- +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <wsa@kernel.org>, <pierre-yves.mordret@foss.st.com>
-Date: Fri, 12 Mar 2021 12:53:27 +0100
-Message-ID: <1615550007-10927-1-git-send-email-alain.volmat@foss.st.com>
-X-Mailer: git-send-email 2.7.4
+ Fri, 12 Mar 2021 12:47:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 43AFC64FA8;
+ Fri, 12 Mar 2021 12:47:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615553225;
+ bh=tKxo7sljt+pkSDWh1mUmM5NEnGtDl1u9sBRuSQ9gqRc=;
+ h=Subject:List-Id:To:References:From:Date:In-Reply-To:From;
+ b=B3Wff/4KDmmI4bxbuLnCVv/MwYiNVGTqwGqUPpD8YXC6MroBQPb8N+EnosWeJCJ2y
+ Rkp7GdjehEX1HMV3fPxNO7aKArRqwH6TrHVpzL4ryxEl70Lzbax1YbTihd7p+v3wLi
+ F/vgUsvYwllSpTtiN3jZhkOFVNUz2QLObR9b7zLUrx98RXMWrgmD7MB7rebtqDmvOM
+ FVXb6gGhhc78VVIZZlmPvJJqjIh1an/WBxQHhzuE0Q1unaoDjymZt7zaDFiFzoYUbq
+ yaZP/LSuHch01stzO64G9IeE+HgpEIjCVxMIZDa/Xm3msx8lukkNSFJOIykNnOw3TT
+ kYlzkQX5Dj6Nw==
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+ Olof Johansson <olof@lixom.net>, soc@kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
+ James Morse <james.morse@arm.com>, Robert Richter <rric@kernel.org>,
+ Moritz Fischer <mdf@kernel.org>, Tom Rix <trix@redhat.com>,
+ Lee Jones <lee.jones@linaro.org>, Giuseppe Cavallaro
+ <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-edac@vger.kernel.org,
+ linux-fpga@vger.kernel.org, linux-i2c@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20210311152545.1317581-1-krzysztof.kozlowski@canonical.com>
+ <20210311152545.1317581-2-krzysztof.kozlowski@canonical.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+Message-ID: <658d380b-c043-06be-a7b9-f96e73aa03f9@kernel.org>
+Date: Fri, 12 Mar 2021 06:47:01 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-12_03:2021-03-10,
- 2021-03-12 signatures=0
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-i2c@vger.kernel.org, alain.volmat@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] i2c: stm32f7: avoid ifdef CONFIG_PM_SLEEP for
-	pm callbacks
+In-Reply-To: <20210311152545.1317581-2-krzysztof.kozlowski@canonical.com>
+Content-Language: en-US
+X-Mailman-Approved-At: Fri, 12 Mar 2021 13:34:48 +0000
+Subject: Re: [Linux-stm32] [PATCH v3 01/15] clk: socfpga: allow building N5X
+ clocks with ARCH_N5X
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,71 +67,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Avoid CONFIG_PM preprocessor check for pm suspend/resume
-callbacks and identify the functions with __maybe_unused.
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
- drivers/i2c/busses/i2c-stm32f7.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index c62c815b88eb..4c2f1b16c5ce 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -2267,8 +2267,7 @@ static int __maybe_unused stm32f7_i2c_runtime_resume(struct device *dev)
- 	return 0;
- }
- 
--#ifdef CONFIG_PM_SLEEP
--static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
-+static int __maybe_unused stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
- {
- 	int ret;
- 	struct stm32f7_i2c_regs *backup_regs = &i2c_dev->backup_regs;
-@@ -2289,7 +2288,7 @@ static int stm32f7_i2c_regs_backup(struct stm32f7_i2c_dev *i2c_dev)
- 	return ret;
- }
- 
--static int stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
-+static int __maybe_unused stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
- {
- 	u32 cr1;
- 	int ret;
-@@ -2320,7 +2319,7 @@ static int stm32f7_i2c_regs_restore(struct stm32f7_i2c_dev *i2c_dev)
- 	return ret;
- }
- 
--static int stm32f7_i2c_suspend(struct device *dev)
-+static int __maybe_unused stm32f7_i2c_suspend(struct device *dev)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = dev_get_drvdata(dev);
- 	int ret;
-@@ -2341,7 +2340,7 @@ static int stm32f7_i2c_suspend(struct device *dev)
- 	return 0;
- }
- 
--static int stm32f7_i2c_resume(struct device *dev)
-+static int __maybe_unused stm32f7_i2c_resume(struct device *dev)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = dev_get_drvdata(dev);
- 	int ret;
-@@ -2361,7 +2360,6 @@ static int stm32f7_i2c_resume(struct device *dev)
- 
- 	return 0;
- }
--#endif
- 
- static const struct dev_pm_ops stm32f7_i2c_pm_ops = {
- 	SET_RUNTIME_PM_OPS(stm32f7_i2c_runtime_suspend,
--- 
-2.17.1
+On 3/11/21 9:25 AM, Krzysztof Kozlowski wrote:
+> The Intel's eASIC N5X (ARCH_N5X) architecture shares a lot with Agilex
+> (ARCH_AGILEX) so it uses the same socfpga_agilex.dtsi, with minor
+> changes.  Also the clock drivers are the same.
+> 
+> However the clock drivers won't be build without ARCH_AGILEX.  One could
+> assume that ARCH_N5X simply depends on ARCH_AGILEX but this was not
+> modeled in Kconfig.  In current stage the ARCH_N5X is simply
+> unbootable.
+> 
+> Add a separate Kconfig entry for clocks used by both ARCH_N5X and
+> ARCH_AGILEX so the necessary objects will be built if either of them is
+> selected.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> ---
+>   drivers/clk/Kconfig          | 1 +
+>   drivers/clk/Makefile         | 1 +
+>   drivers/clk/socfpga/Kconfig  | 6 ++++++
+>   drivers/clk/socfpga/Makefile | 4 ++--
+>   4 files changed, 10 insertions(+), 2 deletions(-)
+>   create mode 100644 drivers/clk/socfpga/Kconfig
+> 
+> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+> index a588d56502d4..1d1891b9cad2 100644
+> --- a/drivers/clk/Kconfig
+> +++ b/drivers/clk/Kconfig
+> @@ -394,6 +394,7 @@ source "drivers/clk/renesas/Kconfig"
+>   source "drivers/clk/rockchip/Kconfig"
+>   source "drivers/clk/samsung/Kconfig"
+>   source "drivers/clk/sifive/Kconfig"
+> +source "drivers/clk/socfpga/Kconfig"
+>   source "drivers/clk/sprd/Kconfig"
+>   source "drivers/clk/sunxi/Kconfig"
+>   source "drivers/clk/sunxi-ng/Kconfig"
+> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+> index b22ae4f81e0b..12e46b12e587 100644
+> --- a/drivers/clk/Makefile
+> +++ b/drivers/clk/Makefile
+> @@ -106,6 +106,7 @@ obj-$(CONFIG_COMMON_CLK_SAMSUNG)	+= samsung/
+>   obj-$(CONFIG_CLK_SIFIVE)		+= sifive/
+>   obj-$(CONFIG_ARCH_SOCFPGA)		+= socfpga/
+>   obj-$(CONFIG_ARCH_AGILEX)		+= socfpga/
+> +obj-$(CONFIG_ARCH_N5X)			+= socfpga/
+>   obj-$(CONFIG_ARCH_STRATIX10)		+= socfpga/
+>   obj-$(CONFIG_PLAT_SPEAR)		+= spear/
+>   obj-y					+= sprd/
+> diff --git a/drivers/clk/socfpga/Kconfig b/drivers/clk/socfpga/Kconfig
+> new file mode 100644
+> index 000000000000..3c30617169bf
+> --- /dev/null
+> +++ b/drivers/clk/socfpga/Kconfig
+> @@ -0,0 +1,6 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +config CLK_INTEL_SOCFPGA64
+> +	bool
+> +	# Intel Agilex / N5X clock controller support
+> +	default (ARCH_AGILEX || ARCH_N5X)
+> +	depends on ARCH_AGILEX || ARCH_N5X
+> diff --git a/drivers/clk/socfpga/Makefile b/drivers/clk/socfpga/Makefile
+> index bf736f8d201a..c6db8dd4ab35 100644
+> --- a/drivers/clk/socfpga/Makefile
+> +++ b/drivers/clk/socfpga/Makefile
+> @@ -3,5 +3,5 @@ obj-$(CONFIG_ARCH_SOCFPGA) += clk.o clk-gate.o clk-pll.o clk-periph.o
+>   obj-$(CONFIG_ARCH_SOCFPGA) += clk-pll-a10.o clk-periph-a10.o clk-gate-a10.o
+>   obj-$(CONFIG_ARCH_STRATIX10) += clk-s10.o
+>   obj-$(CONFIG_ARCH_STRATIX10) += clk-pll-s10.o clk-periph-s10.o clk-gate-s10.o
+> -obj-$(CONFIG_ARCH_AGILEX) += clk-agilex.o
+> -obj-$(CONFIG_ARCH_AGILEX) += clk-pll-s10.o clk-periph-s10.o clk-gate-s10.o
+> +obj-$(CONFIG_CLK_INTEL_SOCFPGA64) += clk-agilex.o
+> +obj-$(CONFIG_CLK_INTEL_SOCFPGA64) += clk-pll-s10.o clk-periph-s10.o clk-gate-s10.o
+> 
 
+Acked-by: Dinh Nguyen <dinguyen@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
