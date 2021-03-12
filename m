@@ -2,41 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FFA733982F
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Mar 2021 21:26:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A329A3398C8
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Mar 2021 22:01:25 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18BFCC57B53;
-	Fri, 12 Mar 2021 20:26:39 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D429C57B53;
+	Fri, 12 Mar 2021 21:01:25 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52316C57192
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0564C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Mar 2021 20:26:38 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5DAF864F84;
- Fri, 12 Mar 2021 20:26:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615580796;
- bh=fu+kGgm4qzieFTmHcK/JuBsoyQPQ9nadDIEi+NM6t6c=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=j2rEo+64fdPsIc6zRy2N0lEMXUyr6i5VK307b1CxRlPikSAK5PIaSJi1kZFr9biJX
- jVVnBXXxtr+zQX/EfNPRyuklpH4tfIh++11DLAwpKrfxZD2PQTmivNJkiVGNwXbF+W
- CdyatQ30MHwHqlvAf+2Ac/pdlkawP7tY/RxLHwmgJNGAjf5XQgn1gCMPwQKWkZxIBe
- 2fs00yBRz+cI2ODEXpO+T41z5OCqISH5mXyNB5TWyWt+fhX+aJGwZjjyUt1LWWP35W
- 8aIObKUsUlxOKSN4yFVI49BvBMBLHp6DYgknGYo4CeFpsTJI7INWV65bjvjCjREACC
- c7jiXjdTfPSNQ==
-From: Mark Brown <broonie@kernel.org>
-To: amelie.delaunay@foss.st.com, Alain Volmat <alain.volmat@foss.st.com>
-In-Reply-To: <1615545329-5496-1-git-send-email-alain.volmat@foss.st.com>
-References: <1615545329-5496-1-git-send-email-alain.volmat@foss.st.com>
-Message-Id: <161558072332.11700.9252088324748070873.b4-ty@kernel.org>
-Date: Fri, 12 Mar 2021 20:25:23 +0000
+ Fri, 12 Mar 2021 21:01:22 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4DxysY3HwTz1qs3D;
+ Fri, 12 Mar 2021 22:01:21 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4DxysY2gcSz1qr5L;
+ Fri, 12 Mar 2021 22:01:21 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id EzMvmnkDGqup; Fri, 12 Mar 2021 22:01:19 +0100 (CET)
+X-Auth-Info: AiP1nTuJos6/PPbqVqZSKDq6GNDatk0GM6tOh3NzwTw=
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 12 Mar 2021 22:01:19 +0100 (CET)
+To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>
+References: <20200724101610.146403-1-marex@denx.de>
+ <ca48284998c14faf8ed17e6fa0cfac42@dh-electronics.com>
+ <495b2f6b-04b7-c1eb-7aed-cd55636bef46@denx.de>
+ <4530980295044f8ab9c1cfe14e02f90f@dh-electronics.com>
+ <6616e8b0-2b7d-a157-c24f-0493ce03c45b@denx.de>
+ <86beeb51e9594b14ac0f449495b46736@dh-electronics.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <7504da89-63a7-1b80-3159-a0346535137e@denx.de>
+Date: Fri, 12 Mar 2021 22:01:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-spi@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32: avoid ifdef CONFIG_PM for pm
-	callbacks
+In-Reply-To: <86beeb51e9594b14ac0f449495b46736@dh-electronics.com>
+Content-Language: en-US
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Patrice Chotard <patrice.chotard@st.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fill GPIO line names on
+	AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,42 +67,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 12 Mar 2021 11:35:29 +0100, Alain Volmat wrote:
-> Avoid CONFIG_PM preprocessor check for pm suspend/resume
-> callbacks and identify the functions with __maybe_unused.
+On 3/12/21 6:38 PM, Christoph Niedermaier wrote:
+> From: Marek Vasut [mailto:marex@denx.de]
+> Sent: Friday, March 12, 2021 5:17 PM
+>> To: Christoph Niedermaier <cniedermaier@dh-electronics.com>; linux-arm-
+>> kernel@lists.infradead.org; linus.walleij@linaro.org
+>> Cc: Alexandre Torgue <alexandre.torgue@st.com>; Patrice Chotard
+>> <patrice.chotard@st.com>; Patrick Delaunay <patrick.delaunay@st.com>;
+>> Maxime Coquelin <mcoquelin.stm32@gmail.com>; linux-stm32@st-md-
+>> mailman.stormreply.com
+>> Subject: Re: [PATCH] ARM: dts: stm32: Fill GPIO line names on AV96
+>>
+>> ACHTUNG: Diese E-Mail kommt aus dem Internet und nicht aus unserem
+>> Firmennetzwerk!
+>>
+>>
+>>
+>> On 3/12/21 4:17 PM, Christoph Niedermaier wrote:
+>>> From: Marek Vasut [mailto:marex@denx.de]
+>>> Sent: Thursday, August 6, 2020 9:30 AM
+>>>
+>>>> On 8/6/20 9:09 AM, Christoph Niedermaier wrote:
+>>>>> From: Marek Vasut <marex@denx.de>
+>>>>> Sent: Friday, July 24, 2020 12:16 PM
+>>>>>>
+>>>>>> Fill in the custom GPIO line names used by DH.
+>>>>>>
+>>>>> [...]
+>>>>>> +&gpioa {
+>>>>>> +       gpio-line-names = "", "", "", "",
+>>>>>> +                         "", "", "", "",
+>>>>>> +                         "", "", "", "DH-GPIO-K",
+>>>>>> +                         "DH-GPIO-I", "", "DH-GPIO-A", "";
+>>>>>> +};
+>>>>>> +
+>>>>> [...]
+>>>>>
+>>>>> We have been using the GPIO names at DH electronics for some time and also
+>>>>> on other SOMs, but have not yet streamed them. We started with the naming
+>>>>> only with a capital letter "A-W" since then without problems. To avoid a
+>>>>> hard cut or patching for us and our customers it would be good if we could
+>>>>> use the same naming in the mainline kernel as well. Marek, we would be
+>>>>> happy if you would adopt our valued GPIO naming in your patch.
+>>>>
+>>>> My counter-argument to this is that the naming should be unique and
+>>>> provide a hint where those GPIO lines come from, so maybe even DH-GPIO-n
+>>>> should rather be DHCOM-n . I can't say I'm particularly fond of the
+>>>> plain 'n' naming of GPIO lines, because then the GPIO label (and e.g.
+>>>> listing in libgpiod tools) does not give any hint what the GPIO is or
+>>>> where it comes from. Also, I worry a plain 'n' naming might clash with
+>>>> other GPIO IPs easily, while a more unique name can not.
+>>>
+>>> Hello Marek,
+>>>
+>>> after an internal discussion, we decided the following:
+>>>
+>>> Could you update the patch for the Avenger96 to the GPIO naming "AV96-n".
+>>>
+>>> Moreover for the SOM layer (stm32mp15xx-dhcom-som.dtsi) we would prefer
+>>> "DHCOM-n". It would be nice if you could create a patch for it.
+>>
+>> I don't think we should have any SoM-side gpio-line-names, because once
+>> you plug the SoM into new carrier board, the gpio-lane-names will no
+>> longer make sense. So, I think all the gpio-line-names should be
+>> implemented in the carrier board DTS.
+> 
+> The idea is to define the GPIO names on the SOM layer and then
+> overwrite them on the carrier board DTS if needed. If there is no
+> naming on the carrier board, at least you have access via the DHCOM
+> GPIO names. The DHCOM GPIO names are standardized, so that you can
+> be sure that the assignment to a pin always fits.
 
-Applied to
+So I'll pose another question here to the GPIO maintainers.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+Is it OK to define gpio-line-names in SoM DTSI even for pins which will 
+not be used as GPIOs e.g. because they are muxed differently in the 
+carrier board DTS ?
 
-Thanks!
-
-[1/1] spi: stm32: avoid ifdef CONFIG_PM for pm callbacks
-      commit: 12ef51b116693bd77395a19ba135df68ee1673f0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+If that is OK, then the above approach is then also OK.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
