@@ -2,41 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92946339185
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Mar 2021 16:39:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5F183392E0
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Mar 2021 17:17:30 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48F2DC57B53;
-	Fri, 12 Mar 2021 15:39:44 +0000 (UTC)
-Received: from smtp.wifcom.cz (smtp.wifcom.cz [85.207.3.150])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D690C57B53;
+	Fri, 12 Mar 2021 16:17:30 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9810C57192
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51F31C57192
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Mar 2021 15:39:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=eaxlabs.cz;
- s=mail; 
- h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
- bh=kSXHXTR/TeMt8/zrDo1WiK6sqLAP5dPJKbJ+mSkPfN4=; 
- b=e2Q+SqAyLIJ7yR/vQT8I0y/kY8Iw9CSblfWZEtJIqo8fMHkgMYGV69ndEzaPGALV/s9X1L72QmM0a3D57B6iK3qMC9vLwIjmfP9qjAkODP2t+SVyXtdEEWV20r820YAV7SJ8omiRUyTRe/lI4sAc/p3JJUVofY50m07bxMplQNg=;
-From: Martin Devera <devik@eaxlabs.cz>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 12 Mar 2021 16:37:02 +0100
-Message-Id: <20210312153702.12349-2-devik@eaxlabs.cz>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20210312153702.12349-1-devik@eaxlabs.cz>
-References: <1615559009.788146.2976052.nullmailer@robh.at.kernel.org>
- <20210312153702.12349-1-devik@eaxlabs.cz>
-X-Antivirus-Scanner: Clean mail though you should still use an Antivirus
-X-Wif-ss: -2.9 (--)
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Fri, 12 Mar 2021 16:17:29 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4DxrZ029Bkz1s2Bv;
+ Fri, 12 Mar 2021 17:17:28 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4DxrZ00rB7z1qr5K;
+ Fri, 12 Mar 2021 17:17:28 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id Tll0ryFCu2jN; Fri, 12 Mar 2021 17:17:26 +0100 (CET)
+X-Auth-Info: Tnkgr+OyulcXQ6pJ5nPMsPfLcYQodKmE/UISRvnLdzY=
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 12 Mar 2021 17:17:26 +0100 (CET)
+To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>
+References: <20200724101610.146403-1-marex@denx.de>
+ <ca48284998c14faf8ed17e6fa0cfac42@dh-electronics.com>
+ <495b2f6b-04b7-c1eb-7aed-cd55636bef46@denx.de>
+ <4530980295044f8ab9c1cfe14e02f90f@dh-electronics.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <6616e8b0-2b7d-a157-c24f-0493ce03c45b@denx.de>
+Date: Fri, 12 Mar 2021 17:17:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
+MIME-Version: 1.0
+In-Reply-To: <4530980295044f8ab9c1cfe14e02f90f@dh-electronics.com>
+Content-Language: en-US
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Martin Devera <devik@eaxlabs.cz>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
- Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Le Ray <erwan.leray@st.com>
-Subject: [Linux-stm32] [PATCH v7 2/2] tty/serial: Add rx-tx-swap OF option
-	to stm32-usart
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Patrice Chotard <patrice.chotard@st.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fill GPIO line names on
+	AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,113 +65,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32 F7/H7 usarts supports RX & TX pin swapping.
-Add option to turn it on.
-Tested on STM32MP157.
+On 3/12/21 4:17 PM, Christoph Niedermaier wrote:
+> From: Marek Vasut [mailto:marex@denx.de]
+> Sent: Thursday, August 6, 2020 9:30 AM
+> 
+>> On 8/6/20 9:09 AM, Christoph Niedermaier wrote:
+>>> From: Marek Vasut <marex@denx.de>
+>>> Sent: Friday, July 24, 2020 12:16 PM
+>>>>
+>>>> Fill in the custom GPIO line names used by DH.
+>>>>
+>>> [...]
+>>>> +&gpioa {
+>>>> +       gpio-line-names = "", "", "", "",
+>>>> +                         "", "", "", "",
+>>>> +                         "", "", "", "DH-GPIO-K",
+>>>> +                         "DH-GPIO-I", "", "DH-GPIO-A", "";
+>>>> +};
+>>>> +
+>>> [...]
+>>>
+>>> We have been using the GPIO names at DH electronics for some time and also
+>>> on other SOMs, but have not yet streamed them. We started with the naming
+>>> only with a capital letter "A-W" since then without problems. To avoid a
+>>> hard cut or patching for us and our customers it would be good if we could
+>>> use the same naming in the mainline kernel as well. Marek, we would be
+>>> happy if you would adopt our valued GPIO naming in your patch.
+>>
+>> My counter-argument to this is that the naming should be unique and
+>> provide a hint where those GPIO lines come from, so maybe even DH-GPIO-n
+>> should rather be DHCOM-n . I can't say I'm particularly fond of the
+>> plain 'n' naming of GPIO lines, because then the GPIO label (and e.g.
+>> listing in libgpiod tools) does not give any hint what the GPIO is or
+>> where it comes from. Also, I worry a plain 'n' naming might clash with
+>> other GPIO IPs easily, while a more unique name can not.
+> 
+> Hello Marek,
+> 
+> after an internal discussion, we decided the following:
+> 
+> Could you update the patch for the Avenger96 to the GPIO naming "AV96-n".
+> 
+> Moreover for the SOM layer (stm32mp15xx-dhcom-som.dtsi) we would prefer
+> "DHCOM-n". It would be nice if you could create a patch for it.
 
-Signed-off-by: Martin Devera <devik@eaxlabs.cz>
-Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
-v6: 
-  - add version changelog
-v4:
-  - delete superfluous has_swap=false
-v3:
-  - add has_swap to stm32_usart_info (because F4 line
-    doesn't support swapping)
-  - move swap variable init from stm32_usart_of_get_port
-    to stm32_usart_init_port because info struct is not
-    initialized in stm32_usart_of_get_port yet
-  - set USART_CR2_SWAP in stm32_usart_startup too
-v2:
-  - change st,swap to rx-tx-swap (pointed out by Rob Herring)
-  - rebase patches as suggested by Greg Kroah-Hartman
----
- drivers/tty/serial/stm32-usart.c | 11 ++++++++++-
- drivers/tty/serial/stm32-usart.h |  4 ++++
- 2 files changed, 14 insertions(+), 1 deletion(-)
+I don't think we should have any SoM-side gpio-line-names, because once 
+you plug the SoM into new carrier board, the gpio-lane-names will no 
+longer make sense. So, I think all the gpio-line-names should be 
+implemented in the carrier board DTS.
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index b3675cf25a69..d390f7da1441 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -644,6 +644,12 @@ static int stm32_usart_startup(struct uart_port *port)
- 	if (ret)
- 		return ret;
- 
-+	if (stm32_port->swap) {
-+		val = readl_relaxed(port->membase + ofs->cr2);
-+		val |= USART_CR2_SWAP;
-+		writel_relaxed(val, port->membase + ofs->cr2);
-+	}
-+
- 	/* RX FIFO Flush */
- 	if (ofs->rqr != UNDEF_REG)
- 		stm32_usart_set_bits(port, ofs->rqr, USART_RQR_RXFRQ);
-@@ -758,7 +764,7 @@ static void stm32_usart_set_termios(struct uart_port *port,
- 	cr1 = USART_CR1_TE | USART_CR1_RE;
- 	if (stm32_port->fifoen)
- 		cr1 |= USART_CR1_FIFOEN;
--	cr2 = 0;
-+	cr2 = stm32_port->swap ? USART_CR2_SWAP : 0;
- 	cr3 = readl_relaxed(port->membase + ofs->cr3);
- 	cr3 &= USART_CR3_TXFTIE | USART_CR3_RXFTCFG_MASK | USART_CR3_RXFTIE
- 		| USART_CR3_TXFTCFG_MASK;
-@@ -1006,6 +1012,9 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
- 			return stm32port->wakeirq ? : -ENODEV;
- 	}
- 
-+	stm32port->swap = stm32port->info->cfg.has_swap &&
-+		of_property_read_bool(pdev->dev.of_node, "rx-tx-swap");
-+
- 	stm32port->fifoen = stm32port->info->cfg.has_fifo;
- 
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
-index cb4f327c46db..a85391e71e8e 100644
---- a/drivers/tty/serial/stm32-usart.h
-+++ b/drivers/tty/serial/stm32-usart.h
-@@ -25,6 +25,7 @@ struct stm32_usart_offsets {
- struct stm32_usart_config {
- 	u8 uart_enable_bit; /* USART_CR1_UE */
- 	bool has_7bits_data;
-+	bool has_swap;
- 	bool has_wakeup;
- 	bool has_fifo;
- 	int fifosize;
-@@ -76,6 +77,7 @@ struct stm32_usart_info stm32f7_info = {
- 	.cfg = {
- 		.uart_enable_bit = 0,
- 		.has_7bits_data = true,
-+		.has_swap = true,
- 		.fifosize = 1,
- 	}
- };
-@@ -97,6 +99,7 @@ struct stm32_usart_info stm32h7_info = {
- 	.cfg = {
- 		.uart_enable_bit = 0,
- 		.has_7bits_data = true,
-+		.has_swap = true,
- 		.has_wakeup = true,
- 		.has_fifo = true,
- 		.fifosize = 16,
-@@ -271,6 +274,7 @@ struct stm32_port {
- 	int last_res;
- 	bool tx_dma_busy;	 /* dma tx busy               */
- 	bool hw_flow_control;
-+	bool swap;		 /* swap RX & TX pins */
- 	bool fifoen;
- 	int wakeirq;
- 	int rdr_mask;		/* receive data register mask */
--- 
-2.11.0
+As for the naming scheme, I was also hoping Linus might jump in and 
+provide some suggestion on best practice here.
 
+I think naming carrier board GPIOs "A", "B", "C",... is too opaque and 
+can easily collide e.g. with GPIO expanders which might be on I2C or so.
+
+A naming scheme which encodes the carrier board name is clearer and less 
+likely to cause collision, so "AV96-A", "AV96-B", etc. looks good to me. 
+It is obvious where the GPIO is located and unlikely to collide with any 
+other GPIO name.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
