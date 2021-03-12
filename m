@@ -2,44 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 990953390B0
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Mar 2021 16:05:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA9403390FE
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Mar 2021 16:18:16 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56EC9C57B53;
-	Fri, 12 Mar 2021 15:05:44 +0000 (UTC)
-Received: from smtp.wifcom.cz (smtp.wifcom.cz [85.207.3.150])
- (using TLSv1 with cipher AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15EDFC57B53;
+	Fri, 12 Mar 2021 15:18:16 +0000 (UTC)
+Received: from mx3.securetransport.de (mx3.securetransport.de [116.203.31.6])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABC17C3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59A88C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Mar 2021 15:05:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=eaxlabs.cz;
- s=mail; 
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject;
- bh=UwtzL4pDkwTQcSrJ+2meBQW1w8X0nrXrsAaZqyjKa0A=; 
- b=c0+fb+RWYoBtShUccUrvuuwXJIkZbe8H4zynmm4WiYTT2OrDz69F37RSVs2ybenTn8pacujGhlyGxSBK+BgQwMfQl6Qks72QXBUuwD9L9mtQD46DJXx0wOW2Ty9ud2ydBrxsNgZLINLkREhbjC7/YAqRhzyz/z1pgBbyK7yPN8w=;
-From: Martin DEVERA <devik@eaxlabs.cz>
-To: Rob Herring <robh@kernel.org>
-References: <YEsjMJae3cGOdyjG@kroah.com>
- <20210312102713.27776-1-devik@eaxlabs.cz>
- <1615559009.788146.2976052.nullmailer@robh.at.kernel.org>
- <e1cee5c4-8802-bf6b-be06-e453af559e62@eaxlabs.cz>
-Message-ID: <f1762dc1-d359-e499-ace7-f957bca519b8@eaxlabs.cz>
-Date: Fri, 12 Mar 2021 16:03:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ Fri, 12 Mar 2021 15:18:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
+ s=dhelectronicscom; t=1615562271;
+ bh=PyPG4rltTxsk7VdATBlWdkx9xB8FUr5EkOWDtHPq82U=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=aJVXwjKAZ6n/sbytlAzLvAUBVUxl6G3MyOg/5cse9M+hKB6tAcRukc+1rE4Xzzjhh
+ +C5L6Ga4+StmtMZPMqQf1at9RcJZl9vhQ2BKMKo8BCuNWpKqm4uFmmqPckWAHbMfdO
+ a1Fd9n8+CUBwJZ3jiJR/sHecPZ1fW0GVGrXO+oMzRyH5s8+u1INnMKRlihg1FHgxlc
+ 0Xv3zOuxKowB7Nq48UavSoRBlpzHGJfJUfttCPWpoohqFR1dBq3E70fDGD8GrUf+D8
+ M+cr7C5whKJpi8KIq9CgveqkF54wyg4d9Ag765Xg228V84Tgh0yafQ7JS/JOOkCR8X
+ 7/C6qqd0pDW2w==
+X-secureTransport-forwarded: yes
+From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Complaints-To: abuse@cubewerk.de
+To: Marek Vasut <marex@denx.de>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>
+Thread-Topic: [PATCH] ARM: dts: stm32: Fill GPIO line names on AV96
+Thread-Index: AQHWYaO6J/6XL1V4zEuDGmQGjfuCx6kpjSowgAEUzoCBVyUjUA==
+Date: Fri, 12 Mar 2021 15:17:43 +0000
+Message-ID: <4530980295044f8ab9c1cfe14e02f90f@dh-electronics.com>
+References: <20200724101610.146403-1-marex@denx.de>
+ <ca48284998c14faf8ed17e6fa0cfac42@dh-electronics.com>
+ <495b2f6b-04b7-c1eb-7aed-cd55636bef46@denx.de>
+In-Reply-To: <495b2f6b-04b7-c1eb-7aed-cd55636bef46@denx.de>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
 MIME-Version: 1.0
-In-Reply-To: <e1cee5c4-8802-bf6b-be06-e453af559e62@eaxlabs.cz>
-Content-Language: en-US
-X-Antivirus-Scanner: Clean mail though you should still use an Antivirus
-X-Wif-ss: -2.9 (--)
-Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Le Ray <erwan.leray@st.com>
-Subject: Re: [Linux-stm32] [PATCH v6 1/2] dt-bindings: serial: Add
-	rx-tx-swap to stm32-usart
+Cc: Alexandre Torgue <alexandre.torgue@st.com>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
+ Patrice Chotard <patrice.chotard@st.com>,
+ Patrick Delaunay <patrick.delaunay@st.com>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fill GPIO line names on
+	AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,41 +61,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMy8xMi8yMSAzOjU2IFBNLCBNYXJ0aW4gREVWRVJBIHdyb3RlOgo+IE9uIDMvMTIvMjEgMzoy
-MyBQTSwgUm9iIEhlcnJpbmcgd3JvdGU6Cj4+IE9uIEZyaSwgMTIgTWFyIDIwMjEgMTE6Mjc6MTIg
-KzAxMDAsIE1hcnRpbiBEZXZlcmEgd3JvdGU6Cj4+PiBBZGQgbmV3IHJ4LXR4LXN3YXAgcHJvcGVy
-dHkgdG8gYWxsb3cgZm9yIFJYICYgVFggcGluIHN3YXBwaW5nLgo+Pj4KPj4+IFNpZ25lZC1vZmYt
-Ynk6IE1hcnRpbiBEZXZlcmEgPGRldmlrQGVheGxhYnMuY3o+Cj4+PiBBY2tlZC1ieTogRmFicmlj
-ZSBHYXNuaWVyIDxmYWJyaWNlLmdhc25pZXJAZm9zcy5zdC5jb20+Cj4+PiAtLS0KPj4+IHY2Ogo+
-Pj4gwqDCoCAtIGFkZCB2ZXJzaW9uIGNoYW5nZWxvZwo+Pj4gdjU6Cj4+PiDCoMKgIC0geWFtbCBm
-aXhlcyBiYXNlZCBvbiBSb2IgSGVycmluZyBjb21tZW50cwo+Pj4gwqDCoMKgwqAgLSBhZGQgc2Vy
-aWFsLnlhbWwgcmVmZXJlbmNlCj4+PiDCoMKgwqDCoCAtIG1vdmUgY29tcGF0aWJsZSBmcm9tICd0
-aGVuJyB0byAnaWYnCj4+PiB2MzoKPj4+IMKgwqAgLSBkb24ndCBhbGxvdyByeC10eC1zd2FwIGZv
-ciBzdCxzdG0zMi11YXJ0IChzdWdnZXN0ZWQKPj4+IMKgwqDCoMKgIGJ5IEZhYnJpY2UgR2Fzbmll
-cikKPj4+IHYyOgo+Pj4gwqDCoCAtIGNoYW5nZSBzdCxzd2FwIHRvIHJ4LXR4LXN3YXAgKHN1Z2dl
-c3RlZCBieSBSb2IgSGVycmluZykKPj4+IC0tLQo+Pj4gwqAgLi4uL2RldmljZXRyZWUvYmluZGlu
-Z3Mvc2VyaWFsL3N0LHN0bTMyLXVhcnQueWFtbMKgIHwgMjkgCj4+PiArKysrKysrKysrKysrKy0t
-LS0tLS0tCj4+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRp
-b25zKC0pCj4+Pgo+PiBNeSBib3QgZm91bmQgZXJyb3JzIHJ1bm5pbmcgJ21ha2UgZHRfYmluZGlu
-Z19jaGVjaycgb24geW91ciBwYXRjaDoKPj4KPj4geWFtbGxpbnQgd2FybmluZ3MvZXJyb3JzOgo+
-PiAuL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zZXJpYWwvc3Qsc3RtMzItdWFy
-dC55YW1sOjgxOjEyOiAKPj4gW3dhcm5pbmddIHdyb25nIGluZGVudGF0aW9uOiBleHBlY3RlZCAx
-MCBidXQgZm91bmQgMTEgKGluZGVudGF0aW9uKQo+Pgo+PiBkdHNjaGVtYS9kdGMgd2FybmluZ3Mv
-ZXJyb3JzOgo+Pgo+PiBTZWUgaHR0cHM6Ly9wYXRjaHdvcmsub3psYWJzLm9yZy9wYXRjaC8xNDUx
-ODYxCj4+Cj4+IFRoaXMgY2hlY2sgY2FuIGZhaWwgaWYgdGhlcmUgYXJlIGFueSBkZXBlbmRlbmNp
-ZXMuIFRoZSBiYXNlIGZvciBhIHBhdGNoCj4+IHNlcmllcyBpcyBnZW5lcmFsbHkgdGhlIG1vc3Qg
-cmVjZW50IHJjMS4KPj4KPj4gSWYgeW91IGFscmVhZHkgcmFuICdtYWtlIGR0X2JpbmRpbmdfY2hl
-Y2snIGFuZCBkaWRuJ3Qgc2VlIHRoZSBhYm92ZQo+PiBlcnJvcihzKSwgdGhlbiBtYWtlIHN1cmUg
-J3lhbWxsaW50JyBpcyBpbnN0YWxsZWQgYW5kIGR0LXNjaGVtYSBpcyB1cCB0bwo+PiBkYXRlOgo+
-Pgo+PiBwaXAzIGluc3RhbGwgZHRzY2hlbWEgLS11cGdyYWRlCj4+Cj4gWW95IGFyZSByaWdodCwg
-dGhlcmUgaXMgb25lIGV4dHJhIHNwYWNlLiBCdXQgZm9yIHNvbWUgcmVhc29uIHRoZSBjaGVjayAK
-PiBkb2Vzbid0Cj4gZmluZCBpdDogCkFyZ2guLi4gc29ycnksIGlnbm9yZSBpdCBwbGVhc2UuIEl0
-IHNlZW1zIEkgcmVtb3ZlZCB5YW1sbGludC4KSSBzZWUgdGhlIGVycm9yIG5vdy4KX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: Marek Vasut [mailto:marex@denx.de]
+Sent: Thursday, August 6, 2020 9:30 AM
+
+> On 8/6/20 9:09 AM, Christoph Niedermaier wrote:
+>> From: Marek Vasut <marex@denx.de>
+>> Sent: Friday, July 24, 2020 12:16 PM
+>>>
+>>> Fill in the custom GPIO line names used by DH.
+>>>
+>> [...]
+>>> +&gpioa {
+>>> +       gpio-line-names = "", "", "", "",
+>>> +                         "", "", "", "",
+>>> +                         "", "", "", "DH-GPIO-K",
+>>> +                         "DH-GPIO-I", "", "DH-GPIO-A", "";
+>>> +};
+>>> +
+>> [...]
+>>
+>> We have been using the GPIO names at DH electronics for some time and also
+>> on other SOMs, but have not yet streamed them. We started with the naming
+>> only with a capital letter "A-W" since then without problems. To avoid a
+>> hard cut or patching for us and our customers it would be good if we could
+>> use the same naming in the mainline kernel as well. Marek, we would be
+>> happy if you would adopt our valued GPIO naming in your patch.
+> 
+> My counter-argument to this is that the naming should be unique and
+> provide a hint where those GPIO lines come from, so maybe even DH-GPIO-n
+> should rather be DHCOM-n . I can't say I'm particularly fond of the
+> plain 'n' naming of GPIO lines, because then the GPIO label (and e.g.
+> listing in libgpiod tools) does not give any hint what the GPIO is or
+> where it comes from. Also, I worry a plain 'n' naming might clash with
+> other GPIO IPs easily, while a more unique name can not.
+
+Hello Marek,
+
+after an internal discussion, we decided the following:
+
+Could you update the patch for the Avenger96 to the GPIO naming "AV96-n".
+
+Moreover for the SOM layer (stm32mp15xx-dhcom-som.dtsi) we would prefer
+"DHCOM-n". It would be nice if you could create a patch for it.
+
+
+Regards,
+Christoph
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
