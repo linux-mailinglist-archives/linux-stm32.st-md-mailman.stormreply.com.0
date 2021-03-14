@@ -2,71 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1577833A3B7
-	for <lists+linux-stm32@lfdr.de>; Sun, 14 Mar 2021 10:09:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7322E33A497
+	for <lists+linux-stm32@lfdr.de>; Sun, 14 Mar 2021 12:52:48 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADCD9C57192;
-	Sun, 14 Mar 2021 09:09:08 +0000 (UTC)
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14451C57192;
+	Sun, 14 Mar 2021 11:52:48 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 397FBC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A67DC36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Mar 2021 09:09:05 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id x29so18676126pgk.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Mar 2021 01:09:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=tJrE5yB0s4MYuzTDxyIGPDzIPpwerkBrEWrfe5LUuh4=;
- b=ZiFf71vkGBezYsRPGDA4SNIhyJJ3fCxxhr48uBDiADsdJzUNqHGbZM/Ars500CoD/C
- U9V2gbxkBvym87OvrSjgpiC+STwtx5neNLII5Amq+ol1192XlqLfzPtS4kVgOaHmXPF7
- SyluA3ztVHFoTiDAnM5Ly+s0P0jyi+EypmSPDhdNpL2vUqtn9ALvcvb6KuC5f22oLVQZ
- UcUiXgNJQBViTzk1g42zPk2RvKNynLC4iiSWwFt1lOadsS4Wd+n+7Wr//560Kevl6u/X
- CQDB0ks09jrP7tMDDcrJD1ztDwh7JZjwJpTkMJ0mSXkgdM9GJkC4cC0Ww8K5Ov01sCoD
- gMxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=tJrE5yB0s4MYuzTDxyIGPDzIPpwerkBrEWrfe5LUuh4=;
- b=T3ZOTvSSa19rguPkwCqpF/ET+vCp3/ZvNco9WfvuW82pFpZlmGIzRBY/WM2j52coqa
- GauwOKBpMcX2V2a60yO6dZqhJTc7FutaJhmAtrcz2Cdctt+CfXfd73WQViI5uQnPG/WL
- 8AHq3HPbZ8Vw8lzXIT2hBUS68//4V+l3MBPMKxFVCyUMRX4J8JUiCKlDp3yH42xYGOkn
- D99o4rPX9cPP3gijCjI+BJei0UsoqbWsQ3i5NGRxpzUr1s3brNJXwCGbOttZRtA97kZf
- G1z1g8LdVhqsOlmXxqRqX6a2/MTDy78Q+oujSXTMgrC74eaPaeEAowRYwMbRWnSZlbAl
- nNUA==
-X-Gm-Message-State: AOAM533I5zI1X9D/MN1x3KpLeiIvi7pvQuZD5CxySlR6g9RxSLQ4vhZU
- IR2hwobSPcssIEitOW25EVk=
-X-Google-Smtp-Source: ABdhPJyJ9RuW9uTpPw9TttzqomrqpE8AqLzOzb5l5qEfxF4ZFzs0Mn05ItcnoILUrl1g86roCc6rjg==
-X-Received: by 2002:a62:e404:0:b029:1f1:5cea:afbd with SMTP id
- r4-20020a62e4040000b02901f15ceaafbdmr5910905pfh.5.1615712944192; 
- Sun, 14 Mar 2021 01:09:04 -0800 (PST)
-Received: from shinobu ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id h186sm10242385pgc.38.2021.03.14.01.08.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Mar 2021 01:09:03 -0800 (PST)
-Date: Sun, 14 Mar 2021 18:08:56 +0900
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <YE3SqJypA1UE86Sr@shinobu>
-References: <cover.1615293276.git.vilhelm.gray@gmail.com>
- <377a1552e7794ca4d998d840c06ba4a109214863.1615293276.git.vilhelm.gray@gmail.com>
- <b195e59c-470b-8a06-7308-42bd628274bd@foss.st.com>
- <YE3BvAsx4exhWG+C@shinobu>
+ Sun, 14 Mar 2021 11:52:45 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 79D0F64E21;
+ Sun, 14 Mar 2021 11:52:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615722763;
+ bh=zz0j1vSP+mihmyWSjFGBpWwyLWTagQ1U8k3YP/B+t50=;
+ h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To:From;
+ b=S5QRD6XZIPv87arcP1TrVHk8Q1o4GY5GzRH1CaAa4f5vf0gZc18rfVYZ6eCrVn/Ic
+ 9bVR/0oriW1L/JPIfFW5Ir9aYUkQtxKVXeFPD3Y5HIGso77iy2HXIDcxT4WcumhiOw
+ rJgEQbr8n7uxu+FsRYy3RH0BFRVoyCE8lHiHdgVVhYKiS8QJtjJwwx1nawBk6yZ5Nn
+ hDTcUTWjhoAM9aiqnPqPs9P1iZ0BXUzv3xb4FxGKxSmIFxFj9odphZTVPkmRiHAKOf
+ rpdghBhgafT1BYWFkM9YPfvyv1Iny5ONg7V5vj7dNdIxd3afUVzAE7tJKDvhl3jNQA
+ nmgzDrVk8jsdw==
+Date: Sun, 14 Mar 2021 17:22:39 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <YE35Bw/DHRz63RBT@vkoul-mobl>
+References: <20210311152545.1317581-1-krzysztof.kozlowski@canonical.com>
+ <20210311152731.1318428-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-In-Reply-To: <YE3BvAsx4exhWG+C@shinobu>
-Cc: linux-arm-kernel@lists.infradead.org, kamel.bouhara@bootlin.com,
- gwendal@chromium.org, david@lechnology.com, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, linux-stm32@st-md-mailman.stormreply.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, Dan Carpenter <dan.carpenter@oracle.com>,
- mcoquelin.stm32@gmail.com, fabrice.gasnier@st.com, syednwaris@gmail.com,
- kernel@pengutronix.de, jic23@kernel.org, alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v9 22/33] counter: Internalize sysfs
- interface code
+Content-Disposition: inline
+In-Reply-To: <20210311152731.1318428-1-krzysztof.kozlowski@canonical.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+ Michael Turquette <mturquette@baylibre.com>, linux-i2c@vger.kernel.org,
+ Lee Jones <lee.jones@linaro.org>, linux-clk@vger.kernel.org,
+ Will Deacon <will@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Tom Rix <trix@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-fpga@vger.kernel.org, devicetree@vger.kernel.org,
+ Robert Richter <rric@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>,
+ Arnd Bergmann <arnd@arndb.de>, dmaengine@vger.kernel.org, soc@kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Moritz Fischer <mdf@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+ Tony Luck <tony.luck@intel.com>, Stephen Boyd <sboyd@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dinh Nguyen <dinguyen@kernel.org>, James Morse <james.morse@arm.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Olof Johansson <olof@lixom.net>,
+ Borislav Petkov <bp@alien8.de>, "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 11/15] dmaengine: socfpga: use
+ ARCH_INTEL_SOCFPGA also for 32-bit ARM SoCs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,248 +64,20 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1881665062150995105=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 11-03-21, 16:27, Krzysztof Kozlowski wrote:
+> ARCH_SOCFPGA is being renamed to ARCH_INTEL_SOCFPGA so adjust the
+> 32-bit ARM drivers to rely on new symbol.
 
---===============1881665062150995105==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EpN61qC1eJVFbM4k"
-Content-Disposition: inline
+Acked-By: Vinod Koul <vkoul@kernel.org>
 
-
---EpN61qC1eJVFbM4k
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Mar 14, 2021 at 04:56:44PM +0900, William Breathitt Gray wrote:
-> On Fri, Mar 12, 2021 at 04:02:42PM +0100, Fabrice Gasnier wrote:
-> > On 3/9/21 2:19 PM, William Breathitt Gray wrote:
-> > > +static ssize_t enums_available_show(const u32 *const enums,
-> > > +				    const size_t num_enums,
-> > > +				    const char *const strs[], char *buf)
-> > > +{
-> > > +	size_t len =3D 0;
-> > > +	size_t index;
-> > > +
-> > > +	for (index =3D 0; index < num_enums; index++)
-> > > +		len +=3D sysfs_emit(buf + len, "%s\n", strs[enums[index]]);
-> > > +
-> > > +	return len;
-> > > +}
-> > > +
-> > > +static ssize_t strs_available_show(const struct counter_available *c=
-onst avail,
-> > > +				   char *buf)
-> > > +{
-> > > +	size_t len =3D 0;
-> > > +	size_t index;
-> > > +
-> > > +	for (index =3D 0; index < avail->num_items; index++)
-> > > +		len +=3D sysfs_emit(buf + len, "%s\n", avail->strs[index]);
-> > > +
-> > > +	return len;
-> > > +}
-> >=20
-> > Hi William,
-> >=20
-> > I was willing to do some testing on this series, on the stm32 counter
-> > drivers, since we released few fixes around them.
-> >=20
-> > I tried to apply this series against current testing branch, with few
-> > patches applied (so it applies cleanly):
-> > - dt-bindings: counter: add interrupt-counter binding
-> > - counter: add IRQ or GPIO based counter
-> > - counter: stm32-timer-cnt: fix ceiling miss-alignment with reload regi=
-ster
-> > - counter: stm32-timer-cnt: fix ceiling write max value
-> >  counter: stm32-timer-cnt: Report count function when SLAVE_MODE_DISABL=
-ED
-> >=20
-> >=20
-> > For both the "stm32-lptimer-cnt" and "stm32-timer-cnt" drivers, I get a
-> > warning message and stack dump in "sysfs_emit" when reading the
-> > available functions from sysfs.
-> > I started to do some testing on v8 of this series last week. I didn't
-> > noticed that.
-> >=20
-> > For both the "stm32-lptimer-cnt", there are 2 functions currently I get
-> > 1 stack dump. Only the "increase" function is printed correctly.
-> >=20
-> > For the "stm32-timer-cnt", there are 4 functions currently, I get 3
-> > stack dumps. Only the "increase" function is printed correctly
-> >=20
-> > Sample log for "stm32-timer-cnt:
-> >=20
-> > root@stm32mp1:/sys/devices/platform/soc/44000000.timer/44000000.timer:c=
-ounter/counter0#
-> > cat count0/function_available
-> > [ 4689.195506] ------------[ cut here ]------------
-> > [ 4689.198747] WARNING: CPU: 1 PID: 5841 at fs/sysfs/file.c:737
-> > sysfs_emit+0x88/0x94
-> > [ 4689.206233] invalid sysfs_emit: buf:f4a66208
-> > [ 4689.210553] Modules linked in: sha256_generic libsha256 sha256_arm
-> > cfg80211 panel_orisetech_otm8009a snd_soc_hdmi_codec
-> > snd_soc_stm32_sai_sub stm32_lptimers
-> > [ 4689.261444] CPU: 1 PID: 5841 Comm: cat Tainted: G        W
-> > 5.12.0-rc1 #534
-> > [ 4689.268999] Hardware name: STM32 (Device Tree Support)
-> > [ 4689.274166] [<c0310b38>] (unwind_backtrace) from [<c030b4ec>]
-> > (show_stack+0x10/0x14)
-> > [ 4689.281942] [<c030b4ec>] (show_stack) from [<c0fede70>]
-> > (dump_stack+0xc0/0xd4)
-> > [ 4689.289199] [<c0fede70>] (dump_stack) from [<c0345624>]
-> > (__warn+0xec/0x148)
-> > [ 4689.296194] [<c0345624>] (__warn) from [<c0fe9e90>]
-> > (warn_slowpath_fmt+0x98/0xbc)
-> > [ 4689.303714] [<c0fe9e90>] (warn_slowpath_fmt) from [<c0548ee0>]
-> > (sysfs_emit+0x88/0x94)
-> > [ 4689.311586] [<c0548ee0>] (sysfs_emit) from [<bf115de8>]
-> > (counter_comp_available_show+0x11c/0x1a4 [counter])
-> > [ 4689.321382] [<bf115de8>] (counter_comp_available_show [counter]) from
-> > [<c0a21b70>] (dev_attr_show+0x18/0x48)
-> > [ 4689.331263] [<c0a21b70>] (dev_attr_show) from [<c0549014>]
-> > (sysfs_kf_seq_show+0x88/0xf0)
-> > [ 4689.339394] [<c0549014>] (sysfs_kf_seq_show) from [<c04da6e8>]
-> > (seq_read_iter+0x1a4/0x554)
-> > [ 4689.347703] [<c04da6e8>] (seq_read_iter) from [<c04af6f0>]
-> > (vfs_read+0x1ac/0x2c4)
-> > [ 4689.355224] [<c04af6f0>] (vfs_read) from [<c04afc20>]
-> > (ksys_read+0x64/0xdc)
-> > [ 4689.362219] [<c04afc20>] (ksys_read) from [<c03000c0>]
-> > (ret_fast_syscall+0x0/0x58)
-> > [ 4689.369827] Exception stack(0xc7261fa8 to 0xc7261ff0)
-> > [ 4689.374906] 1fa0:                   00000000 00020000 00000003
-> > b6f35000 00020000 00000000
-> > [ 4689.383126] 1fc0: 00000000 00020000 b6f56ce0 00000003 00000003
-> > 00000000 00020000 00000000
-> > [ 4689.391344] 1fe0: 00000003 be8239a8 410bff27 4104c066
-> > ...
-> > 2 more stack dumps follow
-> > ...
-> > [ 4689.810479] ---[ end trace 59ed79949efe984c ]---
-> > increase
-> >=20
-> > I get similar backtrace with other _available attributes:
-> > $ cat signal0_action_available
-> > $ cat signal1_action_available
-> >=20
-> > Do you think I'm doing something wrong ?
-> >=20
-> > I tested then "quadrature x4" on the timer driver... It seems all fine.
-> >=20
-> > Best regards
-> > Fabrice
-> >=20
-> > > +
-> > > +static ssize_t counter_comp_available_show(struct device *dev,
-> > > +					   struct device_attribute *attr,
-> > > +					   char *buf)
-> > > +{
-> > > +	const struct counter_attribute *const a =3D to_counter_attribute(at=
-tr);
-> > > +	const struct counter_count *const count =3D a->parent;
-> > > +	const struct counter_synapse *const synapse =3D a->comp.priv;
-> > > +	const struct counter_available *const avail =3D a->comp.priv;
-> > > +
-> > > +	switch (a->comp.type) {
-> > > +	case COUNTER_COMP_FUNCTION:
-> > > +		return enums_available_show(count->functions_list,
-> > > +					    count->num_functions,
-> > > +					    counter_function_str, buf);
-> > > +	case COUNTER_COMP_SYNAPSE_ACTION:
-> > > +		return enums_available_show(synapse->actions_list,
-> > > +					    synapse->num_actions,
-> > > +					    counter_synapse_action_str, buf);
-> > > +	case COUNTER_COMP_ENUM:
-> > > +		return strs_available_show(avail, buf);
-> > > +	case COUNTER_COMP_COUNT_MODE:
-> > > +		return enums_available_show(avail->enums, avail->num_items,
-> > > +					    counter_count_mode_str, buf);
-> > > +	default:
-> > > +		return -EINVAL;
-> > > +	}
-> > > +}
->=20
-> Hi Fabrice,
->=20
-> I can confirm that I'm hitting this regression as well with the
-> 104-quad-8 driver. The warning seems to be caused by the
-> offset_in_page(buf) check in sysfs_emit(). It looks like the first loop
-> in enums_available_show() calls sysfs_emit() correctly, but subsequent
-> loops have an invalid buf offset.
->=20
-> The enums_available_show() callback is rather simple: call sysfs_emit()
-> for each enum string and increment buf by the length written each time.
-> I haven't modified this function since v8, so I am somewhat confused
-> about why the buf offset would be invalid here now. I wonder if there
-> has been a change somewhere else in the kernel that is causing
-> sysfs_emit() to now return an incorrect length.
->=20
-> William Breathitt Gray
-
-Fabrice,
-
-Would you be able to check the values of buf and len before they enter
-sysfs_emit()? I think redefining the enums_available_show() function
-like this should suffice:
-
-static ssize_t enums_available_show(const u32 *const enums,
-                                    const size_t num_enums,
-                                    const char *const strs[], char *buf)
-{
-        size_t len =3D 0;
-        size_t index;
-
-        for (index =3D 0; index < num_enums; index++){
-                pr_info("buf: %p\tbuf+len: %p\tlen: %zu\n", buf, buf + len,=
- len);
-                len +=3D sysfs_emit(buf + len, "%s\n", strs[enums[index]]);
-        }
-
-        return len;
-}
-
-I want to see whether the issue is due to the sysfs_emit() return value
-or the value of buf.
-
-Thank you,
-
-William Breathitt Gray
-
---EpN61qC1eJVFbM4k
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmBN0p4ACgkQhvpINdm7
-VJK9cBAAysjrATgmOPhs5cHd6oWdl+vCffNIupxnwQ3TK49IsHq2wdrCtMduLQWC
-nbwPdNhce3+gwbsIZKKz8KTqVYyl+sELO9ee2MDQfJTsFw4XmHjjtGf2IPACCWP3
-21QLF3zTaXQK6OmYpbloAZylB5VyDOf0HT5wSWIPQ9e9RbsoVXpSuMC1ovJgfS/R
-FPxTYsKfWF/+qFBU0fGIT3fkQJj4i3fucJ59u+vXJaTZjGIYcBxeYiVs0DM8YOMd
-ZlKl1S3zG1PCBCM7DhB0juI0NLp6sdIX9AxkfXTT3tiY8xiB6gVOXU+O+uhwFpl2
-hvH9ZM10fl4RsbY3zbpTgLHs9dw7ZNe+DMHIqdIo4yAcvAt1mklFy8oANrcwAfGm
-JtwV3/sGl9FbO8zbKVbnRpRBP8gIUaSqgjUjALjfHQYkaaksy0tWNqI6E3bnFEia
-OczVrtskHunyXzRESCXwYce+2ChC43IJf86+XhLbILZ77WrpGRs0grTfITiLkh28
-/ESikmU2orfONIIIENvAJG7ZLc8ACHhyQkR7ctE3rMBeK2DMss/Rm7JLKE9c+j7O
-RLZ661oUdskQfUXUlaVQxM1rAxTa1mn1kc9y0ZhMG1U5k2X1miHQYt8oI19Y/W3B
-pGbtr2ob0M8sHWPtBvnKAjQLfLdFgXD1VV8R1gs/NY+Bp6JIrrs=
-=oQxd
------END PGP SIGNATURE-----
-
---EpN61qC1eJVFbM4k--
-
---===============1881665062150995105==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+~Vinod
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1881665062150995105==--
