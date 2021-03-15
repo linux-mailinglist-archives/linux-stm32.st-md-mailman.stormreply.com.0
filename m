@@ -2,57 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7322E33A497
-	for <lists+linux-stm32@lfdr.de>; Sun, 14 Mar 2021 12:52:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09A7F33A90B
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 01:26:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14451C57192;
-	Sun, 14 Mar 2021 11:52:48 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A164DC57192;
+	Mon, 15 Mar 2021 00:26:20 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A67DC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A1E8C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Mar 2021 11:52:45 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 79D0F64E21;
- Sun, 14 Mar 2021 11:52:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615722763;
- bh=zz0j1vSP+mihmyWSjFGBpWwyLWTagQ1U8k3YP/B+t50=;
- h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To:From;
- b=S5QRD6XZIPv87arcP1TrVHk8Q1o4GY5GzRH1CaAa4f5vf0gZc18rfVYZ6eCrVn/Ic
- 9bVR/0oriW1L/JPIfFW5Ir9aYUkQtxKVXeFPD3Y5HIGso77iy2HXIDcxT4WcumhiOw
- rJgEQbr8n7uxu+FsRYy3RH0BFRVoyCE8lHiHdgVVhYKiS8QJtjJwwx1nawBk6yZ5Nn
- hDTcUTWjhoAM9aiqnPqPs9P1iZ0BXUzv3xb4FxGKxSmIFxFj9odphZTVPkmRiHAKOf
- rpdghBhgafT1BYWFkM9YPfvyv1Iny5ONg7V5vj7dNdIxd3afUVzAE7tJKDvhl3jNQA
- nmgzDrVk8jsdw==
-Date: Sun, 14 Mar 2021 17:22:39 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <YE35Bw/DHRz63RBT@vkoul-mobl>
-References: <20210311152545.1317581-1-krzysztof.kozlowski@canonical.com>
- <20210311152731.1318428-1-krzysztof.kozlowski@canonical.com>
+ Mon, 15 Mar 2021 00:26:18 +0000 (UTC)
+IronPort-SDR: CfeQoZXU8puEk+dL8rcBnpeN+sH5rw1WtVZyl3FtpZ+dopJWPj63HGontfmmu8uBx8kcLtlkIO
+ eDNka7Q5xLmQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9923"; a="176149885"
+X-IronPort-AV: E=Sophos;i="5.81,249,1610438400"; d="scan'208";a="176149885"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2021 17:26:15 -0700
+IronPort-SDR: DfHHtIEfWfVO3bUUp225APrZc9AqrgyF49fk7Lz0Eb2W28FgpFl0aE1ih2tIqXjJ0znoR2q+d4
+ kvmvXpzsniCg==
+X-IronPort-AV: E=Sophos;i="5.81,249,1610438400"; d="scan'208";a="411662432"
+Received: from shao2-debian.sh.intel.com (HELO localhost) ([10.239.13.11])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2021 17:26:11 -0700
+Date: Mon, 15 Mar 2021 08:25:26 +0800
+From: kernel test robot <rong.a.chen@intel.com>
+To: dillon.minfei@gmail.com, robh+dt@kernel.org,
+ alexandre.torgue@foss.st.com, a.fatoum@pengutronix.de,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@st.com,
+ devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux@armlinux.org.uk
+Message-ID: <20210315002526.GK219708@shao2-debian>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210311152731.1318428-1-krzysztof.kozlowski@canonical.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
- Michael Turquette <mturquette@baylibre.com>, linux-i2c@vger.kernel.org,
- Lee Jones <lee.jones@linaro.org>, linux-clk@vger.kernel.org,
- Will Deacon <will@kernel.org>, Russell King <linux@armlinux.org.uk>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Tom Rix <trix@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- linux-fpga@vger.kernel.org, devicetree@vger.kernel.org,
- Robert Richter <rric@kernel.org>, Alexandre Torgue <alexandre.torgue@st.com>,
- Arnd Bergmann <arnd@arndb.de>, dmaengine@vger.kernel.org, soc@kernel.org,
- Rob Herring <robh+dt@kernel.org>, Moritz Fischer <mdf@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
- Tony Luck <tony.luck@intel.com>, Stephen Boyd <sboyd@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dinh Nguyen <dinguyen@kernel.org>, James Morse <james.morse@arm.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Olof Johansson <olof@lixom.net>,
- Borislav Petkov <bp@alien8.de>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v3 11/15] dmaengine: socfpga: use
- ARCH_INTEL_SOCFPGA also for 32-bit ARM SoCs
+In-Reply-To: <1615530274-31422-5-git-send-email-dillon.minfei@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: kbuild-all@lists.01.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/8] ARM: dts: stm32: introduce
+ stm32h7-pinctrl.dtsi to support stm32h750
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,14 +58,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11-03-21, 16:27, Krzysztof Kozlowski wrote:
-> ARCH_SOCFPGA is being renamed to ARCH_INTEL_SOCFPGA so adjust the
-> 32-bit ARM drivers to rely on new symbol.
+Hi,
 
-Acked-By: Vinod Koul <vkoul@kernel.org>
+Thank you for the patch! Perhaps something to improve:
 
--- 
-~Vinod
+[auto build test WARNING on stm32/stm32-next]
+[also build test WARNING on robh/for-next soc/for-next v5.12-rc2 next-20210312]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
+
+url:    https://github.com/0day-ci/linux/commits/dillon-minfei-gmail-com/ARM-STM32-add-art-pi-stm32h750xbh6-board-support/20210312-142805
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
+:::::: branch date: 17 hours ago
+:::::: commit date: 17 hours ago
+compiler: arm-linux-gnueabi-gcc (GCC) 9.3.0
+reproduce: make ARCH=arm dtbs_check
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+
+
+"dtcheck warnings: (new ones prefixed by >>)"
+>> arch/arm/boot/dts/stm32h743i-eval.dt.yaml: soc: pin-controller: {'type': 'object'} is not allowed for {'#address-cells': [[1]], '#size-cells': [[1]], 'ranges': [[0, 1476526080, 12288]], 'interrupt-parent': [[17]], 'st,syscfg': [[23, 8]], 'pins-are-numbered': True, 'compatible': ['st,stm32h743-pinctrl'], 'gpio@58020000': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[0, 1024]], 'clocks': [[2, 86]], 'st,bank-name': ['GPIOA'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58020400': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[1024, 1024]], 'clocks': [[2, 85]], 'st,bank-name': ['GPIOB'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58020800': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[2048, 1024]], 'clocks': [[2, 84]], 'st,bank-name': ['GPIOC'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58020c00': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[3072, 1024]], 'clocks': [[2, 83]], 's
+ t,bank-name': ['GPIOD'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58021000': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[4096, 1024]], 'clocks': [[2, 82]], 'st,bank-name': ['GPIOE'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58021400': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[5120, 1024]], 'clocks': [[2, 81]], 'st,bank-name': ['GPIOF'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58021800': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[6144, 1024]], 'clocks': [[2, 80]], 'st,bank-name': ['GPIOG'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58021c00': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[7168, 1024]], 'clocks': [[2, 79]], 'st,bank-name': ['GPIOH'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58022000': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[8192, 1024]], 'clocks': [[2, 78]], 'st,bank-name': ['GPIOI'], 'i
+ nterrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58022400': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[9216, 1024]], 'clocks': [[2, 77]], 'st,bank-name': ['GPIOJ'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58022800': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[10240, 1024]], 'clocks': [[2, 76]], 'st,bank-name': ['GPIOK'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'i2c1-0': {'phandle': [[3]], 'pins': {'pinmux': [[5637], [5893]], 'bias-disable': True, 'drive-open-drain': True, 'slew-rate': [[0]]}}, 'rmii-0': {'phandle': [[24]], 'pins': {'pinmux': [[27404], [27916], [27660], [9228], [9484], [1804], [8460], [524], [268]], 'slew-rate': [[2]]}}, 'sdmmc1-b4-0': {'phandle': [[11]], 'pins': {'pinmux': [[10253], [10509], [10765], [11021], [11277], [12813]], 'slew-rate': [[3]], 'drive-push-pull': True, 'bias-disable': True}}, 'sdmmc1-b4-od-0': {'phandle': [[13]], 'pins1': {'pinmux': [[10253], [10509], [10765], [1102
+ 1], [11277]], 'slew-rate': [[3]], 'drive-push-pull': True, 'bias-disable': True}, 'pins2': {'pinmux': [[12813]], 'slew-rate': [[3]], 'drive-open-drain': True, 'bias-disable': True}}, 'sdmmc1-b4-sleep-0': {'phandle': [[14]], 'pins': {'pinmux': [[10257], [10513], [10769], [11025], [11281], [12817]]}}, 'sdmmc1-dir-0': {'phandle': [[12]], 'pins1': {'pinmux': [[9737], [9993], [6408]], 'slew-rate': [[3]], 'drive-push-pull': True, 'bias-pull-up': True}, 'pins2': {'pinmux': [[6152]], 'bias-pull-up': True}}, 'sdmmc1-dir-sleep-0': {'phandle': [[15]], 'pins': {'pinmux': [[9745], [10001], [6417], [6161]]}}, 'usart1-0': {'phandle': [[4]], 'pins1': {'pinmux': [[7685]], 'bias-disable': True, 'drive-push-pull': True, 'slew-rate': [[0]]}, 'pins2': {'pinmux': [[7941]], 'bias-disable': True}}, 'usart2-0': {'pins1': {'pinmux': [[13576]], 'bias-disable': True, 'drive-push-pull': True, 'slew-rate': [[0]]}, 'pins2': {'pinmux': [[13832]], 'bias-disable': True}}, 'usbotg-hs-0': {'phandle': [[9]], 'pins': {'
+ pinmux': [[29707], [35595], [8203], [1291], [779], [4107], [4363], [6667], [6923], [7179], [7435], [5387]], 'bias-disable': True, 'drive-push-pull': True, 'slew-rate': [[2]]}}}
+   	From schema: /usr/local/lib/python3.9/dist-packages/dtschema/schemas/simple-bus.yaml
+   arch/arm/boot/dts/stm32h743i-eval.dt.yaml: soc: 'i2c@40005C00', 'i2c@58001C00' do not match any of the regexes: '@(0|[1-9a-f][0-9a-f]*)$', '^[^@]+$', 'pinctrl-[0-9]+'
+   	From schema: /usr/local/lib/python3.9/dist-packages/dtschema/schemas/simple-bus.yaml
+--
+>> arch/arm/boot/dts/stm32h743i-disco.dt.yaml: soc: pin-controller: {'type': 'object'} is not allowed for {'#address-cells': [[1]], '#size-cells': [[1]], 'ranges': [[0, 1476526080, 12288]], 'interrupt-parent': [[11]], 'st,syscfg': [[17, 8]], 'pins-are-numbered': True, 'compatible': ['st,stm32h743-pinctrl'], 'gpio@58020000': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[0, 1024]], 'clocks': [[2, 86]], 'st,bank-name': ['GPIOA'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58020400': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[1024, 1024]], 'clocks': [[2, 85]], 'st,bank-name': ['GPIOB'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58020800': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[2048, 1024]], 'clocks': [[2, 84]], 'st,bank-name': ['GPIOC'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58020c00': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[3072, 1024]], 'clocks': [[2, 83]], '
+ st,bank-name': ['GPIOD'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58021000': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[4096, 1024]], 'clocks': [[2, 82]], 'st,bank-name': ['GPIOE'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58021400': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[5120, 1024]], 'clocks': [[2, 81]], 'st,bank-name': ['GPIOF'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58021800': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[6144, 1024]], 'clocks': [[2, 80]], 'st,bank-name': ['GPIOG'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58021c00': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[7168, 1024]], 'clocks': [[2, 79]], 'st,bank-name': ['GPIOH'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58022000': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[8192, 1024]], 'clocks': [[2, 78]], 'st,bank-name': ['GPIOI'], '
+ interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58022400': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[9216, 1024]], 'clocks': [[2, 77]], 'st,bank-name': ['GPIOJ'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'gpio@58022800': {'gpio-controller': True, '#gpio-cells': [[2]], 'reg': [[10240, 1024]], 'clocks': [[2, 76]], 'st,bank-name': ['GPIOK'], 'interrupt-controller': True, '#interrupt-cells': [[2]]}, 'i2c1-0': {'pins': {'pinmux': [[5637], [5893]], 'bias-disable': True, 'drive-open-drain': True, 'slew-rate': [[0]]}}, 'rmii-0': {'phandle': [[18]], 'pins': {'pinmux': [[27404], [27916], [27660], [9228], [9484], [1804], [8460], [524], [268]], 'slew-rate': [[2]]}}, 'sdmmc1-b4-0': {'phandle': [[7]], 'pins': {'pinmux': [[10253], [10509], [10765], [11021], [11277], [12813]], 'slew-rate': [[3]], 'drive-push-pull': True, 'bias-disable': True}}, 'sdmmc1-b4-od-0': {'phandle': [[8]], 'pins1': {'pinmux': [[10253], [10509], [10765], [11021], [11277]], 'slew
+ -rate': [[3]], 'drive-push-pull': True, 'bias-disable': True}, 'pins2': {'pinmux': [[12813]], 'slew-rate': [[3]], 'drive-open-drain': True, 'bias-disable': True}}, 'sdmmc1-b4-sleep-0': {'phandle': [[9]], 'pins': {'pinmux': [[10257], [10513], [10769], [11025], [11281], [12817]]}}, 'sdmmc1-dir-0': {'pins1': {'pinmux': [[9737], [9993], [6408]], 'slew-rate': [[3]], 'drive-push-pull': True, 'bias-pull-up': True}, 'pins2': {'pinmux': [[6152]], 'bias-pull-up': True}}, 'sdmmc1-dir-sleep-0': {'pins': {'pinmux': [[9745], [10001], [6417], [6161]]}}, 'usart1-0': {'pins1': {'pinmux': [[7685]], 'bias-disable': True, 'drive-push-pull': True, 'slew-rate': [[0]]}, 'pins2': {'pinmux': [[7941]], 'bias-disable': True}}, 'usart2-0': {'phandle': [[3]], 'pins1': {'pinmux': [[13576]], 'bias-disable': True, 'drive-push-pull': True, 'slew-rate': [[0]]}, 'pins2': {'pinmux': [[13832]], 'bias-disable': True}}, 'usbotg-hs-0': {'pins': {'pinmux': [[29707], [35595], [8203], [1291], [779], [4107], [4363], [6667], [
+ 6923], [7179], [7435], [5387]], 'bias-disable': True, 'drive-push-pull': True, 'slew-rate': [[2]]}}}
+   	From schema: /usr/local/lib/python3.9/dist-packages/dtschema/schemas/simple-bus.yaml
+   arch/arm/boot/dts/stm32h743i-disco.dt.yaml: soc: 'i2c@40005C00', 'i2c@58001C00' do not match any of the regexes: '@(0|[1-9a-f][0-9a-f]*)$', '^[^@]+$', 'pinctrl-[0-9]+'
+   	From schema: /usr/local/lib/python3.9/dist-packages/dtschema/schemas/simple-bus.yaml
+
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
