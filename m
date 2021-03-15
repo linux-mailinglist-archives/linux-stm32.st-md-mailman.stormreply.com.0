@@ -2,48 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 185E333C746
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 21:00:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6182C33C85B
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 22:18:39 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3B3FC57B55;
-	Mon, 15 Mar 2021 20:00:12 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF057C57B55;
+	Mon, 15 Mar 2021 21:18:38 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE405C56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66454C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Mar 2021 20:00:10 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 7F0AE64F4A;
- Mon, 15 Mar 2021 20:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615838409;
- bh=7N3RmC/cpuiiM1aIpdz7UBFGNwEKoT7n1Fr1M/oLKjo=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=CBXoYGQRXyEHQlswtO1RUqnfUFCuYlpWefvy7e8o1N1bd5Xx0gJEP457mSSDONv8k
- cpBCnEwj/Zy0ZqcU3ORFwmPwRzJSorqEXnaVP/nTOFMIOYj54KU8RN6wLR0okZgran
- RjbbGB0CGsxwofbwbpBIqLUz39GSTAQUdW4c6Umf571622mRcOolKfSrUrTSacqVRF
- N23IYVr+hRR88pPSfRcgRGfRwMG+ejnqGXS87yhjzFjHGa5wQXxlvYenxVIFtoSQYW
- 68hT2P4Yzevkq0Nx17xb9zJ5fT+PlufdhhhFqUAi8dQaqRhPJRAlxoklKgrNMTX3cD
- Xia3LlT6Oifbw==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 788A1609C5;
- Mon, 15 Mar 2021 20:00:09 +0000 (UTC)
+ Mon, 15 Mar 2021 21:18:37 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4Dzq6351kPz1rxY9;
+ Mon, 15 Mar 2021 22:18:35 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4Dzq6345YFz1qqkK;
+ Mon, 15 Mar 2021 22:18:35 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id 9SkwfLfrR6vL; Mon, 15 Mar 2021 22:18:33 +0100 (CET)
+X-Auth-Info: 4FN0bhk7LCjgVgb66OSvrrrVfUm5DSxGjrsNXA20880=
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Mon, 15 Mar 2021 22:18:33 +0100 (CET)
+To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>
+References: <20200724101610.146403-1-marex@denx.de>
+ <ca48284998c14faf8ed17e6fa0cfac42@dh-electronics.com>
+ <495b2f6b-04b7-c1eb-7aed-cd55636bef46@denx.de>
+ <4530980295044f8ab9c1cfe14e02f90f@dh-electronics.com>
+ <6616e8b0-2b7d-a157-c24f-0493ce03c45b@denx.de>
+ <86beeb51e9594b14ac0f449495b46736@dh-electronics.com>
+ <7504da89-63a7-1b80-3159-a0346535137e@denx.de>
+ <788d7d182b13448c8afc4b99518daa34@dh-electronics.com>
+ <ca12f045-b4bf-3189-4cb5-db46eb791050@denx.de>
+ <b7b8c64246fd4617a3d266f8a0aa7a97@dh-electronics.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <5d4d31bc-4795-dc08-b827-61347f0651ed@denx.de>
+Date: Mon, 15 Mar 2021 22:18:33 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161583840948.32082.9319106949177097567.git-patchwork-notify@kernel.org>
-Date: Mon, 15 Mar 2021 20:00:09 +0000
-References: <20210315052711.16728-1-boon.leong.ong@intel.com>
-In-Reply-To: <20210315052711.16728-1-boon.leong.ong@intel.com>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-Cc: andrew@lunn.ch, linux-kernel@vger.kernel.org, alexandre.torgue@st.com,
- weifeng.voon@intel.com, vee.khee.wong@intel.com, netdev@vger.kernel.org,
- linux@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, fugang.duan@nxp.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 0/6] net: pcs,
-	stmmac: add C37 AN SGMII support
+In-Reply-To: <b7b8c64246fd4617a3d266f8a0aa7a97@dh-electronics.com>
+Content-Language: en-US
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Patrice Chotard <patrice.chotard@st.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fill GPIO line names on
+	AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,53 +71,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (refs/heads/master):
-
-On Mon, 15 Mar 2021 13:27:05 +0800 you wrote:
-> Hi all,
+On 3/15/21 7:58 PM, Christoph Niedermaier wrote:
+[...]
+>>>>>> I don't think we should have any SoM-side gpio-line-names, because once
+>>>>>> you plug the SoM into new carrier board, the gpio-lane-names will no
+>>>>>> longer make sense. So, I think all the gpio-line-names should be
+>>>>>> implemented in the carrier board DTS.
+>>>>>
+>>>>> The idea is to define the GPIO names on the SOM layer and then
+>>>>> overwrite them on the carrier board DTS if needed. If there is no
+>>>>> naming on the carrier board, at least you have access via the DHCOM
+>>>>> GPIO names. The DHCOM GPIO names are standardized, so that you can
+>>>>> be sure that the assignment to a pin always fits.
+>>>>
+>>>> So I'll pose another question here to the GPIO maintainers.
+>>>>
+>>>> Is it OK to define gpio-line-names in SoM DTSI even for pins which will
+>>>> not be used as GPIOs e.g. because they are muxed differently in the
+>>>> carrier board DTS ?
+>>>>
+>>>> If that is OK, then the above approach is then also OK.
+>>>
+>>> In our case, we cannot mux the GPIO pins in the carrier board DTS
+>>> to another functions, because then we break our SOM standard (DHCOM).
+>>
+>> You can, assume you take two of the SoM GPIO-X and GPIO-Y signals which
+>> are present e.g. on the PDK2 jumper header and connect I2C EEPROM to
+>> those two pins. Then you mux those two pins as I2C bus. And that happens
+>> on the carrier board level (or a DTO, but that's out of scope here).
 > 
-> This patch series adds MAC-side SGMII support to stmmac driver and it is
-> changed as follow:-
+> This is a very absurd example, because we have I2C on the PDK2 board
+> and if you want to use I2C use our given I2C buses. We don't want that
+> a costumer uses a GPIO pin as I2C, because it breaks our SOM standard
+> (DHCOM) and we cannot exchange the SOM module without breaking the
+> function. A GPIO is intended to be a GPIO and we don't want to have a
+> carrier board upstream, that breaks your standard. So if we label the
+> GPIOs on the SOM layer, it will never be wrong.
+
+I can see how this could work on SoM level if the muxing requirement is 
+constrained like this.
+
+>>> So in the case we relabel a GPIO in the carrier board e.g. "DHCOM-I"
+>>> becomes "LED1" the mux function have to be GPIO.
+>>
+>> In the above example, the mux function becomes i2c in the carrier board
+>> DT and the gpio-line-names remains the same since its included from the
+>> SoM DTSI. I would like to know whether this is OK or whether we need to
+>> patch the gpio-line-names in the carrier board DT and remove the GPIO-X
+>> and GPIO-Y from the gpio-line-names there.
 > 
-> 1/6: Refactor the current C73 implementation in pcs-xpcs to prepare for
->      adding C37 AN later.
-> 2/6: Add MAC-side SGMII C37 AN support to pcs-xpcs
-> 3,4/6: make phylink_parse_mode() to work for non-DT platform so that
->        we can use stmmac platform_data to set it.
-> 5/6: Make stmmac_open() to only skip PHY init if C73 is used, otherwise
->      C37 AN will need phydev to be connected to phylink.
-> 6/6: Finally, add pcs-xpcs SGMII interface support to Intel mGbE
->      controller.
-> 
-> [...]
+> In the carrier board the GPIO becomes an input, output, led, button, etc.,
+> but the function is still GPIO. So the labeling on the SOM layer is never
+> been wrong. A relabeling on the carrier board then improves it to the real
+> usage, but it is not mandatory.
 
-Here is the summary with links:
-  - [net-next,1/6] net: pcs: rearrange C73 functions to prepare for C37 support later
-    https://git.kernel.org/netdev/net-next/c/07a4bc51fc73
-  - [net-next,2/6] net: pcs: add C37 SGMII AN support for intel mGbE controller
-    https://git.kernel.org/netdev/net-next/c/b97b5331b8ab
-  - [net-next,3/6] net: phylink: make phylink_parse_mode() support non-DT platform
-    https://git.kernel.org/netdev/net-next/c/ab39385021d1
-  - [net-next,4/6] net: stmmac: make in-band AN mode parsing is supported for non-DT
-    https://git.kernel.org/netdev/net-next/c/e5e5b771f684
-  - [net-next,5/6] net: stmmac: ensure phydev is attached to phylink for C37 AN
-    https://git.kernel.org/netdev/net-next/c/c62808e8105f
-  - [net-next,6/6] stmmac: intel: add pcs-xpcs for Intel mGbE controller
-    https://git.kernel.org/netdev/net-next/c/7310fe538ea5
-
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Right, see above.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
