@@ -2,60 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 640D933C63C
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 19:59:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B0FA33C714
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 20:51:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1773FC57B55;
-	Mon, 15 Mar 2021 18:59:09 +0000 (UTC)
-Received: from mx1.securetransport.de (mx1.securetransport.de [178.254.23.77])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E876C57B55;
+	Mon, 15 Mar 2021 19:51:05 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECAFFC5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97C95C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Mar 2021 18:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
- s=dhelectronicscom; t=1615834725;
- bh=xrY9lvg6L5AxkbVc26xMQbE4Mb31Bo55NjZfnZsS0EA=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=dNAyMU/UntFxYnFi//BPcCU0en71EzA2IzLVF8fTqQqraDC4gUeMP/0zjrJSv3lJf
- 0CQmcB695MFk6poB4xxPLFXARSbfd0z95wKBftK/V3AmhqobbTFKUkxuuqyVo/OTEP
- DNt2WDr2YZ3JMsziboK41iS3szP3lKqzmcgQxxYnz66zT+SXh4Gvq24hNKdyw7sWp/
- /zDc7yni9q8nj4yMQuOFwhfxnllfZLSlm+SNWY53mUsS4Whh0Qe8yfXnYCwNG6vorO
- 3hgEuMpbY5JA7qLLe14zmJu9aUlP48vmgtwLoQ50T6wrys+Ta4naUhIqDd4C4J8vqz
- fGIUbzO/yqBUQ==
-X-secureTransport-forwarded: yes
-From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Complaints-To: abuse@cubewerk.de
-To: 'Marek Vasut' <marex@denx.de>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linus.walleij@linaro.org"
- <linus.walleij@linaro.org>
-Thread-Topic: [PATCH] ARM: dts: stm32: Fill GPIO line names on AV96
-Thread-Index: AQHWYaO6J/6XL1V4zEuDGmQGjfuCx6kpjSowgAEUzoCBVyUjUIAAGzqAgAAb63CAADNngIAEBG/ggABEHwCAAFI2kA==
-Date: Mon, 15 Mar 2021 18:58:33 +0000
-Message-ID: <b7b8c64246fd4617a3d266f8a0aa7a97@dh-electronics.com>
-References: <20200724101610.146403-1-marex@denx.de>
- <ca48284998c14faf8ed17e6fa0cfac42@dh-electronics.com>
- <495b2f6b-04b7-c1eb-7aed-cd55636bef46@denx.de>
- <4530980295044f8ab9c1cfe14e02f90f@dh-electronics.com>
- <6616e8b0-2b7d-a157-c24f-0493ce03c45b@denx.de>
- <86beeb51e9594b14ac0f449495b46736@dh-electronics.com>
- <7504da89-63a7-1b80-3159-a0346535137e@denx.de>
- <788d7d182b13448c8afc4b99518daa34@dh-electronics.com>
- <ca12f045-b4bf-3189-4cb5-db46eb791050@denx.de>
-In-Reply-To: <ca12f045-b4bf-3189-4cb5-db46eb791050@denx.de>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
+ Mon, 15 Mar 2021 19:51:02 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 402C164DF0;
+ Mon, 15 Mar 2021 19:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615837861;
+ bh=hoqDuT8A2C6aokhdkoqKymuqaw9D6ovqyc/1aLIzWsU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=awdBpqE4rXysetx+T2AvN+kKG81fd+KADq8inTrTuBK8y//1zh4Tt10BkcUZwd3WS
+ ciCDS1YCOR3MzlI7OPCuhqxHSecxHgkAXTel1IG9/Fx4YY7WWdQLbsJJ+qdm9IJ0gC
+ 7d0QUQYupcOnzUgEcrDfQtLktemjrC4api39oTk77qyREI9RoXhaEjcZJFmjX9yb9d
+ LfSQyhMQeDLXmfp0dQWfv8OK7UxVBpBJ6vgTggWRjQqk7Z7eMa9Ho0cmJk8sMrkfiy
+ t5FbYRj6oGquzAI6r3go6cDi9lh7bgFf1uqZXGygWNPmNv1yWN8qYdn3TlnZH2T0Ex
+ dyTRzGxwm/+9w==
+Date: Mon, 15 Mar 2021 12:50:59 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Ong Boon Leong <boon.leong.ong@intel.com>
+Message-ID: <20210315125059.32fde79a@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20210315064448.16391-2-boon.leong.ong@intel.com>
+References: <20210315064448.16391-1-boon.leong.ong@intel.com>
+ <20210315064448.16391-2-boon.leong.ong@intel.com>
 MIME-Version: 1.0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
- Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fill GPIO line names on
-	AV96
+Cc: Alexandre Torgue <alexandre.torgue@st.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
+ Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: add per-queue
+ TX & RX coalesce ethtool support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,113 +56,172 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Marek Vasut <marex@denx.de>
-Sent: Monday, March 15, 2021 3:26 PM
-> To: Christoph Niedermaier <cniedermaier@dh-electronics.com>; linux-arm-
-> kernel@lists.infradead.org; linus.walleij@linaro.org
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>; Patrice Chotard
-> <patrice.chotard@st.com>; Patrick Delaunay <patrick.delaunay@st.com>;
-> Maxime Coquelin <mcoquelin.stm32@gmail.com>; linux-stm32@st-md-
-> mailman.stormreply.com
-> Subject: Re: [PATCH] ARM: dts: stm32: Fill GPIO line names on AV96
+On Mon, 15 Mar 2021 14:44:48 +0800 Ong Boon Leong wrote:
+> Extending the driver to support per-queue RX and TX coalesce settings in
+> order to support below commands:
 > 
-> ACHTUNG: Diese E-Mail kommt aus dem Internet und nicht aus unserem
-> Firmennetzwerk!
+> To show per-queue coalesce setting:-
+>  $ ethtool --per-queue <DEVNAME> queue_mask <MASK> --show-coalesce
 > 
+> To set per-queue coalesce setting:-
+>  $ ethtool --per-queue <DEVNAME> queue_mask <MASK> --coalesce \
+>      [rx-usecs N] [rx-frames M] [tx-usecs P] [tx-frames Q]
 > 
-> 
-> On 3/15/21 12:41 PM, Christoph Niedermaier wrote:
-> 
-> [...]
-> 
->>>>>>>>> Fill in the custom GPIO line names used by DH.
->>>>>>>>>
->>>>>>>> [...]
->>>>>>>>> +&gpioa {
->>>>>>>>> +       gpio-line-names = "", "", "", "",
->>>>>>>>> +                         "", "", "", "",
->>>>>>>>> +                         "", "", "", "DH-GPIO-K",
->>>>>>>>> +                         "DH-GPIO-I", "", "DH-GPIO-A", "";
->>>>>>>>> +};
->>>>>>>>> +
->>>>>>>> [...]
->>>>>>>>
->>>>>>>> We have been using the GPIO names at DH electronics for some time and also
->>>>>>>> on other SOMs, but have not yet streamed them. We started with the naming
->>>>>>>> only with a capital letter "A-W" since then without problems. To avoid a
->>>>>>>> hard cut or patching for us and our customers it would be good if we could
->>>>>>>> use the same naming in the mainline kernel as well. Marek, we would be
->>>>>>>> happy if you would adopt our valued GPIO naming in your patch.
->>>>>>>
->>>>>>> My counter-argument to this is that the naming should be unique and
->>>>>>> provide a hint where those GPIO lines come from, so maybe even DH-GPIO-n
->>>>>>> should rather be DHCOM-n . I can't say I'm particularly fond of the
->>>>>>> plain 'n' naming of GPIO lines, because then the GPIO label (and e.g.
->>>>>>> listing in libgpiod tools) does not give any hint what the GPIO is or
->>>>>>> where it comes from. Also, I worry a plain 'n' naming might clash with
->>>>>>> other GPIO IPs easily, while a more unique name can not.
->>>>>>
->>>>>> Hello Marek,
->>>>>>
->>>>>> after an internal discussion, we decided the following:
->>>>>>
->>>>>> Could you update the patch for the Avenger96 to the GPIO naming "AV96-n".
->>>>>>
->>>>>> Moreover for the SOM layer (stm32mp15xx-dhcom-som.dtsi) we would prefer
->>>>>> "DHCOM-n". It would be nice if you could create a patch for it.
->>>>>
->>>>> I don't think we should have any SoM-side gpio-line-names, because once
->>>>> you plug the SoM into new carrier board, the gpio-lane-names will no
->>>>> longer make sense. So, I think all the gpio-line-names should be
->>>>> implemented in the carrier board DTS.
->>>>
->>>> The idea is to define the GPIO names on the SOM layer and then
->>>> overwrite them on the carrier board DTS if needed. If there is no
->>>> naming on the carrier board, at least you have access via the DHCOM
->>>> GPIO names. The DHCOM GPIO names are standardized, so that you can
->>>> be sure that the assignment to a pin always fits.
->>>
->>> So I'll pose another question here to the GPIO maintainers.
->>>
->>> Is it OK to define gpio-line-names in SoM DTSI even for pins which will
->>> not be used as GPIOs e.g. because they are muxed differently in the
->>> carrier board DTS ?
->>>
->>> If that is OK, then the above approach is then also OK.
->>
->> In our case, we cannot mux the GPIO pins in the carrier board DTS
->> to another functions, because then we break our SOM standard (DHCOM).
-> 
-> You can, assume you take two of the SoM GPIO-X and GPIO-Y signals which
-> are present e.g. on the PDK2 jumper header and connect I2C EEPROM to
-> those two pins. Then you mux those two pins as I2C bus. And that happens
-> on the carrier board level (or a DTO, but that's out of scope here).
+> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 
-This is a very absurd example, because we have I2C on the PDK2 board
-and if you want to use I2C use our given I2C buses. We don't want that
-a costumer uses a GPIO pin as I2C, because it breaks our SOM standard
-(DHCOM) and we cannot exchange the SOM module without breaking the
-function. A GPIO is intended to be a GPIO and we don't want to have a
-carrier board upstream, that breaks your standard. So if we label the
-GPIOs on the SOM layer, it will never be wrong.
- 
->> So in the case we relabel a GPIO in the carrier board e.g. "DHCOM-I"
->> becomes "LED1" the mux function have to be GPIO.
-> 
-> In the above example, the mux function becomes i2c in the carrier board
-> DT and the gpio-line-names remains the same since its included from the
-> SoM DTSI. I would like to know whether this is OK or whether we need to
-> patch the gpio-line-names in the carrier board DT and remove the GPIO-X
-> and GPIO-Y from the gpio-line-names there.
+> -static int stmmac_get_coalesce(struct net_device *dev,
+> -			       struct ethtool_coalesce *ec)
+> +static int __stmmac_get_coalesce(struct net_device *dev,
+> +				 struct ethtool_coalesce *ec,
+> +				 int queue)
+>  {
+>  	struct stmmac_priv *priv = netdev_priv(dev);
+> +	u32 max_cnt;
+> +	u32 rx_cnt;
+> +	u32 tx_cnt;
+>  
+> -	ec->tx_coalesce_usecs = priv->tx_coal_timer;
+> -	ec->tx_max_coalesced_frames = priv->tx_coal_frames;
+> +	rx_cnt = priv->plat->rx_queues_to_use;
+> +	tx_cnt = priv->plat->tx_queues_to_use;
+> +	max_cnt = max(rx_cnt, tx_cnt);
+>  
+> -	if (priv->use_riwt) {
+> -		ec->rx_max_coalesced_frames = priv->rx_coal_frames;
+> -		ec->rx_coalesce_usecs = stmmac_riwt2usec(priv->rx_riwt, priv);
+> +	if (queue < 0)
+> +		queue = 0;
+> +	else if (queue >= max_cnt)
+> +		return -EINVAL;
+> +
+> +	if (queue < tx_cnt) {
+> +		ec->tx_coalesce_usecs = priv->tx_coal_timer[queue];
+> +		ec->tx_max_coalesced_frames = priv->tx_coal_frames[queue];
+> +	} else {
+> +		ec->tx_coalesce_usecs = -1;
+> +		ec->tx_max_coalesced_frames = -1;
+> +	}
+> +
+> +	if (priv->use_riwt && queue < rx_cnt) {
+> +		ec->rx_max_coalesced_frames = priv->rx_coal_frames[queue];
+> +		ec->rx_coalesce_usecs = stmmac_riwt2usec(priv->rx_riwt[queue],
+> +							 priv);
+> +	} else {
+> +		ec->rx_max_coalesced_frames = -1;
+> +		ec->rx_coalesce_usecs = -1;
 
-In the carrier board the GPIO becomes an input, output, led, button, etc.,
-but the function is still GPIO. So the labeling on the SOM layer is never
-been wrong. A relabeling on the carrier board then improves it to the real
-usage, but it is not mandatory.
+Why the use of negative values? why not leave them as 0?
 
+>  	}
+>  
+>  	return 0;
+>  }
+>  
+> -static int stmmac_set_coalesce(struct net_device *dev,
+> +static int stmmac_get_coalesce(struct net_device *dev,
+>  			       struct ethtool_coalesce *ec)
+> +{
+> +	return __stmmac_get_coalesce(dev, ec, -1);
+> +}
+> +
+> +static int stmmac_get_per_queue_coalesce(struct net_device *dev, u32 queue,
+> +					 struct ethtool_coalesce *ec)
+> +{
+> +	return __stmmac_get_coalesce(dev, ec, queue);
+> +}
+> +
+> +static int __stmmac_set_coalesce(struct net_device *dev,
+> +				 struct ethtool_coalesce *ec,
+> +				 int queue)
+>  {
+>  	struct stmmac_priv *priv = netdev_priv(dev);
+> -	u32 rx_cnt = priv->plat->rx_queues_to_use;
+> +	bool all_queues = false;
+>  	unsigned int rx_riwt;
+> +	u32 max_cnt;
+> +	u32 rx_cnt;
+> +	u32 tx_cnt;
+> +
+> +	rx_cnt = priv->plat->rx_queues_to_use;
+> +	tx_cnt = priv->plat->tx_queues_to_use;
+> +	max_cnt = max(rx_cnt, tx_cnt);
+> +
+> +	if (queue < 0)
+> +		all_queues = true;
+> +	else if (queue >= max_cnt)
+> +		return -EINVAL;
+> +
+> +	/* Check not supported parameters  */
+> +	if (ec->rx_coalesce_usecs_irq ||
+> +	    ec->rx_max_coalesced_frames_irq || ec->tx_coalesce_usecs_irq ||
+> +	    ec->use_adaptive_rx_coalesce || ec->use_adaptive_tx_coalesce ||
+> +	    ec->pkt_rate_low || ec->rx_coalesce_usecs_low ||
+> +	    ec->rx_max_coalesced_frames_low || ec->tx_coalesce_usecs_high ||
+> +	    ec->tx_max_coalesced_frames_low || ec->pkt_rate_high ||
+> +	    ec->tx_coalesce_usecs_low || ec->rx_coalesce_usecs_high ||
+> +	    ec->rx_max_coalesced_frames_high ||
+> +	    ec->tx_max_coalesced_frames_irq ||
+> +	    ec->stats_block_coalesce_usecs ||
+> +	    ec->tx_max_coalesced_frames_high || ec->rate_sample_interval)
+> +		return -EOPNOTSUPP;
 
-Regards
-Christoph
+This shouldn't be needed now that supporter types are expressed in 
+dev->ethtool_ops->supported_coalesce_params, no?
+
+>  	if (priv->use_riwt && (ec->rx_coalesce_usecs > 0)) {
+>  		rx_riwt = stmmac_usec2riwt(ec->rx_coalesce_usecs, priv);
+> @@ -785,8 +846,23 @@ static int stmmac_set_coalesce(struct net_device *dev,
+>  		if ((rx_riwt > MAX_DMA_RIWT) || (rx_riwt < MIN_DMA_RIWT))
+>  			return -EINVAL;
+>  
+> -		priv->rx_riwt = rx_riwt;
+> -		stmmac_rx_watchdog(priv, priv->ioaddr, priv->rx_riwt, rx_cnt);
+> +		if (all_queues) {
+> +			int i;
+> +
+> +			for (i = 0; i < rx_cnt; i++) {
+> +				priv->rx_riwt[i] = rx_riwt;
+> +				stmmac_rx_watchdog(priv, priv->ioaddr,
+> +						   rx_riwt, i);
+> +				priv->rx_coal_frames[i] =
+> +					ec->rx_max_coalesced_frames;
+> +			}
+> +		} else if (queue < rx_cnt) {
+> +			priv->rx_riwt[queue] = rx_riwt;
+> +			stmmac_rx_watchdog(priv, priv->ioaddr,
+> +					   rx_riwt, queue);
+> +			priv->rx_coal_frames[queue] =
+> +				ec->rx_max_coalesced_frames;
+> +		}
+>  	}
+>  
+>  	if ((ec->tx_coalesce_usecs == 0) &&
+> @@ -797,13 +873,37 @@ static int stmmac_set_coalesce(struct net_device *dev,
+>  	    (ec->tx_max_coalesced_frames > STMMAC_TX_MAX_FRAMES))
+>  		return -EINVAL;
+>  
+> -	/* Only copy relevant parameters, ignore all others. */
+> -	priv->tx_coal_frames = ec->tx_max_coalesced_frames;
+> -	priv->tx_coal_timer = ec->tx_coalesce_usecs;
+> -	priv->rx_coal_frames = ec->rx_max_coalesced_frames;
+> +	if (all_queues) {
+> +		int i;
+> +
+> +		for (i = 0; i < tx_cnt; i++) {
+> +			priv->tx_coal_frames[i] =
+> +				ec->tx_max_coalesced_frames;
+> +			priv->tx_coal_timer[i] =
+> +				ec->tx_coalesce_usecs;
+> +		}
+> +	} else if (queue < tx_cnt) {
+> +		priv->tx_coal_frames[queue] =
+> +			ec->tx_max_coalesced_frames;
+> +		priv->tx_coal_timer[queue] =
+> +			ec->tx_coalesce_usecs;
+> +	}
+> +
+>  	return 0;
+>  }
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
