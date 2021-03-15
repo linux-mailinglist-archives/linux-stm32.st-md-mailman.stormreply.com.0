@@ -2,49 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AA5433B327
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 14:00:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2197133BF4F
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 16:01:39 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40FF7C57A41;
-	Mon, 15 Mar 2021 13:00:58 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9993DC57B55;
+	Mon, 15 Mar 2021 15:01:38 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BAAFC5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3BCA4C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Mar 2021 13:00:57 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id CCF3C64E38;
- Mon, 15 Mar 2021 13:00:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615813255;
- bh=uwWz6aWi1jhFKw28wj/LBxRRrhUwhNkyvusOnaoyIbc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ja+NES0ImoZkKrEO/YMBgBi8eb1pBtDIoBJ2SEiJI2DUpSjRyoErqeFixEEyp5HUN
- 0jo91BP1t8G80j45Q96DnSNvaST1I40GVJTxXinnCqjmu0ePLMuhzg+XxnwTa5+kQS
- AbrWYNGoveE5GkaN6iis2ntFVg/LmyetJ5+4xvagV8kbW6ac+jFakwJVtsIXqhZs+m
- L4idcgPQ+yXSY66VOzxNh/fotNezbImMjFN2wq6LWWsIxZ5QyF9UXTo5FRiCFCVCFE
- C7/s3PN8c2oKdhEIoyMFZ5SX2KvWrO75HJrBZ0gWYyrp5d6bLci1+nxu+OJd+198ot
- etRMtsEivXiUw==
-Date: Mon, 15 Mar 2021 14:00:50 +0100
-From: Wolfram Sang <wsa@kernel.org>
-To: dillon min <dillon.minfei@gmail.com>, pierre-yves.mordret@st.com
-Message-ID: <20210315130050.GD1182@ninjato>
-References: <1591709203-12106-1-git-send-email-dillon.minfei@gmail.com>
- <1591709203-12106-5-git-send-email-dillon.minfei@gmail.com>
- <CAL9mu0LJPnxA0JSmV3mogvPA5xRRYCO_4=P7pqpAO7R=YaJX5g@mail.gmail.com>
+ Mon, 15 Mar 2021 15:01:36 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4Dzfl344kjz1rypb;
+ Mon, 15 Mar 2021 16:01:35 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4Dzfl338jRz1qql8;
+ Mon, 15 Mar 2021 16:01:35 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id ovvWHqiRVnPo; Mon, 15 Mar 2021 16:01:33 +0100 (CET)
+X-Auth-Info: JdnvyQpwmBUTy5o1FfPNqywU9htsbIeyV1SUc8jcl/o=
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Mon, 15 Mar 2021 16:01:33 +0100 (CET)
+To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>
+References: <20200724101610.146403-1-marex@denx.de>
+ <ca48284998c14faf8ed17e6fa0cfac42@dh-electronics.com>
+ <495b2f6b-04b7-c1eb-7aed-cd55636bef46@denx.de>
+ <4530980295044f8ab9c1cfe14e02f90f@dh-electronics.com>
+ <6616e8b0-2b7d-a157-c24f-0493ce03c45b@denx.de>
+ <86beeb51e9594b14ac0f449495b46736@dh-electronics.com>
+ <7504da89-63a7-1b80-3159-a0346535137e@denx.de>
+ <788d7d182b13448c8afc4b99518daa34@dh-electronics.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <ca12f045-b4bf-3189-4cb5-db46eb791050@denx.de>
+Date: Mon, 15 Mar 2021 15:26:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAL9mu0LJPnxA0JSmV3mogvPA5xRRYCO_4=P7pqpAO7R=YaJX5g@mail.gmail.com>
+In-Reply-To: <788d7d182b13448c8afc4b99518daa34@dh-electronics.com>
+Content-Language: en-US
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Alexandre TORGUE <Alexandre.torgue@foss.st.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Philippe Schenker <philippe.schenker@toradex.com>,
- Rob Herring <robh+dt@kernel.org>, linux-i2c@vger.kernel.org,
- p.zabel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v4 4/4] i2c: stm32f4: Fix stmpe811 get xyz
- data timeout issue
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Patrice Chotard <patrice.chotard@st.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Fill GPIO line names on
+	AV96
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,148 +69,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7821034877949697727=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 3/15/21 12:41 PM, Christoph Niedermaier wrote:
 
---===============7821034877949697727==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Km1U/tdNT/EmXiR1"
-Content-Disposition: inline
+[...]
 
+>>>>>>>> Fill in the custom GPIO line names used by DH.
+>>>>>>>>
+>>>>>>> [...]
+>>>>>>>> +&gpioa {
+>>>>>>>> +       gpio-line-names = "", "", "", "",
+>>>>>>>> +                         "", "", "", "",
+>>>>>>>> +                         "", "", "", "DH-GPIO-K",
+>>>>>>>> +                         "DH-GPIO-I", "", "DH-GPIO-A", "";
+>>>>>>>> +};
+>>>>>>>> +
+>>>>>>> [...]
+>>>>>>>
+>>>>>>> We have been using the GPIO names at DH electronics for some time and also
+>>>>>>> on other SOMs, but have not yet streamed them. We started with the naming
+>>>>>>> only with a capital letter "A-W" since then without problems. To avoid a
+>>>>>>> hard cut or patching for us and our customers it would be good if we could
+>>>>>>> use the same naming in the mainline kernel as well. Marek, we would be
+>>>>>>> happy if you would adopt our valued GPIO naming in your patch.
+>>>>>>
+>>>>>> My counter-argument to this is that the naming should be unique and
+>>>>>> provide a hint where those GPIO lines come from, so maybe even DH-GPIO-n
+>>>>>> should rather be DHCOM-n . I can't say I'm particularly fond of the
+>>>>>> plain 'n' naming of GPIO lines, because then the GPIO label (and e.g.
+>>>>>> listing in libgpiod tools) does not give any hint what the GPIO is or
+>>>>>> where it comes from. Also, I worry a plain 'n' naming might clash with
+>>>>>> other GPIO IPs easily, while a more unique name can not.
+>>>>>
+>>>>> Hello Marek,
+>>>>>
+>>>>> after an internal discussion, we decided the following:
+>>>>>
+>>>>> Could you update the patch for the Avenger96 to the GPIO naming "AV96-n".
+>>>>>
+>>>>> Moreover for the SOM layer (stm32mp15xx-dhcom-som.dtsi) we would prefer
+>>>>> "DHCOM-n". It would be nice if you could create a patch for it.
+>>>>
+>>>> I don't think we should have any SoM-side gpio-line-names, because once
+>>>> you plug the SoM into new carrier board, the gpio-lane-names will no
+>>>> longer make sense. So, I think all the gpio-line-names should be
+>>>> implemented in the carrier board DTS.
+>>>
+>>> The idea is to define the GPIO names on the SOM layer and then
+>>> overwrite them on the carrier board DTS if needed. If there is no
+>>> naming on the carrier board, at least you have access via the DHCOM
+>>> GPIO names. The DHCOM GPIO names are standardized, so that you can
+>>> be sure that the assignment to a pin always fits.
+>>
+>> So I'll pose another question here to the GPIO maintainers.
+>>
+>> Is it OK to define gpio-line-names in SoM DTSI even for pins which will
+>> not be used as GPIOs e.g. because they are muxed differently in the
+>> carrier board DTS ?
+>>
+>> If that is OK, then the above approach is then also OK.
+> 
+> In our case, we cannot mux the GPIO pins in the carrier board DTS
+> to another functions, because then we break our SOM standard (DHCOM).
 
---Km1U/tdNT/EmXiR1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+You can, assume you take two of the SoM GPIO-X and GPIO-Y signals which 
+are present e.g. on the PDK2 jumper header and connect I2C EEPROM to 
+those two pins. Then you mux those two pins as I2C bus. And that happens 
+on the carrier board level (or a DTO, but that's out of scope here).
 
-On Mon, Mar 15, 2021 at 08:43:54PM +0800, dillon min wrote:
-> Hi All,
->=20
-> Just a gentle ping.
+> So in the case we relabel a GPIO in the carrier board e.g. "DHCOM-I"
+> becomes "LED1" the mux function have to be GPIO.
 
-Pierre-Yves?
-
->=20
-> Regards.
->=20
-> On Tue, Jun 9, 2020 at 9:27 PM <dillon.minfei@gmail.com> wrote:
-> >
-> > From: dillon min <dillon.minfei@gmail.com>
-> >
-> > as stm32f429's internal flash is 2Mbytes and compiled kernel
-> > image bigger than 2Mbytes, so we have to load kernel image
-> > to sdram on stm32f429-disco board which has 8Mbytes sdram space.
-> >
-> > based on above context, as you knows kernel running on external
-> > sdram is more slower than internal flash. besides, we need read 4
-> > bytes to get touch screen xyz(x, y, pressure) coordinate data in
-> > stmpe811 interrupt.
-> >
-> > so, in stm32f4_i2c_handle_rx_done, as i2c read slower than running
-> > in xip mode, have to adjust 'STOP/START bit set position' from last
-> > two bytes to last one bytes. else, will get i2c timeout in reading
-> > touch screen coordinate.
-> >
-> > to not take side effect, introduce IIC_LAST_BYTE_POS to support xip
-> > kernel or has mmu platform.
-> >
-> > Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> > ---
-> >
-> > V4: indroduce 'IIC_LAST_BYTE_POS' to compatible with xipkernel boot
-> >
-> >  drivers/i2c/busses/i2c-stm32f4.c | 12 +++++++++---
-> >  1 file changed, 9 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-=
-stm32f4.c
-> > index d6a69dfcac3f..97cf42ae7fa0 100644
-> > --- a/drivers/i2c/busses/i2c-stm32f4.c
-> > +++ b/drivers/i2c/busses/i2c-stm32f4.c
-> > @@ -93,6 +93,12 @@
-> >  #define STM32F4_I2C_MAX_FREQ           46U
-> >  #define HZ_TO_MHZ                      1000000
-> >
-> > +#if !defined(CONFIG_MMU) && !defined(CONFIG_XIP_KERNEL)
-> > +#define IIC_LAST_BYTE_POS 1
-> > +#else
-> > +#define IIC_LAST_BYTE_POS 2
-> > +#endif
-> > +
-> >  /**
-> >   * struct stm32f4_i2c_msg - client specific data
-> >   * @addr: 8-bit slave addr, including r/w bit
-> > @@ -439,7 +445,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32=
-f4_i2c_dev *i2c_dev)
-> >         int i;
-> >
-> >         switch (msg->count) {
-> > -       case 2:
-> > +       case IIC_LAST_BYTE_POS:
-> >                 /*
-> >                  * In order to correctly send the Stop or Repeated Start
-> >                  * condition on the I2C bus, the STOP/START bit has to =
-be set
-> > @@ -454,7 +460,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32=
-f4_i2c_dev *i2c_dev)
-> >                 else
-> >                         stm32f4_i2c_set_bits(reg, STM32F4_I2C_CR1_START=
-);
-> >
-> > -               for (i =3D 2; i > 0; i--)
-> > +               for (i =3D IIC_LAST_BYTE_POS; i > 0; i--)
-> >                         stm32f4_i2c_read_msg(i2c_dev);
-> >
-> >                 reg =3D i2c_dev->base + STM32F4_I2C_CR2;
-> > @@ -463,7 +469,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32=
-f4_i2c_dev *i2c_dev)
-> >
-> >                 complete(&i2c_dev->complete);
-> >                 break;
-> > -       case 3:
-> > +       case (IIC_LAST_BYTE_POS+1):
-> >                 /*
-> >                  * In order to correctly generate the NACK pulse after =
-the last
-> >                  * received data byte, we have to enable NACK before re=
-ading N-2
-> > --
-> > 2.7.4
-> >
-
---Km1U/tdNT/EmXiR1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmBPWoIACgkQFA3kzBSg
-KbaufQ//Ys3IspQl5ZmHUiYQNXTgpssUevIjsxXi1RZF4eaFk+YV3swvOuYgsRgD
-VAws9zq1iBYtQ1UVJUSYYXOG+fE1hIES4FHHLfD0jvIgkNU7MQEsSlx/4So3ns4d
-DSSYhfam+Ido8zuePoP5QR3MQJRAqG6gg0JCyM/1aSmIOn72sDn57y84swvNSnWc
-0Ej5IFGvPH3CpHrpx3VeVk+TrapWiDaNCIoZbZFfE2br4OxBvRamSS0oNtyW13vQ
-Ui+AEnAsxtjU+I+xWDtLagSAQyiUSAvXdV49OAqXK9iJyQiXSbSCB8KEjzGOTHcn
-0sc0KAVl06ZdpdTQn/X7rgb0pJZ2FR1AqG9EfnDTc3bBOG/I7bwJCR/md7NegGWC
-RB0Xd8mSnkFZsZg5uzjsF88yU3pL/n85pOWz3Cc5cPm5kOQprgOQ/WNhh/49RtWi
-g1VAfPGTKtCY7MA0j/pacIkqCdyMDUCRnmPhW8KhavCiZyene2ROPIVvfQHt0dpl
-f+vZv9PF1nrubIEOLt6iB6T4qnuBOAEJW+YVUtht7HoaINjYQtUoc8IZRFU2az/R
-wU3n1GxN5TNb5u+aXIdt2dwvAwDq7jbu3WVvFMAUWD0Z8ofMefQMaLBw/wocLhMD
-/6wcjf8ViWZUWjPNAn8ahvsGhf649DemH95FBW5Y+S7YjxFnbFQ=
-=t5mo
------END PGP SIGNATURE-----
-
---Km1U/tdNT/EmXiR1--
-
---===============7821034877949697727==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+In the above example, the mux function becomes i2c in the carrier board 
+DT and the gpio-line-names remains the same since its included from the 
+SoM DTSI. I would like to know whether this is OK or whether we need to 
+patch the gpio-line-names in the carrier board DT and remove the GPIO-X 
+and GPIO-Y from the gpio-line-names there.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7821034877949697727==--
