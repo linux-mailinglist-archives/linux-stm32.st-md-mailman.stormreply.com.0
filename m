@@ -2,44 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0FA33C714
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 20:51:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 185E333C746
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 21:00:13 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E876C57B55;
-	Mon, 15 Mar 2021 19:51:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3B3FC57B55;
+	Mon, 15 Mar 2021 20:00:12 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97C95C56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE405C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Mar 2021 19:51:02 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 402C164DF0;
- Mon, 15 Mar 2021 19:51:01 +0000 (UTC)
+ Mon, 15 Mar 2021 20:00:10 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 7F0AE64F4A;
+ Mon, 15 Mar 2021 20:00:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615837861;
- bh=hoqDuT8A2C6aokhdkoqKymuqaw9D6ovqyc/1aLIzWsU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=awdBpqE4rXysetx+T2AvN+kKG81fd+KADq8inTrTuBK8y//1zh4Tt10BkcUZwd3WS
- ciCDS1YCOR3MzlI7OPCuhqxHSecxHgkAXTel1IG9/Fx4YY7WWdQLbsJJ+qdm9IJ0gC
- 7d0QUQYupcOnzUgEcrDfQtLktemjrC4api39oTk77qyREI9RoXhaEjcZJFmjX9yb9d
- LfSQyhMQeDLXmfp0dQWfv8OK7UxVBpBJ6vgTggWRjQqk7Z7eMa9Ho0cmJk8sMrkfiy
- t5FbYRj6oGquzAI6r3go6cDi9lh7bgFf1uqZXGygWNPmNv1yWN8qYdn3TlnZH2T0Ex
- dyTRzGxwm/+9w==
-Date: Mon, 15 Mar 2021 12:50:59 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-Message-ID: <20210315125059.32fde79a@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20210315064448.16391-2-boon.leong.ong@intel.com>
-References: <20210315064448.16391-1-boon.leong.ong@intel.com>
- <20210315064448.16391-2-boon.leong.ong@intel.com>
+ s=k20201202; t=1615838409;
+ bh=7N3RmC/cpuiiM1aIpdz7UBFGNwEKoT7n1Fr1M/oLKjo=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=CBXoYGQRXyEHQlswtO1RUqnfUFCuYlpWefvy7e8o1N1bd5Xx0gJEP457mSSDONv8k
+ cpBCnEwj/Zy0ZqcU3ORFwmPwRzJSorqEXnaVP/nTOFMIOYj54KU8RN6wLR0okZgran
+ RjbbGB0CGsxwofbwbpBIqLUz39GSTAQUdW4c6Umf571622mRcOolKfSrUrTSacqVRF
+ N23IYVr+hRR88pPSfRcgRGfRwMG+ejnqGXS87yhjzFjHGa5wQXxlvYenxVIFtoSQYW
+ 68hT2P4Yzevkq0Nx17xb9zJ5fT+PlufdhhhFqUAi8dQaqRhPJRAlxoklKgrNMTX3cD
+ Xia3LlT6Oifbw==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 788A1609C5;
+ Mon, 15 Mar 2021 20:00:09 +0000 (UTC)
 MIME-Version: 1.0
-Cc: Alexandre Torgue <alexandre.torgue@st.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: add per-queue
- TX & RX coalesce ethtool support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <161583840948.32082.9319106949177097567.git-patchwork-notify@kernel.org>
+Date: Mon, 15 Mar 2021 20:00:09 +0000
+References: <20210315052711.16728-1-boon.leong.ong@intel.com>
+In-Reply-To: <20210315052711.16728-1-boon.leong.ong@intel.com>
+To: Ong Boon Leong <boon.leong.ong@intel.com>
+Cc: andrew@lunn.ch, linux-kernel@vger.kernel.org, alexandre.torgue@st.com,
+ weifeng.voon@intel.com, vee.khee.wong@intel.com, netdev@vger.kernel.org,
+ linux@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, fugang.duan@nxp.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 0/6] net: pcs,
+	stmmac: add C37 AN SGMII support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,172 +60,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 15 Mar 2021 14:44:48 +0800 Ong Boon Leong wrote:
-> Extending the driver to support per-queue RX and TX coalesce settings in
-> order to support below commands:
+Hello:
+
+This series was applied to netdev/net-next.git (refs/heads/master):
+
+On Mon, 15 Mar 2021 13:27:05 +0800 you wrote:
+> Hi all,
 > 
-> To show per-queue coalesce setting:-
->  $ ethtool --per-queue <DEVNAME> queue_mask <MASK> --show-coalesce
+> This patch series adds MAC-side SGMII support to stmmac driver and it is
+> changed as follow:-
 > 
-> To set per-queue coalesce setting:-
->  $ ethtool --per-queue <DEVNAME> queue_mask <MASK> --coalesce \
->      [rx-usecs N] [rx-frames M] [tx-usecs P] [tx-frames Q]
+> 1/6: Refactor the current C73 implementation in pcs-xpcs to prepare for
+>      adding C37 AN later.
+> 2/6: Add MAC-side SGMII C37 AN support to pcs-xpcs
+> 3,4/6: make phylink_parse_mode() to work for non-DT platform so that
+>        we can use stmmac platform_data to set it.
+> 5/6: Make stmmac_open() to only skip PHY init if C73 is used, otherwise
+>      C37 AN will need phydev to be connected to phylink.
+> 6/6: Finally, add pcs-xpcs SGMII interface support to Intel mGbE
+>      controller.
 > 
-> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+> [...]
 
-> -static int stmmac_get_coalesce(struct net_device *dev,
-> -			       struct ethtool_coalesce *ec)
-> +static int __stmmac_get_coalesce(struct net_device *dev,
-> +				 struct ethtool_coalesce *ec,
-> +				 int queue)
->  {
->  	struct stmmac_priv *priv = netdev_priv(dev);
-> +	u32 max_cnt;
-> +	u32 rx_cnt;
-> +	u32 tx_cnt;
->  
-> -	ec->tx_coalesce_usecs = priv->tx_coal_timer;
-> -	ec->tx_max_coalesced_frames = priv->tx_coal_frames;
-> +	rx_cnt = priv->plat->rx_queues_to_use;
-> +	tx_cnt = priv->plat->tx_queues_to_use;
-> +	max_cnt = max(rx_cnt, tx_cnt);
->  
-> -	if (priv->use_riwt) {
-> -		ec->rx_max_coalesced_frames = priv->rx_coal_frames;
-> -		ec->rx_coalesce_usecs = stmmac_riwt2usec(priv->rx_riwt, priv);
-> +	if (queue < 0)
-> +		queue = 0;
-> +	else if (queue >= max_cnt)
-> +		return -EINVAL;
-> +
-> +	if (queue < tx_cnt) {
-> +		ec->tx_coalesce_usecs = priv->tx_coal_timer[queue];
-> +		ec->tx_max_coalesced_frames = priv->tx_coal_frames[queue];
-> +	} else {
-> +		ec->tx_coalesce_usecs = -1;
-> +		ec->tx_max_coalesced_frames = -1;
-> +	}
-> +
-> +	if (priv->use_riwt && queue < rx_cnt) {
-> +		ec->rx_max_coalesced_frames = priv->rx_coal_frames[queue];
-> +		ec->rx_coalesce_usecs = stmmac_riwt2usec(priv->rx_riwt[queue],
-> +							 priv);
-> +	} else {
-> +		ec->rx_max_coalesced_frames = -1;
-> +		ec->rx_coalesce_usecs = -1;
+Here is the summary with links:
+  - [net-next,1/6] net: pcs: rearrange C73 functions to prepare for C37 support later
+    https://git.kernel.org/netdev/net-next/c/07a4bc51fc73
+  - [net-next,2/6] net: pcs: add C37 SGMII AN support for intel mGbE controller
+    https://git.kernel.org/netdev/net-next/c/b97b5331b8ab
+  - [net-next,3/6] net: phylink: make phylink_parse_mode() support non-DT platform
+    https://git.kernel.org/netdev/net-next/c/ab39385021d1
+  - [net-next,4/6] net: stmmac: make in-band AN mode parsing is supported for non-DT
+    https://git.kernel.org/netdev/net-next/c/e5e5b771f684
+  - [net-next,5/6] net: stmmac: ensure phydev is attached to phylink for C37 AN
+    https://git.kernel.org/netdev/net-next/c/c62808e8105f
+  - [net-next,6/6] stmmac: intel: add pcs-xpcs for Intel mGbE controller
+    https://git.kernel.org/netdev/net-next/c/7310fe538ea5
 
-Why the use of negative values? why not leave them as 0?
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
->  	}
->  
->  	return 0;
->  }
->  
-> -static int stmmac_set_coalesce(struct net_device *dev,
-> +static int stmmac_get_coalesce(struct net_device *dev,
->  			       struct ethtool_coalesce *ec)
-> +{
-> +	return __stmmac_get_coalesce(dev, ec, -1);
-> +}
-> +
-> +static int stmmac_get_per_queue_coalesce(struct net_device *dev, u32 queue,
-> +					 struct ethtool_coalesce *ec)
-> +{
-> +	return __stmmac_get_coalesce(dev, ec, queue);
-> +}
-> +
-> +static int __stmmac_set_coalesce(struct net_device *dev,
-> +				 struct ethtool_coalesce *ec,
-> +				 int queue)
->  {
->  	struct stmmac_priv *priv = netdev_priv(dev);
-> -	u32 rx_cnt = priv->plat->rx_queues_to_use;
-> +	bool all_queues = false;
->  	unsigned int rx_riwt;
-> +	u32 max_cnt;
-> +	u32 rx_cnt;
-> +	u32 tx_cnt;
-> +
-> +	rx_cnt = priv->plat->rx_queues_to_use;
-> +	tx_cnt = priv->plat->tx_queues_to_use;
-> +	max_cnt = max(rx_cnt, tx_cnt);
-> +
-> +	if (queue < 0)
-> +		all_queues = true;
-> +	else if (queue >= max_cnt)
-> +		return -EINVAL;
-> +
-> +	/* Check not supported parameters  */
-> +	if (ec->rx_coalesce_usecs_irq ||
-> +	    ec->rx_max_coalesced_frames_irq || ec->tx_coalesce_usecs_irq ||
-> +	    ec->use_adaptive_rx_coalesce || ec->use_adaptive_tx_coalesce ||
-> +	    ec->pkt_rate_low || ec->rx_coalesce_usecs_low ||
-> +	    ec->rx_max_coalesced_frames_low || ec->tx_coalesce_usecs_high ||
-> +	    ec->tx_max_coalesced_frames_low || ec->pkt_rate_high ||
-> +	    ec->tx_coalesce_usecs_low || ec->rx_coalesce_usecs_high ||
-> +	    ec->rx_max_coalesced_frames_high ||
-> +	    ec->tx_max_coalesced_frames_irq ||
-> +	    ec->stats_block_coalesce_usecs ||
-> +	    ec->tx_max_coalesced_frames_high || ec->rate_sample_interval)
-> +		return -EOPNOTSUPP;
 
-This shouldn't be needed now that supporter types are expressed in 
-dev->ethtool_ops->supported_coalesce_params, no?
-
->  	if (priv->use_riwt && (ec->rx_coalesce_usecs > 0)) {
->  		rx_riwt = stmmac_usec2riwt(ec->rx_coalesce_usecs, priv);
-> @@ -785,8 +846,23 @@ static int stmmac_set_coalesce(struct net_device *dev,
->  		if ((rx_riwt > MAX_DMA_RIWT) || (rx_riwt < MIN_DMA_RIWT))
->  			return -EINVAL;
->  
-> -		priv->rx_riwt = rx_riwt;
-> -		stmmac_rx_watchdog(priv, priv->ioaddr, priv->rx_riwt, rx_cnt);
-> +		if (all_queues) {
-> +			int i;
-> +
-> +			for (i = 0; i < rx_cnt; i++) {
-> +				priv->rx_riwt[i] = rx_riwt;
-> +				stmmac_rx_watchdog(priv, priv->ioaddr,
-> +						   rx_riwt, i);
-> +				priv->rx_coal_frames[i] =
-> +					ec->rx_max_coalesced_frames;
-> +			}
-> +		} else if (queue < rx_cnt) {
-> +			priv->rx_riwt[queue] = rx_riwt;
-> +			stmmac_rx_watchdog(priv, priv->ioaddr,
-> +					   rx_riwt, queue);
-> +			priv->rx_coal_frames[queue] =
-> +				ec->rx_max_coalesced_frames;
-> +		}
->  	}
->  
->  	if ((ec->tx_coalesce_usecs == 0) &&
-> @@ -797,13 +873,37 @@ static int stmmac_set_coalesce(struct net_device *dev,
->  	    (ec->tx_max_coalesced_frames > STMMAC_TX_MAX_FRAMES))
->  		return -EINVAL;
->  
-> -	/* Only copy relevant parameters, ignore all others. */
-> -	priv->tx_coal_frames = ec->tx_max_coalesced_frames;
-> -	priv->tx_coal_timer = ec->tx_coalesce_usecs;
-> -	priv->rx_coal_frames = ec->rx_max_coalesced_frames;
-> +	if (all_queues) {
-> +		int i;
-> +
-> +		for (i = 0; i < tx_cnt; i++) {
-> +			priv->tx_coal_frames[i] =
-> +				ec->tx_max_coalesced_frames;
-> +			priv->tx_coal_timer[i] =
-> +				ec->tx_coalesce_usecs;
-> +		}
-> +	} else if (queue < tx_cnt) {
-> +		priv->tx_coal_frames[queue] =
-> +			ec->tx_max_coalesced_frames;
-> +		priv->tx_coal_timer[queue] =
-> +			ec->tx_coalesce_usecs;
-> +	}
-> +
->  	return 0;
->  }
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
