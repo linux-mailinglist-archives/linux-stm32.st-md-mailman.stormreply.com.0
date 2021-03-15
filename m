@@ -2,35 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC94C33BF50
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 16:01:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5014633BF5F
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Mar 2021 16:05:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A549DC57B55;
-	Mon, 15 Mar 2021 15:01:42 +0000 (UTC)
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04C00C57B77;
+	Mon, 15 Mar 2021 15:05:11 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AB0EC5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7B03C57B55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Mar 2021 15:01:38 +0000 (UTC)
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 4Dzfl56fk6z1ryp5;
- Mon, 15 Mar 2021 16:01:37 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 4Dzfl55f6fz1qqkt;
- Mon, 15 Mar 2021 16:01:37 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id IwAKvCcciwSC; Mon, 15 Mar 2021 16:01:36 +0100 (CET)
-X-Auth-Info: 91DEx3Pnj304o4YXfljC7EmWM6AeTtpR7njqFuPmmrk=
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Mon, 15 Mar 2021 16:01:36 +0100 (CET)
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ Mon, 15 Mar 2021 15:05:08 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1lLomH-0005bX-Aj; Mon, 15 Mar 2021 16:05:05 +0100
+To: Marek Vasut <marex@denx.de>,
  Christoph Niedermaier <cniedermaier@dh-electronics.com>,
  "linux-arm-kernel@lists.infradead.org"
  <linux-arm-kernel@lists.infradead.org>,
@@ -44,14 +33,20 @@ References: <20200724101610.146403-1-marex@denx.de>
  <7504da89-63a7-1b80-3159-a0346535137e@denx.de>
  <788d7d182b13448c8afc4b99518daa34@dh-electronics.com>
  <d452b0ac-d11b-0e6e-56db-568d7c9238a0@pengutronix.de>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <34769f70-c7e2-984c-fd86-b82aaf38ba57@denx.de>
-Date: Mon, 15 Mar 2021 15:29:31 +0100
+ <34769f70-c7e2-984c-fd86-b82aaf38ba57@denx.de>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <42dad6a8-9a68-360f-3308-11194d256900@pengutronix.de>
+Date: Mon, 15 Mar 2021 16:05:02 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-In-Reply-To: <d452b0ac-d11b-0e6e-56db-568d7c9238a0@pengutronix.de>
+In-Reply-To: <34769f70-c7e2-984c-fd86-b82aaf38ba57@denx.de>
 Content-Language: en-US
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: Alexandre Torgue <alexandre.torgue@st.com>,
  Patrice Chotard <patrice.chotard@st.com>,
  Patrick Delaunay <patrick.delaunay@st.com>,
@@ -72,41 +67,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/15/21 1:05 PM, Ahmad Fatoum wrote:
-> On 15.03.21 12:41, Christoph Niedermaier wrote:
->>> So I'll pose another question here to the GPIO maintainers.
+Hello,
+
+On 15.03.21 15:29, Marek Vasut wrote:
+> On 3/15/21 1:05 PM, Ahmad Fatoum wrote:
+>> On 15.03.21 12:41, Christoph Niedermaier wrote:
+>>>> So I'll pose another question here to the GPIO maintainers.
+>>>>
+>>>> Is it OK to define gpio-line-names in SoM DTSI even for pins which will
+>>>> not be used as GPIOs e.g. because they are muxed differently in the
+>>>> carrier board DTS ?
+>>>>
+>>>> If that is OK, then the above approach is then also OK.
 >>>
->>> Is it OK to define gpio-line-names in SoM DTSI even for pins which will
->>> not be used as GPIOs e.g. because they are muxed differently in the
->>> carrier board DTS ?
->>>
->>> If that is OK, then the above approach is then also OK.
+>>> In our case, we cannot mux the GPIO pins in the carrier board DTS
+>>> to another functions, because then we break our SOM standard (DHCOM).
+>>> So in the case we relabel a GPIO in the carrier board e.g. "DHCOM-I"
+>>> becomes "LED1" the mux function have to be GPIO.
 >>
->> In our case, we cannot mux the GPIO pins in the carrier board DTS
->> to another functions, because then we break our SOM standard (DHCOM).
->> So in the case we relabel a GPIO in the carrier board e.g. "DHCOM-I"
->> becomes "LED1" the mux function have to be GPIO.
+>> For standards like SMARC, where the interface is predefined, I think it makes
+>> much sense to have the SoM dtsi contain not only the line-names, but also
+>> ready-to-use, pinmuxing settings.
+>>
+>> Base boards can then either enable peripherals with just a status = "okay"
+>> if they follow the standard or just override it if they choose to do
+>> stuff differently.
 > 
-> For standards like SMARC, where the interface is predefined, I think it makes
-> much sense to have the SoM dtsi contain not only the line-names, but also
-> ready-to-use, pinmuxing settings.
-> 
-> Base boards can then either enable peripherals with just a status = "okay"
-> if they follow the standard or just override it if they choose to do
-> stuff differently.
+> Sadly, I think I have to remind you of the discussion around pinctrl groups we have in stm32mp15-pinctrl.dtsi and how that does not scale. This is a very similar situation here, since the SoM is rather universal.
 
-Sadly, I think I have to remind you of the discussion around pinctrl 
-groups we have in stm32mp15-pinctrl.dtsi and how that does not scale. 
-This is a very similar situation here, since the SoM is rather universal.
+I don't think this is directly comparable. A SoC has _lots_ of possible way to mux and
+conf pads. A SMARC, AFAIU, has exactly one official pinout. That one you can add into
+the dtsi and the bast board either extends that or overrides it if it diverges.
 
-And the other thing I would like to point out here are the discussions 
-around DT connector. What you described above is exactly that, except 
-the implementation is still not finished. Let's CC Frank.
+> And the other thing I would like to point out here are the discussions around DT connector. What you described above is exactly that, except the implementation is still not finished. Let's CC Frank.
+Thanks for the pointer. I'll check it out.
+
+Cheers,
+Ahmad
+
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
