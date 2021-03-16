@@ -2,67 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FCA133C9C0
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Mar 2021 00:11:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18F6B33CA6F
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Mar 2021 01:41:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29B6DC57B55;
-	Mon, 15 Mar 2021 23:11:43 +0000 (UTC)
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
- [209.85.166.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6FE9C57B55;
+	Tue, 16 Mar 2021 00:41:44 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F792C5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08A3AC5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Mar 2021 23:11:41 +0000 (UTC)
-Received: by mail-il1-f179.google.com with SMTP id h18so11002215ils.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Mar 2021 16:11:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OWwHR8Ne423+zbtI1q+8mLttBfXbDb6VslhtXcXanQg=;
- b=tDmV3Clxxrt5CYW6RR5YvvuFRnN750yidjGLYegOB42Ae9zwMhBjB8qjfA173QHAlG
- oAWC+SYJO1hS9ifiZSDX1U/sGOQyigND3hHv1grdytMkoojG5raNQxL+9HUwT8RXSxG5
- asX49ilTHb6G06bDtHYtIwSjlpYCbnTABKe5yHIEm0h6g3ojlhxqhL/N/XeIsyXy0zPW
- dWpvNMJRikRoHV1IjjcsOPy404NrmT5eMpPXTQ24R2ibgtXXbLBzX2E7xLn4hSne7pu9
- K3Rr8c7Ky8R3vo28DEHiwdx5ppLMUJ61kCV1q/KGy1Ek/yPqrxVJh2vOtr0Ou014TA9B
- AwGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OWwHR8Ne423+zbtI1q+8mLttBfXbDb6VslhtXcXanQg=;
- b=dXKYpq0pgDItNWcPwf/i3LLH7rvlU4z2xL1OF6G/tekppkMePiH0A+H2Olfs86+dSX
- BLk0myKH9BjUQo+mrFQN5iGAPdOfJeBILLnmUKraxt8iaI0TVOwv4KCRVCwi919019eB
- Q043QVCjRBBk9Typqi+yZ5cTMrriZNG7JjcAw7ocjF7jIqYq9T3Vra5rMkYUoD17IJ+1
- PFOoNguC5j2GbY0Marto2VWHl6C8jOAc4mi604POgKpa2jNosI6A4KuP+UXH6x7H0qLj
- NpcQijSIoIok6i64HAVURq2wIL8s8JIfjdNHFjXy2bRqxlx2CZ1DbPzaxyIVFHOYMtx0
- eCNw==
-X-Gm-Message-State: AOAM533pDggsrFpohXAhArJGHrVOkO1WYCV1yu3X8fGXmZ4tYFrtnShB
- op4Ue2N4LU4WASyEYNAqUzA669xWIL5jmLDqCAE=
-X-Google-Smtp-Source: ABdhPJyIMGxVLSY13hI+sOxMMBbHkVYSuVizx6fGRZmxlv5OglFxTSdwX1GBMv9JMdlw2kMfPpdh3pViASu367w3Gpc=
-X-Received: by 2002:a05:6e02:dcd:: with SMTP id
- l13mr1430957ilj.271.1615849900503; 
- Mon, 15 Mar 2021 16:11:40 -0700 (PDT)
+ Tue, 16 Mar 2021 00:41:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 13E0B64F5D;
+ Tue, 16 Mar 2021 00:41:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615855301;
+ bh=VOYpVt5GwO6xxd7dzoJqdqBQftQfoa6f+tTn+g1OspY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=D3D1NwUuG0CuABzkFTHXcEAW+S7iIYvnc+93RHujNFtyOqGnPORw93SC2PO8r5GxT
+ lVPI4D4FhmO4FWooADcYUwTjmCrzDRDqOWo5htEtnoYMQlT7MkeucFC8etgProA2md
+ ad9Xj1r3TvDxivfFzmvitvuV4GhlC0Z8kvFTqTtfHIzSNQkcv2+BULqz07q/38v9Ua
+ NW6dUIrrsXuzhEIzRFrEJrXJAAsBugvAXWqDDOl9owixrrKRpX/9XtX3MkKksdiGjS
+ vP5zxn1qoPU3QgIF9HRB6/dRTBB2emhNh/z9tDH1HDpnoAZCOQ1DR+bEjW4fLAKzPU
+ L03jnisdxoGqQ==
+Date: Mon, 15 Mar 2021 17:41:40 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: mohammad.athari.ismail@intel.com
+Message-ID: <20210315174140.6abb0edf@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20210315221409.3867-2-mohammad.athari.ismail@intel.com>
+References: <20210315221409.3867-1-mohammad.athari.ismail@intel.com>
+ <20210315221409.3867-2-mohammad.athari.ismail@intel.com>
 MIME-Version: 1.0
-References: <1615801436-3016-1-git-send-email-dillon.minfei@gmail.com>
- <1615801436-3016-4-git-send-email-dillon.minfei@gmail.com>
- <20210315162648.GB981570@robh.at.kernel.org>
-In-Reply-To: <20210315162648.GB981570@robh.at.kernel.org>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Mon, 15 Mar 2021 23:11:04 +0800
-Message-ID: <CAL9mu0+T++RotJt_ayPDFmbxjLL6G20FzR0aQ2FMjn6Dz0qaFw@mail.gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Vladimir Murzin <vladimir.murzin@arm.com>,
+Cc: Alexandre Torgue <alexandre.torgue@st.com>,
+ Voon Weifeng <weifeng.voon@intel.com>, vee.khee.wong@intel.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>, gregkh@linuxfoundation.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux@armlinux.org.uk, Rob Herring <robh+dt@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-serial@vger.kernel.org,
- afzal.mohd.ma@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- erwan.leray@st.com, Alexandre Torgue <alexandre.torgue@st.com>
-Subject: Re: [Linux-stm32] [PATCH v3 3/9] dt-bindings: pinctrl: stm32: Add
-	stm32h750 pinctrl
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
+ Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: EST interrupts
+ handling and error reporting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,35 +59,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Mar 16, 2021 at 12:26 AM Rob Herring <robh@kernel.org> wrote:
->
-> On Mon, 15 Mar 2021 17:43:50 +0800, dillon.minfei@gmail.com wrote:
-> > From: dillon min <dillon.minfei@gmail.com>
-> >
-> > This patch intend to add pinctrl configuration support for
-> > stm32h750 value line
-> >
-> > The datasheet of stm32h750 value line can be found at:
-> > https://www.st.com/resource/en/datasheet/stm32h750ib.pdf
-> >
-> > Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> > ---
-> >  Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
->
->
-> Please add Acked-by/Reviewed-by tags when posting new versions. However,
-> there's no need to repost patches *only* to add the tags. The upstream
-> maintainer will do that for acks received on the version they apply.
->
-> If a tag was not added on purpose, please state why and what changed.
->
-Sorry for that, i forgot to remove patch 3 from v2/v3 theris, there are no
-changes in v2/v3. please just ignore it , thanks.
+On Tue, 16 Mar 2021 06:14:08 +0800 mohammad.athari.ismail@intel.com
+wrote:
+> From: Voon Weifeng <weifeng.voon@intel.com>
+> 
+> Enabled EST related interrupts as below:
+> 1) Constant Gate Control Error (CGCE)
+> 2) Head-of-Line Blocking due to Scheduling (HLBS)
+> 3) Head-of-Line Blocking due to Frame Size (HLBF).
+> 4) Base Time Register error (BTRE)
+> 5) Switch to S/W owned list Complete (SWLC)
+> 
+> For HLBS, the user will get the info of all the queues that shows this
+> error. For HLBF, the user will get the info of all the queue with the
+> latest frame size which causes the error. Frame size 0 indicates no
+> error.
+> 
+> The ISR handling takes place when EST feature is enabled by user.
+> 
+> Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
+> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+> Co-developed-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
+> Signed-off-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
 
-Dillon,
-Best Regards.
+> +	if (status & HLBS) {
+> +		value = readl(ioaddr + MTL_EST_SCH_ERR);
+> +		value &= txqcnt_mask;
+> +
+> +		/* Clear Interrupt */
+> +		writel(value, ioaddr + MTL_EST_SCH_ERR);
+> +
+> +		/* Collecting info to shows all the queues that has HLBS
+> +		 * issue. The only way to clear this is to clear the
+> +		 * statistic
+> +		 */
+> +		if (net_ratelimit())
+> +			netdev_err(dev, "EST: HLB(sched) Queue %u\n", value);
+
+This is a mask so probably better display it as hex?
+
+> +	}
+> +
+> +	if (status & HLBF) {
+> +		value = readl(ioaddr + MTL_EST_FRM_SZ_ERR);
+> +		feqn = value & txqcnt_mask;
+> +
+> +		value = readl(ioaddr + MTL_EST_FRM_SZ_CAP);
+> +		hbfq = (value & SZ_CAP_HBFQ_MASK(txqcnt)) >> SZ_CAP_HBFQ_SHIFT;
+> +		hbfs = value & SZ_CAP_HBFS_MASK;
+> +
+> +		/* Clear Interrupt */
+> +		writel(feqn, ioaddr + MTL_EST_FRM_SZ_ERR);
+> +
+> +		if (net_ratelimit())
+> +			netdev_err(dev, "EST: HLB(size) Queue %u Size %u\n",
+> +				   hbfq, hbfs);
+> +	}
+> +
+> +	if (status & BTRE) {
+> +		btrl = (status & BTRL) >> BTRL_SHIFT;
+> +
+> +		if (net_ratelimit())
+> +			netdev_info(dev, "EST: BTR Error Loop Count %u\n",
+> +				    btrl);
+> +
+> +		writel(BTRE, ioaddr + MTL_EST_STATUS);
+> +	}
+> +
+> +	if (status & SWLC) {
+> +		writel(SWLC, ioaddr + MTL_EST_STATUS);
+> +		netdev_info(dev, "EST: SWOL has been switched\n");
+> +	}
+> +
+> +	return status;
+
+Caller never checks the return value, it probably should if this driver
+supports shared irqs? Otherwise you can make this function void.
+
+> +}
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
