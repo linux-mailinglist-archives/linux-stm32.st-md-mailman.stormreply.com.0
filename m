@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE3D733DA07
+	by mail.lfdr.de (Postfix) with ESMTPS id DA14733DA08
 	for <lists+linux-stm32@lfdr.de>; Tue, 16 Mar 2021 18:01:59 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86E63C57B78;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95B5AC57B7B;
 	Tue, 16 Mar 2021 17:01:59 +0000 (UTC)
-Received: from mail-il1-f177.google.com (mail-il1-f177.google.com
- [209.85.166.177])
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
+ [209.85.166.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99266C56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 850F4C57B77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Mar 2021 13:51:04 +0000 (UTC)
-Received: by mail-il1-f177.google.com with SMTP id v14so12684347ilj.11
+ Tue, 16 Mar 2021 13:56:04 +0000 (UTC)
+Received: by mail-io1-f52.google.com with SMTP id z13so37205085iox.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Mar 2021 06:51:04 -0700 (PDT)
+ Tue, 16 Mar 2021 06:56:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=iUQn9vAiShCIKJ+8B/1Ypkb0F0c7ZlB9Q62OdvxGxHQ=;
- b=hrCS8Dlm1Y+8XvZlJ7knYuJ0NXSjcxwKLgXhXMzkVPIZkV6UZul4d9sLUB3+BzJaoC
- D/5xzt9GwzbKz8O+VZmxTvJa3uRBhTt7YgRAqC52W8rjAMGr6nSRd2gI/GCXrDZ9ZxkW
- pmtnaTjEYrXMK2JW+AGmFckIqqrcNqMnAdc6kSSY3bGX5wY57O9GQVUafahzFP3EBaOd
- m7L1E4Tmh+cRNTjGizF8zcCrb5MovAcX0HLY2I8xQgwMdtdR5X6ShfS8mEA3O8rrIs/5
- xaQ85JC3ZXgp1QsvhHDE0n8YKTwDNv9suKVKjiBaDw0Il9+1/vEXpDmbKyP5DZ1oHk33
- alBw==
+ :cc; bh=+46g674RBma+ciBzuJpVGTzQLL8+JCKCJVBU3dFl0nU=;
+ b=JA7icuejqFeeyZ/IOIMpnOI+hFshDRZOSH4fBbyaemq7qfkwoNIv/qx4mVwll7lXU3
+ tjN9Us2sp5TSrTsKVgS4PtP6LZpRnbepFzLciXfKlq4zdF6HqV7ebKC15/nJrYYQ7fY7
+ +U4Y8Yy4HiKWLqILRjUmFhESbgzDPKdh/zXyP39x8JaRZwJUXGu9bMxzmpmZr3r5rPdF
+ t1WbrEO1e/iGMbayLrT+uU2iURngEG0cGSIha1fgr4K5r/bzN/fWLChJDtpHwgUHWn6W
+ rt61kcK1rhZiqwa76VL/1121io2iwwWQ7V2C+59VFPRTEUa7r4hC+Rgf86Cj5WtSZzTe
+ A7Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=iUQn9vAiShCIKJ+8B/1Ypkb0F0c7ZlB9Q62OdvxGxHQ=;
- b=dwzl6Qd2yvlAyStS5sKUzJeKjeMyUiZhgM1Td1sInhP86SXjm09u0SKJoUpqOO0frv
- pWrkL4Zh/+8SUUPlEI1OEdAxeEHvd0pr4LXjTLIxwQsqPjTMtKtg8msU1wFC3oXcBIVM
- R1bW9eQJAVF4p3unp7RS1Qic0GZ24i8nBuTgSRkA8gpnsO2xgTqq7mNSTcA54082/THh
- HYhQ4B9ECI7BeP73OyUVWQzVCuXEiJggy9rDhUMRSDHvzb9h9X9cpsTdeCqZGfeH9DVc
- Zp90fmnA0fmSwcbAoaUdg6TLmT9zLplrsiCyWbnj3pBHOGPTlUUbW6nkwGRW/IxVey3T
- xscA==
-X-Gm-Message-State: AOAM530GbGjnTzaNaZ7MBlmUqRnUuGtVESMJ60Lb102kn3lUd3skCLKT
- P5Vdc4XUfIQKjDScaP1epx/SCX5PcLKVGOn7d5w=
-X-Google-Smtp-Source: ABdhPJxNMUNrqBRZgveqBJB96fQitRk2jusPNg+tRrL2Qkny1h/pplAw+qT71eYmiGbdneU2eArkywgVJOaWwHR0NSc=
-X-Received: by 2002:a05:6e02:156e:: with SMTP id
- k14mr3801626ilu.200.1615902663376; 
- Tue, 16 Mar 2021 06:51:03 -0700 (PDT)
+ bh=+46g674RBma+ciBzuJpVGTzQLL8+JCKCJVBU3dFl0nU=;
+ b=kdUvfRd1VxdJQ9jXIXKqgca5PBsNotQ8fWy9RWZfGY4/HBmvimxWZPMCAEkMLfEZbr
+ biK8tD8bI6TdGq+pI07mLoDk8xiJeSyUyCr4T6+DoJoOLh1jtaKZSXfbWPUZRS2JRGKR
+ Ls6gZysymIgUpXlKpHTz85+//n5JyW5+Ynfa6x5wVxoFZ3S95rBH3dAymTWM05dz7o9m
+ bnGZnVZFzsn9JDkotYgkx7hSL9KZSbLH8/xsBUi+IXG+hSzkSWrff9Bb/Ds0ScEig/3P
+ xL7oSR+uggfwJdd/hBjAyDIRX96NntxSc3zbI3BokbQWBmMTzS3EQLhMC+6jsN9n7/ZG
+ MKWA==
+X-Gm-Message-State: AOAM533GttjSQ1R0aFyJw2LnES+Fnt0JZjAa6m+IL0/kEANkVILaQitF
+ S1vTYmW4ledxOKtg3pQkWxebhWRGLyIzpoWsoV8=
+X-Google-Smtp-Source: ABdhPJxsQTVIidXXPM7aMIJVsw3A2CX7qX6qFM4TJR8DsZi2gn8eJ682nAaU6vckx6geePwgdiehZqOFuqwusFqi4nE=
+X-Received: by 2002:a05:6602:1689:: with SMTP id
+ s9mr3265333iow.171.1615902963396; 
+ Tue, 16 Mar 2021 06:56:03 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210316074239.2010897-1-weiyongjun1@huawei.com>
-In-Reply-To: <20210316074239.2010897-1-weiyongjun1@huawei.com>
+ <CAOc6etYcE-0wbcWxgTH49h1Odepg=Esc_gmfDoUioHOsnNj33Q@mail.gmail.com>
+In-Reply-To: <CAOc6etYcE-0wbcWxgTH49h1Odepg=Esc_gmfDoUioHOsnNj33Q@mail.gmail.com>
 From: Edmundo Carmona Antoranz <eantoranz@gmail.com>
-Date: Tue, 16 Mar 2021 07:50:51 -0600
-Message-ID: <CAOc6etYcE-0wbcWxgTH49h1Odepg=Esc_gmfDoUioHOsnNj33Q@mail.gmail.com>
+Date: Tue, 16 Mar 2021 07:55:51 -0600
+Message-ID: <CAOc6eta+QttyE_TJwLSTietCE2WiHEYgd-q8Bp-Xu1kdVDfnew@mail.gmail.com>
 To: "'w00385741" <weiyongjun1@huawei.com>
 X-Mailman-Approved-At: Tue, 16 Mar 2021 17:01:58 +0000
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -71,75 +72,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7258676935896357644=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============7258676935896357644==
-Content-Type: multipart/alternative; boundary="0000000000003e043905bda7a872"
+On Tue, Mar 16, 2021 at 7:50 AM Edmundo Carmona Antoranz
+<eantoranz@gmail.com> wrote:
 
---0000000000003e043905bda7a872
-Content-Type: text/plain; charset="UTF-8"
-
-On Tue, Mar 16, 2021 at 3:21 AM 'w00385741 <weiyongjun1@huawei.com> wrote:
+> I think you can let it go and check ret after unlocking:
 >
-> -               if (ret)
-> +               if (ret) {
-> +                       mutex_unlock(&priv->lock);
->                         return ret;
-> +               }
->         }
->         mutex_unlock(&priv->lock);
+>                 /* Disable clock in case of PWM is off */
+>                clk_disable_unprepare(priv->plat->clk_ptp_ref);
+>                ret = pm_runtime_force_suspend(dev);
+>        }
+>        mutex_unlock(&priv->lock);
+>        if (ret)
+>                return ret;
+
+Oh, I C. It would require ret to be set to 0 before starting to use
+it, right? Maybe it's worth it?
+
 >
-
-I think you can let it go and check ret after unlocking:
-
-                /* Disable clock in case of PWM is off */
-               clk_disable_unprepare(priv->plat->clk_ptp_ref);
-               ret = pm_runtime_force_suspend(dev);
-       }
-       mutex_unlock(&priv->lock);
-       if (ret)
-               return ret;
-
-       priv->speed = SPEED_UNKNOWN;
-       return 0;
-
---0000000000003e043905bda7a872
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-PGRpdiBkaXI9Imx0ciI+PGJyPjxicj5PbiBUdWUsIE1hciAxNiwgMjAyMSBhdCAzOjIxIEFNICYj
-Mzk7dzAwMzg1NzQxICZsdDs8YSBocmVmPSJtYWlsdG86d2VpeW9uZ2p1bjFAaHVhd2VpLmNvbSI+
-d2VpeW9uZ2p1bjFAaHVhd2VpLmNvbTwvYT4mZ3Q7IHdyb3RlOjxicj4mZ3Q7PGJyPiZndDsgLSDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCBpZiAocmV0KTxicj4mZ3Q7ICsgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgaWYgKHJldCkgezxicj4mZ3Q7ICsgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-bXV0ZXhfdW5sb2NrKCZhbXA7cHJpdi0mZ3Q7bG9jayk7PGJyPiZndDsgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgcmV0dXJuIHJldDs8YnI+Jmd0OyArIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIH08YnI+Jmd0OyDCoCDCoCDCoCDCoCB9PGJyPiZndDsgwqAgwqAgwqAgwqAgbXV0ZXhf
-dW5sb2NrKCZhbXA7cHJpdi0mZ3Q7bG9jayk7PGJyPiZndDs8YnI+PGJyPkkgdGhpbmsgeW91IGNh
-biBsZXQgaXQgZ28gYW5kIGNoZWNrIHJldCBhZnRlciB1bmxvY2tpbmc6PGRpdj48YnI+PHNwYW4g
-c3R5bGU9ImZvbnQtZmFtaWx5Om1vbm9zcGFjZSI+PHNwYW4gc3R5bGU9ImNvbG9yOnJnYigwLDAs
-MCkiPsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8qIERpc2FibGUgY2xvY2sgaW4gY2FzZSBvZiBQ
-V00gaXMgb2ZmICovDQo8L3NwYW4+PGJyPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBj
-bGtfZGlzYWJsZV91bnByZXBhcmUocHJpdi0mZ3Q7cGxhdC0mZ3Q7Y2xrX3B0cF9yZWYpOw0KPGJy
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXQgPSBwbV9ydW50aW1lX2ZvcmNlX3N1
-c3BlbmQoZGV2KTsNCjxicj4gwqDCoMKgwqDCoMKgwqB9DQo8YnI+IMKgwqDCoMKgwqDCoMKgbXV0
-ZXhfdW5sb2NrKCZhbXA7cHJpdi0mZ3Q7bG9jayk7DQo8YnI+IMKgwqDCoMKgwqDCoMKgaWYgKHJl
-dCkNCjxicj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuIHJldDsNCjxicj4N
-Cjxicj4gwqDCoMKgwqDCoMKgwqBwcml2LSZndDtzcGVlZCA9IFNQRUVEX1VOS05PV047DQo8YnI+
-IMKgwqDCoMKgwqDCoMKgcmV0dXJuIDA7PGJyPg0KPGJyPjwvc3Bhbj48L2Rpdj48L2Rpdj4NCg==
---0000000000003e043905bda7a872--
-
---===============7258676935896357644==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>        priv->speed = SPEED_UNKNOWN;
+>        return 0;
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7258676935896357644==--
