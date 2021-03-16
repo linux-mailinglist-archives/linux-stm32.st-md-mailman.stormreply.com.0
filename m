@@ -2,41 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9329633CEAD
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Mar 2021 08:34:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A62D33CFC1
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Mar 2021 09:24:11 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C064C57B55;
-	Tue, 16 Mar 2021 07:34:16 +0000 (UTC)
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC024C57B5A;
+	Tue, 16 Mar 2021 08:24:10 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F3F3C5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA402C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Mar 2021 07:34:13 +0000 (UTC)
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4F04jc0hjbzNmvV;
- Tue, 16 Mar 2021 15:31:48 +0800 (CST)
-Received: from localhost.localdomain (10.175.102.38) by
- DGGEMS412-HUB.china.huawei.com (10.3.19.212) with Microsoft SMTP Server id
- 14.3.498.0; Tue, 16 Mar 2021 15:34:01 +0800
-From: 'w00385741 <weiyongjun1@huawei.com>
-To: <weiyongjun1@huawei.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Jose Abreu
- <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- "Russell King" <linux@armlinux.org.uk>, Joakim Zhang
- <qiangqing.zhang@nxp.com>
-Date: Tue, 16 Mar 2021 07:42:39 +0000
-Message-ID: <20210316074239.2010897-1-weiyongjun1@huawei.com>
-X-Mailer: git-send-email 2.25.1
+ Tue, 16 Mar 2021 08:07:05 +0000 (UTC)
+From: Kurt Kanzenbach <kurt@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1615882024;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=198ieZWxanXzo3MI5NPBYscFn1y4OHFktIS2kgql4S4=;
+ b=o/Z+3OWO8kg/LVbMlEGoDRyYI4UHYdH6oX/gUZq8/xRO6n/rMZ5rEiOCdq85/OZQnNlpEr
+ Kk4SjyHjn2Qk9A6mC37Tb+Byqw7Zjqh5Dx+RSnWdXrxe+B6J/CwyW5Q2Gos5jXFGptuxcK
+ VLPtMXDWhcx05GlSZlCIOVxfLRhdtge/Pr3oFoWy848jtD1aqFTwtN0Ncmjqgy+aqdCnPp
+ Rns6e56hH4WXBjFGXxohiPK6UWyJx6FZGTWzSfbNkfxfttmUJbWaMugyreTD0FSkvLVCxZ
+ 9qirw2QnTfgehaNkqT7wp37a6wupPQkBoczpHJtWxMKI21TDeuvASeASx5pkCA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1615882024;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=198ieZWxanXzo3MI5NPBYscFn1y4OHFktIS2kgql4S4=;
+ b=ySLL3EPN3xVdgSM8NIirnqA5E8Yba7rtaOX1cKM4+gEMQfzwsc90/lYYqyP9ID9nUjP/hc
+ q4vELQeNVw+JwXBQ==
+To: Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Tue, 16 Mar 2021 09:06:44 +0100
+Message-Id: <20210316080644.19809-1-kurt@linutronix.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.175.102.38]
-X-CFilter-Loop: Reflected
-Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Hulk Robot <hulkci@huawei.com>
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: fix missing unlock on
-	error in stmmac_suspend()
+X-Mailman-Approved-At: Tue, 16 Mar 2021 08:24:09 +0000
+Cc: devicetree@vger.kernel.org, Kurt Kanzenbach <kurt@linutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Add PTP clock to Ethernet
+	controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,34 +60,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Wei Yongjun <weiyongjun1@huawei.com>
+Add the PTP clock to the Ethernet controller. Otherwise, the driver uses the
+main clock to derive the PTP frequency which is not necessarily the correct one.
 
-Add the missing unlock before return from function
-stmmac_suspend() in the error handling case.
+Tested with linuxptp on Olimex STMP1-OLinuXino-LIME2.
 
-Fixes: 5ec55823438e ("net: stmmac: add clocks management for gmac driver")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/stm32mp151.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a10704d8e3c6..d50df998d3aa 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5400,8 +5400,10 @@ int stmmac_suspend(struct device *dev)
- 		/* Disable clock in case of PWM is off */
- 		clk_disable_unprepare(priv->plat->clk_ptp_ref);
- 		ret = pm_runtime_force_suspend(dev);
--		if (ret)
-+		if (ret) {
-+			mutex_unlock(&priv->lock);
- 			return ret;
-+		}
- 	}
- 	mutex_unlock(&priv->lock);
- 
+diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+index 3c75abacb374..d1f596ea2fd5 100644
+--- a/arch/arm/boot/dts/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/stm32mp151.dtsi
+@@ -1421,11 +1421,13 @@
+ 				      "mac-clk-tx",
+ 				      "mac-clk-rx",
+ 				      "eth-ck",
++				      "ptp_ref",
+ 				      "ethstp";
+ 			clocks = <&rcc ETHMAC>,
+ 				 <&rcc ETHTX>,
+ 				 <&rcc ETHRX>,
+ 				 <&rcc ETHCK_K>,
++				 <&rcc ETHPTP_K>,
+ 				 <&rcc ETHSTP>;
+ 			st,syscon = <&syscfg 0x4>;
+ 			snps,mixed-burst;
+-- 
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
