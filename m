@@ -2,47 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A93333F8CA
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 20:10:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC1FC33FA27
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 21:55:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C090C57B79;
-	Wed, 17 Mar 2021 19:10:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DDDCC57B79;
+	Wed, 17 Mar 2021 20:55:50 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A0E1C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 619E8C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Mar 2021 19:10:10 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 333A864EC4;
- Wed, 17 Mar 2021 19:10:09 +0000 (UTC)
+ Wed, 17 Mar 2021 20:55:48 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3309264E90;
+ Wed, 17 Mar 2021 20:55:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616008209;
- bh=GVu/ESRM2qGynOK7RfgL/yy6B12R+6ZanQ9WH7/Wf9A=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=MXaxK5J8cShy4IqDXXjjKAwKPuFemzWY9azouoDzumjohoBSmn3UVxTzOYmu1r+iC
- d9Ce1px8crmPZiUeYtRojD7X6+ZqnZp7dsPhqWEgSjfg/VhCuoO2o2zvI0+VozX7Ob
- sbBDxsIOlURERvt6z/gTEX3Vmadif5AjOn+qacNDIA5t7sotXYnXSXp8x8Xpi+9Vtq
- 3k3pzvxJ7aTLHVfVNAr3tfHhKxlebV4PX0oMpSzTylwET0ArezNdoO2d89nAGaLEI5
- +X6mm9xbHbOj2/UlOFzuq2r4vujVoE3JZfimoBReQFpZjDfNPfWY1tHCQIuZIckh7O
- qehe0ogCznM8A==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 29C9360A3D;
- Wed, 17 Mar 2021 19:10:09 +0000 (UTC)
+ s=k20201202; t=1616014546;
+ bh=8YHIy2QJi0Zbnx676evVVkiFT4TAs3P+dNjW2VdjjY4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=j/NREaNObGhuCT7gWW8ChdtLt63hXPXIvf2zC/G9cSWGW/JgIAzi6lYKt3hLJfpEG
+ hQrw8seR3wePUKUt4+1rOVdW16PMnPzALHoEdTR0wV6zfFQvfDKumpDO8c4Q1gT8KP
+ 6DSMJ85gp6wDzmLWGXcm2sy+r9aUJGVVThh7kFgQQnbB5l1P0gcuKUCBrXjIKbdEog
+ 5vMjmUIBGo0SCzLXQZxz4jz+Y8qG+6mM5025rEsV4fu/XPfclMUxNVSRy4AaNBFkOC
+ r11ZVNpLFMdV/HiLv0C4cnR0+K6BzyOMQDhd5xrtNIO7EdlV0ghztnfmHld4wGsBL9
+ TpXUHdUm686Vw==
+Date: Wed, 17 Mar 2021 13:55:44 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Ong Boon Leong <boon.leong.ong@intel.com>
+Message-ID: <20210317135544.3da32504@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20210317010123.6304-2-boon.leong.ong@intel.com>
+References: <20210317010123.6304-1-boon.leong.ong@intel.com>
+ <20210317010123.6304-2-boon.leong.ong@intel.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161600820916.10311.6670976012285886015.git-patchwork-notify@kernel.org>
-Date: Wed, 17 Mar 2021 19:10:09 +0000
-References: <20210317040904.816-1-vee.khee.wong@intel.com>
-In-Reply-To: <20210317040904.816-1-vee.khee.wong@intel.com>
-To: Wong Vee Khee <vee.khee.wong@intel.com>
-Cc: alexandre.torgue@st.com, weifeng.voon@intel.com, netdev@vger.kernel.org,
+Cc: Alexandre Torgue <alexandre.torgue@st.com>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- boon.leong.ong@intel.com, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: add timestamp
- correction to rid CDC sync error
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
+ Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: add
+ per-queue TX & RX coalesce ethtool support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,30 +56,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (refs/heads/master):
-
-On Wed, 17 Mar 2021 12:09:04 +0800 you wrote:
-> From: Voon Weifeng <weifeng.voon@intel.com>
+On Wed, 17 Mar 2021 09:01:23 +0800 Ong Boon Leong wrote:
+> Extending the driver to support per-queue RX and TX coalesce settings in
+> order to support below commands:
 > 
-> According to Synopsis DesignWare EQoS Databook, the Clock Domain Cross
-> synchronization error is introduced tue to the clock(GMII Tx/Rx clock)
-> being different at the capture as compared to the PTP
-> clock(clk_ptp_ref_i) that is used to generate the time.
+> To show per-queue coalesce setting:-
+>  $ ethtool --per-queue <DEVNAME> queue_mask <MASK> --show-coalesce
 > 
-> [...]
+> To set per-queue coalesce setting:-
+>  $ ethtool --per-queue <DEVNAME> queue_mask <MASK> --coalesce \
+>      [rx-usecs N] [rx-frames M] [tx-usecs P] [tx-frames Q]
+> 
+> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 
-Here is the summary with links:
-  - [net-next,1/1] net: stmmac: add timestamp correction to rid CDC sync error
-    https://git.kernel.org/netdev/net-next/c/3600be5f58c1
+Acked-by: Jakub Kicinski <kuba@kernel.org>
 
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> +	if (queue < tx_cnt) {
+> +		ec->tx_coalesce_usecs = priv->tx_coal_timer[queue];
+> +		ec->tx_max_coalesced_frames = priv->tx_coal_frames[queue];
+> +	} else {
+> +		ec->tx_coalesce_usecs = 0;
+> +		ec->tx_max_coalesced_frames = 0;
 
-
+nit: I think the struct is initialized to 0 so there is no need to set
+it explicitly.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
