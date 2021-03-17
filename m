@@ -2,65 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B10333F522
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 17:10:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A93333F8CA
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 20:10:13 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1149CC58D40;
-	Wed, 17 Mar 2021 16:10:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C090C57B79;
+	Wed, 17 Mar 2021 19:10:13 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C56DC57B79
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A0E1C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Mar 2021 16:10:16 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12HFlrRv010043; Wed, 17 Mar 2021 17:10:08 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=xgpzGC4wdyQX7DWrBZkXr6BWb3iEnXnND5XfVReNl8c=;
- b=n7qV4iFaKwMjmk5V+qYigLrv88LW+LziE7pfYzJ5OksDpkA+KSuu7G5mBIHFkSY5qxAG
- UMizZf74A1pN81Pyc+gNMi913ObEWmEgTNe2FgVNeKoQgm9pPY4Jj9yUDowT7A0lWpNg
- KjFk66AyoHbpr37BmwyJbyY0vteXC21OFLR35yC7GXBJE6OBP78VqfaqADawviKrhpAq
- doZPh5wQYL5TABK4opzrPkQuwWGxVmOrEboBHP5aD8Bz/8XHZx08p7md7yT+K555TQe6
- +7vFvlrUMK6d3Vo/X8cJ1im5+XnKWQpeeTYnPP0pJPZxwhG/RERZOIC/6lI+S+5MUIBF AA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37a8pr67jj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Mar 2021 17:10:08 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 311F910002A;
- Wed, 17 Mar 2021 17:10:08 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2173B23E915;
- Wed, 17 Mar 2021 17:10:08 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 17 Mar 2021 17:10:07
- +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>, Rob
- Herring <robh+dt@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Wed, 17 Mar 2021 17:09:54 +0100
-Message-ID: <20210317160954.15487-3-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210317160954.15487-1-amelie.delaunay@foss.st.com>
-References: <20210317160954.15487-1-amelie.delaunay@foss.st.com>
+ Wed, 17 Mar 2021 19:10:10 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 333A864EC4;
+ Wed, 17 Mar 2021 19:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616008209;
+ bh=GVu/ESRM2qGynOK7RfgL/yy6B12R+6ZanQ9WH7/Wf9A=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=MXaxK5J8cShy4IqDXXjjKAwKPuFemzWY9azouoDzumjohoBSmn3UVxTzOYmu1r+iC
+ d9Ce1px8crmPZiUeYtRojD7X6+ZqnZp7dsPhqWEgSjfg/VhCuoO2o2zvI0+VozX7Ob
+ sbBDxsIOlURERvt6z/gTEX3Vmadif5AjOn+qacNDIA5t7sotXYnXSXp8x8Xpi+9Vtq
+ 3k3pzvxJ7aTLHVfVNAr3tfHhKxlebV4PX0oMpSzTylwET0ArezNdoO2d89nAGaLEI5
+ +X6mm9xbHbOj2/UlOFzuq2r4vujVoE3JZfimoBReQFpZjDfNPfWY1tHCQIuZIckh7O
+ qehe0ogCznM8A==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 29C9360A3D;
+ Wed, 17 Mar 2021 19:10:09 +0000 (UTC)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-17_10:2021-03-17,
- 2021-03-17 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <161600820916.10311.6670976012285886015.git-patchwork-notify@kernel.org>
+Date: Wed, 17 Mar 2021 19:10:09 +0000
+References: <20210317040904.816-1-vee.khee.wong@intel.com>
+In-Reply-To: <20210317040904.816-1-vee.khee.wong@intel.com>
+To: Wong Vee Khee <vee.khee.wong@intel.com>
+Cc: alexandre.torgue@st.com, weifeng.voon@intel.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ boon.leong.ong@intel.com, peppe.cavallaro@st.com, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] phy: stm32: manage optional vbus
-	regulator on phy_power_on/off
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: add timestamp
+ correction to rid CDC sync error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,75 +59,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds support for optional vbus regulator.
-It is managed on phy_power_on/off calls and may be needed for host mode.
+Hello:
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- drivers/phy/st/phy-stm32-usbphyc.c | 31 ++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+This patch was applied to netdev/net-next.git (refs/heads/master):
 
-diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
-index c184f4e34584..3e491dfb2525 100644
---- a/drivers/phy/st/phy-stm32-usbphyc.c
-+++ b/drivers/phy/st/phy-stm32-usbphyc.c
-@@ -57,6 +57,7 @@ struct pll_params {
- struct stm32_usbphyc_phy {
- 	struct phy *phy;
- 	struct stm32_usbphyc *usbphyc;
-+	struct regulator *vbus;
- 	u32 index;
- 	bool active;
- };
-@@ -291,9 +292,31 @@ static int stm32_usbphyc_phy_exit(struct phy *phy)
- 	return stm32_usbphyc_pll_disable(usbphyc);
- }
- 
-+static int stm32_usbphyc_phy_power_on(struct phy *phy)
-+{
-+	struct stm32_usbphyc_phy *usbphyc_phy = phy_get_drvdata(phy);
-+
-+	if (usbphyc_phy->vbus)
-+		return regulator_enable(usbphyc_phy->vbus);
-+
-+	return 0;
-+}
-+
-+static int stm32_usbphyc_phy_power_off(struct phy *phy)
-+{
-+	struct stm32_usbphyc_phy *usbphyc_phy = phy_get_drvdata(phy);
-+
-+	if (usbphyc_phy->vbus)
-+		return regulator_disable(usbphyc_phy->vbus);
-+
-+	return 0;
-+}
-+
- static const struct phy_ops stm32_usbphyc_phy_ops = {
- 	.init = stm32_usbphyc_phy_init,
- 	.exit = stm32_usbphyc_phy_exit,
-+	.power_on = stm32_usbphyc_phy_power_on,
-+	.power_off = stm32_usbphyc_phy_power_off,
- 	.owner = THIS_MODULE,
- };
- 
-@@ -519,6 +542,14 @@ static int stm32_usbphyc_probe(struct platform_device *pdev)
- 		usbphyc->phys[port]->index = index;
- 		usbphyc->phys[port]->active = false;
- 
-+		usbphyc->phys[port]->vbus = devm_regulator_get_optional(&phy->dev, "vbus");
-+		if (IS_ERR(usbphyc->phys[port]->vbus)) {
-+			ret = PTR_ERR(usbphyc->phys[port]->vbus);
-+			if (ret == -EPROBE_DEFER)
-+				goto put_child;
-+			usbphyc->phys[port]->vbus = NULL;
-+		}
-+
- 		port++;
- 	}
- 
--- 
-2.17.1
+On Wed, 17 Mar 2021 12:09:04 +0800 you wrote:
+> From: Voon Weifeng <weifeng.voon@intel.com>
+> 
+> According to Synopsis DesignWare EQoS Databook, the Clock Domain Cross
+> synchronization error is introduced tue to the clock(GMII Tx/Rx clock)
+> being different at the capture as compared to the PTP
+> clock(clk_ptp_ref_i) that is used to generate the time.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,1/1] net: stmmac: add timestamp correction to rid CDC sync error
+    https://git.kernel.org/netdev/net-next/c/3600be5f58c1
+
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
