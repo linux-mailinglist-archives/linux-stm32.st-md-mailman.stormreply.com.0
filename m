@@ -2,42 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0578233EB0E
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 09:07:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10FA833ECFF
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 10:29:59 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6402C57B79;
-	Wed, 17 Mar 2021 08:07:03 +0000 (UTC)
-Received: from bmailout1.hostsharing.net (bmailout1.hostsharing.net
- [83.223.95.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5BA2C57B79;
+	Wed, 17 Mar 2021 09:29:58 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCF00C57B5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 367D2C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Mar 2021 21:17:45 +0000 (UTC)
-Received: from h08.hostsharing.net (h08.hostsharing.net
- [IPv6:2a01:37:1000::53df:5f1c:0])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client CN "*.hostsharing.net",
- Issuer "RapidSSL TLS DV RSA Mixed SHA256 2020 CA-1" (verified OK))
- by bmailout1.hostsharing.net (Postfix) with ESMTPS id B9EFC30000CC4;
- Tue, 16 Mar 2021 22:17:44 +0100 (CET)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
- id AC9728AAB6; Tue, 16 Mar 2021 22:17:44 +0100 (CET)
-Date: Tue, 16 Mar 2021 22:17:44 +0100
-From: Lukas Wunner <lukas@wunner.de>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20210316211744.GA25311@wunner.de>
-References: <1615545286-5395-1-git-send-email-alain.volmat@foss.st.com>
+ Wed, 17 Mar 2021 09:29:55 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12H9S06s031684; Wed, 17 Mar 2021 10:29:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=Le1/WIhRpOp/ydvOjnIkwYsdhvrXsLOvyzCD4qnBVGU=;
+ b=YHd4sDnPvmw58ZMLHm4SEAbGjOiwJ1Ynd0sDrG9sgwMxLckk/et06866GXXKdel9omdX
+ lfXhti+26/7o8LkxdQS5QSkghVg5M79jItn86LxKE7D5RE1bl4ggKxIsQRqkyLn1GrcQ
+ HQUDPYOTmA1h0yJKVIUWu+0dPLr2iqPJJzvFmo1v7zWCxOAHsWvgTn4POTljWcL2ibag
+ juD0zycNXTC2bgdHCewbjN2EZP99CDUjE5Bg3r83RgRYT7mQdw3tqUUrNUUI8nTyu484
+ MwRh6AMwH66Ofo33VIK+oUc0F9iQlSEYOP9KXwBu2lMDn0ZuJXDfnXodX6LsNkBivLoR Zg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37agam9pd2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Mar 2021 10:29:50 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 52ADA100034;
+ Wed, 17 Mar 2021 10:29:49 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0528821E665;
+ Wed, 17 Mar 2021 10:29:49 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.50) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 17 Mar
+ 2021 10:29:48 +0100
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>, Andy Gross
+ <agross@kernel.org>
+References: <20210219111501.14261-1-arnaud.pouliquen@foss.st.com>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <8599da66-b7df-e4a5-fcf3-008620420372@foss.st.com>
+Date: Wed, 17 Mar 2021 10:29:47 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1615545286-5395-1-git-send-email-alain.volmat@foss.st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Wed, 17 Mar 2021 08:07:03 +0000
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-spi@vger.kernel.org, broonie@kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32: drop devres version of
-	spi_register_master
+In-Reply-To: <20210219111501.14261-1-arnaud.pouliquen@foss.st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-17_05:2021-03-17,
+ 2021-03-17 signatures=0
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v5 00/16] introduce a generic IOCTL
+ interface for RPMsg channels management
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,29 +78,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 12, 2021 at 11:34:46AM +0100, Alain Volmat wrote:
-> --- a/drivers/spi/spi-stm32.c
-> +++ b/drivers/spi/spi-stm32.c
-> @@ -1960,6 +1960,7 @@ static int stm32_spi_remove(struct platform_device *pdev)
->  	struct spi_master *master = platform_get_drvdata(pdev);
->  	struct stm32_spi *spi = spi_master_get_devdata(master);
->  
-> +	spi_unregister_master(master);
->  	spi->cfg->disable(spi);
->  
->  	if (master->dma_tx)
 
-This introduces a use-after-free because spi_unregister_master()
-drops the last reference on the spi_master allocation (which includes
-the struct stm32_spi), causing it to be freed, yet the stm32_spi
-struct is accessed afterwards.
 
-You need to convert the driver to devm_spi_alloc_master() to
-fix the use-after-free.  See commit 6cfd39e212de for an example.
+On 2/19/21 12:14 PM, Arnaud Pouliquen wrote:
+> This series restructures the RPMsg char driver to decorrelate the control part and to
+> create a generic RPMsg ioctl interface compatible with other RPMsg services.
+> 
+> The V4 and V5 fix compilation issues reported by the kernel test robot <lkp@intel.com>
+> and analyzed by Dan Carpenter <dan.carpenter@oracle.com>.
+> 
+> The V3 is based on the guideline proposed by Mathieu Poirier to keep as much as possible
+> the legacy implementation of the rpmsg_char used by the GLINK and SMD platforms.
+> 
+> Objectives of the series:
+> - Allow to create a service from Linux user application:
+>   - with a specific name
+>   - with or without name service announcement.
+> - Allow to probe the same service by receiving either a NS announcement from the remote firmware
+>   or a Linux user application request.
+> - Use these services independently of the RPMsg transport implementation (e.g be able to use
+>   RPMSg char with the RPMsg virtio bus).
+> 
+> Steps in the series:
+>   - Extract the control part of the char dev and create the rpmsg_ctrl.c file (patches 1 to 6)
+>   - Enable the use of the chardev with the virtio backend (patches 7 to 11)
+>   - Introduce the RPMSG_CREATE_DEV_IOCTL IOCTL to instantiate RPMsg devices (patch 12)
+>     The application can then create or release a channel by specifying:
+>        - the name service of the device to instantiate.   
+>        - the source address.
+>        - the destination address.
+>   - Instantiate the /dev/rpmsg interface on remote NS announcement (patches 13 to 16)
+> 
+> In this revision, I do not divide the series into several parts in order to show a complete
+> picture of the proposed evolution. To simplify the review, if requested, I can send it in
+> several steps listed above.
 
-Thanks,
+No new revision of this series planned, but move forward by splitting it in 3
+new series to ease the review.
+The first step is addressed here:
+https://patchwork.kernel.org/project/linux-remoteproc/list/?series=446305
 
-Lukas
+> 
+> Known current Limitations:
+> - Tested only with virtio RPMsg bus. The glink and smd drivers adaptations have not been tested
+>   (not able to test it).
+> - For the virtio backend: No NS announcement is sent to the remote processor if the source
+>   address is set to RPMSG_ADDR_ANY.
+> - For the virtio backend: the existing RPMSG_CREATE_EPT_IOCTL is working but the endpoints are
+>   not attached to an exiting channel.
+> - to limit patches the pending RPMSG_DESTROY_DEV_IOCTL has not ben implemented. This will be
+>   proposed in a second step.
+> 
+> This series can be applied on git/andersson/remoteproc.git for-next branch (d9ff3a5789cb).
+> 
+> This series can be tested using rpmsgexport, rpmsgcreatedev and ping tools available here:
+> https://github.com/arnopo/rpmsgexport.git
+> 
+> Reference to the V4 discussion thread: https://lkml.org/lkml/2021/2/17/384
+> 
+> Arnaud Pouliquen (16):
+>   rpmsg: char: rename rpmsg_char_init to rpmsg_chrdev_init
+>   rpmsg: move RPMSG_ADDR_ANY in user API
+>   rpmsg: add short description of the IOCTL defined in UAPI.
+>   rpmsg: char: export eptdev create an destroy functions
+>   rpmsg: char: dissociate the control device from the rpmsg class
+>   rpmsg: move the rpmsg control device from rpmsg_char to rpmsg_ctrl
+>   rpmsg: update rpmsg_chrdev_register_device function
+>   rpmsg: glink: add sendto and trysendto ops
+>   rpmsg: smd: add sendto and trysendto ops
+>   rpmsg: char: use sendto to specify the message destination address
+>   rpmsg: virtio: register the rpmsg_ctrl device
+>   rpmsg: ctrl: introduce RPMSG_CREATE_DEV_IOCTL
+>   rpmsg: char: introduce __rpmsg_chrdev_create_eptdev function
+>   rpmsg: char: introduce a RPMsg driver for the RPMsg char device
+>   rpmsg: char: no dynamic endpoint management for the default one
+>   rpmsg: char: return an error if device already open
+> 
+>  drivers/rpmsg/Kconfig             |   9 ++
+>  drivers/rpmsg/Makefile            |   1 +
+>  drivers/rpmsg/qcom_glink_native.c |  18 ++-
+>  drivers/rpmsg/qcom_smd.c          |  18 ++-
+>  drivers/rpmsg/rpmsg_char.c        | 237 +++++++++++-------------------
+>  drivers/rpmsg/rpmsg_char.h        |  51 +++++++
+>  drivers/rpmsg/rpmsg_ctrl.c        | 229 +++++++++++++++++++++++++++++
+>  drivers/rpmsg/rpmsg_internal.h    |  10 +-
+>  drivers/rpmsg/virtio_rpmsg_bus.c  |  57 ++++++-
+>  include/linux/rpmsg.h             |   3 +-
+>  include/uapi/linux/rpmsg.h        |  18 ++-
+>  11 files changed, 485 insertions(+), 166 deletions(-)
+>  create mode 100644 drivers/rpmsg/rpmsg_char.h
+>  create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
