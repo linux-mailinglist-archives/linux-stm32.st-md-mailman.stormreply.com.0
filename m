@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0C7633E30B
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 01:55:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8CA233E33F
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 01:57:01 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55BF5C57B79;
-	Wed, 17 Mar 2021 00:55:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70C25C57B79;
+	Wed, 17 Mar 2021 00:57:01 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5681C57B77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23225C57B77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Mar 2021 00:55:42 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 290B164F92;
- Wed, 17 Mar 2021 00:55:40 +0000 (UTC)
+ Wed, 17 Mar 2021 00:56:59 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D796964F9F;
+ Wed, 17 Mar 2021 00:56:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1615942541;
- bh=mKEPERNOYfkzWVcJ4UHPu4I9uhgPVq1cDVFgL2FNbp8=;
+ s=k20201202; t=1615942617;
+ bh=UsgIXwcuigBG4LZMF4muFLysDeQVL5fAny4wM2Rmlxk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kFmcxvwulXQ7NL54ASOBrLNQYqg3rKjflyDbA/qYFy0qo82OFzdxQ0HXHwUZQQZpA
- wlMivEY7zoYCYrHeHKNT2WGjnaZGQrZTn+XqyuAiUVwVftcf3nxrK35ODJAsPt4EVt
- ghYSRzxI4u0JPA9Wtg7OZm8vIC29CWBbtOTsJ7VgrrH7RNvztSgC5glND5g3WKAIhp
- qdEA5qElXA0G6SpWawsF4DJFzMnQ0w6n9ogESxi1ao/cpTGWLRMRlNqCXEKnj5+40B
- N1Q5ViWX08nT3naTSLiTWXRgxfJfSWUggZ6yIJIipsBOEtK01igUQt3uoZq22uadh5
- JfPrMkJVzqPVA==
+ b=YKrYNuk5CM0NUDsLZoUOmGXzoA90JNKjprCQTn6nxoBzYZLmufJy+2oQKp6+M2vTk
+ KvEo46B9CCrt6V+g2XRMgnNLkrZFi7NXj8h98TC5+k0qyy9EJnlnBVEjmjlOmCr1Ih
+ ucktWqdrAXHdIx69p/ttHylISMFmFc6gdNuIcFvJJo27iecYps3yoguIrnVowU7DGF
+ bSYqvudM8xCsT58xKM5WzyeVPockx7HEYvh1IvBIcXxpgX0tya4Vjg2PLskaVBSZoW
+ rFrEjSEzF9ikfN0x7ijH6HGQaws7aMwFjjeA9iG64OK6IJCyCB5BoO/0EaSH/xo0En
+ 6DzAyL28RgtCg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 16 Mar 2021 20:54:37 -0400
-Message-Id: <20210317005536.724046-3-sashal@kernel.org>
+Date: Tue, 16 Mar 2021 20:56:01 -0400
+Message-Id: <20210317005654.724862-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.1
-In-Reply-To: <20210317005536.724046-1-sashal@kernel.org>
-References: <20210317005536.724046-1-sashal@kernel.org>
+In-Reply-To: <20210317005654.724862-1-sashal@kernel.org>
+References: <20210317005654.724862-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
  Joakim Zhang <qiangqing.zhang@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.11 03/61] net: stmmac: fix dma
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 02/54] net: stmmac: fix dma
 	physical address of descriptor when display ring
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -178,7 +178,7 @@ index d02cec296f51..6650edfab5bc 100644
  			ep->basic.des2, ep->basic.des3);
  		ep++;
 diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index b40b2e0667bb..7417db31402f 100644
+index e2dca9b6e992..0b82088bc592 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
 +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
 @@ -78,7 +78,8 @@ struct stmmac_desc_ops {
@@ -222,10 +222,10 @@ index f083360e4ba6..98ef43f35802 100644
  			p->des2, p->des3);
  		p++;
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 26b971cd4da5..9d87c252560d 100644
+index b3d6d8e3f4de..bc98d82f8ed3 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1133,6 +1133,7 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+@@ -1109,6 +1109,7 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
  static void stmmac_display_rx_rings(struct stmmac_priv *priv)
  {
  	u32 rx_cnt = priv->plat->rx_queues_to_use;
@@ -233,7 +233,7 @@ index 26b971cd4da5..9d87c252560d 100644
  	void *head_rx;
  	u32 queue;
  
-@@ -1142,19 +1143,24 @@ static void stmmac_display_rx_rings(struct stmmac_priv *priv)
+@@ -1118,19 +1119,24 @@ static void stmmac_display_rx_rings(struct stmmac_priv *priv)
  
  		pr_info("\tRX Queue %u rings\n", queue);
  
@@ -261,7 +261,7 @@ index 26b971cd4da5..9d87c252560d 100644
  	void *head_tx;
  	u32 queue;
  
-@@ -1164,14 +1170,19 @@ static void stmmac_display_tx_rings(struct stmmac_priv *priv)
+@@ -1140,14 +1146,19 @@ static void stmmac_display_tx_rings(struct stmmac_priv *priv)
  
  		pr_info("\tTX Queue %d rings\n", queue);
  
@@ -285,7 +285,7 @@ index 26b971cd4da5..9d87c252560d 100644
  	}
  }
  
-@@ -3736,18 +3747,23 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+@@ -3706,18 +3717,23 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
  	unsigned int count = 0, error = 0, len = 0;
  	int status = 0, coe = priv->hw->rx_csum;
  	unsigned int next_entry = rx_q->cur_rx;
@@ -312,7 +312,7 @@ index 26b971cd4da5..9d87c252560d 100644
  	}
  	while (count < limit) {
  		unsigned int buf1_len = 0, buf2_len = 0;
-@@ -4315,24 +4331,27 @@ static int stmmac_set_mac_address(struct net_device *ndev, void *addr)
+@@ -4285,24 +4301,27 @@ static int stmmac_set_mac_address(struct net_device *ndev, void *addr)
  static struct dentry *stmmac_fs_dir;
  
  static void sysfs_display_ring(void *head, int size, int extend_desc,
@@ -345,7 +345,7 @@ index 26b971cd4da5..9d87c252560d 100644
  				   le32_to_cpu(p->des0), le32_to_cpu(p->des1),
  				   le32_to_cpu(p->des2), le32_to_cpu(p->des3));
  			p++;
-@@ -4360,11 +4379,11 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
+@@ -4330,11 +4349,11 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
  		if (priv->extend_desc) {
  			seq_printf(seq, "Extended descriptor ring:\n");
  			sysfs_display_ring((void *)rx_q->dma_erx,
@@ -359,7 +359,7 @@ index 26b971cd4da5..9d87c252560d 100644
  		}
  	}
  
-@@ -4376,11 +4395,11 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
+@@ -4346,11 +4365,11 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
  		if (priv->extend_desc) {
  			seq_printf(seq, "Extended descriptor ring:\n");
  			sysfs_display_ring((void *)tx_q->dma_etx,
