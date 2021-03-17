@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E654333E34E
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 01:57:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2901C33E60A
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 02:28:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A878AC57B7C;
-	Wed, 17 Mar 2021 00:57:34 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D20C2C57B79;
+	Wed, 17 Mar 2021 01:28:56 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53C31C57B77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3601AC57B77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Mar 2021 00:57:32 +0000 (UTC)
-IronPort-SDR: 9+ZqtCUhE2w8NADyx6zyTBK+F8BEyjNbvUip5wLP+FWk0vds58B9MKLPtxUTeE8lrLTk1R7eAm
- L/wwvBlaAD9w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9925"; a="176959411"
-X-IronPort-AV: E=Sophos;i="5.81,254,1610438400"; d="scan'208";a="176959411"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2021 17:57:32 -0700
-IronPort-SDR: TbwLPsOxXb8ouloq3An2idNUUve+El7T3l7U2A1Nm10FkMne1nnbhedUkIm1SqjVPlWjCnFnUC
- xiYILn2G4biw==
+ Wed, 17 Mar 2021 01:28:55 +0000 (UTC)
+IronPort-SDR: szokB6kOD+17RnTluPThbbwOK8tCvPXpXulY3KMG/QP0lgbPq2N1FoMnW2PWT6GAbv5WWey2/z
+ /N1tYTRbx+RQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9925"; a="168638584"
+X-IronPort-AV: E=Sophos;i="5.81,254,1610438400"; d="scan'208";a="168638584"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2021 18:28:53 -0700
+IronPort-SDR: XFkO0W416w+dXTE9Buk9yXsw/G0I5PpohdJeptwReNVAW0ombMWJwvJuXSdUGlSsQfxWL5CkVS
+ zUgC2P4s4lYw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,254,1610438400"; d="scan'208";a="411265359"
+X-IronPort-AV: E=Sophos;i="5.81,254,1610438400"; d="scan'208";a="605493928"
 Received: from glass.png.intel.com ([10.158.65.59])
- by orsmga007.jf.intel.com with ESMTP; 16 Mar 2021 17:57:29 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 16 Mar 2021 18:28:48 -0700
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
  Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Wed, 17 Mar 2021 09:01:23 +0800
-Message-Id: <20210317010123.6304-2-boon.leong.ong@intel.com>
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
+Date: Wed, 17 Mar 2021 09:32:46 +0800
+Message-Id: <20210317013247.25131-1-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210317010123.6304-1-boon.leong.ong@intel.com>
-References: <20210317010123.6304-1-boon.leong.ong@intel.com>
 MIME-Version: 1.0
-Cc: Ong Boon Leong <boon.leong.ong@intel.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: add per-queue TX
-	& RX coalesce ethtool support
+Cc: Voon Weifeng <weifeng.voon@intel.com>,
+ Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/1] stmmac: add PCH and PSE PTP
+	clock setting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,399 +58,142 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Extending the driver to support per-queue RX and TX coalesce settings in
-order to support below commands:
+Hi,
 
-To show per-queue coalesce setting:-
- $ ethtool --per-queue <DEVNAME> queue_mask <MASK> --show-coalesce
+Intel mGBE controllers that are integrated into EHL, TGL SoC have
+different clock source selection. This patch adds the required setting for
+running linuxptp time-sync.
 
-To set per-queue coalesce setting:-
- $ ethtool --per-queue <DEVNAME> queue_mask <MASK> --coalesce \
-     [rx-usecs N] [rx-frames M] [tx-usecs P] [tx-frames Q]
+The patch has been tested on both PSE (/dev/ptp0) and PCH TSN(/dev/ptp2)
+and the results for the time sync looks correct.
 
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
----
- .../ethernet/stmicro/stmmac/dwmac1000_dma.c   |   2 +-
- .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |   7 +-
- .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |   7 +-
- drivers/net/ethernet/stmicro/stmmac/hwif.h    |   2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   8 +-
- .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 118 +++++++++++++++---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  48 ++++---
- 7 files changed, 143 insertions(+), 49 deletions(-)
+############################ PSE TSN ####################################
+> cat gPTP.conf
+[global]
+gmCapable               1
+priority1               248
+priority2               248
+logAnnounceInterval     0
+logSyncInterval         -3
+syncReceiptTimeout      3
+neighborPropDelayThresh 800
+min_neighbor_prop_delay -20000000
+assume_two_step         1
+path_trace_enabled      1
+follow_up_info          1
+transportSpecific       0x1
+ptp_dst_mac             01:80:C2:00:00:0E
+network_transport       L2
+delay_mechanism         P2P
+ingressLatency          231
+egressLatency           147
+tx_timestamp_timeout    50
+> /usr/local/sbin/ptp4l -v
+3.1
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-index 2bac49b49f73..90383abafa66 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-@@ -255,7 +255,7 @@ static void dwmac1000_get_hw_feature(void __iomem *ioaddr,
- }
- 
- static void dwmac1000_rx_watchdog(void __iomem *ioaddr, u32 riwt,
--				  u32 number_chan)
-+				  u32 queue)
- {
- 	writel(riwt, ioaddr + DMA_RX_WATCHDOG);
- }
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-index 62aa0e95beb7..8958778d16b7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-@@ -210,12 +210,9 @@ static void dwmac4_dump_dma_regs(void __iomem *ioaddr, u32 *reg_space)
- 		_dwmac4_dump_dma_regs(ioaddr, i, reg_space);
- }
- 
--static void dwmac4_rx_watchdog(void __iomem *ioaddr, u32 riwt, u32 number_chan)
-+static void dwmac4_rx_watchdog(void __iomem *ioaddr, u32 riwt, u32 queue)
- {
--	u32 chan;
--
--	for (chan = 0; chan < number_chan; chan++)
--		writel(riwt, ioaddr + DMA_CHAN_RX_WATCHDOG(chan));
-+	writel(riwt, ioaddr + DMA_CHAN_RX_WATCHDOG(queue));
- }
- 
- static void dwmac4_dma_rx_chan_op_mode(void __iomem *ioaddr, int mode,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-index 77308c5c5d29..f2cab5b76732 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-@@ -441,12 +441,9 @@ static void dwxgmac2_get_hw_feature(void __iomem *ioaddr,
- 	dma_cap->frpsel = (hw_cap & XGMAC_HWFEAT_FRPSEL) >> 3;
- }
- 
--static void dwxgmac2_rx_watchdog(void __iomem *ioaddr, u32 riwt, u32 nchan)
-+static void dwxgmac2_rx_watchdog(void __iomem *ioaddr, u32 riwt, u32 queue)
- {
--	u32 i;
--
--	for (i = 0; i < nchan; i++)
--		writel(riwt & XGMAC_RWT, ioaddr + XGMAC_DMA_CH_Rx_WATCHDOG(i));
-+	writel(riwt & XGMAC_RWT, ioaddr + XGMAC_DMA_CH_Rx_WATCHDOG(queue));
- }
- 
- static void dwxgmac2_set_rx_ring_len(void __iomem *ioaddr, u32 len, u32 chan)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 979ac9fca23c..da9996a985f6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -206,7 +206,7 @@ struct stmmac_dma_ops {
- 	void (*get_hw_feature)(void __iomem *ioaddr,
- 			       struct dma_features *dma_cap);
- 	/* Program the HW RX Watchdog */
--	void (*rx_watchdog)(void __iomem *ioaddr, u32 riwt, u32 number_chan);
-+	void (*rx_watchdog)(void __iomem *ioaddr, u32 riwt, u32 queue);
- 	void (*set_tx_ring_len)(void __iomem *ioaddr, u32 len, u32 chan);
- 	void (*set_rx_ring_len)(void __iomem *ioaddr, u32 len, u32 chan);
- 	void (*set_rx_tail_ptr)(void __iomem *ioaddr, u32 tail_ptr, u32 chan);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 10e8ae8e2d58..375c503d2df8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -147,9 +147,9 @@ struct stmmac_flow_entry {
- 
- struct stmmac_priv {
- 	/* Frequently used values are kept adjacent for cache effect */
--	u32 tx_coal_frames;
--	u32 tx_coal_timer;
--	u32 rx_coal_frames;
-+	u32 tx_coal_frames[MTL_MAX_TX_QUEUES];
-+	u32 tx_coal_timer[MTL_MAX_TX_QUEUES];
-+	u32 rx_coal_frames[MTL_MAX_TX_QUEUES];
- 
- 	int tx_coalesce;
- 	int hwts_tx_en;
-@@ -160,7 +160,7 @@ struct stmmac_priv {
- 
- 	unsigned int dma_buf_sz;
- 	unsigned int rx_copybreak;
--	u32 rx_riwt;
-+	u32 rx_riwt[MTL_MAX_TX_QUEUES];
- 	int hwts_rx_en;
- 
- 	void __iomem *ioaddr;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index c5642985ef95..a78d5b0686bf 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -756,28 +756,75 @@ static u32 stmmac_riwt2usec(u32 riwt, struct stmmac_priv *priv)
- 	return (riwt * 256) / (clk / 1000000);
- }
- 
--static int stmmac_get_coalesce(struct net_device *dev,
--			       struct ethtool_coalesce *ec)
-+static int __stmmac_get_coalesce(struct net_device *dev,
-+				 struct ethtool_coalesce *ec,
-+				 int queue)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
-+	u32 max_cnt;
-+	u32 rx_cnt;
-+	u32 tx_cnt;
- 
--	ec->tx_coalesce_usecs = priv->tx_coal_timer;
--	ec->tx_max_coalesced_frames = priv->tx_coal_frames;
-+	rx_cnt = priv->plat->rx_queues_to_use;
-+	tx_cnt = priv->plat->tx_queues_to_use;
-+	max_cnt = max(rx_cnt, tx_cnt);
- 
--	if (priv->use_riwt) {
--		ec->rx_max_coalesced_frames = priv->rx_coal_frames;
--		ec->rx_coalesce_usecs = stmmac_riwt2usec(priv->rx_riwt, priv);
-+	if (queue < 0)
-+		queue = 0;
-+	else if (queue >= max_cnt)
-+		return -EINVAL;
-+
-+	if (queue < tx_cnt) {
-+		ec->tx_coalesce_usecs = priv->tx_coal_timer[queue];
-+		ec->tx_max_coalesced_frames = priv->tx_coal_frames[queue];
-+	} else {
-+		ec->tx_coalesce_usecs = 0;
-+		ec->tx_max_coalesced_frames = 0;
-+	}
-+
-+	if (priv->use_riwt && queue < rx_cnt) {
-+		ec->rx_max_coalesced_frames = priv->rx_coal_frames[queue];
-+		ec->rx_coalesce_usecs = stmmac_riwt2usec(priv->rx_riwt[queue],
-+							 priv);
-+	} else {
-+		ec->rx_max_coalesced_frames = 0;
-+		ec->rx_coalesce_usecs = 0;
- 	}
- 
- 	return 0;
- }
- 
--static int stmmac_set_coalesce(struct net_device *dev,
-+static int stmmac_get_coalesce(struct net_device *dev,
- 			       struct ethtool_coalesce *ec)
-+{
-+	return __stmmac_get_coalesce(dev, ec, -1);
-+}
-+
-+static int stmmac_get_per_queue_coalesce(struct net_device *dev, u32 queue,
-+					 struct ethtool_coalesce *ec)
-+{
-+	return __stmmac_get_coalesce(dev, ec, queue);
-+}
-+
-+static int __stmmac_set_coalesce(struct net_device *dev,
-+				 struct ethtool_coalesce *ec,
-+				 int queue)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
--	u32 rx_cnt = priv->plat->rx_queues_to_use;
-+	bool all_queues = false;
- 	unsigned int rx_riwt;
-+	u32 max_cnt;
-+	u32 rx_cnt;
-+	u32 tx_cnt;
-+
-+	rx_cnt = priv->plat->rx_queues_to_use;
-+	tx_cnt = priv->plat->tx_queues_to_use;
-+	max_cnt = max(rx_cnt, tx_cnt);
-+
-+	if (queue < 0)
-+		all_queues = true;
-+	else if (queue >= max_cnt)
-+		return -EINVAL;
- 
- 	if (priv->use_riwt && (ec->rx_coalesce_usecs > 0)) {
- 		rx_riwt = stmmac_usec2riwt(ec->rx_coalesce_usecs, priv);
-@@ -785,8 +832,23 @@ static int stmmac_set_coalesce(struct net_device *dev,
- 		if ((rx_riwt > MAX_DMA_RIWT) || (rx_riwt < MIN_DMA_RIWT))
- 			return -EINVAL;
- 
--		priv->rx_riwt = rx_riwt;
--		stmmac_rx_watchdog(priv, priv->ioaddr, priv->rx_riwt, rx_cnt);
-+		if (all_queues) {
-+			int i;
-+
-+			for (i = 0; i < rx_cnt; i++) {
-+				priv->rx_riwt[i] = rx_riwt;
-+				stmmac_rx_watchdog(priv, priv->ioaddr,
-+						   rx_riwt, i);
-+				priv->rx_coal_frames[i] =
-+					ec->rx_max_coalesced_frames;
-+			}
-+		} else if (queue < rx_cnt) {
-+			priv->rx_riwt[queue] = rx_riwt;
-+			stmmac_rx_watchdog(priv, priv->ioaddr,
-+					   rx_riwt, queue);
-+			priv->rx_coal_frames[queue] =
-+				ec->rx_max_coalesced_frames;
-+		}
- 	}
- 
- 	if ((ec->tx_coalesce_usecs == 0) &&
-@@ -797,13 +859,37 @@ static int stmmac_set_coalesce(struct net_device *dev,
- 	    (ec->tx_max_coalesced_frames > STMMAC_TX_MAX_FRAMES))
- 		return -EINVAL;
- 
--	/* Only copy relevant parameters, ignore all others. */
--	priv->tx_coal_frames = ec->tx_max_coalesced_frames;
--	priv->tx_coal_timer = ec->tx_coalesce_usecs;
--	priv->rx_coal_frames = ec->rx_max_coalesced_frames;
-+	if (all_queues) {
-+		int i;
-+
-+		for (i = 0; i < tx_cnt; i++) {
-+			priv->tx_coal_frames[i] =
-+				ec->tx_max_coalesced_frames;
-+			priv->tx_coal_timer[i] =
-+				ec->tx_coalesce_usecs;
-+		}
-+	} else if (queue < tx_cnt) {
-+		priv->tx_coal_frames[queue] =
-+			ec->tx_max_coalesced_frames;
-+		priv->tx_coal_timer[queue] =
-+			ec->tx_coalesce_usecs;
-+	}
-+
- 	return 0;
- }
- 
-+static int stmmac_set_coalesce(struct net_device *dev,
-+			       struct ethtool_coalesce *ec)
-+{
-+	return __stmmac_set_coalesce(dev, ec, -1);
-+}
-+
-+static int stmmac_set_per_queue_coalesce(struct net_device *dev, u32 queue,
-+					 struct ethtool_coalesce *ec)
-+{
-+	return __stmmac_set_coalesce(dev, ec, queue);
-+}
-+
- static int stmmac_get_rxnfc(struct net_device *dev,
- 			    struct ethtool_rxnfc *rxnfc, u32 *rule_locs)
- {
-@@ -1001,6 +1087,8 @@ static const struct ethtool_ops stmmac_ethtool_ops = {
- 	.get_ts_info = stmmac_get_ts_info,
- 	.get_coalesce = stmmac_get_coalesce,
- 	.set_coalesce = stmmac_set_coalesce,
-+	.get_per_queue_coalesce = stmmac_get_per_queue_coalesce,
-+	.set_per_queue_coalesce = stmmac_set_per_queue_coalesce,
- 	.get_channels = stmmac_get_channels,
- 	.set_channels = stmmac_set_channels,
- 	.get_tunable = stmmac_get_tunable,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a10704d8e3c6..0647f6c94aed 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2218,7 +2218,8 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
- 
- 	/* We still have pending packets, let's call for a new scheduling */
- 	if (tx_q->dirty_tx != tx_q->cur_tx)
--		hrtimer_start(&tx_q->txtimer, STMMAC_COAL_TIMER(priv->tx_coal_timer),
-+		hrtimer_start(&tx_q->txtimer,
-+			      STMMAC_COAL_TIMER(priv->tx_coal_timer[queue]),
- 			      HRTIMER_MODE_REL);
- 
- 	__netif_tx_unlock_bh(netdev_get_tx_queue(priv->dev, queue));
-@@ -2503,7 +2504,8 @@ static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue)
- {
- 	struct stmmac_tx_queue *tx_q = &priv->tx_queue[queue];
- 
--	hrtimer_start(&tx_q->txtimer, STMMAC_COAL_TIMER(priv->tx_coal_timer),
-+	hrtimer_start(&tx_q->txtimer,
-+		      STMMAC_COAL_TIMER(priv->tx_coal_timer[queue]),
- 		      HRTIMER_MODE_REL);
- }
- 
-@@ -2544,18 +2546,21 @@ static enum hrtimer_restart stmmac_tx_timer(struct hrtimer *t)
- static void stmmac_init_coalesce(struct stmmac_priv *priv)
- {
- 	u32 tx_channel_count = priv->plat->tx_queues_to_use;
-+	u32 rx_channel_count = priv->plat->rx_queues_to_use;
- 	u32 chan;
- 
--	priv->tx_coal_frames = STMMAC_TX_FRAMES;
--	priv->tx_coal_timer = STMMAC_COAL_TX_TIMER;
--	priv->rx_coal_frames = STMMAC_RX_FRAMES;
--
- 	for (chan = 0; chan < tx_channel_count; chan++) {
- 		struct stmmac_tx_queue *tx_q = &priv->tx_queue[chan];
- 
-+		priv->tx_coal_frames[chan] = STMMAC_TX_FRAMES;
-+		priv->tx_coal_timer[chan] = STMMAC_COAL_TX_TIMER;
-+
- 		hrtimer_init(&tx_q->txtimer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- 		tx_q->txtimer.function = stmmac_tx_timer;
- 	}
-+
-+	for (chan = 0; chan < rx_channel_count; chan++)
-+		priv->rx_coal_frames[chan] = STMMAC_RX_FRAMES;
- }
- 
- static void stmmac_set_rings_length(struct stmmac_priv *priv)
-@@ -2860,10 +2865,15 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
- 		priv->tx_lpi_timer = eee_timer * 1000;
- 
- 	if (priv->use_riwt) {
--		if (!priv->rx_riwt)
--			priv->rx_riwt = DEF_DMA_RIWT;
-+		u32 queue;
-+
-+		for (queue = 0; queue < rx_cnt; queue++) {
-+			if (!priv->rx_riwt[queue])
-+				priv->rx_riwt[queue] = DEF_DMA_RIWT;
- 
--		ret = stmmac_rx_watchdog(priv, priv->ioaddr, priv->rx_riwt, rx_cnt);
-+			stmmac_rx_watchdog(priv, priv->ioaddr,
-+					   priv->rx_riwt[queue], queue);
-+		}
- 	}
- 
- 	if (priv->hw->pcs)
-@@ -3362,11 +3372,12 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- 	if ((skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP) && priv->hwts_tx_en)
- 		set_ic = true;
--	else if (!priv->tx_coal_frames)
-+	else if (!priv->tx_coal_frames[queue])
- 		set_ic = false;
--	else if (tx_packets > priv->tx_coal_frames)
-+	else if (tx_packets > priv->tx_coal_frames[queue])
- 		set_ic = true;
--	else if ((tx_q->tx_count_frames % priv->tx_coal_frames) < tx_packets)
-+	else if ((tx_q->tx_count_frames %
-+		  priv->tx_coal_frames[queue]) < tx_packets)
- 		set_ic = true;
- 	else
- 		set_ic = false;
-@@ -3591,11 +3602,12 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- 	if ((skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP) && priv->hwts_tx_en)
- 		set_ic = true;
--	else if (!priv->tx_coal_frames)
-+	else if (!priv->tx_coal_frames[queue])
- 		set_ic = false;
--	else if (tx_packets > priv->tx_coal_frames)
-+	else if (tx_packets > priv->tx_coal_frames[queue])
- 		set_ic = true;
--	else if ((tx_q->tx_count_frames % priv->tx_coal_frames) < tx_packets)
-+	else if ((tx_q->tx_count_frames %
-+		  priv->tx_coal_frames[queue]) < tx_packets)
- 		set_ic = true;
- 	else
- 		set_ic = false;
-@@ -3794,11 +3806,11 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
- 		stmmac_refill_desc3(priv, rx_q, p);
- 
- 		rx_q->rx_count_frames++;
--		rx_q->rx_count_frames += priv->rx_coal_frames;
--		if (rx_q->rx_count_frames > priv->rx_coal_frames)
-+		rx_q->rx_count_frames += priv->rx_coal_frames[queue];
-+		if (rx_q->rx_count_frames > priv->rx_coal_frames[queue])
- 			rx_q->rx_count_frames = 0;
- 
--		use_rx_wd = !priv->rx_coal_frames;
-+		use_rx_wd = !priv->rx_coal_frames[queue];
- 		use_rx_wd |= rx_q->rx_count_frames > 0;
- 		if (!priv->use_riwt)
- 			use_rx_wd = false;
+#################################
+# Start ptp4l eth0 [verbose mode]
+#################################
+
+> /usr/local/sbin/ptp4l -P2Hi eth0 -f gPTP.conf --step_threshold=1 -m
+ptp4l[8380.510]: selected /dev/ptp0 as PTP clock
+ptp4l[8380.535]: port 1: INITIALIZING to LISTENING on INIT_COMPLETE
+ptp4l[8380.535]: port 0: INITIALIZING to LISTENING on INIT_COMPLETE
+ptp4l[8381.655]: port 1: link down
+ptp4l[8381.655]: port 1: LISTENING to FAULTY on FAULT_DETECTED (FT_UNSPECIFIED)
+ptp4l[8381.676]: selected local clock f6cd9d.fffe.e6dc36 as best master
+ptp4l[8381.676]: port 1: assuming the grand master role
+ptp4l[8383.705]: port 1: link up
+ptp4l[8383.727]: port 1: FAULTY to LISTENING on INIT_COMPLETE
+ptp4l[8387.099]: port 1: LISTENING to MASTER on ANNOUNCE_RECEIPT_TIMEOUT_EXPIRES
+ptp4l[8387.099]: selected local clock f6cd9d.fffe.e6dc36 as best master
+ptp4l[8387.099]: port 1: assuming the grand master role
+ptp4l[8388.357]: port 1: new foreign master d63d87.fffe.60a9eb-1
+ptp4l[8390.357]: selected best master clock d63d87.fffe.60a9eb
+ptp4l[8390.357]: port 1: MASTER to UNCALIBRATED on RS_SLAVE
+ptp4l[8390.981]: port 1: UNCALIBRATED to SLAVE on MASTER_CLOCK_SELECTED
+ptp4l[8391.607]: rms 24333463708388 max 48666927416912 freq  -1919 +/- 725 delay   101 +/-   0
+ptp4l[8392.607]: rms    2 max    6 freq  -2194 +/-   3 delay   101 +/-   0
+ptp4l[8393.607]: rms    5 max   10 freq  -2192 +/-   7 delay   101 +/-   0
+ptp4l[8394.607]: rms    4 max    5 freq  -2195 +/-   5 delay   100 +/-   0
+ptp4l[8395.607]: rms    4 max    9 freq  -2198 +/-   4 delay   100 +/-   0
+ptp4l[8396.607]: rms    5 max    9 freq  -2201 +/-   6 delay   100 +/-   0
+ptp4l[8397.607]: rms    6 max    8 freq  -2196 +/-   8 delay   101 +/-   0
+ptp4l[8398.607]: rms    5 max    9 freq  -2195 +/-   7 delay   102 +/-   0
+ptp4l[8399.607]: rms    7 max   13 freq  -2199 +/-   9 delay   102 +/-   0
+ptp4l[8400.608]: rms    6 max   14 freq  -2198 +/-   8 delay   101 +/-   0
+ptp4l[8401.608]: rms    8 max   10 freq  -2195 +/-  10 delay   101 +/-   0
+#########################################################################
+
+
+############################ PCH TSN ####################################
+> cat gPTP.conf
+[global]
+gmCapable               1
+priority1               248
+priority2               248
+logAnnounceInterval     0
+logSyncInterval         -3
+syncReceiptTimeout      3
+neighborPropDelayThresh 800
+min_neighbor_prop_delay -20000000
+assume_two_step         1
+path_trace_enabled      1
+follow_up_info          1
+transportSpecific       0x1
+ptp_dst_mac             01:80:C2:00:00:0E
+network_transport       L2
+delay_mechanism         P2P
+ingressLatency          503
+egressLatency           275
+tx_timestamp_timeout    50
+> /usr/local/sbin/ptp4l -v
+3.1
+
+#################################
+# Start ptp4l eth2 [verbose mode]
+#################################
+
+> /usr/local/sbin/ptp4l -P2Hi eth2 -f gPTP.conf          --step_threshold=1 -m
+ptp4l[8526.902]: selected /dev/ptp2 as PTP clock
+ptp4l[8526.957]: port 1: INITIALIZING to LISTENING on INIT_COMPLETE
+ptp4l[8526.957]: port 0: INITIALIZING to LISTENING on INIT_COMPLETE
+ptp4l[8526.957]: port 1: link down
+ptp4l[8526.957]: port 1: LISTENING to FAULTY on FAULT_DETECTED (FT_UNSPECIFIED)
+ptp4l[8526.978]: selected local clock 7ab054.fffe.8aaa86 as best master
+ptp4l[8526.979]: port 1: assuming the grand master role
+ptp4l[8528.026]: port 1: link up
+ptp4l[8528.058]: port 1: FAULTY to LISTENING on INIT_COMPLETE
+ptp4l[8531.070]: port 1: LISTENING to MASTER on ANNOUNCE_RECEIPT_TIMEOUT_EXPIRES
+ptp4l[8531.070]: selected local clock 7ab054.fffe.8aaa86 as best master
+ptp4l[8531.070]: port 1: assuming the grand master role
+ptp4l[8532.878]: port 1: new foreign master 5ee86b.fffe.dd4586-1
+ptp4l[8534.878]: selected best master clock 5ee86b.fffe.dd4586
+ptp4l[8534.878]: port 1: MASTER to UNCALIBRATED on RS_SLAVE
+ptp4l[8535.387]: port 1: UNCALIBRATED to SLAVE on MASTER_CLOCK_SELECTED
+ptp4l[8536.012]: rms 24333477164408 max 48666954328964 freq  -1980 +/- 749 delay   224 +/-   0
+ptp4l[8537.012]: rms   48 max   61 freq  -2195 +/-  13 delay   221 +/-   0
+ptp4l[8538.012]: rms   29 max   43 freq  -2182 +/-   6 delay   221 +/-   0
+ptp4l[8539.012]: rms   13 max   27 freq  -2192 +/-  14 delay   221 +/-   0
+ptp4l[8540.012]: rms    8 max   13 freq  -2205 +/-  10 delay   221 +/-   0
+ptp4l[8541.013]: rms   12 max   20 freq  -2217 +/-  13 delay   224 +/-   0
+ptp4l[8542.013]: rms    7 max   17 freq  -2214 +/-  10 delay   221 +/-   0
+ptp4l[8543.013]: rms    7 max   11 freq  -2208 +/-  10 delay   221 +/-   0
+ptp4l[8544.013]: rms    8 max   16 freq  -2214 +/-  10 delay   220 +/-   0
+#########################################################################
+
+Thanks
+Boon Leong
+
+Wong, Vee Khee (1):
+  stmmac: intel: Add PSE and PCH PTP clock source selection
+
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 46 +++++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac4.h  |  7 +++
+ .../net/ethernet/stmicro/stmmac/stmmac_ptp.c  |  3 ++
+ include/linux/stmmac.h                        |  1 +
+ 4 files changed, 57 insertions(+)
+
 -- 
 2.25.1
 
