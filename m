@@ -2,43 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB24434040C
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Mar 2021 11:58:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B6B3406A9
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Mar 2021 14:17:01 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88978C57B7B;
-	Thu, 18 Mar 2021 10:58:46 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A631C57B7C;
+	Thu, 18 Mar 2021 13:17:01 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B4D2C57B77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7645BC57B77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Mar 2021 10:58:44 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B091C64F24;
- Thu, 18 Mar 2021 10:58:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616065122;
- bh=H5haXsTyRhLH/Tr8Ot7gpbm3NkcHxuV0oId1CbO3wi8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UCMC6stWkb2KilpzcwYzrjpiy5n+IpWGdjpEGJcn62LZGF/JEVu/l+o4838XaU4JF
- 33dMvw4nnd8Ab9NYlRZi2stoE3seDxO8q2p2DWJzIFPAJpkWdE0CDEBNZuNmIcxn3Z
- ReodiIJP1S2W6KP/Bmy+LWtpa9+ppL4L5iegrI1TEWRohlJwMhOQtN/ffdDLbYzwjq
- WgXsJJkHtaZxDVRXT8H35kBtt2svxImYyiesoMP8jLS1yQkB1FzAd9xpibMj9VtIb9
- f/Wfj8bgsPXLi7CPqzF+XItZZ0jW4RdLjFsNGiqg/LSNs9gGK49YHjh6MUqwv6M9IY
- 4+kTnXS4WC7Yg==
-Date: Thu, 18 Mar 2021 11:58:39 +0100
-From: Wolfram Sang <wsa@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20210318105839.GG974@ninjato>
+ Thu, 18 Mar 2021 13:16:59 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12ID1rwX030658; Thu, 18 Mar 2021 14:16:47 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=Q3fg+ZhC8rZuokIL+rmXhyDST60kwy28bssDlRJCJTs=;
+ b=UI1PqTnpEkDEbAg4dEZJeMIWaZqEa+9pMo6F9AzVYrmqtw7DheWkSTRf2jSnjNDRQnJ1
+ zJF7ADFpgt8BjmYD80UNPbt+CgoHNJjNr58JVxdBrER4m0Mmi/hRjmjih3m4HRawkg7A
+ csqhnLwzNBoCVRJeNplZF3ZIy00hTZNQJZnxCK++djXmqP9Wg91pP3v5vje3USFr82bw
+ gxRBW2mOYvMKJKbS28lIr9jK4zl+N90pg6Iur7viWaCc+T0mfRR5nFVW6QKkpwyikSOs
+ FcwuFd04eU2WolVY+PsdFLaNIQhX541kbImpg6oo0p36b3rD26UdaIHs50FD/uW1pGHe 0Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37a8prbg9q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 18 Mar 2021 14:16:47 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 51B6210002A;
+ Thu, 18 Mar 2021 14:16:46 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1086824E75B;
+ Thu, 18 Mar 2021 14:16:46 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.48) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 18 Mar
+ 2021 14:16:45 +0100
+To: Wolfram Sang <wsa@kernel.org>, Alain Volmat <alain.volmat@foss.st.com>
 References: <1612515104-838-1-git-send-email-alain.volmat@foss.st.com>
- <1612515104-838-6-git-send-email-alain.volmat@foss.st.com>
+ <1612515104-838-5-git-send-email-alain.volmat@foss.st.com>
+ <20210318105537.GF974@ninjato>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <52fc8d91-8799-65fd-a72a-1707ae3e3a10@foss.st.com>
+Date: Thu, 18 Mar 2021 14:16:45 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1612515104-838-6-git-send-email-alain.volmat@foss.st.com>
+In-Reply-To: <20210318105537.GF974@ninjato>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-18_07:2021-03-17,
+ 2021-03-18 signatures=0
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 5/5] i2c: stm32f7: indicate the address
- being accessed on errors
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, linux-i2c@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/5] ARM: dts: stm32: enable the analog
+ filter for all I2C nodes in stm32mp151
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,62 +75,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2322514778498902749=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Wolfram
 
---===============2322514778498902749==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KIzF6Cje4W/osXrF"
-Content-Disposition: inline
+On 3/18/21 11:55 AM, Wolfram Sang wrote:
+> On Fri, Feb 05, 2021 at 09:51:43AM +0100, Alain Volmat wrote:
+>> Enable the analog filter for all I2C nodes of the stm32mp151.
+>>
+>> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> 
+> I usually don't take DTS patches, but they can go in now via arm-soc as
+> I applied the patches to the driver.
+> 
 
+I'll take it in my stm32 tree.
 
---KIzF6Cje4W/osXrF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Feb 05, 2021 at 09:51:44AM +0100, Alain Volmat wrote:
-> To help debugging issues, add the address of the slave being
-> accessed when getting an error.
->=20
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-
-Applied to for-next, thanks!
-
-
---KIzF6Cje4W/osXrF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmBTMl8ACgkQFA3kzBSg
-KbYFGhAAqK39kHrbMrNW65/acOoglcf2ZVyUccSvCvlPuqXeheH7V39lIoRoOlwz
-YjKFLQ4/WE8r5YEZfIbQKLxOjTEGCm9M3UILFEV+SL4xiCpsD6hiqjhvHdRponph
-VJcnrF7mvkCC9dvybD7gqHz3LUcMeaC266wvIC/0fUcm1YUkvehIDzilECeweTV6
-N4j33IOlQLd1SJ4IH0x4S0Mrh66Y6XS5dbBBHxmx4MrdSSxfGfVkyPB4JTDZgrsc
-mXWx3+4bMNaZW4OnEa7NbjYEtIGZLOBE7r5NFE3w/RudmabTHOCp7Mg6YCDwKNoe
-CSMQ4EfH5dpiUSEEYu/myNPtiGemyTvWbEjPFk3YYZuuTatiyyIPOPQwBKsBlDAR
-IGs3fmTur/ooCyIvb1HhDIaDD/BXMt5oJcgZKItXQRQQfn3mxoy16Cajz5v3/NQM
-GZkLG4pFOl41Irv1kw5hMhfBqIsqEswO9H+yRpWWjx+KRDXDzgr780fj7fPW+HGL
-MNXydEy8vmf7V3Hx50aWGaVQEkEUx8wORRBdPd+HG/PhIj7b0E0x2z6OkJssf59W
-ZBdKc9kfvz3hm5WzW3iVcG7tMoltGTL+5kex6ufI9TpG7P1qgt2Q/+jz15ErkTkw
-m01+/cxWGPBhdRJCmgwYVGegsLXBPjM/luqJc2f2UhPZmD1Q61A=
-=AQRM
------END PGP SIGNATURE-----
-
---KIzF6Cje4W/osXrF--
-
---===============2322514778498902749==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Thanks
+Alex
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2322514778498902749==--
