@@ -2,47 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 724A133FA86
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Mar 2021 22:40:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD67D33FC65
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Mar 2021 01:51:05 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28F33C57B79;
-	Wed, 17 Mar 2021 21:40:11 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6747EC57B79;
+	Thu, 18 Mar 2021 00:51:05 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D814C57B77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B158C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Mar 2021 21:40:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 9C40664F2A;
- Wed, 17 Mar 2021 21:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616017207;
- bh=MykEbFec6VqdlLDN008GkifuEp5MxXO1ImpcmPxvoyY=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=HbA2aH+OG7P30ugRkYaj1RsD+LN2bk1vQ6yO4mdpfr0kSM4nLFE0J8+hVZV9Yi2Ts
- yFjYeZ9QgOsXwB8fufp0KdKpL+xxV/axUvh/IYRf/rIhBg/U6pgKG6H1yMNqviD9W/
- T7bX1LMssqWQw1N01tvXLOImlkG9a9ilMUyD5BaZ85zum+ZLTsapInHzaz/AP6kNF9
- cg7eB9Y/ts/UBXHtczF4qxFzsF+OfJhaaqz1ZgecPdYF8EfR2k9ncNB6ErCkw+VZQ7
- yv0TdqM4SKEIzqm1iSvMcyeBK4Dwlj4wftbtPjSlBrAG8pejkg8WayAJWnV/MQd8MI
- 9+MkcyvEocIKw==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 925F760A60;
- Wed, 17 Mar 2021 21:40:07 +0000 (UTC)
-MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161601720759.5355.17806697288501319323.git-patchwork-notify@kernel.org>
-Date: Wed, 17 Mar 2021 21:40:07 +0000
-References: <20210317010123.6304-1-boon.leong.ong@intel.com>
-In-Reply-To: <20210317010123.6304-1-boon.leong.ong@intel.com>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-Cc: alexandre.torgue@st.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/1] net: stmmac: add per-q
-	coalesce support
+ Thu, 18 Mar 2021 00:51:01 +0000 (UTC)
+IronPort-SDR: ELuH7CYQF9NWApXh1SgICztfWDano4Uq2Oi2qxIFFG47lAtdLvjxtnAw9/xIaCs5m2jmiKd0IY
+ rhOSjYAiwkaw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9926"; a="176705007"
+X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="176705007"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2021 17:50:59 -0700
+IronPort-SDR: NThe0sP+wsRaDL43ZWqqyTqsF139nvSDXrqYQotLgn1+t9JWq7nMOr9W+d4/z2+22epYk2Owtl
+ AVB/wo8rK8Nw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="602458589"
+Received: from mismail5-ilbpg0.png.intel.com ([10.88.229.82])
+ by fmsmga006.fm.intel.com with ESMTP; 17 Mar 2021 17:50:55 -0700
+From: mohammad.athari.ismail@intel.com
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Thu, 18 Mar 2021 08:50:51 +0800
+Message-Id: <20210318005053.31400-1-mohammad.athari.ismail@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Voon Weifeng <weifeng.voon@intel.com>, vee.khee.wong@intel.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mohammad.athari.ismail@intel.com, Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: EST interrupts and
+	ethtool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,36 +52,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+From: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
 
-This patch was applied to netdev/net-next.git (refs/heads/master):
+This patchset adds support for handling EST interrupts and reporting EST
+errors. Additionally, the errors are added into ethtool statistic.
 
-On Wed, 17 Mar 2021 09:01:22 +0800 you wrote:
-> Hi,
-> 
-> This patch adds per-queue RX & TX coalesce control so that user can
-> adjust the RX & TX interrupt moderation per queue. This is beneficial for
-> mixed criticality control (according to VLAN priority) by user application.
-> 
-> The v2 patch has been tested (with added negative tests) and results from the
-> output of the ethtool looks correct.
-> 
-> [...]
+Ong Boon Leong (1):
+  net: stmmac: Add EST errors into ethtool statistic
 
-Here is the summary with links:
-  - [net-next,v2,1/1] net: stmmac: add per-queue TX & RX coalesce ethtool support
-    https://git.kernel.org/netdev/net-next/c/db2f2842e6f5
+Voon Weifeng (1):
+  net: stmmac: EST interrupts handling and error reporting
 
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  6 ++
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c  | 86 +++++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h  | 32 +++++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  4 +
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  6 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  4 +
+ 6 files changed, 138 insertions(+)
 
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
