@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B442B3403F8
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Mar 2021 11:54:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC156340403
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Mar 2021 11:55:44 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BEE6C57B7B;
-	Thu, 18 Mar 2021 10:54:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93E37C57B7B;
+	Thu, 18 Mar 2021 10:55:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A7C2C57B77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86DC6C57B77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Mar 2021 10:54:50 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 304AD64EF6;
- Thu, 18 Mar 2021 10:54:48 +0000 (UTC)
+ Thu, 18 Mar 2021 10:55:43 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 56BDD64E07;
+ Thu, 18 Mar 2021 10:55:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616064888;
- bh=jKNzxVOtluBlw3sWcfi2a8h55RR1kuhcHLwoPXUuXNI=;
+ s=k20201202; t=1616064941;
+ bh=DnDnR/amy0tbA1uOOeuAEvRXaySTXCSy8QbqyiVcoFM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DhnnIoJN0lNOxbLTPyMz8PT2FK0UyXjuPbDoNFgyPoo/bEihuxYqr/npgPYt+Eqi4
- BtjFysjtLHWPqewCE9t8v8leKgW/jDWrcQwklfPiZhk0VR9fk+Cx/KfmY7XCxgZWgP
- H1Cdpgi5X8Duts8q2od38N5pdcZNvTG8GoulyQpktFYJszJ+xVEISC0bqR7Bb3ZPZM
- x9XZbOqNVj5LMMvmHUv1+eC/2e+KhHcTokLc0ESH07W2ZkyiHkmYc5uhUctBCImXCC
- 7ANbR6wK257lwVjyZVPe5y97khYwXHdBbCg3KiE2MH/G7+QpSu4mUoIBRUTjnI7MKz
- TCV53GjyE8WWw==
-Date: Thu, 18 Mar 2021 11:54:46 +0100
+ b=NbV5iHQfjQjT8vKHPrSs7b0Y4WA2kl9hpA6d2WjiBMnR8aXebHNboo/qZP+7t1//m
+ s6PZ2HxgEXNhGB1yZiRcDwsUavh0q4EnWnxWY1Or8cRgcqv6tYeJeekkdKm/Q1s516
+ Y/c6oIqCsSoCR+1GAHFDs2P6v8xR8BxaQlIV0irfFxQtvEDlRXn9irIovjgPZuyIyx
+ TKGYYm3UtKtYs7FXiKOWV/sPIB46gmaeqBIyN2E+nanPu/5+QMH3U0Yo4xnIA6wuoZ
+ /N4B8IsV5KPALvHYLmJyngLdcWhxNSokVcnodwvhrdLb/PtzFqLoVHUpMMf100KoET
+ UUvzSHMHTiL0g==
+Date: Thu, 18 Mar 2021 11:55:37 +0100
 From: Wolfram Sang <wsa@kernel.org>
 To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20210318105446.GE974@ninjato>
+Message-ID: <20210318105537.GF974@ninjato>
 References: <1612515104-838-1-git-send-email-alain.volmat@foss.st.com>
- <1612515104-838-4-git-send-email-alain.volmat@foss.st.com>
+ <1612515104-838-5-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <1612515104-838-4-git-send-email-alain.volmat@foss.st.com>
+In-Reply-To: <1612515104-838-5-git-send-email-alain.volmat@foss.st.com>
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
  alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
  linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/5] i2c: stm32f7: add support for DNF
- i2c-digital-filter binding
+Subject: Re: [Linux-stm32] [PATCH 4/5] ARM: dts: stm32: enable the analog
+ filter for all I2C nodes in stm32mp151
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,54 +50,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3888995021452573487=="
+Content-Type: multipart/mixed; boundary="===============4245084792804270072=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============3888995021452573487==
+--===============4245084792804270072==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HnQK338I3UIa/qiP"
+	protocol="application/pgp-signature"; boundary="K/NRh952CO+2tg14"
 Content-Disposition: inline
 
 
---HnQK338I3UIa/qiP
+--K/NRh952CO+2tg14
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Feb 05, 2021 at 09:51:42AM +0100, Alain Volmat wrote:
-> Add the support for the i2c-digital-filter binding, allowing to enable
-> the digital filter via the device-tree and indicate its value in the DT.
+On Fri, Feb 05, 2021 at 09:51:43AM +0100, Alain Volmat wrote:
+> Enable the analog filter for all I2C nodes of the stm32mp151.
 >=20
 > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 
-Applied to for-next, thanks!
+I usually don't take DTS patches, but they can go in now via arm-soc as
+I applied the patches to the driver.
 
 
---HnQK338I3UIa/qiP
+--K/NRh952CO+2tg14
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmBTMXYACgkQFA3kzBSg
-KbZGvg//Qt/rXoaq3I2LSLApIOkG9Zqt6hluxc/ZtzNTzPpac8rf3Pgygn6mFwxK
-POSs9/q1k1rwtQnmmypL4fPvZ/SBiyEUSzGURWcx/hPw28P9kGNxVD2TZgsVzCgt
-TVr8Gj5CmYFxyuDTnhk2hWloPUkCGxmg30+Mv8WZG6LaxQDNBxizxl5TNh5nj5KX
-DOA1rhb8UbM/mV08Ce+2w10Ey5J0rT6xSmjPfFP9yol0+bsf2O5gVddyXWfQoUnf
-Zy0IgVfDrZFbm//4ORn10BuWR0pAexwiUw1wjEn5+Kg76jUHkJMLUMUtgDkhmHKt
-HlenoBaDSCTV3JdWJTeyq4EMeACCK01/DmavasUM7QqFtFiaGs0MxB+A6+NA/0bk
-1joVv8VruYvOeAMEp6sd3IOgU7KKHEkGuWWLHMAgs07NkO1156bbso0S6fBntC1G
-NwLEvdw4QhqDZAMMI/CDOzNfdQuLIEx2O4Dg3PKF/S1iuZmOZbRUDzP1YM5KkXLx
-eOfug+uTKI38fz1R7xzB/Eu+YTJozPiP+SCqn4O/Ji3BAMUO1CTuat/FBTTLCOxt
-n5yeSwtYxuqcu/Q9w3NGdzlgVZPNYa7a+Osm9yuUV1fFJicuYa4iB0huIdeAloEA
-w6sMnkcgop193dfRKUDaJicib7c0qUX+wRI9Tl5gyPePhm8fuiU=
-=HLHK
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmBTMakACgkQFA3kzBSg
+KbY7aA/9FQ41fh4wwSbiUTFPrcQMfKbF9cQPBfLGXmFBBGN6/baEyWZUxDWcOfFk
+Q+XXFTWInRwTNgsiA0RsXokke2zn8Pq2Bi7Aq2rzmI+sPJMHCSsa4Yvm/rYdFcnR
+ckuOqWr+sifZ/y0yaVyH9V7aFbIbTLcs0TQaqEpi+mvFTRCFQZiJLarHEDLYelU6
+/s5sVO5AKgWP3PSKn2Xpngt3dldXzT16aj3zB/V5K93JtqqsGfIQ+DFeV4/WUnl8
+8cnNRNqQnsXzbw7tsuoBkU1hwZuW2nKWzc0GB2xghHf5mAixBsj2IfPS8ZIUHhF3
+ZTNB9u/3Do22tylCYxrZcJi2QgdW48HxWAsblSgYD8Wx9v+WBeQQZRK0c71+y7nZ
+DXWt8TkiJpOymkbqpI63Z9Qf+4aY1VgO0aNHQevJoX78kLeo+SrIh6Ok3472lybR
+DteS/lkUm4kKHKtJiQPqVOpjkzFIBOHRuCvZgq09TyIz/yKTVw+xkXKPxIhVjzUp
+8ihrc0YgfKRzJTu/5sZLTv4lryQHuIy/M20GkoYxzJLRiwE3FW+SV2oxFjiqu8Am
+n8WtIQpG7wHtsPFlaXIgKotXIibbNlUxxd2aACYX6//FkDhPbdQBEuajfq810Luc
+p/ux85f/vDCzGXFdn/QjTACvCuz84NuTpUKir+d9WW0QQsSC7Oc=
+=kVvg
 -----END PGP SIGNATURE-----
 
---HnQK338I3UIa/qiP--
+--K/NRh952CO+2tg14--
 
---===============3888995021452573487==
+--===============4245084792804270072==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -108,4 +108,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============3888995021452573487==--
+--===============4245084792804270072==--
