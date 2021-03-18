@@ -2,66 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2606A340847
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Mar 2021 16:00:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94BBE340B83
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Mar 2021 18:18:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2B4AC58D40;
-	Thu, 18 Mar 2021 15:00:08 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42201C57B7E;
+	Thu, 18 Mar 2021 17:18:08 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CD37C57B7B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6D71C57B77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Mar 2021 15:00:05 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12IEpstw030714; Thu, 18 Mar 2021 15:59:56 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=ia5lg0HpmnrAbV0iEjU/Zp9LyqCR81QMMkLe9ro3rKs=;
- b=Gi4xr+P9gFWJr5sMEO15FiJOjhVPcrlfXpjqKVKa4iK23R+ccD7S8WzrmbW1GmYpaJEV
- FvCplXHRijJa3t0zbAR9lbAAPPVmmwgbsG2CS8DcG12NWBnTzwqT77jPgcn4hac/BmAr
- Mbg9m7M73e317h9mvvaeZFi3AxktslSWxSjd4hWBgvaPvIcYyv1EBfBpKwwKp5dC7oHM
- /OLqdEm46gaNS5t4i03g7txcxd22HxPm8tUWLrOWK7goQO6bQnsXnM9d2n43gjxNErX/
- VXMYZcv0edLMex9bHIYSS3+1VbQjcm4qE2IYF3DQaz40veYpGKD1qdlNbyu2enNA+1KK MQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37a8prc15v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Mar 2021 15:59:56 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CD85810002A;
- Thu, 18 Mar 2021 15:59:55 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BAF36210470;
- Thu, 18 Mar 2021 15:59:55 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 18 Mar 2021 15:59:55
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
- <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Rob Herring <robh@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 18 Mar 2021 15:59:23 +0100
-Message-ID: <20210318145923.31936-3-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210318145923.31936-1-arnaud.pouliquen@foss.st.com>
-References: <20210318145923.31936-1-arnaud.pouliquen@foss.st.com>
+ Thu, 18 Mar 2021 17:18:06 +0000 (UTC)
+IronPort-SDR: p4MxH2cpF2yLMQHJoFkzF4d4q9Kpa7QaC09IG6wSlSXcaLHE5eT17DrfBgISVG8ER/uTpiBg1E
+ pLzw1WwKWmjg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9927"; a="169655691"
+X-IronPort-AV: E=Sophos;i="5.81,259,1610438400"; d="scan'208";a="169655691"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2021 10:18:04 -0700
+IronPort-SDR: R+AVaVa3UUPEnjTZIc5WRzDImR+71PIiIFNfeACe4wNl9uJlLsk6qgn4MnxQJ4omynn7PvhPIi
+ i5VgrFO2Mn4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,259,1610438400"; d="scan'208";a="374641106"
+Received: from glass.png.intel.com ([10.158.65.59])
+ by orsmga006.jf.intel.com with ESMTP; 18 Mar 2021 10:18:00 -0700
+From: Ong Boon Leong <boon.leong.ong@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
+Date: Fri, 19 Mar 2021 01:22:02 +0800
+Message-Id: <20210318172204.23766-1-boon.leong.ong@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-18_09:2021-03-17,
- 2021-03-18 signatures=0
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] remoteproc: stm32: add capability to
-	detach
+Subject: [Linux-stm32] [PATCH net-next 0/2] stmmac: add VLAN priority based
+	RX steering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,115 +57,320 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Arnaud Pouliquen <arnaud.pouliquen@foss-st.com>
+Hi,
 
-A mechanism similar to the shutdown mailbox signal is implemented to
-detach a remote processor.
+The current tc flower implementation in stmmac supports both L3 and L4
+filter offloading. This patch adds the support of VLAN priority based
+RX frame steering into different Rx Queues.
 
-Upon detachment, a signal is sent to the remote firmware, allowing it
-to perform specific actions such as stopping RPMsg communication.
+The patches have been tested on both configuration test (include L3/L4)
+and traffic test (multi VLAN ping streams with RX Frame Steering) below:-
 
-The Cortex-M hold boot is also disabled to allow the remote processor
-to restart in case of crash.
+#################################
+# A) tc flower configuration test
+#########################################################################
+# eth0: Delete tc filter
+> tc qdisc delete dev eth0 ingress
 
-Notice that for this feature to be supported, the remote firmware 
-resource table must be stored at the beginning of a 1kB section 
-(default size provided to the remoteproc core).
+# eth0: Delete all QDiscs
+> tc qdisc del dev eth0 parent root 2&> /dev/null
+> tc qdisc del dev eth0 parent ffff: 2&> /dev/null
 
-This restriction should be lifted in the future by using a backup register
-to store the actual size of the resource table. 
+# eth0: Add tc filter
+> tc qdisc add dev eth0 ingress
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss-st.com>
----
- drivers/remoteproc/stm32_rproc.c | 38 ++++++++++++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 2 deletions(-)
+# eth0: Add tc flower (192.168.0.1:5201 192.168.1.1:6201 - ip - tcp) action drop
+> tc filter add dev eth0 parent ffff: protocol ip flower dst_ip 192.168.0.1 \
+  src_ip 192.168.1.1 ip_proto tcp dst_port 5201 src_port 6201 action drop
 
-diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-index 3d45f51de4d0..298ef5b19e27 100644
---- a/drivers/remoteproc/stm32_rproc.c
-+++ b/drivers/remoteproc/stm32_rproc.c
-@@ -28,7 +28,7 @@
- #define RELEASE_BOOT		1
- 
- #define MBOX_NB_VQ		2
--#define MBOX_NB_MBX		3
-+#define MBOX_NB_MBX		4
- 
- #define STM32_SMC_RCC		0x82001000
- #define STM32_SMC_REG_WRITE	0x1
-@@ -38,6 +38,7 @@
- #define STM32_MBX_VQ1		"vq1"
- #define STM32_MBX_VQ1_ID	1
- #define STM32_MBX_SHUTDOWN	"shutdown"
-+#define STM32_MBX_DETACH	"detach"
- 
- #define RSC_TBL_SIZE		1024
- 
-@@ -336,6 +337,15 @@ static const struct stm32_mbox stm32_rproc_mbox[MBOX_NB_MBX] = {
- 			.tx_done = NULL,
- 			.tx_tout = 500, /* 500 ms time out */
- 		},
-+	},
-+	{
-+		.name = STM32_MBX_DETACH,
-+		.vq_id = -1,
-+		.client = {
-+			.tx_block = true,
-+			.tx_done = NULL,
-+			.tx_tout = 200, /* 200 ms time out to detach should be fair enough */
-+		},
- 	}
- };
- 
-@@ -461,6 +471,25 @@ static int stm32_rproc_attach(struct rproc *rproc)
- 	return stm32_rproc_set_hold_boot(rproc, true);
- }
- 
-+static int stm32_rproc_detach(struct rproc *rproc)
-+{
-+	struct stm32_rproc *ddata = rproc->priv;
-+	int err, dummy_data, idx;
-+
-+	/* Inform the remote processor of the detach */
-+	idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_DETACH);
-+	if (idx >= 0 && ddata->mb[idx].chan) {
-+		/* A dummy data is sent to allow to block on transmit */
-+		err = mbox_send_message(ddata->mb[idx].chan,
-+					&dummy_data);
-+		if (err < 0)
-+			dev_warn(&rproc->dev, "warning: remote FW detach without ack\n");
-+	}
-+
-+	/* Allow remote processor to auto-reboot */
-+	return stm32_rproc_set_hold_boot(rproc, false);
-+}
-+
- static int stm32_rproc_stop(struct rproc *rproc)
- {
- 	struct stm32_rproc *ddata = rproc->priv;
-@@ -597,7 +626,11 @@ stm32_rproc_get_loaded_rsc_table(struct rproc *rproc, size_t *table_sz)
- 	}
- 
- done:
--	/* Assuming the resource table fits in 1kB is fair */
-+	/*
-+	 * Assuming the resource table fits in 1kB is fair.
-+	 * Notice for the detach, that this 1 kB memory area has to be reserved in the coprocessor
-+	 * firmware for the resource table. A clean of this whole area is done on detach.
-+	 */
- 	*table_sz = RSC_TBL_SIZE;
- 	return (struct resource_table *)ddata->rsc_va;
- }
-@@ -607,6 +640,7 @@ static const struct rproc_ops st_rproc_ops = {
- 	.start		= stm32_rproc_start,
- 	.stop		= stm32_rproc_stop,
- 	.attach		= stm32_rproc_attach,
-+	.detach		= stm32_rproc_detach,
- 	.kick		= stm32_rproc_kick,
- 	.load		= rproc_elf_load_segments,
- 	.parse_fw	= stm32_rproc_parse_fw,
+# eth0: Add tc flower (192.168.0.2:5202 192.168.1.2:6202 - ip - tcp) action drop
+> tc filter add dev eth0 parent ffff: protocol ip flower dst_ip 192.168.0.2 \
+  src_ip 192.168.1.2 ip_proto tcp dst_port 5202 src_port 6202 action drop
+
+# eth0: Show tc filter - ingress
+> tc filter show dev eth0 ingress
+filter parent ffff: protocol ip pref 49151 flower chain 0
+filter parent ffff: protocol ip pref 49151 flower chain 0 handle 0x1
+  eth_type ipv4
+  ip_proto tcp
+  dst_ip 192.168.0.2
+  src_ip 192.168.1.2
+  dst_port 5202
+  src_port 6202
+  in_hw in_hw_count 1
+        action order 1: gact action drop
+         random type none pass val 0
+         index 2 ref 1 bind 1
+
+filter parent ffff: protocol ip pref 49152 flower chain 0
+filter parent ffff: protocol ip pref 49152 flower chain 0 handle 0x1
+  eth_type ipv4
+  ip_proto tcp
+  dst_ip 192.168.0.1
+  src_ip 192.168.1.1
+  dst_port 5201
+  src_port 6201
+  in_hw in_hw_count 1
+        action order 1: gact action drop
+         random type none pass val 0
+         index 1 ref 1 bind 1
+
+# eth0: Delete tc filter
+> tc qdisc delete dev eth0 ingress
+
+# eth0: Delete all QDiscs
+> tc qdisc del dev eth0 parent root 2&> /dev/null
+> tc qdisc del dev eth0 parent ffff: 2&> /dev/null
+
+# eth0: Add tc filter
+> tc qdisc add dev eth0 ingress
+
+# eth0: MQPRIO 4 TC add
+> tc qdisc add dev eth0 root mqprio num_tc 4 \
+  map 0 1 2 3 0 0 0 0 0 0 0 0 0 0 0 0 \
+  queues 1@0 1@1 1@2 1@3 hw 0
+
+# eth0: Add tc flower RX vlan_prio(0) --> RX traffic class(3)
+> tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 0 hw_tc 3
+
+# eth0: Add tc flower RX vlan_prio(1) --> RX traffic class(2)
+> tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 1 hw_tc 2
+
+# eth0: Add tc flower RX vlan_prio(2) --> RX traffic class(1)
+> tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 2 hw_tc 1
+
+# eth0: Add tc flower RX vlan_prio(3) --> RX traffic class(0)
+> tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 3 hw_tc 0
+
+# eth0: Show tc filter - ingress
+> tc filter show dev eth0 ingress
+filter parent ffff: protocol 802.1Q pref 49149 flower chain 0
+filter parent ffff: protocol 802.1Q pref 49149 flower chain 0 handle 0x1 hw_tc 0
+  vlan_prio 3
+  in_hw in_hw_count 1
+filter parent ffff: protocol 802.1Q pref 49150 flower chain 0
+filter parent ffff: protocol 802.1Q pref 49150 flower chain 0 handle 0x1 hw_tc 1
+  vlan_prio 2
+  in_hw in_hw_count 1
+filter parent ffff: protocol 802.1Q pref 49151 flower chain 0
+filter parent ffff: protocol 802.1Q pref 49151 flower chain 0 handle 0x1 hw_tc 2
+  vlan_prio 1
+  in_hw in_hw_count 1
+filter parent ffff: protocol 802.1Q pref 49152 flower chain 0
+filter parent ffff: protocol 802.1Q pref 49152 flower chain 0 handle 0x1 hw_tc 3
+  vlan_prio 0
+  in_hw in_hw_count 1
+
+# eth0: Delete tc filter
+> tc qdisc delete dev eth0 ingress
+#########################################################################
+
+##########################
+# B) VLAN-based ping streams with RX Frame steering based on VLAN priority
+##########################################################################
+
+# For DUT-A:
+# Restore DUT IP address for VLAN and non-VLAN interface
+> ip address flush dev eth0
+> ip address add 169.254.1.11/24 dev eth0
+
+> ip link delete dev eth0.vlan1 2> /dev/null
+> ip link add link eth0 name eth0.vlan1 type vlan id 1
+> ip address flush dev eth0.vlan1 2> /dev/null
+> ip address add 169.254.11.11/24 dev eth0.vlan1
+
+> ip link delete dev eth0.vlan2 2> /dev/null
+> ip link add link eth0 name eth0.vlan2 type vlan id 2
+> ip address flush dev eth0.vlan2 2> /dev/null
+> ip address add 169.254.12.11/24 dev eth0.vlan2
+
+> ip link delete dev eth0.vlan3 2> /dev/null
+> ip link add link eth0 name eth0.vlan3 type vlan id 3
+> ip address flush dev eth0.vlan3 2> /dev/null
+> ip address add 169.254.13.11/24 dev eth0.vlan3
+
+> ip link delete dev eth0.vlan4 2> /dev/null
+> ip link add link eth0 name eth0.vlan4 type vlan id 4
+> ip address flush dev eth0.vlan4 2> /dev/null
+> ip address add 169.254.14.11/24 dev eth0.vlan4
+
+# For DUT-B:
+# Restore DUT IP address for VLAN and non-VLAN interface
+> ip address flush dev eth0
+> ip address add 169.254.1.22/24 dev eth0
+
+> ip link delete dev eth0.vlan1 2> /dev/null
+> ip link add link eth0 name eth0.vlan1 type vlan id 1
+> ip address flush dev eth0.vlan1 2> /dev/null
+> ip address add 169.254.11.22/24 dev eth0.vlan1
+
+> ip link delete dev eth0.vlan2 2> /dev/null
+> ip link add link eth0 name eth0.vlan2 type vlan id 2
+> ip address flush dev eth0.vlan2 2> /dev/null
+> ip address add 169.254.12.22/24 dev eth0.vlan2
+
+> ip link delete dev eth0.vlan3 2> /dev/null
+> ip link add link eth0 name eth0.vlan3 type vlan id 3
+> ip address flush dev eth0.vlan3 2> /dev/null
+> ip address add 169.254.13.22/24 dev eth0.vlan3
+
+> ip link delete dev eth0.vlan4 2> /dev/null
+> ip link add link eth0 name eth0.vlan4 type vlan id 4
+> ip address flush dev eth0.vlan4 2> /dev/null
+> ip address add 169.254.14.22/24 dev eth0.vlan4
+
+# For DUT-A and DUT-B:
+
+# Setup VLAN I/F socket priority using cgroup net_prio
+> mkdir -p /sys/fs/cgroup/net_prio/grp0
+> echo eth0 0 > /sys/fs/cgroup/net_prio/grp0/net_prio.ifpriomap
+> echo eth0.vlan1 0 >  /sys/fs/cgroup/net_prio/grp0/net_prio.ifpriomap
+> mkdir -p /sys/fs/cgroup/net_prio/grp1
+> echo eth0 0 > /sys/fs/cgroup/net_prio/grp1/net_prio.ifpriomap
+> echo eth0.vlan2 1 >  /sys/fs/cgroup/net_prio/grp1/net_prio.ifpriomap
+> mkdir -p /sys/fs/cgroup/net_prio/grp2
+> echo eth0 0 > /sys/fs/cgroup/net_prio/grp2/net_prio.ifpriomap
+> echo eth0.vlan3 2 >  /sys/fs/cgroup/net_prio/grp2/net_prio.ifpriomap
+> mkdir -p /sys/fs/cgroup/net_prio/grp3
+> echo eth0 0 > /sys/fs/cgroup/net_prio/grp3/net_prio.ifpriomap
+> echo eth0.vlan4 3 >  /sys/fs/cgroup/net_prio/grp3/net_prio.ifpriomap
+
+# Setup tc ...
+# eth0: Delete all QDiscs
+> tc qdisc del dev eth0 parent root 2&> /dev/null
+> tc qdisc del dev eth0 parent ffff: 2&> /dev/null
+
+# eth0: Add tc filter
+> tc qdisc add dev eth0 ingress
+> tc qdisc add dev eth0 root mqprio num_tc 4 map 0 1 2 3 0 0 0 0 0 0 0 0 0 0 0 0 queues 1@0 1@1 1@2 1@3 hw 0
+
+# eth0: Add tc flower RX vlan_prio(0) --> RX traffic class(0)
+> tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 0 hw_tc 0
+
+# eth0: Add tc flower RX vlan_prio(1) --> RX traffic class(1)
+> tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 1 hw_tc 1
+
+# eth0: Add tc flower RX vlan_prio(2) --> RX traffic class(2)
+> tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 2 hw_tc 2
+
+# eth0: Add tc flower RX vlan_prio(3) --> RX traffic class(3)
+> tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 3 hw_tc 3
+
+# For VLAN TX interface, VLANID[1-4] has SOCK_PRIO[0-3] mapped to VLAN PRIO[0-3]
+> ip link set eth0.vlan1 type vlan egress-qos-map 0:0
+> ip link set eth0.vlan2 type vlan egress-qos-map 1:1
+> ip link set eth0.vlan3 type vlan egress-qos-map 2:2
+> ip link set eth0.vlan4 type vlan egress-qos-map 3:3
+
+# eth0: Show tc filter - ingress
+> tc filter show dev eth0 ingress
+filter parent ffff: protocol 802.1Q pref 49149 flower chain 0
+filter parent ffff: protocol 802.1Q pref 49149 flower chain 0 handle 0x1 hw_tc 3
+  vlan_prio 3
+  in_hw in_hw_count 1
+filter parent ffff: protocol 802.1Q pref 49150 flower chain 0
+filter parent ffff: protocol 802.1Q pref 49150 flower chain 0 handle 0x1 hw_tc 2
+  vlan_prio 2
+  in_hw in_hw_count 1
+filter parent ffff: protocol 802.1Q pref 49151 flower chain 0
+filter parent ffff: protocol 802.1Q pref 49151 flower chain 0 handle 0x1 hw_tc 1
+  vlan_prio 1
+  in_hw in_hw_count 1
+filter parent ffff: protocol 802.1Q pref 49152 flower chain 0
+filter parent ffff: protocol 802.1Q pref 49152 flower chain 0 handle 0x1 hw_tc 0
+  vlan_prio 0
+  in_hw in_hw_count 1
+
+# rx-0 with IRQ-131 mapped to Core-1
+> echo 1 > /proc/irq/131/smp_affinity
+# tx-0 with IRQ-132 mapped to Core-1
+> echo 1 > /proc/irq/132/smp_affinity
+
+# rx-1 with IRQ-133 mapped to Core-4
+> echo 4 > /proc/irq/133/smp_affinity
+# tx-1 with IRQ-134 mapped to Core-4
+> echo 4 > /proc/irq/134/smp_affinity
+
+# rx-2 with IRQ-135 mapped to Core-4
+> echo 4 > /proc/irq/135/smp_affinity
+# tx-2 with IRQ-136 mapped to Core-4
+> echo 4 > /proc/irq/136/smp_affinity
+
+# rx-3 with IRQ-137 mapped to Core-2
+> echo 2 > /proc/irq/137/smp_affinity
+# tx-3 with IRQ-138 mapped to Core-2
+> echo 2 > /proc/irq/138/smp_affinity
+
+# For DUT-A:
+> ping -i 0.001 169.254.11.22 2&> /dev/null &
+> PID1="$!"
+> echo $PID1 >  /sys/fs/cgroup/net_prio/grp0/cgroup.procs
+
+> ping -i 0.001 169.254.12.22 2&> /dev/null &
+> PID2="$!"
+> echo $PID2 >  /sys/fs/cgroup/net_prio/grp1/cgroup.procs
+
+> ping -i 0.001 169.254.13.22 2&> /dev/null &
+> PID3="$!"
+> echo $PID3 >  /sys/fs/cgroup/net_prio/grp2/cgroup.procs
+
+> ping -i 0.001 169.254.14.22 2&> /dev/null &
+> PID4="$!"
+> echo $PID4 >  /sys/fs/cgroup/net_prio/grp3/cgroup.procs
+
+# For DUT-B:
+> ping -i 0.001 169.254.11.11 2&> /dev/null &
+> PID1="$!"
+> echo $PID1 >  /sys/fs/cgroup/net_prio/grp0/cgroup.procs
+
+> ping -i 0.001 169.254.12.11 2&> /dev/null &
+> PID2="$!"
+> echo $PID2 >  /sys/fs/cgroup/net_prio/grp1/cgroup.procs
+
+> ping -i 0.001 169.254.13.11 2&> /dev/null &
+> PID3="$!"
+> echo $PID3 >  /sys/fs/cgroup/net_prio/grp2/cgroup.procs
+
+> ping -i 0.001 169.254.14.11 2&> /dev/null &
+> PID4="$!"
+> echo $PID4 >  /sys/fs/cgroup/net_prio/grp3/cgroup.procs
+
+# Example of result on DUT-B:
+> watch -n 0.5 -d "cat /proc/interrupts | grep eth0"
+ 131:     251918         41          0          0  IR-PCI-MSI 477184-edge      eth0:rx-0
+ 132:      18969          1          0          0  IR-PCI-MSI 477185-edge      eth0:tx-0
+ 133:          0          0     295872          0  IR-PCI-MSI 477186-edge      eth0:rx-1
+ 134:          0          0      16136          0  IR-PCI-MSI 477187-edge      eth0:tx-1
+ 135:          0          0     288042          0  IR-PCI-MSI 477188-edge      eth0:rx-2
+ 136:          0          0      16135          0  IR-PCI-MSI 477189-edge      eth0:tx-2
+ 137:          0     211177          0          0  IR-PCI-MSI 477190-edge      eth0:rx-3
+ 138:          2      16144          0          0  IR-PCI-MSI 477191-edge      eth0:tx-3
+ 139:          0          0          0          0  IR-PCI-MSI 477192-edge      eth0:rx-4
+ 140:          0          0          0          0  IR-PCI-MSI 477193-edge      eth0:tx-4
+ 141:          0          0          0          0  IR-PCI-MSI 477194-edge      eth0:rx-5
+ 142:          0          0          0          0  IR-PCI-MSI 477195-edge      eth0:tx-5
+ 143:          0          0          0          0  IR-PCI-MSI 477196-edge      eth0:rx-6
+ 144:          0          0          0          0  IR-PCI-MSI 477197-edge      eth0:tx-6
+ 145:          0          0          0          0  IR-PCI-MSI 477198-edge      eth0:rx-7
+ 146:          0          0          0          0  IR-PCI-MSI 477199-edge      eth0:tx-7
+ 157:          0          0          0          0  IR-PCI-MSI 477210-edge      eth0:safety-ue
+
+#########################################################################
+
+
+Thank You,
+Boon Leong
+
+Ong Boon Leong (2):
+  net: stmmac: restructure tc implementation for RX VLAN Priority
+    steering
+  net: stmmac: add RX frame steering based on VLAN priority in tc flower
+
+ .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 85 ++++++++++++++++++-
+ 1 file changed, 83 insertions(+), 2 deletions(-)
+
 -- 
-2.17.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
