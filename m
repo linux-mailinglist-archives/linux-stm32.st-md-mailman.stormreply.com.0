@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B176433FC66
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Mar 2021 01:51:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 501D633FC67
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Mar 2021 01:51:10 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76576C57B7A;
-	Thu, 18 Mar 2021 00:51:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F9CFC57B7A;
+	Thu, 18 Mar 2021 00:51:10 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02134C57B77
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6188BC57B7A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Mar 2021 00:51:03 +0000 (UTC)
-IronPort-SDR: J/mOm+TxZKCV08lQOCW8IGhHaTD55+9fidnVqdiQvTF1g9ZaXWEOPPQ6f5Cndok84rVCMxHYLt
- Q9Gh6QwZa2SA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9926"; a="176705016"
-X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="176705016"
+ Thu, 18 Mar 2021 00:51:06 +0000 (UTC)
+IronPort-SDR: PSOc00sB3puuy5Wzw7l9IKAGwH1RTXFqjvJqFYwOUCBtdJb1jrXO1Th46WibeJ1O6kMrAQZ97M
+ ZXtKhgQcSPqg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9926"; a="176705028"
+X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="176705028"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2021 17:51:02 -0700
-IronPort-SDR: UXFLiW5toQB3n4xq+Xib8C5wU5wSdX0drodumsbAVVlRO6IqaJvndur8FRc01GDytV35oY714j
- DlShQmBbnxFQ==
+ 17 Mar 2021 17:51:05 -0700
+IronPort-SDR: Ek0/0iaD+ZZtdCkY6StW4zFslb0ZgIVgyV7CBPb9jrVnYT5Dnru+m4fdcuYJ3qxXXTZbWdtIgi
+ JQjf0GZPd+DA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="602458608"
+X-IronPort-AV: E=Sophos;i="5.81,257,1610438400"; d="scan'208";a="602458619"
 Received: from mismail5-ilbpg0.png.intel.com ([10.88.229.82])
- by fmsmga006.fm.intel.com with ESMTP; 17 Mar 2021 17:50:59 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 17 Mar 2021 17:51:02 -0700
 From: mohammad.athari.ismail@intel.com
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
  Jose Abreu <joabreu@synopsys.com>,
  "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Thu, 18 Mar 2021 08:50:52 +0800
-Message-Id: <20210318005053.31400-2-mohammad.athari.ismail@intel.com>
+Date: Thu, 18 Mar 2021 08:50:53 +0800
+Message-Id: <20210318005053.31400-3-mohammad.athari.ismail@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210318005053.31400-1-mohammad.athari.ismail@intel.com>
 References: <20210318005053.31400-1-mohammad.athari.ismail@intel.com>
@@ -41,8 +41,8 @@ Cc: Voon Weifeng <weifeng.voon@intel.com>, vee.khee.wong@intel.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  mohammad.athari.ismail@intel.com, Ong Boon Leong <boon.leong.ong@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 1/2] net: stmmac: EST interrupts
-	handling and error reporting
+Subject: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: Add EST errors into
+	ethtool statistic
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,213 +60,170 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Voon Weifeng <weifeng.voon@intel.com>
+From: Ong Boon Leong <boon.leong.ong@intel.com>
 
-Enabled EST related interrupts as below:
-1) Constant Gate Control Error (CGCE)
-2) Head-of-Line Blocking due to Scheduling (HLBS)
-3) Head-of-Line Blocking due to Frame Size (HLBF).
-4) Base Time Register error (BTRE)
-5) Switch to S/W owned list Complete (SWLC)
+Below EST errors are added into ethtool statistic:
+1) Constant Gate Control Error (CGCE):
+   The counter "mtl_est_cgce" increases everytime CGCE interrupt is
+   triggered.
 
-For HLBS, the user will get the info of all the queues that shows this
-error. For HLBF, the user will get the info of all the queue with the
-latest frame size which causes the error. Frame size 0 indicates no
-error.
+2) Head-of-Line Blocking due to Scheduling (HLBS):
+   The counter "mtl_est_hlbs" increases everytime HLBS interrupt is
+   triggered.
 
-The ISR handling takes place when EST feature is enabled by user.
+3) Head-of-Line Blocking due to Frame Size (HLBF):
+   The counter "mtl_est_hlbf" increases everytime HLBF interrupt is
+   triggered.
 
-Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
+4) Base Time Register error (BTRE):
+   The counter "mtl_est_btre" increases everytime BTRE interrupt is
+   triggered but BTRL not reaches maximum value of 15.
+
+5) Base Time Register Error Loop Count (BTRL) reaches maximum value:
+   The counter "mtl_est_btrlm" increases everytime BTRE interrupt is
+   triggered and BTRL value reaches maximum value of 15.
+
+Please refer to MTL_EST_STATUS register in DesignWare Cores Ethernet
+Quality-of-Service Databook for more detail explanation.
+
 Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
 Co-developed-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
 Signed-off-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
 ---
-v2 changelog:
-- Changed dwmac5_est_irq_status() function declaration to void.
-- Changed queue value display for HLB(sched) error to hex.
+ drivers/net/ethernet/stmicro/stmmac/common.h        |  6 ++++++
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c        | 13 ++++++++++++-
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h        |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h          |  2 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_ethtool.c    |  6 ++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   |  3 ++-
+ 6 files changed, 28 insertions(+), 4 deletions(-)
 
----
- drivers/net/ethernet/stmicro/stmmac/dwmac5.c  | 75 +++++++++++++++++++
- drivers/net/ethernet/stmicro/stmmac/dwmac5.h  | 32 ++++++++
- drivers/net/ethernet/stmicro/stmmac/hwif.h    |  4 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  3 +
- 4 files changed, 114 insertions(+)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index 6f271c46368d..1c0c60bdf854 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -182,6 +182,12 @@ struct stmmac_extra_stats {
+ 	/* TSO */
+ 	unsigned long tx_tso_frames;
+ 	unsigned long tx_tso_nfrags;
++	/* EST */
++	unsigned long mtl_est_cgce;
++	unsigned long mtl_est_hlbs;
++	unsigned long mtl_est_hlbf;
++	unsigned long mtl_est_btre;
++	unsigned long mtl_est_btrlm;
+ };
+ 
+ /* Safety Feature statistics exposed by ethtool */
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-index 8f7ac24545ef..809015f59ee2 100644
+index 809015f59ee2..0ae85f8adf67 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-@@ -595,9 +595,84 @@ int dwmac5_est_configure(void __iomem *ioaddr, struct stmmac_est *cfg,
- 		ctrl &= ~EEST;
- 
- 	writel(ctrl, ioaddr + MTL_EST_CONTROL);
-+
-+	/* Configure EST interrupt */
-+	if (cfg->enable)
-+		ctrl = (IECGCE | IEHS | IEHF | IEBE | IECC);
-+	else
-+		ctrl = 0;
-+
-+	writel(ctrl, ioaddr + MTL_EST_INT_EN);
-+
- 	return 0;
+@@ -608,7 +608,7 @@ int dwmac5_est_configure(void __iomem *ioaddr, struct stmmac_est *cfg,
  }
  
-+void dwmac5_est_irq_status(void __iomem *ioaddr, struct net_device *dev,
-+			  u32 txqcnt)
-+{
-+	u32 status, value, feqn, hbfq, hbfs, btrl;
-+	u32 txqcnt_mask = (1 << txqcnt) - 1;
-+
-+	status = readl(ioaddr + MTL_EST_STATUS);
-+
-+	value = (CGCE | HLBS | HLBF | BTRE | SWLC);
-+
-+	/* Return if there is no error */
-+	if (!(status & value))
-+		return;
-+
-+	if (status & CGCE) {
-+		/* Clear Interrupt */
-+		writel(CGCE, ioaddr + MTL_EST_STATUS);
-+	}
-+
-+	if (status & HLBS) {
-+		value = readl(ioaddr + MTL_EST_SCH_ERR);
-+		value &= txqcnt_mask;
-+
-+		/* Clear Interrupt */
-+		writel(value, ioaddr + MTL_EST_SCH_ERR);
-+
-+		/* Collecting info to shows all the queues that has HLBS
-+		 * issue. The only way to clear this is to clear the
-+		 * statistic
-+		 */
-+		if (net_ratelimit())
-+			netdev_err(dev, "EST: HLB(sched) Queue 0x%x\n", value);
-+	}
-+
-+	if (status & HLBF) {
-+		value = readl(ioaddr + MTL_EST_FRM_SZ_ERR);
-+		feqn = value & txqcnt_mask;
-+
-+		value = readl(ioaddr + MTL_EST_FRM_SZ_CAP);
-+		hbfq = (value & SZ_CAP_HBFQ_MASK(txqcnt)) >> SZ_CAP_HBFQ_SHIFT;
-+		hbfs = value & SZ_CAP_HBFS_MASK;
-+
-+		/* Clear Interrupt */
-+		writel(feqn, ioaddr + MTL_EST_FRM_SZ_ERR);
-+
-+		if (net_ratelimit())
-+			netdev_err(dev, "EST: HLB(size) Queue %u Size %u\n",
-+				   hbfq, hbfs);
-+	}
-+
-+	if (status & BTRE) {
-+		btrl = (status & BTRL) >> BTRL_SHIFT;
-+
-+		if (net_ratelimit())
-+			netdev_info(dev, "EST: BTR Error Loop Count %u\n",
-+				    btrl);
-+
-+		writel(BTRE, ioaddr + MTL_EST_STATUS);
-+	}
-+
-+	if (status & SWLC) {
-+		writel(SWLC, ioaddr + MTL_EST_STATUS);
-+		netdev_info(dev, "EST: SWOL has been switched\n");
-+	}
-+}
-+
- void dwmac5_fpe_configure(void __iomem *ioaddr, u32 num_txq, u32 num_rxq,
- 			  bool enable)
+ void dwmac5_est_irq_status(void __iomem *ioaddr, struct net_device *dev,
+-			  u32 txqcnt)
++			  struct stmmac_extra_stats *x, u32 txqcnt)
  {
+ 	u32 status, value, feqn, hbfq, hbfs, btrl;
+ 	u32 txqcnt_mask = (1 << txqcnt) - 1;
+@@ -624,12 +624,16 @@ void dwmac5_est_irq_status(void __iomem *ioaddr, struct net_device *dev,
+ 	if (status & CGCE) {
+ 		/* Clear Interrupt */
+ 		writel(CGCE, ioaddr + MTL_EST_STATUS);
++
++		x->mtl_est_cgce++;
+ 	}
+ 
+ 	if (status & HLBS) {
+ 		value = readl(ioaddr + MTL_EST_SCH_ERR);
+ 		value &= txqcnt_mask;
+ 
++		x->mtl_est_hlbs++;
++
+ 		/* Clear Interrupt */
+ 		writel(value, ioaddr + MTL_EST_SCH_ERR);
+ 
+@@ -649,6 +653,8 @@ void dwmac5_est_irq_status(void __iomem *ioaddr, struct net_device *dev,
+ 		hbfq = (value & SZ_CAP_HBFQ_MASK(txqcnt)) >> SZ_CAP_HBFQ_SHIFT;
+ 		hbfs = value & SZ_CAP_HBFS_MASK;
+ 
++		x->mtl_est_hlbf++;
++
+ 		/* Clear Interrupt */
+ 		writel(feqn, ioaddr + MTL_EST_FRM_SZ_ERR);
+ 
+@@ -658,6 +664,11 @@ void dwmac5_est_irq_status(void __iomem *ioaddr, struct net_device *dev,
+ 	}
+ 
+ 	if (status & BTRE) {
++		if ((status & BTRL) == BTRL_MAX)
++			x->mtl_est_btrlm++;
++		else
++			x->mtl_est_btre++;
++
+ 		btrl = (status & BTRL) >> BTRL_SHIFT;
+ 
+ 		if (net_ratelimit())
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
-index 56b0762c1276..7174f5e1501b 100644
+index 7174f5e1501b..709bbfc9ae61 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
-@@ -38,6 +38,36 @@
- #define PTOV_SHIFT			24
- #define SSWL				BIT(1)
- #define EEST				BIT(0)
-+
-+#define MTL_EST_STATUS			0x00000c58
-+#define BTRL				GENMASK(11, 8)
-+#define BTRL_SHIFT			8
-+#define BTRL_MAX			(0xF << BTRL_SHIFT)
-+#define SWOL				BIT(7)
-+#define SWOL_SHIFT			7
-+#define CGCE				BIT(4)
-+#define HLBS				BIT(3)
-+#define HLBF				BIT(2)
-+#define BTRE				BIT(1)
-+#define SWLC				BIT(0)
-+
-+#define MTL_EST_SCH_ERR			0x00000c60
-+#define MTL_EST_FRM_SZ_ERR		0x00000c64
-+#define MTL_EST_FRM_SZ_CAP		0x00000c68
-+#define SZ_CAP_HBFS_MASK		GENMASK(14, 0)
-+#define SZ_CAP_HBFQ_SHIFT		16
-+#define SZ_CAP_HBFQ_MASK(_val)		({ typeof(_val) (val) = (_val);	\
-+					((val) > 4 ? GENMASK(18, 16) :	\
-+					 (val) > 2 ? GENMASK(17, 16) :	\
-+					 BIT(16)); })
-+
-+#define MTL_EST_INT_EN			0x00000c70
-+#define IECGCE				CGCE
-+#define IEHS				HLBS
-+#define IEHF				HLBF
-+#define IEBE				BTRE
-+#define IECC				SWLC
-+
- #define MTL_EST_GCL_CONTROL		0x00000c80
- #define BTR_LOW				0x0
- #define BTR_HIGH			0x1
-@@ -111,6 +141,8 @@ int dwmac5_flex_pps_config(void __iomem *ioaddr, int index,
- 			   u32 sub_second_inc, u32 systime_flags);
+@@ -142,7 +142,7 @@ int dwmac5_flex_pps_config(void __iomem *ioaddr, int index,
  int dwmac5_est_configure(void __iomem *ioaddr, struct stmmac_est *cfg,
  			 unsigned int ptp_rate);
-+void dwmac5_est_irq_status(void __iomem *ioaddr, struct net_device *dev,
-+			   u32 txqcnt);
+ void dwmac5_est_irq_status(void __iomem *ioaddr, struct net_device *dev,
+-			   u32 txqcnt);
++			   struct stmmac_extra_stats *x, u32 txqcnt);
  void dwmac5_fpe_configure(void __iomem *ioaddr, u32 num_txq, u32 num_rxq,
  			  bool enable);
  
 diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 979ac9fca23c..2a53c9ca4f84 100644
+index 2a53c9ca4f84..7ebe76c02474 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
 +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -393,6 +393,8 @@ struct stmmac_ops {
- 	void (*set_arp_offload)(struct mac_device_info *hw, bool en, u32 addr);
+@@ -394,7 +394,7 @@ struct stmmac_ops {
  	int (*est_configure)(void __iomem *ioaddr, struct stmmac_est *cfg,
  			     unsigned int ptp_rate);
-+	void (*est_irq_status)(void __iomem *ioaddr, struct net_device *dev,
-+			       u32 txqcnt);
+ 	void (*est_irq_status)(void __iomem *ioaddr, struct net_device *dev,
+-			       u32 txqcnt);
++			       struct stmmac_extra_stats *x, u32 txqcnt);
  	void (*fpe_configure)(void __iomem *ioaddr, u32 num_txq, u32 num_rxq,
  			      bool enable);
  };
-@@ -491,6 +493,8 @@ struct stmmac_ops {
- 	stmmac_do_void_callback(__priv, mac, set_arp_offload, __args)
- #define stmmac_est_configure(__priv, __args...) \
- 	stmmac_do_callback(__priv, mac, est_configure, __args)
-+#define stmmac_est_irq_status(__priv, __args...) \
-+	stmmac_do_void_callback(__priv, mac, est_irq_status, __args)
- #define stmmac_fpe_configure(__priv, __args...) \
- 	stmmac_do_void_callback(__priv, mac, fpe_configure, __args)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index c5642985ef95..00595b7552bc 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -158,6 +158,12 @@ static const struct stmmac_stats stmmac_gstrings_stats[] = {
+ 	/* TSO */
+ 	STMMAC_STAT(tx_tso_frames),
+ 	STMMAC_STAT(tx_tso_nfrags),
++	/* EST */
++	STMMAC_STAT(mtl_est_cgce),
++	STMMAC_STAT(mtl_est_hlbs),
++	STMMAC_STAT(mtl_est_hlbf),
++	STMMAC_STAT(mtl_est_btre),
++	STMMAC_STAT(mtl_est_btrlm),
+ };
+ #define STMMAC_STATS_LEN ARRAY_SIZE(stmmac_gstrings_stats)
  
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a10704d8e3c6..d92b799e3ec4 100644
+index d92b799e3ec4..6e238318e2ec 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4286,6 +4286,9 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
- 	if (stmmac_safety_feat_interrupt(priv))
+@@ -4287,7 +4287,8 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
  		return IRQ_HANDLED;
  
-+	if (priv->dma_cap.estsel)
-+		stmmac_est_irq_status(priv, priv->ioaddr, priv->dev, tx_cnt);
-+
+ 	if (priv->dma_cap.estsel)
+-		stmmac_est_irq_status(priv, priv->ioaddr, priv->dev, tx_cnt);
++		stmmac_est_irq_status(priv, priv->ioaddr, priv->dev,
++				      &priv->xstats, tx_cnt);
+ 
  	/* To handle GMAC own interrupts */
  	if ((priv->plat->has_gmac) || xmac) {
- 		int status = stmmac_host_irq_status(priv, priv->hw, &priv->xstats);
 -- 
 2.17.1
 
