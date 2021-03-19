@@ -2,43 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B714342202
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Mar 2021 17:37:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62BC334247C
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Mar 2021 19:20:20 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0298C58D5B;
-	Fri, 19 Mar 2021 16:37:11 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B8AEC58D5B;
+	Fri, 19 Mar 2021 18:20:20 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B66D8C56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BE37C57B7A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Mar 2021 16:37:10 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7CF526148E;
- Fri, 19 Mar 2021 16:37:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616171829;
- bh=vze3nZ9XGVQKBDHy8nsHBoCFG5qVh398Hqss19Pvgcs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZuDXGH84pbQdkB3SSfKOf0aSsTvCpyL0Mlax46k9BnxI/78JRYfBGQ2Qr2YtVdJn+
- +7goMlBb6oAJyl9Qb30pwkTAqQgWmQhNQjgXl8nb1a3ww1E/DwhVaGpthffkGr0xMt
- N2IGeaTnwA67m9c7v9kVMO/gt49gBoZGXgI/mqjnNOt+5PBKF5oZNWxR6MvsDRavEa
- PBb45JvsX0r0zNhl4PUDHvffqnE/q7fLzk1idS65IIgQaTkZgPHOBWzDKge8xsL+j1
- BbBFN0v6c04fP2PJj0cc6KD/0bqT+XX4wgAufxTc9NIiIv5Za2YZZ8/aslQq883f0v
- 3/BDim9n61K6Q==
-From: Mark Brown <broonie@kernel.org>
-To: amelie.delaunay@foss.st.com,
-	Alain Volmat <alain.volmat@foss.st.com>
-Date: Fri, 19 Mar 2021 16:37:03 +0000
-Message-Id: <161617166734.9851.4969692619964809885.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1616052290-10887-1-git-send-email-alain.volmat@foss.st.com>
-References: <1616052290-10887-1-git-send-email-alain.volmat@foss.st.com>
+ Fri, 19 Mar 2021 18:20:18 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4F2ByP3TQ7z1rtMh;
+ Fri, 19 Mar 2021 19:20:12 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4F2ByN586Rz1sP6p;
+ Fri, 19 Mar 2021 19:20:12 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id TMdUfsHndRVw; Fri, 19 Mar 2021 19:20:10 +0100 (CET)
+X-Auth-Info: SaOtkMc7BPfDgl4Y2KG9Y4TLUg7pQytUgrDs+35gkbs=
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 19 Mar 2021 19:20:10 +0100 (CET)
+From: Marek Vasut <marex@denx.de>
+To: dri-devel@lists.freedesktop.org
+References: <20201224061832.92010-1-marex@denx.de>
+ <82442a19-f4ea-ec33-abec-1c067ebab828@denx.de>
+Message-ID: <cd74b695-a7f3-1be3-1f3b-23594136b33a@denx.de>
+Date: Fri, 19 Mar 2021 19:20:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-Cc: mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32: Fix use-after-free on unbind
+In-Reply-To: <82442a19-f4ea-ec33-abec-1c067ebab828@denx.de>
+Content-Language: en-US
+Cc: Alexandre Torgue <alexandre.torgue@st.com>,
+ Antonio Borneo <antonio.borneo@st.com>, Vincent Abriou <vincent.abriou@st.com>,
+ Philippe Cornu <philippe.cornu@st.com>, Yannick Fertre <yannick.fertre@st.com>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Benjamin Gaignard <benjamin.gaignard@st.com>
+Subject: Re: [Linux-stm32] [PATCH V2] drm/bridge: lvds-codec: Add support
+ for pixel data sampling edge select
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,48 +63,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 18 Mar 2021 08:24:50 +0100, Alain Volmat wrote:
-> stm32_spi_remove() accesses the driver's private data after calling
-> spi_unregister_master() even though that function releases the last
-> reference on the spi_master and thereby frees the private data.
+On 1/24/21 6:04 PM, Marek Vasut wrote:
+> On 12/24/20 7:18 AM, Marek Vasut wrote:
+>> The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
+>> select input pixel data sampling edge. Add DT property "pixelclk-active",
+>> same as the one used by display timings, and configure bus flags based on
+>> this DT property.
 > 
-> Fix by switching over to the new devm_spi_alloc_master() helper which
-> keeps the private data accessible until the driver has unbound.
-> 
-> [...]
+> Bump ?
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-
-Thanks!
-
-[1/1] spi: stm32: Fix use-after-free on unbind
-      commit: 79c6246ae8793448c05da86a4c82298eed8549b0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Any news on this patch ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
