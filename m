@@ -2,66 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F76D342501
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Mar 2021 19:43:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1AF3342816
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Mar 2021 22:49:29 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A00DC58D5F;
-	Fri, 19 Mar 2021 18:43:49 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6894BC58D5B;
+	Fri, 19 Mar 2021 21:49:29 +0000 (UTC)
+Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
+ [209.85.166.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1014BC56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADA12C57B7A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Mar 2021 18:43:46 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12JIg5LT007150; Fri, 19 Mar 2021 19:43:28 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=WPsJD07taG6bSi67dQZQOBWHCrvFMzxNJLWjag8WCLg=;
- b=zk8Uv9JTj3cidFrdljg1NFDz4H4W6P4azuDR1ihHguJflXGoKtnOqAoSHRjyGHVAYWWq
- cjsk4osSMke887jZnw/mT+T+3wOvwqqqmmoopDku9Yhvh0RpdR4g153zdj4NxeMMqeJQ
- IwIE+uE9LcGDALfekvup1BsshTHbJtymMh/I0vbEYG68Wusc/PEM2RUcJ7rjBAGYZ1iS
- q/GIM9m/0sBRj6+VFcCQfFvfdHmEjpZl8lw2d6KwTTezf7WuByKuiOy/6cM92X4htfJe
- 8P9aOuK4QGf9I9CtGV4f54C0dix/ht1vfWUYYdnB6Rnoe2ESCK7WtP9RWQAxf7CxCXLP nw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 378psa4ygs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 Mar 2021 19:43:28 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8F19810002A;
- Fri, 19 Mar 2021 19:43:27 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7D0B62721FC;
- Fri, 19 Mar 2021 19:43:27 +0100 (CET)
-Received: from localhost (10.75.127.48) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 19 Mar 2021 19:43:27
- +0100
-From: Erwan Le Ray <erwan.leray@foss.st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
- <robh+dt@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier
- <maz@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 19 Mar 2021 19:42:53 +0100
-Message-ID: <20210319184253.5841-6-erwan.leray@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210319184253.5841-1-erwan.leray@foss.st.com>
-References: <20210319184253.5841-1-erwan.leray@foss.st.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-19_10:2021-03-19,
- 2021-03-19 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5/5] ARM: dts: stm32: Add wakeup management on
-	stm32mp15x UART nodes
+ Fri, 19 Mar 2021 21:49:25 +0000 (UTC)
+Received: by mail-io1-f52.google.com with SMTP id r193so7629010ior.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 19 Mar 2021 14:49:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=DdFpA8RCuNet19LbBIUzBDaOeIQrmYimvT3B6l6LMdM=;
+ b=nmvLJ4bMnV4DLU8aj/w3T8Bb80hcUrfZzS2iVncK1e3cs3pIZOgDqxLMyzUW/kKVho
+ 5B9x7SUwqN05YASn9WSLrWdtKxpC3OutLeGmfpvWslspyoT6lzR8utpjbqdkkVgCuLfI
+ xqk5uESLNtMrHkKdDNiCujVlURQho/E5mMHnPgmJx8KGls8Z2cXMZQ09M8ukwYF3ocRb
+ bwKk8bJ1dGx/nauxKivqrH6/1T5oSiifDzm8IFL7Jh35VJbqxFeuWaZiEV/RTFx05H5l
+ 8F1LCHiEplOhmNjRRrUoPy/YVeNclZNndWjbI10SPnJAijsFm4OGAiCtccvyAcxS9I/O
+ dxSQ==
+X-Gm-Message-State: AOAM531nH6X6yYqJ0ggO7u5ioTOv1INDUDk+5JwbVYQT/DS82ExkqEvm
+ bOlsWr0TmVfPtRRhfkFmgQ==
+X-Google-Smtp-Source: ABdhPJz8Qcg5u41fjcWJKrDLCvbUbZw/JCtRUZ8UWObSJSHQ7Pmnal/cQAkn0JIQ6hNFqKiFD056Zg==
+X-Received: by 2002:a05:6602:2d95:: with SMTP id
+ k21mr4205797iow.123.1616190564451; 
+ Fri, 19 Mar 2021 14:49:24 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id j3sm3048432ila.58.2021.03.19.14.49.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Mar 2021 14:49:23 -0700 (PDT)
+Received: (nullmailer pid 1647636 invoked by uid 1000);
+ Fri, 19 Mar 2021 21:49:12 -0000
+From: Rob Herring <robh@kernel.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20210318145923.31936-2-arnaud.pouliquen@foss.st.com>
+References: <20210318145923.31936-1-arnaud.pouliquen@foss.st.com>
+ <20210318145923.31936-2-arnaud.pouliquen@foss.st.com>
+Date: Fri, 19 Mar 2021 15:49:12 -0600
+Message-Id: <1616190552.569417.1647635.nullmailer@robh.at.kernel.org>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, devicetree@vger.kernel.org,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: remoteproc: stm32-rproc:
+	add new mailbox channel for detach
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,114 +65,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add EXTI lines to the following UART nodes which are used for
-wakeup from CStop.
-- EXTI line 26 to USART1
-- EXTI line 27 to USART2
-- EXTI line 28 to USART3
-- EXTI line 29 to USART6
-- EXTI line 30 to UART4
-- EXTI line 31 to UART5
-- EXTI line 32 to UART7
-- EXTI line 33 to UART8
+On Thu, 18 Mar 2021 15:59:22 +0100, Arnaud Pouliquen wrote:
+> Add the "detach" mailbox item, that allows to define a mailbox to
+> send a IPCC signal to the remote processor on remoteproc detach action.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  .../bindings/remoteproc/st,stm32-rproc.yaml           | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
 
-Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
+My bot found errors running 'make dt_binding_check' on your patch:
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index 4b8031782555..e242d7211059 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -452,32 +452,36 @@
- 		usart2: serial@4000e000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x4000e000 0x400>;
--			interrupts = <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupts-extended = <&exti 27 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc USART2_K>;
-+			wakeup-source;
- 			status = "disabled";
- 		};
- 
- 		usart3: serial@4000f000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x4000f000 0x400>;
--			interrupts = <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupts-extended = <&exti 28 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc USART3_K>;
-+			wakeup-source;
- 			status = "disabled";
- 		};
- 
- 		uart4: serial@40010000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x40010000 0x400>;
--			interrupts = <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupts-extended = <&exti 30 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc UART4_K>;
-+			wakeup-source;
- 			status = "disabled";
- 		};
- 
- 		uart5: serial@40011000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x40011000 0x400>;
--			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupts-extended = <&exti 31 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc UART5_K>;
-+			wakeup-source;
- 			status = "disabled";
- 		};
- 
-@@ -577,16 +581,18 @@
- 		uart7: serial@40018000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x40018000 0x400>;
--			interrupts = <GIC_SPI 82 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupts-extended = <&exti 32 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc UART7_K>;
-+			wakeup-source;
- 			status = "disabled";
- 		};
- 
- 		uart8: serial@40019000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x40019000 0x400>;
--			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupts-extended = <&exti 33 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc UART8_K>;
-+			wakeup-source;
- 			status = "disabled";
- 		};
- 
-@@ -665,8 +671,9 @@
- 		usart6: serial@44003000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x44003000 0x400>;
--			interrupts = <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupts-extended = <&exti 29 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc USART6_K>;
-+			wakeup-source;
- 			status = "disabled";
- 		};
- 
-@@ -1505,8 +1512,9 @@
- 		usart1: serial@5c000000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x5c000000 0x400>;
--			interrupts = <GIC_SPI 37 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupts-extended = <&exti 26 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&rcc USART1_K>;
-+			wakeup-source;
- 			status = "disabled";
- 		};
- 
--- 
-2.17.1
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml:68:8: [error] syntax error: expected <block end>, but found '<block sequence start>' (syntax)
+
+dtschema/dtc warnings/errors:
+make[1]: *** Deleting file 'Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.example.dts'
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-extract-example", line 45, in <module>
+    binding = yaml.load(open(args.yamlfile, encoding='utf-8').read())
+  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/main.py", line 343, in load
+    return constructor.get_single_data()
+  File "/usr/local/lib/python3.8/dist-packages/ruamel/yaml/constructor.py", line 111, in get_single_data
+    node = self.composer.get_single_node()
+  File "_ruamel_yaml.pyx", line 706, in _ruamel_yaml.CParser.get_single_node
+  File "_ruamel_yaml.pyx", line 724, in _ruamel_yaml.CParser._compose_document
+  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
+  File "_ruamel_yaml.pyx", line 889, in _ruamel_yaml.CParser._compose_mapping_node
+  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
+  File "_ruamel_yaml.pyx", line 889, in _ruamel_yaml.CParser._compose_mapping_node
+  File "_ruamel_yaml.pyx", line 775, in _ruamel_yaml.CParser._compose_node
+  File "_ruamel_yaml.pyx", line 889, in _ruamel_yaml.CParser._compose_mapping_node
+  File "_ruamel_yaml.pyx", line 773, in _ruamel_yaml.CParser._compose_node
+  File "_ruamel_yaml.pyx", line 852, in _ruamel_yaml.CParser._compose_sequence_node
+  File "_ruamel_yaml.pyx", line 904, in _ruamel_yaml.CParser._parse_next_event
+ruamel.yaml.parser.ParserError: while parsing a block collection
+  in "<unicode string>", line 54, column 7
+did not find expected '-' indicator
+  in "<unicode string>", line 68, column 8
+make[1]: *** [Documentation/devicetree/bindings/Makefile:20: Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.example.dts] Error 1
+make[1]: *** Waiting for unfinished jobs....
+./Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml:  while parsing a block collection
+  in "<unicode string>", line 54, column 7
+did not find expected '-' indicator
+  in "<unicode string>", line 68, column 8
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml: ignoring, error parsing file
+warning: no schema found in file: ./Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+make: *** [Makefile:1380: dt_binding_check] Error 2
+
+See https://patchwork.ozlabs.org/patch/1455311
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 
 _______________________________________________
 Linux-stm32 mailing list
