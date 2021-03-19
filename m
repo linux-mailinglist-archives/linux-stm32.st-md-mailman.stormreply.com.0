@@ -2,57 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88D33341A9B
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Mar 2021 12:01:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75EA3341A9C
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Mar 2021 12:01:57 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53C11C58D5C;
-	Fri, 19 Mar 2021 11:01:51 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C318C58D5B;
+	Fri, 19 Mar 2021 11:01:57 +0000 (UTC)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA269C58D5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE629C58D59
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Mar 2021 11:01:49 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- kk2-20020a17090b4a02b02900c777aa746fso4663659pjb.3
+ Fri, 19 Mar 2021 11:01:54 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id g1so2783781plg.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Mar 2021 04:01:49 -0700 (PDT)
+ Fri, 19 Mar 2021 04:01:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=wYRkXjsb1PVUWcJtSf+4c08/zRkX/J8HBJAhSg6Bbvc=;
- b=n7oeCws7sjZvBebyHE7fBiK6RqTLulu55vDhMPuOzayEz6rz+d1gs3fVWFOtfrJ62e
- toRYYupwhq6QMZ5DL/ZttFp2LB0dIA4DYRM8vCsiVJBqibRMSZJ9aKWhzqptHY2Uu/e2
- OCWOrGDxQ8lNJyRInF/2dOcoyCNxLFJx7Op7QtC2eSoui30LlusueFXfj0813mUgDO1s
- Cyle8ufF1veYYkQltfkhXjr5Zq2lMjcsaOvqM4H2osxFTnzc6gE/RRMgf5IXRAPb8+l9
- QrBSx+4OsUTFOd/rRATdLLUJ6IKwYArS0AZEJ5j7S+L3tJSJ/GP1mejYNihDbI33ikBq
- pmng==
+ bh=CjJQUNTwsBa+RZPOzEy/Sih/eBggOo9hBH9OJm4YwV8=;
+ b=MkepcUzFZogp8zB2PNJuWmigI/5LesD3IUw/sJfRQzB0wwWDPN2B68iLLpurdR1PlC
+ 23YaLOV5bj7v1kw1cMApbc0X/pyIXCcElFFarf+j4sPzHc+tx8zuBtOQ4c3qCWNC/5Lt
+ 05cFWeoLzkV2rUjlBaW2nYTAf8d+fM6eo8FoP+xYxMVnyAK2Q6jGAp830LeYJ2AYZkcc
+ 6I3dnDKWWuSMhU6UCtFZXrP/kCQkPZ6eXD5zOPjCO965p6fagAdyZ/YA3//Bd0A2TFml
+ /j+OEFAA/OFVAl0JiwokRoDye5rzYz/Htk0+SZSycagbQXl0qapDLqtUgJSh7MIEyEu+
+ PjZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=wYRkXjsb1PVUWcJtSf+4c08/zRkX/J8HBJAhSg6Bbvc=;
- b=fITOzeP8AtyDOkXcO4prhZptj9V+Vi3sqMnzNGmzclICM2lg37F614HsN83Jx5G7Rf
- imlF81r/E90AXbw2vHJqjEFAElrV2xlNweDNcrhbS52LVAEwH58Y8OavMw+LUmwCBB5t
- NodrzEIZOXNJjqXowPFgCMv+gjhXYpi8iy29hji4ttgds9ER6p0C04C1Oc04qi6jirtK
- VX/myigYGM1o5cRlP46tnzA8IOxMELHIjfndkMvX0/DA1o4lik5QeNe7ns+kwaDAQzxB
- GKAhPG6e5ca5A9QUfoWZH+MAr9JIW+8m4ekEEVDg0SupE8gB/KXIPfS/J5SAZ7CIQNFl
- VX8A==
-X-Gm-Message-State: AOAM532ifXAU55XvahSO4jxPVAbeehpJvak6z7RNcYWeiA7cio2TWxzn
- ktzAsiktdBXWUj4aOxqaa4Q=
-X-Google-Smtp-Source: ABdhPJzLKllTLseOaGqWk7ZaQmgb/qzKLLE1uT5g8JgA/XofhROJiz2cVxQ4Lv0hd09wd8lboU/QnQ==
-X-Received: by 2002:a17:902:7609:b029:e6:9f29:625f with SMTP id
- k9-20020a1709027609b02900e69f29625fmr14284842pll.80.1616151708526; 
- Fri, 19 Mar 2021 04:01:48 -0700 (PDT)
+ bh=CjJQUNTwsBa+RZPOzEy/Sih/eBggOo9hBH9OJm4YwV8=;
+ b=GwzpKXGfrPam/+/jurOng1MzKyAIsXrY+oBXmBDn41/86YPn7jkzK9xc1H282FI79+
+ X1c18Xz413+4rdZbDKrYufZ7IWqML6MBgRdazu/FTariWda3WKLJWEmYQKNEeJYA+CtO
+ r/OwSbcEbqoxkGycdric3nQ0x4SnXyNuWmWXHsCBewSowuxN0LBbiYyMch9eYilR8vbg
+ TtroStE4HyVYJEu10SnXkBWqxzjdsvCk5vTC3Mp85EJYIVl1VNu6IkzwYOlngRAqWG4D
+ 9/PgtiobojK7kYDsSfSdlX7REETxVVGGKsr8a3laNWbLmWPdGjq4UZJe8xGLBI45Sauh
+ WGQw==
+X-Gm-Message-State: AOAM530URKwRGdRiAHJHoFH9TCn8bJiDQQH1oZ28WhRGrPmr4/vcTTWZ
+ pLYptDW+c6PV8YzNXKGunQM=
+X-Google-Smtp-Source: ABdhPJzh7KmTVF5c/eWnSvJBwidUGWNTKqwczSwnvsTNxu/q0mMuF7gvIYCDa+BqKEltXK4+qmPpMA==
+X-Received: by 2002:a17:902:d4cd:b029:e5:dd6d:f9b3 with SMTP id
+ o13-20020a170902d4cdb02900e5dd6df9b3mr13540874plg.43.1616151713477; 
+ Fri, 19 Mar 2021 04:01:53 -0700 (PDT)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id i22sm4879042pjz.56.2021.03.19.04.01.43
+ by smtp.gmail.com with ESMTPSA id i22sm4879042pjz.56.2021.03.19.04.01.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Mar 2021 04:01:48 -0700 (PDT)
+ Fri, 19 Mar 2021 04:01:53 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Fri, 19 Mar 2021 20:00:28 +0900
-Message-Id: <130ef8380b67430aed17ecd938e6460e73f80058.1616150619.git.vilhelm.gray@gmail.com>
+Date: Fri, 19 Mar 2021 20:00:29 +0900
+Message-Id: <e5dc16652697919af7baed6a630c436359455131.1616150619.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1616150619.git.vilhelm.gray@gmail.com>
 References: <cover.1616150619.git.vilhelm.gray@gmail.com>
@@ -64,7 +63,7 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v10 09/33] counter: microchip-tcb-capture: Add
+Subject: [Linux-stm32] [PATCH v10 10/33] counter: stm32-lptimer-cnt: Add
 	const qualifier for functions_list array
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -84,26 +83,26 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The struct counter_count functions_list member expects a const enum
 counter_count_function array. This patch adds the const qualifier to the
-mchp_tc_count_functions to match functions_list.
+stm32_lptim_cnt_functions to match functions_list.
 
-Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>
+Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- drivers/counter/microchip-tcb-capture.c | 2 +-
+ drivers/counter/stm32-lptimer-cnt.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/counter/microchip-tcb-capture.c b/drivers/counter/microchip-tcb-capture.c
-index 710acc0a3704..cabcfebfc799 100644
---- a/drivers/counter/microchip-tcb-capture.c
-+++ b/drivers/counter/microchip-tcb-capture.c
-@@ -37,7 +37,7 @@ enum mchp_tc_count_function {
- 	MCHP_TC_FUNCTION_QUADRATURE,
+diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+index 937439635d53..0f7d3f1ec1b6 100644
+--- a/drivers/counter/stm32-lptimer-cnt.c
++++ b/drivers/counter/stm32-lptimer-cnt.c
+@@ -134,7 +134,7 @@ enum stm32_lptim_cnt_function {
+ 	STM32_LPTIM_ENCODER_BOTH_EDGE,
  };
  
--static enum counter_count_function mchp_tc_count_functions[] = {
-+static const enum counter_count_function mchp_tc_count_functions[] = {
- 	[MCHP_TC_FUNCTION_INCREASE] = COUNTER_COUNT_FUNCTION_INCREASE,
- 	[MCHP_TC_FUNCTION_QUADRATURE] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
+-static enum counter_count_function stm32_lptim_cnt_functions[] = {
++static const enum counter_count_function stm32_lptim_cnt_functions[] = {
+ 	[STM32_LPTIM_COUNTER_INCREASE] = COUNTER_COUNT_FUNCTION_INCREASE,
+ 	[STM32_LPTIM_ENCODER_BOTH_EDGE] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
  };
 -- 
 2.30.2
