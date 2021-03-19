@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9634341AB6
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Mar 2021 12:02:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81BBC341AB8
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Mar 2021 12:03:03 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AED26C58D5B;
-	Fri, 19 Mar 2021 11:02:51 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 452E4C58D5B;
+	Fri, 19 Mar 2021 11:03:03 +0000 (UTC)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1167FC58D5C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 518D0C58D5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Mar 2021 11:02:50 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id v23so2776728ple.9
+ Fri, 19 Mar 2021 11:03:01 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id ay2so2784112plb.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Mar 2021 04:02:50 -0700 (PDT)
+ Fri, 19 Mar 2021 04:03:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=EdaGW4hBYsYQZG7L/6NFxLh3mGh/Uh/dq8sSdQTz50g=;
- b=PwTD/f/IOZ9yykZCi3yNNUA/4PRbwEPUA2lN6zBVStfY1Pm7Go1+0aj+wEnd16Nm0A
- ZOr7hOFErZwhms4tCfHiousPz8KAcE4MEh5jKXrHMEKOVBL09NeNhL29Epp9eraDWqpF
- Q6XBPLwjg/5qntdwyEQS2uM+Xi1DLYS6hyGfaG4fr+9/bUBfStl7se//4cIn4ZazZsYT
- b3QLTRPqTVU9duvCQRVWPihvxBUC27acnEUjc1tWPfyhZCO+E9kdh1yoxDKCa8Ik0jS0
- V2mr2lAthe3nZBZ+XJJ1oBgAnAmT4fhYdY9GgbMou7Z01NCDO3QCGzX35g3SXAn4fOrN
- K6VQ==
+ bh=4tcESTYG+Q+wtlieN7sDSgCHsiQUUS+79HIQLrQg5rs=;
+ b=J21BnrqJHpV+AM7Wtm83gn7eepWxB63hJ7NockTW0xnljY4G/Q8rDxylDO/t8+EEO+
+ GM3TvWFbatL1Ls8O3B38cgjFhhc7XCH4XEqb/Uzmd2ecuBLpoycYdO4ssu7RnbADYIf9
+ 8trkovvyqz4ySUKnSUwkTTDogA8MWXERP9ucFKUY6lrwWCBVDCpSjOOT3I0hg4xRbe6F
+ CrWs/1mkVY41rBhcqnWLW0mV7OOEsODC7Zh5Ah6zG5U8JyC5vm29zUm8GWG7Rgqq54B5
+ 9pBYbd8+V3GdGFnDT6MSgCnfo2X3AUsA+q1ObTvJsSX8TotE2MTp0ZqlB6se5LoX94ik
+ n68w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=EdaGW4hBYsYQZG7L/6NFxLh3mGh/Uh/dq8sSdQTz50g=;
- b=iO7FzSlmdq8Lk1rFpilXwYSv8ViWHZTV004Z2fm8bqHTo64GZMWyE/ZD5AN/mOVERv
- y3TY9o6iCZC8c23LEn8URmfmpYs0C7jt5VSfEVeepMet+a1pEMcr56hLrE0BywZZYZVp
- bPMOyN7Mpd3nAAShk8ZCQp2blayziDxdd8plmkxbdmVe0SbYBKthpMmiIPVVVQ0tpb07
- OkZEtrASvH18CDhCpru1rGM9uqCVW4lMdDi+fR6+Ew7qGjO4BzCSR86f9do27allcB4H
- IeyBOJqFNshmCU0zUR3ZK25vipLer91VAQQVKOTN/j1s62y4jTYw3qFku62g42qiJKkE
- QCMg==
-X-Gm-Message-State: AOAM530wgAvwp1pve84oQeOU26I3ebQrCMdfKpygB1nFs54yqBMnKQO1
- xRDVnBSBf9Nj1gzHkbbQ5es=
-X-Google-Smtp-Source: ABdhPJxbfRYGm2aYhfytasGqvP6LxO+uc8/U1Bpqv4yFN1skWOJK8RtOMwSfSqSk1fUCOE5pE6Opgw==
-X-Received: by 2002:a17:902:780c:b029:e6:9193:56e2 with SMTP id
- p12-20020a170902780cb02900e6919356e2mr13777973pll.39.1616151768673; 
- Fri, 19 Mar 2021 04:02:48 -0700 (PDT)
+ bh=4tcESTYG+Q+wtlieN7sDSgCHsiQUUS+79HIQLrQg5rs=;
+ b=tOMDsbFkcbgpKDxW+25Bk6sPzsTfaZyB+fEi/+cFU8mYq3CktCFVJvzZY3yk7YFyKb
+ jaUD4LntPSS+Zq/f6o57ardvCrfwd21nxcu1ntJ4Ftb3c+ndmBFjffpvSCVy8DuWQJ/s
+ 8ISLSAN4sfRfc94/NXqHIM8dlkDv3I0fLgsqj6Rl1ykgTi7+60u6tmNjdfIzUno+3ITA
+ M/f8lx2/kilFTLZzr609FPanb/2igGCFb+auv0s+FfNo3eSwKgU0oEYyhkSG3lVXx94Y
+ eQR0nfkwb6Jv2Lkm7sqO3xwHyPzULoKDM3anOFE7rWOqU2mR7opBuLY0AfQDlNhmB7JB
+ 5uDw==
+X-Gm-Message-State: AOAM532ArD36YLM/kVA/tsLwU/xEHn15ocFZzoDU51KK8Mk7YCV4mgvv
+ joWYbyb0K4IelJ1pxf7yOfs=
+X-Google-Smtp-Source: ABdhPJwXFmip/iYe7tRt8scz59n+KTk0vY40omuBd7na3cbbvJJPI+ZzpMv7hCLc+aNA+xiRI3CFQA==
+X-Received: by 2002:a17:90b:228e:: with SMTP id
+ kx14mr9250409pjb.71.1616151779954; 
+ Fri, 19 Mar 2021 04:02:59 -0700 (PDT)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id i22sm4879042pjz.56.2021.03.19.04.02.43
+ by smtp.gmail.com with ESMTPSA id i22sm4879042pjz.56.2021.03.19.04.02.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Mar 2021 04:02:48 -0700 (PDT)
+ Fri, 19 Mar 2021 04:02:59 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Fri, 19 Mar 2021 20:00:40 +0900
-Message-Id: <a0e07cf7131556233bbd0236a944a032451c79ae.1616150619.git.vilhelm.gray@gmail.com>
+Date: Fri, 19 Mar 2021 20:00:42 +0900
+Message-Id: <6cc4a2c7c16810addbb072be37022b331e3585cb.1616150619.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1616150619.git.vilhelm.gray@gmail.com>
 References: <cover.1616150619.git.vilhelm.gray@gmail.com>
@@ -63,8 +63,8 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v10 21/33] counter: Rename
-	counter_count_function to counter_function
+Subject: [Linux-stm32] [PATCH v10 23/33] counter: Update counter.h comments
+	to reflect sysfs internalization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,300 +81,144 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The phrase "Counter Count function" is verbose and unintentionally
-implies that function is a Count extension. This patch adjusts the
-Counter subsystem code to use the more direct "Counter function" phrase
-to make the intent of this code clearer.
+The Counter subsystem architecture and driver implementations have
+changed in order to handle Counter sysfs interactions in a more
+consistent way. This patch updates the Generic Counter interface
+header file comments to reflect the changes.
 
-Cc: Syed Nayyar Waris <syednwaris@gmail.com>
-Cc: Patrick Havelange <patrick.havelange@essensium.com>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>
-Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: David Lechner <david@lechnology.com>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- drivers/counter/104-quad-8.c            | 10 +++----
- drivers/counter/counter.c               | 38 ++++++++++++-------------
- drivers/counter/ftm-quaddec.c           |  5 ++--
- drivers/counter/interrupt-cnt.c         |  4 +--
- drivers/counter/microchip-tcb-capture.c |  4 +--
- drivers/counter/stm32-lptimer-cnt.c     |  6 ++--
- drivers/counter/stm32-timer-cnt.c       | 10 +++----
- drivers/counter/ti-eqep.c               | 10 +++----
- include/linux/counter.h                 | 20 ++++++-------
- 9 files changed, 53 insertions(+), 54 deletions(-)
+ drivers/counter/counter-core.c |  3 ++
+ include/linux/counter.h        | 72 +++++++++++++++-------------------
+ 2 files changed, 35 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
-index fb0f021c0751..5a49ace2d4a6 100644
---- a/drivers/counter/104-quad-8.c
-+++ b/drivers/counter/104-quad-8.c
-@@ -194,11 +194,11 @@ enum quad8_count_function {
- 	QUAD8_COUNT_FUNCTION_QUADRATURE_X4
- };
- 
--static const enum counter_count_function quad8_count_functions_list[] = {
--	[QUAD8_COUNT_FUNCTION_PULSE_DIRECTION] = COUNTER_COUNT_FUNCTION_PULSE_DIRECTION,
--	[QUAD8_COUNT_FUNCTION_QUADRATURE_X1] = COUNTER_COUNT_FUNCTION_QUADRATURE_X1_A,
--	[QUAD8_COUNT_FUNCTION_QUADRATURE_X2] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A,
--	[QUAD8_COUNT_FUNCTION_QUADRATURE_X4] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4
-+static const enum counter_function quad8_count_functions_list[] = {
-+	[QUAD8_COUNT_FUNCTION_PULSE_DIRECTION] = COUNTER_FUNCTION_PULSE_DIRECTION,
-+	[QUAD8_COUNT_FUNCTION_QUADRATURE_X1] = COUNTER_FUNCTION_QUADRATURE_X1_A,
-+	[QUAD8_COUNT_FUNCTION_QUADRATURE_X2] = COUNTER_FUNCTION_QUADRATURE_X2_A,
-+	[QUAD8_COUNT_FUNCTION_QUADRATURE_X4] = COUNTER_FUNCTION_QUADRATURE_X4
- };
- 
- static int quad8_function_get(struct counter_device *counter,
-diff --git a/drivers/counter/counter.c b/drivers/counter/counter.c
-index cb92673552b5..de921e8a3f72 100644
---- a/drivers/counter/counter.c
-+++ b/drivers/counter/counter.c
-@@ -744,15 +744,15 @@ static ssize_t counter_count_store(struct device *dev,
- 	return len;
- }
- 
--static const char *const counter_count_function_str[] = {
--	[COUNTER_COUNT_FUNCTION_INCREASE] = "increase",
--	[COUNTER_COUNT_FUNCTION_DECREASE] = "decrease",
--	[COUNTER_COUNT_FUNCTION_PULSE_DIRECTION] = "pulse-direction",
--	[COUNTER_COUNT_FUNCTION_QUADRATURE_X1_A] = "quadrature x1 a",
--	[COUNTER_COUNT_FUNCTION_QUADRATURE_X1_B] = "quadrature x1 b",
--	[COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A] = "quadrature x2 a",
--	[COUNTER_COUNT_FUNCTION_QUADRATURE_X2_B] = "quadrature x2 b",
--	[COUNTER_COUNT_FUNCTION_QUADRATURE_X4] = "quadrature x4"
-+static const char *const counter_function_str[] = {
-+	[COUNTER_FUNCTION_INCREASE] = "increase",
-+	[COUNTER_FUNCTION_DECREASE] = "decrease",
-+	[COUNTER_FUNCTION_PULSE_DIRECTION] = "pulse-direction",
-+	[COUNTER_FUNCTION_QUADRATURE_X1_A] = "quadrature x1 a",
-+	[COUNTER_FUNCTION_QUADRATURE_X1_B] = "quadrature x1 b",
-+	[COUNTER_FUNCTION_QUADRATURE_X2_A] = "quadrature x2 a",
-+	[COUNTER_FUNCTION_QUADRATURE_X2_B] = "quadrature x2 b",
-+	[COUNTER_FUNCTION_QUADRATURE_X4] = "quadrature x4"
- };
- 
- static ssize_t counter_function_show(struct device *dev,
-@@ -764,7 +764,7 @@ static ssize_t counter_function_show(struct device *dev,
- 	const struct counter_count_unit *const component = devattr->component;
- 	struct counter_count *const count = component->count;
- 	size_t func_index;
--	enum counter_count_function function;
-+	enum counter_function function;
- 
- 	err = counter->ops->function_get(counter, count, &func_index);
- 	if (err)
-@@ -773,7 +773,7 @@ static ssize_t counter_function_show(struct device *dev,
- 	count->function = func_index;
- 
- 	function = count->functions_list[func_index];
--	return sprintf(buf, "%s\n", counter_count_function_str[function]);
-+	return sprintf(buf, "%s\n", counter_function_str[function]);
- }
- 
- static ssize_t counter_function_store(struct device *dev,
-@@ -785,14 +785,14 @@ static ssize_t counter_function_store(struct device *dev,
- 	struct counter_count *const count = component->count;
- 	const size_t num_functions = count->num_functions;
- 	size_t func_index;
--	enum counter_count_function function;
-+	enum counter_function function;
- 	int err;
- 	struct counter_device *const counter = dev_get_drvdata(dev);
- 
- 	/* Find requested Count function mode */
- 	for (func_index = 0; func_index < num_functions; func_index++) {
- 		function = count->functions_list[func_index];
--		if (sysfs_streq(buf, counter_count_function_str[function]))
-+		if (sysfs_streq(buf, counter_function_str[function]))
- 			break;
- 	}
- 	/* Return error if requested Count function mode not found */
-@@ -880,25 +880,25 @@ static int counter_count_ext_register(
- }
- 
- struct counter_func_avail_unit {
--	const enum counter_count_function *functions_list;
-+	const enum counter_function *functions_list;
- 	size_t num_functions;
- };
- 
--static ssize_t counter_count_function_available_show(struct device *dev,
-+static ssize_t counter_function_available_show(struct device *dev,
- 	struct device_attribute *attr, char *buf)
+diff --git a/drivers/counter/counter-core.c b/drivers/counter/counter-core.c
+index e7dd6ea01c8a..407661c6feb0 100644
+--- a/drivers/counter/counter-core.c
++++ b/drivers/counter/counter-core.c
+@@ -41,6 +41,9 @@ static struct bus_type counter_bus_type = {
+  * This function registers a Counter to the system. A sysfs "counter" directory
+  * will be created and populated with sysfs attributes correlating with the
+  * Counter Signals, Synapses, and Counts respectively.
++ *
++ * RETURNS:
++ * 0 on success, negative error number on failure.
+  */
+ int counter_register(struct counter_device *const counter)
  {
- 	const struct counter_device_attr *const devattr = to_counter_attr(attr);
- 	const struct counter_func_avail_unit *const component = devattr->component;
--	const enum counter_count_function *const func_list = component->functions_list;
-+	const enum counter_function *const func_list = component->functions_list;
- 	const size_t num_functions = component->num_functions;
- 	size_t i;
--	enum counter_count_function function;
-+	enum counter_function function;
- 	ssize_t len = 0;
- 
- 	for (i = 0; i < num_functions; i++) {
- 		function = func_list[i];
- 		len += sprintf(buf + len, "%s\n",
--			       counter_count_function_str[function]);
-+			       counter_function_str[function]);
- 	}
- 
- 	return len;
-@@ -968,7 +968,7 @@ static int counter_count_attributes_create(
- 	parm.group = group;
- 	parm.prefix = "";
- 	parm.name = "function_available";
--	parm.show = counter_count_function_available_show;
-+	parm.show = counter_function_available_show;
- 	parm.store = NULL;
- 	parm.component = avail_comp;
- 	err = counter_attribute_create(&parm);
-diff --git a/drivers/counter/ftm-quaddec.c b/drivers/counter/ftm-quaddec.c
-index 9371532406ca..53c15f84909b 100644
---- a/drivers/counter/ftm-quaddec.c
-+++ b/drivers/counter/ftm-quaddec.c
-@@ -171,9 +171,8 @@ enum ftm_quaddec_count_function {
- 	FTM_QUADDEC_COUNT_ENCODER_MODE_1,
- };
- 
--static const enum counter_count_function ftm_quaddec_count_functions[] = {
--	[FTM_QUADDEC_COUNT_ENCODER_MODE_1] =
--	COUNTER_COUNT_FUNCTION_QUADRATURE_X4
-+static const enum counter_function ftm_quaddec_count_functions[] = {
-+	[FTM_QUADDEC_COUNT_ENCODER_MODE_1] = COUNTER_FUNCTION_QUADRATURE_X4
- };
- 
- static int ftm_quaddec_count_read(struct counter_device *counter,
-diff --git a/drivers/counter/interrupt-cnt.c b/drivers/counter/interrupt-cnt.c
-index cce579c1c6ae..3dbb8acc67eb 100644
---- a/drivers/counter/interrupt-cnt.c
-+++ b/drivers/counter/interrupt-cnt.c
-@@ -115,8 +115,8 @@ static int interrupt_cnt_write(struct counter_device *counter,
- 	return 0;
- }
- 
--static const enum counter_count_function interrupt_cnt_functions[] = {
--	COUNTER_COUNT_FUNCTION_INCREASE,
-+static const enum counter_function interrupt_cnt_functions[] = {
-+	COUNTER_FUNCTION_INCREASE,
- };
- 
- static int interrupt_cnt_function_get(struct counter_device *counter,
-diff --git a/drivers/counter/microchip-tcb-capture.c b/drivers/counter/microchip-tcb-capture.c
-index 6be3adf74114..4c57d43e7d66 100644
---- a/drivers/counter/microchip-tcb-capture.c
-+++ b/drivers/counter/microchip-tcb-capture.c
-@@ -38,8 +38,8 @@ enum mchp_tc_count_function {
- };
- 
- static const enum counter_count_function mchp_tc_count_functions[] = {
--	[MCHP_TC_FUNCTION_INCREASE] = COUNTER_COUNT_FUNCTION_INCREASE,
--	[MCHP_TC_FUNCTION_QUADRATURE] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
-+	[MCHP_TC_FUNCTION_INCREASE] = COUNTER_FUNCTION_INCREASE,
-+	[MCHP_TC_FUNCTION_QUADRATURE] = COUNTER_FUNCTION_QUADRATURE_X4,
- };
- 
- enum mchp_tc_synapse_action {
-diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
-index 49aeb9e393f3..13656957c45f 100644
---- a/drivers/counter/stm32-lptimer-cnt.c
-+++ b/drivers/counter/stm32-lptimer-cnt.c
-@@ -134,9 +134,9 @@ enum stm32_lptim_cnt_function {
- 	STM32_LPTIM_ENCODER_BOTH_EDGE,
- };
- 
--static const enum counter_count_function stm32_lptim_cnt_functions[] = {
--	[STM32_LPTIM_COUNTER_INCREASE] = COUNTER_COUNT_FUNCTION_INCREASE,
--	[STM32_LPTIM_ENCODER_BOTH_EDGE] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
-+static const enum counter_function stm32_lptim_cnt_functions[] = {
-+	[STM32_LPTIM_COUNTER_INCREASE] = COUNTER_FUNCTION_INCREASE,
-+	[STM32_LPTIM_ENCODER_BOTH_EDGE] = COUNTER_FUNCTION_QUADRATURE_X4,
- };
- 
- enum stm32_lptim_synapse_action {
-diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index 603b30ada839..3fb0debd7425 100644
---- a/drivers/counter/stm32-timer-cnt.c
-+++ b/drivers/counter/stm32-timer-cnt.c
-@@ -50,11 +50,11 @@ enum stm32_count_function {
- 	STM32_COUNT_ENCODER_MODE_3,
- };
- 
--static const enum counter_count_function stm32_count_functions[] = {
--	[STM32_COUNT_SLAVE_MODE_DISABLED] = COUNTER_COUNT_FUNCTION_INCREASE,
--	[STM32_COUNT_ENCODER_MODE_1] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A,
--	[STM32_COUNT_ENCODER_MODE_2] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_B,
--	[STM32_COUNT_ENCODER_MODE_3] = COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
-+static const enum counter_function stm32_count_functions[] = {
-+	[STM32_COUNT_SLAVE_MODE_DISABLED] = COUNTER_FUNCTION_INCREASE,
-+	[STM32_COUNT_ENCODER_MODE_1] = COUNTER_FUNCTION_QUADRATURE_X2_A,
-+	[STM32_COUNT_ENCODER_MODE_2] = COUNTER_FUNCTION_QUADRATURE_X2_B,
-+	[STM32_COUNT_ENCODER_MODE_3] = COUNTER_FUNCTION_QUADRATURE_X4,
- };
- 
- static int stm32_count_read(struct counter_device *counter,
-diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
-index 878725c2f010..04be25ebf4a4 100644
---- a/drivers/counter/ti-eqep.c
-+++ b/drivers/counter/ti-eqep.c
-@@ -284,11 +284,11 @@ static struct counter_signal ti_eqep_signals[] = {
- 	},
- };
- 
--static const enum counter_count_function ti_eqep_position_functions[] = {
--	[TI_EQEP_COUNT_FUNC_QUAD_COUNT]	= COUNTER_COUNT_FUNCTION_QUADRATURE_X4,
--	[TI_EQEP_COUNT_FUNC_DIR_COUNT]	= COUNTER_COUNT_FUNCTION_PULSE_DIRECTION,
--	[TI_EQEP_COUNT_FUNC_UP_COUNT]	= COUNTER_COUNT_FUNCTION_INCREASE,
--	[TI_EQEP_COUNT_FUNC_DOWN_COUNT]	= COUNTER_COUNT_FUNCTION_DECREASE,
-+static const enum counter_function ti_eqep_position_functions[] = {
-+	[TI_EQEP_COUNT_FUNC_QUAD_COUNT]	= COUNTER_FUNCTION_QUADRATURE_X4,
-+	[TI_EQEP_COUNT_FUNC_DIR_COUNT]	= COUNTER_FUNCTION_PULSE_DIRECTION,
-+	[TI_EQEP_COUNT_FUNC_UP_COUNT]	= COUNTER_FUNCTION_INCREASE,
-+	[TI_EQEP_COUNT_FUNC_DOWN_COUNT]	= COUNTER_FUNCTION_DECREASE,
- };
- 
- static const enum counter_synapse_action ti_eqep_position_synapse_actions[] = {
 diff --git a/include/linux/counter.h b/include/linux/counter.h
-index 79f5dcaf6ba0..d16ce2819b48 100644
+index 567471818ec3..e7fd6d81a929 100644
 --- a/include/linux/counter.h
 +++ b/include/linux/counter.h
-@@ -162,15 +162,15 @@ struct counter_count_ext {
- 	void *priv;
- };
- 
--enum counter_count_function {
--	COUNTER_COUNT_FUNCTION_INCREASE = 0,
--	COUNTER_COUNT_FUNCTION_DECREASE,
--	COUNTER_COUNT_FUNCTION_PULSE_DIRECTION,
--	COUNTER_COUNT_FUNCTION_QUADRATURE_X1_A,
--	COUNTER_COUNT_FUNCTION_QUADRATURE_X1_B,
--	COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A,
--	COUNTER_COUNT_FUNCTION_QUADRATURE_X2_B,
--	COUNTER_COUNT_FUNCTION_QUADRATURE_X4
-+enum counter_function {
-+	COUNTER_FUNCTION_INCREASE = 0,
-+	COUNTER_FUNCTION_DECREASE,
-+	COUNTER_FUNCTION_PULSE_DIRECTION,
-+	COUNTER_FUNCTION_QUADRATURE_X1_A,
-+	COUNTER_FUNCTION_QUADRATURE_X1_B,
-+	COUNTER_FUNCTION_QUADRATURE_X2_A,
-+	COUNTER_FUNCTION_QUADRATURE_X2_B,
-+	COUNTER_FUNCTION_QUADRATURE_X4
- };
+@@ -188,12 +188,10 @@ struct counter_comp {
  
  /**
-@@ -192,7 +192,7 @@ struct counter_count {
- 	const char *name;
+  * struct counter_signal - Counter Signal node
+- * @id:		unique ID used to identify signal
+- * @name:	device-specific Signal name; ideally, this should match the name
+- *		as it appears in the datasheet documentation
+- * @ext:	optional array of Counter Signal extensions
+- * @num_ext:	number of Counter Signal extensions specified in @ext
+- * @priv:	optional private data supplied by driver
++ * @id:		unique ID used to identify the Signal
++ * @name:	device-specific Signal name
++ * @ext:	optional array of Signal extensions
++ * @num_ext:	number of Signal extensions specified in @ext
+  */
+ struct counter_signal {
+ 	int id;
+@@ -207,7 +205,7 @@ struct counter_signal {
+  * struct counter_synapse - Counter Synapse node
+  * @actions_list:	array of available action modes
+  * @num_actions:	number of action modes specified in @actions_list
+- * @signal:		pointer to associated signal
++ * @signal:		pointer to the associated Signal
+  */
+ struct counter_synapse {
+ 	const enum counter_synapse_action *actions_list;
+@@ -218,17 +216,14 @@ struct counter_synapse {
  
- 	size_t function;
--	const enum counter_count_function *functions_list;
-+	const enum counter_function *functions_list;
- 	size_t num_functions;
+ /**
+  * struct counter_count - Counter Count node
+- * @id:			unique ID used to identify Count
+- * @name:		device-specific Count name; ideally, this should match
+- *			the name as it appears in the datasheet documentation
+- * @function:		index of current function mode
+- * @functions_list:	array available function modes
++ * @id:			unique ID used to identify the Count
++ * @name:		device-specific Count name
++ * @functions_list:	array of available function modes
+  * @num_functions:	number of function modes specified in @functions_list
+- * @synapses:		array of synapses for initialization
+- * @num_synapses:	number of synapses specified in @synapses
+- * @ext:		optional array of Counter Count extensions
+- * @num_ext:		number of Counter Count extensions specified in @ext
+- * @priv:		optional private data supplied by driver
++ * @synapses:		array of Synapses for initialization
++ * @num_synapses:	number of Synapses specified in @synapses
++ * @ext:		optional array of Count extensions
++ * @num_ext:		number of Count extensions specified in @ext
+  */
+ struct counter_count {
+ 	int id;
+@@ -246,29 +241,26 @@ struct counter_count {
  
- 	struct counter_synapse *synapses;
+ /**
+  * struct counter_ops - Callbacks from driver
+- * @signal_read:	optional read callback for Signal attribute. The read
+- *			level of the respective Signal should be passed back via
+- *			the level parameter.
+- * @count_read:		optional read callback for Count attribute. The read
+- *			value of the respective Count should be passed back via
+- *			the val parameter.
+- * @count_write:	optional write callback for Count attribute. The write
+- *			value for the respective Count is passed in via the val
++ * @signal_read:	read callback for Signals. The read level of the
++ *			respective Signal should be passed back via the level
++ *			parameter.
++ * @count_read:		read callback for Counts. The read value of the
++ *			respective Count should be passed back via the value
+  *			parameter.
+- * @function_get:	function to get the current count function mode. Returns
+- *			0 on success and negative error code on error. The index
+- *			of the respective Count's returned function mode should
+- *			be passed back via the function parameter.
+- * @function_set:	function to set the count function mode. function is the
+- *			index of the requested function mode from the respective
+- *			Count's functions_list array.
+- * @action_get:		function to get the current action mode. Returns 0 on
+- *			success and negative error code on error. The index of
+- *			the respective Synapse's returned action mode should be
+- *			passed back via the action parameter.
+- * @action_set:		function to set the action mode. action is the index of
+- *			the requested action mode from the respective Synapse's
+- *			actions_list array.
++ * @count_write:	write callback for Counts. The write value for the
++ *			respective Count is passed in via the value parameter.
++ * @function_read:	read callback the Count function modes. The read
++ *			function mode of the respective Count should be passed
++ *			back via the function parameter.
++ * @function_write:	write callback for Count function modes. The function
++ *			mode to write for the respective Count is passed in via
++ *			the function parameter.
++ * @action_read:	read callback the Synapse action modes. The read action
++ *			mode of the respective Synapse should be passed back via
++ *			the action parameter.
++ * @action_write:	write callback for Synapse action modes. The action mode
++ *			to write for the respective Synapse is passed in via the
++ *			action parameter.
+  */
+ struct counter_ops {
+ 	int (*signal_read)(struct counter_device *counter,
+@@ -296,7 +288,7 @@ struct counter_ops {
+ 
+ /**
+  * struct counter_device - Counter data structure
+- * @name:		name of the device as it appears in the datasheet
++ * @name:		name of the device
+  * @parent:		optional parent device providing the counters
+  * @ops:		callbacks from driver
+  * @signals:		array of Signals
 -- 
 2.30.2
 
