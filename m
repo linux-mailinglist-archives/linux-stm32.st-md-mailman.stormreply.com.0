@@ -2,66 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FCAC3429C0
-	for <lists+linux-stm32@lfdr.de>; Sat, 20 Mar 2021 02:57:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A588343628
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Mar 2021 02:15:38 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B7EBC58D5C;
-	Sat, 20 Mar 2021 01:57:12 +0000 (UTC)
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 019E7C57B5E;
+	Mon, 22 Mar 2021 01:15:38 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3AD6C58D59
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38294C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 20 Mar 2021 01:57:10 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id h3so7092669pfr.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Mar 2021 18:57:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=VCzEU/pil3MTu8S/aYMTsjT9oMpE9r8HPtiJlG91plE=;
- b=M9r+olV5V+aNndKJcLMTK4qzmhPcP5LIWBjeX6yfzj9MM1y21tUJ0Cg4gkK2kGZ0Ag
- q3El4P0nu1b+imZ2q9/ZBYecJ+DJJi2q54I2sQzL+WzZRNl96uNXkYcBdsmQ4MVcK5k3
- 2K0ZojkQKxyY+24Pf/eGlSgIdybcS3ODeYK3eVwQbfDRnCdN8yxLhElH3k5kaVJ4GaN3
- pll3WIkIlOGgffWJ4+znpnwrNCjYCgPkEarQ5ReT65K2oLwNwP7rC/axT1oWG0A0H/ll
- Cgb7yIGe+93PLaOKZFsOmave85XIe9Vw4cYnfh+ez0Xr08VLdSq61BD4pAdLJHUEowE+
- Piwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=VCzEU/pil3MTu8S/aYMTsjT9oMpE9r8HPtiJlG91plE=;
- b=WPkhoOy6X1oBcjeOeDskiU0uzVp8vM/tjQrRYxCVorrAsterMsUb5bhcHBm55Bhlku
- 9M3UAxQOrCUoe3VoSOD3JoEKcZtQ8J6z2hZODbeQfk1jDWwmA+a3yTpNOwXIowje8Ykm
- E603E6bfOD87D6w3inWkeAZGQXcTzxZWNlXjg+ZMLVWXrftlmZBBUJzbiY3duH8rxTeI
- GMzC6e4OuD6+JJ+uSmcVPrTC2mDXNIDxqC6q811AgkWEShYzAvrw3E8E/TJ61hSuB5Dl
- RSPt7zSGwtGI/z7vulrE47P1JUEehSbd7d+Un4SmZXlHoce/K2Ybg25VbjzQ8DLRv16h
- 8l9Q==
-X-Gm-Message-State: AOAM533kXm+T8afepSey73auUqvOn2ej74yc6vfaFlyMzzaFCIyVS/Xy
- BZx5IixQ7cz6Fe+O5/FOb4ezW6eulGEWT2gT
-X-Google-Smtp-Source: ABdhPJwn7lnmyGG9SqN9cgEHbtjPsDYamvUajTPWCFzIIKGfKqS7onz+9EQToq009RBXlIf4xfwd3A==
-X-Received: by 2002:a63:8348:: with SMTP id h69mr6928172pge.136.1616205429444; 
- Fri, 19 Mar 2021 18:57:09 -0700 (PDT)
-Received: from localhost.localdomain ([204.44.111.4])
- by smtp.gmail.com with ESMTPSA id y7sm5755904pgp.23.2021.03.19.18.57.04
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 19 Mar 2021 18:57:09 -0700 (PDT)
-From: dillon.minfei@gmail.com
-To: alexandre.torgue@foss.st.com, rong.a.chen@intel.com, robh+dt@kernel.org,
- a.fatoum@pengutronix.de, mcoquelin.stm32@gmail.com,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux@armlinux.org.uk, vladimir.murzin@arm.com, afzal.mohd.ma@gmail.com,
- gregkh@linuxfoundation.org, erwan.leray@foss.st.com,
- linux-serial@vger.kernel.org, lkp@intel.com
-Date: Sat, 20 Mar 2021 09:56:23 +0800
-Message-Id: <1616205383-24114-8-git-send-email-dillon.minfei@gmail.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1616205383-24114-1-git-send-email-dillon.minfei@gmail.com>
-References: <1616205383-24114-1-git-send-email-dillon.minfei@gmail.com>
-Cc: dillon min <dillon.minfei@gmail.com>
-Subject: [Linux-stm32] [PATCH v4 9/9] dt-bindings: serial: stm32: Use
-	'unevaluatedProperties' instead of 'additionalProperties'
+ Mon, 22 Mar 2021 01:15:36 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 49BE18CE;
+ Mon, 22 Mar 2021 02:15:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1616375735;
+ bh=KqVbEF9AD6kMpQifhh6kf/1cwqDqoKzIUBhKoP8TY90=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=g/psRgqSKbNFWSod0RZYQdQFr0hvQzTIXjRz9k6bZA2/e+6Fsx3x2HkPlAtTIodKp
+ U/xjr88pfNhHBsJoEyizy26hwHlj88DEJVe7pMOhJFmOoWiY8ZX9ajzJ8hOCBIripe
+ 67gdwhhMzNDp2Pw9TD9yfHYLF63S4VZuy09tdnUo=
+Date: Mon, 22 Mar 2021 03:14:55 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <YFfvjyllBa/tqTqI@pendragon.ideasonboard.com>
+References: <20201224061832.92010-1-marex@denx.de>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20201224061832.92010-1-marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>,
+ Antonio Borneo <antonio.borneo@st.com>, Vincent Abriou <vincent.abriou@st.com>,
+ Philippe Cornu <philippe.cornu@st.com>, dri-devel@lists.freedesktop.org,
+ Yannick Fertre <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Benjamin Gaignard <benjamin.gaignard@st.com>
+Subject: Re: [Linux-stm32] [PATCH V2] drm/bridge: lvds-codec: Add support
+ for pixel data sampling edge select
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,49 +54,200 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: dillon min <dillon.minfei@gmail.com>
+Hi Marek,
 
-To use additional properties 'bluetooth', need use unevaluatedProperties
-to fix dtbs_check warnings.
+All my apologies for the awfully delayed review, and thank you for
+pinging me.
 
-'arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800: 'bluetooth'
-does not match any of the regexes: 'pinctrl-[0-9]+'
+On Thu, Dec 24, 2020 at 07:18:32AM +0100, Marek Vasut wrote:
+> The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
+> select input pixel data sampling edge. Add DT property "pixelclk-active",
+> same as the one used by display timings, and configure bus flags based on
+> this DT property.
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Andrzej Hajda <a.hajda@samsung.com>
+> Cc: Antonio Borneo <antonio.borneo@st.com>
+> Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
+> Cc: Biju Das <biju.das.jz@bp.renesas.com>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Philippe Cornu <philippe.cornu@st.com>
+> Cc: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Vincent Abriou <vincent.abriou@st.com>
+> Cc: Yannick Fertre <yannick.fertre@st.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: dri-devel@lists.freedesktop.org
+> ---
+> V2: - Limit the pixelclk-active to encoders only
+>     - Update DT binding document
+> ---
+>  .../bindings/display/bridge/lvds-codec.yaml   |  7 +++
+>  drivers/gpu/drm/bridge/lvds-codec.c           | 52 +++++++++++++------
+>  2 files changed, 44 insertions(+), 15 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
+> index e5e3c72630cf..399a6528780a 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
+> @@ -74,6 +74,13 @@ properties:
+>  
+>      additionalProperties: false
+>  
+> +  pixelclk-active:
+> +    description: |
+> +      Data sampling on rising or falling edge.
+> +      Use 0 to sample pixel data on rising edge and
+> +      Use 1 to sample pixel data on falling edge and
+> +    enum: [0, 1]
 
-Reported-by: kernel test robot <lkp@intel.com>
-Fixes: af1c2d81695b ("dt-bindings: serial: Convert STM32 UART to json-schema")
-Signed-off-by: dillon min <dillon.minfei@gmail.com>
----
+The idea is good, but instead of adding a custom property, how about
+reusing the pclk-sample property defined in
+../../media/video-interfaces.yaml ?
 
-v4:
-- add Reported-by and Fixes tag
-- use unevaluatedProperties: false to fix dtbs_check warrnings instead of
-  add 'bluetooth' in st,stm32-uart.yaml
+The property is only valid for encoders, so I would at least mention
+that in the description, or, better, handle this based on the compatible
+string to allow validation.
 
- Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> +
+>    powerdown-gpios:
+>      description:
+>        The GPIO used to control the power down line of this device.
+> diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+> index dcf579a4cf83..cab81ccd895d 100644
+> --- a/drivers/gpu/drm/bridge/lvds-codec.c
+> +++ b/drivers/gpu/drm/bridge/lvds-codec.c
+> @@ -15,13 +15,18 @@
+>  #include <drm/drm_bridge.h>
+>  #include <drm/drm_panel.h>
+>  
+> +struct lvds_codec_data {
+> +	u32 connector_type;
+> +	bool is_encoder;
+> +};
+> +
+>  struct lvds_codec {
+>  	struct device *dev;
+>  	struct drm_bridge bridge;
+>  	struct drm_bridge *panel_bridge;
+> +	struct drm_bridge_timings timings;
+>  	struct regulator *vcc;
+>  	struct gpio_desc *powerdown_gpio;
+> -	u32 connector_type;
+>  };
+>  
+>  static inline struct lvds_codec *to_lvds_codec(struct drm_bridge *bridge)
+> @@ -76,17 +81,20 @@ static const struct drm_bridge_funcs funcs = {
+>  
+>  static int lvds_codec_probe(struct platform_device *pdev)
+>  {
+> +	const struct lvds_codec_data *data;
+>  	struct device *dev = &pdev->dev;
+>  	struct device_node *panel_node;
+>  	struct drm_panel *panel;
+>  	struct lvds_codec *lvds_codec;
+> +	u32 val;
+>  
+>  	lvds_codec = devm_kzalloc(dev, sizeof(*lvds_codec), GFP_KERNEL);
+>  	if (!lvds_codec)
+>  		return -ENOMEM;
+>  
+> +	data = of_device_get_match_data(dev);
+> +
+>  	lvds_codec->dev = &pdev->dev;
+> -	lvds_codec->connector_type = (uintptr_t)of_device_get_match_data(dev);
+>  
+>  	lvds_codec->vcc = devm_regulator_get(lvds_codec->dev, "power");
+>  	if (IS_ERR(lvds_codec->vcc))
+> @@ -115,10 +123,22 @@ static int lvds_codec_probe(struct platform_device *pdev)
+>  
+>  	lvds_codec->panel_bridge =
+>  		devm_drm_panel_bridge_add_typed(dev, panel,
+> -						lvds_codec->connector_type);
+> +						data->connector_type);
+>  	if (IS_ERR(lvds_codec->panel_bridge))
+>  		return PTR_ERR(lvds_codec->panel_bridge);
+>  
+> +	/*
+> +	 * Encoder might sample data on different clock edge than the display,
+> +	 * for example OnSemi FIN3385 has a dedicated strapping pin to select
+> +	 * the sampling edge.
+> +	 */
+> +	if (data->is_encoder &&
+> +	    !of_property_read_u32(dev->of_node, "pixelclk-active", &val)) {
+> +		lvds_codec->timings.input_bus_flags = val ?
+> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE :
+> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE;
+> +	}
+> +
+>  	/*
+>  	 * The panel_bridge bridge is attached to the panel's of_node,
+>  	 * but we need a bridge attached to our of_node for our user
+> @@ -126,6 +146,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+>  	 */
+>  	lvds_codec->bridge.of_node = dev->of_node;
+>  	lvds_codec->bridge.funcs = &funcs;
+> +	lvds_codec->bridge.timings = &lvds_codec->timings;
+>  	drm_bridge_add(&lvds_codec->bridge);
+>  
+>  	platform_set_drvdata(pdev, lvds_codec);
+> @@ -142,19 +163,20 @@ static int lvds_codec_remove(struct platform_device *pdev)
+>  	return 0;
+>  }
+>  
+> +static const struct lvds_codec_data decoder_data = {
+> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
+> +	.is_encoder = false,
 
-diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-index 8631678283f9..305941b1d5a0 100644
---- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-@@ -80,7 +80,7 @@ required:
-   - interrupts
-   - clocks
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |
+The two fields are a bit redundant, as the decoder is always
+LVDS-to-DPI, and the encoder DPI-to-LVDS. I don't mind too much, but
+maybe we could drop the connector_type field, and derive the connector
+type from is_encoder ?
+
+One may then say that we could drop the lvds_codec_data structure as it
+contains a single field, but I foresee a need to have device-specific
+timings at some point, so I think it's a good addition.
+
+The patch otherwise looks good.
+
+> +};
+> +
+> +static const struct lvds_codec_data encoder_data = {
+> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
+> +	.is_encoder = true,
+> +};
+> +
+>  static const struct of_device_id lvds_codec_match[] = {
+> -	{
+> -		.compatible = "lvds-decoder",
+> -		.data = (void *)DRM_MODE_CONNECTOR_DPI,
+> -	},
+> -	{
+> -		.compatible = "lvds-encoder",
+> -		.data = (void *)DRM_MODE_CONNECTOR_LVDS,
+> -	},
+> -	{
+> -		.compatible = "thine,thc63lvdm83d",
+> -		.data = (void *)DRM_MODE_CONNECTOR_LVDS,
+> -	},
+> +	{ .compatible = "lvds-decoder", .data = &decoder_data, },
+> +	{ .compatible = "lvds-encoder", .data = &encoder_data, },
+> +	{ .compatible = "thine,thc63lvdm83d", .data = &encoder_data, },
+>  	{},
+>  };
+>  MODULE_DEVICE_TABLE(of, lvds_codec_match);
+
 -- 
-1.9.1
+Regards,
 
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
