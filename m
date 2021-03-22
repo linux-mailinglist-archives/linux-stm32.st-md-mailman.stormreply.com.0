@@ -2,47 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A588343628
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Mar 2021 02:15:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6A53343CB7
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Mar 2021 10:27:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 019E7C57B5E;
-	Mon, 22 Mar 2021 01:15:38 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87709C57B60;
+	Mon, 22 Mar 2021 09:27:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38294C5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E021C57B5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Mar 2021 01:15:36 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 49BE18CE;
- Mon, 22 Mar 2021 02:15:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1616375735;
- bh=KqVbEF9AD6kMpQifhh6kf/1cwqDqoKzIUBhKoP8TY90=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=g/psRgqSKbNFWSod0RZYQdQFr0hvQzTIXjRz9k6bZA2/e+6Fsx3x2HkPlAtTIodKp
- U/xjr88pfNhHBsJoEyizy26hwHlj88DEJVe7pMOhJFmOoWiY8ZX9ajzJ8hOCBIripe
- 67gdwhhMzNDp2Pw9TD9yfHYLF63S4VZuy09tdnUo=
-Date: Mon, 22 Mar 2021 03:14:55 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <YFfvjyllBa/tqTqI@pendragon.ideasonboard.com>
-References: <20201224061832.92010-1-marex@denx.de>
+ Mon, 22 Mar 2021 09:27:17 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12M9C3da004899; Mon, 22 Mar 2021 10:27:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=B67FY6jTfzzsdmxUxttaj3WI2MPfYdjMKlH6oXhdOxk=;
+ b=6aKtsmhqv3XiNYvKYjPVyE2W7Hemg0zHijEE9SLAWOrIJHqVQ0jGV7KWG0f+/etWmOL3
+ F6r3npRf+jZGTUXPHpJoAWGNdBtL6/LHD/THuJ6FeYPdcvU4HWH1EVS4xacuTvMY5yLf
+ TkjdQaFwyiRq2mcDh3xTTXSYdqOj2YWH/9yS+wf4Zo4XgpRBaini8C2h9bRCMQ8cFeI0
+ M6ss5fJ+plqKc3TL8ai7/WUYcbZQItUtyNVi3QTC3R3cb1ksdUanfEecWX5xOS2gR4Cf
+ kCCABctfe7m+sbz+jlb31B6duwjTfDUMkB2evrZzq16pFEuFQTBIc7mJwmW+fmCFuXIK qA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37d8tp8h8t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 22 Mar 2021 10:27:08 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7DE7510002A;
+ Mon, 22 Mar 2021 10:27:06 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4C12C231DE9;
+ Mon, 22 Mar 2021 10:27:06 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 22 Mar 2021 10:27:05
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Rob Herring <robh@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Mon, 22 Mar 2021 10:26:49 +0100
+Message-ID: <20210322092651.7381-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201224061832.92010-1-marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>,
- Antonio Borneo <antonio.borneo@st.com>, Vincent Abriou <vincent.abriou@st.com>,
- Philippe Cornu <philippe.cornu@st.com>, dri-devel@lists.freedesktop.org,
- Yannick Fertre <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Benjamin Gaignard <benjamin.gaignard@st.com>
-Subject: Re: [Linux-stm32] [PATCH V2] drm/bridge: lvds-codec: Add support
- for pixel data sampling edge select
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-22_03:2021-03-22,
+ 2021-03-22 signatures=0
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/2] remoteproc: stm32: add support of
+	detaching a remote processor
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,195 +75,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
+Update from V1:
+Fix bindings issue, reported by Rob Herring.
 
-All my apologies for the awfully delayed review, and thank you for
-pinging me.
+This patchset is the stm32mp1 platform implementation of the detach operation
+added in series [1].
 
-On Thu, Dec 24, 2020 at 07:18:32AM +0100, Marek Vasut wrote:
-> The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
-> select input pixel data sampling edge. Add DT property "pixelclk-active",
-> same as the one used by display timings, and configure bus flags based on
-> this DT property.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@st.com>
-> Cc: Andrzej Hajda <a.hajda@samsung.com>
-> Cc: Antonio Borneo <antonio.borneo@st.com>
-> Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
-> Cc: Biju Das <biju.das.jz@bp.renesas.com>
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Philippe Cornu <philippe.cornu@st.com>
-> Cc: Sam Ravnborg <sam@ravnborg.org>
-> Cc: Vincent Abriou <vincent.abriou@st.com>
-> Cc: Yannick Fertre <yannick.fertre@st.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: dri-devel@lists.freedesktop.org
-> ---
-> V2: - Limit the pixelclk-active to encoders only
->     - Update DT binding document
-> ---
->  .../bindings/display/bridge/lvds-codec.yaml   |  7 +++
->  drivers/gpu/drm/bridge/lvds-codec.c           | 52 +++++++++++++------
->  2 files changed, 44 insertions(+), 15 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> index e5e3c72630cf..399a6528780a 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> @@ -74,6 +74,13 @@ properties:
->  
->      additionalProperties: false
->  
-> +  pixelclk-active:
-> +    description: |
-> +      Data sampling on rising or falling edge.
-> +      Use 0 to sample pixel data on rising edge and
-> +      Use 1 to sample pixel data on falling edge and
-> +    enum: [0, 1]
+On detach, the stm32 rproc driver sends a mailbox signal to the remote 
+processor to inform it that it will be detached. 
 
-The idea is good, but instead of adding a custom property, how about
-reusing the pclk-sample property defined in
-../../media/video-interfaces.yaml ?
+Applied and tested on Bjorn's "for_next" branch (2b81aa17008e)
 
-The property is only valid for encoders, so I would at least mention
-that in the description, or, better, handle this based on the compatible
-string to allow validation.
+[1] https://patchwork.kernel.org/project/linux-remoteproc/list/?series=447171
 
-> +
->    powerdown-gpios:
->      description:
->        The GPIO used to control the power down line of this device.
-> diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
-> index dcf579a4cf83..cab81ccd895d 100644
-> --- a/drivers/gpu/drm/bridge/lvds-codec.c
-> +++ b/drivers/gpu/drm/bridge/lvds-codec.c
-> @@ -15,13 +15,18 @@
->  #include <drm/drm_bridge.h>
->  #include <drm/drm_panel.h>
->  
-> +struct lvds_codec_data {
-> +	u32 connector_type;
-> +	bool is_encoder;
-> +};
-> +
->  struct lvds_codec {
->  	struct device *dev;
->  	struct drm_bridge bridge;
->  	struct drm_bridge *panel_bridge;
-> +	struct drm_bridge_timings timings;
->  	struct regulator *vcc;
->  	struct gpio_desc *powerdown_gpio;
-> -	u32 connector_type;
->  };
->  
->  static inline struct lvds_codec *to_lvds_codec(struct drm_bridge *bridge)
-> @@ -76,17 +81,20 @@ static const struct drm_bridge_funcs funcs = {
->  
->  static int lvds_codec_probe(struct platform_device *pdev)
->  {
-> +	const struct lvds_codec_data *data;
->  	struct device *dev = &pdev->dev;
->  	struct device_node *panel_node;
->  	struct drm_panel *panel;
->  	struct lvds_codec *lvds_codec;
-> +	u32 val;
->  
->  	lvds_codec = devm_kzalloc(dev, sizeof(*lvds_codec), GFP_KERNEL);
->  	if (!lvds_codec)
->  		return -ENOMEM;
->  
-> +	data = of_device_get_match_data(dev);
-> +
->  	lvds_codec->dev = &pdev->dev;
-> -	lvds_codec->connector_type = (uintptr_t)of_device_get_match_data(dev);
->  
->  	lvds_codec->vcc = devm_regulator_get(lvds_codec->dev, "power");
->  	if (IS_ERR(lvds_codec->vcc))
-> @@ -115,10 +123,22 @@ static int lvds_codec_probe(struct platform_device *pdev)
->  
->  	lvds_codec->panel_bridge =
->  		devm_drm_panel_bridge_add_typed(dev, panel,
-> -						lvds_codec->connector_type);
-> +						data->connector_type);
->  	if (IS_ERR(lvds_codec->panel_bridge))
->  		return PTR_ERR(lvds_codec->panel_bridge);
->  
-> +	/*
-> +	 * Encoder might sample data on different clock edge than the display,
-> +	 * for example OnSemi FIN3385 has a dedicated strapping pin to select
-> +	 * the sampling edge.
-> +	 */
-> +	if (data->is_encoder &&
-> +	    !of_property_read_u32(dev->of_node, "pixelclk-active", &val)) {
-> +		lvds_codec->timings.input_bus_flags = val ?
-> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE :
-> +			DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE;
-> +	}
-> +
->  	/*
->  	 * The panel_bridge bridge is attached to the panel's of_node,
->  	 * but we need a bridge attached to our of_node for our user
-> @@ -126,6 +146,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
->  	 */
->  	lvds_codec->bridge.of_node = dev->of_node;
->  	lvds_codec->bridge.funcs = &funcs;
-> +	lvds_codec->bridge.timings = &lvds_codec->timings;
->  	drm_bridge_add(&lvds_codec->bridge);
->  
->  	platform_set_drvdata(pdev, lvds_codec);
-> @@ -142,19 +163,20 @@ static int lvds_codec_remove(struct platform_device *pdev)
->  	return 0;
->  }
->  
-> +static const struct lvds_codec_data decoder_data = {
-> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> +	.is_encoder = false,
+Arnaud Pouliquen (2):
+  dt-bindings: remoteproc: stm32-rproc: add new mailbox channel for
+    detach
+  remoteproc: stm32: add capability to detach
 
-The two fields are a bit redundant, as the decoder is always
-LVDS-to-DPI, and the encoder DPI-to-LVDS. I don't mind too much, but
-maybe we could drop the connector_type field, and derive the connector
-type from is_encoder ?
-
-One may then say that we could drop the lvds_codec_data structure as it
-contains a single field, but I foresee a need to have device-specific
-timings at some point, so I think it's a good addition.
-
-The patch otherwise looks good.
-
-> +};
-> +
-> +static const struct lvds_codec_data encoder_data = {
-> +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> +	.is_encoder = true,
-> +};
-> +
->  static const struct of_device_id lvds_codec_match[] = {
-> -	{
-> -		.compatible = "lvds-decoder",
-> -		.data = (void *)DRM_MODE_CONNECTOR_DPI,
-> -	},
-> -	{
-> -		.compatible = "lvds-encoder",
-> -		.data = (void *)DRM_MODE_CONNECTOR_LVDS,
-> -	},
-> -	{
-> -		.compatible = "thine,thc63lvdm83d",
-> -		.data = (void *)DRM_MODE_CONNECTOR_LVDS,
-> -	},
-> +	{ .compatible = "lvds-decoder", .data = &decoder_data, },
-> +	{ .compatible = "lvds-encoder", .data = &encoder_data, },
-> +	{ .compatible = "thine,thc63lvdm83d", .data = &encoder_data, },
->  	{},
->  };
->  MODULE_DEVICE_TABLE(of, lvds_codec_match);
+ .../bindings/remoteproc/st,stm32-rproc.yaml   | 11 +++++-
+ drivers/remoteproc/stm32_rproc.c              | 38 ++++++++++++++++++-
+ 2 files changed, 45 insertions(+), 4 deletions(-)
 
 -- 
-Regards,
+2.17.1
 
-Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
