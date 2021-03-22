@@ -2,85 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C101C343ED1
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Mar 2021 12:05:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0A3D344021
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Mar 2021 12:48:45 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68395C57B5E;
-	Mon, 22 Mar 2021 11:05:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAE72C57B5E;
+	Mon, 22 Mar 2021 11:48:45 +0000 (UTC)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61352C57B5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A07FAC5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Mar 2021 11:05:32 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12MAudE4013707; Mon, 22 Mar 2021 12:05:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=selector1;
- bh=Pymfk/EgZE9Sai/go/LCUbW5Sj5kXKwBZSorsF6E/JM=;
- b=AS1MsmI1/uy4Sqoh816U7Rf3Y4jB9++nFcdz5kCsetmSk2Iey3fDSAJZWiUPA8dmOsan
- cg1qUuooc9ceCD1crogkfyUqwd7vOUTAmK4ul6KOWPoiephnLdt88q8+Uh68SLUEsmVt
- FqBo76MwbFm7NEuC0Al0+j1GsRNXc8j89xjU4BK1CbkbRAtnP1jgdK6qLJSx9xxxEK0E
- 9MPtSVMMKqxiJ6cimeucoxj0T4rBVpJddbanKv+r8pCWWRAatphwWnGEcq5MXjAzC0lk
- Mv9/0lymVBMCXAur+C/5mrNwpfWb+0AsyR/6BZSByxKWhOFsmRuygl8gnSBDLHL+Lpku lg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37d9968xhu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 22 Mar 2021 12:05:06 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4829C10002A;
- Mon, 22 Mar 2021 12:05:04 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1B8BF2463CD;
- Mon, 22 Mar 2021 12:05:04 +0100 (CET)
-Received: from SFHDAG2NODE3.st.com (10.75.127.6) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 22 Mar
- 2021 12:05:03 +0100
-Received: from SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c]) by
- SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c%20]) with mapi id
- 15.00.1497.012; Mon, 22 Mar 2021 12:05:03 +0100
-From: Valentin CARON - foss <valentin.caron@foss.st.com>
-To: "dillon.minfei@gmail.com" <dillon.minfei@gmail.com>, "Alexandre TORGUE -
- foss" <alexandre.torgue@foss.st.com>, "rong.a.chen@intel.com"
- <rong.a.chen@intel.com>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "a.fatoum@pengutronix.de" <a.fatoum@pengutronix.de>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux@armlinux.org.uk"
- <linux@armlinux.org.uk>,
- "vladimir.murzin@arm.com" <vladimir.murzin@arm.com>,
- "afzal.mohd.ma@gmail.com" <afzal.mohd.ma@gmail.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Erwan LE-RAY -
- foss" <erwan.leray@foss.st.com>, "linux-serial@vger.kernel.org"
- <linux-serial@vger.kernel.org>, "lkp@intel.com" <lkp@intel.com>
-Thread-Topic: [Linux-stm32] [PATCH v4 9/9] dt-bindings: serial: stm32: Use
- 'unevaluatedProperties' instead of 'additionalProperties'
-Thread-Index: AQHXHws10grT1ARp1UKFub73w++Z4Q==
-Date: Mon, 22 Mar 2021 11:05:03 +0000
-Message-ID: <5f95b6ad-ddbe-8394-8599-e78f30c8b62c@foss.st.com>
+ Mon, 22 Mar 2021 11:48:44 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id n21so13538263ioa.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 22 Mar 2021 04:48:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Wyt0l5oKA1RNn55G7F/1OYk1XowasbjdBJAi3unCvdk=;
+ b=nQMxbVhwYlbETH/czbc83Qy5xAFLGJLH3Vo6iP+k653Or1hpIct+QeDqnVGR00gR0p
+ 3lSMNW11Z102gbZhHrmsSEjGALOyZZsKukdK5zdrAhPF0rV+FxIRojTCKInHh8vokZYr
+ l5pQovLFDF+03LzkK5NMXQNWeTD/hcfGtDT383MblG9X0gwp+4aDAqbWtdS61/mXsOKV
+ nakNVRemI0g3MLPA1kzuoZ1/1dx3VHX/QkHgIsq16s1+es+Ggr5cDbsO7e5WwGJfAIgd
+ teBEQSIueRdXSow1IRp/1REehmyRzTO2cjp832Sd/IH++xrhhyvPct/zHnAe7GyZgaZU
+ UDQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Wyt0l5oKA1RNn55G7F/1OYk1XowasbjdBJAi3unCvdk=;
+ b=bwjpBc6B9rQOVFPPtMUuHyQTs3tmEtQ9ufBasXutzuou9zU0X/ClfZ8MgGjZqBAN/n
+ 4Y8GYpSzZUYvzlROObPRDzQA4lBH/v69f3JJAFuYOYGyJenw5qnhM9JTJ2pS/en8n8xn
+ IR1tI0RxmCF6SWuNnlYe6CgIeeAU3gU+tgMvJCLLlntmMxsP64sgm3iUYkrc69o3Dq9P
+ a52cP7TxT5wzQ67MCSdIwcROJvcku5erDptydpNyVujiBXr8UWGZohzpJB3eXYDBOUQb
+ E9Uyyxwg3w/yKjqTd4EEwbqEIiQ0XPdbYub2n46hI/2d0z99OVpMscvvM+8dYz0FZIMn
+ SR1w==
+X-Gm-Message-State: AOAM530TFscFmLGRNKVEGfM1+Xk9dlUrMJroE9tIstRH3cDych2KARWQ
+ /0R1jmcA1I1Fxov9slbbtgMU8SNgYkf1Lw5lc3A=
+X-Google-Smtp-Source: ABdhPJzzRxh6vRkud9pux4kVjb8zSKHOU/4RPPGupEarXMhvkeYwfo0hLlTtioZQcjOnyPyDbhKNMkUeAuwejnar8D8=
+X-Received: by 2002:a02:3085:: with SMTP id
+ q127mr10661879jaq.137.1616413723386; 
+ Mon, 22 Mar 2021 04:48:43 -0700 (PDT)
+MIME-Version: 1.0
 References: <1616205383-24114-1-git-send-email-dillon.minfei@gmail.com>
  <1616205383-24114-8-git-send-email-dillon.minfei@gmail.com>
-In-Reply-To: <1616205383-24114-8-git-send-email-dillon.minfei@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.48]
-Content-ID: <3C33FA9F1EEDA74F9DCE468962861821@st.com>
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-22_04:2021-03-22,
- 2021-03-22 signatures=0
+ <5f95b6ad-ddbe-8394-8599-e78f30c8b62c@foss.st.com>
+In-Reply-To: <5f95b6ad-ddbe-8394-8599-e78f30c8b62c@foss.st.com>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Mon, 22 Mar 2021 19:48:07 +0800
+Message-ID: <CAL9mu0LcwRcr+YOuDcLzqxDVCTUajDNnM9SQTkkKCt-J7BX75Q@mail.gmail.com>
+To: Valentin CARON - foss <valentin.caron@foss.st.com>, 
+ Alexandre TORGUE <Alexandre.torgue@foss.st.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "vladimir.murzin@arm.com" <vladimir.murzin@arm.com>,
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+ "rong.a.chen@intel.com" <rong.a.chen@intel.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "afzal.mohd.ma@gmail.com" <afzal.mohd.ma@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "lkp@intel.com" <lkp@intel.com>
 Subject: Re: [Linux-stm32] [PATCH v4 9/9] dt-bindings: serial: stm32: Use
  'unevaluatedProperties' instead of 'additionalProperties'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -99,52 +85,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Dillon,
+Hi Valentin,
+Thanks for feedback.
 
-It works for me.
-
-On 3/20/21 2:56 AM, dillon.minfei@gmail.com wrote:
-> From: dillon min <dillon.minfei@gmail.com>
+On Mon, Mar 22, 2021 at 7:05 PM Valentin CARON - foss
+<valentin.caron@foss.st.com> wrote:
 >
-> To use additional properties 'bluetooth', need use unevaluatedProperties
-> to fix dtbs_check warnings.
+> Hi Dillon,
 >
-> 'arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800: 'bluetooth'
-> does not match any of the regexes: 'pinctrl-[0-9]+'
+> It works for me.
 >
-> Reported-by: kernel test robot <lkp@intel.com>
-> Fixes: af1c2d81695b ("dt-bindings: serial: Convert STM32 UART to json-schema")
-
-You can add my:
-Tested-by: Valentin Caron <valentin.caron@foss.st.com>
-
-> Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> ---
+> On 3/20/21 2:56 AM, dillon.minfei@gmail.com wrote:
+> > From: dillon min <dillon.minfei@gmail.com>
+> >
+> > To use additional properties 'bluetooth', need use unevaluatedProperties
+> > to fix dtbs_check warnings.
+> >
+> > 'arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800: 'bluetooth'
+> > does not match any of the regexes: 'pinctrl-[0-9]+'
+> >
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > Fixes: af1c2d81695b ("dt-bindings: serial: Convert STM32 UART to json-schema")
 >
-> v4:
-> - add Reported-by and Fixes tag
-> - use unevaluatedProperties: false to fix dtbs_check warrnings instead of
->    add 'bluetooth' in st,stm32-uart.yaml
+> You can add my:
+> Tested-by: Valentin Caron <valentin.caron@foss.st.com>
+Sure. I will add it to next submit.
 >
->   Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> > Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> > ---
+> >
+> > v4:
+> > - add Reported-by and Fixes tag
+> > - use unevaluatedProperties: false to fix dtbs_check warrnings instead of
+> >    add 'bluetooth' in st,stm32-uart.yaml
+> >
+> >   Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> > index 8631678283f9..305941b1d5a0 100644
+> > --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> > +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> > @@ -80,7 +80,7 @@ required:
+> >     - interrupts
+> >     - clocks
+> >
+> > -additionalProperties: false
+> > +unevaluatedProperties: false
+> >
+> >   examples:
+> >     - |
 >
-> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> index 8631678283f9..305941b1d5a0 100644
-> --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> @@ -80,7 +80,7 @@ required:
->     - interrupts
->     - clocks
->   
-> -additionalProperties: false
-> +unevaluatedProperties: false
->   
->   examples:
->     - |
-
-Regards,
-Valentin
+> Regards,
+> Valentin
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
