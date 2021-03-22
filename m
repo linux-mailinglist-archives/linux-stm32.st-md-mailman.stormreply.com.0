@@ -2,73 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0A3D344021
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Mar 2021 12:48:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38E5234408E
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Mar 2021 13:14:15 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAE72C57B5E;
-	Mon, 22 Mar 2021 11:48:45 +0000 (UTC)
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
- [209.85.166.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAA0DC57B5E;
+	Mon, 22 Mar 2021 12:14:14 +0000 (UTC)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A07FAC5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78505C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Mar 2021 11:48:44 +0000 (UTC)
-Received: by mail-io1-f53.google.com with SMTP id n21so13538263ioa.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Mar 2021 04:48:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Wyt0l5oKA1RNn55G7F/1OYk1XowasbjdBJAi3unCvdk=;
- b=nQMxbVhwYlbETH/czbc83Qy5xAFLGJLH3Vo6iP+k653Or1hpIct+QeDqnVGR00gR0p
- 3lSMNW11Z102gbZhHrmsSEjGALOyZZsKukdK5zdrAhPF0rV+FxIRojTCKInHh8vokZYr
- l5pQovLFDF+03LzkK5NMXQNWeTD/hcfGtDT383MblG9X0gwp+4aDAqbWtdS61/mXsOKV
- nakNVRemI0g3MLPA1kzuoZ1/1dx3VHX/QkHgIsq16s1+es+Ggr5cDbsO7e5WwGJfAIgd
- teBEQSIueRdXSow1IRp/1REehmyRzTO2cjp832Sd/IH++xrhhyvPct/zHnAe7GyZgaZU
- UDQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Wyt0l5oKA1RNn55G7F/1OYk1XowasbjdBJAi3unCvdk=;
- b=bwjpBc6B9rQOVFPPtMUuHyQTs3tmEtQ9ufBasXutzuou9zU0X/ClfZ8MgGjZqBAN/n
- 4Y8GYpSzZUYvzlROObPRDzQA4lBH/v69f3JJAFuYOYGyJenw5qnhM9JTJ2pS/en8n8xn
- IR1tI0RxmCF6SWuNnlYe6CgIeeAU3gU+tgMvJCLLlntmMxsP64sgm3iUYkrc69o3Dq9P
- a52cP7TxT5wzQ67MCSdIwcROJvcku5erDptydpNyVujiBXr8UWGZohzpJB3eXYDBOUQb
- E9Uyyxwg3w/yKjqTd4EEwbqEIiQ0XPdbYub2n46hI/2d0z99OVpMscvvM+8dYz0FZIMn
- SR1w==
-X-Gm-Message-State: AOAM530TFscFmLGRNKVEGfM1+Xk9dlUrMJroE9tIstRH3cDych2KARWQ
- /0R1jmcA1I1Fxov9slbbtgMU8SNgYkf1Lw5lc3A=
-X-Google-Smtp-Source: ABdhPJzzRxh6vRkud9pux4kVjb8zSKHOU/4RPPGupEarXMhvkeYwfo0hLlTtioZQcjOnyPyDbhKNMkUeAuwejnar8D8=
-X-Received: by 2002:a02:3085:: with SMTP id
- q127mr10661879jaq.137.1616413723386; 
- Mon, 22 Mar 2021 04:48:43 -0700 (PDT)
+ Mon, 22 Mar 2021 12:14:12 +0000 (UTC)
+Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4F3tdl4ypNzNq5d;
+ Mon, 22 Mar 2021 20:11:39 +0800 (CST)
+Received: from localhost.localdomain (10.175.102.38) by
+ DGGEMS406-HUB.china.huawei.com (10.3.19.206) with Microsoft SMTP Server id
+ 14.3.498.0; Mon, 22 Mar 2021 20:14:03 +0800
+From: 'w00385741 <weiyongjun1@huawei.com>
+To: <weiyongjun1@huawei.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
+ <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ "Russell King" <linux@armlinux.org.uk>, Joakim Zhang
+ <qiangqing.zhang@nxp.com>
+Date: Mon, 22 Mar 2021 12:23:59 +0000
+Message-ID: <20210322122359.2980197-1-weiyongjun1@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <1616205383-24114-1-git-send-email-dillon.minfei@gmail.com>
- <1616205383-24114-8-git-send-email-dillon.minfei@gmail.com>
- <5f95b6ad-ddbe-8394-8599-e78f30c8b62c@foss.st.com>
-In-Reply-To: <5f95b6ad-ddbe-8394-8599-e78f30c8b62c@foss.st.com>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Mon, 22 Mar 2021 19:48:07 +0800
-Message-ID: <CAL9mu0LcwRcr+YOuDcLzqxDVCTUajDNnM9SQTkkKCt-J7BX75Q@mail.gmail.com>
-To: Valentin CARON - foss <valentin.caron@foss.st.com>, 
- Alexandre TORGUE <Alexandre.torgue@foss.st.com>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "vladimir.murzin@arm.com" <vladimir.murzin@arm.com>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
- "rong.a.chen@intel.com" <rong.a.chen@intel.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "afzal.mohd.ma@gmail.com" <afzal.mohd.ma@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "lkp@intel.com" <lkp@intel.com>
-Subject: Re: [Linux-stm32] [PATCH v4 9/9] dt-bindings: serial: stm32: Use
- 'unevaluatedProperties' instead of 'additionalProperties'
+X-Originating-IP: [10.175.102.38]
+X-CFilter-Loop: Reflected
+Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Hulk Robot <hulkci@huawei.com>
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: platform: fix build
+	error with !CONFIG_PM_SLEEP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,59 +53,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Valentin,
-Thanks for feedback.
+From: Wei Yongjun <weiyongjun1@huawei.com>
 
-On Mon, Mar 22, 2021 at 7:05 PM Valentin CARON - foss
-<valentin.caron@foss.st.com> wrote:
->
-> Hi Dillon,
->
-> It works for me.
->
-> On 3/20/21 2:56 AM, dillon.minfei@gmail.com wrote:
-> > From: dillon min <dillon.minfei@gmail.com>
-> >
-> > To use additional properties 'bluetooth', need use unevaluatedProperties
-> > to fix dtbs_check warnings.
-> >
-> > 'arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800: 'bluetooth'
-> > does not match any of the regexes: 'pinctrl-[0-9]+'
-> >
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Fixes: af1c2d81695b ("dt-bindings: serial: Convert STM32 UART to json-schema")
->
-> You can add my:
-> Tested-by: Valentin Caron <valentin.caron@foss.st.com>
-Sure. I will add it to next submit.
->
-> > Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> > ---
-> >
-> > v4:
-> > - add Reported-by and Fixes tag
-> > - use unevaluatedProperties: false to fix dtbs_check warrnings instead of
-> >    add 'bluetooth' in st,stm32-uart.yaml
-> >
-> >   Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> > index 8631678283f9..305941b1d5a0 100644
-> > --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> > +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> > @@ -80,7 +80,7 @@ required:
-> >     - interrupts
-> >     - clocks
-> >
-> > -additionalProperties: false
-> > +unevaluatedProperties: false
-> >
-> >   examples:
-> >     - |
->
-> Regards,
-> Valentin
+Get rid of the CONFIG_PM_SLEEP ifdefery to fix the build error
+and use __maybe_unused for the suspend()/resume() hooks to avoid
+build warning:
+
+drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c:769:21:
+ error: 'stmmac_runtime_suspend' undeclared here (not in a function); did you mean 'stmmac_suspend'?
+  769 |  SET_RUNTIME_PM_OPS(stmmac_runtime_suspend, stmmac_runtime_resume, NULL)
+      |                     ^~~~~~~~~~~~~~~~~~~~~~
+./include/linux/pm.h:342:21: note: in definition of macro 'SET_RUNTIME_PM_OPS'
+  342 |  .runtime_suspend = suspend_fn, \
+      |                     ^~~~~~~~~~
+drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c:769:45:
+ error: 'stmmac_runtime_resume' undeclared here (not in a function)
+  769 |  SET_RUNTIME_PM_OPS(stmmac_runtime_suspend, stmmac_runtime_resume, NULL)
+      |                                             ^~~~~~~~~~~~~~~~~~~~~
+./include/linux/pm.h:343:20: note: in definition of macro 'SET_RUNTIME_PM_OPS'
+  343 |  .runtime_resume = resume_fn, \
+      |                    ^~~~~~~~~
+
+Fixes: 5ec55823438e ("net: stmmac: add clocks management for gmac driver")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+---
+ .../stmicro/stmmac/stmmac_platform.c       | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index a70b0bc84b2a..5a1e018884e6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -704,7 +704,6 @@ int stmmac_pltfr_remove(struct platform_device *pdev)
+ }
+ EXPORT_SYMBOL_GPL(stmmac_pltfr_remove);
+ 
+-#ifdef CONFIG_PM_SLEEP
+ /**
+  * stmmac_pltfr_suspend
+  * @dev: device pointer
+@@ -712,7 +711,7 @@ EXPORT_SYMBOL_GPL(stmmac_pltfr_remove);
+  * call the main suspend function and then, if required, on some platform, it
+  * can call an exit helper.
+  */
+-static int stmmac_pltfr_suspend(struct device *dev)
++static int __maybe_unused stmmac_pltfr_suspend(struct device *dev)
+ {
+ 	int ret;
+ 	struct net_device *ndev = dev_get_drvdata(dev);
+@@ -733,7 +732,7 @@ static int stmmac_pltfr_suspend(struct device *dev)
+  * the main resume function, on some platforms, it can call own init helper
+  * if required.
+  */
+-static int stmmac_pltfr_resume(struct device *dev)
++static int __maybe_unused stmmac_pltfr_resume(struct device *dev)
+ {
+ 	struct net_device *ndev = dev_get_drvdata(dev);
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+@@ -745,7 +744,7 @@ static int stmmac_pltfr_resume(struct device *dev)
+ 	return stmmac_resume(dev);
+ }
+ 
+-static int stmmac_runtime_suspend(struct device *dev)
++static int __maybe_unused stmmac_runtime_suspend(struct device *dev)
+ {
+ 	struct net_device *ndev = dev_get_drvdata(dev);
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+@@ -755,14 +754,13 @@ static int stmmac_runtime_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int stmmac_runtime_resume(struct device *dev)
++static int __maybe_unused stmmac_runtime_resume(struct device *dev)
+ {
+ 	struct net_device *ndev = dev_get_drvdata(dev);
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+ 
+ 	return stmmac_bus_clks_config(priv, true);
+ }
+-#endif /* CONFIG_PM_SLEEP */
+ 
+ const struct dev_pm_ops stmmac_pltfr_pm_ops = {
+ 	SET_SYSTEM_SLEEP_PM_OPS(stmmac_pltfr_suspend, stmmac_pltfr_resume)
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
