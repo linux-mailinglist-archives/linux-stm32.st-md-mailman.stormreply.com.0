@@ -2,65 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C862343EAE
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Mar 2021 11:59:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C101C343ED1
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Mar 2021 12:05:35 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B294C57B5E;
-	Mon, 22 Mar 2021 10:59:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68395C57B5E;
+	Mon, 22 Mar 2021 11:05:35 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE90BC57B5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61352C57B5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Mar 2021 10:59:28 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Mon, 22 Mar 2021 11:05:32 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12MAuxI5010598; Mon, 22 Mar 2021 11:59:20 +0100
+ 12MAudE4013707; Mon, 22 Mar 2021 12:05:06 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=URFJaqu4KP8rQ9APNeKDRJ//qCNcWIl4l8JzimvPV5c=;
- b=tz5JeK+H43b+lanXzOzY5yP1onDEcCO5vh2+Q1GT0nwgKqwgSZvrhNr9q05xt2ixtnJ9
- KQaA2s0ZtKJ+ntbO6ZDeFAhIlEKKPERwq596Ckt19LpcneSo6XPSRBpY6Hrfa9Xl5/0r
- K3xYmMVnu3KVIIk/u73b0hhaHtcaikdeSgAcGg3/W/eC09vFXML1BFCik5t/4RRjLoYz
- tiaf9RZBCGdT2pKncWQdY6AHxOWVIZQ5/vvJrwxuOhOnbdLZuy1MUyMQDp586bfEx9KY
- dX87zT6Jx0h2EZRy9CHk0NeTicYVCGQk0ddC1F5asN8n6Lo0SOaGQRzRlLWiGKY423ff tw== 
+ h=from : to : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=selector1;
+ bh=Pymfk/EgZE9Sai/go/LCUbW5Sj5kXKwBZSorsF6E/JM=;
+ b=AS1MsmI1/uy4Sqoh816U7Rf3Y4jB9++nFcdz5kCsetmSk2Iey3fDSAJZWiUPA8dmOsan
+ cg1qUuooc9ceCD1crogkfyUqwd7vOUTAmK4ul6KOWPoiephnLdt88q8+Uh68SLUEsmVt
+ FqBo76MwbFm7NEuC0Al0+j1GsRNXc8j89xjU4BK1CbkbRAtnP1jgdK6qLJSx9xxxEK0E
+ 9MPtSVMMKqxiJ6cimeucoxj0T4rBVpJddbanKv+r8pCWWRAatphwWnGEcq5MXjAzC0lk
+ Mv9/0lymVBMCXAur+C/5mrNwpfWb+0AsyR/6BZSByxKWhOFsmRuygl8gnSBDLHL+Lpku lg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37d7d7s83f-1
+ by mx07-00178001.pphosted.com with ESMTP id 37d9968xhu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 22 Mar 2021 11:59:20 +0100
+ Mon, 22 Mar 2021 12:05:06 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4B35810002A;
- Mon, 22 Mar 2021 11:59:20 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 36870244736;
- Mon, 22 Mar 2021 11:59:20 +0100 (CET)
-Received: from [10.211.8.180] (10.75.127.50) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 22 Mar
- 2021 11:59:19 +0100
-To: <lee.jones@linaro.org>
-References: <1614793895-10504-1-git-send-email-fabrice.gasnier@foss.st.com>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <ce30adb7-fe58-6b56-9cc9-3f19692b56c2@foss.st.com>
-Date: Mon, 22 Mar 2021 11:59:16 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <1614793895-10504-1-git-send-email-fabrice.gasnier@foss.st.com>
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4829C10002A;
+ Mon, 22 Mar 2021 12:05:04 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1B8BF2463CD;
+ Mon, 22 Mar 2021 12:05:04 +0100 (CET)
+Received: from SFHDAG2NODE3.st.com (10.75.127.6) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 22 Mar
+ 2021 12:05:03 +0100
+Received: from SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c]) by
+ SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c%20]) with mapi id
+ 15.00.1497.012; Mon, 22 Mar 2021 12:05:03 +0100
+From: Valentin CARON - foss <valentin.caron@foss.st.com>
+To: "dillon.minfei@gmail.com" <dillon.minfei@gmail.com>, "Alexandre TORGUE -
+ foss" <alexandre.torgue@foss.st.com>, "rong.a.chen@intel.com"
+ <rong.a.chen@intel.com>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "a.fatoum@pengutronix.de" <a.fatoum@pengutronix.de>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux@armlinux.org.uk"
+ <linux@armlinux.org.uk>,
+ "vladimir.murzin@arm.com" <vladimir.murzin@arm.com>,
+ "afzal.mohd.ma@gmail.com" <afzal.mohd.ma@gmail.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Erwan LE-RAY -
+ foss" <erwan.leray@foss.st.com>, "linux-serial@vger.kernel.org"
+ <linux-serial@vger.kernel.org>, "lkp@intel.com" <lkp@intel.com>
+Thread-Topic: [Linux-stm32] [PATCH v4 9/9] dt-bindings: serial: stm32: Use
+ 'unevaluatedProperties' instead of 'additionalProperties'
+Thread-Index: AQHXHws10grT1ARp1UKFub73w++Z4Q==
+Date: Mon, 22 Mar 2021 11:05:03 +0000
+Message-ID: <5f95b6ad-ddbe-8394-8599-e78f30c8b62c@foss.st.com>
+References: <1616205383-24114-1-git-send-email-dillon.minfei@gmail.com>
+ <1616205383-24114-8-git-send-email-dillon.minfei@gmail.com>
+In-Reply-To: <1616205383-24114-8-git-send-email-dillon.minfei@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
- (10.75.127.6)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.48]
+Content-ID: <3C33FA9F1EEDA74F9DCE468962861821@st.com>
+MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  definitions=2021-03-22_04:2021-03-22,
  2021-03-22 signatures=0
-Cc: mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- linux-kernel@vger.kernel.org, vilhelm.gray@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] mfd: stm32-timers: avoid clearing auto
-	reload register
+Subject: Re: [Linux-stm32] [PATCH v4 9/9] dt-bindings: serial: stm32: Use
+ 'unevaluatedProperties' instead of 'additionalProperties'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,60 +99,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/3/21 6:51 PM, Fabrice Gasnier wrote:
-> The ARR register is cleared unconditionally upon probing, after the maximum
-> value has been read. This initial condition is rather not intuitive, when
-> considering the counter child driver. It rather expects the maximum value
-> by default:
-> - The counter interface shows a zero value by default for 'ceiling'
->   attribute.
-> - Enabling the counter without any prior configuration makes it doesn't
->   count.
-> 
-> The reset value of ARR register is the maximum. So Choice here
-> is to backup it, and restore it then, instead of clearing its value.
-> It also fixes the initial condition seen by the counter driver.
-> 
-> Fixes: d0f949e220fd ("mfd: Add STM32 Timers driver")
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Hi Dillon,
+
+It works for me.
+
+On 3/20/21 2:56 AM, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
+>
+> To use additional properties 'bluetooth', need use unevaluatedProperties
+> to fix dtbs_check warnings.
+>
+> 'arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800: 'bluetooth'
+> does not match any of the regexes: 'pinctrl-[0-9]+'
+>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Fixes: af1c2d81695b ("dt-bindings: serial: Convert STM32 UART to json-schema")
+
+You can add my:
+Tested-by: Valentin Caron <valentin.caron@foss.st.com>
+
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
 > ---
->  drivers/mfd/stm32-timers.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> v4:
+> - add Reported-by and Fixes tag
+> - use unevaluatedProperties: false to fix dtbs_check warrnings instead of
+>    add 'bluetooth' in st,stm32-uart.yaml
+>
+>   Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> index 8631678283f9..305941b1d5a0 100644
+> --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> @@ -80,7 +80,7 @@ required:
+>     - interrupts
+>     - clocks
+>   
+> -additionalProperties: false
+> +unevaluatedProperties: false
+>   
+>   examples:
+>     - |
 
-Hi,
-
-It's just a gentle reminder to review this patch.
-
-Best Regards,
-Fabrice
-
-> 
-> diff --git a/drivers/mfd/stm32-timers.c b/drivers/mfd/stm32-timers.c
-> index add6033..44ed2fc 100644
-> --- a/drivers/mfd/stm32-timers.c
-> +++ b/drivers/mfd/stm32-timers.c
-> @@ -158,13 +158,18 @@ static const struct regmap_config stm32_timers_regmap_cfg = {
->  
->  static void stm32_timers_get_arr_size(struct stm32_timers *ddata)
->  {
-> +	u32 arr;
-> +
-> +	/* Backup ARR to restore it after getting the maximum value */
-> +	regmap_read(ddata->regmap, TIM_ARR, &arr);
-> +
->  	/*
->  	 * Only the available bits will be written so when readback
->  	 * we get the maximum value of auto reload register
->  	 */
->  	regmap_write(ddata->regmap, TIM_ARR, ~0L);
->  	regmap_read(ddata->regmap, TIM_ARR, &ddata->max_arr);
-> -	regmap_write(ddata->regmap, TIM_ARR, 0x0);
-> +	regmap_write(ddata->regmap, TIM_ARR, arr);
->  }
->  
->  static int stm32_timers_dma_probe(struct device *dev,
-> 
+Regards,
+Valentin
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
