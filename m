@@ -2,70 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADD37345A9B
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Mar 2021 10:18:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEC61345B0F
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Mar 2021 10:40:03 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49EACC57B5A;
-	Tue, 23 Mar 2021 09:18:08 +0000 (UTC)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8166AC57B5A;
+	Tue, 23 Mar 2021 09:40:03 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6AC5C3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB6A5C32EA7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Mar 2021 09:18:05 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id v3so11057954pgq.2
+ Tue, 23 Mar 2021 09:39:59 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id l18so14466462edc.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Mar 2021 02:18:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ Tue, 23 Mar 2021 02:39:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=a1nvqAVkgaDQFydcSUnCRXIK8c0AoRKCmFEGXTN9RvU=;
- b=imMX+Bt4obmiMjQ1pw0rUa4CBgpfqjndlPSFB8JzWTlI3sM+qTgZKUbIx2fblMZQMR
- gLcsjhyVW4jPgVJ7d7Se/R4Lkea5A1MqIX3/h/PSz+MNF/NaUQvP9r6HS0A/G3TdjZ8d
- HHNYyOm6LJ/W0a4zJh1ytxTc1pcey4rc6XxzkJzaZEORkiRnkkKM73iHEYV0kIl3XGwm
- alLh7Lztb8ETaoSq/NNBbPtTc12QVGIxr2mTHFO9T19wQ+CgQglNBMgVlFTuRz5STTPb
- SPAuH7xd4Wqw4qq08BOCzb8GXlctZ1V83641bUDazRR7HVhMQh6YMFEqfGO/F49dDaY0
- cDdQ==
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=VM6J50cuO11tHNrSpVMEPhTlVh0nXJYB1QWh6jX41x8=;
+ b=ljIX33yEr+y8O/Km4ORjc6mpfKAzTKw7E0cIYwNv9D4+CTk92/dWTK8pNVyby0TD92
+ r/WgLLXu2D/bfmC+KhRAZAGh9C/rGvicFTh6UwBCdlMnsO2rcHMxZ9S6N+lXOjh18o4J
+ 3uqKQ0ovd60NWl5nQ01pHI/PQMEMvBBmS6LT19KDWAabdB9J3Gs4TEue6ob5HiAUrQ/R
+ QNrc/NfLdBo3cFk2gKJQTVpLW6QevvR3UFJWOCRwB5Bbe1rG1amFtjn2+Ws2aJkjCrku
+ AC62Rh3GXbClZekjs+wTrd8c3oGZt8jSw4VuJmySUHRloEcPrz/fFcQK5gImMkR2ZtuD
+ B27w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=a1nvqAVkgaDQFydcSUnCRXIK8c0AoRKCmFEGXTN9RvU=;
- b=KON9lLvcWdqN4m+HF4jOn81U0aHZ19qsvuBjRhZFaDNSdLg/kNtk0FSrTQrjuWycEw
- qsai5It0KIoHreBTM2RAXInYCvF/LYNTIRWebg24RAhDeN/rFiEeGd2KxtmmSPgiZC4z
- OHXzf+XTI4B/IN+wYJtuRW0P2znQ2tlYdoaFzQu1ydTY/GgfILBJkIDuAdBPtxqB4SL0
- GFg1v0ZcJnNuC4sfWTTmwrXwTLO/xZhvBgpKb311pA1m6AHgrP9wZ+frxCp3qMdD7veT
- ksiNZI9YrQmT5jOw8WjKq6SS15SbLZCqNatEktonwmneFJVN01TvwK63a6a+UxtkeR5R
- ZTqw==
-X-Gm-Message-State: AOAM532hzFZSa2GuGm6WkKSeGuMLfKu/XMwhTLGK+0+A5ko+IKPzebF1
- pJoR/56BLHaBUkkggiU83Y8=
-X-Google-Smtp-Source: ABdhPJypx1elQysu+4xRWNCydKD+DVTWMysYHRBHuvK19CoYX5iNseo29KB2p+23FI68f1U1eSeFBA==
-X-Received: by 2002:a17:902:ecc4:b029:e6:1a9f:3397 with SMTP id
- a4-20020a170902ecc4b02900e61a9f3397mr4484729plh.9.1616491083851; 
- Tue, 23 Mar 2021 02:18:03 -0700 (PDT)
-Received: from shinobu ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id z8sm1925768pjr.57.2021.03.23.02.17.58
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=VM6J50cuO11tHNrSpVMEPhTlVh0nXJYB1QWh6jX41x8=;
+ b=K8al8j8LTLQIjPJaVe1MpOkeuck5lq0LKHJj/axP+9OZLPtbeBIXiMqe5rjc1IQ3Eb
+ JHIM/9FajcxWMHKLy4O4HnbeA+hUITE4biJP/L+bvuxwPXDFrnsxa0ieE8aYhSKOT3Y8
+ P2R/pskhQeusFenD6MG2NEC+WYDhUD5fLo1qsw8E6r26GLaVgcKYzAFdhvRWvHDHnEZm
+ dg/CSolcX3oY/Cdfp/VrFLIW/AS7waO/n1rnmBRRVYwexATcjat0CJxWT18cu35TCqBN
+ DUGWjQ2cy7pHNTLH53pHMiojcTvbM/cx/UEPQ8szNnEeP+ncuAxaZfKE7LoaWlKF6LA+
+ NUAA==
+X-Gm-Message-State: AOAM530XJxc8OtTJl7ltpeGfOMUmrQJQ5Q87XOpit5egtX+NKBIEi479
+ z1BnL6789LpKa3Uxdt+7GSEQmw==
+X-Google-Smtp-Source: ABdhPJxdvGM+6tcJUBAoHYZn+tISoI8Z3WDYAZL4H8IT3tFDossgdWDbo06ey4bSGaw1krADL34Q8g==
+X-Received: by 2002:a05:6402:2058:: with SMTP id
+ bc24mr3723646edb.243.1616492399245; 
+ Tue, 23 Mar 2021 02:39:59 -0700 (PDT)
+Received: from dell ([91.110.221.180])
+ by smtp.gmail.com with ESMTPSA id lx6sm10905544ejb.64.2021.03.23.02.39.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Mar 2021 02:18:02 -0700 (PDT)
-Date: Tue, 23 Mar 2021 18:17:55 +0900
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
+ Tue, 23 Mar 2021 02:39:58 -0700 (PDT)
+Date: Tue, 23 Mar 2021 09:39:56 +0000
+From: Lee Jones <lee.jones@linaro.org>
 To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <YFmyQ4bnsS1lrm27@shinobu>
-References: <cover.1616150619.git.vilhelm.gray@gmail.com>
- <51becb2e067a4d2ee7bd99beb007831022fc4b29.1616150619.git.vilhelm.gray@gmail.com>
- <4cef2478-4093-fdef-2ae5-c27d0e8e1ccd@foss.st.com>
+Message-ID: <20210323093956.GS2916463@dell>
+References: <1614793895-10504-1-git-send-email-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <4cef2478-4093-fdef-2ae5-c27d0e8e1ccd@foss.st.com>
-Cc: linux-arm-kernel@lists.infradead.org, kamel.bouhara@bootlin.com,
- gwendal@chromium.org, david@lechnology.com, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com, linux-stm32@st-md-mailman.stormreply.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, alexandre.torgue@foss.st.com,
- Dan Carpenter <dan.carpenter@oracle.com>, mcoquelin.stm32@gmail.com,
- syednwaris@gmail.com, kernel@pengutronix.de, jic23@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v10 22/33] counter: Internalize sysfs
- interface code
+Content-Disposition: inline
+In-Reply-To: <1614793895-10504-1-git-send-email-fabrice.gasnier@foss.st.com>
+Cc: mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ linux-kernel@vger.kernel.org, vilhelm.gray@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] mfd: stm32-timers: avoid clearing auto
+	reload register
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,287 +73,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6622670648917626926=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============6622670648917626926==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cqRhoqShv7pK17zI"
-Content-Disposition: inline
-
-
---cqRhoqShv7pK17zI
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Mar 22, 2021 at 05:44:01PM +0100, Fabrice Gasnier wrote:
-> On 3/19/21 12:00 PM, William Breathitt Gray wrote:
-> >  static const struct atmel_tcb_config tcb_rm9200_config =3D {
-> > diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm3=
-2-lptimer-cnt.c
-> > index 13656957c45f..aef78a4217b5 100644
-> > --- a/drivers/counter/stm32-lptimer-cnt.c
-> > +++ b/drivers/counter/stm32-lptimer-cnt.c
-> > @@ -17,6 +17,7 @@
-> >  #include <linux/module.h>
-> >  #include <linux/pinctrl/consumer.h>
-> >  #include <linux/platform_device.h>
-> > +#include <linux/types.h>
-> > =20
-> >  struct stm32_lptim_cnt {
-> >  	struct counter_device counter;
-> > @@ -130,32 +131,46 @@ static int stm32_lptim_setup(struct stm32_lptim_c=
-nt *priv, int enable)
-> >   * +---------+----------+----------+---------+----------+---------+
-> >   */
-> >  enum stm32_lptim_cnt_function {
-> > -	STM32_LPTIM_COUNTER_INCREASE,
-> > -	STM32_LPTIM_ENCODER_BOTH_EDGE,
-> > +	STM32_LPTIM_COUNTER_INCREASE =3D COUNTER_FUNCTION_INCREASE,
-> > +	STM32_LPTIM_ENCODER_BOTH_EDGE =3D COUNTER_FUNCTION_QUADRATURE_X4,
->=20
-> Hi William,
->=20
-> I'm wondering if this enum is still necessary. I noticed the enum is
-> removed from the 104-quad-8 driver.
-
-Hi Fabrice,
-
-This enum is no longer necessary. I wanted to leave it up to the
-maintainers to decide whether to remove any particular enum (or to do
-any other sort of code cleanup), so that is why I didn't remove it here.
-
-> >  };
-> > =20
-> >  static const enum counter_function stm32_lptim_cnt_functions[] =3D {
-> > -	[STM32_LPTIM_COUNTER_INCREASE] =3D COUNTER_FUNCTION_INCREASE,
-> > -	[STM32_LPTIM_ENCODER_BOTH_EDGE] =3D COUNTER_FUNCTION_QUADRATURE_X4,
-> > +	STM32_LPTIM_COUNTER_INCREASE,
-> > +	STM32_LPTIM_ENCODER_BOTH_EDGE,
-> >  };
-> > =20
-> >  enum stm32_lptim_synapse_action {
-> > +	/* Index must match with stm32_lptim_cnt_polarity[] (priv->polarity) =
-*/
->=20
-> Arf... I forgot to update this comment in earlier commit:
-> d8ac6b4 counter: stm32-lptimer-cnt: remove iio counter abi
->=20
-> "stm32_lptim_cnt_polarity" doesn't exist anymore. So, this comment can
-> be updated. This should match the priv->polarity, as it's used to write
-> the "CKPOL" bits (e.g. 0x0 for rising, 0x1 falling, 0x2 both).
->=20
-> Or do you wish I send a separate patch ?
-
-This is just a simple comment fix so I think it's best to send it as its
-own patch to the mailing list.
-
-> >  	STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE,
-> >  	STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE,
-> >  	STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES,
-> >  	STM32_LPTIM_SYNAPSE_ACTION_NONE,
-> >  };
-> > =20
-> > -static const enum counter_synapse_action stm32_lptim_cnt_synapse_actio=
-ns[] =3D {
-> > -	/* Index must match with stm32_lptim_cnt_polarity[] (priv->polarity) =
-*/
-> > +static const enum stm32_lptim_synapse_action stm32_lptim_c2l_actions_m=
-ap[] =3D {
-> > +	[COUNTER_SYNAPSE_ACTION_RISING_EDGE] =3D STM32_LPTIM_SYNAPSE_ACTION_R=
-ISING_EDGE,
-> > +	[COUNTER_SYNAPSE_ACTION_FALLING_EDGE] =3D STM32_LPTIM_SYNAPSE_ACTION_=
-FALLING_EDGE,
-> > +	[COUNTER_SYNAPSE_ACTION_BOTH_EDGES] =3D STM32_LPTIM_SYNAPSE_ACTION_BO=
-TH_EDGES,
-> > +	[COUNTER_SYNAPSE_ACTION_NONE] =3D STM32_LPTIM_SYNAPSE_ACTION_NONE,
-> > +};
-> > +
-> > +static const enum counter_synapse_action stm32_lptim_l2c_actions_map[]=
- =3D {
-> >  	[STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE] =3D COUNTER_SYNAPSE_ACTION_R=
-ISING_EDGE,
-> >  	[STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE] =3D COUNTER_SYNAPSE_ACTION_=
-FALLING_EDGE,
-> >  	[STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES] =3D COUNTER_SYNAPSE_ACTION_BO=
-TH_EDGES,
-> >  	[STM32_LPTIM_SYNAPSE_ACTION_NONE] =3D COUNTER_SYNAPSE_ACTION_NONE,
-> >  };
-> > =20
-> > +static const enum counter_synapse_action stm32_lptim_cnt_synapse_actio=
-ns[] =3D {
-> > +	COUNTER_SYNAPSE_ACTION_RISING_EDGE,
-> > +	COUNTER_SYNAPSE_ACTION_FALLING_EDGE,
-> > +	COUNTER_SYNAPSE_ACTION_BOTH_EDGES,
-> > +	COUNTER_SYNAPSE_ACTION_NONE,
-> > +};
-> > +
->=20
-> I'm getting confused with the two table entries, and the two enums that
-> are very similar. Could it be simplified ?
->=20
-> I'm thinking of something more straight-forward... in fact only one
-> array should be enough, to convert from synapse action to CKPOL value
-> before it's written to register in stm32_lptim_setup() routine.
-> This should be easier now that the iio part has been removed.
-
-Yes, this might just be a hold over from when we had to handle the
-legacy IIO Counter code. But now that it is gone, this could probably be
-simplified down to a single array then. If you have any idea of how to
-achieve that, please do.
-
-> > @@ -333,43 +333,39 @@ static int stm32_lptim_cnt_action_get(struct coun=
-ter_device *counter,
-> >  	}
-> >  }
-> > =20
-> > -static int stm32_lptim_cnt_action_set(struct counter_device *counter,
-> > -				      struct counter_count *count,
-> > -				      struct counter_synapse *synapse,
-> > -				      size_t action)
-> > +static int stm32_lptim_cnt_action_write(struct counter_device *counter,
-> > +					struct counter_count *count,
-> > +					struct counter_synapse *synapse,
-> > +					enum counter_synapse_action action)
-> >  {
-> >  	struct stm32_lptim_cnt *const priv =3D counter->priv;
-> > -	size_t function;
-> > +	enum counter_function function;
-> >  	int err;
-> > =20
-> >  	if (stm32_lptim_is_enabled(priv))
-> >  		return -EBUSY;
-> > =20
-> > -	err =3D stm32_lptim_cnt_function_get(counter, count, &function);
-> > +	err =3D stm32_lptim_cnt_function_read(counter, count, &function);
-> >  	if (err)
-> >  		return err;
-> > =20
-> >  	/* only set polarity when in counter mode (on input 1) */
-> > -	if (function =3D=3D STM32_LPTIM_COUNTER_INCREASE
-> > -	    && synapse->signal->id =3D=3D count->synapses[0].signal->id) {
-> > -		switch (action) {
-> > -		case STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE:
-> > -		case STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE:
-> > -		case STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES:
-> > -			priv->polarity =3D action;
-> > -			return 0;
-> > -		}
-> > -	}
-> > +	if ((enum stm32_lptim_cnt_function)function !=3D STM32_LPTIM_COUNTER_=
-INCREASE
->=20
-> Could COUNTER_FUNCTION_INCREASE be used directly here, to avoid casting ?
-
-Sure, you can remove the stm32_lptim_cnt_function enum from this driver
-and just use COUNTER_FUNCTION_INCREASE here.
-
-> > +	    || synapse->signal->id !=3D count->synapses[0].signal->id
-> > +	    || action =3D=3D COUNTER_SYNAPSE_ACTION_NONE)
-> > +		return -EINVAL;
-> > =20
-> > -	return -EINVAL;
-> > +	priv->polarity =3D stm32_lptim_c2l_actions_map[action];
-> > +
-> > +	return 0;
-> >  }
-> > =20
-> >  static const struct counter_ops stm32_lptim_cnt_ops =3D {
-> >  	.count_read =3D stm32_lptim_cnt_read,
-> > -	.function_get =3D stm32_lptim_cnt_function_get,
-> > -	.function_set =3D stm32_lptim_cnt_function_set,
-> > -	.action_get =3D stm32_lptim_cnt_action_get,
-> > -	.action_set =3D stm32_lptim_cnt_action_set,
-> > +	.function_read =3D stm32_lptim_cnt_function_read,
-> > +	.function_write =3D stm32_lptim_cnt_function_write,
-> > +	.action_read =3D stm32_lptim_cnt_action_read,
-> > +	.action_write =3D stm32_lptim_cnt_action_write,
-> >  };
-> > =20
-> >  static struct counter_signal stm32_lptim_cnt_signals[] =3D {
-> > diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-=
-timer-cnt.c
-> > index 3fb0debd7425..c690b76e5dab 100644
-> > --- a/drivers/counter/stm32-timer-cnt.c
-> > +++ b/drivers/counter/stm32-timer-cnt.c
-> > @@ -13,6 +13,7 @@
-> >  #include <linux/module.h>
-> >  #include <linux/pinctrl/consumer.h>
-> >  #include <linux/platform_device.h>
-> > +#include <linux/types.h>
-> > =20
-> >  #define TIM_CCMR_CCXS	(BIT(8) | BIT(0))
-> >  #define TIM_CCMR_MASK	(TIM_CCMR_CC1S | TIM_CCMR_CC2S | \
-> > @@ -44,21 +45,21 @@ struct stm32_timer_cnt {
-> >   * @STM32_COUNT_ENCODER_MODE_3: counts on both TI1FP1 and TI2FP2 edges
-> >   */
-> >  enum stm32_count_function {
-> > +	STM32_COUNT_SLAVE_MODE_DISABLED =3D COUNTER_FUNCTION_INCREASE,
-> > +	STM32_COUNT_ENCODER_MODE_1 =3D COUNTER_FUNCTION_QUADRATURE_X2_A,
-> > +	STM32_COUNT_ENCODER_MODE_2 =3D COUNTER_FUNCTION_QUADRATURE_X2_B,
-> > +	STM32_COUNT_ENCODER_MODE_3 =3D COUNTER_FUNCTION_QUADRATURE_X4,
-> > +};
-> > +
->=20
-> Same as for the LPTIM driver above, I noticed the enum is removed from
-> the 104-quad-8 driver.
->=20
-> I'm fine both ways... I just feel like this could be more consistent
-> later in the function read/write routines to report enum from the
-> counter_function definition (e.g. like COUNTER_FUNCTION_QUADRATURE_X4
-> instead of STM32_COUNT_ENCODER_MODE_3).
->=20
-> Thanks,
-> Fabrice
-
-Yes, this enum is just used to alias those constants. If you think the
-code will be clearer by using the COUNTER_FUNCTION_* constants directly,
-then please do so.
-
-I don't know whether this v10 revision of the patchset will be merged
-or if we'll need a v11. So send your updates for stm32-lptimer-cnt.c and
-stm32-timer-cnt.c to me directly and I'll squash them with this patch if
-we do have a v11; otherwise you can submit them separately to the
-mailing list if this v10 is merged afterall.
-
-Thanks,
-
-William Breathitt Gray
-
---cqRhoqShv7pK17zI
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmBZsjgACgkQhvpINdm7
-VJJZDw/9H+TCABTs1cLpAbmLd2sUEyLjaI19qQOiJ8LJYXNIPuzkmYon1Aro9t6O
-CV7Gb1zvpXorE+fCByANz8PXKS/IroXuGA/VVlIJzX3BVEk9rkYO+QPxJR7V7dtq
-zQyLdHKpEBpoLhVgteJBXAGjQKiKw5uEP+3KZczRqAE5KFoTsZCAXjHflcb7Awci
-yEjlnoIOpEVcFJf00cnjUAYx+bBRFHM3pHINag2p/Tb5rihKOJWtcxoviXM0Y00Q
-bedD8D0/DkjLuRRXmrhpExTEKoLiK5FZfN+uveb/wAqrUw7Vslr17MOS396rr7Fb
-DybH6m089JALYJdfRBTD3om1SYfNWvvoauC13FnS4+vuFmwGKkH2KX2bscRzRdZI
-EGZytTeTN01MkvyFuon/SP2GxqsBrjJ/0s5n1erwQqSssKK15tWVw9/224ImS7b5
-lwAICzePbaBKHiZ6FhXvqj7i97Gbb0BCNWlutr/ynHI+Hsf9VTbBmjvs5upUosJV
-0V4I3Q7lOgfJZGTODcRjilZOYxEhT7R43dhH78Ou+wbxUwetdiYc1gWwTQvYKEqP
-e1PKk8Wsk+qPz6l9cDXeaigO+mvMNRwdtWFVJmKb9erPN+O+vFiSxeX3maZadJYL
-GFbSV3VYrt65t0MrPP5rm3iY5RMxrh5k21QuxikruVVFw9LWRcQ=
-=axoY
------END PGP SIGNATURE-----
-
---cqRhoqShv7pK17zI--
-
---===============6622670648917626926==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6622670648917626926==--
+T24gV2VkLCAwMyBNYXIgMjAyMSwgRmFicmljZSBHYXNuaWVyIHdyb3RlOgoKPiBUaGUgQVJSIHJl
+Z2lzdGVyIGlzIGNsZWFyZWQgdW5jb25kaXRpb25hbGx5IHVwb24gcHJvYmluZywgYWZ0ZXIgdGhl
+IG1heGltdW0KPiB2YWx1ZSBoYXMgYmVlbiByZWFkLiBUaGlzIGluaXRpYWwgY29uZGl0aW9uIGlz
+IHJhdGhlciBub3QgaW50dWl0aXZlLCB3aGVuCj4gY29uc2lkZXJpbmcgdGhlIGNvdW50ZXIgY2hp
+bGQgZHJpdmVyLiBJdCByYXRoZXIgZXhwZWN0cyB0aGUgbWF4aW11bSB2YWx1ZQo+IGJ5IGRlZmF1
+bHQ6Cj4gLSBUaGUgY291bnRlciBpbnRlcmZhY2Ugc2hvd3MgYSB6ZXJvIHZhbHVlIGJ5IGRlZmF1
+bHQgZm9yICdjZWlsaW5nJwo+ICAgYXR0cmlidXRlLgo+IC0gRW5hYmxpbmcgdGhlIGNvdW50ZXIg
+d2l0aG91dCBhbnkgcHJpb3IgY29uZmlndXJhdGlvbiBtYWtlcyBpdCBkb2Vzbid0Cj4gICBjb3Vu
+dC4KPiAKPiBUaGUgcmVzZXQgdmFsdWUgb2YgQVJSIHJlZ2lzdGVyIGlzIHRoZSBtYXhpbXVtLiBT
+byBDaG9pY2UgaGVyZQo+IGlzIHRvIGJhY2t1cCBpdCwgYW5kIHJlc3RvcmUgaXQgdGhlbiwgaW5z
+dGVhZCBvZiBjbGVhcmluZyBpdHMgdmFsdWUuCj4gSXQgYWxzbyBmaXhlcyB0aGUgaW5pdGlhbCBj
+b25kaXRpb24gc2VlbiBieSB0aGUgY291bnRlciBkcml2ZXIuCj4gCj4gRml4ZXM6IGQwZjk0OWUy
+MjBmZCAoIm1mZDogQWRkIFNUTTMyIFRpbWVycyBkcml2ZXIiKQo+IAo+IFNpZ25lZC1vZmYtYnk6
+IEZhYnJpY2UgR2FzbmllciA8ZmFicmljZS5nYXNuaWVyQGZvc3Muc3QuY29tPgo+IC0tLQo+ICBk
+cml2ZXJzL21mZC9zdG0zMi10aW1lcnMuYyB8IDcgKysrKysrLQo+ICAxIGZpbGUgY2hhbmdlZCwg
+NiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpBcHBsaWVkLCB0aGFua3MuCgotLSAKTGVl
+IEpvbmVzIFvmnY7nkLzmlq9dClNlbmlvciBUZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2
+aWNlcwpMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9s
+bG93IExpbmFybzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
