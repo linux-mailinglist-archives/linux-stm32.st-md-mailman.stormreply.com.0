@@ -2,65 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97E3B348BD1
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Mar 2021 09:46:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C62D34841F
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Mar 2021 22:49:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D575C58D5E;
-	Thu, 25 Mar 2021 08:46:29 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB27FC57B5E;
+	Wed, 24 Mar 2021 21:49:57 +0000 (UTC)
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E9BBC56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A186BC32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Mar 2021 21:27:57 +0000 (UTC)
-IronPort-SDR: z8WUyGEFAYq0r9P8uAnoodc8Gua8ud37sElLnaodPE3+M5HkjMAcBdeOCFffwagRFdgF8Fl6Pd
- WGXODOO2CciA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="210915156"
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="210915156"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 14:27:56 -0700
-IronPort-SDR: WfPWxzgv6hRguRTx0Lc0se0H/IbC6vbec18pdDFxd4+6q0LrD3loM5RVaRgzQbGak0sV9tw53y
- 2EfXrYrBhmaA==
-X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="442424773"
-Received: from aksagira-mobl2.amr.corp.intel.com ([10.209.125.174])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2021 14:27:54 -0700
-Message-ID: <c0121400eea96626cdd212ad95f296a024356289.camel@linux.intel.com>
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Lee Jones <lee.jones@linaro.org>
-Date: Wed, 24 Mar 2021 14:27:54 -0700
-In-Reply-To: <20210324173404.66340-1-lee.jones@linaro.org>
-References: <20210324173404.66340-1-lee.jones@linaro.org>
-User-Agent: Evolution 3.34.4 (3.34.4-1.fc31) 
+ Wed, 24 Mar 2021 21:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
+ :In-Reply-To:MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:
+ Reply-To:Cc:Content-ID:Content-Description;
+ bh=EX6pAaAKbWbCSvkRWiAK+AYx238ttbosxSDxv0Nxz4U=; b=hGHrdg1tj24JzkN1Jc3s0tKyup
+ ZpPJiZBoeGVJqd5yuSaTmzfnFdn4IuUEZF6RLizT1OlCqVAJGo+c2sOIB7lY3fP6ncA71M58ecW+B
+ /3Cwg+XKraxx++mJJBF+tDAu8ujmg6owsHPEJHKahT6ewC0r1a4z1zGjgCPo7qWGVC/GQmasPORgd
+ 8o9b3WKXO9ZCI3uYBaAwTDFeLlA5Xqu+1Hpd1gh28JrT0djvC80eduzlhCxbIWSy31205E0NKnv27
+ 4qr2Fy/n4BsiZlUJfXlCYarLW5qcWVuL2y4iHSNzrPm0wPVgcijlF6+rflzspM4hvEE9QouOzEYM8
+ znW76OyQ==;
+Received: from [2601:1c0:6280:3f0::3ba4]
+ by desiato.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+ id 1lPBNw-000Fuc-4M; Wed, 24 Mar 2021 21:49:52 +0000
+To: Bhaskar Chowdhury <unixbhaskar@gmail.com>, pierre-yves.mordret@st.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@st.com, p.zabel@pengutronix.de,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20210324140610.32385-1-unixbhaskar@gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <d60fd628-d57a-306a-893f-840b16c5f307@infradead.org>
+Date: Wed, 24 Mar 2021 14:49:48 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 25 Mar 2021 08:46:26 +0000
-Cc: Krzysztof =?UTF-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
- Zhang Lixu <lixu.zhang@intel.com>, linux-iio@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- dri-devel@lists.freedesktop.org, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Anssi Hannula <anssi.hannula@gmail.com>,
- Kim Kuparinen <kimi.h.kuparinen@gmail.com>,
- Dario Pagani <dario.pagani.146+linuxk@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Henrik Rydberg <rydberg@bitmath.org>,
- Lopez Casado <nlopezcasad@logitech.com>,
- Rushikesh S Kadam <rushikesh.s.kadam@intel.com>,
- Masaki Ota <masaki.ota@jp.alps.com>,
- Bruno =?ISO-8859-1?Q?Pr=E9mont?= <bonbons@linux-vserver.org>,
- Vojtech Pavlik <vojtech@suse.cz>, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org,
- Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
- message to <vojtech@ucw.cz>, Jiri Kosina <jikos@kernel.org>, "L.
- Vinyard, Jr" <rvinyard@cs.nmsu.edu>, linaro-mm-sig@lists.linaro.org,
- Michael Haboustak <mike-@cinci.rr.com>, linux-arm-kernel@lists.infradead.org,
- Daniel Drubin <daniel.drubin@intel.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 00/25] Rid W=1 warnings from HID
+In-Reply-To: <20210324140610.32385-1-unixbhaskar@gmail.com>
+Content-Language: en-US
+Subject: Re: [Linux-stm32] [PATCH] i2c-stm32f4: Mundane typo fix
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,99 +51,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCAyMDIxLTAzLTI0IGF0IDE3OjMzICswMDAwLCBMZWUgSm9uZXMgd3JvdGU6Cj4gVGhp
-cyBzZXQgaXMgcGFydCBvZiBhIGxhcmdlciBlZmZvcnQgYXR0ZW1wdGluZyB0byBjbGVhbi11cCBX
-PTEKPiBrZXJuZWwgYnVpbGRzLCB3aGljaCBhcmUgY3VycmVudGx5IG92ZXJ3aGVsbWluZ2x5IHJp
-ZGRsZWQgd2l0aAo+IG5pZ2dseSBsaXR0bGUgd2FybmluZ3MuCj4gCgpGb3IgY2hhbmdlcyBpbiAg
-ZHJpdmVycy9oaWQvaW50ZWwtaXNoLWhpZCBmb2xkZXIKCkFja2VkLWJ5OiBTcmluaXZhcyBQYW5k
-cnV2YWRhIDxzcmluaXZhcy5wYW5kcnV2YWRhQGxpbnV4LmludGVsLmNvbT4KCj4gTGVlIEpvbmVz
-ICgyNSk6Cj4gICBISUQ6IGludGVsLWlzaC1oaWQ6IFJlbW92ZSB1bnVzZWQgdmFyaWFibGUgJ2Vy
-cicKPiAgIEhJRDogaXNodHAtaGlkLWNsaWVudDogTW92ZSB2YXJpYWJsZSB0byB3aGVyZSBpdCdz
-IGFjdHVhbGx5IHVzZWQKPiAgIEhJRDogaW50ZWwtaXNoLWhpZDogcGNpLWlzaDogUmVtb3ZlIHVu
-dXNlZCB2YXJpYWJsZSAncmV0Jwo+ICAgSElEOiBpbnRlbC1pc2g6IFN1cHBseSBzb21lIG1pc3Np
-bmcgcGFyYW0gZGVzY3JpcHRpb25zCj4gICBISUQ6IGludGVsLWlzaDogRml4IGEgbmFtaW5nIGRp
-c3Bhcml0eSBhbmQgYSBmb3JtYXR0aW5nIGVycm9yCj4gICBISUQ6IHVzYmhpZDogUmVwYWlyIGEg
-Zm9ybWF0dGluZyBpc3N1ZSBpbiBhIHN0cnVjdCBkZXNjcmlwdGlvbgo+ICAgSElEOiBpbnRlbC1p
-c2gtaGlkOiBGaXggYSBsaXR0bGUgZG9jLXJvdAo+ICAgSElEOiB1c2JoaWQ6IGhpZC1waWRmZjog
-RGVtb3RlIGEgY291cGxlIGtlcm5lbC1kb2MgYWJ1c2VzCj4gICBISUQ6IGhpZC1hbHBzOiBDb3Jy
-ZWN0IHN0cnVjdCBtaXNuYW1pbmcKPiAgIEhJRDogaW50ZWwtaXNoLWhpZDogRml4IHBvdGVudGlh
-bCBjb3B5L3Bhc3RlIGVycm9yCj4gICBISUQ6IGhpZC1jb3JlOiBGaXggaW5jb3JyZWN0IGZ1bmN0
-aW9uIG5hbWUgaW4gaGVhZGVyCj4gICBISUQ6IGludGVsLWlzaC1oaWQ6IGlwYzogQ29ycmVjdCBm
-d19yZXNldF93b3JrX2ZuKCkgZnVuY3Rpb24gbmFtZQo+IGluCj4gICAgIGhlYWRlcgo+ICAgSElE
-OiBpc2h0cC1oaWQtY2xpZW50OiBGaXggaW5jb3JyZWN0IGZ1bmN0aW9uIG5hbWUKPiByZXBvcnRf
-YmFkX3BhY2tldCgpCj4gICBISUQ6IGhpZC1reWU6IEZpeCBpbmNvcnJlY3QgZnVuY3Rpb24gbmFt
-ZSBmb3Iga3llX3RhYmxldF9lbmFibGUoKQo+ICAgSElEOiBoaWQtcGljb2xjZF9jb3JlOiBSZW1v
-dmUgdW51c2VkIHZhcmlhYmxlICdyZXQnCj4gICBISUQ6IGhpZC1sb2dpdGVjaC1oaWRwcDogRml4
-IGNvbmZvcm1hbnQga2VybmVsLWRvYyBoZWFkZXIgYW5kCj4gZGVtb3RlCj4gICAgIGFidXNlcwo+
-ICAgSElEOiBoaWQtdWNsb2dpYy1yZGVzYzogS2VybmVsLWRvYyBpcyBmb3IgZnVuY3Rpb25zIGFu
-ZCBzdHJ1Y3RzCj4gICBISUQ6IGhpZC10aHJ1c3RtYXN0ZXI6IERlbW90ZSBhIGJ1bmNoIG9mIGtl
-cm5lbC1kb2MgYWJ1c2VzCj4gICBISUQ6IGhpZC11Y2xvZ2ljLXBhcmFtczogRW5zdXJlIGZ1bmN0
-aW9uIG5hbWVzIGFyZSBwcmVzZW50IGFuZAo+IGNvcnJlY3QKPiAgICAgaW4ga2VybmVsLWRvYyBo
-ZWFkZXJzCj4gICBISUQ6IGhpZC1zZW5zb3ItY3VzdG9tOiBSZW1vdmUgdW51c2VkIHZhcmlhYmxl
-ICdyZXQnCj4gICBISUQ6IHdhY29tX3N5czogRGVtb3RlIGtlcm5lbC1kb2MgYWJ1c2UKPiAgIEhJ
-RDogaGlkLXNlbnNvci1odWI6IFJlbW92ZSB1bnVzZWQgc3RydWN0IG1lbWJlciAncXVpcmtzJwo+
-ICAgSElEOiBoaWQtc2Vuc29yLWh1YjogTW92ZSAnaHNkZXYnIGRlc2NyaXB0aW9uIHRvIGNvcnJl
-Y3Qgc3RydWN0Cj4gICAgIGRlZmluaXRpb24KPiAgIEhJRDogaW50ZWwtaXNoLWhpZDogaXNodHAt
-ZnctbG9hZGVyOiBGaXggYSBidW5jaCBvZiBmb3JtYXR0aW5nCj4gaXNzdWVzCj4gICBISUQ6IGlz
-aHRwLWhpZC1jbGllbnQ6IEZpeCAnc3VnZ2VzdC1hdHRyaWJ1dGU9Zm9ybWF0JyBjb21waWxlcgo+
-IHdhcm5pbmcKPiAKPiAgZHJpdmVycy9oaWQvaGlkLWFscHMuYyAgICAgICAgICAgICAgICAgICAg
-ICAgfCAgMiArLQo+ICBkcml2ZXJzL2hpZC9oaWQtY29yZS5jICAgICAgICAgICAgICAgICAgICAg
-ICB8ICAyICstCj4gIGRyaXZlcnMvaGlkL2hpZC1reWUuYyAgICAgICAgICAgICAgICAgICAgICAg
-IHwgIDIgKy0KPiAgZHJpdmVycy9oaWQvaGlkLWxvZ2l0ZWNoLWhpZHBwLmMgICAgICAgICAgICAg
-fCAgNyArLS0KPiAgZHJpdmVycy9oaWQvaGlkLXBpY29sY2RfY29yZS5jICAgICAgICAgICAgICAg
-fCAgNSArLS0KPiAgZHJpdmVycy9oaWQvaGlkLXNlbnNvci1jdXN0b20uYyAgICAgICAgICAgICAg
-fCAgNSArLS0KPiAgZHJpdmVycy9oaWQvaGlkLXNlbnNvci1odWIuYyAgICAgICAgICAgICAgICAg
-fCAgNCArLQo+ICBkcml2ZXJzL2hpZC9oaWQtdGhydXN0bWFzdGVyLmMgICAgICAgICAgICAgICB8
-IDI0ICsrKysrLS0tLS0tCj4gIGRyaXZlcnMvaGlkL2hpZC11Y2xvZ2ljLXBhcmFtcy5jICAgICAg
-ICAgICAgIHwgIDggKystLQo+ICBkcml2ZXJzL2hpZC9oaWQtdWNsb2dpYy1yZGVzYy5jICAgICAg
-ICAgICAgICB8ICAyICstCj4gIGRyaXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXBjL2lwYy5jICAg
-ICAgICAgIHwgIDIgKy0KPiAgZHJpdmVycy9oaWQvaW50ZWwtaXNoLWhpZC9pcGMvcGNpLWlzaC5j
-ICAgICAgfCAgMyArLQo+ICBkcml2ZXJzL2hpZC9pbnRlbC1pc2gtaGlkL2lzaHRwLWZ3LWxvYWRl
-ci5jICB8IDQ1ICsrKysrKysrKystLS0tLS0KPiAtLS0tCj4gIGRyaXZlcnMvaGlkL2ludGVsLWlz
-aC1oaWQvaXNodHAtaGlkLWNsaWVudC5jIHwgMTEgKysrLS0KPiAgZHJpdmVycy9oaWQvaW50ZWwt
-aXNoLWhpZC9pc2h0cC1oaWQuYyAgICAgICAgfCAgMiArLQo+ICBkcml2ZXJzL2hpZC9pbnRlbC1p
-c2gtaGlkL2lzaHRwLWhpZC5oICAgICAgICB8ICA5ICstLS0KPiAgZHJpdmVycy9oaWQvaW50ZWwt
-aXNoLWhpZC9pc2h0cC9idXMuYyAgICAgICAgfCAgOSArKystCj4gIGRyaXZlcnMvaGlkL2ludGVs
-LWlzaC1oaWQvaXNodHAvY2xpZW50LmMgICAgIHwgIDUgKy0tCj4gIGRyaXZlcnMvaGlkL2ludGVs
-LWlzaC1oaWQvaXNodHAvaGJtLmMgICAgICAgIHwgIDQgKy0KPiAgZHJpdmVycy9oaWQvaW50ZWwt
-aXNoLWhpZC9pc2h0cC9pc2h0cC1kZXYuaCAgfCAgNCArLQo+ICBkcml2ZXJzL2hpZC91c2JoaWQv
-aGlkLXBpZGZmLmMgICAgICAgICAgICAgICB8ICA0ICstCj4gIGRyaXZlcnMvaGlkL3VzYmhpZC91
-c2JrYmQuYyAgICAgICAgICAgICAgICAgIHwgIDIgKy0KPiAgZHJpdmVycy9oaWQvd2Fjb21fc3lz
-LmMgICAgICAgICAgICAgICAgICAgICAgfCAgMiArLQo+ICBpbmNsdWRlL2xpbnV4L2ludGVsLWlz
-aC1jbGllbnQtaWYuaCAgICAgICAgICB8ICA4ICsrKy0KPiAgMjQgZmlsZXMgY2hhbmdlZCwgOTAg
-aW5zZXJ0aW9ucygrKSwgODEgZGVsZXRpb25zKC0pCj4gCj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUg
-PGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+Cj4gQ2M6IEFuc3NpIEhhbm51bGEgPGFuc3Np
-Lmhhbm51bGFAZ21haWwuY29tPgo+IENjOiBCZW5qYW1pbiBUaXNzb2lyZXMgPGJlbmphbWluLnRp
-c3NvaXJlc0ByZWRoYXQuY29tPgo+IENjOiAiQnJ1bm8gUHLDqW1vbnQiIDxib25ib25zQGxpbnV4
-LXZzZXJ2ZXIub3JnPgo+IENjOiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdA
-YW1kLmNvbT4KPiBDYzogRGFuaWVsIERydWJpbiA8ZGFuaWVsLmRydWJpbkBpbnRlbC5jb20+Cj4g
-Q2M6IERhcmlvIFBhZ2FuaSA8ZGFyaW8ucGFnYW5pLjE0NitsaW51eGtAZ21haWwuY29tPgo+IENj
-OiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IEhlbnJpayBSeWRiZXJnIDxy
-eWRiZXJnQGJpdG1hdGgub3JnPgo+IENjOiBKaXJpIEtvc2luYSA8amlrb3NAa2VybmVsLm9yZz4K
-PiBDYzogSm9uYXRoYW4gQ2FtZXJvbiA8amljMjNAa2VybmVsLm9yZz4KPiBDYzogS2FpLUhlbmcg
-RmVuZyA8a2FpLmhlbmcuZmVuZ0BjYW5vbmljYWwuY29tPgo+IENjOiBLaW0gS3VwYXJpbmVuIDxr
-aW1pLmgua3VwYXJpbmVuQGdtYWlsLmNvbT4KPiBDYzogIktyenlzenRvZiBXaWxjennFhHNraSIg
-PGt3QGxpbnV4LmNvbT4KPiBDYzogTGVlIEpvbmVzIDxsZWUuam9uZXNAbGluYXJvLm9yZz4KPiBD
-YzogbGluYXJvLW1tLXNpZ0BsaXN0cy5saW5hcm8ub3JnCj4gQ2M6IGxpbnV4LWFybS1rZXJuZWxA
-bGlzdHMuaW5mcmFkZWFkLm9yZwo+IENjOiBsaW51eC1paW9Admdlci5rZXJuZWwub3JnCj4gQ2M6
-IGxpbnV4LWlucHV0QHZnZXIua2VybmVsLm9yZwo+IENjOiBsaW51eC1tZWRpYUB2Z2VyLmtlcm5l
-bC5vcmcKPiBDYzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQo+IENj
-OiBsaW51eC11c2JAdmdlci5rZXJuZWwub3JnCj4gQ2M6IExvcGV6IENhc2FkbyA8bmxvcGV6Y2Fz
-YWRAbG9naXRlY2guY29tPgo+IENjOiAiTC4gVmlueWFyZCwgSnIiIDxydmlueWFyZEBjcy5ubXN1
-LmVkdT4KPiBDYzogTWFzYWtpIE90YSA8bWFzYWtpLm90YUBqcC5hbHBzLmNvbT4KPiBDYzogTWF4
-aW1lIENvcXVlbGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgo+IENjOiBtZXNzYWdlIHRv
-IDx2b2p0ZWNoQHVjdy5jej4KPiBDYzogTWljaGFlbCBIYWJvdXN0YWsgPG1pa2UtQGNpbmNpLnJy
-LmNvbT4KPiBDYzogUnVzaGlrZXNoIFMgS2FkYW0gPHJ1c2hpa2VzaC5zLmthZGFtQGludGVsLmNv
-bT4KPiBDYzogU3Jpbml2YXMgUGFuZHJ1dmFkYSA8c3Jpbml2YXMucGFuZHJ1dmFkYUBsaW51eC5p
-bnRlbC5jb20+Cj4gQ2M6IFN1bWl0IFNlbXdhbCA8c3VtaXQuc2Vtd2FsQGxpbmFyby5vcmc+Cj4g
-Q2M6ICJVd2UgS2xlaW5lLUvDtm5pZyIgPHV3ZUBrbGVpbmUta29lbmlnLm9yZz4KPiBDYzogVm9q
-dGVjaCBQYXZsaWsgPHZvanRlY2hAc3VzZS5jej4KPiBDYzogWmhhbmcgTGl4dSA8bGl4dS56aGFu
-Z0BpbnRlbC5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
-bi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On 3/24/21 7:06 AM, Bhaskar Chowdhury wrote:
+> 
+> s/postion/position/
+> 
+> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+
+> ---
+>  drivers/i2c/busses/i2c-stm32f4.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
+> index 937c2c8fd349..4933fc8ce3fd 100644
+> --- a/drivers/i2c/busses/i2c-stm32f4.c
+> +++ b/drivers/i2c/busses/i2c-stm32f4.c
+> @@ -534,7 +534,7 @@ static void stm32f4_i2c_handle_rx_addr(struct stm32f4_i2c_dev *i2c_dev)
+>  	default:
+>  		/*
+>  		 * N-byte reception:
+> -		 * Enable ACK, reset POS (ACK postion) and clear ADDR flag.
+> +		 * Enable ACK, reset POS (ACK position) and clear ADDR flag.
+>  		 * In that way, ACK will be sent as soon as the current byte
+>  		 * will be received in the shift register
+>  		 */
+> --
+
+
+-- 
+~Randy
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
