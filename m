@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECCB9347FB6
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Mar 2021 18:45:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97E3B348BD1
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Mar 2021 09:46:29 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A81EC57B5E;
-	Wed, 24 Mar 2021 17:45:33 +0000 (UTC)
-Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
- [209.85.166.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D575C58D5E;
+	Thu, 25 Mar 2021 08:46:29 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A570C57B55
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E9BBC56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Mar 2021 17:45:31 +0000 (UTC)
-Received: by mail-io1-f52.google.com with SMTP id j26so22380466iog.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Mar 2021 10:45:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=WQOKKI3NBhlafu15L4AYHTsh8eoYcv2NYX3pxh4cbeY=;
- b=N+GJax+JUE7jir1fCg5aM5FSxAbyvA+VZfpr42qBkFye28pCD08+NUs0qZCAyhtJWO
- Ld5WMKdHvkwvEYqbQ4WX59kqv9xN4lTd9E/kZfnC8FocKELZt3Bj+kz6fo6dNkngfH3M
- Lm9sdoZzOQgQKbTXXBFxHgVbnrZbpL1F7pwBspCx2tjAytNEaYm88F5RL15xnYe9RrbG
- 3Ie+xcrTg5FeSDZ+/CkP5i/clKnXiIxb2Gcegu4JMjGYB3Q0wuU+lv4yazM+tTrNWFjJ
- mDoU4oxTn76lofFSDnRUe830tEKG/pSMSFTCMFKz99qnZK9ipKvrHRLfwzcizLin84c3
- UnJw==
-X-Gm-Message-State: AOAM532n6oI9K2yae6me2bw3/miYKrQPLeUSm9C8tRklaac1mzvWd6gf
- dTHK2WcU2THMSiNzZf8ecg==
-X-Google-Smtp-Source: ABdhPJykeeWlxXXZ603awX5WAKK6E91QipPknYAhmUz/+Kj3s31Ka3rSq1o62TNB0Nhkf4AldSTLRQ==
-X-Received: by 2002:a02:8801:: with SMTP id r1mr4013533jai.51.1616607929547;
- Wed, 24 Mar 2021 10:45:29 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id 14sm1439848ilt.54.2021.03.24.10.45.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Mar 2021 10:45:28 -0700 (PDT)
-Received: (nullmailer pid 3316165 invoked by uid 1000);
- Wed, 24 Mar 2021 17:45:25 -0000
-Date: Wed, 24 Mar 2021 11:45:25 -0600
-From: Rob Herring <robh@kernel.org>
-To: dillon min <dillon.minfei@gmail.com>
-Message-ID: <20210324174525.GA3309477@robh.at.kernel.org>
-References: <1615801436-3016-1-git-send-email-dillon.minfei@gmail.com>
- <1615801436-3016-10-git-send-email-dillon.minfei@gmail.com>
- <CAL9mu0Lfj+n4uk2rT8QnDtRveHn2gLx4ut6fLCByt0w9e08vwQ@mail.gmail.com>
- <01c9f635-7b2b-fc9c-3cf9-6d7f425d683e@foss.st.com>
- <CAL9mu0LaWyhb0=CdJgrfq8v08P2cgKSx8g=u3MJU=dRQc8bThw@mail.gmail.com>
+ Wed, 24 Mar 2021 21:27:57 +0000 (UTC)
+IronPort-SDR: z8WUyGEFAYq0r9P8uAnoodc8Gua8ud37sElLnaodPE3+M5HkjMAcBdeOCFffwagRFdgF8Fl6Pd
+ WGXODOO2CciA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9933"; a="210915156"
+X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="210915156"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2021 14:27:56 -0700
+IronPort-SDR: WfPWxzgv6hRguRTx0Lc0se0H/IbC6vbec18pdDFxd4+6q0LrD3loM5RVaRgzQbGak0sV9tw53y
+ 2EfXrYrBhmaA==
+X-IronPort-AV: E=Sophos;i="5.81,275,1610438400"; d="scan'208";a="442424773"
+Received: from aksagira-mobl2.amr.corp.intel.com ([10.209.125.174])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2021 14:27:54 -0700
+Message-ID: <c0121400eea96626cdd212ad95f296a024356289.camel@linux.intel.com>
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Lee Jones <lee.jones@linaro.org>
+Date: Wed, 24 Mar 2021 14:27:54 -0700
+In-Reply-To: <20210324173404.66340-1-lee.jones@linaro.org>
+References: <20210324173404.66340-1-lee.jones@linaro.org>
+User-Agent: Evolution 3.34.4 (3.34.4-1.fc31) 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAL9mu0LaWyhb0=CdJgrfq8v08P2cgKSx8g=u3MJU=dRQc8bThw@mail.gmail.com>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Vladimir Murzin <vladimir.murzin@arm.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, rong.a.chen@intel.com,
- gregkh@linuxfoundation.org, Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, erwan.leray@st.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
- linux@armlinux.org.uk, afzal.mohd.ma@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>, lkp@intel.com
-Subject: Re: [Linux-stm32] [PATCH v3 9/9] dt-bindings: serial: stm32: add
- phandle 'bluetooth' to fix dtbs_check warrning
+X-Mailman-Approved-At: Thu, 25 Mar 2021 08:46:26 +0000
+Cc: Krzysztof =?UTF-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+ Zhang Lixu <lixu.zhang@intel.com>, linux-iio@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ dri-devel@lists.freedesktop.org, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Anssi Hannula <anssi.hannula@gmail.com>,
+ Kim Kuparinen <kimi.h.kuparinen@gmail.com>,
+ Dario Pagani <dario.pagani.146+linuxk@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Henrik Rydberg <rydberg@bitmath.org>,
+ Lopez Casado <nlopezcasad@logitech.com>,
+ Rushikesh S Kadam <rushikesh.s.kadam@intel.com>,
+ Masaki Ota <masaki.ota@jp.alps.com>,
+ Bruno =?ISO-8859-1?Q?Pr=E9mont?= <bonbons@linux-vserver.org>,
+ Vojtech Pavlik <vojtech@suse.cz>, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
+ message to <vojtech@ucw.cz>, Jiri Kosina <jikos@kernel.org>, "L.
+ Vinyard, Jr" <rvinyard@cs.nmsu.edu>, linaro-mm-sig@lists.linaro.org,
+ Michael Haboustak <mike-@cinci.rr.com>, linux-arm-kernel@lists.infradead.org,
+ Daniel Drubin <daniel.drubin@intel.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 00/25] Rid W=1 warnings from HID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,96 +72,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 19, 2021 at 07:13:27PM +0800, dillon min wrote:
-> Hi Alexandre,
-> 
-> Thanks for the reply.
-> 
-> On Fri, Mar 19, 2021 at 4:38 PM Alexandre TORGUE
-> <alexandre.torgue@foss.st.com> wrote:
-> >
-> > Hi Dillon
-> >
-> > On 3/19/21 5:28 AM, dillon min wrote:
-> > > No changes, Just loop lkp in.
-> > >
-> > >
-> > > Hi lkp,
-> > >
-> > > Sorry for the late reply, thanks for your report.
-> > > This patch is to fix the build warning message.
-> > >
-> > > Thanks.
-> > > Regards
-> > >
-> > > On Mon, Mar 15, 2021 at 5:45 PM <dillon.minfei@gmail.com> wrote:
-> > >>
-> > >> From: dillon min <dillon.minfei@gmail.com>
-> > >>
-> > >> when run make dtbs_check with 'bluetoothi brcm,bcm43438-bt'
-> > >> dts enabled on stm32h7, there is a warrning popup:
-> > >>
-> > >>>> arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800: 'bluetooth'
-> > >>     does not match any of the regexes: 'pinctrl-[0-9]+'
-> > >>
-> > >> to make dtbs_check happy, so add a phandle bluetooth
-> > >>
-> > >> Fixes: 500cdb23d608 ("ARM: dts: stm32: Add STM32H743 MCU and STM32H743i-EVAL board")
-> > >> Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> > >> Reported-by: kernel test robot <lkp@intel.com>
-> > >> ---
-> > >>   Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 5 +++++
-> > >>   1 file changed, 5 insertions(+)
-> > >>
-> > >> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> > >> index 8631678283f9..5e674840e62d 100644
-> > >> --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> > >> +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-> > >> @@ -50,6 +50,11 @@ properties:
-> > >>       minItems: 1
-> > >>       maxItems: 2
-> > >>
-> > >> +  bluetooth:
-> > >> +    type: object
-> > >> +    description: |
-> > >> +      phandles to the usart controller and bluetooth
-> > >> +
-> >
-> > Do we really need to add this "generic" property here ? You could test
-> > without the "AditionalProperties:False".
-> Yes, indeed. we have no reason to add a generic 'bluetooth' property
-> into specific soc's interface yaml.
-> I can't just remove "AditionalProperties:False", else make
-> O=../kernel-art/ dtbs dtbs_check will run into
-> 
-> /home/fmin/linux/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml:
-> 'oneOf' conditional failed, one must be fixed:
-> 'unevaluatedProperties' is a required property
-> 'additionalProperties' is a required property
-> ...
-> 
-> So , i will replace "AditionalProperties:False". with
-> unevaluatedProperties: false, do you agree with this?
-
-This is okay as long as 'serial.yaml' is referenced, but will eventually 
-fail if not (unevaluatedProperties isn't actually implemented yet).
-
-> If so, i will send patch v4 later.
-
-Or you can do this:
-
-addtionalProperties:
-  type: object
-
-Which means any other property has to be a node.
-
-Rob
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCAyMDIxLTAzLTI0IGF0IDE3OjMzICswMDAwLCBMZWUgSm9uZXMgd3JvdGU6Cj4gVGhp
+cyBzZXQgaXMgcGFydCBvZiBhIGxhcmdlciBlZmZvcnQgYXR0ZW1wdGluZyB0byBjbGVhbi11cCBX
+PTEKPiBrZXJuZWwgYnVpbGRzLCB3aGljaCBhcmUgY3VycmVudGx5IG92ZXJ3aGVsbWluZ2x5IHJp
+ZGRsZWQgd2l0aAo+IG5pZ2dseSBsaXR0bGUgd2FybmluZ3MuCj4gCgpGb3IgY2hhbmdlcyBpbiAg
+ZHJpdmVycy9oaWQvaW50ZWwtaXNoLWhpZCBmb2xkZXIKCkFja2VkLWJ5OiBTcmluaXZhcyBQYW5k
+cnV2YWRhIDxzcmluaXZhcy5wYW5kcnV2YWRhQGxpbnV4LmludGVsLmNvbT4KCj4gTGVlIEpvbmVz
+ICgyNSk6Cj4gICBISUQ6IGludGVsLWlzaC1oaWQ6IFJlbW92ZSB1bnVzZWQgdmFyaWFibGUgJ2Vy
+cicKPiAgIEhJRDogaXNodHAtaGlkLWNsaWVudDogTW92ZSB2YXJpYWJsZSB0byB3aGVyZSBpdCdz
+IGFjdHVhbGx5IHVzZWQKPiAgIEhJRDogaW50ZWwtaXNoLWhpZDogcGNpLWlzaDogUmVtb3ZlIHVu
+dXNlZCB2YXJpYWJsZSAncmV0Jwo+ICAgSElEOiBpbnRlbC1pc2g6IFN1cHBseSBzb21lIG1pc3Np
+bmcgcGFyYW0gZGVzY3JpcHRpb25zCj4gICBISUQ6IGludGVsLWlzaDogRml4IGEgbmFtaW5nIGRp
+c3Bhcml0eSBhbmQgYSBmb3JtYXR0aW5nIGVycm9yCj4gICBISUQ6IHVzYmhpZDogUmVwYWlyIGEg
+Zm9ybWF0dGluZyBpc3N1ZSBpbiBhIHN0cnVjdCBkZXNjcmlwdGlvbgo+ICAgSElEOiBpbnRlbC1p
+c2gtaGlkOiBGaXggYSBsaXR0bGUgZG9jLXJvdAo+ICAgSElEOiB1c2JoaWQ6IGhpZC1waWRmZjog
+RGVtb3RlIGEgY291cGxlIGtlcm5lbC1kb2MgYWJ1c2VzCj4gICBISUQ6IGhpZC1hbHBzOiBDb3Jy
+ZWN0IHN0cnVjdCBtaXNuYW1pbmcKPiAgIEhJRDogaW50ZWwtaXNoLWhpZDogRml4IHBvdGVudGlh
+bCBjb3B5L3Bhc3RlIGVycm9yCj4gICBISUQ6IGhpZC1jb3JlOiBGaXggaW5jb3JyZWN0IGZ1bmN0
+aW9uIG5hbWUgaW4gaGVhZGVyCj4gICBISUQ6IGludGVsLWlzaC1oaWQ6IGlwYzogQ29ycmVjdCBm
+d19yZXNldF93b3JrX2ZuKCkgZnVuY3Rpb24gbmFtZQo+IGluCj4gICAgIGhlYWRlcgo+ICAgSElE
+OiBpc2h0cC1oaWQtY2xpZW50OiBGaXggaW5jb3JyZWN0IGZ1bmN0aW9uIG5hbWUKPiByZXBvcnRf
+YmFkX3BhY2tldCgpCj4gICBISUQ6IGhpZC1reWU6IEZpeCBpbmNvcnJlY3QgZnVuY3Rpb24gbmFt
+ZSBmb3Iga3llX3RhYmxldF9lbmFibGUoKQo+ICAgSElEOiBoaWQtcGljb2xjZF9jb3JlOiBSZW1v
+dmUgdW51c2VkIHZhcmlhYmxlICdyZXQnCj4gICBISUQ6IGhpZC1sb2dpdGVjaC1oaWRwcDogRml4
+IGNvbmZvcm1hbnQga2VybmVsLWRvYyBoZWFkZXIgYW5kCj4gZGVtb3RlCj4gICAgIGFidXNlcwo+
+ICAgSElEOiBoaWQtdWNsb2dpYy1yZGVzYzogS2VybmVsLWRvYyBpcyBmb3IgZnVuY3Rpb25zIGFu
+ZCBzdHJ1Y3RzCj4gICBISUQ6IGhpZC10aHJ1c3RtYXN0ZXI6IERlbW90ZSBhIGJ1bmNoIG9mIGtl
+cm5lbC1kb2MgYWJ1c2VzCj4gICBISUQ6IGhpZC11Y2xvZ2ljLXBhcmFtczogRW5zdXJlIGZ1bmN0
+aW9uIG5hbWVzIGFyZSBwcmVzZW50IGFuZAo+IGNvcnJlY3QKPiAgICAgaW4ga2VybmVsLWRvYyBo
+ZWFkZXJzCj4gICBISUQ6IGhpZC1zZW5zb3ItY3VzdG9tOiBSZW1vdmUgdW51c2VkIHZhcmlhYmxl
+ICdyZXQnCj4gICBISUQ6IHdhY29tX3N5czogRGVtb3RlIGtlcm5lbC1kb2MgYWJ1c2UKPiAgIEhJ
+RDogaGlkLXNlbnNvci1odWI6IFJlbW92ZSB1bnVzZWQgc3RydWN0IG1lbWJlciAncXVpcmtzJwo+
+ICAgSElEOiBoaWQtc2Vuc29yLWh1YjogTW92ZSAnaHNkZXYnIGRlc2NyaXB0aW9uIHRvIGNvcnJl
+Y3Qgc3RydWN0Cj4gICAgIGRlZmluaXRpb24KPiAgIEhJRDogaW50ZWwtaXNoLWhpZDogaXNodHAt
+ZnctbG9hZGVyOiBGaXggYSBidW5jaCBvZiBmb3JtYXR0aW5nCj4gaXNzdWVzCj4gICBISUQ6IGlz
+aHRwLWhpZC1jbGllbnQ6IEZpeCAnc3VnZ2VzdC1hdHRyaWJ1dGU9Zm9ybWF0JyBjb21waWxlcgo+
+IHdhcm5pbmcKPiAKPiAgZHJpdmVycy9oaWQvaGlkLWFscHMuYyAgICAgICAgICAgICAgICAgICAg
+ICAgfCAgMiArLQo+ICBkcml2ZXJzL2hpZC9oaWQtY29yZS5jICAgICAgICAgICAgICAgICAgICAg
+ICB8ICAyICstCj4gIGRyaXZlcnMvaGlkL2hpZC1reWUuYyAgICAgICAgICAgICAgICAgICAgICAg
+IHwgIDIgKy0KPiAgZHJpdmVycy9oaWQvaGlkLWxvZ2l0ZWNoLWhpZHBwLmMgICAgICAgICAgICAg
+fCAgNyArLS0KPiAgZHJpdmVycy9oaWQvaGlkLXBpY29sY2RfY29yZS5jICAgICAgICAgICAgICAg
+fCAgNSArLS0KPiAgZHJpdmVycy9oaWQvaGlkLXNlbnNvci1jdXN0b20uYyAgICAgICAgICAgICAg
+fCAgNSArLS0KPiAgZHJpdmVycy9oaWQvaGlkLXNlbnNvci1odWIuYyAgICAgICAgICAgICAgICAg
+fCAgNCArLQo+ICBkcml2ZXJzL2hpZC9oaWQtdGhydXN0bWFzdGVyLmMgICAgICAgICAgICAgICB8
+IDI0ICsrKysrLS0tLS0tCj4gIGRyaXZlcnMvaGlkL2hpZC11Y2xvZ2ljLXBhcmFtcy5jICAgICAg
+ICAgICAgIHwgIDggKystLQo+ICBkcml2ZXJzL2hpZC9oaWQtdWNsb2dpYy1yZGVzYy5jICAgICAg
+ICAgICAgICB8ICAyICstCj4gIGRyaXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXBjL2lwYy5jICAg
+ICAgICAgIHwgIDIgKy0KPiAgZHJpdmVycy9oaWQvaW50ZWwtaXNoLWhpZC9pcGMvcGNpLWlzaC5j
+ICAgICAgfCAgMyArLQo+ICBkcml2ZXJzL2hpZC9pbnRlbC1pc2gtaGlkL2lzaHRwLWZ3LWxvYWRl
+ci5jICB8IDQ1ICsrKysrKysrKystLS0tLS0KPiAtLS0tCj4gIGRyaXZlcnMvaGlkL2ludGVsLWlz
+aC1oaWQvaXNodHAtaGlkLWNsaWVudC5jIHwgMTEgKysrLS0KPiAgZHJpdmVycy9oaWQvaW50ZWwt
+aXNoLWhpZC9pc2h0cC1oaWQuYyAgICAgICAgfCAgMiArLQo+ICBkcml2ZXJzL2hpZC9pbnRlbC1p
+c2gtaGlkL2lzaHRwLWhpZC5oICAgICAgICB8ICA5ICstLS0KPiAgZHJpdmVycy9oaWQvaW50ZWwt
+aXNoLWhpZC9pc2h0cC9idXMuYyAgICAgICAgfCAgOSArKystCj4gIGRyaXZlcnMvaGlkL2ludGVs
+LWlzaC1oaWQvaXNodHAvY2xpZW50LmMgICAgIHwgIDUgKy0tCj4gIGRyaXZlcnMvaGlkL2ludGVs
+LWlzaC1oaWQvaXNodHAvaGJtLmMgICAgICAgIHwgIDQgKy0KPiAgZHJpdmVycy9oaWQvaW50ZWwt
+aXNoLWhpZC9pc2h0cC9pc2h0cC1kZXYuaCAgfCAgNCArLQo+ICBkcml2ZXJzL2hpZC91c2JoaWQv
+aGlkLXBpZGZmLmMgICAgICAgICAgICAgICB8ICA0ICstCj4gIGRyaXZlcnMvaGlkL3VzYmhpZC91
+c2JrYmQuYyAgICAgICAgICAgICAgICAgIHwgIDIgKy0KPiAgZHJpdmVycy9oaWQvd2Fjb21fc3lz
+LmMgICAgICAgICAgICAgICAgICAgICAgfCAgMiArLQo+ICBpbmNsdWRlL2xpbnV4L2ludGVsLWlz
+aC1jbGllbnQtaWYuaCAgICAgICAgICB8ICA4ICsrKy0KPiAgMjQgZmlsZXMgY2hhbmdlZCwgOTAg
+aW5zZXJ0aW9ucygrKSwgODEgZGVsZXRpb25zKC0pCj4gCj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUg
+PGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+Cj4gQ2M6IEFuc3NpIEhhbm51bGEgPGFuc3Np
+Lmhhbm51bGFAZ21haWwuY29tPgo+IENjOiBCZW5qYW1pbiBUaXNzb2lyZXMgPGJlbmphbWluLnRp
+c3NvaXJlc0ByZWRoYXQuY29tPgo+IENjOiAiQnJ1bm8gUHLDqW1vbnQiIDxib25ib25zQGxpbnV4
+LXZzZXJ2ZXIub3JnPgo+IENjOiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdA
+YW1kLmNvbT4KPiBDYzogRGFuaWVsIERydWJpbiA8ZGFuaWVsLmRydWJpbkBpbnRlbC5jb20+Cj4g
+Q2M6IERhcmlvIFBhZ2FuaSA8ZGFyaW8ucGFnYW5pLjE0NitsaW51eGtAZ21haWwuY29tPgo+IENj
+OiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IEhlbnJpayBSeWRiZXJnIDxy
+eWRiZXJnQGJpdG1hdGgub3JnPgo+IENjOiBKaXJpIEtvc2luYSA8amlrb3NAa2VybmVsLm9yZz4K
+PiBDYzogSm9uYXRoYW4gQ2FtZXJvbiA8amljMjNAa2VybmVsLm9yZz4KPiBDYzogS2FpLUhlbmcg
+RmVuZyA8a2FpLmhlbmcuZmVuZ0BjYW5vbmljYWwuY29tPgo+IENjOiBLaW0gS3VwYXJpbmVuIDxr
+aW1pLmgua3VwYXJpbmVuQGdtYWlsLmNvbT4KPiBDYzogIktyenlzenRvZiBXaWxjennFhHNraSIg
+PGt3QGxpbnV4LmNvbT4KPiBDYzogTGVlIEpvbmVzIDxsZWUuam9uZXNAbGluYXJvLm9yZz4KPiBD
+YzogbGluYXJvLW1tLXNpZ0BsaXN0cy5saW5hcm8ub3JnCj4gQ2M6IGxpbnV4LWFybS1rZXJuZWxA
+bGlzdHMuaW5mcmFkZWFkLm9yZwo+IENjOiBsaW51eC1paW9Admdlci5rZXJuZWwub3JnCj4gQ2M6
+IGxpbnV4LWlucHV0QHZnZXIua2VybmVsLm9yZwo+IENjOiBsaW51eC1tZWRpYUB2Z2VyLmtlcm5l
+bC5vcmcKPiBDYzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQo+IENj
+OiBsaW51eC11c2JAdmdlci5rZXJuZWwub3JnCj4gQ2M6IExvcGV6IENhc2FkbyA8bmxvcGV6Y2Fz
+YWRAbG9naXRlY2guY29tPgo+IENjOiAiTC4gVmlueWFyZCwgSnIiIDxydmlueWFyZEBjcy5ubXN1
+LmVkdT4KPiBDYzogTWFzYWtpIE90YSA8bWFzYWtpLm90YUBqcC5hbHBzLmNvbT4KPiBDYzogTWF4
+aW1lIENvcXVlbGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgo+IENjOiBtZXNzYWdlIHRv
+IDx2b2p0ZWNoQHVjdy5jej4KPiBDYzogTWljaGFlbCBIYWJvdXN0YWsgPG1pa2UtQGNpbmNpLnJy
+LmNvbT4KPiBDYzogUnVzaGlrZXNoIFMgS2FkYW0gPHJ1c2hpa2VzaC5zLmthZGFtQGludGVsLmNv
+bT4KPiBDYzogU3Jpbml2YXMgUGFuZHJ1dmFkYSA8c3Jpbml2YXMucGFuZHJ1dmFkYUBsaW51eC5p
+bnRlbC5jb20+Cj4gQ2M6IFN1bWl0IFNlbXdhbCA8c3VtaXQuc2Vtd2FsQGxpbmFyby5vcmc+Cj4g
+Q2M6ICJVd2UgS2xlaW5lLUvDtm5pZyIgPHV3ZUBrbGVpbmUta29lbmlnLm9yZz4KPiBDYzogVm9q
+dGVjaCBQYXZsaWsgPHZvanRlY2hAc3VzZS5jej4KPiBDYzogWmhhbmcgTGl4dSA8bGl4dS56aGFu
+Z0BpbnRlbC5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
+bi9saXN0aW5mby9saW51eC1zdG0zMgo=
