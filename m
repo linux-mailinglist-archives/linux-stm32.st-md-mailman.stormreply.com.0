@@ -2,64 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1F88347AB3
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Mar 2021 15:31:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF925347A33
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Mar 2021 15:08:10 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A454C57B5E;
-	Wed, 24 Mar 2021 14:31:30 +0000 (UTC)
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
- [209.85.222.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 703F4C57B5E;
+	Wed, 24 Mar 2021 14:08:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF20EC56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB291C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Mar 2021 14:04:29 +0000 (UTC)
-Received: by mail-qk1-f179.google.com with SMTP id z10so18059023qkz.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Mar 2021 07:04:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=CpPLSn6SC+tjm/MP07tit/iX5OAxIHrELjJluCN4+Z4=;
- b=gK5Mfehw83CQNoo5eO1MGPKzFRwSFCx1vqAA28oFXLRTV77chR4gF8N12l9TMcl97r
- cWvV5XnWYoGjF6ouRwSJenqexpLsuARyB0/VwUZmMxruLd8c8kxXLjQzV1x1mubb8UGX
- 1aU3vVsN/vvRK0/ygLinYq36Q7Oxr09rXYsAkWHsgc4phugCighwF47+TdD4h8VNYFzv
- 7BsGHqcprnPLKvo/sc4vKNFTA+m3a4VySXoulxk5pmA3cDOZWwdzg6rgVBFQFZEXmdVs
- 2sx0muI+K5n2Eqvp8Ds9THCqMm2lfsC2MCg+NKWQCb6ThIcqOPdEITvJFZnaADU/Opbw
- z6Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=CpPLSn6SC+tjm/MP07tit/iX5OAxIHrELjJluCN4+Z4=;
- b=l6ddnbGCnC3eMKG/WOqavzNnMM+l2oZGZYAuPUgcAXNY35sjFJGAGRLeMWeqA7It5R
- b7cZFvCRn7cMs/Qa+n12P9XnILXwD7imKb2Cev2w7e7Vp1uZqp/T+ZKWt5IMRcTPrOHk
- VWw9mp2TDUoBTHF5g933uYwJh+egkmNMRL8x5Mz20A15yYm40sae8Ul4fd/jI9fYPzZz
- FlD9j/V5KE/0cG7fBDaW1zPSOyumqyntDpe1bWdVFaoz64IBzma3GzudLX2MGdUgYaff
- GLQ2N0aH4iqwi2n+cN4ijvB1021CcimhrQi36pN7CDJeD1hS5UTUUV7tdSHWPLOGHZi8
- xLkA==
-X-Gm-Message-State: AOAM5307yJskJHweVXIF4A8GrELIcEJn4n6b5gUa6zASfQgHYMnX66uD
- tHzP3CX9Z0mSkFQAn4pZJMk=
-X-Google-Smtp-Source: ABdhPJxvFiADFOynFmLKf93cGd6AwCKXxls8SlNl74wx2zHm5MoUxa6OiY+hjvXImOw9EEkuYUg7Uw==
-X-Received: by 2002:a05:620a:2013:: with SMTP id
- c19mr3175599qka.403.1616594668546; 
- Wed, 24 Mar 2021 07:04:28 -0700 (PDT)
-Received: from Slackware.localdomain ([156.146.36.138])
- by smtp.gmail.com with ESMTPSA id s6sm1524096qtn.15.2021.03.24.07.04.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Mar 2021 07:04:27 -0700 (PDT)
-From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: pierre-yves.mordret@st.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@st.com, p.zabel@pengutronix.de, linux-i2c@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 24 Mar 2021 19:36:10 +0530
-Message-Id: <20210324140610.32385-1-unixbhaskar@gmail.com>
-X-Mailer: git-send-email 2.30.1
+ Wed, 24 Mar 2021 14:08:08 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12ODv9r8012701; Wed, 24 Mar 2021 15:07:59 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=cV9LKgWfxFF9ci2IEbctDkOPPeBQ/ZS/7WrIOgBjVbQ=;
+ b=ihCil4RxF9qG/c/M2jiz8HBZntzpdfDgB/ff4lJzeXegMFOq4GBs0Xxd9od1b6U2XpmJ
+ xnhui3NsX5rS5YwUju64Yld1XqhNyRN4KwwFkX0tcVk4PZpG43pQtBVZC5DQ1c+2fjX6
+ 952qfoGx8ofCW/N0iWO8NE5POTSUWKg8z8R2rmOguSWZ+u2Uc/HaZJHuJfCuZKf+nUby
+ s/JP8TUpvL/iHtQI0Slg6QfnLRXrwvKV6CpbOnSuOVoc33fHm4Ac9O3VHcsJoN5k8pN2
+ UYhU7LzQdP0vw7FWgqfxDSkFoRcVwHxXM93Cgq1BVlRpJ5xfUqoFyw+Fm/mmGiBnRePx MQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37d72dxr6b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Mar 2021 15:07:59 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5A38C10002A;
+ Wed, 24 Mar 2021 15:07:57 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B07D025F3EC;
+ Wed, 24 Mar 2021 15:07:57 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.51) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 24 Mar
+ 2021 15:07:56 +0100
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20210322092651.7381-1-arnaud.pouliquen@foss.st.com>
+ <20210322092651.7381-3-arnaud.pouliquen@foss.st.com>
+ <20210323211911.GA1714890@xps15>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <ad74c7d6-59d0-c522-6d2c-0608c8e9c33e@foss.st.com>
+Date: Wed, 24 Mar 2021 15:07:56 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 24 Mar 2021 14:31:28 +0000
-Cc: rdunlap@infradead.org, Bhaskar Chowdhury <unixbhaskar@gmail.com>
-Subject: [Linux-stm32] [PATCH] i2c-stm32f4: Mundane typo fix
+In-Reply-To: <20210323211911.GA1714890@xps15>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-24_10:2021-03-24,
+ 2021-03-24 signatures=0
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] remoteproc: stm32: add capability
+	to detach
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,30 +82,147 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Mathieu,
 
-s/postion/position/
+On 3/23/21 10:19 PM, Mathieu Poirier wrote:
+> Good day Arnaud,
+> 
+> On Mon, Mar 22, 2021 at 10:26:51AM +0100, Arnaud Pouliquen wrote:
+>> From: Arnaud Pouliquen <arnaud.pouliquen@foss-st.com>
+>>
+>> A mechanism similar to the shutdown mailbox signal is implemented to
+>> detach a remote processor.
+>>
+>> Upon detachment, a signal is sent to the remote firmware, allowing it
+>> to perform specific actions such as stopping RPMsg communication.
+>>
+>> The Cortex-M hold boot is also disabled to allow the remote processor
+>> to restart in case of crash.
+>>
+>> Notice that for this feature to be supported, the remote firmware
+>> resource table must be stored at the beginning of a 1kB section
+>> (default size provided to the remoteproc core).
+>>
+>> This restriction should be lifted in the future by using a backup
+>> register to store the actual size of the resource table.
+> 
+> I'm not sure the above two paragraphs add anything valuable to the changelog.
+> At this time the size of 1kB is fixed and future enhancement are, well, in the
+> future.  So for now this patch is working with the rest of the current
+> environment and that is the important part.
+> 
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss-st.com>
+>> ---
+>>  drivers/remoteproc/stm32_rproc.c | 38 ++++++++++++++++++++++++++++++--
+>>  1 file changed, 36 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+>> index 3d45f51de4d0..298ef5b19e27 100644
+>> --- a/drivers/remoteproc/stm32_rproc.c
+>> +++ b/drivers/remoteproc/stm32_rproc.c
+>> @@ -28,7 +28,7 @@
+>>  #define RELEASE_BOOT		1
+>>  
+>>  #define MBOX_NB_VQ		2
+>> -#define MBOX_NB_MBX		3
+>> +#define MBOX_NB_MBX		4
+>>  
+>>  #define STM32_SMC_RCC		0x82001000
+>>  #define STM32_SMC_REG_WRITE	0x1
+>> @@ -38,6 +38,7 @@
+>>  #define STM32_MBX_VQ1		"vq1"
+>>  #define STM32_MBX_VQ1_ID	1
+>>  #define STM32_MBX_SHUTDOWN	"shutdown"
+>> +#define STM32_MBX_DETACH	"detach"
+>>  
+>>  #define RSC_TBL_SIZE		1024
+>>  
+>> @@ -336,6 +337,15 @@ static const struct stm32_mbox stm32_rproc_mbox[MBOX_NB_MBX] = {
+>>  			.tx_done = NULL,
+>>  			.tx_tout = 500, /* 500 ms time out */
+>>  		},
+>> +	},
+>> +	{
+>> +		.name = STM32_MBX_DETACH,
+>> +		.vq_id = -1,
+>> +		.client = {
+>> +			.tx_block = true,
+>> +			.tx_done = NULL,
+>> +			.tx_tout = 200, /* 200 ms time out to detach should be fair enough */
+>> +		},
+>>  	}
+>>  };
+>>  
+>> @@ -461,6 +471,25 @@ static int stm32_rproc_attach(struct rproc *rproc)
+>>  	return stm32_rproc_set_hold_boot(rproc, true);
+>>  }
+>>  
+>> +static int stm32_rproc_detach(struct rproc *rproc)
+>> +{
+>> +	struct stm32_rproc *ddata = rproc->priv;
+>> +	int err, dummy_data, idx;
+>> +
+>> +	/* Inform the remote processor of the detach */
+>> +	idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_DETACH);
+>> +	if (idx >= 0 && ddata->mb[idx].chan) {
+>> +		/* A dummy data is sent to allow to block on transmit */
+>> +		err = mbox_send_message(ddata->mb[idx].chan,
+>> +					&dummy_data);
+>> +		if (err < 0)
+>> +			dev_warn(&rproc->dev, "warning: remote FW detach without ack\n");
+>> +	}
+>> +
+>> +	/* Allow remote processor to auto-reboot */
+>> +	return stm32_rproc_set_hold_boot(rproc, false);
+>> +}
+>> +
+>>  static int stm32_rproc_stop(struct rproc *rproc)
+>>  {
+>>  	struct stm32_rproc *ddata = rproc->priv;
+>> @@ -597,7 +626,11 @@ stm32_rproc_get_loaded_rsc_table(struct rproc *rproc, size_t *table_sz)
+>>  	}
+>>  
+>>  done:
+>> -	/* Assuming the resource table fits in 1kB is fair */
+>> +	/*
+>> +	 * Assuming the resource table fits in 1kB is fair.
+>> +	 * Notice for the detach, that this 1 kB memory area has to be reserved in the coprocessor
+>> +	 * firmware for the resource table. A clean of this whole area is done on detach.
+>> +	 */
+> 
+> Can you rework the last sentence?  I'm not sure if it means the M4 will clean
+> the resource table or if that should be the application processor... I'm also
+> not clear on what you mean by "clean".  Usually it means zero'ing out but in
+> this case it means a re-initialisation of the original values.
+This is done by the remoteproc core itself by overwriting the resource table
+area with the rproc->clean_table backup.
+i will rework the comment in this way.
 
-Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
----
- drivers/i2c/busses/i2c-stm32f4.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks,
+Arnaud
 
-diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
-index 937c2c8fd349..4933fc8ce3fd 100644
---- a/drivers/i2c/busses/i2c-stm32f4.c
-+++ b/drivers/i2c/busses/i2c-stm32f4.c
-@@ -534,7 +534,7 @@ static void stm32f4_i2c_handle_rx_addr(struct stm32f4_i2c_dev *i2c_dev)
- 	default:
- 		/*
- 		 * N-byte reception:
--		 * Enable ACK, reset POS (ACK postion) and clear ADDR flag.
-+		 * Enable ACK, reset POS (ACK position) and clear ADDR flag.
- 		 * In that way, ACK will be sent as soon as the current byte
- 		 * will be received in the shift register
- 		 */
---
-2.30.1
-
+> 
+> 
+>>  	*table_sz = RSC_TBL_SIZE;
+>>  	return (struct resource_table *)ddata->rsc_va;
+>>  }
+>> @@ -607,6 +640,7 @@ static const struct rproc_ops st_rproc_ops = {
+>>  	.start		= stm32_rproc_start,
+>>  	.stop		= stm32_rproc_stop,
+>>  	.attach		= stm32_rproc_attach,
+>> +	.detach		= stm32_rproc_detach,
+> 
+> With the above:
+> 
+> Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+> 
+>>  	.kick		= stm32_rproc_kick,
+>>  	.load		= rproc_elf_load_segments,
+>>  	.parse_fw	= stm32_rproc_parse_fw,
+>> -- 
+>> 2.17.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
