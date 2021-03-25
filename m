@@ -2,67 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16EF93488E8
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Mar 2021 07:20:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD83348A56
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Mar 2021 08:45:21 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E10D3C57B5F;
-	Thu, 25 Mar 2021 06:20:02 +0000 (UTC)
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62DA2C57B5E;
+	Thu, 25 Mar 2021 07:45:21 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98CBFC57B55
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A647CC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Mar 2021 06:19:59 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id r17so807970pgi.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Mar 2021 23:19:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=y2ugCPlO8XWjx6bQzXAXSnErBAV9ElhMwDzxktw9ft8=;
- b=aGlhyI8r09B7KRQ4e5fGXcjPjRmsW0P/dClqRHyxUxiwyq/CTqr4wpYiXGvdl52Yx7
- VKHB+y+q0ABtZBK4lL8ciaGl1dtIurKvIUeeujK5XKw/Qnr/gy91Q7tA4/fjE/I0q7B7
- 4ddfmYpR8bOZuOl6J+eLpaoj916b9AO9wHZkUTaaSX6ONH76RYlWtURTMqZOC6WUY4IJ
- C1IG9qhAL7V/bstfE8fMaNWk3AF6yfuxrHG4c+NJCLMyJbqRcFc9YAQ5mPhmkfugodgN
- B/Jpv6kMw1EeJAZH2n3GE2acGiIw/uyAp3N4+YDBnGOUANnB3C8Jj3kdmawmxjk9LWww
- RKrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=y2ugCPlO8XWjx6bQzXAXSnErBAV9ElhMwDzxktw9ft8=;
- b=iFsZRr48BjapaK4OPY+8Wgstbgr4Z4WjN9fpSmluC1yy1/+CaEfVtyqnt5FzlLj3ZO
- sukbsGPbfurriioe1F6PuW+CykJPuhJJms/k8LGgM5qYolK3MHNzITVX9t5my3gYDNUD
- sBeJPG+fscNmBH+VSd5MxaUSZK+/uYQdqiE1xjN0pAGoQJkoE/a/iOV0T5dsvOLoVlKn
- SS5syPuqyuU4wdaFm6/ZI/PKvcTpiXIYxpQR7RhGyv35HDBO7HPwxAmwXMQ2uqqB7IKM
- 1bpUZGbk1k0GMLRE4dkvg6MZSW6lNZ2JRauV1qzpx3U2urHKL+hvRAFKlkXjwKJ2qfTO
- k2uw==
-X-Gm-Message-State: AOAM531hfeGlvVyso3+RfNsSL8jBu3Qy1/csZXq2muy+dsF9n78QHAbg
- d+irn0NU9r0i5ajYimv6VBg=
-X-Google-Smtp-Source: ABdhPJyjjw6N0G9zVOkj9wsRmVAMLRCK5yCcScA8pzH+IzNNVlZ4LF7um7yQEOrgUePXzn8yBgyBpg==
-X-Received: by 2002:a17:902:b68b:b029:e6:cda9:39d with SMTP id
- c11-20020a170902b68bb02900e6cda9039dmr7838709pls.63.1616653198286; 
- Wed, 24 Mar 2021 23:19:58 -0700 (PDT)
-Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id b19sm4393086pfo.7.2021.03.24.23.19.54
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 24 Mar 2021 23:19:58 -0700 (PDT)
-From: dillon.minfei@gmail.com
-To: robh@kernel.org, valentin.caron@foss.st.com, Alexandre.torgue@foss.st.com,
- rong.a.chen@intel.com, a.fatoum@pengutronix.de, mcoquelin.stm32@gmail.com,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Thu, 25 Mar 2021 07:45:19 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12P7hJef029069; Thu, 25 Mar 2021 08:43:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=date : from : to :
+ cc : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=selector1; bh=w7J5GsMUoBcuIgOX9vwjz/nfL+HUwedcW3KIkb1nR+8=;
+ b=y4LP/QuIKgKp6GDw4Ly2DXBx5cuPTQcgDzpgZL7ejUhoj4VgVIkNn+KsxHIZf/6GhOGF
+ fhmf228EAq3PxTWzgyBd+tihPhIDNW91ACtADy7NhipuzZLtPsV0RPBstBXPtlbTBQWI
+ R/N9m/zlEPH2fix7LEC6d6CoiuqTZc79p8xosEkEC1XYEsUymSqBXd5PPyD18XqO/Bgt
+ 13jtm7VkgpUE+xE56feaIcs8uZajHRXm+Z0+EDPcv4+wx2khTCn9Fi5KDNDDW9ODlCmM
+ aS4PoWlfoch30XTpQbXbEDbOhW5ZXG527W6aDLh8RSCKM5uKRpoiPIW5D3dQ//AYfAGk 4A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37fb17ndhy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Mar 2021 08:43:19 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B1AC910002A;
+ Thu, 25 Mar 2021 08:43:15 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9BF2B21E685;
+ Thu, 25 Mar 2021 08:43:15 +0100 (CET)
+Received: from gnbcxd0016.gnb.st.com (10.75.127.48) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 25 Mar
+ 2021 08:43:15 +0100
+Date: Thu, 25 Mar 2021 08:43:10 +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+Message-ID: <20210325074310.GA17918@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>,
+ pierre-yves.mordret@st.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@st.com, p.zabel@pengutronix.de,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux@armlinux.org.uk, vladimir.murzin@arm.com, afzal.mohd.ma@gmail.com,
- gregkh@linuxfoundation.org, erwan.leray@foss.st.com, erwan.leray@st.com,
- linux-serial@vger.kernel.org, lkp@intel.com
-Date: Thu, 25 Mar 2021 14:19:22 +0800
-Message-Id: <1616653162-19954-8-git-send-email-dillon.minfei@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1616653162-19954-1-git-send-email-dillon.minfei@gmail.com>
-References: <1616653162-19954-1-git-send-email-dillon.minfei@gmail.com>
-Cc: dillon min <dillon.minfei@gmail.com>
-Subject: [Linux-stm32] [PATCH v5 9/9] dt-bindings: serial: stm32: Use 'type:
-	object' instead of false for 'additionalProperties'
+ rdunlap@infradead.org
+References: <20210324140610.32385-1-unixbhaskar@gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210324140610.32385-1-unixbhaskar@gmail.com>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-25_01:2021-03-24,
+ 2021-03-25 signatures=0
+Cc: mcoquelin.stm32@gmail.com, rdunlap@infradead.org,
+ linux-kernel@vger.kernel.org, pierre-yves.mordret@st.com,
+ linux-i2c@vger.kernel.org, p.zabel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH] i2c-stm32f4: Mundane typo fix
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,50 +77,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: dillon min <dillon.minfei@gmail.com>
+On Wed, Mar 24, 2021 at 07:36:10PM +0530, Bhaskar Chowdhury wrote:
+> 
+> s/postion/position/
+> 
+> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+> ---
+>  drivers/i2c/busses/i2c-stm32f4.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
+> index 937c2c8fd349..4933fc8ce3fd 100644
+> --- a/drivers/i2c/busses/i2c-stm32f4.c
+> +++ b/drivers/i2c/busses/i2c-stm32f4.c
+> @@ -534,7 +534,7 @@ static void stm32f4_i2c_handle_rx_addr(struct stm32f4_i2c_dev *i2c_dev)
+>  	default:
+>  		/*
+>  		 * N-byte reception:
+> -		 * Enable ACK, reset POS (ACK postion) and clear ADDR flag.
+> +		 * Enable ACK, reset POS (ACK position) and clear ADDR flag.
+>  		 * In that way, ACK will be sent as soon as the current byte
+>  		 * will be received in the shift register
+>  		 */
 
-To use additional properties 'bluetooth' on serial, need replace false with
-'type: object' for 'additionalProperties' to make it as a node, else will
-run into dtbs_check warnings.
+Reviewed-by: Alain Volmat <alain.volmat@foss.st.com>
 
-'arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800:
-'bluetooth' does not match any of the regexes: 'pinctrl-[0-9]+'
-
-Fixes: af1c2d81695b ("dt-bindings: serial: Convert STM32 UART to json-schema")
-Reported-by: kernel test robot <lkp@intel.com>
-Tested-by: Valentin Caron <valentin.caron@foss.st.com>
-Signed-off-by: dillon min <dillon.minfei@gmail.com>
----
-
-v5: accroding to rob's suggestion, replace false with 'type: object'
-    of 'additionalProperties'.
-
- Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-index 8631678283f9..865be05083c3 100644
---- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-@@ -80,7 +80,8 @@ required:
-   - interrupts
-   - clocks
- 
--additionalProperties: false
-+additionalProperties:
-+  type: object
- 
- examples:
-   - |
--- 
-2.7.4
-
+> --
+> 2.30.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
