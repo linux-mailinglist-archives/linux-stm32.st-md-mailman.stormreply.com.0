@@ -2,69 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0F02348D53
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Mar 2021 10:47:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A163A348E9F
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Mar 2021 12:12:50 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 538BEC57B78;
-	Thu, 25 Mar 2021 09:47:59 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38244C57B5E;
+	Thu, 25 Mar 2021 11:12:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76A15C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22804C32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Mar 2021 09:45:56 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Thu, 25 Mar 2021 11:12:47 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12P9f4WT021657; Thu, 25 Mar 2021 10:45:43 +0100
+ 12PB8KZQ029488; Thu, 25 Mar 2021 12:12:23 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=PO4Z1bpenUTTOuTPNMpBm5oiVuvmInssBc5DdZs+Uos=;
- b=u4/PmXCWSkRarvV1PjXrhFZdmTs3HQ/6w5ZjkE3SD4QzAYXP3KB0f7ocZNmPCbGhVBAW
- Wqv8MbGzEdSEmcaH6r8v+6LgVjPuanG6ptv0D4nfaokp6Rboa+B8NJ6Zbf5P5d6xz1q6
- lkAILC4m1Ds3oUwlV6YvGNIA9xOvJQ5ZPIQJMjNDgXfdHPuxykJgJnSjaQegKmBUARqQ
- QfAp1AIoIKHpPaAm6u1fWuU5of7WbZOQc7AhfO+ButsLo8Q1y1536Pgbot4QAEVBl7ly
- iLwtBxmP/78zmFG2OWc7Lin3BxVGX3J2CXKJqBVww2hr48Q+qdVY8d5sMrmo9lUb36C1 vA== 
+ h=from : to : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=selector1;
+ bh=sx81ySGR8bPSutf92/n2FFZ8Gn5Yxf3a1PbQ8ivsBJk=;
+ b=THaUiffSVEE09/leQ/NJbBiJbM4G1JPDHfCcK6+DhsFlXjCaGLbUaB+JK1i7rujBaId1
+ kHkC6iMyqIWdE9QxaRsmFW0+Unglqba0mCW1sYkecTtcwu3RfukLTZ50xGXSZy/9ookb
+ VLp5dRBvYgm8oeEyCaGwKiXz0ptn9JBiAP4R0pm9FTc93EhyV1HuRvmF6IQ+hHoQ6XlU
+ P1Z34fDFKPaZEy4Y3gt+IVEEq4AIC5JIw+JamI4Ptfo3IkuH7yMzZkgOddTChf1oNLad
+ KwjmowvdAf3V+6/Ni3hHS6c3Iu+L3o5loaR1H1pgbg5UIHh7uh2aZP8GkGdqWfs5qiOI zQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37d996udtn-1
+ by mx07-00178001.pphosted.com with ESMTP id 37d8tpv3wk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Mar 2021 10:45:43 +0100
+ Thu, 25 Mar 2021 12:12:23 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A6CEF10002A;
- Thu, 25 Mar 2021 10:45:42 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7509510002A;
+ Thu, 25 Mar 2021 12:12:22 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 85BFA22B9C8;
- Thu, 25 Mar 2021 10:45:42 +0100 (CET)
-Received: from lmecxl1060.lme.st.com (10.75.127.44) by SFHDAG2NODE3.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 36D142463E6;
+ Thu, 25 Mar 2021 12:12:22 +0100 (CET)
+Received: from SFHDAG2NODE3.st.com (10.75.127.6) by SFHDAG2NODE3.st.com
  (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 25 Mar
- 2021 10:45:41 +0100
-To: Alain Volmat <alain.volmat@foss.st.com>, <wsa@kernel.org>,
- <robh+dt@kernel.org>
-References: <1616075089-28115-1-git-send-email-alain.volmat@foss.st.com>
- <1616075089-28115-3-git-send-email-alain.volmat@foss.st.com>
-From: Pierre Yves MORDRET <pierre-yves.mordret@foss.st.com>
-Message-ID: <0d42fbe4-549a-1b0b-fbbb-5b99ef2e2ca6@foss.st.com>
-Date: Thu, 25 Mar 2021 10:45:41 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <1616075089-28115-3-git-send-email-alain.volmat@foss.st.com>
+ 2021 12:12:21 +0100
+Received: from SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c]) by
+ SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c%20]) with mapi id
+ 15.00.1497.012; Thu, 25 Mar 2021 12:12:21 +0100
+From: Valentin CARON - foss <valentin.caron@foss.st.com>
+To: "dillon.minfei@gmail.com" <dillon.minfei@gmail.com>, "robh@kernel.org"
+ <robh@kernel.org>, Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
+ "rong.a.chen@intel.com" <rong.a.chen@intel.com>, "a.fatoum@pengutronix.de"
+ <a.fatoum@pengutronix.de>, "mcoquelin.stm32@gmail.com"
+ <mcoquelin.stm32@gmail.com>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux@armlinux.org.uk"
+ <linux@armlinux.org.uk>,
+ "vladimir.murzin@arm.com" <vladimir.murzin@arm.com>,
+ "afzal.mohd.ma@gmail.com" <afzal.mohd.ma@gmail.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Erwan LE-RAY -
+ foss" <erwan.leray@foss.st.com>, Erwan LE RAY <erwan.leray@st.com>,
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+ "lkp@intel.com" <lkp@intel.com>
+Thread-Topic: [PATCH v5 9/9] dt-bindings: serial: stm32: Use 'type: object'
+ instead of false for 'additionalProperties'
+Thread-Index: AQHXIT7ih+t4cxLl+EWQ55a6uRUl+aqUfCqA
+Date: Thu, 25 Mar 2021 11:12:21 +0000
+Message-ID: <068cb7ae-9afc-606d-2579-189e46516cd5@foss.st.com>
+References: <1616653162-19954-1-git-send-email-dillon.minfei@gmail.com>
+ <1616653162-19954-8-git-send-email-dillon.minfei@gmail.com>
+In-Reply-To: <1616653162-19954-8-git-send-email-dillon.minfei@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
- (10.75.127.6)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.47]
+Content-ID: <82932ED2BBCA05459E35290288E3E327@st.com>
+MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  definitions=2021-03-25_02:2021-03-24,
  2021-03-25 signatures=0
-X-Mailman-Approved-At: Thu, 25 Mar 2021 09:47:57 +0000
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] i2c: stm32f7: add SMBus-Alert
-	support
+Subject: Re: [Linux-stm32] [PATCH v5 9/9] dt-bindings: serial: stm32: Use
+ 'type: object' instead of false for 'additionalProperties'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,186 +99,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi All
+Hi Dillon,
 
-On 3/18/21 2:44 PM, Alain Volmat wrote:
-> Add support for the SMBus-Alert protocol to the STM32F7 that has
-> dedicated control and status logic.
-> 
-> If SMBus-Alert is used, the SMBALERT# pin must be configured as alternate
-> function for I2C Alert.
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> 
+It's okay for me.
+
+Regards,
+
+Valentin
+
+On 3/25/21 7:19 AM, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
+>
+> To use additional properties 'bluetooth' on serial, need replace false with
+> 'type: object' for 'additionalProperties' to make it as a node, else will
+> run into dtbs_check warnings.
+>
+> 'arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800:
+> 'bluetooth' does not match any of the regexes: 'pinctrl-[0-9]+'
+>
+> Fixes: af1c2d81695b ("dt-bindings: serial: Convert STM32 UART to json-schema")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Tested-by: Valentin Caron <valentin.caron@foss.st.com>
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
 > ---
-> v2: - rely on st,smbus-alert binding instead of smbus
-> ---
->  drivers/i2c/busses/i2c-stm32f7.c | 73 ++++++++++++++++++++++++++++++++
->  1 file changed, 73 insertions(+)
-> 
-> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-> index c62c815b88eb..bd840cd2b9e4 100644
-> --- a/drivers/i2c/busses/i2c-stm32f7.c
-> +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> @@ -51,6 +51,7 @@
->  
->  /* STM32F7 I2C control 1 */
->  #define STM32F7_I2C_CR1_PECEN			BIT(23)
-> +#define STM32F7_I2C_CR1_ALERTEN			BIT(22)
->  #define STM32F7_I2C_CR1_SMBHEN			BIT(20)
->  #define STM32F7_I2C_CR1_WUPEN			BIT(18)
->  #define STM32F7_I2C_CR1_SBC			BIT(16)
-> @@ -125,6 +126,7 @@
->  				(((n) & STM32F7_I2C_ISR_ADDCODE_MASK) >> 17)
->  #define STM32F7_I2C_ISR_DIR			BIT(16)
->  #define STM32F7_I2C_ISR_BUSY			BIT(15)
-> +#define STM32F7_I2C_ISR_ALERT			BIT(13)
->  #define STM32F7_I2C_ISR_PECERR			BIT(11)
->  #define STM32F7_I2C_ISR_ARLO			BIT(9)
->  #define STM32F7_I2C_ISR_BERR			BIT(8)
-> @@ -138,6 +140,7 @@
->  #define STM32F7_I2C_ISR_TXE			BIT(0)
->  
->  /* STM32F7 I2C Interrupt Clear */
-> +#define STM32F7_I2C_ICR_ALERTCF			BIT(13)
->  #define STM32F7_I2C_ICR_PECCF			BIT(11)
->  #define STM32F7_I2C_ICR_ARLOCF			BIT(9)
->  #define STM32F7_I2C_ICR_BERRCF			BIT(8)
-> @@ -283,6 +286,17 @@ struct stm32f7_i2c_msg {
->  	u8 smbus_buf[I2C_SMBUS_BLOCK_MAX + 3] __aligned(4);
->  };
->  
-> +/**
-> + * struct stm32f7_i2c_alert - SMBus alert specific data
-> + * @setup: platform data for the smbus_alert i2c client
-> + * @ara: I2C slave device used to respond to the SMBus Alert with Alert
-> + * Response Address
-> + */
-> +struct stm32f7_i2c_alert {
-> +	struct i2c_smbus_alert_setup setup;
-> +	struct i2c_client *ara;
-> +};
-> +
->  /**
->   * struct stm32f7_i2c_dev - private data of the controller
->   * @adap: I2C adapter for this controller
-> @@ -312,6 +326,7 @@ struct stm32f7_i2c_msg {
->   * @wakeup_src: boolean to know if the device is a wakeup source
->   * @smbus_mode: states that the controller is configured in SMBus mode
->   * @host_notify_client: SMBus host-notify client
-> + * @alert: SMBus alert specific data
->   */
->  struct stm32f7_i2c_dev {
->  	struct i2c_adapter adap;
-> @@ -340,6 +355,7 @@ struct stm32f7_i2c_dev {
->  	bool wakeup_src;
->  	bool smbus_mode;
->  	struct i2c_client *host_notify_client;
-> +	struct stm32f7_i2c_alert *alert;
->  };
->  
->  /*
-> @@ -1616,6 +1632,13 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
->  		f7_msg->result = -EINVAL;
->  	}
->  
-> +	if (status & STM32F7_I2C_ISR_ALERT) {
-> +		dev_dbg(dev, "<%s>: SMBus alert received\n", __func__);
-> +		writel_relaxed(STM32F7_I2C_ICR_ALERTCF, base + STM32F7_I2C_ICR);
-> +		i2c_handle_smbus_alert(i2c_dev->alert->ara);
-> +		return IRQ_HANDLED;
-> +	}
-> +
->  	if (!i2c_dev->slave_running) {
->  		u32 mask;
->  		/* Disable interrupts */
-> @@ -1982,6 +2005,42 @@ static void stm32f7_i2c_disable_smbus_host(struct stm32f7_i2c_dev *i2c_dev)
->  	}
->  }
->  
-> +static int stm32f7_i2c_enable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
-> +{
-> +	struct stm32f7_i2c_alert *alert;
-> +	struct i2c_adapter *adap = &i2c_dev->adap;
-> +	struct device *dev = i2c_dev->dev;
-> +	void __iomem *base = i2c_dev->base;
-> +
-> +	alert = devm_kzalloc(dev, sizeof(*alert), GFP_KERNEL);
-> +	if (!alert)
-> +		return -ENOMEM;
-> +
-> +	alert->ara = i2c_new_smbus_alert_device(adap, &alert->setup);
-> +	if (IS_ERR(alert->ara))
-> +		return PTR_ERR(alert->ara);
-> +
-> +	i2c_dev->alert = alert;
-> +
-> +	/* Enable SMBus Alert */
-> +	stm32f7_i2c_set_bits(base + STM32F7_I2C_CR1, STM32F7_I2C_CR1_ALERTEN);
-> +
-> +	return 0;
-> +}
-> +
-> +static void stm32f7_i2c_disable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
-> +{
-> +	struct stm32f7_i2c_alert *alert = i2c_dev->alert;
-> +	void __iomem *base = i2c_dev->base;
-> +
-> +	if (alert) {
-> +		/* Disable SMBus Alert */
-> +		stm32f7_i2c_clr_bits(base + STM32F7_I2C_CR1,
-> +				     STM32F7_I2C_CR1_ALERTEN);
-> +		i2c_unregister_device(alert->ara);
-> +	}
-> +}
-> +
->  static u32 stm32f7_i2c_func(struct i2c_adapter *adap)
->  {
->  	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(adap);
-> @@ -2169,6 +2228,16 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
->  		}
->  	}
->  
-> +	if (of_property_read_bool(pdev->dev.of_node, "st,smbus-alert")) {
-> +		ret = stm32f7_i2c_enable_smbus_alert(i2c_dev);
-> +		if (ret) {
-> +			dev_err(i2c_dev->dev,
-> +				"failed to enable SMBus alert protocol (%d)\n",
-> +				ret);
-> +			goto i2c_disable_smbus_host;
-> +		}
-> +	}
-> +
->  	dev_info(i2c_dev->dev, "STM32F7 I2C-%d bus adapter\n", adap->nr);
->  
->  	pm_runtime_mark_last_busy(i2c_dev->dev);
-> @@ -2176,6 +2245,9 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
->  
->  	return 0;
->  
-> +i2c_disable_smbus_host:
-> +	stm32f7_i2c_disable_smbus_host(i2c_dev);
-> +
->  i2c_adapter_remove:
->  	i2c_del_adapter(adap);
->  
-> @@ -2210,6 +2282,7 @@ static int stm32f7_i2c_remove(struct platform_device *pdev)
->  {
->  	struct stm32f7_i2c_dev *i2c_dev = platform_get_drvdata(pdev);
->  
-> +	stm32f7_i2c_disable_smbus_alert(i2c_dev);
->  	stm32f7_i2c_disable_smbus_host(i2c_dev);
->  
->  	i2c_del_adapter(&i2c_dev->adap);
-> 
-
-Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>
-
-Regards
--- 
---
-~ Py MORDRET
---
+>
+> v5: accroding to rob's suggestion, replace false with 'type: object'
+>      of 'additionalProperties'.
+>
+>   Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> index 8631678283f9..865be05083c3 100644
+> --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> @@ -80,7 +80,8 @@ required:
+>     - interrupts
+>     - clocks
+>   
+> -additionalProperties: false
+> +additionalProperties:
+> +  type: object
+>   
+>   examples:
+>     - |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
