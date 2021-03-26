@@ -2,57 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75BA734A687
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 12:42:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35D8D34A96A
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 15:18:24 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CAF6C58D5B;
-	Fri, 26 Mar 2021 11:42:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2514C5718D;
+	Fri, 26 Mar 2021 14:18:23 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19C06C57B60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 257D1C56631
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 11:42:08 +0000 (UTC)
-Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
- [81.101.6.87])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 25CBE61A26;
- Fri, 26 Mar 2021 11:41:57 +0000 (UTC)
-Date: Fri, 26 Mar 2021 11:42:02 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Lee Jones <lee.jones@linaro.org>
-Message-ID: <20210326114202.3862b8c5@jic23-huawei>
-In-Reply-To: <20210324173404.66340-1-lee.jones@linaro.org>
-References: <20210324173404.66340-1-lee.jones@linaro.org>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ Fri, 26 Mar 2021 14:18:22 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C6A5361A02;
+ Fri, 26 Mar 2021 14:18:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1616768300;
+ bh=B2wQnGoW3sjS3jK2xpNARrCIjunm/tk41Pa8NA5DY5E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=1yBm8JhuS01juL29Nf8Cm+AQNa8BlSM9LErBVnG18b9NDhG4PqA+jEt/BKX/2wYP+
+ 4GVy3U0Qv2VJ+gjn26jWNzva5ZiReSohVrh2kuibvEocqni/vdrXpYHs1B6C5Bdj7g
+ S8UIfkLJMbEMgo6UnMd+ScTgUiSZwm4ZgyBfzs7A=
+Date: Fri, 26 Mar 2021 15:18:18 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Martin Devera <devik@eaxlabs.cz>
+Message-ID: <YF3tKmzX1PtlX59x@kroah.com>
+References: <1615559009.788146.2976052.nullmailer@robh.at.kernel.org>
+ <20210312153702.12349-1-devik@eaxlabs.cz>
+ <20210312153702.12349-2-devik@eaxlabs.cz>
 MIME-Version: 1.0
-Cc: Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kw@linux.com>,
- Zhang Lixu <lixu.zhang@intel.com>, linux-iio@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- dri-devel@lists.freedesktop.org, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Anssi Hannula <anssi.hannula@gmail.com>,
- Kim Kuparinen <kimi.h.kuparinen@gmail.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Dario Pagani <dario.pagani.146+linuxk@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Henrik Rydberg <rydberg@bitmath.org>,
- Lopez Casado <nlopezcasad@logitech.com>,
- Rushikesh S Kadam <rushikesh.s.kadam@intel.com>,
- Masaki Ota <masaki.ota@jp.alps.com>,
- Bruno =?UTF-8?B?UHI=?= =?UTF-8?B?w6ltb250?= <bonbons@linux-vserver.org>,
- Vojtech Pavlik <vojtech@suse.cz>, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org,
- Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <uwe@kleine-koenig.org>,
- message to <vojtech@ucw.cz>, Jiri Kosina <jikos@kernel.org>, "L. Vinyard,
- Jr" <rvinyard@cs.nmsu.edu>, linaro-mm-sig@lists.linaro.org,
- Michael Haboustak <mike-@cinci.rr.com>, linux-arm-kernel@lists.infradead.org,
- Daniel Drubin <daniel.drubin@intel.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [Linux-stm32] [PATCH 00/25] Rid W=1 warnings from HID
+Content-Disposition: inline
+In-Reply-To: <20210312153702.12349-2-devik@eaxlabs.cz>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-serial@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Le Ray <erwan.leray@st.com>
+Subject: Re: [Linux-stm32] [PATCH v7 2/2] tty/serial: Add rx-tx-swap OF
+ option to stm32-usart
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,100 +50,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCAyNCBNYXIgMjAyMSAxNzozMzozOSArMDAwMApMZWUgSm9uZXMgPGxlZS5qb25lc0Bs
-aW5hcm8ub3JnPiB3cm90ZToKCj4gVGhpcyBzZXQgaXMgcGFydCBvZiBhIGxhcmdlciBlZmZvcnQg
-YXR0ZW1wdGluZyB0byBjbGVhbi11cCBXPTEKPiBrZXJuZWwgYnVpbGRzLCB3aGljaCBhcmUgY3Vy
-cmVudGx5IG92ZXJ3aGVsbWluZ2x5IHJpZGRsZWQgd2l0aAo+IG5pZ2dseSBsaXR0bGUgd2Fybmlu
-Z3MuCgpMZWUsIGl0J3MgYSBiaXQgbm92ZWwgdG8gY2MgbGludXgtaWlvIG9uIHRoZSBjb3ZlciBs
-ZXR0ZXIgYnV0Cm5vbmUgb2YgdGhlIGFjdHVhbCBwYXRjaGVzLi4gIE9yIGxlYXN0IG5vbmUgb2Yg
-dGhlbSByZWFjaGVkCm1lIG9yIGxvcmUua2VybmVsLm9yZwoKSSdtIHN1cmUgdGhleSBhcmUgZ3Jl
-YXQgOikKCkpvbmF0aGFuCgo+IAo+IExlZSBKb25lcyAoMjUpOgo+ICAgSElEOiBpbnRlbC1pc2gt
-aGlkOiBSZW1vdmUgdW51c2VkIHZhcmlhYmxlICdlcnInCj4gICBISUQ6IGlzaHRwLWhpZC1jbGll
-bnQ6IE1vdmUgdmFyaWFibGUgdG8gd2hlcmUgaXQncyBhY3R1YWxseSB1c2VkCj4gICBISUQ6IGlu
-dGVsLWlzaC1oaWQ6IHBjaS1pc2g6IFJlbW92ZSB1bnVzZWQgdmFyaWFibGUgJ3JldCcKPiAgIEhJ
-RDogaW50ZWwtaXNoOiBTdXBwbHkgc29tZSBtaXNzaW5nIHBhcmFtIGRlc2NyaXB0aW9ucwo+ICAg
-SElEOiBpbnRlbC1pc2g6IEZpeCBhIG5hbWluZyBkaXNwYXJpdHkgYW5kIGEgZm9ybWF0dGluZyBl
-cnJvcgo+ICAgSElEOiB1c2JoaWQ6IFJlcGFpciBhIGZvcm1hdHRpbmcgaXNzdWUgaW4gYSBzdHJ1
-Y3QgZGVzY3JpcHRpb24KPiAgIEhJRDogaW50ZWwtaXNoLWhpZDogRml4IGEgbGl0dGxlIGRvYy1y
-b3QKPiAgIEhJRDogdXNiaGlkOiBoaWQtcGlkZmY6IERlbW90ZSBhIGNvdXBsZSBrZXJuZWwtZG9j
-IGFidXNlcwo+ICAgSElEOiBoaWQtYWxwczogQ29ycmVjdCBzdHJ1Y3QgbWlzbmFtaW5nCj4gICBI
-SUQ6IGludGVsLWlzaC1oaWQ6IEZpeCBwb3RlbnRpYWwgY29weS9wYXN0ZSBlcnJvcgo+ICAgSElE
-OiBoaWQtY29yZTogRml4IGluY29ycmVjdCBmdW5jdGlvbiBuYW1lIGluIGhlYWRlcgo+ICAgSElE
-OiBpbnRlbC1pc2gtaGlkOiBpcGM6IENvcnJlY3QgZndfcmVzZXRfd29ya19mbigpIGZ1bmN0aW9u
-IG5hbWUgaW4KPiAgICAgaGVhZGVyCj4gICBISUQ6IGlzaHRwLWhpZC1jbGllbnQ6IEZpeCBpbmNv
-cnJlY3QgZnVuY3Rpb24gbmFtZSByZXBvcnRfYmFkX3BhY2tldCgpCj4gICBISUQ6IGhpZC1reWU6
-IEZpeCBpbmNvcnJlY3QgZnVuY3Rpb24gbmFtZSBmb3Iga3llX3RhYmxldF9lbmFibGUoKQo+ICAg
-SElEOiBoaWQtcGljb2xjZF9jb3JlOiBSZW1vdmUgdW51c2VkIHZhcmlhYmxlICdyZXQnCj4gICBI
-SUQ6IGhpZC1sb2dpdGVjaC1oaWRwcDogRml4IGNvbmZvcm1hbnQga2VybmVsLWRvYyBoZWFkZXIg
-YW5kIGRlbW90ZQo+ICAgICBhYnVzZXMKPiAgIEhJRDogaGlkLXVjbG9naWMtcmRlc2M6IEtlcm5l
-bC1kb2MgaXMgZm9yIGZ1bmN0aW9ucyBhbmQgc3RydWN0cwo+ICAgSElEOiBoaWQtdGhydXN0bWFz
-dGVyOiBEZW1vdGUgYSBidW5jaCBvZiBrZXJuZWwtZG9jIGFidXNlcwo+ICAgSElEOiBoaWQtdWNs
-b2dpYy1wYXJhbXM6IEVuc3VyZSBmdW5jdGlvbiBuYW1lcyBhcmUgcHJlc2VudCBhbmQgY29ycmVj
-dAo+ICAgICBpbiBrZXJuZWwtZG9jIGhlYWRlcnMKPiAgIEhJRDogaGlkLXNlbnNvci1jdXN0b206
-IFJlbW92ZSB1bnVzZWQgdmFyaWFibGUgJ3JldCcKPiAgIEhJRDogd2Fjb21fc3lzOiBEZW1vdGUg
-a2VybmVsLWRvYyBhYnVzZQo+ICAgSElEOiBoaWQtc2Vuc29yLWh1YjogUmVtb3ZlIHVudXNlZCBz
-dHJ1Y3QgbWVtYmVyICdxdWlya3MnCj4gICBISUQ6IGhpZC1zZW5zb3ItaHViOiBNb3ZlICdoc2Rl
-dicgZGVzY3JpcHRpb24gdG8gY29ycmVjdCBzdHJ1Y3QKPiAgICAgZGVmaW5pdGlvbgo+ICAgSElE
-OiBpbnRlbC1pc2gtaGlkOiBpc2h0cC1mdy1sb2FkZXI6IEZpeCBhIGJ1bmNoIG9mIGZvcm1hdHRp
-bmcgaXNzdWVzCj4gICBISUQ6IGlzaHRwLWhpZC1jbGllbnQ6IEZpeCAnc3VnZ2VzdC1hdHRyaWJ1
-dGU9Zm9ybWF0JyBjb21waWxlciB3YXJuaW5nCj4gCj4gIGRyaXZlcnMvaGlkL2hpZC1hbHBzLmMg
-ICAgICAgICAgICAgICAgICAgICAgIHwgIDIgKy0KPiAgZHJpdmVycy9oaWQvaGlkLWNvcmUuYyAg
-ICAgICAgICAgICAgICAgICAgICAgfCAgMiArLQo+ICBkcml2ZXJzL2hpZC9oaWQta3llLmMgICAg
-ICAgICAgICAgICAgICAgICAgICB8ICAyICstCj4gIGRyaXZlcnMvaGlkL2hpZC1sb2dpdGVjaC1o
-aWRwcC5jICAgICAgICAgICAgIHwgIDcgKy0tCj4gIGRyaXZlcnMvaGlkL2hpZC1waWNvbGNkX2Nv
-cmUuYyAgICAgICAgICAgICAgIHwgIDUgKy0tCj4gIGRyaXZlcnMvaGlkL2hpZC1zZW5zb3ItY3Vz
-dG9tLmMgICAgICAgICAgICAgIHwgIDUgKy0tCj4gIGRyaXZlcnMvaGlkL2hpZC1zZW5zb3ItaHVi
-LmMgICAgICAgICAgICAgICAgIHwgIDQgKy0KPiAgZHJpdmVycy9oaWQvaGlkLXRocnVzdG1hc3Rl
-ci5jICAgICAgICAgICAgICAgfCAyNCArKysrKy0tLS0tLQo+ICBkcml2ZXJzL2hpZC9oaWQtdWNs
-b2dpYy1wYXJhbXMuYyAgICAgICAgICAgICB8ICA4ICsrLS0KPiAgZHJpdmVycy9oaWQvaGlkLXVj
-bG9naWMtcmRlc2MuYyAgICAgICAgICAgICAgfCAgMiArLQo+ICBkcml2ZXJzL2hpZC9pbnRlbC1p
-c2gtaGlkL2lwYy9pcGMuYyAgICAgICAgICB8ICAyICstCj4gIGRyaXZlcnMvaGlkL2ludGVsLWlz
-aC1oaWQvaXBjL3BjaS1pc2guYyAgICAgIHwgIDMgKy0KPiAgZHJpdmVycy9oaWQvaW50ZWwtaXNo
-LWhpZC9pc2h0cC1mdy1sb2FkZXIuYyAgfCA0NSArKysrKysrKysrLS0tLS0tLS0tLQo+ICBkcml2
-ZXJzL2hpZC9pbnRlbC1pc2gtaGlkL2lzaHRwLWhpZC1jbGllbnQuYyB8IDExICsrKy0tCj4gIGRy
-aXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXNodHAtaGlkLmMgICAgICAgIHwgIDIgKy0KPiAgZHJp
-dmVycy9oaWQvaW50ZWwtaXNoLWhpZC9pc2h0cC1oaWQuaCAgICAgICAgfCAgOSArLS0tCj4gIGRy
-aXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXNodHAvYnVzLmMgICAgICAgIHwgIDkgKysrLQo+ICBk
-cml2ZXJzL2hpZC9pbnRlbC1pc2gtaGlkL2lzaHRwL2NsaWVudC5jICAgICB8ICA1ICstLQo+ICBk
-cml2ZXJzL2hpZC9pbnRlbC1pc2gtaGlkL2lzaHRwL2hibS5jICAgICAgICB8ICA0ICstCj4gIGRy
-aXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXNodHAvaXNodHAtZGV2LmggIHwgIDQgKy0KPiAgZHJp
-dmVycy9oaWQvdXNiaGlkL2hpZC1waWRmZi5jICAgICAgICAgICAgICAgfCAgNCArLQo+ICBkcml2
-ZXJzL2hpZC91c2JoaWQvdXNia2JkLmMgICAgICAgICAgICAgICAgICB8ICAyICstCj4gIGRyaXZl
-cnMvaGlkL3dhY29tX3N5cy5jICAgICAgICAgICAgICAgICAgICAgIHwgIDIgKy0KPiAgaW5jbHVk
-ZS9saW51eC9pbnRlbC1pc2gtY2xpZW50LWlmLmggICAgICAgICAgfCAgOCArKystCj4gIDI0IGZp
-bGVzIGNoYW5nZWQsIDkwIGluc2VydGlvbnMoKyksIDgxIGRlbGV0aW9ucygtKQo+IAo+IENjOiBB
-bGV4YW5kcmUgVG9yZ3VlIDxhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPgo+IENjOiBBbnNz
-aSBIYW5udWxhIDxhbnNzaS5oYW5udWxhQGdtYWlsLmNvbT4KPiBDYzogQmVuamFtaW4gVGlzc29p
-cmVzIDxiZW5qYW1pbi50aXNzb2lyZXNAcmVkaGF0LmNvbT4KPiBDYzogIkJydW5vIFByw6ltb250
-IiA8Ym9uYm9uc0BsaW51eC12c2VydmVyLm9yZz4KPiBDYzogIkNocmlzdGlhbiBLw7ZuaWciIDxj
-aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gQ2M6IERhbmllbCBEcnViaW4gPGRhbmllbC5kcnVi
-aW5AaW50ZWwuY29tPgo+IENjOiBEYXJpbyBQYWdhbmkgPGRhcmlvLnBhZ2FuaS4xNDYrbGludXhr
-QGdtYWlsLmNvbT4KPiBDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBI
-ZW5yaWsgUnlkYmVyZyA8cnlkYmVyZ0BiaXRtYXRoLm9yZz4KPiBDYzogSmlyaSBLb3NpbmEgPGpp
-a29zQGtlcm5lbC5vcmc+Cj4gQ2M6IEpvbmF0aGFuIENhbWVyb24gPGppYzIzQGtlcm5lbC5vcmc+
-Cj4gQ2M6IEthaS1IZW5nIEZlbmcgPGthaS5oZW5nLmZlbmdAY2Fub25pY2FsLmNvbT4KPiBDYzog
-S2ltIEt1cGFyaW5lbiA8a2ltaS5oLmt1cGFyaW5lbkBnbWFpbC5jb20+Cj4gQ2M6ICJLcnp5c3p0
-b2YgV2lsY3p5xYRza2kiIDxrd0BsaW51eC5jb20+Cj4gQ2M6IExlZSBKb25lcyA8bGVlLmpvbmVz
-QGxpbmFyby5vcmc+Cj4gQ2M6IGxpbmFyby1tbS1zaWdAbGlzdHMubGluYXJvLm9yZwo+IENjOiBs
-aW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKPiBDYzogbGludXgtaWlvQHZnZXIu
-a2VybmVsLm9yZwo+IENjOiBsaW51eC1pbnB1dEB2Z2VyLmtlcm5lbC5vcmcKPiBDYzogbGludXgt
-bWVkaWFAdmdlci5rZXJuZWwub3JnCj4gQ2M6IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KPiBDYzogbGludXgtdXNiQHZnZXIua2VybmVsLm9yZwo+IENjOiBMb3BleiBD
-YXNhZG8gPG5sb3BlemNhc2FkQGxvZ2l0ZWNoLmNvbT4KPiBDYzogIkwuIFZpbnlhcmQsIEpyIiA8
-cnZpbnlhcmRAY3Mubm1zdS5lZHU+Cj4gQ2M6IE1hc2FraSBPdGEgPG1hc2FraS5vdGFAanAuYWxw
-cy5jb20+Cj4gQ2M6IE1heGltZSBDb3F1ZWxpbiA8bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbT4K
-PiBDYzogbWVzc2FnZSB0byA8dm9qdGVjaEB1Y3cuY3o+Cj4gQ2M6IE1pY2hhZWwgSGFib3VzdGFr
-IDxtaWtlLUBjaW5jaS5yci5jb20+Cj4gQ2M6IFJ1c2hpa2VzaCBTIEthZGFtIDxydXNoaWtlc2gu
-cy5rYWRhbUBpbnRlbC5jb20+Cj4gQ2M6IFNyaW5pdmFzIFBhbmRydXZhZGEgPHNyaW5pdmFzLnBh
-bmRydXZhZGFAbGludXguaW50ZWwuY29tPgo+IENjOiBTdW1pdCBTZW13YWwgPHN1bWl0LnNlbXdh
-bEBsaW5hcm8ub3JnPgo+IENjOiAiVXdlIEtsZWluZS1Lw7ZuaWciIDx1d2VAa2xlaW5lLWtvZW5p
-Zy5vcmc+Cj4gQ2M6IFZvanRlY2ggUGF2bGlrIDx2b2p0ZWNoQHN1c2UuY3o+Cj4gQ2M6IFpoYW5n
-IExpeHUgPGxpeHUuemhhbmdAaW50ZWwuY29tPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Fri, Mar 12, 2021 at 04:37:02PM +0100, Martin Devera wrote:
+> STM32 F7/H7 usarts supports RX & TX pin swapping.
+> Add option to turn it on.
+> Tested on STM32MP157.
+> 
+> Signed-off-by: Martin Devera <devik@eaxlabs.cz>
+> Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+This does not apply to my tty-next branch at all.  Can you please rebase
+this series (and keep Rob's ack of patch 1) and resend?
+
+thanks,
+
+greg k-h
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
