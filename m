@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E36D034A63C
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 12:15:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BA6234A63D
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 12:15:43 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A969CC58D5E;
-	Fri, 26 Mar 2021 11:15:37 +0000 (UTC)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 509C5C58D5E;
+	Fri, 26 Mar 2021 11:15:42 +0000 (UTC)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5A57C58D5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31A17C58D5F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 11:15:33 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id ha17so2409227pjb.2
+ Fri, 26 Mar 2021 11:15:38 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id w10so57808pgh.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 04:15:33 -0700 (PDT)
+ Fri, 26 Mar 2021 04:15:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=5k4LK0I779i125dqLNMdZVaDSPCul1nXlVCzLiWx3OY=;
- b=mSql5w0CLSZnU5mD6lil6aD/NIEUDLGO2y24MmPkZo0MVPGHSVz5Q9+Ido++F74gqD
- YnKrRpJsfL4WXR9nL5FCVIV7sRhHFskLJ/SfwtBkgDJcoA/lxPenybRp39i9EjmpVnm3
- Wfl7RnKo2En+6/vUjUmGbtDvOpcg9vcJ5MDERQ+eIzJIcz6BihqtHRzcnqWuuRBnezTF
- ceHCzv6ZDsLa0vqgxEzS5OwNCjazNyyOWeerq1plhmTK5IwEgU8rqG3hyUfgGL4t8JI1
- ZhS7Qi+OeRKqXQ+juZT8TMaPZlcO0wX26tw54cg0FaMpVOiPYnIZxewMW88gf22x+bVA
- LQoA==
+ bh=bJm2ylLmMokI00w8ehr07VS3lbjTqezFF/dbtRH1gMU=;
+ b=qYMWPg6y3yfZTWJdbs+M8yjrTQa4u+bTqn65LtFAHgkb28m46IG6JCjFPdYa33Gx4o
+ 9EdcXMkLGRU/y7mJD7WAD3b/726QoFpw/ag3lAj0SYAgoY76oxY86E3XLAx42FzsqZE8
+ XMM8LOY10QqAYlXOjXohVr8pmSV9FjARs6uOCdJTTs/RbZnlIWnyyIqWdcjmqiIkbInE
+ AfPxryslLhe03kSPO4EAtVZowx8ezkDDgQern3Z6P+snO4kTTv0tQPUTO4oBYtyFatNR
+ M6W5/GuFpXoHT3ec89gtEjymC+JpVuuxBo7HfRudSvRmzIRgEIG0n4xL03z8hO8qGWOF
+ b2Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=5k4LK0I779i125dqLNMdZVaDSPCul1nXlVCzLiWx3OY=;
- b=XP98xxgXPPXGL3nAuTeRepfKYtQNSJRAYSJ/5iPCC9fS2TtrBmcQPMCAm8NMA62Nzd
- a3XFufP5KkJFXZ1nCY3DqoSoTJF6K6hbV+L4ZXRv0dFAp+UsJHwAOXqkqSPzp7gSkFxI
- Hi1CBZjKB9CYBbk3U1a9vCOlAfkZ0jy4gg3YD4oOjN9Ns/qibJFSvmXPSGc16Mrgii10
- ki3S3YZz1zoaFETKkhIc0e6Q2Vx33OkEOEca+TF/cdfaSWO0wasDu2/BN0N+kkJDyGq9
- uo7TgjKzK7zE6lmZqVvqwF8k3ZrDHUK5D2z4gT4UlfMLmwH041jMwFCq9JvXw1ybZH+o
- z7iw==
-X-Gm-Message-State: AOAM530OygmiqPddPJlT07TJbOtFCDApURAZOaWQmEx4cpNU0WO7LO2U
- e+A/8EEqpercGQCNofUvg+w=
-X-Google-Smtp-Source: ABdhPJwhvZ3EnfuZurA9F+HEFqVEOtBWHOterQqdMDBaDF+RggY+HEjblwBMwUmgjopNGp7vt/ULnA==
-X-Received: by 2002:a17:90a:3ec3:: with SMTP id
- k61mr12950361pjc.125.1616757332479; 
- Fri, 26 Mar 2021 04:15:32 -0700 (PDT)
+ bh=bJm2ylLmMokI00w8ehr07VS3lbjTqezFF/dbtRH1gMU=;
+ b=j4DZuZJbsNcuix16rXO8ket84pp6crzba+tUQqap+AueitnBX1K6TLnQLEIc+vtxTA
+ 2zjWdYEBCYG+4xK/Q+fEvrQKP0Hg/OFzr6HR+5RP6NEzO0qroSaU8/8sFsvnq2AL6ksd
+ +iuRXw700GUi++zfBJRykPApcjnXH2kP05KeO2PZ0WXCXqAIm0QhHPNo46v9r7YvjEPq
+ 0EFpzBbyZOLSrcELmbmTphYeXH5Um1kMgvxImXlSoxRAijvWzEMcs0/sFOfG1oThdCvH
+ 2Utpz3QWj2ZworTSL2Lb9BBmmy1MPrarFdytS79ow2xEOvNamVn8RWQ5VqPfzrvmdZ7r
+ l1uQ==
+X-Gm-Message-State: AOAM5311W9x5ETy+yeLdtGNV2MNo92TbWb8VecdlJnbsT3+1JLNRCuZl
+ 8OSAgl4YobyyycCMaa9k4o0=
+X-Google-Smtp-Source: ABdhPJzP55PHzHMDGvhOF3VjKRhU/ux4MZF4RBUmgCRBH+8oz1Hp1T3uYNnZU8+C+ELudGgTOflLYg==
+X-Received: by 2002:aa7:990d:0:b029:21d:7aef:c545 with SMTP id
+ z13-20020aa7990d0000b029021d7aefc545mr12257039pff.77.1616757336833; 
+ Fri, 26 Mar 2021 04:15:36 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id l3sm8108414pfc.81.2021.03.26.04.15.28
+ by smtp.gmail.com with ESMTPSA id l3sm8108414pfc.81.2021.03.26.04.15.32
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 26 Mar 2021 04:15:32 -0700 (PDT)
+ Fri, 26 Mar 2021 04:15:36 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: robh@kernel.org, valentin.caron@foss.st.com, Alexandre.torgue@foss.st.com,
  rong.a.chen@intel.com, a.fatoum@pengutronix.de, mcoquelin.stm32@gmail.com,
@@ -55,13 +55,14 @@ To: robh@kernel.org, valentin.caron@foss.st.com, Alexandre.torgue@foss.st.com,
  linux@armlinux.org.uk, vladimir.murzin@arm.com, afzal.mohd.ma@gmail.com,
  gregkh@linuxfoundation.org, erwan.leray@foss.st.com, erwan.leray@st.com,
  linux-serial@vger.kernel.org, lkp@intel.com
-Date: Fri, 26 Mar 2021 19:15:00 +0800
-Message-Id: <1616757302-7889-6-git-send-email-dillon.minfei@gmail.com>
+Date: Fri, 26 Mar 2021 19:15:01 +0800
+Message-Id: <1616757302-7889-7-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1616757302-7889-1-git-send-email-dillon.minfei@gmail.com>
 References: <1616757302-7889-1-git-send-email-dillon.minfei@gmail.com>
 Cc: dillon min <dillon.minfei@gmail.com>
-Subject: [Linux-stm32] [PATCH v6 7/9] ARM: stm32: Add a new SOC - STM32H750
+Subject: [Linux-stm32] [PATCH v6 8/9] pinctrl: stm32: Add STM32H750 MCU
+	pinctrl support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,29 +82,47 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-The STM32H750 is a Cortex-M7 MCU running at 480MHz
-and containing 128KBytes internal flash, 1MiB SRAM.
+This patch adds STM32H750 pinctrl and GPIO support
+since stm32h750 has the same pin alternate functions
+with stm32h743, so just reuse the stm32h743's pinctrl
+driver
 
 Signed-off-by: dillon min <dillon.minfei@gmail.com>
 ---
 
 v6: no changes
 
- arch/arm/mach-stm32/board-dt.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/pinctrl/stm32/Kconfig             | 2 +-
+ drivers/pinctrl/stm32/pinctrl-stm32h743.c | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/mach-stm32/board-dt.c b/arch/arm/mach-stm32/board-dt.c
-index 011d57b488c2..a766310d8dca 100644
---- a/arch/arm/mach-stm32/board-dt.c
-+++ b/arch/arm/mach-stm32/board-dt.c
-@@ -17,6 +17,7 @@ static const char *const stm32_compat[] __initconst = {
- 	"st,stm32f746",
- 	"st,stm32f769",
- 	"st,stm32h743",
-+	"st,stm32h750",
- 	"st,stm32mp157",
- 	NULL
+diff --git a/drivers/pinctrl/stm32/Kconfig b/drivers/pinctrl/stm32/Kconfig
+index f36f29113370..fb1ffc94c57f 100644
+--- a/drivers/pinctrl/stm32/Kconfig
++++ b/drivers/pinctrl/stm32/Kconfig
+@@ -35,7 +35,7 @@ config PINCTRL_STM32F769
+ 	select PINCTRL_STM32
+ 
+ config PINCTRL_STM32H743
+-	bool "STMicroelectronics STM32H743 pin control" if COMPILE_TEST && !MACH_STM32H743
++	bool "STMicroelectronics STM32H743/STM32H750 pin control" if COMPILE_TEST && !MACH_STM32H743
+ 	depends on OF && HAS_IOMEM
+ 	default MACH_STM32H743
+ 	select PINCTRL_STM32
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32h743.c b/drivers/pinctrl/stm32/pinctrl-stm32h743.c
+index ffe7b5271506..700206c7bc11 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32h743.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32h743.c
+@@ -1966,6 +1966,9 @@ static const struct of_device_id stm32h743_pctrl_match[] = {
+ 		.compatible = "st,stm32h743-pinctrl",
+ 		.data = &stm32h743_match_data,
+ 	},
++	{	.compatible = "st,stm32h750-pinctrl",
++		.data = &stm32h743_match_data,
++	},
+ 	{ }
  };
+ 
 -- 
 2.7.4
 
