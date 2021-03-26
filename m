@@ -2,60 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5909F34B00D
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 21:18:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C3CF34B185
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 22:50:14 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14A49C5718D;
-	Fri, 26 Mar 2021 20:18:58 +0000 (UTC)
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
- [209.85.166.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED0CBC5718D;
+	Fri, 26 Mar 2021 21:50:13 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E013C32E90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA526C32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 20:18:56 +0000 (UTC)
-Received: by mail-io1-f50.google.com with SMTP id f19so6672812ion.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 13:18:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Z5fnCZ8eriALH/wVywXxei9R/GBDBcSFb+uK/SYuxjI=;
- b=OkaEHv2Ys5c7xQmdbr4mTlsTO4aBw6N3emzdm8UX7GSfdSwNabGmGxSi3KZAKI295M
- 8vxooZHZfNIRsHeF5f3rO5tmHYUyPWUBg747eJ18mOQPurXu3M1hTsqyYPmR/tQSoisY
- Vgdyg7b0nFECR47PAm66qIgKWUXPvQPoWREoOTfdNK+JZJgXws9cF7kbScILQhTkNLtW
- 5LVAfbz8vMycApKIudMmeQYUF1BpEZRqzQqw7Ck24+xmD4/q8NPbYvxU7VfGmgc2OI5W
- WoWhsDKbZ0JBa1d56fPXEb0IsvnZ/r8Om7UCNzDJoPdHxC5VqkOK/5FWYcgUoyxFlz7z
- NK6g==
-X-Gm-Message-State: AOAM530fuTzLbSO/OHRx+G1Hlw3ELxG35tN2HzvJ4aXXGPLHRHuB/bZE
- Vp1p/bPkCbsyBgbPqZxckA==
-X-Google-Smtp-Source: ABdhPJw8hxpqliqEqveCE0yBH3PreXUErj+X7V6Syn7BEnO+wv2aoj4g5Y+Msh+D4irsnKkg8+KstA==
-X-Received: by 2002:a02:cb8f:: with SMTP id u15mr13266031jap.45.1616789935338; 
- Fri, 26 Mar 2021 13:18:55 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id r15sm4864130iot.5.2021.03.26.13.18.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Mar 2021 13:18:53 -0700 (PDT)
-Received: (nullmailer pid 3799500 invoked by uid 1000);
- Fri, 26 Mar 2021 20:18:50 -0000
-Date: Fri, 26 Mar 2021 14:18:50 -0600
-From: Rob Herring <robh@kernel.org>
-To: dillon.minfei@gmail.com
-Message-ID: <20210326201850.GA3799452@robh.at.kernel.org>
-References: <1616757302-7889-1-git-send-email-dillon.minfei@gmail.com>
- <1616757302-7889-8-git-send-email-dillon.minfei@gmail.com>
+ Fri, 26 Mar 2021 21:50:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 26F6C61A10;
+ Fri, 26 Mar 2021 21:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1616795411;
+ bh=bcdCzp4pAv3xlxjBrP8WxheeUABuPbFUKDaRjd+VNZk=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=uU0IYMdgWeX8b8S7aPy22jpI7C7iMJt0e5stC3UK005X2EJ+e4uVcVBlWeRBwnUWH
+ Ajwk42C3qPwI0t0+XoS6FE8lCi2ZioWY2Gn069e8R9KMP+5kGzJJ2MCn2ATmRPZ/Wn
+ 9XOhq2H2Slp783zF89uUP/QntHdq8mQTk06QP/0pqWYuSdP08Rjgm7V5Bw46Y8YCRq
+ MC8QY9SQEqEf2dQgLhFjMga5sddCGR3dCPAdNOHMQeVPyOHDsRV7pR9fX3DKaueIX8
+ /ROdY0ijj6LT2D9tPb6of6RBkFcCA31UWs0FQanBfzk+ljAgYtSBzj8emv/uiaj2Cw
+ FRRmSgS4dYwqg==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id EF07260970;
+ Fri, 26 Mar 2021 21:50:10 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1616757302-7889-8-git-send-email-dillon.minfei@gmail.com>
-Cc: devicetree@vger.kernel.org, lkp@intel.com, rong.a.chen@intel.com,
- linux@armlinux.org.uk, gregkh@linuxfoundation.org,
- Alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- vladimir.murzin@arm.com, erwan.leray@st.com, mcoquelin.stm32@gmail.com,
- linux-serial@vger.kernel.org, afzal.mohd.ma@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v6 9/9] dt-bindings: serial: stm32: Use
- 'type: object' instead of false for 'additionalProperties'
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <161679541097.17455.17342387440492933878.git-patchwork-notify@kernel.org>
+Date: Fri, 26 Mar 2021 21:50:10 +0000
+References: <20210325173916.13203-1-weifeng.voon@intel.com>
+In-Reply-To: <20210325173916.13203-1-weifeng.voon@intel.com>
+To: Voon Weifeng <weifeng.voon@intel.com>
+Cc: andrew@lunn.ch, alexandre.torgue@st.com, vee.khee.wong@intel.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, boon.leong.ong@intel.com,
+ kuba@kernel.org, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 net-next 0/5] net: stmmac: enable
+	multi-vector MSI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,29 +59,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 26 Mar 2021 19:15:02 +0800, dillon.minfei@gmail.com wrote:
-> From: dillon min <dillon.minfei@gmail.com>
-> 
-> To use additional properties 'bluetooth' on serial, need replace false with
-> 'type: object' for 'additionalProperties' to make it as a node, else will
-> run into dtbs_check warnings.
-> 
-> 'arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800:
-> 'bluetooth' does not match any of the regexes: 'pinctrl-[0-9]+'
-> 
-> Fixes: af1c2d81695b ("dt-bindings: serial: Convert STM32 UART to json-schema")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Tested-by: Valentin Caron <valentin.caron@foss.st.com>
-> Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> ---
-> 
-> v6: no changes
-> 
->  Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
+Hello:
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+This series was applied to netdev/net-next.git (refs/heads/master):
+
+On Fri, 26 Mar 2021 01:39:11 +0800 you wrote:
+> This patchset adds support for multi MSI interrupts in addition to
+> current single common interrupt implementation. Each MSI interrupt is tied
+> to a newly introduce interrupt service routine(ISR). Hence, each interrupt
+> will only go through the corresponding ISR.
+> 
+> In order to increase the efficiency, enabling multi MSI interrupt will
+> automatically select the interrupt mode configuration INTM=1. When INTM=1,
+> the TX/RX transfer complete signal will only asserted on corresponding
+> sbd_perch_tx_intr_o[] or sbd_perch_rx_intr_o[] without asserting signal
+> on the common sbd_intr_o. Hence, for each TX/RX interrupts, only the
+> corresponding ISR will be triggered.
+> 
+> [...]
+
+Here is the summary with links:
+  - [v2,net-next,1/5] net: stmmac: introduce DMA interrupt status masking per traffic direction
+    https://git.kernel.org/netdev/net-next/c/7e1c520c0d20
+  - [v2,net-next,2/5] net: stmmac: make stmmac_interrupt() function more friendly to MSI
+    https://git.kernel.org/netdev/net-next/c/29e6573c61aa
+  - [v2,net-next,3/5] net: stmmac: introduce MSI Interrupt routines for mac, safety, RX & TX
+    https://git.kernel.org/netdev/net-next/c/8532f613bc78
+  - [v2,net-next,4/5] stmmac: intel: add support for multi-vector msi and msi-x
+    https://git.kernel.org/netdev/net-next/c/b42446b9b37b
+  - [v2,net-next,5/5] net: stmmac: use interrupt mode INTM=1 for multi-MSI
+    https://git.kernel.org/netdev/net-next/c/6ccf12ae111e
+
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
