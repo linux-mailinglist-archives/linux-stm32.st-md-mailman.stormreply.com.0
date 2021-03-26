@@ -2,48 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E954934A3C8
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 10:11:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9682C34A4BB
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 10:42:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97BE7C58D5E;
-	Fri, 26 Mar 2021 09:11:09 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 494B0C57B79;
+	Fri, 26 Mar 2021 09:42:31 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4BA9C58D5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20A99C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 09:11:07 +0000 (UTC)
-IronPort-SDR: FvH9h/rc2PTDoc6KhG4Zu8W0PoWTql12QMJyu2ud6gyS3oq6OdXqZuDRME0hHzkcNZvCQ+Ppl8
- phb0n91YwCww==
-X-IronPort-AV: E=McAfee;i="6000,8403,9934"; a="252465941"
-X-IronPort-AV: E=Sophos;i="5.81,280,1610438400"; d="scan'208";a="252465941"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2021 02:11:04 -0700
-IronPort-SDR: TSNpPYngjz1bCdJYwcrM5FrvgT970Uy9njyWKJv1snBYWQKILjtzkcJJTfKHnTNHnPflxV6olg
- KIYvnOQdJP1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,280,1610438400"; d="scan'208";a="594113441"
-Received: from mismail5-ilbpg0.png.intel.com ([10.88.229.82])
- by orsmga005.jf.intel.com with ESMTP; 26 Mar 2021 02:10:57 -0700
-From: mohammad.athari.ismail@intel.com
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Date: Fri, 26 Mar 2021 17:10:46 +0800
-Message-Id: <20210326091046.26391-1-mohammad.athari.ismail@intel.com>
+ Fri, 26 Mar 2021 09:42:30 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12Q8vTcD014270; Fri, 26 Mar 2021 10:42:29 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=ShKYrA7P3E0igvr61VeFGfLX7dh39Y23GnQBwv5C1to=;
+ b=36fNdSB8EzAULjFddGjJRuHEwIBdg1KAai4QjhqS8ztSblu0JWCOA3clBsPPzPvjThaA
+ 9/M4r8HSDaxS3HtKYkq8DVkkfTBVXP/jaBicG2HslH088Vj6WvVUmSDSZt8KXuEcFJOG
+ OQUXQHs2YyE3hAHB5HmOBp76e+dpV4E3jt1hmPjHzI1796dksyp+aDlmpSMGRoDe8ntA
+ s9gHs5DVLxE76cwss+ZNLDcbsIvQIfIpC/L1gvB2e8IvCo6JU9XcqCyRDikkpTv8w2Ve
+ vGywoOqhOQaRzLNxY4rwL6rtgbHAuWWZOIjwW70S7ykTJl7dIFH5jEx4x4+MVLDHaoEU qQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37h138b7wk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 26 Mar 2021 10:42:29 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8A975100038;
+ Fri, 26 Mar 2021 10:42:28 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7AA882463D6;
+ Fri, 26 Mar 2021 10:42:28 +0100 (CET)
+Received: from localhost (10.75.127.50) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 26 Mar 2021 10:42:28
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Fri, 26 Mar 2021 10:42:07 +0100
+Message-ID: <20210326094209.29750-1-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.17.1
-Cc: Voon Weifeng <weifeng.voon@intel.com>, vee.khee.wong@intel.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- mohammad.athari.ismail@intel.com, Tan Tee Min <tee.min.tan@intel.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: Fix kernel panic due to
-	NULL pointer dereference of fpe_cfg
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-26_02:2021-03-26,
+ 2021-03-26 signatures=0
+Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v3 0/2] remoteproc: stm32: add support of
+	detaching a remote processor
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,126 +67,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
+Update from V2:
+Fix comment and changelog in patch 2/2.
 
-In this patch, "net: stmmac: support FPE link partner hand-shaking
-procedure", priv->plat->fpe_cfg wouldn`t be "devm_kzalloc"ed if
-dma_cap->frpsel is 0 (Flexible Rx Parser is not supported in SoC) in
-tc_init(). So, fpe_cfg will be remain as NULL and accessing it will cause
-kernel panic.
+This patchset is the stm32mp1 platform implementation of the detach operation
+added in series [1].
 
-To fix this, move the "devm_kzalloc"ing of priv->plat->fpe_cfg before
-dma_cap->frpsel checking in tc_init(). Additionally, checking of
-priv->dma_cap.fpesel is added before calling stmmac_fpe_link_state_handle()
-as only FPE supported SoC is allowed to call the function.
+On detach, the stm32 rproc driver sends a mailbox signal to the remote 
+processor to inform it that it will be detached. 
 
-Below is the kernel panic dump reported by Marek Szyprowski
-<m.szyprowski@samsung.com>:
+Applied and tested on Bjorn's "for_next" branch (2b81aa17008e)
 
-meson8b-dwmac ff3f0000.ethernet eth0: PHY [0.0:00] driver [RTL8211F Gigabit Ethernet] (irq=35)
-meson8b-dwmac ff3f0000.ethernet eth0: No Safety Features support found
-meson8b-dwmac ff3f0000.ethernet eth0: PTP not supported by HW
-meson8b-dwmac ff3f0000.ethernet eth0: configuring for phy/rgmii link mode
-Unable to handle kernel NULL pointer dereference at virtual address 0000000000000001
-Mem abort info:
-...
-user pgtable: 4k pages, 48-bit VAs, pgdp=00000000044eb000
-[0000000000000001] pgd=0000000000000000, p4d=0000000000000000
-Internal error: Oops: 96000004 [#1] PREEMPT SMP
-Modules linked in: dw_hdmi_i2s_audio dw_hdmi_cec meson_gxl realtek meson_gxbb_wdt snd_soc_meson_axg_sound_card dwmac_generic axg_audio meson_dw_hdmi crct10dif_ce snd_soc_meson_card_utils snd_soc_meson_axg_tdmout panfrost rc_odroid gpu_sched reset_meson_audio_arb meson_ir snd_soc_meson_g12a_tohdmitx snd_soc_meson_axg_frddr sclk_div clk_phase snd_soc_meson_codec_glue dwmac_meson8b snd_soc_meson_axg_fifo stmmac_platform meson_rng meson_drm stmmac rtc_meson_vrtc rng_core meson_canvas pwm_meson dw_hdmi mdio_mux_meson_g12a pcs_xpcs snd_soc_meson_axg_tdm_interface snd_soc_meson_axg_tdm_formatter nvmem_meson_efuse display_connector
-CPU: 1 PID: 7 Comm: kworker/u8:0 Not tainted 5.12.0-rc4-next-20210325+
-Hardware name: Hardkernel ODROID-C4 (DT)
-Workqueue: events_power_efficient phylink_resolve
-pstate: 20400009 (nzCv daif +PAN -UAO -TCO BTYPE=--)
-pc : stmmac_mac_link_up+0x14c/0x348 [stmmac]
-lr : stmmac_mac_link_up+0x284/0x348 [stmmac] ...
-Call trace:
- stmmac_mac_link_up+0x14c/0x348 [stmmac]
- phylink_resolve+0x104/0x420
- process_one_work+0x2a8/0x718
- worker_thread+0x48/0x460
- kthread+0x134/0x160
- ret_from_fork+0x10/0x18
-Code: b971ba60 350007c0 f958c260 f9402000 (39400401)
----[ end trace 0c9deb6c510228aa ]---
+[1] https://patchwork.kernel.org/project/linux-remoteproc/list/?series=447171
 
-Fixes: 5a5586112b92 ("net: stmmac: support FPE link partner hand-shaking
-procedure")
-Reported-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  6 ++++--
- .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 20 +++++++++----------
- 2 files changed, 14 insertions(+), 12 deletions(-)
+Arnaud Pouliquen (2):
+  dt-bindings: remoteproc: stm32-rproc: add new mailbox channel for
+    detach
+  remoteproc: stm32: add capability to detach
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 170296820af0..27faf5e49360 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -997,7 +997,8 @@ static void stmmac_mac_link_down(struct phylink_config *config,
- 	stmmac_eee_init(priv);
- 	stmmac_set_eee_pls(priv, priv->hw, false);
- 
--	stmmac_fpe_link_state_handle(priv, false);
-+	if (priv->dma_cap.fpesel)
-+		stmmac_fpe_link_state_handle(priv, false);
- }
- 
- static void stmmac_mac_link_up(struct phylink_config *config,
-@@ -1097,7 +1098,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
- 		stmmac_set_eee_pls(priv, priv->hw, true);
- 	}
- 
--	stmmac_fpe_link_state_handle(priv, true);
-+	if (priv->dma_cap.fpesel)
-+		stmmac_fpe_link_state_handle(priv, true);
- }
- 
- static const struct phylink_mac_ops stmmac_phylink_mac_ops = {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 1d84ee359808..4e70efc45458 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -254,6 +254,16 @@ static int tc_init(struct stmmac_priv *priv)
- 			 priv->flow_entries_max);
- 	}
- 
-+	if (!priv->plat->fpe_cfg) {
-+		priv->plat->fpe_cfg = devm_kzalloc(priv->device,
-+						   sizeof(*priv->plat->fpe_cfg),
-+						   GFP_KERNEL);
-+		if (!priv->plat->fpe_cfg)
-+			return -ENOMEM;
-+	} else {
-+		memset(priv->plat->fpe_cfg, 0, sizeof(*priv->plat->fpe_cfg));
-+	}
-+
- 	/* Fail silently as we can still use remaining features, e.g. CBS */
- 	if (!dma_cap->frpsel)
- 		return 0;
-@@ -298,16 +308,6 @@ static int tc_init(struct stmmac_priv *priv)
- 	dev_info(priv->device, "Enabling HW TC (entries=%d, max_off=%d)\n",
- 			priv->tc_entries_max, priv->tc_off_max);
- 
--	if (!priv->plat->fpe_cfg) {
--		priv->plat->fpe_cfg = devm_kzalloc(priv->device,
--						   sizeof(*priv->plat->fpe_cfg),
--						   GFP_KERNEL);
--		if (!priv->plat->fpe_cfg)
--			return -ENOMEM;
--	} else {
--		memset(priv->plat->fpe_cfg, 0, sizeof(*priv->plat->fpe_cfg));
--	}
--
- 	return 0;
- }
- 
+ .../bindings/remoteproc/st,stm32-rproc.yaml   | 11 +++++-
+ drivers/remoteproc/stm32_rproc.c              | 39 ++++++++++++++++++-
+ 2 files changed, 46 insertions(+), 4 deletions(-)
+
 -- 
 2.17.1
 
