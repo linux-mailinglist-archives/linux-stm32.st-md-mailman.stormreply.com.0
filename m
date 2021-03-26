@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E88D34A63B
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 12:15:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E36D034A63C
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 12:15:37 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51601C58D5E;
-	Fri, 26 Mar 2021 11:15:31 +0000 (UTC)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A969CC58D5E;
+	Fri, 26 Mar 2021 11:15:37 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE2FFC58D5C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5A57C58D5B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 11:15:29 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id q5so4641998pfh.10
+ Fri, 26 Mar 2021 11:15:33 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id ha17so2409227pjb.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 04:15:29 -0700 (PDT)
+ Fri, 26 Mar 2021 04:15:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=i1nV7NISq+5m+Sof2CANRjkMVBg3HsKifRvhFtR0hls=;
- b=Vc+3COVSwblWFrrW4aK/Uu3LPujFMNoSQog24IqectgqjiY4XaA38zPqHkoD02Sqs2
- JGEgB1hf9PYXSVaiE8y918f5Gw4/x2xHfNKtth+mehsd4nUHNUK8yR+aYPHxEuBciKLH
- welv0sjDagfFyMDXypdWwTZT/nBNPIFrLf4Zr4qb049XJhYSAOhRGSCdwnLGHJs0XKOl
- mD4BxUMyhyDgxEY2+q7Y1tfB1z/LysUV2UmGeBvRMs8cYfdZB4Tn0jgDbP5RaBPay8Tb
- 5s4OSIeMrtkqyo+Kr3DFxj9M5EPmPASu6k1aPguOZKouFkHNkaGfgpC4aauF9kCEE3bb
- 9jhA==
+ bh=5k4LK0I779i125dqLNMdZVaDSPCul1nXlVCzLiWx3OY=;
+ b=mSql5w0CLSZnU5mD6lil6aD/NIEUDLGO2y24MmPkZo0MVPGHSVz5Q9+Ido++F74gqD
+ YnKrRpJsfL4WXR9nL5FCVIV7sRhHFskLJ/SfwtBkgDJcoA/lxPenybRp39i9EjmpVnm3
+ Wfl7RnKo2En+6/vUjUmGbtDvOpcg9vcJ5MDERQ+eIzJIcz6BihqtHRzcnqWuuRBnezTF
+ ceHCzv6ZDsLa0vqgxEzS5OwNCjazNyyOWeerq1plhmTK5IwEgU8rqG3hyUfgGL4t8JI1
+ ZhS7Qi+OeRKqXQ+juZT8TMaPZlcO0wX26tw54cg0FaMpVOiPYnIZxewMW88gf22x+bVA
+ LQoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=i1nV7NISq+5m+Sof2CANRjkMVBg3HsKifRvhFtR0hls=;
- b=Op9oXCEyi5BYoJSgRWlJJVNMemN+xvNAL5wtw4/ju24Vdi3u0V6o1SNcjdtAfFaCmP
- UDN2raavmopbkrt4Ig39PPN76DBE49z07/8YTyBTeFBbsUF8Sbb3cVYc8vrCfIz3TKyX
- oUV2JzyEFvrxqYuX5n4TN0EFsfaYsfFdxGqho4OYP5WbcMczlETOIM1rB75vk4TRKk+z
- p4D//kwkdsy25oPnvFVs5Wrab+RHfEQaco27KOs58WqiUZ2rr1AbB8xpOn+T6AEbWWeW
- JMM/WbPEgvDI9JFaYxwJleIgJXHhs0lcSuErYFiIK/K1ywGb3Vu5N03fDwnJvReNX8Ji
- 8YnQ==
-X-Gm-Message-State: AOAM530DjaHq1qS534I3F3sRHJ+kcTrO9yOjfs9XfhFPpBQTh9403Jf5
- 5suwYUlhGLN/bpl0Jw7+m7o=
-X-Google-Smtp-Source: ABdhPJwA4K+VUiweM7JG81luVwN1Yu3bRLIyG8cc3Uy5eHQVdqvN3huO8Jc4kh3Tz6839NY+FIidAA==
-X-Received: by 2002:a62:1594:0:b029:1f1:5ede:5245 with SMTP id
- 142-20020a6215940000b02901f15ede5245mr12624110pfv.6.1616757328191; 
- Fri, 26 Mar 2021 04:15:28 -0700 (PDT)
+ bh=5k4LK0I779i125dqLNMdZVaDSPCul1nXlVCzLiWx3OY=;
+ b=XP98xxgXPPXGL3nAuTeRepfKYtQNSJRAYSJ/5iPCC9fS2TtrBmcQPMCAm8NMA62Nzd
+ a3XFufP5KkJFXZ1nCY3DqoSoTJF6K6hbV+L4ZXRv0dFAp+UsJHwAOXqkqSPzp7gSkFxI
+ Hi1CBZjKB9CYBbk3U1a9vCOlAfkZ0jy4gg3YD4oOjN9Ns/qibJFSvmXPSGc16Mrgii10
+ ki3S3YZz1zoaFETKkhIc0e6Q2Vx33OkEOEca+TF/cdfaSWO0wasDu2/BN0N+kkJDyGq9
+ uo7TgjKzK7zE6lmZqVvqwF8k3ZrDHUK5D2z4gT4UlfMLmwH041jMwFCq9JvXw1ybZH+o
+ z7iw==
+X-Gm-Message-State: AOAM530OygmiqPddPJlT07TJbOtFCDApURAZOaWQmEx4cpNU0WO7LO2U
+ e+A/8EEqpercGQCNofUvg+w=
+X-Google-Smtp-Source: ABdhPJwhvZ3EnfuZurA9F+HEFqVEOtBWHOterQqdMDBaDF+RggY+HEjblwBMwUmgjopNGp7vt/ULnA==
+X-Received: by 2002:a17:90a:3ec3:: with SMTP id
+ k61mr12950361pjc.125.1616757332479; 
+ Fri, 26 Mar 2021 04:15:32 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id l3sm8108414pfc.81.2021.03.26.04.15.24
+ by smtp.gmail.com with ESMTPSA id l3sm8108414pfc.81.2021.03.26.04.15.28
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 26 Mar 2021 04:15:27 -0700 (PDT)
+ Fri, 26 Mar 2021 04:15:32 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: robh@kernel.org, valentin.caron@foss.st.com, Alexandre.torgue@foss.st.com,
  rong.a.chen@intel.com, a.fatoum@pengutronix.de, mcoquelin.stm32@gmail.com,
@@ -55,14 +55,13 @@ To: robh@kernel.org, valentin.caron@foss.st.com, Alexandre.torgue@foss.st.com,
  linux@armlinux.org.uk, vladimir.murzin@arm.com, afzal.mohd.ma@gmail.com,
  gregkh@linuxfoundation.org, erwan.leray@foss.st.com, erwan.leray@st.com,
  linux-serial@vger.kernel.org, lkp@intel.com
-Date: Fri, 26 Mar 2021 19:14:59 +0800
-Message-Id: <1616757302-7889-5-git-send-email-dillon.minfei@gmail.com>
+Date: Fri, 26 Mar 2021 19:15:00 +0800
+Message-Id: <1616757302-7889-6-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1616757302-7889-1-git-send-email-dillon.minfei@gmail.com>
 References: <1616757302-7889-1-git-send-email-dillon.minfei@gmail.com>
 Cc: dillon min <dillon.minfei@gmail.com>
-Subject: [Linux-stm32] [PATCH v6 6/9] ARM: dts: stm32: add support for
-	art-pi board based on stm32h750xbh6
+Subject: [Linux-stm32] [PATCH v6 7/9] ARM: stm32: Add a new SOC - STM32H750
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,504 +81,29 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-This patchset has following changes:
-
-- introduce stm32h750.dtsi to support stm32h750 value line
-- add stm32h750i-art-pi.dtb (arch/arm/boot/dts/Makefile)
-- add dts binding usart3 for bt, uart4 for console
-  usart3/uart4 pinctrl in stm32h7-pinctrl.dtsi
-  usart3/uart4 register in stm32h743.dtsi
-- add dts binding sdmmc2 for wifi
-  sdmmc2 pinctrl in stm32h7-pinctrl.dtsi
-  sdmmc2 register in stm32h743.dtsi
-- add spi1 pinctrl in stm32h7-pinctrl.dtsi for spi flash
-- add stm32h750-art-pi.dts to support art-pi board
-- add pinctrl: pin-controller@58020000 {} to fix dtbs_check warrnings
-
-art-pi board component:
-- 8MiB qspi flash
-- 16MiB spi flash
-- 32MiB sdram
-- ap6212 wifi&bt&fm
-
-the detail board information can be found at:
-https://art-pi.gitee.io/website/
+The STM32H750 is a Cortex-M7 MCU running at 480MHz
+and containing 128KBytes internal flash, 1MiB SRAM.
 
 Signed-off-by: dillon min <dillon.minfei@gmail.com>
 ---
 
 v6: no changes
 
- arch/arm/boot/dts/Makefile              |   1 +
- arch/arm/boot/dts/stm32h743.dtsi        | 164 ++++++++++++++++++++++-
- arch/arm/boot/dts/stm32h750.dtsi        |   6 +
- arch/arm/boot/dts/stm32h750i-art-pi.dts | 229 ++++++++++++++++++++++++++++++++
- 4 files changed, 398 insertions(+), 2 deletions(-)
- create mode 100644 arch/arm/boot/dts/stm32h750.dtsi
- create mode 100644 arch/arm/boot/dts/stm32h750i-art-pi.dts
+ arch/arm/mach-stm32/board-dt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 8e5d4ab4e75e..a19c5ab9df84 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1071,6 +1071,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32746g-eval.dtb \
- 	stm32h743i-eval.dtb \
- 	stm32h743i-disco.dtb \
-+	stm32h750i-art-pi.dtb \
- 	stm32mp153c-dhcom-drc02.dtb \
- 	stm32mp157a-avenger96.dtb \
- 	stm32mp157a-dhcor-avenger96.dtb \
-diff --git a/arch/arm/boot/dts/stm32h743.dtsi b/arch/arm/boot/dts/stm32h743.dtsi
-index 4ebffb0a45a3..a17e98648e2a 100644
---- a/arch/arm/boot/dts/stm32h743.dtsi
-+++ b/arch/arm/boot/dts/stm32h743.dtsi
-@@ -135,6 +135,22 @@
- 			clocks = <&rcc USART2_CK>;
- 		};
- 
-+		usart3: serial@40004800 {
-+			compatible = "st,stm32h7-uart";
-+			reg = <0x40004800 0x400>;
-+			interrupts = <39>;
-+			status = "disabled";
-+			clocks = <&rcc USART3_CK>;
-+		};
-+
-+		uart4: serial@40004c00 {
-+			compatible = "st,stm32h7-uart";
-+			reg = <0x40004c00 0x400>;
-+			interrupts = <52>;
-+			status = "disabled";
-+			clocks = <&rcc UART4_CK>;
-+		};
-+
- 		i2c1: i2c@40005400 {
- 			compatible = "st,stm32f7-i2c";
- 			#address-cells = <1>;
-@@ -159,7 +175,7 @@
- 			status = "disabled";
- 		};
- 
--		i2c3: i2c@40005C00 {
-+		i2c3: i2c@40005c00 {
- 			compatible = "st,stm32f7-i2c";
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-@@ -368,6 +384,20 @@
- 			max-frequency = <120000000>;
- 		};
- 
-+		sdmmc2: mmc@48022400 {
-+			compatible = "arm,pl18x", "arm,primecell";
-+			arm,primecell-periphid = <0x10153180>;
-+			reg = <0x48022400 0x400>;
-+			interrupts = <124>;
-+			interrupt-names	= "cmd_irq";
-+			clocks = <&rcc SDMMC2_CK>;
-+			clock-names = "apb_pclk";
-+			resets = <&rcc STM32H7_AHB2_RESET(SDMMC2)>;
-+			cap-sd-highspeed;
-+			cap-mmc-highspeed;
-+			max-frequency = <120000000>;
-+		};
-+
- 		exti: interrupt-controller@58000000 {
- 			compatible = "st,stm32h7-exti";
- 			interrupt-controller;
-@@ -392,7 +422,7 @@
- 			status = "disabled";
- 		};
- 
--		i2c4: i2c@58001C00 {
-+		i2c4: i2c@58001c00 {
- 			compatible = "st,stm32f7-i2c";
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-@@ -555,6 +585,136 @@
- 			snps,pbl = <8>;
- 			status = "disabled";
- 		};
-+
-+		pinctrl: pin-controller@58020000 {
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0 0x58020000 0x3000>;
-+			interrupt-parent = <&exti>;
-+			st,syscfg = <&syscfg 0x8>;
-+			pins-are-numbered;
-+
-+			gpioa: gpio@58020000 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x0 0x400>;
-+				clocks = <&rcc GPIOA_CK>;
-+				st,bank-name = "GPIOA";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpiob: gpio@58020400 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x400 0x400>;
-+				clocks = <&rcc GPIOB_CK>;
-+				st,bank-name = "GPIOB";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpioc: gpio@58020800 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x800 0x400>;
-+				clocks = <&rcc GPIOC_CK>;
-+				st,bank-name = "GPIOC";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpiod: gpio@58020c00 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0xc00 0x400>;
-+				clocks = <&rcc GPIOD_CK>;
-+				st,bank-name = "GPIOD";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpioe: gpio@58021000 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x1000 0x400>;
-+				clocks = <&rcc GPIOE_CK>;
-+				st,bank-name = "GPIOE";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpiof: gpio@58021400 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x1400 0x400>;
-+				clocks = <&rcc GPIOF_CK>;
-+				st,bank-name = "GPIOF";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpiog: gpio@58021800 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x1800 0x400>;
-+				clocks = <&rcc GPIOG_CK>;
-+				st,bank-name = "GPIOG";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpioh: gpio@58021c00 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x1c00 0x400>;
-+				clocks = <&rcc GPIOH_CK>;
-+				st,bank-name = "GPIOH";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpioi: gpio@58022000 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x2000 0x400>;
-+				clocks = <&rcc GPIOI_CK>;
-+				st,bank-name = "GPIOI";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpioj: gpio@58022400 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x2400 0x400>;
-+				clocks = <&rcc GPIOJ_CK>;
-+				st,bank-name = "GPIOJ";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+
-+			gpiok: gpio@58022800 {
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				reg = <0x2800 0x400>;
-+				clocks = <&rcc GPIOK_CK>;
-+				st,bank-name = "GPIOK";
-+				interrupt-controller;
-+				#interrupt-cells = <2>;
-+				status = "disabled";
-+			};
-+		};
- 	};
+diff --git a/arch/arm/mach-stm32/board-dt.c b/arch/arm/mach-stm32/board-dt.c
+index 011d57b488c2..a766310d8dca 100644
+--- a/arch/arm/mach-stm32/board-dt.c
++++ b/arch/arm/mach-stm32/board-dt.c
+@@ -17,6 +17,7 @@ static const char *const stm32_compat[] __initconst = {
+ 	"st,stm32f746",
+ 	"st,stm32f769",
+ 	"st,stm32h743",
++	"st,stm32h750",
+ 	"st,stm32mp157",
+ 	NULL
  };
- 
-diff --git a/arch/arm/boot/dts/stm32h750.dtsi b/arch/arm/boot/dts/stm32h750.dtsi
-new file mode 100644
-index 000000000000..41e3b1e3a874
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32h750.dtsi
-@@ -0,0 +1,6 @@
-+/* SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause) */
-+/* Copyright (C) STMicroelectronics 2021 - All Rights Reserved */
-+
-+#include "stm32h743.dtsi"
-+
-+
-diff --git a/arch/arm/boot/dts/stm32h750i-art-pi.dts b/arch/arm/boot/dts/stm32h750i-art-pi.dts
-new file mode 100644
-index 000000000000..098181efd172
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32h750i-art-pi.dts
-@@ -0,0 +1,229 @@
-+/*
-+ * Copyright 2021 - Dillon Min <dillon.minfei@gmail.com>
-+ *
-+ * This file is dual-licensed: you can use it either under the terms
-+ * of the GPL or the X11 license, at your option. Note that this dual
-+ * licensing only applies to this file, and not this project as a
-+ * whole.
-+ *
-+ *  a) This file is free software; you can redistribute it and/or
-+ *     modify it under the terms of the GNU General Public License as
-+ *     published by the Free Software Foundation; either version 2 of the
-+ *     License, or (at your option) any later version.
-+ *
-+ *     This file is distributed in the hope that it will be useful,
-+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ *     GNU General Public License for more details.
-+ *
-+ * Or, alternatively,
-+ *
-+ *  b) Permission is hereby granted, free of charge, to any person
-+ *     obtaining a copy of this software and associated documentation
-+ *     files (the "Software"), to deal in the Software without
-+ *     restriction, including without limitation the rights to use,
-+ *     copy, modify, merge, publish, distribute, sublicense, and/or
-+ *     sell copies of the Software, and to permit persons to whom the
-+ *     Software is furnished to do so, subject to the following
-+ *     conditions:
-+ *
-+ *     The above copyright notice and this permission notice shall be
-+ *     included in all copies or substantial portions of the Software.
-+ *
-+ *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+ *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-+ *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-+ *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-+ *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-+ *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ *     OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * For art-pi board resources, you can refer to link:
-+ * 	https://art-pi.gitee.io/website/
-+ */
-+
-+/dts-v1/;
-+#include "stm32h750.dtsi"
-+#include "stm32h750-pinctrl.dtsi"
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "RT-Thread STM32H750i-ART-PI board";
-+	compatible = "st,stm32h750i-art-pi", "st,stm32h750";
-+
-+	chosen {
-+		bootargs = "root=/dev/ram";
-+		stdout-path = "serial0:2000000n8";
-+	};
-+
-+	memory@c0000000 {
-+		device_type = "memory";
-+		reg = <0xc0000000 0x2000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		linux,cma {
-+			compatible = "shared-dma-pool";
-+			no-map;
-+			size = <0x100000>;
-+			linux,dma-default;
-+		};
-+	};
-+
-+	aliases {
-+		serial0 = &uart4;
-+		serial1 = &usart3;
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+		led-red {
-+			gpios = <&gpioi 8 0>;
-+		};
-+		led-green {
-+			gpios = <&gpioc 15 0>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
-+
-+	v3v3: regulator-v3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "v3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+	};
-+
-+	wlan_pwr: regulator-wlan {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "wl-reg";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
-+&clk_hse {
-+	clock-frequency = <25000000>;
-+};
-+
-+&dma1 {
-+	status = "okay";
-+};
-+
-+&dma2 {
-+	status = "okay";
-+};
-+
-+&mac {
-+	status = "disabled";
-+	pinctrl-0	= <&ethernet_rmii>;
-+	pinctrl-names	= "default";
-+	phy-mode	= "rmii";
-+	phy-handle	= <&phy0>;
-+
-+	mdio0 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "snps,dwmac-mdio";
-+		phy0: ethernet-phy@0 {
-+			reg = <0>;
-+		};
-+	};
-+};
-+
-+&sdmmc1 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	broken-cd;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&v3v3>;
-+	status = "okay";
-+};
-+
-+&sdmmc2 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc2_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a>;
-+	broken-cd;
-+	non-removable;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&wlan_pwr>;
-+	status = "okay";
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	brcmf: bcrmf@1 {
-+		reg = <1>;
-+		compatible = "brcm,bcm4329-fmac";
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-0 = <&spi1_pins>;
-+	pinctrl-names = "default";
-+	cs-gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;
-+	dmas = <&dmamux1 37 0x400 0x05>,
-+	       <&dmamux1 38 0x400 0x05>;
-+	dma-names = "rx", "tx";
-+
-+	flash@0 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "winbond,w25q128", "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <80000000>;
-+
-+		partition@0 {
-+			label = "root filesystem";
-+			reg = <0 0x1000000>;
-+		};
-+	};
-+};
-+
-+&usart2 {
-+	pinctrl-0 = <&usart2_pins>;
-+	pinctrl-names = "default";
-+	status = "disabled";
-+};
-+
-+&usart3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&usart3_pins>;
-+	dmas = <&dmamux1 45 0x400 0x05>,
-+	       <&dmamux1 46 0x400 0x05>;
-+	dma-names = "rx", "tx";
-+	st,hw-flow-ctrl;
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "brcm,bcm43438-bt";
-+		host-wakeup-gpios = <&gpioc 0 GPIO_ACTIVE_HIGH>;
-+		device-wakeup-gpios = <&gpioi 10 GPIO_ACTIVE_HIGH>;
-+		shutdown-gpios = <&gpioi 11 GPIO_ACTIVE_HIGH>;
-+		max-speed = <115200>;
-+	};
-+};
-+
-+&uart4 {
-+	pinctrl-0 = <&uart4_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+
 -- 
 2.7.4
 
