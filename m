@@ -2,67 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FB2F34A9D0
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 15:35:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5909F34B00D
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Mar 2021 21:18:58 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53EF7C57B79;
-	Fri, 26 Mar 2021 14:35:21 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14A49C5718D;
+	Fri, 26 Mar 2021 20:18:58 +0000 (UTC)
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+ [209.85.166.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E278C57B60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E013C32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 14:35:20 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id e18so5871150wrt.6
+ Fri, 26 Mar 2021 20:18:56 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id f19so6672812ion.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 07:35:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=5ncqrjTAWBMAuIT+QNk4MgUhfbKLtj8kt+uo2wlM/dg=;
- b=weMDUSGRSCQGL4pgXx8iQgbzg5Nye4DqunH91ALPfVpL5kE61ywzM7VTxlg2W7Es4D
- oNQa61mKg+gtrY4ryXcuLjSNGXUo582RhCNDzKcAWTNYnZqo+iEGaTZB7ODutah3VICz
- +ev6t1uq/xB+BZt0yxA4rdMu4uEmmHNJS57KeVoZc+ZBZsfg1oYGKCBVStk7iWMD2no/
- 0gFlTPKYmzJ6xHMKfMj+hVG4nuYcjMFnEMqeDwgoqa5NpL46gHUhKu04TXjeijAwJaaR
- 7EMiJjqTZBorv+b5NJvNcnTGRJA4riENhLqjOa0iZosr5fYSrUcJlh13WbZxUGjW+fLz
- Pbrw==
+ Fri, 26 Mar 2021 13:18:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=5ncqrjTAWBMAuIT+QNk4MgUhfbKLtj8kt+uo2wlM/dg=;
- b=cnC1XFkkTyzhc9qH5bIWzHB/7fMYPWDqtC01zM2HVbjqHusO49sdsTRGiW2BvvDYSW
- jAH7x4Nkn2rZYRyZnLwJCEiGeNkAjIxbHDxSPr0wD4SNRu3qGmTcAmLO2Hm0qQpEQtF9
- 1QZ7u8n86a8CHEkjZ5YHSNKnVSHLUVT00+cQ0byKYzF19Kkjl8TYgJpqzj2yMxhuwG9f
- Xyhqwk0zHkPNnX5+kBayD/3b5P43W6VZZASdUxcgaWc/TQntjoqZRbrw3oAtWuZTXhIh
- YifG8cRZ5UYDby2rkI/VHsrxWdZw6H5R3SI4vkbuVKmpQ9WTsjcNp4SNxidB+U0r7yGt
- 1ovQ==
-X-Gm-Message-State: AOAM532z+O6BgHRmfazJHF+z9yMKeVGF+Y0DrmRlfYk7/RUSd8IbTDgw
- JnPWNI7YzIkMK52xoTN0Wpc6YA==
-X-Google-Smtp-Source: ABdhPJxmQkgaSlZ6BYyWv6tZwjthp9lMrPlua6NXOhA6VZmavOYOxv6tr/znawI4FNqHcL2lE7SBRQ==
-X-Received: by 2002:a5d:6307:: with SMTP id i7mr15081805wru.305.1616769319829; 
- Fri, 26 Mar 2021 07:35:19 -0700 (PDT)
-Received: from dell.default ([91.110.221.194])
- by smtp.gmail.com with ESMTPSA id j26sm12878225wrh.57.2021.03.26.07.35.18
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Z5fnCZ8eriALH/wVywXxei9R/GBDBcSFb+uK/SYuxjI=;
+ b=OkaEHv2Ys5c7xQmdbr4mTlsTO4aBw6N3emzdm8UX7GSfdSwNabGmGxSi3KZAKI295M
+ 8vxooZHZfNIRsHeF5f3rO5tmHYUyPWUBg747eJ18mOQPurXu3M1hTsqyYPmR/tQSoisY
+ Vgdyg7b0nFECR47PAm66qIgKWUXPvQPoWREoOTfdNK+JZJgXws9cF7kbScILQhTkNLtW
+ 5LVAfbz8vMycApKIudMmeQYUF1BpEZRqzQqw7Ck24+xmD4/q8NPbYvxU7VfGmgc2OI5W
+ WoWhsDKbZ0JBa1d56fPXEb0IsvnZ/r8Om7UCNzDJoPdHxC5VqkOK/5FWYcgUoyxFlz7z
+ NK6g==
+X-Gm-Message-State: AOAM530fuTzLbSO/OHRx+G1Hlw3ELxG35tN2HzvJ4aXXGPLHRHuB/bZE
+ Vp1p/bPkCbsyBgbPqZxckA==
+X-Google-Smtp-Source: ABdhPJw8hxpqliqEqveCE0yBH3PreXUErj+X7V6Syn7BEnO+wv2aoj4g5Y+Msh+D4irsnKkg8+KstA==
+X-Received: by 2002:a02:cb8f:: with SMTP id u15mr13266031jap.45.1616789935338; 
+ Fri, 26 Mar 2021 13:18:55 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id r15sm4864130iot.5.2021.03.26.13.18.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Mar 2021 07:35:19 -0700 (PDT)
-From: Lee Jones <lee.jones@linaro.org>
-To: lee.jones@linaro.org
-Date: Fri, 26 Mar 2021 14:34:51 +0000
-Message-Id: <20210326143458.508959-20-lee.jones@linaro.org>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210326143458.508959-1-lee.jones@linaro.org>
-References: <20210326143458.508959-1-lee.jones@linaro.org>
+ Fri, 26 Mar 2021 13:18:53 -0700 (PDT)
+Received: (nullmailer pid 3799500 invoked by uid 1000);
+ Fri, 26 Mar 2021 20:18:50 -0000
+Date: Fri, 26 Mar 2021 14:18:50 -0600
+From: Rob Herring <robh@kernel.org>
+To: dillon.minfei@gmail.com
+Message-ID: <20210326201850.GA3799452@robh.at.kernel.org>
+References: <1616757302-7889-1-git-send-email-dillon.minfei@gmail.com>
+ <1616757302-7889-8-git-send-email-dillon.minfei@gmail.com>
 MIME-Version: 1.0
-Cc: Kim Kuparinen <kimi.h.kuparinen@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-input@vger.kernel.org,
- Dario Pagani <dario.pagani.146+linuxk@gmail.com>,
+Content-Disposition: inline
+In-Reply-To: <1616757302-7889-8-git-send-email-dillon.minfei@gmail.com>
+Cc: devicetree@vger.kernel.org, lkp@intel.com, rong.a.chen@intel.com,
+ linux@armlinux.org.uk, gregkh@linuxfoundation.org,
+ Alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
+ vladimir.murzin@arm.com, erwan.leray@st.com, mcoquelin.stm32@gmail.com,
+ linux-serial@vger.kernel.org, afzal.mohd.ma@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 18/25] HID: hid-thrustmaster: Demote a bunch
-	of kernel-doc abuses
+Subject: Re: [Linux-stm32] [PATCH v6 9/9] dt-bindings: serial: stm32: Use
+ 'type: object' instead of false for 'additionalProperties'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,97 +67,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Rml4ZXMgdGhlIGZvbGxvd2luZyBXPTEga2VybmVsIGJ1aWxkIHdhcm5pbmcocyk6CgogZHJpdmVy
-cy9oaWQvaGlkLXRocnVzdG1hc3Rlci5jOjIzOiB3YXJuaW5nOiBJbmNvcnJlY3QgdXNlIG9mIGtl
-cm5lbC1kb2MgZm9ybWF0OiAgKiBUaGVzZSBpbnRlcnJ1cHRzIGFyZSB1c2VkIHRvIHByZXZlbnQg
-YSBuYXN0eSBjcmFzaCB3aGVuIGluaXRpYWxpemluZyB0aGUKIGRyaXZlcnMvaGlkL2hpZC10aHJ1
-c3RtYXN0ZXIuYzoyNjogd2FybmluZzogY2Fubm90IHVuZGVyc3RhbmQgZnVuY3Rpb24gcHJvdG90
-eXBlOiAnY29uc3QgdTggc2V0dXBfMFtdID0gJwogZHJpdmVycy9oaWQvaGlkLXRocnVzdG1hc3Rl
-ci5jOjQ5OiB3YXJuaW5nOiBjYW5ub3QgdW5kZXJzdGFuZCBmdW5jdGlvbiBwcm90b3R5cGU6ICdz
-dHJ1Y3QgdG1fd2hlZWxfaW5mbyAnCiBkcml2ZXJzL2hpZC9oaWQtdGhydXN0bWFzdGVyLmM6NjI6
-IHdhcm5pbmc6IHdyb25nIGtlcm5lbC1kb2MgaWRlbnRpZmllciBvbiBsaW5lOgogZHJpdmVycy9o
-aWQvaGlkLXRocnVzdG1hc3Rlci5jOjg0OiB3YXJuaW5nOiBjYW5ub3QgdW5kZXJzdGFuZCBmdW5j
-dGlvbiBwcm90b3R5cGU6ICdzdHJ1Y3QgX19wYWNrZWQgdG1fd2hlZWxfcmVzcG9uc2UgJwogZHJp
-dmVycy9oaWQvaGlkLXRocnVzdG1hc3Rlci5jOjE0Mzogd2FybmluZzogd3Jvbmcga2VybmVsLWRv
-YyBpZGVudGlmaWVyIG9uIGxpbmU6CiBkcml2ZXJzL2hpZC9oaWQtdGhydXN0bWFzdGVyLmM6MjAy
-OiB3YXJuaW5nOiBGdW5jdGlvbiBwYXJhbWV0ZXIgb3IgbWVtYmVyICd1cmInIG5vdCBkZXNjcmli
-ZWQgaW4gJ3RocnVzdG1hc3Rlcl9tb2RlbF9oYW5kbGVyJwogZHJpdmVycy9oaWQvaGlkLXRocnVz
-dG1hc3Rlci5jOjIwMjogd2FybmluZzogZXhwZWN0aW5nIHByb3RvdHlwZSBmb3IgQ2FsbGVkIGJ5
-IHRoZSBVU0Igc3Vic3lzdGVtIHdoZW4gdGhlIHdoZWVsIHJlc3BvbnNlcyB0byBvdXIgcmVxdWVz
-dCgpLiBQcm90b3R5cGUgd2FzIGZvciB0aHJ1c3RtYXN0ZXJfbW9kZWxfaGFuZGxlcigpIGluc3Rl
-YWQKIGRyaXZlcnMvaGlkL2hpZC10aHJ1c3RtYXN0ZXIuYzoyNjU6IHdhcm5pbmc6IHdyb25nIGtl
-cm5lbC1kb2MgaWRlbnRpZmllciBvbiBsaW5lOgoKQ2M6IEppcmkgS29zaW5hIDxqaWtvc0BrZXJu
-ZWwub3JnPgpDYzogQmVuamFtaW4gVGlzc29pcmVzIDxiZW5qYW1pbi50aXNzb2lyZXNAcmVkaGF0
-LmNvbT4KQ2M6IE1heGltZSBDb3F1ZWxpbiA8bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbT4KQ2M6
-IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+CkNjOiBEYXJp
-byBQYWdhbmkgPGRhcmlvLnBhZ2FuaS4xNDYrbGludXhrQGdtYWlsLmNvbT4KQ2M6IEtpbSBLdXBh
-cmluZW4gPGtpbWkuaC5rdXBhcmluZW5AZ21haWwuY29tPgpDYzogbGludXgtaW5wdXRAdmdlci5r
-ZXJuZWwub3JnCkNjOiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCkNj
-OiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKU2lnbmVkLW9mZi1ieTogTGVl
-IEpvbmVzIDxsZWUuam9uZXNAbGluYXJvLm9yZz4KLS0tCiBkcml2ZXJzL2hpZC9oaWQtdGhydXN0
-bWFzdGVyLmMgfCAyNCArKysrKysrKysrKystLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAx
-MiBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2hp
-ZC9oaWQtdGhydXN0bWFzdGVyLmMgYi9kcml2ZXJzL2hpZC9oaWQtdGhydXN0bWFzdGVyLmMKaW5k
-ZXggYmZjZDA4NzU5YmEwOS4uNGY5YzA2NDJlODE2YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9oaWQv
-aGlkLXRocnVzdG1hc3Rlci5jCisrKyBiL2RyaXZlcnMvaGlkL2hpZC10aHJ1c3RtYXN0ZXIuYwpA
-QCAtMSw1ICsxLDUgQEAKIC8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wCi0vKioK
-Ky8qCiAgKiBXaGVuIGNvbm5lY3RlZCB0byB0aGUgbWFjaGluZSwgdGhlIFRocnVzdG1hc3RlciB3
-aGVlbHMgYXBwZWFyIGFzCiAgKiBhIMKrZ2VuZXJpY8K7IGhpZCBnYW1lcGFkIGNhbGxlZCAiVGhy
-dXN0bWFzdGVyIEZGQiBXaGVlbCIuCiAgKgpAQCAtMTksNyArMTksNyBAQAogI2luY2x1ZGUgPGxp
-bnV4L3NsYWIuaD4KICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KIAotLyoqCisvKgogICogVGhl
-c2UgaW50ZXJydXB0cyBhcmUgdXNlZCB0byBwcmV2ZW50IGEgbmFzdHkgY3Jhc2ggd2hlbiBpbml0
-aWFsaXppbmcgdGhlCiAgKiBUMzAwUlMuIFVzZWQgaW4gdGhydXN0bWFzdGVyX2ludGVycnVwdHMo
-KS4KICAqLwpAQCAtMzYsNyArMzYsNyBAQCBzdGF0aWMgY29uc3QgdW5zaWduZWQgaW50IHNldHVw
-X2Fycl9zaXplc1tdID0gewogCUFSUkFZX1NJWkUoc2V0dXBfMyksCiAJQVJSQVlfU0laRShzZXR1
-cF80KQogfTsKLS8qKgorLyoKICAqIFRoaXMgc3RydWN0IGNvbnRhaW5zIGZvciBlYWNoIHR5cGUg
-b2YKICAqIFRocnVzdG1hc3RlciB3aGVlbAogICoKQEAgLTQ5LDcgKzQ5LDcgQEAgc3RhdGljIGNv
-bnN0IHVuc2lnbmVkIGludCBzZXR1cF9hcnJfc2l6ZXNbXSA9IHsKIHN0cnVjdCB0bV93aGVlbF9p
-bmZvIHsKIAl1aW50MTZfdCB3aGVlbF90eXBlOwogCi0JLyoqCisJLyoKIAkgKiBTZWUgd2hlbiB0
-aGUgVVNCIGNvbnRyb2wgb3V0IHBhY2tldCBpcyBwcmVwYXJlZC4uLgogCSAqIEBUT0RPIFRoZSBU
-TVggc2VlbXMgdG8gcmVxdWlyZSBtdWx0aXBsZSBjb250cm9sIGNvZGVzIHRvIHN3aXRjaC4KIAkg
-Ki8KQEAgLTU4LDcgKzU4LDcgQEAgc3RydWN0IHRtX3doZWVsX2luZm8gewogCWNoYXIgY29uc3Qg
-KmNvbnN0IHdoZWVsX25hbWU7CiB9OwogCi0vKioKKy8qCiAgKiBLbm93biB3aGVlbHMuCiAgKiBO
-b3RlOiBUTVggZG9lcyBub3Qgd29yayBhcyBpdCByZXF1aXJlcyAyIGNvbnRyb2wgcGFja2V0cwog
-ICovCkBAIC03Miw3ICs3Miw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgdG1fd2hlZWxfaW5mbyB0
-bV93aGVlbHNfaW5mb3NbXSA9IHsKIAogc3RhdGljIGNvbnN0IHVpbnQ4X3QgdG1fd2hlZWxzX2lu
-Zm9zX2xlbmd0aCA9IDQ7CiAKLS8qKgorLyoKICAqIFRoaXMgc3RydWN0cyBjb250YWlucyAoaW4g
-bGl0dGxlIGVuZGlhbikgdGhlIHJlc3BvbnNlIGRhdGEKICAqIG9mIHRoZSB3aGVlbCB0byB0aGUg
-cmVxdWVzdCA3MwogICoKQEAgLTgyLDcgKzgyLDcgQEAgc3RhdGljIGNvbnN0IHVpbnQ4X3QgdG1f
-d2hlZWxzX2luZm9zX2xlbmd0aCA9IDQ7CiAgKi8KIHN0cnVjdCBfX3BhY2tlZCB0bV93aGVlbF9y
-ZXNwb25zZQogewotCS8qKgorCS8qCiAJICogU2VlbXMgdG8gYmUgdGhlIHR5cGUgb2YgcGFja2V0
-CiAJICogLSAweDAwNDkgaWYgaXMgZGF0YS5hICgxNSBieXRlcykKIAkgKiAtIDB4MDA0NyBpZiBp
-cyBkYXRhLmIgKDcgYnl0ZXMpCkBAIC05Myw3ICs5Myw3IEBAIHN0cnVjdCBfX3BhY2tlZCB0bV93
-aGVlbF9yZXNwb25zZQogCQlzdHJ1Y3QgX19wYWNrZWQgewogCQkJdWludDE2X3QgZmllbGQwOwog
-CQkJdWludDE2X3QgZmllbGQxOwotCQkJLyoqCisJCQkvKgogCQkJICogU2VlbXMgdG8gYmUgdGhl
-IG1vZGVsIGNvZGUgb2YgdGhlIHdoZWVsCiAJCQkgKiBSZWFkIHRhYmxlIHRocnVzdG1hc3Rlcl93
-aGVlbHMgdG8gdmFsdWVzCiAJCQkgKi8KQEAgLTEyMiw3ICsxMjIsNyBAQCBzdHJ1Y3QgdG1fd2hl
-ZWwgewogCXN0cnVjdCB1c2JfY3RybHJlcXVlc3QgKmNoYW5nZV9yZXF1ZXN0OwogfTsKIAotLyoq
-IFRoZSBjb250cm9sIHBhY2tldCB0byBzZW5kIHRvIHdoZWVsICovCisvKiBUaGUgY29udHJvbCBw
-YWNrZXQgdG8gc2VuZCB0byB3aGVlbCAqLwogc3RhdGljIGNvbnN0IHN0cnVjdCB1c2JfY3RybHJl
-cXVlc3QgbW9kZWxfcmVxdWVzdCA9IHsKIAkuYlJlcXVlc3RUeXBlID0gMHhjMSwKIAkuYlJlcXVl
-c3QgPSA3MywKQEAgLTEzOSw3ICsxMzksNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHVzYl9jdHJs
-cmVxdWVzdCBjaGFuZ2VfcmVxdWVzdCA9IHsKIAkud0xlbmd0aCA9IDAKIH07CiAKLS8qKgorLyoK
-ICAqIE9uIHNvbWUgc2V0dXBzIGluaXRpYWxpemluZyB0aGUgVDMwMFJTIGNyYXNoZXMgdGhlIGtl
-cm5lbCwKICAqIHRoZXNlIGludGVycnVwdHMgZml4IHRoYXQgcGFydGljdWxhciBpc3N1ZS4gU28g
-ZmFyIHRoZXkgaGF2ZW4ndCBjYXVzZWQgYW55CiAgKiBhZHZlcnNlIGVmZmVjdHMgaW4gb3RoZXIg
-d2hlZWxzLgpAQCAtMTkxLDcgKzE5MSw3IEBAIHN0YXRpYyB2b2lkIHRocnVzdG1hc3Rlcl9jaGFu
-Z2VfaGFuZGxlcihzdHJ1Y3QgdXJiICp1cmIpCiAJCWhpZF93YXJuKGhkZXYsICJVUkIgdG8gY2hh
-bmdlIHdoZWVsIG1vZGUgc2VlbXMgdG8gaGF2ZSBmYWlsZWQgd2l0aCBlcnJvciAlZFxuIiwgdXJi
-LT5zdGF0dXMpOwogfQogCi0vKioKKy8qCiAgKiBDYWxsZWQgYnkgdGhlIFVTQiBzdWJzeXN0ZW0g
-d2hlbiB0aGUgd2hlZWwgcmVzcG9uc2VzIHRvIG91ciByZXF1ZXN0CiAgKiB0byBnZXQgW3doYXQg
-aXQgc2VlbXMgdG8gYmVdIHRoZSB3aGVlbCdzIG1vZGVsLgogICoKQEAgLTI2MSw3ICsyNjEsNyBA
-QCBzdGF0aWMgdm9pZCB0aHJ1c3RtYXN0ZXJfcmVtb3ZlKHN0cnVjdCBoaWRfZGV2aWNlICpoZGV2
-KQogCWhpZF9od19zdG9wKGhkZXYpOwogfQogCi0vKioKKy8qCiAgKiBGdW5jdGlvbiBjYWxsZWQg
-YnkgSElEIHdoZW4gYSBoaWQgVGhydXN0bWFzdGVyIEZGQiB3aGVlbCBpcyBjb25uZWN0ZWQgdG8g
-dGhlIGhvc3QuCiAgKiBUaGlzIGZ1bmN0aW9uIHN0YXJ0cyB0aGUgaGlkIGRldiwgdHJpZXMgdG8g
-YWxsb2NhdGUgdGhlIHRtX3doZWVsIGRhdGEgc3RydWN0dXJlIGFuZAogICogZmluYWxseSBzZW5k
-IGFuIFVTQiBDT05UUk9MIFJFUVVFU1QgdG8gdGhlIHdoZWVsIHRvIGdldCBbd2hhdCBpdCBzZWVt
-cyB0byBiZV0gaXRzCi0tIAoyLjI3LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Fri, 26 Mar 2021 19:15:02 +0800, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
+> 
+> To use additional properties 'bluetooth' on serial, need replace false with
+> 'type: object' for 'additionalProperties' to make it as a node, else will
+> run into dtbs_check warnings.
+> 
+> 'arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: serial@40004800:
+> 'bluetooth' does not match any of the regexes: 'pinctrl-[0-9]+'
+> 
+> Fixes: af1c2d81695b ("dt-bindings: serial: Convert STM32 UART to json-schema")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Tested-by: Valentin Caron <valentin.caron@foss.st.com>
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> ---
+> 
+> v6: no changes
+> 
+>  Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+
+Reviewed-by: Rob Herring <robh@kernel.org>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
