@@ -2,50 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160F034B25A
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Mar 2021 00:00:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AC8334BD01
+	for <lists+linux-stm32@lfdr.de>; Sun, 28 Mar 2021 17:45:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C15CCC5718D;
-	Fri, 26 Mar 2021 23:00:15 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EC47C5719D;
+	Sun, 28 Mar 2021 15:45:52 +0000 (UTC)
+Received: from smtp.wifcom.cz (smtp.wifcom.cz [85.207.3.150])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E365C56631
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06C25C5718B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Mar 2021 23:00:14 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id BED2D61A48;
- Fri, 26 Mar 2021 23:00:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1616799612;
- bh=ot+7owfL+GI3GOc/wfSCv75+AhS2i6dAC6xmX2c3JAQ=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=BCJNlmnHUkQp1ORnCWFGVSkIetH3kibCJHaIEeuXNqD6X/wuZuLeyJSNg/F3FtiF+
- oPU59hVsjCACVEEqKgRjFoBCL2LARfxHFy3cT6dkVJdpzvnL2v4ekeRtzZhhHctrFJ
- BFH85oXG6OF48zk6I/OOjtv22qcghVyr7kpZpxaAG7x2tBmVvpLYwgEnBwtX2tOJgh
- PLbefh8B6Z5uCG2nrQO/sWLPIX+dcVEYEopv7Gt5B8Fm/F3OwxLsoM0QI+6GrI1Xvv
- AMCjoCSS+/x6qlG22QLWtIJgUAXizJpBPKkVzfJqvNUk6LjesRnOemMVzcOjauDHqJ
- C5+5uZ2PumlwA==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id A5D066096E;
- Fri, 26 Mar 2021 23:00:12 +0000 (UTC)
-MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161679961267.14639.4413249532749146951.git-patchwork-notify@kernel.org>
-Date: Fri, 26 Mar 2021 23:00:12 +0000
-References: <20210326091046.26391-1-mohammad.athari.ismail@intel.com>
-In-Reply-To: <20210326091046.26391-1-mohammad.athari.ismail@intel.com>
-To: Ismail@ci.codeaurora.org,
- Mohammad Athari <mohammad.athari.ismail@intel.com>
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@st.com,
- weifeng.voon@intel.com, vee.khee.wong@intel.com, netdev@vger.kernel.org,
- tee.min.tan@intel.com, linux@armlinux.org.uk,
- linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, boon.leong.ong@intel.com,
- peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, m.szyprowski@samsung.com
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: Fix kernel panic
- due to NULL pointer dereference of fpe_cfg
+ Sun, 28 Mar 2021 15:45:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=eaxlabs.cz;
+ s=mail; 
+ h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+ bh=vpikJD29gomwC8ZCLMcKJZFaNKhjOnwb++xunGrRQQY=; 
+ b=FjRxjHgQ/JU0splXWne3o9kBFZy2G/z0jd6nmLeR6XSOjhL04ELAZ2IuF++sSM8g8+6wdfvhIg0D5Ob0hV4qL9oLgvrchpXVWi3dhQy1m3o+SUEM8pro7Pt+jHEgGkEumcvg47lccuzQzrr5dkkV/rQcpEOunnzQ8uzZJ+B4ibk=;
+From: Martin Devera <devik@eaxlabs.cz>
+To: linux-kernel@vger.kernel.org
+Date: Sun, 28 Mar 2021 17:43:05 +0200
+Message-Id: <20210328154306.22674-1-devik@eaxlabs.cz>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <YF3tKmzX1PtlX59x@kroah.com>
+References: <YF3tKmzX1PtlX59x@kroah.com>
+X-Antivirus-Scanner: Clean mail though you should still use an Antivirus
+X-Wif-ss: -1.1 (-)
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Martin Devera <devik@eaxlabs.cz>, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Le Ray <erwan.leray@st.com>
+Subject: [Linux-stm32] [PATCH v8 1/2] dt-bindings: serial: Add rx-tx-swap to
+	stm32-usart
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,35 +47,96 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Add new rx-tx-swap property to allow for RX & TX pin swapping.
 
-This patch was applied to netdev/net-next.git (refs/heads/master):
+Signed-off-by: Martin Devera <devik@eaxlabs.cz>
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+---
+v8:
+  - rebase to the latest tty-next
+v7:
+  - fix yaml linter warning
+v6:
+  - add version changelog
+v5:
+  - yaml fixes based on Rob Herring comments
+    - add serial.yaml reference
+    - move compatible from 'then' to 'if'
+v3:
+  - don't allow rx-tx-swap for st,stm32-uart (suggested
+    by Fabrice Gasnier)
+v2:
+  - change st,swap to rx-tx-swap (suggested by Rob Herring)
+---
+ .../devicetree/bindings/serial/st,stm32-uart.yaml  | 29 ++++++++++++++--------
+ 1 file changed, 19 insertions(+), 10 deletions(-)
+---
+ .../devicetree/bindings/serial/st,stm32-uart.yaml  | 29 ++++++++++++++--------
+ 1 file changed, 19 insertions(+), 10 deletions(-)
 
-On Fri, 26 Mar 2021 17:10:46 +0800 you wrote:
-> From: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
-> 
-> In this patch, "net: stmmac: support FPE link partner hand-shaking
-> procedure", priv->plat->fpe_cfg wouldn`t be "devm_kzalloc"ed if
-> dma_cap->frpsel is 0 (Flexible Rx Parser is not supported in SoC) in
-> tc_init(). So, fpe_cfg will be remain as NULL and accessing it will cause
-> kernel panic.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next] net: stmmac: Fix kernel panic due to NULL pointer dereference of fpe_cfg
-    https://git.kernel.org/netdev/net-next/c/63c173ff7aa3
-
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+index 8631678283f9..126e07566965 100644
+--- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+@@ -9,9 +9,6 @@ maintainers:
+ 
+ title: STMicroelectronics STM32 USART bindings
+ 
+-allOf:
+-  - $ref: rs485.yaml
+-
+ properties:
+   compatible:
+     enum:
+@@ -40,6 +37,8 @@ properties:
+ 
+   uart-has-rtscts: true
+ 
++  rx-tx-swap: true
++
+   dmas:
+     minItems: 1
+     maxItems: 2
+@@ -66,13 +65,23 @@ properties:
+   linux,rs485-enabled-at-boot-time: true
+   rs485-rx-during-tx: true
+ 
+-if:
+-  required:
+-    - st,hw-flow-ctrl
+-then:
+-  properties:
+-    cts-gpios: false
+-    rts-gpios: false
++allOf:
++  - $ref: rs485.yaml#
++  - $ref: serial.yaml#
++  - if:
++      required:
++        - st,hw-flow-ctrl
++    then:
++      properties:
++        cts-gpios: false
++        rts-gpios: false
++  - if:
++      properties:
++        compatible:
++          const: st,stm32-uart
++    then:
++      properties:
++        rx-tx-swap: false
+ 
+ required:
+   - compatible
+-- 
+2.11.0
 
 _______________________________________________
 Linux-stm32 mailing list
