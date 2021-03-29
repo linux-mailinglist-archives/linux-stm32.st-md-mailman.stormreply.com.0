@@ -2,54 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6476B34D13F
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Mar 2021 15:36:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82FA734D7FF
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Mar 2021 21:21:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28777C58D5D;
-	Mon, 29 Mar 2021 13:36:54 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AA2AC5719E;
+	Mon, 29 Mar 2021 19:21:11 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD1DBC58D5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC7C1C56631
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Mar 2021 13:36:51 +0000 (UTC)
-IronPort-SDR: 5QkrXmgyrZE5Jzu6e46+erSIx0dcICCZzuK+jkpi2Pmh2mo+N8G+Gp8haWUiZ6y87YWMUq3i+z
- Bc6byiScuS6w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9938"; a="178679009"
-X-IronPort-AV: E=Sophos;i="5.81,287,1610438400"; d="scan'208";a="178679009"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2021 06:36:51 -0700
-IronPort-SDR: UUoUqMYDBG9Q9REinDzFe3AkwJnqEogrxjyTZUqrW33w15qJq7LsGfuKabhTtAUIZyxYXJV3Di
- ICldNfIxmb7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,287,1610438400"; d="scan'208";a="411079495"
-Received: from glass.png.intel.com ([10.158.65.59])
- by fmsmga008.fm.intel.com with ESMTP; 29 Mar 2021 06:36:46 -0700
-From: Ong Boon Leong <boon.leong.ong@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>
-Date: Mon, 29 Mar 2021 21:40:13 +0800
-Message-Id: <20210329134013.9516-7-boon.leong.ong@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210329134013.9516-1-boon.leong.ong@intel.com>
-References: <20210329134013.9516-1-boon.leong.ong@intel.com>
+ Mon, 29 Mar 2021 19:21:09 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4F8Mr42SzMz1qtQM;
+ Mon, 29 Mar 2021 21:21:08 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4F8Mr41xNqz1r1MD;
+ Mon, 29 Mar 2021 21:21:08 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id rhG39pFR0OAt; Mon, 29 Mar 2021 21:21:06 +0200 (CEST)
+X-Auth-Info: LAOHh6inOgq12Pe90f5tShzHRAOTPzfO/SU75wpuMtI=
+Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Mon, 29 Mar 2021 21:21:06 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Mon, 29 Mar 2021 21:20:39 +0200
+Message-Id: <20210329192042.12438-1-marex@denx.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- KP Singh <kpsingh@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>, Yonghong Song <yhs@fb.com>,
- bpf@vger.kernel.org, Martin KaFai Lau <kafai@fb.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 6/6] net: stmmac: Add support for
-	XDP_REDIRECT action
+Cc: Marek Vasut <marex@denx.de>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Subject: [Linux-stm32] [PATCH V2 1/4] ARM: dts: stm32: Fill GPIO line names
+	on DHCOM SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,231 +58,99 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds the support of XDP_REDIRECT to another remote cpu for
-further action. It also implements ndo_xdp_xmit ops, enabling the driver
-to transmit packets forwarded to it by XDP program running on another
-interface.
+Fill in the custom GPIO line names used by DH on the DHCOM SoM.
+The GPIO line names are in accordance to DHCOM Design Guide R04
+available at [1], section 3.9 GPIO.
 
-This patch has been tested using "xdp_redirect_cpu" for XDP_REDIRECT
-+ drop testing. It also been tested with "xdp_redirect" sample app
-which can be used to exercise ndo_xdp_xmit ops. The burst traffics are
-generated using pktgen_sample03_burst_single_flow.sh in samples/pktgen
-directory.
+[1] https://wiki.dh-electronics.com/images/5/52/DOC_DHCOM-Design-Guide_R04_2018-06-28.pdf
 
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 96 +++++++++++++++++--
- 2 files changed, 87 insertions(+), 10 deletions(-)
+V2: New patch
+---
+ arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 61 +++++++++++++++++++-
+ 1 file changed, 60 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index a93e22a6be59..c49debb62b05 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -39,6 +39,7 @@ struct stmmac_resources {
- enum stmmac_txbuf_type {
- 	STMMAC_TXBUF_T_SKB,
- 	STMMAC_TXBUF_T_XDP_TX,
-+	STMMAC_TXBUF_T_XDP_NDO,
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+index 2617815e42a6..ca4fba4c5a6c 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+@@ -164,8 +164,67 @@ ksz8851: ks8851mll@1,0 {
+ 	};
  };
  
- struct stmmac_tx_info {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index b92355561609..3af783b7a0a9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -72,6 +72,7 @@ MODULE_PARM_DESC(phyaddr, "Physical device address");
- #define STMMAC_XDP_PASS		0
- #define STMMAC_XDP_CONSUMED	BIT(0)
- #define STMMAC_XDP_TX		BIT(1)
-+#define STMMAC_XDP_REDIRECT	BIT(2)
- 
- static int flow_ctrl = FLOW_AUTO;
- module_param(flow_ctrl, int, 0644);
-@@ -1458,7 +1459,8 @@ static void stmmac_free_tx_buffer(struct stmmac_priv *priv, u32 queue, int i)
- 	}
- 
- 	if (tx_q->xdpf[i] &&
--	    tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_TX) {
-+	    (tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_TX ||
-+	     tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_NDO)) {
- 		xdp_return_frame(tx_q->xdpf[i]);
- 		tx_q->xdpf[i] = NULL;
- 	}
-@@ -2220,7 +2222,8 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
- 		struct dma_desc *p;
- 		int status;
- 
--		if (tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_XDP_TX) {
-+		if (tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_XDP_TX ||
-+		    tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_XDP_NDO) {
- 			xdpf = tx_q->xdpf[entry];
- 			skb = NULL;
- 		} else if (tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_SKB) {
-@@ -2292,6 +2295,12 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
- 			tx_q->xdpf[entry] = NULL;
- 		}
- 
-+		if (xdpf &&
-+		    tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_XDP_NDO) {
-+			xdp_return_frame(xdpf);
-+			tx_q->xdpf[entry] = NULL;
-+		}
++&gpioa {
++	gpio-line-names = "", "", "", "",
++			  "", "", "DHCOM-K", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
 +
- 		if (tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_SKB) {
- 			if (likely(skb)) {
- 				pkts_compl++;
-@@ -4237,10 +4246,9 @@ static unsigned int stmmac_rx_buf2_len(struct stmmac_priv *priv,
- }
- 
- static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
--				struct xdp_frame *xdpf)
-+				struct xdp_frame *xdpf, bool dma_map)
- {
- 	struct stmmac_tx_queue *tx_q = &priv->tx_queue[queue];
--	struct page *page = virt_to_page(xdpf->data);
- 	unsigned int entry = tx_q->cur_tx;
- 	struct dma_desc *tx_desc;
- 	dma_addr_t dma_addr;
-@@ -4256,12 +4264,23 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
- 	else
- 		tx_desc = tx_q->dma_tx + entry;
- 
--	dma_addr = page_pool_get_dma_addr(page) + sizeof(*xdpf) +
--		   xdpf->headroom;
--	dma_sync_single_for_device(priv->device, dma_addr,
--				   xdpf->len, DMA_BIDIRECTIONAL);
-+	if (dma_map) {
-+		dma_addr = dma_map_single(priv->device, xdpf->data,
-+					  xdpf->len, DMA_TO_DEVICE);
-+		if (dma_mapping_error(priv->device, dma_addr))
-+			return STMMAC_XDP_CONSUMED;
++&gpiob {
++	gpio-line-names = "", "", "", "",
++			  "", "", "", "",
++			  "DHCOM-Q", "", "", "",
++			  "", "", "", "";
++};
 +
-+		tx_q->tx_skbuff_dma[entry].buf_type = STMMAC_TXBUF_T_XDP_NDO;
-+	} else {
-+		struct page *page = virt_to_page(xdpf->data);
- 
--	tx_q->tx_skbuff_dma[entry].buf_type = STMMAC_TXBUF_T_XDP_TX;
-+		dma_addr = page_pool_get_dma_addr(page) + sizeof(*xdpf) +
-+			   xdpf->headroom;
-+		dma_sync_single_for_device(priv->device, dma_addr,
-+					   xdpf->len, DMA_BIDIRECTIONAL);
+ &gpioc {
+-	status = "okay";
++	gpio-line-names = "", "", "", "",
++			  "", "", "DHCOM-E", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
 +
-+		tx_q->tx_skbuff_dma[entry].buf_type = STMMAC_TXBUF_T_XDP_TX;
-+	}
- 
- 	tx_q->tx_skbuff_dma[entry].buf = dma_addr;
- 	tx_q->tx_skbuff_dma[entry].map_as_page = false;
-@@ -4328,7 +4347,7 @@ static int stmmac_xdp_xmit_back(struct stmmac_priv *priv,
- 	nq = netdev_get_tx_queue(priv->dev, queue);
- 
- 	__netif_tx_lock(nq, cpu);
--	res = stmmac_xdp_xmit_xdpf(priv, queue, xdpf);
-+	res = stmmac_xdp_xmit_xdpf(priv, queue, xdpf, false);
- 	if (res == STMMAC_XDP_TX) {
- 		stmmac_flush_tx_descriptors(priv, queue);
- 		stmmac_tx_timer_arm(priv, queue);
-@@ -4361,6 +4380,12 @@ static struct sk_buff *stmmac_xdp_run_prog(struct stmmac_priv *priv,
- 	case XDP_TX:
- 		res = stmmac_xdp_xmit_back(priv, xdp);
- 		break;
-+	case XDP_REDIRECT:
-+		if (xdp_do_redirect(priv->dev, xdp, prog) < 0)
-+			res = STMMAC_XDP_CONSUMED;
-+		else
-+			res = STMMAC_XDP_REDIRECT;
-+		break;
- 	default:
- 		bpf_warn_invalid_xdp_action(act);
- 		fallthrough;
-@@ -4396,6 +4421,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 	unsigned int desc_size;
- 	struct sk_buff *skb = NULL;
- 	struct xdp_buff xdp;
-+	int xdp_status = 0;
- 	int buf_sz;
- 
- 	dma_dir = page_pool_get_dma_dir(rx_q->page_pool);
-@@ -4565,6 +4591,12 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 					skb = NULL;
- 					count++;
- 					continue;
-+				} else if (xdp_res & STMMAC_XDP_REDIRECT) {
-+					xdp_status |= xdp_res;
-+					buf->page = NULL;
-+					skb = NULL;
-+					count++;
-+					continue;
- 				}
- 			}
- 		}
-@@ -4645,6 +4677,9 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		rx_q->state.len = len;
- 	}
- 
-+	if (xdp_status & STMMAC_XDP_REDIRECT)
-+		xdp_do_flush();
++&gpiod {
++	gpio-line-names = "", "", "", "",
++			  "", "", "DHCOM-B", "",
++			  "", "", "", "DHCOM-F",
++			  "DHCOM-D", "", "", "";
++};
 +
- 	stmmac_rx_refill(priv, queue);
- 
- 	priv->xstats.rx_pkt_n += count;
-@@ -5571,6 +5606,46 @@ static int stmmac_bpf(struct net_device *dev, struct netdev_bpf *bpf)
- 	}
- }
- 
-+static int stmmac_xdp_xmit(struct net_device *dev, int num_frames,
-+			   struct xdp_frame **frames, u32 flags)
-+{
-+	struct stmmac_priv *priv = netdev_priv(dev);
-+	int cpu = smp_processor_id();
-+	struct netdev_queue *nq;
-+	int i, nxmit = 0;
-+	int queue;
++&gpioe {
++	gpio-line-names = "", "", "", "",
++			  "", "", "DHCOM-P", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
 +
-+	if (unlikely(test_bit(STMMAC_DOWN, &priv->state)))
-+		return -ENETDOWN;
++&gpiof {
++	gpio-line-names = "", "", "", "DHCOM-A",
++			  "", "", "", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
 +
-+	if (unlikely(flags & ~XDP_XMIT_FLAGS_MASK))
-+		return -EINVAL;
++&gpiog {
++	gpio-line-names = "DHCOM-C", "", "", "",
++			  "", "", "", "",
++			  "DHCOM-L", "", "", "",
++			  "", "", "", "";
++};
 +
-+	queue = stmmac_xdp_get_tx_queue(priv, cpu);
-+	nq = netdev_get_tx_queue(priv->dev, queue);
++&gpioh {
++	gpio-line-names = "", "", "", "",
++			  "", "", "", "DHCOM-N",
++			  "DHCOM-J", "DHCOM-W", "DHCOM-V", "DHCOM-U",
++			  "DHCOM-T", "", "DHCOM-S", "";
++};
 +
-+	__netif_tx_lock(nq, cpu);
-+
-+	for (i = 0; i < num_frames; i++) {
-+		int res;
-+
-+		res = stmmac_xdp_xmit_xdpf(priv, queue, frames[i], true);
-+		if (res == STMMAC_XDP_CONSUMED)
-+			break;
-+
-+		nxmit++;
-+	}
-+
-+	if (flags & XDP_XMIT_FLUSH) {
-+		stmmac_flush_tx_descriptors(priv, queue);
-+		stmmac_tx_timer_arm(priv, queue);
-+	}
-+
-+	__netif_tx_unlock(nq);
-+
-+	return nxmit;
-+}
-+
- static const struct net_device_ops stmmac_netdev_ops = {
- 	.ndo_open = stmmac_open,
- 	.ndo_start_xmit = stmmac_xmit,
-@@ -5590,6 +5665,7 @@ static const struct net_device_ops stmmac_netdev_ops = {
- 	.ndo_vlan_rx_add_vid = stmmac_vlan_rx_add_vid,
- 	.ndo_vlan_rx_kill_vid = stmmac_vlan_rx_kill_vid,
- 	.ndo_bpf = stmmac_bpf,
-+	.ndo_xdp_xmit = stmmac_xdp_xmit,
++&gpioi {
++	gpio-line-names = "DHCOM-G", "DHCOM-O", "DHCOM-H", "DHCOM-I",
++			  "DHCOM-R", "DHCOM-M", "", "",
++			  "", "", "", "",
++			  "", "", "", "";
  };
  
- static void stmmac_reset_subtask(struct stmmac_priv *priv)
+ &i2c4 {
 -- 
-2.25.1
+2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
