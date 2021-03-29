@@ -2,43 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E45F234D808
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Mar 2021 21:22:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD13134D858
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Mar 2021 21:36:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAF9AC58D5D;
-	Mon, 29 Mar 2021 19:22:47 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 766B4C5719E;
+	Mon, 29 Mar 2021 19:36:30 +0000 (UTC)
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EFD6C58D5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 465E9C5718B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Mar 2021 19:22:46 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1lQxTJ-0006lc-Od; Mon, 29 Mar 2021 21:22:45 +0200
-To: Marek Vasut <marex@denx.de>, linux-arm-kernel@lists.infradead.org
-References: <20210329192042.12438-1-marex@denx.de>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <76d9a4ef-ba61-d002-ff8b-eb1cda652d50@pengutronix.de>
-Date: Mon, 29 Mar 2021 21:22:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+ Mon, 29 Mar 2021 19:36:28 +0000 (UTC)
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 4F8N9m3PNPz1qtQV;
+ Mon, 29 Mar 2021 21:36:28 +0200 (CEST)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 4F8N9m2mJdz1r1MR;
+ Mon, 29 Mar 2021 21:36:28 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id ecjKJ8GtB29A; Mon, 29 Mar 2021 21:36:26 +0200 (CEST)
+X-Auth-Info: sJ4eEi5DGZleHCyIuWo5Gglp3evBtgbcVg9f/C2CuC8=
+Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Mon, 29 Mar 2021 21:36:26 +0200 (CEST)
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Mon, 29 Mar 2021 21:36:11 +0200
+Message-Id: <20210329193614.13374-1-marex@denx.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <20210329192042.12438-1-marex@denx.de>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>,
+Cc: Marek Vasut <marex@denx.de>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH V2 1/4] ARM: dts: stm32: Fill GPIO line
- names on DHCOM SoM
+Subject: [Linux-stm32] [PATCH V3 1/4] ARM: dts: stm32: Fill GPIO line names
+	on DHCOM SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,45 +58,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello,
+Fill in the custom GPIO line names used by DH on the DHCOM SoM.
+The GPIO line names are in accordance to DHCOM Design Guide R04
+available at [1], section 3.9 GPIO.
 
-On 29.03.21 21:20, Marek Vasut wrote:
-> Fill in the custom GPIO line names used by DH on the DHCOM SoM.
-> The GPIO line names are in accordance to DHCOM Design Guide R04
-> available at [1], section 3.9 GPIO.
-> 
-> [1] https://wiki.dh-electronics.com/images/5/52/DOC_DHCOM-Design-Guide_R04_2018-06-28.pdf
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
-> V2: New patch
-> ---
->  arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 61 +++++++++++++++++++-
->  1 file changed, 60 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-> index 2617815e42a6..ca4fba4c5a6c 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+[1] https://wiki.dh-electronics.com/images/5/52/DOC_DHCOM-Design-Guide_R04_2018-06-28.pdf
 
->  &gpioc {
-> -	status = "okay";
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+---
+V2: New patch
+V3: Restore the status = "okay";
+---
+ arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 60 ++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
-This line change seems unrelated.
-
-Cheers,
-Ahmad
-
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+index 2617815e42a6..d40c8db74c6f 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+@@ -164,10 +164,70 @@ ksz8851: ks8851mll@1,0 {
+ 	};
+ };
+ 
++&gpioa {
++	gpio-line-names = "", "", "", "",
++			  "", "", "DHCOM-K", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
++
++&gpiob {
++	gpio-line-names = "", "", "", "",
++			  "", "", "", "",
++			  "DHCOM-Q", "", "", "",
++			  "", "", "", "";
++};
++
+ &gpioc {
++	gpio-line-names = "", "", "", "",
++			  "", "", "DHCOM-E", "",
++			  "", "", "", "",
++			  "", "", "", "";
+ 	status = "okay";
+ };
+ 
++&gpiod {
++	gpio-line-names = "", "", "", "",
++			  "", "", "DHCOM-B", "",
++			  "", "", "", "DHCOM-F",
++			  "DHCOM-D", "", "", "";
++};
++
++&gpioe {
++	gpio-line-names = "", "", "", "",
++			  "", "", "DHCOM-P", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
++
++&gpiof {
++	gpio-line-names = "", "", "", "DHCOM-A",
++			  "", "", "", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
++
++&gpiog {
++	gpio-line-names = "DHCOM-C", "", "", "",
++			  "", "", "", "",
++			  "DHCOM-L", "", "", "",
++			  "", "", "", "";
++};
++
++&gpioh {
++	gpio-line-names = "", "", "", "",
++			  "", "", "", "DHCOM-N",
++			  "DHCOM-J", "DHCOM-W", "DHCOM-V", "DHCOM-U",
++			  "DHCOM-T", "", "DHCOM-S", "";
++};
++
++&gpioi {
++	gpio-line-names = "DHCOM-G", "DHCOM-O", "DHCOM-H", "DHCOM-I",
++			  "DHCOM-R", "DHCOM-M", "", "",
++			  "", "", "", "",
++			  "", "", "", "";
++};
++
+ &i2c4 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&i2c4_pins_a>;
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
