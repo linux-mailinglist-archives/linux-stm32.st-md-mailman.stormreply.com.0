@@ -2,74 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C15EE34CDC0
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Mar 2021 12:13:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EF7034D136
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Mar 2021 15:36:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C4E9C5719C;
-	Mon, 29 Mar 2021 10:13:37 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B89A9C5719E;
+	Mon, 29 Mar 2021 13:36:27 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFD64C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBC64C5718B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Mar 2021 10:13:34 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12TA7tlR024122; Mon, 29 Mar 2021 12:13:19 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=5lhL+1yJCWVc0eL98c9m1itsZeuzV5uyY3nD88yw/xo=;
- b=NYwgPqidQtt/Ob4UBk9fTXGvYjH0uWvxGx+ScD87cnTztJDNJn2+6THwhsPYKSwWQkig
- BUFlnV1fZTI78YXLYbupwhFV/bLOjtnZZRyKnoKZfvrONUcLZxwkUxl6Nq12gwHTbzGL
- kPCbNpP87+Qf+Si6H58UZDk6HpTzoiMT0fXc7Y8M1+jEaK9FNiHv2+Wglp+ZeNaI8YZx
- byG0iE3+mCYFZflO4JThAdx9ADAfir6K6ufncosBVw8p1m5f/MNsmtIL8UBra+S/MkXs
- XEgB0q9QpDlweSdNP0ZsEvyHRQ7WWtD6Gkysi5391vVcyT5hl8bICEIoPgQLR5lu8hq/ RQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37jy133gwb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Mar 2021 12:13:19 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B87A5100034;
- Mon, 29 Mar 2021 12:13:18 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 763CA25D006;
- Mon, 29 Mar 2021 12:13:18 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 29 Mar
- 2021 12:13:17 +0200
-To: dillon min <dillon.minfei@gmail.com>
-References: <1615530274-31422-1-git-send-email-dillon.minfei@gmail.com>
- <1615530274-31422-9-git-send-email-dillon.minfei@gmail.com>
- <eb2437ef-ecd2-e258-b77b-2fe9f70205f2@foss.st.com>
- <CAL9mu0KrT4S=NHULcJdztXZ=RvGnVA9s95pDGmadRBH=vnpO6g@mail.gmail.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <e342f4e2-161c-e277-c88c-d51d49187b93@foss.st.com>
-Date: Mon, 29 Mar 2021 12:13:17 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <CAL9mu0KrT4S=NHULcJdztXZ=RvGnVA9s95pDGmadRBH=vnpO6g@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-29_05:2021-03-26,
- 2021-03-29 signatures=0
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE
- BINDINGS" <devicetree@vger.kernel.org>,
- Vladimir Murzin <vladimir.murzin@arm.com>,
+ Mon, 29 Mar 2021 13:36:24 +0000 (UTC)
+IronPort-SDR: OtHJGyeQlOxe/iXfdNrO7ZUrg1RtGNUYUmgG2Osu9QHhudA0BdeOm65NJhh/FyPGaW7fK/n5U+
+ xB9C6tEr02nw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9938"; a="211744357"
+X-IronPort-AV: E=Sophos;i="5.81,287,1610438400"; d="scan'208";a="211744357"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2021 06:36:22 -0700
+IronPort-SDR: cN5tioQONFrg55k3SNDRwqRRxSngeQ+QAZ1KTc6kchcFbWs7jTWrznMzuJFR1iAO55eHh2Lgz/
+ XuR/xoPpAUIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,287,1610438400"; d="scan'208";a="411079302"
+Received: from glass.png.intel.com ([10.158.65.59])
+ by fmsmga008.fm.intel.com with ESMTP; 29 Mar 2021 06:36:16 -0700
+From: Ong Boon Leong <boon.leong.ong@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux@armlinux.org.uk, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, afzal.mohd.ma@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2 8/8] pinctrl: stm32: Add STM32H750 MCU
-	pinctrl support
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>
+Date: Mon, 29 Mar 2021 21:40:07 +0800
+Message-Id: <20210329134013.9516-1-boon.leong.ong@intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ KP Singh <kpsingh@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>, Yonghong Song <yhs@fb.com>,
+ bpf@vger.kernel.org, Martin KaFai Lau <kafai@fb.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/6] stmmac: Add XDP support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,82 +58,209 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi,
 
+This is the patch series to adds XDP support to stmmac driver.
+Summary of the changes as follow:-
 
-On 3/29/21 10:07 AM, dillon min wrote:
-> On Mon, Mar 29, 2021 at 4:00 PM Alexandre TORGUE
-> <alexandre.torgue@foss.st.com> wrote:
->>
->> Hi Dillon
->>
->> On 3/12/21 7:24 AM, dillon.minfei@gmail.com wrote:
->>> From: dillon min <dillon.minfei@gmail.com>
->>>
->>> This patch adds STM32H750 pinctrl and GPIO support
->>> since stm32h750 has the same pin alternate functions
->>> with stm32h743, so just reuse the stm32h743's pinctrl
->>> driver
->>>
->>> Signed-off-by: dillon min <dillon.minfei@gmail.com>
->>> ---
->>> v2:
->>> - add compatible string st,stm32h750-pinctrl to pinctl-stm32h743.c as they
->>>     have same pin alternate functions
->>> - add STM32H750 to Kconfig description
->>>
->>>    drivers/pinctrl/stm32/Kconfig             | 2 +-
->>>    drivers/pinctrl/stm32/pinctrl-stm32h743.c | 3 +++
->>>    2 files changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/pinctrl/stm32/Kconfig b/drivers/pinctrl/stm32/Kconfig
->>> index f36f29113370..fb1ffc94c57f 100644
->>> --- a/drivers/pinctrl/stm32/Kconfig
->>> +++ b/drivers/pinctrl/stm32/Kconfig
->>> @@ -35,7 +35,7 @@ config PINCTRL_STM32F769
->>>        select PINCTRL_STM32
->>>
->>>    config PINCTRL_STM32H743
->>> -     bool "STMicroelectronics STM32H743 pin control" if COMPILE_TEST && !MACH_STM32H743
->>> +     bool "STMicroelectronics STM32H743/STM32H750 pin control" if COMPILE_TEST && !MACH_STM32H743
->>>        depends on OF && HAS_IOMEM
->>>        default MACH_STM32H743
->>>        select PINCTRL_STM32
->>> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32h743.c b/drivers/pinctrl/stm32/pinctrl-stm32h743.c
->>> index ffe7b5271506..700206c7bc11 100644
->>> --- a/drivers/pinctrl/stm32/pinctrl-stm32h743.c
->>> +++ b/drivers/pinctrl/stm32/pinctrl-stm32h743.c
->>> @@ -1966,6 +1966,9 @@ static const struct of_device_id stm32h743_pctrl_match[] = {
->>>                .compatible = "st,stm32h743-pinctrl",
->>>                .data = &stm32h743_match_data,
->>>        },
->>> +     {       .compatible = "st,stm32h750-pinctrl",
->>> +             .data = &stm32h743_match_data,
->>> +     },
->>
->> If you use exactly the same driver (i.e. same ball out and AF mux) then
->> you don't have to create a new compatible for that. Just use the same
->> than h743.(so you don't have to factorize DT files).
-> Okay, yes they are the total same ball out and AF mux. I will delete
-> it in the next submission.
->   Just a kindly reminder , the newest version of this patchset is [PATCH v6].
+1/6: Add IRQ affinity hint to make RXQ and TXQ to be by default serviced
+     by the same CPU. This is required for Intel mGbE controller which
+     has independent per DMA channel RX & and TX IRQ resources.
 
-Yes I'm late :)
+2/6: To add capability to enable/disable Split Header (SPH) dynamically.
+     Disable SPH for XDP and revert back to the SPH capability of the IP
+     when XDP exits.
 
-> 
-> Thanks.
->>
->> Regards
->> Alex
->>
->>>        { }
->>>    };
->>>
->>>
+3/6: To rearrange TX tail pointer update into common function for reuse
+     across driver.
+
+4/6: Add basic XDP framework into stmmac driver. This patch only support
+     XDP_DROP only.
+
+5/6: Add support for XDP_TX.
+
+6/6: Add support for XDP_REDIRECT and ndo_xdp_xmit() implementation.
+
+To send burst traffics to DUT, we use samples/pktgen script called
+pktgen_sample03_burst_single_flow.sh. Following shows the test steps
+and results that are obtained using Intel mGbE controller under
+preempt-rt environment. In such environment, I also have sent a patch
+that fixes an issue found in xdp_return_frame() earlier:
+
+  https://patchwork.kernel.org/project/netdevbpf/list/?series=457139
+
+ ########################################################################
+
+root@intel-corei7-64:~# ./xdp1 eth0
+libbpf: elf: skipping unrecognized data section(16) .eh_frame
+libbpf: elf: skipping relo section(17) .rel.eh_frame for section(16) .eh_frame
+proto 17:     421844 pkt/s
+proto 17:     684396 pkt/s
+proto 17:     684332 pkt/s
+proto 17:     684074 pkt/s
+proto 17:     683837 pkt/s
+proto 17:     684357 pkt/s
+proto 17:     684371 pkt/s
+proto 17:     684419 pkt/s
+proto 17:     683996 pkt/s
+
+root@intel-corei7-64:~# ./xdp1 -S eth0
+libbpf: elf: skipping unrecognized data section(16) .eh_frame
+libbpf: elf: skipping relo section(17) .rel.eh_frame for section(16) .eh_frame
+proto 0:          1 pkt/s
+proto 17:          1 pkt/s
+proto 17:          1 pkt/s
+proto 17:      65564 pkt/s
+proto 17:     117450 pkt/s
+proto 17:     117600 pkt/s
+proto 17:     118108 pkt/s
+proto 17:     118032 pkt/s
+proto 17:     118092 pkt/s
+
+root@intel-corei7-64:~# ./xdp2 eth0
+libbpf: elf: skipping unrecognized data section(16) .eh_frame
+libbpf: elf: skipping relo section(17) .rel.eh_frame for section(16) .eh_frame
+proto 17:          0 pkt/s
+proto 17:      49338 pkt/s
+proto 17:     714255 pkt/s
+proto 17:     714495 pkt/s
+proto 17:     710120 pkt/s
+proto 17:     712892 pkt/s
+proto 17:     712585 pkt/s
+proto 17:     713883 pkt/s
+
+root@intel-corei7-64:~# ./xdp2 -S eth0
+libbpf: elf: skipping unrecognized data section(16) .eh_frame
+libbpf: elf: skipping relo section(17) .rel.eh_frame for section(16) .eh_frame
+proto 0:          0 pkt/s
+proto 17:      89483 pkt/s
+proto 17:      89540 pkt/s
+proto 17:      89358 pkt/s
+proto 17:      89797 pkt/s
+proto 0:          1 pkt/s
+proto 17:      89672 pkt/s
+
+root@intel-corei7-64:~# ./xdp_redirect eth0 eth1
+input: 7 output: 8
+libbpf: elf: skipping unrecognized data section(20) .eh_frame
+libbpf: elf: skipping relo section(21) .rel.eh_frame for section(20) .eh_frame
+ifindex 8:     143805 pkt/s
+ifindex 8:     676900 pkt/s
+ifindex 8:     676801 pkt/s
+ifindex 8:     677657 pkt/s
+ifindex 8:     677916 pkt/s
+
+root@intel-corei7-64:~# ./xdp_redirect -S eth0 eth1
+input: 7 output: 8
+libbpf: elf: skipping unrecognized data section(20) .eh_frame
+libbpf: elf: skipping relo section(21) .rel.eh_frame for section(20) .eh_frame
+ifindex 8:          2 pkt/s
+ifindex 8:          0 pkt/s
+ifindex 8:      33505 pkt/s
+ifindex 8:      73536 pkt/s
+ifindex 8:      52512 pkt/s
+ifindex 8:      97600 pkt/s
+ifindex 8:      96928 pkt/s
+ifindex 8:      96480 pkt/s
+ifindex 8:      96760 pkt/s
+ifindex 8:      96949 pkt/s
+ifindex 8:      96591 pkt/s
+
+root@intel-corei7-64:~# ./xdp_redirect_cpu --dev eth0 --cpu 0
+libbpf: elf: skipping unrecognized data section(39) .eh_frame
+libbpf: elf: skipping relo section(40) .rel.eh_frame for section(39) .eh_frame
+libbpf: elf: skipping unrecognized data section(20) .eh_frame
+libbpf: elf: skipping relo section(21) .rel.eh_frame for section(20) .eh_frame
+Add-new CPU:0 as idx:0 qsize:192 prog_fd: 33 (cpus_count:1)
+
+Running XDP/eBPF prog_name:xdp_cpu_map5_lb_hash_ip_pairs
+XDP-cpumap      CPU:to  pps            drop-pps    extra-info
+XDP-RX          0       667,952        0           0
+XDP-RX          total   667,952        0
+cpumap-enqueue    0:0   667,952        550,150     7.82       bulk-average
+cpumap-enqueue  sum:0   667,952        550,150     7.82       bulk-average
+cpumap_kthread  0       117,821        0           0
+cpumap_kthread  total   117,821        0           0
+redirect_err    total   0              0
+xdp_exception   total   0              0
+
+2nd remote XDP/eBPF prog_name: xdp_redirect_dummy
+XDP-cpumap      CPU:to  xdp-pass       xdp-drop    xdp-redir
+xdp-in-kthread  0       117,822        0           0
+xdp-in-kthread  total   117,822        0           0
+
+Running XDP/eBPF prog_name:xdp_cpu_map5_lb_hash_ip_pairs
+XDP-cpumap      CPU:to  pps            drop-pps    extra-info
+XDP-RX          0       667,871        0           0
+XDP-RX          total   667,871        0
+cpumap-enqueue    0:0   667,877        550,820     7.82       bulk-average
+cpumap-enqueue  sum:0   667,877        550,820     7.82       bulk-average
+cpumap_kthread  0       117,041        0           0
+cpumap_kthread  total   117,041        0           0
+redirect_err    total   0              0
+xdp_exception   total   0              0
+
+2nd remote XDP/eBPF prog_name: xdp_redirect_dummy
+XDP-cpumap      CPU:to  xdp-pass       xdp-drop    xdp-redir
+xdp-in-kthread  0       117,041        0           0
+xdp-in-kthread  total   117,041        0           0
+
+Running XDP/eBPF prog_name:xdp_cpu_map5_lb_hash_ip_pairs
+XDP-cpumap      CPU:to  pps            drop-pps    extra-info
+XDP-RX          0       667,856        0           0
+XDP-RX          total   667,856        0
+cpumap-enqueue    0:0   667,849        549,672     7.82       bulk-average
+cpumap-enqueue  sum:0   667,849        549,672     7.82       bulk-average
+cpumap_kthread  0       118,177        0           0
+cpumap_kthread  total   118,177        0           0
+redirect_err    total   0              0
+xdp_exception   total   0              0
+
+2nd remote XDP/eBPF prog_name: xdp_redirect_dummy
+XDP-cpumap      CPU:to  xdp-pass       xdp-drop    xdp-redir
+xdp-in-kthread  0       118,177        0           0
+xdp-in-kthread  total   118,177        0           0
+
+ ########################################################################
+
+As stmmac driver is using page_pool mechanism, I waited > 1min after
+each of above apps is terminated to make sure there is no stalled
+pool warning prints on the terminal, and I found none which looks good
+on Intel mGbE platform.
+
+It will be great if community help tes out these patch series on your
+platform and provide me feedback.
+
+Thank you very much,
+Boon Leong
+
+Ong Boon Leong (6):
+  stmmac: intel: set IRQ affinity hint for multi MSI vectors
+  net: stmmac: make SPH enable/disable to be configurable
+  net: stmmac: arrange Tx tail pointer update to
+    stmmac_flush_tx_descriptors
+  net: stmmac: Add initial XDP support
+  net: stmmac: Add support for XDP_TX action
+  net: stmmac: Add support for XDP_REDIRECT action
+
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |   7 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  35 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 502 +++++++++++++++---
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.c  |  40 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.h  |  12 +
+ 6 files changed, 523 insertions(+), 74 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
