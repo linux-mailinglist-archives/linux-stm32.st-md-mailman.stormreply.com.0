@@ -2,63 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED10F34C38C
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Mar 2021 08:10:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3C2A34C575
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Mar 2021 10:00:58 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD7BBC5719D;
-	Mon, 29 Mar 2021 06:10:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F543C5719D;
+	Mon, 29 Mar 2021 08:00:58 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D4F4C5719E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FB56C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Mar 2021 06:09:59 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Mon, 29 Mar 2021 08:00:56 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12T5phSa015177; Mon, 29 Mar 2021 08:09:10 +0200
+ 12T7w1iT002406; Mon, 29 Mar 2021 10:00:15 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=cPJXGlx5Hs3xNFzQhMYTUi/aRSASy6bQtvoOjjtlKUA=;
- b=rgObmZhb3gvu/bFAx4ibpsD6QCTu2hUxt1Ds0TbQajSFwKKcGUYAON5zRGCtyDaoRnWa
- YRBmeY+yIFfCQAs3WDELX4o4VXQzijVEbB4UYXzw8R7t9Qog1AwXPur8sEJ5n87DNfae
- iGdYcH1ukuEk/lFLkR5KVikCURlnldukkQ76tw6NeSzJsqVIEq36rFSrKgUc4leKGWCj
- x5/khgD6jneZuWpoCNqVIJTJm5lS0G2en1tEQsz7q/fHIHcxjsdHWtePhcCPAnfejZE/
- Y5vy2r6HHHKPoTCUQEcGzBmQ7u5X7RmE5Okvo0uWcLt37kRKLdxePAeA8/Kl++TKpSes JQ== 
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=YARP2pjSPKUGCU0uuAV6W5anS3B8C1Bjy68KpzSsA10=;
+ b=476iQQ/ln+z8k2S6OM44WSlaUduFXgR3sPWrk7EGcvnGpTSfV4PsJ3whyb6fFFUAAijL
+ kphHP5Upu8cPLnbEZ1ohP+9bvlV+bV4uieGCHOdpDKlL7gRAT2VeXgYoPXXQT3uSrAvs
+ MuYk0TJvuqeuAYBl8fHi7qZUa35Lf2ZM6f+aFtrQoc51IVLgQFWkQE5BAGbKQwYrRjzU
+ dycYNFrHmS/RNulAPdCDLucbv0eREmRBbGIXQm3cDX3gbFYubWTMYBiA9WJbMe1vtG8O
+ HcbHTjLkSFcSSDOCr/aLbdXyv3A4KF6DjUTRaTg6KB/TptjMFjvUjG+hNt6fJaVuWhPi ZA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37k04nhy7c-1
+ by mx07-00178001.pphosted.com with ESMTP id 37jy132qvq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Mar 2021 08:09:10 +0200
+ Mon, 29 Mar 2021 10:00:15 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9C41F10003D;
- Mon, 29 Mar 2021 08:09:09 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 79E6110002A;
+ Mon, 29 Mar 2021 10:00:13 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 841A3221775;
- Mon, 29 Mar 2021 08:09:09 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 29 Mar 2021 08:09:09
- +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <wsa@kernel.org>, <robh+dt@kernel.org>
-Date: Mon, 29 Mar 2021 08:09:05 +0200
-Message-ID: <1616998145-28278-3-git-send-email-alain.volmat@foss.st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1616998145-28278-1-git-send-email-alain.volmat@foss.st.com>
-References: <1616998145-28278-1-git-send-email-alain.volmat@foss.st.com>
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 58DB92397B8;
+ Mon, 29 Mar 2021 10:00:13 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 29 Mar
+ 2021 10:00:12 +0200
+To: <dillon.minfei@gmail.com>, <robh+dt@kernel.org>, <a.fatoum@pengutronix.de>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>,
+ <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux@armlinux.org.uk>, <vladimir.murzin@arm.com>,
+ <afzal.mohd.ma@gmail.com>
+References: <1615530274-31422-1-git-send-email-dillon.minfei@gmail.com>
+ <1615530274-31422-9-git-send-email-dillon.minfei@gmail.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <eb2437ef-ecd2-e258-b77b-2fe9f70205f2@foss.st.com>
+Date: Mon, 29 Mar 2021 10:00:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG2NODE3.st.com
+In-Reply-To: <1615530274-31422-9-git-send-email-dillon.minfei@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-29_02:2021-03-26,
+ definitions=2021-03-29_04:2021-03-26,
  2021-03-29 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 2/2] i2c: stm32f7: add SMBus-Alert support
+Subject: Re: [Linux-stm32] [PATCH v2 8/8] pinctrl: stm32: Add STM32H750 MCU
+	pinctrl support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,183 +75,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for the SMBus-Alert protocol to the STM32F7 that has
-dedicated control and status logic.
+Hi Dillon
 
-If SMBus-Alert is used, the SMBALERT# pin must be configured as alternate
-function for I2C Alert.
+On 3/12/21 7:24 AM, dillon.minfei@gmail.com wrote:
+> From: dillon min <dillon.minfei@gmail.com>
+> 
+> This patch adds STM32H750 pinctrl and GPIO support
+> since stm32h750 has the same pin alternate functions
+> with stm32h743, so just reuse the stm32h743's pinctrl
+> driver
+> 
+> Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> ---
+> v2:
+> - add compatible string st,stm32h750-pinctrl to pinctl-stm32h743.c as they
+>    have same pin alternate functions
+> - add STM32H750 to Kconfig description
+> 
+>   drivers/pinctrl/stm32/Kconfig             | 2 +-
+>   drivers/pinctrl/stm32/pinctrl-stm32h743.c | 3 +++
+>   2 files changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pinctrl/stm32/Kconfig b/drivers/pinctrl/stm32/Kconfig
+> index f36f29113370..fb1ffc94c57f 100644
+> --- a/drivers/pinctrl/stm32/Kconfig
+> +++ b/drivers/pinctrl/stm32/Kconfig
+> @@ -35,7 +35,7 @@ config PINCTRL_STM32F769
+>   	select PINCTRL_STM32
+>   
+>   config PINCTRL_STM32H743
+> -	bool "STMicroelectronics STM32H743 pin control" if COMPILE_TEST && !MACH_STM32H743
+> +	bool "STMicroelectronics STM32H743/STM32H750 pin control" if COMPILE_TEST && !MACH_STM32H743
+>   	depends on OF && HAS_IOMEM
+>   	default MACH_STM32H743
+>   	select PINCTRL_STM32
+> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32h743.c b/drivers/pinctrl/stm32/pinctrl-stm32h743.c
+> index ffe7b5271506..700206c7bc11 100644
+> --- a/drivers/pinctrl/stm32/pinctrl-stm32h743.c
+> +++ b/drivers/pinctrl/stm32/pinctrl-stm32h743.c
+> @@ -1966,6 +1966,9 @@ static const struct of_device_id stm32h743_pctrl_match[] = {
+>   		.compatible = "st,stm32h743-pinctrl",
+>   		.data = &stm32h743_match_data,
+>   	},
+> +	{	.compatible = "st,stm32h750-pinctrl",
+> +		.data = &stm32h743_match_data,
+> +	},
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>
+If you use exactly the same driver (i.e. same ball out and AF mux) then 
+you don't have to create a new compatible for that. Just use the same 
+than h743.(so you don't have to factorize DT files).
 
----
-v2: - rely on st,smbus-alert binding instead of smbus
----
- drivers/i2c/busses/i2c-stm32f7.c | 73 ++++++++++++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
+Regards
+Alex
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index c62c815b88eb..bd840cd2b9e4 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -51,6 +51,7 @@
- 
- /* STM32F7 I2C control 1 */
- #define STM32F7_I2C_CR1_PECEN			BIT(23)
-+#define STM32F7_I2C_CR1_ALERTEN			BIT(22)
- #define STM32F7_I2C_CR1_SMBHEN			BIT(20)
- #define STM32F7_I2C_CR1_WUPEN			BIT(18)
- #define STM32F7_I2C_CR1_SBC			BIT(16)
-@@ -125,6 +126,7 @@
- 				(((n) & STM32F7_I2C_ISR_ADDCODE_MASK) >> 17)
- #define STM32F7_I2C_ISR_DIR			BIT(16)
- #define STM32F7_I2C_ISR_BUSY			BIT(15)
-+#define STM32F7_I2C_ISR_ALERT			BIT(13)
- #define STM32F7_I2C_ISR_PECERR			BIT(11)
- #define STM32F7_I2C_ISR_ARLO			BIT(9)
- #define STM32F7_I2C_ISR_BERR			BIT(8)
-@@ -138,6 +140,7 @@
- #define STM32F7_I2C_ISR_TXE			BIT(0)
- 
- /* STM32F7 I2C Interrupt Clear */
-+#define STM32F7_I2C_ICR_ALERTCF			BIT(13)
- #define STM32F7_I2C_ICR_PECCF			BIT(11)
- #define STM32F7_I2C_ICR_ARLOCF			BIT(9)
- #define STM32F7_I2C_ICR_BERRCF			BIT(8)
-@@ -283,6 +286,17 @@ struct stm32f7_i2c_msg {
- 	u8 smbus_buf[I2C_SMBUS_BLOCK_MAX + 3] __aligned(4);
- };
- 
-+/**
-+ * struct stm32f7_i2c_alert - SMBus alert specific data
-+ * @setup: platform data for the smbus_alert i2c client
-+ * @ara: I2C slave device used to respond to the SMBus Alert with Alert
-+ * Response Address
-+ */
-+struct stm32f7_i2c_alert {
-+	struct i2c_smbus_alert_setup setup;
-+	struct i2c_client *ara;
-+};
-+
- /**
-  * struct stm32f7_i2c_dev - private data of the controller
-  * @adap: I2C adapter for this controller
-@@ -312,6 +326,7 @@ struct stm32f7_i2c_msg {
-  * @wakeup_src: boolean to know if the device is a wakeup source
-  * @smbus_mode: states that the controller is configured in SMBus mode
-  * @host_notify_client: SMBus host-notify client
-+ * @alert: SMBus alert specific data
-  */
- struct stm32f7_i2c_dev {
- 	struct i2c_adapter adap;
-@@ -340,6 +355,7 @@ struct stm32f7_i2c_dev {
- 	bool wakeup_src;
- 	bool smbus_mode;
- 	struct i2c_client *host_notify_client;
-+	struct stm32f7_i2c_alert *alert;
- };
- 
- /*
-@@ -1616,6 +1632,13 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
- 		f7_msg->result = -EINVAL;
- 	}
- 
-+	if (status & STM32F7_I2C_ISR_ALERT) {
-+		dev_dbg(dev, "<%s>: SMBus alert received\n", __func__);
-+		writel_relaxed(STM32F7_I2C_ICR_ALERTCF, base + STM32F7_I2C_ICR);
-+		i2c_handle_smbus_alert(i2c_dev->alert->ara);
-+		return IRQ_HANDLED;
-+	}
-+
- 	if (!i2c_dev->slave_running) {
- 		u32 mask;
- 		/* Disable interrupts */
-@@ -1982,6 +2005,42 @@ static void stm32f7_i2c_disable_smbus_host(struct stm32f7_i2c_dev *i2c_dev)
- 	}
- }
- 
-+static int stm32f7_i2c_enable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
-+{
-+	struct stm32f7_i2c_alert *alert;
-+	struct i2c_adapter *adap = &i2c_dev->adap;
-+	struct device *dev = i2c_dev->dev;
-+	void __iomem *base = i2c_dev->base;
-+
-+	alert = devm_kzalloc(dev, sizeof(*alert), GFP_KERNEL);
-+	if (!alert)
-+		return -ENOMEM;
-+
-+	alert->ara = i2c_new_smbus_alert_device(adap, &alert->setup);
-+	if (IS_ERR(alert->ara))
-+		return PTR_ERR(alert->ara);
-+
-+	i2c_dev->alert = alert;
-+
-+	/* Enable SMBus Alert */
-+	stm32f7_i2c_set_bits(base + STM32F7_I2C_CR1, STM32F7_I2C_CR1_ALERTEN);
-+
-+	return 0;
-+}
-+
-+static void stm32f7_i2c_disable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
-+{
-+	struct stm32f7_i2c_alert *alert = i2c_dev->alert;
-+	void __iomem *base = i2c_dev->base;
-+
-+	if (alert) {
-+		/* Disable SMBus Alert */
-+		stm32f7_i2c_clr_bits(base + STM32F7_I2C_CR1,
-+				     STM32F7_I2C_CR1_ALERTEN);
-+		i2c_unregister_device(alert->ara);
-+	}
-+}
-+
- static u32 stm32f7_i2c_func(struct i2c_adapter *adap)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(adap);
-@@ -2169,6 +2228,16 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 		}
- 	}
- 
-+	if (of_property_read_bool(pdev->dev.of_node, "st,smbus-alert")) {
-+		ret = stm32f7_i2c_enable_smbus_alert(i2c_dev);
-+		if (ret) {
-+			dev_err(i2c_dev->dev,
-+				"failed to enable SMBus alert protocol (%d)\n",
-+				ret);
-+			goto i2c_disable_smbus_host;
-+		}
-+	}
-+
- 	dev_info(i2c_dev->dev, "STM32F7 I2C-%d bus adapter\n", adap->nr);
- 
- 	pm_runtime_mark_last_busy(i2c_dev->dev);
-@@ -2176,6 +2245,9 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+i2c_disable_smbus_host:
-+	stm32f7_i2c_disable_smbus_host(i2c_dev);
-+
- i2c_adapter_remove:
- 	i2c_del_adapter(adap);
- 
-@@ -2210,6 +2282,7 @@ static int stm32f7_i2c_remove(struct platform_device *pdev)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = platform_get_drvdata(pdev);
- 
-+	stm32f7_i2c_disable_smbus_alert(i2c_dev);
- 	stm32f7_i2c_disable_smbus_host(i2c_dev);
- 
- 	i2c_del_adapter(&i2c_dev->adap);
--- 
-2.17.1
-
+>   	{ }
+>   };
+>   
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
