@@ -2,52 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80EA634DE62
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Mar 2021 04:29:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1520A34DE63
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Mar 2021 04:29:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B05CC5719E;
-	Tue, 30 Mar 2021 02:29:17 +0000 (UTC)
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3CB4C5719E;
+	Tue, 30 Mar 2021 02:29:23 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F15DC5719D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E26BAC5718B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Mar 2021 02:29:15 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- x21-20020a17090a5315b029012c4a622e4aso6143668pjh.2
+ Tue, 30 Mar 2021 02:29:19 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id l1so5362251plg.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Mar 2021 19:29:15 -0700 (PDT)
+ Mon, 29 Mar 2021 19:29:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=XKGtGSsjwoHtJFr3M0CNb0hFT3328bYsnKTNhdz1+J0=;
- b=KCUUKPoEkJSxEAY+pq0+lHepheu2iead7MOhXCLlUWFZATTIGIezl1oyYDl2XyzBW2
- nMWduP5Z+ElmbTF6ta4y9euJjqLAQKWX0ICYibeZoGbKiDvtKvfmLfw1yva9hmRw5wNc
- Cjgqz3fbddFbJ1U+bEAR3+64q72hrBkVb5MeUmMHR8BZ73ukt72e82Xup+D4vPCZPVkl
- uGGjYuSgJ1eOig08HKufxtz3PjDEg2BfBP6BMOmWRX0mwDiVbfrhOsbiyeZwcdBlSQSE
- 3hlkgoPojKk4+//cf/DWgULq4AY9L4Tls2DYj9CVPkeKZ5U28VRXeDSy6EkAdgLg0FT3
- wB/w==
+ bh=U/GwGWl6FDfc3XXyIumZ6HNyp1GIu19N0hwJ45+9g6k=;
+ b=haHIuRZ1qnxoR0JPkmhzn7CKCKP91J5cRK9SqtXflljyJAqLyD1RKvJhTX9Y/ueQkN
+ vs+lh+JsTF73x4Eup2PU6O4tSCMh8jev0YINi+pRdBMWkUc8hUBaP97Ihn7thm5LLkWH
+ p9PWKeADT3pS+c+CKCTaezNoHwGd/QciDvYKHZqW6qXNEGXLqz4IkFfyWRFojAmayGBe
+ UbOWbi3Gp5wecTD8R/6IMmTRCul+jO49HlhJRiKUxIxx9cpWlPMTPbFqznOy/PXyv/wM
+ 7gOufW+HQbJfUOQc1WCegKGyacZvQ9lerTyNj1UOpCUJ660XXFlezF0HvuZ8+jKjLYiw
+ YVqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=XKGtGSsjwoHtJFr3M0CNb0hFT3328bYsnKTNhdz1+J0=;
- b=iye6GkxiwNh4XYIamxUkQDKudTYtk0K9mhkKhutZRhyi6DRvkudR/vq3BNhDHSAN5c
- /GoZOyM/YnVp9A20FdcOqo/MrPz0blRyV26UhgwkCO2pZyK5WBCJ1GGzFNnc+eLBgrCb
- fuMPSfYI6TH5Fh9zIsLjrOraTxc+VIuazxVyJQEMqgTEiWx1IJ8T/0c6pICtV5BFJc8y
- pHha0/nWBjOzrSlCdrXdiPzxItW0MB+EJc1GyaQa95Q9YDxsilSkaZdkDtVmrTUFGTt5
- sGC/kUkVbWXlQoH9/G9h2lBS6XdrUIEA/NSYeNIczxkxPgbKdXFaAIeyIG3cPmgPJquy
- rx7Q==
-X-Gm-Message-State: AOAM531FJe+0IoJd2i5lOxSDADdw251OzGjp+vQ4XSOCXphDw5es7Y9/
- muB/Ae4mi2G5EDLMI+Elq5s=
-X-Google-Smtp-Source: ABdhPJzdSx7869JvXOsXcy/+RGdQeHVpD2NpRnN6n/+s3hjGKuhnPU67L9sUEA7gWa8XR26TzckNpw==
-X-Received: by 2002:a17:902:c40b:b029:e7:32fe:1ce with SMTP id
- k11-20020a170902c40bb02900e732fe01cemr18602326plk.44.1617071354019; 
- Mon, 29 Mar 2021 19:29:14 -0700 (PDT)
+ bh=U/GwGWl6FDfc3XXyIumZ6HNyp1GIu19N0hwJ45+9g6k=;
+ b=HFX9gWuSta1eFgMWtUbMzmj/myJIEMbHCJIofUSZUIECSxL/+/d8AbooDbKz5iFI8z
+ WoSwN8s8j4I35jLrYiCX94Koz5hff/6+A3CXsiXU5HLsMF+4mChiSGL5WoO1R+LQUY95
+ uhqjkEoooPgIH5c1TcL3/rh/ujABO8PF/qK9+TjqnFnBvegBeyv9YQb/P8xCZVzlUHet
+ gPJds1w698zC3ZImv5DgLG9tABC9Zmlt6G5S7uPvxkAWT5vME7F6m47PNMOJ2VbRQhr4
+ 2x88BQ7wiuoTs3vGQjdabPN/gAR3EYOI7F9EgX3bc1Z4d8Jj6sOf0sbqU7vAeM36F1P8
+ Jreg==
+X-Gm-Message-State: AOAM531X1X3KkmE/6IXP3tn0UNnHBfHQrOy8o+wLYL9y60sFBV+xAtCJ
+ 49ktbjtxRqp4T9a50bP5uAI=
+X-Google-Smtp-Source: ABdhPJwfbmOSZCijyKwWSRFzIwdzcV3w0V4aOvS3f6Px/6/7+FgdCe46GkIKbWBziDXNgiKnfOohAA==
+X-Received: by 2002:a17:90a:f010:: with SMTP id
+ bt16mr2063717pjb.116.1617071358420; 
+ Mon, 29 Mar 2021 19:29:18 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id i13sm17681385pgi.3.2021.03.29.19.29.09
+ by smtp.gmail.com with ESMTPSA id i13sm17681385pgi.3.2021.03.29.19.29.14
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 29 Mar 2021 19:29:13 -0700 (PDT)
+ Mon, 29 Mar 2021 19:29:18 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: robh@kernel.org, valentin.caron@foss.st.com, Alexandre.torgue@foss.st.com,
  rong.a.chen@intel.com, a.fatoum@pengutronix.de, mcoquelin.stm32@gmail.com,
@@ -56,14 +55,14 @@ To: robh@kernel.org, valentin.caron@foss.st.com, Alexandre.torgue@foss.st.com,
  linux@armlinux.org.uk, afzal.mohd.ma@gmail.com, gregkh@linuxfoundation.org,
  erwan.leray@foss.st.com, erwan.leray@st.com, linux-serial@vger.kernel.org,
  lkp@intel.com, patrice.chotard@foss.st.com
-Date: Tue, 30 Mar 2021 10:28:54 +0800
-Message-Id: <1617071338-9436-3-git-send-email-dillon.minfei@gmail.com>
+Date: Tue, 30 Mar 2021 10:28:55 +0800
+Message-Id: <1617071338-9436-4-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1617071338-9436-1-git-send-email-dillon.minfei@gmail.com>
 References: <1617071338-9436-1-git-send-email-dillon.minfei@gmail.com>
 Cc: dillon min <dillon.minfei@gmail.com>
-Subject: [Linux-stm32] [PATCH v7 2/6] dt-bindings: arm: stm32: Add
-	compatible strings for ART-PI board
+Subject: [Linux-stm32] [PATCH v7 3/6] ARM: dts: stm32: introduce
+	stm32h7-pinctrl.dtsi to support stm32h750
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,39 +82,691 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-Art-pi based on stm32h750xbh6, with following resources:
+This patch is intend to add support stm32h750 value line,
+just add stm32h7-pinctrl.dtsi for extending, with following changes:
 
--8MiB QSPI flash
--16MiB SPI flash
--32MiB SDRAM
--AP6212 wifi, bt, fm
-
-detail information can be found at:
-https://art-pi.gitee.io/website/
+- rename stm32h743-pinctrl.dtsi to stm32h7-pinctrl.dtsi
+- move compatible string "st,stm32h743-pinctrl" from stm32h7-pinctrl.dtsi
+  to stm32h743-pinctrl.dtsi
+- move 'pin-controller' from stm32h7-pinctrl.dtsi to stm32h743.dtsi, to
+  fix make dtbs_check warrnings
+  arch/arm/boot/dts/stm32h750i-art-pi.dt.yaml: soc: 'i2c@40005C00',
+  'i2c@58001C00' do not match any of the regexes:
+  '@(0|[1-9a-f][0-9a-f]*)$', '^[^@]+$', 'pinctrl-[0-9]+'
 
 Signed-off-by: dillon min <dillon.minfei@gmail.com>
-Acked-by: Rob Herring <robh@kernel.org>
 ---
 v7: no changes
 
- Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm/boot/dts/stm32h7-pinctrl.dtsi   | 341 +++++++++++++++++++++++++++++++
+ arch/arm/boot/dts/stm32h743-pinctrl.dtsi | 307 +---------------------------
+ 2 files changed, 347 insertions(+), 301 deletions(-)
+ create mode 100644 arch/arm/boot/dts/stm32h7-pinctrl.dtsi
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-index e7525a3395e5..306e7551ad39 100644
---- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -53,6 +53,10 @@ properties:
-           - const: st,stm32h743
-       - items:
-           - enum:
-+              - st,stm32h750i-art-pi
-+          - const: st,stm32h750
-+      - items:
-+          - enum:
-               - shiratech,stm32mp157a-iot-box # IoT Box
-               - shiratech,stm32mp157a-stinger96 # Stinger96
-               - st,stm32mp157c-ed1
+diff --git a/arch/arm/boot/dts/stm32h7-pinctrl.dtsi b/arch/arm/boot/dts/stm32h7-pinctrl.dtsi
+new file mode 100644
+index 000000000000..a5c295eca081
+--- /dev/null
++++ b/arch/arm/boot/dts/stm32h7-pinctrl.dtsi
+@@ -0,0 +1,341 @@
++/*
++ * Copyright 2017 - Alexandre Torgue <alexandre.torgue@st.com>
++ *
++ * This file is dual-licensed: you can use it either under the terms
++ * of the GPL or the X11 license, at your option. Note that this dual
++ * licensing only applies to this file, and not this project as a
++ * whole.
++ *
++ *  a) This file is free software; you can redistribute it and/or
++ *     modify it under the terms of the GNU General Public License as
++ *     published by the Free Software Foundation; either version 2 of the
++ *     License, or (at your option) any later version.
++ *
++ *     This file is distributed in the hope that it will be useful,
++ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *     GNU General Public License for more details.
++ *
++ * Or, alternatively,
++ *
++ *  b) Permission is hereby granted, free of charge, to any person
++ *     obtaining a copy of this software and associated documentation
++ *     files (the "Software"), to deal in the Software without
++ *     restriction, including without limitation the rights to use,
++ *     copy, modify, merge, publish, distribute, sublicense, and/or
++ *     sell copies of the Software, and to permit persons to whom the
++ *     Software is furnished to do so, subject to the following
++ *     conditions:
++ *
++ *     The above copyright notice and this permission notice shall be
++ *     included in all copies or substantial portions of the Software.
++ *
++ *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++ *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
++ *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++ *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
++ *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
++ *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++ *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ *     OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#include <dt-bindings/pinctrl/stm32-pinfunc.h>
++
++&pinctrl {
++
++	gpioa: gpio@58020000 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 0 16>;
++	};
++
++	gpiob: gpio@58020400 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 16 16>;
++	};
++
++	gpioc: gpio@58020800 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 32 16>;
++	};
++
++	gpiod: gpio@58020c00 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 48 16>;
++	};
++
++	gpioe: gpio@58021000 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 64 16>;
++	};
++
++	gpiof: gpio@58021400 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 80 16>;
++	};
++
++	gpiog: gpio@58021800 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 96 16>;
++	};
++
++	gpioh: gpio@58021c00 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 112 16>;
++	};
++
++	gpioi: gpio@58022000 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 128 16>;
++	};
++
++	gpioj: gpio@58022400 {
++		status = "okay";
++		ngpios = <16>;
++		gpio-ranges = <&pinctrl 0 144 16>;
++	};
++
++	gpiok: gpio@58022800 {
++		status = "okay";
++		ngpios = <8>;
++		gpio-ranges = <&pinctrl 0 160 8>;
++	};
++
++	i2c1_pins_a: i2c1-0 {
++		pins {
++			pinmux = <STM32_PINMUX('B', 6, AF4)>, /* I2C1_SCL */
++				 <STM32_PINMUX('B', 7, AF4)>; /* I2C1_SDA */
++			bias-disable;
++			drive-open-drain;
++			slew-rate = <0>;
++		};
++	};
++
++	ethernet_rmii: rmii-0 {
++		pins {
++			pinmux = <STM32_PINMUX('G', 11, AF11)>,
++				 <STM32_PINMUX('G', 13, AF11)>,
++				 <STM32_PINMUX('G', 12, AF11)>,
++				 <STM32_PINMUX('C', 4, AF11)>,
++				 <STM32_PINMUX('C', 5, AF11)>,
++				 <STM32_PINMUX('A', 7, AF11)>,
++				 <STM32_PINMUX('C', 1, AF11)>,
++				 <STM32_PINMUX('A', 2, AF11)>,
++				 <STM32_PINMUX('A', 1, AF11)>;
++			slew-rate = <2>;
++		};
++	};
++
++	sdmmc1_b4_pins_a: sdmmc1-b4-0 {
++		pins {
++			pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
++				 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
++				 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
++				 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1_D3 */
++				 <STM32_PINMUX('C', 12, AF12)>, /* SDMMC1_CK */
++				 <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
++			slew-rate = <3>;
++			drive-push-pull;
++			bias-disable;
++		};
++	};
++
++	sdmmc1_b4_od_pins_a: sdmmc1-b4-od-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
++				 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
++				 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
++				 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1_D3 */
++				 <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1_CK */
++			slew-rate = <3>;
++			drive-push-pull;
++			bias-disable;
++		};
++		pins2{
++			pinmux = <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
++			slew-rate = <3>;
++			drive-open-drain;
++			bias-disable;
++		};
++	};
++
++	sdmmc1_b4_sleep_pins_a: sdmmc1-b4-sleep-0 {
++		pins {
++			pinmux = <STM32_PINMUX('C', 8, ANALOG)>, /* SDMMC1_D0 */
++				 <STM32_PINMUX('C', 9, ANALOG)>, /* SDMMC1_D1 */
++				 <STM32_PINMUX('C', 10, ANALOG)>, /* SDMMC1_D2 */
++				 <STM32_PINMUX('C', 11, ANALOG)>, /* SDMMC1_D3 */
++				 <STM32_PINMUX('C', 12, ANALOG)>, /* SDMMC1_CK */
++				 <STM32_PINMUX('D', 2, ANALOG)>; /* SDMMC1_CMD */
++		};
++	};
++
++	sdmmc2_b4_pins_a: sdmmc2-b4-0 {
++		pins {
++			pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC1_D0 */
++				 <STM32_PINMUX('B', 15, AF9)>, /* SDMMC1_D1 */
++				 <STM32_PINMUX('B', 3, AF9)>, /* SDMMC1_D2 */
++				 <STM32_PINMUX('B', 4, AF9)>, /* SDMMC1_D3 */
++				 <STM32_PINMUX('D', 6, AF11)>, /* SDMMC1_CK */
++				 <STM32_PINMUX('D', 7, AF11)>; /* SDMMC1_CMD */
++			slew-rate = <3>;
++			drive-push-pull;
++			bias-disable;
++		};
++	};
++
++	sdmmc2_b4_od_pins_a: sdmmc2-b4-od-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
++				 <STM32_PINMUX('B', 15, AF9)>, /* SDMMC1_D1 */
++				 <STM32_PINMUX('B', 3, AF9)>, /* SDMMC1_D2 */
++				 <STM32_PINMUX('B', 4, AF9)>, /* SDMMC1_D3 */
++				 <STM32_PINMUX('D', 6, AF11)>; /* SDMMC1_CK */
++			slew-rate = <3>;
++			drive-push-pull;
++			bias-disable;
++		};
++		pins2{
++			pinmux = <STM32_PINMUX('D', 7, AF11)>; /* SDMMC1_CMD */
++			slew-rate = <3>;
++			drive-open-drain;
++			bias-disable;
++		};
++	};
++
++	sdmmc2_b4_sleep_pins_a: sdmmc2-b4-sleep-0 {
++		pins {
++			pinmux = <STM32_PINMUX('B', 14, ANALOG)>, /* SDMMC1_D0 */
++				 <STM32_PINMUX('B', 15, ANALOG)>, /* SDMMC1_D1 */
++				 <STM32_PINMUX('B', 3, ANALOG)>, /* SDMMC1_D2 */
++				 <STM32_PINMUX('B', 4, ANALOG)>, /* SDMMC1_D3 */
++				 <STM32_PINMUX('D', 6, ANALOG)>, /* SDMMC1_CK */
++				 <STM32_PINMUX('D', 7, ANALOG)>; /* SDMMC1_CMD */
++		};
++	};
++
++	sdmmc1_dir_pins_a: sdmmc1-dir-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('C', 6, AF8)>, /* SDMMC1_D0DIR */
++				 <STM32_PINMUX('C', 7, AF8)>, /* SDMMC1_D123DIR */
++				 <STM32_PINMUX('B', 9, AF7)>; /* SDMMC1_CDIR */
++			slew-rate = <3>;
++			drive-push-pull;
++			bias-pull-up;
++		};
++		pins2{
++			pinmux = <STM32_PINMUX('B', 8, AF7)>; /* SDMMC1_CKIN */
++			bias-pull-up;
++		};
++	};
++
++	sdmmc1_dir_sleep_pins_a: sdmmc1-dir-sleep-0 {
++		pins {
++			pinmux = <STM32_PINMUX('C', 6, ANALOG)>, /* SDMMC1_D0DIR */
++				 <STM32_PINMUX('C', 7, ANALOG)>, /* SDMMC1_D123DIR */
++				 <STM32_PINMUX('B', 9, ANALOG)>, /* SDMMC1_CDIR */
++				 <STM32_PINMUX('B', 8, ANALOG)>; /* SDMMC1_CKIN */
++		};
++	};
++
++	usart1_pins: usart1-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('B', 14, AF4)>; /* USART1_TX */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('B', 15, AF4)>; /* USART1_RX */
++			bias-disable;
++		};
++	};
++
++	usart2_pins: usart2-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('D', 5, AF7)>; /* USART2_TX */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('D', 6, AF7)>; /* USART2_RX */
++			bias-disable;
++		};
++	};
++
++	usart3_pins: usart3-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('B', 10, AF7)>, /* USART3_TX */
++				 <STM32_PINMUX('D', 12, AF7)>; /* USART3_RTS_DE */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('B', 11, AF7)>, /* USART3_RX */
++				 <STM32_PINMUX('D', 11, AF7)>; /* USART3_CTS_NSS */
++			bias-disable;
++		};
++	};
++
++	uart4_pins: uart4-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('A', 0, AF8)>; /* UART4_TX */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <0>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('I', 9, AF8)>; /* UART4_RX */
++			bias-disable;
++		};
++	};
++
++	usbotg_hs_pins_a: usbotg-hs-0 {
++		pins {
++			pinmux = <STM32_PINMUX('H', 4, AF10)>,	/* ULPI_NXT */
++					 <STM32_PINMUX('I', 11, AF10)>, /* ULPI_DIR> */
++					 <STM32_PINMUX('C', 0, AF10)>,	/* ULPI_STP> */
++					 <STM32_PINMUX('A', 5, AF10)>,	/* ULPI_CK> */
++					 <STM32_PINMUX('A', 3, AF10)>,	/* ULPI_D0> */
++					 <STM32_PINMUX('B', 0, AF10)>,	/* ULPI_D1> */
++					 <STM32_PINMUX('B', 1, AF10)>,	/* ULPI_D2> */
++					 <STM32_PINMUX('B', 10, AF10)>, /* ULPI_D3> */
++					 <STM32_PINMUX('B', 11, AF10)>, /* ULPI_D4> */
++					 <STM32_PINMUX('B', 12, AF10)>, /* ULPI_D5> */
++					 <STM32_PINMUX('B', 13, AF10)>, /* ULPI_D6> */
++					 <STM32_PINMUX('B', 5, AF10)>;	/* ULPI_D7> */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++	};
++
++	spi1_pins: spi1-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('A', 5, AF5)>,
++				/* SPI1_CLK */
++				 <STM32_PINMUX('B', 5, AF5)>;
++				/* SPI1_MOSI */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <2>;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('G', 9, AF5)>;
++				/* SPI1_MISO */
++			bias-disable;
++		};
++	};
++};
++
+diff --git a/arch/arm/boot/dts/stm32h743-pinctrl.dtsi b/arch/arm/boot/dts/stm32h743-pinctrl.dtsi
+index fa5dcb6a5fdd..6b1e115307b9 100644
+--- a/arch/arm/boot/dts/stm32h743-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32h743-pinctrl.dtsi
+@@ -1,306 +1,11 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+ /*
+- * Copyright 2017 - Alexandre Torgue <alexandre.torgue@st.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
++ * Copyright (C) STMicroelectronics 2017 - All Rights Reserved
++ * Author: Alexandre Torgue  <alexandre.torgue@st.com> for STMicroelectronics.
+  */
+ 
+-#include <dt-bindings/pinctrl/stm32-pinfunc.h>
++#include "stm32h7-pinctrl.dtsi"
+ 
+-/ {
+-	soc {
+-		pin-controller {
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			compatible = "st,stm32h743-pinctrl";
+-			ranges = <0 0x58020000 0x3000>;
+-			interrupt-parent = <&exti>;
+-			st,syscfg = <&syscfg 0x8>;
+-			pins-are-numbered;
+-
+-			gpioa: gpio@58020000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x0 0x400>;
+-				clocks = <&rcc GPIOA_CK>;
+-				st,bank-name = "GPIOA";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpiob: gpio@58020400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x400 0x400>;
+-				clocks = <&rcc GPIOB_CK>;
+-				st,bank-name = "GPIOB";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpioc: gpio@58020800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x800 0x400>;
+-				clocks = <&rcc GPIOC_CK>;
+-				st,bank-name = "GPIOC";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpiod: gpio@58020c00 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0xc00 0x400>;
+-				clocks = <&rcc GPIOD_CK>;
+-				st,bank-name = "GPIOD";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpioe: gpio@58021000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x1000 0x400>;
+-				clocks = <&rcc GPIOE_CK>;
+-				st,bank-name = "GPIOE";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpiof: gpio@58021400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x1400 0x400>;
+-				clocks = <&rcc GPIOF_CK>;
+-				st,bank-name = "GPIOF";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpiog: gpio@58021800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x1800 0x400>;
+-				clocks = <&rcc GPIOG_CK>;
+-				st,bank-name = "GPIOG";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpioh: gpio@58021c00 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x1c00 0x400>;
+-				clocks = <&rcc GPIOH_CK>;
+-				st,bank-name = "GPIOH";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpioi: gpio@58022000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x2000 0x400>;
+-				clocks = <&rcc GPIOI_CK>;
+-				st,bank-name = "GPIOI";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpioj: gpio@58022400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x2400 0x400>;
+-				clocks = <&rcc GPIOJ_CK>;
+-				st,bank-name = "GPIOJ";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			gpiok: gpio@58022800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x2800 0x400>;
+-				clocks = <&rcc GPIOK_CK>;
+-				st,bank-name = "GPIOK";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-			};
+-
+-			i2c1_pins_a: i2c1-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('B', 6, AF4)>, /* I2C1_SCL */
+-						 <STM32_PINMUX('B', 7, AF4)>; /* I2C1_SDA */
+-					bias-disable;
+-					drive-open-drain;
+-					slew-rate = <0>;
+-				};
+-			};
+-
+-			ethernet_rmii: rmii-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('G', 11, AF11)>,
+-						 <STM32_PINMUX('G', 13, AF11)>,
+-						 <STM32_PINMUX('G', 12, AF11)>,
+-						 <STM32_PINMUX('C', 4, AF11)>,
+-						 <STM32_PINMUX('C', 5, AF11)>,
+-						 <STM32_PINMUX('A', 7, AF11)>,
+-						 <STM32_PINMUX('C', 1, AF11)>,
+-						 <STM32_PINMUX('A', 2, AF11)>,
+-						 <STM32_PINMUX('A', 1, AF11)>;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			sdmmc1_b4_pins_a: sdmmc1-b4-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
+-						 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
+-						 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
+-						 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1_D3 */
+-						 <STM32_PINMUX('C', 12, AF12)>, /* SDMMC1_CK */
+-						 <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
+-					slew-rate = <3>;
+-					drive-push-pull;
+-					bias-disable;
+-				};
+-			};
+-
+-			sdmmc1_b4_od_pins_a: sdmmc1-b4-od-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
+-						 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
+-						 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
+-						 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1_D3 */
+-						 <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1_CK */
+-					slew-rate = <3>;
+-					drive-push-pull;
+-					bias-disable;
+-				};
+-				pins2{
+-					pinmux = <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
+-					slew-rate = <3>;
+-					drive-open-drain;
+-					bias-disable;
+-				};
+-			};
+-
+-			sdmmc1_b4_sleep_pins_a: sdmmc1-b4-sleep-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('C', 8, ANALOG)>, /* SDMMC1_D0 */
+-						 <STM32_PINMUX('C', 9, ANALOG)>, /* SDMMC1_D1 */
+-						 <STM32_PINMUX('C', 10, ANALOG)>, /* SDMMC1_D2 */
+-						 <STM32_PINMUX('C', 11, ANALOG)>, /* SDMMC1_D3 */
+-						 <STM32_PINMUX('C', 12, ANALOG)>, /* SDMMC1_CK */
+-						 <STM32_PINMUX('D', 2, ANALOG)>; /* SDMMC1_CMD */
+-				};
+-			};
+-
+-			sdmmc1_dir_pins_a: sdmmc1-dir-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('C', 6, AF8)>, /* SDMMC1_D0DIR */
+-						 <STM32_PINMUX('C', 7, AF8)>, /* SDMMC1_D123DIR */
+-						 <STM32_PINMUX('B', 9, AF7)>; /* SDMMC1_CDIR */
+-					slew-rate = <3>;
+-					drive-push-pull;
+-					bias-pull-up;
+-				};
+-				pins2{
+-					pinmux = <STM32_PINMUX('B', 8, AF7)>; /* SDMMC1_CKIN */
+-					bias-pull-up;
+-				};
+-			};
+-
+-			sdmmc1_dir_sleep_pins_a: sdmmc1-dir-sleep-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('C', 6, ANALOG)>, /* SDMMC1_D0DIR */
+-						 <STM32_PINMUX('C', 7, ANALOG)>, /* SDMMC1_D123DIR */
+-						 <STM32_PINMUX('B', 9, ANALOG)>, /* SDMMC1_CDIR */
+-						 <STM32_PINMUX('B', 8, ANALOG)>; /* SDMMC1_CKIN */
+-				};
+-			};
+-
+-			usart1_pins: usart1-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('B', 14, AF4)>; /* USART1_TX */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <0>;
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 15, AF4)>; /* USART1_RX */
+-					bias-disable;
+-				};
+-			};
+-
+-			usart2_pins: usart2-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('D', 5, AF7)>; /* USART2_TX */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <0>;
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('D', 6, AF7)>; /* USART2_RX */
+-					bias-disable;
+-				};
+-			};
+-
+-			usbotg_hs_pins_a: usbotg-hs-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('H', 4, AF10)>,	/* ULPI_NXT */
+-							 <STM32_PINMUX('I', 11, AF10)>, /* ULPI_DIR> */
+-							 <STM32_PINMUX('C', 0, AF10)>,	/* ULPI_STP> */
+-							 <STM32_PINMUX('A', 5, AF10)>,	/* ULPI_CK> */
+-							 <STM32_PINMUX('A', 3, AF10)>,	/* ULPI_D0> */
+-							 <STM32_PINMUX('B', 0, AF10)>,	/* ULPI_D1> */
+-							 <STM32_PINMUX('B', 1, AF10)>,	/* ULPI_D2> */
+-							 <STM32_PINMUX('B', 10, AF10)>, /* ULPI_D3> */
+-							 <STM32_PINMUX('B', 11, AF10)>, /* ULPI_D4> */
+-							 <STM32_PINMUX('B', 12, AF10)>, /* ULPI_D5> */
+-							 <STM32_PINMUX('B', 13, AF10)>, /* ULPI_D6> */
+-							 <STM32_PINMUX('B', 5, AF10)>;	/* ULPI_D7> */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-		};
+-	};
++&pinctrl{
++	compatible = "st,stm32h743-pinctrl";
+ };
 -- 
 2.7.4
 
