@@ -2,54 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E396134DE99
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Mar 2021 04:46:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9206B34E1ED
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Mar 2021 09:15:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7CF2C57B78;
-	Tue, 30 Mar 2021 02:46:21 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E347C5719E;
+	Tue, 30 Mar 2021 07:15:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46D22C57B54
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C0EBC56631
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Mar 2021 02:46:19 +0000 (UTC)
-IronPort-SDR: iUj+EIe+Eirs/9rXywMoAwCnYlC2ZC9wAoL1M5Vc5Vh9ANvLAQLe8JwjBMGb7YTt3O/XGNDu9h
- 7AVw3bL7xy7w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9938"; a="178805647"
-X-IronPort-AV: E=Sophos;i="5.81,289,1610438400"; d="scan'208";a="178805647"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2021 19:46:16 -0700
-IronPort-SDR: QVwJxx/fvXetRO6/jwY3PAjUNRh5u3OjJumuhgz4sCQDbJv4vvoEk0Ikfi0FSQrxVh+9Fb62ao
- 9zQzZaBtGHXA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,289,1610438400"; d="scan'208";a="606598553"
-Received: from glass.png.intel.com ([10.158.65.59])
- by fmsmga006.fm.intel.com with ESMTP; 29 Mar 2021 19:46:11 -0700
-From: Ong Boon Leong <boon.leong.ong@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>
-Date: Tue, 30 Mar 2021 10:49:49 +0800
-Message-Id: <20210330024949.14010-7-boon.leong.ong@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210330024949.14010-1-boon.leong.ong@intel.com>
-References: <20210330024949.14010-1-boon.leong.ong@intel.com>
+ Tue, 30 Mar 2021 07:14:59 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12U725Aq011137; Tue, 30 Mar 2021 09:14:55 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=28n/u8BRVi8Ip9vAnGkYD4wNv1dohMQPBqlvlty3efA=;
+ b=0zmtnFwA8vcOjEfXyR8xLHnCBtLDg8XkKMWcTxliAr5oeE+jaejKBPhgYHeFJflzfiPK
+ 9DqGNnI03JxTmb2sCNbkmpCTDFyI/ZwOMuam5x+ZRuwBUlnw1JkT5rMdOk5aexl+/49o
+ s7I73fdeNh1d8+wu0tWCYSd7G+ts7frOJrUr9xvVTl5Qo7FczW6U8P0Xcj91j+ZR6JIp
+ 7Fe+suIMJM84VEGwvVFprkjMcc6WmCQrHWZqZ6/yodrkSGdb+OlM23JXr1MAKNU1Nhpy
+ L/LwjH/8hdb7E8unN5Wwu5KT4f4VZJIKZYOjQ7TbdH7AfUgFxb5wvqHfnQW/eYG4TeAH Og== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37kuf298v0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Mar 2021 09:14:55 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1C56B100034;
+ Tue, 30 Mar 2021 09:14:54 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8016D225FC0;
+ Tue, 30 Mar 2021 09:14:54 +0200 (CEST)
+Received: from lmecxl0889.lme.st.com (10.75.127.50) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 30 Mar
+ 2021 09:14:53 +0200
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>
+References: <20210326094209.29750-1-arnaud.pouliquen@foss.st.com>
+ <20210326094209.29750-2-arnaud.pouliquen@foss.st.com>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <b6287e27-e3ea-c2a3-6583-d16f1047c197@foss.st.com>
+Date: Tue, 30 Mar 2021 09:14:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- KP Singh <kpsingh@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>, Yonghong Song <yhs@fb.com>,
- bpf@vger.kernel.org, Martin KaFai Lau <kafai@fb.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 6/6] net: stmmac: Add support for
-	XDP_REDIRECT action
+In-Reply-To: <20210326094209.29750-2-arnaud.pouliquen@foss.st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-30_02:2021-03-26,
+ 2021-03-30 signatures=0
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: remoteproc:
+ stm32-rproc: add new mailbox channel for detach
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,232 +80,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds the support of XDP_REDIRECT to another remote cpu for
-further action. It also implements ndo_xdp_xmit ops, enabling the driver
-to transmit packets forwarded to it by XDP program running on another
-interface.
+Hello Rob,
 
-This patch has been tested using "xdp_redirect_cpu" for XDP_REDIRECT
-+ drop testing. It also been tested with "xdp_redirect" sample app
-which can be used to exercise ndo_xdp_xmit ops. The burst traffics are
-generated using pktgen_sample03_burst_single_flow.sh in samples/pktgen
-directory.
+Seems I made a mistake in my mailing list, you are not in...
+Please could you review the bindings?
+if it is easier for you i can resend the series.
 
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 96 +++++++++++++++++--
- 2 files changed, 87 insertions(+), 10 deletions(-)
+Thanks,
+Arnaud
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index a93e22a6be59..c49debb62b05 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -39,6 +39,7 @@ struct stmmac_resources {
- enum stmmac_txbuf_type {
- 	STMMAC_TXBUF_T_SKB,
- 	STMMAC_TXBUF_T_XDP_TX,
-+	STMMAC_TXBUF_T_XDP_NDO,
- };
- 
- struct stmmac_tx_info {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 963b6aed354a..9be30c772d55 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -72,6 +72,7 @@ MODULE_PARM_DESC(phyaddr, "Physical device address");
- #define STMMAC_XDP_PASS		0
- #define STMMAC_XDP_CONSUMED	BIT(0)
- #define STMMAC_XDP_TX		BIT(1)
-+#define STMMAC_XDP_REDIRECT	BIT(2)
- 
- static int flow_ctrl = FLOW_AUTO;
- module_param(flow_ctrl, int, 0644);
-@@ -1458,7 +1459,8 @@ static void stmmac_free_tx_buffer(struct stmmac_priv *priv, u32 queue, int i)
- 	}
- 
- 	if (tx_q->xdpf[i] &&
--	    tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_TX) {
-+	    (tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_TX ||
-+	     tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_XDP_NDO)) {
- 		xdp_return_frame(tx_q->xdpf[i]);
- 		tx_q->xdpf[i] = NULL;
- 	}
-@@ -2220,7 +2222,8 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
- 		struct dma_desc *p;
- 		int status;
- 
--		if (tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_XDP_TX) {
-+		if (tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_XDP_TX ||
-+		    tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_XDP_NDO) {
- 			xdpf = tx_q->xdpf[entry];
- 			skb = NULL;
- 		} else if (tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_SKB) {
-@@ -2292,6 +2295,12 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
- 			tx_q->xdpf[entry] = NULL;
- 		}
- 
-+		if (xdpf &&
-+		    tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_XDP_NDO) {
-+			xdp_return_frame(xdpf);
-+			tx_q->xdpf[entry] = NULL;
-+		}
-+
- 		if (tx_q->tx_skbuff_dma[entry].buf_type == STMMAC_TXBUF_T_SKB) {
- 			if (likely(skb)) {
- 				pkts_compl++;
-@@ -4246,10 +4255,9 @@ static unsigned int stmmac_rx_buf2_len(struct stmmac_priv *priv,
- }
- 
- static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
--				struct xdp_frame *xdpf)
-+				struct xdp_frame *xdpf, bool dma_map)
- {
- 	struct stmmac_tx_queue *tx_q = &priv->tx_queue[queue];
--	struct page *page = virt_to_page(xdpf->data);
- 	unsigned int entry = tx_q->cur_tx;
- 	struct dma_desc *tx_desc;
- 	dma_addr_t dma_addr;
-@@ -4265,12 +4273,23 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
- 	else
- 		tx_desc = tx_q->dma_tx + entry;
- 
--	dma_addr = page_pool_get_dma_addr(page) + sizeof(*xdpf) +
--		   xdpf->headroom;
--	dma_sync_single_for_device(priv->device, dma_addr,
--				   xdpf->len, DMA_BIDIRECTIONAL);
-+	if (dma_map) {
-+		dma_addr = dma_map_single(priv->device, xdpf->data,
-+					  xdpf->len, DMA_TO_DEVICE);
-+		if (dma_mapping_error(priv->device, dma_addr))
-+			return STMMAC_XDP_CONSUMED;
-+
-+		tx_q->tx_skbuff_dma[entry].buf_type = STMMAC_TXBUF_T_XDP_NDO;
-+	} else {
-+		struct page *page = virt_to_page(xdpf->data);
- 
--	tx_q->tx_skbuff_dma[entry].buf_type = STMMAC_TXBUF_T_XDP_TX;
-+		dma_addr = page_pool_get_dma_addr(page) + sizeof(*xdpf) +
-+			   xdpf->headroom;
-+		dma_sync_single_for_device(priv->device, dma_addr,
-+					   xdpf->len, DMA_BIDIRECTIONAL);
-+
-+		tx_q->tx_skbuff_dma[entry].buf_type = STMMAC_TXBUF_T_XDP_TX;
-+	}
- 
- 	tx_q->tx_skbuff_dma[entry].buf = dma_addr;
- 	tx_q->tx_skbuff_dma[entry].map_as_page = false;
-@@ -4337,7 +4356,7 @@ static int stmmac_xdp_xmit_back(struct stmmac_priv *priv,
- 	nq = netdev_get_tx_queue(priv->dev, queue);
- 
- 	__netif_tx_lock(nq, cpu);
--	res = stmmac_xdp_xmit_xdpf(priv, queue, xdpf);
-+	res = stmmac_xdp_xmit_xdpf(priv, queue, xdpf, false);
- 	if (res == STMMAC_XDP_TX) {
- 		stmmac_flush_tx_descriptors(priv, queue);
- 		stmmac_tx_timer_arm(priv, queue);
-@@ -4370,6 +4389,12 @@ static struct sk_buff *stmmac_xdp_run_prog(struct stmmac_priv *priv,
- 	case XDP_TX:
- 		res = stmmac_xdp_xmit_back(priv, xdp);
- 		break;
-+	case XDP_REDIRECT:
-+		if (xdp_do_redirect(priv->dev, xdp, prog) < 0)
-+			res = STMMAC_XDP_CONSUMED;
-+		else
-+			res = STMMAC_XDP_REDIRECT;
-+		break;
- 	default:
- 		bpf_warn_invalid_xdp_action(act);
- 		fallthrough;
-@@ -4405,6 +4430,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 	unsigned int desc_size;
- 	struct sk_buff *skb = NULL;
- 	struct xdp_buff xdp;
-+	int xdp_status = 0;
- 	int buf_sz;
- 
- 	dma_dir = page_pool_get_dma_dir(rx_q->page_pool);
-@@ -4574,6 +4600,12 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 					skb = NULL;
- 					count++;
- 					continue;
-+				} else if (xdp_res & STMMAC_XDP_REDIRECT) {
-+					xdp_status |= xdp_res;
-+					buf->page = NULL;
-+					skb = NULL;
-+					count++;
-+					continue;
- 				}
- 			}
- 		}
-@@ -4654,6 +4686,9 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		rx_q->state.len = len;
- 	}
- 
-+	if (xdp_status & STMMAC_XDP_REDIRECT)
-+		xdp_do_flush();
-+
- 	stmmac_rx_refill(priv, queue);
- 
- 	priv->xstats.rx_pkt_n += count;
-@@ -5580,6 +5615,46 @@ static int stmmac_bpf(struct net_device *dev, struct netdev_bpf *bpf)
- 	}
- }
- 
-+static int stmmac_xdp_xmit(struct net_device *dev, int num_frames,
-+			   struct xdp_frame **frames, u32 flags)
-+{
-+	struct stmmac_priv *priv = netdev_priv(dev);
-+	int cpu = smp_processor_id();
-+	struct netdev_queue *nq;
-+	int i, nxmit = 0;
-+	int queue;
-+
-+	if (unlikely(test_bit(STMMAC_DOWN, &priv->state)))
-+		return -ENETDOWN;
-+
-+	if (unlikely(flags & ~XDP_XMIT_FLAGS_MASK))
-+		return -EINVAL;
-+
-+	queue = stmmac_xdp_get_tx_queue(priv, cpu);
-+	nq = netdev_get_tx_queue(priv->dev, queue);
-+
-+	__netif_tx_lock(nq, cpu);
-+
-+	for (i = 0; i < num_frames; i++) {
-+		int res;
-+
-+		res = stmmac_xdp_xmit_xdpf(priv, queue, frames[i], true);
-+		if (res == STMMAC_XDP_CONSUMED)
-+			break;
-+
-+		nxmit++;
-+	}
-+
-+	if (flags & XDP_XMIT_FLUSH) {
-+		stmmac_flush_tx_descriptors(priv, queue);
-+		stmmac_tx_timer_arm(priv, queue);
-+	}
-+
-+	__netif_tx_unlock(nq);
-+
-+	return nxmit;
-+}
-+
- static const struct net_device_ops stmmac_netdev_ops = {
- 	.ndo_open = stmmac_open,
- 	.ndo_start_xmit = stmmac_xmit,
-@@ -5599,6 +5674,7 @@ static const struct net_device_ops stmmac_netdev_ops = {
- 	.ndo_vlan_rx_add_vid = stmmac_vlan_rx_add_vid,
- 	.ndo_vlan_rx_kill_vid = stmmac_vlan_rx_kill_vid,
- 	.ndo_bpf = stmmac_bpf,
-+	.ndo_xdp_xmit = stmmac_xdp_xmit,
- };
- 
- static void stmmac_reset_subtask(struct stmmac_priv *priv)
--- 
-2.25.1
-
+On 3/26/21 10:42 AM, Arnaud Pouliquen wrote:
+> Add the "detach" mailbox item, that allows to define a mailbox to
+> send a IPCC signal to the remote processor on remoteproc detach action.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+> No Update from V2.
+> 
+> Update from V1:
+> Fix indentation error reported by 'make dt_binding_check'.
+> 
+> ---
+>  .../bindings/remoteproc/st,stm32-rproc.yaml           | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> index a1171dfba024..64afdcfb613d 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> @@ -65,16 +65,23 @@ properties:
+>            Unidirectional channel:
+>              - from local to remote, where ACK from the remote means that it is
+>                ready for shutdown
+> +      - description: |
+> +          A channel (d) used by the local proc to notify the remote proc that it
+> +          has to stop interprocessor communnication.
+> +          Unidirectional channel:
+> +            - from local to remote, where ACK from the remote means that communnication
+> +              as been stopped on the remote side.
+>      minItems: 1
+> -    maxItems: 3
+> +    maxItems: 4
+>  
+>    mbox-names:
+>      items:
+>        - const: vq0
+>        - const: vq1
+>        - const: shutdown
+> +      - const: detach
+>      minItems: 1
+> -    maxItems: 3
+> +    maxItems: 4
+>  
+>    memory-region:
+>      description:
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
