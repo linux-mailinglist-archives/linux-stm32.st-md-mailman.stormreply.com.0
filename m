@@ -2,51 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3FA434E3A6
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Mar 2021 10:58:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D2734E3A7
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Mar 2021 10:58:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CCEAC5719E;
-	Tue, 30 Mar 2021 08:58:39 +0000 (UTC)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFC93C57B54;
+	Tue, 30 Mar 2021 08:58:42 +0000 (UTC)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 988D2C57B54
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D95CAC5719E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Mar 2021 08:58:36 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id v8so5808692plz.10
+ Tue, 30 Mar 2021 08:58:40 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ kr3-20020a17090b4903b02900c096fc01deso7315846pjb.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Mar 2021 01:58:36 -0700 (PDT)
+ Tue, 30 Mar 2021 01:58:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=v9G2KuPIg00fMkHFtxzc36ViAJiRyj7R2G3zNb7KNvo=;
- b=hPsn56mwY+F0xi8rkTRM9xqDEsa2cBbCaN0oUfCF37/qW4kLGxOzvWJvKRHx7NvvyC
- SmV4dAzrGLeOVnlg72NqYGXZJJgXXd2OwJuBEMR/xeULu8iwMsKDSnrU/QIaLaXDNuf2
- yzL4irYPCDLf+oJuzeLhwuZnH2blmdviTXjkyTetHHngdYr0KRgslMkrcFCNDKLyGWnC
- xav0MGI/F7jekmFUcm6zApkqi2ZzSZCEYdw/e8TtxwmJ1K9bVV7K1hoUqQCswDugT9gx
- LOoRn3yQzQspSmC70c6MxE4uOt0xgLlGG+AiEykzvRXr/hUulMhorKvjll4FdvBfXESY
- 8S+Q==
+ bh=iREGzC2sZl/DyY2RLlvOKGuuLCaggN30UKHaeQRB7RQ=;
+ b=dR1izMvh+/HTAyMkC6XOLt24pm2NywT4UmnbWq6sLnIhPLKctYtF2kra5Y0DJnyV24
+ VuaF4FOJOK80+NWhxME51lwuFt5on1y5gvOgu6/n1bNzFdFA4G3AIL+bpXm6YwbfWp5m
+ 5j9XxGsVlqW88+jMBIBD42oDHP0F2QfccNsFEBQACV45x5oem6t0vgBWIZHOHyZ9Vqa+
+ JoB7Ftb+V7kwOzCgiExKhChEuGESkWpqznZ84Ifjaa3bsQpsRDNLCH+kgZ+rCJsUVmYY
+ wyKJhPUNAXyf0PaLqPuKBL90AjFrSoMcVoGb3gQmQ5feB6lU2EleFDq7W9WixHjPBcXH
+ HkWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=v9G2KuPIg00fMkHFtxzc36ViAJiRyj7R2G3zNb7KNvo=;
- b=AQ+oPLEcLHAsHeB1gZ0kcZHBaaAYAHm+FqqAXi2BVabU8PGcbj7aXbBzehtFeaHbHE
- /Hmq26ZDYtK8acMqsldshaMINB37F0vNh5gYh2DnnhJk0icEIdpC3jtPxlIne/THEsSh
- G/3JbxaehEBy9uJJyFqiVxzQD980INnq601QWZT/nPjPoYB6HG1MJ7sx1fiO/MNZv0Ui
- h/bFVfYLU95GPfxkUI2vsGzB+QWmTDXqIeTDrZioqF4Dob7F9XOzHLWFIvDVIWfUOETh
- o8E5STect5utEmgTfFsIFNnMrEYvVstfRGDvIoVvPZ4+tfuQ7D71UeB7csv1m28DM2Bk
- 23rQ==
-X-Gm-Message-State: AOAM532zV2nIP68YTi1GjcS931idg5RquDI2/AskS/ykUO1BRkoFrUio
- yXlauuUzgJ1EpmtEZ8ivTe0=
-X-Google-Smtp-Source: ABdhPJxe3KK+4Nqy5pQI1XwboPWMy5d6xSYu8sF6E23d0LEZA2IVhbeDRqckAk3uauw67+swQjM1Tw==
-X-Received: by 2002:a17:902:7407:b029:e4:9b2c:528b with SMTP id
- g7-20020a1709027407b02900e49b2c528bmr32968487pll.6.1617094715188; 
- Tue, 30 Mar 2021 01:58:35 -0700 (PDT)
+ bh=iREGzC2sZl/DyY2RLlvOKGuuLCaggN30UKHaeQRB7RQ=;
+ b=nz2Tzk5HnH4tCEAIzelwVZlsWepfGIpx0Mr+DcUxCY09/PUk6U2FXXd5n2LnhnFic9
+ jiApvwStBWOa6l+teX4gMpp1l9pxZuZMhwARRJbiG029g1fTXtmZ2np9oCwZsGySFsov
+ 9Q27GW8THjMQZ/ma8pVepyahBgo3A3BvYvO1tJ3+XKlzosnzc8GzdCiEvCUZsD+FjqxI
+ H6GQ0Y8B2t/sBjZFCKNhpAIlYPRBhSkwEf8ygSRO54z381ffV2F6Kb0bIe0ySAOLpnwQ
+ xty3jsjozAlO3PKzYKpxHbg5tk/CBqh3bqE6yR+KtTRoFe0VK7Z0USDQccHkhgOUUWNG
+ oOSQ==
+X-Gm-Message-State: AOAM531fpFTUHb/9cbb7/B7MEyqGvQcbskf/yQ8x9asGk0W2V4J5ZiiE
+ wHK1bLX3e5mUnILiHh9QLEc=
+X-Google-Smtp-Source: ABdhPJzviLeP5ntIfm2q5brVsYs5JCoAYowXWGq+Nm1e70jjBVNbuBrt0B331QtPpsVbs2jdumfu8g==
+X-Received: by 2002:a17:902:8497:b029:e6:f01d:9c9f with SMTP id
+ c23-20020a1709028497b02900e6f01d9c9fmr32689394plo.7.1617094719480; 
+ Tue, 30 Mar 2021 01:58:39 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id y8sm20952642pfp.140.2021.03.30.01.58.31
+ by smtp.gmail.com with ESMTPSA id y8sm20952642pfp.140.2021.03.30.01.58.35
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 30 Mar 2021 01:58:34 -0700 (PDT)
+ Tue, 30 Mar 2021 01:58:39 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: robh@kernel.org, valentin.caron@foss.st.com, Alexandre.torgue@foss.st.com,
  rong.a.chen@intel.com, a.fatoum@pengutronix.de, mcoquelin.stm32@gmail.com,
@@ -55,14 +56,14 @@ To: robh@kernel.org, valentin.caron@foss.st.com, Alexandre.torgue@foss.st.com,
  linux@armlinux.org.uk, afzal.mohd.ma@gmail.com, gregkh@linuxfoundation.org,
  erwan.leray@foss.st.com, erwan.leray@st.com, linux-serial@vger.kernel.org,
  lkp@intel.com, patrice.chotard@foss.st.com
-Date: Tue, 30 Mar 2021 16:58:19 +0800
-Message-Id: <1617094704-10040-2-git-send-email-dillon.minfei@gmail.com>
+Date: Tue, 30 Mar 2021 16:58:20 +0800
+Message-Id: <1617094704-10040-3-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1617094704-10040-1-git-send-email-dillon.minfei@gmail.com>
 References: <1617094704-10040-1-git-send-email-dillon.minfei@gmail.com>
 Cc: dillon min <dillon.minfei@gmail.com>
-Subject: [Linux-stm32] [PATCH v8 1/6] Documentation: arm: stm32: Add
-	stm32h750 value line doc
+Subject: [Linux-stm32] [PATCH v8 2/6] dt-bindings: arm: stm32: Add
+	compatible strings for ART-PI board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,78 +83,39 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: dillon min <dillon.minfei@gmail.com>
 
-This patchset add support for soc stm32h750, stm32h750 has mirror
-different from stm32h743
+Art-pi based on stm32h750xbh6, with following resources:
 
-item            stm32h743     stm32h750
-flash size:     2MiB          128KiB
-adc:            none          3
-crypto-hash:    none          aes/hamc/des/tdes/md5/sha
+-8MiB QSPI flash
+-16MiB SPI flash
+-32MiB SDRAM
+-AP6212 wifi, bt, fm
 
 detail information can be found at:
-https://www.st.com/en/microcontrollers-microprocessors/stm32h750-value-line.html
+https://art-pi.gitee.io/website/
 
 Signed-off-by: dillon min <dillon.minfei@gmail.com>
+Acked-by: Rob Herring <robh@kernel.org>
 ---
 v8: no changes
 
- Documentation/arm/index.rst                    |  1 +
- Documentation/arm/stm32/stm32h750-overview.rst | 34 ++++++++++++++++++++++++++
- 2 files changed, 35 insertions(+)
- create mode 100644 Documentation/arm/stm32/stm32h750-overview.rst
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/Documentation/arm/index.rst b/Documentation/arm/index.rst
-index b4bea32472b6..d4f34ae9e6f4 100644
---- a/Documentation/arm/index.rst
-+++ b/Documentation/arm/index.rst
-@@ -52,6 +52,7 @@ SoC-specific documents
-    stm32/stm32f746-overview
-    stm32/overview
-    stm32/stm32h743-overview
-+   stm32/stm32h750-overview
-    stm32/stm32f769-overview
-    stm32/stm32f429-overview
-    stm32/stm32mp157-overview
-diff --git a/Documentation/arm/stm32/stm32h750-overview.rst b/Documentation/arm/stm32/stm32h750-overview.rst
-new file mode 100644
-index 000000000000..0e51235c9547
---- /dev/null
-+++ b/Documentation/arm/stm32/stm32h750-overview.rst
-@@ -0,0 +1,34 @@
-+==================
-+STM32H750 Overview
-+==================
-+
-+Introduction
-+------------
-+
-+The STM32H750 is a Cortex-M7 MCU aimed at various applications.
-+It features:
-+
-+- Cortex-M7 core running up to @480MHz
-+- 128K internal flash, 1MBytes internal RAM
-+- FMC controller to connect SDRAM, NOR and NAND memories
-+- Dual mode QSPI
-+- SD/MMC/SDIO support
-+- Ethernet controller
-+- USB OTFG FS & HS controllers
-+- I2C, SPI, CAN busses support
-+- Several 16 & 32 bits general purpose timers
-+- Serial Audio interface
-+- LCD controller
-+- HDMI-CEC
-+- SPDIFRX
-+- DFSDM
-+
-+Resources
-+---------
-+
-+Datasheet and reference manual are publicly available on ST website (STM32H750_).
-+
-+.. _STM32H750: https://www.st.com/en/microcontrollers-microprocessors/stm32h750-value-line.html
-+
-+:Authors: Dillon Min <dillon.minfei@gmail.com>
-+
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index e7525a3395e5..306e7551ad39 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -53,6 +53,10 @@ properties:
+           - const: st,stm32h743
+       - items:
+           - enum:
++              - st,stm32h750i-art-pi
++          - const: st,stm32h750
++      - items:
++          - enum:
+               - shiratech,stm32mp157a-iot-box # IoT Box
+               - shiratech,stm32mp157a-stinger96 # Stinger96
+               - st,stm32mp157c-ed1
 -- 
 2.7.4
 
