@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86860350394
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Mar 2021 17:37:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB2C4350390
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Mar 2021 17:37:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5169FC57B5E;
-	Wed, 31 Mar 2021 15:37:55 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A7BBC57B5B;
+	Wed, 31 Mar 2021 15:37:36 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A44FC57B5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34E3DC5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Mar 2021 15:37:52 +0000 (UTC)
-IronPort-SDR: UhHru6TSWG0UqD9iUR7cdlT+lZpqrOEhkL57MuLo+VzBbJ89t1+oZPvEZBeUN9xUcC2Ti2H4H+
- f7Q9AcWQ0npw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9940"; a="256016474"
-X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="256016474"
+ Wed, 31 Mar 2021 15:37:34 +0000 (UTC)
+IronPort-SDR: GV1HqGd7zlKk7ztoU8nAv15HmOYCa8TrCS4t2GAOHBKZ4d2VXMdJz55WS80K+bt9AilX0VD4el
+ 0L+hqA7WDaQQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9940"; a="188773891"
+X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="188773891"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2021 08:37:26 -0700
-IronPort-SDR: bFLVobjcz36FiQAfEulhXkLO+PD+DqUOlkEpEmCQxJrLSR9BjRjPgUnK4afBfDx0Rdti0RG/UP
- kFByFLIJdbLg==
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2021 08:37:31 -0700
+IronPort-SDR: f+UNYbwVpv1LZThj+euRf0Q2IXnXTA69W7mGnsSyEcnKUFSelpJWH4Tchcn2b8VckpNVG/uL0K
+ bFpvbttAwkSQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="418729037"
+X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="418729057"
 Received: from glass.png.intel.com ([10.158.65.59])
- by orsmga008.jf.intel.com with ESMTP; 31 Mar 2021 08:37:20 -0700
+ by orsmga008.jf.intel.com with ESMTP; 31 Mar 2021 08:37:26 -0700
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
@@ -35,9 +35,11 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Daniel Borkmann <daniel@iogearbox.net>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>
-Date: Wed, 31 Mar 2021 23:41:29 +0800
-Message-Id: <20210331154135.8507-1-boon.leong.ong@intel.com>
+Date: Wed, 31 Mar 2021 23:41:30 +0800
+Message-Id: <20210331154135.8507-2-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210331154135.8507-1-boon.leong.ong@intel.com>
+References: <20210331154135.8507-1-boon.leong.ong@intel.com>
 MIME-Version: 1.0
 Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -46,7 +48,8 @@ Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
  Ong Boon Leong <boon.leong.ong@intel.com>, Yonghong Song <yhs@fb.com>,
  bpf@vger.kernel.org, Martin KaFai Lau <kafai@fb.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 0/6] stmmac: Add XDP support
+Subject: [Linux-stm32] [PATCH net-next v3 1/6] net: stmmac: set IRQ affinity
+	hint for multi MSI vectors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,97 +66,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Certain platform likes Intel mGBE has independent hardware IRQ resources
+for TX and RX DMA operation. In preparation to support XDP TX, we add IRQ
+affinity hint to group both RX and TX queue of the same queue ID to the
+same CPU.
 
-This is the v3 patch series for adding XDP support to stmmac driver.
+Changes in v2:
+ - IRQ affinity hint need to set to null before IRQ is released.
+   Thanks to issue reported by Song, Yoong Siang.
 
-Summary of the changes in v3 (per feedback from Jakub Kicinski):-
+Reported-by: Song, Yoong Siang <yoong.siang.song@intel.com>
+Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-4/6: Factor in XDP buffer header and tail adjustment by XDP prog.
-
-5/6: Added 'nq->trans_start = jiffies' to avoid TX time-out for XDP_TX.
-
-6/6: Added 'nq->trans_start = jiffies' to avoid TX time-out for
-     ndo_xdp_xmit.
-
-I retested this patch series on all the test steps listed in v1 and the
-results look good as expected. I also used xdp_adjust_tail test app in
-samples/bpf for checking out XDP head and tail adjustment introduced in
-4/6 and the result below looks correct too.
-
- ########################################################################
-
-DUT > root@intel-corei7-64:~ $ ./xdp_adjust_tail -i eth0 -P 400 -N
-==========================
-icmp "packet too big" sent:          0 pkts
-icmp "packet too big" sent:          0 pkts
-icmp "packet too big" sent:          0 pkts
-icmp "packet too big" sent:          0 pkts
-icmp "packet too big" sent:          1 pkts
-icmp "packet too big" sent:          1 pkts
-icmp "packet too big" sent:          1 pkts
-icmp "packet too big" sent:          2 pkts
-icmp "packet too big" sent:          4 pkts
-icmp "packet too big" sent:          6 pkts
-icmp "packet too big" sent:          8 pkts
-icmp "packet too big" sent:          9 pkts
-icmp "packet too big" sent:         10 pkts
-icmp "packet too big" sent:         10 pkts
-
-LP > root@intel-corei7-64:~# ping 169.254.1.11 -s 300
-PING 169.254.1.11 (169.254.1.11) 300(328) bytes of data.
-308 bytes from 169.254.1.11: icmp_seq=1 ttl=64 time=1.17 ms
-308 bytes from 169.254.1.11: icmp_seq=2 ttl=64 time=0.575 ms
-308 bytes from 169.254.1.11: icmp_seq=3 ttl=64 time=0.582 ms
-308 bytes from 169.254.1.11: icmp_seq=4 ttl=64 time=0.595 ms
-308 bytes from 169.254.1.11: icmp_seq=5 ttl=64 time=0.585 ms
-308 bytes from 169.254.1.11: icmp_seq=6 ttl=64 time=0.591 ms
-308 bytes from 169.254.1.11: icmp_seq=7 ttl=64 time=0.599 ms
-
---- 169.254.1.11 ping statistics ---
-7 packets transmitted, 7 received, 0% packet loss, time 6103ms
-rtt min/avg/max/mdev = 0.575/0.670/1.166/0.202 ms
-
-LP >  root@intel-corei7-64:~# ping 169.254.1.11 -s 500
-PING 169.254.1.11 (169.254.1.11) 500(528) bytes of data.
-From 169.254.1.11 icmp_seq=1 Frag needed and DF set (mtu = 436)
-From 169.254.1.11 icmp_seq=2 Frag needed and DF set (mtu = 436)
-From 169.254.1.11 icmp_seq=3 Frag needed and DF set (mtu = 436)
-From 169.254.1.11 icmp_seq=4 Frag needed and DF set (mtu = 436)
-From 169.254.1.11 icmp_seq=5 Frag needed and DF set (mtu = 436)
-From 169.254.1.11 icmp_seq=6 Frag needed and DF set (mtu = 436)
-
- ########################################################################
-
-History of the previous patch series:
-
-v2: https://patchwork.kernel.org/project/netdevbpf/list/?series=457757
-v1: https://patchwork.kernel.org/project/netdevbpf/list/?series=457139
-
-It will be great if community can help to test or review the v3 patch
-series on your platform and provide me any new feedback if any.
-
-Thank you very much.
-Boon Leong
-
-Ong Boon Leong (6):
-  net: stmmac: set IRQ affinity hint for multi MSI vectors
-  net: stmmac: make SPH enable/disable to be configurable
-  net: stmmac: arrange Tx tail pointer update to
-    stmmac_flush_tx_descriptors
-  net: stmmac: Add initial XDP support
-  net: stmmac: Add support for XDP_TX action
-  net: stmmac: Add support for XDP_REDIRECT action
-
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  35 +-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 529 +++++++++++++++---
- .../net/ethernet/stmicro/stmmac/stmmac_xdp.c  |  40 ++
- .../net/ethernet/stmicro/stmmac/stmmac_xdp.h  |  12 +
- 5 files changed, 537 insertions(+), 80 deletions(-)
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d34388b1ffcc..9d63e8c365ae 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3005,15 +3005,19 @@ static void stmmac_free_irq(struct net_device *dev,
+ 		fallthrough;
+ 	case REQ_IRQ_ERR_TX:
+ 		for (j = irq_idx - 1; j >= 0; j--) {
+-			if (priv->tx_irq[j] > 0)
++			if (priv->tx_irq[j] > 0) {
++				irq_set_affinity_hint(priv->tx_irq[j], NULL);
+ 				free_irq(priv->tx_irq[j], &priv->tx_queue[j]);
++			}
+ 		}
+ 		irq_idx = priv->plat->rx_queues_to_use;
+ 		fallthrough;
+ 	case REQ_IRQ_ERR_RX:
+ 		for (j = irq_idx - 1; j >= 0; j--) {
+-			if (priv->rx_irq[j] > 0)
++			if (priv->rx_irq[j] > 0) {
++				irq_set_affinity_hint(priv->rx_irq[j], NULL);
+ 				free_irq(priv->rx_irq[j], &priv->rx_queue[j]);
++			}
+ 		}
+ 
+ 		if (priv->sfty_ue_irq > 0 && priv->sfty_ue_irq != dev->irq)
+@@ -3045,6 +3049,7 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
+ {
+ 	enum request_irq_err irq_err = REQ_IRQ_ERR_NO;
+ 	struct stmmac_priv *priv = netdev_priv(dev);
++	cpumask_t cpu_mask;
+ 	int irq_idx = 0;
+ 	char *int_name;
+ 	int ret;
+@@ -3153,6 +3158,9 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
+ 			irq_idx = i;
+ 			goto irq_error;
+ 		}
++		cpumask_clear(&cpu_mask);
++		cpumask_set_cpu(i % num_online_cpus(), &cpu_mask);
++		irq_set_affinity_hint(priv->rx_irq[i], &cpu_mask);
+ 	}
+ 
+ 	/* Request Tx MSI irq */
+@@ -3173,6 +3181,9 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
+ 			irq_idx = i;
+ 			goto irq_error;
+ 		}
++		cpumask_clear(&cpu_mask);
++		cpumask_set_cpu(i % num_online_cpus(), &cpu_mask);
++		irq_set_affinity_hint(priv->tx_irq[i], &cpu_mask);
+ 	}
+ 
+ 	return 0;
 -- 
 2.25.1
 
