@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F805350391
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Mar 2021 17:37:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 695C7350392
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Mar 2021 17:37:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA801C57B60;
-	Wed, 31 Mar 2021 15:37:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DE9AC57B5E;
+	Wed, 31 Mar 2021 15:37:44 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2788C57B5E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA77BC57B54
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Mar 2021 15:37:36 +0000 (UTC)
-IronPort-SDR: lUg5Wkgp2p9sz16pOZWd8LE9NAl4h/BbOQyS3yOgZ96o6zWY6Bo2VdEP1+a7NKK9b5ltf3bote
- o/RvKAm5d60w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9940"; a="188773914"
-X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="188773914"
+ Wed, 31 Mar 2021 15:37:41 +0000 (UTC)
+IronPort-SDR: mZK/FlTHnlWoKi7Gkpybl1qyiYo02nhS4ksJ/5S1WmS39lL43wOar9p76VqqZXjC+FvGjTRp4V
+ GDkeRTwK0Omw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9940"; a="188773925"
+X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="188773925"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2021 08:37:36 -0700
-IronPort-SDR: WBdn8n1IStfynk/TN/hI7IDItmaK3Oamsbx5mdmBIeB5dIFR8ZG08x1iEawmrhVmJZY7yuykf1
- 5vIZY8JWvg8A==
+ 31 Mar 2021 08:37:41 -0700
+IronPort-SDR: VyUGrfC5cfl055cLwtTCZvGhB89fROJzGJUsdS6qepAivCMguhQ2FPXKf471Zna1TdW1vKlggP
+ Gw2gRZVHsOaw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="418729102"
+X-IronPort-AV: E=Sophos;i="5.81,293,1610438400"; d="scan'208";a="418729139"
 Received: from glass.png.intel.com ([10.158.65.59])
- by orsmga008.jf.intel.com with ESMTP; 31 Mar 2021 08:37:31 -0700
+ by orsmga008.jf.intel.com with ESMTP; 31 Mar 2021 08:37:36 -0700
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
@@ -35,8 +35,8 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Daniel Borkmann <daniel@iogearbox.net>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>
-Date: Wed, 31 Mar 2021 23:41:31 +0800
-Message-Id: <20210331154135.8507-3-boon.leong.ong@intel.com>
+Date: Wed, 31 Mar 2021 23:41:32 +0800
+Message-Id: <20210331154135.8507-4-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210331154135.8507-1-boon.leong.ong@intel.com>
 References: <20210331154135.8507-1-boon.leong.ong@intel.com>
@@ -48,8 +48,8 @@ Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
  Ong Boon Leong <boon.leong.ong@intel.com>, Yonghong Song <yhs@fb.com>,
  bpf@vger.kernel.org, Martin KaFai Lau <kafai@fb.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 2/6] net: stmmac: make SPH
-	enable/disable to be configurable
+Subject: [Linux-stm32] [PATCH net-next v3 3/6] net: stmmac: arrange Tx tail
+	pointer update to stmmac_flush_tx_descriptors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,82 +61,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SPH functionality splits header and payload according to split mode and
-offsef fields (SPLM and SPLOFST). It is beneficials for Linux network
-stack RX processing however it adds a lot of complexity in XDP
-processing.
-
-So, this patch makes the split-header (SPH) capability of the controller
-is stored in "priv->sph_cap" and the enabling/disabling of SPH is decided
-by "priv->sph".
-
-This is to prepare initial XDP enabling for stmmac to disable the use of
-SPH whenever XDP is enabled.
-
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++-----
- 2 files changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 9966f6f10905..e293423f98c3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -160,6 +160,7 @@ struct stmmac_priv {
- 	bool tx_path_in_lpi_mode;
- 	bool tso;
- 	int sph;
-+	int sph_cap;
- 	u32 sarc_type;
- 
- 	unsigned int dma_buf_sz;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 9d63e8c365ae..18e34a1e2367 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2858,6 +2858,7 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 	u32 rx_cnt = priv->plat->rx_queues_to_use;
- 	u32 tx_cnt = priv->plat->tx_queues_to_use;
-+	bool sph_en;
- 	u32 chan;
- 	int ret;
- 
-@@ -2952,10 +2953,10 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
- 	}
- 
- 	/* Enable Split Header */
--	if (priv->sph && priv->hw->rx_csum) {
--		for (chan = 0; chan < rx_cnt; chan++)
--			stmmac_enable_sph(priv, priv->ioaddr, 1, chan);
--	}
-+	sph_en = (priv->hw->rx_csum > 0) && priv->sph;
-+	for (chan = 0; chan < rx_cnt; chan++)
-+		stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
-+
- 
- 	/* VLAN Tag Insertion */
- 	if (priv->dma_cap.vlins)
-@@ -5708,7 +5709,8 @@ int stmmac_dvr_probe(struct device *device,
- 
- 	if (priv->dma_cap.sphen) {
- 		ndev->hw_features |= NETIF_F_GRO;
--		priv->sph = true;
-+		priv->sph_cap = true;
-+		priv->sph = priv->sph_cap;
- 		dev_info(priv->device, "SPH feature enabled\n");
- 	}
- 
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhpcyBwYXRjaCBvcmdhbml6ZXMgVFggdGFpbCBwb2ludGVyIHVwZGF0ZSBpbnRvIGEgbmV3IGZ1
+bmN0aW9uIGNhbGxlZApzdG1tYWNfZmx1c2hfdHhfZGVzY3JpcHRvcnMoKSBzbyB0aGF0IHdlIGNh
+biByZXVzZSBpdCBpbiBzdG1tYWNfeG1pdCgpLApzdG1tYWNfdHNvX3htaXQoKSBhbmQgdXAtY29t
+aW5nIFhEUCBpbXBsZW1lbnRhdGlvbi4KCkNoYW5nZXMgdG8gdjI6CiAtIEZpeCBmb3Igd2Fybmlu
+ZzogdW51c2VkIHZhcmlhYmxlIOKAmGRlc2Nfc2l6ZeKAmQogICBodHRwczovL3BhdGNod29yay5o
+b3B0by5vcmcvc3RhdGljL25pcGEvNDU3MzIxLzEyMTcwMTQ5L2J1aWxkXzMyYml0L3N0ZGVycgoK
+U2lnbmVkLW9mZi1ieTogT25nIEJvb24gTGVvbmcgPGJvb24ubGVvbmcub25nQGludGVsLmNvbT4K
+LS0tCiAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMgfCA1NiAr
+KysrKysrKystLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgMzAg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
+dG1tYWMvc3RtbWFjX21haW4uYyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
+L3N0bW1hY19tYWluLmMKaW5kZXggMThlMzRhMWUyMzY3Li5jYjFiMmExODA0MjkgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKKysr
+IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwpAQCAt
+MzUxOCw2ICszNTE4LDI4IEBAIHN0YXRpYyB2b2lkIHN0bW1hY190c29fYWxsb2NhdG9yKHN0cnVj
+dCBzdG1tYWNfcHJpdiAqcHJpdiwgZG1hX2FkZHJfdCBkZXMsCiAJfQogfQogCitzdGF0aWMgdm9p
+ZCBzdG1tYWNfZmx1c2hfdHhfZGVzY3JpcHRvcnMoc3RydWN0IHN0bW1hY19wcml2ICpwcml2LCBp
+bnQgcXVldWUpCit7CisJc3RydWN0IHN0bW1hY190eF9xdWV1ZSAqdHhfcSA9ICZwcml2LT50eF9x
+dWV1ZVtxdWV1ZV07CisJaW50IGRlc2Nfc2l6ZTsKKworCWlmIChsaWtlbHkocHJpdi0+ZXh0ZW5k
+X2Rlc2MpKQorCQlkZXNjX3NpemUgPSBzaXplb2Yoc3RydWN0IGRtYV9leHRlbmRlZF9kZXNjKTsK
+KwllbHNlIGlmICh0eF9xLT50YnMgJiBTVE1NQUNfVEJTX0FWQUlMKQorCQlkZXNjX3NpemUgPSBz
+aXplb2Yoc3RydWN0IGRtYV9lZGVzYyk7CisJZWxzZQorCQlkZXNjX3NpemUgPSBzaXplb2Yoc3Ry
+dWN0IGRtYV9kZXNjKTsKKworCS8qIFRoZSBvd24gYml0IG11c3QgYmUgdGhlIGxhdGVzdCBzZXR0
+aW5nIGRvbmUgd2hlbiBwcmVwYXJlIHRoZQorCSAqIGRlc2NyaXB0b3IgYW5kIHRoZW4gYmFycmll
+ciBpcyBuZWVkZWQgdG8gbWFrZSBzdXJlIHRoYXQKKwkgKiBhbGwgaXMgY29oZXJlbnQgYmVmb3Jl
+IGdyYW50aW5nIHRoZSBETUEgZW5naW5lLgorCSAqLworCXdtYigpOworCisJdHhfcS0+dHhfdGFp
+bF9hZGRyID0gdHhfcS0+ZG1hX3R4X3BoeSArICh0eF9xLT5jdXJfdHggKiBkZXNjX3NpemUpOwor
+CXN0bW1hY19zZXRfdHhfdGFpbF9wdHIocHJpdiwgcHJpdi0+aW9hZGRyLCB0eF9xLT50eF90YWls
+X2FkZHIsIHF1ZXVlKTsKK30KKwogLyoqCiAgKiAgc3RtbWFjX3Rzb194bWl0IC0gVHggZW50cnkg
+cG9pbnQgb2YgdGhlIGRyaXZlciBmb3Igb3ZlcnNpemVkIGZyYW1lcyAoVFNPKQogICogIEBza2Ig
+OiB0aGUgc29ja2V0IGJ1ZmZlcgpAQCAtMzU0OSwxMCArMzU3MSwxMCBAQCBzdGF0aWMgbmV0ZGV2
+X3R4X3Qgc3RtbWFjX3Rzb194bWl0KHN0cnVjdCBza19idWZmICpza2IsIHN0cnVjdCBuZXRfZGV2
+aWNlICpkZXYpCiB7CiAJc3RydWN0IGRtYV9kZXNjICpkZXNjLCAqZmlyc3QsICptc3NfZGVzYyA9
+IE5VTEw7CiAJc3RydWN0IHN0bW1hY19wcml2ICpwcml2ID0gbmV0ZGV2X3ByaXYoZGV2KTsKLQlp
+bnQgZGVzY19zaXplLCB0bXBfcGF5X2xlbiA9IDAsIGZpcnN0X3R4OwogCWludCBuZnJhZ3MgPSBz
+a2Jfc2hpbmZvKHNrYiktPm5yX2ZyYWdzOwogCXUzMiBxdWV1ZSA9IHNrYl9nZXRfcXVldWVfbWFw
+cGluZyhza2IpOwogCXVuc2lnbmVkIGludCBmaXJzdF9lbnRyeSwgdHhfcGFja2V0czsKKwlpbnQg
+dG1wX3BheV9sZW4gPSAwLCBmaXJzdF90eDsKIAlzdHJ1Y3Qgc3RtbWFjX3R4X3F1ZXVlICp0eF9x
+OwogCWJvb2wgaGFzX3ZsYW4sIHNldF9pYzsKIAl1OCBwcm90b19oZHJfbGVuLCBoZHI7CkBAIC0z
+NzUwLDEyICszNzcyLDYgQEAgc3RhdGljIG5ldGRldl90eF90IHN0bW1hY190c29feG1pdChzdHJ1
+Y3Qgc2tfYnVmZiAqc2tiLCBzdHJ1Y3QgbmV0X2RldmljZSAqZGV2KQogCQlzdG1tYWNfc2V0X3R4
+X293bmVyKHByaXYsIG1zc19kZXNjKTsKIAl9CiAKLQkvKiBUaGUgb3duIGJpdCBtdXN0IGJlIHRo
+ZSBsYXRlc3Qgc2V0dGluZyBkb25lIHdoZW4gcHJlcGFyZSB0aGUKLQkgKiBkZXNjcmlwdG9yIGFu
+ZCB0aGVuIGJhcnJpZXIgaXMgbmVlZGVkIHRvIG1ha2Ugc3VyZSB0aGF0Ci0JICogYWxsIGlzIGNv
+aGVyZW50IGJlZm9yZSBncmFudGluZyB0aGUgRE1BIGVuZ2luZS4KLQkgKi8KLQl3bWIoKTsKLQog
+CWlmIChuZXRpZl9tc2dfcGt0ZGF0YShwcml2KSkgewogCQlwcl9pbmZvKCIlczogY3Vycj0lZCBk
+aXJ0eT0lZCBmPSVkLCBlPSVkLCBmX3A9JXAsIG5mcmFncyAlZFxuIiwKIAkJCV9fZnVuY19fLCB0
+eF9xLT5jdXJfdHgsIHR4X3EtPmRpcnR5X3R4LCBmaXJzdF9lbnRyeSwKQEAgLTM3NjYsMTMgKzM3
+ODIsNyBAQCBzdGF0aWMgbmV0ZGV2X3R4X3Qgc3RtbWFjX3Rzb194bWl0KHN0cnVjdCBza19idWZm
+ICpza2IsIHN0cnVjdCBuZXRfZGV2aWNlICpkZXYpCiAKIAluZXRkZXZfdHhfc2VudF9xdWV1ZShu
+ZXRkZXZfZ2V0X3R4X3F1ZXVlKGRldiwgcXVldWUpLCBza2ItPmxlbik7CiAKLQlpZiAodHhfcS0+
+dGJzICYgU1RNTUFDX1RCU19BVkFJTCkKLQkJZGVzY19zaXplID0gc2l6ZW9mKHN0cnVjdCBkbWFf
+ZWRlc2MpOwotCWVsc2UKLQkJZGVzY19zaXplID0gc2l6ZW9mKHN0cnVjdCBkbWFfZGVzYyk7Ci0K
+LQl0eF9xLT50eF90YWlsX2FkZHIgPSB0eF9xLT5kbWFfdHhfcGh5ICsgKHR4X3EtPmN1cl90eCAq
+IGRlc2Nfc2l6ZSk7Ci0Jc3RtbWFjX3NldF90eF90YWlsX3B0cihwcml2LCBwcml2LT5pb2FkZHIs
+IHR4X3EtPnR4X3RhaWxfYWRkciwgcXVldWUpOworCXN0bW1hY19mbHVzaF90eF9kZXNjcmlwdG9y
+cyhwcml2LCBxdWV1ZSk7CiAJc3RtbWFjX3R4X3RpbWVyX2FybShwcml2LCBxdWV1ZSk7CiAKIAly
+ZXR1cm4gTkVUREVWX1RYX09LOwpAQCAtMzgwMiwxMCArMzgxMiwxMCBAQCBzdGF0aWMgbmV0ZGV2
+X3R4X3Qgc3RtbWFjX3htaXQoc3RydWN0IHNrX2J1ZmYgKnNrYiwgc3RydWN0IG5ldF9kZXZpY2Ug
+KmRldikKIAlpbnQgbmZyYWdzID0gc2tiX3NoaW5mbyhza2IpLT5ucl9mcmFnczsKIAlpbnQgZ3Nv
+ID0gc2tiX3NoaW5mbyhza2IpLT5nc29fdHlwZTsKIAlzdHJ1Y3QgZG1hX2VkZXNjICp0YnNfZGVz
+YyA9IE5VTEw7Ci0JaW50IGVudHJ5LCBkZXNjX3NpemUsIGZpcnN0X3R4OwogCXN0cnVjdCBkbWFf
+ZGVzYyAqZGVzYywgKmZpcnN0OwogCXN0cnVjdCBzdG1tYWNfdHhfcXVldWUgKnR4X3E7CiAJYm9v
+bCBoYXNfdmxhbiwgc2V0X2ljOworCWludCBlbnRyeSwgZmlyc3RfdHg7CiAJZG1hX2FkZHJfdCBk
+ZXM7CiAKIAl0eF9xID0gJnByaXYtPnR4X3F1ZXVlW3F1ZXVlXTsKQEAgLTQwMDcsMjUgKzQwMTcs
+MTEgQEAgc3RhdGljIG5ldGRldl90eF90IHN0bW1hY194bWl0KHN0cnVjdCBza19idWZmICpza2Is
+IHN0cnVjdCBuZXRfZGV2aWNlICpkZXYpCiAKIAlzdG1tYWNfc2V0X3R4X293bmVyKHByaXYsIGZp
+cnN0KTsKIAotCS8qIFRoZSBvd24gYml0IG11c3QgYmUgdGhlIGxhdGVzdCBzZXR0aW5nIGRvbmUg
+d2hlbiBwcmVwYXJlIHRoZQotCSAqIGRlc2NyaXB0b3IgYW5kIHRoZW4gYmFycmllciBpcyBuZWVk
+ZWQgdG8gbWFrZSBzdXJlIHRoYXQKLQkgKiBhbGwgaXMgY29oZXJlbnQgYmVmb3JlIGdyYW50aW5n
+IHRoZSBETUEgZW5naW5lLgotCSAqLwotCXdtYigpOwotCiAJbmV0ZGV2X3R4X3NlbnRfcXVldWUo
+bmV0ZGV2X2dldF90eF9xdWV1ZShkZXYsIHF1ZXVlKSwgc2tiLT5sZW4pOwogCiAJc3RtbWFjX2Vu
+YWJsZV9kbWFfdHJhbnNtaXNzaW9uKHByaXYsIHByaXYtPmlvYWRkcik7CiAKLQlpZiAobGlrZWx5
+KHByaXYtPmV4dGVuZF9kZXNjKSkKLQkJZGVzY19zaXplID0gc2l6ZW9mKHN0cnVjdCBkbWFfZXh0
+ZW5kZWRfZGVzYyk7Ci0JZWxzZSBpZiAodHhfcS0+dGJzICYgU1RNTUFDX1RCU19BVkFJTCkKLQkJ
+ZGVzY19zaXplID0gc2l6ZW9mKHN0cnVjdCBkbWFfZWRlc2MpOwotCWVsc2UKLQkJZGVzY19zaXpl
+ID0gc2l6ZW9mKHN0cnVjdCBkbWFfZGVzYyk7Ci0KLQl0eF9xLT50eF90YWlsX2FkZHIgPSB0eF9x
+LT5kbWFfdHhfcGh5ICsgKHR4X3EtPmN1cl90eCAqIGRlc2Nfc2l6ZSk7Ci0Jc3RtbWFjX3NldF90
+eF90YWlsX3B0cihwcml2LCBwcml2LT5pb2FkZHIsIHR4X3EtPnR4X3RhaWxfYWRkciwgcXVldWUp
+OworCXN0bW1hY19mbHVzaF90eF9kZXNjcmlwdG9ycyhwcml2LCBxdWV1ZSk7CiAJc3RtbWFjX3R4
+X3RpbWVyX2FybShwcml2LCBxdWV1ZSk7CiAKIAlyZXR1cm4gTkVUREVWX1RYX09LOwotLSAKMi4y
+NS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
+eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
+by9saW51eC1zdG0zMgo=
