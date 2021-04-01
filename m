@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9630350C45
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Apr 2021 04:07:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBF35350C47
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Apr 2021 04:08:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FF88C57B7A;
-	Thu,  1 Apr 2021 02:07:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5A4BC58D5C;
+	Thu,  1 Apr 2021 02:08:00 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 128A1C5662E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD31EC58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Apr 2021 02:07:55 +0000 (UTC)
-IronPort-SDR: r0TBak/ih7O3cDCtmhfKzGLyLjwklaGSvNUgph5UAIxOFxu5g36xMD6HpujFXisoLGtQsXYTgA
- 9cOYxg4NEZbA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9940"; a="256117452"
-X-IronPort-AV: E=Sophos;i="5.81,295,1610438400"; d="scan'208";a="256117452"
+ Thu,  1 Apr 2021 02:07:58 +0000 (UTC)
+IronPort-SDR: ipB7mqpviQsDDbAQOAvrhQ6wKWeRR6JJDZQ7aRsZQcm4h6P8HM0bACygv2iTpDNxiicOMiKCG8
+ q0Ieru5pc9DQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9940"; a="256117476"
+X-IronPort-AV: E=Sophos;i="5.81,295,1610438400"; d="scan'208";a="256117476"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2021 19:07:52 -0700
-IronPort-SDR: PvCDMZ9NQ+z+wHv91b6TMXnArKvUx95GfkH3AZtNyR8jA2abhgospZRbbnWHgpChrFr8SEYuSG
- I2DVvL45C1oQ==
+ 31 Mar 2021 19:07:57 -0700
+IronPort-SDR: bcEWFjFuN35gsuu+J+7cu0jXSpXJR7LX3ZIRCvYDIExIbSjXFTxqIe9AJzLS0JSM6DgX77IUje
+ XNHaZ9Y1BA/A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,295,1610438400"; d="scan'208";a="528004231"
+X-IronPort-AV: E=Sophos;i="5.81,295,1610438400"; d="scan'208";a="528004248"
 Received: from glass.png.intel.com ([10.158.65.59])
- by orsmga004.jf.intel.com with ESMTP; 31 Mar 2021 19:07:46 -0700
+ by orsmga004.jf.intel.com with ESMTP; 31 Mar 2021 19:07:51 -0700
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
@@ -35,8 +35,8 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Daniel Borkmann <daniel@iogearbox.net>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>
-Date: Thu,  1 Apr 2021 10:11:14 +0800
-Message-Id: <20210401021117.13360-4-boon.leong.ong@intel.com>
+Date: Thu,  1 Apr 2021 10:11:15 +0800
+Message-Id: <20210401021117.13360-5-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210401021117.13360-1-boon.leong.ong@intel.com>
 References: <20210401021117.13360-1-boon.leong.ong@intel.com>
@@ -48,8 +48,8 @@ Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
  Ong Boon Leong <boon.leong.ong@intel.com>, Yonghong Song <yhs@fb.com>,
  bpf@vger.kernel.org, Martin KaFai Lau <kafai@fb.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v4 3/6] net: stmmac: arrange Tx tail
-	pointer update to stmmac_flush_tx_descriptors
+Subject: [Linux-stm32] [PATCH net-next v4 4/6] net: stmmac: Add initial XDP
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,93 +61,500 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhpcyBwYXRjaCBvcmdhbml6ZXMgVFggdGFpbCBwb2ludGVyIHVwZGF0ZSBpbnRvIGEgbmV3IGZ1
-bmN0aW9uIGNhbGxlZApzdG1tYWNfZmx1c2hfdHhfZGVzY3JpcHRvcnMoKSBzbyB0aGF0IHdlIGNh
-biByZXVzZSBpdCBpbiBzdG1tYWNfeG1pdCgpLApzdG1tYWNfdHNvX3htaXQoKSBhbmQgdXAtY29t
-aW5nIFhEUCBpbXBsZW1lbnRhdGlvbi4KCkNoYW5nZXMgdG8gdjI6CiAtIEZpeCBmb3Igd2Fybmlu
-ZzogdW51c2VkIHZhcmlhYmxlIOKAmGRlc2Nfc2l6ZeKAmQogICBodHRwczovL3BhdGNod29yay5o
-b3B0by5vcmcvc3RhdGljL25pcGEvNDU3MzIxLzEyMTcwMTQ5L2J1aWxkXzMyYml0L3N0ZGVycgoK
-U2lnbmVkLW9mZi1ieTogT25nIEJvb24gTGVvbmcgPGJvb24ubGVvbmcub25nQGludGVsLmNvbT4K
-LS0tCiAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMgfCA1NiAr
-KysrKysrKystLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgMzAg
-ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
-dG1tYWMvc3RtbWFjX21haW4uYyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
-L3N0bW1hY19tYWluLmMKaW5kZXggMThlMzRhMWUyMzY3Li5jYjFiMmExODA0MjkgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKKysr
-IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwpAQCAt
-MzUxOCw2ICszNTE4LDI4IEBAIHN0YXRpYyB2b2lkIHN0bW1hY190c29fYWxsb2NhdG9yKHN0cnVj
-dCBzdG1tYWNfcHJpdiAqcHJpdiwgZG1hX2FkZHJfdCBkZXMsCiAJfQogfQogCitzdGF0aWMgdm9p
-ZCBzdG1tYWNfZmx1c2hfdHhfZGVzY3JpcHRvcnMoc3RydWN0IHN0bW1hY19wcml2ICpwcml2LCBp
-bnQgcXVldWUpCit7CisJc3RydWN0IHN0bW1hY190eF9xdWV1ZSAqdHhfcSA9ICZwcml2LT50eF9x
-dWV1ZVtxdWV1ZV07CisJaW50IGRlc2Nfc2l6ZTsKKworCWlmIChsaWtlbHkocHJpdi0+ZXh0ZW5k
-X2Rlc2MpKQorCQlkZXNjX3NpemUgPSBzaXplb2Yoc3RydWN0IGRtYV9leHRlbmRlZF9kZXNjKTsK
-KwllbHNlIGlmICh0eF9xLT50YnMgJiBTVE1NQUNfVEJTX0FWQUlMKQorCQlkZXNjX3NpemUgPSBz
-aXplb2Yoc3RydWN0IGRtYV9lZGVzYyk7CisJZWxzZQorCQlkZXNjX3NpemUgPSBzaXplb2Yoc3Ry
-dWN0IGRtYV9kZXNjKTsKKworCS8qIFRoZSBvd24gYml0IG11c3QgYmUgdGhlIGxhdGVzdCBzZXR0
-aW5nIGRvbmUgd2hlbiBwcmVwYXJlIHRoZQorCSAqIGRlc2NyaXB0b3IgYW5kIHRoZW4gYmFycmll
-ciBpcyBuZWVkZWQgdG8gbWFrZSBzdXJlIHRoYXQKKwkgKiBhbGwgaXMgY29oZXJlbnQgYmVmb3Jl
-IGdyYW50aW5nIHRoZSBETUEgZW5naW5lLgorCSAqLworCXdtYigpOworCisJdHhfcS0+dHhfdGFp
-bF9hZGRyID0gdHhfcS0+ZG1hX3R4X3BoeSArICh0eF9xLT5jdXJfdHggKiBkZXNjX3NpemUpOwor
-CXN0bW1hY19zZXRfdHhfdGFpbF9wdHIocHJpdiwgcHJpdi0+aW9hZGRyLCB0eF9xLT50eF90YWls
-X2FkZHIsIHF1ZXVlKTsKK30KKwogLyoqCiAgKiAgc3RtbWFjX3Rzb194bWl0IC0gVHggZW50cnkg
-cG9pbnQgb2YgdGhlIGRyaXZlciBmb3Igb3ZlcnNpemVkIGZyYW1lcyAoVFNPKQogICogIEBza2Ig
-OiB0aGUgc29ja2V0IGJ1ZmZlcgpAQCAtMzU0OSwxMCArMzU3MSwxMCBAQCBzdGF0aWMgbmV0ZGV2
-X3R4X3Qgc3RtbWFjX3Rzb194bWl0KHN0cnVjdCBza19idWZmICpza2IsIHN0cnVjdCBuZXRfZGV2
-aWNlICpkZXYpCiB7CiAJc3RydWN0IGRtYV9kZXNjICpkZXNjLCAqZmlyc3QsICptc3NfZGVzYyA9
-IE5VTEw7CiAJc3RydWN0IHN0bW1hY19wcml2ICpwcml2ID0gbmV0ZGV2X3ByaXYoZGV2KTsKLQlp
-bnQgZGVzY19zaXplLCB0bXBfcGF5X2xlbiA9IDAsIGZpcnN0X3R4OwogCWludCBuZnJhZ3MgPSBz
-a2Jfc2hpbmZvKHNrYiktPm5yX2ZyYWdzOwogCXUzMiBxdWV1ZSA9IHNrYl9nZXRfcXVldWVfbWFw
-cGluZyhza2IpOwogCXVuc2lnbmVkIGludCBmaXJzdF9lbnRyeSwgdHhfcGFja2V0czsKKwlpbnQg
-dG1wX3BheV9sZW4gPSAwLCBmaXJzdF90eDsKIAlzdHJ1Y3Qgc3RtbWFjX3R4X3F1ZXVlICp0eF9x
-OwogCWJvb2wgaGFzX3ZsYW4sIHNldF9pYzsKIAl1OCBwcm90b19oZHJfbGVuLCBoZHI7CkBAIC0z
-NzUwLDEyICszNzcyLDYgQEAgc3RhdGljIG5ldGRldl90eF90IHN0bW1hY190c29feG1pdChzdHJ1
-Y3Qgc2tfYnVmZiAqc2tiLCBzdHJ1Y3QgbmV0X2RldmljZSAqZGV2KQogCQlzdG1tYWNfc2V0X3R4
-X293bmVyKHByaXYsIG1zc19kZXNjKTsKIAl9CiAKLQkvKiBUaGUgb3duIGJpdCBtdXN0IGJlIHRo
-ZSBsYXRlc3Qgc2V0dGluZyBkb25lIHdoZW4gcHJlcGFyZSB0aGUKLQkgKiBkZXNjcmlwdG9yIGFu
-ZCB0aGVuIGJhcnJpZXIgaXMgbmVlZGVkIHRvIG1ha2Ugc3VyZSB0aGF0Ci0JICogYWxsIGlzIGNv
-aGVyZW50IGJlZm9yZSBncmFudGluZyB0aGUgRE1BIGVuZ2luZS4KLQkgKi8KLQl3bWIoKTsKLQog
-CWlmIChuZXRpZl9tc2dfcGt0ZGF0YShwcml2KSkgewogCQlwcl9pbmZvKCIlczogY3Vycj0lZCBk
-aXJ0eT0lZCBmPSVkLCBlPSVkLCBmX3A9JXAsIG5mcmFncyAlZFxuIiwKIAkJCV9fZnVuY19fLCB0
-eF9xLT5jdXJfdHgsIHR4X3EtPmRpcnR5X3R4LCBmaXJzdF9lbnRyeSwKQEAgLTM3NjYsMTMgKzM3
-ODIsNyBAQCBzdGF0aWMgbmV0ZGV2X3R4X3Qgc3RtbWFjX3Rzb194bWl0KHN0cnVjdCBza19idWZm
-ICpza2IsIHN0cnVjdCBuZXRfZGV2aWNlICpkZXYpCiAKIAluZXRkZXZfdHhfc2VudF9xdWV1ZShu
-ZXRkZXZfZ2V0X3R4X3F1ZXVlKGRldiwgcXVldWUpLCBza2ItPmxlbik7CiAKLQlpZiAodHhfcS0+
-dGJzICYgU1RNTUFDX1RCU19BVkFJTCkKLQkJZGVzY19zaXplID0gc2l6ZW9mKHN0cnVjdCBkbWFf
-ZWRlc2MpOwotCWVsc2UKLQkJZGVzY19zaXplID0gc2l6ZW9mKHN0cnVjdCBkbWFfZGVzYyk7Ci0K
-LQl0eF9xLT50eF90YWlsX2FkZHIgPSB0eF9xLT5kbWFfdHhfcGh5ICsgKHR4X3EtPmN1cl90eCAq
-IGRlc2Nfc2l6ZSk7Ci0Jc3RtbWFjX3NldF90eF90YWlsX3B0cihwcml2LCBwcml2LT5pb2FkZHIs
-IHR4X3EtPnR4X3RhaWxfYWRkciwgcXVldWUpOworCXN0bW1hY19mbHVzaF90eF9kZXNjcmlwdG9y
-cyhwcml2LCBxdWV1ZSk7CiAJc3RtbWFjX3R4X3RpbWVyX2FybShwcml2LCBxdWV1ZSk7CiAKIAly
-ZXR1cm4gTkVUREVWX1RYX09LOwpAQCAtMzgwMiwxMCArMzgxMiwxMCBAQCBzdGF0aWMgbmV0ZGV2
-X3R4X3Qgc3RtbWFjX3htaXQoc3RydWN0IHNrX2J1ZmYgKnNrYiwgc3RydWN0IG5ldF9kZXZpY2Ug
-KmRldikKIAlpbnQgbmZyYWdzID0gc2tiX3NoaW5mbyhza2IpLT5ucl9mcmFnczsKIAlpbnQgZ3Nv
-ID0gc2tiX3NoaW5mbyhza2IpLT5nc29fdHlwZTsKIAlzdHJ1Y3QgZG1hX2VkZXNjICp0YnNfZGVz
-YyA9IE5VTEw7Ci0JaW50IGVudHJ5LCBkZXNjX3NpemUsIGZpcnN0X3R4OwogCXN0cnVjdCBkbWFf
-ZGVzYyAqZGVzYywgKmZpcnN0OwogCXN0cnVjdCBzdG1tYWNfdHhfcXVldWUgKnR4X3E7CiAJYm9v
-bCBoYXNfdmxhbiwgc2V0X2ljOworCWludCBlbnRyeSwgZmlyc3RfdHg7CiAJZG1hX2FkZHJfdCBk
-ZXM7CiAKIAl0eF9xID0gJnByaXYtPnR4X3F1ZXVlW3F1ZXVlXTsKQEAgLTQwMDcsMjUgKzQwMTcs
-MTEgQEAgc3RhdGljIG5ldGRldl90eF90IHN0bW1hY194bWl0KHN0cnVjdCBza19idWZmICpza2Is
-IHN0cnVjdCBuZXRfZGV2aWNlICpkZXYpCiAKIAlzdG1tYWNfc2V0X3R4X293bmVyKHByaXYsIGZp
-cnN0KTsKIAotCS8qIFRoZSBvd24gYml0IG11c3QgYmUgdGhlIGxhdGVzdCBzZXR0aW5nIGRvbmUg
-d2hlbiBwcmVwYXJlIHRoZQotCSAqIGRlc2NyaXB0b3IgYW5kIHRoZW4gYmFycmllciBpcyBuZWVk
-ZWQgdG8gbWFrZSBzdXJlIHRoYXQKLQkgKiBhbGwgaXMgY29oZXJlbnQgYmVmb3JlIGdyYW50aW5n
-IHRoZSBETUEgZW5naW5lLgotCSAqLwotCXdtYigpOwotCiAJbmV0ZGV2X3R4X3NlbnRfcXVldWUo
-bmV0ZGV2X2dldF90eF9xdWV1ZShkZXYsIHF1ZXVlKSwgc2tiLT5sZW4pOwogCiAJc3RtbWFjX2Vu
-YWJsZV9kbWFfdHJhbnNtaXNzaW9uKHByaXYsIHByaXYtPmlvYWRkcik7CiAKLQlpZiAobGlrZWx5
-KHByaXYtPmV4dGVuZF9kZXNjKSkKLQkJZGVzY19zaXplID0gc2l6ZW9mKHN0cnVjdCBkbWFfZXh0
-ZW5kZWRfZGVzYyk7Ci0JZWxzZSBpZiAodHhfcS0+dGJzICYgU1RNTUFDX1RCU19BVkFJTCkKLQkJ
-ZGVzY19zaXplID0gc2l6ZW9mKHN0cnVjdCBkbWFfZWRlc2MpOwotCWVsc2UKLQkJZGVzY19zaXpl
-ID0gc2l6ZW9mKHN0cnVjdCBkbWFfZGVzYyk7Ci0KLQl0eF9xLT50eF90YWlsX2FkZHIgPSB0eF9x
-LT5kbWFfdHhfcGh5ICsgKHR4X3EtPmN1cl90eCAqIGRlc2Nfc2l6ZSk7Ci0Jc3RtbWFjX3NldF90
-eF90YWlsX3B0cihwcml2LCBwcml2LT5pb2FkZHIsIHR4X3EtPnR4X3RhaWxfYWRkciwgcXVldWUp
-OworCXN0bW1hY19mbHVzaF90eF9kZXNjcmlwdG9ycyhwcml2LCBxdWV1ZSk7CiAJc3RtbWFjX3R4
-X3RpbWVyX2FybShwcml2LCBxdWV1ZSk7CiAKIAlyZXR1cm4gTkVUREVWX1RYX09LOwotLSAKMi4y
-NS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
-eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
-by9saW51eC1zdG0zMgo=
+This patch adds the initial XDP support to stmmac driver. It supports
+XDP_PASS, XDP_DROP and XDP_ABORTED actions. Upcoming patches will add
+support for XDP_TX and XDP_REDIRECT.
+
+To support XDP headroom, this patch adds page_offset into RX buffer and
+change the dma_sync_single_for_device|cpu(). The DMA address used for
+RX operation are changed to take into page_offset too. As page_pool
+can handle dma_sync_single_for_device() on behalf of driver with
+PP_FLAG_DMA_SYNC_DEV flag, we skip doing that in stmmac driver.
+
+Current stmmac driver supports split header support (SPH) in RX but
+the flexibility of splitting header and payload at different position
+makes it very complex to be supported for XDP processing. In addition,
+jumbo frame is not supported in XDP to keep the initial codes simple.
+
+This patch has been tested with the sample app "xdp1" located in
+samples/bpf directory for both SKB and Native (XDP) mode. The burst
+traffic generated using pktgen_sample03_burst_single_flow.sh in
+samples/pktgen directory.
+
+Changes in v3:
+ - factor in xdp header and tail adjustment done by XDP program.
+   Thanks to Jakub Kicinski for pointing out the gap in v2.
+
+Changes in v2:
+ - fix for "warning: variable 'len' set but not used" reported by lkp.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  21 ++-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 150 +++++++++++++++---
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.c  |  40 +++++
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.h  |  12 ++
+ 5 files changed, 197 insertions(+), 27 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+index 366740ab9c5a..f2e478b884b0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Makefile
++++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+@@ -6,6 +6,7 @@ stmmac-objs:= stmmac_main.o stmmac_ethtool.o stmmac_mdio.o ring_mode.o	\
+ 	      mmc_core.o stmmac_hwtstamp.o stmmac_ptp.o dwmac4_descs.o	\
+ 	      dwmac4_dma.o dwmac4_lib.o dwmac4_core.o dwmac5.o hwif.o \
+ 	      stmmac_tc.o dwxgmac2_core.o dwxgmac2_dma.o dwxgmac2_descs.o \
++	      stmmac_xdp.o \
+ 	      $(stmmac-y)
+ 
+ stmmac-$(CONFIG_STMMAC_SELFTESTS) += stmmac_selftests.o
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index e293423f98c3..e72224c8fbac 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -68,8 +68,9 @@ struct stmmac_tx_queue {
+ 
+ struct stmmac_rx_buffer {
+ 	struct page *page;
+-	struct page *sec_page;
+ 	dma_addr_t addr;
++	__u32 page_offset;
++	struct page *sec_page;
+ 	dma_addr_t sec_addr;
+ };
+ 
+@@ -269,6 +270,9 @@ struct stmmac_priv {
+ 
+ 	/* Receive Side Scaling */
+ 	struct stmmac_rss rss;
++
++	/* XDP BPF Program */
++	struct bpf_prog *xdp_prog;
+ };
+ 
+ enum stmmac_state {
+@@ -285,6 +289,8 @@ void stmmac_set_ethtool_ops(struct net_device *netdev);
+ 
+ void stmmac_ptp_register(struct stmmac_priv *priv);
+ void stmmac_ptp_unregister(struct stmmac_priv *priv);
++int stmmac_open(struct net_device *dev);
++int stmmac_release(struct net_device *dev);
+ int stmmac_resume(struct device *dev);
+ int stmmac_suspend(struct device *dev);
+ int stmmac_dvr_remove(struct device *dev);
+@@ -298,6 +304,19 @@ int stmmac_reinit_ringparam(struct net_device *dev, u32 rx_size, u32 tx_size);
+ int stmmac_bus_clks_config(struct stmmac_priv *priv, bool enabled);
+ void stmmac_fpe_handshake(struct stmmac_priv *priv, bool enable);
+ 
++static inline bool stmmac_xdp_is_enabled(struct stmmac_priv *priv)
++{
++	return !!priv->xdp_prog;
++}
++
++static inline unsigned int stmmac_rx_offset(struct stmmac_priv *priv)
++{
++	if (stmmac_xdp_is_enabled(priv))
++		return XDP_PACKET_HEADROOM;
++
++	return 0;
++}
++
+ #if IS_ENABLED(CONFIG_STMMAC_SELFTESTS)
+ void stmmac_selftest_run(struct net_device *dev,
+ 			 struct ethtool_test *etest, u64 *buf);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index cb1b2a180429..0dad8ab93eb5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -38,9 +38,11 @@
+ #include <linux/net_tstamp.h>
+ #include <linux/phylink.h>
+ #include <linux/udp.h>
++#include <linux/bpf_trace.h>
+ #include <net/pkt_cls.h>
+ #include "stmmac_ptp.h"
+ #include "stmmac.h"
++#include "stmmac_xdp.h"
+ #include <linux/reset.h>
+ #include <linux/of_mdio.h>
+ #include "dwmac1000.h"
+@@ -67,6 +69,9 @@ MODULE_PARM_DESC(phyaddr, "Physical device address");
+ #define STMMAC_TX_THRESH(x)	((x)->dma_tx_size / 4)
+ #define STMMAC_RX_THRESH(x)	((x)->dma_rx_size / 4)
+ 
++#define STMMAC_XDP_PASS		0
++#define STMMAC_XDP_CONSUMED	BIT(0)
++
+ static int flow_ctrl = FLOW_AUTO;
+ module_param(flow_ctrl, int, 0644);
+ MODULE_PARM_DESC(flow_ctrl, "Flow control ability [on/off]");
+@@ -1384,6 +1389,7 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv, struct dma_desc *p,
+ 	buf->page = page_pool_dev_alloc_pages(rx_q->page_pool);
+ 	if (!buf->page)
+ 		return -ENOMEM;
++	buf->page_offset = stmmac_rx_offset(priv);
+ 
+ 	if (priv->sph) {
+ 		buf->sec_page = page_pool_dev_alloc_pages(rx_q->page_pool);
+@@ -1397,7 +1403,8 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv, struct dma_desc *p,
+ 		stmmac_set_desc_sec_addr(priv, p, buf->sec_addr, false);
+ 	}
+ 
+-	buf->addr = page_pool_get_dma_addr(buf->page);
++	buf->addr = page_pool_get_dma_addr(buf->page) + buf->page_offset;
++
+ 	stmmac_set_desc_addr(priv, p, buf->addr);
+ 	if (priv->dma_buf_sz == BUF_SIZE_16KiB)
+ 		stmmac_init_desc3(priv, p);
+@@ -1503,7 +1510,8 @@ static void stmmac_reinit_rx_buffers(struct stmmac_priv *priv)
+ 				if (!buf->page)
+ 					goto err_reinit_rx_buffers;
+ 
+-				buf->addr = page_pool_get_dma_addr(buf->page);
++				buf->addr = page_pool_get_dma_addr(buf->page) +
++					    buf->page_offset;
+ 			}
+ 
+ 			if (priv->sph && !buf->sec_page) {
+@@ -1821,6 +1829,7 @@ static void free_dma_tx_desc_resources(struct stmmac_priv *priv)
+  */
+ static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv)
+ {
++	bool xdp_prog = stmmac_xdp_is_enabled(priv);
+ 	u32 rx_count = priv->plat->rx_queues_to_use;
+ 	int ret = -ENOMEM;
+ 	u32 queue;
+@@ -1834,13 +1843,15 @@ static int alloc_dma_rx_desc_resources(struct stmmac_priv *priv)
+ 		rx_q->queue_index = queue;
+ 		rx_q->priv_data = priv;
+ 
+-		pp_params.flags = PP_FLAG_DMA_MAP;
++		pp_params.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
+ 		pp_params.pool_size = priv->dma_rx_size;
+ 		num_pages = DIV_ROUND_UP(priv->dma_buf_sz, PAGE_SIZE);
+ 		pp_params.order = ilog2(num_pages);
+ 		pp_params.nid = dev_to_node(priv->device);
+ 		pp_params.dev = priv->device;
+-		pp_params.dma_dir = DMA_FROM_DEVICE;
++		pp_params.dma_dir = xdp_prog ? DMA_BIDIRECTIONAL : DMA_FROM_DEVICE;
++		pp_params.offset = stmmac_rx_offset(priv);
++		pp_params.max_len = STMMAC_MAX_RX_BUF_SIZE(num_pages);
+ 
+ 		rx_q->page_pool = page_pool_create(&pp_params);
+ 		if (IS_ERR(rx_q->page_pool)) {
+@@ -3268,7 +3279,7 @@ static int stmmac_request_irq(struct net_device *dev)
+  *  0 on success and an appropriate (-)ve integer as defined in errno.h
+  *  file on failure.
+  */
+-static int stmmac_open(struct net_device *dev)
++int stmmac_open(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	int bfsize = 0;
+@@ -3391,7 +3402,7 @@ static void stmmac_fpe_stop_wq(struct stmmac_priv *priv)
+  *  Description:
+  *  This is the stop entry point of the driver.
+  */
+-static int stmmac_release(struct net_device *dev)
++int stmmac_release(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	u32 chan;
+@@ -4064,11 +4075,9 @@ static void stmmac_rx_vlan(struct net_device *dev, struct sk_buff *skb)
+ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
+ {
+ 	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
+-	int len, dirty = stmmac_rx_dirty(priv, queue);
++	int dirty = stmmac_rx_dirty(priv, queue);
+ 	unsigned int entry = rx_q->dirty_rx;
+ 
+-	len = DIV_ROUND_UP(priv->dma_buf_sz, PAGE_SIZE) * PAGE_SIZE;
+-
+ 	while (dirty-- > 0) {
+ 		struct stmmac_rx_buffer *buf = &rx_q->buf_pool[entry];
+ 		struct dma_desc *p;
+@@ -4091,18 +4100,9 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
+ 				break;
+ 
+ 			buf->sec_addr = page_pool_get_dma_addr(buf->sec_page);
+-
+-			dma_sync_single_for_device(priv->device, buf->sec_addr,
+-						   len, DMA_FROM_DEVICE);
+ 		}
+ 
+-		buf->addr = page_pool_get_dma_addr(buf->page);
+-
+-		/* Sync whole allocation to device. This will invalidate old
+-		 * data.
+-		 */
+-		dma_sync_single_for_device(priv->device, buf->addr, len,
+-					   DMA_FROM_DEVICE);
++		buf->addr = page_pool_get_dma_addr(buf->page) + buf->page_offset;
+ 
+ 		stmmac_set_desc_addr(priv, p, buf->addr);
+ 		if (priv->sph)
+@@ -4181,6 +4181,42 @@ static unsigned int stmmac_rx_buf2_len(struct stmmac_priv *priv,
+ 	return plen - len;
+ }
+ 
++static struct sk_buff *stmmac_xdp_run_prog(struct stmmac_priv *priv,
++					   struct xdp_buff *xdp)
++{
++	struct bpf_prog *prog;
++	int res;
++	u32 act;
++
++	rcu_read_lock();
++
++	prog = READ_ONCE(priv->xdp_prog);
++	if (!prog) {
++		res = STMMAC_XDP_PASS;
++		goto unlock;
++	}
++
++	act = bpf_prog_run_xdp(prog, xdp);
++	switch (act) {
++	case XDP_PASS:
++		res = STMMAC_XDP_PASS;
++		break;
++	default:
++		bpf_warn_invalid_xdp_action(act);
++		fallthrough;
++	case XDP_ABORTED:
++		trace_xdp_exception(priv->dev, prog, act);
++		fallthrough;
++	case XDP_DROP:
++		res = STMMAC_XDP_CONSUMED;
++		break;
++	}
++
++unlock:
++	rcu_read_unlock();
++	return ERR_PTR(-res);
++}
++
+ /**
+  * stmmac_rx - manage the receive process
+  * @priv: driver private structure
+@@ -4196,8 +4232,14 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 	unsigned int count = 0, error = 0, len = 0;
+ 	int status = 0, coe = priv->hw->rx_csum;
+ 	unsigned int next_entry = rx_q->cur_rx;
++	enum dma_data_direction dma_dir;
+ 	unsigned int desc_size;
+ 	struct sk_buff *skb = NULL;
++	struct xdp_buff xdp;
++	int buf_sz;
++
++	dma_dir = page_pool_get_dma_dir(rx_q->page_pool);
++	buf_sz = DIV_ROUND_UP(priv->dma_buf_sz, PAGE_SIZE) * PAGE_SIZE;
+ 
+ 	if (netif_msg_rx_status(priv)) {
+ 		void *rx_head;
+@@ -4315,6 +4357,45 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		}
+ 
+ 		if (!skb) {
++			dma_sync_single_for_cpu(priv->device, buf->addr,
++						buf1_len, dma_dir);
++
++			xdp.data = page_address(buf->page) + buf->page_offset;
++			xdp.data_end = xdp.data + buf1_len;
++			xdp.data_hard_start = page_address(buf->page);
++			xdp_set_data_meta_invalid(&xdp);
++			xdp.frame_sz = buf_sz;
++
++			skb = stmmac_xdp_run_prog(priv, &xdp);
++
++			/* For Not XDP_PASS verdict */
++			if (IS_ERR(skb)) {
++				unsigned int xdp_res = -PTR_ERR(skb);
++
++				if (xdp_res & STMMAC_XDP_CONSUMED) {
++					page_pool_recycle_direct(rx_q->page_pool,
++								 buf->page);
++					buf->page = NULL;
++					priv->dev->stats.rx_dropped++;
++
++					/* Clear skb as it was set as
++					 * status by XDP program.
++					 */
++					skb = NULL;
++
++					if (unlikely((status & rx_not_ls)))
++						goto read_again;
++
++					count++;
++					continue;
++				}
++			}
++		}
++
++		if (!skb) {
++			/* XDP program may expand or reduce tail */
++			buf1_len = xdp.data_end - xdp.data;
++
+ 			skb = napi_alloc_skb(&ch->rx_napi, buf1_len);
+ 			if (!skb) {
+ 				priv->dev->stats.rx_dropped++;
+@@ -4322,10 +4403,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 				goto drain_data;
+ 			}
+ 
+-			dma_sync_single_for_cpu(priv->device, buf->addr,
+-						buf1_len, DMA_FROM_DEVICE);
+-			skb_copy_to_linear_data(skb, page_address(buf->page),
+-						buf1_len);
++			/* XDP program may adjust header */
++			skb_copy_to_linear_data(skb, xdp.data, buf1_len);
+ 			skb_put(skb, buf1_len);
+ 
+ 			/* Data payload copied into SKB, page ready for recycle */
+@@ -4333,9 +4412,9 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 			buf->page = NULL;
+ 		} else if (buf1_len) {
+ 			dma_sync_single_for_cpu(priv->device, buf->addr,
+-						buf1_len, DMA_FROM_DEVICE);
++						buf1_len, dma_dir);
+ 			skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
+-					buf->page, 0, buf1_len,
++					buf->page, buf->page_offset, buf1_len,
+ 					priv->dma_buf_sz);
+ 
+ 			/* Data payload appended into SKB */
+@@ -4345,7 +4424,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 
+ 		if (buf2_len) {
+ 			dma_sync_single_for_cpu(priv->device, buf->sec_addr,
+-						buf2_len, DMA_FROM_DEVICE);
++						buf2_len, dma_dir);
+ 			skb_add_rx_frag(skb, skb_shinfo(skb)->nr_frags,
+ 					buf->sec_page, 0, buf2_len,
+ 					priv->dma_buf_sz);
+@@ -4503,6 +4582,11 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+ 		return -EBUSY;
+ 	}
+ 
++	if (stmmac_xdp_is_enabled(priv) && new_mtu > ETH_DATA_LEN) {
++		netdev_dbg(priv->dev, "Jumbo frames not supported for XDP\n");
++		return -EINVAL;
++	}
++
+ 	new_mtu = STMMAC_ALIGN(new_mtu);
+ 
+ 	/* If condition true, FIFO is too small or MTU too large */
+@@ -4564,6 +4648,7 @@ static int stmmac_set_features(struct net_device *netdev,
+ 	stmmac_rx_ipc(priv, priv->hw);
+ 
+ 	sph_en = (priv->hw->rx_csum > 0) && priv->sph;
++
+ 	for (chan = 0; chan < priv->plat->rx_queues_to_use; chan++)
+ 		stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
+ 
+@@ -5299,6 +5384,18 @@ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vi
+ 	return ret;
+ }
+ 
++static int stmmac_bpf(struct net_device *dev, struct netdev_bpf *bpf)
++{
++	struct stmmac_priv *priv = netdev_priv(dev);
++
++	switch (bpf->command) {
++	case XDP_SETUP_PROG:
++		return stmmac_xdp_set_prog(priv, bpf->prog, bpf->extack);
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
+ static const struct net_device_ops stmmac_netdev_ops = {
+ 	.ndo_open = stmmac_open,
+ 	.ndo_start_xmit = stmmac_xmit,
+@@ -5317,6 +5414,7 @@ static const struct net_device_ops stmmac_netdev_ops = {
+ 	.ndo_set_mac_address = stmmac_set_mac_address,
+ 	.ndo_vlan_rx_add_vid = stmmac_vlan_rx_add_vid,
+ 	.ndo_vlan_rx_kill_vid = stmmac_vlan_rx_kill_vid,
++	.ndo_bpf = stmmac_bpf,
+ };
+ 
+ static void stmmac_reset_subtask(struct stmmac_priv *priv)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+new file mode 100644
+index 000000000000..bf38d231860b
+--- /dev/null
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+@@ -0,0 +1,40 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2021, Intel Corporation. */
++
++#include "stmmac.h"
++#include "stmmac_xdp.h"
++
++int stmmac_xdp_set_prog(struct stmmac_priv *priv, struct bpf_prog *prog,
++			struct netlink_ext_ack *extack)
++{
++	struct net_device *dev = priv->dev;
++	struct bpf_prog *old_prog;
++	bool need_update;
++	bool if_running;
++
++	if_running = netif_running(dev);
++
++	if (prog && dev->mtu > ETH_DATA_LEN) {
++		/* For now, the driver doesn't support XDP functionality with
++		 * jumbo frames so we return error.
++		 */
++		NL_SET_ERR_MSG_MOD(extack, "Jumbo frames not supported");
++		return -EOPNOTSUPP;
++	}
++
++	need_update = !!priv->xdp_prog != !!prog;
++	if (if_running && need_update)
++		stmmac_release(dev);
++
++	old_prog = xchg(&priv->xdp_prog, prog);
++	if (old_prog)
++		bpf_prog_put(old_prog);
++
++	/* Disable RX SPH for XDP operation */
++	priv->sph = priv->sph_cap && !stmmac_xdp_is_enabled(priv);
++
++	if (if_running && need_update)
++		stmmac_open(dev);
++
++	return 0;
++}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
+new file mode 100644
+index 000000000000..93948569d92a
+--- /dev/null
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.h
+@@ -0,0 +1,12 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (c) 2021, Intel Corporation. */
++
++#ifndef _STMMAC_XDP_H_
++#define _STMMAC_XDP_H_
++
++#define STMMAC_MAX_RX_BUF_SIZE(num)	(((num) * PAGE_SIZE) - XDP_PACKET_HEADROOM)
++
++int stmmac_xdp_set_prog(struct stmmac_priv *priv, struct bpf_prog *prog,
++			struct netlink_ext_ack *extack);
++
++#endif /* _STMMAC_XDP_H_ */
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
