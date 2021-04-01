@@ -2,44 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 031A335207A
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Apr 2021 22:15:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 237B335231A
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Apr 2021 01:00:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1738C57B78;
-	Thu,  1 Apr 2021 20:15:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 879AAC57B79;
+	Thu,  1 Apr 2021 23:00:12 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EF61C56631
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1E35C57B78
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Apr 2021 20:15:38 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 87A4B610D0;
- Thu,  1 Apr 2021 20:15:34 +0000 (UTC)
+ Thu,  1 Apr 2021 23:00:10 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id E79716112E;
+ Thu,  1 Apr 2021 23:00:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1617308136;
- bh=fuOqNA8DOJlxAKS6JNMR4tbjB4yQtvLJUcYSsD7dFW0=;
- h=From:List-Id:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jlc/GyE6cVAawBfEDAJJRIMlv/fznTzNj9imiymblA8t+SX+cKGCiBC/qgXYOH9oj
- ibXXOAr94VmMFs93lX640srKZvTJrZuU9gcsScJpJSASFkTouyjqeQw3SOTV+NZQ6U
- ogHNwNBVY0w/lpnTh2FDjyf0jpbekbr5Th45QptZ7v3waz+55TmvHHXDjyd63kb3kL
- Ju4x6xzoQ8RqehOHyexDEvkp9vlgBHP1R8vmxa2rpkHBqUcn/hHwNXrz7oIIP+1l5j
- PEol+Q0Kt4l1P25S5toJAMIy5a/5EFY19JKvbH32bnQCPwxTkyFPqMG1yaxRAZZVab
- o3GUdBwMGxnfQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: arm-soc <arm@kernel.org>, SoC Team <soc@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>, Olof Johansson <olof@lixom.net>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Date: Thu,  1 Apr 2021 22:15:15 +0200
-Message-Id: <161730808665.655497.4617378835159018275.b4-ty@arndb.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <48784f53-943b-0baf-d4a0-fcb7d3849b00@foss.st.com>
-References: <48784f53-943b-0baf-d4a0-fcb7d3849b00@foss.st.com>
+ s=k20201202; t=1617318008;
+ bh=tSr+zGDSluwm5YWn2jN0KZi3KMNYKIeIsuiiZFz4PkI=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=Bd74D8KdBl9+NjVrc3KlWF3RDkEL8bCZ46tt4u60K3OC4d17ZFdEixaFm0bqrlwUS
+ GEHmDrNXSlVZKVKPhcgk3qCIKQn/mbsBU7It93ODlc+F8thfYtnk6ooJHlxfJPoTfT
+ 1UXzvjYX3/BHVvSOUvABfsUc4iSLQ7pdFtBAibvcaGrNAD6/tcrsEo7g3C8yoj+DiN
+ 6yOxl6HDH+dkMe3cfKY35CGK22IrzuyiqyHIrGqy/+36s52C6rbpLpWZDH1eCurT0j
+ H9m0FAiM5zbYR2UjCbPIDZcmkMsggxIaja79lBrqr4hptmrtjcIuk2sutMM+B3ksYh
+ eTgaklKYzvYsg==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id DF301609CF;
+ Thu,  1 Apr 2021 23:00:08 +0000 (UTC)
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Arnd Bergmann <arnd@arndb.de>,
- Jagan Teki <jagan@amarulasolutions.com>, dillon min <dillon.minfei@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [GIT PULL] STM32 DT changes for v5.13 #1
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <161731800891.8028.4149863007531019665.git-patchwork-notify@kernel.org>
+Date: Thu, 01 Apr 2021 23:00:08 +0000
+References: <20210401060628.27339-1-vee.khee.wong@linux.intel.com>
+In-Reply-To: <20210401060628.27339-1-vee.khee.wong@linux.intel.com>
+To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+Cc: alexandre.torgue@st.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: remove
+ unnecessary pci_enable_msi() call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,24 +59,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Arnd Bergmann <arnd@arndb.de>
+Hello:
 
-On Thu, 1 Apr 2021 14:44:37 +0200, Alexandre TORGUE wrote:
-> Please consider this first round of STM32 DT updates for v5.13. This PR
-> provides mainly new board supports. A new MCU art-pi board based on
-> stm32h750 plus a new Engicam boards family (SOM and carrier boards)
-> based on STM32MP15.
+This patch was applied to netdev/net-next.git (refs/heads/master):
+
+On Thu,  1 Apr 2021 14:06:28 +0800 you wrote:
+> The commit d2a029bde37b ("stmmac: pci: add MSI support for Intel Quark
+> X1000") introduced a pci_enable_msi() call in stmmac_pci.c.
 > 
-> regards
-> Alex
+> With the commit 58da0cfa6cf1 ("net: stmmac: create dwmac-intel.c to
+> contain all Intel platform"), Intel Quark platform related codes
+> have been moved to the newly created driver.
 > 
 > [...]
 
-Merged into arm/dt, thanks!
+Here is the summary with links:
+  - [net-next,1/1] net: stmmac: remove unnecessary pci_enable_msi() call
+    https://git.kernel.org/netdev/net-next/c/2237778d8c21
 
-merge commit: 24eab7796e6f15ea26e3f2a4883e0fa01494819c
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-       Arnd
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
