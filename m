@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A539235128D
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Apr 2021 11:43:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B88E3514DA
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Apr 2021 14:44:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C3C9C57B54;
-	Thu,  1 Apr 2021 09:43:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B379BC5719E;
+	Thu,  1 Apr 2021 12:44:50 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EB3BC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38493C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Apr 2021 09:43:33 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Thu,  1 Apr 2021 12:44:49 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 1319gKom021282; Thu, 1 Apr 2021 11:43:16 +0200
+ 131CgUZl012798; Thu, 1 Apr 2021 14:44:39 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=ElCTswr//GFCTAToCJhfoRZXnB9MVrksSyYjSKrxAoU=;
- b=Jqx/K1QwmWTis3eaCEw7rOD/e2XGnexB1jM0Kn6W6KfsQRexI8OipI+pwt05qsOB10mf
- NXSeO7mOPPOg2OaacbUVHBSeMzPJdSVkKgjDNcg4CmjFnmZoCHxaS3vOUpmvqOtFii9l
- 5hqI527BdNFlPoZ+ZfC5l0BeWduO09mYFaZmfANBpTPpSbdC9HMbbc8VyavSsJ+ob+tN
- dr6hMlmx3iiAlhGrNwaV+a2CKMiU6iH/JgI0dbOtEne7wThijrLPTgyo3JQtcbzJM4y/
- 5T9DvcTZAbMk6KYkLSSMabeln/z2M9Fy4hiGF1xORtt/4t1qDFUQ842Ijf5qdBdGbK97 CA== 
+ h=from : to : cc :
+ subject : message-id : date : mime-version : content-type :
+ content-transfer-encoding; s=selector1;
+ bh=pjmCR+XGmvgFkT4CF3zMUB4Z58ylQYQIvf4Xq4HTUTU=;
+ b=j2W3FsKRG8Sd92djYrfhZjcYvYhsqsDguQav2/D9WRw3Rdwcns3xqQkZvwhhIjjP4Udu
+ UFbb/gxT26K4s7sxRGhUpzhZ0ninOVmV4OCX8vv5IxGbkEJIBA+lbM4mlTmuaSgUrool
+ r5LlYyRtFWXRb3x+o9AeQx26yI3/uvc04nAm2oyNplpijfO0hQOfo8UBJO9iSWtZuWqD
+ H/iuzN5q1YQtaY57Jd9uT0tSvSCXJiMsnLAZOtskL0N2jBjxoOe8BiYB1BMYtGdSVL1z
+ 1pY7jWaFa7c3mSYfWFdSxHJXmRdfcSesIt6qU/L/vVUPW2OxJCWUtkCHDqRWMDJxjmDn gQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37n291k6b9-1
+ by mx07-00178001.pphosted.com with ESMTP id 37n295v6gj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 01 Apr 2021 11:43:16 +0200
+ Thu, 01 Apr 2021 14:44:39 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 39B9110002A;
- Thu,  1 Apr 2021 11:43:16 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2586810002A;
+ Thu,  1 Apr 2021 14:44:39 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2888222D63D;
- Thu,  1 Apr 2021 11:43:16 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.47) by SFHDAG2NODE3.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EC691248ED5;
+ Thu,  1 Apr 2021 14:44:38 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.44) by SFHDAG2NODE3.st.com
  (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 1 Apr
- 2021 11:43:15 +0200
-To: Kurt Kanzenbach <kurt@linutronix.de>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@st.com>
-References: <20210316080644.19809-1-kurt@linutronix.de>
+ 2021 14:44:38 +0200
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <ce610592-3d91-e5ad-ffe9-b8567af886f1@foss.st.com>
-Date: Thu, 1 Apr 2021 11:43:15 +0200
+To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
+ Hilman <khilman@baylibre.com>, SoC Team <soc@kernel.org>, arm-soc
+ <arm@kernel.org>
+Message-ID: <48784f53-943b-0baf-d4a0-fcb7d3849b00@foss.st.com>
+Date: Thu, 1 Apr 2021 14:44:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210316080644.19809-1-kurt@linutronix.de>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-04-01_04:2021-03-31,
+ definitions=2021-04-01_05:2021-03-31,
  2021-04-01 signatures=0
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add PTP clock to
-	Ethernet controller
+Cc: Marek Vasut <marex@denx.de>,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ Jagan Teki <jagan@amarulasolutions.com>, dillon min <dillon.minfei@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v5.13 #1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,43 +78,166 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Kurt
+Hi ARM SoC maintainers,
 
-On 3/16/21 9:06 AM, Kurt Kanzenbach wrote:
-> Add the PTP clock to the Ethernet controller. Otherwise, the driver uses the
-> main clock to derive the PTP frequency which is not necessarily the correct one.
-> 
-> Tested with linuxptp on Olimex STMP1-OLinuXino-LIME2.
-> 
-> Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
-> ---
->   arch/arm/boot/dts/stm32mp151.dtsi | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-> index 3c75abacb374..d1f596ea2fd5 100644
-> --- a/arch/arm/boot/dts/stm32mp151.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp151.dtsi
-> @@ -1421,11 +1421,13 @@
->   				      "mac-clk-tx",
->   				      "mac-clk-rx",
->   				      "eth-ck",
-> +				      "ptp_ref",
->   				      "ethstp";
->   			clocks = <&rcc ETHMAC>,
->   				 <&rcc ETHTX>,
->   				 <&rcc ETHRX>,
->   				 <&rcc ETHCK_K>,
-> +				 <&rcc ETHPTP_K>,
->   				 <&rcc ETHSTP>;
->   			st,syscon = <&syscfg 0x4>;
->   			snps,mixed-burst;
-> 
+Please consider this first round of STM32 DT updates for v5.13. This PR 
+provides mainly new board supports. A new MCU art-pi board based on 
+stm32h750 plus a new Engicam boards family (SOM and carrier boards) 
+based on STM32MP15.
 
-Applied on stm32-next.
-
-Thanks.
+regards
 Alex
+
+The following changes since commit a38fd8748464831584a19438cbb3082b5a2dab15:
+
+   Linux 5.12-rc2 (2021-03-05 17:33:41 -0800)
+
+are available in the Git repository at:
+
+   git://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git 
+tags/stm32-dt-for-v5.13-1
+
+for you to fetch changes up to 6ed9269265e10669d62280a869652dbe26f43ecb:
+
+   ARM: dts: stm32: Add PTP clock to Ethernet controller (2021-04-01 
+11:41:00 +0200)
+
+----------------------------------------------------------------
+STM32 DT updates for v5.13, round 1
+
+Highlights:
+----------
+
+MCU part:
+
+  -Add stm32h750 SoC support. It is based on stm32h743 and embeds
+   crypto IPs and 2 ADC.
+  -Add new art-pi board based on stm32h750. This board embeds:
+   -8MB QSPI flash.
+   -16MB SPI flash.
+   -32MB SDRAM.
+   -AP6212 combo (wifi/bt/fm).
+
+MPU part:
+  -Use dedicated PTP clock for Ethernet controller on stm32mp151.
+  -Enable i2c analog filter on stm32mp151.
+
+  -DH:
+   -Update GPIO names.
+   -Enable crc1 & crryp1 on DHSOM.
+
+  -Engicam: add new boards support:
+   -MicroGEA SOM which embeds STM32MP157aac, 512 MB Nand Flash
+    I2S.
+   -MicroGEA STM32MP1 Microdev 2.0 which embeds MicroGEA SOM,
+    Ethernet up to 100 Mbps, USB typeA, microSD, UMTS LTE, Wifi/BT
+    LVDS panel connector.
+   -MicroGEA STM32MP1 MicroDev 2.0 7" which embeds a MicroGEA STM32MP1
+    MicroDev 2.0 plus 7" Open Frame panel solution (7" AUO B101AW03 LVDS 
+panel
+    and EDT DT5526 Touch)
+   -i.Core STM32MP1 EDIMM SoM based on STM32MP157A.
+   -C.TOUCH 2.0 n EDIMM compliant general purpose Carrier board with 
+capacitive
+    touch interface support based on i.Core STM32MP1 EDIMM SoM.
+    It embeds ETH 10/100, wifi/bt, CAN, USB TypeA/OTG, LVDS pannel 
+connector.
+   -EDIMM2.2 Starter Kit is an EDIMM 2.2 Form Factor Capacitive Evaluation
+    Board based on i.Core STM32MP1 EDIMM SoM. IT embeds LCD 7" C.Touch,
+    wifi/bt,2*LVDS FHD, 3*USB2, 1*USB3 ...
+
+----------------------------------------------------------------
+Alain Volmat (1):
+       ARM: dts: stm32: enable the analog filter for all I2C nodes in 
+stm32mp151
+
+Alexandre Torgue (2):
+       ARM: dts: stm32: add new instances for stm32h743 MCU
+       ARM: dts: stm32: fix i2c node typo in stm32h743
+
+Jagan Teki (10):
+       dt-bindings: arm: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0
+       ARM: dts: stm32: Add Engicam MicroGEA STM32MP1 SoM
+       ARM: dts: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0 board
+       dt-bindings: arm: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 
+2.0 7" OF
+       ARM: dts: stm32: Add Engicam MicroGEA STM32MP1 MicroDev 2.0 7" OF
+       dt-bindings: arm: stm32: Add Engicam i.Core STM32MP1 C.TOUCH 2.0
+       ARM: dts: stm32: Add Engicam i.Core STM32MP1 SoM
+       ARM: dts: stm32: Add Engicam i.Core STM32MP1 C.TOUCH 2.0
+       dt-bindings: arm: stm32: Add Engicam i.Core STM32MP1 EDIMM2.2 
+Starter Kit
+       ARM: dts: stm32: Add Engicam i.Core STM32MP1 EDIMM2.2 Starter Kit
+
+Kurt Kanzenbach (1):
+       ARM: dts: stm32: Add PTP clock to Ethernet controller
+
+Marek Vasut (5):
+       ARM: dts: stm32: Fill GPIO line names on DHCOM SoM
+       ARM: dts: stm32: Fill GPIO line names on AV96
+       ARM: dts: stm32: Update GPIO line names on DRC02
+       ARM: dts: stm32: Update GPIO line names on PicoITX
+       ARM: dts: stm32: Enable crc1 and cryp1 where applicable on DHSOM
+
+Valentin CARON - foss (1):
+       ARM: dts: stm32: fix usart 2 & 3 pinconf to wake up with flow control
+
+dillon min (6):
+       Documentation: arm: stm32: Add stm32h750 value line doc
+       dt-bindings: arm: stm32: Add compatible strings for ART-PI board
+       ARM: dts: stm32: introduce stm32h7-pinctrl.dtsi to support stm32h750
+       ARM: dts: stm32: add support for art-pi board based on stm32h750xbh6
+       ARM: stm32: Add a new SoC - STM32H750
+       dt-bindings: serial: stm32: Use 'type: object' instead of false 
+for 'additionalProperties'
+
+  Documentation/arm/index.rst                        |   1 +
+  Documentation/arm/stm32/stm32h750-overview.rst     |  34 +++
+  .../devicetree/bindings/arm/stm32/stm32.yaml       |  21 ++
+  .../devicetree/bindings/serial/st,stm32-uart.yaml  |   3 +-
+  arch/arm/boot/dts/Makefile                         |   5 +
+  arch/arm/boot/dts/stm32h7-pinctrl.dtsi             | 275 
+++++++++++++++++++
+  arch/arm/boot/dts/stm32h743-pinctrl.dtsi           | 306 
+---------------------
+  arch/arm/boot/dts/stm32h743.dtsi                   | 177 +++++++++++-
+  arch/arm/boot/dts/stm32h743i-disco.dts             |   2 +-
+  arch/arm/boot/dts/stm32h743i-eval.dts              |   2 +-
+  arch/arm/boot/dts/stm32h750.dtsi                   |   6 +
+  arch/arm/boot/dts/stm32h750i-art-pi.dts            | 229 +++++++++++++++
+  arch/arm/boot/dts/stm32mp15-pinctrl.dtsi           |  21 +-
+  arch/arm/boot/dts/stm32mp151.dtsi                  |   8 +
+  arch/arm/boot/dts/stm32mp153c-dhcom-drc02.dts      |   4 +
+  .../dts/stm32mp157a-icore-stm32mp1-ctouch2.dts     |  47 ++++
+  .../dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts    |  47 ++++
+  arch/arm/boot/dts/stm32mp157a-icore-stm32mp1.dtsi  | 196 +++++++++++++
+  ...m32mp157a-microgea-stm32mp1-microdev2.0-of7.dts | 154 +++++++++++
+  .../stm32mp157a-microgea-stm32mp1-microdev2.0.dts  |  55 ++++
+  .../boot/dts/stm32mp157a-microgea-stm32mp1.dtsi    | 148 ++++++++++
+  arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dts       |   4 +
+  arch/arm/boot/dts/stm32mp157c-dhcom-picoitx.dts    |   4 +
+  arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi     |  12 +-
+  arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi   |  12 +-
+  arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi       |  64 +++++
+  arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi |  35 +++
+  arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi       |   4 +
+  arch/arm/mach-stm32/board-dt.c                     |   1 +
+  29 files changed, 1551 insertions(+), 326 deletions(-)
+  create mode 100644 Documentation/arm/stm32/stm32h750-overview.rst
+  create mode 100644 arch/arm/boot/dts/stm32h7-pinctrl.dtsi
+  delete mode 100644 arch/arm/boot/dts/stm32h743-pinctrl.dtsi
+  create mode 100644 arch/arm/boot/dts/stm32h750.dtsi
+  create mode 100644 arch/arm/boot/dts/stm32h750i-art-pi.dts
+  create mode 100644 
+arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2.dts
+  create mode 100644 
+arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+  create mode 100644 arch/arm/boot/dts/stm32mp157a-icore-stm32mp1.dtsi
+  create mode 100644 
+arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
+  create mode 100644 
+arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0.dts
+  create mode 100644 arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1.dtsi
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
