@@ -2,53 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E8DA355CA9
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Apr 2021 22:06:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46B4B355D04
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Apr 2021 22:40:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 360B0C5719D;
-	Tue,  6 Apr 2021 20:06:40 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE7DBC5719D;
+	Tue,  6 Apr 2021 20:40:38 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE642C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34851C56639
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Apr 2021 20:06:39 +0000 (UTC)
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
- (envelope-from <andrew@lunn.ch>)
- id 1lTrxn-00FB5Q-Mq; Tue, 06 Apr 2021 22:06:15 +0200
-Date: Tue, 6 Apr 2021 22:06:15 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Voon, Weifeng" <weifeng.voon@intel.com>
-Message-ID: <YGy/N+cRLGTifJSN@lunn.ch>
-References: <20210405112953.26008-1-michael.wei.hong.sit@intel.com>
- <YGsMbBW9h4H1y/T8@lunn.ch>
- <CO1PR11MB5044B1F80C412E6F0CAFD5509D779@CO1PR11MB5044.namprd11.prod.outlook.com>
- <YGsgHWItHcLFV9Kg@lunn.ch>
- <SN6PR11MB313690E7953BF715A8F488D688769@SN6PR11MB3136.namprd11.prod.outlook.com>
+ Tue,  6 Apr 2021 20:40:37 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7E9D2613D5;
+ Tue,  6 Apr 2021 20:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1617741635;
+ bh=mG4Sq6u56QNXfpw3dVHzq62pilnO6S5/eAOnL1VMX1Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=caCcFWEcn2I+GxktQMG6/FyIjsTJhqgLqScicq823GZwOFrE+JiiZvzKACfcqq2Ng
+ NOHimrjuXvSb7YF5iyxj1UcJX1AUpJVWS48vBKwgpLc6Sug5MonaPcb7zCldIy0SjD
+ 0cQVYYQf5yHcLkjAG6wEm3aZ+Nv609er0lAZXlPM1pL42ZUM75i5fM6qm0caJYEu+d
+ Tl5R26v5ZHxkKcKiN3p7XAv7tpigunIOPosMsmGf7X6cwd/ka0voULZPqg6y2QISzB
+ ngbU7hTIs0uDhCbiyhmA8hSXQhjYDMh3QZi5p3PHDu95LJk1e+lctAmVJgc8On2oRI
+ 3dDEARaMIeQHw==
+Date: Tue, 6 Apr 2021 22:40:32 +0200
+From: Wolfram Sang <wsa@kernel.org>
+To: Alain Volmat <alain.volmat@foss.st.com>
+Message-ID: <20210406204032.GD3804@kunai>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ pierre-yves.mordret@foss.st.com, alexandre.torgue@foss.st.com,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ fabrice.gasnier@foss.st.com
+References: <1615550007-10927-1-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <SN6PR11MB313690E7953BF715A8F488D688769@SN6PR11MB3136.namprd11.prod.outlook.com>
-Cc: "Chuah, Kim Tatt" <kim.tatt.chuah@intel.com>,
- "qiangqing.zhang@nxp.com" <qiangqing.zhang@nxp.com>,
- "fugang.duan@nxp.com" <fugang.duan@nxp.com>,
- "alexandre.torgue@st.com" <alexandre.torgue@st.com>, "Wong,
- Vee Khee" <vee.khee.wong@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "Sit,
- Michael Wei Hong" <michael.wei.hong.sit@intel.com>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "Ong,
- Boon Leong" <boon.leong.ong@intel.com>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "hkallweit1@gmail.com" <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/2] Enable 2.5Gbps speed for
-	stmmac
+In-Reply-To: <1615550007-10927-1-git-send-email-alain.volmat@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] i2c: stm32f7: avoid ifdef CONFIG_PM_SLEEP
+ for pm callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,35 +54,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1007043009324137065=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> The limitation is not on the MAC, PCS or the PHY. For Intel mgbe, the
-> overclocking of 2.5 times clock rate to support 2.5G is only able to be
-> configured in the BIOS during boot time. Kernel driver has no access to 
-> modify the clock rate for 1Gbps/2.5G mode. The way to determined the 
-> current 1G/2.5G mode is by reading a dedicated adhoc register through mdio bus.
-> In short, after the system boot up, it is either in 1G mode or 2.5G mode 
-> which not able to be changed on the fly. 
 
-Right. It would of been a lot easier if this was in the commit message
-from the beginning. Please ensure the next version does say this.
+--===============1007043009324137065==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UfEAyuTBtIjiZzX6"
+Content-Disposition: inline
 
-> Since the stmmac MAC can pair with any PCS and PHY, I still prefer that we tie
-> this platform specific limitation with the of MAC. As stmmac does handle platform
-> specific config/limitation. 
 
-So yes, this needs to be somewhere in the intel specific stmmac code,
-with a nice comment explaining what is going on.
+--UfEAyuTBtIjiZzX6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-What PHY are you using? The Aquantia/Marvell multi-gige phy can do
-rate adaptation. So you could fix the MAC-PHY link to 2500BaseX, and
-let the PHY internally handle the different line speeds.
+On Fri, Mar 12, 2021 at 12:53:27PM +0100, Alain Volmat wrote:
+> Avoid CONFIG_PM preprocessor check for pm suspend/resume
+> callbacks and identify the functions with __maybe_unused.
+>=20
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 
-    Andrew
+Applied to for-next, thanks!
+
+
+--UfEAyuTBtIjiZzX6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmBsx0AACgkQFA3kzBSg
+KbYk2w//Z5MirYVJZV8DrTODuuAzI1fK4ZXG90hIec7fd6TDmWAM5JffkO3rf7Kp
+Ktm+O2CIMALirCT4QZ5EHjYG7NOuCfaVLpFks0vCuT5kNQT48r+XAjG3Hx4MnXrR
+i1QvuzGzRWSCMqwts+t3lU7p5SWXmcTeLNQH9PBiKC+qdtRgdygFsfNStSOy82xg
+wOqEVqgsftdHotews3tCaj/CzGNZlhHnK7LorQ4IWI5q88/36Pjq/rpMx0aa5lAY
+VyX7uCEag5F2KVZeIK4HA35zRtiZgigZM5qpi2xJFQ3SyMeXtV66GY5CJbceSG04
+MzuxE72Z6CwgKF9BKSDI+09vY/hzZz9X9BIKKnVRdGt8AnPgB+owV4i5c9YFs+7W
+oWOChNwTlVIxnfonWubIWmBI0kG+9ah3N05dS3X8Zqh80Q2koNHOc8QodnnzItDe
+3yCP8lGVx44jFJVxst/rCOxgwN7R0mpr/GGMVZMIjHPEkBAIM7juyZCShp5c9D3i
+9HQKUIEjF+s0jvSlMlO6WOK0FOSd1Y+hwqCMRvIkfQkuymhu24OT9xDURhbDTI5d
+B/TjT8tPILyBhf+0U3LN34BiYXOnYvdOsJFpUtR6VHKI3a9z0/d6+Hl6cDbOAG2h
+qzRR+wf3AAdFbfjhz1i0tYQwtPnnWmDNZTqOz+QIns32NrDsq6E=
+=GpI0
+-----END PGP SIGNATURE-----
+
+--UfEAyuTBtIjiZzX6--
+
+--===============1007043009324137065==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1007043009324137065==--
