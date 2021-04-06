@@ -2,87 +2,159 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B446354F1D
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Apr 2021 10:56:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF5BF354F67
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Apr 2021 11:05:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51652C57A41;
-	Tue,  6 Apr 2021 08:56:09 +0000 (UTC)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B57BC57A41;
+	Tue,  6 Apr 2021 09:05:57 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53EDFC32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A61AC32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Apr 2021 08:56:08 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id j18so13304324wra.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Apr 2021 01:56:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=k0R/CpFQIO0LutUTt6whAWYDSEEYWanyJgecDTp2qS4=;
- b=OUtsvTywwF0/bDjP4cBmo4dT9qHLCQLOTKohdrUdMDdMtVgNZ88XIn0SLwDK4A4/qG
- EwEU/kFbpjoldb1LlsU7Sqe+FySEhPAaMbHfWEcGqojHKt4e7wg+lkYfX7k+1mdJfOVx
- AjbNMxpoKsRjSZwo0SNnNf4pUy1J3mi5/xwF4b9nJ8LW3P74wuWx4TkCXBTstUnV4lA7
- s0BPsgsPGkujSf2teVKDJ6yAKtQsmGArOMiabQxqM/i+PjKovEJjU6RlXGqdh4zTEWgS
- VM+UO6/Fxg6nQHnz7gGc/T35KZHHmhVOm5MYpNnNbtSejPeRXePMPVHTzDl4t2JCGmVy
- HLwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=k0R/CpFQIO0LutUTt6whAWYDSEEYWanyJgecDTp2qS4=;
- b=bvruFbjaEKs+myd/oUmxz6WIrZ/2HXW1lxgzJALCQUoP+jRkCcMThdUr2CI/GVaMqd
- Ve6hxjgJFHdN/5ivOGvvrZBzQVjk08NYMc89x5gY9z/Z/opGpbaCjVQ9ELaB4So8Ejep
- mwMARMxls1qhjFgM40KF/v+QxW4vROy/+QtLgpOljtvND8kcqhdT6ZxMkm4LM2U6HiAz
- To9/ja0x7GpCgPYCdO/HcDUBVt1VOgOdfAF/O67yhulRfimYVGsiu1I04T7bvgQ1BRp1
- wz44kqinT7954X1VX5IClZKMCbgKnRoeyK8rRboLmrgQg7+unFduoLaX+8X/1mRph9n3
- ML8w==
-X-Gm-Message-State: AOAM532+rcmFPJvC9jyT78t+fAr4Bgck+QAXf1btUzXfxH2SGqjyEHqY
- m0sZDWWc4i/HgNKEq3shwBobnw==
-X-Google-Smtp-Source: ABdhPJy5liwwM3Ot+2W70tIkjSPkDW++gyVE8uJhSgWpBItS06FaUlff1OXTLSFd9M921fWjlzp4KQ==
-X-Received: by 2002:a5d:6b89:: with SMTP id n9mr33668042wrx.236.1617699367868; 
- Tue, 06 Apr 2021 01:56:07 -0700 (PDT)
-Received: from dell ([91.110.221.193])
- by smtp.gmail.com with ESMTPSA id u12sm5987318wro.51.2021.04.06.01.56.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Apr 2021 01:56:07 -0700 (PDT)
-Date: Tue, 6 Apr 2021 09:56:05 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Anssi Hannula <anssi.hannula@gmail.com>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Bruno =?iso-8859-1?Q?Pr=E9mont?= <bonbons@linux-vserver.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Daniel Drubin <daniel.drubin@intel.com>,
- Dario Pagani <dario.pagani.146+linuxk@gmail.com>,
- dri-devel@lists.freedesktop.org, Henrik Rydberg <rydberg@bitmath.org>,
- Jiri Kosina <jikos@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Kim Kuparinen <kimi.h.kuparinen@gmail.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
- linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-usb@vger.kernel.org,
- Lopez Casado <nlopezcasad@logitech.com>,
- "L. Vinyard, Jr" <rvinyard@cs.nmsu.edu>,
- Masaki Ota <masaki.ota@jp.alps.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- message to <vojtech@ucw.cz>, Michael Haboustak <mike-@cinci.rr.com>,
- Rushikesh S Kadam <rushikesh.s.kadam@intel.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
- Vojtech Pavlik <vojtech@suse.cz>, Zhang Lixu <lixu.zhang@intel.com>
-Message-ID: <20210406085605.GS2916463@dell>
-References: <20210326143458.508959-1-lee.jones@linaro.org>
+ Tue,  6 Apr 2021 09:05:53 +0000 (UTC)
+IronPort-SDR: yNWPjlAEsORAE1bbdWpiMcd5oxjzvSfe8Pvnhq1fNYUvs/Mg9MBoc16OKmVjocsIO/SVB7YTrl
+ cfLVNbpdsmdw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9945"; a="172497754"
+X-IronPort-AV: E=Sophos;i="5.81,308,1610438400"; d="scan'208";a="172497754"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Apr 2021 02:05:51 -0700
+IronPort-SDR: g/f80FV0Vaf1V6xTG+2xjY1WH8Z0wmUkLcn0G/qQi/QwEZQ2SPUMqnzBYrEussa8mQpAxgHbP8
+ uC4Vt8+5igZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.81,309,1610438400"; d="scan'208";a="414687036"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga008.fm.intel.com with ESMTP; 06 Apr 2021 02:05:51 -0700
+Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Tue, 6 Apr 2021 02:05:51 -0700
+Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
+ fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Tue, 6 Apr 2021 02:05:50 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2106.2
+ via Frontend Transport; Tue, 6 Apr 2021 02:05:50 -0700
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com (104.47.44.56) by
+ edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2106.2; Tue, 6 Apr 2021 02:05:50 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FqQ7ZreDtghPEDkZD8WR1r5/4NSuJhywQjTjwZGXjhzML1fRtks4fCYg70iW4gZZTYiM5Q3Pr8PnSiAN4YNtja01XiNuhmx8MqIs2+As85TTB1oL/kHyL463G1wmW49n+Z2yr0cuL2d7tIb0yMYxDZ5rCaM2ElC3+2kLdweOsKT/DFHkJ308CEUUdxI4AYElR0+os1mqBUYSCQEF4ZhAwGaB9HgtEZC1qN2Hwb5EM5VQFA5i2azYkA/4Udzr3krcMa55R8b83J728YjthDllgfByDrJeddFdNzQ8BTbB4Kl1KwUt7Uei6T/qBYwdW7JL6JzcMJ3/NL9Z7rakFfcc9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NNPFudpmvNKDTQQvzgHYXbva+ws2nWqa+/h6wdLs1lE=;
+ b=cRdl4l3zMYR7BhVM+3oHqJZf6c9G7nCDOWK7F+azA9saI7B4IEUgs5SO7JTmsrhu77MnVTIfgmNO3ZDkgOgyAWebhgfAA/mATYRX8RxCMa2rRQ5cOhtgdAo59E77+G/PL+tppkZbc/MDclMJ8FCHtlDFJDv5UF+TBy5kJ9rYf9TYHTFEpzcrHL00XyOeB6kua3Gn57r1RWhyoB3A7N+ykxHWQ2s8+pureHmV37HuKmjw//z6lj3fnlxbUo6DYuSgGXq/wSC6cmYYDaRVhIr/t0VtnI72uCKded46L+TkPwrqgk9a0FKWQU2Ia4IuceZXjvpi8cIZ2c/xI3oNlK6Usg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NNPFudpmvNKDTQQvzgHYXbva+ws2nWqa+/h6wdLs1lE=;
+ b=LXAr+iD0lOMKoNhCxEhfZxlPY2MYnwms/LLnlVhAakKGwvZBPadLNN6CcjKiKVhnzRhmqlG20vvU/KlhH/rr4qdWZnOx/XXc3n2oGKpcYXKTxckQ7jOWEvjRgtUTe70m4V02kYkmV1FxCMAKekxwjfkJ2uRiIDJeZxORW8S/9Do=
+Received: from SN6PR11MB3136.namprd11.prod.outlook.com (2603:10b6:805:da::30)
+ by SN6PR11MB2797.namprd11.prod.outlook.com (2603:10b6:805:5a::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3999.29; Tue, 6 Apr
+ 2021 09:05:34 +0000
+Received: from SN6PR11MB3136.namprd11.prod.outlook.com
+ ([fe80::5143:5d07:51b:63a7]) by SN6PR11MB3136.namprd11.prod.outlook.com
+ ([fe80::5143:5d07:51b:63a7%5]) with mapi id 15.20.3999.032; Tue, 6 Apr 2021
+ 09:05:34 +0000
+From: "Voon, Weifeng" <weifeng.voon@intel.com>
+To: Andrew Lunn <andrew@lunn.ch>, "Sit, Michael Wei Hong"
+ <michael.wei.hong.sit@intel.com>
+Thread-Topic: [PATCH net-next v2 0/2] Enable 2.5Gbps speed for stmmac
+Thread-Index: AQHXKg/Os9IaztXPaUy24X7Nc4wW6qql5igAgAAULACAAANOgIABLtjg
+Date: Tue, 6 Apr 2021 09:05:33 +0000
+Message-ID: <SN6PR11MB313690E7953BF715A8F488D688769@SN6PR11MB3136.namprd11.prod.outlook.com>
+References: <20210405112953.26008-1-michael.wei.hong.sit@intel.com>
+ <YGsMbBW9h4H1y/T8@lunn.ch>
+ <CO1PR11MB5044B1F80C412E6F0CAFD5509D779@CO1PR11MB5044.namprd11.prod.outlook.com>
+ <YGsgHWItHcLFV9Kg@lunn.ch>
+In-Reply-To: <YGsgHWItHcLFV9Kg@lunn.ch>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+authentication-results: lunn.ch; dkim=none (message not signed)
+ header.d=none;lunn.ch; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [202.190.27.70]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f410b4b4-0825-4269-50cc-08d8f8db22ff
+x-ms-traffictypediagnostic: SN6PR11MB2797:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <SN6PR11MB27974192655A107BB20ECDA488769@SN6PR11MB2797.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: GttzPCH/F2zVsBHr6iUtdGJrtoBmmgB8bMLX4JJJ7rVnVBrGwly41qID75IO7QheuKgVKaYHGr/wcRn4AfUVN96rjq3dHJ2vNOrPucsWFZ+giMTmsrxL2/q5oHJgLQmXpxHXa/Xr74JRIg35CjQDQdmgtasbPF+gG8mwLQBRTOdp+VR9xVfwAXAkIauQ7x84ftN2A8MkeOhRlRFuPrBLOp119iUPlVyWc7Vt2X2gRedXgJgVNXz9c7Aj4HV3/vvvBdU9gG5ZpvQERsZ3ZiGbHszCqaiFb777RBR52V64pXEm28WyGdQ4UffnP7Z1LO9dpKhZvhEHlK7d495I8uv43xNoODhpdnYzGtKlqJNXqs4w+9hWtMLr3JZxYUbkijc0B5pMVkNr0j0mYr5koVHzgfJsZldPI2uKPsNJyM3GEfjmdwzw1HHEFCSfpg6V5uEX6f5XmVdSzS9hTtFY3AHYQUk6JrOn4jimG/f2fzjP/OQ2j7I7RHqxwRJ1kCgMZIuZB5Zw4IuX86AaSjVIJXgUKwzZErbtUpDwt7VKkW5iaNIqxoz+8d/8VSDZrtnhyyxS2qlxC4bLS5+tlGFRaUKLbVjtcoZ1bPrtGLPxAiipTv2X30k0K1Wo3U3yaNEvGlr0S8IZAygtZeivsB8MsaL6yoE+/E1tYCeyDs1+GvMg+no=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN6PR11MB3136.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(39860400002)(396003)(366004)(376002)(346002)(136003)(71200400001)(2906002)(83380400001)(33656002)(26005)(6636002)(4326008)(7696005)(478600001)(6506007)(8936002)(8676002)(54906003)(316002)(186003)(110136005)(66476007)(55016002)(9686003)(66946007)(66446008)(86362001)(66556008)(64756008)(38100700001)(52536014)(76116006)(5660300002)(7416002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?ppsRaYqIrANJgbDZMGqOM2R5Z8rI4l3klMZSxO5W0cEp8fnt16fPETJ7afY5?=
+ =?us-ascii?Q?1zh0JDkLCoOvqiovPOQJZBubl/y94FmuP0U/Y/EPDnp+51dHWSZJvL3ZaYqU?=
+ =?us-ascii?Q?DgmNpxplMXHk6tmusiQwyCAhWi6fKGCZCpkWIee1fnTg5jHIAWJaqEDqyPGq?=
+ =?us-ascii?Q?0Ffn7p6e4LOt0XITyIY7/V6MiITVEIzWFE8SVkDPOeLQP/G5yZU9PqfhQO3J?=
+ =?us-ascii?Q?iA059mOvUZo8YH9anl5BtatZd5P8rdI7+fB8XPEkc1Rh+asUSKmP2HwgnxDW?=
+ =?us-ascii?Q?ntj9h5q/JcUg8KDvl82fGOflm/z/RrgR5q43647H++oo4LYoSlOwbHeiV7ip?=
+ =?us-ascii?Q?QhcBn7sDPzppLtP/HFcBdxs/fRtJY8zNQ8FBqxvMjXwx9Ypvpu5FzKou++RM?=
+ =?us-ascii?Q?czfV8402KZzKz4XTpw75hESOdgCFP7EE1mHtowVSkPWJ7iVhmIkR3Uz1PMrX?=
+ =?us-ascii?Q?10n45+v8neRi+blidejtNGrT2ksuk1nsofqNZCUjjeS4DORl7E6fpUObW/k5?=
+ =?us-ascii?Q?tGC9xJBUV/moUn32PA0K7hmw6lVLsGJSfAEJppYTZfszPEQxH91g5aJ4MhBr?=
+ =?us-ascii?Q?KnsvIeNltOxUnDPSd8vFLuer730CEYzV1PtGKLK2wj1XEd98nK9PBRLL3ZRf?=
+ =?us-ascii?Q?PeBy0m3iwSnor76JoRB9dJdwAeXF5vK8cSei3ry1YU+6Oj7GVemKMoSgBtSL?=
+ =?us-ascii?Q?mf6tISxbcxeDDvt+dDcPOmhWYgjeBzzjZK/+Gj7uaeAMH64Y3ZqzpI1JUhuY?=
+ =?us-ascii?Q?KvTu/iF9Ot4fvRFqCsl8orsfw8vCF3i3dJmf+bVSBtpnWxRlmMBo410Qx34f?=
+ =?us-ascii?Q?jz1kSSc7d5yiubdW4ju51/mRI4n26ZXXHPIbj9prMEFbp8eP6omGCuyI6WUa?=
+ =?us-ascii?Q?u00/JbXFa5vo3AECmz1v+X+nd4fPLnaJ7AuBV8kj1q24Qrjgua2JD6iHziEd?=
+ =?us-ascii?Q?FC9AFhGxBptvYrdKJ7n9Ob9X86W6RPfhyL0joYabMCD4CeV++JJ+a6sMMQx1?=
+ =?us-ascii?Q?h6z4HNtSmeRdr6Sg8n+Xq8PpiIS8hWHG5CltlrhBPqG+OW4VPeGGJI5yUUfk?=
+ =?us-ascii?Q?wbRKgliyTOymtRRvy9Mjr8ZZBkT4LESgNby/Xz0OcRXCq7VjwVEql1oEB3B8?=
+ =?us-ascii?Q?WYw1vPwaqoZoq0y+a2GouUnIkAOauTaTxpxeT7Z4YdkmyWsg6cBOyDaE9fsL?=
+ =?us-ascii?Q?9AXudBWwXBJCWsFQY/fvtdjbwzMV2m2IpwqbbltsPFGFsp71wSN4KYUWP23c?=
+ =?us-ascii?Q?/pbfiQXgBC1p2Q1eU6uKzLVoujiR9t0ngzRH09Erb6LReTITA+WaLKMvM4kq?=
+ =?us-ascii?Q?9oKApc/GOb1+bbOU+HfOxEaK?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210326143458.508959-1-lee.jones@linaro.org>
-Subject: Re: [Linux-stm32] [RESEND 00/25] Rid W=1 warnings from HID
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR11MB3136.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f410b4b4-0825-4269-50cc-08d8f8db22ff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Apr 2021 09:05:34.0110 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1wma9xz5LscLKuHvqklmya86gxvmK1J/7JBMeMkvzR2OcRaU5TYmBx9XohkdOIsNmaNZQajrUW0JFR3ktmYbtw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR11MB2797
+X-OriginatorOrg: intel.com
+Cc: "Chuah, Kim Tatt" <kim.tatt.chuah@intel.com>,
+ "fugang.duan@nxp.com" <fugang.duan@nxp.com>,
+ "alexandre.torgue@st.com" <alexandre.torgue@st.com>, "Wong,
+ Vee Khee" <vee.khee.wong@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ "qiangqing.zhang@nxp.com" <qiangqing.zhang@nxp.com>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "kuba@kernel.org" <kuba@kernel.org>, "Ong,
+ Boon Leong" <boon.leong.ong@intel.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "hkallweit1@gmail.com" <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/2] Enable 2.5Gbps speed for
+	stmmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,50 +166,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCAyNiBNYXIgMjAyMSwgTGVlIEpvbmVzIHdyb3RlOgoKPiBUaGlzIHNldCBpcyBwYXJ0
-IG9mIGEgbGFyZ2VyIGVmZm9ydCBhdHRlbXB0aW5nIHRvIGNsZWFuLXVwIFc9MQo+IGtlcm5lbCBi
-dWlsZHMsIHdoaWNoIGFyZSBjdXJyZW50bHkgb3ZlcndoZWxtaW5nbHkgcmlkZGxlZCB3aXRoCj4g
-bmlnZ2x5IGxpdHRsZSB3YXJuaW5ncy4KPiAKPiBMZWUgSm9uZXMgKDI1KToKPiAgIEhJRDogaW50
-ZWwtaXNoLWhpZDogUmVtb3ZlIHVudXNlZCB2YXJpYWJsZSAnZXJyJwo+ICAgSElEOiBpc2h0cC1o
-aWQtY2xpZW50OiBNb3ZlIHZhcmlhYmxlIHRvIHdoZXJlIGl0J3MgYWN0dWFsbHkgdXNlZAo+ICAg
-SElEOiBpbnRlbC1pc2gtaGlkOiBwY2ktaXNoOiBSZW1vdmUgdW51c2VkIHZhcmlhYmxlICdyZXQn
-Cj4gICBISUQ6IGludGVsLWlzaDogU3VwcGx5IHNvbWUgbWlzc2luZyBwYXJhbSBkZXNjcmlwdGlv
-bnMKPiAgIEhJRDogaW50ZWwtaXNoOiBGaXggYSBuYW1pbmcgZGlzcGFyaXR5IGFuZCBhIGZvcm1h
-dHRpbmcgZXJyb3IKPiAgIEhJRDogdXNiaGlkOiBSZXBhaXIgYSBmb3JtYXR0aW5nIGlzc3VlIGlu
-IGEgc3RydWN0IGRlc2NyaXB0aW9uCj4gICBISUQ6IGludGVsLWlzaC1oaWQ6IEZpeCBhIGxpdHRs
-ZSBkb2Mtcm90Cj4gICBISUQ6IHVzYmhpZDogaGlkLXBpZGZmOiBEZW1vdGUgYSBjb3VwbGUga2Vy
-bmVsLWRvYyBhYnVzZXMKPiAgIEhJRDogaGlkLWFscHM6IENvcnJlY3Qgc3RydWN0IG1pc25hbWlu
-Zwo+ICAgSElEOiBpbnRlbC1pc2gtaGlkOiBGaXggcG90ZW50aWFsIGNvcHkvcGFzdGUgZXJyb3IK
-PiAgIEhJRDogaGlkLWNvcmU6IEZpeCBpbmNvcnJlY3QgZnVuY3Rpb24gbmFtZSBpbiBoZWFkZXIK
-PiAgIEhJRDogaW50ZWwtaXNoLWhpZDogaXBjOiBDb3JyZWN0IGZ3X3Jlc2V0X3dvcmtfZm4oKSBm
-dW5jdGlvbiBuYW1lIGluCj4gICAgIGhlYWRlcgo+ICAgSElEOiBpc2h0cC1oaWQtY2xpZW50OiBG
-aXggaW5jb3JyZWN0IGZ1bmN0aW9uIG5hbWUgcmVwb3J0X2JhZF9wYWNrZXQoKQo+ICAgSElEOiBo
-aWQta3llOiBGaXggaW5jb3JyZWN0IGZ1bmN0aW9uIG5hbWUgZm9yIGt5ZV90YWJsZXRfZW5hYmxl
-KCkKPiAgIEhJRDogaGlkLXBpY29sY2RfY29yZTogUmVtb3ZlIHVudXNlZCB2YXJpYWJsZSAncmV0
-Jwo+ICAgSElEOiBoaWQtbG9naXRlY2gtaGlkcHA6IEZpeCBjb25mb3JtYW50IGtlcm5lbC1kb2Mg
-aGVhZGVyIGFuZCBkZW1vdGUKPiAgICAgYWJ1c2VzCj4gICBISUQ6IGhpZC11Y2xvZ2ljLXJkZXNj
-OiBLZXJuZWwtZG9jIGlzIGZvciBmdW5jdGlvbnMgYW5kIHN0cnVjdHMKPiAgIEhJRDogaGlkLXRo
-cnVzdG1hc3RlcjogRGVtb3RlIGEgYnVuY2ggb2Yga2VybmVsLWRvYyBhYnVzZXMKPiAgIEhJRDog
-aGlkLXVjbG9naWMtcGFyYW1zOiBFbnN1cmUgZnVuY3Rpb24gbmFtZXMgYXJlIHByZXNlbnQgYW5k
-IGNvcnJlY3QKPiAgICAgaW4ga2VybmVsLWRvYyBoZWFkZXJzCj4gICBISUQ6IGhpZC1zZW5zb3It
-Y3VzdG9tOiBSZW1vdmUgdW51c2VkIHZhcmlhYmxlICdyZXQnCj4gICBISUQ6IHdhY29tX3N5czog
-RGVtb3RlIGtlcm5lbC1kb2MgYWJ1c2UKPiAgIEhJRDogaGlkLXNlbnNvci1odWI6IFJlbW92ZSB1
-bnVzZWQgc3RydWN0IG1lbWJlciAncXVpcmtzJwo+ICAgSElEOiBoaWQtc2Vuc29yLWh1YjogTW92
-ZSAnaHNkZXYnIGRlc2NyaXB0aW9uIHRvIGNvcnJlY3Qgc3RydWN0Cj4gICAgIGRlZmluaXRpb24K
-PiAgIEhJRDogaW50ZWwtaXNoLWhpZDogaXNodHAtZnctbG9hZGVyOiBGaXggYSBidW5jaCBvZiBm
-b3JtYXR0aW5nIGlzc3Vlcwo+ICAgSElEOiBpc2h0cC1oaWQtY2xpZW50OiBGaXggJ3N1Z2dlc3Qt
-YXR0cmlidXRlPWZvcm1hdCcgY29tcGlsZXIgd2FybmluZwoKVGhlc2UgaGF2ZSBiZWVuIG9uIHRo
-ZSBsaXN0IGZvciBhIGNvdXBsZSBvZiB3ZWVrcyBub3cuCgpJcyB0aGVyZSBhbnl0aGluZyBJIGNh
-biBkbyB0byBoZWxwIGV4cGVkaXRlIHRoZWlyIG1lcmdlPwoKSSdtIGNvbmNlcm5lZCBzaW5jZSAt
-cmM2IGhhcyBqdXN0IGJlZW4gcmVsZWFzZWQuCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dClNl
-bmlvciBUZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2aWNlcwpMaW5hcm8ub3JnIOKUgiBP
-cGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9sbG93IExpbmFybzogRmFjZWJvb2sg
-fCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
-bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+> > > You have a MAC and an PCS in the stmmac IP block. That then has some
+> > > sort of SERDES interface, running 1000BaseX, SGMII, SGMII
+> > > overclocked at 2.5G or 25000BaseX. Connected to the SERDES you have
+> > > a PHY which converts to copper, giving you 2500BaseT.
+> > >
+> > > You said earlier, that the PHY can only do 2500BaseT. So it should
+> > > be the PHY driver which sets supported to 2500BaseT and no other
+> > > speeds.
+> > >
+> > > You should think about when somebody uses this MAC with a different
+> > > PHY, one that can do the full range of 10/half through to 2.5G full.
+> > > What generally happens is that the PHY performs auto-neg to
+> > > determine the link speed. For 10M-1G speeds the PHY will configure
+> > > its SERDES interface to SGMII and phylink will ask the PCS to also
+> > > be configured to SGMII. If the PHY negotiates 2500BaseT, it will
+> > > configure its side of the SERDES to 2500BaseX or SGMII overclocked
+> > > at 2.5G. Again, phylink will ask the PCS to match what the PHY is
+> > > doing.
+> > >
+> > > So, where exactly is the limitation in your hardware? PCS or PHY?
+> > The limitation in the hardware is at the PCS side where it is either
+> > running in SGMII 2.5G or SGMII 1G speeds.
+> > When running on SGMII 2.5G speeds, we disable the in-band AN and use
+> > 2.5G speed only
+> 
+> So there is no actual limitation! The MAC should indicate it can do 10Half
+> through to 2500BaseT. And you need to listen to PHYLINK and swap the PCS
+> between SGMII to overclocked SGMII when it requests.
+> 
+> PHYLINK will call stmmac_mac_config() and use state->interface to decide
+> how to configure the PCS to match what the PHY is doing.
+> 
+>      Andrew
+
+The limitation is not on the MAC, PCS or the PHY. For Intel mgbe, the
+overclocking of 2.5 times clock rate to support 2.5G is only able to be
+configured in the BIOS during boot time. Kernel driver has no access to 
+modify the clock rate for 1Gbps/2.5G mode. The way to determined the 
+current 1G/2.5G mode is by reading a dedicated adhoc register through mdio bus.
+In short, after the system boot up, it is either in 1G mode or 2.5G mode 
+which not able to be changed on the fly. 
+
+Since the stmmac MAC can pair with any PCS and PHY, I still prefer that we tie
+this platform specific limitation with the of MAC. As stmmac does handle platform
+specific config/limitation. 
+
+What is your thoughts? 
+
+Weifeng
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
