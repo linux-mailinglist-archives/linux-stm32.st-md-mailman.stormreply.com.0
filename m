@@ -2,67 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3825B355581
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Apr 2021 15:44:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D4C355826
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Apr 2021 17:37:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9E61C5719D;
-	Tue,  6 Apr 2021 13:44:05 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F073BC5719D;
+	Tue,  6 Apr 2021 15:37:43 +0000 (UTC)
+Received: from ssl.serverraum.org (ssl.serverraum.org [176.9.125.105])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B305C56639
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64743CFAC55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Apr 2021 13:44:04 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1lTlzt-0004HM-FT; Tue, 06 Apr 2021 15:44:01 +0200
-Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1lTlzo-00033c-7n; Tue, 06 Apr 2021 15:43:56 +0200
-Date: Tue, 6 Apr 2021 15:43:56 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Thierry Reding <thierry.reding@gmail.com>
-Message-ID: <20210406134356.dda74heeshkwdarw@pengutronix.de>
-References: <20210406073036.26857-1-u.kleine-koenig@pengutronix.de>
- <YGxDD4jVZx/H/Zdr@orome.fritz.box>
+ Tue,  6 Apr 2021 15:37:40 +0000 (UTC)
+Received: from mwalle01.fritz.box (unknown
+ [IPv6:2a02:810c:c200:2e91:fa59:71ff:fe9b:b851])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by ssl.serverraum.org (Postfix) with ESMTPSA id D17A022239;
+ Tue,  6 Apr 2021 17:37:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
+ s=mail2016061301; t=1617723459;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=4/BQiJ2GNE7jqVtJc21/lsnvISqSDJWbIcVMn/jCWIU=;
+ b=OelbDNYipiFR2by7erxpWzQ/lYt+xXVq2aDu+T/X1b3Gg9BPfOhN0vxHm2Pk5UYE8AG2+U
+ crw4k0vT/GYnLdm2aTvBkxHsT1sSpS7OTfP2jwMOA8poEr5/YzaKp7xiFY1uY2tK901RsU
+ bUBqA+FegYnVw+Wr+aDW0lqiPbuhhFk=
+From: Michael Walle <michael@walle.cc>
+To: ath9k-devel@qca.qualcomm.com, UNGLinuxDriver@microchip.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-amlogic@lists.infradead.org, linux-oxnas@groups.io,
+ linux-omap@vger.kernel.org, linux-wireless@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-staging@lists.linux.dev
+Date: Tue,  6 Apr 2021 17:37:23 +0200
+Message-Id: <20210406153725.10059-1-michael@walle.cc>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <YGxDD4jVZx/H/Zdr@orome.fritz.box>
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>, linux-doc@vger.kernel.org,
- David Airlie <airlied@linux.ie>, Michael Turquette <mturquette@baylibre.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- Daniel Thompson <daniel.thompson@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
- Fabio Estevam <festevam@gmail.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>, linux-clk@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
- NXP Linux Team <linux-imx@nxp.com>, linux-input@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-pwm@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, intel-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
+X-Spam: Yes
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ =?UTF-8?q?J=C3=A9r=C3=B4me=20Pouiller?= <jerome.pouiller@silabs.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Rob Herring <robh+dt@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
+ Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>,
+ Paul Mackerras <paulus@samba.org>, Michael Walle <michael@walle.cc>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Pantelis Antoniou <pantelis.antoniou@gmail.com>,
+ =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Li Yang <leoyang.li@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Stephen Hemminger <stephen@networkplumber.org>,
+ Florian Fainelli <f.fainelli@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Madalin Bucur <madalin.bucur@nxp.com>, Russell King <linux@armlinux.org.uk>,
+ Neil Armstrong <narmstrong@baylibre.com>, Wingman Kwok <w-kwok2@ti.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
+ bcm-kernel-feedback-list@broadcom.com, NXP Linux Team <linux-imx@nxp.com>,
+ Chris Snook <chris.snook@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>,
+ Yisen Zhuang <yisen.zhuang@huawei.com>, Mark Lee <Mark-MC.Lee@mediatek.com>,
+ Sunil Goutham <sgoutham@marvell.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Grygorii Strashko <grygorii.strashko@ti.com>, Byungho An <bh74.an@samsung.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Stanislaw Gruszka <stf_xl@wp.pl>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Hauke Mehrtens <hauke@hauke-m.de>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Sean Wang <sean.wang@mediatek.com>, Salil Mehta <salil.mehta@huawei.com>,
+ Maxime Ripard <mripard@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, Ryder Lee <ryder.lee@mediatek.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Murali Karicheri <m-karicheri2@ti.com>, John Crispin <john@phrozen.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Support Opensource <support.opensource@diasemi.com>,
- Stephen Boyd <sboyd@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH] pwm: Rename pwm_get_state() to better
- reflect its semantic
+ Kalle Valo <kvalo@codeaurora.org>, Mirko Lindner <mlindner@marvell.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Vladimir Oltean <olteanv@gmail.com>,
+ Fugang Duan <fugang.duan@nxp.com>, Vadym Kochan <vkochan@marvell.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>,
+ Helmut Schaa <helmut.schaa@googlemail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ "David S . Miller" <davem@davemloft.net>, Taras Chornyi <tchornyi@marvell.com>,
+ Vinod Koul <vkoul@kernel.org>, Sergei Shtylyov <sergei.shtylyov@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Joyce Ooi <joyce.ooi@intel.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, Felix Fietkau <nbd@nbd.name>
+Subject: [Linux-stm32] [PATCH net-next v2 0/2] of: net: support non-platform
+	devices in of_get_mac_address()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,109 +108,131 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7708663844110671701=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+of_get_mac_address() is commonly used to fetch the MAC address
+from the device tree. It also supports reading it from a NVMEM
+provider. But the latter is only possible for platform devices,
+because only platform devices are searched for a matching device
+node.
 
---===============7708663844110671701==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t6hkzfhuwxujjtpy"
-Content-Disposition: inline
+Add a second method to fetch the NVMEM cell by a device tree node
+instead of a "struct device".
 
+Moreover, the NVMEM subsystem will return dynamically allocated
+data which has to be freed after use. Currently, this is handled
+by allocating a device resource manged buffer to store the MAC
+address. of_get_mac_address() then returns a pointer to this
+buffer. Without a device, this trick is not possible anymore.
+Thus, change the of_get_mac_address() API to have the caller
+supply a buffer.
 
---t6hkzfhuwxujjtpy
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+It was considered to use the network device to attach the buffer
+to, but then the order matters and netdev_register() has to be
+called before of_get_mac_address(). No driver does it this way.
 
-Hello Thierry,
+changes since v1:
+ - fixed stmmac_probe_config_dt() for !CONFIG_OF
+ - added missing queue in patch subject
 
-On Tue, Apr 06, 2021 at 01:16:31PM +0200, Thierry Reding wrote:
-> On Tue, Apr 06, 2021 at 09:30:36AM +0200, Uwe Kleine-K=F6nig wrote:
-> > Given that lowlevel drivers usually cannot implement exactly what a
-> > consumer requests with pwm_apply_state() there is some rounding involve=
-d.
-> >=20
-> > pwm_get_state() traditionally returned the setting that was requested m=
-ost
-> > recently by the consumer (opposed to what was actually implemented in
-> > hardware in reply to the last request). To make this semantic obvious
-> > rename the function.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-> > ---
-> >  Documentation/driver-api/pwm.rst           |  6 +++-
-> >  drivers/clk/clk-pwm.c                      |  2 +-
-> >  drivers/gpu/drm/i915/display/intel_panel.c |  4 +--
-> >  drivers/input/misc/da7280.c                |  2 +-
-> >  drivers/input/misc/pwm-beeper.c            |  2 +-
-> >  drivers/input/misc/pwm-vibra.c             |  4 +--
-> >  drivers/pwm/core.c                         |  4 +--
-> >  drivers/pwm/pwm-atmel-hlcdc.c              |  2 +-
-> >  drivers/pwm/pwm-atmel.c                    |  2 +-
-> >  drivers/pwm/pwm-imx27.c                    |  2 +-
-> >  drivers/pwm/pwm-rockchip.c                 |  2 +-
-> >  drivers/pwm/pwm-stm32-lp.c                 |  4 +--
-> >  drivers/pwm/pwm-sun4i.c                    |  2 +-
-> >  drivers/pwm/sysfs.c                        | 18 ++++++------
-> >  drivers/regulator/pwm-regulator.c          |  4 +--
-> >  drivers/video/backlight/pwm_bl.c           | 10 +++----
-> >  include/linux/pwm.h                        | 34 ++++++++++++++--------
-> >  17 files changed, 59 insertions(+), 45 deletions(-)
->=20
-> Honestly, I don't think this is worth the churn. If you think people
-> will easily get confused by this then a better solution might be to more
-> explicitly document the pwm_get_state() function to say exactly what it
-> returns.
+Michael Walle (2):
+  of: net: pass the dst buffer to of_get_mac_address()
+  of: net: fix of_get_mac_addr_nvmem() for PCI and DSA nodes
 
-I'm not so optimistic that people become aware of the semantic just
-because there is documentation describing it and I strongly believe that
-a good name for functions is more important than accurate documentation.
+ arch/arm/mach-mvebu/kirkwood.c                |  3 +-
+ arch/powerpc/sysdev/tsi108_dev.c              |  5 +-
+ drivers/net/ethernet/aeroflex/greth.c         |  6 +-
+ drivers/net/ethernet/allwinner/sun4i-emac.c   | 10 +--
+ drivers/net/ethernet/altera/altera_tse_main.c |  7 +-
+ drivers/net/ethernet/arc/emac_main.c          |  8 +-
+ drivers/net/ethernet/atheros/ag71xx.c         |  7 +-
+ drivers/net/ethernet/broadcom/bcm4908_enet.c  |  7 +-
+ drivers/net/ethernet/broadcom/bcmsysport.c    |  7 +-
+ drivers/net/ethernet/broadcom/bgmac-bcma.c    | 10 +--
+ .../net/ethernet/broadcom/bgmac-platform.c    | 11 ++-
+ drivers/net/ethernet/cadence/macb_main.c      | 11 +--
+ .../net/ethernet/cavium/octeon/octeon_mgmt.c  |  8 +-
+ .../net/ethernet/cavium/thunder/thunder_bgx.c |  5 +-
+ drivers/net/ethernet/davicom/dm9000.c         | 10 +--
+ drivers/net/ethernet/ethoc.c                  |  6 +-
+ drivers/net/ethernet/ezchip/nps_enet.c        |  7 +-
+ drivers/net/ethernet/freescale/fec_main.c     |  7 +-
+ drivers/net/ethernet/freescale/fec_mpc52xx.c  |  7 +-
+ drivers/net/ethernet/freescale/fman/mac.c     |  9 +-
+ .../ethernet/freescale/fs_enet/fs_enet-main.c |  5 +-
+ drivers/net/ethernet/freescale/gianfar.c      |  8 +-
+ drivers/net/ethernet/freescale/ucc_geth.c     |  5 +-
+ drivers/net/ethernet/hisilicon/hisi_femac.c   |  7 +-
+ drivers/net/ethernet/hisilicon/hix5hd2_gmac.c |  7 +-
+ drivers/net/ethernet/lantiq_xrx200.c          |  7 +-
+ drivers/net/ethernet/marvell/mv643xx_eth.c    |  5 +-
+ drivers/net/ethernet/marvell/mvneta.c         |  6 +-
+ .../ethernet/marvell/prestera/prestera_main.c | 11 +--
+ drivers/net/ethernet/marvell/pxa168_eth.c     |  9 +-
+ drivers/net/ethernet/marvell/sky2.c           |  8 +-
+ drivers/net/ethernet/mediatek/mtk_eth_soc.c   | 11 +--
+ drivers/net/ethernet/micrel/ks8851_common.c   |  7 +-
+ drivers/net/ethernet/microchip/lan743x_main.c |  5 +-
+ drivers/net/ethernet/nxp/lpc_eth.c            |  4 +-
+ drivers/net/ethernet/qualcomm/qca_spi.c       | 10 +--
+ drivers/net/ethernet/qualcomm/qca_uart.c      |  9 +-
+ drivers/net/ethernet/renesas/ravb_main.c      | 12 +--
+ drivers/net/ethernet/renesas/sh_eth.c         |  5 +-
+ .../ethernet/samsung/sxgbe/sxgbe_platform.c   | 13 +--
+ drivers/net/ethernet/socionext/sni_ave.c      | 10 +--
+ .../ethernet/stmicro/stmmac/dwmac-anarion.c   |  2 +-
+ .../stmicro/stmmac/dwmac-dwc-qos-eth.c        |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-generic.c   |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-imx.c   |  2 +-
+ .../stmicro/stmmac/dwmac-intel-plat.c         |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-ipq806x.c   |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-lpc18xx.c   |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-mediatek.c  |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-meson.c |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-meson8b.c   |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-oxnas.c |  2 +-
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-sti.c   |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-sunxi.c |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-visconti.c  |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  4 +-
+ .../ethernet/stmicro/stmmac/stmmac_platform.c | 14 +--
+ .../ethernet/stmicro/stmmac/stmmac_platform.h |  2 +-
+ drivers/net/ethernet/ti/am65-cpsw-nuss.c      | 19 ++---
+ drivers/net/ethernet/ti/cpsw.c                |  7 +-
+ drivers/net/ethernet/ti/cpsw_new.c            |  7 +-
+ drivers/net/ethernet/ti/davinci_emac.c        |  8 +-
+ drivers/net/ethernet/ti/netcp_core.c          |  7 +-
+ drivers/net/ethernet/wiznet/w5100-spi.c       |  8 +-
+ drivers/net/ethernet/wiznet/w5100.c           |  2 +-
+ drivers/net/ethernet/xilinx/ll_temac_main.c   |  6 +-
+ .../net/ethernet/xilinx/xilinx_axienet_main.c | 11 +--
+ drivers/net/ethernet/xilinx/xilinx_emaclite.c |  8 +-
+ drivers/net/wireless/ath/ath9k/init.c         |  5 +-
+ drivers/net/wireless/mediatek/mt76/eeprom.c   |  9 +-
+ .../net/wireless/ralink/rt2x00/rt2x00dev.c    |  6 +-
+ drivers/of/of_net.c                           | 85 ++++++++++++-------
+ drivers/staging/octeon/ethernet.c             | 10 +--
+ drivers/staging/wfx/main.c                    |  7 +-
+ include/linux/of_net.h                        |  6 +-
+ include/net/dsa.h                             |  2 +-
+ net/dsa/dsa2.c                                |  2 +-
+ net/dsa/slave.c                               |  2 +-
+ net/ethernet/eth.c                            | 11 +--
+ 85 files changed, 241 insertions(+), 362 deletions(-)
 
-If you don't agree, what do you think about the updated wording in
-Documentation/driver-api/pwm.rst?
-
-> But there's no need to make life difficult for everyone by
-> renaming this to something as cumbersome as this.
-
-I don't expect any merge conflicts (and if still a problem occurs
-resolving should be trivial enough). So I obviously don't agree to your
-weighing.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---t6hkzfhuwxujjtpy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmBsZZkACgkQwfwUeK3K
-7AnKfQf8CsJvMKdyRy2ch/MNcEI+IBzOnV6nRAbwkLN/G3pbTRHLCtd8Zg/Iobf1
-P7ADJlOPATvorbWWUoagJrzcsXswh3ctV5aSWs0Ax1GJQ+PxNtz20n+MtsiTq2gZ
-flPfVN0AurTPqh+oGXK+f9C9N0ASjR7i2qjuUoub37yQ/abR5exNOpaM8FEnIbcF
-OHcBHOokDL0GpBDir8M9UyfrsPt8TfVD5fk5hXr7hmBhY/iuGQynYDRMQ11/zkvM
-lqdH7zPujy5oNqA/+6OSE8vbqoyTRoSqFHuyPRirxDrO14Yu2U570iUznQfg2O/t
-3egDaTaqSuaJjxZHzKE4dbx3R/z8wQ==
-=ePEJ
------END PGP SIGNATURE-----
-
---t6hkzfhuwxujjtpy--
-
---===============7708663844110671701==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7708663844110671701==--
