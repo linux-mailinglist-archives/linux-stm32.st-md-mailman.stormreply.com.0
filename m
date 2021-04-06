@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0317C357D10
+	by mail.lfdr.de (Postfix) with ESMTPS id 59422357D11
 	for <lists+linux-stm32@lfdr.de>; Thu,  8 Apr 2021 09:12:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1C7DC57B5E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D69FFC57B6B;
 	Thu,  8 Apr 2021 07:12:19 +0000 (UTC)
 Received: from ssl.serverraum.org (ssl.serverraum.org [176.9.125.105])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3788CFAC55
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0DD0C5719D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Apr 2021 15:37:42 +0000 (UTC)
+ Tue,  6 Apr 2021 22:09:47 +0000 (UTC)
 Received: from mwalle01.fritz.box (unknown
  [IPv6:2a02:810c:c200:2e91:fa59:71ff:fe9b:b851])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by ssl.serverraum.org (Postfix) with ESMTPSA id 72B042224D;
- Tue,  6 Apr 2021 17:37:39 +0200 (CEST)
+ by ssl.serverraum.org (Postfix) with ESMTPSA id 9F58D22239;
+ Wed,  7 Apr 2021 00:09:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
- s=mail2016061301; t=1617723461;
+ s=mail2016061301; t=1617746985;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=qy26WmHeyrVWj0mOxJsJU0yit4VboI/+RdU+hmJ8x3A=;
- b=J3TbzMOYj/OPBKbP3PIoJ0uyZG2Io/6dVLzxNOAdbHAc4rQFDYHLRdCZenSQXotS1dQF28
- qwDueay3oU+AkwyXmgwTFsi+Awz+uPQQUwX0bai4euLv+EOAULhAyoeL5ch83CfrG8KVia
- E1ZJDQPog9wl4ng04Hz3bqt/4J8pc0U=
+ bh=THQyB2hcP4dmpI+E125KEc/6nda8+EdvIJj0sbYpelY=;
+ b=EXI1VoV9WmPQHqcLruuDWHpRPZRo5svm0qcNOLcbF2Cyy7WHFHd04auDlwFAbeihLwY0Sn
+ dKwUEbbjCp+LMaQsug77+bcz6o/q6E2ScG6jYhg2bya3UBK58eOH9XuqUVeoK5dGAOH9Qt
+ qJoXmvkzBcS7lf6+ZMc7beEcfvFsGtg=
 From: Michael Walle <michael@walle.cc>
 To: ath9k-devel@qca.qualcomm.com, UNGLinuxDriver@microchip.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
@@ -39,11 +39,11 @@ To: ath9k-devel@qca.qualcomm.com, UNGLinuxDriver@microchip.com,
  linux-amlogic@lists.infradead.org, linux-oxnas@groups.io,
  linux-omap@vger.kernel.org, linux-wireless@vger.kernel.org,
  devicetree@vger.kernel.org, linux-staging@lists.linux.dev
-Date: Tue,  6 Apr 2021 17:37:24 +0200
-Message-Id: <20210406153725.10059-2-michael@walle.cc>
+Date: Wed,  7 Apr 2021 00:09:20 +0200
+Message-Id: <20210406220921.24313-2-michael@walle.cc>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210406153725.10059-1-michael@walle.cc>
-References: <20210406153725.10059-1-michael@walle.cc>
+In-Reply-To: <20210406220921.24313-1-michael@walle.cc>
+References: <20210406220921.24313-1-michael@walle.cc>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 08 Apr 2021 07:12:17 +0000
 Cc: Andrew Lunn <andrew@lunn.ch>,
@@ -98,7 +98,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Joyce Ooi <joyce.ooi@intel.com>,
  Heiner Kallweit <hkallweit1@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>, Felix Fietkau <nbd@nbd.name>
-Subject: [Linux-stm32] [PATCH net-next v2 1/2] of: net: pass the dst buffer
+Subject: [Linux-stm32] [PATCH net-next v3 1/2] of: net: pass the dst buffer
 	to of_get_mac_address()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -2011,7 +2011,7 @@ index 61a4f1ad31e2..e95c101c2711 100644
  	if (!is_valid_ether_addr(eeprom_mac_addr)) {
  		eth_random_addr(eeprom_mac_addr);
 diff --git a/drivers/of/of_net.c b/drivers/of/of_net.c
-index bc0a27de69d4..2344ad7fff5e 100644
+index bc0a27de69d4..2d5d5e59aea5 100644
 --- a/drivers/of/of_net.c
 +++ b/drivers/of/of_net.c
 @@ -45,42 +45,35 @@ int of_get_phy_mode(struct device_node *np, phy_interface_t *interface)
@@ -2034,7 +2034,7 @@ index bc0a27de69d4..2344ad7fff5e 100644
  }
  
 -static const void *of_get_mac_addr_nvmem(struct device_node *np)
-+static int of_get_mac_addr_nvmem(struct device_node *np, u8 addr)
++static int of_get_mac_addr_nvmem(struct device_node *np, u8 *addr)
  {
 -	int ret;
 -	const void *mac;
