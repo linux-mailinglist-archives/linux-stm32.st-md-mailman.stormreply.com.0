@@ -2,103 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4B09355E82
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Apr 2021 00:09:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85910356035
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Apr 2021 02:20:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50DC6C5719D;
-	Tue,  6 Apr 2021 22:09:51 +0000 (UTC)
-Received: from ssl.serverraum.org (ssl.serverraum.org [176.9.125.105])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F04DC5718B;
+	Wed,  7 Apr 2021 00:20:20 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD0CAC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 863C7C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Apr 2021 22:09:49 +0000 (UTC)
-Received: from mwalle01.fritz.box (unknown
- [IPv6:2a02:810c:c200:2e91:fa59:71ff:fe9b:b851])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by ssl.serverraum.org (Postfix) with ESMTPSA id 5A4362224F;
- Wed,  7 Apr 2021 00:09:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
- s=mail2016061301; t=1617746989;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=q+28b1zyD0ipnp7X7qaRNoB7yZQlbx9y5m7NwMvG7cM=;
- b=VpG+SaxCrsqgK5AJ1uhvjqYL1Iz1HzqgMpALtpVAFdxlIxmlhhlsMp0jMDGwL6tEuMwcYt
- gqCojAcZb5LTi3qRkB2cRnKgQoGxBEBC4LAyNNK/cZJSH10jI46hzGor743DDIpxqYvtuU
- vzVbTRLjt5LlEXPfhBM/l7+qzAuqI30=
-From: Michael Walle <michael@walle.cc>
-To: ath9k-devel@qca.qualcomm.com, UNGLinuxDriver@microchip.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-amlogic@lists.infradead.org, linux-oxnas@groups.io,
- linux-omap@vger.kernel.org, linux-wireless@vger.kernel.org,
- devicetree@vger.kernel.org, linux-staging@lists.linux.dev
-Date: Wed,  7 Apr 2021 00:09:21 +0200
-Message-Id: <20210406220921.24313-3-michael@walle.cc>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210406220921.24313-1-michael@walle.cc>
-References: <20210406220921.24313-1-michael@walle.cc>
+ Wed,  7 Apr 2021 00:20:14 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 068C1613CB;
+ Wed,  7 Apr 2021 00:20:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1617754813;
+ bh=KTqpuXgzrieXAX+sUDBWy1nDUfNde7siIgorhzsRH90=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=OJykp99e1Jw3zhOCm6CJ8OJm1c8lPQLL5biQPIIcNeECtHwlTlnJoessSSyaZKMKU
+ wc4O1YyaCKSIUPtM8B6fpYSCaJD1A9zlBGEEtfnK+HVwv0R42c419Rd3a7EFypxTJe
+ o1ifbteQtDHoz9jygwnFX1q+iOQozmg6aFSgQE1rHvhvAdYEfUSGFh7HoZVqdfkVEH
+ NkUjuRsfEKaySmLgeawFzizJK3CsoIQH20O2C6GcsUnrmbcJvmZtq2ypvsjEvTmCsy
+ MOgXGNFAOPHZdEKnJ5mj9vwHkm0kOwpJKTOxR8u2jD6Fx8Hz/+atvLCrxe+gc0f3d9
+ F7oZY6IEdzOaA==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id F015260A6B;
+ Wed,  7 Apr 2021 00:20:12 +0000 (UTC)
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>,
- =?UTF-8?q?J=C3=A9r=C3=B4me=20Pouiller?= <jerome.pouiller@silabs.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Andreas Larsson <andreas@gaisler.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Rob Herring <robh+dt@kernel.org>, Michal Simek <michal.simek@xilinx.com>,
- Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>,
- Paul Mackerras <paulus@samba.org>, Michael Walle <michael@walle.cc>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Pantelis Antoniou <pantelis.antoniou@gmail.com>,
- =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Li Yang <leoyang.li@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Stephen Hemminger <stephen@networkplumber.org>,
- Florian Fainelli <f.fainelli@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
- Vivien Didelot <vivien.didelot@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Madalin Bucur <madalin.bucur@nxp.com>, Russell King <linux@armlinux.org.uk>,
- Neil Armstrong <narmstrong@baylibre.com>, Wingman Kwok <w-kwok2@ti.com>,
- Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
- bcm-kernel-feedback-list@broadcom.com, NXP Linux Team <linux-imx@nxp.com>,
- Chris Snook <chris.snook@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>,
- Yisen Zhuang <yisen.zhuang@huawei.com>, Mark Lee <Mark-MC.Lee@mediatek.com>,
- Sunil Goutham <sgoutham@marvell.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Grygorii Strashko <grygorii.strashko@ti.com>, Byungho An <bh74.an@samsung.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Stanislaw Gruszka <stf_xl@wp.pl>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Hauke Mehrtens <hauke@hauke-m.de>, Sascha Hauer <s.hauer@pengutronix.de>,
- Sean Wang <sean.wang@mediatek.com>, Salil Mehta <salil.mehta@huawei.com>,
- Maxime Ripard <mripard@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Ryder Lee <ryder.lee@mediatek.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Murali Karicheri <m-karicheri2@ti.com>, John Crispin <john@phrozen.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Kalle Valo <kvalo@codeaurora.org>, Mirko Lindner <mlindner@marvell.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Vladimir Oltean <olteanv@gmail.com>,
- Fugang Duan <fugang.duan@nxp.com>, Vadym Kochan <vkochan@marvell.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Bryan Whitehead <bryan.whitehead@microchip.com>,
- Helmut Schaa <helmut.schaa@googlemail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- "David S . Miller" <davem@davemloft.net>, Taras Chornyi <tchornyi@marvell.com>,
- Vinod Koul <vkoul@kernel.org>, Sergei Shtylyov <sergei.shtylyov@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Joyce Ooi <joyce.ooi@intel.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>, Felix Fietkau <nbd@nbd.name>
-Subject: [Linux-stm32] [PATCH net-next v3 2/2] of: net: fix
-	of_get_mac_addr_nvmem() for PCI and DSA nodes
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <161775481297.4854.15334694335904751602.git-patchwork-notify@kernel.org>
+Date: Wed, 07 Apr 2021 00:20:12 +0000
+References: <20210406101306.59162-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20210406101306.59162-1-andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: alexandre.torgue@foss.st.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v1 1/1] stmmac: intel: Drop
+ duplicate ID in the list of PCI device IDs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,86 +59,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-of_get_mac_address() already supports fetching the MAC address by an
-nvmem provider. But until now, it was just working for platform devices.
-Esp. it was not working for DSA ports and PCI devices. It gets more
-common that PCI devices have a device tree binding since SoCs contain
-integrated root complexes.
+Hello:
 
-Use the nvmem of_* binding to fetch the nvmem cells by a struct
-device_node. We still have to try to read the cell by device first
-because there might be a nvmem_cell_lookup associated with that device.
+This patch was applied to netdev/net-next.git (refs/heads/master):
 
-Signed-off-by: Michael Walle <michael@walle.cc>
----
-Please note, that I've kept the nvmem_get_mac_address() which operates
-on a device. The new of_get_mac_addr_nvmem() is almost identical and
-there are no users of the former function right now, but it seems to be
-the "newer" version to get the MAC address for a "struct device". Thus
-I've kept it. Please advise, if I should kill it though.
+On Tue,  6 Apr 2021 13:13:06 +0300 you wrote:
+> The PCI device IDs are defined with a prefix PCI_DEVICE_ID.
+> There is no need to repeat the ID part at the end of each definition.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 60 +++++++++----------
+>  1 file changed, 30 insertions(+), 30 deletions(-)
 
- drivers/of/of_net.c | 35 ++++++++++++++++++++++++++++++-----
- 1 file changed, 30 insertions(+), 5 deletions(-)
+Here is the summary with links:
+  - [net-next,v1,1/1] stmmac: intel: Drop duplicate ID in the list of PCI device IDs
+    https://git.kernel.org/netdev/net-next/c/3036ec035c4d
 
-diff --git a/drivers/of/of_net.c b/drivers/of/of_net.c
-index 2d5d5e59aea5..2323c6063eaf 100644
---- a/drivers/of/of_net.c
-+++ b/drivers/of/of_net.c
-@@ -11,6 +11,7 @@
- #include <linux/phy.h>
- #include <linux/export.h>
- #include <linux/device.h>
-+#include <linux/nvmem-consumer.h>
- 
- /**
-  * of_get_phy_mode - Get phy mode for given device_node
-@@ -59,15 +60,39 @@ static int of_get_mac_addr(struct device_node *np, const char *name, u8 *addr)
- static int of_get_mac_addr_nvmem(struct device_node *np, u8 *addr)
- {
- 	struct platform_device *pdev = of_find_device_by_node(np);
-+	struct nvmem_cell *cell;
-+	const void *mac;
-+	size_t len;
- 	int ret;
- 
--	if (!pdev)
--		return -ENODEV;
-+	/* Try lookup by device first, there might be a nvmem_cell_lookup
-+	 * associated with a given device.
-+	 */
-+	if (pdev) {
-+		ret = nvmem_get_mac_address(&pdev->dev, addr);
-+		put_device(&pdev->dev);
-+		return ret;
-+	}
-+
-+	cell = of_nvmem_cell_get(np, "mac-address");
-+	if (IS_ERR(cell))
-+		return PTR_ERR(cell);
-+
-+	mac = nvmem_cell_read(cell, &len);
-+	nvmem_cell_put(cell);
-+
-+	if (IS_ERR(mac))
-+		return PTR_ERR(mac);
-+
-+	if (len != ETH_ALEN || !is_valid_ether_addr(mac)) {
-+		kfree(mac);
-+		return -EINVAL;
-+	}
- 
--	ret = nvmem_get_mac_address(&pdev->dev, addr);
--	put_device(&pdev->dev);
-+	ether_addr_copy(addr, mac);
-+	kfree(mac);
- 
--	return ret;
-+	return 0;
- }
- 
- /**
--- 
-2.20.1
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
