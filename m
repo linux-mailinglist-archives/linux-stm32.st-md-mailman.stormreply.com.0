@@ -2,56 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57E8D356C22
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Apr 2021 14:32:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90C4C356C71
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Apr 2021 14:44:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2990C5719D;
-	Wed,  7 Apr 2021 12:32:16 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C149C56639
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Apr 2021 12:32:14 +0000 (UTC)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A6E0C5719D;
+	Wed,  7 Apr 2021 12:44:51 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8824F60FEE;
- Wed,  7 Apr 2021 12:32:12 +0000 (UTC)
-Received: from 78.163-31-62.static.virginmediabusiness.co.uk ([62.31.163.78]
- helo=why.lan) by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94)
- (envelope-from <maz@kernel.org>)
- id 1lU7Lu-0064Pb-H1; Wed, 07 Apr 2021 13:32:10 +0100
-From: Marc Zyngier <maz@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Erwan Le Ray <erwan.leray@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>
-Date: Wed,  7 Apr 2021 13:32:07 +0100
-Message-Id: <161779861853.1095473.5644490984272878167.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210319184253.5841-1-erwan.leray@foss.st.com>
-References: <20210319184253.5841-1-erwan.leray@foss.st.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE0F4C56639
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  7 Apr 2021 12:44:49 +0000 (UTC)
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
+ (envelope-from <andrew@lunn.ch>)
+ id 1lU7Xz-00FJ58-BU; Wed, 07 Apr 2021 14:44:39 +0200
+Date: Wed, 7 Apr 2021 14:44:39 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Voon, Weifeng" <weifeng.voon@intel.com>
+Message-ID: <YG2pN8uupbXP7xqU@lunn.ch>
+References: <20210405112953.26008-1-michael.wei.hong.sit@intel.com>
+ <YGsMbBW9h4H1y/T8@lunn.ch>
+ <CO1PR11MB5044B1F80C412E6F0CAFD5509D779@CO1PR11MB5044.namprd11.prod.outlook.com>
+ <YGsgHWItHcLFV9Kg@lunn.ch>
+ <SN6PR11MB313690E7953BF715A8F488D688769@SN6PR11MB3136.namprd11.prod.outlook.com>
+ <YGy/N+cRLGTifJSN@lunn.ch>
+ <SN6PR11MB3136E862F38D7C573759989188759@SN6PR11MB3136.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 62.31.163.78
-X-SA-Exim-Rcpt-To: robh+dt@kernel.org, alexandre.torgue@foss.st.com,
- erwan.leray@foss.st.com, gregkh@linuxfoundation.org, mcoquelin.stm32@gmail.com,
- tglx@linutronix.de, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-serial@vger.kernel.org,
- valentin.caron@foss.st.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, fabrice.gasnier@foss.st.com,
- patrice.chotard@foss.st.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
- SAEximRunCond expanded to false
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/5] stm32 usart wakeup rework
+Content-Disposition: inline
+In-Reply-To: <SN6PR11MB3136E862F38D7C573759989188759@SN6PR11MB3136.namprd11.prod.outlook.com>
+Cc: "Chuah, Kim Tatt" <kim.tatt.chuah@intel.com>,
+ "qiangqing.zhang@nxp.com" <qiangqing.zhang@nxp.com>,
+ "fugang.duan@nxp.com" <fugang.duan@nxp.com>,
+ "alexandre.torgue@st.com" <alexandre.torgue@st.com>, "Wong,
+ Vee Khee" <vee.khee.wong@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>, "Sit,
+ Michael Wei Hong" <michael.wei.hong.sit@intel.com>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "kuba@kernel.org" <kuba@kernel.org>, "Ong,
+ Boon Leong" <boon.leong.ong@intel.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "hkallweit1@gmail.com" <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/2] Enable 2.5Gbps speed for
+	stmmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,32 +67,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 19 Mar 2021 19:42:48 +0100, Erwan Le Ray wrote:
-> This series reworks stm32 usart wakeup management.
-> 
-> Alexandre Torgue (1):
->   serial: stm32: update wakeup IRQ management
-> 
-> Erwan Le Ray (4):
->   serial: stm32: rework wakeup management
->   serial: stm32: clean wakeup handling in serial_suspend
->   irqchip/stm32: add usart instances exti direct event support
->   ARM: dts: stm32: Add wakeup management on stm32mp15x UART nodes
-> 
-> [...]
+> Intel mgbe is flexible to pair with any PHY. Only Aquantia/Marvell
+> multi-gige PHY can do rate adaption right?
 
-Applied to irq/irqchip-next, thanks!
+The Marvell/Marvell multi-gige PHY can also do rate
+adaptation. Marvell buying Aquantia made naming messy :-(
+I should probably use part numbers.
 
-[3/5] irqchip/stm32: add usart instances exti direct event support
-      commit: e12c455055e9abc7403ce532616c0124a9d85ee7
+> Hence, we still need to take care of others PHYs.
 
-Cheers,
+Yes, it just makes working around the broken design harder if you want
+to get the most out of the hardware.
 
-	M.
--- 
-Without deviation from the norm, progress is not possible.
-
-
+   Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
