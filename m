@@ -2,44 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A06035ABB5
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Apr 2021 09:40:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83BF135AD7D
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Apr 2021 15:16:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0BAFC56639;
-	Sat, 10 Apr 2021 07:40:27 +0000 (UTC)
-Received: from mail-m17635.qiye.163.com (mail-m17635.qiye.163.com
- [59.111.176.35])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35A3DC5718B;
+	Sat, 10 Apr 2021 13:16:20 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83EC9C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E027C5662E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Apr 2021 07:40:26 +0000 (UTC)
-Received: from wanjb-virtual-machine.localdomain (unknown [36.152.145.182])
- by mail-m17635.qiye.163.com (Hmail) with ESMTPA id 7D2C14000DE;
- Sat, 10 Apr 2021 15:40:22 +0800 (CST)
-From: Wan Jiabing <wanjiabing@vivo.com>
-To: Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lyude Paul <lyude@redhat.com>, Wan Jiabing <wanjiabing@vivo.com>,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 10 Apr 2021 15:40:00 +0800
-Message-Id: <20210410074012.1258923-1-wanjiabing@vivo.com>
-X-Mailer: git-send-email 2.25.1
+ Sat, 10 Apr 2021 13:16:17 +0000 (UTC)
+IronPort-SDR: 3zJY/zDNwiBduEkDb0xzjUGycCqbatumX2qBRqP0wa503LYbi0DbfMpguHHYQo96RRWGoDYdIc
+ glrs2p2FhjWg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9950"; a="191782285"
+X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="191782285"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Apr 2021 06:16:16 -0700
+IronPort-SDR: K9zar4f0vNOGus1eGQXEBDsrvlbQ2NnorowaLzI/5TOGNIA6PF243l/U4Mkiep86Z7go7fx+s8
+ 60kNxwsxmwgg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,210,1613462400"; d="scan'208";a="388085254"
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga007.fm.intel.com with ESMTP; 10 Apr 2021 06:16:15 -0700
+Received: from linux.intel.com (unknown [10.88.229.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id 862245808EA;
+ Sat, 10 Apr 2021 06:16:12 -0700 (PDT)
+Date: Sat, 10 Apr 2021 21:16:09 +0800
+From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <20210410131609.GA12931@linux.intel.com>
+References: <20210407170442.1641-1-vee.khee.wong@linux.intel.com>
+ <20210409175004.2fceacdd@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZQhpJT1ZJQ0xKHRoZQ0gdTBhVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
- hKQ1VLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Pz46Tio*ND8RDhlJIjwWChdI
- Hk9PCjFVSlVKTUpDS09LT0lIS05DVTMWGhIXVQwaFRESGhkSFRw7DRINFFUYFBZFWVdZEgtZQVlI
- TVVKTklVSk9OVUpDSVlXWQgBWUFJSU9CNwY+
-X-HM-Tid: 0a78bab9814ad991kuws7d2c14000de
-Cc: kael_w@yeah.net
-Subject: [Linux-stm32] [PATCH] drm/nouveau/nvkm: Remove unnecessary
-	assignment
+Content-Disposition: inline
+In-Reply-To: <20210409175004.2fceacdd@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Cc: Alexandre Torgue <alexandre.torgue@st.com>,
+ Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: Add support
+ for external trigger timestamping
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,29 +67,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The declaration with assignment here is confusing.
-Remove the unnecessary assignment.
+On Fri, Apr 09, 2021 at 05:50:04PM -0700, Jakub Kicinski wrote:
+> Other than the minor nit below LGTM. Let's give Richard one more day.
+> 
+> On Thu,  8 Apr 2021 01:04:42 +0800 Wong Vee Khee wrote:
+> > +static void timestamp_interrupt(struct stmmac_priv *priv)
+> > +{
+> > +	struct ptp_clock_event event;
+> > +	unsigned long flags;
+> > +	u32 num_snapshot;
+> > +	u32 ts_status;
+> > +	u32 tsync_int;
+> > +	u64 ptp_time;
+> > +	int i;
+> > +
+> > +	tsync_int = readl(priv->ioaddr + GMAC_INT_STATUS) & GMAC_INT_TSIE;
+> > +
+> > +	if (!tsync_int)
+> > +		return;
+> > +
+> > +	/* Read timestamp status to clear interrupt from either external
+> > +	 * timestamp or start/end of PPS.
+> > +	 */
+> > +	ts_status = readl(priv->ioaddr + GMAC_TIMESTAMP_STATUS);
+> > +
+> > +	if (priv->plat->ext_snapshot_en) {
+> 
+> Are you intending to add more code after this if? Otherwise you could
+> flip the condition and return early instead of having the extra level
+> of indentation.
+>
 
-Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks fo the suggestion.
+There's no plan to add more code after this as per STMMAC features that
+required this interrupt. I will flip the condition.
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
-index 96aca0edfa3c..c51bac76174c 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
-@@ -313,7 +313,7 @@ nv50_instobj_dtor(struct nvkm_memory *memory)
- 	struct nv50_instobj *iobj = nv50_instobj(memory);
- 	struct nvkm_instmem *imem = &iobj->imem->base;
- 	struct nvkm_vma *bar;
--	void *map = map;
-+	void *map;
- 
- 	mutex_lock(&imem->mutex);
- 	if (likely(iobj->lru.next))
--- 
-2.25.1
+> > +		num_snapshot = (ts_status & GMAC_TIMESTAMP_ATSNS_MASK) >>
+> > +			       GMAC_TIMESTAMP_ATSNS_SHIFT;
+> > +
+> > +		for (i = 0; i < num_snapshot; i++) {
+> > +			spin_lock_irqsave(&priv->ptp_lock, flags);
+> > +			get_ptptime(priv->ptpaddr, &ptp_time);
+> > +			spin_unlock_irqrestore(&priv->ptp_lock, flags);
+> > +			event.type = PTP_CLOCK_EXTTS;
+> > +			event.index = 0;
+> > +			event.timestamp = ptp_time;
+> > +			ptp_clock_event(priv->ptp_clock, &event);
+> > +		}
+> > +	}
+> > +}
+> 
+> Not really related to this patch but how does stmmac set IRQF_SHARED
+> and yet not track if it indeed generated the interrupt? Isn't that
+> against the rules?
+>
+
+Good point! Thanks for pointing that out. I looked at how STMMAC
+interrupt handlers are coded, and indeed there are no tracking. Will
+work on that and send as a seperate patch in near future.
+
 
 _______________________________________________
 Linux-stm32 mailing list
