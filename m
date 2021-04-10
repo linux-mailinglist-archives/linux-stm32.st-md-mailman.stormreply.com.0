@@ -2,46 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 073F535A9B2
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Apr 2021 02:50:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A06035ABB5
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Apr 2021 09:40:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5A40C5718B;
-	Sat, 10 Apr 2021 00:50:08 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0BAFC56639;
+	Sat, 10 Apr 2021 07:40:27 +0000 (UTC)
+Received: from mail-m17635.qiye.163.com (mail-m17635.qiye.163.com
+ [59.111.176.35])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67AACC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83EC9C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Apr 2021 00:50:07 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 50E4E610CB;
- Sat, 10 Apr 2021 00:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618015805;
- bh=hEcu5UgpDUaV8nxve49onnz1+/sBjbrN8vvQuZFAQQo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=VwxM0DtA3/QOrvAmrWtoFBChFFBgW5WOtg6u8lYj3oVmSxXwfFqg5cyBj1utXuM3o
- 620Jim1FGRHFWkDb5NyQs8fQ3iVskLax5Hp7nnkDJLyekfk/GPxyOHf8RFjIy9ySf8
- aDTq/PiKZz7ghvlW9EoJoAqsILG0sEkXIJjNssJsRC3bIREV5nYF/gMdmXJKx35RcQ
- W/UbREFfBcM9JIRbC5cFvfODtpjMygtdMNhf3rmEzUh/MXfYevvyD/S7o/RBhjoegL
- /UbLOVpK3dMui5FAFwTjWKsAgxoxPiG6vNPGtxrUPTRhW3sR86Ikdp+kn5yl+TcU94
- jMAsmq6N+JUjw==
-Date: Fri, 9 Apr 2021 17:50:04 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-Message-ID: <20210409175004.2fceacdd@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20210407170442.1641-1-vee.khee.wong@linux.intel.com>
-References: <20210407170442.1641-1-vee.khee.wong@linux.intel.com>
-MIME-Version: 1.0
-Cc: Alexandre Torgue <alexandre.torgue@st.com>,
- Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Sat, 10 Apr 2021 07:40:26 +0000 (UTC)
+Received: from wanjb-virtual-machine.localdomain (unknown [36.152.145.182])
+ by mail-m17635.qiye.163.com (Hmail) with ESMTPA id 7D2C14000DE;
+ Sat, 10 Apr 2021 15:40:22 +0800 (CST)
+From: Wan Jiabing <wanjiabing@vivo.com>
+To: Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: Add support
- for external trigger timestamping
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Lyude Paul <lyude@redhat.com>, Wan Jiabing <wanjiabing@vivo.com>,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 10 Apr 2021 15:40:00 +0800
+Message-Id: <20210410074012.1258923-1-wanjiabing@vivo.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
+ oVCBIfWUFZQhpJT1ZJQ0xKHRoZQ0gdTBhVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
+ hKQ1VLWQY+
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Pz46Tio*ND8RDhlJIjwWChdI
+ Hk9PCjFVSlVKTUpDS09LT0lIS05DVTMWGhIXVQwaFRESGhkSFRw7DRINFFUYFBZFWVdZEgtZQVlI
+ TVVKTklVSk9OVUpDSVlXWQgBWUFJSU9CNwY+
+X-HM-Tid: 0a78bab9814ad991kuws7d2c14000de
+Cc: kael_w@yeah.net
+Subject: [Linux-stm32] [PATCH] drm/nouveau/nvkm: Remove unnecessary
+	assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,53 +56,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Other than the minor nit below LGTM. Let's give Richard one more day.
+The declaration with assignment here is confusing.
+Remove the unnecessary assignment.
 
-On Thu,  8 Apr 2021 01:04:42 +0800 Wong Vee Khee wrote:
-> +static void timestamp_interrupt(struct stmmac_priv *priv)
-> +{
-> +	struct ptp_clock_event event;
-> +	unsigned long flags;
-> +	u32 num_snapshot;
-> +	u32 ts_status;
-> +	u32 tsync_int;
-> +	u64 ptp_time;
-> +	int i;
-> +
-> +	tsync_int = readl(priv->ioaddr + GMAC_INT_STATUS) & GMAC_INT_TSIE;
-> +
-> +	if (!tsync_int)
-> +		return;
-> +
-> +	/* Read timestamp status to clear interrupt from either external
-> +	 * timestamp or start/end of PPS.
-> +	 */
-> +	ts_status = readl(priv->ioaddr + GMAC_TIMESTAMP_STATUS);
-> +
-> +	if (priv->plat->ext_snapshot_en) {
+Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
+---
+ drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Are you intending to add more code after this if? Otherwise you could
-flip the condition and return early instead of having the extra level
-of indentation.
-
-> +		num_snapshot = (ts_status & GMAC_TIMESTAMP_ATSNS_MASK) >>
-> +			       GMAC_TIMESTAMP_ATSNS_SHIFT;
-> +
-> +		for (i = 0; i < num_snapshot; i++) {
-> +			spin_lock_irqsave(&priv->ptp_lock, flags);
-> +			get_ptptime(priv->ptpaddr, &ptp_time);
-> +			spin_unlock_irqrestore(&priv->ptp_lock, flags);
-> +			event.type = PTP_CLOCK_EXTTS;
-> +			event.index = 0;
-> +			event.timestamp = ptp_time;
-> +			ptp_clock_event(priv->ptp_clock, &event);
-> +		}
-> +	}
-> +}
-
-Not really related to this patch but how does stmmac set IRQF_SHARED
-and yet not track if it indeed generated the interrupt? Isn't that
-against the rules?
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
+index 96aca0edfa3c..c51bac76174c 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/nv50.c
+@@ -313,7 +313,7 @@ nv50_instobj_dtor(struct nvkm_memory *memory)
+ 	struct nv50_instobj *iobj = nv50_instobj(memory);
+ 	struct nvkm_instmem *imem = &iobj->imem->base;
+ 	struct nvkm_vma *bar;
+-	void *map = map;
++	void *map;
+ 
+ 	mutex_lock(&imem->mutex);
+ 	if (likely(iobj->lru.next))
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
