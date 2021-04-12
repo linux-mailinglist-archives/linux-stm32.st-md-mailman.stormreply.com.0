@@ -2,67 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5179835BBBA
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Apr 2021 10:09:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CF0735BC0D
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Apr 2021 10:25:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0652CC57B6F;
-	Mon, 12 Apr 2021 08:09:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA7B7C57B6F;
+	Mon, 12 Apr 2021 08:25:45 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C077C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2795FC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Apr 2021 08:09:20 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13C7w1aK025434; Mon, 12 Apr 2021 10:09:08 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=pvms5u7x6A4ecK+KuAFYjtDWOxQgnlO0iSYSxnq8Vp4=;
- b=Jl9F0NnvfASZrqidpqpAuk8JntlQHOH6feqn5lhcAEOVLZlCNcmG98UhpbeHoh/TZGiq
- +4pBe5uRy8/K3AlrI0HH5yiyDGpF90RABKK9uCyyXwmgquLW6C+7jz8UUJftvok70FRI
- EJ82kT5jpHw23AgrNNVMU9WkjYK6uQfvudF8LPH40b8tl6B0NbC4Uce7DHMVFKtIDjz1
- Z4EPkaHbSVMH22hO5IunBSkl1f91LueP/+P+Yu39VR/OHjSDVSg8fdYM3gSthD9/tQwp
- KFRdJlRBZI38Jiz4QddhSe3xWaGPIO8lrqySeTc+RX9ocd8dQJAc8gS/bD4l6QinCPLp Iw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37v3g5u8s0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Apr 2021 10:09:08 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3617710002A;
- Mon, 12 Apr 2021 10:09:08 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 26A14221F74;
- Mon, 12 Apr 2021 10:09:08 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.50) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 12 Apr
- 2021 10:09:07 +0200
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20210408185731.135511-1-marex@denx.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <b81d6a69-713f-eda7-0837-d6e80d691c6a@foss.st.com>
-Date: Mon, 12 Apr 2021 10:09:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon, 12 Apr 2021 08:25:44 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F372C611C9;
+ Mon, 12 Apr 2021 08:25:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1618215942;
+ bh=o2FA/cIfp81ieww6cQ4V8vdIeDnkjNOcliiu7ETQHpk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DHnMsNneetAzNDdLcS/md0lm9nlFNbK5iX6CMGjtvhvCkGUXfhTDBvSbjuuVA7ZKF
+ qj8b8plBSB1bCVGVKT3k1hD1GZPdAYg+zHdgMjyGxf84Un7uA5Qw46RoIFDoTwhm1J
+ 4acu6SGUE6kN+llel9jRLE7HGsVR6ayGkJ7OmNcM=
+Date: Mon, 12 Apr 2021 10:25:39 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: dillon min <dillon.minfei@gmail.com>
+Message-ID: <YHQEA9jn5uXQCtrN@kroah.com>
+References: <1618202061-8243-1-git-send-email-dillon.minfei@gmail.com>
+ <YHPgGI6EmTzmVH7g@kroah.com>
+ <CAL9mu0Lt-3_O7V5HLxd5Hbt9afx9ryBUzWqmsc+2n3SP7JS6ig@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210408185731.135511-1-marex@denx.de>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-12_04:2021-04-12,
- 2021-04-12 signatures=0
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Stephen Boyd <swboyd@chromium.org>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH 0/7] ARM: dts: stm32: clk: Switch ETHRX
- clock parent from ETHCK_K to MCO2 on DHCOM SoM
+Content-Disposition: inline
+In-Reply-To: <CAL9mu0Lt-3_O7V5HLxd5Hbt9afx9ryBUzWqmsc+2n3SP7JS6ig@mail.gmail.com>
+Cc: linux-serial@vger.kernel.org,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, jirislaby@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] serial: stm32: optimize spin lock usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,125 +50,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek
-
-On 4/8/21 8:57 PM, Marek Vasut wrote:
-> The implementation of ETH_RX_CLK/ETH_REF_CLK handling on STM32MP1 currently
-> does not permit selecting the RX clock input from SoC pad, the RX clock are
-> hard-wired to eth_clk_fb. This cover letter describes multiple unsuccessful
-> attempts at solving this problem and a proposed partial solution.
-> 
-> The problem is that in stm32mp151.dtsi, the "st,stm32mp1-dwmac" compatible
-> ethernet requests mac-clk-rx = <&rcc ETHRX> as MAC RX clock, which per [1]
-> page 576 maps to clk_rx_i signal. Upon closer inspection of clk-stm32mp1.c,
-> the ETHRX clock 1) only models G_ETHRX gate, which represents ETHRXEN bit,
-> and 2) sets ETHRX clock parent to ck_axi. Both are wrong for the following
-> reasons:
-> 1) ETHRX clock are composite clock of gate and two muxes, which ultimately
->     permit selecting ETHRX clock parent to be either eth_clk_fb or external
->     ETH_RX_CLK/ETH_REF_CLOCK clock from SoC pad. Because only the gate part
->     is modeled, the clock topology is wrong and it is not possible to select
->     the ETHRX clock parent using the clock framework at all.
-> 2) ETHRX clock are supplied from a mux controlled by ETH_SEL[2] (from
->     SYSCFG), which is supplied from a mux controlled by ETH_REF_CLK_SEL
->     (from SYSCFG), which is supplied either by ETH_RX_CLK/ETH_REF_CLK
->     from pad OR internally from eth_clk_fb clock, which maps to ETHCK_K
->     clock. Hence, ETHRX can never be supplied by ck_axi.
-> 
-> Another unique feature of ETHRX clock muxes is that they are controlled
-> via SYSCFG block instead of being part of the RCC block. This is a rather
-> unfortunate design, as it creates dependency between RCC, SYSCFG and DWMAC.
-> Currently, those clock muxes are configured in the dwmac4 driver through
-> syscon interface to SYSCFG block, based on custom device tree properties --
-> st,eth-clk-sel and st,eth-ref-clk-sel -- this is clearly not the correct
-> approach.
-> 
-> First approach was to implement ETHRX clock including muxes in clk-stm32mp1.c.
-> This means RCC clock driver, clk-stm32mp1.c, must obtain access to SYSCFG IP
-> registers via some syscon_regmap_lookup_by_phandle() when registering ETHRX
-> clock in RCC driver probe, so that it can read out SYSCFG register state to
-> determine the current mux state, and later toggle the mux bits. The problem
-> here is that the SYSCFG requires clock which are provided by RCC, so
-> syscon_regmap_lookup_by_phandle() fails with EPROBE_DEFER because the clock
-> are not available yet in RCC clock driver probe, so there is cyclic dependency
-> between RCC and SYSCFG.
-> 
-> Similar approach would be to turn SYSCFG into simple-bus and implement
-> separate SYSCFG clock sub-driver, which would register single clock mux with
-> two parents -- ETHCK_K and ETH_RX_CLK -- and would only control the SYSCFG
-> clock mux bits. The problem here is similar, for RCC driver to register the
-> ETHRX clock, the ETHRX clock must have a parent clock, however the parent
-> clock are not ready yet, because this new SYSCFG clock sub-driver requires
-> SYSCFG register clock, which only become available once RCC finishes probing,
-> so there again is a cyclic dependency between RCC and SYSCFG.
-> 
-> One possible solution could be to defer obtaining the SYSCFG regmap handle
-> until later point, i.e. only once a register access to SYSCFG is required
-> the first time. This could permit us to register the mux in the RCC driver
-> including a mux which requires SYSCFG access via syscon, although this would
-> likely still run into problems during probe, since the clock framework would
-> call .get_parent() during mux registration and trigger the SYSCFG access.
-> 
-> All the above still only discusses the clock part of the problem. Even if
-> the clock cyclic dependencies could be solved, it would be necessary to
-> resolve legacy dwmac st,eth-clk-sel and st,eth-ref-clk-sel DT properties
-> and avoid DT ABI break.
-
-Thanks for those clear explanations and for this series. As discussed, 
-this approach looks good to me as it doesn't break our current strategy 
-for dwmac clock integration. I don't know if those cyclic redundancies 
-will be fixed one day but we can have a look on dwmac DT properties (the 
-gain to change them, the effort to keep the backward compatibility, code 
-readability, ...).
-
-Your DT patches looks good. I'll merge them soon.
-
-regards
-alex
-
-
-> So in the end, this series takes a different approach and only partly solves
-> the problem. This series splits ETHCK_K, so the ETHCK_K gate could be turned
-> off and adds support for selecting ETHRX clock parent clock via DT. This then
-> permits e.g. DHCOM to select MCO2 as ETHRX clock source and the clock tree is
-> then correctly set up.
-> 
-> [1] STM32MP1 Reference Manual RM0436 Rev 3, Page 574,
->      Figure 83. Peripheral clock distribution for Ethernet
->      https://www.st.com/resource/en/reference_manual/dm00327659-stm32mp157-advanced-armbased-32bit-mpus-stmicroelectronics.pdf
-> 
-> Marek Vasut (7):
->    clk: stm32mp1: Split ETHCK_K into separate MUX and GATE clock
->    clk: stm32mp1: The dev is always NULL, replace it with np
->    clk: stm32mp1: Register clock with device_node pointer
->    clk: stm32mp1: Add parent_data to ETHRX clock
->    ARM: dts: stm32: Add alternate pinmux for ethernet0 pins
->    ARM: dts: stm32: Add alternate pinmux for mco2 pins
->    ARM: dts: stm32: Switch DWMAC RMII clock to MCO2 on DHCOM
-> 
->   arch/arm/boot/dts/stm32mp15-pinctrl.dtsi     |  49 +++++++
->   arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi |  20 ++-
->   drivers/clk/clk-stm32mp1.c                   | 134 +++++++++++--------
->   3 files changed, 146 insertions(+), 57 deletions(-)
-> 
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-> Cc: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> Cc: Stephen Boyd <swboyd@chromium.org>
-> Cc: linux-clk@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> 
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBBcHIgMTIsIDIwMjEgYXQgMDI6NTA6MjBQTSArMDgwMCwgZGlsbG9uIG1pbiB3cm90
+ZToKPiBIaSBHcmVn77yMCj4gCj4gVGhhbmtzIGZvciB0aGUgcXVpY2sgcmVzcG9uc2UsIHBsZWFz
+ZSBpZ25vcmUgdGhlIGxhc3QgcHJpdmF0ZSBtYWlsLgo+IAo+IE9uIE1vbiwgQXByIDEyLCAyMDIx
+IGF0IDE6NTIgUE0gR3JlZyBLSCA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+IHdyb3RlOgo+
+ID4KPiA+IE9uIE1vbiwgQXByIDEyLCAyMDIxIGF0IDEyOjM0OjIxUE0gKzA4MDAsIGRpbGxvbi5t
+aW5mZWlAZ21haWwuY29tIHdyb3RlOgo+ID4gPiBGcm9tOiBkaWxsb24gbWluIDxkaWxsb24ubWlu
+ZmVpQGdtYWlsLmNvbT4KPiA+ID4KPiA+ID4gVG8gYXZvaWQgcG90ZW50aWFsIGRlYWRsb2NrIGlu
+IHNwaW5fbG9jayB1c2FnZSwgY2hhbmdlIHRvIHVzZQo+ID4gPiBzcGluX2xvY2tfaXJxc2F2ZSgp
+LCBzcGluX3VubG9ja19pcnFyZXN0b3JlKCkgaW4gcHJvY2Vzcyh0aHJlYWRfZm4pIGNvbnRleHQu
+Cj4gPiA+IHNwaW5fbG9jaygpLCBzcGluX3VubG9jaygpIHVuZGVyIGhhbmRsZXIgY29udGV4dC4K
+PiA+ID4KPiA+ID4gcmVtb3ZlIHVudXNlZCBsb2NhbF9pcnFfc2F2ZS9yZXN0b3JlIGNhbGwuCj4g
+PiA+Cj4gPiA+IFNpZ25lZC1vZmYtYnk6IGRpbGxvbiBtaW4gPGRpbGxvbi5taW5mZWlAZ21haWwu
+Y29tPgo+ID4gPiAtLS0KPiA+ID4gV2FzIHZlcmlmaWVkIG9uIHN0bTMyZjQ2OS1kaXNjbyBib2Fy
+ZC4gbmVlZCBtb3JlIHRlc3Qgb24gc3RtMzJtcCBwbGF0Zm9ybS4KPiA+ID4KPiA+ID4gIGRyaXZl
+cnMvdHR5L3NlcmlhbC9zdG0zMi11c2FydC5jIHwgMjcgKysrKysrKysrKysrKysrKystLS0tLS0t
+LS0tCj4gPiA+ICAxIGZpbGUgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25z
+KC0pCj4gPiA+Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3R0eS9zZXJpYWwvc3RtMzItdXNh
+cnQuYyBiL2RyaXZlcnMvdHR5L3NlcmlhbC9zdG0zMi11c2FydC5jCj4gPiA+IGluZGV4IGIzNjc1
+Y2YyNWE2OS4uYzRjODU5YjM0MzY3IDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL3R0eS9zZXJp
+YWwvc3RtMzItdXNhcnQuYwo+ID4gPiArKysgYi9kcml2ZXJzL3R0eS9zZXJpYWwvc3RtMzItdXNh
+cnQuYwo+ID4gPiBAQCAtMjE0LDcgKzIxNCw3IEBAIHN0YXRpYyB2b2lkIHN0bTMyX3VzYXJ0X3Jl
+Y2VpdmVfY2hhcnMoc3RydWN0IHVhcnRfcG9ydCAqcG9ydCwgYm9vbCB0aHJlYWRlZCkKPiA+ID4g
+ICAgICAgc3RydWN0IHR0eV9wb3J0ICp0cG9ydCA9ICZwb3J0LT5zdGF0ZS0+cG9ydDsKPiA+ID4g
+ICAgICAgc3RydWN0IHN0bTMyX3BvcnQgKnN0bTMyX3BvcnQgPSB0b19zdG0zMl9wb3J0KHBvcnQp
+Owo+ID4gPiAgICAgICBjb25zdCBzdHJ1Y3Qgc3RtMzJfdXNhcnRfb2Zmc2V0cyAqb2ZzID0gJnN0
+bTMyX3BvcnQtPmluZm8tPm9mczsKPiA+ID4gLSAgICAgdW5zaWduZWQgbG9uZyBjOwo+ID4gPiAr
+ICAgICB1bnNpZ25lZCBsb25nIGMsIGZsYWdzOwo+ID4gPiAgICAgICB1MzIgc3I7Cj4gPiA+ICAg
+ICAgIGNoYXIgZmxhZzsKPiA+ID4KPiA+ID4gQEAgLTI3Niw5ICsyNzYsMTcgQEAgc3RhdGljIHZv
+aWQgc3RtMzJfdXNhcnRfcmVjZWl2ZV9jaGFycyhzdHJ1Y3QgdWFydF9wb3J0ICpwb3J0LCBib29s
+IHRocmVhZGVkKQo+ID4gPiAgICAgICAgICAgICAgIHVhcnRfaW5zZXJ0X2NoYXIocG9ydCwgc3Is
+IFVTQVJUX1NSX09SRSwgYywgZmxhZyk7Cj4gPiA+ICAgICAgIH0KPiA+ID4KPiA+ID4gLSAgICAg
+c3Bpbl91bmxvY2soJnBvcnQtPmxvY2spOwo+ID4gPiArICAgICBpZiAodGhyZWFkZWQpCj4gPiA+
+ICsgICAgICAgICAgICAgc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmcG9ydC0+bG9jaywgZmxhZ3Mp
+Owo+ID4gPiArICAgICBlbHNlCj4gPiA+ICsgICAgICAgICAgICAgc3Bpbl91bmxvY2soJnBvcnQt
+PmxvY2spOwo+ID4KPiA+IFlvdSBzaG91bGRuJ3QgaGF2ZSB0byBjaGVjayBmb3IgdGhpcywgc2Vl
+IHRoZSBvdGhlciBwYXRjaGVzIG9uIHRoZSBsaXN0Cj4gPiByZWNlbnRseSB0aGF0IGZpeGVkIHRo
+aXMgdXAgdG8gbm90IGJlIGFuIGlzc3VlIGZvciBpcnEgaGFuZGxlcnMuCj4gQ2FuIHlvdSBoZWxw
+IHRvIGdpdmUgbW9yZSBoaW50cywgb3IgdGhlIGNvbW1pdCBpZCBvZiB0aGUgcGF0Y2ggd2hpY2gK
+PiBmaXhlZCB0aGlzLiB0aGFua3MuCj4gCj4gSSdtIHN0aWxsIGNvbmZ1c2VkIHdpdGggdGhpcy4K
+PiAKPiBUaGUgc3RtMzJfdXNhcnRfdGhyZWFkZWRfaW50ZXJydXB0KCkgaXMgYSBrdGhyZWFkIGNv
+bnRleHQsIG9uY2UKPiBwb3J0LT5sb2NrIGhvbGRzIGJ5IHRoaXMgZnVuY3Rpb24sIGFub3RoZXIg
+c2VyaWFsIGludGVycnVwdHMgcmFpc2VkLAo+IHN1Y2ggYXMgVVNBUlRfU1JfVFhFLHN0bTMyX3Vz
+YXJ0X2ludGVycnVwdCgpIGNhbid0IGdldCB0aGUgbG9jaywKPiB0aGVyZSB3aWxsIGJlIGEgZGVh
+ZGxvY2suIGlzbid0IGl0Pwo+IAo+ICBTbywgc2hvdWxkbid0IEkgdXNlIHNwaW5fbG9ja3tfaXJx
+c2F2ZX0gYWNjb3JkaW5nIHRvIHRoZSBjYWxsZXIncyBjb250ZXh0ID8KClBsZWFzZSBzZWUgODFl
+MjA3M2MxNzViICgiZ2VuaXJxOiBEaXNhYmxlIGludGVycnVwdHMgZm9yIGZvcmNlIHRocmVhZGVk
+CmhhbmRsZXJzIikgZm9yIHdoZW4gdGhyZWFkZWQgaXJxIGhhbmRsZXJzIGhhdmUgaXJxcyBkaXNh
+YmxlZCwgaXNuJ3QgdGhhdAp0aGUgY2FzZSB5b3UgYXJlIHRyeWluZyB0byAicHJvdGVjdCIgZnJv
+bSBoZXJlPwoKV2h5IGlzIHRoZSAidGhyZWFkZWQiIGZsYWcgdXNlZCBhdCBhbGw/ICBUaGUgZHJp
+dmVyIHNob3VsZCBub3QgY2FyZS4KCkFsc28gc2VlIDliYWVkYjdiYWVkYSAoInNlcmlhbDogaW14
+OiBkcm9wIHdvcmthcm91bmQgZm9yIGZvcmNlZCBpcnEKdGhyZWFkaW5nIikgaW4gbGludXgtbmV4
+dCBmb3IgYW4gZXhhbXBsZSBvZiBob3cgdGhpcyB3YXMgZml4ZWQgdXAgaW4gYQpzZXJpYWwgZHJp
+dmVyLgoKZG9lcyB0aGF0IGhlbHA/Cgp0aGFua3MsCgpncmVnIGstaApfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
+TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
