@@ -2,64 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B67035C82A
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Apr 2021 16:04:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95B1635CA08
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Apr 2021 17:37:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08139C57B79;
-	Mon, 12 Apr 2021 14:04:46 +0000 (UTC)
-Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
- [209.85.166.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD0F1C57B79;
+	Mon, 12 Apr 2021 15:37:17 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B842DC57B76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45649C57B76
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Apr 2021 14:04:43 +0000 (UTC)
-Received: by mail-io1-f52.google.com with SMTP id x16so13577501iob.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Apr 2021 07:04:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2ZmPHR9GUafARGNI7sj7W1J+ANavVOrnfghsbNP17iA=;
- b=Nzm5jd0z+ScBOsDtaS1gPR5gW8RY669tautb/riCPzi6VH4NJa8tWcRNm7Mp9hmzaj
- P0vu1MfkC2trCzisIMXblpD34gl+kFDABuSf7ojWpSJvGfGmdoCTyxQZoRiWSYIm0P2O
- FxBxFDEzRPVUBSlJH65MN72t/vt6/tXcS7VuCZtIof05kCUoF896xDPjwkPeSEobPIyX
- XLtf2HRyHV7JoQ+cFZISWEfzSa7i6+Aopw+eQNV2ySjcEtIwLHdX2S2fDf9FegbBmUfl
- vQ+dU+IMcTmdIZsF5m0iu6K/7BQtV3iLIAKuuszOSq3COyezEIOztNQyfU7vSdhk+iWt
- 7v2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2ZmPHR9GUafARGNI7sj7W1J+ANavVOrnfghsbNP17iA=;
- b=VbbjpO4L9hWx3UIqCrrkmL7MLY85K+ZT3roVcJ5JO5CL3EVUZHYWAV7S9Y4hsl12Ev
- j8I6a5O1suQQCW5V+CIEreI+y1Wc7pWeRTvuG+kn+0ruqjLJ7/47zdsqBKTT1pA0lcYo
- k2D6+qmkNwYdcoevSMoNDsCtpzsxuogCKsUzShRVYr0pgw97fXb7gaYXxEE20X5U7hwe
- HOshqDCmwxgwMP6NcG8e+Bc6UQ+6j2DMHUQAcHHlAmne7U9TBIcGJR73Tp5UPu5SQ/rA
- aKYI+KOvbJz/zhTvOzxz4Kb+LvAtT24N7d/PMaBE7APV3en2m6dq0+z+6zo/nufP7lFY
- uT3g==
-X-Gm-Message-State: AOAM532m95i8uKaPCnOQpAuvSaRQIlapwake/Zd9qgODIP9tSLOgS48D
- 9mzBPATot3lOF5xLjHHRMny3N5hgFxGVwzra4m4=
-X-Google-Smtp-Source: ABdhPJwLkUno1GOuKAFL2x5ktrw1BS4bEuoKWA8A1X/t1s5rPTHHM4olT0s016lO8j69XLXgjMXLOVPDBF3rwWcU1Ro=
-X-Received: by 2002:a5d:9d13:: with SMTP id j19mr23217873ioj.110.1618236282497; 
- Mon, 12 Apr 2021 07:04:42 -0700 (PDT)
+ Mon, 12 Apr 2021 15:37:15 +0000 (UTC)
+IronPort-SDR: 78r2VUvOhQEKddnzpTSrkMVD6lpD6MaqFOAOMPXXQ1BKTh4Tzpn9NoqxtHeb67OnE+JF5k0xwU
+ v8KHfE3ZGjog==
+X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="181347081"
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="181347081"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2021 08:37:13 -0700
+IronPort-SDR: cuw1ILpAp+18grYJ1Py8CvzrFuIfh3PdUuswheY9KGzzGGlkVDLoDpn/2iyE//8a6gJJY2sSKI
+ G+rqQGam+/4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,216,1613462400"; d="scan'208";a="614609528"
+Received: from glass.png.intel.com ([10.158.65.59])
+ by fmsmga005.fm.intel.com with ESMTP; 12 Apr 2021 08:37:06 -0700
+From: Ong Boon Leong <boon.leong.ong@intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>
+Date: Mon, 12 Apr 2021 23:41:23 +0800
+Message-Id: <20210412154130.20742-1-boon.leong.ong@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <1618219898-4600-1-git-send-email-dillon.minfei@gmail.com>
- <YHRGPpQ03XgBMkiy@hovoldconsulting.com>
-In-Reply-To: <YHRGPpQ03XgBMkiy@hovoldconsulting.com>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Mon, 12 Apr 2021 22:04:06 +0800
-Message-ID: <CAL9mu0JF-9hy3Z_ytpEO+hzKh0D+f-0gYaUBEA0v28EOHpC80w@mail.gmail.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Gerald Baeza <gerald.baeza@foss.st.com>, kbuild-all@lists.01.org,
+Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ KP Singh <kpsingh@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Greg KH <gregkh@linuxfoundation.org>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- clang-built-linux@googlegroups.com, linux-serial@vger.kernel.org,
- jirislaby@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- kernel test robot <lkp@intel.com>
-Subject: Re: [Linux-stm32] [PATCH v2] serial: stm32: optimize spin lock usage
+ Ong Boon Leong <boon.leong.ong@intel.com>, Yonghong Song <yhs@fb.com>,
+ bpf@vger.kernel.org, Martin KaFai Lau <kafai@fb.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 0/7] stmmac: add XDP ZC support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,75 +63,233 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Johan,
+Hi,
 
-Yes, there is no deadlock. my fault.
-I forget the local_irq_save() plus spin_lock() is spin_lock_irqsave().
+This is the v1 patch series to add XDP ZC support to stmmac driver and
+the changes are as listed in below summary:-
 
-Thanks for your review. please ignore this patch.
+1-4/7: Refactor RX & TX buffer allocation and initialization to prepare
+       stmmac driver for XSK RX & TX pool enabling and disabling.
 
-Best regards
+5/7: Refactor stmmac_xdp_run_prog() for XDP ZC use which does not need
+     to check for XDP program loaded.
 
-Dillon
+6-7/7: XDP ZC RX and TX enabling.
 
-On Mon, Apr 12, 2021 at 9:08 PM Johan Hovold <johan@kernel.org> wrote:
->
-> On Mon, Apr 12, 2021 at 05:31:38PM +0800, dillon.minfei@gmail.com wrote:
-> > From: dillon min <dillon.minfei@gmail.com>
-> >
-> > To avoid potential deadlock in spin_lock usage, use spin_lock_irqsave,
-> > spin_trylock_irqsave(), spin_unlock_irqrestore() in process context.
->
-> This doesn't make much sense as console_write can be called in any
-> context. And where's the deadlock you claim to be fixing here?
->
-> > remove unused local_irq_save/restore call.
-> >
-> > Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> > Cc: Gerald Baeza <gerald.baeza@foss.st.com>
-> > Cc: Erwan Le Ray <erwan.leray@foss.st.com>
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> > ---
-> > v2: remove unused code from stm32_usart_threaded_interrupt() according from
-> >     Greg's review.
-> >
-> >  drivers/tty/serial/stm32-usart.c | 8 +++-----
-> >  1 file changed, 3 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-> > index b3675cf25a69..b1ba5e36e36e 100644
-> > --- a/drivers/tty/serial/stm32-usart.c
-> > +++ b/drivers/tty/serial/stm32-usart.c
-> > @@ -1354,13 +1354,12 @@ static void stm32_usart_console_write(struct console *co, const char *s,
-> >       u32 old_cr1, new_cr1;
-> >       int locked = 1;
-> >
-> > -     local_irq_save(flags);
-> >       if (port->sysrq)
-> >               locked = 0;
-> >       else if (oops_in_progress)
-> > -             locked = spin_trylock(&port->lock);
-> > +             locked = spin_trylock_irqsave(&port->lock, flags);
-> >       else
-> > -             spin_lock(&port->lock);
-> > +             spin_lock_irqsave(&port->lock, flags);
-> >
-> >       /* Save and disable interrupts, enable the transmitter */
-> >       old_cr1 = readl_relaxed(port->membase + ofs->cr1);
-> > @@ -1374,8 +1373,7 @@ static void stm32_usart_console_write(struct console *co, const char *s,
-> >       writel_relaxed(old_cr1, port->membase + ofs->cr1);
-> >
-> >       if (locked)
-> > -             spin_unlock(&port->lock);
-> > -     local_irq_restore(flags);
-> > +             spin_unlock_irqrestore(&port->lock, flags);
-> >  }
-> >
-> >  static int stm32_usart_console_setup(struct console *co, char *options)
->
-> Johan
+The above patch series have been tested using xdpsock app in samples/bpf
+directory on Intel mGbE controller. The DUT receives burst traffic
+packets generated by using pktgen_sample03_burst_single_flow.sh in
+samples/pktgen.
+
+########################################################################
+
+==========
+A) RX-Only
+==========
+
+root@intel-corei7-64:~ $ ./xdpsock  -i eth0 -r -S
+
+ sock0@eth0:0 rxdrop xdp-skb
+                   pps            pkts           1.00
+rx                 112161         12229475
+tx                 0              0
+
+ sock0@eth0:0 rxdrop xdp-skb
+                   pps            pkts           1.00
+rx                 112280         12341779
+tx                 0              0
+
+ sock0@eth0:0 rxdrop xdp-skb
+                   pps            pkts           1.00
+rx                 112358         12454155
+tx                 0              0
+
+ ====================================================
+
+root@intel-corei7-64:~ $ ./xdpsock  -i eth0 -r -N -c
+
+ sock0@eth0:0 rxdrop xdp-drv
+                   pps            pkts           1.00
+rx                 681082         2616133
+tx                 0              0
+
+ sock0@eth0:0 rxdrop xdp-drv
+                   pps            pkts           1.00
+rx                 681205         3297415
+tx                 0              0
+
+ sock0@eth0:0 rxdrop xdp-drv
+                   pps            pkts           1.00
+rx                 681386         3978873
+tx                 0              0
+
+ ====================================================
+
+root@intel-corei7-64:~ $ ./xdpsock  -i eth0 -r -z
+
+ sock0@eth0:0 rxdrop xdp-drv
+                   pps            pkts           1.00
+rx                 703915         19579779
+tx                 0              0
+
+ sock0@eth0:0 rxdrop xdp-drv
+                   pps            pkts           1.00
+rx                 703766         20283768
+tx                 0              0
+
+ sock0@eth0:0 rxdrop xdp-drv
+                   pps            pkts           1.00
+rx                 703383         20987229
+tx                 0              0
+
+==========
+B) TX-Only
+==========
+
+root@intel-corei7-64:~ $ ./xdpsock -i eth0 -t -S
+
+ sock0@eth0:0 txonly xdp-skb
+                   pps            pkts           1.00
+rx                 0              0
+tx                 140269         4326720
+
+ sock0@eth0:0 txonly xdp-skb
+                   pps            pkts           1.00
+rx                 0              0
+tx                 140514         4467264
+
+ sock0@eth0:0 txonly xdp-skb
+                   pps            pkts           1.00
+rx                 0              0
+tx                 140009         4607296
+
+ ====================================================
+
+root@intel-corei7-64:~ $ ./xdpsock -i eth0 -t -N -c
+
+ sock0@eth0:0 txonly xdp-drv
+                   pps            pkts           1.00
+rx                 0              0
+tx                 138222         3108160
+
+ sock0@eth0:0 txonly xdp-drv
+                   pps            pkts           1.00
+rx                 0              0
+tx                 139629         3247872
+
+ sock0@eth0:0 txonly xdp-drv
+                   pps            pkts           1.00
+rx                 0              0
+tx                 139821         3387712
+
+ ====================================================
+
+root@intel-corei7-64:~ $ ./xdpsock -i eth0 -t -z
+
+ sock0@eth0:0 txonly xdp-drv
+                   pps            pkts           1.00
+rx                 0              0
+tx                 447382         13390848
+
+ sock0@eth0:0 txonly xdp-drv
+                   pps            pkts           1.00
+rx                 0              0
+tx                 447384         13838272
+
+ sock0@eth0:0 txonly xdp-drv
+                   pps            pkts           1.00
+rx                 0              0
+tx                 447384         14285696
+
+================
+C) L2 Forwarding
+================
+
+root@intel-corei7-64:~ $ ./xdpsock -i eth0 -l -S
+
+ sock0@eth0:0 l2fwd xdp-skb
+                   pps            pkts           1.00
+rx                 85021          7363434
+tx                 85021          7363434
+
+ sock0@eth0:0 l2fwd xdp-skb
+                   pps            pkts           1.00
+rx                 85003          7448446
+tx                 85003          7448446
+
+ sock0@eth0:0 l2fwd xdp-skb
+                   pps            pkts           1.00
+rx                 84946          7533403
+tx                 84946          7533403
+
+ ====================================================
+
+root@intel-corei7-64:~ $ ./xdpsock -i eth0 -l -N -c
+
+ sock0@eth0:0 l2fwd xdp-drv
+                   pps            pkts           1.00
+rx                 132136         1092673
+tx                 132072         1092609
+
+ sock0@eth0:0 l2fwd xdp-drv
+                   pps            pkts           1.00
+rx                 132428         1225118
+tx                 132428         1225054
+
+ sock0@eth0:0 l2fwd xdp-drv
+                   pps            pkts           1.00
+rx                 132623         1357757
+tx                 132623         1357693
+
+ ====================================================
+
+root@intel-corei7-64:~ $ ./xdpsock -i eth0 -l -z
+
+ sock0@eth0:0 l2fwd xdp-drv
+                   pps            pkts           1.00
+rx                 468476         43619530
+tx                 468476         43619466
+
+ sock0@eth0:0 l2fwd xdp-drv
+                   pps            pkts           1.00
+rx                 468633         44088218
+tx                 468633         44088154
+
+ sock0@eth0:0 l2fwd xdp-drv
+                   pps            pkts           1.00
+rx                 468439         44556775
+tx                 468439         44556711
+
+ ########################################################################
+
+Based on the results obtained from above using xdpsock test cases, the
+result looks promising. It will be great if community can help to review
+and test the above patch series on your respective platform and provide
+me feedback for any improvement.
+
+Thank you very much,
+Boon Leong
+
+Ong Boon Leong (7):
+  net: stmmac: rearrange RX buffer allocation and free functions
+  net: stmmac: introduce dma_recycle_rx_skbufs for
+    stmmac_reinit_rx_buffers
+  net: stmmac: refactor stmmac_init_rx_buffers for
+    stmmac_reinit_rx_buffers
+  net: stmmac: rearrange RX and TX desc init into per-queue basis
+  net: stmmac: Refactor __stmmac_xdp_run_prog for XDP ZC
+  net: stmmac: Enable RX via AF_XDP zero-copy
+  net: stmmac: Add TX via XDP zero-copy socket
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   24 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 1698 +++++++++++++----
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.c  |   94 +
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.h  |    3 +
+ 4 files changed, 1396 insertions(+), 423 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
