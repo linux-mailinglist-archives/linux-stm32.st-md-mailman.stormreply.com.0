@@ -2,66 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DC0935D418
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 01:45:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A587F35D48A
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 02:56:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25D26C57B79;
-	Mon, 12 Apr 2021 23:45:19 +0000 (UTC)
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
- [209.85.166.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51DC9C57B79;
+	Tue, 13 Apr 2021 00:56:28 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09413C57B76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 089D4C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Apr 2021 23:45:16 +0000 (UTC)
-Received: by mail-il1-f178.google.com with SMTP id c18so12561042iln.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Apr 2021 16:45:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=C9NHfRlVevF4M8K/rHQEyVi0J60392z2vn7IG56hY1E=;
- b=HR2eqOSk+FnonmNwmQAIfbMDUnYeOBV3DWZdEKQZu/yWDhDOV4buDmV+PGPI9J1iJU
- Ls5quVrlRHuwlGZxfubXLN1MvZ1P9NTnNdZIPSI5Q1+jrcTNpvxPT0QV2FKuWZBvhmVK
- jA7//CSgMPE2dPpn+aY7EpIHHvUAXr1Z1SUWtzizy9KtD4qxQWePwaBC7wzhlIHAv69t
- jT3n6MwDEjIykpSGG6HQWg3rDPj8bcfGOGMveb/L0/tVWTTwG055rpcCEhRcKIFayf0J
- bZQjRV8iZiWKTdVpHnYzImsZwJT2SA5SRXbjyRt0R835c8x5XHS/NYxeODv4lg7LWINM
- 9tLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=C9NHfRlVevF4M8K/rHQEyVi0J60392z2vn7IG56hY1E=;
- b=Qmt9ZH4rOq164vGI/cc32bufNO1mQ8B9YM2hL6q0UiA1uffWX48XpXuuAaH4YO8Ewn
- 3j2IqCAwkYA8HTomSs91MOcx6sKe1HSE/HhxbGFe4xxBSYFTJ2XULA3cKo/TUFszywoE
- sJoBLAEN8s2gAT9RBfK7kp221P9DD2SQL7aTU5YBnWI8VqOE18NJwCUBd/vTjRto00TE
- XoJLgJzWY+LaU7lXt7dMd8gKSR9ruYKSdx/pTnGMXvw1Txt7ks+h6fzxrvDg7RG8CH1t
- s17a2KaFgCuualt3pOB8NCVTSoKmaJEYG2pp5+UyMj39bDDN7zsQgyXH6CBS3IkAPLUz
- xhQQ==
-X-Gm-Message-State: AOAM531/w443/W3aZZz3CdXwIc5qfg9a0355aH2IYrSPKIJ28obgIUIt
- c3o0lkXYavwsWfiogpEfxh/sNQTpKmfNyCZTGxE=
-X-Google-Smtp-Source: ABdhPJyeXPv5Sc4pLxLbt5dGfKVFKaeHr4aAjckko4WJVdRwhKS5xkaBI42lJ+w6qZ7qevywnVtfKDAGtJ6tdf4fNAE=
-X-Received: by 2002:a05:6e02:672:: with SMTP id
- l18mr24345668ilt.271.1618271115374; 
- Mon, 12 Apr 2021 16:45:15 -0700 (PDT)
+ Tue, 13 Apr 2021 00:56:24 +0000 (UTC)
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
+ (envelope-from <andrew@lunn.ch>)
+ id 1lW7LN-00GOEl-SK; Tue, 13 Apr 2021 02:55:53 +0200
+Date: Tue, 13 Apr 2021 02:55:53 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Michael Walle <michael@walle.cc>
+Message-ID: <YHTsGXbbr8mkifDo@lunn.ch>
+References: <20210412174718.17382-1-michael@walle.cc>
+ <20210412174718.17382-2-michael@walle.cc>
 MIME-Version: 1.0
-References: <1618219898-4600-1-git-send-email-dillon.minfei@gmail.com>
- <YHRGPpQ03XgBMkiy@hovoldconsulting.com>
- <CAL9mu0JF-9hy3Z_ytpEO+hzKh0D+f-0gYaUBEA0v28EOHpC80w@mail.gmail.com>
-In-Reply-To: <CAL9mu0JF-9hy3Z_ytpEO+hzKh0D+f-0gYaUBEA0v28EOHpC80w@mail.gmail.com>
-From: dillon min <dillon.minfei@gmail.com>
-Date: Tue, 13 Apr 2021 07:44:39 +0800
-Message-ID: <CAL9mu0Ke97FUZ03jvdH8Lz2qRnVY82B7tAEtjbhW97sPOVkAxQ@mail.gmail.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Gerald Baeza <gerald.baeza@foss.st.com>, kbuild-all@lists.01.org,
+Content-Disposition: inline
+In-Reply-To: <20210412174718.17382-2-michael@walle.cc>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Paul Mackerras <paulus@samba.org>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Mark Lee <Mark-MC.Lee@mediatek.com>,
+ Hauke Mehrtens <hauke@hauke-m.de>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>, linux-omap@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ =?iso-8859-1?B?Suly9G1l?= Pouiller <jerome.pouiller@silabs.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Chris Snook <chris.snook@gmail.com>,
+ Pantelis Antoniou <pantelis.antoniou@gmail.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Madalin Bucur <madalin.bucur@nxp.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Murali Karicheri <m-karicheri2@ti.com>, Yisen Zhuang <yisen.zhuang@huawei.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Wingman Kwok <w-kwok2@ti.com>,
+ Sean Wang <sean.wang@mediatek.com>, Maxime Ripard <mripard@kernel.org>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, linux-amlogic@lists.infradead.org,
+ Kalle Valo <kvalo@codeaurora.org>, Mirko Lindner <mlindner@marvell.com>,
+ Fugang Duan <fugang.duan@nxp.com>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>, ath9k-devel@qca.qualcomm.com,
+ UNGLinuxDriver@microchip.com, Taras Chornyi <tchornyi@marvell.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Greg KH <gregkh@linuxfoundation.org>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- clang-built-linux@googlegroups.com, linux-serial@vger.kernel.org,
- jirislaby@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- kernel test robot <lkp@intel.com>
-Subject: Re: [Linux-stm32] [PATCH v2] serial: stm32: optimize spin lock usage
+ Kevin Hilman <khilman@baylibre.com>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Fabio Estevam <festevam@gmail.com>, Stanislaw Gruszka <stf_xl@wp.pl>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-staging@lists.linux.dev,
+ Chen-Yu Tsai <wens@csie.org>, bcm-kernel-feedback-list@broadcom.com,
+ linux-arm-kernel@lists.infradead.org,
+ Grygorii Strashko <grygorii.strashko@ti.com>, Byungho An <bh74.an@samsung.com>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, John Crispin <john@phrozen.org>,
+ Salil Mehta <salil.mehta@huawei.com>,
+ Sergei Shtylyov <sergei.shtylyov@gmail.com>, linux-oxnas@groups.io,
+ Shawn Guo <shawnguo@kernel.org>, "David S . Miller" <davem@davemloft.net>,
+ Helmut Schaa <helmut.schaa@googlemail.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-renesas-soc@vger.kernel.org, Ryder Lee <ryder.lee@mediatek.com>,
+ Russell King <linux@armlinux.org.uk>, Vadym Kochan <vkochan@marvell.com>,
+ Jakub Kicinski <kuba@kernel.org>, Vivien Didelot <vivien.didelot@gmail.com>,
+ Sunil Goutham <sgoutham@marvell.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, netdev@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Li Yang <leoyang.li@nxp.com>,
+ Stephen Hemminger <stephen@networkplumber.org>, Vinod Koul <vkoul@kernel.org>,
+ Joyce Ooi <joyce.ooi@intel.com>, linuxppc-dev@lists.ozlabs.org,
+ Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH net-next v4 1/2] of: net: pass the dst
+ buffer to of_get_mac_address()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,125 +103,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Johan, Erwan
+On Mon, Apr 12, 2021 at 07:47:17PM +0200, Michael Walle wrote:
+> of_get_mac_address() returns a "const void*" pointer to a MAC address.
+> Lately, support to fetch the MAC address by an NVMEM provider was added.
+> But this will only work with platform devices. It will not work with
+> PCI devices (e.g. of an integrated root complex) and esp. not with DSA
+> ports.
+> 
+> There is an of_* variant of the nvmem binding which works without
+> devices. The returned data of a nvmem_cell_read() has to be freed after
+> use. On the other hand the return of_get_mac_address() points to some
+> static data without a lifetime. The trick for now, was to allocate a
+> device resource managed buffer which is then returned. This will only
+> work if we have an actual device.
+> 
+> Change it, so that the caller of of_get_mac_address() has to supply a
+> buffer where the MAC address is written to. Unfortunately, this will
+> touch all drivers which use the of_get_mac_address().
+> 
+> Usually the code looks like:
+> 
+>   const char *addr;
+>   addr = of_get_mac_address(np);
+>   if (!IS_ERR(addr))
+>     ether_addr_copy(ndev->dev_addr, addr);
+> 
+> This can then be simply rewritten as:
+> 
+>   of_get_mac_address(np, ndev->dev_addr);
+> 
+> Sometimes is_valid_ether_addr() is used to test the MAC address.
+> of_get_mac_address() already makes sure, it just returns a valid MAC
+> address. Thus we can just test its return code. But we have to be
+> careful if there are still other sources for the MAC address before the
+> of_get_mac_address(). In this case we have to keep the
+> is_valid_ether_addr() call.
+> 
+> The following coccinelle patch was used to convert common cases to the
+> new style. Afterwards, I've manually gone over the drivers and fixed the
+> return code variable: either used a new one or if one was already
+> available use that. Mansour Moufid, thanks for that coccinelle patch!
+> 
+> <spml>
+> @a@
+> identifier x;
+> expression y, z;
+> @@
+> - x = of_get_mac_address(y);
+> + x = of_get_mac_address(y, z);
+>   <...
+> - ether_addr_copy(z, x);
+>   ...>
+> 
+> @@
+> identifier a.x;
+> @@
+> - if (<+... x ...+>) {}
+> 
+> @@
+> identifier a.x;
+> @@
+>   if (<+... x ...+>) {
+>       ...
+>   }
+> - else {}
+> 
+> @@
+> identifier a.x;
+> expression e;
+> @@
+> - if (<+... x ...+>@e)
+> -     {}
+> - else
+> + if (!(e))
+>       {...}
+> 
+> @@
+> expression x, y, z;
+> @@
+> - x = of_get_mac_address(y, z);
+> + of_get_mac_address(y, z);
+>   ... when != x
+> </spml>
+> 
+> All drivers, except drivers/net/ethernet/aeroflex/greth.c, were
+> compile-time tested.
+> 
+> Suggested-by: Andrew Lunn <andrew@lunn.ch>
+> Signed-off-by: Michael Walle <michael@walle.cc>
 
-It seems still a bit of a problem in the current version, not deadlock
-but access register at the same time.
+I cannot say i looked at all the changes, but the ones i did exam
+seemed O.K.
 
-For driver , we should consider it running under smp, let's think
-about it for this case:
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-static void stm32_usart_console_write(struct console *co, const char *s,
-                                      unsigned int cnt)
-{
-         .....
-         local_irq_save(flags);
-         if (port->sysrq)
-                    locked = 0;
-         .....
-         access register cr1, tdr, isr
-         .....
-
-         local_irq_restore(flags);
-}
-
-if port->sysrq is 1, stm32_usart_console_write() just disable local
-irq response by local_irq_save(), at the time of access register cr1,
-tdr, isr. an TXE interrupt raised, for other cores(I know stm32
-mpu/mcu do not have multi cores, just assume it has), it still has a
-chance to handle interrupt.  Then there is no lock to protect the uart
-register.
-
-changes to below, should be more safe:
-
-.....
-if (port->sysrq || oops_in_progress)
-      locked = spin_trylock_irqsave(&port->lock, flags);
-else
-      spin_lock_irqsave(&port->lock, flags);
-
-....
-
-if (locked)
-     spin_unlock_irqrestore(&port->lock, flags);
-
-For current stm32 soc, it shouldn't happen. just a reminder for future.
-
-Thanks.
-
-Dillon
-
-On Mon, Apr 12, 2021 at 10:04 PM dillon min <dillon.minfei@gmail.com> wrote:
->
-> Hi Johan,
->
-> Yes, there is no deadlock. my fault.
-> I forget the local_irq_save() plus spin_lock() is spin_lock_irqsave().
->
-> Thanks for your review. please ignore this patch.
->
-> Best regards
->
-> Dillon
->
-> On Mon, Apr 12, 2021 at 9:08 PM Johan Hovold <johan@kernel.org> wrote:
-> >
-> > On Mon, Apr 12, 2021 at 05:31:38PM +0800, dillon.minfei@gmail.com wrote:
-> > > From: dillon min <dillon.minfei@gmail.com>
-> > >
-> > > To avoid potential deadlock in spin_lock usage, use spin_lock_irqsave,
-> > > spin_trylock_irqsave(), spin_unlock_irqrestore() in process context.
-> >
-> > This doesn't make much sense as console_write can be called in any
-> > context. And where's the deadlock you claim to be fixing here?
-> >
-> > > remove unused local_irq_save/restore call.
-> > >
-> > > Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> > > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> > > Cc: Gerald Baeza <gerald.baeza@foss.st.com>
-> > > Cc: Erwan Le Ray <erwan.leray@foss.st.com>
-> > > Reported-by: kernel test robot <lkp@intel.com>
-> > > Signed-off-by: dillon min <dillon.minfei@gmail.com>
-> > > ---
-> > > v2: remove unused code from stm32_usart_threaded_interrupt() according from
-> > >     Greg's review.
-> > >
-> > >  drivers/tty/serial/stm32-usart.c | 8 +++-----
-> > >  1 file changed, 3 insertions(+), 5 deletions(-)
-> > >
-> > > diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-> > > index b3675cf25a69..b1ba5e36e36e 100644
-> > > --- a/drivers/tty/serial/stm32-usart.c
-> > > +++ b/drivers/tty/serial/stm32-usart.c
-> > > @@ -1354,13 +1354,12 @@ static void stm32_usart_console_write(struct console *co, const char *s,
-> > >       u32 old_cr1, new_cr1;
-> > >       int locked = 1;
-> > >
-> > > -     local_irq_save(flags);
-> > >       if (port->sysrq)
-> > >               locked = 0;
-> > >       else if (oops_in_progress)
-> > > -             locked = spin_trylock(&port->lock);
-> > > +             locked = spin_trylock_irqsave(&port->lock, flags);
-> > >       else
-> > > -             spin_lock(&port->lock);
-> > > +             spin_lock_irqsave(&port->lock, flags);
-> > >
-> > >       /* Save and disable interrupts, enable the transmitter */
-> > >       old_cr1 = readl_relaxed(port->membase + ofs->cr1);
-> > > @@ -1374,8 +1373,7 @@ static void stm32_usart_console_write(struct console *co, const char *s,
-> > >       writel_relaxed(old_cr1, port->membase + ofs->cr1);
-> > >
-> > >       if (locked)
-> > > -             spin_unlock(&port->lock);
-> > > -     local_irq_restore(flags);
-> > > +             spin_unlock_irqrestore(&port->lock, flags);
-> > >  }
-> > >
-> > >  static int stm32_usart_console_setup(struct console *co, char *options)
-> >
-> > Johan
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
