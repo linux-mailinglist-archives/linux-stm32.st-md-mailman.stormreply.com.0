@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBFA635DB38
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 11:32:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7267E35DB39
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 11:32:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B121BC58D5C;
-	Tue, 13 Apr 2021 09:32:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3944FC58D5E;
+	Tue, 13 Apr 2021 09:32:43 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14F57C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 345B1C58D5B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Apr 2021 09:32:38 +0000 (UTC)
-IronPort-SDR: kJQUZ+A5FFux5L9RYgk1nnGnFKBf9maD8aLcc2jTp+ny9Ux7a7KASJtNDThWTypIp6EjCIy0xp
- +U1a1rm02kKA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="173868088"
-X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="173868088"
+ Tue, 13 Apr 2021 09:32:42 +0000 (UTC)
+IronPort-SDR: JlQZ2x+r9bI7DbiOwSCQAighzI5oT/a3ieP44iAL2+DKXQsrzWUjSzOmEVsuZNcHwGo0EbWvF7
+ 904MMdlknfmQ==
+X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="173868095"
+X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="173868095"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2021 02:32:36 -0700
-IronPort-SDR: eYjPnXmx0dR9mpDdGeFmDxICiB8/QGzxfYBMt6jXExw0mVVtcSBUUvslPWRkTa07swzFc/BLIq
- y3nCTLIPAMDg==
+ 13 Apr 2021 02:32:41 -0700
+IronPort-SDR: /d4kk3xEeYhVjKG9EI0x4bPz/abpWv5I8UQjIAXFp58MaJkYFp6qLnFC4uj5h/cBD6i1BhYotO
+ HMrh5eCfaAIw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="424178191"
+X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="424178214"
 Received: from glass.png.intel.com ([10.158.65.59])
- by orsmga008.jf.intel.com with ESMTP; 13 Apr 2021 02:32:29 -0700
+ by orsmga008.jf.intel.com with ESMTP; 13 Apr 2021 02:32:35 -0700
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
@@ -35,8 +35,8 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Daniel Borkmann <daniel@iogearbox.net>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>
-Date: Tue, 13 Apr 2021 17:36:23 +0800
-Message-Id: <20210413093626.3447-5-boon.leong.ong@intel.com>
+Date: Tue, 13 Apr 2021 17:36:24 +0800
+Message-Id: <20210413093626.3447-6-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210413093626.3447-1-boon.leong.ong@intel.com>
 References: <20210413093626.3447-1-boon.leong.ong@intel.com>
@@ -48,8 +48,8 @@ Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, KP Singh <kpsingh@kernel.org>,
  Yonghong Song <yhs@fb.com>, bpf@vger.kernel.org,
  Martin KaFai Lau <kafai@fb.com>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 4/7] net: stmmac: rearrange RX and
-	TX desc init into per-queue basis
+Subject: [Linux-stm32] [PATCH net-next v2 5/7] net: stmmac: Refactor
+	__stmmac_xdp_run_prog for XDP ZC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,250 +66,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Below functions are made to be per-queue in preparation of XDP ZC:
+Prepare stmmac_xdp_run_prog() for AF_XDP zero-copy support which will be
+added by upcoming patches by splitting out the XDP verdict processing
+into __stmmac_xdp_run_prog() and it callable for XDP ZC path which does
+not need to verify bpf_prog is not NULL.
 
- __init_dma_rx_desc_rings(struct stmmac_priv *priv, u32 queue, gfp_t flags)
- __init_dma_tx_desc_rings(struct stmmac_priv *priv, u32 queue)
-
-The original functions below are stay maintained for all queue usage:
-
- init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
- init_dma_tx_desc_rings(struct net_device *dev)
+The stmmac_xdp_run_prog() is used for regular XDP Rx path which requires
+bpf_prog to be verified.
 
 Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 180 ++++++++++--------
- 1 file changed, 100 insertions(+), 80 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 35 ++++++++++++-------
+ 1 file changed, 23 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 7e889ef0c7b5..0804674e628e 100644
+index 0804674e628e..329a3abbac76 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1575,60 +1575,70 @@ static void stmmac_reinit_rx_buffers(struct stmmac_priv *priv)
+@@ -4408,20 +4408,13 @@ static int stmmac_xdp_xmit_back(struct stmmac_priv *priv,
+ 	return res;
  }
  
- /**
-- * init_dma_rx_desc_rings - init the RX descriptor rings
-- * @dev: net device structure
-+ * __init_dma_rx_desc_rings - init the RX descriptor ring (per queue)
-+ * @priv: driver private structure
-+ * @queue: RX queue index
-  * @flags: gfp flag.
-  * Description: this function initializes the DMA RX descriptors
-  * and allocates the socket buffers. It supports the chained and ring
-  * modes.
-  */
--static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
-+static int __init_dma_rx_desc_rings(struct stmmac_priv *priv, u32 queue, gfp_t flags)
+-static struct sk_buff *stmmac_xdp_run_prog(struct stmmac_priv *priv,
+-					   struct xdp_buff *xdp)
++/* This function assumes rcu_read_lock() is held by the caller. */
++static int __stmmac_xdp_run_prog(struct stmmac_priv *priv,
++				 struct bpf_prog *prog,
++				 struct xdp_buff *xdp)
  {
--	struct stmmac_priv *priv = netdev_priv(dev);
--	u32 rx_count = priv->plat->rx_queues_to_use;
--	int ret = -ENOMEM;
--	int queue;
-+	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
-+	int ret;
+-	struct bpf_prog *prog;
+-	int res;
+ 	u32 act;
+-
+-	rcu_read_lock();
+-
+-	prog = READ_ONCE(priv->xdp_prog);
+-	if (!prog) {
+-		res = STMMAC_XDP_PASS;
+-		goto unlock;
+-	}
++	int res;
  
--	/* RX INITIALIZATION */
- 	netif_dbg(priv, probe, priv->dev,
--		  "SKB addresses:\nskb\t\tskb data\tdma data\n");
-+		  "(%s) dma_rx_phy=0x%08x\n", __func__,
-+		  (u32)rx_q->dma_rx_phy);
- 
--	for (queue = 0; queue < rx_count; queue++) {
--		struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
-+	stmmac_clear_rx_descriptors(priv, queue);
- 
-+	WARN_ON(xdp_rxq_info_reg_mem_model(&rx_q->xdp_rxq,
-+					   MEM_TYPE_PAGE_POOL,
-+					   rx_q->page_pool));
- 
--		netif_dbg(priv, probe, priv->dev,
--			  "(%s) dma_rx_phy=0x%08x\n", __func__,
--			  (u32)rx_q->dma_rx_phy);
-+	netdev_info(priv->dev,
-+		    "Register MEM_TYPE_PAGE_POOL RxQ-%d\n",
-+		    rx_q->queue_index);
- 
--		stmmac_clear_rx_descriptors(priv, queue);
-+	ret = stmmac_alloc_rx_buffers(priv, queue, flags);
-+	if (ret < 0)
-+		return -ENOMEM;
- 
--		WARN_ON(xdp_rxq_info_reg_mem_model(&rx_q->xdp_rxq,
--						   MEM_TYPE_PAGE_POOL,
--						   rx_q->page_pool));
-+	rx_q->cur_rx = 0;
-+	rx_q->dirty_rx = 0;
- 
--		netdev_info(priv->dev,
--			    "Register MEM_TYPE_PAGE_POOL RxQ-%d\n",
--			    rx_q->queue_index);
-+	/* Setup the chained descriptor addresses */
-+	if (priv->mode == STMMAC_CHAIN_MODE) {
-+		if (priv->extend_desc)
-+			stmmac_mode_init(priv, rx_q->dma_erx,
-+					 rx_q->dma_rx_phy,
-+					 priv->dma_rx_size, 1);
-+		else
-+			stmmac_mode_init(priv, rx_q->dma_rx,
-+					 rx_q->dma_rx_phy,
-+					 priv->dma_rx_size, 0);
-+	}
- 
--		ret = stmmac_alloc_rx_buffers(priv, queue, flags);
--		if (ret < 0)
--			goto err_init_rx_buffers;
-+	return 0;
-+}
- 
--		rx_q->cur_rx = 0;
--		rx_q->dirty_rx = 0;
-+static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
-+{
-+	struct stmmac_priv *priv = netdev_priv(dev);
-+	u32 rx_count = priv->plat->rx_queues_to_use;
-+	u32 queue;
-+	int ret;
- 
--		/* Setup the chained descriptor addresses */
--		if (priv->mode == STMMAC_CHAIN_MODE) {
--			if (priv->extend_desc)
--				stmmac_mode_init(priv, rx_q->dma_erx,
--						 rx_q->dma_rx_phy,
--						 priv->dma_rx_size, 1);
--			else
--				stmmac_mode_init(priv, rx_q->dma_rx,
--						 rx_q->dma_rx_phy,
--						 priv->dma_rx_size, 0);
--		}
-+	/* RX INITIALIZATION */
-+	netif_dbg(priv, probe, priv->dev,
-+		  "SKB addresses:\nskb\t\tskb data\tdma data\n");
-+
-+	for (queue = 0; queue < rx_count; queue++) {
-+		ret = __init_dma_rx_desc_rings(priv, queue, flags);
-+		if (ret)
-+			goto err_init_rx_buffers;
+ 	act = bpf_prog_run_xdp(prog, xdp);
+ 	switch (act) {
+@@ -4448,6 +4441,24 @@ static struct sk_buff *stmmac_xdp_run_prog(struct stmmac_priv *priv,
+ 		break;
  	}
  
- 	return 0;
-@@ -1647,63 +1657,73 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
- }
- 
- /**
-- * init_dma_tx_desc_rings - init the TX descriptor rings
-- * @dev: net device structure.
-+ * __init_dma_tx_desc_rings - init the TX descriptor ring (per queue)
-+ * @priv: driver private structure
-+ * @queue : TX queue index
-  * Description: this function initializes the DMA TX descriptors
-  * and allocates the socket buffers. It supports the chained and ring
-  * modes.
-  */
--static int init_dma_tx_desc_rings(struct net_device *dev)
-+static int __init_dma_tx_desc_rings(struct stmmac_priv *priv, u32 queue)
- {
--	struct stmmac_priv *priv = netdev_priv(dev);
--	u32 tx_queue_cnt = priv->plat->tx_queues_to_use;
--	u32 queue;
-+	struct stmmac_tx_queue *tx_q = &priv->tx_queue[queue];
- 	int i;
- 
--	for (queue = 0; queue < tx_queue_cnt; queue++) {
--		struct stmmac_tx_queue *tx_q = &priv->tx_queue[queue];
--
--		netif_dbg(priv, probe, priv->dev,
--			  "(%s) dma_tx_phy=0x%08x\n", __func__,
--			 (u32)tx_q->dma_tx_phy);
--
--		/* Setup the chained descriptor addresses */
--		if (priv->mode == STMMAC_CHAIN_MODE) {
--			if (priv->extend_desc)
--				stmmac_mode_init(priv, tx_q->dma_etx,
--						 tx_q->dma_tx_phy,
--						 priv->dma_tx_size, 1);
--			else if (!(tx_q->tbs & STMMAC_TBS_AVAIL))
--				stmmac_mode_init(priv, tx_q->dma_tx,
--						 tx_q->dma_tx_phy,
--						 priv->dma_tx_size, 0);
--		}
-+	netif_dbg(priv, probe, priv->dev,
-+		  "(%s) dma_tx_phy=0x%08x\n", __func__,
-+		  (u32)tx_q->dma_tx_phy);
- 
--		for (i = 0; i < priv->dma_tx_size; i++) {
--			struct dma_desc *p;
--			if (priv->extend_desc)
--				p = &((tx_q->dma_etx + i)->basic);
--			else if (tx_q->tbs & STMMAC_TBS_AVAIL)
--				p = &((tx_q->dma_entx + i)->basic);
--			else
--				p = tx_q->dma_tx + i;
-+	/* Setup the chained descriptor addresses */
-+	if (priv->mode == STMMAC_CHAIN_MODE) {
-+		if (priv->extend_desc)
-+			stmmac_mode_init(priv, tx_q->dma_etx,
-+					 tx_q->dma_tx_phy,
-+					 priv->dma_tx_size, 1);
-+		else if (!(tx_q->tbs & STMMAC_TBS_AVAIL))
-+			stmmac_mode_init(priv, tx_q->dma_tx,
-+					 tx_q->dma_tx_phy,
-+					 priv->dma_tx_size, 0);
-+	}
- 
--			stmmac_clear_desc(priv, p);
-+	for (i = 0; i < priv->dma_tx_size; i++) {
-+		struct dma_desc *p;
- 
--			tx_q->tx_skbuff_dma[i].buf = 0;
--			tx_q->tx_skbuff_dma[i].map_as_page = false;
--			tx_q->tx_skbuff_dma[i].len = 0;
--			tx_q->tx_skbuff_dma[i].last_segment = false;
--			tx_q->tx_skbuff[i] = NULL;
--		}
-+		if (priv->extend_desc)
-+			p = &((tx_q->dma_etx + i)->basic);
-+		else if (tx_q->tbs & STMMAC_TBS_AVAIL)
-+			p = &((tx_q->dma_entx + i)->basic);
-+		else
-+			p = tx_q->dma_tx + i;
- 
--		tx_q->dirty_tx = 0;
--		tx_q->cur_tx = 0;
--		tx_q->mss = 0;
-+		stmmac_clear_desc(priv, p);
- 
--		netdev_tx_reset_queue(netdev_get_tx_queue(priv->dev, queue));
-+		tx_q->tx_skbuff_dma[i].buf = 0;
-+		tx_q->tx_skbuff_dma[i].map_as_page = false;
-+		tx_q->tx_skbuff_dma[i].len = 0;
-+		tx_q->tx_skbuff_dma[i].last_segment = false;
-+		tx_q->tx_skbuff[i] = NULL;
- 	}
- 
-+	tx_q->dirty_tx = 0;
-+	tx_q->cur_tx = 0;
-+	tx_q->mss = 0;
-+
-+	netdev_tx_reset_queue(netdev_get_tx_queue(priv->dev, queue));
-+
-+	return 0;
++	return res;
 +}
 +
-+static int init_dma_tx_desc_rings(struct net_device *dev)
++static struct sk_buff *stmmac_xdp_run_prog(struct stmmac_priv *priv,
++					   struct xdp_buff *xdp)
 +{
-+	struct stmmac_priv *priv = netdev_priv(dev);
-+	u32 tx_queue_cnt;
-+	u32 queue;
++	struct bpf_prog *prog;
++	int res;
 +
-+	tx_queue_cnt = priv->plat->tx_queues_to_use;
++	rcu_read_lock();
 +
-+	for (queue = 0; queue < tx_queue_cnt; queue++)
-+		__init_dma_tx_desc_rings(priv, queue);
++	prog = READ_ONCE(priv->xdp_prog);
++	if (!prog) {
++		res = STMMAC_XDP_PASS;
++		goto unlock;
++	}
 +
- 	return 0;
- }
- 
++	res = __stmmac_xdp_run_prog(priv, prog, xdp);
+ unlock:
+ 	rcu_read_unlock();
+ 	return ERR_PTR(-res);
 -- 
 2.25.1
 
