@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A587F35D48A
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 02:56:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9EB535D491
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 02:57:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51DC9C57B79;
-	Tue, 13 Apr 2021 00:56:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DA68C57B79;
+	Tue, 13 Apr 2021 00:57:19 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 089D4C32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED8DDC32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Apr 2021 00:56:24 +0000 (UTC)
+ Tue, 13 Apr 2021 00:57:17 +0000 (UTC)
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
  (envelope-from <andrew@lunn.ch>)
- id 1lW7LN-00GOEl-SK; Tue, 13 Apr 2021 02:55:53 +0200
-Date: Tue, 13 Apr 2021 02:55:53 +0200
+ id 1lW7Md-00GOFr-9U; Tue, 13 Apr 2021 02:57:11 +0200
+Date: Tue, 13 Apr 2021 02:57:11 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Michael Walle <michael@walle.cc>
-Message-ID: <YHTsGXbbr8mkifDo@lunn.ch>
+Message-ID: <YHTsZ+EKdx0faXXQ@lunn.ch>
 References: <20210412174718.17382-1-michael@walle.cc>
- <20210412174718.17382-2-michael@walle.cc>
+ <20210412174718.17382-3-michael@walle.cc>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210412174718.17382-2-michael@walle.cc>
+In-Reply-To: <20210412174718.17382-3-michael@walle.cc>
 Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Paul Mackerras <paulus@samba.org>,
  =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
@@ -85,8 +85,8 @@ Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
  Stephen Hemminger <stephen@networkplumber.org>, Vinod Koul <vkoul@kernel.org>,
  Joyce Ooi <joyce.ooi@intel.com>, linuxppc-dev@lists.ozlabs.org,
  Felix Fietkau <nbd@nbd.name>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 1/2] of: net: pass the dst
- buffer to of_get_mac_address()
+Subject: Re: [Linux-stm32] [PATCH net-next v4 2/2] of: net: fix
+ of_get_mac_addr_nvmem() for non-platform devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,97 +103,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Apr 12, 2021 at 07:47:17PM +0200, Michael Walle wrote:
-> of_get_mac_address() returns a "const void*" pointer to a MAC address.
-> Lately, support to fetch the MAC address by an NVMEM provider was added.
-> But this will only work with platform devices. It will not work with
-> PCI devices (e.g. of an integrated root complex) and esp. not with DSA
-> ports.
+On Mon, Apr 12, 2021 at 07:47:18PM +0200, Michael Walle wrote:
+> of_get_mac_address() already supports fetching the MAC address by an
+> nvmem provider. But until now, it was just working for platform devices.
+> Esp. it was not working for DSA ports and PCI devices. It gets more
+> common that PCI devices have a device tree binding since SoCs contain
+> integrated root complexes.
 > 
-> There is an of_* variant of the nvmem binding which works without
-> devices. The returned data of a nvmem_cell_read() has to be freed after
-> use. On the other hand the return of_get_mac_address() points to some
-> static data without a lifetime. The trick for now, was to allocate a
-> device resource managed buffer which is then returned. This will only
-> work if we have an actual device.
+> Use the nvmem of_* binding to fetch the nvmem cells by a struct
+> device_node. We still have to try to read the cell by device first
+> because there might be a nvmem_cell_lookup associated with that device.
 > 
-> Change it, so that the caller of of_get_mac_address() has to supply a
-> buffer where the MAC address is written to. Unfortunately, this will
-> touch all drivers which use the of_get_mac_address().
-> 
-> Usually the code looks like:
-> 
->   const char *addr;
->   addr = of_get_mac_address(np);
->   if (!IS_ERR(addr))
->     ether_addr_copy(ndev->dev_addr, addr);
-> 
-> This can then be simply rewritten as:
-> 
->   of_get_mac_address(np, ndev->dev_addr);
-> 
-> Sometimes is_valid_ether_addr() is used to test the MAC address.
-> of_get_mac_address() already makes sure, it just returns a valid MAC
-> address. Thus we can just test its return code. But we have to be
-> careful if there are still other sources for the MAC address before the
-> of_get_mac_address(). In this case we have to keep the
-> is_valid_ether_addr() call.
-> 
-> The following coccinelle patch was used to convert common cases to the
-> new style. Afterwards, I've manually gone over the drivers and fixed the
-> return code variable: either used a new one or if one was already
-> available use that. Mansour Moufid, thanks for that coccinelle patch!
-> 
-> <spml>
-> @a@
-> identifier x;
-> expression y, z;
-> @@
-> - x = of_get_mac_address(y);
-> + x = of_get_mac_address(y, z);
->   <...
-> - ether_addr_copy(z, x);
->   ...>
-> 
-> @@
-> identifier a.x;
-> @@
-> - if (<+... x ...+>) {}
-> 
-> @@
-> identifier a.x;
-> @@
->   if (<+... x ...+>) {
->       ...
->   }
-> - else {}
-> 
-> @@
-> identifier a.x;
-> expression e;
-> @@
-> - if (<+... x ...+>@e)
-> -     {}
-> - else
-> + if (!(e))
->       {...}
-> 
-> @@
-> expression x, y, z;
-> @@
-> - x = of_get_mac_address(y, z);
-> + of_get_mac_address(y, z);
->   ... when != x
-> </spml>
-> 
-> All drivers, except drivers/net/ethernet/aeroflex/greth.c, were
-> compile-time tested.
-> 
-> Suggested-by: Andrew Lunn <andrew@lunn.ch>
 > Signed-off-by: Michael Walle <michael@walle.cc>
-
-I cannot say i looked at all the changes, but the ones i did exam
-seemed O.K.
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
