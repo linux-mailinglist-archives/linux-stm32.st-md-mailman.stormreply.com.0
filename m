@@ -2,66 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5932135E527
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 19:40:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A99F35E7D0
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 22:51:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2824C57B78;
-	Tue, 13 Apr 2021 17:40:37 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00405C57B78;
+	Tue, 13 Apr 2021 20:51:29 +0000 (UTC)
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58FE7C57B76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31802C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Apr 2021 17:40:34 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13DHWjhg029971; Tue, 13 Apr 2021 19:40:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=WVmHBLOEqQLsN3slXuOeeS0dh0JFTB6Rgs+D02bF5a0=;
- b=78yK8p/Mq+2SWIjG3a45DBzgYXpaoXwOGO0dlwVM4lvfS96J/O95z1X3lgahYuk38e7i
- WtU0widxjs/W+i23RMEWCNn2WrWQ6FT7D9NG92hp8ht0WSovzez7qnqA1giWM81lV62X
- 5vliWJyfxLZM4uib8F38kjRpOHGKWUon50g7AHb6cf6v4waIV+FG5fvxsDp3xZowP6Eu
- 7MisbMjLvOBO4g9n7EnQi37JJ49kBKU7ueeCRvSKhwYwZ8mbnMlwWwIj6/B8tH/3RX45
- Pdy+tra8w2yCdhpNGZ/RR5cpifMdXcS+/pSnooCM3gihzmyAIutMLHofoZVBT3+P4KAZ Yw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37vrp5f39k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Apr 2021 19:40:23 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 68CD710002A;
- Tue, 13 Apr 2021 19:40:23 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5B6E02159E9;
- Tue, 13 Apr 2021 19:40:23 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 13 Apr 2021 19:40:22
- +0200
-From: Erwan Le Ray <erwan.leray@foss.st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jslaby@suse.com>, Rob Herring <robh+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 13 Apr 2021 19:40:15 +0200
-Message-ID: <20210413174015.23011-5-erwan.leray@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210413174015.23011-1-erwan.leray@foss.st.com>
-References: <20210413174015.23011-1-erwan.leray@foss.st.com>
+ Tue, 13 Apr 2021 20:51:27 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ f75-20020a9d03d10000b0290280def9ab76so12263691otf.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 13 Apr 2021 13:51:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=BADcf3smBQPBGql3mN7VdZeMYEdWGQAgGXkly2TDUSE=;
+ b=uuxDg30ZNvq808mIE+x2+zZ9PmfAzxWCz4NaEpIgfbIUetY6YxRh4dz1U5PkEkv6rs
+ zrhgGwEISnucLuHbcK1lxvIqsr4iL+b0g8nWSASoFVLKTEzq2gqgN2r0EwrUjLi7qYws
+ LQIaNmOmF4BnXZ8ddWRq4PVsCWduKxXPxHLGWhFOAMin3tsWQVm0pp0S2b3zNbBn40MS
+ o+rboo+H051Xqzb6GW99Tf+gUT3dcZ6TQ48KB/fCBVUdpELFvD7RrjiVmHMV8qomgt98
+ bLrJS36gRoL8N/IayVzcWGtaieCS5MDET8EEvy75rpZIyIxx9XmNG7ux0gEFb+54le6q
+ DR6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=BADcf3smBQPBGql3mN7VdZeMYEdWGQAgGXkly2TDUSE=;
+ b=E+L7NcJmdFCL/HAGl/jFVJ5HlkUlBvoJynDBaxwMTvHwSM0PFaKRpPfo2ivcUtqT8H
+ 4oCeI517gNYjSmUCjSNEt1nBhVXu59wtT29WLpZZBBuKdoDgGDTISykpOYIjSqW8lvmz
+ ieHL3uaEY//NReMcK9QvmkLSwaHeNRk4DuaBcJrnLHJN7S/uWs0Eb3VB+0gHjTNER4e/
+ z8BLj0FdkXuAKqyI2IOUTlqn7dNoTPx9gHQqhTXdRsHXG2tB4E+k76jEjviG9YTEqmy0
+ PJrHCARSGjdGIPXSM1kBgiE7nUaLDwsFa9HqSHOUJNHQv6Hi0i0b8p+REh5wTMlBqq6G
+ MM1Q==
+X-Gm-Message-State: AOAM530hqCqzCzTNpFX4OigOEMKPPkQskWQkG1gofMqAzSTiFEAX0YZn
+ UrniXQh41iOlVmFGROAh1ujW1Q==
+X-Google-Smtp-Source: ABdhPJwbNaUu3jAxfv+aYheVOyvNkyEbnvYzugss7653tdjcZHAMyHlw4VIFLPcaReZqg9136rHWRA==
+X-Received: by 2002:a9d:928:: with SMTP id 37mr24297744otp.98.1618347086349;
+ Tue, 13 Apr 2021 13:51:26 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id w5sm2433153oos.43.2021.04.13.13.51.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Apr 2021 13:51:25 -0700 (PDT)
+Date: Tue, 13 Apr 2021 15:51:23 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <YHYESxThXVnVH3q8@builder.lan>
+References: <20210318145923.31936-1-arnaud.pouliquen@foss.st.com>
+ <20210318145923.31936-3-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-13_12:2021-04-13,
- 2021-04-13 signatures=0
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 4/4] serial: stm32: add FIFO threshold
-	configuration
+Content-Disposition: inline
+In-Reply-To: <20210318145923.31936-3-arnaud.pouliquen@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, Rob Herring <robh@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, devicetree@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] remoteproc: stm32: add capability to
+	detach
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,149 +81,133 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+On Thu 18 Mar 09:59 CDT 2021, Arnaud Pouliquen wrote:
 
-Add the support for two optional DT properties, to configure RX and TX
-FIFO thresholds:
-- rx-threshold
-- tx-threshold
-This replaces hard-coded 8 bytes threshold. Keep 8 as the default value if
-not specified, for backward compatibility.
+> From: Arnaud Pouliquen <arnaud.pouliquen@foss-st.com>
+> 
+> A mechanism similar to the shutdown mailbox signal is implemented to
+> detach a remote processor.
+> 
+> Upon detachment, a signal is sent to the remote firmware, allowing it
+> to perform specific actions such as stopping RPMsg communication.
+> 
+> The Cortex-M hold boot is also disabled to allow the remote processor
+> to restart in case of crash.
+> 
+> Notice that for this feature to be supported, the remote firmware 
+> resource table must be stored at the beginning of a 1kB section 
+> (default size provided to the remoteproc core).
+> 
+> This restriction should be lifted in the future by using a backup register
+> to store the actual size of the resource table. 
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss-st.com>
+> ---
+>  drivers/remoteproc/stm32_rproc.c | 38 ++++++++++++++++++++++++++++++--
+>  1 file changed, 36 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+> index 3d45f51de4d0..298ef5b19e27 100644
+> --- a/drivers/remoteproc/stm32_rproc.c
+> +++ b/drivers/remoteproc/stm32_rproc.c
+> @@ -28,7 +28,7 @@
+>  #define RELEASE_BOOT		1
+>  
+>  #define MBOX_NB_VQ		2
+> -#define MBOX_NB_MBX		3
+> +#define MBOX_NB_MBX		4
+>  
+>  #define STM32_SMC_RCC		0x82001000
+>  #define STM32_SMC_REG_WRITE	0x1
+> @@ -38,6 +38,7 @@
+>  #define STM32_MBX_VQ1		"vq1"
+>  #define STM32_MBX_VQ1_ID	1
+>  #define STM32_MBX_SHUTDOWN	"shutdown"
+> +#define STM32_MBX_DETACH	"detach"
+>  
+>  #define RSC_TBL_SIZE		1024
+>  
+> @@ -336,6 +337,15 @@ static const struct stm32_mbox stm32_rproc_mbox[MBOX_NB_MBX] = {
+>  			.tx_done = NULL,
+>  			.tx_tout = 500, /* 500 ms time out */
+>  		},
+> +	},
+> +	{
+> +		.name = STM32_MBX_DETACH,
+> +		.vq_id = -1,
+> +		.client = {
+> +			.tx_block = true,
+> +			.tx_done = NULL,
+> +			.tx_tout = 200, /* 200 ms time out to detach should be fair enough */
+> +		},
+>  	}
+>  };
+>  
+> @@ -461,6 +471,25 @@ static int stm32_rproc_attach(struct rproc *rproc)
+>  	return stm32_rproc_set_hold_boot(rproc, true);
+>  }
+>  
+> +static int stm32_rproc_detach(struct rproc *rproc)
+> +{
+> +	struct stm32_rproc *ddata = rproc->priv;
+> +	int err, dummy_data, idx;
+> +
+> +	/* Inform the remote processor of the detach */
+> +	idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_DETACH);
+> +	if (idx >= 0 && ddata->mb[idx].chan) {
+> +		/* A dummy data is sent to allow to block on transmit */
+> +		err = mbox_send_message(ddata->mb[idx].chan,
+> +					&dummy_data);
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
+Isn't it the stm32_ipcc driver on the other side of this call? In which
+case I believe "data" is ignored, and you would be able to just pass
+NULL here.
 
-Changes in v2:
-Change added properties naming as proposed by Rob Herring.
+As long as "data" isn't dereferenced it's probably better to send some
+bugus value, than an address to this variable on the stack. If on the
+other hand you pair this with one of the mailbox drivers that
+dereferences "data", you should initialize it...
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index 4d277804c63e..409cfd15a933 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -312,7 +312,7 @@ static void stm32_usart_tx_interrupt_enable(struct uart_port *port)
- 	 * Enables TX FIFO threashold irq when FIFO is enabled,
- 	 * or TX empty irq when FIFO is disabled
- 	 */
--	if (stm32_port->fifoen)
-+	if (stm32_port->fifoen && stm32_port->txftcfg >= 0)
- 		stm32_usart_set_bits(port, ofs->cr3, USART_CR3_TXFTIE);
- 	else
- 		stm32_usart_set_bits(port, ofs->cr1, USART_CR1_TXEIE);
-@@ -323,7 +323,7 @@ static void stm32_usart_tx_interrupt_disable(struct uart_port *port)
- 	struct stm32_port *stm32_port = to_stm32_port(port);
- 	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
- 
--	if (stm32_port->fifoen)
-+	if (stm32_port->fifoen && stm32_port->txftcfg >= 0)
- 		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_TXFTIE);
- 	else
- 		stm32_usart_clr_bits(port, ofs->cr1, USART_CR1_TXEIE);
-@@ -801,9 +801,10 @@ static void stm32_usart_set_termios(struct uart_port *port,
- 	cr3 = readl_relaxed(port->membase + ofs->cr3);
- 	cr3 &= USART_CR3_TXFTIE | USART_CR3_RXFTIE;
- 	if (stm32_port->fifoen) {
--		cr3 &= ~(USART_CR3_TXFTCFG_MASK | USART_CR3_RXFTCFG_MASK);
--		cr3 |= USART_CR3_TXFTCFG_HALF << USART_CR3_TXFTCFG_SHIFT;
--		cr3 |= USART_CR3_RXFTCFG_HALF << USART_CR3_RXFTCFG_SHIFT;
-+		if (stm32_port->txftcfg >= 0)
-+			cr3 |= stm32_port->txftcfg << USART_CR3_TXFTCFG_SHIFT;
-+		if (stm32_port->rxftcfg >= 0)
-+			cr3 |= stm32_port->rxftcfg << USART_CR3_RXFTCFG_SHIFT;
- 	}
- 
- 	if (cflag & CSTOPB)
-@@ -833,7 +834,8 @@ static void stm32_usart_set_termios(struct uart_port *port,
- 			, bits);
- 
- 	if (ofs->rtor != UNDEF_REG && (stm32_port->rx_ch ||
--				       stm32_port->fifoen)) {
-+				       (stm32_port->fifoen &&
-+					stm32_port->rxftcfg >= 0))) {
- 		if (cflag & CSTOPB)
- 			bits = bits + 3; /* 1 start bit + 2 stop bits */
- 		else
-@@ -1021,6 +1023,39 @@ static const struct uart_ops stm32_uart_ops = {
- 	.verify_port	= stm32_usart_verify_port,
- };
- 
-+/*
-+ * STM32H7 RX & TX FIFO threshold configuration (CR3 RXFTCFG / TXFTCFG)
-+ * Note: 1 isn't a valid value in RXFTCFG / TXFTCFG. In this case,
-+ * RXNEIE / TXEIE can be used instead of threshold irqs: RXFTIE / TXFTIE.
-+ * So, RXFTCFG / TXFTCFG bitfields values are encoded as array index + 1.
-+ */
-+static const u32 stm32h7_usart_fifo_thresh_cfg[] = { 1, 2, 4, 8, 12, 14, 16 };
-+
-+static void stm32_usart_get_ftcfg(struct platform_device *pdev, const char *p,
-+				  int *ftcfg)
-+{
-+	u32 bytes, i;
-+
-+	/* DT option to get RX & TX FIFO threshold (default to 8 bytes) */
-+	if (of_property_read_u32(pdev->dev.of_node, p, &bytes))
-+		bytes = 8;
-+
-+	for (i = 0; i < ARRAY_SIZE(stm32h7_usart_fifo_thresh_cfg); i++)
-+		if (stm32h7_usart_fifo_thresh_cfg[i] >= bytes)
-+			break;
-+	if (i >= ARRAY_SIZE(stm32h7_usart_fifo_thresh_cfg))
-+		i = ARRAY_SIZE(stm32h7_usart_fifo_thresh_cfg) - 1;
-+
-+	dev_dbg(&pdev->dev, "%s set to %d bytes\n", p,
-+		stm32h7_usart_fifo_thresh_cfg[i]);
-+
-+	/* Provide FIFO threshold ftcfg (1 is invalid: threshold irq unused) */
-+	if (i)
-+		*ftcfg = i - 1;
-+	else
-+		*ftcfg = -EINVAL;
-+}
-+
- static void stm32_usart_deinit_port(struct stm32_port *stm32port)
- {
- 	clk_disable_unprepare(stm32port->clk);
-@@ -1057,6 +1092,12 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
- 		of_property_read_bool(pdev->dev.of_node, "rx-tx-swap");
- 
- 	stm32port->fifoen = stm32port->info->cfg.has_fifo;
-+	if (stm32port->fifoen) {
-+		stm32_usart_get_ftcfg(pdev, "rx-threshold",
-+				      &stm32port->rxftcfg);
-+		stm32_usart_get_ftcfg(pdev, "tx-threshold",
-+				      &stm32port->txftcfg);
-+	}
- 
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	port->membase = devm_ioremap_resource(&pdev->dev, res);
-diff --git a/drivers/tty/serial/stm32-usart.h b/drivers/tty/serial/stm32-usart.h
-index 77d1ac082e89..07ac291328cd 100644
---- a/drivers/tty/serial/stm32-usart.h
-+++ b/drivers/tty/serial/stm32-usart.h
-@@ -216,12 +216,6 @@ struct stm32_usart_info stm32h7_info = {
- #define USART_CR3_TXFTCFG_MASK	GENMASK(31, 29)	/* H7 */
- #define USART_CR3_TXFTCFG_SHIFT	29		/* H7 */
- 
--/* TX FIFO threashold set to half of its depth */
--#define USART_CR3_TXFTCFG_HALF	0x2
--
--/* RX FIFO threashold set to half of its depth */
--#define USART_CR3_RXFTCFG_HALF	0x2
--
- /* USART_GTPR */
- #define USART_GTPR_PSC_MASK	GENMASK(7, 0)
- #define USART_GTPR_GT_MASK	GENMASK(15, 8)
-@@ -273,6 +267,8 @@ struct stm32_port {
- 	bool hw_flow_control;
- 	bool swap;		 /* swap RX & TX pins */
- 	bool fifoen;
-+	int rxftcfg;		/* RX FIFO threshold CFG      */
-+	int txftcfg;		/* TX FIFO threshold CFG      */
- 	bool wakeup_src;
- 	int rdr_mask;		/* receive data register mask */
- 	struct mctrl_gpios *gpios; /* modem control gpios */
--- 
-2.17.1
+Apart from this, I think the patch looks good!
 
+Regards,
+Bjorn
+
+> +		if (err < 0)
+> +			dev_warn(&rproc->dev, "warning: remote FW detach without ack\n");
+> +	}
+> +
+> +	/* Allow remote processor to auto-reboot */
+> +	return stm32_rproc_set_hold_boot(rproc, false);
+> +}
+> +
+>  static int stm32_rproc_stop(struct rproc *rproc)
+>  {
+>  	struct stm32_rproc *ddata = rproc->priv;
+> @@ -597,7 +626,11 @@ stm32_rproc_get_loaded_rsc_table(struct rproc *rproc, size_t *table_sz)
+>  	}
+>  
+>  done:
+> -	/* Assuming the resource table fits in 1kB is fair */
+> +	/*
+> +	 * Assuming the resource table fits in 1kB is fair.
+> +	 * Notice for the detach, that this 1 kB memory area has to be reserved in the coprocessor
+> +	 * firmware for the resource table. A clean of this whole area is done on detach.
+> +	 */
+>  	*table_sz = RSC_TBL_SIZE;
+>  	return (struct resource_table *)ddata->rsc_va;
+>  }
+> @@ -607,6 +640,7 @@ static const struct rproc_ops st_rproc_ops = {
+>  	.start		= stm32_rproc_start,
+>  	.stop		= stm32_rproc_stop,
+>  	.attach		= stm32_rproc_attach,
+> +	.detach		= stm32_rproc_detach,
+>  	.kick		= stm32_rproc_kick,
+>  	.load		= rproc_elf_load_segments,
+>  	.parse_fw	= stm32_rproc_parse_fw,
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
