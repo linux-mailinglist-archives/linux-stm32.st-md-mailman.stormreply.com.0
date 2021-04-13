@@ -2,77 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D8E35E86A
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 23:40:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B01035E8C9
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Apr 2021 00:10:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34984C57B78;
-	Tue, 13 Apr 2021 21:40:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1087AC57B78;
+	Tue, 13 Apr 2021 22:10:14 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8401CC57192
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94C2CC57192
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Apr 2021 21:40:14 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id B20D2613B6;
- Tue, 13 Apr 2021 21:40:12 +0000 (UTC)
+ Tue, 13 Apr 2021 22:10:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id D606861249;
+ Tue, 13 Apr 2021 22:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618350012;
- bh=toVub+slEHyxpan1zl2EKjAs+n9L+DqJjmVyXdpSda8=;
+ s=k20201202; t=1618351810;
+ bh=FSLHKB18JSSgjogb29XxS0VuBaUCWkBk7hZ8VUgrRkg=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=pRV3XRV88aPlnwLClx5LDM21mdefxIbRGFcsOMAWKDGAPSf1o7HWMcUJArQ3XXTo2
- omQ7Z2UBYmJ/4VEgdmDWMtz3nLyeoWfPZMbM/epzVuNn/dfLkNcaqGX/sQ3OpMjUBS
- bAKgZugFWBnTeaINp8LqtfjdEpx90+cwvi+asWJoSAi80GbrFagrnhafBEMs9d/q64
- V1GuK22jWWyeImHuDUYrsXisI7HOHaVrq3GZpA1n6OF84dCG4EQ57enrHgZGDRNpgk
- +wx2yJOLG9rxC5gEKrr9mBBot2pLRQqzLRJSzYPRKCwgwQuIOp0m7AJtIXo8z3kOIr
- TcOoK6hf+PaXg==
+ b=BPw910v5yOEtt9nWt01ryGQB7wRe8IBSuf6TxfvpyriWcV6iWe43QvbtkOoniZ4Wl
+ 9JLgpGfmt+j1IVjXxN6txmlpUXOEQ3anpj5Qkc2Px1QZuLx8FeOgGpZvqzkLjGyvFa
+ Oh7Zd2pzDvadK0Kx4TB4VpR6dVYKvAazmetMp4iYeQTNmIhEUcPAfrEE+ZCjR/vrcs
+ uqwAVAEwYxG2zJa3o90eFRnKgwXJqb3NdpWcAyCZ/Y+675nUWoAPbQqlz0awTGB2tT
+ vuSLVU77+Z+VZvrGI1Z4IkxDC+75PzqfrOf7SKnyIgGEHeAFTMzeZ+8rkhffc8sAQ3
+ aYQa94FH4k2DA==
 Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
  [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 9A519609B9;
- Tue, 13 Apr 2021 21:40:12 +0000 (UTC)
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id CE1BC60CCF;
+ Tue, 13 Apr 2021 22:10:10 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161835001262.18297.4500601910911096840.git-patchwork-notify@kernel.org>
-Date: Tue, 13 Apr 2021 21:40:12 +0000
-References: <20210412174718.17382-1-michael@walle.cc>
-In-Reply-To: <20210412174718.17382-1-michael@walle.cc>
-To: Michael Walle <michael@walle.cc>
-Cc: andrew@lunn.ch, benh@kernel.crashing.org, paulus@samba.org,
- rafal@milecki.pl, nobuhiro1.iwamatsu@toshiba.co.jp,
- linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
- mpe@ellerman.id.au, narmstrong@baylibre.com, michal.simek@xilinx.com,
- joabreu@synopsys.com, linux-imx@nxp.com, Mark-MC.Lee@mediatek.com,
- hauke@hauke-m.de, s.hauer@pengutronix.de, lorenzo.bianconi83@gmail.com,
- linux-omap@vger.kernel.org, gregkh@linuxfoundation.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de, olteanv@gmail.com, claudiu.beznea@microchip.com,
- jerome.pouiller@silabs.com, hayashi.kunihiko@socionext.com,
- chris.snook@gmail.com, pantelis.antoniou@gmail.com, joyce.ooi@intel.com,
- gregory.clement@bootlin.com, madalin.bucur@nxp.com,
- martin.blumenstingl@googlemail.com, m-karicheri2@ti.com,
- yisen.zhuang@huawei.com, alexandre.torgue@st.com, w-kwok2@ti.com,
- sean.wang@mediatek.com, mripard@kernel.org, claudiu.manoil@nxp.com,
- linux-amlogic@lists.infradead.org, kvalo@codeaurora.org, mlindner@marvell.com,
- fugang.duan@nxp.com, bryan.whitehead@microchip.com,
- ath9k-devel@qca.qualcomm.com, UNGLinuxDriver@microchip.com,
- tchornyi@marvell.com, mcoquelin.stm32@gmail.com, khilman@baylibre.com,
- hkallweit1@gmail.com, andreas@gaisler.com, peppe.cavallaro@st.com,
- festevam@gmail.com, stf_xl@wp.pl, f.fainelli@gmail.com, frowand.list@gmail.com,
- linux-staging@lists.linux.dev, wens@csie.org,
- bcm-kernel-feedback-list@broadcom.com, linux-arm-kernel@lists.infradead.org,
- grygorii.strashko@ti.com, bh74.an@samsung.com, radhey.shyam.pandey@xilinx.com,
- vz@mleia.com, john@phrozen.org, salil.mehta@huawei.com,
- sergei.shtylyov@gmail.com, linux-oxnas@groups.io, shawnguo@kernel.org,
- davem@davemloft.net, helmut.schaa@googlemail.com, thomas.petazzoni@bootlin.com,
- linux-renesas-soc@vger.kernel.org, ryder.lee@mediatek.com,
- linux@armlinux.org.uk, vkochan@marvell.com, kuba@kernel.org,
- vivien.didelot@gmail.com, sgoutham@marvell.com,
- sebastian.hesselbarth@gmail.com, devicetree@vger.kernel.org,
- robh+dt@kernel.org, linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- jernej.skrabec@siol.net, netdev@vger.kernel.org, nicolas.ferre@microchip.com,
- leoyang.li@nxp.com, stephen@networkplumber.org, vkoul@kernel.org,
- linuxppc-dev@lists.ozlabs.org, nbd@nbd.name
-Subject: Re: [Linux-stm32] [PATCH net-next v4 0/2] of: net: support
- non-platform devices in of_get_mac_address()
+Message-Id: <161835181083.31494.7438008757120147305.git-patchwork-notify@kernel.org>
+Date: Tue, 13 Apr 2021 22:10:10 +0000
+References: <20210413093626.3447-1-boon.leong.ong@intel.com>
+In-Reply-To: <20210413093626.3447-1-boon.leong.ong@intel.com>
+To: Ong Boon Leong <boon.leong.ong@intel.com>
+Cc: songliubraving@fb.com, kafai@fb.com, linux-kernel@vger.kernel.org,
+ alexandre.torgue@st.com, daniel@iogearbox.net, yhs@fb.com,
+ linux-stm32@st-md-mailman.stormreply.com, bpf@vger.kernel.org,
+ john.fastabend@gmail.com, ast@kernel.org, alexandre.torgue@foss.st.com,
+ andrii@kernel.org, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, kpsingh@kernel.org, peppe.cavallaro@st.com,
+ netdev@vger.kernel.org, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, hawk@kernel.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/7] stmmac: add XDP ZC support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,23 +65,33 @@ Hello:
 
 This series was applied to netdev/net-next.git (refs/heads/master):
 
-On Mon, 12 Apr 2021 19:47:16 +0200 you wrote:
-> of_get_mac_address() is commonly used to fetch the MAC address
-> from the device tree. It also supports reading it from a NVMEM
-> provider. But the latter is only possible for platform devices,
-> because only platform devices are searched for a matching device
-> node.
+On Tue, 13 Apr 2021 17:36:19 +0800 you wrote:
+> Hi,
 > 
-> Add a second method to fetch the NVMEM cell by a device tree node
-> instead of a "struct device".
+> This is the v2 patch series to add XDP ZC support to stmmac driver.
+> 
+> Summary of v2 patch change:-
+> 
+> 6/7: fix synchronize_rcu() is called stmmac_disable_all_queues() that is
+>      used by ndo_setup_tc().
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v4,1/2] of: net: pass the dst buffer to of_get_mac_address()
-    https://git.kernel.org/netdev/net-next/c/83216e3988cd
-  - [net-next,v4,2/2] of: net: fix of_get_mac_addr_nvmem() for non-platform devices
-    https://git.kernel.org/netdev/net-next/c/f10843e04a07
+  - [net-next,v2,1/7] net: stmmac: rearrange RX buffer allocation and free functions
+    https://git.kernel.org/netdev/net-next/c/4298255f26fa
+  - [net-next,v2,2/7] net: stmmac: introduce dma_recycle_rx_skbufs for stmmac_reinit_rx_buffers
+    https://git.kernel.org/netdev/net-next/c/80f573c995fc
+  - [net-next,v2,3/7] net: stmmac: refactor stmmac_init_rx_buffers for stmmac_reinit_rx_buffers
+    https://git.kernel.org/netdev/net-next/c/da5ec7f22a0f
+  - [net-next,v2,4/7] net: stmmac: rearrange RX and TX desc init into per-queue basis
+    https://git.kernel.org/netdev/net-next/c/de0b90e52a11
+  - [net-next,v2,5/7] net: stmmac: Refactor __stmmac_xdp_run_prog for XDP ZC
+    https://git.kernel.org/netdev/net-next/c/bba71cac680f
+  - [net-next,v2,6/7] net: stmmac: Enable RX via AF_XDP zero-copy
+    https://git.kernel.org/netdev/net-next/c/bba2556efad6
+  - [net-next,v2,7/7] net: stmmac: Add TX via XDP zero-copy socket
+    https://git.kernel.org/netdev/net-next/c/132c32ee5bc0
 
 You are awesome, thank you!
 --
