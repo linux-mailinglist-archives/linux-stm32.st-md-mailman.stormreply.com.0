@@ -2,57 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7B2F35DE3C
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 14:05:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7535B35E06B
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 15:45:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 791A3C57B78;
-	Tue, 13 Apr 2021 12:05:17 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23EB7C57B79;
+	Tue, 13 Apr 2021 13:45:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8C00C56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC367C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Apr 2021 12:05:15 +0000 (UTC)
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id DEBA281A04;
- Tue, 13 Apr 2021 14:05:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1618315514;
- bh=1cx7IY1niXydXktkCXAsPUmSNShSji22fkH1N/eoSfY=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=cNs09aDP0xo4Kjn2mQ15olg6nAOvl59ycxnQg5bG9ETzyEfkiQd4m/G1ujp8hiBSr
- tqZInlfSRqFME734Pjf+CCR0CnU3BK2289+ygxvWJCbkc6UKLWiFpwcTrx7wPKsj5m
- uygL5ziQjKCvl/yyh1Ra+HUtGGqDS7CV97ODF74rOGXgvtoGntZk3yXfWLkS7Y2hFj
- A8YZFC9u14oRK8KPdxw1waWTt4DA3AkYNHo2BloCO8AqOik5AvAZ1LID5+sxWvjQ2/
- uCG4OLqQrolT0r6V3R+tLNXBDit/h9PgT4127tIi3qmX16XTqAXSb7e55SX6ml1l39
- lUBwOV6QR0Ksg==
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20210408185731.135511-1-marex@denx.de>
- <b81d6a69-713f-eda7-0837-d6e80d691c6a@foss.st.com>
- <2c410c1b-2a1d-b291-a128-c5d5979be1ef@denx.de>
- <340d32f1-3afb-2159-fa94-70a45aecd88c@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <5a7ac087-4506-df7f-e692-c663d7b61703@denx.de>
-Date: Tue, 13 Apr 2021 14:05:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+ Tue, 13 Apr 2021 13:45:20 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 13DDhRDN031750; Tue, 13 Apr 2021 15:45:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=MYBqS1kHklA7I7PbkLW0VJrCIpl2g8/kyjPjrVAuLD8=;
+ b=1DappFPlpJ7sThdMdwIrvROpDT6SWL7DhgUWd7B2GAbz4XlVwJQg+qIL6QD2kBBg8a7h
+ A5Zb5WnTJx8Tw8XUtEVdTVlkXH6fvuWCqB8U40M225ZlrO71sY2V7NPU3bxLkTOmp7IY
+ VlIphPC21OD66IFNvlPTPu8paOn/OIcRGb9qK44LgXSRDKcHgmaSWRwEoYeDvh/NB1lf
+ KxbO76sKfv2cGRwYmr6noc+m1oE/w0xGDZFXijS28td72qoRXJvsfl2JBVzoYcE0xioF
+ sYpqK885awukJ9Ox3wj8Ty1qkOnjc50SwiAX3iEFe6pEJDKKAjqbmGfxEPac+43iW5KA 5A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37vu4e52sf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 13 Apr 2021 15:45:19 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E70F110002A;
+ Tue, 13 Apr 2021 15:45:18 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D59A3226C5A;
+ Tue, 13 Apr 2021 15:45:18 +0200 (CEST)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 13 Apr 2021 15:45:18
+ +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Tue, 13 Apr 2021 15:44:51 +0200
+Message-ID: <20210413134458.17912-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <340d32f1-3afb-2159-fa94-70a45aecd88c@foss.st.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: linux-stm32@st-md-mailman.stormreply.com, Stephen Boyd <sboyd@kernel.org>,
- linux-clk@vger.kernel.org,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Stephen Boyd <swboyd@chromium.org>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH 0/7] ARM: dts: stm32: clk: Switch ETHRX
- clock parent from ETHCK_K to MCO2 on DHCOM SoM
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-04-13_07:2021-04-13,
+ 2021-04-13 signatures=0
+Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2 0/7] Restructure the rpmsg char and
+	introduce the rpmsg-raw channel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,48 +67,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/13/21 9:48 AM, Alexandre TORGUE wrote:
-> Hi Marek
 
-Hello Alexandre,
+update from V1 [1]
+ - fix issues reported by Mathieu Poirier
 
-> On 4/12/21 8:44 PM, Marek Vasut wrote:
->> On 4/12/21 10:09 AM, Alexandre TORGUE wrote:
->>> Hi Marek
->>
->> Hello Alex,
->>
->> [...]
->>
->>>> All the above still only discusses the clock part of the problem. 
->>>> Even if
->>>> the clock cyclic dependencies could be solved, it would be necessary to
->>>> resolve legacy dwmac st,eth-clk-sel and st,eth-ref-clk-sel DT 
->>>> properties
->>>> and avoid DT ABI break.
->>>
->>> Thanks for those clear explanations and for this series. As 
->>> discussed, this approach looks good to me as it doesn't break our 
->>> current strategy for dwmac clock integration. I don't know if those 
->>> cyclic redundancies will be fixed one day but we can have a look on 
->>> dwmac DT properties (the gain to change them, the effort to keep the 
->>> backward compatibility, code readability, ...).
->>>
->>> Your DT patches looks good. I'll merge them soon.
->> +CC Stephen ; the DT patches depend on the clock driver changes. Would 
->> it make sense to pick the clock patches through the same tree or how 
->> should that be handled ?
-> 
-> In this situation, I prefer to wait that Stephen takes clock patches in 
-> his tree. Then I'll take DT ones in mine. (I assume that taking only 
-> clock patches will not break mp1 boot or Ethernet usage).
+This series is the second step in the division of the series [2]: 
+"Introducing a Generic IOCTL Interface for RPMsg Channel Management".
 
-That's fine by me, thanks !
+The purpose of this patchset is to:
+- split the control code related to the control
+  and the endpoint. 
+- define the rpmsg-raw channel, associated with the rpmsg char device to
+  allow it to be instantiated using a name service announcement.
+    
+An important point to keep in mind for this patchset is that the concept of
+channel is associated with a default endpoint. To facilitate communication
+with the remote side, this default endpoint must have a fixed address.
+
+Consequently, for this series, I made a design choice to fix the endpoint
+on the "rpmsg-raw" channel probe, and not allow to create/destroy an endpoint
+on FS open/close.
+
+This is only applicable for channels probed by the rpmsg bus. The behavior,
+using the RPMSG_CREATE_EPT_IOCTL and RPMSG_DESTROY_EPT_IOCTL controls, is
+preserved.
+  
+The next steps should be to correct this:
+Introduce the IOCTLs RPMSG_CREATE_DEV_IOCTL and RPMSG_DESTROY_DEV_IOCTL
+to instantiate the rpmsg devices
+
+[1]: https://patchwork.kernel.org/project/linux-remoteproc/list/?series=453805
+[2]: https://patchwork.kernel.org/project/linux-remoteproc/list/?series=435523
+
+Arnaud Pouliquen (7):
+  rpmsg: char: Export eptdev create an destroy functions
+  rpmsg: Move the rpmsg control device from rpmsg_char to rpmsg_ctrl
+  rpmsg: Update rpmsg_chrdev_register_device function
+  rpmsg: char: Introduce __rpmsg_chrdev_create_eptdev function
+  rpmsg: char: Introduce a rpmsg driver for the rpmsg char device
+  rpmsg: char: No dynamic endpoint management for the default one
+  rpmsg: char: Return error if user tries to destroy a default endpoint.
+
+ drivers/rpmsg/Kconfig             |   9 ++
+ drivers/rpmsg/Makefile            |   1 +
+ drivers/rpmsg/qcom_glink_native.c |   2 +-
+ drivers/rpmsg/qcom_smd.c          |   2 +-
+ drivers/rpmsg/rpmsg_char.c        | 222 +++++++++-------------------
+ drivers/rpmsg/rpmsg_char.h        |  52 +++++++
+ drivers/rpmsg/rpmsg_ctrl.c        | 231 ++++++++++++++++++++++++++++++
+ drivers/rpmsg/rpmsg_internal.h    |   8 +-
+ drivers/rpmsg/virtio_rpmsg_bus.c  |   2 +-
+ 9 files changed, 368 insertions(+), 161 deletions(-)
+ create mode 100644 drivers/rpmsg/rpmsg_char.h
+ create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
