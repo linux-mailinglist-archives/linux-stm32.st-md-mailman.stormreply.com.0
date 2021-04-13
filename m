@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 563BA35DB32
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 11:32:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6253D35DB35
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 11:32:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09383C57B78;
-	Tue, 13 Apr 2021 09:32:18 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19B20C57B78;
+	Tue, 13 Apr 2021 09:32:23 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64DE6C56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75BA2C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Apr 2021 09:32:15 +0000 (UTC)
-IronPort-SDR: Z4V0cG1crhjnPmB3X0xMANDJhOneuhxn23Wdl/NOLh6eEVDrtPHLJmuvB6UDdj8QwLgoPiyZim
- oLHraAQ6XjdQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="181502474"
-X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="181502474"
+ Tue, 13 Apr 2021 09:32:21 +0000 (UTC)
+IronPort-SDR: N1s2TNFwhTWTxcZPThMZD7WOBqZffSBWtFN40+HuiR1mCqkPqEtiM0cSRJMlf9PTW4spywez/V
+ nXaEmGv2XcqA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9952"; a="279681215"
+X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="279681215"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2021 02:32:13 -0700
-IronPort-SDR: gbYVj5qwLtUIw5q8DrxLiv4BRR4jht7zSoRGbxrC5sHYn6kDuJ1GSxWWZB1Pi4NTQ9OKOit9Uv
- zUunE2UAFYpg==
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2021 02:32:19 -0700
+IronPort-SDR: fqePouQHEYHxvaMPgMveVf7pX/F8esCGV9XWO3d6g0cJ/4AI2Jv4TgtL0ScUmxTEKWr8xiaNxq
+ R080VoOgKxUg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="424178034"
+X-IronPort-AV: E=Sophos;i="5.82,219,1613462400"; d="scan'208";a="424178074"
 Received: from glass.png.intel.com ([10.158.65.59])
- by orsmga008.jf.intel.com with ESMTP; 13 Apr 2021 02:32:08 -0700
+ by orsmga008.jf.intel.com with ESMTP; 13 Apr 2021 02:32:14 -0700
 From: Ong Boon Leong <boon.leong.ong@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
@@ -35,9 +35,11 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Daniel Borkmann <daniel@iogearbox.net>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>
-Date: Tue, 13 Apr 2021 17:36:19 +0800
-Message-Id: <20210413093626.3447-1-boon.leong.ong@intel.com>
+Date: Tue, 13 Apr 2021 17:36:20 +0800
+Message-Id: <20210413093626.3447-2-boon.leong.ong@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210413093626.3447-1-boon.leong.ong@intel.com>
+References: <20210413093626.3447-1-boon.leong.ong@intel.com>
 MIME-Version: 1.0
 Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -46,7 +48,8 @@ Cc: Song Liu <songliubraving@fb.com>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, KP Singh <kpsingh@kernel.org>,
  Yonghong Song <yhs@fb.com>, bpf@vger.kernel.org,
  Martin KaFai Lau <kafai@fb.com>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 0/7] stmmac: add XDP ZC support
+Subject: [Linux-stm32] [PATCH net-next v2 1/7] net: stmmac: rearrange RX
+	buffer allocation and free functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,105 +66,167 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+This patch restructures the per RX queue buffer allocation from page_pool
+to stmmac_alloc_rx_buffers().
 
-This is the v2 patch series to add XDP ZC support to stmmac driver.
+We also rearrange dma_free_rx_skbufs() so that it can be used in
+init_dma_rx_desc_rings() during freeing of RX buffer in the event of
+page_pool allocation failure to replace the more efficient method earlier.
+The replacement is needed to make the RX buffer alloc and free method
+scalable to XDP ZC xsk_pool alloc and free later.
 
-Summary of v2 patch change:-
+Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 84 +++++++++++--------
+ 1 file changed, 47 insertions(+), 37 deletions(-)
 
-6/7: fix synchronize_rcu() is called stmmac_disable_all_queues() that is
-     used by ndo_setup_tc().
-
- ########################################################################
-
-Continuous burst traffics are generated by pktgen script and in the midst
-of each packet processing operation by xdpsock the following tc-loop.sh
-script is looped continuously:-
-
- #!/bin/bash
- tc qdisc del dev eth0 parent root
- tc qdisc add dev eth0 ingress
- tc qdisc add dev eth0 root mqprio num_tc 4 map 0 1 2 3 0 0 0 0 0 0 0 0 0 0 0 0 queues 1@0 1@1 1@2 1@3 hw 0
- tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 0 hw_tc 0
- tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 1 hw_tc 1
- tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 2 hw_tc 2
- tc filter add dev eth0 parent ffff: protocol 802.1Q flower vlan_prio 3 hw_tc 3
- tc qdisc list dev eth0
- tc filter show dev eth0 ingress
-
- On different ssh terminal
- $ while true; do ./tc-loop.sh; sleep 1; done
-
-The v2 patch series have been tested using the xdpsock app:
- $ ./xdpsock -i eth0 -l -z
-
-From xdpsock poller pps report and dmesg, we don't find any warning
-related to rcu and the only difference when the script is executed is
-the pps rate drops momentarily.
-
- sock0@eth0:0 l2fwd xdp-drv
-                   pps            pkts           1.00
-rx                 436347         191361334
-tx                 436411         191361334
-
- sock0@eth0:0 l2fwd xdp-drv
-                   pps            pkts           1.00
-rx                 254117         191615476
-tx                 254053         191615412
-
- sock0@eth0:0 l2fwd xdp-drv
-                   pps            pkts           1.00
-rx                 466395         192081924
-tx                 466395         192081860
-
- sock0@eth0:0 l2fwd xdp-drv
-                   pps            pkts           1.00
-rx                 287410         192369365
-tx                 287474         192369365
-
- sock0@eth0:0 l2fwd xdp-drv
-                   pps            pkts           1.00
-rx                 395853         192765329
-tx                 395789         192765265
-
- sock0@eth0:0 l2fwd xdp-drv
-                   pps            pkts           1.00
-rx                 466132         193231514
-tx                 466132         193231450
-
- ########################################################################
-
-Based on the above result, the fix looks promising. Appreciate that if
-community can help to review the patch series and provide me feedback
-for improvement.
-
-Thanks,
-Boon Leong
-
- ------------------------------------------------------------------------
- History of patch series as follow:-
-
- v1: https://patchwork.kernel.org/project/netdevbpf/list/?series=465747&state=*
-
- ------------------------------------------------------------------------
-
-Ong Boon Leong (7):
-  net: stmmac: rearrange RX buffer allocation and free functions
-  net: stmmac: introduce dma_recycle_rx_skbufs for
-    stmmac_reinit_rx_buffers
-  net: stmmac: refactor stmmac_init_rx_buffers for
-    stmmac_reinit_rx_buffers
-  net: stmmac: rearrange RX and TX desc init into per-queue basis
-  net: stmmac: Refactor __stmmac_xdp_run_prog for XDP ZC
-  net: stmmac: Enable RX via AF_XDP zero-copy
-  net: stmmac: Add TX via XDP zero-copy socket
-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   24 +-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 1718 +++++++++++++----
- .../net/ethernet/stmicro/stmmac/stmmac_xdp.c  |   95 +
- .../net/ethernet/stmicro/stmmac/stmmac_xdp.h  |    3 +
- 4 files changed, 1411 insertions(+), 429 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 77285646c5fc..f6d3d26ce45a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1475,6 +1475,43 @@ static void stmmac_free_tx_buffer(struct stmmac_priv *priv, u32 queue, int i)
+ 	tx_q->tx_skbuff_dma[i].map_as_page = false;
+ }
+ 
++/**
++ * dma_free_rx_skbufs - free RX dma buffers
++ * @priv: private structure
++ * @queue: RX queue index
++ */
++static void dma_free_rx_skbufs(struct stmmac_priv *priv, u32 queue)
++{
++	int i;
++
++	for (i = 0; i < priv->dma_rx_size; i++)
++		stmmac_free_rx_buffer(priv, queue, i);
++}
++
++static int stmmac_alloc_rx_buffers(struct stmmac_priv *priv, u32 queue,
++				   gfp_t flags)
++{
++	struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
++	int i;
++
++	for (i = 0; i < priv->dma_rx_size; i++) {
++		struct dma_desc *p;
++		int ret;
++
++		if (priv->extend_desc)
++			p = &((rx_q->dma_erx + i)->basic);
++		else
++			p = rx_q->dma_rx + i;
++
++		ret = stmmac_init_rx_buffers(priv, p, i, flags,
++					     queue);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ /**
+  * stmmac_reinit_rx_buffers - reinit the RX descriptor buffer.
+  * @priv: driver private structure
+@@ -1547,15 +1584,14 @@ static void stmmac_reinit_rx_buffers(struct stmmac_priv *priv)
+ 	return;
+ 
+ err_reinit_rx_buffers:
+-	do {
+-		while (--i >= 0)
+-			stmmac_free_rx_buffer(priv, queue, i);
++	while (queue >= 0) {
++		dma_free_rx_skbufs(priv, queue);
+ 
+ 		if (queue == 0)
+ 			break;
+ 
+-		i = priv->dma_rx_size;
+-	} while (queue-- > 0);
++		queue--;
++	}
+ }
+ 
+ /**
+@@ -1572,7 +1608,6 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
+ 	u32 rx_count = priv->plat->rx_queues_to_use;
+ 	int ret = -ENOMEM;
+ 	int queue;
+-	int i;
+ 
+ 	/* RX INITIALIZATION */
+ 	netif_dbg(priv, probe, priv->dev,
+@@ -1580,7 +1615,7 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
+ 
+ 	for (queue = 0; queue < rx_count; queue++) {
+ 		struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
+-		int ret;
++
+ 
+ 		netif_dbg(priv, probe, priv->dev,
+ 			  "(%s) dma_rx_phy=0x%08x\n", __func__,
+@@ -1596,22 +1631,12 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
+ 			    "Register MEM_TYPE_PAGE_POOL RxQ-%d\n",
+ 			    rx_q->queue_index);
+ 
+-		for (i = 0; i < priv->dma_rx_size; i++) {
+-			struct dma_desc *p;
+-
+-			if (priv->extend_desc)
+-				p = &((rx_q->dma_erx + i)->basic);
+-			else
+-				p = rx_q->dma_rx + i;
+-
+-			ret = stmmac_init_rx_buffers(priv, p, i, flags,
+-						     queue);
+-			if (ret)
+-				goto err_init_rx_buffers;
+-		}
++		ret = stmmac_alloc_rx_buffers(priv, queue, flags);
++		if (ret < 0)
++			goto err_init_rx_buffers;
+ 
+ 		rx_q->cur_rx = 0;
+-		rx_q->dirty_rx = (unsigned int)(i - priv->dma_rx_size);
++		rx_q->dirty_rx = 0;
+ 
+ 		/* Setup the chained descriptor addresses */
+ 		if (priv->mode == STMMAC_CHAIN_MODE) {
+@@ -1630,13 +1655,11 @@ static int init_dma_rx_desc_rings(struct net_device *dev, gfp_t flags)
+ 
+ err_init_rx_buffers:
+ 	while (queue >= 0) {
+-		while (--i >= 0)
+-			stmmac_free_rx_buffer(priv, queue, i);
++		dma_free_rx_skbufs(priv, queue);
+ 
+ 		if (queue == 0)
+ 			break;
+ 
+-		i = priv->dma_rx_size;
+ 		queue--;
+ 	}
+ 
+@@ -1731,19 +1754,6 @@ static int init_dma_desc_rings(struct net_device *dev, gfp_t flags)
+ 	return ret;
+ }
+ 
+-/**
+- * dma_free_rx_skbufs - free RX dma buffers
+- * @priv: private structure
+- * @queue: RX queue index
+- */
+-static void dma_free_rx_skbufs(struct stmmac_priv *priv, u32 queue)
+-{
+-	int i;
+-
+-	for (i = 0; i < priv->dma_rx_size; i++)
+-		stmmac_free_rx_buffer(priv, queue, i);
+-}
+-
+ /**
+  * dma_free_tx_skbufs - free TX dma buffers
+  * @priv: private structure
 -- 
 2.25.1
 
