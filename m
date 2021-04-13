@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0B1735E185
+	by mail.lfdr.de (Postfix) with ESMTPS id 8299A35E184
 	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 16:32:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69A4AC58D5D;
-	Tue, 13 Apr 2021 14:32:33 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAA33C58D58;
+	Tue, 13 Apr 2021 14:32:32 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99815C57192
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D826EC57B76
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Apr 2021 14:32:31 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Tue, 13 Apr 2021 14:32:30 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13DEWM2J010080; Tue, 13 Apr 2021 16:32:22 +0200
+ 13DENfbF013334; Tue, 13 Apr 2021 16:32:17 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=6iYZAF1/Vkdy0FjL5VVkFCS8auvkDLWr+RYeFeOCiXE=;
- b=j8FYMo56x90Zcosuc6Ro8E1d7ChzXvz0xjd4XzM2ns3qPeYKqjVeLUaca/QXC8hcqo+k
- Y8ttq5v6dIpzxp2Hqu6moTU3AdDccNUOij7TJfUwUP8tebIVjRbS2so6dtcIiV1e5upT
- 8PCnIpigGvkcCstA+uOczXHRKWFKUygzygDT//AMDX7RXPnyjUYACEYI0W0DhHH0NpTu
- v6rQUFJD4h4BCXhFW74z5hd0G63BGQUK8zjWWI+dZFdu+akJqIaxeSHD2toFYmpmCiFD
- R50UCb7neqGdxdo7w6iZO/5YKji3AoNIrsqtDr1RNbmkBGdvRZNPJIk8eDOwo64BTG8V Pw== 
+ bh=pjdn0iPLZsVnMrs5LhG4TkO0pVvE9Vj+yQMAhrHcFD4=;
+ b=D8o3fopuhzzacBsQEBYvQTpOZjtYCfs7A40Lsqg9qTYRetxwbeP/tRK0uiwTIZAGiq2o
+ mQG1SsVSv8VtLnkzeKPgCENWi3Og7b7XYsROd9NE9KMszI2bnrT9p9XnvUJgphP85hIv
+ 3Yi0QnniZOhG8ctweBUAdvSP0xb3u4ObVFxEhT4ltCMrFIWtARaQewhdMyR2gJDRB9/6
+ jYXzjZ/qUzzRbHycYtQg/mRm2bTl8nkRaldDmv++l2UxpukU3wGWDhVaqj92EWba2M/9
+ TQq1o9qmJjRtFBbeGUm1CXXgChJI7nBaV8/5oN3BlVuXnUF2o/nWR4Jj/g8K+cSG/s92 ow== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37vrp5e7eq-1
+ by mx07-00178001.pphosted.com with ESMTP id 37vu4e5b92-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 13 Apr 2021 16:32:22 +0200
+ Tue, 13 Apr 2021 16:32:17 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 292B510002A;
- Tue, 13 Apr 2021 16:32:16 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 32EE5100038;
+ Tue, 13 Apr 2021 16:32:17 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 19702246F3E;
- Tue, 13 Apr 2021 16:32:16 +0200 (CEST)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 13 Apr 2021 16:32:15
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 23D87246F3E;
+ Tue, 13 Apr 2021 16:32:17 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 13 Apr 2021 16:32:16
  +0200
 From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 To: Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>, Rob
  Herring <robh+dt@kernel.org>, Alexandre Torgue
  <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Tue, 13 Apr 2021 16:31:40 +0200
-Message-ID: <20210413143141.12919-2-amelie.delaunay@foss.st.com>
+Date: Tue, 13 Apr 2021 16:31:41 +0200
+Message-ID: <20210413143141.12919-3-amelie.delaunay@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210413143141.12919-1-amelie.delaunay@foss.st.com>
 References: <20210413143141.12919-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
  definitions=2021-04-13_08:2021-04-13,
@@ -59,8 +59,8 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 1/2] dt-bindings: phy: add vbus-supply
-	optional property to phy-stm32-usbphyc
+Subject: [Linux-stm32] [PATCH v2 2/2] phy: stm32: manage optional vbus
+	regulator on phy_power_on/off
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,47 +77,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds vbus-supply optional property to phy sub-nodes using
-connector node.
-A regulator for USB VBUS may be needed for host mode.
+This patch adds support for optional vbus regulator.
+It is managed on phy_power_on/off calls and may be needed for host mode.
 
 Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 ---
-Changes in v2:
-- add connector vbus-supply property as suggested by Rob
+No changes in v2.
 ---
- .../devicetree/bindings/phy/phy-stm32-usbphyc.yaml    | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/phy/st/phy-stm32-usbphyc.c | 31 ++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
-index 018cc1246ee1..3329f1d33a4f 100644
---- a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
-+++ b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
-@@ -74,6 +74,13 @@ patternProperties:
-       "#phy-cells":
-         enum: [ 0x0, 0x1 ]
+diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
+index c184f4e34584..3e491dfb2525 100644
+--- a/drivers/phy/st/phy-stm32-usbphyc.c
++++ b/drivers/phy/st/phy-stm32-usbphyc.c
+@@ -57,6 +57,7 @@ struct pll_params {
+ struct stm32_usbphyc_phy {
+ 	struct phy *phy;
+ 	struct stm32_usbphyc *usbphyc;
++	struct regulator *vbus;
+ 	u32 index;
+ 	bool active;
+ };
+@@ -291,9 +292,31 @@ static int stm32_usbphyc_phy_exit(struct phy *phy)
+ 	return stm32_usbphyc_pll_disable(usbphyc);
+ }
  
-+      connector:
-+        type: object
-+        allOf:
-+          - $ref: ../connector/usb-connector.yaml
-+        properties:
-+          vbus-supply: true
++static int stm32_usbphyc_phy_power_on(struct phy *phy)
++{
++	struct stm32_usbphyc_phy *usbphyc_phy = phy_get_drvdata(phy);
 +
-     allOf:
-       - if:
-           properties:
-@@ -130,6 +137,10 @@ examples:
-             reg = <0>;
-             phy-supply = <&vdd_usb>;
-             #phy-cells = <0>;
-+            connector {
-+                compatible = "usb-a-connector";
-+                vbus-supply = <&vbus_sw>;
-+            };
-         };
++	if (usbphyc_phy->vbus)
++		return regulator_enable(usbphyc_phy->vbus);
++
++	return 0;
++}
++
++static int stm32_usbphyc_phy_power_off(struct phy *phy)
++{
++	struct stm32_usbphyc_phy *usbphyc_phy = phy_get_drvdata(phy);
++
++	if (usbphyc_phy->vbus)
++		return regulator_disable(usbphyc_phy->vbus);
++
++	return 0;
++}
++
+ static const struct phy_ops stm32_usbphyc_phy_ops = {
+ 	.init = stm32_usbphyc_phy_init,
+ 	.exit = stm32_usbphyc_phy_exit,
++	.power_on = stm32_usbphyc_phy_power_on,
++	.power_off = stm32_usbphyc_phy_power_off,
+ 	.owner = THIS_MODULE,
+ };
  
-         usbphyc_port1: usb-phy@1 {
+@@ -519,6 +542,14 @@ static int stm32_usbphyc_probe(struct platform_device *pdev)
+ 		usbphyc->phys[port]->index = index;
+ 		usbphyc->phys[port]->active = false;
+ 
++		usbphyc->phys[port]->vbus = devm_regulator_get_optional(&phy->dev, "vbus");
++		if (IS_ERR(usbphyc->phys[port]->vbus)) {
++			ret = PTR_ERR(usbphyc->phys[port]->vbus);
++			if (ret == -EPROBE_DEFER)
++				goto put_child;
++			usbphyc->phys[port]->vbus = NULL;
++		}
++
+ 		port++;
+ 	}
+ 
 -- 
 2.17.1
 
