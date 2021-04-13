@@ -2,68 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D68A335DB9D
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 11:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7B2F35DE3C
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Apr 2021 14:05:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88318C57B78;
-	Tue, 13 Apr 2021 09:49:22 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 791A3C57B78;
+	Tue, 13 Apr 2021 12:05:17 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 179E4C56632
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8C00C56632
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Apr 2021 09:49:18 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id j5so14800568wrn.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Apr 2021 02:49:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=5/VCtoETMmUzL0vMPqbtcoUDD2y2ltfbzTlgLqC6ZdU=;
- b=BRRd8qbtTFGYEMdRV5HexTZXmoRkVYk8JiyfN7BdyhztQs/RDa754NvDDd2qaxbN8U
- DUWmf96W1+eX9ioCfQNqH//U3DZEaHBT4N/+sGgxpgWhazVlP6RJBuaqEj6TztkURr04
- NJXk2wKPT930X8RRnXr25PPTXiO/eMJ+BuGck=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=5/VCtoETMmUzL0vMPqbtcoUDD2y2ltfbzTlgLqC6ZdU=;
- b=Aljj7vsLcgCmMR4UlLuisJZAMk1h1u43iw7xLDcsqJn8I96cgwE9FHTXbfUR/1dESf
- KjpK+nZexnFV6EVs6tHV6/hKCNeZ7tjxXMZZyYfYdt24OF4/CqD3I+waVj5AWt5QXwqm
- R7R11BUJYTp4E60Y/iZd/inu6+WylDciBQThVNVz5ljpD5K0iaGKjf1l5VsuO1wmPBn0
- YymCBh+hJdwX001kCsTHAZlrEUVaIRJDucD+zC/XB5//FmdeyhdN5xUyCaCDaMSYINQC
- mcHrW5I0hjNlP/yKym8N+HvQl7e78EXs+4zJ64Cf7hSMPE9cI+LndSqumWEVNSPZtr31
- BZlg==
-X-Gm-Message-State: AOAM530F/YY5O8b+J0qvVzElcU0yVMxVtxbUVSjuUBPjW/LD7+dP8W3x
- 0vANorBe5IDIfQQghp5sIlxJqg==
-X-Google-Smtp-Source: ABdhPJw1GFAzXcytfZXNu9CcACpZoWl3EZWaSegc/mUkmbt0A5hEw3xdPxj85E3UJSo3NsC8wcDNLA==
-X-Received: by 2002:a05:6000:83:: with SMTP id
- m3mr34903882wrx.321.1618307358507; 
- Tue, 13 Apr 2021 02:49:18 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id 64sm1956458wmz.7.2021.04.13.02.49.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Apr 2021 02:49:18 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue, 13 Apr 2021 11:49:00 +0200
-Message-Id: <20210413094904.3736372-9-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210413094904.3736372-1-daniel.vetter@ffwll.ch>
-References: <20210413094904.3736372-1-daniel.vetter@ffwll.ch>
-MIME-Version: 1.0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
+ Tue, 13 Apr 2021 12:05:15 +0000 (UTC)
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id DEBA281A04;
+ Tue, 13 Apr 2021 14:05:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1618315514;
+ bh=1cx7IY1niXydXktkCXAsPUmSNShSji22fkH1N/eoSfY=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=cNs09aDP0xo4Kjn2mQ15olg6nAOvl59ycxnQg5bG9ETzyEfkiQd4m/G1ujp8hiBSr
+ tqZInlfSRqFME734Pjf+CCR0CnU3BK2289+ygxvWJCbkc6UKLWiFpwcTrx7wPKsj5m
+ uygL5ziQjKCvl/yyh1Ra+HUtGGqDS7CV97ODF74rOGXgvtoGntZk3yXfWLkS7Y2hFj
+ A8YZFC9u14oRK8KPdxw1waWTt4DA3AkYNHo2BloCO8AqOik5AvAZ1LID5+sxWvjQ2/
+ uCG4OLqQrolT0r6V3R+tLNXBDit/h9PgT4127tIi3qmX16XTqAXSb7e55SX6ml1l39
+ lUBwOV6QR0Ksg==
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 09/12] drm/stm: Don't set allow_fb_modifiers
-	explicitly
+References: <20210408185731.135511-1-marex@denx.de>
+ <b81d6a69-713f-eda7-0837-d6e80d691c6a@foss.st.com>
+ <2c410c1b-2a1d-b291-a128-c5d5979be1ef@denx.de>
+ <340d32f1-3afb-2159-fa94-70a45aecd88c@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <5a7ac087-4506-df7f-e692-c663d7b61703@denx.de>
+Date: Tue, 13 Apr 2021 14:05:13 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
+MIME-Version: 1.0
+In-Reply-To: <340d32f1-3afb-2159-fa94-70a45aecd88c@foss.st.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: linux-stm32@st-md-mailman.stormreply.com, Stephen Boyd <sboyd@kernel.org>,
+ linux-clk@vger.kernel.org,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Stephen Boyd <swboyd@chromium.org>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>
+Subject: Re: [Linux-stm32] [PATCH 0/7] ARM: dts: stm32: clk: Switch ETHRX
+ clock parent from ETHCK_K to MCO2 on DHCOM SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,50 +64,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since
+On 4/13/21 9:48 AM, Alexandre TORGUE wrote:
+> Hi Marek
 
-commit 890880ddfdbe256083170866e49c87618b706ac7
-Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-Date:   Fri Jan 4 09:56:10 2019 +0100
+Hello Alexandre,
 
-    drm: Auto-set allow_fb_modifiers when given modifiers at plane init
+> On 4/12/21 8:44 PM, Marek Vasut wrote:
+>> On 4/12/21 10:09 AM, Alexandre TORGUE wrote:
+>>> Hi Marek
+>>
+>> Hello Alex,
+>>
+>> [...]
+>>
+>>>> All the above still only discusses the clock part of the problem. 
+>>>> Even if
+>>>> the clock cyclic dependencies could be solved, it would be necessary to
+>>>> resolve legacy dwmac st,eth-clk-sel and st,eth-ref-clk-sel DT 
+>>>> properties
+>>>> and avoid DT ABI break.
+>>>
+>>> Thanks for those clear explanations and for this series. As 
+>>> discussed, this approach looks good to me as it doesn't break our 
+>>> current strategy for dwmac clock integration. I don't know if those 
+>>> cyclic redundancies will be fixed one day but we can have a look on 
+>>> dwmac DT properties (the gain to change them, the effort to keep the 
+>>> backward compatibility, code readability, ...).
+>>>
+>>> Your DT patches looks good. I'll merge them soon.
+>> +CC Stephen ; the DT patches depend on the clock driver changes. Would 
+>> it make sense to pick the clock patches through the same tree or how 
+>> should that be handled ?
+> 
+> In this situation, I prefer to wait that Stephen takes clock patches in 
+> his tree. Then I'll take DT ones in mine. (I assume that taking only 
+> clock patches will not break mp1 boot or Ethernet usage).
 
-this is done automatically as part of plane init, if drivers set the
-modifier list correctly. Which is the case here.
-
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
----
- drivers/gpu/drm/stm/ltdc.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 65c3c79ad1d5..e99771b947b6 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -1326,8 +1326,6 @@ int ltdc_load(struct drm_device *ddev)
- 		goto err;
- 	}
- 
--	ddev->mode_config.allow_fb_modifiers = true;
--
- 	ret = ltdc_crtc_init(ddev, crtc);
- 	if (ret) {
- 		DRM_ERROR("Failed to init crtc\n");
--- 
-2.31.0
-
+That's fine by me, thanks !
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
