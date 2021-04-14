@@ -2,71 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27ED935F6F2
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Apr 2021 17:01:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B709735FC18
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Apr 2021 22:00:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27791C57B78;
-	Wed, 14 Apr 2021 15:01:39 +0000 (UTC)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C4D0C57B79;
+	Wed, 14 Apr 2021 20:00:13 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C869C57192
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54784C57192
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Apr 2021 15:01:32 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 101-20020a9d0d6e0000b02902816815ff62so13705324oti.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Apr 2021 08:01:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=pWUtMV31lAE/hyg87N7iEfJU2y6qay0uOr7HTCluXiQ=;
- b=weX1bUpjRw6wuytQJlFfHNsn28nJPkkHmgBmJw8yPf3L2dHbbM5kfw3GHxlJBh1DyO
- BJkCg2eP4j3uyTHTdQaKSyyrOp+Fdowe+89rwe7wEGQbQm73jyYQTJ7L9wx49d6igFYd
- vbmQpzTiwPwqdGDeylnvV3vHpL+PWpFnvnzhRJ+IDnGQvkvXtwuLb+d5yUV9tHJCFx7s
- bOw6rogRUZEzwOFKIQ91VGxbwbpZd7+mDC+GgCrvp1IoZyasKbedKt0fyfNtq6M1NaxO
- 7QzGAS3TRRrj5hg+1RxcPnAG82mKMruMgDVEaVQhzyw4zOZpmht7sd/ADU718gXGHYFJ
- +Udg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=pWUtMV31lAE/hyg87N7iEfJU2y6qay0uOr7HTCluXiQ=;
- b=KqRshgytfQ9K6oMU/sO/uxZowttmfbccxBJINDTHnO8ttDp811eNJU1FcEQ6z61hWk
- +0mUW3DjKsFERD2ZkQDpu1jy0fPrQhzm/XxWV09nElaGlMK/X0DsQjZ1j6cbctvMU/Lc
- 5iarSEwTdmsFkSPgg60Bz8N/ox1wn58M0lYgitF+P6Yo8be7EUG98EwIbK62vBzg/7Zi
- 44TUbl/koOsU8a3RDYLWg9LTAHY6Z8rkqp1/Np6twK7bb19wwOvYHSMP3lGZ8f9yjTuL
- SAj9eJwY+TNtziIIZbAouwVP1sUyXD+0U4cr/0isYBDgNWrV5OGELf6kbpfX1scdoRiv
- hb2w==
-X-Gm-Message-State: AOAM533mFC3Og/4l76MwYtNaGwTS8dCnrda2BOQOiZ1ZMAxk5qEmff+X
- xRoLEPHXsUCZkeh76ZsATSveVA==
-X-Google-Smtp-Source: ABdhPJxDtOsCeDQQ/deHM1lftmwj2WSD1eWrJZcD1R9B4e21VGSd2wMo678cp9rC6umgF66U/MAcWg==
-X-Received: by 2002:a9d:7f9a:: with SMTP id t26mr2801371otp.363.1618412491567; 
- Wed, 14 Apr 2021 08:01:31 -0700 (PDT)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id z25sm337558otm.34.2021.04.14.08.01.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Apr 2021 08:01:31 -0700 (PDT)
-Date: Wed, 14 Apr 2021 10:01:29 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <YHcDyUap4cU8WNh6@builder.lan>
-References: <20210331073347.8293-1-arnaud.pouliquen@foss.st.com>
- <20210331073347.8293-3-arnaud.pouliquen@foss.st.com>
- <YHYOd/vqeZCiqkpJ@builder.lan>
- <3df5317b-d28a-9362-6876-99442fdb8ef5@foss.st.com>
+ Wed, 14 Apr 2021 20:00:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id CE33C61154;
+ Wed, 14 Apr 2021 20:00:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1618430410;
+ bh=EbCR73hTmasaxW7y6jUvE4FvFPo0Fm+mX5csPYP4qk8=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=EGr3JThFN6cNAfKMlY1ucQ2qNbZH4lF4AOoKsl7eUSIgcVjYByI4eY68Rgqs/VnUj
+ fyPHbCc5pXdhokr/wyEwqT7DRjow8p96S3B2unqrFbspvTWXrFjyqPueTytU0GPPiX
+ 7diiCKrYX/zof0cczgFeqo1J5diVciMNsU6uC15SR1MXL9Ysd0FCjXR2F08jYd3jk+
+ caOnxw6ob9ipxyZzbVOrYHX1dXWhtUSfuKz4MLIBWKGRRIsQi6Wzm1dDuZDHJtMAcO
+ XIP27Xqe4G+aSSctj7iEH+7UyUR5JtbGBkGqcncB576D7XVe84KXmFI66FaqLeWpba
+ wYuT34GFdBt+g==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id BF37B60CD1;
+ Wed, 14 Apr 2021 20:00:10 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <3df5317b-d28a-9362-6876-99442fdb8ef5@foss.st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, Rob Herring <robh@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, devicetree@vger.kernel.org,
- linux-remoteproc@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 2/2] remoteproc: stm32: add capability
-	to detach
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <161843041077.5559.2620169684665757690.git-patchwork-notify@kernel.org>
+Date: Wed, 14 Apr 2021 20:00:10 +0000
+References: <20210414001617.3490-1-vee.khee.wong@linux.intel.com>
+In-Reply-To: <20210414001617.3490-1-vee.khee.wong@linux.intel.com>
+To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+Cc: alexandre.torgue@st.com, weifeng.voon@intel.com, netdev@vger.kernel.org,
+ richardcochran@gmail.com, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, boon.leong.ong@intel.com,
+ peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v4 1/1] net: stmmac: Add support
+ for external trigger timestamping
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,29 +60,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed 14 Apr 02:23 CDT 2021, Arnaud POULIQUEN wrote:
-> On 4/13/21 11:34 PM, Bjorn Andersson wrote:
-> > On Wed 31 Mar 02:33 CDT 2021, Arnaud Pouliquen wrote:
-[..]
-> >> +		err = mbox_send_message(ddata->mb[idx].chan,
-> >> +					&dummy_data);
-> > 
-> > Seems I posted my comment on v1, rather than this latest version. Please
-> > let me know if we should do anything about this dummy_data.
-> 
-> Thanks for pointing this out, you are right, the mailbox driver is stm32_ipcc
-> and it only sends a signal to the remote processor.
-> 
-> As message can be queued by the mailbox framework using a local variable seems
-> not a good option. As this code is a copy/past of the kick and stop?
-> I propose to get this one and I will send a new patch to fix the usage in the
-> whole driver.
-> 
+Hello:
 
-That works for me, I've merged the two patches.
+This patch was applied to netdev/net-next.git (refs/heads/master):
 
-Thanks,
-Bjorn
+On Wed, 14 Apr 2021 08:16:17 +0800 you wrote:
+> From: Tan Tee Min <tee.min.tan@intel.com>
+> 
+> The Synopsis MAC controller supports auxiliary snapshot feature that
+> allows user to store a snapshot of the system time based on an external
+> event.
+> 
+> This patch add supports to the above mentioned feature. Users will be
+> able to triggered capturing the time snapshot from user-space using
+> application such as testptp or any other applications that uses the
+> PTP_EXTTS_REQUEST ioctl request.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v4,1/1] net: stmmac: Add support for external trigger timestamping
+    https://git.kernel.org/netdev/net-next/c/f4da56529da6
+
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
