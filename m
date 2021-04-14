@@ -2,55 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09B1435F585
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Apr 2021 16:04:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6326C35F672
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Apr 2021 16:46:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4EADC57B78;
-	Wed, 14 Apr 2021 14:04:35 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B24EC57B78;
+	Wed, 14 Apr 2021 14:46:54 +0000 (UTC)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91802C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73F11C57192
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Apr 2021 14:04:32 +0000 (UTC)
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 4B89580C77;
- Wed, 14 Apr 2021 16:04:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1618409071;
- bh=Iga1FyrRuXsYhTXi8trAZVI7YZEUcPMHH2G8x3lIEUs=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=k4pXER3dUXQ+NPUrRfg+JF5Rr4T1LQg7Z7zjkr/7Crf0JGxUfZw6uIXJuqu1yfOcz
- uhj0LQNWmKC+YiSjggPkkISPbaGW1rsslHof1fww/qDCnbW0fUgmqtHW/e9X7xwq63
- WW6Qg7yTZCl3UivcdPmnmrUvWJ+I/KB2eNPnQ/lnXDza+0h/z/9mhuDEN+qH2QSuH3
- yTBShxvxSo4koAGMt3zNAeQqmSTNiwyd4F+wTbkMeHOG27Is70amG2X90AcIVDSRwx
- jpbmX3RxE7OY1oug2ndxMBP3fXXcStOavqUhqcLgYpqOU3J3cUT4F8WPOGazrBsKRq
- A8EjnX/VLmUNg==
-To: "gabriel.fernandez@foss.st.com" <gabriel.fernandez@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20210408185731.135511-1-marex@denx.de>
- <20210408185731.135511-2-marex@denx.de>
- <2b10f5d9-54cb-ce83-b7aa-f4ec8e67c001@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <92dd5798-8f5a-66e4-06bc-e3beb16690f5@denx.de>
-Date: Wed, 14 Apr 2021 16:04:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+ Wed, 14 Apr 2021 14:46:51 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id u7so8424803plr.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 14 Apr 2021 07:46:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=y3YNr7aga5ARelEpZRoG5kXAVCwy+EfMKJ2wZNKrO3k=;
+ b=ML7MiXkg3x7j3dPBKlrJ7xBHHkyhcHhmiaxYaU3LP1/NqUTiDaZBe2nNTkMu2xYXB8
+ 07DEYWLN89VBdlJlZ1U45qTNI8zGXm4GNPHLrX/9Zdn+HGB0cVS87jjL16NHQgEiyUWi
+ LSUBLSFSTWnPL+wk0DjZvz4ue/VV9SBje41l44Vh1Z61PHjkTfbxD7iOEgA1JPxq1bfV
+ gvGP+C+LGUcSAwdsWcLOp8TtOyo0YeIBCuhTTjIBzeQxe0i+B15u0Agc6EyxWTt3Wp4g
+ penu+1PFSffsZGCSD9igYEXSSrpMH1Lje0MYdqEVhX7h5vY6StZr83+DjrLm2ZKCB27H
+ RMzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=y3YNr7aga5ARelEpZRoG5kXAVCwy+EfMKJ2wZNKrO3k=;
+ b=XOVggY3TSV9HzYgtr2bYhJvo8QBv0R3iWZ6K2xJfonNBQeQGUz/3pO7fByPUYh/dac
+ J7FXyLFfTSVOsaZERRurG9COcRr9bCAV3Cr1a2IV+VsMjNxX603EH8xyeOa5nrAUMhd7
+ UffpVE6SsfSlJM20DVUBZqfb7lkSR3SjSpGM0I2b01hBtNMmHOKaH4vwk0uh1B5pwM7S
+ BBSCboBz18rThz1WyEQhnDiDRO/a+gqvI/fhM6l6vqrEhLrcbahJnmEwQx2oOu0RqxW5
+ uh17EanJ+vPk72tdrsP601SpemuzBxQmFSLMy561iucfKybu4skCSBqV35w7H3mzOXl+
+ VA0w==
+X-Gm-Message-State: AOAM532hcufJXIUpQx3jdN5mKmR5fstYEMPRW/+ZeoDm1+mIdIRBMlOH
+ SXNm9qsIcD1Z6C+4bWSnA/M=
+X-Google-Smtp-Source: ABdhPJxKK5K0A+ptCC6cs4HU1E95eLmtfVt+UNTJ9KhISNjDs3CWHt/5dPOuBfs//BQ59rrQGaAc7g==
+X-Received: by 2002:a17:90a:ff07:: with SMTP id
+ ce7mr3956535pjb.0.1618411610372; 
+ Wed, 14 Apr 2021 07:46:50 -0700 (PDT)
+Received: from hoboy.vegasvil.org ([2601:645:c000:35:e2d5:5eff:fea5:802f])
+ by smtp.gmail.com with ESMTPSA id s17sm4879049pjn.44.2021.04.14.07.46.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Apr 2021 07:46:49 -0700 (PDT)
+Date: Wed, 14 Apr 2021 07:46:47 -0700
+From: Richard Cochran <richardcochran@gmail.com>
+To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+Message-ID: <20210414144647.GA9318@hoboy.vegasvil.org>
+References: <20210414001617.3490-1-vee.khee.wong@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <2b10f5d9-54cb-ce83-b7aa-f4ec8e67c001@foss.st.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Stephen Boyd <swboyd@chromium.org>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH 1/7] clk: stm32mp1: Split ETHCK_K into
- separate MUX and GATE clock
+Content-Disposition: inline
+In-Reply-To: <20210414001617.3490-1-vee.khee.wong@linux.intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Alexandre Torgue <alexandre.torgue@st.com>,
+ Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v4 1/1] net: stmmac: Add support
+ for external trigger timestamping
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,88 +77,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNC8xNC8yMSAzOjAzIFBNLCBnYWJyaWVsLmZlcm5hbmRlekBmb3NzLnN0LmNvbSB3cm90ZToK
-PiBIaSBNYXJlaywKCkhlbGxvIEdhYnJpZWwsCgo+IFRoYW5rcyBmb3IgdGhlIHBhdGNoc2V0Cj4g
-Cj4gT24gNC84LzIxIDg6NTcgUE0sIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBUaGUgRVRIQ0tfSyBh
-cmUgbW9kZWxlZCBhcyBjb21wb3NpdGUgY2xvY2sgb2YgTVVYIGFuZCBHQVRFLCBob3dldmVyIHBl
-cgo+PiBTVE0zMk1QMSBSZWZlcmVuY2UgTWFudWFsIFJNMDQzNiBSZXYgMywgUGFnZSA1NzQsIEZp
-Z3VyZSA4My4gUGVyaXBoZXJhbAo+PiBjbG9jayBkaXN0cmlidXRpb24gZm9yIEV0aGVybmV0LCBF
-VEhQVFBESVYgZGl2aWRlciBpcyBhdHRhY2hlZCBwYXN0IHRoZQo+PiBFVEhDS19LIG11eCwgYW5k
-IEVUSF9DTEsvZXRoX2Nsa19mYiBjbG9jayBhcmUgb3V0cHV0IHBhc3QgRVRIQ0tFTiBnYXRlLgo+
-PiBUaGVyZWZvcmUsIGluIGNhc2UgRVRIX0NMSy9ldGhfY2xrX2ZiIGFyZSBub3QgaW4gdXNlIEFO
-RCBQVFAgY2xvY2sgYXJlCj4+IGluIHVzZSwgRVRIQ0tFTiBnYXRlIGNhbiBiZSB0dXJuZWQgb2Zm
-LiBDdXJyZW50IGRyaXZlciBkb2VzIG5vdCBwZXJtaXQKPj4gdGhhdCwgZml4IGl0Lgo+IAo+IEkg
-ZG9uInQgdW5kZXJzdGFuZCwgaXQncyBhbHJlYWR5IHRoZSBjYXNlLgo+IAo+IEVUSENLX0sgaXQn
-cyBhIGNvbXBvc2l0ZSB3aXRoIGEgTVVYIGFuZCBhIEdBVEUuCgpCdXQgRVRIQ0tfSyBpcyBfbm90
-XyBhIGNvbXBvc2l0ZSBjbG9jaywgbG9vayBhdCB0aGUgRmlndXJlIDgzIGluIHRoZSAKZGF0YXNo
-ZWV0IGFnYWluIGFuZCBzY2hlbWF0aWMgYmVsb3cuCgo+IEVUSFBUUF9LIChFVEhQVFBESVYpIGl0
-J3MgYSBjb21wb3NpdGUgd2l0aCB0aGUgc2FtZSBNVVggYW5kIGEgRElWIChubyBnYXRlKQoKQnV0
-IEVUSFBUUF9LIHNob3VsZG4ndCBjb250cm9sIGFueSBtdXgsIGl0IGlzIG9ubHkgYSBkaXZpZGVy
-LgoKPiBJZiB5b3UgdXNlIG9ubHkgRVRIUFRQRElWLMKgIEVUSENLRU4gZ2F0ZSBjYW4gYmUgdHVy
-bmVkIG9mZi4KCkxvb2ssIHRoaXMgaXMgd2hhdCB5b3UgaGF2ZSB0b2RheToKCiAgICAgICAgICAg
-IC4tLS0tLS0tLS0tLS0gRVRIQ0tfSyAtLS0tLS0tLS0tLS4KICAgICAgICAgICAgfF9fX19fX18g
-ICAgICAgICAgICAgICBfX19fX19fICAgfApwbGw0X3BfY2stLXxNX0VUSENLXCAgICAgICAgICAg
-ICB8R19FVEhDS1wgIHwKICAgICAgICAgICAgfCBNVVggICAgfC0tLS0tLSstLS0tLXwgR0FURSAg
-IHwtLS0tLS0tLS0tLS0tW3hdIEVUSF9DTEsKcGxsM19xX2NrLS18X19fX19fXy8gICAgICAgfCAg
-ICAgfF9fX19fX18vICAgICAgICAgICAgICAgICAgZXRoX2Nsa19mYgogICAgICAgICAgICB8ICAg
-ICAgICAgICAgICAgfAogICAgICAgICAgICB8ICAgICAgICAgICAgICAgJy0tKEVUSENLU0VMUls3
-OjRdIGRpdmlkZXIpLS1beF0gY2xrX3B0cF9yZWYKICAgICAgICAgICAgfCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKICAgICAgICAgICAgJy0tLS0tLS0tLS0tLSBF
-VEhQVFBfSyAtLS0tLS0tLS0tLS0tLS0tLS0tLScKCkFuZCB0aGlzIGlzIHdoYXQgeW91IHNob3Vs
-ZCBoYXZlLCB0byBhdm9pZCBoYXZpbmcgdHdvIGNvbXBvc2l0ZSBjbG9jayAKd2hpY2ggY29udHJv
-bCB0aGUgc2FtZSBtdXggdXNpbmcgdGhlIHNhbWUgcmVnaXN0ZXIgYml0LCBpLmUuIHdoYXQgdGhp
-cyAKcGF0Y2ggaW1wbGVtZW50czoKCiAgICAgICAgICAgIC4tIGNrX2tlcl9ldGggLS4gIC4tLS0g
-RVRIQ0tfSyAtLS4KICAgICAgICAgICAgfF9fX19fX18gICAgICAgfCAgfCAgICBfX19fX19fICAg
-fApwbGw0X3BfY2stLXxNX0VUSENLXCAgICAgIHwgIHwgICB8R19FVEhDS1wgIHwKICAgICAgICAg
-ICAgfCBNVVggICAgfC0tLS0tLSstLS0tLXwgR0FURSAgIHwtLS0tLS0tLS0tLS0tW3hdIEVUSF9D
-TEsKcGxsM19xX2NrLS18X19fX19fXy8gICAgICAgfCAgICAgfF9fX19fX18vICAgICAgICAgICAg
-ICAgICAgZXRoX2Nsa19mYgogICAgICAgICAgICAgICAgICAgICAgICAgICAgfAogICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgJy0tKEVUSENLU0VMUls3OjRdIGRpdmlkZXIpLS1beF0gY2xrX3B0
-cF9yZWYKICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgICAgICAg
-ICAgIHwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAnLS0tLSBFVEhQVFBfSyAtLS0tLS0t
-LS0tLScKCj4+IFRoaXMgcGF0Y2ggY29udmVydHMgRVRIQ0tfSyBmcm9tIGNvbXBvc2l0ZSBjbG9j
-ayBpbnRvIGEgRVRIQ0tFTiBnYXRlLAo+PiBFVEhQVFBfSyBmcm9tIGNvbXBvc2l0ZSBjbG9jayBp
-bnRvIEVUSFBUUERJViBkaXZpZGVyLCBhbmQgYWRkcyBhbm90aGVyCj4+IE5PX0lEIGNsb2NrICJj
-a19rZXJfZXRoIiB3aGljaCBtb2RlbHMgdGhlIEVUSFNSQyBtdXggYW5kIGlzIHBhcmVudCBjbG9j
-awo+PiB0byBib3RoIEVUSENLX0sgYW5kIEVUSFBUUF9LLiBUaGVyZWZvcmUsIGFsbCByZWZlcmVu
-Y2VzIHRvIEVUSENLX0sgYW5kCj4+IEVUSFBUUF9LIHJlbWFpbiBmdW5jdGlvbmFsIGFzIGJlZm9y
-ZS4KPj4KPj4gWzFdIFNUTTMyTVAxIFJlZmVyZW5jZSBNYW51YWwgUk0wNDM2IFJldiAzLCBQYWdl
-IDU3NCwKPj4gwqDCoMKgwqAgRmlndXJlIDgzLiBQZXJpcGhlcmFsIGNsb2NrIGRpc3RyaWJ1dGlv
-biBmb3IgRXRoZXJuZXQKPj4gICAgICAKPj4gaHR0cHM6Ly93d3cuc3QuY29tL3Jlc291cmNlL2Vu
-L3JlZmVyZW5jZV9tYW51YWwvZG0wMDMyNzY1OS1zdG0zMm1wMTU3LWFkdmFuY2VkLWFybWJhc2Vk
-LTMyYml0LW1wdXMtc3RtaWNyb2VsZWN0cm9uaWNzLnBkZiAKPj4KClsuLi5dCgo+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9jbGsvY2xrLXN0bTMybXAxLmMgYi9kcml2ZXJzL2Nsay9jbGstc3RtMzJt
-cDEuYwo+PiBpbmRleCBhODc1NjQ5ZGY4YjguLmE3YzdmNTQ0ZWU1ZCAxMDA2NDQKPj4gLS0tIGEv
-ZHJpdmVycy9jbGsvY2xrLXN0bTMybXAxLmMKPj4gKysrIGIvZHJpdmVycy9jbGsvY2xrLXN0bTMy
-bXAxLmMKPj4gQEAgLTE5NDksNyArMTk0OSw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgY2xvY2tf
-Y29uZmlnIAo+PiBzdG0zMm1wMV9jbG9ja19jZmdbXSA9IHsKPj4gwqDCoMKgwqDCoCBLQ0xLKERT
-SV9LLCAiZHNpX2siLCBkc2lfc3JjLCAwLCBHX0RTSSwgTV9EU0kpLAo+PiDCoMKgwqDCoMKgIEtD
-TEsoQURGU0RNX0ssICJhZGZzZG1fayIsIHNhaV9zcmMsIDAsIEdfQURGU0RNLCBNX1NBSTEpLAo+
-PiDCoMKgwqDCoMKgIEtDTEsoVVNCT19LLCAidXNib19rIiwgdXNib19zcmMsIDAsIEdfVVNCTywg
-TV9VU0JPKSwKPj4gLcKgwqDCoCBLQ0xLKEVUSENLX0ssICJldGhja19rIiwgZXRoX3NyYywgMCwg
-R19FVEhDSywgTV9FVEhDSyksCj4+IMKgwqDCoMKgwqAgLyogUGFydGljdWxhcnkgS2VybmVsIENs
-b2NrcyAobm8gbXV4IG9yIG5vIGdhdGUpICovCj4+IMKgwqDCoMKgwqAgTUdBVEVfTVAxKERGU0RN
-X0ssICJkZnNkbV9rIiwgImNrX21jdSIsIDAsIEdfREZTRE0pLAo+PiBAQCAtMTk1OCwxMSArMTk1
-NywxNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGNsb2NrX2NvbmZpZyAKPj4gc3RtMzJtcDFfY2xv
-Y2tfY2ZnW10gPSB7Cj4+IMKgwqDCoMKgwqAgTUdBVEVfTVAxKEdQVV9LLCAiZ3B1X2siLCAicGxs
-Ml9xIiwgMCwgR19HUFUpLAo+PiDCoMKgwqDCoMKgIE1HQVRFX01QMShEQUMxMl9LLCAiZGFjMTJf
-ayIsICJja19sc2kiLCAwLCBHX0RBQzEyKSwKPj4gLcKgwqDCoCBDT01QT1NJVEUoRVRIUFRQX0ss
-ICJldGhwdHBfayIsIGV0aF9zcmMsIENMS19PUFNfUEFSRU5UX0VOQUJMRSB8Cj4+ICvCoMKgwqAg
-Q09NUE9TSVRFKE5PX0lELCAiY2tfa2VyX2V0aCIsIGV0aF9zcmMsIENMS19PUFNfUEFSRU5UX0VO
-QUJMRSB8Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQ0xLX1NFVF9SQVRFX05PX1JFUEFSRU5U
-LAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIF9OT19HQVRFLAo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIF9NTVVYKE1fRVRIQ0spLAo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgIF9ESVYoUkNDX0VU
-SENLU0VMUiwgNCwgNCwgMCwgTlVMTCkpLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgIF9OT19ESVYp
-LAo+PiArCj4+ICvCoMKgwqAgTUdBVEVfTVAxKEVUSENLX0ssICJldGhja19rIiwgImNrX2tlcl9l
-dGgiLCAwLCBHX0VUSENLKSwKPiBhc3NpZ25lZCBwYXJlbnQgd2l0aCBFVEhDS19LIHdpbGwgbm90
-IHdvcmsKPj4gKwo+PiArwqDCoMKgIERJVihFVEhQVFBfSywgImV0aHB0cF9rIiwgImNrX2tlcl9l
-dGgiLCBDTEtfT1BTX1BBUkVOVF9FTkFCTEUgfAo+IAo+IENMS19PUFNfUEFSRU5UX0VOQUJMRSBm
-bGFncyBub3QgdXNlZnVsIHdpdGggYSBkaXZpZGVyLgoKSG93IHNvID8KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
-CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Wed, Apr 14, 2021 at 08:16:17AM +0800, Wong Vee Khee wrote:
+> From: Tan Tee Min <tee.min.tan@intel.com>
+> 
+> The Synopsis MAC controller supports auxiliary snapshot feature that
+> allows user to store a snapshot of the system time based on an external
+> event.
+> 
+> This patch add supports to the above mentioned feature. Users will be
+> able to triggered capturing the time snapshot from user-space using
+> application such as testptp or any other applications that uses the
+> PTP_EXTTS_REQUEST ioctl request.
+> 
+> Cc: Richard Cochran <richardcochran@gmail.com>
+> Signed-off-by: Tan Tee Min <tee.min.tan@intel.com>
+> Co-developed-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+> Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+
+Acked-by: Richard Cochran <richardcochran@gmail.com>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
