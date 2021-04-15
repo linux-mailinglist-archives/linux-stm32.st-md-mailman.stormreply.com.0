@@ -2,71 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 215BA36093C
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Apr 2021 14:23:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 854A7360A62
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Apr 2021 15:21:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD1B4C57B79;
-	Thu, 15 Apr 2021 12:23:50 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3BE78C57B79;
+	Thu, 15 Apr 2021 13:21:31 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 366F0C57192
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E90FC36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Apr 2021 12:23:49 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13FCCh6W018070; Thu, 15 Apr 2021 14:23:35 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=F/GalzWzm89gxShNFkNRH3cF1SeIQnv7lFFgZazi5ZQ=;
- b=gQ5SO8rWCWnYxZBEOdMNQbwMf98LxmuB0V4phCMQ3NG40IwZ7kjIpuvoMjJksPQrpNA2
- B7E1C93lNcvWnttQuzXK2Cgk1Q23TWM/tsSibX/FSZAa3+XKA7t00qfuhbrhB2fxxTbm
- WmnRw8Ra9AbM+zyq2qxsvORGIn0eA1rFuf7EVYyQKILpuq2BX++pvxffSoaFGHDnl4pg
- rNjjDLHjtnTWDW7Z4ZWzXI8GwK1ixiCuBWWiJsEZzgXQXQSkz31njrDWw3PDGRybnbyE
- BPAZArpPxHVSoBiIzjvrXzShLpFjiQZvZ1TjhjSHcnGol9EL85AjERUzhyfkYQsUYbkw iA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37wx3yyyga-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Apr 2021 14:23:35 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4E71110002A;
- Thu, 15 Apr 2021 14:23:34 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 351CC22D63C;
- Thu, 15 Apr 2021 14:23:34 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 15 Apr
- 2021 14:23:33 +0200
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>, <arnd@arndb.de>,
- <robh+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- <jagan@amarulasolutions.com>, Manivannan Sadhasivam
- <manivannan.sadhasivam@linaro.org>, Marcin Sloniewski
- <marcin.sloniewski@gmail.com>
+ Thu, 15 Apr 2021 13:21:29 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 8025681E77;
+ Thu, 15 Apr 2021 15:21:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1618492888;
+ bh=ZONWGzYKtU8DHCzBAyEFfKxI0PsF5qLdYZOEWoxUxKQ=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=rFO2ciQsIJnRAm72WtUX1yUdmKRSKfPKLDR/Zkra4IVdcKMG9S/2EoTdPdr1yEazy
+ +V5V1F4LGvrw4RrmrpCZXFx50uaqsIYaU/af6YL3hPsgqEAjiOA99WEPKs5Vr+LNl+
+ nCxoVRycYBM7p8bG1ewYdBtqr3imi2bM2JhN2lQvSMzOSP1g/4n/Zlp+4oUIqdIVGB
+ 4H5iVZeBMkNhxtCBLLNG4O//I+MILGLIKcLPnFx4LH5bnFmPb6o9ZlQgbofSAYYu0s
+ ayRhbM9YD5mIKPKqhQIxEpzUYdiA7pLhWNGSln3l9RIHsO6UjVjxNEVFyae/Q1011+
+ 1dd4NJLYniHHw==
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, arnd@arndb.de,
+ robh+dt@kernel.org, jagan@amarulasolutions.com,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Ahmad Fatoum <a.fatoum@pengutronix.de>
 References: <20210415101037.1465-1-alexandre.torgue@foss.st.com>
- <20210415101037.1465-13-alexandre.torgue@foss.st.com>
- <ececc78c-4fca-bb93-ef62-5d107501d963@pengutronix.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <96da49dc-f24d-aa12-e1d8-39b5a5b6fbc9@foss.st.com>
-Date: Thu, 15 Apr 2021 14:23:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <20210415101037.1465-12-alexandre.torgue@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <3b39908b-a263-a5d4-f6ac-ac30ffb06269@denx.de>
+Date: Thu, 15 Apr 2021 15:21:26 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-In-Reply-To: <ececc78c-4fca-bb93-ef62-5d107501d963@pengutronix.de>
+In-Reply-To: <20210415101037.1465-12-alexandre.torgue@foss.st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-15_04:2021-04-15,
- 2021-04-15 signatures=0
+X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
+X-Virus-Status: Clean
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org,
  Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 12/13] ARM: dts: stm32: fix DSI port node
-	on STM32MP15
+Subject: Re: [Linux-stm32] [PATCH 11/13] ARM: dts: stm32: fix LTDC port node
+ on STM32 MCU ad MPU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,97 +67,66 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Ahmad
-
-On 4/15/21 12:43 PM, Ahmad Fatoum wrote:
-> Hi,
+On 4/15/21 12:10 PM, Alexandre Torgue wrote:
+> Running "make dtbs_check W=1", some warnings are reported concerning
+> LTDC port subnode:
 > 
-> On 15.04.21 12:10, Alexandre Torgue wrote:
->> Running "make dtbs_check W=1", some warnings are reported concerning
->> DSI. This patch reorder DSI nodes to avoid:
->>
->> soc/dsi@5a000000: unnecessary #address-cells/#size-cells without
->> "ranges" or child "reg" property
-> 
-> This reverts parts of commit 9c32f980d9 ("ARM: dts: stm32: preset
-> stm32mp15x video #address- and #size-cells"):
->      
->      The cell count for address and size is defined by the binding and not
->      something a board would change. Avoid each board adding this
->      boilerplate by having the cell size specification in the SoC DTSI.
->      
-> 
-> The DSI can have child nodes with a unit address (e.g. a panel) and ones
-> without (ports { } container). ports is described in the dtsi, panels are
-> described in the dts if available.
-> 
-> Apparently, the checker is fine with
-> ports {
-> 	#address-cells = <1>;
-> 	#size-cells = <0>;
-> };
-> 
-> I think my rationale for the patch above was sound, so I think the checker
-> taking offense at the DSI cells here should be considered a false positive.
+> /soc/display-controller@5a001000/port:
+> unnecessary #address-cells/#size-cells without "ranges" or child "reg"
+> property
+> /soc/display-controller@5a001000/port: graph node has single child node
+> 'endpoint', #address-cells/#size-cells are not necessary
 
-If it's a "false positive" warning then we need to find a way to not 
-print it out. Else, it'll be difficult to distinguish which warnings are 
-"normal" and which are not. This question could also be applied to patch[3].
+btw could you retain diffstat on your patches ? It's useful to see which 
+files changed right away.
 
-Arnd, Rob what is your feeling about this case ?
+[...]
 
-thanks
-alex
+> diff --git a/arch/arm/boot/dts/stm32mp157c-dk2.dts b/arch/arm/boot/dts/stm32mp157c-dk2.dts
+> index 2bc92ef3aeb9..19ef475a48fc 100644
+> --- a/arch/arm/boot/dts/stm32mp157c-dk2.dts
+> +++ b/arch/arm/boot/dts/stm32mp157c-dk2.dts
+> @@ -82,9 +82,15 @@
+>   };
+>   
+>   &ltdc {
+> -	status = "okay";
+> -
+>   	port {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		ltdc_ep0_out: endpoint@0 {
+> +			reg = <0>;
+> +			remote-endpoint = <&sii9022_in>;
+> +		};
+> +
+>   		ltdc_ep1_out: endpoint@1 {
+>   			reg = <1>;
+>   			remote-endpoint = <&dsi_in>;
 
+[...]
 
+> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+> index 64dca5b7f748..e7f10975cacf 100644
+> --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+> @@ -277,11 +277,7 @@
+>   	status = "okay";
+>   
+>   	port {
+> -		#address-cells = <1>;
+> -		#size-cells = <0>;
+> -
+> -		ltdc_ep0_out: endpoint@0 {
+> -			reg = <0>;
+> +		ltdc_ep0_out: endpoint {
+>   			remote-endpoint = <&adv7513_in>;
+>   		};
+>   	};
 
-> Thanks,
-> Ahmad
-> 
->>
->> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
->>
->> diff --git a/arch/arm/boot/dts/stm32mp157.dtsi b/arch/arm/boot/dts/stm32mp157.dtsi
->> index 54e73ccea446..c355fcf26ec3 100644
->> --- a/arch/arm/boot/dts/stm32mp157.dtsi
->> +++ b/arch/arm/boot/dts/stm32mp157.dtsi
->> @@ -24,8 +24,6 @@
->>   			clock-names = "pclk", "ref", "px_clk";
->>   			resets = <&rcc DSI_R>;
->>   			reset-names = "apb";
->> -			#address-cells = <1>;
->> -			#size-cells = <0>;
->>   			status = "disabled";
->>   
->>   			ports {
->> diff --git a/arch/arm/boot/dts/stm32mp157c-dk2.dts b/arch/arm/boot/dts/stm32mp157c-dk2.dts
->> index 19ef475a48fc..763dde1dbbaf 100644
->> --- a/arch/arm/boot/dts/stm32mp157c-dk2.dts
->> +++ b/arch/arm/boot/dts/stm32mp157c-dk2.dts
->> @@ -36,6 +36,8 @@
->>   &dsi {
->>   	status = "okay";
->>   	phy-dsi-supply = <&reg18>;
->> +	#address-cells = <1>;
->> +	#size-cells = <0>;
->>   
->>   	ports {
->>   		port@0 {
->> diff --git a/arch/arm/boot/dts/stm32mp157c-ev1.dts b/arch/arm/boot/dts/stm32mp157c-ev1.dts
->> index 6fe5b0fee7c4..4625bb58cc6d 100644
->> --- a/arch/arm/boot/dts/stm32mp157c-ev1.dts
->> +++ b/arch/arm/boot/dts/stm32mp157c-ev1.dts
->> @@ -102,6 +102,8 @@
->>   &dsi {
->>   	phy-dsi-supply = <&reg18>;
->>   	status = "okay";
->> +	#address-cells = <1>;
->> +	#size-cells = <0>;
->>   
->>   	ports {
->>   		port@0 {
->>
-> 
+I think this is wrong, the AV96 can have two displays connected to two 
+ports of the LTDC, just like DK2 for example.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
