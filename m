@@ -2,61 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B8BC360E87
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Apr 2021 17:16:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABD15360E8D
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Apr 2021 17:17:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4904C57B79;
-	Thu, 15 Apr 2021 15:16:42 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75209C57B79;
+	Thu, 15 Apr 2021 15:17:30 +0000 (UTC)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CE07C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC427C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Apr 2021 15:16:40 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id u7so10429453plr.6
+ Thu, 15 Apr 2021 15:17:28 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id f29so17123103pgm.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Apr 2021 08:16:40 -0700 (PDT)
+ Thu, 15 Apr 2021 08:17:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=lr7yrzY+nk0m4HxiHE2dv7ykdCcOOQqJTWXcZt1WofE=;
- b=BynvbTh7cWAIV3l1bLcy9XsS6kzSwDQgySlTMzPvNADW3hjmi2PUh5Jo+DzlnOxI5c
- 8NAgCaR1/2CToDoUS3yA1ELLe7zWL1kRv2O0zalghfKH3bF7961SM1dNDjQNY7gjrD9W
- aXNopHC1Txedyjc/sZs7/l9hEJhSiVQ50M3rEelZsBehJvYguAoBh7z72A53ZcMJdSpM
- sbmOP+0PCAANJHOi1r59OVINKtNHetDIx9Xyjayit1TLikg2+78xQ5VN8kIDhAFYzu/e
- ggBjknvH0QKrnvgr0D3+neQO88fqPjL/6iILuHtKK0REfJ4uWQio/Y2ABimrLmOTAFxn
- 6VMA==
+ bh=Pqvughkl2U3sNrUOp5/BQIl3EtqX5v4D36UESHq6XxI=;
+ b=ZLeuNCpgMvYWfWuOgwjPr7Cf8KUdN8cCNqyp8fB9UBdYrNF1jNFznBPjf9rwzf9nFR
+ 5PHeeeIQcc5HvY+Vk6QrJ9EvQxde5PB11U2mx04I+k/YRDzBvMTxSa58wdDPLu2Xl+on
+ JkCuglzKGBqBWJ7PWbHJT8QJOJh9P/keTBljuIhfnt4hx/yS89xYQCrD9syl0PoTnHzY
+ Y38tgKsb27a9hMQanI5OBr+XwcC2x731Tl3bqSkmkpFaKgQ48pxsT+m+fmniv6RPh4Gs
+ dnByGC7B4yKMbGCF8y6a7im8SmFShLkObEAdpIAkFdoJ5qITRJVq5rFXus6J9wCrztEG
+ 6G9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=lr7yrzY+nk0m4HxiHE2dv7ykdCcOOQqJTWXcZt1WofE=;
- b=fTSn3/+w1kV6S6EWLKFWoS8i1DGe6FENYci8WENFIxYIH/CmrfNiSkxI/dUWf9h8Ql
- 8eVbByigfwoxXgqK4xN/3rvFd8xwB7IfLgtes+MaxQtPckUyTzKx+qq2U/SKyyDgG9DQ
- e17wI/WgCuIjxGmBwPr/p3M9ouV8hlqBfcwUi7UyIudMBxJsULNhFROCeZyWy4Ql/lJs
- jxKDcvw+tfhvXEma5JEchbOnZSAmIl5n7/t+jGK3ShlBoO6WeisypPXCzdW5f4yWClpr
- OeV0vwXr4cWGki0D6P7nXzCFso+ZVzwjmiQuPke+Saq9S86rZ8RPIWScJmE238SGemjv
- Q2+w==
-X-Gm-Message-State: AOAM5311thjkMB7V8rgBEs099p955FI7/WKr17V58gbo7gO+VD7K8qUT
- 06YZP/OTILgkm1896cfICAE=
-X-Google-Smtp-Source: ABdhPJyJJppaqi4uKuIVw8D2RITj+pIvSst8bI5s51uwBYjYsXVSsz9lqzc37KC4puLzydWbhV9Ktg==
-X-Received: by 2002:a17:90a:ba09:: with SMTP id
- s9mr4429648pjr.133.1618499799099; 
- Thu, 15 Apr 2021 08:16:39 -0700 (PDT)
+ bh=Pqvughkl2U3sNrUOp5/BQIl3EtqX5v4D36UESHq6XxI=;
+ b=gRhN8yJa9NA+qQkX38fOju0X2HdhP+aQW3e++Lxb7PIsDQox0K9IWRulZma8OHLg8V
+ 0bhxZjBif4I53SQ9T7GfK2kPKkg3cVt2XUB1UzRYnlB0foch29rVeTP//p1X7YLzfnL7
+ 0M4sdeFj8cgwPuqfg60KrjdyqOMrtfcOMxaz1/v5EWEzVNvJ/k4imzhLU4P5YrWJflxv
+ VJ8qRwgl/PaeeYWcIau8zmYyjIHC/B+jSz5QSqjii878yhCvkM24Fsh8yfOt0R8GHdwi
+ v3a6SpYNIm8Et3QTjwybuDkuQCCejs1RiwhuGghcvE4FBNjH72bvPkJMwpN8GY+VRWkT
+ //9A==
+X-Gm-Message-State: AOAM530TSgLkA/t7mzop/4yvW9kOb1QJwh5eVZvilCE79nrTaXUtKRyu
+ aE06gOjIdHKJ5hY2II7z5q4=
+X-Google-Smtp-Source: ABdhPJw9RfWCve4tuPvWcxnZszPpQBIDcBfoCjS8aUF0YN1sMeYniNrvO8KBuCLifuBM6oW3x3WSKw==
+X-Received: by 2002:aa7:9316:0:b029:244:7616:edc7 with SMTP id
+ 22-20020aa793160000b02902447616edc7mr3676280pfj.19.1618499847345; 
+ Thu, 15 Apr 2021 08:17:27 -0700 (PDT)
 Received: from syed ([2401:4900:2eec:4193:f802:b600:e94c:55c4])
- by smtp.gmail.com with ESMTPSA id c21sm2730490pgl.71.2021.04.15.08.16.32
+ by smtp.gmail.com with ESMTPSA id k3sm2569617pfh.12.2021.04.15.08.17.20
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Apr 2021 08:16:38 -0700 (PDT)
-Date: Thu, 15 Apr 2021 20:46:29 +0530
+ Thu, 15 Apr 2021 08:17:27 -0700 (PDT)
+Date: Thu, 15 Apr 2021 20:47:16 +0530
 From: Syed Nayyar Waris <syednwaris@gmail.com>
 To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210415151629.GD8933@syed>
+Message-ID: <20210415151716.GE8933@syed>
 References: <cover.1616150619.git.vilhelm.gray@gmail.com>
- <4a227eea6fa6aa1648fb0ccba6e924b6f95b2752.1616150619.git.vilhelm.gray@gmail.com>
+ <c3d989972172945bbc616c973c1a759df5fa3d19.1616150619.git.vilhelm.gray@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <4a227eea6fa6aa1648fb0ccba6e924b6f95b2752.1616150619.git.vilhelm.gray@gmail.com>
+In-Reply-To: <c3d989972172945bbc616c973c1a759df5fa3d19.1616150619.git.vilhelm.gray@gmail.com>
 User-Agent: Mutt/1.5.24 (2015-08-30)
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
@@ -65,8 +65,8 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
  fabrice.gasnier@st.com, linux-stm32@st-md-mailman.stormreply.com,
  jic23@kernel.org, alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v10 06/33] counter: 104-quad-8: Add const
- qualifiers for quad8_preset_register_set
+Subject: Re: [Linux-stm32] [PATCH v10 07/33] counter: 104-quad-8: Add const
+ qualifier for functions_list array
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,31 +83,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 19, 2021 at 08:00:25PM +0900, William Breathitt Gray wrote:
-> Add some safety by qualifying the quad8_preset_register_set() function
-> parameters as const.
+On Fri, Mar 19, 2021 at 08:00:26PM +0900, William Breathitt Gray wrote:
+> The struct counter_count functions_list member expects a const enum
+> counter_count_function array. This patch adds the const qualifier to the
+> quad8_count_functions_list to match functions_list.
 > 
 > Cc: Syed Nayyar Waris <syednwaris@gmail.com>
 > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 > ---
->  drivers/counter/104-quad-8.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/counter/104-quad-8.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
-> index 0fd61cc82d30..51fba8cf9c2a 100644
+> index 51fba8cf9c2a..ae89ad7a91c6 100644
 > --- a/drivers/counter/104-quad-8.c
 > +++ b/drivers/counter/104-quad-8.c
-> @@ -632,8 +632,8 @@ static ssize_t quad8_count_preset_read(struct counter_device *counter,
->  	return sprintf(buf, "%u\n", priv->preset[count->id]);
->  }
+> @@ -193,7 +193,7 @@ enum quad8_count_function {
+>  	QUAD8_COUNT_FUNCTION_QUADRATURE_X4
+>  };
 >  
-> -static void quad8_preset_register_set(struct quad8 *priv, int id,
-> -				      unsigned int preset)
-> +static void quad8_preset_register_set(struct quad8 *const priv, const int id,
-> +				      const unsigned int preset)
->  {
->  	const unsigned int base_offset = priv->base + 2 * id;
->  	int i;
+> -static enum counter_count_function quad8_count_functions_list[] = {
+> +static const enum counter_count_function quad8_count_functions_list[] = {
+>  	[QUAD8_COUNT_FUNCTION_PULSE_DIRECTION] = COUNTER_COUNT_FUNCTION_PULSE_DIRECTION,
+>  	[QUAD8_COUNT_FUNCTION_QUADRATURE_X1] = COUNTER_COUNT_FUNCTION_QUADRATURE_X1_A,
+>  	[QUAD8_COUNT_FUNCTION_QUADRATURE_X2] = COUNTER_COUNT_FUNCTION_QUADRATURE_X2_A,
 > -- 
 > 2.30.2
 >
