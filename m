@@ -2,82 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CA25360BE4
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Apr 2021 16:34:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F5DD360BEA
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Apr 2021 16:35:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BC6DC57B79;
-	Thu, 15 Apr 2021 14:34:51 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56AFAC57B79;
+	Thu, 15 Apr 2021 14:35:45 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8671C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BE5FC36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Apr 2021 14:34:49 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13FEJGow079587;
- Thu, 15 Apr 2021 14:34:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=CkWzQJq9qTXR/COElw+2nWhJygfpMk390eJBQixVWfk=;
- b=ejz+nbayBZTs6/DWzcb2fO1Kvs0JJdKB0ekXoRwFa/oZ1l9yX0+xBBvYQajdgJSvMhKd
- Oia8VCc8V3J5lm+bV5mVTfyR0Y72jbfULD1kwT1ef1o33YvCwz/A290iOJ0lc67tAyhA
- tOIks3zfDzb0frBB5IBkg346uvRAl/ApqRlwg0UBwwznpEYkqqjkC6ZJqgiEzgsaOaup
- 6/w0sinwaZmUxA3o1/8TiJQIaZir86RloKC3BGH0vH1KrzmEppWvbpz7n8KvGFAnQBhj
- yG6/kq9P+FQOjmdJfOUNWLucK2x0uZmsNxok+NKFqDG/Vbhbzbm5ojeV1aSE3e+qHgQW 7w== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2120.oracle.com with ESMTP id 37u4nnp29h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 15 Apr 2021 14:34:27 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13FEGXDo130989;
- Thu, 15 Apr 2021 14:34:26 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3030.oracle.com with ESMTP id 37uny13ksw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 15 Apr 2021 14:34:26 +0000
-Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 13FEYJUM018811;
- Thu, 15 Apr 2021 14:34:23 GMT
-Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 15 Apr 2021 07:34:18 -0700
-Date: Thu, 15 Apr 2021 17:34:09 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Colin King <colin.king@canonical.com>
-Message-ID: <20210415143409.GC6021@kadam>
-References: <20210415083757.1807538-1-colin.king@canonical.com>
+ Thu, 15 Apr 2021 14:35:43 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 13FEWU1M032290; Thu, 15 Apr 2021 16:35:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=dd8MLNMxo70LEUwacsNT/EmSpkArncu11OuNGUbGgZ8=;
+ b=L5XlhZ7sGVykh0fltQSnNx98qVaWO+8yPJ1HYHKsoRJfeoBammc9QL+aaLp15Gim21FD
+ BTDDZ2Pc0TLJdDE8SA4fTtEqngMKj747ePu3OCJ+wcB2O9JDHbWw03CjQHBWrW3CgqJ1
+ waxl6GL1kGib5XTiwmeRny6h7v9VF/PPkz63jjyhaccVyR34nk53D4iEZAIaaAD30nm3
+ NwU7fgjjoqLBCP7ny+SvBnDP/nU4p5Je+nxn2m3q9VfY40I71dVOdlKKT41c1nRwjeNP
+ +2ygpHdVuDdTvcge82wNYTj582BxWNYVYTp/F/fNgMCdQfMeKIXSoU/fDYepJle2R+ai ug== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37xg6w3854-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 15 Apr 2021 16:35:28 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 72EC010002A;
+ Thu, 15 Apr 2021 16:35:27 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 36130241571;
+ Thu, 15 Apr 2021 16:35:27 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.46) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 15 Apr
+ 2021 16:35:26 +0200
+To: Marek Vasut <marex@denx.de>, <arnd@arndb.de>, <robh+dt@kernel.org>,
+ <jagan@amarulasolutions.com>, Manivannan Sadhasivam
+ <manivannan.sadhasivam@linaro.org>, Marcin Sloniewski
+ <marcin.sloniewski@gmail.com>, Ahmad Fatoum <a.fatoum@pengutronix.de>
+References: <20210415101037.1465-1-alexandre.torgue@foss.st.com>
+ <20210415101037.1465-12-alexandre.torgue@foss.st.com>
+ <3b39908b-a263-a5d4-f6ac-ac30ffb06269@denx.de>
+ <36e9f0df-dfdb-e2f5-3d6e-ac32a1b8156e@foss.st.com>
+ <fa3885df-8977-9540-f2af-d4095f519483@denx.de>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <3961c9ae-41cc-5a15-2704-ffc0832f0fe8@foss.st.com>
+Date: Thu, 15 Apr 2021 16:35:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210415083757.1807538-1-colin.king@canonical.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-IMR: 1
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9955
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- bulkscore=0 malwarescore=0
- spamscore=0 adultscore=0 phishscore=0 mlxlogscore=999 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104060000
- definitions=main-2104150096
-X-Proofpoint-ORIG-GUID: 54ZOchoRvgCtTE-6YcFYiYJqRlTKUTmH
-X-Proofpoint-GUID: 54ZOchoRvgCtTE-6YcFYiYJqRlTKUTmH
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9955
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- malwarescore=0
- phishscore=0 suspectscore=0 mlxlogscore=999 priorityscore=1501
- clxscore=1011 lowpriorityscore=0 spamscore=0 impostorscore=0 bulkscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104060000 definitions=main-2104150096
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- kernel-janitors@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH][next] net: stmmac: replace redundant
-	comparison with true
+In-Reply-To: <fa3885df-8977-9540-f2af-d4095f519483@denx.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-04-15_06:2021-04-15,
+ 2021-04-15 signatures=0
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org,
+ Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 11/13] ARM: dts: stm32: fix LTDC port node
+ on STM32 MCU ad MPU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,47 +79,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Apr 15, 2021 at 09:37:57AM +0100, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
-> 
-> The comparison of the u32 variable queue with <= zero is always true
-> since an unsigned can never be negative. Replace the conditional
-> check with the boolean true to simplify the code.  The while loop
-> will terminate because of the zero check on queue before queue is
-> decremented.
-> 
-> Addresses-Coverity: ("Unsigned compared against 0")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index e3e22200a4fd..6e5b4c4b375c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -1673,7 +1673,7 @@ static void stmmac_reinit_rx_buffers(struct stmmac_priv *priv)
->  	return;
->  
->  err_reinit_rx_buffers:
-> -	while (queue >= 0) {
-
-This is an off by one from what the original developer was intending
-because we're freeing the most recent queue that wasn't allocated.
-In other words, we're freeing everything that we need to plus *one
-more thing that we don't need to*.  But it's harmless in this case:
-
-The better fix would be to make queue an int type and do:
-
-	while (--queue >= 0)
-		dma_free_rx_skbufs(priv, queue);
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiA0LzE1LzIxIDQ6MzAgUE0sIE1hcmVrIFZhc3V0IHdyb3RlOgo+IE9uIDQvMTUvMjEgMzoz
+NCBQTSwgQWxleGFuZHJlIFRPUkdVRSB3cm90ZToKPj4gSGkgTWFyZWsKPiAKPiBIZWxsbyBBbGV4
+YW5kcmUsCj4gCj4+Pj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdj
+LWRrMi5kdHMgCj4+Pj4gYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy1kazIuZHRzCj4+
+Pj4gaW5kZXggMmJjOTJlZjNhZWI5Li4xOWVmNDc1YTQ4ZmMgMTAwNjQ0Cj4+Pj4gLS0tIGEvYXJj
+aC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1N2MtZGsyLmR0cwo+Pj4+ICsrKyBiL2FyY2gvYXJtL2Jv
+b3QvZHRzL3N0bTMybXAxNTdjLWRrMi5kdHMKPj4+PiBAQCAtODIsOSArODIsMTUgQEAKPj4+PiDC
+oCB9Owo+Pj4+IMKgICZsdGRjIHsKPj4+PiAtwqDCoMKgIHN0YXR1cyA9ICJva2F5IjsKPj4+PiAt
+Cj4+Pj4gwqDCoMKgwqDCoCBwb3J0IHsKPj4+PiArwqDCoMKgwqDCoMKgwqAgI2FkZHJlc3MtY2Vs
+bHMgPSA8MT47Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgICNzaXplLWNlbGxzID0gPDA+Owo+Pj4+ICsK
+Pj4+PiArwqDCoMKgwqDCoMKgwqAgbHRkY19lcDBfb3V0OiBlbmRwb2ludEAwIHsKPj4+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCByZWcgPSA8MD47Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgcmVtb3RlLWVuZHBvaW50ID0gPCZzaWk5MDIyX2luPjsKPj4+PiArwqDCoMKgwqDCoMKgwqAg
+fTsKPj4+PiArCj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGx0ZGNfZXAxX291dDogZW5kcG9pbnRA
+MSB7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDE+Owo+Pj4+IMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlbW90ZS1lbmRwb2ludCA9IDwmZHNpX2luPjsKPj4+Cj4+
+PiBbLi4uXQo+Pj4KPj4+PiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1
+eHgtZGhjb3ItYXZlbmdlcjk2LmR0c2kgCj4+Pj4gYi9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1w
+MTV4eC1kaGNvci1hdmVuZ2VyOTYuZHRzaQo+Pj4+IGluZGV4IDY0ZGNhNWI3Zjc0OC4uZTdmMTA5
+NzVjYWNmIDEwMDY0NAo+Pj4+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRo
+Y29yLWF2ZW5nZXI5Ni5kdHNpCj4+Pj4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1
+eHgtZGhjb3ItYXZlbmdlcjk2LmR0c2kKPj4+PiBAQCAtMjc3LDExICsyNzcsNyBAQAo+Pj4+IMKg
+wqDCoMKgwqAgc3RhdHVzID0gIm9rYXkiOwo+Pj4+IMKgwqDCoMKgwqAgcG9ydCB7Cj4+Pj4gLcKg
+wqDCoMKgwqDCoMKgICNhZGRyZXNzLWNlbGxzID0gPDE+Owo+Pj4+IC3CoMKgwqDCoMKgwqDCoCAj
+c2l6ZS1jZWxscyA9IDwwPjsKPj4+PiAtCj4+Pj4gLcKgwqDCoMKgwqDCoMKgIGx0ZGNfZXAwX291
+dDogZW5kcG9pbnRAMCB7Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDA+Owo+
+Pj4+ICvCoMKgwqDCoMKgwqDCoCBsdGRjX2VwMF9vdXQ6IGVuZHBvaW50IHsKPj4+PiDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCByZW1vdGUtZW5kcG9pbnQgPSA8JmFkdjc1MTNfaW4+Owo+Pj4+
+IMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+Pj4+IMKgwqDCoMKgwqAgfTsKPj4+Cj4+PiBJIHRoaW5r
+IHRoaXMgaXMgd3JvbmcsIHRoZSBBVjk2IGNhbiBoYXZlIHR3byBkaXNwbGF5cyBjb25uZWN0ZWQg
+dG8gCj4+PiB0d28gcG9ydHMgb2YgdGhlIExUREMsIGp1c3QgbGlrZSBESzIgZm9yIGV4YW1wbGUu
+Cj4+Cj4+IEFzIGZvciBkazIgYWRkcmVzcy9zaXplIGNlbGxzIGFyZSBhZGRlZCBvbmx5IGlmIHRo
+ZXJlIGFyZSAyIGVuZHBvaW50cy4gCj4+IEl0IGlzIGZvciB0aGlzIHJlYXNvbiBJIG1vdmVkIGVu
+ZHBvaW50MCBkZWZpbml0aW9uIGZyb20gCj4+IHN0bTMybXAxNXh4LWRreCB0byBzdG0zMm1wMTUx
+YS1kazEuZHRzIChkazEgaGFzIG9ubHkgb25lIGVuZHBvaW50KS4KPj4KPj4gSGVyZSBpdCdzIHRo
+ZSBzYW1lLCBpZiB5b3UgaGF2ZSBzZWNvbmQgZW5kcG9pbnQgdGhlbiBhZHJlc3Mvc2l6ZSB3aWxs
+IAo+PiBoYXZlIHRvIGJlIGFkZGVkLgo+IAo+IFRoYXQncyBhIGJpdCBwcm9ibGVtYXRpYy4gQ29u
+c2lkZXIgZWl0aGVyIHRoZSB1c2UgY2FzZSBvZiBEVE8gd2hpY2ggYWRkcyAKPiB0aGUgb3RoZXIg
+ZGlzcGxheSwgb3IgZXZlbiBhIGN1c3RvbSBib2FyZCBEVFMuIFdpdGhvdXQgeW91ciBwYXRjaCwg
+dGhpcyAKPiB3b3JrczoKPiAKPiBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvci1h
+dmVuZ2VyOTYuZHRzaQo+ICZsdGRjIHsKPiAgwqAgLi4uCj4gIMKgIHBvcnRzIHsKPiAgwqDCoMKg
+IGx0ZGNfZXAwX291dDogZW5kcG9pbnRAMCB7Cj4gIMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50
+ID0gPCZhZHY3NTEzX2luPjsKPiAgwqDCoMKgIH07Cj4gIMKgIH07Cj4gfTsKPiAKPiBib2FyZC13
+aXRoLWRpc3BsYXkuZHRzIG9yIGJvYXJkLW92ZXJsYXkuZHRzCj4gJmx0ZGMgewo+ICDCoCBwb3J0
+cyB7Cj4gIMKgwqDCoCBlbmRwb2ludEAxIHsgLy8ganVzdCBhZGQgYW5vdGhlciBlbmRwb2ludEAx
+LCBubyBwcm9ibGVtCj4gIMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50ID0gPCZkaXNwbGF5PjsK
+PiAgwqDCoMKgIH07Cj4gIMKgIH07Cj4gfTsKPiAKPiBXaXRoIHlvdXIgcGF0Y2gsIHRoZSBEVFMg
+d291bGQgaGF2ZSB0byBtb2RpZnkgdGhlICJlbmRwb2ludCIgbm9kZSB0byBiZSAKPiAiZW5kcG9p
+bnRAMCIgcHJvYmFibHkgd2l0aCBhIHdob2xlIGxvdCBvZiAvZGV0ZWxlLW5vZGUvIGV0Yy4gbWFn
+aWMgKERUTyAKPiBjYW5ub3QgZG8gdGhhdCwgc28gdGhhdCdzIGEgcHJvYmxlbSwgYW5kIEkgZG8g
+dXNlIERUT3Mgb24gQVY5NiAKPiBleHRlbnNpdmVseSBmb3IgdGhlIHZhcmlvdXMgZXhwYW5zaW9u
+IGNhcmRzKSBhbmQgdGhlbiBhZGQgdGhlIAo+IGVuZHBvaW50QDEuIFRoYXQgYmVjb21lcyByZWFs
+IGNvbXBsaWNhdGVkIGluIGN1c3RvbSBib2FyZCBEVCwgYW5kIAo+IGltcG9zc2libGUgd2l0aCBE
+VE8uCgpZZXMgSSBhZ3JlZSB0aGF0IGl0J2xsIGJlIHByb2JsZW1hdGljLiBTbyBtYXliZSBzbyBz
+b2x1dGlvbiB3b3VsZCBiZSB0byAKbm90IGRldGVjdCBhIHdhcm5pbmcgZm9yIHRoZSBpbml0aWFs
+IGNhc2UgKG9ubHkgb25lIGVuZHBvaW50IHdpdGggYSByZWcpCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
