@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A70DF3606AB
+	by mail.lfdr.de (Postfix) with ESMTPS id D56F03606AD
 	for <lists+linux-stm32@lfdr.de>; Thu, 15 Apr 2021 12:11:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42D14C58D64;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6882DC58D6A;
 	Thu, 15 Apr 2021 10:11:05 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EC50C57B7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DECBC58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Apr 2021 10:11:00 +0000 (UTC)
+ Thu, 15 Apr 2021 10:11:01 +0000 (UTC)
 Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13FA2Xai022813; Thu, 15 Apr 2021 12:10:42 +0200
+ 13FA2VWd022624; Thu, 15 Apr 2021 12:10:43 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=jGSyQ2O25XbQbRpHZcSzRSzuGr9/V7ZwP2TUn/0b4tM=;
- b=GOakZ+29UJqe0WDHufwpGNNuofj2H6grP6CJTAvGFjfvP0uMom/e8XR2Mk2NQRULzOE9
- kyQR7Kh+M48Slhfq24PW112IfgxvRo6g6xt9e9OWuyEICt3Vhw/BO0i/bEs9Wa9eL30L
- 1hy2m+4J0XgOtNGBC0fwiNwRknAepDBMJOJFxWQSGNCUBXabsIkHk/7AyIeYDxOggf7a
- UT4wKZtUavkDUVgK424D9EuQJqGFK6ur7F00l/WDl+/7xg44XSzlwJgOXEL/f2Be3+TW
- LlStJCetpxz6lwS0RqbgtSLSxnEtiYsKcaHJFthFBCUGl72LlI5WKJi/Ahjos+jL/Aw/ nA== 
+ bh=CX5idu4l65KcbSFrefRprntOfKZMSyKX+mWxWGKNZX8=;
+ b=DgpWsiA0KN4o92UJgcw6WdHfYvFttOeWtCUdcKtovIvJzzpLvCpok1qsPNt90XHV9uFG
+ nLVGYd3w2Za2NWOn47rQWS8sm8ATW8Qe5zmNJBM9mqYZ4Sl6Z8gzIt14eeZkhyEHrdwF
+ SsPtbYLvI1X/xQJwznPK4KeQvG6Gxnf7Y7bhzlyFDTxOu/xSlaU8PZ4lFTkcrTODKmyI
+ aadb1uCXP/PBb2P2+pQNLBlIgOiMLG49mbSMvZwCvxoqF1X5SO08DRBK5TD8h2X4Ei9+
+ FVWPvZ1AJ0N2tB5nVR+C35W32Uy4jcQeuWt77XDCHhgprEOSsdd2lbadGLmQvVXgGz4J gQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37xg6w1qa7-1
+ by mx07-00178001.pphosted.com with ESMTP id 37xg6w1qab-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Apr 2021 12:10:42 +0200
+ Thu, 15 Apr 2021 12:10:43 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5AA22100034;
- Thu, 15 Apr 2021 12:10:42 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 25723100034;
+ Thu, 15 Apr 2021 12:10:43 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4C12A226377;
- Thu, 15 Apr 2021 12:10:42 +0200 (CEST)
-Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 15 Apr 2021 12:10:41
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 15E1F226377;
+ Thu, 15 Apr 2021 12:10:43 +0200 (CEST)
+Received: from localhost (10.75.127.48) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 15 Apr 2021 12:10:42
  +0200
 From: Alexandre Torgue <alexandre.torgue@foss.st.com>
 To: <arnd@arndb.de>, <robh+dt@kernel.org>, Marek Vasut <marex@denx.de>,
  <jagan@amarulasolutions.com>, Manivannan Sadhasivam
  <manivannan.sadhasivam@linaro.org>, Marcin Sloniewski
  <marcin.sloniewski@gmail.com>, Ahmad Fatoum <a.fatoum@pengutronix.de>
-Date: Thu, 15 Apr 2021 12:10:27 +0200
-Message-ID: <20210415101037.1465-4-alexandre.torgue@foss.st.com>
+Date: Thu, 15 Apr 2021 12:10:28 +0200
+Message-ID: <20210415101037.1465-5-alexandre.torgue@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210415101037.1465-1-alexandre.torgue@foss.st.com>
 References: <20210415101037.1465-1-alexandre.torgue@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
  definitions=2021-04-15_03:2021-04-15,
@@ -61,8 +61,8 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, kuba@kernel.org,
  Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 03/13] ARM: dts: stm32: fix timer nodes on
-	STM32 MCU to prevent warnings
+Subject: [Linux-stm32] [PATCH 04/13] dt-bindings: mfd: stm32-timers: remove
+	#address/size cells from required properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,115 +79,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Prevent warning seen with "make dtbs_check W=1" command:
-
-Warning (avoid_unnecessary_addr_size): /soc/timers@40001c00: unnecessary
-address-cells/size-cells without "ranges" or child "reg" property
+address-cells and size-cells can't be declared as "required" properties
+as they are not needed if subnodes don't have a "reg" entry.
 
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
-index 41e0087bdbf9..8748d5850298 100644
---- a/arch/arm/boot/dts/stm32f429.dtsi
-+++ b/arch/arm/boot/dts/stm32f429.dtsi
-@@ -283,8 +283,6 @@
- 		};
+diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+index 0f16c8864a87..dace35362a7a 100644
+--- a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
++++ b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+@@ -119,8 +119,6 @@ patternProperties:
+       - compatible
  
- 		timers13: timers@40001c00 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40001C00 0x400>;
- 			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM13)>;
-@@ -299,8 +297,6 @@
- 		};
- 
- 		timers14: timers@40002000 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40002000 0x400>;
- 			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM14)>;
-@@ -633,8 +629,6 @@
- 		};
- 
- 		timers10: timers@40014400 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40014400 0x400>;
- 			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM10)>;
-@@ -649,8 +643,6 @@
- 		};
- 
- 		timers11: timers@40014800 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40014800 0x400>;
- 			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM11)>;
-diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
-index e1df603fc981..72c1b76684b6 100644
---- a/arch/arm/boot/dts/stm32f746.dtsi
-+++ b/arch/arm/boot/dts/stm32f746.dtsi
-@@ -265,8 +265,6 @@
- 		};
- 
- 		timers13: timers@40001c00 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40001C00 0x400>;
- 			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM13)>;
-@@ -281,8 +279,6 @@
- 		};
- 
- 		timers14: timers@40002000 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40002000 0x400>;
- 			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM14)>;
-@@ -531,8 +527,6 @@
- 		};
- 
- 		timers10: timers@40014400 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40014400 0x400>;
- 			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM10)>;
-@@ -547,8 +541,6 @@
- 		};
- 
- 		timers11: timers@40014800 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40014800 0x400>;
- 			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM11)>;
-diff --git a/arch/arm/boot/dts/stm32h743.dtsi b/arch/arm/boot/dts/stm32h743.dtsi
-index 05ecdf9ff03a..6e42ca2dada2 100644
---- a/arch/arm/boot/dts/stm32h743.dtsi
-+++ b/arch/arm/boot/dts/stm32h743.dtsi
-@@ -485,8 +485,6 @@
- 		};
- 
- 		lptimer4: timer@58002c00 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-lptimer";
- 			reg = <0x58002c00 0x400>;
- 			clocks = <&rcc LPTIM4_CK>;
-@@ -501,8 +499,6 @@
- 		};
- 
- 		lptimer5: timer@58003000 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-lptimer";
- 			reg = <0x58003000 0x400>;
- 			clocks = <&rcc LPTIM5_CK>;
+ required:
+-  - "#address-cells"
+-  - "#size-cells"
+   - compatible
+   - reg
+   - clocks
 -- 
 2.17.1
 
