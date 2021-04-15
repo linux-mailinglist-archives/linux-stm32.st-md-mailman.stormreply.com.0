@@ -2,57 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B0C9360BCF
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Apr 2021 16:30:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CA25360BE4
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Apr 2021 16:34:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7A7FC57B79;
-	Thu, 15 Apr 2021 14:30:48 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BC6DC57B79;
+	Thu, 15 Apr 2021 14:34:51 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE8DEC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8671C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Apr 2021 14:30:47 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 31C6B81FD5;
- Thu, 15 Apr 2021 16:30:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1618497045;
- bh=QCFlP+DjDQQ/peWcEBQFC8IoSA2aoys0PklnNs1hhLw=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=Hg5s2vAe5leyJERNEtnaXGvcHS2i5r2lX942XGx3T7rPZx1Lddv495O0ezzI3YJEe
- 274OkqHdDLEBNFVviWcCwoQGQ8Xv2Y/JrM0TNLi8jsC2Tt2fl2/hs0p+l2a4TPHwko
- 6Euo2siHp9C6s0HuameFet8tjz0DJsBgk1tEt0tp0JvcLTYPvyj8FPeV95YH7FIfud
- xMazhhb7XSzjBgpYzrN8RHaSY+QYWgHdub6eRo5UB16NVVsgCRSsXLHntW7G0fJvL0
- F54soBKqD3w7kY8+s0dYzbslIVCyO8Y23VkDSJDeiRoBjVsa/HnY9CH7t+8okXEv16
- efWSkQJG/d5QA==
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>, arnd@arndb.de,
- robh+dt@kernel.org, jagan@amarulasolutions.com,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Marcin Sloniewski <marcin.sloniewski@gmail.com>,
- Ahmad Fatoum <a.fatoum@pengutronix.de>
-References: <20210415101037.1465-1-alexandre.torgue@foss.st.com>
- <20210415101037.1465-12-alexandre.torgue@foss.st.com>
- <3b39908b-a263-a5d4-f6ac-ac30ffb06269@denx.de>
- <36e9f0df-dfdb-e2f5-3d6e-ac32a1b8156e@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <fa3885df-8977-9540-f2af-d4095f519483@denx.de>
-Date: Thu, 15 Apr 2021 16:30:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+ Thu, 15 Apr 2021 14:34:49 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13FEJGow079587;
+ Thu, 15 Apr 2021 14:34:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=CkWzQJq9qTXR/COElw+2nWhJygfpMk390eJBQixVWfk=;
+ b=ejz+nbayBZTs6/DWzcb2fO1Kvs0JJdKB0ekXoRwFa/oZ1l9yX0+xBBvYQajdgJSvMhKd
+ Oia8VCc8V3J5lm+bV5mVTfyR0Y72jbfULD1kwT1ef1o33YvCwz/A290iOJ0lc67tAyhA
+ tOIks3zfDzb0frBB5IBkg346uvRAl/ApqRlwg0UBwwznpEYkqqjkC6ZJqgiEzgsaOaup
+ 6/w0sinwaZmUxA3o1/8TiJQIaZir86RloKC3BGH0vH1KrzmEppWvbpz7n8KvGFAnQBhj
+ yG6/kq9P+FQOjmdJfOUNWLucK2x0uZmsNxok+NKFqDG/Vbhbzbm5ojeV1aSE3e+qHgQW 7w== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2120.oracle.com with ESMTP id 37u4nnp29h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 15 Apr 2021 14:34:27 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13FEGXDo130989;
+ Thu, 15 Apr 2021 14:34:26 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3030.oracle.com with ESMTP id 37uny13ksw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 15 Apr 2021 14:34:26 +0000
+Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 13FEYJUM018811;
+ Thu, 15 Apr 2021 14:34:23 GMT
+Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 15 Apr 2021 07:34:18 -0700
+Date: Thu, 15 Apr 2021 17:34:09 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Colin King <colin.king@canonical.com>
+Message-ID: <20210415143409.GC6021@kadam>
+References: <20210415083757.1807538-1-colin.king@canonical.com>
 MIME-Version: 1.0
-In-Reply-To: <36e9f0df-dfdb-e2f5-3d6e-ac32a1b8156e@foss.st.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 11/13] ARM: dts: stm32: fix LTDC port node
- on STM32 MCU ad MPU
+Content-Disposition: inline
+In-Reply-To: <20210415083757.1807538-1-colin.king@canonical.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-IMR: 1
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9955
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ bulkscore=0 malwarescore=0
+ spamscore=0 adultscore=0 phishscore=0 mlxlogscore=999 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104060000
+ definitions=main-2104150096
+X-Proofpoint-ORIG-GUID: 54ZOchoRvgCtTE-6YcFYiYJqRlTKUTmH
+X-Proofpoint-GUID: 54ZOchoRvgCtTE-6YcFYiYJqRlTKUTmH
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9955
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ malwarescore=0
+ phishscore=0 suspectscore=0 mlxlogscore=999 priorityscore=1501
+ clxscore=1011 lowpriorityscore=0 spamscore=0 impostorscore=0 bulkscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104060000 definitions=main-2104150096
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ kernel-janitors@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH][next] net: stmmac: replace redundant
+	comparison with true
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,61 +89,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNC8xNS8yMSAzOjM0IFBNLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgo+IEhpIE1hcmVrCgpI
-ZWxsbyBBbGV4YW5kcmUsCgo+Pj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMy
-bXAxNTdjLWRrMi5kdHMgCj4+PiBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdjLWRrMi5k
-dHMKPj4+IGluZGV4IDJiYzkyZWYzYWViOS4uMTllZjQ3NWE0OGZjIDEwMDY0NAo+Pj4gLS0tIGEv
-YXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1N2MtZGsyLmR0cwo+Pj4gKysrIGIvYXJjaC9hcm0v
-Ym9vdC9kdHMvc3RtMzJtcDE1N2MtZGsyLmR0cwo+Pj4gQEAgLTgyLDkgKzgyLDE1IEBACj4+PiDC
-oCB9Owo+Pj4gwqAgJmx0ZGMgewo+Pj4gLcKgwqDCoCBzdGF0dXMgPSAib2theSI7Cj4+PiAtCj4+
-PiDCoMKgwqDCoMKgIHBvcnQgewo+Pj4gK8KgwqDCoMKgwqDCoMKgICNhZGRyZXNzLWNlbGxzID0g
-PDE+Owo+Pj4gK8KgwqDCoMKgwqDCoMKgICNzaXplLWNlbGxzID0gPDA+Owo+Pj4gKwo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgIGx0ZGNfZXAwX291dDogZW5kcG9pbnRAMCB7Cj4+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCByZWcgPSA8MD47Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZW1vdGUt
-ZW5kcG9pbnQgPSA8JnNpaTkwMjJfaW4+Owo+Pj4gK8KgwqDCoMKgwqDCoMKgIH07Cj4+PiArCj4+
-PiDCoMKgwqDCoMKgwqDCoMKgwqAgbHRkY19lcDFfb3V0OiBlbmRwb2ludEAxIHsKPj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlZyA9IDwxPjsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHJlbW90ZS1lbmRwb2ludCA9IDwmZHNpX2luPjsKPj4KPj4gWy4uLl0KPj4KPj4+IGRp
-ZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvci1hdmVuZ2VyOTYu
-ZHRzaSAKPj4+IGIvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb3ItYXZlbmdlcjk2
-LmR0c2kKPj4+IGluZGV4IDY0ZGNhNWI3Zjc0OC4uZTdmMTA5NzVjYWNmIDEwMDY0NAo+Pj4gLS0t
-IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb3ItYXZlbmdlcjk2LmR0c2kKPj4+
-ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRoY29yLWF2ZW5nZXI5Ni5kdHNp
-Cj4+PiBAQCAtMjc3LDExICsyNzcsNyBAQAo+Pj4gwqDCoMKgwqDCoCBzdGF0dXMgPSAib2theSI7
-Cj4+PiDCoMKgwqDCoMKgIHBvcnQgewo+Pj4gLcKgwqDCoMKgwqDCoMKgICNhZGRyZXNzLWNlbGxz
-ID0gPDE+Owo+Pj4gLcKgwqDCoMKgwqDCoMKgICNzaXplLWNlbGxzID0gPDA+Owo+Pj4gLQo+Pj4g
-LcKgwqDCoMKgwqDCoMKgIGx0ZGNfZXAwX291dDogZW5kcG9pbnRAMCB7Cj4+PiAtwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByZWcgPSA8MD47Cj4+PiArwqDCoMKgwqDCoMKgwqAgbHRkY19lcDBfb3V0
-OiBlbmRwb2ludCB7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZW1vdGUtZW5kcG9p
-bnQgPSA8JmFkdjc1MTNfaW4+Owo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4+PiDCoMKgwqDC
-oMKgIH07Cj4+Cj4+IEkgdGhpbmsgdGhpcyBpcyB3cm9uZywgdGhlIEFWOTYgY2FuIGhhdmUgdHdv
-IGRpc3BsYXlzIGNvbm5lY3RlZCB0byB0d28gCj4+IHBvcnRzIG9mIHRoZSBMVERDLCBqdXN0IGxp
-a2UgREsyIGZvciBleGFtcGxlLgo+IAo+IEFzIGZvciBkazIgYWRkcmVzcy9zaXplIGNlbGxzIGFy
-ZSBhZGRlZCBvbmx5IGlmIHRoZXJlIGFyZSAyIGVuZHBvaW50cy4gCj4gSXQgaXMgZm9yIHRoaXMg
-cmVhc29uIEkgbW92ZWQgZW5kcG9pbnQwIGRlZmluaXRpb24gZnJvbSBzdG0zMm1wMTV4eC1ka3gg
-Cj4gdG8gc3RtMzJtcDE1MWEtZGsxLmR0cyAoZGsxIGhhcyBvbmx5IG9uZSBlbmRwb2ludCkuCj4g
-Cj4gSGVyZSBpdCdzIHRoZSBzYW1lLCBpZiB5b3UgaGF2ZSBzZWNvbmQgZW5kcG9pbnQgdGhlbiBh
-ZHJlc3Mvc2l6ZSB3aWxsIAo+IGhhdmUgdG8gYmUgYWRkZWQuCgpUaGF0J3MgYSBiaXQgcHJvYmxl
-bWF0aWMuIENvbnNpZGVyIGVpdGhlciB0aGUgdXNlIGNhc2Ugb2YgRFRPIHdoaWNoIGFkZHMgCnRo
-ZSBvdGhlciBkaXNwbGF5LCBvciBldmVuIGEgY3VzdG9tIGJvYXJkIERUUy4gV2l0aG91dCB5b3Vy
-IHBhdGNoLCB0aGlzIAp3b3JrczoKCmFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRoY29y
-LWF2ZW5nZXI5Ni5kdHNpCiZsdGRjIHsKICAgLi4uCiAgIHBvcnRzIHsKICAgICBsdGRjX2VwMF9v
-dXQ6IGVuZHBvaW50QDAgewogICAgICAgcmVtb3RlLWVuZHBvaW50ID0gPCZhZHY3NTEzX2luPjsK
-ICAgICB9OwogICB9Owp9OwoKYm9hcmQtd2l0aC1kaXNwbGF5LmR0cyBvciBib2FyZC1vdmVybGF5
-LmR0cwombHRkYyB7CiAgIHBvcnRzIHsKICAgICBlbmRwb2ludEAxIHsgLy8ganVzdCBhZGQgYW5v
-dGhlciBlbmRwb2ludEAxLCBubyBwcm9ibGVtCiAgICAgICByZW1vdGUtZW5kcG9pbnQgPSA8JmRp
-c3BsYXk+OwogICAgIH07CiAgIH07Cn07CgpXaXRoIHlvdXIgcGF0Y2gsIHRoZSBEVFMgd291bGQg
-aGF2ZSB0byBtb2RpZnkgdGhlICJlbmRwb2ludCIgbm9kZSB0byBiZSAKImVuZHBvaW50QDAiIHBy
-b2JhYmx5IHdpdGggYSB3aG9sZSBsb3Qgb2YgL2RldGVsZS1ub2RlLyBldGMuIG1hZ2ljIChEVE8g
-CmNhbm5vdCBkbyB0aGF0LCBzbyB0aGF0J3MgYSBwcm9ibGVtLCBhbmQgSSBkbyB1c2UgRFRPcyBv
-biBBVjk2IApleHRlbnNpdmVseSBmb3IgdGhlIHZhcmlvdXMgZXhwYW5zaW9uIGNhcmRzKSBhbmQg
-dGhlbiBhZGQgdGhlIAplbmRwb2ludEAxLiBUaGF0IGJlY29tZXMgcmVhbCBjb21wbGljYXRlZCBp
-biBjdXN0b20gYm9hcmQgRFQsIGFuZCAKaW1wb3NzaWJsZSB3aXRoIERUTy4KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Thu, Apr 15, 2021 at 09:37:57AM +0100, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
+> 
+> The comparison of the u32 variable queue with <= zero is always true
+> since an unsigned can never be negative. Replace the conditional
+> check with the boolean true to simplify the code.  The while loop
+> will terminate because of the zero check on queue before queue is
+> decremented.
+> 
+> Addresses-Coverity: ("Unsigned compared against 0")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index e3e22200a4fd..6e5b4c4b375c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1673,7 +1673,7 @@ static void stmmac_reinit_rx_buffers(struct stmmac_priv *priv)
+>  	return;
+>  
+>  err_reinit_rx_buffers:
+> -	while (queue >= 0) {
+
+This is an off by one from what the original developer was intending
+because we're freeing the most recent queue that wasn't allocated.
+In other words, we're freeing everything that we need to plus *one
+more thing that we don't need to*.  But it's harmless in this case:
+
+The better fix would be to make queue an int type and do:
+
+	while (--queue >= 0)
+		dma_free_rx_skbufs(priv, queue);
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
