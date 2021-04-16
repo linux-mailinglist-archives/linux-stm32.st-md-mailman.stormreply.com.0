@@ -2,68 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 356C93619FB
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Apr 2021 08:44:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E588A361A08
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Apr 2021 08:49:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED4FCC57B78;
-	Fri, 16 Apr 2021 06:44:47 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A301BC57B78;
+	Fri, 16 Apr 2021 06:49:41 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDDFAC57B79
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F402FC36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Apr 2021 06:44:41 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13G6RoLO011093; Fri, 16 Apr 2021 08:44:30 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=b0yXKaLLnFkdALNfOd/11N1LNSkEPGBRi5GdlAwNrxM=;
- b=2iMt2jEfD4I2Abcqsa0+rf9USdMPlaALE5GlshdPVQp+iCzPmlmH1AY6xsixsI2d7I66
- GtE70tMEJAqilIgfhBmEtpW9HUjCiItrRIVjl2xbZbPghJePYX1LKCxi0llDrlDAOa0l
- AA9WSFTXpi7R/tixTBAqgR0yeei+oGvQ6Vsp3wkZA2an78lw7N9EHnfEAyWpu9f4jC/H
- xEATAFuaMO92cf1tcld+xOJtlnapPnPfEMC/qITLvJUrMtnvLE3SRlWUwhAXefg6CjYZ
- 3j9UAEbUY8Z1vFh/wAR012Cpg6OK9QHtrxJXraVvkUSBIRORkPwkIe25wwSzzWPEpZpo aQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37xm4jncrt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Apr 2021 08:44:30 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E8ED010002A;
- Fri, 16 Apr 2021 08:44:29 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D941721969E;
- Fri, 16 Apr 2021 08:44:29 +0200 (CEST)
-Received: from lmecxl0572.lme.st.com (10.75.127.44) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 16 Apr
- 2021 08:44:29 +0200
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20210408185731.135511-1-marex@denx.de>
- <20210408185731.135511-3-marex@denx.de>
-From: "gabriel.fernandez@foss.st.com" <gabriel.fernandez@foss.st.com>
-Message-ID: <a1768f19-fd80-abd7-03ee-8e47c124a271@foss.st.com>
-Date: Fri, 16 Apr 2021 08:44:28 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Fri, 16 Apr 2021 06:49:39 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id EF4025A5;
+ Fri, 16 Apr 2021 08:49:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1618555779;
+ bh=QIXyCa/8U0k79+9j+v6xpl3VfrISRiU8LkDQ0NjttsE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tY2Y6crMcalol7VTk3NVy5/CUAh5s18Yt0m8rqYNN671OD/zNRzNDBdWI+ykOQJgi
+ Mzw3I85Drvgo1UNlyzxrydjMZNW9kXbZyg22YvnvZcsT0PR3SzkU2D1lKVtb3Exd9y
+ OfBWwJC0YqJtZ/syVWIQxqkrCAM/cgarLmPp4I04=
+Date: Fri, 16 Apr 2021 09:49:35 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <YHkzf0fswqGYbU7R@pendragon.ideasonboard.com>
+References: <20201224061832.92010-1-marex@denx.de>
+ <YFfvjyllBa/tqTqI@pendragon.ideasonboard.com>
+ <4372d1cd-ffdb-e545-7262-d1ad1a649770@denx.de>
+ <YFhze79nDdtf7KQS@pendragon.ideasonboard.com>
 MIME-Version: 1.0
-In-Reply-To: <20210408185731.135511-3-marex@denx.de>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-15_11:2021-04-15,
- 2021-04-15 signatures=0
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Stephen Boyd <swboyd@chromium.org>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH 2/7] clk: stm32mp1: The dev is always NULL,
- replace it with np
+Content-Disposition: inline
+In-Reply-To: <YFhze79nDdtf7KQS@pendragon.ideasonboard.com>
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Antonio Borneo <antonio.borneo@st.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Philippe Cornu <philippe.cornu@st.com>, dri-devel@lists.freedesktop.org,
+ Yannick Fertre <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Vincent Abriou <vincent.abriou@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Benjamin Gaignard <benjamin.gaignard@st.com>
+Subject: Re: [Linux-stm32] [PATCH V2] drm/bridge: lvds-codec: Add support
+ for pixel data sampling edge select
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,284 +58,131 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
+Hi Rob,
 
-I have a patch-set in progress using $dev (convertion into module driver).
+There's a question for you below.
 
-https://patchwork.kernel.org/project/linux-clk/list/?series=421767
-
-Then rebase of your patch, [PATCH 4/7] clk: stm32mp1: Add parent_data to 
-ETHRX clock, can be done easily.
-
-Best regards
-Gabriel
-
-On 4/8/21 8:57 PM, Marek Vasut wrote:
-> Instead of passing around $dev to all the registration functions, which
-> is always NULL, pass around struct device_node pointer $np. This way it
-> is possible to use of_clk_hw_register*() functions and/or register clock
-> with associated $np pointer.
+On Mon, Mar 22, 2021 at 12:37:47PM +0200, Laurent Pinchart wrote:
+> Hi Marek,
 > 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-> Cc: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> Cc: Stephen Boyd <swboyd@chromium.org>
-> Cc: linux-clk@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
->   drivers/clk/clk-stm32mp1.c | 56 +++++++++++++++++++-------------------
->   1 file changed, 28 insertions(+), 28 deletions(-)
+> (CC'ing Ron and the DT mailing list for the DT discussion)
 > 
-> diff --git a/drivers/clk/clk-stm32mp1.c b/drivers/clk/clk-stm32mp1.c
-> index a7c7f544ee5d..cf5a1d055c5a 100644
-> --- a/drivers/clk/clk-stm32mp1.c
-> +++ b/drivers/clk/clk-stm32mp1.c
-> @@ -317,7 +317,7 @@ struct clock_config {
->   	int num_parents;
->   	unsigned long flags;
->   	void *cfg;
-> -	struct clk_hw * (*func)(struct device *dev,
-> +	struct clk_hw * (*func)(struct device_node *np,
->   				struct clk_hw_onecell_data *clk_data,
->   				void __iomem *base, spinlock_t *lock,
->   				const struct clock_config *cfg);
-> @@ -377,14 +377,14 @@ struct stm32_composite_cfg {
->   };
->   
->   static struct clk_hw *
-> -_clk_hw_register_gate(struct device *dev,
-> +_clk_hw_register_gate(struct device_node *np,
->   		      struct clk_hw_onecell_data *clk_data,
->   		      void __iomem *base, spinlock_t *lock,
->   		      const struct clock_config *cfg)
->   {
->   	struct gate_cfg *gate_cfg = cfg->cfg;
->   
-> -	return clk_hw_register_gate(dev,
-> +	return clk_hw_register_gate(NULL,
->   				    cfg->name,
->   				    cfg->parent_name,
->   				    cfg->flags,
-> @@ -395,27 +395,27 @@ _clk_hw_register_gate(struct device *dev,
->   }
->   
->   static struct clk_hw *
-> -_clk_hw_register_fixed_factor(struct device *dev,
-> +_clk_hw_register_fixed_factor(struct device_node *np,
->   			      struct clk_hw_onecell_data *clk_data,
->   			      void __iomem *base, spinlock_t *lock,
->   			      const struct clock_config *cfg)
->   {
->   	struct fixed_factor_cfg *ff_cfg = cfg->cfg;
->   
-> -	return clk_hw_register_fixed_factor(dev, cfg->name, cfg->parent_name,
-> +	return clk_hw_register_fixed_factor(NULL, cfg->name, cfg->parent_name,
->   					    cfg->flags, ff_cfg->mult,
->   					    ff_cfg->div);
->   }
->   
->   static struct clk_hw *
-> -_clk_hw_register_divider_table(struct device *dev,
-> +_clk_hw_register_divider_table(struct device_node *np,
->   			       struct clk_hw_onecell_data *clk_data,
->   			       void __iomem *base, spinlock_t *lock,
->   			       const struct clock_config *cfg)
->   {
->   	struct div_cfg *div_cfg = cfg->cfg;
->   
-> -	return clk_hw_register_divider_table(dev,
-> +	return clk_hw_register_divider_table(NULL,
->   					     cfg->name,
->   					     cfg->parent_name,
->   					     cfg->flags,
-> @@ -428,14 +428,14 @@ _clk_hw_register_divider_table(struct device *dev,
->   }
->   
->   static struct clk_hw *
-> -_clk_hw_register_mux(struct device *dev,
-> +_clk_hw_register_mux(struct device_node *np,
->   		     struct clk_hw_onecell_data *clk_data,
->   		     void __iomem *base, spinlock_t *lock,
->   		     const struct clock_config *cfg)
->   {
->   	struct mux_cfg *mux_cfg = cfg->cfg;
->   
-> -	return clk_hw_register_mux(dev, cfg->name, cfg->parent_names,
-> +	return clk_hw_register_mux(NULL, cfg->name, cfg->parent_names,
->   				   cfg->num_parents, cfg->flags,
->   				   mux_cfg->reg_off + base, mux_cfg->shift,
->   				   mux_cfg->width, mux_cfg->mux_flags, lock);
-> @@ -570,7 +570,7 @@ _get_stm32_gate(void __iomem *base,
->   }
->   
->   static struct clk_hw *
-> -clk_stm32_register_gate_ops(struct device *dev,
-> +clk_stm32_register_gate_ops(struct device_node *np,
->   			    const char *name,
->   			    const char *parent_name,
->   			    unsigned long flags,
-> @@ -598,7 +598,7 @@ clk_stm32_register_gate_ops(struct device *dev,
->   
->   	hw->init = &init;
->   
-> -	ret = clk_hw_register(dev, hw);
-> +	ret = clk_hw_register(NULL, hw);
->   	if (ret)
->   		hw = ERR_PTR(ret);
->   
-> @@ -606,7 +606,7 @@ clk_stm32_register_gate_ops(struct device *dev,
->   }
->   
->   static struct clk_hw *
-> -clk_stm32_register_composite(struct device *dev,
-> +clk_stm32_register_composite(struct device_node *np,
->   			     const char *name, const char * const *parent_names,
->   			     int num_parents, void __iomem *base,
->   			     const struct stm32_composite_cfg *cfg,
-> @@ -655,7 +655,7 @@ clk_stm32_register_composite(struct device *dev,
->   		}
->   	}
->   
-> -	return clk_hw_register_composite(dev, name, parent_names, num_parents,
-> +	return clk_hw_register_composite(NULL, name, parent_names, num_parents,
->   				       mux_hw, mux_ops, div_hw, div_ops,
->   				       gate_hw, gate_ops, flags);
->   }
-> @@ -863,7 +863,7 @@ static const struct clk_ops pll_ops = {
->   	.is_enabled	= pll_is_enabled,
->   };
->   
-> -static struct clk_hw *clk_register_pll(struct device *dev, const char *name,
-> +static struct clk_hw *clk_register_pll(struct device_node *np, const char *name,
->   				       const char *parent_name,
->   				       void __iomem *reg,
->   				       unsigned long flags,
-> @@ -889,7 +889,7 @@ static struct clk_hw *clk_register_pll(struct device *dev, const char *name,
->   	element->lock = lock;
->   
->   	hw = &element->hw;
-> -	err = clk_hw_register(dev, hw);
-> +	err = clk_hw_register(NULL, hw);
->   
->   	if (err) {
->   		kfree(element);
-> @@ -993,7 +993,7 @@ static const struct clk_ops timer_ker_ops = {
->   
->   };
->   
-> -static struct clk_hw *clk_register_cktim(struct device *dev, const char *name,
-> +static struct clk_hw *clk_register_cktim(struct device_node *np, const char *name,
->   					 const char *parent_name,
->   					 unsigned long flags,
->   					 void __iomem *apbdiv,
-> @@ -1021,7 +1021,7 @@ static struct clk_hw *clk_register_cktim(struct device *dev, const char *name,
->   	tim_ker->timpre = timpre;
->   
->   	hw = &tim_ker->hw;
-> -	err = clk_hw_register(dev, hw);
-> +	err = clk_hw_register(NULL, hw);
->   
->   	if (err) {
->   		kfree(tim_ker);
-> @@ -1035,14 +1035,14 @@ struct stm32_pll_cfg {
->   	u32 offset;
->   };
->   
-> -static struct clk_hw *_clk_register_pll(struct device *dev,
-> +static struct clk_hw *_clk_register_pll(struct device_node *np,
->   					struct clk_hw_onecell_data *clk_data,
->   					void __iomem *base, spinlock_t *lock,
->   					const struct clock_config *cfg)
->   {
->   	struct stm32_pll_cfg *stm_pll_cfg = cfg->cfg;
->   
-> -	return clk_register_pll(dev, cfg->name, cfg->parent_name,
-> +	return clk_register_pll(np, cfg->name, cfg->parent_name,
->   				base + stm_pll_cfg->offset, cfg->flags, lock);
->   }
->   
-> @@ -1051,25 +1051,25 @@ struct stm32_cktim_cfg {
->   	u32 offset_timpre;
->   };
->   
-> -static struct clk_hw *_clk_register_cktim(struct device *dev,
-> +static struct clk_hw *_clk_register_cktim(struct device_node *np,
->   					  struct clk_hw_onecell_data *clk_data,
->   					  void __iomem *base, spinlock_t *lock,
->   					  const struct clock_config *cfg)
->   {
->   	struct stm32_cktim_cfg *cktim_cfg = cfg->cfg;
->   
-> -	return clk_register_cktim(dev, cfg->name, cfg->parent_name, cfg->flags,
-> +	return clk_register_cktim(np, cfg->name, cfg->parent_name, cfg->flags,
->   				  cktim_cfg->offset_apbdiv + base,
->   				  cktim_cfg->offset_timpre + base, lock);
->   }
->   
->   static struct clk_hw *
-> -_clk_stm32_register_gate(struct device *dev,
-> +_clk_stm32_register_gate(struct device_node *np,
->   			 struct clk_hw_onecell_data *clk_data,
->   			 void __iomem *base, spinlock_t *lock,
->   			 const struct clock_config *cfg)
->   {
-> -	return clk_stm32_register_gate_ops(dev,
-> +	return clk_stm32_register_gate_ops(np,
->   				    cfg->name,
->   				    cfg->parent_name,
->   				    cfg->flags,
-> @@ -1079,12 +1079,12 @@ _clk_stm32_register_gate(struct device *dev,
->   }
->   
->   static struct clk_hw *
-> -_clk_stm32_register_composite(struct device *dev,
-> +_clk_stm32_register_composite(struct device_node *np,
->   			      struct clk_hw_onecell_data *clk_data,
->   			      void __iomem *base, spinlock_t *lock,
->   			      const struct clock_config *cfg)
->   {
-> -	return clk_stm32_register_composite(dev, cfg->name, cfg->parent_names,
-> +	return clk_stm32_register_composite(np, cfg->name, cfg->parent_names,
->   					    cfg->num_parents, base, cfg->cfg,
->   					    cfg->flags, lock);
->   }
-> @@ -2020,7 +2020,7 @@ static const struct of_device_id stm32mp1_match_data[] = {
->   	{ }
->   };
->   
-> -static int stm32_register_hw_clk(struct device *dev,
-> +static int stm32_register_hw_clk(struct device_node *np,
->   				 struct clk_hw_onecell_data *clk_data,
->   				 void __iomem *base, spinlock_t *lock,
->   				 const struct clock_config *cfg)
-> @@ -2031,7 +2031,7 @@ static int stm32_register_hw_clk(struct device *dev,
->   	hws = clk_data->hws;
->   
->   	if (cfg->func)
-> -		hw = (*cfg->func)(dev, clk_data, base, lock, cfg);
-> +		hw = (*cfg->func)(np, clk_data, base, lock, cfg);
->   
->   	if (IS_ERR(hw)) {
->   		pr_err("Unable to register %s\n", cfg->name);
-> @@ -2077,7 +2077,7 @@ static int stm32_rcc_init(struct device_node *np,
->   		hws[n] = ERR_PTR(-ENOENT);
->   
->   	for (n = 0; n < data->num; n++) {
-> -		err = stm32_register_hw_clk(NULL, clk_data, base, &rlock,
-> +		err = stm32_register_hw_clk(np, clk_data, base, &rlock,
->   					    &data->cfg[n]);
->   		if (err) {
->   			pr_err("%s: can't register  %s\n", __func__,
+> On Mon, Mar 22, 2021 at 11:29:04AM +0100, Marek Vasut wrote:
+> > On 3/22/21 2:14 AM, Laurent Pinchart wrote:
+> > > Hi Marek,
+> > 
+> > Hi,
+> > 
+> > [...]
+> > 
+> > >> diff --git a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
+> > >> index e5e3c72630cf..399a6528780a 100644
+> > >> --- a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
+> > >> +++ b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
+> > >> @@ -74,6 +74,13 @@ properties:
+> > >>   
+> > >>       additionalProperties: false
+> > >>   
+> > >> +  pixelclk-active:
+> > >> +    description: |
+> > >> +      Data sampling on rising or falling edge.
+> > >> +      Use 0 to sample pixel data on rising edge and
+> > >> +      Use 1 to sample pixel data on falling edge and
+> > >> +    enum: [0, 1]
+> > > 
+> > > The idea is good, but instead of adding a custom property, how about
+> > > reusing the pclk-sample property defined in
+> > > ../../media/video-interfaces.yaml ?
+> > 
+> > Repeating myself from V1 discussion ... Either is fine by me, but I 
+> > think pixelclk-active, which comes from panel-timings.yaml is closer to 
+> > the video than multimedia bindings.
 > 
+> That's a good point. The part that bothers me a bit is that it would be
+> nice to define the property in a single YAML schema, referenced by
+> individual bindings. video-interfaces.yaml is there for that purpose. We
+> could do something similar on the display side, or consider the
+> pixelclk-active usage in panel-timings.yaml an exception that we can't
+> switch to video-interfaces.yaml as backward compatibility must be
+> preserved.
+> 
+> I don't have a too strong preference, whatever Rob prefers would be fine
+> with me.
+> 
+> > > The property is only valid for encoders, so I would at least mention
+> > > that in the description, or, better, handle this based on the compatible
+> > > string to allow validation.
+> > 
+> > How does that work in the Yaml file ?
+> 
+> Something along the lines of
+> 
+> if:
+>   not:
+>     properties:
+>       compatible:
+>         contains:
+>           const: lvds-encoder
+> then:
+>   properties:
+>     pixelclk-active: false
+> 
+> My YAML schema foo is a bit rusty though, I apologize if this doesn't
+> work as-is. There are lots of similar examples in DT bindings that
+> should hopefully be right :-)
+> 
+> > >> +
+> > >>     powerdown-gpios:
+> > >>       description:
+> > >>         The GPIO used to control the power down line of this device.
+> > >> diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+> > >> index dcf579a4cf83..cab81ccd895d 100644
+> > >> --- a/drivers/gpu/drm/bridge/lvds-codec.c
+> > >> +++ b/drivers/gpu/drm/bridge/lvds-codec.c
+> > 
+> > [...]
+> > 
+> > >> @@ -126,6 +146,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+> > >>   	 */
+> > >>   	lvds_codec->bridge.of_node = dev->of_node;
+> > >>   	lvds_codec->bridge.funcs = &funcs;
+> > >> +	lvds_codec->bridge.timings = &lvds_codec->timings;
+> > >>   	drm_bridge_add(&lvds_codec->bridge);
+> > >>   
+> > >>   	platform_set_drvdata(pdev, lvds_codec);
+> > >> @@ -142,19 +163,20 @@ static int lvds_codec_remove(struct platform_device *pdev)
+> > >>   	return 0;
+> > >>   }
+> > >>   
+> > >> +static const struct lvds_codec_data decoder_data = {
+> > >> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
+> > >> +	.is_encoder = false,
+> > > 
+> > > The two fields are a bit redundant, as the decoder is always
+> > > LVDS-to-DPI, and the encoder DPI-to-LVDS. I don't mind too much, but
+> > > maybe we could drop the connector_type field, and derive the connector
+> > > type from is_encoder ?
+> > 
+> > Or the other way around instead ? That is, if the connector_type is 
+> > LVDS, then it is encoder , otherwise its decoder ?
+> 
+> Either way works for me.
+> 
+> > > One may then say that we could drop the lvds_codec_data structure as it
+> > > contains a single field, but I foresee a need to have device-specific
+> > > timings at some point, so I think it's a good addition.
+> > 
+> > [...]
+
+-- 
+Regards,
+
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
