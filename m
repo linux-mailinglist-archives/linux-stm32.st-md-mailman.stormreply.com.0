@@ -2,53 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C305E361BB8
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Apr 2021 10:51:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26FEE361BC1
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Apr 2021 10:57:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78B03C57B78;
-	Fri, 16 Apr 2021 08:51:12 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2650C57B78;
+	Fri, 16 Apr 2021 08:57:35 +0000 (UTC)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66B0FC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09F7FC36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Apr 2021 08:51:11 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B17B061107;
- Fri, 16 Apr 2021 08:51:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618563069;
- bh=G20fHV8vaPYOZuC6bTk72/oUnsXRu84bnbsf13JZmRI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GnF3XUS3RhH9h9JHdtddbI5eZLxqQMnxkdnEvZx6UGHHsi8TJ81OQojgjmBIzQCEu
- 1TQZmcXPt4V1rax7BxmPJVQDGB/9QtUQIxk8BhOgNfPs1SGCrIhTjnU9Oix9A7OWZO
- 6Y06OecRcy1jyn3/DKFbxzbsxt6Cd/SijD1TCEFm2qkBplV+y1q+F6VGz7XXnF8gYE
- bbyMEk0Je6cYdc7z7G+jUZzIZgjFB4vqX8IoO2MAaRXOjSWJnQI7mm7rCF3yXdwknV
- Mg7zeIl0Ly6oVKzAP1FT3JNE7XBb7NXJCyCORqVds3wXizvG4IXpZtmHXbR9ORpTnF
- 7Wc84BwRSOCTA==
-Received: from johan by xi.lan with local (Exim 4.93.0.4)
- (envelope-from <johan@kernel.org>)
- id 1lXKBx-0001M3-Dk; Fri, 16 Apr 2021 10:51:09 +0200
-Date: Fri, 16 Apr 2021 10:51:09 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Erwan LE RAY <erwan.leray@foss.st.com>
-Message-ID: <YHlP/SryZXr/nNLM@hovoldconsulting.com>
+ Fri, 16 Apr 2021 08:57:35 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id d2so22483559ilm.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 16 Apr 2021 01:57:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=M41GXL+PjIBxhmb0o54t+3XJBKJFPW9+U1USw54R9hY=;
+ b=fhGyue5C+F26oxcl+7iNvwj2auKwyobI/O6r5AZdpToMxHOPtb8ytmeJwDnpskPK7u
+ Tjv4krNvFKdcPLqRB4jut/B2+MggQMfI/d3hDhU7t7Vf439lnzP/HS6RWzUChteD6X/H
+ c9cDyG5fYDjKECOoXcrlVdZ27qfOMI2mhIggLxn9NuzzZUPaharXbCd9Mh0Vd7uaZR4C
+ NSI0qnpagovoeEjNSGzZ2OL0gEwqEmNgLBuDGeRV6g9p1w+LLp4jZRSVrMckdUeEtcNh
+ 3Llc5xLE/q/5FvR3mZtbEaW5Ni/Aernc5nogsYvkKUg24KuzFaNQOVwJsD0i5QQrN2aF
+ E5lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=M41GXL+PjIBxhmb0o54t+3XJBKJFPW9+U1USw54R9hY=;
+ b=agO+IgnH0CBY6S5YhqSUF2p1eEsvQ6c4g0EPH6wMNire12Upy2031sNPkfGSW4B+n9
+ 3yF9rDw51CsKNHiZF6xW/pTG/+w9Uow1vtWUDx8nrg86+8VIi/99GeCGiqM9CTaBcTSS
+ +s7AaM5lKDbtIr/DvhtOova+PPkI/VozRP2d6v510p+Tx8TIIaffqY5LjI8u9Iv5u4S5
+ n+TvJXWSKPSz8RtervSKcZ5SzJqzVCP/JxYeJoL4JY7gfi0VZDVnGSbbYQYcQTiCYH+w
+ R4LhKytFfG6LSwUVoRD6FkLtkLqS6sGwZlX1/JQhdyzY4zeg9G4fEnNbsBsH95lAlnHy
+ XaLA==
+X-Gm-Message-State: AOAM530VWKyIaNHSG+H04DxnSqlkQFgGtpXbWiyLj8cFqKQjSMoxWiiw
+ vQJrca2pr6ETXUOru1JNn0mYBio1H/XeM5uPKBg=
+X-Google-Smtp-Source: ABdhPJwMMdZeIC/59rPjHi9k0xK3kulpo9R2Ei3Ee4tP58bhwp/eQ1V/Y3zd+9pcWUL43L/jea9JZDo70ghxCbCY9fA=
+X-Received: by 2002:a05:6e02:684:: with SMTP id
+ o4mr6180647ils.218.1618563453889; 
+ Fri, 16 Apr 2021 01:57:33 -0700 (PDT)
+MIME-Version: 1.0
 References: <1618219898-4600-1-git-send-email-dillon.minfei@gmail.com>
  <YHRGPpQ03XgBMkiy@hovoldconsulting.com>
  <CAL9mu0JF-9hy3Z_ytpEO+hzKh0D+f-0gYaUBEA0v28EOHpC80w@mail.gmail.com>
  <CAL9mu0Ke97FUZ03jvdH8Lz2qRnVY82B7tAEtjbhW97sPOVkAxQ@mail.gmail.com>
- <e17fddfb-f9b8-238f-da74-a4746f33134f@foss.st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <e17fddfb-f9b8-238f-da74-a4746f33134f@foss.st.com>
+ <YHlMYZCCxL+SS9ye@hovoldconsulting.com>
+In-Reply-To: <YHlMYZCCxL+SS9ye@hovoldconsulting.com>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Fri, 16 Apr 2021 16:56:57 +0800
+Message-ID: <CAL9mu0K4L-vGL1EyYc+p0q7tadQ39-VHcp1nd4gZs_HGKSmP2w@mail.gmail.com>
+To: Johan Hovold <johan@kernel.org>
 Cc: Gerald Baeza <gerald.baeza@foss.st.com>, kbuild-all@lists.01.org,
- kernel test robot <lkp@intel.com>, jirislaby@kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Greg KH <gregkh@linuxfoundation.org>,
  Alexandre TORGUE <alexandre.torgue@foss.st.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- clang-built-linux@googlegroups.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
- dillon min <dillon.minfei@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
+ clang-built-linux@googlegroups.com, linux-serial@vger.kernel.org,
+ jirislaby@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ kernel test robot <lkp@intel.com>
 Subject: Re: [Linux-stm32] [PATCH v2] serial: stm32: optimize spin lock usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -66,40 +80,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-[ Please avoid top-posting. ]
+Hi Johan,
 
-On Thu, Apr 15, 2021 at 07:09:14PM +0200, Erwan LE RAY wrote:
-> Hi Dillon,
-> 
-> STM32MP151 is mono-core, but both STM32MP153 and STM32MP157 are 
-> dual-core (see 
-> https://www.st.com/content/st_com/en/products/microcontrollers-microprocessors/stm32-arm-cortex-mpus.html).
-> So your point is fully relevant, thanks.
-> 
-> ST already fixed the same issue in st-asc.c driver in the past (see 
-> ef49ffd8), because a systematic deadlock was detected with RT kernel.
-
-That's not the same issue. The above mentioned commit fixed an issue on
-*RT* where local_irq_save() should be avoided.
-
-> You proposed a first implementation in your patch, and a second one in 
-> the discussion. It seems that your initial proposal (ie your V2 patch) 
-> is the most standard one (implemented in 6 drivers). The second 
-> implementation is implemented by only 1 company.
-> 
-> It looks that the solution is to avoid locking in the sysrq case and 
-> trylock in the oops_in_progress case (see detailed analysis in 
-> 677fe555cbfb1).
+On Fri, Apr 16, 2021 at 4:35 PM Johan Hovold <johan@kernel.org> wrote:
 >
-> So your initial patch looks to the right proposal, but it would be safer 
-> if Greg could confirm it.
+> On Tue, Apr 13, 2021 at 07:44:39AM +0800, dillon min wrote:
+> > Hi Johan, Erwan
+> >
+> > It seems still a bit of a problem in the current version, not deadlock
+> > but access register at the same time.
+> >
+> > For driver , we should consider it running under smp, let's think
+> > about it for this case:
+> >
+> > static void stm32_usart_console_write(struct console *co, const char *s,
+> >                                       unsigned int cnt)
+> > {
+> >          .....
+> >          local_irq_save(flags);
+> >          if (port->sysrq)
+> >                     locked = 0;
+> >          .....
+> >          access register cr1, tdr, isr
+> >          .....
+> >
+> >          local_irq_restore(flags);
+> > }
+> >
+> > if port->sysrq is 1, stm32_usart_console_write() just disable local
+> > irq response by local_irq_save(), at the time of access register cr1,
+> > tdr, isr. an TXE interrupt raised, for other cores(I know stm32
+> > mpu/mcu do not have multi cores, just assume it has), it still has a
+> > chance to handle interrupt.  Then there is no lock to protect the uart
+> > register.
+>
+> Right, the sysrq handling is a bit of a hack.
+>
+> > changes to below, should be more safe:
+> >
+> > .....
+> > if (port->sysrq || oops_in_progress)
+> >       locked = spin_trylock_irqsave(&port->lock, flags);
+>
+> Except that the lock debugging code would detect the attempt at
+> recursive locking here and complain loudly on UP.
+>
+> If you really want to fix this, we have uart_unlock_and_check_sysrq()
+> which can be used to defer sysrq processing until the interrupt handler
+> has released the lock.
 
-That would only fix the RT issue (and by making the sysrq one slightly
-worse).
+Great, uart_unlock_and_check_sysrq() is fit to fix this. you mean make
+the flow like below:
 
-Using uart_unlock_and_check_sysrq() would address both issues.
+    stm32_usart_threaded_interrupt()
+      spin_lock(&port->lock);
+      uart_unlock_and_check_sysrq(port, flags);
+      ...
+      uart_prepare_sysrq_char();
+          printk();
+            stm32_usart_console_write();
+              locked = spin_trylock_irqsave(&port->lock); //only
+handle oops, normal case
 
-Johan
+If so, I will submit v3 as you suggested. thanks.
+
+Best regards.
+Dillon,
+>
+> > else
+> >       spin_lock_irqsave(&port->lock, flags);
+> >
+> > ....
+> >
+> > if (locked)
+> >      spin_unlock_irqrestore(&port->lock, flags);
+>
+> Johan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
