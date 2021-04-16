@@ -2,51 +2,105 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E588A361A08
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Apr 2021 08:49:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C3EA361A8B
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Apr 2021 09:30:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A301BC57B78;
-	Fri, 16 Apr 2021 06:49:41 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B88ABC57B78;
+	Fri, 16 Apr 2021 07:30:18 +0000 (UTC)
+Received: from ssl.serverraum.org (ssl.serverraum.org [176.9.125.105])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F402FC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F5E5CFAC55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Apr 2021 06:49:39 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
- [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id EF4025A5;
- Fri, 16 Apr 2021 08:49:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1618555779;
- bh=QIXyCa/8U0k79+9j+v6xpl3VfrISRiU8LkDQ0NjttsE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tY2Y6crMcalol7VTk3NVy5/CUAh5s18Yt0m8rqYNN671OD/zNRzNDBdWI+ykOQJgi
- Mzw3I85Drvgo1UNlyzxrydjMZNW9kXbZyg22YvnvZcsT0PR3SzkU2D1lKVtb3Exd9y
- OfBWwJC0YqJtZ/syVWIQxqkrCAM/cgarLmPp4I04=
-Date: Fri, 16 Apr 2021 09:49:35 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rob Herring <robh+dt@kernel.org>
-Message-ID: <YHkzf0fswqGYbU7R@pendragon.ideasonboard.com>
-References: <20201224061832.92010-1-marex@denx.de>
- <YFfvjyllBa/tqTqI@pendragon.ideasonboard.com>
- <4372d1cd-ffdb-e545-7262-d1ad1a649770@denx.de>
- <YFhze79nDdtf7KQS@pendragon.ideasonboard.com>
+ Fri, 16 Apr 2021 07:30:16 +0000 (UTC)
+Received: from ssl.serverraum.org (web.serverraum.org [172.16.0.2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ssl.serverraum.org (Postfix) with ESMTPSA id 49EE022172;
+ Fri, 16 Apr 2021 09:29:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
+ s=mail2016061301; t=1618558211;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=PbMduC+y8U2TnYB1yFy6DIbM598uMx2+jq28dZXHweQ=;
+ b=EUtjzMP9GqVLqpUQjKAWkwn0o1sw8EWtxSv8YMRSVD0469vqt05Io1/SVJgobjz7HB/r6y
+ Vjk/Jn7gR9cbQkm/qxqSnOY+yQWCWcha3iHS/TQBkEhMmvcdPKJxGg9UyvHCIIkZANcb/g
+ 63rLgVagJ+mEmiydqQVNecyvEgF/m50=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YFhze79nDdtf7KQS@pendragon.ideasonboard.com>
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Antonio Borneo <antonio.borneo@st.com>, Sam Ravnborg <sam@ravnborg.org>,
- Philippe Cornu <philippe.cornu@st.com>, dri-devel@lists.freedesktop.org,
- Yannick Fertre <yannick.fertre@st.com>, Andrzej Hajda <a.hajda@samsung.com>,
+Date: Fri, 16 Apr 2021 09:29:59 +0200
+From: Michael Walle <michael@walle.cc>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+In-Reply-To: <730d603b12e590c56770309b4df2bd668f7afbe3.camel@kernel.crashing.org>
+References: <20210412174718.17382-1-michael@walle.cc>
+ <20210412174718.17382-3-michael@walle.cc>
+ <730d603b12e590c56770309b4df2bd668f7afbe3.camel@kernel.crashing.org>
+User-Agent: Roundcube Webmail/1.4.11
+Message-ID: <8157eba9317609294da80472622deb28@walle.cc>
+X-Sender: michael@walle.cc
+Cc: Andrew Lunn <andrew@lunn.ch>, Paul Mackerras <paulus@samba.org>,
+ =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Mark Lee <Mark-MC.Lee@mediatek.com>,
+ Vadym Kochan <vkochan@marvell.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>, linux-omap@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ =?UTF-8?Q?J=C3=A9r=C3=B4me?= =?UTF-8?Q?_Pouiller?=
+ <jerome.pouiller@silabs.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Chris Snook <chris.snook@gmail.com>,
+ Pantelis Antoniou <pantelis.antoniou@gmail.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Madalin Bucur <madalin.bucur@nxp.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Murali Karicheri <m-karicheri2@ti.com>, Yisen Zhuang <yisen.zhuang@huawei.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Wingman Kwok <w-kwok2@ti.com>,
+ Sean Wang <sean.wang@mediatek.com>, Maxime Ripard <mripard@kernel.org>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, linux-amlogic@lists.infradead.org,
+ Kalle Valo <kvalo@codeaurora.org>, Mirko Lindner <mlindner@marvell.com>,
+ Fugang Duan <fugang.duan@nxp.com>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>, ath9k-devel@qca.qualcomm.com,
+ UNGLinuxDriver@microchip.com, Taras Chornyi <tchornyi@marvell.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>, Vincent Abriou <vincent.abriou@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Benjamin Gaignard <benjamin.gaignard@st.com>
-Subject: Re: [Linux-stm32] [PATCH V2] drm/bridge: lvds-codec: Add support
- for pixel data sampling edge select
+ Kevin Hilman <khilman@baylibre.com>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Fabio Estevam <festevam@gmail.com>, Stanislaw Gruszka <stf_xl@wp.pl>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-staging@lists.linux.dev,
+ Chen-Yu Tsai <wens@csie.org>, bcm-kernel-feedback-list@broadcom.com,
+ linux-arm-kernel@lists.infradead.org,
+ Grygorii Strashko <grygorii.strashko@ti.com>, Byungho An <bh74.an@samsung.com>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, John Crispin <john@phrozen.org>,
+ Salil Mehta <salil.mehta@huawei.com>,
+ Sergei Shtylyov <sergei.shtylyov@gmail.com>, linux-oxnas@groups.io,
+ Shawn Guo <shawnguo@kernel.org>, "David S . Miller" <davem@davemloft.net>,
+ Helmut Schaa <helmut.schaa@googlemail.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ linux-renesas-soc@vger.kernel.org, Ryder Lee <ryder.lee@mediatek.com>,
+ Russell King <linux@armlinux.org.uk>, Hauke Mehrtens <hauke@hauke-m.de>,
+ Jakub Kicinski <kuba@kernel.org>, Vivien Didelot <vivien.didelot@gmail.com>,
+ Sunil Goutham <sgoutham@marvell.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, netdev@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Li Yang <leoyang.li@nxp.com>,
+ Stephen Hemminger <stephen@networkplumber.org>, Vinod Koul <vkoul@kernel.org>,
+ Joyce Ooi <joyce.ooi@intel.com>, linuxppc-dev@lists.ozlabs.org,
+ Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH net-next v4 2/2] of: net: fix
+ of_get_mac_addr_nvmem() for non-platform devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,131 +112,77 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob,
+Am 2021-04-16 05:24, schrieb Benjamin Herrenschmidt:
+> On Mon, 2021-04-12 at 19:47 +0200, Michael Walle wrote:
+>> 
+>>  /**
+>>   * of_get_phy_mode - Get phy mode for given device_node
+>> @@ -59,15 +60,39 @@ static int of_get_mac_addr(struct device_node *np, 
+>> const char *name, u8 *addr)
+>>  static int of_get_mac_addr_nvmem(struct device_node *np, u8 *addr)
+>>  {
+>>         struct platform_device *pdev = of_find_device_by_node(np);
+>> +       struct nvmem_cell *cell;
+>> +       const void *mac;
+>> +       size_t len;
+>>         int ret;
+>> 
+>> -       if (!pdev)
+>> -               return -ENODEV;
+>> +       /* Try lookup by device first, there might be a 
+>> nvmem_cell_lookup
+>> +        * associated with a given device.
+>> +        */
+>> +       if (pdev) {
+>> +               ret = nvmem_get_mac_address(&pdev->dev, addr);
+>> +               put_device(&pdev->dev);
+>> +               return ret;
+>> +       }
+>> +
+> 
+> This smells like the wrong band aid :)
+> 
+> Any struct device can contain an OF node pointer these days.
 
-There's a question for you below.
+But not all nodes might have an associated device, see DSA for example.
+And as the name suggests of_get_mac_address() operates on a node. So
+if a driver calls of_get_mac_address() it should work on the node. What
+is wrong IMHO, is that the ethernet drivers where the corresponding 
+board
+has a nvmem_cell_lookup registered is calling of_get_mac_address(node).
+It should rather call eth_get_mac_address(dev) in the first place.
 
-On Mon, Mar 22, 2021 at 12:37:47PM +0200, Laurent Pinchart wrote:
-> Hi Marek,
-> 
-> (CC'ing Ron and the DT mailing list for the DT discussion)
-> 
-> On Mon, Mar 22, 2021 at 11:29:04AM +0100, Marek Vasut wrote:
-> > On 3/22/21 2:14 AM, Laurent Pinchart wrote:
-> > > Hi Marek,
-> > 
-> > Hi,
-> > 
-> > [...]
-> > 
-> > >> diff --git a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> > >> index e5e3c72630cf..399a6528780a 100644
-> > >> --- a/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> > >> +++ b/Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml
-> > >> @@ -74,6 +74,13 @@ properties:
-> > >>   
-> > >>       additionalProperties: false
-> > >>   
-> > >> +  pixelclk-active:
-> > >> +    description: |
-> > >> +      Data sampling on rising or falling edge.
-> > >> +      Use 0 to sample pixel data on rising edge and
-> > >> +      Use 1 to sample pixel data on falling edge and
-> > >> +    enum: [0, 1]
-> > > 
-> > > The idea is good, but instead of adding a custom property, how about
-> > > reusing the pclk-sample property defined in
-> > > ../../media/video-interfaces.yaml ?
-> > 
-> > Repeating myself from V1 discussion ... Either is fine by me, but I 
-> > think pixelclk-active, which comes from panel-timings.yaml is closer to 
-> > the video than multimedia bindings.
-> 
-> That's a good point. The part that bothers me a bit is that it would be
-> nice to define the property in a single YAML schema, referenced by
-> individual bindings. video-interfaces.yaml is there for that purpose. We
-> could do something similar on the display side, or consider the
-> pixelclk-active usage in panel-timings.yaml an exception that we can't
-> switch to video-interfaces.yaml as backward compatibility must be
-> preserved.
-> 
-> I don't have a too strong preference, whatever Rob prefers would be fine
-> with me.
-> 
-> > > The property is only valid for encoders, so I would at least mention
-> > > that in the description, or, better, handle this based on the compatible
-> > > string to allow validation.
-> > 
-> > How does that work in the Yaml file ?
-> 
-> Something along the lines of
-> 
-> if:
->   not:
->     properties:
->       compatible:
->         contains:
->           const: lvds-encoder
-> then:
->   properties:
->     pixelclk-active: false
-> 
-> My YAML schema foo is a bit rusty though, I apologize if this doesn't
-> work as-is. There are lots of similar examples in DT bindings that
-> should hopefully be right :-)
-> 
-> > >> +
-> > >>     powerdown-gpios:
-> > >>       description:
-> > >>         The GPIO used to control the power down line of this device.
-> > >> diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
-> > >> index dcf579a4cf83..cab81ccd895d 100644
-> > >> --- a/drivers/gpu/drm/bridge/lvds-codec.c
-> > >> +++ b/drivers/gpu/drm/bridge/lvds-codec.c
-> > 
-> > [...]
-> > 
-> > >> @@ -126,6 +146,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
-> > >>   	 */
-> > >>   	lvds_codec->bridge.of_node = dev->of_node;
-> > >>   	lvds_codec->bridge.funcs = &funcs;
-> > >> +	lvds_codec->bridge.timings = &lvds_codec->timings;
-> > >>   	drm_bridge_add(&lvds_codec->bridge);
-> > >>   
-> > >>   	platform_set_drvdata(pdev, lvds_codec);
-> > >> @@ -142,19 +163,20 @@ static int lvds_codec_remove(struct platform_device *pdev)
-> > >>   	return 0;
-> > >>   }
-> > >>   
-> > >> +static const struct lvds_codec_data decoder_data = {
-> > >> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> > >> +	.is_encoder = false,
-> > > 
-> > > The two fields are a bit redundant, as the decoder is always
-> > > LVDS-to-DPI, and the encoder DPI-to-LVDS. I don't mind too much, but
-> > > maybe we could drop the connector_type field, and derive the connector
-> > > type from is_encoder ?
-> > 
-> > Or the other way around instead ? That is, if the connector_type is 
-> > LVDS, then it is encoder , otherwise its decoder ?
-> 
-> Either way works for me.
-> 
-> > > One may then say that we could drop the lvds_codec_data structure as it
-> > > contains a single field, but I foresee a need to have device-specific
-> > > timings at some point, so I think it's a good addition.
-> > 
-> > [...]
+One would need to figure out if there is an actual device (with an
+assiciated of_node), then call eth_get_mac_address(dev) and if there
+isn't a device call of_get_mac_address(node).
 
--- 
-Regards,
+But I don't know if that is easy to figure out. Well, one could start
+with just the device where nvmem_cell_lookup is used. Then we could
+drop the workaround above.
 
-Laurent Pinchart
+> This seems all backwards. I think we are dealing with bad evolution.
+> 
+> We need to do a lookup for the device because we get passed an of_node.
+> We should just get passed a device here... or rather stop calling
+> of_get_mac_addr() from all those drivers and instead call
+> eth_platform_get_mac_address() which in turns calls of_get_mac_addr().
+> 
+> Then the nvmem stuff gets put in eth_platform_get_mac_address().
+> 
+> of_get_mac_addr() becomes a low-level thingy that most drivers don't
+> care about.
+
+The NVMEM thing is just another (optional) way how the MAC address
+is fetched from the device tree. Thus, if the drivers have the
+of_get_mac_address() call they should automatically get the NVMEM
+method, too.
+
+-michael
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
