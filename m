@@ -2,60 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9A133623F8
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Apr 2021 17:31:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1307336247B
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Apr 2021 17:53:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B0A0C57B79;
-	Fri, 16 Apr 2021 15:31:44 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2D54C58D5B;
+	Fri, 16 Apr 2021 15:53:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFC08C57B76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4A7DC57B76
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Apr 2021 15:31:42 +0000 (UTC)
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 3BC8580C91;
- Fri, 16 Apr 2021 17:31:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1618587101;
- bh=uv0frI0pVvjdGrlUcRarPqNaalC/4JZbhNGLO+NMpck=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=M5kCG0DOpjQXdhUWwgerHvNOUWghxEwX8nCF0r4SOzUJcOUzMWYApa0Q+5rmrOfGp
- edbPSzU80HL00MAzo81CmfykcsETQj+UPF6VJ6q2r+1vUHK2gNYjbcTQyKhbbWcUZP
- cwatxgJwLUzy1w5CmVzEzz8AZPmOZDR+chhzCEVPHs3a2bNaR2uTr+J81qkE3nYChw
- KrE8f3L9nUVEd7TAMQKFdeKC97l0qL5QT9UhuUna2e+Oxk8uaY9lvYzPV2s/XofVFC
- JJDlrPNpz1XRA+Jt2CSWo50YDKTOtPGMN0Zj1e2QAWyZzP2dBgvSNtp1aotaVqa3dS
- 7KT5AS/mGig5g==
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- "gabriel.fernandez@foss.st.com" <gabriel.fernandez@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20210408185731.135511-1-marex@denx.de>
- <20210408185731.135511-2-marex@denx.de>
- <2b10f5d9-54cb-ce83-b7aa-f4ec8e67c001@foss.st.com>
- <92dd5798-8f5a-66e4-06bc-e3beb16690f5@denx.de>
- <d168aed8-aebd-1bee-aa72-3a3601718cad@foss.st.com>
- <e27dbccd-518f-7718-8cf7-cc9c8adb8a56@denx.de>
- <6416577a-ea06-a014-543a-9ef86aae603d@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <2281af74-33a0-df45-968b-baa1ddd9d6e0@denx.de>
-Date: Fri, 16 Apr 2021 17:31:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.0
+ Fri, 16 Apr 2021 15:53:15 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 13GFatue019016; Fri, 16 Apr 2021 17:52:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=Bw/LpDxwLjnc9O3u0xRK0A8jPAhQBjd5ZdY8L9kkF84=;
+ b=uqm2U4FehdigsCmM3+wpsxjknXqR6NPeGCmC9dN8J+VdCulrsYFNlqGjdA+h+3Utwx+7
+ pNbrBOYaYhv7TUByNtLDLkCAZCxReTtanwjbwX5AP9qD1Vh4Vjk1GRVKCL1mCR9K9BSO
+ OnlYC6Kao61roNJFNJ4M7MaNKE25Lu2Q2+A5n5UUP1V6dN15WANSJzUnw/0zoT5ni1Ub
+ bBDOTGKZM1pwdo0ebFAmgO8OaAUR10E19nVo8KaJJ+SYoqGSJAT9COOaMN6P//sC+VNR
+ mHvFqV4oVNt9muK5JU4OAjt8fNJhg/TORyC8kZROgcUDkK9chXpWSFyhjhONZ7xAb8ZR lQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 37y0g84ehy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 16 Apr 2021 17:52:53 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C8064100034;
+ Fri, 16 Apr 2021 17:52:52 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 92F7225D00B;
+ Fri, 16 Apr 2021 17:52:52 +0200 (CEST)
+Received: from [10.211.14.227] (10.75.127.48) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 16 Apr
+ 2021 17:52:18 +0200
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20210415101037.1465-1-alexandre.torgue@foss.st.com>
+ <20210415101037.1465-4-alexandre.torgue@foss.st.com>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <c329f116-458c-0d33-3c8f-ee5d22189ca4@foss.st.com>
+Date: Fri, 16 Apr 2021 17:52:17 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <6416577a-ea06-a014-543a-9ef86aae603d@foss.st.com>
+In-Reply-To: <20210415101037.1465-4-alexandre.torgue@foss.st.com>
 Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Stephen Boyd <swboyd@chromium.org>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 1/7] clk: stm32mp1: Split ETHCK_K into
- separate MUX and GATE clock
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-04-16_08:2021-04-16,
+ 2021-04-16 signatures=0
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org, arnd@arndb.de,
+ linux-kernel@vger.kernel.org, Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ robh+dt@kernel.org, jagan@amarulasolutions.com,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>, kuba@kernel.org,
+ Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 03/13] ARM: dts: stm32: fix timer nodes on
+ STM32 MCU to prevent warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,95 +76,130 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNC8xNi8yMSA1OjIzIFBNLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgoKSGVsbG8gQWxleGFu
-ZHJlLAoKPiBPbiA0LzE2LzIxIDM6NDcgUE0sIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBPbiA0LzE2
-LzIxIDg6NDQgQU0sIGdhYnJpZWwuZmVybmFuZGV6QGZvc3Muc3QuY29tIHdyb3RlOgo+Pj4gSGkg
-TWFyZWsKPj4KPj4gSGVsbG8gR2FicmllbCwKPj4KPj4+IE9uIDQvMTQvMjEgNDowNCBQTSwgTWFy
-ZWsgVmFzdXQgd3JvdGU6Cj4+Pj4gT24gNC8xNC8yMSAzOjAzIFBNLCBnYWJyaWVsLmZlcm5hbmRl
-ekBmb3NzLnN0LmNvbSB3cm90ZToKPj4+Pj4gSGkgTWFyZWssCj4+Pj4KPj4+PiBIZWxsbyBHYWJy
-aWVsLAo+Pj4+Cj4+Pj4+IFRoYW5rcyBmb3IgdGhlIHBhdGNoc2V0Cj4+Pj4+Cj4+Pj4+IE9uIDQv
-OC8yMSA4OjU3IFBNLCBNYXJlayBWYXN1dCB3cm90ZToKPj4+Pj4+IFRoZSBFVEhDS19LIGFyZSBt
-b2RlbGVkIGFzIGNvbXBvc2l0ZSBjbG9jayBvZiBNVVggYW5kIEdBVEUsIAo+Pj4+Pj4gaG93ZXZl
-ciBwZXIKPj4+Pj4+IFNUTTMyTVAxIFJlZmVyZW5jZSBNYW51YWwgUk0wNDM2IFJldiAzLCBQYWdl
-IDU3NCwgRmlndXJlIDgzLiAKPj4+Pj4+IFBlcmlwaGVyYWwKPj4+Pj4+IGNsb2NrIGRpc3RyaWJ1
-dGlvbiBmb3IgRXRoZXJuZXQsIEVUSFBUUERJViBkaXZpZGVyIGlzIGF0dGFjaGVkIAo+Pj4+Pj4g
-cGFzdCB0aGUKPj4+Pj4+IEVUSENLX0sgbXV4LCBhbmQgRVRIX0NMSy9ldGhfY2xrX2ZiIGNsb2Nr
-IGFyZSBvdXRwdXQgcGFzdCBFVEhDS0VOIAo+Pj4+Pj4gZ2F0ZS4KPj4+Pj4+IFRoZXJlZm9yZSwg
-aW4gY2FzZSBFVEhfQ0xLL2V0aF9jbGtfZmIgYXJlIG5vdCBpbiB1c2UgQU5EIFBUUCBjbG9jayAK
-Pj4+Pj4+IGFyZQo+Pj4+Pj4gaW4gdXNlLCBFVEhDS0VOIGdhdGUgY2FuIGJlIHR1cm5lZCBvZmYu
-IEN1cnJlbnQgZHJpdmVyIGRvZXMgbm90IAo+Pj4+Pj4gcGVybWl0Cj4+Pj4+PiB0aGF0LCBmaXgg
-aXQuCj4+Pj4+Cj4+Pj4+IEkgZG9uInQgdW5kZXJzdGFuZCwgaXQncyBhbHJlYWR5IHRoZSBjYXNl
-Lgo+Pj4+Pgo+Pj4+PiBFVEhDS19LIGl0J3MgYSBjb21wb3NpdGUgd2l0aCBhIE1VWCBhbmQgYSBH
-QVRFLgo+Pj4+Cj4+Pj4gQnV0IEVUSENLX0sgaXMgX25vdF8gYSBjb21wb3NpdGUgY2xvY2ssIGxv
-b2sgYXQgdGhlIEZpZ3VyZSA4MyBpbiB0aGUgCj4+Pj4gZGF0YXNoZWV0IGFnYWluIGFuZCBzY2hl
-bWF0aWMgYmVsb3cuCj4+Pj4KPj4+Pj4gRVRIUFRQX0sgKEVUSFBUUERJVikgaXQncyBhIGNvbXBv
-c2l0ZSB3aXRoIHRoZSBzYW1lIE1VWCBhbmQgYSBESVYgCj4+Pj4+IChubyBnYXRlKQo+Pj4+Cj4+
-Pj4gQnV0IEVUSFBUUF9LIHNob3VsZG4ndCBjb250cm9sIGFueSBtdXgsIGl0IGlzIG9ubHkgYSBk
-aXZpZGVyLgo+Pj4+Cj4+Pj4+IElmIHlvdSB1c2Ugb25seSBFVEhQVFBESVYswqAgRVRIQ0tFTiBn
-YXRlIGNhbiBiZSB0dXJuZWQgb2ZmLgo+Pj4+Cj4+Pj4gTG9vaywgdGhpcyBpcyB3aGF0IHlvdSBo
-YXZlIHRvZGF5Ogo+Pj4+Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAuLS0tLS0tLS0tLS0t
-IEVUSENLX0sgLS0tLS0tLS0tLS0uCj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8X19fX19f
-X8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgX19fX19fX8KgwqAgfAo+Pj4+IHBsbDRfcF9j
-ay0tfE1fRVRIQ0tcwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHxHX0VUSENLXMKgIHwKPj4+PiDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgTVVYwqDCoMKgIHwtLS0tLS0rLS0tLS18IEdBVEXCoMKg
-IHwtLS0tLS0tLS0tLS0tW3hdIEVUSF9DTEsKPj4+PiBwbGwzX3FfY2stLXxfX19fX19fL8KgwqDC
-oMKgwqDCoCB8wqDCoMKgwqAgfF9fX19fX18vwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBldGhfY2xrX2ZiCj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCB8Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCAnLS0oRVRIQ0tTRUxSWzc6NF0gZGl2aWRlciktLVt4XSAKPj4+
-PiBjbGtfcHRwX3JlZgo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgfAo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJy0tLS0tLS0tLS0tLSBF
-VEhQVFBfSyAtLS0tLS0tLS0tLS0tLS0tLS0tLScKPj4+Pgo+Pj4+IEFuZCB0aGlzIGlzIHdoYXQg
-eW91IHNob3VsZCBoYXZlLCB0byBhdm9pZCBoYXZpbmcgdHdvIGNvbXBvc2l0ZSAKPj4+PiBjbG9j
-ayB3aGljaCBjb250cm9sIHRoZSBzYW1lIG11eCB1c2luZyB0aGUgc2FtZSByZWdpc3RlciBiaXQs
-IGkuZS4gCj4+Pj4gd2hhdCB0aGlzIHBhdGNoIGltcGxlbWVudHM6Cj4+Pj4KPj4+PiDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIC4tIGNrX2tlcl9ldGggLS7CoCAuLS0tIEVUSENLX0sgLS0uCj4+Pj4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8X19fX19fX8KgwqDCoMKgwqDCoCB8wqAgfMKgwqDCoCBf
-X19fX19fwqDCoCB8Cj4+Pj4gcGxsNF9wX2NrLS18TV9FVEhDS1zCoMKgwqDCoMKgIHzCoCB8wqDC
-oCB8R19FVEhDS1zCoCB8Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IE1VWMKgwqDCoCB8
-LS0tLS0tKy0tLS0tfCBHQVRFwqDCoCB8LS0tLS0tLS0tLS0tLVt4XSBFVEhfQ0xLCj4+Pj4gcGxs
-M19xX2NrLS18X19fX19fXy/CoMKgwqDCoMKgwqAgfMKgwqDCoMKgIHxfX19fX19fL8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZXRoX2Nsa19mYgo+Pj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4+Pj4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICctLShFVEhDS1NF
-TFJbNzo0XSBkaXZpZGVyKS0tW3hdIAo+Pj4+IGNsa19wdHBfcmVmCj4+Pj4gwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8Cj4+Pj4gwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJy0tLS0gRVRIUFRQ
-X0sgLS0tLS0tLS0tLS0nCj4+Pj4KPj4+Cj4+PiBUaGVzZSAyIHNvbHV0aW9ucyBhcmUgdmFsaWQu
-IEkgbWFkZSB0aGUgY2hvaWNlIHRvIGltcGxlbWVudCB0aGUgZmlyc3QgCj4+PiBvbmUgdG8gYmUg
-YWJsZSB0byBjaGFuZ2UgcGFyZW50IHdpdGggdGhlIGtlcm5lbCBjbG9jayBvZiB0aGUgSVAgKG5v
-IAo+Pj4gbmVlZCB0byBhZGQgYW4gaW50ZXJtZWRpYXRlIGJpbmRpbmcpLgo+Pgo+PiBXaGljaCBJ
-UCBhcmUgeW91IHRhbGtpbmcgYWJvdXQgaW4gaGVyZSA/Cj4+Cj4+PiBJdCdzIHRoZSBzYW1lIHBy
-aW5jaXBsZSBmb3IgYWxsIGtlcm5lbCBvZiB0aGlzIHNvYy4KPj4KPj4gVGhlIGZpcnN0IG9wdGlv
-biBpcyB3cm9uZywgYmVjYXVzZSBpbiB0aGF0IG1vZGVsLCB5b3UgaGF2ZSB0d28gCj4+IGNvbXBv
-c2l0ZSBjbG9jayB3aGljaCBjb250cm9sIHRoZSBzYW1lIG9uZSBtdXggYml0IGluIHRoZSBzYW1l
-IAo+PiByZWdpc3Rlci4gQmFzaWNhbGx5IHlvdSByZWdpc3RlciB0d28gZGlzdGluY3QgY2xvY2sg
-d2hpY2ggb3BlcmF0ZSB0aGUgCj4+IHNhbWUgaGFyZHdhcmUga25vYi4KPj4KPj4+IEkgY2FuIGFz
-ayB0byBBbGV4YW5kcmUgdG8gY29tZWJhY2sgb2YgdGhpcyBwcmluY2lwbGUsIGJ1dCBpICdtIG5v
-dCAKPj4+IGZhdm9yYWJsZS4KPj4KPiAKPiBUaGUgb25seSBkaXNjdXNzaW5nIHRoaW5nIGlzIGhv
-dyB0aGUgY2xvY2sgaXMgc2hvd24uIEkgbWVhbiBlaXRoZXIgdHdvIAo+IGNvbXBvc2l0ZXMgb3Ig
-b25lIG11eCBwbHVzIHR3byBnYXRlcy4gR2FicmllbCBtYWRlIGEgY2hvaWNlIHRvIGFic3RyYWN0
-IAo+IHRoZSBtdXggaW4gdHdvIGNvbXBvc2l0ZSBjbG9ja3MuIEJ1dCBpdCBzZWVtcyB0aGF0IGF0
-IHRoZSBlbmQgd2UgaGF2ZSAKPiB0aGUgc2FtZSBiZWhhdmlvdXIsIGlzbid0ID8KCk5vdCByZWFs
-bHkuIFNpbmNlIHRoZSB0d28gY29tcG9zaXRlIGNsb2NrIGNvbnRyb2wgdGhlIHNhbWUgbXV4IGJp
-dCwgCmNvbnNpZGVyIHdoYXQgd291bGQgaGFwcGVuIGlmIHlvdSB3ZXJlIHRvIHNlbGVjdCBwbGw0
-X3BfY2sgYXMgcGFyZW50IGZvciAKb25lIChlLmcuIEVUSENLX0spLCBhbmQgcGxsM19xX2NrIGFz
-IHBhcmVudCBmb3IgdGhlIG90aGVyIChlLmcuIApFVEhQVFBfSyksIHdoYXQgd291bGQgYmUgdGhl
-IHJlc3VsdCA/IEkgZ3Vlc3MgdGhlIHJlc3VsdCB3b3VsZCBkZXBlbmQgb24gCndoZW4gdGhlIHJl
-cGFyZW50aW5nIG9mIGVhY2ggRVRIQ0tfSy9FVEhQVFBfSyBoYXBwZW5zIG9uIGJvb3QsIGFuZCBJ
-IApkb24ndCB0aGluayB0aGF0J3MgaG93IGl0IHNob3VsZCB3b3JrLiBXaXRoIGEgc2luZ2xlIG11
-eCBjb250cm9sbGluZyAKdGhhdCBvbmUgc2luZ2xlIGJpdCwgc3VjaCBzaXR1YXRpb24gd291bGRu
-J3QgaGFwcGVuLgoKPiBBZGRpbmcgImNrX2tlcl9ldGgiIHdvdWxkIGltcG9zZSBhIG5ldyBjbG9j
-ayB0byB0YWtlIGluIERUID8KTm9wZSwgdGhlIGNrX2tlcl9ldGggaXMgd2l0aG91dCBJRCBhbmQg
-aW50ZXJuYWwgdG8gdGhlIGRyaXZlci4gVGhleSAKZXhpc3Qgb25seSB0byBkZXNjcmliZSB0aGUg
-Y2xvY2sgdHJlZSBjb3JyZWN0bHkuCgpbLi4uXQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On 4/15/21 12:10 PM, Alexandre Torgue wrote:
+> Prevent warning seen with "make dtbs_check W=1" command:
+> 
+> Warning (avoid_unnecessary_addr_size): /soc/timers@40001c00: unnecessary
+> address-cells/size-cells without "ranges" or child "reg" property
+> 
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+
+Hi Alexandre,
+
+Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+Thanks,
+Fabrice
+> 
+> diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
+> index 41e0087bdbf9..8748d5850298 100644
+> --- a/arch/arm/boot/dts/stm32f429.dtsi
+> +++ b/arch/arm/boot/dts/stm32f429.dtsi
+> @@ -283,8 +283,6 @@
+>  		};
+>  
+>  		timers13: timers@40001c00 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-timers";
+>  			reg = <0x40001C00 0x400>;
+>  			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM13)>;
+> @@ -299,8 +297,6 @@
+>  		};
+>  
+>  		timers14: timers@40002000 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-timers";
+>  			reg = <0x40002000 0x400>;
+>  			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM14)>;
+> @@ -633,8 +629,6 @@
+>  		};
+>  
+>  		timers10: timers@40014400 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-timers";
+>  			reg = <0x40014400 0x400>;
+>  			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM10)>;
+> @@ -649,8 +643,6 @@
+>  		};
+>  
+>  		timers11: timers@40014800 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-timers";
+>  			reg = <0x40014800 0x400>;
+>  			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM11)>;
+> diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
+> index e1df603fc981..72c1b76684b6 100644
+> --- a/arch/arm/boot/dts/stm32f746.dtsi
+> +++ b/arch/arm/boot/dts/stm32f746.dtsi
+> @@ -265,8 +265,6 @@
+>  		};
+>  
+>  		timers13: timers@40001c00 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-timers";
+>  			reg = <0x40001C00 0x400>;
+>  			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM13)>;
+> @@ -281,8 +279,6 @@
+>  		};
+>  
+>  		timers14: timers@40002000 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-timers";
+>  			reg = <0x40002000 0x400>;
+>  			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM14)>;
+> @@ -531,8 +527,6 @@
+>  		};
+>  
+>  		timers10: timers@40014400 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-timers";
+>  			reg = <0x40014400 0x400>;
+>  			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM10)>;
+> @@ -547,8 +541,6 @@
+>  		};
+>  
+>  		timers11: timers@40014800 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-timers";
+>  			reg = <0x40014800 0x400>;
+>  			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM11)>;
+> diff --git a/arch/arm/boot/dts/stm32h743.dtsi b/arch/arm/boot/dts/stm32h743.dtsi
+> index 05ecdf9ff03a..6e42ca2dada2 100644
+> --- a/arch/arm/boot/dts/stm32h743.dtsi
+> +++ b/arch/arm/boot/dts/stm32h743.dtsi
+> @@ -485,8 +485,6 @@
+>  		};
+>  
+>  		lptimer4: timer@58002c00 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-lptimer";
+>  			reg = <0x58002c00 0x400>;
+>  			clocks = <&rcc LPTIM4_CK>;
+> @@ -501,8 +499,6 @@
+>  		};
+>  
+>  		lptimer5: timer@58003000 {
+> -			#address-cells = <1>;
+> -			#size-cells = <0>;
+>  			compatible = "st,stm32-lptimer";
+>  			reg = <0x58003000 0x400>;
+>  			clocks = <&rcc LPTIM5_CK>;
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
