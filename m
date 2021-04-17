@@ -2,69 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BA1436247A
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Apr 2021 17:53:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ABA6363025
+	for <lists+linux-stm32@lfdr.de>; Sat, 17 Apr 2021 15:08:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE6C5C57B79;
-	Fri, 16 Apr 2021 15:53:17 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3443BC57B78;
+	Sat, 17 Apr 2021 13:08:34 +0000 (UTC)
+Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
+ [209.85.166.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6667C57B78
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3918EC57192
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Apr 2021 15:53:15 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13GFbugM017081; Fri, 16 Apr 2021 17:52:53 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=WZGwdTXw15LpdfwZttz+Ac4D8BUSBjoH6Vd+2D7iLnY=;
- b=wm0fx4MDGYw//NCJ8CmLYgOHWPxQVmzrGumXlnDutw90Yv8fDRl7e2gEYGXrjfHAJNJl
- Pl44WsqT8pwG2oa2n5N1XI4X7vMj98Sx/O/kf+sckZh1EwEhxpv/Mpofx1QVJBQKqjAR
- 88xYwdTrdfh3v1+BRq2vzvSSh/O9jIIIICv+4zfOrdp943QKcIfWDHy8oV+I9wFsjVrx
- 4/SzXUSm6A+Ew+t671EhVypFFstOu2SrTxU66BXfhTRd2B64UClQw0o4IOxS0LtfXpRo
- JzTEuEy3cHKWAgMiwdheiDiM8thirPKzmgUsZ8h7M+03vq1YL0iy0G3aFGYmvG6Q7Wc7 fg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 37xm4jrdgj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Apr 2021 17:52:53 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C801710002A;
- Fri, 16 Apr 2021 17:52:52 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A25C125D00A;
- Fri, 16 Apr 2021 17:52:52 +0200 (CEST)
-Received: from [10.211.14.227] (10.75.127.48) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 16 Apr
- 2021 17:52:44 +0200
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20210415101037.1465-1-alexandre.torgue@foss.st.com>
- <20210415101037.1465-5-alexandre.torgue@foss.st.com>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <bd85bd41-d899-7e7a-1878-35301a267eb9@foss.st.com>
-Date: Fri, 16 Apr 2021 17:52:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Sat, 17 Apr 2021 13:08:33 +0000 (UTC)
+Received: by mail-il1-f170.google.com with SMTP id p15so14485997iln.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 17 Apr 2021 06:08:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ulpGsJT6Bh0rpZeIediYCiOUyp80TRAFcGdkV8FE+eU=;
+ b=iul605DudWrQIJEbm4Ba4B7WANizA4nPg0u0UlChQIQdrnPvfgy4ojszsuj3RiY5gk
+ FmnvSVbAoqD9SPHXt3ZfBkd8sHJJoBk3Di1An+J/Xf9nEBSir5Ej5mkt5XwVB/2Q+9TM
+ qaS33q+vNH9YQITVH2gkRVwErtgwdzBBOmbfUBFfyz4OwNUfeiJe7HB39UstffL1aO6j
+ ofvlmzh798Lf8rGAaT6I+PHaHNnqwJXyg//pZvl256Mbc8GIm+pqEDekwQRGFCJIfzMf
+ R9vdq2EPgEebMGy3BkrWJni+B544XLVWEPy8QhxFK9bXvrF0is/qdpeApS5P4sR/6vCD
+ mqoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ulpGsJT6Bh0rpZeIediYCiOUyp80TRAFcGdkV8FE+eU=;
+ b=phYB59Aj+hK1H7dtqJ9Fj5e/bRUKPNOB5xIuAx2KqDk98MQ+e95ALEhffCq6sUYiYs
+ KSat8S2cuFWskajn/XNVX0/dUp4dfusoiE5CeyBP6vMJYcamNC8/C2pKGs3Z+67kKYF4
+ r0nGo2OzHCieskEwM6o+r9njxH9VywVHaVmTMGfR4VGmA8OGOF9Z/lnttWTDGu5E2h4y
+ sLfe4q6BvdivGLpQvht86idU7poAPY9UKCGxwaU0uUzivFu2LbVyumb/uOT/Ti+KqQ1Z
+ b12qtRtuRPeeJ6ap39SCUAM2TyVLRH8QoavD+C6HtCPZlFFog3t3IynDZ3prY86qEIPI
+ xtiA==
+X-Gm-Message-State: AOAM533o41zhsfbRQ1k5WGcgv5bvyvnuaqwvZLe+fquY2mwt66YQRUUw
+ yJFHkxA7nxqntUhUAuFQRfNPnnj1j9G9T3zXhdY=
+X-Google-Smtp-Source: ABdhPJzBCzAGi+Bz9p6VrUcood7f8uNgoXYxI8+ywBoimK1v/w3NieaJuwI5HbFjkAXeOjiqYsjWZHYsDYxHcMzBI5c=
+X-Received: by 2002:a05:6e02:e0a:: with SMTP id
+ a10mr10537215ilk.271.1618664911976; 
+ Sat, 17 Apr 2021 06:08:31 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210415101037.1465-5-alexandre.torgue@foss.st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-16_08:2021-04-16,
- 2021-04-16 signatures=0
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org, arnd@arndb.de,
- linux-kernel@vger.kernel.org, Marcin Sloniewski <marcin.sloniewski@gmail.com>,
- robh+dt@kernel.org, jagan@amarulasolutions.com,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>, kuba@kernel.org,
- Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 04/13] dt-bindings: mfd: stm32-timers:
- remove #address/size cells from required properties
+References: <1618567841-18546-1-git-send-email-dillon.minfei@gmail.com>
+ <YHma7H3RoLyeH650@hovoldconsulting.com>
+In-Reply-To: <YHma7H3RoLyeH650@hovoldconsulting.com>
+From: dillon min <dillon.minfei@gmail.com>
+Date: Sat, 17 Apr 2021 21:07:55 +0800
+Message-ID: <CAL9mu0Kxny5JOGDk67ByMCVAJFOCF44rEOjbt68VxHz_2gZHrg@mail.gmail.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Gerald Baeza <gerald.baeza@foss.st.com>, kernel test robot <lkp@intel.com>,
+ Greg KH <gregkh@linuxfoundation.org>,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ clang-built-linux@googlegroups.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-serial@vger.kernel.org,
+ kbuild-all@lists.01.org, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v3] serial: stm32: optimize spin lock usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,36 +77,130 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/15/21 12:10 PM, Alexandre Torgue wrote:
-> address-cells and size-cells can't be declared as "required" properties
-> as they are not needed if subnodes don't have a "reg" entry.
-> 
-> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
-> index 0f16c8864a87..dace35362a7a 100644
-> --- a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+Hi Johan,
 
-Hi Alexandre,
+On Fri, Apr 16, 2021 at 10:10 PM Johan Hovold <johan@kernel.org> wrote:
+>
+> On Fri, Apr 16, 2021 at 06:10:41PM +0800, dillon.minfei@gmail.com wrote:
+> > From: dillon min <dillon.minfei@gmail.com>
+> >
+> > This patch aims to fix two potential bug:
+> > - no lock to protect uart register in this case
+> >
+> >   stm32_usart_threaded_interrupt()
+> >      spin_lock(&port->lock);
+> >      ...
+> >      stm32_usart_receive_chars()
+> >        uart_handle_sysrq_char();
+> >        sysrq_function();
+> >        printk();
+> >          stm32_usart_console_write();
+> >            locked = 0; //since port->sysrq is not zero,
+> >                          no lock to protect forward register
+> >                          access.
+> >
+> > - if add spin_trylock_irqsave() to protect uart register for sysrq = 1 case,
+> >   that might got recursive locking under UP.
+> >   So, use uart_prepare_sysrq_char(), uart_unlock_and_check_sysrq()
+> >   move sysrq handler position to irq/thread_d handler, just record
+> >   sysrq_ch in stm32_usart_receive_chars() by uart_prepare_sysrq_char()
+> >   delay the sysrq process to next interrupt handler.
+> >
+> >   new flow:
+> >
+> >   stm32_usart_threaded_interrupt()/stm32_usart_interrupt()
+> >   spin_lock_irqsave(&port->lock);
+> >   ...
+> >   uart_unlock_and_check_sysrq();
+> >      spin_unlock_irqrestore();
+> >      handle_sysrq(sysrq_ch);
+> >   stm32_usart_threaded_interrupt()//stm32_usart_interrupt() return
+> >
+> > Cc: Johan Hovold <johan@kernel.org>
+> > Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> > Cc: Gerald Baeza <gerald.baeza@foss.st.com>
+> > Cc: Erwan Le Ray <erwan.leray@foss.st.com>
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > Signed-off-by: dillon min <dillon.minfei@gmail.com>
+> > ---
+> > v3: add uart_prepare_sysrq_char(), uart_unlock_and_check_sysrq() to move
+> >     sysrq handler inside interrupt routinei to avoid recursive locking,
+> >     according to Johan Hovold suggestion, thanks.
+> >
+> >  drivers/tty/serial/stm32-usart.c | 24 +++++++++++-------------
+> >  1 file changed, 11 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+> > index b3675cf25a69..981f50ec784e 100644
+> > --- a/drivers/tty/serial/stm32-usart.c
+> > +++ b/drivers/tty/serial/stm32-usart.c
+> > @@ -271,7 +271,7 @@ static void stm32_usart_receive_chars(struct uart_port *port, bool threaded)
+> >                       }
+> >               }
+> >
+> > -             if (uart_handle_sysrq_char(port, c))
+> > +             if (uart_prepare_sysrq_char(port, c))
+> >                       continue;
+> >               uart_insert_char(port, sr, USART_SR_ORE, c, flag);
+> >       }
+> > @@ -457,9 +457,10 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+> >       struct uart_port *port = ptr;
+> >       struct stm32_port *stm32_port = to_stm32_port(port);
+> >       const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+> > +     unsigned long flags;
+> >       u32 sr;
+> >
+> > -     spin_lock(&port->lock);
+> > +     spin_lock_irqsave(&port->lock, flags);
+> >
+> >       sr = readl_relaxed(port->membase + ofs->isr);
+> >
+> > @@ -477,7 +478,7 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+> >       if ((sr & USART_SR_TXE) && !(stm32_port->tx_ch))
+> >               stm32_usart_transmit_chars(port);
+> >
+> > -     spin_unlock(&port->lock);
+> > +     uart_unlock_and_check_sysrq(port, flags);
+> >
+> >       if (stm32_port->rx_ch)
+> >               return IRQ_WAKE_THREAD;
+> > @@ -489,13 +490,14 @@ static irqreturn_t stm32_usart_threaded_interrupt(int irq, void *ptr)
+> >  {
+> >       struct uart_port *port = ptr;
+> >       struct stm32_port *stm32_port = to_stm32_port(port);
+> > +     unsigned long flags;
+> >
+> > -     spin_lock(&port->lock);
+> > +     spin_lock_irqsave(&port->lock, flags);
+>
+> This essentially turns the threaded handler into a non-threaded one,
+> which is a bad idea.
+This change is only to adapt for uart_unlock_and_check_sysrq() need flags.
+Found your patch has removed this parameter from
+uart_unlock_and_check_sysrq(), so this changes should be removed.
 
-Not sure if this matters: patches 3 and 4 could be swapped in the
-series. Apart from that:
-
-Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-
-Thanks,
-Fabrice
-> @@ -119,8 +119,6 @@ patternProperties:
->        - compatible
->  
->  required:
-> -  - "#address-cells"
-> -  - "#size-cells"
->    - compatible
->    - reg
->    - clocks
-> 
+>
+> >       if (stm32_port->rx_ch)
+> >               stm32_usart_receive_chars(port, true);
+> >
+> > -     spin_unlock(&port->lock);
+> > +     uart_unlock_and_check_sysrq(port, flags);
+> >
+> >       return IRQ_HANDLED;
+> >  }
+>
+> You also didn't base this patch on tty-next, which has a number of
+> updates to this driver. Before noting that myself, I had fixed a couple
+> of deadlocks in this driver which turned out to have been incidentally
+> fixed by an unrelated path in -next.
+Yes, my submission is based on linux-5.12. based on the component's
+next branch is a good idea , to avoid conflict. thanks.
+>
+> I'll be posting a series that should fix up all of this.
+Thanks
+>
+> Johan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
