@@ -2,63 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 995F0364151
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Apr 2021 14:16:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF543364152
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Apr 2021 14:16:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56FDEC58D5D;
-	Mon, 19 Apr 2021 12:16:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B174C58D5D;
+	Mon, 19 Apr 2021 12:16:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6315EC57196
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F345C58D5E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Apr 2021 12:15:57 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Mon, 19 Apr 2021 12:16:02 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13JCBRtk028055; Mon, 19 Apr 2021 14:15:45 +0200
+ 13JCChb7029242; Mon, 19 Apr 2021 14:15:46 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=ZS2ZVOREo+uRHNWm9z7V2nITC4fpPcgEhu0hrX/2oic=;
- b=8S1VWDhFh5Z919plLq5uxnScZteSlf6ItEs0++OIeW4Hfed7z8fcJKJwcVIrVZBQZLQM
- YRgRSjV1WyFmfEH7s5PRXqiY1ad1+aUUusJ3gVA/qyaCXLBFgYDZpxNAJ718Hs+umyhs
- VW6zcgbH0lj8goUS8AA/Fmxj2Gj+UKjyq6PHp/aANk/OosXV5fnqrVmlQ0EHbKQIxpT3
- OyXohKiLI6gD5Q77BGGghPNkKxOIiB/Ita+7Fon6sozI8Wp25Vb5KRv6Wt8UVeLGy0oJ
- jI0hxeGBAAkW/8LNeEz7CX+uZOUy6fc4zb8BfMTb4wYpDijJOeg4AuEnwGJfF9xKyYJ7 aA== 
+ bh=7SdEfemEgXpMUy0WM2zaZTJbps/vEuTda/G6kyNczgM=;
+ b=GHfC8sWTPB0wZ1CO+gLyK0HD0IXGG+z91vTFaoVW++YydctUq77gmEDZXpTZkBzvqqJP
+ lg/UPLwY9FBCOpQAF/yCi1gRX+Te+l88VcxpIHm76pExFs0itzLAENp1nKIbO4eHFHYu
+ TRjAwjmsOFdp1K/hYKVq2H8xUl2CGGrQSzrqDtXmNK56OofMX5b3T9q1sVpvblho9kGR
+ S/MQvZlswbUvcy296u9LlaHItLF18FU7lDSTH0uZGhhCd/2n8hsAQ65VvC+ci3eBA3G9
+ dRGVf1vRDhCdvpi/1O3AhB43UUqzuHEcrZwCILz94UplE2z2kTGYrgcD0maqkFQOKF2+ kA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 380wj63h0m-1
+ by mx07-00178001.pphosted.com with ESMTP id 380s5344gf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 19 Apr 2021 14:15:45 +0200
+ Mon, 19 Apr 2021 14:15:46 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 86A6A10002A;
- Mon, 19 Apr 2021 14:15:44 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8965510002A;
+ Mon, 19 Apr 2021 14:15:45 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7CC642139BC;
- Mon, 19 Apr 2021 14:15:44 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 19 Apr 2021 14:15:44
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7D6392139BC;
+ Mon, 19 Apr 2021 14:15:45 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 19 Apr 2021 14:15:45
  +0200
 From: <patrice.chotard@foss.st.com>
 To: Mark Brown <broonie@kernel.org>, Alexandre Torgue
  <alexandre.torgue@foss.st.com>
-Date: Mon, 19 Apr 2021 14:15:40 +0200
-Message-ID: <20210419121541.11617-3-patrice.chotard@foss.st.com>
+Date: Mon, 19 Apr 2021 14:15:41 +0200
+Message-ID: <20210419121541.11617-4-patrice.chotard@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210419121541.11617-1-patrice.chotard@foss.st.com>
 References: <20210419121541.11617-1-patrice.chotard@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
+X-Originating-IP: [10.75.127.45]
 X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-19_07:2021-04-16,
+ definitions=2021-04-19_10:2021-04-16,
  2021-04-19 signatures=0
 Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/3] spi: stm32-qspi: Trigger DMA only if more
-	than 4 bytes to transfer
+Subject: [Linux-stm32] [PATCH 3/3] spi: stm32-qspi: Add dirmap support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,38 +76,147 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-In order to optimize accesses to spi flashes, trigger a DMA only
-if more than 4 bytes has to be transferred.
+Add stm32_qspi_dirmap_read() and stm32_qspi_dirmap_create()
+to get dirmap support.
 
-DMA transfer preparation's cost becomes negligible above 4 bytes to
-transfer. Below this threshold, indirect transfer give more throughput.
+Update the exec_op callback which doens't allow anymore memory map
+access. Memory map access are only available through the dirmap_read
+callback.
 
-mtd_speedtest shows that page write throughtput increases :
-  - from 779 to 853 KiB/s (~9.5%) with s25fl512s SPI-NOR.
-  - from 5283 to 5666 KiB/s (~7.25%) with Micron SPI-NAND.
-
-Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
 Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- drivers/spi/spi-stm32-qspi.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/spi/spi-stm32-qspi.c | 83 +++++++++++++++++++++++++++++-------
+ 1 file changed, 67 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index 2786470a5201..6e74d6bed54c 100644
+index 6e74d6bed54c..e2a99f054551 100644
 --- a/drivers/spi/spi-stm32-qspi.c
 +++ b/drivers/spi/spi-stm32-qspi.c
-@@ -269,8 +269,9 @@ static int stm32_qspi_tx(struct stm32_qspi *qspi, const struct spi_mem_op *op)
+@@ -331,7 +331,7 @@ static int stm32_qspi_send(struct spi_mem *mem, const struct spi_mem_op *op)
+ {
+ 	struct stm32_qspi *qspi = spi_controller_get_devdata(mem->spi->master);
+ 	struct stm32_qspi_flash *flash = &qspi->flash[mem->spi->chip_select];
+-	u32 ccr, cr, addr_max;
++	u32 ccr, cr;
+ 	int timeout, err = 0;
  
- 	if (qspi->fmode == CCR_FMODE_MM)
- 		return stm32_qspi_tx_mm(qspi, op);
--	else if ((op->data.dir == SPI_MEM_DATA_IN && qspi->dma_chrx) ||
--		 (op->data.dir == SPI_MEM_DATA_OUT && qspi->dma_chtx))
-+	else if (((op->data.dir == SPI_MEM_DATA_IN && qspi->dma_chrx) ||
-+		 (op->data.dir == SPI_MEM_DATA_OUT && qspi->dma_chtx)) &&
-+		  op->data.nbytes > 4)
- 		if (!stm32_qspi_tx_dma(qspi, op))
- 			return 0;
+ 	dev_dbg(qspi->dev, "cmd:%#x mode:%d.%d.%d.%d addr:%#llx len:%#x\n",
+@@ -343,18 +343,6 @@ static int stm32_qspi_send(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	if (err)
+ 		goto abort;
  
+-	addr_max = op->addr.val + op->data.nbytes + 1;
+-
+-	if (op->data.dir == SPI_MEM_DATA_IN) {
+-		if (addr_max < qspi->mm_size &&
+-		    op->addr.buswidth)
+-			qspi->fmode = CCR_FMODE_MM;
+-		else
+-			qspi->fmode = CCR_FMODE_INDR;
+-	} else {
+-		qspi->fmode = CCR_FMODE_INDW;
+-	}
+-
+ 	cr = readl_relaxed(qspi->io_base + QSPI_CR);
+ 	cr &= ~CR_PRESC_MASK & ~CR_FSEL;
+ 	cr |= FIELD_PREP(CR_PRESC_MASK, flash->presc);
+@@ -364,8 +352,6 @@ static int stm32_qspi_send(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	if (op->data.nbytes)
+ 		writel_relaxed(op->data.nbytes - 1,
+ 			       qspi->io_base + QSPI_DLR);
+-	else
+-		qspi->fmode = CCR_FMODE_INDW;
+ 
+ 	ccr = qspi->fmode;
+ 	ccr |= FIELD_PREP(CCR_INST_MASK, op->cmd.opcode);
+@@ -441,6 +427,11 @@ static int stm32_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	}
+ 
+ 	mutex_lock(&qspi->lock);
++	if (op->data.dir == SPI_MEM_DATA_IN && op->data.nbytes)
++		qspi->fmode = CCR_FMODE_INDR;
++	else
++		qspi->fmode = CCR_FMODE_INDW;
++
+ 	ret = stm32_qspi_send(mem, op);
+ 	mutex_unlock(&qspi->lock);
+ 
+@@ -450,6 +441,64 @@ static int stm32_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
+ 	return ret;
+ }
+ 
++static int stm32_qspi_dirmap_create(struct spi_mem_dirmap_desc *desc)
++{
++	struct stm32_qspi *qspi = spi_controller_get_devdata(desc->mem->spi->master);
++
++	if (desc->info.op_tmpl.data.dir == SPI_MEM_DATA_OUT)
++		return -EOPNOTSUPP;
++
++	/* should never happen, as mm_base == null is an error probe exit condition */
++	if (!qspi->mm_base && desc->info.op_tmpl.data.dir == SPI_MEM_DATA_IN)
++		return -EOPNOTSUPP;
++
++	if (!qspi->mm_size)
++		return -EOPNOTSUPP;
++
++	return 0;
++}
++
++static ssize_t stm32_qspi_dirmap_read(struct spi_mem_dirmap_desc *desc,
++				      u64 offs, size_t len, void *buf)
++{
++	struct stm32_qspi *qspi = spi_controller_get_devdata(desc->mem->spi->master);
++	struct spi_mem_op op;
++	u32 addr_max;
++	int ret;
++
++	ret = pm_runtime_get_sync(qspi->dev);
++	if (ret < 0) {
++		pm_runtime_put_noidle(qspi->dev);
++		return ret;
++	}
++
++	mutex_lock(&qspi->lock);
++	/* make a local copy of desc op_tmpl and complete dirmap rdesc
++	 * spi_mem_op template with offs, len and *buf in  order to get
++	 * all needed transfer information into struct spi_mem_op
++	 */
++	memcpy(&op, &desc->info.op_tmpl, sizeof(struct spi_mem_op));
++	dev_dbg(qspi->dev, "%s len = 0x%x offs = 0x%llx buf = 0x%p\n", __func__, len, offs, buf);
++
++	op.data.nbytes = len;
++	op.addr.val = desc->info.offset + offs;
++	op.data.buf.in = buf;
++
++	addr_max = op.addr.val + op.data.nbytes + 1;
++	if (addr_max < qspi->mm_size && op.addr.buswidth)
++		qspi->fmode = CCR_FMODE_MM;
++	else
++		qspi->fmode = CCR_FMODE_INDR;
++
++	ret = stm32_qspi_send(desc->mem, &op);
++	mutex_unlock(&qspi->lock);
++
++	pm_runtime_mark_last_busy(qspi->dev);
++	pm_runtime_put_autosuspend(qspi->dev);
++
++	return ret ?: len;
++}
++
+ static int stm32_qspi_setup(struct spi_device *spi)
+ {
+ 	struct spi_controller *ctrl = spi->master;
+@@ -555,7 +604,9 @@ static void stm32_qspi_dma_free(struct stm32_qspi *qspi)
+  * to check supported mode.
+  */
+ static const struct spi_controller_mem_ops stm32_qspi_mem_ops = {
+-	.exec_op = stm32_qspi_exec_op,
++	.exec_op	= stm32_qspi_exec_op,
++	.dirmap_create	= stm32_qspi_dirmap_create,
++	.dirmap_read	= stm32_qspi_dirmap_read,
+ };
+ 
+ static int stm32_qspi_probe(struct platform_device *pdev)
 -- 
 2.17.1
 
