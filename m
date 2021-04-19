@@ -2,74 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D83FB36459D
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Apr 2021 16:04:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B5DF36490E
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Apr 2021 19:34:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 940E0C57196;
-	Mon, 19 Apr 2021 14:04:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA12DC57196;
+	Mon, 19 Apr 2021 17:34:21 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1725EC3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11324C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Apr 2021 14:04:24 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13JE1JPa005836; Mon, 19 Apr 2021 16:04:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=OXaauSRjk+zYc9QtLxaKiJoUKuIYku9vCcs2vSIe314=;
- b=xm0vfKYH4RfavqXSCDEG56lsKxSLAGH/1vKj3XM3QCsbGBIBBwGYY+om8iR/HEoZlKc/
- eeJXar3zcjyznTceE5SVhnlfO5DaDgcdVsMXso+QUhyr3faVzlHKjIVOzWb5mnrcbIXK
- cJbyF5jY3d8tQyAW04vMfzZVpp+LSnMd0kxGhNvEuTsszk5GTQ+EWj3RMe3wCUbo8SWX
- pRRPfY4yW3UL6YWoXIeBXR1jBEvEM3TuKBUqBhfpgZlXaZHUTKYmrbFOBUNkSiD2lxGm
- Y2Lw31YG/P6a3yMbUoJoHzoVj6fq0qbl5iYChIUHgEPSp9eTrS+AZWtjq79nvPihfzUt ew== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 380wj64130-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 19 Apr 2021 16:04:04 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BB42B10002A;
- Mon, 19 Apr 2021 16:04:03 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 845B92200B1;
- Mon, 19 Apr 2021 16:04:03 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.49) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 19 Apr
- 2021 16:04:02 +0200
-To: Arnd Bergmann <arnd@arndb.de>
-References: <20210415101037.1465-1-alexandre.torgue@foss.st.com>
- <20210415101037.1465-13-alexandre.torgue@foss.st.com>
- <ececc78c-4fca-bb93-ef62-5d107501d963@pengutronix.de>
- <96da49dc-f24d-aa12-e1d8-39b5a5b6fbc9@foss.st.com>
- <CAK8P3a1bGAUbqTGqyz+PB=7fuVLkJce0awtx1Z9PE3uiX6uysQ@mail.gmail.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <f37abf6d-f82b-e253-d9f9-772df0b800d1@foss.st.com>
-Date: Mon, 19 Apr 2021 16:04:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Mon, 19 Apr 2021 17:34:20 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 085B161246;
+ Mon, 19 Apr 2021 17:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1618853658;
+ bh=cEHv94ngU2KSQrihCyTESuDSOrXQjqsdy9SA/oN6vdA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=iKnhbiWgLmv9oKnVdh/c1vbCUINTA0nKgaua88LZBT982/X+iZQGhP/sSwHoElw61
+ 0NLNgAEURcnvf34VIm3YMm8OQTmmiEZk2fqI8/IhuRAs2wIHL1go1J7Id0tH14P1gs
+ t5/sFkMoQaCm6mS2vX9DMu8HqOaO1VTO/dWOOhYpjk0qYvthoELL79RXzhacT9T1g8
+ FigK3pVkCoqbeMJahy36e8ezk0KW9YMu64wAsedwwQ5eOzZZ/xbi1htP2S+ZBXQ4pn
+ yPgptx7gGeHFwmra+xYsy1pU1YTuiBqP++xzw8Tib/6smsI8Myi+1G9108slxLqTLL
+ fJWoPfAKuZKKA==
+From: Mark Brown <broonie@kernel.org>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ patrice.chotard@foss.st.com
+Date: Mon, 19 Apr 2021 18:33:45 +0100
+Message-Id: <161885314932.4710.7975812733588849701.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210419121541.11617-1-patrice.chotard@foss.st.com>
+References: <20210419121541.11617-1-patrice.chotard@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <CAK8P3a1bGAUbqTGqyz+PB=7fuVLkJce0awtx1Z9PE3uiX6uysQ@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-19_10:2021-04-19,
- 2021-04-19 signatures=0
-Cc: Marek Vasut <marex@denx.de>, DTML <devicetree@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Marcin Sloniewski <marcin.sloniewski@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, Lee Jones <lee.jones@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 12/13] ARM: dts: stm32: fix DSI port node
-	on STM32MP15
+Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/3] spi: stm32-qspi: Fix and update
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,69 +49,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 4/19/21 3:57 PM, Arnd Bergmann wrote:
-> On Thu, Apr 15, 2021 at 2:23 PM Alexandre TORGUE
-> <alexandre.torgue@foss.st.com> wrote:
->> On 4/15/21 12:43 PM, Ahmad Fatoum wrote:
->>> On 15.04.21 12:10, Alexandre Torgue wrote:
->>>> Running "make dtbs_check W=1", some warnings are reported concerning
->>>> DSI. This patch reorder DSI nodes to avoid:
->>>>
->>>> soc/dsi@5a000000: unnecessary #address-cells/#size-cells without
->>>> "ranges" or child "reg" property
->>>
->>> This reverts parts of commit 9c32f980d9 ("ARM: dts: stm32: preset
->>> stm32mp15x video #address- and #size-cells"):
->>>
->>>       The cell count for address and size is defined by the binding and not
->>>       something a board would change. Avoid each board adding this
->>>       boilerplate by having the cell size specification in the SoC DTSI.
->>>
->>>
->>> The DSI can have child nodes with a unit address (e.g. a panel) and ones
->>> without (ports { } container). ports is described in the dtsi, panels are
->>> described in the dts if available.
->>>
->>> Apparently, the checker is fine with
->>> ports {
->>>        #address-cells = <1>;
->>>        #size-cells = <0>;
->>> };
->>>
->>> I think my rationale for the patch above was sound, so I think the checker
->>> taking offense at the DSI cells here should be considered a false positive.
->>
->> If it's a "false positive" warning then we need to find a way to not
->> print it out. Else, it'll be difficult to distinguish which warnings are
->> "normal" and which are not. This question could also be applied to patch[3].
->>
->> Arnd, Rob what is your feeling about this case ?
+On Mon, 19 Apr 2021 14:15:38 +0200, patrice.chotard@foss.st.com wrote:
+> Christophe Kerello (1):
+>   spi: stm32-qspi: fix pm_runtime usage_count counter
 > 
-> I don't have a strong opinion on this either way, but I would just
-> not apply this one for 5.13 in this case. Rob, Alexandre, please
-> let me know if I should apply the other patches before the
-> merge window, I usually don't mind taking bugfixes late before the
-> merge window, but I still want some level of confidence that they
-> are actually correct.
-
-For me, we can keep this series for the v5.14 cycle.
-
-regards
-alex
-
+> Patrice Chotard (2):
+>   spi: stm32-qspi: Trigger DMA only if more than 4 bytes to transfer
+>   spi: stm32-qspi: Add dirmap support
 > 
-> Ahmad, if you feel strongly about this particular issue, would you like
-> to suggest a patch for the checker?
-> 
->          Arnd
-> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+
+Thanks!
+
+[1/3] spi: stm32-qspi: fix pm_runtime usage_count counter
+      commit: 102e9d1936569d43f55dd1ea89be355ad207143c
+[2/3] spi: stm32-qspi: Trigger DMA only if more than 4 bytes to transfer
+      commit: f3530f26f8e9869e6e8c3370cf6f61330774fe2b
+[3/3] spi: stm32-qspi: Add dirmap support
+      commit: 18674dee3cd651279eb3d9ba789fe483ddfe1137
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
