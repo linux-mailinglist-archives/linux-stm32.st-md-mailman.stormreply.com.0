@@ -2,62 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F5DF365D3F
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Apr 2021 18:25:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9F08365F3F
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Apr 2021 20:30:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDA3DC5719E;
-	Tue, 20 Apr 2021 16:25:42 +0000 (UTC)
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69323C5719E;
+	Tue, 20 Apr 2021 18:30:25 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48DB7C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A06A6C57195
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Apr 2021 16:25:40 +0000 (UTC)
-Received: by mail-oi1-f176.google.com with SMTP id v6so11689310oiv.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Apr 2021 09:25:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=EeQe7vEnG67KPQg0lR868BaS1pRsahDJ52u7yGoOIf0=;
- b=LXK+/+GnkJ1c5SIV+QvDz+z7jCAQ7MLk2ZMGlUUnwzsoIM2Id5oW8hrLk/XxyoH8Qs
- ULOY+g99vTZ6Ps1t4HfBZfHrvA3TMSeFevBKNu2zmqv0aFUSCcAvlnkAV4adfBjMmD96
- KOagRPlPujmCYEEElD2paGlUKqSX0yW3vxOhpdrxiI0z4JP54H//zQ48PWUyblfPc5vd
- AzREQb45YUut/JL2JFnPbr/6wZJVIymh6fFBTQJC1Vsc0t/6yHMgG3Qo0rfEfytm+Ed7
- LuGleBKJNe8Tl7RnOnA/rVMxs+JibmMpFCPFGZYaJ2QmqRSmnbHB/QgyiTiudOGbugR7
- NHMg==
-X-Gm-Message-State: AOAM532wnc56dg9tNs1AuegTOIetV1dRzkP6HSe+iLX8mq/pPfxKOUlT
- kB4J3jLBzdzE+Y/6nu+uEw==
-X-Google-Smtp-Source: ABdhPJzgfvYhhWypZWv9BkoR9/L6J6emx80gLwedJVtCyNP8ChA2qYniQsFYhvhuNKb6Hk8HsxUiDg==
-X-Received: by 2002:aca:ed12:: with SMTP id l18mr3777648oih.24.1618935939098; 
- Tue, 20 Apr 2021 09:25:39 -0700 (PDT)
-Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id m5sm480849ots.13.2021.04.20.09.25.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Apr 2021 09:25:38 -0700 (PDT)
-Received: (nullmailer pid 3432350 invoked by uid 1000);
- Tue, 20 Apr 2021 16:25:37 -0000
-Date: Tue, 20 Apr 2021 11:25:37 -0500
-From: Rob Herring <robh@kernel.org>
-To: gabriel.fernandez@foss.st.com
-Message-ID: <20210420162537.GA3432298@robh.at.kernel.org>
+ Tue, 20 Apr 2021 18:30:22 +0000 (UTC)
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 34FF48021A;
+ Tue, 20 Apr 2021 20:30:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1618943422;
+ bh=3Jpb3+eZcEQXJ5FDrKgeysID8DsET41SVuxy3dpQ6JQ=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=viVEBgfjHaJJSdS+nzm1qAvxsXeHuhyezgSB9OZHtguGOFSHS9PJIbyHXaCuycCYg
+ uld3Fz4LcWAcGjlHmJbN7WW0dRpuVtkgEXn4i1X4T7M7uTy44iwApBBUz3C75sK+EP
+ L2Zham3bhYQftRv70024TOzlH9SJDx8rcKHdk+sfTF1p4pv4DZ77WJ34imt1GWBQJR
+ 2w3h/s2OYzFy4AkbVHHK7WxzTWf2fqt2aJ2kmrl+M9Qj+DoKeZLF65iF7hyDzJRvXu
+ Er9SRXJM+t9ENmt4uyKXgOahkrbwaRVJ/KeuL4BLvv26ob5QOJjBr4NVg6C3yOW8Zl
+ wdt32No7Sa4lg==
+To: gabriel.fernandez@foss.st.com, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Etienne Carriere <etienne.carriere@st.com>
 References: <20210419093852.14978-1-gabriel.fernandez@foss.st.com>
  <20210419093852.14978-11-gabriel.fernandez@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <36aafe68-d313-692a-a551-4ff4147e584c@denx.de>
+Date: Tue, 20 Apr 2021 20:30:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
 In-Reply-To: <20210419093852.14978-11-gabriel.fernandez@foss.st.com>
-Cc: marex@denx.de, devicetree@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
- linux-kernel@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Etienne Carriere <etienne.carriere@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Etienne Carriere <etienne.carriere@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Alexandre Torgue <alexandre.torgue@st.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, Etienne Carriere <etienne.carriere@foss.st.com>
 Subject: Re: [Linux-stm32] [PATCH v3 10/11] dt-bindings: clock: stm32mp1 new
  compatible for secure rcc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -71,12 +63,12 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 19 Apr 2021 11:38:51 +0200, gabriel.fernandez@foss.st.com wrote:
+On 4/19/21 11:38 AM, gabriel.fernandez@foss.st.com wrote:
 > From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 > 
 > Introduce new compatible string "st,stm32mp1-rcc-secure" for
@@ -86,11 +78,24 @@ On Mon, 19 Apr 2021 11:38:51 +0200, gabriel.fernandez@foss.st.com wrote:
 > Signed-off-by: Etienne Carriere <etienne.carriere@foss.st.com>
 > Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 > ---
->  .../devicetree/bindings/clock/st,stm32mp1-rcc.yaml          | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+>   .../devicetree/bindings/clock/st,stm32mp1-rcc.yaml          | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
 > 
+> diff --git a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
+> index 4e385508f516..8b1ecb2ecdd5 100644
+> --- a/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
+> @@ -54,7 +54,9 @@ properties:
+>   
+>     compatible:
+>       items:
+> -      - const: st,stm32mp1-rcc
+> +      - enum:
+> +          - st,stm32mp1-rcc-secure
+> +          - st,stm32mp1-rcc
 
-Acked-by: Rob Herring <robh@kernel.org>
+It is still the same IP and same SoC silicon, so shouldn't the 
+configuration be discerned via DT property instead of compatible string ?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
