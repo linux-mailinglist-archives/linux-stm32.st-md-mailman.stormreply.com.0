@@ -2,47 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73ECF364E6D
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Apr 2021 01:10:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DECDF3653EE
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Apr 2021 10:21:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C285C57196;
-	Mon, 19 Apr 2021 23:10:19 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86C6CC57196;
+	Tue, 20 Apr 2021 08:21:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EF30C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75038C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Apr 2021 23:10:17 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 6E1CA613C1;
- Mon, 19 Apr 2021 23:10:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1618873815;
- bh=vzQ9QnuNO52P7Ce9F6gK8HWE8RMuh4kNY3FvdCfekg4=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=P91NzjyfnyjbIwGT5gPw7AqI5XtsdRdSOnmINievkC32MpnRPndsXcbezkWIupHSV
- Z2IrRNsT2qO6xIIMbeXmlu6+xwxFWdTlqp2RUPTJsJ3t8+4grnzLYs3spb6WUKoDL4
- HFuWNIfuobzo05jlhpycf1PNMiXUv+VOn2noEXZSyTAZu75auFuozbio8WCwnkFyw/
- 41d2sCOaO8D/dB9lhxZSib//UucfqNqXKXigSNNMNFAhpC+aFjQjcqdvmQsZP7HlRI
- Rt6SXKjVZXlXDHk6gfLJBlzVX2s0bccPaj1emCdntiVEqcNT7NymLpBJWpimaLxwkv
- SERvqyVKFswjA==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 60DAB60A37;
- Mon, 19 Apr 2021 23:10:15 +0000 (UTC)
+ Tue, 20 Apr 2021 08:21:16 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 13K8GZBI003437; Tue, 20 Apr 2021 10:21:08 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=YIJWK1DioMqVNMN2mgvx7hJC/xORUjRf1dKW+3jmUkE=;
+ b=Z88n7214ixOvq27HT8AqBaLYm4ezyi/TWZ1Aull1esAzb4SkdF7pe+0E19l9VD6380uy
+ X7bO9ToqQIsEqVi6LaysOOR5dP+RSa5Q4h/8UiWO3f0KACL+IcUWdr48sX7ZDpJAoCfC
+ /MtN18g4IHgZREDIIl6nhxbcL2muWgYImn3vTZmD39E4Eu7ng8fk23pqDFnVFnqCQzez
+ PyZs+9x1q0r1Oc6QlgAcDkkZeEXHRper4k+vIefK4vWjVljKBPbIvzrfu+CBSUFKHjzX
+ 4XN+GrkDhTs1BF/1Pn8DOKwlpGXggVOIZ+4FzEfcRaFbl4/JQItzhtb2xzuIdA5Z1/Do lQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 381jn8tdjp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Apr 2021 10:21:08 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3FD1710002A;
+ Tue, 20 Apr 2021 10:21:07 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2ADFC22F7B2;
+ Tue, 20 Apr 2021 10:21:07 +0200 (CEST)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 20 Apr 2021 10:21:06
+ +0200
+From: <patrice.chotard@foss.st.com>
+To: Mark Brown <broonie@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Tue, 20 Apr 2021 10:21:03 +0200
+Message-ID: <20210420082103.1693-1-patrice.chotard@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161887381539.661.5024854346370869109.git-patchwork-notify@kernel.org>
-Date: Mon, 19 Apr 2021 23:10:15 +0000
-References: <20210419112530.20395-1-vee.khee.wong@linux.intel.com>
-In-Reply-To: <20210419112530.20395-1-vee.khee.wong@linux.intel.com>
-To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- boon.leong.ong@intel.com, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: fix memory leak
-	during driver probe
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-04-20_02:2021-04-19,
+ 2021-04-20 signatures=0
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] spi: stm32-qspi: Fix compilation warning in ARM64
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,47 +71,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-This patch was applied to netdev/net-next.git (refs/heads/master):
+This fixes warnings detected when compiling in ARM64.
+Introduced by 'commit 18674dee3cd6 ("spi: stm32-qspi: Add dirmap support")'
 
-On Mon, 19 Apr 2021 19:25:30 +0800 you wrote:
-> On driver probe, kmemleak reported the following memory leak which was
-> due to allocated bitmap that was not being freed in stmmac_dvr_probe().
-> 
-> unreferenced object 0xffff9276014b13c0 (size 8):
->   comm "systemd-udevd", pid 2143, jiffies 4294681112 (age 116.720s)
->   hex dump (first 8 bytes):
->     00 00 00 00 00 00 00 00                          ........
->   backtrace:
->     [<00000000c51e34b2>] stmmac_dvr_probe+0x1c0/0x440 [stmmac]
->     [<00000000b530eb41>] intel_eth_pci_probe.cold+0x2b/0x14e [dwmac_intel]
->     [<00000000b10f8929>] pci_device_probe+0xd2/0x150
->     [<00000000fb254c74>] really_probe+0xf8/0x410
->     [<0000000034128a59>] driver_probe_device+0x5d/0x150
->     [<00000000016104d5>] device_driver_attach+0x53/0x60
->     [<00000000cb18cd07>] __driver_attach+0x96/0x140
->     [<00000000da9ffd5c>] bus_for_each_dev+0x7a/0xc0
->     [<00000000af061a88>] bus_add_driver+0x184/0x1f0
->     [<000000008be5c1c5>] driver_register+0x6c/0xc0
->     [<0000000052b18a9e>] do_one_initcall+0x4d/0x210
->     [<00000000154d4f07>] do_init_module+0x5c/0x230
->     [<000000009b648d09>] load_module+0x2a5a/0x2d40
->     [<000000000d86b76d>] __do_sys_finit_module+0xb5/0x120
->     [<000000002b0cef95>] do_syscall_64+0x33/0x40
->     [<0000000067b45bbb>] entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> 
-> [...]
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+ drivers/spi/spi-stm32-qspi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Here is the summary with links:
-  - [net-next,1/1] net: stmmac: fix memory leak during driver probe
-    https://git.kernel.org/netdev/net-next/c/d7f576dc9836
-
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index e2a99f054551..02691c1603d9 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -478,7 +478,7 @@ static ssize_t stm32_qspi_dirmap_read(struct spi_mem_dirmap_desc *desc,
+ 	 * all needed transfer information into struct spi_mem_op
+ 	 */
+ 	memcpy(&op, &desc->info.op_tmpl, sizeof(struct spi_mem_op));
+-	dev_dbg(qspi->dev, "%s len = 0x%x offs = 0x%llx buf = 0x%p\n", __func__, len, offs, buf);
++	dev_dbg(qspi->dev, "%s len = 0x%lx offs = 0x%llx buf = 0x%p\n", __func__, len, offs, buf);
+ 
+ 	op.data.nbytes = len;
+ 	op.addr.val = desc->info.offset + offs;
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
