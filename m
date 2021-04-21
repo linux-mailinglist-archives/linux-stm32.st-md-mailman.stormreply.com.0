@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7E3E367189
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Apr 2021 19:41:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01DD6367199
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Apr 2021 19:43:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 809FCC58D5C;
-	Wed, 21 Apr 2021 17:41:00 +0000 (UTC)
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B30D7C58D5D;
+	Wed, 21 Apr 2021 17:43:35 +0000 (UTC)
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
+ [209.85.210.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B5F3C57192
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC24EC58D5B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Apr 2021 17:40:58 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id d10so30570966pgf.12
+ Wed, 21 Apr 2021 17:43:33 +0000 (UTC)
+Received: by mail-pf1-f179.google.com with SMTP id a12so29563043pfc.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Apr 2021 10:40:58 -0700 (PDT)
+ Wed, 21 Apr 2021 10:43:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=KqxdLKVRxruk3VhviovYIaEHWX0upwD63/5cJozT3Xk=;
- b=ikBHNJurMTLHP8Txl/56QkAbqnldy80ahyLzWNHPAqXFyq1HkiG7onJin3REQoxLpj
- tUmwPEzzpuucrWPkZBuNB7nFadmFtru21xzefr3YY/7pde0xc7ebDHC63kHOBRfA5538
- wwHBH3PNghUAV6WCyD059MuhOAqGR30uVs34IpRAhXDKwED2iyDMD6Tu31GSV+VoSgeJ
- RyCuvc4ezp6TNvHoqfcs4xlqhOqERrmff9a00eZtC/rozbIrbh2tYdXfP0p7Y8QUwGYs
- 90y/8C/9P1nzOfS543GmJVL6B4HG3LLLsYr4keqxeBXgDSjfjhrQfXQF5wH5hRkrhEM7
- z5xQ==
+ bh=iop9sruWWZSxGtHmNYX36Jd0eJEk72OqG23A/bctcgg=;
+ b=KERT70S61Qltkgi1Aa1Wpfd5hkz2A2hEM601DubpZKrbIW2mF3Izu2wlKbW3nSQcqC
+ mx1W6dd58gQrZCCPglM5531BdBO/Trlm1EVn3bJnYEmxIxZ8+OlfF6RonRRs6ZiLvrJ/
+ ay+za8z/TJI75zmDPw/UsI63VAuWYIwDU7YuOAcPuSK9M6Xxmgl+U7ENmIMhO04ct2EM
+ w75kSMJJgJpxbjiuORyewwe6Cy8n6Z+zyOBzbKneWzX9fM5FqIxicILNgLXcReJdbVqL
+ vsUHWmBFaGFGVBWrb5VMJFARqqI8SjLOkrqf3RQDaoeJrx/fJ6uqsZLEOQLqtjEfc9Xg
+ t7qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=KqxdLKVRxruk3VhviovYIaEHWX0upwD63/5cJozT3Xk=;
- b=BJE5QKq9IPNslsSmbzwfUEoSJLfdD01JolCCFV3xCGr3wwZKkZTeAFNpjlg4gMr1ne
- Z1srUtki4kFwxv8ZcOPnTcBYuFHEvDxY+BQZpt93tXJSDrMsLBnZYXMY+4U64qUHbVgl
- tckZeK6TpF+vHG4UAzm0I/mF89hAJWYewavfAqESWnjhL+OZ74X1NeRVcc7m8rslAO/c
- WkI+eRH08XqpB025z1ksMgyf60VubKhNJR2A233kcJWSVVSsqTu9TbANvyX8qCucMe7a
- ovDymOAj6YCSr57wjTfpPrLPd8PTjmyH74iV4671aMuS96RPYEIG/GgWhdupXxAfVFtK
- 8oGQ==
-X-Gm-Message-State: AOAM531wDtcPbTpsP5WqY95q21wiH7KNdKCgVKNvaTY9oEWa8N+7cDOV
- CC7UFZ6MUcZYNNPO+Hx5pg5nrw==
-X-Google-Smtp-Source: ABdhPJzK8tVMg33C/wZvY7JUR5cwCTHDq0JUq0IowoA1jQW1qJkblE1B9he3NCv5ZOXiyAPA+qG4qA==
-X-Received: by 2002:a17:90a:c08f:: with SMTP id
- o15mr12664038pjs.22.1619026856756; 
- Wed, 21 Apr 2021 10:40:56 -0700 (PDT)
+ bh=iop9sruWWZSxGtHmNYX36Jd0eJEk72OqG23A/bctcgg=;
+ b=BLKn7Ig4tQX9rNI1YW9SeX/L2H4gNKBbVsGd9GkaRVnowUd7uyPv0Y+yOoBu0Jzx37
+ W1Ebm9WAmoLJRybxl1QQcii1WLE9QgyG8ipNmIBjIaGpgPxgr71nmw5uLbZI6GxHNYw1
+ 1TPKhbuswZI1NDlwmzb9n/l99KUHN0NnkxjyKbkrRYvTozUG3M2muxCJDkawDpl2Nc2k
+ BVIsozvYi0/UU/A2WYVqanStZFiV6J1No182AA/tQbl4kT4logUWOhn8dTL/hQiGeNRz
+ 0Spa2qVd1gre2RUh2Xvg5WdSZ7wtQ+BowVvJq4csOGS/endZjxHIAy3LIiV5lQZgK4Am
+ JK3A==
+X-Gm-Message-State: AOAM532cWNmjXNhlLUQwvyVGlnoUCHIgdT7ODOo6pBoe53YqShIwqHSC
+ rhb+NnivavGbvNhQQ2E+3R0Img==
+X-Google-Smtp-Source: ABdhPJymxLvOl4ALgewRCvw1sM7e3ewI+dY0lHkB+zghwJ+H6qoPqYG6aYn6nlN5eAJGlKIR3wNDdw==
+X-Received: by 2002:a65:5089:: with SMTP id r9mr22949281pgp.38.1619027012152; 
+ Wed, 21 Apr 2021 10:43:32 -0700 (PDT)
 Received: from xps15 (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
- by smtp.gmail.com with ESMTPSA id pc17sm21713pjb.19.2021.04.21.10.40.55
+ by smtp.gmail.com with ESMTPSA id r3sm59810pgn.82.2021.04.21.10.43.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Apr 2021 10:40:55 -0700 (PDT)
-Date: Wed, 21 Apr 2021 11:40:53 -0600
+ Wed, 21 Apr 2021 10:43:31 -0700 (PDT)
+Date: Wed, 21 Apr 2021 11:43:29 -0600
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
 To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <20210421174053.GA1223348@xps15>
+Message-ID: <20210421174329.GB1223348@xps15>
 References: <20210413134458.17912-1-arnaud.pouliquen@foss.st.com>
- <20210413134458.17912-6-arnaud.pouliquen@foss.st.com>
+ <20210413134458.17912-5-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210413134458.17912-6-arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20210413134458.17912-5-arnaud.pouliquen@foss.st.com>
 Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v2 5/7] rpmsg: char: Introduce a rpmsg
- driver for the rpmsg char device
+Subject: Re: [Linux-stm32] [PATCH v2 4/7] rpmsg: char: Introduce
+ __rpmsg_chrdev_create_eptdev function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,133 +77,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Good day Arnaud,
-
-On Tue, Apr 13, 2021 at 03:44:56PM +0200, Arnaud Pouliquen wrote:
-> A rpmsg char device allows to probe the endpoint device on a remote name
-> service announcement.
+On Tue, Apr 13, 2021 at 03:44:55PM +0200, Arnaud Pouliquen wrote:
+> Introduce the __rpmsg_chrdev_create_eptdev internal function that returns
+> the rpmsg_eptdev context structure.
 > 
-> With this patch the /dev/rpmsgX interface is created either by a user
-> application or by the remote firmware.
+> This patch prepares the introduction of a rpmsg channel device for the
+> char device. The rpmsg device will need a reference to the context.
 > 
 > Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 > 
 > ---
-> update from V1:
->  - add missing unregister_rpmsg_driver call on module exit.
+> update from V1
+> - fix __rpmsg_chrdev_create_eptdev function header indentation.
 > 
 > ---
->  drivers/rpmsg/rpmsg_char.c | 59 +++++++++++++++++++++++++++++++++++++-
->  1 file changed, 58 insertions(+), 1 deletion(-)
+>  drivers/rpmsg/rpmsg_char.c | 23 ++++++++++++++++++-----
+>  1 file changed, 18 insertions(+), 5 deletions(-)
+
+Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+
 > 
 > diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-> index a64249d83172..4606787b7011 100644
+> index 21ef9d9eccd7..a64249d83172 100644
 > --- a/drivers/rpmsg/rpmsg_char.c
 > +++ b/drivers/rpmsg/rpmsg_char.c
-> @@ -26,6 +26,8 @@
->  #include "rpmsg_char.h"
->  #include "rpmsg_internal.h"
->  
-> +#define RPMSG_CHAR_DEVNAME "rpmsg-raw"
-> +
-
-Why not simply call it rpmsg-char?
-
->  static dev_t rpmsg_major;
->  
->  static DEFINE_IDA(rpmsg_ept_ida);
-> @@ -403,13 +405,67 @@ int rpmsg_chrdev_create_eptdev(struct rpmsg_device *rpdev, struct device *parent
+> @@ -323,8 +323,9 @@ static void rpmsg_eptdev_release_device(struct device *dev)
+>  	kfree(eptdev);
 >  }
->  EXPORT_SYMBOL(rpmsg_chrdev_create_eptdev);
 >  
-> +static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
+> -int rpmsg_chrdev_create_eptdev(struct rpmsg_device *rpdev, struct device *parent,
+> -			       struct rpmsg_channel_info chinfo, struct class *rpmsg_class)
+> +static struct rpmsg_eptdev *
+> +__rpmsg_chrdev_create_eptdev(struct rpmsg_device *rpdev, struct device *parent,
+> +			     struct rpmsg_channel_info chinfo, struct class *rpmsg_class)
+>  {
+>  	struct rpmsg_eptdev *eptdev;
+>  	struct device *dev;
+> @@ -332,7 +333,7 @@ int rpmsg_chrdev_create_eptdev(struct rpmsg_device *rpdev, struct device *parent
+>  
+>  	eptdev = kzalloc(sizeof(*eptdev), GFP_KERNEL);
+>  	if (!eptdev)
+> -		return -ENOMEM;
+> +		return ERR_PTR(-ENOMEM);
+>  
+>  	dev = &eptdev->dev;
+>  	eptdev->rpdev = rpdev;
+> @@ -376,7 +377,7 @@ int rpmsg_chrdev_create_eptdev(struct rpmsg_device *rpdev, struct device *parent
+>  		put_device(dev);
+>  	}
+>  
+> -	return ret;
+> +	return eptdev;
+>  
+>  free_ept_ida:
+>  	ida_simple_remove(&rpmsg_ept_ida, dev->id);
+> @@ -386,7 +387,19 @@ int rpmsg_chrdev_create_eptdev(struct rpmsg_device *rpdev, struct device *parent
+>  	put_device(dev);
+>  	kfree(eptdev);
+>  
+> -	return ret;
+> +	return ERR_PTR(ret);
+> +}
+> +
+> +int rpmsg_chrdev_create_eptdev(struct rpmsg_device *rpdev, struct device *parent,
+> +			       struct rpmsg_channel_info chinfo,  struct class *rpmsg_class)
 > +{
-> +	struct rpmsg_channel_info chinfo;
 > +	struct rpmsg_eptdev *eptdev;
 > +
-> +	if (!rpdev->ept)
-> +		return -EINVAL;
-> +
-> +	memcpy(chinfo.name, RPMSG_CHAR_DEVNAME, sizeof(RPMSG_CHAR_DEVNAME));
-> +	chinfo.src = rpdev->src;
-> +	chinfo.dst = rpdev->dst;
-> +
-> +	eptdev = __rpmsg_chrdev_create_eptdev(rpdev, &rpdev->dev, chinfo, NULL);
+> +	eptdev = __rpmsg_chrdev_create_eptdev(rpdev, parent, chinfo, rpmsg_class);
 > +	if (IS_ERR(eptdev))
 > +		return PTR_ERR(eptdev);
 > +
-> +	/* Set the private field of the default endpoint to retrieve context on callback. */
-> +	rpdev->ept->priv = eptdev;
-
-This is already done in rpmsg_create_ept() when rpmsg_eptdev_open() is called.
-
-> +
 > +	return 0;
-> +}
-> +
-> +static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
-> +{
-> +	int ret;
-> +
-> +	ret = device_for_each_child(&rpdev->dev, NULL, rpmsg_chrdev_destroy_eptdev);
-> +	if (ret)
-> +		dev_warn(&rpdev->dev, "failed to destroy endpoints: %d\n", ret);
-> +}
-> +
-> +static struct rpmsg_device_id rpmsg_chrdev_id_table[] = {
-> +	{ .name	= RPMSG_CHAR_DEVNAME },
-> +	{ },
-> +};
-> +
-> +static struct rpmsg_driver rpmsg_chrdev_driver = {
-> +	.probe = rpmsg_chrdev_probe,
-> +	.remove = rpmsg_chrdev_remove,
-> +	.id_table = rpmsg_chrdev_id_table,
-> +	.callback = rpmsg_ept_cb,
-
-Not sure why we need a callback associated to this driver when
-rpmsg_eptdev_open() already creates and rpmsg_endpoint.  To me the only thing
-having a callback provides is the association between the rpmsg_device and the
-rpmsg_endpoint[1] that happens in rpmsg_dev_probe().  The QC folks already do
-this association in their platform code[2].  Since this is not done in
-__rpmsg_create_ept() a check for rpdev->ept == NULL could be done in
-rpmsg_eptdev_open() and do the assignment there. 
-
-[1]. https://elixir.bootlin.com/linux/v5.12-rc6/source/drivers/rpmsg/rpmsg_core.c#L513  
-[2]. https://elixir.bootlin.com/linux/v5.12-rc6/source/drivers/rpmsg/qcom_glink_native.c#L1623
-
-> +	.drv = {
-> +		.name = "rpmsg_chrdev",
-> +	},
-> +};
-> +
->  static int rpmsg_chrdev_init(void)
->  {
->  	int ret;
->  
->  	ret = alloc_chrdev_region(&rpmsg_major, 0, RPMSG_DEV_MAX, "rpmsg_char");
-> -	if (ret < 0)
-> +	if (ret < 0) {
->  		pr_err("rpmsg: failed to allocate char dev region\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = register_rpmsg_driver(&rpmsg_chrdev_driver);
-> +	if (ret < 0) {
-> +		pr_err("rpmsg: failed to register rpmsg raw driver\n");
-> +		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
-> +	}
->  
->  	return ret;
 >  }
-> @@ -417,6 +473,7 @@ postcore_initcall(rpmsg_chrdev_init);
+>  EXPORT_SYMBOL(rpmsg_chrdev_create_eptdev);
 >  
->  static void rpmsg_chrdev_exit(void)
->  {
-> +	unregister_rpmsg_driver(&rpmsg_chrdev_driver);
->  	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->  }
->  module_exit(rpmsg_chrdev_exit);
 > -- 
 > 2.17.1
 > 
