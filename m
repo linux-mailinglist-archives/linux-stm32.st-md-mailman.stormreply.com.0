@@ -2,78 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45DF2366842
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Apr 2021 11:39:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18E4C366CB1
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Apr 2021 15:24:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00418C5719E;
-	Wed, 21 Apr 2021 09:39:16 +0000 (UTC)
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F012C57192
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Apr 2021 09:39:14 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1618997954; h=Date: Message-Id: Cc: To: References:
- In-Reply-To: From: Subject: Content-Transfer-Encoding: MIME-Version:
- Content-Type: Sender; bh=dptRRtutJ6zuUXx1IGovOdVHngg0Ac82WX9UyNCvxQ4=;
- b=nBfLQdc8yBo9VjxXEbz0ohTAnNyToGMdG/i1hbetiWmh+1tTiVNieImqfm/5Ob/dfrOERUQj
- RSIB2QuTk2aGQYRqsYLvaYT19xjPasRfySdeALLk0o7md2JhdMkdv+zEHiWxaNealO3Le7nh
- zfHKxSrvxLtBDNc6SGCuURsdtm0=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI1Njk0YyIsICJsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tIiwgImJlOWU0YSJd
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-east-1.postgun.com with SMTP id
- 607ff2c0a817abd39aa9368e (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 21 Apr 2021 09:39:12
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 75A26C43148; Wed, 21 Apr 2021 09:39:11 +0000 (UTC)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- aws-us-west-2-caf-mail-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- MISSING_DATE,MISSING_MID,SPF_FAIL,URIBL_BLOCKED autolearn=no
- autolearn_force=no version=3.4.0
-Received: from potku.adurom.net (88-114-240-156.elisa-laajakaista.fi
- [88.114.240.156])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7D1AC58D5C;
+	Wed, 21 Apr 2021 13:24:16 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: kvalo)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 0F64EC433D3;
- Wed, 21 Apr 2021 09:39:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 0F64EC433D3
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=kvalo@codeaurora.org
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 183E5CFAC55
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 21 Apr 2021 13:24:13 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 13LDM5v9024165; Wed, 21 Apr 2021 13:23:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=TNSaEpFWAP3byXDTGeCVcql+u1LPJQ67fY0dZbPZ+3U=;
+ b=pCaRlRtos22T09/Q5LwqvQZF6WxEZPJeC8dcj1TKceMV6NaRukW2BfLwtNHpYo96slQ+
+ hyDp/Xr7Y2+4RnevKoDUmG5KJA/3hgzq2esycxB9qnV4v4+S7n54yqXKyZNDkZCdK28X
+ 0lyMrUN+gaY5o0M+FQRKz6SShzyOekidPhbtfD7Re6S58xmQq34mIWPxeaTVIpkAFTQw
+ Jk0iclJpXLtHO+ENIvIbQibZ1tETFpW9ZQW4QQtuqYZ6+afauRWUT/9RffFmR5RqBYVp
+ crNYVOeMUKSeYWmmoBVFYSjLvSUQP7ozuFkT7JpdN1U1+TNC/jW/Q04MdQYyhhPcIsyW kg== 
+Received: from oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3818whgqum-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 21 Apr 2021 13:23:04 +0000
+Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
+ by pps.podrdrct (8.16.0.36/8.16.0.36) with SMTP id 13LDN3hO188471;
+ Wed, 21 Apr 2021 13:23:03 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by userp3020.oracle.com with ESMTP id 3809eu908r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 21 Apr 2021 13:23:03 +0000
+Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 13LDMHMI186187;
+ Wed, 21 Apr 2021 13:23:02 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3020.oracle.com with ESMTP id 3809eu9080-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 21 Apr 2021 13:23:02 +0000
+Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 13LDMxwB025688;
+ Wed, 21 Apr 2021 13:22:59 GMT
+Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 21 Apr 2021 06:22:58 -0700
+Date: Wed, 21 Apr 2021 16:22:50 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Tan Tee Min <tee.min.tan@intel.com>
+Message-ID: <YIAnKtpJa/K+0efq@mwanda>
 MIME-Version: 1.0
-From: Kalle Valo <kvalo@codeaurora.org>
-In-Reply-To: <20210331023557.2804128-4-wanjiabing@vivo.com>
-References: <20210331023557.2804128-4-wanjiabing@vivo.com>
-To: Wan Jiabing <wanjiabing@vivo.com>
-User-Agent: pwcli/0.1.0-git (https://github.com/kvalo/pwcli/) Python/3.5.2
-Message-Id: <20210421093911.75A26C43148@smtp.codeaurora.org>
-Date: Wed, 21 Apr 2021 09:39:11 +0000 (UTC)
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, brcm80211-dev-list.pdl@broadcom.com,
- Ajay Singh <ajay.kathat@microchip.com>, Wan Jiabing <wanjiabing@vivo.com>,
- Chung-hsien Hsu <chung-hsien.hsu@infineon.com>,
- Wright Feng <wright.feng@infineon.com>, SHA-cyfmac-dev-list@infineon.com,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Hante Meuleman <hante.meuleman@broadcom.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, kael_w@yeah.net,
- linux-arm-kernel@lists.infradead.org, Franky Lin <franky.lin@broadcom.com>,
- Arend van Spriel <aspriel@gmail.com>,
- Chi-hsien Lin <chi-hsien.lin@infineon.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [3/4] libertas_tf: Remove duplicate struct
-	declaration
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-ORIG-GUID: mNzPN1m0GniGNETV8bAzsQ4x43P4ytO0
+X-Proofpoint-GUID: mNzPN1m0GniGNETV8bAzsQ4x43P4ytO0
+Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>, kernel-janitors@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH net-next] stmmac: intel: unlock on error path
+ in intel_crosststamp()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,21 +83,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Wan Jiabing <wanjiabing@vivo.com> wrote:
+We recently added some new locking to this function but one error path
+was overlooked.  We need to drop the lock before returning.
 
-> struct lbtf_private is declared twice. One has been declared
-> at 157th line. Remove the duplicate.
-> 
-> Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
+Fixes: f4da56529da6 ("net: stmmac: Add support for external trigger timestamping")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Patch applied to wireless-drivers-next.git, thanks.
-
-ff0224e97d5d libertas_tf: Remove duplicate struct declaration
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index ec140fc4a0f5..bd662aaf664a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -320,6 +320,7 @@ static int intel_crosststamp(ktime_t *device,
+ 		acr_value |= PTP_ACR_ATSEN3;
+ 		break;
+ 	default:
++		mutex_unlock(&priv->aux_ts_lock);
+ 		return -EINVAL;
+ 	}
+ 	writel(acr_value, ptpaddr + PTP_ACR);
 -- 
-https://patchwork.kernel.org/project/linux-wireless/patch/20210331023557.2804128-4-wanjiabing@vivo.com/
-
-https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
+2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
