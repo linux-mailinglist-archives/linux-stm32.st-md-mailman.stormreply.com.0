@@ -2,69 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FDEF368514
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Apr 2021 18:42:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E811F368529
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Apr 2021 18:49:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 333EBC58D5B;
-	Thu, 22 Apr 2021 16:42:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95077C5719E;
+	Thu, 22 Apr 2021 16:49:22 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43B39C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1472C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Apr 2021 16:42:21 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13MGVh1O014007; Thu, 22 Apr 2021 18:42:20 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=HOjEh61/Klj7ndpxXpXLihV5ds/oRHH/s0w230vXJYg=;
- b=TbkGAHsEjuIFs6PdZzpQVBom1ntYo5s3Yv1/9KlJBPrriFYlC+E3wVWZrIfuj7CTRwaW
- h4FVKfmhY8OMRPnDgWaZb0ePojaaJ1Uyvp3M+6EKn8hKgxw1elBIGxBVIwcxNyYe148w
- LPX8hK1pRWcqLrfJ5Vtul1m2F0fN1nSwTNqE28YAzcjP4iVx9pgWZX5QYGSkYOrqfCTK
- 1ACKPGJy60Y/8qe2aEdlBo8gv9zn+yesVD2HYElnU/AZOI9qFUeZzfcsrudHQOkFvTN9
- Qnx/WWZGgssRK4AtbepgYFddU5ongDILoSIbw5mvpIHQmIt3xqzBpAArblT0/d2rFCs2 fg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3839s790hu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 Apr 2021 18:42:20 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7922210002A;
- Thu, 22 Apr 2021 18:42:19 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 636A724544F;
- Thu, 22 Apr 2021 18:42:19 +0200 (CEST)
-Received: from lmecxl0889.lme.st.com (10.75.127.48) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 22 Apr
- 2021 18:41:53 +0200
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20210413134458.17912-1-arnaud.pouliquen@foss.st.com>
- <20210413134458.17912-3-arnaud.pouliquen@foss.st.com>
- <20210421180455.GE1223348@xps15>
- <bb376229-006f-af16-2006-4ef9edea87f5@foss.st.com>
- <20210422163217.GB1256950@xps15>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <5e63d822-5e19-7ab0-6ec7-a9ace4bdb706@foss.st.com>
-Date: Thu, 22 Apr 2021 18:41:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thu, 22 Apr 2021 16:49:21 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 791D661409;
+ Thu, 22 Apr 2021 16:49:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1619110160;
+ bh=axWE37eq5CgD/yuWEg0pILGXxgQdLfIdnB2oGBaHdjI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=PydCb0ZkiH8Vug2p+NgUgK2XQGK4GIEjhCevOYXkJIlwY07CBN0W6xg2IlYgnC7vv
+ 3zB73nBNUT1d65y9IdQa9z0CelRgXLKy2MH14N/HpH0jB+UqWTrslFAyOBax6AveIj
+ WcMqjynBqDfy2FkITW8Nh6k59DyDuVqldh9ROB4OyxRiiEUD8aANEEcUYtoOFga9Rr
+ f9/xzvUm4V4b5Pck3zsMsoJXWC37EyM3/EWlUtuXFyHjM+diRRrg4aj4dSL4eCCmCl
+ KB7PexgKhNw0NueBldH2upC2yu+mp7NXXUk1Zi3ewYvLeM0OC79PTPYemqbX/+qIW9
+ heEhPiZNrA7EQ==
+From: Mark Brown <broonie@kernel.org>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Arnd Bergmann <arnd@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Thu, 22 Apr 2021 17:48:45 +0100
+Message-Id: <161911005747.37738.3439795331125402090.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210422134955.1988316-1-arnd@kernel.org>
+References: <20210422134955.1988316-1-arnd@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20210422163217.GB1256950@xps15>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-22_11:2021-04-22,
- 2021-04-22 signatures=0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v2 2/7] rpmsg: Move the rpmsg control
- device from rpmsg_char to rpmsg_ctrl
+Cc: Arnd Bergmann <arnd@arndb.de>, Zhang Qilong <zhangqilong3@huawei.com>,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] [v2] spi: stm32-qspi: fix debug format
+	string
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,115 +58,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 4/22/21 6:32 PM, Mathieu Poirier wrote:
-> On Thu, Apr 22, 2021 at 09:56:41AM +0200, Arnaud POULIQUEN wrote:
->>
->>
->> On 4/21/21 8:04 PM, Mathieu Poirier wrote:
->>> On Tue, Apr 13, 2021 at 03:44:53PM +0200, Arnaud Pouliquen wrote:
->>>> Create the rpmsg_ctrl.c module and move the code related to the
->>>> rpmsg_ctrldev device in this new module.
->>>>
->>>> Add the dependency between rpmsg_char and rpmsg_ctrl in the
->>>> kconfig file.
->>>>
->>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->>>> ---
->>>> update from v1:
->>>> - keep "rpmsg_chrdev" driver name in rpmsg_ctrl, driver will be renamed
->>>>   in next path that renames the rpmsg_chrdev_create_eptdev.
->>>> - rename the chardev regions
->>>> - move RPMSG_DEV_MAX to rpmsg_char.h
->>>> ---
->>>>  drivers/rpmsg/Kconfig      |   9 ++
->>>>  drivers/rpmsg/Makefile     |   1 +
->>>>  drivers/rpmsg/rpmsg_char.c | 181 +----------------------------
->>>>  drivers/rpmsg/rpmsg_char.h |   2 +
->>>>  drivers/rpmsg/rpmsg_ctrl.c | 231 +++++++++++++++++++++++++++++++++++++
->>>>  5 files changed, 245 insertions(+), 179 deletions(-)
->>>>  create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
->>>>
->>>> diff --git a/drivers/rpmsg/Kconfig b/drivers/rpmsg/Kconfig
->>>> index 0b4407abdf13..d822ec9ec692 100644
->>>> --- a/drivers/rpmsg/Kconfig
->>
->> snip[...]
->>
->>>> +static int rpmsg_ctrldev_init(void)
->>>> +{
->>>> +	int ret;
->>>> +
->>>> +	ret = alloc_chrdev_region(&rpmsg_major, 0, RPMSG_DEV_MAX, "rpmsg_ctrl");
->>>> +	if (ret < 0) {
->>>> +		pr_err("rpmsg: failed to allocate char dev region\n");
->>>> +		return ret;
->>>> +	}
->>>> +
->>>> +	rpmsg_class = class_create(THIS_MODULE, "rpmsg");
->>>
->>> This class thing really bothers me.  Keeping this here means that rpmsg_eptdevs
->>> created from user space will be associated to this rpmsg_class but those created
->>> from the name service won't.  As such I propose to move this to rpmsg_char and
->>> simply not associate the control device to the class.
->>>
->>> Otherwise we'd have to introduce some mechanic only to deal with the creation of
->>> the class and I don't think it is worth.  We can revise that approach if someone
->>> complains we broke their user space. 
->>
->> I agree with that as it was my first proposed approach here [1]
+On Thu, 22 Apr 2021 15:38:57 +0200, Arnd Bergmann wrote:
+> Printing size_t needs a special %zx format modifier to avoid a
+> warning like:
 > 
-> Yeah, sorry about that.  This patch review process is not an exact science...
-
-No worries, exploring alternatives is part of the upstream process  :)
-
+> drivers/spi/spi-stm32-qspi.c:481:41: note: format string is defined here
+>   481 |         dev_dbg(qspi->dev, "%s len = 0x%x offs = 0x%llx buf = 0x%p\n", __func__, len, offs, buf);
 > 
->>
->> [1] https://www.spinics.net/lists/linux-arm-msm/msg81194.html
->>
->> Thanks,
->> Arnaud
->>
->>>
->>>
->>>> +	if (IS_ERR(rpmsg_class)) {
->>>> +		pr_err("failed to create rpmsg class\n");
->>>> +		ret = PTR_ERR(rpmsg_class);
->>>> +		goto free_region;
->>>> +	}
->>>> +
->>>> +	ret = register_rpmsg_driver(&rpmsg_ctrldev_driver);
->>>> +	if (ret < 0) {
->>>> +		pr_err("rpmsg ctrl: failed to register rpmsg driver\n");
->>>> +		goto free_class;
->>>> +	}
->>>> +
->>>> +	return 0;
->>>> +
->>>> +free_class:
->>>> +	class_destroy(rpmsg_class);
->>>> +free_region:
->>>> +	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->>>> +
->>>> +	return ret;
->>>> +}
->>>> +postcore_initcall(rpmsg_ctrldev_init);
->>>> +
->>>> +static void rpmsg_ctrldev_exit(void)
->>>> +{
->>>> +	unregister_rpmsg_driver(&rpmsg_ctrldev_driver);
->>>> +	class_destroy(rpmsg_class);
->>>> +	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->>>> +}
->>>> +module_exit(rpmsg_ctrldev_exit);
->>>> +
->>>> +MODULE_DESCRIPTION("rpmsg control interface");
->>>> +MODULE_ALIAS("rpmsg:" KBUILD_MODNAME);
->>>> +MODULE_LICENSE("GPL v2");
->>>> -- 
->>>> 2.17.1
->>>>
+> Patrice already tried to fix this, but picked %lx instead of %zx,
+> which fixed some architectures but broke others in the same way.
+> Using %zx works everywhere.
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+
+Thanks!
+
+[1/1] spi: stm32-qspi: fix debug format string
+      commit: 14ef64ebdc2a4564893022780907747567452f6c
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
