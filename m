@@ -2,46 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E811F368529
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Apr 2021 18:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E212536852A
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Apr 2021 18:49:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95077C5719E;
-	Thu, 22 Apr 2021 16:49:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9811C57B53;
+	Thu, 22 Apr 2021 16:49:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1472C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C487C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Apr 2021 16:49:21 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 791D661409;
- Thu, 22 Apr 2021 16:49:19 +0000 (UTC)
+ Thu, 22 Apr 2021 16:49:24 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8F8D4613DC;
+ Thu, 22 Apr 2021 16:49:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619110160;
- bh=axWE37eq5CgD/yuWEg0pILGXxgQdLfIdnB2oGBaHdjI=;
+ s=k20201202; t=1619110163;
+ bh=SjrDwa5HJKSmqApWHKXOGHB5NmIYxys0EV24y2IGHu4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PydCb0ZkiH8Vug2p+NgUgK2XQGK4GIEjhCevOYXkJIlwY07CBN0W6xg2IlYgnC7vv
- 3zB73nBNUT1d65y9IdQa9z0CelRgXLKy2MH14N/HpH0jB+UqWTrslFAyOBax6AveIj
- WcMqjynBqDfy2FkITW8Nh6k59DyDuVqldh9ROB4OyxRiiEUD8aANEEcUYtoOFga9Rr
- f9/xzvUm4V4b5Pck3zsMsoJXWC37EyM3/EWlUtuXFyHjM+diRRrg4aj4dSL4eCCmCl
- KB7PexgKhNw0NueBldH2upC2yu+mp7NXXUk1Zi3ewYvLeM0OC79PTPYemqbX/+qIW9
- heEhPiZNrA7EQ==
+ b=CT0atzPmpRW6GtOZuadbObQ6Ukku/pp90uYtiqqA69dmZiWIzIV6whzZ08rdFLCdP
+ sFi4ph2boeAncsngQE8DR5RfPazbARCiFDzUD2kwNg/G5KIbnX0GpQ9VRJTuqX2L6F
+ lpSmepneXBhh3Mc5pml7AYayg1HB3sPe2B9nJqqxzUkxCimqyJqzKEAPIboWnIXffh
+ aLvEFgNiqlBRJiNL1SHdINKxsz6yNm+mu235ddjOX1XWxwoKw5eppaekNhTHCs4w8M
+ iDDF6w8VcXsq1FepXQ+3RF7bfBWtDYjP2N6AAd/nOh46TVaiY4KoIAnpNiP1DJOJuN
+ rM637+dmyi21g==
 From: Mark Brown <broonie@kernel.org>
 To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Arnd Bergmann <arnd@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Thu, 22 Apr 2021 17:48:45 +0100
-Message-Id: <161911005747.37738.3439795331125402090.b4-ty@kernel.org>
+Date: Thu, 22 Apr 2021 17:48:46 +0100
+Message-Id: <161911005747.37738.11400279333623304352.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210422134955.1988316-1-arnd@kernel.org>
-References: <20210422134955.1988316-1-arnd@kernel.org>
+In-Reply-To: <20210421140653.3964725-1-arnd@kernel.org>
+References: <20210421140653.3964725-1-arnd@kernel.org>
 MIME-Version: 1.0
 Cc: Arnd Bergmann <arnd@arndb.de>, Zhang Qilong <zhangqilong3@huawei.com>,
  linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
  Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] [v2] spi: stm32-qspi: fix debug format
-	string
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32-qspi: fix debug format string
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,16 +57,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 22 Apr 2021 15:38:57 +0200, Arnd Bergmann wrote:
-> Printing size_t needs a special %zx format modifier to avoid a
+On Wed, 21 Apr 2021 16:06:48 +0200, Arnd Bergmann wrote:
+> Printing size_t needs a special %zd format modifier to avoid a
 > warning like:
 > 
 > drivers/spi/spi-stm32-qspi.c:481:41: note: format string is defined here
 >   481 |         dev_dbg(qspi->dev, "%s len = 0x%x offs = 0x%llx buf = 0x%p\n", __func__, len, offs, buf);
-> 
-> Patrice already tried to fix this, but picked %lx instead of %zx,
-> which fixed some architectures but broke others in the same way.
-> Using %zx works everywhere.
 
 Applied to
 
