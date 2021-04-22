@@ -2,43 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 523C7367A01
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Apr 2021 08:35:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BEF8367B1E
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Apr 2021 09:32:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09674C58D5C;
-	Thu, 22 Apr 2021 06:35:04 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23267C58D5C;
+	Thu, 22 Apr 2021 07:32:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A287C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6B89CFAC55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Apr 2021 06:35:00 +0000 (UTC)
-IronPort-SDR: S5YL2MNF3ZuQBFnJpwh7G7nQIuLdRzXQHDhJS++GOfTN0ytLmcKdyx3sZ9M2FNw2IS0ykT9RqK
- D4B5XbntiF9Q==
-X-IronPort-AV: E=McAfee;i="6200,9189,9961"; a="195392201"
-X-IronPort-AV: E=Sophos;i="5.82,241,1613462400"; d="scan'208";a="195392201"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2021 23:34:58 -0700
-IronPort-SDR: N/VdHPgKMmnCktx4S1kk0xv2cVIku/kjvc542q4RO5SjiE13e4jhIuMmjIFzPAycFgCO8IQ/Tx
- lru/cqQLORNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,241,1613462400"; d="scan'208";a="453172193"
-Received: from um.fi.intel.com (HELO um) ([10.237.72.62])
- by FMSMGA003.fm.intel.com with ESMTP; 21 Apr 2021 23:34:56 -0700
-From: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-To: Yu Kuai <yukuai3@huawei.com>, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com
-In-Reply-To: <20210407125358.4135345-1-yukuai3@huawei.com>
-References: <20210407125358.4135345-1-yukuai3@huawei.com>
-Date: Thu, 22 Apr 2021 09:34:55 +0300
-Message-ID: <87o8e6esj4.fsf@ashishki-desk.ger.corp.intel.com>
+ Thu, 22 Apr 2021 07:32:07 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 13M7RMLf020720; Thu, 22 Apr 2021 09:31:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=wTJYNLz+GeIRx9UYWWVLcnY81+zxFAKyL59IOj+tgpk=;
+ b=LY/jstysQPl3u7xXFTEOpByLaLm1oYHRFir4cFClLkEt75V/f/T5PpCY9HTqIAdPW/c5
+ eR7X4IgRsNiaRIoroxxRmMWXfbIsEGDRp97wBeDz0Weny/nZ/ZDzyHtnPUpg4PiKmGgm
+ UbiowOdNdV8KQifSXNJD+p5P6uUq7WsHDeQxCrRv5ZRN7GMiqxqMbrswpDnd+UPgp0p8
+ 9vwcHe0d0wYTqd3dtc7fUfhj2CYc5Jdxf4xHN8P6eGqcK5hQCanarYS2u+aXoJUl5SRz
+ DQ0vh5ml/EuoR78PtkbgDo+6xdZm9hfmSwTj1yeB1h1HEvKy0eS58LaenJcLuxLT8cJL mw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 382fften23-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Apr 2021 09:31:47 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7CDE310002A;
+ Thu, 22 Apr 2021 09:31:46 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6B5A321F0AA;
+ Thu, 22 Apr 2021 09:31:46 +0200 (CEST)
+Received: from lmecxl0573.lme.st.com (10.75.127.48) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 22 Apr
+ 2021 09:31:45 +0200
+To: Arnd Bergmann <arnd@kernel.org>, Mark Brown <broonie@kernel.org>
+References: <20210421140653.3964725-1-arnd@kernel.org>
+ <20210421150510.GA36785@sirena.org.uk>
+ <CAK8P3a0CWp_H-tm2QcZyH1FDXwzMgxY_9dc1Y8pA28MQKT-q=A@mail.gmail.com>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+Message-ID: <b970a557-b869-c867-3825-370a36feef68@foss.st.com>
+Date: Thu, 22 Apr 2021 09:30:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Cc: yi.zhang@huawei.com, alexander.shishkin@linux.intel.com,
- linux-kernel@vger.kernel.org, yukuai3@huawei.com, zhangxiaoxu5@huawei.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] stm class: initialize static variable in
-	declaration
+In-Reply-To: <CAK8P3a0CWp_H-tm2QcZyH1FDXwzMgxY_9dc1Y8pA28MQKT-q=A@mail.gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-04-22_01:2021-04-21,
+ 2021-04-21 signatures=0
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Zhang Qilong <zhangqilong3@huawei.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-spi <linux-spi@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32-qspi: fix debug format string
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,33 +82,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Yu Kuai <yukuai3@huawei.com> writes:
+Hi Mark, Arnd
 
-> mutex lock can be initialized automatically with DEFINE_MUTEX()
-> rather than explicitly calling mutex_init().
->
-> list head can be initialized automatically with LIST_HEAD() rather
-> than explicitly calling INIT_LIST_HEAD().
->
-> srcu_struct can be initialized automatically with DEFINE_STATIC_SRCU()
-> rather than explicitly calling init_srcu_struct().
+Regarding this issue, how do you prefer to proceed ? 
 
-What's missing is the "why". We can do these or we can keep them as they
-are. Each choice has impact on .text/.data, for instance. Why is one
-preferred over the other?
+Patrice
 
-Each patch should contain some form of analysis that shows that the
-author thought about why they made the patch in the first
-place.
-
-And please learn not to spam the STMicro people with patches for System
-Trace Module. Sometimes the same acronym can mean multiple different
-things. This is another sign that the patch author spent zero time
-getting to know the code that they are patching.
-
-Regards,
---
-Alex
+On 4/21/21 5:22 PM, Arnd Bergmann wrote:
+> On Wed, Apr 21, 2021 at 5:05 PM Mark Brown <broonie@kernel.org> wrote:
+>>
+>> On Wed, Apr 21, 2021 at 04:06:48PM +0200, Arnd Bergmann wrote:
+>>> From: Arnd Bergmann <arnd@arndb.de>
+>>>
+>>> Printing size_t needs a special %zd format modifier to avoid a
+>>> warning like:
+>>
+>> This doesn't apply against current code, please check and resend.
+> 
+> It appears that you just applied 1b8a7d4282c0 ("spi: stm32-qspi:
+> Fix compilation warning in ARM64") after today's linux-next was
+> cut.
+> 
+> I suspect Patrice's patch now causes a warning on all architectures
+> on which size_t is defined as 'unsigned int'.
+> 
+>        Arnd
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
