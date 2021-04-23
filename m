@@ -2,49 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3CB23688DF
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Apr 2021 00:10:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B65D369030
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Apr 2021 12:18:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F9FCC5719E;
-	Thu, 22 Apr 2021 22:10:14 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92CF5C57B54;
+	Fri, 23 Apr 2021 10:18:20 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78D91C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F916C57195
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Apr 2021 22:10:12 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 791F46143B;
- Thu, 22 Apr 2021 22:10:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619129410;
- bh=j5/03LAUos2Czq6mNAYoi+CmTfpJcF+6c8XNEkPXF7c=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=BzbgH8vao/nDq5jOjXXnHBPtUX72W8dU6dWZ7ICnfr4zpU/wt+K7qnFTSioIzlQup
- ea0GLzKCz8b/Kg7xPcn9C0jbOlFKpA7/zAePwAHwhkdwD8DkVKl63GE48QQ5WPoKGX
- Ha31bEaGCPY3Fe6azZGS13pxZbqmzsdgf2Dss4NF7rcLpSgMD31k4MlEzHS5sN3pRX
- Nel8WpE6D5Hw1gJ9nYglL2tsVfU4b5VxHjE8YfEwvf1DDuG6SEJEHbgB8FA4hrQ5uA
- N+Dz8u4UTd+mHYFOeSM5pnMvHmvXhC4Rce4KRcaA5Sqv1KjI5g5UlRXbTpL6a2MvtN
- GiT2nK0n83y1A==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 7199660A53;
- Thu, 22 Apr 2021 22:10:10 +0000 (UTC)
+ Fri, 23 Apr 2021 10:18:19 +0000 (UTC)
+Received: from mail-wr1-f71.google.com ([209.85.221.71])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <krzysztof.kozlowski@canonical.com>)
+ id 1lZst8-0001aV-Es
+ for linux-stm32@st-md-mailman.stormreply.com; Fri, 23 Apr 2021 10:18:18 +0000
+Received: by mail-wr1-f71.google.com with SMTP id
+ h60-20020adf90420000b029010418c4cd0cso14055590wrh.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 23 Apr 2021 03:18:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=aYP7r7LEZu6SffM7BQ/kCnDNHMdX1uJGOUnQwrtupd4=;
+ b=nZuXv5GU3jHBJLDTT51H+ElVEELULp/V3SPAuIPHCqkXEqLiMs/d+ydNsKV3fC20mN
+ IvNxjDOhPcYBeFVmyuMGq2c3FwF3hD54BdNnnNcXfNfXwD4t5Gau/LI0GYrsz4fRQvDz
+ LupmFIFd9m/QdltsuE6KYvX/8NWDseCSLmpFbMnFeBG/tOtBT0GXCP+gWvJJyr5vxEMx
+ 3koe5GOhsCzMr8jE3mpwt9Wp0zWSqiUCeYYM8nXHmtBa5ByvoXxtwhbZewOawDVrGiNK
+ xoaGNEkWjmN6R/CFGnSoxoul7aDD3Gt/ZqXCUH06NzLq9knYFkJu5fCj6JfvBVFTDhC1
+ CcMw==
+X-Gm-Message-State: AOAM532onycB3VT3Ea8DM8PyPGgheN3sJsM8jKx2fq1eGze3DWN0Vc2L
+ 1KSuUSdlYBsJ2OZPuG7W9nn+lwWbhrKGOCPn9BaLJx5q5j04ORHTdNMRFM0CCtcMkRpJUD6dkoU
+ LPjvx2Pj6qcdSwm2opUYytTAL57WjObq+9cXxHCjKcz8EtEEbZPCy/IafVg==
+X-Received: by 2002:a5d:6d0c:: with SMTP id e12mr3621886wrq.321.1619173098077; 
+ Fri, 23 Apr 2021 03:18:18 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyYKHJDOkDZqAUM3Wgbi5Urcq0uh3Bk7tH9x1MWtycNV6cQpV4aktMYKexZVqRVW2OoCmZ6Xw==
+X-Received: by 2002:a5d:6d0c:: with SMTP id e12mr3621863wrq.321.1619173097904; 
+ Fri, 23 Apr 2021 03:18:17 -0700 (PDT)
+Received: from localhost.localdomain (xdsl-188-155-180-75.adslplus.ch.
+ [188.155.180.75])
+ by smtp.gmail.com with ESMTPSA id k22sm9011546wrh.5.2021.04.23.03.18.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Apr 2021 03:18:17 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christophe Kerello <christophe.kerello@st.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Boris Brezillon <bbrezillon@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Date: Fri, 23 Apr 2021 12:18:14 +0200
+Message-Id: <20210423101815.119341-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161912941046.2979.7304318952227636688.git-patchwork-notify@kernel.org>
-Date: Thu, 22 Apr 2021 22:10:10 +0000
-References: <20210422075501.20207-1-mohammad.athari.ismail@intel.com>
-In-Reply-To: <20210422075501.20207-1-mohammad.athari.ismail@intel.com>
-To: Ismail@ci.codeaurora.org,
- Mohammad Athari <mohammad.athari.ismail@intel.com>
-Cc: kim.tatt.chuah@intel.com, alexandre.torgue@st.com, weifeng.voon@intel.com,
- vee.khee.wong@intel.com, netdev@vger.kernel.org, tee.min.tan@intel.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Chuah@vger.kernel.org, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, boon.leong.ong@intel.com, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/2] Enable DWMAC HW descriptor
-	prefetch
+Subject: [Linux-stm32] [PATCH 1/2] memory: stm32-fmc2-ebi: add missing
+	of_node_put for loop iteration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,33 +82,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Early exits from for_each_available_child_of_node() should decrement the
+node reference counter.  Reported by Coccinelle:
 
-This series was applied to netdev/net-next.git (refs/heads/master):
+  drivers/memory/stm32-fmc2-ebi.c:1046:1-33: WARNING:
+    Function "for_each_available_child_of_node" should have of_node_put() before return around line 1051.
 
-On Thu, 22 Apr 2021 15:54:59 +0800 you wrote:
-> From: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
-> 
-> This patch series to add setting for HW descriptor prefetch for DWMAC version 5.20 onwards. For Intel platform, enable the capability by default.
-> 
-> Mohammad Athari Bin Ismail (2):
->   net: stmmac: Add HW descriptor prefetch setting for DWMAC Core 5.20
->     onwards
->   stmmac: intel: Enable HW descriptor prefetch by default
-> 
-> [...]
+Fixes: 66b8173a197f ("memory: stm32-fmc2-ebi: add STM32 FMC2 EBI controller driver")
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+---
+ drivers/memory/stm32-fmc2-ebi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Here is the summary with links:
-  - [net-next,1/2] net: stmmac: Add HW descriptor prefetch setting for DWMAC Core 5.20 onwards
-    https://git.kernel.org/netdev/net-next/c/96874c619c20
-  - [net-next,2/2] stmmac: intel: Enable HW descriptor prefetch by default
-    https://git.kernel.org/netdev/net-next/c/676b7ec67d79
-
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+diff --git a/drivers/memory/stm32-fmc2-ebi.c b/drivers/memory/stm32-fmc2-ebi.c
+index 4d5758c419c5..ffec26a99313 100644
+--- a/drivers/memory/stm32-fmc2-ebi.c
++++ b/drivers/memory/stm32-fmc2-ebi.c
+@@ -1048,16 +1048,19 @@ static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
+ 		if (ret) {
+ 			dev_err(dev, "could not retrieve reg property: %d\n",
+ 				ret);
++			of_node_put(child);
+ 			return ret;
+ 		}
+ 
+ 		if (bank >= FMC2_MAX_BANKS) {
+ 			dev_err(dev, "invalid reg value: %d\n", bank);
++			of_node_put(child);
+ 			return -EINVAL;
+ 		}
+ 
+ 		if (ebi->bank_assigned & BIT(bank)) {
+ 			dev_err(dev, "bank already assigned: %d\n", bank);
++			of_node_put(child);
+ 			return -EINVAL;
+ 		}
+ 
+@@ -1066,6 +1069,7 @@ static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
+ 			if (ret) {
+ 				dev_err(dev, "setup chip select %d failed: %d\n",
+ 					bank, ret);
++				of_node_put(child);
+ 				return ret;
+ 			}
+ 		}
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
