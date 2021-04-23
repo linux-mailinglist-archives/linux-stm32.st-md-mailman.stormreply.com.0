@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B65D369030
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Apr 2021 12:18:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4972369031
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Apr 2021 12:18:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92CF5C57B54;
-	Fri, 23 Apr 2021 10:18:20 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D340C58D5B;
+	Fri, 23 Apr 2021 10:18:22 +0000 (UTC)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F916C57195
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A331C57195
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Apr 2021 10:18:19 +0000 (UTC)
-Received: from mail-wr1-f71.google.com ([209.85.221.71])
+ Fri, 23 Apr 2021 10:18:20 +0000 (UTC)
+Received: from mail-wm1-f70.google.com ([209.85.128.70])
  by youngberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lZst8-0001aV-Es
- for linux-stm32@st-md-mailman.stormreply.com; Fri, 23 Apr 2021 10:18:18 +0000
-Received: by mail-wr1-f71.google.com with SMTP id
- h60-20020adf90420000b029010418c4cd0cso14055590wrh.12
+ id 1lZst9-0001bM-Kx
+ for linux-stm32@st-md-mailman.stormreply.com; Fri, 23 Apr 2021 10:18:19 +0000
+Received: by mail-wm1-f70.google.com with SMTP id
+ o18-20020a05600c3792b0290128219cbc7bso6870949wmr.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Apr 2021 03:18:18 -0700 (PDT)
+ Fri, 23 Apr 2021 03:18:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=aYP7r7LEZu6SffM7BQ/kCnDNHMdX1uJGOUnQwrtupd4=;
- b=nZuXv5GU3jHBJLDTT51H+ElVEELULp/V3SPAuIPHCqkXEqLiMs/d+ydNsKV3fC20mN
- IvNxjDOhPcYBeFVmyuMGq2c3FwF3hD54BdNnnNcXfNfXwD4t5Gau/LI0GYrsz4fRQvDz
- LupmFIFd9m/QdltsuE6KYvX/8NWDseCSLmpFbMnFeBG/tOtBT0GXCP+gWvJJyr5vxEMx
- 3koe5GOhsCzMr8jE3mpwt9Wp0zWSqiUCeYYM8nXHmtBa5ByvoXxtwhbZewOawDVrGiNK
- xoaGNEkWjmN6R/CFGnSoxoul7aDD3Gt/ZqXCUH06NzLq9knYFkJu5fCj6JfvBVFTDhC1
- CcMw==
-X-Gm-Message-State: AOAM532onycB3VT3Ea8DM8PyPGgheN3sJsM8jKx2fq1eGze3DWN0Vc2L
- 1KSuUSdlYBsJ2OZPuG7W9nn+lwWbhrKGOCPn9BaLJx5q5j04ORHTdNMRFM0CCtcMkRpJUD6dkoU
- LPjvx2Pj6qcdSwm2opUYytTAL57WjObq+9cXxHCjKcz8EtEEbZPCy/IafVg==
-X-Received: by 2002:a5d:6d0c:: with SMTP id e12mr3621886wrq.321.1619173098077; 
- Fri, 23 Apr 2021 03:18:18 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyYKHJDOkDZqAUM3Wgbi5Urcq0uh3Bk7tH9x1MWtycNV6cQpV4aktMYKexZVqRVW2OoCmZ6Xw==
-X-Received: by 2002:a5d:6d0c:: with SMTP id e12mr3621863wrq.321.1619173097904; 
- Fri, 23 Apr 2021 03:18:17 -0700 (PDT)
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=EC3zoWq2BZfFb/EWRvBNqc9bpLHCgYUaPIXnRPSJVLg=;
+ b=RHRX8m0YhZD35LGr0lVyn4Zzq9fL7+akXvAR/YS2nTz37w6BVXULL7S41pIMcuEKaO
+ WHEiYHtMnlxt5SyVXCuPSJI5wC6o0+PY7TtEi7G5wYPDdYqInuH/Ca0zLsvH5TV5oUFo
+ W+PbetwZUB1yh5xZs4xIb/WfUPXHNeQJO/+kYu0TDfdLP7zQirVetz6R/DMyAisva8WX
+ pRWPyfdXXuLKpYTKPXgXO/G42ug5n7HBmVIEI8nhW/U8UlEY3F7N7dcxTwGGCnGKq6ju
+ Rfre+YjhT7eE/vWBd9EG9VaPKA7Jzg11RRt86+k0RygALDqqu8KhgNUAhtxMGrQF2kFB
+ d69Q==
+X-Gm-Message-State: AOAM532FWK9n1MdGJjudzHkV3h7lkOY5byAtiucIwD+jCnTCjtBGobhH
+ qi5Og3rRrItctZDtbv4Mi2qH7YCSectDlgGYDCihiegjFGobyiv9beat6nG9egC59h3hY+hnKpW
+ ScIHu1eS3M4cvRdCVSb/uWKjEkroPU2TeMF6yEaegnkSYB5+UyTl11lDJgg==
+X-Received: by 2002:a5d:6ac6:: with SMTP id u6mr3767667wrw.290.1619173099133; 
+ Fri, 23 Apr 2021 03:18:19 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwF9sI9bCBwQSREZbDeBLDvxvweCTOZ8qI9QcsoUrGVo9CdTEpRonVxU+F0lh3KuSjDfn1b0A==
+X-Received: by 2002:a5d:6ac6:: with SMTP id u6mr3767654wrw.290.1619173099028; 
+ Fri, 23 Apr 2021 03:18:19 -0700 (PDT)
 Received: from localhost.localdomain (xdsl-188-155-180-75.adslplus.ch.
  [188.155.180.75])
- by smtp.gmail.com with ESMTPSA id k22sm9011546wrh.5.2021.04.23.03.18.17
+ by smtp.gmail.com with ESMTPSA id k22sm9011546wrh.5.2021.04.23.03.18.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Apr 2021 03:18:17 -0700 (PDT)
+ Fri, 23 Apr 2021 03:18:18 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
@@ -60,11 +60,13 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
  Boris Brezillon <bbrezillon@kernel.org>, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Fri, 23 Apr 2021 12:18:14 +0200
-Message-Id: <20210423101815.119341-1-krzysztof.kozlowski@canonical.com>
+Date: Fri, 23 Apr 2021 12:18:15 +0200
+Message-Id: <20210423101815.119341-2-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210423101815.119341-1-krzysztof.kozlowski@canonical.com>
+References: <20210423101815.119341-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Subject: [Linux-stm32] [PATCH 1/2] memory: stm32-fmc2-ebi: add missing
+Subject: [Linux-stm32] [PATCH 2/2] memory: atmel-ebi: add missing
 	of_node_put for loop iteration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -85,47 +87,31 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Early exits from for_each_available_child_of_node() should decrement the
 node reference counter.  Reported by Coccinelle:
 
-  drivers/memory/stm32-fmc2-ebi.c:1046:1-33: WARNING:
-    Function "for_each_available_child_of_node" should have of_node_put() before return around line 1051.
+  drivers/memory/atmel-ebi.c:593:1-33: WARNING:
+    Function "for_each_available_child_of_node" should have of_node_put() before return around line 604.
 
-Fixes: 66b8173a197f ("memory: stm32-fmc2-ebi: add STM32 FMC2 EBI controller driver")
+Fixes: 6a4ec4cd0888 ("memory: add Atmel EBI (External Bus Interface) driver")
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- drivers/memory/stm32-fmc2-ebi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/memory/atmel-ebi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/memory/stm32-fmc2-ebi.c b/drivers/memory/stm32-fmc2-ebi.c
-index 4d5758c419c5..ffec26a99313 100644
---- a/drivers/memory/stm32-fmc2-ebi.c
-+++ b/drivers/memory/stm32-fmc2-ebi.c
-@@ -1048,16 +1048,19 @@ static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
- 		if (ret) {
- 			dev_err(dev, "could not retrieve reg property: %d\n",
- 				ret);
-+			of_node_put(child);
- 			return ret;
- 		}
+diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
+index 14386d0b5f57..c267283b01fd 100644
+--- a/drivers/memory/atmel-ebi.c
++++ b/drivers/memory/atmel-ebi.c
+@@ -600,8 +600,10 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 				child);
  
- 		if (bank >= FMC2_MAX_BANKS) {
- 			dev_err(dev, "invalid reg value: %d\n", bank);
-+			of_node_put(child);
- 			return -EINVAL;
- 		}
- 
- 		if (ebi->bank_assigned & BIT(bank)) {
- 			dev_err(dev, "bank already assigned: %d\n", bank);
-+			of_node_put(child);
- 			return -EINVAL;
- 		}
- 
-@@ -1066,6 +1069,7 @@ static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
- 			if (ret) {
- 				dev_err(dev, "setup chip select %d failed: %d\n",
- 					bank, ret);
+ 			ret = atmel_ebi_dev_disable(ebi, child);
+-			if (ret)
++			if (ret) {
 +				of_node_put(child);
  				return ret;
- 			}
++			}
  		}
+ 	}
+ 
 -- 
 2.25.1
 
