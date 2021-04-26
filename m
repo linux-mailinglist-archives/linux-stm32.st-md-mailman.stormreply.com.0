@@ -2,48 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4928369F17
-	for <lists+linux-stm32@lfdr.de>; Sat, 24 Apr 2021 08:45:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4C7436B1BF
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Apr 2021 12:40:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF49EC58D5E;
-	Sat, 24 Apr 2021 06:45:42 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83A26C57B51;
+	Mon, 26 Apr 2021 10:40:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B7B4C57B5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8416CFAC55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 Apr 2021 06:45:37 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B293161930;
- Sat, 24 Apr 2021 06:45:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619246734;
- bh=/R60wucnhMxzatTcaaq6aX+wA4KyHRrla+Ogrsx7GxU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fGxOGCEDw7emVbfmqcy/LRzHXKZ0GH+CzQmXW5EnGtQthu9QU/SBU5ZgEqwxxWiBc
- FbCDMuoeky+RsOMkSAeO5JNJFDIqX81lKc4pvE1ROLNClyVSWFPaSn1sPswhnJo/ag
- dRRcBRodIRaIzFlJjN9Rta+T110d7QJ4//BaNnsxhEh+GzPPwY5dh/xUT3JxIRhAeA
- G8HwF4R+D5ia7F8B5r5ohnPG08I0H0qf5A4GsgP8aULQa36mrqx37fz1YSPKkqzbBr
- BadhMMj2VCywfwH8/PJOshLrP6jIQx7oi8AkuDlYoEK3S532SoeYCV/+6KY0215mke
- qmGNFXbzCkUcw==
-Received: by mail.kernel.org with local (Exim 4.94)
- (envelope-from <mchehab@kernel.org>)
- id 1laC2n-004Jhk-BC; Sat, 24 Apr 2021 08:45:33 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: 
-Date: Sat, 24 Apr 2021 08:45:25 +0200
-Message-Id: <c3fdab46e373c69bdc88edb0efffce61cae06929.1619191723.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1619191723.git.mchehab+huawei@kernel.org>
-References: <cover.1619191723.git.mchehab+huawei@kernel.org>
+ Mon, 26 Apr 2021 10:40:44 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 13QAaO1A016416; Mon, 26 Apr 2021 12:40:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=LuAAV+vjbVeIX0jQ7jUT9/6qq5AEdw86+P+dHuRWAoo=;
+ b=Vv7l4zgb+uiXjRegQs+5B5SVFa55bmdS6x9ygVSokM4UB7MTxBBFdPhtASq/mNybIXSC
+ GGY+5kjt5Tx+ftEdouRtaZ4bmvmUMAyJotNs5LmKKXRHZzbpWf1qUz7sMavjDIc+bat1
+ lgpY+At+n4HDZQ0ANSRTQxMnlO2WgP4o4Zf5i3lSxxiZ8wjYZISp0IUWhZmhnmsV4g46
+ 6UtDsrWQ9BoOo22bUTnEw9GmGosu0XTRWKiPnK2T8AeiNbpMZgJfOK7zDDJDBUlJ2VM3
+ J8Obllg7bG23Dw/mVzLHkfSTRNi7V0/5doCsfH+mZgPQQAf5DmCVP+qL2hrLrVwcE4Su hg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 385gb2b78j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 26 Apr 2021 12:40:27 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CD7CD10002A;
+ Mon, 26 Apr 2021 12:40:24 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 99B5E20B11F;
+ Mon, 26 Apr 2021 12:40:24 +0200 (CEST)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 26 Apr 2021 12:40:24
+ +0200
+From: <patrice.chotard@foss.st.com>
+To: <robh+dt@kernel.org>, <mark.rutland@arm.com>,
+ <alexandre.torgue@foss.st.com>
+Date: Mon, 26 Apr 2021 12:39:56 +0200
+Message-ID: <20210426103956.29007-1-patrice.chotard@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Cc: Alexandre Torgue <alexandre.torgue@st.com>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, linuxarm@huawei.com,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- mauro.chehab@huawei.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 75/78] media: stm32: use
-	pm_runtime_resume_and_get()
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-04-26_03:2021-04-26,
+ 2021-04-26 signatures=0
+Cc: devicetree@vger.kernel.org, Christophe Kerello <christophe.kerello@st.com>,
+ linux-kernel@vger.kernel.org, linux@armlinux.org.uk, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [1/1] ARM: dts: stm32: Configure qspi's mdma transfer
+	to block for stm32mp151
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,45 +73,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit dd8088d5a896 ("PM: runtime: Add pm_runtime_resume_and_get to deal with usage counter")
-added pm_runtime_resume_and_get() in order to automatically handle
-dev->power.usage_count decrement on errors.
+From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-Use the new API, in order to cleanup the error check logic.
+Configure qspi's mdma from buffer transfer (max 128 bytes) to
+block transfer (max 64K bytes).
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+mtd_speedtest shows that write throughtput increases :
+  - from 734 to 782 KiB/s (~6.5%) with s25fl512s SPI-NOR.
+  - from 4848 to 5319 KiB/s (~9.72%) with Micron SPI-NAND.
+
+Signed-off-by: Christophe Kerello <christophe.kerello@st.com>
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- drivers/media/platform/stm32/stm32-dcmi.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/stm32mp151.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-index bbcc2254fa2e..5f4e1db8cfcd 100644
---- a/drivers/media/platform/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/stm32/stm32-dcmi.c
-@@ -723,11 +723,11 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 	u32 val = 0;
- 	int ret;
- 
--	ret = pm_runtime_get_sync(dcmi->dev);
-+	ret = pm_runtime_resume_and_get(dcmi->dev);
- 	if (ret < 0) {
- 		dev_err(dcmi->dev, "%s: Failed to start streaming, cannot get sync (%d)\n",
- 			__func__, ret);
--		goto err_pm_put;
-+		goto err_unlock;
- 	}
- 
- 	ret = media_pipeline_start(&dcmi->vdev->entity, &dcmi->pipeline);
-@@ -848,6 +848,7 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 
- err_pm_put:
- 	pm_runtime_put(dcmi->dev);
-+err_unlock:
- 	spin_lock_irq(&dcmi->irqlock);
- 	/*
- 	 * Return all buffers to vb2 in QUEUED state.
+diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
+index 4b8031782555..cb326c1e12bc 100644
+--- a/arch/arm/boot/dts/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/stm32mp151.dtsi
+@@ -1358,8 +1358,8 @@
+ 			reg = <0x58003000 0x1000>, <0x70000000 0x10000000>;
+ 			reg-names = "qspi", "qspi_mm";
+ 			interrupts = <GIC_SPI 92 IRQ_TYPE_LEVEL_HIGH>;
+-			dmas = <&mdma1 22 0x2 0x100002 0x0 0x0>,
+-			       <&mdma1 22 0x2 0x100008 0x0 0x0>;
++			dmas = <&mdma1 22 0x2 0x10100002 0x0 0x0>,
++			       <&mdma1 22 0x2 0x10100008 0x0 0x0>;
+ 			dma-names = "tx", "rx";
+ 			clocks = <&rcc QSPI_K>;
+ 			resets = <&rcc QSPI_R>;
 -- 
-2.30.2
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
