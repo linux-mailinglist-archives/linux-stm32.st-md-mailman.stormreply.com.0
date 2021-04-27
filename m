@@ -2,67 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BA8936C18E
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Apr 2021 11:20:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 173A036C269
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Apr 2021 12:13:58 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 170E5C57182;
-	Tue, 27 Apr 2021 09:20:32 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0D5FC57182;
+	Tue, 27 Apr 2021 10:13:57 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2506EC3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFEDAC3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Apr 2021 09:20:30 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id d11so852528wrw.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Apr 2021 02:20:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=5/VCtoETMmUzL0vMPqbtcoUDD2y2ltfbzTlgLqC6ZdU=;
- b=j70/j4Q6iKYIxCEI65Y0bUzPGkZaKggFmUgvWzLANdx/wAlWVz5KESFnUo/9nujbKh
- VLP5WnQX348e0Gey0yAOo51JoWFEbWPfgaXyi9p9J6I5/voq6u34z4Oxv3HsLIDFdL7g
- 0nWF5RWbWoYPwCh6yJUMjw/QcUh+2F/NVjfgY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=5/VCtoETMmUzL0vMPqbtcoUDD2y2ltfbzTlgLqC6ZdU=;
- b=iPsUitZ6gvroUbnmkngmjy/mW6nGAb/Qm+QmqR4j/dM3MN4NVG3E2Od/zthXd8Tg2p
- ku0z2gW73sOKFg9f3ToX9dCFZehNGANdlHc9FDLUjBb1jalvwaFJckct/7nhz56ST84V
- ZbrfVjMIi47Gc6koWwLB1ZeOT7eOWEx+pX8hsoKIakgm2qBqEPae9k1gPE5Cd2FQB7ZY
- pdiA9ofS8g5XZZPIyLpzZOefv3T6m4tyfLA+93p0Oo/RLDPhwwxw5tQhzzXiJfJE+2Aa
- sYWKGSFGtm2gRc6/6JiA6teCZRZ2gfgpL2XzgDghNE0x6nJCd69XXtzxweL24+eVJKu6
- OLCQ==
-X-Gm-Message-State: AOAM531zTxuRDbQe7+Q67LU18Dec0JxiZD8CVLDTMfQdqEvR+zeD9DAH
- Buj5fP976eddQEU87UK68Sj8bQ==
-X-Google-Smtp-Source: ABdhPJwJ9rr2VWEzV2GSpk5dJ+S0Jiuw0XEyEGp+d22nZbMqEXF/DE1cG/lDbVU7T/v0ew7G7SdRhw==
-X-Received: by 2002:a5d:4b12:: with SMTP id v18mr28184586wrq.45.1619515229738; 
- Tue, 27 Apr 2021 02:20:29 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id r24sm1939816wmh.8.2021.04.27.02.20.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Apr 2021 02:20:29 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue, 27 Apr 2021 11:20:17 +0200
-Message-Id: <20210427092018.832258-7-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210427092018.832258-1-daniel.vetter@ffwll.ch>
-References: <20210427092018.832258-1-daniel.vetter@ffwll.ch>
+ Tue, 27 Apr 2021 10:13:54 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E2621613C7;
+ Tue, 27 Apr 2021 10:13:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1619518431;
+ bh=qwDrXziLd0wYa0ewaYbUQgnXX/81MfUZUDj4i+ZfQ3c=;
+ h=From:To:Cc:Subject:Date:From;
+ b=cgewf2WlhJEoRncqoUgtVjzA9f3sOoOfzHCQZACKQmDeO2jGaK4NZXObarBk6UJp2
+ pxno8Y1i3eGLAU+TZbYECXQBmz+vrUFi+U8LqG8YZ8UnwckxZzN0G7WZS8SIEhU9rV
+ d5x1zKEWBz7qkDq4BkR3OpmBPdJfos5Onw1MX0/RXzgmj0IjyYZH16/q1mBAqKRvpN
+ sUxncBirqBuIbH495UuBIh19eXEVgo0yj3zNcuYn9I7OOosbtUlzYNm4PEl3A3zOSB
+ WKYjFjjbgNWRQnszaz4w2QKIppoiqD5DhIt1clxJYx0h6Eaau5+BUGCvMrAgTQdX2N
+ Z7m70gj9X8Oow==
+Received: by mail.kernel.org with local (Exim 4.94)
+ (envelope-from <mchehab@kernel.org>)
+ id 1lbKiy-000j4b-6W; Tue, 27 Apr 2021 12:13:48 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: 
+Date: Tue, 27 Apr 2021 12:12:27 +0200
+Message-Id: <cover.1619518193.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
+Cc: Shawn Tu <shawnx.tu@intel.com>, Ricardo Ribalda <ribalda@kernel.org>,
+ Dafna Hirschfeld <dafna.hirschfeld@collabora.com>,
+ Heiko Stuebner <heiko@sntech.de>, linuxarm@huawei.com,
+ Todor Tomov <todor.too@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, "Lad,
+ Prabhakar" <prabhakar.csengg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Dmitry Osipenko <digetx@gmail.com>, Fabio Estevam <festevam@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 7/8] drm/stm: Don't set allow_fb_modifiers
-	explicitly
+ Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
+ Leon Luo <leonl@leopardimaging.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Matt Ranostay <matt.ranostay@konsulko.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
+ Andy Gross <agross@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Dongchun Zhu <dongchun.zhu@mediatek.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@intel.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Shunqian Zheng <zhengsq@rock-chips.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ devel@driverdev.osuosl.org, Jacopo Mondi <jacopo@jmondi.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-tegra@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Wenyou Yang <wenyou.yang@microchip.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Steve Longerbeam <slongerbeam@gmail.com>, linux-media@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Benoit Parrot <bparrot@ti.com>, Rui Miguel Silva <rmfrfs@gmail.com>,
+ Helen Koike <helen.koike@collabora.com>, linux-samsung-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, mauro.chehab@huawei.com,
+ Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
+ "Paul J. Murphy" <paul.j.murphy@intel.com>,
+ Ezequiel Garcia <ezequiel@collabora.com>,
+ Daniele Alessandrelli <daniele.alessandrelli@intel.com>,
+ Chiranjeevi Rapolu <chiranjeevi.rapolu@intel.com>,
+ linux-arm-kernel@lists.infradead.org, Jacob Chen <jacob-chen@iotwrt.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Hyungwoo Yang <hyungwoo.yang@intel.com>, linux-kernel@vger.kernel.org,
+ Robert Foss <robert.foss@linaro.org>, Dan Scally <djrscally@gmail.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ Yong Zhi <yong.zhi@intel.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: [Linux-stm32] [PATCH v2 00/79] Address some issues with PM runtime
+	at media subsystem
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,44 +103,251 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since
+During the review of the patches from unm.edu, one of the patterns
+I noticed is the amount of patches trying to fix pm_runtime_get_sync()
+calls.
 
-commit 890880ddfdbe256083170866e49c87618b706ac7
-Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-Date:   Fri Jan 4 09:56:10 2019 +0100
+After analyzing the feedback from version 1 of this series, I noticed
+a few other weird behaviors at the PM runtime resume code. So, this
+series start addressing some bugs and issues at the current code.
+Then, it gets rid of pm_runtime_get_sync() at the media subsystem
+(with 2 exceptions).
 
-    drm: Auto-set allow_fb_modifiers when given modifiers at plane init
+It should be noticed that
+Commit dd8088d5a896 ("PM: runtime: Add pm_runtime_resume_and_get to deal with usage counter")
+added a new method to does a pm_runtime get, which increments
+the usage count only on success.
 
-this is done automatically as part of plane init, if drivers set the
-modifier list correctly. Which is the case here.
+The rationale of getting rid of pm_runtime_get_sync() is:
 
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
----
- drivers/gpu/drm/stm/ltdc.c | 2 --
- 1 file changed, 2 deletions(-)
+1. despite its name, this is actually a PM runtime resume call,
+   but some developers didn't seem to realize that, as I got this
+   pattern on some drivers:
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 65c3c79ad1d5..e99771b947b6 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -1326,8 +1326,6 @@ int ltdc_load(struct drm_device *ddev)
- 		goto err;
- 	}
- 
--	ddev->mode_config.allow_fb_modifiers = true;
--
- 	ret = ltdc_crtc_init(ddev, crtc);
- 	if (ret) {
- 		DRM_ERROR("Failed to init crtc\n");
+        pm_runtime_get_sync(&client->dev);
+        pm_runtime_disable(&client->dev);
+        pm_runtime_set_suspended(&client->dev);
+        pm_runtime_put_noidle(&client->dev);
+
+   It makes no sense to resume PM just to suspend it again ;-)
+
+2. Usual *_get() methods only increment their use count on success,
+   but pm_runtime_get_sync() increments it unconditionally. Due to
+   that, several drivers were mistakenly not calling
+   pm_runtime_put_noidle() when it fails;
+
+3. The name of the new variant is a lot clearer:
+	pm_runtime_resume_and_get()
+    As its same clearly says that this is a PM runtime resume function,
+    that also increments the usage counter on success;
+
+4. Consistency: we did similar changes subsystem wide with
+   for instance strlcpy() and strcpy() that got replaced by
+   strscpy(). Having all drivers using the same known-to-be-safe
+   methods is a good thing;
+
+5. Prevent newer drivers to copy-and-paste a code that it would
+   be easier to break if they don't truly understand what's behind
+   the scenes.
+
+This series replace places  pm_runtime_get_sync(), by calling
+pm_runtime_resume_and_get() instead.
+
+This should help to avoid future mistakes like that, as people
+tend to use the existing drivers as examples for newer ones.
+
+compile-tested only.
+
+Patches 1 to 7 fix some issues that already exists at the current
+PM runtime code;
+
+patches 8 to 20 fix some usage_count problems that still exists
+at the media subsystem;
+
+patches 21 to 78 repaces pm_runtime_get_sync() by 
+pm_runtime_resume_and_get();
+
+Patch 79 (and a hunk on patch 78) documents the two exceptions
+where pm_runtime_get_sync() will still be used for now.
+
+Mauro Carvalho Chehab (79):
+  media: venus: fix PM runtime logic at venus_sys_error_handler()
+  media: i2c: ccs-core: return the right error code at suspend
+  media: i2c: mt9m001: don't resume at remove time
+  media: i2c: ov7740: don't resume at remove time
+  media: i2c: video-i2c: don't resume at remove time
+  media: exynos-gsc: don't resume at remove time
+  media: atmel: properly get pm_runtime
+  media: marvel-ccic: fix some issues when getting pm_runtime
+  media: mdk-mdp: fix pm_runtime_get_sync() usage count
+  media: rcar_fdp1: fix pm_runtime_get_sync() usage count
+  media: rga-buf: use pm_runtime_resume_and_get()
+  media: renesas-ceu: Properly check for PM errors
+  media: s5p: fix pm_runtime_get_sync() usage count
+  media: am437x: fix pm_runtime_get_sync() usage count
+  media: sh_vou: fix pm_runtime_get_sync() usage count
+  media: mtk-vcodec: fix pm_runtime_get_sync() usage count
+  media: s5p-jpeg: fix pm_runtime_get_sync() usage count
+  media: delta-v4l2: fix pm_runtime_get_sync() usage count
+  media: sun8i_rotate: fix pm_runtime_get_sync() usage count
+  staging: media: rkvdec: fix pm_runtime_get_sync() usage count
+  staging: media: atomisp_fops: use pm_runtime_resume_and_get()
+  staging: media: imx7-mipi-csis: use pm_runtime_resume_and_get()
+  staging: media: ipu3: use pm_runtime_resume_and_get()
+  staging: media: cedrus_video: use pm_runtime_resume_and_get()
+  staging: media: vde: use pm_runtime_resume_and_get()
+  staging: media: csi: use pm_runtime_resume_and_get()
+  staging: media: vi: use pm_runtime_resume_and_get()
+  media: i2c: ak7375: use pm_runtime_resume_and_get()
+  media: i2c: ccs-core: use pm_runtime_resume_and_get()
+  media: i2c: dw9714: use pm_runtime_resume_and_get()
+  media: i2c: dw9768: use pm_runtime_resume_and_get()
+  media: i2c: dw9807-vcm: use pm_runtime_resume_and_get()
+  media: i2c: hi556: use pm_runtime_resume_and_get()
+  media: i2c: imx214: use pm_runtime_resume_and_get()
+  media: i2c: imx219: use pm_runtime_resume_and_get()
+  media: i2c: imx258: use pm_runtime_resume_and_get()
+  media: i2c: imx274: use pm_runtime_resume_and_get()
+  media: i2c: imx290: use pm_runtime_resume_and_get()
+  media: i2c: imx319: use pm_runtime_resume_and_get()
+  media: i2c: imx334: use pm_runtime_resume_and_get()
+  media: i2c: imx355: use pm_runtime_resume_and_get()
+  media: i2c: mt9m001: use pm_runtime_resume_and_get()
+  media: i2c: ov02a10: use pm_runtime_resume_and_get()
+  media: i2c: ov13858: use pm_runtime_resume_and_get()
+  media: i2c: ov2659: use pm_runtime_resume_and_get()
+  media: i2c: ov2685: use pm_runtime_resume_and_get()
+  media: i2c: ov2740: use pm_runtime_resume_and_get()
+  media: i2c: ov5647: use pm_runtime_resume_and_get()
+  media: i2c: ov5648: use pm_runtime_resume_and_get()
+  media: i2c: ov5670: use pm_runtime_resume_and_get()
+  media: i2c: ov5675: use pm_runtime_resume_and_get()
+  media: i2c: ov5695: use pm_runtime_resume_and_get()
+  media: i2c: ov7740: use pm_runtime_resume_and_get()
+  media: i2c: ov8856: use pm_runtime_resume_and_get()
+  media: i2c: ov8865: use pm_runtime_resume_and_get()
+  media: i2c: ov9734: use pm_runtime_resume_and_get()
+  media: i2c: tvp5150: use pm_runtime_resume_and_get()
+  media: i2c: video-i2c: use pm_runtime_resume_and_get()
+  media: sti/hva: use pm_runtime_resume_and_get()
+  media: ipu3: use pm_runtime_resume_and_get()
+  media: coda: use pm_runtime_resume_and_get()
+  media: exynos4-is: use pm_runtime_resume_and_get()
+  media: exynos-gsc: use pm_runtime_resume_and_get()
+  media: mtk-jpeg: use pm_runtime_resume_and_get()
+  media: camss: use pm_runtime_resume_and_get()
+  media: venus: use pm_runtime_resume_and_get()
+  media: venus: vdec: use pm_runtime_resume_and_get()
+  media: venus: venc: use pm_runtime_resume_and_get()
+  media: rcar-fcp: use pm_runtime_resume_and_get()
+  media: rkisp1: use pm_runtime_resume_and_get()
+  media: s3c-camif: use pm_runtime_resume_and_get()
+  media: s5p-mfc: use pm_runtime_resume_and_get()
+  media: bdisp-v4l2: use pm_runtime_resume_and_get()
+  media: stm32: use pm_runtime_resume_and_get()
+  media: sunxi: use pm_runtime_resume_and_get()
+  media: ti-vpe: use pm_runtime_resume_and_get()
+  media: vsp1: use pm_runtime_resume_and_get()
+  media: rcar-vin: use pm_runtime_resume_and_get()
+  media: hantro: document the usage of pm_runtime_get_sync()
+
+ drivers/media/cec/platform/s5p/s5p_cec.c      |  5 +++-
+ drivers/media/i2c/ak7375.c                    | 10 +------
+ drivers/media/i2c/ccs/ccs-core.c              | 18 +++++-------
+ drivers/media/i2c/dw9714.c                    | 10 +------
+ drivers/media/i2c/dw9768.c                    | 10 +------
+ drivers/media/i2c/dw9807-vcm.c                | 10 +------
+ drivers/media/i2c/hi556.c                     |  3 +-
+ drivers/media/i2c/imx214.c                    |  6 ++--
+ drivers/media/i2c/imx219.c                    |  6 ++--
+ drivers/media/i2c/imx258.c                    |  6 ++--
+ drivers/media/i2c/imx274.c                    |  3 +-
+ drivers/media/i2c/imx290.c                    |  6 ++--
+ drivers/media/i2c/imx319.c                    |  6 ++--
+ drivers/media/i2c/imx334.c                    |  5 ++--
+ drivers/media/i2c/imx355.c                    |  6 ++--
+ drivers/media/i2c/mt9m001.c                   |  8 ++----
+ drivers/media/i2c/ov02a10.c                   |  6 ++--
+ drivers/media/i2c/ov13858.c                   |  6 ++--
+ drivers/media/i2c/ov2659.c                    |  6 ++--
+ drivers/media/i2c/ov2685.c                    |  7 ++---
+ drivers/media/i2c/ov2740.c                    |  6 ++--
+ drivers/media/i2c/ov5647.c                    |  9 +++---
+ drivers/media/i2c/ov5648.c                    |  6 ++--
+ drivers/media/i2c/ov5670.c                    |  6 ++--
+ drivers/media/i2c/ov5675.c                    |  3 +-
+ drivers/media/i2c/ov5695.c                    |  6 ++--
+ drivers/media/i2c/ov7740.c                    |  8 ++----
+ drivers/media/i2c/ov8856.c                    |  3 +-
+ drivers/media/i2c/ov8865.c                    |  6 ++--
+ drivers/media/i2c/ov9734.c                    |  3 +-
+ drivers/media/i2c/tvp5150.c                   | 16 ++---------
+ drivers/media/i2c/video-i2c.c                 | 14 +++-------
+ drivers/media/pci/intel/ipu3/ipu3-cio2-main.c |  3 +-
+ drivers/media/platform/am437x/am437x-vpfe.c   | 22 +++++++++++----
+ drivers/media/platform/atmel/atmel-isc-base.c | 27 +++++++++++++-----
+ drivers/media/platform/atmel/atmel-isi.c      | 19 ++++++++++---
+ drivers/media/platform/coda/coda-common.c     |  5 ++--
+ drivers/media/platform/exynos-gsc/gsc-core.c  |  3 --
+ drivers/media/platform/exynos-gsc/gsc-m2m.c   |  2 +-
+ .../media/platform/exynos4-is/fimc-capture.c  |  6 ++--
+ drivers/media/platform/exynos4-is/fimc-is.c   |  4 +--
+ .../platform/exynos4-is/fimc-isp-video.c      |  3 +-
+ drivers/media/platform/exynos4-is/fimc-isp.c  |  7 ++---
+ drivers/media/platform/exynos4-is/fimc-lite.c |  5 ++--
+ drivers/media/platform/exynos4-is/fimc-m2m.c  |  2 +-
+ drivers/media/platform/exynos4-is/media-dev.c |  8 ++----
+ drivers/media/platform/exynos4-is/mipi-csis.c |  8 ++----
+ .../media/platform/marvell-ccic/mcam-core.c   |  9 ++++--
+ .../media/platform/mtk-jpeg/mtk_jpeg_core.c   |  4 +--
+ drivers/media/platform/mtk-mdp/mtk_mdp_m2m.c  |  6 ++--
+ .../platform/mtk-vcodec/mtk_vcodec_dec_pm.c   |  4 +--
+ .../media/platform/qcom/camss/camss-csid.c    |  6 ++--
+ .../media/platform/qcom/camss/camss-csiphy.c  |  6 ++--
+ .../media/platform/qcom/camss/camss-ispif.c   |  6 ++--
+ drivers/media/platform/qcom/camss/camss-vfe.c |  5 ++--
+ drivers/media/platform/qcom/venus/core.c      | 28 +++++++++++--------
+ .../media/platform/qcom/venus/pm_helpers.c    | 10 +++----
+ drivers/media/platform/qcom/venus/vdec.c      |  4 +--
+ drivers/media/platform/qcom/venus/venc.c      |  5 ++--
+ drivers/media/platform/rcar-fcp.c             |  6 ++--
+ drivers/media/platform/rcar-vin/rcar-csi2.c   |  6 ++++
+ drivers/media/platform/rcar-vin/rcar-dma.c    |  6 ++--
+ drivers/media/platform/rcar-vin/rcar-v4l2.c   |  6 ++--
+ drivers/media/platform/rcar_fdp1.c            | 12 ++++++--
+ drivers/media/platform/renesas-ceu.c          |  4 +--
+ drivers/media/platform/rockchip/rga/rga-buf.c |  3 +-
+ drivers/media/platform/rockchip/rga/rga.c     |  4 ++-
+ .../platform/rockchip/rkisp1/rkisp1-capture.c |  3 +-
+ .../media/platform/s3c-camif/camif-capture.c  |  2 +-
+ drivers/media/platform/s3c-camif/camif-core.c |  5 ++--
+ drivers/media/platform/s5p-jpeg/jpeg-core.c   |  2 +-
+ drivers/media/platform/s5p-mfc/s5p_mfc_pm.c   |  6 ++--
+ drivers/media/platform/sh_vou.c               |  6 +++-
+ drivers/media/platform/sti/bdisp/bdisp-v4l2.c |  7 +++--
+ drivers/media/platform/sti/delta/delta-v4l2.c |  4 +--
+ drivers/media/platform/sti/hva/hva-hw.c       | 17 +++++------
+ drivers/media/platform/stm32/stm32-dcmi.c     |  5 ++--
+ .../platform/sunxi/sun4i-csi/sun4i_v4l2.c     |  6 ++--
+ .../sunxi/sun8i-rotate/sun8i_rotate.c         |  2 +-
+ drivers/media/platform/ti-vpe/cal-video.c     |  4 ++-
+ drivers/media/platform/ti-vpe/cal.c           |  8 ++++--
+ drivers/media/platform/ti-vpe/vpe.c           |  4 +--
+ drivers/media/platform/vsp1/vsp1_drv.c        |  6 ++--
+ .../staging/media/atomisp/pci/atomisp_fops.c  |  6 ++--
+ drivers/staging/media/hantro/hantro_drv.c     |  7 +++++
+ drivers/staging/media/imx/imx7-mipi-csis.c    |  7 ++---
+ drivers/staging/media/ipu3/ipu3.c             |  3 +-
+ drivers/staging/media/rkvdec/rkvdec.c         |  2 +-
+ .../staging/media/sunxi/cedrus/cedrus_video.c |  6 ++--
+ drivers/staging/media/tegra-vde/vde.c         | 16 +++++++----
+ drivers/staging/media/tegra-video/csi.c       |  3 +-
+ drivers/staging/media/tegra-video/vi.c        |  3 +-
+ 92 files changed, 298 insertions(+), 335 deletions(-)
+
 -- 
-2.31.0
+2.30.2
+
 
 _______________________________________________
 Linux-stm32 mailing list
