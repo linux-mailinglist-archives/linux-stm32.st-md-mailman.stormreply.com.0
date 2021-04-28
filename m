@@ -2,69 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC75136D7FD
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Apr 2021 15:05:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B476236D9E1
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Apr 2021 16:52:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9438DC58D5A;
-	Wed, 28 Apr 2021 13:05:27 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BEC0C58D62;
+	Wed, 28 Apr 2021 14:52:50 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC14EC57B75
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C35EC58D59
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Apr 2021 13:05:25 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13SD0j1f020977; Wed, 28 Apr 2021 15:05:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=eVG3v1lNK3BXxdqTip+oyLR1+X82jhyNevCxSbpxH+E=;
- b=3dlIO9+Oshqkwmw+9VEIpjnuaax+TOlu3qUw838yVD7R1hhvpXJvuQirqC511+ByiqEr
- 5Wh3sCxTTDapgtXZW4IaTj4I1ULReLwAADx7L4e4hEAk08hQu5dtl5Vxa+GcJSeS/eu0
- /oXJ+oSJop6N2+29FLAtxYWyJbHh6YM0Hn7oYNWCJmWqFnZIlSaNrqnbFPa5KeQ5AVdU
- Wf1c4eEnedbVh6DTWgtmragIddZ2udmLX1uqu+4fyTKYSgVvRJmppDFFC8k67PYXi99p
- Y4g6cgi7x8OrQe3PuKYUaYelcqe+9g7KGrn/HVRUWiL30ERGZlkyxptj85I31LS7ZzOQ EA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 386ea8gghc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 Apr 2021 15:05:23 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3022510002A;
- Wed, 28 Apr 2021 15:05:23 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1BE06210895;
- Wed, 28 Apr 2021 15:05:23 +0200 (CEST)
-Received: from lmecxl0889.lme.st.com (10.75.127.51) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 28 Apr
- 2021 15:05:22 +0200
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20210413134458.17912-1-arnaud.pouliquen@foss.st.com>
- <20210413134458.17912-6-arnaud.pouliquen@foss.st.com>
- <20210421174053.GA1223348@xps15>
- <47015357-b006-1c32-f63f-d4fcac054d6f@foss.st.com>
- <20210422163622.GC1256950@xps15>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <14998d88-b27b-3548-e52f-eb0365caa96f@foss.st.com>
-Date: Wed, 28 Apr 2021 15:05:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Wed, 28 Apr 2021 14:52:48 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C229161448;
+ Wed, 28 Apr 2021 14:52:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1619621564;
+ bh=ng2dKUVAN//CcGRaqNlPwb37YT/BiEuzdFhAtVtHvMM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=HVhVnMzHNp3W/c5vm1TcCHFIgz42JpWpbR5vgFVKyh++Cc0eWHDQpWqqZukgv5Ax2
+ 4kF3t5ZKPuW4pT9MkS4w0RMjdrWx5jBbm3yBxniXC4JNMggczAbBte7+hwc2MM0C9t
+ mL2S7hpRg0h89iVjSzWMCQNyT67F08KkbrhPzx/9DTeaeLs2x/p6oiEnIFdf0uepKw
+ ac9OSz3Z6Glhuk3HM2j49yKRrq5tdnyCRULN0cjbnQhoCUnVAZM8QC5rIRUOUqInV4
+ L/eDgALs+49L2PQL/XCqcFlJuk0OEal01HLkN5ItwWFwVHpjsgvQtax+EupZhP4zsA
+ uCQEMDituhZ2Q==
+Received: by mail.kernel.org with local (Exim 4.94)
+ (envelope-from <mchehab@kernel.org>)
+ id 1lblYP-001Dpb-HN; Wed, 28 Apr 2021 16:52:41 +0200
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: 
+Date: Wed, 28 Apr 2021 16:51:21 +0200
+Message-Id: <cover.1619621413.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <20210422163622.GC1256950@xps15>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-28_06:2021-04-27,
- 2021-04-28 signatures=0
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v2 5/7] rpmsg: char: Introduce a rpmsg
- driver for the rpmsg char device
+Cc: Shawn Tu <shawnx.tu@intel.com>, Ricardo Ribalda <ribalda@kernel.org>,
+ Dafna Hirschfeld <dafna.hirschfeld@collabora.com>,
+ Heiko Stuebner <heiko@sntech.de>, linuxarm@huawei.com,
+ Todor Tomov <todor.too@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, "Lad,
+ Prabhakar" <prabhakar.csengg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Dmitry Osipenko <digetx@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
+ Leon Luo <leonl@leopardimaging.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Matt Ranostay <matt.ranostay@konsulko.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
+ Andy Gross <agross@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Dongchun Zhu <dongchun.zhu@mediatek.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@intel.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Shunqian Zheng <zhengsq@rock-chips.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ devel@driverdev.osuosl.org, Jacopo Mondi <jacopo@jmondi.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-tegra@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Wenyou Yang <wenyou.yang@microchip.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Steve Longerbeam <slongerbeam@gmail.com>, linux-media@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Benoit Parrot <bparrot@ti.com>, Rui Miguel Silva <rmfrfs@gmail.com>,
+ Helen Koike <helen.koike@collabora.com>, linux-samsung-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, mauro.chehab@huawei.com,
+ Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
+ "Paul J. Murphy" <paul.j.murphy@intel.com>,
+ Ezequiel Garcia <ezequiel@collabora.com>,
+ Daniele Alessandrelli <daniele.alessandrelli@intel.com>,
+ Chiranjeevi Rapolu <chiranjeevi.rapolu@intel.com>,
+ linux-arm-kernel@lists.infradead.org, Jacob Chen <jacob-chen@iotwrt.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Hyungwoo Yang <hyungwoo.yang@intel.com>, linux-kernel@vger.kernel.org,
+ Robert Foss <robert.foss@linaro.org>, Dan Scally <djrscally@gmail.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ Yong Zhi <yong.zhi@intel.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: [Linux-stm32] [PATCH v4 00/79] Address some issues with PM runtime
+	at media subsystem
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,182 +103,264 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+During the review of the patches from unm.edu, one of the patterns
+I noticed is the amount of patches trying to fix pm_runtime_get_sync()
+calls.
 
-On 4/22/21 6:36 PM, Mathieu Poirier wrote:
-> On Thu, Apr 22, 2021 at 09:58:27AM +0200, Arnaud POULIQUEN wrote:
->> On 4/21/21 7:40 PM, Mathieu Poirier wrote:
->>> Good day Arnaud,
->>>
->>> On Tue, Apr 13, 2021 at 03:44:56PM +0200, Arnaud Pouliquen wrote:
->>>> A rpmsg char device allows to probe the endpoint device on a remote name
->>>> service announcement.
->>>>
->>>> With this patch the /dev/rpmsgX interface is created either by a user
->>>> application or by the remote firmware.
->>>>
->>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->>>>
->>>> ---
->>>> update from V1:
->>>>  - add missing unregister_rpmsg_driver call on module exit.
->>>>
->>>> ---
->>>>  drivers/rpmsg/rpmsg_char.c | 59 +++++++++++++++++++++++++++++++++++++-
->>>>  1 file changed, 58 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
->>>> index a64249d83172..4606787b7011 100644
->>>> --- a/drivers/rpmsg/rpmsg_char.c
->>>> +++ b/drivers/rpmsg/rpmsg_char.c
->>>> @@ -26,6 +26,8 @@
->>>>  #include "rpmsg_char.h"
->>>>  #include "rpmsg_internal.h"
->>>>  
->>>> +#define RPMSG_CHAR_DEVNAME "rpmsg-raw"
->>>> +
->>>
->>> Why not simply call it rpmsg-char?
->>
->> I would avoid to link the rpmsg name service to the Linux Kernel device.
-> 
-> To me that's exactly what we want to do...  Am I missing something?
-> 
->>
->>>
->>>>  static dev_t rpmsg_major;
->>>>  
->>>>  static DEFINE_IDA(rpmsg_ept_ida);
->>>> @@ -403,13 +405,67 @@ int rpmsg_chrdev_create_eptdev(struct rpmsg_device *rpdev, struct device *parent
->>>>  }
->>>>  EXPORT_SYMBOL(rpmsg_chrdev_create_eptdev);
->>>>  
->>>> +static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
->>>> +{
->>>> +	struct rpmsg_channel_info chinfo;
->>>> +	struct rpmsg_eptdev *eptdev;
->>>> +
->>>> +	if (!rpdev->ept)
->>>> +		return -EINVAL;
->>>> +
->>>> +	memcpy(chinfo.name, RPMSG_CHAR_DEVNAME, sizeof(RPMSG_CHAR_DEVNAME));
->>>> +	chinfo.src = rpdev->src;
->>>> +	chinfo.dst = rpdev->dst;
->>>> +
->>>> +	eptdev = __rpmsg_chrdev_create_eptdev(rpdev, &rpdev->dev, chinfo, NULL);
->>>> +	if (IS_ERR(eptdev))
->>>> +		return PTR_ERR(eptdev);
->>>> +
->>>> +	/* Set the private field of the default endpoint to retrieve context on callback. */
->>>> +	rpdev->ept->priv = eptdev;
->>>
->>> This is already done in rpmsg_create_ept() when rpmsg_eptdev_open() is called.
->>>
->>>> +
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
->>>> +{
->>>> +	int ret;
->>>> +
->>>> +	ret = device_for_each_child(&rpdev->dev, NULL, rpmsg_chrdev_destroy_eptdev);
->>>> +	if (ret)
->>>> +		dev_warn(&rpdev->dev, "failed to destroy endpoints: %d\n", ret);
->>>> +}
->>>> +
->>>> +static struct rpmsg_device_id rpmsg_chrdev_id_table[] = {
->>>> +	{ .name	= RPMSG_CHAR_DEVNAME },
->>>> +	{ },
->>>> +};
->>>> +
->>>> +static struct rpmsg_driver rpmsg_chrdev_driver = {
->>>> +	.probe = rpmsg_chrdev_probe,
->>>> +	.remove = rpmsg_chrdev_remove,
->>>> +	.id_table = rpmsg_chrdev_id_table,
->>>> +	.callback = rpmsg_ept_cb,
->>>
->>> Not sure why we need a callback associated to this driver when
->>> rpmsg_eptdev_open() already creates and rpmsg_endpoint.  To me the only thing
->>> having a callback provides is the association between the rpmsg_device and the
->>> rpmsg_endpoint[1] that happens in rpmsg_dev_probe().  The QC folks already do
->>> this association in their platform code[2].  Since this is not done in
->>> __rpmsg_create_ept() a check for rpdev->ept == NULL could be done in
->>> rpmsg_eptdev_open() and do the assignment there. 
->>>
->>> [1]. https://elixir.bootlin.com/linux/v5.12-rc6/source/drivers/rpmsg/rpmsg_core.c#L513  
->>> [2]. https://elixir.bootlin.com/linux/v5.12-rc6/source/drivers/rpmsg/qcom_glink_native.c#L1623
->>>
->>
->> That's a good point! When I started the redesign, I faced some issues with the
->> approach you propose. But as I can not remember the reason and because the code
->> has evolved, i need to re-think about this.
->>
-> 
-> Glad to see we're on the same page.  I stared at this code for a very long time,
-> thinking there was some kind of bigger picture I wasn't getting.
+After analyzing the feedback from version 1 of this series, I noticed
+a few other weird behaviors at the PM runtime resume code. So, this
+series start addressing some bugs and issues at the current code.
+Then, it gets rid of pm_runtime_get_sync() at the media subsystem
+(with 2 exceptions).
 
-I finally found the time to investigate this. If I remember now why I used this
-approach, I also saw that my patchset does not work with the QCOM platform driver.
+It should be noticed that
+Commit dd8088d5a896 ("PM: runtime: Add pm_runtime_resume_and_get to deal with usage counter")
+added a new method to does a pm_runtime get, which increments
+the usage count only on success.
 
-As a first step of explanation, let's ignore the QC platform.
-rpdev->ept is null for the rpmsg ctrldev device created by the virtio rpmsg bus.
-If no default endpoint is created on rpmsg_chrdev_probe, it is not possible to
-differentiate the two in rpmsg_eptdev_open based on rpdev->ept == NULL.
+The rationale of getting rid of pm_runtime_get_sync() is:
 
-Now let's add the QC implementation
-As you mentioned, QC sets the rpdev->ept to a default endpoint before
-registering the rpmsg ctrldev. This shows that it is not reasonable to expect to
-handle all use cases based on the rpdev->ept value.
+1. despite its name, this is actually a PM runtime resume call,
+   but some developers didn't seem to realize that, as I got this
+   pattern on some drivers:
 
-So, to summarize, I need to rework this, probably by adding a new field in the
-rpmsg_eptdev structure, to properly handle the endpoint creation in the
-rpmsg_eptdev_open function.
+        pm_runtime_get_sync(&client->dev);
+        pm_runtime_disable(&client->dev);
+        pm_runtime_set_suspended(&client->dev);
+        pm_runtime_put_noidle(&client->dev);
 
-Regards,
-Arnaud
+   It makes no sense to resume PM just to suspend it again ;-)
 
-> 
-> 
->> Thanks,
->> Arnaud
->>
->>
->>>> +	.drv = {
->>>> +		.name = "rpmsg_chrdev",
->>>> +	},
->>>> +};
->>>> +
->>>>  static int rpmsg_chrdev_init(void)
->>>>  {
->>>>  	int ret;
->>>>  
->>>>  	ret = alloc_chrdev_region(&rpmsg_major, 0, RPMSG_DEV_MAX, "rpmsg_char");
->>>> -	if (ret < 0)
->>>> +	if (ret < 0) {
->>>>  		pr_err("rpmsg: failed to allocate char dev region\n");
->>>> +		return ret;
->>>> +	}
->>>> +
->>>> +	ret = register_rpmsg_driver(&rpmsg_chrdev_driver);
->>>> +	if (ret < 0) {
->>>> +		pr_err("rpmsg: failed to register rpmsg raw driver\n");
->>>> +		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->>>> +	}
->>>>  
->>>>  	return ret;
->>>>  }
->>>> @@ -417,6 +473,7 @@ postcore_initcall(rpmsg_chrdev_init);
->>>>  
->>>>  static void rpmsg_chrdev_exit(void)
->>>>  {
->>>> +	unregister_rpmsg_driver(&rpmsg_chrdev_driver);
->>>>  	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->>>>  }
->>>>  module_exit(rpmsg_chrdev_exit);
->>>> -- 
->>>> 2.17.1
->>>>
+2. Usual *_get() methods only increment their use count on success,
+   but pm_runtime_get_sync() increments it unconditionally. Due to
+   that, several drivers were mistakenly not calling
+   pm_runtime_put_noidle() when it fails;
+
+3. The name of the new variant is a lot clearer:
+	pm_runtime_resume_and_get()
+    As its same clearly says that this is a PM runtime resume function,
+    that also increments the usage counter on success;
+
+4. Consistency: we did similar changes subsystem wide with
+   for instance strlcpy() and strcpy() that got replaced by
+   strscpy(). Having all drivers using the same known-to-be-safe
+   methods is a good thing;
+
+5. Prevent newer drivers to copy-and-paste a code that it would
+   be easier to break if they don't truly understand what's behind
+   the scenes.
+
+This series replace places  pm_runtime_get_sync(), by calling
+pm_runtime_resume_and_get() instead.
+
+This should help to avoid future mistakes like that, as people
+tend to use the existing drivers as examples for newer ones.
+
+compile-tested only.
+
+Patches 1 to 7 fix some issues that already exists at the current
+PM runtime code;
+
+patches 8 to 20 fix some usage_count problems that still exists
+at the media subsystem;
+
+patches 21 to 78 repaces pm_runtime_get_sync() by 
+pm_runtime_resume_and_get();
+
+Patch 79 (and a hunk on patch 78) documents the two exceptions
+where pm_runtime_get_sync() will still be used for now.
+
+---
+
+v4:
+    - Added a couple of additional fixes at existing PM runtime code;
+    - Some patches are now more conservative in order to avoid causing
+     regressions.
+v3:
+    - fix a compilation error;
+v2:
+    - addressed pointed issues and fixed a few other PM issues.
+
+
+Mauro Carvalho Chehab (79):
+  media: venus: fix PM runtime logic at venus_sys_error_handler()
+  media: s6p_cec: decrement usage count if disabled
+  media: i2c: ccs-core: return the right error code at suspend
+  media: i2c: ov7740: don't resume at remove time
+  media: i2c: video-i2c: don't resume at remove time
+  media: i2c: imx334: fix the pm runtime get logic
+  media: exynos-gsc: don't resume at remove time
+  media: atmel: properly get pm_runtime
+  media: marvel-ccic: fix some issues when getting pm_runtime
+  media: mdk-mdp: fix pm_runtime_get_sync() usage count
+  media: rcar_fdp1: fix pm_runtime_get_sync() usage count
+  media: renesas-ceu: Properly check for PM errors
+  media: s5p: fix pm_runtime_get_sync() usage count
+  media: am437x: fix pm_runtime_get_sync() usage count
+  media: sh_vou: fix pm_runtime_get_sync() usage count
+  media: mtk-vcodec: fix pm_runtime_get_sync() usage count
+  media: s5p-jpeg: fix pm_runtime_get_sync() usage count
+  media: sti/delta: fix pm_runtime_get_sync() usage count
+  media: sunxi: fix pm_runtime_get_sync() usage count
+  staging: media: rkvdec: fix pm_runtime_get_sync() usage count
+  staging: media: atomisp: use pm_runtime_resume_and_get()
+  staging: media: imx7-mipi-csis: use pm_runtime_resume_and_get()
+  staging: media: ipu3: use pm_runtime_resume_and_get()
+  staging: media: cedrus_video: use pm_runtime_resume_and_get()
+  staging: media: tegra-vde: use pm_runtime_resume_and_get()
+  staging: media: tegra-video: use pm_runtime_resume_and_get()
+  media: i2c: ak7375: use pm_runtime_resume_and_get()
+  media: i2c: ccs-core: use pm_runtime_resume_and_get()
+  media: i2c: dw9714: use pm_runtime_resume_and_get()
+  media: i2c: dw9768: use pm_runtime_resume_and_get()
+  media: i2c: dw9807-vcm: use pm_runtime_resume_and_get()
+  media: i2c: hi556: use pm_runtime_resume_and_get()
+  media: i2c: imx214: use pm_runtime_resume_and_get()
+  media: i2c: imx219: use pm_runtime_resume_and_get()
+  media: i2c: imx258: use pm_runtime_resume_and_get()
+  media: i2c: imx274: use pm_runtime_resume_and_get()
+  media: i2c: imx290: use pm_runtime_resume_and_get()
+  media: i2c: imx319: use pm_runtime_resume_and_get()
+  media: i2c: imx355: use pm_runtime_resume_and_get()
+  media: i2c: mt9m001: use pm_runtime_resume_and_get()
+  media: i2c: ov02a10: use pm_runtime_resume_and_get()
+  media: i2c: ov13858: use pm_runtime_resume_and_get()
+  media: i2c: ov2659: use pm_runtime_resume_and_get()
+  media: i2c: ov2685: use pm_runtime_resume_and_get()
+  media: i2c: ov2740: use pm_runtime_resume_and_get()
+  media: i2c: ov5647: use pm_runtime_resume_and_get()
+  media: i2c: ov5648: use pm_runtime_resume_and_get()
+  media: i2c: ov5670: use pm_runtime_resume_and_get()
+  media: i2c: ov5675: use pm_runtime_resume_and_get()
+  media: i2c: ov5695: use pm_runtime_resume_and_get()
+  media: i2c: ov7740: use pm_runtime_resume_and_get()
+  media: i2c: ov8856: use pm_runtime_resume_and_get()
+  media: i2c: ov8865: use pm_runtime_resume_and_get()
+  media: i2c: ov9734: use pm_runtime_resume_and_get()
+  media: i2c: tvp5150: use pm_runtime_resume_and_get()
+  media: i2c: video-i2c: use pm_runtime_resume_and_get()
+  media: rockchip/rga: use pm_runtime_resume_and_get()
+  media: sti/hva: use pm_runtime_resume_and_get()
+  media: sti/bdisp: use pm_runtime_resume_and_get()
+  media: ipu3: use pm_runtime_resume_and_get()
+  media: coda: use pm_runtime_resume_and_get()
+  media: exynos4-is: use pm_runtime_resume_and_get()
+  media: exynos-gsc: use pm_runtime_resume_and_get()
+  media: mtk-jpeg: use pm_runtime_resume_and_get()
+  media: camss: use pm_runtime_resume_and_get()
+  media: venus: use pm_runtime_resume_and_get()
+  media: venus: vdec: use pm_runtime_resume_and_get()
+  media: venus: venc: use pm_runtime_resume_and_get()
+  media: rcar-fcp: use pm_runtime_resume_and_get()
+  media: rkisp1: use pm_runtime_resume_and_get()
+  media: s3c-camif: use pm_runtime_resume_and_get()
+  media: s5p-mfc: use pm_runtime_resume_and_get()
+  media: stm32: use pm_runtime_resume_and_get()
+  media: sunxi: use pm_runtime_resume_and_get()
+  media: ti-vpe: use pm_runtime_resume_and_get()
+  media: vsp1: use pm_runtime_resume_and_get()
+  media: rcar-vin: use pm_runtime_resume_and_get()
+  media: hantro: use pm_runtime_resume_and_get()
+  media: hantro: do a PM resume earlier
+
+ drivers/media/cec/platform/s5p/s5p_cec.c      |  7 +++--
+ drivers/media/i2c/ak7375.c                    | 10 +------
+ drivers/media/i2c/ccs/ccs-core.c              | 18 +++++-------
+ drivers/media/i2c/dw9714.c                    | 10 +------
+ drivers/media/i2c/dw9768.c                    | 10 +------
+ drivers/media/i2c/dw9807-vcm.c                | 10 +------
+ drivers/media/i2c/hi556.c                     |  3 +-
+ drivers/media/i2c/imx214.c                    |  6 ++--
+ drivers/media/i2c/imx219.c                    |  6 ++--
+ drivers/media/i2c/imx258.c                    |  6 ++--
+ drivers/media/i2c/imx274.c                    |  3 +-
+ drivers/media/i2c/imx290.c                    |  6 ++--
+ drivers/media/i2c/imx319.c                    |  6 ++--
+ drivers/media/i2c/imx334.c                    |  7 +++--
+ drivers/media/i2c/imx355.c                    |  6 ++--
+ drivers/media/i2c/mt9m001.c                   |  9 ++++--
+ drivers/media/i2c/ov02a10.c                   |  6 ++--
+ drivers/media/i2c/ov13858.c                   |  6 ++--
+ drivers/media/i2c/ov2659.c                    |  6 ++--
+ drivers/media/i2c/ov2685.c                    |  7 ++---
+ drivers/media/i2c/ov2740.c                    |  6 ++--
+ drivers/media/i2c/ov5647.c                    |  9 +++---
+ drivers/media/i2c/ov5648.c                    |  6 ++--
+ drivers/media/i2c/ov5670.c                    |  6 ++--
+ drivers/media/i2c/ov5675.c                    |  3 +-
+ drivers/media/i2c/ov5695.c                    |  6 ++--
+ drivers/media/i2c/ov7740.c                    |  8 ++---
+ drivers/media/i2c/ov8856.c                    |  3 +-
+ drivers/media/i2c/ov8865.c                    |  6 ++--
+ drivers/media/i2c/ov9734.c                    |  3 +-
+ drivers/media/i2c/tvp5150.c                   | 16 ++--------
+ drivers/media/i2c/video-i2c.c                 | 14 +++------
+ drivers/media/pci/intel/ipu3/ipu3-cio2-main.c |  3 +-
+ drivers/media/platform/am437x/am437x-vpfe.c   | 22 ++++++++++----
+ drivers/media/platform/atmel/atmel-isc-base.c | 27 ++++++++++++-----
+ drivers/media/platform/atmel/atmel-isi.c      | 19 +++++++++---
+ drivers/media/platform/coda/coda-common.c     |  7 +++--
+ drivers/media/platform/exynos-gsc/gsc-core.c  | 11 +++----
+ drivers/media/platform/exynos-gsc/gsc-m2m.c   |  2 +-
+ .../media/platform/exynos4-is/fimc-capture.c  |  6 ++--
+ drivers/media/platform/exynos4-is/fimc-is.c   |  4 +--
+ .../platform/exynos4-is/fimc-isp-video.c      |  3 +-
+ drivers/media/platform/exynos4-is/fimc-isp.c  |  7 ++---
+ drivers/media/platform/exynos4-is/fimc-lite.c |  5 ++--
+ drivers/media/platform/exynos4-is/fimc-m2m.c  |  2 +-
+ drivers/media/platform/exynos4-is/media-dev.c |  8 ++---
+ drivers/media/platform/exynos4-is/mipi-csis.c |  8 ++---
+ .../media/platform/marvell-ccic/mcam-core.c   |  9 ++++--
+ .../media/platform/mtk-jpeg/mtk_jpeg_core.c   |  4 +--
+ drivers/media/platform/mtk-mdp/mtk_mdp_m2m.c  |  6 ++--
+ .../platform/mtk-vcodec/mtk_vcodec_dec_pm.c   |  4 +--
+ .../media/platform/qcom/camss/camss-csid.c    |  6 ++--
+ .../media/platform/qcom/camss/camss-csiphy.c  |  6 ++--
+ .../media/platform/qcom/camss/camss-ispif.c   |  6 ++--
+ drivers/media/platform/qcom/camss/camss-vfe.c |  5 ++--
+ drivers/media/platform/qcom/venus/core.c      | 28 +++++++++++-------
+ .../media/platform/qcom/venus/pm_helpers.c    | 10 +++----
+ drivers/media/platform/qcom/venus/vdec.c      |  4 +--
+ drivers/media/platform/qcom/venus/venc.c      |  5 ++--
+ drivers/media/platform/rcar-fcp.c             |  6 ++--
+ drivers/media/platform/rcar-vin/rcar-csi2.c   | 15 ++++++++--
+ drivers/media/platform/rcar-vin/rcar-dma.c    |  6 ++--
+ drivers/media/platform/rcar-vin/rcar-v4l2.c   |  6 ++--
+ drivers/media/platform/rcar_fdp1.c            | 12 ++++++--
+ drivers/media/platform/renesas-ceu.c          |  4 +--
+ drivers/media/platform/rockchip/rga/rga-buf.c |  3 +-
+ drivers/media/platform/rockchip/rga/rga.c     |  4 ++-
+ .../platform/rockchip/rkisp1/rkisp1-capture.c |  3 +-
+ .../media/platform/s3c-camif/camif-capture.c  |  2 +-
+ drivers/media/platform/s3c-camif/camif-core.c |  5 ++--
+ drivers/media/platform/s5p-jpeg/jpeg-core.c   |  2 +-
+ drivers/media/platform/s5p-mfc/s5p_mfc_pm.c   |  6 ++--
+ drivers/media/platform/sh_vou.c               |  6 +++-
+ drivers/media/platform/sti/bdisp/bdisp-v4l2.c |  7 +++--
+ drivers/media/platform/sti/delta/delta-v4l2.c |  4 +--
+ drivers/media/platform/sti/hva/hva-hw.c       | 17 ++++++-----
+ drivers/media/platform/stm32/stm32-dcmi.c     |  5 ++--
+ .../platform/sunxi/sun4i-csi/sun4i_v4l2.c     |  6 ++--
+ .../sunxi/sun8i-rotate/sun8i_rotate.c         |  2 +-
+ drivers/media/platform/ti-vpe/cal-video.c     |  4 ++-
+ drivers/media/platform/ti-vpe/cal.c           |  8 +++--
+ drivers/media/platform/ti-vpe/vpe.c           |  4 +--
+ drivers/media/platform/vsp1/vsp1_drv.c        |  6 ++--
+ .../staging/media/atomisp/pci/atomisp_fops.c  |  6 ++--
+ drivers/staging/media/hantro/hantro_drv.c     | 29 ++++++++++++-------
+ drivers/staging/media/imx/imx7-mipi-csis.c    |  7 ++---
+ drivers/staging/media/ipu3/ipu3.c             |  3 +-
+ drivers/staging/media/rkvdec/rkvdec.c         |  2 +-
+ .../staging/media/sunxi/cedrus/cedrus_video.c |  6 ++--
+ drivers/staging/media/tegra-vde/vde.c         | 19 ++++++++++--
+ drivers/staging/media/tegra-video/csi.c       |  3 +-
+ drivers/staging/media/tegra-video/vi.c        |  3 +-
+ 92 files changed, 335 insertions(+), 347 deletions(-)
+
+-- 
+2.30.2
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
