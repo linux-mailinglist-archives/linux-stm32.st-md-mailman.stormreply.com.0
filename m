@@ -2,48 +2,117 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED95C36C33F
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Apr 2021 12:27:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84E9636D3A9
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Apr 2021 10:09:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A882FC57B51;
-	Tue, 27 Apr 2021 10:27:20 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DF00C58D59;
+	Wed, 28 Apr 2021 08:09:36 +0000 (UTC)
+Received: from ssl.serverraum.org (ssl.serverraum.org [176.9.125.105])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E53AEC3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83A43C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Apr 2021 10:27:19 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 815A661415;
- Tue, 27 Apr 2021 10:27:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619519236;
- bh=/R60wucnhMxzatTcaaq6aX+wA4KyHRrla+Ogrsx7GxU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=P56zrL4Gg3jEUeTkZS2IFHj+uXqtpdhmLsJDUn92MY4jLzJjsQAryX6b1IuA4GpoC
- uiZVc1R9FxNaZE3nN2cCyZR0UT5MeNcBNUzscwoou2kUKoy+tWYKD1dG8VBteaq506
- pIOcETXuU9PPpieZnMFlvj8nlszSsVh7Ty5l5thsp1lnQoM42oV9QGL94uNwZanFzZ
- EAipNbg4MFY7UlZWA3zXP3lxC3IeJxVDBrA121JQ14Ki3F0PsoxcMrpDJEnKDwRzmR
- QehK2z7aUj8zb2mpo7fTfROvJdt3jaPNmBdKvwFOtLjtKycARv1ZOUIaV88bhGhzyn
- 5xBT36E1ppv7Q==
-Received: by mail.kernel.org with local (Exim 4.94)
- (envelope-from <mchehab@kernel.org>)
- id 1lbKvz-000o2n-Hp; Tue, 27 Apr 2021 12:27:15 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: 
-Date: Tue, 27 Apr 2021 12:27:04 +0200
-Message-Id: <7a01ab8c03a6778c6aeb9357a3807829c6dc91f3.1619519080.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1619519080.git.mchehab+huawei@kernel.org>
-References: <cover.1619519080.git.mchehab+huawei@kernel.org>
+ Wed, 28 Apr 2021 08:09:33 +0000 (UTC)
+Received: from ssl.serverraum.org (web.serverraum.org [172.16.0.2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ssl.serverraum.org (Postfix) with ESMTPSA id 3392E2224F;
+ Wed, 28 Apr 2021 10:09:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
+ s=mail2016061301; t=1619597371;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=M9NlOCpW1MZNsl/vA/TRzY5PiytDAsgS7p11KntpwDc=;
+ b=TeuOHOIozerVUFBEq+kXl+E4fsEw1MWqgROl2oA8Sc/xKOT0oXpynCQIkw1papfFwz22RM
+ ZqopdTbGj/RRv3+sDFrM+3v84W6DRuM04o8XbE5Tyx09iWpSYtyaTodlAwmk1PVwQpm/hS
+ zB6aEh6Z4dXpMFJB4kyQVt3Zk/Jvibs=
 MIME-Version: 1.0
-Cc: Alexandre Torgue <alexandre.torgue@st.com>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, linuxarm@huawei.com,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- mauro.chehab@huawei.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 74/79] media: stm32: use
-	pm_runtime_resume_and_get()
+Date: Wed, 28 Apr 2021 10:09:17 +0200
+From: Michael Walle <michael@walle.cc>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+In-Reply-To: <3677398ebb77f334abb4899770db633d9658fe82.camel@kernel.crashing.org>
+References: <20210412174718.17382-1-michael@walle.cc>
+ <20210412174718.17382-3-michael@walle.cc>
+ <730d603b12e590c56770309b4df2bd668f7afbe3.camel@kernel.crashing.org>
+ <8157eba9317609294da80472622deb28@walle.cc>
+ <CAL_JsqLrx6nFZrKiEtm2a1vDvQGG+FkpGtJCG2osM8hhGo3P=Q@mail.gmail.com>
+ <108f268a35843368466004f7fe5f9f88@walle.cc>
+ <3677398ebb77f334abb4899770db633d9658fe82.camel@kernel.crashing.org>
+User-Agent: Roundcube Webmail/1.4.11
+Message-ID: <452795c5254b65cfba6e52cfc94d92bd@walle.cc>
+X-Sender: michael@walle.cc
+Cc: Andrew Lunn <andrew@lunn.ch>, Paul Mackerras <paulus@samba.org>,
+ =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ "moderated list:ARM/STM32
+ ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Michal Simek <michal.simek@xilinx.com>, Jose Abreu <joabreu@synopsys.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Mark Lee <Mark-MC.Lee@mediatek.com>,
+ Vadym Kochan <vkochan@marvell.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Lorenzo Bianconi <lorenzo.bianconi83@gmail.com>,
+ linux-omap <linux-omap@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-wireless <linux-wireless@vger.kernel.org>, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Vladimir Oltean <olteanv@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ =?UTF-8?Q?J=C3=A9r=C3=B4me_Pouiller?= <jerome.pouiller@silabs.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Chris Snook <chris.snook@gmail.com>,
+ Pantelis Antoniou <pantelis.antoniou@gmail.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Madalin Bucur <madalin.bucur@nxp.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Murali Karicheri <m-karicheri2@ti.com>, Yisen Zhuang <yisen.zhuang@huawei.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Wingman Kwok <w-kwok2@ti.com>,
+ Sean Wang <sean.wang@mediatek.com>, Maxime Ripard <mripard@kernel.org>,
+ Claudiu Manoil <claudiu.manoil@nxp.com>, "open
+ list:ARM/Amlogic Meson..." <linux-amlogic@lists.infradead.org>,
+ Kalle Valo <kvalo@codeaurora.org>, Mirko Lindner <mlindner@marvell.com>,
+ Fugang Duan <fugang.duan@nxp.com>,
+ Bryan Whitehead <bryan.whitehead@microchip.com>,
+ QCA ath9k Development <ath9k-devel@qca.qualcomm.com>,
+ Microchip Linux Driver Support <UNGLinuxDriver@microchip.com>,
+ Taras Chornyi <tchornyi@marvell.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Fabio Estevam <festevam@gmail.com>, Stanislaw Gruszka <stf_xl@wp.pl>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-staging@lists.linux.dev,
+ Chen-Yu Tsai <wens@csie.org>,
+ "maintainer:BROADCOM BCM7XXX ARM ARCHITECTURE"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Grygorii Strashko <grygorii.strashko@ti.com>, Byungho An <bh74.an@samsung.com>,
+ Radhey Shyam Pandey <radhey.shyam.pandey@xilinx.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, John Crispin <john@phrozen.org>,
+ Salil Mehta <salil.mehta@huawei.com>,
+ Sergei Shtylyov <sergei.shtylyov@gmail.com>, linux-oxnas@groups.io,
+ Shawn Guo <shawnguo@kernel.org>, "David S . Miller" <davem@davemloft.net>,
+ Helmut Schaa <helmut.schaa@googlemail.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ "open list:MEDIA DRIVERS FOR RENESAS -
+ FCP" <linux-renesas-soc@vger.kernel.org>, Ryder Lee <ryder.lee@mediatek.com>,
+ Russell King <linux@armlinux.org.uk>, Hauke Mehrtens <hauke@hauke-m.de>,
+ Jakub Kicinski <kuba@kernel.org>, Vivien Didelot <vivien.didelot@gmail.com>,
+ Sunil Goutham <sgoutham@marvell.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, netdev <netdev@vger.kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Li Yang <leoyang.li@nxp.com>,
+ Stephen Hemminger <stephen@networkplumber.org>, Vinod Koul <vkoul@kernel.org>,
+ Joyce Ooi <joyce.ooi@intel.com>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH net-next v4 2/2] of: net: fix
+ of_get_mac_addr_nvmem() for non-platform devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,51 +124,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit dd8088d5a896 ("PM: runtime: Add pm_runtime_resume_and_get to deal with usage counter")
-added pm_runtime_resume_and_get() in order to automatically handle
-dev->power.usage_count decrement on errors.
+Am 2021-04-27 01:44, schrieb Benjamin Herrenschmidt:
+> On Mon, 2021-04-26 at 12:54 +0200, Michael Walle wrote:
+>> (2) What do you think of eth_get_mac_address(ndev). That is, the
+> 
+> Not sure what you mean, eth_platform_get_mac_address() takes the
+> address as an argument. I think what you want is a consolidated
+> nvmem_get_mac_address + eth_platform_get_mac_address that takes a
+> device, which would have no requirement of the bus_type at all.
 
-Use the new API, in order to cleanup the error check logic.
+Sure. What I meant was the following:
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
- drivers/media/platform/stm32/stm32-dcmi.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+  eth_get_mac_address(struct net_device *ndev)
+vs.
+  eth_get_mac_address(struct device *dev, u8 *mac_buf)
 
-diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-index bbcc2254fa2e..5f4e1db8cfcd 100644
---- a/drivers/media/platform/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/stm32/stm32-dcmi.c
-@@ -723,11 +723,11 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 	u32 val = 0;
- 	int ret;
- 
--	ret = pm_runtime_get_sync(dcmi->dev);
-+	ret = pm_runtime_resume_and_get(dcmi->dev);
- 	if (ret < 0) {
- 		dev_err(dcmi->dev, "%s: Failed to start streaming, cannot get sync (%d)\n",
- 			__func__, ret);
--		goto err_pm_put;
-+		goto err_unlock;
- 	}
- 
- 	ret = media_pipeline_start(&dcmi->vdev->entity, &dcmi->pipeline);
-@@ -848,6 +848,7 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 
- err_pm_put:
- 	pm_runtime_put(dcmi->dev);
-+err_unlock:
- 	spin_lock_irq(&dcmi->irqlock);
- 	/*
- 	 * Return all buffers to vb2 in QUEUED state.
--- 
-2.30.2
+The first would assume the destination is ndev->dev_addr (which
+is true for most of the calls, but not all).
 
+-michael
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
