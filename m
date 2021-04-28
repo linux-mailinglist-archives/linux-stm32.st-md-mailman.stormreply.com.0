@@ -2,48 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3EC236D9E0
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Apr 2021 16:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E016336DC5E
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Apr 2021 17:50:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B8C1C58D5A;
-	Wed, 28 Apr 2021 14:52:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BAACC58D5A;
+	Wed, 28 Apr 2021 15:50:02 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A842C57B75
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59B2FC57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Apr 2021 14:52:48 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2DF1B61613;
- Wed, 28 Apr 2021 14:52:44 +0000 (UTC)
+ Wed, 28 Apr 2021 15:49:58 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B3364610A2;
+ Wed, 28 Apr 2021 15:49:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619621564;
- bh=/R60wucnhMxzatTcaaq6aX+wA4KyHRrla+Ogrsx7GxU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=f9chViMs3E4W7TC7maIn7wiUQ4uOsIa58vIJZBldqJPCAjN4dA9W5L3AtC/OU1w0L
- jWb1/AbmXGmQkBJqs6e0NgoMgSyrSOXFzGVp4pPSq7hc79Nm55tTclGe3fAUGnVz5e
- x3NxLPuPGuGyQvb3SwPzRN/7WYpapNMHH0EzZzWrAyHfvrCMY639oNLPRTXWBiK37p
- Cvp82r/YZagqgx8ZIs1popTCucIkmm/FzXRdBNq3YkSzojrefzlP1NE2UOBS9g4Ycd
- fwqF6UO6yrZN8Ort/1+xObArJ+FjzZrPdeXISRO2SggVtVcpe/Vp+xJBG/J0TDIHSv
- mEN1PCZyD5LmA==
-Received: by mail.kernel.org with local (Exim 4.94)
- (envelope-from <mchehab@kernel.org>)
- id 1lblYR-001Dt7-RR; Wed, 28 Apr 2021 16:52:43 +0200
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: 
-Date: Wed, 28 Apr 2021 16:52:34 +0200
-Message-Id: <cd918677e36e89196670cacd7027569e741f7d98.1619621413.git.mchehab+huawei@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <cover.1619621413.git.mchehab+huawei@kernel.org>
+ s=k20201202; t=1619624996;
+ bh=6/CoqHvXA5fOpA3A5RVJksN1jb3qc28vss2bW2Ps1h4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=u/FPy0GSqykv7UbP1eGyuKva4OKLzag9Bw/Jd4D0kbJTEf9nFrUMmEvhv5EK6vzMK
+ BjB3VRHy0SWTGSvkxD+onAV4Fieqtf2ZXtTiexGI+RyxJutQZq8VxflGKixqYFOpUz
+ On6PoASK7Vh8yjg3wm62eMFNCYbQtk5gn6WgkeIV2oMUglcpz/AqBzcYM/M4tD51cu
+ QunLw6fSqD+ZQ8VF44WRxVz+8sqWccc8jGe1cZAgUj2axVmUS0f3tcXnA28yKRMb0f
+ 56N8MN7/SJV9CcbdLHAoqFUGEthzX/mxeThJcNnMD8j9mKUhq91Kz9hVw+Gg5LOHLo
+ GhnW8kKeIOrcw==
+Received: from johan by xi.lan with local (Exim 4.93.0.4)
+ (envelope-from <johan@kernel.org>)
+ id 1lbmS0-000592-V7; Wed, 28 Apr 2021 17:50:09 +0200
+Date: Wed, 28 Apr 2021 17:50:08 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Message-ID: <YImEMN/POW5C8lG7@hovoldconsulting.com>
 References: <cover.1619621413.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
-Cc: Alexandre Torgue <alexandre.torgue@st.com>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, linuxarm@huawei.com,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- mauro.chehab@huawei.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v4 73/79] media: stm32: use
-	pm_runtime_resume_and_get()
+Content-Disposition: inline
+In-Reply-To: <cover.1619621413.git.mchehab+huawei@kernel.org>
+Cc: Ricardo Ribalda <ribalda@kernel.org>,
+ Dafna Hirschfeld <dafna.hirschfeld@collabora.com>,
+ Heiko Stuebner <heiko@sntech.de>, mauro.chehab@huawei.com, linuxarm@huawei.com,
+ Todor Tomov <todor.too@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, "Lad,
+ Prabhakar" <prabhakar.csengg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
+ Leon Luo <leonl@leopardimaging.com>, Dan Scally <djrscally@gmail.com>,
+ linux-samsung-soc@vger.kernel.org,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org, Matt Ranostay <matt.ranostay@konsulko.com>,
+ Andy Gross <agross@kernel.org>, Dongchun Zhu <dongchun.zhu@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Steve Longerbeam <slongerbeam@gmail.com>, Bingbu Cao <bingbu.cao@intel.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Shunqian Zheng <zhengsq@rock-chips.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Shawn Tu <shawnx.tu@intel.com>,
+ devel@driverdev.osuosl.org, Jacopo Mondi <jacopo@jmondi.org>,
+ linux-tegra@vger.kernel.org, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Wenyou Yang <wenyou.yang@microchip.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Benoit Parrot <bparrot@ti.com>, Helen Koike <helen.koike@collabora.com>,
+ Yong Zhi <yong.zhi@intel.com>, linux-mediatek@lists.infradead.org,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Ezequiel Garcia <ezequiel@collabora.com>,
+ Daniele Alessandrelli <daniele.alessandrelli@intel.com>,
+ Chiranjeevi Rapolu <chiranjeevi.rapolu@intel.com>,
+ linux-arm-kernel@lists.infradead.org, Jacob Chen <jacob-chen@iotwrt.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Hyungwoo Yang <hyungwoo.yang@intel.com>, linux-kernel@vger.kernel.org,
+ "Paul J. Murphy" <paul.j.murphy@intel.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linux-media@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v4 00/79] Address some issues with PM
+ runtime at media subsystem
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,46 +103,123 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit dd8088d5a896 ("PM: runtime: Add pm_runtime_resume_and_get to deal with usage counter")
-added pm_runtime_resume_and_get() in order to automatically handle
-dev->power.usage_count decrement on errors.
+On Wed, Apr 28, 2021 at 04:51:21PM +0200, Mauro Carvalho Chehab wrote:
+> During the review of the patches from unm.edu, one of the patterns
+> I noticed is the amount of patches trying to fix pm_runtime_get_sync()
+> calls.
+> 
+> After analyzing the feedback from version 1 of this series, I noticed
+> a few other weird behaviors at the PM runtime resume code. So, this
+> series start addressing some bugs and issues at the current code.
+> Then, it gets rid of pm_runtime_get_sync() at the media subsystem
+> (with 2 exceptions).
+> 
+> It should be noticed that
+> Commit dd8088d5a896 ("PM: runtime: Add pm_runtime_resume_and_get to deal with usage counter")
+> added a new method to does a pm_runtime get, which increments
+> the usage count only on success.
+> 
+> The rationale of getting rid of pm_runtime_get_sync() is:
+> 
+> 1. despite its name, this is actually a PM runtime resume call,
+>    but some developers didn't seem to realize that, as I got this
+>    pattern on some drivers:
+> 
+>         pm_runtime_get_sync(&client->dev);
+>         pm_runtime_disable(&client->dev);
+>         pm_runtime_set_suspended(&client->dev);
+>         pm_runtime_put_noidle(&client->dev);
+> 
+>    It makes no sense to resume PM just to suspend it again ;-)
 
-Use the new API, in order to cleanup the error check logic.
+This is perfectly alright. Take a look at ov7740_remove() for example:
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
----
- drivers/media/platform/stm32/stm32-dcmi.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+	pm_runtime_get_sync(&client->dev);
+	pm_runtime_disable(&client->dev);
+	pm_runtime_set_suspended(&client->dev);
+	pm_runtime_put_noidle(&client->dev);
+	
+	ov7740_set_power(ov7740, 0);
 
-diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-index bbcc2254fa2e..5f4e1db8cfcd 100644
---- a/drivers/media/platform/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/stm32/stm32-dcmi.c
-@@ -723,11 +723,11 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 	u32 val = 0;
- 	int ret;
+There's an explicit power-off after balancing the PM count and this will
+work regardless of the power state when entering this function.
+
+So this has nothing to do with pm_runtime_get_sync() per se.
+
+> 2. Usual *_get() methods only increment their use count on success,
+>    but pm_runtime_get_sync() increments it unconditionally. Due to
+>    that, several drivers were mistakenly not calling
+>    pm_runtime_put_noidle() when it fails;
+
+Sure, but pm_runtime_get_async() also works this way. You just won't be
+notified if the async resume fails.
+
+> 3. The name of the new variant is a lot clearer:
+> 	pm_runtime_resume_and_get()
+>     As its same clearly says that this is a PM runtime resume function,
+>     that also increments the usage counter on success;
+
+It also introduced an inconsistency in the API and does not pair as well
+with the pm_runtime_put variants.
+
+> 4. Consistency: we did similar changes subsystem wide with
+>    for instance strlcpy() and strcpy() that got replaced by
+>    strscpy(). Having all drivers using the same known-to-be-safe
+>    methods is a good thing;
+
+It's not known to be safe; there are ways to get also this interface
+wrong as for example this series has shown.
+
+> 5. Prevent newer drivers to copy-and-paste a code that it would
+>    be easier to break if they don't truly understand what's behind
+>    the scenes.
+
+Cargo-cult programming always runs that risk.
+
+> This series replace places  pm_runtime_get_sync(), by calling
+> pm_runtime_resume_and_get() instead.
+> 
+> This should help to avoid future mistakes like that, as people
+> tend to use the existing drivers as examples for newer ones.
+
+The only valid point about and use for pm_runtime_resume_and_get() is to
+avoid leaking a PM usage count reference in the unlikely case that
+resume fails (something which hardly any driver implements recovery
+from anyway).
+
+It's a convenience wrapper that saves you from writing one extra line in
+some cases (depending on how you implement runtime-pm support) and not a
+silver bullet against bugs.
  
--	ret = pm_runtime_get_sync(dcmi->dev);
-+	ret = pm_runtime_resume_and_get(dcmi->dev);
- 	if (ret < 0) {
- 		dev_err(dcmi->dev, "%s: Failed to start streaming, cannot get sync (%d)\n",
- 			__func__, ret);
--		goto err_pm_put;
-+		goto err_unlock;
- 	}
- 
- 	ret = media_pipeline_start(&dcmi->vdev->entity, &dcmi->pipeline);
-@@ -848,6 +848,7 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 
- err_pm_put:
- 	pm_runtime_put(dcmi->dev);
-+err_unlock:
- 	spin_lock_irq(&dcmi->irqlock);
- 	/*
- 	 * Return all buffers to vb2 in QUEUED state.
--- 
-2.30.2
+> compile-tested only.
+> 
+> Patches 1 to 7 fix some issues that already exists at the current
+> PM runtime code;
+> 
+> patches 8 to 20 fix some usage_count problems that still exists
+> at the media subsystem;
+> 
+> patches 21 to 78 repaces pm_runtime_get_sync() by 
+> pm_runtime_resume_and_get();
+> 
+> Patch 79 (and a hunk on patch 78) documents the two exceptions
+> where pm_runtime_get_sync() will still be used for now.
+> 
+> ---
+> 
+> v4:
+>     - Added a couple of additional fixes at existing PM runtime code;
+>     - Some patches are now more conservative in order to avoid causing
+>      regressions.
+> v3:
+>     - fix a compilation error;
+> v2:
+>     - addressed pointed issues and fixed a few other PM issues.
 
+This really doesn't say much more than "changed stuff" so kinda hard to
+track if review feedback has been taken into account for example.
+
+Johan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
