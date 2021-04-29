@@ -2,78 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20EA936F085
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Apr 2021 21:35:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC9EC36F2C9
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Apr 2021 01:01:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF49CC58D5A;
-	Thu, 29 Apr 2021 19:35:55 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94737C58D5A;
+	Thu, 29 Apr 2021 23:01:38 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96D02C57B74
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 107C8C57B74
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Apr 2021 19:35:54 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13TJR4GQ024136; Thu, 29 Apr 2021 21:35:34 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=selector1;
- bh=3zQLdHcnEWGyhtLuQpbU3SHnLEubUwQwtUzeib+iKvQ=;
- b=oUjCEHsfeQzUedgmbllHpCzup7Ot/SHbYn55A2FcqegnUyshJx6hEJFKtRmpV6qZKb3k
- GRCiVT8vBHOXGawqntV2yx6M5wUecD13Dz8XH189QMm3/QF4LpI1i05SH2wDoWfIyw+U
- yJe/zJlpV3AYvyrFlKphGQMXPaRWy7BgY57r/VHP6bvSIuogbuK8Sh0cU5u5KfSfsS2v
- DZ62AG1A7cMYltTUIcRRurLXaQ7U8uA4WTzigMPbqQNUjX0VThPdcGM4uH7ass5zRhCF
- wTBXa3pwPliZholY3Ktby/TmZ00ijYU+R2+ZAeyYWetYbBd6IuEa5qXMYn9rz462qlmv NA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 387f926ft5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 29 Apr 2021 21:35:34 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6FC9610002A;
- Thu, 29 Apr 2021 21:35:31 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4AA54225F80;
- Thu, 29 Apr 2021 21:35:31 +0200 (CEST)
-Received: from SFHDAG2NODE3.st.com (10.75.127.6) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 29 Apr
- 2021 21:35:30 +0200
-Received: from SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c]) by
- SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c%20]) with mapi id
- 15.00.1497.012; Thu, 29 Apr 2021 21:35:30 +0200
-From: Philippe CORNU - foss <philippe.cornu@foss.st.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, DRI Development
- <dri-devel@lists.freedesktop.org>
-Thread-Topic: [PATCH 7/8] drm/stm: Don't set allow_fb_modifiers explicitly
-Thread-Index: AQHXO0aRxUV/UT4OhU6BH8EyeQFaRqrL5lA8
-Date: Thu, 29 Apr 2021 19:35:30 +0000
-Message-ID: <1619724930873.72167@foss.st.com>
-References: <20210427092018.832258-1-daniel.vetter@ffwll.ch>,
- <20210427092018.832258-7-daniel.vetter@ffwll.ch>
-In-Reply-To: <20210427092018.832258-7-daniel.vetter@ffwll.ch>
-Accept-Language: fr-FR, en-US
-Content-Language: fr-FR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.46]
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-29_10:2021-04-28,
- 2021-04-29 signatures=0
-Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Daniel
- Vetter <daniel.vetter@intel.com>,
- Yannick FERTRE - foss <yannick.fertre@foss.st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 7/8] drm/stm: Don't set allow_fb_modifiers
-	explicitly
+ Thu, 29 Apr 2021 23:01:34 +0000 (UTC)
+IronPort-SDR: GatvVpHwEm/Lixxfa66z+PCL7PfJea+HL5iorPz4aevigZAlof6PdEYbYcgsOyYDS53cA30r8l
+ pSzKktZ1/yBA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9969"; a="193958258"
+X-IronPort-AV: E=Sophos;i="5.82,260,1613462400"; d="scan'208";a="193958258"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 16:01:33 -0700
+IronPort-SDR: Fs4pZUxMK/8fcBFX0Jb8mob6R/t0PY5ARNLAXFEgVblwdspSkxuzuukhnkHZ/mdnqNPvd9alWr
+ 2e+5YiWNWk1A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,260,1613462400"; d="scan'208";a="455748252"
+Received: from mismail5-ilbpg0.png.intel.com ([10.88.229.82])
+ by FMSMGA003.fm.intel.com with ESMTP; 29 Apr 2021 16:01:29 -0700
+From: mohammad.athari.ismail@intel.com
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Fri, 30 Apr 2021 07:01:04 +0800
+Message-Id: <20210429230104.16977-1-mohammad.athari.ismail@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Voon Weifeng <weifeng.voon@intel.com>,
+ Wong Vee Khee <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mohammad.athari.ismail@intel.com,
+ Tan Tee Min <tee.min.tan@intel.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: cleared __FPE_REMOVING bit
+	in stmmac_fpe_start_wq()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,64 +53,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Daniel,
-Many thanks for your patch,
-Acked-by: Philippe Cornu <philippe.cornu@st.com>
-Philippe :-)
+From: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
 
-________________________________________
-De : Daniel Vetter <daniel.vetter@ffwll.ch>
-Envoy=E9 : mardi 27 avril 2021 11:20
-=C0 : DRI Development
-Cc : Intel Graphics Development; Daniel Vetter; Daniel Vetter; Yannick FERT=
-RE - foss; Philippe CORNU - foss; Benjamin Gaignard; Maxime Coquelin; Alexa=
-ndre TORGUE - foss; linux-stm32@st-md-mailman.stormreply.com; linux-arm-ker=
-nel@lists.infradead.org
-Objet : [PATCH 7/8] drm/stm: Don't set allow_fb_modifiers explicitly
+An issue found when network interface is down and up again, FPE handshake
+fails to trigger. This is due to __FPE_REMOVING bit remains being set in
+stmmac_fpe_stop_wq() but not cleared in stmmac_fpe_start_wq(). This
+cause FPE workqueue task, stmmac_fpe_lp_task() not able to be executed.
 
-Since
+To fix this, add clearing __FPE_REMOVING bit in stmmac_fpe_start_wq().
 
-commit 890880ddfdbe256083170866e49c87618b706ac7
-Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-Date:   Fri Jan 4 09:56:10 2019 +0100
-
-    drm: Auto-set allow_fb_modifiers when given modifiers at plane init
-
-this is done automatically as part of plane init, if drivers set the
-modifier list correctly. Which is the case here.
-
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org
+Fixes: 5a5586112b92 ("net: stmmac: support FPE link partner hand-shaking procedure")
+Signed-off-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
 ---
- drivers/gpu/drm/stm/ltdc.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 65c3c79ad1d5..e99771b947b6 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -1326,8 +1326,6 @@ int ltdc_load(struct drm_device *ddev)
-                goto err;
-        }
-
--       ddev->mode_config.allow_fb_modifiers =3D true;
--
-        ret =3D ltdc_crtc_init(ddev, crtc);
-        if (ret) {
-                DRM_ERROR("Failed to init crtc\n");
---
-2.31.0
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index a9a984c57d78..e0b7eebcb512 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3180,6 +3180,7 @@ static int stmmac_fpe_start_wq(struct stmmac_priv *priv)
+ 	char *name;
+ 
+ 	clear_bit(__FPE_TASK_SCHED, &priv->fpe_task_state);
++	clear_bit(__FPE_REMOVING,  &priv->fpe_task_state);
+ 
+ 	name = priv->wq_name;
+ 	sprintf(name, "%s-fpe", priv->dev->name);
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
