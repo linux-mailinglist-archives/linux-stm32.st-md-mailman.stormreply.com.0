@@ -2,91 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E016336DC5E
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Apr 2021 17:50:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F09E36E68F
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Apr 2021 10:07:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BAACC58D5A;
-	Wed, 28 Apr 2021 15:50:02 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2661CC57B53;
+	Thu, 29 Apr 2021 08:07:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59B2FC57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6FCEC424BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Apr 2021 15:49:58 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B3364610A2;
- Wed, 28 Apr 2021 15:49:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619624996;
- bh=6/CoqHvXA5fOpA3A5RVJksN1jb3qc28vss2bW2Ps1h4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=u/FPy0GSqykv7UbP1eGyuKva4OKLzag9Bw/Jd4D0kbJTEf9nFrUMmEvhv5EK6vzMK
- BjB3VRHy0SWTGSvkxD+onAV4Fieqtf2ZXtTiexGI+RyxJutQZq8VxflGKixqYFOpUz
- On6PoASK7Vh8yjg3wm62eMFNCYbQtk5gn6WgkeIV2oMUglcpz/AqBzcYM/M4tD51cu
- QunLw6fSqD+ZQ8VF44WRxVz+8sqWccc8jGe1cZAgUj2axVmUS0f3tcXnA28yKRMb0f
- 56N8MN7/SJV9CcbdLHAoqFUGEthzX/mxeThJcNnMD8j9mKUhq91Kz9hVw+Gg5LOHLo
- GhnW8kKeIOrcw==
-Received: from johan by xi.lan with local (Exim 4.93.0.4)
- (envelope-from <johan@kernel.org>)
- id 1lbmS0-000592-V7; Wed, 28 Apr 2021 17:50:09 +0200
-Date: Wed, 28 Apr 2021 17:50:08 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Message-ID: <YImEMN/POW5C8lG7@hovoldconsulting.com>
-References: <cover.1619621413.git.mchehab+huawei@kernel.org>
+ Thu, 29 Apr 2021 08:07:06 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 13T7qkXr011961; Thu, 29 Apr 2021 10:07:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=D7QL7NcUJ9tOd7qvePWnf+YhgefsK20ho31ilFMVp2I=;
+ b=Bjk1npPB6851N80K3ICBr1wBZcwg3hG+zCL6x8y/B1s8y+yYj30TSZPQM9ibgeGrOZP+
+ IrhffO4k0bYue8IfsTSftDYVTIHhucLG0PJOCQz4FcV/dGwTBne+n5kUSri/dTrSXWPt
+ gW13urR7Ypd+GgM3Uss+HcNzR3ynYvSohLT+f28LJKDI9NOiQh1MhegtIdjBaEdtgnTe
+ 4/+5i+Iq/U0S9ubUOVisIAoszKJDYUu5eUE0NqwUJdReI2vBYSCGcOVF/SgV/DZDhg9m
+ Lh2arH9XmQu+CTA5dHg86HpjBy4TlK46VNIiqzPKcXFQduMgfireCWiWgE6ossY2m807 JQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38735wqks6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 29 Apr 2021 10:07:04 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CE70510002A;
+ Thu, 29 Apr 2021 10:07:02 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BBF5F20E5E0;
+ Thu, 29 Apr 2021 10:07:02 +0200 (CEST)
+Received: from localhost (10.75.127.48) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 29 Apr 2021 10:07:02
+ +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Thu, 29 Apr 2021 10:06:39 +0200
+Message-ID: <20210429080639.6379-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cover.1619621413.git.mchehab+huawei@kernel.org>
-Cc: Ricardo Ribalda <ribalda@kernel.org>,
- Dafna Hirschfeld <dafna.hirschfeld@collabora.com>,
- Heiko Stuebner <heiko@sntech.de>, mauro.chehab@huawei.com, linuxarm@huawei.com,
- Todor Tomov <todor.too@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Andrzej Hajda <a.hajda@samsung.com>, "Lad,
- Prabhakar" <prabhakar.csengg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Robert Foss <robert.foss@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
- Leon Luo <leonl@leopardimaging.com>, Dan Scally <djrscally@gmail.com>,
- linux-samsung-soc@vger.kernel.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org, Matt Ranostay <matt.ranostay@konsulko.com>,
- Andy Gross <agross@kernel.org>, Dongchun Zhu <dongchun.zhu@mediatek.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Steve Longerbeam <slongerbeam@gmail.com>, Bingbu Cao <bingbu.cao@intel.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Shunqian Zheng <zhengsq@rock-chips.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
- NXP Linux Team <linux-imx@nxp.com>, Shawn Tu <shawnx.tu@intel.com>,
- devel@driverdev.osuosl.org, Jacopo Mondi <jacopo@jmondi.org>,
- linux-tegra@vger.kernel.org, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Wenyou Yang <wenyou.yang@microchip.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Benoit Parrot <bparrot@ti.com>, Helen Koike <helen.koike@collabora.com>,
- Yong Zhi <yong.zhi@intel.com>, linux-mediatek@lists.infradead.org,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Ezequiel Garcia <ezequiel@collabora.com>,
- Daniele Alessandrelli <daniele.alessandrelli@intel.com>,
- Chiranjeevi Rapolu <chiranjeevi.rapolu@intel.com>,
- linux-arm-kernel@lists.infradead.org, Jacob Chen <jacob-chen@iotwrt.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Hyungwoo Yang <hyungwoo.yang@intel.com>, linux-kernel@vger.kernel.org,
- "Paul J. Murphy" <paul.j.murphy@intel.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-media@vger.kernel.org,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v4 00/79] Address some issues with PM
- runtime at media subsystem
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-04-29_03:2021-04-28,
+ 2021-04-29 signatures=0
+Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] rpmsg: char: Remove useless includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,123 +71,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Apr 28, 2021 at 04:51:21PM +0200, Mauro Carvalho Chehab wrote:
-> During the review of the patches from unm.edu, one of the patterns
-> I noticed is the amount of patches trying to fix pm_runtime_get_sync()
-> calls.
-> 
-> After analyzing the feedback from version 1 of this series, I noticed
-> a few other weird behaviors at the PM runtime resume code. So, this
-> series start addressing some bugs and issues at the current code.
-> Then, it gets rid of pm_runtime_get_sync() at the media subsystem
-> (with 2 exceptions).
-> 
-> It should be noticed that
-> Commit dd8088d5a896 ("PM: runtime: Add pm_runtime_resume_and_get to deal with usage counter")
-> added a new method to does a pm_runtime get, which increments
-> the usage count only on success.
-> 
-> The rationale of getting rid of pm_runtime_get_sync() is:
-> 
-> 1. despite its name, this is actually a PM runtime resume call,
->    but some developers didn't seem to realize that, as I got this
->    pattern on some drivers:
-> 
->         pm_runtime_get_sync(&client->dev);
->         pm_runtime_disable(&client->dev);
->         pm_runtime_set_suspended(&client->dev);
->         pm_runtime_put_noidle(&client->dev);
-> 
->    It makes no sense to resume PM just to suspend it again ;-)
+Remove includes that are not requested to build the module.
 
-This is perfectly alright. Take a look at ov7740_remove() for example:
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
+applied without issue on Bjorn next branch (dc0e14fa833b)
+---
+ drivers/rpmsg/rpmsg_char.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-	pm_runtime_get_sync(&client->dev);
-	pm_runtime_disable(&client->dev);
-	pm_runtime_set_suspended(&client->dev);
-	pm_runtime_put_noidle(&client->dev);
-	
-	ov7740_set_power(ov7740, 0);
-
-There's an explicit power-off after balancing the PM count and this will
-work regardless of the power state when entering this function.
-
-So this has nothing to do with pm_runtime_get_sync() per se.
-
-> 2. Usual *_get() methods only increment their use count on success,
->    but pm_runtime_get_sync() increments it unconditionally. Due to
->    that, several drivers were mistakenly not calling
->    pm_runtime_put_noidle() when it fails;
-
-Sure, but pm_runtime_get_async() also works this way. You just won't be
-notified if the async resume fails.
-
-> 3. The name of the new variant is a lot clearer:
-> 	pm_runtime_resume_and_get()
->     As its same clearly says that this is a PM runtime resume function,
->     that also increments the usage counter on success;
-
-It also introduced an inconsistency in the API and does not pair as well
-with the pm_runtime_put variants.
-
-> 4. Consistency: we did similar changes subsystem wide with
->    for instance strlcpy() and strcpy() that got replaced by
->    strscpy(). Having all drivers using the same known-to-be-safe
->    methods is a good thing;
-
-It's not known to be safe; there are ways to get also this interface
-wrong as for example this series has shown.
-
-> 5. Prevent newer drivers to copy-and-paste a code that it would
->    be easier to break if they don't truly understand what's behind
->    the scenes.
-
-Cargo-cult programming always runs that risk.
-
-> This series replace places  pm_runtime_get_sync(), by calling
-> pm_runtime_resume_and_get() instead.
-> 
-> This should help to avoid future mistakes like that, as people
-> tend to use the existing drivers as examples for newer ones.
-
-The only valid point about and use for pm_runtime_resume_and_get() is to
-avoid leaking a PM usage count reference in the unlikely case that
-resume fails (something which hardly any driver implements recovery
-from anyway).
-
-It's a convenience wrapper that saves you from writing one extra line in
-some cases (depending on how you implement runtime-pm support) and not a
-silver bullet against bugs.
+diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+index 2bebc9b2d163..e4e54f515af6 100644
+--- a/drivers/rpmsg/rpmsg_char.c
++++ b/drivers/rpmsg/rpmsg_char.c
+@@ -10,19 +10,10 @@
+  * was based on TI & Google OMX rpmsg driver.
+  */
+ #include <linux/cdev.h>
+-#include <linux/device.h>
+-#include <linux/fs.h>
+-#include <linux/idr.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+-#include <linux/poll.h>
+ #include <linux/rpmsg.h>
+ #include <linux/skbuff.h>
+-#include <linux/slab.h>
+-#include <linux/uaccess.h>
+-#include <uapi/linux/rpmsg.h>
+-
+-#include "rpmsg_internal.h"
  
-> compile-tested only.
-> 
-> Patches 1 to 7 fix some issues that already exists at the current
-> PM runtime code;
-> 
-> patches 8 to 20 fix some usage_count problems that still exists
-> at the media subsystem;
-> 
-> patches 21 to 78 repaces pm_runtime_get_sync() by 
-> pm_runtime_resume_and_get();
-> 
-> Patch 79 (and a hunk on patch 78) documents the two exceptions
-> where pm_runtime_get_sync() will still be used for now.
-> 
-> ---
-> 
-> v4:
->     - Added a couple of additional fixes at existing PM runtime code;
->     - Some patches are now more conservative in order to avoid causing
->      regressions.
-> v3:
->     - fix a compilation error;
-> v2:
->     - addressed pointed issues and fixed a few other PM issues.
+ #define RPMSG_DEV_MAX	(MINORMASK + 1)
+ 
+-- 
+2.17.1
 
-This really doesn't say much more than "changed stuff" so kinda hard to
-track if review feedback has been taken into account for example.
-
-Johan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
