@@ -2,59 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F09E36E68F
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Apr 2021 10:07:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA20336E75A
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Apr 2021 10:51:39 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2661CC57B53;
-	Thu, 29 Apr 2021 08:07:08 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F6CFC57B53;
+	Thu, 29 Apr 2021 08:51:39 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6FCEC424BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FC44CFAC55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Apr 2021 08:07:06 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 13T7qkXr011961; Thu, 29 Apr 2021 10:07:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=D7QL7NcUJ9tOd7qvePWnf+YhgefsK20ho31ilFMVp2I=;
- b=Bjk1npPB6851N80K3ICBr1wBZcwg3hG+zCL6x8y/B1s8y+yYj30TSZPQM9ibgeGrOZP+
- IrhffO4k0bYue8IfsTSftDYVTIHhucLG0PJOCQz4FcV/dGwTBne+n5kUSri/dTrSXWPt
- gW13urR7Ypd+GgM3Uss+HcNzR3ynYvSohLT+f28LJKDI9NOiQh1MhegtIdjBaEdtgnTe
- 4/+5i+Iq/U0S9ubUOVisIAoszKJDYUu5eUE0NqwUJdReI2vBYSCGcOVF/SgV/DZDhg9m
- Lh2arH9XmQu+CTA5dHg86HpjBy4TlK46VNIiqzPKcXFQduMgfireCWiWgE6ossY2m807 JQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 38735wqks6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 29 Apr 2021 10:07:04 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CE70510002A;
- Thu, 29 Apr 2021 10:07:02 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BBF5F20E5E0;
- Thu, 29 Apr 2021 10:07:02 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 29 Apr 2021 10:07:02
- +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
- <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Thu, 29 Apr 2021 10:06:39 +0200
-Message-ID: <20210429080639.6379-1-arnaud.pouliquen@foss.st.com>
+ Thu, 29 Apr 2021 08:51:38 +0000 (UTC)
+IronPort-SDR: KgII30YmjgIg47H3RtgHcKRoCBFsP01R9YWcAaHHDRO5GXmn6OIIDJ6OiakzvF/DOXRcCwQZdh
+ RX/bp2Hua+rg==
+X-IronPort-AV: E=McAfee;i="6200,9189,9968"; a="193770283"
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="193770283"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 01:51:36 -0700
+IronPort-SDR: qcW/LsW9NtiGIWvtwl6WLp30JV+yujOUiZhWyY6UgQl/JiQ4FViZ6CkAtlAqmBGnZi33KiGgG2
+ K1ykUCpJEnew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,258,1613462400"; d="scan'208";a="605198493"
+Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
+ by orsmga005.jf.intel.com with ESMTP; 29 Apr 2021 01:51:31 -0700
+From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+To: Jose.Abreu@synopsys.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, kuba@kernel.org, netdev@vger.kernel.org,
+ peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, davem@davemloft.net,
+ mcoquelin.stm32@gmail.com, weifeng.voon@intel.com,
+ boon.leong.ong@intel.com, tee.min.tan@intel.com,
+ vee.khee.wong@linux.intel.com, vee.khee.wong@intel.com,
+ michael.wei.hong.sit@intel.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 29 Apr 2021 16:46:34 +0800
+Message-Id: <20210429084636.24752-1-michael.wei.hong.sit@intel.com>
 X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG3NODE2.st.com (10.75.127.8) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-04-29_03:2021-04-28,
- 2021-04-29 signatures=0
-Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] rpmsg: char: Remove useless includes
+Subject: [Linux-stm32] [PATCH net-next 0/2] Introducing support for DWC xpcs
+	Energy Efficient Ethernet
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,44 +51,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove includes that are not requested to build the module.
+The goal of this patch set is to enable EEE in the xpcs so that when
+EEE is enabled, the MAC-->xpcs-->PHY have all the EEE related
+configurations enabled.
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
-applied without issue on Bjorn next branch (dc0e14fa833b)
----
- drivers/rpmsg/rpmsg_char.c | 9 ---------
- 1 file changed, 9 deletions(-)
+Patch 1 adds the functions to enable EEE in the xpcs and sets it to
+transparent mode.
+Patch 2 adds the callbacks to configure the xpcs EEE mode.
 
-diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-index 2bebc9b2d163..e4e54f515af6 100644
---- a/drivers/rpmsg/rpmsg_char.c
-+++ b/drivers/rpmsg/rpmsg_char.c
-@@ -10,19 +10,10 @@
-  * was based on TI & Google OMX rpmsg driver.
-  */
- #include <linux/cdev.h>
--#include <linux/device.h>
--#include <linux/fs.h>
--#include <linux/idr.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
--#include <linux/poll.h>
- #include <linux/rpmsg.h>
- #include <linux/skbuff.h>
--#include <linux/slab.h>
--#include <linux/uaccess.h>
--#include <uapi/linux/rpmsg.h>
--
--#include "rpmsg_internal.h"
- 
- #define RPMSG_DEV_MAX	(MINORMASK + 1)
- 
+The results are tested by checking the lpi counters of the tx and rx
+path of the interface. When EEE is enabled, the lpi counters should
+increament as it enters and exits lpi states.
+
+host@EHL$ ethtool --show-eee enp0s30f4
+EEE Settings for enp0s30f4:
+        EEE status: disabled
+        Tx LPI: disabled
+        Supported EEE link modes:  100baseT/Full
+                                   1000baseT/Full
+        Advertised EEE link modes:  Not reported
+        Link partner advertised EEE link modes:  100baseT/Full
+                                                 1000baseT/Full
+host@EHL$ ethtool -S enp0s30f4 | grep lpi
+     irq_tx_path_in_lpi_mode_n: 0
+     irq_tx_path_exit_lpi_mode_n: 0
+     irq_rx_path_in_lpi_mode_n: 0
+     irq_rx_path_exit_lpi_mode_n: 0
+host@EHL$ ethtool --set-eee enp0s30f4 eee on
+host@EHL$ [  110.265154] intel-eth-pci 0000:00:1e.4 enp0s30f4: Link is Down
+[  112.315155] intel-eth-pci 0000:00:1e.4 enp0s30f4: Link is Up - 1Gbps/Full - flow control off
+[  112.324612] IPv6: ADDRCONF(NETDEV_CHANGE): enp0s30f4: link becomes ready
+host@EHL$ ethtool --show-eee enp0s30f4
+EEE Settings for enp0s30f4:
+        EEE status: enabled - active
+        Tx LPI: 1000000 (us)
+        Supported EEE link modes:  100baseT/Full
+                                   1000baseT/Full
+        Advertised EEE link modes:  100baseT/Full
+                                    1000baseT/Full
+        Link partner advertised EEE link modes:  100baseT/Full
+                                                 1000baseT/Full
+host@EHL$ ethtool -S enp0s30f4 | grep lpi
+     irq_tx_path_in_lpi_mode_n: 6
+     irq_tx_path_exit_lpi_mode_n: 5
+     irq_rx_path_in_lpi_mode_n: 7
+     irq_rx_path_exit_lpi_mode_n: 6
+host@EHL$ ping 192.168.1.1
+PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=1.02 ms
+64 bytes from 192.168.1.1: icmp_seq=2 ttl=64 time=0.510 ms
+64 bytes from 192.168.1.1: icmp_seq=3 ttl=64 time=0.489 ms
+64 bytes from 192.168.1.1: icmp_seq=4 ttl=64 time=0.484 ms
+64 bytes from 192.168.1.1: icmp_seq=5 ttl=64 time=0.504 ms
+64 bytes from 192.168.1.1: icmp_seq=6 ttl=64 time=0.466 ms
+64 bytes from 192.168.1.1: icmp_seq=7 ttl=64 time=0.529 ms
+64 bytes from 192.168.1.1: icmp_seq=8 ttl=64 time=0.519 ms
+64 bytes from 192.168.1.1: icmp_seq=9 ttl=64 time=0.518 ms
+64 bytes from 192.168.1.1: icmp_seq=10 ttl=64 time=0.501 ms
+
+--- 192.168.1.1 ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9216ms
+rtt min/avg/max/mdev = 0.466/0.553/1.018/0.155 ms
+host@EHL$ ethtool -S enp0s30f4 | grep lpi
+     irq_tx_path_in_lpi_mode_n: 22
+     irq_tx_path_exit_lpi_mode_n: 21
+     irq_rx_path_in_lpi_mode_n: 21
+     irq_rx_path_exit_lpi_mode_n: 20
+
+Michael Sit Wei Hong (2):
+  net: pcs: Introducing support for DWC xpcs Energy Efficient Ethernet
+  net: stmmac: Add callbacks for DWC xpcs Energy Efficient Ethernet
+
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 11 ++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  2 +
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  6 +++
+ drivers/net/pcs/pcs-xpcs.c                    | 51 +++++++++++++++++++
+ include/linux/pcs/pcs-xpcs.h                  |  2 +
+ include/linux/stmmac.h                        |  1 +
+ 6 files changed, 73 insertions(+)
+
 -- 
 2.17.1
 
