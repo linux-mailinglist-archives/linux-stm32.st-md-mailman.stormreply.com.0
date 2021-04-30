@@ -2,40 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBCFA36FEF1
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Apr 2021 18:54:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93685370010
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Apr 2021 19:59:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 090B1C58D7B;
-	Fri, 30 Apr 2021 16:54:04 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F10D7C58D79
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3422BC58D7A;
+	Fri, 30 Apr 2021 17:59:55 +0000 (UTC)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A5A4CFAC5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Apr 2021 16:54:01 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 498EC1F43BD0;
- Fri, 30 Apr 2021 17:54:01 +0100 (BST)
-Date: Fri, 30 Apr 2021 18:53:58 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: <patrice.chotard@foss.st.com>
-Message-ID: <20210430185358.137c85ab@collabora.com>
-In-Reply-To: <20210426143934.25275-4-patrice.chotard@foss.st.com>
-References: <20210426143934.25275-1-patrice.chotard@foss.st.com>
- <20210426143934.25275-4-patrice.chotard@foss.st.com>
-Organization: Collabora
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
+ Fri, 30 Apr 2021 17:59:53 +0000 (UTC)
+Received: from fraeml744-chm.china.huawei.com (unknown [172.18.147.207])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4FX0Ny6hwZz6wkr8;
+ Sat,  1 May 2021 01:54:10 +0800 (CST)
+Received: from lhreml710-chm.china.huawei.com (10.201.108.61) by
+ fraeml744-chm.china.huawei.com (10.206.15.225) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Fri, 30 Apr 2021 19:59:52 +0200
+Received: from localhost (10.52.125.96) by lhreml710-chm.china.huawei.com
+ (10.201.108.61) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Fri, 30 Apr
+ 2021 18:59:51 +0100
+Date: Fri, 30 Apr 2021 18:58:16 +0100
+From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Message-ID: <20210430185816.00000ef5@Huawei.com>
+In-Reply-To: <cd918677e36e89196670cacd7027569e741f7d98.1619621413.git.mchehab+huawei@kernel.org>
+References: <cover.1619621413.git.mchehab+huawei@kernel.org>
+ <cd918677e36e89196670cacd7027569e741f7d98.1619621413.git.mchehab+huawei@kernel.org>
+Organization: Huawei Technologies Research and Development (UK) Ltd.
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; i686-w64-mingw32)
 MIME-Version: 1.0
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/3] spi: stm32-qspi: add automatic poll
-	status feature
+X-Originating-IP: [10.52.125.96]
+X-ClientProxiedBy: lhreml721-chm.china.huawei.com (10.201.108.72) To
+ lhreml710-chm.china.huawei.com (10.201.108.61)
+X-CFilter-Loop: Reflected
+Cc: Alexandre Torgue <alexandre.torgue@st.com>, linuxarm@huawei.com,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ mauro.chehab@huawei.com, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v4 73/79] media: stm32: use
+	pm_runtime_resume_and_get()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,214 +62,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 26 Apr 2021 16:39:34 +0200
-<patrice.chotard@foss.st.com> wrote:
+On Wed, 28 Apr 2021 16:52:34 +0200
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
 
-> From: Christophe Kerello <christophe.kerello@foss.st.com>
+> Commit dd8088d5a896 ("PM: runtime: Add pm_runtime_resume_and_get to deal with usage counter")
+> added pm_runtime_resume_and_get() in order to automatically handle
+> dev->power.usage_count decrement on errors.
 > 
-> STM32 QSPI is able to automatically poll a specified register inside the
-> memory and relieve the CPU from this task.
+> Use the new API, in order to cleanup the error check logic.
 > 
-> As example, when erasing a large memory area, we got cpu load
-> equal to 50%.
-
-Ouch! I feel like this should be fixed at the core level too so we
-don't poll the status so frequently, or at least wait a bit before
-polling the status (especially for erase/write operations).
-
-> This patch allows to perform the same operation
-> with a cpu load around 2%.
-> 
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 > ---
->  drivers/spi/spi-stm32-qspi.c | 80 ++++++++++++++++++++++++++++++++----
->  1 file changed, 72 insertions(+), 8 deletions(-)
+>  drivers/media/platform/stm32/stm32-dcmi.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-> index 7e640ccc7e77..2f9e5941f14f 100644
-> --- a/drivers/spi/spi-stm32-qspi.c
-> +++ b/drivers/spi/spi-stm32-qspi.c
-> @@ -36,6 +36,7 @@
->  #define CR_FTIE			BIT(18)
->  #define CR_SMIE			BIT(19)
->  #define CR_TOIE			BIT(20)
-> +#define CR_APMS			BIT(22)
->  #define CR_PRESC_MASK		GENMASK(31, 24)
+> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
+> index bbcc2254fa2e..5f4e1db8cfcd 100644
+> --- a/drivers/media/platform/stm32/stm32-dcmi.c
+> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
+> @@ -723,11 +723,11 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
+>  	u32 val = 0;
+>  	int ret;
 >  
->  #define QSPI_DCR		0x04
-> @@ -53,6 +54,7 @@
->  #define QSPI_FCR		0x0c
->  #define FCR_CTEF		BIT(0)
->  #define FCR_CTCF		BIT(1)
-> +#define FCR_CSMF		BIT(3)
->  
->  #define QSPI_DLR		0x10
->  
-> @@ -107,6 +109,7 @@ struct stm32_qspi {
->  	u32 clk_rate;
->  	struct stm32_qspi_flash flash[STM32_QSPI_MAX_NORCHIP];
->  	struct completion data_completion;
-> +	struct completion match_completion;
->  	u32 fmode;
->  
->  	struct dma_chan *dma_chtx;
-> @@ -115,6 +118,7 @@ struct stm32_qspi {
->  
->  	u32 cr_reg;
->  	u32 dcr_reg;
-> +	u16 status_timeout;
->  
->  	/*
->  	 * to protect device configuration, could be different between
-> @@ -128,11 +132,20 @@ static irqreturn_t stm32_qspi_irq(int irq, void *dev_id)
->  	struct stm32_qspi *qspi = (struct stm32_qspi *)dev_id;
->  	u32 cr, sr;
->  
-> +	cr = readl_relaxed(qspi->io_base + QSPI_CR);
->  	sr = readl_relaxed(qspi->io_base + QSPI_SR);
->  
-> +	if (cr & CR_SMIE && sr & SR_SMF) {
-> +		/* disable irq */
-> +		cr &= ~CR_SMIE;
-> +		writel_relaxed(cr, qspi->io_base + QSPI_CR);
-> +		complete(&qspi->match_completion);
-> +
-> +		return IRQ_HANDLED;
-> +	}
-> +
->  	if (sr & (SR_TEF | SR_TCF)) {
->  		/* disable irq */
-> -		cr = readl_relaxed(qspi->io_base + QSPI_CR);
->  		cr &= ~CR_TCIE & ~CR_TEIE;
->  		writel_relaxed(cr, qspi->io_base + QSPI_CR);
->  		complete(&qspi->data_completion);
-> @@ -319,6 +332,24 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
->  	return err;
->  }
->  
-> +static int stm32_qspi_wait_poll_status(struct stm32_qspi *qspi,
-> +				       const struct spi_mem_op *op)
-> +{
-> +	u32 cr;
-> +
-> +	reinit_completion(&qspi->match_completion);
-> +	cr = readl_relaxed(qspi->io_base + QSPI_CR);
-> +	writel_relaxed(cr | CR_SMIE, qspi->io_base + QSPI_CR);
-> +
-> +	if (!wait_for_completion_timeout(&qspi->match_completion,
-> +				msecs_to_jiffies(qspi->status_timeout)))
-> +		return -ETIMEDOUT;
-> +
-> +	writel_relaxed(FCR_CSMF, qspi->io_base + QSPI_FCR);
-> +
-> +	return 0;
-> +}
-> +
->  static int stm32_qspi_get_mode(struct stm32_qspi *qspi, u8 buswidth)
->  {
->  	if (buswidth == 4)
-> @@ -332,7 +363,7 @@ static int stm32_qspi_send(struct spi_mem *mem, const struct spi_mem_op *op)
->  	struct stm32_qspi *qspi = spi_controller_get_devdata(mem->spi->master);
->  	struct stm32_qspi_flash *flash = &qspi->flash[mem->spi->chip_select];
->  	u32 ccr, cr;
-> -	int timeout, err = 0;
-> +	int timeout, err = 0, err_poll_status = 0;
->  
->  	dev_dbg(qspi->dev, "cmd:%#x mode:%d.%d.%d.%d addr:%#llx len:%#x\n",
->  		op->cmd.opcode, op->cmd.buswidth, op->addr.buswidth,
-> @@ -378,6 +409,9 @@ static int stm32_qspi_send(struct spi_mem *mem, const struct spi_mem_op *op)
->  	if (op->addr.nbytes && qspi->fmode != CCR_FMODE_MM)
->  		writel_relaxed(op->addr.val, qspi->io_base + QSPI_AR);
->  
-> +	if (qspi->fmode == CCR_FMODE_APM)
-> +		err_poll_status = stm32_qspi_wait_poll_status(qspi, op);
-> +
->  	err = stm32_qspi_tx(qspi, op);
->  
->  	/*
-> @@ -387,7 +421,7 @@ static int stm32_qspi_send(struct spi_mem *mem, const struct spi_mem_op *op)
->  	 *  byte of device (device size - fifo size). like device size is not
->  	 *  knows, the prefetching is always stop.
->  	 */
-> -	if (err || qspi->fmode == CCR_FMODE_MM)
-> +	if (err || err_poll_status || qspi->fmode == CCR_FMODE_MM)
->  		goto abort;
->  
->  	/* wait end of tx in indirect mode */
-> @@ -406,15 +440,43 @@ static int stm32_qspi_send(struct spi_mem *mem, const struct spi_mem_op *op)
->  						    cr, !(cr & CR_ABORT), 1,
->  						    STM32_ABT_TIMEOUT_US);
->  
-> -	writel_relaxed(FCR_CTCF, qspi->io_base + QSPI_FCR);
-> +	writel_relaxed(FCR_CTCF | FCR_CSMF, qspi->io_base + QSPI_FCR);
->  
-> -	if (err || timeout)
-> -		dev_err(qspi->dev, "%s err:%d abort timeout:%d\n",
-> -			__func__, err, timeout);
-> +	if (err || err_poll_status || timeout)
-> +		dev_err(qspi->dev, "%s err:%d err_poll_status:%d abort timeout:%d\n",
-> +			__func__, err, err_poll_status, timeout);
->  
->  	return err;
->  }
->  
-> +static int stm32_qspi_poll_status(struct spi_mem *mem, const struct spi_mem_op *op,
-> +				  u8 mask, u8 match, u16 timeout_ms)
-> +{
-> +	struct stm32_qspi *qspi = spi_controller_get_devdata(mem->spi->master);
-> +	int ret;
-> +
-> +	ret = pm_runtime_get_sync(qspi->dev);
-> +	if (ret < 0) {
-> +		pm_runtime_put_noidle(qspi->dev);
-> +		return ret;
-> +	}
-> +
-> +	mutex_lock(&qspi->lock);
-> +
-> +	writel_relaxed(mask, qspi->io_base + QSPI_PSMKR);
-> +	writel_relaxed(match, qspi->io_base + QSPI_PSMAR);
-> +	qspi->fmode = CCR_FMODE_APM;
-> +	qspi->status_timeout = timeout_ms;
-> +
-> +	ret = stm32_qspi_send(mem, op);
-> +	mutex_unlock(&qspi->lock);
-> +
-> +	pm_runtime_mark_last_busy(qspi->dev);
-> +	pm_runtime_put_autosuspend(qspi->dev);
-> +
-> +	return ret;
-> +}
-> +
->  static int stm32_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
->  {
->  	struct stm32_qspi *qspi = spi_controller_get_devdata(mem->spi->master);
-> @@ -527,7 +589,7 @@ static int stm32_qspi_setup(struct spi_device *spi)
->  	flash->presc = presc;
->  
->  	mutex_lock(&qspi->lock);
-> -	qspi->cr_reg = 3 << CR_FTHRES_SHIFT | CR_SSHIFT | CR_EN;
-> +	qspi->cr_reg = CR_APMS | 3 << CR_FTHRES_SHIFT | CR_SSHIFT | CR_EN;
->  	writel_relaxed(qspi->cr_reg, qspi->io_base + QSPI_CR);
->  
->  	/* set dcr fsize to max address */
-> @@ -607,6 +669,7 @@ static const struct spi_controller_mem_ops stm32_qspi_mem_ops = {
->  	.exec_op	= stm32_qspi_exec_op,
->  	.dirmap_create	= stm32_qspi_dirmap_create,
->  	.dirmap_read	= stm32_qspi_dirmap_read,
-> +	.poll_status	= stm32_qspi_poll_status,
->  };
->  
->  static int stm32_qspi_probe(struct platform_device *pdev)
-> @@ -661,6 +724,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
+> -	ret = pm_runtime_get_sync(dcmi->dev);
+> +	ret = pm_runtime_resume_and_get(dcmi->dev);
+>  	if (ret < 0) {
+>  		dev_err(dcmi->dev, "%s: Failed to start streaming, cannot get sync (%d)\n",
+>  			__func__, ret);
+> -		goto err_pm_put;
+> +		goto err_unlock;
+
+maybe err_unlocked; to indicate the lock isn't held.  This briefly confused me.
+
 >  	}
 >  
->  	init_completion(&qspi->data_completion);
-> +	init_completion(&qspi->match_completion);
+>  	ret = media_pipeline_start(&dcmi->vdev->entity, &dcmi->pipeline);
+> @@ -848,6 +848,7 @@ static int dcmi_start_streaming(struct vb2_queue *vq, unsigned int count)
 >  
->  	qspi->clk = devm_clk_get(dev, NULL);
->  	if (IS_ERR(qspi->clk)) {
+>  err_pm_put:
+>  	pm_runtime_put(dcmi->dev);
+> +err_unlock:
+>  	spin_lock_irq(&dcmi->irqlock);
+>  	/*
+>  	 * Return all buffers to vb2 in QUEUED state.
 
 _______________________________________________
 Linux-stm32 mailing list
