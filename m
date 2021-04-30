@@ -2,43 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 561F036F43F
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Apr 2021 05:11:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E00D236F513
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Apr 2021 06:29:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02CE0C58D5A;
-	Fri, 30 Apr 2021 03:11:04 +0000 (UTC)
-Received: from mail-m176218.qiye.163.com (mail-m176218.qiye.163.com
- [59.111.176.218])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91E79C58D59;
+	Fri, 30 Apr 2021 04:29:54 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A715DCFAC55
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7D71CFAC55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Apr 2021 03:11:00 +0000 (UTC)
-Received: from wanjb-virtual-machine.localdomain (unknown [36.152.145.182])
- by mail-m176218.qiye.163.com (Hmail) with ESMTPA id 980723200A7;
- Fri, 30 Apr 2021 11:10:55 +0800 (CST)
-From: Wan Jiabing <wanjiabing@vivo.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 30 Apr 2021 11:10:47 +0800
-Message-Id: <20210430031047.34888-1-wanjiabing@vivo.com>
-X-Mailer: git-send-email 2.25.1
+ Fri, 30 Apr 2021 04:29:52 +0000 (UTC)
+IronPort-SDR: X6k+AKjhTRswBIdvSslHIqGKqOX6PJmHFFZjxT0QPVbx7dgO/jVU6p1kS0cppDRytpxZmeUoLs
+ qeUR7VNrf2YA==
+X-IronPort-AV: E=McAfee;i="6200,9189,9969"; a="195087143"
+X-IronPort-AV: E=Sophos;i="5.82,260,1613462400"; d="scan'208";a="195087143"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2021 21:29:50 -0700
+IronPort-SDR: r5kBLHUL3Iu39C7dc3kM5eVDixAXaqGfwZ13+A0O0LtenkAS7J7fKqvNRIG3Gusvq1+KyiB9yP
+ OIWP3S79MbWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,260,1613462400"; d="scan'208";a="605540583"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga005.jf.intel.com with ESMTP; 29 Apr 2021 21:29:49 -0700
+Received: from linux.intel.com (unknown [10.88.229.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id 16A58580569;
+ Thu, 29 Apr 2021 21:29:46 -0700 (PDT)
+Date: Fri, 30 Apr 2021 12:29:44 +0800
+From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+To: Wan Jiabing <wanjiabing@vivo.com>
+Message-ID: <20210430042944.GA5444@linux.intel.com>
+References: <20210430031047.34888-1-wanjiabing@vivo.com>
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZQkJIQ1ZOH0pDQk0eGh9DH0hVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWUFZT0tIVUpKS0
- hOSFVLWQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6N0k6ISo6CT8IPEhIQzJWTwoj
- KFFPCglVSlVKTUpCTE5JSU5NSExDVTMWGhIXVQwaFRESGhkSFRw7DRINFFUYFBZFWVdZEgtZQVlI
- TVVKTklVSk9OVUpDSVlXWQgBWUFJSUNPNwY+
-X-HM-Tid: 0a7920c201ead978kuws980723200a7
-Cc: kael_w@yeah.net, Wan Jiabing <wanjiabing@vivo.com>
-Subject: [Linux-stm32] [PATCH] net: stmmac: Remove duplicate declaration of
-	stmmac_priv
+Content-Disposition: inline
+In-Reply-To: <20210430031047.34888-1-wanjiabing@vivo.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, kael_w@yeah.net,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Remove duplicate declaration
+	of stmmac_priv
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,30 +64,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In commit f4da56529da60 ("net: stmmac: Add support for external
-trigger timestamping"), struct stmmac_priv was declared at line 507
-which caused duplicate struct declarations.
-Remove later duplicate declaration here.
+On Fri, Apr 30, 2021 at 11:10:47AM +0800, Wan Jiabing wrote:
+> In commit f4da56529da60 ("net: stmmac: Add support for external
+> trigger timestamping"), struct stmmac_priv was declared at line 507
+> which caused duplicate struct declarations.
+> Remove later duplicate declaration here.
+> 
+> Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
 
-Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
----
- drivers/net/ethernet/stmicro/stmmac/hwif.h | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 2cc91759b91f..6d5e0f2b03ce 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -564,7 +564,6 @@ struct stmmac_mode_ops {
- #define stmmac_clean_desc3(__priv, __args...) \
- 	stmmac_do_void_callback(__priv, mode, clean_desc3, __args)
- 
--struct stmmac_priv;
- struct tc_cls_u32_offload;
- struct tc_cbs_qopt_offload;
- struct flow_cls_offload;
--- 
-2.25.1
+Reviewed-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
 
 _______________________________________________
 Linux-stm32 mailing list
