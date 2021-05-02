@@ -2,47 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 155C037037A
-	for <lists+linux-stm32@lfdr.de>; Sat,  1 May 2021 00:30:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B494370C21
+	for <lists+linux-stm32@lfdr.de>; Sun,  2 May 2021 16:05:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB113C58D7A;
-	Fri, 30 Apr 2021 22:30:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39B7DC57B55;
+	Sun,  2 May 2021 14:05:16 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BB0DC57B74
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1375AC5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Apr 2021 22:30:12 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 2A00F6147F;
- Fri, 30 Apr 2021 22:30:11 +0000 (UTC)
+ Sun,  2 May 2021 14:05:13 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3EAB4613E4;
+ Sun,  2 May 2021 14:05:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619821811;
- bh=XVCO9O9G7bisl1YNGCySOUbejBlFNAz4x2iboi+HPMM=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=P9ap/x9ZZ85fjGARq/R5Mx/7yINZ5m2vDn0crZ0pRnL67E9R3C8D1iy1Gz0Y+0L8a
- qrjt/ByO8Es0bUMCdCVDrOfxD0GNXFNx0gVkj4JtGt2Hfv1D7RON4QgUd0nRhGyGQ1
- VBR8n1K7TXqFHx0Avk6V3wz/rER4D/zkhXG2u5I5FL7j6ZG9oCtA6MAbvAGvCZj0gD
- pdE5JD+n+P2IsoPe4Z2BeEX20jpxW5RQtiQ1x9HWGlDp6nmBEFZgKAJ50l0WhcO++V
- pvC1W0678QKrRs+6jDm85TsI/nsYyAyjv07iSpwkbaroO9+FgHbKcck0eWyI1Wa8Zn
- ibXsMIlvrPnrA==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 1D1D160CD1;
- Fri, 30 Apr 2021 22:30:11 +0000 (UTC)
+ s=k20201202; t=1619964312;
+ bh=1ZR2hGCVxl/AUz/DPdg4lR6EqMKap5Sr4BtBZj9BvF4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=oFVib25LXxUmVygEkyQazzfwdGmDOiBvDTFwbN7c/4fGMtL8Vs21i7NbNU7qc2wkK
+ CH45N4bpwaSI92o+Q4vCSsb5Y+6O2dcADIxLCzlYdmrOXsRhkovLjtju9AdrqW0ama
+ Yj0RgXBkeR3zoRMLdYwN3/VbFv3hwRLz8IXfaFouse5Xlqq8pH/s6foPulvbXPT8/x
+ /+vlhRUreHT4fekV8BRUQoP1A5R5fpymgk+TZryY8kT/sj/+JzglZO8lWcgaw5bpVk
+ pNOcPVZIFuQkto6EzdcAu1BfI66m12c8qO+5KCYJdxH7v8DmKmyDGiG4p0khmPO737
+ sI/oxq9d0FAAA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sun,  2 May 2021 10:04:30 -0400
+Message-Id: <20210502140434.2719553-30-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210502140434.2719553-1-sashal@kernel.org>
+References: <20210502140434.2719553-1-sashal@kernel.org>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <161982181111.1234.7541800919565959093.git-patchwork-notify@kernel.org>
-Date: Fri, 30 Apr 2021 22:30:11 +0000
-References: <20210430031047.34888-1-wanjiabing@vivo.com>
-In-Reply-To: <20210430031047.34888-1-wanjiabing@vivo.com>
-To: Wan Jiabing <wanjiabing@vivo.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- peppe.cavallaro@st.com, kael_w@yeah.net, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Remove duplicate declaration
-	of stmmac_priv
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Shixin Liu <liushixin2@huawei.com>, linux-crypto@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 30/34] crypto: stm32/hash - Fix PM
+	reference leak on stm32-hash.c
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,29 +57,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+From: Shixin Liu <liushixin2@huawei.com>
 
-This patch was applied to netdev/net.git (refs/heads/master):
+[ Upstream commit 1cb3ad701970e68f18a9e5d090baf2b1b703d729 ]
 
-On Fri, 30 Apr 2021 11:10:47 +0800 you wrote:
-> In commit f4da56529da60 ("net: stmmac: Add support for external
-> trigger timestamping"), struct stmmac_priv was declared at line 507
-> which caused duplicate struct declarations.
-> Remove later duplicate declaration here.
-> 
-> Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
-> 
-> [...]
+pm_runtime_get_sync will increment pm usage counter even it failed.
+Forgetting to putting operation will result in reference leak here.
+Fix it by replacing it with pm_runtime_resume_and_get to keep usage
+counter balanced.
 
-Here is the summary with links:
-  - net: stmmac: Remove duplicate declaration of stmmac_priv
-    https://git.kernel.org/netdev/net/c/f18c51b6513c
+Signed-off-by: Shixin Liu <liushixin2@huawei.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/crypto/stm32/stm32-hash.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+diff --git a/drivers/crypto/stm32/stm32-hash.c b/drivers/crypto/stm32/stm32-hash.c
+index cfc8e0e37bee..dcce15b55809 100644
+--- a/drivers/crypto/stm32/stm32-hash.c
++++ b/drivers/crypto/stm32/stm32-hash.c
+@@ -810,7 +810,7 @@ static void stm32_hash_finish_req(struct ahash_request *req, int err)
+ static int stm32_hash_hw_init(struct stm32_hash_dev *hdev,
+ 			      struct stm32_hash_request_ctx *rctx)
+ {
+-	pm_runtime_get_sync(hdev->dev);
++	pm_runtime_resume_and_get(hdev->dev);
+ 
+ 	if (!(HASH_FLAGS_INIT & hdev->flags)) {
+ 		stm32_hash_write(hdev, HASH_CR, HASH_CR_INIT);
+@@ -959,7 +959,7 @@ static int stm32_hash_export(struct ahash_request *req, void *out)
+ 	u32 *preg;
+ 	unsigned int i;
+ 
+-	pm_runtime_get_sync(hdev->dev);
++	pm_runtime_resume_and_get(hdev->dev);
+ 
+ 	while ((stm32_hash_read(hdev, HASH_SR) & HASH_SR_BUSY))
+ 		cpu_relax();
+@@ -997,7 +997,7 @@ static int stm32_hash_import(struct ahash_request *req, const void *in)
+ 
+ 	preg = rctx->hw_context;
+ 
+-	pm_runtime_get_sync(hdev->dev);
++	pm_runtime_resume_and_get(hdev->dev);
+ 
+ 	stm32_hash_write(hdev, HASH_IMR, *preg++);
+ 	stm32_hash_write(hdev, HASH_STR, *preg++);
+@@ -1553,7 +1553,7 @@ static int stm32_hash_remove(struct platform_device *pdev)
+ 	if (!hdev)
+ 		return -ENODEV;
+ 
+-	ret = pm_runtime_get_sync(hdev->dev);
++	ret = pm_runtime_resume_and_get(hdev->dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-- 
+2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
