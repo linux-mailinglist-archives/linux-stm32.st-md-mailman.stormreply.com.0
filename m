@@ -2,51 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BA7E37310E
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 May 2021 21:53:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F303B37325A
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 00:29:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24E05C59784;
-	Tue,  4 May 2021 19:53:56 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9223C59783;
+	Tue,  4 May 2021 22:29:55 +0000 (UTC)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4803DC32E90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50025C32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 May 2021 19:53:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 27CF4611CB;
- Tue,  4 May 2021 19:53:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620158032;
- bh=0r/j8p/v0WMfwl7qORsmq6s2OTxkG5aV8XkOqLqw72Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZDO27gy4lnDgiHSPEYDc8pkPgY7LqE9sm34xJn7XG1luMHes+6XjCwdLbhnJxJoih
- xidjKRzDFx6FzlTmAxcfvcDPPcebe5KOyTg4kmdifo6+FJ2WTeEhbctDgHJ6LWdXU8
- TxkHd//qRzJvwE4yNyXiuFWves3HyPOfzTCmBeNlkT7IJ/F67tuQ0FaLWvzxxLCjT7
- KVzSrXEKErcuPzODm6zmeuZdIYisFLR7jr5FwH/XmqMjg1OZkVJY94tx2LqFfH4wEE
- uc+edw9HeUsckvPz+w66qKjyH50SXlcLSKMNDvD9ah09Z62ePeew4M9oaNp6jE2K5J
- lI+m4RWho/nQA==
-Date: Tue, 4 May 2021 21:53:48 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20210504195348.GB1783@kunai>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>, robh+dt@kernel.org,
- mark.rutland@arm.com, pierre-yves.mordret@foss.st.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- fabrice.gasnier@foss.st.com
-References: <1616998145-28278-1-git-send-email-alain.volmat@foss.st.com>
- <1616998145-28278-2-git-send-email-alain.volmat@foss.st.com>
+ Tue,  4 May 2021 22:29:53 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id a4so15596482ejk.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 04 May 2021 15:29:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=6S33qsxdfzNRrx5uD8qxn/D0pG+Cha3VUrhtZ9or8eA=;
+ b=ergPdIRGrf9B9JpDTdJaC+eY+7IYGzqdoaTeAIpm9a0HIKai5p6Shtx2tgV9L2IFeC
+ LmnO0NNN2+YyE/ezRAqRcas/X6fBDoxQEiWdI9h28ZOwKyljtEENVE3dFOSd2p7ZgDkP
+ KbGQ9FPUTIUIApVNO/GGynhMHLYPR7RxUWPzNjPQ3R5B2IVB6AEaxItlzjIzZYPRv7F0
+ 6feNEp+cMlibnaM6/BlarXYynAEcn2oQjX98NuKZjYsNOj3MIbtfdSQ+PemUiLht8nev
+ pxaTVTuccjCRnC79HfGumiaC0XKTij8xBJKJhHymes1qmqa8P4BRGHqSjSX/ptxbnLNb
+ WaCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=6S33qsxdfzNRrx5uD8qxn/D0pG+Cha3VUrhtZ9or8eA=;
+ b=R4HJoGviLU3ndA1uzzqswGYEXE92Vu+1GnOaySX90QENTpSs5LTc6r52CheO3QYCbH
+ HPRH2XqqDPDYTeWmxRViduEi+hoELUsHXeAXz4VOZXsARQwqBbxadFBvOM9buy+EACVE
+ PY16ctbBlaSjK9x0NRu0KdIbfgvYmE8sxKmI60THGmGrT0YJiBi4n8jt/wMtBHMwBonK
+ NJ75wEb1AgjoGwe6/MurvQ2dJQxUSEultuqfJCbBipjFgMlQ5VFWyzv7IRtiQ4OEJljl
+ zIPDi6lZuSARSRsIW41kv86Qz60bYOdFOoRU2kcS8iQ1N7jISO/duW5RJP28OVHAI3ab
+ sOgw==
+X-Gm-Message-State: AOAM531XgmBaje9MKtxcVYxcqL7Fpm4fVMgzaVej3GHcAjRDRiqz/m0b
+ Bh2RwOtIsIZMiLjM1iTsBgo=
+X-Google-Smtp-Source: ABdhPJzY14RFxCWkRfWoxjufaU3Vb/MDZb5AXGaItoX+yOEZfY5E8S5JuKsWwWEr7ADZAMP3kDh4Ng==
+X-Received: by 2002:a17:906:52d7:: with SMTP id
+ w23mr24941244ejn.451.1620167392751; 
+ Tue, 04 May 2021 15:29:52 -0700 (PDT)
+Received: from Ansuel-xps.localdomain (93-35-189-2.ip56.fastwebnet.it.
+ [93.35.189.2])
+ by smtp.googlemail.com with ESMTPSA id q12sm2052946ejy.91.2021.05.04.15.29.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 May 2021 15:29:52 -0700 (PDT)
+From: Ansuel Smith <ansuelsmth@gmail.com>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Date: Wed,  5 May 2021 00:29:11 +0200
+Message-Id: <20210504222915.17206-17-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210504222915.17206-1-ansuelsmth@gmail.com>
+References: <20210504222915.17206-1-ansuelsmth@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <1616998145-28278-2-git-send-email-alain.volmat@foss.st.com>
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: i2c: stm32f7: add st,
- smbus-alert binding for SMBus Alert
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Ansuel Smith <ansuelsmth@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Russell King <linux@armlinux.org.uk>, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [RFC PATCH net-next v3 17/20] net: phy: phylink:
+	permit to pass dev_flags to phylink_connect_phy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,60 +82,137 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4306873476321588688=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Add support for phylink_connect_phy to pass dev_flags to the PHY driver.
+Change any user of phylink_connect_phy to pass 0 as dev_flags by
+default.
 
---===============4306873476321588688==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jho1yZJdad60DJr+"
-Content-Disposition: inline
+Signed-off-by: Ansuel Smith <ansuelsmth@gmail.com>
+---
+ drivers/net/ethernet/cadence/macb_main.c          |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  2 +-
+ drivers/net/phy/phylink.c                         | 12 +++++++-----
+ include/linux/phylink.h                           |  2 +-
+ net/dsa/slave.c                                   |  2 +-
+ 5 files changed, 11 insertions(+), 9 deletions(-)
 
-
---jho1yZJdad60DJr+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-
-> +        st,smbus-alert:
-
-After reading the specs again, I think we can make this a generic
-binding. SMBusAlert is optional. So, we can say it is not covered by the
-"smbus" binding and needs a seperate one. Makes sense?
-
-
---jho1yZJdad60DJr+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmCRpkwACgkQFA3kzBSg
-Kba/8g//fDwD9sm7N+HAiL7vPmZr0Uock8CYReRf6YpDV+9Yrhh7MVqURaDwtor8
-sIXzxCIeW+HfNXOVjWgEEYwW+NIhjqerMTl+1bG5SLJq+R0gvlsEo7IIAoZ9TdYh
-Urt2LEYuR5yXwD38zkpG110NeqvzgMbYnXk7l8t8+FOCLYfhR3FH1VVM5c5/rPy1
-P5IY/V+z6Kq+YzMpxUreBg/erR14SxUfy3it1cSSJn2TpiSiUuHooV15orA3+VLR
-2VpQLmVBpN86UFHLEHpgSwIYTiOvDu0tF86eZQPCUo3l3blCuId/RhX5ysroAA1s
-R/QwP787hLZHrCbvwfFPFMWi9/Yety6/BLWVDHpp22eR9kHtBhQ1tVvn/Fhy+qaz
-UZnLlVDMqi6N7tQoKDNYF8tzpz7kyhXMCLT4ZoSlxiFIkCACmYZs+Q8+5CSJKo7A
-yuRoVgvy0XG4mTmqDQNda6l2p+SQyQxTri9gSEGczKS6nO8vv/Gb+WZfTyuXe7dW
-SPsckWowrvq7Mq0Ea51YqvdRDN3YpvSUEGeBc0hIgOsqRgpsdBAflM97PLV1BktQ
-6Ee4/xaVDhrjplvpqVwXJZdslRMQO9iawelqngz0P4xVnMJxNzM73ZHOWIM8AP4S
-SreuL3RNm/pPROdtld4xb66OK/mm/cHxgvjy3cLhtbtLrVt/zrk=
-=W6P4
------END PGP SIGNATURE-----
-
---jho1yZJdad60DJr+--
-
---===============4306873476321588688==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 0f6a6cb7e98d..459243c08b0c 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -834,7 +834,7 @@ static int macb_phylink_connect(struct macb *bp)
+ 		}
+ 
+ 		/* attach the mac to the phy */
+-		ret = phylink_connect_phy(bp->phylink, phydev);
++		ret = phylink_connect_phy(bp->phylink, phydev, 0);
+ 	}
+ 
+ 	if (ret) {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 4749bd0af160..ece84bb64b37 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1099,7 +1099,7 @@ static int stmmac_init_phy(struct net_device *dev)
+ 			return -ENODEV;
+ 		}
+ 
+-		ret = phylink_connect_phy(priv->phylink, phydev);
++		ret = phylink_connect_phy(priv->phylink, phydev, 0);
+ 	}
+ 
+ 	phylink_ethtool_get_wol(priv->phylink, &wol);
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index dc2800beacc3..95f6a10e90ef 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -1018,7 +1018,7 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
+ }
+ 
+ static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
+-			      phy_interface_t interface)
++			      phy_interface_t interface, u32 flags)
+ {
+ 	if (WARN_ON(pl->cfg_link_an_mode == MLO_AN_FIXED ||
+ 		    (pl->cfg_link_an_mode == MLO_AN_INBAND &&
+@@ -1028,13 +1028,14 @@ static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
+ 	if (pl->phydev)
+ 		return -EBUSY;
+ 
+-	return phy_attach_direct(pl->netdev, phy, 0, interface);
++	return phy_attach_direct(pl->netdev, phy, flags, interface);
+ }
+ 
+ /**
+  * phylink_connect_phy() - connect a PHY to the phylink instance
+  * @pl: a pointer to a &struct phylink returned from phylink_create()
+  * @phy: a pointer to a &struct phy_device.
++ * @flags: PHY-specific flags to communicate to the PHY device driver
+  *
+  * Connect @phy to the phylink instance specified by @pl by calling
+  * phy_attach_direct(). Configure the @phy according to the MAC driver's
+@@ -1046,7 +1047,8 @@ static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
+  *
+  * Returns 0 on success or a negative errno.
+  */
+-int phylink_connect_phy(struct phylink *pl, struct phy_device *phy)
++int phylink_connect_phy(struct phylink *pl, struct phy_device *phy,
++			u32 flags)
+ {
+ 	int ret;
+ 
+@@ -1056,7 +1058,7 @@ int phylink_connect_phy(struct phylink *pl, struct phy_device *phy)
+ 		pl->link_config.interface = pl->link_interface;
+ 	}
+ 
+-	ret = phylink_attach_phy(pl, phy, pl->link_interface);
++	ret = phylink_attach_phy(pl, phy, pl->link_interface, flags);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -2207,7 +2209,7 @@ static int phylink_sfp_connect_phy(void *upstream, struct phy_device *phy)
+ 		return ret;
+ 
+ 	interface = pl->link_config.interface;
+-	ret = phylink_attach_phy(pl, phy, interface);
++	ret = phylink_attach_phy(pl, phy, interface, 0);
+ 	if (ret < 0)
+ 		return ret;
+ 
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index d81a714cfbbd..cd563ba67ca0 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -437,7 +437,7 @@ struct phylink *phylink_create(struct phylink_config *, struct fwnode_handle *,
+ void phylink_set_pcs(struct phylink *, struct phylink_pcs *pcs);
+ void phylink_destroy(struct phylink *);
+ 
+-int phylink_connect_phy(struct phylink *, struct phy_device *);
++int phylink_connect_phy(struct phylink *, struct phy_device *, u32 flags);
+ int phylink_of_phy_connect(struct phylink *, struct device_node *, u32 flags);
+ void phylink_disconnect_phy(struct phylink *);
+ 
+diff --git a/net/dsa/slave.c b/net/dsa/slave.c
+index 992fcab4b552..8ecfcb553ac1 100644
+--- a/net/dsa/slave.c
++++ b/net/dsa/slave.c
+@@ -1718,7 +1718,7 @@ static int dsa_slave_phy_connect(struct net_device *slave_dev, int addr)
+ 		return -ENODEV;
+ 	}
+ 
+-	return phylink_connect_phy(dp->pl, slave_dev->phydev);
++	return phylink_connect_phy(dp->pl, slave_dev->phydev, 0);
+ }
+ 
+ static int dsa_slave_phy_setup(struct net_device *slave_dev)
+-- 
+2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4306873476321588688==--
