@@ -2,66 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49C6B3726C2
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 May 2021 09:46:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3755D372AC6
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 May 2021 15:17:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01802C59784;
-	Tue,  4 May 2021 07:46:51 +0000 (UTC)
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFA24C59784;
+	Tue,  4 May 2021 13:17:04 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE156C32E90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 017BBC59781
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 May 2021 07:46:49 +0000 (UTC)
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 1447kbxR091366;
- Tue, 4 May 2021 02:46:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1620114397;
- bh=v2LfDUuprhoq0w30u8SSUbTGXDg1q/hXpwfngCE33fs=;
- h=Date:From:To:CC:Subject:References:In-Reply-To;
- b=vKPWLQKmPA7co+CoTH0fyq0d5Ln0DbKdxPpUM6H8U42uAUzVPy+mHEif6M175yYM0
- E8Wyh1891bYM/tINgL5rdRou25mtWOY9DzcQNYOcRnxYOG3Noo04INWhmRb6bpm46D
- KuMhdY8T0HEbPIJZyBaSnKMIidYXIT86yhcySTI4=
-Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 1447kbFW105160
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 4 May 2021 02:46:37 -0500
-Received: from DLEE103.ent.ti.com (157.170.170.33) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Tue, 4 May
- 2021 02:46:37 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE103.ent.ti.com
- (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2 via
- Frontend Transport; Tue, 4 May 2021 02:46:37 -0500
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 1447ka5F067328;
- Tue, 4 May 2021 02:46:36 -0500
-Date: Tue, 4 May 2021 13:16:35 +0530
-From: Pratyush Yadav <p.yadav@ti.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Message-ID: <20210504074633.kwwccp2m2je3yx6n@ti.com>
-References: <20210426143934.25275-1-patrice.chotard@foss.st.com>
- <20210426143934.25275-2-patrice.chotard@foss.st.com>
- <20210430185104.377d1bc6@collabora.com>
- <20210503084742.7cp77snyohkdwwvv@ti.com>
- <20210503111114.26b64e25@collabora.com>
- <20210503092935.vjitc7mc47wttn77@ti.com>
- <20210503115252.08af412c@collabora.com>
+ Tue,  4 May 2021 13:17:01 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1lduv4-00019t-6c; Tue, 04 May 2021 15:16:58 +0200
+To: Arnd Bergmann <arnd@arndb.de>,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>
+References: <20210415101037.1465-1-alexandre.torgue@foss.st.com>
+ <20210415101037.1465-13-alexandre.torgue@foss.st.com>
+ <ececc78c-4fca-bb93-ef62-5d107501d963@pengutronix.de>
+ <96da49dc-f24d-aa12-e1d8-39b5a5b6fbc9@foss.st.com>
+ <CAK8P3a1bGAUbqTGqyz+PB=7fuVLkJce0awtx1Z9PE3uiX6uysQ@mail.gmail.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <5f12a950-ec62-89b4-e22f-4b4a84048f8f@pengutronix.de>
+Date: Tue, 4 May 2021 15:16:55 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.7.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210503115252.08af412c@collabora.com>
-User-Agent: NeoMutt/20171215
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
+In-Reply-To: <CAK8P3a1bGAUbqTGqyz+PB=7fuVLkJce0awtx1Z9PE3uiX6uysQ@mail.gmail.com>
+Content-Language: en-US
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Marek Vasut <marex@denx.de>, DTML <devicetree@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, Lee Jones <lee.jones@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] spi: spi-mem: add automatic poll
-	status functions
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 12/13] ARM: dts: stm32: fix DSI port node
+	on STM32MP15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,152 +65,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 03/05/21 11:52AM, Boris Brezillon wrote:
-> On Mon, 3 May 2021 14:59:37 +0530
-> Pratyush Yadav <p.yadav@ti.com> wrote:
-> 
-> > On 03/05/21 11:11AM, Boris Brezillon wrote:
-> > > On Mon, 3 May 2021 14:17:44 +0530
-> > > Pratyush Yadav <p.yadav@ti.com> wrote:
-> > >   
-> > > > On 30/04/21 06:51PM, Boris Brezillon wrote:  
-> > > > > On Mon, 26 Apr 2021 16:39:32 +0200
-> > > > > <patrice.chotard@foss.st.com> wrote:
-> > > > >     
-> > > > > > From: Christophe Kerello <christophe.kerello@foss.st.com>
-> > > > > > 
-> > > > > > With STM32 QSPI, it is possible to poll the status register of the device.
-> > > > > > This could be done to offload the CPU during an operation (erase or
-> > > > > > program a SPI NAND for example).
-> > > > > > 
-> > > > > > spi_mem_poll_status API has been added to handle this feature.
-> > > > > > 
-> > > > > > Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-> > > > > > Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> > > > > > ---
-> > > > > >  drivers/spi/spi-mem.c       | 34 ++++++++++++++++++++++++++++++++++
-> > > > > >  include/linux/spi/spi-mem.h |  8 ++++++++
-> > > > > >  2 files changed, 42 insertions(+)
-> > > > > > 
-> > > > > > diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
-> > > > > > index 1513553e4080..43dce4b0efa4 100644
-> > > > > > --- a/drivers/spi/spi-mem.c
-> > > > > > +++ b/drivers/spi/spi-mem.c
-> > > > > > @@ -743,6 +743,40 @@ static inline struct spi_mem_driver *to_spi_mem_drv(struct device_driver *drv)
-> > > > > >  	return container_of(drv, struct spi_mem_driver, spidrv.driver);
-> > > > > >  }
-> > > > > >  
-> > > > > > +/**
-> > > > > > + * spi_mem_poll_status() - Poll memory device status
-> > > > > > + * @mem: SPI memory device
-> > > > > > + * @op: the memory operation to execute
-> > > > > > + * @mask: status bitmask to ckeck
-> > > > > > + * @match: status expected value
-> > > > > > + * @timeout: timeout
-> > > > > > + *
-> > > > > > + * This function send a polling status request to the controller driver
-> > > > > > + *
-> > > > > > + * Return: 0 in case of success, -ETIMEDOUT in case of error,
-> > > > > > + *         -EOPNOTSUPP if not supported.
-> > > > > > + */
-> > > > > > +int spi_mem_poll_status(struct spi_mem *mem,
-> > > > > > +			const struct spi_mem_op *op,
-> > > > > > +			u8 mask, u8 match, u16 timeout)
-> > > > > > +{
-> > > > > > +	struct spi_controller *ctlr = mem->spi->controller;
-> > > > > > +	int ret = -EOPNOTSUPP;
-> > > > > > +
-> > > > > > +	if (ctlr->mem_ops && ctlr->mem_ops->poll_status) {
-> > > > > > +		ret = spi_mem_access_start(mem);    
-> > > > > 
-> > > > > You should probably check that op is a single byte read before
-> > > > > accepting the command.    
-> > > > 
-> > > > Please do not discriminate against 8D-8D-8D flashes ;-).  
-> > > 
-> > > Then mask and match should probably be u16 :P. And the check as it is
-> > > seems a bit lax to me. Drivers will of course be able to reject the op
-> > > when there's more than one byte (or 16bit word in case of 8D) to read,
-> > > but it feels like the core could automate that a bit.  
-> > 
-> > The two 8D flashes that are currently supported in SPI NOR both have a 
-> > 1-byte status register. But to read it, the read op should be 2-byte 
-> > long to avoid partial cycles at the end. The second byte is simply 
-> > discarded.
-> > 
-> > 2-byte wide registers might show up in the future, but for now at least 
-> > we don't have to worry about them.
-> 
-> Well, I guess it doesn't hurt to take it into account now. I mean,
-> what's happening on the bus in that case is a 2byte transfer, with the
-> second byte being ignored, which you can describe with a 16bit mask
-> of 0xMM00 (assuming big endian transfers here, as done for other ops).
+Hello Arnd,
 
-Makes sense.
+On 19.04.21 15:57, Arnd Bergmann wrote:
+> On Thu, Apr 15, 2021 at 2:23 PM Alexandre TORGUE
+> <alexandre.torgue@foss.st.com> wrote:
+>> On 4/15/21 12:43 PM, Ahmad Fatoum wrote:
+>>> I think my rationale for the patch above was sound, so I think the checker
+>>> taking offense at the DSI cells here should be considered a false positive.
+>>
+>> If it's a "false positive" warning then we need to find a way to not
+>> print it out. Else, it'll be difficult to distinguish which warnings are
+>> "normal" and which are not. This question could also be applied to patch[3].
+>>
+>> Arnd, Rob what is your feeling about this case ?
+> 
+> I don't have a strong opinion on this either way, but I would just
+> not apply this one for 5.13 in this case. Rob, Alexandre, please
+> let me know if I should apply the other patches before the
+> merge window, I usually don't mind taking bugfixes late before the
+> merge window, but I still want some level of confidence that they
+> are actually correct.
+> 
+> Ahmad, if you feel strongly about this particular issue, would you like
+> to suggest a patch for the checker?
+
+The check is certainly useful. If it's not feasible to fix the checker (e.g.
+because it analyzes standalone DTSIs), I am fine with reverting my commit
+with an indication that this is to avoid triggering a dt-validate false
+positive.
+
+I am not familiar with dt-validate's inner workings to offer a patch.
+
+Cheers,
+Ahmad
 
 > 
-> > 
-> > >   
-> > > >   
-> > > > >     
-> > > > > > +		if (ret)
-> > > > > > +			return ret;
-> > > > > > +
-> > > > > > +		ret = ctlr->mem_ops->poll_status(mem, op, mask, match, timeout);    
-> > > > > 
-> > > > > You also need some sort of ->poll_status_is_supported() to validate
-> > > > > that the controller supports the status polling for this specific op (I    
-> > > > 
-> > > > I don't think a separate function is needed for checking if the poll 
-> > > > status op is supported. Return value of -EOPNOTSUPP should be able to 
-> > > > signal that. This can also be used to check if Octal DDR capable 
-> > > > controllers are able to poll using 2-byte reads.  
-> > > 
-> > > Yeah, I had something more complex in mind to avoid doing this 'try
-> > > native mode and fall back on sw-based more if not supported' dance
-> > > every time a status poll is requested (something similar to what we do
-> > > for dirmaps, with a status poll desc), but I guess that's a bit
-> > > premature (and probably uneeded).  
-> > 
-> > I think Mark also suggested something similar. Make the CPU/non-CPU case 
-> > transparent to the caller. I agree with with this direction. Makes the 
-> > caller simpler.
+>         Arnd
 > 
-> It's kind of orthogonal to what I was suggesting, but yes, that's
-> definitely a good idea. We certainly don't want the spi-nor layer to
-> open code the same logic if the spi-mem layer can do it for us.
-> 
-> > 
-> > I also mentioned in a reply to this patch that supports_op() should be 
-> > called before the op is executed. That should take care of "base" 
-> > support for the op. The poll-specific checks can go in the poll_status() 
-> > function itself. If either of those say the op is not supported, it 
-> > should fall back to CPU based polling. That's the design that makes the 
-> > most sense to me.
-> 
-> What I had in mind was more:
-> 
-> 1/ create a poll desc with spi_mem_create_poll_status_desc(). The
->    "operation supported" check is done here. The controller can store
->    all its HW-specific state in there. If the operation is not natively
->    supported, a SW-based poll descriptor (similar to the SW-based
->    dirmap) is created
-> 2/ poll the status with spi_mem_poll_status(). This function is passed
->    a poll descriptor which helps select the path that should be taken
->    without having to check every time whether the hardware supports a
->    specific status polling op. I can also imagine some preparation
->    being done during the desc creation if that makes sense (preparing
->    reg values to be written when a status poll request is issued for
->    instance)
-> 
-> Anyway, as I said, this sort of optimization might be a bit premature.
-
-Indeed, this sounds a bit premature to me too.
 
 -- 
-Regards,
-Pratyush Yadav
-Texas Instruments Inc.
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
