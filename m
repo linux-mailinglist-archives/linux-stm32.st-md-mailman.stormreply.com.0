@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAE713740D8
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 18:39:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 116EE3740EC
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 18:40:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A730C57B5F;
-	Wed,  5 May 2021 16:39:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C63ADC58D7A;
+	Wed,  5 May 2021 16:40:13 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E539BC5718D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABAC6C57B5F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 May 2021 16:39:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4E89961444;
- Wed,  5 May 2021 16:39:02 +0000 (UTC)
+ Wed,  5 May 2021 16:40:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2FD37619B9;
+ Wed,  5 May 2021 16:40:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620232743;
+ s=k20201202; t=1620232811;
  bh=vI5LWT6H714BA7fXwBiqMpEcxeof87DXV4W9TPRXmZI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CyK3mkzJCkySCvTdT5nJZ7iEMilhPgbfoBNEcztMQ7JmdpBH8+MDy6yhfpSzZKy5Q
- LB1w47qP3gqfVPw69vWSNpJpzZrUODB+/ldaXmBmV2GSwiY2Kv3g2aUWb/BFsGEXND
- VrZ369LRLtuPeZgXPanYhy2d3GKQCkkU0yrdaKHKk1it42EUllP6Ql/XOvB/YWomGC
- +xNe4v+10AR0K40NmzOtU0BTThru6yk5A66cMhSwNuc2cfC/aui031c370HCwRypuZ
- NPi760H8FIGSkQQ4bf58fv1povNwxEB46rd9w2Jh8X4tv2bt+4X5VDn/dyGpivztww
- fNn9apUY0CaLg==
+ b=XSmolPgMAoQCaEqCR9v2vDeA3qRhdsrOg5y5BNZqeZ1c095AHZPtAu21UzrB4ZCsC
+ q5zHa2vhnhx+GI3naOzOSYrhoojKnP3oQj0NxbZ0A3wJqJP7Epkw65ntNgta44WJAC
+ uAI0Q0euaH5MTha3mwh6Om0ge/JA38dUARJmyJTyet0YkwkFXZFAbNIMo/dgZcG10/
+ KUrHn/90WmN7z+vmecCB4NA7lJUJSap/toJwms9/T8F1O91sQp2xlIxQnAkkVhxl60
+ BPY5xjaGvb56jC38aaq34aboFIdQbyFPU8nlQUTX2+2wMQKKOlyGRNZm3W/GHFcijb
+ 3EAYaMcjiDgDA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed,  5 May 2021 12:38:14 -0400
-Message-Id: <20210505163856.3463279-4-sashal@kernel.org>
+Date: Wed,  5 May 2021 12:39:36 -0400
+Message-Id: <20210505164004.3463707-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210505163856.3463279-1-sashal@kernel.org>
-References: <20210505163856.3463279-1-sashal@kernel.org>
+In-Reply-To: <20210505164004.3463707-1-sashal@kernel.org>
+References: <20210505164004.3463707-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, Jonathan McDowell <noodles@earth.li>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 04/46] net: stmmac: Set FIFO sizes
-	for ipq806x
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 04/32] net: stmmac: Set FIFO
+	sizes for ipq806x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
