@@ -2,45 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 770A4373B28
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 14:26:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F863373C24
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 15:17:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DE53C5718F;
-	Wed,  5 May 2021 12:26:54 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F13D6C57B5F;
+	Wed,  5 May 2021 13:17:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02691C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD7A0C32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 May 2021 12:26:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 72BE1613B3;
- Wed,  5 May 2021 12:26:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620217611;
- bh=YL7D4o7kDUatxUlkVQK7lpg7yBylqK7Icu1EuQsksM0=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=iToY3lL0hRaSsi7NkW1PYxuRNLCT7cc9E8r8AdVH574Z2d9DDm/+k5C8uRQVjvdKD
- h6on9jJRLx0yhiBkQNF07zjvs6V5gO8h9mH7nZaW7KDhtya7E+H5RMUw5IP7mgmA5B
- 1rfukrRHUXnR/q9gPkzE6x9noxe7Z6DAweMllFeNNCWO7fulRAj9PoFFAsh1pAYWvb
- juytEMSxgmmrNvfvmhKNeJoURWOP9MnXK3fFodPmIr6e+0gkpkTdzmS5XsmeSRcQNS
- WHQKPXLspNLiD2P6HerPqs6eFn44SmCqgO9Ecmc4+5BxX89B3oroKtjheUWJC4eLPx
- sv4+C49pNwbxQ==
-Date: Wed, 5 May 2021 14:26:47 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Wei Yongjun <weiyongjun1@huawei.com>
-In-Reply-To: <20210402094041.3424285-1-weiyongjun1@huawei.com>
-Message-ID: <nycvar.YFH.7.76.2105051426390.28378@cbobk.fhfr.pm>
-References: <20210402094041.3424285-1-weiyongjun1@huawei.com>
-User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
+ Wed,  5 May 2021 13:17:34 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 145DHMeS022118; Wed, 5 May 2021 15:17:23 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=oKWdkh59xaWBXpAlbJc3K7xKwP0fD1UPO9YaA7JF6dk=;
+ b=XELtC+voQP/UEhp6mOTj0IhYvZm9YYViaUf3ZgfQTviRfFHehe63ZMXfylx63UJuUsfm
+ BY7/n9BK8VSY7PNM30BaZ3D+HFS3cbwW2ReDumx1M0yL+fRKDsCiYFsZnzX88TLRlM4J
+ n3+x7gyjmmUmDuzuiJwUnk62sY8/CC5Ir2XVBd3q7HBpHMu91ExY7OvgjMCiK70HmVMs
+ 331yNAMJEeuy1F+kRhDNy9YO9dmgX2uGOW+w6EDRleFIL7b8TB0/4wkOdMGLZYWIKnIg
+ MqToVwA4Cl6Tk2DXMTzSZO55v4TmsXrI70yzdVNlCi7QVJrQobnkHV3mc9JiwTucS4/S aw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38bea3vd3u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 May 2021 15:17:23 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DE7E510002A;
+ Wed,  5 May 2021 15:17:21 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AA7D22C4206;
+ Wed,  5 May 2021 15:17:21 +0200 (CEST)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 5 May 2021 15:17:21
+ +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: <wsa@kernel.org>, <robh+dt@kernel.org>
+Date: Wed, 5 May 2021 15:14:37 +0200
+Message-ID: <1620220479-2647-1-git-send-email-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Cc: Dario Pagani <dario.pagani.146@gmail.com>, kernel-janitors@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Hulk Robot <hulkci@huawei.com>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-input@vger.kernel.org,
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-05-05_07:2021-05-05,
+ 2021-05-05 signatures=0
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH -next] HID: thrustmaster: fix return value
- check in thrustmaster_probe()
+Subject: [Linux-stm32] [PATCH v4 0/2] i2c: stm32f7: add SMBus-Alert support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,35 +72,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 2 Apr 2021, Wei Yongjun wrote:
+This serie adds support for SMBus Alert on the STM32F7.
+A new binding smbus-alert is added in order to differenciate
+with the existing smbus binding.
 
-> Fix the return value check which testing the wrong variable
-> in thrustmaster_probe().
-> 
-> Fixes: c49c33637802 ("HID: support for initialization of some Thrustmaster wheels")
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
-> ---
->  drivers/hid/hid-thrustmaster.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hid/hid-thrustmaster.c b/drivers/hid/hid-thrustmaster.c
-> index bfcd08759ba0..fada3536f60e 100644
-> --- a/drivers/hid/hid-thrustmaster.c
-> +++ b/drivers/hid/hid-thrustmaster.c
-> @@ -311,7 +311,7 @@ static int thrustmaster_probe(struct hid_device *hdev, const struct hid_device_i
->  	}
->  
->  	tm_wheel->change_request = kzalloc(sizeof(struct usb_ctrlrequest), GFP_KERNEL);
-> -	if (!tm_wheel->model_request) {
-> +	if (!tm_wheel->change_request) {
->  		ret = -ENOMEM;
+SMBus-Alert is an optional SMBus feature and SMBA alert control
+and status logic must be enabled along with SMBALERT# pin
+configured via pinctrl in the device tree. This is the
+rational for adding "smbus-alert" property.
 
-Good catch, applied. Thanks,
+---
+v4:
+add a new generic smbus-alert property instead of st,smbus-alert
+update driver to use smbus-alert instead of st,smbus-alert
+
+v3:
+use lore.kernel.org links instead of marc.info
+
+v2:
+When SMBUS alert isn't available on the board (SMBA unused), this
+logic musn't be enabled. Enabling it unconditionally wrongly lead to get
+SMBA interrupts.
+So, add "st,smbus-alert" dedicated binding to have a smbus alert with a
+consistent pin configuration in DT.
+
+Alain Volmat (2):
+  i2c: add binding to mark a bus as supporting SMBus-Alert
+  i2c: stm32f7: add SMBus-Alert support
+
+ Documentation/devicetree/bindings/i2c/i2c.txt |  7 ++-
+ drivers/i2c/busses/i2c-stm32f7.c              | 73 +++++++++++++++++++++++++++
+ 2 files changed, 78 insertions(+), 2 deletions(-)
 
 -- 
-Jiri Kosina
-SUSE Labs
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
