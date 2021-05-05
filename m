@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51CB1373260
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 00:33:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECF0A37333B
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 02:35:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 858FEC59784;
-	Tue,  4 May 2021 22:33:43 +0000 (UTC)
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0411C59783;
+	Wed,  5 May 2021 00:35:32 +0000 (UTC)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 489EAC59781
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA427C32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 May 2021 22:33:41 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id p12so265365pgj.10
+ Wed,  5 May 2021 00:35:29 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id d14so12508922edc.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 04 May 2021 15:33:41 -0700 (PDT)
+ Tue, 04 May 2021 17:35:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=N/iQQC7fp/dtYGOuSg6VYXx30On1O4Podmv44Ld28t8=;
- b=cRTWCW0YlQcO68lQFrrYGCgLtQegbYPyhazNFTL3zL/R64bBPmvH0h5Tu9vqfIBhaF
- 5KQaPkKxiejgQSJLD35yHwKXO0kqounJlwAw12ms9nnlolkco/OLqwvBLIhVZ3C8JiL9
- 8QerknFPKHi/YlICqWSzmNX6BblRirN0iXoFDw4ZIy8Hr59eS6FCsdDuzxZtcEE+Se7S
- tF/BiljZhJZJA8XSMtEuRt9vzw2v9nvF3If9rwpc+sblXIiv5OGLf4zcqo44zSfNuLPS
- ZlrFjXr20bvOQdxkEgH4wAMqttnO4rhW1AwDhYnHNV++ihpOU8IzPzEwjUlM8cXiLYNM
- iGPw==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=GQcBXhiG4WSKbf/NKH+KIteUYu6u/x6SNCEh0wAhXc4=;
+ b=MIPpoTfg07W36wb7bopairhQEaQzQYki7Tpcwd8BU+s7fyNlDmnJpkewhI9gD3wVlo
+ QkkfmJPdI7MeQBQnqt2zirp41ojwrtpuelnJT3Uwgk3UGLKwfBdDmJLfPIZtJqzifFSv
+ rMoSIyTtVygXCpVHDJNBpvRXaFoqvvuL9JBjZjf/FD3tlLptBV6+dJ8RpSGFT5gWgKkn
+ TdW1vEJgtdLk+DgqtAITpHO8gheN5qjVZiz0kxazHQkbTx28RTTFR7QdAnaRIQ3p1dCf
+ D3LigiZZemA+zx6H1VwgfuBICIZnDpvH3T2YuIFBUeHk9Dh7uGLqSnXHrkMYax55wfMB
+ 9wSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=N/iQQC7fp/dtYGOuSg6VYXx30On1O4Podmv44Ld28t8=;
- b=sLCOKzNKPygy+qYaL1NOG8VfdfEk0zKqJPTLMpNMHugxYNpVkd+wq2+I/nRYLb77Tm
- mH39FSu/3uzSw6wo+hNCO7GvBb7Z+sUV9b+4PiyH3+g9zsLBIKduoQhzqhAJdZy+Mb/E
- aTxpz/+rEsiPllFJjR7D5ZOILORL1va1+Xwp6txWnfBWMGgddw5GJ6BHb1YSGXhvja8X
- nIfnWNOj2BMUiRGZ4UgiuoKV9tHHq3e3VePhKC98zXWF9ApMrEsE4rwBE7Rpp0FCVCG2
- CjeA+I7FCniHressYHUIH58sx8IpIPdvGmLzTgJFK/zvB3AOO3yt4R1UWnKT2MqNV5b0
- HRdw==
-X-Gm-Message-State: AOAM531MFMM4TS0H1GsJXU3vbbQligpUvSusulG9kgJ/hgxKyZpwfD0h
- xHFKeBEE4ZRzePfWhP/iXlc=
-X-Google-Smtp-Source: ABdhPJxeUdey3txVslmafHpEU1z7jkArZjP7M9glN+el45WexOPrS6npD8eEng0OPRAMcqu3zUpE0A==
-X-Received: by 2002:a63:f443:: with SMTP id p3mr25493518pgk.378.1620167619709; 
- Tue, 04 May 2021 15:33:39 -0700 (PDT)
-Received: from [10.67.49.104] ([192.19.223.252])
- by smtp.googlemail.com with ESMTPSA id j16sm5013761pgh.69.2021.05.04.15.33.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 May 2021 15:33:39 -0700 (PDT)
-To: Ansuel Smith <ansuelsmth@gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=GQcBXhiG4WSKbf/NKH+KIteUYu6u/x6SNCEh0wAhXc4=;
+ b=p/zk26ghitkjVyRbKOwxZElZj68Ly7nkG0QRUQ7M3lyR4p2NNyp6KOrZ2XNOVkwROw
+ B/htg8kU/OtzLNdZ/Q3SuNGaRh/rC/3IUXFdqwuCnBsrramRWdhGTUZnDPtcbVPiLq8T
+ wbCQMywtRMuzFa0iJT5HGRkkK9JpuJ4gII22QZa8LagfluxgiDPQdl/VQVF2VEpdUU8x
+ ymi+Q5Nj3+olKzLaKgKxN7Cc8wzubmR9BAlnnyrQ5fi/cIrO5vW74N9U40H2mK/onqGJ
+ 4YhUw0N14pT4CXIA/v3ilPbLxvTZE8g1zJdZTbTxRvu5xcRA2DcZSxAkr2a1BQyKVAaa
+ K/jw==
+X-Gm-Message-State: AOAM533X5aJ9DvUuO1URHYDywgSxzHTq2MD9nMCoUDr90CaZ5+9i/QmC
+ wm2/YAP713lON7BIGW5GYzI=
+X-Google-Smtp-Source: ABdhPJzJ28LwP1ruNR/6xg95ajBMTXpp2+a15spYOqcq7u3I/Ju4F8LD2joilelT7IoSnEVB/LmYpg==
+X-Received: by 2002:a05:6402:36d:: with SMTP id
+ s13mr29337677edw.103.1620174929306; 
+ Tue, 04 May 2021 17:35:29 -0700 (PDT)
+Received: from Ansuel-xps.localdomain (93-35-189-2.ip56.fastwebnet.it.
+ [93.35.189.2])
+ by smtp.gmail.com with ESMTPSA id ne17sm2103286ejc.56.2021.05.04.17.35.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 May 2021 17:35:28 -0700 (PDT)
+Date: Wed, 5 May 2021 02:35:25 +0200
+From: Ansuel Smith <ansuelsmth@gmail.com>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Message-ID: <YJHoTYfa03Yq5NwZ@Ansuel-xps.localdomain>
 References: <20210504222915.17206-1-ansuelsmth@gmail.com>
  <20210504222915.17206-17-ansuelsmth@gmail.com>
-From: Florian Fainelli <f.fainelli@gmail.com>
-Message-ID: <79cd97fe-02e8-4373-75a5-78ad0179c42b@gmail.com>
-Date: Tue, 4 May 2021 15:33:36 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.1
+ <79cd97fe-02e8-4373-75a5-78ad0179c42b@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210504222915.17206-17-ansuelsmth@gmail.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <79cd97fe-02e8-4373-75a5-78ad0179c42b@gmail.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, Russell King <linux@armlinux.org.uk>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -89,24 +89,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/4/21 3:29 PM, Ansuel Smith wrote:
-> Add support for phylink_connect_phy to pass dev_flags to the PHY driver.
-> Change any user of phylink_connect_phy to pass 0 as dev_flags by
-> default.
+On Tue, May 04, 2021 at 03:33:36PM -0700, Florian Fainelli wrote:
+> On 5/4/21 3:29 PM, Ansuel Smith wrote:
+> > Add support for phylink_connect_phy to pass dev_flags to the PHY driver.
+> > Change any user of phylink_connect_phy to pass 0 as dev_flags by
+> > default.
+> > 
+> > Signed-off-by: Ansuel Smith <ansuelsmth@gmail.com>
 > 
-> Signed-off-by: Ansuel Smith <ansuelsmth@gmail.com>
+> I do not think that this patch and the next one are necessary at all,
+> because phylink_of_phy_connect() already supports passing a dev_flags.
+> 
+> That means that you should be representing the switch's internal MDIO
+> bus in the Device Tree and then describe how each port of the switch
+> connects to the internal PHY on that same bus. Once you do that the
+> logic in net/dsa/slave.c will call phylink_of_phy_connect() and all you
+> will have to do is implement dsa_switch_ops::get_phy_flags. Can you try
+> that?
 
-I do not think that this patch and the next one are necessary at all,
-because phylink_of_phy_connect() already supports passing a dev_flags.
+I did some testing. Just to make sure I'm correctly implementing this I'm
+using the phy-handle binding and the phy-mode set to internal. It does
+work with a quick test but I think with this implementation we would be
+back to this problem [0].
+(I'm declaring the phy_port to the top mdio driver like it was done
+before [0])
 
-That means that you should be representing the switch's internal MDIO
-bus in the Device Tree and then describe how each port of the switch
-connects to the internal PHY on that same bus. Once you do that the
-logic in net/dsa/slave.c will call phylink_of_phy_connect() and all you
-will have to do is implement dsa_switch_ops::get_phy_flags. Can you try
-that?
--- 
-Florian
+I was thinking if a good solution would be to register a internal mdio driver
+in the qca8k code so that it can use the MASTER reg.
+(it's late here so I could be very confused about this)
+
+I think that using this solution we would be able to better describe the phy
+by declaring them INSIDE the switch node instead of declaring them
+outside in the top mdio node. The internal mdio driver would register
+with this new mdio node inside the switch node and use the custom mdio
+read/write that use the MASTER reg.
+
+[0] http://patchwork.ozlabs.org/project/netdev/patch/20190319195419.12746-3-chunkeey@gmail.com/
+
+> -- 
+> Florian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
