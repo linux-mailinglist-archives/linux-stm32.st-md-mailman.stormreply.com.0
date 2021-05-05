@@ -2,47 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB732373FCD
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 18:28:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2ADD373FEE
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 18:31:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77602C58D7A;
-	Wed,  5 May 2021 16:28:54 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AABACC5718F;
+	Wed,  5 May 2021 16:31:47 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11EEAC32E90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F102BC3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 May 2021 16:28:51 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1leKOG-0002T0-CW; Wed, 05 May 2021 18:28:48 +0200
-Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1leKOE-0001Bc-NH; Wed, 05 May 2021 18:28:46 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Fabrice Gasnier <fabrice.gasnier@st.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Lee Jones <lee.jones@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>
-Date: Wed,  5 May 2021 18:28:43 +0200
-Message-Id: <20210505162843.188901-2-u.kleine-koenig@pengutronix.de>
+ Wed,  5 May 2021 16:31:45 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 549A6613F3;
+ Wed,  5 May 2021 16:31:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1620232304;
+ bh=kEnxKvRvXtsSjAMGQKobqwfi53MrIc8FrAhY6aWVDy8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=IA3LKfUBvJMgmLY6BU4JAyfWmFim84Dz5PP5Gh6lG7xSKLdBL+Z6Wkm2Wgm3iouWB
+ RPKt8Ru6vvMDiE40S/zK07iFZ449CRd49KO/209uCRdK76LkuwTgY/yzpPTW9V1X5c
+ dglvCzdUYP6rqEyV7278b4f1CZz5zY14FdFgw/jZSULFpEN18akfcQqQD0S5DqvJkX
+ xvQaiDocjXOvpyFCuQ9hb975eSrAUqeuBY7SoWrBSirXTU+IIyvqkouNNlOButMWWg
+ YEjpu4bnuBpLtRCxfeWTZD1qHya733kBpZfZY4ZxGXzXaHjrP+aEeGcJF7PJhNEXeo
+ oVSdH33/WLN4Q==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Wed,  5 May 2021 12:29:42 -0400
+Message-Id: <20210505163125.3460440-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210505162843.188901-1-u.kleine-koenig@pengutronix.de>
-References: <20210505162843.188901-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20210505163125.3460440-1-sashal@kernel.org>
+References: <20210505163125.3460440-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- kernel@pengutronix.de
-Subject: [Linux-stm32] [PATCH 2/2] pwm: stm32-lp: Don't check the return
-	code of pwmchip_remove()
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, Jonathan McDowell <noodles@earth.li>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.12 014/116] net: stmmac: Set FIFO
+	sizes for ipq806x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,28 +52,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-cHdtY2hpcF9yZW1vdmUoKSBhbHdheXMgcmV0dXJucyAwLiBEb24ndCB1c2UgdGhlIHZhbHVlIHRv
-IG1ha2UgaXQKcG9zc2libGUgdG8gZXZlbnR1YWxseSBjaGFuZ2UgdGhlIGZ1bmN0aW9uIHRvIHJl
-dHVybiB2b2lkLiBUaGlzIGlzIGEKZ29vZCB0aGluZyBhcyBwd21jaGlwX3JlbW92ZSgpIGlzIHVz
-dWFsbHkgY2FsbGVkIGZyb20gYSByZW1vdmUgZnVuY3Rpb24KKG1vc3RseSBmb3IgcGxhdGZvcm0g
-ZGV2aWNlcykgYW5kIHRoZWlyIHJldHVybiB2YWx1ZSBpcyBpZ25vcmVkIGJ5IHRoZQpkZXZpY2Ug
-Y29yZSBhbnlob3cuCgpTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUt
-a29lbmlnQHBlbmd1dHJvbml4LmRlPgotLS0KIGRyaXZlcnMvcHdtL3B3bS1zdG0zMi1scC5jIHwg
-NCArKystCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9wd20vcHdtLXN0bTMyLWxwLmMgYi9kcml2ZXJzL3B3bS9wd20t
-c3RtMzItbHAuYwppbmRleCAyNDY0ZjdhMjQ5ODMuLjU4YmM3NTg1N2I4MCAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9wd20vcHdtLXN0bTMyLWxwLmMKKysrIGIvZHJpdmVycy9wd20vcHdtLXN0bTMyLWxw
-LmMKQEAgLTIyNCw3ICsyMjQsOSBAQCBzdGF0aWMgaW50IHN0bTMyX3B3bV9scF9yZW1vdmUoc3Ry
-dWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKIHsKIAlzdHJ1Y3Qgc3RtMzJfcHdtX2xwICpwcml2
-ID0gcGxhdGZvcm1fZ2V0X2RydmRhdGEocGRldik7CiAKLQlyZXR1cm4gcHdtY2hpcF9yZW1vdmUo
-JnByaXYtPmNoaXApOworCXB3bWNoaXBfcmVtb3ZlKCZwcml2LT5jaGlwKTsKKworCXJldHVybiAw
-OwogfQogCiBzdGF0aWMgaW50IF9fbWF5YmVfdW51c2VkIHN0bTMyX3B3bV9scF9zdXNwZW5kKHN0
-cnVjdCBkZXZpY2UgKmRldikKLS0gCjIuMzAuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: Jonathan McDowell <noodles@earth.li>
+
+[ Upstream commit e127906b68b49ddb3ecba39ffa36a329c48197d3 ]
+
+Commit eaf4fac47807 ("net: stmmac: Do not accept invalid MTU values")
+started using the TX FIFO size to verify what counts as a valid MTU
+request for the stmmac driver.  This is unset for the ipq806x variant.
+Looking at older patches for this it seems the RX + TXs buffers can be
+up to 8k, so set appropriately.
+
+(I sent this as an RFC patch in June last year, but received no replies.
+I've been running with this on my hardware (a MikroTik RB3011) since
+then with larger MTUs to support both the internal qca8k switch and
+VLANs with no problems. Without the patch it's impossible to set the
+larger MTU required to support this.)
+
+Signed-off-by: Jonathan McDowell <noodles@earth.li>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
+index bf3250e0e59c..749585fe6fc9 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
+@@ -352,6 +352,8 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
+ 	plat_dat->bsp_priv = gmac;
+ 	plat_dat->fix_mac_speed = ipq806x_gmac_fix_mac_speed;
+ 	plat_dat->multicast_filter_bins = 0;
++	plat_dat->tx_fifo_size = 8192;
++	plat_dat->rx_fifo_size = 8192;
+ 
+ 	err = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+ 	if (err)
+-- 
+2.30.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
