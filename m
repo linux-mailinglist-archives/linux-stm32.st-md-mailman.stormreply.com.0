@@ -2,63 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 574EA373C26
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 15:17:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F880373FCC
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 May 2021 18:28:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18817C59783;
-	Wed,  5 May 2021 13:17:37 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7314CC5718F;
+	Wed,  5 May 2021 16:28:53 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD184C32E90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FDF4C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  5 May 2021 13:17:35 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 145DGkIV011934; Wed, 5 May 2021 15:17:23 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=MQTZxYDV16ztBDB126pWN/m/7nOz9QM2k/Fh46U45vs=;
- b=xuhqFovH0A2/NDZ/G/6A5pY74WBd4Ofsdc+BFufiD+JQXOmupfhEdcOnrW6xV6IURVU4
- +1hluCexB83d77qToT0uloRo1V1M6i7yBGhxOF7kgtlC60AnUUvLGqG7j5nVOvPJKza5
- qfUBccm1U1Aqc/ur7n4GKsvAgRe1KyfesEZjr/Tfb/OGY5RHXenBNd8AhSViDSuWq+Zm
- 2VJv1/NoSzW+6ORag5xCFvdHmgLeNIjBddpOYEdClYFw0UIuOXWOuYLLSbDNEq1c89v2
- fWWEywNA50mzwkWDg0gl1+ty1NFRBHC3VqRKC9c4KeF273Af/ge5+mZz/zI+IGUfZH72 eg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 38be9svcqs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 05 May 2021 15:17:23 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 93E63100039;
- Wed,  5 May 2021 15:17:22 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 854F32C4206;
- Wed,  5 May 2021 15:17:22 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 5 May 2021 15:17:22
- +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <wsa@kernel.org>, <robh+dt@kernel.org>
-Date: Wed, 5 May 2021 15:14:39 +0200
-Message-ID: <1620220479-2647-3-git-send-email-alain.volmat@foss.st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1620220479-2647-1-git-send-email-alain.volmat@foss.st.com>
-References: <1620220479-2647-1-git-send-email-alain.volmat@foss.st.com>
+ Wed,  5 May 2021 16:28:51 +0000 (UTC)
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1leKOG-0002Sz-CX; Wed, 05 May 2021 18:28:48 +0200
+Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1leKOE-0001BZ-Hb; Wed, 05 May 2021 18:28:46 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Fabrice Gasnier <fabrice.gasnier@st.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Lee Jones <lee.jones@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>
+Date: Wed,  5 May 2021 18:28:42 +0200
+Message-Id: <20210505162843.188901-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-05-05_07:2021-05-05,
- 2021-05-05 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 2/2] i2c: stm32f7: add SMBus-Alert support
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ kernel@pengutronix.de
+Subject: [Linux-stm32] [PATCH 1/2] pwm: stm32-lp: Don't modify HW state in
+	.remove callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,183 +52,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for the SMBus-Alert protocol to the STM32F7 that has
-dedicated control and status logic.
-
-If SMBus-Alert is used, the SMBALERT# pin must be configured as alternate
-function for I2C Alert.
-
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
-v4: - check for smbus-alert property
-v2: - rely on st,smbus-alert binding instead of smbus
----
- drivers/i2c/busses/i2c-stm32f7.c | 73 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
-
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 0138317ea600..b9b19a2a2ffa 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -51,6 +51,7 @@
- 
- /* STM32F7 I2C control 1 */
- #define STM32F7_I2C_CR1_PECEN			BIT(23)
-+#define STM32F7_I2C_CR1_ALERTEN			BIT(22)
- #define STM32F7_I2C_CR1_SMBHEN			BIT(20)
- #define STM32F7_I2C_CR1_WUPEN			BIT(18)
- #define STM32F7_I2C_CR1_SBC			BIT(16)
-@@ -125,6 +126,7 @@
- 				(((n) & STM32F7_I2C_ISR_ADDCODE_MASK) >> 17)
- #define STM32F7_I2C_ISR_DIR			BIT(16)
- #define STM32F7_I2C_ISR_BUSY			BIT(15)
-+#define STM32F7_I2C_ISR_ALERT			BIT(13)
- #define STM32F7_I2C_ISR_PECERR			BIT(11)
- #define STM32F7_I2C_ISR_ARLO			BIT(9)
- #define STM32F7_I2C_ISR_BERR			BIT(8)
-@@ -138,6 +140,7 @@
- #define STM32F7_I2C_ISR_TXE			BIT(0)
- 
- /* STM32F7 I2C Interrupt Clear */
-+#define STM32F7_I2C_ICR_ALERTCF			BIT(13)
- #define STM32F7_I2C_ICR_PECCF			BIT(11)
- #define STM32F7_I2C_ICR_ARLOCF			BIT(9)
- #define STM32F7_I2C_ICR_BERRCF			BIT(8)
-@@ -279,6 +282,17 @@ struct stm32f7_i2c_msg {
- };
- 
- /**
-+ * struct stm32f7_i2c_alert - SMBus alert specific data
-+ * @setup: platform data for the smbus_alert i2c client
-+ * @ara: I2C slave device used to respond to the SMBus Alert with Alert
-+ * Response Address
-+ */
-+struct stm32f7_i2c_alert {
-+	struct i2c_smbus_alert_setup setup;
-+	struct i2c_client *ara;
-+};
-+
-+/**
-  * struct stm32f7_i2c_dev - private data of the controller
-  * @adap: I2C adapter for this controller
-  * @dev: device for this controller
-@@ -310,6 +324,7 @@ struct stm32f7_i2c_msg {
-  * @analog_filter: boolean to indicate enabling of the analog filter
-  * @dnf_dt: value of digital filter requested via dt
-  * @dnf: value of digital filter to apply
-+ * @alert: SMBus alert specific data
-  */
- struct stm32f7_i2c_dev {
- 	struct i2c_adapter adap;
-@@ -341,6 +356,7 @@ struct stm32f7_i2c_dev {
- 	bool analog_filter;
- 	u32 dnf_dt;
- 	u32 dnf;
-+	struct stm32f7_i2c_alert *alert;
- };
- 
- /*
-@@ -1624,6 +1640,13 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
- 		f7_msg->result = -EINVAL;
- 	}
- 
-+	if (status & STM32F7_I2C_ISR_ALERT) {
-+		dev_dbg(dev, "<%s>: SMBus alert received\n", __func__);
-+		writel_relaxed(STM32F7_I2C_ICR_ALERTCF, base + STM32F7_I2C_ICR);
-+		i2c_handle_smbus_alert(i2c_dev->alert->ara);
-+		return IRQ_HANDLED;
-+	}
-+
- 	if (!i2c_dev->slave_running) {
- 		u32 mask;
- 		/* Disable interrupts */
-@@ -1990,6 +2013,42 @@ static void stm32f7_i2c_disable_smbus_host(struct stm32f7_i2c_dev *i2c_dev)
- 	}
- }
- 
-+static int stm32f7_i2c_enable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
-+{
-+	struct stm32f7_i2c_alert *alert;
-+	struct i2c_adapter *adap = &i2c_dev->adap;
-+	struct device *dev = i2c_dev->dev;
-+	void __iomem *base = i2c_dev->base;
-+
-+	alert = devm_kzalloc(dev, sizeof(*alert), GFP_KERNEL);
-+	if (!alert)
-+		return -ENOMEM;
-+
-+	alert->ara = i2c_new_smbus_alert_device(adap, &alert->setup);
-+	if (IS_ERR(alert->ara))
-+		return PTR_ERR(alert->ara);
-+
-+	i2c_dev->alert = alert;
-+
-+	/* Enable SMBus Alert */
-+	stm32f7_i2c_set_bits(base + STM32F7_I2C_CR1, STM32F7_I2C_CR1_ALERTEN);
-+
-+	return 0;
-+}
-+
-+static void stm32f7_i2c_disable_smbus_alert(struct stm32f7_i2c_dev *i2c_dev)
-+{
-+	struct stm32f7_i2c_alert *alert = i2c_dev->alert;
-+	void __iomem *base = i2c_dev->base;
-+
-+	if (alert) {
-+		/* Disable SMBus Alert */
-+		stm32f7_i2c_clr_bits(base + STM32F7_I2C_CR1,
-+				     STM32F7_I2C_CR1_ALERTEN);
-+		i2c_unregister_device(alert->ara);
-+	}
-+}
-+
- static u32 stm32f7_i2c_func(struct i2c_adapter *adap)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(adap);
-@@ -2173,6 +2232,16 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 		}
- 	}
- 
-+	if (of_property_read_bool(pdev->dev.of_node, "smbus-alert")) {
-+		ret = stm32f7_i2c_enable_smbus_alert(i2c_dev);
-+		if (ret) {
-+			dev_err(i2c_dev->dev,
-+				"failed to enable SMBus alert protocol (%d)\n",
-+				ret);
-+			goto i2c_disable_smbus_host;
-+		}
-+	}
-+
- 	dev_info(i2c_dev->dev, "STM32F7 I2C-%d bus adapter\n", adap->nr);
- 
- 	pm_runtime_mark_last_busy(i2c_dev->dev);
-@@ -2180,6 +2249,9 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 
- 	return 0;
- 
-+i2c_disable_smbus_host:
-+	stm32f7_i2c_disable_smbus_host(i2c_dev);
-+
- i2c_adapter_remove:
- 	i2c_del_adapter(adap);
- 
-@@ -2214,6 +2286,7 @@ static int stm32f7_i2c_remove(struct platform_device *pdev)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = platform_get_drvdata(pdev);
- 
-+	stm32f7_i2c_disable_smbus_alert(i2c_dev);
- 	stm32f7_i2c_disable_smbus_host(i2c_dev);
- 
- 	i2c_del_adapter(&i2c_dev->adap);
--- 
-2.7.4
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+QSBjb25zdW1lciBpcyBleHBlY3RlZCB0byBkaXNhYmxlIGEgUFdNIGJlZm9yZSBjYWxsaW5nIHB3
+bV9wdXQoKS4gQW5kIGlmCnRoZXkgZGlkbid0IHRoZXJlIGlzIGhvcGVmdWxseSBhIGdvb2QgcmVh
+c29uIChvciB0aGUgY29uc3VtZXIgbmVlZHMKZml4aW5nKS4gQWxzbyBpZiBkaXNhYmxpbmcgYW4g
+ZW5hYmxlZCBQV00gd2FzIHRoZSByaWdodCB0aGluZyB0byBkbywKdGhpcyBzaG91bGQgYmV0dGVy
+IGJlIGRvbmUgaW4gdGhlIGZyYW1ld29yayBpbnN0ZWFkIG9mIGluIGVhY2ggbG93IGxldmVsCmRy
+aXZlci4KClNvIGRyb3AgdGhlIGhhcmR3YXJlIG1vZGlmaWNhdGlvbiBmcm9tIHRoZSAucmVtb3Zl
+KCkgY2FsbGJhY2suCgpTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUt
+a29lbmlnQHBlbmd1dHJvbml4LmRlPgotLS0KIGRyaXZlcnMvcHdtL3B3bS1zdG0zMi1scC5jIHwg
+MiAtLQogMSBmaWxlIGNoYW5nZWQsIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9wd20vcHdtLXN0bTMyLWxwLmMgYi9kcml2ZXJzL3B3bS9wd20tc3RtMzItbHAuYwppbmRleCBh
+ZjA4ZjU2NGVmMWQuLjI0NjRmN2EyNDk4MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9wd20vcHdtLXN0
+bTMyLWxwLmMKKysrIGIvZHJpdmVycy9wd20vcHdtLXN0bTMyLWxwLmMKQEAgLTIyNCw4ICsyMjQs
+NiBAQCBzdGF0aWMgaW50IHN0bTMyX3B3bV9scF9yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2Rldmlj
+ZSAqcGRldikKIHsKIAlzdHJ1Y3Qgc3RtMzJfcHdtX2xwICpwcml2ID0gcGxhdGZvcm1fZ2V0X2Ry
+dmRhdGEocGRldik7CiAKLQlwd21fZGlzYWJsZSgmcHJpdi0+Y2hpcC5wd21zWzBdKTsKLQogCXJl
+dHVybiBwd21jaGlwX3JlbW92ZSgmcHJpdi0+Y2hpcCk7CiB9CiAKCmJhc2UtY29tbWl0OiBhNmVm
+YjM1MDE5ZDAwZjQ4M2EwZTVmMTg4NzQ3NzIzMzcxZDY1OWZlCi0tIAoyLjMwLjIKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
+bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
+Cg==
