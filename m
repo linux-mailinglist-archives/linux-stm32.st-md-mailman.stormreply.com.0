@@ -2,38 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00C737A43A
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 May 2021 12:04:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4408C37A5AD
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 May 2021 13:23:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AE96C58D5F;
-	Tue, 11 May 2021 10:04:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2941C58D5F;
+	Tue, 11 May 2021 11:22:59 +0000 (UTC)
 Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A7C9C5719C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA275C57B5B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 May 2021 10:04:31 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FfYN21X0LzPwln;
- Tue, 11 May 2021 18:01:06 +0800 (CST)
+ Tue, 11 May 2021 11:22:57 +0000 (UTC)
+Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Ffb7L4YFdzkWjX;
+ Tue, 11 May 2021 19:20:14 +0800 (CST)
 Received: from thunder-town.china.huawei.com (10.174.177.72) by
- DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
- 14.3.498.0; Tue, 11 May 2021 18:04:19 +0800
+ DGGEMS410-HUB.china.huawei.com (10.3.19.210) with Microsoft SMTP Server id
+ 14.3.498.0; Tue, 11 May 2021 19:22:43 +0800
 From: Zhen Lei <thunder.leizhen@huawei.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, linux-stm32
+To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Benjamin Gaignard
+ <benjamin.gaignard@linaro.org>, David Airlie <airlied@linux.ie>, "Daniel
+ Vetter" <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, dri-devel
+ <dri-devel@lists.freedesktop.org>, linux-stm32
  <linux-stm32@st-md-mailman.stormreply.com>, linux-arm-kernel
  <linux-arm-kernel@lists.infradead.org>
-Date: Tue, 11 May 2021 18:04:09 +0800
-Message-ID: <20210511100409.5103-1-thunder.leizhen@huawei.com>
+Date: Tue, 11 May 2021 19:22:37 +0800
+Message-ID: <20210511112237.5324-1-thunder.leizhen@huawei.com>
 X-Mailer: git-send-email 2.26.0.windows.1
 MIME-Version: 1.0
 X-Originating-IP: [10.174.177.72]
 X-CFilter-Loop: Reflected
 Cc: Zhen Lei <thunder.leizhen@huawei.com>
-Subject: [Linux-stm32] [PATCH 1/1] irqchip/stm32-exti: Remove redundant
-	error printing in stm32_exti_probe()
+Subject: [Linux-stm32] [PATCH 1/1] drm/stm: dsi: Remove redundant error
+	printing in dw_mipi_dsi_stm_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,25 +64,21 @@ binary size.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
 ---
- drivers/irqchip/irq-stm32-exti.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-index b9db90c4aa566f1..4704f2ee5797a1d 100644
---- a/drivers/irqchip/irq-stm32-exti.c
-+++ b/drivers/irqchip/irq-stm32-exti.c
-@@ -892,10 +892,8 @@ static int stm32_exti_probe(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+index 8399d337589d5e4..2c6da2625cdfdcb 100644
+--- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
++++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
+@@ -356,7 +356,6 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
+ 	dsi->base = devm_ioremap_resource(dev, res);
+ 	if (IS_ERR(dsi->base)) {
+ 		ret = PTR_ERR(dsi->base);
+-		DRM_ERROR("Unable to get dsi registers %d\n", ret);
+ 		return ret;
+ 	}
  
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	host_data->base = devm_ioremap_resource(dev, res);
--	if (IS_ERR(host_data->base)) {
--		dev_err(dev, "Unable to map registers\n");
-+	if (IS_ERR(host_data->base))
- 		return PTR_ERR(host_data->base);
--	}
- 
- 	for (i = 0; i < drv_data->bank_nr; i++)
- 		stm32_exti_chip_init(host_data, i, np);
 -- 
 2.26.0.106.g9fadedd
 
