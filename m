@@ -2,46 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F13B53799EB
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 May 2021 00:20:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D00C737A43A
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 May 2021 12:04:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13B05C57B7D;
-	Mon, 10 May 2021 22:20:17 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AE96C58D5F;
+	Tue, 11 May 2021 10:04:34 +0000 (UTC)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB221C57B5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A7C9C5719C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 May 2021 22:20:14 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 3A0806161E;
- Mon, 10 May 2021 22:20:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620685212;
- bh=hxjZ9Sk1w+UYvHvZXxTQm/bkUKV2ua8aXwY2KQKzTv4=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=j7K/5E+2nQrNR51LNKQk6M4DYl6tWdWU5Z6DvFj4cqjqbsoYQsxzHpNR4tNueYWQx
- ec+F7NMgUsZsR2jzTPwv123/yIN8JPQpSLa5TBZsZK2R1t9HZa9K2vJaZ/+VVYxBb5
- H6HjT/qwH5sfJ1JSoExra9NheWIvzrp8WDKXwCzb9tn2kOsN6rQJjrUedbR56wr1qB
- SOcHfYe5Qmz8nVgdQL64NUAbvfbP8ZGT3GRe1As05bSXJCMwG4B9FR2mIhSxSOjY11
- q1nyhNu2iw2JvYzoO1ooRVSkK5yM1VOYLWkb85Rq7hH9t7oFnzcovsHLEFgJD5UjOl
- oGf8rblRzHRpQ==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 30D4160A0E;
- Mon, 10 May 2021 22:20:12 +0000 (UTC)
+ Tue, 11 May 2021 10:04:31 +0000 (UTC)
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FfYN21X0LzPwln;
+ Tue, 11 May 2021 18:01:06 +0800 (CST)
+Received: from thunder-town.china.huawei.com (10.174.177.72) by
+ DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
+ 14.3.498.0; Tue, 11 May 2021 18:04:19 +0800
+From: Zhen Lei <thunder.leizhen@huawei.com>
+To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, linux-stm32
+ <linux-stm32@st-md-mailman.stormreply.com>, linux-arm-kernel
+ <linux-arm-kernel@lists.infradead.org>
+Date: Tue, 11 May 2021 18:04:09 +0800
+Message-ID: <20210511100409.5103-1-thunder.leizhen@huawei.com>
+X-Mailer: git-send-email 2.26.0.windows.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <162068521219.17141.10735663458714364666.git-patchwork-notify@kernel.org>
-Date: Mon, 10 May 2021 22:20:12 +0000
-References: <20210510141002.4013-1-thunder.leizhen@huawei.com>
-In-Reply-To: <20210510141002.4013-1-thunder.leizhen@huawei.com>
-To: Zhen Lei <thunder.leizhen@huawei.com>
-Cc: netdev@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/1] net: stmmac: platform: Delete a
- redundant condition branch
+X-Originating-IP: [10.174.177.72]
+X-CFilter-Loop: Reflected
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
+Subject: [Linux-stm32] [PATCH 1/1] irqchip/stm32-exti: Remove redundant
+	error printing in stm32_exti_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,28 +50,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+When devm_ioremap_resource() fails, a clear enough error message will be
+printed by its subfunction __devm_ioremap_resource(). The error
+information contains the device name, failure cause, and possibly resource
+information.
 
-This patch was applied to netdev/net-next.git (refs/heads/master):
+Therefore, remove the error printing here to simplify code and reduce the
+binary size.
 
-On Mon, 10 May 2021 22:10:02 +0800 you wrote:
-> The statement of the last "if (xxx)" branch is the same as the "else"
-> branch. Delete it to simplify code.
-> 
-> No functional change.
-> 
-> Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
-> 
-> [...]
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+---
+ drivers/irqchip/irq-stm32-exti.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Here is the summary with links:
-  - [1/1] net: stmmac: platform: Delete a redundant condition branch
-    https://git.kernel.org/netdev/net-next/c/aed6864035b1
-
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
+index b9db90c4aa566f1..4704f2ee5797a1d 100644
+--- a/drivers/irqchip/irq-stm32-exti.c
++++ b/drivers/irqchip/irq-stm32-exti.c
+@@ -892,10 +892,8 @@ static int stm32_exti_probe(struct platform_device *pdev)
+ 
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	host_data->base = devm_ioremap_resource(dev, res);
+-	if (IS_ERR(host_data->base)) {
+-		dev_err(dev, "Unable to map registers\n");
++	if (IS_ERR(host_data->base))
+ 		return PTR_ERR(host_data->base);
+-	}
+ 
+ 	for (i = 0; i < drv_data->bank_nr; i++)
+ 		stm32_exti_chip_init(host_data, i, np);
+-- 
+2.26.0.106.g9fadedd
 
 
 _______________________________________________
