@@ -2,48 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D35E37C750
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 18:05:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837D437D191
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 20:02:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECD8FC57B74;
-	Wed, 12 May 2021 16:05:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 289E0C57B74;
+	Wed, 12 May 2021 18:02:11 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 424CEC57B5F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97CCBC57B5F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 May 2021 16:05:22 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1061A61C4F;
- Wed, 12 May 2021 16:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1620835520;
- bh=9WbnH3HSVs9b1JA+vBjbssA9+l1Sr1YhxpxqJG4IWxs=;
+ Wed, 12 May 2021 18:02:05 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 867E861434;
+ Wed, 12 May 2021 18:02:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1620842523;
+ bh=OBRM+63/3ohtj24gC1piWGYcbhX4ghxYNsGGNhbXyN4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oFnWM7ruOGocZfYX6kqvk85iZFGjIwb6N43oVIS4SUYRze9i9osxiirRiLmCDc1fH
- 0fZ33FDYkN5OewwMe4cFcdeEVJ1QD3jmmWE/uv+kownvNYVsS06UNW/W1ePB5EguT1
- 3lRbSKMTgeTYJBcxMotpk7afd7o5TPDIeHySfbCI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ b=blB9Si9i3Z7pis87Sd9QDz3QTviEwrpjH60eIJ9QmtfPXegW6Z7l9eiwhTrz31Oxb
+ NNFDH9Tj0aqfuhNBfC17UAhLd21AYNW/q55czMpq1z3NfmuCohhSppzRFBGG0vvuex
+ GfOkFMbw6fDSJk5vDyON7L47G4NX5AfrsXQ2y3/eWaj6a6nqOtLdDhLlD2sm1OdZi9
+ C5TuFC+SzKW3apQo5Yp/hYuUiM96be0FXab11oDhTFYLNFf3k7LE2Qle2oLhhsb2tb
+ 2FxdJvlFB+3jImCICONysjkGfjGCHdk/SCgwRs8HnTe0OoAul3tCgNnZjLYTezcCYi
+ DfrpiX6JeJwhg==
+From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Date: Wed, 12 May 2021 16:46:28 +0200
-Message-Id: <20210512144848.647455738@linuxfoundation.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210512144837.204217980@linuxfoundation.org>
-References: <20210512144837.204217980@linuxfoundation.org>
-User-Agent: quilt/0.66
+	stable@vger.kernel.org
+Date: Wed, 12 May 2021 14:01:04 -0400
+Message-Id: <20210512180104.664121-37-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210512180104.664121-1-sashal@kernel.org>
+References: <20210512180104.664121-1-sashal@kernel.org>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
- Vincent Abriou <vincent.abriou@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Antonio Borneo <antonio.borneo@st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Philippe Cornu <philippe.cornu@st.com>, stable@vger.kernel.org,
- Yannick Fertre <yannick.fertre@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Benjamin Gaignard <benjamin.gaignard@st.com>
-Subject: [Linux-stm32] [PATCH 5.12 342/677] drm/stm: Fix bus_flags handling
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, Yannick Vignon <yannick.vignon@nxp.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.12 37/37] net: stmmac: Do not enable
+	RX FIFO overflow interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,109 +57,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Marek Vasut <marex@denx.de>
+From: Yannick Vignon <yannick.vignon@nxp.com>
 
-[ Upstream commit 99e360442f223dd40fc23ae07c7a263836fd27e6 ]
+[ Upstream commit 8a7cb245cf28cb3e541e0d6c8624b95d079e155b ]
 
-The drm_display_mode_to_videomode() does not populate DISPLAY_FLAGS_DE_LOW
-or DISPLAY_FLAGS_PIXDATA_NEGEDGE flags in struct videomode. Therefore, no
-matter what polarity the next bridge or display might require, these flags
-are never set, and thus the LTDC GCR_DEPOL and GCR_PCPOL bits are never set
-and the LTDC behaves as if both DISPLAY_FLAGS_PIXDATA_POSEDGE and
-DISPLAY_FLAGS_DE_HIGH were always set.
+The RX FIFO overflows when the system is not able to process all received
+packets and they start accumulating (first in the DMA queue in memory,
+then in the FIFO). An interrupt is then raised for each overflowing packet
+and handled in stmmac_interrupt(). This is counter-productive, since it
+brings the system (or more likely, one CPU core) to its knees to process
+the FIFO overflow interrupts.
 
-The fix for this problem is taken almost verbatim from MXSFB driver. In
-case there is a bridge attached to the LTDC, the bridge might have extra
-polarity requirements, so extract bus_flags from the bridge and use them
-for LTDC configuration. Otherwise, extract bus_flags from the connector,
-which is the display.
+stmmac_interrupt() handles overflow interrupts by writing the rx tail ptr
+into the corresponding hardware register (according to the MAC spec, this
+has the effect of restarting the MAC DMA). However, without freeing any rx
+descriptors, the DMA stops right away, and another overflow interrupt is
+raised as the FIFO overflows again. Since the DMA is already restarted at
+the end of stmmac_rx_refill() after freeing descriptors, disabling FIFO
+overflow interrupts and the corresponding handling code has no side effect,
+and eliminates the interrupt storm when the RX FIFO overflows.
 
-Fixes: b759012c5fa7 ("drm/stm: Add STM32 LTDC driver")
-Signed-off-by: Marek Vasut <marex@denx.de>
-Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Antonio Borneo <antonio.borneo@st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Philippe Cornu <philippe.cornu@st.com>
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Vincent Abriou <vincent.abriou@st.com>
-Cc: Yannick Fertre <yannick.fertre@st.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: dri-devel@lists.freedesktop.org
-Tested-by: Yannick Fertre <yannick.fertre@foss.st.com>
-Signed-off-by: Philippe Cornu <philippe.cornu@foss.st.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20210127110756.125570-1-marex@denx.de
+Signed-off-by: Yannick Vignon <yannick.vignon@nxp.com>
+Link: https://lore.kernel.org/r/20210506143312.20784-1-yannick.vignon@oss.nxp.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/stm/ltdc.c | 33 +++++++++++++++++++++++++++++++--
- 1 file changed, 31 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  7 +------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 14 ++------------
+ 2 files changed, 3 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 7812094f93d6..6f3b523e16e8 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -525,13 +525,42 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+index 62aa0e95beb7..a7249e4071f1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+@@ -222,7 +222,7 @@ static void dwmac4_dma_rx_chan_op_mode(void __iomem *ioaddr, int mode,
+ 				       u32 channel, int fifosz, u8 qmode)
  {
- 	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
- 	struct drm_device *ddev = crtc->dev;
-+	struct drm_connector_list_iter iter;
-+	struct drm_connector *connector = NULL;
-+	struct drm_encoder *encoder = NULL;
-+	struct drm_bridge *bridge = NULL;
- 	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
- 	struct videomode vm;
- 	u32 hsync, vsync, accum_hbp, accum_vbp, accum_act_w, accum_act_h;
- 	u32 total_width, total_height;
-+	u32 bus_flags = 0;
- 	u32 val;
- 	int ret;
+ 	unsigned int rqs = fifosz / 256 - 1;
+-	u32 mtl_rx_op, mtl_rx_int;
++	u32 mtl_rx_op;
  
-+	/* get encoder from crtc */
-+	drm_for_each_encoder(encoder, ddev)
-+		if (encoder->crtc == crtc)
-+			break;
-+
-+	if (encoder) {
-+		/* get bridge from encoder */
-+		list_for_each_entry(bridge, &encoder->bridge_chain, chain_node)
-+			if (bridge->encoder == encoder)
-+				break;
-+
-+		/* Get the connector from encoder */
-+		drm_connector_list_iter_begin(ddev, &iter);
-+		drm_for_each_connector_iter(connector, &iter)
-+			if (connector->encoder == encoder)
-+				break;
-+		drm_connector_list_iter_end(&iter);
-+	}
-+
-+	if (bridge && bridge->timings)
-+		bus_flags = bridge->timings->input_bus_flags;
-+	else if (connector)
-+		bus_flags = connector->display_info.bus_flags;
-+
- 	if (!pm_runtime_active(ddev->dev)) {
- 		ret = pm_runtime_get_sync(ddev->dev);
- 		if (ret) {
-@@ -567,10 +596,10 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
- 	if (vm.flags & DISPLAY_FLAGS_VSYNC_HIGH)
- 		val |= GCR_VSPOL;
+ 	mtl_rx_op = readl(ioaddr + MTL_CHAN_RX_OP_MODE(channel));
  
--	if (vm.flags & DISPLAY_FLAGS_DE_LOW)
-+	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
- 		val |= GCR_DEPOL;
+@@ -283,11 +283,6 @@ static void dwmac4_dma_rx_chan_op_mode(void __iomem *ioaddr, int mode,
+ 	}
  
--	if (vm.flags & DISPLAY_FLAGS_PIXDATA_NEGEDGE)
-+	if (bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
- 		val |= GCR_PCPOL;
+ 	writel(mtl_rx_op, ioaddr + MTL_CHAN_RX_OP_MODE(channel));
+-
+-	/* Enable MTL RX overflow */
+-	mtl_rx_int = readl(ioaddr + MTL_CHAN_INT_CTRL(channel));
+-	writel(mtl_rx_int | MTL_RX_OVERFLOW_INT_EN,
+-	       ioaddr + MTL_CHAN_INT_CTRL(channel));
+ }
  
- 	reg_update_bits(ldev->regs, LTDC_GCR,
+ static void dwmac4_dma_tx_chan_op_mode(void __iomem *ioaddr, int mode,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 4749bd0af160..a23797267ad0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4162,7 +4162,6 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
+ 	/* To handle GMAC own interrupts */
+ 	if ((priv->plat->has_gmac) || xmac) {
+ 		int status = stmmac_host_irq_status(priv, priv->hw, &priv->xstats);
+-		int mtl_status;
+ 
+ 		if (unlikely(status)) {
+ 			/* For LPI we need to save the tx status */
+@@ -4173,17 +4172,8 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
+ 		}
+ 
+ 		for (queue = 0; queue < queues_count; queue++) {
+-			struct stmmac_rx_queue *rx_q = &priv->rx_queue[queue];
+-
+-			mtl_status = stmmac_host_mtl_irq_status(priv, priv->hw,
+-								queue);
+-			if (mtl_status != -EINVAL)
+-				status |= mtl_status;
+-
+-			if (status & CORE_IRQ_MTL_RX_OVERFLOW)
+-				stmmac_set_rx_tail_ptr(priv, priv->ioaddr,
+-						       rx_q->rx_tail_addr,
+-						       queue);
++			status = stmmac_host_mtl_irq_status(priv, priv->hw,
++							    queue);
+ 		}
+ 
+ 		/* PCS link status */
 -- 
 2.30.2
-
-
 
 _______________________________________________
 Linux-stm32 mailing list
