@@ -2,65 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CFD837C3BF
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 17:25:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C37CF37C510
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 17:37:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CD30C57B74;
-	Wed, 12 May 2021 15:25:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75164C57B74;
+	Wed, 12 May 2021 15:37:20 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94881C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A086AC57B5F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 May 2021 15:25:13 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 14CFNHAn015842; Wed, 12 May 2021 17:25:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=wJLJQ5SzNztbYrcDqSHgy2c5s42y5qxKpGMFMYg/TAc=;
- b=Jf+ZLjmYTrNYe2RuYPfvLJ0ntYho5lGTyFYjvJYq0rVJgdzfvM0qiJr+I9DBx+Y7oRuH
- vYGT3zzmu5HSRZ8T2ntD+ovw0XRr9zEX++Y1O8izeynEWSsQoHA8ktOf2sk7MlIiH9r1
- 6CcB/ZCy2Jjml/IggDovjJN/wF9PRxR8WzYbsbKx45MGPZLOkEEgOUfeEAuFeZi2MPOE
- emyN5KPsYUdBc9BhhGs00Tm79NBQbydRfT9uQ/yiR0LUJPK6SG9L1P/V7LLy7RBlHYZk
- 6eKwF8+Nofe6HR5VKAJsn6XC/E5ZB2M/3y7OrbgOzOjFia0HFB0k2Gf8U3IgvW6bnTT2 xA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 38gcfahwb6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 May 2021 17:25:00 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 05040100034;
- Wed, 12 May 2021 17:25:00 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E778122B9DB;
- Wed, 12 May 2021 17:24:59 +0200 (CEST)
-Received: from lmecxl0995.lme.st.com (10.75.127.47) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 12 May
- 2021 17:24:59 +0200
-To: Alain Volmat <alain.volmat@foss.st.com>, <broonie@kernel.org>
-References: <1620796842-23546-1-git-send-email-alain.volmat@foss.st.com>
-From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
-Message-ID: <6a553a54-ca1f-8fb5-1a50-e29a858798bf@foss.st.com>
-Date: Wed, 12 May 2021 17:24:58 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Wed, 12 May 2021 15:37:17 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BB08261D31;
+ Wed, 12 May 2021 15:37:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1620833835;
+ bh=SqHKVOcB2t8M2LUNQeBYvZre3GVWIg2YxGHxGq3Qvck=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=MIddzbOHa0qRGjIDfQ6R5Xbhkg81Ppye5JOuiqu+oDNyvi8E1dhMr54Lc0iPGDI5b
+ Lf87dMLSrj+GKRRPY5XExSOgHtyLd3sWVbKs7ND3V72AHRiSrtiTwYGb9YePNJlpfJ
+ FjDNg7PhubLUA+V4Tah/09N874kFG5tQ3S3fnBjA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Date: Wed, 12 May 2021 16:46:25 +0200
+Message-Id: <20210512144837.958339508@linuxfoundation.org>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210512144827.811958675@linuxfoundation.org>
+References: <20210512144827.811958675@linuxfoundation.org>
+User-Agent: quilt/0.66
 MIME-Version: 1.0
-In-Reply-To: <1620796842-23546-1-git-send-email-alain.volmat@foss.st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG3NODE3.st.com (10.75.127.9) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-05-12_07:2021-05-12,
- 2021-05-12 signatures=0
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- mcoquelin.stm32@gmail.com, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] MAINTAINERS: Add Alain Volmat as STM32
-	SPI maintainer
+Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
+ Vincent Abriou <vincent.abriou@st.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Antonio Borneo <antonio.borneo@st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Philippe Cornu <philippe.cornu@st.com>, stable@vger.kernel.org,
+ Yannick Fertre <yannick.fertre@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Benjamin Gaignard <benjamin.gaignard@st.com>
+Subject: [Linux-stm32] [PATCH 5.11 308/601] drm/stm: Fix bus_flags handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,39 +55,115 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 5/12/21 7:20 AM, Alain Volmat wrote:
-> Add Alain Volmat as STM32 SPI maintainer.
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> ---
->   MAINTAINERS | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index de412b9813eb..3d98375ea6f0 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -16981,6 +16981,12 @@ L:	linux-i2c@vger.kernel.org
->   S:	Maintained
->   F:	drivers/i2c/busses/i2c-stm32*
->   
-> +ST STM32 SPI DRIVER
-> +M:	Alain Volmat <alain.volmat@foss.st.com>
-> +L:	linux-spi@vger.kernel.org
-> +S:	Maintained
-> +F:	drivers/spi/spi-stm32.c
-> +
->   ST VL53L0X ToF RANGER(I2C) IIO DRIVER
->   M:	Song Qiang <songqiang1304521@gmail.com>
->   L:	linux-iio@vger.kernel.org
-> 
+From: Marek Vasut <marex@denx.de>
 
-Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+[ Upstream commit 99e360442f223dd40fc23ae07c7a263836fd27e6 ]
+
+The drm_display_mode_to_videomode() does not populate DISPLAY_FLAGS_DE_LOW
+or DISPLAY_FLAGS_PIXDATA_NEGEDGE flags in struct videomode. Therefore, no
+matter what polarity the next bridge or display might require, these flags
+are never set, and thus the LTDC GCR_DEPOL and GCR_PCPOL bits are never set
+and the LTDC behaves as if both DISPLAY_FLAGS_PIXDATA_POSEDGE and
+DISPLAY_FLAGS_DE_HIGH were always set.
+
+The fix for this problem is taken almost verbatim from MXSFB driver. In
+case there is a bridge attached to the LTDC, the bridge might have extra
+polarity requirements, so extract bus_flags from the bridge and use them
+for LTDC configuration. Otherwise, extract bus_flags from the connector,
+which is the display.
+
+Fixes: b759012c5fa7 ("drm/stm: Add STM32 LTDC driver")
+Signed-off-by: Marek Vasut <marex@denx.de>
+Signed-off-by: Yannick Fertre <yannick.fertre@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Antonio Borneo <antonio.borneo@st.com>
+Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Philippe Cornu <philippe.cornu@st.com>
+Cc: Sam Ravnborg <sam@ravnborg.org>
+Cc: Vincent Abriou <vincent.abriou@st.com>
+Cc: Yannick Fertre <yannick.fertre@st.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: dri-devel@lists.freedesktop.org
+Tested-by: Yannick Fertre <yannick.fertre@foss.st.com>
+Signed-off-by: Philippe Cornu <philippe.cornu@foss.st.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20210127110756.125570-1-marex@denx.de
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/stm/ltdc.c | 33 +++++++++++++++++++++++++++++++--
+ 1 file changed, 31 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 3980677435cb..949511a0a24f 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -525,13 +525,42 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
+ {
+ 	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
+ 	struct drm_device *ddev = crtc->dev;
++	struct drm_connector_list_iter iter;
++	struct drm_connector *connector = NULL;
++	struct drm_encoder *encoder = NULL;
++	struct drm_bridge *bridge = NULL;
+ 	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
+ 	struct videomode vm;
+ 	u32 hsync, vsync, accum_hbp, accum_vbp, accum_act_w, accum_act_h;
+ 	u32 total_width, total_height;
++	u32 bus_flags = 0;
+ 	u32 val;
+ 	int ret;
+ 
++	/* get encoder from crtc */
++	drm_for_each_encoder(encoder, ddev)
++		if (encoder->crtc == crtc)
++			break;
++
++	if (encoder) {
++		/* get bridge from encoder */
++		list_for_each_entry(bridge, &encoder->bridge_chain, chain_node)
++			if (bridge->encoder == encoder)
++				break;
++
++		/* Get the connector from encoder */
++		drm_connector_list_iter_begin(ddev, &iter);
++		drm_for_each_connector_iter(connector, &iter)
++			if (connector->encoder == encoder)
++				break;
++		drm_connector_list_iter_end(&iter);
++	}
++
++	if (bridge && bridge->timings)
++		bus_flags = bridge->timings->input_bus_flags;
++	else if (connector)
++		bus_flags = connector->display_info.bus_flags;
++
+ 	if (!pm_runtime_active(ddev->dev)) {
+ 		ret = pm_runtime_get_sync(ddev->dev);
+ 		if (ret) {
+@@ -567,10 +596,10 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
+ 	if (vm.flags & DISPLAY_FLAGS_VSYNC_HIGH)
+ 		val |= GCR_VSPOL;
+ 
+-	if (vm.flags & DISPLAY_FLAGS_DE_LOW)
++	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
+ 		val |= GCR_DEPOL;
+ 
+-	if (vm.flags & DISPLAY_FLAGS_PIXDATA_NEGEDGE)
++	if (bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
+ 		val |= GCR_PCPOL;
+ 
+ 	reg_update_bits(ldev->regs, LTDC_GCR,
+-- 
+2.30.2
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
