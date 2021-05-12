@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37CF37C510
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 17:37:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D35E37C750
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 18:05:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75164C57B74;
-	Wed, 12 May 2021 15:37:20 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ECD8FC57B74;
+	Wed, 12 May 2021 16:05:24 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A086AC57B5F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 424CEC57B5F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 May 2021 15:37:17 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BB08261D31;
- Wed, 12 May 2021 15:37:14 +0000 (UTC)
+ Wed, 12 May 2021 16:05:22 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1061A61C4F;
+ Wed, 12 May 2021 16:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1620833835;
- bh=SqHKVOcB2t8M2LUNQeBYvZre3GVWIg2YxGHxGq3Qvck=;
+ s=korg; t=1620835520;
+ bh=9WbnH3HSVs9b1JA+vBjbssA9+l1Sr1YhxpxqJG4IWxs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MIddzbOHa0qRGjIDfQ6R5Xbhkg81Ppye5JOuiqu+oDNyvi8E1dhMr54Lc0iPGDI5b
- Lf87dMLSrj+GKRRPY5XExSOgHtyLd3sWVbKs7ND3V72AHRiSrtiTwYGb9YePNJlpfJ
- FjDNg7PhubLUA+V4Tah/09N874kFG5tQ3S3fnBjA=
+ b=oFnWM7ruOGocZfYX6kqvk85iZFGjIwb6N43oVIS4SUYRze9i9osxiirRiLmCDc1fH
+ 0fZ33FDYkN5OewwMe4cFcdeEVJ1QD3jmmWE/uv+kownvNYVsS06UNW/W1ePB5EguT1
+ 3lRbSKMTgeTYJBcxMotpk7afd7o5TPDIeHySfbCI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed, 12 May 2021 16:46:25 +0200
-Message-Id: <20210512144837.958339508@linuxfoundation.org>
+Date: Wed, 12 May 2021 16:46:28 +0200
+Message-Id: <20210512144848.647455738@linuxfoundation.org>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210512144827.811958675@linuxfoundation.org>
-References: <20210512144827.811958675@linuxfoundation.org>
+In-Reply-To: <20210512144837.204217980@linuxfoundation.org>
+References: <20210512144837.204217980@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
@@ -43,7 +43,7 @@ Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Benjamin Gaignard <benjamin.gaignard@st.com>
-Subject: [Linux-stm32] [PATCH 5.11 308/601] drm/stm: Fix bus_flags handling
+Subject: [Linux-stm32] [PATCH 5.12 342/677] drm/stm: Fix bus_flags handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,7 +100,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 31 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 3980677435cb..949511a0a24f 100644
+index 7812094f93d6..6f3b523e16e8 100644
 --- a/drivers/gpu/drm/stm/ltdc.c
 +++ b/drivers/gpu/drm/stm/ltdc.c
 @@ -525,13 +525,42 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
