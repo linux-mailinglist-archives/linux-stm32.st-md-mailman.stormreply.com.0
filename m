@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 942CA37D19B
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 20:03:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8E3237D1C0
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 20:04:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57BFCC57B74;
-	Wed, 12 May 2021 18:03:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6765C57B74;
+	Wed, 12 May 2021 18:04:10 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71C4FC57B5F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54350C57B5F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 May 2021 18:03:06 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9B68961438;
- Wed, 12 May 2021 18:03:03 +0000 (UTC)
+ Wed, 12 May 2021 18:04:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 610266147E;
+ Wed, 12 May 2021 18:04:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620842584;
- bh=OBRM+63/3ohtj24gC1piWGYcbhX4ghxYNsGGNhbXyN4=;
+ s=k20201202; t=1620842646;
+ bh=Ic7+nX/5CH0Gt9Ep6h79sLMP0MWEBOHPUHC4qCKmzNs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=G6/zetGy3GUUgaruJlGSVhjlOc+IQVhIeoGepbk1Y2V63+VvS5i64Lp0y0GJ95f0+
- PtCPft/pUfmSeTqufwQ6QZ3sY3BKINkFwuaA8ig86gGFpnnYvi5kl47Gn+S6xTmTRy
- AnqzK1/lhhqdLaiaSOpt6JJiHZjQD2c9RKtBQvEUUkIC1/KRhtGxhpZ0JdcHFTmm5C
- ZkywxZdE/ZpRDoZvcx//ZoZCFsu3kcf1PRDpyTNXmZ83kDdOpaL+7ZV6h3eb2A+CJQ
- ZiI0giTgaN7PMGqnCx+5EZeLNL6GLH5500Q4tB3LOWSeyE4a7MLjsnouixy9nZh+Ao
- KEXjwgvQ8dCJg==
+ b=VfS/pUT7CM82tZqgVAheOkXkUo6lHRrdHK+Ib5kzQlGRDwCmW3j/S+tmoC+dXa2Vu
+ TQ43rwahYLFSfz/pqF3DiznMSEh49n0odAq+fIUxxPBEILRw5vRM03Dt+ws75gd/9q
+ mWkMc7zBT1nqyX6dH4jpP+F24acg4T73loy3chlvaVu8AcgCn0DsCTAV/qTYim55BT
+ 1NTA9lPAzvLNNjyDV2xqIvqH9a7i4cCyp3oM4yXRzE4FjH7KsiqGQpt4s1t5H+W2ok
+ lBJn7hdlDxVC0Vpi8UnQ+xAeyAd/nT0DvF7Dx8ICxQ7UO/5GVSZnI7Q7o88W5xsSkv
+ vREOvqMMTbKJA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 12 May 2021 14:02:05 -0400
-Message-Id: <20210512180206.664536-35-sashal@kernel.org>
+Date: Wed, 12 May 2021 14:03:05 -0400
+Message-Id: <20210512180306.664925-34-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210512180206.664536-1-sashal@kernel.org>
-References: <20210512180206.664536-1-sashal@kernel.org>
+In-Reply-To: <20210512180306.664925-1-sashal@kernel.org>
+References: <20210512180306.664925-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, Yannick Vignon <yannick.vignon@nxp.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.11 35/35] net: stmmac: Do not enable
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 34/34] net: stmmac: Do not enable
 	RX FIFO overflow interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -112,10 +112,10 @@ index 62aa0e95beb7..a7249e4071f1 100644
  
  static void dwmac4_dma_tx_chan_op_mode(void __iomem *ioaddr, int mode,
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 4749bd0af160..a23797267ad0 100644
+index 6012eadae460..7a16cf155106 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4162,7 +4162,6 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
+@@ -4132,7 +4132,6 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
  	/* To handle GMAC own interrupts */
  	if ((priv->plat->has_gmac) || xmac) {
  		int status = stmmac_host_irq_status(priv, priv->hw, &priv->xstats);
@@ -123,7 +123,7 @@ index 4749bd0af160..a23797267ad0 100644
  
  		if (unlikely(status)) {
  			/* For LPI we need to save the tx status */
-@@ -4173,17 +4172,8 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
+@@ -4143,17 +4142,8 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
  		}
  
  		for (queue = 0; queue < queues_count; queue++) {
