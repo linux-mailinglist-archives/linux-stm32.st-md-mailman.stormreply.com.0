@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 837D437D191
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 20:02:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 942CA37D19B
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 May 2021 20:03:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 289E0C57B74;
-	Wed, 12 May 2021 18:02:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57BFCC57B74;
+	Wed, 12 May 2021 18:03:08 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97CCBC57B5F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71C4FC57B5F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 May 2021 18:02:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 867E861434;
- Wed, 12 May 2021 18:02:02 +0000 (UTC)
+ Wed, 12 May 2021 18:03:06 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9B68961438;
+ Wed, 12 May 2021 18:03:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1620842523;
+ s=k20201202; t=1620842584;
  bh=OBRM+63/3ohtj24gC1piWGYcbhX4ghxYNsGGNhbXyN4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=blB9Si9i3Z7pis87Sd9QDz3QTviEwrpjH60eIJ9QmtfPXegW6Z7l9eiwhTrz31Oxb
- NNFDH9Tj0aqfuhNBfC17UAhLd21AYNW/q55czMpq1z3NfmuCohhSppzRFBGG0vvuex
- GfOkFMbw6fDSJk5vDyON7L47G4NX5AfrsXQ2y3/eWaj6a6nqOtLdDhLlD2sm1OdZi9
- C5TuFC+SzKW3apQo5Yp/hYuUiM96be0FXab11oDhTFYLNFf3k7LE2Qle2oLhhsb2tb
- 2FxdJvlFB+3jImCICONysjkGfjGCHdk/SCgwRs8HnTe0OoAul3tCgNnZjLYTezcCYi
- DfrpiX6JeJwhg==
+ b=G6/zetGy3GUUgaruJlGSVhjlOc+IQVhIeoGepbk1Y2V63+VvS5i64Lp0y0GJ95f0+
+ PtCPft/pUfmSeTqufwQ6QZ3sY3BKINkFwuaA8ig86gGFpnnYvi5kl47Gn+S6xTmTRy
+ AnqzK1/lhhqdLaiaSOpt6JJiHZjQD2c9RKtBQvEUUkIC1/KRhtGxhpZ0JdcHFTmm5C
+ ZkywxZdE/ZpRDoZvcx//ZoZCFsu3kcf1PRDpyTNXmZ83kDdOpaL+7ZV6h3eb2A+CJQ
+ ZiI0giTgaN7PMGqnCx+5EZeLNL6GLH5500Q4tB3LOWSeyE4a7MLjsnouixy9nZh+Ao
+ KEXjwgvQ8dCJg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 12 May 2021 14:01:04 -0400
-Message-Id: <20210512180104.664121-37-sashal@kernel.org>
+Date: Wed, 12 May 2021 14:02:05 -0400
+Message-Id: <20210512180206.664536-35-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210512180104.664121-1-sashal@kernel.org>
-References: <20210512180104.664121-1-sashal@kernel.org>
+In-Reply-To: <20210512180206.664536-1-sashal@kernel.org>
+References: <20210512180206.664536-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, Yannick Vignon <yannick.vignon@nxp.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.12 37/37] net: stmmac: Do not enable
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.11 35/35] net: stmmac: Do not enable
 	RX FIFO overflow interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
