@@ -2,68 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 154353807EA
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 May 2021 13:02:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 105B43807EC
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 May 2021 13:02:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6D3FC57B6F;
-	Fri, 14 May 2021 11:02:49 +0000 (UTC)
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D277CC57B60;
+	Fri, 14 May 2021 11:02:53 +0000 (UTC)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1086AC57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C4F4C57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 May 2021 11:02:48 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id k5so5673266pjj.1
+ Fri, 14 May 2021 11:02:52 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id p6so177566plr.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 May 2021 04:02:47 -0700 (PDT)
+ Fri, 14 May 2021 04:02:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=w2B2gYwn3MtKVjip2AWbrWG6iOvfQAn7f6GZqcZIKfs=;
- b=TgbI5fIWdbDixv8fZQJYly0iM+UMF4g0NP2bB7QvRKHOCtekFwFpdwqa2Smm0qieMR
- cQhkcuk6HrL9QzbMUwMKmQ/+iqX9qh8JtB3qI25fYIyVBCfZMjLjJev7LBwGYbLezRBA
- yqN5lgcHsnPgf+Yw7GP9KXRyjblIbqjopBrlYfvUl/XNB28FWqvU/JMeTYw2VEteBZBC
- CzMZrxWr/+sqkZ/SFR+u+tZoysRoNkJ1utyigrNwrPEQhj0Qgj7jycSJyyYgRkhzZhC6
- 2Ccz9+PDCY2IRMJNn08L+sLmXJaPYq/2kPBLvSfgbJZp4LzCaorgzrdUE5QdqxnmrUYE
- okbA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=OOicQDUMq21UM0Ud7C95oVsNtJIeM7ZkfF7dwnsXfEg=;
+ b=nQlQZxXGeUQ4gP81dPpiXkTEbHY/alLIvR5F6WhN+zlLpm6mPmYEsPD7dMTThV4qOy
+ Lu3K3rLeKTHEacia78TX/Hdt2rBlb4lOQqAsQ4b+wijc3Ww/kT7uizjRXhS+P3q48+Cp
+ dtLuqZEn2UJf5xt9LDMXNbeKj4hGfwbdnRWffqbp8Ronq3HXVKlM5rEOh4xRnVKzG/zN
+ /6W2u1Iv8g3qfhH4mzed9kdG1ndtMCoaW3jTxXhHxv+Jlhmuw0dhqZE/u4zaQVk9kOHT
+ 1t6MtfHHeQ7ruu8j3Q3J+ITWWWkwWDS+Fn3itNosCln8R5qCcZ7J9HHiSs1Y0XgijcV+
+ dRqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=w2B2gYwn3MtKVjip2AWbrWG6iOvfQAn7f6GZqcZIKfs=;
- b=o2VGGKP0c2TTh/+hulDYWMT5uYAb5YQD21tjt/1oCBvkj3BUN/R/xX4NgDRqtcdYUo
- o39YezWmtoVw53gliTmQmvHf2Xc5n4HekBfi1b1Cs5DOvjCLTO8bEkFtdEFpbErpvs+h
- 8NrVCaayDpTS4e4HzK6Z4lioWR54uYJY0kwAqpS+gegSV3SDxHJEkAr2BMqE07YAl8rS
- 8q6ShhKT/nuaqQVkbMvA4G63uGWM+zU4mSH0zQeRgzQghqx2tY46gm/5Po1M7waSBPZy
- gu+FoJHuDmbs2O+FjoNcPuzwVuRhKvGA1rO+izHbMiekVQCCVp75mkR47bu/UvfHD1pw
- r2XA==
-X-Gm-Message-State: AOAM530h2UmjZJ5w0iPBLWPFIJeHvBQpCzzqJ3c+eTxoz/IlkzExKlb6
- /uKBg0c2aUHwKWOUi3kUHkk=
-X-Google-Smtp-Source: ABdhPJyKBOqrBQtdA21EkB22MKpeUJqnWyuTGt2+olXKI7Jp6Mm6RIl7J9Rgxmrr02pM//5pykqqyA==
-X-Received: by 2002:a17:90a:b945:: with SMTP id
- f5mr52371098pjw.233.1620990166436; 
- Fri, 14 May 2021 04:02:46 -0700 (PDT)
+ :references:mime-version:content-transfer-encoding;
+ bh=OOicQDUMq21UM0Ud7C95oVsNtJIeM7ZkfF7dwnsXfEg=;
+ b=LYIXfZTtUaq1nL7FM/JyZOv84GwxrwmTpL5z8PBRPLpWB+79bwfbBEzWy+cnczC2qh
+ cSW/jE7kfygy/9pgTdAQOsGLaFIpSFj9avqJCOmqhzKssacoc79NktnP6ud6z1Gdh1KX
+ NMeJkEt+cA0sNl4VyTx4jDlxjD8UfHNSg2ck4ehHAnbeM1b1THTajmojiGxPXaE4iMC6
+ zzckX6CYs1kFcYftfEVk69DhXJkGN2PL0XOT5rhXZaa6r4DM2xXpNP9NaTaQ/9uJ+x7u
+ xL55inHR1S/T7FcZ3aiDKMOdoIFBGPMhaTQyH0OGpsfv1Yd50sQ2YE1WdzppYVxGGVod
+ Y9ug==
+X-Gm-Message-State: AOAM532l2kcJNvX58Lp+Ff4LuQQXcieIZQvYXI7U9EG/gYlvdw0bsVo/
+ z3d2yWzPkCAVpk3tx35NXQk=
+X-Google-Smtp-Source: ABdhPJx0Ynnvv8lCfWgGxjHnaXYOCPih7/zTgEt/rhl7yOCbB0MgfG7zmIHpo+UWX7GF7sX1k5pYfA==
+X-Received: by 2002:a17:90a:4092:: with SMTP id
+ l18mr10534045pjg.35.1620990170835; 
+ Fri, 14 May 2021 04:02:50 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id 202sm4193402pgg.59.2021.05.14.04.02.42
+ by smtp.gmail.com with ESMTPSA id 202sm4193402pgg.59.2021.05.14.04.02.46
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 14 May 2021 04:02:46 -0700 (PDT)
+ Fri, 14 May 2021 04:02:50 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: patrice.chotard@foss.st.com, pierre-yves.mordret@foss.st.com,
  alain.volmat@foss.st.com, mcoquelin.stm32@gmail.com,
  alexandre.torgue@foss.st.com, sumit.semwal@linaro.org,
  christian.koenig@amd.com, mturquette@baylibre.com
-Date: Fri, 14 May 2021 19:02:30 +0800
-Message-Id: <1620990152-19255-3-git-send-email-dillon.minfei@gmail.com>
+Date: Fri, 14 May 2021 19:02:31 +0800
+Message-Id: <1620990152-19255-4-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1620990152-19255-1-git-send-email-dillon.minfei@gmail.com>
 References: <1620990152-19255-1-git-send-email-dillon.minfei@gmail.com>
+MIME-Version: 1.0
 Cc: sboyd@kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org, linux-i2c@vger.kernel.org,
  Dillon Min <dillon.minfei@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/4] i2c: stm32f4: Fix stmpe811 get xyz data
-	timeout issue
+Subject: [Linux-stm32] [PATCH 3/4] clk: stm32: Fix stm32f429's ltdc driver
+	hang in set clock rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,86 +77,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Dillon Min <dillon.minfei@gmail.com>
-
-As stm32f429's internal flash is 2Mbytes and compiled kernel
-image bigger than 2Mbytes, so we have to load kernel image
-to sdram on stm32f429-disco board which has 8Mbytes sdram space.
-
-based on above context, as you knows kernel running on external
-sdram is more slower than internal flash. besides, we need read 4
-bytes to get touch screen xyz(x, y, pressure) coordinate data in
-stmpe811 interrupt.
-
-so, in stm32f4_i2c_handle_rx_done, as i2c read slower than running
-in xip mode, have to adjust 'STOP/START bit set position' from last
-two bytes to last one bytes. else, will get i2c timeout in reading
-touch screen coordinate.
-
-to not bring in side effect, introduce IIC_LAST_BYTE_POS to support xip
-kernel or zImage.
-
-Fixes: 62817fc8d282 ("i2c: stm32f4: add driver")
-Link: https://lore.kernel.org/lkml/1591709203-12106-5-git-send-email-dillon.minfei@gmail.com/
-Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
----
- drivers/i2c/busses/i2c-stm32f4.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
-index 4933fc8ce3fd..2e41231b9037 100644
---- a/drivers/i2c/busses/i2c-stm32f4.c
-+++ b/drivers/i2c/busses/i2c-stm32f4.c
-@@ -93,6 +93,12 @@
- #define STM32F4_I2C_MAX_FREQ		46U
- #define HZ_TO_MHZ			1000000
- 
-+#if !defined(CONFIG_MMU) && !defined(CONFIG_XIP_KERNEL)
-+#define IIC_LAST_BYTE_POS 1
-+#else
-+#define IIC_LAST_BYTE_POS 2
-+#endif
-+
- /**
-  * struct stm32f4_i2c_msg - client specific data
-  * @addr: 8-bit slave addr, including r/w bit
-@@ -439,7 +445,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
- 	int i;
- 
- 	switch (msg->count) {
--	case 2:
-+	case IIC_LAST_BYTE_POS:
- 		/*
- 		 * In order to correctly send the Stop or Repeated Start
- 		 * condition on the I2C bus, the STOP/START bit has to be set
-@@ -454,7 +460,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
- 		else
- 			stm32f4_i2c_set_bits(reg, STM32F4_I2C_CR1_START);
- 
--		for (i = 2; i > 0; i--)
-+		for (i = IIC_LAST_BYTE_POS; i > 0; i--)
- 			stm32f4_i2c_read_msg(i2c_dev);
- 
- 		reg = i2c_dev->base + STM32F4_I2C_CR2;
-@@ -463,7 +469,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
- 
- 		complete(&i2c_dev->complete);
- 		break;
--	case 3:
-+	case (IIC_LAST_BYTE_POS+1):
- 		/*
- 		 * In order to correctly generate the NACK pulse after the last
- 		 * received data byte, we have to enable NACK before reading N-2
--- 
-2.7.4
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RnJvbTogRGlsbG9uIE1pbiA8ZGlsbG9uLm1pbmZlaUBnbWFpbC5jb20+CgpUaGlzIGlzIGR1ZSB0
+byBtaXN1c2Ug4oCYUExMX1ZDT19TQUknIGFuZCdQTExfU0FJJyBpbiBjbGstc3RtMzJmNC5jCidQ
+TExfU0FJJyBpcyAyLCAnUExMX1ZDT19TQUknIGlzIDcoZGVmaW5lZCBpbgppbmNsdWRlL2R0LWJp
+bmRpbmdzL2Nsb2NrL3N0bTMyZngtY2xvY2suaCkuCgoncG9zdF9kaXYnIHBvaW50IHRvICdwb3N0
+X2Rpdl9kYXRhW10nLCAncG9zdF9kaXYtPnBsbF9udW0nCmlzIFBMTF9JMlMgb3IgUExMX1NBSS4K
+CidjbGtzW1BMTF9WQ09fU0FJXScgaGFzIHZhbGlkICdzdHJ1Y3QgY2xrX2h3KiAnIHJldHVybgpm
+cm9tIHN0bTMyZjRfcmNjX3JlZ2lzdGVyX3BsbCgpIGJ1dCwgYXQgbGluZSAxNzc3IG9mCmRyaXZl
+ci9jbGsvY2xrLXN0bTMyZjQuYywgdXNlIHRoZSAnY2xrc1twb3N0X2Rpdi0+cGxsX251bV0nLApl
+cXVhbCB0byAnY2xrc1tQTExfU0FJXScsIHRoaXMgaXMgaW52YWxpZCBhcnJheSBtZW1iZXIgYXQg
+dGhhdCB0aW1lLgoKRml4ZXM6IDUxNzYzM2VmNjMwZSAoImNsazogc3RtMzJmNDogQWRkIHBvc3Qg
+ZGl2aXNvciBmb3IgSTJTICYgU0FJIFBMTHMiKQpTaWduZWQtb2ZmLWJ5OiBEaWxsb24gTWluIDxk
+aWxsb24ubWluZmVpQGdtYWlsLmNvbT4KQWNrZWQtYnk6IFN0ZXBoZW4gQm95ZCA8c2JveWRAa2Vy
+bmVsLm9yZz4KTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtYXJtLWtlcm5lbC8x
+NTkwNTY0NDUzLTI0NDk5LTYtZ2l0LXNlbmQtZW1haWwtZGlsbG9uLm1pbmZlaUBnbWFpbC5jb20v
+Ci0tLQogZHJpdmVycy9jbGsvY2xrLXN0bTMyZjQuYyB8IDYgKysrLS0tCiAxIGZpbGUgY2hhbmdl
+ZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Y2xrL2Nsay1zdG0zMmY0LmMgYi9kcml2ZXJzL2Nsay9jbGstc3RtMzJmNC5jCmluZGV4IDE4MTE3
+Y2U1ZmY4NS4uNDJjYTJkZDg2YWVhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2Nsay9jbGstc3RtMzJm
+NC5jCisrKyBiL2RyaXZlcnMvY2xrL2Nsay1zdG0zMmY0LmMKQEAgLTU1NywxMyArNTU3LDEzIEBA
+IHN0YXRpYyBjb25zdCBzdHJ1Y3QgY2xrX2Rpdl90YWJsZSBwb3N0X2RpdnJfdGFibGVbXSA9IHsK
+IAogI2RlZmluZSBNQVhfUE9TVF9ESVYgMwogc3RhdGljIGNvbnN0IHN0cnVjdCBzdG0zMmY0X3Bs
+bF9wb3N0X2Rpdl9kYXRhICBwb3N0X2Rpdl9kYXRhW01BWF9QT1NUX0RJVl0gPSB7Ci0JeyBDTEtf
+STJTUV9QRElWLCBQTExfSTJTLCAicGxsaTJzLXEtZGl2IiwgInBsbGkycy1xIiwKKwl7IENMS19J
+MlNRX1BESVYsIFBMTF9WQ09fSTJTLCAicGxsaTJzLXEtZGl2IiwgInBsbGkycy1xIiwKIAkJQ0xL
+X1NFVF9SQVRFX1BBUkVOVCwgU1RNMzJGNF9SQ0NfRENLQ0ZHUiwgMCwgNSwgMCwgTlVMTH0sCiAK
+LQl7IENMS19TQUlRX1BESVYsIFBMTF9TQUksICJwbGxzYWktcS1kaXYiLCAicGxsc2FpLXEiLAor
+CXsgQ0xLX1NBSVFfUERJViwgUExMX1ZDT19TQUksICJwbGxzYWktcS1kaXYiLCAicGxsc2FpLXEi
+LAogCQlDTEtfU0VUX1JBVEVfUEFSRU5ULCBTVE0zMkY0X1JDQ19EQ0tDRkdSLCA4LCA1LCAwLCBO
+VUxMIH0sCiAKLQl7IE5PX0lEWCwgUExMX1NBSSwgInBsbHNhaS1yLWRpdiIsICJwbGxzYWktciIs
+IENMS19TRVRfUkFURV9QQVJFTlQsCisJeyBOT19JRFgsIFBMTF9WQ09fU0FJLCAicGxsc2FpLXIt
+ZGl2IiwgInBsbHNhaS1yIiwgQ0xLX1NFVF9SQVRFX1BBUkVOVCwKIAkJU1RNMzJGNF9SQ0NfRENL
+Q0ZHUiwgMTYsIDIsIDAsIHBvc3RfZGl2cl90YWJsZSB9LAogfTsKIAotLSAKMi43LjQKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
