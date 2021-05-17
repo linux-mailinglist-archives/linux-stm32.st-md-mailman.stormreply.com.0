@@ -2,62 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AFA1382BCC
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 14:08:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00D25382BC0
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 14:05:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1F21C59784;
-	Mon, 17 May 2021 12:08:34 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADF2DC57B75;
+	Mon, 17 May 2021 12:05:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99D79C57B51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 854E6C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 May 2021 18:41:15 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id b25so111899eju.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 May 2021 11:41:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=gPu3JhIKExQczwKARwj2go99YLQAcb+tX8q8d0+CLrs=;
- b=NNOJPMvZs5apsCsSxnRrS7Oif613DF+Ig4RR8vsr/9kZnIWzIw0octczCfKy0zhgmV
- HwZ7r1gChNH7o3xQyA45Ud3rbNOmMF+JmtFfSoYaKTyGM59xIm56DmNBAIF0JwT0GCve
- NWptBOtaDHhbKBBA+7GjMIX2/yOhmcaUtGSq5NpjUJObH+Cl40qAbdTMM0gWlIjx0AQ+
- P+k5x1DjdFDREnFFzUB92Nts9oiFPg3eR2HyEPSsincUNGmMCUQkGzLJM701aQ/xYMhV
- hTDj4+sWtWrRX5l78E49JdJ2hrYbDQ6DZOhKmNMFo7VkLyhtCbWmAwERGC1tqIkZ0xC/
- i9uQ==
-X-Gm-Message-State: AOAM5337XEFufp+PKCRymVhUG+bP3Edn3y+TmGPuiE8XTPNpHN62suaw
- t9uF+sq8YGEijdy156v0LC8=
-X-Google-Smtp-Source: ABdhPJw/bzz+edLEyA47WDc1rrEAXftvdXlwn8/p6LzoZoO4/o+QryD11sVkSt7P+ExsEP3oTa1Mxg==
-X-Received: by 2002:a17:906:6a93:: with SMTP id
- p19mr50865392ejr.319.1621017675225; 
- Fri, 14 May 2021 11:41:15 -0700 (PDT)
-Received: from turbo.teknoraver.net (net-5-94-253-60.cust.vodafonedsl.it.
- [5.94.253.60])
- by smtp.gmail.com with ESMTPSA id dj17sm5081505edb.7.2021.05.14.11.41.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 May 2021 11:41:14 -0700 (PDT)
-From: Matteo Croce <mcroce@linux.microsoft.com>
-To: netdev@vger.kernel.org, bpf@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org, linux-stm32@st-md-mailman.stormreply.com,
- kvm@vger.kernel.org, virtualization@lists.linux-foundation.org
-Date: Fri, 14 May 2021 20:39:54 +0200
-Message-Id: <20210514183954.7129-4-mcroce@linux.microsoft.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210514183954.7129-1-mcroce@linux.microsoft.com>
-References: <20210514183954.7129-1-mcroce@linux.microsoft.com>
+ Mon, 17 May 2021 12:05:09 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 14HBup8e021853; Mon, 17 May 2021 14:05:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=2KwkkuHfRJE0R9CP+OHANEZfxy/RymkNrjObI5KIHhQ=;
+ b=gZJB3FgoPvoon//iQ+hgH13FcffMIydpr0sUF6PJpS4lHi458zGK5ciqye1a6xNEAq44
+ FQj3Hx/g6I6Gg4cus9TN5TieSvvu66lPfaIPjnlzvDEDMbGmOGZF8b8qja2uue9GDhRZ
+ D9guc+TvZz3gYklc/nHqMVibunhWsOgDwnY3lRDMSlBrrQwTv1CM+bWrI0deCsbL2257
+ sNaeYmbZxUrxGAITluHI0QBUfteLm8JZ5hcuny28NniA72yqrmBd36T8wYbAH8Gdc/Y8
+ xusY7byum1cc87K+N50C1lu6N0t+Y6FL6Nv8TLJpHyvEyMN9t2wtixefzGOr7/Qs77Nr +A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38kmb2seew-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 May 2021 14:05:00 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CB7D210002A;
+ Mon, 17 May 2021 14:04:59 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B78B722D625;
+ Mon, 17 May 2021 14:04:59 +0200 (CEST)
+Received: from lmecxl0573.lme.st.com (10.75.127.49) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 17 May
+ 2021 14:04:58 +0200
+To: Boris Brezillon <boris.brezillon@collabora.com>
+References: <20210507131756.17028-1-patrice.chotard@foss.st.com>
+ <20210507131756.17028-2-patrice.chotard@foss.st.com>
+ <20210517094140.53cb643a@collabora.com>
+ <e70b13ba-7f65-7ff1-0517-94b39615dcdb@foss.st.com>
+ <20210517132551.7dd56a5e@collabora.com>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+Message-ID: <45ee6378-271d-aeb5-90ea-ed2e0673f3fb@foss.st.com>
+Date: Mon, 17 May 2021 14:04:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 17 May 2021 12:08:30 +0000
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jason Wang <jasowang@redhat.com>, linux-kernel@vger.kernel.org,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next 3/3] vhost_net: use XDP helpers
+In-Reply-To: <20210517132551.7dd56a5e@collabora.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-05-17_04:2021-05-17,
+ 2021-05-17 signatures=0
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] spi: spi-mem: add automatic poll
+	status functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,40 +83,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Matteo Croce <mcroce@microsoft.com>
 
-Make use of the xdp_{init,prepare}_buff() helpers instead of
-an open-coded version.
 
-Also, the field xdp->rxq was never set, so pass NULL to xdp_init_buff()
-to clear it.
+On 5/17/21 1:25 PM, Boris Brezillon wrote:
+> On Mon, 17 May 2021 11:24:25 +0200
+> Patrice CHOTARD <patrice.chotard@foss.st.com> wrote:
+> 
+>> Hi Boris
+>>
+>> On 5/17/21 9:41 AM, Boris Brezillon wrote:
+>>> On Fri, 7 May 2021 15:17:54 +0200
+>>> <patrice.chotard@foss.st.com> wrote:
+>>>   
+>>>> +/**
+>>>> + * spi_mem_poll_status() - Poll memory device status
+>>>> + * @mem: SPI memory device
+>>>> + * @op: the memory operation to execute
+>>>> + * @mask: status bitmask to ckeck
+>>>> + * @match: (status & mask) expected value
+>>>> + * @timeout_ms: timeout in milliseconds
+>>>> + *
+>>>> + * This function send a polling status request to the controller driver
+>>>> + *
+>>>> + * Return: 0 in case of success, -ETIMEDOUT in case of error,
+>>>> + *         -EOPNOTSUPP if not supported.
+>>>> + */
+>>>> +int spi_mem_poll_status(struct spi_mem *mem,
+>>>> +			const struct spi_mem_op *op,
+>>>> +			u16 mask, u16 match, u16 timeout_ms)  
+>>>
+>>> Maybe you should pass a delay_us too, to poll the status at the right
+>>> rate in the SW-based case (can also be used by drivers if they need to  
+>>
+>> Ok, i will add a polling_rate_us parameter to poll_status() callback,
+>> even if in STM32 driver case we will not use it, i agree it should be useful 
+>> depending of driver's implementation.
+>>
+>>> configure the polling rate). You could also add an initial_delay_us to
+>>> avoid polling the status too early: an erase operation will take longer
+>>> than a write which will take longer than a read. No need to check the
+>>> status just after issuing the command, especially if the polling is
+>>> done in SW. Those 2 arguments should also be passed to the driver.  
+>>
+>> Regarding the addition of an initial_delay_us. We got two solution:
+>>   - use the same polling rate already used by read_poll_timeout() and 
+>>     set read_poll_timeout()'s sleep_before_read parameter to true (in our case 20 us
+>>     will be used as initial delay and as polling rate).
+>>
+>>   - add an udelay(initial_delay_us) or even better usleep_range(initial_delay_us,
+>>     initial_delay_us + delta) before calling read_poll_timeout().
+>>
+>> I imagine you prefer the second solution ?
+> 
+> Yep, you might want to use udelay() when the delay is small and
+> usleep_range() otherwise.
+> 
+>>
+>> By adding polling_rate_us and initial_delay_us parameters to 
+>> spi_mem_poll_status(), it implies to update all spinand_wait() calls for 
+>> different operations (reset, read page, write page, erase) with respective  
+>> initial_delay_us/polling_rate_us values for spi_mem_poll_status()'s parameters.
+>>
+>> Can you provide adequate initial_delay_us and polling rate_us for each operation type ?.
+> 
+> If I refer to the datasheets I have,
+> 
+> tBERS (erase) 1ms to 4ms
+> tPROG 300us to 400us
+> tREAD 25us to 100us
+> 
+> Let's assume we want to minimize the latency, I'd recommend dividing
+> the min value by 4 for the initial delay, and dividing it by 20 for the
+> poll delay, which gives:
+> 
+> ERASE -> initial_delay = 250us, poll_delay = 50us
+> PROG -> initial_delay = 100us, poll_delay = 20us
 
-Signed-off-by: Matteo Croce <mcroce@microsoft.com>
----
- drivers/vhost/net.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+another remark, it should be:  PROG -> initial_delay = 75 us (300 / 4) , poll_delay = 15us ( 300 / 20)
 
-diff --git a/drivers/vhost/net.c b/drivers/vhost/net.c
-index df82b124170e..6414bd5741b8 100644
---- a/drivers/vhost/net.c
-+++ b/drivers/vhost/net.c
-@@ -744,11 +744,9 @@ static int vhost_net_build_xdp(struct vhost_net_virtqueue *nvq,
- 	if (copied != len)
- 		return -EFAULT;
- 
--	xdp->data_hard_start = buf;
--	xdp->data = buf + pad;
--	xdp->data_end = xdp->data + len;
-+	xdp_init_buff(xdp, buflen, NULL);
-+	xdp_prepare_buff(xdp, buf, pad, len, true);
- 	hdr->buflen = buflen;
--	xdp->frame_sz = buflen;
- 
- 	--net->refcnt_bias;
- 	alloc_frag->offset += buflen;
--- 
-2.31.1
+Patrice
 
+> READ -> initial_delay = 6us, poll_delay = 5us
+> 
+> Of course, that'd be even better if we were able to extract this
+> information from the NAND ID (or ONFI table), but I guess we can live
+> with those optimistic values in the meantime.
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
