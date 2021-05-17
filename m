@@ -2,42 +2,153 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58280382AF1
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 13:25:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08BAB382B3B
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 13:37:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 114C4C57B75;
-	Mon, 17 May 2021 11:25:59 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9360AC57B6F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B528DC57B75;
+	Mon, 17 May 2021 11:37:19 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2EBAC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 May 2021 11:25:57 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id A102B1F41EB7;
- Mon, 17 May 2021 12:25:56 +0100 (BST)
-Date: Mon, 17 May 2021 13:25:51 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Patrice CHOTARD <patrice.chotard@foss.st.com>
-Message-ID: <20210517132551.7dd56a5e@collabora.com>
-In-Reply-To: <e70b13ba-7f65-7ff1-0517-94b39615dcdb@foss.st.com>
-References: <20210507131756.17028-1-patrice.chotard@foss.st.com>
- <20210507131756.17028-2-patrice.chotard@foss.st.com>
- <20210517094140.53cb643a@collabora.com>
- <e70b13ba-7f65-7ff1-0517-94b39615dcdb@foss.st.com>
-Organization: Collabora
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
+ Mon, 17 May 2021 11:37:17 +0000 (UTC)
+IronPort-SDR: uVDlTUqvd3sB4wqsyLrDVI908LiJmgTLfwfvX0d4IluyAa5cDMhfqw6jWF7LHc7k9zm/Ml9Lxt
+ REvejhc2ML/A==
+X-IronPort-AV: E=McAfee;i="6200,9189,9986"; a="261680901"
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="261680901"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2021 04:37:15 -0700
+IronPort-SDR: KHT6XX4smt61aMVYjjhs2K7MvXwitqjL0aJ59auW/Lnu+EWgJevX51/etahFgEJ5WCWSZ3UfiA
+ ZiAXHrqxfcbQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="437725101"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga008.fm.intel.com with ESMTP; 17 May 2021 04:37:15 -0700
+Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.4; Mon, 17 May 2021 04:37:14 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4
+ via Frontend Transport; Mon, 17 May 2021 04:37:14 -0700
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.171)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2106.2; Mon, 17 May 2021 04:37:13 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jpJ/56FubimFI+goXV3NDZB9wIojdY/KdTbERvQiGrFGBdKLHF+TVCBLcp6RWRm9+54on84wiFJ1PPcELDAlal/61QP80VY7H3wz4ufRClYAc5aIiWHm/8xGcfpb1pEJ0qrx/5zLFdsmZqkCiPyGO5LBBL4vNRuJARlRiYC4pAt0SiHll1mxx6QV/299YXqMx4YWlGi+5ZgOg8ysUEyGoqq8xTTQiw+1zV/8sgKYOoi8aZGt2jbcY51668tfYC8amGaB4LtE/QopJFEuMg7ZOsKp6hXMuY2NSeyWYAWvivLmwx3w5FnzCQUOddS4r9nPQ97XO21bI06VVHR6RzUijQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9Uqgc9MI2B0bikz+IStP0VQcm2e9rEisyL2fNGMMHTo=;
+ b=WM3ct2eDg4Y2kST0QQEnNbip0sKjzzfb4gtkcaWeSjY2h1P9hNM61cjTqrqVyf1/4qHATtQbLmpl1WxLFdBgbCr1OL+yZMoXsjWr9dYeZYMREiA0Jwr6N6nky+oR69yeC8vNBMPliJUmZB79umagfjdBqesZa7r9PQJubH4VmDU53qGbJWXJqNCgF4OdGFc+dWacpb0JuabgSBO4Hfn3hKuq7Rhgr0+Xl3f4O/5FMsoqpLQAcz81aYfl6wpXesS3au7ZSs3SFeXkLMSG2CRfxi1RHnoxmduBXfi4s5Xnv6XczugHSNdwxc/UJlSN23Wzaf/T8r8+oMppQFEzCntJAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9Uqgc9MI2B0bikz+IStP0VQcm2e9rEisyL2fNGMMHTo=;
+ b=ZiDj2HSvkV5peFLz8o2TNza/qp9y+/Jf90bSRzSLOA6qzbYv9GAjZCYP4/U0aOJRIXjnQL8wmPgqb/HUA9OBQyMCFhDJIv4hqFLogYIljkB5GYgRca3yK0eTMATxvjNwjKWEJONFgrOTKkdrCNS/9u+7rR0bTF/1x2AKp6O3rYI=
+Received: from CO1PR11MB5044.namprd11.prod.outlook.com (2603:10b6:303:92::5)
+ by MWHPR1101MB2303.namprd11.prod.outlook.com (2603:10b6:301:5b::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.28; Mon, 17 May
+ 2021 11:37:12 +0000
+Received: from CO1PR11MB5044.namprd11.prod.outlook.com
+ ([fe80::fccf:6de6:458a:9ded]) by CO1PR11MB5044.namprd11.prod.outlook.com
+ ([fe80::fccf:6de6:458a:9ded%3]) with mapi id 15.20.4129.026; Mon, 17 May 2021
+ 11:37:12 +0000
+From: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
+To: Russell King <linux@armlinux.org.uk>
+Thread-Topic: [PATCH net-next 2/2] net: stmmac: Add callbacks for DWC xpcs
+ Energy Efficient Ethernet
+Thread-Index: AQHXSwHXH3A7a02UTEaLpjsECGhB/Krnf/sAgAAJ7wA=
+Date: Mon, 17 May 2021 11:37:12 +0000
+Message-ID: <CO1PR11MB50447EDBEB4835C3EB5B3C7A9D2D9@CO1PR11MB5044.namprd11.prod.outlook.com>
+References: <20210517094332.24976-1-michael.wei.hong.sit@intel.com>
+ <20210517094332.24976-3-michael.wei.hong.sit@intel.com>
+ <20210517105424.GP12395@shell.armlinux.org.uk>
+In-Reply-To: <20210517105424.GP12395@shell.armlinux.org.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+authentication-results: armlinux.org.uk; dkim=none (message not signed)
+ header.d=none;armlinux.org.uk; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [58.71.211.225]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 24763109-613d-46cb-8ad7-08d919281ce6
+x-ms-traffictypediagnostic: MWHPR1101MB2303:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MWHPR1101MB2303A56EF97752811AFC4EBD9D2D9@MWHPR1101MB2303.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4303;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2glABWT6alksbbhngclqUIZmRmKNDYasyQ81T0BOmy4ABXnMiZ3cLl/GCMdCve7MTJUMElpEBSrMLpHqHHmetvGPW7qzSPnsmfxkgws/GjdCxdJEKBfWl9lDtargKnLH/cAPjfDsjiBPFtOtqKIDq9cRZWP8ynkFph6jw2POSpdrReb7WxcdbeiRSMA5eiRHZQHIRzO83jCsTfLPCR/W4cZhVmIZjan6UbxrbGlLYTHUJ9gu54DT/vfNhgIasBH3+zDMwS+Az0TqltXcDgKU/kVLHaJIuX6FXOQFZKvxPNd8HB+hDwJxAiwVf6I5igyufA7S98s7d2Hqa2DZk9juFSadP+OShKN1vsfIZ0h0UcHE88ITVV8UNiXa6g8KVDEuUnzt7apmrj/pHL654miiICJudKcLOURrbZAmK/8/biBaCJir1WVIUG4xjc9DBSt6DMmqleuc3AGH9tu3LXZ8+LzbZ27vWhTO+xiYDanu/rcxsvBFYXS2+iHT/ORCacACzgUTGGzCMDvhUEmKxL45Cgy9Kx+C/AkUvy7yytNmR+r+AwGpuu+pfvfOhT1wDy5yWQ5cPucKXtYOhxkNAmjjCRMFSI8DR2Sus1OeJrt+L+ZMRNGO4hSBz9Zb2SSNJH+1ivpcnng3bHHu6b6XLXNZz/zoVZjfhUC4GrE8bZBcFmvB87D3ATClRExqV03hoewQ
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5044.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(136003)(396003)(366004)(376002)(39860400002)(33656002)(186003)(66556008)(71200400001)(64756008)(66476007)(66446008)(478600001)(7416002)(5660300002)(9686003)(66946007)(26005)(52536014)(53546011)(316002)(6506007)(8676002)(55016002)(83380400001)(6916009)(54906003)(38100700002)(86362001)(122000001)(2906002)(8936002)(7696005)(4326008)(966005)(76116006);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?fBUG4Z7ezVMs2yyydyg+8RXvVORjdtaI2AvgAn/ZqW5rqGvECCtLoINu6U8K?=
+ =?us-ascii?Q?6Gmi7mY1QbvKMcenoYxCNU3NpEBm5xe+8/xiLeknOmF8T7h6ZVa0lV8ATT2S?=
+ =?us-ascii?Q?vf3Q0BShJtBG2FJ9OGFFFqggxVLjq97KuHwOu7D9yWqDRBMUHg+gR1ZMzSAZ?=
+ =?us-ascii?Q?vz6mIYEICR1imEzORzPCCcZ/HorPLrQ0aTHza14PKOnL7jvrA18IunB797U1?=
+ =?us-ascii?Q?wegFLm2I2CZausb0hG6jXF/j1PH4BwLb7PWjwGcItjPtn6kFBbZ9bmw+rw2w?=
+ =?us-ascii?Q?RpwnH0GWW0UdGyql3EpOggBV5F0Ev+pG19tTxrtEb3b0aEZGfIXCYnzPQpS9?=
+ =?us-ascii?Q?9Jt8q7yVhcSAQsfdLu55qaYqzZjqjJoqE8jAip64CTmKYVAhheIcUMEYg4bK?=
+ =?us-ascii?Q?EMPlAZb3yIwBF4BIYpJN2WMHaOgVOe2WKIbhvpKq2Zf1U5fxkj4LZu5eUEKX?=
+ =?us-ascii?Q?MCMxb+eGxiySozmrEtjO+/UIgdqlbe8KSr16TpOvaSxZduKOe8A+SAVCYK9I?=
+ =?us-ascii?Q?kWaFD1pcOJ7tlQqVWbdAe96twRXPMg8EpKV8KsO0pMjhb058/WazLTCWjCvq?=
+ =?us-ascii?Q?agKatWWCKy1nODcwqs3cCdx1UrgKqfH22bUarUrxEjkIZMlpeBaW8MnTA7IS?=
+ =?us-ascii?Q?CHSdqRSyYBtGnzFzokSTR2yeuDkAw+1A7bZTRqW9Ml+VixZCV4I03FLNDPk5?=
+ =?us-ascii?Q?AljBvYwhMavypWnQHvOFhVc+rvlxvXL9YDzsj4J20G8iqHo3G5RREAdAc8J6?=
+ =?us-ascii?Q?8zMR7upOZ0M1Qp27zEA1j/+97f3PbuDjdFogtL4oed2F0sPp/druyFooEXn3?=
+ =?us-ascii?Q?9V5wTUfclUFcT7ih8COBiYRmyMM+eLcmOYWaZ0T9eAFd8Yg9v+SlF1n8YqX2?=
+ =?us-ascii?Q?BGgRPZFPWa+AQ+wM26PS+xrJD2Qkq6In3fyuosvrgA1HHGa6e8qNTAuqT+hw?=
+ =?us-ascii?Q?A3x4VpbtrsWpSiFMtLrLgsUNuZ/uaKTqsfV3nevnOgO2RL+f406DTO8yslTA?=
+ =?us-ascii?Q?j/tfKOLEWVDpRaM2+qkNiB/m7G9/p7HeKVljtKeDzIPZHJ2K+ondiUBV042T?=
+ =?us-ascii?Q?RxMqlsqfmYzkW6UOvI8NiQH7kHqnKzYcTlnRF8VR637PnEPpQrh+B7Pu8MWi?=
+ =?us-ascii?Q?Wce1IiBmzuZStGWQLLc1DoZXCXR+hY9sgNQ6TbjmaEC7n7yxMDXFG/LIHpyu?=
+ =?us-ascii?Q?kmbUYZv03NQtLTduB/Z1ZzlaDQH/c41vHd/rxNdgpka6EuKxluRSCGcgrcOV?=
+ =?us-ascii?Q?/CDYSM7AJCBe8nCvJMzBc4PkAmP1gU3XDQ6j3EE/93XtjquLZAh+ZoiF6foi?=
+ =?us-ascii?Q?Iykmdg7ahKtyzeAsYNFoP7sX?=
 MIME-Version: 1.0
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] spi: spi-mem: add automatic poll
- status functions
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5044.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24763109-613d-46cb-8ad7-08d919281ce6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2021 11:37:12.2967 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Ezo92cigUxkYLhztuARwj3EpJhJe5VQU5IXJW5Pz5kpb30tOghHi3+JjNLodWvvHnAbAx3aihzFoFuCvsJDpmBtNmM9vbzCyQLNyNw/ahYc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1101MB2303
+X-OriginatorOrg: intel.com
+Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
+ "andrew@lunn.ch" <andrew@lunn.ch>,
+ "vee.khee.wong@linux.intel.com" <vee.khee.wong@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Voon,
+ Weifeng" <weifeng.voon@intel.com>, "Wong, Vee Khee" <vee.khee.wong@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Tan,
+ Tee Min" <tee.min.tan@intel.com>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "kuba@kernel.org" <kuba@kernel.org>, "Ong, 
+ Boon Leong" <boon.leong.ong@intel.com>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "hkallweit1@gmail.com" <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: Add callbacks
+ for DWC xpcs Energy Efficient Ethernet
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,83 +165,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 17 May 2021 11:24:25 +0200
-Patrice CHOTARD <patrice.chotard@foss.st.com> wrote:
 
-> Hi Boris
-> 
-> On 5/17/21 9:41 AM, Boris Brezillon wrote:
-> > On Fri, 7 May 2021 15:17:54 +0200
-> > <patrice.chotard@foss.st.com> wrote:
-> >   
-> >> +/**
-> >> + * spi_mem_poll_status() - Poll memory device status
-> >> + * @mem: SPI memory device
-> >> + * @op: the memory operation to execute
-> >> + * @mask: status bitmask to ckeck
-> >> + * @match: (status & mask) expected value
-> >> + * @timeout_ms: timeout in milliseconds
-> >> + *
-> >> + * This function send a polling status request to the controller driver
-> >> + *
-> >> + * Return: 0 in case of success, -ETIMEDOUT in case of error,
-> >> + *         -EOPNOTSUPP if not supported.
-> >> + */
-> >> +int spi_mem_poll_status(struct spi_mem *mem,
-> >> +			const struct spi_mem_op *op,
-> >> +			u16 mask, u16 match, u16 timeout_ms)  
-> > 
-> > Maybe you should pass a delay_us too, to poll the status at the right
-> > rate in the SW-based case (can also be used by drivers if they need to  
-> 
-> Ok, i will add a polling_rate_us parameter to poll_status() callback,
-> even if in STM32 driver case we will not use it, i agree it should be useful 
-> depending of driver's implementation.
-> 
-> > configure the polling rate). You could also add an initial_delay_us to
-> > avoid polling the status too early: an erase operation will take longer
-> > than a write which will take longer than a read. No need to check the
-> > status just after issuing the command, especially if the polling is
-> > done in SW. Those 2 arguments should also be passed to the driver.  
-> 
-> Regarding the addition of an initial_delay_us. We got two solution:
->   - use the same polling rate already used by read_poll_timeout() and 
->     set read_poll_timeout()'s sleep_before_read parameter to true (in our case 20 us
->     will be used as initial delay and as polling rate).
-> 
->   - add an udelay(initial_delay_us) or even better usleep_range(initial_delay_us,
->     initial_delay_us + delta) before calling read_poll_timeout().
-> 
-> I imagine you prefer the second solution ?
 
-Yep, you might want to use udelay() when the delay is small and
-usleep_range() otherwise.
-
+> -----Original Message-----
+> From: Russell King <linux@armlinux.org.uk>
+> Sent: Monday, 17 May, 2021 6:54 PM
+> To: Sit, Michael Wei Hong <michael.wei.hong.sit@intel.com>
+> Cc: Jose.Abreu@synopsys.com; andrew@lunn.ch;
+> hkallweit1@gmail.com; kuba@kernel.org;
+> netdev@vger.kernel.org; peppe.cavallaro@st.com;
+> alexandre.torgue@foss.st.com; davem@davemloft.net;
+> mcoquelin.stm32@gmail.com; Voon, Weifeng
+> <weifeng.voon@intel.com>; Ong, Boon Leong
+> <boon.leong.ong@intel.com>; Tan, Tee Min
+> <tee.min.tan@intel.com>; vee.khee.wong@linux.intel.com;
+> Wong, Vee Khee <vee.khee.wong@intel.com>; linux-stm32@st-
+> md-mailman.stormreply.com; linux-arm-
+> kernel@lists.infradead.org; linux-kernel@vger.kernel.org
+> Subject: Re: [PATCH net-next 2/2] net: stmmac: Add callbacks for
+> DWC xpcs Energy Efficient Ethernet
 > 
-> By adding polling_rate_us and initial_delay_us parameters to 
-> spi_mem_poll_status(), it implies to update all spinand_wait() calls for 
-> different operations (reset, read page, write page, erase) with respective  
-> initial_delay_us/polling_rate_us values for spi_mem_poll_status()'s parameters.
+> On Mon, May 17, 2021 at 05:43:32PM +0800, Michael Sit Wei Hong
+> wrote:
+> > Link xpcs callback functions for MAC to configure the xpcs EEE
+> feature.
+> >
+> > The clk_eee frequency is used to calculate the
+> MULT_FACT_100NS. This
+> > is to adjust the clock tic closer to 100ns.
+> >
+> > Signed-off-by: Michael Sit Wei Hong
+> <michael.wei.hong.sit@intel.com>
 > 
-> Can you provide adequate initial_delay_us and polling rate_us for each operation type ?.
+> What is the initial state of the EEE configuration before the first
+> call to stmmac_ethtool_op_set_eee()? Does it reflect the default
+> EEE settings?
 
-If I refer to the datasheets I have,
+The register values before the first call are the default reset values in
+the registers. The reset values assumes the clk_eee_i time period is 10ns,
+Hence, the reset value is set to 9.
+According to the register description,
+This value should be programmed such that the
+clk_eee_i_time_period * (MULT_FACT_100NS + 1) should be
+within 80 ns to 120 ns.
 
-tBERS (erase) 1ms to 4ms
-tPROG 300us to 400us
-tREAD 25us to 100us
-
-Let's assume we want to minimize the latency, I'd recommend dividing
-the min value by 4 for the initial delay, and dividing it by 20 for the
-poll delay, which gives:
-
-ERASE -> initial_delay = 250us, poll_delay = 50us
-PROG -> initial_delay = 100us, poll_delay = 20us
-READ -> initial_delay = 6us, poll_delay = 5us
-
-Of course, that'd be even better if we were able to extract this
-information from the NAND ID (or ONFI table), but I guess we can live
-with those optimistic values in the meantime.
+Since we are using a fixed 19.2MHz clk_eee, which is 52ns,
+we are setting the value to 1.
+> 
+> --
+> RMK's Patch system:
+> https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at
+> last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
