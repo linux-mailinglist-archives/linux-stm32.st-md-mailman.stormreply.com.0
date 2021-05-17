@@ -2,24 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AEB6382654
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 10:11:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B210F382652
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 10:11:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 066D4C5978C;
-	Mon, 17 May 2021 08:11:08 +0000 (UTC)
-Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65ECDC32E8F;
+	Mon, 17 May 2021 08:11:06 +0000 (UTC)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D17DFC57B74
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6612C57B74
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 May 2021 08:11:05 +0000 (UTC)
-Received: from dggems705-chm.china.huawei.com (unknown [172.30.72.58])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4FkBb63RVlzCt5q;
- Mon, 17 May 2021 16:08:18 +0800 (CST)
+ Mon, 17 May 2021 08:11:03 +0000 (UTC)
+Received: from dggems706-chm.china.huawei.com (unknown [172.30.72.59])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FkBbf6Qx0zmWv8;
+ Mon, 17 May 2021 16:08:46 +0800 (CST)
 Received: from dggema762-chm.china.huawei.com (10.1.198.204) by
- dggems705-chm.china.huawei.com (10.3.19.182) with Microsoft SMTP Server
+ dggems706-chm.china.huawei.com (10.3.19.183) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Mon, 17 May 2021 16:11:00 +0800
+ 15.1.2176.2; Mon, 17 May 2021 16:11:01 +0800
 Received: from huawei.com (10.175.127.227) by dggema762-chm.china.huawei.com
  (10.1.198.204) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Mon, 17
@@ -27,8 +27,8 @@ Received: from huawei.com (10.175.127.227) by dggema762-chm.china.huawei.com
 From: Yu Kuai <yukuai3@huawei.com>
 To: <vkoul@kernel.org>, <mcoquelin.stm32@gmail.com>,
  <alexandre.torgue@foss.st.com>, <michal.simek@xilinx.com>
-Date: Mon, 17 May 2021 16:18:24 +0800
-Message-ID: <20210517081826.1564698-2-yukuai3@huawei.com>
+Date: Mon, 17 May 2021 16:18:25 +0800
+Message-ID: <20210517081826.1564698-3-yukuai3@huawei.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20210517081826.1564698-1-yukuai3@huawei.com>
 References: <20210517081826.1564698-1-yukuai3@huawei.com>
@@ -40,8 +40,8 @@ X-CFilter-Loop: Reflected
 Cc: yi.zhang@huawei.com, linux-kernel@vger.kernel.org,
  dmaengine@vger.kernel.org, yukuai3@huawei.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/3] dmaengine: stm32-mdma: fix PM reference
-	leak in stm32_mdma_alloc_chan_resourc()
+Subject: [Linux-stm32] [PATCH 2/3] dmaengine: usb-dmac: Fix PM reference
+	leak in usb_dmac_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,31 +66,22 @@ counter balanced.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/dma/stm32-mdma.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/dma/sh/usb-dmac.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-index 36ba8b43e78d..18cbd1e43c2e 100644
---- a/drivers/dma/stm32-mdma.c
-+++ b/drivers/dma/stm32-mdma.c
-@@ -1452,7 +1452,7 @@ static int stm32_mdma_alloc_chan_resources(struct dma_chan *c)
- 		return -ENOMEM;
- 	}
+diff --git a/drivers/dma/sh/usb-dmac.c b/drivers/dma/sh/usb-dmac.c
+index 8f7ceb698226..2a6c8fd8854e 100644
+--- a/drivers/dma/sh/usb-dmac.c
++++ b/drivers/dma/sh/usb-dmac.c
+@@ -796,7 +796,7 @@ static int usb_dmac_probe(struct platform_device *pdev)
  
--	ret = pm_runtime_get_sync(dmadev->ddev.dev);
-+	ret = pm_runtime_resume_and_get(dmadev->ddev.dev);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -1718,7 +1718,7 @@ static int stm32_mdma_pm_suspend(struct device *dev)
- 	u32 ccr, id;
- 	int ret;
- 
--	ret = pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
- 	if (ret < 0)
- 		return ret;
- 
+ 	/* Enable runtime PM and initialize the device. */
+ 	pm_runtime_enable(&pdev->dev);
+-	ret = pm_runtime_get_sync(&pdev->dev);
++	ret = pm_runtime_resume_and_get(&pdev->dev);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "runtime PM get sync failed (%d)\n", ret);
+ 		goto error_pm;
 -- 
 2.25.4
 
