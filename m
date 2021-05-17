@@ -2,63 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A057B383AF2
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 19:15:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55583386D6B
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 May 2021 01:00:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66E7BC5978A;
-	Mon, 17 May 2021 17:15:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A682C59785;
+	Mon, 17 May 2021 23:00:16 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEC6CC58D78
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0BBBC58D7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 May 2021 17:15:53 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 14HHFrU3027860; Mon, 17 May 2021 19:15:53 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=+F7Xr6qALoUxqaGq+sgbE7ucOObFrRnc+ROq2YE54Ps=;
- b=YPl5wR5s55za35JFay4p4jeW6guPH60OZ4Ng4vHNsIDZwhMdXkww8DL4DyEMtqo0N7Ew
- 5wZdDMBDQ/rJMlDnkUtr3nCf27YibjVc2VdpCcgz9OYcVrOHYkguLdj9fTZgbKtb9tEO
- MW11401SDgBJM7yZD6qNQK4SfnlSlSEC2SupnTH1oMw2BlDwaqG1seUD7l2HkK+yz5A/
- 1740EmfTO1wjJux9Lvayi9dZYHR4tquYjV9Arp9boWHUYj5Xgw2QE8BqvyZ/YA1zraEB
- ZJ5dDCssNFXZkEdxauIQR8g8keqFrfsoVQRqfrlkOQXsuG2Z8tPjsnrmu0mOtsCJpulC 0w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 38k5dq63xn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 May 2021 19:15:53 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EDEDF100039;
- Mon, 17 May 2021 19:15:45 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E39AD212FAB;
- Mon, 17 May 2021 19:15:45 +0200 (CEST)
-Received: from localhost (10.75.127.50) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 17 May 2021 19:15:45
- +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
- <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Mon, 17 May 2021 19:15:31 +0200
-Message-ID: <20210517171531.21205-5-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210517171531.21205-1-arnaud.pouliquen@foss.st.com>
-References: <20210517171531.21205-1-arnaud.pouliquen@foss.st.com>
+ Mon, 17 May 2021 23:00:13 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 839496134F;
+ Mon, 17 May 2021 23:00:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1621292412;
+ bh=zseJInV76JwddU8WjJbwFCXdZiWWLZ6gbeEwTjl1Yo8=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=usc3cjlKQl8apO71D1hwDpJmrMMEVe0IhCgMwYQH7n+D3zcOYCoxoeuKHU4Ux/vHz
+ pXRfyvSvAkHX+7uN8VZUNa5sPgsYjhzHhyCzh5DeyPC3sDIqCoISeLArJ0yccOemKf
+ y8viuI46EMhk+KFTfxE4455auaNTfFQZA5Ez415g7c6up+CGwjun13w8577Es48YKT
+ jb+Hq1x5Sf4KtlH76uFFEyZZwzPocaQwOeZx2QWSQsRKs7HuGk4coQ9mbAnXB0WRoT
+ jM4/VeqLREwo9xXSRjxfkqBP9BzG7BIcDkYAwhHS35ipYHGUuZOjnvsB+5yqyQQgVj
+ FbYR5yzOY1ptQ==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 7C50A60A4D;
+ Mon, 17 May 2021 23:00:12 +0000 (UTC)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-05-17_08:2021-05-17,
- 2021-05-17 signatures=0
-Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v4 4/4] rpmsg: Update
-	rpmsg_chrdev_register_device function
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <162129241250.19462.16193417271658339119.git-patchwork-notify@kernel.org>
+Date: Mon, 17 May 2021 23:00:12 +0000
+References: <20210517094332.24976-1-michael.wei.hong.sit@intel.com>
+In-Reply-To: <20210517094332.24976-1-michael.wei.hong.sit@intel.com>
+To: Sit@ci.codeaurora.org,
+	Michael Wei Hong <michael.wei.hong.sit@intel.com>
+Cc: Jose.Abreu@synopsys.com, andrew@lunn.ch, vee.khee.wong@linux.intel.com,
+ linux-kernel@vger.kernel.org, weifeng.voon@intel.com, vee.khee.wong@intel.com,
+ netdev@vger.kernel.org, tee.min.tan@intel.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
+ alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, boon.leong.ong@intel.com, kuba@kernel.org,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] Introducing support for DWC
+ xpcs Energy Efficient Ethernet
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,109 +63,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The rpmsg_chrdev driver has been replaced by the rpmsg_ctrl driver
-for the /dev/rpmsg_ctrlX devices management. The reference for the
-driver override is now the rpmsg_ctrl.
+Hello:
 
-Update the rpmsg_chrdev_register_device function to reflect the update,
-and rename the function to use the rpmsg_ctrldev prefix.
+This series was applied to netdev/net-next.git (refs/heads/master):
 
-The platform drivers are updated accordingly.
+On Mon, 17 May 2021 17:43:30 +0800 you wrote:
+> The goal of this patch set is to enable EEE in the xpcs so that when
+> EEE is enabled, the MAC-->xpcs-->PHY have all the EEE related
+> configurations enabled.
+> 
+> Patch 1 adds the functions to enable EEE in the xpcs and sets it to
+> transparent mode.
+> Patch 2 adds the callbacks to configure the xpcs EEE mode.
+> 
+> [...]
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+Here is the summary with links:
+  - [net-next,1/2] net: pcs: Introducing support for DWC xpcs Energy Efficient Ethernet
+    https://git.kernel.org/netdev/net-next/c/7617af3d1a5e
+  - [net-next,2/2] net: stmmac: Add callbacks for DWC xpcs Energy Efficient Ethernet
+    https://git.kernel.org/netdev/net-next/c/e80fe71b3ffe
 
----
-Update from V3:
-- s/rpmsg_chrdev_register_device/rpmsg_ctrldev_register_device in
-  header comment.
----
- drivers/rpmsg/qcom_glink_native.c | 2 +-
- drivers/rpmsg/qcom_smd.c          | 2 +-
- drivers/rpmsg/rpmsg_ctrl.c        | 2 +-
- drivers/rpmsg/rpmsg_internal.h    | 8 ++++----
- drivers/rpmsg/virtio_rpmsg_bus.c  | 2 +-
- 5 files changed, 8 insertions(+), 8 deletions(-)
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
-index 05533c71b10e..7d7e809800ec 100644
---- a/drivers/rpmsg/qcom_glink_native.c
-+++ b/drivers/rpmsg/qcom_glink_native.c
-@@ -1642,7 +1642,7 @@ static int qcom_glink_create_chrdev(struct qcom_glink *glink)
- 	rpdev->dev.parent = glink->dev;
- 	rpdev->dev.release = qcom_glink_device_release;
- 
--	return rpmsg_chrdev_register_device(rpdev);
-+	return rpmsg_ctrldev_register_device(rpdev);
- }
- 
- struct qcom_glink *qcom_glink_native_probe(struct device *dev,
-diff --git a/drivers/rpmsg/qcom_smd.c b/drivers/rpmsg/qcom_smd.c
-index 8da1b5cb31b3..d223e438d17c 100644
---- a/drivers/rpmsg/qcom_smd.c
-+++ b/drivers/rpmsg/qcom_smd.c
-@@ -1113,7 +1113,7 @@ static int qcom_smd_create_chrdev(struct qcom_smd_edge *edge)
- 	qsdev->rpdev.dev.parent = &edge->dev;
- 	qsdev->rpdev.dev.release = qcom_smd_release_device;
- 
--	return rpmsg_chrdev_register_device(&qsdev->rpdev);
-+	return rpmsg_ctrldev_register_device(&qsdev->rpdev);
- }
- 
- /*
-diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
-index 87a1746367eb..eeb1708548c1 100644
---- a/drivers/rpmsg/rpmsg_ctrl.c
-+++ b/drivers/rpmsg/rpmsg_ctrl.c
-@@ -179,7 +179,7 @@ static struct rpmsg_driver rpmsg_ctrldev_driver = {
- 	.probe = rpmsg_ctrldev_probe,
- 	.remove = rpmsg_ctrldev_remove,
- 	.drv = {
--		.name = "rpmsg_chrdev",
-+		.name = "rpmsg_ctrl",
- 	},
- };
- 
-diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
-index a76c344253bf..d6056f09bcd8 100644
---- a/drivers/rpmsg/rpmsg_internal.h
-+++ b/drivers/rpmsg/rpmsg_internal.h
-@@ -82,16 +82,16 @@ struct rpmsg_device *rpmsg_create_channel(struct rpmsg_device *rpdev,
- int rpmsg_release_channel(struct rpmsg_device *rpdev,
- 			  struct rpmsg_channel_info *chinfo);
- /**
-- * rpmsg_chrdev_register_device() - register chrdev device based on rpdev
-+ * rpmsg_ctrldev_register_device() - register a char device for control based on rpdev
-  * @rpdev:	prepared rpdev to be used for creating endpoints
-  *
-  * This function wraps rpmsg_register_device() preparing the rpdev for use as
-  * basis for the rpmsg chrdev.
-  */
--static inline int rpmsg_chrdev_register_device(struct rpmsg_device *rpdev)
-+static inline int rpmsg_ctrldev_register_device(struct rpmsg_device *rpdev)
- {
--	strcpy(rpdev->id.name, "rpmsg_chrdev");
--	rpdev->driver_override = "rpmsg_chrdev";
-+	strcpy(rpdev->id.name, "rpmsg_ctrl");
-+	rpdev->driver_override = "rpmsg_ctrl";
- 
- 	return rpmsg_register_device(rpdev);
- }
-diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-index 8e49a3bacfc7..e42234a3e2ab 100644
---- a/drivers/rpmsg/virtio_rpmsg_bus.c
-+++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-@@ -840,7 +840,7 @@ static struct rpmsg_device *rpmsg_virtio_add_ctrl_dev(struct virtio_device *vdev
- 	rpdev_ctrl->dev.release = virtio_rpmsg_release_device;
- 	rpdev_ctrl->little_endian = virtio_is_little_endian(vrp->vdev);
- 
--	err = rpmsg_chrdev_register_device(rpdev_ctrl);
-+	err = rpmsg_ctrldev_register_device(rpdev_ctrl);
- 	if (err) {
- 		kfree(vch);
- 		return ERR_PTR(err);
--- 
-2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
