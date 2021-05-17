@@ -2,55 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A30D4381B0A
-	for <lists+linux-stm32@lfdr.de>; Sat, 15 May 2021 22:43:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFEAD382556
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 09:29:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3543FC57B5F;
-	Sat, 15 May 2021 20:43:38 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27CFBC57B75;
+	Mon, 17 May 2021 07:29:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07B5CC57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A678EC57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 15 May 2021 20:43:35 +0000 (UTC)
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 9C6CC82A85;
- Sat, 15 May 2021 22:43:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1621111414;
- bh=cOW2a/Znu89zokYWr/k7mO9lI0zD0AtfhbbUxTvTUkA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HVM+XLMVPNkZJqHxn/fI6Vk5xCvuBFCejMaotA8BleKkOR+QEff8ihLgGRf5AAOCs
- bXVAdYGkTe5VHUDJqpHrKB/AFWNPBaPUnGMsNULGBEuWjGmT6PmAVx7CleemIzeI2R
- A5QBDuZ/7JLMdFXnC0u/bdxcnvkO9Hl5KCp0/UX5ko49hKxtjFXfwz8RstHlM49gnK
- iPaWFYBi5dgJhYMz10Apw0xv1A5ovZCLsVReJy0s/tWSI0KA1HXxJzQchbtkJxgeAy
- 54Z5p9x48/TP2OjET1vL2LCUT+q2d6JbOeikGImeWDYL5rJnhzAsMiP4kcG5i+1Rg8
- MJJPBeR6Cyy0Q==
-From: Marek Vasut <marex@denx.de>
-To: dri-devel@lists.freedesktop.org
-Date: Sat, 15 May 2021 22:43:16 +0200
-Message-Id: <20210515204317.366967-2-marex@denx.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210515204317.366967-1-marex@denx.de>
-References: <20210515204317.366967-1-marex@denx.de>
+ Mon, 17 May 2021 07:29:42 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 14H7C2Y0012348; Mon, 17 May 2021 09:29:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=IBklEhJOoqnRyM5eXyLESodNBjnwwQeXasaYr+V1Hs8=;
+ b=AXloOSyjoJBa8hQbEwYVFThW80uykJN6iVPny5RTPDvvzEuUAG2oPtk4xmHFuGF7AoJ1
+ aIkKBc+W8RoTown7zPNJmSxbpGK8xeNanQ92dHzxrernkIElpge/31I8CDumzyI3a/0X
+ BgvlrEqU9ZJYqvN+7EFaW4yh0DTtvF7H6JWbLPYL6ek+RhL0xfmx/66qFhs/yrAtcUd4
+ XnRviqW2iaRTVxSnEz59/QU/vWOIFsV9BJw1ICHfS25lFqvMUuGDmlVxQs83ttA/N6uX
+ 44PybUlC573C6fw9oCoe5ZMUWbe8GjXDfzK9fxUjzfezG7CIM/4a44x9PTx2ePPGpF0c Lg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38k5dq34pu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 May 2021 09:29:29 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E4D53100034;
+ Mon, 17 May 2021 09:29:26 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B4B34214D36;
+ Mon, 17 May 2021 09:29:26 +0200 (CEST)
+Received: from lmecxl0573.lme.st.com (10.75.127.47) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 17 May
+ 2021 09:29:25 +0200
+To: Boris Brezillon <boris.brezillon@collabora.com>
+References: <20210507131756.17028-1-patrice.chotard@foss.st.com>
+ <20210507131756.17028-2-patrice.chotard@foss.st.com>
+ <20210508095506.4d0d628a@collabora.com>
+ <542000b4-1a65-5090-72f9-441c75ee1098@foss.st.com>
+ <20210510112249.5613978e@collabora.com>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+Message-ID: <48d8774c-9868-27e5-b8b0-fdbf99c84ba2@foss.st.com>
+Date: Mon, 17 May 2021 09:29:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, ch@denx.de,
- Antonio Borneo <antonio.borneo@st.com>, Vincent Abriou <vincent.abriou@st.com>,
- Philippe Cornu <philippe.cornu@st.com>, Yannick Fertre <yannick.fertre@st.com>,
- Andrzej Hajda <a.hajda@samsung.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Benjamin Gaignard <benjamin.gaignard@st.com>
-Subject: [Linux-stm32] [PATCH V4 2/2] drm/bridge: lvds-codec: Add support
-	for pixel data sampling edge select
+In-Reply-To: <20210510112249.5613978e@collabora.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-05-17_01:2021-05-12,
+ 2021-05-17 signatures=0
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/3] spi: spi-mem: add automatic poll
+	status functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,88 +83,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
-select input pixel data sampling edge. Add DT property "pclk-sample", not
-the same as the one used by display timings but rather the same as used by
-media, and configure bus flags based on this DT property.
+Hi Boris
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Andrzej Hajda <a.hajda@samsung.com>
-Cc: Antonio Borneo <antonio.borneo@st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Philippe Cornu <philippe.cornu@st.com>
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Vincent Abriou <vincent.abriou@st.com>
-Cc: Yannick Fertre <yannick.fertre@st.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: dri-devel@lists.freedesktop.org
----
-V2: - Limit the pixelclk-active to encoders only
-    - Update DT binding document
-V3: - Determine whether this is encoder from connector, i.e.
-      lvds_codec->connector_type == DRM_MODE_CONNECTOR_LVDS
-V4: - Switch to pclk-sample. Note that the value of this is inverted,
-      so all the existing users of pixelclk-active using previous
-      version of this patch must be reworked
----
- drivers/gpu/drm/bridge/lvds-codec.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+On 5/10/21 11:22 AM, Boris Brezillon wrote:
+> On Mon, 10 May 2021 10:46:48 +0200
+> Patrice CHOTARD <patrice.chotard@foss.st.com> wrote:
+> 
+>>>   
+>>>> +
+>>>> +	if (ctlr->mem_ops && ctlr->mem_ops->poll_status) {
+>>>> +		ret = spi_mem_access_start(mem);
+>>>> +		if (ret)
+>>>> +			return ret;
+>>>> +
+>>>> +		reinit_completion(&ctlr->xfer_completion);
+>>>> +
+>>>> +		ret = ctlr->mem_ops->poll_status(mem, op, mask, match,
+>>>> +						 timeout_ms);
+>>>> +
+>>>> +		ms = wait_for_completion_timeout(&ctlr->xfer_completion,
+>>>> +						 msecs_to_jiffies(timeout_ms));  
+>>>
+>>> Why do you need to wait here? I'd expect the poll_status to take care
+>>> of this wait.  
+>>
+>> It was a request from Mark Brown [1]. The idea is to implement
+>> similar mechanism already used in SPI framework.
+> 
+> Well, you have to choose, either you pass a timeout to ->poll_status()
+> and let the driver wait for the status change (and return -ETIMEDOUT if
+> it didn't happen in time), or you do it here and the driver only has to
+> signal the core completion object. I think it's preferable to let the
+> driver handle the timeout though, because you don't know how the
+> status check will be implemented, and it's not like the
+> reinit_completion()+wait_for_completion_timeout() done here would
+> greatly simplify the drivers wait logic anyway.
+> 
 
-diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
-index dcf579a4cf83..8a7cb267ab14 100644
---- a/drivers/gpu/drm/bridge/lvds-codec.c
-+++ b/drivers/gpu/drm/bridge/lvds-codec.c
-@@ -19,6 +19,7 @@ struct lvds_codec {
- 	struct device *dev;
- 	struct drm_bridge bridge;
- 	struct drm_bridge *panel_bridge;
-+	struct drm_bridge_timings timings;
- 	struct regulator *vcc;
- 	struct gpio_desc *powerdown_gpio;
- 	u32 connector_type;
-@@ -80,6 +81,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
- 	struct device_node *panel_node;
- 	struct drm_panel *panel;
- 	struct lvds_codec *lvds_codec;
-+	u32 val;
- 
- 	lvds_codec = devm_kzalloc(dev, sizeof(*lvds_codec), GFP_KERNEL);
- 	if (!lvds_codec)
-@@ -119,6 +121,18 @@ static int lvds_codec_probe(struct platform_device *pdev)
- 	if (IS_ERR(lvds_codec->panel_bridge))
- 		return PTR_ERR(lvds_codec->panel_bridge);
- 
-+	/*
-+	 * Encoder might sample data on different clock edge than the display,
-+	 * for example OnSemi FIN3385 has a dedicated strapping pin to select
-+	 * the sampling edge.
-+	 */
-+	if (lvds_codec->connector_type == DRM_MODE_CONNECTOR_LVDS &&
-+	    !of_property_read_u32(dev->of_node, "pclk-sample", &val)) {
-+		lvds_codec->timings.input_bus_flags = val ?
-+			DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE :
-+			DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE;
-+	}
-+
- 	/*
- 	 * The panel_bridge bridge is attached to the panel's of_node,
- 	 * but we need a bridge attached to our of_node for our user
-@@ -126,6 +140,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
- 	 */
- 	lvds_codec->bridge.of_node = dev->of_node;
- 	lvds_codec->bridge.funcs = &funcs;
-+	lvds_codec->bridge.timings = &lvds_codec->timings;
- 	drm_bridge_add(&lvds_codec->bridge);
- 
- 	platform_set_drvdata(pdev, lvds_codec);
--- 
-2.30.2
-
+Ok i will remove the reinit/wait_completion() as you suggested.
+Thanks
+Patrice
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
