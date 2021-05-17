@@ -2,40 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D661B382588
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 09:41:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A54AA382651
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 10:11:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79E92C57B75;
-	Mon, 17 May 2021 07:41:47 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F288C32E8F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C206C58D5F;
+	Mon, 17 May 2021 08:11:06 +0000 (UTC)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 668BAC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 May 2021 07:41:45 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id A2C521F41C79;
- Mon, 17 May 2021 08:41:44 +0100 (BST)
-Date: Mon, 17 May 2021 09:41:40 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: <patrice.chotard@foss.st.com>
-Message-ID: <20210517094140.53cb643a@collabora.com>
-In-Reply-To: <20210507131756.17028-2-patrice.chotard@foss.st.com>
-References: <20210507131756.17028-1-patrice.chotard@foss.st.com>
- <20210507131756.17028-2-patrice.chotard@foss.st.com>
-Organization: Collabora
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-redhat-linux-gnu)
+ Mon, 17 May 2021 08:11:03 +0000 (UTC)
+Received: from dggems703-chm.china.huawei.com (unknown [172.30.72.59])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FkBbd5QMbzmWvc;
+ Mon, 17 May 2021 16:08:45 +0800 (CST)
+Received: from dggema762-chm.china.huawei.com (10.1.198.204) by
+ dggems703-chm.china.huawei.com (10.3.19.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Mon, 17 May 2021 16:11:00 +0800
+Received: from huawei.com (10.175.127.227) by dggema762-chm.china.huawei.com
+ (10.1.198.204) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Mon, 17
+ May 2021 16:10:59 +0800
+From: Yu Kuai <yukuai3@huawei.com>
+To: <vkoul@kernel.org>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@foss.st.com>, <michal.simek@xilinx.com>
+Date: Mon, 17 May 2021 16:18:23 +0800
+Message-ID: <20210517081826.1564698-1-yukuai3@huawei.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
+X-Originating-IP: [10.175.127.227]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ dggema762-chm.china.huawei.com (10.1.198.204)
+X-CFilter-Loop: Reflected
+Cc: yi.zhang@huawei.com, linux-kernel@vger.kernel.org,
+ dmaengine@vger.kernel.org, yukuai3@huawei.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] spi: spi-mem: add automatic poll
- status functions
+Subject: [Linux-stm32] [PATCH 0/3] cleanup patches for PM reference leak
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,73 +55,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 7 May 2021 15:17:54 +0200
-<patrice.chotard@foss.st.com> wrote:
+Yu Kuai (3):
+  dmaengine: stm32-mdma: fix PM reference leak in
+    stm32_mdma_alloc_chan_resourc()
+  dmaengine: usb-dmac: Fix PM reference leak in usb_dmac_probe()
+  dmaengine: zynqmp_dma: Fix PM reference leak in
+    zynqmp_dma_alloc_chan_resourc()
 
-> +/**
-> + * spi_mem_poll_status() - Poll memory device status
-> + * @mem: SPI memory device
-> + * @op: the memory operation to execute
-> + * @mask: status bitmask to ckeck
-> + * @match: (status & mask) expected value
-> + * @timeout_ms: timeout in milliseconds
-> + *
-> + * This function send a polling status request to the controller driver
-> + *
-> + * Return: 0 in case of success, -ETIMEDOUT in case of error,
-> + *         -EOPNOTSUPP if not supported.
-> + */
-> +int spi_mem_poll_status(struct spi_mem *mem,
-> +			const struct spi_mem_op *op,
-> +			u16 mask, u16 match, u16 timeout_ms)
+ drivers/dma/sh/usb-dmac.c       | 2 +-
+ drivers/dma/stm32-mdma.c        | 4 ++--
+ drivers/dma/xilinx/zynqmp_dma.c | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-Maybe you should pass a delay_us too, to poll the status at the right
-rate in the SW-based case (can also be used by drivers if they need to
-configure the polling rate). You could also add an initial_delay_us to
-avoid polling the status too early: an erase operation will take longer
-than a write which will take longer than a read. No need to check the
-status just after issuing the command, especially if the polling is
-done in SW. Those 2 arguments should also be passed to the driver.
+-- 
+2.25.4
 
-> +{
-> +	struct spi_controller *ctlr = mem->spi->controller;
-> +	unsigned long ms;
-> +	int ret = -EOPNOTSUPP;
-> +	int exec_op_ret;
-> +	u16 *status;
-> +
-> +	if (!spi_mem_supports_op(mem, op))
-> +		return ret;
-> +
-> +	if (ctlr->mem_ops && ctlr->mem_ops->poll_status) {
-> +		ret = spi_mem_access_start(mem);
-> +		if (ret)
-> +			return ret;
-> +
-> +		reinit_completion(&ctlr->xfer_completion);
-> +
-> +		ret = ctlr->mem_ops->poll_status(mem, op, mask, match,
-> +						 timeout_ms);
-> +
-> +		ms = wait_for_completion_timeout(&ctlr->xfer_completion,
-> +						 msecs_to_jiffies(timeout_ms));
-> +
-> +		spi_mem_access_end(mem);
-> +		if (!ms)
-> +			return -ETIMEDOUT;
-> +	} else {
-> +		status = (u16 *)op->data.buf.in;
-> +		ret = read_poll_timeout(spi_mem_exec_op, exec_op_ret,
-> +					((*status) & mask) == match, 20,
-> +					timeout_ms * 1000, false, mem, op);
-> +		if (exec_op_ret)
-> +			return exec_op_ret;
-> +	}
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(spi_mem_poll_status);
-> +
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
