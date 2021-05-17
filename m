@@ -2,69 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40EA238283E
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 11:24:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3A7D3828BB
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 May 2021 11:48:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7A14C57B75;
-	Mon, 17 May 2021 09:24:43 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CC93C57B75;
+	Mon, 17 May 2021 09:48:37 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 938DBC57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE592C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 May 2021 09:24:38 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 14H9MVPX006903; Mon, 17 May 2021 11:24:28 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=WdwIYz9n3q739UyFGFQQ8DkrMAYz9kYQ1+zwMXuZRIw=;
- b=Zl+fOtSTT2eODREyYEydwBwD54dsZLEwbQGFuEKtwdHagmycLkJ6orZnxLqCRJrf3W8W
- pXbPaAWBxZ1uPgNLg7vKFCeDFd0fDvgDGFi16t7vCX4gEMN4B9cMD1ZEj0YZnnX7Xmwo
- DuTTkIG4B68gUdFLbxMSxGl8v6I/N4sI2lpsk5Xo/b3UKuIrvf8dlD0y1GYViih3GOPb
- xnv0b0lXZCL6+7TiyLMQ7LeVC5r86+1rq/4zxSUt6M3HdFdALO/gZ/roG48f6FUM/lnL
- HYS+fLEWiu16ptqXYJaNn91aMBw1xSIJd34Y6aC2Eggnr4SJEuCt0kyw9l2Q9eevFxw9 iQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 38km7pgm91-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 May 2021 11:24:28 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 27C2D10002A;
- Mon, 17 May 2021 11:24:27 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 12D9A221060;
- Mon, 17 May 2021 11:24:27 +0200 (CEST)
-Received: from lmecxl0573.lme.st.com (10.75.127.50) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 17 May
- 2021 11:24:26 +0200
-To: Boris Brezillon <boris.brezillon@collabora.com>
-References: <20210507131756.17028-1-patrice.chotard@foss.st.com>
- <20210507131756.17028-2-patrice.chotard@foss.st.com>
- <20210517094140.53cb643a@collabora.com>
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-Message-ID: <e70b13ba-7f65-7ff1-0517-94b39615dcdb@foss.st.com>
-Date: Mon, 17 May 2021 11:24:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20210517094140.53cb643a@collabora.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-05-17_03:2021-05-12,
- 2021-05-17 signatures=0
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] spi: spi-mem: add automatic poll
-	status functions
+ Mon, 17 May 2021 09:48:35 +0000 (UTC)
+IronPort-SDR: 1M9YDyrAuiKqkriAGt7N/yNmOk7EO4Xn2G1ZwiLFaI4KUdltncVcnhYL5NcMZLlteJNchr6oam
+ HxT7wKoWo2fw==
+X-IronPort-AV: E=McAfee;i="6200,9189,9986"; a="197344769"
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="197344769"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2021 02:48:33 -0700
+IronPort-SDR: BtMZeH5xv+CEdiQruJx2fAA9YSh2lB5octWCZn2VKPrz0BtrG/Rzd0FlZF1u9p6gPLMT7qdW//
+ DWvsCgc6r2Xw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.82,307,1613462400"; d="scan'208";a="540355990"
+Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
+ by fmsmga001.fm.intel.com with ESMTP; 17 May 2021 02:48:29 -0700
+From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+To: Jose.Abreu@synopsys.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, kuba@kernel.org, netdev@vger.kernel.org,
+ peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, davem@davemloft.net,
+ mcoquelin.stm32@gmail.com, weifeng.voon@intel.com,
+ boon.leong.ong@intel.com, tee.min.tan@intel.com,
+ vee.khee.wong@linux.intel.com, vee.khee.wong@intel.com,
+ michael.wei.hong.sit@intel.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 17 May 2021 17:43:30 +0800
+Message-Id: <20210517094332.24976-1-michael.wei.hong.sit@intel.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [Linux-stm32] [PATCH net-next 0/2] Introducing support for DWC xpcs
+	Energy Efficient Ethernet
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,106 +51,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Boris
+The goal of this patch set is to enable EEE in the xpcs so that when
+EEE is enabled, the MAC-->xpcs-->PHY have all the EEE related
+configurations enabled.
 
-On 5/17/21 9:41 AM, Boris Brezillon wrote:
-> On Fri, 7 May 2021 15:17:54 +0200
-> <patrice.chotard@foss.st.com> wrote:
-> 
->> +/**
->> + * spi_mem_poll_status() - Poll memory device status
->> + * @mem: SPI memory device
->> + * @op: the memory operation to execute
->> + * @mask: status bitmask to ckeck
->> + * @match: (status & mask) expected value
->> + * @timeout_ms: timeout in milliseconds
->> + *
->> + * This function send a polling status request to the controller driver
->> + *
->> + * Return: 0 in case of success, -ETIMEDOUT in case of error,
->> + *         -EOPNOTSUPP if not supported.
->> + */
->> +int spi_mem_poll_status(struct spi_mem *mem,
->> +			const struct spi_mem_op *op,
->> +			u16 mask, u16 match, u16 timeout_ms)
-> 
-> Maybe you should pass a delay_us too, to poll the status at the right
-> rate in the SW-based case (can also be used by drivers if they need to
+Patch 1 adds the functions to enable EEE in the xpcs and sets it to
+transparent mode.
+Patch 2 adds the callbacks to configure the xpcs EEE mode.
 
-Ok, i will add a polling_rate_us parameter to poll_status() callback,
-even if in STM32 driver case we will not use it, i agree it should be useful 
-depending of driver's implementation.
+The results are tested by checking the lpi counters of the tx and rx
+path of the interface. When EEE is enabled, the lpi counters should
+increament as it enters and exits lpi states.
 
-> configure the polling rate). You could also add an initial_delay_us to
-> avoid polling the status too early: an erase operation will take longer
-> than a write which will take longer than a read. No need to check the
-> status just after issuing the command, especially if the polling is
-> done in SW. Those 2 arguments should also be passed to the driver.
+host@EHL$ ethtool --show-eee enp0s30f4
+EEE Settings for enp0s30f4:
+        EEE status: disabled
+        Tx LPI: disabled
+        Supported EEE link modes:  100baseT/Full
+                                   1000baseT/Full
+        Advertised EEE link modes:  Not reported
+        Link partner advertised EEE link modes:  100baseT/Full
+                                                 1000baseT/Full
+host@EHL$ ethtool -S enp0s30f4 | grep lpi
+     irq_tx_path_in_lpi_mode_n: 0
+     irq_tx_path_exit_lpi_mode_n: 0
+     irq_rx_path_in_lpi_mode_n: 0
+     irq_rx_path_exit_lpi_mode_n: 0
+host@EHL$ ethtool --set-eee enp0s30f4 eee on
+host@EHL$ [  110.265154] intel-eth-pci 0000:00:1e.4 enp0s30f4: Link is Down
+[  112.315155] intel-eth-pci 0000:00:1e.4 enp0s30f4: Link is Up - 1Gbps/Full - flow control off
+[  112.324612] IPv6: ADDRCONF(NETDEV_CHANGE): enp0s30f4: link becomes ready
+host@EHL$ ethtool --show-eee enp0s30f4
+EEE Settings for enp0s30f4:
+        EEE status: enabled - active
+        Tx LPI: 1000000 (us)
+        Supported EEE link modes:  100baseT/Full
+                                   1000baseT/Full
+        Advertised EEE link modes:  100baseT/Full
+                                    1000baseT/Full
+        Link partner advertised EEE link modes:  100baseT/Full
+                                                 1000baseT/Full
+host@EHL$ ethtool -S enp0s30f4 | grep lpi
+     irq_tx_path_in_lpi_mode_n: 6
+     irq_tx_path_exit_lpi_mode_n: 5
+     irq_rx_path_in_lpi_mode_n: 7
+     irq_rx_path_exit_lpi_mode_n: 6
+host@EHL$ ping 192.168.1.1
+PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=1.02 ms
+64 bytes from 192.168.1.1: icmp_seq=2 ttl=64 time=0.510 ms
+64 bytes from 192.168.1.1: icmp_seq=3 ttl=64 time=0.489 ms
+64 bytes from 192.168.1.1: icmp_seq=4 ttl=64 time=0.484 ms
+64 bytes from 192.168.1.1: icmp_seq=5 ttl=64 time=0.504 ms
+64 bytes from 192.168.1.1: icmp_seq=6 ttl=64 time=0.466 ms
+64 bytes from 192.168.1.1: icmp_seq=7 ttl=64 time=0.529 ms
+64 bytes from 192.168.1.1: icmp_seq=8 ttl=64 time=0.519 ms
+64 bytes from 192.168.1.1: icmp_seq=9 ttl=64 time=0.518 ms
+64 bytes from 192.168.1.1: icmp_seq=10 ttl=64 time=0.501 ms
 
-Regarding the addition of an initial_delay_us. We got two solution:
-  - use the same polling rate already used by read_poll_timeout() and 
-    set read_poll_timeout()'s sleep_before_read parameter to true (in our case 20 us
-    will be used as initial delay and as polling rate).
+--- 192.168.1.1 ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9216ms
+rtt min/avg/max/mdev = 0.466/0.553/1.018/0.155 ms
+host@EHL$ ethtool -S enp0s30f4 | grep lpi
+     irq_tx_path_in_lpi_mode_n: 22
+     irq_tx_path_exit_lpi_mode_n: 21
+     irq_rx_path_in_lpi_mode_n: 21
+     irq_rx_path_exit_lpi_mode_n: 20
 
-  - add an udelay(initial_delay_us) or even better usleep_range(initial_delay_us,
-    initial_delay_us + delta) before calling read_poll_timeout().
+Michael Sit Wei Hong (2):
+  net: pcs: Introducing support for DWC xpcs Energy Efficient Ethernet
+  net: stmmac: Add callbacks for DWC xpcs Energy Efficient Ethernet
 
-I imagine you prefer the second solution ?
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 11 ++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  2 +
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  |  6 +++
+ drivers/net/pcs/pcs-xpcs.c                    | 51 +++++++++++++++++++
+ include/linux/pcs/pcs-xpcs.h                  |  2 +
+ include/linux/stmmac.h                        |  1 +
+ 6 files changed, 73 insertions(+)
 
-By adding polling_rate_us and initial_delay_us parameters to 
-spi_mem_poll_status(), it implies to update all spinand_wait() calls for 
-different operations (reset, read page, write page, erase) with respective  
-initial_delay_us/polling_rate_us values for spi_mem_poll_status()'s parameters.
+-- 
+2.17.1
 
-Can you provide adequate initial_delay_us and polling rate_us for each operation type ?.
-
-Thanks
-Patrice
-> 
->> +{
->> +	struct spi_controller *ctlr = mem->spi->controller;
->> +	unsigned long ms;
->> +	int ret = -EOPNOTSUPP;
->> +	int exec_op_ret;
->> +	u16 *status;
->> +
->> +	if (!spi_mem_supports_op(mem, op))
->> +		return ret;
->> +
->> +	if (ctlr->mem_ops && ctlr->mem_ops->poll_status) {
->> +		ret = spi_mem_access_start(mem);
->> +		if (ret)
->> +			return ret;
->> +
->> +		reinit_completion(&ctlr->xfer_completion);
->> +
->> +		ret = ctlr->mem_ops->poll_status(mem, op, mask, match,
->> +						 timeout_ms);
->> +
->> +		ms = wait_for_completion_timeout(&ctlr->xfer_completion,
->> +						 msecs_to_jiffies(timeout_ms));
->> +
->> +		spi_mem_access_end(mem);
->> +		if (!ms)
->> +			return -ETIMEDOUT;
->> +	} else {
->> +		status = (u16 *)op->data.buf.in;
->> +		ret = read_poll_timeout(spi_mem_exec_op, exec_op_ret,
->> +					((*status) & mask) == match, 20,
->> +					timeout_ms * 1000, false, mem, op);
->> +		if (exec_op_ret)
->> +			return exec_op_ret;
->> +	}
->> +
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL_GPL(spi_mem_poll_status);
->> +
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
