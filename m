@@ -2,27 +2,27 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C169387AE4
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 May 2021 16:18:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 645FF387AEA
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 May 2021 16:19:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16E96C57B75;
-	Tue, 18 May 2021 14:18:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B45FC57B75;
+	Tue, 18 May 2021 14:19:29 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC5F7C57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DED85C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 May 2021 14:18:37 +0000 (UTC)
+ Tue, 18 May 2021 14:19:26 +0000 (UTC)
 Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 46DF61F4238F;
- Tue, 18 May 2021 15:18:37 +0100 (BST)
-Date: Tue, 18 May 2021 16:18:34 +0200
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 57F1B1F42B04;
+ Tue, 18 May 2021 15:19:26 +0100 (BST)
+Date: Tue, 18 May 2021 16:19:23 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: <patrice.chotard@foss.st.com>
-Message-ID: <20210518161834.6860c310@collabora.com>
+Message-ID: <20210518161923.3bf75a25@collabora.com>
 In-Reply-To: <20210518134332.17826-3-patrice.chotard@foss.st.com>
 References: <20210518134332.17826-1-patrice.chotard@foss.st.com>
  <20210518134332.17826-3-patrice.chotard@foss.st.com>
@@ -64,6 +64,9 @@ On Tue, 18 May 2021 15:43:31 +0200
 > 
 > Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 > Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
 > ---
 > Changes in v4:
 >   - Update commit message.
@@ -119,11 +122,7 @@ On Tue, 18 May 2021 15:43:31 +0200
 > +	status = *spinand->scratchbuf;
 > +	if (!(status & STATUS_BUSY))
 > +		goto out;
-
-Looks like you expect the driver to not only wait for a status change
-but also fill the data buffer with the last status value. I think that
-should be documented in the SPI mem API.
-
+>  
 >  	/*
 >  	 * Extra read, just in case the STATUS_READY bit has changed
 > @@ -526,7 +532,10 @@ static int spinand_reset_op(struct spinand_device *spinand)
