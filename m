@@ -2,69 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3183638760F
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 May 2021 12:07:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70C05387799
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 May 2021 13:28:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7AE1C59788;
-	Tue, 18 May 2021 10:06:59 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20617C59788;
+	Tue, 18 May 2021 11:28:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C344C57B5F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BCB6C58D7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 May 2021 10:06:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=XcUE59BbQI5VCk62NQ98jAv25zo//emUHUedcxxcgyA=; b=B+1u6ZG4uJf1OSsB0tVOyeq0N
- H+f35qC+o3JQhJf0dqEAUIURiaEown3+hepXFL/kFsdRe5AnAXhCIr6odFUcrSryaajMcfXd7lHSV
- oERv2lMclyCkH88TtgEHbvmIjNuiaaskphGn/68qNsJVObsFzkALdGKWJnX2FP1mqe6ytC45X9SUH
- JOZlL7c8SLi92/bJOPHxXqYy/CdA1jei51V5eRNuZvzT7bn/n+6/NXPoPu+KSzaxpEWV+9shIdC8z
- pzsC2s8JthkHOanWWYH+W3ao8o0rzYPudZqRQqUkWQJea5CTgYcaXde0QKP4Qyg7/QjPw/chMtbu+
- FgWLQSc9Q==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:44126)
- by pandora.armlinux.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <linux@armlinux.org.uk>)
- id 1liwcR-00042a-B7; Tue, 18 May 2021 11:06:31 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1liwcN-0007nP-Tc; Tue, 18 May 2021 11:06:27 +0100
-Date: Tue, 18 May 2021 11:06:27 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-Message-ID: <20210518100627.GT12395@shell.armlinux.org.uk>
-References: <20210517094332.24976-1-michael.wei.hong.sit@intel.com>
- <20210517094332.24976-3-michael.wei.hong.sit@intel.com>
- <20210517105424.GP12395@shell.armlinux.org.uk>
- <CO1PR11MB50447EDBEB4835C3EB5B3C7A9D2D9@CO1PR11MB5044.namprd11.prod.outlook.com>
+ Tue, 18 May 2021 11:28:36 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 14IBMvhb005094; Tue, 18 May 2021 13:28:26 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=jIHeIpLexvh71jo95l2Q1zRybn6F6JJrMnWG91BQdYI=;
+ b=W/PyzKsyKG1YtdseKpWomCRLeDWCe5BgGmTwczcvDKNlNKSoesN+prfkb16Qqq3cjsFm
+ 6vC2W47RWwvxz4s85LCw3hnyiYzKjnnurfLPxtYI/Qrt4xoLlxnweIUvjh9Fp8XNSZds
+ LdpEP12+jF5gLgNiPjuTXdn7Zb8q0DCMh3Wo55hGdootAcGzCY96gt5pV3tdhDAY9beL
+ 6cF1Imso3LE8RVc88R35MHnbxuurovfwK8ggPS1o0UzcjqB8TLEeh3LuQWiCNI7arBac
+ MD4T7ZpEQljQolMZnlhrj4bQIO/RTPv+4zWqSD/o8OMlTGNvcAqg9LDUoAF08HRoOjPz 2A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38maunrpw1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 May 2021 13:28:26 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E110D10002A;
+ Tue, 18 May 2021 13:28:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CC51C221F77;
+ Tue, 18 May 2021 13:28:25 +0200 (CEST)
+Received: from lmecxl0573.lme.st.com (10.75.127.51) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 18 May
+ 2021 13:28:24 +0200
+To: Mark Brown <broonie@kernel.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Boris
+ Brezillon <boris.brezillon@collabora.com>, <linux-mtd@lists.infradead.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-spi@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20210518093951.23136-1-patrice.chotard@foss.st.com>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+Message-ID: <b4fb34ad-b70f-b8b9-3fcb-09dd812acfa9@foss.st.com>
+Date: Tue, 18 May 2021 13:28:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CO1PR11MB50447EDBEB4835C3EB5B3C7A9D2D9@CO1PR11MB5044.namprd11.prod.outlook.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
- "andrew@lunn.ch" <andrew@lunn.ch>,
- "vee.khee.wong@linux.intel.com" <vee.khee.wong@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Voon,
- Weifeng" <weifeng.voon@intel.com>, "Wong, Vee Khee" <vee.khee.wong@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Tan,
- Tee Min" <tee.min.tan@intel.com>,
- "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "Ong,
- Boon Leong" <boon.leong.ong@intel.com>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "hkallweit1@gmail.com" <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: Add callbacks
- for DWC xpcs Energy Efficient Ethernet
+In-Reply-To: <20210518093951.23136-1-patrice.chotard@foss.st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-05-18_04:2021-05-18,
+ 2021-05-18 signatures=0
+Subject: Re: [Linux-stm32] [PATCH v3 0/3] MTD: spinand: Add
+	spi_mem_poll_status() support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,42 +79,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, May 17, 2021 at 11:37:12AM +0000, Sit, Michael Wei Hong wrote:
-> > From: Russell King <linux@armlinux.org.uk>
-> > 
-> > On Mon, May 17, 2021 at 05:43:32PM +0800, Michael Sit Wei Hong
-> > wrote:
-> > > Link xpcs callback functions for MAC to configure the xpcs EEE
-> > feature.
-> > >
-> > > The clk_eee frequency is used to calculate the
-> > MULT_FACT_100NS. This
-> > > is to adjust the clock tic closer to 100ns.
-> > >
-> > > Signed-off-by: Michael Sit Wei Hong
-> > <michael.wei.hong.sit@intel.com>
-> > 
-> > What is the initial state of the EEE configuration before the first
-> > call to stmmac_ethtool_op_set_eee()? Does it reflect the default
-> > EEE settings?
-> 
-> The register values before the first call are the default reset values in
-> the registers. The reset values assumes the clk_eee_i time period is 10ns,
-> Hence, the reset value is set to 9.
-> According to the register description,
-> This value should be programmed such that the
-> clk_eee_i_time_period * (MULT_FACT_100NS + 1) should be
-> within 80 ns to 120 ns.
-> 
-> Since we are using a fixed 19.2MHz clk_eee, which is 52ns,
-> we are setting the value to 1.
+Just saw a missing update, i am sending a v4.
+Sorry
+Patrice
 
-Does that hardware default configuration match what is returned by
-ethtool --show-eee ?
- 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+On 5/18/21 11:39 AM, patrice.chotard@foss.st.com wrote:
+> From: Patrice Chotard <patrice.chotard@foss.st.com>
+> 
+> This series adds support for the spi_mem_poll_status() spinand
+> interface.
+> Some QSPI controllers allows to poll automatically memory 
+> status during operations (erase, read or write). This allows to 
+> offload the CPU for this task.
+> STM32 QSPI is supporting this feature, driver update are also
+> part of this series.
+> 
+> Chnages in v3:
+>   - Add spi_mem_read_status() which allows to read 8 or 16 bits status.
+>   - Add initial_delay_us and polling_delay_us parameters to spi_mem_poll_status().
+>     and also to poll_status() callback.
+>   - Move spi_mem_supports_op() in SW-based polling case.
+>   - Add delay before invoquing read_poll_timeout().
+>   - Remove the reinit/wait_for_completion() added in v2.
+>   - Add initial_delay_us and polling_delay_us parameters to spinand_wait().
+>   - Add SPINAND_READ/WRITE/ERASE/RESET_INITIAL_DELAY_US and
+>     SPINAND_READ/WRITE/ERASE/RESET_POLL_DELAY_US defines.
+>   - Remove spi_mem_finalize_op() API added in v2.
+> 
+> Changes in v2:
+>   - Indicates the spi_mem_poll_status() timeout unit
+>   - Use 2-byte wide status register
+>   - Add spi_mem_supports_op() call in spi_mem_poll_status()
+>   - Add completion management in spi_mem_poll_status()
+>   - Add offload/non-offload case management in spi_mem_poll_status()
+>   - Optimize the non-offload case by using read_poll_timeout()
+>   - mask and match stm32_qspi_poll_status()'s parameters are 2-byte wide
+>   - Make usage of new spi_mem_finalize_op() API in
+>     stm32_qspi_wait_poll_status()
+> 
+> Patrice Chotard (3):
+>   spi: spi-mem: add automatic poll status functions
+>   mtd: spinand: use the spi-mem poll status APIs
+>   spi: stm32-qspi: add automatic poll status feature
+> 
+>  drivers/mtd/nand/spi/core.c  | 45 +++++++++++++------
+>  drivers/spi/spi-mem.c        | 85 ++++++++++++++++++++++++++++++++++++
+>  drivers/spi/spi-stm32-qspi.c | 83 +++++++++++++++++++++++++++++++----
+>  include/linux/mtd/spinand.h  | 11 ++++-
+>  include/linux/spi/spi-mem.h  | 14 ++++++
+>  5 files changed, 216 insertions(+), 22 deletions(-)
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
