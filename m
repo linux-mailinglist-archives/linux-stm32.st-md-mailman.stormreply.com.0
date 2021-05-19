@@ -2,65 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CB83388DF3
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 May 2021 14:24:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 545DC389671
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 May 2021 21:19:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A332EC57B69;
-	Wed, 19 May 2021 12:24:06 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBFCAC57B69;
+	Wed, 19 May 2021 19:19:26 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77259C57B5F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 983C2C57B5F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 May 2021 12:24:03 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id v12so13813195wrq.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 May 2021 05:24:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=Qmzj5sXb0dQGIp3IEqGvuU1Z+vJnbjFyzmJBniDVjRY=;
- b=wO9Fjndg3DsMOveXObNUhI/yN79ZZF6/0upv0Dkfj3WkTKw7wX30M394CafYendJ1n
- 5qeCk2cbOIHr5nVytq8ZFa38S7TOjl7cvYGsIIZYmNei5JfE7xF/p5THZhMKnQbucd2D
- YSh13zo4fhx4a/Rt3+qKbLlKvQkfTO/aQYP6rbLSP5CUCzW4kffN0TobaHX6f9LMZuWR
- iPW2iKqXHG35T+7kSlM+hQdbYWsxgDJv/cF15mtr4XN6xYpDMJbZtCpwEYqodCz5URRb
- Mj0yJTEkMC+cEwpr8DybUMogfvjVMz+T4nv2cvSvMAvBLFqLKtC+nzXiJ6Ru9M4XL3mq
- QhhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=Qmzj5sXb0dQGIp3IEqGvuU1Z+vJnbjFyzmJBniDVjRY=;
- b=hr//5NdScrLB5Pt9cd0Ad0YOFCyl6AhJt2yf5s+bOOCI8+IPbMZb/jcKWE3nX/W77G
- xxUyYiZBX7FVET+sLt2StZq+cshrs9huVwpI8CK4W56ppcEqMOu8FJsDnxpRMf9ToN7u
- aB4IHn3DdPlYNhvwj7hP8n8x2IO/C2Uz+UMKt4gwilrxGTmBwT5xdG6RDv1NzM335obR
- cqZky1zeE1fiFJiIf5B/kjd8kihWNjjRpvE/zutrGHPCAxsqhl26Cgt0iLGbItNvaYof
- YVr/5byZuckqbWwxfReSlfIJvFXkzR2R8mefA6cjOp3nwzbXVtdURESsyeL8c3WPxF/w
- QcoA==
-X-Gm-Message-State: AOAM531d66a0vYtdCBcLGCOpG228X6YAuxm/wokCiqKh5FV6xk2gUlEE
- k4nsGRwETKZSZB3wj+p555VhIQ==
-X-Google-Smtp-Source: ABdhPJxsaaoyh3v42GGp2jx2R71stELQyc5iAP9FqL9RmKf4o2XjMTUiclQ29lbfFLfXGQ+B5ufxWw==
-X-Received: by 2002:a5d:4d92:: with SMTP id b18mr7614957wru.167.1621427041422; 
- Wed, 19 May 2021 05:24:01 -0700 (PDT)
-Received: from dell ([91.110.221.215])
- by smtp.gmail.com with ESMTPSA id x11sm24810477wrl.13.2021.05.19.05.24.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 May 2021 05:24:01 -0700 (PDT)
-Date: Wed, 19 May 2021 13:23:59 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Zou Wei <zou_wei@huawei.com>
-Message-ID: <20210519122359.GA2415519@dell>
-References: <1620801226-18474-1-git-send-email-zou_wei@huawei.com>
+ Wed, 19 May 2021 19:19:24 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5CC79610E9;
+ Wed, 19 May 2021 19:19:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1621451961;
+ bh=CxcjeXZphMX8ikSAW2LO8uJN2ihmCuUCEEwRVbN9D64=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rSd5m9KJyLTnId6P36+q7OP6uzbpi1F5D6EjClmCZnsqr8IO1MPqHe6OIIuMT4KGT
+ KpPRqvNevSsYV1A/VFjEbTG9aBAu4AylNczwHnCAHhA/k4JnCp7So1ZmFCXohu1lvU
+ XlHrJjrcjUpc3+2mhqHYkOUYmeMp5diczczM+DBI+QETaguAEYOEKbwvDXc/B4xaB4
+ 7Lgvww82oDmgsrLZSLWdAwznDoGFvZKODayku9Sa6lAjHcIHgRlTKm6y71fV3fENQr
+ nbCW4brWMJRvJGz0vUwTWhYYvI3udKVUio3bOjzYPGXS43xQKRkEle0LyWPN6j4P+f
+ 9sErHwMiDcYow==
+Date: Wed, 19 May 2021 20:18:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: patrice.chotard@foss.st.com
+Message-ID: <20210519191836.GH4224@sirena.org.uk>
+References: <20210518162754.15940-1-patrice.chotard@foss.st.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1620801226-18474-1-git-send-email-zou_wei@huawei.com>
-Cc: support.opensource@diasemi.com, linux-kernel@vger.kernel.org,
- alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com,
+In-Reply-To: <20210518162754.15940-1-patrice.chotard@foss.st.com>
+X-Cookie: There's no time like the pleasant.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
+ Boris Brezillon <boris.brezillon@collabora.com>, linux-mtd@lists.infradead.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH -next] mfd: da9052/stmpe: Add and modify
- MODULE_DEVICE_TABLE
+Subject: Re: [Linux-stm32] [PATCH v5 0/3] MTD: spinand: Add
+	spi_mem_poll_status() support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,22 +52,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============6925830248902281774=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCAxMiBNYXkgMjAyMSwgWm91IFdlaSB3cm90ZToKCj4gVGhpcyBwYXRjaCBhZGRzL21v
-ZGlmaWVzIE1PRFVMRV9ERVZJQ0VfVEFCTEUgZGVmaW5pdGlvbiB3aGljaCBnZW5lcmF0ZXMKPiBj
-b3JyZWN0IG1vZGFsaWFzIGZvciBhdXRvbWF0aWMgbG9hZGluZyBvZiB0aGlzIGRyaXZlciB3aGVu
-IGl0IGlzIGJ1aWx0Cj4gYXMgYW4gZXh0ZXJuYWwgbW9kdWxlLgo+IAo+IFJlcG9ydGVkLWJ5OiBI
-dWxrIFJvYm90IDxodWxrY2lAaHVhd2VpLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBab3UgV2VpIDx6
-b3Vfd2VpQGh1YXdlaS5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvbWZkL2RhOTA1Mi1pMmMuYyB8IDEg
-Kwo+ICBkcml2ZXJzL21mZC9zdG1wZS1pMmMuYyAgfCAyICstCj4gIDIgZmlsZXMgY2hhbmdlZCwg
-MiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpBcHBsaWVkLCB0aGFua3MuCgotLSAKTGVl
-IEpvbmVzIFvmnY7nkLzmlq9dClNlbmlvciBUZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2
-aWNlcwpMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9s
-bG93IExpbmFybzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
-dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+--===============6925830248902281774==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="h3LYUU6HlUDSAOzy"
+Content-Disposition: inline
+
+
+--h3LYUU6HlUDSAOzy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, May 18, 2021 at 06:27:51PM +0200, patrice.chotard@foss.st.com wrote:
+> From: Patrice Chotard <patrice.chotard@foss.st.com>
+>=20
+> This series adds support for the spi_mem_poll_status() spinand
+> interface.
+> Some QSPI controllers allows to poll automatically memory=20
+> status during operations (erase, read or write). This allows to=20
+> offload the CPU for this task.
+> STM32 QSPI is supporting this feature, driver update are also
+> part of this series.
+
+The SPI bits look good to me - should we merge via MTD or SPI?
+
+--h3LYUU6HlUDSAOzy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmClZIsACgkQJNaLcl1U
+h9DUugf+L02+HoVRB3gbN5ZpyjjoHmHs9up8UEcNStI4z5NEGfSDlLbFbODRNFlP
+E3sFR+ORhCM9vziPNYxXzkt6iqlVMmxNDyKntLntzno7g3v37ycpdpo1EVfRqCst
+Zgi7FauC4EhvCQcWdh4MZZJw27U8T/zhoGNK8X8J6+eZkz/TWfTPZETa7C/p31pB
+F3+Z8Nfd6EFKMJ++dJLmjgDpQPkcUV8xdiQIqKAAQFp8GTWNk5bKk3rZvA35VNcm
+ERAEJyYhESA4iIBzVQMTdsZp1mPZUW2zOWTMgYuqsha766iYTz1DcM3tCwtPs/4I
+1F+iui8vnadvaJxuv0ckWb+cZpfCGA==
+=WZaQ
+-----END PGP SIGNATURE-----
+
+--h3LYUU6HlUDSAOzy--
+
+--===============6925830248902281774==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6925830248902281774==--
