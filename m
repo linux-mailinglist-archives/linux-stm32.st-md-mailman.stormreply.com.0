@@ -2,38 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 834523932CF
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 May 2021 17:46:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E821393358
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 May 2021 18:13:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 327B1C57B69;
-	Thu, 27 May 2021 15:46:40 +0000 (UTC)
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0B43C57B60;
+	Thu, 27 May 2021 16:13:22 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD7E2C424BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC0F3C57182
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 May 2021 15:07:15 +0000 (UTC)
-Received: from localhost.localdomain (unknown [85.89.127.119])
- by mail.ispras.ru (Postfix) with ESMTPSA id 4622D40755E6;
- Thu, 27 May 2021 15:07:15 +0000 (UTC)
-From: Dmitriy Ulitin <ulitin@ispras.ru>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 27 May 2021 18:06:26 +0300
-Message-Id: <20210527150627.12995-2-ulitin@ispras.ru>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210527150627.12995-1-ulitin@ispras.ru>
-References: <20210527150627.12995-1-ulitin@ispras.ru>
+ Thu, 27 May 2021 16:13:20 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 14RGD6cs000887; Thu, 27 May 2021 18:13:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=LCxObs1JJa3ITzuaD/aVq/zLo/TMl80lt7ojHZ3IzB4=;
+ b=xmZmy1rFGwT1ZdtLjqXrzY17MuN3xjjX0VY1FItCFhTxWQN+8bu0Fy4tPuJyQiHkeUJG
+ Vv2i8sizcXh2T2wfSnvakFpYznm48Et6S87Z90r1SBTo0jo7xIdh0sVJNXEfN7Q0YLf3
+ +2BC0fKrFVRBhbgLfXGMaAIYqxpEm9pKrD8WYu5Mq19G7xAAzHZE0KQt9OXALQKW4nhc
+ MpQpEYy6eiv2JEUYwhje9e5p889SzjAtLCCgDky4j3/GHHMO9yqUmBkAWvTMyiIBLxXs
+ xUxZUuMh/W8epTMcsHUzZzKEDVeLUJtBO4XUcQ43YPuNf+DXMgsVEF/4oZMfnZch8q6Z zQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38t7k3av0a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 27 May 2021 18:13:06 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1A73B10002A;
+ Thu, 27 May 2021 18:13:03 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F1C29236565;
+ Thu, 27 May 2021 18:13:02 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 27 May 2021 18:13:02
+ +0200
+From: <patrice.chotard@foss.st.com>
+To: Mark Brown <broonie@kernel.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Boris
+ Brezillon <boris.brezillon@collabora.com>, <linux-mtd@lists.infradead.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-spi@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Thu, 27 May 2021 18:12:49 +0200
+Message-ID: <20210527161252.16620-1-patrice.chotard@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 27 May 2021 15:46:38 +0000
-Cc: ldv-project@linuxtesting.org, linux-kernel@vger.kernel.org,
- Dmitriy Ulitin <ulitin@ispras.ru>, Alexey Khoroshilov <khoroshilov@ispras.ru>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] stm32: Potential NULL pointer dereference in
-	dcmi_irq_thread()
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-05-27_09:2021-05-27,
+ 2021-05-27 signatures=0
+Subject: [Linux-stm32] [PATCH v3 0/3] mtd: spinand: add SPI-NAND MTD resume
+	handler
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,88 +74,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-At the moment of enabling irq handling:
+From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-1922 ret = devm_request_threaded_irq(&pdev->dev, irq, dcmi_irq_callback,
-1923			dcmi_irq_thread, IRQF_ONESHOT,
-1924			dev_name(&pdev->dev), dcmi);
+Changes in v3:
+  - Add spinand_read_cfg() helper 
+  - Add spinand_read_cfg() call to repopulate cache during resume
+  - Split v2 patch in 3 patches
 
-there is still uninitialized field sd_format of struct stm32_dcmi *dcmi.
-If an interrupt occurs in the interval between the installation of the
-interrupt handler and the initialization of this field, NULL pointer
-dereference happens.
+Changes in v2:
+  - Add helper spinand_block_unlock().
+  - Add spinand_ecc_enable() call.
+  - Remove some dev_err().
+  - Fix commit's title and message.
 
-This field is dereferenced in the handler function without any check:
+Patrice Chotard (3):
+  mtd: spinand: Add spinand_block_unlock() helper
+  mtd: spinand: add spinand_read_cfg() helper
+  mtd: spinand: add SPI-NAND MTD resume handler
 
-457 if (dcmi->sd_format->fourcc == V4L2_PIX_FMT_JPEG &&
-458	    dcmi->misr & IT_FRAME) {
+ drivers/mtd/nand/spi/core.c | 90 +++++++++++++++++++++++++++++--------
+ 1 file changed, 71 insertions(+), 19 deletions(-)
 
-The patch moves interrupt handler installation
-after initialization of the sd_format field that happens in
-dcmi_graph_notify_complete() via dcmi_set_default_fmt().
-
-Found by Linux Driver Verification project (linuxtesting.org).
-
-Signed-off-by: Dmitriy Ulitin <ulitin@ispras.ru>
-Signed-off-by: Alexey Khoroshilov <khoroshilov@ispras.ru>
----
- drivers/media/platform/stm32/stm32-dcmi.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-index d9b4ad0abf0c..ada0c01dc1b1 100644
---- a/drivers/media/platform/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/stm32/stm32-dcmi.c
-@@ -128,6 +128,7 @@ struct stm32_dcmi {
- 	int				sequence;
- 	struct list_head		buffers;
- 	struct dcmi_buf			*active;
-+	int			irq;
- 
- 	struct v4l2_device		v4l2_dev;
- 	struct video_device		*vdev;
-@@ -1752,6 +1753,14 @@ static int dcmi_graph_notify_complete(struct v4l2_async_notifier *notifier)
- 		return ret;
- 	}
- 
-+	ret = devm_request_threaded_irq(dcmi->dev, dcmi->irq, dcmi_irq_callback,
-+					dcmi_irq_thread, IRQF_ONESHOT,
-+					dev_name(dcmi->dev), dcmi);
-+	if (ret) {
-+		dev_err(dcmi->dev, "Unable to request irq %d\n", dcmi->irq);
-+		return ret;
-+	}
-+
- 	return 0;
- }
- 
-@@ -1906,6 +1915,8 @@ static int dcmi_probe(struct platform_device *pdev)
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq <= 0)
- 		return irq ? irq : -ENXIO;
-+
-+	dcmi->irq = irq;
- 
- 	dcmi->res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	if (!dcmi->res) {
-@@ -1919,14 +1930,6 @@ static int dcmi_probe(struct platform_device *pdev)
- 		return PTR_ERR(dcmi->regs);
- 	}
- 
--	ret = devm_request_threaded_irq(&pdev->dev, irq, dcmi_irq_callback,
--					dcmi_irq_thread, IRQF_ONESHOT,
--					dev_name(&pdev->dev), dcmi);
--	if (ret) {
--		dev_err(&pdev->dev, "Unable to request irq %d\n", irq);
--		return ret;
--	}
--
- 	mclk = devm_clk_get(&pdev->dev, "mclk");
- 	if (IS_ERR(mclk)) {
- 		if (PTR_ERR(mclk) != -EPROBE_DEFER)
 -- 
-2.25.1
-
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
