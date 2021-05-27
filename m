@@ -2,37 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9D1392A1C
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 May 2021 10:53:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52F81392A6C
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 May 2021 11:16:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AAB2C57B5B;
-	Thu, 27 May 2021 08:53:51 +0000 (UTC)
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE62EC57B5B;
+	Thu, 27 May 2021 09:16:01 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74FFAC57189
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4F34C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 May 2021 08:53:49 +0000 (UTC)
-Received: (Authenticated sender: miquel.raynal@bootlin.com)
- by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id 7F6EAC000D;
- Thu, 27 May 2021 08:53:47 +0000 (UTC)
-Date: Thu, 27 May 2021 10:53:46 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: <patrice.chotard@foss.st.com>
-Message-ID: <20210527105346.315cf125@xps13>
-In-Reply-To: <20210527084959.1548-1-patrice.chotard@foss.st.com>
-References: <20210527084959.1548-1-patrice.chotard@foss.st.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 3.17.7 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ Thu, 27 May 2021 09:15:59 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 14R975JH017729; Thu, 27 May 2021 11:15:49 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=6LbctrlGWT2o3at8WTYe5NC/Zi11DhpFPDsO8JzG8GI=;
+ b=ytDnZJQaXp1x31/dIDlLvBApS0oxl1MSVAQ7mWjUidwA/rCE/RvGdVRkqNiHQcV8PnVA
+ sPZ7/tSrem1LIbwjN1tFwC1d6Jf/Dj9dQ9QS+EYMhvzjDFHHIzxxiQg8tg5hQDd85cp7
+ +MMSIHw2MMrUHaRAX/GDuilJhBEeHqeDSzhzISq6W7GlyDd0QpbhwuXJxHCK9DKZ7UhA
+ Sz536AL4h29ihcJo9ucCKVIcs/y6ezqeH0wkVW67c4GrU4Je/OuNzn6vLnNATBB2nwXg
+ 1L+41KualxRV+VUujto63VqyoUbokiZhvb+ZUaMsgO+l4E3wXBGyUT/k3mkLl+08RFv1 2A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38t7k38enc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 27 May 2021 11:15:49 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D13E410002A;
+ Thu, 27 May 2021 11:15:47 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BF53B2171D7;
+ Thu, 27 May 2021 11:15:47 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 27 May 2021 11:15:47
+ +0200
+From: Erwan Le Ray <erwan.leray@foss.st.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jslaby@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>
+Date: Thu, 27 May 2021 11:15:35 +0200
+Message-ID: <20210527091537.8997-1-erwan.leray@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-05-27_04:2021-05-26,
+ 2021-05-27 signatures=0
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] mtd: spinand: add SPI-NAND MTD resume
-	handler
+Subject: [Linux-stm32] [PATCH 0/2] stm32 usart improve DMA probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -44,80 +67,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgUGF0cmljZSwKCjxwYXRyaWNlLmNob3RhcmRAZm9zcy5zdC5jb20+IHdyb3RlIG9uIFRodSwg
-MjcgTWF5IDIwMjEgMTA6NDk6NTkgKzAyMDA6Cgo+IEZyb206IFBhdHJpY2UgQ2hvdGFyZCA8cGF0
-cmljZS5jaG90YXJkQGZvc3Muc3QuY29tPgo+IAo+IEFmdGVyIHBvd2VyIHVwLCBhbGwgU1BJIE5B
-TkQncyBibG9ja3MgYXJlIGxvY2tlZC4gT25seSByZWFkIG9wZXJhdGlvbnMKPiBhcmUgYWxsb3dl
-ZCwgd3JpdGUgYW5kIGVyYXNlIG9wZXJhdGlvbnMgYXJlIGZvcmJpZGRlbi4KPiBUaGUgU1BJIE5B
-TkQgZnJhbWV3b3JrIHVubG9ja3MgYWxsIHRoZSBibG9ja3MgZHVyaW5nIGl0cyBpbml0aWFsaXph
-dGlvbi4KPiAKPiBEdXJpbmcgYSBzdGFuZGJ5IGxvdyBwb3dlciwgdGhlIG1lbW9yeSBpcyBwb3dl
-cmVkIGRvd24sIGxvc2luZyBpdHMKPiBjb25maWd1cmF0aW9uLgo+IER1cmluZyB0aGUgcmVzdW1l
-LCB0aGUgUVNQSSBkcml2ZXIgc3RhdGUgaXMgcmVzdG9yZWQgYnV0IHRoZSBTUEkgTkFORAo+IGZy
-YW1ld29yayBkb2VzIG5vdCByZWNvbmZpZ3VyZWQgdGhlIG1lbW9yeS4KPiAKPiBUaGlzIHBhdGNo
-IGFkZHMgU1BJLU5BTkQgTVREIFBNIGhhbmRsZXJzIGZvciByZXN1bWUgb3BzLgo+IFNQSSBOQU5E
-IHJlc3VtZSBvcCByZS1pbml0aWFsaXplcyBTUEkgTkFORCBmbGFzaCB0byBpdHMgcHJvYmVkIHN0
-YXRlLgo+IAo+IEl0IGFsc28gYWRkcyBhIG5ldyBoZWxwZXIgc3BpbmFuZF9ibG9ja191bmxvY2so
-KSB3aGljaCBpcwo+IGNhbGxlZCBpbiBzcGluYW5kX2luaXQoKSBhbmQgaW4gc3BpbmFuZF9tdGRf
-cmVzdW1lKCkuCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoZSBLZXJlbGxvIDxjaHJpc3Rv
-cGhlLmtlcmVsbG9AZm9zcy5zdC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogUGF0cmljZSBDaG90YXJk
-IDxwYXRyaWNlLmNob3RhcmRAZm9zcy5zdC5jb20+Cj4gLS0tCj4gQ2hhbmdlcyBpbiB2MjoKPiAg
-IC0gQWRkIGhlbHBlciBzcGluYW5kX2Jsb2NrX3VubG9jaygpLgo+ICAgLSBBZGQgc3BpbmFuZF9l
-Y2NfZW5hYmxlKCkgY2FsbC4KPiAgIC0gUmVtb3ZlIHNvbWUgZGV2X2VycigpLgo+ICAgLSBGaXgg
-Y29tbWl0J3MgdGl0bGUgYW5kIG1lc3NhZ2UuCj4gCj4gIGRyaXZlcnMvbXRkL25hbmQvc3BpL2Nv
-cmUuYyB8IDYyICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0KPiAgMSBmaWxl
-IGNoYW5nZWQsIDUzIGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvbXRkL25hbmQvc3BpL2NvcmUuYyBiL2RyaXZlcnMvbXRkL25hbmQvc3BpL2Nv
-cmUuYwo+IGluZGV4IDE3ZjYzZjk1ZjRhMi4uZjc3YWVmZjExZjQzIDEwMDY0NAo+IC0tLSBhL2Ry
-aXZlcnMvbXRkL25hbmQvc3BpL2NvcmUuYwo+ICsrKyBiL2RyaXZlcnMvbXRkL25hbmQvc3BpL2Nv
-cmUuYwo+IEBAIC0xMDc0LDYgKzEwNzQsNTUgQEAgc3RhdGljIGludCBzcGluYW5kX2RldGVjdChz
-dHJ1Y3Qgc3BpbmFuZF9kZXZpY2UgKnNwaW5hbmQpCj4gIAlyZXR1cm4gMDsKPiAgfQo+ICAKPiAr
-c3RhdGljIGludCBzcGluYW5kX2Jsb2NrX3VubG9jayhzdHJ1Y3Qgc3BpbmFuZF9kZXZpY2UgKnNw
-aW5hbmQpCj4gK3sKPiArCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZzcGluYW5kLT5zcGltZW0tPnNw
-aS0+ZGV2Owo+ICsJc3RydWN0IG5hbmRfZGV2aWNlICpuYW5kID0gc3BpbmFuZF90b19uYW5kKHNw
-aW5hbmQpOwo+ICsJaW50IHJldCA9IDAsIGk7Cj4gKwo+ICsJZm9yIChpID0gMDsgaSA8IG5hbmQt
-Pm1lbW9yZy5udGFyZ2V0czsgaSsrKSB7Cj4gKwkJcmV0ID0gc3BpbmFuZF9zZWxlY3RfdGFyZ2V0
-KHNwaW5hbmQsIGkpOwo+ICsJCWlmIChyZXQpCj4gKwkJCXJldHVybiByZXQ7Cj4gKwo+ICsJCXJl
-dCA9IHNwaW5hbmRfbG9ja19ibG9jayhzcGluYW5kLCBCTF9BTExfVU5MT0NLRUQpOwo+ICsJCWlm
-IChyZXQpCj4gKwkJCXJldHVybiByZXQ7Cj4gKwl9Cj4gKwo+ICsJcmV0dXJuIHJldDsKPiArfQoK
-UGxlYXNlIGluc2VydCB0aGlzIGhlbHBlciAoYW5kIHVzZSBpdCBpbiB0aGUgcHJvYmUpIGluIGEg
-c2VwYXJhdGUKcGF0Y2gsIHNvIHRoYXQgcGF0Y2ggMi8yIG9ubHkgaW1wbGVtZW50cyB0aGUgX3Jl
-c3VtZSBob29rLgoKPiArCj4gK3N0YXRpYyB2b2lkIHNwaW5hbmRfbXRkX3Jlc3VtZShzdHJ1Y3Qg
-bXRkX2luZm8gKm10ZCkKPiArewo+ICsJc3RydWN0IHNwaW5hbmRfZGV2aWNlICpzcGluYW5kID0g
-bXRkX3RvX3NwaW5hbmQobXRkKTsKPiArCXN0cnVjdCBuYW5kX2RldmljZSAqbmFuZCA9IG10ZF90
-b19uYW5kZGV2KG10ZCk7Cj4gKwlzdHJ1Y3QgZGV2aWNlICpkZXYgPSAmc3BpbmFuZC0+c3BpbWVt
-LT5zcGktPmRldjsKPiArCWludCByZXQ7Cj4gKwo+ICsJcmV0ID0gc3BpbmFuZF9yZXNldF9vcChz
-cGluYW5kKTsKPiArCWlmIChyZXQpCj4gKwkJcmV0dXJuOwo+ICsKPiArCXJldCA9IHNwaW5hbmRf
-aW5pdF9xdWFkX2VuYWJsZShzcGluYW5kKTsKPiArCWlmIChyZXQpCj4gKwkJcmV0dXJuOwo+ICsK
-PiArCXJldCA9IHNwaW5hbmRfdXBkX2NmZyhzcGluYW5kLCBDRkdfT1RQX0VOQUJMRSwgMCk7Cj4g
-KwlpZiAocmV0KQo+ICsJCXJldHVybjsKPiArCj4gKwlyZXQgPSBzcGluYW5kX21hbnVmYWN0dXJl
-cl9pbml0KHNwaW5hbmQpOwo+ICsJaWYgKHJldCkKPiArCQlyZXR1cm47Cj4gKwo+ICsJcmV0ID0g
-c3BpbmFuZF9ibG9ja191bmxvY2soc3BpbmFuZCk7Cj4gKwlpZiAocmV0KQo+ICsJCXJldHVybjsK
-PiArCj4gKwlzcGluYW5kX2VjY19lbmFibGUoc3BpbmFuZCwgZmFsc2UpOwo+ICt9Cj4gKwo+ICBz
-dGF0aWMgaW50IHNwaW5hbmRfaW5pdChzdHJ1Y3Qgc3BpbmFuZF9kZXZpY2UgKnNwaW5hbmQpCj4g
-IHsKPiAgCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZzcGluYW5kLT5zcGltZW0tPnNwaS0+ZGV2Owo+
-IEBAIC0xMTM3LDE1ICsxMTg2LDkgQEAgc3RhdGljIGludCBzcGluYW5kX2luaXQoc3RydWN0IHNw
-aW5hbmRfZGV2aWNlICpzcGluYW5kKQo+ICAJfQo+ICAKPiAgCS8qIEFmdGVyIHBvd2VyIHVwLCBh
-bGwgYmxvY2tzIGFyZSBsb2NrZWQsIHNvIHVubG9jayB0aGVtIGhlcmUuICovCj4gLQlmb3IgKGkg
-PSAwOyBpIDwgbmFuZC0+bWVtb3JnLm50YXJnZXRzOyBpKyspIHsKPiAtCQlyZXQgPSBzcGluYW5k
-X3NlbGVjdF90YXJnZXQoc3BpbmFuZCwgaSk7Cj4gLQkJaWYgKHJldCkKPiAtCQkJZ290byBlcnJf
-bWFudWZfY2xlYW51cDsKPiAtCj4gLQkJcmV0ID0gc3BpbmFuZF9sb2NrX2Jsb2NrKHNwaW5hbmQs
-IEJMX0FMTF9VTkxPQ0tFRCk7Cj4gLQkJaWYgKHJldCkKPiAtCQkJZ290byBlcnJfbWFudWZfY2xl
-YW51cDsKPiAtCX0KPiArCXJldCA9IHNwaW5hbmRfYmxvY2tfdW5sb2NrKHNwaW5hbmQpOwo+ICsJ
-aWYgcmV0KQoKSSBkb3VidCB0aGlzIGFzIGV2ZW4gYmUgYnVpbGQtdGVzdGVkIDopCgo+ICsJCWdv
-dG8gZXJyX21hbnVmX2NsZWFudXA7Cj4gIAo+ICAJcmV0ID0gbmFuZGRldl9pbml0KG5hbmQsICZz
-cGluYW5kX29wcywgVEhJU19NT0RVTEUpOwo+ICAJaWYgKHJldCkKPiBAQCAtMTE2Nyw2ICsxMjEw
-LDcgQEAgc3RhdGljIGludCBzcGluYW5kX2luaXQoc3RydWN0IHNwaW5hbmRfZGV2aWNlICpzcGlu
-YW5kKQo+ICAJbXRkLT5fYmxvY2tfaXNyZXNlcnZlZCA9IHNwaW5hbmRfbXRkX2Jsb2NrX2lzcmVz
-ZXJ2ZWQ7Cj4gIAltdGQtPl9lcmFzZSA9IHNwaW5hbmRfbXRkX2VyYXNlOwo+ICAJbXRkLT5fbWF4
-X2JhZF9ibG9ja3MgPSBuYW5kZGV2X210ZF9tYXhfYmFkX2Jsb2NrczsKPiArCW10ZC0+X3Jlc3Vt
-ZSA9IHNwaW5hbmRfbXRkX3Jlc3VtZTsKPiAgCj4gIAlpZiAobmFuZC0+ZWNjLmVuZ2luZSkgewo+
-ICAJCXJldCA9IG10ZF9vb2JsYXlvdXRfY291bnRfZnJlZWJ5dGVzKG10ZCk7CgpUaGFua3MsCk1p
-cXXDqGwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+This series improves DMA probe.
+
+Erwan Le Ray (2):
+  serial: stm32: reset dma buffers during probe
+  serial: stm32: defer probe for dma devices
+
+ drivers/tty/serial/stm32-usart.c | 165 +++++++++++++++----------------
+ 1 file changed, 79 insertions(+), 86 deletions(-)
+
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
