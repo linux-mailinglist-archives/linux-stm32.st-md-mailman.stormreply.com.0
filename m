@@ -2,152 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D265393B3B
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 May 2021 03:58:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F817393BE9
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 May 2021 05:26:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5943C5718D;
-	Fri, 28 May 2021 01:58:04 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 934F6C5718D;
+	Fri, 28 May 2021 03:26:58 +0000 (UTC)
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com
+ [209.85.161.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D494CC57182
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0C74C424BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 May 2021 01:58:02 +0000 (UTC)
-IronPort-SDR: 4RvpD4sr7bx7fV0aBD+e7CHm2Meo5pWaMaFKqQwxRDQjqTjyyXrj5407NGr6CKlk4YbQHGbQv8
- ung75SWVXbdA==
-X-IronPort-AV: E=McAfee;i="6200,9189,9997"; a="200985601"
-X-IronPort-AV: E=Sophos;i="5.83,228,1616482800"; d="scan'208";a="200985601"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2021 18:58:00 -0700
-IronPort-SDR: MblKSxH4I63PESAU8edTFcuMI0p6O8V9CeamdfyW+jMBnHRCBdkrRhP7abn0FdNjCZ4W1BLFTT
- N8wvNrVpj4uA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,228,1616482800"; d="scan'208";a="477736591"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by orsmga001.jf.intel.com with ESMTP; 27 May 2021 18:58:00 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.4; Thu, 27 May 2021 18:57:59 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4
- via Frontend Transport; Thu, 27 May 2021 18:57:59 -0700
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.175)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2242.4; Thu, 27 May 2021 18:57:59 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VUjOBoXJ/wA2nweKc2AqleewXOFevax9xEDjzIjK76yZ2BC7o7YwYxx76fM2hcSyWBh/JDwdlOhvzWDyqt1BQZiHi/g32t729D24PKRDnONrbAKuG70mOYfBMcFQz4hFqBps1BozjMil+YaFqOOBKg/uPdm9imWDliVOH1qB5vQpu86PHsW18imG40YrsdCvZCo6+57xZNRXtKNqlplIOWq19grKVrMwvAd2svy00WZn3dtqy4+Sf/EzrnJL3xk3SqtlyW9PQ2gAm9xawa++qGg4lJCQmyuX2ncvzS77EgwJtfujoNdw+9C5j+vWa2TMeJnAwvuK1OMDGi+mFkICKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UwtGNn4wUpy5C3srOfhepVUj4O28wrlTBIGe/uWT+vk=;
- b=X+/5Px7IjlBRb9B+/6Am4BSUqrUpC6CqYNnwK38NjCRmX49mAJ2GjEvAWOtwRdHpEvyS1D9TwZiiH1+Foujk43o6VkVVwcnUsqq+zd5t+ArZjRPDCpwPcYGYpq+Y4myUcl9GI9ZBQVYZ1k6tvLeen+cux78tkm4ClgnYajzN2XOgE6WJE5uJryqOeq+eA2clhYEFEorQ/uEft6wYetMLTOzQWbmsO59HBfQ6XlXktJ3gc8l+QOjOwUeU1YGrHEoKCZHJMbnlkKZiqSNu7H089tvIL0N9bwNvhRxrJmxuiGgp3gXCmx26+HujjVC9KPc2fxjMY+pUradGOKFMbUYHsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UwtGNn4wUpy5C3srOfhepVUj4O28wrlTBIGe/uWT+vk=;
- b=l5mZs1u2BU3OWjYLLXLnHtmkc10n48uRuofD8UUFSrG9d9cO+gr0VmF6VuszOG0smc1SLgsaS6n6yeNNiO2WCyupsbqa7gojz0L0dXgBvsqnj2crp5CNjwGaqOB2RrKBiUaSc01dEOWmvmp9Gsc+lpb5Wq4Q0ge2lJD9eEvclcM=
-Received: from CO1PR11MB5044.namprd11.prod.outlook.com (2603:10b6:303:92::5)
- by MWHPR11MB1405.namprd11.prod.outlook.com (2603:10b6:300:21::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.22; Fri, 28 May
- 2021 01:57:58 +0000
-Received: from CO1PR11MB5044.namprd11.prod.outlook.com
- ([fe80::fccf:6de6:458a:9ded]) by CO1PR11MB5044.namprd11.prod.outlook.com
- ([fe80::fccf:6de6:458a:9ded%3]) with mapi id 15.20.4173.021; Fri, 28 May 2021
- 01:57:58 +0000
-From: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Thread-Topic: [PATCH net-next v3 2/3] net: pcs: add 2500BASEX support for
- Intel mGbE controller
-Thread-Index: AQHXUtrnBn8MrqotsUKAotjUoAsS7Kr3+cUAgAAqCZA=
-Date: Fri, 28 May 2021 01:57:58 +0000
-Message-ID: <CO1PR11MB5044DDF8E9080BDB9701B3339D229@CO1PR11MB5044.namprd11.prod.outlook.com>
-References: <20210527092415.25205-1-michael.wei.hong.sit@intel.com>
- <20210527092415.25205-3-michael.wei.hong.sit@intel.com>
- <YLAqrte9qwQ/64BI@lunn.ch>
-In-Reply-To: <YLAqrte9qwQ/64BI@lunn.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-authentication-results: lunn.ch; dkim=none (message not signed)
- header.d=none;lunn.ch; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [58.71.211.99]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7c9360b7-352b-444f-e21e-08d9217c04c1
-x-ms-traffictypediagnostic: MWHPR11MB1405:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR11MB14059364E8DECBDFA4F5BF8F9D229@MWHPR11MB1405.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1227;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BBnIoHkHbPQ1QHA1KVrDETduUND0SkrPfB9Bj0Z41nYctK2IIMZFE+o+QIvfkyWu0OYTQH9SdttNQJUOEGxpJ9VZKWs/O1e+ZbROi7/PlyLwtJPFEFp3xBFDj7K25o4SpcRWkKHMBq2w8ffVOZEL9RO38jRbyMBVz/FB6J1L4oWfj2WfKLvWBEzEKYvj4l+usZQOoZPfGBuxcSvN2cGnIJ46VMlgUmy6v8IBy4M1xkKz07DqJufDvZc1VqBr5QnkAZep3z0DrpMZPa2ifuKaMrQN3sYuKfMhWUMSYC8jahfF6dfrzcLwEQYdN5xXDzDSrKtwPRlzG2Dy7VWdt0Jj9NKYH4fziQCgtIGMZyjRQeKAgfsieP5zgjnQKPy8IBzr6eaTPMEYkt8DKsDylMJnbEuiXgPdUjgz9wWMsDCnPcihYwotWnSjOsOenbNKYmuwIa16O6eAsXVt9hXv6B9NQUmxEq11KpX6SIZa1SOcd52bLWearwTmMKiUcjTMDaXLHfX93jca3AQoWpTbXcc+par7FN1VRtKgjHRDUinhfwdmcfZFtFnwC6309CfFbMCtEbe5A8NyAHHM/IyX9NqXEI44Vjl08SJb4CUpZsRMmxXKXK0dHclN3YfSplJGjR0SSTo1d2Tn8Dqcy3IZPCv4I62u4waLwMwexpOtXJI68GU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB5044.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(6029001)(366004)(39860400002)(346002)(136003)(376002)(396003)(5660300002)(316002)(83380400001)(6506007)(478600001)(186003)(66946007)(8676002)(4326008)(8936002)(76116006)(54906003)(66476007)(64756008)(66446008)(66556008)(26005)(71200400001)(7696005)(38100700002)(122000001)(7416002)(2906002)(9686003)(6916009)(86362001)(52536014)(33656002)(53546011)(55016002)(164013002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?xfr8YRgafMMHXDZHV8/uqdNshrBs5vC1o2lbZ7DG6KWdo6PMEIflSNSyfHR9?=
- =?us-ascii?Q?VXWnutMKtUplaMMe9jswyfhrfLb67BHiOCyYKsTnPEi+PsUwX1ybL92enLGb?=
- =?us-ascii?Q?daRJ3vlAgcVmciZpOkxMrIySvgqKcBgCSZ+SIqUmOv015HvsoNq0OfwJfit9?=
- =?us-ascii?Q?o1gShsNbT3lAiwDiCGgXCBCZDPUSm2pP4NZQf10R2///LNlzE5rd0GgBGS5d?=
- =?us-ascii?Q?+KW39S8gAO/0TT8F048xuYNbshIcmeuzlmqi1YJ823o03+tsWv4JWY+ZfsnH?=
- =?us-ascii?Q?Rlj9DRWVdYEBXKu1W6VwUyWAcs3bEMt9qVkTaoT6/OKQYKCycuUS9CVik6Yl?=
- =?us-ascii?Q?0GkLFtY4aaWVoYtTUlViAY073Fw5YnnY4keSZvfx+pWdZx0R1H4h+dmMxkWi?=
- =?us-ascii?Q?y9/DVVvL0MCIDAzDLvcFmCBhjMQ4IsFOqF87GKtkxGD/yK6gEl+D7qYhVfr4?=
- =?us-ascii?Q?9VCGNjiYbCUQVHJVLtZRkSYZO5MHe6+z1OGh1qJ3O2m3pDRrVpSiodQDQs5c?=
- =?us-ascii?Q?Bywv+Udv/ouReoxdafv2rQ3mNUbuzMwfUPE0QLkUQkTw4r9UfcrwdLh4uRus?=
- =?us-ascii?Q?GJgRaFul0MhL3MyJPumUWlV2T651XqQxgoGPtVj9JVpNCZMf/+EtcXFRHOHF?=
- =?us-ascii?Q?d7snfkCyoSEIzjhhlq5z0hzcWsnar+ziCTYmmfo08vbAnqQB2qQgajKDNRrO?=
- =?us-ascii?Q?yvul01jmBURPs73FIYOdNe7VTiDXIaQ5Rr4RRIMHlQmY4anQCa3YYmHpH8ou?=
- =?us-ascii?Q?IaxbjouPma4HquDiFP/Tjc9Mr2rFdsAF4u0HtjBnJDb8CCQmFRn8qy1dLzAn?=
- =?us-ascii?Q?YRqNPEMhGWGKHsxpa5ZMA0N9cilCCAIeffX+Q1GsF8tz7C6tuMLPQak3DlxP?=
- =?us-ascii?Q?/Opx34BvSPE2rKhXRubLVebmWtBndmNpJR0tTzi+CQxVo4kqO79g7to6h49v?=
- =?us-ascii?Q?TDYpVO8+bDTgHIgIbI6yBflUDpqfPDK0F4TJxVllzIh0OUN1OxbFxrjjLadN?=
- =?us-ascii?Q?iTCvoZ+Ap/2lLoJOKKfVGFbSVSqwOJtOyM8S7ambrqclrEnMRKibjZaKeWRz?=
- =?us-ascii?Q?qPRmXyoptUmRshNqvO82rowZZme7cjb8XawJcndDRp/Gl7Zu8KWBIIeUO1XT?=
- =?us-ascii?Q?0F0AU91liTQ2bmwojeQq9ZmXRrw2EvF0vxwcQUxtOyRXoc5XMwEAWlq3obXx?=
- =?us-ascii?Q?LYxq+lbiBsrEqPnDzfptgZnhamGIFzLx8/McJOkHIQJKQQ37RqjsoBSm7r9u?=
- =?us-ascii?Q?sZAd51vwQlkyAggZf6LnMaDPkdmdXf1d54emiYknUUpMXSuUi2BZUwj3r7N6?=
- =?us-ascii?Q?wsk=3D?=
+ Fri, 28 May 2021 03:26:56 +0000 (UTC)
+Received: by mail-oo1-f43.google.com with SMTP id
+ s20-20020a4ae9940000b02902072d5df239so620318ood.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 27 May 2021 20:26:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=0HYf019K48D/mZa9Ja8MZiRvjhcE/p6r/Rzw+0fAH1Q=;
+ b=GVCREBsOQ4o6K8NcnK5Pn767Q+hYZllknZgla56DkQ9AqmhzIfQM9qbWDdpIXvg22U
+ lxVIifjsW/J5f2/aCFokEYLo0UrF5JgLW4Hcz+YLBK/Pi18Ee8/kKameDE2YNj+UB3NU
+ 4U63p9plG9om1Zf+v8P0D7fPmeL3f+fBBGj2yVsg0EkJzTkreBIiprgEImJE0VHI5t+W
+ 23yEtHvOjeNZ0/l/SKc2oYRwfQgyfx9eCSB9VZtRO90IFpbSZVC3iFuIoK3JeidNyKVH
+ BjuwgiJmgPV0WtkYhnGtgXAOGS8Sf+pz2p0qZ3yb8Kv9aoOwR9tqBCWIttjBQKPNy0C8
+ jZqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=0HYf019K48D/mZa9Ja8MZiRvjhcE/p6r/Rzw+0fAH1Q=;
+ b=lXyTlzajEAjnVwlQ8iYAeZm05IZq6a0pn1vXoJAg8SDKv4K3VbzNeSBIix9tfM8yzZ
+ d/obDwBdM/p4796miA/zbWgdKbJHnd3YV/3iQyz5bG6zSrnqpmkwzyr0VJmjQzSRahlv
+ g3304aHX3chfeOvz8c3ROcUrv2fYtDl9W0UWMw6jI6VUiW8cyd5wXgkLfwbgPhHuWyy7
+ q81z8/3XpLjfmv82poVjHCAnZNssaFWwtGAQYLh1uX8u89UoEE7TSWwHLoFVO2pwwttQ
+ kDdLTyEzohLtzTOgWXB1U7vIpACNyjxxgtILEVn3ZgNsyl1UiRoOVU+8L4VnEAmWIzcC
+ v8Tg==
+X-Gm-Message-State: AOAM530m0CIWM11PefdZoQQx226jsHDKqva6ptrVd6YiDqWiodNQEn4B
+ FCZ43IUF85vJtQIZXS80a7zo9g==
+X-Google-Smtp-Source: ABdhPJzqLW8dwF9K7NcPJC+8aIVz9h46MznLNDQmiFkSkPnpckPqEgHuAn2s3bheumm48LahOF9Eqg==
+X-Received: by 2002:a4a:d30e:: with SMTP id g14mr5212330oos.32.1622172414871; 
+ Thu, 27 May 2021 20:26:54 -0700 (PDT)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id p1sm950576otk.58.2021.05.27.20.26.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 May 2021 20:26:54 -0700 (PDT)
+Date: Thu, 27 May 2021 22:26:52 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <YLBi/JZ0u8394tI8@builder.lan>
+References: <20210420091922.29429-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5044.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c9360b7-352b-444f-e21e-08d9217c04c1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2021 01:57:58.7917 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 11qr4mZnf5aQbCi0ENz9Nw77UJ29K1TA2yHXV07opTtLdC1O+9wmtIQY8jy9Quufxx9Mw1sXVv3GSLtOjwbjo5C6ohGmGWLsEP75J/DtqHg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1405
-X-OriginatorOrg: intel.com
-Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
- "vee.khee.wong@linux.intel.com" <vee.khee.wong@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Voon,
- Weifeng" <weifeng.voon@intel.com>, "Wong, Vee Khee" <vee.khee.wong@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Tan, 
- Tee Min" <tee.min.tan@intel.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
- "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>, "Ong,
- Boon Leong" <boon.leong.ong@intel.com>, "kuba@kernel.org" <kuba@kernel.org>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "hkallweit1@gmail.com" <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 2/3] net: pcs: add 2500BASEX
- support for Intel mGbE controller
+Content-Disposition: inline
+In-Reply-To: <20210420091922.29429-1-arnaud.pouliquen@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32: fix mbox_send_message
+	call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -164,60 +78,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Tue 20 Apr 04:19 CDT 2021, Arnaud Pouliquen wrote:
 
+> mbox_send_message is called by passing a local dummy message or
+> a function parameter. As the message is queued, it is dereferenced.
+> This works because the message field is not used by the stm32 ipcc
+> driver, but it is not clean.
+> 
+> Fix by passing a constant string in all cases.
+> 
+> The associated comments are removed because rproc should not have to
+> deal with the behavior of the mailbox frame.
+> 
 
-> -----Original Message-----
-> From: Andrew Lunn <andrew@lunn.ch>
-> Sent: Friday, 28 May, 2021 7:27 AM
-> To: Sit, Michael Wei Hong <michael.wei.hong.sit@intel.com>
-> Cc: Jose.Abreu@synopsys.com; hkallweit1@gmail.com;
-> linux@armlinux.org.uk; kuba@kernel.org;
-> netdev@vger.kernel.org; peppe.cavallaro@st.com;
-> alexandre.torgue@foss.st.com; davem@davemloft.net;
-> mcoquelin.stm32@gmail.com; Voon, Weifeng
-> <weifeng.voon@intel.com>; Ong, Boon Leong
-> <boon.leong.ong@intel.com>; Tan, Tee Min
-> <tee.min.tan@intel.com>; vee.khee.wong@linux.intel.com;
-> Wong, Vee Khee <vee.khee.wong@intel.com>; linux-stm32@st-
-> md-mailman.stormreply.com; linux-arm-
-> kernel@lists.infradead.org; linux-kernel@vger.kernel.org
-> Subject: Re: [PATCH net-next v3 2/3] net: pcs: add 2500BASEX
-> support for Intel mGbE controller
+Didn't we conclude that the mailbox driver doesn't actually dereference
+the pointer being passed?
+
+If so I would prefer that you just pass NULL, so that if you in the
+future need to pass some actual data it will be easy to distinguish the
+old and new case.
+
+Regards,
+Bjorn
+
+> Reported-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  drivers/remoteproc/stm32_rproc.c | 14 +++++---------
+>  1 file changed, 5 insertions(+), 9 deletions(-)
 > 
-> > +static int xpcs_config_2500basex(struct mdio_xpcs_args *xpcs)
-> {
-> > +	int ret;
-> > +
-> > +		ret = xpcs_read(xpcs, MDIO_MMD_VEND2,
-> DW_VR_MII_DIG_CTRL1);
-> > +		if (ret < 0)
-> > +			return ret;
-> > +		ret |= DW_VR_MII_DIG_CTRL1_2G5_EN;
-> > +		ret &=
-> ~DW_VR_MII_DIG_CTRL1_MAC_AUTO_SW;
-> > +		ret = xpcs_write(xpcs, MDIO_MMD_VEND2,
-> DW_VR_MII_DIG_CTRL1, ret);
-> > +		if (ret < 0)
-> > +			return ret;
-> > +
-> > +		ret = xpcs_read(xpcs, MDIO_MMD_VEND2,
-> DW_VR_MII_MMD_CTRL);
-> > +		if (ret < 0)
-> > +			return ret;
-> > +		ret &= ~AN_CL37_EN;
-> > +		ret |= SGMII_SPEED_SS6;
-> > +		ret &= ~SGMII_SPEED_SS13;
-> > +		return xpcs_write(xpcs, MDIO_MMD_VEND2,
-> DW_VR_MII_MMD_CTRL, ret);
-> > +
-> > +	return 0;
+> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+> index 7353f9e7e7af..0e8203a432ab 100644
+> --- a/drivers/remoteproc/stm32_rproc.c
+> +++ b/drivers/remoteproc/stm32_rproc.c
+> @@ -474,14 +474,12 @@ static int stm32_rproc_attach(struct rproc *rproc)
+>  static int stm32_rproc_detach(struct rproc *rproc)
+>  {
+>  	struct stm32_rproc *ddata = rproc->priv;
+> -	int err, dummy_data, idx;
+> +	int err, idx;
+>  
+>  	/* Inform the remote processor of the detach */
+>  	idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_DETACH);
+>  	if (idx >= 0 && ddata->mb[idx].chan) {
+> -		/* A dummy data is sent to allow to block on transmit */
+> -		err = mbox_send_message(ddata->mb[idx].chan,
+> -					&dummy_data);
+> +		err = mbox_send_message(ddata->mb[idx].chan, "stop");
+>  		if (err < 0)
+>  			dev_warn(&rproc->dev, "warning: remote FW detach without ack\n");
+>  	}
+> @@ -493,15 +491,13 @@ static int stm32_rproc_detach(struct rproc *rproc)
+>  static int stm32_rproc_stop(struct rproc *rproc)
+>  {
+>  	struct stm32_rproc *ddata = rproc->priv;
+> -	int err, dummy_data, idx;
+> +	int err, idx;
+>  
+>  	/* request shutdown of the remote processor */
+>  	if (rproc->state != RPROC_OFFLINE) {
+>  		idx = stm32_rproc_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
+>  		if (idx >= 0 && ddata->mb[idx].chan) {
+> -			/* a dummy data is sent to allow to block on transmit */
+> -			err = mbox_send_message(ddata->mb[idx].chan,
+> -						&dummy_data);
+> +			err = mbox_send_message(ddata->mb[idx].chan, "detach");
+>  			if (err < 0)
+>  				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
+>  		}
+> @@ -556,7 +552,7 @@ static void stm32_rproc_kick(struct rproc *rproc, int vqid)
+>  			continue;
+>  		if (!ddata->mb[i].chan)
+>  			return;
+> -		err = mbox_send_message(ddata->mb[i].chan, (void *)(long)vqid);
+> +		err = mbox_send_message(ddata->mb[i].chan, "kick");
+>  		if (err < 0)
+>  			dev_err(&rproc->dev, "%s: failed (%s, err:%d)\n",
+>  				__func__, ddata->mb[i].name, err);
+> -- 
+> 2.17.1
 > 
-> Indentation is messed up here? Or a rebase gone wrong
-> removing an if statement?
-> 
-Thanks Andrew! Good catch, missed this indentation error,
-will fix in next revision
-> 	    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
