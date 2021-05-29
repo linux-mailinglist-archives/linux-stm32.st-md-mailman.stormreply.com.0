@@ -2,72 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B586C394437
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 May 2021 16:32:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDD06394B37
+	for <lists+linux-stm32@lfdr.de>; Sat, 29 May 2021 11:13:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E419C5718D;
-	Fri, 28 May 2021 14:32:13 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FE03C5718D;
+	Sat, 29 May 2021 09:13:53 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1E10C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA9DFC32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 May 2021 14:32:10 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 14SESRuC008721; Fri, 28 May 2021 16:32:03 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=EGkmMWf1vadEwpWO9vA2GhG54Ky8HvNXDTV2YDYsik0=;
- b=SvxKJ/mwYsoK5Gmp2wXbDnlTgrrrTpci50dfQ9DAI9ocglfSru2xAlRWzWPHD8f5Tefi
- mcbU/dIQaLZBtEl2lNEusGYzibr7tAG44EmFCQRy4CyKwdiHLcXHi1yC0OZwalitFgnY
- 8Cn8Y3WwBWIIZ+AFMXIP2pdbXsjXajvRLB52Is66e6JQMUx1XV/vAyb+IEzsRPWJAYKh
- IPHtDNAVP1Ce3DK4XPsYeuYW2wAg3/hfFOqElHeUqGpN5ZvqtVd+/Gq++5WxCsJh8qRk
- aOPkRVz3RATUIihHHqsfpVCeLdDHB4/Oh3vEHMJ7CcHjUmakWGzWCymsGTJA07Jaejos 0g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 38u03c0ppb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 28 May 2021 16:32:03 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 609D910002A;
- Fri, 28 May 2021 16:32:01 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 48B142335B3;
- Fri, 28 May 2021 16:32:01 +0200 (CEST)
-Received: from lmecxl0573.lme.st.com (10.75.127.44) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 28 May
- 2021 16:32:00 +0200
-To: Pratyush Yadav <p.yadav@ti.com>
-References: <20210527161252.16620-1-patrice.chotard@foss.st.com>
- <20210527161252.16620-4-patrice.chotard@foss.st.com>
- <20210528120508.f6viglv3gkzgweqq@ti.com>
- <3238725c-d7ff-c000-23d1-f18298e1556f@foss.st.com>
- <20210528131658.jtveyvdtxrwj2lgx@ti.com>
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-Message-ID: <e4722cab-ab76-137b-9224-43d4c68d013a@foss.st.com>
-Date: Fri, 28 May 2021 16:31:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Sat, 29 May 2021 09:13:50 +0000 (UTC)
+Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4FsbMn3F9CzWnql;
+ Sat, 29 May 2021 17:09:09 +0800 (CST)
+Received: from dggema762-chm.china.huawei.com (10.1.198.204) by
+ dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Sat, 29 May 2021 17:13:47 +0800
+Received: from [10.174.179.129] (10.174.179.129) by
+ dggema762-chm.china.huawei.com (10.1.198.204) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Sat, 29 May 2021 17:13:46 +0800
+To: <vkoul@kernel.org>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@foss.st.com>, <michal.simek@xilinx.com>
+References: <20210517081826.1564698-1-yukuai3@huawei.com>
+From: "yukuai (C)" <yukuai3@huawei.com>
+Message-ID: <5ffefa65-121b-d1d8-78f0-ee0167f71e52@huawei.com>
+Date: Sat, 29 May 2021 17:13:45 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20210528131658.jtveyvdtxrwj2lgx@ti.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-05-28_05:2021-05-27,
- 2021-05-28 signatures=0
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, linux-kernel@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 3/3] mtd: spinand: add SPI-NAND MTD
-	resume handler
+In-Reply-To: <20210517081826.1564698-1-yukuai3@huawei.com>
+X-Originating-IP: [10.174.179.129]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggema762-chm.china.huawei.com (10.1.198.204)
+X-CFilter-Loop: Reflected
+Cc: dmaengine@vger.kernel.org, yi.zhang@huawei.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 0/3] cleanup patches for PM reference leak
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,205 +53,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+ping ...
 
-
-On 5/28/21 3:17 PM, Pratyush Yadav wrote:
-> On 28/05/21 02:51PM, Patrice CHOTARD wrote:
->> Hi Pratyush
->>
->> On 5/28/21 2:05 PM, Pratyush Yadav wrote:
->>> On 27/05/21 06:12PM, patrice.chotard@foss.st.com wrote:
->>>> From: Patrice Chotard <patrice.chotard@foss.st.com>
->>>>
->>>> After power up, all SPI NAND's blocks are locked. Only read operations
->>>> are allowed, write and erase operations are forbidden.
->>>> The SPI NAND framework unlocks all the blocks during its initialization.
->>>>
->>>> During a standby low power, the memory is powered down, losing its
->>>> configuration.
->>>> During the resume, the QSPI driver state is restored but the SPI NAND
->>>> framework does not reconfigured the memory.
->>>>
->>>> This patch adds SPI-NAND MTD PM handlers for resume ops.
->>>> SPI NAND resume op re-initializes SPI NAND flash to its probed state.
->>>>
->>>> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
->>>> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
->>>> ---
->>>> Changes in v3:
->>>>   - Add spinand_read_cfg() call to repopulate cache
->>>>
->>>> Changes in v2:
->>>>   - Add helper spinand_block_unlock().
->>>>   - Add spinand_ecc_enable() call.
->>>>   - Remove some dev_err().
->>>>   - Fix commit's title and message.
->>>>
->>>>  drivers/mtd/nand/spi/core.c | 33 +++++++++++++++++++++++++++++++++
->>>>  1 file changed, 33 insertions(+)
->>>>
->>>> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
->>>> index 1f699ad84f1b..e3fcbcf381c3 100644
->>>> --- a/drivers/mtd/nand/spi/core.c
->>>> +++ b/drivers/mtd/nand/spi/core.c
->>>> @@ -1099,6 +1099,38 @@ static int spinand_block_unlock(struct spinand_device *spinand)
->>>>  	return ret;
->>>>  }
->>>>  
->>>> +static void spinand_mtd_resume(struct mtd_info *mtd)
->>>> +{
->>>> +	struct spinand_device *spinand = mtd_to_spinand(mtd);
->>>> +	int ret;
->>>> +
->>>> +	ret = spinand_reset_op(spinand);
->>>> +	if (ret)
->>>> +		return;
->>>> +
->>>> +	ret = spinand_read_cfg(spinand);
->>>> +	if (ret)
->>>> +		return;
->>>> +
->>>> +	ret = spinand_init_quad_enable(spinand);
->>>> +	if (ret)
->>>> +		return;
->>>> +
->>>> +	ret = spinand_upd_cfg(spinand, CFG_OTP_ENABLE, 0);
->>>> +	if (ret)
->>>> +		return;
->>>> +
->>>> +	ret = spinand_manufacturer_init(spinand);
->>>> +	if (ret)
->>>> +		return;
->>>> +
->>>> +	ret = spinand_block_unlock(spinand);
->>>> +	if (ret)
->>>> +		return;
->>>> +
->>>> +	spinand_ecc_enable(spinand, false);
->>>> +}
->>>> +
->>>
->>> I don't think you quite get what me and Miquel are suggesting.
->>>
->>> The helper should call all these functions like read_cfg() 
->>> quad_enable(), etc. So it should look something like:
->>
->> Yes, this series was sent too quickly on my side, and i misunderstood 
->> what you suggested, sorry for that.
+On 2021/05/17 16:18, Yu Kuai wrote:
+> Yu Kuai (3):
+>    dmaengine: stm32-mdma: fix PM reference leak in
+>      stm32_mdma_alloc_chan_resourc()
+>    dmaengine: usb-dmac: Fix PM reference leak in usb_dmac_probe()
+>    dmaengine: zynqmp_dma: Fix PM reference leak in
+>      zynqmp_dma_alloc_chan_resourc()
 > 
-> Ah, I thought this was the v4. I see Miquel clarified already in reply 
-> to this patch.
-> 
->>
->>>
->>> int spinand_init_flash()
->>> {
->>> 	ret = spinand_read_cfg(spinand);
->>> 	if (ret)
->>> 		return;
->>>
->>
->> The new helper spinand_read_cfg() must not be called in spinand_init_flash()
->> but directly in spinand_resume().
->> This because spinand_read_cfg() only performs a REG_CFG read without doing the
->> memory allocation of spinand->cfg_cache.
->>
->> In spinand_init(), spinand_init_cfg_cache() must be called as previously as it does spinand->cfg_cache
->> memory allocation and call the new helper spinand_read_cfg(). 
->> Then after, spinand_init_flash() can be called.
-> 
-> I think it would be simpler for spinand_init_cfg_cache() to just 
-> allocate the spinand->cfg_cache array and then for spinand_init_flash() 
-> to call spinand_read_cfg().
-
-Argh, i just send the v5 ;-) .... i will wait the full v5 review and will follow your proposal 
-regarding spinand_init_cfg_cache().
-
-Patrice
-
-> 
->>
->>> 	ret = spinand_init_quad_enable(spinand);
->>> 	if (ret)
->>> 		return;
->>>
->>> 	ret = spinand_upd_cfg(spinand, CFG_OTP_ENABLE, 0);
->>> 	if (ret)
->>> 		return;
->>>
->>> 	ret = spinand_manufacturer_init(spinand);
->>> 	if (ret)
->>> 		return;
->>>
->>> 	ret = spinand_block_unlock(spinand);
->>> 	if (ret)
->>> 		return;
->>>
->>> 	spinand_ecc_enable(spinand, false);
->>> }
->>>
->>> Then spinand_mtd_resume should look something like:
->>>
->>> int spinand_mtd_resume()
->>> {
->>> 	ret = spinand_reset_op(spinand);
->>> 	if (ret)
->>> 		return;
->>>
->>> 	return spinand_init_flash();
->>> }
->>>
->>> And spinand_init() should look something like:
->>>
->>> int spinand_init()
->>> {
->>> 	...
->>> 	spinand->oobbuf = ...
->>>
->>> 	spinand_init_flash();
->>>
->>> 	spinand_create_dirmaps();
->>>
->>> 	...
->>
->> As explained just above, spinand_init() will look like :
->>
->> int spinand_init()
->> {
->> 	...
->> 	spinand->oobbuf = ...
->>
->> 	spinand_init_cfg_cache();     => perform cfg cache memory allocation and read the REG_CFG
->>
->> 	spinand_init_flash();
->>
->> 	spinand_create_dirmaps();
->>
->>> }
->>>
->>>
->>>>  static int spinand_init(struct spinand_device *spinand)
->>>>  {
->>>>  	struct device *dev = &spinand->spimem->spi->dev;
->>>> @@ -1186,6 +1218,7 @@ static int spinand_init(struct spinand_device *spinand)
->>>>  	mtd->_block_isreserved = spinand_mtd_block_isreserved;
->>>>  	mtd->_erase = spinand_mtd_erase;
->>>>  	mtd->_max_bad_blocks = nanddev_mtd_max_bad_blocks;
->>>> +	mtd->_resume = spinand_mtd_resume;
->>>>  
->>>>  	if (nand->ecc.engine) {
->>>>  		ret = mtd_ooblayout_count_freebytes(mtd);
->>>> -- 
->>>> 2.17.1
->>>
->>
->> Thanks
->> Patrice
+>   drivers/dma/sh/usb-dmac.c       | 2 +-
+>   drivers/dma/stm32-mdma.c        | 4 ++--
+>   drivers/dma/xilinx/zynqmp_dma.c | 2 +-
+>   3 files changed, 4 insertions(+), 4 deletions(-)
 > 
 _______________________________________________
 Linux-stm32 mailing list
