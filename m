@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B194C395571
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 May 2021 08:26:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12A9B3956D0
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 May 2021 10:22:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52378C57B69;
-	Mon, 31 May 2021 06:26:42 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEC97C57B5A;
+	Mon, 31 May 2021 08:22:13 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB31FC424BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBE7AC32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 May 2021 06:26:38 +0000 (UTC)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.56])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4FtlYt5qkyzWpwk;
- Mon, 31 May 2021 14:21:54 +0800 (CST)
-Received: from dggemi762-chm.china.huawei.com (10.1.198.148) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Mon, 31 May 2021 14:26:34 +0800
-Received: from linux-lmwb.huawei.com (10.175.103.112) by
- dggemi762-chm.china.huawei.com (10.1.198.148) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Mon, 31 May 2021 14:26:34 +0800
-From: Zou Wei <zou_wei@huawei.com>
-To: <vkoul@kernel.org>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>
-Date: Mon, 31 May 2021 14:45:15 +0800
-Message-ID: <1622443515-55117-1-git-send-email-zou_wei@huawei.com>
-X-Mailer: git-send-email 2.6.2
+ Mon, 31 May 2021 08:22:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7F4296103E;
+ Mon, 31 May 2021 08:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1622449331;
+ bh=0fzSp4PUDxkbwQ9WVqH4hcCf2zwEpJ8nEwsSxZ2qXMM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=P5g4kmWxKRIiQlmEELmFcy6P1q0RX5632M4WRbMgqcNCbRP6y5hK+7+hhJl5D+jQk
+ WwMtH3WilvLZLAj6RU4dHzJIKHpDrgy+pOSKxgWgEd7rA4+W/p5PdqPLi+EKTNayUb
+ 2pze2E3bht8vC6w8o6o9XLSiy1PzK2QqGpYLKhL9hB59aY0ciITrPZ9jhp4zgZPShj
+ ZgGGh+nT8r4lCx7IEx385D7OfIcTXac3p05zeBCKaCi7lpDQNiQ5cxdVQb37MdpQVZ
+ acRkKVkigDkmhLNMbpU71vcBjRa4k0Q6lDwHwT6oo1zGaMCuwtjW2JFI38wz/WK/O/
+ N0G8jzqmrmS1A==
+Date: Mon, 31 May 2021 13:52:07 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Message-ID: <YLScr5BwfLkk80eF@vkoul-mobl.Dlink>
+References: <20210517120821.26466-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.175.103.112]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- dggemi762-chm.china.huawei.com (10.1.198.148)
-X-CFilter-Loop: Reflected
-Cc: dmaengine@vger.kernel.org, Zou
- Wei <zou_wei@huawei.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH -next] dmaengine: stm32-dma: fix PM reference
-	leak in stm32_dma_alloc_chan_resource()
+Content-Disposition: inline
+In-Reply-To: <20210517120821.26466-1-amelie.delaunay@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-phy@lists.infradead.org, Kishon Vijay Abraham I <kishon@ti.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RESEND PATCH v2 0/2] STM32 USBPHYC vbus-supply
+	property support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,42 +56,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-pm_runtime_get_sync will increment pm usage counter even it failed.
-Forgetting to putting operation will result in reference leak here.
-Fix it by replacing it with pm_runtime_resume_and_get to keep usage
-counter balanced.
+On 17-05-21, 14:08, Amelie Delaunay wrote:
+> STM32 USBPHYC provides two USB High-Speed ports which are used by controllers
+> with Host capabilities. That's why vbus-supply has to be supported on each
+> phy node.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Zou Wei <zou_wei@huawei.com>
----
- drivers/dma/stm32-dma.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Applied, thanks
 
-diff --git a/drivers/dma/stm32-dma.c b/drivers/dma/stm32-dma.c
-index f54ecb1..7dd1d3d 100644
---- a/drivers/dma/stm32-dma.c
-+++ b/drivers/dma/stm32-dma.c
-@@ -1200,7 +1200,7 @@ static int stm32_dma_alloc_chan_resources(struct dma_chan *c)
- 
- 	chan->config_init = false;
- 
--	ret = pm_runtime_get_sync(dmadev->ddev.dev);
-+	ret = pm_runtime_resume_and_get(dmadev->ddev.dev);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -1470,7 +1470,7 @@ static int stm32_dma_suspend(struct device *dev)
- 	struct stm32_dma_device *dmadev = dev_get_drvdata(dev);
- 	int id, ret, scr;
- 
--	ret = pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
- 	if (ret < 0)
- 		return ret;
- 
 -- 
-2.6.2
-
+~Vinod
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
