@@ -2,46 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDD06394B37
-	for <lists+linux-stm32@lfdr.de>; Sat, 29 May 2021 11:13:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC404395446
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 May 2021 06:00:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FE03C5718D;
-	Sat, 29 May 2021 09:13:53 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61E92C57B69;
+	Mon, 31 May 2021 04:00:44 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA9DFC32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A84CCC424BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 29 May 2021 09:13:50 +0000 (UTC)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.57])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4FsbMn3F9CzWnql;
- Sat, 29 May 2021 17:09:09 +0800 (CST)
-Received: from dggema762-chm.china.huawei.com (10.1.198.204) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Sat, 29 May 2021 17:13:47 +0800
-Received: from [10.174.179.129] (10.174.179.129) by
- dggema762-chm.china.huawei.com (10.1.198.204) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Sat, 29 May 2021 17:13:46 +0800
-To: <vkoul@kernel.org>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>, <michal.simek@xilinx.com>
+ Mon, 31 May 2021 04:00:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F407F60FEB;
+ Mon, 31 May 2021 04:00:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1622433640;
+ bh=XaoLCwYWhSf9Bigq0YTehKp6euZPqSNLDQH634g/3R0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=n4E7SqRYBMwWHQzLSJnC6pk0vz4wxnBh8UmvS3xZS72plgWsy98jkGnhlZFpNu+Yy
+ lWqL+H8aNp0M344QZFkc95sXMLH3QNrCu34riaXhi/3UBr49/39COWZQBPyCSCqcrc
+ tQborjyZN4L4/lZskeHeTfrAU4IIrHozFwEyjk3fbpjy0lgWVC3a4mBg3h/j9YSLkU
+ YmAMP6P6iSm7S5IFPswJHZ3gvgrYRkt1wFuebjLs6SKoEbcKzN8tokgDPn5jmr05A+
+ jJnLZxW+iiSitmQRYHBu/cM8PhYrn16hJJ4Ulr0uoELiIUMoI315ZJlbXKFDtfNaqx
+ VpymCo14Kmn0g==
+Date: Mon, 31 May 2021 09:30:37 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Yu Kuai <yukuai3@huawei.com>
+Message-ID: <YLRfZfnuxc0+n/LN@vkoul-mobl.Dlink>
 References: <20210517081826.1564698-1-yukuai3@huawei.com>
-From: "yukuai (C)" <yukuai3@huawei.com>
-Message-ID: <5ffefa65-121b-d1d8-78f0-ee0167f71e52@huawei.com>
-Date: Sat, 29 May 2021 17:13:45 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <20210517081826.1564698-3-yukuai3@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <20210517081826.1564698-1-yukuai3@huawei.com>
-X-Originating-IP: [10.174.179.129]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- dggema762-chm.china.huawei.com (10.1.198.204)
-X-CFilter-Loop: Reflected
-Cc: dmaengine@vger.kernel.org, yi.zhang@huawei.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 0/3] cleanup patches for PM reference leak
+Content-Disposition: inline
+In-Reply-To: <20210517081826.1564698-3-yukuai3@huawei.com>
+Cc: michal.simek@xilinx.com, yi.zhang@huawei.com, linux-kernel@vger.kernel.org,
+ alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com,
+ dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/3] dmaengine: usb-dmac: Fix PM reference
+ leak in usb_dmac_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,26 +51,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ping ...
+On 17-05-21, 16:18, Yu Kuai wrote:
+> pm_runtime_get_sync will increment pm usage counter even it failed.
+> Forgetting to putting operation will result in reference leak here.
+> Fix it by replacing it with pm_runtime_resume_and_get to keep usage
+> counter balanced.
+> 
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+> ---
+>  drivers/dma/sh/usb-dmac.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma/sh/usb-dmac.c b/drivers/dma/sh/usb-dmac.c
+> index 8f7ceb698226..2a6c8fd8854e 100644
+> --- a/drivers/dma/sh/usb-dmac.c
+> +++ b/drivers/dma/sh/usb-dmac.c
+> @@ -796,7 +796,7 @@ static int usb_dmac_probe(struct platform_device *pdev)
+>  
+>  	/* Enable runtime PM and initialize the device. */
+>  	pm_runtime_enable(&pdev->dev);
+> -	ret = pm_runtime_get_sync(&pdev->dev);
+> +	ret = pm_runtime_resume_and_get(&pdev->dev);
 
-On 2021/05/17 16:18, Yu Kuai wrote:
-> Yu Kuai (3):
->    dmaengine: stm32-mdma: fix PM reference leak in
->      stm32_mdma_alloc_chan_resourc()
->    dmaengine: usb-dmac: Fix PM reference leak in usb_dmac_probe()
->    dmaengine: zynqmp_dma: Fix PM reference leak in
->      zynqmp_dma_alloc_chan_resourc()
-> 
->   drivers/dma/sh/usb-dmac.c       | 2 +-
->   drivers/dma/stm32-mdma.c        | 4 ++--
->   drivers/dma/xilinx/zynqmp_dma.c | 2 +-
->   3 files changed, 4 insertions(+), 4 deletions(-)
-> 
+This does not seem to fix anything.. the below goto goes and disables
+the runtime_pm for this device and thus there wont be any leak
+
+>  	if (ret < 0) {
+>  		dev_err(&pdev->dev, "runtime PM get sync failed (%d)\n", ret);
+>  		goto error_pm;
+> -- 
+> 2.25.4
+
+-- 
+~Vinod
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
