@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F26B396D93
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Jun 2021 08:51:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60583396D94
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Jun 2021 08:51:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06A90C57B55;
-	Tue,  1 Jun 2021 06:51:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B0AAC57B6B;
+	Tue,  1 Jun 2021 06:51:53 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D6D3C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 106A9C57B55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Jun 2021 06:51:35 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Tue,  1 Jun 2021 06:51:50 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 1516gr4O019005; Tue, 1 Jun 2021 08:51:31 +0200
+ 1516kLqv022909; Tue, 1 Jun 2021 08:51:46 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=88aoSG93oLJTZ4+9SDFk/mw01FsnD91w/cuPHLIMsB0=;
- b=sz8/xvr0A8Nz+uBH9THsAjVu1jL4t9cEAWu1J3wi6qYSBpGdn5sLTh7I+gXDmy4vDgew
- Zggy6gtmfBw1aNc3uwLmuD1QsQXRgFPyKbwZg5oTxwa1Ot/yh89QYyBK7Kw9tXWzJ+Kf
- rPrFyQJcwWGR1CAygcJUWfEwKMDG+GJBb6ubF0J4IBK+vTJqJsj87aYaMHYNaSeiUqqX
- gB6/SPfswTsF+WsEBj3BGP3i9NwNlaujPH+RK4Sq5289ifVy3gX/XJK48Gm9qVcBmpF9
- BXZm6PNSlGYu/I0ouYkyFwQ8S7BHPKAaZcMSJUa/HFh+Q1du9Taw9enI1jelWTTyYaa1 iA== 
+ bh=fdfd71MTpMElpLRKnrDL8ofNHxs7+ObdxJu4LLpovKY=;
+ b=QIvsmRy+XCtwGQt9UD7P0VRZOFfznQmmBwN2bM+3IJbwkPQYAOHvRiXsP5W3KofDXd5e
+ 4Lvm0KnDIfLg3rfjlvgjMqP6LqxhjIsSYaBoA7th0HF9evdv2y7PCv88pcYaTb+eCRtj
+ fjrnMwHVz0tmFzc/cRUFFQSJelEs0QnhyuTIMIg0JsbbhEwip48t1AglWJUtCUtf1vMR
+ EighvmOKCx2PCSp/s2a9IQaGJbas0qgdvx3sjmQkWuk0kgBqUPRbqsB9sAPr9KIdaHru
+ nwZLkI2JnjZ+5B2DCrzlGHx88D/Buz51rTzvK0cMgtFaQhVkJKeOpEr+asNkQaPD4xI8 5w== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 38vutw5517-1
+ by mx07-00178001.pphosted.com with ESMTP id 38w49cjmmj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 01 Jun 2021 08:51:31 +0200
+ Tue, 01 Jun 2021 08:51:46 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7B403100038;
- Tue,  1 Jun 2021 08:51:31 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D6D1C100034;
+ Tue,  1 Jun 2021 08:51:45 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7060C211614;
- Tue,  1 Jun 2021 08:51:31 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.44) by SFHDAG2NODE3.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CC882212319;
+ Tue,  1 Jun 2021 08:51:45 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.46) by SFHDAG2NODE3.st.com
  (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 1 Jun
- 2021 08:51:30 +0200
+ 2021 08:51:45 +0200
 To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
 References: <20210426150013.121406-1-marex@denx.de>
+ <20210426150013.121406-2-marex@denx.de>
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <8d2663f0-f0c6-5171-5d88-99d612036b05@foss.st.com>
-Date: Tue, 1 Jun 2021 08:51:30 +0200
+Message-ID: <08f5442f-f9c3-59c6-29d3-af443a006944@foss.st.com>
+Date: Tue, 1 Jun 2021 08:51:44 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210426150013.121406-1-marex@denx.de>
+In-Reply-To: <20210426150013.121406-2-marex@denx.de>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG3NODE1.st.com (10.75.127.7) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
  definitions=2021-06-01_03:2021-05-31,
@@ -60,8 +61,7 @@ Cc: linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@st.com>,
  Patrick Delaunay <patrick.delaunay@st.com>,
  Patrice Chotard <patrice.chotard@st.com>
-Subject: Re: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: Remove extra
-	size-cells
+Subject: Re: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: Fix touchscreen node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,8 +80,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 4/26/21 5:00 PM, Marek Vasut wrote:
 > Fix make dtbs_check warning:
-> arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: gpio-keys-polled: '#address-cells' is a dependency of '#size-cells'
-> arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: gpio-keys: '#address-cells' is a dependency of '#size-cells'
+> arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml:0:0: /soc/i2c@40015000/polytouch@38: failed to match any schema with compatible: ['edt,edt-ft5x06']
 > 
 > Signed-off-by: Marek Vasut <marex@denx.de>
 > Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -89,32 +88,25 @@ On 4/26/21 5:00 PM, Marek Vasut wrote:
 > Cc: Patrick Delaunay <patrick.delaunay@st.com>
 > Cc: linux-stm32@st-md-mailman.stormreply.com
 > To: linux-arm-kernel@lists.infradead.org
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
 > ---
->   arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 2 --
->   1 file changed, 2 deletions(-)
+>   arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> index 5523f4138fd6..0fbf9913e8df 100644
+> index 0fbf9913e8df..b8c8f0b284c3 100644
 > --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
 > +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-> @@ -34,7 +34,6 @@ display_bl: display-bl {
+> @@ -182,8 +182,8 @@ sgtl5000_rx_endpoint: endpoint@1 {
 >   
->   	gpio-keys-polled {
->   		compatible = "gpio-keys-polled";
-> -		#size-cells = <0>;
->   		poll-interval = <20>;
+>   	};
 >   
->   		/*
-> @@ -60,7 +59,6 @@ button-2 {
->   
->   	gpio-keys {
->   		compatible = "gpio-keys";
-> -		#size-cells = <0>;
->   
->   		button-1 {
->   			label = "TA2-GPIO-B";
+> -	polytouch@38 {
+> -		compatible = "edt,edt-ft5x06";
+> +	touchscreen@38 {
+> +		compatible = "edt,edt-ft5406";
+>   		reg = <0x38>;
+>   		interrupt-parent = <&gpiog>;
+>   		interrupts = <2 IRQ_TYPE_EDGE_FALLING>; /* GPIO E */
 > 
 
 Applied on stm32-next.
