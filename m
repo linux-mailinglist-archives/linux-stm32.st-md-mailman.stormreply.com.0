@@ -2,69 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB36A3972E5
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Jun 2021 13:59:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3C5F397385
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Jun 2021 14:48:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 809DDC57B5A;
-	Tue,  1 Jun 2021 11:59:23 +0000 (UTC)
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
- [209.85.166.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60C56C57B5A;
+	Tue,  1 Jun 2021 12:48:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8363CC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AA07C36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Jun 2021 11:59:21 +0000 (UTC)
-Received: by mail-il1-f179.google.com with SMTP id z1so12665321ils.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 01 Jun 2021 04:59:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7h+A8aEDUOIPJ0mvlv22w1DuGIkLT4pGU/4T1UhDmms=;
- b=j8OR4Sn96SBx/RobEUIz9aB1+A6WnyGyB/Nq9pQVaWc2TGT3igc9cVZ+6RCDiG/1Vt
- 91J+WmrmrdtltcMDhPWPILb7dlfZbG9O+aP9c+Ex4LSQ7aOq4Zgy9/KjMEDiH+JviTUz
- RtxQu/DrawhynBcoCvnB61AguKMnM6UbFgQ02FxqgF8I4EwELZp6XdlPBxOnP6Wg8PnG
- UfHsMrmsJE4M482D3FI+fxogHtZQ9LnCApgrZSs+6hzfp8bsw/5jdeXzDFcqddcXVnvn
- dPuxBoMvNelA28r+iqN6V23EBTb2nroadn5t3qfUy5mxqAmNGqZPvx7r/hf/6PUWmzOG
- moRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7h+A8aEDUOIPJ0mvlv22w1DuGIkLT4pGU/4T1UhDmms=;
- b=qytm4bq3bWVGlEF3FbZoWNJD1ToKyL6aG0CJhog06M/NG5ta2bWHPDN7O82odC7UoM
- YV9trJNF5kWUcyI7G+RVhgiCFnycXvNk9Dh+NZpDoTQLl0GvJ5Ag+X+pHU6ykUy8u6xj
- UPnDyYI2bRAt2Z5PoF+MyyvG8Deg7lfHPGPUc8Z9pJ3xOS77WSvWb4zHC7Z5+tzbZeS7
- umvisLpdzAnphHT8u6E1BFU3kmJ3gHL/qpsMIYvUEf3/xp97vfsvWwcb55EVffD3hWL9
- JL4TJQvKOcPjMX3j6t1B92C/HQn03Zz/Pne+KcRDuhcGxVBoCv/x747TU/LIy9x1Zz7I
- bREw==
-X-Gm-Message-State: AOAM5306vozMjWtAlAk3d5osy/jf4rC0RL0h/BTGBnnF0+KsdEN/v6s4
- IwoSYJ9tHIMxDx2hJu16d3CRduhfWD5ThMQgOcc=
-X-Google-Smtp-Source: ABdhPJyVH+Rz58jeThjRqbHxM68F5xsZlanLSn0RHHf58g9eo4S828VK2JlD7ENXVa+FmPR8K/Dy/SG+qLvsgPGZN4I=
-X-Received: by 2002:a05:6e02:1561:: with SMTP id
- k1mr21593650ilu.218.1622548760336; 
- Tue, 01 Jun 2021 04:59:20 -0700 (PDT)
-MIME-Version: 1.0
+ Tue,  1 Jun 2021 12:48:30 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 151Clde2004573; Tue, 1 Jun 2021 14:48:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=z1+Wnvit74uNghN0bCNQj3HecsTBaLmiImgMis/YHwU=;
+ b=m6qN6D0NZd1nY03SCvG9oPy643X1C31egKw8bmra2oATxq+McoF7xMx2fOlta7uFfA2h
+ PJFzo40m6sYSPuNf8l3wa5gp5AlmfObcpWO4M2D8DwzIaCgsqAnDvk/SpeH5beTUNtnP
+ 1SQXU3hREOMkH8J1vIcpHxu8yPpC4/CHdbtzJwRA1M6zcQ0Ot1eNSGPxg8udNQIhGE0W
+ txycQaNThTJrCMgPeGH4MSCrIAOdVsX2t6lgoJYueHn1luimRFtraLnEDfvDvbFzSGZf
+ RpZEGF6XCbR9VGrjjC47fcx0bd6USzk8vuuGB+tIdput8Zwts+gVBUNz7g6VxbcevsWt HA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38wjdg0xth-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 01 Jun 2021 14:48:13 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3C7BC10002A;
+ Tue,  1 Jun 2021 14:48:12 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2565322176F;
+ Tue,  1 Jun 2021 14:48:12 +0200 (CEST)
+Received: from lmecxl0573.lme.st.com (10.75.127.44) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 1 Jun
+ 2021 14:48:11 +0200
+To: <dillon.minfei@gmail.com>, <pierre-yves.mordret@foss.st.com>,
+ <alain.volmat@foss.st.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@foss.st.com>, <sumit.semwal@linaro.org>,
+ <christian.koenig@amd.com>, <mturquette@baylibre.com>
 References: <1620990152-19255-1-git-send-email-dillon.minfei@gmail.com>
- <1620990152-19255-3-git-send-email-dillon.minfei@gmail.com>
- <f30d5a1d-5acc-e756-5883-6c3d0173d643@foss.st.com>
-In-Reply-To: <f30d5a1d-5acc-e756-5883-6c3d0173d643@foss.st.com>
-From: Dillon Min <dillon.minfei@gmail.com>
-Date: Tue, 1 Jun 2021 19:58:44 +0800
-Message-ID: <CAL9mu0+ccyCUFoRP7ypNmS9TUCh_A=y0uNxgF9gb-UbB3C18Cw@mail.gmail.com>
-To: Patrice CHOTARD <patrice.chotard@foss.st.com>
-Cc: linux-clk <linux-clk@vger.kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
- linux-i2c@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- alain.volmat@foss.st.com, christian.koenig@amd.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-media <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 2/4] i2c: stm32f4: Fix stmpe811 get xyz
-	data timeout issue
+ <1620990152-19255-4-git-send-email-dillon.minfei@gmail.com>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+Message-ID: <6ecedc1d-3b80-0eba-a5f0-8feb3eae16cf@foss.st.com>
+Date: Tue, 1 Jun 2021 14:48:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <1620990152-19255-4-git-send-email-dillon.minfei@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-06-01_06:2021-05-31,
+ 2021-06-01 signatures=0
+Cc: sboyd@kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-i2c@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 3/4] clk: stm32: Fix stm32f429's ltdc
+ driver hang in set clock rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,116 +78,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Patrice, Pierre-Yves, Alain
-
-On Tue, Jun 1, 2021 at 7:43 PM Patrice CHOTARD
-<patrice.chotard@foss.st.com> wrote:
->
-> Hi Dillon
->
-> On 5/14/21 1:02 PM, dillon.minfei@gmail.com wrote:
-> > From: Dillon Min <dillon.minfei@gmail.com>
-> >
-> > As stm32f429's internal flash is 2Mbytes and compiled kernel
-> > image bigger than 2Mbytes, so we have to load kernel image
-> > to sdram on stm32f429-disco board which has 8Mbytes sdram space.
-> >
-> > based on above context, as you knows kernel running on external
-> > sdram is more slower than internal flash. besides, we need read 4
-> > bytes to get touch screen xyz(x, y, pressure) coordinate data in
-> > stmpe811 interrupt.
-> >
-> > so, in stm32f4_i2c_handle_rx_done, as i2c read slower than running
-> > in xip mode, have to adjust 'STOP/START bit set position' from last
-> > two bytes to last one bytes. else, will get i2c timeout in reading
-> > touch screen coordinate.
-> >
-> > to not bring in side effect, introduce IIC_LAST_BYTE_POS to support xip
-> > kernel or zImage.
-> >
-> > Fixes: 62817fc8d282 ("i2c: stm32f4: add driver")
-> > Link: https://lore.kernel.org/lkml/1591709203-12106-5-git-send-email-dillon.minfei@gmail.com/
-> > Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
-> > ---
-> >  drivers/i2c/busses/i2c-stm32f4.c | 12 +++++++++---
-> >  1 file changed, 9 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
-> > index 4933fc8ce3fd..2e41231b9037 100644
-> > --- a/drivers/i2c/busses/i2c-stm32f4.c
-> > +++ b/drivers/i2c/busses/i2c-stm32f4.c
-> > @@ -93,6 +93,12 @@
-> >  #define STM32F4_I2C_MAX_FREQ         46U
-> >  #define HZ_TO_MHZ                    1000000
-> >
-> > +#if !defined(CONFIG_MMU) && !defined(CONFIG_XIP_KERNEL)
-> > +#define IIC_LAST_BYTE_POS 1
-> > +#else
-> > +#define IIC_LAST_BYTE_POS 2
-> > +#endif
-> > +
-> >  /**
-> >   * struct stm32f4_i2c_msg - client specific data
-> >   * @addr: 8-bit slave addr, including r/w bit
-> > @@ -439,7 +445,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
-> >       int i;
-> >
-> >       switch (msg->count) {
-> > -     case 2:
-> > +     case IIC_LAST_BYTE_POS:
-> >               /*
-> >                * In order to correctly send the Stop or Repeated Start
-> >                * condition on the I2C bus, the STOP/START bit has to be set
-> > @@ -454,7 +460,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
-> >               else
-> >                       stm32f4_i2c_set_bits(reg, STM32F4_I2C_CR1_START);
-> >
-> > -             for (i = 2; i > 0; i--)
-> > +             for (i = IIC_LAST_BYTE_POS; i > 0; i--)
-> >                       stm32f4_i2c_read_msg(i2c_dev);
-> >
-> >               reg = i2c_dev->base + STM32F4_I2C_CR2;
-> > @@ -463,7 +469,7 @@ static void stm32f4_i2c_handle_rx_done(struct stm32f4_i2c_dev *i2c_dev)
-> >
-> >               complete(&i2c_dev->complete);
-> >               break;
-> > -     case 3:
-> > +     case (IIC_LAST_BYTE_POS+1):
-> >               /*
-> >                * In order to correctly generate the NACK pulse after the last
-> >                * received data byte, we have to enable NACK before reading N-2
-> >
->
-> I tested this patch on STM32F429-Disco, it fixes the issue described by Dillon.
-> But i think it's not a good idea to make usage of #if !defined(CONFIG_MMU) && !defined(CONFIG_XIP_KERNEL)
-> inside the driver code.
-
-Hi Patrice,
-Thanks for your time.
-
-How about introducing a dts node for this purpose.
-like
-stm32-i2c,last-byte-pos = <1>;
-or
-stm32-i2c,last-byte-pos = <2>;
-
-if not set, the default value is 2
-
-Best Regards
-Dillon
-
->
-> Pierre-Yves, Alain, as i am not I2C expert, can you have a look at this patch and propose another solution
-> to fix the original issue described by Dillon ?
->
-> Thanks
-> Patrice
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgRGlsbG9uCgpPbiA1LzE0LzIxIDE6MDIgUE0sIGRpbGxvbi5taW5mZWlAZ21haWwuY29tIHdy
+b3RlOgo+IEZyb206IERpbGxvbiBNaW4gPGRpbGxvbi5taW5mZWlAZ21haWwuY29tPgo+IAo+IFRo
+aXMgaXMgZHVlIHRvIG1pc3VzZSDigJhQTExfVkNPX1NBSScgYW5kJ1BMTF9TQUknIGluIGNsay1z
+dG0zMmY0LmMKPiAnUExMX1NBSScgaXMgMiwgJ1BMTF9WQ09fU0FJJyBpcyA3KGRlZmluZWQgaW4K
+PiBpbmNsdWRlL2R0LWJpbmRpbmdzL2Nsb2NrL3N0bTMyZngtY2xvY2suaCkuCj4gCj4gJ3Bvc3Rf
+ZGl2JyBwb2ludCB0byAncG9zdF9kaXZfZGF0YVtdJywgJ3Bvc3RfZGl2LT5wbGxfbnVtJwo+IGlz
+IFBMTF9JMlMgb3IgUExMX1NBSS4KPiAKPiAnY2xrc1tQTExfVkNPX1NBSV0nIGhhcyB2YWxpZCAn
+c3RydWN0IGNsa19odyogJyByZXR1cm4KPiBmcm9tIHN0bTMyZjRfcmNjX3JlZ2lzdGVyX3BsbCgp
+IGJ1dCwgYXQgbGluZSAxNzc3IG9mCj4gZHJpdmVyL2Nsay9jbGstc3RtMzJmNC5jLCB1c2UgdGhl
+ICdjbGtzW3Bvc3RfZGl2LT5wbGxfbnVtXScsCj4gZXF1YWwgdG8gJ2Nsa3NbUExMX1NBSV0nLCB0
+aGlzIGlzIGludmFsaWQgYXJyYXkgbWVtYmVyIGF0IHRoYXQgdGltZS4KPiAKPiBGaXhlczogNTE3
+NjMzZWY2MzBlICgiY2xrOiBzdG0zMmY0OiBBZGQgcG9zdCBkaXZpc29yIGZvciBJMlMgJiBTQUkg
+UExMcyIpCj4gU2lnbmVkLW9mZi1ieTogRGlsbG9uIE1pbiA8ZGlsbG9uLm1pbmZlaUBnbWFpbC5j
+b20+Cj4gQWNrZWQtYnk6IFN0ZXBoZW4gQm95ZCA8c2JveWRAa2VybmVsLm9yZz4KPiBMaW5rOiBo
+dHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1hcm0ta2VybmVsLzE1OTA1NjQ0NTMtMjQ0OTkt
+Ni1naXQtc2VuZC1lbWFpbC1kaWxsb24ubWluZmVpQGdtYWlsLmNvbS8KPiAtLS0KPiAgZHJpdmVy
+cy9jbGsvY2xrLXN0bTMyZjQuYyB8IDYgKysrLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2Vy
+dGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvY2xrL2Ns
+ay1zdG0zMmY0LmMgYi9kcml2ZXJzL2Nsay9jbGstc3RtMzJmNC5jCj4gaW5kZXggMTgxMTdjZTVm
+Zjg1Li40MmNhMmRkODZhZWEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9jbGsvY2xrLXN0bTMyZjQu
+Ywo+ICsrKyBiL2RyaXZlcnMvY2xrL2Nsay1zdG0zMmY0LmMKPiBAQCAtNTU3LDEzICs1NTcsMTMg
+QEAgc3RhdGljIGNvbnN0IHN0cnVjdCBjbGtfZGl2X3RhYmxlIHBvc3RfZGl2cl90YWJsZVtdID0g
+ewo+ICAKPiAgI2RlZmluZSBNQVhfUE9TVF9ESVYgMwo+ICBzdGF0aWMgY29uc3Qgc3RydWN0IHN0
+bTMyZjRfcGxsX3Bvc3RfZGl2X2RhdGEgIHBvc3RfZGl2X2RhdGFbTUFYX1BPU1RfRElWXSA9IHsK
+PiAtCXsgQ0xLX0kyU1FfUERJViwgUExMX0kyUywgInBsbGkycy1xLWRpdiIsICJwbGxpMnMtcSIs
+Cj4gKwl7IENMS19JMlNRX1BESVYsIFBMTF9WQ09fSTJTLCAicGxsaTJzLXEtZGl2IiwgInBsbGky
+cy1xIiwKPiAgCQlDTEtfU0VUX1JBVEVfUEFSRU5ULCBTVE0zMkY0X1JDQ19EQ0tDRkdSLCAwLCA1
+LCAwLCBOVUxMfSwKPiAgCj4gLQl7IENMS19TQUlRX1BESVYsIFBMTF9TQUksICJwbGxzYWktcS1k
+aXYiLCAicGxsc2FpLXEiLAo+ICsJeyBDTEtfU0FJUV9QRElWLCBQTExfVkNPX1NBSSwgInBsbHNh
+aS1xLWRpdiIsICJwbGxzYWktcSIsCj4gIAkJQ0xLX1NFVF9SQVRFX1BBUkVOVCwgU1RNMzJGNF9S
+Q0NfRENLQ0ZHUiwgOCwgNSwgMCwgTlVMTCB9LAo+ICAKPiAtCXsgTk9fSURYLCBQTExfU0FJLCAi
+cGxsc2FpLXItZGl2IiwgInBsbHNhaS1yIiwgQ0xLX1NFVF9SQVRFX1BBUkVOVCwKPiArCXsgTk9f
+SURYLCBQTExfVkNPX1NBSSwgInBsbHNhaS1yLWRpdiIsICJwbGxzYWktciIsIENMS19TRVRfUkFU
+RV9QQVJFTlQsCj4gIAkJU1RNMzJGNF9SQ0NfRENLQ0ZHUiwgMTYsIDIsIDAsIHBvc3RfZGl2cl90
+YWJsZSB9LAo+ICB9Owo+ICAKPiAKUmV2aWV3ZWQtYnk6IFBhdHJpY2UgQ2hvdGFyZCA8cGF0cmlj
+ZS5jaG90YXJkQGZvc3Muc3QuY29tPgoKVGhhbmtzClBhdHJpY2UKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0Ckxp
+bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
