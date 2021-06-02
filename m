@@ -2,55 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54BB539949B
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Jun 2021 22:36:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 329663994B7
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Jun 2021 22:40:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F5AFC57B6B;
-	Wed,  2 Jun 2021 20:36:35 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E291AC57B5A;
+	Wed,  2 Jun 2021 20:40:07 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F492C36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3AC8EC36B25
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Jun 2021 20:36:32 +0000 (UTC)
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 0001582F14;
- Wed,  2 Jun 2021 22:36:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1622666191;
- bh=Jlh+N6h+E3Cy4nsbJEhaybdC10KMt20uSZCAHiU/JTA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XjTYxmFw//yfMcvqEPHharC1GTl1m/886hszoCfxP1zhYlj5anhvgzrHJt9jQAoDz
- AVR4dDZBJcUoeBv1iSL7MlvxafJmuCF8/xoDRbycW/sr9Ag21eXeZ1JpS3UDkn9VrJ
- DCIjx8Xjoj6AdduWNBEHZHlT56m2UNRhEHMel8WzNqFdkYGRIw0XjUoyKr5PWrP7YO
- zWhIB3mgy2LEPlnMVlYgWoQZbF3hRv3me6wuSqHNFZmkLMi/CUTVwb0y3zxf7xlVs7
- 4KOKp+s9cq43sgyqYQ+oroZcMafZNS2dSNK440pEyMDm5jcupQCaj3KhvyucmE1kxH
- dZdp5bc79bCKw==
-From: Marek Vasut <marex@denx.de>
-To: dri-devel@lists.freedesktop.org
-Date: Wed,  2 Jun 2021 22:36:08 +0200
-Message-Id: <20210602203608.419192-2-marex@denx.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210602203608.419192-1-marex@denx.de>
-References: <20210602203608.419192-1-marex@denx.de>
+ Wed,  2 Jun 2021 20:40:05 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id B3523613E9;
+ Wed,  2 Jun 2021 20:40:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1622666403;
+ bh=XmuAynM0hvpRQItZ9xBkL6PmdQ/eIq6AizBpJd1B7so=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=YRFiAf9691w5eeYVSy6YhuMCy0jAF6ZrSUzWiP9VqhE34nIe/4rQ1oJp8szcOdpaM
+ UujtSabHXeCJgcfdwmcZ4UzLUyfigJi63mjNrjAA8RKPj86SbVOQUqQyp42s+INafB
+ vCn0B56WnIbsQB7bZjcq++zx0kf6lPqyntc7vBJn1XJtgU8BO2NcWZ1/WuWN2YA+Vn
+ MIyWU9hpDqJtQF/P9PYpiRs/4rATqWW4o3L6g1YVtp7eA2StTVrFdCHfGaaTLMhyEy
+ 7VVHSfmpOY0g83cdY6s6ZF6O/WlWnDv+wg6jPF2ibjTzcUe48r5u015Y5lktdBPY8K
+ d2R54kRVivJaQ==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id A55D160BFB;
+ Wed,  2 Jun 2021 20:40:03 +0000 (UTC)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, ch@denx.de,
- Antonio Borneo <antonio.borneo@st.com>, Vincent Abriou <vincent.abriou@st.com>,
- Philippe Cornu <philippe.cornu@st.com>, Yannick Fertre <yannick.fertre@st.com>,
- Andrzej Hajda <a.hajda@samsung.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Benjamin Gaignard <benjamin.gaignard@st.com>
-Subject: [Linux-stm32] [PATCH V5 2/2] drm/bridge: lvds-codec: Add support
-	for pixel data sampling edge select
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <162266640367.10923.8870511595725834118.git-patchwork-notify@kernel.org>
+Date: Wed, 02 Jun 2021 20:40:03 +0000
+References: <20210602023125.1263950-1-vee.khee.wong@linux.intel.com>
+In-Reply-To: <20210602023125.1263950-1-vee.khee.wong@linux.intel.com>
+To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
+ qiangqing.zhang@nxp.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: fix issue where clk
+ is being unprepared twice
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,101 +59,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The OnSemi FIN3385 Parallel-to-LVDS encoder has a dedicated input line to
-select input pixel data sampling edge. Add DT property "pclk-sample", not
-the same as the one used by display timings but rather the same as used by
-media, and configure bus flags based on this DT property.
+Hello:
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Andrzej Hajda <a.hajda@samsung.com>
-Cc: Antonio Borneo <antonio.borneo@st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@st.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Philippe Cornu <philippe.cornu@st.com>
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Vincent Abriou <vincent.abriou@st.com>
-Cc: Yannick Fertre <yannick.fertre@st.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: dri-devel@lists.freedesktop.org
----
-V2: - Limit the pixelclk-active to encoders only
-    - Update DT binding document
-V3: - Determine whether this is encoder from connector, i.e.
-      lvds_codec->connector_type == DRM_MODE_CONNECTOR_LVDS
-V4: - Switch to pclk-sample. Note that the value of this is inverted,
-      so all the existing users of pixelclk-active using previous
-      version of this patch must be reworked
-V5: - Move pclk-sample to endpoint. Again, all existing users of the
-      bindings must be reworked
----
- drivers/gpu/drm/bridge/lvds-codec.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+This patch was applied to netdev/net.git (refs/heads/master):
 
-diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
-index dcf579a4cf833..80ce6783d10a8 100644
---- a/drivers/gpu/drm/bridge/lvds-codec.c
-+++ b/drivers/gpu/drm/bridge/lvds-codec.c
-@@ -19,6 +19,7 @@ struct lvds_codec {
- 	struct device *dev;
- 	struct drm_bridge bridge;
- 	struct drm_bridge *panel_bridge;
-+	struct drm_bridge_timings timings;
- 	struct regulator *vcc;
- 	struct gpio_desc *powerdown_gpio;
- 	u32 connector_type;
-@@ -78,8 +79,10 @@ static int lvds_codec_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct device_node *panel_node;
-+	struct device_node *bus_node;
- 	struct drm_panel *panel;
- 	struct lvds_codec *lvds_codec;
-+	u32 val;
- 
- 	lvds_codec = devm_kzalloc(dev, sizeof(*lvds_codec), GFP_KERNEL);
- 	if (!lvds_codec)
-@@ -119,6 +122,27 @@ static int lvds_codec_probe(struct platform_device *pdev)
- 	if (IS_ERR(lvds_codec->panel_bridge))
- 		return PTR_ERR(lvds_codec->panel_bridge);
- 
-+	/*
-+	 * Encoder might sample data on different clock edge than the display,
-+	 * for example OnSemi FIN3385 has a dedicated strapping pin to select
-+	 * the sampling edge.
-+	 */
-+	if (lvds_codec->connector_type == DRM_MODE_CONNECTOR_LVDS) {
-+		bus_node = of_graph_get_endpoint_by_regs(dev->of_node, 0, 0);
-+		if (!bus_node) {
-+			dev_dbg(dev, "bus DT node not found\n");
-+			return -ENXIO;
-+		}
-+
-+		if (!of_property_read_u32(dev->of_node, "pclk-sample", &val)) {
-+			lvds_codec->timings.input_bus_flags = val ?
-+				DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE :
-+				DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE;
-+		}
-+
-+		of_node_put(bus_node);
-+	}
-+
- 	/*
- 	 * The panel_bridge bridge is attached to the panel's of_node,
- 	 * but we need a bridge attached to our of_node for our user
-@@ -126,6 +150,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
- 	 */
- 	lvds_codec->bridge.of_node = dev->of_node;
- 	lvds_codec->bridge.funcs = &funcs;
-+	lvds_codec->bridge.timings = &lvds_codec->timings;
- 	drm_bridge_add(&lvds_codec->bridge);
- 
- 	platform_set_drvdata(pdev, lvds_codec);
--- 
-2.30.2
+On Wed,  2 Jun 2021 10:31:25 +0800 you wrote:
+> In the case of MDIO bus registration failure due to no external PHY
+> devices is connected to the MAC, clk_disable_unprepare() is called in
+> stmmac_bus_clk_config() and intel_eth_pci_probe() respectively.
+> 
+> The second call in intel_eth_pci_probe() will caused the following:-
+> 
+> [   16.578605] intel-eth-pci 0000:00:1e.5: No PHY found
+> [   16.583778] intel-eth-pci 0000:00:1e.5: stmmac_dvr_probe: MDIO bus (id: 2) registration failed
+> [   16.680181] ------------[ cut here ]------------
+> [   16.684861] stmmac-0000:00:1e.5 already disabled
+> [   16.689547] WARNING: CPU: 13 PID: 2053 at drivers/clk/clk.c:952 clk_core_disable+0x96/0x1b0
+> [   16.697963] Modules linked in: dwc3 iTCO_wdt mei_hdcp iTCO_vendor_support udc_core x86_pkg_temp_thermal kvm_intel marvell10g kvm sch_fq_codel nfsd irqbypass dwmac_intel(+) stmmac uio ax88179_178a pcs_xpcs phylink uhid spi_pxa2xx_platform usbnet mei_me pcspkr tpm_crb mii i2c_i801 dw_dmac dwc3_pci thermal dw_dmac_core intel_rapl_msr libphy i2c_smbus mei tpm_tis intel_th_gth tpm_tis_core tpm intel_th_acpi intel_pmc_core intel_th i915 fuse configfs snd_hda_intel snd_intel_dspcfg snd_intel_sdw_acpi snd_hda_codec snd_hda_core snd_pcm snd_timer snd soundcore
+> [   16.746785] CPU: 13 PID: 2053 Comm: systemd-udevd Tainted: G     U            5.13.0-rc3-intel-lts #76
+> [   16.756134] Hardware name: Intel Corporation Alder Lake Client Platform/AlderLake-S ADP-S DRR4 CRB, BIOS ADLIFSI1.R00.1494.B00.2012031421 12/03/2020
+> [   16.769465] RIP: 0010:clk_core_disable+0x96/0x1b0
+> [   16.774222] Code: 00 8b 05 45 96 17 01 85 c0 7f 24 48 8b 5b 30 48 85 db 74 a5 8b 43 7c 85 c0 75 93 48 8b 33 48 c7 c7 6e 32 cc b7 e8 b2 5d 52 00 <0f> 0b 5b 5d c3 65 8b 05 76 31 18 49 89 c0 48 0f a3 05 bc 92 1a 01
+> [   16.793016] RSP: 0018:ffffa44580523aa0 EFLAGS: 00010086
+> [   16.798287] RAX: 0000000000000000 RBX: ffff8d7d0eb70a00 RCX: 0000000000000000
+> [   16.805435] RDX: 0000000000000002 RSI: ffffffffb7c62d5f RDI: 00000000ffffffff
+> [   16.812610] RBP: 0000000000000287 R08: 0000000000000000 R09: ffffa445805238d0
+> [   16.819759] R10: 0000000000000001 R11: 0000000000000001 R12: ffff8d7d0eb70a00
+> [   16.826904] R13: ffff8d7d027370c8 R14: 0000000000000006 R15: ffffa44580523ad0
+> [   16.834047] FS:  00007f9882fa2600(0000) GS:ffff8d80a0940000(0000) knlGS:0000000000000000
+> [   16.842177] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   16.847966] CR2: 00007f9882bea3d8 CR3: 000000010b126001 CR4: 0000000000370ee0
+> [   16.855144] Call Trace:
+> [   16.857614]  clk_core_disable_lock+0x1b/0x30
+> [   16.861941]  intel_eth_pci_probe.cold+0x11d/0x136 [dwmac_intel]
+> [   16.867913]  pci_device_probe+0xcf/0x150
+> [   16.871890]  really_probe+0xf5/0x3e0
+> [   16.875526]  driver_probe_device+0x64/0x150
+> [   16.879763]  device_driver_attach+0x53/0x60
+> [   16.883998]  __driver_attach+0x9f/0x150
+> [   16.887883]  ? device_driver_attach+0x60/0x60
+> [   16.892288]  ? device_driver_attach+0x60/0x60
+> [   16.896698]  bus_for_each_dev+0x77/0xc0
+> [   16.900583]  bus_add_driver+0x184/0x1f0
+> [   16.904469]  driver_register+0x6c/0xc0
+> [   16.908268]  ? 0xffffffffc07ae000
+> [   16.911598]  do_one_initcall+0x4a/0x210
+> [   16.915489]  ? kmem_cache_alloc_trace+0x305/0x4e0
+> [   16.920247]  do_init_module+0x5c/0x230
+> [   16.924057]  load_module+0x2894/0x2b70
+> [   16.927857]  ? __do_sys_finit_module+0xb5/0x120
+> [   16.932441]  __do_sys_finit_module+0xb5/0x120
+> [   16.936845]  do_syscall_64+0x42/0x80
+> [   16.940476]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+> [   16.945586] RIP: 0033:0x7f98830e5ccd
+> [   16.949177] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 93 31 0c 00 f7 d8 64 89 01 48
+> [   16.967970] RSP: 002b:00007ffc66b60168 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+> [   16.975583] RAX: ffffffffffffffda RBX: 000055885de35ef0 RCX: 00007f98830e5ccd
+> [   16.982725] RDX: 0000000000000000 RSI: 00007f98832541e3 RDI: 0000000000000012
+> [   16.989868] RBP: 0000000000020000 R08: 0000000000000000 R09: 0000000000000000
+> [   16.997042] R10: 0000000000000012 R11: 0000000000000246 R12: 00007f98832541e3
+> [   17.004222] R13: 0000000000000000 R14: 0000000000000000 R15: 00007ffc66b60328
+> [   17.011369] ---[ end trace df06a3dab26b988c ]---
+> [   17.016062] ------------[ cut here ]------------
+> [   17.020701] stmmac-0000:00:1e.5 already unprepared
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,1/1] net: stmmac: fix issue where clk is being unprepared twice
+    https://git.kernel.org/netdev/net/c/ab00f3e051e8
+
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
