@@ -2,48 +2,121 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16FC397F0E
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Jun 2021 04:26:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55A5F3980CE
+	for <lists+linux-stm32@lfdr.de>; Wed,  2 Jun 2021 07:49:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41CD2C57B74;
-	Wed,  2 Jun 2021 02:26:57 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0AE88C57B74;
+	Wed,  2 Jun 2021 05:49:49 +0000 (UTC)
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr50042.outbound.protection.outlook.com [40.107.5.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DFF5C57B55
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6065C57B55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Jun 2021 02:26:54 +0000 (UTC)
-IronPort-SDR: aRcCAnznIdIr9r8pHJwl2fJGtY6rv2gwB3styzUu7kc2gCSh9ZhheNhW44/97z9SGttwjc4Ti0
- 9qXyHxygkJvg==
-X-IronPort-AV: E=McAfee;i="6200,9189,10002"; a="184052173"
-X-IronPort-AV: E=Sophos;i="5.83,241,1616482800"; d="scan'208";a="184052173"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2021 19:26:52 -0700
-IronPort-SDR: Uo3n3lUaLzrwHEgnKOdPKwxMWOkd8YOS/7rlE2fE4OBBG2J13GfKLMY39ePfC7P0MrtWaOvbtp
- opYu0WMfuchA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,241,1616482800"; d="scan'208";a="479520113"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga001.jf.intel.com with ESMTP; 01 Jun 2021 19:26:51 -0700
-Received: from glass.png.intel.com (glass.png.intel.com [10.158.65.69])
- by linux.intel.com (Postfix) with ESMTP id A08B5580427;
- Tue,  1 Jun 2021 19:26:48 -0700 (PDT)
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Wed,  2 Jun 2021 10:31:25 +0800
-Message-Id: <20210602023125.1263950-1-vee.khee.wong@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+ Wed,  2 Jun 2021 05:49:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NVQzJbJVyREzVfEWsXpO/S7Z4h2vm7yHKvKfL/OFfCcnCSJiSgXB7kt108RPo8y/B4txbvhlT5OMRzIvpFTK7OghpTGpVVGO2/WaWPU2wfIEWvD8r8FpkCDuRrfWPTX0ExrgBC/Wm48vWLtkExrqo6AuPKIbXV6KcX53g9mc1nKPdcCKF47jGoyfHWe9fQ3FyUjRmjJemgHYVwkP0+jPlrhZtHUQFyWnz0Y9+AQMbgxvhjXWD8bKjYWHy11bRiWsScNsn1ODQu4kM8xiLGX87vxguCF0bz+mKyGQcUHyckWBaPjh3PzK/aPVEDRta+y5aaxqCDcqYlWu9IGDN0QXaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9A65L6/Szfb8XP/xFCRGZZ7oOlHT6RqrmtGW7aRF1d0=;
+ b=esoKaeL/Y+6DK5T+J4diTEgZ79QUN4Q68p0neH9D5n08e7KksxA06o6i4A95A1phLeSx5M2lTibojRatzSVHoQ0sr6Cka2vxqBNiBdqR1NWFew9R+G4iFbITOddUSHe6RI/ZdkfHZwr1Nm+tKXJuOjQjkn1Ckaoh2LUjJJSSUhzp+2MjFHOrdmILyb7c3uRqXY+pJy0BeYPrCKjU2/w54NtZ1HWl0f7ht3n5g40Fy6ek5V52+tvXsCidWQT6J4WHewohIXpxxIwOvJk/2OQuwSeiLpnJSo/Qcs8KFLLjjlnVubKVCTf5D3nDV4X28OXsWgSQNZJPzvuFXfPddW7kgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9A65L6/Szfb8XP/xFCRGZZ7oOlHT6RqrmtGW7aRF1d0=;
+ b=TFV/iLl7ovvOWk3f69mYZMNz3EjQwgDXqAGi7VdguDKMMuSOPrgOhM3PGTuWdw4qvXFY2enox95ODv7YZQXnkByrAV29Ygu4hqgU10qD0h/Wt3L7knES0cgWHwMwlMKDQNnq82Rig8mbIFHFrE0Be7Je3qFMi0FOEzP39q0i5iY=
+Received: from DB8PR04MB6795.eurprd04.prod.outlook.com (2603:10a6:10:fa::15)
+ by DBAPR04MB7205.eurprd04.prod.outlook.com (2603:10a6:10:1b3::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.22; Wed, 2 Jun
+ 2021 05:49:46 +0000
+Received: from DB8PR04MB6795.eurprd04.prod.outlook.com
+ ([fe80::3400:b139:f681:c8cf]) by DB8PR04MB6795.eurprd04.prod.outlook.com
+ ([fe80::3400:b139:f681:c8cf%9]) with mapi id 15.20.4173.030; Wed, 2 Jun 2021
+ 05:49:46 +0000
+From: Joakim Zhang <qiangqing.zhang@nxp.com>
+To: Wong Vee Khee <vee.khee.wong@linux.intel.com>, Giuseppe Cavallaro
+ <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S . Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Thread-Topic: [PATCH net 1/1] net: stmmac: fix issue where clk is being
+ unprepared twice
+Thread-Index: AQHXV1bB7vCf/LMaekmB370Hs4wSOKsAMogQ
+Date: Wed, 2 Jun 2021 05:49:46 +0000
+Message-ID: <DB8PR04MB6795B853F6930A9427D33E14E63D9@DB8PR04MB6795.eurprd04.prod.outlook.com>
+References: <20210602023125.1263950-1-vee.khee.wong@linux.intel.com>
+In-Reply-To: <20210602023125.1263950-1-vee.khee.wong@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: linux.intel.com; dkim=none (message not signed)
+ header.d=none;linux.intel.com; dmarc=none action=none header.from=nxp.com;
+x-originating-ip: [119.31.174.71]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 190ae861-f2ea-4f63-113a-08d9258a3a49
+x-ms-traffictypediagnostic: DBAPR04MB7205:
+x-microsoft-antispam-prvs: <DBAPR04MB7205F1CCD4334CD0FE7E08DBE63D9@DBAPR04MB7205.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1148;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /NzyDUD9bgmoAS0dQa9wFWckpUBUKSN9likkm0gcHqN1R9on/AhO4krwF2tWSYzGYUdJTGHZVJMymvM2NPn4MdnrlkOznX7bYx9rZ6TrI1matHzUV4RYew8Tb/Lx2N6r76tlcou+zCORHSdH/Eiz96UO9QwlPLp42VJ846r/dHiiOmYrOQ9jikyyxHi4ulGJrvKwdynK9aYvc4St/7o2oqztZgrbrYebL6t+p7YYkNyi+jhNxdeg5FzVUu7O7P1yOWOEWNzBYxPzt9XNL7VPV+m59+bN3eHhnBnW5vTG5F25yaUb89XyKW5VWXaylgsvyEweIR3kh1gWfX2zO63g1xmS3BSzRofve8zz5jShhKcll9O6dUg3t1Apy1CJ7v6gAMBKIRDcDOSIdJOB68ejzqCuugsx3kW4FzbJXkOLG+Ajxpjn1B+OoyUgZ885/6jMQQN2LgRlpgC153cpqqFZSfvGLiohoy4UkJS42jNp+QeHrnoY+Xwina3/fGCz6VdsN8OUCGd7n3tgQH1O1BvONn5fNHygoiNM0CXi099eLCXqQ5T26QTTAJxtSMBnZM9V/SAi7WBtuYvQOc/HWn8f+Q7Zm/siRrE/f4yu0vHJkMM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB8PR04MB6795.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(376002)(346002)(366004)(396003)(136003)(83380400001)(71200400001)(8676002)(55016002)(86362001)(186003)(6506007)(66556008)(33656002)(66946007)(53546011)(64756008)(76116006)(45080400002)(66476007)(66446008)(52536014)(7416002)(5660300002)(110136005)(2906002)(54906003)(316002)(9686003)(7696005)(38100700002)(4326008)(122000001)(26005)(478600001)(8936002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?gb2312?B?RTlGMDNFR1VPbFVuQzlTbC9ERUFOT3VBWGI3U0FjY0pzWGVGdEJvWlZQaDR4?=
+ =?gb2312?B?emtYVjFLSHU5NHBLbjlyWTQ3bGxVamgzRE55bzNqTDhuTDhER1Y2OVFLQzds?=
+ =?gb2312?B?NExQUGx0MmJFK2NDdjNQQW1BS0VnT0dmb2ZkRWZOT3VBUXRCK1QwbWlqalR0?=
+ =?gb2312?B?Mm15UytPalZVeXR3LzJzc282UUZGNytHeHllUnpuWnZIc2xBZHMzMGdraWRw?=
+ =?gb2312?B?VlZkZU4zYU1sTStBcmZHaFVxZk0zM0N6RUlEN1REb3VXWGlvQ004QXQ3QXdV?=
+ =?gb2312?B?R0E3bEg1NmdteTVsZkpiTGNESUFqTzNzMGVrNGIzOXVMWWQ4YjlYcHdLVGlG?=
+ =?gb2312?B?VzI1czZXdnJkWjJyNDl3NEpNbk9rajhxczVlMnJzUkxmOW5hVFBmZkxQN0hl?=
+ =?gb2312?B?ZFVReEF4czhBdy9QT1BrZ09TUTc2NS9ZTjcweGVrRU5LcDVwWFdEckVHUDkv?=
+ =?gb2312?B?Sm92emFOTko5UDV5cVVqOUowaDJwZ1d3K2s3WVBCalEwQW5jaGlLeWFIYmpF?=
+ =?gb2312?B?U2FhSkExeS9hbmxMSDZPTnp1cmNLd1FBa2hXZHl0NHhFdU5IN2poazFtZUF3?=
+ =?gb2312?B?VnlzdmxCeG00c2drREsyQTEzNGlUMFNpZUlieHJkZjQ4Mmt6ZG81SmtHbUNY?=
+ =?gb2312?B?a0dzV1l2ekZWRWpzSDlDVWI3ZDhtbkxMRE00bVEvelFGVGxyOTlKNlR1R0dJ?=
+ =?gb2312?B?VThtZXBiWVN1SmFWUHMrMHVHQmdhUndURTZXSHY2MGlUZTFlbGYvTDRBSjlB?=
+ =?gb2312?B?Qk9CR3JnSS8xUzNEMVYwTFpwYUVWeVJndXY0ZUtjVWJJNXNGVERta2MrZTNi?=
+ =?gb2312?B?NDJNSHdGVlJJdjFKRlpmOG1HZDM5TFJ3OWxSTVBoV2dueDQ5Q3VUVGpHMlRU?=
+ =?gb2312?B?cWhMOEk3MWxyUXlaMXdTaG14VE8yMW1ueFBuYVBGRllOaWJPZHNRMk1abktt?=
+ =?gb2312?B?RUlMWXVMT0VDcFM0Q1dNM1pSOTExaXI1SFY4cW5ubHpwWVU5dFl3NWljc0RD?=
+ =?gb2312?B?Q3NMZWIrYnI1N0Q5YXl2empiRFBqTW42dkhRQlU2S1hNNU9IQk9Bc1REbHgv?=
+ =?gb2312?B?d3RaZmpKVjhUTytYWTBmcnkvemd1cWpoVm9KeHlWaWs2QVQza2R6ZlIyVUNO?=
+ =?gb2312?B?Z0FvTkxrYTRtcDVwTnBucUxuSWdlREdMcTlIWUxvNHRORDdDb1lSYmVxcmxP?=
+ =?gb2312?B?cDZISlBrNEdKbE45Wk1sd0RCTmN4UnRFZ0VFT1RKYXo0ODBzb0Z3c0dqNGx0?=
+ =?gb2312?B?aXBmQjFFSGpMbTNpQjE0ekJhSityZUIzakJQbjl5UmpkaGhkTTVKYS9vaEI3?=
+ =?gb2312?B?bDltN2hYN1ViQ1NjK0gvV0NlcTYwcFk5ME50c3AzV01GNnhHTkdrNGZ0L05P?=
+ =?gb2312?B?Umkvd29GOTJhRG01dWxtdGpvTjhxVEpvakt6ZkdablBXcm1WNzhUK0JzTHdF?=
+ =?gb2312?B?bWRVSERNN3hiNUN4WDhWUEV3bU93NjVPZk5KTXdVajVRZUMza242K2ZLMEtV?=
+ =?gb2312?B?Vmt6SEpyL0pUQnhHWmpyME1qc0YwZElvSlNNdGpBNXcrSHhHTm5BQUFxYVJX?=
+ =?gb2312?B?amw2VEl2TkV1ZzUrZWtiWFBTR3FOYmNBZVVJYmNxU1ZtQVAwalpET1R3cVVu?=
+ =?gb2312?B?YkRrSU1jOVh3RW1oTlU0NGtFdFhzVVgrbzZiTm9GcXE2Z2ZkNU9tejR2bUxZ?=
+ =?gb2312?B?N0s4bnl0M2xhekl1Mk1uVDl5cWlZM2doREtjaWgxR0wwN2FCM1UyanpuS2sr?=
+ =?gb2312?Q?cBSlWSwDn3zriIMQfS90HikeJ8KKikyOEPNPW5I?=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Joakim Zhang <qiangqing.zhang@nxp.com>, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH net 1/1] net: stmmac: fix issue where clk is
-	being unprepared twice
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6795.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 190ae861-f2ea-4f63-113a-08d9258a3a49
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2021 05:49:46.1783 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6aLFX+jCN7qdkUnH07rresaVEy3rUV+7DiunN/XEz7PllunvZRxjR6AsRlaF4hmb/zwlje++iu9KdY6D8a885Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7205
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: fix issue where clk
+ is being unprepared twice
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,96 +128,129 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the case of MDIO bus registration failure due to no external PHY
-devices is connected to the MAC, clk_disable_unprepare() is called in
-stmmac_bus_clk_config() and intel_eth_pci_probe() respectively.
-
-The second call in intel_eth_pci_probe() will caused the following:-
-
-[   16.578605] intel-eth-pci 0000:00:1e.5: No PHY found
-[   16.583778] intel-eth-pci 0000:00:1e.5: stmmac_dvr_probe: MDIO bus (id: 2) registration failed
-[   16.680181] ------------[ cut here ]------------
-[   16.684861] stmmac-0000:00:1e.5 already disabled
-[   16.689547] WARNING: CPU: 13 PID: 2053 at drivers/clk/clk.c:952 clk_core_disable+0x96/0x1b0
-[   16.697963] Modules linked in: dwc3 iTCO_wdt mei_hdcp iTCO_vendor_support udc_core x86_pkg_temp_thermal kvm_intel marvell10g kvm sch_fq_codel nfsd irqbypass dwmac_intel(+) stmmac uio ax88179_178a pcs_xpcs phylink uhid spi_pxa2xx_platform usbnet mei_me pcspkr tpm_crb mii i2c_i801 dw_dmac dwc3_pci thermal dw_dmac_core intel_rapl_msr libphy i2c_smbus mei tpm_tis intel_th_gth tpm_tis_core tpm intel_th_acpi intel_pmc_core intel_th i915 fuse configfs snd_hda_intel snd_intel_dspcfg snd_intel_sdw_acpi snd_hda_codec snd_hda_core snd_pcm snd_timer snd soundcore
-[   16.746785] CPU: 13 PID: 2053 Comm: systemd-udevd Tainted: G     U            5.13.0-rc3-intel-lts #76
-[   16.756134] Hardware name: Intel Corporation Alder Lake Client Platform/AlderLake-S ADP-S DRR4 CRB, BIOS ADLIFSI1.R00.1494.B00.2012031421 12/03/2020
-[   16.769465] RIP: 0010:clk_core_disable+0x96/0x1b0
-[   16.774222] Code: 00 8b 05 45 96 17 01 85 c0 7f 24 48 8b 5b 30 48 85 db 74 a5 8b 43 7c 85 c0 75 93 48 8b 33 48 c7 c7 6e 32 cc b7 e8 b2 5d 52 00 <0f> 0b 5b 5d c3 65 8b 05 76 31 18 49 89 c0 48 0f a3 05 bc 92 1a 01
-[   16.793016] RSP: 0018:ffffa44580523aa0 EFLAGS: 00010086
-[   16.798287] RAX: 0000000000000000 RBX: ffff8d7d0eb70a00 RCX: 0000000000000000
-[   16.805435] RDX: 0000000000000002 RSI: ffffffffb7c62d5f RDI: 00000000ffffffff
-[   16.812610] RBP: 0000000000000287 R08: 0000000000000000 R09: ffffa445805238d0
-[   16.819759] R10: 0000000000000001 R11: 0000000000000001 R12: ffff8d7d0eb70a00
-[   16.826904] R13: ffff8d7d027370c8 R14: 0000000000000006 R15: ffffa44580523ad0
-[   16.834047] FS:  00007f9882fa2600(0000) GS:ffff8d80a0940000(0000) knlGS:0000000000000000
-[   16.842177] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   16.847966] CR2: 00007f9882bea3d8 CR3: 000000010b126001 CR4: 0000000000370ee0
-[   16.855144] Call Trace:
-[   16.857614]  clk_core_disable_lock+0x1b/0x30
-[   16.861941]  intel_eth_pci_probe.cold+0x11d/0x136 [dwmac_intel]
-[   16.867913]  pci_device_probe+0xcf/0x150
-[   16.871890]  really_probe+0xf5/0x3e0
-[   16.875526]  driver_probe_device+0x64/0x150
-[   16.879763]  device_driver_attach+0x53/0x60
-[   16.883998]  __driver_attach+0x9f/0x150
-[   16.887883]  ? device_driver_attach+0x60/0x60
-[   16.892288]  ? device_driver_attach+0x60/0x60
-[   16.896698]  bus_for_each_dev+0x77/0xc0
-[   16.900583]  bus_add_driver+0x184/0x1f0
-[   16.904469]  driver_register+0x6c/0xc0
-[   16.908268]  ? 0xffffffffc07ae000
-[   16.911598]  do_one_initcall+0x4a/0x210
-[   16.915489]  ? kmem_cache_alloc_trace+0x305/0x4e0
-[   16.920247]  do_init_module+0x5c/0x230
-[   16.924057]  load_module+0x2894/0x2b70
-[   16.927857]  ? __do_sys_finit_module+0xb5/0x120
-[   16.932441]  __do_sys_finit_module+0xb5/0x120
-[   16.936845]  do_syscall_64+0x42/0x80
-[   16.940476]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-[   16.945586] RIP: 0033:0x7f98830e5ccd
-[   16.949177] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 93 31 0c 00 f7 d8 64 89 01 48
-[   16.967970] RSP: 002b:00007ffc66b60168 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-[   16.975583] RAX: ffffffffffffffda RBX: 000055885de35ef0 RCX: 00007f98830e5ccd
-[   16.982725] RDX: 0000000000000000 RSI: 00007f98832541e3 RDI: 0000000000000012
-[   16.989868] RBP: 0000000000020000 R08: 0000000000000000 R09: 0000000000000000
-[   16.997042] R10: 0000000000000012 R11: 0000000000000246 R12: 00007f98832541e3
-[   17.004222] R13: 0000000000000000 R14: 0000000000000000 R15: 00007ffc66b60328
-[   17.011369] ---[ end trace df06a3dab26b988c ]---
-[   17.016062] ------------[ cut here ]------------
-[   17.020701] stmmac-0000:00:1e.5 already unprepared
-
-Removing the stmmac_bus_clks_config() call in stmmac_dvr_probe and let
-dwmac-intel to handle the unprepare and disable of the clk device.
-
-Fixes: 5ec55823438e ("net: stmmac: add clocks management for gmac driver")
-Cc: Joakim Zhang <qiangqing.zhang@nxp.com>
-Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 13720bf6f6ff..7437307326b2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7046,7 +7046,6 @@ int stmmac_dvr_probe(struct device *device,
- 	stmmac_napi_del(ndev);
- error_hw_init:
- 	destroy_workqueue(priv->wq);
--	stmmac_bus_clks_config(priv, false);
- 	bitmap_free(priv->af_xdp_zc_qps);
- 
- 	return ret;
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+DQpIaSBXb25nLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFdvbmcg
+VmVlIEtoZWUgPHZlZS5raGVlLndvbmdAbGludXguaW50ZWwuY29tPg0KPiBTZW50OiAyMDIxxOo2
+1MIyyNUgMTA6MzENCj4gVG86IEdpdXNlcHBlIENhdmFsbGFybyA8cGVwcGUuY2F2YWxsYXJvQHN0
+LmNvbT47IEFsZXhhbmRyZSBUb3JndWUNCj4gPGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+
+OyBKb3NlIEFicmV1IDxqb2FicmV1QHN5bm9wc3lzLmNvbT47DQo+IERhdmlkIFMgLiBNaWxsZXIg
+PGRhdmVtQGRhdmVtbG9mdC5uZXQ+OyBKYWt1YiBLaWNpbnNraSA8a3ViYUBrZXJuZWwub3JnPjsN
+Cj4gTWF4aW1lIENvcXVlbGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPg0KPiBDYzogSm9h
+a2ltIFpoYW5nIDxxaWFuZ3FpbmcuemhhbmdAbnhwLmNvbT47IG5ldGRldkB2Z2VyLmtlcm5lbC5v
+cmc7DQo+IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb207DQo+IGxpbnV4
+LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVs
+Lm9yZw0KPiBTdWJqZWN0OiBbUEFUQ0ggbmV0IDEvMV0gbmV0OiBzdG1tYWM6IGZpeCBpc3N1ZSB3
+aGVyZSBjbGsgaXMgYmVpbmcgdW5wcmVwYXJlZA0KPiB0d2ljZQ0KPiANCj4gSW4gdGhlIGNhc2Ug
+b2YgTURJTyBidXMgcmVnaXN0cmF0aW9uIGZhaWx1cmUgZHVlIHRvIG5vIGV4dGVybmFsIFBIWSBk
+ZXZpY2VzIGlzDQo+IGNvbm5lY3RlZCB0byB0aGUgTUFDLCBjbGtfZGlzYWJsZV91bnByZXBhcmUo
+KSBpcyBjYWxsZWQgaW4NCj4gc3RtbWFjX2J1c19jbGtfY29uZmlnKCkgYW5kIGludGVsX2V0aF9w
+Y2lfcHJvYmUoKSByZXNwZWN0aXZlbHkuDQo+IA0KPiBUaGUgc2Vjb25kIGNhbGwgaW4gaW50ZWxf
+ZXRoX3BjaV9wcm9iZSgpIHdpbGwgY2F1c2VkIHRoZSBmb2xsb3dpbmc6LQ0KPiANCj4gWyAgIDE2
+LjU3ODYwNV0gaW50ZWwtZXRoLXBjaSAwMDAwOjAwOjFlLjU6IE5vIFBIWSBmb3VuZA0KPiBbICAg
+MTYuNTgzNzc4XSBpbnRlbC1ldGgtcGNpIDAwMDA6MDA6MWUuNTogc3RtbWFjX2R2cl9wcm9iZTog
+TURJTyBidXMgKGlkOg0KPiAyKSByZWdpc3RyYXRpb24gZmFpbGVkDQo+IFsgICAxNi42ODAxODFd
+IC0tLS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQ0KPiBbICAgMTYuNjg0ODYxXSBz
+dG1tYWMtMDAwMDowMDoxZS41IGFscmVhZHkgZGlzYWJsZWQNCj4gWyAgIDE2LjY4OTU0N10gV0FS
+TklORzogQ1BVOiAxMyBQSUQ6IDIwNTMgYXQgZHJpdmVycy9jbGsvY2xrLmM6OTUyDQo+IGNsa19j
+b3JlX2Rpc2FibGUrMHg5Ni8weDFiMA0KPiBbICAgMTYuNjk3OTYzXSBNb2R1bGVzIGxpbmtlZCBp
+bjogZHdjMyBpVENPX3dkdCBtZWlfaGRjcA0KPiBpVENPX3ZlbmRvcl9zdXBwb3J0IHVkY19jb3Jl
+IHg4Nl9wa2dfdGVtcF90aGVybWFsIGt2bV9pbnRlbCBtYXJ2ZWxsMTBnDQo+IGt2bSBzY2hfZnFf
+Y29kZWwgbmZzZCBpcnFieXBhc3MgZHdtYWNfaW50ZWwoKykgc3RtbWFjIHVpbyBheDg4MTc5XzE3
+OGENCj4gcGNzX3hwY3MgcGh5bGluayB1aGlkIHNwaV9weGEyeHhfcGxhdGZvcm0gdXNibmV0IG1l
+aV9tZSBwY3Nwa3IgdHBtX2NyYiBtaWkNCj4gaTJjX2k4MDEgZHdfZG1hYyBkd2MzX3BjaSB0aGVy
+bWFsIGR3X2RtYWNfY29yZSBpbnRlbF9yYXBsX21zciBsaWJwaHkNCj4gaTJjX3NtYnVzIG1laSB0
+cG1fdGlzIGludGVsX3RoX2d0aCB0cG1fdGlzX2NvcmUgdHBtIGludGVsX3RoX2FjcGkNCj4gaW50
+ZWxfcG1jX2NvcmUgaW50ZWxfdGggaTkxNSBmdXNlIGNvbmZpZ2ZzIHNuZF9oZGFfaW50ZWwgc25k
+X2ludGVsX2RzcGNmZw0KPiBzbmRfaW50ZWxfc2R3X2FjcGkgc25kX2hkYV9jb2RlYyBzbmRfaGRh
+X2NvcmUgc25kX3BjbSBzbmRfdGltZXIgc25kDQo+IHNvdW5kY29yZQ0KPiBbICAgMTYuNzQ2Nzg1
+XSBDUFU6IDEzIFBJRDogMjA1MyBDb21tOiBzeXN0ZW1kLXVkZXZkIFRhaW50ZWQ6IEcgICAgIFUN
+Cj4gNS4xMy4wLXJjMy1pbnRlbC1sdHMgIzc2DQo+IFsgICAxNi43NTYxMzRdIEhhcmR3YXJlIG5h
+bWU6IEludGVsIENvcnBvcmF0aW9uIEFsZGVyIExha2UgQ2xpZW50DQo+IFBsYXRmb3JtL0FsZGVy
+TGFrZS1TIEFEUC1TIERSUjQgQ1JCLCBCSU9TDQo+IEFETElGU0kxLlIwMC4xNDk0LkIwMC4yMDEy
+MDMxNDIxIDEyLzAzLzIwMjANCj4gWyAgIDE2Ljc2OTQ2NV0gUklQOiAwMDEwOmNsa19jb3JlX2Rp
+c2FibGUrMHg5Ni8weDFiMA0KPiBbICAgMTYuNzc0MjIyXSBDb2RlOiAwMCA4YiAwNSA0NSA5NiAx
+NyAwMSA4NSBjMCA3ZiAyNCA0OCA4YiA1YiAzMCA0OCA4NSBkYiA3NA0KPiBhNSA4YiA0MyA3YyA4
+NSBjMCA3NSA5MyA0OCA4YiAzMyA0OCBjNyBjNyA2ZSAzMiBjYyBiNyBlOCBiMiA1ZCA1MiAwMCA8
+MGY+IDBiIDViDQo+IDVkIGMzIDY1IDhiIDA1IDc2IDMxIDE4IDQ5IDg5IGMwIDQ4IDBmIGEzIDA1
+IGJjIDkyIDFhIDAxDQo+IFsgICAxNi43OTMwMTZdIFJTUDogMDAxODpmZmZmYTQ0NTgwNTIzYWEw
+IEVGTEFHUzogMDAwMTAwODYNCj4gWyAgIDE2Ljc5ODI4N10gUkFYOiAwMDAwMDAwMDAwMDAwMDAw
+IFJCWDogZmZmZjhkN2QwZWI3MGEwMCBSQ1g6DQo+IDAwMDAwMDAwMDAwMDAwMDANCj4gWyAgIDE2
+LjgwNTQzNV0gUkRYOiAwMDAwMDAwMDAwMDAwMDAyIFJTSTogZmZmZmZmZmZiN2M2MmQ1ZiBSREk6
+DQo+IDAwMDAwMDAwZmZmZmZmZmYNCj4gWyAgIDE2LjgxMjYxMF0gUkJQOiAwMDAwMDAwMDAwMDAw
+Mjg3IFIwODogMDAwMDAwMDAwMDAwMDAwMCBSMDk6DQo+IGZmZmZhNDQ1ODA1MjM4ZDANCj4gWyAg
+IDE2LjgxOTc1OV0gUjEwOiAwMDAwMDAwMDAwMDAwMDAxIFIxMTogMDAwMDAwMDAwMDAwMDAwMSBS
+MTI6DQo+IGZmZmY4ZDdkMGViNzBhMDANCj4gWyAgIDE2LjgyNjkwNF0gUjEzOiBmZmZmOGQ3ZDAy
+NzM3MGM4IFIxNDogMDAwMDAwMDAwMDAwMDAwNiBSMTU6DQo+IGZmZmZhNDQ1ODA1MjNhZDANCj4g
+WyAgIDE2LjgzNDA0N10gRlM6ICAwMDAwN2Y5ODgyZmEyNjAwKDAwMDApIEdTOmZmZmY4ZDgwYTA5
+NDAwMDAoMDAwMCkNCj4ga25sR1M6MDAwMDAwMDAwMDAwMDAwMA0KPiBbICAgMTYuODQyMTc3XSBD
+UzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAwMDgwMDUwMDMzDQo+IFsgICAx
+Ni44NDc5NjZdIENSMjogMDAwMDdmOTg4MmJlYTNkOCBDUjM6IDAwMDAwMDAxMGIxMjYwMDEgQ1I0
+Og0KPiAwMDAwMDAwMDAwMzcwZWUwDQo+IFsgICAxNi44NTUxNDRdIENhbGwgVHJhY2U6DQo+IFsg
+ICAxNi44NTc2MTRdICBjbGtfY29yZV9kaXNhYmxlX2xvY2srMHgxYi8weDMwDQo+IFsgICAxNi44
+NjE5NDFdICBpbnRlbF9ldGhfcGNpX3Byb2JlLmNvbGQrMHgxMWQvMHgxMzYgW2R3bWFjX2ludGVs
+XQ0KPiBbICAgMTYuODY3OTEzXSAgcGNpX2RldmljZV9wcm9iZSsweGNmLzB4MTUwDQo+IFsgICAx
+Ni44NzE4OTBdICByZWFsbHlfcHJvYmUrMHhmNS8weDNlMA0KPiBbICAgMTYuODc1NTI2XSAgZHJp
+dmVyX3Byb2JlX2RldmljZSsweDY0LzB4MTUwDQo+IFsgICAxNi44Nzk3NjNdICBkZXZpY2VfZHJp
+dmVyX2F0dGFjaCsweDUzLzB4NjANCj4gWyAgIDE2Ljg4Mzk5OF0gIF9fZHJpdmVyX2F0dGFjaCsw
+eDlmLzB4MTUwDQo+IFsgICAxNi44ODc4ODNdICA/IGRldmljZV9kcml2ZXJfYXR0YWNoKzB4NjAv
+MHg2MA0KPiBbICAgMTYuODkyMjg4XSAgPyBkZXZpY2VfZHJpdmVyX2F0dGFjaCsweDYwLzB4NjAN
+Cj4gWyAgIDE2Ljg5NjY5OF0gIGJ1c19mb3JfZWFjaF9kZXYrMHg3Ny8weGMwDQo+IFsgICAxNi45
+MDA1ODNdICBidXNfYWRkX2RyaXZlcisweDE4NC8weDFmMA0KPiBbICAgMTYuOTA0NDY5XSAgZHJp
+dmVyX3JlZ2lzdGVyKzB4NmMvMHhjMA0KPiBbICAgMTYuOTA4MjY4XSAgPyAweGZmZmZmZmZmYzA3
+YWUwMDANCj4gWyAgIDE2LjkxMTU5OF0gIGRvX29uZV9pbml0Y2FsbCsweDRhLzB4MjEwDQo+IFsg
+ICAxNi45MTU0ODldICA/IGttZW1fY2FjaGVfYWxsb2NfdHJhY2UrMHgzMDUvMHg0ZTANCj4gWyAg
+IDE2LjkyMDI0N10gIGRvX2luaXRfbW9kdWxlKzB4NWMvMHgyMzANCj4gWyAgIDE2LjkyNDA1N10g
+IGxvYWRfbW9kdWxlKzB4Mjg5NC8weDJiNzANCj4gWyAgIDE2LjkyNzg1N10gID8gX19kb19zeXNf
+ZmluaXRfbW9kdWxlKzB4YjUvMHgxMjANCj4gWyAgIDE2LjkzMjQ0MV0gIF9fZG9fc3lzX2Zpbml0
+X21vZHVsZSsweGI1LzB4MTIwDQo+IFsgICAxNi45MzY4NDVdICBkb19zeXNjYWxsXzY0KzB4NDIv
+MHg4MA0KPiBbICAgMTYuOTQwNDc2XSAgZW50cnlfU1lTQ0FMTF82NF9hZnRlcl9od2ZyYW1lKzB4
+NDQvMHhhZQ0KPiBbICAgMTYuOTQ1NTg2XSBSSVA6IDAwMzM6MHg3Zjk4ODMwZTVjY2QNCj4gWyAg
+IDE2Ljk0OTE3N10gQ29kZTogMDAgYzMgNjYgMmUgMGYgMWYgODQgMDAgMDAgMDAgMDAgMDAgOTAg
+ZjMgMGYgMWUgZmEgNDggODkgZjgNCj4gNDggODkgZjcgNDggODkgZDYgNDggODkgY2EgNGQgODkg
+YzIgNGQgODkgYzggNGMgOGIgNGMgMjQgMDggMGYgMDUgPDQ4PiAzZCAwMSBmMA0KPiBmZiBmZiA3
+MyAwMSBjMyA0OCA4YiAwZCA5MyAzMSAwYyAwMCBmNyBkOCA2NCA4OSAwMSA0OA0KPiBbICAgMTYu
+OTY3OTcwXSBSU1A6IDAwMmI6MDAwMDdmZmM2NmI2MDE2OCBFRkxBR1M6IDAwMDAwMjQ2IE9SSUdf
+UkFYOg0KPiAwMDAwMDAwMDAwMDAwMTM5DQo+IFsgICAxNi45NzU1ODNdIFJBWDogZmZmZmZmZmZm
+ZmZmZmZkYSBSQlg6IDAwMDA1NTg4NWRlMzVlZjAgUkNYOg0KPiAwMDAwN2Y5ODgzMGU1Y2NkDQo+
+IFsgICAxNi45ODI3MjVdIFJEWDogMDAwMDAwMDAwMDAwMDAwMCBSU0k6IDAwMDA3Zjk4ODMyNTQx
+ZTMgUkRJOg0KPiAwMDAwMDAwMDAwMDAwMDEyDQo+IFsgICAxNi45ODk4NjhdIFJCUDogMDAwMDAw
+MDAwMDAyMDAwMCBSMDg6IDAwMDAwMDAwMDAwMDAwMDAgUjA5Og0KPiAwMDAwMDAwMDAwMDAwMDAw
+DQo+IFsgICAxNi45OTcwNDJdIFIxMDogMDAwMDAwMDAwMDAwMDAxMiBSMTE6IDAwMDAwMDAwMDAw
+MDAyNDYgUjEyOg0KPiAwMDAwN2Y5ODgzMjU0MWUzDQo+IFsgICAxNy4wMDQyMjJdIFIxMzogMDAw
+MDAwMDAwMDAwMDAwMCBSMTQ6IDAwMDAwMDAwMDAwMDAwMDAgUjE1Og0KPiAwMDAwN2ZmYzY2YjYw
+MzI4DQo+IFsgICAxNy4wMTEzNjldIC0tLVsgZW5kIHRyYWNlIGRmMDZhM2RhYjI2Yjk4OGMgXS0t
+LQ0KPiBbICAgMTcuMDE2MDYyXSAtLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0tLS0tLS0N
+Cj4gWyAgIDE3LjAyMDcwMV0gc3RtbWFjLTAwMDA6MDA6MWUuNSBhbHJlYWR5IHVucHJlcGFyZWQN
+Cj4gDQo+IFJlbW92aW5nIHRoZSBzdG1tYWNfYnVzX2Nsa3NfY29uZmlnKCkgY2FsbCBpbiBzdG1t
+YWNfZHZyX3Byb2JlIGFuZCBsZXQNCj4gZHdtYWMtaW50ZWwgdG8gaGFuZGxlIHRoZSB1bnByZXBh
+cmUgYW5kIGRpc2FibGUgb2YgdGhlIGNsayBkZXZpY2UuDQo+IA0KPiBGaXhlczogNWVjNTU4MjM0
+MzhlICgibmV0OiBzdG1tYWM6IGFkZCBjbG9ja3MgbWFuYWdlbWVudCBmb3IgZ21hYyBkcml2ZXIi
+KQ0KPiBDYzogSm9ha2ltIFpoYW5nIDxxaWFuZ3FpbmcuemhhbmdAbnhwLmNvbT4NCj4gU2lnbmVk
+LW9mZi1ieTogV29uZyBWZWUgS2hlZSA8dmVlLmtoZWUud29uZ0BsaW51eC5pbnRlbC5jb20+DQo+
+IC0tLQ0KDQpZZXMsIGl0J3MgcmVhbGx5IGFuIGlzc3VlLiBNeSBvcmlnaW5hbCB0aG91Z2h0IGlz
+IHRvIGNvbWJpbmUgY29tbW9uIGNsb2NrcyBhbmQgcHJpdmF0ZSBjbG9ja3MgaW50byBzdG1tYWNf
+YnVzX2Nsa3NfY29uZmlnKCkgdmlhIHBsYXRfc3RtbWFjZW5ldF9kYXRhOjpjbGtzX2NvbmZpZyBj
+YWxsYmFjaywNCmxldCBzdG1tYWMgY29yZSB0byBlbmFibGUvZGlzYWJsZSBhbGwgY2xvY2tzLg0K
+DQpEdWUgdG8gY29tbW9uIGFuZCBwcml2YXRlIGNsb2NrcyBhcmUgZW5hYmxlZCBpbiBzcGVjaWZp
+YyBwbGF0Zm9ybSBkcml2ZXIsIHNvIGxldCBlcnJvciBoYW5kaW5nIGZvciBkaXNhYmxpbmcgdGhl
+c2UgY2xvY2tzIGZyb20gc3BlY2lmaWMgZHJpdmVycyBpcyBtb3JlIHJlYXNvbmFibGUuDQoNClJl
+dmlld2VkLWJ5OiBKb2FraW0gWmhhbmcgPHFpYW5ncWluZy56aGFuZ0BueHAuY29tPg0KDQpCZXN0
+IFJlZ2FyZHMsDQpKb2FraW0gWmhhbmcNCj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8v
+c3RtbWFjL3N0bW1hY19tYWluLmMgfCAxIC0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGRlbGV0aW9u
+KC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1t
+YWMvc3RtbWFjX21haW4uYw0KPiBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
+L3N0bW1hY19tYWluLmMNCj4gaW5kZXggMTM3MjBiZjZmNmZmLi43NDM3MzA3MzI2YjIgMTAwNjQ0
+DQo+IC0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWlu
+LmMNCj4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21h
+aW4uYw0KPiBAQCAtNzA0Niw3ICs3MDQ2LDYgQEAgaW50IHN0bW1hY19kdnJfcHJvYmUoc3RydWN0
+IGRldmljZSAqZGV2aWNlLA0KPiAgCXN0bW1hY19uYXBpX2RlbChuZGV2KTsNCj4gIGVycm9yX2h3
+X2luaXQ6DQo+ICAJZGVzdHJveV93b3JrcXVldWUocHJpdi0+d3EpOw0KPiAtCXN0bW1hY19idXNf
+Y2xrc19jb25maWcocHJpdiwgZmFsc2UpOw0KPiAgCWJpdG1hcF9mcmVlKHByaXYtPmFmX3hkcF96
+Y19xcHMpOw0KPiANCj4gIAlyZXR1cm4gcmV0Ow0KPiAtLQ0KPiAyLjI1LjENCg0KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
+ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
