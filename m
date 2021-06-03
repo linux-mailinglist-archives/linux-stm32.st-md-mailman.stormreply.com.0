@@ -2,47 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 329663994B7
-	for <lists+linux-stm32@lfdr.de>; Wed,  2 Jun 2021 22:40:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7423399BA7
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jun 2021 09:34:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E291AC57B5A;
-	Wed,  2 Jun 2021 20:40:07 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1629C57B5A;
+	Thu,  3 Jun 2021 07:34:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3AC8EC36B25
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BC27C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  2 Jun 2021 20:40:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id B3523613E9;
- Wed,  2 Jun 2021 20:40:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1622666403;
- bh=XmuAynM0hvpRQItZ9xBkL6PmdQ/eIq6AizBpJd1B7so=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=YRFiAf9691w5eeYVSy6YhuMCy0jAF6ZrSUzWiP9VqhE34nIe/4rQ1oJp8szcOdpaM
- UujtSabHXeCJgcfdwmcZ4UzLUyfigJi63mjNrjAA8RKPj86SbVOQUqQyp42s+INafB
- vCn0B56WnIbsQB7bZjcq++zx0kf6lPqyntc7vBJn1XJtgU8BO2NcWZ1/WuWN2YA+Vn
- MIyWU9hpDqJtQF/P9PYpiRs/4rATqWW4o3L6g1YVtp7eA2StTVrFdCHfGaaTLMhyEy
- 7VVHSfmpOY0g83cdY6s6ZF6O/WlWnDv+wg6jPF2ibjTzcUe48r5u015Y5lktdBPY8K
- d2R54kRVivJaQ==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id A55D160BFB;
- Wed,  2 Jun 2021 20:40:03 +0000 (UTC)
+ Thu,  3 Jun 2021 07:34:42 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 1537ROxn019474; Thu, 3 Jun 2021 09:34:31 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=M8auMruCTancpOkSvfb5Dqc6xkUzb7oAmg9WAVNNKKw=;
+ b=sE/6zk8pEdJUvam5nVDtSSp5T4mk7u6Cwgioe0iSaLimTF99/PSM0708+HCHb+y7FpT2
+ hM0PvzsspYHy6edpPJkOSELH9Hvjnda3M9fJKJarUeNczCXns5C4EVDu/yN0vGmNAyPm
+ wnBCPtAW+k5ZvTsyUGNazCws18wv+8jZOwbb2birdTXk5uj4mNoVB4AjlK+jedxaUBBR
+ lwTGYdpHMeHVJIFoHXGSyMpRWRZVeQuUROF8/WoMhe6n2nbk4pJ8L5trLefCSZwd0OcX
+ vyUTchffh6BMjYgdj0I3IFvowL99j7+XPEJZn9I0ACDs68KjRQY4Vfn9f9ZVypoplY05 qQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38x3gv33cx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 03 Jun 2021 09:34:31 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CF02010002A;
+ Thu,  3 Jun 2021 09:34:30 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3FD1B2138CF;
+ Thu,  3 Jun 2021 09:34:30 +0200 (CEST)
+Received: from localhost (10.75.127.48) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 3 Jun 2021 09:34:29
+ +0200
+From: <patrice.chotard@foss.st.com>
+To: Mark Brown <broonie@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Thu, 3 Jun 2021 09:34:21 +0200
+Message-ID: <20210603073421.8441-1-patrice.chotard@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <162266640367.10923.8870511595725834118.git-patchwork-notify@kernel.org>
-Date: Wed, 02 Jun 2021 20:40:03 +0000
-References: <20210602023125.1263950-1-vee.khee.wong@linux.intel.com>
-In-Reply-To: <20210602023125.1263950-1-vee.khee.wong@linux.intel.com>
-To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
- qiangqing.zhang@nxp.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: fix issue where clk
- is being unprepared twice
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-06-03_04:2021-06-02,
+ 2021-06-03 signatures=0
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] spi: stm32-qspi: Always wait BUSY bit to be cleared
+	in stm32_qspi_wait_cmd()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,81 +72,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-This patch was applied to netdev/net.git (refs/heads/master):
+In U-boot side, an issue has been encountered when QSPI source clock is
+running at low frequency (24 MHz for example), waiting for TCF bit to be
+set didn't ensure that all data has been send out the FIFO, we should also
+wait that BUSY bit is cleared.
 
-On Wed,  2 Jun 2021 10:31:25 +0800 you wrote:
-> In the case of MDIO bus registration failure due to no external PHY
-> devices is connected to the MAC, clk_disable_unprepare() is called in
-> stmmac_bus_clk_config() and intel_eth_pci_probe() respectively.
-> 
-> The second call in intel_eth_pci_probe() will caused the following:-
-> 
-> [   16.578605] intel-eth-pci 0000:00:1e.5: No PHY found
-> [   16.583778] intel-eth-pci 0000:00:1e.5: stmmac_dvr_probe: MDIO bus (id: 2) registration failed
-> [   16.680181] ------------[ cut here ]------------
-> [   16.684861] stmmac-0000:00:1e.5 already disabled
-> [   16.689547] WARNING: CPU: 13 PID: 2053 at drivers/clk/clk.c:952 clk_core_disable+0x96/0x1b0
-> [   16.697963] Modules linked in: dwc3 iTCO_wdt mei_hdcp iTCO_vendor_support udc_core x86_pkg_temp_thermal kvm_intel marvell10g kvm sch_fq_codel nfsd irqbypass dwmac_intel(+) stmmac uio ax88179_178a pcs_xpcs phylink uhid spi_pxa2xx_platform usbnet mei_me pcspkr tpm_crb mii i2c_i801 dw_dmac dwc3_pci thermal dw_dmac_core intel_rapl_msr libphy i2c_smbus mei tpm_tis intel_th_gth tpm_tis_core tpm intel_th_acpi intel_pmc_core intel_th i915 fuse configfs snd_hda_intel snd_intel_dspcfg snd_intel_sdw_acpi snd_hda_codec snd_hda_core snd_pcm snd_timer snd soundcore
-> [   16.746785] CPU: 13 PID: 2053 Comm: systemd-udevd Tainted: G     U            5.13.0-rc3-intel-lts #76
-> [   16.756134] Hardware name: Intel Corporation Alder Lake Client Platform/AlderLake-S ADP-S DRR4 CRB, BIOS ADLIFSI1.R00.1494.B00.2012031421 12/03/2020
-> [   16.769465] RIP: 0010:clk_core_disable+0x96/0x1b0
-> [   16.774222] Code: 00 8b 05 45 96 17 01 85 c0 7f 24 48 8b 5b 30 48 85 db 74 a5 8b 43 7c 85 c0 75 93 48 8b 33 48 c7 c7 6e 32 cc b7 e8 b2 5d 52 00 <0f> 0b 5b 5d c3 65 8b 05 76 31 18 49 89 c0 48 0f a3 05 bc 92 1a 01
-> [   16.793016] RSP: 0018:ffffa44580523aa0 EFLAGS: 00010086
-> [   16.798287] RAX: 0000000000000000 RBX: ffff8d7d0eb70a00 RCX: 0000000000000000
-> [   16.805435] RDX: 0000000000000002 RSI: ffffffffb7c62d5f RDI: 00000000ffffffff
-> [   16.812610] RBP: 0000000000000287 R08: 0000000000000000 R09: ffffa445805238d0
-> [   16.819759] R10: 0000000000000001 R11: 0000000000000001 R12: ffff8d7d0eb70a00
-> [   16.826904] R13: ffff8d7d027370c8 R14: 0000000000000006 R15: ffffa44580523ad0
-> [   16.834047] FS:  00007f9882fa2600(0000) GS:ffff8d80a0940000(0000) knlGS:0000000000000000
-> [   16.842177] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [   16.847966] CR2: 00007f9882bea3d8 CR3: 000000010b126001 CR4: 0000000000370ee0
-> [   16.855144] Call Trace:
-> [   16.857614]  clk_core_disable_lock+0x1b/0x30
-> [   16.861941]  intel_eth_pci_probe.cold+0x11d/0x136 [dwmac_intel]
-> [   16.867913]  pci_device_probe+0xcf/0x150
-> [   16.871890]  really_probe+0xf5/0x3e0
-> [   16.875526]  driver_probe_device+0x64/0x150
-> [   16.879763]  device_driver_attach+0x53/0x60
-> [   16.883998]  __driver_attach+0x9f/0x150
-> [   16.887883]  ? device_driver_attach+0x60/0x60
-> [   16.892288]  ? device_driver_attach+0x60/0x60
-> [   16.896698]  bus_for_each_dev+0x77/0xc0
-> [   16.900583]  bus_add_driver+0x184/0x1f0
-> [   16.904469]  driver_register+0x6c/0xc0
-> [   16.908268]  ? 0xffffffffc07ae000
-> [   16.911598]  do_one_initcall+0x4a/0x210
-> [   16.915489]  ? kmem_cache_alloc_trace+0x305/0x4e0
-> [   16.920247]  do_init_module+0x5c/0x230
-> [   16.924057]  load_module+0x2894/0x2b70
-> [   16.927857]  ? __do_sys_finit_module+0xb5/0x120
-> [   16.932441]  __do_sys_finit_module+0xb5/0x120
-> [   16.936845]  do_syscall_64+0x42/0x80
-> [   16.940476]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> [   16.945586] RIP: 0033:0x7f98830e5ccd
-> [   16.949177] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 93 31 0c 00 f7 d8 64 89 01 48
-> [   16.967970] RSP: 002b:00007ffc66b60168 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-> [   16.975583] RAX: ffffffffffffffda RBX: 000055885de35ef0 RCX: 00007f98830e5ccd
-> [   16.982725] RDX: 0000000000000000 RSI: 00007f98832541e3 RDI: 0000000000000012
-> [   16.989868] RBP: 0000000000020000 R08: 0000000000000000 R09: 0000000000000000
-> [   16.997042] R10: 0000000000000012 R11: 0000000000000246 R12: 00007f98832541e3
-> [   17.004222] R13: 0000000000000000 R14: 0000000000000000 R15: 00007ffc66b60328
-> [   17.011369] ---[ end trace df06a3dab26b988c ]---
-> [   17.016062] ------------[ cut here ]------------
-> [   17.020701] stmmac-0000:00:1e.5 already unprepared
-> 
-> [...]
+To prevent similar issue in kernel driver, we implement similar behavior
+by always waiting BUSY bit to be cleared.
 
-Here is the summary with links:
-  - [net,1/1] net: stmmac: fix issue where clk is being unprepared twice
-    https://git.kernel.org/netdev/net/c/ab00f3e051e8
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+ drivers/spi/spi-stm32-qspi.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index 7e640ccc7e77..594f64136208 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -294,7 +294,7 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
+ 	int err = 0;
+ 
+ 	if (!op->data.nbytes)
+-		return stm32_qspi_wait_nobusy(qspi);
++		goto wait_nobusy;
+ 
+ 	if (readl_relaxed(qspi->io_base + QSPI_SR) & SR_TCF)
+ 		goto out;
+@@ -315,6 +315,9 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
+ out:
+ 	/* clear flags */
+ 	writel_relaxed(FCR_CTCF | FCR_CTEF, qspi->io_base + QSPI_FCR);
++wait_nobusy:
++	if (!err)
++		err = stm32_qspi_wait_nobusy(qspi);
+ 
+ 	return err;
+ }
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
