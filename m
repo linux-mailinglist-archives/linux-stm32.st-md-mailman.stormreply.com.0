@@ -2,48 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2561339A3D2
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jun 2021 16:59:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60FF139A4A4
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Jun 2021 17:34:42 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A970EC57B69;
-	Thu,  3 Jun 2021 14:59:00 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EACE8C57B69;
+	Thu,  3 Jun 2021 15:34:41 +0000 (UTC)
+Received: from mx01.ayax.eu (mx01.ayax.eu [188.137.98.110])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58CF1C57196
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E38D3C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Jun 2021 14:58:59 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1loooE-0002s8-PC; Thu, 03 Jun 2021 16:58:58 +0200
-To: Grzegorz Szymaszek <gszymaszek@short.pl>,
+ Thu,  3 Jun 2021 15:34:40 +0000 (UTC)
+Received: from [192.168.192.146] (port=48286 helo=nx64de-df6d00)
+ by mx01.ayax.eu with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <gszymaszek@short.pl>)
+ id 1lopMR-0005wd-L7; Thu, 03 Jun 2021 17:34:19 +0200
+Date: Thu, 3 Jun 2021 17:34:18 +0200
+From: Grzegorz Szymaszek <gszymaszek@short.pl>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Message-ID: <YLj2emwxhAVVOeIo@nx64de-df6d00>
+Mail-Followup-To: Grzegorz Szymaszek <gszymaszek@short.pl>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ahmad Fatoum <a.fatoum@pengutronix.de>,
  Marcin Sloniewski <marcin.sloniewski@gmail.com>,
  Rob Herring <robh+dt@kernel.org>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-References: <YLjl6lE+uZ5ZCdiS@nx64de-df6d00>
- <fcee4f30-446e-f4da-6d95-c9223cf82981@pengutronix.de>
- <YLjr6XaK7q3r8dmi@nx64de-df6d00>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <7af54c28-1cc1-775e-a544-45a0f5f9957e@pengutronix.de>
-Date: Thu, 3 Jun 2021 16:58:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+References: <fcee4f30-446e-f4da-6d95-c9223cf82981@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <YLjr6XaK7q3r8dmi@nx64de-df6d00>
-Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: set stm32mp157c-odyssey
-	DCMI pins
+Content-Disposition: inline
+In-Reply-To: <fcee4f30-446e-f4da-6d95-c9223cf82981@pengutronix.de>
+Cc: devicetree@vger.kernel.org, Grzegorz Szymaszek <gszymaszek@short.pl>,
+ linux-kernel@vger.kernel.org, Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] ARM: dts: stm32: add a new DCMI pins group
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,37 +50,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMDMuMDYuMjEgMTY6NDksIEdyemVnb3J6IFN6eW1hc3playB3cm90ZToKPiBIZWxsbyBBaG1h
-ZCwKPiAKPiBPbiBUaHUsIEp1biAwMywgMjAyMSBhdCAwNDoyNjo1OVBNICswMjAwLCBBaG1hZCBG
-YXRvdW0gd3JvdGU6Cj4+IE9uIDAzLjA2LjIxIDE2OjIzLCBHcnplZ29yeiBTenltYXN6ZWsgd3Jv
-dGU6Cj4+PiBUaGUgU2VlZWQgT2R5c3NleS1TVE0zMk1QMTU3QyBib2FyZCBoYXMgYSAyMC1waW4g
-RFZQIGNhbWVyYSBvdXRwdXQuCj4+PiBzdG0zMm1wMTUtcGluY3RybC5kdHNpIGNvbnRhaW5zIG9u
-ZSBwaW4gc3RhdGUgZGVmaW5pdGlvbiBmb3IgdGhlIERDTUkKPj4+IGludGVyZmFjZSwgZGNtaS0w
-LCBBS0EgcGhhbmRsZSBkY21pX3BpbnNfYS4gVGhpcyBkZWZpbml0aW9uIGlzCj4+PiBpbmNvbXBh
-dGlibGUgd2l0aCB0aGUgcGlucyB1c2VkIG9uIHRoZSBPZHlzc2V5IGJvYXJkLCB3aGVyZToKPj4+
-IC0gdGhlcmUgYXJlIDggZGF0YSBwaW5zIGluc3RlYWQgb2YgMTIsCj4+PiAtIFvigKZdCj4+Pgo+
-Pj4gT3ZlcnJpZGUgdGhlIGRjbWlfcGluc19hIGRlZmluaXRpb24gKGFzIHdlbGwgYXMgZGNtaV9z
-bGVlcF9waW5zX2EpIGluCj4+PiB0aGUgT2R5c3NleSBkZXZpY2UgdHJlZS4KPj4KPj4gUmF0aGVy
-IGRlZmluZSBhIG5ldyBwaW5jdHJsIGdyb3VwIChlLmcuICZkY21pX3BpbnNfYikgYW5kIHVzZSB0
-aGF0Cj4+IGluc3RlYWQgb2Ygb3ZlcnJpZGluZyBhbiBleGlzdGluZyBvbmUuCj4gCj4gQ2FuIEkg
-c2ltcGx5IHVzZSBkY21pX3BpbnNfYiAoYXMgdGhlIGZpcnN0IHVudXNlZCBpZGVudGlmaWVyKSBv
-ciBpcwo+IHRoZXJlIHNvbWUgd2F5IHRvIG1hdGNoIHNwZWNpZmljIHBpbiBncm91cHMgdG8gYW4g
-aWRlbnRpZmllciAoYiwgYywgZCwKPiBhbmQgc28gb24pPwoKSnVzdCB0YWtlIHRoZSBuZXh0IGF2
-YWlsYWJsZS4gVGhhdCdzIGhvdyBJIGRpZCBpdCBzbyBmYXIuCgo+PiBDdXJyZW50IGNvbnZlbnRp
-b24gaXMgYWxzbyB0byBwbGFjZSBhbGwgU1RNMzJNUDEgcGluY3RybCBub2RlcyBpbnRvCj4+IGEg
-Y2VudHJhbCBmaWxlLCBub3QgaW4gdGhlIGluZGl2aWR1YWwgYm9hcmQgZGV2aWNlIHRyZWVzLgo+
-IAo+IFN1cmUsIEkgd2lsbCB1cGRhdGUgdGhlIHBhdGNoLgo+IAo+IFRoYW5rcyBmb3IgeW91ciBj
-b21tZW50cyEKCkNoZWVycywKQWhtYWQKCi0tIApQZW5ndXRyb25peCBlLksuICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfApTdGV1ZXJ3YWxk
-ZXIgU3RyLiAyMSAgICAgICAgICAgICAgICAgICAgICAgfCBodHRwOi8vd3d3LnBlbmd1dHJvbml4
-LmRlLyAgfAozMTEzNyBIaWxkZXNoZWltLCBHZXJtYW55ICAgICAgICAgICAgICAgICAgfCBQaG9u
-ZTogKzQ5LTUxMjEtMjA2OTE3LTAgICAgfApBbXRzZ2VyaWNodCBIaWxkZXNoZWltLCBIUkEgMjY4
-NiAgICAgICAgICAgfCBGYXg6ICAgKzQ5LTUxMjEtMjA2OTE3LTU1NTUgfApfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
-c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+The Seeed Odyssey-STM32MP157C board has a 20-pin DVP camera output.
+stm32mp15-pinctrl.dtsi contained one pin state definition for the DCMI
+interface, dcmi-0, AKA phandle dcmi_pins_a. This definition was
+incompatible with the pins used on the Odyssey board, where:
+- there are 8 data pins instead of 12,
+- DCMI_HSYNC is available at PA4 instead of PH8,
+- DCMI_D0 is at PC6 instead of PH9,
+- DCMI_D3 is at PE1 instead of PH12,
+- DCMI_D4 is at PE11 instead of PH14,
+- DCMI_D5 is at PD3 instead of PI4,
+- DCMI_D6 is at PE13 instead of PB8,
+- DCMI_D7 is at PB9 instead of PE6.
+
+Add the DCMI pins used on the Odyssey board as a new DCMI pin state
+definition, dcmi-1, AKA phandle dcmi_pins_b.
+
+Signed-off-by: Grzegorz Szymaszek <gszymaszek@short.pl>
+---
+V1 -> V2: Removed the pinctrl override from the Odyssey device tree,
+added a new pinctrl in stm32mp15-pinctrl.dtsi instead
+
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 33 ++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index 060baa8b7e9d..5b60ecbd718f 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -118,6 +118,39 @@ pins {
+ 		};
+ 	};
+ 
++	dcmi_pins_b: dcmi-1 {
++		pins {
++			pinmux = <STM32_PINMUX('A', 4,  AF13)>,/* DCMI_HSYNC */
++				 <STM32_PINMUX('B', 7,  AF13)>,/* DCMI_VSYNC */
++				 <STM32_PINMUX('A', 6,  AF13)>,/* DCMI_PIXCLK */
++				 <STM32_PINMUX('C', 6,  AF13)>,/* DCMI_D0 */
++				 <STM32_PINMUX('H', 10, AF13)>,/* DCMI_D1 */
++				 <STM32_PINMUX('H', 11, AF13)>,/* DCMI_D2 */
++				 <STM32_PINMUX('E', 1,  AF13)>,/* DCMI_D3 */
++				 <STM32_PINMUX('E', 11, AF13)>,/* DCMI_D4 */
++				 <STM32_PINMUX('D', 3,  AF13)>,/* DCMI_D5 */
++				 <STM32_PINMUX('E', 13, AF13)>,/* DCMI_D6 */
++				 <STM32_PINMUX('B', 9,  AF13)>;/* DCMI_D7 */
++			bias-disable;
++		};
++	};
++
++	dcmi_sleep_pins_b: dcmi-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('A', 4,  ANALOG)>,/* DCMI_HSYNC */
++				 <STM32_PINMUX('B', 7,  ANALOG)>,/* DCMI_VSYNC */
++				 <STM32_PINMUX('A', 6,  ANALOG)>,/* DCMI_PIXCLK */
++				 <STM32_PINMUX('C', 6,  ANALOG)>,/* DCMI_D0 */
++				 <STM32_PINMUX('H', 10, ANALOG)>,/* DCMI_D1 */
++				 <STM32_PINMUX('H', 11, ANALOG)>,/* DCMI_D2 */
++				 <STM32_PINMUX('E', 1,  ANALOG)>,/* DCMI_D3 */
++				 <STM32_PINMUX('E', 11, ANALOG)>,/* DCMI_D4 */
++				 <STM32_PINMUX('D', 3,  ANALOG)>,/* DCMI_D5 */
++				 <STM32_PINMUX('E', 13, ANALOG)>,/* DCMI_D6 */
++				 <STM32_PINMUX('B', 9,  ANALOG)>;/* DCMI_D7 */
++		};
++	};
++
+ 	ethernet0_rgmii_pins_a: rgmii-0 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('G', 5, AF11)>, /* ETH_RGMII_CLK125 */
+-- 
+2.30.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
