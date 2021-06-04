@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3115A39B9B6
+	by mail.lfdr.de (Postfix) with ESMTPS id 452A539B9B7
 	for <lists+linux-stm32@lfdr.de>; Fri,  4 Jun 2021 15:21:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5203C57B6B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6BE2C57B75;
 	Fri,  4 Jun 2021 13:21:21 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2042.outbound.protection.outlook.com [40.107.20.42])
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70041.outbound.protection.outlook.com [40.107.7.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1754C57196
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 394B8C57196
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Jun 2021 11:51:57 +0000 (UTC)
+ Fri,  4 Jun 2021 12:00:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PkfXpKLeomiQetrRFaMFaREpa0QsYclAvAFerVpj+52DYUjew/PzxPmWn6BX+6M6qw7Px4lALeW1a6QNBm/jtZn5Xpw2jqFbHeRJzuMII/Gz93JoQykRQE6uNkefVzZj/kqHbwTRlmpSITAiCpe9782JoUr4RIr6MMDAvpi6/Ua9fcr496UH79Kv0l87Ji664SmxqviK9Eb4yiL3UmgJ171oG3o0Ng2VEh4gFjH7FtfEpHGvQP84dBx/ghu+wZ+4IraaaVcqw2d/651gHJiVhc6Ojfk49BXHZA04asXMEUHMUFbYDh8pFhu5ZhtAxXHRIED5InkWdFlXePBAbbi4Zg==
+ b=iXFzZUg/mpCYyjLv4JP+Kd5WGSGCJRzorKrGOqrzIqGa/fKjy6ILuFjojteqEkaMs2xkWCoBpRLqs0hPLsBizJ+6WgpsciZ9V9L66E4lDi0Q6IQbojfxXlNZDSOPu+ehA9ddJN/PjZAOFidl6kjb7nh0EKlQJsqylvX0StQXZvNdcNmI3LmdEZd9S/tGo+TjGbrDEG7OoEzrDiw8ghnWCpN3ohMhMvJ4u5DAQYlBogQf3QlccWLuYIBaFvGoklcown5LUACliv2TpHZzwNf3DBHXDkMRgHSmDVf2/e7RliCOLFQzszoyuhJmNXHnrCGmxaJCY0W3r+ttETuZm6x84A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nid/gSTZBxwkOdl1/i1A4EpZCnR+dHqf2c7hiVbfaEg=;
- b=ZlMCapKt7RKhUcNhRqbpDf8OxONG2yYECrkDdqzoxUFB6eEc/F+7L2efd/iWFl2gkjRZfodshvxDrdvraN0Xr4mO6ljNa7LbVnuwsFQbPVs1RibdYKSmTjOXVb3kzLrzL1uvS4xNC5R3lFBzJlHOiEB96b9s2haePPeOFcKa2pJ/XEwMOqLYi9cpS1W1nDO7GRsnCznh+IvjlDja650ygPt6qONh5iqkYATyuVZoIPu1f/6Y6XcwyHknCF7A5ZOX0YZiyaD7OXS0zTFXawlHTInrSy4Dr7+e8aipVzjTkfWes6Dpko79lruqqkuvFplsasr6+HaiLZoOQozfHB9JTg==
+ bh=LYeK7fKqpjod7nba01fyBAdXNBge+WwrD/cuvWkr9b8=;
+ b=lKzaY2CM0aT+7jT1JsFMaC0KLYnW3v6No3aa2B/FGMPqH2O/pItodTO0jie1jgIOeKRR879EHZiNaXo+3J9dk26WDMd2wkmyh+bifEDc3CREY+d5rAqdHs+yCpx6E1jy4zNAwmWLv5R1YHFiyIGIwDUEMiYX7rsPiN6ShFhQBO01WGGObaZNtq15Uhh/6gZQRzNRxeuZe5HboEoI0v6+tlPvzWtYxhZAjd7lARi192qrqDKae7DdxsV1DPWm55P0znSM3ArYa8pekc7MNFYQItkA+VwjAaCaZlz2MW12WDMlWisixzHJg5M5lvszvL9fgNf5Dqqprk9dfr8Xy6tL9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nid/gSTZBxwkOdl1/i1A4EpZCnR+dHqf2c7hiVbfaEg=;
- b=kBApStJXgHXDlUt4S6nOOoe6sG9aRVyb9yNxJ8zOstg7M4x/6z+dL7UXy3551DSRkDKJKmkeKItRgUulPhsG0QcKw/dHODGJ+6XkvyKlPP+Rq543eEf+n7bdauREk/+v37r0YR3TzOpvTl4ZpZhh038OY6qtYbvmk90rckU3e58=
+ bh=LYeK7fKqpjod7nba01fyBAdXNBge+WwrD/cuvWkr9b8=;
+ b=TzyUOskTM916CDD8K66rQAKrMP6zSGzUx4a4TX7F0oGaPXRg7OteaDFUz4r1drDPQ7g0WXMP6NWa4JjRyGoXtP44wwxUzQ1ECJwygAzDktL3rmb2dWB4Tu+eUkUXcRPeu6S+NedBGXzoe8usuzbmM5Ux1rydW5myOPUghazdrKE=
 Received: from VI1PR04MB5136.eurprd04.prod.outlook.com (2603:10a6:803:55::19)
- by VI1PR0402MB2798.eurprd04.prod.outlook.com (2603:10a6:800:ae::13)
+ by VI1PR0401MB2511.eurprd04.prod.outlook.com (2603:10a6:800:50::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.23; Fri, 4 Jun
- 2021 11:51:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4195.24; Fri, 4 Jun
+ 2021 12:00:18 +0000
 Received: from VI1PR04MB5136.eurprd04.prod.outlook.com
  ([fe80::b1a0:d654:a578:53ab]) by VI1PR04MB5136.eurprd04.prod.outlook.com
  ([fe80::b1a0:d654:a578:53ab%7]) with mapi id 15.20.4195.024; Fri, 4 Jun 2021
- 11:51:54 +0000
+ 12:00:18 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Thread-Topic: [RESEND PATCH net-next v5 1/3] net: stmmac: split xPCS setup
- from mdio register
-Thread-Index: AQHXWTENJC5Z8so33US6hBvpd1LPX6sDvaOA
-Date: Fri, 4 Jun 2021 11:51:54 +0000
-Message-ID: <20210604115153.pux7qbrybs4ckg4j@skbuf>
+Thread-Topic: [RESEND PATCH net-next v5 2/3] net: pcs: add 2500BASEX support
+ for Intel mGbE controller
+Thread-Index: AQHXWTEQHoD7ayfD+0m0+amygCRgjKsDv/yA
+Date: Fri, 4 Jun 2021 12:00:18 +0000
+Message-ID: <20210604120017.gbpwm27jjwoi2b32@skbuf>
 References: <20210604105733.31092-1-michael.wei.hong.sit@intel.com>
- <20210604105733.31092-2-michael.wei.hong.sit@intel.com>
-In-Reply-To: <20210604105733.31092-2-michael.wei.hong.sit@intel.com>
+ <20210604105733.31092-3-michael.wei.hong.sit@intel.com>
+In-Reply-To: <20210604105733.31092-3-michael.wei.hong.sit@intel.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -55,53 +55,53 @@ authentication-results: intel.com; dkim=none (message not signed)
  header.d=none;intel.com; dmarc=none action=none header.from=nxp.com;
 x-originating-ip: [188.26.52.84]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3ce3843e-57f6-4f96-0640-08d9274f2664
-x-ms-traffictypediagnostic: VI1PR0402MB2798:
-x-microsoft-antispam-prvs: <VI1PR0402MB2798974EFE662ED80EE86C49E03B9@VI1PR0402MB2798.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2803;
+x-ms-office365-filtering-correlation-id: 75bfdca5-da4c-44f6-c5eb-08d927505275
+x-ms-traffictypediagnostic: VI1PR0401MB2511:
+x-microsoft-antispam-prvs: <VI1PR0401MB2511793DADB59CC385AF771CE03B9@VI1PR0401MB2511.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: LhkHOnMfc9XG4AfI47kr1jKtLivY17nA82tOlk5veybC66GzG5wMxEBTM3luty3KbDc0ijlw953QRxc+uXVxbyuY2rC30IhfFeqzM1z5JUk+3C+4hMJmSVjjHOkvPFhEHilIHFRuR0tx1b7PpyZ0Og3nFyMeFIkmgQ9CW6+E5VGG/Aw9VK5NXyiammMvSNeewcRJn7TciRsTbSIyM6aBXijhUHbD2/M8rQFOhZ7UqCLOI9xbfR3XKv9SMROKbKtK8J0vQcq3L4Amdk9OUq/kKApuGZPWF9OIdpwJTAzfUPmBpox6qR3DUkfwDK0uDK1NNj+vXeenOL+ZfpFYyGOOeM8DQ+dQSVvGlJdesXGwqRB/iUU4l0yX2jYQJ58b7QTTOzIyt7+RBnKE2TuGjdrGs5l73B5KIOu/PoH/znLnVODEQlloPhfpFI91fMLPmeuTvhzagB4qdnIAMGSl/Rl7on68TX7AKfmGjsK/M64fvF9VJIJDPspH6wTPyFZk+lS9j+TlY/wxmrGpBFIrntVspwnlY2/YWz2nvsB1OrJpIctEOR7wvrn2ejtkiVALvZGA4hVYUQLnkzq+qRGgPiQOWwPFchAk179n0hCtOJZKLMs=
+x-microsoft-antispam-message-info: 3leoqyroWCe2eTQmU+RlEAiMf1soETbVHdTICxibLnv3o+kWtCLJiirHyC7LJfRH/y3w6Yac4j5BfBpdqd2wN9V+5OJCGfRwxVjyRgTGUO8txTsO5dAVjECfDk02M/EHSauxMEKzUxwv8VTGCfjWQma2z0phqGTs+FSRygQ+EWvkYih+5c/wDFxzk/5+9bqHy2BivbVeu837u9GYjvS6B81A8pjrzfDvpNa5betTIaDd+DcY5X/88oOEG270EjaJUeX9GcZrxxXRHfz06Apv/zgpk8xRpjDTzn9VdJdPS5eN1oB3eX9n2TD4CkC3C+bTGart8AbEsqFChsootGoKicyXz/+GCzPSo4PCvUzxCRXKkVwEA3eh8bieZ1Bt45grg+XsQYcRBWYqC3fYqQ72H2Txdly5yKJWsc4dxkYuNzfMa1PRlArSmhTuQyFJqUsRr8R7+Wffb5CY6V4gma9yRu7rKIOWciN1UqQ3En9PTPbedp/cjON96NBEI5rFPo5ml8qBKNinoD8NPRhYW6piyOGyQ9BVyP/OdcZpky3x9PtHSc+q9dPAZInDOe2+kS6GYt1bML4M+I4iPa7LtXPh+QxaBM2pxPmDhjvUcQYbY6z1FaShLzR9hmNiSK9paNKphyoCWqBzdR7QLeaN9GQDhgx2oab0QLEPbIGKL8dTJa4=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5136.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(7916004)(4636009)(366004)(346002)(396003)(39860400002)(136003)(376002)(38100700002)(122000001)(4326008)(6512007)(9686003)(7416002)(26005)(478600001)(186003)(44832011)(8936002)(2906002)(316002)(83380400001)(91956017)(71200400001)(6506007)(54906003)(86362001)(64756008)(66446008)(66476007)(66556008)(66946007)(8676002)(6916009)(6486002)(33716001)(76116006)(5660300002)(1076003);
+ SFS:(6029001)(7916004)(4636009)(39860400002)(366004)(136003)(346002)(376002)(396003)(4326008)(2906002)(91956017)(64756008)(66946007)(66476007)(44832011)(66556008)(54906003)(76116006)(83380400001)(66446008)(33716001)(6486002)(316002)(186003)(9686003)(7416002)(6512007)(8936002)(6916009)(1076003)(8676002)(38100700002)(71200400001)(26005)(478600001)(86362001)(6506007)(5660300002)(122000001)(164013002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?1+KLBPmYOQdWDMqvJDfqgFDeDdK5AcagKMun3oF5P5H5xe632iHqGGLDe21M?=
- =?us-ascii?Q?o61h2R5PfYnK8/MJ96fbxhQimR7bIqmmU4cEzKmfSLWbmDzJQWavdcLXwWnp?=
- =?us-ascii?Q?1W8joQi6PI7K/4ZzP7Vw/atJ6Ra9gLeVV/bAL6MunrBLNKJbgc0MddQDLCme?=
- =?us-ascii?Q?1POcGXQ4OEhfOHiWjJJhuclssMXvRyQbKsq+BbtQ12RrqANa2TcQk++x85ne?=
- =?us-ascii?Q?AL6Phf3ks/VcwuKdNZEgiIKysLyDKu82cka3S058t0IYQbOnTksXHjpiTE5j?=
- =?us-ascii?Q?TH74MhFadVQRnt6zFWgGxLPt7mUREpUVj7r5lmnXDPoyMBa0oJKRCdpqLBA6?=
- =?us-ascii?Q?JMtRl8MjDvOwXdVaGTmpPgGsHmvh9y5p3NRzuMOPDRChPlo7rldmji4s86QN?=
- =?us-ascii?Q?oT5oftpSfeVdbhTlss/BSqprVE8Nj6EmQwW10R9eulrKU0RFvfRciko4iNCS?=
- =?us-ascii?Q?HPFR+M7uaBQda9XvHaYDgrvcJicJnvKQmP8j8ETUDqEvGrINVd5Usq1PU7N6?=
- =?us-ascii?Q?1jEL3UarPAsabf5VkTzM8rZeJB7iJuh1XmuI1wtsMr4xistQ6/O9m8ZJ6ybw?=
- =?us-ascii?Q?pVS40bHkjt5GJ/yndb2WhONALw0e3Zow3zSbGaL92YgeKw6hUAdUA/COJBfN?=
- =?us-ascii?Q?jHmF63rYC/whsr0F1R+Eeu/o9R+/2ryHytdSTk/P2RFgxlP9cz+xHllWTIvj?=
- =?us-ascii?Q?k8ZSU7f48W6Wgaq+Fcb3N1Db99sN+CKIe8vOeZPHOFQTKWQN+8R6qbvErLoX?=
- =?us-ascii?Q?lv2xaNY33NpEdcKFrUvJywDAezfnqIemf8l66YzYIZIhbHPsGa7lQJUYM5nB?=
- =?us-ascii?Q?TvST/M0Z8OO6GYJXebGde7Jq9Hqo97YQsaFURF3Bn/YxcnScVe2zfoJ2gnis?=
- =?us-ascii?Q?dZuSxqpSYN5xzuJK0iMKQcS84R7Rp09sjBJ1oSaq3KMC75povRLj2oxWi3wA?=
- =?us-ascii?Q?THnUcFeeK1GEc6ZBpWHmBSqtFbUuvw7tm5Lebc4tuKljcaFBI8cjXGCBzIPI?=
- =?us-ascii?Q?8dL7b0+RiOlWbiGWkCQ3mfOYqE4MVabYM4chA1stkvuULJjL9tZakWS+xwwi?=
- =?us-ascii?Q?6HMXvftPfbgMFk2z/ix4lVPPI0pGDtgXD4SmkLtNaQUAsQAJ0WoQBLz428JH?=
- =?us-ascii?Q?++6bINy0iAvp/HjaI54CFuoQ6vxVHamB2w9IPMV77hSYuGf7JSKIFl2zL09b?=
- =?us-ascii?Q?nwUIOVwMbFidzaMlpEiCYn01t1RdQhyIsn9lWj7nmQMVBz59Ffgp0Ne6zv5g?=
- =?us-ascii?Q?Jlhay4sB1liCFj13haDf7Ne0UeLpBeFqQFwn8mQ+7EuTFivC780IBo1tdxg/?=
- =?us-ascii?Q?VMk+uphBaXLvuxclSxuzVP/c?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?dsfYwm0Vj52lELxHmIPpLTeHJG+NWq0BfVZTTGFKFZvOZJshWhyEPCqOqVEJ?=
+ =?us-ascii?Q?tX4nbZLqZ5gRpTwGHBp4Jtl0DBS8q+wUqe/BU2LnqydcN6COzMI+WxvY62qf?=
+ =?us-ascii?Q?TSnyey3G4BTTwELtWovS23eIM0Vt0NCQl4gstpkfoWlg6LsGitjGliEeVods?=
+ =?us-ascii?Q?c1fTjr2G3nOTNCh7Jmv4RQOt7kME0hiLGSsFCiGUzVeFRRs+kRVU46T95QBr?=
+ =?us-ascii?Q?UuH0iSR+aPn8H0FPuu+BA2OCGWBCs5ifEdkdLQJ1l/budtTxgi9VbtUpbeew?=
+ =?us-ascii?Q?qxlJaGZeqPzThML3cFPiuAi6WJO14ABN85UaesREvKzC1ROWAVBfQnsOTQ7F?=
+ =?us-ascii?Q?2b+UaBBPgEalft6vI+iZ+1oUqN7afKC1z0NCg+ody9cisbRYLXp8ng+xr5ls?=
+ =?us-ascii?Q?k1DgF1MxoitXq4Zmd0oa4dW66M1qLE/0FEBhr81bhTRqUoWlEMtkV2JDtbZq?=
+ =?us-ascii?Q?Y8Uin1S3NJnDVzGlkevLObPtQXkw6WJOeBBLNz/B7ybsMXVz9x1XmGIXrDwo?=
+ =?us-ascii?Q?uEd2AoFImX9cCdTZaK1pctfXZENIq60fkkfUxC4VD74mc/36ZsXce223eq4/?=
+ =?us-ascii?Q?SeGckiE1zLy7JeU5LsLZqDdIm0SBWhMBOV3UP5s7zPppKrpC+pT490jd9f01?=
+ =?us-ascii?Q?CIfBO/bqZ7BjVt5gFdJ/Qe7UdMfPr0kjaQ1ZSIMpuIyY+YHAwEmsSPxZefqM?=
+ =?us-ascii?Q?scNbGskkjn+rRkUpKCesKMePRB7iteKLEiAswt4giV+EH2YhPCiRqK48dVXj?=
+ =?us-ascii?Q?z08BfVqiWoKvVbgWBa6m+yrfQf70zm9hh0rF4GgRyiM5EMN6c434G6o6H+4a?=
+ =?us-ascii?Q?k1BwZWsJmALNVtTktlRjUQfEKlL+4t/H16LXkJRWsU09HzSiEVYQPNG1q6uG?=
+ =?us-ascii?Q?4xBaHRULiFQaNpUA3631+ZsAIYFfswCgjOn7ewtHUHDAz8nU4tYqDI9SIlTh?=
+ =?us-ascii?Q?ud/2ywlC660xNrtAGOh840ElS8pH14ZOO5cAobYMG9XPOMHvK/FNG6nKgKdv?=
+ =?us-ascii?Q?/AcvV9KOBzrOr4geXTantDKRbcXm7OWVgXlHJKvsdln/J4Wgf1SU75LeICRp?=
+ =?us-ascii?Q?yuqq9TLCtpnUJJOKJ/rKRhgXJe4v+Mwx5kGvoJlzOcDaDZM7+MHfI+lMyilQ?=
+ =?us-ascii?Q?Zo96uprNLybxp2ivagvU15ILwFAPUn8HGo4GoRGcjlbCxnsIOEeO0RUFu3L7?=
+ =?us-ascii?Q?0Xaw1QD3n0XkyYU9Eoud5sJ2p7PNREijmEy2Ja0l5ZfNH9EKbg1veXPvG+Dp?=
+ =?us-ascii?Q?fjzpCwqj5jJoI58y4EDx1fR022/krq2ke35C9BnAHz3Lm+MBU73fCSiebHZU?=
+ =?us-ascii?Q?lHqx9gH4gTF3RuZLKOWNW+Ha?=
 x-ms-exchange-transport-forked: True
-Content-ID: <214EC5EA82E94F4EB763362AE59AC680@eurprd04.prod.outlook.com>
+Content-ID: <82F5F9870C4CB743A11DFD91B45EDFAE@eurprd04.prod.outlook.com>
 MIME-Version: 1.0
 X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5136.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ce3843e-57f6-4f96-0640-08d9274f2664
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2021 11:51:54.8735 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75bfdca5-da4c-44f6-c5eb-08d927505275
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2021 12:00:18.3023 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7bw812ORGrLxsd0FyYmf1GHYeNT9Unzrn5MG5omGcZUjImDDF0yy4Q0OpkRUclsSyDDxSfzcig6dyS9XiHcwiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB2798
+X-MS-Exchange-CrossTenant-userprincipalname: 9BNI1nAGJ5KczeWff5fhGv+9M1pgMLZYVroletTFwPcez0dIrpVz1uw91fPFQpU8x/pwD5wOv6Ebg1lrDjMWwA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2511
 X-Mailman-Approved-At: Fri, 04 Jun 2021 13:21:20 +0000
 Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
  "andrew@lunn.ch" <andrew@lunn.ch>,
@@ -122,8 +122,8 @@ Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
  "davem@davemloft.net" <davem@davemloft.net>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
  "hkallweit1@gmail.com" <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [RESEND PATCH net-next v5 1/3] net: stmmac: split
- xPCS setup from mdio register
+Subject: Re: [Linux-stm32] [RESEND PATCH net-next v5 2/3] net: pcs: add
+ 2500BASEX support for Intel mGbE controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,163 +140,183 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jun 04, 2021 at 06:57:31PM +0800, Michael Sit Wei Hong wrote:
+On Fri, Jun 04, 2021 at 06:57:32PM +0800, Michael Sit Wei Hong wrote:
 > From: Voon Weifeng <weifeng.voon@intel.com>
 > 
-> This patch is a preparation patch for the enabling of Intel mGbE 2.5Gbps
-> link speed. The Intel mGbR link speed configuration (1G/2.5G) is depends on
-> a mdio ADHOC register which can be configured in the bios menu.
-> As PHY interface might be different for 1G and 2.5G, the mdio bus need be
-> ready to check the link speed and select the PHY interface before probing
-> the xPCS.
+> XPCS IP supports 2500BASEX as PHY interface. It is configured as
+> autonegotiation disable to cater for PHYs that does not supports 2500BASEX
+> autonegotiation.
+> 
+> v2: Add supported link speed masking.
+> v3: Restructure to introduce xpcs_config_2500basex() used to configure the
+>     xpcs for 2.5G speeds. Added 2500BASEX specific information for
+>     configuration.
+> v4: Fix indentation error
 > 
 > Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
 > Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c |  7 ++
->  .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 64 ++++++++++---------
->  3 files changed, 43 insertions(+), 29 deletions(-)
+>  drivers/net/pcs/pcs-xpcs.c   | 56 ++++++++++++++++++++++++++++++++++++
+>  include/linux/pcs/pcs-xpcs.h |  1 +
+>  2 files changed, 57 insertions(+)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> index b6cd43eda7ac..fd7212afc543 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> @@ -311,6 +311,7 @@ enum stmmac_state {
->  int stmmac_mdio_unregister(struct net_device *ndev);
->  int stmmac_mdio_register(struct net_device *ndev);
->  int stmmac_mdio_reset(struct mii_bus *mii);
-> +int stmmac_xpcs_setup(struct mii_bus *mii);
->  void stmmac_set_ethtool_ops(struct net_device *netdev);
+> diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+> index 34164437c135..98c4a3973402 100644
+> --- a/drivers/net/pcs/pcs-xpcs.c
+> +++ b/drivers/net/pcs/pcs-xpcs.c
+> @@ -57,9 +57,12 @@
 >  
->  void stmmac_ptp_register(struct stmmac_priv *priv);
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 6d41dd6f9f7a..c1331c07623d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -6991,6 +6991,12 @@ int stmmac_dvr_probe(struct device *device,
->  		}
->  	}
+>  /* Clause 37 Defines */
+>  /* VR MII MMD registers offsets */
+> +#define DW_VR_MII_MMD_CTRL		0x0000
+>  #define DW_VR_MII_DIG_CTRL1		0x8000
+>  #define DW_VR_MII_AN_CTRL		0x8001
+>  #define DW_VR_MII_AN_INTR_STS		0x8002
+> +/* Enable 2.5G Mode */
+> +#define DW_VR_MII_DIG_CTRL1_2G5_EN	BIT(2)
+>  /* EEE Mode Control Register */
+>  #define DW_VR_MII_EEE_MCTRL0		0x8006
+>  #define DW_VR_MII_EEE_MCTRL1		0x800b
+> @@ -86,6 +89,11 @@
+>  #define DW_VR_MII_C37_ANSGM_SP_1000		0x2
+>  #define DW_VR_MII_C37_ANSGM_SP_LNKSTS		BIT(4)
 >  
-> +	if (priv->plat->mdio_bus_data->has_xpcs) {
-
-stmmac_mdio_register has:
-
-	if (!mdio_bus_data)
-		return 0;
-
-which suggests that some platforms might not populate priv->plat->mdio_bus_data.
-
-Are you sure it is safe to go straight to dereferencing mdio_bus_data->has_xpcs
-in the common driver probe function?
-
-> +		ret = stmmac_xpcs_setup(priv->mii);
-> +		if (ret)
-> +			goto error_xpcs_setup;
-> +	}
+> +/* SR MII MMD Control defines */
+> +#define AN_CL37_EN		BIT(12)	/* Enable Clause 37 auto-nego */
+> +#define SGMII_SPEED_SS13	BIT(13)	/* SGMII speed along with SS6 */
+> +#define SGMII_SPEED_SS6		BIT(6)	/* SGMII speed along with SS13 */
 > +
->  	ret = stmmac_phy_setup(priv);
->  	if (ret) {
->  		netdev_err(ndev, "failed to setup phy (%d)\n", ret);
-> @@ -7027,6 +7033,7 @@ int stmmac_dvr_probe(struct device *device,
->  	unregister_netdev(ndev);
->  error_netdev_register:
->  	phylink_destroy(priv->phylink);
-> +error_xpcs_setup:
->  error_phy_setup:
->  	if (priv->hw->pcs != STMMAC_PCS_TBI &&
->  	    priv->hw->pcs != STMMAC_PCS_RTBI)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> index 6312a152c8ad..bc900e240da2 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> @@ -397,6 +397,41 @@ int stmmac_mdio_reset(struct mii_bus *bus)
->  	return 0;
+>  /* VR MII EEE Control 0 defines */
+>  #define DW_VR_MII_EEE_LTX_EN		BIT(0)  /* LPI Tx Enable */
+>  #define DW_VR_MII_EEE_LRX_EN		BIT(1)  /* LPI Rx Enable */
+> @@ -161,6 +169,14 @@ static const int xpcs_sgmii_features[] = {
+>  	__ETHTOOL_LINK_MODE_MASK_NBITS,
+>  };
+>  
+> +static const int xpcs_2500basex_features[] = {
+> +	ETHTOOL_LINK_MODE_Asym_Pause_BIT,
+> +	ETHTOOL_LINK_MODE_Autoneg_BIT,
+> +	ETHTOOL_LINK_MODE_2500baseX_Full_BIT,
+> +	ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
+> +	__ETHTOOL_LINK_MODE_MASK_NBITS,
+> +};
+> +
+
+This is a general design comment, perhaps you could address this later,
+but do keep it in mind:
+
+I don't think the PCS has anything to do with whether the link will
+support flow control.
+Similarly, Aquantia (now Marvell) PHYs operating in 2500base-x mode are
+capable of negotiating the copper-side link to 10/100/1000/2500 even if
+the system-side link is fixed at 2500. The way this is achieved is by
+the PHY emitting PAUSE frames towards the MAC in order to achieve rate
+adaptation with the external link speed.
+This is not completely standardized in phylink at the moment, but we
+have systems where this works. My point is that maybe the PCS driver
+isn't the most appropriate place to implement the phylink_validate
+method - the MAC driver is almost always in the position to know better.
+
+If you could move the xpcs validation inside stmmac I think that would
+be an improvement. For example with the NXP SJA1105 patches that I am
+going to send out for review soon, I am not calling xpcs_validate() at
+all.
+
+>  static const phy_interface_t xpcs_usxgmii_interfaces[] = {
+>  	PHY_INTERFACE_MODE_USXGMII,
+>  };
+> @@ -177,11 +193,17 @@ static const phy_interface_t xpcs_sgmii_interfaces[] = {
+>  	PHY_INTERFACE_MODE_SGMII,
+>  };
+>  
+> +static const phy_interface_t xpcs_2500basex_interfaces[] = {
+> +	PHY_INTERFACE_MODE_2500BASEX,
+> +	PHY_INTERFACE_MODE_MAX,
+> +};
+> +
+>  enum {
+>  	DW_XPCS_USXGMII,
+>  	DW_XPCS_10GKR,
+>  	DW_XPCS_XLGMII,
+>  	DW_XPCS_SGMII,
+> +	DW_XPCS_2500BASEX,
+>  	DW_XPCS_INTERFACE_MAX,
+>  };
+>  
+> @@ -306,6 +328,7 @@ static int xpcs_soft_reset(struct mdio_xpcs_args *xpcs,
+>  		dev = MDIO_MMD_PCS;
+>  		break;
+>  	case DW_AN_C37_SGMII:
+> +	case DW_2500BASEX:
+>  		dev = MDIO_MMD_VEND2;
+>  		break;
+>  	default:
+> @@ -804,6 +827,28 @@ static int xpcs_config_aneg_c37_sgmii(struct mdio_xpcs_args *xpcs)
+>  	return xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_DIG_CTRL1, ret);
 >  }
 >  
-> +int stmmac_xpcs_setup(struct mii_bus *bus)
+> +static int xpcs_config_2500basex(struct mdio_xpcs_args *xpcs)
 > +{
-> +	int mode, addr;
-
-Can you please sort the variables in decreasing order of line length?
-Also, "mode" can be of the phy_interface_t type.
-
-> +	struct net_device *ndev = bus->priv;
-> +	struct mdio_xpcs_args *xpcs;
-> +	struct stmmac_priv *priv;
-> +	struct mdio_device *mdiodev;
+> +	int ret;
 > +
-> +	priv = netdev_priv(ndev);
-> +	mode = priv->plat->phy_interface;
+> +	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, DW_VR_MII_DIG_CTRL1);
+> +	if (ret < 0)
+> +		return ret;
+> +	ret |= DW_VR_MII_DIG_CTRL1_2G5_EN;
+> +	ret &= ~DW_VR_MII_DIG_CTRL1_MAC_AUTO_SW;
+> +	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_DIG_CTRL1, ret);
+> +	if (ret < 0)
+> +		return ret;
 > +
-> +	/* Try to probe the XPCS by scanning all addresses. */
-> +	for (addr = 0; addr < PHY_MAX_ADDR; addr++) {
-> +		mdiodev = mdio_device_create(bus, addr);
-> +		if (IS_ERR(mdiodev))
-> +			continue;
-> +
-> +		xpcs = xpcs_create(mdiodev, mode);
-> +		if (IS_ERR_OR_NULL(xpcs)) {
-> +			mdio_device_free(mdiodev);
-> +			continue;
-> +		}
-> +
-> +		priv->hw->xpcs = xpcs;
-> +		break;
-> +	}
-> +
-> +	if (!priv->hw->xpcs) {
-> +		dev_warn(priv->device, "No xPCS found\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	return 0;
+> +	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, DW_VR_MII_MMD_CTRL);
+> +	if (ret < 0)
+> +		return ret;
+> +	ret &= ~AN_CL37_EN;
+> +	ret |= SGMII_SPEED_SS6;
+> +	ret &= ~SGMII_SPEED_SS13;
+> +	return xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_MMD_CTRL, ret);
 > +}
 > +
->  /**
->   * stmmac_mdio_register
->   * @ndev: net device structure
-> @@ -501,40 +536,11 @@ int stmmac_mdio_register(struct net_device *ndev)
->  		goto no_phy_found;
+>  static int xpcs_do_config(struct mdio_xpcs_args *xpcs,
+>  			  phy_interface_t interface, unsigned int mode)
+>  {
+> @@ -827,6 +872,11 @@ static int xpcs_do_config(struct mdio_xpcs_args *xpcs,
+>  		if (ret)
+>  			return ret;
+>  		break;
+> +	case DW_2500BASEX:
+> +		ret = xpcs_config_2500basex(xpcs);
+> +		if (ret)
+> +			return ret;
+> +		break;
+>  	default:
+>  		return -1;
 >  	}
+> @@ -1023,6 +1073,12 @@ static const struct xpcs_compat synopsys_xpcs_compat[DW_XPCS_INTERFACE_MAX] = {
+>  		.num_interfaces = ARRAY_SIZE(xpcs_sgmii_interfaces),
+>  		.an_mode = DW_AN_C37_SGMII,
+>  	},
+> +	[DW_XPCS_2500BASEX] = {
+> +		.supported = xpcs_2500basex_features,
+> +		.interface = xpcs_2500basex_interfaces,
+> +		.num_interfaces = ARRAY_SIZE(xpcs_2500basex_features),
+> +		.an_mode = DW_2500BASEX,
+> +	},
+>  };
 >  
-> -	/* Try to probe the XPCS by scanning all addresses. */
-> -	if (mdio_bus_data->has_xpcs) {
-> -		int mode = priv->plat->phy_interface;
-> -		struct mdio_device *mdiodev;
-> -		struct mdio_xpcs_args *xpcs;
-> -
-> -		for (addr = 0; addr < PHY_MAX_ADDR; addr++) {
-> -			mdiodev = mdio_device_create(new_bus, addr);
-> -			if (IS_ERR(mdiodev))
-> -				continue;
-> -
-> -			xpcs = xpcs_create(mdiodev, mode);
-> -			if (IS_ERR_OR_NULL(xpcs)) {
-> -				mdio_device_free(mdiodev);
-> -				continue;
-> -			}
-> -
-> -			priv->hw->xpcs = xpcs;
-> -			break;
-> -		}
-> -
-> -		if (!priv->hw->xpcs) {
-> -			dev_warn(dev, "No XPCS found\n");
-> -			err = -ENODEV;
-> -			goto no_xpcs_found;
-> -		}
-> -	}
-> -
->  bus_register_done:
->  	priv->mii = new_bus;
+>  static const struct xpcs_id xpcs_id_list[] = {
+> diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
+> index 0860a5b59f10..4d815f03b4b2 100644
+> --- a/include/linux/pcs/pcs-xpcs.h
+> +++ b/include/linux/pcs/pcs-xpcs.h
+> @@ -13,6 +13,7 @@
+>  /* AN mode */
+>  #define DW_AN_C73			1
+>  #define DW_AN_C37_SGMII			2
+> +#define DW_2500BASEX			3
 >  
->  	return 0;
+>  struct xpcs_id;
 >  
-> -no_xpcs_found:
->  no_phy_found:
->  	mdiobus_unregister(new_bus);
->  bus_register_fail:
 > -- 
 > 2.17.1
 > 
