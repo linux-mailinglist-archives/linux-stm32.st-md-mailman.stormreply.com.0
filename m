@@ -2,51 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5987A39B9B8
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Jun 2021 15:21:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 640C539B9BA
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Jun 2021 15:21:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06D44C57B7A;
-	Fri,  4 Jun 2021 13:21:22 +0000 (UTC)
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr140041.outbound.protection.outlook.com [40.107.14.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24EF2C58D5F;
+	Fri,  4 Jun 2021 13:21:23 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2049.outbound.protection.outlook.com [40.107.20.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D69CDC57B5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D800CC57B55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Jun 2021 12:02:50 +0000 (UTC)
+ Fri,  4 Jun 2021 13:08:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cekhmQhppZhUBYc+DrgQBIUi7bnEFZVBdkUOfrhu4vRTU70NV96HTr7W1bYGU3Gk6Lq3lY9tsQfI3Rt405UyarorR6zZqK/giVxbfed62EjEY2ZcFfOxzhO9g0jvxUNvDzMUi/mY1Y0L7adkwPz7ivr4GYrF9SQLlpHfmtgnRidc7eY8q5R8AgdLJu5269ulgVXuYxVYoUNE9493o05ON0lHw1DweSsceKXoXb8PwhygFibhoeekUboRs0UpUilepwwqsZ1by4EMS8Mueeq4avJAeMeIq6zODkAOLJwmetzXfP8KUCoHNOA4bELvo3gBa2LqZZ/kbh+FHAJHEZYxtQ==
+ b=ibPwQxn8SzwwT9pRd3oVLX5m/Yozd6LN4wDmc1CKkGc5VUhymTLEl3CUXNSp2LrjjP5I4H4VkQGVazQjNrZiCsHHtnmeBhchmIiqfc0ukyAIONwk5ZLMPaa85a37pw8TmOZ2eeArfPsSCz7wLmnrAb0jp6+8TnmxwXURwJu8+wYmnGp30W9XAfozLI37CBTP+yXifyWA5Gu85a3MWA1RmUbe9gUv/yy/Q61K7ff+kICpHMP/vUHegnX81iaOJMl9/KbocGfaL940lu32F8UFQm6y5Nfat012OhOY5f2oByx8aUqj4snDr8NWTdCejm7znUcsE5xy8kTla+Mfzkd/eA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=56bSY7gv/NBz2FASGI2CQurUt1zWkZJwGBKLzdyMyoM=;
- b=mE8IsEwxSx00HIU98rcTmYWMdrdboHXm2l1e3Zdis0Mij0oJw7eLDcvxKuUadh55yz8/UJ3dSyUnJAbt0y36vJmGQt8tLtxO5Fr1FrH30Sgpt9CxUsjTrjAyd3clvSzEma7UczAieY5g6ATfpKiLSYTM/T0DJVQdEybxooRQL2a7DPliV+aXUGIjL2JRYXS61NJ9YtJm96Fea3R7M6Lg0jL3yh1h1tY4Rmb6Kp1hx+7nroS6f4l46hTDLrmlAw3R6E+A0y52FDJkgICeLPkQrADIwwOs6mr3SJjSigCCimzlxk0LWMPjKuIjCH6G+6sw/Oqq6ldB6lyRFNlN5Yn6Og==
+ bh=gjccUIjr1dYN9PpJ8KLJw/ugZxYFw6zdxEahKzPqw/o=;
+ b=SNqmYhmX2W+InFmMlNP7K+imHrUMiDHCBm/uylidwsXbcT9k/0nPTnvbqBn3elhYBivnqetuYQpvn9cRGkmy4Am3vrHKFOeouoqfAE/OqVe9UTytJNiMUVzQ48Crv3vs0pBdj0zWtwsNkJ6xsa5/qvxTFhV1/ybSNSiWINsIAUUZty9CixDZkZ7L6Tm5wYfjUrStQ63zh9ndqIkskZqmoqx9D2YnFdTf1nZLb6khRwR2XUO0kvslT+uPlkeJ4wsAeDIv7TFALyXDx3+HcZJwNru1F4ZMC7dJ271K2i31sV94Eh6stqzJ1HaDFDH5QYBIa9R3TrwwqcwI4NP8ktDOoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=56bSY7gv/NBz2FASGI2CQurUt1zWkZJwGBKLzdyMyoM=;
- b=kj5Oq0Ngjd8VmeCwSRczblP6d4DlPpg7ijn3EXY15gVrwYPWrOX6pIgm3tGqUiTVSzSwsCimj3fq4XmZNb1XyPacHIc7vb1Hf71JJhKYFwNrmU9UkoNeN3c3jBxdfFQY0ZBgftYfLX+Zn6ELIZhX5LQUGeSd/ymq0JR7DdyxxhY=
+ bh=gjccUIjr1dYN9PpJ8KLJw/ugZxYFw6zdxEahKzPqw/o=;
+ b=kecJz3BKG6eugcKlf3r0X26KujvsC33dZVJ9GPki+IQVdD2PBgLMGQpfdw6o0BgePtBKlZp0VVl4Zwq6g3HsE+vanGl94mjsF4koJ70uCCWzuCEz3m1QAY53NxFdt6OVzruqmmg3NsLff8nXx2Q2ZfLLweThC2mndhW0Ur6MCjA=
 Received: from VI1PR04MB5136.eurprd04.prod.outlook.com (2603:10a6:803:55::19)
- by VI1PR04MB5295.eurprd04.prod.outlook.com (2603:10a6:803:59::16)
+ by VI1PR04MB3966.eurprd04.prod.outlook.com (2603:10a6:803:4e::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.24; Fri, 4 Jun
- 2021 12:02:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.21; Fri, 4 Jun
+ 2021 13:08:10 +0000
 Received: from VI1PR04MB5136.eurprd04.prod.outlook.com
  ([fe80::b1a0:d654:a578:53ab]) by VI1PR04MB5136.eurprd04.prod.outlook.com
  ([fe80::b1a0:d654:a578:53ab%7]) with mapi id 15.20.4195.024; Fri, 4 Jun 2021
- 12:02:48 +0000
+ 13:08:10 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Thread-Topic: [RESEND PATCH net-next v5 3/3] net: stmmac: enable Intel mGbE
- 2.5Gbps link speed
-Thread-Index: AQHXWTET3T5a2O/zYUCUCpJQSG2BQasDwK6A
-Date: Fri, 4 Jun 2021 12:02:48 +0000
-Message-ID: <20210604120247.gzrjocyw5ivtdhrd@skbuf>
+Thread-Topic: [RESEND PATCH net-next v5 1/3] net: stmmac: split xPCS setup
+ from mdio register
+Thread-Index: AQHXWTENJC5Z8so33US6hBvpd1LPX6sDvaOAgAAVT4A=
+Date: Fri, 4 Jun 2021 13:08:10 +0000
+Message-ID: <20210604130809.lbyf2m7hvwi7xugu@skbuf>
 References: <20210604105733.31092-1-michael.wei.hong.sit@intel.com>
- <20210604105733.31092-4-michael.wei.hong.sit@intel.com>
-In-Reply-To: <20210604105733.31092-4-michael.wei.hong.sit@intel.com>
+ <20210604105733.31092-2-michael.wei.hong.sit@intel.com>
+ <20210604115153.pux7qbrybs4ckg4j@skbuf>
+In-Reply-To: <20210604115153.pux7qbrybs4ckg4j@skbuf>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -55,53 +56,53 @@ authentication-results: intel.com; dkim=none (message not signed)
  header.d=none;intel.com; dmarc=none action=none header.from=nxp.com;
 x-originating-ip: [188.26.52.84]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ce02f6d4-4597-48e6-cc81-08d92750ac01
-x-ms-traffictypediagnostic: VI1PR04MB5295:
-x-microsoft-antispam-prvs: <VI1PR04MB52956DE58791837CBA5C4F58E03B9@VI1PR04MB5295.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-office365-filtering-correlation-id: e90cb992-22fc-4229-6873-08d92759cd77
+x-ms-traffictypediagnostic: VI1PR04MB3966:
+x-microsoft-antispam-prvs: <VI1PR04MB396663770AE05EAD4D587698E03B9@VI1PR04MB3966.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:826;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3xu/Y5q6mc8SCISXPed7bEY29kH1wXpP0wx7moAP5Xpd4mMTqwJIyvvphgrdKc4CHyaPZo+zaSYr8Avz5iI4oaIF2Z/JpY7P94otnD37RN2GqGNw2RK1MbJlY9ly/vDqAuRSpTvAlAFB6YmWzDq74PVM1GS+fWUwZFUMDDcfTJNw4jwqyIJkTgBB7BBUWcQ2LNQUag/ifqdeidZrQXXflHIAoNHDaN7EobQeWbN9LgZdZzC1mCbPHYOjz6MTvio/p+ic1Mh02ad36Maa0U9PFdfcucYvQL7MiUXnk2TSbNNwWX/xh3bY+KMuJOhulW7EXfdRJnYBKkRjfckM1R29uRYfCq5Lu5UeOFJWc44Qp4inM2NrjFpm9tyjoFinNX0Is1vSDFmjNzQeASx3jSWqxoVNBHByVNqx3uxfje9y6ttJHNxM7tSPNUtGN3ztfKG+VL/0LwgYkIvlQUY3aq/+Y7Wl4ySxyOje9aOkzoAFq0rJ1CXe/7VVtTMBKGgh6YLNmxrFBRztN7nqqFSpesZjA+BteOVqptB9dTor/bOk15EaRGagXK4psa+LKZq6kb9Hqu3DIZZyhaU+K4s6dwjYVyVTLqrWXYEwEdMH7cDPCho=
+x-microsoft-antispam-message-info: DdLYztjZVBxSiSRbuAMl9mjghv7+Cp53qlGSTgGWGBmLrYQy4e3S3m+5Hq7EniepLMG2s9XvPhs8Bn9eQ3VRtSNAfJKwuSWYFR85YIsIERe/n1NraGDKLZBQOA0OASnRjFJrvYfJa0TnmoSCrkIlMfPg24A8BHhkIxAJ3CN9txpIju9nkmrO5WoVUYp5JfETdf1QMHx6eCsZVgIbIFtO3arZP1tt78tRwUJ9ajKFBbhbEqhgrI9i3GbRdUO9Nfv+xOuqJMhiz+H/up3nsuRfLwnTXoN7XuJktkfKlEEO6INakil0Dt8+wAhDaH+fsVaqe1oKvMLCQZmI72KR0JivB9K52FX9w8ulDENEm/sVTtyM+DuMJpglfpdexfpoksA1trvy6bVjpTiDlk0KCAo/7rVY2dnqpcpbnhRmIcU/9+x4Z1z7HcUSWqwLCJjbO71q9EqymC+AmYl2638qOjzbtrFVwPWkw3nEkyi46qMqeBf1AOqWZGtwtCJkfWnzxSZt3+IoPeOhnmpZ7UksbceRcd5LEMK+sQlE/wAqJxqZhjU1NDnOZlkxcZqF8ZyWIKqIBoYKxVlGE1znD55qum9wnwE/5egcIuASXx8l4TnRAoceTPlS9NCYeQKCnxQC7Hu7i1nRL9V9vvpZ07jMtHKawrQtw/rrpaITXL9+TBXLX0ugI4lGDEt8I5jbFA3LOvbM/8UnaQpLjy3i97FXRhwSKCj9kN6qXf5TJCUKSr+gEWA=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VI1PR04MB5136.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(6029001)(7916004)(4636009)(346002)(39860400002)(376002)(136003)(396003)(366004)(38100700002)(6916009)(26005)(4326008)(2906002)(186003)(66556008)(71200400001)(8676002)(33716001)(7416002)(66446008)(8936002)(66476007)(66946007)(86362001)(478600001)(316002)(5660300002)(122000001)(76116006)(6512007)(9686003)(54906003)(44832011)(83380400001)(1076003)(64756008)(6486002)(91956017)(6506007);
+ SFS:(4636009)(7916004)(39860400002)(346002)(136003)(396003)(376002)(366004)(38100700002)(122000001)(6916009)(6486002)(316002)(7416002)(66946007)(91956017)(83380400001)(44832011)(8936002)(478600001)(8676002)(6512007)(5660300002)(966005)(4326008)(71200400001)(33716001)(26005)(66556008)(6506007)(1076003)(2906002)(66476007)(86362001)(66446008)(186003)(9686003)(54906003)(76116006)(64756008);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?IpjlP/zzX4q7pbKW5WgpudJX6wMe/GuVytIGMBAEiz6jVjDzRpq40a+c2dwz?=
- =?us-ascii?Q?28qKihivU1M4++l9pQHRB1NM1zwH7Vt+xUeOaLs2oUpUyf1g6rXOIdlYInjN?=
- =?us-ascii?Q?7GJaTIEDNY8whtzXSyzX92oTavKIcOOZhuZEKPTwDsWvivkR5HX2RV9gC3Cs?=
- =?us-ascii?Q?+/MEkOHIN0yPFTKmvnr62FnlMGtUs4uctZTFkrM2AkBlXAe1VZpqx3/tyzoA?=
- =?us-ascii?Q?Wtp673vaJglpN7W5rnW5LT2KBjJ9foubdPrj592vvAb3UGGdja1QK7YUWWus?=
- =?us-ascii?Q?mvpmSDv/oFq5KQzLj1ih9sgxgtBFCCdELbQdyhGLKw5ooAW6Z/b09jhahxNj?=
- =?us-ascii?Q?/q1/uOk8rTv88GiXjxmFpGDfZDLqXelN2oCTCXpAGAV1pAsb+DBuUYuiQARt?=
- =?us-ascii?Q?kYemPqXlFKKN1qzoOXnF+jwUU/gcJb6rwnARR38ev72mwwhd59cvsn2sxLVF?=
- =?us-ascii?Q?h5gnN462DIheBqOAS9/HiLybTPCNT4pD8MDrCkqnrPpNydkODI/UjZ78Xyat?=
- =?us-ascii?Q?HFsNqpPTlJgDf+Z6gFE1tMbaHxE8PdsxSF38wYpT9DjTSgswM1Gfos6mpAas?=
- =?us-ascii?Q?hVrCGQuBWJKGcdDlfp2Y5CCEllR6NdxS0eGTMsNyTMVW+VqBFLpBiVqXn50Y?=
- =?us-ascii?Q?M6nQJif7sMYCSEPXdSJYuE8VQdqAvuWlSquwX58jIIQyaA7rbdqqRvk3JHhY?=
- =?us-ascii?Q?ymOUNNo9LHf40Ya4Upv7JSi80DgjQwAjjoBdqIS9OtH6RcRDsaz9/xowR8uE?=
- =?us-ascii?Q?Q06d1F8xpPCHyedS8ecQLYckus56Cjk6VrZ5qSLCvaRvghE2EnLKoV0/sFNS?=
- =?us-ascii?Q?52W1EvLlRg3RYUek2/jyNaHTY86Gz5yPHblefw/CFuawYJEOWcJiKkW6frMv?=
- =?us-ascii?Q?KjuUtt4/riI2KWu0u9gvTquUbVqiOaJ2ihMR3ZN2QrRpqgTVcOewF/fUGt27?=
- =?us-ascii?Q?tPcjN03VWHvmGjrQvatFwYJ7Yn2D4MNGcPp81J12xFeClcB7Ba3ww4nT3ncl?=
- =?us-ascii?Q?Oa9gqtuAkLtXSDJ3Bcl1cLbEOb13m9G8/d8ECL28gVDBb+nOqS6VAwqh0bzr?=
- =?us-ascii?Q?9vGPwXi/ZTS7k1hVUfQ6qAa/qIX2SzfgJxvUOJKUqRPy4mPBoLZRL5tfdbZq?=
- =?us-ascii?Q?DjnQvzWJ3ERLzthwBdRcKxIoUoNGZqCzKL1mjMRPrcA8jW6OXUROr0I1taKl?=
- =?us-ascii?Q?rrMu9SD1s1RB5lfaeA3CRSVkvsyNDQ0fG3GwV40biPY1K/TjEYzuqAeuIOHu?=
- =?us-ascii?Q?VGFRlMRSHU1E8uzTVT/7f3weIAtfPoqzoSWMqN9F+rTayBsMXmwbdZn6JzOm?=
- =?us-ascii?Q?xGoeX6A8ODvQUd6wcZril8E/?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?J1A7anD/coemw+DjoNEia8Bqmm/szvrsGEVKMUbipPIRsXH9arlZ8VrHfn/r?=
+ =?us-ascii?Q?Wj0TmpasMtcQIqiSrC39GabycdLwtOH2DkRw2gqrQ5bn83yXEdtd4y+gOAeJ?=
+ =?us-ascii?Q?S5/LApVo7FRJ0bQN8mrqeNsW4eDVnd1pPYJ2QFzwwf42htMPD+bXof4ZKADx?=
+ =?us-ascii?Q?n8Q9Cu7qSKdM2z3WcYYZirZxrBc8WlvPbuotVkpOFejfdSyn1brlH+zd14ti?=
+ =?us-ascii?Q?8C0CeLwDWAAYCTP+Hbl68xk2u3ushlDHWDUGbQZNPYacjjWb9UTB325erp9X?=
+ =?us-ascii?Q?OjhwJIIEjXxtO/uKXWX9Gs5PsCdMMvGhOmzv1yzk2W3goEoOj+ffYHoKqV77?=
+ =?us-ascii?Q?74md+uY5ap1o6r6mW+usU6c88fwaHtYySTSWdX9cMrWwcTag9r4rpaftCy+0?=
+ =?us-ascii?Q?Af+ia63AnUU2pdTXBa9Qf1loGBkdI6hbDRhmPz+ift9hW9EvLvjG4ZDyipyO?=
+ =?us-ascii?Q?mytW10zYQQ2B8i5LUhUNdBu1lo54eh+iIwmmIJ+6cNr8lxoLlCqsHf+f+sxG?=
+ =?us-ascii?Q?LwgUQwDjvk9QEbxHEN4H7IXOOhQ97Jfz5bglsgaSBvwo/gjK1lZp24TJ9EP2?=
+ =?us-ascii?Q?HJEzrWgtDMSSS6za3zKY4CI7vp+BhVhtNFkEUIwT9X8ZU2UwgPXyflU10o6H?=
+ =?us-ascii?Q?Pw7Yu8bFwGf9vFPv/04LGEqRct5f3S8iOVaUPtA8eZIIQz/dpeb8JSvRnege?=
+ =?us-ascii?Q?qb0h0arkPwgXfZrHpieJ7VvcoiuyjbhmPPfLcveiY5/MFPmNZj0vLAKA8TOy?=
+ =?us-ascii?Q?St0KGIc45V8azLti8E9Jc/pC4jOEEvHSiechE5KIgOkmQokm2nEgQr/uHzBz?=
+ =?us-ascii?Q?4oEbP4efugQjW7/Y17DCcRHNaxmWJHP1g+PD91c5oLPXJPzKZmDS/owShoWW?=
+ =?us-ascii?Q?5AXaiOVzayyvHpO5g07J/GNReMLD6W3iNxgM6sXIAuUvY5CbEjQPMQJ6uNp1?=
+ =?us-ascii?Q?bcqfee1TyhUqjLpRtFDa5CtPYCDsgUt6gdh6nHBZQCBzJK8/PuzhO/Eq8oEH?=
+ =?us-ascii?Q?+M9PnruMIIPZWIhytNSbIbqWldF+qwtNPjogmIhTdX+lBh1I3XHUkZBjTaz0?=
+ =?us-ascii?Q?XgZ7OxfsuJ8tVUORbaLtwPkJId8oijcTJEL3O/LU6EQHia9/LKJ0IiUnglNe?=
+ =?us-ascii?Q?NJdUS0clR5DyVdF/dN7SxTgcRW44H1j51UCZCUteox25JzzYfMhBoHy+Fgju?=
+ =?us-ascii?Q?VwTLD+Y9VCBxNmmpqlBYeqefllqeqg+GHUPKVfDo90j8DpXMEMD0yn9gvAvR?=
+ =?us-ascii?Q?7yryu0M12AB4QCP2raCQ+BFsUQu9mfPLV+cTQWqt3hRR6fD/zn6K27ySylCx?=
+ =?us-ascii?Q?mCxyr5KU+qevaah6JkV8RFJ6?=
 x-ms-exchange-transport-forked: True
-Content-ID: <D6178CAFED11714AA26A12D81417D74D@eurprd04.prod.outlook.com>
+Content-ID: <15C0343D73FB754FA564ECC956DDAB8B@eurprd04.prod.outlook.com>
 MIME-Version: 1.0
 X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5136.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce02f6d4-4597-48e6-cc81-08d92750ac01
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2021 12:02:48.5022 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e90cb992-22fc-4229-6873-08d92759cd77
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2021 13:08:10.1483 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ++WLaasBLebhXCie7P4hv2ZgxZfAIz63Ei14fHfPMK4KA59GK3UOEHyG2NwgN+MVxQRdFqVzh5va7Tv9QF6ypQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5295
+X-MS-Exchange-CrossTenant-userprincipalname: WeLmt+2UdZ7/dlvn9ct01GEm4HdzPwp8h4Iwxc5734H5cnPlNF9B0MygMHk6Fe/D+uP3zplp0wxzY6p0VSZ9Bg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3966
 X-Mailman-Approved-At: Fri, 04 Jun 2021 13:21:20 +0000
 Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
  "andrew@lunn.ch" <andrew@lunn.ch>,
@@ -122,8 +123,8 @@ Cc: "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
  "davem@davemloft.net" <davem@davemloft.net>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
  "hkallweit1@gmail.com" <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [RESEND PATCH net-next v5 3/3] net: stmmac:
- enable Intel mGbE 2.5Gbps link speed
+Subject: Re: [Linux-stm32] [RESEND PATCH net-next v5 1/3] net: stmmac: split
+ xPCS setup from mdio register
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,35 +141,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jun 04, 2021 at 06:57:33PM +0800, Michael Sit Wei Hong wrote:
-> From: Voon Weifeng <weifeng.voon@intel.com>
+On Fri, Jun 04, 2021 at 02:51:53PM +0300, Vladimir Oltean wrote:
+> On Fri, Jun 04, 2021 at 06:57:31PM +0800, Michael Sit Wei Hong wrote:
+> > From: Voon Weifeng <weifeng.voon@intel.com>
+> > 
+> > This patch is a preparation patch for the enabling of Intel mGbE 2.5Gbps
+> > link speed. The Intel mGbR link speed configuration (1G/2.5G) is depends on
+> > a mdio ADHOC register which can be configured in the bios menu.
+> > As PHY interface might be different for 1G and 2.5G, the mdio bus need be
+> > ready to check the link speed and select the PHY interface before probing
+> > the xPCS.
+> > 
+> > Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
+> > Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+> > ---
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
+> >  .../net/ethernet/stmicro/stmmac/stmmac_main.c |  7 ++
+> >  .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 64 ++++++++++---------
+> >  3 files changed, 43 insertions(+), 29 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> > index b6cd43eda7ac..fd7212afc543 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> > @@ -311,6 +311,7 @@ enum stmmac_state {
+> >  int stmmac_mdio_unregister(struct net_device *ndev);
+> >  int stmmac_mdio_register(struct net_device *ndev);
+> >  int stmmac_mdio_reset(struct mii_bus *mii);
+> > +int stmmac_xpcs_setup(struct mii_bus *mii);
+> >  void stmmac_set_ethtool_ops(struct net_device *netdev);
+> >  
+> >  void stmmac_ptp_register(struct stmmac_priv *priv);
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > index 6d41dd6f9f7a..c1331c07623d 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > @@ -6991,6 +6991,12 @@ int stmmac_dvr_probe(struct device *device,
+> >  		}
+> >  	}
+> >  
+> > +	if (priv->plat->mdio_bus_data->has_xpcs) {
 > 
-> The Intel mGbE supports 2.5Gbps link speed by increasing the clock rate by
-> 2.5 times of the original rate. In this mode, the serdes/PHY operates at a
-> serial baud rate of 3.125 Gbps and the PCS data path and GMII interface of
-> the MAC operate at 312.5 MHz instead of 125 MHz.
+> stmmac_mdio_register has:
 > 
-> For Intel mGbE, the overclocking of 2.5 times clock rate to support 2.5G is
-> only able to be configured in the BIOS during boot time. Kernel driver has
-> no access to modify the clock rate for 1Gbps/2.5G mode. The way to
-> determined the current 1G/2.5G mode is by reading a dedicated adhoc
-> register through mdio bus. In short, after the system boot up, it is either
-> in 1G mode or 2.5G mode which not able to be changed on the fly.
+> 	if (!mdio_bus_data)
+> 		return 0;
 > 
-> Compared to 1G mode, the 2.5G mode selects the 2500BASEX as PHY interface and
-> disables the xpcs_an_inband. This is to cater for some PHYs that only
-> supports 2500BASEX PHY interface with no autonegotiation.
+> which suggests that some platforms might not populate priv->plat->mdio_bus_data.
 > 
-> v2: remove MAC supported link speed masking
-> v3: Restructure  to introduce intel_speed_mode_2500() to read serdes registers
->     for max speed supported and select the appropritate configuration.
->     Use max_speed to determine the supported link speed mask.
-> 
-> Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
-> Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-> ---
+> Are you sure it is safe to go straight to dereferencing mdio_bus_data->has_xpcs
+> in the common driver probe function?
 
-Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+This patch seems to agree with me:
+https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=593f555fbc6091bbaec8dd2a38b47ee643412e61
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
