@@ -2,45 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9623939BBD3
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Jun 2021 17:27:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB45239BC89
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Jun 2021 18:06:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D23AC57B6B;
-	Fri,  4 Jun 2021 15:27:12 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53AC7C57B6B;
+	Fri,  4 Jun 2021 16:06:15 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D494C57B55
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83A59C57B5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Jun 2021 15:27:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
- Subject:Sender:Reply-To:Content-ID:Content-Description;
- bh=zEOGLELAotxFe8keo94CwRJObWeO1jWMUHLzFzUPC9M=; b=HMC8aAzvTE/km1vWl6Zjsq0InJ
- jjLCXFaub81w1mHxlV8xDcIyCKZ3fWHxxoi4AGBzWyoFCZC7jtfwCxmqD+YS+vQahLDUjlozxZAo4
- 6hg6Pd1Xz33i5ItCw1MNd/ea13C3lAjx+B84J/cU6z+5VjbCZoAjKQK9FkwWp/yoQxoZGzypWBltX
- lLX5GZopgODrLSciIRA00zYep2ww9jzuz7dHOrm4bDdDO1Q8TYvMhP7s/vJrpX2RB+VJJrlIM8K/D
- SJ+PZLjGv3E5yW5xqP00GPqaN316Yo/yobY7dojtFhAW1zUA496lBsYTYUMAswFFGpixVwn/OFgW/
- wE5UAdpw==;
-Received: from [2601:1c0:6280:3f0::ce7d]
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1lpBix-00E9tx-Lo; Fri, 04 Jun 2021 15:27:03 +0000
-To: patrice.chotard@foss.st.com, Mark Brown <broonie@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20210604075009.25914-1-patrice.chotard@foss.st.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <49902b8a-c16a-423a-d528-3d35cac402bc@infradead.org>
-Date: Fri, 4 Jun 2021 08:27:01 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.0
+ Fri,  4 Jun 2021 16:06:13 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 154G1ust029477; Fri, 4 Jun 2021 18:06:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=fxFpnfIYi2rU8ay6+UqLYPW5crSnDErw0UJVcTcwF0Y=;
+ b=l99Y4TjavQiAod+H0PqeZZ0W7dBmxLpoMEDw6YPHbZDJvA/ODPYVTIWVpVQavMMyXvqc
+ zu3KiAuHik1Gzhr3BeWEyfyqqu25O4V5ollnt5CAYDRoJ6LPrSzise+M98RavFIuZBuH
+ SBkxU4fxIiD2yaBrJjovWmMkWltFHjYtxUl616HzriSL3+UN3mZah53vBSJOovroYDZg
+ Qnhcem3PNj8eIlY+Qp/hHgi51He/1t7w+BzD/PsN5ogAMTayavMo74EdKTqaei23Jnq7
+ SVReqOmyJo7U83+/Mno9EJcoDNqw9kD0DAKYd1Bv9fEIK6pH4l5/ll6obokiyeWjkrXV zg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 38y4ye5ugf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 04 Jun 2021 18:06:11 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EFEFD10002A;
+ Fri,  4 Jun 2021 18:06:10 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E34C622179B;
+ Fri,  4 Jun 2021 18:06:10 +0200 (CEST)
+Received: from localhost (10.75.127.50) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 4 Jun 2021 18:06:10
+ +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Fri, 4 Jun 2021 18:05:49 +0200
+Message-ID: <20210604160549.2122-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20210604075009.25914-1-patrice.chotard@foss.st.com>
-Content-Language: en-US
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32-qspi: Fix W=1 build warning
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-06-04_11:2021-06-04,
+ 2021-06-04 signatures=0
+Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] rpmsg: Fix rpmsg_create_ept return when RPMSG
+	config is not defined
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,47 +72,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/4/21 12:50 AM, patrice.chotard@foss.st.com wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
-> 
-> Fix the following compilation warning using W=1 build:
-> arm-linux-gnueabi-ld: drivers/spi/spi-stm32-qspi.o: in function `stm32_qspi_poll_status':
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+This is a minor fix.
 
-This is a build error, not a warning. The complete message is:
+According to the description of the rpmsg_create_ept in rpmsg_core.c
+the function should return NULL on error.
 
-ld: drivers/spi/spi-stm32-qspi.o: in function `stm32_qspi_poll_status':
-spi-stm32-qspi.c:(.text+0x661): undefined reference to `spi_mem_supports_op'
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
+ include/linux/rpmsg.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
-
-
-thanks.
-
-> ---
->  drivers/spi/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
-> index f4481fe48bf0..e71a4c514f7b 100644
-> --- a/drivers/spi/Kconfig
-> +++ b/drivers/spi/Kconfig
-> @@ -806,6 +806,7 @@ config SPI_STM32_QSPI
->  	tristate "STMicroelectronics STM32 QUAD SPI controller"
->  	depends on ARCH_STM32 || COMPILE_TEST
->  	depends on OF
-> +	depends on SPI_MEM
->  	help
->  	  This enables support for the Quad SPI controller in master mode.
->  	  This driver does not support generic SPI. The implementation only
-> 
-
-
+diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
+index d97dcd049f18..a8dcf8a9ae88 100644
+--- a/include/linux/rpmsg.h
++++ b/include/linux/rpmsg.h
+@@ -231,7 +231,7 @@ static inline struct rpmsg_endpoint *rpmsg_create_ept(struct rpmsg_device *rpdev
+ 	/* This shouldn't be possible */
+ 	WARN_ON(1);
+ 
+-	return ERR_PTR(-ENXIO);
++	return NULL;
+ }
+ 
+ static inline int rpmsg_send(struct rpmsg_endpoint *ept, void *data, int len)
 -- 
-~Randy
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
