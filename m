@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5DBE39D5D0
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jun 2021 09:19:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8F3439D5D2
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jun 2021 09:19:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AA86C58D7B;
-	Mon,  7 Jun 2021 07:19:28 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A602CC5978F;
+	Mon,  7 Jun 2021 07:19:31 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3776DC32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 090AFC32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Jun 2021 17:41:41 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- p13-20020a05600c358db029019f44afc845so7367666wmq.3
+ Sat,  5 Jun 2021 17:41:49 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id u7so7076182wrs.10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 05 Jun 2021 10:41:41 -0700 (PDT)
+ Sat, 05 Jun 2021 10:41:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=58S1Og3Gq6yFDBmvvvA786Kv3ZHM/KHp6+Nqv3S6XUY=;
- b=b5eJWGhJcXo5IFD5VMPLXDFJk6XICjvJsKi6fJPjDU0yt3+d23qtGnZtUb3UMREcHq
- zeLRKuHA2/4mX/1VJO+TIEfVadGQ2fEsXaEilGumOx/UGUyosGYn9evcumxaBDoJo4Su
- kcJCrW65I1EePaKe5uNGbDnKLCF9qyG2c3JJVUkfdGDwpZYwl1zUI0zI2YyhZFEJS8Py
- mP6GbeLyApeKPNr4W4DkjTshBVfP4fPMCWV4dzbMh1ib5NDd8Ol4yE8vmVgpO+aIs6m+
- mBOaaSP2QV0vsolS0IBJb3TSyEu6EPYgf18kMUU7y8XK622+Y/r9gwF300uyuz4ihbAv
- pYiQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=Oah1BBk6Y8qhU47gnr9UeRS4FR5T5+vhU26zOHbYDd0=;
+ b=eToU5pYflVrmUfM2RBvTfIowg9LsyFExJJ+ylXomzW+TNyNT/0z6vsHtO9bd2rioVG
+ ysSQfyES5tqUtpOM+KgzhxdxkLFmPL5cWwcbGbR2SmLtDQ7HZKm8j+mJACSP/Wp06w30
+ H4wDEfqAaT4n4lxcwR71wgRpyD7XLSTGnRikmhg7CAAqVdvraGiD60b72/CaL0n1/Rlf
+ sMU8hlOd3Uf/uQcGdOJBrGGHq75+fZ41Lh1osZI5GcNiXoTaYhycCZD5R+vMMNYYnEoD
+ oM4Fsn5Jo1mZ3Y79IkYg7oxTFv9qUxwDPeu7iuvVw037cC86qgN/6Gapr6nMwHsqj+Rx
+ 3FOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=58S1Og3Gq6yFDBmvvvA786Kv3ZHM/KHp6+Nqv3S6XUY=;
- b=BgqWRHWQU9KJwOfUJt26AI7h3QXaKHYAdhKyClJyfKmqh4QZ29K6uxA942NnzDgq34
- /sf/2f5+aoHJ4n5O33DXMGSbdNHP9T+cBy4AbOENfrBrUUtEdr+2uyzpNAnDBtAotGq3
- 9/o+L9fGO40VJCJUAFHsHAu6afHFfwbyaYeor7K8Kq3n15BBvuqvJoxfuND4xG8wuTC9
- /cNCKcu5dfjs+qMwrhqOGCtpy5kv7yTaQqpJetHeKMD0O2zulAG9FPVFd0/0SWRuN/hD
- iP5IA46FqmmcQuG12INgmed5oMh7ibn0nJHYJD9Q7w3W7Ym/r+WZ267/XnPTz2itKpNN
- WxEA==
-X-Gm-Message-State: AOAM5311FzUMp3AVPiwghy4g1KRc6hzrsl/E+SVDlSmABDoiw6eUjFIH
- vUpNLDSn0o0ND4/+kTrn+B4=
-X-Google-Smtp-Source: ABdhPJyiFCxRpIhc+P1d+WdBeVTCiCFPFUkUwjDbqSiPHq+lzi4KTMpPe8xwEp7BhyJd6VmUYckIpQ==
-X-Received: by 2002:a05:600c:4ba1:: with SMTP id
- e33mr3183717wmp.39.1622914900861; 
- Sat, 05 Jun 2021 10:41:40 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=Oah1BBk6Y8qhU47gnr9UeRS4FR5T5+vhU26zOHbYDd0=;
+ b=EIGGD+MATkwfpH2bo3dkLoiy24uOig1sj9lzv+C9/cuEZhKT6zIwm4ZIo0IPZwJwlW
+ MyqieGVWMOKI+wHAE3aRr5060oUgp/yGS2gfFfEWkvEU6a/IS6B6JtYkE9YsWyNUOu7A
+ k6uCQ9MeBMyAWo/yN6PRAZX7PzwISW3xTOMGZORX4ZrWceGpN5pPLmChoI6P865kA2zg
+ ijnVyxacN9yXvxUC7I9kGNBtVY0XO4Iy2Cca6CpVm5D+LEFD1pAbWlr7cBLPP/CV930J
+ ojAKHs8QzesLFaAOCmBA2ufETQvX6qTD4sHHVJN/TcSdrecH8hQyXQCGtabAAGGt83CV
+ ruDw==
+X-Gm-Message-State: AOAM531Dr3xzAa6jTz59Vvl73HSY5Jqs/kLMEPJFKfflwfqA76hl3mqm
+ Lbh7d8G+t+8ZtL0UGts9SHI=
+X-Google-Smtp-Source: ABdhPJwy4zHJqMZh4Mp1oF8UFr9fwyBd/rGqy5PapalODJQm8mXA7vcwbke+4HN4Nm9JX+K3IFKP2Q==
+X-Received: by 2002:a5d:6dae:: with SMTP id u14mr9648108wrs.148.1622914908684; 
+ Sat, 05 Jun 2021 10:41:48 -0700 (PDT)
 Received: from cluster5 ([80.76.206.81])
- by smtp.gmail.com with ESMTPSA id c206sm12182512wmf.12.2021.06.05.10.41.40
+ by smtp.gmail.com with ESMTPSA id 89sm10987879wrq.14.2021.06.05.10.41.48
  (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
- Sat, 05 Jun 2021 10:41:40 -0700 (PDT)
+ Sat, 05 Jun 2021 10:41:48 -0700 (PDT)
 From: Matthew Hagan <mnhagan88@gmail.com>
 To: 
-Date: Sat,  5 Jun 2021 18:35:37 +0100
-Message-Id: <20210605173546.4102455-1-mnhagan88@gmail.com>
+Date: Sat,  5 Jun 2021 18:35:38 +0100
+Message-Id: <20210605173546.4102455-2-mnhagan88@gmail.com>
 X-Mailer: git-send-email 2.26.3
+In-Reply-To: <20210605173546.4102455-1-mnhagan88@gmail.com>
+References: <20210605173546.4102455-1-mnhagan88@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 07 Jun 2021 07:19:27 +0000
 Cc: Voon Weifeng <weifeng.voon@intel.com>,
@@ -68,12 +68,11 @@ Cc: Voon Weifeng <weifeng.voon@intel.com>,
  Rob Herring <robh+dt@kernel.org>, Tan Tee Min <tee.min.tan@intel.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-arm-kernel@lists.infradead.org, Matthew Hagan <mnhagan88@gmail.com>,
- Fugang Duan <fugang.duan@nxp.com>, netdev@vger.kernel.org,
- Andy Gross <agross@kernel.org>, linux-kernel@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>,
+ netdev@vger.kernel.org, Andy Gross <agross@kernel.org>,
+ linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH 1/3] net: stmmac: explicitly deassert
-	GMAC_AHB_RESET
+Subject: [Linux-stm32] [PATCH 2/3] ARM: dts: qcom: add ahb reset to
+	ipq806x-gmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,66 +89,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-We are currently assuming that GMAC_AHB_RESET will already be deasserted
-by the bootloader. However if this has not been done, probing of the GMAC
-will fail. To remedy this we must ensure GMAC_AHB_RESET has been deasserted
-prior to probing.
+Add GMAC_AHB_RESET to the resets property of each gmac node.
 
 Signed-off-by: Matthew Hagan <mnhagan88@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 7 +++++++
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 7 +++++++
- include/linux/stmmac.h                                | 1 +
- 3 files changed, 15 insertions(+)
+ arch/arm/boot/dts/qcom-ipq8064.dtsi | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 6d41dd6f9f7a..1e28058b65a8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -6840,6 +6840,13 @@ int stmmac_dvr_probe(struct device *device,
- 			reset_control_reset(priv->plat->stmmac_rst);
- 	}
+diff --git a/arch/arm/boot/dts/qcom-ipq8064.dtsi b/arch/arm/boot/dts/qcom-ipq8064.dtsi
+index 98995ead4413..1dbceaf3454b 100644
+--- a/arch/arm/boot/dts/qcom-ipq8064.dtsi
++++ b/arch/arm/boot/dts/qcom-ipq8064.dtsi
+@@ -643,8 +643,9 @@ gmac0: ethernet@37000000 {
+ 			clocks = <&gcc GMAC_CORE1_CLK>;
+ 			clock-names = "stmmaceth";
  
-+	if (priv->plat->stmmac_ahb_rst) {
-+		ret = reset_control_deassert(priv->plat->stmmac_ahb_rst);
-+		if (ret == -ENOTSUPP)
-+			dev_err(priv->device,
-+				"unable to bring out of ahb reset\n");
-+	}
-+
- 	/* Init MAC and get the capabilities */
- 	ret = stmmac_hw_init(priv);
- 	if (ret)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 97a1fedcc9ac..d8ae58bdbbe3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -600,6 +600,13 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- 		goto error_hw_init;
- 	}
+-			resets = <&gcc GMAC_CORE1_RESET>;
+-			reset-names = "stmmaceth";
++			resets = <&gcc GMAC_CORE1_RESET>,
++				 <&gcc GMAC_AHB_RESET>;
++			reset-names = "stmmaceth", "ahb";
  
-+	plat->stmmac_ahb_rst = devm_reset_control_get_optional_shared(
-+							&pdev->dev, "ahb");
-+	if (IS_ERR(plat->stmmac_ahb_rst)) {
-+		ret = plat->stmmac_ahb_rst;
-+		goto error_hw_init;
-+	}
-+
- 	return plat;
+ 			status = "disabled";
+ 		};
+@@ -666,8 +667,9 @@ gmac1: ethernet@37200000 {
+ 			clocks = <&gcc GMAC_CORE2_CLK>;
+ 			clock-names = "stmmaceth";
  
- error_hw_init:
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index e55a4807e3ea..9b6a64f3e3dc 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -239,6 +239,7 @@ struct plat_stmmacenet_data {
- 	unsigned int mult_fact_100ns;
- 	s32 ptp_max_adj;
- 	struct reset_control *stmmac_rst;
-+	struct reset_control *stmmac_ahb_rst;
- 	struct stmmac_axi *axi;
- 	int has_gmac4;
- 	bool has_sun8i;
+-			resets = <&gcc GMAC_CORE2_RESET>;
+-			reset-names = "stmmaceth";
++			resets = <&gcc GMAC_CORE2_RESET>,
++				 <&gcc GMAC_AHB_RESET>;
++			reset-names = "stmmaceth", "ahb";
+ 
+ 			status = "disabled";
+ 		};
+@@ -689,8 +691,9 @@ gmac2: ethernet@37400000 {
+ 			clocks = <&gcc GMAC_CORE3_CLK>;
+ 			clock-names = "stmmaceth";
+ 
+-			resets = <&gcc GMAC_CORE3_RESET>;
+-			reset-names = "stmmaceth";
++			resets = <&gcc GMAC_CORE3_RESET>,
++				 <&gcc GMAC_AHB_RESET>;
++			reset-names = "stmmaceth", "ahb";
+ 
+ 			status = "disabled";
+ 		};
+@@ -712,8 +715,9 @@ gmac3: ethernet@37600000 {
+ 			clocks = <&gcc GMAC_CORE4_CLK>;
+ 			clock-names = "stmmaceth";
+ 
+-			resets = <&gcc GMAC_CORE4_RESET>;
+-			reset-names = "stmmaceth";
++			resets = <&gcc GMAC_CORE4_RESET>,
++				 <&gcc GMAC_AHB_RESET>;
++			reset-names = "stmmaceth", "ahb";
+ 
+ 			status = "disabled";
+ 		};
 -- 
 2.26.3
 
