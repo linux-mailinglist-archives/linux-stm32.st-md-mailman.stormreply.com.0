@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8F3439D5D2
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jun 2021 09:19:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B74F39D5D3
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jun 2021 09:19:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A602CC5978F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8744C59792;
 	Mon,  7 Jun 2021 07:19:31 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 090AFC32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2A33C57B69
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Jun 2021 17:41:49 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id u7so7076182wrs.10
+ Sat,  5 Jun 2021 17:41:56 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id c9so3837265wrt.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 05 Jun 2021 10:41:49 -0700 (PDT)
+ Sat, 05 Jun 2021 10:41:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Oah1BBk6Y8qhU47gnr9UeRS4FR5T5+vhU26zOHbYDd0=;
- b=eToU5pYflVrmUfM2RBvTfIowg9LsyFExJJ+ylXomzW+TNyNT/0z6vsHtO9bd2rioVG
- ysSQfyES5tqUtpOM+KgzhxdxkLFmPL5cWwcbGbR2SmLtDQ7HZKm8j+mJACSP/Wp06w30
- H4wDEfqAaT4n4lxcwR71wgRpyD7XLSTGnRikmhg7CAAqVdvraGiD60b72/CaL0n1/Rlf
- sMU8hlOd3Uf/uQcGdOJBrGGHq75+fZ41Lh1osZI5GcNiXoTaYhycCZD5R+vMMNYYnEoD
- oM4Fsn5Jo1mZ3Y79IkYg7oxTFv9qUxwDPeu7iuvVw037cC86qgN/6Gapr6nMwHsqj+Rx
- 3FOg==
+ bh=zDrH59vPVGwHTPRMUG66pWvn8DwNgjhaTZ8+7bVvWks=;
+ b=hvBFg06ltlfMtFlCvnLQq1j7N9UIN3KeE7n8H53Qw+eQ4bR4Rsl7HVWxa5tn2hy5/H
+ nrFs87Ymz7vSIjN+IghhgpGNbKzkVzdb1KznXrQmiVeDyShc25SMLdgEo4qBaVsW/8IT
+ jTiRTL2zjzHQp6fEXT3wmZ1xeKvdG86xBPzPQ9n0PbxCWfxmh5VKXha5vUXzukrqwpZU
+ 15wtQ1wpcc3EO7MHAmJA7TaXLdDKEvRqdy/a9njJSAti+tj3ncVCQrv+w1gmh06WhnEI
+ em7TI/c863zZiU5bXf5Yjg9L0LbqU/ksjsO0LtIo4jfECxYxJX/k4PIlZnAGuxmFz+xT
+ +ckg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Oah1BBk6Y8qhU47gnr9UeRS4FR5T5+vhU26zOHbYDd0=;
- b=EIGGD+MATkwfpH2bo3dkLoiy24uOig1sj9lzv+C9/cuEZhKT6zIwm4ZIo0IPZwJwlW
- MyqieGVWMOKI+wHAE3aRr5060oUgp/yGS2gfFfEWkvEU6a/IS6B6JtYkE9YsWyNUOu7A
- k6uCQ9MeBMyAWo/yN6PRAZX7PzwISW3xTOMGZORX4ZrWceGpN5pPLmChoI6P865kA2zg
- ijnVyxacN9yXvxUC7I9kGNBtVY0XO4Iy2Cca6CpVm5D+LEFD1pAbWlr7cBLPP/CV930J
- ojAKHs8QzesLFaAOCmBA2ufETQvX6qTD4sHHVJN/TcSdrecH8hQyXQCGtabAAGGt83CV
- ruDw==
-X-Gm-Message-State: AOAM531Dr3xzAa6jTz59Vvl73HSY5Jqs/kLMEPJFKfflwfqA76hl3mqm
- Lbh7d8G+t+8ZtL0UGts9SHI=
-X-Google-Smtp-Source: ABdhPJwy4zHJqMZh4Mp1oF8UFr9fwyBd/rGqy5PapalODJQm8mXA7vcwbke+4HN4Nm9JX+K3IFKP2Q==
-X-Received: by 2002:a5d:6dae:: with SMTP id u14mr9648108wrs.148.1622914908684; 
- Sat, 05 Jun 2021 10:41:48 -0700 (PDT)
+ bh=zDrH59vPVGwHTPRMUG66pWvn8DwNgjhaTZ8+7bVvWks=;
+ b=UXqd3fCsfkkZ+qZP8lPsEMF0DZgPCAf3Mpoggin9Ds/qEZAvZrWDoXh+2xKUfsywzV
+ 6xh+SmqDXmhrmJMbXN58zseQ9shBVi2nXtxc3nfqBj/KWyOVMbSlqNkvM0lszvhBBD4a
+ 68Q1iQRqv18SpcUW1PTThmK38ys5w4NJy8iNTKE+BzURGmSx+USl4RMNmzgsrl4U3WM8
+ qJHttkwQSE2t89TJBLH20F27pT0bUF7C2PXvyFHBsNDUm3cgp8/hLcmUBxVJu1j92nHc
+ 58PJ6rVu70mI9TfiJ8tEDEKRQFFpu8CPBOD0R1lbr160hoxezEtTREXsmljMmCTKWxHd
+ rlrg==
+X-Gm-Message-State: AOAM532/fYpUI6EtQX3QUAp4efy6I8C2tTE7azV7Dzk0IttYP/9xanf8
+ EoybRjzF+jB1BbWonrL4l9A=
+X-Google-Smtp-Source: ABdhPJx3BUcRirbykVkDF5f4joc8UrtKp3p0OEUvd2smzOzw0Qw6oI6yfoY4Mg2YdD8+Vsjqe9+fYQ==
+X-Received: by 2002:a5d:538c:: with SMTP id d12mr9251525wrv.116.1622914916430; 
+ Sat, 05 Jun 2021 10:41:56 -0700 (PDT)
 Received: from cluster5 ([80.76.206.81])
- by smtp.gmail.com with ESMTPSA id 89sm10987879wrq.14.2021.06.05.10.41.48
+ by smtp.gmail.com with ESMTPSA id t4sm10352505wru.53.2021.06.05.10.41.55
  (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
- Sat, 05 Jun 2021 10:41:48 -0700 (PDT)
+ Sat, 05 Jun 2021 10:41:56 -0700 (PDT)
 From: Matthew Hagan <mnhagan88@gmail.com>
 To: 
-Date: Sat,  5 Jun 2021 18:35:38 +0100
-Message-Id: <20210605173546.4102455-2-mnhagan88@gmail.com>
+Date: Sat,  5 Jun 2021 18:35:39 +0100
+Message-Id: <20210605173546.4102455-3-mnhagan88@gmail.com>
 X-Mailer: git-send-email 2.26.3
 In-Reply-To: <20210605173546.4102455-1-mnhagan88@gmail.com>
 References: <20210605173546.4102455-1-mnhagan88@gmail.com>
@@ -71,8 +71,8 @@ Cc: Voon Weifeng <weifeng.voon@intel.com>,
  netdev@vger.kernel.org, Andy Gross <agross@kernel.org>,
  linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH 2/3] ARM: dts: qcom: add ahb reset to
-	ipq806x-gmac
+Subject: [Linux-stm32] [PATCH 3/3] dt-bindings: net: stmmac: add ahb reset
+	to example
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,65 +89,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add GMAC_AHB_RESET to the resets property of each gmac node.
+Add ahb reset to the reset properties within the example gmac node.
 
 Signed-off-by: Matthew Hagan <mnhagan88@gmail.com>
 ---
- arch/arm/boot/dts/qcom-ipq8064.dtsi | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ Documentation/devicetree/bindings/net/ipq806x-dwmac.txt | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/qcom-ipq8064.dtsi b/arch/arm/boot/dts/qcom-ipq8064.dtsi
-index 98995ead4413..1dbceaf3454b 100644
---- a/arch/arm/boot/dts/qcom-ipq8064.dtsi
-+++ b/arch/arm/boot/dts/qcom-ipq8064.dtsi
-@@ -643,8 +643,9 @@ gmac0: ethernet@37000000 {
- 			clocks = <&gcc GMAC_CORE1_CLK>;
- 			clock-names = "stmmaceth";
+diff --git a/Documentation/devicetree/bindings/net/ipq806x-dwmac.txt b/Documentation/devicetree/bindings/net/ipq806x-dwmac.txt
+index 6d7ab4e524d4..ef5fd9f0b156 100644
+--- a/Documentation/devicetree/bindings/net/ipq806x-dwmac.txt
++++ b/Documentation/devicetree/bindings/net/ipq806x-dwmac.txt
+@@ -30,6 +30,7 @@ Example:
+ 		clocks = <&gcc GMAC_CORE1_CLK>;
+ 		clock-names = "stmmaceth";
  
--			resets = <&gcc GMAC_CORE1_RESET>;
--			reset-names = "stmmaceth";
-+			resets = <&gcc GMAC_CORE1_RESET>,
-+				 <&gcc GMAC_AHB_RESET>;
-+			reset-names = "stmmaceth", "ahb";
- 
- 			status = "disabled";
- 		};
-@@ -666,8 +667,9 @@ gmac1: ethernet@37200000 {
- 			clocks = <&gcc GMAC_CORE2_CLK>;
- 			clock-names = "stmmaceth";
- 
--			resets = <&gcc GMAC_CORE2_RESET>;
--			reset-names = "stmmaceth";
-+			resets = <&gcc GMAC_CORE2_RESET>,
-+				 <&gcc GMAC_AHB_RESET>;
-+			reset-names = "stmmaceth", "ahb";
- 
- 			status = "disabled";
- 		};
-@@ -689,8 +691,9 @@ gmac2: ethernet@37400000 {
- 			clocks = <&gcc GMAC_CORE3_CLK>;
- 			clock-names = "stmmaceth";
- 
--			resets = <&gcc GMAC_CORE3_RESET>;
--			reset-names = "stmmaceth";
-+			resets = <&gcc GMAC_CORE3_RESET>,
-+				 <&gcc GMAC_AHB_RESET>;
-+			reset-names = "stmmaceth", "ahb";
- 
- 			status = "disabled";
- 		};
-@@ -712,8 +715,9 @@ gmac3: ethernet@37600000 {
- 			clocks = <&gcc GMAC_CORE4_CLK>;
- 			clock-names = "stmmaceth";
- 
--			resets = <&gcc GMAC_CORE4_RESET>;
--			reset-names = "stmmaceth";
-+			resets = <&gcc GMAC_CORE4_RESET>,
-+				 <&gcc GMAC_AHB_RESET>;
-+			reset-names = "stmmaceth", "ahb";
- 
- 			status = "disabled";
- 		};
+-		resets = <&gcc GMAC_CORE1_RESET>;
+-		reset-names = "stmmaceth";
++		resets = <&gcc GMAC_CORE1_RESET>,
++			 <&gcc GMAC_AHB_RESET>;
++		reset-names = "stmmaceth", "ahb";
+ 	};
 -- 
 2.26.3
 
