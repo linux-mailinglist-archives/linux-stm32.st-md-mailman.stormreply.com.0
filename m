@@ -2,51 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7310439D974
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jun 2021 12:19:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73A8939DB49
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jun 2021 13:29:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 177E9C58D79;
-	Mon,  7 Jun 2021 10:19:16 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18912C58D7B;
+	Mon,  7 Jun 2021 11:29:05 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77CE9C3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 357C9C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Jun 2021 10:19:14 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 728CB6108C;
- Mon,  7 Jun 2021 10:19:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623061153;
- bh=VTXaUpTsvgBICiL2lKaVnHTXuZH2cZNa6FWeUX+IisE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RVVTU06jgeAsSo/v/fEAlG1xId7qFWDasaTznd2qQ64Uk30/NJbygYrmH4HWiWaou
- Nx9OEPtvZlVibiqfpvZU8qf2uIp7A/lSu+BaSGZHU0V1ky2KF3nK24EJix6mir/gkm
- M5OuKTah7QnercdV/DgyniAVxs5A+4BkYGy6BI/CtHTsdlcO9n5EnmH7Z87tsoTMHL
- QjpmLdSzV4/7F/ruljRn9IflXQA4J6+rfnM8SZwX2UZv5Uj2wd+PVTRAXd8uo8537i
- chhMxB+tdfdxIMdeh2+gRz7+jrcEIO+A8a6w1d9t7insDVjhZWJJ3HHSJDtS7G9f7Z
- GR8wQQl1SVUcQ==
-Date: Mon, 7 Jun 2021 15:49:09 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Message-ID: <YL3ynd1KiJoe9y6+@vkoul-mobl>
-References: <20210517081826.1564698-1-yukuai3@huawei.com>
- <20210517081826.1564698-3-yukuai3@huawei.com>
- <YLRfZfnuxc0+n/LN@vkoul-mobl.Dlink>
- <b6c340de-b0b5-6aad-94c0-03f062575b63@huawei.com>
- <YLSk/i6GmYWGEa9E@vkoul-mobl.Dlink>
- <YLSqD+9nZIWJpn+r@hovoldconsulting.com>
- <YLi4VGwzrat8wJHP@vkoul-mobl>
- <YL3TlDqe4KSr3ICl@hovoldconsulting.com>
+ Mon,  7 Jun 2021 09:46:01 +0000 (UTC)
+Received: from lupine.hi.pengutronix.de
+ ([2001:67c:670:100:3ad5:47ff:feaf:1a17] helo=lupine)
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1lqBpJ-0000ke-06; Mon, 07 Jun 2021 11:45:45 +0200
+Received: from pza by lupine with local (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1lqBpE-00032G-DJ; Mon, 07 Jun 2021 11:45:40 +0200
+Message-ID: <b89d828a08528aaa07e3527d254785f1e40b9bee.camel@pengutronix.de>
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Matthew Hagan <mnhagan88@gmail.com>
+Date: Mon, 07 Jun 2021 11:45:40 +0200
+In-Reply-To: <20210606103019.2807397-1-mnhagan88@gmail.com>
+References: <3436f8f0-77dc-d4ff-4489-e9294c434a08@gmail.com>
+ <20210606103019.2807397-1-mnhagan88@gmail.com>
+User-Agent: Evolution 3.30.5-1.1 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YL3TlDqe4KSr3ICl@hovoldconsulting.com>
-Cc: yi.zhang@huawei.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org,
- "yukuai \(C\)" <yukuai3@huawei.com>, michal.simek@xilinx.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] dmaengine: usb-dmac: Fix PM reference
- leak in usb_dmac_probe()
+X-SA-Exim-Connect-IP: 2001:67c:670:100:3ad5:47ff:feaf:1a17
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+X-Mailman-Approved-At: Mon, 07 Jun 2021 11:29:02 +0000
+Cc: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+ Wong Vee Khee <vee.khee.wong@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Voon Weifeng <weifeng.voon@intel.com>, "Wong,
+ Vee Khee" <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ Tan Tee Min <tee.min.tan@intel.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, bjorn.andersson@linaro.org,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: explicitly deassert
+	GMAC_AHB_RESET
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,37 +66,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 07-06-21, 10:06, Johan Hovold wrote:
-> On Thu, Jun 03, 2021 at 04:39:08PM +0530, Vinod Koul wrote:
-> > On 31-05-21, 11:19, Johan Hovold wrote:
-> > > On Mon, May 31, 2021 at 02:27:34PM +0530, Vinod Koul wrote:
-> > > > On 31-05-21, 14:11, yukuai (C) wrote:
-> > > > > On 2021/05/31 12:00, Vinod Koul wrote:
-> > > > > > On 17-05-21, 16:18, Yu Kuai wrote:
-> > > > > > > pm_runtime_get_sync will increment pm usage counter even it failed.
-> > > > > > > Forgetting to putting operation will result in reference leak here.
-> > > > > > > Fix it by replacing it with pm_runtime_resume_and_get to keep usage
-> > > > > > > counter balanced.
+On Sun, 2021-06-06 at 11:30 +0100, Matthew Hagan wrote:
+> We are currently assuming that GMAC_AHB_RESET will already be deasserted
+> by the bootloader. However if this has not been done, probing of the GMAC
+> will fail. To remedy this we must ensure GMAC_AHB_RESET has been deasserted
+> prior to probing.
 > 
-> > > > Yes the rumtime_pm is disabled on failure here and the count would have
-> > > > no consequence...
-> > > 
-> > > You should still balance the PM usage counter as it isn't reset for
-> > > example when reloading the driver.
-> > 
-> > Should I driver trust that on load PM usage counter is balanced and not
-> > to be reset..?
+> v2 changes:
+>  - remove NULL condition check for stmmac_ahb_rst in stmmac_main.c
+>  - unwrap dev_err() message in stmmac_main.c
+>  - add PTR_ERR() around plat->stmmac_ahb_rst in stmmac_platform.c
 > 
-> Not sure what you're asking here. But a driver should never leave the PM
-> usage counter unbalanced.
+> Signed-off-by: Matthew Hagan <mnhagan88@gmail.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 4 ++++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 7 +++++++
+>  include/linux/stmmac.h                                | 1 +
+>  3 files changed, 12 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 6d41dd6f9f7a..0d4cb423cbbd 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -6840,6 +6840,10 @@ int stmmac_dvr_probe(struct device *device,
+>  			reset_control_reset(priv->plat->stmmac_rst);
+>  	}
+>  
+> +	ret = reset_control_deassert(priv->plat->stmmac_ahb_rst);
+> +	if (ret == -ENOTSUPP)
+> +		dev_err(priv->device, "unable to bring out of ahb reset\n");
+> +
 
-Thinking about again, yes we should safely assume the counter is
-balanced when driver loads.. so unloading while balancing sounds better
-behaviour
+I would make this
 
-Thanks
--- 
-~Vinod
+	if (ret)
+		dev_err(priv->device, "unable to bring out of ahb reset: %pe\n", ERR_PTR(ret));
+
+Also consider asserting the reset again in the remove path. Or is there
+a reason not to?
+
+With that addressed,
+
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+
+regards
+Philipp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
