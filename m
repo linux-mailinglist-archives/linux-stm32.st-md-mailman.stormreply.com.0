@@ -2,50 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C1F839E552
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jun 2021 19:25:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F51539E56F
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Jun 2021 19:30:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D389C58D7B;
-	Mon,  7 Jun 2021 17:25:15 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BC13C59785;
+	Mon,  7 Jun 2021 17:30:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AD7DC3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 630F2C57B55
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Jun 2021 17:25:13 +0000 (UTC)
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 6797D826AA;
- Mon,  7 Jun 2021 19:25:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1623086712;
- bh=p3eOiV058Lu3C5PA8aP1sUi9dv/4rSIfV7mxOaXnpiA=;
- h=From:To:Cc:Subject:Date:From;
- b=q1le/g3S2Lcwu0shiaQKw8AdyjwlWZlZ+jukhDnY3Vm9Jw8XsU5rTSGNzyZoni0dP
- nad7bwoJhdQtDz7EFDCVo0ZVCPLodjq35d+gEk8BFUNFDo5bXJt7TmOjh0y+mOCH7J
- 4b3O76NGmFAJjuixQfnzQICcWQHUoMVn3qkjzSvv0FvnroINUIVfxC0QG9Fmr0wFbL
- uYmhla1mG2VKxOfKA6io/lz8H210OdSIkVFG01MgERQXQmEdLWB0C3jzfKtzXWkIy2
- 2fXz/W0WmzHi/N9lZpTEwe8keuz4wTWQZiNV0LT+eu7CpCbzPmU/GU0K3M1/80Ogph
- tAIMSGl/h2YoQ==
-From: Marek Vasut <marex@denx.de>
-To: dri-devel@lists.freedesktop.org
-Date: Mon,  7 Jun 2021 19:24:57 +0200
-Message-Id: <20210607172457.14471-1-marex@denx.de>
-X-Mailer: git-send-email 2.30.2
+ Mon,  7 Jun 2021 17:30:49 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 157HLnSP016433; Mon, 7 Jun 2021 19:30:40 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=4K7B8Tgo+sUqb2EMy3lz5Ixcq5OEwNr88+4MnIdV1OM=;
+ b=Co4w9wRz4lQ8dPql6Jf/sS3j5kNCWIHCMTGf6vFHRemZ9SsofaOXUS8S2QJ/2EuYtB+X
+ vu6PKuSRNDhST08xVh9nH6Gconbt2JYyW64zsYP49lTXwwIcfVa5mO2ogJ/bNzE6w/jM
+ Vtg6hhlhDNu0rGo/WQjkyapyvQhGOs8G2vqNkOhtGbp241qH34hudnm/cP6BIZaoFWER
+ 9mL/Wm39IKu/xQ1inAoj2UPDivmZGK5ccg0qbR9ML3ibzDw0u3Hdnn2NO26ZQItXMZpt
+ CuAdrJPKrlp6Qbeluu+A8vf9fvSm7aQfiXHCcpzz9jQhAKA8zJgRkyyrDnrwbfYEQWpC Hw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 391evfbb29-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 07 Jun 2021 19:30:40 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4D49E10002A;
+ Mon,  7 Jun 2021 19:30:37 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 120102142B6;
+ Mon,  7 Jun 2021 19:30:37 +0200 (CEST)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 7 Jun 2021 19:30:36
+ +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Mon, 7 Jun 2021 19:30:28 +0200
+Message-ID: <20210607173032.30133-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>,
- Benjamin Gaignard <benjamin.gaignard@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Vincent Abriou <vincent.abriou@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] drm/stm: Remove usage of
-	drm_display_mode_to_videomode()
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-06-07_14:2021-06-04,
+ 2021-06-07 signatures=0
+Cc: julien.massot@iot.bzh, arnaud.pouliquen@foss.st.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/4] rpmsg: char: introduce the rpmsg-raw
+	channel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,90 +73,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There is not much value in the extra conversion step, the calculations
-required for the LTDC IP are different than what is used in the
-drm_display_mode_to_videomode(), so just do the right ones in the LTDC
-driver right away.
+Purpose:
+  Allow the remote processor to instantiate a /dev/rpmsgX interface relying on the NS announcement
+  of the "rpmsg-raw" service.
+  This patchet is extracted from  the series [1] with rework to add rpmsg_create_default_ept helper.
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Antonio Borneo <antonio.borneo@foss.st.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@foss.st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Vincent Abriou <vincent.abriou@foss.st.com>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: dri-devel@lists.freedesktop.org
----
- drivers/gpu/drm/stm/ltdc.c | 33 +++++++++++++++++----------------
- 1 file changed, 17 insertions(+), 16 deletions(-)
+  
+Aim:
+  There is no generic sysfs interface based on RPMsg that allows a user application to communicate
+  with a remote processor in a simple way.
+  The rpmsg_char dev solves a part of this problem by allowing an endpoint to be created on the
+  local side. But it does not take advantage of the NS announcement mechanism implemented for some
+  backends such as the virtio backend. So it is not possible to probe it from  a remote initiative.
+  Extending the char rpmsg device to support NS announcement makes the rpmsg_char more generic.
+  By announcing a "rpmg-raw" service, the firmware of a remote processor will be able to
+  instantiate a /dev/rpmsgX interface providing to the user application a basic link to communicate
+  with it without any knowledge of the rpmsg protocol.
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index e99771b947b6..08b71248044d 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -531,7 +531,6 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
- 	struct drm_encoder *encoder = NULL;
- 	struct drm_bridge *bridge = NULL;
- 	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
--	struct videomode vm;
- 	u32 hsync, vsync, accum_hbp, accum_vbp, accum_act_w, accum_act_h;
- 	u32 total_width, total_height;
- 	u32 bus_flags = 0;
-@@ -570,31 +569,33 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
- 		}
- 	}
- 
--	drm_display_mode_to_videomode(mode, &vm);
--
- 	DRM_DEBUG_DRIVER("CRTC:%d mode:%s\n", crtc->base.id, mode->name);
--	DRM_DEBUG_DRIVER("Video mode: %dx%d", vm.hactive, vm.vactive);
-+	DRM_DEBUG_DRIVER("Video mode: %dx%d", mode->hdisplay, mode->vdisplay);
- 	DRM_DEBUG_DRIVER(" hfp %d hbp %d hsl %d vfp %d vbp %d vsl %d\n",
--			 vm.hfront_porch, vm.hback_porch, vm.hsync_len,
--			 vm.vfront_porch, vm.vback_porch, vm.vsync_len);
-+			 mode->hsync_start - mode->hdisplay,
-+			 mode->htotal - mode->hsync_end,
-+			 mode->hsync_end - mode->hsync_start,
-+			 mode->vsync_start - mode->vdisplay,
-+			 mode->vtotal - mode->vsync_end,
-+			 mode->vsync_end - mode->vsync_start);
- 
- 	/* Convert video timings to ltdc timings */
--	hsync = vm.hsync_len - 1;
--	vsync = vm.vsync_len - 1;
--	accum_hbp = hsync + vm.hback_porch;
--	accum_vbp = vsync + vm.vback_porch;
--	accum_act_w = accum_hbp + vm.hactive;
--	accum_act_h = accum_vbp + vm.vactive;
--	total_width = accum_act_w + vm.hfront_porch;
--	total_height = accum_act_h + vm.vfront_porch;
-+	hsync = mode->hsync_end - mode->hsync_start - 1;
-+	vsync = mode->vsync_end - mode->vsync_start - 1;
-+	accum_hbp = mode->htotal - mode->hsync_start - 1;
-+	accum_vbp = mode->vtotal - mode->vsync_start - 1;
-+	accum_act_w = accum_hbp + mode->hdisplay;
-+	accum_act_h = accum_vbp + mode->vdisplay;
-+	total_width = mode->htotal - 1;
-+	total_height = mode->vtotal - 1;
- 
- 	/* Configures the HS, VS, DE and PC polarities. Default Active Low */
- 	val = 0;
- 
--	if (vm.flags & DISPLAY_FLAGS_HSYNC_HIGH)
-+	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
- 		val |= GCR_HSPOL;
- 
--	if (vm.flags & DISPLAY_FLAGS_VSYNC_HIGH)
-+	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
- 		val |= GCR_VSPOL;
- 
- 	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
+Implementation details:
+  - Register a rpmsg driver for the rpmsg_char driver, associated to the "rpmsg-raw" channel service.
+  - In case of rpmsg char device instantiated by the rpmsg bus (on NS announcement) manage the 
+    channel default endpoint to ensure a stable default endpoint address, for communication with 
+    the remote processor.
+
+How to test it:
+  - This series can be applied on git/andersson/remoteproc.git for-next branch (dc0e14fa833b)
+    + the "Restructure the rpmsg char to decorrelate the control part" series[2]
+
+[1] https://patchwork.kernel.org/project/linux-remoteproc/list/?series=475217
+[2] https://patchwork.kernel.org/project/linux-remoteproc/list/?series=483793
+
+
+
+Arnaud Pouliquen (4):
+  rpmsg: Introduce rpmsg_create_default_ept function
+  rpmsg: char: Add possibility to create and reuse default endpoint
+  rpmsg: char: Introduce the "rpmsg-raw" channel
+  rpmsg: char: Return error if user tries to destroy a default endpoint.
+
+ drivers/rpmsg/rpmsg_char.c | 92 +++++++++++++++++++++++++++++++++++---
+ drivers/rpmsg/rpmsg_core.c | 51 +++++++++++++++++++++
+ include/linux/rpmsg.h      | 14 ++++++
+ 3 files changed, 151 insertions(+), 6 deletions(-)
+
 -- 
-2.30.2
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
