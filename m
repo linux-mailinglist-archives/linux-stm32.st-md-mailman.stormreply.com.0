@@ -2,68 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EFC939FCEF
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Jun 2021 18:56:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 910633A010D
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Jun 2021 20:57:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25211C57B79;
-	Tue,  8 Jun 2021 16:56:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1733CC57B79;
+	Tue,  8 Jun 2021 18:57:06 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FD80C32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BA17C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Jun 2021 16:56:53 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 158GpTtB008149; Tue, 8 Jun 2021 18:56:33 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=xmXXy0WciX654IwlpzmNZ/gVDr1D3/TyBFil1GVZFBY=;
- b=gskQBmP72sCEyBu8AD764fnP5x4b1XUc3ETw4WCBMPta73SdkH+tsugwBgA7W6MVDPXP
- 4HBkswgPDFllrEjDcEM41QnE3IE8lMOXMylFxxRZRRHW1XCvUWBRbG/RZDlHvb3vi2Jy
- 1Y71LaPSC+aT6UsmWkr4uQItpFBBQnftNO0dfuV+TcMomUxS/uElDYHAdD5e57bm9TlA
- iIIfEwcXbDZ+sQgxAaPwSOgV4A8AjjLGCCK9ff4RRMESUonJdZ3fCouCCBV/dPM88Ycv
- MBHHudSBo9es0N2We16yD2CYcG2BIyHY2Ikk/fTktnNg1d4gs9jeTdzi4lOqTAdfP6bZ Eg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3924rmjyge-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Jun 2021 18:56:33 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5FEDD100034;
- Tue,  8 Jun 2021 18:56:31 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1FC5322E7E5;
- Tue,  8 Jun 2021 18:56:31 +0200 (CEST)
-Received: from lmecxl0993.lme.st.com (10.75.127.50) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 8 Jun
- 2021 18:56:30 +0200
-To: Marek Vasut <marex@denx.de>, <dri-devel@lists.freedesktop.org>
-References: <20210607172457.14471-1-marex@denx.de>
-From: Philippe CORNU <philippe.cornu@foss.st.com>
-Message-ID: <695b7ef5-480f-dc3e-74f5-99148add22d7@foss.st.com>
-Date: Tue, 8 Jun 2021 18:56:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Tue,  8 Jun 2021 18:57:03 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id o127so2495740wmo.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 08 Jun 2021 11:57:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=zR+JC/2SzttVA6Wi+7iVGlwak4IerMBJeQ5vLiMBGTE=;
+ b=aCAfFsjvN26ao1o5VbYA1hb4S5BPr3VSPmBYi+tPbj+6rNMp+HtfA3naWv3DEkYR8u
+ gcoTAeKJl3oWKupFwMct7p1SNfqDPlIHjPdaMbsgh4cBZ9qQozuUoGWeBnhbiyA6+lm9
+ 2IboWynabOYoqfxcioZtSNb/o6WuSDo2pRGgfpGXBiQBgZlb/2WINKFNdFFQrhfIvyvN
+ SVmX8d/BtmV2n30TpS1q9Ak27Lu9/KTYFz9+HDw1wYADWLUkkIvHQ8UTpe2eM0uS+ABP
+ AicSK+tPE0hIc5tyaE6g8uBV0vwT5dj3ML0LRh27ZHXjW6StvDCa2Tqi1Ngl2w8jkiqd
+ 8pSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=zR+JC/2SzttVA6Wi+7iVGlwak4IerMBJeQ5vLiMBGTE=;
+ b=csyJ0hc+fp7e/aYh/kJMQL14Em6l2jWf5J1CcZRkVorp5QRNHK9dkUmRr7+UM+HR3g
+ Pa0vqk/eoLmVmFKzYa+Uob2kL6NRhnyPUW74dxGVnaFM49zkjmHkv0zArMsBWXhAb+gZ
+ o903xMChILtkpm49xQKaKS27KC7jq1mvVvCI/j0xbxpIYwKnMbnP9neEe1ogzDf8k+cK
+ 2P7av5SCb09frmtEjl2BBKEpKWa9ApDfbfJ8x6d49xhRXSUOiIr7vhV1koP/PTb3PNot
+ PUsbK9HdzZOxh4v03ZgKv56jlwpLlEbyUqrZp68qH+NGJpEdGnJwlznhmUrsEL39BxwZ
+ fcCg==
+X-Gm-Message-State: AOAM530Lzs8qNjxBEB5VvLFE/XizCRWtM7E55dsWqreWLumIi3Nfm0ay
+ OeFl48D8YIbFl3JV2Utck3k=
+X-Google-Smtp-Source: ABdhPJw4vJl+POy6CcWej23a3H9QQOC6ZezJQemdBY1dxn4yCgZHjAn5j8tYrqgir5u1r4h6c0FEAw==
+X-Received: by 2002:a05:600c:8a6:: with SMTP id
+ l38mr23602133wmp.108.1623178623426; 
+ Tue, 08 Jun 2021 11:57:03 -0700 (PDT)
+Received: from localhost.localdomain (haganm.plus.com. [212.159.108.31])
+ by smtp.gmail.com with ESMTPSA id q20sm26200223wrf.45.2021.06.08.11.57.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Jun 2021 11:57:02 -0700 (PDT)
+To: Philipp Zabel <p.zabel@pengutronix.de>
+References: <3436f8f0-77dc-d4ff-4489-e9294c434a08@gmail.com>
+ <20210606103019.2807397-1-mnhagan88@gmail.com>
+ <b89d828a08528aaa07e3527d254785f1e40b9bee.camel@pengutronix.de>
+From: Matthew Hagan <mnhagan88@gmail.com>
+Message-ID: <c223051b-c11c-3c08-055b-544f9e31cf00@gmail.com>
+Date: Tue, 8 Jun 2021 19:57:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <20210607172457.14471-1-marex@denx.de>
+In-Reply-To: <b89d828a08528aaa07e3527d254785f1e40b9bee.camel@pengutronix.de>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-06-08_11:2021-06-04,
- 2021-06-08 signatures=0
-Cc: Benjamin Gaignard <benjamin.gaignard@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Vincent Abriou <vincent.abriou@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: Remove usage of
-	drm_display_mode_to_videomode()
+Cc: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+ Wong Vee Khee <vee.khee.wong@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Voon Weifeng <weifeng.voon@intel.com>, "Wong,
+ Vee Khee" <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
+ Tan Tee Min <tee.min.tan@intel.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, bjorn.andersson@linaro.org,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: explicitly deassert
+	GMAC_AHB_RESET
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,102 +84,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
-Applied on drm-misc-next.
-Note: I added Yannick Tested-by from the last (identical) December 
-version https://patchwork.freedesktop.org/patch/409968
-Many thanks for your patch,
-Philippe :-)
+On 07/06/2021 10:45, Philipp Zabel wrote:
 
-On 6/7/21 7:24 PM, Marek Vasut wrote:
-> There is not much value in the extra conversion step, the calculations
-> required for the LTDC IP are different than what is used in the
-> drm_display_mode_to_videomode(), so just do the right ones in the LTDC
-> driver right away.
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Antonio Borneo <antonio.borneo@foss.st.com>
-> Cc: Benjamin Gaignard <benjamin.gaignard@foss.st.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-> Cc: Sam Ravnborg <sam@ravnborg.org>
-> Cc: Vincent Abriou <vincent.abriou@foss.st.com>
-> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: dri-devel@lists.freedesktop.org
-> ---
->   drivers/gpu/drm/stm/ltdc.c | 33 +++++++++++++++++----------------
->   1 file changed, 17 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index e99771b947b6..08b71248044d 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -531,7 +531,6 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
->   	struct drm_encoder *encoder = NULL;
->   	struct drm_bridge *bridge = NULL;
->   	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
-> -	struct videomode vm;
->   	u32 hsync, vsync, accum_hbp, accum_vbp, accum_act_w, accum_act_h;
->   	u32 total_width, total_height;
->   	u32 bus_flags = 0;
-> @@ -570,31 +569,33 @@ static void ltdc_crtc_mode_set_nofb(struct drm_crtc *crtc)
->   		}
->   	}
->   
-> -	drm_display_mode_to_videomode(mode, &vm);
-> -
->   	DRM_DEBUG_DRIVER("CRTC:%d mode:%s\n", crtc->base.id, mode->name);
-> -	DRM_DEBUG_DRIVER("Video mode: %dx%d", vm.hactive, vm.vactive);
-> +	DRM_DEBUG_DRIVER("Video mode: %dx%d", mode->hdisplay, mode->vdisplay);
->   	DRM_DEBUG_DRIVER(" hfp %d hbp %d hsl %d vfp %d vbp %d vsl %d\n",
-> -			 vm.hfront_porch, vm.hback_porch, vm.hsync_len,
-> -			 vm.vfront_porch, vm.vback_porch, vm.vsync_len);
-> +			 mode->hsync_start - mode->hdisplay,
-> +			 mode->htotal - mode->hsync_end,
-> +			 mode->hsync_end - mode->hsync_start,
-> +			 mode->vsync_start - mode->vdisplay,
-> +			 mode->vtotal - mode->vsync_end,
-> +			 mode->vsync_end - mode->vsync_start);
->   
->   	/* Convert video timings to ltdc timings */
-> -	hsync = vm.hsync_len - 1;
-> -	vsync = vm.vsync_len - 1;
-> -	accum_hbp = hsync + vm.hback_porch;
-> -	accum_vbp = vsync + vm.vback_porch;
-> -	accum_act_w = accum_hbp + vm.hactive;
-> -	accum_act_h = accum_vbp + vm.vactive;
-> -	total_width = accum_act_w + vm.hfront_porch;
-> -	total_height = accum_act_h + vm.vfront_porch;
-> +	hsync = mode->hsync_end - mode->hsync_start - 1;
-> +	vsync = mode->vsync_end - mode->vsync_start - 1;
-> +	accum_hbp = mode->htotal - mode->hsync_start - 1;
-> +	accum_vbp = mode->vtotal - mode->vsync_start - 1;
-> +	accum_act_w = accum_hbp + mode->hdisplay;
-> +	accum_act_h = accum_vbp + mode->vdisplay;
-> +	total_width = mode->htotal - 1;
-> +	total_height = mode->vtotal - 1;
->   
->   	/* Configures the HS, VS, DE and PC polarities. Default Active Low */
->   	val = 0;
->   
-> -	if (vm.flags & DISPLAY_FLAGS_HSYNC_HIGH)
-> +	if (mode->flags & DRM_MODE_FLAG_PHSYNC)
->   		val |= GCR_HSPOL;
->   
-> -	if (vm.flags & DISPLAY_FLAGS_VSYNC_HIGH)
-> +	if (mode->flags & DRM_MODE_FLAG_PVSYNC)
->   		val |= GCR_VSPOL;
->   
->   	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
-> 
+> On Sun, 2021-06-06 at 11:30 +0100, Matthew Hagan wrote:
+>> We are currently assuming that GMAC_AHB_RESET will already be deasserted
+>> by the bootloader. However if this has not been done, probing of the GMAC
+>> will fail. To remedy this we must ensure GMAC_AHB_RESET has been deasserted
+>> prior to probing.
+>>
+>> v2 changes:
+>>  - remove NULL condition check for stmmac_ahb_rst in stmmac_main.c
+>>  - unwrap dev_err() message in stmmac_main.c
+>>  - add PTR_ERR() around plat->stmmac_ahb_rst in stmmac_platform.c
+>>
+>> Signed-off-by: Matthew Hagan <mnhagan88@gmail.com>
+>> ---
+>>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 4 ++++
+>>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 7 +++++++
+>>  include/linux/stmmac.h                                | 1 +
+>>  3 files changed, 12 insertions(+)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> index 6d41dd6f9f7a..0d4cb423cbbd 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> @@ -6840,6 +6840,10 @@ int stmmac_dvr_probe(struct device *device,
+>>  			reset_control_reset(priv->plat->stmmac_rst);
+>>  	}
+>>  
+>> +	ret = reset_control_deassert(priv->plat->stmmac_ahb_rst);
+>> +	if (ret == -ENOTSUPP)
+>> +		dev_err(priv->device, "unable to bring out of ahb reset\n");
+>> +
+> I would make this
+>
+> 	if (ret)
+> 		dev_err(priv->device, "unable to bring out of ahb reset: %pe\n", ERR_PTR(ret));
+
+Done.
+
+>
+> Also consider asserting the reset again in the remove path. Or is there
+> a reason not to?
+
+Don't see any issue doing this. As this is a shared reset, the assert will only occur
+when the final GMAC is removed, due to the tracking of deassert_count.
+
+> With that addressed,
+>
+> Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+>
+> regards
+> Philipp
+
+Thanks,
+
+Matthew
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
