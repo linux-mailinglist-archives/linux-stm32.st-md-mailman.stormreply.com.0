@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F16803A0911
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jun 2021 03:32:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E1233A0913
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jun 2021 03:32:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAA5DC58D5C;
-	Wed,  9 Jun 2021 01:32:07 +0000 (UTC)
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D61DCC58D5C;
+	Wed,  9 Jun 2021 01:32:12 +0000 (UTC)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B2ECC58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AC8DC58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Jun 2021 01:32:06 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id 11so11666481plk.12
+ Wed,  9 Jun 2021 01:32:11 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ k22-20020a17090aef16b0290163512accedso2745304pjz.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Jun 2021 18:32:05 -0700 (PDT)
+ Tue, 08 Jun 2021 18:32:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=M+ymk8l7sDsxacyxiiHwx/yDAi9ouIx2opOlllHKJGo=;
- b=rETqv+/5v6VexoVTKEiL4+p0jOdC7Wugt1hqCAt26ZVIK7eVr04itPS5S98u10CUXF
- wCkbpBcx9jkH79pTdTSzBVjyOJEfQ5NLFbGORbm8Y7AaQsp1Q7bXGgU3cMyrGT+eCDYL
- imKFwJoBJNIx5fhuK8Z2yq8c+s51ZpZ5Kw59BjOOrlrGdwlb4TiDX2smFWRAyDgStNtA
- 47prT7DrHcjDa+gAa/4ZAnEiaTx0jI6CvN6ahwbOL1YxljGe7y2WHNA+zOy23wfaRbGr
- 8GxN9l65KStBtx/mxg8fAw27c3TPkr+JHUJVAafW72CxDvSoNxBtxoM+rAzoCKdbbAST
- sIWA==
+ bh=lTRFeIgR82VeMe8p5ZV3YrTNSoJ/Vz3X3Xth8hi5pHc=;
+ b=d88eVXQHjZEx5iTzxcmgkdsv5Un4KkQr0n6ujS4RIBMRD5XkCaIXCL3LJRk7odZqBg
+ /zrNJNxhsvfAjllevEXrdb1qmfTPgLaUFjr2qr8U3ohs1aWbk+OtfXih+kMbXkoTEvvx
+ vnUxJg4xhyQAIDKobIctpCAMwBsSHNJPNtRKvVJZMfp9HgJGYnQvTkFWlOKTrrbnUnoa
+ z1SYyKhbgMvRk8jJgg0U8JHN3ekBNc9NiT6RMbZjzRYSbvc2w4K49T0MoOQEVkI1PsIW
+ Cg3i6Du2w5pbi79pLVelGkUnXC6NCn4qaT0uBYfmQchZv0sEy11f8JGrxbdkNaa1NZFl
+ EkpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=M+ymk8l7sDsxacyxiiHwx/yDAi9ouIx2opOlllHKJGo=;
- b=fXxMMbse1jR7lgKqpv8v33F/UTE91rhZo5dYWPho33EtQD14vZXtQ6ZG5ffsG59Mk+
- AOA0v0CTBm2efjJHZXJFqPrRU9a62jNYFW6EaG+Hn30hajTwrURODZWRQ5/nQzLIuhmS
- zsisEkA6Wdmt6pwidKLe/sijC24kyL11nV4SXbl2FcnhCazpv2HOoRkRz1slhhPdd4wn
- y8cSLBNe/hYFT6ulhcBmW1tVLvAM5j4R+3Z/rO5i+foC4Knc8lkrk+wVHjhDsAZoKUx/
- 7Aou6PBMGsdFSoZG0h9qkk1Uoj3/zzO2ltD5EL7xIRbbSRNYqNdbNVvgX8cC2XBscBRT
- de4w==
-X-Gm-Message-State: AOAM531S73Ly+2OK82i8vZc1PNES3fWS+oI69jjJKU2TleIkKbcDiNPr
- KtJCvFZUu2sZaNL78Kr97CM=
-X-Google-Smtp-Source: ABdhPJzksTcPTip/Mhf4JXMjYM+qZ6M24lezTlxsHVdN8I2e98HWcnQmfJCDEEdD2+XO7nVchRUGpQ==
-X-Received: by 2002:a17:90a:a098:: with SMTP id
- r24mr7872954pjp.120.1623202324568; 
- Tue, 08 Jun 2021 18:32:04 -0700 (PDT)
+ bh=lTRFeIgR82VeMe8p5ZV3YrTNSoJ/Vz3X3Xth8hi5pHc=;
+ b=SeVDQIYqlSVUUxcMLrF/1Tm6yYpYSiQzso/ZMtbxO0A6p2teXR1qUO3VCjiyxjgqrv
+ qHEbrY3UCUo5yAvnkuxgaAM+MxxFUawVBxR7Ww3pAHIikWig+fWHaqhrqI++uZKglkcA
+ FIY9aUvpXapGabQkTUToldR3AmivqVRH/Sikx6Jl0i4GzUnUjECHlGZDhMyaDTec2F+A
+ DzHNorL2QmkZ08ig/fR5GXThfjEIZkdqJv3ritzqKsw3NB18QvfO7beGLCkc2sVcJJkv
+ RgyeQA1ZXBvpcICk/kYO++0XtJE9uAD3Kdq+wizOlzomQpl7V+fHDgoOf4H0709EEmt4
+ +N6Q==
+X-Gm-Message-State: AOAM533R5ngqDLk5BIcBqMA10Vs34Q57lqlVhJ/4Yn5lC6p3te4R6TLE
+ NxkIR55qe108/umz8EVf/GM=
+X-Google-Smtp-Source: ABdhPJzPu5Gr1EwWZENCd+j8st+EGD4Hf76QJujQeDnYFUm9cK8D0kOhZrmGzApp0MmU3GDly7pDZw==
+X-Received: by 2002:a17:90b:8d6:: with SMTP id
+ ds22mr29632911pjb.54.1623202329876; 
+ Tue, 08 Jun 2021 18:32:09 -0700 (PDT)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id v14sm12659815pgl.86.2021.06.08.18.31.59
+ by smtp.gmail.com with ESMTPSA id v14sm12659815pgl.86.2021.06.08.18.32.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Jun 2021 18:32:04 -0700 (PDT)
+ Tue, 08 Jun 2021 18:32:09 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Wed,  9 Jun 2021 10:31:06 +0900
-Message-Id: <77e9f3daa091d0ad0ee56b8973705dd03db85dd4.1623201081.git.vilhelm.gray@gmail.com>
+Date: Wed,  9 Jun 2021 10:31:07 +0900
+Message-Id: <538122752d61df30dd450276b87df606a17ac4c7.1623201081.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1623201081.git.vilhelm.gray@gmail.com>
 References: <cover.1623201081.git.vilhelm.gray@gmail.com>
@@ -64,8 +65,8 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v11 03/33] counter: 104-quad-8: Remove
-	pointless comment
+Subject: [Linux-stm32] [PATCH v11 04/33] counter: 104-quad-8: Return error
+	when invalid mode during ceiling_write
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,27 +83,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-It is obvious that devm_counter_register() is used to register a Counter
-device, so a comment stating such is pointless here.
+The 104-QUAD-8 only has two count modes where a ceiling value makes
+sense: Range Limit and Modulo-N. Outside of these two modes, setting a
+ceiling value is an invalid operation -- so let's report it as such by
+returning -EINVAL.
 
+Fixes: fc069262261c ("counter: 104-quad-8: Add lock guards - generic interface")
 Acked-by: Syed Nayyar Waris <syednwaris@gmail.com>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- drivers/counter/104-quad-8.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/counter/104-quad-8.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
-index 9691f8612be8..4bb9abffae48 100644
+index 4bb9abffae48..233a3acc1377 100644
 --- a/drivers/counter/104-quad-8.c
 +++ b/drivers/counter/104-quad-8.c
-@@ -1082,7 +1082,6 @@ static int quad8_probe(struct device *dev, unsigned int id)
- 	/* Enable all counters */
- 	outb(QUAD8_CHAN_OP_ENABLE_COUNTERS, base[id] + QUAD8_REG_CHAN_OP);
+@@ -714,13 +714,14 @@ static ssize_t quad8_count_ceiling_write(struct counter_device *counter,
+ 	switch (priv->count_mode[count->id]) {
+ 	case 1:
+ 	case 3:
++		mutex_unlock(&priv->lock);
+ 		quad8_preset_register_set(priv, count->id, ceiling);
+-		break;
++		return len;
+ 	}
  
--	/* Register Counter device */
- 	return devm_counter_register(dev, &priv->counter);
+ 	mutex_unlock(&priv->lock);
+ 
+-	return len;
++	return -EINVAL;
  }
  
+ static ssize_t quad8_count_preset_enable_read(struct counter_device *counter,
 -- 
 2.32.0
 
