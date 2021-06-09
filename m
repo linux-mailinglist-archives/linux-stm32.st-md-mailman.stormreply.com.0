@@ -2,70 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21F7F3A19E4
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jun 2021 17:36:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 689ED3A1A05
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jun 2021 17:45:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDFFDC58D5C;
-	Wed,  9 Jun 2021 15:36:32 +0000 (UTC)
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DBB4C58D58;
+	Wed,  9 Jun 2021 15:45:46 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D58F5C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 783FCC57B79
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Jun 2021 15:36:30 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id k15so18659063pfp.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 09 Jun 2021 08:36:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=neZ2e107rW6u5+BVpWqPAvfyZBtmzgP4djPpeqRyQ04=;
- b=p3oEZTsxgUaXISabfNCfwlDjRW2XZRlWVv0TCVqelJkHJNM3/EWJSwsue6tjO4/hhn
- /vfNCoDxpC6LKITX/NHS/uCxfh+V81P01S14Ux2ihYwvi4a1qnhCxbdaRZR0jv5VBvbi
- hbUFaLZ/uic5TZYxY6VhezmmWDxp+UqJiwAD8WYYjHJw0KqJYn4RK4RvLppFNGu6LjAW
- caaZ7rG/9S5XC2gNOEnbbDa8h79L/6/RGaWH0OezCFC/+2HVQ7I4gDWY1Oy0b2KM+Fhy
- cND97zONfQd+t3dc0lti732r5qaX34Uf33Qtn2mMRUWrtTJl/us2WvKy2aPm6FXKTxzV
- FzmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=neZ2e107rW6u5+BVpWqPAvfyZBtmzgP4djPpeqRyQ04=;
- b=BxTY7uRTa13sKvm8nkJigE7yzISVESiZZbIIjIkYDEhZYc6miRJoxiYAMMsVmRNxyu
- 8qqFee7YBwIO/GqrVHMQ6AY8J4+eKNBmLoX6Hsq8kU3vDCjhsjBNhom64w3I25IAJhd1
- 627vAtzQ8byJ9r3ifvNIpnpf9B45lThPE8VKW7HybnZJ/fG3SqgYwopEw74S/9gZFkTA
- sT0ItpbDJ1L25zpComgEZR1BmhkQY7vihk1+EDH4Jxo+64xV9fYQB7EDk7T8M6JXtPZP
- Owrb709qYoFyQVucbMGAaRUpPiQhErAejqS9IfksxQPxRHeOI9sYfhQyODA/QYhn3/k8
- wj8w==
-X-Gm-Message-State: AOAM530nEz+4kDrequbuPeus58DtGfPB91nCPYLOQ26DthA3konsOOai
- 2bpqjsiXpMsmu7mlmXYTEWE=
-X-Google-Smtp-Source: ABdhPJwyxxyPeyzTzDbknC8LuuZIDpubLWJAJOncQpZ+ccwe7qvp01K7EbRKkr59WznDo/R+ekfEDg==
-X-Received: by 2002:a63:ad0f:: with SMTP id g15mr248776pgf.415.1623252989343; 
- Wed, 09 Jun 2021 08:36:29 -0700 (PDT)
-Received: from shinobu ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id u12sm50028pfm.2.2021.06.09.08.36.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jun 2021 08:36:28 -0700 (PDT)
-Date: Thu, 10 Jun 2021 00:36:22 +0900
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: o.rempel@pengutronix.de
-Message-ID: <YMDf9tDbPg/PxVxh@shinobu>
+ Wed,  9 Jun 2021 15:45:43 +0000 (UTC)
+Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0CE8B61351;
+ Wed,  9 Jun 2021 15:45:37 +0000 (UTC)
+Date: Wed, 9 Jun 2021 16:47:31 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>
+Message-ID: <20210609164731.2180e4e4@jic23-huawei>
+In-Reply-To: <6f74bf8b237340ef079b7d3e3553f47434f47f67.1623201081.git.vilhelm.gray@gmail.com>
 References: <cover.1623201081.git.vilhelm.gray@gmail.com>
- <a3bdffbe7c38eb95ea692ed30aeb50dbb65c9e6f.1623201081.git.vilhelm.gray@gmail.com>
- <20210609162942.6bdc6d63@jic23-huawei>
+ <6f74bf8b237340ef079b7d3e3553f47434f47f67.1623201081.git.vilhelm.gray@gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20210609162942.6bdc6d63@jic23-huawei>
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
  alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, jarkko.nikula@linux.intel.com,
- Jonathan Cameron <jic23@kernel.org>, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v11 14/33] counter: interrupt-cnt: Add
- const qualifier for actions_list array
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v11 18/33] counter: Return error code on
+	invalid modes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,101 +48,256 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8672447057828229128=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Wed,  9 Jun 2021 10:31:21 +0900
+William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 
---===============8672447057828229128==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bM5rh64AbDYaJ0MC"
-Content-Disposition: inline
+> Only a select set of modes (function, action, etc.) are valid for a
+> given device configuration. This patch ensures that invalid modes result
+> in a return -EINVAL. Such a situation should never occur in reality, but
+> it's good to define a default switch cases for the sake of making the
+> intent of the code clear.
+> 
+> Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: David Lechner <david@lechnology.com>
+> Acked-by: Syed Nayyar Waris <syednwaris@gmail.com>
+> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+
+Hi,
+
+I've been lazy and not looked at these in sufficient depth before now :(
+
+There are a few cases in here that I think could be handled more
+elegantly and in a fashion more likely to expose potential bugs
+if enums change number of entries in future etc.
+
+I've very keen on a compiler being able to see when we have a
+switch on an enum.
+
+Jonathan
 
 
---bM5rh64AbDYaJ0MC
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> ---
+>  drivers/counter/104-quad-8.c            | 20 +++++++----
+>  drivers/counter/microchip-tcb-capture.c |  6 ++++
+>  drivers/counter/stm32-lptimer-cnt.c     | 10 +++---
+>  drivers/counter/ti-eqep.c               | 45 +++++++++++--------------
+>  4 files changed, 46 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
+> index 09d779544969..b7d6c1c43655 100644
+> --- a/drivers/counter/104-quad-8.c
+> +++ b/drivers/counter/104-quad-8.c
+> @@ -273,6 +273,10 @@ static int quad8_function_set(struct counter_device *counter,
+>  			*scale = 2;
+>  			mode_cfg |= QUAD8_CMR_QUADRATURE_X4;
+>  			break;
+> +		default:
+> +			/* should never reach this path */
+> +			mutex_unlock(&priv->lock);
+> +			return -EINVAL;
+>  		}
+>  	}
+>  
+> @@ -349,7 +353,7 @@ static int quad8_action_get(struct counter_device *counter,
+>  	case QUAD8_COUNT_FUNCTION_PULSE_DIRECTION:
+>  		if (synapse->signal->id == signal_a_id)
+>  			*action = QUAD8_SYNAPSE_ACTION_RISING_EDGE;
+> -		break;
+> +		return 0;
+>  	case QUAD8_COUNT_FUNCTION_QUADRATURE_X1:
+>  		if (synapse->signal->id == signal_a_id) {
+>  			quad8_direction_get(counter, count, &direction);
+> @@ -359,17 +363,18 @@ static int quad8_action_get(struct counter_device *counter,
+>  			else
+>  				*action = QUAD8_SYNAPSE_ACTION_FALLING_EDGE;
+>  		}
+> -		break;
+> +		return 0;
+>  	case QUAD8_COUNT_FUNCTION_QUADRATURE_X2:
+>  		if (synapse->signal->id == signal_a_id)
+>  			*action = QUAD8_SYNAPSE_ACTION_BOTH_EDGES;
+> -		break;
+> +		return 0;
+>  	case QUAD8_COUNT_FUNCTION_QUADRATURE_X4:
+>  		*action = QUAD8_SYNAPSE_ACTION_BOTH_EDGES;
+> -		break;
+> +		return 0;
+> +	default:
+> +		/* should never reach this path */
+> +		return -EINVAL;
+>  	}
+> -
+> -	return 0;
+>  }
+>  
+>  static const struct counter_ops quad8_ops = {
+> @@ -529,6 +534,9 @@ static int quad8_count_mode_set(struct counter_device *counter,
+>  	case COUNTER_COUNT_MODE_MODULO_N:
+>  		cnt_mode = 3;
+>  		break;
+> +	default:
+> +		/* should never reach this path */
+> +		return -EINVAL;
+>  	}
+>  
+>  	mutex_lock(&priv->lock);
+> diff --git a/drivers/counter/microchip-tcb-capture.c b/drivers/counter/microchip-tcb-capture.c
+> index 51b8af80f98b..0c9a61962911 100644
+> --- a/drivers/counter/microchip-tcb-capture.c
+> +++ b/drivers/counter/microchip-tcb-capture.c
+> @@ -133,6 +133,9 @@ static int mchp_tc_count_function_set(struct counter_device *counter,
+>  		bmr |= ATMEL_TC_QDEN | ATMEL_TC_POSEN;
+>  		cmr |= ATMEL_TC_ETRGEDG_RISING | ATMEL_TC_ABETRG | ATMEL_TC_XC0;
+>  		break;
+> +	default:
+> +		/* should never reach this path */
+> +		return -EINVAL;
+>  	}
+>  
+>  	regmap_write(priv->regmap, ATMEL_TC_BMR, bmr);
+> @@ -226,6 +229,9 @@ static int mchp_tc_count_action_set(struct counter_device *counter,
+>  	case MCHP_TC_SYNAPSE_ACTION_BOTH_EDGE:
+>  		edge = ATMEL_TC_ETRGEDG_BOTH;
+>  		break;
+> +	default:
+> +		/* should never reach this path */
+> +		return -EINVAL;
+>  	}
+>  
+>  	return regmap_write_bits(priv->regmap,
+> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+> index c19d998df5ba..78f383b77bd2 100644
+> --- a/drivers/counter/stm32-lptimer-cnt.c
+> +++ b/drivers/counter/stm32-lptimer-cnt.c
+> @@ -206,9 +206,10 @@ static int stm32_lptim_cnt_function_set(struct counter_device *counter,
+>  		priv->quadrature_mode = 1;
+>  		priv->polarity = STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES;
+>  		return 0;
+> +	default:
+> +		/* should never reach this path */
+> +		return -EINVAL;
 
-On Wed, Jun 09, 2021 at 04:29:42PM +0100, Jonathan Cameron wrote:
-> On Wed,  9 Jun 2021 10:31:17 +0900
-> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
->=20
-> > The struct counter_synapse actions_list member expects a const enum
-> > counter_synapse_action array. This patch adds the const qualifier to the
-> > interrupt_cnt_synapse_actionss to match actions_list.
-> >=20
-> > Cc: Oleksij Rempel <o.rempel@pengutronix.de>
-> > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-> Naming looks unusual...
->=20
-> > ---
-> >  drivers/counter/interrupt-cnt.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/counter/interrupt-cnt.c b/drivers/counter/interrup=
-t-cnt.c
-> > index 827d785e19b4..0e07607f2cd3 100644
-> > --- a/drivers/counter/interrupt-cnt.c
-> > +++ b/drivers/counter/interrupt-cnt.c
-> > @@ -77,7 +77,7 @@ static const struct counter_count_ext interrupt_cnt_e=
-xt[] =3D {
-> >  	},
-> >  };
-> > =20
-> > -static enum counter_synapse_action interrupt_cnt_synapse_actionss[] =
-=3D {
-> > +static const enum counter_synapse_action interrupt_cnt_synapse_actions=
-s[] =3D {
->=20
-> actions?
->=20
-> Perhaps good to fix that whilst we are here.
->=20
-> >  	COUNTER_SYNAPSE_ACTION_RISING_EDGE,
-> >  };
-> > =20
+In this particular case we are already exhaustive.  So we should have neither default
+nor ideally the return below.  
 
-Hi Oleksij,
+If we have a local variable of the relevant enum type, then I think the compiler
+should be able to tell this is exhaustive and usefully it will then issue
+a warning should the enum gain more entries in future.
 
-Would you take a look at this driver and let us know whether the two 's'
-at the end of this symbol is intentional?
+>  	}
+> -
+> -	return -EINVAL;
+>  }
+>  
+>  static ssize_t stm32_lptim_cnt_enable_read(struct counter_device *counter,
+> @@ -326,9 +327,10 @@ static int stm32_lptim_cnt_action_get(struct counter_device *counter,
+>  	case STM32_LPTIM_ENCODER_BOTH_EDGE:
+>  		*action = priv->polarity;
+>  		return 0;
+> +	default:
 
-Thanks,
+Same in this path.
 
-William Breathitt Gray
+> +		/* should never reach this path */
+> +		return -EINVAL;
+>  	}
+> -
+> -	return -EINVAL;
+>  }
+>  
+>  static int stm32_lptim_cnt_action_set(struct counter_device *counter,
+> diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
+> index 65df9ef5b5bc..878725c2f010 100644
+> --- a/drivers/counter/ti-eqep.c
+> +++ b/drivers/counter/ti-eqep.c
+> @@ -157,44 +157,39 @@ static int ti_eqep_action_get(struct counter_device *counter,
+>  		 * QEPA and QEPB trigger QCLK.
+>  		 */
+>  		*action = TI_EQEP_SYNAPSE_ACTION_BOTH_EDGES;
+> -		break;
+> +		return 0;
+>  	case TI_EQEP_COUNT_FUNC_DIR_COUNT:
+>  		/* In direction-count mode only rising edge of QEPA is counted
+>  		 * and QEPB gives direction.
+>  		 */
+> -		switch (synapse->signal->id) {
+I'd rather see this as
 
---bM5rh64AbDYaJ0MC
-Content-Type: application/pgp-signature; name="signature.asc"
+case TI_EQEP_SIGNAL_QEPA:
+caes TI_EQEP_SIGNAL_QEPB:
 
------BEGIN PGP SIGNATURE-----
+To make it clear what the two cases are.  Then we don't need the default
+assuming the type is right so the compiler should be able to see
+that we have been exhaustive.
 
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmDA3+UACgkQhvpINdm7
-VJJDog/7BWfRthJW0ybnlLsxDyqpvnBx92k2hiBaXR2DX8siYjVeWomh7OpLXzwf
-C84Ze4rdn8H6/Dpc3wA8vDiUUHX9VwIcACOpOh2KJ2IoF5AdrOzLjS9b+a+ZFusC
-mpbvfXz6/VxKgqjQY8JY+dgTFiROGNnJrllDaCV1sNPRPa/WwmGVSgh8b/+UMeBd
-e3QOQ5JG77FfWwzV0jjSw9Tq1e7fr+qbtg0v0Nvz74AGePCEsetIxQyA13HWyaEP
-qlMDIi0yrsbveBx+uUyhJ64hulLu9xRLuGFdtvdICP+b8WohDzykuVTPqHk4z9Ki
-hNTDtA7qZIZTDlBMVlC3XNGiEfd/B5CIktmatlQVmDmpOF/FaJmF/UyUFXJxG+IE
-ZH7AuxS8lNtxetA/AAM8ED82WJZ2BWLPW6OZc1HUt41r2eJNsqeCA/fCzrvdEeHg
-FcSnqxuAwWI9TZ4w1jiaiVTV6N4Z4aNsH9uoX4MSHp/y0obm1hQh2tBZc55DG1Nn
-0skswdQVV8k5mjJO4fTMZF8H9N+026UpRZ8bnoO7XkeIs39sPSSmVJo6r3ZDoxiL
-Rlsd3zp2ByCk5+DfeZLaBCpNWwwndrx2SSq/EN9pKDq3OnkwXs37T8Arql2zfP31
-xaeIQUCVKnZE3q7xJV+4EL38BTDw1n8QzrLylft6fViv6xNVAR8=
-=0g9k
------END PGP SIGNATURE-----
 
---bM5rh64AbDYaJ0MC--
+> -		case TI_EQEP_SIGNAL_QEPA:
+> -			*action = TI_EQEP_SYNAPSE_ACTION_RISING_EDGE;
+> -			break;
+> -		default:
+> +		if (synapse->signal->id == TI_EQEP_SIGNAL_QEPB)
+>  			*action = TI_EQEP_SYNAPSE_ACTION_NONE;
+> -			break;
+> -		}
+> -		break;
+> +		else
+> +			*action = TI_EQEP_SYNAPSE_ACTION_RISING_EDGE;
+> +		return 0;
+>  	case TI_EQEP_COUNT_FUNC_UP_COUNT:
+>  	case TI_EQEP_COUNT_FUNC_DOWN_COUNT:
+>  		/* In up/down-count modes only QEPA is counted and QEPB is not
+>  		 * used.
+>  		 */
+> -		switch (synapse->signal->id) {
+> -		case TI_EQEP_SIGNAL_QEPA:
+> -			err = regmap_read(priv->regmap16, QDECCTL, &qdecctl);
+> -			if (err)
+> -				return err;
+> -
+> -			if (qdecctl & QDECCTL_XCR)
+> -				*action = TI_EQEP_SYNAPSE_ACTION_BOTH_EDGES;
+> -			else
+> -				*action = TI_EQEP_SYNAPSE_ACTION_RISING_EDGE;
+> -			break;
+> -		default:
+> +		if (synapse->signal->id == TI_EQEP_SIGNAL_QEPB) {
+>  			*action = TI_EQEP_SYNAPSE_ACTION_NONE;
 
---===============8672447057828229128==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Same as above
+
+> -			break;
+> +			return 0;
+>  		}
+> -		break;
+> -	}
+>  
+> -	return 0;
+> +		err = regmap_read(priv->regmap16, QDECCTL, &qdecctl);
+> +		if (err)
+> +			return err;
+> +
+> +		if (qdecctl & QDECCTL_XCR)
+> +			*action = TI_EQEP_SYNAPSE_ACTION_BOTH_EDGES;
+> +		else
+> +			*action = TI_EQEP_SYNAPSE_ACTION_RISING_EDGE;
+> +		return 0;
+> +	default:
+> +		/* should never reach this path */
+> +		return -EINVAL;
+> +	}
+>  }
+>  
+>  static const struct counter_ops ti_eqep_counter_ops = {
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8672447057828229128==--
