@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C2BA3A0958
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jun 2021 03:34:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 775F23A0959
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Jun 2021 03:34:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 325BEC58D5C;
-	Wed,  9 Jun 2021 01:34:29 +0000 (UTC)
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FF95C58D5C;
+	Wed,  9 Jun 2021 01:34:35 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AEB37C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C706AC58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Jun 2021 01:34:27 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id g4so435562pjk.0
+ Wed,  9 Jun 2021 01:34:32 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ h12-20020a17090aa88cb029016400fd8ad8so414620pjq.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Jun 2021 18:34:27 -0700 (PDT)
+ Tue, 08 Jun 2021 18:34:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=aCuW7jGka7YaAB6OGVNNNB5YUCrDqMyCoehChrk05rk=;
- b=k0Y0w7o62/ZUCq0H5IBEX46jp7+f9zMlJGF1kfDlbV1wvSK9tLDck1jyKMPeUZINBZ
- lpMg5+9xbYsxXtIFzDQEEyBCYHdVkAjuwFOrda5Fa04YpMIT+vsNL2KDFH8EiAMx0xAg
- xzXXgJ8gQLdO7tPuQ9NpUhHEaqdn/sVOmYO5FyMXXkdqLkootWWjXyGvxg3umNZ5f2aG
- 7ipNHdgsIB5cJzw2Eq58OLXepLrl+g5zZxmATOFUgEUqwYy4WtjI4e5//5stDAQaF4ql
- zZFSjnV8XO/35PsGCVu6GYuaeccdI+Dsxiq+G7e5rARLsLX+xuOmuX0YMN/W9QGoIW22
- I4vA==
+ bh=KbOzE7K/xfZlrJ54P7nyWnuj9+/2J6JgBhiOMg59zJ4=;
+ b=FWdoqgc54sDr88wbLEzjc60GmERI8T/gFZW3LxNDqHwOQ00t3aqN/TZ1MY3Aut/vUv
+ qhscRtFNZWsEq1rYdWPJTs0AvRti4se2vgF8X04qPFHf7MC8RLEOeNEEqajOls8jB0JG
+ RmyPgejB/2Y0ypohcAp4z9pddkBy2UHxJ8k/ngXzWyj5Jg/0Ds3SGmbN3g0dCHuWtKX6
+ fPKRU1K1lwp7LwvARzOY4lPIoojJd7hb6FfNgzGQoNbICdzE0e59s7GXgOA9jqsZUFbu
+ wll7QJUdBG89IL7KqJvaLtg3QOQ/SNBrwZct1r21jX0F9L2CNBrahGcCSuSqA/eHVcne
+ HDmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=aCuW7jGka7YaAB6OGVNNNB5YUCrDqMyCoehChrk05rk=;
- b=JatO0sXbtEm/fOyLaQ1/DK5sBq3yTUUG07beAZKcmmPYU9woHyyGDMy/In2r1iJphx
- VjdqIZ4nEu5amAL7Gq8InohQcUjC+qnBpZoH0i1m1Ni2GL2IRTKWWPns2A8/XyFBmd8M
- 9x5Aygdud5YBMqxoDsI2w6GwsuKIE6EMMtx05UHas9JHw3nzIxvDyb3CDVQzzQaqwzK/
- kuKbN6yPuf6LGYhiOIphqmkOViEl9pr/5KPYqhHR5Yv6OWTE19Tkw+4zSWgMbZ4yYXTH
- 9idIswagGhz9zT+E7Km738DqK0TxeJ1YXo3hNW6b7/WCNevysQB19Z8PAnan0RYpP+ak
- ZOZw==
-X-Gm-Message-State: AOAM533j+QVEfj4fzH4nChmpuDpcMD/oJliWmgk4cRuhHBv2jx7I1WTd
- /UXhPKPokBLSO6MyOQiiXqY=
-X-Google-Smtp-Source: ABdhPJy0Jz0zcJpFxcB9q8GW6N1TO3vkvKovbpx1oBff4zzGWOND+EWIQmi0PPwoVLu6xWHvwkOq9Q==
-X-Received: by 2002:a17:90b:d95:: with SMTP id
- bg21mr16917682pjb.115.1623202466237; 
- Tue, 08 Jun 2021 18:34:26 -0700 (PDT)
+ bh=KbOzE7K/xfZlrJ54P7nyWnuj9+/2J6JgBhiOMg59zJ4=;
+ b=IsCGcYZzZT2LtDnVg08hiwa2jbfWta7mkxVD/IAfpCi5CEM6ixzyVjfBTsc5uNx03c
+ F+al+5hmkyR6teSAXqqDkJbuq1SWWkam9SlRP+y75jT2Edeu1V87hknqrhVEZMeeypCQ
+ jxUmUGQ6flNCeGP1GLJ1xSwNJsqRR77rOozQ8fsb9Ywp7z3exm8xI0uHc2gLcIeEnl/L
+ FNMhm5YEairrrehlCW9Qh3hcGcFUsKG1ry+gn7TamOto3z0xIYaVOLp2Jl9Kv3IUIrmp
+ e4XoPimNIUDJfmxATOLeb7NI063frYDrqVXubxHDz9prv8awwKPqcHiP5jNU6DLleX1w
+ Zj6A==
+X-Gm-Message-State: AOAM533Rbao2gf2wL3B7l5bC4/p7+7uk53CODnc2sUrACE91UwZpWJ8B
+ tnlKLztCDPPEjQSvSeqhodU=
+X-Google-Smtp-Source: ABdhPJy/WYlmnIJMYoK2SRLZ75DDvH4IiIcXyOSW+Fsv47aazgGwO6wvUk29zLIdSHKqd1ZbUC4Gnw==
+X-Received: by 2002:a17:902:db11:b029:110:a7cc:ff46 with SMTP id
+ m17-20020a170902db11b0290110a7ccff46mr2948773plx.60.1623202471288; 
+ Tue, 08 Jun 2021 18:34:31 -0700 (PDT)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id v14sm12659815pgl.86.2021.06.08.18.34.21
+ by smtp.gmail.com with ESMTPSA id v14sm12659815pgl.86.2021.06.08.18.34.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Jun 2021 18:34:25 -0700 (PDT)
+ Tue, 08 Jun 2021 18:34:30 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Wed,  9 Jun 2021 10:31:33 +0900
-Message-Id: <2032cf9e7bcac003306f4e43bb7552b68c8d24a9.1623201082.git.vilhelm.gray@gmail.com>
+Date: Wed,  9 Jun 2021 10:31:34 +0900
+Message-Id: <119b74f066b64cf9534f6ea76c99db8d2a623a4f.1623201082.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1623201081.git.vilhelm.gray@gmail.com>
 References: <cover.1623201081.git.vilhelm.gray@gmail.com>
@@ -60,13 +61,12 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
  alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
  linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
- jarkko.nikula@linux.intel.com, Dan Carpenter <dan.carpenter@oracle.com>,
- kernel@pengutronix.de, William Breathitt Gray <vilhelm.gray@gmail.com>,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v11 30/33] counter: Implement *_component_id
-	sysfs attributes
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: [Linux-stm32] [PATCH v11 31/33] counter: Implement
+	events_queue_size sysfs attribute
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,129 +83,159 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Generic Counter chrdev interface expects users to supply component
-IDs in order to select extensions for requests. In order for users to
-know what component ID belongs to which extension this information must
-be exposed. The *_component_id attribute provides a way for users to
-discover what component ID belongs to which respective extension.
+The events_queue_size sysfs attribute provides a way for users to
+dynamically configure the Counter events queue size for the Counter
+character device interface. The size is in number of struct
+counter_event data structures. The number of elements will be rounded-up
+to a power of 2 due to a requirement of the kfifo_alloc function called
+during reallocation of the queue.
 
-Cc: David Lechner <david@lechnology.com>
-Cc: Gwendal Grignou <gwendal@chromium.org>
-Cc: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>
 Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 ---
- Documentation/ABI/testing/sysfs-bus-counter | 16 ++++++++++-
- drivers/counter/counter-sysfs.c             | 30 ++++++++++++++++-----
- 2 files changed, 39 insertions(+), 7 deletions(-)
+ Documentation/ABI/testing/sysfs-bus-counter |  8 ++++
+ drivers/counter/counter-chrdev.c            |  4 ++
+ drivers/counter/counter-sysfs.c             | 44 +++++++++++++++++++++
+ include/linux/counter.h                     |  2 +
+ 4 files changed, 58 insertions(+)
 
 diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Documentation/ABI/testing/sysfs-bus-counter
-index 9809d8a47431..e0e99adb0ecc 100644
+index e0e99adb0ecc..84ebb1ed28ed 100644
 --- a/Documentation/ABI/testing/sysfs-bus-counter
 +++ b/Documentation/ABI/testing/sysfs-bus-counter
-@@ -203,12 +203,26 @@ Description:
- 		both edges:
- 			Any state transition.
+@@ -233,6 +233,14 @@ Description:
+ 		shorter or equal to configured value are ignored. Value 0 means
+ 		filter is disabled.
  
-+What:		/sys/bus/counter/devices/counterX/countY/ceiling_component_id
-+What:		/sys/bus/counter/devices/counterX/countY/floor_component_id
-+What:		/sys/bus/counter/devices/counterX/countY/count_mode_component_id
-+What:		/sys/bus/counter/devices/counterX/countY/direction_component_id
-+What:		/sys/bus/counter/devices/counterX/countY/enable_component_id
-+What:		/sys/bus/counter/devices/counterX/countY/error_noise_component_id
-+What:		/sys/bus/counter/devices/counterX/countY/prescaler_component_id
-+What:		/sys/bus/counter/devices/counterX/countY/preset_component_id
-+What:		/sys/bus/counter/devices/counterX/countY/preset_enable_component_id
- What:		/sys/bus/counter/devices/counterX/countY/signalZ_action_component_id
-+What:		/sys/bus/counter/devices/counterX/signalY/cable_fault_component_id
-+What:		/sys/bus/counter/devices/counterX/signalY/cable_fault_enable_component_id
-+What:		/sys/bus/counter/devices/counterX/signalY/filter_clock_prescaler_component_id
-+What:		/sys/bus/counter/devices/counterX/signalY/index_polarity_component_id
-+What:		/sys/bus/counter/devices/counterX/signalY/synchronous_mode_component_id
- KernelVersion:	5.15
++What:		/sys/bus/counter/devices/counterX/events_queue_size
++KernelVersion:	5.15
++Contact:	linux-iio@vger.kernel.org
++Description:
++		Size of the Counter events queue in number of struct
++		counter_event data structures. The number of elements will be
++		rounded-up to a power of 2.
++
+ What:		/sys/bus/counter/devices/counterX/name
+ KernelVersion:	5.2
  Contact:	linux-iio@vger.kernel.org
- Description:
- 		Read-only attribute that indicates the component ID of the
--		respective Synapse of Count Y for Signal Z.
-+		respective extension or Synapse.
+diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter/counter-chrdev.c
+index d5f92b2d3bb4..d9f123ca0ed6 100644
+--- a/drivers/counter/counter-chrdev.c
++++ b/drivers/counter/counter-chrdev.c
+@@ -311,6 +311,9 @@ static int counter_chrdev_open(struct inode *inode, struct file *filp)
+ 							    typeof(*counter),
+ 							    chrdev);
  
- What:		/sys/bus/counter/devices/counterX/countY/spike_filter_ns
- KernelVersion:	5.14
++	if (!mutex_trylock(&counter->chrdev_lock))
++		return -EBUSY;
++
+ 	get_device(&counter->dev);
+ 	filp->private_data = counter;
+ 
+@@ -327,6 +330,7 @@ static int counter_chrdev_release(struct inode *inode, struct file *filp)
+ 		return err;
+ 
+ 	put_device(&counter->dev);
++	mutex_unlock(&counter->chrdev_lock);
+ 
+ 	return 0;
+ }
 diff --git a/drivers/counter/counter-sysfs.c b/drivers/counter/counter-sysfs.c
-index bb49a10f160b..eb1505bfbd89 100644
+index eb1505bfbd89..bf038eff4587 100644
 --- a/drivers/counter/counter-sysfs.c
 +++ b/drivers/counter/counter-sysfs.c
-@@ -587,6 +587,7 @@ static int counter_signal_attrs_create(struct counter_device *const counter,
- 	int err;
- 	struct counter_comp comp;
- 	size_t i;
-+	struct counter_comp *ext;
+@@ -8,7 +8,9 @@
+ #include <linux/err.h>
+ #include <linux/gfp.h>
+ #include <linux/kernel.h>
++#include <linux/kfifo.h>
+ #include <linux/list.h>
++#include <linux/mutex.h>
+ #include <linux/string.h>
+ #include <linux/sysfs.h>
+ #include <linux/types.h>
+@@ -782,12 +784,48 @@ static int counter_num_counts_read(struct counter_device *counter, u8 *val)
+ 	return 0;
+ }
  
- 	/* Create main Signal attribute */
- 	comp = counter_signal_comp;
-@@ -602,8 +603,13 @@ static int counter_signal_attrs_create(struct counter_device *const counter,
- 
- 	/* Create an attribute for each extension */
- 	for (i = 0; i < signal->num_ext; i++) {
--		err = counter_attr_create(dev, group, signal->ext + i, scope,
--					  signal);
-+		ext = signal->ext + i;
++static int counter_events_queue_size_read(struct counter_device *counter,
++					  u64 *val)
++{
++	*val = kfifo_size(&counter->events);
++	return 0;
++}
 +
-+		err = counter_attr_create(dev, group, ext, scope, signal);
-+		if (err < 0)
-+			return err;
++static int counter_events_queue_size_write(struct counter_device *counter,
++					   u64 val)
++{
++	int err;
++	DECLARE_KFIFO_PTR(events, struct counter_event);
 +
-+		err = counter_comp_id_attr_create(dev, group, ext->name, i);
- 		if (err < 0)
- 			return err;
- 	}
-@@ -694,6 +700,7 @@ static int counter_count_attrs_create(struct counter_device *const counter,
- 	int err;
- 	struct counter_comp comp;
- 	size_t i;
-+	struct counter_comp *ext;
- 
- 	/* Create main Count attribute */
- 	comp = counter_count_comp;
-@@ -718,8 +725,13 @@ static int counter_count_attrs_create(struct counter_device *const counter,
- 
- 	/* Create an attribute for each extension */
- 	for (i = 0; i < count->num_ext; i++) {
--		err = counter_attr_create(dev, group, count->ext + i, scope,
--					  count);
-+		ext = count->ext + i;
++	/* Verify chrdev is not currently being used */
++	if (!mutex_trylock(&counter->chrdev_lock))
++		return -EBUSY;
 +
-+		err = counter_attr_create(dev, group, ext, scope, count);
-+		if (err < 0)
-+			return err;
++	/* Allocate new events queue */
++	err = kfifo_alloc(&events, val, GFP_ATOMIC);
++	if (err)
++		return err;
 +
-+		err = counter_comp_id_attr_create(dev, group, ext->name, i);
- 		if (err < 0)
- 			return err;
- 	}
-@@ -783,6 +795,7 @@ static int counter_sysfs_attr_add(struct counter_device *const counter,
- 	struct device *const dev = &counter->dev;
- 	int err;
- 	size_t i;
-+	struct counter_comp *ext;
++	/* Swap in new events queue */
++	kfifo_free(&counter->events);
++	counter->events.kfifo = events.kfifo;
++
++	mutex_unlock(&counter->chrdev_lock);
++
++	return 0;
++}
++
+ static struct counter_comp counter_num_signals_comp =
+ 	COUNTER_COMP_DEVICE_U8("num_signals", counter_num_signals_read, NULL);
  
- 	/* Add Signals sysfs attributes */
- 	err = counter_sysfs_signals_add(counter, group);
-@@ -815,8 +828,13 @@ static int counter_sysfs_attr_add(struct counter_device *const counter,
+ static struct counter_comp counter_num_counts_comp =
+ 	COUNTER_COMP_DEVICE_U8("num_counts", counter_num_counts_read, NULL);
  
++static struct counter_comp counter_events_queue_size_comp =
++	COUNTER_COMP_DEVICE_U64("events_queue_size",
++				counter_events_queue_size_read,
++				counter_events_queue_size_write);
++
+ static int counter_sysfs_attr_add(struct counter_device *const counter,
+ 				  struct counter_attribute_group *group)
+ {
+@@ -826,6 +864,12 @@ static int counter_sysfs_attr_add(struct counter_device *const counter,
+ 	if (err < 0)
+ 		return err;
+ 
++	/* Create num_counts attribute */
++	err = counter_attr_create(dev, group, &counter_events_queue_size_comp,
++				  scope, NULL);
++	if (err < 0)
++		return err;
++
  	/* Create an attribute for each extension */
  	for (i = 0; i < counter->num_ext; i++) {
--		err = counter_attr_create(dev, group, counter->ext + i, scope,
--					  NULL);
-+		ext = counter->ext + i;
-+
-+		err = counter_attr_create(dev, group, ext, scope, NULL);
-+		if (err < 0)
-+			return err;
-+
-+		err = counter_comp_id_attr_create(dev, group, ext->name, i);
- 		if (err < 0)
- 			return err;
- 	}
+ 		ext = counter->ext + i;
+diff --git a/include/linux/counter.h b/include/linux/counter.h
+index 3f0bbe4ff702..854fcaf49c32 100644
+--- a/include/linux/counter.h
++++ b/include/linux/counter.h
+@@ -289,6 +289,7 @@ struct counter_ops {
+  * @priv:		optional private data supplied by driver
+  * @dev:		internal device structure
+  * @chrdev:		internal character device structure
++ * @chrdev_lock:	lock to limit chrdev to a single open at a time
+  * @events_list:	list of current watching Counter events
+  * @events_list_lock:	lock to protect Counter events list operations
+  * @next_events_list:	list of next watching Counter events
+@@ -314,6 +315,7 @@ struct counter_device {
+ 
+ 	struct device dev;
+ 	struct cdev chrdev;
++	struct mutex chrdev_lock;
+ 	struct list_head events_list;
+ 	spinlock_t events_list_lock;
+ 	struct list_head next_events_list;
 -- 
 2.32.0
 
