@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07ACE3A25FC
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jun 2021 10:00:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A763A3A2768
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jun 2021 10:49:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7691BC58D5B;
-	Thu, 10 Jun 2021 08:00:32 +0000 (UTC)
-Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com
- [115.124.28.121])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53193C58D5B;
+	Thu, 10 Jun 2021 08:49:22 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C34B4C57B79
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2CDDC3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jun 2021 08:00:28 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436536|-1; CH=green;
- DM=|CONTINUE|false|; DS=||; FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047206;
- MF=zhouyanjie@wanyeetech.com; NM=1; PH=DS; RN=21; RT=21; SR=0;
- TI=SMTPD_---.KQMISdx_1623312022; 
-Received: from 192.168.88.129(mailfrom:zhouyanjie@wanyeetech.com
- fp:SMTPD_---.KQMISdx_1623312022)
- by smtp.aliyun-inc.com(10.147.41.120);
- Thu, 10 Jun 2021 16:00:23 +0800
-To: Andrew Lunn <andrew@lunn.ch>
-References: <1623260110-25842-1-git-send-email-zhouyanjie@wanyeetech.com>
- <1623260110-25842-3-git-send-email-zhouyanjie@wanyeetech.com>
- <YMGEutCet7fP1NZ9@lunn.ch>
-From: Zhou Yanjie <zhouyanjie@wanyeetech.com>
-Message-ID: <405696cb-5987-0e56-87f8-5a1443eadc19@wanyeetech.com>
-Date: Thu, 10 Jun 2021 16:00:00 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ Thu, 10 Jun 2021 08:49:20 +0000 (UTC)
+IronPort-SDR: jylDS82kJY3MM629o7LVI8FIbZSqYVF2irxy03uLOKH8ijDwNzctVBROaPPXxkfTgc5jVEBz5Q
+ tSLCx2o+wCJw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10010"; a="202230659"
+X-IronPort-AV: E=Sophos;i="5.83,263,1616482800"; d="scan'208";a="202230659"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2021 01:49:13 -0700
+IronPort-SDR: tWyKEu0tHSOZusqlFndwFkERH2/HlIARjRaOnVupIdzhJH6dxixEZq+MF66efislk7Mmn1ZObI
+ vnFHtpqXTpdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,263,1616482800"; d="scan'208";a="486088008"
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga002.fm.intel.com with ESMTP; 10 Jun 2021 01:49:13 -0700
+Received: from glass.png.intel.com (glass.png.intel.com [10.158.65.69])
+ by linux.intel.com (Postfix) with ESMTP id C2C8D580B58;
+ Thu, 10 Jun 2021 01:49:10 -0700 (PDT)
+From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Thu, 10 Jun 2021 16:53:54 +0800
+Message-Id: <20210610085354.656580-1-vee.khee.wong@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <YMGEutCet7fP1NZ9@lunn.ch>
-Content-Language: en-US
-Cc: joabreu@synopsys.com, jun.jiang@ingenic.com, sernia.zhou@foxmail.com,
- devicetree@vger.kernel.org, rick.tyliu@ingenic.com,
- linux-kernel@vger.kernel.org, sihui.liu@ingenic.com,
- linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
- linux-mips@vger.kernel.org, paul@crapouillou.net, robh+dt@kernel.org,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, kuba@kernel.org,
- netdev@vger.kernel.org, dongsheng.qiu@ingenic.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, aric.pzqi@ingenic.com
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] net: stmmac: Add Ingenic SoCs MAC
-	support.
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Joakim Zhang <qiangqing.zhang@nxp.com>, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH net-next v1 1/1] net: stmmac: Fix mixed enum
+	type warning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,134 +55,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQW5kcmV3LAoKT24gMjAyMS82LzEwIOS4iuWNiDExOjE5LCBBbmRyZXcgTHVubiB3cm90ZToK
-Pj4gK3N0YXRpYyBpbnQgano0Nzc1X21hY19zZXRfbW9kZShzdHJ1Y3QgcGxhdF9zdG1tYWNlbmV0
-X2RhdGEgKnBsYXRfZGF0KQo+PiArewo+PiArCXN0cnVjdCBpbmdlbmljX21hYyAqbWFjID0gcGxh
-dF9kYXQtPmJzcF9wcml2Owo+PiArCXVuc2lnbmVkIGludCB2YWw7Cj4KPj4gKwljYXNlIFBIWV9J
-TlRFUkZBQ0VfTU9ERV9SR01JSToKPj4gKwljYXNlIFBIWV9JTlRFUkZBQ0VfTU9ERV9SR01JSV9J
-RDoKPj4gKwljYXNlIFBIWV9JTlRFUkZBQ0VfTU9ERV9SR01JSV9SWElEOgo+PiArCWNhc2UgUEhZ
-X0lOVEVSRkFDRV9NT0RFX1JHTUlJX1RYSUQ6Cj4+ICsJCXZhbCA9IEZJRUxEX1BSRVAoTUFDUEhZ
-Q19UWENMS19TRUxfTUFTSywgTUFDUEhZQ19UWENMS19TRUxfSU5QVVQpIHwKPj4gKwkJCSAgRklF
-TERfUFJFUChNQUNQSFlDX1BIWV9JTkZUX01BU0ssIE1BQ1BIWUNfUEhZX0lORlRfUkdNSUkpOwo+
-PiArCQlkZXZfZGJnKG1hYy0+ZGV2LCAiTUFDIFBIWSBDb250cm9sIFJlZ2lzdGVyOiBQSFlfSU5U
-RVJGQUNFX01PREVfUkdNSUlcbiIpOwo+PiArCQlicmVhazsKPiBTbyB0aGlzIGRvZXMgd2hhdCBE
-VCB3cml0ZXMgZXhwZWN0LiBUaGV5IHB1dCAncmdtaWktaWQnIGFzIHBoeQo+IG1vZGUuIFRoZSBN
-QUMgZG9lcyBub3QgYWRkIGEgZGVsYXkuIFBIWV9JTlRFUkZBQ0VfTU9ERV9SR01JSV9JRCBpcwo+
-IHBhc3NlZCB0byB0aGUgUEhZIGFuZCBpdCBhZGRzIHRoZSBkZWxheS4gQW5kIGZyYW1lcyBmbG93
-IHRvL2Zyb20gdGhlCj4gUEhZIGFuZCB1c2VycyBhcmUgaGFwcHkuIFRoZSBtYWpvcml0eSBvZiBN
-QUMgZHJpdmVycyBhcmUgbGlrZSB0aGlzLgoKCkdvdCBpdCwgdGhhbmtzIQoKCj4KPj4gK3N0YXRp
-YyBpbnQgeDIwMDBfbWFjX3NldF9tb2RlKHN0cnVjdCBwbGF0X3N0bW1hY2VuZXRfZGF0YSAqcGxh
-dF9kYXQpCj4+ICt7Cj4+ICsJc3RydWN0IGluZ2VuaWNfbWFjICptYWMgPSBwbGF0X2RhdC0+YnNw
-X3ByaXY7Cj4+ICsJdW5zaWduZWQgaW50IHZhbDsKPiBIZXJlIHdlIGhhdmUgYSBjb21wbGV0ZSBk
-aWZmZXJlbnQgc3RvcnkuCj4KPgo+PiArCWNhc2UgUEhZX0lOVEVSRkFDRV9NT0RFX1JHTUlJOgo+
-PiArCQl2YWwgPSBGSUVMRF9QUkVQKE1BQ1BIWUNfUEhZX0lORlRfTUFTSywgTUFDUEhZQ19QSFlf
-SU5GVF9SR01JSSk7Cj4+ICsKPj4gKwkJaWYgKG1hYy0+dHhfZGVsYXkgPT0gMCkgewo+PiArCQkJ
-dmFsIHw9IEZJRUxEX1BSRVAoTUFDUEhZQ19UWF9TRUxfTUFTSywgTUFDUEhZQ19UWF9TRUxfT1JJ
-R0lOKTsKPj4gKwkJfSBlbHNlIHsKPj4gKwkJCXZhbCB8PSBGSUVMRF9QUkVQKE1BQ1BIWUNfVFhf
-U0VMX01BU0ssIE1BQ1BIWUNfVFhfU0VMX0RFTEFZKTsKPj4gKwo+PiArCQkJaWYgKG1hYy0+dHhf
-ZGVsYXkgPiBNQUNQSFlDX1RYX0RFTEFZX01BWCkKPj4gKwkJCQl2YWwgfD0gRklFTERfUFJFUChN
-QUNQSFlDX1RYX0RFTEFZX01BU0ssIE1BQ1BIWUNfVFhfREVMQVlfTUFYIC0gMSk7Cj4+ICsJCQll
-bHNlCj4+ICsJCQkJdmFsIHw9IEZJRUxEX1BSRVAoTUFDUEhZQ19UWF9ERUxBWV9NQVNLLCBtYWMt
-PnR4X2RlbGF5IC0gMSk7Cj4+ICsJCX0KPiBXaGF0IGFyZSB0aGUgdW5pdHMgb2YgdHhfZGVsYXku
-IFRoZSBEVCBiaW5kaW5nIHNob3VsZCBiZSBwUywgYW5kIHlvdQo+IG5lZWQgdG8gY29udmVydCBm
-cm9tIHRoYXQgdG8gd2hhdGV2ZXIgdGhlIGhhcmR3YXJlIGlzIHVzaW5nLgoKClRoZSBtYW51YWwg
-ZG9lcyBub3QgdGVsbCBob3cgbXVjaCBwcyBhIHVuaXQgaXMuCgpJIGFtIGNvbmZpcm1pbmcgd2l0
-aCBJbmdlbmljLCBidXQgdGhlcmUgaXMgbm8gcmVwbHkKCmF0IHRoZSBtb21lbnQuIENhbiB3ZSBm
-b2xsb3cgUm9ja2NoaXAncyBhcHByb2FjaD8KCkFjY29yZGluZyB0byB0aGUgZGVzY3JpcHRpb24g
-aW4gInJvY2tjaGlwLWR3bWFjLnlhbWwiCgphbmQgdGhlIHJlbGF0ZWQgY29kZSBpbiAiZHdtYWMt
-cmsuYyIsIGl0IHNlZW1zIHRoYXQgdGhlaXIKCmRlbGF5IHBhcmFtZXRlciBzZWVtcyB0byBiZSB0
-aGUgdmFsdWUgdXNlZCBieSB0aGUgaGFyZHdhcmUKCmRpcmVjdGx5IGluc3RlYWQgb2YgcHMuCgoK
-PiBJZiBtYWMtPnR4X2RlbGF5IGlzIGdyZWF0ZXIgdGhhbiBNQUNQSFlDX1RYX0RFTEFZX01BWCwg
-cGxlYXNlIHJldHVybgo+IC1FSU5WQUwgd2hlbiBwYXJzaW5nIHRoZSBiaW5kaW5nLiBXZSB3YW50
-IHRoZSBEVCB3cml0ZXIgdG8ga25vdyB0aGV5Cj4gaGF2ZSByZXF1ZXN0ZWQgc29tZXRoaW5nIHRo
-ZSBoYXJkd2FyZSBjYW5ub3QgZG8uCgoKU3VyZSwgSSdsbCBjaGFuZ2UgaXQgaW4gdGhlIG5leHQg
-dmVyc2lvbi4KCgo+IFNvIGlmIHRoZSBkZXZpY2UgdHJlZSBjb250YWlucyAncmdtaWknIGZvciBQ
-SFkgbW9kZSwgeW91IGNhbiB1c2UgdGhpcwo+IGZvciB3aGVuIHlvdSBoYXZlIGxvbmcgY2xvY2sg
-bGluZXMgb24geW91ciBib2FyZCBhZGRpbmcgdGhlIGRlbGF5LCBhbmQKPiB5b3UganVzdCBuZWVk
-IHRvIGZpbmUgdHVuZSB0aGUgZGVsYXksIGFkZCBhIGZldyBwUy4gVGhlIFBIWSB3aWxsIGFsc28K
-PiBub3QgYWRkIGEgZGVsYXksIGR1ZSB0byByZWNlaXZpbmcgUEhZX0lOVEVSRkFDRV9NT0RFX1JH
-TUlJLgo+Cj4+ICsKPj4gKwkJaWYgKG1hYy0+cnhfZGVsYXkgPT0gMCkgewo+PiArCQkJdmFsIHw9
-IEZJRUxEX1BSRVAoTUFDUEhZQ19SWF9TRUxfTUFTSywgTUFDUEhZQ19SWF9TRUxfT1JJR0lOKTsK
-Pj4gKwkJfSBlbHNlIHsKPj4gKwkJCXZhbCB8PSBGSUVMRF9QUkVQKE1BQ1BIWUNfUlhfU0VMX01B
-U0ssIE1BQ1BIWUNfUlhfU0VMX0RFTEFZKTsKPj4gKwo+PiArCQkJaWYgKG1hYy0+cnhfZGVsYXkg
-PiBNQUNQSFlDX1JYX0RFTEFZX01BWCkKPj4gKwkJCQl2YWwgfD0gRklFTERfUFJFUChNQUNQSFlD
-X1JYX0RFTEFZX01BU0ssIE1BQ1BIWUNfUlhfREVMQVlfTUFYIC0gMSk7Cj4+ICsJCQllbHNlCj4+
-ICsJCQkJdmFsIHw9IEZJRUxEX1BSRVAoTUFDUEhZQ19SWF9ERUxBWV9NQVNLLCBtYWMtPnJ4X2Rl
-bGF5IC0gMSk7Cj4+ICsJCX0KPj4gKwo+PiArCQlkZXZfZGJnKG1hYy0+ZGV2LCAiTUFDIFBIWSBD
-b250cm9sIFJlZ2lzdGVyOiBQSFlfSU5URVJGQUNFX01PREVfUkdNSUlcbiIpOwo+PiArCQlicmVh
-azsKPj4gKwo+PiArCWNhc2UgUEhZX0lOVEVSRkFDRV9NT0RFX1JHTUlJX0lEOgo+PiArCQl2YWwg
-PSBGSUVMRF9QUkVQKE1BQ1BIWUNfVFhfU0VMX01BU0ssIE1BQ1BIWUNfVFhfU0VMX09SSUdJTikg
-fAo+PiArCQkJICBGSUVMRF9QUkVQKE1BQ1BIWUNfUlhfU0VMX01BU0ssIE1BQ1BIWUNfUlhfU0VM
-X09SSUdJTikgfAo+PiArCQkJICBGSUVMRF9QUkVQKE1BQ1BIWUNfUEhZX0lORlRfTUFTSywgTUFD
-UEhZQ19QSFlfSU5GVF9SR01JSSk7Cj4+ICsJCWRldl9kYmcobWFjLT5kZXYsICJNQUMgUEhZIENv
-bnRyb2wgUmVnaXN0ZXI6IFBIWV9JTlRFUkZBQ0VfTU9ERV9SR01JSV9JRFxuIik7Cj4+ICsJCWJy
-ZWFrOwo+IFNvIHRoaXMgb25lIGlzIHByZXR0eSBub3JtYWwuIFRoZSBNQUMgZG9lcyBub3QgYWRk
-IGEgZGVsYXksCj4gUEhZX0lOVEVSRkFDRV9NT0RFX1JHTUlJX0lEIGlzIHBhc3NlZCB0byB0aGUg
-UEhZLCBhbmQgaXQgYWRkcyB0aGUKPiBkZWxheS4gVGhlIGludGVyZmFjZSB3aWxsIGxpa2VseSB3
-b3JrLgo+Cj4+ICsKPj4gKwljYXNlIFBIWV9JTlRFUkZBQ0VfTU9ERV9SR01JSV9SWElEOgo+PiAr
-CQl2YWwgPSBGSUVMRF9QUkVQKE1BQ1BIWUNfUEhZX0lORlRfTUFTSywgTUFDUEhZQ19QSFlfSU5G
-VF9SR01JSSkgfAo+PiArCQkJICBGSUVMRF9QUkVQKE1BQ1BIWUNfUlhfU0VMX01BU0ssIE1BQ1BI
-WUNfUlhfU0VMX09SSUdJTik7Cj4+ICsKPj4gKwkJaWYgKG1hYy0+dHhfZGVsYXkgPT0gMCkgewo+
-PiArCQkJdmFsIHw9IEZJRUxEX1BSRVAoTUFDUEhZQ19UWF9TRUxfTUFTSywgTUFDUEhZQ19UWF9T
-RUxfT1JJR0lOKTsKPj4gKwkJfSBlbHNlIHsKPj4gKwkJCXZhbCB8PSBGSUVMRF9QUkVQKE1BQ1BI
-WUNfVFhfU0VMX01BU0ssIE1BQ1BIWUNfVFhfU0VMX0RFTEFZKTsKPj4gKwo+PiArCQkJaWYgKG1h
-Yy0+dHhfZGVsYXkgPiBNQUNQSFlDX1RYX0RFTEFZX01BWCkKPj4gKwkJCQl2YWwgfD0gRklFTERf
-UFJFUChNQUNQSFlDX1RYX0RFTEFZX01BU0ssIE1BQ1BIWUNfVFhfREVMQVlfTUFYIC0gMSk7Cj4+
-ICsJCQllbHNlCj4+ICsJCQkJdmFsIHw9IEZJRUxEX1BSRVAoTUFDUEhZQ19UWF9ERUxBWV9NQVNL
-LCBtYWMtPnR4X2RlbGF5IC0gMSk7Cj4+ICsJCX0KPiBTbyBoZXJlLCB0aGUgUEhZIGlzIGdvaW5n
-IHRvIGJlIHBhc3NlZCBQSFlfSU5URVJGQUNFX01PREVfUkdNSUlfUlhJRC4KPiBUaGUgUEhZIHdp
-bGwgYWRkIGEgZGVsYXkgaW4gdGhlIHJlY2VpdmUgcGF0aC4gVGhlIE1BQyBuZWVkcyB0byBhZGQg
-dGhlCj4gZGVsYXkgaW4gdGhlIHRyYW5zbWl0IHBhdGguIFNvIHR4X2RlbGF5IG5lZWRzIHRvIGJl
-IHRoZSBmdWxsIDJucywgbm90Cj4ganVzdCBhIHNtYWxsIGZpbmUgdHVuaW5nIHZhbHVlLCBvciB0
-aGUgUENCIGlzIGFkZGluZyB0aGUgZGVsYXkuIEFuZAo+IHlvdSBhbHNvIGNhbm5vdCBmaW5lIHR1
-bmUgdGhlIFJYIGRlbGF5LCBzaW5jZSByeF9kZWxheSBpcyBpZ25vcmVkLgo+Cj4+ICsKPj4gKwkJ
-ZGV2X2RiZyhtYWMtPmRldiwgIk1BQyBQSFkgQ29udHJvbCBSZWdpc3RlcjogUEhZX0lOVEVSRkFD
-RV9NT0RFX1JHTUlJX1JYSURcbiIpOwo+PiArCQlicmVhazsKPj4gKwo+PiArCWNhc2UgUEhZX0lO
-VEVSRkFDRV9NT0RFX1JHTUlJX1RYSUQ6Cj4+ICsJCXZhbCA9IEZJRUxEX1BSRVAoTUFDUEhZQ19Q
-SFlfSU5GVF9NQVNLLCBNQUNQSFlDX1BIWV9JTkZUX1JHTUlJKSB8Cj4+ICsJCQkgIEZJRUxEX1BS
-RVAoTUFDUEhZQ19UWF9TRUxfTUFTSywgTUFDUEhZQ19UWF9TRUxfT1JJR0lOKTsKPj4gKwo+PiAr
-CQlpZiAobWFjLT5yeF9kZWxheSA9PSAwKSB7Cj4+ICsJCQl2YWwgfD0gRklFTERfUFJFUChNQUNQ
-SFlDX1JYX1NFTF9NQVNLLCBNQUNQSFlDX1JYX1NFTF9PUklHSU4pOwo+PiArCQl9IGVsc2Ugewo+
-PiArCQkJdmFsIHw9IEZJRUxEX1BSRVAoTUFDUEhZQ19SWF9TRUxfTUFTSywgTUFDUEhZQ19SWF9T
-RUxfREVMQVkpOwo+PiArCj4+ICsJCQlpZiAobWFjLT5yeF9kZWxheSA+IE1BQ1BIWUNfUlhfREVM
-QVlfTUFYKQo+PiArCQkJCXZhbCB8PSBGSUVMRF9QUkVQKE1BQ1BIWUNfUlhfREVMQVlfTUFTSywg
-TUFDUEhZQ19SWF9ERUxBWV9NQVggLSAxKTsKPj4gKwkJCWVsc2UKPj4gKwkJCQl2YWwgfD0gRklF
-TERfUFJFUChNQUNQSFlDX1JYX0RFTEFZX01BU0ssIG1hYy0+cnhfZGVsYXkgLSAxKTsKPj4gKwkJ
-fQo+IEFuZCBoZXJlIHdlIGhhdmUgdGhlIG9wcG9zaXRlIHRvIFBIWV9JTlRFUkZBQ0VfTU9ERV9S
-R01JSV9SWElELgo+Cj4gU28geW91IG5lZWQgdG8gY2xlYXJseSBkb2N1bWVudCBpbiB0aGUgZGV2
-aWNlIHRyZWUgYmluZGluZyB3aGVuCj4gcnhfZGVsYXkgYW5kIHR4X2RlbGF5IGFyZSB1c2VkLCBh
-bmQgd2hlbiB0aGV5IGFyZSBpZ25vcmVkLiBZb3UgZG9uJ3QKPiB3YW50IHRvIGhhdmUgRFQgd3Jp
-dGVycyBoYXZpbmcgdG8gbG9vayBkZWVwIGludG8gdGhlIGNvZGUgdG8gZmlndXJlCj4gdGhpcyBv
-dXQuCgoKU3VyZSwgbWF5YmUgSSBzaG91bGQgd3JpdGUgYSBuZXcgaW5kZXBlbmRlbnQgZG9jdW1l
-bnQKCmZvciBJbmdlbmljIGluc3RlYWQgb2YganVzdCBtYWtpbmcgY29ycmVzcG9uZGluZyBjaGFu
-Z2VzCgppbiAic25wcywgZHdtYWMueWFtbCIKCgo+Cj4gUGVyc29uYWxseSwgaSB3b3VsZCBzaW1w
-bHkgdGhpcywgaW4gYSBiaWcgd2F5LiBJIHNlZSB0d28gb3B0aW9uczoKPgo+IDEpIFRoZSBNQUMg
-bmV2ZXIgYWRkcyBhIGRlbGF5LiBUaGUgaGFyZHdhcmUgaXMgdGhlcmUsIGJ1dCBzaW1wbHkgZG9u
-J3QKPiB1c2UgaXQsIHRvIGtlZXAgdGhpbmcgc2ltcGxlLCBhbmQgdGhlIHNhbWUgYXMgbmVhcmx5
-IGV2ZXJ5IG90aGVyIE1BQy4KPgo+IDIpIElmIHRoZSBoYXJkd2FyZSBjYW4gZG8gc21hbGwgc3Rl
-cHMgb2YgZGVsYXksIGFsbG93IHRoaXMgZGVsYXksIGJvdGgKPiBSWCBhbmQgVFgsIHRvIGJlIGNv
-bmZpZ3VyZWQgaW4gYWxsIGZvdXIgbW9kZXMsIGluIG9yZGVyIHRvIGFsbG93IGZvcgo+IGZpbmUg
-dHVuaW5nLiBMZWF2ZSB0aGUgUEhZIHRvIGluc2VydCB0aGUgbWFqb3JpdHkgb2YgdGhlIGRlbGF5
-LgoKCkl0IHNlZW1zIHRoYXQgdGhpcyBtZXRob2QgaXMgYmV0dGVyLCBJIHdpbGwgYWRvcHQgaXQg
-aW4gdjMuCgoKPj4gKwkvKiBHZXQgTUFDIFBIWSBjb250cm9sIHJlZ2lzdGVyICovCj4+ICsJbWFj
-LT5yZWdtYXAgPSBzeXNjb25fcmVnbWFwX2xvb2t1cF9ieV9waGFuZGxlKHBkZXYtPmRldi5vZl9u
-b2RlLCAibW9kZS1yZWciKTsKPj4gKwlpZiAoSVNfRVJSKG1hYy0+cmVnbWFwKSkgewo+PiArCQlk
-ZXZfZXJyKCZwZGV2LT5kZXYsICIlczogZmFpbGVkIHRvIGdldCBzeXNjb24gcmVnbWFwXG4iLCBf
-X2Z1bmNfXyk7Cj4+ICsJCWdvdG8gZXJyX3JlbW92ZV9jb25maWdfZHQ7Cj4+ICsJfQo+IFBsZWFz
-ZSBkb2N1bWVudCB0aGlzIGluIHRoZSBkZXZpY2UgdHJlZSBiaW5kaW5nLgoKClN1cmUuCgoKPgo+
-PiArCj4+ICsJcmV0ID0gb2ZfcHJvcGVydHlfcmVhZF91MzIocGRldi0+ZGV2Lm9mX25vZGUsICJy
-eC1jbGstZGVsYXkiLCAmbWFjLT5yeF9kZWxheSk7Cj4+ICsJaWYgKHJldCkKPj4gKwkJbWFjLT5y
-eF9kZWxheSA9IDA7Cj4+ICsKPj4gKwlyZXQgPSBvZl9wcm9wZXJ0eV9yZWFkX3UzMihwZGV2LT5k
-ZXYub2Zfbm9kZSwgInR4LWNsay1kZWxheSIsICZtYWMtPnR4X2RlbGF5KTsKPj4gKwlpZiAocmV0
-KQo+PiArCQltYWMtPnR4X2RlbGF5ID0gMDsKPiBQbGVhc2UgdGFrZSBhIGxvb2sgYXQgZHdtYWMt
-bWVkaWF0ZWsuYy4gSXQgaGFuZGxlcyBkZWxheXMgbmljZWx5LiBJCj4gd291bGQgc3VnZ2VzdCB0
-aGF0IGlzIHRoZSBtb2RlbCB0byBmb2xsb3cuCgoKU3VyZS4KCgpUaGFua3MgYW5kIGJlc3QgcmVn
-YXJkcyEKCgo+Cj4gICAgICAgICBBbmRyZXcKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The commit 5a5586112b92 ("net: stmmac: support FPE link partner
+hand-shaking procedure") introduced the following coverity warning:
+
+  "Parse warning (PW.MIXED_ENUM_TYPE)"
+  "1. mixed_enum_type: enumerated type mixed with another type"
+
+This is due to both "lo_state" and "lp_sate" which their datatype are
+enum stmmac_fpe_state type, and being assigned with "FPE_EVENT_UNKNOWN"
+which is a macro-defined of 0. Fixed this by assigned both these
+variables with the correct enum value.
+
+Fixes: 5a5586112b92 ("net: stmmac: support FPE link partner hand-shaking procedure")
+Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 180f347b4c8e..db97cd4b871d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1021,8 +1021,8 @@ static void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
+ 	if (is_up && *hs_enable) {
+ 		stmmac_fpe_send_mpacket(priv, priv->ioaddr, MPACKET_VERIFY);
+ 	} else {
+-		*lo_state = FPE_EVENT_UNKNOWN;
+-		*lp_state = FPE_EVENT_UNKNOWN;
++		*lo_state = FPE_STATE_OFF;
++		*lp_state = FPE_STATE_OFF;
+ 	}
+ }
+ 
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
