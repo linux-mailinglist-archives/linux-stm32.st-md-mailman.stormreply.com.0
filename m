@@ -2,39 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B7CF3A2B34
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jun 2021 14:15:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09A483A2B93
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jun 2021 14:29:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E82C1C58D5B;
-	Thu, 10 Jun 2021 12:15:37 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BADE7C58D5B;
+	Thu, 10 Jun 2021 12:29:24 +0000 (UTC)
+Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com
+ [115.124.28.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7325CC57B79
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21AA9C57B79
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jun 2021 12:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=xEv51sL5EtFzsgzhQPHw+OPzs2HAlZHNonW9nRpKG/U=; b=R/0HmcqT+8j+7PIsTRgOII6VSu
- zz/HCyX4LK9B0VENcHvghbxfRlYqWEJnFqy2mvGX2Rj/VN1xCuy6X2xhmbznaPz0FGkl+Bheyd2ZY
- 0/QGwDu46fFKrzbDaxbCgeZuCEbxjSK7i30WGX3nm4j9mW7cuKJvb2Wp4+clHhP8Bv+0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1lrJaY-008eiZ-NU; Thu, 10 Jun 2021 14:15:10 +0200
-Date: Thu, 10 Jun 2021 14:15:10 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Zhou Yanjie <zhouyanjie@wanyeetech.com>
-Message-ID: <YMICTvjyEAgPMH9u@lunn.ch>
+ Thu, 10 Jun 2021 12:29:21 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1016198|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_social|0.0148795-0.00602664-0.979094; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047187; MF=zhouyanjie@wanyeetech.com; NM=1; PH=DS; RN=21; RT=21;
+ SR=0; TI=SMTPD_---.KQV1-l7_1623328155; 
+Received: from 192.168.123.38(mailfrom:zhouyanjie@wanyeetech.com
+ fp:SMTPD_---.KQV1-l7_1623328155)
+ by smtp.aliyun-inc.com(10.147.41.143);
+ Thu, 10 Jun 2021 20:29:17 +0800
+To: Andrew Lunn <andrew@lunn.ch>
 References: <1623260110-25842-1-git-send-email-zhouyanjie@wanyeetech.com>
  <1623260110-25842-3-git-send-email-zhouyanjie@wanyeetech.com>
  <YMGEutCet7fP1NZ9@lunn.ch>
  <405696cb-5987-0e56-87f8-5a1443eadc19@wanyeetech.com>
+ <YMICTvjyEAgPMH9u@lunn.ch>
+From: Zhou Yanjie <zhouyanjie@wanyeetech.com>
+Message-ID: <346f64d9-6949-b506-258f-4cfa7eb22784@wanyeetech.com>
+Date: Thu, 10 Jun 2021 20:27:08 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <405696cb-5987-0e56-87f8-5a1443eadc19@wanyeetech.com>
+In-Reply-To: <YMICTvjyEAgPMH9u@lunn.ch>
+Content-Language: en-US
 Cc: joabreu@synopsys.com, jun.jiang@ingenic.com, sernia.zhou@foxmail.com,
  devicetree@vger.kernel.org, rick.tyliu@ingenic.com,
  linux-kernel@vger.kernel.org, sihui.liu@ingenic.com,
@@ -56,25 +57,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1780481042085186786=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> The manual does not tell how much ps a unit is.
-> 
-> I am confirming with Ingenic, but there is no reply
-> 
-> at the moment. Can we follow Rockchip's approach?
-> 
-> According to the description in "rockchip-dwmac.yaml"
-> 
-> and the related code in "dwmac-rk.c", it seems that their
-> 
-> delay parameter seems to be the value used by the hardware
-> 
-> directly instead of ps.
+This is a multi-part message in MIME format.
+--===============1780481042085186786==
+Content-Type: multipart/alternative;
+ boundary="------------B8D1759625D1ED75688C3557"
+Content-Language: en-US
 
+This is a multi-part message in MIME format.
+--------------B8D1759625D1ED75688C3557
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Andrew,
+
+On 2021/6/10 下午8:15, Andrew Lunn wrote:
+>> The manual does not tell how much ps a unit is.
+>>
+>> I am confirming with Ingenic, but there is no reply
+>>
+>> at the moment. Can we follow Rockchip's approach?
+>>
+>> According to the description in "rockchip-dwmac.yaml"
+>>
+>> and the related code in "dwmac-rk.c", it seems that their
+>>
+>> delay parameter seems to be the value used by the hardware
+>>
+>> directly instead of ps.
+> We are much more strict about this now than before. You have to use
+> standard units and convert to hardware values. It also makes it a lot
+> easier for DT writers, if they have an idea what the units mean.
+>
+> Having the MAC add small delays is something you can add later,
+> without breaking backwards compatibility. So if you cannot determine
+> what the units are now, just submit the glue driver without support
+> for this feature. If anybody really needs it, they can do the needed
+> research, maybe do some measurements, and then add the code.
+
+
+*I did an experiment, when the tx delay is not set, RGMII works a
+*
+
+*little abnormally. It seems I have to wait for Ingenic's reply...*
+
+
+>
+>      Andrew
+
+--------------B8D1759625D1ED75688C3557
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Hi Andrew,<br>
+    </p>
+    <div class="moz-cite-prefix">On 2021/6/10 下午8:15, Andrew Lunn wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:YMICTvjyEAgPMH9u@lunn.ch">
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">The manual does not tell how much ps a unit is.
+
+I am confirming with Ingenic, but there is no reply
+
+at the moment. Can we follow Rockchip's approach?
+
+According to the description in "rockchip-dwmac.yaml"
+
+and the related code in "dwmac-rk.c", it seems that their
+
+delay parameter seems to be the value used by the hardware
+
+directly instead of ps.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
 We are much more strict about this now than before. You have to use
 standard units and convert to hardware values. It also makes it a lot
 easier for DT writers, if they have an idea what the units mean.
@@ -83,10 +147,38 @@ Having the MAC add small delays is something you can add later,
 without breaking backwards compatibility. So if you cannot determine
 what the units are now, just submit the glue driver without support
 for this feature. If anybody really needs it, they can do the needed
-research, maybe do some measurements, and then add the code.
+research, maybe do some measurements, and then add the code.</pre>
+    </blockquote>
+    <p><br>
+    </p>
+    <p><b>I did an experiment, when the tx delay is not set, RGMII works
+        a <br>
+      </b></p>
+    <p><b>little abnormally. It seems I have to wait for Ingenic's
+        reply...</b><br>
+    </p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:YMICTvjyEAgPMH9u@lunn.ch">
+      <pre class="moz-quote-pre" wrap="">
 
     Andrew
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------B8D1759625D1ED75688C3557--
+
+--===============1780481042085186786==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1780481042085186786==--
