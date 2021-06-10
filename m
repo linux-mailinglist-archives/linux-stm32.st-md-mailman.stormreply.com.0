@@ -2,59 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6B5E3A3651
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jun 2021 23:45:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B82023A3660
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jun 2021 23:45:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DF2AC58D5B;
-	Thu, 10 Jun 2021 21:45:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FBACC58D5B;
+	Thu, 10 Jun 2021 21:45:29 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34FD3C3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBCD0C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jun 2021 21:45:12 +0000 (UTC)
+ Thu, 10 Jun 2021 21:45:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1623361511;
+ s=mimecast20190719; t=1623361527;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=guTfU4e8GDRqzy/1ajS1PObKT8FQPjuFX79A5J7ymwU=;
- b=ZFo5h7u8phfIUMlE9u6qkSUaRZyCvtgGHpDUspcEYXul3DIaZDDtxYPe7+r58Yu65tFTCg
- YTFVNnryKy2C7QHaAmxXzmux+e3n2J9mXcvn1E6JTkbn9mr4teRglH5/X5CCW9IdTrd8uN
- IfKjKyR9PwUYpQdcuZ+zY+mG3LzNN1w=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-596-EDLsTbe6OgWnxAQExjQO4w-1; Thu, 10 Jun 2021 17:45:09 -0400
-X-MC-Unique: EDLsTbe6OgWnxAQExjQO4w-1
-Received: by mail-ot1-f70.google.com with SMTP id
- z17-20020a9d46910000b02903fb81caa138so646571ote.18
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ViPuuVG2OqeHFqV52axiUAscOGrI/FqROmXXJfWF5s0=;
+ b=HMovLtbVw9RmF8IncGTNX5D9VPHbSDd87kuNEnbJKi7flM35zv/BFKz3e6Cs1548QRF+Al
+ wVQVyUjVEY18nBMSo/zXURvnmGyjWX85n2dRoIY5A7sbJBhUKjRv526V0RS4bexwqzVLQi
+ Rgn5VeEbxqAMb1dXM9AkZk9Z4YAqqBM=
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
+ [209.85.161.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-140-ZKGJZyeCMqmlrKzakKs_Yw-1; Thu, 10 Jun 2021 17:45:25 -0400
+X-MC-Unique: ZKGJZyeCMqmlrKzakKs_Yw-1
+Received: by mail-oo1-f71.google.com with SMTP id
+ l13-20020a4aa78d0000b0290245c8f11ac2so396875oom.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jun 2021 14:45:09 -0700 (PDT)
+ Thu, 10 Jun 2021 14:45:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=guTfU4e8GDRqzy/1ajS1PObKT8FQPjuFX79A5J7ymwU=;
- b=JSFMl/GtcOPSjstAub8Ww3Ltn6X3PzTo17VEyiqUmLoEOhRiD7DVYGnQYDNUalfDL7
- E78b3NANy5ubuuo1E/IcAU8h3EO1j640rOyt7uciwi3KsgTBP8RPZs6yz7eOhb539Vy1
- xwtLXonuvyY3UcFtUJ1am2ujnV9uhdd1o6ZoWfahNhzyikQT8wSjrEgQ95xKwYfpqFkb
- 4zhFFLiR+alg+yykvyawMzGP1KepJ9TRp0CwD2Oqz10U5tGKtXKLYPqmMAAbqU/NJ06R
- 0dLDXHr5pRq+o5PpoHaCcVKAS7JOe42YwQsLL0HmW/BgX1HxXGBLlb0rQGYYq/yVplvo
- gyyw==
-X-Gm-Message-State: AOAM530HC4OthzJx32gNlzsdKG05R2dHfQJXopBxLq8rdAflKI5aQRBR
- QTZUG9UuwYtkyFxq7j8BUGa2dNl2PDt7WkB0+0OOk4eN3j6NCX4ir/12aWYqElkTRj3E96kECcA
- oeB3pae4320mY28Aojq84aEjhTSrSHwTbqzTIOi1Z
-X-Received: by 2002:a9d:17d0:: with SMTP id j74mr386219otj.92.1623361509084;
- Thu, 10 Jun 2021 14:45:09 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyjBwKjRTZldk72q+UJkwklQ0sAnXANOb5b/9su/9MNUdqJcH0ISmXgySFJudebSgHFMzWVdQ==
-X-Received: by 2002:a9d:17d0:: with SMTP id j74mr386187otj.92.1623361508840;
- Thu, 10 Jun 2021 14:45:08 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=ViPuuVG2OqeHFqV52axiUAscOGrI/FqROmXXJfWF5s0=;
+ b=s6tWT0hJJrHY7bw8B/pUxVhL6pLa3WMRijpO/BSoUtYzaLlFoM+IzJSoj7rZInqCtx
+ 9lK4rQkdGs9cDFToGt8+2S5MTnrX3r2+POf4I1kXSJD+9KSgMl7ClmFdIkVFGn1AhPwb
+ 1/AeBWEUe3MCtCC276Un/jKwJl98TgaTd4+IfB7cwuzGWPSpjOjpZCdf4D83nIJO+1dE
+ 91j+eB++VmIXtzAyLVcho4u6TkqK/K/uCefQrgPODz6bosxPJclA3+6pqk+Pl3L+TlOc
+ M1zd8uTX2iZKw4i3tNnudlwRei3Y8BBX3p2Qhf3s/24XDGp1vNbPtAGE9TKbvXlGF5it
+ Z0PA==
+X-Gm-Message-State: AOAM532hDG7Ca1zNXyPPcMrxXnnZ1C2Q8KspHEAZxXB9yFRe06nV9aTC
+ CEFBUr/ejDmeYzKy1OCgS+TOiqgYURk3U9tsTTQUGpWHKeD2y+oLMMUtg32Uv0Vgdw8qK7+Wthf
+ 8HbXKaoVm0JdADpr1W5gJ8Xx4KldUNq46fS8gAoZg
+X-Received: by 2002:a4a:1145:: with SMTP id 66mr522744ooc.14.1623361524882;
+ Thu, 10 Jun 2021 14:45:24 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzMoOE2fXWndbKi6EkTffFwfztc6UDDB9ZibLraP0UKVrXK7cwIRfO3Zax6Rh3Y2+SPIntMDQ==
+X-Received: by 2002:a4a:1145:: with SMTP id 66mr522721ooc.14.1623361524719;
+ Thu, 10 Jun 2021 14:45:24 -0700 (PDT)
 Received: from localhost.localdomain.com (075-142-250-213.res.spectrum.com.
  [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id i15sm881839ots.39.2021.06.10.14.45.04
+ by smtp.gmail.com with ESMTPSA id i15sm881839ots.39.2021.06.10.14.45.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Jun 2021 14:45:08 -0700 (PDT)
+ Thu, 10 Jun 2021 14:45:24 -0700 (PDT)
 From: trix@redhat.com
 To: robh+dt@kernel.org, tsbogend@alpha.franken.de, jic23@kernel.org,
  lars@metafoo.de, tomas.winkler@intel.com, arnd@arndb.de,
@@ -67,9 +68,11 @@ To: robh+dt@kernel.org, tsbogend@alpha.franken.de, jic23@kernel.org,
  sean.wang@mediatek.com, shayne.chen@mediatek.com, Soul.Huang@mediatek.com,
  shorne@gmail.com, gsomlo@gmail.com, pczarnecki@internships.antmicro.com,
  mholenko@antmicro.com, davidgow@google.com
-Date: Thu, 10 Jun 2021 14:44:30 -0700
-Message-Id: <20210610214438.3161140-1-trix@redhat.com>
+Date: Thu, 10 Jun 2021 14:44:32 -0700
+Message-Id: <20210610214438.3161140-3-trix@redhat.com>
 X-Mailer: git-send-email 2.26.3
+In-Reply-To: <20210610214438.3161140-1-trix@redhat.com>
+References: <20210610214438.3161140-1-trix@redhat.com>
 MIME-Version: 1.0
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
@@ -80,7 +83,8 @@ Cc: devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-mediatek@lists.infradead.org, Tom Rix <trix@redhat.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/7] check Makefile and Kconfigs for SPDX tag
+Subject: [Linux-stm32] [PATCH 1/7] checkpatch: check Makefiles and Kconfigs
+	for SPDX tag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,42 +103,30 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Tom Rix <trix@redhat.com>
 
-A followup to
-https://lore.kernel.org/linux-fpga/YMD2yxtsQN16MoPA@kroah.com/
-So I do not repeat this problem,  add a SPDX checker for Makefiles and
-Kconfigs to checkpatch.
+Both Makefiles and Kconfigs should carry an SPDX tag.
+Something like
+ # SPDX-License-Identifier: GPL-2.0-only
 
-Then treewide fix the malformed Makefiles and Kconfigs.
-Those missing tags are numerous.
-Kconfig has 46
-Makefile has 141
+Add a matcher to existing check
 
-Run checkpatch generally over the dirs with Makefile or Kconfig problems
-to check nothing broke in checkpatch.  Fix the few problems turned up
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ scripts/checkpatch.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-Tom Rix (7):
-  checkpatch: check Makefiles and Kconfigs for SPDX tag
-  mei: hdcp: SPDX tag should be the first line
-  drivers/soc/litex: fix spelling of SPDX tag
-  MIPS: Loongson64: fix spelling of SPDX tag
-  iio/scmi: fix spelling of SPDX tag
-  mt76: add a space between comment char and SPDX tag
-  mt76: use SPDX header file comment style
-
- arch/mips/boot/dts/loongson/Makefile                 | 2 +-
- drivers/iio/common/scmi_sensors/Makefile             | 2 +-
- drivers/misc/mei/hdcp/Kconfig                        | 1 -
- drivers/net/wireless/mediatek/mt76/mt7615/Makefile   | 2 +-
- drivers/net/wireless/mediatek/mt76/mt7615/sdio.h     | 2 +-
- drivers/net/wireless/mediatek/mt76/mt7915/Makefile   | 2 +-
- drivers/net/wireless/mediatek/mt76/mt7915/testmode.h | 2 +-
- drivers/net/wireless/mediatek/mt76/mt7921/Makefile   | 2 +-
- drivers/soc/litex/Kconfig                            | 2 +-
- drivers/soc/litex/Makefile                           | 2 +-
- scripts/checkpatch.pl                                | 2 +-
- 11 files changed, 10 insertions(+), 11 deletions(-)
-
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index dad87c3686326..7fca3a7c38791 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -3572,7 +3572,7 @@ sub process {
+ 					$comment = '/*';
+ 				} elsif ($realfile =~ /\.(c|dts|dtsi)$/) {
+ 					$comment = '//';
+-				} elsif (($checklicenseline == 2) || $realfile =~ /\.(sh|pl|py|awk|tc|yaml)$/) {
++				} elsif (($checklicenseline == 2) || $realfile =~ /\.(sh|pl|py|awk|tc|yaml)$|Kconfig|Makefile/) {
+ 					$comment = '#';
+ 				} elsif ($realfile =~ /\.rst$/) {
+ 					$comment = '..';
 -- 
 2.26.3
 
