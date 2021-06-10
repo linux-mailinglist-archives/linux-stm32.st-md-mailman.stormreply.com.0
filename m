@@ -2,48 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A763A3A2768
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jun 2021 10:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B85273A277D
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Jun 2021 10:54:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53193C58D5B;
-	Thu, 10 Jun 2021 08:49:22 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 725E5C58D5B;
+	Thu, 10 Jun 2021 08:54:37 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2CDDC3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF2FCC3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Jun 2021 08:49:20 +0000 (UTC)
-IronPort-SDR: jylDS82kJY3MM629o7LVI8FIbZSqYVF2irxy03uLOKH8ijDwNzctVBROaPPXxkfTgc5jVEBz5Q
- tSLCx2o+wCJw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10010"; a="202230659"
-X-IronPort-AV: E=Sophos;i="5.83,263,1616482800"; d="scan'208";a="202230659"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2021 01:49:13 -0700
-IronPort-SDR: tWyKEu0tHSOZusqlFndwFkERH2/HlIARjRaOnVupIdzhJH6dxixEZq+MF66efislk7Mmn1ZObI
- vnFHtpqXTpdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,263,1616482800"; d="scan'208";a="486088008"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga002.fm.intel.com with ESMTP; 10 Jun 2021 01:49:13 -0700
-Received: from glass.png.intel.com (glass.png.intel.com [10.158.65.69])
- by linux.intel.com (Postfix) with ESMTP id C2C8D580B58;
- Thu, 10 Jun 2021 01:49:10 -0700 (PDT)
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Thu, 10 Jun 2021 16:53:54 +0800
-Message-Id: <20210610085354.656580-1-vee.khee.wong@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+ Thu, 10 Jun 2021 08:54:33 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15A8praJ018129; Thu, 10 Jun 2021 10:54:23 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=US13dRyJ4ae/LubuDFGUyWZmKyQMuMTjP+dI9w7XKGg=;
+ b=Ixm+qHel0qawwtKyV2HGqzY68LEnPZtupg9TiPFFR4YGeyQK6ZF4QvMm53ctI7qvOYfV
+ Uyinf0wlYgrlPcbfd1RmnijdVXG1eapGxbQbmpk420cW3ZzU+4PmNxIo0zES8hEJuPIW
+ EJWbgHKxwdlZGKDXr5mcyNzlGJJucNkVXzwk9p8iif5nh4aUgQwLpT2uU0gzhBksJT4R
+ 3tO1Zr+HfZ596OQSvzswlE+/QYWJxVNSpgkZ9UQPVz1/HfAMX4KIKfWxhtSvK/uVgUhi
+ Y7bFXxrRkvnjowt6smzAMtSX7z3m6iTsV+Dtc3E3EeTTe1QtRwocbdAB78Z45i/gKyU2 kg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 39350hb8u5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Jun 2021 10:54:23 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AEA8A10002A;
+ Thu, 10 Jun 2021 10:54:21 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 91302219DA9;
+ Thu, 10 Jun 2021 10:54:21 +0200 (CEST)
+Received: from lmecxl0566.lme.st.com (10.75.127.44) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 10 Jun
+ 2021 10:54:20 +0200
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20210527091537.8997-1-erwan.leray@foss.st.com>
+ <20210527091537.8997-2-erwan.leray@foss.st.com> <YK9rDVeg0W9WE+9a@kroah.com>
+From: Erwan LE RAY <erwan.leray@foss.st.com>
+Message-ID: <fc153364-b78a-3199-129f-5c6fb7353d49@foss.st.com>
+Date: Thu, 10 Jun 2021 10:54:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Joakim Zhang <qiangqing.zhang@nxp.com>, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH net-next v1 1/1] net: stmmac: Fix mixed enum
-	type warning
+In-Reply-To: <YK9rDVeg0W9WE+9a@kroah.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-06-10_03:2021-06-10,
+ 2021-06-10 signatures=0
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, Jiri Slaby <jslaby@suse.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] serial: stm32: reset dma buffers
+	during probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,46 +74,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The commit 5a5586112b92 ("net: stmmac: support FPE link partner
-hand-shaking procedure") introduced the following coverity warning:
+Hi Greg,
 
-  "Parse warning (PW.MIXED_ENUM_TYPE)"
-  "1. mixed_enum_type: enumerated type mixed with another type"
+Thanks for your question. This old patch is finally not necessary any more.
+You can cancel this series, I will resend the second patch.
 
-This is due to both "lo_state" and "lp_sate" which their datatype are
-enum stmmac_fpe_state type, and being assigned with "FPE_EVENT_UNKNOWN"
-which is a macro-defined of 0. Fixed this by assigned both these
-variables with the correct enum value.
+Best regards, Erwan.
 
-Fixes: 5a5586112b92 ("net: stmmac: support FPE link partner hand-shaking procedure")
-Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 180f347b4c8e..db97cd4b871d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1021,8 +1021,8 @@ static void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
- 	if (is_up && *hs_enable) {
- 		stmmac_fpe_send_mpacket(priv, priv->ioaddr, MPACKET_VERIFY);
- 	} else {
--		*lo_state = FPE_EVENT_UNKNOWN;
--		*lp_state = FPE_EVENT_UNKNOWN;
-+		*lo_state = FPE_STATE_OFF;
-+		*lp_state = FPE_STATE_OFF;
- 	}
- }
- 
--- 
-2.25.1
-
+On 5/27/21 11:49 AM, Greg Kroah-Hartman wrote:
+> On Thu, May 27, 2021 at 11:15:36AM +0200, Erwan Le Ray wrote:
+>> Reset Rx and Tx dma buffers during probe to avoid freeing
+>> invalid buffer in no dma mode.
+>>
+>> Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
+>>
+>> diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+>> index c2ae7b392b86..2ac3b30477a7 100644
+>> --- a/drivers/tty/serial/stm32-usart.c
+>> +++ b/drivers/tty/serial/stm32-usart.c
+>> @@ -1168,6 +1168,8 @@ static struct stm32_port *stm32_usart_of_get_port(struct platform_device *pdev)
+>>   	stm32_ports[id].cr1_irq = USART_CR1_RXNEIE;
+>>   	stm32_ports[id].cr3_irq = 0;
+>>   	stm32_ports[id].last_res = RX_BUF_L;
+>> +	stm32_ports[id].rx_dma_buf = 0;
+>> +	stm32_ports[id].tx_dma_buf = 0;
+>>   	return &stm32_ports[id];
+>>   }
+>>   
+>> -- 
+>> 2.17.1
+>>
+> 
+> Is this a bugfix?  if so, what commit does this fix and does it need to
+> be backported anywhere?
+> 
+> thanks,
+> 
+> greg k-h
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
