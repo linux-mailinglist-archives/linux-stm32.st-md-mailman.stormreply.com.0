@@ -2,57 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24CA13A49D2
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jun 2021 22:06:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFFE43A49D3
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jun 2021 22:06:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEE84C57B55;
-	Fri, 11 Jun 2021 20:05:59 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 498A5C5978A;
+	Fri, 11 Jun 2021 20:06:02 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8956C58D5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22422C59785
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jun 2021 20:05:58 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id ce15so6260650ejb.4
+ Fri, 11 Jun 2021 20:06:00 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id b11so38458607edy.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jun 2021 13:05:58 -0700 (PDT)
+ Fri, 11 Jun 2021 13:06:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=EfORNi+2Y2IKStIxZVTIGwtIaR3EJi0T8JfetVJhwU0=;
- b=SwWcBuKv5Vavo13i1ICqUAK+7Hik8s6tZkCUjYhCzuEJAwPuzukWOpZshRkkTO5rj+
- YYsMgem73W28j5t8KAiZIiUjgtwbdVmjnc/U0m4ZquWrQIspZBtPL+z9pDkgRGKtpseC
- CjiwtDLGI9KWWNx82OIFvrmMfm1rIpAD9WLbDqfd+cyGlSztPVPRbTZgifGiPzgoTqW2
- LCC3Xf43JHn+SR8Pl97QVD9rHPxqhBMNZLjjMgLV3Ex26CX6mfnMfkhPUMF2kH5MNe90
- PsEynIODnLh77fUMcdWKCaAtyeIOGKgI+XxB3DayVujKb4sizf3VLYQZrRylQu+i4fJ9
- dLzw==
+ bh=9J82lfUtfOhld0+zQlTxDsuWpTNh0bxTBpmDmOlV2PA=;
+ b=Alta6xDeTN7DRmmYxXL3IQ/X8sdytpS/n+GrYjjCG+93ybbRgoiTbtUlTuwrejXkS3
+ 37KscVpgba9Ajo8v4+ukFvsZdgCV3Eis4Y8B2w5+VmiMXmZSBqKI9yPFFwf6B3oaCvb0
+ 3XD+BX8twxmcSQJsUYyiRU+SvtCuan0UyDTDNXa0B/ASWbIOsHWj7WKXT0EZSUZKwZmx
+ SVp8EzuSGVTqS4NY+MMh6HXNZEDfePGudBMp55S89oUIJHkuW0RfXCYZ8dsBNKJKJAVh
+ Wx6dfaNXWSt91P3JjBsFl+UbfBuuy7yvPpt5gOWoAHBzCq4zRxb/RGNMCMWOO5grSWhb
+ +hNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=EfORNi+2Y2IKStIxZVTIGwtIaR3EJi0T8JfetVJhwU0=;
- b=NV2x2SmELRG2TrmZy86enObp3K3LXt3oqI29l0V3gEZ/gESdS3bWuFNgqsZP7TYBhP
- f7uuq2DAZGzMLnOL+AQN0X0L9MS5hHNC9GeUZxE103+bREwoV0ehfEEpvNpTZZEPDKT1
- sT2nrLlfakLyGiQEmcBOw0iBtE8merR7kU/vJlLldZyfNJnup6ytiGJAeYZwrgBQM0Un
- rwSvO6QybX7PzckRqwkEeiHy9Q27FtH48xm3TyGVVKC6YR92T4tOZucIXvjCa5Ex2h3i
- qsc2PO6oiJU0Q8AzngJ1w0C/x5vxu8BS4tpKfETSuKaXXLb4iPnDCfuYNkEbjmNvg/i+
- ImOQ==
-X-Gm-Message-State: AOAM532DnxGg7Iivq424hEppClifuBzO7r7CQnOBS8B9pR7RoF7xbLA+
- I3xELJBDWrzOr0yFExH9Aps=
-X-Google-Smtp-Source: ABdhPJzP+vA9jb3DGIIGNJu3qJRUppbCQmTk41Hm+JZ5EO3/+30XmMBx//AnVQouc4e1DSZdEWxhpg==
-X-Received: by 2002:a17:906:2c1b:: with SMTP id
- e27mr5205367ejh.5.1623441958199; 
- Fri, 11 Jun 2021 13:05:58 -0700 (PDT)
+ bh=9J82lfUtfOhld0+zQlTxDsuWpTNh0bxTBpmDmOlV2PA=;
+ b=X33mDSrGNQVp0s03Cvu4icBpT/kzloEpt4/9SDgWdxiHPFOLECNgh+BQk9vHgWh427
+ BdC/pOK/9fMYDZ3d+mL5s7Q0YPWE6btOzbULnRfMwEYYdadkLt+znA7D3+BwpA4BMaVM
+ IXfun2Ys/yy1rDAn8U+GMu7hgZu9IPIYyRrAgov0tKMJ0T8O06SWwTH6GlgD1RNPjNL2
+ zirqPL0X3Jthh8012kQvYRVEeDwLfIlbawmOIZCX4sDL5OY+e3TiSdJpI7MiLWvBit5n
+ yYtz2rmWCn+6h6U0cQ1d53dfcwsO7l6SaOqvjmyz7DLGHzMK//eCO3/0Wv3MgfgQgV4I
+ vkEw==
+X-Gm-Message-State: AOAM531wmksMV6azJaWUjfZGjDVUxqrvASuw6lg8yOdYkeV5cr7Yaw13
+ juokurZ0urUGNMnjAZvo+PA=
+X-Google-Smtp-Source: ABdhPJxNlEpITTIafXz9TBGJwWkEwcqI6EwN3AZjuzC31TaR/L75yoR1cwbJcMlwbIx7aX9G5kR7UQ==
+X-Received: by 2002:a50:ec08:: with SMTP id g8mr5549553edr.376.1623441959700; 
+ Fri, 11 Jun 2021 13:05:59 -0700 (PDT)
 Received: from localhost.localdomain ([188.26.52.84])
- by smtp.gmail.com with ESMTPSA id w2sm2392084ejn.118.2021.06.11.13.05.56
+ by smtp.gmail.com with ESMTPSA id w2sm2392084ejn.118.2021.06.11.13.05.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Jun 2021 13:05:57 -0700 (PDT)
+ Fri, 11 Jun 2021 13:05:59 -0700 (PDT)
 From: Vladimir Oltean <olteanv@gmail.com>
 To: Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
  netdev@vger.kernel.org
-Date: Fri, 11 Jun 2021 23:05:26 +0300
-Message-Id: <20210611200531.2384819-9-olteanv@gmail.com>
+Date: Fri, 11 Jun 2021 23:05:27 +0300
+Message-Id: <20210611200531.2384819-10-olteanv@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210611200531.2384819-1-olteanv@gmail.com>
 References: <20210611200531.2384819-1-olteanv@gmail.com>
@@ -70,8 +69,8 @@ Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH v3 net-next 08/13] net: pcs: xpcs: add support
-	for NXP SJA1110
+Subject: [Linux-stm32] [PATCH v3 net-next 09/13] net: pcs: xpcs: export
+	xpcs_do_config and xpcs_link_up
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,272 +89,97 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-The NXP SJA1110 switch integrates its own, non-Synopsys PMA, but it
-manages it through the register space of the XPCS itself, in a small
-register window inside MDIO_MMD_VEND2 from address 0x8030 to 0x806e.
+The sja1105 hardware has a quirk in that some changes require a switch
+reset, which loses all configuration. When the reset is initiated,
+everything needs to be reprogrammed, including the MACs and the PCS.
+This is currently done in sja1105_static_config_reload() - we manually
+call sja1105_adjust_port_config(), sja1105_sgmii_pcs_config() and
+sja1105_sgmii_pcs_force_speed() which are all internal functions.
 
-This coincides with where the registers for the default Synopsys PMA
-are, but the register definitions are of course not the same.
+There is a desire for sja1105 to use the common xpcs driver, and that
+means that the equivalents of those functions, xpcs_do_config() and
+xpcs_link_up() respectively, will no longer be local functions.
 
-This situation is an odd hardware quirk, but the simplest way to manage
-it is to drive the SJA1110's PMA from within the XPCS driver.
+Forcing phylink to retrigger a resolve somehow, say by doing dev_close()
+followed by dev_open() is not really an option, because the CPU port
+might have a PCS as well, and there is no net device which we can close
+and reopen for that. Additionally, the dev_close/dev_open sequence might
+force a renegotiation of the copper-side link for SGMII ports connected
+to a PHY, and this is undesirable as well, because the switch reset is
+much quicker than a PHY autoneg, so we would have a lot more downtime.
+
+The only solution I see is for the sja1105 driver to keep doing what
+it's doing, and that means we need to export the equivalents from xpcs
+for sja1105_sgmii_pcs_config and sja1105_sgmii_pcs_force_speed, and call
+them directly in sja1105_static_config_reload(). This will be done
+during the conversion patch.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 ---
 v2->v3: none
 v1->v2: none
 
- drivers/net/pcs/pcs-xpcs-nxp.c | 169 +++++++++++++++++++++++++++++++++
- drivers/net/pcs/pcs-xpcs.c     |  21 ++++
- drivers/net/pcs/pcs-xpcs.h     |   2 +
- include/linux/pcs/pcs-xpcs.h   |   1 +
- 4 files changed, 193 insertions(+)
+ drivers/net/pcs/pcs-xpcs.c   | 10 ++++++----
+ include/linux/pcs/pcs-xpcs.h |  4 ++++
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/pcs/pcs-xpcs-nxp.c b/drivers/net/pcs/pcs-xpcs-nxp.c
-index 51b2fc7d36a9..de99c37cf2ae 100644
---- a/drivers/net/pcs/pcs-xpcs-nxp.c
-+++ b/drivers/net/pcs/pcs-xpcs-nxp.c
-@@ -4,6 +4,66 @@
- #include <linux/pcs/pcs-xpcs.h>
- #include "pcs-xpcs.h"
- 
-+/* LANE_DRIVER1_0 register */
-+#define SJA1110_LANE_DRIVER1_0		0x8038
-+#define SJA1110_TXDRV(x)		(((x) << 12) & GENMASK(14, 12))
-+
-+/* LANE_DRIVER2_0 register */
-+#define SJA1110_LANE_DRIVER2_0		0x803a
-+#define SJA1110_TXDRVTRIM_LSB(x)	((x) & GENMASK_ULL(15, 0))
-+
-+/* LANE_DRIVER2_1 register */
-+#define SJA1110_LANE_DRIVER2_1		0x803b
-+#define SJA1110_LANE_DRIVER2_1_RSV	BIT(9)
-+#define SJA1110_TXDRVTRIM_MSB(x)	(((x) & GENMASK_ULL(23, 16)) >> 16)
-+
-+/* LANE_TRIM register */
-+#define SJA1110_LANE_TRIM		0x8040
-+#define SJA1110_TXTEN			BIT(11)
-+#define SJA1110_TXRTRIM(x)		(((x) << 8) & GENMASK(10, 8))
-+#define SJA1110_TXPLL_BWSEL		BIT(7)
-+#define SJA1110_RXTEN			BIT(6)
-+#define SJA1110_RXRTRIM(x)		(((x) << 3) & GENMASK(5, 3))
-+#define SJA1110_CDR_GAIN		BIT(2)
-+#define SJA1110_ACCOUPLE_RXVCM_EN	BIT(0)
-+
-+/* LANE_DATAPATH_1 register */
-+#define SJA1110_LANE_DATAPATH_1		0x8037
-+
-+/* POWERDOWN_ENABLE register */
-+#define SJA1110_POWERDOWN_ENABLE	0x8041
-+#define SJA1110_TXPLL_PD		BIT(12)
-+#define SJA1110_TXPD			BIT(11)
-+#define SJA1110_RXPKDETEN		BIT(10)
-+#define SJA1110_RXCH_PD			BIT(9)
-+#define SJA1110_RXBIAS_PD		BIT(8)
-+#define SJA1110_RESET_SER_EN		BIT(7)
-+#define SJA1110_RESET_SER		BIT(6)
-+#define SJA1110_RESET_DES		BIT(5)
-+#define SJA1110_RCVEN			BIT(4)
-+
-+/* RXPLL_CTRL0 register */
-+#define SJA1110_RXPLL_CTRL0		0x8065
-+#define SJA1110_RXPLL_FBDIV(x)		(((x) << 2) & GENMASK(9, 2))
-+
-+/* RXPLL_CTRL1 register */
-+#define SJA1110_RXPLL_CTRL1		0x8066
-+#define SJA1110_RXPLL_REFDIV(x)		((x) & GENMASK(4, 0))
-+
-+/* TXPLL_CTRL0 register */
-+#define SJA1110_TXPLL_CTRL0		0x806d
-+#define SJA1110_TXPLL_FBDIV(x)		((x) & GENMASK(11, 0))
-+
-+/* TXPLL_CTRL1 register */
-+#define SJA1110_TXPLL_CTRL1		0x806e
-+#define SJA1110_TXPLL_REFDIV(x)		((x) & GENMASK(5, 0))
-+
-+/* RX_DATA_DETECT register */
-+#define SJA1110_RX_DATA_DETECT		0x8045
-+
-+/* RX_CDR_CTLE register */
-+#define SJA1110_RX_CDR_CTLE		0x8042
-+
- /* In NXP SJA1105, the PCS is integrated with a PMA that has the TX lane
-  * polarity inverted by default (PLUS is MINUS, MINUS is PLUS). To obtain
-  * normal non-inverted behavior, the TX lane polarity must be inverted in the
-@@ -14,3 +74,112 @@ int nxp_sja1105_sgmii_pma_config(struct dw_xpcs *xpcs)
- 	return xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_DIG_CTRL2,
- 			  DW_VR_MII_DIG_CTRL2_TX_POL_INV);
- }
-+
-+static int nxp_sja1110_pma_config(struct dw_xpcs *xpcs,
-+				  u16 txpll_fbdiv, u16 txpll_refdiv,
-+				  u16 rxpll_fbdiv, u16 rxpll_refdiv,
-+				  u16 rx_cdr_ctle)
-+{
-+	u16 val;
-+	int ret;
-+
-+	/* Program TX PLL feedback divider and reference divider settings for
-+	 * correct oscillation frequency.
-+	 */
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_TXPLL_CTRL0,
-+			 SJA1110_TXPLL_FBDIV(txpll_fbdiv));
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_TXPLL_CTRL1,
-+			 SJA1110_TXPLL_REFDIV(txpll_refdiv));
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Program transmitter amplitude and disable amplitude trimming */
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_LANE_DRIVER1_0,
-+			 SJA1110_TXDRV(0x5));
-+	if (ret < 0)
-+		return ret;
-+
-+	val = SJA1110_TXDRVTRIM_LSB(0xffffffull);
-+
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_LANE_DRIVER2_0, val);
-+	if (ret < 0)
-+		return ret;
-+
-+	val = SJA1110_TXDRVTRIM_MSB(0xffffffull) | SJA1110_LANE_DRIVER2_1_RSV;
-+
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_LANE_DRIVER2_1, val);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Enable input and output resistor terminations for low BER. */
-+	val = SJA1110_ACCOUPLE_RXVCM_EN | SJA1110_CDR_GAIN |
-+	      SJA1110_RXRTRIM(4) | SJA1110_RXTEN | SJA1110_TXPLL_BWSEL |
-+	      SJA1110_TXRTRIM(3) | SJA1110_TXTEN;
-+
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_LANE_TRIM, val);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Select PCS as transmitter data source. */
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_LANE_DATAPATH_1, 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Program RX PLL feedback divider and reference divider for correct
-+	 * oscillation frequency.
-+	 */
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_RXPLL_CTRL0,
-+			 SJA1110_RXPLL_FBDIV(rxpll_fbdiv));
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_RXPLL_CTRL1,
-+			 SJA1110_RXPLL_REFDIV(rxpll_refdiv));
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Program threshold for receiver signal detector.
-+	 * Enable control of RXPLL by receiver signal detector to disable RXPLL
-+	 * when an input signal is not present.
-+	 */
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_RX_DATA_DETECT, 0x0005);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Enable TX and RX PLLs and circuits.
-+	 * Release reset of PMA to enable data flow to/from PCS.
-+	 */
-+	val = xpcs_read(xpcs, MDIO_MMD_VEND2, SJA1110_POWERDOWN_ENABLE);
-+	if (val < 0)
-+		return val;
-+
-+	val &= ~(SJA1110_TXPLL_PD | SJA1110_TXPD | SJA1110_RXCH_PD |
-+		 SJA1110_RXBIAS_PD | SJA1110_RESET_SER_EN |
-+		 SJA1110_RESET_SER | SJA1110_RESET_DES);
-+	val |= SJA1110_RXPKDETEN | SJA1110_RCVEN;
-+
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_POWERDOWN_ENABLE, val);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Program continuous-time linear equalizer (CTLE) settings. */
-+	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, SJA1110_RX_CDR_CTLE,
-+			 rx_cdr_ctle);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+int nxp_sja1110_sgmii_pma_config(struct dw_xpcs *xpcs)
-+{
-+	return nxp_sja1110_pma_config(xpcs, 0x19, 0x1, 0x19, 0x1, 0x212a);
-+}
-+
-+int nxp_sja1110_2500basex_pma_config(struct dw_xpcs *xpcs)
-+{
-+	return nxp_sja1110_pma_config(xpcs, 0x7d, 0x2, 0x7d, 0x2, 0x732a);
-+}
 diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index 3b1baacfaf8f..b66e46fc88dc 100644
+index b66e46fc88dc..63fda3fc40aa 100644
 --- a/drivers/net/pcs/pcs-xpcs.c
 +++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -1039,6 +1039,23 @@ static const struct xpcs_compat nxp_sja1105_xpcs_compat[DW_XPCS_INTERFACE_MAX] =
- 	},
- };
+@@ -757,8 +757,8 @@ static int xpcs_config_2500basex(struct dw_xpcs *xpcs)
+ 	return xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_MMD_CTRL, ret);
+ }
  
-+static const struct xpcs_compat nxp_sja1110_xpcs_compat[DW_XPCS_INTERFACE_MAX] = {
-+	[DW_XPCS_SGMII] = {
-+		.supported = xpcs_sgmii_features,
-+		.interface = xpcs_sgmii_interfaces,
-+		.num_interfaces = ARRAY_SIZE(xpcs_sgmii_interfaces),
-+		.an_mode = DW_AN_C37_SGMII,
-+		.pma_config = nxp_sja1110_sgmii_pma_config,
-+	},
-+	[DW_XPCS_2500BASEX] = {
-+		.supported = xpcs_2500basex_features,
-+		.interface = xpcs_2500basex_interfaces,
-+		.num_interfaces = ARRAY_SIZE(xpcs_2500basex_interfaces),
-+		.an_mode = DW_2500BASEX,
-+		.pma_config = nxp_sja1110_2500basex_pma_config,
-+	},
-+};
-+
- static const struct xpcs_id xpcs_id_list[] = {
- 	{
- 		.id = SYNOPSYS_XPCS_ID,
-@@ -1048,6 +1065,10 @@ static const struct xpcs_id xpcs_id_list[] = {
- 		.id = NXP_SJA1105_XPCS_ID,
- 		.mask = SYNOPSYS_XPCS_MASK,
- 		.compat = nxp_sja1105_xpcs_compat,
-+	}, {
-+		.id = NXP_SJA1110_XPCS_ID,
-+		.mask = SYNOPSYS_XPCS_MASK,
-+		.compat = nxp_sja1110_xpcs_compat,
- 	},
- };
+-static int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
+-			  unsigned int mode)
++int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
++		   unsigned int mode)
+ {
+ 	const struct xpcs_compat *compat;
+ 	int ret;
+@@ -797,6 +797,7 @@ static int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
  
-diff --git a/drivers/net/pcs/pcs-xpcs.h b/drivers/net/pcs/pcs-xpcs.h
-index 3daf4276a158..35651d32a224 100644
---- a/drivers/net/pcs/pcs-xpcs.h
-+++ b/drivers/net/pcs/pcs-xpcs.h
-@@ -111,3 +111,5 @@ int xpcs_read(struct dw_xpcs *xpcs, int dev, u32 reg);
- int xpcs_write(struct dw_xpcs *xpcs, int dev, u32 reg, u16 val);
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(xpcs_do_config);
  
- int nxp_sja1105_sgmii_pma_config(struct dw_xpcs *xpcs);
-+int nxp_sja1110_sgmii_pma_config(struct dw_xpcs *xpcs);
-+int nxp_sja1110_2500basex_pma_config(struct dw_xpcs *xpcs);
+ static int xpcs_config(struct phylink_pcs *pcs, unsigned int mode,
+ 		       phy_interface_t interface,
+@@ -945,8 +946,8 @@ static void xpcs_link_up_sgmii(struct dw_xpcs *xpcs, unsigned int mode,
+ 		pr_err("%s: xpcs_write returned %pe\n", __func__, ERR_PTR(ret));
+ }
+ 
+-static void xpcs_link_up(struct phylink_pcs *pcs, unsigned int mode,
+-			 phy_interface_t interface, int speed, int duplex)
++void xpcs_link_up(struct phylink_pcs *pcs, unsigned int mode,
++		  phy_interface_t interface, int speed, int duplex)
+ {
+ 	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
+ 
+@@ -955,6 +956,7 @@ static void xpcs_link_up(struct phylink_pcs *pcs, unsigned int mode,
+ 	if (interface == PHY_INTERFACE_MODE_SGMII)
+ 		return xpcs_link_up_sgmii(xpcs, mode, speed, duplex);
+ }
++EXPORT_SYMBOL_GPL(xpcs_link_up);
+ 
+ static u32 xpcs_get_id(struct dw_xpcs *xpcs)
+ {
 diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
-index c594f7cdc304..dae7dd8ac683 100644
+index dae7dd8ac683..add077a81b21 100644
 --- a/include/linux/pcs/pcs-xpcs.h
 +++ b/include/linux/pcs/pcs-xpcs.h
-@@ -11,6 +11,7 @@
- #include <linux/phylink.h>
+@@ -27,6 +27,10 @@ struct dw_xpcs {
+ };
  
- #define NXP_SJA1105_XPCS_ID		0x00000010
-+#define NXP_SJA1110_XPCS_ID		0x00000020
- 
- /* AN mode */
- #define DW_AN_C73			1
+ int xpcs_get_an_mode(struct dw_xpcs *xpcs, phy_interface_t interface);
++void xpcs_link_up(struct phylink_pcs *pcs, unsigned int mode,
++		  phy_interface_t interface, int speed, int duplex);
++int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
++		   unsigned int mode);
+ void xpcs_validate(struct dw_xpcs *xpcs, unsigned long *supported,
+ 		   struct phylink_link_state *state);
+ int xpcs_config_eee(struct dw_xpcs *xpcs, int mult_fact_100ns,
 -- 
 2.25.1
 
