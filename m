@@ -2,106 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52FF93A3BF3
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jun 2021 08:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B6EB3A3C94
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jun 2021 09:07:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0214CC58D5B;
-	Fri, 11 Jun 2021 06:14:31 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38E49C58D5B;
+	Fri, 11 Jun 2021 07:07:21 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6DE1C3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF2D5C57B75
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jun 2021 06:14:27 +0000 (UTC)
-IronPort-SDR: cb4pDSLMf9BTG9CUA5i8Z0lalJs3gqrEhyXN6Ub5If+lNLL3h6Hi5TuWnvGyiK22ww0kBRppFU
- xeMAgcN8RNdA==
-X-IronPort-AV: E=McAfee;i="6200,9189,10011"; a="202443373"
-X-IronPort-AV: E=Sophos;i="5.83,265,1616482800"; d="scan'208";a="202443373"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2021 23:14:23 -0700
-IronPort-SDR: J0RkFeg3TbRmOA1vksM6Zzb9jbMU3xaY46QEB0aEjePdyjO8H3Gbg71A6Goc4JQEHGmO8+2+M0
- GIKdcp7/cMxw==
-X-IronPort-AV: E=Sophos;i="5.83,265,1616482800"; d="scan'208";a="450657291"
-Received: from paasikivi.fi.intel.com ([10.237.72.42])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2021 23:14:15 -0700
-Received: from paasikivi.fi.intel.com (localhost [127.0.0.1])
- by paasikivi.fi.intel.com (Postfix) with SMTP id 23EA42036A;
- Fri, 11 Jun 2021 09:14:13 +0300 (EEST)
-Date: Fri, 11 Jun 2021 09:14:13 +0300
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Message-ID: <20210611061413.GM3@paasikivi.fi.intel.com>
-References: <20210610145606.3468235-1-tomi.valkeinen@ideasonboard.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210610145606.3468235-1-tomi.valkeinen@ideasonboard.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Sowjanya Komatineni <skomatineni@nvidia.com>,
- Ricardo Ribalda <ribalda@kernel.org>,
- Dafna Hirschfeld <dafna.hirschfeld@collabora.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- linux-rockchip@lists.infradead.org, Mickael Guene <mickael.guene@st.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Todor Tomov <todor.too@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>, "Lad,
- Prabhakar" <prabhakar.csengg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Pavel Machek <pavel@ucw.cz>, Jonathan Hunter <jonathanh@nvidia.com>,
- Fabio Estevam <festevam@gmail.com>, Michal Simek <michal.simek@xilinx.com>,
- Heiko Stuebner <heiko@sntech.de>, Leon Luo <leonl@leopardimaging.com>,
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Chen-Yu Tsai <wens@csie.org>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Andy Gross <agross@kernel.org>, Mats Randgaard <matrandg@cisco.com>,
- Dongchun Zhu <dongchun.zhu@mediatek.com>,
- Steve Longerbeam <slongerbeam@gmail.com>, Bingbu Cao <bingbu.cao@intel.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shunqian Zheng <zhengsq@rock-chips.com>,
- Tim Harvey <tharvey@gateworks.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
- linux-media@vger.kernel.org, Shawn Tu <shawnx.tu@intel.com>,
- Jacopo Mondi <jacopo@jmondi.org>,
- Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
- Wenyou Yang <wenyou.yang@microchip.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Akinobu Mita <akinobu.mita@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Fri, 11 Jun 2021 07:07:17 +0000 (UTC)
+IronPort-SDR: TdIkbRFUWW3Qr9KBkxaJZBMmZQLHvuJFdwySpy7rqIm8d7U28gjaT8HzSvnAva7NW8lNjFcHvc
+ P0wWTusvSCaw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10011"; a="205435499"
+X-IronPort-AV: E=Sophos;i="5.83,265,1616482800"; d="scan'208";a="205435499"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2021 00:07:04 -0700
+IronPort-SDR: afjxRnVnKdW7kcXTge4k/NNkVMeLOqvtprD/PsspPRHe5JKjDig+E7erlN7fy+rUahcnJ5tQvL
+ rc0eajHzK7NA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,265,1616482800"; d="scan'208";a="486491531"
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga002.fm.intel.com with ESMTP; 11 Jun 2021 00:07:02 -0700
+Received: from glass.png.intel.com (glass.png.intel.com [10.158.65.69])
+ by linux.intel.com (Postfix) with ESMTP id B189F580BD5;
+ Fri, 11 Jun 2021 00:06:59 -0700 (PDT)
+From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Benoit Parrot <bparrot@ti.com>, Rui Miguel Silva <rmfrfs@gmail.com>,
- Helen Koike <helen.koike@collabora.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Shuah Khan <skhan@linuxfoundation.org>, NXP Linux Team <linux-imx@nxp.com>,
- Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
- "Paul J. Murphy" <paul.j.murphy@intel.com>, Petr Cvek <petrcvekcz@gmail.com>,
- Daniele Alessandrelli <daniele.alessandrelli@intel.com>,
- Chiranjeevi Rapolu <chiranjeevi.rapolu@intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Andy Walls <awalls@md.metrocast.net>, Hyun Kwon <hyun.kwon@xilinx.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Heungjun Kim <riverful.kim@samsung.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Hyungwoo Yang <hyungwoo.yang@intel.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Robert Foss <robert.foss@linaro.org>, linux-sunxi@lists.linux.dev,
- Dan Scally <djrscally@gmail.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Eugen Hristev <eugen.hristev@microchip.com>, Yong Zhi <yong.zhi@intel.com>,
- Shawn Guo <shawnguo@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Subject: Re: [Linux-stm32] [PATCH v5 0/9] media: v4l2-subdev: add
-	subdev-wide state struct
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Fri, 11 Jun 2021 15:11:43 +0800
+Message-Id: <20210611071143.987866-1-vee.khee.wong@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Cc: Voon Wei Feng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Joakim Zhang <qiangqing.zhang@nxp.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v1 1/1] net: stmmac: Fix unused
+	values warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,47 +61,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Moi,
+The commit 8532f613bc78 ("net: stmmac: introduce MSI Interrupt routines
+for mac, safety, RX & TX") introduced the converity warnings:-
 
-On Thu, Jun 10, 2021 at 05:55:57PM +0300, Tomi Valkeinen wrote:
-> Hi,
-> 
-> v5 of the series. No content changes compared to v4, but the series is
-> split into smaller parts to enable reviews.
-> 
-> The split is artificial, and all the patches need to be squashed into
-> one before merging.
-> 
-> The point of the series is explained in "media: v4l2-subdev: add
-> subdev-wide state struct", but for easier reviews I add it partially
-> here:
-> 
-> We have 'struct v4l2_subdev_pad_config' which contains configuration for
-> a single pad used for the TRY functionality, and an array of those
-> structs is passed to various v4l2_subdev_pad_ops.
-> 
-> I was working on subdev internal routing between pads, and realized that
-> there's no way to add TRY functionality for routes, which is not pad
-> specific configuration. Adding a separate struct for try-route config
-> wouldn't work either, as e.g. set-fmt needs to know the try-route
-> configuration to propagate the settings.
-> 
-> This patch adds a new struct, 'struct v4l2_subdev_state' (which at the
-> moment only contains the v4l2_subdev_pad_config array) and the new
-> struct is used in most of the places where v4l2_subdev_pad_config was
-> used. All v4l2_subdev_pad_ops functions taking v4l2_subdev_pad_config
-> are changed to instead take v4l2_subdev_state.
+  1. Unused value (UNUSED_VALUE)
+     assigned_value: Assigning value REQ_IRQ_ERR_MAC to irq_err here,
+     but that stored value is not used.
 
-Thanks for the update.
+  2. Unused value (UNUSED_VALUE)
+     assigned_value: Assigning value REQ_IRQ_ERR_NO to irq_err here,
+     but that stored value is overwritten before it can used.
 
-For the set:
+  3. Unused value (UNUSED_VALUE)
+     assigned_value: Assigning value REQ_IRQ_ERR_WOL to irq_err here,
+     but that stored value is not used.
 
-Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Fixed these by removing the unnecessary value assignments.
 
+Fixes: 8532f613bc78 ("net: stmmac: introduce MSI Interrupt routines for mac, safety, RX & TX")
+Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index db97cd4b871d..4177fd6a9db5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3406,8 +3406,8 @@ static void stmmac_free_irq(struct net_device *dev,
+ 
+ static int stmmac_request_irq_multi_msi(struct net_device *dev)
+ {
+-	enum request_irq_err irq_err = REQ_IRQ_ERR_NO;
+ 	struct stmmac_priv *priv = netdev_priv(dev);
++	enum request_irq_err irq_err;
+ 	cpumask_t cpu_mask;
+ 	int irq_idx = 0;
+ 	char *int_name;
+@@ -3554,8 +3554,8 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
+ 
+ static int stmmac_request_irq_single(struct net_device *dev)
+ {
+-	enum request_irq_err irq_err = REQ_IRQ_ERR_NO;
+ 	struct stmmac_priv *priv = netdev_priv(dev);
++	enum request_irq_err irq_err;
+ 	int ret;
+ 
+ 	ret = request_irq(dev->irq, stmmac_interrupt,
+@@ -3565,7 +3565,7 @@ static int stmmac_request_irq_single(struct net_device *dev)
+ 			   "%s: ERROR: allocating the IRQ %d (error: %d)\n",
+ 			   __func__, dev->irq, ret);
+ 		irq_err = REQ_IRQ_ERR_MAC;
+-		return ret;
++		goto irq_error;
+ 	}
+ 
+ 	/* Request the Wake IRQ in case of another line
+@@ -3579,7 +3579,7 @@ static int stmmac_request_irq_single(struct net_device *dev)
+ 				   "%s: ERROR: allocating the WoL IRQ %d (%d)\n",
+ 				   __func__, priv->wol_irq, ret);
+ 			irq_err = REQ_IRQ_ERR_WOL;
+-			return ret;
++			goto irq_error;
+ 		}
+ 	}
+ 
 -- 
-Terveisin,
+2.25.1
 
-Sakari Ailus
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
