@@ -2,48 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA6773A47F5
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jun 2021 19:36:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ED333A491A
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jun 2021 21:02:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAFF2C58D5B;
-	Fri, 11 Jun 2021 17:36:01 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAB70C58D5B;
+	Fri, 11 Jun 2021 19:02:52 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92375C57B55
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA165C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jun 2021 17:36:00 +0000 (UTC)
-Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
- [81.101.6.87])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 292F960E0C;
- Fri, 11 Jun 2021 17:35:47 +0000 (UTC)
-Date: Fri, 11 Jun 2021 18:37:43 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: trix@redhat.com
-Message-ID: <20210611183743.6f65100f@jic23-huawei>
-In-Reply-To: <20210610214438.3161140-7-trix@redhat.com>
-References: <20210610214438.3161140-1-trix@redhat.com>
- <20210610214438.3161140-7-trix@redhat.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ Fri, 11 Jun 2021 19:02:48 +0000 (UTC)
+Received: (Authenticated sender: miquel.raynal@bootlin.com)
+ by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id 8FA0760002;
+ Fri, 11 Jun 2021 19:02:46 +0000 (UTC)
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: patrice.chotard@foss.st.com, Mark Brown <broonie@kernel.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ linux-mtd@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Pratyush Yadav <p.yadav@ti.com>
+Date: Fri, 11 Jun 2021 21:02:43 +0200
+Message-Id: <20210611190243.226413-1-miquel.raynal@bootlin.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210602094913.26472-4-patrice.chotard@foss.st.com>
+References: 
 MIME-Version: 1.0
-Cc: zhangqing@loongson.cn, mholenko@antmicro.com, linux-iio@vger.kernel.org,
- alexandre.torgue@foss.st.com, jiaxun.yang@flygoat.com,
- linux-kernel@vger.kernel.org, matthias.bgg@gmail.com, netdev@vger.kernel.org,
- shorne@gmail.com, lars@metafoo.de, chenhuacai@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, gsomlo@gmail.com,
- linux-arm-kernel@lists.infradead.org, pczarnecki@internships.antmicro.com,
- lukas.bulwahn@gmail.com, tomas.winkler@intel.com, devicetree@vger.kernel.org,
- arnd@arndb.de, sean.wang@mediatek.com, ryder.lee@mediatek.com,
- linux-mediatek@lists.infradead.org, davidgow@google.com, kuba@kernel.org,
- apw@canonical.com, Soul.Huang@mediatek.com, kvalo@codeaurora.org,
- tsbogend@alpha.franken.de, jbhayana@google.com, lorenzo.bianconi83@gmail.com,
- gregkh@linuxfoundation.org, linux-wireless@vger.kernel.org,
- linux-mips@vger.kernel.org, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
- dwaipayanray1@gmail.com, joe@perches.com, shayne.chen@mediatek.com,
- davem@davemloft.net, nbd@nbd.name
-Subject: Re: [Linux-stm32] [PATCH 5/7] iio/scmi: fix spelling of SPDX tag
+X-linux-mtd-patch-notification: thanks
+X-linux-mtd-patch-commit: b'9cc910f4c03847b44ff8d60e76b42d529374495a'
+Subject: Re: [Linux-stm32] [PATCH v5 3/3] mtd: spinand: add SPI-NAND MTD
+	resume handler
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,35 +53,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 10 Jun 2021 14:44:36 -0700
-trix@redhat.com wrote:
-
-> From: Tom Rix <trix@redhat.com>
+On Wed, 2021-06-02 at 09:49:13 UTC,  wrote:
+> From: Patrice Chotard <patrice.chotard@foss.st.com>
 > 
-> checkpatch looks for SPDX-License-Identifier.
-> Remove the extra spaces.
+> After power up, all SPI NAND's blocks are locked. Only read operations
+> are allowed, write and erase operations are forbidden.
+> The SPI NAND framework unlocks all the blocks during its initialization.
 > 
-> Signed-off-by: Tom Rix <trix@redhat.com>
-Applied this one to the togreg branch of iio.git (initially pushed out as testing
-to let 0-day have first poke at it).  Thanks,
-
-Jonathan
-
-> ---
->  drivers/iio/common/scmi_sensors/Makefile | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> During a standby low power, the memory is powered down, losing its
+> configuration.
+> During the resume, the QSPI driver state is restored but the SPI NAND
+> framework does not reconfigured the memory.
 > 
-> diff --git a/drivers/iio/common/scmi_sensors/Makefile b/drivers/iio/common/scmi_sensors/Makefile
-> index f13140a2575a4..645e0fce1a739 100644
-> --- a/drivers/iio/common/scmi_sensors/Makefile
-> +++ b/drivers/iio/common/scmi_sensors/Makefile
-> @@ -1,4 +1,4 @@
-> -# SPDX - License - Identifier : GPL - 2.0 - only
-> +# SPDX-License-Identifier: GPL-2.0-only
->  #
->  # Makefile for the IIO over SCMI
->  #
+> This patch adds SPI-NAND MTD PM handlers for resume ops.
+> SPI NAND resume op re-initializes SPI NAND flash to its probed state.
+> 
+> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 
+Applied to https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git nand/next, thanks.
+
+Miquel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
