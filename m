@@ -2,50 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 699793A4A75
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Jun 2021 23:00:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F0303A5082
+	for <lists+linux-stm32@lfdr.de>; Sat, 12 Jun 2021 22:20:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 101FBC58D5B;
-	Fri, 11 Jun 2021 21:00:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15000C597AB;
+	Sat, 12 Jun 2021 20:20:08 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5068C32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 919BCC32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Jun 2021 21:00:15 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id AB70F613C6;
- Fri, 11 Jun 2021 21:00:13 +0000 (UTC)
+ Sat, 12 Jun 2021 20:20:06 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 8404561164;
+ Sat, 12 Jun 2021 20:20:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623445213;
- bh=4mihPOL2CONCSUOGSr2nPR24uK+oNcPDUrIwpH6k1hk=;
+ s=k20201202; t=1623529204;
+ bh=DIQEqT0PkShpGezk6HpU8lrICEsMabhZy31CHwJWKk4=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=YuMl4+hH0gRSiXUjAO9FRxqVXvmsLrWNN9n9kR1EgB/llV3YyCKPt0ae18hM3dSFG
- ScM1OBiMIabeDGNKa4AYtjL25wqDkKXVVlr7H9UIUGjFFMAJIl3eHguvRYSc4/FVP1
- Uq6DL3yskxTRcp5H8F16nvx4aLPfFBpS+CodDLBR+kQQqJkCLOK25zaOF1VwNQcSlk
- LgzYFsosjoqff2bGGp11Th58zep47gpQcWSFxHsLhxaEAvK2+Tkl9dxRvKbbg0OICg
- q97bYxFsI3s6pbRG8KVPFmXg80/s4AWg0uCIX7upHi6A3GzIlvEfIlPwzipjfxxAVu
- tmtjVeefovETQ==
+ b=lfI2se7MJwBGXeSPcB+mQ2XBCdH8C/OhWp1ZLTepMDgxRHibaKhsPGgyOMa+yLYgB
+ y1FkKHZbYW2ljk5QghjMYJwoF8zutSPjlX7t9SPCoVe+3hR0wwgS+COF+e9dJ8mExc
+ 3leWXNSsW3eO36CPLR4suPG03d3O3tY1/Zf3K52SMQ73t6x6/UlAFwnyXb0kXnETmb
+ FFDrbxz/0nhfi8lxtQA7VOgr4k9B+8yeZlnbUn59pDParAw+l9zBzh01XVCXlmvmND
+ BPNQDx5Gf4yNLhqAC+an6U9iIcS/iYWU2Lj0NOQ77+/xIPcA5irs+8mYn8jK1dKySI
+ RXTtbLWAXWEgw==
 Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
  [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 9F7C360BE1;
- Fri, 11 Jun 2021 21:00:13 +0000 (UTC)
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 73221609E4;
+ Sat, 12 Jun 2021 20:20:04 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <162344521364.30951.15091113709707705012.git-patchwork-notify@kernel.org>
-Date: Fri, 11 Jun 2021 21:00:13 +0000
-References: <20210611200531.2384819-1-olteanv@gmail.com>
-In-Reply-To: <20210611200531.2384819-1-olteanv@gmail.com>
-To: Vladimir Oltean <olteanv@gmail.com>
-Cc: Jose.Abreu@synopsys.com, andrew@lunn.ch, vee.khee.wong@linux.intel.com,
- f.fainelli@gmail.com, linux@armlinux.org.uk, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
- vivien.didelot@gmail.com, michael.wei.hong.sit@intel.com,
- vladimir.oltean@nxp.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, boon.leong.ong@intel.com, kuba@kernel.org,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH v3 net-next 00/13] Port the SJA1105 DSA
-	driver to XPCS
+Message-Id: <162352920446.6609.10045548501109238922.git-patchwork-notify@kernel.org>
+Date: Sat, 12 Jun 2021 20:20:04 +0000
+References: <20210611131609.1685105-1-vee.khee.wong@linux.intel.com>
+In-Reply-To: <20210611131609.1685105-1-vee.khee.wong@linux.intel.com>
+To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] stmmac: intel: minor clean-up
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,46 +62,22 @@ Hello:
 
 This series was applied to netdev/net-next.git (refs/heads/master):
 
-On Fri, 11 Jun 2021 23:05:18 +0300 you wrote:
-> From: Vladimir Oltean <vladimir.oltean@nxp.com>
+On Fri, 11 Jun 2021 21:16:07 +0800 you wrote:
+> This patch series include two minor-cleanup patches:
 > 
-> As requested when adding support for the NXP SJA1110, the SJA1105 driver
-> could make use of the common XPCS driver, to eliminate some hardware
-> specific code duplication.
+>   1. Move all the hardcoded DEFINEs to dwmac-intel header file.
+>   2. Fix the wrong kernel-doc on the intel_eth_pci_remove() function.
 > 
-> This series modifies the XPCS driver so that it can accommodate the XPCS
-> instantiation from NXP switches, and the SJA1105 driver so it can expose
-> what the XPCS driver expects.
+> Since the changes are minor, only basic sanity tests are done on a
+> Intel TigerLake with Marvell88E2110 PHY:-
 > 
 > [...]
 
 Here is the summary with links:
-  - [v3,net-next,01/13] net: pcs: xpcs: rename mdio_xpcs_args to dw_xpcs
-    https://git.kernel.org/netdev/net-next/c/5673ef863804
-  - [v3,net-next,02/13] net: stmmac: reverse Christmas tree notation in stmmac_xpcs_setup
-    https://git.kernel.org/netdev/net-next/c/47538dbeb701
-  - [v3,net-next,03/13] net: stmmac: reduce indentation when calling stmmac_xpcs_setup
-    https://git.kernel.org/netdev/net-next/c/7413f9a6af00
-  - [v3,net-next,04/13] net: pcs: xpcs: move register bit descriptions to a header file
-    https://git.kernel.org/netdev/net-next/c/d4433d5b7b34
-  - [v3,net-next,05/13] net: pcs: xpcs: add support for sgmii with no inband AN
-    https://git.kernel.org/netdev/net-next/c/2031c09e6d5f
-  - [v3,net-next,06/13] net: pcs: xpcs: also ignore phy id if it's all ones
-    https://git.kernel.org/netdev/net-next/c/36641b045c83
-  - [v3,net-next,07/13] net: pcs: xpcs: add support for NXP SJA1105
-    https://git.kernel.org/netdev/net-next/c/dd0721ea4c7a
-  - [v3,net-next,08/13] net: pcs: xpcs: add support for NXP SJA1110
-    https://git.kernel.org/netdev/net-next/c/f7380bba42fd
-  - [v3,net-next,09/13] net: pcs: xpcs: export xpcs_do_config and xpcs_link_up
-    https://git.kernel.org/netdev/net-next/c/a853c68e29bb
-  - [v3,net-next,10/13] net: dsa: sja1105: migrate to xpcs for SGMII
-    https://git.kernel.org/netdev/net-next/c/3ad1d171548e
-  - [v3,net-next,11/13] net: dsa: sja1105: register the PCS MDIO bus for SJA1110
-    https://git.kernel.org/netdev/net-next/c/27871359bdf8
-  - [v3,net-next,12/13] net: dsa: sja1105: SGMII and 2500base-x on the SJA1110 are 'special'
-    https://git.kernel.org/netdev/net-next/c/ece578bc3ea4
-  - [v3,net-next,13/13] net: dsa: sja1105: plug in support for 2500base-x
-    https://git.kernel.org/netdev/net-next/c/56b63466333b
+  - [net-next,1/2] stmmac: intel: move definitions to dwmac-intel header file
+    https://git.kernel.org/netdev/net-next/c/fb9349c4163e
+  - [net-next,2/2] stmmac: intel: fix wrong kernel-doc
+    https://git.kernel.org/netdev/net-next/c/3c3ea630e87c
 
 You are awesome, thank you!
 --
