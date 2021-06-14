@@ -2,54 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D50363A6B18
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Jun 2021 17:58:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB8AA3A6C66
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Jun 2021 18:50:58 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7537EC597B0;
-	Mon, 14 Jun 2021 15:58:06 +0000 (UTC)
-Received: from out28-171.mail.aliyun.com (out28-171.mail.aliyun.com
- [115.124.28.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80540C597B4;
+	Mon, 14 Jun 2021 16:50:58 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 163A9C58D7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FD77C597B4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Jun 2021 15:58:03 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.08197881|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.0568616-0.00167767-0.941461;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047199; MF=zhouyanjie@wanyeetech.com;
- NM=1; PH=DS; RN=21; RT=21; SR=0; TI=SMTPD_---.KS9PVcH_1623686276; 
-Received: from zhouyanjie-virtual-machine(mailfrom:zhouyanjie@wanyeetech.com
- fp:SMTPD_---.KS9PVcH_1623686276)
- by smtp.aliyun-inc.com(10.147.41.137);
- Mon, 14 Jun 2021 23:57:57 +0800
-Date: Mon, 14 Jun 2021 23:57:55 +0800
-From: =?UTF-8?B?5ZGo55Cw5p2w?= <zhouyanjie@wanyeetech.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <20210614235755.6c1bd34e@zhouyanjie-virtual-machine>
-In-Reply-To: <YMYy6JMSHm1Cqdt2@lunn.ch>
-References: <1623260110-25842-1-git-send-email-zhouyanjie@wanyeetech.com>
- <1623260110-25842-3-git-send-email-zhouyanjie@wanyeetech.com>
- <YMGEutCet7fP1NZ9@lunn.ch>
- <405696cb-5987-0e56-87f8-5a1443eadc19@wanyeetech.com>
- <YMICTvjyEAgPMH9u@lunn.ch>
- <346f64d9-6949-b506-258f-4cfa7eb22784@wanyeetech.com>
- <12f35415-532e-5514-bc97-683fb9655091@wanyeetech.com>
- <YMIoWS57Ra19E1qT@lunn.ch>
- <20210613163452.1f01d418@zhouyanjie-virtual-machine>
- <YMYy6JMSHm1Cqdt2@lunn.ch>
-X-Mailer: Claws Mail 3.14.1 (GTK+ 2.24.30; x86_64-pc-linux-gnu)
+ Mon, 14 Jun 2021 16:50:57 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15EGmDJW015215; Mon, 14 Jun 2021 18:50:44 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=/9D3/0H3bHA9sU2AK/C1nUebkqDvEpgx+D4YIfVFv5s=;
+ b=KvkMyXtJRXZMcLaPnOzP5r1xVlPZv81gXFTvMuN6BIdhP5clixs7x+xB2gjdqk5inIjs
+ TY6VTB9E9uFPKutcvLNtSJrqJFe30MLW9UUAXIoPcvZxVZLHnOK1eOLki956UlguXFBR
+ x4fDRtMRppp+aIndW+8XiDRHIvptum2XNMlwWr/n/R796B4BPd4eVhDtVm5JFjvwTrYZ
+ u1U81vE6582HxHwqpVMdU3xWsXBHdF+sm3CdnU2f2ILoee05v9VKrV9cQfPmbC1wB7eM
+ 5qskzf3jo/6GqY1cVR9uV112QbA0sZjc5IxSfhpYszhKOMD2sBfMuUaNtPTQVJhuSGXX dg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3963682q6y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Jun 2021 18:50:44 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1DF70100034;
+ Mon, 14 Jun 2021 18:50:42 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0B58221CE24;
+ Mon, 14 Jun 2021 18:50:42 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 14 Jun 2021 18:50:41
+ +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Mon, 14 Jun 2021 18:49:38 +0200
+Message-ID: <20210614164940.27153-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Cc: joabreu@synopsys.com, jun.jiang@ingenic.com, sernia.zhou@foxmail.com,
- devicetree@vger.kernel.org, rick.tyliu@ingenic.com,
- linux-kernel@vger.kernel.org, sihui.liu@ingenic.com,
- linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
- linux-mips@vger.kernel.org, paul@crapouillou.net, robh+dt@kernel.org,
- mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, kuba@kernel.org,
- netdev@vger.kernel.org, dongsheng.qiu@ingenic.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, aric.pzqi@ingenic.com
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] net: stmmac: Add Ingenic SoCs MAC
-	support.
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-06-14_10:2021-06-14,
+ 2021-06-14 signatures=0
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] Add new IPCC mailbox to support the
+	coprocessor detach on some stm32mp15x boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,33 +68,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQW5kcmV3LAoK5LqOIFN1biwgMTMgSnVuIDIwMjEgMTg6MzE6MzYgKzAyMDAKQW5kcmV3IEx1
-bm4gPGFuZHJld0BsdW5uLmNoPiDlhpnpgZM6Cgo+IE9uIFN1biwgSnVuIDEzLCAyMDIxIGF0IDA0
-OjM0OjUyUE0gKzA4MDAsIOWRqOeQsOadsCB3cm90ZToKPiA+IOS6jiBUaHUsIDEwIEp1biAyMDIx
-IDE2OjU3OjI5ICswMjAwCj4gPiBBbmRyZXcgTHVubiA8YW5kcmV3QGx1bm4uY2g+IOWGmemBkzoK
-PiA+ICAgCj4gPiA+ID4gSGVyZSBpcyBJbmdlbmljJ3MgcmVwbHksIHRoZSB0aW1lIGxlbmd0aCBj
-b3JyZXNwb25kaW5nIHRvIGEKPiA+ID4gPiB1bml0IGlzIDE5LjVwcyAoMTk1MDBmcykuICAgIAo+
-ID4gPiAKPiA+ID4gU29tZXRpbWVzLCB0aGVyZSBpcyBhIG5lZ2F0aXZlIG9mZnNldCBpbiB0aGUg
-ZGVsYXlzLiBTbyBhIGRlbGF5Cj4gPiA+IHZhbHVlIG9mIDAgd3JpdHRlbiB0byB0aGUgcmVnaXN0
-ZXIgYWN0dWFsbHkgbWVhbnMgLTIwMHBzIG9yCj4gPiA+IHNvbWV0aGluZy4gIAo+ID4gCj4gPiBB
-aCwgcGVyaGFwcyB0aGlzIGV4cGxhaW5zIHdoeSB3ZSBzdGlsbCBuZWVkIHRvIGFkZCBmaW5lLXR1
-bmluZwo+ID4gcGFyYW1ldGVyIGluIHJnbWlpLWlkIGFuZCByZ21paS10eGlkIG1vZGVzIHRvIGVu
-c3VyZSB0aGF0IHRoZQo+ID4gbmV0d29yayB3b3JrcyBwcm9wZXJseS4gIAo+IAo+IFBsZWFzZSB0
-cnkgdG8gZmluZCB0aGlzIG91dC4gcmdtaWkgbWVhbnMgbm8gZGVsYXkuIElmIHRoZSBoYXJkd2Fy
-ZSBpcwo+IGRvaW5nIC01MDBwUyBieSBkZWZhdWx0LCB5b3UgbmVlZCB0byB0YWtlIHRoaXMgaW50
-byBhY2NvdW50LCBhbmQgYWRkCj4gdGhlIDUwMHBTIGJhY2sgb24uCgpJIHRoaW5rIEkgbWF5IGhh
-dmUgZm91bmQgdGhlIHByb2JsZW0uIEF0IHByZXNlbnQsIG15IFBIWSB1c2VzIGEKZ2VuZXJhbCBk
-cml2ZXIsIGFuZCB0aGVyZSBpcyBubyBzcGVjaWZpYyBzZXR0aW5nIGZvciBkZWxheS1yZWxhdGVk
-CnJlZ2lzdGVycy4gVGhlIGRlZmF1bHQgZGVsYXkgdmFsdWUgb2YgUEhZIGlzIDFucywgd2hpY2gg
-ZG9lcyBub3QgbWVldAp0aGUgZGVsYXkgcmVxdWlyZW1lbnQgb2YgMm5zLCBhZnRlciBhbmQgdGhl
-IE1BQyBzaWRlIGFkZCA1MDBwcyBkZWxheQooYW5kIHBvc3NpYmx5IHNvbWUgZGVsYXlzIGludHJv
-ZHVjZWQgb24gdGhlIGhhcmR3YXJlIGNpcmN1aXQpLCBpdCBqdXN0Cm1lZXRzIHRoZSByZXF1aXJl
-bWVudCBvZiAybnMgZGVsYXkuCgo+IAo+ICAgICBBbmRyZXcKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
-LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Purpose:
+  Add the IPCC channel 4 as "detach" mailbox to support the remoteproc the feature added in [1].
+
+  The enable of this feature is a design choice. As consequence, the new mbox is declared
+  only for stm32mp157c-ed1 & stm32mp15x-dkx boards maintained by ST Microelectronics.
+
+Aim:
+  Allow to send to the remote processor a HW signal on IPCC channel 4 when user space requests
+  to detach the main processor from the remote processor (e.g. a reboot of the  Linux processor
+  on a crash).
+
+[1] https://patchwork.ozlabs.org/project/devicetree-bindings/cover/20210331073347.8293-1-arnaud.pouliquen@foss.st.com/
+
+Arnaud Pouliquen (2):
+  ARM: dts: stm32: Add coprocessor detach mbox on stm32mp157c-ed1 board
+  ARM: dts: stm32: Add coprocessor detach mbox on stm32mp15x-dkx boards
+
+ arch/arm/boot/dts/stm32mp157c-ed1.dts  | 4 ++--
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
