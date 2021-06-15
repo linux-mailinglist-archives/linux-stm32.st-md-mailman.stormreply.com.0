@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26A303A8468
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Jun 2021 17:48:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 206263A8487
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Jun 2021 17:49:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9B1EC597B0;
-	Tue, 15 Jun 2021 15:48:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC795C597B0;
+	Tue, 15 Jun 2021 15:49:29 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50773C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3E67C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Jun 2021 15:48:47 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EA1D561603;
- Tue, 15 Jun 2021 15:48:44 +0000 (UTC)
+ Tue, 15 Jun 2021 15:49:28 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7481B61864;
+ Tue, 15 Jun 2021 15:49:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623772125;
+ s=k20201202; t=1623772167;
  bh=B60Ie+OjEirDWdruJwC0k9ONKwgVsf/7BWwlQr6AOtI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=D8o9DpDlkpEwjcEhy9nrPJ2AsLBvmgfXKzuxz9lZlwDTlQPmqxlsSoNE8YOQfIGHo
- SUOMi753cnuj86tHafMUrgAMMloDsznbQD6oKQoXXybvGrHFDryCJ6n5j0fP5C36Vm
- Mty9CbEzJTcNPEu1xQK7yl3IZcy1LDj9n/KbpyQZYoQqMMSm2hdj6m2sghHGkKHDxK
- 6JjJq2VbhdcpuU5X8DdYEwxT97btfL8nyCSxADYWZ3SwKpQWTI3Gjp4IZCnVvfGhVK
- gliVQdNhk3mszkoZ2PxfOJDaw46tNa4j2Ls53XfdpPn5x3kpO802w57rm7TzYpsOm3
- M9ZBbZQf8pbPA==
+ b=bE6DHb4SQ++f39Pb2XHaX3IOqTDKdDC2ynOInAc5oNjQ27UfsVd8gakSZePPyChEG
+ SOGODuV7I2yrV78tEdp36GtkaCyji0WIlWvo+0VETPlpbOWQHW4PX3JlMXoBfTVdGA
+ WaJ6JmaIcE93PCkF18VZtS+LRpRUEURLV70CboMnrU8K83SPzCHDREVT6ZVsH6yKFT
+ annPbEMMDIujewUQuVQKW3GDcR5lZVP9IwTosBxMBWpS/kwhZjKK47p65kphyVyYyv
+ g/peHfT75R8I8nCiDBYp3pTeJW54N0Z81rFeiiVhcbfgiysx4/drI+Lvray/W1ffD0
+ r8tFW1CX0KsFQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 15 Jun 2021 11:48:08 -0400
-Message-Id: <20210615154824.62044-17-sashal@kernel.org>
+Date: Tue, 15 Jun 2021 11:48:52 -0400
+Message-Id: <20210615154908.62388-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210615154824.62044-1-sashal@kernel.org>
-References: <20210615154824.62044-1-sashal@kernel.org>
+In-Reply-To: <20210615154908.62388-1-sashal@kernel.org>
+References: <20210615154908.62388-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, Mark Brown <broonie@kernel.org>,
  linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.12 17/33] spi: stm32-qspi: Always
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 15/30] spi: stm32-qspi: Always
 	wait BUSY bit to be cleared in stm32_qspi_wait_cmd()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
