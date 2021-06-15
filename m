@@ -2,45 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7D383A84AB
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Jun 2021 17:49:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8978B3A8732
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Jun 2021 19:11:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9396AC597B1;
-	Tue, 15 Jun 2021 15:49:57 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB330C597AE;
+	Tue, 15 Jun 2021 17:11:37 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 414A8C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2B6EC58D5D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Jun 2021 15:49:55 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F2AD661929;
- Tue, 15 Jun 2021 15:49:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623772193;
- bh=9QCDooSLI5lGrufx4gMOLz7/kIWNX/cvUYTiHDEsmU4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tjefwNPz50wq0/gvxSMPLiMc0baOWvWMpQGBp4upTH4PldrUL4Ts/Qnmqd9dsxm+x
- zodUfxb/iCyB+uMdwMyg5sW58s5oQCh4PJ0YRx8toVIS3cwQY0szkOqnrDUw7Ol7I8
- SDPpB4D1LV3m28yzXszcmOAdnE+rLN8LH6IZGbYEySoeVxgj2xbnrUtg+/4zEUjNFV
- X8cWiouuWdzHfaRqfIDODKMpGkrhBJSUOo6dwh0AM5wE+57M4XMdQT2Y8djArCRcKd
- DxGqhx0W1+y0Ul1+mr5PD6rKY6zBKF+39454Y5fAVBmCJDx/0k1BbQLUcYT6zKlfqL
- 7PD3B0DXVEOYA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Tue, 15 Jun 2021 11:49:36 -0400
-Message-Id: <20210615154948.62711-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210615154948.62711-1-sashal@kernel.org>
-References: <20210615154948.62711-1-sashal@kernel.org>
+ Tue, 15 Jun 2021 17:11:36 +0000 (UTC)
+Received: from dggeml759-chm.china.huawei.com (unknown [172.30.72.53])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4G4FCC1LC6zZf6Y;
+ Wed, 16 Jun 2021 01:08:39 +0800 (CST)
+Received: from localhost.localdomain (10.175.102.38) by
+ dggeml759-chm.china.huawei.com (10.1.199.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Wed, 16 Jun 2021 01:11:33 +0800
+From: Wei Yongjun <weiyongjun1@huawei.com>
+To: <weiyongjun1@huawei.com>, =?UTF-8?q?=E5=91=A8=E7=90=B0=E6=9D=B0?=
+ <zhouyanjie@wanyeetech.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
+ <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, Jakub
+ Kicinski <kuba@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Tue, 15 Jun 2021 17:21:55 +0000
+Message-ID: <20210615172155.2839938-1-weiyongjun1@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 04/15] spi: stm32-qspi: Always
-	wait BUSY bit to be cleared in stm32_qspi_wait_cmd()
+X-Originating-IP: [10.175.102.38]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggeml759-chm.china.huawei.com (10.1.199.138)
+X-CFilter-Loop: Reflected
+Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Hulk Robot <hulkci@huawei.com>
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: Fix error return code
+	in ingenic_mac_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,51 +55,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Patrice Chotard <patrice.chotard@foss.st.com>
+Fix to return a negative error code from the error handling
+case instead of 0, as done elsewhere in this function.
 
-[ Upstream commit d38fa9a155b2829b7e2cfcf8a4171b6dd3672808 ]
-
-In U-boot side, an issue has been encountered when QSPI source clock is
-running at low frequency (24 MHz for example), waiting for TCF bit to be
-set didn't ensure that all data has been send out the FIFO, we should also
-wait that BUSY bit is cleared.
-
-To prevent similar issue in kernel driver, we implement similar behavior
-by always waiting BUSY bit to be cleared.
-
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-Link: https://lore.kernel.org/r/20210603073421.8441-1-patrice.chotard@foss.st.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 2bb4b98b60d7 ("net: stmmac: Add Ingenic SoCs MAC support.")
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
 ---
- drivers/spi/spi-stm32-qspi.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index 4e726929bb4f..ea77d915216a 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -291,7 +291,7 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
- 	int err = 0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
+index 60984c1a154d..9a6d819b84ae 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
+@@ -263,6 +263,7 @@ static int ingenic_mac_probe(struct platform_device *pdev)
+ 	mac->regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node, "mode-reg");
+ 	if (IS_ERR(mac->regmap)) {
+ 		dev_err(&pdev->dev, "%s: Failed to get syscon regmap\n", __func__);
++		ret = PTR_ERR(mac->regmap);
+ 		goto err_remove_config_dt;
+ 	}
  
- 	if (!op->data.nbytes)
--		return stm32_qspi_wait_nobusy(qspi);
-+		goto wait_nobusy;
- 
- 	if (readl_relaxed(qspi->io_base + QSPI_SR) & SR_TCF)
- 		goto out;
-@@ -312,6 +312,9 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
- out:
- 	/* clear flags */
- 	writel_relaxed(FCR_CTCF | FCR_CTEF, qspi->io_base + QSPI_FCR);
-+wait_nobusy:
-+	if (!err)
-+		err = stm32_qspi_wait_nobusy(qspi);
- 
- 	return err;
- }
--- 
-2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
