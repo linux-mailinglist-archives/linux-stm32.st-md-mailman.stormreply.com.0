@@ -2,43 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68AA43A83C4
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Jun 2021 17:15:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26A303A8468
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Jun 2021 17:48:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CE86C597B0;
-	Tue, 15 Jun 2021 15:15:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9B1EC597B0;
+	Tue, 15 Jun 2021 15:48:48 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84F65C58D5D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50773C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Jun 2021 15:15:28 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2306261601;
- Tue, 15 Jun 2021 15:15:25 +0000 (UTC)
+ Tue, 15 Jun 2021 15:48:47 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EA1D561603;
+ Tue, 15 Jun 2021 15:48:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623770126;
- bh=MYHkuK3uOLVum0xq/JwRmdO5KG2CRJaEP6NvhWxooE8=;
+ s=k20201202; t=1623772125;
+ bh=B60Ie+OjEirDWdruJwC0k9ONKwgVsf/7BWwlQr6AOtI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TPSx70679wc2SPyTAXJQTTB8qN/99EfO0JW9u82hiEOlZk/mk2Ajj6KRPrMYgPvTy
- D8sLD5KFGZ6nmWRWqDMcUnXauquzMCPTEkw7GtweMvRgcC10pNUaJERbACHXBZ5VTF
- byb47NodJuZy5YeECNhOvspv9SwipYRLohFH3gGp7zwqJOYshex5Lk5qgABCmHfUXr
- E8yIgsVmy5SVqbdpPHN1NOR81f2o61M85v65BG/GShv6W8iUM5/0sEdc1ikwz+E5Rk
- GDu6qw8xu8WRAdYaZmRYa5yoAq2/vdBYnQZcZoAnWxkKCpuNVHTREm63329dAmmmu8
- ApHmeyGMyOG8g==
-From: Mark Brown <broonie@kernel.org>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- patrice.chotard@foss.st.com
-Date: Tue, 15 Jun 2021 16:15:05 +0100
-Message-Id: <162376589204.36516.7751226518675364305.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210615090115.30702-1-patrice.chotard@foss.st.com>
-References: <20210615090115.30702-1-patrice.chotard@foss.st.com>
+ b=D8o9DpDlkpEwjcEhy9nrPJ2AsLBvmgfXKzuxz9lZlwDTlQPmqxlsSoNE8YOQfIGHo
+ SUOMi753cnuj86tHafMUrgAMMloDsznbQD6oKQoXXybvGrHFDryCJ6n5j0fP5C36Vm
+ Mty9CbEzJTcNPEu1xQK7yl3IZcy1LDj9n/KbpyQZYoQqMMSm2hdj6m2sghHGkKHDxK
+ 6JjJq2VbhdcpuU5X8DdYEwxT97btfL8nyCSxADYWZ3SwKpQWTI3Gjp4IZCnVvfGhVK
+ gliVQdNhk3mszkoZ2PxfOJDaw46tNa4j2Ls53XfdpPn5x3kpO802w57rm7TzYpsOm3
+ M9ZBbZQf8pbPA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Tue, 15 Jun 2021 11:48:08 -0400
+Message-Id: <20210615154824.62044-17-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210615154824.62044-1-sashal@kernel.org>
+References: <20210615154824.62044-1-sashal@kernel.org>
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32-qspi: Remove unused qspi field
-	of struct stm32_qspi_flash
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.12 17/33] spi: stm32-qspi: Always
+	wait BUSY bit to be cleared in stm32_qspi_wait_cmd()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,36 +57,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 15 Jun 2021 11:01:15 +0200, patrice.chotard@foss.st.com wrote:
-> Remove struct stm32_qspi_flash's field qspi which is not used.
+From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-Applied to
+[ Upstream commit d38fa9a155b2829b7e2cfcf8a4171b6dd3672808 ]
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+In U-boot side, an issue has been encountered when QSPI source clock is
+running at low frequency (24 MHz for example), waiting for TCF bit to be
+set didn't ensure that all data has been send out the FIFO, we should also
+wait that BUSY bit is cleared.
 
-Thanks!
+To prevent similar issue in kernel driver, we implement similar behavior
+by always waiting BUSY bit to be cleared.
 
-[1/1] spi: stm32-qspi: Remove unused qspi field of struct stm32_qspi_flash
-      commit: 6a5976f23dc38749afcb62cc3acf5e3e2b53d5ba
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+Link: https://lore.kernel.org/r/20210603073421.8441-1-patrice.chotard@foss.st.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/spi/spi-stm32-qspi.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index 2786470a5201..4f24f6392212 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -293,7 +293,7 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
+ 	int err = 0;
+ 
+ 	if (!op->data.nbytes)
+-		return stm32_qspi_wait_nobusy(qspi);
++		goto wait_nobusy;
+ 
+ 	if (readl_relaxed(qspi->io_base + QSPI_SR) & SR_TCF)
+ 		goto out;
+@@ -314,6 +314,9 @@ static int stm32_qspi_wait_cmd(struct stm32_qspi *qspi,
+ out:
+ 	/* clear flags */
+ 	writel_relaxed(FCR_CTCF | FCR_CTEF, qspi->io_base + QSPI_FCR);
++wait_nobusy:
++	if (!err)
++		err = stm32_qspi_wait_nobusy(qspi);
+ 
+ 	return err;
+ }
+-- 
+2.30.2
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
