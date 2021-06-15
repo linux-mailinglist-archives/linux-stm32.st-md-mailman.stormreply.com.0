@@ -2,60 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A3403A79B9
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Jun 2021 11:01:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5F3C3A81C0
+	for <lists+linux-stm32@lfdr.de>; Tue, 15 Jun 2021 16:05:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D59A2C597B0;
-	Tue, 15 Jun 2021 09:01:37 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47BF5C597B0;
+	Tue, 15 Jun 2021 14:05:04 +0000 (UTC)
+Received: from mail-il1-f177.google.com (mail-il1-f177.google.com
+ [209.85.166.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 394A0C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DEB1AC3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Jun 2021 09:01:31 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15F8wAKp026433; Tue, 15 Jun 2021 11:01:22 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=gRyTEMsNce+t9PzYkspWEzqkwLAdHR7X8GDuQzd9e78=;
- b=ZrdAg3V8aKWvXfBxHpiKTuqqFdUfCBSTW/+ytzv+pRLlOzW6osgRxzGdJEU8EEiD5bUZ
- 3+NEfP7eK2q+310FJz3H77hM6RAMXnTel2BlekFDTubE0L8JOZkBUoBRDdTjHRi7Qekd
- WXpm0ZYo5NDqogqBBoyR3l2WGM8uD2HxZjhKwE08TugLXtybD4Fd1RypCEkOEuNZ2B3Q
- YOTzp/WbL6Tp8s/+KBistXOXuBpbwb7ixMGDmlWQOqQSBYY2FVk1Ljciny2TN2eS7Yqm
- /3dGIYLUJTNU6yMbUqWWviQzP8PmYGvGrrdbGTtJvUlO6l99rh6WhdwoEi9OhdeykVxy /g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 396rb70djx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 15 Jun 2021 11:01:22 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C2D3C10002A;
- Tue, 15 Jun 2021 11:01:21 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AE4A221B300;
- Tue, 15 Jun 2021 11:01:21 +0200 (CEST)
-Received: from localhost (10.75.127.49) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 15 Jun 2021 11:01:21
- +0200
-From: <patrice.chotard@foss.st.com>
-To: Mark Brown <broonie@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Date: Tue, 15 Jun 2021 11:01:15 +0200
-Message-ID: <20210615090115.30702-1-patrice.chotard@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-06-15_04:2021-06-14,
- 2021-06-15 signatures=0
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] spi: stm32-qspi: Remove unused qspi field of
-	struct stm32_qspi_flash
+ Tue, 15 Jun 2021 14:05:01 +0000 (UTC)
+Received: by mail-il1-f177.google.com with SMTP id z1so15430593ils.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 15 Jun 2021 07:05:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=Ul7S+YmegefjytTCybJFOmbLUpYojuCju7Gxif7Sbhw=;
+ b=g/oIBxoxQw/GdQRGRaRZAHdLRQQg4wrzbXFCZWAjxpRfJPjRF/9oIKvxGq3zP2oVPs
+ QY+052itcLi5/NzmxKvv8hNBZM6HsEqSOqwrl0fA+AnuiCVrnX5mN5xJuaVCrEUm+dg9
+ V1tkrrP++bWbhBKlgBCzzKQvUu56D4hcdvg0ASiZtNJy3QIEtIC9VZLmAGnYftzWLkw0
+ ExagBhqVaoRbSBwbUrkqyB661IgigDewlVAQbyIuouwiSBdvTRU86ZN1DoxVh5My5jqj
+ V87H0Tw4LPfOY5GfqHeQTvKn1Ts6V2I6v+YNRW6N2g9F+v7pcXPfgLqQkQV49G9PwYd8
+ tyOg==
+X-Gm-Message-State: AOAM530X6L9KMWvEwn1Huu/vnKV66397EkDwspJQY/Iv8naBMtZlHcxw
+ YExb0spwl7q0G3rGvVNEBw==
+X-Google-Smtp-Source: ABdhPJxlnUeLKisaHXDilxBGNC4oZcH3BSSM4B2ikEr4N4pEw8d4AZXuCBOQPgy54qWgugEGKRfulg==
+X-Received: by 2002:a05:6e02:809:: with SMTP id
+ u9mr18073417ilm.63.1623765900676; 
+ Tue, 15 Jun 2021 07:05:00 -0700 (PDT)
+Received: from robh.at.kernel.org ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id d5sm9299257ilf.55.2021.06.15.07.04.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Jun 2021 07:04:59 -0700 (PDT)
+Received: (nullmailer pid 487355 invoked by uid 1000);
+ Tue, 15 Jun 2021 14:04:53 -0000
+From: Rob Herring <robh@kernel.org>
+To: =?utf-8?b?5ZGo55Cw5p2wIChaaG91IFlhbmppZSk=?= <zhouyanjie@wanyeetech.com>
+In-Reply-To: <1623690937-52389-2-git-send-email-zhouyanjie@wanyeetech.com>
+References: <1623690937-52389-1-git-send-email-zhouyanjie@wanyeetech.com>
+ <1623690937-52389-2-git-send-email-zhouyanjie@wanyeetech.com>
+Date: Tue, 15 Jun 2021 08:04:53 -0600
+Message-Id: <1623765893.376832.487354.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, alexandre.torgue@st.com,
+ sernia.zhou@foxmail.com, rick.tyliu@ingenic.com, dongsheng.qiu@ingenic.com,
+ sihui.liu@ingenic.com, aric.pzqi@ingenic.com, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com, kuba@kernel.org,
+ alexandre.torgue@foss.st.com, joabreu@synopsys.com,
+ linux-mediatek@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, matthias.bgg@gmail.com, peppe.cavallaro@st.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ jun.jiang@ingenic.com
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: dwmac: Add bindings
+	for new Ingenic SoCs.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,45 +69,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============3679547539169646604=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Patrice Chotard <patrice.chotard@foss.st.com>
+--===============3679547539169646604==
+Content-Type: text/plain
 
-Remove struct stm32_qspi_flash's field qspi which is not used.
+On Tue, 15 Jun 2021 01:15:36 +0800, 周琰杰 (Zhou Yanjie) wrote:
+> Add the dwmac bindings for the JZ4775 SoC, the X1000 SoC,
+> the X1600 SoC, the X1830 SoC and the X2000 SoC from Ingenic.
+> 
+> Signed-off-by: 周琰杰 (Zhou Yanjie) <zhouyanjie@wanyeetech.com>
+> ---
+> 
+> Notes:
+>     v1->v2:
+>     No change.
+> 
+>     v2->v3:
+>     Add "ingenic,mac.yaml" for Ingenic SoCs.
+> 
+>  .../devicetree/bindings/net/ingenic,mac.yaml       | 76 ++++++++++++++++++++++
+>  .../devicetree/bindings/net/snps,dwmac.yaml        | 15 +++++
+>  2 files changed, 91 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/ingenic,mac.yaml
+> 
 
-Fixes: c530cd1d9d5e ("spi: spi-mem: add stm32 qspi controller")
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
----
- drivers/spi/spi-stm32-qspi.c | 2 --
- 1 file changed, 2 deletions(-)
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index a3ff0edf3eb7..27f35aa2d746 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -93,7 +93,6 @@
- #define STM32_AUTOSUSPEND_DELAY -1
- 
- struct stm32_qspi_flash {
--	struct stm32_qspi *qspi;
- 	u32 cs;
- 	u32 presc;
- };
-@@ -593,7 +592,6 @@ static int stm32_qspi_setup(struct spi_device *spi)
- 	presc = DIV_ROUND_UP(qspi->clk_rate, spi->max_speed_hz) - 1;
- 
- 	flash = &qspi->flash[spi->chip_select];
--	flash->qspi = qspi;
- 	flash->cs = spi->chip_select;
- 	flash->presc = presc;
- 
--- 
-2.17.1
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/ingenic,mac.example.dt.yaml: ethernet@134b0000: compatible: ['ingenic,x1000-mac', 'snps,dwmac'] is too long
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/ingenic,mac.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/ingenic,mac.example.dt.yaml: ethernet@134b0000: compatible: Additional items are not allowed ('snps,dwmac' was unexpected)
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/ingenic,mac.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/ingenic,mac.example.dt.yaml: ethernet@134b0000: 'phy-mode' is a required property
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+\ndoc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1491797
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
+
+
+--===============3679547539169646604==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3679547539169646604==--
