@@ -2,113 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EF593A95BF
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jun 2021 11:15:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4CA3A9635
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jun 2021 11:32:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8D66C597B0;
-	Wed, 16 Jun 2021 09:15:30 +0000 (UTC)
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-eopbgr150040.outbound.protection.outlook.com [40.107.15.40])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24C82C597AE;
+	Wed, 16 Jun 2021 09:32:44 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3671DC597B0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A724EC58D7A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Jun 2021 09:15:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hFeqp2CZgjj8xriO/QAKBVAmeRgPGnJAV+5gvbwOoZJOHfY2XRBfyJRXzZrL/5IXZ96WIOEoCkGbi6nKx9z5W/GTeq9BM7utuWke+F6W1gy31VN8wJ2+HDKXDCC2DKJT1dR33wuT8UQo6CJtIpGxPmPjtNvzX+eFIVLSkVwheC73bCQMuMkAZ5eoRAxBF9l6obz/JO8Gjk/ZOo2G2LsOBdpusS/G9ra9oV3zBCRirls/aCyCs7Uk+E1LJakBJD+4QOrEMusI2xL/zWWqSvxVqnQpwBj4IzkmWxlGZqHeJZt4xyRAhrRTVQwGBnjXxqo89fi/KHr/LiG9XHrCuL8fww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r8r0RcEEPidCAPGUlXARw+T2Pw8jT6UwcuOajhYiiWE=;
- b=aSl4KyAaYpChmyq0K72Xb9l3vypjcstFGqkjmEwLA29rAmHiaBfzjUqO8HURzo8i3ZF6Gh5ipo9AmimUHOdZizDcfAhD/KHQL+4RYI3BkgkK48TF8pGYCBF6JPTD4fRvQbzVgAKX01uQu358TNVIV4I9aH3crswTH23t91D+3/dls2b4ZyC34mnCVcvOJjNzvD8vyWHdYc69gPVTsXun8rYZWPq4K0aITrxIIXeWqailPjIjmXmtJA4u6cL/PgAJJQC7gcq1ElOuRVCy3w7iyjT5VFWAlinqMVjymdx79mqfoDfVA+X+l+9QtD+hTFl96XNhKmufPUS+VK+pwGWgcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r8r0RcEEPidCAPGUlXARw+T2Pw8jT6UwcuOajhYiiWE=;
- b=P7MNd1lA/4M2/5NvI9TgcNLZlx0sxz6V1TbM4YWSSKlgyW4xCWkTSODvbpYfWEHO2CTDkmeQxf7SYd/ncUmCk24zo9sn9K83BlXoulQrYELZmZ6M0JHnZWomnOw7EfiDwZBE69EKIdvSkJa5q7MhM8Mog0ZK7yA8RrmqA7zYCK0=
-Authentication-Results: davemloft.net; dkim=none (message not signed)
- header.d=none;davemloft.net; dmarc=none action=none header.from=nxp.com;
-Received: from VI1PR04MB6800.eurprd04.prod.outlook.com (2603:10a6:803:133::16)
- by VI1PR04MB4735.eurprd04.prod.outlook.com (2603:10a6:803:53::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4219.22; Wed, 16 Jun
- 2021 09:15:27 +0000
-Received: from VI1PR04MB6800.eurprd04.prod.outlook.com
- ([fe80::d48b:48ed:c060:78de]) by VI1PR04MB6800.eurprd04.prod.outlook.com
- ([fe80::d48b:48ed:c060:78de%7]) with mapi id 15.20.4242.016; Wed, 16 Jun 2021
- 09:15:27 +0000
-From: Joakim Zhang <qiangqing.zhang@nxp.com>
-To: davem@davemloft.net, kuba@kernel.org, peppe.cavallaro@st.com,
- alexandre.torgue@foss.st.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com
-Date: Wed, 16 Jun 2021 17:14:26 +0800
-Message-Id: <20210616091426.13694-3-qiangqing.zhang@nxp.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210616091426.13694-1-qiangqing.zhang@nxp.com>
-References: <20210616091426.13694-1-qiangqing.zhang@nxp.com>
-X-Originating-IP: [119.31.174.71]
-X-ClientProxiedBy: SG2PR02CA0081.apcprd02.prod.outlook.com
- (2603:1096:4:90::21) To VI1PR04MB6800.eurprd04.prod.outlook.com
- (2603:10a6:803:133::16)
+ Wed, 16 Jun 2021 09:32:42 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15G9SSdo008917; Wed, 16 Jun 2021 11:32:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=4Mh82hbLJWcyFPjkRwL84Ww/o+yLB0D/vib4O8TJaSA=;
+ b=ElKDY8G6h8No/lRk7AbCCPzeV+0VBGG82cejKnDTD3znY06x6G9qaxFMBYHX9ru4Lbmb
+ l/IRC3zVq3LLYlXDRmBNJMYIJ0dAgPQONtI86ldn9EFde6cJ7NYnmBMLIEBDcK+R79iQ
+ 838Ij9Cwx3uiSwfn2L5rttsfCP7/3tgoaDk63TPx3zcHOpyi8/Mysq8qIe2U4q+pEopL
+ w9UPubu8kEX5HQ0bAplmWM2+Zwt74g+hUvCrSdc9mBn7XVctZYw2mT4t8UU5+gSzJt5q
+ L8fkvFGPJtsfd+kivhc/dM+wOngZkSD4cjZyhhaGlNwKR5mFXzkF3ALqIvsoPWVtavRu bg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 396rb77fp6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 16 Jun 2021 11:32:41 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C96B010009A;
+ Wed, 16 Jun 2021 11:30:52 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B1C0621BF7D;
+ Wed, 16 Jun 2021 11:30:52 +0200 (CEST)
+Received: from lmecxl0889.lme.st.com (10.75.127.49) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 16 Jun
+ 2021 11:30:52 +0200
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20210604091406.15901-1-arnaud.pouliquen@foss.st.com>
+ <20210604091406.15901-4-arnaud.pouliquen@foss.st.com>
+ <20210615174634.GB604521@p14s>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <b7dc5207-643b-b5e6-2bee-106b2eb87555@foss.st.com>
+Date: Wed, 16 Jun 2021 11:30:51 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (119.31.174.71) by
- SG2PR02CA0081.apcprd02.prod.outlook.com (2603:1096:4:90::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4242.18 via Frontend Transport; Wed, 16 Jun 2021 09:15:23 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a8de3302-36f4-4fde-32f5-08d930a747ae
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4735:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR04MB473570A63DAA86D1840FED06E60F9@VI1PR04MB4735.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1002;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: z+gXvn0ffG/uEF/QGvjPlMtFG9ClQ9aCwREVpuDmNhKjka2Gfgv+KNUly3rtoEwM0IU6v3BWRFqlWpcSYukhKj8tVrXqP+WZex0dxI0ntZVoFKuz77vcwty+Gk5pjCzLJvMp005xoyy37Cwhnea7NM4G7r1vfnexputXHinBzotbBfq6iKN8y39EBwIqCD39VclnH7iYihBTLxaGtpg1ITpHCQCZg5I7PCmjHfRzw14ZveVVrTDvtnMUkN85mEYVafGJYbmTs057SDeVa5AQA4660hZPLioEi68CJv4Ci4KMSCXs9qQ8CP2uojWNkBqmiyGzsvxvFh6Pmo8bTU+cMWMdbTh1ysAFaIhcI1aoG/hPlL4udl8hfywg9vz9sAFsjpP8Wn6gthGj7OudAruFWdRqu0mfoEHOc8TqAWISqn+V1iCGm1e2XcQuIcoZRN7eLdilE6eOUySsJx0vethh7PqIyPCxo5xP66kkZlYgCShd3CeysvPDxf0WhDKVyUAB0jb+7m3TGVp5if+zJzb6W7JN3eeba0Hc9uSiF7XdNX643YgAvXtnllSCRsn/HYlYCHmcR6+Trj/ORELV7j57Pv1ygYZkhWgaG+jKO+DqsDVmaTO7w+G3XYzg8hZQwzn839B4GRhExgzYmUbNKD4CPMM1It6Q0PrShxdSc1EPKgSk6bP3fSEmS0Fz02d4tdrP
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB6800.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(376002)(39860400002)(346002)(396003)(136003)(2906002)(36756003)(1076003)(186003)(38100700002)(26005)(83380400001)(16526019)(6512007)(8936002)(38350700002)(6506007)(66476007)(956004)(6486002)(86362001)(2616005)(5660300002)(8676002)(4326008)(316002)(7416002)(66946007)(478600001)(66556008)(52116002)(69590400013);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8N2ATCvVgZwkOZLS9pIVMMaxDmqYhcFzEJBXXYx3lMtgjp52S5AAGvKSZOuX?=
- =?us-ascii?Q?beLSNqJffc1qjkQS1w4nMcc+YV5CWEJZHyZDcp5nzdWf3B/BVHtdF4RIzP+9?=
- =?us-ascii?Q?U854yVyaXjsSO2imfjf2oVFQc+7Fxvolbtk2ELa8Oblj3+fGZARlOgKDvFNd?=
- =?us-ascii?Q?xjcGohWef8ln/z/Ru5RyZWBvFWL+bcL6E5lfW+7cZhSEQTyBdhUg7bAjs3an?=
- =?us-ascii?Q?vdMxH/bGuflFmT8xv+hVs0lvDIbrRWcKkk3PrIImUWb7L+Sq+Jhlhz9k1PJv?=
- =?us-ascii?Q?cY0WMPc7MeGzEFHg3GXsfenDSORUKw4W2wL/Jwn8ugZZzUl26smsI0bGYd21?=
- =?us-ascii?Q?oJ1hpfRb3aHo0qzMEzX936gLwzbb6SMJyB4/azopa5uygwdmK1myS2EvrAEM?=
- =?us-ascii?Q?YE7igBYR50O8Cq8aFAPeIqrKkWQQQfjQD+9OJuDbJigxOGx8cJIFdSIAhzxc?=
- =?us-ascii?Q?LQa9VWCvSMxMZkY1pH9uxPRL47J6RS3zfog7FqC6JKDPZzViNTFCBHJ/P6OL?=
- =?us-ascii?Q?JHXEjFtO5edVQTVpDlN1cV7tSFQnOSVwDG5Ps+hYATQFgOrZX72FHTxlLz5s?=
- =?us-ascii?Q?avEk+ePOYNrpGhGiJJzeM/rb3r30tlGLP8DNX32LXo20Exc08bwMXvPPkMcc?=
- =?us-ascii?Q?CC8mWwkawBysxjmRaEut7tVkMPyt0W46M1nHychHhrHNMYFVoa2FWko+toAB?=
- =?us-ascii?Q?aGB7QKPLJ3Vu7dYqpxpnfXZYVz6tuCNIjH5hMq9JPM1BrCqT+OIpNHziQf0L?=
- =?us-ascii?Q?5OmJPQDo14crgTdKpssRyQZHPy3/I1w0+fAuim/Q4nQTb89Mmpt2Jk3W32fC?=
- =?us-ascii?Q?4mDzPc3T5fqlxGKgfJMzkMk4pRIwV28ulVB0OEdnuk7s+Z86f1ig9xphlUlv?=
- =?us-ascii?Q?d4XISHDI1MW61tutp/3OZyYxzxkXh9onKAfdpJv2EAk8pYW6giSXcBeKgibW?=
- =?us-ascii?Q?0ZDynQySjwhwJhICjU5n+Cd8LNLBFqzm1kk6igXzHsQnTyybdQkQrEici5St?=
- =?us-ascii?Q?By0FAUWEJCivxWzWKEERbgDFM7eD147/vGpJ+2rlv6cx3KHF+L5SISlEOx3E?=
- =?us-ascii?Q?T1DOpeOPoprIGwJoH0KkmLOozbTBJOFUFqsLY9GJzQMtqAtptiKm5iOqbi7d?=
- =?us-ascii?Q?La38QrWlyf0cX7RksBxRcTef4cBOMeHgo3ql93163662924m4JatOxkccaY3?=
- =?us-ascii?Q?nxw6kYEGE0dAmIF4JU3Cn+V/PU3S0bZ1KOKF82Z+EDQDggok2PmWPZF8fVDV?=
- =?us-ascii?Q?qJ42f3HGRy9lSRlNM/W5gTWdjR6gVHUiIKHG8JaYHZYPNB/G8cLsh9qoHG87?=
- =?us-ascii?Q?6wQIjdw53s8zctXyXeqQZWkw?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8de3302-36f4-4fde-32f5-08d930a747ae
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB6800.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2021 09:15:27.2833 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JN6St/3cSKzVEMdpOAgG2g/M/M/HOFcSEpdJ4AHC1rZB3FoitzXpIsZLhTzxM0eeyDqcSMVgsTqAx0X89YA9tw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4735
-Cc: netdev@vger.kernel.org, linux-imx@nxp.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH net 2/2] net: fec_ptp: fix issue caused by
-	refactor the fec_devtype
+In-Reply-To: <20210615174634.GB604521@p14s>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
+ definitions=2021-06-16_07:2021-06-15,
+ 2021-06-16 signatures=0
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 3/4] rpmsg: ctrl: Add check on rpmsg
+ device removability from user space
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,39 +79,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit da722186f654 ("net: fec: set GPR bit on suspend by DT configuration.")
-refactor the fec_devtype, need adjust ptp driver accordingly.
 
-Fixes: da722186f654 ("net: fec: set GPR bit on suspend by DT configuration.")
-Signed-off-by: Joakim Zhang <qiangqing.zhang@nxp.com>
----
- drivers/net/ethernet/freescale/fec_ptp.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
-index 7326a0612823..d71eac7e1924 100644
---- a/drivers/net/ethernet/freescale/fec_ptp.c
-+++ b/drivers/net/ethernet/freescale/fec_ptp.c
-@@ -215,15 +215,13 @@ static u64 fec_ptp_read(const struct cyclecounter *cc)
- {
- 	struct fec_enet_private *fep =
- 		container_of(cc, struct fec_enet_private, cc);
--	const struct platform_device_id *id_entry =
--		platform_get_device_id(fep->pdev);
- 	u32 tempval;
- 
- 	tempval = readl(fep->hwp + FEC_ATIME_CTRL);
- 	tempval |= FEC_T_CTRL_CAPTURE;
- 	writel(tempval, fep->hwp + FEC_ATIME_CTRL);
- 
--	if (id_entry->driver_data & FEC_QUIRK_BUG_CAPTURE)
-+	if (fep->quirks & FEC_QUIRK_BUG_CAPTURE)
- 		udelay(1);
- 
- 	return readl(fep->hwp + FEC_ATIME);
--- 
-2.17.1
+On 6/15/21 7:46 PM, Mathieu Poirier wrote:
+> On Fri, Jun 04, 2021 at 11:14:05AM +0200, Arnaud Pouliquen wrote:
+>> Using the RPMSG_RELEASE_DEV_IOCTL is possible to remove any
+>> rpmsg device (such as the rpmsg ns or the rpmsg ctrldev).
+>>
+>> Add a new field to store the removability of the device.
+>>
+>> By default the rpmsg device can not be removed by user space. It is
+>> set to 1 by the rpmsg ctrl on RPMSG_CREATE_DEV_IOCTL request, but
+>> could also be set by an rpmsg driver during probe.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>>  drivers/rpmsg/rpmsg_ctrl.c | 17 ++++++++++++++++-
+>>  include/linux/rpmsg.h      |  2 ++
+>>  2 files changed, 18 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
+>> index cb19e32d05e1..e93c6ec49038 100644
+>> --- a/drivers/rpmsg/rpmsg_ctrl.c
+>> +++ b/drivers/rpmsg/rpmsg_ctrl.c
+>> @@ -74,6 +74,7 @@ static long rpmsg_ctrldev_ioctl(struct file *fp, unsigned int cmd,
+>>  	struct rpmsg_endpoint_info eptinfo;
+>>  	struct rpmsg_channel_info chinfo;
+>>  	struct rpmsg_device *rpdev;
+>> +	struct device *dev;
+>>  	int ret = 0;
+>>  
+>>  	if (copy_from_user(&eptinfo, argp, sizeof(eptinfo)))
+>> @@ -95,11 +96,25 @@ static long rpmsg_ctrldev_ioctl(struct file *fp, unsigned int cmd,
+>>  		if (!rpdev) {
+>>  			dev_err(&ctrldev->dev, "failed to create %s channel\n", chinfo.name);
+>>  			ret = -ENXIO;
+>> +		} else {
+>> +			/* Allow user space to release the device. */
+>> +			rpdev->us_removable = 1;
+> 
+> As a rule of thumb I try really hard to avoid introducing new flags.  In this case we
+> can attain the same result by looking at chinfo->name, chinfo->src and
+> chinfo->dst.  I would introduce a new inline function in rpmsg_internal.h,
+> something like rpmsg_chrdev_is_ctrl_dev(), and compare the specifics in chinfo
+> to rpdev->id.name, rpdev->src and rpdev->dst.  If they all match then the
+> operation is refused.
 
+Something must have escaped me, because i turn around your your proposal,
+without understand it.
+
+The "us_removable" flag is not only for the rpmsg_ctrl, but for any rpmsg device
+that have not to be released by user application. Either because there are core
+( rpmsg_ctrl, rpmsg_ns) or because a rpmsg driver don't allow to unbind its
+rpmsg devices.
+
+look to me that rpmsg_chrdev_is_ctrl_dev just prevents rpmsg ctrl to be released
+by the RPMSG_RELEASE_DEV_IOCTL.
+
+Please, could you clarify what you have in mind here?
+
+Thanks,
+Arnaud
+
+> 
+> That way we don't introduce a new flag and there is also no need to call
+> rpmsg_find_device() twice.
+
+
+
+> 
+> Thanks,
+> Mathieu
+> 
+>>  		}
+>>  		break;
+>>  
+>>  	case RPMSG_RELEASE_DEV_IOCTL:
+>> -		ret = rpmsg_release_channel(ctrldev->rpdev, &chinfo);
+>> +		dev = rpmsg_find_device(ctrldev->rpdev->dev.parent, &chinfo);
+>> +		if (!dev)
+>> +			ret =  -ENXIO;
+>> +
+>> +		/* Verify that rpmsg device removal is allowed. */
+>> +		if (!ret) {
+>> +			rpdev = to_rpmsg_device(dev);
+>> +			if (!rpdev->us_removable)
+>> +				ret = -EACCES;
+>> +		}
+>> +		if (!ret)
+>> +			ret = rpmsg_release_channel(ctrldev->rpdev, &chinfo);
+>>  		if (ret)
+>>  			dev_err(&ctrldev->dev, "failed to release %s channel (%d)\n",
+>>  				chinfo.name, ret);
+>> diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
+>> index d97dcd049f18..3642aad1a789 100644
+>> --- a/include/linux/rpmsg.h
+>> +++ b/include/linux/rpmsg.h
+>> @@ -47,6 +47,7 @@ struct rpmsg_channel_info {
+>>   * @ept: the rpmsg endpoint of this channel
+>>   * @announce: if set, rpmsg will announce the creation/removal of this channel
+>>   * @little_endian: True if transport is using little endian byte representation
+>> + * @us_removable: True if userspace application has permission to remove the rpmsg device
+>>   */
+>>  struct rpmsg_device {
+>>  	struct device dev;
+>> @@ -57,6 +58,7 @@ struct rpmsg_device {
+>>  	struct rpmsg_endpoint *ept;
+>>  	bool announce;
+>>  	bool little_endian;
+>> +	bool us_removable;
+>>  
+>>  	const struct rpmsg_device_ops *ops;
+>>  };
+>> -- 
+>> 2.17.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
