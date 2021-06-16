@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80B513AA45B
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jun 2021 21:30:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A326A3AA494
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jun 2021 21:50:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32B8FC59780;
-	Wed, 16 Jun 2021 19:30:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50C17C59780;
+	Wed, 16 Jun 2021 19:50:08 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51744C58D5D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A97FCC58D5D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Jun 2021 19:30:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 877EA61246;
- Wed, 16 Jun 2021 19:30:03 +0000 (UTC)
+ Wed, 16 Jun 2021 19:50:06 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 071C7613C2;
+ Wed, 16 Jun 2021 19:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623871803;
- bh=f9H14eCfhOjvGvGE7xKVI0N3PyCwuQDCxqlmu4asqo0=;
+ s=k20201202; t=1623873005;
+ bh=xnPGz+j4qT0oXamCndg9kIHjVv0P6tZaWNZ0E/82KsI=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=BqdBAE2TFTBgmA+TcCJvVRAPxQ352ku5ISlA1NipNhTIvt2TlDFARtlh1ViuFWgAP
- 4rQljHMoazXSpr7dt9/G4KRaw4BvPVYZDF8K836Ewun/jERwF6ZaRr0jepn9CFYjKR
- OcG6jEgkixEO33hK7qJZ96S0v43vsI/wt+8To/9j9qxFRmEOVfytsOaMZ77s5/q3/n
- qopJILBhq+8Yt2BnWoBknrFbhlA5soPPtTzLfSQVUDtSFUwQntMFmKKBlA5bcygfp8
- 2BrVwOgG1iY2SCQuMQ8SCAX6sajdXDORxZJXwifIIROrSmGE7/xkWSsnvLC/cq4wbv
- YoOoAdMkqHZKA==
+ b=QQWizqaLNhYNoTdU1Bla41FvnFND/9qLETNWx/Otdb2hthol8la3OkPqBw1tqmCC/
+ of96g9TSATu9uTSFMHmx5OcXcIgvDIzX+aOOpL7iDUJHNbc1aPBqy+01ISXbHWLzJe
+ 3TxXBuyfUBsqfliS+pnkiDpASd8BALrPzcRXn70OwxZKDitbMQnuSy2T3AwqU7oKGR
+ 3RZoB/mkIhWks2mBZRoclvQXOezD6q0vngsLnf05pwnK62AbNSOAwA9V3DLYiZzA7g
+ +k+/N/BEjow5qxxopU4UTJENEMcDrIjGrlnLV6o8mK69Mx4A/na/p1B/XVJ9CKFfsN
+ UUBmkqt98ZHcg==
 Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
  [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 7B86060A54;
- Wed, 16 Jun 2021 19:30:03 +0000 (UTC)
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 006D5609E7;
+ Wed, 16 Jun 2021 19:50:05 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <162387180350.2076.2488923511178824990.git-patchwork-notify@kernel.org>
-Date: Wed, 16 Jun 2021 19:30:03 +0000
-References: <20210616091024.13412-1-qiangqing.zhang@nxp.com>
-In-Reply-To: <20210616091024.13412-1-qiangqing.zhang@nxp.com>
+Message-Id: <162387300499.13042.8545046199906380662.git-patchwork-notify@kernel.org>
+Date: Wed, 16 Jun 2021 19:50:04 +0000
+References: <20210616091426.13694-1-qiangqing.zhang@nxp.com>
+In-Reply-To: <20210616091426.13694-1-qiangqing.zhang@nxp.com>
 To: Joakim Zhang <qiangqing.zhang@nxp.com>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
  joabreu@synopsys.com, linux-imx@nxp.com, mcoquelin.stm32@gmail.com,
  peppe.cavallaro@st.com, kuba@kernel.org, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: disable clocks in
-	stmmac_remove_config_dt()
+Subject: Re: [Linux-stm32] [PATCH net 0/2] net: fixes for fec ptp
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,22 +60,24 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This patch was applied to netdev/net.git (refs/heads/master):
+This series was applied to netdev/net.git (refs/heads/master):
 
-On Wed, 16 Jun 2021 17:10:24 +0800 you wrote:
-> Platform drivers may call stmmac_probe_config_dt() to parse dt, could
-> call stmmac_remove_config_dt() in error handing after dt parsed, so need
-> disable clocks in stmmac_remove_config_dt().
+On Wed, 16 Jun 2021 17:14:24 +0800 you wrote:
+> Small fixes for fec ptp.
 > 
-> Go through all platforms drivers which use stmmac_probe_config_dt(),
-> none of them disable clocks manually, so it's safe to disable them in
-> stmmac_remove_config_dt().
+> Fugang Duan (1):
+>   net: fec_ptp: add clock rate zero check
+> 
+> Joakim Zhang (1):
+>   net: fec_ptp: fix issue caused by refactor the fec_devtype
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] net: stmmac: disable clocks in stmmac_remove_config_dt()
-    https://git.kernel.org/netdev/net/c/8f269102baf7
+  - [net,1/2] net: fec_ptp: add clock rate zero check
+    https://git.kernel.org/netdev/net/c/cb3cefe3f3f8
+  - [net,2/2] net: fec_ptp: fix issue caused by refactor the fec_devtype
+    https://git.kernel.org/netdev/net/c/d23765646e71
 
 You are awesome, thank you!
 --
