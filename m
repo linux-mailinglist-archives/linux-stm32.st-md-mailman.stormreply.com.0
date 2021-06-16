@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 615743AA3FC
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jun 2021 21:10:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80B513AA45B
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Jun 2021 21:30:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08EB7C59780;
-	Wed, 16 Jun 2021 19:10:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32B8FC59780;
+	Wed, 16 Jun 2021 19:30:07 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF874C57B78
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51744C58D5D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Jun 2021 19:10:05 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 5AFCC611CE;
- Wed, 16 Jun 2021 19:10:03 +0000 (UTC)
+ Wed, 16 Jun 2021 19:30:04 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 877EA61246;
+ Wed, 16 Jun 2021 19:30:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1623870603;
- bh=yzlIDihKnNvjknOPU2lHi5fsnt7+4ZwDFrQLheoFmTM=;
+ s=k20201202; t=1623871803;
+ bh=f9H14eCfhOjvGvGE7xKVI0N3PyCwuQDCxqlmu4asqo0=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=BK7Xv0RRI5lUngVut4W+X4ZaK14b3J/PL77EM6Of+bwp8+3ItpIsv/1/GG5bXteDY
- c74CH+H6OXy1rFXc9UQkQs9Fu/qYRh1gBEDP050wgDUyufzNo8ZGEHDIgzO3pXaOrK
- fk4MyVp1xgRETvHE/6FUbqc2/0EbvVEOEQPZlP6a3yh1UfBgSzJAa9LVzrxQ10ScJO
- rIvfAN2aRyKiqPLX+fwODBZCzIlC7fNily+7UmE6N950kMukvZSc8Me9jJkg3BBRbz
- d9C5BYnxj+InjpZKto0du/AiHCMITx6kLBFnkdvB+ZoagK9JfnpQAYXax6pjGf5nI/
- xNpilpvP/MoXw==
+ b=BqdBAE2TFTBgmA+TcCJvVRAPxQ352ku5ISlA1NipNhTIvt2TlDFARtlh1ViuFWgAP
+ 4rQljHMoazXSpr7dt9/G4KRaw4BvPVYZDF8K836Ewun/jERwF6ZaRr0jepn9CFYjKR
+ OcG6jEgkixEO33hK7qJZ96S0v43vsI/wt+8To/9j9qxFRmEOVfytsOaMZ77s5/q3/n
+ qopJILBhq+8Yt2BnWoBknrFbhlA5soPPtTzLfSQVUDtSFUwQntMFmKKBlA5bcygfp8
+ 2BrVwOgG1iY2SCQuMQ8SCAX6sajdXDORxZJXwifIIROrSmGE7/xkWSsnvLC/cq4wbv
+ YoOoAdMkqHZKA==
 Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
  [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 4718060A54;
- Wed, 16 Jun 2021 19:10:03 +0000 (UTC)
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 7B86060A54;
+ Wed, 16 Jun 2021 19:30:03 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <162387060328.23352.18155798235650955751.git-patchwork-notify@kernel.org>
-Date: Wed, 16 Jun 2021 19:10:03 +0000
-References: <20210615172155.2839938-1-weiyongjun1@huawei.com>
-In-Reply-To: <20210615172155.2839938-1-weiyongjun1@huawei.com>
-To: Wei Yongjun <weiyongjun1@huawei.com>
-Cc: kernel-janitors@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
- zhouyanjie@wanyeetech.com, hulkci@huawei.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: Fix error return
- code in ingenic_mac_probe()
+Message-Id: <162387180350.2076.2488923511178824990.git-patchwork-notify@kernel.org>
+Date: Wed, 16 Jun 2021 19:30:03 +0000
+References: <20210616091024.13412-1-qiangqing.zhang@nxp.com>
+In-Reply-To: <20210616091024.13412-1-qiangqing.zhang@nxp.com>
+To: Joakim Zhang <qiangqing.zhang@nxp.com>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
+ joabreu@synopsys.com, linux-imx@nxp.com, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, kuba@kernel.org, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: disable clocks in
+	stmmac_remove_config_dt()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,21 +61,22 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This patch was applied to netdev/net-next.git (refs/heads/master):
+This patch was applied to netdev/net.git (refs/heads/master):
 
-On Tue, 15 Jun 2021 17:21:55 +0000 you wrote:
-> Fix to return a negative error code from the error handling
-> case instead of 0, as done elsewhere in this function.
+On Wed, 16 Jun 2021 17:10:24 +0800 you wrote:
+> Platform drivers may call stmmac_probe_config_dt() to parse dt, could
+> call stmmac_remove_config_dt() in error handing after dt parsed, so need
+> disable clocks in stmmac_remove_config_dt().
 > 
-> Fixes: 2bb4b98b60d7 ("net: stmmac: Add Ingenic SoCs MAC support.")
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+> Go through all platforms drivers which use stmmac_probe_config_dt(),
+> none of them disable clocks manually, so it's safe to disable them in
+> stmmac_remove_config_dt().
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next] net: stmmac: Fix error return code in ingenic_mac_probe()
-    https://git.kernel.org/netdev/net-next/c/61273f9d8314
+  - [net] net: stmmac: disable clocks in stmmac_remove_config_dt()
+    https://git.kernel.org/netdev/net/c/8f269102baf7
 
 You are awesome, thank you!
 --
