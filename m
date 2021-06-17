@@ -2,59 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AF7C3AB0A8
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Jun 2021 11:58:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B513AB123
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Jun 2021 12:15:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33D1EC597B0;
-	Thu, 17 Jun 2021 09:58:44 +0000 (UTC)
-Received: from lb1-smtp-cloud8.xs4all.net (lb1-smtp-cloud8.xs4all.net
- [194.109.24.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82D86C59780;
+	Thu, 17 Jun 2021 10:15:27 +0000 (UTC)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8019AC59780
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C34D7C58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Jun 2021 09:58:42 +0000 (UTC)
-Received: from cust-b5b5937f ([IPv6:fc0c:c16d:66b8:757f:c639:739b:9d66:799d])
- by smtp-cloud8.xs4all.net with ESMTPA
- id tonGl2mJvhqlttonJl047h; Thu, 17 Jun 2021 11:58:42 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xs4all.nl; s=s2;
- t=1623923922; bh=4+0emTt2Q486IcW98DZFNRVvjUg3qd0S7NWvP8SHwNQ=;
- h=Subject:To:From:Message-ID:Date:MIME-Version:Content-Type:From:
- Subject;
- b=QezLtQe8VjcOU5spwRQxV0zjw4C+bBirjEmJeIM5iQ6sTWtdelLkAm+cYPUvleoS9
- wU64tQZTNEyxJOfw9reO7Xarq36BXgTbAnUw+g3OukJB42KMi54hwztmw5xPXrreSw
- ly85lxBu3fWyN6hkpzwFcFkg0nD6H4FhZFusQa3riRE4RAasPItkzRjtJ1dhscxk+h
- Wxs+U1jDQ0fXufV19IgvO0qprxFh+4VqPlKtZQAMqAUQxd7iZwV1pKNVZzVld4/35o
- tRML2kgauwbzGvxcwTgc33f2ZSj7SPZZNZOdQyPlL3Oo+9W+46JjWWRatpSCRut2kH
- a32xBDC16GwSg==
-To: dillon.minfei@gmail.com, mchehab@kernel.org, mchehab+huawei@kernel.org,
- ezequiel@collabora.com, gnurou@gmail.com, pihsun@chromium.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- mturquette@baylibre.com, sboyd@kernel.org, robh+dt@kernel.org
-References: <1621508727-24486-1-git-send-email-dillon.minfei@gmail.com>
- <1621508727-24486-7-git-send-email-dillon.minfei@gmail.com>
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Message-ID: <d9d2a893-a159-1681-866f-e905609ce9d0@xs4all.nl>
-Date: Thu, 17 Jun 2021 11:58:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.10.0
+ Thu, 17 Jun 2021 10:15:24 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id d9so2519183ioo.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 17 Jun 2021 03:15:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=KGL/4St8CT2Ac963azeQRyk+IlITL+qEpVPNlHM/37o=;
+ b=bKwHB0IKV5OjeMW4X7r3ZB08hgO7efxr9ryo6e32en43D2rUiBX017lGE/UFlz1grh
+ U/qx4ESV7D/TSrZHIw6iYvTxd4GeVbV1uwkabZhjNnIiDC19As3hxCeiM9Qa9YbGYyzs
+ Dfq/20Vh27eRY6FV06PXE+/eL+23GBwPZYUJkj9ObL++f8+NmIaG8iKsUArb+pNpE18c
+ F2zmJy29m2PkjPXFhXUru6Mgr2GD/rdx0QvLK3dkvTYCLK1SCrr6Pwfh2MBaKYaSYFLp
+ pSnqxRj/umVc/AWGsRizGiharAiQBsnWIUrCnLPRAfEXP/O9onaDzwhJeC0ttSCuW47A
+ mX+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=KGL/4St8CT2Ac963azeQRyk+IlITL+qEpVPNlHM/37o=;
+ b=H7RDr01mXk3MXUrLZrRuCeXoHf2wNRMN6qg+nB0SNTmsAgPQOhoTEdMM7Jc0dt7yGe
+ xZiZZj09NxpsgMSQULprH7clfTJ+a4r1EQgaHxaSM8YQ81FU6PW7ASNMYziC7CdruQNC
+ 3dP+uNC5vpOfN0DmFMb0iazOrpuSv9gylv2FR4qEC7rAZUzFTRWKAVMyq+GUIHb1fQ1/
+ BefxoYYXRMlQ08hJvleiQ4Thu9c6hIaJ4To2VoO5uRhHyNf71p63XKpJypn0BscLYXpt
+ BGCoy1HqC4h5V1zBplaEeGYwYNKwqrgOwCdwV1qe+BSV/iV4YOBQlA0QldupeCQ5haCk
+ WiAg==
+X-Gm-Message-State: AOAM531xxN1MSGk+Ev4bP+BcftDwBS3Ej5UuIvLO4l1gS080Oug/B90o
+ lTeC2XeoaWEYLo4/I2xNHcME9S9/d9X4ZiM5jG8=
+X-Google-Smtp-Source: ABdhPJzbB+2xozr5c3nEbDgidEIonumRpZapZoSLiEZmV8b80pA0Y6QT5+aRwOkO+0YwvNKs3B2sbAuiL7VqpUym2fM=
+X-Received: by 2002:a02:5b45:: with SMTP id g66mr3970817jab.62.1623924923627; 
+ Thu, 17 Jun 2021 03:15:23 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1621508727-24486-7-git-send-email-dillon.minfei@gmail.com>
-Content-Language: en-US
-X-CMAE-Envelope: MS4xfOlFbTk5W6IXkthnVtXy0IVODJJ0n676wOK03ANA/pMCzttcMjnZO498HSGDhrBV854jtnT690I6OQ3DFUdNRB7MAf6/5d45kK6urNVMrTqYMDOoY2f4
- mTehocGmyXrYZD+hk/9MOD3nCBGTWxadphi2I1JeXzbhugc/ytf63xCz1xWR343Ldp5YOAXspneBmoFxcd5g4GWJDmqpjwlP4Ya8fc9oeG5bWTDX/RIIJuGS
- paVgw3GFhmknu7aclVxNxK0AgrywZnTHtu41gJtOJoN9rCtAhEcqRy7/ng0cTphkZbocbONGRX7ow1tb+m3CpG+QVpfYTt+oDXMmEpS/zT2hBVCwR0Qv4a1z
- EZLobIQmFQ61BqIRSEezvXWLQcMVbETn7G/cTsBRTV60Xr72YQJ+4MPG6lVh38CgZx1KNLr6z6nMOy+CONdj/9cRJzYLOp/5P54/X76MR9jILCgIrXCAWZBq
- 3v0EwSlPVadZtbCh5A4vWB4KRCJZb29sBY1Xyh5oG1sWiOlZfZoJ7dICJShoTYNhL0UxqTIVteUVdjeKjMTaanQiv8shnVGtl8Ox7kKEGxMkiqrgaf639Wkc
- UegHoaHNKB4jtrPBJOxSAH26Egf7VDkPk9RGUE2KfFLdNaKzwiVFhqb4sZ1C7/MCDXk6NoTuCWkHEGbEQxwQX+BGweExdYLA7Fhh/Yds3DVhm77F5fVl0UAw
- JeOf1wOLQqjLzeITKCCCMMFNASv5L8VronMQwyqx1LUPnpev2glSAwsaYYjkCgamFEf4SptA5vF73jNAN5PHLNEVb4vbzyOa1NCPv07Du8M4mHX8umtHBNeE
- By7tiTIMsCcsqht+ISo3Z3fJllz/Ou0qWTl22s4J1GXAU2rDzHUGx5qLBWAd9w==
-Cc: devicetree@vger.kernel.org, hugues.fruchet@foss.st.com,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 6/7] media: v4l2-mem2mem: add
- v4l2_m2m_get_unmapped_area for no-mmu platform
+References: <1621508727-24486-1-git-send-email-dillon.minfei@gmail.com>
+ <1621508727-24486-2-git-send-email-dillon.minfei@gmail.com>
+ <0f3145ce-3a01-3a77-2b65-85450bf9d920@xs4all.nl>
+In-Reply-To: <0f3145ce-3a01-3a77-2b65-85450bf9d920@xs4all.nl>
+From: Dillon Min <dillon.minfei@gmail.com>
+Date: Thu, 17 Jun 2021 18:14:47 +0800
+Message-ID: <CAL9mu0KeZ9Fq5wN-jJwK5S94N0qPXmsENtZXUx-KfjWxNjjecw@mail.gmail.com>
+To: Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
+ Alexandre TORGUE <Alexandre.torgue@foss.st.com>
+Cc: gnurou@gmail.com, Pi-Hsun Shih <pihsun@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, mchehab+huawei@kernel.org,
+ hugues.fruchet@foss.st.com, Michael Turquette <mturquette@baylibre.com>,
+ linux-clk <linux-clk@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Stephen Boyd <sboyd@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, ezequiel@collabora.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ linux-media <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 1/7] media: admin-guide: add stm32-dma2d
+	description
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,93 +77,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 20/05/2021 13:05, dillon.minfei@gmail.com wrote:
-> From: Dillon Min <dillon.minfei@gmail.com>
-> 
-> For platforms without MMU the m2m provides a helper method
-> v4l2_m2m_get_unmapped_area(), The mmap() routines will call
-> this to get a proposed address for the mapping.
-> 
-> More detailed information about get_unmapped_area can be found in
-> Documentation/nommu-mmap.txt
-
-I'm getting checkpatch.pl --strict warnings:
-
-CHECK: Alignment should match open parenthesis
-#31: FILE: drivers/media/v4l2-core/v4l2-mem2mem.c:971:
-+unsigned long v4l2_m2m_get_unmapped_area(struct file *file, unsigned long addr,
-+               unsigned long len, unsigned long pgoff, unsigned long flags)
-
-CHECK: Alignment should match open parenthesis
-#62: FILE: include/media/v4l2-mem2mem.h:500:
-+unsigned long v4l2_m2m_get_unmapped_area(struct file *file, unsigned long addr,
-+               unsigned long len, unsigned long pgoff, unsigned long flags);
-
-Regards,
-
-	Hans
-
-> 
-> Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
-> ---
->  drivers/media/v4l2-core/v4l2-mem2mem.c | 20 ++++++++++++++++++++
->  include/media/v4l2-mem2mem.h           |  4 ++++
->  2 files changed, 24 insertions(+)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-> index e7f4bf5bc8dd..f82a18ecab2f 100644
-> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-> @@ -966,6 +966,26 @@ int v4l2_m2m_mmap(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
->  }
->  EXPORT_SYMBOL(v4l2_m2m_mmap);
->  
-> +#ifndef CONFIG_MMU
-> +unsigned long v4l2_m2m_get_unmapped_area(struct file *file, unsigned long addr,
-> +		unsigned long len, unsigned long pgoff, unsigned long flags)
-> +{
-> +	struct v4l2_fh *fh = file->private_data;
-> +	unsigned long offset = pgoff << PAGE_SHIFT;
-> +	struct vb2_queue *vq;
-> +
-> +	if (offset < DST_QUEUE_OFF_BASE) {
-> +		vq = v4l2_m2m_get_src_vq(fh->m2m_ctx);
-> +	} else {
-> +		vq = v4l2_m2m_get_dst_vq(fh->m2m_ctx);
-> +		pgoff -= (DST_QUEUE_OFF_BASE >> PAGE_SHIFT);
-> +	}
-> +
-> +	return vb2_get_unmapped_area(vq, addr, len, pgoff, flags);
-> +}
-> +EXPORT_SYMBOL_GPL(v4l2_m2m_get_unmapped_area);
-> +#endif
-> +
->  #if defined(CONFIG_MEDIA_CONTROLLER)
->  void v4l2_m2m_unregister_media_controller(struct v4l2_m2m_dev *m2m_dev)
->  {
-> diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
-> index 5a91b548ecc0..91269227c265 100644
-> --- a/include/media/v4l2-mem2mem.h
-> +++ b/include/media/v4l2-mem2mem.h
-> @@ -495,6 +495,10 @@ __poll_t v4l2_m2m_poll(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
->  int v4l2_m2m_mmap(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
->  		  struct vm_area_struct *vma);
->  
-> +#ifndef CONFIG_MMU
-> +unsigned long v4l2_m2m_get_unmapped_area(struct file *file, unsigned long addr,
-> +		unsigned long len, unsigned long pgoff, unsigned long flags);
-> +#endif
->  /**
->   * v4l2_m2m_init() - initialize per-driver m2m data
->   *
-> 
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgSGFucwoKVGhhbmtzIGZvciB5b3VyIHJldmlldyBvbiBteSBjb2RlLgoKT24gVGh1LCBKdW4g
+MTcsIDIwMjEgYXQgNTo1NiBQTSBIYW5zIFZlcmt1aWwgPGh2ZXJrdWlsLWNpc2NvQHhzNGFsbC5u
+bD4gd3JvdGU6Cj4KPiBPbiAyMC8wNS8yMDIxIDEzOjA1LCBkaWxsb24ubWluZmVpQGdtYWlsLmNv
+bSB3cm90ZToKPiA+IEZyb206IERpbGxvbiBNaW4gPGRpbGxvbi5taW5mZWlAZ21haWwuY29tPgo+
+ID4KPiA+IGFkZCBzdG0zMi1kbWEyZCBkZXNjcmlwdGlvbiBmb3IgZG1hMmQgZHJpdmVyCj4gPgo+
+ID4gU2lnbmVkLW9mZi1ieTogRGlsbG9uIE1pbiA8ZGlsbG9uLm1pbmZlaUBnbWFpbC5jb20+Cj4g
+PiAtLS0KPiA+ICBEb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL21lZGlhL3BsYXRmb3JtLWNhcmRs
+aXN0LnJzdCB8IDEgKwo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQo+ID4KPiA+
+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL21lZGlhL3BsYXRmb3JtLWNh
+cmRsaXN0LnJzdCBiL0RvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvbWVkaWEvcGxhdGZvcm0tY2Fy
+ZGxpc3QucnN0Cj4gPiBpbmRleCAyNjFlNzc3MmViM2UuLmFjNzNjNDE2NmQxZSAxMDA2NDQKPiA+
+IC0tLSBhL0RvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvbWVkaWEvcGxhdGZvcm0tY2FyZGxpc3Qu
+cnN0Cj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL21lZGlhL3BsYXRmb3JtLWNh
+cmRsaXN0LnJzdAo+ID4gQEAgLTYwLDYgKzYwLDcgQEAgczVwLW1mYyAgICAgICAgICAgIFNhbXN1
+bmcgUzVQIE1GQyBWaWRlbyBDb2RlYwo+ID4gIHNoX3ZldSAgICAgICAgICAgICBTdXBlckggVkVV
+IG1lbTJtZW0gdmlkZW8gcHJvY2Vzc2luZwo+ID4gIHNoX3ZvdSAgICAgICAgICAgICBTdXBlckgg
+Vk9VIHZpZGVvIG91dHB1dAo+ID4gIHN0bTMyLWRjbWkgICAgICAgICBTVE0zMiBEaWdpdGFsIENh
+bWVyYSBNZW1vcnkgSW50ZXJmYWNlIChEQ01JKQo+ID4gK3N0bTMyLWRtYTJkICAgICAgICBTVE0z
+MiBDaHJvbS1BcnQgQWNjZWxlcmF0b3IgVW5pdAo+Cj4gSSBoYXZlIHRvIGFzazogaXQgaXMgcmVh
+bGx5ICdDaHJvbS1BcnQnIGFuZCBub3QgQ2hyb21lLUFydCBvciBDaG9tYS1BcnQ/CgpZZXMsIEkg
+anVzdCBkb3VibGUgY2hlY2tlZCBpdCBmcm9tIFsxXSwgaXQncyByZWFsbHkgJ0Nocm9tLUFydCcg
+OikKaXQncyBzaG91bGQgbm90IGJlIGFuIHNwZWxsaW5nIG1pc3Rha2UsIGkgY2hlY2sgdGhlIHNv
+YydzIGRhdGFzaGVldCwKcmVmZXJlbmNlIE1hbnVlbCwgYWxsIHVzZWQgJ0Nocm9tLUFydCcuCgou
+Li4KR3JhcGhpY3MKCkNocm9tLUFSVCBBY2NlbGVyYXRvcuKEoiAoRE1BMkQpLCBncmFwaGljYWwg
+aGFyZHdhcmUgYWNjZWxlcmF0b3IKZW5hYmxpbmcgZW5oYW5jZWQgZ3JhcGhpY2FsIHVzZXIgaW50
+ZXJmYWNlIHdpdGggbWluaW11bSBDUFUgbG9hZAouLi4KCgpbMV0gaHR0cHM6Ly93d3cuc3QuY29t
+L2VuL21pY3JvY29udHJvbGxlcnMtbWljcm9wcm9jZXNzb3JzL3N0bTMyZjQ2OW5pLmh0bWwKClRo
+YW5rcy4KCkJlc3QgUmVnYXJkcwpEaWxsb24KCj4KPiBJdCdzIHByb2JhYmx5IGNvcnJlY3QsIGJ1
+dCBJIGhhdmUgdG8gY2hlY2sgdGhpcyA6LSkKPgo+IFJlZ2FyZHMsCj4KPiAgICAgICAgIEhhbnMK
+Pgo+ID4gIHN1bjRpLWNzaSAgICAgICAgICBBbGx3aW5uZXIgQTEwIENNT1MgU2Vuc29yIEludGVy
+ZmFjZSBTdXBwb3J0Cj4gPiAgc3VuNmktY3NpICAgICAgICAgIEFsbHdpbm5lciBWM3MgQ2FtZXJh
+IFNlbnNvciBJbnRlcmZhY2UKPiA+ICBzdW44aS1kaSAgICAgICAgICAgQWxsd2lubmVyIERlaW50
+ZXJsYWNlCj4gPgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
