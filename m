@@ -2,49 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53D283AB694
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Jun 2021 16:55:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8475E3AB6C2
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Jun 2021 17:01:57 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C6EAC597AF;
-	Thu, 17 Jun 2021 14:55:43 +0000 (UTC)
-Received: from out30-131.freemail.mail.aliyun.com
- (out30-131.freemail.mail.aliyun.com [115.124.30.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39E44C597AE;
+	Thu, 17 Jun 2021 15:01:57 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B198C59780
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F7B8C58D5D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Jun 2021 14:55:40 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=xuanzhuo@linux.alibaba.com;
- NM=1; PH=DS; RN=22; SR=0; TI=SMTPD_---0UcjwG.G_1623941735; 
-Received: from localhost(mailfrom:xuanzhuo@linux.alibaba.com
- fp:SMTPD_---0UcjwG.G_1623941735) by smtp.aliyun-inc.com(127.0.0.1);
- Thu, 17 Jun 2021 22:55:35 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-To: bpf@vger.kernel.org,
-	netdev@vger.kernel.org
-Date: Thu, 17 Jun 2021 22:55:34 +0800
-Message-Id: <20210617145534.101458-1-xuanzhuo@linux.alibaba.com>
-X-Mailer: git-send-email 2.31.0
+ Thu, 17 Jun 2021 15:01:51 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9029F6113E;
+ Thu, 17 Jun 2021 15:01:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1623942110;
+ bh=syZJZA6AiFXTfA5Kku0tqi/215ifUvvmL7TjrjU9VjU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Cx3WU0KdGMt/U2Y8hhk/VDOEd3hdXveR1n9wgR3io3a0Zn0OebqZZgkdUsY3JinlD
+ m4A89dIpspVDIrjlCNgcFZgFt4BM2IWhUOihH80inMR+tbdX/LgLRFiVS4fLzfjExH
+ bxuqszWSMzTLXXT2Gf7neO53EK5eMcbgErNPyqs28DARd9i4Q/MjtAsTU+tj8ARCnS
+ ODBZPLMqWJG1sGnK925teM75T4eDYiPWGRtBLbprXUbZc2fKAIvIRRL887rHvMJHlU
+ 1yIH8WwW7q39PXJi+rUu9/lCtjLr1+fACWtyEG3J3Aakx0Ond8QYPoONx+pW6JNsm/
+ crfcQlPPOUnBw==
+From: Mark Brown <broonie@kernel.org>
+To: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Yang Yingliang <yangyingliang@huawei.com>, alsa-devel@alsa-project.org
+Date: Thu, 17 Jun 2021 16:01:16 +0100
+Message-Id: <162394075660.19104.17632705011154431628.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210617043847.1113092-1-yangyingliang@huawei.com>
+References: <20210617043847.1113092-1-yangyingliang@huawei.com>
 MIME-Version: 1.0
-Cc: Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Alexei Starovoitov <ast@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Krzysztof Kazimierczak <krzysztof.kazimierczak@intel.com>,
- John Fastabend <john.fastabend@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Jeff Kirsher <jeffrey.t.kirsher@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- intel-wired-lan@lists.osuosl.org, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2] xdp,
-	net: fix for construct skb by xdp inside xsk zc rx
+Cc: Mark Brown <broonie@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH -next 0/3] ASoC: stm32: Use
+	devm_platform_get_and_ioremap_resource()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,197 +53,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When each driver supports xsk rx, if the received buff returns XDP_PASS
-after run xdp prog, it must construct skb based on xdp. This patch
-extracts this logic into a public function xdp_construct_skb().
+On Thu, 17 Jun 2021 12:38:44 +0800, Yang Yingliang wrote:
+> Use devm_platform_get_and_ioremap_resource() to simplify
+> code.
+> 
+> Yang Yingliang (3):
+>   ASoC: stm32: i2s: Use devm_platform_get_and_ioremap_resource()
+>   ASoC: stm32: sai: Use devm_platform_get_and_ioremap_resource()
+>   ASoC: stm32: spdifrx: Use devm_platform_get_and_ioremap_resource()
+> 
+> [...]
 
-There is a bug in the original logic. When constructing skb, we should
-copy the meta information to skb and then use __skb_pull() to correct
-the data.
+Applied to
 
-Fixes: 0a714186d3c0f ("i40e: add AF_XDP zero-copy Rx support")
-Fixes: 2d4238f556972 ("ice: Add support for AF_XDP")
-Fixes: bba2556efad66 ("net: stmmac: Enable RX via AF_XDP zero-copy")
-Fixes: d0bcacd0a1309 ("ixgbe: add AF_XDP zero-copy Rx support")
-Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
----
- drivers/net/ethernet/intel/i40e/i40e_xsk.c    | 16 +---------
- drivers/net/ethernet/intel/ice/ice_xsk.c      | 12 +-------
- drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c  | 12 +-------
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 23 +-------------
- include/net/xdp.h                             | 30 +++++++++++++++++++
- 5 files changed, 34 insertions(+), 59 deletions(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/drivers/net/ethernet/intel/i40e/i40e_xsk.c b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-index 68f177a86403..81b0f44eedda 100644
---- a/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-+++ b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-@@ -246,23 +246,9 @@ bool i40e_alloc_rx_buffers_zc(struct i40e_ring *rx_ring, u16 count)
- static struct sk_buff *i40e_construct_skb_zc(struct i40e_ring *rx_ring,
- 					     struct xdp_buff *xdp)
- {
--	unsigned int metasize = xdp->data - xdp->data_meta;
--	unsigned int datasize = xdp->data_end - xdp->data;
- 	struct sk_buff *skb;
- 
--	/* allocate a skb to store the frags */
--	skb = __napi_alloc_skb(&rx_ring->q_vector->napi,
--			       xdp->data_end - xdp->data_hard_start,
--			       GFP_ATOMIC | __GFP_NOWARN);
--	if (unlikely(!skb))
--		goto out;
--
--	skb_reserve(skb, xdp->data - xdp->data_hard_start);
--	memcpy(__skb_put(skb, datasize), xdp->data, datasize);
--	if (metasize)
--		skb_metadata_set(skb, metasize);
--
--out:
-+	skb = xdp_construct_skb(xdp, &rx_ring->q_vector->napi);
- 	xsk_buff_free(xdp);
- 	return skb;
- }
-diff --git a/drivers/net/ethernet/intel/ice/ice_xsk.c b/drivers/net/ethernet/intel/ice/ice_xsk.c
-index a1f89ea3c2bd..f95e1adcebda 100644
---- a/drivers/net/ethernet/intel/ice/ice_xsk.c
-+++ b/drivers/net/ethernet/intel/ice/ice_xsk.c
-@@ -430,22 +430,12 @@ static void ice_bump_ntc(struct ice_ring *rx_ring)
- static struct sk_buff *
- ice_construct_skb_zc(struct ice_ring *rx_ring, struct ice_rx_buf *rx_buf)
- {
--	unsigned int metasize = rx_buf->xdp->data - rx_buf->xdp->data_meta;
--	unsigned int datasize = rx_buf->xdp->data_end - rx_buf->xdp->data;
--	unsigned int datasize_hard = rx_buf->xdp->data_end -
--				     rx_buf->xdp->data_hard_start;
- 	struct sk_buff *skb;
- 
--	skb = __napi_alloc_skb(&rx_ring->q_vector->napi, datasize_hard,
--			       GFP_ATOMIC | __GFP_NOWARN);
-+	skb = xdp_construct_skb(rx_buf->xdp, &rx_ring->q_vector->napi);
- 	if (unlikely(!skb))
- 		return NULL;
- 
--	skb_reserve(skb, rx_buf->xdp->data - rx_buf->xdp->data_hard_start);
--	memcpy(__skb_put(skb, datasize), rx_buf->xdp->data, datasize);
--	if (metasize)
--		skb_metadata_set(skb, metasize);
--
- 	xsk_buff_free(rx_buf->xdp);
- 	rx_buf->xdp = NULL;
- 	return skb;
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c
-index f72d2978263b..123945832c96 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c
-@@ -203,22 +203,12 @@ bool ixgbe_alloc_rx_buffers_zc(struct ixgbe_ring *rx_ring, u16 count)
- static struct sk_buff *ixgbe_construct_skb_zc(struct ixgbe_ring *rx_ring,
- 					      struct ixgbe_rx_buffer *bi)
- {
--	unsigned int metasize = bi->xdp->data - bi->xdp->data_meta;
--	unsigned int datasize = bi->xdp->data_end - bi->xdp->data;
- 	struct sk_buff *skb;
- 
--	/* allocate a skb to store the frags */
--	skb = __napi_alloc_skb(&rx_ring->q_vector->napi,
--			       bi->xdp->data_end - bi->xdp->data_hard_start,
--			       GFP_ATOMIC | __GFP_NOWARN);
-+	skb = xdp_construct_skb(bi->xdp, &rx_ring->q_vector->napi);
- 	if (unlikely(!skb))
- 		return NULL;
- 
--	skb_reserve(skb, bi->xdp->data - bi->xdp->data_hard_start);
--	memcpy(__skb_put(skb, datasize), bi->xdp->data, datasize);
--	if (metasize)
--		skb_metadata_set(skb, metasize);
--
- 	xsk_buff_free(bi->xdp);
- 	bi->xdp = NULL;
- 	return skb;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c87202cbd3d6..143ac1edb876 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4729,27 +4729,6 @@ static void stmmac_finalize_xdp_rx(struct stmmac_priv *priv,
- 		xdp_do_flush();
- }
- 
--static struct sk_buff *stmmac_construct_skb_zc(struct stmmac_channel *ch,
--					       struct xdp_buff *xdp)
--{
--	unsigned int metasize = xdp->data - xdp->data_meta;
--	unsigned int datasize = xdp->data_end - xdp->data;
--	struct sk_buff *skb;
--
--	skb = __napi_alloc_skb(&ch->rxtx_napi,
--			       xdp->data_end - xdp->data_hard_start,
--			       GFP_ATOMIC | __GFP_NOWARN);
--	if (unlikely(!skb))
--		return NULL;
--
--	skb_reserve(skb, xdp->data - xdp->data_hard_start);
--	memcpy(__skb_put(skb, datasize), xdp->data, datasize);
--	if (metasize)
--		skb_metadata_set(skb, metasize);
--
--	return skb;
--}
--
- static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
- 				   struct dma_desc *p, struct dma_desc *np,
- 				   struct xdp_buff *xdp)
-@@ -4761,7 +4740,7 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
- 	struct sk_buff *skb;
- 	u32 hash;
- 
--	skb = stmmac_construct_skb_zc(ch, xdp);
-+	skb = xdp_construct_skb(xdp, &ch->rxtx_napi);
- 	if (!skb) {
- 		priv->dev->stats.rx_dropped++;
- 		return;
-diff --git a/include/net/xdp.h b/include/net/xdp.h
-index a5bc214a49d9..561e21eaf718 100644
---- a/include/net/xdp.h
-+++ b/include/net/xdp.h
-@@ -95,6 +95,36 @@ xdp_prepare_buff(struct xdp_buff *xdp, unsigned char *hard_start,
- 	xdp->data_meta = meta_valid ? data : data + 1;
- }
- 
-+static __always_inline struct sk_buff *
-+xdp_construct_skb(struct xdp_buff *xdp, struct napi_struct *napi)
-+{
-+	unsigned int metasize;
-+	unsigned int datasize;
-+	unsigned int headroom;
-+	struct sk_buff *skb;
-+	unsigned int len;
-+
-+	/* this include metasize */
-+	datasize = xdp->data_end  - xdp->data_meta;
-+	metasize = xdp->data      - xdp->data_meta;
-+	headroom = xdp->data_meta - xdp->data_hard_start;
-+	len      = xdp->data_end  - xdp->data_hard_start;
-+
-+	/* allocate a skb to store the frags */
-+	skb = __napi_alloc_skb(napi, len, GFP_ATOMIC | __GFP_NOWARN);
-+	if (unlikely(!skb))
-+		return NULL;
-+
-+	skb_reserve(skb, headroom);
-+	memcpy(__skb_put(skb, datasize), xdp->data_meta, datasize);
-+	if (metasize) {
-+		__skb_pull(skb, metasize);
-+		skb_metadata_set(skb, metasize);
-+	}
-+
-+	return skb;
-+}
-+
- /* Reserve memory area at end-of data area.
-  *
-  * This macro reserves tailroom in the XDP buffer by limiting the
--- 
-2.31.0
+Thanks!
 
+[1/3] ASoC: stm32: i2s: Use devm_platform_get_and_ioremap_resource()
+      commit: 2f1776691978dfab30717548ffec0f3fa4ad0981
+[2/3] ASoC: stm32: sai: Use devm_platform_get_and_ioremap_resource()
+      commit: 003ee640abaeeaa7d11f931e5bb86bdc4becb594
+[3/3] ASoC: stm32: spdifrx: Use devm_platform_get_and_ioremap_resource()
+      commit: f3babad47e0db3daec301975b46de5bfadc15dd4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
