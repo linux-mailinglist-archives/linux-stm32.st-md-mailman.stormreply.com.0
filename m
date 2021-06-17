@@ -2,49 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 081823AB5BC
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Jun 2021 16:21:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B7FA3AB65E
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Jun 2021 16:46:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73992C597AE;
-	Thu, 17 Jun 2021 14:21:18 +0000 (UTC)
-Received: from out30-57.freemail.mail.aliyun.com
- (out30-57.freemail.mail.aliyun.com [115.124.30.57])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C737FC597AF;
+	Thu, 17 Jun 2021 14:46:47 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A1C6C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADE45C58D5D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Jun 2021 14:21:15 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R971e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04420; MF=xuanzhuo@linux.alibaba.com;
- NM=1; PH=DS; RN=23; SR=0; TI=SMTPD_---0Ucjv27X_1623939670; 
-Received: from localhost(mailfrom:xuanzhuo@linux.alibaba.com
- fp:SMTPD_---0Ucjv27X_1623939670) by smtp.aliyun-inc.com(127.0.0.1);
- Thu, 17 Jun 2021 22:21:11 +0800
-MIME-Version: 1.0
-Message-Id: <1623939489.313177-1-xuanzhuo@linux.alibaba.com>
-Date: Thu, 17 Jun 2021 22:18:09 +0800
-From: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-In-Reply-To: <20210617130948.GA20486@ranger.igk.intel.com>
-X-Mailing-List: netdev@vger.kernel.org
-Cc: Krzysztof Kazimierczak <krzysztof.kazimierczak@intel.com>,
- Alexei Starovoitov <ast@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Jesse Brandeburg <jesse.brandeburg@intel.com>, maximmi@nvidia.com,
- Jose Abreu <joabreu@synopsys.com>, intel-wired-lan@lists.osuosl.org,
- Jeff Kirsher <jeffrey.t.kirsher@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
+ Thu, 17 Jun 2021 14:46:46 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15HEgZlG011624; Thu, 17 Jun 2021 16:46:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=9eAIH/c1C9SoJMJkgfe4NdUCCQ+ZQVB7bmyQrk0Sfcs=;
+ b=pubXGlpDeccznFIc17ANWReKErIUzfdXf8xl5diEzX9w3eSTosaoF6+Hv+k6sozjgUU0
+ kRPe0KSZ+a17fM6RMQ+HTcc/+WTLiHRcKM5amQxJT8ev4OfmKuqaIGoIVX+rp6winWQ2
+ AWJsEZJame4sXpwtpI/apPkq2kXm+5kyljeIXCD60YoBJ3vGDXSYXB8wZUjLZYtOYO8W
+ hNLG1qzepspXNaA56LssfzzYoWAD0ZEfshz6x5Wb9VabVDc1z6nDQjxYeDTXFpYBOdF/
+ 5lj1v+hiJkMRiwWxSM7S62T1Lm0qS5Z5VpuoiaWOmjYjz9BsuY+cScPvaNywyMPtlhUn rg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3984bm1kmg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 17 Jun 2021 16:46:22 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ED1C910002A;
+ Thu, 17 Jun 2021 16:46:21 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D892F22AEDB;
+ Thu, 17 Jun 2021 16:46:21 +0200 (CEST)
+Received: from localhost (10.75.127.46) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 17 Jun 2021 16:46:21
+ +0200
+From: Fabien Dessenne <fabien.dessenne@foss.st.com>
+To: Linus Walleij <linus.walleij@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- =?utf-8?b?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, bpf@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net] xdp,
- net: fix for construct skb by xdp inside xsk zc rx
+ <linux-gpio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Thu, 17 Jun 2021 16:46:02 +0200
+Message-ID: <20210617144602.2557619-1-fabien.dessenne@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
+ definitions=2021-06-17_13:2021-06-15,
+ 2021-06-17 signatures=0
+Subject: [Linux-stm32] [PATCH] pinctrl: stm32: check for IRQ MUX validity
+	during alloc()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,225 +74,148 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 17 Jun 2021 15:09:48 +0200, Maciej Fijalkowski <maciej.fijalkowski@intel.com> wrote:
-> On Tue, Jun 15, 2021 at 11:37:19AM +0800, Xuan Zhuo wrote:
-> > When each driver supports xsk rx, if the received buff returns XDP_PASS
-> > after run xdp prog, it must construct skb based on xdp. This patch
-> > extracts this logic into a public function xdp_construct_skb().
-> >
-> > There is a bug in the original logic. When constructing skb, we should
-> > copy the meta information to skb and then use __skb_pull() to correct
-> > the data.
-> >
-> > Fixes: 0a714186d3c0f ("i40e: add AF_XDP zero-copy Rx support")
-> > Fixes: 2d4238f556972 ("ice: Add support for AF_XDP")
-> > Fixes: bba2556efad66 ("net: stmmac: Enable RX via AF_XDP zero-copy")
-> > Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-> > ---
-> >
-> > This patch depends on the previous patch:
-> >     [PATCH net] ixgbe: xsk: fix for metasize when construct skb by xdp_buff
->
-> That doesn't make much sense if you ask me, I'd rather squash the patch
-> mentioned above to this one.
+Considering the following irq_domain_ops call chain:
+- .alloc() is called when a clients calls platform_get_irq() or
+  gpiod_to_irq()
+- .activate() is called next, when the clients calls
+  request_threaded_irq()
+Check for the IRQ MUX conflict during the first stage (alloc instead of
+activate). This avoids to provide the client with an IRQ that can't be
+used.
 
-I saw that the previous patch was put into net-queue, I don't know whether to
-merge it into the current patch, so I posted this patch, I hope someone can tell
-me how to deal with this situation.
+Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
+---
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 79 ++++++++++++++-------------
+ 1 file changed, 40 insertions(+), 39 deletions(-)
 
->
-> Also, I wanted to introduce such function to the kernel for a long time
-> but I always head in the back of my head mlx5's AF_XDP ZC implementation
-> which I'm not sure if it can adjust to something like Intel drivers are
-> doing.
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index ad9eb5ed8e81..63e0c78d4a7e 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -414,57 +414,25 @@ static int stm32_gpio_domain_activate(struct irq_domain *d,
+ {
+ 	struct stm32_gpio_bank *bank = d->host_data;
+ 	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
+-	unsigned long flags;
+ 	int ret = 0;
+ 
+-	/*
+-	 * gpio irq mux is shared between several banks, a lock has to be done
+-	 * to avoid overriding.
+-	 */
+-	spin_lock_irqsave(&pctl->irqmux_lock, flags);
+-
+ 	if (pctl->hwlock) {
+ 		ret = hwspin_lock_timeout_in_atomic(pctl->hwlock,
+ 						    HWSPNLCK_TIMEOUT);
+ 		if (ret) {
+ 			dev_err(pctl->dev, "Can't get hwspinlock\n");
+-			goto unlock;
++			return ret;
+ 		}
+ 	}
+ 
+-	if (pctl->irqmux_map & BIT(irq_data->hwirq)) {
+-		dev_err(pctl->dev, "irq line %ld already requested.\n",
+-			irq_data->hwirq);
+-		ret = -EBUSY;
+-		if (pctl->hwlock)
+-			hwspin_unlock_in_atomic(pctl->hwlock);
+-		goto unlock;
+-	} else {
+-		pctl->irqmux_map |= BIT(irq_data->hwirq);
+-	}
+-
+ 	regmap_field_write(pctl->irqmux[irq_data->hwirq], bank->bank_ioport_nr);
+ 
+ 	if (pctl->hwlock)
+ 		hwspin_unlock_in_atomic(pctl->hwlock);
+ 
+-unlock:
+-	spin_unlock_irqrestore(&pctl->irqmux_lock, flags);
+ 	return ret;
+ }
+ 
+-static void stm32_gpio_domain_deactivate(struct irq_domain *d,
+-					 struct irq_data *irq_data)
+-{
+-	struct stm32_gpio_bank *bank = d->host_data;
+-	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&pctl->irqmux_lock, flags);
+-	pctl->irqmux_map &= ~BIT(irq_data->hwirq);
+-	spin_unlock_irqrestore(&pctl->irqmux_lock, flags);
+-}
+-
+ static int stm32_gpio_domain_alloc(struct irq_domain *d,
+ 				   unsigned int virq,
+ 				   unsigned int nr_irqs, void *data)
+@@ -472,9 +440,28 @@ static int stm32_gpio_domain_alloc(struct irq_domain *d,
+ 	struct stm32_gpio_bank *bank = d->host_data;
+ 	struct irq_fwspec *fwspec = data;
+ 	struct irq_fwspec parent_fwspec;
+-	irq_hw_number_t hwirq;
++	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
++	irq_hw_number_t hwirq = fwspec->param[0];
++	unsigned long flags;
++	int ret = 0;
++
++	/*
++	 * Check first that the IRQ MUX of that line is free.
++	 * gpio irq mux is shared between several banks, protect with a lock
++	 */
++	spin_lock_irqsave(&pctl->irqmux_lock, flags);
++
++	if (pctl->irqmux_map & BIT(hwirq)) {
++		dev_err(pctl->dev, "irq line %ld already requested.\n", hwirq);
++		ret = -EBUSY;
++	} else {
++		pctl->irqmux_map |= BIT(hwirq);
++	}
++
++	spin_unlock_irqrestore(&pctl->irqmux_lock, flags);
++	if (ret)
++		return ret;
+ 
+-	hwirq = fwspec->param[0];
+ 	parent_fwspec.fwnode = d->parent->fwnode;
+ 	parent_fwspec.param_count = 2;
+ 	parent_fwspec.param[0] = fwspec->param[0];
+@@ -486,12 +473,26 @@ static int stm32_gpio_domain_alloc(struct irq_domain *d,
+ 	return irq_domain_alloc_irqs_parent(d, virq, nr_irqs, &parent_fwspec);
+ }
+ 
++static void stm32_gpio_domain_free(struct irq_domain *d, unsigned int virq,
++				   unsigned int nr_irqs)
++{
++	struct stm32_gpio_bank *bank = d->host_data;
++	struct stm32_pinctrl *pctl = dev_get_drvdata(bank->gpio_chip.parent);
++	struct irq_data *irq_data = irq_domain_get_irq_data(d, virq);
++	unsigned long flags, hwirq = irq_data->hwirq;
++
++	irq_domain_free_irqs_common(d, virq, nr_irqs);
++
++	spin_lock_irqsave(&pctl->irqmux_lock, flags);
++	pctl->irqmux_map &= ~BIT(hwirq);
++	spin_unlock_irqrestore(&pctl->irqmux_lock, flags);
++}
++
+ static const struct irq_domain_ops stm32_gpio_domain_ops = {
+-	.translate      = stm32_gpio_domain_translate,
+-	.alloc          = stm32_gpio_domain_alloc,
+-	.free           = irq_domain_free_irqs_common,
++	.translate	= stm32_gpio_domain_translate,
++	.alloc		= stm32_gpio_domain_alloc,
++	.free		= stm32_gpio_domain_free,
+ 	.activate	= stm32_gpio_domain_activate,
+-	.deactivate	= stm32_gpio_domain_deactivate,
+ };
+ 
+ /* Pinctrl functions */
+-- 
+2.25.1
 
-I have this question too.
-
-Thanks
-
->
-> Maxim? :)
->
-> >
-> >  drivers/net/ethernet/intel/i40e/i40e_xsk.c    | 16 +---------
-> >  drivers/net/ethernet/intel/ice/ice_xsk.c      | 12 +-------
-> >  drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c  | 14 +--------
-> >  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 23 +-------------
-> >  include/net/xdp.h                             | 30 +++++++++++++++++++
-> >  5 files changed, 34 insertions(+), 61 deletions(-)
-> >
-> > diff --git a/drivers/net/ethernet/intel/i40e/i40e_xsk.c b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-> > index 68f177a86403..81b0f44eedda 100644
-> > --- a/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-> > +++ b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-> > @@ -246,23 +246,9 @@ bool i40e_alloc_rx_buffers_zc(struct i40e_ring *rx_ring, u16 count)
-> >  static struct sk_buff *i40e_construct_skb_zc(struct i40e_ring *rx_ring,
-> >  					     struct xdp_buff *xdp)
-> >  {
-> > -	unsigned int metasize = xdp->data - xdp->data_meta;
-> > -	unsigned int datasize = xdp->data_end - xdp->data;
-> >  	struct sk_buff *skb;
-> >
-> > -	/* allocate a skb to store the frags */
-> > -	skb = __napi_alloc_skb(&rx_ring->q_vector->napi,
-> > -			       xdp->data_end - xdp->data_hard_start,
-> > -			       GFP_ATOMIC | __GFP_NOWARN);
-> > -	if (unlikely(!skb))
-> > -		goto out;
-> > -
-> > -	skb_reserve(skb, xdp->data - xdp->data_hard_start);
-> > -	memcpy(__skb_put(skb, datasize), xdp->data, datasize);
-> > -	if (metasize)
-> > -		skb_metadata_set(skb, metasize);
-> > -
-> > -out:
-> > +	skb = xdp_construct_skb(xdp, &rx_ring->q_vector->napi);
-> >  	xsk_buff_free(xdp);
-> >  	return skb;
-> >  }
-> > diff --git a/drivers/net/ethernet/intel/ice/ice_xsk.c b/drivers/net/ethernet/intel/ice/ice_xsk.c
-> > index a1f89ea3c2bd..f95e1adcebda 100644
-> > --- a/drivers/net/ethernet/intel/ice/ice_xsk.c
-> > +++ b/drivers/net/ethernet/intel/ice/ice_xsk.c
-> > @@ -430,22 +430,12 @@ static void ice_bump_ntc(struct ice_ring *rx_ring)
-> >  static struct sk_buff *
-> >  ice_construct_skb_zc(struct ice_ring *rx_ring, struct ice_rx_buf *rx_buf)
-> >  {
-> > -	unsigned int metasize = rx_buf->xdp->data - rx_buf->xdp->data_meta;
-> > -	unsigned int datasize = rx_buf->xdp->data_end - rx_buf->xdp->data;
-> > -	unsigned int datasize_hard = rx_buf->xdp->data_end -
-> > -				     rx_buf->xdp->data_hard_start;
-> >  	struct sk_buff *skb;
-> >
-> > -	skb = __napi_alloc_skb(&rx_ring->q_vector->napi, datasize_hard,
-> > -			       GFP_ATOMIC | __GFP_NOWARN);
-> > +	skb = xdp_construct_skb(rx_buf->xdp, &rx_ring->q_vector->napi);
-> >  	if (unlikely(!skb))
-> >  		return NULL;
-> >
-> > -	skb_reserve(skb, rx_buf->xdp->data - rx_buf->xdp->data_hard_start);
-> > -	memcpy(__skb_put(skb, datasize), rx_buf->xdp->data, datasize);
-> > -	if (metasize)
-> > -		skb_metadata_set(skb, metasize);
-> > -
-> >  	xsk_buff_free(rx_buf->xdp);
-> >  	rx_buf->xdp = NULL;
-> >  	return skb;
-> > diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c
-> > index ee88107fa57a..123945832c96 100644
-> > --- a/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c
-> > +++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c
-> > @@ -203,24 +203,12 @@ bool ixgbe_alloc_rx_buffers_zc(struct ixgbe_ring *rx_ring, u16 count)
-> >  static struct sk_buff *ixgbe_construct_skb_zc(struct ixgbe_ring *rx_ring,
-> >  					      struct ixgbe_rx_buffer *bi)
-> >  {
-> > -	unsigned int metasize = bi->xdp->data - bi->xdp->data_meta;
-> > -	unsigned int datasize = bi->xdp->data_end - bi->xdp->data_meta;
-> >  	struct sk_buff *skb;
-> >
-> > -	/* allocate a skb to store the frags */
-> > -	skb = __napi_alloc_skb(&rx_ring->q_vector->napi,
-> > -			       bi->xdp->data_end - bi->xdp->data_hard_start,
-> > -			       GFP_ATOMIC | __GFP_NOWARN);
-> > +	skb = xdp_construct_skb(bi->xdp, &rx_ring->q_vector->napi);
-> >  	if (unlikely(!skb))
-> >  		return NULL;
-> >
-> > -	skb_reserve(skb, bi->xdp->data_meta - bi->xdp->data_hard_start);
-> > -	memcpy(__skb_put(skb, datasize), bi->xdp->data_meta, datasize);
-> > -	if (metasize) {
-> > -		__skb_pull(skb, metasize);
-> > -		skb_metadata_set(skb, metasize);
-> > -	}
-> > -
-> >  	xsk_buff_free(bi->xdp);
-> >  	bi->xdp = NULL;
-> >  	return skb;
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > index c87202cbd3d6..143ac1edb876 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > @@ -4729,27 +4729,6 @@ static void stmmac_finalize_xdp_rx(struct stmmac_priv *priv,
-> >  		xdp_do_flush();
-> >  }
-> >
-> > -static struct sk_buff *stmmac_construct_skb_zc(struct stmmac_channel *ch,
-> > -					       struct xdp_buff *xdp)
-> > -{
-> > -	unsigned int metasize = xdp->data - xdp->data_meta;
-> > -	unsigned int datasize = xdp->data_end - xdp->data;
-> > -	struct sk_buff *skb;
-> > -
-> > -	skb = __napi_alloc_skb(&ch->rxtx_napi,
-> > -			       xdp->data_end - xdp->data_hard_start,
-> > -			       GFP_ATOMIC | __GFP_NOWARN);
-> > -	if (unlikely(!skb))
-> > -		return NULL;
-> > -
-> > -	skb_reserve(skb, xdp->data - xdp->data_hard_start);
-> > -	memcpy(__skb_put(skb, datasize), xdp->data, datasize);
-> > -	if (metasize)
-> > -		skb_metadata_set(skb, metasize);
-> > -
-> > -	return skb;
-> > -}
-> > -
-> >  static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
-> >  				   struct dma_desc *p, struct dma_desc *np,
-> >  				   struct xdp_buff *xdp)
-> > @@ -4761,7 +4740,7 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
-> >  	struct sk_buff *skb;
-> >  	u32 hash;
-> >
-> > -	skb = stmmac_construct_skb_zc(ch, xdp);
-> > +	skb = xdp_construct_skb(xdp, &ch->rxtx_napi);
-> >  	if (!skb) {
-> >  		priv->dev->stats.rx_dropped++;
-> >  		return;
-> > diff --git a/include/net/xdp.h b/include/net/xdp.h
-> > index a5bc214a49d9..561e21eaf718 100644
-> > --- a/include/net/xdp.h
-> > +++ b/include/net/xdp.h
-> > @@ -95,6 +95,36 @@ xdp_prepare_buff(struct xdp_buff *xdp, unsigned char *hard_start,
-> >  	xdp->data_meta = meta_valid ? data : data + 1;
-> >  }
-> >
-> > +static __always_inline struct sk_buff *
-> > +xdp_construct_skb(struct xdp_buff *xdp, struct napi_struct *napi)
-> > +{
-> > +	unsigned int metasize;
-> > +	unsigned int datasize;
-> > +	unsigned int headroom;
-> > +	struct sk_buff *skb;
-> > +	unsigned int len;
-> > +
-> > +	/* this include metasize */
-> > +	datasize = xdp->data_end  - xdp->data_meta;
-> > +	metasize = xdp->data      - xdp->data_meta;
-> > +	headroom = xdp->data_meta - xdp->data_hard_start;
-> > +	len      = xdp->data_end  - xdp->data_hard_start;
-> > +
-> > +	/* allocate a skb to store the frags */
-> > +	skb = __napi_alloc_skb(napi, len, GFP_ATOMIC | __GFP_NOWARN);
-> > +	if (unlikely(!skb))
-> > +		return NULL;
-> > +
-> > +	skb_reserve(skb, headroom);
-> > +	memcpy(__skb_put(skb, datasize), xdp->data_meta, datasize);
-> > +	if (metasize) {
-> > +		__skb_pull(skb, metasize);
-> > +		skb_metadata_set(skb, metasize);
-> > +	}
-> > +
-> > +	return skb;
-> > +}
-> > +
-> >  /* Reserve memory area at end-of data area.
-> >   *
-> >   * This macro reserves tailroom in the XDP buffer by limiting the
-> > --
-> > 2.31.0
-> >
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
