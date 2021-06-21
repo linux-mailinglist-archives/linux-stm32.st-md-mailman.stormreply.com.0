@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70C223AF257
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jun 2021 19:52:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E6AE3AF286
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jun 2021 19:53:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEF82C57B53;
-	Mon, 21 Jun 2021 17:52:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4813BC57B53;
+	Mon, 21 Jun 2021 17:53:09 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC084C3FADC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66AF3C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jun 2021 17:52:03 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 96057611C1;
- Mon, 21 Jun 2021 17:52:00 +0000 (UTC)
+ Mon, 21 Jun 2021 17:53:06 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A54FE611C1;
+ Mon, 21 Jun 2021 17:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624297921;
- bh=ZCmDtZGyev1DPK9fMMl/6QEJ8lFloqU84FuLk3rUJ5o=;
+ s=k20201202; t=1624297984;
+ bh=Q0uwlKTeMRSvlE5o2mF/FfDY3b34CTN7t8WxWjw2crk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JPGsyvT80vfesRfDNXfj1QDP7omkjYQMZoWxiRzIFYZKFqmDIPaNefRdG3DrQFGlH
- yCIa+eJc6UBVTbUNll7VLduZd6lvMEs0mzIBxrHHBCY6wOJYf3EC4er2wNUpETmOO5
- 9TRflyfv9Aj4du9pOYnJiOOXU85uOCKZ3kmytW3QDKocgtF/P692kg2JeCQgESxy+G
- wIcEMHsGmFBo2zwwAnlsHTMY8ykpwaGiMIdgAWpn398duhhpEdFeBuM9rlR60iEYoR
- b3DFKybKHTCAdfDjfGB1JrO8kTzzO/PbOwIYvUz/QKbol59QP3vNfOT80KdmktFqf4
- Aj1wTK97y789g==
+ b=tQCNR/3UPygn3zlwMmz7M1s3EpdsDIemlS3eoA3987XJ//pbeh7S0MTVIfce9ye1A
+ DDg33bSpH1JRMMkxzuBOj0N9ZJV17rRT3/zjotoGGCUKef1MSrQAedQuCsfzxI+1Jv
+ Xnf22MPSm622MDfkeqF6qraXqSIWQhVFE5bIvPMjBSEcIl0cwjg42IW0Qy8YQ8GcGB
+ dGDcwxTmKQuZBjvUCXV/E3y/qev/5/s9eeQsAnpP/9qN9DP3WdJ82HMlpaaPPdWF1s
+ gLILzUEik9qUEgT/tIdXRapd8lzfEdnH5s9I148vi0zxkAVjX1PYpaqVtIT3/hZO3H
+ gNT2hZWIn9Niw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 21 Jun 2021 13:51:18 -0400
-Message-Id: <20210621175156.735062-2-sashal@kernel.org>
+Date: Mon, 21 Jun 2021 13:52:27 -0400
+Message-Id: <20210621175300.735437-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210621175156.735062-1-sashal@kernel.org>
-References: <20210621175156.735062-1-sashal@kernel.org>
+In-Reply-To: <20210621175300.735437-1-sashal@kernel.org>
+References: <20210621175300.735437-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -40,7 +40,7 @@ Cc: Sasha Levin <sashal@kernel.org>, Hulk Robot <hulkci@huawei.com>,
  Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org,
  Yu Kuai <yukuai3@huawei.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.12 02/39] dmaengine: stm32-mdma: fix
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 02/35] dmaengine: stm32-mdma: fix
 	PM reference leak in stm32_mdma_alloc_chan_resourc()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -77,10 +77,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-index 36ba8b43e78d..18cbd1e43c2e 100644
+index 08cfbfab837b..9d473923712a 100644
 --- a/drivers/dma/stm32-mdma.c
 +++ b/drivers/dma/stm32-mdma.c
-@@ -1452,7 +1452,7 @@ static int stm32_mdma_alloc_chan_resources(struct dma_chan *c)
+@@ -1448,7 +1448,7 @@ static int stm32_mdma_alloc_chan_resources(struct dma_chan *c)
  		return -ENOMEM;
  	}
  
@@ -89,7 +89,7 @@ index 36ba8b43e78d..18cbd1e43c2e 100644
  	if (ret < 0)
  		return ret;
  
-@@ -1718,7 +1718,7 @@ static int stm32_mdma_pm_suspend(struct device *dev)
+@@ -1714,7 +1714,7 @@ static int stm32_mdma_pm_suspend(struct device *dev)
  	u32 ccr, id;
  	int ret;
  
