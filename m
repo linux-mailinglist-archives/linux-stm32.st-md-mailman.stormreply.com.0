@@ -2,55 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 319EE3AE827
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jun 2021 13:27:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D93B3AE981
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jun 2021 14:58:14 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCF47C597B5;
-	Mon, 21 Jun 2021 11:27:15 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37860C57B53;
+	Mon, 21 Jun 2021 12:58:14 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0D54C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56776C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jun 2021 09:46:16 +0000 (UTC)
-IronPort-SDR: I7KCRKygzI28G6hjRkvBsgM/m9sb+9iNlxVTl4P8dnNMUAbnFRIm7qeUc+y+ZhI2R5WPJIA17x
- a3YBF0lQgnGw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10021"; a="292441071"
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="292441071"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2021 02:46:15 -0700
-IronPort-SDR: neKELTmt31WoAvjNQcXp+1P6WpL/4Do+v28x74Uedwxd8vt3xG6AIgcdfznSP26mRdEAIRLioM
- CD6Zrh0XniJQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="638720326"
-Received: from peileeli.png.intel.com ([172.30.240.12])
- by fmsmga006.fm.intel.com with ESMTP; 21 Jun 2021 02:46:10 -0700
-From: Ling Pei Lee <pei.lee.ling@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>,
- Wong Vee Khee <vee.khee.wong@linux.intel.com>,
- Wong Vee Khee <vee.khee.wong@intel.com>,
- Tan Tee Min <tee.min.tan@intel.com>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 21 Jun 2021 17:45:36 +0800
-Message-Id: <20210621094536.387442-5-pei.lee.ling@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210621094536.387442-1-pei.lee.ling@intel.com>
-References: <20210621094536.387442-1-pei.lee.ling@intel.com>
+ Mon, 21 Jun 2021 12:58:12 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15LCvdmc005554; Mon, 21 Jun 2021 14:58:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=xZenHtyJUIK3Jd8YfDY8+5e0esoKzch1be763fqXWKY=;
+ b=EltBVEyjIMOpwbEfiFBW0M6nIoNwnIOOlQDSdt6qp0QzWCCLLdC5wqbKe1Ie4/V6zMgK
+ yBwIdedLhYJ15J9Yd/y0n6mWPF9/av2eW/MYpYeX3T1EC6sh4mEeBihWfbgx2xusvp+6
+ eIINUQdSzL+j1nF+MO+I4zAO+/ULg0m5GQKwxBL39UwdNUEHL7666mv1urFEWwgEwHxo
+ ZyH0UZGlasT6+yFwYFeNrbPFzXRx1VhnLse8VKAL7l/ONjORIbj/fQedoSBMM6mY4p0b
+ vPMNWgFX4o7u856BO3ePXR0hdKYxg1VYrxUkISEERDmE8D1dAg3TQGvqcRjkbxogooYx ug== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 39amg22dsj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Jun 2021 14:58:11 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F1739100034;
+ Mon, 21 Jun 2021 14:58:10 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DBF0F22B9C4;
+ Mon, 21 Jun 2021 14:58:10 +0200 (CEST)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 21 Jun 2021 14:58:10
+ +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
+ <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Mon, 21 Jun 2021 14:57:59 +0200
+Message-ID: <20210621125800.27696-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 21 Jun 2021 11:27:13 +0000
-Cc: pei.lee.ling@intel.com
-Subject: [Linux-stm32] [PATCH net-next V1 4/4] stmmac: intel: set PCI_D3hot
-	in suspend
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
+ definitions=2021-06-21_06:2021-06-21,
+ 2021-06-21 signatures=0
+Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2 0/1] rpmsg: ctrl: Add ability to
+	instantiate rpmsg device locally
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,31 +72,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Voon Weifeng <weifeng.voon@intel.com>
+Purpose:
+  Allow the user space application to create and release an rpmsg device by adding
+  rpmsg ioctrl to the /dev/rpmsg_ctrl interface
+    
+Aim:
+  The current implementation is based on the enumeration of services by the 
+  remote processor to create a new channel and instantiate associated rpmsg device.
+  There is no solution to create a rpmsg channel on user application request.
+  If the rpmsg char driver allows adding a new endpoint over an existing channel, it
+  does not offer the ability to create a new one.
+  Adding the IOCTRL to instantiate rpmsg channels from the user application will allow
+  to dynamically create and destroy rpmsg devices. Some examples of use are:
+  - activate the service at the initiative of the application,
+  - remove the communication on a specific channel before entering the suspend mode,
+  - creating a temporary channel for debugging purposes.
 
-During suspend, set the Intel mgbe to D3hot state
-to save power consumption.
 
-Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
-Signed-off-by: Ling Pei Lee <pei.lee.ling@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 1 +
- 1 file changed, 1 insertion(+)
+Delta vs V1 [1]
+- Squah patches 1/4(rpmsg: ctrl: Introduce RPMSG_CREATE_DEV_IOCTL) and
+  2/4 (rpmsg: ctrl: Introduce RPMSG_RELEASE_DEV_IOCTL).
+- Remove the rpmsg device attribue to check if a rpmg device can be released, choose to trust
+  the application (a similar trust already exists for the bind/unbind interface).
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 73be34a10a4c..69a725b661c2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -1088,6 +1088,7 @@ static int __maybe_unused intel_eth_pci_suspend(struct device *dev)
- 		return ret;
- 
- 	pci_wake_from_d3(pdev, true);
-+	pci_set_power_state(pdev, PCI_D3hot);
- 	return 0;
- }
- 
+[1] https://patchwork.kernel.org/project/linux-remoteproc/list/?series=494021
+
+How to test it:
+  - This series can be applied on git/andersson/remoteproc.git for-next branch (dc0e14fa833b)
+    + the "Restructure the rpmsg char to decorrelate the control part" series[2]
+  - to test the ioctrl, a rpmsgexportdev tool is available here:
+     https://github.com/arnopo/rpmsgexport
+
+[2]https://patchwork.kernel.org/project/linux-remoteproc/list/?series=483793
+
+Arnaud Pouliquen (1):
+  rpmsg: ctrl: Introduce new RPMSG_CREATE/RELEASE_DEV_IOCTL controls
+
+ drivers/rpmsg/rpmsg_ctrl.c | 37 +++++++++++++++++++++++++++++++++----
+ include/uapi/linux/rpmsg.h | 10 ++++++++++
+ 2 files changed, 43 insertions(+), 4 deletions(-)
+
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
