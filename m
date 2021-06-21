@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 186923AE826
+	by mail.lfdr.de (Postfix) with ESMTPS id 319EE3AE827
 	for <lists+linux-stm32@lfdr.de>; Mon, 21 Jun 2021 13:27:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B32E4C597B2;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCF47C597B5;
 	Mon, 21 Jun 2021 11:27:15 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96619C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0D54C58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Jun 2021 09:46:10 +0000 (UTC)
-IronPort-SDR: siLgiTKgXHxbT0KkDOY35Z/hMcdMjV6P9HDNZN6ZZ+pkrn2spOvdeEGAUyx2xwaTxJ1sHLdXJ6
- Xt/M8Zn6uvYQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10021"; a="204987326"
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="204987326"
+ Mon, 21 Jun 2021 09:46:16 +0000 (UTC)
+IronPort-SDR: I7KCRKygzI28G6hjRkvBsgM/m9sb+9iNlxVTl4P8dnNMUAbnFRIm7qeUc+y+ZhI2R5WPJIA17x
+ a3YBF0lQgnGw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10021"; a="292441071"
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="292441071"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2021 02:46:08 -0700
-IronPort-SDR: 70Om74wC96WXY6QQq1oNOcC15HXQ8DTOvYgVhomis9iwl7xy2CbKm5/do2wcd0Si3LN/kHX9wu
- uNvofljvB6jw==
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2021 02:46:15 -0700
+IronPort-SDR: neKELTmt31WoAvjNQcXp+1P6WpL/4Do+v28x74Uedwxd8vt3xG6AIgcdfznSP26mRdEAIRLioM
+ CD6Zrh0XniJQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="638720304"
+X-IronPort-AV: E=Sophos;i="5.83,289,1616482800"; d="scan'208";a="638720326"
 Received: from peileeli.png.intel.com ([172.30.240.12])
- by fmsmga006.fm.intel.com with ESMTP; 21 Jun 2021 02:46:04 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 21 Jun 2021 02:46:10 -0700
 From: Ling Pei Lee <pei.lee.ling@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@st.com>,
@@ -41,16 +41,16 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 21 Jun 2021 17:45:35 +0800
-Message-Id: <20210621094536.387442-4-pei.lee.ling@intel.com>
+Date: Mon, 21 Jun 2021 17:45:36 +0800
+Message-Id: <20210621094536.387442-5-pei.lee.ling@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210621094536.387442-1-pei.lee.ling@intel.com>
 References: <20210621094536.387442-1-pei.lee.ling@intel.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 21 Jun 2021 11:27:13 +0000
 Cc: pei.lee.ling@intel.com
-Subject: [Linux-stm32] [PATCH net-next V1 3/4] net: stmmac: Reconfigure the
-	PHY WOL settings in stmmac_resume()
+Subject: [Linux-stm32] [PATCH net-next V1 4/4] stmmac: intel: set PCI_D3hot
+	in suspend
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,42 +67,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Muhammad Husaini Zulkifli <muhammad.husaini.zulkifli@intel.com>
+From: Voon Weifeng <weifeng.voon@intel.com>
 
-After PHY received a magic packet, the PHY WOL event will be
-triggered then PHY WOL event interrupt will be disarmed.
-Ethtool settings will remain with WOL enabled after a S3/S4
-suspend resume cycle as expected. Hence,the driver should
-reconfigure the PHY settings to reenable/disable WOL
-depending on the ethtool WOL settings in the resume flow.
+During suspend, set the Intel mgbe to D3hot state
+to save power consumption.
 
-Signed-off-by: Muhammad Husaini Zulkifli <muhammad.husaini.zulkifli@intel.com>
-Co-developed-by: Ling Pei Lee <pei.lee.ling@intel.com>
+Signed-off-by: Voon Weifeng <weifeng.voon@intel.com>
 Signed-off-by: Ling Pei Lee <pei.lee.ling@intel.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a3b79ddcf08e..cd96e4d7a22e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7246,6 +7246,16 @@ int stmmac_resume(struct device *dev)
- 		phylink_start(priv->phylink);
- 		/* We may have called phylink_speed_down before */
- 		phylink_speed_up(priv->phylink);
-+		/* Reconfigure PHY WOL if the WOL is enabled in ethtool,
-+		 * so that subsequent WOL still can be triggered.
-+		 */
-+		if (!priv->plat->pmt) {
-+			struct ethtool_wolinfo phy_wol = { .cmd = ETHTOOL_GWOL };
-+
-+			phylink_ethtool_get_wol(priv->phylink, &phy_wol);
-+			if (phy_wol.wolopts)
-+				phylink_ethtool_set_wol(priv->phylink, &phy_wol);
-+		}
- 		rtnl_unlock();
- 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 73be34a10a4c..69a725b661c2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -1088,6 +1088,7 @@ static int __maybe_unused intel_eth_pci_suspend(struct device *dev)
+ 		return ret;
+ 
+ 	pci_wake_from_d3(pdev, true);
++	pci_set_power_state(pdev, PCI_D3hot);
+ 	return 0;
+ }
  
 -- 
 2.25.1
