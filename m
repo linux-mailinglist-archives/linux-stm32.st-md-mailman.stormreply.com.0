@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6A1C3B06B8
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Jun 2021 16:10:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33E283B06C1
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Jun 2021 16:10:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A780C5A4CF;
-	Tue, 22 Jun 2021 14:10:20 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE074C5A4C5;
+	Tue, 22 Jun 2021 14:10:23 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81EE3C5A4CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AEE9C5A4CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Jun 2021 14:10:17 +0000 (UTC)
+ Tue, 22 Jun 2021 14:10:18 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 45B7921992;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 52EBA1FD66;
+ Tue, 22 Jun 2021 14:10:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624371018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1/2SUgyNJ6qZ46Z/xSuAois20KfwJEcWjqgswNAfS8s=;
+ b=YNHy0+entGYS7XlPCVOpiq0nrocngglosi92NYAB9vGdAV83RfHUz/0n4vwqhv64QLndex
+ HPTPRds260DvyHGzhKz6qcXR+IiYSCwDLAP0Np5OrigEu1NIiXxiuUu3d987bHmEofd/rm
+ puKioIA8I6VprGhRZ9SH/ktK/uFXTjM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624371018;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1/2SUgyNJ6qZ46Z/xSuAois20KfwJEcWjqgswNAfS8s=;
+ b=GT34c2VTQBAklfDH7r5JAUV2duf5ROPf1cpgLrnSLMXFpABuWdDCDgL6d6h3s3PMS8Tq7A
+ ++8HKKuFJKkouYCA==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 494AF11A98;
  Tue, 22 Jun 2021 14:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624371017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624371018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=w4nG8ilbOi6FRyBuH/cMBHjv1Lw8HPtoTWpveyvfhLY=;
- b=w8mJNxdzJDqoNc4phBniwAx8Fogos1RhIJlZNZ0RkzvoZf58yZXeWYUiyf87NRUgc5PDDY
- 0frTmG5DZgsaealdLs620LnGMTJKakvUc/k6XO23Y3fRXahEUTPhbbYdvis3fUg0k8oBio
- oxoSHelZxWsK++/8hDT9SatIuMR2LtQ=
+ bh=1/2SUgyNJ6qZ46Z/xSuAois20KfwJEcWjqgswNAfS8s=;
+ b=YNHy0+entGYS7XlPCVOpiq0nrocngglosi92NYAB9vGdAV83RfHUz/0n4vwqhv64QLndex
+ HPTPRds260DvyHGzhKz6qcXR+IiYSCwDLAP0Np5OrigEu1NIiXxiuUu3d987bHmEofd/rm
+ puKioIA8I6VprGhRZ9SH/ktK/uFXTjM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624371017;
+ s=susede2_ed25519; t=1624371018;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=w4nG8ilbOi6FRyBuH/cMBHjv1Lw8HPtoTWpveyvfhLY=;
- b=deMHjuRhwqmyca/jUI6Li44rG2SadKi6bacYi0AlQvkLz3/nffBoHRLLh/VseLOVMCkYqc
- ijZo6UYFw0flKnCQ==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 38ACA118DD;
- Tue, 22 Jun 2021 14:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624371017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=w4nG8ilbOi6FRyBuH/cMBHjv1Lw8HPtoTWpveyvfhLY=;
- b=w8mJNxdzJDqoNc4phBniwAx8Fogos1RhIJlZNZ0RkzvoZf58yZXeWYUiyf87NRUgc5PDDY
- 0frTmG5DZgsaealdLs620LnGMTJKakvUc/k6XO23Y3fRXahEUTPhbbYdvis3fUg0k8oBio
- oxoSHelZxWsK++/8hDT9SatIuMR2LtQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624371017;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=w4nG8ilbOi6FRyBuH/cMBHjv1Lw8HPtoTWpveyvfhLY=;
- b=deMHjuRhwqmyca/jUI6Li44rG2SadKi6bacYi0AlQvkLz3/nffBoHRLLh/VseLOVMCkYqc
- ijZo6UYFw0flKnCQ==
+ bh=1/2SUgyNJ6qZ46Z/xSuAois20KfwJEcWjqgswNAfS8s=;
+ b=GT34c2VTQBAklfDH7r5JAUV2duf5ROPf1cpgLrnSLMXFpABuWdDCDgL6d6h3s3PMS8Tq7A
+ ++8HKKuFJKkouYCA==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 6BcCDUjv0WD3UAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Tue, 22 Jun 2021 14:10:16 +0000
+ id ML0LEUnv0WD3UAAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Tue, 22 Jun 2021 14:10:17 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
@@ -81,8 +81,8 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  emma@anholt.net, linux-graphics-maintainer@vmware.com, zackr@vmware.com,
  hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
  michal.simek@xilinx.com
-Date: Tue, 22 Jun 2021 16:09:52 +0200
-Message-Id: <20210622141002.11590-13-tzimmermann@suse.de>
+Date: Tue, 22 Jun 2021 16:09:53 +0200
+Message-Id: <20210622141002.11590-14-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210622141002.11590-1-tzimmermann@suse.de>
 References: <20210622141002.11590-1-tzimmermann@suse.de>
@@ -93,8 +93,8 @@ Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
  linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 12/22] drm/omapdrm: Track IRQ state in
-	local device state
+Subject: [Linux-stm32] [PATCH v2 13/22] drm/rockchip: Don't set struct
+	drm_device.irq_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,56 +111,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace usage of struct drm_device.irq_enabled with the driver's
-own state field struct omap_drm_device.irq_enabled. The field in
-the DRM device structure is considered legacy and should not be
-used by KMS drivers.
+The field drm_device.irq_enabled is only used by legacy drivers
+with userspace modesetting. Don't set it in rockchip.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/omapdrm/omap_drv.h | 2 ++
- drivers/gpu/drm/omapdrm/omap_irq.c | 6 +++---
- 2 files changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/omap_drv.h b/drivers/gpu/drm/omapdrm/omap_drv.h
-index d6f136984da9..591d4c273f02 100644
---- a/drivers/gpu/drm/omapdrm/omap_drv.h
-+++ b/drivers/gpu/drm/omapdrm/omap_drv.h
-@@ -48,6 +48,8 @@ struct omap_drm_private {
- 	struct dss_device *dss;
- 	struct dispc_device *dispc;
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+index b730b8d5d949..c8e60fd9ff24 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+@@ -162,12 +162,6 @@ static int rockchip_drm_bind(struct device *dev)
  
-+	bool irq_enabled;
-+
- 	unsigned int num_pipes;
- 	struct omap_drm_pipeline pipes[8];
- 	struct omap_drm_pipeline *channels[8];
-diff --git a/drivers/gpu/drm/omapdrm/omap_irq.c b/drivers/gpu/drm/omapdrm/omap_irq.c
-index 15148d4b35b5..bb6e3fc18204 100644
---- a/drivers/gpu/drm/omapdrm/omap_irq.c
-+++ b/drivers/gpu/drm/omapdrm/omap_irq.c
-@@ -291,7 +291,7 @@ int omap_drm_irq_install(struct drm_device *dev)
- 	if (ret < 0)
- 		return ret;
+ 	drm_mode_config_reset(drm_dev);
  
--	dev->irq_enabled = true;
-+	priv->irq_enabled = true;
- 
- 	return 0;
- }
-@@ -300,10 +300,10 @@ void omap_drm_irq_uninstall(struct drm_device *dev)
- {
- 	struct omap_drm_private *priv = dev->dev_private;
- 
--	if (!dev->irq_enabled)
-+	if (!priv->irq_enabled)
- 		return;
- 
--	dev->irq_enabled = false;
-+	priv->irq_enabled = false;
- 
- 	dispc_free_irq(priv->dispc, dev);
- }
+-	/*
+-	 * enable drm irq mode.
+-	 * - with irq_enabled = true, we can use the vblank feature.
+-	 */
+-	drm_dev->irq_enabled = true;
+-
+ 	ret = rockchip_drm_fbdev_init(drm_dev);
+ 	if (ret)
+ 		goto err_unbind_all;
 -- 
 2.32.0
 
