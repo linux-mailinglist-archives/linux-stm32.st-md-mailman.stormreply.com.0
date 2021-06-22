@@ -2,72 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 797AC3B034E
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Jun 2021 13:52:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5925E3B068F
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Jun 2021 16:10:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C5D1C57B53;
-	Tue, 22 Jun 2021 11:52:22 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0ECAEC597AE;
+	Tue, 22 Jun 2021 14:10:08 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB3C8C56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 006A6C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Jun 2021 11:52:19 +0000 (UTC)
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15MBlcTV020562; Tue, 22 Jun 2021 11:51:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=Yr1p6Q/+eK8PSMXu3bRpZ+9sRs4I6GuoLZCsW4oDY58=;
- b=N8UnPMEU8s2a+4wJAnG+dXSdLytfP13glQGh0OjmJzjgWUaMHxme7qqDvS4EiRG4IDHw
- Di+cSnRauZwpjNOrlAhxVeo8GuPMd0cXvhXWGuSx5sUc0ZGZ9sqghNons21u0uVzzKLb
- tyaLv+tSXs+Bmdt+dKivO3EDRDKAqWs5JmVPv/hxSsjqi+PXKRrvekOfToac2OCufjyR
- 9d9k7i2z0nzG4R5mA/5yjEyf4IAbplH60+RNJxlhHXaoyriHIw+Uk9NO9XpYY/inMvWs
- z0dZADnjm9G15Carm5UgMlq6vROSG099X62LdNJjTMP2bhGQleZI0U6OQFDH9ACTiL7K pQ== 
-Received: from oracle.com (aserp3030.oracle.com [141.146.126.71])
- by mx0b-00069f02.pphosted.com with ESMTP id 39ap66k4da-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 22 Jun 2021 11:51:57 +0000
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [127.0.0.1])
- by pps.podrdrct (8.16.0.36/8.16.0.36) with SMTP id 15MBpuli075091;
- Tue, 22 Jun 2021 11:51:56 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by aserp3030.oracle.com with ESMTP id 3996md9yf9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 22 Jun 2021 11:51:56 +0000
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 15MBpu74075065;
- Tue, 22 Jun 2021 11:51:56 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3030.oracle.com with ESMTP id 3996md9yep-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 22 Jun 2021 11:51:56 +0000
-Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
- by aserv0121.oracle.com (8.14.4/8.14.4) with ESMTP id 15MBpqFV027216;
- Tue, 22 Jun 2021 11:51:53 GMT
-Received: from mwanda (/102.222.70.252)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 22 Jun 2021 04:51:51 -0700
-Date: Tue, 22 Jun 2021 14:51:43 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Message-ID: <YNHOz8Aqo7Y1ZwO+@mwanda>
+ Tue, 22 Jun 2021 14:10:04 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7BA0B21983;
+ Tue, 22 Jun 2021 14:10:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624371004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Zlq4KKsU8/JYDA/ykAeVvIai2ocIqYe99RU3QFbsdmU=;
+ b=0v86hE2VTLzEM17qBfcdZmBklmxzS3uxRZV1SGwrgbxnZmAHokY+cxJIQhfHXQDFhWrRxm
+ mNSsxsvZmAOjtFc26K0Agh4sKMfhwApmhr0BdQOGEahrzoc9u05XpIb8lp8Vdh3amkGVfl
+ uJFaYWGwO7i62UCyoBWD1fE9HlA/Wqc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624371004;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Zlq4KKsU8/JYDA/ykAeVvIai2ocIqYe99RU3QFbsdmU=;
+ b=sBfw1F8RoZ7krrkKcsNIctjBZau4LKd5m6itT3fA/6O/2sq3gTvZ0OVWEe7BIVFr4IiY6O
+ h8HM/7+JiMPvRoBQ==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 74827118DD;
+ Tue, 22 Jun 2021 14:10:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624371004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Zlq4KKsU8/JYDA/ykAeVvIai2ocIqYe99RU3QFbsdmU=;
+ b=0v86hE2VTLzEM17qBfcdZmBklmxzS3uxRZV1SGwrgbxnZmAHokY+cxJIQhfHXQDFhWrRxm
+ mNSsxsvZmAOjtFc26K0Agh4sKMfhwApmhr0BdQOGEahrzoc9u05XpIb8lp8Vdh3amkGVfl
+ uJFaYWGwO7i62UCyoBWD1fE9HlA/Wqc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624371004;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Zlq4KKsU8/JYDA/ykAeVvIai2ocIqYe99RU3QFbsdmU=;
+ b=sBfw1F8RoZ7krrkKcsNIctjBZau4LKd5m6itT3fA/6O/2sq3gTvZ0OVWEe7BIVFr4IiY6O
+ h8HM/7+JiMPvRoBQ==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id CKiPGzvv0WD3UAAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Tue, 22 Jun 2021 14:10:03 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
+ liviu.dudau@arm.com, mihail.atanassov@arm.com, brian.starkey@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, krzysztof.kozlowski@canonical.com,
+ xinliang.liu@linaro.org, tiantao6@hisilicon.com, john.stultz@linaro.org,
+ kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com,
+ laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de,
+ p.zabel@pengutronix.de, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, linux-imx@nxp.com,
+ chunkuang.hu@kernel.org, matthias.bgg@gmail.com, bskeggs@redhat.com,
+ tomba@kernel.org, hjc@rock-chips.com, heiko@sntech.de,
+ benjamin.gaignard@linaro.org, yannick.fertre@foss.st.com,
+ philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com,
+ thierry.reding@gmail.com, jonathanh@nvidia.com, jyri.sarha@iki.fi,
+ emma@anholt.net, linux-graphics-maintainer@vmware.com, zackr@vmware.com,
+ hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
+ michal.simek@xilinx.com
+Date: Tue, 22 Jun 2021 16:09:40 +0200
+Message-Id: <20210622141002.11590-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Proofpoint-ORIG-GUID: KMVqZT6IYIXJZ4cLfD0rpbGgeJbEfcFI
-X-Proofpoint-GUID: KMVqZT6IYIXJZ4cLfD0rpbGgeJbEfcFI
-Cc: Qing Zhang <zhangqing@loongson.cn>, netdev@vger.kernel.org,
- kernel-janitors@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] stmmac: dwmac-loongson: fix
- uninitialized variable in loongson_dwmac_probe()
+Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 00/22] Deprecate struct
+	drm_device.irq_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,31 +101,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The "mdio" variable is never set to false.  Also it should be a bool
-type instead of int.
+Remove references to struct drm_device.irq_enabled from modern
+DRM drivers and core.
 
-Fixes: 30bba69d7db4 ("stmmac: pci: Add dwmac support for Loongson")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+KMS drivers enable IRQs for their devices internally. They don't
+have to keep track of the IRQ state via irq_enabled. For vblanking,
+it's cleaner to test for vblanking support directly than to test
+for enabled IRQs.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-index 8cd4e2e8ec40..e108b0d2bd28 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-@@ -49,7 +49,8 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
- {
- 	struct plat_stmmacenet_data *plat;
- 	struct stmmac_resources res;
--	int ret, i, mdio;
-+	bool mdio = false;
-+	int ret, i;
- 	struct device_node *np;
- 
- 	np = dev_of_node(&pdev->dev);
--- 
-2.30.2
+This used to be a single patch, [1] but it's now a full series.
+
+The first 3 patches replace instances of irq_enabled that are not
+required.
+
+Patch 4 fixes vblank ioctls to actually test for vblank support
+instead of IRQs.
+
+THe rest of the patchset removes irq_enabled from all non-legacy
+drivers. The only exception is omapdrm, which has an internal
+dpendency on the field's value. For this drivers, the state gets
+duplicated internally.
+
+With the patchset applied, drivers can later switch over to plain
+Linux IRQ interfaces and DRM's IRQ midlayer can be declared legacy.
+
+v2:
+	* keep the original test for legacy drivers in
+	  drm_wait_vblank_ioctl() (Daniel)
+
+[1] https://lore.kernel.org/dri-devel/20210608090301.4752-1-tzimmermann@suse.de/
+
+Thomas Zimmermann (22):
+  drm/amdgpu: Track IRQ state in local device state
+  drm/hibmc: Call drm_irq_uninstall() unconditionally
+  drm/radeon: Track IRQ state in local device state
+  drm: Don't test for IRQ support in VBLANK ioctls
+  drm/komeda: Don't set struct drm_device.irq_enabled
+  drm/malidp: Don't set struct drm_device.irq_enabled
+  drm/exynos: Don't set struct drm_device.irq_enabled
+  drm/kirin: Don't set struct drm_device.irq_enabled
+  drm/imx: Don't set struct drm_device.irq_enabled
+  drm/mediatek: Don't set struct drm_device.irq_enabled
+  drm/nouveau: Don't set struct drm_device.irq_enabled
+  drm/omapdrm: Track IRQ state in local device state
+  drm/rockchip: Don't set struct drm_device.irq_enabled
+  drm/sti: Don't set struct drm_device.irq_enabled
+  drm/stm: Don't set struct drm_device.irq_enabled
+  drm/sun4i: Don't set struct drm_device.irq_enabled
+  drm/tegra: Don't set struct drm_device.irq_enabled
+  drm/tidss: Don't use struct drm_device.irq_enabled
+  drm/vc4: Don't set struct drm_device.irq_enabled
+  drm/vmwgfx: Don't set struct drm_device.irq_enabled
+  drm/xlnx: Don't set struct drm_device.irq_enabled
+  drm/zte: Don't set struct drm_device.irq_enabled
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c         |  6 +++---
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.c |  4 ----
+ drivers/gpu/drm/arm/malidp_drv.c                |  4 ----
+ drivers/gpu/drm/drm_irq.c                       | 10 +++-------
+ drivers/gpu/drm/drm_vblank.c                    | 13 +++++++++----
+ drivers/gpu/drm/exynos/exynos_drm_drv.c         | 10 ----------
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c |  3 +--
+ drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c |  2 --
+ drivers/gpu/drm/imx/dcss/dcss-kms.c             |  3 ---
+ drivers/gpu/drm/imx/imx-drm-core.c              | 11 -----------
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c          |  6 ------
+ drivers/gpu/drm/nouveau/nouveau_drm.c           |  3 ---
+ drivers/gpu/drm/omapdrm/omap_drv.h              |  2 ++
+ drivers/gpu/drm/omapdrm/omap_irq.c              |  6 +++---
+ drivers/gpu/drm/radeon/radeon_fence.c           |  2 +-
+ drivers/gpu/drm/radeon/radeon_irq_kms.c         | 16 ++++++++--------
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c     |  6 ------
+ drivers/gpu/drm/sti/sti_compositor.c            |  2 --
+ drivers/gpu/drm/stm/ltdc.c                      |  3 ---
+ drivers/gpu/drm/sun4i/sun4i_drv.c               |  2 --
+ drivers/gpu/drm/tegra/drm.c                     |  7 -------
+ drivers/gpu/drm/tidss/tidss_irq.c               |  3 ---
+ drivers/gpu/drm/vc4/vc4_kms.c                   |  1 -
+ drivers/gpu/drm/vmwgfx/vmwgfx_irq.c             |  8 --------
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c             |  2 --
+ drivers/gpu/drm/zte/zx_drm_drv.c                |  6 ------
+ 26 files changed, 30 insertions(+), 111 deletions(-)
+
+
+base-commit: 8c1323b422f8473421682ba783b5949ddd89a3f4
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+--
+2.32.0
 
 _______________________________________________
 Linux-stm32 mailing list
