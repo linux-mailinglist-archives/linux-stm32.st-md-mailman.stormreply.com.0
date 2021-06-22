@@ -2,92 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC54B3B1421
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 08:46:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 274CB3B1459
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 09:04:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5F0EC597AE;
-	Wed, 23 Jun 2021 06:46:26 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA3A6C597B6;
+	Wed, 23 Jun 2021 07:04:24 +0000 (UTC)
+Received: from libero.it (smtp-35.italiaonline.it [213.209.10.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8989C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4CF1C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jun 2021 06:46:24 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 988EA2197A;
- Wed, 23 Jun 2021 06:46:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624430783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2ZcrZ8mqlycZCvqIEcHhGpxfIvuTeneHVV1SxihHfFE=;
- b=fysCyX7pl9hwhW7lTzSKgcEjXwuA1hSjnlioc+I+F/kS6sR8x0XrVBlQi9GMrNr+/TTuta
- p08ut3LPD29iy85JVrhF1ATbHuOhPkEUualytbvgfTQ/QUpFQ/Y9FDVhGnQB0hUbv8qUV9
- c369obDXPQ38a1O6O41ciPajyajOOSM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624430783;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2ZcrZ8mqlycZCvqIEcHhGpxfIvuTeneHVV1SxihHfFE=;
- b=4Smgv0UnJNewFhbY+AWKvoKHBM7+sC/qxgajn4EyRdKoRPnbRT113AsH3tdSvhG+pj3ZPg
- x5HowUsIUAhcZ5Dw==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id C397811A97;
- Wed, 23 Jun 2021 06:46:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624430783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2ZcrZ8mqlycZCvqIEcHhGpxfIvuTeneHVV1SxihHfFE=;
- b=fysCyX7pl9hwhW7lTzSKgcEjXwuA1hSjnlioc+I+F/kS6sR8x0XrVBlQi9GMrNr+/TTuta
- p08ut3LPD29iy85JVrhF1ATbHuOhPkEUualytbvgfTQ/QUpFQ/Y9FDVhGnQB0hUbv8qUV9
- c369obDXPQ38a1O6O41ciPajyajOOSM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624430783;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2ZcrZ8mqlycZCvqIEcHhGpxfIvuTeneHVV1SxihHfFE=;
- b=4Smgv0UnJNewFhbY+AWKvoKHBM7+sC/qxgajn4EyRdKoRPnbRT113AsH3tdSvhG+pj3ZPg
- x5HowUsIUAhcZ5Dw==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id Gn2cLr7Y0mC4bAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Wed, 23 Jun 2021 06:46:22 +0000
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20210622141002.11590-1-tzimmermann@suse.de>
- <YNILtLMkI3uoH7mJ@pendragon.ideasonboard.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <03e349b3-f805-9aa8-14a7-96e674011c3a@suse.de>
-Date: Wed, 23 Jun 2021 08:46:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <YNILtLMkI3uoH7mJ@pendragon.ideasonboard.com>
-Cc: emma@anholt.net, airlied@linux.ie, nouveau@lists.freedesktop.org,
- liviu.dudau@arm.com, alexandre.torgue@foss.st.com,
- dri-devel@lists.freedesktop.org, matthias.bgg@gmail.com,
- thierry.reding@gmail.com, jernej.skrabec@gmail.com,
- benjamin.gaignard@linaro.org, mihail.atanassov@arm.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com,
- michal.simek@xilinx.com, amd-gfx@lists.freedesktop.org, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, wens@csie.org, james.qian.wang@arm.com,
- linux-imx@nxp.com, xinliang.liu@linaro.org,
- linux-graphics-maintainer@vmware.com, kong.kongxinwei@hisilicon.com,
- linux-sunxi@lists.linux.dev, bskeggs@redhat.com, chunkuang.hu@kernel.org,
- mcoquelin.stm32@gmail.com, puck.chen@hisilicon.com, s.hauer@pengutronix.de,
- linux-mediatek@lists.infradead.org, laurentiu.palcu@oss.nxp.com,
- linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- tomba@kernel.org, hyun.kwon@xilinx.com, shawnguo@kernel.org,
- yannick.fertre@foss.st.com, Xinhui.Pan@amd.com, sw0312.kim@samsung.com,
- hjc@rock-chips.com, kyungmin.park@samsung.com, kernel@pengutronix.de,
- alexander.deucher@amd.com, tiantao6@hisilicon.com, jyri.sarha@iki.fi,
- christian.koenig@amd.com
-Subject: Re: [Linux-stm32] [PATCH v2 00/22] Deprecate struct
-	drm_device.irq_enabled
+ Tue, 22 Jun 2021 21:14:12 +0000 (UTC)
+Received: from passgat-Modern-14-A10M.homenet.telecomitalia.it
+ ([79.17.119.101]) by smtp-35.iol.local with ESMTPA
+ id vnielNBSisptivniklUEwx; Tue, 22 Jun 2021 23:14:11 +0200
+x-libjamoibt: 1601
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=libero.it; s=s2021;
+ t=1624396451; bh=q4u5lVWA+wOoq0uMZgU7STwt05PnjBg+HXjVx8Ck3+I=;
+ h=From;
+ b=SXjiVRGp9HhsDWZ2UgUfmCH8GiQJLMt097kcWS8S0cr/KlZeBNbpkklU6yD0Xwx+U
+ ZCG1CjI84JTt9N1i7Ehz7pW4T9cpscjTqmUriNq7S6MKhuXxlRP86E+YKok/I6D5uy
+ hvGGkUupN3Za8+BEq8UygFqchMAze3J0NrR5GsqoNsbLuyhtL3xZ/wcFtnaNCKihj2
+ NvIGGoM2IgVjNwt6cgR8+xfymw+Kn+DTT8us7f8JQFOmL4pPT1lPPdLpIgNKJOMJ0+
+ E7txD9jLxKTtNhTAUu0q2kqaipBPTsJZbhQEz/E4/9pUwde7P2XoeGl+3aVZM1xqLg
+ QhcWMKl1FEUXw==
+X-CNFS-Analysis: v=2.4 cv=Bo1Yfab5 c=1 sm=1 tr=0 ts=60d252a3 cx=a_exe
+ a=do1bHx4A/kh2kuTIUQHSxQ==:117 a=do1bHx4A/kh2kuTIUQHSxQ==:17
+ a=-gG3lTu72TRn2TPmmlcA:9
+From: Dario Binacchi <dariobin@libero.it>
+To: linux-clk@vger.kernel.org
+Date: Tue, 22 Jun 2021 23:14:01 +0200
+Message-Id: <20210622211401.25604-1-dariobin@libero.it>
+X-Mailer: git-send-email 2.17.1
+X-CMAE-Envelope: MS4xfJoT3wJtQx5iccwp/rPaSpMWyUu/ehUh8qU/5pIjXXjN1oYplvqtlJcBg7DLvrus1byAdQnHI8jJnZ1DyXR2kRQRLQnBaqAbkGFEXwhFX6cX+vf3112X
+ v3PMw0o0V9L1YIv+DlTp9oCSUisQAj0pb0+PePaP6NcK0Vwy0tVTwh0K7zkU/guxL5O9fv6+W94V9qx+sZJeKY/1gWaYz9AXicNoVhKExkkdrcHiPKu6jB++
+ yOmTLzASg+Ur/Rr7DJAaCTdfkjAgwnR4/+FvPnOGo11dVC9jYXn3CJualoOlH+xIzZYYao3d15bOQkk8yKyy57ygF+T8lrUl7jNNM1ystvWI2vAIs4iRRqtl
+ c159dR6MfglP0ajmmj5KAs6Z9Kf/kxu9BLSY+opVxA776TJhRAFH4nv17ery+s1pm0XHkm6KrQvQscvOi6aWdS+V5Bm+Ebr2DF1Waq+gr4AzoGIQg402MUy6
+ d/mcDQQrlJgs6I+TcNx73tNltHJqH2J/byPrlHHHplTdQFeED+NtUjDf4BIVac+0H9vevQ/n/h3ftd1gBPGH8j0DtwMvSGDWPnWHDhSsaJnNO9D5mx1fa9SN
+ rEk6zw1CaDeJnzTWEnKWFU73
+X-Mailman-Approved-At: Wed, 23 Jun 2021 07:04:22 +0000
+Cc: Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Dario Binacchi <dariobin@libero.it>
+Subject: [Linux-stm32] [PATCH] clk: stm32f4: fix post divisor setup for
+	I2S/SAI PLLs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,172 +61,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3893793305276273273=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============3893793305276273273==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="3WvZxzpHzwDdgKIhf5CsBVuKNwIjhuqGE"
+Enabling the framebuffer leads to a system hang. Running, as a debug
+hack, the store_pan() function in drivers/video/fbdev/core/fbsysfs.c
+without taking the console_lock, allows to see the crash backtrace on
+the serial line.
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---3WvZxzpHzwDdgKIhf5CsBVuKNwIjhuqGE
-Content-Type: multipart/mixed; boundary="VpqofwZZWokdR6MNHNIH0htxV9CnMA5E8";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: emma@anholt.net, airlied@linux.ie, nouveau@lists.freedesktop.org,
- liviu.dudau@arm.com, alexandre.torgue@foss.st.com,
- dri-devel@lists.freedesktop.org, michal.simek@xilinx.com,
- linux-tegra@vger.kernel.org, thierry.reding@gmail.com,
- amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
- mihail.atanassov@arm.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
- krzysztof.kozlowski@canonical.com, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, wens@csie.org, jernej.skrabec@gmail.com,
- jonathanh@nvidia.com, xinliang.liu@linaro.org,
- kong.kongxinwei@hisilicon.com, james.qian.wang@arm.com, linux-imx@nxp.com,
- linux-graphics-maintainer@vmware.com, linux-sunxi@lists.linux.dev,
- bskeggs@redhat.com, chunkuang.hu@kernel.org, puck.chen@hisilicon.com,
- s.hauer@pengutronix.de, laurentiu.palcu@oss.nxp.com, matthias.bgg@gmail.com,
- kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, hyun.kwon@xilinx.com, tomba@kernel.org,
- jyri.sarha@iki.fi, yannick.fertre@foss.st.com, Xinhui.Pan@amd.com,
- sw0312.kim@samsung.com, hjc@rock-chips.com, christian.koenig@amd.com,
- kyungmin.park@samsung.com, philippe.cornu@foss.st.com,
- alexander.deucher@amd.com, tiantao6@hisilicon.com, shawnguo@kernel.org
-Message-ID: <03e349b3-f805-9aa8-14a7-96e674011c3a@suse.de>
-Subject: Re: [PATCH v2 00/22] Deprecate struct drm_device.irq_enabled
-References: <20210622141002.11590-1-tzimmermann@suse.de>
- <YNILtLMkI3uoH7mJ@pendragon.ideasonboard.com>
-In-Reply-To: <YNILtLMkI3uoH7mJ@pendragon.ideasonboard.com>
+~ # echo 0 0 > /sys/class/graphics/fb0/pan
 
---VpqofwZZWokdR6MNHNIH0htxV9CnMA5E8
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+[    9.719414] Unhandled exception: IPSR = 00000005 LR = fffffff1
+[    9.726937] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
+[    9.733008] Hardware name: STM32 (Device Tree Support)
+[    9.738296] PC is at clk_gate_is_enabled+0x0/0x28
+[    9.743426] LR is at stm32f4_pll_div_set_rate+0xf/0x38
+[    9.748857] pc : [<0011e4be>]    lr : [<0011f9e3>]    psr: 0100000b
+[    9.755373] sp : 00bc7be0  ip : 00000000  fp : 001f3ac4
+[    9.760812] r10: 002610d0  r9 : 01efe920  r8 : 00540560
+[    9.766269] r7 : 02e7ddb0  r6 : 0173eed8  r5 : 00000000  r4 : 004027c0
+[    9.773081] r3 : 0011e4bf  r2 : 02e7ddb0  r1 : 0173eed8  r0 : 1d3267b8
+[    9.779911] xPSR: 0100000b
+[    9.782719] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
+[    9.788791] Hardware name: STM32 (Device Tree Support)
+[    9.794120] [<0000afa1>] (unwind_backtrace) from [<0000a33f>] (show_stack+0xb/0xc)
+[    9.802421] [<0000a33f>] (show_stack) from [<0000a8df>] (__invalid_entry+0x4b/0x4c)
 
+The `pll_num' field in the post_div_data configuration contained a wrong
+value which also referenced an uninitialized hardware clock when
+clk_register_pll_div() was called.
 
+Fixes: 517633ef630e ("clk: stm32f4: Add post divisor for I2S & SAI PLLs")
+Signed-off-by: Dario Binacchi <dariobin@libero.it>
 
-Am 22.06.21 um 18:11 schrieb Laurent Pinchart:
-> Hi Thomas,
->=20
-> Thank you for the patches.
->=20
-> On Tue, Jun 22, 2021 at 04:09:40PM +0200, Thomas Zimmermann wrote:
->> Remove references to struct drm_device.irq_enabled from modern
->> DRM drivers and core.
->>
->> KMS drivers enable IRQs for their devices internally. They don't
->> have to keep track of the IRQ state via irq_enabled. For vblanking,
->> it's cleaner to test for vblanking support directly than to test
->> for enabled IRQs.
->>
->> This used to be a single patch, [1] but it's now a full series.
->>
->> The first 3 patches replace instances of irq_enabled that are not
->> required.
->>
->> Patch 4 fixes vblank ioctls to actually test for vblank support
->> instead of IRQs.
->>
->> THe rest of the patchset removes irq_enabled from all non-legacy
->> drivers. The only exception is omapdrm, which has an internal
->> dpendency on the field's value. For this drivers, the state gets
->> duplicated internally.
->>
->> With the patchset applied, drivers can later switch over to plain
->> Linux IRQ interfaces and DRM's IRQ midlayer can be declared legacy.
->>
->> v2:
->> 	* keep the original test for legacy drivers in
->> 	  drm_wait_vblank_ioctl() (Daniel)
->>
->> [1] https://lore.kernel.org/dri-devel/20210608090301.4752-1-tzimmerman=
-n@suse.de/
->>
->> Thomas Zimmermann (22):
->>    drm/amdgpu: Track IRQ state in local device state
->>    drm/hibmc: Call drm_irq_uninstall() unconditionally
->>    drm/radeon: Track IRQ state in local device state
->>    drm: Don't test for IRQ support in VBLANK ioctls
->>    drm/komeda: Don't set struct drm_device.irq_enabled
->>    drm/malidp: Don't set struct drm_device.irq_enabled
->>    drm/exynos: Don't set struct drm_device.irq_enabled
->>    drm/kirin: Don't set struct drm_device.irq_enabled
->>    drm/imx: Don't set struct drm_device.irq_enabled
->>    drm/mediatek: Don't set struct drm_device.irq_enabled
->>    drm/nouveau: Don't set struct drm_device.irq_enabled
->>    drm/omapdrm: Track IRQ state in local device state
->>    drm/rockchip: Don't set struct drm_device.irq_enabled
->>    drm/sti: Don't set struct drm_device.irq_enabled
->>    drm/stm: Don't set struct drm_device.irq_enabled
->>    drm/sun4i: Don't set struct drm_device.irq_enabled
->>    drm/tegra: Don't set struct drm_device.irq_enabled
->>    drm/tidss: Don't use struct drm_device.irq_enabled
->>    drm/vc4: Don't set struct drm_device.irq_enabled
->>    drm/vmwgfx: Don't set struct drm_device.irq_enabled
->>    drm/xlnx: Don't set struct drm_device.irq_enabled
->>    drm/zte: Don't set struct drm_device.irq_enabled
->=20
-> The list seems to be missing armada, rcar-du and vkms. It would also be=
+---
 
-> nice to address i915 if possible.
+ drivers/clk/clk-stm32f4.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Indeed. I grepped for \>irq_enabled. But some few drivers use=20
-=2Eirq_enabled. I'll fix this in the patchset's next iteration. Thanks fo=
-r=20
-double checking.
-
-Best regards
-Thomas
-
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---VpqofwZZWokdR6MNHNIH0htxV9CnMA5E8--
-
---3WvZxzpHzwDdgKIhf5CsBVuKNwIjhuqGE
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmDS2L4FAwAAAAAACgkQlh/E3EQov+DU
-wBAAw45Ui6qNyMQ6l7x7FjeKz6BOxeL/3pFiEg6QBuIF3dcF1K/av6JC94zL+kHXKPKf8RL0kK6R
-llSacrxSur3jN59j06sLSWaj+i6zIfcJnZGVC0gc943dR4mqoXM3xY2lbxKjscSbT4ZAnNRAueqe
-aVPvREhaES8K8dUdi1SvXbPGYu0SFpncaamo2SjRwCpsgaBuqR/en65vDdOMMZXF7wvON+UVnLDO
-eNmXxqxe6J4nAaMej8d05VkTFbGjnMQRYFNpml0jme9KeCIidOWuhiTn8B2TfJflgozLDLSuI9Oc
-HrAUMfEi/ylWg3AYV/7kw0sOHPK0u2yPy/o4y5rMkZE0WUC6r0quMB77bAHZvCBtotod2P85oVoY
-6aspu2FDzpID6HrFcsBr9mY/3AVMJD1OFWrK7GvzTfhuY22oEiNr5iE6VccabOn0Sh2UkCU/ZV1u
-NmlpoaRQm1ha7gITQisOwkps5C+gE5Cazo8hFAbJ0kalSzXr7JA2sifCm8GN5qtHnRpFv2UxfceG
-XMbscIhcKgiIDQU4PksI0w4o7/u0pKVfb7JA2NzNqwItMDAITSJk083kJXrNqPXRZZlLTX+U25SN
-rtpXlEe13EoOtMeXDiZP2rn7CZmWoFQrgsmTKOUrBPWMMpfr9PMgakJNUBThOirbykuQ+SrNpYgt
-rgY=
-=zLOG
------END PGP SIGNATURE-----
-
---3WvZxzpHzwDdgKIhf5CsBVuKNwIjhuqGE--
-
---===============3893793305276273273==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
+index 18117ce5ff85..42ca2dd86aea 100644
+--- a/drivers/clk/clk-stm32f4.c
++++ b/drivers/clk/clk-stm32f4.c
+@@ -557,13 +557,13 @@ static const struct clk_div_table post_divr_table[] = {
+ 
+ #define MAX_POST_DIV 3
+ static const struct stm32f4_pll_post_div_data  post_div_data[MAX_POST_DIV] = {
+-	{ CLK_I2SQ_PDIV, PLL_I2S, "plli2s-q-div", "plli2s-q",
++	{ CLK_I2SQ_PDIV, PLL_VCO_I2S, "plli2s-q-div", "plli2s-q",
+ 		CLK_SET_RATE_PARENT, STM32F4_RCC_DCKCFGR, 0, 5, 0, NULL},
+ 
+-	{ CLK_SAIQ_PDIV, PLL_SAI, "pllsai-q-div", "pllsai-q",
++	{ CLK_SAIQ_PDIV, PLL_VCO_SAI, "pllsai-q-div", "pllsai-q",
+ 		CLK_SET_RATE_PARENT, STM32F4_RCC_DCKCFGR, 8, 5, 0, NULL },
+ 
+-	{ NO_IDX, PLL_SAI, "pllsai-r-div", "pllsai-r", CLK_SET_RATE_PARENT,
++	{ NO_IDX, PLL_VCO_SAI, "pllsai-r-div", "pllsai-r", CLK_SET_RATE_PARENT,
+ 		STM32F4_RCC_DCKCFGR, 16, 2, 0, post_divr_table },
+ };
+ 
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3893793305276273273==--
