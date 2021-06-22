@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 698043B06C4
+	by mail.lfdr.de (Postfix) with ESMTPS id 880FB3B06C5
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Jun 2021 16:10:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D47BC5A4D8;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D264C5A4DD;
 	Tue, 22 Jun 2021 14:10:24 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8B72C5A4C4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B626CC5A4C6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Jun 2021 14:10:21 +0000 (UTC)
+ Tue, 22 Jun 2021 14:10:22 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7736F2197A;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7488821997;
+ Tue, 22 Jun 2021 14:10:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624371022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8bU53poMO4PuJvduCjmpKhTk2SV5pJ0hIOyB1sAQvWk=;
+ b=CIprfmBLErp2ozHKGhJVaDf2DTYTMHNYyqo4D3OHVkRfSIedW+duNbCLYGEjG9gx04LDW/
+ ERSAjzqEiNIkDI5VVXkxnmayOwA66pQAYeekgYJqBL4Tex+itVRDuq7X0j7+wADWactC1D
+ PBO0htaLIoRWSa40Ho5i56PWASUziPU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624371022;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8bU53poMO4PuJvduCjmpKhTk2SV5pJ0hIOyB1sAQvWk=;
+ b=L+2yJktmWahSssG9Tl2gY+GAejbeMsdWrF6LmbvMMEQ4APnJLo656rk3W729JAiAy8b2wg
+ UmAXsr7h7UEkC0Cg==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 7A74111A98;
  Tue, 22 Jun 2021 14:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624371021; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624371022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eQTWdf0/PIeqR+OtvVI1Ry57+82jitavcgCSlPgIzZQ=;
- b=c7b4AXAcGH/bAEXw8Ghdu9GTFduB5gY2x5HgddK57C70i3PzdLsD10Kma1Bsx2uRhyPeJs
- 20Co2J3mBbYTWSrbUYPpaeU5fYavZOQA40S4OBWL0ejv7GcR98fMG3NU/VWy4DuzkIYAkL
- nxUBP8lCfiY3hSBu0xHc1E3lIQFizYs=
+ bh=8bU53poMO4PuJvduCjmpKhTk2SV5pJ0hIOyB1sAQvWk=;
+ b=CIprfmBLErp2ozHKGhJVaDf2DTYTMHNYyqo4D3OHVkRfSIedW+duNbCLYGEjG9gx04LDW/
+ ERSAjzqEiNIkDI5VVXkxnmayOwA66pQAYeekgYJqBL4Tex+itVRDuq7X0j7+wADWactC1D
+ PBO0htaLIoRWSa40Ho5i56PWASUziPU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624371021;
+ s=susede2_ed25519; t=1624371022;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=eQTWdf0/PIeqR+OtvVI1Ry57+82jitavcgCSlPgIzZQ=;
- b=6r2l44Ff6BoeQLlNn5A7fG60gW+AQ0BfYu1c25LDL0anTrO6DXvbOOhj//R7nLdH1pJHXi
- SWYkAelMz0htb9Dg==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 7A128118DD;
- Tue, 22 Jun 2021 14:10:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624371021; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eQTWdf0/PIeqR+OtvVI1Ry57+82jitavcgCSlPgIzZQ=;
- b=c7b4AXAcGH/bAEXw8Ghdu9GTFduB5gY2x5HgddK57C70i3PzdLsD10Kma1Bsx2uRhyPeJs
- 20Co2J3mBbYTWSrbUYPpaeU5fYavZOQA40S4OBWL0ejv7GcR98fMG3NU/VWy4DuzkIYAkL
- nxUBP8lCfiY3hSBu0xHc1E3lIQFizYs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624371021;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eQTWdf0/PIeqR+OtvVI1Ry57+82jitavcgCSlPgIzZQ=;
- b=6r2l44Ff6BoeQLlNn5A7fG60gW+AQ0BfYu1c25LDL0anTrO6DXvbOOhj//R7nLdH1pJHXi
- SWYkAelMz0htb9Dg==
+ bh=8bU53poMO4PuJvduCjmpKhTk2SV5pJ0hIOyB1sAQvWk=;
+ b=L+2yJktmWahSssG9Tl2gY+GAejbeMsdWrF6LmbvMMEQ4APnJLo656rk3W729JAiAy8b2wg
+ UmAXsr7h7UEkC0Cg==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id IAvvHEzv0WD3UAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Tue, 22 Jun 2021 14:10:20 +0000
+ id WAYRHU3v0WD3UAAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Tue, 22 Jun 2021 14:10:21 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
@@ -81,8 +81,8 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  emma@anholt.net, linux-graphics-maintainer@vmware.com, zackr@vmware.com,
  hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
  michal.simek@xilinx.com
-Date: Tue, 22 Jun 2021 16:09:56 +0200
-Message-Id: <20210622141002.11590-17-tzimmermann@suse.de>
+Date: Tue, 22 Jun 2021 16:09:57 +0200
+Message-Id: <20210622141002.11590-18-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210622141002.11590-1-tzimmermann@suse.de>
 References: <20210622141002.11590-1-tzimmermann@suse.de>
@@ -93,7 +93,7 @@ Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
  linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 16/22] drm/sun4i: Don't set struct
+Subject: [Linux-stm32] [PATCH v2 17/22] drm/tegra: Don't set struct
 	drm_device.irq_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -112,26 +112,31 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The field drm_device.irq_enabled is only used by legacy drivers
-with userspace modesetting. Don't set it in sun4i.
+with userspace modesetting. Don't set it in tegra.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/sun4i/sun4i_drv.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/tegra/drm.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_drv.c b/drivers/gpu/drm/sun4i/sun4i_drv.c
-index af335f58bdfc..570f3af25e86 100644
---- a/drivers/gpu/drm/sun4i/sun4i_drv.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_drv.c
-@@ -97,8 +97,6 @@ static int sun4i_drv_bind(struct device *dev)
- 	if (ret)
- 		goto cleanup_mode_config;
+diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
+index f96c237b2242..8d27c21ddf48 100644
+--- a/drivers/gpu/drm/tegra/drm.c
++++ b/drivers/gpu/drm/tegra/drm.c
+@@ -1188,13 +1188,6 @@ static int host1x_drm_probe(struct host1x_device *dev)
+ 			goto device;
+ 	}
  
+-	/*
+-	 * We don't use the drm_irq_install() helpers provided by the DRM
+-	 * core, so we need to set this manually in order to allow the
+-	 * DRM_IOCTL_WAIT_VBLANK to operate correctly.
+-	 */
 -	drm->irq_enabled = true;
 -
- 	/* Remove early framebuffers (ie. simplefb) */
- 	ret = drm_aperture_remove_framebuffers(false, "sun4i-drm-fb");
- 	if (ret)
+ 	/* syncpoints are used for full 32-bit hardware VBLANK counters */
+ 	drm->max_vblank_count = 0xffffffff;
+ 
 -- 
 2.32.0
 
