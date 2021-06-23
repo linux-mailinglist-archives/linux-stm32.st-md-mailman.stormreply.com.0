@@ -2,97 +2,151 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93D2A3B140F
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 08:43:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9401D3B1414
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 08:43:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BE38C597AE;
-	Wed, 23 Jun 2021 06:43:11 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C4C6C597AF;
+	Wed, 23 Jun 2021 06:43:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E876C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6022EC59780
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jun 2021 06:43:09 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7EC9E1FD67;
- Wed, 23 Jun 2021 06:43:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624430589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=TlGZRZ99uCIt4JDAjOFXnswm4yaCa3ZMTl87RK83waE=;
- b=UL41/fdqkxp8KiBTP5sNgkK3QzSU6SjtYTCEKYkWMnVzCi0BsNO6N7H6Z/xHRP1nMXJTSK
- uAOvfeYpPY7ReQoGYz0BeGd1DtemAc5QyqOXIZOtYXgrkn7Ds1VLptp+gjp1TLwppTBvXC
- xy1xTFf1031DvsP89g+ewUEcPYWmU8w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624430589;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=TlGZRZ99uCIt4JDAjOFXnswm4yaCa3ZMTl87RK83waE=;
- b=hrob67bWMmViAg5CAyhvDg8xtRHrAUBAM0VSFniEqSI0myWGdc/UaBO6QCSVllrliNsDjF
- D7AeOlonnA0UfzBQ==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 7CE9211A97;
- Wed, 23 Jun 2021 06:43:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624430589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=TlGZRZ99uCIt4JDAjOFXnswm4yaCa3ZMTl87RK83waE=;
- b=UL41/fdqkxp8KiBTP5sNgkK3QzSU6SjtYTCEKYkWMnVzCi0BsNO6N7H6Z/xHRP1nMXJTSK
- uAOvfeYpPY7ReQoGYz0BeGd1DtemAc5QyqOXIZOtYXgrkn7Ds1VLptp+gjp1TLwppTBvXC
- xy1xTFf1031DvsP89g+ewUEcPYWmU8w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624430589;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=TlGZRZ99uCIt4JDAjOFXnswm4yaCa3ZMTl87RK83waE=;
- b=hrob67bWMmViAg5CAyhvDg8xtRHrAUBAM0VSFniEqSI0myWGdc/UaBO6QCSVllrliNsDjF
- D7AeOlonnA0UfzBQ==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id RGKAHfzX0mBnawAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Wed, 23 Jun 2021 06:43:08 +0000
-To: Liviu Dudau <liviu.dudau@arm.com>
-References: <20210622141002.11590-1-tzimmermann@suse.de>
- <20210622141002.11590-5-tzimmermann@suse.de>
- <20210622152504.2sw6khajwydsoaqa@e110455-lin.cambridge.arm.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <f7e72a3c-df86-2d4b-2caa-bf91442290a9@suse.de>
-Date: Wed, 23 Jun 2021 08:43:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Wed, 23 Jun 2021 06:43:21 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 15N6fjX8032639; Wed, 23 Jun 2021 08:43:12 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=WzfQJgcs7xzreysm3BAuTrx/rGjFPAoKX/YMMp53XCk=;
+ b=wcM4uxV83bUeZelURHUv3iQiK7LsrYX2Y9ii/7AocpJIsFHWlQUUG+pSroRrt6Yz6YgB
+ kDr83QuqOa5YJvctAJPe0XvIpGCT18uaSGWNasRRel6vc74+EnCoqceV10lrhqeLHNNR
+ W0KOe8tA7B2Wbs5Cd8/ArKh8dCEWUjX64uf8FYjNZKagd9bgibjc6zVa5IPQMSFG5S6K
+ nXU5fiR3SOw2v0AxjWFrYk1ZnU6phV/Ctd0dQnw9m6T6ogk6qII8LVBoVvlfYpB5vRJW
+ 1PkDGz90p5Fn1kDaQFZ59kBmAkkJ2OtUpTHcf8F651hGLS4oWY/A2NKN/1jtctyI7GSp jw== 
+Received: from eur03-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur03lp2050.outbound.protection.outlook.com [104.47.10.50])
+ by mx07-00178001.pphosted.com with ESMTP id 39bbk86ep6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 23 Jun 2021 08:43:12 +0200
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IccT+PtCjtAkeLDqRG/9DVPx/HkH03CTZTmsv2RnqpJqpHq7jV5xi4UzR2TyCH5riE7vV7CpK2A7plnxQJDwvG1o2ii8jCsrxx9ciQuLScuvVKVavBS3bed4luaKTAUNcLXU10c7fWyeov8tgH+fLhK3hj4xltzg/o5Ct1jU7iRznuJGdIh7VgmMhKjEslh3BugOax4j51iNFiebAdxHZvZDDd5mJEYr85NOa4cXCzQZdnlIfJK5z2pAHzVPztD1cYElYQ45X6ROT5il0eXuUzbgGGtHYCR4zFTHLyEhSh8GWZwQ1jXMJvtEAMvJvLDRznWWPPHqT2wiO7ei/oh0ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WzfQJgcs7xzreysm3BAuTrx/rGjFPAoKX/YMMp53XCk=;
+ b=fx5IeK+4xrh9VleHWqYc4f/US1BSPbNostsEADDKlEZKZYJ+MoiZa+W1723BMcYuW5CqQkTNUgp+Vb26Btgf8lD8jPwnrDah+XOZy+baU+OnuB3j9PvDH6glNJduEd2ui0M11FOpWv86rnNAKbi7IGM67D9jEtEugBfFWCjSNVcrjdg+boThLm+boH8OUPqRv762H5hJ1WqH80uvnCi/h6/4S/9qhq6joINlbhMmuO9VL7boXS+w8Bvx7CaNtYV8FXeB6Rq3nRc3bC0hhAlek/9bMjjZnyLJS5UIefVVhXm16Tj3lH2GTG36EpQ/PIafs3g9el9Xh4/zAsNqtY7YfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=st.com; dmarc=pass action=none header.from=st.com; dkim=pass
+ header.d=st.com; arc=none
+Received: from AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:315::11)
+ by AM0PR10MB2850.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:132::28)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Wed, 23 Jun
+ 2021 06:43:10 +0000
+Received: from AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::7c24:3471:b4a1:351b]) by AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::7c24:3471:b4a1:351b%8]) with mapi id 15.20.4264.018; Wed, 23 Jun 2021
+ 06:43:10 +0000
+From: Gabriel FERNANDEZ <gabriel.fernandez@st.com>
+To: Dario Binacchi <dariobin@libero.it>, "linux-clk@vger.kernel.org"
+ <linux-clk@vger.kernel.org>
+Thread-Topic: [PATCH] clk: stm32f4: fix post divisor setup for I2S/SAI PLLs
+Thread-Index: AQHXZ6uOCktfUfYWYk2+Yi5wSfjGMashH4G3gAAFh4CAAAFGMg==
+Date: Wed, 23 Jun 2021 06:43:10 +0000
+Message-ID: <AM8PR10MB4785F58DC33E888BFD2B9E9981089@AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM>
+References: <20210622211401.25604-1-dariobin@libero.it>
+ <AM8PR10MB47856D4CA879CD0230ED171081089@AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM>,
+ <1431023086.718458.1624430227963@mail1.libero.it>
+In-Reply-To: <1431023086.718458.1624430227963@mail1.libero.it>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_Enabled=True;
+ MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_SiteId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;
+ MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_SetDate=2021-06-23T06:43:10.347Z;
+ MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_Name=None
+ (Unclassified); MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_ContentBits=0;
+ MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_Method=Privileged; 
+authentication-results: libero.it; dkim=none (message not signed)
+ header.d=none;libero.it; dmarc=none action=none header.from=st.com;
+x-originating-ip: [165.225.76.160]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 25592df8-22d5-4608-f043-08d936122af7
+x-ms-traffictypediagnostic: AM0PR10MB2850:
+x-ld-processed: 75e027c9-20d5-47d5-b82f-77d7cd041e8f,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <AM0PR10MB2850624B6DE2A31285AB1BE481089@AM0PR10MB2850.EURPRD10.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: dsg7rHBNPiNHN9ynmpjai9Ju8R69WnLe2w1e2ymAXifKb0Nh9GWqz0ONFHAGRz6OR8RI8qaSyZNmxzcO9dA40bQuG/HK5Mkvt2IK/DvbdFmDz3WvkLrjatYEm7O4KvKLVSgF4v++HdOdow+gWBmd/N2gwSUjJeKcoBYmA8SX2zj++2CfIiNqEwt/YjoLMr3GTfvKP8wL3XSdjd/qp1bVqugmMKNG8hfgumwbk98CesONq7WyoNxcK7hrK+kprPY14NFEreoIbcJMr+7UlRSfvSaUoRvdIHl2pCni8vV/ZvOo80i6qsH/GPcrIixFaNqIZm3qEY/QXHWAmLsVsW1YaLDMobt5Y0Md/77lBYNbjUtPkC5zhAI/SXAdX84/O4llFGqXk0P4ETlcSdv3RbWkBlmGZIK+IYwv8bf2D1GJVEOcWQaI/K66duwyOi8zPcC0R6/IrdF1xBnoZSylRpyIadlhiN+SRAOBTkYdAq6ykc59y6+bRZDWzjFgIssZZy66CQqAPjGIeX+NPAtqsLkSvfDErVKzqU6VLCDoRtlaDr1TLcjOEXZje8961f/CA4Z+bDfKwRVwWeOUaqNdHng0UYgojLi1TVYDsheuQkljgiCD+CriEvv2nh2RFVH4u8MBma3DLxVYc9ruo9kvUjG3dQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(4636009)(396003)(366004)(376002)(346002)(39860400002)(136003)(9686003)(2906002)(83380400001)(33656002)(86362001)(5660300002)(26005)(186003)(53546011)(55236004)(66476007)(6506007)(7696005)(52536014)(122000001)(8676002)(55016002)(76116006)(38100700002)(110136005)(478600001)(316002)(4326008)(54906003)(71200400001)(66946007)(91956017)(64756008)(8936002)(66446008)(66556008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?aJQFw5ATVufI9dHElnEBlwQI211wevuh5r+vUA7y6Yvo3NgG2Tnow9kM+b?=
+ =?iso-8859-1?Q?sX5vDzU+XA8uZrAZCc58Tq4SDnoO/lJgiQ1oHEuzsiDfRsutJPwUPQa0Bp?=
+ =?iso-8859-1?Q?Z8bsw+FGh35uS2kgCIsyrkbLbG1z04kwxssZvdoSb5ThabhnmosR2/VUTG?=
+ =?iso-8859-1?Q?EseRfICWr4MFMQ3e4Zi5p3TrNS7otSuhbJxsCRql+tVQ+UK+7PnAcXQgir?=
+ =?iso-8859-1?Q?AQu/l+oCv4NghDXwObePVxhMtnIq02UFfOP5Th1Uxp7+j5fchZkowc5OGE?=
+ =?iso-8859-1?Q?7EGF0OM0m1KeGM3b5095X2TXbPVl1hNrgEBdchklmFEF/pRwT5HhTovTl5?=
+ =?iso-8859-1?Q?zfx4cFsCn2VJXlMvmAPcy7+WY47yeBFfurmP+qJ4bmfVBhrFQO0ee37T6C?=
+ =?iso-8859-1?Q?/DIDdTZBuM8yKlCXkfJFrAcFo2a/NsY+nQeSWre4jLwhojSjK14m29ZRiL?=
+ =?iso-8859-1?Q?h4deYR+BMRfgHREc38J9cjCR3NseyjoMGMxoz67sNa6V9prM6CR2rYXvRS?=
+ =?iso-8859-1?Q?fvSgETK+vyeO1vwkJp2LCIL5M3kMW83wyn1maL4/gbBynEi1IWdeCUaYqH?=
+ =?iso-8859-1?Q?V1dlDO4FWsVNvCiQ5GzQnXqEywf7IczETzfCgTfKZpmrAXjdma0Rd+kHuz?=
+ =?iso-8859-1?Q?Xobu/fb6rioIhHGck3iVyQpx3bWQae36M82Z9tArIj9zqCP9KAneuUnQP9?=
+ =?iso-8859-1?Q?qX2GTrOTV3bX/dMr7ARQspyVwwXBAYco0uAfsi3oKWZBlCjoSkL+9OjWst?=
+ =?iso-8859-1?Q?n6UqFI08hhy74uKN5eMYw2B3AnSeai+3OGkb+da7rRHRA9rwVYyoiZkVIb?=
+ =?iso-8859-1?Q?jq0OiinuDJ5hTlehKcdCieEGfx4LwvUkpXArFZGarlGYbeYZ+74PipyPRJ?=
+ =?iso-8859-1?Q?Yyh9sIBWpmnoPAaotAU5wcm/Dudo+kUkQfjBrxacFJJdQj+E19+USYptKC?=
+ =?iso-8859-1?Q?KJcekBuB797EIhX5CoMMIORnQVEuT1ZrTkSff4v1ie39YsSBJC05C4lXrl?=
+ =?iso-8859-1?Q?NzzpdtGQGdyUZU//GOSqGE9orGz0lQbcYuv9brn8CzQAnMMLUo/xkusmgb?=
+ =?iso-8859-1?Q?wGxt8I5l+KepV/r5iX/pVEWd5dxoMmguLRouIklNH4j+L4blcTWsslgY6T?=
+ =?iso-8859-1?Q?hzrOYS694XZ3mM4S+JocmwgRqAGWol0W1bLAI8pDO8oqXjf0RLybhNq02y?=
+ =?iso-8859-1?Q?DiwFfnTuHfRllwMZXGdT4X8IK483anyr20asYzUJPMP1GnZ9hOZc62RCxQ?=
+ =?iso-8859-1?Q?HvF4tiUzG6NDxIh4K6bMLeGF6yeayQzscDDVLkiCn4gEfekmVivbGn33Uh?=
+ =?iso-8859-1?Q?3abkFQnahAS9YpiC+prBY1Gyrwolf/zS+19djo0+FROwkIbk/sTsU8IjX0?=
+ =?iso-8859-1?Q?1Bt/SOWpMW?=
 MIME-Version: 1.0
-In-Reply-To: <20210622152504.2sw6khajwydsoaqa@e110455-lin.cambridge.arm.com>
-Cc: heiko@sntech.de, emma@anholt.net, airlied@linux.ie,
- nouveau@lists.freedesktop.org, alexandre.torgue@foss.st.com,
- dri-devel@lists.freedesktop.org, michal.simek@xilinx.com,
- linux-tegra@vger.kernel.org, thierry.reding@gmail.com,
- laurent.pinchart@ideasonboard.com, benjamin.gaignard@linaro.org,
- mihail.atanassov@arm.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- wens@csie.org, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
- xinliang.liu@linaro.org, kong.kongxinwei@hisilicon.com,
- james.qian.wang@arm.com, linux-imx@nxp.com,
- linux-graphics-maintainer@vmware.com, linux-sunxi@lists.linux.dev,
- bskeggs@redhat.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
- puck.chen@hisilicon.com, s.hauer@pengutronix.de,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, inki.dae@samsung.com,
- john.stultz@linaro.org, laurentiu.palcu@oss.nxp.com, matthias.bgg@gmail.com,
- kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- mcoquelin.stm32@gmail.com, amd-gfx@lists.freedesktop.org, hyun.kwon@xilinx.com,
- tomba@kernel.org, jyri.sarha@iki.fi, yannick.fertre@foss.st.com,
- Xinhui.Pan@amd.com, sw0312.kim@samsung.com, hjc@rock-chips.com,
- christian.koenig@amd.com, kyungmin.park@samsung.com, daniel@ffwll.ch,
- alexander.deucher@amd.com, tiantao6@hisilicon.com, shawnguo@kernel.org,
- brian.starkey@arm.com, zackr@vmware.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v2 04/22] drm: Don't test for IRQ support
-	in VBLANK ioctls
+X-OriginatorOrg: ST.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25592df8-22d5-4608-f043-08d936122af7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2021 06:43:10.7381 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: eW0Fkt9NTgidbivPttnBAFJbYGGRadu5+j0N8VT1TEhyLZwWQ2HCF2/ZF68vlkAnj4HvN+wdVzKDNcSzDl0MyANx3+YcqVYBWDdv0ySjbZk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB2850
+X-Proofpoint-ORIG-GUID: ZYhsfXn8yM6zN7YJtxuGHh3eF1-XlyqV
+X-Proofpoint-GUID: ZYhsfXn8yM6zN7YJtxuGHh3eF1-XlyqV
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
+ definitions=2021-06-23_02:2021-06-22,
+ 2021-06-23 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
+ priorityscore=1501
+ clxscore=1015 suspectscore=0 phishscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
+ definitions=main-2106230039
+Cc: Stephen Boyd <sboyd@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
+ Gabriel FERNANDEZ - foss <gabriel.fernandez@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] clk: stm32f4: fix post divisor setup for
+	I2S/SAI PLLs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,218 +158,152 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3131132033872796344=="
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============3131132033872796344==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="7jLGShJWLlf8CSqVlOcnyBWWcy9Lp6Rkb"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---7jLGShJWLlf8CSqVlOcnyBWWcy9Lp6Rkb
-Content-Type: multipart/mixed; boundary="3ihYu1sFcNnMMAMmUEcEMG76YaQ22m49E";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
- mihail.atanassov@arm.com, brian.starkey@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, inki.dae@samsung.com,
- jy0922.shim@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
- krzysztof.kozlowski@canonical.com, xinliang.liu@linaro.org,
- tiantao6@hisilicon.com, john.stultz@linaro.org,
- kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com,
- laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de, p.zabel@pengutronix.de,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com, chunkuang.hu@kernel.org,
- matthias.bgg@gmail.com, bskeggs@redhat.com, tomba@kernel.org,
- hjc@rock-chips.com, heiko@sntech.de, benjamin.gaignard@linaro.org,
- yannick.fertre@foss.st.com, philippe.cornu@foss.st.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, wens@csie.org,
- jernej.skrabec@gmail.com, thierry.reding@gmail.com, jonathanh@nvidia.com,
- jyri.sarha@iki.fi, emma@anholt.net, linux-graphics-maintainer@vmware.com,
- zackr@vmware.com, hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
- michal.simek@xilinx.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org
-Message-ID: <f7e72a3c-df86-2d4b-2caa-bf91442290a9@suse.de>
-Subject: Re: [PATCH v2 04/22] drm: Don't test for IRQ support in VBLANK ioctls
-References: <20210622141002.11590-1-tzimmermann@suse.de>
- <20210622141002.11590-5-tzimmermann@suse.de>
- <20210622152504.2sw6khajwydsoaqa@e110455-lin.cambridge.arm.com>
-In-Reply-To: <20210622152504.2sw6khajwydsoaqa@e110455-lin.cambridge.arm.com>
-
---3ihYu1sFcNnMMAMmUEcEMG76YaQ22m49E
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi Liviu
-
-Am 22.06.21 um 17:25 schrieb Liviu Dudau:
-> Hello,
->=20
-> On Tue, Jun 22, 2021 at 04:09:44PM +0200, Thomas Zimmermann wrote:
->> For KMS drivers, replace the IRQ check in VBLANK ioctls with a check f=
-or
->> vblank support. IRQs might be enabled wthout vblanking being supported=
-=2E
->>
->> This change also removes the DRM framework's only dependency on IRQ st=
-ate
->> for non-legacy drivers. For legacy drivers with userspace modesetting,=
-
->> the original test remains in drm_wait_vblank_ioctl().
->>
->> v2:
->> 	* keep the old test for legacy drivers in
->> 	  drm_wait_vblank_ioctl() (Daniel)
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/drm_irq.c    | 10 +++-------
->>   drivers/gpu/drm/drm_vblank.c | 13 +++++++++----
->>   2 files changed, 12 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_irq.c b/drivers/gpu/drm/drm_irq.c
->> index c3bd664ea733..1d7785721323 100644
->> --- a/drivers/gpu/drm/drm_irq.c
->> +++ b/drivers/gpu/drm/drm_irq.c
->> @@ -74,10 +74,8 @@
->>    * only supports devices with a single interrupt on the main device =
-stored in
->>    * &drm_device.dev and set as the device paramter in drm_dev_alloc()=
-=2E
->>    *
->> - * These IRQ helpers are strictly optional. Drivers which roll their =
-own only
->> - * need to set &drm_device.irq_enabled to signal the DRM core that vb=
-lank
->> - * interrupts are working. Since these helpers don't automatically cl=
-ean up the
->> - * requested interrupt like e.g. devm_request_irq() they're not reall=
-y
->> + * These IRQ helpers are strictly optional. Since these helpers don't=
- automatically
->> + * clean up the requested interrupt like e.g. devm_request_irq() they=
-'re not really
->>    * recommended.
->>    */
->>  =20
->> @@ -91,9 +89,7 @@
->>    * and after the installation.
->>    *
->>    * This is the simplified helper interface provided for drivers with=
- no special
->> - * needs. Drivers which need to install interrupt handlers for multip=
-le
->> - * interrupts must instead set &drm_device.irq_enabled to signal the =
-DRM core
->> - * that vblank interrupts are available.
->> + * needs.
->>    *
->>    * @irq must match the interrupt number that would be passed to requ=
-est_irq(),
->>    * if called directly instead of using this helper function.
->> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank=
-=2Ec
->> index 3417e1ac7918..a98a4aad5037 100644
->> --- a/drivers/gpu/drm/drm_vblank.c
->> +++ b/drivers/gpu/drm/drm_vblank.c
->> @@ -1748,8 +1748,13 @@ int drm_wait_vblank_ioctl(struct drm_device *de=
-v, void *data,
->>   	unsigned int pipe_index;
->>   	unsigned int flags, pipe, high_pipe;
->>  =20
->> -	if (!dev->irq_enabled)
->> -		return -EOPNOTSUPP;
->> +	if  (drm_core_check_feature(dev, DRIVER_MODESET)) {
->> +		if (!drm_dev_has_vblank(dev))
->> +			return -EOPNOTSUPP;
->> +	} else {
->> +		if (!dev->irq_enabled)
->> +			return -EOPNOTSUPP;
->> +	}
->=20
-> For a system call that is used quite a lot by userspace we have increas=
-ed the code size
-> in a noticeable way. Can we not cache it privately?
-
-I'm not quite sure that I understand your concern. The additionally=20
-called functions are trivial one-liners; probably inlined anyway.
-
-However, irq_enabled is only relevant for legacy drivers and will=20
-eventually disappear behind CONFIG_DRM_LEGACY. We can rewrite the test=20
-like this:
-
-ifdef CONFIG_DRM_LEGACY
-   if (unlikely(check_feature(dev, DRIVER_LEGACY))) {
-     if (!irq_enabled)
-       return;
-   } else
-#endif
-   {
-     if (!has_vblank_support(dev))
-       return;
-   }
-
-As CONFIG_DRM_LEGACY is most likely disabled on concurrent systems, we'd =
-
-get a single test for the modern drivers. If DRM_LEGACYis on, the=20
-compiler at least knows that the else branch is preferred.
-
-Best regards
-Thomas
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+In the same
 
 
---3ihYu1sFcNnMMAMmUEcEMG76YaQ22m49E--
+From: Dario Binacchi <dariobin@libero.it>
+Sent: Wednesday, June 23, 2021 8:37 AM
+To: Gabriel FERNANDEZ <gabriel.fernandez@st.com>; linux-clk@vger.kernel.org=
+ <linux-clk@vger.kernel.org>
+Cc: Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>; Maxime Coquelin=
+ <mcoquelin.stm32@gmail.com>; Michael Turquette <mturquette@baylibre.com>; =
+Stephen Boyd <sboyd@kernel.org>; linux-arm-kernel@lists.infradead.org <linu=
+x-arm-kernel@lists.infradead.org>; linux-kernel@vger.kernel.org <linux-kern=
+el@vger.kernel.org>; linux-stm32@st-md-mailman.stormreply.com <linux-stm32@=
+st-md-mailman.stormreply.com>; Gabriel FERNANDEZ - foss <gabriel.fernandez@=
+foss.st.com>
+Subject: Re: [PATCH] clk: stm32f4: fix post divisor setup for I2S/SAI PLLs =
 
---7jLGShJWLlf8CSqVlOcnyBWWcy9Lp6Rkb
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+=A0
+Hi Gabriel,
 
------BEGIN PGP SIGNATURE-----
+> Il 23/06/2021 08:27 Gabriel FERNANDEZ <gabriel.fernandez@st.com> ha scrit=
+to:
+> =
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmDS1/sFAwAAAAAACgkQlh/E3EQov+DQ
-GBAAgLEWLgvBzCF5hV0mjIUdLsPzDOR+sZaMmkihftgMzVIfDXBMfZp4PON/h5XP/oa3S7zWw9+W
-RaNndoHIiRezAR4dnNcXern7ByoYb3kFLVlzcdpjZYvhitX8fUEanpR8nSXzouFAPuevtw8dNzr3
-pyvXZCqqdXCmGz09Qrfc48j7bCYMgZ/b21GUHjKRGIC7JFkcSnGm2JopJOCsc9EiUD7tr0l7VfwS
-/H0ho3e9vLqI/p+1MdU/KMUjItmN71b2VEm8yp0KPceIEiCgsggBrW4np4kg8qoBrSVFNT+NDy1O
-weBoJYVfyPVT4UJXatHhqff7l9GUVWHtk2h2JfMrPIGj4qc15wiXUAiY9Goi5+z/9MgpJLl0TkXt
-GkxkK4Vdx1AdFMhNfE0PqmHjp1pOlLU/apueEhoeVslIwyatSi2cuTLKmRylHOzBYQhK9VsnS0Ip
-bLKBFuKu1QNELEqow7/6jmoneBg7LQwCtrFUZZ1juJfaHqCGttl8f4SleboXZe0fb8nPAgrQPItN
-TNb/u1tvc0hQhQ2DooSdMzvuCsM5qPlCi2ZLUwNNsj9uJo6rYJ49Xv7ay4pKE0TWQQN9MC+oyaa1
-InbjRqUF5ubLt361DDxI0YuEq7FBhvcQ1dC0J4I/uKgXvATLllGtOvUzyK0ZAkiXQZ+UKkd0HRDx
-v9w=
-=aQqG
------END PGP SIGNATURE-----
+>=A0 =
 
---7jLGShJWLlf8CSqVlOcnyBWWcy9Lp6Rkb--
+> Hi Dario,
+> =
 
---===============3131132033872796344==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> I agree with your analyse. =
 
+> You have to change also 'u8 pll_num' from 'stm32f4_pll_post_div_data' str=
+ucture into 'int pll_idx' =
+
+> or something like that.
+
+Always in the same patch or in a different one?
+
+Thanks and regards,
+Dario
+
+> Many Thanks !
+> Gabriel
+> =
+
+> =
+
+> From: Dario Binacchi <dariobin@libero.it>
+> Sent: Tuesday, June 22, 2021 11:14 PM
+> To: linux-clk@vger.kernel.org <linux-clk@vger.kernel.org>
+> Cc: Dario Binacchi <dariobin@libero.it>; Alexandre TORGUE - foss <alexand=
+re.torgue@foss.st.com>; Gabriel FERNANDEZ <gabriel.fernandez@st.com>; Maxim=
+e Coquelin <mcoquelin.stm32@gmail.com>; Michael Turquette <mturquette@bayli=
+bre.com>; Stephen Boyd <sboyd@kernel.org>; linux-arm-kernel@lists.infradead=
+.org <linux-arm-kernel@lists.infradead.org>; linux-kernel@vger.kernel.org <=
+linux-kernel@vger.kernel.org>; linux-stm32@st-md-mailman.stormreply.com <li=
+nux-stm32@st-md-mailman.stormreply.com>
+> Subject: [PATCH] clk: stm32f4: fix post divisor setup for I2S/SAI PLLs =
+
+> =A0
+> Enabling the framebuffer leads to a system hang. Running, as a debug
+> hack, the store_pan() function in drivers/video/fbdev/core/fbsysfs.c
+> without taking the console_lock, allows to see the crash backtrace on
+> the serial line.
+> =
+
+> ~ # echo 0 0 > /sys/class/graphics/fb0/pan
+> =
+
+> [=A0=A0=A0 9.719414] Unhandled exception: IPSR =3D 00000005 LR =3D ffffff=
+f1
+> [=A0=A0=A0 9.726937] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
+> [=A0=A0=A0 9.733008] Hardware name: STM32 (Device Tree Support)
+> [=A0=A0=A0 9.738296] PC is at clk_gate_is_enabled+0x0/0x28
+> [=A0=A0=A0 9.743426] LR is at stm32f4_pll_div_set_rate+0xf/0x38
+> [=A0=A0=A0 9.748857] pc : [<0011e4be>]=A0=A0=A0 lr : [<0011f9e3>]=A0=A0=
+=A0 psr: 0100000b
+> [=A0=A0=A0 9.755373] sp : 00bc7be0=A0 ip : 00000000=A0 fp : 001f3ac4
+> [=A0=A0=A0 9.760812] r10: 002610d0=A0 r9 : 01efe920=A0 r8 : 00540560
+> [=A0=A0=A0 9.766269] r7 : 02e7ddb0=A0 r6 : 0173eed8=A0 r5 : 00000000=A0 r=
+4 : 004027c0
+> [=A0=A0=A0 9.773081] r3 : 0011e4bf=A0 r2 : 02e7ddb0=A0 r1 : 0173eed8=A0 r=
+0 : 1d3267b8
+> [=A0=A0=A0 9.779911] xPSR: 0100000b
+> [=A0=A0=A0 9.782719] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
+> [=A0=A0=A0 9.788791] Hardware name: STM32 (Device Tree Support)
+> [=A0=A0=A0 9.794120] [<0000afa1>] (unwind_backtrace) from [<0000a33f>] (s=
+how_stack+0xb/0xc)
+> [=A0=A0=A0 9.802421] [<0000a33f>] (show_stack) from [<0000a8df>] (__inval=
+id_entry+0x4b/0x4c)
+> =
+
+> The `pll_num' field in the post_div_data configuration contained a wrong
+> value which also referenced an uninitialized hardware clock when
+> clk_register_pll_div() was called.
+> =
+
+> Fixes: 517633ef630e ("clk: stm32f4: Add post divisor for I2S & SAI PLLs")
+> Signed-off-by: Dario Binacchi <dariobin@libero.it>
+> =
+
+> ---
+> =
+
+> =A0drivers/clk/clk-stm32f4.c | 6 +++---
+> =A01 file changed, 3 insertions(+), 3 deletions(-)
+> =
+
+> diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
+> index 18117ce5ff85..42ca2dd86aea 100644
+> --- a/drivers/clk/clk-stm32f4.c
+> +++ b/drivers/clk/clk-stm32f4.c
+> @@ -557,13 +557,13 @@ static const struct clk_div_table post_divr_table[]=
+ =3D {
+> =A0
+> =A0#define MAX_POST_DIV 3
+> =A0static const struct stm32f4_pll_post_div_data=A0 post_div_data[MAX_POS=
+T_DIV] =3D {
+> -=A0=A0=A0=A0=A0=A0 { CLK_I2SQ_PDIV, PLL_I2S, "plli2s-q-div", "plli2s-q",
+> +=A0=A0=A0=A0=A0=A0 { CLK_I2SQ_PDIV, PLL_VCO_I2S, "plli2s-q-div", "plli2s=
+-q",
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 CLK_SET_RATE_PARENT, STM=
+32F4_RCC_DCKCFGR, 0, 5, 0, NULL},
+> =A0
+> -=A0=A0=A0=A0=A0=A0 { CLK_SAIQ_PDIV, PLL_SAI, "pllsai-q-div", "pllsai-q",
+> +=A0=A0=A0=A0=A0=A0 { CLK_SAIQ_PDIV, PLL_VCO_SAI, "pllsai-q-div", "pllsai=
+-q",
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 CLK_SET_RATE_PARENT, STM=
+32F4_RCC_DCKCFGR, 8, 5, 0, NULL },
+> =A0
+> -=A0=A0=A0=A0=A0=A0 { NO_IDX, PLL_SAI, "pllsai-r-div", "pllsai-r", CLK_SE=
+T_RATE_PARENT,
+> +=A0=A0=A0=A0=A0=A0 { NO_IDX, PLL_VCO_SAI, "pllsai-r-div", "pllsai-r", CL=
+K_SET_RATE_PARENT,
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 STM32F4_RCC_DCKCFGR, 16,=
+ 2, 0, post_divr_table },
+> =A0};
+> =A0
+> -- =
+
+> 2.17.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3131132033872796344==--
