@@ -2,138 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391623B145B
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 09:04:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AEE13B167D
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 11:09:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBE67C5A4C0;
-	Wed, 23 Jun 2021 07:04:24 +0000 (UTC)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60049.outbound.protection.outlook.com [40.107.6.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E40B5C597B6;
+	Wed, 23 Jun 2021 09:09:17 +0000 (UTC)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04C97C59780
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69422C597B4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jun 2021 06:44:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MmRuA1wtKdaa93/qa1pkc5o3Th7OzFDdoNNToGhyNwps8ffN/adEXal56gyPo2bFa2ktttfiKgOodp7udjB1EnEUqDNBy9m25KLbwYtjLN2s0fFpLPef7WqjrZwWzLCI3hwkMxnHA/pVEG0y0eHjT/nf/qvTO0lydQw8dXlegPIYGxcaFNHzicciSitV0ZT6wzFr8Qx+Os3cwlmEowb6iDVTJwyk8myVOa/nWXoaRUo5DXaUIYkRNjjQmIOdZACyJVlYpuhnPM6ksp6QDxvXHHw9042YKZzM8mH/Apkn0ceqGF81JOVsORnLpDzFGzVptThS3NP6lTy3eO3ozoqm4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZTaUa13910xDlQjqgNL//BhpGf3jJvczln3OKNN6nYM=;
- b=JnKXykLH9U7PxAmIZBHL0BQi2NM7yBO+IxXwdZ1X/hVpkAp/zohtJYVa/i7G6zPIbdY5btlRHPGeDFOa/iKep+lo0UTr73E4oz+mvRe00ORoTIJLdG8uSBJGJI8XLyrbnMuObj//9T6a3PBB9PDOlWJix1iZ3a0+d7fNGXB7tvjlUMulQgFWlnyI7NNmWlk9fVm1RmocYg0H0+4BNdWOdSgTAi0fqaVyHuO6e1OYZJwYiwrRyOKa5LXf4Mk8qcKY0D6+rk/4OkJKNR6Sevg+whgrS0KLLYPRZuNvCUPNWJ7U8gMBzMCdt4GTzhFCqgmKzyCs23anNub9tPsCXVuDpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZTaUa13910xDlQjqgNL//BhpGf3jJvczln3OKNN6nYM=;
- b=jAV07663zIxellWWwv4HPl+bfXKtvU3hzqjCXTrD/Yt2d7VLbVTQfTvDJ9vWzRcuF46HInnspX/mIZSHt7Kf1loHlBGcsKtEHzg/2vudwlHwBAfl6yk3yHXxnnTVyJs6hDjBLEQ23Qokf2qzOfS/AeyCobacv/5/ebt7OJoGGr0=
-Authentication-Results: suse.de; dkim=none (message not signed)
- header.d=none;suse.de; dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI1PR0402MB3902.eurprd04.prod.outlook.com
- (2603:10a6:803:22::27) by VI1PR04MB4094.eurprd04.prod.outlook.com
- (2603:10a6:803:43::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.19; Wed, 23 Jun
- 2021 06:44:07 +0000
-Received: from VI1PR0402MB3902.eurprd04.prod.outlook.com
- ([fe80::54c5:2184:1aa:7e51]) by VI1PR0402MB3902.eurprd04.prod.outlook.com
- ([fe80::54c5:2184:1aa:7e51%3]) with mapi id 15.20.4242.023; Wed, 23 Jun 2021
- 06:44:05 +0000
-Date: Wed, 23 Jun 2021 09:43:58 +0300
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20210623064358.u2acxvz5z52l7h7l@fsr-ub1664-121.ea.freescale.net>
-References: <20210622141002.11590-1-tzimmermann@suse.de>
- <20210622141002.11590-10-tzimmermann@suse.de>
-Content-Disposition: inline
-In-Reply-To: <20210622141002.11590-10-tzimmermann@suse.de>
-User-Agent: NeoMutt/20171215
-X-Originating-IP: [83.217.231.2]
-X-ClientProxiedBy: AM8P189CA0006.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:218::11) To VI1PR0402MB3902.eurprd04.prod.outlook.com
- (2603:10a6:803:22::27)
+ Wed, 23 Jun 2021 08:57:47 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id hc16so2775946ejc.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 23 Jun 2021 01:57:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=monstr-eu.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Z6Z3rnoFwy3s+OnHi/sH1rvXTGduUYkOOkAbeaIPw4Q=;
+ b=tdK9uAJWdmT+cTqTX4ozHwlgRi7wW7OUcIGpx+5Br2fodFNa+MnfUQZVAzgz1DMfXp
+ n/6yy9sAzllko9mIwsv87gD1kCOH5+UvzuTO8Ov4YmQvbrKg9vhNxEnX9Bb3xpiNP2fH
+ k9Oyze3A8ShMVN/bVHL82sBkwKgirt++Dw9dhx7H9AShjZynKsDqAx3QjkNyy+S3seYa
+ O7aOzg7Mj0Cm2KxHYiHvi5dJSHR99JkBwPvAeetXr4PIjVliCzIaKYRVlGsyYaoAOytV
+ AXOwIKzGUy2+Qw0GsQqKp2vE+Hbxv9yib/h1U+C6vqKY5DAWNhTnHvHGn5ed0S9mxQ6J
+ iM2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Z6Z3rnoFwy3s+OnHi/sH1rvXTGduUYkOOkAbeaIPw4Q=;
+ b=fpozJ/eZuHOQOFDwxxWS8qp+PTxfV/RmryP+cNylJuWZQE6qMseaPd9/W0C/Ur27IH
+ ES+4nJl4PRZYHpASw/A14Z4SjlEFRTWiIAj4DVDD58j8Oi6dkU9VTEo5sA7hvMEcH/ir
+ ZdADpWivpmQK4rQVm7aLSm0au81rb9Doj2BtuPocXKn+TpDb7VVBIsmItZq+5gUnXI5Q
+ Nlc+vP+lS0TZT4+9zJ1DKqsUubzGoHrxMS/kqNxc8ZV77E6HSNWwi/c46C0Q7RsMYXQj
+ AC77XEjX/pLxDmLlo1/WI4GkyeWejJxW/xe9fDGF1RyeXhaDWqW7LVtHm+Ln7hWqe02E
+ b4Hg==
+X-Gm-Message-State: AOAM530d6OLJOFNeO2w2lgpL9zUXatBNoogizNIKXR4iK7xjHycYqH7w
+ XfGsl1d8okwTlxwEt9lRXYpDWQZo53IZHllj4kJuSA==
+X-Google-Smtp-Source: ABdhPJwy+pM9oZ1iyRoxUOJy65b7IRacVpAEIpAEHz2ud7J2MhpMBy54g7b0sAw4obchFDygfdWC6jUFii9npycxr4w=
+X-Received: by 2002:a17:906:ca4a:: with SMTP id
+ jx10mr8892678ejb.200.1624438666647; 
+ Wed, 23 Jun 2021 01:57:46 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from fsr-ub1664-121.ea.freescale.net (83.217.231.2) by
- AM8P189CA0006.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:218::11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4264.18 via Frontend Transport; Wed, 23 Jun 2021 06:44:01 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b2d312c4-75b9-4cd3-3eeb-08d936124b77
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4094:
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR04MB4094753F025F4787861E156EBE089@VI1PR04MB4094.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Fh9dsYEknwRMMWbSx2DJCzutlhUuCpxHs7AMAK1zbjrUxc9XIzEAHGDfBTpU0AIAsAbyaFH5HZxd/IGz/jPcjozA5a0mmwkKu2yousAeAMwyKY/KRC0j2TEl+C9d3Ujbk8rsnCxncO6TS5I+iXxKq4P1SoHAqe8anQle/431NW6nnRnajKd+YfYcjCd16vXCmmGaduaP+EY9qIlpQFEpj6ddCINiSRIHg7xFLvk322YUUJMtH/EKkinXQwUFEntxekHNPoFlJdslsBoWuJ+uiAPN9bsCkvxptFs0BksB7zoSTNvmoFxqbo+LEU2m+QCxYGugmdekZCaKnp0kcA/ZR5/wj2iTIdGzNRG+fgPnNFObtpEi+ZJXo9TR4kbyJc5QbZIn/l/P3kw5TjqqDE3of7mrTGOC2nQmjGj5ZVyKNx9f4E1xjXAOmoIl62taRpMkUFZhdaSKroopUI0N5AcFjcdavUjpffW1Vyp6MjJvzxYd7nCH0KLhPrM5SX9KLx5TPBfqQZheG1NRuR03/ZYMyjg+inaQufy9EkGs7nMfcub9RhAgA+QuWy+gDEr6gW+uz7ksk89ooM9XVuDfKeSD+bIPEJ9xy94sLSEV+SP9l4Ub7zMsxj/JdsvXJD5R8LYGc0cUYUCZkj5bcSRBEE3e1w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR0402MB3902.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(396003)(376002)(39860400002)(346002)(7696005)(6666004)(52116002)(26005)(6506007)(8936002)(38100700002)(9686003)(8676002)(1076003)(2906002)(86362001)(38350700002)(83380400001)(55016002)(186003)(66946007)(316002)(16526019)(5660300002)(7416002)(7366002)(4326008)(7406005)(44832011)(478600001)(66556008)(66476007)(6916009)(956004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pxGOlG/MowBLaCmVSMd6AgjHjTzTJT2BSx+jI4bpHEzZM4dtn3OcuRz1SQsU?=
- =?us-ascii?Q?pDNwC8tVHdL2h07HjjuhM/M+HUP6leC+1+l5LEVeU3qtS3DXnDk3KkQqXBFE?=
- =?us-ascii?Q?b5tVvei/maTJnwuVNSjy7pjLDehGdb3sIfa5Q15Or6C3z/SegjhP02QiErzh?=
- =?us-ascii?Q?2cKoG0xsmvB2LK3cbxg3D/Y3iZEgnYuU062bTPJXLXX0UysA6rUhjt5T6LNE?=
- =?us-ascii?Q?VlIypXy+u4iJ0HN4iLPvm/As7txbwpn8KIU7iSeRg/Hgkp4VLxbc3hzm3efb?=
- =?us-ascii?Q?dVpupTejNukJDUfiuTtuv9UvvLczgcJbhpgi2Y6+0+5U8EhwIFdd8wXAG4CR?=
- =?us-ascii?Q?Lh3fq2sK1FfraBQbaoxt6IrzlNqqdSzdsBAe3uZAz5kBp/8XmdlyJQ/8OFol?=
- =?us-ascii?Q?P7GzywVrViiKBbSQ5ATxoiW3z4p7VO77yfcMNU3u76c5bypjISXIwbRrCl5G?=
- =?us-ascii?Q?YbSuYtPeE6aQDAkba1XZ2NuXHMhFQpDQa/9Fv9WLs69SnFqLV6MfJ272Tzkj?=
- =?us-ascii?Q?BsfUt+YfK4eXi0pMbgOMV5QUX2Pb/ngftF77++fIFM9L5XSPG1CZV3fQeEP1?=
- =?us-ascii?Q?yxmQeikFKmqmlbKiTh3tRfmgIF5qjRIVIkbE96YAbgtzynRyVu49sJBnVOOb?=
- =?us-ascii?Q?KHMs+4MnsF7T2UOWnfzPY/XG02mWsB6ULfG/NGU7o5+4MsWX01R6TSyLpzim?=
- =?us-ascii?Q?hbg3/qfiW/dSNbfFhcupTUTwdcN3K5JVmTVVKDgD5FS56OQDO/Y6fjh9XOZP?=
- =?us-ascii?Q?wIbDmR3CC0pOmer4coSQTKPbHFS+UWX4l61BW7brMh/u5DLVhh/vPSsicYNT?=
- =?us-ascii?Q?dEOtOa44FBRQPAnI/xNf8fYi8hNlm9mSK7verYznEd5GW+86ni8SxVhU/YHi?=
- =?us-ascii?Q?Bl+ewLVaB7cp7bMpMnypLUn7kpxxskCppTiZ2y+IllqKWrDJ3F2FHV7XvoQi?=
- =?us-ascii?Q?23pQgUzrDxDdxGuYktyzkAC/ylTL9Q7AIzb8C0fkuPwsW3PbT70IEU17KNNs?=
- =?us-ascii?Q?G2fV/X+RnScygD0xXul7UaL5UNBapQVGsqe40Rp+LGK23BPka8RXnXFQGC/b?=
- =?us-ascii?Q?4EYoaQLj/950i50p3n4/yp8+2nSfGFquxJ34XB5/gTuqHpKUiQ2u1KU9sqOT?=
- =?us-ascii?Q?/t+bSP/Ys6983ttArvYGM9Yx5ZDKaP/mOFruvVJ8eVQ657sHpYc8DXE9AAGS?=
- =?us-ascii?Q?KJCB/nWJdSTOKujAaJ414NUTlfRP4I8ymAKkXDw68FNGYjKbSl1wTw2wzQ0A?=
- =?us-ascii?Q?g2Gt/l7VmKSkSg17A9lg0XPPk1slwcFiPqi9F6pYCgaWKshLOCWGng8+VldF?=
- =?us-ascii?Q?0Z9jRlOn3NAq/+lqK+o8ZnOr?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2d312c4-75b9-4cd3-3eeb-08d936124b77
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR0402MB3902.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2021 06:44:05.6671 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +1vwPnN0/4Y6EwTEAemvNjcsC17/VSE27OX70t/q5jm1UEAFiAmZNDZH2cs2YBc+tHfYkNWv14cG+rLZ25IV4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4094
-X-Mailman-Approved-At: Wed, 23 Jun 2021 07:04:23 +0000
-Cc: heiko@sntech.de, emma@anholt.net, airlied@linux.ie,
- nouveau@lists.freedesktop.org, liviu.dudau@arm.com,
- alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
- michal.simek@xilinx.com, linux-tegra@vger.kernel.org, thierry.reding@gmail.com,
- laurent.pinchart@ideasonboard.com, benjamin.gaignard@linaro.org,
- mihail.atanassov@arm.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- wens@csie.org, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
- xinliang.liu@linaro.org, kong.kongxinwei@hisilicon.com,
- james.qian.wang@arm.com, linux-imx@nxp.com,
- linux-graphics-maintainer@vmware.com, linux-sunxi@lists.linux.dev,
- bskeggs@redhat.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
- puck.chen@hisilicon.com, s.hauer@pengutronix.de,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, inki.dae@samsung.com,
- john.stultz@linaro.org, matthias.bgg@gmail.com, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- amd-gfx@lists.freedesktop.org, hyun.kwon@xilinx.com, tomba@kernel.org,
- jyri.sarha@iki.fi, yannick.fertre@foss.st.com, Xinhui.Pan@amd.com,
- sw0312.kim@samsung.com, hjc@rock-chips.com, christian.koenig@amd.com,
- kyungmin.park@samsung.com, daniel@ffwll.ch, alexander.deucher@amd.com,
- tiantao6@hisilicon.com, shawnguo@kernel.org, brian.starkey@arm.com,
- zackr@vmware.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v2 09/22] drm/imx: Don't set struct
-	drm_device.irq_enabled
+References: <20200902150643.14839-1-krzk@kernel.org>
+ <20200902150643.14839-2-krzk@kernel.org>
+In-Reply-To: <20200902150643.14839-2-krzk@kernel.org>
+From: Michal Simek <monstr@monstr.eu>
+Date: Wed, 23 Jun 2021 10:57:35 +0200
+Message-ID: <CAHTX3dK+M9eg+Xod9tYHiEXY_igjO6iocaO=e1Frqd1kzPKTrw@mail.gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Wolfram Sang <wsa@the-dreams.de>
+X-Mailman-Approved-At: Wed, 23 Jun 2021 09:09:16 +0000
+Cc: Heiko Stuebner <heiko@sntech.de>, Sekhar Nori <nsekhar@ti.com>,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-i2c@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-rockchip@lists.infradead.org,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ bcm-kernel-feedback-list@broadcom.com, NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-rpi-kernel@lists.infradead.org,
+ linux-arm <linux-arm-kernel@lists.infradead.org>,
+ Scott Branden <sbranden@broadcom.com>, LKML <linux-kernel@vger.kernel.org>,
+ Oleksij Rempel <linux@rempel-privat.de>, Wolfram Sang <wsa@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Peter Rosin <peda@axentia.se>, Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
+Subject: Re: [Linux-stm32] [PATCH 2/9] i2c: xiic: Simplify with
+	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,82 +81,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Thomas,
-
-On Tue, Jun 22, 2021 at 04:09:49PM +0200, Thomas Zimmermann wrote:
-> The field drm_device.irq_enabled is only used by legacy drivers
-> with userspace modesetting. Don't set it in imx.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/imx/dcss/dcss-kms.c |  3 ---
-
-Not sure if it's worth the effort but, since DCSS is a completely
-self-contained driver, maybe it would be good to split this patch in 2
-as well.
-
-Anyway, for DCSS bit:
-
-Acked-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-
-Thanks,
-laurentiu
-
->  drivers/gpu/drm/imx/imx-drm-core.c  | 11 -----------
->  2 files changed, 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/imx/dcss/dcss-kms.c b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> index 37ae68a7fba5..917834b1c80e 100644
-> --- a/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> +++ b/drivers/gpu/drm/imx/dcss/dcss-kms.c
-> @@ -133,8 +133,6 @@ struct dcss_kms_dev *dcss_kms_attach(struct dcss_dev *dcss)
->  	if (ret)
->  		goto cleanup_mode_config;
->  
-> -	drm->irq_enabled = true;
-> -
->  	ret = dcss_kms_bridge_connector_init(kms);
->  	if (ret)
->  		goto cleanup_mode_config;
-> @@ -178,7 +176,6 @@ void dcss_kms_detach(struct dcss_kms_dev *kms)
->  	drm_kms_helper_poll_fini(drm);
->  	drm_atomic_helper_shutdown(drm);
->  	drm_crtc_vblank_off(&kms->crtc.base);
-> -	drm->irq_enabled = false;
->  	drm_mode_config_cleanup(drm);
->  	dcss_crtc_deinit(&kms->crtc, drm);
->  	drm->dev_private = NULL;
-> diff --git a/drivers/gpu/drm/imx/imx-drm-core.c b/drivers/gpu/drm/imx/imx-drm-core.c
-> index 76819a8ac37f..9558e9e1b431 100644
-> --- a/drivers/gpu/drm/imx/imx-drm-core.c
-> +++ b/drivers/gpu/drm/imx/imx-drm-core.c
-> @@ -207,17 +207,6 @@ static int imx_drm_bind(struct device *dev)
->  	if (IS_ERR(drm))
->  		return PTR_ERR(drm);
->  
-> -	/*
-> -	 * enable drm irq mode.
-> -	 * - with irq_enabled = true, we can use the vblank feature.
-> -	 *
-> -	 * P.S. note that we wouldn't use drm irq handler but
-> -	 *      just specific driver own one instead because
-> -	 *      drm framework supports only one irq handler and
-> -	 *      drivers can well take care of their interrupts
-> -	 */
-> -	drm->irq_enabled = true;
-> -
->  	/*
->  	 * set max width and height as default value(4096x4096).
->  	 * this value would be used to check framebuffer size limitation
-> -- 
-> 2.32.0
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+c3QgMi4gOS4gMjAyMCB2IDE3OjEwIG9kZXPDrWxhdGVsIEtyenlzenRvZiBLb3psb3dza2kgPGty
+emtAa2VybmVsLm9yZz4gbmFwc2FsOgo+Cj4gQ29tbW9uIHBhdHRlcm4gb2YgaGFuZGxpbmcgZGVm
+ZXJyZWQgcHJvYmUgY2FuIGJlIHNpbXBsaWZpZWQgd2l0aAo+IGRldl9lcnJfcHJvYmUoKS4gIExl
+c3MgY29kZSBhbmQgdGhlIGVycm9yIHZhbHVlIGdldHMgcHJpbnRlZC4KPgo+IFNpZ25lZC1vZmYt
+Ynk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyemtAa2VybmVsLm9yZz4KPiAtLS0KPiAgZHJpdmVy
+cy9pMmMvYnVzc2VzL2kyYy14aWljLmMgfCA5ICsrKystLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwg
+NCBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+aTJjL2J1c3Nlcy9pMmMteGlpYy5jIGIvZHJpdmVycy9pMmMvYnVzc2VzL2kyYy14aWljLmMKPiBp
+bmRleCA5MGMxYzM2MjM5NGQuLmE5NzQzOGYzNWM1ZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2ky
+Yy9idXNzZXMvaTJjLXhpaWMuYwo+ICsrKyBiL2RyaXZlcnMvaTJjL2J1c3Nlcy9pMmMteGlpYy5j
+Cj4gQEAgLTc4NywxMSArNzg3LDEwIEBAIHN0YXRpYyBpbnQgeGlpY19pMmNfcHJvYmUoc3RydWN0
+IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgICAgICAgIGluaXRfd2FpdHF1ZXVlX2hlYWQoJmky
+Yy0+d2FpdCk7Cj4KPiAgICAgICAgIGkyYy0+Y2xrID0gZGV2bV9jbGtfZ2V0KCZwZGV2LT5kZXYs
+IE5VTEwpOwo+IC0gICAgICAgaWYgKElTX0VSUihpMmMtPmNsaykpIHsKPiAtICAgICAgICAgICAg
+ICAgaWYgKFBUUl9FUlIoaTJjLT5jbGspICE9IC1FUFJPQkVfREVGRVIpCj4gLSAgICAgICAgICAg
+ICAgICAgICAgICAgZGV2X2VycigmcGRldi0+ZGV2LCAiaW5wdXQgY2xvY2sgbm90IGZvdW5kLlxu
+Iik7Cj4gLSAgICAgICAgICAgICAgIHJldHVybiBQVFJfRVJSKGkyYy0+Y2xrKTsKPiAtICAgICAg
+IH0KPiArICAgICAgIGlmIChJU19FUlIoaTJjLT5jbGspKQo+ICsgICAgICAgICAgICAgICByZXR1
+cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCBQVFJfRVJSKGkyYy0+Y2xrKSwKPiArICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgImlucHV0IGNsb2NrIG5vdCBmb3VuZC5cbiIp
+Owo+ICsKPiAgICAgICAgIHJldCA9IGNsa19wcmVwYXJlX2VuYWJsZShpMmMtPmNsayk7Cj4gICAg
+ICAgICBpZiAocmV0KSB7Cj4gICAgICAgICAgICAgICAgIGRldl9lcnIoJnBkZXYtPmRldiwgIlVu
+YWJsZSB0byBlbmFibGUgY2xvY2suXG4iKTsKPiAtLQo+IDIuMTcuMQo+Cj4KPiBfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGxpbnV4LWFybS1rZXJuZWwg
+bWFpbGluZyBsaXN0Cj4gbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4gaHR0
+cDovL2xpc3RzLmluZnJhZGVhZC5vcmcvbWFpbG1hbi9saXN0aW5mby9saW51eC1hcm0ta2VybmVs
+CgpJIHNlZSB0aGF0IHRoaXMgZGlkbid0IGdvIHRocm91Z2guCkFja2VkLWJ5OiBNaWNoYWwgU2lt
+ZWsgPG1pY2hhbC5zaW1la0B4aWxpbnguY29tPgoKV29sZnJhbTogQ2FuIHlvdSBwbGVhc2UgYXBw
+bHk/CgpUaGFua3MsCk1pY2hhbAoKCi0tIApNaWNoYWwgU2ltZWssIEluZy4gKE0uRW5nKSwgT3Bl
+blBHUCAtPiBLZXlJRDogRkUzRDFGOTEKdzogd3d3Lm1vbnN0ci5ldSBwOiArNDItMC03MjE4NDI4
+NTQKTWFpbnRhaW5lciBvZiBMaW51eCBrZXJuZWwgLSBYaWxpbnggTWljcm9ibGF6ZQpNYWludGFp
+bmVyIG9mIExpbnV4IGtlcm5lbCAtIFhpbGlueCBaeW5xIEFSTSBhbmQgWnlucU1QIEFSTTY0IFNv
+Q3MKVS1Cb290IGN1c3RvZGlhbiAtIFhpbGlueCBNaWNyb2JsYXplL1p5bnEvWnlucU1QL1ZlcnNh
+bCBTb0NzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
