@@ -2,58 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CAC43B19A8
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 14:16:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9D253B1BF5
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 16:04:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25E37C06B6C;
-	Wed, 23 Jun 2021 12:16:00 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B286C424AF
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CD6BC5662F;
+	Wed, 23 Jun 2021 14:04:07 +0000 (UTC)
+Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4740C424AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jun 2021 12:15:58 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 69258ED1;
- Wed, 23 Jun 2021 05:15:57 -0700 (PDT)
-Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2AC093F718;
- Wed, 23 Jun 2021 05:15:57 -0700 (PDT)
-Received: by e110455-lin.cambridge.arm.com (Postfix, from userid 1000)
- id DA9E16837C9; Wed, 23 Jun 2021 13:15:55 +0100 (BST)
-Date: Wed, 23 Jun 2021 13:15:55 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20210623121555.ttos325zjt55dynw@e110455-lin.cambridge.arm.com>
-References: <20210622141002.11590-1-tzimmermann@suse.de>
- <20210622141002.11590-5-tzimmermann@suse.de>
- <20210622152504.2sw6khajwydsoaqa@e110455-lin.cambridge.arm.com>
- <f7e72a3c-df86-2d4b-2caa-bf91442290a9@suse.de>
+ Wed, 23 Jun 2021 14:04:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple; d=sang-engineering.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=k1; bh=5Hz0NBW+dm9DpC3tg2xUSrZvo02x
+ pLXSDQ9mKWvGrZo=; b=a6nXb2FF57WWdN3KkRmaItssShKrVhGSiOUgJWDdzz6Z
+ 8SHdsvJ6rzucr3NnxXaon6EMCxloUccpk3EPZ8FZM223BlageQ/l3j22cMtfDGfl
+ LDuDMfsfFiR9Bol7p1MaFvD+apa+YzC4dKwVEPvlnPlYTuwfGM3u3TydGRjmRhY=
+Received: (qmail 2628777 invoked from network); 23 Jun 2021 16:04:03 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 23 Jun 2021 16:04:03 +0200
+X-UD-Smtp-Session: l3s3148p1@0guzYG/FUsUgAwDPXwWqAK4jk/jYs7Oa
+Date: Wed, 23 Jun 2021 16:03:57 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-mmc@vger.kernel.org
+Message-ID: <YNM/TZMWwCLGSEJO@ninjato>
+Mail-Followup-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20210623095942.3325-1-wsa+renesas@sang-engineering.com>
+ <20210623095942.3325-8-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f7e72a3c-df86-2d4b-2caa-bf91442290a9@suse.de>
-Cc: emma@anholt.net, airlied@linux.ie, nouveau@lists.freedesktop.org,
- alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
- matthias.bgg@gmail.com, thierry.reding@gmail.com,
- laurent.pinchart@ideasonboard.com, benjamin.gaignard@linaro.org,
- mihail.atanassov@arm.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
- krzysztof.kozlowski@canonical.com, michal.simek@xilinx.com,
- jernej.skrabec@gmail.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, kong.kongxinwei@hisilicon.com,
- james.qian.wang@arm.com, linux-imx@nxp.com, xinliang.liu@linaro.org,
- linux-graphics-maintainer@vmware.com, linux-sunxi@lists.linux.dev,
- bskeggs@redhat.com, chunkuang.hu@kernel.org, mcoquelin.stm32@gmail.com,
- puck.chen@hisilicon.com, s.hauer@pengutronix.de,
- linux-mediatek@lists.infradead.org, laurentiu.palcu@oss.nxp.com,
- linux-tegra@vger.kernel.org, wens@csie.org,
- linux-arm-kernel@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- tomba@kernel.org, hyun.kwon@xilinx.com, shawnguo@kernel.org,
- yannick.fertre@foss.st.com, Xinhui.Pan@amd.com, sw0312.kim@samsung.com,
- hjc@rock-chips.com, kyungmin.park@samsung.com, kernel@pengutronix.de,
- alexander.deucher@amd.com, tiantao6@hisilicon.com, jyri.sarha@iki.fi,
- christian.koenig@amd.com
-Subject: Re: [Linux-stm32] [PATCH v2 04/22] drm: Don't test for IRQ support
-	in VBLANK ioctls
+In-Reply-To: <20210623095942.3325-8-wsa+renesas@sang-engineering.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-i2c@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 7/7] i2c: stm32f7: : use proper DMAENGINE
+ API for termination
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,100 +57,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0143073050703548992=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgVGhvbWFzLAoKT24gV2VkLCBKdW4gMjMsIDIwMjEgYXQgMDg6NDM6MDdBTSArMDIwMCwgVGhv
-bWFzIFppbW1lcm1hbm4gd3JvdGU6Cj4gSGkgTGl2aXUKPiAKPiBBbSAyMi4wNi4yMSB1bSAxNzoy
-NSBzY2hyaWViIExpdml1IER1ZGF1Ogo+ID4gSGVsbG8sCj4gPiAKPiA+IE9uIFR1ZSwgSnVuIDIy
-LCAyMDIxIGF0IDA0OjA5OjQ0UE0gKzAyMDAsIFRob21hcyBaaW1tZXJtYW5uIHdyb3RlOgo+ID4g
-PiBGb3IgS01TIGRyaXZlcnMsIHJlcGxhY2UgdGhlIElSUSBjaGVjayBpbiBWQkxBTksgaW9jdGxz
-IHdpdGggYSBjaGVjayBmb3IKPiA+ID4gdmJsYW5rIHN1cHBvcnQuIElSUXMgbWlnaHQgYmUgZW5h
-YmxlZCB3dGhvdXQgdmJsYW5raW5nIGJlaW5nIHN1cHBvcnRlZC4KPiA+ID4gCj4gPiA+IFRoaXMg
-Y2hhbmdlIGFsc28gcmVtb3ZlcyB0aGUgRFJNIGZyYW1ld29yaydzIG9ubHkgZGVwZW5kZW5jeSBv
-biBJUlEgc3RhdGUKPiA+ID4gZm9yIG5vbi1sZWdhY3kgZHJpdmVycy4gRm9yIGxlZ2FjeSBkcml2
-ZXJzIHdpdGggdXNlcnNwYWNlIG1vZGVzZXR0aW5nLAo+ID4gPiB0aGUgb3JpZ2luYWwgdGVzdCBy
-ZW1haW5zIGluIGRybV93YWl0X3ZibGFua19pb2N0bCgpLgo+ID4gPiAKPiA+ID4gdjI6Cj4gPiA+
-IAkqIGtlZXAgdGhlIG9sZCB0ZXN0IGZvciBsZWdhY3kgZHJpdmVycyBpbgo+ID4gPiAJICBkcm1f
-d2FpdF92YmxhbmtfaW9jdGwoKSAoRGFuaWVsKQo+ID4gPiAKPiA+ID4gU2lnbmVkLW9mZi1ieTog
-VGhvbWFzIFppbW1lcm1hbm4gPHR6aW1tZXJtYW5uQHN1c2UuZGU+Cj4gPiA+IC0tLQo+ID4gPiAg
-IGRyaXZlcnMvZ3B1L2RybS9kcm1faXJxLmMgICAgfCAxMCArKystLS0tLS0tCj4gPiA+ICAgZHJp
-dmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyB8IDEzICsrKysrKysrKy0tLS0KPiA+ID4gICAyIGZp
-bGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQo+ID4gPiAKPiA+
-ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1faXJxLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vZHJtX2lycS5jCj4gPiA+IGluZGV4IGMzYmQ2NjRlYTczMy4uMWQ3Nzg1NzIxMzIzIDEwMDY0
-NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2lycS5jCj4gPiA+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9kcm1faXJxLmMKPiA+ID4gQEAgLTc0LDEwICs3NCw4IEBACj4gPiA+ICAgICog
-b25seSBzdXBwb3J0cyBkZXZpY2VzIHdpdGggYSBzaW5nbGUgaW50ZXJydXB0IG9uIHRoZSBtYWlu
-IGRldmljZSBzdG9yZWQgaW4KPiA+ID4gICAgKiAmZHJtX2RldmljZS5kZXYgYW5kIHNldCBhcyB0
-aGUgZGV2aWNlIHBhcmFtdGVyIGluIGRybV9kZXZfYWxsb2MoKS4KPiA+ID4gICAgKgo+ID4gPiAt
-ICogVGhlc2UgSVJRIGhlbHBlcnMgYXJlIHN0cmljdGx5IG9wdGlvbmFsLiBEcml2ZXJzIHdoaWNo
-IHJvbGwgdGhlaXIgb3duIG9ubHkKPiA+ID4gLSAqIG5lZWQgdG8gc2V0ICZkcm1fZGV2aWNlLmly
-cV9lbmFibGVkIHRvIHNpZ25hbCB0aGUgRFJNIGNvcmUgdGhhdCB2YmxhbmsKPiA+ID4gLSAqIGlu
-dGVycnVwdHMgYXJlIHdvcmtpbmcuIFNpbmNlIHRoZXNlIGhlbHBlcnMgZG9uJ3QgYXV0b21hdGlj
-YWxseSBjbGVhbiB1cCB0aGUKPiA+ID4gLSAqIHJlcXVlc3RlZCBpbnRlcnJ1cHQgbGlrZSBlLmcu
-IGRldm1fcmVxdWVzdF9pcnEoKSB0aGV5J3JlIG5vdCByZWFsbHkKPiA+ID4gKyAqIFRoZXNlIElS
-USBoZWxwZXJzIGFyZSBzdHJpY3RseSBvcHRpb25hbC4gU2luY2UgdGhlc2UgaGVscGVycyBkb24n
-dCBhdXRvbWF0aWNhbGx5Cj4gPiA+ICsgKiBjbGVhbiB1cCB0aGUgcmVxdWVzdGVkIGludGVycnVw
-dCBsaWtlIGUuZy4gZGV2bV9yZXF1ZXN0X2lycSgpIHRoZXkncmUgbm90IHJlYWxseQo+ID4gPiAg
-ICAqIHJlY29tbWVuZGVkLgo+ID4gPiAgICAqLwo+ID4gPiBAQCAtOTEsOSArODksNyBAQAo+ID4g
-PiAgICAqIGFuZCBhZnRlciB0aGUgaW5zdGFsbGF0aW9uLgo+ID4gPiAgICAqCj4gPiA+ICAgICog
-VGhpcyBpcyB0aGUgc2ltcGxpZmllZCBoZWxwZXIgaW50ZXJmYWNlIHByb3ZpZGVkIGZvciBkcml2
-ZXJzIHdpdGggbm8gc3BlY2lhbAo+ID4gPiAtICogbmVlZHMuIERyaXZlcnMgd2hpY2ggbmVlZCB0
-byBpbnN0YWxsIGludGVycnVwdCBoYW5kbGVycyBmb3IgbXVsdGlwbGUKPiA+ID4gLSAqIGludGVy
-cnVwdHMgbXVzdCBpbnN0ZWFkIHNldCAmZHJtX2RldmljZS5pcnFfZW5hYmxlZCB0byBzaWduYWwg
-dGhlIERSTSBjb3JlCj4gPiA+IC0gKiB0aGF0IHZibGFuayBpbnRlcnJ1cHRzIGFyZSBhdmFpbGFi
-bGUuCj4gPiA+ICsgKiBuZWVkcy4KPiA+ID4gICAgKgo+ID4gPiAgICAqIEBpcnEgbXVzdCBtYXRj
-aCB0aGUgaW50ZXJydXB0IG51bWJlciB0aGF0IHdvdWxkIGJlIHBhc3NlZCB0byByZXF1ZXN0X2ly
-cSgpLAo+ID4gPiAgICAqIGlmIGNhbGxlZCBkaXJlY3RseSBpbnN0ZWFkIG9mIHVzaW5nIHRoaXMg
-aGVscGVyIGZ1bmN0aW9uLgo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV92
-YmxhbmsuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5rLmMKPiA+ID4gaW5kZXggMzQxN2Ux
-YWM3OTE4Li5hOThhNGFhZDUwMzcgMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9k
-cm1fdmJsYW5rLmMKPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYwo+ID4g
-PiBAQCAtMTc0OCw4ICsxNzQ4LDEzIEBAIGludCBkcm1fd2FpdF92YmxhbmtfaW9jdGwoc3RydWN0
-IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiA+ID4gICAJdW5zaWduZWQgaW50IHBpcGVf
-aW5kZXg7Cj4gPiA+ICAgCXVuc2lnbmVkIGludCBmbGFncywgcGlwZSwgaGlnaF9waXBlOwo+ID4g
-PiAtCWlmICghZGV2LT5pcnFfZW5hYmxlZCkKPiA+ID4gLQkJcmV0dXJuIC1FT1BOT1RTVVBQOwo+
-ID4gPiArCWlmICAoZHJtX2NvcmVfY2hlY2tfZmVhdHVyZShkZXYsIERSSVZFUl9NT0RFU0VUKSkg
-ewo+ID4gPiArCQlpZiAoIWRybV9kZXZfaGFzX3ZibGFuayhkZXYpKQo+ID4gPiArCQkJcmV0dXJu
-IC1FT1BOT1RTVVBQOwo+ID4gPiArCX0gZWxzZSB7Cj4gPiA+ICsJCWlmICghZGV2LT5pcnFfZW5h
-YmxlZCkKPiA+ID4gKwkJCXJldHVybiAtRU9QTk9UU1VQUDsKPiA+ID4gKwl9Cj4gPiAKPiA+IEZv
-ciBhIHN5c3RlbSBjYWxsIHRoYXQgaXMgdXNlZCBxdWl0ZSBhIGxvdCBieSB1c2Vyc3BhY2Ugd2Ug
-aGF2ZSBpbmNyZWFzZWQgdGhlIGNvZGUgc2l6ZQo+ID4gaW4gYSBub3RpY2VhYmxlIHdheS4gQ2Fu
-IHdlIG5vdCBjYWNoZSBpdCBwcml2YXRlbHk/Cj4gCj4gSSdtIG5vdCBxdWl0ZSBzdXJlIHRoYXQg
-SSB1bmRlcnN0YW5kIHlvdXIgY29uY2Vybi4gVGhlIGFkZGl0aW9uYWxseSBjYWxsZWQKPiBmdW5j
-dGlvbnMgYXJlIHRyaXZpYWwgb25lLWxpbmVyczsgcHJvYmFibHkgaW5saW5lZCBhbnl3YXkuCgpU
-aGV5IGFyZSBpbmxpbmVkLiBIb3dldmVyIHdlIHJlcGxhY2UgdGhlIHBvaW50ZXIgZGVyZWZlcmVu
-Y2UgKHdoaWNoIGNhbiBiZSBjYWxjdWxhdGVkCmF0IGNvbXBpbGUgdGltZSBhcyBvZmZzZXQgZnJv
-bSBhIGJhc2UgcG9pbnRlcikgd2l0aCB0aGUgY29kZSBpbgpkcm1fY29yZV9jaGVja19hbGxfZmVh
-dHVyZXMoKSB0aGF0IGRvZXMgMyBwb2ludGVyIGRlcmVmZXJlbmNlcywgbWFza2luZyBhbmQgbG9n
-aWNhbApBTkQgYmVmb3JlIGNoZWNraW5nIGZvciBtYXRjaGluZyB2YWx1ZS4KCj4gCj4gSG93ZXZl
-ciwgaXJxX2VuYWJsZWQgaXMgb25seSByZWxldmFudCBmb3IgbGVnYWN5IGRyaXZlcnMgYW5kIHdp
-bGwgZXZlbnR1YWxseQo+IGRpc2FwcGVhciBiZWhpbmQgQ09ORklHX0RSTV9MRUdBQ1kuIFdlIGNh
-biByZXdyaXRlIHRoZSB0ZXN0IGxpa2UgdGhpczoKCkkgZ2V0IHRoZSBwb2ludCB0aGF0IGlycV9l
-bmFibGVkIGlzIGxlZ2FjeS4gSG93ZXZlciB0aGUgSU9DVEwgY2FsbCBpcyBub3QgYW5kIHVzdWFs
-bHkKaXMgdXNlZCBpbiB0aW1lIGNyaXRpY2FsIGNvZGUgdG8gd2FpdCBmb3IgdmJsYW5rIGJlZm9y
-ZSBzdGFydGluZyB0aGUgb2xkIGJ1ZmZlcnMgZm9yCmEgbmV3IGZyYW1lLiBBdCA2MEh6IHRoYXQn
-cyBwcm9iYWJseSBsZXNzIG9mIGEgY29uY2VybiwgYnV0IGF0IDEyMEh6IHJlZnJlc2ggcmF0ZSBh
-bmQKcmVkdWNlZCB2YmxhbmsgdGltZSB5b3VyIHRpbWUgc2xpY2UgYWxsb2NhdGlvbiBmb3IgbmV3
-IHdvcmsgbWF0dGVycy4KCkJlc3QgcmVnYXJkcywKTGl2aXUKCj4gCj4gaWZkZWYgQ09ORklHX0RS
-TV9MRUdBQ1kKPiAgIGlmICh1bmxpa2VseShjaGVja19mZWF0dXJlKGRldiwgRFJJVkVSX0xFR0FD
-WSkpKSB7Cj4gICAgIGlmICghaXJxX2VuYWJsZWQpCj4gICAgICAgcmV0dXJuOwo+ICAgfSBlbHNl
-Cj4gI2VuZGlmCj4gICB7Cj4gICAgIGlmICghaGFzX3ZibGFua19zdXBwb3J0KGRldikpCj4gICAg
-ICAgcmV0dXJuOwo+ICAgfQo+IAo+IEFzIENPTkZJR19EUk1fTEVHQUNZIGlzIG1vc3QgbGlrZWx5
-IGRpc2FibGVkIG9uIGNvbmN1cnJlbnQgc3lzdGVtcywgd2UnZCBnZXQKPiBhIHNpbmdsZSB0ZXN0
-IGZvciB0aGUgbW9kZXJuIGRyaXZlcnMuIElmIERSTV9MRUdBQ1lpcyBvbiwgdGhlIGNvbXBpbGVy
-IGF0Cj4gbGVhc3Qga25vd3MgdGhhdCB0aGUgZWxzZSBicmFuY2ggaXMgcHJlZmVycmVkLgo+IAo+
-IEJlc3QgcmVnYXJkcwo+IFRob21hcwo+IAo+IC0tIAo+IFRob21hcyBaaW1tZXJtYW5uCj4gR3Jh
-cGhpY3MgRHJpdmVyIERldmVsb3Blcgo+IFNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkg
-R21iSAo+IE1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQo+IChIUkIgMzY4
-MDksIEFHIE7DvHJuYmVyZykKPiBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJmZmVy
-Cj4gCgoKCgotLSAKPT09PT09PT09PT09PT09PT09PT0KfCBJIHdvdWxkIGxpa2UgdG8gfAp8IGZp
-eCB0aGUgd29ybGQsICB8CnwgYnV0IHRoZXkncmUgbm90IHwKfCBnaXZpbmcgbWUgdGhlICAgfAog
-XCBzb3VyY2UgY29kZSEgIC8KICAtLS0tLS0tLS0tLS0tLS0KICAgIMKvXF8o44OEKV8vwq8KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+
+--===============0143073050703548992==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1fTcwnSHuuE3QDd/"
+Content-Disposition: inline
+
+
+--1fTcwnSHuuE3QDd/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Jun 23, 2021 at 11:59:41AM +0200, Wolfram Sang wrote:
+> dmaengine_terminate_all() is deprecated in favor of explicitly saying if
+> it should be sync or async. Here, we want dmaengine_terminate_sync()
+> because there is no other synchronization code in the driver to handle
+> an async case.
+>=20
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+
+Eeks, this is called from irq context as well. Broken patch :(
+
+
+--1fTcwnSHuuE3QDd/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmDTP0oACgkQFA3kzBSg
+KbYBHQ/+IJf8b0KVc9LD1AjbSx3G6RbvdgxCXWltzxHXyso9+q5IVQ4IT+JLUNQj
+RZWpX8WMrnxCyAG6soDPaScazxJz0WowMManZgOUTjhj59pRl8dnBGy/n/Diws2N
+FajIRvjSf0pBF9SlSvGYzrbX1+rd+lUi73JKzH3f5gJKu7Pl3kkXILijIPDUp2zI
+64zXApYYlJsJgGJmNEOq4YYoqYPVvQZ8PayjSgEoQXX77ebW45hqc+o3RHUeTu0P
+dx5irTMfEw6Brk35lPfkmsTxDf6/mHvzU0B4PAxl5FGWsKdj/9dRGtfqEpN6WJyp
+zpzelpZZr9o0l4kieCCgAxeea2qYqcX0OvRn3q51DjL5FTBy8u3p/siL1wVLluKT
+Tf5RjgIKR02Hg8+noq1AKConkhynExZLjBCyS99Ct3F0bQqagI6HvxKl2azkWlcC
+ETwznqWrENqwvkh4Mwmt5tu5ifRtw6D5iWJSYZbNgSls/0eiww04cuH+5yQf9zUF
+++Pp2ltIuoYN+yxWKcSi34pFMeDpFoZAACJ17cKWz3TNM9aufhhgh9zsOKWwM9Bd
+cMT854BLnaXbc6jSZfuAh/b6ol2oWsF4O50EsJKVbZuGmD2YZ6HqWZBMEOb8vuVO
+xyRAfKXxXDVjqNAdKv5uHSHwE2GGCOxPN05gyQVn2MSUYesejDg=
+=FXBJ
+-----END PGP SIGNATURE-----
+
+--1fTcwnSHuuE3QDd/--
+
+--===============0143073050703548992==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0143073050703548992==--
