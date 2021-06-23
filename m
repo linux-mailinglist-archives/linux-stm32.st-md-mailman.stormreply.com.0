@@ -2,151 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9401D3B1414
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 08:43:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC54B3B1421
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 08:46:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C4C6C597AF;
-	Wed, 23 Jun 2021 06:43:23 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5F0EC597AE;
+	Wed, 23 Jun 2021 06:46:26 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6022EC59780
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8989C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jun 2021 06:43:21 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15N6fjX8032639; Wed, 23 Jun 2021 08:43:12 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=WzfQJgcs7xzreysm3BAuTrx/rGjFPAoKX/YMMp53XCk=;
- b=wcM4uxV83bUeZelURHUv3iQiK7LsrYX2Y9ii/7AocpJIsFHWlQUUG+pSroRrt6Yz6YgB
- kDr83QuqOa5YJvctAJPe0XvIpGCT18uaSGWNasRRel6vc74+EnCoqceV10lrhqeLHNNR
- W0KOe8tA7B2Wbs5Cd8/ArKh8dCEWUjX64uf8FYjNZKagd9bgibjc6zVa5IPQMSFG5S6K
- nXU5fiR3SOw2v0AxjWFrYk1ZnU6phV/Ctd0dQnw9m6T6ogk6qII8LVBoVvlfYpB5vRJW
- 1PkDGz90p5Fn1kDaQFZ59kBmAkkJ2OtUpTHcf8F651hGLS4oWY/A2NKN/1jtctyI7GSp jw== 
-Received: from eur03-db5-obe.outbound.protection.outlook.com
- (mail-db5eur03lp2050.outbound.protection.outlook.com [104.47.10.50])
- by mx07-00178001.pphosted.com with ESMTP id 39bbk86ep6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 23 Jun 2021 08:43:12 +0200
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IccT+PtCjtAkeLDqRG/9DVPx/HkH03CTZTmsv2RnqpJqpHq7jV5xi4UzR2TyCH5riE7vV7CpK2A7plnxQJDwvG1o2ii8jCsrxx9ciQuLScuvVKVavBS3bed4luaKTAUNcLXU10c7fWyeov8tgH+fLhK3hj4xltzg/o5Ct1jU7iRznuJGdIh7VgmMhKjEslh3BugOax4j51iNFiebAdxHZvZDDd5mJEYr85NOa4cXCzQZdnlIfJK5z2pAHzVPztD1cYElYQ45X6ROT5il0eXuUzbgGGtHYCR4zFTHLyEhSh8GWZwQ1jXMJvtEAMvJvLDRznWWPPHqT2wiO7ei/oh0ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WzfQJgcs7xzreysm3BAuTrx/rGjFPAoKX/YMMp53XCk=;
- b=fx5IeK+4xrh9VleHWqYc4f/US1BSPbNostsEADDKlEZKZYJ+MoiZa+W1723BMcYuW5CqQkTNUgp+Vb26Btgf8lD8jPwnrDah+XOZy+baU+OnuB3j9PvDH6glNJduEd2ui0M11FOpWv86rnNAKbi7IGM67D9jEtEugBfFWCjSNVcrjdg+boThLm+boH8OUPqRv762H5hJ1WqH80uvnCi/h6/4S/9qhq6joINlbhMmuO9VL7boXS+w8Bvx7CaNtYV8FXeB6Rq3nRc3bC0hhAlek/9bMjjZnyLJS5UIefVVhXm16Tj3lH2GTG36EpQ/PIafs3g9el9Xh4/zAsNqtY7YfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=st.com; dmarc=pass action=none header.from=st.com; dkim=pass
- header.d=st.com; arc=none
-Received: from AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:315::11)
- by AM0PR10MB2850.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:132::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.21; Wed, 23 Jun
- 2021 06:43:10 +0000
-Received: from AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::7c24:3471:b4a1:351b]) by AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::7c24:3471:b4a1:351b%8]) with mapi id 15.20.4264.018; Wed, 23 Jun 2021
- 06:43:10 +0000
-From: Gabriel FERNANDEZ <gabriel.fernandez@st.com>
-To: Dario Binacchi <dariobin@libero.it>, "linux-clk@vger.kernel.org"
- <linux-clk@vger.kernel.org>
-Thread-Topic: [PATCH] clk: stm32f4: fix post divisor setup for I2S/SAI PLLs
-Thread-Index: AQHXZ6uOCktfUfYWYk2+Yi5wSfjGMashH4G3gAAFh4CAAAFGMg==
-Date: Wed, 23 Jun 2021 06:43:10 +0000
-Message-ID: <AM8PR10MB4785F58DC33E888BFD2B9E9981089@AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM>
-References: <20210622211401.25604-1-dariobin@libero.it>
- <AM8PR10MB47856D4CA879CD0230ED171081089@AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM>,
- <1431023086.718458.1624430227963@mail1.libero.it>
-In-Reply-To: <1431023086.718458.1624430227963@mail1.libero.it>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_Enabled=True;
- MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_SiteId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;
- MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_SetDate=2021-06-23T06:43:10.347Z;
- MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_Name=None
- (Unclassified); MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_ContentBits=0;
- MSIP_Label_cf8c7287-838c-46dd-b281-b1140229e67a_Method=Privileged; 
-authentication-results: libero.it; dkim=none (message not signed)
- header.d=none;libero.it; dmarc=none action=none header.from=st.com;
-x-originating-ip: [165.225.76.160]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 25592df8-22d5-4608-f043-08d936122af7
-x-ms-traffictypediagnostic: AM0PR10MB2850:
-x-ld-processed: 75e027c9-20d5-47d5-b82f-77d7cd041e8f,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM0PR10MB2850624B6DE2A31285AB1BE481089@AM0PR10MB2850.EURPRD10.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: dsg7rHBNPiNHN9ynmpjai9Ju8R69WnLe2w1e2ymAXifKb0Nh9GWqz0ONFHAGRz6OR8RI8qaSyZNmxzcO9dA40bQuG/HK5Mkvt2IK/DvbdFmDz3WvkLrjatYEm7O4KvKLVSgF4v++HdOdow+gWBmd/N2gwSUjJeKcoBYmA8SX2zj++2CfIiNqEwt/YjoLMr3GTfvKP8wL3XSdjd/qp1bVqugmMKNG8hfgumwbk98CesONq7WyoNxcK7hrK+kprPY14NFEreoIbcJMr+7UlRSfvSaUoRvdIHl2pCni8vV/ZvOo80i6qsH/GPcrIixFaNqIZm3qEY/QXHWAmLsVsW1YaLDMobt5Y0Md/77lBYNbjUtPkC5zhAI/SXAdX84/O4llFGqXk0P4ETlcSdv3RbWkBlmGZIK+IYwv8bf2D1GJVEOcWQaI/K66duwyOi8zPcC0R6/IrdF1xBnoZSylRpyIadlhiN+SRAOBTkYdAq6ykc59y6+bRZDWzjFgIssZZy66CQqAPjGIeX+NPAtqsLkSvfDErVKzqU6VLCDoRtlaDr1TLcjOEXZje8961f/CA4Z+bDfKwRVwWeOUaqNdHng0UYgojLi1TVYDsheuQkljgiCD+CriEvv2nh2RFVH4u8MBma3DLxVYc9ruo9kvUjG3dQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(376002)(346002)(39860400002)(136003)(9686003)(2906002)(83380400001)(33656002)(86362001)(5660300002)(26005)(186003)(53546011)(55236004)(66476007)(6506007)(7696005)(52536014)(122000001)(8676002)(55016002)(76116006)(38100700002)(110136005)(478600001)(316002)(4326008)(54906003)(71200400001)(66946007)(91956017)(64756008)(8936002)(66446008)(66556008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?aJQFw5ATVufI9dHElnEBlwQI211wevuh5r+vUA7y6Yvo3NgG2Tnow9kM+b?=
- =?iso-8859-1?Q?sX5vDzU+XA8uZrAZCc58Tq4SDnoO/lJgiQ1oHEuzsiDfRsutJPwUPQa0Bp?=
- =?iso-8859-1?Q?Z8bsw+FGh35uS2kgCIsyrkbLbG1z04kwxssZvdoSb5ThabhnmosR2/VUTG?=
- =?iso-8859-1?Q?EseRfICWr4MFMQ3e4Zi5p3TrNS7otSuhbJxsCRql+tVQ+UK+7PnAcXQgir?=
- =?iso-8859-1?Q?AQu/l+oCv4NghDXwObePVxhMtnIq02UFfOP5Th1Uxp7+j5fchZkowc5OGE?=
- =?iso-8859-1?Q?7EGF0OM0m1KeGM3b5095X2TXbPVl1hNrgEBdchklmFEF/pRwT5HhTovTl5?=
- =?iso-8859-1?Q?zfx4cFsCn2VJXlMvmAPcy7+WY47yeBFfurmP+qJ4bmfVBhrFQO0ee37T6C?=
- =?iso-8859-1?Q?/DIDdTZBuM8yKlCXkfJFrAcFo2a/NsY+nQeSWre4jLwhojSjK14m29ZRiL?=
- =?iso-8859-1?Q?h4deYR+BMRfgHREc38J9cjCR3NseyjoMGMxoz67sNa6V9prM6CR2rYXvRS?=
- =?iso-8859-1?Q?fvSgETK+vyeO1vwkJp2LCIL5M3kMW83wyn1maL4/gbBynEi1IWdeCUaYqH?=
- =?iso-8859-1?Q?V1dlDO4FWsVNvCiQ5GzQnXqEywf7IczETzfCgTfKZpmrAXjdma0Rd+kHuz?=
- =?iso-8859-1?Q?Xobu/fb6rioIhHGck3iVyQpx3bWQae36M82Z9tArIj9zqCP9KAneuUnQP9?=
- =?iso-8859-1?Q?qX2GTrOTV3bX/dMr7ARQspyVwwXBAYco0uAfsi3oKWZBlCjoSkL+9OjWst?=
- =?iso-8859-1?Q?n6UqFI08hhy74uKN5eMYw2B3AnSeai+3OGkb+da7rRHRA9rwVYyoiZkVIb?=
- =?iso-8859-1?Q?jq0OiinuDJ5hTlehKcdCieEGfx4LwvUkpXArFZGarlGYbeYZ+74PipyPRJ?=
- =?iso-8859-1?Q?Yyh9sIBWpmnoPAaotAU5wcm/Dudo+kUkQfjBrxacFJJdQj+E19+USYptKC?=
- =?iso-8859-1?Q?KJcekBuB797EIhX5CoMMIORnQVEuT1ZrTkSff4v1ie39YsSBJC05C4lXrl?=
- =?iso-8859-1?Q?NzzpdtGQGdyUZU//GOSqGE9orGz0lQbcYuv9brn8CzQAnMMLUo/xkusmgb?=
- =?iso-8859-1?Q?wGxt8I5l+KepV/r5iX/pVEWd5dxoMmguLRouIklNH4j+L4blcTWsslgY6T?=
- =?iso-8859-1?Q?hzrOYS694XZ3mM4S+JocmwgRqAGWol0W1bLAI8pDO8oqXjf0RLybhNq02y?=
- =?iso-8859-1?Q?DiwFfnTuHfRllwMZXGdT4X8IK483anyr20asYzUJPMP1GnZ9hOZc62RCxQ?=
- =?iso-8859-1?Q?HvF4tiUzG6NDxIh4K6bMLeGF6yeayQzscDDVLkiCn4gEfekmVivbGn33Uh?=
- =?iso-8859-1?Q?3abkFQnahAS9YpiC+prBY1Gyrwolf/zS+19djo0+FROwkIbk/sTsU8IjX0?=
- =?iso-8859-1?Q?1Bt/SOWpMW?=
+ Wed, 23 Jun 2021 06:46:24 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 988EA2197A;
+ Wed, 23 Jun 2021 06:46:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624430783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2ZcrZ8mqlycZCvqIEcHhGpxfIvuTeneHVV1SxihHfFE=;
+ b=fysCyX7pl9hwhW7lTzSKgcEjXwuA1hSjnlioc+I+F/kS6sR8x0XrVBlQi9GMrNr+/TTuta
+ p08ut3LPD29iy85JVrhF1ATbHuOhPkEUualytbvgfTQ/QUpFQ/Y9FDVhGnQB0hUbv8qUV9
+ c369obDXPQ38a1O6O41ciPajyajOOSM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624430783;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2ZcrZ8mqlycZCvqIEcHhGpxfIvuTeneHVV1SxihHfFE=;
+ b=4Smgv0UnJNewFhbY+AWKvoKHBM7+sC/qxgajn4EyRdKoRPnbRT113AsH3tdSvhG+pj3ZPg
+ x5HowUsIUAhcZ5Dw==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id C397811A97;
+ Wed, 23 Jun 2021 06:46:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624430783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2ZcrZ8mqlycZCvqIEcHhGpxfIvuTeneHVV1SxihHfFE=;
+ b=fysCyX7pl9hwhW7lTzSKgcEjXwuA1hSjnlioc+I+F/kS6sR8x0XrVBlQi9GMrNr+/TTuta
+ p08ut3LPD29iy85JVrhF1ATbHuOhPkEUualytbvgfTQ/QUpFQ/Y9FDVhGnQB0hUbv8qUV9
+ c369obDXPQ38a1O6O41ciPajyajOOSM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624430783;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=2ZcrZ8mqlycZCvqIEcHhGpxfIvuTeneHVV1SxihHfFE=;
+ b=4Smgv0UnJNewFhbY+AWKvoKHBM7+sC/qxgajn4EyRdKoRPnbRT113AsH3tdSvhG+pj3ZPg
+ x5HowUsIUAhcZ5Dw==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id Gn2cLr7Y0mC4bAAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Wed, 23 Jun 2021 06:46:22 +0000
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <20210622141002.11590-1-tzimmermann@suse.de>
+ <YNILtLMkI3uoH7mJ@pendragon.ideasonboard.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <03e349b3-f805-9aa8-14a7-96e674011c3a@suse.de>
+Date: Wed, 23 Jun 2021 08:46:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-OriginatorOrg: ST.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25592df8-22d5-4608-f043-08d936122af7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2021 06:43:10.7381 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eW0Fkt9NTgidbivPttnBAFJbYGGRadu5+j0N8VT1TEhyLZwWQ2HCF2/ZF68vlkAnj4HvN+wdVzKDNcSzDl0MyANx3+YcqVYBWDdv0ySjbZk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB2850
-X-Proofpoint-ORIG-GUID: ZYhsfXn8yM6zN7YJtxuGHh3eF1-XlyqV
-X-Proofpoint-GUID: ZYhsfXn8yM6zN7YJtxuGHh3eF1-XlyqV
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-06-23_02:2021-06-22,
- 2021-06-23 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
- priorityscore=1501
- clxscore=1015 suspectscore=0 phishscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104190000
- definitions=main-2106230039
-Cc: Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
- Gabriel FERNANDEZ - foss <gabriel.fernandez@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] clk: stm32f4: fix post divisor setup for
-	I2S/SAI PLLs
+In-Reply-To: <YNILtLMkI3uoH7mJ@pendragon.ideasonboard.com>
+Cc: emma@anholt.net, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ liviu.dudau@arm.com, alexandre.torgue@foss.st.com,
+ dri-devel@lists.freedesktop.org, matthias.bgg@gmail.com,
+ thierry.reding@gmail.com, jernej.skrabec@gmail.com,
+ benjamin.gaignard@linaro.org, mihail.atanassov@arm.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com,
+ michal.simek@xilinx.com, amd-gfx@lists.freedesktop.org, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, wens@csie.org, james.qian.wang@arm.com,
+ linux-imx@nxp.com, xinliang.liu@linaro.org,
+ linux-graphics-maintainer@vmware.com, kong.kongxinwei@hisilicon.com,
+ linux-sunxi@lists.linux.dev, bskeggs@redhat.com, chunkuang.hu@kernel.org,
+ mcoquelin.stm32@gmail.com, puck.chen@hisilicon.com, s.hauer@pengutronix.de,
+ linux-mediatek@lists.infradead.org, laurentiu.palcu@oss.nxp.com,
+ linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ tomba@kernel.org, hyun.kwon@xilinx.com, shawnguo@kernel.org,
+ yannick.fertre@foss.st.com, Xinhui.Pan@amd.com, sw0312.kim@samsung.com,
+ hjc@rock-chips.com, kyungmin.park@samsung.com, kernel@pengutronix.de,
+ alexander.deucher@amd.com, tiantao6@hisilicon.com, jyri.sarha@iki.fi,
+ christian.koenig@amd.com
+Subject: Re: [Linux-stm32] [PATCH v2 00/22] Deprecate struct
+	drm_device.irq_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -158,152 +99,172 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="===============3893793305276273273=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the same
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============3893793305276273273==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="3WvZxzpHzwDdgKIhf5CsBVuKNwIjhuqGE"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--3WvZxzpHzwDdgKIhf5CsBVuKNwIjhuqGE
+Content-Type: multipart/mixed; boundary="VpqofwZZWokdR6MNHNIH0htxV9CnMA5E8";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: emma@anholt.net, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ liviu.dudau@arm.com, alexandre.torgue@foss.st.com,
+ dri-devel@lists.freedesktop.org, michal.simek@xilinx.com,
+ linux-tegra@vger.kernel.org, thierry.reding@gmail.com,
+ amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
+ mihail.atanassov@arm.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-samsung-soc@vger.kernel.org, jy0922.shim@samsung.com,
+ krzysztof.kozlowski@canonical.com, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, wens@csie.org, jernej.skrabec@gmail.com,
+ jonathanh@nvidia.com, xinliang.liu@linaro.org,
+ kong.kongxinwei@hisilicon.com, james.qian.wang@arm.com, linux-imx@nxp.com,
+ linux-graphics-maintainer@vmware.com, linux-sunxi@lists.linux.dev,
+ bskeggs@redhat.com, chunkuang.hu@kernel.org, puck.chen@hisilicon.com,
+ s.hauer@pengutronix.de, laurentiu.palcu@oss.nxp.com, matthias.bgg@gmail.com,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, hyun.kwon@xilinx.com, tomba@kernel.org,
+ jyri.sarha@iki.fi, yannick.fertre@foss.st.com, Xinhui.Pan@amd.com,
+ sw0312.kim@samsung.com, hjc@rock-chips.com, christian.koenig@amd.com,
+ kyungmin.park@samsung.com, philippe.cornu@foss.st.com,
+ alexander.deucher@amd.com, tiantao6@hisilicon.com, shawnguo@kernel.org
+Message-ID: <03e349b3-f805-9aa8-14a7-96e674011c3a@suse.de>
+Subject: Re: [PATCH v2 00/22] Deprecate struct drm_device.irq_enabled
+References: <20210622141002.11590-1-tzimmermann@suse.de>
+ <YNILtLMkI3uoH7mJ@pendragon.ideasonboard.com>
+In-Reply-To: <YNILtLMkI3uoH7mJ@pendragon.ideasonboard.com>
+
+--VpqofwZZWokdR6MNHNIH0htxV9CnMA5E8
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
 
-From: Dario Binacchi <dariobin@libero.it>
-Sent: Wednesday, June 23, 2021 8:37 AM
-To: Gabriel FERNANDEZ <gabriel.fernandez@st.com>; linux-clk@vger.kernel.org=
- <linux-clk@vger.kernel.org>
-Cc: Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>; Maxime Coquelin=
- <mcoquelin.stm32@gmail.com>; Michael Turquette <mturquette@baylibre.com>; =
-Stephen Boyd <sboyd@kernel.org>; linux-arm-kernel@lists.infradead.org <linu=
-x-arm-kernel@lists.infradead.org>; linux-kernel@vger.kernel.org <linux-kern=
-el@vger.kernel.org>; linux-stm32@st-md-mailman.stormreply.com <linux-stm32@=
-st-md-mailman.stormreply.com>; Gabriel FERNANDEZ - foss <gabriel.fernandez@=
-foss.st.com>
-Subject: Re: [PATCH] clk: stm32f4: fix post divisor setup for I2S/SAI PLLs =
 
-=A0
-Hi Gabriel,
+Am 22.06.21 um 18:11 schrieb Laurent Pinchart:
+> Hi Thomas,
+>=20
+> Thank you for the patches.
+>=20
+> On Tue, Jun 22, 2021 at 04:09:40PM +0200, Thomas Zimmermann wrote:
+>> Remove references to struct drm_device.irq_enabled from modern
+>> DRM drivers and core.
+>>
+>> KMS drivers enable IRQs for their devices internally. They don't
+>> have to keep track of the IRQ state via irq_enabled. For vblanking,
+>> it's cleaner to test for vblanking support directly than to test
+>> for enabled IRQs.
+>>
+>> This used to be a single patch, [1] but it's now a full series.
+>>
+>> The first 3 patches replace instances of irq_enabled that are not
+>> required.
+>>
+>> Patch 4 fixes vblank ioctls to actually test for vblank support
+>> instead of IRQs.
+>>
+>> THe rest of the patchset removes irq_enabled from all non-legacy
+>> drivers. The only exception is omapdrm, which has an internal
+>> dpendency on the field's value. For this drivers, the state gets
+>> duplicated internally.
+>>
+>> With the patchset applied, drivers can later switch over to plain
+>> Linux IRQ interfaces and DRM's IRQ midlayer can be declared legacy.
+>>
+>> v2:
+>> 	* keep the original test for legacy drivers in
+>> 	  drm_wait_vblank_ioctl() (Daniel)
+>>
+>> [1] https://lore.kernel.org/dri-devel/20210608090301.4752-1-tzimmerman=
+n@suse.de/
+>>
+>> Thomas Zimmermann (22):
+>>    drm/amdgpu: Track IRQ state in local device state
+>>    drm/hibmc: Call drm_irq_uninstall() unconditionally
+>>    drm/radeon: Track IRQ state in local device state
+>>    drm: Don't test for IRQ support in VBLANK ioctls
+>>    drm/komeda: Don't set struct drm_device.irq_enabled
+>>    drm/malidp: Don't set struct drm_device.irq_enabled
+>>    drm/exynos: Don't set struct drm_device.irq_enabled
+>>    drm/kirin: Don't set struct drm_device.irq_enabled
+>>    drm/imx: Don't set struct drm_device.irq_enabled
+>>    drm/mediatek: Don't set struct drm_device.irq_enabled
+>>    drm/nouveau: Don't set struct drm_device.irq_enabled
+>>    drm/omapdrm: Track IRQ state in local device state
+>>    drm/rockchip: Don't set struct drm_device.irq_enabled
+>>    drm/sti: Don't set struct drm_device.irq_enabled
+>>    drm/stm: Don't set struct drm_device.irq_enabled
+>>    drm/sun4i: Don't set struct drm_device.irq_enabled
+>>    drm/tegra: Don't set struct drm_device.irq_enabled
+>>    drm/tidss: Don't use struct drm_device.irq_enabled
+>>    drm/vc4: Don't set struct drm_device.irq_enabled
+>>    drm/vmwgfx: Don't set struct drm_device.irq_enabled
+>>    drm/xlnx: Don't set struct drm_device.irq_enabled
+>>    drm/zte: Don't set struct drm_device.irq_enabled
+>=20
+> The list seems to be missing armada, rcar-du and vkms. It would also be=
 
-> Il 23/06/2021 08:27 Gabriel FERNANDEZ <gabriel.fernandez@st.com> ha scrit=
-to:
-> =
+> nice to address i915 if possible.
 
->=A0 =
+Indeed. I grepped for \>irq_enabled. But some few drivers use=20
+=2Eirq_enabled. I'll fix this in the patchset's next iteration. Thanks fo=
+r=20
+double checking.
 
-> Hi Dario,
-> =
+Best regards
+Thomas
 
-> I agree with your analyse. =
 
-> You have to change also 'u8 pll_num' from 'stm32f4_pll_post_div_data' str=
-ucture into 'int pll_idx' =
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
 
-> or something like that.
 
-Always in the same patch or in a different one?
+--VpqofwZZWokdR6MNHNIH0htxV9CnMA5E8--
 
-Thanks and regards,
-Dario
+--3WvZxzpHzwDdgKIhf5CsBVuKNwIjhuqGE
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-> Many Thanks !
-> Gabriel
-> =
+-----BEGIN PGP SIGNATURE-----
 
-> =
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmDS2L4FAwAAAAAACgkQlh/E3EQov+DU
+wBAAw45Ui6qNyMQ6l7x7FjeKz6BOxeL/3pFiEg6QBuIF3dcF1K/av6JC94zL+kHXKPKf8RL0kK6R
+llSacrxSur3jN59j06sLSWaj+i6zIfcJnZGVC0gc943dR4mqoXM3xY2lbxKjscSbT4ZAnNRAueqe
+aVPvREhaES8K8dUdi1SvXbPGYu0SFpncaamo2SjRwCpsgaBuqR/en65vDdOMMZXF7wvON+UVnLDO
+eNmXxqxe6J4nAaMej8d05VkTFbGjnMQRYFNpml0jme9KeCIidOWuhiTn8B2TfJflgozLDLSuI9Oc
+HrAUMfEi/ylWg3AYV/7kw0sOHPK0u2yPy/o4y5rMkZE0WUC6r0quMB77bAHZvCBtotod2P85oVoY
+6aspu2FDzpID6HrFcsBr9mY/3AVMJD1OFWrK7GvzTfhuY22oEiNr5iE6VccabOn0Sh2UkCU/ZV1u
+NmlpoaRQm1ha7gITQisOwkps5C+gE5Cazo8hFAbJ0kalSzXr7JA2sifCm8GN5qtHnRpFv2UxfceG
+XMbscIhcKgiIDQU4PksI0w4o7/u0pKVfb7JA2NzNqwItMDAITSJk083kJXrNqPXRZZlLTX+U25SN
+rtpXlEe13EoOtMeXDiZP2rn7CZmWoFQrgsmTKOUrBPWMMpfr9PMgakJNUBThOirbykuQ+SrNpYgt
+rgY=
+=zLOG
+-----END PGP SIGNATURE-----
 
-> From: Dario Binacchi <dariobin@libero.it>
-> Sent: Tuesday, June 22, 2021 11:14 PM
-> To: linux-clk@vger.kernel.org <linux-clk@vger.kernel.org>
-> Cc: Dario Binacchi <dariobin@libero.it>; Alexandre TORGUE - foss <alexand=
-re.torgue@foss.st.com>; Gabriel FERNANDEZ <gabriel.fernandez@st.com>; Maxim=
-e Coquelin <mcoquelin.stm32@gmail.com>; Michael Turquette <mturquette@bayli=
-bre.com>; Stephen Boyd <sboyd@kernel.org>; linux-arm-kernel@lists.infradead=
-.org <linux-arm-kernel@lists.infradead.org>; linux-kernel@vger.kernel.org <=
-linux-kernel@vger.kernel.org>; linux-stm32@st-md-mailman.stormreply.com <li=
-nux-stm32@st-md-mailman.stormreply.com>
-> Subject: [PATCH] clk: stm32f4: fix post divisor setup for I2S/SAI PLLs =
+--3WvZxzpHzwDdgKIhf5CsBVuKNwIjhuqGE--
 
-> =A0
-> Enabling the framebuffer leads to a system hang. Running, as a debug
-> hack, the store_pan() function in drivers/video/fbdev/core/fbsysfs.c
-> without taking the console_lock, allows to see the crash backtrace on
-> the serial line.
-> =
+--===============3893793305276273273==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-> ~ # echo 0 0 > /sys/class/graphics/fb0/pan
-> =
-
-> [=A0=A0=A0 9.719414] Unhandled exception: IPSR =3D 00000005 LR =3D ffffff=
-f1
-> [=A0=A0=A0 9.726937] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
-> [=A0=A0=A0 9.733008] Hardware name: STM32 (Device Tree Support)
-> [=A0=A0=A0 9.738296] PC is at clk_gate_is_enabled+0x0/0x28
-> [=A0=A0=A0 9.743426] LR is at stm32f4_pll_div_set_rate+0xf/0x38
-> [=A0=A0=A0 9.748857] pc : [<0011e4be>]=A0=A0=A0 lr : [<0011f9e3>]=A0=A0=
-=A0 psr: 0100000b
-> [=A0=A0=A0 9.755373] sp : 00bc7be0=A0 ip : 00000000=A0 fp : 001f3ac4
-> [=A0=A0=A0 9.760812] r10: 002610d0=A0 r9 : 01efe920=A0 r8 : 00540560
-> [=A0=A0=A0 9.766269] r7 : 02e7ddb0=A0 r6 : 0173eed8=A0 r5 : 00000000=A0 r=
-4 : 004027c0
-> [=A0=A0=A0 9.773081] r3 : 0011e4bf=A0 r2 : 02e7ddb0=A0 r1 : 0173eed8=A0 r=
-0 : 1d3267b8
-> [=A0=A0=A0 9.779911] xPSR: 0100000b
-> [=A0=A0=A0 9.782719] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
-> [=A0=A0=A0 9.788791] Hardware name: STM32 (Device Tree Support)
-> [=A0=A0=A0 9.794120] [<0000afa1>] (unwind_backtrace) from [<0000a33f>] (s=
-how_stack+0xb/0xc)
-> [=A0=A0=A0 9.802421] [<0000a33f>] (show_stack) from [<0000a8df>] (__inval=
-id_entry+0x4b/0x4c)
-> =
-
-> The `pll_num' field in the post_div_data configuration contained a wrong
-> value which also referenced an uninitialized hardware clock when
-> clk_register_pll_div() was called.
-> =
-
-> Fixes: 517633ef630e ("clk: stm32f4: Add post divisor for I2S & SAI PLLs")
-> Signed-off-by: Dario Binacchi <dariobin@libero.it>
-> =
-
-> ---
-> =
-
-> =A0drivers/clk/clk-stm32f4.c | 6 +++---
-> =A01 file changed, 3 insertions(+), 3 deletions(-)
-> =
-
-> diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
-> index 18117ce5ff85..42ca2dd86aea 100644
-> --- a/drivers/clk/clk-stm32f4.c
-> +++ b/drivers/clk/clk-stm32f4.c
-> @@ -557,13 +557,13 @@ static const struct clk_div_table post_divr_table[]=
- =3D {
-> =A0
-> =A0#define MAX_POST_DIV 3
-> =A0static const struct stm32f4_pll_post_div_data=A0 post_div_data[MAX_POS=
-T_DIV] =3D {
-> -=A0=A0=A0=A0=A0=A0 { CLK_I2SQ_PDIV, PLL_I2S, "plli2s-q-div", "plli2s-q",
-> +=A0=A0=A0=A0=A0=A0 { CLK_I2SQ_PDIV, PLL_VCO_I2S, "plli2s-q-div", "plli2s=
--q",
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 CLK_SET_RATE_PARENT, STM=
-32F4_RCC_DCKCFGR, 0, 5, 0, NULL},
-> =A0
-> -=A0=A0=A0=A0=A0=A0 { CLK_SAIQ_PDIV, PLL_SAI, "pllsai-q-div", "pllsai-q",
-> +=A0=A0=A0=A0=A0=A0 { CLK_SAIQ_PDIV, PLL_VCO_SAI, "pllsai-q-div", "pllsai=
--q",
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 CLK_SET_RATE_PARENT, STM=
-32F4_RCC_DCKCFGR, 8, 5, 0, NULL },
-> =A0
-> -=A0=A0=A0=A0=A0=A0 { NO_IDX, PLL_SAI, "pllsai-r-div", "pllsai-r", CLK_SE=
-T_RATE_PARENT,
-> +=A0=A0=A0=A0=A0=A0 { NO_IDX, PLL_VCO_SAI, "pllsai-r-div", "pllsai-r", CL=
-K_SET_RATE_PARENT,
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 STM32F4_RCC_DCKCFGR, 16,=
- 2, 0, post_divr_table },
-> =A0};
-> =A0
-> -- =
-
-> 2.17.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============3893793305276273273==--
