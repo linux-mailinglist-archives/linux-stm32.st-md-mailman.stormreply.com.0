@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 075E83B1E9C
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 18:26:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 913D53B1EA0
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 18:26:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2856C5662F;
-	Wed, 23 Jun 2021 16:26:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 575E3C57196;
+	Wed, 23 Jun 2021 16:26:43 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7E84C0612E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F131FC5662F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jun 2021 16:26:28 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BC5716100B;
- Wed, 23 Jun 2021 16:26:26 +0000 (UTC)
+ Wed, 23 Jun 2021 16:26:40 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9E0456101D;
+ Wed, 23 Jun 2021 16:26:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624465587;
- bh=f8jfUGDIsGoDUvStlPo2ihoRuJM8S3wV5YVSk/OHcCU=;
+ s=k20201202; t=1624465599;
+ bh=x9Y32u8xKnq9y9RUCEeFlJlF/lSKVUF+efxe6yJZN4A=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=eqfj4zZDu0ioOWCBrvww4ZxvMGJhE9nMGHlhWzLes0djdv7HTnTjLDCTl0g8tcCgs
- iQkgvvIy0fgXnmbV+ODTej+fVL9zGrLO12ayD8unJwXKDd3SD36h6pYvzu+VekLUeP
- mSUyg5XWmFNYCBPJoa4ZBUuUWK24KANZx10nmNlgt4M7pVnB7/19dUt7rGlEdw5Pa9
- V8QH719yXK0XKiT0YbrmSXi5IeBvWI6tas9CLq0URN7FnzKksddIhLUcoR/nkuCuZr
- mY1zJy/vbtjoOSUlVXJ7sIASv+oG6EGFFx0ci3N1RSjzvBMZdBNBsdie+wN9Gj+cer
- VtstjKh4MXOjw==
-Date: Wed, 23 Jun 2021 18:26:24 +0200
+ b=fz4b58xSieSWwb4sHRoe4Lj2rrT7gQSIUzklMVC3obvRrjUTvDFLU4hCRQNC1cdJl
+ FCRfpjjpGoomjQOmxBZGWbhJwhe0Lz35zllUWnm0z7787yx3Z09UX3GTt9zW2VZgkO
+ zhwfEuYACVH6v/dBQI9T/hgXO06ZvTGs9OPOm9Q9AMD1bNqZ6Q9GnQ7eJCHzjpj+0b
+ 2hRndsgIxBEP3PiYNSJYhIGHF43COPjFViTmsde0QQA3aLXycwdukKQRKK5K7W3TdU
+ NWhHAOkZNmaOwcygMLAsQMnK1JHOcc8GP5b6cvB176RsbB4lX3N53yKMTJh9CPVDN/
+ DblZ3aUNa4vBA==
+Date: Wed, 23 Jun 2021 18:26:36 +0200
 From: Wolfram Sang <wsa@kernel.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <YNNgsLS1KtfNjBkc@kunai>
+Message-ID: <YNNgvMKtG6Fg0Jee@kunai>
 Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
  Krzysztof Kozlowski <krzk@kernel.org>,
  Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
@@ -54,9 +54,9 @@ Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
  linux-rockchip@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
 References: <20200902150643.14839-1-krzk@kernel.org>
- <20200902150643.14839-5-krzk@kernel.org>
+ <20200902150643.14839-2-krzk@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20200902150643.14839-5-krzk@kernel.org>
+In-Reply-To: <20200902150643.14839-2-krzk@kernel.org>
 Cc: Heiko Stuebner <heiko@sntech.de>, Sekhar Nori <nsekhar@ti.com>,
  Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-i2c@vger.kernel.org,
  Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
@@ -71,7 +71,7 @@ Cc: Heiko Stuebner <heiko@sntech.de>, Sekhar Nori <nsekhar@ti.com>,
  linux-kernel@vger.kernel.org, Oleksij Rempel <linux@rempel-privat.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Peter Rosin <peda@axentia.se>, Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
-Subject: Re: [Linux-stm32] [PATCH 5/9] i2c: davinci: Simplify with
+Subject: Re: [Linux-stm32] [PATCH 2/9] i2c: xiic: Simplify with
 	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -84,23 +84,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5242374724166569937=="
+Content-Type: multipart/mixed; boundary="===============1265018549439453717=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============5242374724166569937==
+--===============1265018549439453717==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="McslsymjVjCUswlO"
+	protocol="application/pgp-signature"; boundary="RyrFzM+QFbnSHop+"
 Content-Disposition: inline
 
 
---McslsymjVjCUswlO
+--RyrFzM+QFbnSHop+
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2020 at 05:06:39PM +0200, Krzysztof Kozlowski wrote:
+On Wed, Sep 02, 2020 at 05:06:36PM +0200, Krzysztof Kozlowski wrote:
 > Common pattern of handling deferred probe can be simplified with
 > dev_err_probe().  Less code and the error value gets printed.
 >=20
@@ -109,29 +109,29 @@ On Wed, Sep 02, 2020 at 05:06:39PM +0200, Krzysztof Kozlowski wrote:
 Applied to for-next, thanks!
 
 
---McslsymjVjCUswlO
+--RyrFzM+QFbnSHop+
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmDTYLAACgkQFA3kzBSg
-KbYqLw//dsYnYLS1NUVJkuErYmMje539th7kKWQS4WdI9gO/feZZv2DPwLXkj3e7
-g1+xg2fngE9iEP/phJ4r26wYV1Lo2JJChg+xfUxdpI0ZDJWYdoHLnsTPw3mhim5J
-+6sNaGcq/JcN46iW8J5sM+Q0ZHWOpjO5b7rZSMyBNh4brDm8uKKo5r1de1ZEoCrl
-UOPDtX1I4wgUJ7kma1CE7qsp7moZAptyaPNLcLEFjgzIzAVPQFC6lRPGhzeQqKTa
-i0foiKovC3gOX15EcaMGXUzxJnPw85tVHWuTLL52uCNpNaHLAIsN3Jo1G+JyypSs
-4TgTEGPGDCwE50tBn3dugKEr6yxp01YcLJMTis1mIoiDxAM1MzHYIlkgQu4oZ9pV
-hAzPdEIqY6dkItB51HKO6K067v0B6jEQgyX2huAL+71VTZ5yr5EVb1YcVcH4VSJL
-91osHWWFSVvzjXAks3rYKd2E92jVwxfidX0usCy/2hyGdTNUYknUZDe3meytFkMK
-I7p6iIBzEgCMt9ZXtH91BbmuvFYmNzFdFSNQ6/gqryHV07rsTqImxgtVTzzs1N3M
-SDJOAG8lWb+LqIf6sjM2MBIJ0FQcSkiaXyA7JBt4VndRg4+AHyJCUsqkavL9Twa3
-3tTsk+zvhYgCWAkALzhR1xiVrQkruqEF+CYWHz0BwwOXzzVe3PE=
-=2cJu
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmDTYLwACgkQFA3kzBSg
+KbaeVw//XoYX3KOAm8qeZlZZ1yMVkrOM8FdXdIkWJXp/6GWZ2CZw1O2bmnTmWLtu
+oTpTQUJeibcURR6v0MX7SUFJHRRUMa0iN56HulVX2ficfGOhKBG2bh/YPbnOPKOc
+kyc0oe4L9AXqWIs+XtNQHyCpV8rJoP73vIXSlYZVF6UbwNzDQl8c8Br6ryP1kY4I
+Dd9XNXM6PnLYsmTJtnYZ4ZcGhn7YSYTaSUsoo8Ec+N51f9Aavi9dDDyqLl62kbZS
+SQBlBigpHUw3XC7NNtKL8D5zyMfrvfIdbHyMGbIJ1lDUZ7oeXj55Gvk7qrI6eg4Y
+d3SEELrApAwxisaWfKP/2BiECz5WL+eH4ak59S1Gs/s6M8x0/BncbRFmWRSyy+It
+WSGxJhX0R2WU54ECN/JAjrVP75GPlIEc1gNpwkdCF1djAg9banpxKOe7dWNvFmrW
+ezzm2no8S8BeoKxGnR1XBQhAd9Dqwor4V3qKWtSPYyS9uegAhllnXHIXp0nJxJNz
+xk4XjBZaL9+0QCe6TfSdKO2skHGejTHnrCSpNKedXCd5ax1la/HHT7qhNu3fXPhC
+2tS7osemPAXLJ/+5yBlFTD+SEMvAJTL/4PjUZmLlvOk0tn4lOTc38pk8bqzgUoZI
+HW7ehBttpBwKxRgE42hdeJIj/MAAVxTzEyoYTO9qWEN1hJHH++E=
+=ofX/
 -----END PGP SIGNATURE-----
 
---McslsymjVjCUswlO--
+--RyrFzM+QFbnSHop+--
 
---===============5242374724166569937==
+--===============1265018549439453717==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -142,4 +142,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============5242374724166569937==--
+--===============1265018549439453717==--
