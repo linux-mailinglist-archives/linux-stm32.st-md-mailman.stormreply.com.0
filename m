@@ -2,157 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62E763B17C9
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 12:06:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFEA63B190A
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 13:34:58 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2FD3C597B6;
-	Wed, 23 Jun 2021 10:06:53 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99D55C597B6;
+	Wed, 23 Jun 2021 11:34:58 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EFC4C58D7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B66EC58D7A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jun 2021 10:06:49 +0000 (UTC)
-IronPort-SDR: PlX2R/Y8AUO1kq3TqOLjoh+27vLR+vwTTIvIKj86ecHLyC9vXLuU7RIvTO3vwOLBXMCSQGJF/u
- ugSRwW7yRnnQ==
-X-IronPort-AV: E=McAfee;i="6200,9189,10023"; a="204225023"
-X-IronPort-AV: E=Sophos;i="5.83,293,1616482800"; d="scan'208";a="204225023"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2021 03:06:47 -0700
-IronPort-SDR: 3SM/1HtmnKjGEbL6xQWfrCcdERiBjAS3tQkv4R3rwpXJ6poechIgJbIZ9F/2KxyJeo2FVSgq7e
- zVcbD6FMxbcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,293,1616482800"; d="scan'208";a="406261612"
-Received: from fmsmsx606.amr.corp.intel.com ([10.18.126.86])
- by orsmga006.jf.intel.com with ESMTP; 23 Jun 2021 03:06:47 -0700
-Received: from fmsmsx608.amr.corp.intel.com (10.18.126.88) by
- fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.4; Wed, 23 Jun 2021 03:06:46 -0700
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx608.amr.corp.intel.com (10.18.126.88) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2242.4; Wed, 23 Jun 2021 03:06:46 -0700
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4
- via Frontend Transport; Wed, 23 Jun 2021 03:06:46 -0700
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.170)
- by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2242.4; Wed, 23 Jun 2021 03:06:45 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N7huja8QLk+23fi0KMZwrmtci4LmUzYEdGimKZVKZK2OQLJTzAvR1GywMDJMB5CYlUcPoY2wXm2jpw3z9wPWOav5QyXBVsEIzFIDSVCHjXhCmRSMD45nnnnRk+rt+YBkyfXzR6mQwzychn7y8h5568YljeFkerLZa/C8wny58JXMXL9KjpRLlg9CBJCi62bopAh6VKGKoXGtJWyAUrCCHugt9fp6aNoxWPgfvkacWDC8rq5lBrL7/Tu1VuCAcF2hCUgFoi3Bu9X/tEwDdBnkjTDZc9c5X2jQGc4UFKngg7/lVav2vdJJZJgXby79TGnohOGE8qrBbJGJnmdjsrJeCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hBzV56jRWqR52c7h69Nvb7WApLWbKOhaHovtjxT7hR4=;
- b=X3t2JKAQTkc3QhQpSeQaBrgDUXSk0qIpzNoZdWqnbjy7CuSLoGBYjJr1r2NH3Jf/nkTurDSQwwDF1CrAomGlkcj6hzXajlaxEBVKqhkyN9RuTnbEzHk4fxQ+gm+Ohnei89jAbV2gTQ2XdF38+4UVTm2mda908OIkQfh2LO9hbvnWnLGRoZKu32mVL6Q6Pk6bgLYPjPB3FiiOJGY8ciTc/2pv4Gtq6Jjn4VE76KVzmZcoNB5I89KurZlvQPOsMyNX1owDr2LW7NxW05ziPIiUcRQoJwWRmQ7+pC2/MAgKJD34OLx2EgR9Wu8dZ3HsF4um2ktrD4XaCEQyotlieQV05A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hBzV56jRWqR52c7h69Nvb7WApLWbKOhaHovtjxT7hR4=;
- b=sUXup2m46uFKElqAjeUqEeOsICWSnVpD8N791tQVqsilnaEvml2uPQAPEAzvwA8JLBhZbdCHu0AnhDGzwoidueZSAhUJakE0rxnkETuPcXW5V20NkNv7qE4V3m5o6Kb9AC4ERj//Jaq2OZNCGJl5WHXb9kD3ABGhV0ZDI01/QFs=
-Received: from CH0PR11MB5380.namprd11.prod.outlook.com (2603:10b6:610:bb::5)
- by CH0PR11MB5315.namprd11.prod.outlook.com (2603:10b6:610:be::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.18; Wed, 23 Jun
- 2021 10:06:45 +0000
-Received: from CH0PR11MB5380.namprd11.prod.outlook.com
- ([fe80::d52:3043:fef4:ebcd]) by CH0PR11MB5380.namprd11.prod.outlook.com
- ([fe80::d52:3043:fef4:ebcd%4]) with mapi id 15.20.4264.018; Wed, 23 Jun 2021
- 10:06:45 +0000
-From: "Voon, Weifeng" <weifeng.voon@intel.com>
-To: Andrew Lunn <andrew@lunn.ch>, "Ling, Pei Lee" <pei.lee.ling@intel.com>
-Thread-Topic: [PATCH net-next V1 3/4] net: stmmac: Reconfigure the PHY WOL
- settings in stmmac_resume()
-Thread-Index: AQHXZoJFBtZ0uXgSn0S7qboFjm+Joqseb0UAgALh+bA=
-Date: Wed, 23 Jun 2021 10:06:44 +0000
-Message-ID: <CH0PR11MB53806E2DC74B2B9BE8F84D7088089@CH0PR11MB5380.namprd11.prod.outlook.com>
-References: <20210621094536.387442-1-pei.lee.ling@intel.com>
- <20210621094536.387442-4-pei.lee.ling@intel.com> <YNCOqGCDgSOy/yTP@lunn.ch>
-In-Reply-To: <YNCOqGCDgSOy/yTP@lunn.ch>
-Accept-Language: en-US
-Content-Language: en-US
+ Wed, 23 Jun 2021 11:34:55 +0000 (UTC)
+Received: from dggeme758-chm.china.huawei.com (unknown [172.30.72.54])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4G91Lt2MrkzZhXG;
+ Wed, 23 Jun 2021 19:31:50 +0800 (CST)
+Received: from dggeme759-chm.china.huawei.com (10.3.19.105) by
+ dggeme758-chm.china.huawei.com (10.3.19.104) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Wed, 23 Jun 2021 19:34:50 +0800
+Received: from dggeme759-chm.china.huawei.com ([10.8.81.151]) by
+ dggeme759-chm.china.huawei.com ([10.8.81.151]) with mapi id 15.01.2176.012;
+ Wed, 23 Jun 2021 19:34:50 +0800
+From: "tiantao (H)" <tiantao6@hisilicon.com>
+Thread-Topic: [PATCH v2 02/22] drm/hibmc: Call drm_irq_uninstall()
+ unconditionally
+Thread-Index: AQHXZ3BTceWJbDn8OEasIrWUx4ImYqsheBbQ
+Date: Wed, 23 Jun 2021 11:34:50 +0000
+Message-ID: <f64f8ee5ca4a4dd3a67fe64a89feabe8@hisilicon.com>
+References: <20210622141002.11590-1-tzimmermann@suse.de>
+ <20210622141002.11590-3-tzimmermann@suse.de>
+In-Reply-To: <20210622141002.11590-3-tzimmermann@suse.de>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-authentication-results: lunn.ch; dkim=none (message not signed)
- header.d=none;lunn.ch; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [2001:f40:907:b986:5c2c:5137:7a92:b652]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 038a88e1-dd07-4d24-d8b4-08d9362e9b48
-x-ms-traffictypediagnostic: CH0PR11MB5315:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH0PR11MB531541ADA0AAF2F403C2539F88089@CH0PR11MB5315.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: f2hPlU69o4iQKQWG2mhfcj97wceWfoeCJv2dT2mN3MEB9htMmxVw5tLqwK17Ivex9O5/PEf+hWpi+deD5b5PRLeETEPGYjR7ryJRQs6uAP2vOoq20ggi7QUnqXvkSK/v4ThkeTR2jkgyz3Bo1WCxEivn3YUoO6eDy8zSZw6GzzSWW00ipDnnR9CXvvZspMIACa2AT5wAPsz4+n+O0jfXnKAexC5r9RmbGP4zURKgVtaYPz7RbGjv58WFsUtD2Ax5ZC6heu1NkX3GE7Umt6f8jPaDvGYnhuv0zvVnahItBapZRj7b4C9RcKMXR+Xj4phfZK4RBQu4kZQk1UG66VPyBoPRx2QnMWq8r1iDdoHLoN8UPV6/U/R/fj9MzQz4WIRz5cCKXy2JJLfHOzAOyLU1EVz362/3oHN+QK/NYIPysUFeUOrb73J7I8Jw6L0sVVRoyXAhQaZkvSfAxF+CtoeN363q1OmheLJq07WjSB2YF968D5FGs3i1hzti2k1Oa2mMkTTc9OtSUAQeOZctdNT3Mw2uYXg0H+GJFcr3kuSNYIqdwpDqCKnpXCJ4P+b2KFvSKYjMmvqPL14pYMejzla0yo4zA+EKNr+9BwtH3Jip6fY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR11MB5380.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(396003)(366004)(39860400002)(376002)(346002)(136003)(86362001)(316002)(8676002)(33656002)(8936002)(6636002)(122000001)(7416002)(38100700002)(4326008)(2906002)(5660300002)(54906003)(110136005)(71200400001)(55016002)(7696005)(186003)(52536014)(83380400001)(64756008)(66446008)(66556008)(66476007)(76116006)(6506007)(66946007)(478600001)(9686003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DK+nx7/H13CbYTeNW8Aw4v59kmCustKb6HPd3HCLrETo5j7fK37e8YKbyTq1?=
- =?us-ascii?Q?tNZir77d6uPwpgZXol4UxjV9qrtyQ4rNulVRKzeNMOJPSFfW0BPgYx0tqCJ6?=
- =?us-ascii?Q?x+pI31nRLmbHEnlAqHx/y86qIZeons83OYEc2cYb2ABfqy/rbyfIiN5oMWf1?=
- =?us-ascii?Q?8RLqXVeQ0MGWhvOoyU8+Nu641zRF4KtN8NzOYzK0hD3j0QjLKGggvPiZWxM8?=
- =?us-ascii?Q?e+QXmNKBD0nrb0Bv8Zi7dEh9XgmOmngWFefWaxa/3A6Qf0Ugp3l4lUim6/CD?=
- =?us-ascii?Q?IssuKDtyz9cWqMX4De24Hzr0aIZaIi0ldSZo3S+7V0NFA9HltQWSBc2XlR3Y?=
- =?us-ascii?Q?YZDeUdi2OeOkONqUbv2fHpPJLIAH5xzQ0eEMEY8zIlWeIw3vA4EMMP+isodg?=
- =?us-ascii?Q?Fx2VVuVw67q+XQpNoTachArFMBj6IAWo1Yu4TyU6FMfS/ykB046pEVqKrAvo?=
- =?us-ascii?Q?o1qGdNVMS2B4OiwA4JApDCzGayNy2VjC8PuB8nJht43RT9YNrW0DWBCqUnVC?=
- =?us-ascii?Q?Xire1xCxftma6kRkPsyXc2IFieDLzLqSSsC89hHRiFb/VfYw5x6yNausE2lx?=
- =?us-ascii?Q?m8s8ZprAN2bWBlkY9YNqBLewdxNmSCntwKtApiA5ZcgtkZTrYU0ZnZFqBj2D?=
- =?us-ascii?Q?HG1gDrAzXG7xdLHsnDJs1JGyN40jSMwm1Z3OZQE+H/4esq4OkY2Byz2aOWGx?=
- =?us-ascii?Q?T2fSRbEO2LqqVpMXCvLPSwgX3zxuco6Xu0C0uOFahrOvn8xJK7FRJAST/ItT?=
- =?us-ascii?Q?qnE6LA28/pBKZDN7xeP2zSsTnbqV8ouNMyF9X6/z0k25/6tChwpRwCZgR3i1?=
- =?us-ascii?Q?b3azAO+mjx5xghCWbUIeGcs76YwUqboSOZOBfNZ04iYh33er8kKhPyP4zy48?=
- =?us-ascii?Q?GluVr64GO4wpIfJhix1TakOxoiQDedJUmyNSasYRl7wR8oRt5QRCyNK62dEV?=
- =?us-ascii?Q?qB93UJNP6XbISxoll0pyUhXlcgHpbGSCKFwKtV2RE9ltJlj+9qBjjtoWf1YP?=
- =?us-ascii?Q?mTlCgCy1dGTk81R+718YsMa/g9Hn3jTnkdoKKTOj+Olnmk1XBfTiAkb/Lnpc?=
- =?us-ascii?Q?lpSoR9vBzfgec4pXx192l8A0/0X/NIiRZdrd2O8n/s8153kCLZCgFe+a47NS?=
- =?us-ascii?Q?DbZxThJ0kFAkRhHrUa/dzCrb9Oe7yEHHdJeU5NprXkFsd5IcRyNq66Npe8sc?=
- =?us-ascii?Q?GoPjVpujK6HIJSkmhpjqhS7OzFnGPNQy+osYD9n1qE1gEehAn6l+AdZ1Ft5+?=
- =?us-ascii?Q?fWhsOP6OwfeD9a4QGCLKFGqN2BcqEnytTX+erghTmKFI2Njnl2cLbxD4xqtm?=
- =?us-ascii?Q?UfCmZHXFL+MS86e1QVzkCQqEYhOovtZpkJhuiKbg9mFD62638GTvwplqfjcI?=
- =?us-ascii?Q?ZDOFrlccHidXipiU4Ik/d2vJ+lUM?=
+x-originating-ip: [10.40.188.144]
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5380.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 038a88e1-dd07-4d24-d8b4-08d9362e9b48
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2021 10:06:44.5578 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FXvAdfbUqxg5jYf8z6OpRInGXzeEJ9+CqMJJPc8K88erjSsMGppQtt2X0GU5N6qBYS44GLF1sKiQgAZo0/3Gvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB5315
-X-OriginatorOrg: intel.com
-Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>, "Wong,
- Vee Khee" <vee.khee.wong@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Tan,
- Tee Min" <tee.min.tan@intel.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Russell King <linux@armlinux.org.uk>, "Sit,
- Michael Wei Hong" <michael.wei.hong.sit@intel.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>, "Ong,
- Boon Leong" <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
- Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next V1 3/4] net: stmmac: Reconfigure
- the PHY WOL settings in stmmac_resume()
+X-CFilter-Loop: Reflected
+Subject: [Linux-stm32] =?gb2312?b?tPC4tDogW1BBVENIIHYyIDAyLzIyXSBkcm0vaGli?=
+ =?gb2312?b?bWM6IENhbGwgZHJtX2lycV91bmluc3RhbGwoKSB1bmNvbmRpdGlvbmFsbHk=?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -164,49 +52,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> > From: Muhammad Husaini Zulkifli <muhammad.husaini.zulkifli@intel.com>
-> >
-> > After PHY received a magic packet, the PHY WOL event will be triggered
-> > then PHY WOL event interrupt will be disarmed.
-> > Ethtool settings will remain with WOL enabled after a S3/S4 suspend
-> > resume cycle as expected. Hence,the driver should reconfigure the PHY
-> > settings to reenable/disable WOL depending on the ethtool WOL settings
-> > in the resume flow.
-> 
-> Please could you explain this a bit more? I'm wondering if you have a
-> PHY driver bug. PHY WOL should remain enabled until it is explicitly
-> disabled.
-> 
-> 	Andrew
-
-Let's take Marvell 1510 as example. 
-
-As explained in driver/net/phy/marvell.c
-1773 >------->-------/* If WOL event happened once, the LED[2] interrupt pin
-1774 >------->------- * will not be cleared unless we reading the interrupt status
-1775 >------->------- * register. 
-
-The WOL event will not able trigger again if the driver does not clear
-the interrupt status.
-Are we expecting PHY driver will automatically clears the interrupt
-status rather than trigger from the MAC driver?
-
-After scanning through all the PHY drivers, the drivers only touches 
-the WOL settings in the get|set_wol() callbacks. Hence, I think that 
-currently there are no PHY drivers that clear the WOL status.
-Unless the PHY able to self-clear the WOL event status, the PHY WOL
-would not able to remain enabled after resume from S3/S4.
-Therefore, we implemented it in the MAC driver to reconfigure the PHY
-WOL during the MAC resume() flow.      
-
-Weifeng
- 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+DQoNCi0tLS0t08q8/tStvP4tLS0tLQ0Kt6K8/sjLOiBUaG9tYXMgWmltbWVybWFubiBbbWFpbHRv
+OnR6aW1tZXJtYW5uQHN1c2UuZGVdIA0Kt6LLzcqxvOQ6IDIwMjHE6jbUwjIyyNUgMjI6MTANCsrV
+vP7IyzogZGFuaWVsQGZmd2xsLmNoOyBhaXJsaWVkQGxpbnV4LmllOyBhbGV4YW5kZXIuZGV1Y2hl
+ckBhbWQuY29tOyBjaHJpc3RpYW4ua29lbmlnQGFtZC5jb207IFhpbmh1aS5QYW5AYW1kLmNvbTsg
+amFtZXMucWlhbi53YW5nQGFybS5jb207IGxpdml1LmR1ZGF1QGFybS5jb207IG1paGFpbC5hdGFu
+YXNzb3ZAYXJtLmNvbTsgYnJpYW4uc3RhcmtleUBhcm0uY29tOyBtYWFydGVuLmxhbmtob3JzdEBs
+aW51eC5pbnRlbC5jb207IG1yaXBhcmRAa2VybmVsLm9yZzsgaW5raS5kYWVAc2Ftc3VuZy5jb207
+IGp5MDkyMi5zaGltQHNhbXN1bmcuY29tOyBzdzAzMTIua2ltQHNhbXN1bmcuY29tOyBreXVuZ21p
+bi5wYXJrQHNhbXN1bmcuY29tOyBrcnp5c3p0b2Yua296bG93c2tpQGNhbm9uaWNhbC5jb207IHhp
+bmxpYW5nLmxpdUBsaW5hcm8ub3JnOyB0aWFudGFvIChIKSA8dGlhbnRhbzZAaGlzaWxpY29uLmNv
+bT47IGpvaG4uc3R1bHR6QGxpbmFyby5vcmc7IGtvbmd4aW53ZWkgKEEpIDxrb25nLmtvbmd4aW53
+ZWlAaGlzaWxpY29uLmNvbT47IENoZW5mZW5nIChwdWNrKSA8cHVjay5jaGVuQGhpc2lsaWNvbi5j
+b20+OyBsYXVyZW50aXUucGFsY3VAb3NzLm54cC5jb207IGwuc3RhY2hAcGVuZ3V0cm9uaXguZGU7
+IHAuemFiZWxAcGVuZ3V0cm9uaXguZGU7IHNoYXduZ3VvQGtlcm5lbC5vcmc7IHMuaGF1ZXJAcGVu
+Z3V0cm9uaXguZGU7IGtlcm5lbEBwZW5ndXRyb25peC5kZTsgZmVzdGV2YW1AZ21haWwuY29tOyBs
+aW51eC1pbXhAbnhwLmNvbTsgY2h1bmt1YW5nLmh1QGtlcm5lbC5vcmc7IG1hdHRoaWFzLmJnZ0Bn
+bWFpbC5jb207IGJza2VnZ3NAcmVkaGF0LmNvbTsgdG9tYmFAa2VybmVsLm9yZzsgaGpjQHJvY2st
+Y2hpcHMuY29tOyBoZWlrb0BzbnRlY2guZGU7IGJlbmphbWluLmdhaWduYXJkQGxpbmFyby5vcmc7
+IHlhbm5pY2suZmVydHJlQGZvc3Muc3QuY29tOyBwaGlsaXBwZS5jb3JudUBmb3NzLnN0LmNvbTsg
+bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbTsgYWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbTsg
+d2Vuc0Bjc2llLm9yZzsgamVybmVqLnNrcmFiZWNAZ21haWwuY29tOyB0aGllcnJ5LnJlZGluZ0Bn
+bWFpbC5jb207IGpvbmF0aGFuaEBudmlkaWEuY29tOyBqeXJpLnNhcmhhQGlraS5maTsgZW1tYUBh
+bmhvbHQubmV0OyBsaW51eC1ncmFwaGljcy1tYWludGFpbmVyQHZtd2FyZS5jb207IHphY2tyQHZt
+d2FyZS5jb207IGh5dW4ua3dvbkB4aWxpbnguY29tOyBsYXVyZW50LnBpbmNoYXJ0QGlkZWFzb25i
+b2FyZC5jb207IG1pY2hhbC5zaW1la0B4aWxpbnguY29tDQqzrcvNOiBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgtYXJt
+LWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnOyBsaW51eC1zYW1zdW5nLXNvY0B2Z2VyLmtlcm5l
+bC5vcmc7IGxpbnV4LW1lZGlhdGVrQGxpc3RzLmluZnJhZGVhZC5vcmc7IG5vdXZlYXVAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnOyBsaW51eC1yb2NrY2hpcEBsaXN0cy5pbmZyYWRlYWQub3JnOyBsaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tOyBsaW51eC1zdW54aUBsaXN0cy5s
+aW51eC5kZXY7IGxpbnV4LXRlZ3JhQHZnZXIua2VybmVsLm9yZzsgVGhvbWFzIFppbW1lcm1hbm4g
+PHR6aW1tZXJtYW5uQHN1c2UuZGU+DQrW98ziOiBbUEFUQ0ggdjIgMDIvMjJdIGRybS9oaWJtYzog
+Q2FsbCBkcm1faXJxX3VuaW5zdGFsbCgpIHVuY29uZGl0aW9uYWxseQ0KDQpSZW1vdmUgdGhlIGNo
+ZWNrIGFyb3VuZCBkcm1faXJxX3VuaW5zdGFsbCgpLiBUaGUgc2FtZSB0ZXN0IGlzIGRvbmUgYnkg
+dGhlIGZ1bmN0aW9uIGludGVybmFsbHkuIFRoZSB0ZXN0ZWQgc3RhdGUgaW4gaXJxX2VuYWJsZWQg
+aXMgY29uc2lkZXJlZCBvYnNvbGV0ZSBhbmQgc2hvdWxkIG5vdCBiZSB1c2VkIGJ5IEtNUyBkcml2
+ZXJzLg0KDQpTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3Vz
+ZS5kZT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9oaXNpbGljb24vaGlibWMvaGlibWNfZHJtX2Ry
+di5jIHwgMyArLS0NCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25z
+KC0pDQoNCkFja2VkLWJ5OiBUaWFuIFRhbyA8dGlhbnRhbzZAaGlzaWxpY29uLmNvbT4NCg0KZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9oaXNpbGljb24vaGlibWMvaGlibWNfZHJtX2Rydi5j
+IGIvZHJpdmVycy9ncHUvZHJtL2hpc2lsaWNvbi9oaWJtYy9oaWJtY19kcm1fZHJ2LmMNCmluZGV4
+IGY0YmM1Mzg2NTc0YS4uZjhlZjcxMWJiZTVkIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2hpc2lsaWNvbi9oaWJtYy9oaWJtY19kcm1fZHJ2LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9o
+aXNpbGljb24vaGlibWMvaGlibWNfZHJtX2Rydi5jDQpAQCAtMjUzLDggKzI1Myw3IEBAIHN0YXRp
+YyBpbnQgaGlibWNfdW5sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpICB7DQogCWRybV9hdG9t
+aWNfaGVscGVyX3NodXRkb3duKGRldik7DQogDQotCWlmIChkZXYtPmlycV9lbmFibGVkKQ0KLQkJ
+ZHJtX2lycV91bmluc3RhbGwoZGV2KTsNCisJZHJtX2lycV91bmluc3RhbGwoZGV2KTsNCiANCiAJ
+cGNpX2Rpc2FibGVfbXNpKHRvX3BjaV9kZXYoZGV2LT5kZXYpKTsNCiANCi0tDQoyLjMyLjANCg0K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
+MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
+aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
+dXgtc3RtMzIK
