@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87C703B28DD
+	by mail.lfdr.de (Postfix) with ESMTPS id A37083B28DE
 	for <lists+linux-stm32@lfdr.de>; Thu, 24 Jun 2021 09:29:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4EA75C5A4D0;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60312C5A4D3;
 	Thu, 24 Jun 2021 07:29:43 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62AC4C5A4C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 865DFC5A4CB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Jun 2021 07:29:39 +0000 (UTC)
+ Thu, 24 Jun 2021 07:29:40 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 18FCD1FD72;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 43CF321984;
+ Thu, 24 Jun 2021 07:29:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624519780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Nqa6630ruRYYlI8ZNLoNGF3Kw3KIKsV19KV/b5stot8=;
+ b=dX+/BwNcpKGCSdnGs1uafj8/cDRwToWxdSjVs+bivHahyVKE9b3/QyIQIZpjALZRYo0X5f
+ 8AMXqIyzeIHDisR11ysiAgj9C7dL3dTmp5P7HwvCUuwEDfmd91wyMbiea0wrbLjN2NU33l
+ GiStrO+N4oNRp7Hp+ldwUwgGgyJYQMU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624519780;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Nqa6630ruRYYlI8ZNLoNGF3Kw3KIKsV19KV/b5stot8=;
+ b=Xy6ruu/MJAS3iRb8RmZlcW3eoc6qc5jOqN0Kdxu7WCuW1np9DdNCj0I3Xig+LI91L9/uPk
+ tT+g8QjZ+pgEV1CA==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 1D38311C9B;
  Thu, 24 Jun 2021 07:29:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624519779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624519780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ungDhNFtQV2QSuJ2i67VQ3TCcIcmnRI6EF4jC5OssoA=;
- b=hVKFDj3/cIaqtT5NLvfk93UyLfpHWiRKNEWd3jlt74s33nu593jZCBV67Lv8RZY2KizjJQ
- Zrkux6n4WUmqEOL+MloBwpZjKn4vLUYbxGJq7NfIR3X++heXTQNFTPqFUjzehQvpz1wowY
- ehqYrMtr2llTTegcXv1yP2cFFSQHqZI=
+ bh=Nqa6630ruRYYlI8ZNLoNGF3Kw3KIKsV19KV/b5stot8=;
+ b=dX+/BwNcpKGCSdnGs1uafj8/cDRwToWxdSjVs+bivHahyVKE9b3/QyIQIZpjALZRYo0X5f
+ 8AMXqIyzeIHDisR11ysiAgj9C7dL3dTmp5P7HwvCUuwEDfmd91wyMbiea0wrbLjN2NU33l
+ GiStrO+N4oNRp7Hp+ldwUwgGgyJYQMU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624519779;
+ s=susede2_ed25519; t=1624519780;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ungDhNFtQV2QSuJ2i67VQ3TCcIcmnRI6EF4jC5OssoA=;
- b=MEJTQMzk99Z7mFnSaOb2vmELUSL7+TxEM+QFIFmAFLtPdbVIe1ulNmE+zdOR96s/BjmUQ7
- Qyq9XIW/oVON7pDA==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id EC1ED11A97;
- Thu, 24 Jun 2021 07:29:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624519779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ungDhNFtQV2QSuJ2i67VQ3TCcIcmnRI6EF4jC5OssoA=;
- b=hVKFDj3/cIaqtT5NLvfk93UyLfpHWiRKNEWd3jlt74s33nu593jZCBV67Lv8RZY2KizjJQ
- Zrkux6n4WUmqEOL+MloBwpZjKn4vLUYbxGJq7NfIR3X++heXTQNFTPqFUjzehQvpz1wowY
- ehqYrMtr2llTTegcXv1yP2cFFSQHqZI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624519779;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ungDhNFtQV2QSuJ2i67VQ3TCcIcmnRI6EF4jC5OssoA=;
- b=MEJTQMzk99Z7mFnSaOb2vmELUSL7+TxEM+QFIFmAFLtPdbVIe1ulNmE+zdOR96s/BjmUQ7
- Qyq9XIW/oVON7pDA==
+ bh=Nqa6630ruRYYlI8ZNLoNGF3Kw3KIKsV19KV/b5stot8=;
+ b=Xy6ruu/MJAS3iRb8RmZlcW3eoc6qc5jOqN0Kdxu7WCuW1np9DdNCj0I3Xig+LI91L9/uPk
+ tT+g8QjZ+pgEV1CA==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id EMDJOGE01GAJfwAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Thu, 24 Jun 2021 07:29:37 +0000
+ id YNlHBmM01GAJfwAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Thu, 24 Jun 2021 07:29:39 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
@@ -84,8 +84,8 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, linux@armlinux.org.uk,
  kieran.bingham+renesas@ideasonboard.com, rodrigosiqueiramelo@gmail.com,
  melissa.srw@gmail.com, hamohammed.sa@gmail.com
-Date: Thu, 24 Jun 2021 09:29:05 +0200
-Message-Id: <20210624072916.27703-17-tzimmermann@suse.de>
+Date: Thu, 24 Jun 2021 09:29:06 +0200
+Message-Id: <20210624072916.27703-18-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210624072916.27703-1-tzimmermann@suse.de>
 References: <20210624072916.27703-1-tzimmermann@suse.de>
@@ -94,9 +94,10 @@ Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
  linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, linux-tegra@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 16/27] drm/rcar-du: Don't set struct
+Subject: [Linux-stm32] [PATCH v3 17/27] drm/rockchip: Don't set struct
 	drm_device.irq_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -115,26 +116,32 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The field drm_device.irq_enabled is only used by legacy drivers
-with userspace modesetting. Don't set it in rcar-du.
+with userspace modesetting. Don't set it in rockchip.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/rcar-du/rcar_du_drv.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/rcar-du/rcar_du_drv.c b/drivers/gpu/drm/rcar-du/rcar_du_drv.c
-index bfbff90588cb..e289a66594a7 100644
---- a/drivers/gpu/drm/rcar-du/rcar_du_drv.c
-+++ b/drivers/gpu/drm/rcar-du/rcar_du_drv.c
-@@ -593,8 +593,6 @@ static int rcar_du_probe(struct platform_device *pdev)
- 		goto error;
- 	}
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+index b730b8d5d949..c8e60fd9ff24 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.c
+@@ -162,12 +162,6 @@ static int rockchip_drm_bind(struct device *dev)
  
--	rcdu->ddev.irq_enabled = 1;
+ 	drm_mode_config_reset(drm_dev);
+ 
+-	/*
+-	 * enable drm irq mode.
+-	 * - with irq_enabled = true, we can use the vblank feature.
+-	 */
+-	drm_dev->irq_enabled = true;
 -
- 	/*
- 	 * Register the DRM device with the core and the connectors with
- 	 * sysfs.
+ 	ret = rockchip_drm_fbdev_init(drm_dev);
+ 	if (ret)
+ 		goto err_unbind_all;
 -- 
 2.32.0
 
