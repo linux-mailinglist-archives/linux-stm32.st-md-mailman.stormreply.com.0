@@ -2,53 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13A853B222C
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Jun 2021 23:00:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AC493B28A2
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Jun 2021 09:29:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFE5BC5662F;
-	Wed, 23 Jun 2021 21:00:55 +0000 (UTC)
-Received: from libero.it (smtp-35.italiaonline.it [213.209.10.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07331C56630;
+	Thu, 24 Jun 2021 07:29:23 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA39DC424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2EA53C3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Jun 2021 21:00:49 +0000 (UTC)
-Received: from passgat-Modern-14-A10M.homenet.telecomitalia.it
- ([79.17.119.101]) by smtp-35.iol.local with ESMTPA
- id w9zGldO2dsptiw9zLlZNPm; Wed, 23 Jun 2021 23:00:48 +0200
-x-libjamoibt: 1601
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=libero.it; s=s2021;
- t=1624482048; bh=ZGSmRoFXZ8qDZOFZuNx5T8XiAvYHeA24TOLTUmvi9KA=;
- h=From;
- b=HlnrKS8OR53BTgQ5RXUOwsEtbEV3TtqKRZE2MV9zqLj9XT8XTytclCsiaaKa9Lq70
- h/AODGpbK9/dglndo8D2Sxpw1egroGspjPC+nI79V2QE1xOzX/zzcvz+PqabAGgbXd
- jHC1o2kS5I79IOx9KWwOltMR7hEkOaJzw3l6QibYD5UJUGtqYil5qQ5eKPAeYFKNQN
- I9B8qZH0jrCiw/whneto7GRtKToOnCob151aZhzWO6dtmnr01BewF7zazJi2BsWIOm
- b3xCSngHLZUEO9XH3tnixafQlDNs8V/aWxaBDfITLQgOcp/f3c1uMdt7DArLrLSRGe
- yk6FIC6AqdMsA==
-X-CNFS-Analysis: v=2.4 cv=Bo1Yfab5 c=1 sm=1 tr=0 ts=60d3a100 cx=a_exe
- a=do1bHx4A/kh2kuTIUQHSxQ==:117 a=do1bHx4A/kh2kuTIUQHSxQ==:17
- a=wSIzyl8AIrrWyGTfDxQA:9
-From: Dario Binacchi <dariobin@libero.it>
-To: linux-clk@vger.kernel.org
-Date: Wed, 23 Jun 2021 23:00:39 +0200
-Message-Id: <20210623210039.19494-1-dariobin@libero.it>
-X-Mailer: git-send-email 2.17.1
-X-CMAE-Envelope: MS4xfM514amN4bhnkNihBFRmnPokG3YHEb1br53n59dTy/IwfAJJkYISTe7KYo2ugKKRfik9RU7nvNajiQbHgycxgwd7LeRERYhNYl9+i+NbcoGyD/O5Qg1a
- aSuOGCQbwneLs/9z9C8rTwxebXeAFhqzs72nDE11LwA32CNEO8SO3lFMsekQfvIg9q/BIKOu8EIkGkYX7SLUnKtaHlUtIUBENQpKTStlq4Lvu8VxlmpUIls2
- uTTdOMCgHeHhZAcrAIsHLhAe+BHKoi2ulwkmjpU7kNAY2aku80EqiOS5c+q2u7PuSwC/J7J9w2xCd+IzB+TLm9MHd1X/lUCnjMVBqKMYswyefkXpnhJXt8Yn
- wFI/lS+He45zCignNnsu2THsC3vZ6XhPNGyxsDa/gCgBEbrlPKhnMu5t9mMWHP5Gag2+4g59EN9DjRtgDQWwQbJGyweisFD5z30zrFS1rIPLF02ZAYFEprvB
- S98XK05zuNsFfj7X3dUFv5+zwXXWnHLQGRtJCQqX/Omvpejg36nYOPNiiG3gVVr5Wl8HhJucbeCyLVmlhCdVjZoxwd1FuopgDqMuXBSanYkdeC2CEMU6TxR9
- phSK6Ua8KdWGijNjr7MEKrX2
-Cc: Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Dario Binacchi <dariobin@libero.it>
-Subject: [Linux-stm32] [PATCH v2] clk: stm32f4: fix post divisor setup for
-	I2S/SAI PLLs
+ Thu, 24 Jun 2021 07:29:21 +0000 (UTC)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7B15A21981;
+ Thu, 24 Jun 2021 07:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624519760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EUVgQWZjNSlPOwlQJU4bzYuB/YGQiDl3S47gswQlIkM=;
+ b=wglcSBsLTBQ3ei6BxYK5d9SydJ3e5F+a66G6BOyOTZLEwKvHbcKirhkaVkn4HGdih7Jkuv
+ lm1BMokphzYz7V1K+KM1ymEyHRMfFtGQeVAZ09yEBlWAn/dJ/UjhXzGC3T2SZ+Bfi8Tzu6
+ MfrG1ShNojJgurv+fjncCU2DgW3B+uc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624519760;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EUVgQWZjNSlPOwlQJU4bzYuB/YGQiDl3S47gswQlIkM=;
+ b=D758gxqI1uHlShUSzY4ZWAkhFsDHW/tqXNK29CYpEb5M/mK2EKbmmiPOUOndQe3D2qVknN
+ LMsG8ZKa3NvPvnDA==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 4F58611A97;
+ Thu, 24 Jun 2021 07:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624519760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EUVgQWZjNSlPOwlQJU4bzYuB/YGQiDl3S47gswQlIkM=;
+ b=wglcSBsLTBQ3ei6BxYK5d9SydJ3e5F+a66G6BOyOTZLEwKvHbcKirhkaVkn4HGdih7Jkuv
+ lm1BMokphzYz7V1K+KM1ymEyHRMfFtGQeVAZ09yEBlWAn/dJ/UjhXzGC3T2SZ+Bfi8Tzu6
+ MfrG1ShNojJgurv+fjncCU2DgW3B+uc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624519760;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=EUVgQWZjNSlPOwlQJU4bzYuB/YGQiDl3S47gswQlIkM=;
+ b=D758gxqI1uHlShUSzY4ZWAkhFsDHW/tqXNK29CYpEb5M/mK2EKbmmiPOUOndQe3D2qVknN
+ LMsG8ZKa3NvPvnDA==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id dLt+Ek801GAJfwAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Thu, 24 Jun 2021 07:29:19 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
+ liviu.dudau@arm.com, mihail.atanassov@arm.com, brian.starkey@arm.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ inki.dae@samsung.com, jy0922.shim@samsung.com, sw0312.kim@samsung.com,
+ kyungmin.park@samsung.com, krzysztof.kozlowski@canonical.com,
+ xinliang.liu@linaro.org, tiantao6@hisilicon.com, john.stultz@linaro.org,
+ kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com,
+ laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de,
+ p.zabel@pengutronix.de, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, linux-imx@nxp.com,
+ chunkuang.hu@kernel.org, matthias.bgg@gmail.com, bskeggs@redhat.com,
+ tomba@kernel.org, hjc@rock-chips.com, heiko@sntech.de,
+ benjamin.gaignard@linaro.org, yannick.fertre@foss.st.com,
+ philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com,
+ thierry.reding@gmail.com, jonathanh@nvidia.com, jyri.sarha@iki.fi,
+ emma@anholt.net, linux-graphics-maintainer@vmware.com, zackr@vmware.com,
+ hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
+ michal.simek@xilinx.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, linux@armlinux.org.uk,
+ kieran.bingham+renesas@ideasonboard.com, rodrigosiqueiramelo@gmail.com,
+ melissa.srw@gmail.com, hamohammed.sa@gmail.com
+Date: Thu, 24 Jun 2021 09:28:49 +0200
+Message-Id: <20210624072916.27703-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.32.0
+MIME-Version: 1.0
+Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 00/27] Deprecate struct
+	drm_device.irq_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,92 +99,110 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enabling the framebuffer leads to a system hang. Running, as a debug
-hack, the store_pan() function in drivers/video/fbdev/core/fbsysfs.c
-without taking the console_lock, allows to see the crash backtrace on
-the serial line.
+Remove references to struct drm_device.irq_enabled from modern
+DRM drivers and core.
 
-~ # echo 0 0 > /sys/class/graphics/fb0/pan
+KMS drivers enable IRQs for their devices internally. They don't
+have to keep track of the IRQ state via irq_enabled. For vblanking,
+it's cleaner to test for vblanking support directly than to test
+for enabled IRQs.
 
-[    9.719414] Unhandled exception: IPSR = 00000005 LR = fffffff1
-[    9.726937] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
-[    9.733008] Hardware name: STM32 (Device Tree Support)
-[    9.738296] PC is at clk_gate_is_enabled+0x0/0x28
-[    9.743426] LR is at stm32f4_pll_div_set_rate+0xf/0x38
-[    9.748857] pc : [<0011e4be>]    lr : [<0011f9e3>]    psr: 0100000b
-[    9.755373] sp : 00bc7be0  ip : 00000000  fp : 001f3ac4
-[    9.760812] r10: 002610d0  r9 : 01efe920  r8 : 00540560
-[    9.766269] r7 : 02e7ddb0  r6 : 0173eed8  r5 : 00000000  r4 : 004027c0
-[    9.773081] r3 : 0011e4bf  r2 : 02e7ddb0  r1 : 0173eed8  r0 : 1d3267b8
-[    9.779911] xPSR: 0100000b
-[    9.782719] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
-[    9.788791] Hardware name: STM32 (Device Tree Support)
-[    9.794120] [<0000afa1>] (unwind_backtrace) from [<0000a33f>] (show_stack+0xb/0xc)
-[    9.802421] [<0000a33f>] (show_stack) from [<0000a8df>] (__invalid_entry+0x4b/0x4c)
+The first 3 patches replace uses of irq_enabled that are not
+required.
 
-The `pll_num' field in the post_div_data configuration contained a wrong
-value which also referenced an uninitialized hardware clock when
-clk_register_pll_div() was called.
+Patch 4 fixes vblank ioctls to actually test for vblank support
+instead of IRQs (for KMS drivers).
 
-Fixes: 517633ef630e ("clk: stm32f4: Add post divisor for I2S & SAI PLLs")
-Signed-off-by: Dario Binacchi <dariobin@libero.it>
+The rest of the patchset removes irq_enabled from all non-legacy
+drivers. The only exceptions are i915 and omapdrm, which have an
+internal dpendency on the field's value. For these drivers, the
+state gets duplicated internally.
 
----
+With the patchset applied, drivers can later switch over to plain
+Linux IRQ interfaces and DRM's IRQ midlayer can be declared legacy.
 
-Changes in v2:
-- Change  'u8 pll_num' from 'stm32f4_pll_post_div_data' structure into
-  'int pll_idx'.
+v3:
+	* update armada, i915, rcar-du and vkms as well (Laurent)
+	* optimize drm_wait_vblank_ioctl() for KMS (Liviu)
+	* move imx/dcss changes into their own patch (Laurentiu)
+	* doc cleanups
+v2:
+	* keep the original test for legacy drivers in
+	  drm_wait_vblank_ioctl() (Daniel)
 
- drivers/clk/clk-stm32f4.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Thomas Zimmermann (27):
+  drm/amdgpu: Track IRQ state in local device state
+  drm/hibmc: Call drm_irq_uninstall() unconditionally
+  drm/radeon: Track IRQ state in local device state
+  drm: Don't test for IRQ support in VBLANK ioctls
+  drm/armada: Don't set struct drm_device.irq_enabled
+  drm/i915: Track IRQ state in local device state
+  drm/komeda: Don't set struct drm_device.irq_enabled
+  drm/malidp: Don't set struct drm_device.irq_enabled
+  drm/exynos: Don't set struct drm_device.irq_enabled
+  drm/kirin: Don't set struct drm_device.irq_enabled
+  drm/imx: Don't set struct drm_device.irq_enabled
+  drm/imx/dcss: Don't set struct drm_device.irq_enabled
+  drm/mediatek: Don't set struct drm_device.irq_enabled
+  drm/nouveau: Don't set struct drm_device.irq_enabled
+  drm/omapdrm: Track IRQ state in local device state
+  drm/rcar-du: Don't set struct drm_device.irq_enabled
+  drm/rockchip: Don't set struct drm_device.irq_enabled
+  drm/sti: Don't set struct drm_device.irq_enabled
+  drm/stm: Don't set struct drm_device.irq_enabled
+  drm/sun4i: Don't set struct drm_device.irq_enabled
+  drm/tegra: Don't set struct drm_device.irq_enabled
+  drm/tidss: Don't use struct drm_device.irq_enabled
+  drm/vc4: Don't set struct drm_device.irq_enabled
+  drm/vkms: Don't set struct drm_device.irq_enabled
+  drm/vmwgfx: Don't set struct drm_device.irq_enabled
+  drm/xlnx: Don't set struct drm_device.irq_enabled
+  drm/zte: Don't set struct drm_device.irq_enabled
 
-diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
-index 18117ce5ff85..5c75e3d906c2 100644
---- a/drivers/clk/clk-stm32f4.c
-+++ b/drivers/clk/clk-stm32f4.c
-@@ -526,7 +526,7 @@ struct stm32f4_pll {
- 
- struct stm32f4_pll_post_div_data {
- 	int idx;
--	u8 pll_num;
-+	int pll_idx;
- 	const char *name;
- 	const char *parent;
- 	u8 flag;
-@@ -557,13 +557,13 @@ static const struct clk_div_table post_divr_table[] = {
- 
- #define MAX_POST_DIV 3
- static const struct stm32f4_pll_post_div_data  post_div_data[MAX_POST_DIV] = {
--	{ CLK_I2SQ_PDIV, PLL_I2S, "plli2s-q-div", "plli2s-q",
-+	{ CLK_I2SQ_PDIV, PLL_VCO_I2S, "plli2s-q-div", "plli2s-q",
- 		CLK_SET_RATE_PARENT, STM32F4_RCC_DCKCFGR, 0, 5, 0, NULL},
- 
--	{ CLK_SAIQ_PDIV, PLL_SAI, "pllsai-q-div", "pllsai-q",
-+	{ CLK_SAIQ_PDIV, PLL_VCO_SAI, "pllsai-q-div", "pllsai-q",
- 		CLK_SET_RATE_PARENT, STM32F4_RCC_DCKCFGR, 8, 5, 0, NULL },
- 
--	{ NO_IDX, PLL_SAI, "pllsai-r-div", "pllsai-r", CLK_SET_RATE_PARENT,
-+	{ NO_IDX, PLL_VCO_SAI, "pllsai-r-div", "pllsai-r", CLK_SET_RATE_PARENT,
- 		STM32F4_RCC_DCKCFGR, 16, 2, 0, post_divr_table },
- };
- 
-@@ -1774,7 +1774,7 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 				post_div->width,
- 				post_div->flag_div,
- 				post_div->div_table,
--				clks[post_div->pll_num],
-+				clks[post_div->pll_idx],
- 				&stm32f4_clk_lock);
- 
- 		if (post_div->idx != NO_IDX)
--- 
-2.17.1
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c         |  6 +++---
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.c |  4 ----
+ drivers/gpu/drm/arm/malidp_drv.c                |  4 ----
+ drivers/gpu/drm/armada/armada_drv.c             |  2 --
+ drivers/gpu/drm/drm_irq.c                       | 13 ++++---------
+ drivers/gpu/drm/drm_vblank.c                    | 16 ++++++++++++----
+ drivers/gpu/drm/exynos/exynos_drm_drv.c         | 10 ----------
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c |  3 +--
+ drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c |  2 --
+ drivers/gpu/drm/i915/i915_drv.h                 |  2 ++
+ drivers/gpu/drm/i915/i915_irq.c                 |  8 ++++----
+ drivers/gpu/drm/imx/dcss/dcss-kms.c             |  3 ---
+ drivers/gpu/drm/imx/imx-drm-core.c              | 11 -----------
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c          |  6 ------
+ drivers/gpu/drm/nouveau/nouveau_drm.c           |  3 ---
+ drivers/gpu/drm/omapdrm/omap_drv.h              |  2 ++
+ drivers/gpu/drm/omapdrm/omap_irq.c              |  6 +++---
+ drivers/gpu/drm/radeon/radeon_fence.c           |  2 +-
+ drivers/gpu/drm/radeon/radeon_irq_kms.c         | 16 ++++++++--------
+ drivers/gpu/drm/rcar-du/rcar_du_drv.c           |  2 --
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c     |  6 ------
+ drivers/gpu/drm/sti/sti_compositor.c            |  2 --
+ drivers/gpu/drm/stm/ltdc.c                      |  3 ---
+ drivers/gpu/drm/sun4i/sun4i_drv.c               |  2 --
+ drivers/gpu/drm/tegra/drm.c                     |  7 -------
+ drivers/gpu/drm/tidss/tidss_irq.c               |  3 ---
+ drivers/gpu/drm/vc4/vc4_kms.c                   |  1 -
+ drivers/gpu/drm/vkms/vkms_drv.c                 |  2 --
+ drivers/gpu/drm/vmwgfx/vmwgfx_irq.c             |  8 --------
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c             |  2 --
+ drivers/gpu/drm/zte/zx_drm_drv.c                |  6 ------
+ 31 files changed, 40 insertions(+), 123 deletions(-)
+
+
+base-commit: 8c1323b422f8473421682ba783b5949ddd89a3f4
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+--
+2.32.0
 
 _______________________________________________
 Linux-stm32 mailing list
