@@ -2,99 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FD593B2F78
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Jun 2021 14:57:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 500D63B3043
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Jun 2021 15:40:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14552C57196;
-	Thu, 24 Jun 2021 12:57:51 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 032E4C57196;
+	Thu, 24 Jun 2021 13:40:41 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14119C5662F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9743BC3FADC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Jun 2021 12:57:47 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7FEC31FD67;
- Thu, 24 Jun 2021 12:57:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624539466; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nlRQ0RGts2fg2n9D/bEIlhwvWJbNJH9fkaGW/6cqJVk=;
- b=u3LjD6oZssj/mJkoGStiSAvIHllAs+WCZqbgI6BOg34/wy6NHBbzTQ1JSVyR10sH/NyAAw
- pJl/nhBITtCxww7p96mvF926pQTQ0Gnk+voDz/USxmzhEd10NSPQzg7wj0bremchN+1FAC
- 43RglR2P5jMZtZBUFtwX3C3sZNzp5eg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624539466;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nlRQ0RGts2fg2n9D/bEIlhwvWJbNJH9fkaGW/6cqJVk=;
- b=skIn5fqMc0iuV1PMO3x3WjCWGfF0W6cyrE+GtqtdFjaVEN9HzBM8/z3ojcgJYirCjjhOr/
- y3pCmtMNeAOKcwCA==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 81AF511A97;
- Thu, 24 Jun 2021 12:57:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624539466; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nlRQ0RGts2fg2n9D/bEIlhwvWJbNJH9fkaGW/6cqJVk=;
- b=u3LjD6oZssj/mJkoGStiSAvIHllAs+WCZqbgI6BOg34/wy6NHBbzTQ1JSVyR10sH/NyAAw
- pJl/nhBITtCxww7p96mvF926pQTQ0Gnk+voDz/USxmzhEd10NSPQzg7wj0bremchN+1FAC
- 43RglR2P5jMZtZBUFtwX3C3sZNzp5eg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624539466;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nlRQ0RGts2fg2n9D/bEIlhwvWJbNJH9fkaGW/6cqJVk=;
- b=skIn5fqMc0iuV1PMO3x3WjCWGfF0W6cyrE+GtqtdFjaVEN9HzBM8/z3ojcgJYirCjjhOr/
- y3pCmtMNeAOKcwCA==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id V0K6HkmB1GBJTAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Thu, 24 Jun 2021 12:57:45 +0000
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Thierry Reding <thierry.reding@gmail.com>
-References: <20210624072916.27703-1-tzimmermann@suse.de>
- <20210624072916.27703-5-tzimmermann@suse.de> <87im23u1ok.fsf@intel.com>
- <b5e7729f-ed11-e9ca-386e-562feb2bd2b7@suse.de> <877dijtzl2.fsf@intel.com>
- <af21db75-584f-aec0-9659-d5386f27b4ea@suse.de>
- <YNR0m2DJsdIW3NAZ@orome.fritz.box> <87zgvfsalz.fsf@intel.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <0b0b7cda-9808-f0ed-4122-2d8eeaa8f7c3@suse.de>
-Date: Thu, 24 Jun 2021 14:57:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thu, 24 Jun 2021 13:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=kJoNj9EV1XTA3nOzVNZZ5d15uvZW2jJVc5PSAJpiypM=; b=niF93v22kDwoh3YOc+RIXkezY3
+ Yfa1uVichJuoJb6DQzSf+5cCFhhk/qibdhVqv6VqWLUiozFRA40y3NLKPFyTFrmgmO7YDUZmM9mzn
+ iE1sg6CaSuLwuIjEb+uQTwX04CAa4DVit6fNjGEx3NSdHdhnqtB5YRGNwO7HX9hT4sOg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1lwPac-00AycZ-7y; Thu, 24 Jun 2021 15:40:18 +0200
+Date: Thu, 24 Jun 2021 15:40:18 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Voon, Weifeng" <weifeng.voon@intel.com>
+Message-ID: <YNSLQpNsNhLkK8an@lunn.ch>
+References: <20210621094536.387442-1-pei.lee.ling@intel.com>
+ <20210621094536.387442-4-pei.lee.ling@intel.com>
+ <YNCOqGCDgSOy/yTP@lunn.ch>
+ <CH0PR11MB53806E2DC74B2B9BE8F84D7088089@CH0PR11MB5380.namprd11.prod.outlook.com>
+ <YNONPZAfmdyBMoL5@lunn.ch>
+ <CH0PR11MB538084AFEA548F4B453C624F88079@CH0PR11MB5380.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <87zgvfsalz.fsf@intel.com>
-Cc: hamohammed.sa@gmail.com, emma@anholt.net, airlied@linux.ie,
- nouveau@lists.freedesktop.org, laurentiu.palcu@oss.nxp.com,
- liviu.dudau@arm.com, alexandre.torgue@foss.st.com,
- dri-devel@lists.freedesktop.org, linux@armlinux.org.uk, melissa.srw@gmail.com,
- matthias.bgg@gmail.com, laurent.pinchart@ideasonboard.com,
- benjamin.gaignard@linaro.org, mihail.atanassov@arm.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com, tomba@kernel.org,
- michal.simek@xilinx.com, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, wens@csie.org, james.qian.wang@arm.com,
- linux-imx@nxp.com, xinliang.liu@linaro.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>, linux-graphics-maintainer@vmware.com,
- kong.kongxinwei@hisilicon.com, s.hauer@pengutronix.de, bskeggs@redhat.com,
- chunkuang.hu@kernel.org, mcoquelin.stm32@gmail.com, puck.chen@hisilicon.com,
- intel-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- rodrigo.vivi@intel.com, linux-tegra@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- hyun.kwon@xilinx.com, rodrigosiqueiramelo@gmail.com, shawnguo@kernel.org,
- yannick.fertre@foss.st.com, Xinhui.Pan@amd.com, sw0312.kim@samsung.com,
- hjc@rock-chips.com, linux-sunxi@lists.linux.dev, kyungmin.park@samsung.com,
- kieran.bingham+renesas@ideasonboard.com, kernel@pengutronix.de,
- alexander.deucher@amd.com, tiantao6@hisilicon.com, jyri.sarha@iki.fi,
- christian.koenig@amd.com
-Subject: Re: [Linux-stm32] [PATCH v3 04/27] drm: Don't test for IRQ support
-	in VBLANK ioctls
+Content-Disposition: inline
+In-Reply-To: <CH0PR11MB538084AFEA548F4B453C624F88079@CH0PR11MB5380.namprd11.prod.outlook.com>
+Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>, "Wong,
+ Vee Khee" <vee.khee.wong@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Tan,
+ Tee Min" <tee.min.tan@intel.com>, "Ling, Pei Lee" <pei.lee.ling@intel.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Russell King <linux@armlinux.org.uk>, "Sit,
+ Michael Wei Hong" <michael.wei.hong.sit@intel.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, "Ong, Boon Leong" <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next V1 3/4] net: stmmac: Reconfigure
+ the PHY WOL settings in stmmac_resume()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,209 +65,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5225109818824616834=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============5225109818824616834==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="uZAbLLO6gAsgbliLJ4wVdD8Q3Prh3JDl0"
+> No, the interrupt will not be discarded. If the PHY is in interrupt mode, the
+> interrupt handler will triggers and ISR will clear the WOL status bit. 
+> The condition here is when the PHY is in polling mode, the PHY driver does not
+> have any other mechanism to clear the WOL interrupt status bit.
+> Hence, we need to go through the PHY set_wol() again. 
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---uZAbLLO6gAsgbliLJ4wVdD8Q3Prh3JDl0
-Content-Type: multipart/mixed; boundary="lmd8tCC7cJwEr0gUau7cSsDcSUmocjFNc";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Thierry Reding <thierry.reding@gmail.com>
-Cc: hamohammed.sa@gmail.com, emma@anholt.net, airlied@linux.ie,
- nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com, liviu.dudau@arm.com,
- alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
- michal.simek@xilinx.com, melissa.srw@gmail.com, linux-tegra@vger.kernel.org,
- laurent.pinchart@ideasonboard.com, benjamin.gaignard@linaro.org,
- linux@armlinux.org.uk, mihail.atanassov@arm.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
- jy0922.shim@samsung.com, krzysztof.kozlowski@canonical.com,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- wens@csie.org, jernej.skrabec@gmail.com, jonathanh@nvidia.com,
- xinliang.liu@linaro.org, kong.kongxinwei@hisilicon.com,
- james.qian.wang@arm.com, linux-imx@nxp.com,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- linux-graphics-maintainer@vmware.com, intel-gfx@lists.freedesktop.org,
- bskeggs@redhat.com, chunkuang.hu@kernel.org, puck.chen@hisilicon.com,
- s.hauer@pengutronix.de, rodrigosiqueiramelo@gmail.com,
- laurentiu.palcu@oss.nxp.com, matthias.bgg@gmail.com, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- amd-gfx@lists.freedesktop.org, hyun.kwon@xilinx.com, tomba@kernel.org,
- jyri.sarha@iki.fi, yannick.fertre@foss.st.com, Xinhui.Pan@amd.com,
- sw0312.kim@samsung.com, hjc@rock-chips.com, christian.koenig@amd.com,
- linux-sunxi@lists.linux.dev, kyungmin.park@samsung.com,
- kieran.bingham+renesas@ideasonboard.com, philippe.cornu@foss.st.com,
- alexander.deucher@amd.com, tiantao6@hisilicon.com, shawnguo@kernel.org
-Message-ID: <0b0b7cda-9808-f0ed-4122-2d8eeaa8f7c3@suse.de>
-Subject: Re: [PATCH v3 04/27] drm: Don't test for IRQ support in VBLANK ioctls
-References: <20210624072916.27703-1-tzimmermann@suse.de>
- <20210624072916.27703-5-tzimmermann@suse.de> <87im23u1ok.fsf@intel.com>
- <b5e7729f-ed11-e9ca-386e-562feb2bd2b7@suse.de> <877dijtzl2.fsf@intel.com>
- <af21db75-584f-aec0-9659-d5386f27b4ea@suse.de>
- <YNR0m2DJsdIW3NAZ@orome.fritz.box> <87zgvfsalz.fsf@intel.com>
-In-Reply-To: <87zgvfsalz.fsf@intel.com>
+I would say you have a broken setup. If you are explicitly using the
+interrupt as a wakeup source, you need to be servicing the
+interrupt. You cannot use polled mode.
 
---lmd8tCC7cJwEr0gUau7cSsDcSUmocjFNc
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 24.06.21 um 14:36 schrieb Jani Nikula:
-> On Thu, 24 Jun 2021, Thierry Reding <thierry.reding@gmail.com> wrote:
->> On Thu, Jun 24, 2021 at 11:07:57AM +0200, Thomas Zimmermann wrote:
->>> Hi
->>>
->>> Am 24.06.21 um 10:51 schrieb Jani Nikula:
->>>> On Thu, 24 Jun 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>>>> Hi
->>>>>
->>>>> Am 24.06.21 um 10:06 schrieb Jani Nikula:
->>>>>> On Thu, 24 Jun 2021, Thomas Zimmermann <tzimmermann@suse.de> wrote=
-:
->>>>>>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_v=
-blank.c
->>>>>>> index 3417e1ac7918..10fe16bafcb6 100644
->>>>>>> --- a/drivers/gpu/drm/drm_vblank.c
->>>>>>> +++ b/drivers/gpu/drm/drm_vblank.c
->>>>>>> @@ -1748,8 +1748,16 @@ int drm_wait_vblank_ioctl(struct drm_devic=
-e *dev, void *data,
->>>>>>>     	unsigned int pipe_index;
->>>>>>>     	unsigned int flags, pipe, high_pipe;
->>>>>>> -	if (!dev->irq_enabled)
->>>>>>> -		return -EOPNOTSUPP;
->>>>>>> +#if defined(CONFIG_DRM_LEGACY)
->>>>>>> +	if  (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY))) {
->>>>>>> +		if (!dev->irq_enabled)
->>>>>>> +			return -EOPNOTSUPP;
->>>>>>> +	} else /* if DRIVER_MODESET */
->>>>>>> +#endif
->>>>>>> +	{
->>>>>>> +		if (!drm_dev_has_vblank(dev))
->>>>>>> +			return -EOPNOTSUPP;
->>>>>>> +	}
->>>>>>
->>>>>> Sheesh I hate this kind of inline #ifdefs.
->>>>>>
->>>>>> Two alternate suggestions that I believe should be as just efficie=
-nt:
->>>>>
->>>>> Or how about:
->>>>>
->>>>> static bool drm_wait_vblank_supported(struct drm_device *dev)
->>>>>
->>>>> {
->>>>>
->>>>> if defined(CONFIG_DRM_LEGACY)
->>>>> 	if  (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
->>>>>
->>>>> 		return dev->irq_enabled;
->>>>>
->>>>> #endif
->>>>> 	return drm_dev_has_vblank(dev);
->>>>>
->>>>> }
->>>>>
->>>>>
->>>>> ?
->>>>>
->>>>> It's inline, but still readable.
->>>>
->>>> It's definitely better than the original, but it's unclear to me why=
-
->>>> you'd prefer this over option 2) below. I guess the only reason I ca=
-n
->>>> think of is emphasizing the conditional compilation. However,
->>>> IS_ENABLED() is widely used in this manner specifically to avoid inl=
-ine
->>>> #if, and the compiler optimizes it away.
->>>
->>> It's simply more readable to me as the condition is simpler. But opti=
-on 2 is
->>> also ok.
->>
->> Perhaps do something like this, then:
->>
->> 	if (IS_ENABLED(CONFIG_DRM_LEGACY)) {
->> 		if (unlikely(drm_core_check_feature(dev, DRIVER_LEGACY)))
->> 			return dev->irq_enabled;
->> 	}
->>
->> 	return drm_dev_has_vblank(dev);
->>
->> That's about just as readable as the variant involving the preprocesso=
-r
->> but has all the benefits of not using the preprocessor.
->=20
-> Looks like a winner to me. :)
-
-That's the most readable.
-
-But I just remembered that irq_enabled will likely become legacy-only in =
-
-the device structure. We'll need an ifdef variant then. :/
-
-Best regards
-Thomas
-
->=20
-> BR,
-> Jani.
->=20
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---lmd8tCC7cJwEr0gUau7cSsDcSUmocjFNc--
-
---uZAbLLO6gAsgbliLJ4wVdD8Q3Prh3JDl0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmDUgUgFAwAAAAAACgkQlh/E3EQov+Bk
-HA/9GKE6DtrNVTmNxi2Q1NuMTT4X0e/U8VAQ+IlFKl8xxDejBHRg5B2w4IWO1ryG0fVvwJTmulCJ
-4oIF7texau6jTumwKhAXbRwUOjdRyO1EVchjVjZ9OCG9+pab1hN4k6aH8EmG1Jbk47pgPrcn72Eb
-/Wk9L3GlqhVg/h5/gXnNXX7lE3N/zwms6VexWkqGXOQN8/eRK03NFHIaim9TH2ZwA52ePGCFxf7X
-qGCSxGUsTDfpjp1wh7vHkZQu8Xob/WUqBe8VD4l6qSxXmaaK6GX8PkcR/KHSaEQTbT9+xeiaARfc
-fL+AAzsKgwT7VHQiBtiDp+vTFSb7Smqb1njcV6XKoT22ChKIkwXgosP0un57vun3nbUCINjkSWhH
-sIDquVu33/iLM0phsJJGzNBVZIZ/TKjNZLN0xKL14t3QCiGaPmgK2T4oIIddEpEWDpC44+ReNuG+
-gmDsDDCGlph9N3IQ3hFbmZEbE3zq3wpoNZc8waPul0MIh3NP4oVXqFWKfZQHe5ZG2L+SsXA0mD3V
-JQ4YgpDzpqDrPVZN3e7IDy5AIAq8lHKQ7HjDnk9BAeU07ugunwtotH8nLRpsxEoH2rqRPHWLbskz
-MH+boqUIKPbGSWWh3OCLIsONS9XZR5dnZG2etdxPgteJRgWatYNmdaacVJzZt/epo1ZxEnEZXi3C
-DRk=
-=+AeC
------END PGP SIGNATURE-----
-
---uZAbLLO6gAsgbliLJ4wVdD8Q3Prh3JDl0--
-
---===============5225109818824616834==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+	   Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5225109818824616834==--
