@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DF603B2CCD
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Jun 2021 12:47:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 815283B2CD8
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Jun 2021 12:48:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30990C57196;
-	Thu, 24 Jun 2021 10:47:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A3ADC57196;
+	Thu, 24 Jun 2021 10:48:35 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4641C5662F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 056D9C5662F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Jun 2021 10:47:42 +0000 (UTC)
+ Thu, 24 Jun 2021 10:48:34 +0000 (UTC)
 Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
  [62.78.145.57])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 842B9532;
- Thu, 24 Jun 2021 12:47:39 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 571A61254;
+ Thu, 24 Jun 2021 12:48:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1624531659;
- bh=ZNycYCdpm5oEjlFfF/sEqNXjEFO/n03c+byQ10Bt5bw=;
+ s=mail; t=1624531713;
+ bh=fIk5wMEN1B7CMPOBGbKPIoyHWGb/NJbW3Q+hz7HFjMM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CGN9DVFsEHoPFf+pGvo+BS5Oqq8sbq0BRLQS9wPa02YfsZbZHe42KSDL8SiS8nknQ
- Dlh8v3FIrtFZ+aIelYdI0hq6VcbgqVLgvJq3npv5I27MKCnHAHxEiouigFeN+ZPJ+I
- gY9uoWeAbXhjpnjIo6lsntNy9MnvXU5it7HqZ5l0=
-Date: Thu, 24 Jun 2021 13:47:08 +0300
+ b=OoLj5b8l/ofOHdX9hMnRB54xFpHcmL5qCdyqf0btt+Wqy//1J8rGXdoC24H1uq8n1
+ 048gJuhXofMiwBWBvQAq72XeLSOhwF8Jn/QOm5PZoqoyR+V/AZX9s6u3YYgXawYOjf
+ yqs50G3bJBKCjDvGArnYQnXaHNQWu9PnXSCiArt0=
+Date: Thu, 24 Jun 2021 13:48:03 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <YNRirARS1AIVncc+@pendragon.ideasonboard.com>
+Message-ID: <YNRi4yR6lQTix7ar@pendragon.ideasonboard.com>
 References: <20210624072916.27703-1-tzimmermann@suse.de>
- <20210624072916.27703-17-tzimmermann@suse.de>
+ <20210624072916.27703-25-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210624072916.27703-17-tzimmermann@suse.de>
+In-Reply-To: <20210624072916.27703-25-tzimmermann@suse.de>
 Cc: hamohammed.sa@gmail.com, heiko@sntech.de, emma@anholt.net, airlied@linux.ie,
  nouveau@lists.freedesktop.org, rodrigo.vivi@intel.com, liviu.dudau@arm.com,
  alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
@@ -60,7 +60,7 @@ Cc: hamohammed.sa@gmail.com, heiko@sntech.de, emma@anholt.net, airlied@linux.ie,
  kieran.bingham+renesas@ideasonboard.com, daniel@ffwll.ch,
  alexander.deucher@amd.com, tiantao6@hisilicon.com, shawnguo@kernel.org,
  brian.starkey@arm.com, zackr@vmware.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v3 16/27] drm/rcar-du: Don't set struct
+Subject: Re: [Linux-stm32] [PATCH v3 24/27] drm/vkms: Don't set struct
  drm_device.irq_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -82,31 +82,31 @@ Hi Thomas,
 
 Thank you for the patch.
 
-On Thu, Jun 24, 2021 at 09:29:05AM +0200, Thomas Zimmermann wrote:
+On Thu, Jun 24, 2021 at 09:29:13AM +0200, Thomas Zimmermann wrote:
 > The field drm_device.irq_enabled is only used by legacy drivers
-> with userspace modesetting. Don't set it in rcar-du.
+> with userspace modesetting. Don't set it in vkms.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
 > ---
->  drivers/gpu/drm/rcar-du/rcar_du_drv.c | 2 --
+>  drivers/gpu/drm/vkms/vkms_drv.c | 2 --
 >  1 file changed, 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/rcar-du/rcar_du_drv.c b/drivers/gpu/drm/rcar-du/rcar_du_drv.c
-> index bfbff90588cb..e289a66594a7 100644
-> --- a/drivers/gpu/drm/rcar-du/rcar_du_drv.c
-> +++ b/drivers/gpu/drm/rcar-du/rcar_du_drv.c
-> @@ -593,8 +593,6 @@ static int rcar_du_probe(struct platform_device *pdev)
->  		goto error;
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+> index 027ffe759440..496de38ad983 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+> @@ -163,8 +163,6 @@ static int vkms_create(struct vkms_config *config)
+>  		goto out_devres;
 >  	}
 >  
-> -	rcdu->ddev.irq_enabled = 1;
+> -	vkms_device->drm.irq_enabled = true;
 > -
->  	/*
->  	 * Register the DRM device with the core and the connectors with
->  	 * sysfs.
+>  	ret = drm_vblank_init(&vkms_device->drm, 1);
+>  	if (ret) {
+>  		DRM_ERROR("Failed to vblank\n");
 
 -- 
 Regards,
