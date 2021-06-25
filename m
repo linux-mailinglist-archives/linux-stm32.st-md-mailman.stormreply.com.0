@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 820243B3E7E
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jun 2021 10:22:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E94F3B3E85
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Jun 2021 10:22:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43E1FC597B4;
-	Fri, 25 Jun 2021 08:22:37 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27129C597BE;
+	Fri, 25 Jun 2021 08:22:38 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56A22C59780
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8749FC597AE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Jun 2021 08:22:34 +0000 (UTC)
+ Fri, 25 Jun 2021 08:22:35 +0000 (UTC)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 129A221C22;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4798B1FE5E;
+ Fri, 25 Jun 2021 08:22:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1624609355; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EPEFd6nNTa+ut/F5qfWR2QbCKbdYMNjmX85bhvDFy1E=;
+ b=Mo1P3rTJBz3vkYd4chwevAZ8ZIvjcCcxzOT9twaHziyh1dLmJXxP911A/B4DJHByk4kUaf
+ LAsihKd/l//T6EHs9ZYrHBMY4XBq+seFpstf9x3mQgXmxRL3dyHFPBGaJtRSWuHewuElxG
+ +2J0qHQNRrDlj0wGi4ILFqHfjMHTTLs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1624609355;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EPEFd6nNTa+ut/F5qfWR2QbCKbdYMNjmX85bhvDFy1E=;
+ b=m5gTKvTM7e2HNNcd90IFpDOYZxRdQD5X0Dg+byBv69bXCzl0vlEAjYj2llnmsvVd3fJ08U
+ 01otDlTyzUQtM7Bw==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 17F5A11C9B;
  Fri, 25 Jun 2021 08:22:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624609354; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624609355; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=zwf7mP0LsMNCN4pPPKF35auE5vJ/S0UeIANplAsdQLk=;
- b=zFOlIzYG+8lPQnRCizcT4lnqYl7YzU/xDCHBnDlY+SQ2kv7ToWvkc5QhmTsqa+LD9QJlD5
- sUNsmKDIw23vBczIU97eLr0uRyWexrND3Av253PqpNSzOZl6qBOjFNhQe7gC4wJ26R8emp
- Ie7mbGrC1rnbTIozJcza4Dt935qBEF4=
+ bh=EPEFd6nNTa+ut/F5qfWR2QbCKbdYMNjmX85bhvDFy1E=;
+ b=Mo1P3rTJBz3vkYd4chwevAZ8ZIvjcCcxzOT9twaHziyh1dLmJXxP911A/B4DJHByk4kUaf
+ LAsihKd/l//T6EHs9ZYrHBMY4XBq+seFpstf9x3mQgXmxRL3dyHFPBGaJtRSWuHewuElxG
+ +2J0qHQNRrDlj0wGi4ILFqHfjMHTTLs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624609354;
+ s=susede2_ed25519; t=1624609355;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=zwf7mP0LsMNCN4pPPKF35auE5vJ/S0UeIANplAsdQLk=;
- b=gveraDiQG7/Ag3G3AC3mVWVM9oyDko0ASo6EWhElWVLb8/GXVLcA42L8VNlI1mz2moGScU
- 4jEf4aI0R4To5UCQ==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id D83C011A97;
- Fri, 25 Jun 2021 08:22:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624609354; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zwf7mP0LsMNCN4pPPKF35auE5vJ/S0UeIANplAsdQLk=;
- b=zFOlIzYG+8lPQnRCizcT4lnqYl7YzU/xDCHBnDlY+SQ2kv7ToWvkc5QhmTsqa+LD9QJlD5
- sUNsmKDIw23vBczIU97eLr0uRyWexrND3Av253PqpNSzOZl6qBOjFNhQe7gC4wJ26R8emp
- Ie7mbGrC1rnbTIozJcza4Dt935qBEF4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624609354;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zwf7mP0LsMNCN4pPPKF35auE5vJ/S0UeIANplAsdQLk=;
- b=gveraDiQG7/Ag3G3AC3mVWVM9oyDko0ASo6EWhElWVLb8/GXVLcA42L8VNlI1mz2moGScU
- 4jEf4aI0R4To5UCQ==
+ bh=EPEFd6nNTa+ut/F5qfWR2QbCKbdYMNjmX85bhvDFy1E=;
+ b=m5gTKvTM7e2HNNcd90IFpDOYZxRdQD5X0Dg+byBv69bXCzl0vlEAjYj2llnmsvVd3fJ08U
+ 01otDlTyzUQtM7Bw==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id MObEM0iS1WAISwAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Fri, 25 Jun 2021 08:22:32 +0000
+ id QE7vBEqS1WAISwAALh3uQQ
+ (envelope-from <tzimmermann@suse.de>); Fri, 25 Jun 2021 08:22:34 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
@@ -83,8 +83,8 @@ To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
  rodrigo.vivi@intel.com, linux@armlinux.org.uk,
  kieran.bingham+renesas@ideasonboard.com, rodrigosiqueiramelo@gmail.com,
  melissa.srw@gmail.com, hamohammed.sa@gmail.com
-Date: Fri, 25 Jun 2021 10:22:03 +0200
-Message-Id: <20210625082222.3845-9-tzimmermann@suse.de>
+Date: Fri, 25 Jun 2021 10:22:04 +0200
+Message-Id: <20210625082222.3845-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210625082222.3845-1-tzimmermann@suse.de>
 References: <20210625082222.3845-1-tzimmermann@suse.de>
@@ -96,7 +96,7 @@ Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Daniel Vetter <daniel.vetter@ffwll.ch>, linux-tegra@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 08/27] drm/malidp: Don't set struct
+Subject: [Linux-stm32] [PATCH v4 09/27] drm/exynos: Don't set struct
 	drm_device.irq_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -115,45 +115,36 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 The field drm_device.irq_enabled is only used by legacy drivers
-with userspace modesetting. Don't set it in malidp.
+with userspace modesetting. Don't set it in exynos.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Acked-by: Liviu Dudau <liviu.dudau@arm.com>
 Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/arm/malidp_drv.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_drv.c | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/malidp_drv.c b/drivers/gpu/drm/arm/malidp_drv.c
-index de59f3302516..78d15b04b105 100644
---- a/drivers/gpu/drm/arm/malidp_drv.c
-+++ b/drivers/gpu/drm/arm/malidp_drv.c
-@@ -847,8 +847,6 @@ static int malidp_bind(struct device *dev)
- 	if (ret < 0)
- 		goto irq_init_fail;
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+index e60257f1f24b..d8f1cf4d6b69 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+@@ -300,16 +300,6 @@ static int exynos_drm_bind(struct device *dev)
  
+ 	drm_mode_config_reset(drm);
+ 
+-	/*
+-	 * enable drm irq mode.
+-	 * - with irq_enabled = true, we can use the vblank feature.
+-	 *
+-	 * P.S. note that we wouldn't use drm irq handler but
+-	 *	just specific driver own one instead because
+-	 *	drm framework supports only one irq handler.
+-	 */
 -	drm->irq_enabled = true;
 -
- 	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
- 	if (ret < 0) {
- 		DRM_ERROR("failed to initialise vblank\n");
-@@ -874,7 +872,6 @@ static int malidp_bind(struct device *dev)
- vblank_fail:
- 	malidp_se_irq_fini(hwdev);
- 	malidp_de_irq_fini(hwdev);
--	drm->irq_enabled = false;
- irq_init_fail:
- 	drm_atomic_helper_shutdown(drm);
- 	component_unbind_all(dev, drm);
-@@ -909,7 +906,6 @@ static void malidp_unbind(struct device *dev)
- 	drm_atomic_helper_shutdown(drm);
- 	malidp_se_irq_fini(hwdev);
- 	malidp_de_irq_fini(hwdev);
--	drm->irq_enabled = false;
- 	component_unbind_all(dev, drm);
- 	of_node_put(malidp->crtc.port);
- 	malidp->crtc.port = NULL;
+ 	/* init kms poll for handling hpd */
+ 	drm_kms_helper_poll_init(drm);
+ 
 -- 
 2.32.0
 
