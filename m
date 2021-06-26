@@ -2,98 +2,177 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA1813B5915
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jun 2021 08:23:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C9063B59A8
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jun 2021 09:20:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CD00C5719E;
-	Mon, 28 Jun 2021 06:23:38 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56909C58D78;
+	Mon, 28 Jun 2021 07:20:34 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E388EC5662F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5800BC57196
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Jun 2021 06:23:36 +0000 (UTC)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B303C20200;
- Mon, 28 Jun 2021 06:23:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624861415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3f/RQ+o/NN1qA7MbgkBwKBo1UY1pJWjqF+CekEE7tvs=;
- b=jJM/B+QJ0HaTwqIYl1RXnmf+3kS01V89ycXtkk6p6XRsDI0f0fsSYWSMxuQjKP4pqQ0E+1
- s8MITUczcRX2a8uMHRISVlbqGN7L1AmLkau+jzoUaW2yOqZOzt5T1SrWObCQMTd+s9ffpr
- ATR41EBppViL088sYF/EuuEt0QBmJHs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624861415;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3f/RQ+o/NN1qA7MbgkBwKBo1UY1pJWjqF+CekEE7tvs=;
- b=NBW1kkaGRxLiRwOxNiLCHy+jTq7PDtH+lJSbjdqofRosiUym/h3BpEXG8WHWk0LKYIFlQF
- Iy0+1fzHScVjq3CA==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 73EFC118DD;
- Mon, 28 Jun 2021 06:23:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1624861415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3f/RQ+o/NN1qA7MbgkBwKBo1UY1pJWjqF+CekEE7tvs=;
- b=jJM/B+QJ0HaTwqIYl1RXnmf+3kS01V89ycXtkk6p6XRsDI0f0fsSYWSMxuQjKP4pqQ0E+1
- s8MITUczcRX2a8uMHRISVlbqGN7L1AmLkau+jzoUaW2yOqZOzt5T1SrWObCQMTd+s9ffpr
- ATR41EBppViL088sYF/EuuEt0QBmJHs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1624861415;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3f/RQ+o/NN1qA7MbgkBwKBo1UY1pJWjqF+CekEE7tvs=;
- b=NBW1kkaGRxLiRwOxNiLCHy+jTq7PDtH+lJSbjdqofRosiUym/h3BpEXG8WHWk0LKYIFlQF
- Iy0+1fzHScVjq3CA==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id T4qyGuZq2WDleAAALh3uQQ
- (envelope-from <tzimmermann@suse.de>); Mon, 28 Jun 2021 06:23:34 +0000
-To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
- liviu.dudau@arm.com, mihail.atanassov@arm.com, brian.starkey@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, inki.dae@samsung.com,
- jy0922.shim@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
- krzysztof.kozlowski@canonical.com, xinliang.liu@linaro.org,
- tiantao6@hisilicon.com, john.stultz@linaro.org,
- kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com,
- laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de, p.zabel@pengutronix.de,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com, chunkuang.hu@kernel.org,
- matthias.bgg@gmail.com, bskeggs@redhat.com, tomba@kernel.org,
- hjc@rock-chips.com, heiko@sntech.de, yannick.fertre@foss.st.com,
- philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com,
- thierry.reding@gmail.com, jonathanh@nvidia.com, jyri.sarha@iki.fi,
- emma@anholt.net, linux-graphics-maintainer@vmware.com, zackr@vmware.com,
- hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
- michal.simek@xilinx.com, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, linux@armlinux.org.uk,
- kieran.bingham+renesas@ideasonboard.com, rodrigosiqueiramelo@gmail.com,
- melissa.srw@gmail.com, hamohammed.sa@gmail.com
+ Sat, 26 Jun 2021 02:41:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HXOlnE1eYVOXmjT2wWRGK097aKX7y7zri5eCEKFUMgkBUQVbLoN0ukerIMPR39xaCj/5/p8uNfqYlyJgpuKZu25yd1fnfdMQZgAeWGIPAkfF6JzEWv/kRdOvcSFAAOmCgVuNH+4NKxtbO0Gjt9jPE/76g9rdUFZjXYHYUQm1nILYbzcf85uKolJcn6wbIY/VqIZag6dLYfsI7pfC7L+CzWlE2eoHLu9YpwbvjhXhxXMvIYPlL9yIbeVAPdhafxcqRG2CgyzDJ1OcQtuGclj5GJfRd8jXrr15qE+lM30zxcr9UeDsLJqvm+HA3G/YmX+SVfEVqPPav94SBLsVKbM3jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DY1EwPTlX2oQTM9JUbNIyIFbIIHh3X6kPkNgZnuutdQ=;
+ b=U/V9M8f82trjEtEybbp+71NTEdMG1f2xHCq5nILDl9buydMft60ZM3yGyvj1MFhj+sjEUPR6TBtpocx8XU/A/YtwSGW3RLHPJFJUh4OoGtAh1ZL023nOO/4N25bXUICcCkqY3WNkvd/d4nUisoqjl8L2axv0PXRC4D5ssmJt+Ch27qIXgrM9qYqmktkAY8EoG29Cl48PmWlyM3hTevqiOKAN5WRM9ww4YFZdrwV+aNAlNw7z4hWr60143MEnF4qQ/FygOeeuPrqHiFhTgZIYqyZrJcaI/XxTvqN1LDhCviMzQRqModel7dRJe0KYKckv31G5HD80SNUAnemSRmqagA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
+ dkim=pass header.d=vmware.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DY1EwPTlX2oQTM9JUbNIyIFbIIHh3X6kPkNgZnuutdQ=;
+ b=PwtSKmWlcpy66jYlSfY/6733zXD1RHz4VOaIM6HFiqPf0E+OLrzE1X48292+hJzsSAppNueC2X2mU1yrm/+knEzv4MInoj5s7YkbSS9orzU2HmbT1TSrkfT5V3OxtJvnSDOPv0b2K2MMOqsvJlz8SW47yxK9tL6j9m+riPi75uU=
+Received: from MN2PR05MB6624.namprd05.prod.outlook.com (2603:10b6:208:d8::18)
+ by MN2PR05MB6671.namprd05.prod.outlook.com (2603:10b6:208:d7::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.7; Sat, 26 Jun
+ 2021 02:41:07 +0000
+Received: from MN2PR05MB6624.namprd05.prod.outlook.com
+ ([fe80::45fe:a746:21e9:e8fc]) by MN2PR05MB6624.namprd05.prod.outlook.com
+ ([fe80::45fe:a746:21e9:e8fc%6]) with mapi id 15.20.4264.023; Sat, 26 Jun 2021
+ 02:41:07 +0000
+From: Zack Rusin <zackr@vmware.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Thread-Topic: [PATCH v4 25/27] drm/vmwgfx: Don't set struct
+ drm_device.irq_enabled
+Thread-Index: AQHXaZtTePw5ruzrRkKIZ2BFLdAIq6slljUA
+Date: Sat, 26 Jun 2021 02:41:07 +0000
+Message-ID: <F2415B80-87BE-42B5-958A-E947CE693674@vmware.com>
 References: <20210625082222.3845-1-tzimmermann@suse.de>
- <20210625082222.3845-6-tzimmermann@suse.de>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <57eb0ca1-e1a3-495e-926e-0d02634f096f@suse.de>
-Date: Mon, 28 Jun 2021 08:23:33 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ <20210625082222.3845-26-tzimmermann@suse.de>
+In-Reply-To: <20210625082222.3845-26-tzimmermann@suse.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3654.40.0.2.32)
+authentication-results: suse.de; dkim=none (message not signed)
+ header.d=none;suse.de; dmarc=none action=none header.from=vmware.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8d724b7c-f3c9-4351-1544-08d9384bd99c
+x-ms-traffictypediagnostic: MN2PR05MB6671:
+x-ld-processed: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR05MB66716FE697D757755DFEDA7ECE059@MN2PR05MB6671.namprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3631;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 9YwUGa9F59jPW5t10bxqwgTENH6AhjpdXJ+hkBSc8kZzyGF7/zC37JgtM+Cxxyx+6z0NQt6t8CHGK4bW33KkWjsq4cJHoVuDNrcEsLJwIe+vw+yIEHh1BcPslTXdJc9fiEpeG+8zH5lMua74e8KIa2CgUt8Vi8naVBRXP9rYTsGCfBOvbqKpNuP7u6dtIK+iv8cmu1oto1pm0FsAaLaJCUe4EVJH/REr4a/n0bfB6tLEulICwfm9uDdA/sSCYY0nOWQ2YOaXcCZeMmbzdBxInBaxpPA8jaoFZc2N3Rj8/fx01GdJI4CqzMNNz3SbKKWXyG/+A360NWea4hHyZZnu7smyeFJLSPKY//aELvoiSVrP3KLcNg1Djqubdr4iema9cl20/oLLYQuaaqXixKYoMbMMCW+Gxlfghg62kGYByjqfoWXdlQTHi9gk/Svgw+PgXByt52m5U2cFMT7gPRSyHhzoJAkweCKC78LLrmEQZ+nfaj/Vmlxwa1aubD49QhYs2W/8kbTp+Ooh31t6OdX6CIhrYetaqmbGWO3DrXapH6+89PKh8j1KG31roqqb4WEEVnOYiDSKGb8L5E4RDk0AAlA7KDrZZwvdTbtpj2HFcIdsn8r4bhco9xUrsTqwi7Ht5YJXua6hHyKV3NbAX9Xs4LWkZvyg/yfPNHpU89R0dao+qnHw3SXA/RC8xJrv7hBqQSCBPJuxPgJMN/ePdOU4tQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR05MB6624.namprd05.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(376002)(136003)(366004)(396003)(39860400002)(86362001)(6916009)(66946007)(8676002)(7406005)(6506007)(66446008)(186003)(76116006)(53546011)(64756008)(8936002)(38100700002)(7416002)(71200400001)(66556008)(33656002)(122000001)(6512007)(26005)(66476007)(7366002)(4326008)(4744005)(316002)(5660300002)(36756003)(6486002)(54906003)(2616005)(2906002)(478600001)(45980500001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?U+rMibFYRBMdXU+oi3q9RiPhFagWoXjHonBkzopt9w0kphcIf4jeVA+4No?=
+ =?iso-8859-1?Q?HXoSpYlOujO6tpBtssela6Tf9QR5SxnmUPdWErTd6vkK9S8Y9GYHQvsS4r?=
+ =?iso-8859-1?Q?aE3nzPCe7rLyOqjqVngWbhEgj/5GSs/UO8HE2uZW2S9Pmzse7mpJb7uS2C?=
+ =?iso-8859-1?Q?rLM1M0h27X1z3o9QYHvPkiEmdoGrA373LYxZQ1JWCOikbRhfOZ31NE7zNR?=
+ =?iso-8859-1?Q?Juwy1JYx4GjB7NjG9m/BBhnGlHkxRTYadxcrLasHp5n+Z6axjN88MyWyO7?=
+ =?iso-8859-1?Q?N5/v4kYzWEVeu9y7pNKaIb/GXnrgBlRG1oVpuqP3HtMvKHT873S1y0gUqZ?=
+ =?iso-8859-1?Q?Uiy0DzfrOE+9IoZxnytXDZNcwre/d/k5EtTdLl5LMQpACJazHCxgRtryKD?=
+ =?iso-8859-1?Q?i064Tw19WeB971bguW05vGo1/W0UNHRLTCR10q9ZjsLadyaLSTzaa8zchX?=
+ =?iso-8859-1?Q?G0lSSZzklWhixMxb+pUDjTAb9bineBr6QWFAPR5EBnB6xy1OaJfKr5CZ9m?=
+ =?iso-8859-1?Q?S3BZD896Tf4T1hJOcN5RHvO+rbwqtC3Ftezelw7Crb/s3hJ95DjubP3DHI?=
+ =?iso-8859-1?Q?MBrRWQYRcKK1+J+7W1981KUIr2oRriPfcIlwYjdrD/dMt1bvXo8QdAYp8N?=
+ =?iso-8859-1?Q?xCkCLqRaxRTwxynQHRfV9z49sIgWjnHjs0aJGmIB7KnXezBN6PvRagi2Am?=
+ =?iso-8859-1?Q?uVVEcONly7tbGrHb1nhxYJ2ojw+uFxZ2x3crvIRehgoSHYm9DvCUIsOBA/?=
+ =?iso-8859-1?Q?J+Et6PklWQBUK5xMuxh17PnoMZ8slnXbN8EjsCCI8vXnbPk/X5UVPorCb4?=
+ =?iso-8859-1?Q?SLQeIveFuivg91hUAE/t9whNRlZoV2p47kDVxDAhbXZCHVuNSI4kDggahv?=
+ =?iso-8859-1?Q?szYbHe+siHPKxwfEYxNL6l2oQOiUgrb/n5P7pywGl6kfU9Ex/w8Z7OmtX1?=
+ =?iso-8859-1?Q?IGxvDJpqjo69qugsECPd1j5slNbGUogyKPFwMCg2eSworyw01i0nXjQQnX?=
+ =?iso-8859-1?Q?1L9rJosonI2rg1dIVoBp73KTjos7On16viqaegD2slZLoZ1TNkPRWblU4l?=
+ =?iso-8859-1?Q?ohqACT+20hz9ffgEsmp6E6A9c4RcomfIzsqc/4S8ga6ZJaDpmFJw1t6pqr?=
+ =?iso-8859-1?Q?akewLh4659I42N8LwxWEKXK4O/kNKOQ8aQksheGf8zhsBOjgynzbMaA2kZ?=
+ =?iso-8859-1?Q?EpiIKxW8CPjunBsRPW+UFHichncWALIBa1JvuC1pTHu20/3Z1xEOZEU9KK?=
+ =?iso-8859-1?Q?XgueKNNuD73uSkM/5PoDvn8lSXQsHED7v9qEwNfqkDTRVhLM0xRy2Kpfk1?=
+ =?iso-8859-1?Q?nfLtjUyQRkYguq2vB1DX7rE7vgDwQVJx23APhyrglT4Bu63JQlhyDYBk6q?=
+ =?iso-8859-1?Q?hAIass/APC?=
+Content-ID: <3A63C24550FCA2459958757D0D6BF16F@namprd05.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20210625082222.3845-6-tzimmermann@suse.de>
-Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 05/27] drm/armada: Don't set struct
+X-OriginatorOrg: vmware.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR05MB6624.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d724b7c-f3c9-4351-1544-08d9384bd99c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2021 02:41:07.2954 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kXajZkRq1RXi8dgbD+grNfudub+URT9yuj36Xk1Wc1au/eF13alcvNqGA9P8wju6slkYTIH+W6BxsPZD7KS2Dw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR05MB6671
+X-Mailman-Approved-At: Mon, 28 Jun 2021 07:20:31 +0000
+Cc: "hamohammed.sa@gmail.com" <hamohammed.sa@gmail.com>,
+ "heiko@sntech.de" <heiko@sntech.de>, "emma@anholt.net" <emma@anholt.net>,
+ David Airlie <airlied@linux.ie>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ "michal.simek@xilinx.com" <michal.simek@xilinx.com>,
+ "melissa.srw@gmail.com" <melissa.srw@gmail.com>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
+ "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+ "mihail.atanassov@arm.com" <mihail.atanassov@arm.com>,
+ "festevam@gmail.com" <festevam@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
+ "jy0922.shim@samsung.com" <jy0922.shim@samsung.com>,
+ "krzysztof.kozlowski@canonical.com" <krzysztof.kozlowski@canonical.com>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "wens@csie.org" <wens@csie.org>,
+ "jernej.skrabec@gmail.com" <jernej.skrabec@gmail.com>,
+ "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "xinliang.liu@linaro.org" <xinliang.liu@linaro.org>,
+ "kong.kongxinwei@hisilicon.com" <kong.kongxinwei@hisilicon.com>,
+ "james.qian.wang@arm.com" <james.qian.wang@arm.com>,
+ "linux-imx@nxp.com" <linux-imx@nxp.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Linux-graphics-maintainer <Linux-graphics-maintainer@vmware.com>,
+ "linux-sunxi@lists.linux.dev" <linux-sunxi@lists.linux.dev>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "puck.chen@hisilicon.com" <puck.chen@hisilicon.com>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
+ "inki.dae@samsung.com" <inki.dae@samsung.com>,
+ "rodrigosiqueiramelo@gmail.com" <rodrigosiqueiramelo@gmail.com>,
+ "john.stultz@linaro.org" <john.stultz@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "laurentiu.palcu@oss.nxp.com" <laurentiu.palcu@oss.nxp.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "hyun.kwon@xilinx.com" <hyun.kwon@xilinx.com>,
+ "tomba@kernel.org" <tomba@kernel.org>, "jyri.sarha@iki.fi" <jyri.sarha@iki.fi>,
+ "yannick.fertre@foss.st.com" <yannick.fertre@foss.st.com>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
+ "sw0312.kim@samsung.com" <sw0312.kim@samsung.com>,
+ "hjc@rock-chips.com" <hjc@rock-chips.com>,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
+ "kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
+ "kieran.bingham+renesas@ideasonboard.com"
+ <kieran.bingham+renesas@ideasonboard.com>, Daniel Vetter <daniel@ffwll.ch>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "tiantao6@hisilicon.com" <tiantao6@hisilicon.com>,
+ "shawnguo@kernel.org" <shawnguo@kernel.org>,
+ "brian.starkey@arm.com" <brian.starkey@arm.com>,
+ "l.stach@pengutronix.de" <l.stach@pengutronix.de>
+Subject: Re: [Linux-stm32] [PATCH v4 25/27] drm/vmwgfx: Don't set struct
  drm_device.irq_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -106,134 +185,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7089931557651113789=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============7089931557651113789==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="i2lHLYH7S6KjXfCFaxpWcKmmhZvcPmhxI"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---i2lHLYH7S6KjXfCFaxpWcKmmhZvcPmhxI
-Content-Type: multipart/mixed; boundary="ZsJWMZ3fKnfvZTQNCUxxACBUzMa2385FX";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch, airlied@linux.ie, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, james.qian.wang@arm.com,
- liviu.dudau@arm.com, mihail.atanassov@arm.com, brian.starkey@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, inki.dae@samsung.com,
- jy0922.shim@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
- krzysztof.kozlowski@canonical.com, xinliang.liu@linaro.org,
- tiantao6@hisilicon.com, john.stultz@linaro.org,
- kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com,
- laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de, p.zabel@pengutronix.de,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com, chunkuang.hu@kernel.org,
- matthias.bgg@gmail.com, bskeggs@redhat.com, tomba@kernel.org,
- hjc@rock-chips.com, heiko@sntech.de, yannick.fertre@foss.st.com,
- philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, wens@csie.org, jernej.skrabec@gmail.com,
- thierry.reding@gmail.com, jonathanh@nvidia.com, jyri.sarha@iki.fi,
- emma@anholt.net, linux-graphics-maintainer@vmware.com, zackr@vmware.com,
- hyun.kwon@xilinx.com, laurent.pinchart@ideasonboard.com,
- michal.simek@xilinx.com, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, linux@armlinux.org.uk,
- kieran.bingham+renesas@ideasonboard.com, rodrigosiqueiramelo@gmail.com,
- melissa.srw@gmail.com, hamohammed.sa@gmail.com
-Cc: linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Message-ID: <57eb0ca1-e1a3-495e-926e-0d02634f096f@suse.de>
-Subject: Re: [PATCH v4 05/27] drm/armada: Don't set struct
- drm_device.irq_enabled
-References: <20210625082222.3845-1-tzimmermann@suse.de>
- <20210625082222.3845-6-tzimmermann@suse.de>
-In-Reply-To: <20210625082222.3845-6-tzimmermann@suse.de>
-
---ZsJWMZ3fKnfvZTQNCUxxACBUzMa2385FX
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-
-
-Am 25.06.21 um 10:22 schrieb Thomas Zimmermann:
+> On Jun 25, 2021, at 04:22, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> 
 > The field drm_device.irq_enabled is only used by legacy drivers
-> with userspace modesetting. Don't set it in armada.
->=20
+> with userspace modesetting. Don't set it in vmxgfx. All usage of
+> the field within vmwgfx can safely be removed.
+> 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-R-b'ed by Laurent via IRC
+Looks good.
 
-> ---
->   drivers/gpu/drm/armada/armada_drv.c | 2 --
->   1 file changed, 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/armada/armada_drv.c b/drivers/gpu/drm/arma=
-da/armada_drv.c
-> index dab0a1f0983b..4a64f1b9ec4d 100644
-> --- a/drivers/gpu/drm/armada/armada_drv.c
-> +++ b/drivers/gpu/drm/armada/armada_drv.c
-> @@ -130,8 +130,6 @@ static int armada_drm_bind(struct device *dev)
->   	if (ret)
->   		goto err_comp;
->  =20
-> -	priv->drm.irq_enabled =3D true;
-> -
->   	drm_mode_config_reset(&priv->drm);
->  =20
->   	ret =3D armada_fbdev_init(&priv->drm);
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---ZsJWMZ3fKnfvZTQNCUxxACBUzMa2385FX--
-
---i2lHLYH7S6KjXfCFaxpWcKmmhZvcPmhxI
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmDZauUFAwAAAAAACgkQlh/E3EQov+BI
-/hAAwo/d/PjJfngTOTApUkdBmvqLyDR9l5V4s4HUVyGrzgf1k3ANJUoqAEBC0li07IImisiMhKK8
-8wmGPIQHSU3aRLQy+IbasD12kuSAJXTiFc8KZ41WpXafVHPiumFm5LRhKTGDC9jw1NtbjnRpaJLR
-qng3SVUTGFmAcFjzS4rm+eVvFy6d0S667p+A04vRcWLgMkmZJt8l6mM235cyRVKidi1aoejJLVCd
-MgfPBD6QopEOl+KU3aggPK0b+iNk5I8vBTiSGosBFFNF1HAr6YjzyYodpHn1xX7Y9aUIPkoEYmIa
-nhym33NotP/6vZJIedE3tHo92o1oRWlB6k36FdX4fRJBkcPoGVDOnm3Q7xZXDTV+bAEKGO4xy//z
-FUK8NXmy1vNd5aAt7F2cQPNO0vq6pa0Se8GaIGteQqFbd2LfTdHaZHlEmNb6x+NA1r4uMoTKsbHd
-XiGVGBFETOR3ElshkxJGL/aACPeELm/CxMYCCHVYOjakNn7MGDJmQyMlJyzPcEEelXCOOuO7HnOY
-Meb9ovN73XEjZcxq4KzOS/sc5FpDU/Te6DQpjFKxKwudZaZrLMLuUypbmmlMP1o1G0hepbNe3rey
-eFdvCeu1rBsor2Ae6ooTqoc4SdsyqzHnYfAvQuAkeWUBOW3fekUl8r0Viqxkv1BaYBgK4FW4pNLD
-bu8=
-=AJ6t
------END PGP SIGNATURE-----
-
---i2lHLYH7S6KjXfCFaxpWcKmmhZvcPmhxI--
-
---===============7089931557651113789==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Reviewed-by: Zack Rusin <zackr@vmware.com>
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7089931557651113789==--
