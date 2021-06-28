@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 885A53B56B1
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jun 2021 03:35:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CCA33B56B6
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Jun 2021 03:35:22 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4ADEBC59781;
-	Mon, 28 Jun 2021 01:35:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 539A3C597AE;
+	Mon, 28 Jun 2021 01:35:22 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBB21C58D7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 190BEC59783
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Jun 2021 01:35:13 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 297AA61A1D;
- Mon, 28 Jun 2021 01:35:12 +0000 (UTC)
+ Mon, 28 Jun 2021 01:35:19 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BA8546144B;
+ Mon, 28 Jun 2021 01:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624844112;
- bh=mo0a5EHGTZydLuZ4bq+W7XUfGfXmUmf19EHcWrqP9/I=;
+ s=k20201202; t=1624844117;
+ bh=lXKI3Tc7F9js0VIjjh3xPOSfMOxCjjva2xk10rU5otw=;
  h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=vICWJoA7kSTRqLzmf2ixgZPhX0EaDuOh48FPduY0HOgiI9Omr3O9jajlnkD+2F+7i
- RPmD+fD/K5CNkqYinByBnl+uoZEl6hz8UmkFkLL3fYBNdVGy2K+idI6fJJQjlQN7Je
- KFp37Y2FKOOYNOfIcWiL0R8FpOoD8YHkWfYUGWc+b1rph4WqhLjTjZG2leK4VAfWog
- eucyvtCKYdCLlUc2w4rEEz3TnQS2jV2CJuCG9SQq846a6SpUNQQoHoQurj8blGEv0x
- ZG4KDGbOjvfqXvu+DboFAxYbRGuf4EGhheF46v0dGDwieNVs/zVgr8pnLMRgs6KKMO
- 9lCPkbUX8Aspg==
+ b=qVve3izKSA0wRvMCJo0u6AvDPMWr8rRqaJXAFL9t8QQbEOB8bJTOYD+D/cTy6Fgze
+ qR6Q8iwGdka3FtFikoS2Ehnqa26A/ucPVQZbe3Jvz8iJ8LTfDh3OFaZowRuGhnmb1/
+ P00xOeY3YjEVUDMZY8Kla5P19L7sclvOurtmLihEvh2OVyIHu4k/UXvOXzkgKDqUfF
+ +5eZzng1z2IBqKQV3W0UePlJgGbCcJubXdP6TJgYiMq9DsThYKSL76oxDELm3RmYh4
+ YgdiLrI3LXfgn30YBXkjfGzmGgqJdKog+UE4d+ZamA9h6P60FADZ1tr5GHHQWPcopl
+ HqZCqvvGSnXcw==
 MIME-Version: 1.0
-In-Reply-To: <20210617051814.12018-5-gabriel.fernandez@foss.st.com>
+In-Reply-To: <20210617051814.12018-6-gabriel.fernandez@foss.st.com>
 References: <20210617051814.12018-1-gabriel.fernandez@foss.st.com>
- <20210617051814.12018-5-gabriel.fernandez@foss.st.com>
+ <20210617051814.12018-6-gabriel.fernandez@foss.st.com>
 From: Stephen Boyd <sboyd@kernel.org>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Etienne Carriere <etienne.carriere@foss.st.com>,
@@ -37,14 +37,14 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Michael Turquette <mturquette@baylibre.com>,
  Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>,
  marex@denx.de
-Date: Sun, 27 Jun 2021 18:35:11 -0700
-Message-ID: <162484411101.3259633.4335030443605638144@swboyd.mtv.corp.google.com>
+Date: Sun, 27 Jun 2021 18:35:16 -0700
+Message-ID: <162484411661.3259633.16032716391656538380@swboyd.mtv.corp.google.com>
 User-Agent: alot/0.9.1
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [RESEND PATCH v3 04/11] clk: stm32mp1: convert to
-	module driver
+Subject: Re: [Linux-stm32] [RESEND PATCH v3 05/11] clk: stm32mp1: move RCC
+	reset controller into RCC clock driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,17 +61,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting gabriel.fernandez@foss.st.com (2021-06-16 22:18:07)
+Quoting gabriel.fernandez@foss.st.com (2021-06-16 22:18:08)
 > From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 > 
-> Adds support for  probe deferral in way to prepare
-> integration of the security in RCC clock and reset
-> drivers.
-> Some kernel clocks will be provided by the SCMI drivers.
-> Since RCC clock driver create clocks which parents
-> are SCMI clocks, RCC clock driver probe can be deferred.
+> RCC clock and reset controller shared same memory mapping.
+> As RCC clock driver is now a module, the best way to register clock
+> and reset controller is to do it in same driver.
 > 
-> Signed-off-by: Etienne Carriere <etienne.carriere@foss.st.com>
 > Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 > ---
 
