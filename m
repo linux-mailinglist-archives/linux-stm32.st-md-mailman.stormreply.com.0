@@ -2,26 +2,26 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E5CD3B6CCC
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jun 2021 05:10:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41C013B6CCF
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jun 2021 05:10:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E56DAC57B7D;
-	Tue, 29 Jun 2021 03:10:30 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06273C58D7F;
+	Tue, 29 Jun 2021 03:10:37 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9113C57196
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0754BC57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Jun 2021 03:10:28 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10029"; a="229699764"
-X-IronPort-AV: E=Sophos;i="5.83,307,1616482800"; d="scan'208";a="229699764"
+ Tue, 29 Jun 2021 03:10:33 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10029"; a="208113479"
+X-IronPort-AV: E=Sophos;i="5.83,307,1616482800"; d="scan'208";a="208113479"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2021 20:10:25 -0700
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2021 20:10:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,307,1616482800"; d="scan'208";a="558597289"
+X-IronPort-AV: E=Sophos;i="5.83,307,1616482800"; d="scan'208";a="558597302"
 Received: from peileeli.png.intel.com ([172.30.240.12])
- by fmsmga001.fm.intel.com with ESMTP; 28 Jun 2021 20:10:21 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 28 Jun 2021 20:10:27 -0700
 From: Ling Pei Lee <pei.lee.ling@intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -34,13 +34,15 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  michael.wei.hong.sit@intel.com, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 29 Jun 2021 11:08:56 +0800
-Message-Id: <20210629030859.1273157-1-pei.lee.ling@intel.com>
+Date: Tue, 29 Jun 2021 11:08:57 +0800
+Message-Id: <20210629030859.1273157-2-pei.lee.ling@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210629030859.1273157-1-pei.lee.ling@intel.com>
+References: <20210629030859.1273157-1-pei.lee.ling@intel.com>
 MIME-Version: 1.0
 Cc: pei.lee.ling@intel.com
-Subject: [Linux-stm32] [PATCH net-next V2 0/3] Add option to enable PHY WOL
-	with PMT enabled
+Subject: [Linux-stm32] [PATCH net-next V2 1/3] net: stmmac: option to enable
+	PHY WOL with PMT enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,29 +59,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patchset main objective is to provide an option to enable PHY WoL even the PMT is enabled by default in the HW features.
+The current stmmac driver WOL implementation will enable MAC WOL
+if MAC HW PMT feature is on. Else, the driver will check for
+PHY WOL support. There is another case where MAC HW PMT is
+enabled but the platform still goes for the PHY WOL option.
+E.g, Intel platform are designed for PHY WOL but not MAC WOL
+although HW MAC PMT features are enabled.
 
-The current stmmac driver WOL implementation will enable MAC WOL if MAC HW PMT feature is on. Else, the driver will check for PHY WOL support.
-Intel EHL mgbe are designed to wake up through PHY WOL although the HW PMT is enabled.Hence, introduced use_phy_wol platform data to provide this PHY WOL option. Set use_phy_wol will disable the plat->pmt which currently used to determine the system to wake up by MAC WOL or PHY WOL.
+Introduce use_phy_wol platform data to select PHY WOL
+instead of depending on HW PMT features. Set use_phy_wol
+will disable the plat->pmt which currently used to
+determine the system to wake up by MAC WOL or PHY WOL.
 
-This WOL patchset includes of setting the device power state to D3hot.
-This is because the EHL PSE will need to PSE mgbe to be in D3 state in order for the PSE to goes into suspend mode.
-
-Change Log:
- V2: Drop Patch #3 net: stmmac: Reconfigure the PHY WOL settings in stmmac_resume().
-
-Ling Pei Lee (2):
-  net: stmmac: option to enable PHY WOL with PMT enabled
-  stmmac: intel: Enable PHY WOL option in EHL
-
-Voon Weifeng (1):
-  stmmac: intel: set PCI_D3hot in suspend
-
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 2 ++
+Signed-off-by: Ling Pei Lee <pei.lee.ling@intel.com>
+---
  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ++-
  include/linux/stmmac.h                            | 1 +
- 3 files changed, 5 insertions(+), 1 deletion(-)
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 0a266fa0af7e..a3b79ddcf08e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -6533,7 +6533,8 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+ 		 * register (if supported).
+ 		 */
+ 		priv->plat->enh_desc = priv->dma_cap.enh_desc;
+-		priv->plat->pmt = priv->dma_cap.pmt_remote_wake_up;
++		priv->plat->pmt = priv->dma_cap.pmt_remote_wake_up &&
++				!priv->plat->use_phy_wol;
+ 		priv->hw->pmt = priv->plat->pmt;
+ 		if (priv->dma_cap.hash_tb_sz) {
+ 			priv->hw->multicast_filter_bins =
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index e55a4807e3ea..9496e6c9ee82 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -263,5 +263,6 @@ struct plat_stmmacenet_data {
+ 	int msi_sfty_ue_vec;
+ 	int msi_rx_base_vec;
+ 	int msi_tx_base_vec;
++	bool use_phy_wol;
+ };
+ #endif
 -- 
 2.25.1
 
