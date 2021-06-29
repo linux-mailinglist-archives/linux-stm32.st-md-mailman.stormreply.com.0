@@ -2,57 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C43A33B72B6
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jun 2021 14:56:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E641D3B77FD
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Jun 2021 20:40:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75597C58D78;
-	Tue, 29 Jun 2021 12:56:36 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 993FFC58D78;
+	Tue, 29 Jun 2021 18:40:08 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73C28C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36DE9C32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Jun 2021 12:56:34 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10029"; a="208084126"
-X-IronPort-AV: E=Sophos;i="5.83,308,1616482800"; d="scan'208";a="208084126"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2021 05:56:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.83,308,1616482800"; d="scan'208";a="641299691"
-Received: from ranger.igk.intel.com ([10.102.21.164])
- by fmsmga006.fm.intel.com with ESMTP; 29 Jun 2021 05:56:24 -0700
-Date: Tue, 29 Jun 2021 14:44:03 +0200
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: Maxim Mikityanskiy <maximmi@nvidia.com>
-Message-ID: <20210629124403.GA60701@ranger.igk.intel.com>
-References: <20210617145534.101458-1-xuanzhuo@linux.alibaba.com>
- <20210628104721.GA57589@ranger.igk.intel.com>
- <9d017748-3a4e-367f-94f4-2dcc6bb3e50e@nvidia.com>
+ Tue, 29 Jun 2021 18:40:06 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id B15C361DE5;
+ Tue, 29 Jun 2021 18:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1624992004;
+ bh=a7JPoup5FrRMxLLJk7Al4eaabPYZqluDRE3OC+XwA00=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=tE5d4LTBfc+p5ap4sfYQ1PP7bqT4scJc+XBnD9YwFnoGu6gmvq+Fxy+QJ9z3ISURe
+ PHHMtqJ2h104NgQlZilOhg0CntrW3KCUyc1+S/qsSwuMwVCWlDc7A7+DYYdTwW68oH
+ ewENwlx3wrFnij7HmLzoJ1ubiQFvljcwRjnm4/yfm5Dn6OHnQupBG6Dn4sz4e/tsyg
+ xB+oUDSrw6+E3VyEE0YOUUm9qT4Z8DvWAuQpN9kRkj9GkUrYhm8rkV9EUE9R3sxmyk
+ XXKueyLH6qqETOj8Vl8xsll6F8EJtinBLAoeLw5wHGl2PEQ65UvptOv1GGblbEdHgu
+ Bv4kdt0u3TWUw==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 9FBEF60ACA;
+ Tue, 29 Jun 2021 18:40:04 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <9d017748-3a4e-367f-94f4-2dcc6bb3e50e@nvidia.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: Krzysztof Kazimierczak <krzysztof.kazimierczak@intel.com>,
- Alexei Starovoitov <ast@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Jose Abreu <joabreu@synopsys.com>, intel-wired-lan@lists.osuosl.org,
- Jeff Kirsher <jeffrey.t.kirsher@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Tariq Toukan <tariqt@nvidia.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, bpf@vger.kernel.org,
- Saeed Mahameed <saeedm@nvidia.com>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net v2] xdp,
- net: fix for construct skb by xdp inside xsk zc rx
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <162499200464.24074.1612341263285192937.git-patchwork-notify@kernel.org>
+Date: Tue, 29 Jun 2021 18:40:04 +0000
+References: <20210629030859.1273157-1-pei.lee.ling@intel.com>
+In-Reply-To: <20210629030859.1273157-1-pei.lee.ling@intel.com>
+To: Ling Pei Lee <pei.lee.ling@intel.com>
+Cc: vee.khee.wong@linux.intel.com, linux-kernel@vger.kernel.org,
+ weifeng.voon@intel.com, vee.khee.wong@intel.com, netdev@vger.kernel.org,
+ tee.min.tan@intel.com, linux-stm32@st-md-mailman.stormreply.com,
+ alexandre.torgue@foss.st.com, linux@armlinux.org.uk, joabreu@synopsys.com,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, boon.leong.ong@intel.com, peppe.cavallaro@st.com,
+ davem@davemloft.net, michael.wei.hong.sit@intel.com
+Subject: Re: [Linux-stm32] [PATCH net-next V2 0/3] Add option to enable PHY
+	WOL with PMT enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,278 +61,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jun 29, 2021 at 12:50:53PM +0300, Maxim Mikityanskiy wrote:
-> On 2021-06-28 13:47, Maciej Fijalkowski wrote:
-> > On Thu, Jun 17, 2021 at 10:55:34PM +0800, Xuan Zhuo wrote:
-> > > When each driver supports xsk rx, if the received buff returns XDP_PASS
-> > > after run xdp prog, it must construct skb based on xdp. This patch
-> > > extracts this logic into a public function xdp_construct_skb().
-> > > 
-> > > There is a bug in the original logic. When constructing skb, we should
-> > > copy the meta information to skb and then use __skb_pull() to correct
-> > > the data.
-> > 
-> > Thanks for fixing the bug on Intel drivers, Xuan. However, together with
-> > Magnus we feel that include/net/xdp.h is not a correct place for
-> > introducing xdp_construct_skb. If mlx side could use it, then probably
-> > include/net/xdp_sock_drv.h is a better fit for that.
-> > 
-> > Once again, CCing Maxim.
-> > Maxim, any chances that mlx driver could be aligned in a way that we could
-> > have a common function for creating skb on ZC path?
-> 
-> I'm sorry I missed the v1.
-> 
-> I have reviewed the differences between mlx5e_xsk_construct_skb and
-> xdp_construct_skb. I would say it is possible for mlx5 to adapt and use the
-> new API, but it may also require changes to xdp_construct_skb. Please see
-> the list of differences below.
+Hello:
 
-Great!
+This series was applied to netdev/net-next.git (refs/heads/master):
 
+On Tue, 29 Jun 2021 11:08:56 +0800 you wrote:
+> This patchset main objective is to provide an option to enable PHY WoL even the PMT is enabled by default in the HW features.
 > 
-> > 
-> > Otherwise, maybe we should think about introducing the Intel-specific
-> > common header in tree?
+> The current stmmac driver WOL implementation will enable MAC WOL if MAC HW PMT feature is on. Else, the driver will check for PHY WOL support.
+> Intel EHL mgbe are designed to wake up through PHY WOL although the HW PMT is enabled.Hence, introduced use_phy_wol platform data to provide this PHY WOL option. Set use_phy_wol will disable the plat->pmt which currently used to determine the system to wake up by MAC WOL or PHY WOL.
 > 
-> Sure, you can do it to share Intel-specific stuff between Intel drivers.
-> However, in this particular case I think all XSK-enabled drivers would
-> benefit from this function, especially after previous efforts that aimed to
-> minimize the differences between drivers, the amount of code in the drivers
-> and to share as much as possible. So, in my opinion, this stuff belongs to
-> xdp_sock_drv.h. (Moreover, I see this patch also changes stmmac, so it's no
-> longer Intel-specific.)
+> This WOL patchset includes of setting the device power state to D3hot.
+> This is because the EHL PSE will need to PSE mgbe to be in D3 state in order for the PSE to goes into suspend mode.
+> 
+> [...]
 
-Right, stmmac just looked similar to what Intel is doing and AFAICT the
-author of that code was from Intel, sorry for assumption.
+Here is the summary with links:
+  - [net-next,V2,1/3] net: stmmac: option to enable PHY WOL with PMT enabled
+    https://git.kernel.org/netdev/net-next/c/5a9b876e9d76
+  - [net-next,V2,2/3] stmmac: intel: Enable PHY WOL option in EHL
+    https://git.kernel.org/netdev/net-next/c/945beb755633
+  - [net-next,V2,3/3] stmmac: intel: set PCI_D3hot in suspend
+    https://git.kernel.org/netdev/net-next/c/1dd53a61488d
 
-> 
-> Differences between mlx5e_xsk_construct_skb and xdp_construct_skb:
-> 
-> 1. __napi_alloc_skb is called with __GFP_NOWARN in xdp_construct_skb, but
-> without this flag in mlx5. Why do we need to use non-default flags? Why
-> can't we stick with napi_alloc_skb? I see only Intel drivers and XSK in
-> stmmac use __napi_alloc_skb instead of napi_alloc_skb, and it looks to me as
-> it was just copied from the regular (non-XSK) datapath of i40e
-> (i40e_construct_skb) to i40e's XSK, then to stmmac, then to
-> xdp_construct_skb, and I don't truly understand the reason of having
-> __GFP_NOWARN where it first appeared (i40e_construct_skb). Could someone
-> explain the reason for __GFP_NOWARN, so that we could decide whether we want
-> it in a generic XSK helper?
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-It's a c&p to me.
 
-> 
-> 2. skb_put in mlx5 vs __skb_put in xdp_construct_skb - shouldn't be a big
-> deal, the difference is just an extra overflow check in skb_put.
-> 
-> 3. XDP metadata. mlx5 calls xdp_set_data_meta_invalid, while other
-> XSK-enabled drivers set metadata size to 0 and allow the XDP program to push
-> some metadata. xdp_construct_skb only supports xdp_buffs with metadata, it
-> will break if xdp_data_meta_unsupported. There are a few possible ways to
-> address it:
-> 
-> 3.1. Add a check for xdp_data_meta_unsupported to xdp_construct_skb. It will
-> lift the undocumented limitation of this function and allow it to handle all
-> valid kinds of xdp_buff.
-> 
-> 3.2. Have two versions of xdp_construct_skb: one for xdp_buffs with
-> metadata, the other for ones without metadata. Sounds ugly and not robust,
-> but could spare a few CPU cycles for drivers that can't have metadata.
-> 
-> 3.3. Remove xdp_set_data_meta_invalid from mlx5. I think the reason for this
-> call was some design decision, rather than a technical limitation. On the
-> other hand, even though it will allow mlx5 to work with xdp_construct_skb in
-> its current implementation, it would still be nice to combine it with 3.1 to
-> avoid having issues with future drivers (if not, at least document in a
-> clear way that the xdp_buff parameter must have metadata). Tariq/Saeed,
-> could you comment on this point?
-
-So this sounds like we need to hear from you guys if you're going to add a
-support to metadata in AF_XDP ZC. Then we can decide with steps forward.
-Thanks for this breakdown!
-
-> 
-> Thanks,
-> Max
-> 
-> > > 
-> > > Fixes: 0a714186d3c0f ("i40e: add AF_XDP zero-copy Rx support")
-> > > Fixes: 2d4238f556972 ("ice: Add support for AF_XDP")
-> > > Fixes: bba2556efad66 ("net: stmmac: Enable RX via AF_XDP zero-copy")
-> > > Fixes: d0bcacd0a1309 ("ixgbe: add AF_XDP zero-copy Rx support")
-> > > Signed-off-by: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
-> > > ---
-> > >   drivers/net/ethernet/intel/i40e/i40e_xsk.c    | 16 +---------
-> > >   drivers/net/ethernet/intel/ice/ice_xsk.c      | 12 +-------
-> > >   drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c  | 12 +-------
-> > >   .../net/ethernet/stmicro/stmmac/stmmac_main.c | 23 +-------------
-> > >   include/net/xdp.h                             | 30 +++++++++++++++++++
-> > >   5 files changed, 34 insertions(+), 59 deletions(-)
-> > > 
-> > > diff --git a/drivers/net/ethernet/intel/i40e/i40e_xsk.c b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-> > > index 68f177a86403..81b0f44eedda 100644
-> > > --- a/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-> > > +++ b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-> > > @@ -246,23 +246,9 @@ bool i40e_alloc_rx_buffers_zc(struct i40e_ring *rx_ring, u16 count)
-> > >   static struct sk_buff *i40e_construct_skb_zc(struct i40e_ring *rx_ring,
-> > >   					     struct xdp_buff *xdp)
-> > >   {
-> > > -	unsigned int metasize = xdp->data - xdp->data_meta;
-> > > -	unsigned int datasize = xdp->data_end - xdp->data;
-> > >   	struct sk_buff *skb;
-> > > -	/* allocate a skb to store the frags */
-> > > -	skb = __napi_alloc_skb(&rx_ring->q_vector->napi,
-> > > -			       xdp->data_end - xdp->data_hard_start,
-> > > -			       GFP_ATOMIC | __GFP_NOWARN);
-> > > -	if (unlikely(!skb))
-> > > -		goto out;
-> > > -
-> > > -	skb_reserve(skb, xdp->data - xdp->data_hard_start);
-> > > -	memcpy(__skb_put(skb, datasize), xdp->data, datasize);
-> > > -	if (metasize)
-> > > -		skb_metadata_set(skb, metasize);
-> > > -
-> > > -out:
-> > > +	skb = xdp_construct_skb(xdp, &rx_ring->q_vector->napi);
-> > >   	xsk_buff_free(xdp);
-> > >   	return skb;
-> > >   }
-> > > diff --git a/drivers/net/ethernet/intel/ice/ice_xsk.c b/drivers/net/ethernet/intel/ice/ice_xsk.c
-> > > index a1f89ea3c2bd..f95e1adcebda 100644
-> > > --- a/drivers/net/ethernet/intel/ice/ice_xsk.c
-> > > +++ b/drivers/net/ethernet/intel/ice/ice_xsk.c
-> > > @@ -430,22 +430,12 @@ static void ice_bump_ntc(struct ice_ring *rx_ring)
-> > >   static struct sk_buff *
-> > >   ice_construct_skb_zc(struct ice_ring *rx_ring, struct ice_rx_buf *rx_buf)
-> > >   {
-> > > -	unsigned int metasize = rx_buf->xdp->data - rx_buf->xdp->data_meta;
-> > > -	unsigned int datasize = rx_buf->xdp->data_end - rx_buf->xdp->data;
-> > > -	unsigned int datasize_hard = rx_buf->xdp->data_end -
-> > > -				     rx_buf->xdp->data_hard_start;
-> > >   	struct sk_buff *skb;
-> > > -	skb = __napi_alloc_skb(&rx_ring->q_vector->napi, datasize_hard,
-> > > -			       GFP_ATOMIC | __GFP_NOWARN);
-> > > +	skb = xdp_construct_skb(rx_buf->xdp, &rx_ring->q_vector->napi);
-> > >   	if (unlikely(!skb))
-> > >   		return NULL;
-> > > -	skb_reserve(skb, rx_buf->xdp->data - rx_buf->xdp->data_hard_start);
-> > > -	memcpy(__skb_put(skb, datasize), rx_buf->xdp->data, datasize);
-> > > -	if (metasize)
-> > > -		skb_metadata_set(skb, metasize);
-> > > -
-> > >   	xsk_buff_free(rx_buf->xdp);
-> > >   	rx_buf->xdp = NULL;
-> > >   	return skb;
-> > > diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c
-> > > index f72d2978263b..123945832c96 100644
-> > > --- a/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c
-> > > +++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_xsk.c
-> > > @@ -203,22 +203,12 @@ bool ixgbe_alloc_rx_buffers_zc(struct ixgbe_ring *rx_ring, u16 count)
-> > >   static struct sk_buff *ixgbe_construct_skb_zc(struct ixgbe_ring *rx_ring,
-> > >   					      struct ixgbe_rx_buffer *bi)
-> > >   {
-> > > -	unsigned int metasize = bi->xdp->data - bi->xdp->data_meta;
-> > > -	unsigned int datasize = bi->xdp->data_end - bi->xdp->data;
-> > >   	struct sk_buff *skb;
-> > > -	/* allocate a skb to store the frags */
-> > > -	skb = __napi_alloc_skb(&rx_ring->q_vector->napi,
-> > > -			       bi->xdp->data_end - bi->xdp->data_hard_start,
-> > > -			       GFP_ATOMIC | __GFP_NOWARN);
-> > > +	skb = xdp_construct_skb(bi->xdp, &rx_ring->q_vector->napi);
-> > >   	if (unlikely(!skb))
-> > >   		return NULL;
-> > > -	skb_reserve(skb, bi->xdp->data - bi->xdp->data_hard_start);
-> > > -	memcpy(__skb_put(skb, datasize), bi->xdp->data, datasize);
-> > > -	if (metasize)
-> > > -		skb_metadata_set(skb, metasize);
-> > > -
-> > >   	xsk_buff_free(bi->xdp);
-> > >   	bi->xdp = NULL;
-> > >   	return skb;
-> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > > index c87202cbd3d6..143ac1edb876 100644
-> > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > > @@ -4729,27 +4729,6 @@ static void stmmac_finalize_xdp_rx(struct stmmac_priv *priv,
-> > >   		xdp_do_flush();
-> > >   }
-> > > -static struct sk_buff *stmmac_construct_skb_zc(struct stmmac_channel *ch,
-> > > -					       struct xdp_buff *xdp)
-> > > -{
-> > > -	unsigned int metasize = xdp->data - xdp->data_meta;
-> > > -	unsigned int datasize = xdp->data_end - xdp->data;
-> > > -	struct sk_buff *skb;
-> > > -
-> > > -	skb = __napi_alloc_skb(&ch->rxtx_napi,
-> > > -			       xdp->data_end - xdp->data_hard_start,
-> > > -			       GFP_ATOMIC | __GFP_NOWARN);
-> > > -	if (unlikely(!skb))
-> > > -		return NULL;
-> > > -
-> > > -	skb_reserve(skb, xdp->data - xdp->data_hard_start);
-> > > -	memcpy(__skb_put(skb, datasize), xdp->data, datasize);
-> > > -	if (metasize)
-> > > -		skb_metadata_set(skb, metasize);
-> > > -
-> > > -	return skb;
-> > > -}
-> > > -
-> > >   static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
-> > >   				   struct dma_desc *p, struct dma_desc *np,
-> > >   				   struct xdp_buff *xdp)
-> > > @@ -4761,7 +4740,7 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
-> > >   	struct sk_buff *skb;
-> > >   	u32 hash;
-> > > -	skb = stmmac_construct_skb_zc(ch, xdp);
-> > > +	skb = xdp_construct_skb(xdp, &ch->rxtx_napi);
-> > >   	if (!skb) {
-> > >   		priv->dev->stats.rx_dropped++;
-> > >   		return;
-> > > diff --git a/include/net/xdp.h b/include/net/xdp.h
-> > > index a5bc214a49d9..561e21eaf718 100644
-> > > --- a/include/net/xdp.h
-> > > +++ b/include/net/xdp.h
-> > > @@ -95,6 +95,36 @@ xdp_prepare_buff(struct xdp_buff *xdp, unsigned char *hard_start,
-> > >   	xdp->data_meta = meta_valid ? data : data + 1;
-> > >   }
-> > > +static __always_inline struct sk_buff *
-> > > +xdp_construct_skb(struct xdp_buff *xdp, struct napi_struct *napi)
-> > > +{
-> > > +	unsigned int metasize;
-> > > +	unsigned int datasize;
-> > > +	unsigned int headroom;
-> > > +	struct sk_buff *skb;
-> > > +	unsigned int len;
-> > > +
-> > > +	/* this include metasize */
-> > > +	datasize = xdp->data_end  - xdp->data_meta;
-> > > +	metasize = xdp->data      - xdp->data_meta;
-> > > +	headroom = xdp->data_meta - xdp->data_hard_start;
-> > > +	len      = xdp->data_end  - xdp->data_hard_start;
-> > > +
-> > > +	/* allocate a skb to store the frags */
-> > > +	skb = __napi_alloc_skb(napi, len, GFP_ATOMIC | __GFP_NOWARN);
-> > > +	if (unlikely(!skb))
-> > > +		return NULL;
-> > > +
-> > > +	skb_reserve(skb, headroom);
-> > > +	memcpy(__skb_put(skb, datasize), xdp->data_meta, datasize);
-> > > +	if (metasize) {
-> > > +		__skb_pull(skb, metasize);
-> > > +		skb_metadata_set(skb, metasize);
-> > > +	}
-> > > +
-> > > +	return skb;
-> > > +}
-> > > +
-> > >   /* Reserve memory area at end-of data area.
-> > >    *
-> > >    * This macro reserves tailroom in the XDP buffer by limiting the
-> > > -- 
-> > > 2.31.0
-> > > 
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
