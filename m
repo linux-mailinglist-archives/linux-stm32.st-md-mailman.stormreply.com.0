@@ -2,63 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0A0B3B84CC
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jun 2021 16:13:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958F63B86D9
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jun 2021 18:11:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F927C597AA;
-	Wed, 30 Jun 2021 14:13:11 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47BA8C56630;
+	Wed, 30 Jun 2021 16:11:05 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F456C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AEF0DC424BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jun 2021 14:13:10 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15UEAY0h002860; Wed, 30 Jun 2021 16:12:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=2vk0SM1w1rYwBoKsGyRqoKEvl040SvG0KTlIbUrKgsc=;
- b=Z1d9v2V2HDrqhk0MZUnAz3mbRajKOrOhUStToRb4SFG4plLLFkABzrzbvm3vF6p2ZJkQ
- 8mAL1QZXGXVJerZ4E94/hRGdgTANjyqGNo1RgAfvE+24aa92S3mMwmuTizzuiIcXAttR
- Q2zBtFHhBxr1OliAftxJELttwA7le6qd6X/vNKKoww+qhcHkChQXm8FX2ldCrORgh8l1
- nJiW3SRWXnHeZThK3CD184V/9oQNUwSnCeeFpye+x+HmhpoPJ951VWP+fQ/RPFmcSFHu
- cngiVrGseXFTM0rryX7Y7yi2sHLNmdoPama/w4SJaeuSZve1zKvxtJtVhB3AVMMIgU5l Ow== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 39g4kpy7f2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 30 Jun 2021 16:12:58 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EF43810003A;
- Wed, 30 Jun 2021 16:12:57 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E465F23151D;
- Wed, 30 Jun 2021 16:12:57 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 30 Jun 2021 16:12:57
- +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <wsa@kernel.org>, <pierre-yves.mordret@foss.st.com>
-Date: Wed, 30 Jun 2021 16:11:43 +0200
-Message-ID: <1625062303-15327-4-git-send-email-alain.volmat@foss.st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1625062303-15327-1-git-send-email-alain.volmat@foss.st.com>
-References: <1625062303-15327-1-git-send-email-alain.volmat@foss.st.com>
+ Wed, 30 Jun 2021 16:11:03 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 84CE661456;
+ Wed, 30 Jun 2021 16:11:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1625069462;
+ bh=Mn6BvXNRp0phAqi6zTdlYuSEGtWIvr3Z3ZC/zZJaBEA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=gLwnimKq6hyYCW3BqM/23ionIcvsfNBkyoMyHgU6iSp0WZLTbGdggsInvc8h+FuOe
+ 3iGMY/PoI4WTYi38sKKhiRmbVjWM3eVIGyQXRgEiLQ1PHyh1ZuPJvdtJEVleNyPcok
+ r3dwu6rey7IERKoRrDWAn8GxR1d3P5D8JouEJ0PjtWGcIJwB74BLBbkdNg2A7vvzcg
+ +M+UzKQKvOiIhmlZReIl4DYBlfNXmRRaEgZl4MLszvikVmbj7G8ZLE2Aa34kS5Vi7v
+ XJ3VS4kHXwM/QR1MG+Ld9PCBsXc8oEaOTWtNX0LQI+4msrfaKjPekp9V19suP89V9Y
+ qRLv+zdKwPzTQ==
+From: Mark Brown <broonie@kernel.org>
+To: Alain Volmat <alain.volmat@foss.st.com>,
+	amelie.delaunay@foss.st.com
+Date: Wed, 30 Jun 2021 17:10:30 +0100
+Message-Id: <162506903591.43818.15164606693002988349.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <1625042723-661-1-git-send-email-alain.volmat@foss.st.com>
+References: <1625042723-661-1-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-06-30_06:2021-06-29,
- 2021-06-30 signatures=0
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-i2c@vger.kernel.org, alain.volmat@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/3] i2c: stm32f7: prevent calling slave
-	handling if no slave running
+Cc: Mark Brown <broonie@kernel.org>, alexandre.torgue@foss.st.com,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] (subset) [PATCH 0/6] spi: stm32: various fixes &
+	cleanup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,49 +56,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Slave interrupt handler should only be called if there is actually
-a slave registered and running to avoid accessing an invalid pointer.
+On Wed, 30 Jun 2021 10:45:17 +0200, Alain Volmat wrote:
+> This series contains fixes & cleanup mainly regarding fifo
+> and the way end of transfer triggered, when used with or
+> without DMA.
+> An additional patch cleans up the pm_runtime calls.
+> 
+> Alain Volmat (5):
+>   spi: stm32: fixes pm_runtime calls in probe/remove
+>   spi: stm32h7: fix full duplex irq handler handling
+>   Revert "spi: stm32: properly handle 0 byte transfer"
+>   spi: stm32h7: don't wait for EOT and flush fifo on disable
+>   spi: stm32: finalize message either on dma callback or EOT
+> 
+> [...]
 
-Without this commit, an OOPS can be generated due to a NULL ptr dereference
-while receiving an IT when there is no master transfer and no slave
-running:
-  - stm32f7_i2c_isr_event
-  - no master_mode hence calling stm32f7_i2c_slave_isr_event
-  - access to i2c_dev->slave_running leading to oops due to
-slave_running being NULL.
+Applied to
 
-Fixes: 60d609f30de2 ("i2c: i2c-stm32f7: Add slave support")
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
- drivers/i2c/busses/i2c-stm32f7.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Thanks!
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 0d99c075deb2..2cc9bb0f6d7f 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1497,10 +1497,14 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
- 	u32 status, mask;
- 	int ret = IRQ_HANDLED;
- 
--	/* Check if the interrupt if for a slave device */
-+	/* Check if the interrupt is for a slave device */
- 	if (!i2c_dev->master_mode) {
--		ret = stm32f7_i2c_slave_isr_event(i2c_dev);
--		return ret;
-+		if (i2c_dev->slave_running)
-+			return stm32f7_i2c_slave_isr_event(i2c_dev);
-+
-+		dev_warn_ratelimited(i2c_dev->dev,
-+				"Unexpected IT received: ISR:0x%x\n",
-+				readl_relaxed(i2c_dev->base + STM32F7_I2C_ISR));
- 	}
- 
- 	status = readl_relaxed(i2c_dev->base + STM32F7_I2C_ISR);
--- 
-2.25.1
+[2/6] spi: stm32h7: fix full duplex irq handler handling
+      commit: e4a5c19888a5f8a9390860ca493e643be58c8791
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
