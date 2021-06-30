@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140B43B7F49
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jun 2021 10:47:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80CE53B7F4D
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Jun 2021 10:47:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC533C58D78;
-	Wed, 30 Jun 2021 08:47:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E978FC597B0;
+	Wed, 30 Jun 2021 08:47:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 681A7C06B6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C21D4C58D7F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Jun 2021 08:47:45 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Wed, 30 Jun 2021 08:47:46 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15U8kf05002319; Wed, 30 Jun 2021 10:47:35 +0200
+ 15U8gUjj025221; Wed, 30 Jun 2021 10:47:36 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=Y4PDfWZjZODcknd7gp70dQITFPNG5A5d3KYq5Q5TMTc=;
- b=H4HqWj+B1YFfjb9d88sNn+djfutZZuewjnQkQ97jsvNFUp8HaMM+gPdHuhkdHgjN0XNa
- tBe+0OLXgz21VjVhjZG+j6vcaUNcZlNqxo5zv50USxUjzvDgwVZ5LtXA6hh8D33HaMge
- ldgPH2xBE5KggS9TLqzlL295cAeKEpazuNWGRywssHGGmbQhcgeSArkbRXnYSptGl+aV
- am1VZBqmTVUWKhH1CY5oU/9vRstMD1S7lCr+HGOPfxR0vI2ndTeZhERLM9ucIny92cEg
- otSnv7qBLZMe5Ru8ntMns3LEAK7eNehFADRFhNe/pGv1LyNWk7r/2yKLL7fVHrgPDJH0 lg== 
+ bh=JFihWyCt2PJ0euphUNgFoY2OzTe2RhTz2i7OqbL8v4o=;
+ b=4iWaT0L8tb2JsDDB+/86YeGv3LABRj2YAFzMqS7INI9joBEjcInubld8UUPvswPq75cV
+ MYhbyMs8fgjsJkaOR/aqPaO/mWNVsie1R9kZ+dDHQukhUmcBfTyCIlbPysjeLvwZyWEt
+ /MKgGGWK7hryow6DrPLkkggwlybl/fvGOGyid2GP0aUjBIpWRW5ytDqeRFmsTFOdWIZ8
+ 4/UDqNhw7M8caGklMdSWpiZ0dFAao/yAX5qG/ohOBmog5xJJMdpf21Gbr7wDXtcumCQ8
+ T+esGonBfGofjPXQ0Q1EGG8OmmEPYP/4YXeFlnYb3z3rFrZFlxM98Di/UanvfsizCxvv Ng== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 39ghqhu60y-1
+ by mx07-00178001.pphosted.com with ESMTP id 39g4kpw8dk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 30 Jun 2021 10:47:35 +0200
+ Wed, 30 Jun 2021 10:47:36 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 49C7910002A;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A9BDE100034;
  Wed, 30 Jun 2021 10:47:35 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3CF1521BF5F;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9CBBF21BF5F;
  Wed, 30 Jun 2021 10:47:35 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE3.st.com (10.75.127.6)
- with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 30 Jun 2021 10:47:34
+Received: from localhost (10.75.127.46) by SFHDAG2NODE3.st.com (10.75.127.6)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 30 Jun 2021 10:47:35
  +0200
 From: Alain Volmat <alain.volmat@foss.st.com>
 To: <broonie@kernel.org>, <amelie.delaunay@foss.st.com>
-Date: Wed, 30 Jun 2021 10:45:20 +0200
-Message-ID: <1625042723-661-4-git-send-email-alain.volmat@foss.st.com>
+Date: Wed, 30 Jun 2021 10:45:21 +0200
+Message-ID: <1625042723-661-5-git-send-email-alain.volmat@foss.st.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1625042723-661-1-git-send-email-alain.volmat@foss.st.com>
 References: <1625042723-661-1-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
+X-Originating-IP: [10.75.127.46]
 X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
@@ -57,8 +57,7 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
 Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
  mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com, linux-spi@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/6] Revert "spi: stm32: properly handle 0
-	byte transfer"
+Subject: [Linux-stm32] [PATCH 4/6] spi: stm32h7: rework rx fifo read function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,30 +74,118 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This reverts commit 2269f5a8b1a7b38651d62676b98182828f29d11a.
-0 byte transfer handling is now done within the core in code added
-by commit b306320322c9 ("spi: Skip zero-length transfers in spi_transfer_one_message()")
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
+Remove flush parameter and check RXWNE or RXPLVL when end of transfer
+flag is set.
+
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- drivers/spi/spi-stm32.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/spi/spi-stm32.c | 30 +++++++++++++-----------------
+ 1 file changed, 13 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index 4dbd5cbe0c11..d37bfead4d8c 100644
+index d37bfead4d8c..c2144e3c57eb 100644
 --- a/drivers/spi/spi-stm32.c
 +++ b/drivers/spi/spi-stm32.c
-@@ -1647,10 +1647,6 @@ static int stm32_spi_transfer_one(struct spi_master *master,
- 	struct stm32_spi *spi = spi_master_get_devdata(master);
- 	int ret;
+@@ -570,29 +570,30 @@ static void stm32f4_spi_read_rx(struct stm32_spi *spi)
+ /**
+  * stm32h7_spi_read_rxfifo - Read bytes in Receive Data Register
+  * @spi: pointer to the spi controller data structure
+- * @flush: boolean indicating that FIFO should be flushed
+  *
+  * Write in rx_buf depends on remaining bytes to avoid to write beyond
+  * rx_buf end.
+  */
+-static void stm32h7_spi_read_rxfifo(struct stm32_spi *spi, bool flush)
++static void stm32h7_spi_read_rxfifo(struct stm32_spi *spi)
+ {
+ 	u32 sr = readl_relaxed(spi->base + STM32H7_SPI_SR);
+ 	u32 rxplvl = FIELD_GET(STM32H7_SPI_SR_RXPLVL, sr);
  
--	/* Don't do anything on 0 bytes transfers */
--	if (transfer->len == 0)
--		return 0;
--
- 	spi->tx_buf = transfer->tx_buf;
- 	spi->rx_buf = transfer->rx_buf;
- 	spi->tx_len = spi->tx_buf ? transfer->len : 0;
+ 	while ((spi->rx_len > 0) &&
+ 	       ((sr & STM32H7_SPI_SR_RXP) ||
+-		(flush && ((sr & STM32H7_SPI_SR_RXWNE) || (rxplvl > 0))))) {
++		((sr & STM32H7_SPI_SR_EOT) &&
++		 ((sr & STM32H7_SPI_SR_RXWNE) || (rxplvl > 0))))) {
+ 		u32 offs = spi->cur_xferlen - spi->rx_len;
+ 
+ 		if ((spi->rx_len >= sizeof(u32)) ||
+-		    (flush && (sr & STM32H7_SPI_SR_RXWNE))) {
++		    (sr & STM32H7_SPI_SR_RXWNE)) {
+ 			u32 *rx_buf32 = (u32 *)(spi->rx_buf + offs);
+ 
+ 			*rx_buf32 = readl_relaxed(spi->base + STM32H7_SPI_RXDR);
+ 			spi->rx_len -= sizeof(u32);
+ 		} else if ((spi->rx_len >= sizeof(u16)) ||
+-			   (flush && (rxplvl >= 2 || spi->cur_bpw > 8))) {
++			   (!(sr & STM32H7_SPI_SR_RXWNE) &&
++			    (rxplvl >= 2 || spi->cur_bpw > 8))) {
+ 			u16 *rx_buf16 = (u16 *)(spi->rx_buf + offs);
+ 
+ 			*rx_buf16 = readw_relaxed(spi->base + STM32H7_SPI_RXDR);
+@@ -608,8 +609,8 @@ static void stm32h7_spi_read_rxfifo(struct stm32_spi *spi, bool flush)
+ 		rxplvl = FIELD_GET(STM32H7_SPI_SR_RXPLVL, sr);
+ 	}
+ 
+-	dev_dbg(spi->dev, "%s%s: %d bytes left\n", __func__,
+-		flush ? "(flush)" : "", spi->rx_len);
++	dev_dbg(spi->dev, "%s: %d bytes left (sr=%08x)\n",
++		__func__, spi->rx_len, sr);
+ }
+ 
+ /**
+@@ -677,12 +678,7 @@ static void stm32f4_spi_disable(struct stm32_spi *spi)
+  * @spi: pointer to the spi controller data structure
+  *
+  * RX-Fifo is flushed when SPI controller is disabled. To prevent any data
+- * loss, use stm32h7_spi_read_rxfifo(flush) to read the remaining bytes in
+- * RX-Fifo.
+- * Normally, if TSIZE has been configured, we should relax the hardware at the
+- * reception of the EOT interrupt. But in case of error, EOT will not be
+- * raised. So the subsystem unprepare_message call allows us to properly
+- * complete the transfer from an hardware point of view.
++ * loss, use stm32_spi_read_rxfifo to read the remaining bytes in RX-Fifo.
+  */
+ static void stm32h7_spi_disable(struct stm32_spi *spi)
+ {
+@@ -717,7 +713,7 @@ static void stm32h7_spi_disable(struct stm32_spi *spi)
+ 	}
+ 
+ 	if (!spi->cur_usedma && spi->rx_buf && (spi->rx_len > 0))
+-		stm32h7_spi_read_rxfifo(spi, true);
++		stm32h7_spi_read_rxfifo(spi);
+ 
+ 	if (spi->cur_usedma && spi->dma_tx)
+ 		dmaengine_terminate_all(spi->dma_tx);
+@@ -913,7 +909,7 @@ static irqreturn_t stm32h7_spi_irq_thread(int irq, void *dev_id)
+ 		if (__ratelimit(&rs))
+ 			dev_dbg_ratelimited(spi->dev, "Communication suspended\n");
+ 		if (!spi->cur_usedma && (spi->rx_buf && (spi->rx_len > 0)))
+-			stm32h7_spi_read_rxfifo(spi, false);
++			stm32h7_spi_read_rxfifo(spi);
+ 		/*
+ 		 * If communication is suspended while using DMA, it means
+ 		 * that something went wrong, so stop the current transfer
+@@ -934,7 +930,7 @@ static irqreturn_t stm32h7_spi_irq_thread(int irq, void *dev_id)
+ 
+ 	if (sr & STM32H7_SPI_SR_EOT) {
+ 		if (!spi->cur_usedma && (spi->rx_buf && (spi->rx_len > 0)))
+-			stm32h7_spi_read_rxfifo(spi, true);
++			stm32h7_spi_read_rxfifo(spi);
+ 		end = true;
+ 	}
+ 
+@@ -944,7 +940,7 @@ static irqreturn_t stm32h7_spi_irq_thread(int irq, void *dev_id)
+ 
+ 	if (sr & STM32H7_SPI_SR_RXP)
+ 		if (!spi->cur_usedma && (spi->rx_buf && (spi->rx_len > 0)))
+-			stm32h7_spi_read_rxfifo(spi, false);
++			stm32h7_spi_read_rxfifo(spi);
+ 
+ 	writel_relaxed(sr & mask, spi->base + STM32H7_SPI_IFCR);
+ 
 -- 
 2.25.1
 
