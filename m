@@ -2,45 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 357663BBD5A
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Jul 2021 15:11:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 066FF3BC232
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Jul 2021 19:20:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E08E7C57B53;
-	Mon,  5 Jul 2021 13:11:15 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2E6CC57B53;
+	Mon,  5 Jul 2021 17:20:06 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6016C424BD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4ECCC424BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Jul 2021 13:11:14 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1m0ONV-0005gO-T9; Mon, 05 Jul 2021 15:11:13 +0200
-Received: from ukl by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1m0ONT-0003H1-QZ; Mon, 05 Jul 2021 15:11:11 +0200
-Date: Mon, 5 Jul 2021 15:11:11 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Thierry Reding <thierry.reding@gmail.com>
-Message-ID: <20210705131111.4gb5x6ln5sfby3qf@pengutronix.de>
-References: <20210505162843.188901-1-u.kleine-koenig@pengutronix.de>
+ Mon,  5 Jul 2021 17:20:05 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id CDB9C6196C;
+ Mon,  5 Jul 2021 17:20:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1625505603;
+ bh=Kdm1QRA1v5jpFpHW2SlQG+K4nJeQ/1fZZM9yGGKe6lw=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=ZZR4oEAWlOS7sY1Ot72plRxmYtSYA0xOiqrjnMMotM5eLSgDWFbqRbGfwZ/X/uMqM
+ Ka8s30NIy1uAQFMPk7+oSGrKobHA8I+QbKgZmh16yyXVfAfEx0HRsq5uc0ZuZL5sqt
+ vZqRJNUYZ/z2RE18ilwSo03RxcTUPppsFDhs/FOzDtm5ljy5lsd1xQKi8YoVBiEufU
+ qFyfQbTaJYkt4lOUCwX8ki4RCV/zfWkXpk7WWV/uXeRJDSMPHz22y+zABlk9qjyu3M
+ 8h5VB8X7zsC/VOCPnMw/zWug0gBoOctzYjJLLPOv7OFw7RRWKiG7KQV/0twnXQ/u9E
+ TbeGO3/SwH0gg==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id BB2A1609EF;
+ Mon,  5 Jul 2021 17:20:03 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <20210505162843.188901-1-u.kleine-koenig@pengutronix.de>
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-pwm@vger.kernel.org, kernel@pengutronix.de,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>, Lee Jones <lee.jones@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@st.com>
-Subject: Re: [Linux-stm32] [PATCH 1/2] pwm: stm32-lp: Don't modify HW state
- in .remove callback
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <162550560376.14411.831006675509469053.git-patchwork-notify@kernel.org>
+Date: Mon, 05 Jul 2021 17:20:03 +0000
+References: <20210705102655.6280-1-xiaoliang.yang_1@nxp.com>
+In-Reply-To: <20210705102655.6280-1-xiaoliang.yang_1@nxp.com>
+To: Xiaoliang Yang <xiaoliang.yang_1@nxp.com>
+Cc: qiangqing.zhang@nxp.com, linux-kernel@vger.kernel.org,
+ alexandre.torgue@st.com, weifeng.voon@intel.com, vee.khee.wong@intel.com,
+ netdev@vger.kernel.org, tee.min.tan@intel.com,
+ mohammad.athari.ismail@intel.com, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ boon.leong.ong@intel.com, kuba@kernel.org, leoyang.li@nxp.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org, rui.sousa@nxp.com
+Subject: Re: [Linux-stm32] [PATCH v2 net-next 0/3] net: stmmac: re-configure
+ tas basetime after ptp time adjust
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,62 +56,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6778247147913311053=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello:
 
---===============6778247147913311053==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sqwdj2jqhghphm34"
-Content-Disposition: inline
+This series was applied to netdev/net.git (refs/heads/master):
 
+On Mon,  5 Jul 2021 18:26:52 +0800 you wrote:
+> If the DWMAC Ethernet device has already set the Qbv EST configuration
+> before using ptp to synchronize the time adjustment, the Qbv base time
+> may change to be the past time of the new current time. This is not
+> allowed by hardware.
+> 
+> This patch calculates and re-configures the Qbv basetime after ptp time
+> adjustment.
+> 
+> [...]
 
---sqwdj2jqhghphm34
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Here is the summary with links:
+  - [v2,net-next,1/3] net: stmmac: separate the tas basetime calculation function
+    https://git.kernel.org/netdev/net/c/81c52c42afd9
+  - [v2,net-next,2/3] net: stmmac: add mutex lock to protect est parameters
+    https://git.kernel.org/netdev/net/c/b2aae654a479
+  - [v2,net-next,3/3] net: stmmac: ptp: update tas basetime after ptp adjust
+    https://git.kernel.org/netdev/net/c/e9e3720002f6
 
-Hi Thierry,
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-this thread is marked as "Rejected" in patchwork without a word of you.
-Did this happen on purpose? Assuming it did: I would welcome a word from
-you in such a case. From my POV the patch set is still fine and should
-be applied.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---sqwdj2jqhghphm34
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmDjBOsACgkQwfwUeK3K
-7AnxfQf/Ss/WERduvowZ7ewoAx+Efw5WQJwkbOQyRdrZf+J/QTg66MhyRKvOV33B
-BT/9iI2SMJhE+fv9vUDeSuWWWN226otLWzkh9VA9Necs2UH9t1yNt78LxixsIZlh
-3tPeO6Qde/3/pTdfGUdqRYbH+Iq50V3oJySZbaPFwhYsoFzoBrppnH1kYTpp8e5s
-zSjpc9r84fBzjm9mQFrKZ7eqCw1r2jaja8B2jLAK0ub+VOCB6FieHMlbJfVkvwYQ
-nQ+Jgs7NWXY5brCXGo5CgIbenv9IVPbAqZBLKn57j/gWhTr1HY/rsA2n9an6uBzD
-khC0PA3oHMN4QFx8hXbJhb+98O7HzQ==
-=6AOg
------END PGP SIGNATURE-----
-
---sqwdj2jqhghphm34--
-
---===============6778247147913311053==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6778247147913311053==--
