@@ -2,69 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF4E93BB8D3
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Jul 2021 10:20:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFBDF3BB8D4
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Jul 2021 10:20:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8378CC57B5F;
-	Mon,  5 Jul 2021 08:20:24 +0000 (UTC)
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
- [209.85.215.170])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A14AC57B60;
+	Mon,  5 Jul 2021 08:20:29 +0000 (UTC)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76135C57B5B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B51A5C57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Jul 2021 08:20:22 +0000 (UTC)
-Received: by mail-pg1-f170.google.com with SMTP id e20so17654384pgg.0
+ Mon,  5 Jul 2021 08:20:27 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id t9so17604491pgn.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Jul 2021 01:20:22 -0700 (PDT)
+ Mon, 05 Jul 2021 01:20:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=NmCGQEco/c2Qxge73VA7yqOK4Qy2QVkfMpvqHDa9hK4=;
- b=i+7yPXSQ8stQ3dAqGLD2iuUUMNWblCGhdLMcIhsuQU711/X0Tf8BenkvkPx/nr6VVk
- e/3y7Fj/8Ze0Hw34eqUosHbevAXQAEY1674O2Y35WTdIIWEuo5vbv5JJ+Rtj3gW6lpmm
- QHQgyYPu0BgkuFJLV5DFrWcoh9jpV7ScxNJ6/GcwiDIoifVtytWLpK+cGnI+UIWURyGY
- rofsIiPqPO8xe7+olxpcrlksalV8xhTIlMX5p5wjctjmVJdtHMHLHESd0iZddRs0/3A4
- kuc2o9tr6p3FgQu2IaB4b/3tXXw9fkXQG93og/E0uuGsX+tf04bIDPN1HsGPH6tCc6nq
- Irtg==
+ bh=WEoXEwgX5iWWo/dnp2VsT56S/+tcKKvLnwPVhmJvS8w=;
+ b=j8c20pFT+e80fe7K162YBeaqnrqwYY+02/uvywvvg4nRmmeVU3DAW5PuSrf5nFkq5a
+ vW9jHNPOeD0cx2yVMP3byMd6aqVpX3bStcXL1z9xbi82XUUpmMDzM8Q6UEH/4FxpHmPw
+ b21UOJJyR6SMLqOXoRkTxqEi4mLT3Ynr1jzxIjvKp/bs8M2s4MN6En9ltKxmBJIDslHz
+ J7dRv4zsJhUhvjriX5CCL8uDsS6aNfiXNvbsqyow3dWIbsjUekKoDtKrWjqfm593ZjE7
+ l6VOAu1cyykoJEI2HTng27VW8YXM/5rrpi/zJlLQ/n5BAeketso1Sfp6LW2GXEL/LaM9
+ JCCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=NmCGQEco/c2Qxge73VA7yqOK4Qy2QVkfMpvqHDa9hK4=;
- b=dQ9PUF5deaTrpBq+kQa6n9qPsJV0hRkpW4bAenlWEJzr81Lk5eRzXepky7X2N65O5+
- nmvMjzeO5cAFtxkh2OVme8RMW/UWlY7M6j4sNIDMLhN7P7M+Q6xEsJaGOzBzh4ypg87O
- 410NCseQ0hsL3gTR94Uyug62s18TVf0sRBdeb9E15dDEsWENS6euZm1/aW/uwnv0Iquq
- 3hKWlPVzz3LNX+TrNrXuzU2XVCUsfhRtKKvuTRXOZcenEUa6EqszBqemKULC25s1ANIQ
- xEWf/IapISNMSEtIDxpCQXB/m1Z3ASI09ZH7V3XCQ6o4rJ5Crj6pECsQzqjJmbEf1+P1
- GJXg==
-X-Gm-Message-State: AOAM532L/dj0L7lA1Pxg4soDUGZzNKovaeI+ua9veV1DUTtwEx57QUtJ
- MYWgY68WSKSR0PnCHO7Fbto=
-X-Google-Smtp-Source: ABdhPJyBGOMpVgouBHvpoy/isWteZXUyBfRTaELYC9dGP1JnuAdaU6izEuNTzPKFW+9YE0OS2Tk8rA==
-X-Received: by 2002:a63:1214:: with SMTP id h20mr14144305pgl.355.1625473221113; 
- Mon, 05 Jul 2021 01:20:21 -0700 (PDT)
+ bh=WEoXEwgX5iWWo/dnp2VsT56S/+tcKKvLnwPVhmJvS8w=;
+ b=t6fKPOuGaA/UsDle6VQ/WXgmPV/CX3J3HnpsnUwF/8hMZ/CFOrQNKddw+cd1aRkaNe
+ h07WdtVkArv3z5YeazLxvcEIGVmYoNWa+5syhMmFQmvWy+CrtjQWZNcSspfwzzbYzGA3
+ kxcgzTOhIQ0OxUuz+caOOnm9wulDw2MUxmRXGAhh5dwuc13jSdqJOcZneX3kq81MpVbx
+ EeA0vibfzitGHsq+77myjVdptz6L9PbDJn4GB2K0EAQXcSHXhtZvu9108LH9UeGFSu3P
+ rNJ8CdkjAHPVKwAJV+sgCNVwnJGK5Mi4p3otqLF8Qn4G8ZwY0BKNUKDEa5GYP5qsUcVX
+ Z4PA==
+X-Gm-Message-State: AOAM531TAUdm6alE9L0Y9okt3W/R/c0ofTjMVt8aMmUE5454crowQbMo
+ p8cmHS6dZZCxmQZg0D1nJ9c=
+X-Google-Smtp-Source: ABdhPJxN9QAOAXIr9SXGd6GyaqaCWGkt5uKOJs/UgwHDgeJY4IxXI+AgIG3MXQtITzOF/4kYGXno6w==
+X-Received: by 2002:a63:4c19:: with SMTP id z25mr14446284pga.160.1625473226326; 
+ Mon, 05 Jul 2021 01:20:26 -0700 (PDT)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id y11sm12209986pfo.160.2021.07.05.01.20.16
+ by smtp.gmail.com with ESMTPSA id y11sm12209986pfo.160.2021.07.05.01.20.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Jul 2021 01:20:20 -0700 (PDT)
+ Mon, 05 Jul 2021 01:20:25 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Mon,  5 Jul 2021 17:18:59 +0900
-Message-Id: <186e7a1cd7dc822cc9290683b463c3e675959e1a.1625471640.git.vilhelm.gray@gmail.com>
+Date: Mon,  5 Jul 2021 17:19:00 +0900
+Message-Id: <e97aa3e529f54d5651df7edcc1b43a8157d9e9c3.1625471640.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1625471640.git.vilhelm.gray@gmail.com>
 References: <cover.1625471640.git.vilhelm.gray@gmail.com>
 MIME-Version: 1.0
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
- jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
+ Pavel Machek <pavel@ucw.cz>, alexandre.belloni@bootlin.com,
+ mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
+ o.rempel@pengutronix.de, jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v12 11/17] docs: counter: Document character
-	device interface
+Subject: [Linux-stm32] [PATCH v12 12/17] tools/counter: Create Counter tools
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,257 +75,170 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds high-level documentation about the Counter subsystem
-character device interface.
-
-Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
----
- Documentation/driver-api/generic-counter.rst  | 185 ++++++++++++++----
- .../userspace-api/ioctl/ioctl-number.rst      |   1 +
- 2 files changed, 145 insertions(+), 41 deletions(-)
-
-diff --git a/Documentation/driver-api/generic-counter.rst b/Documentation/driver-api/generic-counter.rst
-index f6397218aa4c..62a702e7f994 100644
---- a/Documentation/driver-api/generic-counter.rst
-+++ b/Documentation/driver-api/generic-counter.rst
-@@ -223,19 +223,6 @@ whether an input line is differential or single-ended) and instead focus
- on the core idea of what the data and process represent (e.g. position
- as interpreted from quadrature encoding data).
- 
--Userspace Interface
--===================
--
--Several sysfs attributes are generated by the Generic Counter interface,
--and reside under the /sys/bus/counter/devices/counterX directory, where
--counterX refers to the respective counter device. Please see
--Documentation/ABI/testing/sysfs-bus-counter for detailed
--information on each Generic Counter interface sysfs attribute.
--
--Through these sysfs attributes, programs and scripts may interact with
--the Generic Counter paradigm Counts, Signals, and Synapses of respective
--counter devices.
--
- Driver API
- ==========
- 
-@@ -388,16 +375,16 @@ userspace interface components::
-                         / driver callbacks /
-                         -------------------
-                                 |
--                +---------------+
--                |
--                V
--        +--------------------+
--        | Counter sysfs      |
--        +--------------------+
--        | Translates to the  |
--        | standard Counter   |
--        | sysfs output       |
--        +--------------------+
-+                +---------------+---------------+
-+                |                               |
-+                V                               V
-+        +--------------------+          +---------------------+
-+        | Counter sysfs      |          | Counter chrdev      |
-+        +--------------------+          +---------------------+
-+        | Translates to the  |          | Translates to the   |
-+        | standard Counter   |          | standard Counter    |
-+        | sysfs output       |          | character device    |
-+        +--------------------+          +---------------------+
- 
- Thereafter, data can be transferred directly between the Counter device
- driver and Counter userspace interface::
-@@ -428,23 +415,30 @@ driver and Counter userspace interface::
-                         / u64     /
-                         ----------
-                                 |
--                +---------------+
--                |
--                V
--        +--------------------+
--        | Counter sysfs      |
--        +--------------------+
--        | Translates to the  |
--        | standard Counter   |
--        | sysfs output       |
--        |--------------------|
--        | Type: const char * |
--        | Value: "42"        |
--        +--------------------+
--                |
--         ---------------
--        / const char * /
--        ---------------
-+                +---------------+---------------+
-+                |                               |
-+                V                               V
-+        +--------------------+          +---------------------+
-+        | Counter sysfs      |          | Counter chrdev      |
-+        +--------------------+          +---------------------+
-+        | Translates to the  |          | Translates to the   |
-+        | standard Counter   |          | standard Counter    |
-+        | sysfs output       |          | character device    |
-+        |--------------------|          |---------------------|
-+        | Type: const char * |          | Type: u64           |
-+        | Value: "42"        |          | Value: 42           |
-+        +--------------------+          +---------------------+
-+                |                               |
-+         ---------------                 -----------------------
-+        / const char * /                / struct counter_event /
-+        ---------------                 -----------------------
-+                |                               |
-+                |                               V
-+                |                       +-----------+
-+                |                       | read      |
-+                |                       +-----------+
-+                |                       \ Count: 42 /
-+                |                        -----------
-                 |
-                 V
-         +--------------------------------------------------+
-@@ -453,7 +447,7 @@ driver and Counter userspace interface::
-         \ Count: "42"                                      /
-          --------------------------------------------------
- 
--There are three primary components involved:
-+There are four primary components involved:
- 
- Counter device driver
- ---------------------
-@@ -473,3 +467,112 @@ and vice versa.
- Please refer to the ``Documentation/ABI/testing/sysfs-bus-counter`` file
- for a detailed breakdown of the available Generic Counter interface
- sysfs attributes.
-+
-+Counter chrdev
-+--------------
-+Translates counter data to the standard Counter character device; data
-+is transferred via standard character device read calls, while Counter
-+events are configured via ioctl calls.
-+
-+Sysfs Interface
-+===============
-+
-+Several sysfs attributes are generated by the Generic Counter interface,
-+and reside under the ``/sys/bus/counter/devices/counterX`` directory,
-+where ``X`` is to the respective counter device id. Please see
-+``Documentation/ABI/testing/sysfs-bus-counter`` for detailed information
-+on each Generic Counter interface sysfs attribute.
-+
-+Through these sysfs attributes, programs and scripts may interact with
-+the Generic Counter paradigm Counts, Signals, and Synapses of respective
-+counter devices.
-+
-+Counter Character Device
-+========================
-+
-+Counter character device nodes are created under the ``/dev`` directory
-+as ``counterX``, where ``X`` is the respective counter device id.
-+Defines for the standard Counter data types are exposed via the
-+userspace ``include/uapi/linux/counter.h`` file.
-+
-+Counter events
-+--------------
-+Counter device drivers can support Counter events by utilizing the
-+``counter_push_event`` function::
-+
-+        void counter_push_event(struct counter_device *const counter, const u8 event,
-+                                const u8 channel);
-+
-+The event id is specified by the ``event`` parameter; the event channel
-+id is specified by the ``channel`` parameter. When this function is
-+called, the Counter data associated with the respective event is
-+gathered, and a ``struct counter_event`` is generated for each datum and
-+pushed to userspace.
-+
-+Counter events can be configured by users to report various Counter
-+data of interest. This can be conceptualized as a list of Counter
-+component read calls to perform. For example::
-+
-+        +~~~~~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~~~~~+
-+        | COUNTER_EVENT_OVERFLOW | COUNTER_EVENT_INDEX    |
-+        +~~~~~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~~~~~+
-+        | Channel 0              | Channel 0              |
-+        +------------------------+------------------------+
-+        | * Count 0              | * Signal 0             |
-+        | * Count 1              | * Signal 0 Extension 0 |
-+        | * Signal 3             | * Extension 4          |
-+        | * Count 4 Extension 2  +------------------------+
-+        | * Signal 5 Extension 0 | Channel 1              |
-+        |                        +------------------------+
-+        |                        | * Signal 4             |
-+        |                        | * Signal 4 Extension 0 |
-+        |                        | * Count 7              |
-+        +------------------------+------------------------+
-+
-+When ``counter_push_event(counter, COUNTER_EVENT_INDEX, 1)`` is called
-+for example, it will go down the list for the ``COUNTER_EVENT_INDEX``
-+event channel 1 and execute the read callbacks for Signal 4, Signal 4
-+Extension 0, and Count 4 -- the data returned for each is pushed to a
-+kfifo as a ``struct counter_event``, which userspace can retrieve via a
-+standard read operation on the respective character device node.
-+
-+Userspace
-+---------
-+Userspace applications can configure Counter events via ioctl operations
-+on the Counter character device node. There following ioctl codes are
-+supported and provided by the ``linux/counter.h`` userspace header file:
-+
-+* COUNTER_ADD_WATCH_IOCTL:
-+  Queues a Counter watch for the specified event. The queued watches
-+  will not be applied until ``COUNTER_ENABLE_EVENTS_IOCTL`` is called.
-+
-+* COUNTER_ENABLE_EVENTS_IOCTL:
-+  Enables monitoring the events specified by the Counter watches that
-+  were queued by ``COUNTER_ADD_WATCH_IOCTL``. If events are already
-+  enabled, the new set of watches replaces the old one. Calling this
-+  ioctl also has the effect of clearing the queue of watches added by
-+  ``COUNTER_ADD_WATCH_IOCTL``.
-+
-+* COUNTER_DISABLE_EVENTS_IOCTL:
-+  Stops monitoring the previously enabled events.
-+
-+To configure events to gather Counter data, users first populate a
-+``struct counter_watch`` with the relevant event id, event channel id,
-+and the information for the desired Counter component from which to
-+read, and then pass it via the ``COUNTER_ADD_WATCH_IOCTL`` ioctl
-+command.
-+
-+Note that an event can be watched without gathering Counter data by
-+setting the ``component.type`` member equal to
-+``COUNTER_COMPONENT_NONE``. With this configuration the Counter
-+character device will simply populate the event timestamps for those
-+respective ``struct counter_event`` elements and ignore the component
-+value.
-+
-+The ``COUNTER_ADD_WATCH_IOCTL`` command will buffer these Counter
-+watches. When ready, the ``COUNTER_ENABLE_EVENTS_IOCTL`` ioctl command
-+may be used to activate these Counter watches.
-+
-+Userspace applications can then execute a ``read`` operation (optionally
-+calling ``poll`` first) on the Counter character device node to retrieve
-+``struct counter_event`` elements with the desired data.
-diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
-index 9bfc2b510c64..cad12ae3f945 100644
---- a/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -88,6 +88,7 @@ Code  Seq#    Include File                                           Comments
-                                                                      <http://infiniband.sourceforge.net/>
- 0x20  all    drivers/cdrom/cm206.h
- 0x22  all    scsi/sg.h
-+0x3E  00-0F  linux/counter.h                                         <mailto:linux-iio@vger.kernel.org>
- '!'   00-1F  uapi/linux/seccomp.h
- '#'   00-3F                                                          IEEE 1394 Subsystem
-                                                                      Block for the entire subsystem
--- 
-2.32.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhpcyBjcmVhdGVzIGFuIGV4YW1wbGUgQ291bnRlciBwcm9ncmFtIHVuZGVyIHRvb2xzL2NvdW50
+ZXIvKgp0byBleGVtcGxpZnkgdGhlIENvdW50ZXIgY2hhcmFjdGVyIGRldmljZSBpbnRlcmZhY2Uu
+CgpDYzogUGF2ZWwgTWFjaGVrIDxwYXZlbEB1Y3cuY3o+ClNpZ25lZC1vZmYtYnk6IFdpbGxpYW0g
+QnJlYXRoaXR0IEdyYXkgPHZpbGhlbG0uZ3JheUBnbWFpbC5jb20+Ci0tLQogTUFJTlRBSU5FUlMg
+ICAgICAgICAgICAgICAgICAgICB8ICAxICsKIHRvb2xzL01ha2VmaWxlICAgICAgICAgICAgICAg
+ICAgfCAxMyArKy0tLQogdG9vbHMvY291bnRlci9CdWlsZCAgICAgICAgICAgICB8ICAxICsKIHRv
+b2xzL2NvdW50ZXIvTWFrZWZpbGUgICAgICAgICAgfCA1MyArKysrKysrKysrKysrKysrKysKIHRv
+b2xzL2NvdW50ZXIvY291bnRlcl9leGFtcGxlLmMgfCA5NSArKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysKIDUgZmlsZXMgY2hhbmdlZCwgMTU3IGluc2VydGlvbnMoKyksIDYgZGVsZXRp
+b25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgdG9vbHMvY291bnRlci9CdWlsZAogY3JlYXRlIG1v
+ZGUgMTAwNjQ0IHRvb2xzL2NvdW50ZXIvTWFrZWZpbGUKIGNyZWF0ZSBtb2RlIDEwMDY0NCB0b29s
+cy9jb3VudGVyL2NvdW50ZXJfZXhhbXBsZS5jCgpkaWZmIC0tZ2l0IGEvTUFJTlRBSU5FUlMgYi9N
+QUlOVEFJTkVSUwppbmRleCA1ZGU0ZDIxNjQ4NDQuLmU5Njc5N2Y1N2YwNCAxMDA2NDQKLS0tIGEv
+TUFJTlRBSU5FUlMKKysrIGIvTUFJTlRBSU5FUlMKQEAgLTQ2ODgsNiArNDY4OCw3IEBAIEY6CURv
+Y3VtZW50YXRpb24vZHJpdmVyLWFwaS9nZW5lcmljLWNvdW50ZXIucnN0CiBGOglkcml2ZXJzL2Nv
+dW50ZXIvCiBGOglpbmNsdWRlL2xpbnV4L2NvdW50ZXIuaAogRjoJaW5jbHVkZS91YXBpL2xpbnV4
+L2NvdW50ZXIuaAorRjoJdG9vbHMvY291bnRlci8KIAogQ1AyNjE1IEkyQyBEUklWRVIKIE06CUJl
+bmNlIENzw7Nrw6FzIDxiZW5jZTk4QHNjaC5ibWUuaHU+CmRpZmYgLS1naXQgYS90b29scy9NYWtl
+ZmlsZSBiL3Rvb2xzL01ha2VmaWxlCmluZGV4IDdlOWQzNGRkZDc0Yy4uNGMyNjQwMGZmYzAzIDEw
+MDY0NAotLS0gYS90b29scy9NYWtlZmlsZQorKysgYi90b29scy9NYWtlZmlsZQpAQCAtMTIsNiAr
+MTIsNyBAQCBoZWxwOgogCUBlY2hvICcgIGFjcGkgICAgICAgICAgICAgICAgICAgLSBBQ1BJIHRv
+b2xzJwogCUBlY2hvICcgIGJwZiAgICAgICAgICAgICAgICAgICAgLSBtaXNjIEJQRiB0b29scycK
+IAlAZWNobyAnICBjZ3JvdXAgICAgICAgICAgICAgICAgIC0gY2dyb3VwIHRvb2xzJworCUBlY2hv
+ICcgIGNvdW50ZXIgICAgICAgICAgICAgICAgLSBDb3VudGVyIHRvb2xzJwogCUBlY2hvICcgIGNw
+dXBvd2VyICAgICAgICAgICAgICAgLSBhIHRvb2wgZm9yIGFsbCB0aGluZ3MgeDg2IENQVSBwb3dl
+cicKIAlAZWNobyAnICBkZWJ1Z2dpbmcgICAgICAgICAgICAgIC0gdG9vbHMgZm9yIGRlYnVnZ2lu
+ZycKIAlAZWNobyAnICBmaXJld2lyZSAgICAgICAgICAgICAgIC0gdGhlIHVzZXJzcGFjZSBwYXJ0
+IG9mIG5vc3ksIGFuIElFRUUtMTM5NCB0cmFmZmljIHNuaWZmZXInCkBAIC02NSw3ICs2Niw3IEBA
+IGFjcGk6IEZPUkNFCiBjcHVwb3dlcjogRk9SQ0UKIAkkKGNhbGwgZGVzY2VuZCxwb3dlci8kQCkK
+IAotY2dyb3VwIGZpcmV3aXJlIGh2IGd1ZXN0IGJvb3Rjb25maWcgc3BpIHVzYiB2aXJ0aW8gdm0g
+YnBmIGlpbyBncGlvIG9ianRvb2wgbGVkcyB3bWkgcGNpIGZpcm13YXJlIGRlYnVnZ2luZyB0cmFj
+aW5nOiBGT1JDRQorY2dyb3VwIGNvdW50ZXIgZmlyZXdpcmUgaHYgZ3Vlc3QgYm9vdGNvbmZpZyBz
+cGkgdXNiIHZpcnRpbyB2bSBicGYgaWlvIGdwaW8gb2JqdG9vbCBsZWRzIHdtaSBwY2kgZmlybXdh
+cmUgZGVidWdnaW5nIHRyYWNpbmc6IEZPUkNFCiAJJChjYWxsIGRlc2NlbmQsJEApCiAKIGJwZi8l
+OiBGT1JDRQpAQCAtMTAwLDcgKzEwMSw3IEBAIGZyZWVmYWxsOiBGT1JDRQoga3ZtX3N0YXQ6IEZP
+UkNFCiAJJChjYWxsIGRlc2NlbmQsa3ZtLyRAKQogCi1hbGw6IGFjcGkgY2dyb3VwIGNwdXBvd2Vy
+IGdwaW8gaHYgZmlyZXdpcmUgbGlibG9ja2RlcCBcCithbGw6IGFjcGkgY2dyb3VwIGNvdW50ZXIg
+Y3B1cG93ZXIgZ3BpbyBodiBmaXJld2lyZSBsaWJsb2NrZGVwIFwKIAkJcGVyZiBzZWxmdGVzdHMg
+Ym9vdGNvbmZpZyBzcGkgdHVyYm9zdGF0IHVzYiBcCiAJCXZpcnRpbyB2bSBicGYgeDg2X2VuZXJn
+eV9wZXJmX3BvbGljeSBcCiAJCXRtb24gZnJlZWZhbGwgaWlvIG9ianRvb2wga3ZtX3N0YXQgd21p
+IFwKQEAgLTExMiw3ICsxMTMsNyBAQCBhY3BpX2luc3RhbGw6CiBjcHVwb3dlcl9pbnN0YWxsOgog
+CSQoY2FsbCBkZXNjZW5kLHBvd2VyLyQoQDpfaW5zdGFsbD0pLGluc3RhbGwpCiAKLWNncm91cF9p
+bnN0YWxsIGZpcmV3aXJlX2luc3RhbGwgZ3Bpb19pbnN0YWxsIGh2X2luc3RhbGwgaWlvX2luc3Rh
+bGwgcGVyZl9pbnN0YWxsIGJvb3Rjb25maWdfaW5zdGFsbCBzcGlfaW5zdGFsbCB1c2JfaW5zdGFs
+bCB2aXJ0aW9faW5zdGFsbCB2bV9pbnN0YWxsIGJwZl9pbnN0YWxsIG9ianRvb2xfaW5zdGFsbCB3
+bWlfaW5zdGFsbCBwY2lfaW5zdGFsbCBkZWJ1Z2dpbmdfaW5zdGFsbCB0cmFjaW5nX2luc3RhbGw6
+CitjZ3JvdXBfaW5zdGFsbCBjb3VudGVyX2luc3RhbGwgZmlyZXdpcmVfaW5zdGFsbCBncGlvX2lu
+c3RhbGwgaHZfaW5zdGFsbCBpaW9faW5zdGFsbCBwZXJmX2luc3RhbGwgYm9vdGNvbmZpZ19pbnN0
+YWxsIHNwaV9pbnN0YWxsIHVzYl9pbnN0YWxsIHZpcnRpb19pbnN0YWxsIHZtX2luc3RhbGwgYnBm
+X2luc3RhbGwgb2JqdG9vbF9pbnN0YWxsIHdtaV9pbnN0YWxsIHBjaV9pbnN0YWxsIGRlYnVnZ2lu
+Z19pbnN0YWxsIHRyYWNpbmdfaW5zdGFsbDoKIAkkKGNhbGwgZGVzY2VuZCwkKEA6X2luc3RhbGw9
+KSxpbnN0YWxsKQogCiBsaWJsb2NrZGVwX2luc3RhbGw6CkBAIC0xMzMsNyArMTM0LDcgQEAgZnJl
+ZWZhbGxfaW5zdGFsbDoKIGt2bV9zdGF0X2luc3RhbGw6CiAJJChjYWxsIGRlc2NlbmQsa3ZtLyQo
+QDpfaW5zdGFsbD0pLGluc3RhbGwpCiAKLWluc3RhbGw6IGFjcGlfaW5zdGFsbCBjZ3JvdXBfaW5z
+dGFsbCBjcHVwb3dlcl9pbnN0YWxsIGdwaW9faW5zdGFsbCBcCitpbnN0YWxsOiBhY3BpX2luc3Rh
+bGwgY2dyb3VwX2luc3RhbGwgY291bnRlcl9pbnN0YWxsIGNwdXBvd2VyX2luc3RhbGwgZ3Bpb19p
+bnN0YWxsIFwKIAkJaHZfaW5zdGFsbCBmaXJld2lyZV9pbnN0YWxsIGlpb19pbnN0YWxsIGxpYmxv
+Y2tkZXBfaW5zdGFsbCBcCiAJCXBlcmZfaW5zdGFsbCBzZWxmdGVzdHNfaW5zdGFsbCB0dXJib3N0
+YXRfaW5zdGFsbCB1c2JfaW5zdGFsbCBcCiAJCXZpcnRpb19pbnN0YWxsIHZtX2luc3RhbGwgYnBm
+X2luc3RhbGwgeDg2X2VuZXJneV9wZXJmX3BvbGljeV9pbnN0YWxsIFwKQEAgLTE0Nyw3ICsxNDgs
+NyBAQCBhY3BpX2NsZWFuOgogY3B1cG93ZXJfY2xlYW46CiAJJChjYWxsIGRlc2NlbmQscG93ZXIv
+Y3B1cG93ZXIsY2xlYW4pCiAKLWNncm91cF9jbGVhbiBodl9jbGVhbiBmaXJld2lyZV9jbGVhbiBi
+b290Y29uZmlnX2NsZWFuIHNwaV9jbGVhbiB1c2JfY2xlYW4gdmlydGlvX2NsZWFuIHZtX2NsZWFu
+IHdtaV9jbGVhbiBicGZfY2xlYW4gaWlvX2NsZWFuIGdwaW9fY2xlYW4gb2JqdG9vbF9jbGVhbiBs
+ZWRzX2NsZWFuIHBjaV9jbGVhbiBmaXJtd2FyZV9jbGVhbiBkZWJ1Z2dpbmdfY2xlYW4gdHJhY2lu
+Z19jbGVhbjoKK2Nncm91cF9jbGVhbiBjb3VudGVyX2NsZWFuIGh2X2NsZWFuIGZpcmV3aXJlX2Ns
+ZWFuIGJvb3Rjb25maWdfY2xlYW4gc3BpX2NsZWFuIHVzYl9jbGVhbiB2aXJ0aW9fY2xlYW4gdm1f
+Y2xlYW4gd21pX2NsZWFuIGJwZl9jbGVhbiBpaW9fY2xlYW4gZ3Bpb19jbGVhbiBvYmp0b29sX2Ns
+ZWFuIGxlZHNfY2xlYW4gcGNpX2NsZWFuIGZpcm13YXJlX2NsZWFuIGRlYnVnZ2luZ19jbGVhbiB0
+cmFjaW5nX2NsZWFuOgogCSQoY2FsbCBkZXNjZW5kLCQoQDpfY2xlYW49KSxjbGVhbikKIAogbGli
+bG9ja2RlcF9jbGVhbjoKQEAgLTE4MSw3ICsxODIsNyBAQCBmcmVlZmFsbF9jbGVhbjoKIGJ1aWxk
+X2NsZWFuOgogCSQoY2FsbCBkZXNjZW5kLGJ1aWxkLGNsZWFuKQogCi1jbGVhbjogYWNwaV9jbGVh
+biBjZ3JvdXBfY2xlYW4gY3B1cG93ZXJfY2xlYW4gaHZfY2xlYW4gZmlyZXdpcmVfY2xlYW4gXAor
+Y2xlYW46IGFjcGlfY2xlYW4gY2dyb3VwX2NsZWFuIGNvdW50ZXJfY2xlYW4gY3B1cG93ZXJfY2xl
+YW4gaHZfY2xlYW4gZmlyZXdpcmVfY2xlYW4gXAogCQlwZXJmX2NsZWFuIHNlbGZ0ZXN0c19jbGVh
+biB0dXJib3N0YXRfY2xlYW4gYm9vdGNvbmZpZ19jbGVhbiBzcGlfY2xlYW4gdXNiX2NsZWFuIHZp
+cnRpb19jbGVhbiBcCiAJCXZtX2NsZWFuIGJwZl9jbGVhbiBpaW9fY2xlYW4geDg2X2VuZXJneV9w
+ZXJmX3BvbGljeV9jbGVhbiB0bW9uX2NsZWFuIFwKIAkJZnJlZWZhbGxfY2xlYW4gYnVpbGRfY2xl
+YW4gbGliYnBmX2NsZWFuIGxpYnN1YmNtZF9jbGVhbiBsaWJsb2NrZGVwX2NsZWFuIFwKZGlmZiAt
+LWdpdCBhL3Rvb2xzL2NvdW50ZXIvQnVpbGQgYi90b29scy9jb3VudGVyL0J1aWxkCm5ldyBmaWxl
+IG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uMzNmNGE1MWQ3MTVlCi0tLSAvZGV2L251
+bGwKKysrIGIvdG9vbHMvY291bnRlci9CdWlsZApAQCAtMCwwICsxIEBACitjb3VudGVyX2V4YW1w
+bGUteSArPSBjb3VudGVyX2V4YW1wbGUubwpkaWZmIC0tZ2l0IGEvdG9vbHMvY291bnRlci9NYWtl
+ZmlsZSBiL3Rvb2xzL2NvdW50ZXIvTWFrZWZpbGUKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXgg
+MDAwMDAwMDAwMDAwLi41ZWJjMTk1ZmQ5YzAKLS0tIC9kZXYvbnVsbAorKysgYi90b29scy9jb3Vu
+dGVyL01ha2VmaWxlCkBAIC0wLDAgKzEsNTMgQEAKKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6
+IEdQTC0yLjAKK2luY2x1ZGUgLi4vc2NyaXB0cy9NYWtlZmlsZS5pbmNsdWRlCisKK2JpbmRpciA/
+PSAvdXNyL2JpbgorCitpZmVxICgkKHNyY3RyZWUpLCkKK3NyY3RyZWUgOj0gJChwYXRzdWJzdCAl
+LywlLCQoZGlyICQoQ1VSRElSKSkpCitzcmN0cmVlIDo9ICQocGF0c3Vic3QgJS8sJSwkKGRpciAk
+KHNyY3RyZWUpKSkKK2VuZGlmCisKKyMgRG8gbm90IHVzZSBtYWtlJ3MgYnVpbHQtaW4gcnVsZXMK
+KyMgKHRoaXMgaW1wcm92ZXMgcGVyZm9ybWFuY2UgYW5kIGF2b2lkcyBoYXJkLXRvLWRlYnVnIGJl
+aGF2aW91cik7CitNQUtFRkxBR1MgKz0gLXIKKworb3ZlcnJpZGUgQ0ZMQUdTICs9IC1PMiAtV2Fs
+bCAtZyAtRF9HTlVfU09VUkNFIC1JJChPVVRQVVQpaW5jbHVkZQorCitBTExfVEFSR0VUUyA6PSBj
+b3VudGVyX2V4YW1wbGUKK0FMTF9QUk9HUkFNUyA6PSAkKHBhdHN1YnN0ICUsJChPVVRQVVQpJSwk
+KEFMTF9UQVJHRVRTKSkKKworYWxsOiAkKEFMTF9QUk9HUkFNUykKKworZXhwb3J0IHNyY3RyZWUg
+T1VUUFVUIENDIExEIENGTEFHUworaW5jbHVkZSAkKHNyY3RyZWUpL3Rvb2xzL2J1aWxkL01ha2Vm
+aWxlLmluY2x1ZGUKKworIworIyBXZSBuZWVkIHRoZSBmb2xsb3dpbmcgdG8gYmUgb3V0c2lkZSBv
+ZiBrZXJuZWwgdHJlZQorIworJChPVVRQVVQpaW5jbHVkZS9saW51eC9jb3VudGVyLmg6IC4uLy4u
+L2luY2x1ZGUvdWFwaS9saW51eC9jb3VudGVyLmgKKwlta2RpciAtcCAkKE9VVFBVVClpbmNsdWRl
+L2xpbnV4IDI+JjEgfHwgdHJ1ZQorCWxuIC1zZiAkKENVUkRJUikvLi4vLi4vaW5jbHVkZS91YXBp
+L2xpbnV4L2NvdW50ZXIuaCAkQAorCitwcmVwYXJlOiAkKE9VVFBVVClpbmNsdWRlL2xpbnV4L2Nv
+dW50ZXIuaAorCitDT1VOVEVSX0VYQU1QTEUgOj0gJChPVVRQVVQpY291bnRlcl9leGFtcGxlLm8K
+KyQoQ09VTlRFUl9FWEFNUExFKTogcHJlcGFyZSBGT1JDRQorCSQoUSkkKE1BS0UpICQoYnVpbGQp
+PWNvdW50ZXJfZXhhbXBsZQorJChPVVRQVVQpY291bnRlcl9leGFtcGxlOiAkKENPVU5URVJfRVhB
+TVBMRSkKKwkkKFFVSUVUX0xJTkspJChDQykgJChDRkxBR1MpICQoTERGTEFHUykgJDwgLW8gJEAK
+KworY2xlYW46CisJcm0gLWYgJChBTExfUFJPR1JBTVMpCisJcm0gLXJmICQoT1VUUFVUKWluY2x1
+ZGUvbGludXgvY291bnRlci5oCisJZmluZCAkKGlmICQoT1VUUFVUKSwkKE9VVFBVVCksLikgLW5h
+bWUgJyoubycgLWRlbGV0ZSAtbyAtbmFtZSAnXC4qLmQnIC1kZWxldGUKKworaW5zdGFsbDogJChB
+TExfUFJPR1JBTVMpCisJaW5zdGFsbCAtZCAtbSA3NTUgJChERVNURElSKSQoYmluZGlyKTsJCVwK
+Kwlmb3IgcHJvZ3JhbSBpbiAkKEFMTF9QUk9HUkFNUyk7IGRvCQlcCisJCWluc3RhbGwgJCRwcm9n
+cmFtICQoREVTVERJUikkKGJpbmRpcik7CVwKKwlkb25lCisKK0ZPUkNFOgorCisuUEhPTlk6IGFs
+bCBpbnN0YWxsIGNsZWFuIEZPUkNFIHByZXBhcmUKZGlmZiAtLWdpdCBhL3Rvb2xzL2NvdW50ZXIv
+Y291bnRlcl9leGFtcGxlLmMgYi90b29scy9jb3VudGVyL2NvdW50ZXJfZXhhbXBsZS5jCm5ldyBm
+aWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uNzFkZmVjNjczYzExCi0tLSAvZGV2
+L251bGwKKysrIGIvdG9vbHMvY291bnRlci9jb3VudGVyX2V4YW1wbGUuYwpAQCAtMCwwICsxLDk1
+IEBACisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5CisvKiBDb3VudGVy
+IC0gZXhhbXBsZSB1c2Vyc3BhY2UgYXBwbGljYXRpb24KKyAqCisgKiBUaGUgdXNlcnNwYWNlIGFw
+cGxpY2F0aW9uIG9wZW5zIC9kZXYvY291bnRlcjAsIGNvbmZpZ3VyZXMgdGhlCisgKiBDT1VOVEVS
+X0VWRU5UX0lOREVYIGV2ZW50IGNoYW5uZWwgMCB0byBnYXRoZXIgQ291bnQgMCBjb3VudCBhbmQg
+Q291bnQKKyAqIDEgY291bnQsIGFuZCBwcmludHMgb3V0IHRoZSBkYXRhIGFzIGl0IGJlY29tZXMg
+YXZhaWxhYmxlIG9uIHRoZQorICogY2hhcmFjdGVyIGRldmljZSBub2RlLgorICoKKyAqIENvcHly
+aWdodCAoQykgMjAyMSBXaWxsaWFtIEJyZWF0aGl0dCBHcmF5CisgKi8KKyNpbmNsdWRlIDxlcnJu
+by5oPgorI2luY2x1ZGUgPGZjbnRsLmg+CisjaW5jbHVkZSA8bGludXgvY291bnRlci5oPgorI2lu
+Y2x1ZGUgPHN0ZGlvLmg+CisjaW5jbHVkZSA8c3RyaW5nLmg+CisjaW5jbHVkZSA8c3lzL2lvY3Rs
+Lmg+CisjaW5jbHVkZSA8dW5pc3RkLmg+CisKK3N0cnVjdCBjb3VudGVyX3dhdGNoIHdhdGNoZXNb
+Ml0gPSB7CisJeworCQkvKiBDb21wb25lbnQgZGF0YTogQ291bnQgMCBjb3VudCAqLworCQkuY29t
+cG9uZW50LnR5cGUgPSBDT1VOVEVSX0NPTVBPTkVOVF9DT1VOVCwKKwkJLmNvbXBvbmVudC5zY29w
+ZSA9IENPVU5URVJfU0NPUEVfQ09VTlQsCisJCS5jb21wb25lbnQucGFyZW50ID0gMCwKKwkJLyog
+RXZlbnQgdHlwZTogSW5kZXggKi8KKwkJLmV2ZW50ID0gQ09VTlRFUl9FVkVOVF9JTkRFWCwKKwkJ
+LyogRGV2aWNlIGV2ZW50IGNoYW5uZWwgMCAqLworCQkuY2hhbm5lbCA9IDAsCisJfSwKKwl7CisJ
+CS8qIENvbXBvbmVudCBkYXRhOiBDb3VudCAxIGNvdW50ICovCisJCS5jb21wb25lbnQudHlwZSA9
+IENPVU5URVJfQ09NUE9ORU5UX0NPVU5ULAorCQkuY29tcG9uZW50LnNjb3BlID0gQ09VTlRFUl9T
+Q09QRV9DT1VOVCwKKwkJLmNvbXBvbmVudC5wYXJlbnQgPSAxLAorCQkvKiBFdmVudCB0eXBlOiBJ
+bmRleCAqLworCQkuZXZlbnQgPSBDT1VOVEVSX0VWRU5UX0lOREVYLAorCQkvKiBEZXZpY2UgZXZl
+bnQgY2hhbm5lbCAwICovCisJCS5jaGFubmVsID0gMCwKKwl9LAorfTsKKworaW50IG1haW4odm9p
+ZCkKK3sKKwlpbnQgZmQ7CisJaW50IHJldDsKKwlzdHJ1Y3QgY291bnRlcl9ldmVudCBldmVudF9k
+YXRhWzJdOworCisJZmQgPSBvcGVuKCIvZGV2L2NvdW50ZXIwIiwgT19SRFdSKTsKKwlpZiAoZmQg
+PT0gLTEpIHsKKwkJcGVycm9yKCJVbmFibGUgdG8gb3BlbiAvZGV2L2NvdW50ZXIwIik7CisJCXJl
+dHVybiAtZXJybm87CisJfQorCisJcmV0ID0gaW9jdGwoZmQsIENPVU5URVJfQUREX1dBVENIX0lP
+Q1RMLCB3YXRjaGVzKTsKKwlpZiAocmV0ID09IC0xKSB7CisJCXBlcnJvcigiRXJyb3IgYWRkaW5n
+IHdhdGNoZXNbMF0iKTsKKwkJcmV0dXJuIC1lcnJubzsKKwl9CisJcmV0ID0gaW9jdGwoZmQsIENP
+VU5URVJfQUREX1dBVENIX0lPQ1RMLCB3YXRjaGVzICsgMSk7CisJaWYgKHJldCA9PSAtMSkgewor
+CQlwZXJyb3IoIkVycm9yIGFkZGluZyB3YXRjaGVzWzFdIik7CisJCXJldHVybiAtZXJybm87CisJ
+fQorCXJldCA9IGlvY3RsKGZkLCBDT1VOVEVSX0VOQUJMRV9FVkVOVFNfSU9DVEwpOworCWlmIChy
+ZXQgPT0gLTEpIHsKKwkJcGVycm9yKCJFcnJvciBlbmFibGluZyBldmVudHMiKTsKKwkJcmV0dXJu
+IC1lcnJubzsKKwl9CisKKwlmb3IgKDs7KSB7CisJCXJldCA9IHJlYWQoZmQsIGV2ZW50X2RhdGEs
+IHNpemVvZihldmVudF9kYXRhKSk7CisJCWlmIChyZXQgPT0gLTEpIHsKKwkJCXBlcnJvcigiRmFp
+bGVkIHRvIHJlYWQgZXZlbnQgZGF0YSIpOworCQkJcmV0dXJuIC1lcnJubzsKKwkJfQorCisJCWlm
+IChyZXQgIT0gc2l6ZW9mKGV2ZW50X2RhdGEpKSB7CisJCQlmcHJpbnRmKHN0ZGVyciwgIkZhaWxl
+ZCB0byByZWFkIGV2ZW50IGRhdGFcbiIpOworCQkJcmV0dXJuIC1FSU87CisJCX0KKworCQlwcmlu
+dGYoIlRpbWVzdGFtcCAwOiAlbGx1XHRDb3VudCAwOiAlbGx1XG4iCisJCSAgICAgICAiRXJyb3Ig
+TWVzc2FnZSAwOiAlc1xuIgorCQkgICAgICAgIlRpbWVzdGFtcCAxOiAlbGx1XHRDb3VudCAxOiAl
+bGx1XG4iCisJCSAgICAgICAiRXJyb3IgTWVzc2FnZSAxOiAlc1xuIiwKKwkJICAgICAgICh1bnNp
+Z25lZCBsb25nIGxvbmcpZXZlbnRfZGF0YVswXS50aW1lc3RhbXAsCisJCSAgICAgICAodW5zaWdu
+ZWQgbG9uZyBsb25nKWV2ZW50X2RhdGFbMF0udmFsdWUsCisJCSAgICAgICBzdHJlcnJvcihldmVu
+dF9kYXRhWzBdLnN0YXR1cyksCisJCSAgICAgICAodW5zaWduZWQgbG9uZyBsb25nKWV2ZW50X2Rh
+dGFbMV0udGltZXN0YW1wLAorCQkgICAgICAgKHVuc2lnbmVkIGxvbmcgbG9uZylldmVudF9kYXRh
+WzFdLnZhbHVlLAorCQkgICAgICAgc3RyZXJyb3IoZXZlbnRfZGF0YVsxXS5zdGF0dXMpKTsKKwl9
+CisKKwlyZXR1cm4gMDsKK30KLS0gCjIuMzIuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
+QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
