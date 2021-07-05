@@ -2,68 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFBDF3BB8D4
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Jul 2021 10:20:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E37773BB8DC
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Jul 2021 10:20:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A14AC57B60;
-	Mon,  5 Jul 2021 08:20:29 +0000 (UTC)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAE33C57B5F;
+	Mon,  5 Jul 2021 08:20:35 +0000 (UTC)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B51A5C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DAD2DC57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Jul 2021 08:20:27 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id t9so17604491pgn.4
+ Mon,  5 Jul 2021 08:20:32 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id f11so9884650plg.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 05 Jul 2021 01:20:27 -0700 (PDT)
+ Mon, 05 Jul 2021 01:20:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=WEoXEwgX5iWWo/dnp2VsT56S/+tcKKvLnwPVhmJvS8w=;
- b=j8c20pFT+e80fe7K162YBeaqnrqwYY+02/uvywvvg4nRmmeVU3DAW5PuSrf5nFkq5a
- vW9jHNPOeD0cx2yVMP3byMd6aqVpX3bStcXL1z9xbi82XUUpmMDzM8Q6UEH/4FxpHmPw
- b21UOJJyR6SMLqOXoRkTxqEi4mLT3Ynr1jzxIjvKp/bs8M2s4MN6En9ltKxmBJIDslHz
- J7dRv4zsJhUhvjriX5CCL8uDsS6aNfiXNvbsqyow3dWIbsjUekKoDtKrWjqfm593ZjE7
- l6VOAu1cyykoJEI2HTng27VW8YXM/5rrpi/zJlLQ/n5BAeketso1Sfp6LW2GXEL/LaM9
- JCCw==
+ bh=19qNksG3pa57GXuH7o9u4eMtasQffXDZRLPl8079NZc=;
+ b=C2v0XNBOjPHtRXzsMG/CkTGP4HlXIOO5rA2U+wqtQGtDpyK71SgVm6XA1wwK+w5Cn0
+ nZeT5fNgukYWU1/tQaSd9eLM1qSYOjQlb9naBmVErGG3gLqv1qIWJUx6oCy0j8B+Zkdt
+ NbVzFPEqcPUqSd+ue9EXydHOShSP0UKlNh1JJH8nUvErsGrIDbqP0Hn78zywq1jPvnHZ
+ ZDgNqPC9nC+CosTd7yVGvpI7MLiLdrQa8zzAYWGHm5m19qKi8hLershHmPD4IKLAbef1
+ 0/2sA+jG/IE2VA1OmBg9N97r2fPikMGKBFCk886TabbII4gFtgwqJQkw1dCtxVSk/7Ul
+ i0vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=WEoXEwgX5iWWo/dnp2VsT56S/+tcKKvLnwPVhmJvS8w=;
- b=t6fKPOuGaA/UsDle6VQ/WXgmPV/CX3J3HnpsnUwF/8hMZ/CFOrQNKddw+cd1aRkaNe
- h07WdtVkArv3z5YeazLxvcEIGVmYoNWa+5syhMmFQmvWy+CrtjQWZNcSspfwzzbYzGA3
- kxcgzTOhIQ0OxUuz+caOOnm9wulDw2MUxmRXGAhh5dwuc13jSdqJOcZneX3kq81MpVbx
- EeA0vibfzitGHsq+77myjVdptz6L9PbDJn4GB2K0EAQXcSHXhtZvu9108LH9UeGFSu3P
- rNJ8CdkjAHPVKwAJV+sgCNVwnJGK5Mi4p3otqLF8Qn4G8ZwY0BKNUKDEa5GYP5qsUcVX
- Z4PA==
-X-Gm-Message-State: AOAM531TAUdm6alE9L0Y9okt3W/R/c0ofTjMVt8aMmUE5454crowQbMo
- p8cmHS6dZZCxmQZg0D1nJ9c=
-X-Google-Smtp-Source: ABdhPJxN9QAOAXIr9SXGd6GyaqaCWGkt5uKOJs/UgwHDgeJY4IxXI+AgIG3MXQtITzOF/4kYGXno6w==
-X-Received: by 2002:a63:4c19:: with SMTP id z25mr14446284pga.160.1625473226326; 
- Mon, 05 Jul 2021 01:20:26 -0700 (PDT)
+ bh=19qNksG3pa57GXuH7o9u4eMtasQffXDZRLPl8079NZc=;
+ b=lEEjR7/NSQBOlZaRCkztpRu2vZV0Vi6a78UG2tiS4Py3616SwrztJyT/EoKPZY/toI
+ qYKSoRk7wRg367vy9+8TZ0MUjSv1+koajAExDaPTZGetTptMDMqtqtxTLkoIViCLoS4T
+ 4daEt6nTeO7qcvJzqmqwwjIyqGubemCrg9rl9XhopGCOl86N93gGukSwadAUgYKIYGMA
+ ljL+dRe8YAPc/vSs+ksfCwkQPez0vdpevEwGxpBf0IgmxOO6HIRt0I6AfBs5jC3heXHe
+ H35n05fa432ZGrG92fbjd0E6zNCdVWQarHe5Pn19DrWlDPy+ZCX+0UVI1hGpIb0S4yDH
+ NtJA==
+X-Gm-Message-State: AOAM5302QCdZTrd57acUUA9E75rzvBAfYPyDx5AZc61bLwyRB76P4GUJ
+ IvCnv5vM/TEqhYWuxK7fzC8=
+X-Google-Smtp-Source: ABdhPJzWzeNQTmMBqUqK131AtbTR2wxqO1FajJEp6WAeWyl3ugWYQ5QRCVnGkGji2B5VlXgGQYXDuA==
+X-Received: by 2002:a17:902:b7c2:b029:128:c1cd:241e with SMTP id
+ v2-20020a170902b7c2b0290128c1cd241emr11604678plz.14.1625473231528; 
+ Mon, 05 Jul 2021 01:20:31 -0700 (PDT)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id y11sm12209986pfo.160.2021.07.05.01.20.21
+ by smtp.gmail.com with ESMTPSA id y11sm12209986pfo.160.2021.07.05.01.20.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Jul 2021 01:20:25 -0700 (PDT)
+ Mon, 05 Jul 2021 01:20:31 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Mon,  5 Jul 2021 17:19:00 +0900
-Message-Id: <e97aa3e529f54d5651df7edcc1b43a8157d9e9c3.1625471640.git.vilhelm.gray@gmail.com>
+Date: Mon,  5 Jul 2021 17:19:01 +0900
+Message-Id: <472b3f1cce1bbfedd2031cdb70d0348f3802e821.1625471640.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1625471640.git.vilhelm.gray@gmail.com>
 References: <cover.1625471640.git.vilhelm.gray@gmail.com>
 MIME-Version: 1.0
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- Pavel Machek <pavel@ucw.cz>, alexandre.belloni@bootlin.com,
- mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
- William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
- syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v12 12/17] tools/counter: Create Counter tools
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, Dan Carpenter <dan.carpenter@oracle.com>,
+ kernel@pengutronix.de, William Breathitt Gray <vilhelm.gray@gmail.com>,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ alexandre.torgue@st.com
+Subject: [Linux-stm32] [PATCH v12 13/17] counter: Implement
+	signalZ_action_component_id sysfs attribute
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,170 +78,111 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhpcyBjcmVhdGVzIGFuIGV4YW1wbGUgQ291bnRlciBwcm9ncmFtIHVuZGVyIHRvb2xzL2NvdW50
-ZXIvKgp0byBleGVtcGxpZnkgdGhlIENvdW50ZXIgY2hhcmFjdGVyIGRldmljZSBpbnRlcmZhY2Uu
-CgpDYzogUGF2ZWwgTWFjaGVrIDxwYXZlbEB1Y3cuY3o+ClNpZ25lZC1vZmYtYnk6IFdpbGxpYW0g
-QnJlYXRoaXR0IEdyYXkgPHZpbGhlbG0uZ3JheUBnbWFpbC5jb20+Ci0tLQogTUFJTlRBSU5FUlMg
-ICAgICAgICAgICAgICAgICAgICB8ICAxICsKIHRvb2xzL01ha2VmaWxlICAgICAgICAgICAgICAg
-ICAgfCAxMyArKy0tLQogdG9vbHMvY291bnRlci9CdWlsZCAgICAgICAgICAgICB8ICAxICsKIHRv
-b2xzL2NvdW50ZXIvTWFrZWZpbGUgICAgICAgICAgfCA1MyArKysrKysrKysrKysrKysrKysKIHRv
-b2xzL2NvdW50ZXIvY291bnRlcl9leGFtcGxlLmMgfCA5NSArKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysKIDUgZmlsZXMgY2hhbmdlZCwgMTU3IGluc2VydGlvbnMoKyksIDYgZGVsZXRp
-b25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgdG9vbHMvY291bnRlci9CdWlsZAogY3JlYXRlIG1v
-ZGUgMTAwNjQ0IHRvb2xzL2NvdW50ZXIvTWFrZWZpbGUKIGNyZWF0ZSBtb2RlIDEwMDY0NCB0b29s
-cy9jb3VudGVyL2NvdW50ZXJfZXhhbXBsZS5jCgpkaWZmIC0tZ2l0IGEvTUFJTlRBSU5FUlMgYi9N
-QUlOVEFJTkVSUwppbmRleCA1ZGU0ZDIxNjQ4NDQuLmU5Njc5N2Y1N2YwNCAxMDA2NDQKLS0tIGEv
-TUFJTlRBSU5FUlMKKysrIGIvTUFJTlRBSU5FUlMKQEAgLTQ2ODgsNiArNDY4OCw3IEBAIEY6CURv
-Y3VtZW50YXRpb24vZHJpdmVyLWFwaS9nZW5lcmljLWNvdW50ZXIucnN0CiBGOglkcml2ZXJzL2Nv
-dW50ZXIvCiBGOglpbmNsdWRlL2xpbnV4L2NvdW50ZXIuaAogRjoJaW5jbHVkZS91YXBpL2xpbnV4
-L2NvdW50ZXIuaAorRjoJdG9vbHMvY291bnRlci8KIAogQ1AyNjE1IEkyQyBEUklWRVIKIE06CUJl
-bmNlIENzw7Nrw6FzIDxiZW5jZTk4QHNjaC5ibWUuaHU+CmRpZmYgLS1naXQgYS90b29scy9NYWtl
-ZmlsZSBiL3Rvb2xzL01ha2VmaWxlCmluZGV4IDdlOWQzNGRkZDc0Yy4uNGMyNjQwMGZmYzAzIDEw
-MDY0NAotLS0gYS90b29scy9NYWtlZmlsZQorKysgYi90b29scy9NYWtlZmlsZQpAQCAtMTIsNiAr
-MTIsNyBAQCBoZWxwOgogCUBlY2hvICcgIGFjcGkgICAgICAgICAgICAgICAgICAgLSBBQ1BJIHRv
-b2xzJwogCUBlY2hvICcgIGJwZiAgICAgICAgICAgICAgICAgICAgLSBtaXNjIEJQRiB0b29scycK
-IAlAZWNobyAnICBjZ3JvdXAgICAgICAgICAgICAgICAgIC0gY2dyb3VwIHRvb2xzJworCUBlY2hv
-ICcgIGNvdW50ZXIgICAgICAgICAgICAgICAgLSBDb3VudGVyIHRvb2xzJwogCUBlY2hvICcgIGNw
-dXBvd2VyICAgICAgICAgICAgICAgLSBhIHRvb2wgZm9yIGFsbCB0aGluZ3MgeDg2IENQVSBwb3dl
-cicKIAlAZWNobyAnICBkZWJ1Z2dpbmcgICAgICAgICAgICAgIC0gdG9vbHMgZm9yIGRlYnVnZ2lu
-ZycKIAlAZWNobyAnICBmaXJld2lyZSAgICAgICAgICAgICAgIC0gdGhlIHVzZXJzcGFjZSBwYXJ0
-IG9mIG5vc3ksIGFuIElFRUUtMTM5NCB0cmFmZmljIHNuaWZmZXInCkBAIC02NSw3ICs2Niw3IEBA
-IGFjcGk6IEZPUkNFCiBjcHVwb3dlcjogRk9SQ0UKIAkkKGNhbGwgZGVzY2VuZCxwb3dlci8kQCkK
-IAotY2dyb3VwIGZpcmV3aXJlIGh2IGd1ZXN0IGJvb3Rjb25maWcgc3BpIHVzYiB2aXJ0aW8gdm0g
-YnBmIGlpbyBncGlvIG9ianRvb2wgbGVkcyB3bWkgcGNpIGZpcm13YXJlIGRlYnVnZ2luZyB0cmFj
-aW5nOiBGT1JDRQorY2dyb3VwIGNvdW50ZXIgZmlyZXdpcmUgaHYgZ3Vlc3QgYm9vdGNvbmZpZyBz
-cGkgdXNiIHZpcnRpbyB2bSBicGYgaWlvIGdwaW8gb2JqdG9vbCBsZWRzIHdtaSBwY2kgZmlybXdh
-cmUgZGVidWdnaW5nIHRyYWNpbmc6IEZPUkNFCiAJJChjYWxsIGRlc2NlbmQsJEApCiAKIGJwZi8l
-OiBGT1JDRQpAQCAtMTAwLDcgKzEwMSw3IEBAIGZyZWVmYWxsOiBGT1JDRQoga3ZtX3N0YXQ6IEZP
-UkNFCiAJJChjYWxsIGRlc2NlbmQsa3ZtLyRAKQogCi1hbGw6IGFjcGkgY2dyb3VwIGNwdXBvd2Vy
-IGdwaW8gaHYgZmlyZXdpcmUgbGlibG9ja2RlcCBcCithbGw6IGFjcGkgY2dyb3VwIGNvdW50ZXIg
-Y3B1cG93ZXIgZ3BpbyBodiBmaXJld2lyZSBsaWJsb2NrZGVwIFwKIAkJcGVyZiBzZWxmdGVzdHMg
-Ym9vdGNvbmZpZyBzcGkgdHVyYm9zdGF0IHVzYiBcCiAJCXZpcnRpbyB2bSBicGYgeDg2X2VuZXJn
-eV9wZXJmX3BvbGljeSBcCiAJCXRtb24gZnJlZWZhbGwgaWlvIG9ianRvb2wga3ZtX3N0YXQgd21p
-IFwKQEAgLTExMiw3ICsxMTMsNyBAQCBhY3BpX2luc3RhbGw6CiBjcHVwb3dlcl9pbnN0YWxsOgog
-CSQoY2FsbCBkZXNjZW5kLHBvd2VyLyQoQDpfaW5zdGFsbD0pLGluc3RhbGwpCiAKLWNncm91cF9p
-bnN0YWxsIGZpcmV3aXJlX2luc3RhbGwgZ3Bpb19pbnN0YWxsIGh2X2luc3RhbGwgaWlvX2luc3Rh
-bGwgcGVyZl9pbnN0YWxsIGJvb3Rjb25maWdfaW5zdGFsbCBzcGlfaW5zdGFsbCB1c2JfaW5zdGFs
-bCB2aXJ0aW9faW5zdGFsbCB2bV9pbnN0YWxsIGJwZl9pbnN0YWxsIG9ianRvb2xfaW5zdGFsbCB3
-bWlfaW5zdGFsbCBwY2lfaW5zdGFsbCBkZWJ1Z2dpbmdfaW5zdGFsbCB0cmFjaW5nX2luc3RhbGw6
-CitjZ3JvdXBfaW5zdGFsbCBjb3VudGVyX2luc3RhbGwgZmlyZXdpcmVfaW5zdGFsbCBncGlvX2lu
-c3RhbGwgaHZfaW5zdGFsbCBpaW9faW5zdGFsbCBwZXJmX2luc3RhbGwgYm9vdGNvbmZpZ19pbnN0
-YWxsIHNwaV9pbnN0YWxsIHVzYl9pbnN0YWxsIHZpcnRpb19pbnN0YWxsIHZtX2luc3RhbGwgYnBm
-X2luc3RhbGwgb2JqdG9vbF9pbnN0YWxsIHdtaV9pbnN0YWxsIHBjaV9pbnN0YWxsIGRlYnVnZ2lu
-Z19pbnN0YWxsIHRyYWNpbmdfaW5zdGFsbDoKIAkkKGNhbGwgZGVzY2VuZCwkKEA6X2luc3RhbGw9
-KSxpbnN0YWxsKQogCiBsaWJsb2NrZGVwX2luc3RhbGw6CkBAIC0xMzMsNyArMTM0LDcgQEAgZnJl
-ZWZhbGxfaW5zdGFsbDoKIGt2bV9zdGF0X2luc3RhbGw6CiAJJChjYWxsIGRlc2NlbmQsa3ZtLyQo
-QDpfaW5zdGFsbD0pLGluc3RhbGwpCiAKLWluc3RhbGw6IGFjcGlfaW5zdGFsbCBjZ3JvdXBfaW5z
-dGFsbCBjcHVwb3dlcl9pbnN0YWxsIGdwaW9faW5zdGFsbCBcCitpbnN0YWxsOiBhY3BpX2luc3Rh
-bGwgY2dyb3VwX2luc3RhbGwgY291bnRlcl9pbnN0YWxsIGNwdXBvd2VyX2luc3RhbGwgZ3Bpb19p
-bnN0YWxsIFwKIAkJaHZfaW5zdGFsbCBmaXJld2lyZV9pbnN0YWxsIGlpb19pbnN0YWxsIGxpYmxv
-Y2tkZXBfaW5zdGFsbCBcCiAJCXBlcmZfaW5zdGFsbCBzZWxmdGVzdHNfaW5zdGFsbCB0dXJib3N0
-YXRfaW5zdGFsbCB1c2JfaW5zdGFsbCBcCiAJCXZpcnRpb19pbnN0YWxsIHZtX2luc3RhbGwgYnBm
-X2luc3RhbGwgeDg2X2VuZXJneV9wZXJmX3BvbGljeV9pbnN0YWxsIFwKQEAgLTE0Nyw3ICsxNDgs
-NyBAQCBhY3BpX2NsZWFuOgogY3B1cG93ZXJfY2xlYW46CiAJJChjYWxsIGRlc2NlbmQscG93ZXIv
-Y3B1cG93ZXIsY2xlYW4pCiAKLWNncm91cF9jbGVhbiBodl9jbGVhbiBmaXJld2lyZV9jbGVhbiBi
-b290Y29uZmlnX2NsZWFuIHNwaV9jbGVhbiB1c2JfY2xlYW4gdmlydGlvX2NsZWFuIHZtX2NsZWFu
-IHdtaV9jbGVhbiBicGZfY2xlYW4gaWlvX2NsZWFuIGdwaW9fY2xlYW4gb2JqdG9vbF9jbGVhbiBs
-ZWRzX2NsZWFuIHBjaV9jbGVhbiBmaXJtd2FyZV9jbGVhbiBkZWJ1Z2dpbmdfY2xlYW4gdHJhY2lu
-Z19jbGVhbjoKK2Nncm91cF9jbGVhbiBjb3VudGVyX2NsZWFuIGh2X2NsZWFuIGZpcmV3aXJlX2Ns
-ZWFuIGJvb3Rjb25maWdfY2xlYW4gc3BpX2NsZWFuIHVzYl9jbGVhbiB2aXJ0aW9fY2xlYW4gdm1f
-Y2xlYW4gd21pX2NsZWFuIGJwZl9jbGVhbiBpaW9fY2xlYW4gZ3Bpb19jbGVhbiBvYmp0b29sX2Ns
-ZWFuIGxlZHNfY2xlYW4gcGNpX2NsZWFuIGZpcm13YXJlX2NsZWFuIGRlYnVnZ2luZ19jbGVhbiB0
-cmFjaW5nX2NsZWFuOgogCSQoY2FsbCBkZXNjZW5kLCQoQDpfY2xlYW49KSxjbGVhbikKIAogbGli
-bG9ja2RlcF9jbGVhbjoKQEAgLTE4MSw3ICsxODIsNyBAQCBmcmVlZmFsbF9jbGVhbjoKIGJ1aWxk
-X2NsZWFuOgogCSQoY2FsbCBkZXNjZW5kLGJ1aWxkLGNsZWFuKQogCi1jbGVhbjogYWNwaV9jbGVh
-biBjZ3JvdXBfY2xlYW4gY3B1cG93ZXJfY2xlYW4gaHZfY2xlYW4gZmlyZXdpcmVfY2xlYW4gXAor
-Y2xlYW46IGFjcGlfY2xlYW4gY2dyb3VwX2NsZWFuIGNvdW50ZXJfY2xlYW4gY3B1cG93ZXJfY2xl
-YW4gaHZfY2xlYW4gZmlyZXdpcmVfY2xlYW4gXAogCQlwZXJmX2NsZWFuIHNlbGZ0ZXN0c19jbGVh
-biB0dXJib3N0YXRfY2xlYW4gYm9vdGNvbmZpZ19jbGVhbiBzcGlfY2xlYW4gdXNiX2NsZWFuIHZp
-cnRpb19jbGVhbiBcCiAJCXZtX2NsZWFuIGJwZl9jbGVhbiBpaW9fY2xlYW4geDg2X2VuZXJneV9w
-ZXJmX3BvbGljeV9jbGVhbiB0bW9uX2NsZWFuIFwKIAkJZnJlZWZhbGxfY2xlYW4gYnVpbGRfY2xl
-YW4gbGliYnBmX2NsZWFuIGxpYnN1YmNtZF9jbGVhbiBsaWJsb2NrZGVwX2NsZWFuIFwKZGlmZiAt
-LWdpdCBhL3Rvb2xzL2NvdW50ZXIvQnVpbGQgYi90b29scy9jb3VudGVyL0J1aWxkCm5ldyBmaWxl
-IG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uMzNmNGE1MWQ3MTVlCi0tLSAvZGV2L251
-bGwKKysrIGIvdG9vbHMvY291bnRlci9CdWlsZApAQCAtMCwwICsxIEBACitjb3VudGVyX2V4YW1w
-bGUteSArPSBjb3VudGVyX2V4YW1wbGUubwpkaWZmIC0tZ2l0IGEvdG9vbHMvY291bnRlci9NYWtl
-ZmlsZSBiL3Rvb2xzL2NvdW50ZXIvTWFrZWZpbGUKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXgg
-MDAwMDAwMDAwMDAwLi41ZWJjMTk1ZmQ5YzAKLS0tIC9kZXYvbnVsbAorKysgYi90b29scy9jb3Vu
-dGVyL01ha2VmaWxlCkBAIC0wLDAgKzEsNTMgQEAKKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6
-IEdQTC0yLjAKK2luY2x1ZGUgLi4vc2NyaXB0cy9NYWtlZmlsZS5pbmNsdWRlCisKK2JpbmRpciA/
-PSAvdXNyL2JpbgorCitpZmVxICgkKHNyY3RyZWUpLCkKK3NyY3RyZWUgOj0gJChwYXRzdWJzdCAl
-LywlLCQoZGlyICQoQ1VSRElSKSkpCitzcmN0cmVlIDo9ICQocGF0c3Vic3QgJS8sJSwkKGRpciAk
-KHNyY3RyZWUpKSkKK2VuZGlmCisKKyMgRG8gbm90IHVzZSBtYWtlJ3MgYnVpbHQtaW4gcnVsZXMK
-KyMgKHRoaXMgaW1wcm92ZXMgcGVyZm9ybWFuY2UgYW5kIGF2b2lkcyBoYXJkLXRvLWRlYnVnIGJl
-aGF2aW91cik7CitNQUtFRkxBR1MgKz0gLXIKKworb3ZlcnJpZGUgQ0ZMQUdTICs9IC1PMiAtV2Fs
-bCAtZyAtRF9HTlVfU09VUkNFIC1JJChPVVRQVVQpaW5jbHVkZQorCitBTExfVEFSR0VUUyA6PSBj
-b3VudGVyX2V4YW1wbGUKK0FMTF9QUk9HUkFNUyA6PSAkKHBhdHN1YnN0ICUsJChPVVRQVVQpJSwk
-KEFMTF9UQVJHRVRTKSkKKworYWxsOiAkKEFMTF9QUk9HUkFNUykKKworZXhwb3J0IHNyY3RyZWUg
-T1VUUFVUIENDIExEIENGTEFHUworaW5jbHVkZSAkKHNyY3RyZWUpL3Rvb2xzL2J1aWxkL01ha2Vm
-aWxlLmluY2x1ZGUKKworIworIyBXZSBuZWVkIHRoZSBmb2xsb3dpbmcgdG8gYmUgb3V0c2lkZSBv
-ZiBrZXJuZWwgdHJlZQorIworJChPVVRQVVQpaW5jbHVkZS9saW51eC9jb3VudGVyLmg6IC4uLy4u
-L2luY2x1ZGUvdWFwaS9saW51eC9jb3VudGVyLmgKKwlta2RpciAtcCAkKE9VVFBVVClpbmNsdWRl
-L2xpbnV4IDI+JjEgfHwgdHJ1ZQorCWxuIC1zZiAkKENVUkRJUikvLi4vLi4vaW5jbHVkZS91YXBp
-L2xpbnV4L2NvdW50ZXIuaCAkQAorCitwcmVwYXJlOiAkKE9VVFBVVClpbmNsdWRlL2xpbnV4L2Nv
-dW50ZXIuaAorCitDT1VOVEVSX0VYQU1QTEUgOj0gJChPVVRQVVQpY291bnRlcl9leGFtcGxlLm8K
-KyQoQ09VTlRFUl9FWEFNUExFKTogcHJlcGFyZSBGT1JDRQorCSQoUSkkKE1BS0UpICQoYnVpbGQp
-PWNvdW50ZXJfZXhhbXBsZQorJChPVVRQVVQpY291bnRlcl9leGFtcGxlOiAkKENPVU5URVJfRVhB
-TVBMRSkKKwkkKFFVSUVUX0xJTkspJChDQykgJChDRkxBR1MpICQoTERGTEFHUykgJDwgLW8gJEAK
-KworY2xlYW46CisJcm0gLWYgJChBTExfUFJPR1JBTVMpCisJcm0gLXJmICQoT1VUUFVUKWluY2x1
-ZGUvbGludXgvY291bnRlci5oCisJZmluZCAkKGlmICQoT1VUUFVUKSwkKE9VVFBVVCksLikgLW5h
-bWUgJyoubycgLWRlbGV0ZSAtbyAtbmFtZSAnXC4qLmQnIC1kZWxldGUKKworaW5zdGFsbDogJChB
-TExfUFJPR1JBTVMpCisJaW5zdGFsbCAtZCAtbSA3NTUgJChERVNURElSKSQoYmluZGlyKTsJCVwK
-Kwlmb3IgcHJvZ3JhbSBpbiAkKEFMTF9QUk9HUkFNUyk7IGRvCQlcCisJCWluc3RhbGwgJCRwcm9n
-cmFtICQoREVTVERJUikkKGJpbmRpcik7CVwKKwlkb25lCisKK0ZPUkNFOgorCisuUEhPTlk6IGFs
-bCBpbnN0YWxsIGNsZWFuIEZPUkNFIHByZXBhcmUKZGlmZiAtLWdpdCBhL3Rvb2xzL2NvdW50ZXIv
-Y291bnRlcl9leGFtcGxlLmMgYi90b29scy9jb3VudGVyL2NvdW50ZXJfZXhhbXBsZS5jCm5ldyBm
-aWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uNzFkZmVjNjczYzExCi0tLSAvZGV2
-L251bGwKKysrIGIvdG9vbHMvY291bnRlci9jb3VudGVyX2V4YW1wbGUuYwpAQCAtMCwwICsxLDk1
-IEBACisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5CisvKiBDb3VudGVy
-IC0gZXhhbXBsZSB1c2Vyc3BhY2UgYXBwbGljYXRpb24KKyAqCisgKiBUaGUgdXNlcnNwYWNlIGFw
-cGxpY2F0aW9uIG9wZW5zIC9kZXYvY291bnRlcjAsIGNvbmZpZ3VyZXMgdGhlCisgKiBDT1VOVEVS
-X0VWRU5UX0lOREVYIGV2ZW50IGNoYW5uZWwgMCB0byBnYXRoZXIgQ291bnQgMCBjb3VudCBhbmQg
-Q291bnQKKyAqIDEgY291bnQsIGFuZCBwcmludHMgb3V0IHRoZSBkYXRhIGFzIGl0IGJlY29tZXMg
-YXZhaWxhYmxlIG9uIHRoZQorICogY2hhcmFjdGVyIGRldmljZSBub2RlLgorICoKKyAqIENvcHly
-aWdodCAoQykgMjAyMSBXaWxsaWFtIEJyZWF0aGl0dCBHcmF5CisgKi8KKyNpbmNsdWRlIDxlcnJu
-by5oPgorI2luY2x1ZGUgPGZjbnRsLmg+CisjaW5jbHVkZSA8bGludXgvY291bnRlci5oPgorI2lu
-Y2x1ZGUgPHN0ZGlvLmg+CisjaW5jbHVkZSA8c3RyaW5nLmg+CisjaW5jbHVkZSA8c3lzL2lvY3Rs
-Lmg+CisjaW5jbHVkZSA8dW5pc3RkLmg+CisKK3N0cnVjdCBjb3VudGVyX3dhdGNoIHdhdGNoZXNb
-Ml0gPSB7CisJeworCQkvKiBDb21wb25lbnQgZGF0YTogQ291bnQgMCBjb3VudCAqLworCQkuY29t
-cG9uZW50LnR5cGUgPSBDT1VOVEVSX0NPTVBPTkVOVF9DT1VOVCwKKwkJLmNvbXBvbmVudC5zY29w
-ZSA9IENPVU5URVJfU0NPUEVfQ09VTlQsCisJCS5jb21wb25lbnQucGFyZW50ID0gMCwKKwkJLyog
-RXZlbnQgdHlwZTogSW5kZXggKi8KKwkJLmV2ZW50ID0gQ09VTlRFUl9FVkVOVF9JTkRFWCwKKwkJ
-LyogRGV2aWNlIGV2ZW50IGNoYW5uZWwgMCAqLworCQkuY2hhbm5lbCA9IDAsCisJfSwKKwl7CisJ
-CS8qIENvbXBvbmVudCBkYXRhOiBDb3VudCAxIGNvdW50ICovCisJCS5jb21wb25lbnQudHlwZSA9
-IENPVU5URVJfQ09NUE9ORU5UX0NPVU5ULAorCQkuY29tcG9uZW50LnNjb3BlID0gQ09VTlRFUl9T
-Q09QRV9DT1VOVCwKKwkJLmNvbXBvbmVudC5wYXJlbnQgPSAxLAorCQkvKiBFdmVudCB0eXBlOiBJ
-bmRleCAqLworCQkuZXZlbnQgPSBDT1VOVEVSX0VWRU5UX0lOREVYLAorCQkvKiBEZXZpY2UgZXZl
-bnQgY2hhbm5lbCAwICovCisJCS5jaGFubmVsID0gMCwKKwl9LAorfTsKKworaW50IG1haW4odm9p
-ZCkKK3sKKwlpbnQgZmQ7CisJaW50IHJldDsKKwlzdHJ1Y3QgY291bnRlcl9ldmVudCBldmVudF9k
-YXRhWzJdOworCisJZmQgPSBvcGVuKCIvZGV2L2NvdW50ZXIwIiwgT19SRFdSKTsKKwlpZiAoZmQg
-PT0gLTEpIHsKKwkJcGVycm9yKCJVbmFibGUgdG8gb3BlbiAvZGV2L2NvdW50ZXIwIik7CisJCXJl
-dHVybiAtZXJybm87CisJfQorCisJcmV0ID0gaW9jdGwoZmQsIENPVU5URVJfQUREX1dBVENIX0lP
-Q1RMLCB3YXRjaGVzKTsKKwlpZiAocmV0ID09IC0xKSB7CisJCXBlcnJvcigiRXJyb3IgYWRkaW5n
-IHdhdGNoZXNbMF0iKTsKKwkJcmV0dXJuIC1lcnJubzsKKwl9CisJcmV0ID0gaW9jdGwoZmQsIENP
-VU5URVJfQUREX1dBVENIX0lPQ1RMLCB3YXRjaGVzICsgMSk7CisJaWYgKHJldCA9PSAtMSkgewor
-CQlwZXJyb3IoIkVycm9yIGFkZGluZyB3YXRjaGVzWzFdIik7CisJCXJldHVybiAtZXJybm87CisJ
-fQorCXJldCA9IGlvY3RsKGZkLCBDT1VOVEVSX0VOQUJMRV9FVkVOVFNfSU9DVEwpOworCWlmIChy
-ZXQgPT0gLTEpIHsKKwkJcGVycm9yKCJFcnJvciBlbmFibGluZyBldmVudHMiKTsKKwkJcmV0dXJu
-IC1lcnJubzsKKwl9CisKKwlmb3IgKDs7KSB7CisJCXJldCA9IHJlYWQoZmQsIGV2ZW50X2RhdGEs
-IHNpemVvZihldmVudF9kYXRhKSk7CisJCWlmIChyZXQgPT0gLTEpIHsKKwkJCXBlcnJvcigiRmFp
-bGVkIHRvIHJlYWQgZXZlbnQgZGF0YSIpOworCQkJcmV0dXJuIC1lcnJubzsKKwkJfQorCisJCWlm
-IChyZXQgIT0gc2l6ZW9mKGV2ZW50X2RhdGEpKSB7CisJCQlmcHJpbnRmKHN0ZGVyciwgIkZhaWxl
-ZCB0byByZWFkIGV2ZW50IGRhdGFcbiIpOworCQkJcmV0dXJuIC1FSU87CisJCX0KKworCQlwcmlu
-dGYoIlRpbWVzdGFtcCAwOiAlbGx1XHRDb3VudCAwOiAlbGx1XG4iCisJCSAgICAgICAiRXJyb3Ig
-TWVzc2FnZSAwOiAlc1xuIgorCQkgICAgICAgIlRpbWVzdGFtcCAxOiAlbGx1XHRDb3VudCAxOiAl
-bGx1XG4iCisJCSAgICAgICAiRXJyb3IgTWVzc2FnZSAxOiAlc1xuIiwKKwkJICAgICAgICh1bnNp
-Z25lZCBsb25nIGxvbmcpZXZlbnRfZGF0YVswXS50aW1lc3RhbXAsCisJCSAgICAgICAodW5zaWdu
-ZWQgbG9uZyBsb25nKWV2ZW50X2RhdGFbMF0udmFsdWUsCisJCSAgICAgICBzdHJlcnJvcihldmVu
-dF9kYXRhWzBdLnN0YXR1cyksCisJCSAgICAgICAodW5zaWduZWQgbG9uZyBsb25nKWV2ZW50X2Rh
-dGFbMV0udGltZXN0YW1wLAorCQkgICAgICAgKHVuc2lnbmVkIGxvbmcgbG9uZylldmVudF9kYXRh
-WzFdLnZhbHVlLAorCQkgICAgICAgc3RyZXJyb3IoZXZlbnRfZGF0YVsxXS5zdGF0dXMpKTsKKwl9
-CisKKwlyZXR1cm4gMDsKK30KLS0gCjIuMzIuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The Generic Counter chrdev interface expects users to supply component
+IDs in order to select Synapses for requests. In order for users to know
+what component ID belongs to which Synapse this information must be
+exposed. The signalZ_action_component_id attribute provides a way for
+users to discover what component ID belongs to the respective Synapse.
+
+Cc: David Lechner <david@lechnology.com>
+Cc: Gwendal Grignou <gwendal@chromium.org>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+---
+ Documentation/ABI/testing/sysfs-bus-counter |  7 ++++
+ drivers/counter/counter-sysfs.c             | 45 +++++++++++++++++++++
+ 2 files changed, 52 insertions(+)
+
+diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Documentation/ABI/testing/sysfs-bus-counter
+index dee79b606847..9809d8a47431 100644
+--- a/Documentation/ABI/testing/sysfs-bus-counter
++++ b/Documentation/ABI/testing/sysfs-bus-counter
+@@ -203,6 +203,13 @@ Description:
+ 		both edges:
+ 			Any state transition.
+ 
++What:		/sys/bus/counter/devices/counterX/countY/signalZ_action_component_id
++KernelVersion:	5.15
++Contact:	linux-iio@vger.kernel.org
++Description:
++		Read-only attribute that indicates the component ID of the
++		respective Synapse of Count Y for Signal Z.
++
+ What:		/sys/bus/counter/devices/counterX/countY/spike_filter_ns
+ KernelVersion:	5.14
+ Contact:	linux-iio@vger.kernel.org
+diff --git a/drivers/counter/counter-sysfs.c b/drivers/counter/counter-sysfs.c
+index 07588130600a..bb49a10f160b 100644
+--- a/drivers/counter/counter-sysfs.c
++++ b/drivers/counter/counter-sysfs.c
+@@ -533,6 +533,46 @@ static int counter_name_attr_create(struct device *const dev,
+ 	return 0;
+ }
+ 
++static ssize_t counter_comp_id_show(struct device *dev,
++				    struct device_attribute *attr, char *buf)
++{
++	const size_t id = (size_t)to_counter_attribute(attr)->comp.priv;
++
++	return sprintf(buf, "%zu\n", id);
++}
++
++static int counter_comp_id_attr_create(struct device *const dev,
++				       struct counter_attribute_group *const group,
++				       const char *name, const size_t id)
++{
++	struct counter_attribute *counter_attr;
++
++	/* Allocate Counter attribute */
++	counter_attr = devm_kzalloc(dev, sizeof(*counter_attr), GFP_KERNEL);
++	if (!counter_attr)
++		return -ENOMEM;
++
++	/* Generate component ID name */
++	name = devm_kasprintf(dev, GFP_KERNEL, "%s_component_id", name);
++	if (!name)
++		return -ENOMEM;
++
++	/* Configure Counter attribute */
++	counter_attr->comp.priv = (void *)id;
++
++	/* Configure device attribute */
++	sysfs_attr_init(&counter_attr->dev_attr.attr);
++	counter_attr->dev_attr.attr.name = name;
++	counter_attr->dev_attr.attr.mode = 0444;
++	counter_attr->dev_attr.show = counter_comp_id_show;
++
++	/* Store list node */
++	list_add(&counter_attr->l, &group->attr_list);
++	group->num_attr++;
++
++	return 0;
++}
++
+ static struct counter_comp counter_signal_comp = {
+ 	.type = COUNTER_COMP_SIGNAL_LEVEL,
+ 	.name = "signal",
+@@ -627,6 +667,11 @@ static int counter_sysfs_synapses_add(struct counter_device *const counter,
+ 					  COUNTER_SCOPE_COUNT, count);
+ 		if (err < 0)
+ 			return err;
++
++		/* Create Synapse component ID attribute */
++		err = counter_comp_id_attr_create(dev, group, comp.name, i);
++		if (err < 0)
++			return err;
+ 	}
+ 
+ 	return 0;
+-- 
+2.32.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
