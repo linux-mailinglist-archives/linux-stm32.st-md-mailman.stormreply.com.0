@@ -2,53 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B30BE3BCADF
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jul 2021 12:49:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13B8C3BCBC1
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jul 2021 13:15:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61303C57B53;
-	Tue,  6 Jul 2021 10:49:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8494CC57B53;
+	Tue,  6 Jul 2021 11:15:35 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61B7BC57189
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CED65C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jul 2021 10:49:55 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 932BE619C3;
- Tue,  6 Jul 2021 10:49:53 +0000 (UTC)
+ Tue,  6 Jul 2021 11:15:30 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B73E961C43;
+ Tue,  6 Jul 2021 11:15:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625568594;
- bh=bPKQG7VMSSD0/w80TXY6qN1X/ZiWRyDZ2D5tRURQYPk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tA6MLSx4ezUqNV9nz99ni3dC//5IdrSKEZx+qd9oK7btksPTPA9/u8z8D40imzky8
- U87OblPdTzumM4K/2ZIrpZ2z8HKk0KPws6PuFQ5a6qRnIjHI6cNSLIm6U3/ri1Pl/j
- HCjGcaFq6qY6QEHfRJAAorpg2KWXydeaQ26Qs4G9QCpXmFvh8a0mf+XtQdmBb7yK5r
- DI4KyalVQT43VwBWA9i/EgJijoyoBxs1h0O3H4ybEbCI/bssHcKt1HykaTS0R3vwWo
- U4Lgu2Hx7nPUrFdKoBOw692vEXKEJKOugPzAAoQEjVzY2JEZFNhRzDPGoVgEA0i/9Q
- 7vuyU6jH6P6OA==
-Date: Tue, 6 Jul 2021 16:19:50 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: "yukuai (C)" <yukuai3@huawei.com>
-Message-ID: <YOQ1TufSjoXDJBBj@matsya>
-References: <20210517081826.1564698-1-yukuai3@huawei.com>
- <20210517081826.1564698-3-yukuai3@huawei.com>
- <YLRfZfnuxc0+n/LN@vkoul-mobl.Dlink>
- <b6c340de-b0b5-6aad-94c0-03f062575b63@huawei.com>
- <YLSk/i6GmYWGEa9E@vkoul-mobl.Dlink>
- <YLSqD+9nZIWJpn+r@hovoldconsulting.com>
- <YLi4VGwzrat8wJHP@vkoul-mobl>
- <YL3TlDqe4KSr3ICl@hovoldconsulting.com>
- <YL3ynd1KiJoe9y6+@vkoul-mobl>
- <c8fcdaa1-f053-47aa-2dad-521b8f34b8d1@huawei.com>
+ s=k20201202; t=1625570128;
+ bh=X0vuEX7gbgXVikkrOrMJN4xe+EpY/dDaKKOHLoFDWpc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=L6dceCbZq3muGGnY7AX7Z+qDzAtxOd9okgbHeTGjdgOMUVoZRXgIlnED0SvqbmBJU
+ wVJ55jzc5xz3gdc39rpm0efkX1w/OqcM59AIENMgF9xTJd5+GhmzCaFqAhGhfDMlvH
+ KiU+OiBtjWCrpf/kVAdhLKkgOsYPFH1nIE5+W+kNys3a7zEK96PwJRfgYuQBPxdnfy
+ Y3cLaTqCPTuA2n3/C75Q4tmmT8damFFtkyKWYUGem4JuCzZ7gTdZHwfzY4bLFck5JO
+ 4Db2EhOV1GJ8r2ntYGohG/Xm/2d13SOD1QJwfQk6XBURBsC3WFlxzs349gFPqsGxuK
+ vgnJE3gSJ1MAQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Tue,  6 Jul 2021 07:11:56 -0400
+Message-Id: <20210706111409.2058071-56-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210706111409.2058071-1-sashal@kernel.org>
+References: <20210706111409.2058071-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c8fcdaa1-f053-47aa-2dad-521b8f34b8d1@huawei.com>
-Cc: yi.zhang@huawei.com, alexandre.torgue@foss.st.com,
- linux-kernel@vger.kernel.org, michal.simek@xilinx.com,
- mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org,
- Johan Hovold <johan@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] dmaengine: usb-dmac: Fix PM reference
- leak in usb_dmac_probe()
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, Vladimir Oltean <vladimir.oltean@nxp.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 056/189] net: stmmac: the XPCS
+	obscures a potential "PHY not found" error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,49 +57,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 05-07-21, 16:41, yukuai (C) wrote:
-> Hi, Vinod
-> 
-> Are you still intrested in accepting this patch?
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-- Please do not top post
+[ Upstream commit 4751d2aa321f2828d8c5d2f7ce4ed18a01e47f46 ]
 
-- yes, pls rebase and resend
+stmmac_mdio_register() has logic to search for PHYs on the MDIO bus and
+assign them IRQ lines, as well as to set priv->plat->phy_addr.
 
-> On 2021/06/07 18:19, Vinod Koul wrote:
-> > On 07-06-21, 10:06, Johan Hovold wrote:
-> > > On Thu, Jun 03, 2021 at 04:39:08PM +0530, Vinod Koul wrote:
-> > > > On 31-05-21, 11:19, Johan Hovold wrote:
-> > > > > On Mon, May 31, 2021 at 02:27:34PM +0530, Vinod Koul wrote:
-> > > > > > On 31-05-21, 14:11, yukuai (C) wrote:
-> > > > > > > On 2021/05/31 12:00, Vinod Koul wrote:
-> > > > > > > > On 17-05-21, 16:18, Yu Kuai wrote:
-> > > > > > > > > pm_runtime_get_sync will increment pm usage counter even it failed.
-> > > > > > > > > Forgetting to putting operation will result in reference leak here.
-> > > > > > > > > Fix it by replacing it with pm_runtime_resume_and_get to keep usage
-> > > > > > > > > counter balanced.
-> > > 
-> > > > > > Yes the rumtime_pm is disabled on failure here and the count would have
-> > > > > > no consequence...
-> > > > > 
-> > > > > You should still balance the PM usage counter as it isn't reset for
-> > > > > example when reloading the driver.
-> > > > 
-> > > > Should I driver trust that on load PM usage counter is balanced and not
-> > > > to be reset..?
-> > > 
-> > > Not sure what you're asking here. But a driver should never leave the PM
-> > > usage counter unbalanced.
-> > 
-> > Thinking about again, yes we should safely assume the counter is
-> > balanced when driver loads.. so unloading while balancing sounds better
-> > behaviour
-> > 
-> > Thanks
-> > 
+If no PHY is found, the "found" variable remains set to 0 and the
+function errors out.
 
+After the introduction of commit f213bbe8a9d6 ("net: stmmac: Integrate
+it with DesignWare XPCS"), the "found" variable was immediately reused
+for searching for a PCS on the same MDIO bus.
+
+This can result in 2 types of potential problems (none of them seems to
+be seen on the only Intel system that sets has_xpcs = true, otherwise it
+would have been reported):
+
+1. If a PCS is found but a PHY is not, then the code happily exits with
+   no error. One might say "yes, but this is not possible, because
+   of_mdiobus_register will probe a PHY for all MDIO addresses,
+   including for the XPCS, so if an XPCS exists, then a PHY certainly
+   exists too". Well, that is not true, see intel_mgbe_common_data():
+
+	/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
+	plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
+	plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
+
+2. A PHY is found but an MDIO device with the XPCS PHY ID isn't, and in
+   that case, the error message will be "No PHY found". Confusing.
+
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Link: https://lore.kernel.org/r/20210527155959.3270478-1-olteanv@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 21 +++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index b750074f8f9c..e293bf1ce9f3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -503,6 +503,12 @@ int stmmac_mdio_register(struct net_device *ndev)
+ 		found = 1;
+ 	}
+ 
++	if (!found && !mdio_node) {
++		dev_warn(dev, "No PHY found\n");
++		err = -ENODEV;
++		goto no_phy_found;
++	}
++
+ 	/* Try to probe the XPCS by scanning all addresses. */
+ 	if (priv->hw->xpcs) {
+ 		struct mdio_xpcs_args *xpcs = &priv->hw->xpcs_args;
+@@ -511,6 +517,7 @@ int stmmac_mdio_register(struct net_device *ndev)
+ 
+ 		xpcs->bus = new_bus;
+ 
++		found = 0;
+ 		for (addr = 0; addr < max_addr; addr++) {
+ 			xpcs->addr = addr;
+ 
+@@ -520,13 +527,12 @@ int stmmac_mdio_register(struct net_device *ndev)
+ 				break;
+ 			}
+ 		}
+-	}
+ 
+-	if (!found && !mdio_node) {
+-		dev_warn(dev, "No PHY found\n");
+-		mdiobus_unregister(new_bus);
+-		mdiobus_free(new_bus);
+-		return -ENODEV;
++		if (!found && !mdio_node) {
++			dev_warn(dev, "No XPCS found\n");
++			err = -ENODEV;
++			goto no_xpcs_found;
++		}
+ 	}
+ 
+ bus_register_done:
+@@ -534,6 +540,9 @@ int stmmac_mdio_register(struct net_device *ndev)
+ 
+ 	return 0;
+ 
++no_xpcs_found:
++no_phy_found:
++	mdiobus_unregister(new_bus);
+ bus_register_fail:
+ 	mdiobus_free(new_bus);
+ 	return err;
 -- 
-~Vinod
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
