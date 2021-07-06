@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0097A3BCE0F
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jul 2021 13:23:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2E423BD215
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Jul 2021 13:40:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACD36C57B5F;
-	Tue,  6 Jul 2021 11:22:59 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E0CDC57B53;
+	Tue,  6 Jul 2021 11:40:11 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81E36C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B13EC424BD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Jul 2021 11:22:58 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3341461D25;
- Tue,  6 Jul 2021 11:22:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625570577;
- bh=VOd0m6jZONjoND+jTrjgd4uo7g4q1WQ+8SkWRsDct7Y=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oERb9Cb16oUySdmlv7LJbK49ZAO38la9al8RCHl7VtAyoxYY3EwNeR4uY+PaHL9Vu
- tTIs09EqviFa4gWH/2K9UNbm4aY6KAkR9GYP3UX+/4l2ZofaY0tqvFIHHOEtcgIyTL
- XK4+sAgvik0O8Rdww7LRpBTDBTauFtMjOecZf3joNAYHQpeI8PhoJFlR0tAxKRUBKu
- GF8cO3WS1RNL4If/tnNZ3yUj1qe6RDIhNYpObBrm1LysIQCKFhTDRk+R/ZivMZBEWV
- MVGDuNe7MUrJ4BhY8y61xw/DFtIi4zutXMkuQtzaj1ywTN3glYE0O/4V56zk5RS/2R
- FGWBVtobHQD5A==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Tue,  6 Jul 2021 07:20:27 -0400
-Message-Id: <20210706112203.2062605-41-sashal@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210706112203.2062605-1-sashal@kernel.org>
-References: <20210706112203.2062605-1-sashal@kernel.org>
+ Tue,  6 Jul 2021 11:40:09 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10036"; a="196265033"
+X-IronPort-AV: E=Sophos;i="5.83,328,1616482800"; d="scan'208";a="196265033"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2021 04:40:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,328,1616482800"; d="scan'208";a="427558916"
+Received: from mylly.fi.intel.com (HELO [10.237.72.174]) ([10.237.72.174])
+ by orsmga002.jf.intel.com with ESMTP; 06 Jul 2021 04:40:02 -0700
+To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
+References: <cover.1625471640.git.vilhelm.gray@gmail.com>
+From: Jarkko Nikula <jarkko.nikula@linux.intel.com>
+Message-ID: <5bdd9ee6-86af-3bcc-43ff-418fd1a2e3e8@linux.intel.com>
+Date: Tue, 6 Jul 2021 14:40:01 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Vladimir Oltean <vladimir.oltean@nxp.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 041/137] net: stmmac: the XPCS
-	obscures a potential "PHY not found" error
+In-Reply-To: <cover.1625471640.git.vilhelm.gray@gmail.com>
+Content-Language: en-US
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de, kernel@pengutronix.de,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v12 00/17] Introduce the Counter character
+ device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,107 +52,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
+Hi
 
-[ Upstream commit 4751d2aa321f2828d8c5d2f7ce4ed18a01e47f46 ]
+On 7/5/21 11:18 AM, William Breathitt Gray wrote:
+> To summarize the main points of this patchset: there are no changes to
+> the existing Counter sysfs userspace interface; a Counter character
+> device interface is introduced that allows Counter events and associated
+> data to be read() by userspace; the events_configure() and
+> watch_validate() driver callbacks are introduced to support Counter
+> events; and IRQ support is added to the 104-QUAD-8 driver, serving as an
+> example of how to support the new Counter events functionality.
+> 
+I quickly tested this set on top of linux-next next-20210706 and didn't 
+see any issue with intel-qep.c. However I noticed two mutex issues in 
+patch 15/17. Perhaps visible due the CONFIG_DEBUG_MUTEXES=y etc. I have on.
 
-stmmac_mdio_register() has logic to search for PHYs on the MDIO bus and
-assign them IRQ lines, as well as to set priv->plat->phy_addr.
+I'll be out of office next few weeks so cannot test if you have a new 
+version meanwhile but wanted to share no show stopper from intel-qep.c 
+and those two mutex warnings.
 
-If no PHY is found, the "found" variable remains set to 0 and the
-function errors out.
-
-After the introduction of commit f213bbe8a9d6 ("net: stmmac: Integrate
-it with DesignWare XPCS"), the "found" variable was immediately reused
-for searching for a PCS on the same MDIO bus.
-
-This can result in 2 types of potential problems (none of them seems to
-be seen on the only Intel system that sets has_xpcs = true, otherwise it
-would have been reported):
-
-1. If a PCS is found but a PHY is not, then the code happily exits with
-   no error. One might say "yes, but this is not possible, because
-   of_mdiobus_register will probe a PHY for all MDIO addresses,
-   including for the XPCS, so if an XPCS exists, then a PHY certainly
-   exists too". Well, that is not true, see intel_mgbe_common_data():
-
-	/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
-	plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
-	plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
-
-2. A PHY is found but an MDIO device with the XPCS PHY ID isn't, and in
-   that case, the error message will be "No PHY found". Confusing.
-
-Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Link: https://lore.kernel.org/r/20210527155959.3270478-1-olteanv@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 21 +++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index b2a707e2ef43..678726c62a8a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -441,6 +441,12 @@ int stmmac_mdio_register(struct net_device *ndev)
- 		found = 1;
- 	}
- 
-+	if (!found && !mdio_node) {
-+		dev_warn(dev, "No PHY found\n");
-+		err = -ENODEV;
-+		goto no_phy_found;
-+	}
-+
- 	/* Try to probe the XPCS by scanning all addresses. */
- 	if (priv->hw->xpcs) {
- 		struct mdio_xpcs_args *xpcs = &priv->hw->xpcs_args;
-@@ -449,6 +455,7 @@ int stmmac_mdio_register(struct net_device *ndev)
- 
- 		xpcs->bus = new_bus;
- 
-+		found = 0;
- 		for (addr = 0; addr < max_addr; addr++) {
- 			xpcs->addr = addr;
- 
-@@ -458,13 +465,12 @@ int stmmac_mdio_register(struct net_device *ndev)
- 				break;
- 			}
- 		}
--	}
- 
--	if (!found && !mdio_node) {
--		dev_warn(dev, "No PHY found\n");
--		mdiobus_unregister(new_bus);
--		mdiobus_free(new_bus);
--		return -ENODEV;
-+		if (!found && !mdio_node) {
-+			dev_warn(dev, "No XPCS found\n");
-+			err = -ENODEV;
-+			goto no_xpcs_found;
-+		}
- 	}
- 
- bus_register_done:
-@@ -472,6 +478,9 @@ int stmmac_mdio_register(struct net_device *ndev)
- 
- 	return 0;
- 
-+no_xpcs_found:
-+no_phy_found:
-+	mdiobus_unregister(new_bus);
- bus_register_fail:
- 	mdiobus_free(new_bus);
- 	return err;
--- 
-2.30.2
-
+Jarkko
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
