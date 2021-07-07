@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B26253BF109
+	by mail.lfdr.de (Postfix) with ESMTPS id CFD5F3BF10A
 	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jul 2021 22:51:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F366C57B5B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54D04C57B7D;
 	Wed,  7 Jul 2021 20:51:09 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D6AEC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8080BC57B53
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed,  7 Jul 2021 20:51:06 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id C77EF61CD1;
+Received: by mail.kernel.org (Postfix) with ESMTPS id D795261CCE;
  Wed,  7 Jul 2021 20:51:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1625691064;
- bh=Ct4dOmBsNruy03UbUBokuSSXzn56Dr/qDtxqmnRYTJk=;
+ bh=KcLczx3VGsBt1P9w3VNT+56SSY+1/GyZMpqQTJ1Rgo8=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=kRzqLVniqFPoXY0XbDpGnjZBziO5SJD12Ft+qVYK0IZnv/04VSlCpa/4akvaAem7m
- x9OW2b1GH4JWrnuw4y1sHMxWpe4rq5fDbA5Z3VhwbtekA0HfBTHVgUWtsikYmUckTo
- GMzBe7L/ovBIyam2asgsuETwFD8sG05uEgcTT/JbIzfkIlWsfuI6kKzdpZSiWjJxkI
- kLKponL+L1/D8RsjhHmEw6CtGdjmJhcvVNZFXw+ILtKhZpIKQ4vngQrBH14bm2Aqse
- K/Pk/PgTGTosD+fG0opGt9b+3mTmG8IEqYBW5awEqximn/rfYyfK+fFPbwoRPE5rJ/
- 4HxkkOOxfpYWA==
+ b=QxxpIV5SkT28mPeG3EXRKSYjCHdIHfvBC+X/UjtdzzQJcwxKAOjeiLJZlRM8dXy+j
+ VxjxDQ2avOUB+jOlwhPQ17SOBDY3rHrznsyD86LltL6xT5NQWkYt3EHpUOqCd2jLW7
+ yN5ot77yvs5FdCrQZgQU0FcID3mubQJtKHLVwoZZOPA+v91bORNg561+dR8wCnula7
+ V9dnfsPtw+1hYeaBRI/sjf/V7baEjgieGZ2AHg0twmGIOSNJXTwJG0JK9bD6EEmqVi
+ 0CDQyItyBzbIzlTyN8/ercPYhyd+yVD5dPL8y1afEL7t5dJf6/K2SOU18jJ3HamGwS
+ Z3GIAuqvikvVg==
 Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
  [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id B9D2F609BA;
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id C4A2A60A3A;
  Wed,  7 Jul 2021 20:51:04 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <162569106475.4918.15116058947596602803.git-patchwork-notify@kernel.org>
+Message-Id: <162569106480.4918.10877247731048790736.git-patchwork-notify@kernel.org>
 Date: Wed, 07 Jul 2021 20:51:04 +0000
-References: <20210707075057.34348-1-yuehaibing@huawei.com>
-In-Reply-To: <20210707075057.34348-1-yuehaibing@huawei.com>
+References: <20210707075335.26488-1-yuehaibing@huawei.com>
+In-Reply-To: <20210707075335.26488-1-yuehaibing@huawei.com>
 To: YueHaibing <yuehaibing@huawei.com>
-Cc: zhangqing@loongson.cn, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- alexandre.torgue@foss.st.com, jiaxun.yang@flygoat.com,
- linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] stmmac: dwmac-loongson: Fix unsigned
-	comparison to zero
+Cc: linux-kernel@vger.kernel.org, ajayg@nvidia.com, netdev@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] stmmac: platform: Fix signedness bug
+ in stmmac_probe_config_dt()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,19 +63,19 @@ Hello:
 
 This patch was applied to netdev/net.git (refs/heads/master):
 
-On Wed, 7 Jul 2021 15:50:57 +0800 you wrote:
-> plat->phy_interface is unsigned integer, so the condition
-> can't be less than zero and the warning will never printed.
+On Wed, 7 Jul 2021 15:53:35 +0800 you wrote:
+> The "plat->phy_interface" variable is an enum and in this context GCC
+> will treat it as an unsigned int so the error handling is never
+> triggered.
 > 
-> Fixes: 30bba69d7db4 ("stmmac: pci: Add dwmac support for Loongson")
+> Fixes: b9f0b2f634c0 ("net: stmmac: platform: fix probe for ACPI devices")
 > Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> [...]
 
 Here is the summary with links:
-  - [net] stmmac: dwmac-loongson: Fix unsigned comparison to zero
-    https://git.kernel.org/netdev/net/c/0d472c69c6a5
+  - [net] stmmac: platform: Fix signedness bug in stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net/c/eca81f09145d
 
 You are awesome, thank you!
 --
