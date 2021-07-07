@@ -2,71 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DECB73BE047
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jul 2021 02:28:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861973BE3F2
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Jul 2021 09:52:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99155C57B5B;
-	Wed,  7 Jul 2021 00:28:47 +0000 (UTC)
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FED8C57B5B;
+	Wed,  7 Jul 2021 07:52:15 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A6E5C5718D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB6ABC5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Jul 2021 00:28:44 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- mn20-20020a17090b1894b02901707fc074e8so2532875pjb.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Jul 2021 17:28:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=wgMqBY62hL/9zc2/Y9RJScdFpoJ7MDAsy5QSUueWpmQ=;
- b=cDMJD5q1dceLz4P4a4N1PWPbj3mpKCyHl+kpmuFvBSFCLjxJhTu83hIsv9j0g7WNjt
- Ha5rraiLkj9M2ZepNiX9oUxJ7OcOz0tSY00XoutscCtagvsbYk6MI5/YILSNojz/bqF2
- 1Qrsm4Kj0OnJpFvdCLLfxL1LDXLpu5ximyhL/IgMUmUrLn70Di23tlAKRml1sYMZlnWG
- oUcvZ4oRK2y0K8XEg509UdXAZftNPlIGd3cFjof+q3/5KnF1Htm88ueE4LAzrq8uhPYW
- 4vfFEidyMKlJ3qumCNjW62GIxYmZ5ECj+csgHpDGiadmWY3zozzKRWRT7xOqxj/7NVQ0
- ko3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=wgMqBY62hL/9zc2/Y9RJScdFpoJ7MDAsy5QSUueWpmQ=;
- b=PLqK3zIu0sksYqhQ2YmtxoDbfCa2R6bkduBRO3sIsn/saR8LQVBrHvQL7qWUb5J0In
- Y2uvFOK/yye58G07Dn2GmXR40hMAE3w8dRYGmGkiB7i7nEUYltzDOpaR+DB1tgVnNYVA
- ODJFjXnv8Zh4K0v/CsqmVewM/ecMWoprTPUGpLY+Jxd5bOCX6ZKhyiW4DcV6gMwSh5UT
- mV5zvMdlEumi7aOcURzik+BWkuEPEym9iaEUDqx1zjqDr8ZMWn89UIbedsDZqC75mq0m
- sT7JuCVvsQKs22nQApui5M3h4zMhhMqYuSuHfRXD2twNBK7jhULuA6LvWmAG10MpOoup
- yoVA==
-X-Gm-Message-State: AOAM533lpDmM/FK+otXsufkCSSo4qGgO6SyMXgjsdFGbxea2mIHXHvzP
- UX1MdJqFObrEtr5Q5YnjFg0=
-X-Google-Smtp-Source: ABdhPJwyOfj2zNPpVkjW7izeLTHLXWRgoCKm6b8nqpc4pgmLX5lWGHIprfF5CJaY5N2CsLka8JsAxw==
-X-Received: by 2002:a17:90a:e7c4:: with SMTP id
- kb4mr2943529pjb.43.1625617723085; 
- Tue, 06 Jul 2021 17:28:43 -0700 (PDT)
-Received: from shinobu ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id j6sm16042192pji.23.2021.07.06.17.28.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Jul 2021 17:28:42 -0700 (PDT)
-Date: Wed, 7 Jul 2021 09:28:35 +0900
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: Jarkko Nikula <jarkko.nikula@linux.intel.com>
-Message-ID: <YOT1M1qcfHC2PpuF@shinobu>
-References: <cover.1625471640.git.vilhelm.gray@gmail.com>
- <5bdd9ee6-86af-3bcc-43ff-418fd1a2e3e8@linux.intel.com>
+ Wed,  7 Jul 2021 07:52:12 +0000 (UTC)
+Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4GKWkx5nNPz764d;
+ Wed,  7 Jul 2021 15:48:41 +0800 (CST)
+Received: from dggema769-chm.china.huawei.com (10.1.198.211) by
+ dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Wed, 7 Jul 2021 15:52:09 +0800
+Received: from localhost (10.174.179.215) by dggema769-chm.china.huawei.com
+ (10.1.198.211) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Wed, 7 Jul
+ 2021 15:52:08 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <peppe.cavallaro@st.com>, <alexandre.torgue@foss.st.com>,
+ <joabreu@synopsys.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+ <mcoquelin.stm32@gmail.com>, <zhangqing@loongson.cn>,
+ <yuehaibing@huawei.com>, <jiaxun.yang@flygoat.com>
+Date: Wed, 7 Jul 2021 15:50:57 +0800
+Message-ID: <20210707075057.34348-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-In-Reply-To: <5bdd9ee6-86af-3bcc-43ff-418fd1a2e3e8@linux.intel.com>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v12 00/17] Introduce the Counter character
- device interface
+X-Originating-IP: [10.174.179.215]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ dggema769-chm.china.huawei.com (10.1.198.211)
+X-CFilter-Loop: Reflected
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net] stmmac: dwmac-loongson: Fix unsigned
+	comparison to zero
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,82 +52,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6756115410301526327=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+plat->phy_interface is unsigned integer, so the condition
+can't be less than zero and the warning will never printed.
 
---===============6756115410301526327==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9KoXz8sgYVDVTxwl"
-Content-Disposition: inline
+Fixes: 30bba69d7db4 ("stmmac: pci: Add dwmac support for Loongson")
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-
---9KoXz8sgYVDVTxwl
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jul 06, 2021 at 02:40:01PM +0300, Jarkko Nikula wrote:
-> Hi
->=20
-> On 7/5/21 11:18 AM, William Breathitt Gray wrote:
-> > To summarize the main points of this patchset: there are no changes to
-> > the existing Counter sysfs userspace interface; a Counter character
-> > device interface is introduced that allows Counter events and associated
-> > data to be read() by userspace; the events_configure() and
-> > watch_validate() driver callbacks are introduced to support Counter
-> > events; and IRQ support is added to the 104-QUAD-8 driver, serving as an
-> > example of how to support the new Counter events functionality.
-> >=20
-> I quickly tested this set on top of linux-next next-20210706 and didn't=
-=20
-> see any issue with intel-qep.c. However I noticed two mutex issues in=20
-> patch 15/17. Perhaps visible due the CONFIG_DEBUG_MUTEXES=3Dy etc. I have=
- on.
->=20
-> I'll be out of office next few weeks so cannot test if you have a new=20
-> version meanwhile but wanted to share no show stopper from intel-qep.c=20
-> and those two mutex warnings.
->=20
-> Jarkko
-
-Thanks, these seem pretty straightforward to fix so I'll wait a week or
-so to see if any other issues pop up before making a v13 submission.
-
-William Breathitt Gray
-
---9KoXz8sgYVDVTxwl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmDk9TMACgkQhvpINdm7
-VJL/+A/8DfP+wFOuOhzB4lVMNXXWQgDSk/bZskGmbS2ZZLobkAQ260t+W1F8L7vj
-q9ghHKWyLScDZ6EnRxY+1CdtT4eYXUcDeqJ0H0uLROcluzVYgBw7ZiJdt1nrEjmz
-abeflZ2T0hz1/fsX5zfUDRE2gdjjhdK/92iMmdiYXhOav8y3LyaAhmlN6d5Vqob4
-NwPZlf46LbvG3N0ExnT0ZP2B8q0LDJBXdxJbe4QoHY8239xFfins+2AhdhHAGfE6
-nAszv/Bq1igVzQ04M+MbvMbVf6zPlyphAudOa9pi5+up2fB/dBGVIE5hrZ4LHlQn
-chEpoCZ5/ZI3ZuEN3OoFuiiCDdbT06Pvn71x7Fm5Oio51JkFa8AysnEbGTr9k/NX
-9/FERGf+fQBSGou1XO1ujPFLtZxwYyvUE/a/Kw2AdLDVLBoQ6AqF3m6s/wP/vGlE
-tbrqdNkucZ9tMWJQGCM/528XztqDayILvKSkTS+RwkoBdv9G3HzKejW8EOkneTEp
-/5QAODb+TuvGMtvFyDuKxHkbZ1WA3ps6mgwguS5BaUkcnatur8s8JBT/IRR9WUxn
-5PLXV6+HGVoTu6Z179l2D7msc2iXwiETZEZjdVkMIrmQ+xgb+MhUUHeyZX4FLD+s
-pYmZ10G+ccSpXQucUP0hKygdkXjX7ZwTB1oT+9EG4t5aYu3e/FY=
-=xXkJ
------END PGP SIGNATURE-----
-
---9KoXz8sgYVDVTxwl--
-
---===============6756115410301526327==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+index e108b0d2bd28..4c9a37dd0d3f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+@@ -49,9 +49,9 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+ {
+ 	struct plat_stmmacenet_data *plat;
+ 	struct stmmac_resources res;
+-	bool mdio = false;
+-	int ret, i;
+ 	struct device_node *np;
++	int ret, i, phy_mode;
++	bool mdio = false;
+ 
+ 	np = dev_of_node(&pdev->dev);
+ 
+@@ -108,10 +108,11 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+ 	if (plat->bus_id < 0)
+ 		plat->bus_id = pci_dev_id(pdev);
+ 
+-	plat->phy_interface = device_get_phy_mode(&pdev->dev);
+-	if (plat->phy_interface < 0)
++	phy_mode = device_get_phy_mode(&pdev->dev);
++	if (phy_mode < 0)
+ 		dev_err(&pdev->dev, "phy_mode not found\n");
+ 
++	plat->phy_interface = phy_mode;
+ 	plat->interface = PHY_INTERFACE_MODE_GMII;
+ 
+ 	pci_set_master(pdev);
+-- 
+2.20.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6756115410301526327==--
