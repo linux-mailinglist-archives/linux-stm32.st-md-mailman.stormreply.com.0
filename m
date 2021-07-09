@@ -2,72 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CECF3C23A3
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Jul 2021 14:43:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95DA43C277A
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Jul 2021 18:23:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3922EC57B5F;
-	Fri,  9 Jul 2021 12:43:30 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4861BC57B5F;
+	Fri,  9 Jul 2021 16:23:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C824EC57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0EAF5C5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jul 2021 12:43:28 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ Fri,  9 Jul 2021 16:23:47 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 169Cbr9d018435; Fri, 9 Jul 2021 14:43:17 +0200
+ 169GDB0h013957; Fri, 9 Jul 2021 18:23:31 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=VjWjX8YxlPuNBcQA/W+vKbgaRTFnqXjqqNwnc9uv62s=;
- b=1LesFDrlJAIkMhVFWaarZHOP1sNhTRBTCdYqYAYbUk7SshB4BtWNENiLVKjpRgTsRYIj
- eUGU3uZit67SJxDG/d34+qMmG7hmz/fTItlo/DfnxrVlzIbMYykuq/AJJ3C6JxdyuyqH
- KHvzDyIBQ3kpaolC2tNCh7RAOOBRnbMFNyF+J0Rz1+sNdbe5ZD7clhwBBsK9XK6/dMSV
- 9/NIEYATe3jXovyxs5/4nkyEb9uon5AlvToRX1/qMy6PyLRGfhKyQQAvpEUjeiIlib6n
- gw3O924H+a7p2Q94K6COMWU+n5lquRbGVxM+tKJpcdMgHv2+c4yTFwJkU6Vl7CU/LF62 cQ== 
+ bh=BFXPyLwnQX0IGYJbNBtii9OnEocPgIMUc+TRacUYf6Y=;
+ b=sY+kY7kS7jxwIUSB7IUOTNT2gbLrFuem6XcDzTV59X0TctV+ZF8kkfLXGnoYYKxtGSV+
+ 3otyVwwlV1lXfP+m6hnvN+CNQjOj7reFoa+f5YByfTAgREmB4cqC8cWw2hzdn8Cc6eV1
+ tg+N2A8s2sXMiaqnC1qMxwdVbty6S+lqsKAJL4AptMy8JErg/ioJzS84J9tGhohqhUXA
+ EFuR+KDn4xmA7DkpnR9CiZIaipr5cX6t9kXbX5oi6Yyih9x848ujjIfwx7SJsgSd13by
+ rmNGrfPdTMQ8McEANdqSec8C/Q26nYlip6LgfVHZwUjmruxWn715xWBSp2mfzyw1Agzd ww== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 39pe94tsvj-1
+ by mx07-00178001.pphosted.com with ESMTP id 39pk0std2y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 09 Jul 2021 14:43:17 +0200
+ Fri, 09 Jul 2021 18:23:31 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C4859100034;
- Fri,  9 Jul 2021 14:43:16 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 570D410002A;
+ Fri,  9 Jul 2021 18:23:28 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A80632248B3;
- Fri,  9 Jul 2021 14:43:16 +0200 (CEST)
-Received: from lmecxl0993.lme.st.com (10.75.127.46) by SFHDAG2NODE3.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 33E13248ED0;
+ Fri,  9 Jul 2021 18:23:28 +0200 (CEST)
+Received: from lmecxl0557.lme.st.com (10.75.127.47) by SFHDAG2NODE3.st.com
  (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 9 Jul
- 2021 14:43:15 +0200
-To: Raphael GALLAIS-POU - foss <raphael.gallais-pou@foss.st.com>, "Yannick
- FERTRE - foss" <yannick.fertre@foss.st.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-References: <20210708125217.11784-1-raphael.gallais-pou@foss.st.com>
-From: Philippe CORNU <philippe.cornu@foss.st.com>
-Message-ID: <51673f9a-2f57-237b-d67a-008a9212f7b4@foss.st.com>
-Date: Fri, 9 Jul 2021 14:43:14 +0200
+ 2021 18:23:27 +0200
+To: Pekka Paalanen <ppaalanen@gmail.com>
+References: <20210707084557.22443-1-raphael.gallais-pou@foss.st.com>
+ <20210707084557.22443-2-raphael.gallais-pou@foss.st.com>
+ <20210709110459.79ca406a@eldfell>
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Message-ID: <3c8331cf-fded-b6e6-3e25-666634f4b87a@foss.st.com>
+Date: Fri, 9 Jul 2021 18:23:26 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210708125217.11784-1-raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20210709110459.79ca406a@eldfell>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE3.st.com
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
  (10.75.127.6)
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-07-09_05:2021-07-09,
+ definitions=2021-07-09_10:2021-07-09,
  2021-07-09 signatures=0
-Cc: Raphael GALLAIS-POU <raphael.gallais-pou@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Raphael GALLAIS-POU <raphael.gallais-pou@st.com>,
+ David Airlie <airlied@linux.ie>,
+ Yannick FERTRE - foss <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Yannick FERTRE <yannick.fertre@st.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Philippe CORNU <philippe.cornu@st.com>, Matt Roper <matthew.d.roper@intel.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] MAINTAINERS: Add Raphael Gallais-Pou as
- STM32 DRM maintainer
+Subject: Re: [Linux-stm32] [PATCH 1/2] drm: add crtc background color
+	property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,28 +87,234 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="windows-1252"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiA3LzgvMjEgMjo1NCBQTSwgUmFwaGFlbCBHQUxMQUlTLVBPVSAtIGZvc3Mgd3JvdGU6Cj4g
-QWRkIFJhcGhhZWwgR2FsbGFpcy1Qb3UgYXMgU1RNMzIgRFJNIG1haW50YWluZXIuCj4gCj4gU2ln
-bmVkLW9mZi1ieTogUmFwaGFlbCBHYWxsYWlzLVBvdSA8cmFwaGFlbC5nYWxsYWlzLXBvdUBmb3Nz
-LnN0LmNvbT4KPiAtLS0KPiAgIE1BSU5UQUlORVJTIHwgMSArCj4gICAxIGZpbGUgY2hhbmdlZCwg
-MSBpbnNlcnRpb24oKykKPiAKPiBkaWZmIC0tZ2l0IGEvTUFJTlRBSU5FUlMgYi9NQUlOVEFJTkVS
-Uwo+IGluZGV4IDBmMTE3MWNlYWY4Yi4uNGZhM2JmYzAwZjU3IDEwMDY0NAo+IC0tLSBhL01BSU5U
-QUlORVJTCj4gKysrIGIvTUFJTlRBSU5FUlMKPiBAQCAtNjE2NSw2ICs2MTY1LDcgQEAgRFJNIERS
-SVZFUlMgRk9SIFNUTQo+ICAgTToJWWFubmljayBGZXJ0cmUgPHlhbm5pY2suZmVydHJlQGZvc3Mu
-c3QuY29tPgo+ICAgTToJUGhpbGlwcGUgQ29ybnUgPHBoaWxpcHBlLmNvcm51QGZvc3Muc3QuY29t
-Pgo+ICAgTToJQmVuamFtaW4gR2FpZ25hcmQgPGJlbmphbWluLmdhaWduYXJkQGxpbmFyby5vcmc+
-Cj4gK006CVJhcGhhZWwgR2FsbGFpcy1Qb3UgPHJhcGhhZWwuZ2FsbGFpcy1wb3VAZm9zcy5zdC5j
-b20+CgpIaSBSYXBoYcOrbCwKV2FybSB3ZWxjb21lIG9uIGJvYXJkIQoKUmV2aWV3ZWQtYnk6IFBo
-aWxpcHBlIENvcm51IDxwaGlsaXBwZS5jb3JudUBmb3NzLnN0LmNvbT4KCk5vdGU6IHlvdSBtYXkg
-aGF2ZSB0byB3YWl0IGFuZCByZXNlbmQgeW91ciBwYXRjaCBhcyBCZW5qYW1pbiBzZW50IApyZWNl
-bnRseSBhbiB1cGRhdGUgdG9vLgoKTWFueSB0aGFua3MKUGhpbGlwcGUgOi0pCgoKPiAgIEw6CWRy
-aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiAgIFM6CU1haW50YWluZWQKPiAgIFQ6CWdp
-dCBnaXQ6Ly9hbm9uZ2l0LmZyZWVkZXNrdG9wLm9yZy9kcm0vZHJtLW1pc2MKPiAKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+On 7/9/21 10:04 AM, Pekka Paalanen wrote:
+> On Wed, 7 Jul 2021 08:48:47 +0000
+> Raphael GALLAIS-POU - foss <raphael.gallais-pou@foss.st.com> wrote:
+>
+>> Some display controllers can be programmed to present non-black colors
+>> for pixels not covered by any plane (or pixels covered by the
+>> transparent regions of higher planes).  Compositors that want a UI with
+>> a solid color background can potentially save memory bandwidth by
+>> setting the CRTC background property and using smaller planes to display
+>> the rest of the content.
+>>
+>> To avoid confusion between different ways of encoding RGB data, we
+>> define a standard 64-bit format that should be used for this property's
+>> value.  Helper functions and macros are provided to generate and dissect
+>> values in this standard format with varying component precision values.
+>>
+>> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+>> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic_state_helper.c |  1 +
+>>   drivers/gpu/drm/drm_atomic_uapi.c         |  4 +++
+>>   drivers/gpu/drm/drm_blend.c               | 34 +++++++++++++++++++++--
+>>   drivers/gpu/drm/drm_mode_config.c         |  6 ++++
+>>   include/drm/drm_blend.h                   |  1 +
+>>   include/drm/drm_crtc.h                    | 12 ++++++++
+>>   include/drm/drm_mode_config.h             |  5 ++++
+>>   include/uapi/drm/drm_mode.h               | 28 +++++++++++++++++++
+>>   8 files changed, 89 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm=
+/drm_atomic_state_helper.c
+>> index ddcf5c2c8e6a..1b95a4ecdb2b 100644
+>> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+>> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+>> @@ -72,6 +72,7 @@ __drm_atomic_helper_crtc_state_reset(struct drm_crtc_s=
+tate *crtc_state,
+>>   				     struct drm_crtc *crtc)
+>>   {
+>>   	crtc_state->crtc =3D crtc;
+>> +	crtc_state->bgcolor =3D drm_argb(16, 0xffff, 0, 0, 0);
+>>   }
+>>   EXPORT_SYMBOL(__drm_atomic_helper_crtc_state_reset);
+>>   =
+
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_ato=
+mic_uapi.c
+>> index 438e9585b225..fea68f8f17f8 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -483,6 +483,8 @@ static int drm_atomic_crtc_set_property(struct drm_c=
+rtc *crtc,
+>>   		set_out_fence_for_crtc(state->state, crtc, fence_ptr);
+>>   	} else if (property =3D=3D crtc->scaling_filter_property) {
+>>   		state->scaling_filter =3D val;
+>> +	} else if (property =3D=3D config->bgcolor_property) {
+>> +		state->bgcolor =3D val;
+>>   	} else if (crtc->funcs->atomic_set_property) {
+>>   		return crtc->funcs->atomic_set_property(crtc, state, property, val);
+>>   	} else {
+>> @@ -520,6 +522,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+>>   		*val =3D 0;
+>>   	else if (property =3D=3D crtc->scaling_filter_property)
+>>   		*val =3D state->scaling_filter;
+>> +	else if (property =3D=3D config->bgcolor_property)
+>> +		*val =3D state->bgcolor;
+>>   	else if (crtc->funcs->atomic_get_property)
+>>   		return crtc->funcs->atomic_get_property(crtc, state, property, val);
+>>   	else
+>> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+>> index ec37cbfabb50..6692d6a6db22 100644
+>> --- a/drivers/gpu/drm/drm_blend.c
+>> +++ b/drivers/gpu/drm/drm_blend.c
+>> @@ -186,8 +186,7 @@
+>>    *		 assumed to be 1.0
+>>    *
+>>    * Note that all the property extensions described here apply either t=
+o the
+>> - * plane or the CRTC (e.g. for the background color, which currently is=
+ not
+>> - * exposed and assumed to be black).
+>> + * plane or the CRTC.
+>>    *
+>>    * SCALING_FILTER:
+>>    *     Indicates scaling filter to be used for plane scaler
+>> @@ -201,6 +200,21 @@
+>>    *
+>>    * Drivers can set up this property for a plane by calling
+>>    * drm_plane_create_scaling_filter_property
+>> + *
+> Hi,
+
+
+Hi Pekka,
+
+
+Many thanks for your feedback, your comments are taken into account for =
+
+a v2.
+
+
+>
+> I assume the below block is the UAPI documentation of this new property
+> and that it would appear with the other UAPI docs.
+>
+>> + * BACKGROUND_COLOR:
+>> + *	Defines the ARGB color of a full-screen layer that exists below all
+>> + *	planes.  This color will be used for pixels not covered by any plane
+>> + *	and may also be blended with plane contents as allowed by a plane's
+>> + *	alpha values.  The background color defaults to black, and is assumed
+>> + *	to be black for drivers that do not expose this property.
+> All good up to here.
+>
+>>   Although
+>> + *	background color isn't a plane, it is assumed that the color provided
+>> + *	here undergoes the same pipe-level degamma/CSC/gamma transformations
+>> + *	that planes undergo.
+> This sounds to me like it refers to the per-plane degamma/csc/gamma
+> which are new properties in development. I believe you do not mean
+> that, but you mean the CRTC degamma/csc/gamma and everything else which
+> apply *after* the blending of planes. So the wording here would need
+> clarification.
+
+
+Yes, I was not sure about this, but it is effectively the general CRTC =
+
+color correction which is applicable to the background color.
+
+>
+>>   Note that the color value provided here includes
+>> + *	an alpha channel...non-opaque background color values are allowed,
+>> + *	but are generally only honored in special cases (e.g., when a memory
+>> + *	writeback connector is in use).
+> This could be read as: if you use a non-opaque color value, it will
+> usually be completely ignored (and the background will be e.g. black
+> instead). Is that your intention?
+>
+> I think a more useful definition would be that the alpha is used in
+> blending as always, but because we do not yet have physically
+> transparent monitors, the final alpha value may not reach the video
+> sink or the video sink may ignore it.
+
+In our case, the hardware does not support alpha channel (as you can see =
+
+the DRM_ARGB_TO_LTDC_RGB24 macro in the second patch).
+
+For chip vendors who does support this feature, the video sink would get =
+
+this transparency parameter. In the case where it is not, alpha channel =
+
+would be ignored.
+
+
+>> + *
+>> + *	This property is setup with drm_crtc_add_bgcolor_property().
+> You forgot to document the value format of this property. The ARGB color
+> format needs to be defined at least to the same detail as all pixel
+> formats in drm_fourcc.h are. If there is a suitable DRM_FORMAT_*
+> definition already, simply saying the color is in that format would be
+> enough.
+
+
+Will do ! :)
+
+I was thinking about the FourCC AR4H format. Have you something else in =
+
+mind ?
+
+>
+> Another thing to document is whether this color value is alpha
+> pre-multiplied or not. Planes can have the property "pixel blend mode",
+> but because the background color is not on a plane, that property
+> cannot apply here.
+>
+> The difference it makes is that if background color is both non-opaque
+> and pre-multiplied, then the question arises what pixel values will
+> actually be transmitted to video sink for the background. Will the
+> alpha pre-multiplication be undone?
+>
+> Btw. note that "pixel blend mode" property does not document the use of
+> background alpha at all. So if the background color can have non-opaque
+> alpha, then you need to document the behavior in "pixel blend mode". It
+> also does not document what alpha value will result from blending, for
+> blending the next plane.
+
+Those are questions that did not crossed my mind at all.
+
+What would you suggest ? Instinctively I would say that in the case =
+
+where there is a non-opaque background color,
+
+alpha pre-multiplication would not be taken into account, although it is =
+
+maybe not the best solution.
+
+As I am not quite sure, I will lookup for this.
+
+
+>
+> The question about full vs. limited range seems unnecessary to me, as
+> the background color will be used as-is in the blending stage, so
+> userspace can just program the correct value that fits the pipeline it
+> is setting up.
+>
+> One more question is, as HDR exists, could we need background colors
+> with component values greater than 1.0?
+
+AR4H color format should cover that case, isn't it ?
+
+
+
+Regards,
+
+Rapha=EBl
+
+>
+> Scanout of FP16 formats exists.
+>
+>>    */
+>
+> Thanks,
+> pq
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
