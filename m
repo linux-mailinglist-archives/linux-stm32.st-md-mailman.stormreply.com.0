@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E43353C20F7
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Jul 2021 10:43:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00D293C20F8
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Jul 2021 10:43:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8611DC5718D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 989DFC57B5F;
 	Fri,  9 Jul 2021 08:43:25 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E750AC32EA6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AFC6C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jul 2021 07:36:19 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id 8so9799027lfp.9
+ Fri,  9 Jul 2021 08:05:04 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id f30so21665844lfj.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 09 Jul 2021 00:36:19 -0700 (PDT)
+ Fri, 09 Jul 2021 01:05:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=VaG3Y7YczFtAXNuFBMM0Ku3shZIALJVSIv8n6IlowFI=;
- b=fAL6q6qniIU8H4H9DZhMzTcZDmbFXGInT7nT4vDDgE2+uPu79twQBY3pMVuoUX/vGD
- K1A6drmmCko1gcimQqFYsAUhHEvqD8MHRzu5I8lWnE/nkiadzl1J5liTypQyR4J98WCU
- EVhMPUBbGB+vjyhSREsr18E9DwZluKSLjc4N3J5yfH6GrT1gitjYnqJpAyxs0cZ7i7XB
- u99eWTyUzZG25JhSP8TS9VhiBSdyVhuvWvVl7sGsynAgIGwxHm2nnwu2dYDPkcjQTyRi
- htoJUG3K5J7BcxeCnIF0CBcb4h4iAGul3ITWJyOnQ76JlKNUYOFo2bzYH/U6TvSKBB8D
- sl/Q==
+ :mime-version; bh=ed/3O8g0+Ot1CJhKMRmIgpm9gd4W9UljL3YKk9Gytxo=;
+ b=c/Wt58mpjJy4CxaOSInPx2cku61JinT3CjJSmHa4wngheo8AAhhpFlkDPEPcSN1oKT
+ azUjFzOk86S8EzNYpWIDe2SLtN5SiVlZdpdc+po+lvLl6flOTq7XdCsk8JL/8ZLl8TOr
+ D+m12jKpWSNyF8S141G1u5vSQWYJCrU1oC+042xN2KDbnNpV3jbFrZO2RSElFF6LFTP4
+ BSc9SzptYdO7AmoN2QV2Zu5/oyiR5yUi7J+8ffQ3DAnjt/1H5EwLtCeWUoHC4VYNh9uZ
+ 0QY+aZIESi/FrVOyNry9hk0CtlZpH3P1aHsoFfefw500FXQJxIG65Qln7V3Fjv9rlnzm
+ 8ikQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
  :references:mime-version;
- bh=VaG3Y7YczFtAXNuFBMM0Ku3shZIALJVSIv8n6IlowFI=;
- b=XXCZMYZiwBRPqkZuzQCb4G4rILoNpjl/WB8uusp6bj9vGEK/nVN+w7vI5VOLNtxC7F
- r+ZnogliDs1dfp22bBf0V6i7COU5aaIqQr3rDzvHFbHESLUs4pptuNRi8CaLqBhp5cou
- 2THSIyhRMf4rDO6pDCnh4X+4H3HKx+donZavbEymRF+5R99l6sC1OAx8uguLl08wyZDu
- eMkLjDj1gNDy/SVplkVC7vvLi1gLeD9/+p6yNMW8uh0KC7gL8JSMfoS6qk+Dsc9Ni3Z6
- 1mPVU/L4BDazWjfaxUNgIaEdc5jSL3bX+MI+BRrhN9KHKVJPS1IYOu961Tt2DK92+mdW
- 5Ivg==
-X-Gm-Message-State: AOAM533j7Og4ri1wPHWOsLNt6XD5pFA1nLEbvWkLar6rVq+wofs2/ymi
- nteCGD+c2NzfW4b2IqP0Qgo=
-X-Google-Smtp-Source: ABdhPJw0d6LFsRwC8KFOFQuWrWupIEs47wiHYj9s8/OCEe5YyKRs1dfUxaKUktX3r1qdgyozQ1ag+Q==
-X-Received: by 2002:a05:6512:33d0:: with SMTP id
- d16mr19179190lfg.311.1625816178129; 
- Fri, 09 Jul 2021 00:36:18 -0700 (PDT)
+ bh=ed/3O8g0+Ot1CJhKMRmIgpm9gd4W9UljL3YKk9Gytxo=;
+ b=E1GHGwdX7aPFctlUMf2S3WwCncJuGjEgcLBWfdBwY04cTE3sAkf3g+0BUBYjaFQlWo
+ sxJiaiype9q3ci2IJRx3zOjpEhklLqi3BWG/MY+SQOYzkz5JBODlMlN7kgq8mYTHF1of
+ cJ229eAE9FW0Z/3q3p5LYJOXRqiKisG8KHJeJFeDS9busWZDHM9UqEiz3LIHeBx/lc1q
+ zZ4r9pCb6E06ZOw6a2Hrcwbzdhytb+IRGUgg090/xg7Gxt/I5peKil9xw0BizO/y8iHn
+ EILZGDpb1y8OwEspJQ5z1njg/gAwjvjERIM+h9ORIk9y5SFNRJHaN54yKb5Pu1jnYGiX
+ RCKg==
+X-Gm-Message-State: AOAM532+ymynHxkGK43fW8BoHaCoap1mpiB49VdQA5IdcRWyPvLc8mqH
+ FRhtT/BBKfu+VmwicWVgs/M=
+X-Google-Smtp-Source: ABdhPJwRDlinchAW9QOv1u3LwLKno0+jiOKl/ZCFKrMwTKXF6Z+c7xLHm/ft8qqV2aCvMhbkaesSww==
+X-Received: by 2002:a05:6512:694:: with SMTP id
+ t20mr28884541lfe.344.1625817903687; 
+ Fri, 09 Jul 2021 01:05:03 -0700 (PDT)
 Received: from eldfell ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id l15sm394730lfh.228.2021.07.09.00.36.17
+ by smtp.gmail.com with ESMTPSA id q20sm178241lfu.168.2021.07.09.01.05.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Jul 2021 00:36:17 -0700 (PDT)
-Date: Fri, 9 Jul 2021 10:36:14 +0300
+ Fri, 09 Jul 2021 01:05:03 -0700 (PDT)
+Date: Fri, 9 Jul 2021 11:04:59 +0300
 From: Pekka Paalanen <ppaalanen@gmail.com>
 To: Raphael GALLAIS-POU - foss <raphael.gallais-pou@foss.st.com>
-Message-ID: <20210709103614.6d5932ca@eldfell>
-In-Reply-To: <20210707084557.22443-3-raphael.gallais-pou@foss.st.com>
+Message-ID: <20210709110459.79ca406a@eldfell>
+In-Reply-To: <20210707084557.22443-2-raphael.gallais-pou@foss.st.com>
 References: <20210707084557.22443-1-raphael.gallais-pou@foss.st.com>
- <20210707084557.22443-3-raphael.gallais-pou@foss.st.com>
+ <20210707084557.22443-2-raphael.gallais-pou@foss.st.com>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 X-Mailman-Approved-At: Fri, 09 Jul 2021 08:43:25 +0000
@@ -73,8 +73,8 @@ Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 2/2] drm/stm: ltdc: add crtc background
- color property support
+Subject: Re: [Linux-stm32] [PATCH 1/2] drm: add crtc background color
+	property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,194 +86,210 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7825823403136654737=="
+Content-Type: multipart/mixed; boundary="===============5975398113531144478=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============7825823403136654737==
-Content-Type: multipart/signed; boundary="Sig_/W0kPe8=pA33zQt1ChIiblgo";
+--===============5975398113531144478==
+Content-Type: multipart/signed; boundary="Sig_/temeJsUEYx7B2cDJr9pGX1B";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 
---Sig_/W0kPe8=pA33zQt1ChIiblgo
+--Sig_/temeJsUEYx7B2cDJr9pGX1B
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 7 Jul 2021 08:48:55 +0000
+On Wed, 7 Jul 2021 08:48:47 +0000
 Raphael GALLAIS-POU - foss <raphael.gallais-pou@foss.st.com> wrote:
 
-> This patch comes from the need to display small resolution pictures with
-> very few DDR usage. In practice, using a background color, produced by the
-> drm CRTC, around this picture allows to fetch less data in memory than
-> setting a full frame picture. And therefore the picture in DDR is smaller
-> than the size of the screen.
+> Some display controllers can be programmed to present non-black colors
+> for pixels not covered by any plane (or pixels covered by the
+> transparent regions of higher planes).  Compositors that want a UI with
+> a solid color background can potentially save memory bandwidth by
+> setting the CRTC background property and using smaller planes to display
+> the rest of the content.
 >=20
-> It uses the DRM framework background color property and modifies the
-> color to any value between 0x000000 and 0xFFFFFF from userland with a
-> RGB24 value (0x00RRGGBB).
->=20
-> Using this feature is observable only if layers are not full screen
-> or if layers use color formats with alpha and are "transparent" at
-> least on some pixels.
->=20
-> Depending on the hardware version, the background color can not be
-> properly displayed with non-alpha color formats derived from native
-> alpha color formats (such as XR24 or XR15) since the use of this
-> pixel format generates a non transparent layer. As a workaround,
-> the stage background color of the layer and the general background
-> color need to be synced.
+> To avoid confusion between different ways of encoding RGB data, we
+> define a standard 64-bit format that should be used for this property's
+> value.  Helper functions and macros are provided to generate and dissect
+> values in this standard format with varying component precision values.
 >=20
 > Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 > ---
->  drivers/gpu/drm/stm/ltdc.c | 48 ++++++++++++++++++++++++++++++++++----
->  1 file changed, 43 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/drm_atomic_state_helper.c |  1 +
+>  drivers/gpu/drm/drm_atomic_uapi.c         |  4 +++
+>  drivers/gpu/drm/drm_blend.c               | 34 +++++++++++++++++++++--
+>  drivers/gpu/drm/drm_mode_config.c         |  6 ++++
+>  include/drm/drm_blend.h                   |  1 +
+>  include/drm/drm_crtc.h                    | 12 ++++++++
+>  include/drm/drm_mode_config.h             |  5 ++++
+>  include/uapi/drm/drm_mode.h               | 28 +++++++++++++++++++
+>  8 files changed, 89 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index 1f9392fb58e1..0aca245288cc 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -196,6 +196,11 @@
-> =20
->  #define NB_PF		8		/* Max nb of HW pixel format */
-> =20
-> +#define DRM_ARGB_TO_LTDC_RGB24(bgcolor) \
-> +	((u32)(DRM_ARGB_RED(bgcolor, 8) << 16	\
-> +	| DRM_ARGB_GREEN(bgcolor, 8) << 8	\
-> +	| DRM_ARGB_BLUE(bgcolor, 8)))
-> +
->  enum ltdc_pix_fmt {
->  	PF_NONE,
->  	/* RGB formats */
-> @@ -364,6 +369,15 @@ static inline u32 get_pixelformat_without_alpha(u32 =
-drm)
->  	}
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/=
+drm_atomic_state_helper.c
+> index ddcf5c2c8e6a..1b95a4ecdb2b 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -72,6 +72,7 @@ __drm_atomic_helper_crtc_state_reset(struct drm_crtc_st=
+ate *crtc_state,
+>  				     struct drm_crtc *crtc)
+>  {
+>  	crtc_state->crtc =3D crtc;
+> +	crtc_state->bgcolor =3D drm_argb(16, 0xffff, 0, 0, 0);
 >  }
+>  EXPORT_SYMBOL(__drm_atomic_helper_crtc_state_reset);
 > =20
-> +/*
-> + * All non-alpha color formats derived from native alpha color formats a=
-re
-> + * either characterized by a FourCC format code (such as XR24, RX24, BX2=
-4...)
-> + */
-> +static inline u32 is_xrgb(u32 drm)
-> +{
-> +	return ((drm & 'X') =3D=3D 'X' || (drm & ('X' << 8)) =3D=3D ('X' << 8));
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 438e9585b225..fea68f8f17f8 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -483,6 +483,8 @@ static int drm_atomic_crtc_set_property(struct drm_cr=
+tc *crtc,
+>  		set_out_fence_for_crtc(state->state, crtc, fence_ptr);
+>  	} else if (property =3D=3D crtc->scaling_filter_property) {
+>  		state->scaling_filter =3D val;
+> +	} else if (property =3D=3D config->bgcolor_property) {
+> +		state->bgcolor =3D val;
+>  	} else if (crtc->funcs->atomic_set_property) {
+>  		return crtc->funcs->atomic_set_property(crtc, state, property, val);
+>  	} else {
+> @@ -520,6 +522,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+>  		*val =3D 0;
+>  	else if (property =3D=3D crtc->scaling_filter_property)
+>  		*val =3D state->scaling_filter;
+> +	else if (property =3D=3D config->bgcolor_property)
+> +		*val =3D state->bgcolor;
+>  	else if (crtc->funcs->atomic_get_property)
+>  		return crtc->funcs->atomic_get_property(crtc, state, property, val);
+>  	else
+> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+> index ec37cbfabb50..6692d6a6db22 100644
+> --- a/drivers/gpu/drm/drm_blend.c
+> +++ b/drivers/gpu/drm/drm_blend.c
+> @@ -186,8 +186,7 @@
+>   *		 assumed to be 1.0
+>   *
+>   * Note that all the property extensions described here apply either to =
+the
+> - * plane or the CRTC (e.g. for the background color, which currently is =
+not
+> - * exposed and assumed to be black).
+> + * plane or the CRTC.
+>   *
+>   * SCALING_FILTER:
+>   *     Indicates scaling filter to be used for plane scaler
+> @@ -201,6 +200,21 @@
+>   *
+>   * Drivers can set up this property for a plane by calling
+>   * drm_plane_create_scaling_filter_property
+> + *
 
 Hi,
 
-if you're trying to test whether the last or second last byte in the
-format code is exactly 'X', this doesn't do that. What this does is
-ignores all the bits that are zero in 'X' and ensures that all the bits
-that are one in 'X' are also one in the tested value.
+I assume the below block is the UAPI documentation of this new property
+and that it would appear with the other UAPI docs.
+
+> + * BACKGROUND_COLOR:
+> + *	Defines the ARGB color of a full-screen layer that exists below all
+> + *	planes.  This color will be used for pixels not covered by any plane
+> + *	and may also be blended with plane contents as allowed by a plane's
+> + *	alpha values.  The background color defaults to black, and is assumed
+> + *	to be black for drivers that do not expose this property.
+
+All good up to here.
+
+>  Although
+> + *	background color isn't a plane, it is assumed that the color provided
+> + *	here undergoes the same pipe-level degamma/CSC/gamma transformations
+> + *	that planes undergo.
+
+This sounds to me like it refers to the per-plane degamma/csc/gamma
+which are new properties in development. I believe you do not mean
+that, but you mean the CRTC degamma/csc/gamma and everything else which
+apply *after* the blending of planes. So the wording here would need
+clarification.
+
+>  Note that the color value provided here includes
+> + *	an alpha channel...non-opaque background color values are allowed,
+> + *	but are generally only honored in special cases (e.g., when a memory
+> + *	writeback connector is in use).
+
+This could be read as: if you use a non-opaque color value, it will
+usually be completely ignored (and the background will be e.g. black
+instead). Is that your intention?
+
+I think a more useful definition would be that the alpha is used in
+blending as always, but because we do not yet have physically
+transparent monitors, the final alpha value may not reach the video
+sink or the video sink may ignore it.
+
+> + *
+> + *	This property is setup with drm_crtc_add_bgcolor_property().
+
+You forgot to document the value format of this property. The ARGB color
+format needs to be defined at least to the same detail as all pixel
+formats in drm_fourcc.h are. If there is a suitable DRM_FORMAT_*
+definition already, simply saying the color is in that format would be
+enough.
+
+Another thing to document is whether this color value is alpha
+pre-multiplied or not. Planes can have the property "pixel blend mode",
+but because the background color is not on a plane, that property
+cannot apply here.
+
+The difference it makes is that if background color is both non-opaque
+and pre-multiplied, then the question arises what pixel values will
+actually be transmitted to video sink for the background. Will the
+alpha pre-multiplication be undone?
+
+Btw. note that "pixel blend mode" property does not document the use of
+background alpha at all. So if the background color can have non-opaque
+alpha, then you need to document the behavior in "pixel blend mode". It
+also does not document what alpha value will result from blending, for
+blending the next plane.
+
+The question about full vs. limited range seems unnecessary to me, as
+the background color will be used as-is in the blending stage, so
+userspace can just program the correct value that fits the pipeline it
+is setting up.
+
+One more question is, as HDR exists, could we need background colors
+with component values greater than 1.0?
+
+Scanout of FP16 formats exists.
+
+>   */
 
 
 Thanks,
 pq
 
-> +}
-> +
->  static irqreturn_t ltdc_irq_thread(int irq, void *arg)
->  {
->  	struct drm_device *ddev =3D arg;
-> @@ -431,7 +445,8 @@ static void ltdc_crtc_atomic_enable(struct drm_crtc *=
-crtc,
->  	pm_runtime_get_sync(ddev->dev);
-> =20
->  	/* Sets the background color value */
-> -	reg_write(ldev->regs, LTDC_BCCR, BCCR_BCBLACK);
-> +	reg_write(ldev->regs, LTDC_BCCR,
-> +		  DRM_ARGB_TO_LTDC_RGB24(crtc->state->bgcolor));
-> =20
->  	/* Enable IRQ */
->  	reg_set(ldev->regs, LTDC_IER, IER_RRIE | IER_FUIE | IER_TERRIE);
-> @@ -452,6 +467,9 @@ static void ltdc_crtc_atomic_disable(struct drm_crtc =
-*crtc,
-> =20
->  	drm_crtc_vblank_off(crtc);
-> =20
-> +	/* Reset background color */
-> +	reg_write(ldev->regs, LTDC_BCCR, BCCR_BCBLACK);
-> +
->  	/* disable IRQ */
->  	reg_clear(ldev->regs, LTDC_IER, IER_RRIE | IER_FUIE | IER_TERRIE);
-> =20
-> @@ -790,6 +808,7 @@ static void ltdc_plane_atomic_update(struct drm_plane=
- *plane,
->  	u32 y1 =3D newstate->crtc_y + newstate->crtc_h - 1;
->  	u32 src_x, src_y, src_w, src_h;
->  	u32 val, pitch_in_bytes, line_length, paddr, ahbp, avbp, bpcr;
-> +	u32 bgcolor =3D DRM_ARGB_TO_LTDC_RGB24(newstate->crtc->state->bgcolor);
->  	enum ltdc_pix_fmt pf;
-> =20
->  	if (!newstate->crtc || !fb) {
-> @@ -853,10 +872,28 @@ static void ltdc_plane_atomic_update(struct drm_pla=
-ne *plane,
->  	if (!fb->format->has_alpha)
->  		val =3D BF1_CA | BF2_1CA;
-> =20
-> -	/* Manage hw-specific capabilities */
-> -	if (ldev->caps.non_alpha_only_l1 &&
-> -	    plane->type !=3D DRM_PLANE_TYPE_PRIMARY)
-> -		val =3D BF1_PAXCA | BF2_1PAXCA;
-> +	/*
-> +	 * Manage hw-specific capabilities
-> +	 *
-> +	 * Depending on the hardware version, the background color can not be
-> +	 * properly displayed with non-alpha color formats derived from native
-> +	 * alpha color formats (such as XR24 or XR15) since the use of this
-> +	 * pixel format generates a non transparent layer. As a workaround,
-> +	 * the stage background color of the layer and the general background
-> +	 * color need to be synced.
-> +	 *
-> +	 * This is done by activating for all XRGB color format the default
-> +	 * color as the background color and then setting blending factor
-> +	 * accordingly.
-> +	 */
-> +	if (ldev->caps.non_alpha_only_l1) {
-> +		if (is_xrgb(fb->format->format)) {
-> +			val =3D BF1_CA | BF2_1CA;
-> +			reg_write(ldev->regs, LTDC_L1DCCR + lofs, bgcolor);
-> +		} else {
-> +			val =3D BF1_PAXCA | BF2_1PAXCA;
-> +		}
-> +	}
-> =20
->  	reg_update_bits(ldev->regs, LTDC_L1BFCR + lofs,
->  			LXBFCR_BF2 | LXBFCR_BF1, val);
-> @@ -1033,6 +1070,7 @@ static int ltdc_crtc_init(struct drm_device *ddev, =
-struct drm_crtc *crtc)
-> =20
->  	drm_crtc_helper_add(crtc, &ltdc_crtc_helper_funcs);
-> =20
-> +	drm_crtc_add_bgcolor_property(crtc);
->  	drm_mode_crtc_set_gamma_size(crtc, CLUT_SIZE);
->  	drm_crtc_enable_color_mgmt(crtc, 0, false, CLUT_SIZE);
-> =20
-
-
---Sig_/W0kPe8=pA33zQt1ChIiblgo
+--Sig_/temeJsUEYx7B2cDJr9pGX1B
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDn/G4ACgkQI1/ltBGq
-qqdSAQ/+O54N12B96VfgTSJt/h50b8vyqH6nlYk53aAjDGv71t3XQRp8Z0Yd/TKn
-mDoGkBad4FHRWfaorqc1DqJztkS8bqmbpz8Jg4mUt/1f/JDfRcIKDlfh/RL2dyrw
-rNhik+zr6dTPTL7Xs5joQspZ5HvO5yeo1rbSFE0SlpsEJHN+qWnBpobGfiAL4Uue
-RkXJrEJyAZEuPGcEq8D27ciGqZIQJmMLP/9GuX0+mELmGPOqKFLZaryBqsahGrVo
-kJu/iGDECeG/bTrczBm02rj4TAkJLcef/s4XESL3N0zFvu3w62ev0CJxFJDcHoh5
-WXXnuNgZ2uR1HjnCJojHnjyBYrOAY8PlPL/A3duuKZRS4t+O9nNCxd6/6SICV4eS
-XmXPmZ68uhUfDNVjyGhHDVGHjfmO3nqzXX2dDxAuKn+lZDwXguza03bX9bJVHdx+
-Tj91Addw0b1hPh6T25QIco3SDaQcf6jfTmpMW5pEgJQp/Z50u0Ku2w6rsSRYE8OD
-XyTDtLOPamHBgLNbEBJW7d7NJcbmsH/K/ucKXBeXUJo5qo4HijTkALl6dcpqF44Y
-uzJeSCwRzBh/DpDYpDyg5o6tmjZo42cLOSKHAvWZTsWRxT4JIOjVf4UHxEESHg4h
-Spd7Gp/ks8BeSQ78CkAfsusgn742wkiUE0ExDwyXQCW99mq3UEs=
-=ft4v
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDoAysACgkQI1/ltBGq
+qqfXOg//RiqyBObUf1qEhCgXuV7w9oliR57jTiXuC1OkyokM1HrdoVx6EKN3ci6+
+S6+a4EH0E1Tus/0l3eqRtlxJeDPjIED3iMUz/q94sBQaYjPCPQGDd8FCPzMkw1ds
+gCrZXN7igOyYIn65HcCDzSsGH14QVkBHu/mAWx6ouT8iIdyU48/E64WeOYlXKaE4
+Ipk+VU9LopdonE7TXWO5ZGOiZi104sRbO3JowTFgW/prI6PMWxm4r+9cyJwCp0+F
+ow7hTh7T6g15THuM5aLq5HppM2Rc1K5IV3cV3xx0nNY04aUjD6UAAXW3dahd6GRF
+74ts/ArfvPvnxArZujqA/yDfvUuCYu8CQt3jxCImVm2VNnHbiFvs80JqbYwAg6Jx
+sjpISMdOllAyCrXMVPCv+LFaW6hP8N0TP62uOp9a3AU2ojmMcdaBRLPYjt5Qp/76
+Uezq0nnhdvdQCLAPkhJJ8RqtcTmqQmK3OOUvJB9ng+Sr99fXXf695Z6xH4owXF9d
+3OjFvOdhdrJSbr1fSXdaJeHHkSi92uMOae9VQV0BIRLjWknSYfq3NYapYWof7MN9
+rDDHuQT1lWp+ifFFOy9hAuJV2bFn0HT6DlaeSluSCMQRHpVHYmkXUcYgY1/fNEqP
+n2MJR3io7wg0sCoAqEXgUYpWe7Lfo1w58Gl8Ylbn14g1E4nHNRc=
+=94EW
 -----END PGP SIGNATURE-----
 
---Sig_/W0kPe8=pA33zQt1ChIiblgo--
+--Sig_/temeJsUEYx7B2cDJr9pGX1B--
 
---===============7825823403136654737==
+--===============5975398113531144478==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -284,4 +300,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============7825823403136654737==--
+--===============5975398113531144478==--
