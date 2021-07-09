@@ -2,77 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C133BFAB7
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Jul 2021 14:54:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E43353C20F7
+	for <lists+linux-stm32@lfdr.de>; Fri,  9 Jul 2021 10:43:25 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E256C5718D;
-	Thu,  8 Jul 2021 12:54:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8611DC5718D;
+	Fri,  9 Jul 2021 08:43:25 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C821ACFAC5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E750AC32EA6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Jul 2021 12:54:41 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 168Cl4Z3015034; Thu, 8 Jul 2021 14:54:31 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : content-type : content-transfer-encoding :
- mime-version; s=selector1;
- bh=u4Ke3f/StqxwDJ/DSjNimnJWqaj5zW0D0V5m4kxombA=;
- b=wxFfkVlnVqjZ2Cop5EgW4pluJDoJ7Sbj19PKraW8e0ppzRP2frLDFEzBwAASUCBB0NcD
- 3P8hZfwS5uEmYA8tOwcX3VlIyGw/2+xvNidE4u+B75jNSGgeVEszcQJmxqOMgcbTn2Fs
- 5h2I4TTcX+0GdwX2dmfIPSR/nPxfnOihE7jcuY6BfxvkRbEhdZgHg/JsMIf70l8ujxX1
- ucAm2VfqjC7W6MOoMAHBV0E9lyZq3HRyDTRnmT3f8rUG64A5OyyEieuDEetS/L+wM9q+
- vLA8sOi49YmsR3U1nirYbvpSb9dIbhFqsm59BQBQFw6J4gHtLuQJrF6mP3uOxc5c6kPt kA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 39nwkf1uqh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Jul 2021 14:54:31 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 93B3D10002A;
- Thu,  8 Jul 2021 14:54:29 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node1.st.com [10.75.127.4])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 79FD7221F7D;
- Thu,  8 Jul 2021 14:54:29 +0200 (CEST)
-Received: from SFHDAG2NODE3.st.com (10.75.127.6) by SFHDAG2NODE1.st.com
- (10.75.127.4) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 8 Jul
- 2021 14:54:28 +0200
-Received: from SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c]) by
- SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c%20]) with mapi id
- 15.00.1497.015; Thu, 8 Jul 2021 14:54:28 +0200
-From: Raphael GALLAIS-POU - foss <raphael.gallais-pou@foss.st.com>
-To: Yannick FERTRE - foss <yannick.fertre@foss.st.com>, Philippe CORNU - foss
- <philippe.cornu@foss.st.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Thread-Topic: [PATCH] MAINTAINERS: Add Raphael Gallais-Pou as STM32 DRM
- maintainer
-Thread-Index: AQHXc/hjJp54kpJbp024lT+8TOrwPQ==
-Date: Thu, 8 Jul 2021 12:54:28 +0000
-Message-ID: <20210708125217.11784-1-raphael.gallais-pou@foss.st.com>
-Accept-Language: fr-FR, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.49]
+ Fri,  9 Jul 2021 07:36:19 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id 8so9799027lfp.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 09 Jul 2021 00:36:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :mime-version; bh=VaG3Y7YczFtAXNuFBMM0Ku3shZIALJVSIv8n6IlowFI=;
+ b=fAL6q6qniIU8H4H9DZhMzTcZDmbFXGInT7nT4vDDgE2+uPu79twQBY3pMVuoUX/vGD
+ K1A6drmmCko1gcimQqFYsAUhHEvqD8MHRzu5I8lWnE/nkiadzl1J5liTypQyR4J98WCU
+ EVhMPUBbGB+vjyhSREsr18E9DwZluKSLjc4N3J5yfH6GrT1gitjYnqJpAyxs0cZ7i7XB
+ u99eWTyUzZG25JhSP8TS9VhiBSdyVhuvWvVl7sGsynAgIGwxHm2nnwu2dYDPkcjQTyRi
+ htoJUG3K5J7BcxeCnIF0CBcb4h4iAGul3ITWJyOnQ76JlKNUYOFo2bzYH/U6TvSKBB8D
+ sl/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:mime-version;
+ bh=VaG3Y7YczFtAXNuFBMM0Ku3shZIALJVSIv8n6IlowFI=;
+ b=XXCZMYZiwBRPqkZuzQCb4G4rILoNpjl/WB8uusp6bj9vGEK/nVN+w7vI5VOLNtxC7F
+ r+ZnogliDs1dfp22bBf0V6i7COU5aaIqQr3rDzvHFbHESLUs4pptuNRi8CaLqBhp5cou
+ 2THSIyhRMf4rDO6pDCnh4X+4H3HKx+donZavbEymRF+5R99l6sC1OAx8uguLl08wyZDu
+ eMkLjDj1gNDy/SVplkVC7vvLi1gLeD9/+p6yNMW8uh0KC7gL8JSMfoS6qk+Dsc9Ni3Z6
+ 1mPVU/L4BDazWjfaxUNgIaEdc5jSL3bX+MI+BRrhN9KHKVJPS1IYOu961Tt2DK92+mdW
+ 5Ivg==
+X-Gm-Message-State: AOAM533j7Og4ri1wPHWOsLNt6XD5pFA1nLEbvWkLar6rVq+wofs2/ymi
+ nteCGD+c2NzfW4b2IqP0Qgo=
+X-Google-Smtp-Source: ABdhPJw0d6LFsRwC8KFOFQuWrWupIEs47wiHYj9s8/OCEe5YyKRs1dfUxaKUktX3r1qdgyozQ1ag+Q==
+X-Received: by 2002:a05:6512:33d0:: with SMTP id
+ d16mr19179190lfg.311.1625816178129; 
+ Fri, 09 Jul 2021 00:36:18 -0700 (PDT)
+Received: from eldfell ([194.136.85.206])
+ by smtp.gmail.com with ESMTPSA id l15sm394730lfh.228.2021.07.09.00.36.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Jul 2021 00:36:17 -0700 (PDT)
+Date: Fri, 9 Jul 2021 10:36:14 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Raphael GALLAIS-POU - foss <raphael.gallais-pou@foss.st.com>
+Message-ID: <20210709103614.6d5932ca@eldfell>
+In-Reply-To: <20210707084557.22443-3-raphael.gallais-pou@foss.st.com>
+References: <20210707084557.22443-1-raphael.gallais-pou@foss.st.com>
+ <20210707084557.22443-3-raphael.gallais-pou@foss.st.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-07-08_06:2021-07-08,
- 2021-07-08 signatures=0
-Cc: Raphael GALLAIS-POU <raphael.gallais-pou@st.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
+X-Mailman-Approved-At: Fri, 09 Jul 2021 08:43:25 +0000
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Raphael GALLAIS-POU <raphael.gallais-pou@st.com>,
+ David Airlie <airlied@linux.ie>,
+ Yannick FERTRE - foss <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Yannick FERTRE <yannick.fertre@st.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Philippe CORNU <philippe.cornu@st.com>, Matt Roper <matthew.d.roper@intel.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH] MAINTAINERS: Add Raphael Gallais-Pou as STM32
-	DRM maintainer
+Subject: Re: [Linux-stm32] [PATCH 2/2] drm/stm: ltdc: add crtc background
+ color property support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +86,202 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7825823403136654737=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add Raphael Gallais-Pou as STM32 DRM maintainer.
+--===============7825823403136654737==
+Content-Type: multipart/signed; boundary="Sig_/W0kPe8=pA33zQt1ChIiblgo";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+--Sig_/W0kPe8=pA33zQt1ChIiblgo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0f1171ceaf8b..4fa3bfc00f57 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6165,6 +6165,7 @@ DRM DRIVERS FOR STM
- M:	Yannick Fertre <yannick.fertre@foss.st.com>
- M:	Philippe Cornu <philippe.cornu@foss.st.com>
- M:	Benjamin Gaignard <benjamin.gaignard@linaro.org>
-+M:	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
- L:	dri-devel@lists.freedesktop.org
- S:	Maintained
- T:	git git://anongit.freedesktop.org/drm/drm-misc
--- 
-2.17.1
+On Wed, 7 Jul 2021 08:48:55 +0000
+Raphael GALLAIS-POU - foss <raphael.gallais-pou@foss.st.com> wrote:
+
+> This patch comes from the need to display small resolution pictures with
+> very few DDR usage. In practice, using a background color, produced by the
+> drm CRTC, around this picture allows to fetch less data in memory than
+> setting a full frame picture. And therefore the picture in DDR is smaller
+> than the size of the screen.
+>=20
+> It uses the DRM framework background color property and modifies the
+> color to any value between 0x000000 and 0xFFFFFF from userland with a
+> RGB24 value (0x00RRGGBB).
+>=20
+> Using this feature is observable only if layers are not full screen
+> or if layers use color formats with alpha and are "transparent" at
+> least on some pixels.
+>=20
+> Depending on the hardware version, the background color can not be
+> properly displayed with non-alpha color formats derived from native
+> alpha color formats (such as XR24 or XR15) since the use of this
+> pixel format generates a non transparent layer. As a workaround,
+> the stage background color of the layer and the general background
+> color need to be synced.
+>=20
+> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> ---
+>  drivers/gpu/drm/stm/ltdc.c | 48 ++++++++++++++++++++++++++++++++++----
+>  1 file changed, 43 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+> index 1f9392fb58e1..0aca245288cc 100644
+> --- a/drivers/gpu/drm/stm/ltdc.c
+> +++ b/drivers/gpu/drm/stm/ltdc.c
+> @@ -196,6 +196,11 @@
+> =20
+>  #define NB_PF		8		/* Max nb of HW pixel format */
+> =20
+> +#define DRM_ARGB_TO_LTDC_RGB24(bgcolor) \
+> +	((u32)(DRM_ARGB_RED(bgcolor, 8) << 16	\
+> +	| DRM_ARGB_GREEN(bgcolor, 8) << 8	\
+> +	| DRM_ARGB_BLUE(bgcolor, 8)))
+> +
+>  enum ltdc_pix_fmt {
+>  	PF_NONE,
+>  	/* RGB formats */
+> @@ -364,6 +369,15 @@ static inline u32 get_pixelformat_without_alpha(u32 =
+drm)
+>  	}
+>  }
+> =20
+> +/*
+> + * All non-alpha color formats derived from native alpha color formats a=
+re
+> + * either characterized by a FourCC format code (such as XR24, RX24, BX2=
+4...)
+> + */
+> +static inline u32 is_xrgb(u32 drm)
+> +{
+> +	return ((drm & 'X') =3D=3D 'X' || (drm & ('X' << 8)) =3D=3D ('X' << 8));
+
+Hi,
+
+if you're trying to test whether the last or second last byte in the
+format code is exactly 'X', this doesn't do that. What this does is
+ignores all the bits that are zero in 'X' and ensures that all the bits
+that are one in 'X' are also one in the tested value.
+
+
+Thanks,
+pq
+
+> +}
+> +
+>  static irqreturn_t ltdc_irq_thread(int irq, void *arg)
+>  {
+>  	struct drm_device *ddev =3D arg;
+> @@ -431,7 +445,8 @@ static void ltdc_crtc_atomic_enable(struct drm_crtc *=
+crtc,
+>  	pm_runtime_get_sync(ddev->dev);
+> =20
+>  	/* Sets the background color value */
+> -	reg_write(ldev->regs, LTDC_BCCR, BCCR_BCBLACK);
+> +	reg_write(ldev->regs, LTDC_BCCR,
+> +		  DRM_ARGB_TO_LTDC_RGB24(crtc->state->bgcolor));
+> =20
+>  	/* Enable IRQ */
+>  	reg_set(ldev->regs, LTDC_IER, IER_RRIE | IER_FUIE | IER_TERRIE);
+> @@ -452,6 +467,9 @@ static void ltdc_crtc_atomic_disable(struct drm_crtc =
+*crtc,
+> =20
+>  	drm_crtc_vblank_off(crtc);
+> =20
+> +	/* Reset background color */
+> +	reg_write(ldev->regs, LTDC_BCCR, BCCR_BCBLACK);
+> +
+>  	/* disable IRQ */
+>  	reg_clear(ldev->regs, LTDC_IER, IER_RRIE | IER_FUIE | IER_TERRIE);
+> =20
+> @@ -790,6 +808,7 @@ static void ltdc_plane_atomic_update(struct drm_plane=
+ *plane,
+>  	u32 y1 =3D newstate->crtc_y + newstate->crtc_h - 1;
+>  	u32 src_x, src_y, src_w, src_h;
+>  	u32 val, pitch_in_bytes, line_length, paddr, ahbp, avbp, bpcr;
+> +	u32 bgcolor =3D DRM_ARGB_TO_LTDC_RGB24(newstate->crtc->state->bgcolor);
+>  	enum ltdc_pix_fmt pf;
+> =20
+>  	if (!newstate->crtc || !fb) {
+> @@ -853,10 +872,28 @@ static void ltdc_plane_atomic_update(struct drm_pla=
+ne *plane,
+>  	if (!fb->format->has_alpha)
+>  		val =3D BF1_CA | BF2_1CA;
+> =20
+> -	/* Manage hw-specific capabilities */
+> -	if (ldev->caps.non_alpha_only_l1 &&
+> -	    plane->type !=3D DRM_PLANE_TYPE_PRIMARY)
+> -		val =3D BF1_PAXCA | BF2_1PAXCA;
+> +	/*
+> +	 * Manage hw-specific capabilities
+> +	 *
+> +	 * Depending on the hardware version, the background color can not be
+> +	 * properly displayed with non-alpha color formats derived from native
+> +	 * alpha color formats (such as XR24 or XR15) since the use of this
+> +	 * pixel format generates a non transparent layer. As a workaround,
+> +	 * the stage background color of the layer and the general background
+> +	 * color need to be synced.
+> +	 *
+> +	 * This is done by activating for all XRGB color format the default
+> +	 * color as the background color and then setting blending factor
+> +	 * accordingly.
+> +	 */
+> +	if (ldev->caps.non_alpha_only_l1) {
+> +		if (is_xrgb(fb->format->format)) {
+> +			val =3D BF1_CA | BF2_1CA;
+> +			reg_write(ldev->regs, LTDC_L1DCCR + lofs, bgcolor);
+> +		} else {
+> +			val =3D BF1_PAXCA | BF2_1PAXCA;
+> +		}
+> +	}
+> =20
+>  	reg_update_bits(ldev->regs, LTDC_L1BFCR + lofs,
+>  			LXBFCR_BF2 | LXBFCR_BF1, val);
+> @@ -1033,6 +1070,7 @@ static int ltdc_crtc_init(struct drm_device *ddev, =
+struct drm_crtc *crtc)
+> =20
+>  	drm_crtc_helper_add(crtc, &ltdc_crtc_helper_funcs);
+> =20
+> +	drm_crtc_add_bgcolor_property(crtc);
+>  	drm_mode_crtc_set_gamma_size(crtc, CLUT_SIZE);
+>  	drm_crtc_enable_color_mgmt(crtc, 0, false, CLUT_SIZE);
+> =20
+
+
+--Sig_/W0kPe8=pA33zQt1ChIiblgo
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmDn/G4ACgkQI1/ltBGq
+qqdSAQ/+O54N12B96VfgTSJt/h50b8vyqH6nlYk53aAjDGv71t3XQRp8Z0Yd/TKn
+mDoGkBad4FHRWfaorqc1DqJztkS8bqmbpz8Jg4mUt/1f/JDfRcIKDlfh/RL2dyrw
+rNhik+zr6dTPTL7Xs5joQspZ5HvO5yeo1rbSFE0SlpsEJHN+qWnBpobGfiAL4Uue
+RkXJrEJyAZEuPGcEq8D27ciGqZIQJmMLP/9GuX0+mELmGPOqKFLZaryBqsahGrVo
+kJu/iGDECeG/bTrczBm02rj4TAkJLcef/s4XESL3N0zFvu3w62ev0CJxFJDcHoh5
+WXXnuNgZ2uR1HjnCJojHnjyBYrOAY8PlPL/A3duuKZRS4t+O9nNCxd6/6SICV4eS
+XmXPmZ68uhUfDNVjyGhHDVGHjfmO3nqzXX2dDxAuKn+lZDwXguza03bX9bJVHdx+
+Tj91Addw0b1hPh6T25QIco3SDaQcf6jfTmpMW5pEgJQp/Z50u0Ku2w6rsSRYE8OD
+XyTDtLOPamHBgLNbEBJW7d7NJcbmsH/K/ucKXBeXUJo5qo4HijTkALl6dcpqF44Y
+uzJeSCwRzBh/DpDYpDyg5o6tmjZo42cLOSKHAvWZTsWRxT4JIOjVf4UHxEESHg4h
+Spd7Gp/ks8BeSQ78CkAfsusgn742wkiUE0ExDwyXQCW99mq3UEs=
+=ft4v
+-----END PGP SIGNATURE-----
+
+--Sig_/W0kPe8=pA33zQt1ChIiblgo--
+
+--===============7825823403136654737==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7825823403136654737==--
