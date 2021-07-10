@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B40DC3C2E8B
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jul 2021 04:27:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14EE73C2FC9
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jul 2021 04:32:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C8E1C57B60;
-	Sat, 10 Jul 2021 02:27:47 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8F90C57B5F;
+	Sat, 10 Jul 2021 02:32:30 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C1AEC57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00258CFAC5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Jul 2021 02:27:46 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C35056141E;
- Sat, 10 Jul 2021 02:27:43 +0000 (UTC)
+ Sat, 10 Jul 2021 02:32:27 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 55BEE61412;
+ Sat, 10 Jul 2021 02:32:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884064;
- bh=4cmWkVFhdTzQWY9usqWWMyf40gKiTVqMUh3jZzfwEhU=;
+ s=k20201202; t=1625884346;
+ bh=hW8Q2O61AkaJlvZF1qqBNpySKBd2DXLScMrgUKomg9w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fnoa84LmeTADRL0RAqXtgJe/WFzkFKiQBgIGUceRpi5/v+x0Fo6EOsyJl9Hqpya5U
- FeXaKdVfF22tBLYcYNX/tAUyME3DmC6LqMYfTq+H2exjNSNc7/Xq8K2aeYEvDEKWLp
- /VgTGVQfHEnrpaSovz3+pwNP3YRU5LnwP35xIRxnbasSzuGKteIsqKSfdXDMRnGnnf
- MjYgkF/1/x9XbsdPYVgbs24JYY6x4SB6CS/L5Lru2/Ucltf0rgLHy5ELRmXc6dnAYd
- 5KLHXdbf0aJOKTUlLg0Jx8uDspOsuKLy7etiMbiYWpixJcnuX/qC8Y9Qa+bxr59t3O
- 78ae5g78SuvPA==
+ b=n18PzvavgoBnjQJ8bfaNOjmkCchzqgUu3BQA4IhFSgDCiKNWFuBVmySMBohYnb9AX
+ Zdt7agR5GwcJDJmQGJj/l6PRXsr1gH2FzeXlfcSgQI+9OTN9WagHcdYOONxIlGavI9
+ T1IPsBre7LgYc0f8Rea52P624ozW9Bb7N+6XzYbgSMPg8vy2RG1ju2BB+wZEHSRl8k
+ n0nu9rB4L3V27c6x42kDMHjVx706TSTLhkq6P+YXhV6B6uP5azienqRyh0uKbqzJRy
+ 9WEHVN7V7LbgiP4R/BRHuq+SQvzRJJRn5g8GPORz2XCqCyYdm7YyVsrVpTaxhpN2XO
+ l5zrmJkq6zWwg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri,  9 Jul 2021 22:26:33 -0400
-Message-Id: <20210710022709.3170675-27-sashal@kernel.org>
+Date: Fri,  9 Jul 2021 22:31:42 -0400
+Message-Id: <20210710023204.3171428-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210710022709.3170675-1-sashal@kernel.org>
-References: <20210710022709.3170675-1-sashal@kernel.org>
+In-Reply-To: <20210710023204.3171428-1-sashal@kernel.org>
+References: <20210710023204.3171428-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, Hulk Robot <hulkci@huawei.com>,
  Zou Wei <zou_wei@huawei.com>, Lee Jones <lee.jones@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 27/63] mfd: da9052/stmpe: Add and
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 17/39] mfd: da9052/stmpe: Add and
 	modify MODULE_DEVICE_TABLE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -75,10 +75,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/mfd/da9052-i2c.c b/drivers/mfd/da9052-i2c.c
-index 47556d2d9abe..8ebfc7bbe4e0 100644
+index 578e881067a5..4094f97ec7dc 100644
 --- a/drivers/mfd/da9052-i2c.c
 +++ b/drivers/mfd/da9052-i2c.c
-@@ -113,6 +113,7 @@ static const struct i2c_device_id da9052_i2c_id[] = {
+@@ -118,6 +118,7 @@ static const struct i2c_device_id da9052_i2c_id[] = {
  	{"da9053-bc", DA9053_BC},
  	{}
  };
@@ -87,7 +87,7 @@ index 47556d2d9abe..8ebfc7bbe4e0 100644
  #ifdef CONFIG_OF
  static const struct of_device_id dialog_dt_ids[] = {
 diff --git a/drivers/mfd/stmpe-i2c.c b/drivers/mfd/stmpe-i2c.c
-index 61aa020199f5..cd2f45257dc1 100644
+index 863c39a3353c..d284df25c76b 100644
 --- a/drivers/mfd/stmpe-i2c.c
 +++ b/drivers/mfd/stmpe-i2c.c
 @@ -109,7 +109,7 @@ static const struct i2c_device_id stmpe_i2c_id[] = {
