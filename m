@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14EE73C2FC9
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jul 2021 04:32:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34C1C3C2FD9
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jul 2021 04:35:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8F90C57B5F;
-	Sat, 10 Jul 2021 02:32:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBF56C57B5F;
+	Sat, 10 Jul 2021 02:35:36 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00258CFAC5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB057CFAC5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Jul 2021 02:32:27 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 55BEE61412;
- Sat, 10 Jul 2021 02:32:25 +0000 (UTC)
+ Sat, 10 Jul 2021 02:35:35 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 79D4F61417;
+ Sat, 10 Jul 2021 02:35:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1625884346;
+ s=k20201202; t=1625884534;
  bh=hW8Q2O61AkaJlvZF1qqBNpySKBd2DXLScMrgUKomg9w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=n18PzvavgoBnjQJ8bfaNOjmkCchzqgUu3BQA4IhFSgDCiKNWFuBVmySMBohYnb9AX
- Zdt7agR5GwcJDJmQGJj/l6PRXsr1gH2FzeXlfcSgQI+9OTN9WagHcdYOONxIlGavI9
- T1IPsBre7LgYc0f8Rea52P624ozW9Bb7N+6XzYbgSMPg8vy2RG1ju2BB+wZEHSRl8k
- n0nu9rB4L3V27c6x42kDMHjVx706TSTLhkq6P+YXhV6B6uP5azienqRyh0uKbqzJRy
- 9WEHVN7V7LbgiP4R/BRHuq+SQvzRJJRn5g8GPORz2XCqCyYdm7YyVsrVpTaxhpN2XO
- l5zrmJkq6zWwg==
+ b=OqXVMUhcFzpemmBknybkjQSgY+D3+W2aYUXkzeoLeUE9SkoaO8pivk235s0eeekRP
+ ishNO60LLRwFr0aJbNH9QQnixTZRqenx7pKwKLu5sdugLkrWnNuj0fcditOgtxmFik
+ HCnmsIw6Ec6lDgYyYTlbmpNWQEGBWSu4e1cTbdxAlQvm69nizQ6tVrucF2/KMvrQXz
+ atN5IdOZ2h7uAGp+Llvwm57vzxcTXzwD0K9t3iki9kizvqAGc0kQ9PaSizeJnkrIzg
+ gJtwMyuBGZoKooiPvUMPveEvrMUU8Psg4i3IH5WcLMb8aZ60s9KEpNczg8BG7OhDfW
+ bTizVEYjYGmeQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri,  9 Jul 2021 22:31:42 -0400
-Message-Id: <20210710023204.3171428-17-sashal@kernel.org>
+Date: Fri,  9 Jul 2021 22:34:56 -0400
+Message-Id: <20210710023516.3172075-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210710023204.3171428-1-sashal@kernel.org>
-References: <20210710023204.3171428-1-sashal@kernel.org>
+In-Reply-To: <20210710023516.3172075-1-sashal@kernel.org>
+References: <20210710023516.3172075-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, Hulk Robot <hulkci@huawei.com>,
  Zou Wei <zou_wei@huawei.com>, Lee Jones <lee.jones@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 17/39] mfd: da9052/stmpe: Add and
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 14/33] mfd: da9052/stmpe: Add and
 	modify MODULE_DEVICE_TABLE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
