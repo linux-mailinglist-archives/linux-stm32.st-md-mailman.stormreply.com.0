@@ -2,67 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ED043C28C9
-	for <lists+linux-stm32@lfdr.de>; Fri,  9 Jul 2021 19:56:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A69333C2CD2
+	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jul 2021 04:19:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32F07C57B5F;
-	Fri,  9 Jul 2021 17:56:46 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DB12C57B5F;
+	Sat, 10 Jul 2021 02:19:03 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A16FBC5718D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB425C5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  9 Jul 2021 17:56:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=nr+ybean0GYJB/FyhUT9xAqfrMJWszlIeTXTMgqs5Dc=; b=a75vxDYeO3We3ly4cfZS1ufdEm
- BlS3Ccue4Ng+uimuFb4XfgEXdH1bnw22GU1M313Mf3Q2MmlmxSw5wV4qX9VExHHbzwJ5arzVBpXvp
- fY/2v5sJdZ0BDGdC+dlR3yL1wsIpYr9OeUTQNTdZCBrP9/ry5v5dwdxzJ+jry/z6vYbEP3nbJwCT2
- fkHo3FRr+Y2fOc4tUSYzDqinER8++H4eKMzjBJi/eQgEguDCFhuONx13FyrRA/I8is4Y7Asov94Y7
- O7DdXXdqdd53E4JumqAJ2J2fxeA9mO4xu/WmogooVxa7kMCD5g1d1VNyQeMRlu5+M6adNTnOEeNVo
- wshnMKKw==;
-Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
- ([108.198.5.147]:52256 helo=[192.168.0.134])
- by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <david@lechnology.com>)
- id 1m1ujh-00BKQG-CM; Fri, 09 Jul 2021 13:56:38 -0400
-To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
-References: <cover.1625471640.git.vilhelm.gray@gmail.com>
- <3e0a3f7a32bba0f56f5830ff1548ef417e63880e.1625471640.git.vilhelm.gray@gmail.com>
-From: David Lechner <david@lechnology.com>
-Message-ID: <dee9b119-1e45-2c82-2a1d-0979244fb01f@lechnology.com>
-Date: Fri, 9 Jul 2021 12:56:34 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Sat, 10 Jul 2021 02:19:00 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 794DF613C7;
+ Sat, 10 Jul 2021 02:18:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1625883539;
+ bh=4cmWkVFhdTzQWY9usqWWMyf40gKiTVqMUh3jZzfwEhU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=VQgWdBvLNnhVazkacDLNMobzPiBxk/PL28DAwCpqlTzJ1zYRU33trHXS28jBvE6tS
+ NLP/r2Np31JVTzpAg2xH2cyFiPD9O890JmBccVxDDAeRxMsKY2lmSwnz4zHzTV0fk2
+ vEhEO4knrm3p36kxxJw9NKTlryP+XZu60Ivawhei5gTyVq465LlQaIn596reekghMY
+ /eW8Azp+gQvn3BXHR+Glr2G6zNTpkIeA+0jtBMxocTW1ZX2lf4MySlg4w/fFkJTyFk
+ MISEgIV/hjNWWoFAFLRWXz3Uh5EY+x7BYK7EwVBKkFLLELpFfPvDuhsMKn3dR1Md8T
+ z3jbu5ENb1z0Q==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Fri,  9 Jul 2021 22:16:45 -0400
+Message-Id: <20210710021748.3167666-51-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210710021748.3167666-1-sashal@kernel.org>
+References: <20210710021748.3167666-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <3e0a3f7a32bba0f56f5830ff1548ef417e63880e.1625471640.git.vilhelm.gray@gmail.com>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v12 08/17] docs: counter: Update to
- reflect sysfs internalization
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, Hulk Robot <hulkci@huawei.com>,
+ Zou Wei <zou_wei@huawei.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 051/114] mfd: da9052/stmpe: Add
+	and modify MODULE_DEVICE_TABLE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,21 +52,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/5/21 3:18 AM, William Breathitt Gray wrote:
-> The Counter subsystem architecture and driver implementations have
-> changed in order to handle Counter sysfs interactions in a more
-> consistent way. This patch updates the Generic Counter interface
-> documentation to reflect the changes.
-> 
-> Signed-off-by: William Breathitt Gray<vilhelm.gray@gmail.com>
-> ---
+From: Zou Wei <zou_wei@huawei.com>
 
-Reviewed-by: David Lechner <david@lechnology.com>
+[ Upstream commit 4700ef326556ed74aba188f12396740a8c1c21dd ]
+
+This patch adds/modifies MODULE_DEVICE_TABLE definition which generates
+correct modalias for automatic loading of this driver when it is built
+as an external module.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Zou Wei <zou_wei@huawei.com>
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mfd/da9052-i2c.c | 1 +
+ drivers/mfd/stmpe-i2c.c  | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mfd/da9052-i2c.c b/drivers/mfd/da9052-i2c.c
+index 47556d2d9abe..8ebfc7bbe4e0 100644
+--- a/drivers/mfd/da9052-i2c.c
++++ b/drivers/mfd/da9052-i2c.c
+@@ -113,6 +113,7 @@ static const struct i2c_device_id da9052_i2c_id[] = {
+ 	{"da9053-bc", DA9053_BC},
+ 	{}
+ };
++MODULE_DEVICE_TABLE(i2c, da9052_i2c_id);
+ 
+ #ifdef CONFIG_OF
+ static const struct of_device_id dialog_dt_ids[] = {
+diff --git a/drivers/mfd/stmpe-i2c.c b/drivers/mfd/stmpe-i2c.c
+index 61aa020199f5..cd2f45257dc1 100644
+--- a/drivers/mfd/stmpe-i2c.c
++++ b/drivers/mfd/stmpe-i2c.c
+@@ -109,7 +109,7 @@ static const struct i2c_device_id stmpe_i2c_id[] = {
+ 	{ "stmpe2403", STMPE2403 },
+ 	{ }
+ };
+-MODULE_DEVICE_TABLE(i2c, stmpe_id);
++MODULE_DEVICE_TABLE(i2c, stmpe_i2c_id);
+ 
+ static struct i2c_driver stmpe_i2c_driver = {
+ 	.driver = {
+-- 
+2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
