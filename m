@@ -2,42 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C50F3C3CC9
-	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jul 2021 15:20:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D73A13C3CD1
+	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jul 2021 15:25:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A438C57B6B;
-	Sun, 11 Jul 2021 13:20:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A97EC57B6B;
+	Sun, 11 Jul 2021 13:25:55 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9184BC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BB72C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Jul 2021 13:20:48 +0000 (UTC)
+ Sun, 11 Jul 2021 13:25:52 +0000 (UTC)
 Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
  [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B32BC61186;
- Sun, 11 Jul 2021 13:20:40 +0000 (UTC)
-Date: Sun, 11 Jul 2021 14:22:55 +0100
+ by mail.kernel.org (Postfix) with ESMTPSA id 43642611C0;
+ Sun, 11 Jul 2021 13:25:45 +0000 (UTC)
+Date: Sun, 11 Jul 2021 14:28:00 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210711142255.725b2f03@jic23-huawei>
-In-Reply-To: <e97aa3e529f54d5651df7edcc1b43a8157d9e9c3.1625471640.git.vilhelm.gray@gmail.com>
+To: David Lechner <david@lechnology.com>
+Message-ID: <20210711142800.60e94cc7@jic23-huawei>
+In-Reply-To: <bd0313ce-22fa-0516-93a1-ff3a5cb1fdd1@lechnology.com>
 References: <cover.1625471640.git.vilhelm.gray@gmail.com>
- <e97aa3e529f54d5651df7edcc1b43a8157d9e9c3.1625471640.git.vilhelm.gray@gmail.com>
+ <0e04a9e6455faf171e5dd7885676e55b5321b1ea.1625471640.git.vilhelm.gray@gmail.com>
+ <bd0313ce-22fa-0516-93a1-ff3a5cb1fdd1@lechnology.com>
 X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- Pavel Machek <pavel@ucw.cz>, alexandre.belloni@bootlin.com,
- mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
+ alexandre.belloni@bootlin.com, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, linux-kernel@vger.kernel.org,
+ o.rempel@pengutronix.de, jarkko.nikula@linux.intel.com,
+ Dan Carpenter <dan.carpenter@oracle.com>, kernel@pengutronix.de,
  fabrice.gasnier@st.com, syednwaris@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v12 12/17] tools/counter: Create Counter
-	tools
+Subject: Re: [Linux-stm32] [PATCH v12 14/17] counter: Implement
+ *_component_id sysfs attributes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,183 +51,163 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAgNSBKdWwgMjAyMSAxNzoxOTowMCArMDkwMApXaWxsaWFtIEJyZWF0aGl0dCBHcmF5
-IDx2aWxoZWxtLmdyYXlAZ21haWwuY29tPiB3cm90ZToKCj4gVGhpcyBjcmVhdGVzIGFuIGV4YW1w
-bGUgQ291bnRlciBwcm9ncmFtIHVuZGVyIHRvb2xzL2NvdW50ZXIvKgo+IHRvIGV4ZW1wbGlmeSB0
-aGUgQ291bnRlciBjaGFyYWN0ZXIgZGV2aWNlIGludGVyZmFjZS4KPiAKPiBDYzogUGF2ZWwgTWFj
-aGVrIDxwYXZlbEB1Y3cuY3o+Cj4gU2lnbmVkLW9mZi1ieTogV2lsbGlhbSBCcmVhdGhpdHQgR3Jh
-eSA8dmlsaGVsbS5ncmF5QGdtYWlsLmNvbT4KPiAtLS0KPiAgTUFJTlRBSU5FUlMgICAgICAgICAg
-ICAgICAgICAgICB8ICAxICsKPiAgdG9vbHMvTWFrZWZpbGUgICAgICAgICAgICAgICAgICB8IDEz
-ICsrLS0tCj4gIHRvb2xzL2NvdW50ZXIvQnVpbGQgICAgICAgICAgICAgfCAgMSArCj4gIHRvb2xz
-L2NvdW50ZXIvTWFrZWZpbGUgICAgICAgICAgfCA1MyArKysrKysrKysrKysrKysrKysKPiAgdG9v
-bHMvY291bnRlci9jb3VudGVyX2V4YW1wbGUuYyB8IDk1ICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKwo+ICA1IGZpbGVzIGNoYW5nZWQsIDE1NyBpbnNlcnRpb25zKCspLCA2IGRlbGV0
-aW9ucygtKQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgdG9vbHMvY291bnRlci9CdWlsZAo+ICBjcmVh
-dGUgbW9kZSAxMDA2NDQgdG9vbHMvY291bnRlci9NYWtlZmlsZQo+ICBjcmVhdGUgbW9kZSAxMDA2
-NDQgdG9vbHMvY291bnRlci9jb3VudGVyX2V4YW1wbGUuYwo+IAo+IGRpZmYgLS1naXQgYS9NQUlO
-VEFJTkVSUyBiL01BSU5UQUlORVJTCj4gaW5kZXggNWRlNGQyMTY0ODQ0Li5lOTY3OTdmNTdmMDQg
-MTAwNjQ0Cj4gLS0tIGEvTUFJTlRBSU5FUlMKPiArKysgYi9NQUlOVEFJTkVSUwo+IEBAIC00Njg4
-LDYgKzQ2ODgsNyBAQCBGOglEb2N1bWVudGF0aW9uL2RyaXZlci1hcGkvZ2VuZXJpYy1jb3VudGVy
-LnJzdAo+ICBGOglkcml2ZXJzL2NvdW50ZXIvCj4gIEY6CWluY2x1ZGUvbGludXgvY291bnRlci5o
-Cj4gIEY6CWluY2x1ZGUvdWFwaS9saW51eC9jb3VudGVyLmgKPiArRjoJdG9vbHMvY291bnRlci8K
-PiAgCj4gIENQMjYxNSBJMkMgRFJJVkVSCj4gIE06CUJlbmNlIENzw7Nrw6FzIDxiZW5jZTk4QHNj
-aC5ibWUuaHU+Cj4gZGlmZiAtLWdpdCBhL3Rvb2xzL01ha2VmaWxlIGIvdG9vbHMvTWFrZWZpbGUK
-PiBpbmRleCA3ZTlkMzRkZGQ3NGMuLjRjMjY0MDBmZmMwMyAxMDA2NDQKPiAtLS0gYS90b29scy9N
-YWtlZmlsZQo+ICsrKyBiL3Rvb2xzL01ha2VmaWxlCj4gQEAgLTEyLDYgKzEyLDcgQEAgaGVscDoK
-PiAgCUBlY2hvICcgIGFjcGkgICAgICAgICAgICAgICAgICAgLSBBQ1BJIHRvb2xzJwo+ICAJQGVj
-aG8gJyAgYnBmICAgICAgICAgICAgICAgICAgICAtIG1pc2MgQlBGIHRvb2xzJwo+ICAJQGVjaG8g
-JyAgY2dyb3VwICAgICAgICAgICAgICAgICAtIGNncm91cCB0b29scycKPiArCUBlY2hvICcgIGNv
-dW50ZXIgICAgICAgICAgICAgICAgLSBDb3VudGVyIHRvb2xzJwo+ICAJQGVjaG8gJyAgY3B1cG93
-ZXIgICAgICAgICAgICAgICAtIGEgdG9vbCBmb3IgYWxsIHRoaW5ncyB4ODYgQ1BVIHBvd2VyJwo+
-ICAJQGVjaG8gJyAgZGVidWdnaW5nICAgICAgICAgICAgICAtIHRvb2xzIGZvciBkZWJ1Z2dpbmcn
-Cj4gIAlAZWNobyAnICBmaXJld2lyZSAgICAgICAgICAgICAgIC0gdGhlIHVzZXJzcGFjZSBwYXJ0
-IG9mIG5vc3ksIGFuIElFRUUtMTM5NCB0cmFmZmljIHNuaWZmZXInCj4gQEAgLTY1LDcgKzY2LDcg
-QEAgYWNwaTogRk9SQ0UKPiAgY3B1cG93ZXI6IEZPUkNFCj4gIAkkKGNhbGwgZGVzY2VuZCxwb3dl
-ci8kQCkKPiAgCj4gLWNncm91cCBmaXJld2lyZSBodiBndWVzdCBib290Y29uZmlnIHNwaSB1c2Ig
-dmlydGlvIHZtIGJwZiBpaW8gZ3BpbyBvYmp0b29sIGxlZHMgd21pIHBjaSBmaXJtd2FyZSBkZWJ1
-Z2dpbmcgdHJhY2luZzogRk9SQ0UKPiArY2dyb3VwIGNvdW50ZXIgZmlyZXdpcmUgaHYgZ3Vlc3Qg
-Ym9vdGNvbmZpZyBzcGkgdXNiIHZpcnRpbyB2bSBicGYgaWlvIGdwaW8gb2JqdG9vbCBsZWRzIHdt
-aSBwY2kgZmlybXdhcmUgZGVidWdnaW5nIHRyYWNpbmc6IEZPUkNFCj4gIAkkKGNhbGwgZGVzY2Vu
-ZCwkQCkKPiAgCj4gIGJwZi8lOiBGT1JDRQo+IEBAIC0xMDAsNyArMTAxLDcgQEAgZnJlZWZhbGw6
-IEZPUkNFCj4gIGt2bV9zdGF0OiBGT1JDRQo+ICAJJChjYWxsIGRlc2NlbmQsa3ZtLyRAKQo+ICAK
-PiAtYWxsOiBhY3BpIGNncm91cCBjcHVwb3dlciBncGlvIGh2IGZpcmV3aXJlIGxpYmxvY2tkZXAg
-XAo+ICthbGw6IGFjcGkgY2dyb3VwIGNvdW50ZXIgY3B1cG93ZXIgZ3BpbyBodiBmaXJld2lyZSBs
-aWJsb2NrZGVwIFwKPiAgCQlwZXJmIHNlbGZ0ZXN0cyBib290Y29uZmlnIHNwaSB0dXJib3N0YXQg
-dXNiIFwKPiAgCQl2aXJ0aW8gdm0gYnBmIHg4Nl9lbmVyZ3lfcGVyZl9wb2xpY3kgXAo+ICAJCXRt
-b24gZnJlZWZhbGwgaWlvIG9ianRvb2wga3ZtX3N0YXQgd21pIFwKPiBAQCAtMTEyLDcgKzExMyw3
-IEBAIGFjcGlfaW5zdGFsbDoKPiAgY3B1cG93ZXJfaW5zdGFsbDoKPiAgCSQoY2FsbCBkZXNjZW5k
-LHBvd2VyLyQoQDpfaW5zdGFsbD0pLGluc3RhbGwpCj4gIAo+IC1jZ3JvdXBfaW5zdGFsbCBmaXJl
-d2lyZV9pbnN0YWxsIGdwaW9faW5zdGFsbCBodl9pbnN0YWxsIGlpb19pbnN0YWxsIHBlcmZfaW5z
-dGFsbCBib290Y29uZmlnX2luc3RhbGwgc3BpX2luc3RhbGwgdXNiX2luc3RhbGwgdmlydGlvX2lu
-c3RhbGwgdm1faW5zdGFsbCBicGZfaW5zdGFsbCBvYmp0b29sX2luc3RhbGwgd21pX2luc3RhbGwg
-cGNpX2luc3RhbGwgZGVidWdnaW5nX2luc3RhbGwgdHJhY2luZ19pbnN0YWxsOgo+ICtjZ3JvdXBf
-aW5zdGFsbCBjb3VudGVyX2luc3RhbGwgZmlyZXdpcmVfaW5zdGFsbCBncGlvX2luc3RhbGwgaHZf
-aW5zdGFsbCBpaW9faW5zdGFsbCBwZXJmX2luc3RhbGwgYm9vdGNvbmZpZ19pbnN0YWxsIHNwaV9p
-bnN0YWxsIHVzYl9pbnN0YWxsIHZpcnRpb19pbnN0YWxsIHZtX2luc3RhbGwgYnBmX2luc3RhbGwg
-b2JqdG9vbF9pbnN0YWxsIHdtaV9pbnN0YWxsIHBjaV9pbnN0YWxsIGRlYnVnZ2luZ19pbnN0YWxs
-IHRyYWNpbmdfaW5zdGFsbDoKPiAgCSQoY2FsbCBkZXNjZW5kLCQoQDpfaW5zdGFsbD0pLGluc3Rh
-bGwpCj4gIAo+ICBsaWJsb2NrZGVwX2luc3RhbGw6Cj4gQEAgLTEzMyw3ICsxMzQsNyBAQCBmcmVl
-ZmFsbF9pbnN0YWxsOgo+ICBrdm1fc3RhdF9pbnN0YWxsOgo+ICAJJChjYWxsIGRlc2NlbmQsa3Zt
-LyQoQDpfaW5zdGFsbD0pLGluc3RhbGwpCj4gIAo+IC1pbnN0YWxsOiBhY3BpX2luc3RhbGwgY2dy
-b3VwX2luc3RhbGwgY3B1cG93ZXJfaW5zdGFsbCBncGlvX2luc3RhbGwgXAo+ICtpbnN0YWxsOiBh
-Y3BpX2luc3RhbGwgY2dyb3VwX2luc3RhbGwgY291bnRlcl9pbnN0YWxsIGNwdXBvd2VyX2luc3Rh
-bGwgZ3Bpb19pbnN0YWxsIFwKPiAgCQlodl9pbnN0YWxsIGZpcmV3aXJlX2luc3RhbGwgaWlvX2lu
-c3RhbGwgbGlibG9ja2RlcF9pbnN0YWxsIFwKPiAgCQlwZXJmX2luc3RhbGwgc2VsZnRlc3RzX2lu
-c3RhbGwgdHVyYm9zdGF0X2luc3RhbGwgdXNiX2luc3RhbGwgXAo+ICAJCXZpcnRpb19pbnN0YWxs
-IHZtX2luc3RhbGwgYnBmX2luc3RhbGwgeDg2X2VuZXJneV9wZXJmX3BvbGljeV9pbnN0YWxsIFwK
-PiBAQCAtMTQ3LDcgKzE0OCw3IEBAIGFjcGlfY2xlYW46Cj4gIGNwdXBvd2VyX2NsZWFuOgo+ICAJ
-JChjYWxsIGRlc2NlbmQscG93ZXIvY3B1cG93ZXIsY2xlYW4pCj4gIAo+IC1jZ3JvdXBfY2xlYW4g
-aHZfY2xlYW4gZmlyZXdpcmVfY2xlYW4gYm9vdGNvbmZpZ19jbGVhbiBzcGlfY2xlYW4gdXNiX2Ns
-ZWFuIHZpcnRpb19jbGVhbiB2bV9jbGVhbiB3bWlfY2xlYW4gYnBmX2NsZWFuIGlpb19jbGVhbiBn
-cGlvX2NsZWFuIG9ianRvb2xfY2xlYW4gbGVkc19jbGVhbiBwY2lfY2xlYW4gZmlybXdhcmVfY2xl
-YW4gZGVidWdnaW5nX2NsZWFuIHRyYWNpbmdfY2xlYW46Cj4gK2Nncm91cF9jbGVhbiBjb3VudGVy
-X2NsZWFuIGh2X2NsZWFuIGZpcmV3aXJlX2NsZWFuIGJvb3Rjb25maWdfY2xlYW4gc3BpX2NsZWFu
-IHVzYl9jbGVhbiB2aXJ0aW9fY2xlYW4gdm1fY2xlYW4gd21pX2NsZWFuIGJwZl9jbGVhbiBpaW9f
-Y2xlYW4gZ3Bpb19jbGVhbiBvYmp0b29sX2NsZWFuIGxlZHNfY2xlYW4gcGNpX2NsZWFuIGZpcm13
-YXJlX2NsZWFuIGRlYnVnZ2luZ19jbGVhbiB0cmFjaW5nX2NsZWFuOgo+ICAJJChjYWxsIGRlc2Nl
-bmQsJChAOl9jbGVhbj0pLGNsZWFuKQo+ICAKPiAgbGlibG9ja2RlcF9jbGVhbjoKPiBAQCAtMTgx
-LDcgKzE4Miw3IEBAIGZyZWVmYWxsX2NsZWFuOgo+ICBidWlsZF9jbGVhbjoKPiAgCSQoY2FsbCBk
-ZXNjZW5kLGJ1aWxkLGNsZWFuKQo+ICAKPiAtY2xlYW46IGFjcGlfY2xlYW4gY2dyb3VwX2NsZWFu
-IGNwdXBvd2VyX2NsZWFuIGh2X2NsZWFuIGZpcmV3aXJlX2NsZWFuIFwKPiArY2xlYW46IGFjcGlf
-Y2xlYW4gY2dyb3VwX2NsZWFuIGNvdW50ZXJfY2xlYW4gY3B1cG93ZXJfY2xlYW4gaHZfY2xlYW4g
-ZmlyZXdpcmVfY2xlYW4gXAo+ICAJCXBlcmZfY2xlYW4gc2VsZnRlc3RzX2NsZWFuIHR1cmJvc3Rh
-dF9jbGVhbiBib290Y29uZmlnX2NsZWFuIHNwaV9jbGVhbiB1c2JfY2xlYW4gdmlydGlvX2NsZWFu
-IFwKPiAgCQl2bV9jbGVhbiBicGZfY2xlYW4gaWlvX2NsZWFuIHg4Nl9lbmVyZ3lfcGVyZl9wb2xp
-Y3lfY2xlYW4gdG1vbl9jbGVhbiBcCj4gIAkJZnJlZWZhbGxfY2xlYW4gYnVpbGRfY2xlYW4gbGli
-YnBmX2NsZWFuIGxpYnN1YmNtZF9jbGVhbiBsaWJsb2NrZGVwX2NsZWFuIFwKPiBkaWZmIC0tZ2l0
-IGEvdG9vbHMvY291bnRlci9CdWlsZCBiL3Rvb2xzL2NvdW50ZXIvQnVpbGQKPiBuZXcgZmlsZSBt
-b2RlIDEwMDY0NAo+IGluZGV4IDAwMDAwMDAwMDAwMC4uMzNmNGE1MWQ3MTVlCj4gLS0tIC9kZXYv
-bnVsbAo+ICsrKyBiL3Rvb2xzL2NvdW50ZXIvQnVpbGQKPiBAQCAtMCwwICsxIEBACj4gK2NvdW50
-ZXJfZXhhbXBsZS15ICs9IGNvdW50ZXJfZXhhbXBsZS5vCj4gZGlmZiAtLWdpdCBhL3Rvb2xzL2Nv
-dW50ZXIvTWFrZWZpbGUgYi90b29scy9jb3VudGVyL01ha2VmaWxlCj4gbmV3IGZpbGUgbW9kZSAx
-MDA2NDQKPiBpbmRleCAwMDAwMDAwMDAwMDAuLjVlYmMxOTVmZDljMAo+IC0tLSAvZGV2L251bGwK
-PiArKysgYi90b29scy9jb3VudGVyL01ha2VmaWxlCj4gQEAgLTAsMCArMSw1MyBAQAo+ICsjIFNQ
-RFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wCj4gK2luY2x1ZGUgLi4vc2NyaXB0cy9NYWtl
-ZmlsZS5pbmNsdWRlCj4gKwo+ICtiaW5kaXIgPz0gL3Vzci9iaW4KPiArCj4gK2lmZXEgKCQoc3Jj
-dHJlZSksKQo+ICtzcmN0cmVlIDo9ICQocGF0c3Vic3QgJS8sJSwkKGRpciAkKENVUkRJUikpKQo+
-ICtzcmN0cmVlIDo9ICQocGF0c3Vic3QgJS8sJSwkKGRpciAkKHNyY3RyZWUpKSkKPiArZW5kaWYK
-PiArCj4gKyMgRG8gbm90IHVzZSBtYWtlJ3MgYnVpbHQtaW4gcnVsZXMKPiArIyAodGhpcyBpbXBy
-b3ZlcyBwZXJmb3JtYW5jZSBhbmQgYXZvaWRzIGhhcmQtdG8tZGVidWcgYmVoYXZpb3VyKTsKPiAr
-TUFLRUZMQUdTICs9IC1yCj4gKwo+ICtvdmVycmlkZSBDRkxBR1MgKz0gLU8yIC1XYWxsIC1nIC1E
-X0dOVV9TT1VSQ0UgLUkkKE9VVFBVVClpbmNsdWRlCj4gKwo+ICtBTExfVEFSR0VUUyA6PSBjb3Vu
-dGVyX2V4YW1wbGUKPiArQUxMX1BST0dSQU1TIDo9ICQocGF0c3Vic3QgJSwkKE9VVFBVVCklLCQo
-QUxMX1RBUkdFVFMpKQo+ICsKPiArYWxsOiAkKEFMTF9QUk9HUkFNUykKPiArCj4gK2V4cG9ydCBz
-cmN0cmVlIE9VVFBVVCBDQyBMRCBDRkxBR1MKPiAraW5jbHVkZSAkKHNyY3RyZWUpL3Rvb2xzL2J1
-aWxkL01ha2VmaWxlLmluY2x1ZGUKPiArCj4gKyMKPiArIyBXZSBuZWVkIHRoZSBmb2xsb3dpbmcg
-dG8gYmUgb3V0c2lkZSBvZiBrZXJuZWwgdHJlZQo+ICsjCj4gKyQoT1VUUFVUKWluY2x1ZGUvbGlu
-dXgvY291bnRlci5oOiAuLi8uLi9pbmNsdWRlL3VhcGkvbGludXgvY291bnRlci5oCj4gKwlta2Rp
-ciAtcCAkKE9VVFBVVClpbmNsdWRlL2xpbnV4IDI+JjEgfHwgdHJ1ZQo+ICsJbG4gLXNmICQoQ1VS
-RElSKS8uLi8uLi9pbmNsdWRlL3VhcGkvbGludXgvY291bnRlci5oICRACj4gKwo+ICtwcmVwYXJl
-OiAkKE9VVFBVVClpbmNsdWRlL2xpbnV4L2NvdW50ZXIuaAo+ICsKPiArQ09VTlRFUl9FWEFNUExF
-IDo9ICQoT1VUUFVUKWNvdW50ZXJfZXhhbXBsZS5vCj4gKyQoQ09VTlRFUl9FWEFNUExFKTogcHJl
-cGFyZSBGT1JDRQo+ICsJJChRKSQoTUFLRSkgJChidWlsZCk9Y291bnRlcl9leGFtcGxlCj4gKyQo
-T1VUUFVUKWNvdW50ZXJfZXhhbXBsZTogJChDT1VOVEVSX0VYQU1QTEUpCj4gKwkkKFFVSUVUX0xJ
-TkspJChDQykgJChDRkxBR1MpICQoTERGTEFHUykgJDwgLW8gJEAKPiArCj4gK2NsZWFuOgo+ICsJ
-cm0gLWYgJChBTExfUFJPR1JBTVMpCj4gKwlybSAtcmYgJChPVVRQVVQpaW5jbHVkZS9saW51eC9j
-b3VudGVyLmgKPiArCWZpbmQgJChpZiAkKE9VVFBVVCksJChPVVRQVVQpLC4pIC1uYW1lICcqLm8n
-IC1kZWxldGUgLW8gLW5hbWUgJ1wuKi5kJyAtZGVsZXRlCj4gKwo+ICtpbnN0YWxsOiAkKEFMTF9Q
-Uk9HUkFNUykKPiArCWluc3RhbGwgLWQgLW0gNzU1ICQoREVTVERJUikkKGJpbmRpcik7CQlcCj4g
-Kwlmb3IgcHJvZ3JhbSBpbiAkKEFMTF9QUk9HUkFNUyk7IGRvCQlcCj4gKwkJaW5zdGFsbCAkJHBy
-b2dyYW0gJChERVNURElSKSQoYmluZGlyKTsJXAo+ICsJZG9uZQo+ICsKPiArRk9SQ0U6Cj4gKwo+
-ICsuUEhPTlk6IGFsbCBpbnN0YWxsIGNsZWFuIEZPUkNFIHByZXBhcmUKPiBkaWZmIC0tZ2l0IGEv
-dG9vbHMvY291bnRlci9jb3VudGVyX2V4YW1wbGUuYyBiL3Rvb2xzL2NvdW50ZXIvY291bnRlcl9l
-eGFtcGxlLmMKPiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+IGluZGV4IDAwMDAwMDAwMDAwMC4uNzFk
-ZmVjNjczYzExCj4gLS0tIC9kZXYvbnVsbAo+ICsrKyBiL3Rvb2xzL2NvdW50ZXIvY291bnRlcl9l
-eGFtcGxlLmMKPiBAQCAtMCwwICsxLDk1IEBACj4gKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVy
-OiBHUEwtMi4wLW9ubHkKPiArLyogQ291bnRlciAtIGV4YW1wbGUgdXNlcnNwYWNlIGFwcGxpY2F0
-aW9uCj4gKyAqCj4gKyAqIFRoZSB1c2Vyc3BhY2UgYXBwbGljYXRpb24gb3BlbnMgL2Rldi9jb3Vu
-dGVyMCwgY29uZmlndXJlcyB0aGUKPiArICogQ09VTlRFUl9FVkVOVF9JTkRFWCBldmVudCBjaGFu
-bmVsIDAgdG8gZ2F0aGVyIENvdW50IDAgY291bnQgYW5kIENvdW50Cj4gKyAqIDEgY291bnQsIGFu
-ZCBwcmludHMgb3V0IHRoZSBkYXRhIGFzIGl0IGJlY29tZXMgYXZhaWxhYmxlIG9uIHRoZQo+ICsg
-KiBjaGFyYWN0ZXIgZGV2aWNlIG5vZGUuCj4gKyAqCj4gKyAqIENvcHlyaWdodCAoQykgMjAyMSBX
-aWxsaWFtIEJyZWF0aGl0dCBHcmF5Cj4gKyAqLwo+ICsjaW5jbHVkZSA8ZXJybm8uaD4KPiArI2lu
-Y2x1ZGUgPGZjbnRsLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9jb3VudGVyLmg+Cj4gKyNpbmNsdWRl
-IDxzdGRpby5oPgo+ICsjaW5jbHVkZSA8c3RyaW5nLmg+Cj4gKyNpbmNsdWRlIDxzeXMvaW9jdGwu
-aD4KPiArI2luY2x1ZGUgPHVuaXN0ZC5oPgo+ICsKPiArc3RydWN0IGNvdW50ZXJfd2F0Y2ggd2F0
-Y2hlc1syXSA9IHsKPiArCXsKPiArCQkvKiBDb21wb25lbnQgZGF0YTogQ291bnQgMCBjb3VudCAq
-Lwo+ICsJCS5jb21wb25lbnQudHlwZSA9IENPVU5URVJfQ09NUE9ORU5UX0NPVU5ULAo+ICsJCS5j
-b21wb25lbnQuc2NvcGUgPSBDT1VOVEVSX1NDT1BFX0NPVU5ULAo+ICsJCS5jb21wb25lbnQucGFy
-ZW50ID0gMCwKPiArCQkvKiBFdmVudCB0eXBlOiBJbmRleCAqLwo+ICsJCS5ldmVudCA9IENPVU5U
-RVJfRVZFTlRfSU5ERVgsCj4gKwkJLyogRGV2aWNlIGV2ZW50IGNoYW5uZWwgMCAqLwo+ICsJCS5j
-aGFubmVsID0gMCwKPiArCX0sCj4gKwl7Cj4gKwkJLyogQ29tcG9uZW50IGRhdGE6IENvdW50IDEg
-Y291bnQgKi8KPiArCQkuY29tcG9uZW50LnR5cGUgPSBDT1VOVEVSX0NPTVBPTkVOVF9DT1VOVCwK
-PiArCQkuY29tcG9uZW50LnNjb3BlID0gQ09VTlRFUl9TQ09QRV9DT1VOVCwKPiArCQkuY29tcG9u
-ZW50LnBhcmVudCA9IDEsCj4gKwkJLyogRXZlbnQgdHlwZTogSW5kZXggKi8KPiArCQkuZXZlbnQg
-PSBDT1VOVEVSX0VWRU5UX0lOREVYLAo+ICsJCS8qIERldmljZSBldmVudCBjaGFubmVsIDAgKi8K
-PiArCQkuY2hhbm5lbCA9IDAsCj4gKwl9LAo+ICt9Owo+ICsKPiAraW50IG1haW4odm9pZCkKPiAr
-ewo+ICsJaW50IGZkOwo+ICsJaW50IHJldDsKPiArCXN0cnVjdCBjb3VudGVyX2V2ZW50IGV2ZW50
-X2RhdGFbMl07Cj4gKwo+ICsJZmQgPSBvcGVuKCIvZGV2L2NvdW50ZXIwIiwgT19SRFdSKTsKPiAr
-CWlmIChmZCA9PSAtMSkgewo+ICsJCXBlcnJvcigiVW5hYmxlIHRvIG9wZW4gL2Rldi9jb3VudGVy
-MCIpOwo+ICsJCXJldHVybiAtZXJybm87Cj4gKwl9Cj4gKwo+ICsJcmV0ID0gaW9jdGwoZmQsIENP
-VU5URVJfQUREX1dBVENIX0lPQ1RMLCB3YXRjaGVzKTsKPiArCWlmIChyZXQgPT0gLTEpIHsKPiAr
-CQlwZXJyb3IoIkVycm9yIGFkZGluZyB3YXRjaGVzWzBdIik7Cj4gKwkJcmV0dXJuIC1lcnJubzsK
-PiArCX0KPiArCXJldCA9IGlvY3RsKGZkLCBDT1VOVEVSX0FERF9XQVRDSF9JT0NUTCwgd2F0Y2hl
-cyArIDEpOwo+ICsJaWYgKHJldCA9PSAtMSkgewo+ICsJCXBlcnJvcigiRXJyb3IgYWRkaW5nIHdh
-dGNoZXNbMV0iKTsKPiArCQlyZXR1cm4gLWVycm5vOwo+ICsJfQo+ICsJcmV0ID0gaW9jdGwoZmQs
-IENPVU5URVJfRU5BQkxFX0VWRU5UU19JT0NUTCk7Cj4gKwlpZiAocmV0ID09IC0xKSB7Cj4gKwkJ
-cGVycm9yKCJFcnJvciBlbmFibGluZyBldmVudHMiKTsKPiArCQlyZXR1cm4gLWVycm5vOwo+ICsJ
-fQo+ICsKPiArCWZvciAoOzspIHsKPiArCQlyZXQgPSByZWFkKGZkLCBldmVudF9kYXRhLCBzaXpl
-b2YoZXZlbnRfZGF0YSkpOwo+ICsJCWlmIChyZXQgPT0gLTEpIHsKPiArCQkJcGVycm9yKCJGYWls
-ZWQgdG8gcmVhZCBldmVudCBkYXRhIik7Cj4gKwkJCXJldHVybiAtZXJybm87Cj4gKwkJfQo+ICsK
-PiArCQlpZiAocmV0ICE9IHNpemVvZihldmVudF9kYXRhKSkgewo+ICsJCQlmcHJpbnRmKHN0ZGVy
-ciwgIkZhaWxlZCB0byByZWFkIGV2ZW50IGRhdGFcbiIpOwo+ICsJCQlyZXR1cm4gLUVJTzsKPiAr
-CQl9Cj4gKwo+ICsJCXByaW50ZigiVGltZXN0YW1wIDA6ICVsbHVcdENvdW50IDA6ICVsbHVcbiIK
-PiArCQkgICAgICAgIkVycm9yIE1lc3NhZ2UgMDogJXNcbiIKPiArCQkgICAgICAgIlRpbWVzdGFt
-cCAxOiAlbGx1XHRDb3VudCAxOiAlbGx1XG4iCj4gKwkJICAgICAgICJFcnJvciBNZXNzYWdlIDE6
-ICVzXG4iLAo+ICsJCSAgICAgICAodW5zaWduZWQgbG9uZyBsb25nKWV2ZW50X2RhdGFbMF0udGlt
-ZXN0YW1wLAoKSSB0aGluayB0aGVyZSBzaG91bGQgYmUgbm8gbmVlZCB0byBjYXN0IHRoaXMgb25l
-LiAgX19hbGlnbmVkX3U2NCBpcyBhbHdheXMKZ29pbmcgdG8gYmUgb2YgdHlwZSBsbHUgYW55d2F5
-LgoKCj4gKwkJICAgICAgICh1bnNpZ25lZCBsb25nIGxvbmcpZXZlbnRfZGF0YVswXS52YWx1ZSwK
-PiArCQkgICAgICAgc3RyZXJyb3IoZXZlbnRfZGF0YVswXS5zdGF0dXMpLAo+ICsJCSAgICAgICAo
-dW5zaWduZWQgbG9uZyBsb25nKWV2ZW50X2RhdGFbMV0udGltZXN0YW1wLAo+ICsJCSAgICAgICAo
-dW5zaWduZWQgbG9uZyBsb25nKWV2ZW50X2RhdGFbMV0udmFsdWUsCj4gKwkJICAgICAgIHN0cmVy
-cm9yKGV2ZW50X2RhdGFbMV0uc3RhdHVzKSk7Cj4gKwl9Cj4gKwo+ICsJcmV0dXJuIDA7Cj4gK30K
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+On Sat, 10 Jul 2021 12:06:53 -0500
+David Lechner <david@lechnology.com> wrote:
+
+> On 7/5/21 3:19 AM, William Breathitt Gray wrote:
+> > The Generic Counter chrdev interface expects users to supply component
+> > IDs in order to select extensions for requests. In order for users to
+> > know what component ID belongs to which extension this information must
+> > be exposed. The *_component_id attribute provides a way for users to
+> > discover what component ID belongs to which respective extension.
+> > 
+> > Cc: David Lechner <david@lechnology.com>
+> > Cc: Gwendal Grignou <gwendal@chromium.org>
+> > Cc: Dan Carpenter <dan.carpenter@oracle.com>
+> > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> > ---
+> >   Documentation/ABI/testing/sysfs-bus-counter | 16 ++++++++++-
+> >   drivers/counter/counter-sysfs.c             | 30 ++++++++++++++++-----
+> >   2 files changed, 39 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Documentation/ABI/testing/sysfs-bus-counter
+> > index 9809d8a47431..e0e99adb0ecc 100644
+> > --- a/Documentation/ABI/testing/sysfs-bus-counter
+> > +++ b/Documentation/ABI/testing/sysfs-bus-counter
+> > @@ -203,12 +203,26 @@ Description:
+> >   		both edges:
+> >   			Any state transition.
+> >   
+> > +What:		/sys/bus/counter/devices/counterX/countY/ceiling_component_id
+> > +What:		/sys/bus/counter/devices/counterX/countY/floor_component_id
+> > +What:		/sys/bus/counter/devices/counterX/countY/count_mode_component_id
+> > +What:		/sys/bus/counter/devices/counterX/countY/direction_component_id
+> > +What:		/sys/bus/counter/devices/counterX/countY/enable_component_id
+> > +What:		/sys/bus/counter/devices/counterX/countY/error_noise_component_id
+> > +What:		/sys/bus/counter/devices/counterX/countY/prescaler_component_id
+> > +What:		/sys/bus/counter/devices/counterX/countY/preset_component_id
+> > +What:		/sys/bus/counter/devices/counterX/countY/preset_enable_component_id
+> >   What:		/sys/bus/counter/devices/counterX/countY/signalZ_action_component_id
+> > +What:		/sys/bus/counter/devices/counterX/signalY/cable_fault_component_id
+> > +What:		/sys/bus/counter/devices/counterX/signalY/cable_fault_enable_component_id
+> > +What:		/sys/bus/counter/devices/counterX/signalY/filter_clock_prescaler_component_id
+> > +What:		/sys/bus/counter/devices/counterX/signalY/index_polarity_component_id
+> > +What:		/sys/bus/counter/devices/counterX/signalY/synchronous_mode_component_id  
+> 
+> Could we just write a single line?
+> 
+> What:		/sys/bus/counter/devices/counterX/signalY/<component>_component_id
+
+Not nice for grepping so I think it's better to call them out explicitly.
+
+There has been a proposal to check this ABI doc against running kernels, and if we have
+too many wild cards that becomes very difficult to do.
+
+Jonathan
+
+> 
+> >   KernelVersion:	5.15
+> >   Contact:	linux-iio@vger.kernel.org
+> >   Description:
+> >   		Read-only attribute that indicates the component ID of the
+> > -		respective Synapse of Count Y for Signal Z.
+> > +		respective extension or Synapse.
+> >   
+> >   What:		/sys/bus/counter/devices/counterX/countY/spike_filter_ns
+> >   KernelVersion:	5.14
+> > diff --git a/drivers/counter/counter-sysfs.c b/drivers/counter/counter-sysfs.c
+> > index bb49a10f160b..eb1505bfbd89 100644
+> > --- a/drivers/counter/counter-sysfs.c
+> > +++ b/drivers/counter/counter-sysfs.c
+> > @@ -587,6 +587,7 @@ static int counter_signal_attrs_create(struct counter_device *const counter,
+> >   	int err;
+> >   	struct counter_comp comp;
+> >   	size_t i;
+> > +	struct counter_comp *ext;
+> >   
+> >   	/* Create main Signal attribute */
+> >   	comp = counter_signal_comp;
+> > @@ -602,8 +603,13 @@ static int counter_signal_attrs_create(struct counter_device *const counter,
+> >   
+> >   	/* Create an attribute for each extension */
+> >   	for (i = 0; i < signal->num_ext; i++) {
+> > -		err = counter_attr_create(dev, group, signal->ext + i, scope,
+> > -					  signal);
+> > +		ext = signal->ext + i;
+> > +
+> > +		err = counter_attr_create(dev, group, ext, scope, signal);
+> > +		if (err < 0)
+> > +			return err;
+> > +
+> > +		err = counter_comp_id_attr_create(dev, group, ext->name, i);
+> >   		if (err < 0)
+> >   			return err;
+> >   	}
+> > @@ -694,6 +700,7 @@ static int counter_count_attrs_create(struct counter_device *const counter,
+> >   	int err;
+> >   	struct counter_comp comp;
+> >   	size_t i;
+> > +	struct counter_comp *ext;
+> >   
+> >   	/* Create main Count attribute */
+> >   	comp = counter_count_comp;
+> > @@ -718,8 +725,13 @@ static int counter_count_attrs_create(struct counter_device *const counter,
+> >   
+> >   	/* Create an attribute for each extension */
+> >   	for (i = 0; i < count->num_ext; i++) {
+> > -		err = counter_attr_create(dev, group, count->ext + i, scope,
+> > -					  count);
+> > +		ext = count->ext + i;  
+> 
+> 		ext = &count->ext[i];
+> 
+> Could make it more clear we are dealing with pointers rather than integers.
+> 
+> > +
+> > +		err = counter_attr_create(dev, group, ext, scope, count);
+> > +		if (err < 0)
+> > +			return err;
+> > +
+> > +		err = counter_comp_id_attr_create(dev, group, ext->name, i);
+> >   		if (err < 0)
+> >   			return err;
+> >   	}
+> > @@ -783,6 +795,7 @@ static int counter_sysfs_attr_add(struct counter_device *const counter,
+> >   	struct device *const dev = &counter->dev;
+> >   	int err;
+> >   	size_t i;
+> > +	struct counter_comp *ext;
+> >   
+> >   	/* Add Signals sysfs attributes */
+> >   	err = counter_sysfs_signals_add(counter, group);
+> > @@ -815,8 +828,13 @@ static int counter_sysfs_attr_add(struct counter_device *const counter,
+> >   
+> >   	/* Create an attribute for each extension */
+> >   	for (i = 0; i < counter->num_ext; i++) {
+> > -		err = counter_attr_create(dev, group, counter->ext + i, scope,
+> > -					  NULL);
+> > +		ext = counter->ext + i;  
+> 
+> ditto
+> 
+> > +
+> > +		err = counter_attr_create(dev, group, ext, scope, NULL);
+> > +		if (err < 0)
+> > +			return err;
+> > +
+> > +		err = counter_comp_id_attr_create(dev, group, ext->name, i);
+> >   		if (err < 0)
+> >   			return err;
+> >   	}
+> >   
+> 
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
