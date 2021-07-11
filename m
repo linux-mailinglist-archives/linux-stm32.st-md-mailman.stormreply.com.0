@@ -2,70 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E80423C3B91
-	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jul 2021 12:41:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 098073C3BDD
+	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jul 2021 13:28:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21CEFC57B6B;
-	Sun, 11 Jul 2021 10:41:18 +0000 (UTC)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com
- [209.85.221.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C088C57B6B;
+	Sun, 11 Jul 2021 11:28:23 +0000 (UTC)
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com
+ [209.85.222.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A9AFC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D8BCC56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Jul 2021 10:41:17 +0000 (UTC)
-Received: by mail-vk1-f169.google.com with SMTP id x125so3284015vkf.0
+ Sun, 11 Jul 2021 11:28:20 +0000 (UTC)
+Received: by mail-ua1-f47.google.com with SMTP id c20so5803270uar.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Jul 2021 03:41:16 -0700 (PDT)
+ Sun, 11 Jul 2021 04:28:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=uSIeU9Xrm6MFsRdcAvqJwzm/06Dgie5NAiMN24JshYA=;
- b=GnRCuYox65Nvn/yJKM14od1VNX/q+4m6AMt/tenIK+ZUPI8++wpi+DbjxZDoEJzo0X
- BQGPsSGSaD7qN4VRISd43VBjSjSGMigBBAXPrK/TEktC3ImYdgoieEJ3yge1We5qTFte
- 6NYwTAJZQCz2Q0vQ74jFGz6XL2nc4pzIjuSvJ66JYpMmjaMnQrmaiI9dh1x6GUssCefj
- mM+CixforZsmC0Rzc91fRdUeiVqIU2FfVIkV1ax0iVds9dCz5Jg7fCzkOqtr9oPAgyJb
- T8BLzLqhzJZQR4q3yb1dmZG1d+9zQLYyKAdBfBAEd1BjcCDmBuzeyAZa+3QYHXnnjB0y
- v23A==
+ bh=2UbdQq4lzRnyLqpnoKRSKm5CIBGEvXxu2D17blGP0rc=;
+ b=uZO275xN/xrbBY/7UUArNmoCsAwrZGS9wg9y7eVGgpV7a3h2KA794rjOITby78slb3
+ kk/o6kwBR4DF9m+u76fTJW2UzfgQQv7R7p6rjJ/5uhkYGP4ywLvbd/aVfq1pYTMhavl0
+ xYxzOXpePRViDIGKb5y4VA+AN1+RfZtp2gkqHX4YFetudLxMorwL0xLn610Pfjn1f5zH
+ aTfMixTPHU52Nj1BpRHOkKHLpnpIDw2BLGx+Ndz31IMFP+reL+o9al5Wg546PoL/tEGj
+ 42zkH9BYvc3dy3o60lTTZYEnMcSBFtwwEN50xPEj3Xe4NPbQkgblk9XG6t67wffNNDCH
+ axQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=uSIeU9Xrm6MFsRdcAvqJwzm/06Dgie5NAiMN24JshYA=;
- b=uT8EdBMgH6t81iiX8Ibuf4nnrcwYC1lGPzXaEiJOp4ToFmkdO7GxWF34ZlRuZMF2OE
- IaZHHZUMq2bV4MgBoDmwPQMJLqX+j/Peuv7UeENMv0epmcI1xDHQWQva6Lj/1ZR+5vDH
- aDoiopuade0IzschN4OZftNtFVZ7DAeayReojGrB6/4Cj8WIFunTtRHLKqhz9DjE0Sw9
- G99gOfelhAuCDaJXvOX3JrgO2X8x8H2U3DfZEWBkSQPCkKY3cUzJFZcDK69S+VoOTlFb
- ZG+ic+sVFWhW2me3V9dQW1uIBwyuPab3SidM+GIGrV8nxbPbRotKvROymlDWs3tNUMYr
- 9mXw==
-X-Gm-Message-State: AOAM5316mIW+CP2kCsoKjZr2yAzLkV6eyhS9QBCWFA/AXUyUXujymRT+
- AfmzXO+0mJtQmtjYHREtOe8=
-X-Google-Smtp-Source: ABdhPJxZofoDN0krXK3CMRsXndP+JzoeJBdlb9RcGd843oJbomuw8VvoUx+xxCiXQGzxQiSENjZMzw==
-X-Received: by 2002:a1f:1d94:: with SMTP id d142mr39857184vkd.6.1626000075861; 
- Sun, 11 Jul 2021 03:41:15 -0700 (PDT)
+ bh=2UbdQq4lzRnyLqpnoKRSKm5CIBGEvXxu2D17blGP0rc=;
+ b=amgljXUgaqHOUhyuunxB9wMyicfaP8UJP42a/ttu3VQ0LKb5ULBGmTO0ZUqSDAWtvX
+ ZzZVc2SVQn/kJ+jBuIcfDQivp+bJ0LR/whm09+3qM+Jc+QLp/oq/SDGwTbKMvRfn2rKs
+ t9cQmUfIV7ZjcD0Pai5TgF4SzksSaInqbE4BdUcjC6lCs34A8K+OhbNH0EszIUVXBnBW
+ gXaN5KRI2chU9Bn3A6xAzWzExtikBZVTuxFrtvr13VFusIINU2smzajyFj2G3uiDrAb7
+ 3fJ297Rw3+1Iyjpv4TOH46Brwb5L4wH0qppDfkrCNaPyOiEZtZdOaEjgTjAjCbM5pAUW
+ wKhA==
+X-Gm-Message-State: AOAM5327rKhEQgiMk/8z1ConUhIFHVX/XJRKEsNieVR09fCob09X4ECM
+ wzUmTSY9EG0ZxoZpfT/DhEA=
+X-Google-Smtp-Source: ABdhPJyfXiuANdIugYW/0ijyHB9PsLd9AbrGVY8e174gPdjELQV0JHTLolVn9IfYR+kXf3ROujFpgA==
+X-Received: by 2002:ab0:d97:: with SMTP id i23mr11710027uak.61.1626002899806; 
+ Sun, 11 Jul 2021 04:28:19 -0700 (PDT)
 Received: from shinobu ([193.27.12.133])
- by smtp.gmail.com with ESMTPSA id d184sm1570664vsd.34.2021.07.11.03.41.10
+ by smtp.gmail.com with ESMTPSA id m16sm1558726vkm.47.2021.07.11.04.28.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 11 Jul 2021 03:41:15 -0700 (PDT)
-Date: Sun, 11 Jul 2021 19:41:07 +0900
+ Sun, 11 Jul 2021 04:28:19 -0700 (PDT)
+Date: Sun, 11 Jul 2021 20:28:11 +0900
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: David Lechner <david@lechnology.com>
-Message-ID: <YOrKw04fw43AEeWQ@shinobu>
+Message-ID: <YOrVy7Ba117s1maQ@shinobu>
 References: <cover.1625471640.git.vilhelm.gray@gmail.com>
- <186e7a1cd7dc822cc9290683b463c3e675959e1a.1625471640.git.vilhelm.gray@gmail.com>
- <10ae3615-1fe4-0dce-5aa6-e865de2655a7@lechnology.com>
+ <e97aa3e529f54d5651df7edcc1b43a8157d9e9c3.1625471640.git.vilhelm.gray@gmail.com>
+ <343a2bd3-38b7-7462-bc52-d3f6493bede0@lechnology.com>
 MIME-Version: 1.0
-In-Reply-To: <10ae3615-1fe4-0dce-5aa6-e865de2655a7@lechnology.com>
+In-Reply-To: <343a2bd3-38b7-7462-bc52-d3f6493bede0@lechnology.com>
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, jarkko.nikula@linux.intel.com,
- linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
+ Pavel Machek <pavel@ucw.cz>, alexandre.belloni@bootlin.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, linux-arm-kernel@lists.infradead.org,
+ kernel@pengutronix.de, fabrice.gasnier@st.com, syednwaris@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org,
  alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v12 11/17] docs: counter: Document
- character device interface
+Subject: Re: [Linux-stm32] [PATCH v12 12/17] tools/counter: Create Counter
+	tools
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,195 +77,224 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============9179470553628634255=="
+Content-Type: multipart/mixed; boundary="===============7487723055662152597=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============9179470553628634255==
+--===============7487723055662152597==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dVrT+04cp+VrrbAK"
+	protocol="application/pgp-signature"; boundary="PD3Ct3y1jwnkQ/rs"
 Content-Disposition: inline
 
 
---dVrT+04cp+VrrbAK
+--PD3Ct3y1jwnkQ/rs
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Jul 10, 2021 at 03:15:06PM -0500, David Lechner wrote:
-> On 7/5/21 3:18 AM, William Breathitt Gray wrote:
-> > This patch adds high-level documentation about the Counter subsystem
-> > character device interface.
+On Sat, Jul 10, 2021 at 11:53:35AM -0500, David Lechner wrote:
+> On 7/5/21 3:19 AM, William Breathitt Gray wrote:
+> > This creates an example Counter program under tools/counter/*
+> > to exemplify the Counter character device interface.
 > >=20
+> > Cc: Pavel Machek <pavel@ucw.cz>
 > > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 > > ---
-> >   Documentation/driver-api/generic-counter.rst  | 185 ++++++++++++++----
-> >   .../userspace-api/ioctl/ioctl-number.rst      |   1 +
-> >   2 files changed, 145 insertions(+), 41 deletions(-)
-> >=20
-> > diff --git a/Documentation/driver-api/generic-counter.rst b/Documentati=
-on/driver-api/generic-counter.rst
-> > index f6397218aa4c..62a702e7f994 100644
-> > --- a/Documentation/driver-api/generic-counter.rst
-> > +++ b/Documentation/driver-api/generic-counter.rst
 >=20
 >=20
-> > +
-> > +Counter Character Device
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-> > +
-> > +Counter character device nodes are created under the ``/dev`` directory
-> > +as ``counterX``, where ``X`` is the respective counter device id.
-> > +Defines for the standard Counter data types are exposed via the
-> > +userspace ``include/uapi/linux/counter.h`` file.
-> > +
-> > +Counter events
-> > +--------------
-> > +Counter device drivers can support Counter events by utilizing the
-> > +``counter_push_event`` function::
-> > +
-> > +        void counter_push_event(struct counter_device *const counter, =
-const u8 event,
-> > +                                const u8 channel);
-> > +
-> > +The event id is specified by the ``event`` parameter; the event channel
-> > +id is specified by the ``channel`` parameter. When this function is
-> > +called, the Counter data associated with the respective event is
-> > +gathered, and a ``struct counter_event`` is generated for each datum a=
-nd
-> > +pushed to userspace.
-> > +
-> > +Counter events can be configured by users to report various Counter
-> > +data of interest. This can be conceptualized as a list of Counter
-> > +component read calls to perform. For example::
+> > --- a/tools/Makefile
+> > +++ b/tools/Makefile
+> > @@ -12,6 +12,7 @@ help:
+> >   	@echo '  acpi                   - ACPI tools'
+> >   	@echo '  bpf                    - misc BPF tools'
+> >   	@echo '  cgroup                 - cgroup tools'
+> > +	@echo '  counter                - Counter tools'
 >=20
-> Won't the :: here make this appear as text instead of an HTML table?
->=20
-> (might need to change ~~~ to --- [top line] and =3D=3D=3D [middle line])
-
-Ack, I'll change this to an HTML table.
-
-> > +
-> > +        +~~~~~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~~~~~+
-> > +        | COUNTER_EVENT_OVERFLOW | COUNTER_EVENT_INDEX    |
-> > +        +~~~~~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~~~~~+
-> > +        | Channel 0              | Channel 0              |
-> > +        +------------------------+------------------------+
-> > +        | * Count 0              | * Signal 0             |
-> > +        | * Count 1              | * Signal 0 Extension 0 |
-> > +        | * Signal 3             | * Extension 4          |
-> > +        | * Count 4 Extension 2  +------------------------+
-> > +        | * Signal 5 Extension 0 | Channel 1              |
-> > +        |                        +------------------------+
-> > +        |                        | * Signal 4             |
-> > +        |                        | * Signal 4 Extension 0 |
-> > +        |                        | * Count 7              |
-> > +        +------------------------+------------------------+
-> > +
-> > +When ``counter_push_event(counter, COUNTER_EVENT_INDEX, 1)`` is called
-> > +for example, it will go down the list for the ``COUNTER_EVENT_INDEX``
-> > +event channel 1 and execute the read callbacks for Signal 4, Signal 4
-> > +Extension 0, and Count 4 -- the data returned for each is pushed to a
-> > +kfifo as a ``struct counter_event``, which userspace can retrieve via a
-> > +standard read operation on the respective character device node.
-> > +
-> > +Userspace
-> > +---------
-> > +Userspace applications can configure Counter events via ioctl operatio=
-ns
-> > +on the Counter character device node. There following ioctl codes are
-> > +supported and provided by the ``linux/counter.h`` userspace header fil=
-e:
-> > +
-> > +* COUNTER_ADD_WATCH_IOCTL:
-> > +  Queues a Counter watch for the specified event. The queued watches
-> > +  will not be applied until ``COUNTER_ENABLE_EVENTS_IOCTL`` is called.
-> > +
-> > +* COUNTER_ENABLE_EVENTS_IOCTL:
-> > +  Enables monitoring the events specified by the Counter watches that
-> > +  were queued by ``COUNTER_ADD_WATCH_IOCTL``. If events are already
-> > +  enabled, the new set of watches replaces the old one. Calling this
-> > +  ioctl also has the effect of clearing the queue of watches added by
-> > +  ``COUNTER_ADD_WATCH_IOCTL``.
-> > +
-> > +* COUNTER_DISABLE_EVENTS_IOCTL:
-> > +  Stops monitoring the previously enabled events.
->=20
-> I wouldn't mind seeing more of this documentation in the actual header
-> file and just referenced here with :c:macro:`COUNTER_ADD_WATCH_IOCTL`
+> nit: other descriptions start with lower case letter, so to be
+> consistent, this should too
 
 Ack.
 
+> > --- /dev/null
+> > +++ b/tools/counter/counter_example.c
+> > @@ -0,0 +1,95 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/* Counter - example userspace application
+> > + *
+> > + * The userspace application opens /dev/counter0, configures the
+> > + * COUNTER_EVENT_INDEX event channel 0 to gather Count 0 count and Cou=
+nt
+> > + * 1 count, and prints out the data as it becomes available on the
+> > + * character device node.
+> > + *
+> > + * Copyright (C) 2021 William Breathitt Gray
+> > + */
+> > +#include <errno.h>
+> > +#include <fcntl.h>
+> > +#include <linux/counter.h>
+> > +#include <stdio.h>
+> > +#include <string.h>
+> > +#include <sys/ioctl.h>
+> > +#include <unistd.h>
 > > +
-> > +To configure events to gather Counter data, users first populate a
-> > +``struct counter_watch`` with the relevant event id, event channel id,
-> > +and the information for the desired Counter component from which to
-> > +read, and then pass it via the ``COUNTER_ADD_WATCH_IOCTL`` ioctl
-> > +command.
+> > +struct counter_watch watches[2] =3D {
+>=20
+> nit: this can be static
+
+Ack.
+
+> > +	{
+> > +		/* Component data: Count 0 count */
+> > +		.component.type =3D COUNTER_COMPONENT_COUNT,
+> > +		.component.scope =3D COUNTER_SCOPE_COUNT,
+> > +		.component.parent =3D 0,
+> > +		/* Event type: Index */
+> > +		.event =3D COUNTER_EVENT_INDEX,
+> > +		/* Device event channel 0 */
+> > +		.channel =3D 0,
+> > +	},
+> > +	{
+> > +		/* Component data: Count 1 count */
+> > +		.component.type =3D COUNTER_COMPONENT_COUNT,
+> > +		.component.scope =3D COUNTER_SCOPE_COUNT,
+> > +		.component.parent =3D 1,
+> > +		/* Event type: Index */
+> > +		.event =3D COUNTER_EVENT_INDEX,
+> > +		/* Device event channel 0 */
+> > +		.channel =3D 0,
+> > +	},
+> > +};
 > > +
-> > +Note that an event can be watched without gathering Counter data by
-> > +setting the ``component.type`` member equal to
-> > +``COUNTER_COMPONENT_NONE``. With this configuration the Counter
-> > +character device will simply populate the event timestamps for those
-> > +respective ``struct counter_event`` elements and ignore the component
-> > +value.
+> > +int main(void)
+> > +{
+> > +	int fd;
+> > +	int ret;
+> > +	struct counter_event event_data[2];
+> > +
+> > +	fd =3D open("/dev/counter0", O_RDWR);
+> > +	if (fd =3D=3D -1) {
+> > +		perror("Unable to open /dev/counter0");
+> > +		return -errno;
 >=20
-> To make sure I am understanding this correctly, scope + parent
-> determines this part of the path:
+> errno is no longer valid after calling perror(). Since this
+> is example code, we can just return 1 instead (exit codes
+> positive number between 0 and 255 so -1 would be 255).
+
+Ack.
+
+> > +	}
+> > +
+> > +	ret =3D ioctl(fd, COUNTER_ADD_WATCH_IOCTL, watches);
+> > +	if (ret =3D=3D -1) {
+> > +		perror("Error adding watches[0]");
+> > +		return -errno;
+> > +	}
+> > +	ret =3D ioctl(fd, COUNTER_ADD_WATCH_IOCTL, watches + 1);
+> > +	if (ret =3D=3D -1) {
+> > +		perror("Error adding watches[1]");
+> > +		return -errno;
+> > +	}
+> > +	ret =3D ioctl(fd, COUNTER_ENABLE_EVENTS_IOCTL);
+> > +	if (ret =3D=3D -1) {
+> > +		perror("Error enabling events");
+> > +		return -errno;
+> > +	}
+> > +
+> > +	for (;;) {
+> > +		ret =3D read(fd, event_data, sizeof(event_data));
+> > +		if (ret =3D=3D -1) {
+> > +			perror("Failed to read event data");
+> > +			return -errno;
+> > +		}
+> > +
+> > +		if (ret !=3D sizeof(event_data)) {
+> > +			fprintf(stderr, "Failed to read event data\n");
+> > +			return -EIO;
+> > +		}
+> > +
+> > +		printf("Timestamp 0: %llu\tCount 0: %llu\n"
+> > +		       "Error Message 0: %s\n"
+> > +		       "Timestamp 1: %llu\tCount 1: %llu\n"
+> > +		       "Error Message 1: %s\n",
+> > +		       (unsigned long long)event_data[0].timestamp,
+> > +		       (unsigned long long)event_data[0].value,
+> > +		       strerror(event_data[0].status),
+> > +		       (unsigned long long)event_data[1].timestamp,
+> > +		       (unsigned long long)event_data[1].value,
+> > +		       strerror(event_data[1].status));
+> > +	}
 >=20
-> 	/sys/.../counterX/<scope><parent>/<component>
->=20
-> Or in the case that scope =3D=3D COUNTER_SCOPE_DEVICE then parent
-> is not applicable:
->=20
-> 	/sys/.../counterX/<component>
+> Aren't the Count 0 and Count 1 events independent? Why should we expect to
+> always get both events at the same time in the same order?
 
-Yes, that understanding is correct.
+Watch 0 and Watch 1 are both triggered by the same event: a
+COUNTER_EVENT_INDEX event on device event channel 0. If we had set
+channel to 1 for Watch 1, then we would have two independent events, but
+in this case both Watches have their respective channel set to 0.
 
-> I suggested parent_id instead of parent earlier, but maybe
-> scope_id would be a better name? (Or rename scope to parent_type?)
+To make the sequence of events clearer, here's a timeline:
 
-I can see the benefit of more specific naming, but perhaps the current
-names are clear enough when they appear in the context of user code. It
-becomes rather obvious in a snippet of code that `component.scope`
-refers to the scope type of a component while `component.parent` refers
-to the specific parent of the component; I don't think the more verbose
-`scope_type`/`parent_type` or `scope_id`/`parent_id` namings really add
-much benefit here.
+* The user configures the watch list via COUNTER_ADD_WATCH_IOCTL.
 
-I'm not entirely opposed to renaming this, so if other maintainers also
-feel this is better renamed then I'll change it. If we do change the
-naming, then remaing `scope` to `scope_type` and `parent` to `parent_id`
-might be the way to go; "scope_id" seems strange to me because I
-envision `scope` as a type rather than an identifiable component.
+* The watch list consists of Watch 0 and Watch 1. Watch 0 is configured
+  to report the Count 0 count, while Watch 1 is configured to report the
+  Count 1 count. Both watches are configured to trigger on the same
+  event (COUNTER_EVENT_INDEX on device event channel 0).
+
+* The user enables Counter events via COUNTER_ENABLE_EVENTS_IOCTL.
+
+* The user calls read() from userspace and blocks until data is
+  available in the Counter events list kfifo; this corresponds to
+  wait_event_interruptible() in counter_chrdev_read().
+
+* A COUNTER_EVENT_INDEX event occurs on device event channel 0.
+
+* All Watches in the watch list that are waiting for COUNTER_EVENT_INDEX
+  on device event channel 0 will now trigger; both Watch 0 and Watch 1
+  will trigger, one after the other.
+
+* A read operation is performed for the Count 0 count component; the
+  data is pushed to the Counter event list.
+
+* A read operation is performed for the Count 1 count component; the
+  data is pushed to the Counter event list.
+
+* Counter subsystem notifies that data is available in the Counter
+  events list kfifo; this corresponds to the wake_up_poll() in
+  counter_push_event().
+
+* The userspace read() call returns the Counter event list data.
+
+So in the counter_example.c reference code, we will always get both
+event data elements returned to the user at the same time (with the
+exception of errors which break early).
 
 William Breathitt Gray
 
---dVrT+04cp+VrrbAK
+--PD3Ct3y1jwnkQ/rs
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmDqyrAACgkQhvpINdm7
-VJKKIA/+Kmcau65hlY3YM9GQBi1Yb1yKwxEJd8EusAFH+ZKZqS7iq9PPNfdBSoSg
-D19UlOjTHN+T735ZVtlxOgjW6gH9t7HLpVRx7bUp1F3BwhMY6alDoH/wfbHv5fDv
-Vf76N2yZqW5oBMIsl5PoIveu74huWZG77dKy5drFUb1hOmh4jMRZOOx3zYR0C5Co
-9NRy8vjJBijy3WuELG2UbPcgh9b/SFXDt4ffsZNOJjFpPYSpYNnuuzWLcN+N5bzm
-6vA7OaYao0JDKzzaWBQMUbMzF5EDxD+GgYdrtzgw5BSq75lS7TC3D5F+K6UxVwU0
-VL82mrUxFG5KGK6muZWMlF9SGPx+IowqLcKUb4ZtBJ4RBphIyjCEVLpBTb2McCKs
-PRqsWpKJvDWdEvCoBObJJOL2LJnnNMdaAu3Y9jp5P1WDDm7MJGRPQ29/NBmm1lIb
-LX/+hj68lZBSeCHykHeCi8YVqU0wKdx1ELE71UQUSmOo0Vw7tV8YWnPkZUza8CJY
-jrTlHbc0a/Vp2bD/dxJ3cfP83n75SlKTgibf7eApW5EWjiW6DAz9ZNIPnbYXxTo6
-FqAppe5ucHuUFt4r0S+0hHWRI6nLuT76/L+NiaBRo3LaMApbJs+W6ak3JweFW7mD
-rpV2XzMTziXyWfy4F/CKk0ZDMyJuxduRcfc4Qktrf82lV+67EZI=
-=02sW
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmDq1boACgkQhvpINdm7
+VJK6HQ//dIi8jTzPIXeL6Knwf7G4fe8H9LQroDGDqCGexaFo0UpsuCsGaeJmXmrB
+pOiHPae9g2jiJU0z8z22nKjSogQEGf/gl5ZwoRTDjzNDh7cjxjgwdGSKne8ss4WX
+oC8bkBI9UQVzG6t6+aHP6+BLkNfhV/eeJYG0P/Oc33ydZ+UAgKNk97bZPdTy2eml
+Yh3f/EqqkDlKMRaQl6bKc/4rm4qtRmhG2bYAtmQb+rDj4J98zR5nXSm2J8j+cJw0
+cT8G91vBlpIZ5nj8fOHMkv67F/+/7xfYDOaKTxnx9jixnOUKj1z2hWZAjlGvYlbr
+KWqblaysowmOw4Lgi60oT4DGQ0yYbtkfh0J+9AUyi0OMRc9sih8Gzz6/+KPh6yIY
+eCNSaqjaJxVEh4j75OKFGj1+rWQrQyfu4voaGUxT17pEpQiKlUsidTU5VN23Apu2
+jdbDtYltreEVaT6X0AoDOankevkepDo5kTev9Ltv3Y7VOVCg/yqNeoG2x1AEnr7z
+xV30LUWv/ATDNp0NNT/BngzXxn0HG+gtcxFq8pBfmYUUFbj6scVWVGhcaM+VIipO
+Kc94JZ7ixz/nCo8nBJQ482I5vpQ8hqOfmW2KCPIOutqfpAf+jV/yx/IaTN4Lf//6
+YQAPl8tFXfuB61KoABX8JoIeHQ2j8b9vikHVN3D7TRZBAfTYiEs=
+=e6Uj
 -----END PGP SIGNATURE-----
 
---dVrT+04cp+VrrbAK--
+--PD3Ct3y1jwnkQ/rs--
 
---===============9179470553628634255==
+--===============7487723055662152597==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -276,4 +305,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============9179470553628634255==--
+--===============7487723055662152597==--
