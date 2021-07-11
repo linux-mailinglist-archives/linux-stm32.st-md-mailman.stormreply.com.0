@@ -2,44 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D73A13C3CD1
-	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jul 2021 15:25:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF6183C3D12
+	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jul 2021 15:42:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A97EC57B6B;
-	Sun, 11 Jul 2021 13:25:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D635C57B6B;
+	Sun, 11 Jul 2021 13:42:45 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BB72C56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9A77C3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 11 Jul 2021 13:25:52 +0000 (UTC)
+ Sun, 11 Jul 2021 13:42:42 +0000 (UTC)
 Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
  [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 43642611C0;
- Sun, 11 Jul 2021 13:25:45 +0000 (UTC)
-Date: Sun, 11 Jul 2021 14:28:00 +0100
+ by mail.kernel.org (Postfix) with ESMTPSA id 0881761186;
+ Sun, 11 Jul 2021 13:42:33 +0000 (UTC)
+Date: Sun, 11 Jul 2021 14:44:49 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <david@lechnology.com>
-Message-ID: <20210711142800.60e94cc7@jic23-huawei>
-In-Reply-To: <bd0313ce-22fa-0516-93a1-ff3a5cb1fdd1@lechnology.com>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>
+Message-ID: <20210711144449.65cf28d9@jic23-huawei>
+In-Reply-To: <4ce9f9d36b756801457523e3832f09c36fa8e9ef.1625471640.git.vilhelm.gray@gmail.com>
 References: <cover.1625471640.git.vilhelm.gray@gmail.com>
- <0e04a9e6455faf171e5dd7885676e55b5321b1ea.1625471640.git.vilhelm.gray@gmail.com>
- <bd0313ce-22fa-0516-93a1-ff3a5cb1fdd1@lechnology.com>
+ <4ce9f9d36b756801457523e3832f09c36fa8e9ef.1625471640.git.vilhelm.gray@gmail.com>
 X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
- alexandre.belloni@bootlin.com, linux-iio@vger.kernel.org,
- patrick.havelange@essensium.com,
- William Breathitt Gray <vilhelm.gray@gmail.com>, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, jarkko.nikula@linux.intel.com,
- Dan Carpenter <dan.carpenter@oracle.com>, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v12 14/17] counter: Implement
- *_component_id sysfs attributes
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v12 17/17] counter: 104-quad-8: Add IRQ
+ support for the ACCES 104-QUAD-8
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,156 +53,348 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 10 Jul 2021 12:06:53 -0500
-David Lechner <david@lechnology.com> wrote:
+On Mon,  5 Jul 2021 17:19:05 +0900
+William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 
-> On 7/5/21 3:19 AM, William Breathitt Gray wrote:
-> > The Generic Counter chrdev interface expects users to supply component
-> > IDs in order to select extensions for requests. In order for users to
-> > know what component ID belongs to which extension this information must
-> > be exposed. The *_component_id attribute provides a way for users to
-> > discover what component ID belongs to which respective extension.
-> > 
-> > Cc: David Lechner <david@lechnology.com>
-> > Cc: Gwendal Grignou <gwendal@chromium.org>
-> > Cc: Dan Carpenter <dan.carpenter@oracle.com>
-> > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-> > ---
-> >   Documentation/ABI/testing/sysfs-bus-counter | 16 ++++++++++-
-> >   drivers/counter/counter-sysfs.c             | 30 ++++++++++++++++-----
-> >   2 files changed, 39 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Documentation/ABI/testing/sysfs-bus-counter
-> > index 9809d8a47431..e0e99adb0ecc 100644
-> > --- a/Documentation/ABI/testing/sysfs-bus-counter
-> > +++ b/Documentation/ABI/testing/sysfs-bus-counter
-> > @@ -203,12 +203,26 @@ Description:
-> >   		both edges:
-> >   			Any state transition.
-> >   
-> > +What:		/sys/bus/counter/devices/counterX/countY/ceiling_component_id
-> > +What:		/sys/bus/counter/devices/counterX/countY/floor_component_id
-> > +What:		/sys/bus/counter/devices/counterX/countY/count_mode_component_id
-> > +What:		/sys/bus/counter/devices/counterX/countY/direction_component_id
-> > +What:		/sys/bus/counter/devices/counterX/countY/enable_component_id
-> > +What:		/sys/bus/counter/devices/counterX/countY/error_noise_component_id
-> > +What:		/sys/bus/counter/devices/counterX/countY/prescaler_component_id
-> > +What:		/sys/bus/counter/devices/counterX/countY/preset_component_id
-> > +What:		/sys/bus/counter/devices/counterX/countY/preset_enable_component_id
-> >   What:		/sys/bus/counter/devices/counterX/countY/signalZ_action_component_id
-> > +What:		/sys/bus/counter/devices/counterX/signalY/cable_fault_component_id
-> > +What:		/sys/bus/counter/devices/counterX/signalY/cable_fault_enable_component_id
-> > +What:		/sys/bus/counter/devices/counterX/signalY/filter_clock_prescaler_component_id
-> > +What:		/sys/bus/counter/devices/counterX/signalY/index_polarity_component_id
-> > +What:		/sys/bus/counter/devices/counterX/signalY/synchronous_mode_component_id  
+> The LSI/CSI LS7266R1 chip provides programmable output via the FLG pins.
+> When interrupts are enabled on the ACCES 104-QUAD-8, they occur whenever
+> FLG1 is active. Four functions are available for the FLG1 signal: Carry,
+> Compare, Carry-Borrow, and Index.
 > 
-> Could we just write a single line?
+> 	Carry:
+> 		Interrupt generated on active low Carry signal. Carry
+> 		signal toggles every time the respective channel's
+> 		counter overflows.
 > 
-> What:		/sys/bus/counter/devices/counterX/signalY/<component>_component_id
+> 	Compare:
+> 		Interrupt generated on active low Compare signal.
+> 		Compare signal toggles every time respective channel's
+> 		preset register is equal to the respective channel's
+> 		counter.
+> 
+> 	Carry-Borrow:
+> 		Interrupt generated on active low Carry signal and
+> 		active low Borrow signal. Carry signal toggles every
+> 		time the respective channel's counter overflows. Borrow
+> 		signal toggles every time the respective channel's
+> 		counter underflows.
+> 
+> 	Index:
+> 		Interrupt generated on active high Index signal.
+> 
+> These four functions correspond respectivefly to the following four
+> Counter event types: COUNTER_EVENT_OVERFLOW, COUNTER_EVENT_THRESHOLD,
+> COUNTER_EVENT_OVERFLOW_UNDERFLOW, and COUNTER_EVENT_INDEX. Interrupts
+> push Counter events to event channel X, where 'X' is the respective
+> channel whose FLG1 activated.
+> 
+> This patch adds IRQ support for the ACCES 104-QUAD-8. The interrupt line
+> numbers for the devices may be configured via the irq array module
+> parameter.
+> 
+> Acked-by: Syed Nayyar Waris <syednwaris@gmail.com>
+> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 
-Not nice for grepping so I think it's better to call them out explicitly.
+Trivial comment inline.
 
-There has been a proposal to check this ABI doc against running kernels, and if we have
-too many wild cards that becomes very difficult to do.
+> ---
+>  drivers/counter/104-quad-8.c | 167 +++++++++++++++++++++++++++++++++--
+>  drivers/counter/Kconfig      |   6 +-
+>  2 files changed, 164 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/counter/104-quad-8.c b/drivers/counter/104-quad-8.c
+> index a56751bf1e9b..1cbd60aaed69 100644
+> --- a/drivers/counter/104-quad-8.c
+> +++ b/drivers/counter/104-quad-8.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/errno.h>
+>  #include <linux/io.h>
+>  #include <linux/ioport.h>
+> +#include <linux/interrupt.h>
+>  #include <linux/isa.h>
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+> @@ -25,6 +26,10 @@ static unsigned int num_quad8;
+>  module_param_hw_array(base, uint, ioport, &num_quad8, 0);
+>  MODULE_PARM_DESC(base, "ACCES 104-QUAD-8 base addresses");
+>  
+> +static unsigned int irq[max_num_isa_dev(QUAD8_EXTENT)];
+> +module_param_hw_array(irq, uint, irq, NULL, 0);
+> +MODULE_PARM_DESC(irq, "ACCES 104-QUAD-8 interrupt line numbers");
+> +
+>  #define QUAD8_NUM_COUNTERS 8
+>  
+>  /**
+> @@ -38,6 +43,8 @@ MODULE_PARM_DESC(base, "ACCES 104-QUAD-8 base addresses");
+>   * @quadrature_scale:	array of quadrature mode scale configurations
+>   * @ab_enable:		array of A and B inputs enable configurations
+>   * @preset_enable:	array of set_to_preset_on_index attribute configurations
+> + * @irq_trigger:	array of current IRQ trigger function configurations
+> + * @next_irq_trigger:	array of next IRQ trigger function configurations
+>   * @synchronous_mode:	array of index function synchronous mode configurations
+>   * @index_polarity:	array of index function polarity configurations
+>   * @cable_fault_enable:	differential encoder cable status enable configurations
+> @@ -53,13 +60,17 @@ struct quad8 {
+>  	unsigned int quadrature_scale[QUAD8_NUM_COUNTERS];
+>  	unsigned int ab_enable[QUAD8_NUM_COUNTERS];
+>  	unsigned int preset_enable[QUAD8_NUM_COUNTERS];
+> +	unsigned int irq_trigger[QUAD8_NUM_COUNTERS];
+> +	unsigned int next_irq_trigger[QUAD8_NUM_COUNTERS];
+>  	unsigned int synchronous_mode[QUAD8_NUM_COUNTERS];
+>  	unsigned int index_polarity[QUAD8_NUM_COUNTERS];
+>  	unsigned int cable_fault_enable;
+>  	unsigned int base;
+>  };
+>  
+> +#define QUAD8_REG_INTERRUPT_STATUS 0x10
+>  #define QUAD8_REG_CHAN_OP 0x11
+> +#define QUAD8_REG_INDEX_INTERRUPT 0x12
+>  #define QUAD8_REG_INDEX_INPUT_LEVELS 0x16
+>  #define QUAD8_DIFF_ENCODER_CABLE_STATUS 0x17
+>  /* Borrow Toggle flip-flop */
+> @@ -92,8 +103,8 @@ struct quad8 {
+>  #define QUAD8_RLD_CNTR_OUT 0x10
+>  /* Transfer Preset Register LSB to FCK Prescaler */
+>  #define QUAD8_RLD_PRESET_PSC 0x18
+> -#define QUAD8_CHAN_OP_ENABLE_COUNTERS 0x00
+>  #define QUAD8_CHAN_OP_RESET_COUNTERS 0x01
+> +#define QUAD8_CHAN_OP_ENABLE_INTERRUPT_FUNC 0x04
+>  #define QUAD8_CMR_QUADRATURE_X1 0x08
+>  #define QUAD8_CMR_QUADRATURE_X2 0x10
+>  #define QUAD8_CMR_QUADRATURE_X4 0x18
+> @@ -378,13 +389,103 @@ static int quad8_action_read(struct counter_device *counter,
+>  	}
+>  }
+>  
+> +enum {
+> +	QUAD8_EVENT_NONE = -1,
+> +	QUAD8_EVENT_CARRY = 0,
+> +	QUAD8_EVENT_COMPARE = 1,
+> +	QUAD8_EVENT_CARRY_BORROW = 2,
+> +	QUAD8_EVENT_INDEX = 3,
+> +};
+> +
+> +static int quad8_events_configure(struct counter_device *counter)
+> +{
+> +	struct quad8 *const priv = counter->priv;
+> +	unsigned long irq_enabled = 0;
+> +	unsigned long irqflags;
+> +	size_t channel;
+> +	unsigned long ior_cfg;
+> +	unsigned long base_offset;
+> +
+> +	spin_lock_irqsave(&priv->lock, irqflags);
+> +
+> +	/* Enable interrupts for the requested channels, disable for the rest */
+> +	for (channel = 0; channel < QUAD8_NUM_COUNTERS; channel++) {
+> +		if (priv->next_irq_trigger[channel] == QUAD8_EVENT_NONE)
+> +			continue;
+> +
+> +		if (priv->irq_trigger[channel] != priv->next_irq_trigger[channel]) {
+> +			/* Save new IRQ function configuration */
+> +			priv->irq_trigger[channel] = priv->next_irq_trigger[channel];
+> +
+> +			/* Load configuration to I/O Control Register */
+> +			ior_cfg = priv->ab_enable[channel] |
+> +				  priv->preset_enable[channel] << 1 |
+> +				  priv->irq_trigger[channel] << 3;
 
-Jonathan
+Nicer to define masks and use FIELD_PREP etc for these rather than hiding shifts
+down here in the code.
 
-> 
-> >   KernelVersion:	5.15
-> >   Contact:	linux-iio@vger.kernel.org
-> >   Description:
-> >   		Read-only attribute that indicates the component ID of the
-> > -		respective Synapse of Count Y for Signal Z.
-> > +		respective extension or Synapse.
-> >   
-> >   What:		/sys/bus/counter/devices/counterX/countY/spike_filter_ns
-> >   KernelVersion:	5.14
-> > diff --git a/drivers/counter/counter-sysfs.c b/drivers/counter/counter-sysfs.c
-> > index bb49a10f160b..eb1505bfbd89 100644
-> > --- a/drivers/counter/counter-sysfs.c
-> > +++ b/drivers/counter/counter-sysfs.c
-> > @@ -587,6 +587,7 @@ static int counter_signal_attrs_create(struct counter_device *const counter,
-> >   	int err;
-> >   	struct counter_comp comp;
-> >   	size_t i;
-> > +	struct counter_comp *ext;
-> >   
-> >   	/* Create main Signal attribute */
-> >   	comp = counter_signal_comp;
-> > @@ -602,8 +603,13 @@ static int counter_signal_attrs_create(struct counter_device *const counter,
-> >   
-> >   	/* Create an attribute for each extension */
-> >   	for (i = 0; i < signal->num_ext; i++) {
-> > -		err = counter_attr_create(dev, group, signal->ext + i, scope,
-> > -					  signal);
-> > +		ext = signal->ext + i;
-> > +
-> > +		err = counter_attr_create(dev, group, ext, scope, signal);
-> > +		if (err < 0)
-> > +			return err;
-> > +
-> > +		err = counter_comp_id_attr_create(dev, group, ext->name, i);
-> >   		if (err < 0)
-> >   			return err;
-> >   	}
-> > @@ -694,6 +700,7 @@ static int counter_count_attrs_create(struct counter_device *const counter,
-> >   	int err;
-> >   	struct counter_comp comp;
-> >   	size_t i;
-> > +	struct counter_comp *ext;
-> >   
-> >   	/* Create main Count attribute */
-> >   	comp = counter_count_comp;
-> > @@ -718,8 +725,13 @@ static int counter_count_attrs_create(struct counter_device *const counter,
-> >   
-> >   	/* Create an attribute for each extension */
-> >   	for (i = 0; i < count->num_ext; i++) {
-> > -		err = counter_attr_create(dev, group, count->ext + i, scope,
-> > -					  count);
-> > +		ext = count->ext + i;  
-> 
-> 		ext = &count->ext[i];
-> 
-> Could make it more clear we are dealing with pointers rather than integers.
-> 
-> > +
-> > +		err = counter_attr_create(dev, group, ext, scope, count);
-> > +		if (err < 0)
-> > +			return err;
-> > +
-> > +		err = counter_comp_id_attr_create(dev, group, ext->name, i);
-> >   		if (err < 0)
-> >   			return err;
-> >   	}
-> > @@ -783,6 +795,7 @@ static int counter_sysfs_attr_add(struct counter_device *const counter,
-> >   	struct device *const dev = &counter->dev;
-> >   	int err;
-> >   	size_t i;
-> > +	struct counter_comp *ext;
-> >   
-> >   	/* Add Signals sysfs attributes */
-> >   	err = counter_sysfs_signals_add(counter, group);
-> > @@ -815,8 +828,13 @@ static int counter_sysfs_attr_add(struct counter_device *const counter,
-> >   
-> >   	/* Create an attribute for each extension */
-> >   	for (i = 0; i < counter->num_ext; i++) {
-> > -		err = counter_attr_create(dev, group, counter->ext + i, scope,
-> > -					  NULL);
-> > +		ext = counter->ext + i;  
-> 
-> ditto
-> 
-> > +
-> > +		err = counter_attr_create(dev, group, ext, scope, NULL);
-> > +		if (err < 0)
-> > +			return err;
-> > +
-> > +		err = counter_comp_id_attr_create(dev, group, ext->name, i);
-> >   		if (err < 0)
-> >   			return err;
-> >   	}
-> >   
-> 
+> +			base_offset = priv->base + 2 * channel + 1;
+> +			outb(QUAD8_CTR_IOR | ior_cfg, base_offset);
+> +		}
+> +
+> +		/* Reset next IRQ trigger function configuration */
+> +		priv->next_irq_trigger[channel] = QUAD8_EVENT_NONE;
+> +
+> +		/* Enable IRQ line */
+> +		irq_enabled |= BIT(channel);
+> +	}
+> +
+> +	outb(irq_enabled, priv->base + QUAD8_REG_INDEX_INTERRUPT);
+> +
+> +	spin_unlock_irqrestore(&priv->lock, irqflags);
+> +
+> +	return 0;
+> +}
+> +
+> +static int quad8_watch_validate(struct counter_device *counter,
+> +				const struct counter_watch *watch)
+> +{
+> +	struct quad8 *const priv = counter->priv;
+> +
+> +	if (watch->channel > QUAD8_NUM_COUNTERS - 1)
+> +		return -EINVAL;
+> +
+> +	switch (watch->event) {
+> +	case COUNTER_EVENT_OVERFLOW:
+> +		if (priv->next_irq_trigger[watch->channel] == QUAD8_EVENT_NONE)
+> +			priv->next_irq_trigger[watch->channel] = QUAD8_EVENT_CARRY;
+> +		else if (priv->next_irq_trigger[watch->channel] != QUAD8_EVENT_CARRY)
+> +			return -EINVAL;
+> +		return 0;
+> +	case COUNTER_EVENT_THRESHOLD:
+> +		if (priv->next_irq_trigger[watch->channel] == QUAD8_EVENT_NONE)
+> +			priv->next_irq_trigger[watch->channel] = QUAD8_EVENT_COMPARE;
+> +		else if (priv->next_irq_trigger[watch->channel] != QUAD8_EVENT_COMPARE)
+> +			return -EINVAL;
+> +		return 0;
+> +	case COUNTER_EVENT_OVERFLOW_UNDERFLOW:
+> +		if (priv->next_irq_trigger[watch->channel] == QUAD8_EVENT_NONE)
+> +			priv->next_irq_trigger[watch->channel] = QUAD8_EVENT_CARRY_BORROW;
+> +		else if (priv->next_irq_trigger[watch->channel] != QUAD8_EVENT_CARRY_BORROW)
+> +			return -EINVAL;
+> +		return 0;
+> +	case COUNTER_EVENT_INDEX:
+> +		if (priv->next_irq_trigger[watch->channel] == QUAD8_EVENT_NONE)
+> +			priv->next_irq_trigger[watch->channel] = QUAD8_EVENT_INDEX;
+> +		else if (priv->next_irq_trigger[watch->channel] != QUAD8_EVENT_INDEX)
+> +			return -EINVAL;
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+>  static const struct counter_ops quad8_ops = {
+>  	.signal_read = quad8_signal_read,
+>  	.count_read = quad8_count_read,
+>  	.count_write = quad8_count_write,
+>  	.function_read = quad8_function_read,
+>  	.function_write = quad8_function_write,
+> -	.action_read = quad8_action_read
+> +	.action_read = quad8_action_read,
+> +	.events_configure = quad8_events_configure,
+> +	.watch_validate = quad8_watch_validate,
+>  };
+>  
+>  static const char *const quad8_index_polarity_modes[] = {
+> @@ -579,7 +680,8 @@ static int quad8_count_enable_write(struct counter_device *counter,
+>  
+>  	priv->ab_enable[count->id] = enable;
+>  
+> -	ior_cfg = enable | priv->preset_enable[count->id] << 1;
+> +	ior_cfg = enable | priv->preset_enable[count->id] << 1 |
+> +		  priv->irq_trigger[count->id] << 3;
+>  
+>  	/* Load I/O control configuration */
+>  	outb(QUAD8_CTR_IOR | ior_cfg, base_offset + 1);
+> @@ -728,7 +830,8 @@ static int quad8_count_preset_enable_write(struct counter_device *counter,
+>  
+>  	priv->preset_enable[count->id] = preset_enable;
+>  
+> -	ior_cfg = priv->ab_enable[count->id] | preset_enable << 1;
+> +	ior_cfg = priv->ab_enable[count->id] | preset_enable << 1 |
+> +		  priv->irq_trigger[count->id] << 3;
+>  
+>  	/* Load I/O control configuration to Input / Output Control Register */
+>  	outb(QUAD8_CTR_IOR | ior_cfg, base_offset);
+> @@ -980,11 +1083,54 @@ static struct counter_count quad8_counts[] = {
+>  	QUAD8_COUNT(7, "Channel 8 Count")
+>  };
+>  
+> +static irqreturn_t quad8_irq_handler(int irq, void *private)
+> +{
+> +	struct quad8 *const priv = private;
+> +	const unsigned long base = priv->base;
+> +	unsigned long irq_status;
+> +	unsigned long channel;
+> +	u8 event;
+> +
+> +	irq_status = inb(base + QUAD8_REG_INTERRUPT_STATUS);
+> +	if (!irq_status)
+> +		return IRQ_NONE;
+> +
+> +	for_each_set_bit(channel, &irq_status, QUAD8_NUM_COUNTERS) {
+> +		switch (priv->irq_trigger[channel]) {
+> +		case QUAD8_EVENT_CARRY:
+> +			event = COUNTER_EVENT_OVERFLOW;
+> +				break;
+> +		case QUAD8_EVENT_COMPARE:
+> +			event = COUNTER_EVENT_THRESHOLD;
+> +				break;
+> +		case QUAD8_EVENT_CARRY_BORROW:
+> +			event = COUNTER_EVENT_OVERFLOW_UNDERFLOW;
+> +				break;
+> +		case QUAD8_EVENT_INDEX:
+> +			event = COUNTER_EVENT_INDEX;
+> +				break;
+> +		default:
+> +			/* should never reach this path */
+> +			WARN_ONCE(true, "invalid interrupt trigger function %u configured for channel %lu\n",
+> +				  priv->irq_trigger[channel], channel);
+> +			continue;
+> +		}
+> +
+> +		counter_push_event(&priv->counter, event, channel);
+> +	}
+> +
+> +	/* Clear pending interrupts on device */
+> +	outb(QUAD8_CHAN_OP_ENABLE_INTERRUPT_FUNC, base + QUAD8_REG_CHAN_OP);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+>  static int quad8_probe(struct device *dev, unsigned int id)
+>  {
+>  	struct quad8 *priv;
+>  	int i, j;
+>  	unsigned int base_offset;
+> +	int err;
+>  
+>  	if (!devm_request_region(dev, base[id], QUAD8_EXTENT, dev_name(dev))) {
+>  		dev_err(dev, "Unable to lock port addresses (0x%X-0x%X)\n",
+> @@ -1009,6 +1155,8 @@ static int quad8_probe(struct device *dev, unsigned int id)
+>  
+>  	spin_lock_init(&priv->lock);
+>  
+> +	/* Reset Index/Interrupt Register */
+> +	outb(0x00, base[id] + QUAD8_REG_INDEX_INTERRUPT);
+>  	/* Reset all counters and disable interrupt function */
+>  	outb(QUAD8_CHAN_OP_RESET_COUNTERS, base[id] + QUAD8_REG_CHAN_OP);
+>  	/* Set initial configuration for all counters */
+> @@ -1035,11 +1183,18 @@ static int quad8_probe(struct device *dev, unsigned int id)
+>  		outb(QUAD8_CTR_IOR, base_offset + 1);
+>  		/* Disable index function; negative index polarity */
+>  		outb(QUAD8_CTR_IDR, base_offset + 1);
+> +		/* Initialize next IRQ trigger function configuration */
+> +		priv->next_irq_trigger[i] = QUAD8_EVENT_NONE;
+>  	}
+>  	/* Disable Differential Encoder Cable Status for all channels */
+>  	outb(0xFF, base[id] + QUAD8_DIFF_ENCODER_CABLE_STATUS);
+> -	/* Enable all counters */
+> -	outb(QUAD8_CHAN_OP_ENABLE_COUNTERS, base[id] + QUAD8_REG_CHAN_OP);
+> +	/* Enable all counters and enable interrupt function */
+> +	outb(QUAD8_CHAN_OP_ENABLE_INTERRUPT_FUNC, base[id] + QUAD8_REG_CHAN_OP);
+> +
+> +	err = devm_request_irq(dev, irq[id], quad8_irq_handler, IRQF_SHARED,
+> +			       priv->counter.name, priv);
+> +	if (err)
+> +		return err;
+>  
+>  	return devm_counter_register(dev, &priv->counter);
+>  }
+> diff --git a/drivers/counter/Kconfig b/drivers/counter/Kconfig
+> index d5d2540b30c2..3dcdb681c4e4 100644
+> --- a/drivers/counter/Kconfig
+> +++ b/drivers/counter/Kconfig
+> @@ -23,11 +23,11 @@ config 104_QUAD_8
+>  	  A counter's respective error flag may be cleared by performing a write
+>  	  operation on the respective count value attribute. Although the
+>  	  104-QUAD-8 counters have a 25-bit range, only the lower 24 bits may be
+> -	  set, either directly or via the counter's preset attribute. Interrupts
+> -	  are not supported by this driver.
+> +	  set, either directly or via the counter's preset attribute.
+>  
+>  	  The base port addresses for the devices may be configured via the base
+> -	  array module parameter.
+> +	  array module parameter. The interrupt line numbers for the devices may
+> +	  be configured via the irq array module parameter.
+>  
+>  config INTERRUPT_CNT
+>  	tristate "Interrupt counter driver"
 
 _______________________________________________
 Linux-stm32 mailing list
