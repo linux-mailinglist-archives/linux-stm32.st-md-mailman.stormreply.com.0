@@ -2,67 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B06B3C36C1
-	for <lists+linux-stm32@lfdr.de>; Sat, 10 Jul 2021 22:15:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5AB03C3B43
+	for <lists+linux-stm32@lfdr.de>; Sun, 11 Jul 2021 11:12:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25FF2C57B60;
-	Sat, 10 Jul 2021 20:15:18 +0000 (UTC)
-Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A715C57B6B;
+	Sun, 11 Jul 2021 09:12:37 +0000 (UTC)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com
+ [209.85.217.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7134C57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24D0BC56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 10 Jul 2021 20:15:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mmrCsDKGg86DQETWy6BobZbDY2kT6MR0c3riTEr4thk=; b=KacMMKoG+0WtEDhcw+lgOF/35x
- 3lK13tF+e++/gUqQx7Q6SMx3zusqNmWUOwNOT033Ur1X54nERUkodGS7ogUCjB1RnOu7rR2419zMN
- JVKABhzqd0x+UsS6HMnhbozTk7gugRtfLTFzXwi+lk9Me/W1BRmAT8RSExKcQuycpF2wb9bJzx0TN
- HdXi7iZEwpd+Gb9sDiuXyiJfscxyikXYujg9BbaE9fnOmC2AE8oQH2qRc2jpEyH4AGEtKNlqC6dVL
- 0Ca60yb75prcvc+XAUra/+FmUExSZN4Yi07UWDaH2qTOmJqesmx86AcP+bhVXi5M4VN56z6ZYa/JM
- wxV7exqw==;
-Received: from 108-198-5-147.lightspeed.okcbok.sbcglobal.net
- ([108.198.5.147]:50632 helo=[192.168.0.134])
- by vern.gendns.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <david@lechnology.com>)
- id 1m2JNI-00HTJW-0w; Sat, 10 Jul 2021 16:15:11 -0400
-To: William Breathitt Gray <vilhelm.gray@gmail.com>, jic23@kernel.org
+ Sun, 11 Jul 2021 09:12:33 +0000 (UTC)
+Received: by mail-vs1-f48.google.com with SMTP id h5so8262260vsg.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 11 Jul 2021 02:12:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=DOZ/sOH8+Rsjf9K6KjxQGtE06rD3YjMce9ekhraHpxU=;
+ b=raHJHXqXoadd7fB11PI/hhlLA5jkvLxzqckn09EqGMk9zwQ9Afw7soUgyZGaJbVTK7
+ mJiAwhhPLcHUm3fS1dMHR+qHYCIMboe7z+C4hYDgjupKfwL2+H8eoBHm6V4P0Cqaqpdk
+ a3j3AhhdRxMhx25uqvQJULvi5+YzZHR424jmJTperMKDtwFw/4mGBR6wM5pYYe2VQFYZ
+ keLvgnIUg6yX9v5y44S7qLtsYCNYMkfkUeNtkTbrQ7/QBuWvImRkyuz5DZgyFiKI8A31
+ K8TJ8aWz9W1t4LmIAjs7pp0AHyrVlk3EA3VhEUQl7OYPw0uhUWltdT3ETlakiU18auGv
+ dQkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=DOZ/sOH8+Rsjf9K6KjxQGtE06rD3YjMce9ekhraHpxU=;
+ b=lwzyXKdphZzxYKP30+VxLtiQpRH2dcPrjQ9Thx6JahB6gECsKLV/B+WnLbCs6C6o/j
+ 8qEVsOJYWBygVOe9PbunZnNlKqGu5Fsng3sYSCZyF/yr9uDIAXb4n4Dt9b4cAFyEhvaH
+ qI+eCsq5b0zqLxWc1VOMqdcnLv6bI78UTtMHohDLOzynlxIcVHyE8VPqc5BzkP7q8Mpc
+ UUupl9HobGzaO4IExlItUrkpmXwjno0XglWoBVAYD1gK7qbP//OfPL8CeQG3X/xXzXh1
+ CbQ2tKrE6z4TeszQooJFJehssnzRAUBCmjbpFH92blXpcatRtrhlL5D7EhD0QYC+XXs5
+ uSlg==
+X-Gm-Message-State: AOAM5333Gt0an/xT+3kySF+EGT8CfLHAknPbfcRnDOPxr8UNQ20QL00z
+ Kxgw6y1lq0Fxpk65ezJofvA=
+X-Google-Smtp-Source: ABdhPJy4sYlbAvD925USY3o7g3cekIAiQWfPOcpJSUajkbSVOf7KKojVP1744YeqH/lV+OQ7fAEwHg==
+X-Received: by 2002:a67:8013:: with SMTP id b19mr3288366vsd.33.1625994752311; 
+ Sun, 11 Jul 2021 02:12:32 -0700 (PDT)
+Received: from shinobu ([193.27.12.133])
+ by smtp.gmail.com with ESMTPSA id e20sm1570374vsb.22.2021.07.11.02.12.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 11 Jul 2021 02:12:31 -0700 (PDT)
+Date: Sun, 11 Jul 2021 18:12:23 +0900
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: David Lechner <david@lechnology.com>
+Message-ID: <YOq19zTsOzKA8v7c@shinobu>
 References: <cover.1625471640.git.vilhelm.gray@gmail.com>
- <186e7a1cd7dc822cc9290683b463c3e675959e1a.1625471640.git.vilhelm.gray@gmail.com>
-From: David Lechner <david@lechnology.com>
-Message-ID: <10ae3615-1fe4-0dce-5aa6-e865de2655a7@lechnology.com>
-Date: Sat, 10 Jul 2021 15:15:06 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ <e298043c880b350a42bdc40452376a3708bf533b.1625471640.git.vilhelm.gray@gmail.com>
+ <1a624011-0b43-ac42-be53-a42f81923e5a@linux.intel.com>
+ <YOl1frCrophjhk7y@shinobu>
+ <fbf1ba4c-412b-fe22-0e79-76e968a00fb4@lechnology.com>
 MIME-Version: 1.0
-In-Reply-To: <186e7a1cd7dc822cc9290683b463c3e675959e1a.1625471640.git.vilhelm.gray@gmail.com>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - vern.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+In-Reply-To: <fbf1ba4c-412b-fe22-0e79-76e968a00fb4@lechnology.com>
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, mcoquelin.stm32@gmail.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
  alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
+ o.rempel@pengutronix.de, Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
  fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org,
  alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v12 11/17] docs: counter: Document
- character device interface
+Subject: Re: [Linux-stm32] [PATCH v12 15/17] counter: Implement
+ events_queue_size sysfs attribute
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,141 +79,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============5609221056577273358=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/5/21 3:18 AM, William Breathitt Gray wrote:
-> This patch adds high-level documentation about the Counter subsystem
-> character device interface.
-> 
-> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
-> ---
->   Documentation/driver-api/generic-counter.rst  | 185 ++++++++++++++----
->   .../userspace-api/ioctl/ioctl-number.rst      |   1 +
->   2 files changed, 145 insertions(+), 41 deletions(-)
-> 
-> diff --git a/Documentation/driver-api/generic-counter.rst b/Documentation/driver-api/generic-counter.rst
-> index f6397218aa4c..62a702e7f994 100644
-> --- a/Documentation/driver-api/generic-counter.rst
-> +++ b/Documentation/driver-api/generic-counter.rst
+
+--===============5609221056577273358==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QSOFuI5CHXQO+dHV"
+Content-Disposition: inline
 
 
-> +
-> +Counter Character Device
-> +========================
-> +
-> +Counter character device nodes are created under the ``/dev`` directory
-> +as ``counterX``, where ``X`` is the respective counter device id.
-> +Defines for the standard Counter data types are exposed via the
-> +userspace ``include/uapi/linux/counter.h`` file.
-> +
-> +Counter events
-> +--------------
-> +Counter device drivers can support Counter events by utilizing the
-> +``counter_push_event`` function::
-> +
-> +        void counter_push_event(struct counter_device *const counter, const u8 event,
-> +                                const u8 channel);
-> +
-> +The event id is specified by the ``event`` parameter; the event channel
-> +id is specified by the ``channel`` parameter. When this function is
-> +called, the Counter data associated with the respective event is
-> +gathered, and a ``struct counter_event`` is generated for each datum and
-> +pushed to userspace.
-> +
-> +Counter events can be configured by users to report various Counter
-> +data of interest. This can be conceptualized as a list of Counter
-> +component read calls to perform. For example::
+--QSOFuI5CHXQO+dHV
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Won't the :: here make this appear as text instead of an HTML table?
+On Sat, Jul 10, 2021 at 10:43:22AM -0500, David Lechner wrote:
+> On 7/10/21 5:25 AM, William Breathitt Gray wrote:
+> >> and after that
+> >>
+> >> [   16.564403] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+> >> [   16.570725] WARNING: lock held when returning to user space!
+> >> [   16.577044] 5.13.0-next-20210706+ #4 Not tainted
+> >> [   16.582198] ------------------------------------------------
+> >> [   16.588507] cat/331 is leaving the kernel with locks still held!
+> >> [   16.595214] 1 lock held by cat/331:
+> >> [   16.599103]  #0: ffff888102bb3630
+> >> (&counter->chrdev_lock){+.+.}-{3:3}, at: counter_chrdev_open+0x21/0x60
+> >> [counter]
+> >>
+> >> Jarkko
+> > I'm not sure how to resolve this warning. The purpose of this lock is to
+> > limit chrdev to a single open at a time. To accomplish this I grab this
+> > lock in counter_chrdev_open() and hold it until counter_chrdev_release()
+> > is called. Is there a better way to accomplish this?
+>=20
+> How about using an atomic flag, e.g test_and_set_bit()?
 
-(might need to change ~~~ to --- [top line] and === [middle line])
+Yes, I think this might work: atomically test and set the bit to lock
+and atomically clear it to unlock. I'll replace the mutex with an atomic
+flag.
 
-> +
-> +        +~~~~~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~~~~~+
-> +        | COUNTER_EVENT_OVERFLOW | COUNTER_EVENT_INDEX    |
-> +        +~~~~~~~~~~~~~~~~~~~~~~~~+~~~~~~~~~~~~~~~~~~~~~~~~+
-> +        | Channel 0              | Channel 0              |
-> +        +------------------------+------------------------+
-> +        | * Count 0              | * Signal 0             |
-> +        | * Count 1              | * Signal 0 Extension 0 |
-> +        | * Signal 3             | * Extension 4          |
-> +        | * Count 4 Extension 2  +------------------------+
-> +        | * Signal 5 Extension 0 | Channel 1              |
-> +        |                        +------------------------+
-> +        |                        | * Signal 4             |
-> +        |                        | * Signal 4 Extension 0 |
-> +        |                        | * Count 7              |
-> +        +------------------------+------------------------+
-> +
-> +When ``counter_push_event(counter, COUNTER_EVENT_INDEX, 1)`` is called
-> +for example, it will go down the list for the ``COUNTER_EVENT_INDEX``
-> +event channel 1 and execute the read callbacks for Signal 4, Signal 4
-> +Extension 0, and Count 4 -- the data returned for each is pushed to a
-> +kfifo as a ``struct counter_event``, which userspace can retrieve via a
-> +standard read operation on the respective character device node.
-> +
-> +Userspace
-> +---------
-> +Userspace applications can configure Counter events via ioctl operations
-> +on the Counter character device node. There following ioctl codes are
-> +supported and provided by the ``linux/counter.h`` userspace header file:
-> +
-> +* COUNTER_ADD_WATCH_IOCTL:
-> +  Queues a Counter watch for the specified event. The queued watches
-> +  will not be applied until ``COUNTER_ENABLE_EVENTS_IOCTL`` is called.
-> +
-> +* COUNTER_ENABLE_EVENTS_IOCTL:
-> +  Enables monitoring the events specified by the Counter watches that
-> +  were queued by ``COUNTER_ADD_WATCH_IOCTL``. If events are already
-> +  enabled, the new set of watches replaces the old one. Calling this
-> +  ioctl also has the effect of clearing the queue of watches added by
-> +  ``COUNTER_ADD_WATCH_IOCTL``.
-> +
-> +* COUNTER_DISABLE_EVENTS_IOCTL:
-> +  Stops monitoring the previously enabled events.
+By the way, what is the difference between test_and_set_bit() and
+test_and_set_bit_lock()?
 
-I wouldn't mind seeing more of this documentation in the actual header
-file and just referenced here with :c:macro:`COUNTER_ADD_WATCH_IOCTL`
+William Breathitt Gray
 
-> +
-> +To configure events to gather Counter data, users first populate a
-> +``struct counter_watch`` with the relevant event id, event channel id,
-> +and the information for the desired Counter component from which to
-> +read, and then pass it via the ``COUNTER_ADD_WATCH_IOCTL`` ioctl
-> +command.
-> +
-> +Note that an event can be watched without gathering Counter data by
-> +setting the ``component.type`` member equal to
-> +``COUNTER_COMPONENT_NONE``. With this configuration the Counter
-> +character device will simply populate the event timestamps for those
-> +respective ``struct counter_event`` elements and ignore the component
-> +value.
+--QSOFuI5CHXQO+dHV
+Content-Type: application/pgp-signature; name="signature.asc"
 
-To make sure I am understanding this correctly, scope + parent
-determines this part of the path:
+-----BEGIN PGP SIGNATURE-----
 
-	/sys/.../counterX/<scope><parent>/<component>
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmDqtfcACgkQhvpINdm7
+VJJoJw/8DNxxfECJciiVQx9aysjKNMY0qReiNt0Ua1DGfW7g2h9MFwl+YZo/NqN0
+JySbFvJ4DHIeUed1KOfr7bH4J0/PEG20xbEO14wHUyWBehXomn5/67lrDnzJ82Px
+ih54U7JEEqdoda6eswt3U1dkvCwJF9lOzQDLe4xLFy127I/bctSDVncYpbFRcYlJ
+VHf6EuD4Tu30IGYhLbDWIrZgv+nMXWzpx4m0cUPFhFJO2oW83GSYVKo0yB14NLJo
+lmfzrmoX+9SPI3LLiu47yphY2nKSfvvb7Wi+ScOnUSvDd9a43Tb51tiZGoobbgGa
+pWu5WXPnNcR5XYmIXx2vxxWx7XLAR+mxW85VO2MeQGQtsbiFeGUHuvbexqAu3JeA
+EC6wySkTB35hgaesvsJMsBNfGdlQZjzydIidJqK0/uKEfqTL0+wJrnq5YsSkJ//o
+DSRjEZor8+mYj6rDHLH2AIZRUKA7ddqzZWII693FJ6075iMWW2ptqznPx1ln/uiB
+kXD3tuAuOv0fN4J7FJ+pOBWSszVUOIV26CoidHSmWXAKjdrx7HAwuYCgI/TaIgsy
+G971rJubdTI0t/G1LOmQh0QvRcqeSiaOjMK8kbF1XGEJcRAOGM2ih8klUCZhDt6r
+UyvmHW85UUQly1l4G7vtXa6X0cQ8sckFlwEQz1kjP/i3HAP/qbo=
+=Lh1x
+-----END PGP SIGNATURE-----
 
-Or in the case that scope == COUNTER_SCOPE_DEVICE then parent
-is not applicable:
+--QSOFuI5CHXQO+dHV--
 
-	/sys/.../counterX/<component>
+--===============5609221056577273358==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-I suggested parent_id instead of parent earlier, but maybe
-scope_id would be a better name? (Or rename scope to parent_type?)
-
-> +
-> +The ``COUNTER_ADD_WATCH_IOCTL`` command will buffer these Counter
-> +watches. When ready, the ``COUNTER_ENABLE_EVENTS_IOCTL`` ioctl command
-> +may be used to activate these Counter watches.
-> +
-> +Userspace applications can then execute a ``read`` operation (optionally
-> +calling ``poll`` first) on the Counter character device node to retrieve
-> +``struct counter_event`` elements with the desired data.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5609221056577273358==--
