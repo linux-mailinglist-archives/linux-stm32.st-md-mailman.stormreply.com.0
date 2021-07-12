@@ -2,44 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 534DD3C50F3
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jul 2021 12:46:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59B993C519F
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jul 2021 12:48:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE621C57B6B;
-	Mon, 12 Jul 2021 10:46:53 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22F29C57B6D;
+	Mon, 12 Jul 2021 10:48:28 +0000 (UTC)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CC36C3FAD6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44C4CC3FAD6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jul 2021 10:46:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F400C610FA;
- Mon, 12 Jul 2021 10:46:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626086810;
- bh=5gadTNE2SjLldmP0GxQKzQmCe9E+I0kzV7crHNIpCOk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hkPxDfq42yEWwO9crtsgAMIv3EkIenFUxkPQS3oAB+kD0YH5RGVzqnDa0FlXeuUsj
- 9wSb7JdYjT+XEMCu0sNTmPX3ayVLJ3bb6aGXbcviinA0ANGlEVMoTRCX37RXse6+YL
- uJ3utMTfKb81BXy8EbkH9tSFj6ib699spWC5hEDcsmUGAN9Jfq8XYhLQQVZxyjBeiT
- LmTlpsLX99Sr/A4zMrxpsr5x2JAQazLiOupcXGBqRRszkCiMpTb3beoaSvp6TWM1+T
- 1VsAxUwbw/vEnEMh2m2s5Akp4e6HflasmUBM1gp7pQ0zET3JGn46mlY1TrHKmRbZ2g
- bzM1ubTC1TyxA==
-From: Mark Brown <broonie@kernel.org>
-To: amelie.delaunay@foss.st.com,
-	Alain Volmat <alain.volmat@foss.st.com>
-Date: Mon, 12 Jul 2021 11:45:39 +0100
-Message-Id: <162608669456.4543.12090183716809322116.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <1625646426-5826-1-git-send-email-alain.volmat@foss.st.com>
-References: <1625646426-5826-1-git-send-email-alain.volmat@foss.st.com>
+ Mon, 12 Jul 2021 10:48:26 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id q10so15972172pfj.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 12 Jul 2021 03:48:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=ESPXz5y1c2khlg1Rn0L9i5TuNerGKV1irqF9zD9bF5M=;
+ b=YLFo7K+Y5jNmz3M7zsM6opHRT/H1FDsq+SeD+U7kY0BOrONZ6GTK0Zu6dXJcbzhn4m
+ eAWls7qlyNxlKoydExwKxmwLMIyuz2uweBUogCV2Qz5VQxh7c+B52OBLDl9tgzk69ept
+ ubgwme4jvZMOYxm7s1soZwQtKTRkwkU7QTWCiuefmW/heZjJVOtPc+StMQCetsyKkDCr
+ lGirw8hTQzQIqH8OSy5HQQkoiviRFdVKm+EdVXz7heKsBHGfhibopwrX7IMNluCfx+up
+ 5UcrLy6Sh0Olx/LfkvU+8vt10Nyn5sto2U1nitQDN/ngqj5lsOdsoYWsFvd2UXm+oQlt
+ Pfqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ESPXz5y1c2khlg1Rn0L9i5TuNerGKV1irqF9zD9bF5M=;
+ b=sn3HC2/2NqgFerEMVXP2bg2JXQ9168uKUs5zxIRaTXBw3ci/J5h2pJARPLpmrj3Pla
+ 26oEnrwJBy+81Sd9ODAFBTSuZ+A0zlzTnbswUv1BATEbSeVdEYx2ecCN/MFUIaIchWm3
+ j+CGyWpQYEnflBF1FbnirkBKvM1V3ZF5qYishP9y5/FHa8mVAuTmImrl3xwQlCfj9mFv
+ 1Xe47Kls4MBkyyu15A4R+NGKwpxTySVRfdzz9yGtQlGffmvPA6ugwyFZHPBoTOSrMHQt
+ 1GWOBHdK/M3UWbKrzAaGc7LiUhpFZ/mE97xYi2WlSdZvjuug9jMhLzr6LYOsvNmke+oS
+ WhMw==
+X-Gm-Message-State: AOAM533yUgqHT6LiHKUf0eQ+/d7pN8iABz529eOgieUbaMsm/EWHfaYg
+ syvpLTB9QKAri8OdyaPgJRc=
+X-Google-Smtp-Source: ABdhPJwlgRt1pAolTWnhq4aL43Ac7wLCqMdkczwSCzNih0XOJ1UaeY22kjHwxod3K1Fi0SG+mXGs3w==
+X-Received: by 2002:a62:bd1a:0:b029:2fe:eaf8:8012 with SMTP id
+ a26-20020a62bd1a0000b02902feeaf88012mr51314180pff.45.1626086904813; 
+ Mon, 12 Jul 2021 03:48:24 -0700 (PDT)
+Received: from shinobu ([156.146.35.76])
+ by smtp.gmail.com with ESMTPSA id i8sm15269574pfo.154.2021.07.12.03.48.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jul 2021 03:48:24 -0700 (PDT)
+Date: Mon, 12 Jul 2021 19:48:17 +0900
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <YOwd8aL+K+U+9GXz@shinobu>
+References: <cover.1625471640.git.vilhelm.gray@gmail.com>
+ <20210711144828.795ca342@jic23-huawei>
 MIME-Version: 1.0
-Cc: alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH v2 0/7] spi: stm32: various fixes
-	& cleanup
+In-Reply-To: <20210711144828.795ca342@jic23-huawei>
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v12 00/17] Introduce the Counter character
+ device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,61 +76,179 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6584362931943723846=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 7 Jul 2021 10:26:59 +0200, Alain Volmat wrote:
-> This series contains fixes & cleanup mainly regarding fifo
-> and the way end of transfer triggered, when used with or
-> without DMA.
-> An additional patch cleans up the pm_runtime calls and another
-> one enables the autosuspend.
-> 
-> v2: - split pm_runtime fix patch into two
->     - correct revert commit subject line
-> 
-> [...]
 
-Applied to
+--===============6584362931943723846==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4C9OArlWXnF+XzXG"
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
-Thanks!
+--4C9OArlWXnF+XzXG
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[2/7] spi: stm32: enable pm_runtime autosuspend
-      commit: 9d5354145104cf392568a948c5ce2cb97f373fd7
-[3/7] spi: stm32h7: fix full duplex irq handler handling
-      (no commit info)
-[4/7] spi: stm32: Revert "properly handle 0 byte transfer"
-      commit: 70526e0b7601792bf546044fff92c368112f1d3f
-[5/7] spi: stm32h7: rework rx fifo read function
-      commit: d87a5d64b5037cfedd7eb47d785b5c159ace8d9b
-[6/7] spi: stm32h7: don't wait for EOT and flush fifo on disable
-      commit: dc6620c31326bc50fa22fd8900a9f995d0a04bc1
-[7/7] spi: stm32: finalize message either on dma callback or EOT
-      commit: 7ceb0b8a3ceddc36ae4ef1cba6c25a0e28ed65fc
+On Sun, Jul 11, 2021 at 02:48:28PM +0100, Jonathan Cameron wrote:
+> On Mon,  5 Jul 2021 17:18:48 +0900
+> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+>=20
+> > Changes in v12:
+> >  - Move unlock to after register set in quad8_count_ceiling_write()
+> >  - Add locking protection to counter_set_event_node()
+> >  - Fix sparse warning by using {} instead of {0}
+> >  - Clean up and organize comments for clarity
+> >  - Reduce boilerplate by utilizing devm_add_action_or_reset()
+> >  - Use switch statements in ti_eqep_action_read() to make possible cases
+> >    more obvious
+> >=20
+> > I pulled out a lot of bits and pieces to their own patches; hopefully
+> > that makes reviewing this patchset much simpler than before. This
+> > patchset is also available on my personal git repo for convenience:
+> > https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v12
+> >=20
+> > The patches preceding "counter: Internalize sysfs interface code" are
+> > primarily cleanup and fixes that can be picked up and applied now to the
+> > IIO tree if so desired. The "counter: Internalize sysfs interface code"
+> > patch as well may be considered for pickup because it is relatively safe
+> > and makes no changes to the userspace interface.
+> >=20
+> > To summarize the main points of this patchset: there are no changes to
+> > the existing Counter sysfs userspace interface; a Counter character
+> > device interface is introduced that allows Counter events and associated
+> > data to be read() by userspace; the events_configure() and
+> > watch_validate() driver callbacks are introduced to support Counter
+> > events; and IRQ support is added to the 104-QUAD-8 driver, serving as an
+> > example of how to support the new Counter events functionality.
+> >=20
+> > Something that should still be discussed: should the struct
+> > counter_event "status" member be 8 bits or 32 bits wide? This member
+> > will provide the return status (system error number) of an event
+> > operation.
+>=20
+> Hi william,
+>=20
+> I've looked through the lot and where I haven't commented, I had nothing
+> much to add to David's comments.
+>=20
+> I'm not planning to go through the whole thing again unless major changes
+> occur. Fingers crossed for v13.
+>=20
+> If it looks like there are still some unresolved issues after that, perha=
+ps
+> applying up to patch 8 or so makes sense to reduced the volume of code you
+> are carrying.  Let me know if you'd like me to do that.
+>=20
+> Thanks,
+>=20
+> Jonathan
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Yes, much of the code has remained stable for some months now so I think
+we're pretty close. If we do need a v14, then applying up to patch 8
+would help me a lot (most of the merge conflicts I encounter when I
+rebase are due to the large subsystem refactor in patch 06).
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+William Breathitt Gray
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> >=20
+> > William Breathitt Gray (17):
+> >   counter: 104-quad-8: Return error when invalid mode during
+> >     ceiling_write
+> >   counter: Return error code on invalid modes
+> >   counter: Standardize to ERANGE for limit exceeded errors
+> >   counter: Rename counter_signal_value to counter_signal_level
+> >   counter: Rename counter_count_function to counter_function
+> >   counter: Internalize sysfs interface code
+> >   counter: Update counter.h comments to reflect sysfs internalization
+> >   docs: counter: Update to reflect sysfs internalization
+> >   counter: Move counter enums to uapi header
+> >   counter: Add character device interface
+> >   docs: counter: Document character device interface
+> >   tools/counter: Create Counter tools
+> >   counter: Implement signalZ_action_component_id sysfs attribute
+> >   counter: Implement *_component_id sysfs attributes
+> >   counter: Implement events_queue_size sysfs attribute
+> >   counter: 104-quad-8: Replace mutex with spinlock
+> >   counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
+> >=20
+> >  Documentation/ABI/testing/sysfs-bus-counter   |   38 +-
+> >  Documentation/driver-api/generic-counter.rst  |  366 +++-
+> >  .../userspace-api/ioctl/ioctl-number.rst      |    1 +
+> >  MAINTAINERS                                   |    3 +-
+> >  drivers/counter/104-quad-8.c                  |  728 ++++----
+> >  drivers/counter/Kconfig                       |    6 +-
+> >  drivers/counter/Makefile                      |    1 +
+> >  drivers/counter/counter-chrdev.c              |  498 ++++++
+> >  drivers/counter/counter-chrdev.h              |   14 +
+> >  drivers/counter/counter-core.c                |  182 ++
+> >  drivers/counter/counter-sysfs.c               |  953 +++++++++++
+> >  drivers/counter/counter-sysfs.h               |   13 +
+> >  drivers/counter/counter.c                     | 1496 -----------------
+> >  drivers/counter/ftm-quaddec.c                 |   59 +-
+> >  drivers/counter/intel-qep.c                   |  150 +-
+> >  drivers/counter/interrupt-cnt.c               |   73 +-
+> >  drivers/counter/microchip-tcb-capture.c       |  103 +-
+> >  drivers/counter/stm32-lptimer-cnt.c           |  176 +-
+> >  drivers/counter/stm32-timer-cnt.c             |  147 +-
+> >  drivers/counter/ti-eqep.c                     |  205 ++-
+> >  include/linux/counter.h                       |  716 ++++----
+> >  include/linux/counter_enum.h                  |   45 -
+> >  include/uapi/linux/counter.h                  |  133 ++
+> >  tools/Makefile                                |   13 +-
+> >  tools/counter/Build                           |    1 +
+> >  tools/counter/Makefile                        |   53 +
+> >  tools/counter/counter_example.c               |   95 ++
+> >  27 files changed, 3501 insertions(+), 2767 deletions(-)
+> >  create mode 100644 drivers/counter/counter-chrdev.c
+> >  create mode 100644 drivers/counter/counter-chrdev.h
+> >  create mode 100644 drivers/counter/counter-core.c
+> >  create mode 100644 drivers/counter/counter-sysfs.c
+> >  create mode 100644 drivers/counter/counter-sysfs.h
+> >  delete mode 100644 drivers/counter/counter.c
+> >  delete mode 100644 include/linux/counter_enum.h
+> >  create mode 100644 include/uapi/linux/counter.h
+> >  create mode 100644 tools/counter/Build
+> >  create mode 100644 tools/counter/Makefile
+> >  create mode 100644 tools/counter/counter_example.c
+> >=20
+> >=20
+> > base-commit: 6cbb3aa0f9d5d23221df787cf36f74d3866fdb78
+>=20
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--4C9OArlWXnF+XzXG
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Mark
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmDsHfEACgkQhvpINdm7
+VJLk+g//YfH/GBLnKtICCwZQ2UF4svFlAv69fbT+wssz23VkBOpKtx9UVvy+rsMo
+B4gkt3ipqYDwJC+tLMBl2KvXVqgrIlMP0vLOzEWz/PzKZinJMbRS1wMsuGPOWkxn
+PNZJ+rrcmsgQzTRoJlrx9szsEz4kGepvCpbrYmTxWaY/8RxeSNUMWPgOndrQ89Cp
+bFCRddrZ2tjEbuY+88OSBCAFzIvN1/fgXRxt6JhRBB79dEdtBz1xAIHZFBsLPWeC
+3eKYjOc5dUhuFlcEFLg9SiH317VbNF7SMzJUzWrIr+hBBms1eZvLJ8RQbu80FcPu
+T01R9iZcOiNFDbAsnhtUstF/8WrMwBeAEe0aIh70H/Pu9cCAtWucJEO87GrFmSfC
+iGZYZPlvaWXi55nU4aNbz3QViiLlu3JQV2L2fNTXSvvdWGFNgWXetu770CtbOXSE
+I23l6ixwWUnuRFEn/Dh2xbpDY3i41LQhVjXtuvxrVOusjjmB4uesuV3yyfvGYN37
+fvNWdiE8GBJ0DeLbIkwTUBUuhhRjJFF12qvNvtuJxZSDZ764uvqoTsKAqhWot9df
+16uF/hAD3dAOo6nSvCFqS8Nj+bB+E/YCbGuuRP5PyfVoOK5YikQ7gUU/SZMdO5tv
+M50D6TdabsoKWNrJTJgAqmfOWwMxq9I8yNY+MpPIDK4U+ykDoM8=
+=Ud8E
+-----END PGP SIGNATURE-----
+
+--4C9OArlWXnF+XzXG--
+
+--===============6584362931943723846==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6584362931943723846==--
