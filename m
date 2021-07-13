@@ -2,56 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F9C53C6DE8
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jul 2021 11:54:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B2DA3C6DE9
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jul 2021 11:54:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E83C7C597AA;
-	Tue, 13 Jul 2021 09:54:32 +0000 (UTC)
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D4C0C597AA;
+	Tue, 13 Jul 2021 09:54:40 +0000 (UTC)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9430C59781
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 788A1C59781
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jul 2021 09:54:30 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id x16so9942665plg.3
+ Tue, 13 Jul 2021 09:54:36 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id s18so21135514pgg.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jul 2021 02:54:30 -0700 (PDT)
+ Tue, 13 Jul 2021 02:54:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=b5JE74fK4deUY8yHQ1YylVaYz4OFe3N6orpodgl7zhE=;
- b=MUh6h5UAv02BHwD0QIhzDyG1hF5LzDO+nC9S2cxko+ysMc7YewNooKacOGkIyU8Nav
- l4JECG03ws4wWqkrTnJoGk/MEqB183HlhSJJ+uqF2t8ImehF8KaS8f1qeqiCTkEKtxIt
- Ps+7MbjerJ5jwMfjcGQBgs5aQa6ecJH9A2q6GuNOaIcZKCHf+YeouPhMZKVwREx4y9aq
- UX8G7a+eq90IF4l/aeW4h4RuUJeWdRGeJVp0yqvlBPl8z753rTdiK5ToOY3YXqwDxeF1
- hrB4jytiPk3us1OjSa8YhHWU+J/vbBLFvUkFScmIE+YKck+x0z9yy22GAV2kVoDBo3g0
- Yw5A==
+ bh=+/yuQsegQlBUivq3X/0TnR8T+AwHpHJshtl8zKWEMD0=;
+ b=EfXxUgtJOBh1fn1j2d8kZQneoxfhteJhOuuqWfo0eyCK/hVQvjHjjOg3RXPS0UfMlU
+ XjwQG3es81ar3Xodk69SDwx0xyUcCI8m1d3g/rXMfNL32jp03JKO7wwn1Olva+m3o423
+ b5wP07h+ZPH9LDedZGlNc3u5E/8xKHLa4YIlUs8zChKn+KhdekbhFRRvlD/ooJNBtO29
+ Cm+DOGjAR+ihbDwINt2PkU94lJWbOKYaUwC0gskfGPv5ltIVDghbO2Y0XknHEsYKRUi3
+ qc9DyNq2pDlBhvpvB37bbag2dK3kipYMgZswKX2jtSQuNTSh1c4q0RfaBEEyR+cbguVS
+ iKQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=b5JE74fK4deUY8yHQ1YylVaYz4OFe3N6orpodgl7zhE=;
- b=boHrO2100Rs3bASCGe+buoLhk5cUDeEkNl/GljHW9GmUFTJTmNMeuY08iegjEtNPu2
- avHHXZTK4qLTBO/FyopeWHGcUyt87/jOGIX70NpgSDwX6HhyegKx57wYZxnmjvNLHiva
- +3xMuYBjY8FlEDsFwoOKIjswstDDPyMM5YlABL6z3bQoDouuznZido7O7kPmILxO/dpG
- MOpbdST27eu7DSJgDDxD2z498OgqNRkMd4EXhykMO2a8xsLkiCJiVlYoRPRMPe27BM5F
- q/m63qny9y4ckkIbwig+n41VB0VsdJbUNxXqhZudd+084XaBM2Obrk4sweWvs0LxvVfs
- ssbg==
-X-Gm-Message-State: AOAM532ahWEoWLaunltEGyl5d6YcfaBQIO6xqFOgTFg5Frc7qsnGmlF2
- 4HM9qDzOzqmfjKAGEUaWmJPCUCHYJjCedQ==
-X-Google-Smtp-Source: ABdhPJxNH1fGHJluD/krPAlXXfx9llBA3zcZC1xwt0T9N0WrgR1imugCSABX1nmWSqXKREm3geu3/A==
-X-Received: by 2002:a17:90a:8a94:: with SMTP id
- x20mr15105617pjn.130.1626170069248; 
- Tue, 13 Jul 2021 02:54:29 -0700 (PDT)
+ bh=+/yuQsegQlBUivq3X/0TnR8T+AwHpHJshtl8zKWEMD0=;
+ b=Igl02Ra3TwBPLpHZuXc3EpXAiBg5+00w94WwIuNC5ga5ue/zdc9gxaHBo1Qz3l7CIQ
+ luywoAQtPU/wZJFhSMkZ/VPyy0maSjgt56V1ABJNiy3qPeghI5iPWAWVLSLS5DlDMOqn
+ AtPFJ+CW1A5418/CbFiTC6ST5/jfSeWmXOuSasNA/cOdueJesTLqEuIkM5TjQcjpT4Gy
+ fqdpOhKmz8nigfSHaSh9EQKfOLvvqx30LkgaN54ZsoezRObYAkG3PMv7EWOMtmVHz5N1
+ r8DOic1WJi3FKe6tJnY4FyRQTsAW+WsIeDvvMk4dJPcZJsY0jo+s0xtb5qXHNICAL53Z
+ iFJA==
+X-Gm-Message-State: AOAM533OkyR+XplOYYejmv8IYi36KaRh4ByF/gaXBlNmORxwQm99xuEK
+ 95yIaTI2WxSYksWdaAh2Vxk=
+X-Google-Smtp-Source: ABdhPJwXCztQV5cNE9rwffFDP+7SHfUEs8Jd/Lnq1amlkWnLb2m/bWGcL2ffg1wGXe+7Hp8PST0SRw==
+X-Received: by 2002:a65:6243:: with SMTP id q3mr3505723pgv.297.1626170074972; 
+ Tue, 13 Jul 2021 02:54:34 -0700 (PDT)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id f6sm18153854pfj.28.2021.07.13.02.54.24
+ by smtp.gmail.com with ESMTPSA id f6sm18153854pfj.28.2021.07.13.02.54.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jul 2021 02:54:28 -0700 (PDT)
+ Tue, 13 Jul 2021 02:54:34 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Tue, 13 Jul 2021 18:53:13 +0900
-Message-Id: <a634f30968be158f3d5e5a579c8d21f8dfdc4666.1626165765.git.vilhelm.gray@gmail.com>
+Date: Tue, 13 Jul 2021 18:53:14 +0900
+Message-Id: <ea787eb4139421bc2ec23ebbdecdc5c5db6fed81.1626165765.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1626165764.git.vilhelm.gray@gmail.com>
 References: <cover.1626165764.git.vilhelm.gray@gmail.com>
@@ -60,12 +59,13 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
  alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
  linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
- jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
- William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
- syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v13 09/17] counter: Move counter enums to uapi
-	header
+ jarkko.nikula@linux.intel.com, Dan Carpenter <dan.carpenter@oracle.com>,
+ kernel@pengutronix.de, William Breathitt Gray <vilhelm.gray@gmail.com>,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ alexandre.torgue@st.com
+Subject: [Linux-stm32] [PATCH v13 10/17] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,80 +77,915 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhpcyBpcyBpbiBwcmVwYXJhdGlvbiBmb3IgYSBzdWJzZXF1ZW50IHBhdGNoIGltcGxlbWVudGlu
-ZyBhIGNoYXJhY3RlcgpkZXZpY2UgaW50ZXJmYWNlIGZvciB0aGUgQ291bnRlciBzdWJzeXN0ZW0u
-CgpSZXZpZXdlZC1ieTogRGF2aWQgTGVjaG5lciA8ZGF2aWRAbGVjaG5vbG9neS5jb20+ClNpZ25l
-ZC1vZmYtYnk6IFdpbGxpYW0gQnJlYXRoaXR0IEdyYXkgPHZpbGhlbG0uZ3JheUBnbWFpbC5jb20+
-Ci0tLQogTUFJTlRBSU5FUlMgICAgICAgICAgICAgICAgICB8ICAxICsKIGluY2x1ZGUvbGludXgv
-Y291bnRlci5oICAgICAgfCA0MiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGluY2x1ZGUv
-dWFwaS9saW51eC9jb3VudGVyLmggfCA1NiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysKIDMgZmlsZXMgY2hhbmdlZCwgNTggaW5zZXJ0aW9ucygrKSwgNDEgZGVsZXRpb25zKC0p
-CiBjcmVhdGUgbW9kZSAxMDA2NDQgaW5jbHVkZS91YXBpL2xpbnV4L2NvdW50ZXIuaAoKZGlmZiAt
-LWdpdCBhL01BSU5UQUlORVJTIGIvTUFJTlRBSU5FUlMKaW5kZXggMzcyYjY5NjZlOTNjLi45NmJj
-ZGRlODE2NWIgMTAwNjQ0Ci0tLSBhL01BSU5UQUlORVJTCisrKyBiL01BSU5UQUlORVJTCkBAIC00
-NzQ4LDYgKzQ3NDgsNyBAQCBGOglEb2N1bWVudGF0aW9uL0FCSS90ZXN0aW5nL3N5c2ZzLWJ1cy1j
-b3VudGVyCiBGOglEb2N1bWVudGF0aW9uL2RyaXZlci1hcGkvZ2VuZXJpYy1jb3VudGVyLnJzdAog
-RjoJZHJpdmVycy9jb3VudGVyLwogRjoJaW5jbHVkZS9saW51eC9jb3VudGVyLmgKK0Y6CWluY2x1
-ZGUvdWFwaS9saW51eC9jb3VudGVyLmgKIAogQ1AyNjE1IEkyQyBEUklWRVIKIE06CUJlbmNlIENz
-w7Nrw6FzIDxiZW5jZTk4QHNjaC5ibWUuaHU+CmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2Nv
-dW50ZXIuaCBiL2luY2x1ZGUvbGludXgvY291bnRlci5oCmluZGV4IDQ0NWYyMmQ4YmZlMi4uN2M5
-ZjdlMjM5NTNhIDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L2NvdW50ZXIuaAorKysgYi9pbmNs
-dWRlL2xpbnV4L2NvdW50ZXIuaApAQCAtOSw2ICs5LDcgQEAKICNpbmNsdWRlIDxsaW51eC9kZXZp
-Y2UuaD4KICNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KICNpbmNsdWRlIDxsaW51eC90eXBlcy5o
-PgorI2luY2x1ZGUgPHVhcGkvbGludXgvY291bnRlci5oPgogCiBzdHJ1Y3QgY291bnRlcl9kZXZp
-Y2U7CiBzdHJ1Y3QgY291bnRlcl9jb3VudDsKQEAgLTI3LDQ3ICsyOCw2IEBAIGVudW0gY291bnRl
-cl9jb21wX3R5cGUgewogCUNPVU5URVJfQ09NUF9DT1VOVF9NT0RFLAogfTsKIAotZW51bSBjb3Vu
-dGVyX3Njb3BlIHsKLQlDT1VOVEVSX1NDT1BFX0RFVklDRSwKLQlDT1VOVEVSX1NDT1BFX1NJR05B
-TCwKLQlDT1VOVEVSX1NDT1BFX0NPVU5ULAotfTsKLQotZW51bSBjb3VudGVyX2NvdW50X2RpcmVj
-dGlvbiB7Ci0JQ09VTlRFUl9DT1VOVF9ESVJFQ1RJT05fRk9SV0FSRCwKLQlDT1VOVEVSX0NPVU5U
-X0RJUkVDVElPTl9CQUNLV0FSRCwKLX07Ci0KLWVudW0gY291bnRlcl9jb3VudF9tb2RlIHsKLQlD
-T1VOVEVSX0NPVU5UX01PREVfTk9STUFMLAotCUNPVU5URVJfQ09VTlRfTU9ERV9SQU5HRV9MSU1J
-VCwKLQlDT1VOVEVSX0NPVU5UX01PREVfTk9OX1JFQ1lDTEUsCi0JQ09VTlRFUl9DT1VOVF9NT0RF
-X01PRFVMT19OLAotfTsKLQotZW51bSBjb3VudGVyX2Z1bmN0aW9uIHsKLQlDT1VOVEVSX0ZVTkNU
-SU9OX0lOQ1JFQVNFLAotCUNPVU5URVJfRlVOQ1RJT05fREVDUkVBU0UsCi0JQ09VTlRFUl9GVU5D
-VElPTl9QVUxTRV9ESVJFQ1RJT04sCi0JQ09VTlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1gxX0Es
-Ci0JQ09VTlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1gxX0IsCi0JQ09VTlRFUl9GVU5DVElPTl9R
-VUFEUkFUVVJFX1gyX0EsCi0JQ09VTlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1gyX0IsCi0JQ09V
-TlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1g0LAotfTsKLQotZW51bSBjb3VudGVyX3NpZ25hbF9s
-ZXZlbCB7Ci0JQ09VTlRFUl9TSUdOQUxfTEVWRUxfTE9XLAotCUNPVU5URVJfU0lHTkFMX0xFVkVM
-X0hJR0gsCi19OwotCi1lbnVtIGNvdW50ZXJfc3luYXBzZV9hY3Rpb24gewotCUNPVU5URVJfU1lO
-QVBTRV9BQ1RJT05fTk9ORSwKLQlDT1VOVEVSX1NZTkFQU0VfQUNUSU9OX1JJU0lOR19FREdFLAot
-CUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fRkFMTElOR19FREdFLAotCUNPVU5URVJfU1lOQVBTRV9B
-Q1RJT05fQk9USF9FREdFUywKLX07Ci0KIC8qKgogICogc3RydWN0IGNvdW50ZXJfY29tcCAtIENv
-dW50ZXIgY29tcG9uZW50IG5vZGUKICAqIEB0eXBlOgkJQ291bnRlciBjb21wb25lbnQgZGF0YSB0
-eXBlCmRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvbGludXgvY291bnRlci5oIGIvaW5jbHVkZS91
-YXBpL2xpbnV4L2NvdW50ZXIuaApuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAw
-MDAuLjYxMTM5MzhhNjA0NAotLS0gL2Rldi9udWxsCisrKyBiL2luY2x1ZGUvdWFwaS9saW51eC9j
-b3VudGVyLmgKQEAgLTAsMCArMSw1NiBAQAorLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQ
-TC0yLjAgV0lUSCBMaW51eC1zeXNjYWxsLW5vdGUgKi8KKy8qCisgKiBVc2Vyc3BhY2UgQUJJIGZv
-ciBDb3VudGVyIGNoYXJhY3RlciBkZXZpY2VzCisgKiBDb3B5cmlnaHQgKEMpIDIwMjAgV2lsbGlh
-bSBCcmVhdGhpdHQgR3JheQorICovCisjaWZuZGVmIF9VQVBJX0NPVU5URVJfSF8KKyNkZWZpbmUg
-X1VBUElfQ09VTlRFUl9IXworCisvKiBDb21wb25lbnQgc2NvcGUgZGVmaW5pdGlvbnMgKi8KK2Vu
-dW0gY291bnRlcl9zY29wZSB7CisJQ09VTlRFUl9TQ09QRV9ERVZJQ0UsCisJQ09VTlRFUl9TQ09Q
-RV9TSUdOQUwsCisJQ09VTlRFUl9TQ09QRV9DT1VOVCwKK307CisKKy8qIENvdW50IGRpcmVjdGlv
-biB2YWx1ZXMgKi8KK2VudW0gY291bnRlcl9jb3VudF9kaXJlY3Rpb24geworCUNPVU5URVJfQ09V
-TlRfRElSRUNUSU9OX0ZPUldBUkQsCisJQ09VTlRFUl9DT1VOVF9ESVJFQ1RJT05fQkFDS1dBUkQs
-Cit9OworCisvKiBDb3VudCBtb2RlIHZhbHVlcyAqLworZW51bSBjb3VudGVyX2NvdW50X21vZGUg
-eworCUNPVU5URVJfQ09VTlRfTU9ERV9OT1JNQUwsCisJQ09VTlRFUl9DT1VOVF9NT0RFX1JBTkdF
-X0xJTUlULAorCUNPVU5URVJfQ09VTlRfTU9ERV9OT05fUkVDWUNMRSwKKwlDT1VOVEVSX0NPVU5U
-X01PREVfTU9EVUxPX04sCit9OworCisvKiBDb3VudCBmdW5jdGlvbiB2YWx1ZXMgKi8KK2VudW0g
-Y291bnRlcl9mdW5jdGlvbiB7CisJQ09VTlRFUl9GVU5DVElPTl9JTkNSRUFTRSwKKwlDT1VOVEVS
-X0ZVTkNUSU9OX0RFQ1JFQVNFLAorCUNPVU5URVJfRlVOQ1RJT05fUFVMU0VfRElSRUNUSU9OLAor
-CUNPVU5URVJfRlVOQ1RJT05fUVVBRFJBVFVSRV9YMV9BLAorCUNPVU5URVJfRlVOQ1RJT05fUVVB
-RFJBVFVSRV9YMV9CLAorCUNPVU5URVJfRlVOQ1RJT05fUVVBRFJBVFVSRV9YMl9BLAorCUNPVU5U
-RVJfRlVOQ1RJT05fUVVBRFJBVFVSRV9YMl9CLAorCUNPVU5URVJfRlVOQ1RJT05fUVVBRFJBVFVS
-RV9YNCwKK307CisKKy8qIFNpZ25hbCB2YWx1ZXMgKi8KK2VudW0gY291bnRlcl9zaWduYWxfbGV2
-ZWwgeworCUNPVU5URVJfU0lHTkFMX0xFVkVMX0xPVywKKwlDT1VOVEVSX1NJR05BTF9MRVZFTF9I
-SUdILAorfTsKKworLyogQWN0aW9uIG1vZGUgdmFsdWVzICovCitlbnVtIGNvdW50ZXJfc3luYXBz
-ZV9hY3Rpb24geworCUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fTk9ORSwKKwlDT1VOVEVSX1NZTkFQ
-U0VfQUNUSU9OX1JJU0lOR19FREdFLAorCUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fRkFMTElOR19F
-REdFLAorCUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fQk9USF9FREdFUywKK307CisKKyNlbmRpZiAv
-KiBfVUFQSV9DT1VOVEVSX0hfICovCi0tIAoyLjMyLjAKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+This patch introduces a character device interface for the Counter
+subsystem. Device data is exposed through standard character device read
+operations. Device data is gathered when a Counter event is pushed by
+the respective Counter device driver. Configuration is handled via ioctl
+operations on the respective Counter character device node.
+
+Cc: David Lechner <david@lechnology.com>
+Cc: Gwendal Grignou <gwendal@chromium.org>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+---
+ drivers/counter/Makefile         |   2 +-
+ drivers/counter/counter-chrdev.c | 508 +++++++++++++++++++++++++++++++
+ drivers/counter/counter-chrdev.h |  14 +
+ drivers/counter/counter-core.c   |  44 ++-
+ include/linux/counter.h          |  47 +++
+ include/uapi/linux/counter.h     |  98 ++++++
+ 6 files changed, 707 insertions(+), 6 deletions(-)
+ create mode 100644 drivers/counter/counter-chrdev.c
+ create mode 100644 drivers/counter/counter-chrdev.h
+
+diff --git a/drivers/counter/Makefile b/drivers/counter/Makefile
+index 1ab7e087fdc2..8fde6c100ebc 100644
+--- a/drivers/counter/Makefile
++++ b/drivers/counter/Makefile
+@@ -4,7 +4,7 @@
+ #
+ 
+ obj-$(CONFIG_COUNTER) += counter.o
+-counter-y := counter-core.o counter-sysfs.o
++counter-y := counter-core.o counter-sysfs.o counter-chrdev.o
+ 
+ obj-$(CONFIG_104_QUAD_8)	+= 104-quad-8.o
+ obj-$(CONFIG_INTERRUPT_CNT)		+= interrupt-cnt.o
+diff --git a/drivers/counter/counter-chrdev.c b/drivers/counter/counter-chrdev.c
+new file mode 100644
+index 000000000000..d5af82d3c04b
+--- /dev/null
++++ b/drivers/counter/counter-chrdev.c
+@@ -0,0 +1,508 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Generic Counter character device interface
++ * Copyright (C) 2020 William Breathitt Gray
++ */
++#include <linux/cdev.h>
++#include <linux/counter.h>
++#include <linux/err.h>
++#include <linux/errno.h>
++#include <linux/export.h>
++#include <linux/fs.h>
++#include <linux/kfifo.h>
++#include <linux/list.h>
++#include <linux/mutex.h>
++#include <linux/nospec.h>
++#include <linux/poll.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/timekeeping.h>
++#include <linux/types.h>
++#include <linux/uaccess.h>
++#include <linux/wait.h>
++
++#include "counter-chrdev.h"
++
++struct counter_comp_node {
++	struct list_head l;
++	struct counter_component component;
++	struct counter_comp comp;
++	void *parent;
++};
++
++static ssize_t counter_chrdev_read(struct file *filp, char __user *buf,
++				   size_t len, loff_t *f_ps)
++{
++	struct counter_device *const counter = filp->private_data;
++	int err;
++	unsigned int copied;
++
++	if (len < sizeof(struct counter_event))
++		return -EINVAL;
++
++	do {
++		if (kfifo_is_empty(&counter->events)) {
++			if (filp->f_flags & O_NONBLOCK)
++				return -EAGAIN;
++
++			err = wait_event_interruptible(counter->events_wait,
++					!kfifo_is_empty(&counter->events));
++			if (err < 0)
++				return err;
++		}
++
++		if (mutex_lock_interruptible(&counter->events_lock))
++			return -ERESTARTSYS;
++		err = kfifo_to_user(&counter->events, buf, len, &copied);
++		mutex_unlock(&counter->events_lock);
++		if (err < 0)
++			return err;
++	} while (!copied);
++
++	return copied;
++}
++
++static __poll_t counter_chrdev_poll(struct file *filp,
++				    struct poll_table_struct *pollt)
++{
++	struct counter_device *const counter = filp->private_data;
++	__poll_t events = 0;
++
++	poll_wait(filp, &counter->events_wait, pollt);
++
++	if (!kfifo_is_empty(&counter->events))
++		events = EPOLLIN | EPOLLRDNORM;
++
++	return events;
++}
++
++static void counter_events_list_free(struct list_head *const events_list)
++{
++	struct counter_event_node *p, *n;
++	struct counter_comp_node *q, *o;
++
++	list_for_each_entry_safe(p, n, events_list, l) {
++		/* Free associated component nodes */
++		list_for_each_entry_safe(q, o, &p->comp_list, l) {
++			list_del(&q->l);
++			kfree(q);
++		}
++
++		/* Free event node */
++		list_del(&p->l);
++		kfree(p);
++	}
++}
++
++static int counter_set_event_node(struct counter_device *const counter,
++				  struct counter_watch *const watch,
++				  const struct counter_comp_node *const cfg)
++{
++	struct counter_event_node *event_node;
++	int err = 0;
++	struct counter_comp_node *comp_node;
++
++	/* Search for event in the list */
++	list_for_each_entry(event_node, &counter->next_events_list, l)
++		if (event_node->event == watch->event &&
++		    event_node->channel == watch->channel)
++			break;
++
++	/* If event is not already in the list */
++	if (&event_node->l == &counter->next_events_list) {
++		/* Allocate new event node */
++		event_node = kmalloc(sizeof(*event_node), GFP_KERNEL);
++		if (!event_node)
++			return -ENOMEM;
++
++		/* Configure event node and add to the list */
++		event_node->event = watch->event;
++		event_node->channel = watch->channel;
++		INIT_LIST_HEAD(&event_node->comp_list);
++		list_add(&event_node->l, &counter->next_events_list);
++	}
++
++	/* Check if component watch has already been set before */
++	list_for_each_entry(comp_node, &event_node->comp_list, l)
++		if (comp_node->parent == cfg->parent &&
++		    comp_node->comp.count_u8_read == cfg->comp.count_u8_read) {
++			err = -EINVAL;
++			goto exit_free_event_node;
++		}
++
++	/* Allocate component node */
++	comp_node = kmalloc(sizeof(*comp_node), GFP_KERNEL);
++	if (!comp_node) {
++		err = -ENOMEM;
++		goto exit_free_event_node;
++	}
++	*comp_node = *cfg;
++
++	/* Add component node to event node */
++	list_add_tail(&comp_node->l, &event_node->comp_list);
++
++exit_free_event_node:
++	/* Free event node if no one else is watching */
++	if (list_empty(&event_node->comp_list)) {
++		list_del(&event_node->l);
++		kfree(event_node);
++	}
++
++	return err;
++}
++
++static int counter_enable_events(struct counter_device *const counter)
++{
++	unsigned long flags;
++	int err = 0;
++
++	mutex_lock(&counter->n_events_list_lock);
++	spin_lock_irqsave(&counter->events_list_lock, flags);
++
++	counter_events_list_free(&counter->events_list);
++	list_replace_init(&counter->next_events_list,
++			  &counter->events_list);
++
++	if (counter->ops->events_configure)
++		err = counter->ops->events_configure(counter);
++
++	spin_unlock_irqrestore(&counter->events_list_lock, flags);
++	mutex_unlock(&counter->n_events_list_lock);
++
++	return err;
++}
++
++static int counter_disable_events(struct counter_device *const counter)
++{
++	unsigned long flags;
++	int err = 0;
++
++	spin_lock_irqsave(&counter->events_list_lock, flags);
++
++	counter_events_list_free(&counter->events_list);
++
++	if (counter->ops->events_configure)
++		err = counter->ops->events_configure(counter);
++
++	spin_unlock_irqrestore(&counter->events_list_lock, flags);
++
++	mutex_lock(&counter->n_events_list_lock);
++
++	counter_events_list_free(&counter->next_events_list);
++
++	mutex_unlock(&counter->n_events_list_lock);
++
++	return err;
++}
++
++static int counter_add_watch(struct counter_device *const counter,
++			     const unsigned long arg)
++{
++	void __user *const uwatch = (void __user *)arg;
++	struct counter_watch watch;
++	struct counter_comp_node comp_node = {};
++	size_t parent, id;
++	struct counter_comp *ext;
++	size_t num_ext;
++	int err = 0;
++
++	if (copy_from_user(&watch, uwatch, sizeof(watch)))
++		return -EFAULT;
++
++	if (watch.component.type == COUNTER_COMPONENT_NONE)
++		goto no_component;
++
++	parent = watch.component.parent;
++
++	/* Configure parent component info for comp node */
++	switch (watch.component.scope) {
++	case COUNTER_SCOPE_DEVICE:
++		ext = counter->ext;
++		num_ext = counter->num_ext;
++		break;
++	case COUNTER_SCOPE_SIGNAL:
++		if (parent >= counter->num_signals)
++			return -EINVAL;
++		parent = array_index_nospec(parent, counter->num_signals);
++
++		comp_node.parent = counter->signals + parent;
++
++		ext = counter->signals[parent].ext;
++		num_ext = counter->signals[parent].num_ext;
++		break;
++	case COUNTER_SCOPE_COUNT:
++		if (parent >= counter->num_counts)
++			return -EINVAL;
++		parent = array_index_nospec(parent, counter->num_counts);
++
++		comp_node.parent = counter->counts + parent;
++
++		ext = counter->counts[parent].ext;
++		num_ext = counter->counts[parent].num_ext;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	id = watch.component.id;
++
++	/* Configure component info for comp node */
++	switch (watch.component.type) {
++	case COUNTER_COMPONENT_SIGNAL:
++		if (watch.component.scope != COUNTER_SCOPE_SIGNAL)
++			return -EINVAL;
++
++		comp_node.comp.type = COUNTER_COMP_SIGNAL_LEVEL;
++		comp_node.comp.signal_u32_read = counter->ops->signal_read;
++		break;
++	case COUNTER_COMPONENT_COUNT:
++		if (watch.component.scope != COUNTER_SCOPE_COUNT)
++			return -EINVAL;
++
++		comp_node.comp.type = COUNTER_COMP_U64;
++		comp_node.comp.count_u64_read = counter->ops->count_read;
++		break;
++	case COUNTER_COMPONENT_FUNCTION:
++		if (watch.component.scope != COUNTER_SCOPE_COUNT)
++			return -EINVAL;
++
++		comp_node.comp.type = COUNTER_COMP_FUNCTION;
++		comp_node.comp.count_u32_read = counter->ops->function_read;
++		break;
++	case COUNTER_COMPONENT_SYNAPSE_ACTION:
++		if (watch.component.scope != COUNTER_SCOPE_COUNT)
++			return -EINVAL;
++		if (id >= counter->counts[parent].num_synapses)
++			return -EINVAL;
++		id = array_index_nospec(id, counter->counts[parent].num_synapses);
++
++		comp_node.comp.type = COUNTER_COMP_SYNAPSE_ACTION;
++		comp_node.comp.action_read = counter->ops->action_read;
++		comp_node.comp.priv = counter->counts[parent].synapses + id;
++		break;
++	case COUNTER_COMPONENT_EXTENSION:
++		if (id >= num_ext)
++			return -EINVAL;
++		id = array_index_nospec(id, num_ext);
++
++		comp_node.comp = ext[id];
++		break;
++	default:
++		return -EINVAL;
++	}
++	/* Check if any read callback is set; this is part of a union */
++	if (!comp_node.comp.count_u8_read)
++		return -EOPNOTSUPP;
++
++no_component:
++	mutex_lock(&counter->n_events_list_lock);
++
++	if (counter->ops->watch_validate) {
++		err = counter->ops->watch_validate(counter, &watch);
++		if (err < 0)
++			goto err_exit;
++	}
++
++	comp_node.component = watch.component;
++
++	err = counter_set_event_node(counter, &watch, &comp_node);
++
++err_exit:
++	mutex_unlock(&counter->n_events_list_lock);
++
++	return err;
++}
++
++static long counter_chrdev_ioctl(struct file *filp, unsigned int cmd,
++				 unsigned long arg)
++{
++	struct counter_device *const counter = filp->private_data;
++
++	switch (cmd) {
++	case COUNTER_ADD_WATCH_IOCTL:
++		return counter_add_watch(counter, arg);
++	case COUNTER_ENABLE_EVENTS_IOCTL:
++		return counter_enable_events(counter);
++	case COUNTER_DISABLE_EVENTS_IOCTL:
++		return counter_disable_events(counter);
++	default:
++		return -ENOIOCTLCMD;
++	}
++}
++
++static int counter_chrdev_open(struct inode *inode, struct file *filp)
++{
++	struct counter_device *const counter = container_of(inode->i_cdev,
++							    typeof(*counter),
++							    chrdev);
++
++	get_device(&counter->dev);
++	filp->private_data = counter;
++
++	return nonseekable_open(inode, filp);
++}
++
++static int counter_chrdev_release(struct inode *inode, struct file *filp)
++{
++	struct counter_device *const counter = filp->private_data;
++	int err;
++
++	err = counter_disable_events(counter);
++	if (err < 0)
++		return err;
++
++	put_device(&counter->dev);
++
++	return 0;
++}
++
++static const struct file_operations counter_fops = {
++	.llseek = no_llseek,
++	.read = counter_chrdev_read,
++	.poll = counter_chrdev_poll,
++	.unlocked_ioctl = counter_chrdev_ioctl,
++	.open = counter_chrdev_open,
++	.release = counter_chrdev_release,
++};
++
++int counter_chrdev_add(struct counter_device *const counter)
++{
++	/* Initialize Counter events lists */
++	INIT_LIST_HEAD(&counter->events_list);
++	INIT_LIST_HEAD(&counter->next_events_list);
++	spin_lock_init(&counter->events_list_lock);
++	mutex_init(&counter->n_events_list_lock);
++	init_waitqueue_head(&counter->events_wait);
++	mutex_init(&counter->events_lock);
++
++	/* Initialize character device */
++	cdev_init(&counter->chrdev, &counter_fops);
++
++	/* Allocate Counter events queue */
++	return kfifo_alloc(&counter->events, 64, GFP_KERNEL);
++}
++
++void counter_chrdev_remove(struct counter_device *const counter)
++{
++	kfifo_free(&counter->events);
++}
++
++static int counter_get_data(struct counter_device *const counter,
++			    const struct counter_comp_node *const comp_node,
++			    u64 *const value)
++{
++	const struct counter_comp *const comp = &comp_node->comp;
++	void *const parent = comp_node->parent;
++	u8 value_u8 = 0;
++	u32 value_u32 = 0;
++	int ret;
++
++	if (comp_node->component.type == COUNTER_COMPONENT_NONE)
++		return 0;
++
++	switch (comp->type) {
++	case COUNTER_COMP_U8:
++	case COUNTER_COMP_BOOL:
++		switch (comp_node->component.scope) {
++		case COUNTER_SCOPE_DEVICE:
++			ret = comp->device_u8_read(counter, &value_u8);
++			break;
++		case COUNTER_SCOPE_SIGNAL:
++			ret = comp->signal_u8_read(counter, parent, &value_u8);
++			break;
++		case COUNTER_SCOPE_COUNT:
++			ret = comp->count_u8_read(counter, parent, &value_u8);
++			break;
++		}
++		*value = value_u8;
++		return ret;
++	case COUNTER_COMP_SIGNAL_LEVEL:
++	case COUNTER_COMP_FUNCTION:
++	case COUNTER_COMP_ENUM:
++	case COUNTER_COMP_COUNT_DIRECTION:
++	case COUNTER_COMP_COUNT_MODE:
++		switch (comp_node->component.scope) {
++		case COUNTER_SCOPE_DEVICE:
++			ret = comp->device_u32_read(counter, &value_u32);
++			break;
++		case COUNTER_SCOPE_SIGNAL:
++			ret = comp->signal_u32_read(counter, parent,
++						    &value_u32);
++			break;
++		case COUNTER_SCOPE_COUNT:
++			ret = comp->count_u32_read(counter, parent, &value_u32);
++			break;
++		}
++		*value = value_u32;
++		return ret;
++	case COUNTER_COMP_U64:
++		switch (comp_node->component.scope) {
++		case COUNTER_SCOPE_DEVICE:
++			return comp->device_u64_read(counter, value);
++		case COUNTER_SCOPE_SIGNAL:
++			return comp->signal_u64_read(counter, parent, value);
++		case COUNTER_SCOPE_COUNT:
++			return comp->count_u64_read(counter, parent, value);
++		default:
++			return -EINVAL;
++		}
++	case COUNTER_COMP_SYNAPSE_ACTION:
++		ret = comp->action_read(counter, parent, comp->priv,
++					&value_u32);
++		*value = value_u32;
++		return ret;
++	default:
++		return -EINVAL;
++	}
++}
++
++/**
++ * counter_push_event - queue event for userspace reading
++ * @counter:	pointer to Counter structure
++ * @event:	triggered event
++ * @channel:	event channel
++ *
++ * Note: If no one is watching for the respective event, it is silently
++ * discarded.
++ */
++void counter_push_event(struct counter_device *const counter, const u8 event,
++			const u8 channel)
++{
++	struct counter_event ev;
++	unsigned int copied = 0;
++	unsigned long flags;
++	struct counter_event_node *event_node;
++	struct counter_comp_node *comp_node;
++
++	ev.timestamp = ktime_get_ns();
++	ev.watch.event = event;
++	ev.watch.channel = channel;
++
++	/* Could be in an interrupt context, so use a spin lock */
++	spin_lock_irqsave(&counter->events_list_lock, flags);
++
++	/* Search for event in the list */
++	list_for_each_entry(event_node, &counter->events_list, l)
++		if (event_node->event == event &&
++		    event_node->channel == channel)
++			break;
++
++	/* If event is not in the list */
++	if (&event_node->l == &counter->events_list)
++		goto exit_early;
++
++	/* Read and queue relevant comp for userspace */
++	list_for_each_entry(comp_node, &event_node->comp_list, l) {
++		ev.watch.component = comp_node->component;
++		ev.status = -counter_get_data(counter, comp_node, &ev.value);
++
++		copied += kfifo_in(&counter->events, &ev, 1);
++	}
++
++exit_early:
++	spin_unlock_irqrestore(&counter->events_list_lock, flags);
++
++	if (copied)
++		wake_up_poll(&counter->events_wait, EPOLLIN);
++}
++EXPORT_SYMBOL_GPL(counter_push_event);
+diff --git a/drivers/counter/counter-chrdev.h b/drivers/counter/counter-chrdev.h
+new file mode 100644
+index 000000000000..5529d16703c4
+--- /dev/null
++++ b/drivers/counter/counter-chrdev.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Counter character device interface
++ * Copyright (C) 2020 William Breathitt Gray
++ */
++#ifndef _COUNTER_CHRDEV_H_
++#define _COUNTER_CHRDEV_H_
++
++#include <linux/counter.h>
++
++int counter_chrdev_add(struct counter_device *const counter);
++void counter_chrdev_remove(struct counter_device *const counter);
++
++#endif /* _COUNTER_CHRDEV_H_ */
+diff --git a/drivers/counter/counter-core.c b/drivers/counter/counter-core.c
+index 9442e3b91468..dd7f3f69328e 100644
+--- a/drivers/counter/counter-core.c
++++ b/drivers/counter/counter-core.c
+@@ -3,14 +3,20 @@
+  * Generic Counter interface
+  * Copyright (C) 2020 William Breathitt Gray
+  */
++#include <linux/cdev.h>
+ #include <linux/counter.h>
+ #include <linux/device.h>
++#include <linux/device/bus.h>
+ #include <linux/export.h>
++#include <linux/fs.h>
+ #include <linux/gfp.h>
+ #include <linux/idr.h>
+ #include <linux/init.h>
++#include <linux/kdev_t.h>
+ #include <linux/module.h>
++#include <linux/types.h>
+ 
++#include "counter-chrdev.h"
+ #include "counter-sysfs.h"
+ 
+ /* Provides a unique ID for each counter device */
+@@ -34,6 +40,8 @@ static struct bus_type counter_bus_type = {
+ 	.dev_name = "counter",
+ };
+ 
++static dev_t counter_devt;
++
+ /**
+  * counter_register - register Counter to the system
+  * @counter:	pointer to Counter to register
+@@ -60,6 +68,7 @@ int counter_register(struct counter_device *const counter)
+ 	dev->id = id;
+ 	dev->type = &counter_device_type;
+ 	dev->bus = &counter_bus_type;
++	dev->devt = MKDEV(MAJOR(counter_devt), id);
+ 	if (counter->parent) {
+ 		dev->parent = counter->parent;
+ 		dev->of_node = counter->parent->of_node;
+@@ -67,18 +76,25 @@ int counter_register(struct counter_device *const counter)
+ 	device_initialize(dev);
+ 	dev_set_drvdata(dev, counter);
+ 
++	/* Add Counter character device */
++	err = counter_chrdev_add(counter);
++	if (err < 0)
++		goto err_free_id;
++
+ 	/* Add Counter sysfs attributes */
+ 	err = counter_sysfs_add(counter);
+ 	if (err < 0)
+-		goto err_free_id;
++		goto err_remove_chrdev;
+ 
+ 	/* Add device to system */
+-	err = device_add(dev);
++	err = cdev_device_add(&counter->chrdev, dev);
+ 	if (err < 0)
+-		goto err_free_id;
++		goto err_remove_chrdev;
+ 
+ 	return 0;
+ 
++err_remove_chrdev:
++	counter_chrdev_remove(counter);
+ err_free_id:
+ 	put_device(dev);
+ 	return err;
+@@ -96,7 +112,8 @@ void counter_unregister(struct counter_device *const counter)
+ 	if (!counter)
+ 		return;
+ 
+-	device_unregister(&counter->dev);
++	cdev_device_del(&counter->chrdev, &counter->dev);
++	put_device(&counter->dev);
+ }
+ EXPORT_SYMBOL_GPL(counter_unregister);
+ 
+@@ -130,13 +147,30 @@ int devm_counter_register(struct device *dev,
+ }
+ EXPORT_SYMBOL_GPL(devm_counter_register);
+ 
++#define COUNTER_DEV_MAX 256
++
+ static int __init counter_init(void)
+ {
+-	return bus_register(&counter_bus_type);
++	int err;
++
++	err = bus_register(&counter_bus_type);
++	if (err < 0)
++		return err;
++
++	err = alloc_chrdev_region(&counter_devt, 0, COUNTER_DEV_MAX, "counter");
++	if (err < 0)
++		goto err_unregister_bus;
++
++	return 0;
++
++err_unregister_bus:
++	bus_unregister(&counter_bus_type);
++	return err;
+ }
+ 
+ static void __exit counter_exit(void)
+ {
++	unregister_chrdev_region(counter_devt, COUNTER_DEV_MAX);
+ 	bus_unregister(&counter_bus_type);
+ }
+ 
+diff --git a/include/linux/counter.h b/include/linux/counter.h
+index 7c9f7e23953a..895d60a238a9 100644
+--- a/include/linux/counter.h
++++ b/include/linux/counter.h
+@@ -6,9 +6,14 @@
+ #ifndef _COUNTER_H_
+ #define _COUNTER_H_
+ 
++#include <linux/cdev.h>
+ #include <linux/device.h>
+ #include <linux/kernel.h>
++#include <linux/kfifo.h>
++#include <linux/mutex.h>
++#include <linux/spinlock_types.h>
+ #include <linux/types.h>
++#include <linux/wait.h>
+ #include <uapi/linux/counter.h>
+ 
+ struct counter_device;
+@@ -199,6 +204,20 @@ struct counter_count {
+ 	size_t num_ext;
+ };
+ 
++/**
++ * struct counter_event_node - Counter Event node
++ * @l:		list of current watching Counter events
++ * @event:	event that triggers
++ * @channel:	event channel
++ * @comp_list:	list of components to watch when event triggers
++ */
++struct counter_event_node {
++	struct list_head l;
++	u8 event;
++	u8 channel;
++	struct list_head comp_list;
++};
++
+ /**
+  * struct counter_ops - Callbacks from driver
+  * @signal_read:	optional read callback for Signals. The read level of
+@@ -222,6 +241,13 @@ struct counter_count {
+  * @action_write:	optional write callback for Synapse action modes. The
+  *			action mode to write for the respective Synapse is
+  *			passed in via the action parameter.
++ * @events_configure:	optional write callback to configure events. The list of
++ *			struct counter_event_node may be accessed via the
++ *			events_list member of the counter parameter.
++ * @watch_validate:	optional callback to validate a watch. The Counter
++ *			component watch configuration is passed in via the watch
++ *			parameter. A return value of 0 indicates a valid Counter
++ *			component watch configuration.
+  */
+ struct counter_ops {
+ 	int (*signal_read)(struct counter_device *counter,
+@@ -245,6 +271,9 @@ struct counter_ops {
+ 			    struct counter_count *count,
+ 			    struct counter_synapse *synapse,
+ 			    enum counter_synapse_action action);
++	int (*events_configure)(struct counter_device *counter);
++	int (*watch_validate)(struct counter_device *counter,
++			      const struct counter_watch *watch);
+ };
+ 
+ /**
+@@ -260,6 +289,14 @@ struct counter_ops {
+  * @num_ext:		number of Counter device extensions specified in @ext
+  * @priv:		optional private data supplied by driver
+  * @dev:		internal device structure
++ * @chrdev:		internal character device structure
++ * @events_list:	list of current watching Counter events
++ * @events_list_lock:	lock to protect Counter events list operations
++ * @next_events_list:	list of next watching Counter events
++ * @n_events_list_lock:	lock to protect Counter next events list operations
++ * @events:		queue of detected Counter events
++ * @events_wait:	wait queue to allow blocking reads of Counter events
++ * @events_lock:	lock to protect Counter events queue read operations
+  */
+ struct counter_device {
+ 	const char *name;
+@@ -278,12 +315,22 @@ struct counter_device {
+ 	void *priv;
+ 
+ 	struct device dev;
++	struct cdev chrdev;
++	struct list_head events_list;
++	spinlock_t events_list_lock;
++	struct list_head next_events_list;
++	struct mutex n_events_list_lock;
++	DECLARE_KFIFO_PTR(events, struct counter_event);
++	wait_queue_head_t events_wait;
++	struct mutex events_lock;
+ };
+ 
+ int counter_register(struct counter_device *const counter);
+ void counter_unregister(struct counter_device *const counter);
+ int devm_counter_register(struct device *dev,
+ 			  struct counter_device *const counter);
++void counter_push_event(struct counter_device *const counter, const u8 event,
++			const u8 channel);
+ 
+ #define COUNTER_COMP_DEVICE_U8(_name, _read, _write) \
+ { \
+diff --git a/include/uapi/linux/counter.h b/include/uapi/linux/counter.h
+index 6113938a6044..d0aa95aeff7b 100644
+--- a/include/uapi/linux/counter.h
++++ b/include/uapi/linux/counter.h
+@@ -6,6 +6,19 @@
+ #ifndef _UAPI_COUNTER_H_
+ #define _UAPI_COUNTER_H_
+ 
++#include <linux/ioctl.h>
++#include <linux/types.h>
++
++/* Component type definitions */
++enum counter_component_type {
++	COUNTER_COMPONENT_NONE,
++	COUNTER_COMPONENT_SIGNAL,
++	COUNTER_COMPONENT_COUNT,
++	COUNTER_COMPONENT_FUNCTION,
++	COUNTER_COMPONENT_SYNAPSE_ACTION,
++	COUNTER_COMPONENT_EXTENSION,
++};
++
+ /* Component scope definitions */
+ enum counter_scope {
+ 	COUNTER_SCOPE_DEVICE,
+@@ -13,6 +26,91 @@ enum counter_scope {
+ 	COUNTER_SCOPE_COUNT,
+ };
+ 
++/**
++ * struct counter_component - Counter component identification
++ * @type: component type (one of enum counter_component_type)
++ * @scope: component scope (one of enum counter_scope)
++ * @parent: parent ID (matching the ID suffix of the respective parent sysfs
++ *          path as described by the ABI documentation file
++ *          Documentation/ABI/testing/sysfs-bus-counter)
++ * @id: component ID (matching the ID provided by the respective *_component_id
++ *      sysfs attribute of the desired component)
++ *
++ * For example, if the Count 2 ceiling extension of Counter device 4 is desired,
++ * set type equal to COUNTER_COMPONENT_EXTENSION, scope equal to
++ * COUNTER_COUNT_SCOPE, parent equal to 2, and id equal to the value provided by
++ * the respective /sys/bus/counter/devices/counter4/count2/ceiling_component_id
++ * sysfs attribute.
++ */
++struct counter_component {
++	__u8 type;
++	__u8 scope;
++	__u8 parent;
++	__u8 id;
++};
++
++/* Event type definitions */
++enum counter_event_type {
++	/* Count value increased past ceiling */
++	COUNTER_EVENT_OVERFLOW,
++	/* Count value decreased past floor */
++	COUNTER_EVENT_UNDERFLOW,
++	/* Count value increased past ceiling, or decreased past floor */
++	COUNTER_EVENT_OVERFLOW_UNDERFLOW,
++	/* Count value reached threshold */
++	COUNTER_EVENT_THRESHOLD,
++	/* Index signal detected */
++	COUNTER_EVENT_INDEX,
++};
++
++/**
++ * struct counter_watch - Counter component watch configuration
++ * @component: component to watch when event triggers
++ * @event: event that triggers (one of enum counter_event_type)
++ * @channel: event channel (typically 0 unless the device supports concurrent
++ *	     events of the same type)
++ */
++struct counter_watch {
++	struct counter_component component;
++	__u8 event;
++	__u8 channel;
++};
++
++/*
++ * Queues a Counter watch for the specified event.
++ *
++ * The queued watches will not be applied until COUNTER_ENABLE_EVENTS_IOCTL is
++ * called.
++ */
++#define COUNTER_ADD_WATCH_IOCTL _IOW(0x3E, 0x00, struct counter_watch)
++/*
++ * Enables monitoring the events specified by the Counter watches that were
++ * queued by COUNTER_ADD_WATCH_IOCTL.
++ *
++ * If events are already enabled, the new set of watches replaces the old one.
++ * Calling this ioctl also has the effect of clearing the queue of watches added
++ * by COUNTER_ADD_WATCH_IOCTL.
++ */
++#define COUNTER_ENABLE_EVENTS_IOCTL _IO(0x3E, 0x01)
++/*
++ * Stops monitoring the previously enabled events.
++ */
++#define COUNTER_DISABLE_EVENTS_IOCTL _IO(0x3E, 0x02)
++
++/**
++ * struct counter_event - Counter event data
++ * @timestamp: best estimate of time of event occurrence, in nanoseconds
++ * @value: component value
++ * @watch: component watch configuration
++ * @status: return status (system error number)
++ */
++struct counter_event {
++	__aligned_u64 timestamp;
++	__aligned_u64 value;
++	struct counter_watch watch;
++	__u8 status;
++};
++
+ /* Count direction values */
+ enum counter_count_direction {
+ 	COUNTER_COUNT_DIRECTION_FORWARD,
+-- 
+2.32.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
