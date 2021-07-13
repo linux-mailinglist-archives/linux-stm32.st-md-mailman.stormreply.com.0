@@ -2,54 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 774F23C6D24
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jul 2021 11:20:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B72D03C6DCA
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jul 2021 11:53:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C985C57B6F;
-	Tue, 13 Jul 2021 09:20:04 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A82CC57B6F;
+	Tue, 13 Jul 2021 09:53:43 +0000 (UTC)
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
+ [209.85.215.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1670FC57189
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9928C57B5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jul 2021 09:20:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3U4fXEvYZQ6jKgkN4/AU7jjky/mHZ4e2qC/cN+142q0=; b=ZbjSuQFu6xUZKyZmP35KKaa7h
- oWMT3hLQ9U1A2HSPpBdszaEgUZ1/9Ac9qHhgTIMIFET76inyqnQZMbTQPGp1ookCogmz/lhU6Iijo
- EancHG/EMjM0MUzW9zmyJGKlOy3VgtfXFRr8VBW2BDrG/zpZ0f8UgXyOB4jIC+a5Vvr3Vq56vEmvB
- y1Zc8FLFWBl70qcGOTu3a5/hbbtDY9oi2MFiySCgCTwNpsEcTx887gGRqQ4gOuQzoza3e0PWGUvjt
- w4FxDaZz6plRmLauHEHixlZvZs2y/ggp17tTlk7HglTPwBXz3qRVqUYSN+02MmxecPpvzpzGOzMRK
- kygaE7KLw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46044)
- by pandora.armlinux.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <linux@armlinux.org.uk>)
- id 1m3Ea4-0005pG-7B; Tue, 13 Jul 2021 10:19:56 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1m3Ea2-0000Am-Kx; Tue, 13 Jul 2021 10:19:54 +0100
-Date: Tue, 13 Jul 2021 10:19:54 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <20210713091954.GG22278@shell.armlinux.org.uk>
-References: <20210712231910.GA1831270@pc>
- <20210713063053.qqttzxlopvpnadj3@pengutronix.de>
+ Tue, 13 Jul 2021 09:53:41 +0000 (UTC)
+Received: by mail-pg1-f180.google.com with SMTP id u14so21115508pga.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 13 Jul 2021 02:53:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WsaJEEtXLdNnSdFh/wKlIqx0fCbuUEm2v5+ZJtQjif8=;
+ b=NkTsno1gYSLaJl62s8QMpXbOEHgIb175G4xJrhiZXoqhCqsG1EIOgS1bTswQITbGTi
+ 5OfEUHNZGhTOTJ23LwtDf1L4JfSfIUxdlorljNszdVIeEFPYB2Wry7RqSZYFHs/PEDW3
+ TwzLIzRbQ5BoB0SkAI8uFB7oaVUWv52IkwOg+e+E3xF3MN4P9xoCpwyTzcJwo6QjB5I9
+ XUIwS9EaKx+BBYmmRRKLkWl5+FdT+KswIy5ToBxr6wYuX3NmbsZFPUndXxXRu/cEyhVC
+ cG8pujM8EPBv3IS1piUFpTg9rvWuYxfltVwSqD8TJge+DcHPa6j4cqpZqg2WRLlPq+Nx
+ H8aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=WsaJEEtXLdNnSdFh/wKlIqx0fCbuUEm2v5+ZJtQjif8=;
+ b=Ht54Lqx/wPUsU8lbc+SeRVrznq90RwqyodchNDlKMKtfuIhtbnm4df80mTzf9Opeeb
+ GcQwueIMR8YiHObf9/KkMvbRlWrcjPo4cyN25Bh2QP25uhOd1Wa1siK2Wl+Lc87Pv4ZW
+ EshrNdZNTTRsdEowhPwUqwQUBq/wYdHF+5uqTSB8eX0QP9JDzqfRFCh+JPwl4qLjeBJ0
+ ajXcrjvNc802fvGyLVJ8RkXM1zKElsc1Y7tU0/zBCLdzicDAGvFsZF+MyYK7IrvjIa7T
+ ThOOel6wD+tbcw/GkUyT/T/2+dY/QZQxzdmyL/cuu0yjPHG4c8tmEmqi69I3DMjLvjzL
+ tYrg==
+X-Gm-Message-State: AOAM5320T0QxCgt7alPh+E+nuh4UCGdL/yHYlWFYkGw7OHI3ak/j1AZy
+ 2BrAEsudVNB4ithS2BjkN7k=
+X-Google-Smtp-Source: ABdhPJwoMmi75N66tKuoy7eviFH44flakEZxvMYXuLDuUZ60Zq2yZ3hF/8jGKH68X8xMVwCFowEyEg==
+X-Received: by 2002:a05:6a00:1692:b029:300:7193:f67 with SMTP id
+ k18-20020a056a001692b029030071930f67mr3831184pfc.19.1626170020123; 
+ Tue, 13 Jul 2021 02:53:40 -0700 (PDT)
+Received: from localhost.localdomain ([156.146.35.76])
+ by smtp.gmail.com with ESMTPSA id f6sm18153854pfj.28.2021.07.13.02.53.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Jul 2021 02:53:39 -0700 (PDT)
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: jic23@kernel.org
+Date: Tue, 13 Jul 2021 18:53:04 +0900
+Message-Id: <cover.1626165764.git.vilhelm.gray@gmail.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210713063053.qqttzxlopvpnadj3@pengutronix.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-pwm@vger.kernel.org, mcoquelin.stm32@gmail.com,
- Salah Triki <salah.triki@gmail.com>, alexandre.torgue@foss.st.com,
- linux-kernel@vger.kernel.org, thierry.reding@gmail.com, lee.jones@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] divide by 3*sizeof(u32) when computing
-	array_size
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: [Linux-stm32] [PATCH v13 00/17] Introduce the Counter character
+	device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,81 +75,196 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 13, 2021 at 08:30:53AM +0200, Uwe Kleine-K=F6nig wrote:
-> Hello Salah,
-> =
+Changes in v13:
+ - Use GFP_KERNEL when using mutexes instead of spinlocks
+ - Free event_node on error in counter_set_event_node
+ - Create n_events_list_lock mutex for protecting next_events_list
+   access
+ - Adjust counter_set_event_node() locking to cover watch_validate() too
+ - Pull out COUNTER_ENABLE_EVENTS_IOCTL code into its own function
+   counter_enable_events()
+ - Reimplement chrdev_lock as a bitmap and utilize
+   test_and_set_bit_lock()/clear_bit_unlock() to handle locking
+ - Move wake_up_poll() call to after spin_unlock_irqrestore() in the
+   counter_push_event() function
+ - Drop the lock on error in counter_events_queue_size_write()
+ - Rename "group" to "cattr_group" where appropriate for clarity
+ - Pull allocation of attribute groups to outside of for-loop in
+   counter_sysfs_add()
+ - Define and use enum translation function st32_lptim_func_map()
+ - Provide complete example in enum counter_component documentation
+ - Provide inline description comments for enum counter_event_type
+ - Move documentation of Counter ioctl commands inline with code and
+   reference them using :c:macro: in generic-counter.rst
+ - Make it clear which callbacks are optional in struct counter_ops
+ - Use HTML tables in Documentation/driver-api/generic-counter.rst
+ - Qualify struct counter_watch watches as statin in counter_example.c
+ - Return 1 on read() error in counter_example.c
+ - Remove unnecessary explicit casts in counter_example.c
 
-> On Tue, Jul 13, 2021 at 12:19:10AM +0100, Salah Triki wrote:
-> > Divide by 3*sizeof(u32) when computing array_size, since stm32_breakinp=
-ut
-> > has 3 fields of type u32.
-> > =
+For convenience, this patchset is also available on my personal git
+repo: https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v13
 
-> > Signed-off-by: Salah Triki <salah.triki@gmail.com>
-> > ---
-> >  drivers/pwm/pwm-stm32.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > =
+The patches preceding "counter: Internalize sysfs interface code" are
+primarily cleanup and fixes that can be picked up and applied now to the
+IIO tree if so desired. The "counter: Internalize sysfs interface code"
+patch as well may be considered for pickup because it is relatively safe
+and makes no changes to the userspace interface.
 
-> > diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
-> > index 794ca5b02968..fb21bc2b2dd6 100644
-> > --- a/drivers/pwm/pwm-stm32.c
-> > +++ b/drivers/pwm/pwm-stm32.c
-> > @@ -544,7 +544,7 @@ static int stm32_pwm_probe_breakinputs(struct stm32=
-_pwm *priv,
-> >  		return -EINVAL;
-> >  =
+To summarize the main points of this patchset: there are no changes to
+the existing Counter sysfs userspace interface; a Counter character
+device interface is introduced that allows Counter events and associated
+data to be read() by userspace; the events_configure() and
+watch_validate() driver callbacks are introduced to support Counter
+events; and IRQ support is added to the 104-QUAD-8 driver, serving as an
+example of how to support the new Counter events functionality.
 
-> >  	priv->num_breakinputs =3D nb;
-> > -	array_size =3D nb * sizeof(struct stm32_breakinput) / sizeof(u32);
-> > +	array_size =3D nb * sizeof(struct stm32_breakinput) / (3 * sizeof(u32=
-));
-> >  	ret =3D of_property_read_u32_array(np, "st,breakinput",
-> >  					 (u32 *)priv->breakinputs, array_size);
-> >  	if (ret)
-> =
+I did discover an issue with the character device code that I'm having
+trouble understanding. The issue does not affect the sysfs interface
+code so it's still safe to merge up to patch 08/17; only the character
+device node is affected starting with patch 10/17.
 
-> I agree with Philipp here; this looks strange and needs a better
-> description.
-> =
+Suppose I open the chrdev from a userspace application and keep it open,
+but then remove the respective driver and Counter subsystem module from
+my system. The devm_counter_release() and counter_exit() functions will
+be called as expected; the counter_chrdev_release() function will not be
+called yet, but that is expected because the chrdev is still open by
+userspace. If I try to break out of my userspace application, I expect
+counter_chrdev_release() to finally be called, but this does not happen.
+Instead, my userspace application stalls and I see the following error
+in my dmesg:
 
-> Looking a bit more in details:
-> =
+[  172.859570] BUG: unable to handle page fault for address: ffffffffc09ae298
+[  172.859594] #PF: supervisor read access in kernel mode
+[  172.859598] #PF: error_code(0x0000) - not-present page
+[  172.859603] PGD 23615067 P4D 23615067 PUD 23617067 PMD 1029ad067 PTE 0
+[  172.859623] Oops: 0000 [#1] SMP NOPTI
+[  172.859629] CPU: 2 PID: 2485 Comm: counter_example Not tainted 5.13.0+ #1
+[  172.859640] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS d55cb5a 04/01/2014
+[  172.859645] RIP: 0010:filp_close+0x29/0x70
+[  172.859662] Code: 90 0f 1f 44 00 00 55 48 89 e5 41 56 41 55 41 54 48 8b 47 38 48 85 c0 0f 84 b7 40 86 00 48 8b 47 28 49 89 fc 49 89 f5 45 31 f6 <48> 8b 40 78 48 85 c0 74 08 ff d0 0f 1f 00 41 89 c6 41 f6 44 24 45
+[  172.859669] RSP: 0018:ffffad31c0ee7cb0 EFLAGS: 00010246
+[  172.859675] RAX: ffffffffc09ae220 RBX: 0000000000000001 RCX: 0000000000000001
+[  172.859680] RDX: ffff9a43829708e0 RSI: ffff9a4382970840 RDI: ffff9a43821f4f00
+[  172.859684] RBP: ffffad31c0ee7cc8 R08: 0000000000000001 R09: 0000000000000001
+[  172.859687] R10: ffffffffffff4d00 R11: ffff9a43933c6e10 R12: ffff9a43821f4f00
+[  172.859691] R13: ffff9a4382970840 R14: 0000000000000000 R15: 0000000000000003
+[  172.859694] FS:  0000000000000000(0000) GS:ffff9a44b7d00000(0000) knlGS:0000000000000000
+[  172.859699] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  172.859704] CR2: ffffffffc09ae298 CR3: 0000000023610001 CR4: 0000000000370ee0
+[  172.859713] Call Trace:
+[  172.859730]  put_files_struct+0x73/0xd0
+[  172.859738]  exit_files+0x49/0x50
+[  172.859743]  do_exit+0x33b/0xa20
+[  172.859751]  do_group_exit+0x3b/0xb0
+[  172.859758]  get_signal+0x16f/0x8b0
+[  172.859766]  ? _copy_to_user+0x20/0x30
+[  172.859774]  ? put_timespec64+0x3d/0x60
+[  172.859784]  arch_do_signal_or_restart+0xf3/0x850
+[  172.859794]  ? hrtimer_nanosleep+0x9f/0x120
+[  172.859802]  ? __hrtimer_init+0xd0/0xd0
+[  172.859808]  exit_to_user_mode_prepare+0x122/0x1b0
+[  172.859816]  syscall_exit_to_user_mode+0x27/0x50
+[  172.859825]  do_syscall_64+0x48/0xc0
+[  172.859831]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[  172.859839] RIP: 0033:0x7f07f8b9951a
+[  172.859850] Code: Unable to access opcode bytes at RIP 0x7f07f8b994f0.
+[  172.859853] RSP: 002b:00007ffc0d12c230 EFLAGS: 00000246 ORIG_RAX: 00000000000000e6
+[  172.859860] RAX: fffffffffffffdfc RBX: ffffffffffffff01 RCX: 00007f07f8b9951a
+[  172.859863] RDX: 00007ffc0d12c2b0 RSI: 0000000000000000 RDI: 0000000000000000
+[  172.859867] RBP: 0000000000000000 R08: 0000000000000000 R09: 00007ffc0d12c1c6
+[  172.859871] R10: 00007ffc0d12c2b0 R11: 0000000000000246 R12: 00007ffc0d12c2b0
+[  172.859874] R13: 00007ffc0d12c2b0 R14: 0000000000000000 R15: 0000000000000000
+[  172.859886] Modules linked in: intel_rapl_msr intel_rapl_common kvm_intel kvm crct10dif_pclmul crc32_pclmul ghash_clmulni_intel nls_iso8859_1 aesni_intel crypto_simd cryptd rapl drm_ttm_helper ttm uvcvideo drm_kms_helper videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videobuf2_common input_leds syscopyarea videodev sysfillrect sysimgblt fb_sys_fops cec rc_core joydev mc drm serio_raw mac_hid qemu_fw_cfg sch_fq_codel msr parport_pc ppdev lp parport virtio_rng ip_tables x_tables autofs4 hid_generic usbhid hid virtio_net psmouse net_failover i2c_piix4 virtio_blk failover pata_acpi floppy [last unloaded: counter]
+[  172.859995] CR2: ffffffffc09ae298
+[  172.860009] ---[ end trace e7d3d7da1a73b8f4 ]---
+[  172.860013] RIP: 0010:filp_close+0x29/0x70
+[  172.860021] Code: 90 0f 1f 44 00 00 55 48 89 e5 41 56 41 55 41 54 48 8b 47 38 48 85 c0 0f 84 b7 40 86 00 48 8b 47 28 49 89 fc 49 89 f5 45 31 f6 <48> 8b 40 78 48 85 c0 74 08 ff d0 0f 1f 00 41 89 c6 41 f6 44 24 45
+[  172.860027] RSP: 0018:ffffad31c0ee7cb0 EFLAGS: 00010246
+[  172.860031] RAX: ffffffffc09ae220 RBX: 0000000000000001 RCX: 0000000000000001
+[  172.860034] RDX: ffff9a43829708e0 RSI: ffff9a4382970840 RDI: ffff9a43821f4f00
+[  172.860038] RBP: ffffad31c0ee7cc8 R08: 0000000000000001 R09: 0000000000000001
+[  172.860041] R10: ffffffffffff4d00 R11: ffff9a43933c6e10 R12: ffff9a43821f4f00
+[  172.860044] R13: ffff9a4382970840 R14: 0000000000000000 R15: 0000000000000003
+[  172.860047] FS:  0000000000000000(0000) GS:ffff9a44b7d00000(0000) knlGS:0000000000000000
+[  172.860052] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  172.860056] CR2: ffffffffc09ae298 CR3: 0000000023610001 CR4: 0000000000370ee0
+[  172.860073] Fixing recursive fault but reboot is needed!
 
->  - priv->breakinputs has type struct stm32_breakinput[MAX_BREAKINPUT]
->  - nb is in [0 .. MAX_BREAKINPUT]
->  - sizeof(struct stm32_breakinput) =3D=3D 3 * sizeof(u32)
->  - of_property_read_u32_array reads $array_size u32 quantities
-> =
+It looks like faults in filp_close() before counter_chrdev_release() is
+called. Is this issue manifesting because counter_exit() was called
+earlier while the chrdev was still open?
 
-> so to read $nb members of type stm32_breakinput array_size must be a
-> multiple of 3 which isn't given any more after your patch. This makes me
-> believe your suggested change to be wrong.
+William Breathitt Gray (17):
+  counter: 104-quad-8: Return error when invalid mode during
+    ceiling_write
+  counter: Return error code on invalid modes
+  counter: Standardize to ERANGE for limit exceeded errors
+  counter: Rename counter_signal_value to counter_signal_level
+  counter: Rename counter_count_function to counter_function
+  counter: Internalize sysfs interface code
+  counter: Update counter.h comments to reflect sysfs internalization
+  docs: counter: Update to reflect sysfs internalization
+  counter: Move counter enums to uapi header
+  counter: Add character device interface
+  docs: counter: Document character device interface
+  tools/counter: Create Counter tools
+  counter: Implement signalZ_action_component_id sysfs attribute
+  counter: Implement *_component_id sysfs attributes
+  counter: Implement events_queue_size sysfs attribute
+  counter: 104-quad-8: Replace mutex with spinlock
+  counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
 
-I concur with your analysis. "array_size" is the number of u32 values
-to read from DT. It is not the number of entries in priv->breakinputs.
+ Documentation/ABI/testing/sysfs-bus-counter   |   38 +-
+ Documentation/driver-api/generic-counter.rst  |  358 +++-
+ .../userspace-api/ioctl/ioctl-number.rst      |    1 +
+ MAINTAINERS                                   |    3 +-
+ drivers/counter/104-quad-8.c                  |  728 ++++----
+ drivers/counter/Kconfig                       |    6 +-
+ drivers/counter/Makefile                      |    1 +
+ drivers/counter/counter-chrdev.c              |  514 ++++++
+ drivers/counter/counter-chrdev.h              |   14 +
+ drivers/counter/counter-core.c                |  182 ++
+ drivers/counter/counter-sysfs.c               |  962 +++++++++++
+ drivers/counter/counter-sysfs.h               |   13 +
+ drivers/counter/counter.c                     | 1496 -----------------
+ drivers/counter/ftm-quaddec.c                 |   59 +-
+ drivers/counter/intel-qep.c                   |  150 +-
+ drivers/counter/interrupt-cnt.c               |   73 +-
+ drivers/counter/microchip-tcb-capture.c       |  103 +-
+ drivers/counter/stm32-lptimer-cnt.c           |  211 ++-
+ drivers/counter/stm32-timer-cnt.c             |  147 +-
+ drivers/counter/ti-eqep.c                     |  205 ++-
+ include/linux/counter.h                       |  717 ++++----
+ include/linux/counter_enum.h                  |   45 -
+ include/uapi/linux/counter.h                  |  154 ++
+ tools/Makefile                                |   13 +-
+ tools/counter/Build                           |    1 +
+ tools/counter/Makefile                        |   53 +
+ tools/counter/counter_example.c               |   93 +
+ 27 files changed, 3572 insertions(+), 2768 deletions(-)
+ create mode 100644 drivers/counter/counter-chrdev.c
+ create mode 100644 drivers/counter/counter-chrdev.h
+ create mode 100644 drivers/counter/counter-core.c
+ create mode 100644 drivers/counter/counter-sysfs.c
+ create mode 100644 drivers/counter/counter-sysfs.h
+ delete mode 100644 drivers/counter/counter.c
+ delete mode 100644 include/linux/counter_enum.h
+ create mode 100644 include/uapi/linux/counter.h
+ create mode 100644 tools/counter/Build
+ create mode 100644 tools/counter/Makefile
+ create mode 100644 tools/counter/counter_example.c
 
-I would also note that the code relies on there being no padding in
-struct stm32_breakinput - it should be noted that a strict
-interpretation of the C standard allows padding to be added anywhere
-to a structure - at the start, end or between members.
 
-Some further thoughts... DT is effectively an interface (we maintain
-definitions of what we expect.) The way the code is structured,
-"struct stm32_breakinput" defines that interface. Maybe this should
-be commented, and maybe there should be a build time assert that
-"sizeof(struct stm32_breakinput)" is "3 * sizeof(u32)" since the
-code is relying on that property?
+base-commit: 50be9417e23af5a8ac860d998e1e3f06b8fd79d7
+-- 
+2.32.0
 
--- =
-
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
