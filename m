@@ -2,60 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBB983C8BA8
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:27:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 725EB3C8C2C
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:39:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E475C597B0;
-	Wed, 14 Jul 2021 19:27:13 +0000 (UTC)
-Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
- [209.85.166.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17651C597B0;
+	Wed, 14 Jul 2021 19:39:27 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C05A4C597AE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23FAAC57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jul 2021 19:27:11 +0000 (UTC)
-Received: by mail-il1-f171.google.com with SMTP id a11so2722047ilf.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jul 2021 12:27:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=RzPhtbgpbxnOvk9KnY8WTPdMhffL639krC2aO6F+axU=;
- b=KqXbwzkXPmAj3LTl4+nBfkmyfxlVl+i8vKVDfHrwPy5GtvZLCrwvgXvHcQa2sboFae
- NamTLZVvQRSHRDU26nfARHdevRHFc6cRpj/XQ4hsWSKGmrXsmin96vyrlUkrx94gMB/G
- kYFzpAI5uZJCZXajfp1fr/+vGLmJj9IniTvjj851syyjyK4DF9qTXcuVgdG/lXwIZCNn
- xWd8t3SleqvFoLZxbD+J9P5r+Gk1n7aDhut8qJlTGNMoXJsTXG/rPv4zLV3zhl6PMMIq
- W5L8YVClbCjuh4hlzUM1wX5SpQZZyRg5J8NXeaBG/kS1RaBxtoL+efZsTRDRkZpCzvm/
- 58OA==
-X-Gm-Message-State: AOAM530YRq6YmAZZlcTMlOkFmXkEICeFJBWLMxXB4GDIp8Qrx7vE8JxF
- /jI3n4d6BVuSt6xKOOqeJw==
-X-Google-Smtp-Source: ABdhPJym1dGtLhVjJOsI52JP8TEA6Em+rrrz6Bg6Vyph2weEybKYkuer9VVBZkwLRLrDFITR1rJA+g==
-X-Received: by 2002:a05:6e02:5ad:: with SMTP id
- k13mr7656353ils.284.1626290830593; 
- Wed, 14 Jul 2021 12:27:10 -0700 (PDT)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id f4sm1722768ile.8.2021.07.14.12.27.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jul 2021 12:27:09 -0700 (PDT)
-Received: (nullmailer pid 3078602 invoked by uid 1000);
- Wed, 14 Jul 2021 19:27:05 -0000
-Date: Wed, 14 Jul 2021 13:27:05 -0600
-From: Rob Herring <robh@kernel.org>
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <20210714192705.GA3078178@robh.at.kernel.org>
-References: <20210624093959.142265-1-amelie.delaunay@foss.st.com>
- <20210624093959.142265-2-amelie.delaunay@foss.st.com>
+ Wed, 14 Jul 2021 19:39:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 72610613DB;
+ Wed, 14 Jul 2021 19:39:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1626291563;
+ bh=p+wNoOiuqs77QcyOSnIP1KjMVQOZR1kH1qy9F2dDoL0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=LACWcHRaCfRWRdzB4LnlUoIGyMuC3Hs3UWVuUtIZoLTVCEHU1N2SvADtDrS2cc9aI
+ 3zZtqsnG3gCzWZ/6U9gwM01xWOXa9VJmp0kO16lH3M4Ue7QNfebJFMVbO44PVbL9a4
+ mZ3kWDsHIbX04vQLGGjE2qYdVCZj7T+k1mRpzDK7HChRTNUW4AotUN4TgIyyuA0Iyj
+ 6oYE9MQ0SCyRNg4nZfn0WroB2gqGNoI3ZPkf4jTai8kYI25eApIK+sAdsRaurCyZtm
+ x0k54Iqrv7ysekjTnLQJKOfa4cotUT6tJMWGsYzsHK7XUBPfdH3TATICF2Alnuli9Y
+ 2BZRKVsHpYT0w==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Wed, 14 Jul 2021 15:37:09 -0400
+Message-Id: <20210714193800.52097-57-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210714193800.52097-1-sashal@kernel.org>
+References: <20210714193800.52097-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210624093959.142265-2-amelie.delaunay@foss.st.com>
-Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- dmaengine@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Patrice Chotard <patrice.chotard@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: dma: add alternative
- REQ/ACK protocol selection in stm32-dma
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 057/108] ARM: dts: stm32: Remove
+	extra size-cells on dhcom-pdk2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,22 +60,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 24 Jun 2021 11:39:58 +0200, Amelie Delaunay wrote:
-> Default REQ/ACK protocol consists in maintaining ACK signal up to the
-> removal of REQuest and the transfer completion.
-> In case of alternative REQ/ACK protocol, ACK de-assertion does not wait the
-> removal of the REQuest, but only the transfer completion.
-> Due to a possible DMA stream lock when transferring data to/from STM32
-> USART/UART, this new bindings allow to select this alternative protocol in
-> device tree, especially for STM32 USART/UART nodes.
-> 
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/dma/st,stm32-dma.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
+From: Marek Vasut <marex@denx.de>
 
-Acked-by: Rob Herring <robh@kernel.org>
+[ Upstream commit 28b9a4679d8074512f12967497c161b992eb3b75 ]
+
+Fix make dtbs_check warning:
+arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: gpio-keys-polled: '#address-cells' is a dependency of '#size-cells'
+arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: gpio-keys: '#address-cells' is a dependency of '#size-cells'
+
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+
+Signed-off-by: Marek Vasut <marex@denx.de>
+Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+index 5523f4138fd6..0fbf9913e8df 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+@@ -34,7 +34,6 @@ display_bl: display-bl {
+ 
+ 	gpio-keys-polled {
+ 		compatible = "gpio-keys-polled";
+-		#size-cells = <0>;
+ 		poll-interval = <20>;
+ 
+ 		/*
+@@ -60,7 +59,6 @@ button-2 {
+ 
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
+-		#size-cells = <0>;
+ 
+ 		button-1 {
+ 			label = "TA2-GPIO-B";
+-- 
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
