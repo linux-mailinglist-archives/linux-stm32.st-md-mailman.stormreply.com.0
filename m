@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27BC43C8C37
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:39:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4388B3C8C3B
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:39:32 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCC29C597B8;
-	Wed, 14 Jul 2021 19:39:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0374BC597BE;
+	Wed, 14 Jul 2021 19:39:32 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 336BAC597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 930B0C597B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jul 2021 19:39:29 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 32C5F613DD;
- Wed, 14 Jul 2021 19:39:27 +0000 (UTC)
+ Wed, 14 Jul 2021 19:39:30 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8037C60FF2;
+ Wed, 14 Jul 2021 19:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626291568;
- bh=kjCrakTJ/a5fy8FeFcem/A7YcHHZNrjyi0FHAOJXFAc=;
+ s=k20201202; t=1626291569;
+ bh=LFVEaR1xtWQYNqrkRBhh8fCD7glKGjkVyuQOUnkJZvs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=evX1d7n0WD2L+8uvi4iSxOYYxWQdKQdiGV1uFIFYXin1wTFbQoffUpdrxFuCQFGyd
- os8IZ0oSXF3JUeUBgcm65zCywPVTRshM71Epxd2cYiifknln8OGhnHYzUZW4kRzYfx
- +/Enk2aX5tmCBz++LSUCY78j8wfLDcNzpUpgv0SK1qmYEdOKfi2uikueyfJ3OTMc5g
- VDXCYjN9TUwXIdpiQonbboT1zUxL+Oe7+J79hKc5hGMFoHUijQ3SyZ3rMHgN+LHc3M
- 9uG9HLY5c0QOrQLSKv1WSGeZGST1WDQ60lpKrENlqjj/2VEOJQrDVfGhXa4UU6BQu1
- OViiQ1WQ8R33g==
+ b=cz/bcs5apz0X7EKvOHtYmwHFWQp7R4ueDxz3OKErxPSx9yLf7ON8oY5Y/fkLjYTGu
+ CkYXSCXSUypXNYjHdDD+yCIJFFebS21rW+ZZPrR0V6AwwcQRdNZ11vNi3nP17eOFsa
+ Opj+zV3wmDpTMCaKjJCTmCrJp4e/Ft6nBLz1pQ0Z374tqbTbCXDUcbWz8TnboxhlD2
+ DALKUuJ7cb8y5F1Q7Rv/8tnL8mWvAxfSGf5KCJWuwBQoVZfSYSMuL/kMdvHd1lTv2r
+ sGolSDrThd2OvH7Udh5jyQHAmQLMuZDswwFluKUW59KQFnuSTm/VYDAuZ9NmGv4b7E
+ dMeT05i2+wLJA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 14 Jul 2021 15:37:12 -0400
-Message-Id: <20210714193800.52097-60-sashal@kernel.org>
+Date: Wed, 14 Jul 2021 15:37:13 -0400
+Message-Id: <20210714193800.52097-61-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210714193800.52097-1-sashal@kernel.org>
 References: <20210714193800.52097-1-sashal@kernel.org>
@@ -39,8 +39,8 @@ X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 060/108] ARM: dts: stm32: fix
-	gpio-keys node on STM32 MCU boards
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 061/108] ARM: dts: stm32: fix RCC
+	node name on stm32f429 MCU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,125 +59,32 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-[ Upstream commit bf24b91f4baf7e421c770a1d9c7d381b10206ac9 ]
+[ Upstream commit e4b948415a89a219d13e454011cdcf9e63ecc529 ]
 
-Fix following warning observed with "make dtbs_check W=1" command.
-It concerns f429 eval and disco boards, f769 disco board.
+This prevent warning observed with "make dtbs_check W=1"
 
-Warning (unit_address_vs_reg): /gpio_keys/button@0: node has a unit name,
-but no reg or ranges property
+Warning (simple_bus_reg): /soc/rcc@40023810: simple-bus unit address format
+error, expected "40023800"
 
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32429i-eval.dts  | 8 +++-----
- arch/arm/boot/dts/stm32746g-eval.dts  | 6 ++----
- arch/arm/boot/dts/stm32f429-disco.dts | 6 ++----
- arch/arm/boot/dts/stm32f469-disco.dts | 6 ++----
- arch/arm/boot/dts/stm32f769-disco.dts | 6 ++----
- 5 files changed, 11 insertions(+), 21 deletions(-)
+ arch/arm/boot/dts/stm32f429.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/stm32429i-eval.dts b/arch/arm/boot/dts/stm32429i-eval.dts
-index 7e10ae744c9d..9ac1ffe53413 100644
---- a/arch/arm/boot/dts/stm32429i-eval.dts
-+++ b/arch/arm/boot/dts/stm32429i-eval.dts
-@@ -119,17 +119,15 @@ led-blue {
+diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
+index f6530d724d00..41e0087bdbf9 100644
+--- a/arch/arm/boot/dts/stm32f429.dtsi
++++ b/arch/arm/boot/dts/stm32f429.dtsi
+@@ -709,7 +709,7 @@ crc: crc@40023000 {
+ 			status = "disabled";
  		};
- 	};
  
--	gpio_keys {
-+	gpio-keys {
- 		compatible = "gpio-keys";
--		#address-cells = <1>;
--		#size-cells = <0>;
- 		autorepeat;
--		button@0 {
-+		button-0 {
- 			label = "Wake up";
- 			linux,code = <KEY_WAKEUP>;
- 			gpios = <&gpioa 0 0>;
- 		};
--		button@1 {
-+		button-1 {
- 			label = "Tamper";
- 			linux,code = <KEY_RESTART>;
- 			gpios = <&gpioc 13 0>;
-diff --git a/arch/arm/boot/dts/stm32746g-eval.dts b/arch/arm/boot/dts/stm32746g-eval.dts
-index ca8c192449ee..327613fd9666 100644
---- a/arch/arm/boot/dts/stm32746g-eval.dts
-+++ b/arch/arm/boot/dts/stm32746g-eval.dts
-@@ -81,12 +81,10 @@ led-blue {
- 		};
- 	};
- 
--	gpio_keys {
-+	gpio-keys {
- 		compatible = "gpio-keys";
--		#address-cells = <1>;
--		#size-cells = <0>;
- 		autorepeat;
--		button@0 {
-+		button-0 {
- 			label = "Wake up";
- 			linux,code = <KEY_WAKEUP>;
- 			gpios = <&gpioc 13 0>;
-diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
-index 3dc068b91ca1..075ac57d0bf4 100644
---- a/arch/arm/boot/dts/stm32f429-disco.dts
-+++ b/arch/arm/boot/dts/stm32f429-disco.dts
-@@ -81,12 +81,10 @@ led-green {
- 		};
- 	};
- 
--	gpio_keys {
-+	gpio-keys {
- 		compatible = "gpio-keys";
--		#address-cells = <1>;
--		#size-cells = <0>;
- 		autorepeat;
--		button@0 {
-+		button-0 {
- 			label = "User";
- 			linux,code = <KEY_HOME>;
- 			gpios = <&gpioa 0 0>;
-diff --git a/arch/arm/boot/dts/stm32f469-disco.dts b/arch/arm/boot/dts/stm32f469-disco.dts
-index 2e1b3bbbe4b5..8c982ae79f43 100644
---- a/arch/arm/boot/dts/stm32f469-disco.dts
-+++ b/arch/arm/boot/dts/stm32f469-disco.dts
-@@ -104,12 +104,10 @@ led-blue {
- 		};
- 	};
- 
--	gpio_keys {
-+	gpio-keys {
- 		compatible = "gpio-keys";
--		#address-cells = <1>;
--		#size-cells = <0>;
- 		autorepeat;
--		button@0 {
-+		button-0 {
- 			label = "User";
- 			linux,code = <KEY_WAKEUP>;
- 			gpios = <&gpioa 0 GPIO_ACTIVE_HIGH>;
-diff --git a/arch/arm/boot/dts/stm32f769-disco.dts b/arch/arm/boot/dts/stm32f769-disco.dts
-index 0ce7fbc20fa4..be943b701980 100644
---- a/arch/arm/boot/dts/stm32f769-disco.dts
-+++ b/arch/arm/boot/dts/stm32f769-disco.dts
-@@ -75,12 +75,10 @@ led-red {
- 		};
- 	};
- 
--	gpio_keys {
-+	gpio-keys {
- 		compatible = "gpio-keys";
--		#address-cells = <1>;
--		#size-cells = <0>;
- 		autorepeat;
--		button@0 {
-+		button-0 {
- 			label = "User";
- 			linux,code = <KEY_HOME>;
- 			gpios = <&gpioa 0 GPIO_ACTIVE_HIGH>;
+-		rcc: rcc@40023810 {
++		rcc: rcc@40023800 {
+ 			#reset-cells = <1>;
+ 			#clock-cells = <2>;
+ 			compatible = "st,stm32f42xx-rcc", "st,stm32-rcc";
 -- 
 2.30.2
 
