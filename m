@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693EA3C8EBF
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:47:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD943C8EC0
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:48:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D767C597B1;
-	Wed, 14 Jul 2021 19:47:56 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4886BC597B0;
+	Wed, 14 Jul 2021 19:48:27 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FF83C597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66A5BC57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jul 2021 19:47:54 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2E2FE60FF2;
- Wed, 14 Jul 2021 19:47:52 +0000 (UTC)
+ Wed, 14 Jul 2021 19:48:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 77C2C613D6;
+ Wed, 14 Jul 2021 19:48:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626292073;
- bh=i7SE+8t7OdFK6tymq+AIhLwkMPwNu3CjjTJYGn3/Z+o=;
+ s=k20201202; t=1626292103;
+ bh=QmZEeEmLfxQoRoE8qrvDu+yMerH+43fNrchKN6qiIFI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ppcUYcS6Oqorq9vQo4ZmRhoMZxjQ0vMl5vRgiKr/xrOj0LYdpBntiqi8U4hh/0UBE
- N9p0DitbqNEeqEqD4Eo+/KqimdHqjriCE8EQQMYo6qrdEPQBsZ7ANoZMSJHnPDXG5M
- rGMKDm4mmfPNEmQHt7KVhuL18fN5PM2TIh1rynSJV8GWitXWS1u33l2PIxHfeSwGoc
- a8AzAQGwbFxuUTfsgTi6CrSsxyt3ShsCRX5PaTxf456OjJq3AYGVFQH9pSL7nZ44jn
- 1AUZdfgp9n+ymxCaE4EPA/jBm6e6eD2Xx46gOrQRCrmNoI+B68cy5Y9CE4dFajDzTH
- 9DVy7mQZKMdAg==
+ b=IncjXrDMV6Nc5l8zbJZvrug0c4BTGB20r9Un0RLzu71sh1SDrGbe6D/lbjujwYDAv
+ tw3h7zEIivF2zWHELsQ1ngQbmY7T//Sw4it4rGZZ5fSazzO/qYZKXPSVBzoTtn/v/Z
+ 8nUz7vAoYCPZeuCiHzcQ1+CikP6vtftvTwZqnOVIW/fmpaalShUa9nQGdVlN+wn0ZB
+ 0svmp1d5XhlHP7paj0PxU5/0z6WgV78Z0hjIs2QDMIO9MbEoMZ62cYgc0+Q/jSYWWB
+ UoUMurpCfsLFnsynkbmVuwiG7JpkdD7tSs2TwfOizdMHKnyk7TqWw0mYKGfAqvK60g
+ YUA4bg7ff2J7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 14 Jul 2021 15:47:14 -0400
-Message-Id: <20210714194723.55677-19-sashal@kernel.org>
+Date: Wed, 14 Jul 2021 15:47:59 -0400
+Message-Id: <20210714194806.55962-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210714194723.55677-1-sashal@kernel.org>
-References: <20210714194723.55677-1-sashal@kernel.org>
+In-Reply-To: <20210714194806.55962-1-sashal@kernel.org>
+References: <20210714194806.55962-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 19/28] ARM: dts: stm32: fix RCC
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.9 11/18] ARM: dts: stm32: fix RCC
 	node name on stm32f429 MCU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -73,11 +73,11 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
-index 5b36eb114ddc..d65a03d0da65 100644
+index 336ee4fb587d..64dc50afc385 100644
 --- a/arch/arm/boot/dts/stm32f429.dtsi
 +++ b/arch/arm/boot/dts/stm32f429.dtsi
-@@ -597,7 +597,7 @@ crc: crc@40023000 {
- 			status = "disabled";
+@@ -334,7 +334,7 @@ pins {
+ 			};
  		};
  
 -		rcc: rcc@40023810 {
