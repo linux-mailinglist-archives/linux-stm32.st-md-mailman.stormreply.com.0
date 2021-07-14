@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FCBD3C8EBA
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:47:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 458763C8EBB
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:47:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA476C597B1;
-	Wed, 14 Jul 2021 19:47:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BF70C597B1;
+	Wed, 14 Jul 2021 19:47:10 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51FC2C597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE178C597B3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jul 2021 19:47:03 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 441C5613E6;
- Wed, 14 Jul 2021 19:47:01 +0000 (UTC)
+ Wed, 14 Jul 2021 19:47:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B5BAE613F0;
+ Wed, 14 Jul 2021 19:47:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626292022;
- bh=I1DmAdR9u5njnYcZbLpVClZurswpeRSJXmt5cRg5LE8=;
+ s=k20201202; t=1626292026;
+ bh=CNuEaQCmb4bVkEAtz8mCGDynVJ90OcZXO7bRNRVHUew=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kUzAEuA+1QPZAyY/8tctbjLxAIzAsKftSufkdVjy1y4Cy3/eC1DBCTxChoZR/9swg
- 3YDzKg929piepE91bC2NVPCIDnv9Hms42q68rt0AHas2+DaxOu5JR7HB6e182H9qMQ
- dqdxz23cPUF/e3lwTV7ChjAcpFLXIQgNCwU64N0mko2KBi07HGK24c+Q3id7Awwr1K
- RUhYFFHK9s5926+fC38Wb0gt3SkWDuCurG3MPmYESiIyd6llCNKUTBIjR8Q1HC6lSp
- 6B/Umyq+XZEpvM5wHj5/SAIKVGTHUcpY2+24eKXJxLqGgKT4XlLHR45k0LiHh5remg
- +K/4GHdeAeYjg==
+ b=mACD6XUGh1hHYFUo6ShaoaBxnnKI02pfURVFGgD3y34vbD/h9GVeXwTK1DF2vxdLd
+ qIsUTFJV2OQZYlameHKLHkvSgYW2Skqb+fbiuS4/Wa0VPJFj4lHxaMy6UvGnL1mFuG
+ 9/xTymWcXKgs1Io+NtKR6snyTZ3iil1WtnaSbueeek91r2onN5dL/vPvn6PV5LuSVg
+ sUjxyrgQj+FtBHi9YaN9mlzRaK3rQt6+vqEdOPdtZpN1wsrW9l564K7HuAjpcnW7q/
+ Ibh61BVu0nUQFW2HvAeby+jDqHF5Kg+/oOisItcvxI7FtCyeU8qiA34XDrH5hZJnUu
+ MHE2kysF3+CVw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 14 Jul 2021 15:46:10 -0400
-Message-Id: <20210714194625.55303-25-sashal@kernel.org>
+Date: Wed, 14 Jul 2021 15:46:13 -0400
+Message-Id: <20210714194625.55303-28-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210714194625.55303-1-sashal@kernel.org>
 References: <20210714194625.55303-1-sashal@kernel.org>
@@ -38,9 +38,9 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 25/39] ARM: dts: stm32: fix timer
-	nodes on STM32 MCU to prevent warnings
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 28/39] ARM: dts: stm32: fix i2c
+	node name on stm32f746 to prevent warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,124 +59,32 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-[ Upstream commit 2388f14d8747f8304e26ee870790e188c9431efd ]
+[ Upstream commit ad0ed10ba5792064fc3accbf8f0341152a57eecb ]
 
-Prevent warning seen with "make dtbs_check W=1" command:
+Replace upper case by lower case in i2c nodes name.
 
-Warning (avoid_unnecessary_addr_size): /soc/timers@40001c00: unnecessary
-address-cells/size-cells without "ranges" or child "reg" property
-
-Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32f429.dtsi | 8 --------
- arch/arm/boot/dts/stm32f746.dtsi | 8 --------
- arch/arm/boot/dts/stm32h743.dtsi | 4 ----
- 3 files changed, 20 deletions(-)
+ arch/arm/boot/dts/stm32f746.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
-index b16bf00977d5..fdaf43290006 100644
---- a/arch/arm/boot/dts/stm32f429.dtsi
-+++ b/arch/arm/boot/dts/stm32f429.dtsi
-@@ -263,8 +263,6 @@ timer@11 {
- 		};
- 
- 		timers13: timers@40001c00 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40001C00 0x400>;
- 			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM13)>;
-@@ -278,8 +276,6 @@ pwm {
- 		};
- 
- 		timers14: timers@40002000 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40002000 0x400>;
- 			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM14)>;
-@@ -558,8 +554,6 @@ timer@8 {
- 		};
- 
- 		timers10: timers@40014400 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40014400 0x400>;
- 			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM10)>;
-@@ -573,8 +567,6 @@ pwm {
- 		};
- 
- 		timers11: timers@40014800 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40014800 0x400>;
- 			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM11)>;
 diff --git a/arch/arm/boot/dts/stm32f746.dtsi b/arch/arm/boot/dts/stm32f746.dtsi
-index f48d06a80d1d..ccd87e833049 100644
+index ccd87e833049..be62d9091e03 100644
 --- a/arch/arm/boot/dts/stm32f746.dtsi
 +++ b/arch/arm/boot/dts/stm32f746.dtsi
-@@ -258,8 +258,6 @@ timer@11 {
+@@ -353,9 +353,9 @@ i2c2: i2c@40005800 {
+ 			status = "disabled";
  		};
  
- 		timers13: timers@40001c00 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40001C00 0x400>;
- 			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM13)>;
-@@ -273,8 +271,6 @@ pwm {
- 		};
- 
- 		timers14: timers@40002000 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40002000 0x400>;
- 			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM14)>;
-@@ -521,8 +517,6 @@ timer@8 {
- 		};
- 
- 		timers10: timers@40014400 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40014400 0x400>;
- 			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM10)>;
-@@ -536,8 +530,6 @@ pwm {
- 		};
- 
- 		timers11: timers@40014800 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-timers";
- 			reg = <0x40014800 0x400>;
- 			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM11)>;
-diff --git a/arch/arm/boot/dts/stm32h743.dtsi b/arch/arm/boot/dts/stm32h743.dtsi
-index 637beffe5067..729ff6264776 100644
---- a/arch/arm/boot/dts/stm32h743.dtsi
-+++ b/arch/arm/boot/dts/stm32h743.dtsi
-@@ -422,8 +422,6 @@ trigger@2 {
- 		};
- 
- 		lptimer4: timer@58002c00 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-lptimer";
- 			reg = <0x58002c00 0x400>;
- 			clocks = <&rcc LPTIM4_CK>;
-@@ -438,8 +436,6 @@ pwm {
- 		};
- 
- 		lptimer5: timer@58003000 {
--			#address-cells = <1>;
--			#size-cells = <0>;
- 			compatible = "st,stm32-lptimer";
- 			reg = <0x58003000 0x400>;
- 			clocks = <&rcc LPTIM5_CK>;
+-		i2c3: i2c@40005C00 {
++		i2c3: i2c@40005c00 {
+ 			compatible = "st,stm32f7-i2c";
+-			reg = <0x40005C00 0x400>;
++			reg = <0x40005c00 0x400>;
+ 			interrupts = <72>,
+ 				     <73>;
+ 			resets = <&rcc STM32F7_APB1_RESET(I2C3)>;
 -- 
 2.30.2
 
