@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 292813C8C73
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D6543C8C74
 	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:39:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EDA0C597B1;
-	Wed, 14 Jul 2021 19:39:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04E52C597B5;
+	Wed, 14 Jul 2021 19:39:51 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BF76C597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62266C597B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jul 2021 19:39:48 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1F3B4613D1;
- Wed, 14 Jul 2021 19:39:46 +0000 (UTC)
+ Wed, 14 Jul 2021 19:39:49 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 67877613E2;
+ Wed, 14 Jul 2021 19:39:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626291586;
- bh=cwuknsUkyFQntYNQeT7PI+Xr5t9188BliD8rS4NwD9E=;
+ s=k20201202; t=1626291588;
+ bh=9hKbyRxtO7h+nQGpfz2wwACQPbDfUtvoGjRP807Q/pc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=n2rzIoe73drkuwk8O/ZJ0QcSNdz1HBK2f6OwDbzw/rhHQayaNs/9RTqwAutVCHJ5+
- 1ilm9E6+11VK8jFN2Fwe46nSkYhOlUVCPtdL56dVjM0Kvs3qFc36W1NIA+VdeR7wH2
- bbFwGzJZJbB2n7cVQTPTtIk/8bZRcpBCQz/zysSSoicBJrE3GX21BjWACiQQSepxBT
- rsXZpbN3XpI2AQD9D8DEfEZ6w3C/XFeZvgbkpncvJaD9kbwuL7EykOJeCVO2sjNfA3
- LH5+SejU2aaBJe0FADzU1igN9RlGIQ/AaZtGDSD8SiZUhIjysq0OiWluKJsrqM7SvU
- +N3YpdDn/7Uog==
+ b=taKMyJWn+LHB4+Qy+BX6UbRrlNwxkWiNYiHIYuR51xQo0vQtBIYNl0N0VyqYYyGrv
+ F01fwewFL/NIPltoFGqvmB4kLExRgjqA9ed0Q15khNLRL7z9Vh5N4xMvB+wrDfLJnH
+ MWHAwmrPqK0ydXRASqVWpMh3blahwdFtTnxw69GN3lSZ1N15d9rvgYj8JaRYjGCc+j
+ YO0wEQeXr6KzSiqJQU7HAKv5//I8vXsiHSIg5H+ZdkxPq4ZlAZkupEDeEGglC2P730
+ 48xX6B3kauKa23ujjnJloPT6YCaettckFZPjp43b9jCDEPlKFE9HC8rdJM8gzoYzQj
+ lbotDoIOcFbzQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 14 Jul 2021 15:37:25 -0400
-Message-Id: <20210714193800.52097-73-sashal@kernel.org>
+Date: Wed, 14 Jul 2021 15:37:26 -0400
+Message-Id: <20210714193800.52097-74-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210714193800.52097-1-sashal@kernel.org>
 References: <20210714193800.52097-1-sashal@kernel.org>
@@ -39,8 +39,8 @@ X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 073/108] ARM: dts: stm32: move
-	stmmac axi config in ethernet node on stm32mp15
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 074/108] ARM: dts: stm32: fix
+	ltdc pinctrl on microdev2.0-of7
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,49 +59,32 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-[ Upstream commit fb1406335c067be074eab38206cf9abfdce2fb0b ]
+[ Upstream commit 11aaf2a0f8f070e87833775965950157bf57e49a ]
 
-It fixes the following warning seen running "make dtbs_check W=1"
+It prevents the following warning:
 
-Warning (simple_bus_reg): /soc/stmmac-axi-config: missing or empty
-reg/ranges property
+ pin-controller@50002000: 'ltdc' does not match any of the regexes:
+'-[0-9]*$', '^gpio@[0-9a-f]*$', 'pinctrl-[0-9]+'
 
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp151.dtsi | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ .../boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts  | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp151.dtsi b/arch/arm/boot/dts/stm32mp151.dtsi
-index fcd3230c469b..23234f950de6 100644
---- a/arch/arm/boot/dts/stm32mp151.dtsi
-+++ b/arch/arm/boot/dts/stm32mp151.dtsi
-@@ -1416,12 +1416,6 @@ crc1: crc@58009000 {
- 			status = "disabled";
- 		};
+diff --git a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
+index 674b2d330dc4..5670b23812a2 100644
+--- a/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
++++ b/arch/arm/boot/dts/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
+@@ -89,7 +89,7 @@ ltdc_ep0_out: endpoint@0 {
+ };
  
--		stmmac_axi_config_0: stmmac-axi-config {
--			snps,wr_osr_lmt = <0x7>;
--			snps,rd_osr_lmt = <0x7>;
--			snps,blen = <0 0 0 0 16 8 4>;
--		};
--
- 		ethernet0: ethernet@5800a000 {
- 			compatible = "st,stm32mp1-dwmac", "snps,dwmac-4.20a";
- 			reg = <0x5800a000 0x2000>;
-@@ -1447,6 +1441,12 @@ ethernet0: ethernet@5800a000 {
- 			snps,axi-config = <&stmmac_axi_config_0>;
- 			snps,tso;
- 			status = "disabled";
-+
-+			stmmac_axi_config_0: stmmac-axi-config {
-+				snps,wr_osr_lmt = <0x7>;
-+				snps,rd_osr_lmt = <0x7>;
-+				snps,blen = <0 0 0 0 16 8 4>;
-+			};
- 		};
- 
- 		usbh_ohci: usb@5800c000 {
+ &pinctrl {
+-	ltdc_pins: ltdc {
++	ltdc_pins: ltdc-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('G', 10, AF14)>,	/* LTDC_B2 */
+ 				 <STM32_PINMUX('H', 12, AF14)>,	/* LTDC_R6 */
 -- 
 2.30.2
 
