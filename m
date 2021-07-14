@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7B703C8C7F
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:39:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DD6F3C8C83
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:39:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1E89C597B4;
-	Wed, 14 Jul 2021 19:39:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C847DC597B8;
+	Wed, 14 Jul 2021 19:39:55 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 872EBC597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AD22C597B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jul 2021 19:39:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2361E613EB;
- Wed, 14 Jul 2021 19:39:50 +0000 (UTC)
+ Wed, 14 Jul 2021 19:39:54 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B9795613D3;
+ Wed, 14 Jul 2021 19:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626291591;
- bh=fP7fCZMwaijQI8r2+ZPDPxAVoNP7Q+G8DH1ivMJ2CJM=;
+ s=k20201202; t=1626291593;
+ bh=o/5BGkW9IfiS4kLnJ19sjvYH0Uk7ZMME1iMaVKhqcrE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XEcXiWxGyxuERbxh+TQOsH8I1ql3y4vasBYHCL1oZwSxFohiVCpw4i0idsq3r3eGO
- RcCpAgXn70vL6xOdyVKjmaxXJI1N5oFOS8mJNpYT72D/tHF77onnPvfjwUfyF1h+NK
- PULFH1szQDwvotHFHKPFwLewg9s5kRpPDTPnm1bP52FwwP2Q4SNx9Sjqjpib/qVMog
- QHUQJ6QGAkekKyGbR7z4ZWSXriMQaA5jVJWw77jkF6gysInFVLWnqOas/iJgzGt9RG
- ELzKGqlMIIiT0UEc1+80e6aqmqyI3pbw4WrzzJjQIYH6yxa0ylnwbzXYERK3iMVNs+
- UtgAXZexfvzXA==
+ b=O7C8UY/3NuI+nBE8GuhhM7i19vagsMbpJOMxe7qT8ShLE5MEcpTfBNYFnHz4aWxxc
+ R/AEWHvE/0Or5Q2vZ2OdvbTm0jZD3+ekf6W7Ns8uGfpwO3PQczAgYv/vgeEI8kb4/9
+ OmZaehXAQbEpJlb+xAsseAAFExvBa+xqSE/VQm7LoWgp2QOW8xL5IrHnP4vgrkCvWH
+ X+W+unCLnTTWtQYbhsqa15msjKJrgByS8WTNa2E5OYwcHUZtN785tAtrDZJO+FKbSk
+ 1KkE36VfJe+1O5kd0hqnhcEnEIe6pkDDx5ugbbkIpLJDaUIRmyaOiyElpq6tLFe3xb
+ Q3hjxGGN1gF5Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 14 Jul 2021 15:37:28 -0400
-Message-Id: <20210714193800.52097-76-sashal@kernel.org>
+Date: Wed, 14 Jul 2021 15:37:29 -0400
+Message-Id: <20210714193800.52097-77-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210714193800.52097-1-sashal@kernel.org>
 References: <20210714193800.52097-1-sashal@kernel.org>
@@ -40,8 +40,8 @@ Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
  kernel@dh-electronics.com, Patrick Delaunay <patrick.delaunay@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 076/108] ARM: dts: stm32: Drop
-	unused linux, wakeup from touchscreen node on DHCOM SoM
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 077/108] ARM: dts: stm32: Rename
+	eth@N to ethernet@N on DHCOM SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,10 +60,10 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Marek Vasut <marex@denx.de>
 
-[ Upstream commit 5247a50c8b53ca214a488da648e1bb35c35c2597 ]
+[ Upstream commit b586250df24226f8a257e11e1f5953054c54fd35 ]
 
 Fix the following dtbs_check warning:
-touchscreen@38: 'linux,wakeup' does not match any of the regexes: 'pinctrl-[0-9]+'
+eth@1,0: $nodename:0: 'eth@1,0' does not match '^ethernet(@.*)?$'
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
@@ -75,21 +75,22 @@ To: linux-arm-kernel@lists.infradead.org
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 1 -
- 1 file changed, 1 deletion(-)
+ arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-index b8c8f0b284c3..c5ea08fec535 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-@@ -187,7 +187,6 @@ touchscreen@38 {
- 		reg = <0x38>;
- 		interrupt-parent = <&gpiog>;
- 		interrupts = <2 IRQ_TYPE_EDGE_FALLING>; /* GPIO E */
--		linux,wakeup;
- 	};
- };
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+index 272a1a67a9ad..ae58f3b4d9d4 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
+@@ -144,7 +144,7 @@ &fmc {
+ 	pinctrl-1 = <&fmc_sleep_pins_b>;
+ 	status = "okay";
  
+-	ksz8851: ks8851mll@1,0 {
++	ksz8851: ethernet@1,0 {
+ 		compatible = "micrel,ks8851-mll";
+ 		reg = <1 0x0 0x2>, <1 0x2 0x20000>;
+ 		interrupt-parent = <&gpioc>;
 -- 
 2.30.2
 
