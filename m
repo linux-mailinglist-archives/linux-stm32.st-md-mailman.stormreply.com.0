@@ -2,45 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE7E43C8D6A
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:42:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3448D3C8DCB
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jul 2021 21:44:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B625AC597B2;
-	Wed, 14 Jul 2021 19:42:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC558C597B1;
+	Wed, 14 Jul 2021 19:44:18 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AA68C597B2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5984C597AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jul 2021 19:42:25 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1FD8C613D3;
- Wed, 14 Jul 2021 19:42:23 +0000 (UTC)
+ Wed, 14 Jul 2021 19:44:16 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E147F613CF;
+ Wed, 14 Jul 2021 19:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626291743;
- bh=iRElQWIILeugblawQSDDQbAchKvJk/TUYMTfKJcVqqw=;
+ s=k20201202; t=1626291855;
+ bh=kanAVcR/RsFXrB3aUwDCHE+QP+cJIKP6joJqfimnSQI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IHozlRMRrQ3Gai8qB6O6n5rj90czTyOdMVp2im9+FGtSum8u3rt9jaOK5Jxo/C0ll
- n7eweB7VXC0+vd/bhbcRRjWopuqsC0U4drc97EkjaSReFH599SrYkXcg6AX/sDLwms
- 5SjdF3ANdsfRtDfYy0++nT9RCzOew2USQCo/SIjkfnuOrqxlvanxrM3oNFEg7HnPUo
- DEkBvhgHKO8ZcgEwhw0aPEPTI3efqQ3lgOu4Ee4/hV+Piu2w98kcTLXcCEUrcMAjbx
- r3y96isG45QHiYpfgKJhC6ir2oI/4/fAJJngN/4K1eLAr8GNfUMk32EdTBRijiDhLu
- V6lxKBgDynkgQ==
+ b=gR15yzAGHdIqMN9yg7Yz2gTTqjD2xfa5br+eLsxoATKFlSSbfVqDxq/e/7b4v38wF
+ 6Lu5jrR5uQR39axclua9+3FXfjK0bStI9KZaHz3Kz0pe7FwYIxOFlv3qPLHpvAAf0f
+ K+peLrrc+Vgnyl10iGmVzrQ87YBiMBsNBuzf7YMib7c0qtD6+BDNVzEecDqufENsam
+ sKNcmycO2008TO5AGJkgQHtcYEdrLILsQt24zy4+CAbk67m9yhZrx7ZHc81To24L4G
+ TlcBh4idTZ0MlTPGoBPhw88tEPuctlqEbZ5fMc4CJXC5IbcK/8cly7N92DKzBmXNfs
+ Gotaba75bI7aw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 14 Jul 2021 15:40:08 -0400
-Message-Id: <20210714194036.53141-75-sashal@kernel.org>
+Date: Wed, 14 Jul 2021 15:42:22 -0400
+Message-Id: <20210714194303.54028-47-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210714194036.53141-1-sashal@kernel.org>
-References: <20210714194036.53141-1-sashal@kernel.org>
+In-Reply-To: <20210714194303.54028-1-sashal@kernel.org>
+References: <20210714194303.54028-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, devicetree@vger.kernel.org,
+Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>, devicetree@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.12 075/102] ARM: dts: stm32: fix
-	stpmic node for stm32mp1 boards
+ Patrick Delaunay <patrick.delaunay@st.com>,
+ Patrice Chotard <patrice.chotard@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 47/88] ARM: dts: stm32: Remove
+	extra size-cells on dhcom-pdk2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,160 +60,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Alexandre Torgue <alexandre.torgue@foss.st.com>
+From: Marek Vasut <marex@denx.de>
 
-[ Upstream commit 4bf4abe19089245b7b12f35e5cafb5477b3e2c48 ]
+[ Upstream commit 28b9a4679d8074512f12967497c161b992eb3b75 ]
 
-On some STM32 MP15 boards, stpmic node is not correct which generates
-warnings running "make dtbs_check W=1" command. Issues are:
+Fix make dtbs_check warning:
+arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: gpio-keys-polled: '#address-cells' is a dependency of '#size-cells'
+arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: gpio-keys: '#address-cells' is a dependency of '#size-cells'
 
--"regulator-active-discharge" is not a boolean but an uint32.
--"regulator-over-current-protection" is not a valid entry for vref_ddr.
--LDO4 has a fixed voltage (3v3) so min/max entries are not allowed.
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Patrice Chotard <patrice.chotard@st.com>
+Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
 
+Signed-off-by: Marek Vasut <marex@denx.de>
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp157a-stinger96.dtsi   | 7 ++-----
- arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi | 5 +----
- arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi   | 5 +----
- arch/arm/boot/dts/stm32mp15xx-osd32.dtsi       | 7 ++-----
- 4 files changed, 6 insertions(+), 18 deletions(-)
+ arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi b/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
-index 113c48b2ef93..a4b14ef3caee 100644
---- a/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157a-stinger96.dtsi
-@@ -184,8 +184,6 @@ vtt_ddr: ldo3 {
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+index 8456f172d4b1..180a0187a956 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+@@ -34,7 +34,6 @@ display_bl: display-bl {
  
- 			vdd_usb: ldo4 {
- 				regulator-name = "vdd_usb";
--				regulator-min-microvolt = <3300000>;
--				regulator-max-microvolt = <3300000>;
- 				interrupts = <IT_CURLIM_LDO4 0>;
- 			};
+ 	gpio-keys-polled {
+ 		compatible = "gpio-keys-polled";
+-		#size-cells = <0>;
+ 		poll-interval = <20>;
  
-@@ -208,7 +206,6 @@ v1v8: ldo6 {
- 			vref_ddr: vref_ddr {
- 				regulator-name = "vref_ddr";
- 				regulator-always-on;
--				regulator-over-current-protection;
- 			};
+ 		/*
+@@ -60,7 +59,6 @@ button-2 {
  
- 			bst_out: boost {
-@@ -219,13 +216,13 @@ bst_out: boost {
- 			vbus_otg: pwr_sw1 {
- 				regulator-name = "vbus_otg";
- 				interrupts = <IT_OCP_OTG 0>;
--				regulator-active-discharge;
-+				regulator-active-discharge = <1>;
- 			};
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
+-		#size-cells = <0>;
  
- 			vbus_sw: pwr_sw2 {
- 				regulator-name = "vbus_sw";
- 				interrupts = <IT_OCP_SWOUT 0>;
--				regulator-active-discharge;
-+				regulator-active-discharge = <1>;
- 			};
- 		};
- 
-diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
-index b5601d270c8f..2d9461006810 100644
---- a/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp157c-odyssey-som.dtsi
-@@ -173,8 +173,6 @@ vtt_ddr: ldo3 {
- 
- 			vdd_usb: ldo4 {
- 				regulator-name = "vdd_usb";
--				regulator-min-microvolt = <3300000>;
--				regulator-max-microvolt = <3300000>;
- 				interrupts = <IT_CURLIM_LDO4 0>;
- 			};
- 
-@@ -197,7 +195,6 @@ v1v2_hdmi: ldo6 {
- 			vref_ddr: vref_ddr {
- 				regulator-name = "vref_ddr";
- 				regulator-always-on;
--				regulator-over-current-protection;
- 			};
- 
- 			 bst_out: boost {
-@@ -213,7 +210,7 @@ vbus_otg: pwr_sw1 {
- 			 vbus_sw: pwr_sw2 {
- 				regulator-name = "vbus_sw";
- 				interrupts = <IT_OCP_SWOUT 0>;
--				regulator-active-discharge;
-+				regulator-active-discharge = <1>;
- 			 };
- 		};
- 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-index 6c8930fc1632..b5a594c8f831 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-@@ -263,8 +263,6 @@ vtt_ddr: ldo3 {
- 
- 			vdd_usb: ldo4 {
- 				regulator-name = "vdd_usb";
--				regulator-min-microvolt = <3300000>;
--				regulator-max-microvolt = <3300000>;
- 				interrupts = <IT_CURLIM_LDO4 0>;
- 			};
- 
-@@ -286,7 +284,6 @@ v1v8: ldo6 {
- 			vref_ddr: vref_ddr {
- 				regulator-name = "vref_ddr";
- 				regulator-always-on;
--				regulator-over-current-protection;
- 			};
- 
- 			bst_out: boost {
-@@ -302,7 +299,7 @@ vbus_otg: pwr_sw1 {
- 			vbus_sw: pwr_sw2 {
- 				regulator-name = "vbus_sw";
- 				interrupts = <IT_OCP_SWOUT 0>;
--				regulator-active-discharge;
-+				regulator-active-discharge = <1>;
- 			};
- 		};
- 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi b/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
-index 713485a95795..6706d8311a66 100644
---- a/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
-@@ -146,8 +146,6 @@ vtt_ddr: ldo3 {
- 
- 			vdd_usb: ldo4 {
- 				regulator-name = "vdd_usb";
--				regulator-min-microvolt = <3300000>;
--				regulator-max-microvolt = <3300000>;
- 				interrupts = <IT_CURLIM_LDO4 0>;
- 			};
- 
-@@ -171,7 +169,6 @@ v1v2_hdmi: ldo6 {
- 			vref_ddr: vref_ddr {
- 				regulator-name = "vref_ddr";
- 				regulator-always-on;
--				regulator-over-current-protection;
- 			};
- 
- 			bst_out: boost {
-@@ -182,13 +179,13 @@ bst_out: boost {
- 			vbus_otg: pwr_sw1 {
- 				regulator-name = "vbus_otg";
- 				interrupts = <IT_OCP_OTG 0>;
--				regulator-active-discharge;
-+				regulator-active-discharge = <1>;
- 			};
- 
- 			vbus_sw: pwr_sw2 {
- 				regulator-name = "vbus_sw";
- 				interrupts = <IT_OCP_SWOUT 0>;
--				regulator-active-discharge;
-+				regulator-active-discharge = <1>;
- 			};
- 		};
- 
+ 		button-1 {
+ 			label = "TA2-GPIO-B";
 -- 
 2.30.2
 
