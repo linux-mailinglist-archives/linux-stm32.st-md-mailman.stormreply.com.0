@@ -2,58 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18A203C9B86
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jul 2021 11:25:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A1593C9B87
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jul 2021 11:25:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D499DC597B1;
-	Thu, 15 Jul 2021 09:25:41 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3EA7C597B1;
+	Thu, 15 Jul 2021 09:25:44 +0000 (UTC)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49A1CC597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EA1FC597B0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jul 2021 09:25:39 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id u3so2903502plf.5
+ Thu, 15 Jul 2021 09:25:43 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id o201so4640290pfd.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jul 2021 02:25:39 -0700 (PDT)
+ Thu, 15 Jul 2021 02:25:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=/WxDN386m/02gF4IltuUVKKXTkTakJEWTUA4LPWTxX0=;
- b=aw4ENVWZQ1zX0VvMNM8DIFs06jP6E2MUjh9j4QMKqeZlUbZ3n5wFLj22beW4CBOIW9
- 6wbvUVXLtg+1v7Bi7fw8B+YhPKRFm/3obCUjKOzCjhM5Am90MfChfk7NclX4nhXBIQ3S
- VINKW2kpgpn4dJ+6GqNByZyXIwGwr6luGqQ/KjCzBJ7OPbAck20qUuE8yoHOmrxEi7tl
- piGUUT5LY1XAEV7eaHZu73tJT+hWrl+l1dAfh9olyrt6xasy4NK3yiHRRIYY/WWhLQ3L
- 2WUW9eIbXsw54KLTYuAYCn5WhLAoBBgOq3jiyF/UXEAkHEPJaBHLo/txOFaaFBQQbkHU
- WC0g==
+ bh=hAPQ7MKC9CHG6U3K/a3TvqmDvmez6ZMEcoHbCxgEOYg=;
+ b=P9aP8xXebYqM5eL86zMabjl81y3vJ5Hf8Luzlw1sM4prphVoBHQ9J9LwBfmc5AQErm
+ 47bmfMcZOjqOq/0MdKJNowvyRKiMC8xJIp4vRSKe0mwuUZMLVXTFQmPIM2FQe0XLYwX2
+ 92w989aQ7EKAE4KMzOfqnNjfwEguT1TqWfZTGlcdkrIJWTmzDyXInGxxp7ING0Bt4K03
+ NEdc1m1cerCbX6cl5dTXsf+cFnoqUkPG4RW6bHnxH4KgkE/qJ18VdwtIFi5Qgr9RACty
+ zFOPUpYpyDUU+HhfSiJvD5yBhMx9LQeduRlujeKIZQ4m/sdHE2WVOzrEIZL2MwoEBKdj
+ z4RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=/WxDN386m/02gF4IltuUVKKXTkTakJEWTUA4LPWTxX0=;
- b=jci2vFU8o1aD8Cr7DgisPCpyX1W8vOPweYSPV1rztUFYJIRPqSu/MGKE3RKUgM1Ohd
- mJ54JPNJHkvlhQjvNAIzwvv4binOJTHolCSHsdz2aqMmnsO/DAfr7BQOp3GLljtd7vtG
- oikIDpnj+1uFVA7c05l8cxSfuRss8vh3/Y6UF5rkOtd9tSsaONwnTvW6u1oMYDk9pgqc
- VxZaxhYBOCGw/4KmAH9RI4g6wnU3QgzhDQVR5WyL5PsQJkFKTnp3UVxEVsQGm4aGkQLS
- mmrb65BX/vB5qcTbDqBeUNss7iSejU9f5V0i7TE4q3kG+zFV347FixIb96HzCvT5EC5O
- EHHg==
-X-Gm-Message-State: AOAM5337BHWGnerQYOZcrJSGbcpjAyrkaO6xnm7cmpNhYW6FgLPXofTF
- Cp4wx5OEbYhTccMvS/qPi4w=
-X-Google-Smtp-Source: ABdhPJzGHmcpLCFnW1tT+X1on+iZik+M4VSuDgwoUBt1NqomIQwJJCgeRxU0xl56bWUfRLSsk7elWg==
-X-Received: by 2002:a17:90a:5306:: with SMTP id
- x6mr3383252pjh.59.1626341137920; 
- Thu, 15 Jul 2021 02:25:37 -0700 (PDT)
+ bh=hAPQ7MKC9CHG6U3K/a3TvqmDvmez6ZMEcoHbCxgEOYg=;
+ b=qDBHEIpUP95DZ4wRgGxkozwDlgZmGT5dH697m1P1t61oza1k2nZc+fhtb6by62LKV5
+ O9ndYr05w3/4c0MjWE9PqFAWr2OBYVSGolke8SqfNcxpbZLw1m87+7HYKecx1Z0fxyfg
+ eM6xbpJv+gGhMYx2MxAQJq1N5p9FOsFzUYwDT/tDhfro5H+rigZ/HbVnR16DhN34+RHa
+ VSFtCfFhW31e536E1V9habnKu328hHLjbu8MNqZe5rOWemIgB3KCVgSITA8Vi8RvyoC8
+ FmjsKBF8uNT506ajthrWkQecQ0MPN6Twa0w4nh7czb2Rm9HiqO4yexPv9Ka/w5VdSSSd
+ s0WA==
+X-Gm-Message-State: AOAM531s5GsrIIohs2oDXAW4rtUStUIev0gGcxCbxl2qbPtbZhUDg5xB
+ 69jDt+tZ4tsxLrZuxFNMlTQ=
+X-Google-Smtp-Source: ABdhPJxfZg3HBz3NZSalF2W5+UNgrMbPPOljW0yieY3sK5IsSH20lECUe4fiRAka40yA/dec/ZTydg==
+X-Received: by 2002:a63:5117:: with SMTP id f23mr3612640pgb.200.1626341142320; 
+ Thu, 15 Jul 2021 02:25:42 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id 11sm6662503pge.7.2021.07.15.02.25.33
+ by smtp.gmail.com with ESMTPSA id 11sm6662503pge.7.2021.07.15.02.25.38
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Jul 2021 02:25:37 -0700 (PDT)
+ Thu, 15 Jul 2021 02:25:42 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: mchehab@kernel.org, mchehab+huawei@kernel.org, hverkuil-cisco@xs4all.nl,
  ezequiel@collabora.com, gnurou@gmail.com, pihsun@chromium.org,
  mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
  mturquette@baylibre.com, sboyd@kernel.org, robh+dt@kernel.org
-Date: Thu, 15 Jul 2021 17:24:23 +0800
-Message-Id: <1626341068-20253-15-git-send-email-dillon.minfei@gmail.com>
+Date: Thu, 15 Jul 2021 17:24:24 +0800
+Message-Id: <1626341068-20253-16-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1626341068-20253-1-git-send-email-dillon.minfei@gmail.com>
 References: <1626341068-20253-1-git-send-email-dillon.minfei@gmail.com>
@@ -61,8 +60,8 @@ Cc: devicetree@vger.kernel.org, hugues.fruchet@foss.st.com,
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dillon Min <dillon.minfei@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 4/9] ARM: dts: stm32: Enable DMA2D support
-	on STM32F429 MCU
+Subject: [Linux-stm32] [PATCH v2 5/9] ARM: dts: stm32: Enable DMA2D on
+	STM32F469-DISCO board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,36 +81,30 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Dillon Min <dillon.minfei@gmail.com>
 
-Enable DMA2D on STM32F429 MCU.
+Enable DMA2D on STM32F469-DISCO board.
 
 Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
 ---
 v2: no change
 
- arch/arm/boot/dts/stm32f429.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ arch/arm/boot/dts/stm32f469-disco.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
-index 8748d5850298..a06437f2210d 100644
---- a/arch/arm/boot/dts/stm32f429.dtsi
-+++ b/arch/arm/boot/dts/stm32f429.dtsi
-@@ -791,6 +791,16 @@
- 			status = "disabled";
- 		};
+diff --git a/arch/arm/boot/dts/stm32f469-disco.dts b/arch/arm/boot/dts/stm32f469-disco.dts
+index 8c982ae79f43..da2f80e73f43 100644
+--- a/arch/arm/boot/dts/stm32f469-disco.dts
++++ b/arch/arm/boot/dts/stm32f469-disco.dts
+@@ -132,6 +132,10 @@
+ 	clock-frequency = <8000000>;
+ };
  
-+		dma2d: dma2d@4002b000 {
-+			compatible = "st,stm32-dma2d";
-+			reg = <0x4002b000 0xc00>;
-+			interrupts = <90>;
-+			resets = <&rcc STM32F4_AHB1_RESET(DMA2D)>;
-+			clocks = <&rcc 0 STM32F4_AHB1_CLOCK(DMA2D)>;
-+			clock-names = "dma2d";
-+			status = "disabled";
-+		};
++&dma2d {
++	status = "okay";
++};
 +
- 		rng: rng@50060800 {
- 			compatible = "st,stm32-rng";
- 			reg = <0x50060800 0x400>;
+ &dsi {
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
 -- 
 2.7.4
 
