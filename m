@@ -2,57 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A1593C9B87
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jul 2021 11:25:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 189F13C9B88
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jul 2021 11:25:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3EA7C597B1;
-	Thu, 15 Jul 2021 09:25:44 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3654CC597B1;
+	Thu, 15 Jul 2021 09:25:50 +0000 (UTC)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EA1FC597B0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C857C597AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jul 2021 09:25:43 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id o201so4640290pfd.1
+ Thu, 15 Jul 2021 09:25:48 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id j9so4623798pfc.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jul 2021 02:25:43 -0700 (PDT)
+ Thu, 15 Jul 2021 02:25:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=hAPQ7MKC9CHG6U3K/a3TvqmDvmez6ZMEcoHbCxgEOYg=;
- b=P9aP8xXebYqM5eL86zMabjl81y3vJ5Hf8Luzlw1sM4prphVoBHQ9J9LwBfmc5AQErm
- 47bmfMcZOjqOq/0MdKJNowvyRKiMC8xJIp4vRSKe0mwuUZMLVXTFQmPIM2FQe0XLYwX2
- 92w989aQ7EKAE4KMzOfqnNjfwEguT1TqWfZTGlcdkrIJWTmzDyXInGxxp7ING0Bt4K03
- NEdc1m1cerCbX6cl5dTXsf+cFnoqUkPG4RW6bHnxH4KgkE/qJ18VdwtIFi5Qgr9RACty
- zFOPUpYpyDUU+HhfSiJvD5yBhMx9LQeduRlujeKIZQ4m/sdHE2WVOzrEIZL2MwoEBKdj
- z4RQ==
+ bh=m/Lq62zQC/ZLuIP1g6AP3azBlb4BnAyoWJG0y535CEU=;
+ b=vB8qWgvszPrVov8dYj++hZ2fJhc4aqqN0FIeK3DUvRUtROJ3VgqvE830dgeKBC0Bwu
+ TSrgVf2w77p69NsuDjWaxXZnlHaB4yRny1PKlaCDJ+n85Rt5z70tSE81AMV6eevARIF8
+ KQ1h6l89bZKSUOE+wPcZB58SVikjE6qMOWba57l9uzPBKQyFs57IXnhCa8klKFfrxK5z
+ yP7rDmjMwp+1vmk3PG4n6H5nHnUX0t5L1fLfBnA6TVGD3vOa/Djr567QLl8paFbM+iqW
+ DMwMXQDTHTs1kGsg0woaBR3q0xUwA/j91oayQDrrBaojJ7NzYI6cM7h/730Yjc+59kww
+ P6DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=hAPQ7MKC9CHG6U3K/a3TvqmDvmez6ZMEcoHbCxgEOYg=;
- b=qDBHEIpUP95DZ4wRgGxkozwDlgZmGT5dH697m1P1t61oza1k2nZc+fhtb6by62LKV5
- O9ndYr05w3/4c0MjWE9PqFAWr2OBYVSGolke8SqfNcxpbZLw1m87+7HYKecx1Z0fxyfg
- eM6xbpJv+gGhMYx2MxAQJq1N5p9FOsFzUYwDT/tDhfro5H+rigZ/HbVnR16DhN34+RHa
- VSFtCfFhW31e536E1V9habnKu328hHLjbu8MNqZe5rOWemIgB3KCVgSITA8Vi8RvyoC8
- FmjsKBF8uNT506ajthrWkQecQ0MPN6Twa0w4nh7czb2Rm9HiqO4yexPv9Ka/w5VdSSSd
- s0WA==
-X-Gm-Message-State: AOAM531s5GsrIIohs2oDXAW4rtUStUIev0gGcxCbxl2qbPtbZhUDg5xB
- 69jDt+tZ4tsxLrZuxFNMlTQ=
-X-Google-Smtp-Source: ABdhPJxfZg3HBz3NZSalF2W5+UNgrMbPPOljW0yieY3sK5IsSH20lECUe4fiRAka40yA/dec/ZTydg==
-X-Received: by 2002:a63:5117:: with SMTP id f23mr3612640pgb.200.1626341142320; 
- Thu, 15 Jul 2021 02:25:42 -0700 (PDT)
+ bh=m/Lq62zQC/ZLuIP1g6AP3azBlb4BnAyoWJG0y535CEU=;
+ b=sSb3zhTcoZlkLo6kuV5vIemGueXIcRA//IcSWwKZN5J4AqG2UYl4vo+jmyyqv9LZjd
+ ItjbcHdiZFLY+1ZslZ1i/tIKKbig+sVH6fyzPVtAL4GqOibx3BHig8nYfdqBr0KWyphY
+ q8mcO2+FpXoAgS6qblMgnlPfyCz4r691GX2G4yBSqgkGnq3bvEi23ydckUtUd4G1vea1
+ jDRwBBO0ZGiJSDIblah8iCzYVuRPJx0ym7gTVOXb81ni4iEAXqZdqdElYW7fOu1LGzp7
+ vHDAI8i/s3QUUrUig/mzxhmf55eVQlevjFuWfXq4syzCz4SoccGXOh8VAEdkjuKxheIi
+ z/zQ==
+X-Gm-Message-State: AOAM5305TECoyCQEX1uNkOMoWCyGwOOhRJ5IlwBN5itdCLWYowCzhsXt
+ /IcUsMDTJBbPX0DgRIFnTco=
+X-Google-Smtp-Source: ABdhPJzu45VGLxWM4fORPzTRwfpeV4fv13X1p6VBNpeHKocOwsluXxeGLD4lvtI1wJvBI6bZNohAPg==
+X-Received: by 2002:a05:6a00:158e:b029:32b:9de5:a198 with SMTP id
+ u14-20020a056a00158eb029032b9de5a198mr3741860pfk.3.1626341146759; 
+ Thu, 15 Jul 2021 02:25:46 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id 11sm6662503pge.7.2021.07.15.02.25.38
+ by smtp.gmail.com with ESMTPSA id 11sm6662503pge.7.2021.07.15.02.25.42
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Jul 2021 02:25:42 -0700 (PDT)
+ Thu, 15 Jul 2021 02:25:46 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: mchehab@kernel.org, mchehab+huawei@kernel.org, hverkuil-cisco@xs4all.nl,
  ezequiel@collabora.com, gnurou@gmail.com, pihsun@chromium.org,
  mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
  mturquette@baylibre.com, sboyd@kernel.org, robh+dt@kernel.org
-Date: Thu, 15 Jul 2021 17:24:24 +0800
-Message-Id: <1626341068-20253-16-git-send-email-dillon.minfei@gmail.com>
+Date: Thu, 15 Jul 2021 17:24:25 +0800
+Message-Id: <1626341068-20253-17-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1626341068-20253-1-git-send-email-dillon.minfei@gmail.com>
 References: <1626341068-20253-1-git-send-email-dillon.minfei@gmail.com>
@@ -60,8 +61,8 @@ Cc: devicetree@vger.kernel.org, hugues.fruchet@foss.st.com,
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dillon Min <dillon.minfei@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 5/9] ARM: dts: stm32: Enable DMA2D on
-	STM32F469-DISCO board
+Subject: [Linux-stm32] [PATCH v2 6/9] media: v4l2-mem2mem: add
+	v4l2_m2m_get_unmapped_area for no-mmu platform
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,30 +82,69 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Dillon Min <dillon.minfei@gmail.com>
 
-Enable DMA2D on STM32F469-DISCO board.
+For platforms without MMU the m2m provides a helper method
+v4l2_m2m_get_unmapped_area(), The mmap() routines will call
+this to get a proposed address for the mapping.
+
+More detailed information about get_unmapped_area can be found in
+Documentation/nommu-mmap.txt
 
 Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
 ---
-v2: no change
+v2: fix the warrnings from checkpatch.pl --strict, thanks Hans
 
- arch/arm/boot/dts/stm32f469-disco.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/media/v4l2-core/v4l2-mem2mem.c | 21 +++++++++++++++++++++
+ include/media/v4l2-mem2mem.h           |  5 +++++
+ 2 files changed, 26 insertions(+)
 
-diff --git a/arch/arm/boot/dts/stm32f469-disco.dts b/arch/arm/boot/dts/stm32f469-disco.dts
-index 8c982ae79f43..da2f80e73f43 100644
---- a/arch/arm/boot/dts/stm32f469-disco.dts
-+++ b/arch/arm/boot/dts/stm32f469-disco.dts
-@@ -132,6 +132,10 @@
- 	clock-frequency = <8000000>;
- };
+diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+index e7f4bf5bc8dd..e2654b422334 100644
+--- a/drivers/media/v4l2-core/v4l2-mem2mem.c
++++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+@@ -966,6 +966,27 @@ int v4l2_m2m_mmap(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
+ }
+ EXPORT_SYMBOL(v4l2_m2m_mmap);
  
-+&dma2d {
-+	status = "okay";
-+};
++#ifndef CONFIG_MMU
++unsigned long v4l2_m2m_get_unmapped_area(struct file *file, unsigned long addr,
++					 unsigned long len, unsigned long pgoff,
++					 unsigned long flags)
++{
++	struct v4l2_fh *fh = file->private_data;
++	unsigned long offset = pgoff << PAGE_SHIFT;
++	struct vb2_queue *vq;
 +
- &dsi {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
++	if (offset < DST_QUEUE_OFF_BASE) {
++		vq = v4l2_m2m_get_src_vq(fh->m2m_ctx);
++	} else {
++		vq = v4l2_m2m_get_dst_vq(fh->m2m_ctx);
++		pgoff -= (DST_QUEUE_OFF_BASE >> PAGE_SHIFT);
++	}
++
++	return vb2_get_unmapped_area(vq, addr, len, pgoff, flags);
++}
++EXPORT_SYMBOL_GPL(v4l2_m2m_get_unmapped_area);
++#endif
++
+ #if defined(CONFIG_MEDIA_CONTROLLER)
+ void v4l2_m2m_unregister_media_controller(struct v4l2_m2m_dev *m2m_dev)
+ {
+diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
+index 5a91b548ecc0..fdbd5257e020 100644
+--- a/include/media/v4l2-mem2mem.h
++++ b/include/media/v4l2-mem2mem.h
+@@ -495,6 +495,11 @@ __poll_t v4l2_m2m_poll(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
+ int v4l2_m2m_mmap(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
+ 		  struct vm_area_struct *vma);
+ 
++#ifndef CONFIG_MMU
++unsigned long v4l2_m2m_get_unmapped_area(struct file *file, unsigned long addr,
++					 unsigned long len, unsigned long pgoff,
++					 unsigned long flags);
++#endif
+ /**
+  * v4l2_m2m_init() - initialize per-driver m2m data
+  *
 -- 
 2.7.4
 
