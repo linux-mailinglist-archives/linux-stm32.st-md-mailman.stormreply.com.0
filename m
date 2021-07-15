@@ -2,64 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B113F3CA1C9
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jul 2021 18:01:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1063E3CA313
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jul 2021 18:47:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3384AC59781;
-	Thu, 15 Jul 2021 16:01:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B23BEC59781;
+	Thu, 15 Jul 2021 16:47:14 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4736EC57B6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12DC0C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jul 2021 16:01:19 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 16FFmCnt021533; Thu, 15 Jul 2021 18:01:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=UpZ7fBWPr2koAB/z0RHu4msndPBXfH17zAKbTKg+mFo=;
- b=l7plO9jVWQREK82wGVyGUurmk2qwebH1eh0weco0JRWYMld9gx9kXHtUwWEErH51mfkh
- 4v4KPSfVlr2T5t5th7PU3lycOS2/Ttdx+9z/qJjJOS9j9HJskTP94hTJpKnPMsE909ku
- 6aLaa9Vw0sD1dTXQvmGaO5XlFhEMxN4bNDbOOg0Cg13K0C86Vu9zttzVEr/qyMRErGEa
- 0yA0RnI8ecxfM/rBG5LqYOlPQtXgUFDmvwTkcas6M5CGa0Tggc9jtP5Fj0487mYHuIEo
- yUq7gWkfQggngGtbdzdPXKVjhMJYR0lsu6M7AyeLXC9xRgOmRh5mZEzo6pQIYs/0XQwV Hg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 39thrstc3x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Jul 2021 18:01:15 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 81292100034;
- Thu, 15 Jul 2021 18:01:14 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 76021233C98;
- Thu, 15 Jul 2021 18:01:14 +0200 (CEST)
-Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 15 Jul
- 2021 18:01:13 +0200
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20210620212431.102640-1-marex@denx.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <756dd3e0-19cf-5096-74f9-5b024efa0545@foss.st.com>
-Date: Thu, 15 Jul 2021 18:01:12 +0200
+ Thu, 15 Jul 2021 16:47:13 +0000 (UTC)
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 3770D81FA1;
+ Thu, 15 Jul 2021 18:47:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1626367632;
+ bh=JQlwDzU+MQWTblw4hJLIznMLsIv1LF5EwgaCb5b+uEY=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=aNuyYrDdmCzqUHlvc1cbtZwTJ2d3RLD5EQP++HOsfOA2wM5wkpE2fI5kn+YaldT3t
+ JSTpd/rgLWDV2/OVTZ0079VNscE3a5N7VQrQvqZImlvRViLV57l2JfkTiocYiASLzE
+ 72GB5g08Zpj63t5cErqHqdW/gOehPkxNfYpBAn87CaZbcYlc7ZzYmVAvW+XkfQTcbj
+ 7ydw3oOcoDMiuQwmjfE6hdi2f2pqzOTXWpAKdjHLxxv6nR81h5RD1iopYuCqls88LI
+ CRVdk3NyA3UAee9qX0ATkC34f/krgcaghj9UhjuM0uzk1Ar3lLCb8myOBLef0aaSVt
+ NTEV5Q9BmAAqw==
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ linux-arm-kernel@lists.infradead.org
+References: <20210610150306.30072-1-marex@denx.de>
+ <a393eb0b-a8d6-e29a-62c8-8988429c9139@foss.st.com>
+ <8ab267d3-3b89-878c-861d-c53a672f213a@denx.de>
+ <091a126a-bd57-8f3d-9f36-821715441fcd@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <7423f86e-2fdc-9904-f88d-83d7a7ac94ac@denx.de>
+Date: Thu, 15 Jul 2021 18:47:11 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210620212431.102640-1-marex@denx.de>
+In-Reply-To: <091a126a-bd57-8f3d-9f36-821715441fcd@foss.st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-07-15_10:2021-07-14,
- 2021-07-15 signatures=0
+X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
+X-Virus-Status: Clean
 Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Update AV96 adv7513 node
-	per dtbs_check
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Set {bitclock,
+ frame}-master phandles on ST DKx
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,60 +60,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 6/20/21 11:24 PM, Marek Vasut wrote:
-> Swap reg and reg-names order and drop adi,input-justification
-> and adi,input-style to fix the following dtbs_check warnings:
-> arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dt.yaml: hdmi-transmitter@3d: adi,input-justification: False schema does not allow ['evenly']
-> arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dt.yaml: hdmi-transmitter@3d: adi,input-style: False schema does not allow [[1]]
-> arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dt.yaml: hdmi-transmitter@3d: reg-names:1: 'edid' was expected
-> arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dt.yaml: hdmi-transmitter@3d: reg-names:2: 'cec' was expected
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
->   arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi | 6 ++----
->   1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-> index 64dca5b7f748..6885948f3024 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
-> @@ -220,8 +220,8 @@ &i2c2 {	/* X6 I2C2 */
->   &i2c4 {
->   	hdmi-transmitter@3d {
->   		compatible = "adi,adv7513";
-> -		reg = <0x3d>, <0x2d>, <0x4d>, <0x5d>;
-> -		reg-names = "main", "cec", "edid", "packet";
-> +		reg = <0x3d>, <0x4d>, <0x2d>, <0x5d>;
-> +		reg-names = "main", "edid", "cec", "packet";
->   		clocks = <&cec_clock>;
->   		clock-names = "cec";
->   
-> @@ -239,8 +239,6 @@ hdmi-transmitter@3d {
->   		adi,input-depth = <8>;
->   		adi,input-colorspace = "rgb";
->   		adi,input-clock = "1x";
-> -		adi,input-style = <1>;
-> -		adi,input-justification = "evenly";
->   
->   		ports {
->   			#address-cells = <1>;
-> 
-
-Applied on stm32-next.
-
-Thanks!
-Alex
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNy8xNS8yMSA1OjQzIFBNLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgo+IE9uIDcvMTUvMjEg
+NTozOCBQTSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+IE9uIDcvMTUvMjEgNToyNyBQTSwgQWxleGFu
+ZHJlIFRPUkdVRSB3cm90ZToKPj4+IEhpIE1hcmVrCj4+Cj4+IEhpLAo+Pgo+PiBbLi4uXQo+Pgo+
+Pj4+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTV4eC1ka3guZHRzaSAK
+Pj4+PiBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNXh4LWRreC5kdHNpCj4+Pj4gaW5kZXgg
+NTlmMTg4NDZjZjVkLi41ODZhYWM4YTk5OGMgMTAwNjQ0Cj4+Pj4gLS0tIGEvYXJjaC9hcm0vYm9v
+dC9kdHMvc3RtMzJtcDE1eHgtZGt4LmR0c2kKPj4+PiArKysgYi9hcmNoL2FybS9ib290L2R0cy9z
+dG0zMm1wMTV4eC1ka3guZHRzaQo+Pj4+IEBAIC0yMjAsMTUgKzIyMCwxNSBAQCBjczQybDUxX3Bv
+cnQ6IHBvcnQgewo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNzNDJsNTFfdHhfZW5k
+cG9pbnQ6IGVuZHBvaW50QDAgewo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgcmVnID0gPDA+Owo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVt
+b3RlLWVuZHBvaW50ID0gPCZzYWkyYV9lbmRwb2ludD47Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBmcmFtZS1tYXN0ZXI7Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBiaXRjbG9jay1tYXN0ZXI7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBmcmFtZS1tYXN0ZXIgPSA8JmNzNDJsNTFfdHhfZW5kcG9pbnQ+Owo+Pj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYml0Y2xvY2stbWFzdGVyID0gPCZjczQybDUxX3R4X2Vu
+ZHBvaW50PjsKPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+Pj4+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGNzNDJsNTFfcnhfZW5kcG9pbnQ6IGVuZHBvaW50QDEgewo+Pj4+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0gPDE+Owo+Pj4+IMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVtb3RlLWVuZHBvaW50ID0gPCZzYWkyYl9l
+bmRwb2ludD47Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmcmFtZS1tYXN0
+ZXI7Cj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBiaXRjbG9jay1tYXN0ZXI7
+Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmcmFtZS1tYXN0ZXIgPSA8JmNz
+NDJsNTFfcnhfZW5kcG9pbnQ+Owo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+Yml0Y2xvY2stbWFzdGVyID0gPCZjczQybDUxX3J4X2VuZHBvaW50PjsKPj4+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB9Owo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+Pj4+IMKgwqDC
+oMKgwqAgfTsKPj4+Pgo+Pj4KPj4+IEFwcGxpZWQgb24gc3RtMzItbmV4dC4gVGhhbmtzIHRvIHVw
+ZGF0ZSB0aGUgREt4IGJvYXJkLiBOb3RlIHRoYXQgCj4+PiAiY2lycnVzLGNzNDJsNTEueWFtbCIg
+aGFzIHRvIGJlIGFsc28gdXBkYXRlZC4gRGlkIHlvdSBhbHNvIHNlbnQgeWFtbCAKPj4+IHVwZGF0
+ZSBhc2lkZSB0aGlzIHBhdGNoID8KPj4KPj4gTm9wZSwgc29ycnkuCj4gCj4gTm8gcGIsIHdlJ2xs
+IGRvLgoKVGhhbmsgeW91Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
