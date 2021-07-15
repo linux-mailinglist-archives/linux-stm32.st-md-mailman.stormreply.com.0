@@ -2,58 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 189F13C9B88
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jul 2021 11:25:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E0B83C9B89
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jul 2021 11:25:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3654CC597B1;
-	Thu, 15 Jul 2021 09:25:50 +0000 (UTC)
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47BF9C597B1;
+	Thu, 15 Jul 2021 09:25:53 +0000 (UTC)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C857C597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98E37C597AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jul 2021 09:25:48 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id j9so4623798pfc.5
+ Thu, 15 Jul 2021 09:25:52 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id j199so4619816pfd.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jul 2021 02:25:48 -0700 (PDT)
+ Thu, 15 Jul 2021 02:25:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=m/Lq62zQC/ZLuIP1g6AP3azBlb4BnAyoWJG0y535CEU=;
- b=vB8qWgvszPrVov8dYj++hZ2fJhc4aqqN0FIeK3DUvRUtROJ3VgqvE830dgeKBC0Bwu
- TSrgVf2w77p69NsuDjWaxXZnlHaB4yRny1PKlaCDJ+n85Rt5z70tSE81AMV6eevARIF8
- KQ1h6l89bZKSUOE+wPcZB58SVikjE6qMOWba57l9uzPBKQyFs57IXnhCa8klKFfrxK5z
- yP7rDmjMwp+1vmk3PG4n6H5nHnUX0t5L1fLfBnA6TVGD3vOa/Djr567QLl8paFbM+iqW
- DMwMXQDTHTs1kGsg0woaBR3q0xUwA/j91oayQDrrBaojJ7NzYI6cM7h/730Yjc+59kww
- P6DA==
+ bh=nuloZLenal/UheIEhaBZVdFRbceClqyoioQrDZ98xwM=;
+ b=uXnGQkzYNmsMJKICRXmd3BH6KXt8tIFLfh2fMQhm3++vG3AnNv0GzPqKBvzCW79C/r
+ RW3jvPfH8gp6D/udSl83C2ij6BtOT/OtA8lnJc9yXGhMIQvpgPLxy8sNaH+bWowJ3CGB
+ 78L+0xjSoIYNlU1OLm1TIK/RZh/y8uSyoQYoibEa1pjMavVaUEIUsl4Zj05mrpI1aKae
+ lQ37CYAhbJMNk204z6E8q+w61JWtbQwr+yefBYkRLlI3XiBIYvThGSz2A0sdbym7F8/y
+ shGdlpJ0ZEFwqAPN2FT+ayg1uLX5jVgf5cUFYn2AX6XY2yiVvXPzl7jMIYRzci6HgOBf
+ 5NbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=m/Lq62zQC/ZLuIP1g6AP3azBlb4BnAyoWJG0y535CEU=;
- b=sSb3zhTcoZlkLo6kuV5vIemGueXIcRA//IcSWwKZN5J4AqG2UYl4vo+jmyyqv9LZjd
- ItjbcHdiZFLY+1ZslZ1i/tIKKbig+sVH6fyzPVtAL4GqOibx3BHig8nYfdqBr0KWyphY
- q8mcO2+FpXoAgS6qblMgnlPfyCz4r691GX2G4yBSqgkGnq3bvEi23ydckUtUd4G1vea1
- jDRwBBO0ZGiJSDIblah8iCzYVuRPJx0ym7gTVOXb81ni4iEAXqZdqdElYW7fOu1LGzp7
- vHDAI8i/s3QUUrUig/mzxhmf55eVQlevjFuWfXq4syzCz4SoccGXOh8VAEdkjuKxheIi
- z/zQ==
-X-Gm-Message-State: AOAM5305TECoyCQEX1uNkOMoWCyGwOOhRJ5IlwBN5itdCLWYowCzhsXt
- /IcUsMDTJBbPX0DgRIFnTco=
-X-Google-Smtp-Source: ABdhPJzu45VGLxWM4fORPzTRwfpeV4fv13X1p6VBNpeHKocOwsluXxeGLD4lvtI1wJvBI6bZNohAPg==
-X-Received: by 2002:a05:6a00:158e:b029:32b:9de5:a198 with SMTP id
- u14-20020a056a00158eb029032b9de5a198mr3741860pfk.3.1626341146759; 
- Thu, 15 Jul 2021 02:25:46 -0700 (PDT)
+ bh=nuloZLenal/UheIEhaBZVdFRbceClqyoioQrDZ98xwM=;
+ b=oY71fTZ3RDx4xRIHA5agx0RdNZjH1DWb+hTywqe5YeUBS/MVOp55NP37zfkh1wN1SR
+ c/DgPotLRCnCMV5taNYxF4FBgay0ssMPAUKAeZ7H6xASNp/GkNopToYXlb02ybfB0ps9
+ HXP/bgJHRp04e2Euw1x9whaR8wAV/Za7XFiE9SqFIxSOSrA+/9mUAAHj0ASc1m/IOohq
+ UVYoqWQXQs8Vk3dTcPXVSThaabGvOwYcpv+dT3uNAINLoiq/HUAqK7Jlr8EaovLyHpNS
+ ZUPkLJ6qxV/0lBCLJLcF0afVRun4C5diLwfWX2C+n1tMVSgw+ObQ3J8XVWztM/ewcrMP
+ O/aw==
+X-Gm-Message-State: AOAM533eMs/gmK5NpdaX3i+J+Bu9HGYwJ5+uYu0RiBlpC1PuiduIF02J
+ 7B33RZHo38tuEv4r746U3B8=
+X-Google-Smtp-Source: ABdhPJyM339cZ1aNdZTnqG+yNazb0nafEo1b2RjEhB7z1jbjxjLw9A+wAJAWz65wNYippvM8w5U9wA==
+X-Received: by 2002:a65:61ab:: with SMTP id i11mr3635137pgv.168.1626341151234; 
+ Thu, 15 Jul 2021 02:25:51 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id 11sm6662503pge.7.2021.07.15.02.25.42
+ by smtp.gmail.com with ESMTPSA id 11sm6662503pge.7.2021.07.15.02.25.47
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Jul 2021 02:25:46 -0700 (PDT)
+ Thu, 15 Jul 2021 02:25:50 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: mchehab@kernel.org, mchehab+huawei@kernel.org, hverkuil-cisco@xs4all.nl,
  ezequiel@collabora.com, gnurou@gmail.com, pihsun@chromium.org,
  mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
  mturquette@baylibre.com, sboyd@kernel.org, robh+dt@kernel.org
-Date: Thu, 15 Jul 2021 17:24:25 +0800
-Message-Id: <1626341068-20253-17-git-send-email-dillon.minfei@gmail.com>
+Date: Thu, 15 Jul 2021 17:24:26 +0800
+Message-Id: <1626341068-20253-18-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1626341068-20253-1-git-send-email-dillon.minfei@gmail.com>
 References: <1626341068-20253-1-git-send-email-dillon.minfei@gmail.com>
@@ -61,8 +60,8 @@ Cc: devicetree@vger.kernel.org, hugues.fruchet@foss.st.com,
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dillon Min <dillon.minfei@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 6/9] media: v4l2-mem2mem: add
-	v4l2_m2m_get_unmapped_area for no-mmu platform
+Subject: [Linux-stm32] [PATCH v2 7/9] media: docs: add doc for the stm32
+	dma2d driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,69 +81,56 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Dillon Min <dillon.minfei@gmail.com>
 
-For platforms without MMU the m2m provides a helper method
-v4l2_m2m_get_unmapped_area(), The mmap() routines will call
-this to get a proposed address for the mapping.
-
-More detailed information about get_unmapped_area can be found in
-Documentation/nommu-mmap.txt
+add stm32-uapi.rst for stm32's dma2d driver, explain the details of ioctl
+V4L2_CID_DMA2D_R2M_MODE, V4L2_CID_DMA2D_R2M_COLOR.
 
 Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
 ---
-v2: fix the warrnings from checkpatch.pl --strict, thanks Hans
+v2: introduce the stm32-uapi.rst to explain the detail of dma2d's ioctl.
 
- drivers/media/v4l2-core/v4l2-mem2mem.c | 21 +++++++++++++++++++++
- include/media/v4l2-mem2mem.h           |  5 +++++
- 2 files changed, 26 insertions(+)
+ .../userspace-api/media/drivers/index.rst          |  1 +
+ .../userspace-api/media/drivers/stm32-uapi.rst     | 22 ++++++++++++++++++++++
+ 2 files changed, 23 insertions(+)
+ create mode 100644 Documentation/userspace-api/media/drivers/stm32-uapi.rst
 
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index e7f4bf5bc8dd..e2654b422334 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -966,6 +966,27 @@ int v4l2_m2m_mmap(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
- }
- EXPORT_SYMBOL(v4l2_m2m_mmap);
- 
-+#ifndef CONFIG_MMU
-+unsigned long v4l2_m2m_get_unmapped_area(struct file *file, unsigned long addr,
-+					 unsigned long len, unsigned long pgoff,
-+					 unsigned long flags)
-+{
-+	struct v4l2_fh *fh = file->private_data;
-+	unsigned long offset = pgoff << PAGE_SHIFT;
-+	struct vb2_queue *vq;
+diff --git a/Documentation/userspace-api/media/drivers/index.rst b/Documentation/userspace-api/media/drivers/index.rst
+index 12e3c512d718..ce42915d48f4 100644
+--- a/Documentation/userspace-api/media/drivers/index.rst
++++ b/Documentation/userspace-api/media/drivers/index.rst
+@@ -38,4 +38,5 @@ For more details see the file COPYING in the source distribution of Linux.
+ 	max2175
+ 	meye-uapi
+ 	omap3isp-uapi
++	stm32-uapi
+ 	uvcvideo
+diff --git a/Documentation/userspace-api/media/drivers/stm32-uapi.rst b/Documentation/userspace-api/media/drivers/stm32-uapi.rst
+new file mode 100644
+index 000000000000..d7a4f717387d
+--- /dev/null
++++ b/Documentation/userspace-api/media/drivers/stm32-uapi.rst
+@@ -0,0 +1,22 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-+	if (offset < DST_QUEUE_OFF_BASE) {
-+		vq = v4l2_m2m_get_src_vq(fh->m2m_ctx);
-+	} else {
-+		vq = v4l2_m2m_get_dst_vq(fh->m2m_ctx);
-+		pgoff -= (DST_QUEUE_OFF_BASE >> PAGE_SHIFT);
-+	}
++STM32 Chrom-Art 2D Graphics Accelerator unit (DMA2D) driver
++================================================
 +
-+	return vb2_get_unmapped_area(vq, addr, len, pgoff, flags);
-+}
-+EXPORT_SYMBOL_GPL(v4l2_m2m_get_unmapped_area);
-+#endif
++The DMA2D driver implements the following driver-specific controls:
 +
- #if defined(CONFIG_MEDIA_CONTROLLER)
- void v4l2_m2m_unregister_media_controller(struct v4l2_m2m_dev *m2m_dev)
- {
-diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
-index 5a91b548ecc0..fdbd5257e020 100644
---- a/include/media/v4l2-mem2mem.h
-+++ b/include/media/v4l2-mem2mem.h
-@@ -495,6 +495,11 @@ __poll_t v4l2_m2m_poll(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
- int v4l2_m2m_mmap(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
- 		  struct vm_area_struct *vma);
- 
-+#ifndef CONFIG_MMU
-+unsigned long v4l2_m2m_get_unmapped_area(struct file *file, unsigned long addr,
-+					 unsigned long len, unsigned long pgoff,
-+					 unsigned long flags);
-+#endif
- /**
-  * v4l2_m2m_init() - initialize per-driver m2m data
-  *
++``V4L2_CID_DMA2D_R2M_MODE``
++-------------------------
++    Enable/Disable the Register-To-Memory mode, filling a part or the
++    whole of a destination image with a specific color.
++
++    1 for enable, 0 for disable.
++
++``V4L2_CID_DMA2D_R2M_COLOR``
++-------------------------------
++    Set the color to fill a part or the whole of a destination image.
++    only used under Register-To-Memory mode, to set the DMA2D_OCOLR register
++    (RED, GREEN, BLUE) which is:
++
++    31 .. 24    23 .. 16  15 .. 8     7 .. 0
++    ALPHA[7:0]  RED[7:0]  GREEN[7:0]  BLUE[7:0]
 -- 
 2.7.4
 
