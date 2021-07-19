@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B61CB3DD32D
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Aug 2021 11:44:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A0E03DD32E
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Aug 2021 11:44:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5DA8C5A4D5;
-	Mon,  2 Aug 2021 09:44:22 +0000 (UTC)
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D77CDC5A4D8;
+	Mon,  2 Aug 2021 09:44:23 +0000 (UTC)
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A188C597AB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABDA2C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jul 2021 09:24:18 +0000 (UTC)
-X-QQ-mid: bizesmtp39t1626686644t2ujhdvj
+ Mon, 19 Jul 2021 09:30:43 +0000 (UTC)
+X-QQ-mid: bizesmtp31t1626687027t7kaq5ku
 Received: from [10.20.53.139] (unknown [113.57.152.160])
  by esmtp6.qq.com (ESMTP) with 
- id ; Mon, 19 Jul 2021 17:23:57 +0800 (CST)
-X-QQ-SSF: 00400000007000006000B00C0000000
-X-QQ-FEAT: ydxgV4arV/MHZ5BPCS+F8yZtnKgINgiPj/NwpEwCttczJw6IaGDZwxa/2Em+R
- eGvmKYtNzNnl3GOlT+XoyjgfBPLlVm5A7dGBW6eQh2LJ/AEP8/6alLmZVeeCnKeKJKK7AnX
- WE2BsmjYDxov6H+Ai+JNyIgU010NyILosY1KPY8wb6uFSW98tNiQL/eIJHnaKiwaALqHM9b
- MElktenxh9duMCZAOXfmx9GpN4IZA6Spol+3QKqSn3ZY1mYu70z0Yh/wDo/F9RjdDb7nvdP
- qZCZIQZ2wsoJUet2bEa2KCA3HPStW/qFmC71eZQgvISMdc9p+hJyMwHcdH6X0m+NRMgDTdr
- KMkIA+acMrUcQ+vtCL1YkKc5czbyw==
+ id ; Mon, 19 Jul 2021 17:30:26 +0800 (CST)
+X-QQ-SSF: 00400000007000105000C00C0000000
+X-QQ-FEAT: Br92wPWbhacdlZ57UjnQCb5rJo+349/ofbw6BbfDsiN9kJ1ca2bOfnKndGyp1
+ D/S68KV6KdH5oFbEAgv9PDeDZmFg4/1CqjvX/4UXK8E+tifAW8S2R+8sAvMvf6V+Lt9eZlE
+ iQAd3qjqNTNvFrOIS9LMSKo+MvmnB04kVBsGqbd2N+rs6jiSl8+30Who6YM3dd1PjJup8K7
+ jzMCcblXw6Ub3mmnBXWo8t94TulWl3Doz/nuDM5cE3C2Oq6P8N6sSkSpF/jRozzoefcO/Ge
+ krLhWUFlnSFU+eq3rlSJ0CrBfY42ZwSk8tpZUt8CcTu0+vnOv9lXOlgH/nRmz3tAp93LfWb
+ frUnSXEa4eoO8LI43xws4XReiEJ+OM/2aI0/AOU
 X-QQ-GoodBg: 2
 To: Joakim Zhang <qiangqing.zhang@nxp.com>,
  "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>
 References: <20210719074410.6787-1-chenhaoa@uniontech.com>
  <VI1PR04MB68007DC1F11B5A0991BE02E7E6E19@VI1PR04MB6800.eurprd04.prod.outlook.com>
 From: Hao Chen <chenhaoa@uniontech.com>
-Message-ID: <5149dec4-463a-f6cd-a016-0d4fe94bede4@uniontech.com>+189151562B94BD66
-Date: Mon, 19 Jul 2021 17:23:19 +0800
+Message-ID: <e2ec8dfe-8795-8581-ffc6-aee54641bbce@uniontech.com>+A62B52A4D92F306F
+Date: Mon, 19 Jul 2021 17:29:48 +0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
 In-Reply-To: <VI1PR04MB68007DC1F11B5A0991BE02E7E6E19@VI1PR04MB6800.eurprd04.prod.outlook.com>
 Content-Language: en-US
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
 X-QQ-Bgrelay: 1
 X-Mailman-Approved-At: Mon, 02 Aug 2021 09:44:19 +0000
 Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
@@ -105,8 +105,8 @@ dHVybiAwOwo+PiAgIH0KPiBBZnRlciB0aGlzIGNvZGUgY2hhbmdlLCBjbG9ja3MgYWx3YXlzIGVu
 YWJsZWQgZXZlbiB0aGUgTklDIGlzIG5vdCB1cCwgaXQncyBub3QgZ29vZC4KPiBTaG91bGQgaW1w
 bGVtZW50IC5jb21wbGV0ZSgpIHRvIGRpc2FibGUgY2xvY2tzIGFmdGVyIHRoZSBpbmZvIHlvdSBn
 b3Q/Cj4KPiBCZXN0IFJlZ2FyZHMsCj4gSm9ha2ltIFpoYW5nCj4+IC0tCj4+IDIuMjAuMQo+Pgo+
-Pgo+ID5PSywgSSB3aWxsIGltcGxlbWVudCAuY29tcGxldGUoKSBpbiBuZXh0IHZlcnNpb24gcGF0
-Y2guVGhhbmtzLgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
-L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Pgo+IE9LLCBJIHdpbGwgaW1wbGVtZW50IC5jb21wbGV0ZSgpIGluIG5leHQgdmVyc2lvbiBwYXRj
+aC5UaGFua3MuCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
+bGlzdGluZm8vbGludXgtc3RtMzIK
