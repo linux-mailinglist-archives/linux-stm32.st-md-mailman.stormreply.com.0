@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10DDB3CE287
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jul 2021 18:14:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B786A3CE39E
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jul 2021 18:28:11 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A61C6C597AB;
-	Mon, 19 Jul 2021 16:14:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CFA5C57B6B;
+	Mon, 19 Jul 2021 16:28:11 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D035C58D7F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA631C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jul 2021 16:14:51 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 013B36113C;
- Mon, 19 Jul 2021 16:14:48 +0000 (UTC)
+ Mon, 19 Jul 2021 16:28:09 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4E3D1613F7;
+ Mon, 19 Jul 2021 16:28:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1626711289;
- bh=xH72XGf4gwCjdR1DxaLNWh2qSNKwdXjrVbEHoQeWhuU=;
+ s=korg; t=1626712087;
+ bh=5wk83Sjp3WuftAL9eBfzYogS71sDOFsek0kSjaa2dFo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hac8/QiIfMYYTvKizVzvP/1unRrmLt4r3jpfsadfsN7X17kisLbd3cI/PHmTtTXLm
- cZLhIxSMhHu4YBjDwSbqJAqcvhhNNKdt+LfxU3R8mzVHW+NOp5U+JpXYLO0i7E8eTb
- kxUpKSOvf0qII4aFlqoLC1CS6zP8mWJicDwX8mwQ=
+ b=XHb+y0J2EUbWtrmHYCyxCt3jlWKdOjCMcPU4JBr/9aVupuAd1eLMgqZ8uwlXWaxbA
+ /HZyCYF+HNLiz8u+ZopGBGOQictRF0oPM/cRARAHrgfKrW/UvWCVqzFsEjvehGUcfk
+ fvM81DpR79034XfaU5kpmluosjbsQ5UQtGuWLjrI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Date: Mon, 19 Jul 2021 16:54:04 +0200
-Message-Id: <20210719144954.906011067@linuxfoundation.org>
+Date: Mon, 19 Jul 2021 16:55:07 +0200
+Message-Id: <20210719144951.009019565@linuxfoundation.org>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210719144944.537151528@linuxfoundation.org>
-References: <20210719144944.537151528@linuxfoundation.org>
+In-Reply-To: <20210719144942.514164272@linuxfoundation.org>
+References: <20210719144942.514164272@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
@@ -39,7 +39,7 @@ Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  Patrick Delaunay <patrick.delaunay@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 5.13 298/351] ARM: dts: stm32: Rework
+Subject: [Linux-stm32] [PATCH 5.12 245/292] ARM: dts: stm32: Rework
 	LAN8710Ai PHY reset on DHCOM SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -106,10 +106,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-index 272a1a67a9ad..31d08423a32f 100644
+index 2617815e42a6..30e4d990c5a3 100644
 --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-@@ -123,7 +123,6 @@
+@@ -119,7 +119,6 @@
  	max-speed = <100>;
  	phy-handle = <&phy0>;
  	st,eth-ref-clk-sel;
@@ -117,7 +117,7 @@ index 272a1a67a9ad..31d08423a32f 100644
  
  	mdio0 {
  		#address-cells = <1>;
-@@ -132,6 +131,13 @@
+@@ -128,6 +127,13 @@
  
  		phy0: ethernet-phy@1 {
  			reg = <1>;
