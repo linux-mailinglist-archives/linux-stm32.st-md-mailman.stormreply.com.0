@@ -2,71 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8A3F3CD5D7
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jul 2021 15:40:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 027883CD635
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jul 2021 15:57:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FC75C57189;
-	Mon, 19 Jul 2021 13:40:49 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DCC1C57B6B;
+	Mon, 19 Jul 2021 13:57:51 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B2BAC57B6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64270C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jul 2021 13:40:48 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 16JDbF3U028393; Mon, 19 Jul 2021 15:40:41 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : from : to
- : cc : references : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=OPnz7GgLa8oBsVio/uq8oZKdX3WKnEdHcpPLC45ORr8=;
- b=HPl9cSj3lPAOMW5xhJapuhSPgSSZI1ke9xYFQDeEyz7o7kv6CX28N+OD9Fb68S7YlrBY
- RVkMPwlhGNJQYylUg+bwQOgdqOlVP/KiNGPzOW3jjQxz2eDOx6lvDNZI01HdUR1/KuIN
- 2VLboleqDLg+/G99BvE8uC9brDf01o72QBXyYT3wrKqyzpOZ8y/1ZmG+TljyOUZJXNpb
- NbLbDatueUEKVAoPxyBlKu4NMhAdmJx0jfgzeEoZ+7g1hnGDHCS3d4WZR6NgQUTQooRK
- ZHPAFmeUo6mV5t9GG7R3vQ3SGAWdxmjnciupKxlxYQEt/0XTQwwSDR9ODrZO8669Pubz ig== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 39w40eaag8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 19 Jul 2021 15:40:41 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6222810002A;
- Mon, 19 Jul 2021 15:40:40 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 360A42291C7;
- Mon, 19 Jul 2021 15:40:40 +0200 (CEST)
-Received: from lmecxl0993.lme.st.com (10.75.127.46) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 19 Jul
- 2021 15:40:39 +0200
-From: Philippe CORNU <philippe.cornu@foss.st.com>
-To: Antonio Borneo <antonio.borneo@foss.st.com>, Yannick Fertre
- <yannick.fertre@foss.st.com>, Benjamin Gaignard
- <benjamin.gaignard@linaro.org>, David Airlie <airlied@linux.ie>, Daniel
- Vetter <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Raphael Gallais-Pou
- <raphael.gallais-pou@foss.st.com>, <dri-devel@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>
-References: <20210713144941.3599-1-antonio.borneo@foss.st.com>
- <fab62613-59a4-5d0b-4ff8-3900ef70a49d@foss.st.com>
-Message-ID: <780cf379-3b7a-3e75-0803-0ebd30e649ea@foss.st.com>
-Date: Mon, 19 Jul 2021 15:40:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Mon, 19 Jul 2021 13:57:48 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ f8-20020a1c1f080000b029022d4c6cfc37so11610826wmf.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Jul 2021 06:57:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:cc:references:from:subject:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=fHSWNGrkSNMuhKj8Y5R+6EmJuzKK0O4I+/H5FE1TxZI=;
+ b=ehvH3h10VqLMU2d3VGggNensqAWDt36VXVH5tFmiAP2rYqogx9g5rn3sBXySowE2jz
+ YqBF7ymr2swE3J9gm4/udp6mzcJPc8St+1m+29O1usWEyWqjHID7BUTkd/rgk4PNY4KW
+ LfHsXs31hQ5SGUQ1N1qWm5vzPAAi1Y7OQsif0DqlgUhjc9jKZ/10ugFAHQDUfXFB5j9Y
+ Z0HAbJkxeXBdbVSfVPtpYIniNE5fkq7kKi4Nq2X6cr+/nXFDiVmDUuD+IZ4XbwJCMLxa
+ 2VKmMeg5JioLqJxXkB9bv/6W1SEc5rFgQ6gkXfqRo0z0gRqisFCqQ6CpGOlEeWM6z36S
+ ghxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:cc:references:from:subject:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=fHSWNGrkSNMuhKj8Y5R+6EmJuzKK0O4I+/H5FE1TxZI=;
+ b=BeN1N/ZzyzSHomCi1CuMnNoLNWj+XCAnZJULcMRGopST85oESvHT3hXBXNJVWPQ6L/
+ 6wa/FY+0jQ6Kvmzg9B7jXdwtjN/U/GHgAs0gLjpGdCMcU3Rgeafjs+5q9+luyRoOKQBt
+ 9Um/irX/Lv/fr9oAHtrxN/00UC6SmTbTgWLw1qhqCcSLrvUAatxxrHgfUrwOHVt1TqXy
+ N6gH3ZhajJx9OCipeAzpmJO2zGIV1Yxi9Kd3MEhXeIckYAo/f9JhvyqEwt3jWYZGp6ih
+ k2zJqfZoJ3KaeO4QEHxzD2EJjzCwQNhDdfom0jhtL824/gmBdlHsAfGbadLnGX9YxVAP
+ AsEw==
+X-Gm-Message-State: AOAM533wsMW+vATqQds6l1FmqZECjKiof62ySzYpaHwS5al6mDdA2V4Z
+ DKAb/yfLoffnaTKLV81LETk=
+X-Google-Smtp-Source: ABdhPJxpZVyKzzV95B4qNAECc1RYoS1nhyoGQQlnOYEssfAtJiFFn2/iqqNnkBxzcHukNwvcPwR5EQ==
+X-Received: by 2002:a05:600c:1c08:: with SMTP id
+ j8mr26635864wms.50.1626703068197; 
+ Mon, 19 Jul 2021 06:57:48 -0700 (PDT)
+Received: from ?IPv6:2003:ea:8f3f:3d00:980:d4f8:8883:9389?
+ (p200300ea8f3f3d000980d4f888839389.dip0.t-ipconnect.de.
+ [2003:ea:8f3f:3d00:980:d4f8:8883:9389])
+ by smtp.googlemail.com with ESMTPSA id e6sm23756165wrg.18.2021.07.19.06.57.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Jul 2021 06:57:47 -0700 (PDT)
+To: Hao Chen <chenhaoa@uniontech.com>
+References: <20210719130845.2102-1-chenhaoa@uniontech.com>
+From: Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <b0c93757-dd32-9d85-6f9e-12956d766661@gmail.com>
+Date: Mon, 19 Jul 2021 15:57:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <fab62613-59a4-5d0b-4ff8-3900ef70a49d@foss.st.com>
+In-Reply-To: <20210719130845.2102-1-chenhaoa@uniontech.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-07-19_05:2021-07-19,
- 2021-07-19 signatures=0
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: dsi: compute the transition time
- from LP to HS and back
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux@armlinux.org.uk, alexandre.torgue@foss.st.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, kuba@kernel.org,
+ davem@davemloft.net, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v5] net: stmmac: fix 'ethtool -P' return
+	-EBUSY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,63 +79,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiA3LzEzLzIxIDY6NDcgUE0sIFBoaWxpcHBlIENPUk5VIHdyb3RlOgo+IEhpIEFudG9uaW8s
-Cj4gCj4gT24gNy8xMy8yMSA0OjQ5IFBNLCBBbnRvbmlvIEJvcm5lbyB3cm90ZToKPj4gVGhlIGRy
-aXZlciB1c2VzIGEgY29uc2VydmF0aXZlIHNldCBvZiBoYXJkY29kZWQgdmFsdWVzIGZvciB0aGUK
-Pj4gbWF4aW11bSB0aW1lIGRlbGF5IG9mIHRoZSB0cmFuc2l0aW9ucyBiZXR3ZWVuIExQIGFuZCBI
-UywgZWl0aGVyCj4+IGZvciBkYXRhIGFuZCBjbG9jayBsYW5lcy4KPj4KPj4gQnkgdXNpbmcgdGhl
-IGluZm8gaW4gU1RNMzJNUDE1NyBkYXRhc2hlZXQsIHZhbGlkIGFsc28gZm9yIG90aGVyIFNUCj4+
-IGRldmljZXMsIGNvbXB1dGUgdGhlIGFjdHVhbCBkZWxheSBmcm9tIHRoZSBsYW5lJ3MgYnBzLgo+
-Pgo+PiBTaWduZWQtb2ZmLWJ5OiBBbnRvbmlvIEJvcm5lbyA8YW50b25pby5ib3JuZW9AZm9zcy5z
-dC5jb20+Cj4+IC0tLQo+PiBUbzogWWFubmljayBGZXJ0cmUgPHlhbm5pY2suZmVydHJlQGZvc3Mu
-c3QuY29tPgo+PiBUbzogUGhpbGlwcGUgQ29ybnUgPHBoaWxpcHBlLmNvcm51QGZvc3Muc3QuY29t
-Pgo+PiBUbzogQmVuamFtaW4gR2FpZ25hcmQgPGJlbmphbWluLmdhaWduYXJkQGxpbmFyby5vcmc+
-Cj4+IFRvOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGludXguaWU+Cj4+IFRvOiBEYW5pZWwgVmV0
-dGVyIDxkYW5pZWxAZmZ3bGwuY2g+Cj4+IFRvOiBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5z
-dG0zMkBnbWFpbC5jb20+Cj4+IFRvOiBBbGV4YW5kcmUgVG9yZ3VlIDxhbGV4YW5kcmUudG9yZ3Vl
-QGZvc3Muc3QuY29tPgo+PiBUbzogUmFwaGFlbCBHYWxsYWlzLVBvdSA8cmFwaGFlbC5nYWxsYWlz
-LXBvdUBmb3NzLnN0LmNvbT4KPj4gVG86IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-Pj4gVG86IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KPj4gVG86IGxp
-bnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZwo+PiBDYzogbGludXgta2VybmVsQHZn
-ZXIua2VybmVsLm9yZwo+Pgo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vc3RtL2R3X21pcGlfZHNpLXN0
-bS5jIHwgMTcgKysrKysrKysrKysrKy0tLS0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDEzIGluc2Vy
-dGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vc3RtL2R3X21pcGlfZHNpLXN0bS5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlw
-aV9kc2ktc3RtLmMKPj4gaW5kZXggODM5OWQzMzc1ODlkLi4zMmNiNDFiMjIwMmYgMTAwNjQ0Cj4+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMKPj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL3N0bS9kd19taXBpX2RzaS1zdG0uYwo+PiBAQCAtMzA5LDE0ICszMDksMjMg
-QEAgZHdfbWlwaV9kc2lfZ2V0X2xhbmVfbWJwcyh2b2lkICpwcml2X2RhdGEsIGNvbnN0IAo+PiBz
-dHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqbW9kZSwKPj4gwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4g
-wqAgfQo+PiArI2RlZmluZSBEU0lfUEhZX0RFTEFZKGZwLCB2cCwgbWJwcykgRElWX1JPVU5EX1VQ
-KChmcCkgKiAobWJwcykgKyAxMDAwIAo+PiAqICh2cCksIDgwMDApCj4+ICsKPj4gwqAgc3RhdGlj
-IGludAo+PiDCoCBkd19taXBpX2RzaV9waHlfZ2V0X3RpbWluZyh2b2lkICpwcml2X2RhdGEsIHVu
-c2lnbmVkIGludCBsYW5lX21icHMsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHN0cnVjdCBkd19taXBpX2RzaV9kcGh5X3RpbWluZyAqdGltaW5nKQo+PiDCoCB7Cj4+IC3CoMKg
-wqAgdGltaW5nLT5jbGtfaHMybHAgPSAweDQwOwo+PiAtwqDCoMKgIHRpbWluZy0+Y2xrX2xwMmhz
-ID0gMHg0MDsKPj4gLcKgwqDCoCB0aW1pbmctPmRhdGFfaHMybHAgPSAweDQwOwo+PiAtwqDCoMKg
-IHRpbWluZy0+ZGF0YV9scDJocyA9IDB4NDA7Cj4+ICvCoMKgwqAgLyoKPj4gK8KgwqDCoMKgICog
-RnJvbSBTVE0zMk1QMTU3IGRhdGFzaGVldCwgdmFsaWQgZm9yIFNUTTMyRjQ2OSwgU1RNMzJGN3g5
-LCAKPj4gU1RNMzJINzQ3Cj4+ICvCoMKgwqDCoCAqIHBoeV9jbGtoczJscF90aW1lID0gKDI3Misx
-MzYqVUkpLyg4KlVJKQo+PiArwqDCoMKgwqAgKiBwaHlfY2xrbHAyaHNfdGltZSA9ICg1MTIrNDAq
-VUkpLyg4KlVJKQo+PiArwqDCoMKgwqAgKiBwaHlfaHMybHBfdGltZSA9ICgxOTIrNjQqVUkpLyg4
-KlVJKQo+PiArwqDCoMKgwqAgKiBwaHlfbHAyaHNfdGltZSA9ICgyNTYrMzIqVUkpLyg4KlVJKQo+
-PiArwqDCoMKgwqAgKi8KPj4gK8KgwqDCoCB0aW1pbmctPmNsa19oczJscCA9IERTSV9QSFlfREVM
-QVkoMjcyLCAxMzYsIGxhbmVfbWJwcyk7Cj4+ICvCoMKgwqAgdGltaW5nLT5jbGtfbHAyaHMgPSBE
-U0lfUEhZX0RFTEFZKDUxMiwgNDAsIGxhbmVfbWJwcyk7Cj4+ICvCoMKgwqAgdGltaW5nLT5kYXRh
-X2hzMmxwID0gRFNJX1BIWV9ERUxBWSgxOTIsIDY0LCBsYW5lX21icHMpOwo+PiArwqDCoMKgIHRp
-bWluZy0+ZGF0YV9scDJocyA9IERTSV9QSFlfREVMQVkoMjU2LCAzMiwgbGFuZV9tYnBzKTsKPiAK
-PiBNYW55IHRoYW5rcyBmb3IgeW91ciBwYXRjaC4KPiAKPiBSZXZpZXdlZC1ieTogUGhpbGlwcGUg
-Q29ybnUgPHBoaWxpcHBlLmNvcm51QGZvc3Muc3QuY29tPgo+IEFja2VkLWJ5OiBQaGlsaXBwZSBD
-b3JudSA8cGhpbGlwcGUuY29ybnVAZm9zcy5zdC5jb20+Cj4gCj4gSSB3aWxsIGFwcGx5IGl0IG9u
-IGRybS1taXNjLW5leHQgZWFybHkgbmV4dCB3ZWVrLAo+IAo+IFBoaWxpcHBlIDotKQo+IAo+PiDC
-oMKgwqDCoMKgIHJldHVybiAwOwo+PiDCoCB9Cj4+Cj4+IGJhc2UtY29tbWl0OiAzNWQyODM2NThh
-NjE5NmIyMDU3YmU1NjIwOTY2MTBjNjc5M2UxMjE5Cj4+CgpBcHBsaWVkIG9uIGRybS1taXNjLW5l
-eHQuCk1hbnkgdGhhbmtzIGZvciB5b3VyIHBhdGNoLApQaGlsaXBwZSA6LSkKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 19.07.2021 15:08, Hao Chen wrote:
+> The permanent mac address should be available for query when the device
+> is not up.
+> NetworkManager, the system network daemon, uses 'ethtool -P' to obtain
+> the permanent address after the kernel start. When the network device
+> is not up, it will return the device busy error with 'ethtool -P'. At
+> that time, it is unable to access the Internet through the permanent
+> address by NetworkManager.
+
+At first a few formal aspects:
+- You don't get a lot of new friends when posting a new version every
+  few hours. Consolidate feedback and then post a new version,
+  typically not more than one version per day. Mileage of maintainers
+  may vary here.
+- When posting a new version include a change log.
+- Properly annotate the patch as net vs. net-next.
+- If you declare something to be a fix, add a Fixes tag.
+
+> I think that the '.begin' is not used to check if the device is up, it's
+> just a pre hook for ethtool. We shouldn't check if the device is up
+> there.
+> 
+
+Supposedly the check is there for a reason. Your statement leaves the
+impression that you're not aware of why the check exists.
+Therefore: First understand this, and then explain why it's safe to
+remove the check. This drivers uses runtime pm, so device
+might be in PCI D3 if interface is down (don't know this driver in
+detail). Therefore registers may not be accessible what may impact
+certain ethtool ops.
+
+> Signed-off-by: Hao Chen <chenhaoa@uniontech.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 8 --------
+>  1 file changed, 8 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> index d0ce608b81c3..8901dc9f758e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> @@ -410,13 +410,6 @@ static void stmmac_ethtool_setmsglevel(struct net_device *dev, u32 level)
+>  
+>  }
+>  
+> -static int stmmac_check_if_running(struct net_device *dev)
+> -{
+> -	if (!netif_running(dev))
+> -		return -EBUSY;
+> -	return 0;
+> -}
+> -
+>  static int stmmac_ethtool_get_regs_len(struct net_device *dev)
+>  {
+>  	struct stmmac_priv *priv = netdev_priv(dev);
+> @@ -1073,7 +1066,6 @@ static int stmmac_set_tunable(struct net_device *dev,
+>  static const struct ethtool_ops stmmac_ethtool_ops = {
+>  	.supported_coalesce_params = ETHTOOL_COALESCE_USECS |
+>  				     ETHTOOL_COALESCE_MAX_FRAMES,
+> -	.begin = stmmac_check_if_running,
+>  	.get_drvinfo = stmmac_ethtool_getdrvinfo,
+>  	.get_msglevel = stmmac_ethtool_getmsglevel,
+>  	.set_msglevel = stmmac_ethtool_setmsglevel,
+> 
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
