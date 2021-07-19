@@ -2,20 +2,20 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 887093DD32B
+	by mail.lfdr.de (Postfix) with ESMTPS id A7AE43DD32C
 	for <lists+linux-stm32@lfdr.de>; Mon,  2 Aug 2021 11:44:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7B8FC5A4CF;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D65C4C5A4D2;
 	Mon,  2 Aug 2021 09:44:22 +0000 (UTC)
-Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.130])
+Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.131])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2E4BCFAC5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0214CFAC5A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jul 2021 08:40:56 +0000 (UTC)
-Received: from localhost (unknown [192.168.167.224])
- by lucky1.263xmail.com (Postfix) with ESMTP id D2BB2D5926;
- Mon, 19 Jul 2021 16:40:53 +0800 (CST)
+ Mon, 19 Jul 2021 08:53:49 +0000 (UTC)
+Received: from localhost (unknown [192.168.167.235])
+ by lucky1.263xmail.com (Postfix) with ESMTP id BE585C2116;
+ Mon, 19 Jul 2021 16:53:46 +0800 (CST)
 X-MAIL-GRAY: 0
 X-MAIL-DELIVERY: 1
 X-ADDR-CHECKED4: 1
@@ -23,10 +23,10 @@ X-SKE-CHECKED: 1
 X-ANTISPAM-LEVEL: 2
 Received: from localhost.localdomain (unknown [113.57.152.160])
  by smtp.263.net (postfix) whith ESMTP id
- P4529T140205463938816S1626684052757344_; 
- Mon, 19 Jul 2021 16:40:53 +0800 (CST)
+ P4547T140388981532416S1626684826149785_; 
+ Mon, 19 Jul 2021 16:53:46 +0800 (CST)
 X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <8446a6821242da1262802ade580ea9f9>
+X-UNIQUE-TAG: <cd2d5452c41b1d359dbae504a2dc1045>
 X-RL-SENDER: chenhaoa@uniontech.com
 X-SENDER: chenhaoa@uniontech.com
 X-LOGIN-NAME: chenhaoa@uniontech.com
@@ -37,8 +37,8 @@ X-ATTACHMENT-NUM: 0
 X-System-Flag: 0
 From: Hao Chen <chenhaoa@uniontech.com>
 To: peppe.cavallaro@st.com
-Date: Mon, 19 Jul 2021 16:40:51 +0800
-Message-Id: <20210719084051.102578-1-chenhaoa@uniontech.com>
+Date: Mon, 19 Jul 2021 16:53:06 +0800
+Message-Id: <20210719085306.30820-1-chenhaoa@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 02 Aug 2021 09:44:19 +0000
