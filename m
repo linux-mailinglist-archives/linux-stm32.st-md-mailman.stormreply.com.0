@@ -2,45 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EC633D287F
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jul 2021 18:38:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 844F03D2885
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jul 2021 18:45:26 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53062C5A4CF;
-	Thu, 22 Jul 2021 16:38:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48E65C5A4CE;
+	Thu, 22 Jul 2021 16:45:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1A0EC5A4CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 082D6C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jul 2021 16:38:41 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1198E6135F;
- Thu, 22 Jul 2021 16:38:39 +0000 (UTC)
+ Thu, 22 Jul 2021 16:45:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0DFD861C1C;
+ Thu, 22 Jul 2021 16:45:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1626971919;
- bh=r/Wqku1yiSU7HMaKZi7FiNF/b41U2VMNuPH/W1/npPw=;
+ s=korg; t=1626972323;
+ bh=RrB883tsRtXkWPyyZAEB+tXrMgeyKsyY0LbFGjanPSQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JUhDhzPR62jQ+uTtALCa7Aq1xcbIuCUSSdrPIMerbJlpJCFmjDqBIKltyRVlJIg5f
- wvM6CL4biV3+vhReGxRPqVT9045q0015vORTe5KN8S6vncMZFKr2bD++1WbSLUojs3
- zUe4DvXMZU1bghOIj35cyc7rr8yblope0s+Zl6jI=
+ b=ohUb6YEweYY38Vk4rk2I1Ls7KKWv7b9SBG94cHPmbzQSya878H0AU78Zv5ENCTt/n
+ zXsRe46cj7NYqcLeUoYJ5oxj+acTi55ptL32BSz/RvbD/Dtbj3bG1xbHNMAorpMPaX
+ epHX1ER6dReeQE8WacNvLKXMxTdo40l+YUGZ6iig=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Date: Thu, 22 Jul 2021 18:30:32 +0200
-Message-Id: <20210722155626.056970382@linuxfoundation.org>
+Date: Thu, 22 Jul 2021 18:30:44 +0200
+Message-Id: <20210722155630.625145277@linuxfoundation.org>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210722155624.672583740@linuxfoundation.org>
-References: <20210722155624.672583740@linuxfoundation.org>
+In-Reply-To: <20210722155628.371356843@linuxfoundation.org>
+References: <20210722155628.371356843@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
- Alexandre Torgue <alexandre.torgue@st.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Patrice Chotard <patrice.chotard@st.com>,
- Patrick Delaunay <patrick.delaunay@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 5.10 041/125] ARM: dts: stm32: Fix touchscreen
-	node on dhcom-pdk2
+ linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>
+Subject: [Linux-stm32] [PATCH 5.13 069/156] ARM: dts: stm32: Drop unused
+	linux, wakeup from touchscreen node on DHCOM SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,38 +57,36 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Marek Vasut <marex@denx.de>
 
-[ Upstream commit 4b5fadef3fc2ab8863ffdf31eed6a745b1bf6e61 ]
+[ Upstream commit 5247a50c8b53ca214a488da648e1bb35c35c2597 ]
 
-Fix make dtbs_check warning:
-arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml:0:0: /soc/i2c@40015000/polytouch@38: failed to match any schema with compatible: ['edt,edt-ft5x06']
+Fix the following dtbs_check warning:
+touchscreen@38: 'linux,wakeup' does not match any of the regexes: 'pinctrl-[0-9]+'
 
 Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Patrice Chotard <patrice.chotard@st.com>
-Cc: Patrick Delaunay <patrick.delaunay@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
+Cc: kernel@dh-electronics.com
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-index 180a0187a956..a2d903c0d57f 100644
+index b8c8f0b284c3..c5ea08fec535 100644
 --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-@@ -182,8 +182,8 @@
- 
- 	};
- 
--	polytouch@38 {
--		compatible = "edt,edt-ft5x06";
-+	touchscreen@38 {
-+		compatible = "edt,edt-ft5406";
+@@ -187,7 +187,6 @@
  		reg = <0x38>;
  		interrupt-parent = <&gpiog>;
  		interrupts = <2 IRQ_TYPE_EDGE_FALLING>; /* GPIO E */
+-		linux,wakeup;
+ 	};
+ };
+ 
 -- 
 2.30.2
 
