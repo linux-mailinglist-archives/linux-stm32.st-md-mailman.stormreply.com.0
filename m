@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 602663D2883
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jul 2021 18:44:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 773EE3D287E
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jul 2021 18:38:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 112C0C5A4D2;
-	Thu, 22 Jul 2021 16:44:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E09EC5A4CF;
+	Thu, 22 Jul 2021 16:38:18 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17B53C5A4CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 551AFC5A4CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jul 2021 16:44:31 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5975961363;
- Thu, 22 Jul 2021 16:44:29 +0000 (UTC)
+ Thu, 22 Jul 2021 16:38:16 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 254BE61370;
+ Thu, 22 Jul 2021 16:38:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1626972269;
- bh=se/Fcewivkq0mxygLjsZdp0UilqaX+2jLDTcd0Fp+a0=;
+ s=korg; t=1626971894;
+ bh=CL5KckW+kN8oGBCeBdyBLw8PzDaItvwdA3yenFxbSGs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=D1U4gFZ9gHNNjG3EmBbEIm/cJj8b0ShtTpQbEpOuINShyBiCIWZwMtV8+6miGgV6g
- i8rqUimKWuHAdHdQDHOB5NHOaXh2pEvJXG6mrJb2N2imCOjO+5j6FnAK/r72chMM+5
- NM0lKvtbNfDLgs7K8YxJ7undkwsDyfSeOY1bkQYY=
+ b=0i6G5VylHYOr6z5s6D7EG+FpJ7VqH6ljnXjT8QowJpgA0izjJ9TfOMqPZ4hWSO7+3
+ QHP32qd7QG3DiWYCQDrZcbmS19O+pWC0x3yeREQbSujw0fEhPD/o86MQ4E2KT+AZ/f
+ iJZaRUFuQXn4+pal2+filJX7PKaGlAA/NTvafr4c=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Date: Thu, 22 Jul 2021 18:30:26 +0200
-Message-Id: <20210722155630.059470361@linuxfoundation.org>
+Date: Thu, 22 Jul 2021 18:30:31 +0200
+Message-Id: <20210722155626.027071752@linuxfoundation.org>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210722155628.371356843@linuxfoundation.org>
-References: <20210722155628.371356843@linuxfoundation.org>
+In-Reply-To: <20210722155624.672583740@linuxfoundation.org>
+References: <20210722155624.672583740@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
@@ -39,8 +39,8 @@ Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  Patrick Delaunay <patrick.delaunay@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 5.13 051/156] ARM: dts: stm32: Fix touchscreen
-	node on dhcom-pdk2
+Subject: [Linux-stm32] [PATCH 5.10 040/125] ARM: dts: stm32: Remove extra
+	size-cells on dhcom-pdk2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,10 +59,11 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Marek Vasut <marex@denx.de>
 
-[ Upstream commit 4b5fadef3fc2ab8863ffdf31eed6a745b1bf6e61 ]
+[ Upstream commit 28b9a4679d8074512f12967497c161b992eb3b75 ]
 
 Fix make dtbs_check warning:
-arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml:0:0: /soc/i2c@40015000/polytouch@38: failed to match any schema with compatible: ['edt,edt-ft5x06']
+arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: gpio-keys-polled: '#address-cells' is a dependency of '#size-cells'
+arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: gpio-keys: '#address-cells' is a dependency of '#size-cells'
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@st.com>
@@ -70,27 +71,34 @@ Cc: Patrice Chotard <patrice.chotard@st.com>
 Cc: Patrick Delaunay <patrick.delaunay@st.com>
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
+
+Signed-off-by: Marek Vasut <marex@denx.de>
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-index 0fbf9913e8df..b8c8f0b284c3 100644
+index 8456f172d4b1..180a0187a956 100644
 --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-@@ -182,8 +182,8 @@
+@@ -34,7 +34,6 @@
  
- 	};
+ 	gpio-keys-polled {
+ 		compatible = "gpio-keys-polled";
+-		#size-cells = <0>;
+ 		poll-interval = <20>;
  
--	polytouch@38 {
--		compatible = "edt,edt-ft5x06";
-+	touchscreen@38 {
-+		compatible = "edt,edt-ft5406";
- 		reg = <0x38>;
- 		interrupt-parent = <&gpiog>;
- 		interrupts = <2 IRQ_TYPE_EDGE_FALLING>; /* GPIO E */
+ 		/*
+@@ -60,7 +59,6 @@
+ 
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
+-		#size-cells = <0>;
+ 
+ 		button-1 {
+ 			label = "TA2-GPIO-B";
 -- 
 2.30.2
 
