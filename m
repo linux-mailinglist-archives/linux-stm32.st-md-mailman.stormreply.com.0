@@ -2,68 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD8E13D3B64
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jul 2021 15:46:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32C253D3BA4
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jul 2021 16:10:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43AFAC5719C;
-	Fri, 23 Jul 2021 13:46:35 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAAA6C5719C;
+	Fri, 23 Jul 2021 14:10:36 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74B51C57182
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 485C7C57182
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jul 2021 13:46:31 +0000 (UTC)
-Received: from mail-wm1-f49.google.com ([209.85.128.49]) by
- mrelayeu.kundenserver.de (mreue107 [213.165.67.113]) with ESMTPSA (Nemesis)
- id 1Ma1HG-1ldDQg2hr2-00VwmI for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jul 2021 15:46:30 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- o3-20020a05600c5103b029024c0f9e1a5fso3293343wms.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jul 2021 06:46:30 -0700 (PDT)
-X-Gm-Message-State: AOAM532NP5aI2IeUj99bRVNSPhHckF0uubBB7W+cKGdxQE/2fa0tLthq
- hfN3dHPO6TDAokbr0ANcmnfQRKejGDWQsLJgVTw=
-X-Google-Smtp-Source: ABdhPJyfbJ/TTAuOw7j89Wul0Xg+2CYe0Hm+3Y35Empz4DlbpbFzr1NRRDGERsVfUMwmu0uZ4yYDMTYgM127TEzwEVk=
-X-Received: by 2002:a7b:c2fa:: with SMTP id e26mr14345036wmk.84.1627047990248; 
- Fri, 23 Jul 2021 06:46:30 -0700 (PDT)
-MIME-Version: 1.0
+ Fri, 23 Jul 2021 14:10:35 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[IPv6:::1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <a.fatoum@pengutronix.de>)
+ id 1m6vso-0008EK-EL; Fri, 23 Jul 2021 16:10:34 +0200
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, arnd@arndb.de,
+ Olof Johansson <olof@lixom.net>, robh+dt@kernel.org,
+ Russell King <linux@armlinux.org.uk>, Jonathan Corbet <corbet@lwn.net>
 References: <20210723132810.25728-1-alexandre.torgue@foss.st.com>
-In-Reply-To: <20210723132810.25728-1-alexandre.torgue@foss.st.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 23 Jul 2021 15:46:14 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a1ax29ThCG867phtx1Xb12GgiJFcLDd8H9VLbsJQ1uoAw@mail.gmail.com>
-Message-ID: <CAK8P3a1ax29ThCG867phtx1Xb12GgiJFcLDd8H9VLbsJQ1uoAw@mail.gmail.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Provags-ID: V03:K1:PR9RCQ/bbMFoU1SPxaHigIQQCoqbNS7tZsSoMnIUbljqUQ1Eg1F
- sCfHlDMzYxVMi0zz+w5BlpCKGCOP/do98zxoJTUYrZTCKs6/ubcRUZJWG8S1ZLy897GlUEE
- wqXrHK/EvAEmOJ4DiwGHTtdRszJpXlOvNOH/riv8gqoOgEPloQLArLrcd7pLQ8KC/I5RrV6
- DK2a+0jiKAbloeZm9yWpA==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:+CBkEcvW878=:aE31TKpZG1TEfCwp/SvXd4
- AJyX0nC6JCAlRMTkHQTtSXYDpKWzis7CaZs4+ZRU0oFKD182XGrqkZr/TWAlQJc7PAnKg/BLC
- lbolqf4PoT+QenMoy2y+H+mbbFvHbAHZZHXLpSbomsxWuGu/Xtmsz1q6ViUX4SlPk6qJ9RMZk
- OQnYQmyi/o2U96ABpfFxTrE4o0jrdixe3uGd3Hl1Fm3DG39WlF8/cMmg2Zxz+RWo+AwQKBc0K
- zywfg2KDhdPZXR0qmbLL719tgnuqBdI2fsgz1+ovCDlkBnZsr1i4NneHpVt1xPODMHVv8+dQ6
- xMm14oM3tr/+UPL/uBv8g0yXHso6eN83JKc3UiKOh5VdKnCBXxBjEaMx3LSJ13QuTkebC04pJ
- RB5/szMZLNIvqBF12Rea1WxlQgkq4xpxBcTyZHD6V2otwEoOeFT4s/7uabuqnzweg7ygQunmZ
- UL0h+eHtZzVeFC+Nyz2milnI6Olt3hFb0B1kCdWlB18ySesejacAxQHoeOx/pEVdtBSmQez9b
- IzHJLpiH1keJ3V1zpBcq5tOWle8jM++hUFhXYLEtdXG+ifL3FlDrAGm8kpTPRSrSnu3kHCgdM
- 0GJ8+vccVOnwAz/gXrXtPWNKDTicAoRJQqKYhzc8DJ9QQoNbQ+o3XldYD3hyU/zCflCz35TOU
- wXUSoU7kDfbNekbVCwqCZBqfkZUKuoV9YaBlcCR9AUs+ycZzoqckCWfQNQxVbuYJ4BBQ+JngQ
- Hxjpxts50VlWNZv8GqAKqFzG1mHQCPEm8jR57MhOtniYJFURA5zYfWTPDkXdZBLSLekAUrNR9
- JmylV2avumLoa0j0pFVSDslMZ5qxkDCBbIF0/Pk0/IQi/WxYrdk8eqK1Tun5lFiCytA6UlgaK
- hIfa0+89IYodg/AlgkxHZCCFDn23Z9TBpTF1d+vLotV3MLw3Cev6ZwkODDYRSY/LMAQK5Q1PW
- SPWJaerSnAUQ8LrDrZoJ6d/sJjr+g7Y47tVqQrHgqq35ZTc5DHKXF
-Cc: DTML <devicetree@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Jonathan Corbet <corbet@lwn.net>, Linus Walleij <linus.walleij@linaro.org>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Olof Johansson <olof@lixom.net>, linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 0/7] Add STM32MP13 SoCs and discovery
-	board support
+ <20210723132810.25728-6-alexandre.torgue@foss.st.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Message-ID: <048b94a6-438d-d2ee-0d93-67541c962076@pengutronix.de>
+Date: Fri, 23 Jul 2021 16:10:31 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <20210723132810.25728-6-alexandre.torgue@foss.st.com>
+Content-Language: en-US
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 5/7] ARM: dts: stm32: add STM32MP13 SoCs
+ support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,37 +59,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jul 23, 2021 at 3:28 PM Alexandre Torgue
-<alexandre.torgue@foss.st.com> wrote:
->
-> This series enhance the STM32 MPU family by adding STM32MP13 SoCs support.
-> It adds machine support and device tree diversity to support the whole
-> stm32mp13 family (STM32MP131/STM32MP133/STM32MP135, plus security feature
-> diversity).
->
-> Basically STM32MP13 SoCs embeds one Cortex A7, storage (SD/MMC/SDIO, QSPI FMC),
-> network (ETH, CAN), display (DCMIPP, LTDC, ...), audio(SAI, DFSDM, SPDIFRX),
-> com (USB EHCI/OHCI, USB OTG, I2C, SPI/I2S, U(S)ART).
->
-> This series also adds STM32MP135F Discovery board support (stm32mp135f-dk). It
-> embeds a STM32MP135f SOC with 512 MB of DDR3. Several connections are available
-> on this board:
->  - 4*USB2.0, 1*USB2.0 typeC DRD, SDcard, 2*RJ45, HDMI, Combo Wifi/BT, ...
->
-> Only SD card, uart4 (console) and watchdog IPs are enabled in this commit.
->
-> Note that file stm32mp135.dtsi doesn't define nodes but I add it now to ease adding
-> of new nodes in a (close) future.
+Hello Alex,
 
-I had a brief look and it seems all fine to me, nice work!
+On 23.07.21 15:28, Alexandre Torgue wrote:
+> Add initial support of STM32MP13 family. The STM32MP13 SoC diversity is
+> composed by:
+> -STM32MP131:
+>   -core: 1*CA7, 17*TIMERS, 5*LPTIMERS, DMA/MDMA/DMAMUX
+>   -storage: 3*SDMCC, 1*QSPI, FMC
+>   -com: USB (OHCI/EHCI, OTG), 5*I2C, 5*SPI/I2S, 8*U(S)ART
+>   -audio: 2*SAI
+>   -network: 1*ETH(GMAC)
+> -STM32MP133: STM32MP131 + 2*CAN, ETH2(GMAC), ADC1
+> -STM32MP135: STM32MP133 + DCMIPP, LTDC
+> 
+> A second diversity layer exists for security features:
+> -STM32MP13xY, "Y" gives information:
+>  -Y = A/D means no cryp IP and no secure boot.
+>  -Y = C/F means cryp IP + secure boot.
+> 
+> This commit adds basic peripheral.
+> 
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
+> new file mode 100644
+> index 000000000000..86126dc0d898
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/stm32mp131.dtsi
+> @@ -0,0 +1,283 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+> +/*
+> + * Copyright (C) STMicroelectronics 2021 - All Rights Reserved
+> + * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+> + */
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +/ {
 
-The only (very minor) thing I noticed is that the crypto engine device node
-has an unusual name 'cryp@' instead of the usual 'crypto@', but this is already
-the case on stm32mp157.
+Could you add aliases for mmc0-2?
+That way /dev/mmcblk* numbering is fixed from the start and
+doesn't depend on which devices are enabled.
 
-With this changed,
+Cheers,
+Ahmad
 
-Acked-by: Arnd Bergmann <arnd@arndb.de
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
