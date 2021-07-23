@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 935C03D3370
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jul 2021 06:06:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97BEF3D3373
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jul 2021 06:07:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55B9DC5A4CD;
-	Fri, 23 Jul 2021 04:06:57 +0000 (UTC)
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6194FC5A4CE;
+	Fri, 23 Jul 2021 04:07:00 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 064B7C5A4CE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 041EFC5A4CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jul 2021 04:06:55 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- m2-20020a17090a71c2b0290175cf22899cso2131628pjs.2
+ Fri, 23 Jul 2021 04:06:59 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ m2-20020a17090a71c2b0290175cf22899cso2131744pjs.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jul 2021 21:06:54 -0700 (PDT)
+ Thu, 22 Jul 2021 21:06:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=B7rhomLLzwRgFfNNTM797mpLG3BiqS6x3e33hEPmJTQ=;
- b=SGgCTbvwYG1v+5tp6r3T4PLgjP/4PBx3FlYRSZedUbj8Q7Kly0YN2p2Q9sGasqkcP9
- zniQ+1QPUF/TaPtGoLFABC3ATUvZgbHOnbpFMc8DQQA6mijc9N8YXLNOo3bShwinLK2L
- mRCXD+rwSUYOescplYpusojv62U32AmIZNUWpSVEjoJxxKbIRdDCmyOLco577IjYeAeR
- HzseF5PMoRs2RJS33HBAft8nYJrTMnN6lUZ8YgkzvjOqwhaEgt4YUdtFroZ71fy/GQ2p
- Z71CdFvti5fjEzCU/KSQ9iT7fMlXcXipr4BQxQ5MY+0r4Gp06cZard3Ft6MBSKGvllsX
- mj0g==
+ bh=IILYi2BBED19uarLK77YF9MGNtXI5Hu+8bpBHATAL0I=;
+ b=kXr7wvE1n7/TKCY9W0ROVKU8LnS+Q14q61PeYSiAkwkZvmRJeFrRuyI2AkNv+A9Nqy
+ 8xm5Eo/qWe1mk49oAvJk8NggYhPEfliRN4N65Bnt2b+ZV8Lqdq7cpXk5i9XQpZ0blmQ7
+ 9V/UJ7vBzQLiubZ17ZPkF4g7JiEpx02olOoW0uXusgWr0r6Otguvq+f8gTh4QafrBabD
+ r2TnHHeQBg9ztK6H5LRCUiOTUg8vvFCVpViM68F1o2S6PkfaUov/DMAVNKAaSwocFksU
+ Uhp4MfE+Kf9OE3GAzr5+vfDSLuoi5aCG4iq2sdQpXg8Y0Tu1MHvLPIWBg3HFTOYdRvs3
+ DEvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=B7rhomLLzwRgFfNNTM797mpLG3BiqS6x3e33hEPmJTQ=;
- b=OXOXCJW6FiJ1ifbVIY+3HElsZmScPCflVlVU9v3+drxDLBaHu3HBbI2VeAUoxRmCV+
- 3ZL1i2s+BueZR7MschL8pfd6S5NZPtmdwOhJkCJcT7JWDBJerojMJsZKYgosrQH681Xt
- 2S/7E/lK6x2q0Yyd6NZ0B6o5Tg0lV2Fy2CfEZj+Nxd4ROVqBEdFCTuoO/JXF9a3Zjtg4
- qwh5q8NSq2vsO7hu191pnSJHi1zMJiBVNS875vKh8A36Kv6scXkZVxOayv1NtCmWRxGF
- JPVHID78cfjRDovu2M/AiTnV+Ez01gLzm63IRexkuOL2ahfL37l1WHZvNYvrYmPww6DV
- FP+g==
-X-Gm-Message-State: AOAM531v21tj2SWGsU+c7MfBU2UMUrDYTQ4zDx0k5kK5ZIjKo8ZTxMBh
- XJtz34X8xdk/XM+u3uJO7Iw=
-X-Google-Smtp-Source: ABdhPJykvEEecxAO8ZNgVcwsI6ew9t6mtT9/SC/ITDuPpUox4KucwUVfybx2mBKvkZiM9vXgiLdpFw==
-X-Received: by 2002:a62:3344:0:b029:28c:6f0f:cb90 with SMTP id
- z65-20020a6233440000b029028c6f0fcb90mr2633175pfz.58.1627013213589; 
- Thu, 22 Jul 2021 21:06:53 -0700 (PDT)
+ bh=IILYi2BBED19uarLK77YF9MGNtXI5Hu+8bpBHATAL0I=;
+ b=HEGeX+SzZ0dp2P8e7vvXShHAIw4oVLjyD4Sx9fHlxTboPJE9N7Wz4GRo9ndTEOJpMm
+ OqMvJlD2kCS8O10MIuR6ES0ZDXNGQyHeTBX5H0kZUwmdmlTd36Q+9f6RvAcKoLBAE8o4
+ XjFfrAkA1SlbFXSkrhPngA4H5S4KkV5Q1QBlDWjgvEJ8ub0BVen5lEuybCR3NKtZLasg
+ /gEYBO1RXfwzh/6TnB1qBxV2TX3l9MlU5DLhgXbElQMX6prD/CIyP2KGjY94mv0zjBFq
+ O3cmx4pnBetJq6h0+VlH0KIeAH1B5PxLOwc0QqelsiPi0VMsUOgnR8Jt+JVsIFW6d0U/
+ Uw5g==
+X-Gm-Message-State: AOAM533pkVHXGcuEMfrh9ae1xmt+GStzbUkwZROZv/fmiqEKqIv9wUF1
+ UCa5gD8qB3wmOqpB2iJdFO8=
+X-Google-Smtp-Source: ABdhPJzfAN4Dm2094Oc4AXpBDrI+S93x0ZGuxtrf0rg65AiTzxOdCaPAA6zHF0nhMV4hySjMhRpNjQ==
+X-Received: by 2002:aa7:9115:0:b029:359:69db:bc89 with SMTP id
+ 21-20020aa791150000b029035969dbbc89mr2809512pfh.32.1627013217619; 
+ Thu, 22 Jul 2021 21:06:57 -0700 (PDT)
 Received: from fmin-OptiPlex-7060.nreal.work ([137.59.103.165])
- by smtp.gmail.com with ESMTPSA id p3sm35474910pgi.20.2021.07.22.21.06.49
+ by smtp.gmail.com with ESMTPSA id p3sm35474910pgi.20.2021.07.22.21.06.53
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 22 Jul 2021 21:06:53 -0700 (PDT)
+ Thu, 22 Jul 2021 21:06:57 -0700 (PDT)
 From: dillon.minfei@gmail.com
 To: laurent.pinchart@ideasonboard.com, thierry.reding@gmail.com,
  sam@ravnborg.org, airlied@linux.ie, daniel@ffwll.ch, robh+dt@kernel.org,
  linus.walleij@linaro.org, alexandre.torgue@foss.st.com,
  mcoquelin.stm32@gmail.com
-Date: Fri, 23 Jul 2021 12:06:41 +0800
-Message-Id: <1627013203-23099-2-git-send-email-dillon.minfei@gmail.com>
+Date: Fri, 23 Jul 2021 12:06:42 +0800
+Message-Id: <1627013203-23099-3-git-send-email-dillon.minfei@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1627013203-23099-1-git-send-email-dillon.minfei@gmail.com>
 References: <1627013203-23099-1-git-send-email-dillon.minfei@gmail.com>
@@ -62,8 +62,8 @@ Cc: devicetree@vger.kernel.org, dianders@chromium.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  noralf@tronnes.org, Dillon Min <dillon.minfei@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 1/3] dt-bindings: display: panel: Add
-	ilitek ili9341 panel bindings
+Subject: [Linux-stm32] [PATCH v3 2/3] ARM: dts: stm32: fix dtbs_check
+	warning on ili9341 dts binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,105 +83,37 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Dillon Min <dillon.minfei@gmail.com>
 
-Add documentation for "ilitek,ili9341" panel.
+Since the compatible string defined from ilitek,ili9341.yaml is
+"st,sf-tc240t-9370-t", "ilitek,ili9341"
 
+so, append "ilitek,ili9341" to avoid the below dtbs_check warning.
+
+arch/arm/boot/dts/stm32f429-disco.dt.yaml: display@1: compatible:
+['st,sf-tc240t-9370-t'] is too short
+
+Fixes: a726e2f000ec ("ARM: dts: stm32: enable ltdc binding with ili9341, gyro l3gd20 on stm32429-disco board")
 Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Link: https://lore.kernel.org/lkml/1626853288-31223-2-git-send-email-dillon.minfei@gmail.com/
+Reported-by: kernel test robot <lkp@intel.com>
 ---
 v3:
-- collect reviewed-by tags from linus.
-- add link address.
+- add Fixes tags.
 
- .../bindings/display/panel/ilitek,ili9341.yaml     | 78 ++++++++++++++++++++++
- 1 file changed, 78 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
+ arch/arm/boot/dts/stm32f429-disco.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
-new file mode 100644
-index 000000000000..2ed010f91e2d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
-@@ -0,0 +1,78 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/ilitek,ili9341.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Ilitek-9341 Display Panel
-+
-+maintainers:
-+  - Dillon Min <dillon.minfei@gmail.com>
-+
-+description: |
-+  Ilitek ILI9341 TFT panel driver with SPI control bus
-+  This is a driver for 320x240 TFT panels, accepting a rgb input
-+  streams with 16 bits or 18 bits.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          # ili9341 240*320 Color on stm32f429-disco board
-+        - st,sf-tc240t-9370-t
-+      - const: ilitek,ili9341
-+
-+  reg: true
-+
-+  dc-gpios:
-+    maxItems: 1
-+    description: Display data/command selection (D/CX) of this DBI panel
-+
-+  spi-3wire: true
-+
-+  spi-max-frequency:
-+    const: 10000000
-+
-+  port: true
-+
-+  vci-supply:
-+    description: Analog voltage supply (2.5 .. 3.3V)
-+
-+  vddi-supply:
-+    description: Voltage supply for interface logic (1.65 .. 3.3 V)
-+
-+  vddi-led-supply:
-+    description: Voltage supply for the LED driver (1.65 .. 3.3 V)
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - dc-gpios
-+  - port
-+
-+examples:
-+  - |+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        panel: display@0 {
-+                 compatible = "st,sf-tc240t-9370-t",
-+                              "ilitek,ili9341";
-+                 reg = <0>;
-+                 spi-3wire;
-+                 spi-max-frequency = <10000000>;
-+                 dc-gpios = <&gpiod 13 0>;
-+                 port {
-+                         panel_in: endpoint {
-+                           remote-endpoint = <&display_out>;
-+                      };
-+                 };
-+             };
-+        };
-+...
-+
+diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
+index 075ac57d0bf4..6435e099c632 100644
+--- a/arch/arm/boot/dts/stm32f429-disco.dts
++++ b/arch/arm/boot/dts/stm32f429-disco.dts
+@@ -192,7 +192,7 @@
+ 
+ 	display: display@1{
+ 		/* Connect panel-ilitek-9341 to ltdc */
+-		compatible = "st,sf-tc240t-9370-t";
++		compatible = "st,sf-tc240t-9370-t", "ilitek,ili9341";
+ 		reg = <1>;
+ 		spi-3wire;
+ 		spi-max-frequency = <10000000>;
 -- 
 2.7.4
 
