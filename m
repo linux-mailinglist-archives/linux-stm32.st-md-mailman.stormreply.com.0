@@ -2,45 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A3163D6AFD
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jul 2021 02:22:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F983DD358
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Aug 2021 11:51:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B021C597B7;
-	Tue, 27 Jul 2021 00:22:56 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DDC6C5A4FE;
+	Mon,  2 Aug 2021 09:51:16 +0000 (UTC)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D984CC57B6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3B99C5719C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jul 2021 00:22:52 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D136760F93;
- Tue, 27 Jul 2021 00:22:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1627345370;
- bh=C8NvBNnHDePPtCxCLZrkDH3kttYIfmaVHEhCkBYBFoA=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=njRUyAnKO7UJeysaPOvjKMM7JO/XjTt8hrdXpLxKsQcnZIFOwgN2wD2LMKFYYZNV+
- cbM4jFRY2r75KzScYMMS//VQ7AamT4R5X3yDXVxKmC6yue1m3Fwmefz5Fim2ddaRrR
- 59aRF7MBgax4nLxXwh39pQ+8M7vtXzJ99Wacx9+T9xBet3CVke7yXdEfYSUMxeHTV9
- EXrm5szL4dORlMiYRak6oX2lYXyXCKrYWwG/4X95eA6WO32JOKs4tp2+Ec98GnC06E
- Cl5baUVj2Fxw73O09tYh4NQ8wdtVJlYINjhuMqrjkC3MchWvogsB4hjecDx9BpESE5
- V26qm4OBxROMA==
+ Tue, 27 Jul 2021 10:03:21 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ pf12-20020a17090b1d8cb0290175c085e7a5so3446511pjb.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 27 Jul 2021 03:03:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Xbq9QWxbvPd3Ex/7ehiQ//FvYDyflKiEA2zaoPSUUMg=;
+ b=xq8SztoFusZOuKEHPHsxf+kDj7xILPciXnRFCd4Ep6hEbCl9/Scoq6l0bwwrTeLZ62
+ 2zAZnz/1JYTSMgzBUzWVvpvB81jsZEYTx9BmNw7e7AaztX2ZLH73FJiwN2r6DehgtvkI
+ g8kAom+PHhbZmyWK4vTHp7zJXR+6sFen6LfBKl6/w9t5kdfFnXE9Z3tHQzt5Srw6132h
+ M9bySDLsQzpRH1BF3sN7uRM3WgUyv9kLNeeAYxsuoP4ZslQ91xx5OBmLlX4+Mf9h9E33
+ rEc13Kft56nes1m9kzB9H5letw/s2mnIDY9rSI1RZuhzL25KGSeC7mXofVL3EDxrQ5bk
+ ee3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Xbq9QWxbvPd3Ex/7ehiQ//FvYDyflKiEA2zaoPSUUMg=;
+ b=SKehWxMxqGYKaaCJLZjpH1Sz9jQKT/v4jCts9RW6E3PbnCwWfHbxYc25Y3q+InaWfw
+ qqgyuKPpz8nhQyW/qqkjxqu6kOwlzapF5fp7Tw0SC0hrPZ8Y0C2PEQC/mceqvH1Z5Pff
+ 6kNvdrn/WsvUeeXMM0KmWXnRRHgCvIHbOSFCtAvM9kgUuWFnjD8VeWg0opIJA2n0rXZ6
+ CH/dtKNykRmTjYxBEAKHfEoJRpyqcReFNpudsc7Tv3GIMo8uiNVcr5NYa9LTI86KLReU
+ RBJgwF7C1GLhNFZCjrn/lDfDizV2Pdpw3N5V4pf81E7LzZmHvnRsHJvzrx2UwaHnrDo1
+ ZLFQ==
+X-Gm-Message-State: AOAM532Agt9ML7RK3U04SeftknekrUnstF1N+MvBTn+vUxCBmHs3rE9H
+ 618tpIrQHpsfDeQWKVJgfYn57AlS7v1ggRzWX1u9lQ==
+X-Google-Smtp-Source: ABdhPJx3XNDvCiLqXu77rXCJS5kd4qAypwbtHwYRXrq0bCzY7tSYPrXJnWrd+u7HWvCvunSKRBIr0Bts+j5xf2sTkJ4=
+X-Received: by 2002:a63:ee0a:: with SMTP id e10mr22774606pgi.385.1627380199920; 
+ Tue, 27 Jul 2021 03:03:19 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210725160725.10788-1-dariobin@libero.it>
-References: <20210725160725.10788-1-dariobin@libero.it>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Dario Binacchi <dariobin@libero.it>, linux-clk@vger.kernel.org
-Date: Mon, 26 Jul 2021 17:22:49 -0700
-Message-ID: <162734536950.2368309.11504276867614624593@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Cc: Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- Dario Binacchi <dariobin@libero.it>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RESEND PATCH v4] clk: stm32f4: fix post divisor
-	setup for I2S/SAI PLLs
+References: <20210704140309.268469-1-jagan@amarulasolutions.com>
+ <8327301.GXAFRqVoOG@diego>
+In-Reply-To: <8327301.GXAFRqVoOG@diego>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Tue, 27 Jul 2021 12:03:08 +0200
+Message-ID: <CAG3jFytkBZpjWF0NMzavhBruk2hsprgvprJ=Uhd8dqJaSxXRRw@mail.gmail.com>
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
+X-Mailman-Approved-At: Mon, 02 Aug 2021 09:51:10 +0000
+Cc: Jonathan Liu <net147@gmail.com>, Neil Armstrong <narmstrong@baylibre.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Andrzej Hajda <a.hajda@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Subject: Re: [Linux-stm32] [PATCH] drm/bridge: dw-mipi-dsi: Find the
+	possible DSI devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,41 +76,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting Dario Binacchi (2021-07-25 09:07:25)
-> Enabling the framebuffer leads to a system hang. Running, as a debug
-> hack, the store_pan() function in drivers/video/fbdev/core/fbsysfs.c
-> without taking the console_lock, allows to see the crash backtrace on
-> the serial line.
-> 
-> ~ # echo 0 0 > /sys/class/graphics/fb0/pan
-> 
-> [    9.719414] Unhandled exception: IPSR = 00000005 LR = fffffff1
-> [    9.726937] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
-> [    9.733008] Hardware name: STM32 (Device Tree Support)
-> [    9.738296] PC is at clk_gate_is_enabled+0x0/0x28
-> [    9.743426] LR is at stm32f4_pll_div_set_rate+0xf/0x38
-> [    9.748857] pc : [<0011e4be>]    lr : [<0011f9e3>]    psr: 0100000b
-> [    9.755373] sp : 00bc7be0  ip : 00000000  fp : 001f3ac4
-> [    9.760812] r10: 002610d0  r9 : 01efe920  r8 : 00540560
-> [    9.766269] r7 : 02e7ddb0  r6 : 0173eed8  r5 : 00000000  r4 : 004027c0
-> [    9.773081] r3 : 0011e4bf  r2 : 02e7ddb0  r1 : 0173eed8  r0 : 1d3267b8
-> [    9.779911] xPSR: 0100000b
-> [    9.782719] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
-> [    9.788791] Hardware name: STM32 (Device Tree Support)
-> [    9.794120] [<0000afa1>] (unwind_backtrace) from [<0000a33f>] (show_stack+0xb/0xc)
-> [    9.802421] [<0000a33f>] (show_stack) from [<0000a8df>] (__invalid_entry+0x4b/0x4c)
-> 
-> The `pll_num' field in the post_div_data configuration contained a wrong
-> value which also referenced an uninitialized hardware clock when
-> clk_register_pll_div() was called.
-> 
-> Fixes: 517633ef630e ("clk: stm32f4: Add post divisor for I2S & SAI PLLs")
-> Signed-off-by: Dario Binacchi <dariobin@libero.it>
-> Reviewed-by: Gabriel Fernandez <gabriel.fernandez@st.com>
-> 
-> ---
-
-Applied to clk-fixes
+Pushed to drm-misc-next
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
