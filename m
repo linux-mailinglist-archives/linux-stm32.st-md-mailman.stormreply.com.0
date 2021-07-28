@@ -2,67 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 195003D8A0F
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jul 2021 10:51:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D54193D8B58
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jul 2021 12:04:15 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A68E0C597AB;
-	Wed, 28 Jul 2021 08:51:56 +0000 (UTC)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 743F2C597AB;
+	Wed, 28 Jul 2021 10:04:15 +0000 (UTC)
+Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
+ [209.85.166.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6527CCFAC5A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84312C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Jul 2021 08:51:54 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id j1so4086345pjv.3
+ Wed, 28 Jul 2021 10:04:14 +0000 (UTC)
+Received: by mail-il1-f169.google.com with SMTP id y4so2169872ilp.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Jul 2021 01:51:54 -0700 (PDT)
+ Wed, 28 Jul 2021 03:04:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=d+TKoRbRA9b13s3E5XDsyBNlfB93JKDfM2toP4owP3k=;
- b=KvUOaH9qSthpAAstRMpHeQGCcFTDN1NmIU/l+62WLAgXEC162dXCLUT1TpBhTbKIVb
- pPTTyvNFJvbLXVAEsfUAAKapY8NJRvO+Oy93p7TqQLMKF2RIYxBJ+n65G+9qlbTBhJ7f
- X6LAlEqpDNeb8SVtvINW1MlUlaVQalBmz26ET0zFPc2FAvAkrT7/L6ZjPQIEtDQh2iQt
- tNKbNpOWld5sBvZCCiQ1sDCIl3uyYC3WlyfXoq/dfCTxIBkHJBCTc6D3WsJqTR5Gw8Ip
- 0fyJoloduJgE3BRYKW++w50GTwTi/HrhfXhpj018OhFCzrYFn52UHntUZRBqol+WxiWR
- VX3w==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4PuMlVCT7jMo4ZUqy0sj2FkowOIa3Yr3Zei1WjK4tiA=;
+ b=AWZTCHu7T5tDCBGNj2065haI/yecsifbY8dfwcme2JRMk8FMCmoOHNTIjCkzpLYFIv
+ S30c2e6mCzbSJIX4XWzVBOBpIExeLx0+ttzOAt4u4mfWDzvy1nFcYC0VvtFaz0qVlclR
+ I/TXFNRGkCgzSacCWtjEQvKKjyyVmJ8rMHbk0kftXxM9X/pyPm5YomGi33MC2kCnTg4N
+ 9vrEtX2R4F6wrVtJ0xjBuwjq4xJmJUaqcHNlJNBdj3CVetu8Q+MazQJxY0HHi+4udad/
+ fYyrkNidxVgeq5enqYnGQ48QLqXYaCA7K9tYa/MnDKcaOGKtzjjwQSe1GDUJzOH9cC/c
+ HWfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=d+TKoRbRA9b13s3E5XDsyBNlfB93JKDfM2toP4owP3k=;
- b=ZVs9I41oARN0lGFj0Njoa6X/xD61rTUImlXHbYNTa4o/JLy09vRexYk+oifcXZTIE0
- ob2drY2t1oL7zxTkew+TgTmM7P7MUqm9qNrnS/r3GvLV1ZMLAGk/SpDuUpC+HHGhq9Fk
- UlBdafAlOg+c7AX7GHBc06B6+KjHrQEROmBcacB+ZRGkiq972prGmZ3Q0RBEUe/ECYBb
- nYacWv6AXnQMDCVTUdG+MLwZo7NubMK34fQSxL7mz8Gagp6X82A3/R4VsX0QI8tZlBQ7
- WzqtvSMGqUUBxoVU7YwlzmbEFY8G0HFX1+gRVCmPrjVk/imq/gxS349+orOhJ5/P/jj6
- LNVQ==
-X-Gm-Message-State: AOAM530zJaC0++6A8mSgFD3v+gNk73I0N7rTGlnCbTZNN6uGaNQ5M268
- 4Svwke8HEeX4Z6kArwn44gc=
-X-Google-Smtp-Source: ABdhPJyx0mJnNWFX+phIfQvzqfyvuOAsA6WOBgXvG2nP7/QmaG38jNjnfekSz8VLGi6qhLW6L6MVnw==
-X-Received: by 2002:a63:ae48:: with SMTP id e8mr28523370pgp.0.1627462312753;
- Wed, 28 Jul 2021 01:51:52 -0700 (PDT)
-Received: from shinobu ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id z11sm2180976pjq.13.2021.07.28.01.51.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Jul 2021 01:51:51 -0700 (PDT)
-Date: Wed, 28 Jul 2021 17:51:45 +0900
-From: William Breathitt Gray <vilhelm.gray@gmail.com>
-To: jic23@kernel.org
-Message-ID: <YQEaoYMGdvh0vgu5@shinobu>
-References: <cover.1626165764.git.vilhelm.gray@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4PuMlVCT7jMo4ZUqy0sj2FkowOIa3Yr3Zei1WjK4tiA=;
+ b=UtZu5DRA+lZUQkDxBMD2MrIigVOZdlBH8UvPGaEw2D+Phm5aIdXEdFsQs5xVpIFZLe
+ f5V6tnRugPNF3TKdVoZvPip8ZB67sKLP3MVlpRlrO8U0nWLQY7pZN2XNnfgBC2vE2o6x
+ bziXKS1rVTDpnFbQgqqVHaLmh7nFv4/1nbCXABg9SBOwGskxgtfvy3pNBKg6vDigaFnN
+ dmE4hx05bKxUvr7mkyr1bNkRntWu7AzdjMHd9yu2xbFyOzGlERAb4i4FhwfTGx0CjrSW
+ NFG7RWNVPb7tDwDWu/1h8yDJrSRev8wOTyKc+eD3hmTsAfwWpjI/zq19q+GwIKk9rP4Y
+ X7KA==
+X-Gm-Message-State: AOAM5304Cny9KlBUu5aFfDrMIzXEGAtSNjIzx5L6/2cWnru8Di4J7sig
+ k3fzJRnVOpNU5lnnVjDz6bcn1hpbP1McI90lQV4=
+X-Google-Smtp-Source: ABdhPJwiBckW54PjAZOZYMsrEe18cAg4IeU8j8uuKh2570XMFa280TbMFS8RZaButWFLjO5NqGSTmXtVlCCKShsSrVo=
+X-Received: by 2002:a05:6e02:20eb:: with SMTP id
+ q11mr20348722ilv.272.1627466652056; 
+ Wed, 28 Jul 2021 03:04:12 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <cover.1626165764.git.vilhelm.gray@gmail.com>
-Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
- linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
- linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
- jarkko.nikula@linux.intel.com, kernel@pengutronix.de, fabrice.gasnier@st.com,
- syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v13 00/17] Introduce the Counter character
- device interface
+References: <20210725160725.10788-1-dariobin@libero.it>
+In-Reply-To: <20210725160725.10788-1-dariobin@libero.it>
+From: Dillon Hua <dillonhua@gmail.com>
+Date: Wed, 28 Jul 2021 18:03:36 +0800
+Message-ID: <CAPTRvHkf0cK_4ZidM17rPo99gWDmxgqFt4CDUjqFFwkOeQeFDg@mail.gmail.com>
+To: Dario Binacchi <dariobin@libero.it>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-clk@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [RESEND PATCH v4] clk: stm32f4: fix post divisor
+ setup for I2S/SAI PLLs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,170 +70,137 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4288467833431978284=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Dario,
 
---===============4288467833431978284==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nBN+j+tbFwGEfQq0"
-Content-Disposition: inline
+I have a similar patch [1] submitted last year.
+Unfortunately, it did not get accepted by the maintainer.
 
+Just a reminder here for you, should remove
 
---nBN+j+tbFwGEfQq0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+{ STM32F4_RCC_APB2ENR, 26, "ltdc", "apb2_div" },
 
-On Tue, Jul 13, 2021 at 06:53:04PM +0900, William Breathitt Gray wrote:
-> Suppose I open the chrdev from a userspace application and keep it open,
-> but then remove the respective driver and Counter subsystem module from
-> my system. The devm_counter_release() and counter_exit() functions will
-> be called as expected; the counter_chrdev_release() function will not be
-> called yet, but that is expected because the chrdev is still open by
-> userspace. If I try to break out of my userspace application, I expect
-> counter_chrdev_release() to finally be called, but this does not happen.
-> Instead, my userspace application stalls and I see the following error
-> in my dmesg:
->=20
-> [  172.859570] BUG: unable to handle page fault for address: ffffffffc09a=
-e298
-> [  172.859594] #PF: supervisor read access in kernel mode
-> [  172.859598] #PF: error_code(0x0000) - not-present page
-> [  172.859603] PGD 23615067 P4D 23615067 PUD 23617067 PMD 1029ad067 PTE 0
-> [  172.859623] Oops: 0000 [#1] SMP NOPTI
-> [  172.859629] CPU: 2 PID: 2485 Comm: counter_example Not tainted 5.13.0+=
- #1
-> [  172.859640] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIO=
-S d55cb5a 04/01/2014
-> [  172.859645] RIP: 0010:filp_close+0x29/0x70
-> [  172.859662] Code: 90 0f 1f 44 00 00 55 48 89 e5 41 56 41 55 41 54 48 8=
-b 47 38 48 85 c0 0f 84 b7 40 86 00 48 8b 47 28 49 89 fc 49 89 f5 45 31 f6 <=
-48> 8b 40 78 48 85 c0 74 08 ff d0 0f 1f 00 41 89 c6 41 f6 44 24 45
-> [  172.859669] RSP: 0018:ffffad31c0ee7cb0 EFLAGS: 00010246
-> [  172.859675] RAX: ffffffffc09ae220 RBX: 0000000000000001 RCX: 000000000=
-0000001
-> [  172.859680] RDX: ffff9a43829708e0 RSI: ffff9a4382970840 RDI: ffff9a438=
-21f4f00
-> [  172.859684] RBP: ffffad31c0ee7cc8 R08: 0000000000000001 R09: 000000000=
-0000001
-> [  172.859687] R10: ffffffffffff4d00 R11: ffff9a43933c6e10 R12: ffff9a438=
-21f4f00
-> [  172.859691] R13: ffff9a4382970840 R14: 0000000000000000 R15: 000000000=
-0000003
-> [  172.859694] FS:  0000000000000000(0000) GS:ffff9a44b7d00000(0000) knlG=
-S:0000000000000000
-> [  172.859699] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  172.859704] CR2: ffffffffc09ae298 CR3: 0000000023610001 CR4: 000000000=
-0370ee0
-> [  172.859713] Call Trace:
-> [  172.859730]  put_files_struct+0x73/0xd0
-> [  172.859738]  exit_files+0x49/0x50
-> [  172.859743]  do_exit+0x33b/0xa20
-> [  172.859751]  do_group_exit+0x3b/0xb0
-> [  172.859758]  get_signal+0x16f/0x8b0
-> [  172.859766]  ? _copy_to_user+0x20/0x30
-> [  172.859774]  ? put_timespec64+0x3d/0x60
-> [  172.859784]  arch_do_signal_or_restart+0xf3/0x850
-> [  172.859794]  ? hrtimer_nanosleep+0x9f/0x120
-> [  172.859802]  ? __hrtimer_init+0xd0/0xd0
-> [  172.859808]  exit_to_user_mode_prepare+0x122/0x1b0
-> [  172.859816]  syscall_exit_to_user_mode+0x27/0x50
-> [  172.859825]  do_syscall_64+0x48/0xc0
-> [  172.859831]  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> [  172.859839] RIP: 0033:0x7f07f8b9951a
-> [  172.859850] Code: Unable to access opcode bytes at RIP 0x7f07f8b994f0.
-> [  172.859853] RSP: 002b:00007ffc0d12c230 EFLAGS: 00000246 ORIG_RAX: 0000=
-0000000000e6
-> [  172.859860] RAX: fffffffffffffdfc RBX: ffffffffffffff01 RCX: 00007f07f=
-8b9951a
-> [  172.859863] RDX: 00007ffc0d12c2b0 RSI: 0000000000000000 RDI: 000000000=
-0000000
-> [  172.859867] RBP: 0000000000000000 R08: 0000000000000000 R09: 00007ffc0=
-d12c1c6
-> [  172.859871] R10: 00007ffc0d12c2b0 R11: 0000000000000246 R12: 00007ffc0=
-d12c2b0
-> [  172.859874] R13: 00007ffc0d12c2b0 R14: 0000000000000000 R15: 000000000=
-0000000
-> [  172.859886] Modules linked in: intel_rapl_msr intel_rapl_common kvm_in=
-tel kvm crct10dif_pclmul crc32_pclmul ghash_clmulni_intel nls_iso8859_1 aes=
-ni_intel crypto_simd cryptd rapl drm_ttm_helper ttm uvcvideo drm_kms_helper=
- videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videobuf2_common input_l=
-eds syscopyarea videodev sysfillrect sysimgblt fb_sys_fops cec rc_core joyd=
-ev mc drm serio_raw mac_hid qemu_fw_cfg sch_fq_codel msr parport_pc ppdev l=
-p parport virtio_rng ip_tables x_tables autofs4 hid_generic usbhid hid virt=
-io_net psmouse net_failover i2c_piix4 virtio_blk failover pata_acpi floppy =
-[last unloaded: counter]
-> [  172.859995] CR2: ffffffffc09ae298
-> [  172.860009] ---[ end trace e7d3d7da1a73b8f4 ]---
-> [  172.860013] RIP: 0010:filp_close+0x29/0x70
-> [  172.860021] Code: 90 0f 1f 44 00 00 55 48 89 e5 41 56 41 55 41 54 48 8=
-b 47 38 48 85 c0 0f 84 b7 40 86 00 48 8b 47 28 49 89 fc 49 89 f5 45 31 f6 <=
-48> 8b 40 78 48 85 c0 74 08 ff d0 0f 1f 00 41 89 c6 41 f6 44 24 45
-> [  172.860027] RSP: 0018:ffffad31c0ee7cb0 EFLAGS: 00010246
-> [  172.860031] RAX: ffffffffc09ae220 RBX: 0000000000000001 RCX: 000000000=
-0000001
-> [  172.860034] RDX: ffff9a43829708e0 RSI: ffff9a4382970840 RDI: ffff9a438=
-21f4f00
-> [  172.860038] RBP: ffffad31c0ee7cc8 R08: 0000000000000001 R09: 000000000=
-0000001
-> [  172.860041] R10: ffffffffffff4d00 R11: ffff9a43933c6e10 R12: ffff9a438=
-21f4f00
-> [  172.860044] R13: ffff9a4382970840 R14: 0000000000000000 R15: 000000000=
-0000003
-> [  172.860047] FS:  0000000000000000(0000) GS:ffff9a44b7d00000(0000) knlG=
-S:0000000000000000
-> [  172.860052] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  172.860056] CR2: ffffffffc09ae298 CR3: 0000000023610001 CR4: 000000000=
-0370ee0
-> [  172.860073] Fixing recursive fault but reboot is needed!
->=20
-> It looks like faults in filp_close() before counter_chrdev_release() is
-> called. Is this issue manifesting because counter_exit() was called
-> earlier while the chrdev was still open?
+from stm32{f429, f469, f746, f769}_gates[]; or else
+run into white screen after the kernel enters the console.
 
-After giving this some more thought I realized that once the counter
-module is unloaded, the counter_fops callbacks are lost and thus the
-fops for the chrdev are no longer be valid. This means that
-counter_chrdev_release will need to be called before the counter module
-is unloaded. How can I guarantee this if a userspace application may
-still have the chrdev indefinitely open? In counter_chrdev_remove(),
-should I walk through the open chrdevs and release each one?
+This patch was verified by Patrice Chotard, you can
+find  the history from [2].
 
-William Breathitt Gray
+Hope you can help to submit a patch to include [2], thanks.
 
---nBN+j+tbFwGEfQq0
-Content-Type: application/pgp-signature; name="signature.asc"
+[1]
+https://lore.kernel.org/linux-arm-kernel/1590564453-24499-7-git-send-email-dillon.minfei@gmail.com/
+https://lore.kernel.org/linux-arm-kernel/1590564453-24499-6-git-send-email-dillon.minfei@gmail.com/
 
------BEGIN PGP SIGNATURE-----
+resend this year:
+https://lore.kernel.org/lkml/1590378348-8115-6-git-send-email-dillon.minfei@gmail.com/
 
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmEBGqEACgkQhvpINdm7
-VJK61hAAwX6ZbCIqTphv+RPqSJYQLjl29hER5BUiwApvZiyLtZTthDW4QmozpLZP
-La5uZLLqeAIpdEXvMhuyrS50KRFwPNmCVckPM6NCXhSv5nNpFmgXzd44dGtstSWd
-t5djVKZQkjgoUyC2dL6K49E3cfjDIXL8Az5igoBz04rcr4hmMY/lOu64m8DEJGiC
-28j5h7tD3Xc1mvyn5H7l//XnCOZOx2lIbPN26tcg8sFGB8GrdD9MbsAwFaQCdwTr
-g4IDLk49NJKEeKM5Psyq24ZpqdN1psDNBbm6oYw8WjITwvQuNjrxTsZU9b1Gu42r
-jck0wEc2yJBDBUBKscFNpE/+kgadohVHPVCGLxT2/+Y7vUadMiJmLQYQsgW+b17e
-rYx5aDId8xBGlegsNKlYJSc6iI1Uf4BUHUzPT97QCW48Ni3dH6LWtcZoamdh3FSa
-1hsVCDcY/+clrNNRs1cdBNyeaPPI7szN3b3joDw97eglJ9yzyajW8+EtGwdIJUVG
-6BUgmFUiLRl/TlYyGw6FCKZO3OX5thj2TKp+0WXddBfgYwTIMrOQG2EQSKx2wxnb
-CjKQlHsugDMdtyEH3vgVv0kZHyFn7eKUYrnCfTPFX4I16jcsqaNynxqF/SQPwTwg
-EJJoBWJf92lhnNMHuN/e0w9XzZTO7dbx6bR7vV26sHLFScU+fqg=
-=QXPz
------END PGP SIGNATURE-----
+[2]
+https://lore.kernel.org/lkml/6915fa2a-e211-476f-8317-6825e280c322@foss.st.com/
 
---nBN+j+tbFwGEfQq0--
+Thanks
+Best Regards
 
---===============4288467833431978284==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Dillon
 
+On Mon, Jul 26, 2021 at 12:08 AM Dario Binacchi <dariobin@libero.it> wrote:
+>
+> Enabling the framebuffer leads to a system hang. Running, as a debug
+> hack, the store_pan() function in drivers/video/fbdev/core/fbsysfs.c
+> without taking the console_lock, allows to see the crash backtrace on
+> the serial line.
+>
+> ~ # echo 0 0 > /sys/class/graphics/fb0/pan
+>
+> [    9.719414] Unhandled exception: IPSR = 00000005 LR = fffffff1
+> [    9.726937] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
+> [    9.733008] Hardware name: STM32 (Device Tree Support)
+> [    9.738296] PC is at clk_gate_is_enabled+0x0/0x28
+> [    9.743426] LR is at stm32f4_pll_div_set_rate+0xf/0x38
+> [    9.748857] pc : [<0011e4be>]    lr : [<0011f9e3>]    psr: 0100000b
+> [    9.755373] sp : 00bc7be0  ip : 00000000  fp : 001f3ac4
+> [    9.760812] r10: 002610d0  r9 : 01efe920  r8 : 00540560
+> [    9.766269] r7 : 02e7ddb0  r6 : 0173eed8  r5 : 00000000  r4 : 004027c0
+> [    9.773081] r3 : 0011e4bf  r2 : 02e7ddb0  r1 : 0173eed8  r0 : 1d3267b8
+> [    9.779911] xPSR: 0100000b
+> [    9.782719] CPU: 0 PID: 49 Comm: sh Not tainted 5.13.0-rc5 #9
+> [    9.788791] Hardware name: STM32 (Device Tree Support)
+> [    9.794120] [<0000afa1>] (unwind_backtrace) from [<0000a33f>] (show_stack+0xb/0xc)
+> [    9.802421] [<0000a33f>] (show_stack) from [<0000a8df>] (__invalid_entry+0x4b/0x4c)
+>
+> The `pll_num' field in the post_div_data configuration contained a wrong
+> value which also referenced an uninitialized hardware clock when
+> clk_register_pll_div() was called.
+>
+> Fixes: 517633ef630e ("clk: stm32f4: Add post divisor for I2S & SAI PLLs")
+> Signed-off-by: Dario Binacchi <dariobin@libero.it>
+> Reviewed-by: Gabriel Fernandez <gabriel.fernandez@st.com>
+>
+> ---
+> I added Gabriel Fernandez's 'Reviewed-by' tag as requested by himself
+> 15 days ago at https://lore.kernel.org/patchwork/patch/1450964/.
+>
+> Changes in v4:
+> - Really add Gabriel Fernandez 'Reviewed-by' tag. In version 3 I forgot
+>   to add the tag.
+>
+> Changes in v3:
+> - Add Gabriel Fernandez 'Reviewed-by' tag.
+>
+> Changes in v2:
+> - Change  'u8 pll_num' from 'stm32f4_pll_post_div_data' structure into
+>   'int pll_idx'.
+>
+>  drivers/clk/clk-stm32f4.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
+> index 18117ce5ff85..5c75e3d906c2 100644
+> --- a/drivers/clk/clk-stm32f4.c
+> +++ b/drivers/clk/clk-stm32f4.c
+> @@ -526,7 +526,7 @@ struct stm32f4_pll {
+>
+>  struct stm32f4_pll_post_div_data {
+>         int idx;
+> -       u8 pll_num;
+> +       int pll_idx;
+>         const char *name;
+>         const char *parent;
+>         u8 flag;
+> @@ -557,13 +557,13 @@ static const struct clk_div_table post_divr_table[] = {
+>
+>  #define MAX_POST_DIV 3
+>  static const struct stm32f4_pll_post_div_data  post_div_data[MAX_POST_DIV] = {
+> -       { CLK_I2SQ_PDIV, PLL_I2S, "plli2s-q-div", "plli2s-q",
+> +       { CLK_I2SQ_PDIV, PLL_VCO_I2S, "plli2s-q-div", "plli2s-q",
+>                 CLK_SET_RATE_PARENT, STM32F4_RCC_DCKCFGR, 0, 5, 0, NULL},
+>
+> -       { CLK_SAIQ_PDIV, PLL_SAI, "pllsai-q-div", "pllsai-q",
+> +       { CLK_SAIQ_PDIV, PLL_VCO_SAI, "pllsai-q-div", "pllsai-q",
+>                 CLK_SET_RATE_PARENT, STM32F4_RCC_DCKCFGR, 8, 5, 0, NULL },
+>
+> -       { NO_IDX, PLL_SAI, "pllsai-r-div", "pllsai-r", CLK_SET_RATE_PARENT,
+> +       { NO_IDX, PLL_VCO_SAI, "pllsai-r-div", "pllsai-r", CLK_SET_RATE_PARENT,
+>                 STM32F4_RCC_DCKCFGR, 16, 2, 0, post_divr_table },
+>  };
+>
+> @@ -1774,7 +1774,7 @@ static void __init stm32f4_rcc_init(struct device_node *np)
+>                                 post_div->width,
+>                                 post_div->flag_div,
+>                                 post_div->div_table,
+> -                               clks[post_div->pll_num],
+> +                               clks[post_div->pll_idx],
+>                                 &stm32f4_clk_lock);
+>
+>                 if (post_div->idx != NO_IDX)
+> --
+> 2.17.1
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4288467833431978284==--
