@@ -2,51 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F193DD338
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Aug 2021 11:44:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EDA93DBBC5
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jul 2021 17:11:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE708C5A4E3;
-	Mon,  2 Aug 2021 09:44:40 +0000 (UTC)
-Received: from rcdn-iport-8.cisco.com (rcdn-iport-8.cisco.com [173.37.86.79])
- (using TLSv1.2 with cipher DHE-RSA-SEED-SHA (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 168D8C57B6F;
+	Fri, 30 Jul 2021 15:11:45 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8931C57B6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69BA8C57B6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Jul 2021 14:48:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=cisco.com; i=@cisco.com; l=795; q=dns/txt; s=iport;
- t=1627656514; x=1628866114;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=n3PkM/+InBuHzKFjtN6VP5Z6K9yetavVDut1DYLO1yY=;
- b=GaXjf1epBtd1HnTsagrEGjG58G2YFum4ImwgBK61Bi9DTP5EiAqpBpH4
- x4FM74NMtsXQF2Xa8Cqtk1+lLpMzwooDhgxJd7b67O4RVNhTqRcTSPP+F
- Oeu5CF+ETt3e9K8vBrUmq6Qt1w0W/fWxlTo5Y9l7Z//bF1i8DOV3BZagd A=;
-X-IronPort-AV: E=Sophos;i="5.84,282,1620691200"; d="scan'208";a="915063875"
-Received: from rcdn-core-5.cisco.com ([173.37.93.156])
- by rcdn-iport-8.cisco.com with ESMTP/TLS/DHE-RSA-SEED-SHA;
- 30 Jul 2021 14:48:32 +0000
-Received: from zorba ([10.24.25.85])
- by rcdn-core-5.cisco.com (8.15.2/8.15.2) with ESMTPS id 16UEmUWR021352
- (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Fri, 30 Jul 2021 14:48:32 GMT
-Date: Fri, 30 Jul 2021 07:48:30 -0700
-From: Daniel Walker <danielwa@cisco.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <20210730144830.GO1633923@zorba>
+ Fri, 30 Jul 2021 15:11:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=z+rTA/ObrOOYDpgQnhNyZXPSqPg3dMUwZ39219bYFYE=; b=pQPFmm2qtpvBeXzSGuCG99sBt
+ GnAGGc3nmRVTeaMDX0ptT6QyXrrsVMC3YPYeq7BbDYWf8LSVVStBzyo6PeSlpHP+cwLMLs3qSokbY
+ mWVW9W+CkFnNLGC7lAPqURjvqzPxwLAbpEXxHTWw6x6HFYF4CIbXoKjwYDNZcKnwaCWOK6rc90HuS
+ sZW4F72+P1xJiu4DYVhAA3M0ymOAPljHsawH26xKEUOHD+LU375LfiP64tg7wKuZ2eH8TXDJ+huH1
+ 4va2I0Pw4fD/9S82qUiZFZtrmkP7CAExq+cFks2Vxkn9QZUWvKvob+NvqphJgs4j7V4WCirUcRJIE
+ zAnmj/2Ww==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46762)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1m9UAZ-0002eP-Rr; Fri, 30 Jul 2021 16:11:27 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1m9UAX-00005c-3y; Fri, 30 Jul 2021 16:11:25 +0100
+Date: Fri, 30 Jul 2021 16:11:25 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Daniel Walker <danielwa@cisco.com>
+Message-ID: <20210730151124.GH22278@shell.armlinux.org.uk>
 References: <20210729234443.1713722-1-danielwa@cisco.com>
- <YQNrmB9XHkcGy5D0@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YQNrmB9XHkcGy5D0@lunn.ch>
-X-Auto-Response-Suppress: DR, OOF, AutoReply
-X-Outbound-SMTP-Client: 10.24.25.85, [10.24.25.85]
-X-Outbound-Node: rcdn-core-5.cisco.com
-X-Mailman-Approved-At: Mon, 02 Aug 2021 09:44:20 +0000
+In-Reply-To: <20210729234443.1713722-1-danielwa@cisco.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Balamurugan Selvarajan <balamsel@cisco.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Jakub Kicinski <kuba@kernel.org>,
+ netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jakub Kicinski <kuba@kernel.org>,
  Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  xe-linux-external@cisco.com, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
@@ -67,26 +66,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jul 30, 2021 at 05:01:44AM +0200, Andrew Lunn wrote:
-> On Thu, Jul 29, 2021 at 04:44:42PM -0700, Daniel Walker wrote:
-> > From: Balamurugan Selvarajan <balamsel@cisco.com>
-> > 
-> > For KR port the mii interface is a chip-to-chip
-> > interface without a mechanical connector. So PHY
-> > inits are not applicable. In this case MAC is
-> > configured to operate at forced speed(1000Mbps)
-> > and full duplex. Modified driver to accommodate
-> > PHY and NON-PHY mode.
+On Thu, Jul 29, 2021 at 04:44:42PM -0700, Daniel Walker wrote:
+> From: Balamurugan Selvarajan <balamsel@cisco.com>
 > 
-> I agree with Florian here. Look at all the in kernel examples of a SoC
-> MAC connected to an Ethernet switch. Some use rgmii, others 1000BaseX
-> or higher. But they all follow the same scheme, and don't need
-> invasive MAC driver changes.
+> For KR port the mii interface is a chip-to-chip
+> interface without a mechanical connector. So PHY
+> inits are not applicable. In this case MAC is
+> configured to operate at forced speed(1000Mbps)
+> and full duplex. Modified driver to accommodate
+> PHY and NON-PHY mode.
 
+Can we clarify exactly what you are talking about here. What does
+"KR port" refer to? What protocol is spoken by this port? Is it
+1000BASE-KX (1000BASE-X over backplane)? Does it include 10GBASE-KR?
 
-Can you provide the examples which you looked at ?
+Thanks.
 
-Daniel
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
