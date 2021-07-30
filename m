@@ -2,46 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C15183DD335
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Aug 2021 11:44:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B16A33DB7AD
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jul 2021 13:23:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86F5AC5A4DA;
-	Mon,  2 Aug 2021 09:44:40 +0000 (UTC)
-Received: from qq.com (smtpbg558.qq.com [183.3.226.228])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44FE9C57B6F;
+	Fri, 30 Jul 2021 11:23:35 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DAFCBC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82D92C57182
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Jul 2021 09:50:25 +0000 (UTC)
-X-QQ-mid: bizesmtp46t1627638616t8xnpp8h
-Received: from [10.20.53.139] (unknown [113.57.152.160])
- by esmtp6.qq.com (ESMTP) with 
- id ; Fri, 30 Jul 2021 17:50:15 +0800 (CST)
-X-QQ-SSF: 0040000000200040B000B00D0000000
-X-QQ-FEAT: MkqyadvNeuxMSNe1kZx1Dit5L+HItP5hdALRf1YtNK99XkWKUrWYsxIOYhANB
- 7k/v/DoYTBkVcIJ489BDEXPtORUuCpuUYUncouRyEUj8wMQ7lGNTyghKdh4XGDbqiId5Rez
- eROHzuO680808UM57P2SiCC9zaStnQKf9qCVpdhBKuGWQ9F6kmSm3i3MsLowEOXCi1c+os/
- aPGy9M4N8F2Q4EwNeAsz8IeR+r1JwMKS3xpK4PIoDeIjsLTNbl2MwBRGNAnVul9OaBfOzVc
- veJOxhV415rxRzxG5DjE2ZEk1PMlpNZvB2/eNLktxsIKHVAnPQqviku544tzMtxdln06oMq
- bo+H1Q/Nqf3ZScE1/3tiXEB5M0R0u7FTqFIZzezSXEI3oqv+UI=
-X-QQ-GoodBg: 2
-To: peppe.cavallaro@st.com
+ Fri, 30 Jul 2021 11:23:34 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4AAD46101C;
+ Fri, 30 Jul 2021 11:23:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1627644212;
+ bh=O27IE+j7gHANW5VvwQ6r5nimd3mK5l0+qZ9rz7zKp0Y=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=WL/FCkoQfXtFdweNoHI9CHLptD1KLWh1LPC5z608DSxenZcveWw42QGq9p/HHQbgX
+ lr+mxuO7twKTj4zC1hc5uiiH5ZuOVbnQ8UY91FLDDTlY0fhKz1AUqWB2JjAVSybc1X
+ 8QIv6g1B5on3g3+G37B7dMYGrFA3S6LlzJvsPFaaWZyiN4lz8xmPq2SJQpUJMncq4Z
+ TwBAThKbleWKHASj76/12ga57EYVk5YZa7BQ8utlcezRVUf/oPku13EUGC7+goYF97
+ oZvE/f60FtPSAwfokMLq1ymv8O9kg7utsyZvagUySSoKNhSPLmnX/dKfooEEYPQOvQ
+ 15XPSV4dhrKXA==
+Date: Fri, 30 Jul 2021 04:23:31 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Hao Chen <chenhaoa@uniontech.com>
+Message-ID: <20210730042331.03fafba1@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <6015f3a3-1e6e-5242-bc2b-32d3b077d0e8@uniontech.com>
 References: <20210722015433.8563-1-chenhaoa@uniontech.com>
-From: Hao Chen <chenhaoa@uniontech.com>
-Message-ID: <6015f3a3-1e6e-5242-bc2b-32d3b077d0e8@uniontech.com>+168AE02CA4423A6A
-Date: Fri, 30 Jul 2021 17:49:31 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ <6015f3a3-1e6e-5242-bc2b-32d3b077d0e8@uniontech.com>
 MIME-Version: 1.0
-In-Reply-To: <20210722015433.8563-1-chenhaoa@uniontech.com>
-Content-Language: en-US
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgweb:qybgweb11
-X-Mailman-Approved-At: Mon, 02 Aug 2021 09:44:19 +0000
 Cc: qiangqing.zhang@nxp.com, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
  alexandre.torgue@foss.st.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, davem@davemloft.net, linux-kernel@vger.kernel.org
+ peppe.cavallaro@st.com, davem@davemloft.net, linux-kernel@vger.kernel.org
 Subject: Re: [Linux-stm32] [net,
 	v7] net: stmmac: fix 'ethtool -P' return -EBUSY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -55,76 +50,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="gbk"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CtTaIDIwMjEvNy8yMiDJz87nOTo1NCwgSGFvIENoZW4g0LS1wDoKPiBJIHdhbnQgdG8gZ2V0IHBl
-cm1hbmVudCBNQUMgYWRkcmVzcyB3aGVuIHRoZSBjYXJkIGlzIGRvd24uIEFuZCBJIHRoaW5rCj4g
-aXQgaXMgbW9yZSBjb252ZW5pZW50IHRvIGdldCBzdGF0aXN0aWNzIGluIHRoZSBkb3duIHN0YXRl
-IGJ5ICdldGh0b29sIC1TJy4KPiBCdXQgY3VycmVudCBhbGwgb2YgdGhlIGV0aG9vbCBjb21tYW5k
-IHJldHVybiAtRUJVU1kuCj4KPiBJIGRvbid0IHRoaW5rIHdlIHNob3VsZCBkZXRlY3QgdGhhdCB0
-aGUgbmV0d29yayBjYXJkIGlzIHVwIGluICcuIEJlZ2luJywKPiB3aGljaCB3aWxsIGNhdXNlIHRo
-YXQgYWxsIHRoZSBldGh0b29sIGNvbW1hbmRzIGNhbid0IGJlIHVzZWQgd2hlbiB0aGUKPiBuZXR3
-b3JrIGNhcmQgaXMgZG93bi4gSWYgc29tZSBldGh0b29sIGNvbW1hbmRzIGNhbiBvbmx5IGJlIHVz
-ZWQgaW4gdGhlCj4gdXAgc3RhdGUsIGNoZWNrIGl0IGluIHRoZSBjb3JyZXNwb25kaW5nIGV0aG9v
-bCBPUFMgZnVuY3Rpb24gaXMgYmV0dGVyLgo+IFRoaXMgaXMgdG9vIHJ1ZGUgYW5kIHVucmVhc29u
-YWJsZS4KPgo+IEkgaGF2ZSBjaGVja2VkIHRoZSAnLiBCZWdpbicgaW1wbGVtZW50YXRpb24gb2Yg
-b3RoZXIgZHJpdmVycywgbW9zdCBvZiB3aGljaAo+IHN1cHBvcnQgdGhlIHN1Ym1pc3Npb24gb2Yg
-TklDIGRyaXZlciBmb3IgdGhlIGZpcnN0IHRpbWUuCj4gVGhleSBhcmUgdG9vIG9sZCB0byBrbm93
-IHdoeSAnLiBCZWdpbicgaXMgaW1wbGVtZW50ZWQuIEkgc3VzcGVjdCB0aGF0IHRoZXkKPiBoYXZl
-IG5vdCBub3RpY2VkIHRoZSB1c2FnZSBvZiAnLiBCZWdpbicuCj4KPiBGaXhlczogNDdkZDdhNTQw
-YjhhICgibmV0OiBhZGQgc3VwcG9ydCBmb3IgU1RNaWNyb2VsZWN0cm9uaWNzIEV0aGVybmV0Cj4g
-CQkgICAgIGNvbnRyb2xsZXJzLiIpCj4KPiBDb21waWxlLXRlc3RlZCBvbiBhcm02NC4gVGVzdGVk
-IG9uIGFuIGFybTY0IHN5c3RlbSB3aXRoIGFuIG9uLWJvYXJkCj4gU1RNTUFDIGNoaXAuCj4KPiBD
-aGFuZ2VzIHY2IC4uLiB2NzoKPiAtIGZpeCBhcmcgdHlwZSBlcnJvciBvZiAnZGV2JyB0byAncHJp
-di0+ZGV2aWNlJy4KPgo+IENoYW5nZXMgdjUgLi4uIHY2Ogo+IC0gVGhlIDQuMTkuOTAga2VybmVs
-IG5vdCBzdXBwb3J0IHBtX3J1bnRpbWUsIHNvIGltcGxlbWVudGUgJy5iZWdpbicgYW5kCj4gICAg
-Jy5jb21wbGV0ZScgYWdhaW4uIEFkZCByZXR1cm4gdmFsdWUgY2hlY2sgb2YgcG1fcnVudGltZSBm
-dW5jdGlvbi4KPgo+IENoYW5nZXMgdjQgLi4uIHY1Ogo+IC0gdGVzdCB0aGUgJy5iZWdpbicgd2ls
-bCByZXR1cm4gLTEzIGVycm9yIG9uIG15IG1hY2hpbmUgYmFzZWQgb24gNC4xOS45MAo+ICAgIGtl
-cm5lbC4gVGhlIHBsYXRmb3JtIGRyaXZlciBkb2VzIG5vdCBzdXBwb3J0ZWQgcG1fcnVudGltZS4g
-U28gcmVtb3ZlIHRoZQo+ICAgIGltcGxlbWVudGF0aW9uIG9mICcuYmVnaW4nIGFuZCAnLmNvbXBs
-ZXRlJy4KPgo+IENoYW5nZXMgdjMgLi4uIHY0Ogo+IC0gaW1wbGVtZW50ICcuY29tcGxldGUnIGV0
-aHRvb2wgT1BTLgo+Cj4gQ2hhbmdlcyB2MiAuLi4gdjM6Cj4gLSBhZGQgbGludXgvcG1fcnVudGlt
-ZS5oIGhlYWQgZmlsZS4KPgo+IENoYW5nZXMgdjEgLi4uIHYyOgo+IC0gZml4IHNwZWxsIGVycm9y
-IG9mIGRldi4KPgo+IFNpZ25lZC1vZmYtYnk6IEhhbyBDaGVuIDxjaGVuaGFvYUB1bmlvbnRlY2gu
-Y29tPgo+IC0tLQo+ICAgLi4uL2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19ldGh0b29s
-LmMgIHwgMjEgKysrKysrKysrKysrKy0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDE1IGluc2Vy
-dGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRo
-ZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX2V0aHRvb2wuYyBiL2RyaXZlcnMvbmV0L2V0aGVy
-bmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19ldGh0b29sLmMKPiBpbmRleCBkMGNlNjA4YjgxYzMu
-LmZkNWI2OGY2YmY1MyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3Jv
-L3N0bW1hYy9zdG1tYWNfZXRodG9vbC5jCj4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3Rt
-aWNyby9zdG1tYWMvc3RtbWFjX2V0aHRvb2wuYwo+IEBAIC0xMiw4ICsxMiw5IEBACj4gICAjaW5j
-bHVkZSA8bGludXgvZXRodG9vbC5oPgo+ICAgI2luY2x1ZGUgPGxpbnV4L2ludGVycnVwdC5oPgo+
-ICAgI2luY2x1ZGUgPGxpbnV4L21paS5oPgo+IC0jaW5jbHVkZSA8bGludXgvcGh5bGluay5oPgo+
-ICAgI2luY2x1ZGUgPGxpbnV4L25ldF90c3RhbXAuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BoeWxp
-bmsuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgICNpbmNsdWRlIDxhc20v
-aW8uaD4KPiAgIAo+ICAgI2luY2x1ZGUgInN0bW1hYy5oIgo+IEBAIC00MTAsMTEgKzQxMSwxOCBA
-QCBzdGF0aWMgdm9pZCBzdG1tYWNfZXRodG9vbF9zZXRtc2dsZXZlbChzdHJ1Y3QgbmV0X2Rldmlj
-ZSAqZGV2LCB1MzIgbGV2ZWwpCj4gICAKPiAgIH0KPiAgIAo+IC1zdGF0aWMgaW50IHN0bW1hY19j
-aGVja19pZl9ydW5uaW5nKHN0cnVjdCBuZXRfZGV2aWNlICpkZXYpCj4gK3N0YXRpYyBpbnQgc3Rt
-bWFjX2V0aHRvb2xfYmVnaW4oc3RydWN0IG5ldF9kZXZpY2UgKmRldikKPiAgIHsKPiAtCWlmICgh
-bmV0aWZfcnVubmluZyhkZXYpKQo+IC0JCXJldHVybiAtRUJVU1k7Cj4gLQlyZXR1cm4gMDsKPiAr
-CXN0cnVjdCBzdG1tYWNfcHJpdiAqcHJpdiA9IG5ldGRldl9wcml2KGRldik7Cj4gKwo+ICsJcmV0
-dXJuIHBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQocHJpdi0+ZGV2aWNlKTsKPiArfQo+ICsKPiAr
-c3RhdGljIHZvaWQgc3RtbWFjX2V0aHRvb2xfY29tcGxldGUoc3RydWN0IG5ldF9kZXZpY2UgKmRl
-dikKPiArewo+ICsJc3RydWN0IHN0bW1hY19wcml2ICpwcml2ID0gbmV0ZGV2X3ByaXYoZGV2KTsK
-PiArCj4gKwlwbV9ydW50aW1lX3B1dChwcml2LT5kZXZpY2UpOwo+ICAgfQo+ICAgCj4gICBzdGF0
-aWMgaW50IHN0bW1hY19ldGh0b29sX2dldF9yZWdzX2xlbihzdHJ1Y3QgbmV0X2RldmljZSAqZGV2
-KQo+IEBAIC0xMDczLDcgKzEwODEsOCBAQCBzdGF0aWMgaW50IHN0bW1hY19zZXRfdHVuYWJsZShz
-dHJ1Y3QgbmV0X2RldmljZSAqZGV2LAo+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBldGh0b29sX29w
-cyBzdG1tYWNfZXRodG9vbF9vcHMgPSB7Cj4gICAJLnN1cHBvcnRlZF9jb2FsZXNjZV9wYXJhbXMg
-PSBFVEhUT09MX0NPQUxFU0NFX1VTRUNTIHwKPiAgIAkJCQkgICAgIEVUSFRPT0xfQ09BTEVTQ0Vf
-TUFYX0ZSQU1FUywKPiAtCS5iZWdpbiA9IHN0bW1hY19jaGVja19pZl9ydW5uaW5nLAo+ICsJLmJl
-Z2luID0gc3RtbWFjX2V0aHRvb2xfYmVnaW4sCj4gKwkuY29tcGxldGUgPSBzdG1tYWNfZXRodG9v
-bF9jb21wbGV0ZSwKPiAgIAkuZ2V0X2RydmluZm8gPSBzdG1tYWNfZXRodG9vbF9nZXRkcnZpbmZv
-LAo+ICAgCS5nZXRfbXNnbGV2ZWwgPSBzdG1tYWNfZXRodG9vbF9nZXRtc2dsZXZlbCwKPiAgIAku
-c2V0X21zZ2xldmVsID0gc3RtbWFjX2V0aHRvb2xfc2V0bXNnbGV2ZWwsClRoZXJlIHdhcyBubyBl
-bWFpbCBvciByZXBseSBmb3IgYSB3ZWVrLiBDYW4gdGhpcyBwYXRjaCBiZSBhY2NlcHRlZD8KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+On Fri, 30 Jul 2021 17:49:31 +0800 Hao Chen wrote:
+> There was no email or reply for a week. Can this patch be accepted?
+
+Looks like v7 didn't make it into patchwork, these are your submissions
+which did register:
+
+https://patchwork.kernel.org/project/netdevbpf/list/?submitter=197871&state=*
+
+Please resend.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
