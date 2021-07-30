@@ -2,44 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B54F53DB1A4
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jul 2021 05:02:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8752D3DB62F
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jul 2021 11:42:31 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3F95C57B6F;
-	Fri, 30 Jul 2021 03:02:04 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F90DC57B6F;
+	Fri, 30 Jul 2021 09:42:30 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 433B9C57182
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53188C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Jul 2021 03:02:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=mC4Gx9xRFBlu3UrY+2RrRY1NGCh40AJ8AR8VqslYgMM=; b=joLw9KZeIvlKaseAN391neWrFc
- V4HNPRdhVStrgICNedTiPkO9zCL9fZ/DcOdcGVNeZTptjGflRmih4zRomSLCedQ+UGDfpL9XvNdCs
- zYgfTlrslvrPDd5mmgcjbDRV7jagecu8QLT/7KzJde+nzU4gB+q1RwBopbwpAncAKL/c=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1m9ImO-00FP4J-Re; Fri, 30 Jul 2021 05:01:44 +0200
-Date: Fri, 30 Jul 2021 05:01:44 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Daniel Walker <danielwa@cisco.com>
-Message-ID: <YQNrmB9XHkcGy5D0@lunn.ch>
-References: <20210729234443.1713722-1-danielwa@cisco.com>
+ Fri, 30 Jul 2021 09:42:29 +0000 (UTC)
+Received: from lupine.hi.pengutronix.de
+ ([2001:67c:670:100:3ad5:47ff:feaf:1a17] helo=lupine)
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1m9P26-0006mS-Mk; Fri, 30 Jul 2021 11:42:22 +0200
+Received: from pza by lupine with local (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1m9P23-0008QP-PV; Fri, 30 Jul 2021 11:42:19 +0200
+Message-ID: <54a74efe287e3bb673c958652946e38dfa8f3fea.camel@pengutronix.de>
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Anand Moon <linux.amoon@gmail.com>, netdev@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ devicetree@vger.kernel.org
+Date: Fri, 30 Jul 2021 11:42:19 +0200
+In-Reply-To: <20210729201100.3994-2-linux.amoon@gmail.com>
+References: <20210729201100.3994-1-linux.amoon@gmail.com>
+ <20210729201100.3994-2-linux.amoon@gmail.com>
+User-Agent: Evolution 3.30.5-1.1 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210729234443.1713722-1-danielwa@cisco.com>
-Cc: Balamurugan Selvarajan <balamsel@cisco.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+X-SA-Exim-Connect-IP: 2001:67c:670:100:3ad5:47ff:feaf:1a17
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Jose Abreu <joabreu@synopsys.com>, Neil Armstrong <narmstrong@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Kevin Hilman <khilman@baylibre.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Jakub Kicinski <kuba@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xe-linux-external@cisco.com, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RFC-PATCH] net: stmmac: Add KR port support.
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Emiliano Ingrassia <ingrassia@epigenesys.com>,
+ Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [Linux-stm32] [PATCHv1 1/3] arm64: dts: amlogic: add missing
+	ethernet reset ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,22 +67,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 29, 2021 at 04:44:42PM -0700, Daniel Walker wrote:
-> From: Balamurugan Selvarajan <balamsel@cisco.com>
+Hi Anand,
+
+On Fri, 2021-07-30 at 01:40 +0530, Anand Moon wrote:
+> Add reset external reset of the ethernet mac controller,
+> used new reset id for reset controller as it conflict
+> with the core reset id.
 > 
-> For KR port the mii interface is a chip-to-chip
-> interface without a mechanical connector. So PHY
-> inits are not applicable. In this case MAC is
-> configured to operate at forced speed(1000Mbps)
-> and full duplex. Modified driver to accommodate
-> PHY and NON-PHY mode.
+> Fixes: f3362f0c1817 ("arm64: dts: amlogic: add missing ethernet reset ID")
+> 
+> Cc: Jerome Brunet <jbrunet@baylibre.com>
+> Cc: Neil Armstrong <narmstrong@baylibre.com>
+> Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+> Signed-off-by: Anand Moon <linux.amoon@gmail.com>
+> ---
+>  arch/arm64/boot/dts/amlogic/meson-axg.dtsi        | 2 ++
+>  arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi | 2 ++
+>  arch/arm64/boot/dts/amlogic/meson-gx.dtsi         | 3 +++
+>  3 files changed, 7 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
+> index 3f5254eeb47b..da3bf9f7c1c6 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
+> @@ -280,6 +280,8 @@ ethmac: ethernet@ff3f0000 {
+>  				      "timing-adjustment";
+>  			rx-fifo-depth = <4096>;
+>  			tx-fifo-depth = <2048>;
+> +			resets = <&reset RESET_ETHERNET>;
+> +			reset-names = "ethreset";
 
-I agree with Florian here. Look at all the in kernel examples of a SoC
-MAC connected to an Ethernet switch. Some use rgmii, others 1000BaseX
-or higher. But they all follow the same scheme, and don't need
-invasive MAC driver changes.
+This is missing binding documentation. Also, is this reset name taken
+from the documentation? Otherwise, it would probably be better to call
+it "phy" for a PHY reset.
 
-    Andrew
+regards
+Philipp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
