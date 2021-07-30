@@ -2,72 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FA423DB025
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jul 2021 02:11:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B54F53DB1A4
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jul 2021 05:02:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E12B1C57B6F;
-	Fri, 30 Jul 2021 00:10:59 +0000 (UTC)
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3F95C57B6F;
+	Fri, 30 Jul 2021 03:02:04 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29A5FC57B51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 433B9C57182
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Jul 2021 00:10:56 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- a4-20020a17090aa504b0290176a0d2b67aso18220780pjq.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Jul 2021 17:10:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=KvNrFVgss6eSO6kUoQ3VU0X35CeoRY7KVDc86f4fQm4=;
- b=kOZQR14Uy3g//5gbl3xlpGsDHTkZtnRt2eygeLvJGcHjKB5XzT7Ldokpq0NHg1qAFQ
- xrUuJh8cOjV96IFiAb3OEqVzDWXY9A9Iz4H+WomwEZv8pWvjbfnAGH/WBA0megaHfwAb
- FrZmi2FAWLjncp47tvP1GZz6eGYY3U0P/lCKl8QgOFdgFjhPely2k0UWryrc85QzoocQ
- nxpsUlu9rex7WQydEd8E2OP286Wjz5qgZt5sbHFjX6+q3MgLSpSZBwlrr445ZibTmdHB
- qMvuvtM3WGGw1NEYtucOdcPeFgMgOFEVG362GtLpgC47HKmy1NEok10Kr4JNtYkChDnx
- FZaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=KvNrFVgss6eSO6kUoQ3VU0X35CeoRY7KVDc86f4fQm4=;
- b=T03TaF0i+25gpJ6kytjC78vG2yohvlj3t0aDz9uHGu57dmqIwpCzw716wRMZe9z22j
- ZtYPpW8JX9y9rGu9uA3l2dVYc9XnQ6BQ+BnC/ZLLbSiY/kZjKoM8qDefKoPQjxxnw9og
- d+upujupQ2NtGWXrIdw43pDreTFZ6HKytCU2EB6u1/kMl1yza5g8BxVRt3MsGSS4Jjwj
- UVGm2Yf2fTn/9QtQlp6yfo4LW9Nf7emb+m1Ij6oqaNK+jSHd2kEqMGNSGN7+oWK9Q5xN
- rGJllTALEf3tx91cpAgmFKa7UJ60n31UiVQ23nZJ3NF1mOYl+RmTdrtbVv96zUJTJ3zy
- A00g==
-X-Gm-Message-State: AOAM531I/s6ExTPJzzckT0PKpdCkZNQ2ISF+5++tWgghTtVslfvqQtf/
- r5RilpzUICnQg7TIiTeHSJc=
-X-Google-Smtp-Source: ABdhPJwE/niSh5UdF+w0QQdfBSjFatj+JALFmIVOdTcLe3nO62DxPf2VNDgpH154QI9H1E+xrQvSqA==
-X-Received: by 2002:a65:42c3:: with SMTP id l3mr698563pgp.377.1627603855087;
- Thu, 29 Jul 2021 17:10:55 -0700 (PDT)
-Received: from [10.67.49.140] ([192.19.223.252])
- by smtp.googlemail.com with ESMTPSA id f15sm5154339pgv.92.2021.07.29.17.10.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jul 2021 17:10:54 -0700 (PDT)
-To: Daniel Walker <danielwa@cisco.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>
+ Fri, 30 Jul 2021 03:02:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=mC4Gx9xRFBlu3UrY+2RrRY1NGCh40AJ8AR8VqslYgMM=; b=joLw9KZeIvlKaseAN391neWrFc
+ V4HNPRdhVStrgICNedTiPkO9zCL9fZ/DcOdcGVNeZTptjGflRmih4zRomSLCedQ+UGDfpL9XvNdCs
+ zYgfTlrslvrPDd5mmgcjbDRV7jagecu8QLT/7KzJde+nzU4gB+q1RwBopbwpAncAKL/c=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1m9ImO-00FP4J-Re; Fri, 30 Jul 2021 05:01:44 +0200
+Date: Fri, 30 Jul 2021 05:01:44 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Daniel Walker <danielwa@cisco.com>
+Message-ID: <YQNrmB9XHkcGy5D0@lunn.ch>
 References: <20210729234443.1713722-1-danielwa@cisco.com>
-From: Florian Fainelli <f.fainelli@gmail.com>
-Message-ID: <81fca68f-e0c4-ce02-6b2b-e5c22a0c3152@gmail.com>
-Date: Thu, 29 Jul 2021 17:10:45 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
 MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <20210729234443.1713722-1-danielwa@cisco.com>
-Content-Language: en-US
-Cc: Balamurugan Selvarajan <balamsel@cisco.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- xe-linux-external@cisco.com, Jakub Kicinski <kuba@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Cc: Balamurugan Selvarajan <balamsel@cisco.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>, Jakub Kicinski <kuba@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xe-linux-external@cisco.com, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [RFC-PATCH] net: stmmac: Add KR port support.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -85,7 +56,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/29/21 4:44 PM, Daniel Walker wrote:
+On Thu, Jul 29, 2021 at 04:44:42PM -0700, Daniel Walker wrote:
 > From: Balamurugan Selvarajan <balamsel@cisco.com>
 > 
 > For KR port the mii interface is a chip-to-chip
@@ -94,20 +65,13 @@ On 7/29/21 4:44 PM, Daniel Walker wrote:
 > configured to operate at forced speed(1000Mbps)
 > and full duplex. Modified driver to accommodate
 > PHY and NON-PHY mode.
-> 
-> Cc: xe-linux-external@cisco.com
-> Signed-off-by: Balamurugan Selvarajan <balamsel@cisco.com>
-> Signed-off-by: Daniel Walker <danielwa@cisco.com>
 
-You are not adding KR support per-se, you are just hacking the driver so
-it is happy with an unspecified phy_interface_t value and assuming
-1000Mbits/sec, this is not going to work.
+I agree with Florian here. Look at all the in kernel examples of a SoC
+MAC connected to an Ethernet switch. Some use rgmii, others 1000BaseX
+or higher. But they all follow the same scheme, and don't need
+invasive MAC driver changes.
 
-Just add KR/backplane properly or use a fixed-link property hardcoded
-for 1000Mbits/sec and be done with it with no hacking, which would be
-just way better than what is proposed here.
--- 
-Florian
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
