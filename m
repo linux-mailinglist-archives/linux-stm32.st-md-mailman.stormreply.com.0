@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D782B3DC2B1
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jul 2021 04:29:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B36E3DD339
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Aug 2021 11:44:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D5FFC57B6F;
-	Sat, 31 Jul 2021 02:29:22 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF161C5A4E6;
+	Mon,  2 Aug 2021 09:44:40 +0000 (UTC)
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A025C56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B953AC57B6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Jul 2021 02:29:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=fTMpPnF7MNPIeWiCWwW2KmQn0PAalSgBt+h2ZsLcBHU=; b=l/Uryn7pXFoajvjHHL7k0N/Krr
- 4ZZhnM75MOm+LJCvJh+wASnN667p+KNfS7Vq+5Q8rwjN06d9RhSlnl9DVOiAEcWeS4yulFwlBpvrP
- UCwBceM7Jt1KzmZchFuSKSOO+PyYsCIBNuAvzUeHXrvP5fbsVzEhsn/cwbbntAoKrOYk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1m9ekJ-00FYZR-Ab; Sat, 31 Jul 2021 04:29:03 +0200
-Date: Sat, 31 Jul 2021 04:29:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Daniel Walker <danielwa@cisco.com>
-Message-ID: <YQS1bzsIAD83+762@lunn.ch>
-References: <20210729234443.1713722-1-danielwa@cisco.com>
- <YQNrmB9XHkcGy5D0@lunn.ch> <20210730144830.GO1633923@zorba>
+ Sat, 31 Jul 2021 03:04:48 +0000 (UTC)
+X-QQ-mid: bizesmtp34t1627700679tx3105p6
+Received: from localhost.localdomain (unknown [117.152.154.62])
+ by esmtp6.qq.com (ESMTP) with 
+ id ; Sat, 31 Jul 2021 11:04:37 +0800 (CST)
+X-QQ-SSF: 0140000000200050B000B00A0000000
+X-QQ-FEAT: mrYqqQu6MtHX06+OAGTAWFBFQ7MmCD7WcfnU/eu4WLDlXI1MVsqi06CaJt8SB
+ zUBGGK3yL/+5Wb9gyf4ITJ67gVybg809QdB6/hNs6b9iXbhmwKSSCFAAc9TGAymqhNIyezR
+ NCAACa/c4ntdVChdwzQn48QudwrB0mp+ZvRR9hOVh5D4097e7ZirZNfkNbBdfzVV4m3hIcb
+ FufSraCMkUkP83kqrqEDjZBofkJNwzWoLt0B+/l+fZUKJWH7ot10DxKqRP77VgCFJoTpfZy
+ 006ZP5hWIWhvGO6v48zXSIxZNDTx1U5fCpnyRvqhoBO4Hx9LGdFHNzWToKor6W2MqEyyLFJ
+ /LPPENJ1K7sevqcm1unEy3nzTFMdQ==
+X-QQ-GoodBg: 2
+From: Hao Chen <chenhaoa@uniontech.com>
+To: peppe.cavallaro@st.com
+Date: Sat, 31 Jul 2021 11:04:36 +0800
+Message-Id: <20210731030436.24666-1-chenhaoa@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210730144830.GO1633923@zorba>
-Cc: Balamurugan Selvarajan <balamsel@cisco.com>, linux-kernel@vger.kernel.org,
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
+X-QQ-Bgrelay: 1
+X-Mailman-Approved-At: Mon, 02 Aug 2021 09:44:19 +0000
+Cc: linux-kernel@vger.kernel.org, Hao Chen <chenhaoa@uniontech.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Jakub Kicinski <kuba@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xe-linux-external@cisco.com, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RFC-PATCH] net: stmmac: Add KR port support.
+ linux@armlinux.org.uk, alexandre.torgue@foss.st.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [net, v7] net: stmmac: fix 'ethtool -P' return -EBUSY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,36 +57,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jul 30, 2021 at 07:48:30AM -0700, Daniel Walker wrote:
-> On Fri, Jul 30, 2021 at 05:01:44AM +0200, Andrew Lunn wrote:
-> > On Thu, Jul 29, 2021 at 04:44:42PM -0700, Daniel Walker wrote:
-> > > From: Balamurugan Selvarajan <balamsel@cisco.com>
-> > > 
-> > > For KR port the mii interface is a chip-to-chip
-> > > interface without a mechanical connector. So PHY
-> > > inits are not applicable. In this case MAC is
-> > > configured to operate at forced speed(1000Mbps)
-> > > and full duplex. Modified driver to accommodate
-> > > PHY and NON-PHY mode.
-> > 
-> > I agree with Florian here. Look at all the in kernel examples of a SoC
-> > MAC connected to an Ethernet switch. Some use rgmii, others 1000BaseX
-> > or higher. But they all follow the same scheme, and don't need
-> > invasive MAC driver changes.
-> 
-> 
-> Can you provide the examples which you looked at ?
+I want to get permanent MAC address when the card is down. And I think
+it is more convenient to get statistics in the down state by 'ethtool -S'.
+But current all of the ethool command return -EBUSY.
 
-There are plenty of examples using Freescale FEC and Marvell Ethernet
-switches:
+I don't think we should detect that the network card is up in '. Begin',
+which will cause that all the ethtool commands can't be used when the
+network card is down. If some ethtool commands can only be used in the
+up state, check it in the corresponding ethool OPS function is better.
+This is too rude and unreasonable.
 
-arch/arm/boot/dts/vf610-zii-dev-rev-b.dts
+I have checked the '.begin' implementation of other drivers, most of which
+support the submission of NIC driver for the first time.
+They are too old to know why '.begin' is implemented. I suspect that they
+have not noticed the usage of '.begin'.
 
-Or the Mavell based
+Fixes: 47dd7a540b8a ("net: add support for STMicroelectronics Ethernet
+		     controllers.")
 
-arch/arm/boot/dts/armada-xp-linksys-mamba.dts
+Compile-tested on arm64. Tested on an arm64 system with an on-board
+STMMAC chip.
 
-	Andrew
+Changes v6 ... v7:
+- fix arg type error of 'dev' to 'priv->device'.
+
+Changes v5 ... v6:
+- The 4.19.90 kernel not support pm_runtime, so implemente '.begin' and
+  '.complete' again. Add return value check of pm_runtime function.
+
+Changes v4 ... v5:
+- test the '.begin' will return -13 error on my machine based on 4.19.90
+  kernel. The platform driver does not supported pm_runtime. So remove the
+  implementation of '.begin' and '.complete'.
+
+Changes v3 ... v4:
+- implement '.complete' ethtool OPS.
+
+Changes v2 ... v3:
+- add linux/pm_runtime.h head file.
+
+Changes v1 ... v2:
+- fix spell error of dev.
+
+Signed-off-by: Hao Chen <chenhaoa@uniontech.com>
+---
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 21 +++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index d0ce608b81c3..fd5b68f6bf53 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -12,8 +12,9 @@
+ #include <linux/ethtool.h>
+ #include <linux/interrupt.h>
+ #include <linux/mii.h>
+-#include <linux/phylink.h>
+ #include <linux/net_tstamp.h>
++#include <linux/phylink.h>
++#include <linux/pm_runtime.h>
+ #include <asm/io.h>
+ 
+ #include "stmmac.h"
+@@ -410,11 +411,18 @@ static void stmmac_ethtool_setmsglevel(struct net_device *dev, u32 level)
+ 
+ }
+ 
+-static int stmmac_check_if_running(struct net_device *dev)
++static int stmmac_ethtool_begin(struct net_device *dev)
+ {
+-	if (!netif_running(dev))
+-		return -EBUSY;
+-	return 0;
++	struct stmmac_priv *priv = netdev_priv(dev);
++
++	return pm_runtime_resume_and_get(priv->device);
++}
++
++static void stmmac_ethtool_complete(struct net_device *dev)
++{
++	struct stmmac_priv *priv = netdev_priv(dev);
++
++	pm_runtime_put(priv->device);
+ }
+ 
+ static int stmmac_ethtool_get_regs_len(struct net_device *dev)
+@@ -1073,7 +1081,8 @@ static int stmmac_set_tunable(struct net_device *dev,
+ static const struct ethtool_ops stmmac_ethtool_ops = {
+ 	.supported_coalesce_params = ETHTOOL_COALESCE_USECS |
+ 				     ETHTOOL_COALESCE_MAX_FRAMES,
+-	.begin = stmmac_check_if_running,
++	.begin = stmmac_ethtool_begin,
++	.complete = stmmac_ethtool_complete,
+ 	.get_drvinfo = stmmac_ethtool_getdrvinfo,
+ 	.get_msglevel = stmmac_ethtool_getmsglevel,
+ 	.set_msglevel = stmmac_ethtool_setmsglevel,
+-- 
+2.20.1
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
