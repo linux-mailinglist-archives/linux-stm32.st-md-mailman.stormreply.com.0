@@ -2,51 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C50743DD33A
+	by mail.lfdr.de (Postfix) with ESMTPS id D94FC3DD33B
 	for <lists+linux-stm32@lfdr.de>; Mon,  2 Aug 2021 11:44:55 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87D77C5A4D3;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F273C5A4D7;
 	Mon,  2 Aug 2021 09:44:55 +0000 (UTC)
-Received: from qq.com (unknown [183.3.255.213])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42C58C56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 776EDC57B6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Jul 2021 03:52:37 +0000 (UTC)
-X-QQ-mid: bizesmtp32t1627703533tx9re992
-Received: from [192.168.1.4] (unknown [117.152.154.62])
+ Sat, 31 Jul 2021 05:15:34 +0000 (UTC)
+X-QQ-mid: bizesmtp48t1627708515tsd9nisp
+Received: from localhost.localdomain (unknown [117.152.154.62])
  by esmtp6.qq.com (ESMTP) with 
- id ; Sat, 31 Jul 2021 11:52:03 +0800 (CST)
-X-QQ-SSF: 0040000000200050B000B00A0000000
-X-QQ-FEAT: yvN+3SpHa6iqnn+eF8/5mxvZMfB9lihrb0bsJJgmT6aioauBlWvsv79OlT/Jk
- vgMmjfNpkLUZTC14WTqXsX3gAFloUkTF2DrC17Y2f94cuRuTBCKAL7l6EUU3BSYXZL4i8HP
- J6FlCPUL7KsIEFUJiCXNJL0TMjr6EUttlGarxO6o620n4AtVUDoKpJyljHbhQqlOSPo3jXQ
- sMyiil+ILLM81mvdtRIwyScQDex/yusM5t5f4bumDMRRNraNgQ+zpUatHDQtM0r6774LT+0
- gZJoea0qvF3SHRDJQznzI8vwy6HjBR7d+mh5WCltFTCgOPZRq4Op5CJjhQGIzy2yzjMc+4Z
- fSNMDIj7YdASxaCfupxAZ9vbAPv/4QJ1ViJLmGtuKJ2LkafC/c=
+ id ; Sat, 31 Jul 2021 13:15:13 +0800 (CST)
+X-QQ-SSF: 0140000000200050B000B00A0000000
+X-QQ-FEAT: VqXHZHhIyRwFZQv1sZxjLUL8hw63WBbHVzC/XJFFmWrbwMpj0veqhOUrD2+Zb
+ zuq9VKsfu8JbV+aX+SviiQXiezfrNmjjyyEiWdXCO1585DjsduSG/BvmOjBmCZ5vUJRUXXd
+ TNBNRdNJ3xFb4gPY31k2l/0et8iPp/HznBBSSPFVTWKHZxFwQECCsS4y42DR4PmZ/qmv+WO
+ +OzSgE60DHgqMhzQlAaNm2pF31bua4QtsJk92aDQKJSyEYaGitkKiyB1LcmgBAgL6lP7yOF
+ 4ts9Ib/gYXuQPpJgVFhq4rQr55wQti0O1ftFNo24a5YPCumvEnL/b36CiJ5rVq48XrBiOQP
+ /bEW0LGsvDDTvIz0b3hlG7caOE0C3cRZPtIRiFPT0tluaNGmJseY6OLchZKnA==
 X-QQ-GoodBg: 2
-To: Jakub Kicinski <kuba@kernel.org>
-References: <20210722015433.8563-1-chenhaoa@uniontech.com>
- <6015f3a3-1e6e-5242-bc2b-32d3b077d0e8@uniontech.com>
- <20210730042331.03fafba1@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 From: Hao Chen <chenhaoa@uniontech.com>
-Message-ID: <6596f688-cc87-cf6b-5474-842811ad897f@uniontech.com>+DC3D9FFE1B7A930C
-Date: Sat, 31 Jul 2021 11:52:03 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+To: peppe.cavallaro@st.com
+Date: Sat, 31 Jul 2021 13:15:10 +0800
+Message-Id: <20210731051510.3083-1-chenhaoa@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20210730042331.03fafba1@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-Content-Language: en-US
 X-QQ-SENDSIZE: 520
 Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
 X-QQ-Bgrelay: 1
 X-Mailman-Approved-At: Mon, 02 Aug 2021 09:44:20 +0000
-Cc: qiangqing.zhang@nxp.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
- alexandre.torgue@foss.st.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, davem@davemloft.net, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [net,
-	v7] net: stmmac: fix 'ethtool -P' return -EBUSY
+Cc: linux-kernel@vger.kernel.org, Hao Chen <chenhaoa@uniontech.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux@armlinux.org.uk, alexandre.torgue@foss.st.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [net, v7] net: stmmac: fix 'ethtool -P' return -EBUSY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,28 +52,112 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="gbk"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CtTaIDIwMjEvNy8zMCDPws7nNzoyMywgSmFrdWIgS2ljaW5za2kg0LS1wDoKPiBPbiBGcmksIDMw
-IEp1bCAyMDIxIDE3OjQ5OjMxICswODAwIEhhbyBDaGVuIHdyb3RlOgo+PiBUaGVyZSB3YXMgbm8g
-ZW1haWwgb3IgcmVwbHkgZm9yIGEgd2Vlay4gQ2FuIHRoaXMgcGF0Y2ggYmUgYWNjZXB0ZWQ/Cj4g
-TG9va3MgbGlrZSB2NyBkaWRuJ3QgbWFrZSBpdCBpbnRvIHBhdGNod29yaywgdGhlc2UgYXJlIHlv
-dXIgc3VibWlzc2lvbnMKPiB3aGljaCBkaWQgcmVnaXN0ZXI6Cj4KPiBodHRwczovL3BhdGNod29y
-ay5rZXJuZWwub3JnL3Byb2plY3QvbmV0ZGV2YnBmL2xpc3QvP3N1Ym1pdHRlcj0xOTc4NzEmc3Rh
-dGU9Kgo+Cj4gUGxlYXNlIHJlc2VuZC4KPgpJIHJlc2VuZCB0aGUgZW1haWwgYWdhaW4sIGJ1dCB0
-aGUgbWFpbGJveCBzZXJ2ZXIgbmV0ZGV2QHZnZXIua2VybmVsLm9yZyAKcmV0dXJuZWQgbXkgbWFp
-bC4KCkl0IHNob3c6ICJlcnJvciBjb2RlOmhvc3Qgdmdlci5rZXJuZWwub3JnWzIzLjEyOC45Ni4x
-OF0gc2FpZDogNTUzIDUuNy4xIApIZWxsbyBbMTgzLjMuMjI2LjE4Nl0sCgpmb3IgTUFJTCBGUk9N
-IGFkZHJlc3MgYWNjZXNzIGlzIGRlbmllZCBieSB0aGUgcG9saWN5IGFuYWx5c2lzIGZ1bmN0aW9u
-cy4gCihpbiByZXBseSB0byBNQUlMIEZST00gY29tbWFuZCkiCkhhdmUgSSBiZWVuIGJsYWNrbGlz
-dGVko79JIGNhbiBzZWUgdGhlIHJlc2VudCBtYWlsIGF0OgoKaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
-cmcvcGF0Y2h3b3JrL3Byb2plY3QvbGttbC9saXN0Lz9zZXJpZXM9JnN1Ym1pdHRlcj0zMDEwNCZz
-dGF0ZT0qJnE9JmFyY2hpdmU9JmRlbGVnYXRlPSAKPGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3Bh
-dGNod29yay9wcm9qZWN0L2xrbWwvbGlzdC8/c2VyaWVzPSZzdWJtaXR0ZXI9MzAxMDQmc3RhdGU9
-KiZxPSZhcmNoaXZlPSZkZWxlZ2F0ZT0+CgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+I want to get permanent MAC address when the card is down. And I think
+it is more convenient to get statistics in the down state by 'ethtool -S'.
+But current all of the ethool command return -EBUSY.
+
+I don't think we should detect that the network card is up in '. Begin',
+which will cause that all the ethtool commands can't be used when the
+network card is down. If some ethtool commands can only be used in the
+up state, check it in the corresponding ethool OPS function is better.
+This is too rude and unreasonable.
+
+I have checked the '.begin' implementation of other drivers, most of which
+support the submission of NIC driver for the first time.
+They are too old to know why '.begin' is implemented. I suspect that they
+have not noticed the usage of '.begin'.
+
+Fixes: 47dd7a540b8a ("net: add support for STMicroelectronics Ethernet
+		     controllers.")
+
+Compile-tested on arm64. Tested on an arm64 system with an on-board
+STMMAC chip.
+
+Changes v6 ... v7:
+- fix arg type error of 'dev' to 'priv->device'.
+
+Changes v5 ... v6:
+- The 4.19.90 kernel not support pm_runtime, so implemente '.begin' and
+  '.complete' again. Add return value check of pm_runtime function.
+
+Changes v4 ... v5:
+- test the '.begin' will return -13 error on my machine based on 4.19.90
+  kernel. The platform driver does not supported pm_runtime. So remove the
+  implementation of '.begin' and '.complete'.
+
+Changes v3 ... v4:
+- implement '.complete' ethtool OPS.
+
+Changes v2 ... v3:
+- add linux/pm_runtime.h head file.
+
+Changes v1 ... v2:
+- fix spell error of dev.
+
+Signed-off-by: Hao Chen <chenhaoa@uniontech.com>
+---
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 21 +++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index d0ce608b81c3..fd5b68f6bf53 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -12,8 +12,9 @@
+ #include <linux/ethtool.h>
+ #include <linux/interrupt.h>
+ #include <linux/mii.h>
+-#include <linux/phylink.h>
+ #include <linux/net_tstamp.h>
++#include <linux/phylink.h>
++#include <linux/pm_runtime.h>
+ #include <asm/io.h>
+ 
+ #include "stmmac.h"
+@@ -410,11 +411,18 @@ static void stmmac_ethtool_setmsglevel(struct net_device *dev, u32 level)
+ 
+ }
+ 
+-static int stmmac_check_if_running(struct net_device *dev)
++static int stmmac_ethtool_begin(struct net_device *dev)
+ {
+-	if (!netif_running(dev))
+-		return -EBUSY;
+-	return 0;
++	struct stmmac_priv *priv = netdev_priv(dev);
++
++	return pm_runtime_resume_and_get(priv->device);
++}
++
++static void stmmac_ethtool_complete(struct net_device *dev)
++{
++	struct stmmac_priv *priv = netdev_priv(dev);
++
++	pm_runtime_put(priv->device);
+ }
+ 
+ static int stmmac_ethtool_get_regs_len(struct net_device *dev)
+@@ -1073,7 +1081,8 @@ static int stmmac_set_tunable(struct net_device *dev,
+ static const struct ethtool_ops stmmac_ethtool_ops = {
+ 	.supported_coalesce_params = ETHTOOL_COALESCE_USECS |
+ 				     ETHTOOL_COALESCE_MAX_FRAMES,
+-	.begin = stmmac_check_if_running,
++	.begin = stmmac_ethtool_begin,
++	.complete = stmmac_ethtool_complete,
+ 	.get_drvinfo = stmmac_ethtool_getdrvinfo,
+ 	.get_msglevel = stmmac_ethtool_getmsglevel,
+ 	.set_msglevel = stmmac_ethtool_setmsglevel,
+-- 
+2.20.1
+
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
