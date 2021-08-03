@@ -2,45 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08BE53DE470
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Aug 2021 04:32:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04B6A3DED5E
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Aug 2021 14:06:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7ECDC597BC;
-	Tue,  3 Aug 2021 02:32:24 +0000 (UTC)
-Received: from smtpproxy21.qq.com (smtpbg704.qq.com [203.205.195.105])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 739CAC597BE;
+	Tue,  3 Aug 2021 12:06:44 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BCCDC597AE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE9A0C57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Aug 2021 02:32:22 +0000 (UTC)
-X-QQ-mid: bizesmtp42t1627957931t7hn6kap
-Received: from localhost.localdomain (unknown [113.57.152.160])
- by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 03 Aug 2021 10:32:10 +0800 (CST)
-X-QQ-SSF: 0140000000200050B000B00A0000000
-X-QQ-FEAT: XDCR4pEWrplDL03/5j3NSwZByss4Gyut0ndsOU9+Mi7TuDMZ53YXcVUANWNcr
- wRjHjAuo6GMmHlV+xtC2weC32AOZz11KqFkZlQRkFvYhJdo/TBFeE7Kodh0ZK8ECG25pkI/
- RgyJPb4wgBX3tFv5VOp4IaoTrErkNJaK+uT7C+c3uBjsSwLJEDbBTZDvCJQc8QHgvslH2q9
- O35k0m9pDq54q/zacDkhC1b7eg5WV1AApQ2pUrtHe125cX+u/4hBJGJ6byztKoTKmpitsXW
- B5feygfGXEzvtadOa4DNLleQDZgm+15ZpZv9F6GfRMM8MwK+vJpPeobdjcna7MTKqnEHATB
- +QfAsHUyymLsWwZelyvRQ80AZaVWdshuhmnTlWxGq4CmoRFJOc=
-X-QQ-GoodBg: 2
-From: Hao Chen <chenhaoa@uniontech.com>
-To: netdev@vger.kernel.org
-Date: Tue,  3 Aug 2021 10:31:22 +0800
-Message-Id: <20210803023122.30817-1-chenhaoa@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ Tue,  3 Aug 2021 12:06:40 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ o44-20020a17090a0a2fb0290176ca3e5a2fso4370862pjo.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 03 Aug 2021 05:06:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AxfbPiz+OAcunKQUJDKkMXC8YuoZmJfrrdd8jRqpaxk=;
+ b=UXy+yxDdKtiLc0N9wSz60KM58J9GQ7PHrrI15wKth4LRDoXDgYpyEDkLNScoXfNX4J
+ OZTipAKwywS7CODr+fO2UgPsfsgo/+OVcCm43B3n4Ofgu507IMWkiNr6l+DZW+17kBTT
+ BdN3M2+dCB9qgs4rD+7Kbveu1I2RATNjv8Nq6GGJhSvE3npG2+s1UmlVnoeCa+4zlicj
+ YSpIJ04y3+Z9R+1W488qhrlP9r8QLtNo5+MJXam0LHYcz3hQTknZnieZF7wKGnMSfyDU
+ 49mzH/Wd+60E718va1p7+JfXZYIeEr7zrJPC1eMUmfb23OEodgIrltg9xTTTL5T+SGzr
+ QXag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AxfbPiz+OAcunKQUJDKkMXC8YuoZmJfrrdd8jRqpaxk=;
+ b=GxpLHVcBf8+w/f6qqlgU9c+qq0R8Lvpam1iBuR5MwkRZS4css+56v8CKqbavB4CUw4
+ qIAKj7xkHoU+v0YcHiAg0yQYkZFgSIF9DjE6E9aA9GhSQarVTcUsob9KzKa2qpYZJfdn
+ YPTLPShVQl33Z7bMvFjfVVjU3z7zDYqNAscUyUSTD2i8b1zzwNjaOUDRua0NrWP+YD2f
+ rEOyrblSb0VympHvwm6S0qtdGdSI5ZDXVCdzK+XqBCfvKrGbhusWboJzIquTMrEp+JL7
+ 5Zwb/HHxHZBFFq63kYQlYz+vtjKdmYXP3xErl225MNifH4+Hc5JuyQL7GtWmvYE8wi4o
+ zAwQ==
+X-Gm-Message-State: AOAM531pAaXGMIwv5w+yYprhmqcHS7ydUVIxjhk6z6yLJ3k6E0FaFW1N
+ DGPQ+rWLBNBtofPkniaPQBg=
+X-Google-Smtp-Source: ABdhPJzM9f53hVzeiMglAza3PHeo7CQhGnWlK0216I+XYmn8dFkYsjjkmHml4H7YMnzUHlBpMZg5eQ==
+X-Received: by 2002:a63:556:: with SMTP id 83mr221918pgf.1.1627992399142;
+ Tue, 03 Aug 2021 05:06:39 -0700 (PDT)
+Received: from localhost.localdomain ([156.146.35.76])
+ by smtp.gmail.com with ESMTPSA id n35sm7197502pfv.152.2021.08.03.05.06.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Aug 2021 05:06:38 -0700 (PDT)
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: jic23@kernel.org
+Date: Tue,  3 Aug 2021 21:06:10 +0900
+Message-Id: <cover.1627990337.git.vilhelm.gray@gmail.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
-X-QQ-Bgrelay: 1
-Cc: Hao Chen <chenhaoa@uniontech.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
- linux@armlinux.org.uk, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [net-next,
-	v8] net: stmmac: optimize check in ops '.begin'
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: [Linux-stm32] [PATCH v14 00/17] Introduce the Counter character
+	device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,97 +80,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-I want to get permanent MAC address when the interface is down. And I think
-it is more convenient to get statistics in the down state by 'ethtool -S'.
-But current all of the ethool command return -EBUSY.
+Changes in v14:
+ - Initialize counter_fops owner to THIS_MODULE
+ - Implement ops_exist_lock to prevent counter->ops use during removal
+ - Set counter->ops to NULL on counter_unregister to indicate removal;
+   chrdev callbacks return -ENODEV if driver is removed
+ - Refactor counter_fops read, poll, ioctl, and release callbacks to
+   utilize ops_exist_lock where needed and to check counter->ops
+ - Wake up sleeping chrdev read() on counter_unregister
+ - Move chrdev_lock introduce to the "counter: Add character device
+   interface" patch; this is a more appropriate place to introduce this
+   lock because the chrdev code is intended from the get-go to only
+   allow for a single open() at a time
 
-I don't think we should check that the network interface is up in '.begin',
-which will cause that all the ethtool commands can't be used when the
-network interface is down. If some ethtool commands can only be used in the
-up state, check it in the corresponding ethool OPS function is better.
-This is too rude and unreasonable.
+For convenience, this patchset is also available on my personal git
+repo: https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v14
 
-Compile-tested on arm64. Tested on an arm64 system with an on-board
-STMMAC chip.
+The patches preceding "counter: Internalize sysfs interface code" are
+primarily cleanup and fixes that can be picked up and applied now to the
+IIO tree if so desired. The "counter: Internalize sysfs interface code"
+patch as well may be considered for pickup because it is relatively safe
+and makes no changes to the userspace interface.
 
-Changes v7 ... v8:
-- Optimize commit description information, optimization parameters of
-  pm_runtime function.
+To summarize the main points of this patchset: there are no changes to
+the existing Counter sysfs userspace interface; a Counter character
+device interface is introduced that allows Counter events and associated
+data to be read() by userspace; the events_configure() and
+watch_validate() driver callbacks are introduced to support Counter
+events; and IRQ support is added to the 104-QUAD-8 driver, serving as an
+example of how to support the new Counter events functionality.
 
-Changes v6 ... v7:
-- fix arg type error of 'dev' to 'priv->device'.
+William Breathitt Gray (17):
+  counter: 104-quad-8: Return error when invalid mode during
+    ceiling_write
+  counter: Return error code on invalid modes
+  counter: Standardize to ERANGE for limit exceeded errors
+  counter: Rename counter_signal_value to counter_signal_level
+  counter: Rename counter_count_function to counter_function
+  counter: Internalize sysfs interface code
+  counter: Update counter.h comments to reflect sysfs internalization
+  docs: counter: Update to reflect sysfs internalization
+  counter: Move counter enums to uapi header
+  counter: Add character device interface
+  docs: counter: Document character device interface
+  tools/counter: Create Counter tools
+  counter: Implement signalZ_action_component_id sysfs attribute
+  counter: Implement *_component_id sysfs attributes
+  counter: Implement events_queue_size sysfs attribute
+  counter: 104-quad-8: Replace mutex with spinlock
+  counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
 
-Changes v5 ... v6:
-- The 4.19.90 kernel not support pm_runtime, so implemente '.begin' and
-  '.complete' again. Add return value check of pm_runtime function.
+ Documentation/ABI/testing/sysfs-bus-counter   |   38 +-
+ Documentation/driver-api/generic-counter.rst  |  358 +++-
+ .../userspace-api/ioctl/ioctl-number.rst      |    1 +
+ MAINTAINERS                                   |    3 +-
+ drivers/counter/104-quad-8.c                  |  728 ++++----
+ drivers/counter/Kconfig                       |    6 +-
+ drivers/counter/Makefile                      |    1 +
+ drivers/counter/counter-chrdev.c              |  553 ++++++
+ drivers/counter/counter-chrdev.h              |   14 +
+ drivers/counter/counter-core.c                |  192 +++
+ drivers/counter/counter-sysfs.c               |  962 +++++++++++
+ drivers/counter/counter-sysfs.h               |   13 +
+ drivers/counter/counter.c                     | 1496 -----------------
+ drivers/counter/ftm-quaddec.c                 |   59 +-
+ drivers/counter/intel-qep.c                   |  150 +-
+ drivers/counter/interrupt-cnt.c               |   73 +-
+ drivers/counter/microchip-tcb-capture.c       |  103 +-
+ drivers/counter/stm32-lptimer-cnt.c           |  211 ++-
+ drivers/counter/stm32-timer-cnt.c             |  147 +-
+ drivers/counter/ti-eqep.c                     |  205 ++-
+ include/linux/counter.h                       |  719 ++++----
+ include/linux/counter_enum.h                  |   45 -
+ include/uapi/linux/counter.h                  |  154 ++
+ tools/Makefile                                |   13 +-
+ tools/counter/Build                           |    1 +
+ tools/counter/Makefile                        |   53 +
+ tools/counter/counter_example.c               |   93 +
+ 27 files changed, 3623 insertions(+), 2768 deletions(-)
+ create mode 100644 drivers/counter/counter-chrdev.c
+ create mode 100644 drivers/counter/counter-chrdev.h
+ create mode 100644 drivers/counter/counter-core.c
+ create mode 100644 drivers/counter/counter-sysfs.c
+ create mode 100644 drivers/counter/counter-sysfs.h
+ delete mode 100644 drivers/counter/counter.c
+ delete mode 100644 include/linux/counter_enum.h
+ create mode 100644 include/uapi/linux/counter.h
+ create mode 100644 tools/counter/Build
+ create mode 100644 tools/counter/Makefile
+ create mode 100644 tools/counter/counter_example.c
 
-Changes v4 ... v5:
-- test the '.begin' will return -13 error on my machine based on 4.19.90
-  kernel. The platform driver does not supported pm_runtime. So remove the
-  implementation of '.begin' and '.complete'.
-
-Changes v3 ... v4:
-- implement '.complete' ethtool OPS.
-
-Changes v2 ... v3:
-- add linux/pm_runtime.h head file.
-
-Changes v1 ... v2:
-- fix spell error of dev.
-
-Signed-off-by: Hao Chen <chenhaoa@uniontech.com>
----
- .../ethernet/stmicro/stmmac/stmmac_ethtool.c    | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index d0ce608b81c3..8e2ae0ff7f8f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -12,8 +12,9 @@
- #include <linux/ethtool.h>
- #include <linux/interrupt.h>
- #include <linux/mii.h>
--#include <linux/phylink.h>
- #include <linux/net_tstamp.h>
-+#include <linux/phylink.h>
-+#include <linux/pm_runtime.h>
- #include <asm/io.h>
- 
- #include "stmmac.h"
-@@ -410,11 +411,14 @@ static void stmmac_ethtool_setmsglevel(struct net_device *dev, u32 level)
- 
- }
- 
--static int stmmac_check_if_running(struct net_device *dev)
-+static int stmmac_ethtool_begin(struct net_device *dev)
- {
--	if (!netif_running(dev))
--		return -EBUSY;
--	return 0;
-+	return pm_runtime_resume_and_get(dev->dev);
-+}
-+
-+static void stmmac_ethtool_complete(struct net_device *dev)
-+{
-+	pm_runtime_put(dev->dev);
- }
- 
- static int stmmac_ethtool_get_regs_len(struct net_device *dev)
-@@ -1073,7 +1077,8 @@ static int stmmac_set_tunable(struct net_device *dev,
- static const struct ethtool_ops stmmac_ethtool_ops = {
- 	.supported_coalesce_params = ETHTOOL_COALESCE_USECS |
- 				     ETHTOOL_COALESCE_MAX_FRAMES,
--	.begin = stmmac_check_if_running,
-+	.begin = stmmac_ethtool_begin,
-+	.complete = stmmac_ethtool_complete,
- 	.get_drvinfo = stmmac_ethtool_getdrvinfo,
- 	.get_msglevel = stmmac_ethtool_getmsglevel,
- 	.set_msglevel = stmmac_ethtool_setmsglevel,
 -- 
-2.20.1
-
-
+2.32.0
 
 _______________________________________________
 Linux-stm32 mailing list
