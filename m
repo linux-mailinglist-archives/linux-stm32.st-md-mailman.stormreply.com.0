@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F85D3DED72
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Aug 2021 14:07:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95AE33DED77
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Aug 2021 14:07:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44333C5A4D0;
-	Tue,  3 Aug 2021 12:07:29 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59204C5A4D0;
+	Tue,  3 Aug 2021 12:07:34 +0000 (UTC)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27FD6C5A4CC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37302C5A4CC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Aug 2021 12:07:28 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id a20so23511808plm.0
+ Tue,  3 Aug 2021 12:07:33 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ q17-20020a17090a2e11b02901757deaf2c8so4418909pjd.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Aug 2021 05:07:28 -0700 (PDT)
+ Tue, 03 Aug 2021 05:07:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=yShcpBwbYzy9vQiBArawadCUsDx/Zmukxf6CA6ZVbQQ=;
- b=mpoQ4NII7OL2gokwIT5jmBcp6cMSYtymAu4WJN3Xj2n4jBchtZmLoXSjaRug9247Aq
- xF8p/03wEwxG+D2sJUKjVyQwav/XWYxH+l1XBa8dKfhsVOI8JCMhnBjJIriSaaAV76e7
- OPDj1Dbvi52wN2fUzEs32qP6WMW7twMLuNoIOLGVpNlD42rNWRhvEeBTNXf0YrpUg2XC
- sOhW+KQoyn2t+iWzsHYwi3EpfSU0LPAyuPXuXG406eaztkAd79MNR1YpSz0GzIkbTInD
- i8BXhsqWJVUpMU+U3B/Xi/mWIRwuPIxKLv9FLFupw+UZMTVNlra/7/ktFsrhSU7f+0F3
- wWhw==
+ bh=4q+BkosOKncFGAxESBCeLQg0rqhqdC/wU4afZbLxhg8=;
+ b=DsR7m/M9iQtmfqeT62l9gBouJ8js/GHvnRcdjBFsyAqSaVNg8f3yJzpnjX2OTgfac0
+ RKbd18nFXPmKjukHNpJ2dUtPc0+3CpTBMxeOc4mphoBHfuo+3xgpZwU+ioxWYvQtKdGa
+ Wsx6QE8hGTa4HG3yteikv/zMFBZ/qiEjQsgYaXF/ccJ50GeiH+R5lJ4GjGtWS1JNllMK
+ ll76CWOMckBBB40z+7i3DJ3mOlKtZ+SnoeTs5yatL9lwoxijceUDU0swGaAJx4AuL8BE
+ +Yo62eleeLMTKvRefJ6CsylKUQcRBWYUUkuLX7hpAhzl8VYUTfzpZuJ68czr6qzXQVd/
+ 8Qsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=yShcpBwbYzy9vQiBArawadCUsDx/Zmukxf6CA6ZVbQQ=;
- b=NPUw+I8Y0wt1qvQA+C/6mir9f5n9xCWuz9eTc/0v+JpuErviKm2eFaJm88hbFu96xt
- iKRtTEU8NHsoiGKtoN2a2EEB8vlZ1v8/V4rfX92dHGyS5PRm4OiEwcjtsrGWYIARBOuK
- SwEITTj523DU7d+ejr+Bu6pw/EC9J0Fu7iPYHL7LwF0xaZGbk2TWLDVBxsvj8e+vt+j1
- hcojSu/zxYtVSoGMalBgpJ2X87yojbHxzKOHN6paG4MwTO/6GVkH0H1bp6K5rUjqwpr8
- qhjNXlfF+lHbGpmq596NPWaTRvS/vosISUaNSjSzTF9re2hJcUqV84T1c8hIYxDxkKaO
- gq7g==
-X-Gm-Message-State: AOAM533OSywP21oQIQMqmcVkGj+NkV8FbUc3lS0uhqwvIxl5yY5tHgSx
- 8AdFJxHmSfz4upWsdiN7jz4=
-X-Google-Smtp-Source: ABdhPJz1x7F2ssg9hoiC1rDCvWdwBvOhv6XtEi8BsrxUXPnCvU2AP2kq+/3enMTqiNFRDLkqMJku9Q==
-X-Received: by 2002:a62:a117:0:b029:394:dddf:6b00 with SMTP id
- b23-20020a62a1170000b0290394dddf6b00mr21834519pff.50.1627992446758; 
- Tue, 03 Aug 2021 05:07:26 -0700 (PDT)
+ bh=4q+BkosOKncFGAxESBCeLQg0rqhqdC/wU4afZbLxhg8=;
+ b=QonB0xdySuBjePmyhABhUKkh4JzSORXv+Ut77sMRHTm8o+pJDiCX8+S8GWVQVtYhm4
+ 4yjtyugDZA5i9Ugu2a6FzZwBZKDn3rRdnlcV8TeOHuu9HTa5+v8DpyGVa85e2HEAoqQ+
+ FnJBkHQDqknKeqsYGDC6DPTrDO+2CFX0W6dpfh2muPBsnn8AFQx0pANnT7XP1r2cDKcv
+ /MoRvdIg5UbGB2ofZh4gMr3U1RLLtLP8D/5rhgYX+PGRlA7g66jfKRtG9vm8qxJ7EtqN
+ nrD9sL6RGsotG/4l81azlOKbXvoUyatqy2eO02Wbim6AGmXXdjpXC3pMF0OtHtbqcpSc
+ oXfw==
+X-Gm-Message-State: AOAM5307AWTqwhoSg45t/8MQJw5ZmMVUpVv+C2yznTd+E33Jmagz4XcQ
+ ihFhgp8Gj6zqWAjjAmUsMqU=
+X-Google-Smtp-Source: ABdhPJwj7AFTz5JVKrsIBisApaRbT9v0jT7otMwBuUTMJBOAgYwkUjEx8Lih3Mu+etaHX7T+xXu/lQ==
+X-Received: by 2002:a62:1ac3:0:b029:3ae:d818:dfd with SMTP id
+ a186-20020a621ac30000b02903aed8180dfdmr21640570pfa.43.1627992451956; 
+ Tue, 03 Aug 2021 05:07:31 -0700 (PDT)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id n35sm7197502pfv.152.2021.08.03.05.07.21
+ by smtp.gmail.com with ESMTPSA id n35sm7197502pfv.152.2021.08.03.05.07.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Aug 2021 05:07:26 -0700 (PDT)
+ Tue, 03 Aug 2021 05:07:31 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Tue,  3 Aug 2021 21:06:18 +0900
-Message-Id: <bc652529b7d225e03d1ea457d64c6f6f8b1efd04.1627990337.git.vilhelm.gray@gmail.com>
+Date: Tue,  3 Aug 2021 21:06:19 +0900
+Message-Id: <b94e0aeee4d03215f39b31d1954a073e84caa849.1627990337.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1627990337.git.vilhelm.gray@gmail.com>
 References: <cover.1627990337.git.vilhelm.gray@gmail.com>
@@ -64,8 +65,8 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v14 08/17] docs: counter: Update to reflect
-	sysfs internalization
+Subject: [Linux-stm32] [PATCH v14 09/17] counter: Move counter enums to uapi
+	header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,316 +78,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Counter subsystem architecture and driver implementations have
-changed in order to handle Counter sysfs interactions in a more
-consistent way. This patch updates the Generic Counter interface
-documentation to reflect the changes.
-
-Reviewed-by: David Lechner <david@lechnology.com>
-Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
----
- Documentation/ABI/testing/sysfs-bus-counter  |   9 +-
- Documentation/driver-api/generic-counter.rst | 243 ++++++++++++++-----
- 2 files changed, 185 insertions(+), 67 deletions(-)
-
-diff --git a/Documentation/ABI/testing/sysfs-bus-counter b/Documentation/ABI/testing/sysfs-bus-counter
-index 20fe5afd4f9e..dee79b606847 100644
---- a/Documentation/ABI/testing/sysfs-bus-counter
-+++ b/Documentation/ABI/testing/sysfs-bus-counter
-@@ -286,7 +286,14 @@ What:		/sys/bus/counter/devices/counterX/signalY/signal
- KernelVersion:	5.2
- Contact:	linux-iio@vger.kernel.org
- Description:
--		Signal data of Signal Y represented as a string.
-+		Signal level state of Signal Y. The following signal level
-+		states are available:
-+
-+		low:
-+			Low level state.
-+
-+		high:
-+			High level state.
- 
- What:		/sys/bus/counter/devices/counterX/signalY/synchronous_mode
- KernelVersion:	5.2
-diff --git a/Documentation/driver-api/generic-counter.rst b/Documentation/driver-api/generic-counter.rst
-index 64fe7db080e5..f6397218aa4c 100644
---- a/Documentation/driver-api/generic-counter.rst
-+++ b/Documentation/driver-api/generic-counter.rst
-@@ -250,8 +250,8 @@ for defining a counter device.
- .. kernel-doc:: drivers/counter/counter.c
-    :export:
- 
--Implementation
--==============
-+Driver Implementation
-+=====================
- 
- To support a counter device, a driver must first allocate the available
- Counter Signals via counter_signal structures. These Signals should
-@@ -267,25 +267,61 @@ respective counter_count structure. These counter_count structures are
- set to the counts array member of an allocated counter_device structure
- before the Counter is registered to the system.
- 
--Driver callbacks should be provided to the counter_device structure via
--a constant counter_ops structure in order to communicate with the
--device: to read and write various Signals and Counts, and to set and get
--the "action mode" and "function mode" for various Synapses and Counts
--respectively.
-+Driver callbacks must be provided to the counter_device structure in
-+order to communicate with the device: to read and write various Signals
-+and Counts, and to set and get the "action mode" and "function mode" for
-+various Synapses and Counts respectively.
- 
- A defined counter_device structure may be registered to the system by
- passing it to the counter_register function, and unregistered by passing
- it to the counter_unregister function. Similarly, the
--devm_counter_register and devm_counter_unregister functions may be used
--if device memory-managed registration is desired.
--
--Extension sysfs attributes can be created for auxiliary functionality
--and data by passing in defined counter_device_ext, counter_count_ext,
--and counter_signal_ext structures. In these cases, the
--counter_device_ext structure is used for global/miscellaneous exposure
--and configuration of the respective Counter device, while the
--counter_count_ext and counter_signal_ext structures allow for auxiliary
--exposure and configuration of a specific Count or Signal respectively.
-+devm_counter_register function may be used if device memory-managed
-+registration is desired.
-+
-+The struct counter_comp structure is used to define counter extensions
-+for Signals, Synapses, and Counts.
-+
-+The "type" member specifies the type of high-level data (e.g. BOOL,
-+COUNT_DIRECTION, etc.) handled by this extension. The "``*_read``" and
-+"``*_write``" members can then be set by the counter device driver with
-+callbacks to handle that data using native C data types (i.e. u8, u64,
-+etc.).
-+
-+Convenience macros such as ``COUNTER_COMP_COUNT_U64`` are provided for
-+use by driver authors. In particular, driver authors are expected to use
-+the provided macros for standard Counter subsystem attributes in order
-+to maintain a consistent interface for userspace. For example, a counter
-+device driver may define several standard attributes like so::
-+
-+        struct counter_comp count_ext[] = {
-+                COUNTER_COMP_DIRECTION(count_direction_read),
-+                COUNTER_COMP_ENABLE(count_enable_read, count_enable_write),
-+                COUNTER_COMP_CEILING(count_ceiling_read, count_ceiling_write),
-+        };
-+
-+This makes it simple to see, add, and modify the attributes that are
-+supported by this driver ("direction", "enable", and "ceiling") and to
-+maintain this code without getting lost in a web of struct braces.
-+
-+Callbacks must match the function type expected for the respective
-+component or extension. These function types are defined in the struct
-+counter_comp structure as the "``*_read``" and "``*_write``" union
-+members.
-+
-+The corresponding callback prototypes for the extensions mentioned in
-+the previous example above would be::
-+
-+        int count_direction_read(struct counter_device *counter,
-+                                 struct counter_count *count,
-+                                 enum counter_count_direction *direction);
-+        int count_enable_read(struct counter_device *counter,
-+                              struct counter_count *count, u8 *enable);
-+        int count_enable_write(struct counter_device *counter,
-+                               struct counter_count *count, u8 enable);
-+        int count_ceiling_read(struct counter_device *counter,
-+                               struct counter_count *count, u64 *ceiling);
-+        int count_ceiling_write(struct counter_device *counter,
-+                                struct counter_count *count, u64 ceiling);
- 
- Determining the type of extension to create is a matter of scope.
- 
-@@ -313,52 +349,127 @@ Determining the type of extension to create is a matter of scope.
-   chip overheated via a device extension called "error_overtemp":
-   /sys/bus/counter/devices/counterX/error_overtemp
- 
--Architecture
--============
--
--When the Generic Counter interface counter module is loaded, the
--counter_init function is called which registers a bus_type named
--"counter" to the system. Subsequently, when the module is unloaded, the
--counter_exit function is called which unregisters the bus_type named
--"counter" from the system.
--
--Counter devices are registered to the system via the counter_register
--function, and later removed via the counter_unregister function. The
--counter_register function establishes a unique ID for the Counter
--device and creates a respective sysfs directory, where X is the
--mentioned unique ID:
--
--    /sys/bus/counter/devices/counterX
--
--Sysfs attributes are created within the counterX directory to expose
--functionality, configurations, and data relating to the Counts, Signals,
--and Synapses of the Counter device, as well as options and information
--for the Counter device itself.
--
--Each Signal has a directory created to house its relevant sysfs
--attributes, where Y is the unique ID of the respective Signal:
--
--    /sys/bus/counter/devices/counterX/signalY
--
--Similarly, each Count has a directory created to house its relevant
--sysfs attributes, where Y is the unique ID of the respective Count:
--
--    /sys/bus/counter/devices/counterX/countY
--
--For a more detailed breakdown of the available Generic Counter interface
--sysfs attributes, please refer to the
--Documentation/ABI/testing/sysfs-bus-counter file.
--
--The Signals and Counts associated with the Counter device are registered
--to the system as well by the counter_register function. The
--signal_read/signal_write driver callbacks are associated with their
--respective Signal attributes, while the count_read/count_write and
--function_get/function_set driver callbacks are associated with their
--respective Count attributes; similarly, the same is true for the
--action_get/action_set driver callbacks and their respective Synapse
--attributes. If a driver callback is left undefined, then the respective
--read/write permission is left disabled for the relevant attributes.
--
--Similarly, extension sysfs attributes are created for the defined
--counter_device_ext, counter_count_ext, and counter_signal_ext
--structures that are passed in.
-+Subsystem Architecture
-+======================
-+
-+Counter drivers pass and take data natively (i.e. ``u8``, ``u64``, etc.)
-+and the shared counter module handles the translation between the sysfs
-+interface. This guarantees a standard userspace interface for all
-+counter drivers, and enables a Generic Counter chrdev interface via a
-+generalized device driver ABI.
-+
-+A high-level view of how a count value is passed down from a counter
-+driver is exemplified by the following. The driver callbacks are first
-+registered to the Counter core component for use by the Counter
-+userspace interface components::
-+
-+        Driver callbacks registration:
-+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+                        +----------------------------+
-+                        | Counter device driver      |
-+                        +----------------------------+
-+                        | Processes data from device |
-+                        +----------------------------+
-+                                |
-+                         -------------------
-+                        / driver callbacks /
-+                        -------------------
-+                                |
-+                                V
-+                        +----------------------+
-+                        | Counter core         |
-+                        +----------------------+
-+                        | Routes device driver |
-+                        | callbacks to the     |
-+                        | userspace interfaces |
-+                        +----------------------+
-+                                |
-+                         -------------------
-+                        / driver callbacks /
-+                        -------------------
-+                                |
-+                +---------------+
-+                |
-+                V
-+        +--------------------+
-+        | Counter sysfs      |
-+        +--------------------+
-+        | Translates to the  |
-+        | standard Counter   |
-+        | sysfs output       |
-+        +--------------------+
-+
-+Thereafter, data can be transferred directly between the Counter device
-+driver and Counter userspace interface::
-+
-+        Count data request:
-+        ~~~~~~~~~~~~~~~~~~~
-+                         ----------------------
-+                        / Counter device       \
-+                        +----------------------+
-+                        | Count register: 0x28 |
-+                        +----------------------+
-+                                |
-+                         -----------------
-+                        / raw count data /
-+                        -----------------
-+                                |
-+                                V
-+                        +----------------------------+
-+                        | Counter device driver      |
-+                        +----------------------------+
-+                        | Processes data from device |
-+                        |----------------------------|
-+                        | Type: u64                  |
-+                        | Value: 42                  |
-+                        +----------------------------+
-+                                |
-+                         ----------
-+                        / u64     /
-+                        ----------
-+                                |
-+                +---------------+
-+                |
-+                V
-+        +--------------------+
-+        | Counter sysfs      |
-+        +--------------------+
-+        | Translates to the  |
-+        | standard Counter   |
-+        | sysfs output       |
-+        |--------------------|
-+        | Type: const char * |
-+        | Value: "42"        |
-+        +--------------------+
-+                |
-+         ---------------
-+        / const char * /
-+        ---------------
-+                |
-+                V
-+        +--------------------------------------------------+
-+        | `/sys/bus/counter/devices/counterX/countY/count` |
-+        +--------------------------------------------------+
-+        \ Count: "42"                                      /
-+         --------------------------------------------------
-+
-+There are three primary components involved:
-+
-+Counter device driver
-+---------------------
-+Communicates with the hardware device to read/write data; e.g. counter
-+drivers for quadrature encoders, timers, etc.
-+
-+Counter core
-+------------
-+Registers the counter device driver to the system so that the respective
-+callbacks are called during userspace interaction.
-+
-+Counter sysfs
-+-------------
-+Translates counter data to the standard Counter sysfs interface format
-+and vice versa.
-+
-+Please refer to the ``Documentation/ABI/testing/sysfs-bus-counter`` file
-+for a detailed breakdown of the available Generic Counter interface
-+sysfs attributes.
--- 
-2.32.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhpcyBpcyBpbiBwcmVwYXJhdGlvbiBmb3IgYSBzdWJzZXF1ZW50IHBhdGNoIGltcGxlbWVudGlu
+ZyBhIGNoYXJhY3RlcgpkZXZpY2UgaW50ZXJmYWNlIGZvciB0aGUgQ291bnRlciBzdWJzeXN0ZW0u
+CgpSZXZpZXdlZC1ieTogRGF2aWQgTGVjaG5lciA8ZGF2aWRAbGVjaG5vbG9neS5jb20+ClNpZ25l
+ZC1vZmYtYnk6IFdpbGxpYW0gQnJlYXRoaXR0IEdyYXkgPHZpbGhlbG0uZ3JheUBnbWFpbC5jb20+
+Ci0tLQogTUFJTlRBSU5FUlMgICAgICAgICAgICAgICAgICB8ICAxICsKIGluY2x1ZGUvbGludXgv
+Y291bnRlci5oICAgICAgfCA0MiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGluY2x1ZGUv
+dWFwaS9saW51eC9jb3VudGVyLmggfCA1NiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysKIDMgZmlsZXMgY2hhbmdlZCwgNTggaW5zZXJ0aW9ucygrKSwgNDEgZGVsZXRpb25zKC0p
+CiBjcmVhdGUgbW9kZSAxMDA2NDQgaW5jbHVkZS91YXBpL2xpbnV4L2NvdW50ZXIuaAoKZGlmZiAt
+LWdpdCBhL01BSU5UQUlORVJTIGIvTUFJTlRBSU5FUlMKaW5kZXggNjg0NzJhZDQ3ZGNmLi5jMDgx
+N2M0NTQwMWQgMTAwNjQ0Ci0tLSBhL01BSU5UQUlORVJTCisrKyBiL01BSU5UQUlORVJTCkBAIC00
+NzY0LDYgKzQ3NjQsNyBAQCBGOglEb2N1bWVudGF0aW9uL0FCSS90ZXN0aW5nL3N5c2ZzLWJ1cy1j
+b3VudGVyCiBGOglEb2N1bWVudGF0aW9uL2RyaXZlci1hcGkvZ2VuZXJpYy1jb3VudGVyLnJzdAog
+RjoJZHJpdmVycy9jb3VudGVyLwogRjoJaW5jbHVkZS9saW51eC9jb3VudGVyLmgKK0Y6CWluY2x1
+ZGUvdWFwaS9saW51eC9jb3VudGVyLmgKIAogQ1AyNjE1IEkyQyBEUklWRVIKIE06CUJlbmNlIENz
+w7Nrw6FzIDxiZW5jZTk4QHNjaC5ibWUuaHU+CmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2Nv
+dW50ZXIuaCBiL2luY2x1ZGUvbGludXgvY291bnRlci5oCmluZGV4IDQ0NWYyMmQ4YmZlMi4uN2M5
+ZjdlMjM5NTNhIDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L2NvdW50ZXIuaAorKysgYi9pbmNs
+dWRlL2xpbnV4L2NvdW50ZXIuaApAQCAtOSw2ICs5LDcgQEAKICNpbmNsdWRlIDxsaW51eC9kZXZp
+Y2UuaD4KICNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KICNpbmNsdWRlIDxsaW51eC90eXBlcy5o
+PgorI2luY2x1ZGUgPHVhcGkvbGludXgvY291bnRlci5oPgogCiBzdHJ1Y3QgY291bnRlcl9kZXZp
+Y2U7CiBzdHJ1Y3QgY291bnRlcl9jb3VudDsKQEAgLTI3LDQ3ICsyOCw2IEBAIGVudW0gY291bnRl
+cl9jb21wX3R5cGUgewogCUNPVU5URVJfQ09NUF9DT1VOVF9NT0RFLAogfTsKIAotZW51bSBjb3Vu
+dGVyX3Njb3BlIHsKLQlDT1VOVEVSX1NDT1BFX0RFVklDRSwKLQlDT1VOVEVSX1NDT1BFX1NJR05B
+TCwKLQlDT1VOVEVSX1NDT1BFX0NPVU5ULAotfTsKLQotZW51bSBjb3VudGVyX2NvdW50X2RpcmVj
+dGlvbiB7Ci0JQ09VTlRFUl9DT1VOVF9ESVJFQ1RJT05fRk9SV0FSRCwKLQlDT1VOVEVSX0NPVU5U
+X0RJUkVDVElPTl9CQUNLV0FSRCwKLX07Ci0KLWVudW0gY291bnRlcl9jb3VudF9tb2RlIHsKLQlD
+T1VOVEVSX0NPVU5UX01PREVfTk9STUFMLAotCUNPVU5URVJfQ09VTlRfTU9ERV9SQU5HRV9MSU1J
+VCwKLQlDT1VOVEVSX0NPVU5UX01PREVfTk9OX1JFQ1lDTEUsCi0JQ09VTlRFUl9DT1VOVF9NT0RF
+X01PRFVMT19OLAotfTsKLQotZW51bSBjb3VudGVyX2Z1bmN0aW9uIHsKLQlDT1VOVEVSX0ZVTkNU
+SU9OX0lOQ1JFQVNFLAotCUNPVU5URVJfRlVOQ1RJT05fREVDUkVBU0UsCi0JQ09VTlRFUl9GVU5D
+VElPTl9QVUxTRV9ESVJFQ1RJT04sCi0JQ09VTlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1gxX0Es
+Ci0JQ09VTlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1gxX0IsCi0JQ09VTlRFUl9GVU5DVElPTl9R
+VUFEUkFUVVJFX1gyX0EsCi0JQ09VTlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1gyX0IsCi0JQ09V
+TlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1g0LAotfTsKLQotZW51bSBjb3VudGVyX3NpZ25hbF9s
+ZXZlbCB7Ci0JQ09VTlRFUl9TSUdOQUxfTEVWRUxfTE9XLAotCUNPVU5URVJfU0lHTkFMX0xFVkVM
+X0hJR0gsCi19OwotCi1lbnVtIGNvdW50ZXJfc3luYXBzZV9hY3Rpb24gewotCUNPVU5URVJfU1lO
+QVBTRV9BQ1RJT05fTk9ORSwKLQlDT1VOVEVSX1NZTkFQU0VfQUNUSU9OX1JJU0lOR19FREdFLAot
+CUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fRkFMTElOR19FREdFLAotCUNPVU5URVJfU1lOQVBTRV9B
+Q1RJT05fQk9USF9FREdFUywKLX07Ci0KIC8qKgogICogc3RydWN0IGNvdW50ZXJfY29tcCAtIENv
+dW50ZXIgY29tcG9uZW50IG5vZGUKICAqIEB0eXBlOgkJQ291bnRlciBjb21wb25lbnQgZGF0YSB0
+eXBlCmRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvbGludXgvY291bnRlci5oIGIvaW5jbHVkZS91
+YXBpL2xpbnV4L2NvdW50ZXIuaApuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAw
+MDAuLjYxMTM5MzhhNjA0NAotLS0gL2Rldi9udWxsCisrKyBiL2luY2x1ZGUvdWFwaS9saW51eC9j
+b3VudGVyLmgKQEAgLTAsMCArMSw1NiBAQAorLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQ
+TC0yLjAgV0lUSCBMaW51eC1zeXNjYWxsLW5vdGUgKi8KKy8qCisgKiBVc2Vyc3BhY2UgQUJJIGZv
+ciBDb3VudGVyIGNoYXJhY3RlciBkZXZpY2VzCisgKiBDb3B5cmlnaHQgKEMpIDIwMjAgV2lsbGlh
+bSBCcmVhdGhpdHQgR3JheQorICovCisjaWZuZGVmIF9VQVBJX0NPVU5URVJfSF8KKyNkZWZpbmUg
+X1VBUElfQ09VTlRFUl9IXworCisvKiBDb21wb25lbnQgc2NvcGUgZGVmaW5pdGlvbnMgKi8KK2Vu
+dW0gY291bnRlcl9zY29wZSB7CisJQ09VTlRFUl9TQ09QRV9ERVZJQ0UsCisJQ09VTlRFUl9TQ09Q
+RV9TSUdOQUwsCisJQ09VTlRFUl9TQ09QRV9DT1VOVCwKK307CisKKy8qIENvdW50IGRpcmVjdGlv
+biB2YWx1ZXMgKi8KK2VudW0gY291bnRlcl9jb3VudF9kaXJlY3Rpb24geworCUNPVU5URVJfQ09V
+TlRfRElSRUNUSU9OX0ZPUldBUkQsCisJQ09VTlRFUl9DT1VOVF9ESVJFQ1RJT05fQkFDS1dBUkQs
+Cit9OworCisvKiBDb3VudCBtb2RlIHZhbHVlcyAqLworZW51bSBjb3VudGVyX2NvdW50X21vZGUg
+eworCUNPVU5URVJfQ09VTlRfTU9ERV9OT1JNQUwsCisJQ09VTlRFUl9DT1VOVF9NT0RFX1JBTkdF
+X0xJTUlULAorCUNPVU5URVJfQ09VTlRfTU9ERV9OT05fUkVDWUNMRSwKKwlDT1VOVEVSX0NPVU5U
+X01PREVfTU9EVUxPX04sCit9OworCisvKiBDb3VudCBmdW5jdGlvbiB2YWx1ZXMgKi8KK2VudW0g
+Y291bnRlcl9mdW5jdGlvbiB7CisJQ09VTlRFUl9GVU5DVElPTl9JTkNSRUFTRSwKKwlDT1VOVEVS
+X0ZVTkNUSU9OX0RFQ1JFQVNFLAorCUNPVU5URVJfRlVOQ1RJT05fUFVMU0VfRElSRUNUSU9OLAor
+CUNPVU5URVJfRlVOQ1RJT05fUVVBRFJBVFVSRV9YMV9BLAorCUNPVU5URVJfRlVOQ1RJT05fUVVB
+RFJBVFVSRV9YMV9CLAorCUNPVU5URVJfRlVOQ1RJT05fUVVBRFJBVFVSRV9YMl9BLAorCUNPVU5U
+RVJfRlVOQ1RJT05fUVVBRFJBVFVSRV9YMl9CLAorCUNPVU5URVJfRlVOQ1RJT05fUVVBRFJBVFVS
+RV9YNCwKK307CisKKy8qIFNpZ25hbCB2YWx1ZXMgKi8KK2VudW0gY291bnRlcl9zaWduYWxfbGV2
+ZWwgeworCUNPVU5URVJfU0lHTkFMX0xFVkVMX0xPVywKKwlDT1VOVEVSX1NJR05BTF9MRVZFTF9I
+SUdILAorfTsKKworLyogQWN0aW9uIG1vZGUgdmFsdWVzICovCitlbnVtIGNvdW50ZXJfc3luYXBz
+ZV9hY3Rpb24geworCUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fTk9ORSwKKwlDT1VOVEVSX1NZTkFQ
+U0VfQUNUSU9OX1JJU0lOR19FREdFLAorCUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fRkFMTElOR19F
+REdFLAorCUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fQk9USF9FREdFUywKK307CisKKyNlbmRpZiAv
+KiBfVUFQSV9DT1VOVEVSX0hfICovCi0tIAoyLjMyLjAKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
+dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
