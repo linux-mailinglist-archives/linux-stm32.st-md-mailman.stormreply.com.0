@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2A623DE450
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Aug 2021 04:21:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0503DE452
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Aug 2021 04:21:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7151FC597BC;
-	Tue,  3 Aug 2021 02:21:22 +0000 (UTC)
-Received: from smtpproxy21.qq.com (smtpbg704.qq.com [203.205.195.105])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 831C4C597BE;
+	Tue,  3 Aug 2021 02:21:49 +0000 (UTC)
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BA33C57B51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 134F9C597AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Aug 2021 02:21:20 +0000 (UTC)
-X-QQ-mid: bizesmtp47t1627957257tlega6xp
+ Tue,  3 Aug 2021 02:21:48 +0000 (UTC)
+X-QQ-mid: bizesmtp45t1627957302thei1lum
 Received: from localhost.localdomain (unknown [113.57.152.160])
  by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 03 Aug 2021 10:20:55 +0800 (CST)
+ id ; Tue, 03 Aug 2021 10:21:40 +0800 (CST)
 X-QQ-SSF: 0140000000200050B000B00A0000000
-X-QQ-FEAT: O9RHVi+JMbLJ0Fdz7CPoA5Cadmt7q/l6gGyCp0zHoidFrQIlpv6YzlQX+QfNb
- GX+JBiB0VQLs8JHgmnlwabGEQLC07UM7HJKqVCVY47cwI8wZLapVZ00B/gOk0o5ZUpGYFgx
- BLX1lz1WKOSN4sLEqnql/yy1D9ubgMUh7LaHxIasvx+dlrYixaJgVY2pc5Ct2S62LVsWMSW
- fyqg3fq+ZP5INVV5mHv6jYnz4zwlLNOTMryGtAjNLSxp5BkXnG35kyK2Q51TqCjwXpNTIDL
- DaQWwLfRMObMca3fDulrWWOHcIyNK0savYxiTjPamsb9zckyoi8SRzEeX9GHQ8tfFowOuBp
- IofzeEiRNEEXETKF3tvqTLKQAPCGgsmOjAQ53BbEplbthhxM14=
+X-QQ-FEAT: MkqyadvNeuyxjZIm2hJdArg7SV8yzdsvbLK6Y6xb0ttcNTPP/FKlv+ZdjWkXO
+ KBvyGU5YBUm27g2KvNTfwPInE3X21bb+GTUQMANXHKqwBS266i6pXJwUXaiE3upD2sKSrZj
+ zDHDc4MLcRSxgqEsGz3cOHAj1e1GLCyCuvNvKxswmMUIAU110pi/Id/EA9R0APQ98FO8RPC
+ /V7yd8QAbcTMQbeSxEakDXbwrgp1sCjucauksQGC/HAyz2nY6JmBwFQhQFEJrDLYTkxTq2m
+ ++nbwdrWoRh/KLcHCezU43m4rNipg7OWEaFUdlP83SittTbkXYFSy7llEtiKxdg3YA/qn93
+ o2Us9++2ZpV9TK2wX2NZPp+YxIYQzMyW9ORVEagyxrBM+Z5FTQ=
 X-QQ-GoodBg: 2
 From: Hao Chen <chenhaoa@uniontech.com>
 To: peppe.cavallaro@st.com
-Date: Tue,  3 Aug 2021 10:20:08 +0800
-Message-Id: <20210803022008.21284-1-chenhaoa@uniontech.com>
+Date: Tue,  3 Aug 2021 10:20:52 +0800
+Message-Id: <20210803022052.21897-1-chenhaoa@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
 X-QQ-Bgrelay: 1
 Cc: Hao Chen <chenhaoa@uniontech.com>, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
