@@ -2,70 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 564BE3DF68D
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Aug 2021 22:45:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C31DE3E0045
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Aug 2021 13:35:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00C44C5A4D3;
-	Tue,  3 Aug 2021 20:45:25 +0000 (UTC)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65704C5A4D3;
+	Wed,  4 Aug 2021 11:35:23 +0000 (UTC)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
+ [209.85.217.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8165CC5A4D0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 852AFC57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Aug 2021 20:45:24 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id k9so720318edr.10
+ Wed,  4 Aug 2021 11:35:21 +0000 (UTC)
+Received: by mail-vs1-f41.google.com with SMTP id j19so847499vso.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Aug 2021 13:45:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20161025;
+ Wed, 04 Aug 2021 04:35:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8ZbatCuwF0ejzY/254BQh4plkI8mltXs2twaQnckgMI=;
- b=p6BnMCoQVqlyPBcxlHpgLvhxDtbmUN84h5PkOllCD755g4MCf/UKkPDMAXladxB+fB
- ItXeBPNZU1eu9qpp2s5qRNf19y0GWfCc4yrZUM81hGss6a03DsR62OdzljQaK7beX4u2
- 6O0AeUatpKRyCVLH5f1CDB73J/mah8Eangexn4iulbgM3QdMIK10G8SMlbKBxBPMIQV/
- H2hRARFM/WDnnDj9FIHnoiBbr7QTnZbd/iubtmfctpxrvCom9vD8ZBXQ2iDcgfyIqucm
- Y7GGg4o3zIqe8U26oZdecITIO1v8XS/OujFchRVeQHCvAUQFxXRFEueD3DvJ3VSMbqOG
- vt5A==
+ :cc; bh=zFmNv8bWnnhaUEfEbtd/dIDab8KFB9ZFGv6zOrp9yb4=;
+ b=iu0kyRPpYLdd/jKrXz1byoUVslMvTNXKDP5os4v7jpIA9Q4eZ9ui2ItYYzm14Ep4dl
+ ovQWvTdkAoGV/HM55AZMcYojzijUvBsmwjyLPGu0ajgS9yg+HSdYM/DjDuTE17r2kwku
+ A+KsLof1HDrPTHh9X4WNRSZ47BKMaPTBXgjUPbKDxD5p3F1e9ikCH9SB/1sGkt0AhztT
+ M73vqhZO16i6VffkAeO6/HB5YHRQsL1u+GxNm9q+8l7dx+BQdsx+PgRnG85naHFHwF+S
+ Txfpfm+vz2kG5lnH4z1nUXucc4va+QumoW539vaWHuhUsrmG7osUGfM8sVu4nHtsY2kb
+ 9xfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=8ZbatCuwF0ejzY/254BQh4plkI8mltXs2twaQnckgMI=;
- b=tic5jtAuH8jvg3GQOzUISXz/oKKr5RVMIZdvvZw0xTizqwzd/0yISiofhpqgoiNabs
- XgKtpyBGEOB3jBIopZZHJQYZXQDllIdS6wXIoum+0+2nV6GCROgIVXO3Sk8wzvT4BQso
- sNoyePwW+qwQooQXWFVyjG3SM+CZVdTde1EqfYrmTjsyDYDksmB0bTAizOiYHfOyc8/P
- OhTKvRfK644mgv0rX5trkMGWxGzCtWCHI4RVp9DaHI3TD6ISnprxlFb/npgFWFZTpSWh
- Y0U9tJDKd9Eggp1RHtTXGDFbbVRMYMJyKQ4C+p3Tyy2egvwTYT0jIeKpEV4AW8G+89nz
- QC/w==
-X-Gm-Message-State: AOAM533RjQAJi1UwK48eo1CEwqJpu2pQ134S40kH8peY8OMwmWbHie2+
- NYDU+qI6i6XFcwOTlQeyzoWP2uiVHVcrKqEXn/g=
-X-Google-Smtp-Source: ABdhPJxRXiJDPGTIfneS7YyQ40d3AXe1t8qEhKVPNz8CIijfGmO3fHXUd9wo1ewgVlv71M9TOcDpUS40b9+EssDoF4k=
-X-Received: by 2002:a05:6402:54d:: with SMTP id
- i13mr27685680edx.179.1628023524096; 
- Tue, 03 Aug 2021 13:45:24 -0700 (PDT)
+ bh=zFmNv8bWnnhaUEfEbtd/dIDab8KFB9ZFGv6zOrp9yb4=;
+ b=bFl6Qz37R+XUothIGdCPeCxqaq+YzuDthJWr9XmDqfXLQjsFq+qilsdKlQW13kqt88
+ FqBdqoUgB9cktU/5KmYOUDTAcVoLy5v6ttIdcrTSv+xHg/7lWOozHwr/H1rFp/lklWrq
+ BJStXu93qB8Lj3MTvhsPoopKbd+F5GZ1zBEjvwpMj9yjcenY7PSaJsuECEBlaYtu4XVp
+ 5vXI8kbSW7OtvEmlyth3HBW3hoJMooyxD9JJhGwY20FYl50UXvh2Jlv2rDKPK2ROo64v
+ WdiwVaCDBdAVPwdMdQ1DPXndq/5BsKqEODGkOpKSxla5fewNEvGJnwcH9/lLMYqC1ls6
+ kfZg==
+X-Gm-Message-State: AOAM532MnSc+JhytQgPJWcQkdGp9dMa9weUE66vhoF7ccGXP5B18zzAB
+ E0GliwWIJLCj2qvorg/wc22XfH5WZAYmDZ88QNsEpQ==
+X-Google-Smtp-Source: ABdhPJyCx3nRY/4KqOLvHiEA42E1G/VVl/48vDkQI4N1BE+4zhkOavjC4jVwnhhJLmbbutkiekBOZaTnqYfqHAut40o=
+X-Received: by 2002:a67:7c14:: with SMTP id x20mr9769573vsc.42.1628076920860; 
+ Wed, 04 Aug 2021 04:35:20 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210729201100.3994-1-linux.amoon@gmail.com>
- <20210729201100.3994-4-linux.amoon@gmail.com>
-In-Reply-To: <20210729201100.3994-4-linux.amoon@gmail.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 3 Aug 2021 22:45:13 +0200
-Message-ID: <CAFBinCAVaaXd+jXBtA9RETP5AavOfeUVZLkU1ohGT2Lmx+H1cw@mail.gmail.com>
-To: Anand Moon <linux.amoon@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Neil Armstrong <narmstrong@baylibre.com>, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, linux-kernel@vger.kernel.org,
- Jose Abreu <joabreu@synopsys.com>,
+References: <20210701143353.13188-1-yann.gautier@foss.st.com>
+In-Reply-To: <20210701143353.13188-1-yann.gautier@foss.st.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Wed, 4 Aug 2021 13:34:44 +0200
+Message-ID: <CAPDyKFoCABbyKaejhzAqM9hv7Emg4WyfbtORoW_XMnmoxKSVAQ@mail.gmail.com>
+To: Yann Gautier <yann.gautier@foss.st.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Emiliano Ingrassia <ingrassia@epigenesys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>, linux-amlogic@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [Linux-stm32] [PATCHv1 3/3] net: stmmac: dwmac-meson8b: Add
- reset controller for ethernet phy
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] mmc: mmci: stm32: check when the voltage
+ switch procedure should be done
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,30 +74,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Anand,
-
-On Thu, Jul 29, 2021 at 10:11 PM Anand Moon <linux.amoon@gmail.com> wrote:
+On Thu, 1 Jul 2021 at 16:34, Yann Gautier <yann.gautier@foss.st.com> wrote:
 >
-> Add reset controller for Ethernet phy reset on every boot for
-> Amlogic SoC.
-I think this description does not match what's going on inside the SoC:
-- for all SoCs earlier than GXL the PHY is external so the reset for
-the PHY is a GPIO
-- the reset line you are passing in the .dts belongs to the Ethernet
-controller on SoCs earlier than GXL
-- I *believe* that the rset line which you're passing in the .dts
-belongs to the Ethernet controller AND the built-in MDIO mux on GXL
-and newer, see also [0]
-- from how the PRG_ETH registers work I doubt that these are connected
-to a reset line (as they're managing mostly delays and protocol - so I
-don't see what would be reset). This is speculation though.
+> From: Christophe Kerello <christophe.kerello@foss.st.com>
+>
+> If the card has not been power cycled, it may still be using 1.8V
+> signaling. This situation is detected in mmc_sd_init_card function and
+> should be handled in mmci stm32 variant.
+> The host->pwr_reg variable is also correctly protected with spin locks.
+>
+> Fixes: 94b94a93e355 ("mmc: mmci_sdmmc: Implement signal voltage callbacks")
+>
+> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+> Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
+
+Applied for fixes and by adding stable tag, thanks!
+
+Kind regards
+Uffe
 
 
-Best regards,
-Martin
-
-
-[0] https://lore.kernel.org/linux-amlogic/553e127c-9839-d15b-d435-c01f18c7be48@gmail.com/
+> ---
+>  drivers/mmc/host/mmci_stm32_sdmmc.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
+> index 51db30acf4dc..fdaa11f92fe6 100644
+> --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
+> +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
+> @@ -479,8 +479,9 @@ static int sdmmc_post_sig_volt_switch(struct mmci_host *host,
+>         u32 status;
+>         int ret = 0;
+>
+> -       if (ios->signal_voltage == MMC_SIGNAL_VOLTAGE_180) {
+> -               spin_lock_irqsave(&host->lock, flags);
+> +       spin_lock_irqsave(&host->lock, flags);
+> +       if (ios->signal_voltage == MMC_SIGNAL_VOLTAGE_180 &&
+> +           host->pwr_reg & MCI_STM32_VSWITCHEN) {
+>                 mmci_write_pwrreg(host, host->pwr_reg | MCI_STM32_VSWITCH);
+>                 spin_unlock_irqrestore(&host->lock, flags);
+>
+> @@ -492,9 +493,11 @@ static int sdmmc_post_sig_volt_switch(struct mmci_host *host,
+>
+>                 writel_relaxed(MCI_STM32_VSWENDC | MCI_STM32_CKSTOPC,
+>                                host->base + MMCICLEAR);
+> +               spin_lock_irqsave(&host->lock, flags);
+>                 mmci_write_pwrreg(host, host->pwr_reg &
+>                                   ~(MCI_STM32_VSWITCHEN | MCI_STM32_VSWITCH));
+>         }
+> +       spin_unlock_irqrestore(&host->lock, flags);
+>
+>         return ret;
+>  }
+> --
+> 2.17.1
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
