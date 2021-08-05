@@ -2,62 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2733D3E10E8
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Aug 2021 11:11:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38DD43E112F
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Aug 2021 11:20:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E29ABC597BE;
-	Thu,  5 Aug 2021 09:11:45 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF9D2C597BC;
+	Thu,  5 Aug 2021 09:20:19 +0000 (UTC)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACAE5C597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 370D4C57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Aug 2021 09:11:44 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id f42so9699611lfv.7
+ Thu,  5 Aug 2021 09:20:18 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id f11so5828964ioj.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Aug 2021 02:11:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ Thu, 05 Aug 2021 02:20:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JGy6Zf1Gz/DvNLOUOgVqZw1voM6TCsaMrfyL2VVTA2M=;
- b=Czpou3fdBuvMRgQdRobXPBNmSPmet30GmWm2xaQ8xlkiaXiT9pq1VJ5Sz3m72V5qwc
- 3gA09WBzEqX4wBMbAWb2aL+u3uxCI5tSmxJK2GrkgtzaztR0jzf0hXqnh/rxekaLRzCH
- XQ9NRRqtzN5mRX5BxSFi8xj4rJHxMs28Tw4tL+iOXcP378akJNAZm9rLVJ3kQ7Gx/wqU
- hmc9MxNHu7e2hVUrAzorRfo7qKK8MPzvzo8I0Z4M4QcsLfDNwbKFbO3Onvasga885UF+
- MuD438vz+7ymSeAsFMLiFokCcNh8DTEfPEy5F5HPk3V4dvqE2xr2ESyF0X6dAPBaiE+4
- WRVg==
+ :cc; bh=Gmxmbal5kN8ALwaA2TjN7nOaacEIqVHPBww5o4ZLZEc=;
+ b=OTPZ/ue8FcpPntTRetaZvV8hc8RlWy4XkuE+tMA6Qhva/AlRgX3auNlI7HPA6+z1o3
+ RQdc8lK1I0XdtJI+wvPo5hcETJGwZY7n8z+rIKfMMvwyUuP7J+/Zyg7x4ldMpuR+qC+D
+ X0V7XPd7lHhuJMx+yufSuxAxE8aloRNUKA6oOJ9Y+GpQN3rZ0TBLxhGMkbfXaY+gMMMk
+ 5Hab3YAiMmwkbdY/qIvj5rRVxj08OiMDIl/xKygyhWEek6Cl0gyVorEotDqenuPEei5h
+ PFeiWo277J9nvXLcWtdbffBURbQzRqze1M9GrvmBL+FI7tvWiV2vM7PJvdbowaGyxUAU
+ BZVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=JGy6Zf1Gz/DvNLOUOgVqZw1voM6TCsaMrfyL2VVTA2M=;
- b=tdQ25HczGezvbc389Ckifdyjp3Zqakv+5LT6TBg4aiFQFZVsmHXbUD377L9QQ7ng/a
- Tegh5+8DBGGrxgR+rk8G90J1Ls5JjBOrZ6xomM36tsrDgadGz6KkoAJBPl1tRi3CPJfj
- nr9q63vZMsYMsqz0ZbNZ9RxL1n/qpsFAem45zP7cv/R2cFV+r4AElE+8ULTD22beKZBQ
- xUD5/qzF1A8q3FNa+LPwdGADZp0dZNQGCstVjlRkEYpaeeHI8O8CN9FD2EX3RoyxvnDi
- B+SNqtWlKKpW4hBuGcXPfLktEXVvl+gTH9b6wwiEaYskbUJaiTRxU6SweykNv8aji1pk
- gLNw==
-X-Gm-Message-State: AOAM530BD3/C6hHuN803wCIpE2sUr772Gp1QE080OhrGm9kqCknZES+V
- 21b1JiCXH6Vlu992CWcNnULsf7O0M/yZkc7oMnsrgQ==
-X-Google-Smtp-Source: ABdhPJxrf9wmOoKiTifiOSKjkHpaxgSpZEW0ggxZq8N4Li6hZYEwsHuFZuOzq7JEu33rr4FIZfdLktcn7Mucw0+3gv4=
-X-Received: by 2002:a05:6512:132a:: with SMTP id
- x42mr2814304lfu.291.1628154703391; 
- Thu, 05 Aug 2021 02:11:43 -0700 (PDT)
+ bh=Gmxmbal5kN8ALwaA2TjN7nOaacEIqVHPBww5o4ZLZEc=;
+ b=H+SpKmO1uuZHSO0thlC4X55RR0IqkAKcG7xZOu1fypWytiy0VNw8ndDUbai8qD2Vw8
+ mzov3OkXQjsWvQBQlLFzmsJYIb54WcsnhTNt6ziqUF5vVR5vQxR6OlQQ1hT3BFm4jkAa
+ 5HSh2DHCN0vACvPk+kED0b/fg4mLAJ9aq1d0UEDtYP/964ByFc10j8tpDOg13ZiCLUH9
+ Vi6SzElIqInyFKOK0fVD+QKww99baJb0wKoqFmWr+8/YFxOxt6PpTKMbHzfkOAFy7FhO
+ p56fw5lBrIfsKf/od4SanFqGgLyHqFpoYORtbdSZ3KSd/djcgo2gX7sOgl7u6U+fpCvy
+ lT4g==
+X-Gm-Message-State: AOAM532866k6zWWz04t4Zf455eQLtlbVDIvpjBT1XVNHT3BLlIP35a6+
+ 8PV/vW7VWU2JwIudceI3JLRK82CE4V/+lDELMgE=
+X-Google-Smtp-Source: ABdhPJzj90GzKVMvuigvCbMYK6QaClIQIGsSj4o9T55BNJMS+gKSjLMfX+sql1HcMcsIKDElrvqSZjS0mJLvMJ7GhxQ=
+X-Received: by 2002:a02:b047:: with SMTP id q7mr3722748jah.130.1628155217097; 
+ Thu, 05 Aug 2021 02:20:17 -0700 (PDT)
 MIME-Version: 1.0
 References: <1627098243-2742-1-git-send-email-dillon.minfei@gmail.com>
  <1627098243-2742-3-git-send-email-dillon.minfei@gmail.com>
-In-Reply-To: <1627098243-2742-3-git-send-email-dillon.minfei@gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 5 Aug 2021 11:11:31 +0200
-Message-ID: <CACRpkdYReUdg_7oSTqcsA_+9tS9w6MH90=KV1rGyr4YWT=NW-w@mail.gmail.com>
-To: dillon min <dillon.minfei@gmail.com>
+ <CACRpkdYReUdg_7oSTqcsA_+9tS9w6MH90=KV1rGyr4YWT=NW-w@mail.gmail.com>
+In-Reply-To: <CACRpkdYReUdg_7oSTqcsA_+9tS9w6MH90=KV1rGyr4YWT=NW-w@mail.gmail.com>
+From: Dillon Min <dillon.minfei@gmail.com>
+Date: Thu, 5 Aug 2021 17:19:41 +0800
+Message-ID: <CAL9mu0LfcLS1iNQnamxA_oTrxu8eEBpUm+u92V2d9-8qz6hvow@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>, 
+ Alexandre TORGUE <Alexandre.torgue@foss.st.com>,
+ Peter Robinson <pbrobinson@gmail.com>
 Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  <devicetree@vger.kernel.org>,
  =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kbuild-all@lists.01.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Dave Airlie <airlied@linux.ie>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
  "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
  "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
@@ -81,30 +83,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Jul 24, 2021 at 5:44 AM <dillon.minfei@gmail.com> wrote:
+Hi Linus
 
-> From: Dillon Min <dillon.minfei@gmail.com>
->
-> Since the compatible string defined from ilitek,ili9341.yaml is
-> "st,sf-tc240t-9370-t", "ilitek,ili9341"
->
-> so, append "ilitek,ili9341" to avoid the below dtbs_check warning.
->
-> arch/arm/boot/dts/stm32f429-disco.dt.yaml: display@1: compatible:
-> ['st,sf-tc240t-9370-t'] is too short
->
-> Fixes: a726e2f000ec ("ARM: dts: stm32: enable ltdc binding with ili9341, gyro l3gd20 on stm32429-disco board")
-> Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
-> Reported-by: kernel test robot <lkp@intel.com>
-> ---
-> v4: no change.
+Thanks.
 
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+On Thu, 5 Aug 2021 at 17:11, Linus Walleij <linus.walleij@linaro.org> wrote:
+>
+> On Sat, Jul 24, 2021 at 5:44 AM <dillon.minfei@gmail.com> wrote:
+>
+> > From: Dillon Min <dillon.minfei@gmail.com>
+> >
+> > Since the compatible string defined from ilitek,ili9341.yaml is
+> > "st,sf-tc240t-9370-t", "ilitek,ili9341"
+> >
+> > so, append "ilitek,ili9341" to avoid the below dtbs_check warning.
+> >
+> > arch/arm/boot/dts/stm32f429-disco.dt.yaml: display@1: compatible:
+> > ['st,sf-tc240t-9370-t'] is too short
+> >
+> > Fixes: a726e2f000ec ("ARM: dts: stm32: enable ltdc binding with ili9341, gyro l3gd20 on stm32429-disco board")
+> > Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
+> > Reported-by: kernel test robot <lkp@intel.com>
+> > ---
+> > v4: no change.
+>
+> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+>
+> Please funnel this patch through the STM and ARM SoC tree.
 
-Please funnel this patch through the STM and ARM SoC tree.
+Sure, I will let Alex know. Thanks for your help on this driver.
 
-Yours,
-Linus Walleij
+Hi Alex,
+Should I send v5 with Linus's Reviewed-by tag on this patch? thanks.
+
+Best Regards
+Dillon
+
+>
+> Yours,
+> Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
