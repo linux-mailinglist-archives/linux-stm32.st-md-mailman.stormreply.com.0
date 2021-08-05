@@ -2,54 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F9E23E10DF
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Aug 2021 11:09:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F19C3E10E3
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Aug 2021 11:10:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7DCAC597BC;
-	Thu,  5 Aug 2021 09:09:07 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB9EEC597BE;
+	Thu,  5 Aug 2021 09:10:46 +0000 (UTC)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55BD5C57B51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EC31C597AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Aug 2021 09:09:03 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id x8so9749604lfe.3
+ Thu,  5 Aug 2021 09:10:45 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id b6so9672711lff.10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Aug 2021 02:09:03 -0700 (PDT)
+ Thu, 05 Aug 2021 02:10:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8fY/oxeThB23V+9UG1Edzhasn4C+9ragDJgqZ7k9gIw=;
- b=H49voNK1g+G8urIyGYiAgsJPEAbkGA6DS0f+onn3MiQT2Su6rWS4gKB7NCYVSHsRsr
- dl1CGmKWiTmd9NPn8MdOp6Hfb4ghau3PWU4670rnDYv0GuqdtX91YasNnuxoQRdbNE+0
- O3FXuc8lVPWMvg00OyZkUCg7LFHpMW+eZvOL2Z0nzI/aXYslgWuJbXDtR+P76dcTxMF8
- rdRDG74oSWg/O05nwExHu4GoAoSgkcfIhx3pmDGh9L6aY364AaF1ROfpoU1KauKVULjf
- FmrxPhVj4L17We+I4zMT19/47onr4iF7btZGkwb54yYmD9y23RlPcxKp31vopw7oA8JC
- 8JNQ==
+ :cc; bh=GJwSqkoynJ2MGVTaxaCF6tjvxxMA2tETgRViwoLL+uA=;
+ b=BdFbpdP8kIg3G9AXQcWSIAeuhscjDoUZNHs6tTtydjVKNUqX6XH/PSRXgAvDDkibyH
+ 5y1QnI6iyG41rUI4BShiWsjCdK9reMem48YfsrqtBHdjkZ/XH+7NfJ+Fp2W+rvSiXgIj
+ KDzQQqJGe57bSr7SJNVLID1dJ7Ja1FgI6yo4Qu25gQia7UNjomXH2lFAS5NmjX7WzsWP
+ 7yol4EFp/gL0Qs9PjkuGiH0wi/O1hWWB9WpeJuEpUYm4b83BPy5lLxvlRxVq3VWu52AX
+ EJs2V9pNjHHKlGmtbjwr7Ripm4xap7zc2hd36d6NtjMcalc9jcX66PggfAmfrUt4wDpy
+ 6L3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=8fY/oxeThB23V+9UG1Edzhasn4C+9ragDJgqZ7k9gIw=;
- b=cLIKSSUKsRgpHYRoEAm2UmYsUpZ7AVm7NZvh/WGZXGHUs/B8HjFzxwor6cofTOb6KY
- TrSm8u4OazfQDZPc0/X9vLz6c7DPz9cZwT28M5ONEScJxXmbSYm66t6U/g7uZLPL1XvL
- VGz4TJ1SdPkyGMR5An1vvUPolIMkLTXNEqu8E009gkObLTcHWKG3/tm6Z5NCCxh1FhTU
- P+vF+AAs6z8mos3b2Hs7XC7mif6nhnYd0ALQz9W+JOgDFnXpITJKRlbBGZD69Jj8T+2R
- Dusrw+FVyytAKG4KLGyFn+wZ4h/1LVDI8bsVgr3rPEIZQCd4bbB8RIghUryTWb0zBoMG
- iyeQ==
-X-Gm-Message-State: AOAM531CyMYrB6teqEizFO8VCGZghCI2Cw/ttgGqMarpw48oFsa8+kES
- BDA1FmRVhFO7KLcfBgxviXEE+UZUXhgsRGTDqGZ4RA==
-X-Google-Smtp-Source: ABdhPJxqty0NGuXhYp4Sy3H2W5aZNxbWZCoi8hI7ymIGAcMh8xNGz6zqsExVUV5mnZ5ZSm+iwxpYBLFqDqCMYi8/beg=
-X-Received: by 2002:a05:6512:1084:: with SMTP id
- j4mr2991518lfg.586.1628154542193; 
- Thu, 05 Aug 2021 02:09:02 -0700 (PDT)
+ bh=GJwSqkoynJ2MGVTaxaCF6tjvxxMA2tETgRViwoLL+uA=;
+ b=iIX10YQBHmFDla3fq9KN73DYvwP2DUQtOJzWTEfvGhH5Ytxfl7Tr/viAoZaqI6bAXy
+ TZAmZX1tUc9/9DrbPZkhFwMZWExWUao2N01JSR0+aXo1o8OXRCAK8tMknEp63wFGwcuD
+ 7/RHxLyF92ijcDwUC6i80Mxs4nfT3lhWy4g+V5emd4yUhAl+fstc/PHg33x9GlhWFzy0
+ YxPWuKEyYxpOEyQVgNtEA+u7+LoY1061hVKKbnN26rMlf/tlZ/qD2gaduo6H9LgNyK6S
+ mcrYWMNhsh5DqAunOzrNJdz/GxE8Y3kNQdzliF+tfiuUVSgFHpcGUs1zNva09q7kHmtL
+ 7ozg==
+X-Gm-Message-State: AOAM531KGG9HM928lOQITfZIAWvarBs3LQg0dp+FrzQ55Y/WI+fbPW5v
+ T3oX4FHJgUOLzJg3DUZSBJdTK7VEa4wD/6mm3+JV1A==
+X-Google-Smtp-Source: ABdhPJzZpUm8mUiTLlF2l2RaGugFmMpQMMqoQ5ipZx5ajfXnBZ534P16n8WUxjIaWbrbZLOd9+eZHKDTwonxKjv8meI=
+X-Received: by 2002:ac2:4d0f:: with SMTP id r15mr2833139lfi.649.1628154644990; 
+ Thu, 05 Aug 2021 02:10:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <1627098243-2742-1-git-send-email-dillon.minfei@gmail.com>
- <1627098243-2742-2-git-send-email-dillon.minfei@gmail.com>
-In-Reply-To: <1627098243-2742-2-git-send-email-dillon.minfei@gmail.com>
+ <1627098243-2742-4-git-send-email-dillon.minfei@gmail.com>
+In-Reply-To: <1627098243-2742-4-git-send-email-dillon.minfei@gmail.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 5 Aug 2021 11:08:51 +0200
-Message-ID: <CACRpkdYEWDKrcUGcnDLKrx7+cGH4BvKLC0du1wYpkXTiJwn8_g@mail.gmail.com>
+Date: Thu, 5 Aug 2021 11:10:33 +0200
+Message-ID: <CACRpkdYzrpHgDCW2UXNnFk-NpC_yM5xeSe_jBDJMGa6==5SHXw@mail.gmail.com>
 To: dillon min <dillon.minfei@gmail.com>
 Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  <devicetree@vger.kernel.org>,
@@ -63,8 +62,8 @@ Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
  Daniel Vetter <daniel@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v4 1/3] dt-bindings: display: panel: Add
- ilitek ili9341 panel bindings
+Subject: Re: [Linux-stm32] [PATCH v4 3/3] drm/panel: Add ilitek ili9341
+	panel driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,16 +84,22 @@ On Sat, Jul 24, 2021 at 5:44 AM <dillon.minfei@gmail.com> wrote:
 
 > From: Dillon Min <dillon.minfei@gmail.com>
 >
-> Add documentation for "ilitek,ili9341" panel.
+> This driver combines tiny/ili9341.c mipi_dbi_interface driver
+> with mipi_dpi_interface driver, can support ili9341 with serial
+> mode and parallel rgb interface mode by different dts bindings.
 >
 > Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
+> Reported-by: kernel test robot <lkp@intel.com>
 > Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> Link: https://lore.kernel.org/lkml/1626853288-31223-2-git-send-email-dillon.minfei@gmail.com/
+> Reviewed-by: Jagan Teki <jagan@amarulasolutions.com>
+> ---
+> v4:
+> - fix m68k-allmodconfig build error which reported by lkp, thanks.
+> - add Copyright 2018 David Lechner <david@lechnology.com>.
 
-Patch applied to drm-misc-next.
+Patch applied to drm-misc-next
 
-Thanks for working on this!
+Thanks for working on this driver!
 
 Yours,
 Linus Walleij
