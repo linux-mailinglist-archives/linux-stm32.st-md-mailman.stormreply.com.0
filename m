@@ -2,62 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C31DE3E0045
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Aug 2021 13:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE033E10A5
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Aug 2021 10:56:03 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65704C5A4D3;
-	Wed,  4 Aug 2021 11:35:23 +0000 (UTC)
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
- [209.85.217.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90269C597BC;
+	Thu,  5 Aug 2021 08:56:02 +0000 (UTC)
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
+ [209.85.166.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 852AFC57B51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F34EC57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Aug 2021 11:35:21 +0000 (UTC)
-Received: by mail-vs1-f41.google.com with SMTP id j19so847499vso.0
+ Thu,  5 Aug 2021 08:56:00 +0000 (UTC)
+Received: by mail-il1-f175.google.com with SMTP id h18so4341415ilc.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 04 Aug 2021 04:35:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ Thu, 05 Aug 2021 01:56:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zFmNv8bWnnhaUEfEbtd/dIDab8KFB9ZFGv6zOrp9yb4=;
- b=iu0kyRPpYLdd/jKrXz1byoUVslMvTNXKDP5os4v7jpIA9Q4eZ9ui2ItYYzm14Ep4dl
- ovQWvTdkAoGV/HM55AZMcYojzijUvBsmwjyLPGu0ajgS9yg+HSdYM/DjDuTE17r2kwku
- A+KsLof1HDrPTHh9X4WNRSZ47BKMaPTBXgjUPbKDxD5p3F1e9ikCH9SB/1sGkt0AhztT
- M73vqhZO16i6VffkAeO6/HB5YHRQsL1u+GxNm9q+8l7dx+BQdsx+PgRnG85naHFHwF+S
- Txfpfm+vz2kG5lnH4z1nUXucc4va+QumoW539vaWHuhUsrmG7osUGfM8sVu4nHtsY2kb
- 9xfw==
+ :cc; bh=gzmhApPj8HKqYSRf21gqLOYpahW4Hf0SxEjn45dssUM=;
+ b=TOTf9psJWunXK13kHgtY8TiWSVBgt5Vzq7W3W8AQ6vfyunOVZEh0Qg4+gWIaULVC0g
+ U3YhP0DGAJBbmfrkgJEG1F3KzQp2r86sDY8FA4NRqzJFZVplKdW1VXiss+CkUgIVFlHY
+ 1AScnG9bhXvzFieoJZX0UsqLYilrjUrI/OQe5yDln9R0bPAl+gjRmsFEH07AqF30YWzf
+ ITB/9oa3eXMfGlktXJpWD/8UHgFfsPXBT3zWtvvJCNHBegdJVKz1bP3KPigPDera7nA5
+ ViBZAMJxF0nDwi4qDAhUT12fx7jCiepxmlN3eWPhh+rNERgLcXgkD/ePxOYnQOfNRHWn
+ nplg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=zFmNv8bWnnhaUEfEbtd/dIDab8KFB9ZFGv6zOrp9yb4=;
- b=bFl6Qz37R+XUothIGdCPeCxqaq+YzuDthJWr9XmDqfXLQjsFq+qilsdKlQW13kqt88
- FqBdqoUgB9cktU/5KmYOUDTAcVoLy5v6ttIdcrTSv+xHg/7lWOozHwr/H1rFp/lklWrq
- BJStXu93qB8Lj3MTvhsPoopKbd+F5GZ1zBEjvwpMj9yjcenY7PSaJsuECEBlaYtu4XVp
- 5vXI8kbSW7OtvEmlyth3HBW3hoJMooyxD9JJhGwY20FYl50UXvh2Jlv2rDKPK2ROo64v
- WdiwVaCDBdAVPwdMdQ1DPXndq/5BsKqEODGkOpKSxla5fewNEvGJnwcH9/lLMYqC1ls6
- kfZg==
-X-Gm-Message-State: AOAM532MnSc+JhytQgPJWcQkdGp9dMa9weUE66vhoF7ccGXP5B18zzAB
- E0GliwWIJLCj2qvorg/wc22XfH5WZAYmDZ88QNsEpQ==
-X-Google-Smtp-Source: ABdhPJyCx3nRY/4KqOLvHiEA42E1G/VVl/48vDkQI4N1BE+4zhkOavjC4jVwnhhJLmbbutkiekBOZaTnqYfqHAut40o=
-X-Received: by 2002:a67:7c14:: with SMTP id x20mr9769573vsc.42.1628076920860; 
- Wed, 04 Aug 2021 04:35:20 -0700 (PDT)
+ bh=gzmhApPj8HKqYSRf21gqLOYpahW4Hf0SxEjn45dssUM=;
+ b=PK7xtao4zl6JYL7g2b3wedxiTZJGMUoHouxfu2wL6e0am7JfZJVUg+pJw5KV4Ozd93
+ X0FJl+l2UhN2oSR/i/nX59OFWWkeY76Av1lwJZ1m57GuIwFGZfeIM6plI4XeVnENNMp3
+ Jz+vCA1hMTOi2kPsUhk0nG0Aynrqjm1AXO0TndsoaJn6ZImBehsyaiHmtHu3Z+h/0coH
+ f8WQ2UM4X339HdKD9Z0nKV7xfKGNOH/lXGaW8kG3NG/UXmojUpLydOFrPooass7EPe1n
+ L0qe5bTG7QZXw0jcgeiWW7CUWsCCUszHYTrA7aChFzHgrTTV50WHWThh0fZ9ywvA/czr
+ TAkg==
+X-Gm-Message-State: AOAM533ynZ9y9tvCR+WQfHs/IEdcG4Emid58kS9M0sd1RCgJ7iIxTOz5
+ 6ROB0XACHQv+EsrWHkx9Gaq0Gw7Pql/qJn8YJjM=
+X-Google-Smtp-Source: ABdhPJwE6/hjmNRFCTdKVvlJC0gbv70mRmlYMEcT7G0uSTjPkThFyytPoqX7/kmL1I7cGXdcgbE94sArd3GVW8kQtzU=
+X-Received: by 2002:a05:6e02:13b3:: with SMTP id
+ h19mr244834ilo.218.1628153759089; 
+ Thu, 05 Aug 2021 01:55:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210701143353.13188-1-yann.gautier@foss.st.com>
-In-Reply-To: <20210701143353.13188-1-yann.gautier@foss.st.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Wed, 4 Aug 2021 13:34:44 +0200
-Message-ID: <CAPDyKFoCABbyKaejhzAqM9hv7Emg4WyfbtORoW_XMnmoxKSVAQ@mail.gmail.com>
-To: Yann Gautier <yann.gautier@foss.st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-mmc <linux-mmc@vger.kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
+References: <1627098243-2742-1-git-send-email-dillon.minfei@gmail.com>
+In-Reply-To: <1627098243-2742-1-git-send-email-dillon.minfei@gmail.com>
+From: Dillon Min <dillon.minfei@gmail.com>
+Date: Thu, 5 Aug 2021 16:55:23 +0800
+Message-ID: <CAL9mu0+P4U+2tyA7CGCcP6riWXzKSpCWpNxKi3MvTt8Abiwtow@mail.gmail.com>
+To: laurent.pinchart@ideasonboard.com, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>, 
+ Linus Walleij <linus.walleij@linaro.org>,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, 
+ Peter Robinson <pbrobinson@gmail.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, kbuild-all@lists.01.org,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] mmc: mmci: stm32: check when the voltage
- switch procedure should be done
+Subject: Re: [Linux-stm32] [PATCH v4 0/3] Add ilitek ili9341 panel driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,60 +81,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 1 Jul 2021 at 16:34, Yann Gautier <yann.gautier@foss.st.com> wrote:
->
-> From: Christophe Kerello <christophe.kerello@foss.st.com>
->
-> If the card has not been power cycled, it may still be using 1.8V
-> signaling. This situation is detected in mmc_sd_init_card function and
-> should be handled in mmci stm32 variant.
-> The host->pwr_reg variable is also correctly protected with spin locks.
->
-> Fixes: 94b94a93e355 ("mmc: mmci_sdmmc: Implement signal voltage callbacks")
->
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-> Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
+Hi All
 
-Applied for fixes and by adding stable tag, thanks!
+Just a gentle ping, thanks.
 
-Kind regards
-Uffe
+Best regards.
+Dillon
 
-
-> ---
->  drivers/mmc/host/mmci_stm32_sdmmc.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+On Sat, 24 Jul 2021 at 11:44, <dillon.minfei@gmail.com> wrote:
 >
-> diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-> index 51db30acf4dc..fdaa11f92fe6 100644
-> --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
-> +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-> @@ -479,8 +479,9 @@ static int sdmmc_post_sig_volt_switch(struct mmci_host *host,
->         u32 status;
->         int ret = 0;
+> From: Dillon Min <dillon.minfei@gmail.com>
 >
-> -       if (ios->signal_voltage == MMC_SIGNAL_VOLTAGE_180) {
-> -               spin_lock_irqsave(&host->lock, flags);
-> +       spin_lock_irqsave(&host->lock, flags);
-> +       if (ios->signal_voltage == MMC_SIGNAL_VOLTAGE_180 &&
-> +           host->pwr_reg & MCI_STM32_VSWITCHEN) {
->                 mmci_write_pwrreg(host, host->pwr_reg | MCI_STM32_VSWITCH);
->                 spin_unlock_irqrestore(&host->lock, flags);
+> Since the st,sf-tc240t-9370-t dts binding already exist in stm32f429-disco.dts
+> but, the panel driver didn't get accepted from mainline. it's time to submit
+> patch fot it.
 >
-> @@ -492,9 +493,11 @@ static int sdmmc_post_sig_volt_switch(struct mmci_host *host,
+> This driver can support two different interface by different dts bindings:
+> - spi+dpi, use spi to configure register, dpi for graphic data.
+>   st,sf-tc240t-9370-t
+> - only spi, just like tiny/ili9341.c (actually, this part is copy from tiny)
+>   adafruit,yx240qv29
 >
->                 writel_relaxed(MCI_STM32_VSWENDC | MCI_STM32_CKSTOPC,
->                                host->base + MMCICLEAR);
-> +               spin_lock_irqsave(&host->lock, flags);
->                 mmci_write_pwrreg(host, host->pwr_reg &
->                                   ~(MCI_STM32_VSWITCHEN | MCI_STM32_VSWITCH));
->         }
-> +       spin_unlock_irqrestore(&host->lock, flags);
+> I was submited the first patch last year, you can find it at [1].
+> this patch has one major difference from that one, which is replace the low
+> level communication way, from spi_sync() to mipi_dbi_{command,
+> command_stackbuf}() interface, referred from Linus's patch [2].
 >
->         return ret;
->  }
+> both the two dpi/dbi interface was tested on stm32f429-disco board, if anyone
+> want to verify this patch, you need apply the clk patch for this board first,
+> you can get it from [3].
+>
+> [1] "drm/panel: Add ilitek ili9341 panel driver"
+> https://lore.kernel.org/lkml/1590378348-8115-7-git-send-email-dillon.minfei@gmail.com/
+>
+> [2] "drm/panel: s6e63m0: Switch to DBI abstraction for SPI"
+> https://lore.kernel.org/dri-devel/20210611214243.669892-1-linus.walleij@linaro.org/
+>
+> [3]
+> https://lore.kernel.org/lkml/1590378348-8115-6-git-send-email-dillon.minfei@gmail.com/
+>
+> v4:
+> - fix m68k-allmodconfig build error which reported by lkp, thanks.
+> - add Copyright 2018 David Lechner <david@lechnology.com>.
+> v3 link:
+> https://lore.kernel.org/lkml/1627013203-23099-1-git-send-email-dillon.minfei@gmail.com/
+>
+> v3:
+> - add Fixes tags.
+> - collect reviewed-by tags from linus and jagan.
+> - replace DRM_ERROR() with dev_err() or drm_err().
+> - remove kernel-doc markers from struct ili9341_config{}.
+> - reorder include headers.
+> - remove the struct device *dev from struct ili9341{}.
+> - restructure the ili9341_probe() function, add two ili9341_{dbi,dpi)_probe()
+>   to make it more readable according to jagan's suggestion, thanks.
+>
+> for the full drm driver exist in drm/panel need Sam and Laurent's feedback.
+> so, not cover this part at this time, will be update later.
+>
+> v2 link:
+> https://lore.kernel.org/lkml/1626853288-31223-1-git-send-email-dillon.minfei@gmail.com/
+>
+> v2:
+> - replace vcc regulator to bulk regulators in driver, from linus suggestion.
+> - fix dtbs_check warnings on ili9341 dts binding check.
+> - add bulk regulation node in ilitek,ili9341.yaml.
+> v1 link:
+> https://lore.kernel.org/lkml/1626430843-23823-1-git-send-email-dillon.minfei@gmail.com/
+>
+> Dillon Min (3):
+>   dt-bindings: display: panel: Add ilitek ili9341 panel bindings
+>   ARM: dts: stm32: fix dtbs_check warning on ili9341 dts binding
+>   drm/panel: Add ilitek ili9341 panel driver
+>
+>  .../bindings/display/panel/ilitek,ili9341.yaml     |  78 ++
+>  arch/arm/boot/dts/stm32f429-disco.dts              |   2 +-
+>  drivers/gpu/drm/panel/Kconfig                      |  12 +
+>  drivers/gpu/drm/panel/Makefile                     |   1 +
+>  drivers/gpu/drm/panel/panel-ilitek-ili9341.c       | 792 +++++++++++++++++++++
+>  5 files changed, 884 insertions(+), 1 deletion(-)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili9341.yaml
+>  create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9341.c
+>
 > --
-> 2.17.1
+> 1.9.1
 >
 _______________________________________________
 Linux-stm32 mailing list
