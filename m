@@ -2,71 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08B943E55F8
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Aug 2021 10:52:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 841D63E5A47
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Aug 2021 14:45:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C06BEC5A4CD;
-	Tue, 10 Aug 2021 08:52:42 +0000 (UTC)
-Received: from mail-il1-f172.google.com (mail-il1-f172.google.com
- [209.85.166.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18261C57B51;
+	Tue, 10 Aug 2021 12:45:27 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F38DDC424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF6EBC424AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Aug 2021 08:52:39 +0000 (UTC)
-Received: by mail-il1-f172.google.com with SMTP id f8so14532436ilr.4
+ Tue, 10 Aug 2021 12:45:23 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id z20so4090727lfd.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Aug 2021 01:52:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ Tue, 10 Aug 2021 05:45:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=lWXJ4+PjF5glFDtXwt/vNE0iEHr+A6wHia7xM2/xz1w=;
- b=RSyf2G/TrYO742mmP79dNqVaAkt/Z+/FFY9knRlUQFKTfXEdKiP8qGt3UtV5nsPHRE
- CSLS8yC66Zp3D4ytzq51fAvkfkpTZdP2S4g2LCMq3JdiTk4J7o1FhADvTVKWP6PyplsF
- c74q+eJlFX8tMRziWa378uLAp9LZ1TnbAdsmCdnqAwEVjHEOjBQoZ2DIpfLwvUkZiaCj
- JpmtGDqEQiAPf3moCXNAza1rYWlHOI5IMHC9EGFmYzeTVjpRtZWPS7C4yK86yulJwxZS
- 16/rnaR45WFBzrwyapORQ18rvwhqgHCTLZheMYf1jL4FokxZhjtOeWzs4m0cIRi0xfFi
- 3k2Q==
+ :cc; bh=p4fA30UmsVxbBBxabVfhDHH9C11jyZ20WTjP74m8fKs=;
+ b=AK4sZ/xcdeynrPd0HoK9VrAa56Ppasl+7IUeUdRIyd53PKhm+G8CK7yd7RM6qm1FWQ
+ P0hhWbl16qzyOVC4C6rQL1+y16s2AcqBp2R5QtNa7Nu6fydfvjHSLTGayNX4sfGsstN9
+ Fca8gk6BV0uI2mBMqNl+iWBzxDsoHR4UFVNmOL8C8tPhfyCH1vMuUbbfgKACeSTBUjtF
+ hU17EbETZFHmolBSxIXzAdEqfW2II7k+6rwdazTQI8WOQO5Ivc1sJpL2csNDHLEO4/q5
+ B5ohuZng+tP1eArePVamNoCUkNl/A+ql27xsXujzS0v+50Vf9ehPBjNWwyUgSLBIce+5
+ DFkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=lWXJ4+PjF5glFDtXwt/vNE0iEHr+A6wHia7xM2/xz1w=;
- b=GpRWvDZbasnmBhgWbfNB5dzJgfv82cFzunnO67we2qKbsxwGM31MQyZyBe07RqTStl
- 7EKaGuqmwrd5NzWOMCz9yygWGdXjSXuBBaJFkPw7dW9hXx54540+tSV/sQw1mMx/FkLl
- zK7tj+U/mNV3q8R9G6seCEJ2Xxu4JCM13uJrDiglv9ka6zs4eDkkq4/MT71ZmzMOCSk3
- vUuVP5gzx0t1VXJ3EdAw/9HTI9RwzTNWLt9HGh0RPg0jFesTCcVw5OF0ooyoAPEb3ElZ
- lTUtQZna4EVSncZcGq33maCzWwZrLbvg9cuCeuB9P38MJx9APJyTb2S4wdnREH/eRnHB
- L6Bg==
-X-Gm-Message-State: AOAM532aNqVCyZiv0zwUBZ5o96iaLRd0scktjYMvVQzHoeDvATaCnX/j
- KAOoEB2kqtCOQsnMNDceQOKuT83eZJD0m0tFFOA=
-X-Google-Smtp-Source: ABdhPJwzzeoVZ8XWeqwnCkOYfBWOdVOBvKw/YO8LbIhn6Mjk+DGdz9I9hHDwolLR9vxDRuFHs7u09g1OxGrGsMKRwmA=
-X-Received: by 2002:a05:6e02:13b3:: with SMTP id
- h19mr49185ilo.218.1628585558984; 
- Tue, 10 Aug 2021 01:52:38 -0700 (PDT)
+ bh=p4fA30UmsVxbBBxabVfhDHH9C11jyZ20WTjP74m8fKs=;
+ b=eT0pYsT/4+fVZSFlx13fJNQvq/uFJjJCdNIZFXSTWz+4ivgn4pOBzlRzthKJzMtbQB
+ n42bWc58lko/L3PuWqfYffYM8vLeyyO9IaK+7JPv3tqrodi6i7w2QDNbFdXMrwQ1uD0b
+ vb3mC7eap2G83i7YLRGwTS6wPVTfcAAB1CfZOJRfqeGC01S4zbkE4eFRoDq539RGOhhc
+ Bj7OT/GNg372MkQN0B8umqat0pj3GWsPRX6/hFwB45ssiT54HqD8XlFK1pwdBOXpFqcq
+ eQ1lf9219QzsB9gQetoHpJRxRwQ/vEKxWZzf6URchm5Ogya3zDbgwPuPgkRwdrHyvt5k
+ BvDQ==
+X-Gm-Message-State: AOAM531vsk7NlnpSzhwuHDIjjLoRk34QwhbEnjDGPUZf7TeWTzXHSi56
+ XddpvaPql/Bk1EmJ1574VoW9Nw5ksll4MuCWbgeeGQ==
+X-Google-Smtp-Source: ABdhPJxdOTFsL9Ec9pZR+uNkqzgGHrc7A/wQl1VbkWLUWhvC904yI+SM3mADlRMM+ZuroqFnn+tC+w5vpOPhWgdRecw=
+X-Received: by 2002:a19:ac04:: with SMTP id g4mr5316722lfc.29.1628599523238;
+ Tue, 10 Aug 2021 05:45:23 -0700 (PDT)
 MIME-Version: 1.0
-References: <1626341068-20253-1-git-send-email-dillon.minfei@gmail.com>
- <1626341068-20253-18-git-send-email-dillon.minfei@gmail.com>
- <7131ee03-fc81-cb9b-665f-80e4ce8435ab@xs4all.nl>
-In-Reply-To: <7131ee03-fc81-cb9b-665f-80e4ce8435ab@xs4all.nl>
-From: Dillon Min <dillon.minfei@gmail.com>
-Date: Tue, 10 Aug 2021 16:52:04 +0800
-Message-ID: <CAL9mu0+QF==63hzkLo1x=dVeXdnu7wyugmfQCRLsTE+=AJZWxw@mail.gmail.com>
-To: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Cc: gnurou@gmail.com, linux-clk <linux-clk@vger.kernel.org>,
- Pi-Hsun Shih <pihsun@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, mchehab+huawei@kernel.org,
- hugues.fruchet@foss.st.com, Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, ezequiel@collabora.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-media <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 7/9] media: docs: add doc for the stm32
-	dma2d driver
+References: <20210723132810.25728-1-alexandre.torgue@foss.st.com>
+ <20210723132810.25728-2-alexandre.torgue@foss.st.com>
+In-Reply-To: <20210723132810.25728-2-alexandre.torgue@foss.st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 10 Aug 2021 14:45:12 +0200
+Message-ID: <CACRpkdZKU7zA-SiV8n=wtaD1iqYMUocncvQB6NdAmYSn4xN7LA@mail.gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Olof Johansson <olof@lixom.net>, linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 1/7] dt-bindings: pinctrl: stm32: add new
+ compatible for STM32MP135 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,117 +77,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Hans
+On Fri, Jul 23, 2021 at 3:28 PM Alexandre Torgue
+<alexandre.torgue@foss.st.com> wrote:
 
-Thanks for the detailed review.
+> New compatible to manage ball out and pin muxing of STM32MP135 SoC.
+>
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 
-On Mon, 9 Aug 2021 at 17:16, Hans Verkuil <hverkuil-cisco@xs4all.nl> wrote:
->
-> On 15/07/2021 11:24, dillon.minfei@gmail.com wrote:
-> > From: Dillon Min <dillon.minfei@gmail.com>
-> >
-> > add stm32-uapi.rst for stm32's dma2d driver, explain the details of ioctl
-> > V4L2_CID_DMA2D_R2M_MODE, V4L2_CID_DMA2D_R2M_COLOR.
-> >
-> > Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
-> > ---
-> > v2: introduce the stm32-uapi.rst to explain the detail of dma2d's ioctl.
-> >
-> >  .../userspace-api/media/drivers/index.rst          |  1 +
-> >  .../userspace-api/media/drivers/stm32-uapi.rst     | 22 ++++++++++++++++++++++
-> >  2 files changed, 23 insertions(+)
-> >  create mode 100644 Documentation/userspace-api/media/drivers/stm32-uapi.rst
-> >
-> > diff --git a/Documentation/userspace-api/media/drivers/index.rst b/Documentation/userspace-api/media/drivers/index.rst
-> > index 12e3c512d718..ce42915d48f4 100644
-> > --- a/Documentation/userspace-api/media/drivers/index.rst
-> > +++ b/Documentation/userspace-api/media/drivers/index.rst
-> > @@ -38,4 +38,5 @@ For more details see the file COPYING in the source distribution of Linux.
-> >       max2175
-> >       meye-uapi
-> >       omap3isp-uapi
-> > +     stm32-uapi
-> >       uvcvideo
-> > diff --git a/Documentation/userspace-api/media/drivers/stm32-uapi.rst b/Documentation/userspace-api/media/drivers/stm32-uapi.rst
-> > new file mode 100644
-> > index 000000000000..d7a4f717387d
-> > --- /dev/null
-> > +++ b/Documentation/userspace-api/media/drivers/stm32-uapi.rst
-> > @@ -0,0 +1,22 @@
-> > +.. SPDX-License-Identifier: GPL-2.0
-> > +
-> > +STM32 Chrom-Art 2D Graphics Accelerator unit (DMA2D) driver
-> > +================================================
-> > +
-> > +The DMA2D driver implements the following driver-specific controls:
-> > +
-> > +``V4L2_CID_DMA2D_R2M_MODE``
->
-> Please mention the control type as well.
+Patch applied!
 
-OK, how about change to
-``V4L2_CID_DMA2D_R2M_MODE (boolean)``
-
->
-> > +-------------------------
-> > +    Enable/Disable the Register-To-Memory mode, filling a part or the
-> > +    whole of a destination image with a specific color.
-> > +
-> > +    1 for enable, 0 for disable.
-> > +
-> > +``V4L2_CID_DMA2D_R2M_COLOR``
->
-> Ditto.
-
-I will remove this item in v3, turn to use your suggestion (add
-V4L2_COLORFX_SET_COLOR_ARGB to V4L2_CID_COLORFX)
-
->
-> > +-------------------------------
-> > +    Set the color to fill a part or the whole of a destination image.
-> > +    only used under Register-To-Memory mode, to set the DMA2D_OCOLR register
-> > +    (RED, GREEN, BLUE) which is:
->
-> Here you mention RGB only,
->
-> > +
-> > +    31 .. 24    23 .. 16  15 .. 8     7 .. 0
-> > +    ALPHA[7:0]  RED[7:0]  GREEN[7:0]  BLUE[7:0]
->
-> but here you also mention Alpha. So which is it?
-
-Anyway this will be removed in v3, give a short explanation about it,
-The DMA2D_OCOLR register contains alpha value for m2m-pfc-blend mode,
-which defines the alpha channel of the output color. it's not used for R2M.
-
-sorry for confusion.
-
->
-> See also my review of patch 9/9.
->
-> >
->
-> I'm getting some warnings building this doc:
->
-> Documentation/media/userspace-api/drivers/stm32-uapi.rst:4: WARNING: Title underline too short.
->
-> STM32 Chrom-Art 2D Graphics Accelerator unit (DMA2D) driver
-> ================================================
-> Documentation/media/userspace-api/drivers/stm32-uapi.rst:9: WARNING: Title underline too short.
->
-> ``V4L2_CID_DMA2D_R2M_MODE``
-> -------------------------
-
-OK, will be fixed in v3.
-
->
-> Regards,
->
->         Hans
-
-
-Thanks and Best Regards
-Dillon
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
