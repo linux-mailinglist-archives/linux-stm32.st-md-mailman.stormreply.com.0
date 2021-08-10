@@ -2,43 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D46DD3E7F2A
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Aug 2021 19:37:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 368D63E86B4
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Aug 2021 01:50:54 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99155C5A4D0;
-	Tue, 10 Aug 2021 17:37:48 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9C47C5A4CD;
+	Tue, 10 Aug 2021 23:50:53 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9257DC5719E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80AC8C5719E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Aug 2021 17:37:44 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DFD7B611AE;
- Tue, 10 Aug 2021 17:37:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1628617063;
- bh=IpsOi0DreMnqC6z3BxvfBehVk68QktRo+NLFvipSyRs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pLQLegMBY6cVoc83byLrw5baDiZ5PlJon5wq5cXW44Zm2Z1AGtE+JAp/eeb8vzGDm
- G3G6yf/zuv96F7UikGUZaFBWZ9b9zuwsgoO80vjry0kpr/grgMjELOygmaWeoEiybD
- UcHW+X+Qf9mRmGLoN/v45DRLqNYz1oJYB3sgN+mc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Date: Tue, 10 Aug 2021 19:29:22 +0200
-Message-Id: <20210810172956.630090823@linuxfoundation.org>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210810172955.660225700@linuxfoundation.org>
-References: <20210810172955.660225700@linuxfoundation.org>
-User-Agent: quilt/0.66
+ Tue, 10 Aug 2021 23:50:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10072"; a="195286934"
+X-IronPort-AV: E=Sophos;i="5.84,311,1620716400"; d="scan'208";a="195286934"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2021 16:50:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,311,1620716400"; d="scan'208";a="516087340"
+Received: from linux.intel.com ([10.54.29.200])
+ by FMSMGA003.fm.intel.com with ESMTP; 10 Aug 2021 16:50:49 -0700
+Received: from linux.intel.com (vwong3-iLBPG3.png.intel.com [10.88.229.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id D25E95808D9;
+ Tue, 10 Aug 2021 16:50:44 -0700 (PDT)
+Date: Wed, 11 Aug 2021 07:50:41 +0800
+From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+To: Vladimir Oltean <olteanv@gmail.com>
+Message-ID: <20210810235041.GA30818@linux.intel.com>
+References: <20210809102229.933748-1-vee.khee.wong@linux.intel.com>
+ <20210809102229.933748-2-vee.khee.wong@linux.intel.com>
+ <20210809110626.4kfkegwixiualq2x@skbuf>
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <20210809110626.4kfkegwixiualq2x@skbuf>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
+ linux-kernel@vger.kernel.org, Voon Weifeng <weifeng.voon@intel.com>,
+ Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
- Patrick Delaunay <patrick.delaunay@foss.st.com>
-Subject: [Linux-stm32] [PATCH 5.10 028/135] ARM: dts: stm32: Fix touchscreen
-	IRQ line assignment on DHCOM
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "David S . Miller" <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: pcs: xpcs: enable skip
+	xPCS soft reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,105 +68,244 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Marek Vasut <marex@denx.de>
+On Mon, Aug 09, 2021 at 02:06:26PM +0300, Vladimir Oltean wrote:
+> Hi VK,
+> 
+> On Mon, Aug 09, 2021 at 06:22:28PM +0800, Wong Vee Khee wrote:
+> > diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+> > index 63fda3fc40aa..c7a3aa862079 100644
+> > --- a/drivers/net/pcs/pcs-xpcs.c
+> > +++ b/drivers/net/pcs/pcs-xpcs.c
+> > @@ -1081,7 +1081,8 @@ static const struct phylink_pcs_ops xpcs_phylink_ops = {
+> >  };
+> >  
+> >  struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev,
+> > -			    phy_interface_t interface)
+> > +			    phy_interface_t interface,
+> > +			    bool skip_reset)
+> >  {
+> >  	struct dw_xpcs *xpcs;
+> >  	u32 xpcs_id;
+> > @@ -1113,9 +1114,16 @@ struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev,
+> >  		xpcs->pcs.ops = &xpcs_phylink_ops;
+> >  		xpcs->pcs.poll = true;
+> >  
+> > -		ret = xpcs_soft_reset(xpcs, compat);
+> > -		if (ret)
+> > -			goto out;
+> > +		if (!skip_reset) {
+> > +			dev_info(&xpcs->mdiodev->dev, "%s: xPCS soft reset\n",
+> > +				 __func__);
+> > +			ret = xpcs_soft_reset(xpcs, compat);
+> > +			if (ret)
+> > +				goto out;
+> > +		} else {
+> > +			dev_info(&xpcs->mdiodev->dev,
+> > +				 "%s: skip xpcs soft reset\n", __func__);
+> > +		}
+> 
+> I don't feel like the prints are really necessary.
 
-[ Upstream commit 15f68f027ebd961b99a1c420f96ff3838c5e4450 ]
+Sounds good to me. I'll remove these.
 
-While 7e5f3155dcbb4 ("ARM: dts: stm32: Fix LED5 on STM32MP1 DHCOM PDK2")
-fixed the LED0 assignment on the PDK2 board, the same commit did not
-update the touchscreen IRQ line assignment, which is the same GPIO line,
-shared between the LED0 output and touchscreen IRQ input. To make this
-more convoluted, the same EXTI input (not the same GPIO line) is shared
-between Button B which is Active-Low IRQ, and touchscreen IRQ which is
-Edge-Falling IRQ, which cannot be used at the same time. In case the LCD
-board with touchscreen is in use, which is the case here, LED0 must be
-disabled, Button B must be polled, so the touchscreen interrupt works as
-it should.
+> 
+> >  
+> >  		return xpcs;
+> >  	}
+> > diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
+> > index add077a81b21..0c05a63f3446 100644
+> > --- a/include/linux/pcs/pcs-xpcs.h
+> > +++ b/include/linux/pcs/pcs-xpcs.h
+> > @@ -36,7 +36,8 @@ void xpcs_validate(struct dw_xpcs *xpcs, unsigned long *supported,
+> >  int xpcs_config_eee(struct dw_xpcs *xpcs, int mult_fact_100ns,
+> >  		    int enable);
+> >  struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev,
+> > -			    phy_interface_t interface);
+> > +			    phy_interface_t interface,
+> > +			    bool xpcs_reset);
+> >  void xpcs_destroy(struct dw_xpcs *xpcs);
+> >  
+> 
+> How about exporting the reset functionality as a separate function, and
+> the Intel Alder Lake stmmac shim just won't call it? Like this:
+> 
+> -----------------------------[ cut here ]-----------------------------
+> diff --git a/drivers/net/dsa/sja1105/sja1105_mdio.c b/drivers/net/dsa/sja1105/sja1105_mdio.c
+> index 19aea8fb76f6..5acf6742da4d 100644
+> --- a/drivers/net/dsa/sja1105/sja1105_mdio.c
+> +++ b/drivers/net/dsa/sja1105/sja1105_mdio.c
+> @@ -437,13 +437,17 @@ static int sja1105_mdiobus_pcs_register(struct sja1105_private *priv)
+>  			goto out_pcs_free;
+>  		}
+>  
+> -		xpcs = xpcs_create(mdiodev, priv->phy_mode[port]);
+> +		xpcs = xpcs_create(mdiodev);
+>  		if (IS_ERR(xpcs)) {
+>  			rc = PTR_ERR(xpcs);
+>  			goto out_pcs_free;
+>  		}
+>  
+>  		priv->xpcs[port] = xpcs;
+> +
+> +		rc = xpcs_reset(xpcs, priv->phy_mode[port]);
+> +		if (rc)
+> +			goto out_pcs_free;
+>  	}
+>  
+>  	priv->mdio_pcs = bus;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> index a5d150c5f3d8..81a145009488 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> @@ -401,12 +401,15 @@ int stmmac_xpcs_setup(struct mii_bus *bus)
+>  {
+>  	struct net_device *ndev = bus->priv;
+>  	struct mdio_device *mdiodev;
+> +	bool skip_xpcs_soft_reset;
+>  	struct stmmac_priv *priv;
+>  	struct dw_xpcs *xpcs;
+>  	int mode, addr;
+> +	int err;
+>  
+>  	priv = netdev_priv(ndev);
+>  	mode = priv->plat->phy_interface;
+> +	skip_xpcs_soft_reset = priv->plat->skip_xpcs_soft_reset;
+>  
+>  	/* Try to probe the XPCS by scanning all addresses. */
+>  	for (addr = 0; addr < PHY_MAX_ADDR; addr++) {
+> @@ -414,12 +417,21 @@ int stmmac_xpcs_setup(struct mii_bus *bus)
+>  		if (IS_ERR(mdiodev))
+>  			continue;
+>  
+> -		xpcs = xpcs_create(mdiodev, mode);
+> +		xpcs = xpcs_create(mdiodev);
+>  		if (IS_ERR_OR_NULL(xpcs)) {
+>  			mdio_device_free(mdiodev);
+>  			continue;
+>  		}
+>  
+> +		if (!skip_xpcs_soft_reset) {
+> +			err = xpcs_reset(xpcs, mode);
+> +			if (err) {
+> +				xpcs_destroy(xpcs);
+> +				mdio_device_free(mdiodev);
+> +				continue;
+> +			}
+> +		}
+> +
+>  		priv->hw->xpcs = xpcs;
+>  		break;
+>  	}
+> diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+> index 63fda3fc40aa..2e721e57bee4 100644
+> --- a/drivers/net/pcs/pcs-xpcs.c
+> +++ b/drivers/net/pcs/pcs-xpcs.c
+> @@ -248,6 +248,18 @@ static int xpcs_soft_reset(struct dw_xpcs *xpcs,
+>  	return xpcs_poll_reset(xpcs, dev);
+>  }
+>  
+> +int xpcs_reset(struct dw_xpcs *xpcs, phy_interface_t interface)
+> +{
+> +	const struct xpcs_compat *compat;
+> +
+> +	compat = xpcs_find_compat(xpcs->id, interface);
+> +	if (!compat)
+> +		return -ENODEV;
+> +
+> +	return xpcs_soft_reset(xpcs, compat);
+> +}
+> +EXPORT_SYMBOL_GPL(xpcs_reset);
+> +
+>  #define xpcs_warn(__xpcs, __state, __args...) \
+>  ({ \
+>  	if ((__state)->link) \
+> @@ -1080,12 +1092,11 @@ static const struct phylink_pcs_ops xpcs_phylink_ops = {
+>  	.pcs_link_up = xpcs_link_up,
+>  };
+>  
+> -struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev,
+> -			    phy_interface_t interface)
+> +struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev)
+>  {
+>  	struct dw_xpcs *xpcs;
+>  	u32 xpcs_id;
+> -	int i, ret;
+> +	int i;
+>  
+>  	xpcs = kzalloc(sizeof(*xpcs), GFP_KERNEL);
+>  	if (!xpcs)
+> @@ -1097,35 +1108,18 @@ struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev,
+>  
+>  	for (i = 0; i < ARRAY_SIZE(xpcs_id_list); i++) {
+>  		const struct xpcs_id *entry = &xpcs_id_list[i];
+> -		const struct xpcs_compat *compat;
+>  
+>  		if ((xpcs_id & entry->mask) != entry->id)
+>  			continue;
+>  
+>  		xpcs->id = entry;
+> -
+> -		compat = xpcs_find_compat(entry, interface);
+> -		if (!compat) {
+> -			ret = -ENODEV;
+> -			goto out;
+> -		}
+> -
+>  		xpcs->pcs.ops = &xpcs_phylink_ops;
+>  		xpcs->pcs.poll = true;
+>  
+> -		ret = xpcs_soft_reset(xpcs, compat);
+> -		if (ret)
+> -			goto out;
+> -
+>  		return xpcs;
+>  	}
+>  
+> -	ret = -ENODEV;
+> -
+> -out:
+> -	kfree(xpcs);
+> -
+> -	return ERR_PTR(ret);
+> +	return ERR_PTR(-ENODEV);
+>  }
+>  EXPORT_SYMBOL_GPL(xpcs_create);
+>  
+> diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
+> index add077a81b21..d841f55f12cc 100644
+> --- a/include/linux/pcs/pcs-xpcs.h
+> +++ b/include/linux/pcs/pcs-xpcs.h
+> @@ -35,8 +35,8 @@ void xpcs_validate(struct dw_xpcs *xpcs, unsigned long *supported,
+>  		   struct phylink_link_state *state);
+>  int xpcs_config_eee(struct dw_xpcs *xpcs, int mult_fact_100ns,
+>  		    int enable);
+> -struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev,
+> -			    phy_interface_t interface);
+> +int xpcs_reset(struct dw_xpcs *xpcs, phy_interface_t interface);
+> +struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev);
+>  void xpcs_destroy(struct dw_xpcs *xpcs);
+>  
+>  #endif /* __LINUX_PCS_XPCS_H */
+> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> index a6f03b36fc4f..0f901773c5e4 100644
+> --- a/include/linux/stmmac.h
+> +++ b/include/linux/stmmac.h
+> @@ -268,5 +268,6 @@ struct plat_stmmacenet_data {
+>  	int msi_rx_base_vec;
+>  	int msi_tx_base_vec;
+>  	bool use_phy_wol;
+> +	bool skip_xpcs_soft_reset;
+>  };
+>  #endif
+> -----------------------------[ cut here ]-----------------------------
+> 
+> I also gave this patch a run on sja1105 and it still works.
 
-Update the touchscreen IRQ line assignment, disable LED0 and use polled
-GPIO button driver for Button B, since the DT here describes baseboard
-with LCD board.
+Thanks for the suggestion. I tested it out on stmmac and it works.
+I will use this as it looks neater. :)
 
-Fixes: 7e5f3155dcbb4 ("ARM: dts: stm32: Fix LED5 on STM32MP1 DHCOM PDK2")
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
-Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 24 +++++++++++--------
- 1 file changed, 14 insertions(+), 10 deletions(-)
-
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-index 59b3239bcd76..633079245601 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-@@ -37,7 +37,7 @@
- 		poll-interval = <20>;
- 
- 		/*
--		 * The EXTi IRQ line 3 is shared with touchscreen and ethernet,
-+		 * The EXTi IRQ line 3 is shared with ethernet,
- 		 * so mark this as polled GPIO key.
- 		 */
- 		button-0 {
-@@ -46,6 +46,16 @@
- 			gpios = <&gpiof 3 GPIO_ACTIVE_LOW>;
- 		};
- 
-+		/*
-+		 * The EXTi IRQ line 6 is shared with touchscreen,
-+		 * so mark this as polled GPIO key.
-+		 */
-+		button-1 {
-+			label = "TA2-GPIO-B";
-+			linux,code = <KEY_B>;
-+			gpios = <&gpiod 6 GPIO_ACTIVE_LOW>;
-+		};
-+
- 		/*
- 		 * The EXTi IRQ line 0 is shared with PMIC,
- 		 * so mark this as polled GPIO key.
-@@ -60,13 +70,6 @@
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
--		button-1 {
--			label = "TA2-GPIO-B";
--			linux,code = <KEY_B>;
--			gpios = <&gpiod 6 GPIO_ACTIVE_LOW>;
--			wakeup-source;
--		};
--
- 		button-3 {
- 			label = "TA4-GPIO-D";
- 			linux,code = <KEY_D>;
-@@ -82,6 +85,7 @@
- 			label = "green:led5";
- 			gpios = <&gpioc 6 GPIO_ACTIVE_HIGH>;
- 			default-state = "off";
-+			status = "disabled";
- 		};
- 
- 		led-1 {
-@@ -185,8 +189,8 @@
- 	touchscreen@38 {
- 		compatible = "edt,edt-ft5406";
- 		reg = <0x38>;
--		interrupt-parent = <&gpiog>;
--		interrupts = <2 IRQ_TYPE_EDGE_FALLING>; /* GPIO E */
-+		interrupt-parent = <&gpioc>;
-+		interrupts = <6 IRQ_TYPE_EDGE_FALLING>; /* GPIO E */
- 	};
- };
- 
--- 
-2.30.2
-
-
+Regards,
+ VK
 
 _______________________________________________
 Linux-stm32 mailing list
