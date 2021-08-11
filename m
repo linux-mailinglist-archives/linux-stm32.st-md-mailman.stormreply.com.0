@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 283483E8F34
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Aug 2021 12:59:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4F23E8FDB
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Aug 2021 13:55:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3E4FC5A4CD;
-	Wed, 11 Aug 2021 10:59:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D04A0C5A4CD;
+	Wed, 11 Aug 2021 11:55:03 +0000 (UTC)
 Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com
  [221.176.66.80])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48AB7C424AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7784CC5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Aug 2021 10:51:13 +0000 (UTC)
+ Wed, 11 Aug 2021 11:54:59 +0000 (UTC)
 Received: from spf.mail.chinamobile.com (unknown[172.16.121.11]) by
- rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56113ab96e18-63f1f;
- Wed, 11 Aug 2021 18:51:02 +0800 (CST)
-X-RM-TRANSID: 2ee56113ab96e18-63f1f
+ rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56113ba856ac-647b9;
+ Wed, 11 Aug 2021 19:54:47 +0800 (CST)
+X-RM-TRANSID: 2ee56113ba856ac-647b9
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG: 00000000
 Received: from localhost.localdomain (unknown[223.112.105.130])
- by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66113ab91f32-3a776;
- Wed, 11 Aug 2021 18:51:01 +0800 (CST)
-X-RM-TRANSID: 2ee66113ab91f32-3a776
+ by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66113ba81a7c-3dfcf;
+ Wed, 11 Aug 2021 19:54:47 +0800 (CST)
+X-RM-TRANSID: 2ee66113ba81a7c-3dfcf
 From: Tang Bin <tangbin@cmss.chinamobile.com>
-To: gregkh@linuxfoundation.org, jirislaby@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-Date: Wed, 11 Aug 2021 18:51:36 +0800
-Message-Id: <20210811105136.25392-1-tangbin@cmss.chinamobile.com>
+To: broonie@kernel.org, olivier.moysan@foss.st.com,
+ arnaud.pouliquen@foss.st.com, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com
+Date: Wed, 11 Aug 2021 19:55:23 +0800
+Message-Id: <20210811115523.17232-1-tangbin@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.20.1.windows.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 11 Aug 2021 10:59:35 +0000
-Cc: Tang Bin <tangbin@cmss.chinamobile.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-serial@vger.kernel.org,
- Zhang Shengju <zhangshengju@cmss.chinamobile.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] serial: stm32: fix the conditional expression
-	writing
+Cc: Zhang Shengju <zhangshengju@cmss.chinamobile.com>,
+ Tang Bin <tangbin@cmss.chinamobile.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] ASoC: stm32: spdifrx: Delete unnecessary
+	check in the probe function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,39 +52,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the function stm32_usart_init_port, intent of the code maybe when
-irq returns a value of zero, the return should be '-ENODEV'. But the
-conditional expression '? :' maybe clerical error, it should be
-'?:' to make '-ENODEV' work.
-But in fact, as the example in platform.c is
-  * int irq = platform_get_irq(pdev, 0);
-  * if (irq < 0)
-  * return irq;
-So the return value of zero is unnecessary to check, at last remove
-the unnecessary '?: -ENODEV'.
+The function stm32_spdifrx_parse_of() is only called by the function
+stm32_spdifrx_probe(), and the probe function is only called with
+an openfirmware platform device. Therefore there is no need to check
+the device_node in probe function.
 
-Co-developed-by: Zhang Shengju <zhangshengju@cmss.chinamobile.com>
 Signed-off-by: Zhang Shengju <zhangshengju@cmss.chinamobile.com>
 Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
 ---
- drivers/tty/serial/stm32-usart.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/stm/stm32_spdifrx.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
-index ef793b3b4..090822cd1 100644
---- a/drivers/tty/serial/stm32-usart.c
-+++ b/drivers/tty/serial/stm32-usart.c
-@@ -1034,8 +1034,8 @@ static int stm32_usart_init_port(struct stm32_port *stm32port,
- 	int ret, irq;
+diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
+index 48145f553..8fe822903 100644
+--- a/sound/soc/stm/stm32_spdifrx.c
++++ b/sound/soc/stm/stm32_spdifrx.c
+@@ -908,13 +908,9 @@ static const struct of_device_id stm32_spdifrx_ids[] = {
+ static int stm32_spdifrx_parse_of(struct platform_device *pdev,
+ 				  struct stm32_spdifrx_data *spdifrx)
+ {
+-	struct device_node *np = pdev->dev.of_node;
+ 	const struct of_device_id *of_id;
+ 	struct resource *res;
  
- 	irq = platform_get_irq(pdev, 0);
--	if (irq <= 0)
--		return irq ? : -ENODEV;
-+	if (irq < 0)
-+		return irq;
- 
- 	port->iotype	= UPIO_MEM;
- 	port->flags	= UPF_BOOT_AUTOCONF;
+-	if (!np)
+-		return -ENODEV;
+-
+ 	of_id = of_match_device(stm32_spdifrx_ids, &pdev->dev);
+ 	if (of_id)
+ 		spdifrx->regmap_conf =
 -- 
 2.20.1.windows.1
 
