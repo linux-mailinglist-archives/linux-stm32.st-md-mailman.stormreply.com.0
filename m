@@ -2,72 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 169703EC372
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Aug 2021 17:02:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C05683ECA33
+	for <lists+linux-stm32@lfdr.de>; Sun, 15 Aug 2021 18:29:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B78FEC5A4CF;
-	Sat, 14 Aug 2021 15:02:35 +0000 (UTC)
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
- [209.85.210.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 594D5C57B7A;
+	Sun, 15 Aug 2021 16:29:00 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24827C57B51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0259BC57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Aug 2021 15:02:29 +0000 (UTC)
-Received: by mail-ot1-f48.google.com with SMTP id
- h63-20020a9d14450000b02904ce97efee36so15643038oth.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Aug 2021 08:02:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=unEHXrg/gyVGx45zTcbq/Ok+pB3H3OtyAMxgD943pU4=;
- b=GL3Kk6SPiYBxtG8EpjPRhswBL4ECIz+kGv2lIbFx3F3F2VL+xbhj+Xj92PGwhURFoP
- S9E2VBpFrJHfpcGSEXyKvWN8XeR37wgzkb/t5J5ytVKoz+jl5uOIMc4dX0l+GekdMbZr
- 0BInhrwgQ7p3Es6nsOfyqIYvs4qgDdmu0/wVtl95Cyw5M8nqqCGMsznFlGgaKgviKERX
- NX16ABZLa9LB2Uz9oYhsUXMoC51H+zUTzLWNcmaGWZPUJjB+A0s1CC4VvB4Pd+D1QMYY
- nk6tMjhyh/4cpnuoCx3aWYThc10dl7BzOU6a+xzO/t6izvueuvWMHmM3FbZsP6/6tCL9
- juLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=unEHXrg/gyVGx45zTcbq/Ok+pB3H3OtyAMxgD943pU4=;
- b=CHLMByHTvDAtbYQf74Ze4TMFPTG8iXBrdk84o3ofQWXDhhiB5DS5R3BArzw5OiHQ3K
- 0S49xRN0PyPwgencGaJGt94ic8cbeH/dZj6H51wGgfarkS+nSAjzUFcORaae7eKiqgmf
- i2Ch+UD08LIEHxIz0NLX+Fhbdp4Ld5IusQXpii8VNp5SYoRDUdXwSB49gftkulelBxoc
- SWCYafb0dpxZP0OoGvSgyaaxzXjdmdGi/lnmlX1HwbxsTQ6sAmHHZWpIlBcdYVQfoVPZ
- IyZpLQ4wiJROu3IJCqMxWqwGBoiC1rdiHbF2jkA/7QTBELVefSK3YrCvBNgEKPbo/sS5
- EqHA==
-X-Gm-Message-State: AOAM532wWP0cV49EYBLtwpCHSew64/yyLZ05OivitF7qUCm+lMnPiVkg
- 05awbb+yk1NXZx63az7pB/Y=
-X-Google-Smtp-Source: ABdhPJwSJcQUxXRA5sql7TG+AjoqRsYkWuBuWhM3o47G5qr1WQb0HGcf4Jiu0wLEPdHBveS9QTodzA==
-X-Received: by 2002:a05:6830:1108:: with SMTP id
- w8mr6228079otq.88.1628953348644; 
- Sat, 14 Aug 2021 08:02:28 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- a6sm1037132oto.13.2021.08.14.08.02.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 14 Aug 2021 08:02:27 -0700 (PDT)
-To: Tang Bin <tangbin@cmss.chinamobile.com>, wim@linux-watchdog.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-References: <20210814142741.7396-1-tangbin@cmss.chinamobile.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <500cc974-bc39-74d5-1e1c-f763e25caa8b@roeck-us.net>
-Date: Sat, 14 Aug 2021 08:02:25 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Sun, 15 Aug 2021 16:28:58 +0000 (UTC)
+Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 75655611C4;
+ Sun, 15 Aug 2021 16:28:52 +0000 (UTC)
+Date: Sun, 15 Aug 2021 17:31:50 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com
+Message-ID: <20210815173150.29454ed9@jic23-huawei>
+In-Reply-To: <9844c0b2845fc001f64ebb0a4bc6d7fb7a08571a.1628511445.git.vilhelm.gray@gmail.com>
+References: <cover.1628511445.git.vilhelm.gray@gmail.com>
+ <9844c0b2845fc001f64ebb0a4bc6d7fb7a08571a.1628511445.git.vilhelm.gray@gmail.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20210814142741.7396-1-tangbin@cmss.chinamobile.com>
-Content-Language: en-US
-Cc: linux-kernel@vger.kernel.org,
- Zhang Shengju <zhangshengju@cmss.chinamobile.com>,
- linux-watchdog@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] watchdog: stm32_iwdg: drop superfluous
-	error message
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, Dan Carpenter <dan.carpenter@oracle.com>,
+ kernel@pengutronix.de, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v15 02/13] counter: Internalize sysfs
+	interface code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,42 +49,528 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 8/14/21 7:27 AM, Tang Bin wrote:
-> In the function stm32_iwdg_probe(), devm_platform_ioremap_resource
-> has already contained error message, so drop the redundant one.
-> 
-> Co-developed-by: Zhang Shengju <zhangshengju@cmss.chinamobile.com>
-> Signed-off-by: Zhang Shengju <zhangshengju@cmss.chinamobile.com>
-> Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+On Mon,  9 Aug 2021 21:37:27 +0900
+William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-
-> ---
->   drivers/watchdog/stm32_iwdg.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
+> This is a reimplementation of the Generic Counter driver interface.
+> There are no modifications to the Counter subsystem userspace interface,
+> so existing userspace applications should continue to run seamlessly.
 > 
-> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-> index a3436c296..570a71509 100644
-> --- a/drivers/watchdog/stm32_iwdg.c
-> +++ b/drivers/watchdog/stm32_iwdg.c
-> @@ -237,10 +237,8 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
->   
->   	/* This is the timer base. */
->   	wdt->regs = devm_platform_ioremap_resource(pdev, 0);
-> -	if (IS_ERR(wdt->regs)) {
-> -		dev_err(dev, "Could not get resource\n");
-> +	if (IS_ERR(wdt->regs))
->   		return PTR_ERR(wdt->regs);
+> The purpose of this patch is to internalize the sysfs interface code
+> among the various counter drivers into a shared module. Counter drivers
+> pass and take data natively (i.e. u8, u64, etc.) and the shared counter
+> module handles the translation between the sysfs interface and the
+> device drivers. This guarantees a standard userspace interface for all
+> counter drivers, and helps generalize the Generic Counter driver ABI in
+> order to support the Generic Counter chrdev interface (introduced in a
+> subsequent patch) without significant changes to the existing counter
+> drivers.
+> 
+> Note, Counter device registration is the same as before: drivers
+> populate a struct counter_device with components and callbacks, then
+> pass the structure to the devm_counter_register function. However,
+> what's different now is how the Counter subsystem code handles this
+> registration internally.
+> 
+> Whereas before callbacks would interact directly with sysfs data, this
+> interaction is now abstracted and instead callbacks interact with native
+> C data types. The counter_comp structure forms the basis for Counter
+> extensions.
+> 
+> The counter-sysfs.c file contains the code to parse through the
+> counter_device structure and register the requested components and
+> extensions. Attributes are created and populated based on type, with
+> respective translation functions to handle the mapping between sysfs and
+> the counter driver callbacks.
+> 
+> The translation performed for each attribute is straightforward: the
+> attribute type and data is parsed from the counter_attribute structure,
+> the respective counter driver read/write callback is called, and sysfs
+> I/O is handled before or after the driver read/write function is called.
+> 
+> Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>
+> Cc: Patrick Havelange <patrick.havelange@essensium.com>
+> Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>
+> Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Alexandre Torgue <alexandre.torgue@st.com>
+> Cc: Dan Carpenter <dan.carpenter@oracle.com>
+> Acked-by: Syed Nayyar Waris <syednwaris@gmail.com>
+> Reviewed-by: David Lechner <david@lechnology.com>
+> Tested-by: David Lechner <david@lechnology.com>
+> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+Hi William,
+
+Given we haven't had any of the reviews of the stm32 and ftm-quadec
+changes I took a closer look myself.
+
+A side effect of the warning fixes is that we now have some 'magic numbers'
+for register fields.  Some of them were there already, but now there are more.
+
+My suggestions is that you use some defines (or indeed the original enums
+if appropriate) to provide text names to the register field values.
+I've highlighted another driver that does it the way I'd like to see it done.
+
+So unfortunately it looks like this this refactor is going to be in the next
+kernel cycle :(  Hopefully we can get it queued up early though so you have
+something to do any revisions of the latter patches against.
+
+Jonathan
+
+
+
+...
+
+> -static int mchp_tc_count_action_set(struct counter_device *counter,
+> -				    struct counter_count *count,
+> -				    struct counter_synapse *synapse,
+> -				    size_t action)
+> +static int mchp_tc_count_action_write(struct counter_device *counter,
+> +				      struct counter_count *count,
+> +				      struct counter_synapse *synapse,
+> +				      enum counter_synapse_action action)
+>  {
+>  	struct mchp_tc_data *const priv = counter->priv;
+>  	u32 edge = ATMEL_TC_ETRGEDG_NONE;
+> @@ -217,16 +205,16 @@ static int mchp_tc_count_action_set(struct counter_device *counter,
+>  		return -EINVAL;
+>  
+>  	switch (action) {
+> -	case MCHP_TC_SYNAPSE_ACTION_NONE:
+> +	case COUNTER_SYNAPSE_ACTION_NONE:
+>  		edge = ATMEL_TC_ETRGEDG_NONE;
+
+This is a good example of the sort of use of defines for field values I'm suggesting
+for other similar cases. Basically do it like this.
+
+
+>  		break;
+> -	case MCHP_TC_SYNAPSE_ACTION_RISING_EDGE:
+> +	case COUNTER_SYNAPSE_ACTION_RISING_EDGE:
+>  		edge = ATMEL_TC_ETRGEDG_RISING;
+>  		break;
+> -	case MCHP_TC_SYNAPSE_ACTION_FALLING_EDGE:
+> +	case COUNTER_SYNAPSE_ACTION_FALLING_EDGE:
+>  		edge = ATMEL_TC_ETRGEDG_FALLING;
+>  		break;
+> -	case MCHP_TC_SYNAPSE_ACTION_BOTH_EDGE:
+> +	case COUNTER_SYNAPSE_ACTION_BOTH_EDGES:
+>  		edge = ATMEL_TC_ETRGEDG_BOTH;
+>  		break;
+>  	default:
+> @@ -240,8 +228,7 @@ static int mchp_tc_count_action_set(struct counter_device *counter,
+>  }
+>  
+
+> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+> index 13656957c45f..23d43b71f9e4 100644
+> --- a/drivers/counter/stm32-lptimer-cnt.c
+> +++ b/drivers/counter/stm32-lptimer-cnt.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/module.h>
+>  #include <linux/pinctrl/consumer.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/types.h>
+>  
+>  struct stm32_lptim_cnt {
+>  	struct counter_device counter;
+> @@ -107,11 +108,7 @@ static int stm32_lptim_setup(struct stm32_lptim_cnt *priv, int enable)
+>  	return regmap_update_bits(priv->regmap, STM32_LPTIM_CFGR, mask, val);
+>  }
+>  
+> -/**
+> - * enum stm32_lptim_cnt_function - enumerates LPTimer counter & encoder modes
+> - * @STM32_LPTIM_COUNTER_INCREASE: up count on IN1 rising, falling or both edges
+> - * @STM32_LPTIM_ENCODER_BOTH_EDGE: count on both edges (IN1 & IN2 quadrature)
+> - *
+> +/*
+>   * In non-quadrature mode, device counts up on active edge.
+>   * In quadrature mode, encoder counting scenarios are as follows:
+>   * +---------+----------+--------------------+--------------------+
+> @@ -129,33 +126,20 @@ static int stm32_lptim_setup(struct stm32_lptim_cnt *priv, int enable)
+>   * | edges   | Low  ->  |   Up     |   Down  |   Down   |   Up    |
+>   * +---------+----------+----------+---------+----------+---------+
+>   */
+> -enum stm32_lptim_cnt_function {
+> -	STM32_LPTIM_COUNTER_INCREASE,
+> -	STM32_LPTIM_ENCODER_BOTH_EDGE,
+> -};
+> -
+>  static const enum counter_function stm32_lptim_cnt_functions[] = {
+> -	[STM32_LPTIM_COUNTER_INCREASE] = COUNTER_FUNCTION_INCREASE,
+> -	[STM32_LPTIM_ENCODER_BOTH_EDGE] = COUNTER_FUNCTION_QUADRATURE_X4,
+> -};
+> -
+> -enum stm32_lptim_synapse_action {
+> -	STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE,
+> -	STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE,
+> -	STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES,
+> -	STM32_LPTIM_SYNAPSE_ACTION_NONE,
+> +	COUNTER_FUNCTION_INCREASE,
+> +	COUNTER_FUNCTION_QUADRATURE_X4,
+>  };
+>  
+>  static const enum counter_synapse_action stm32_lptim_cnt_synapse_actions[] = {
+> -	/* Index must match with stm32_lptim_cnt_polarity[] (priv->polarity) */
+> -	[STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE] = COUNTER_SYNAPSE_ACTION_RISING_EDGE,
+> -	[STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE] = COUNTER_SYNAPSE_ACTION_FALLING_EDGE,
+> -	[STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES] = COUNTER_SYNAPSE_ACTION_BOTH_EDGES,
+> -	[STM32_LPTIM_SYNAPSE_ACTION_NONE] = COUNTER_SYNAPSE_ACTION_NONE,
+> +	COUNTER_SYNAPSE_ACTION_RISING_EDGE,
+> +	COUNTER_SYNAPSE_ACTION_FALLING_EDGE,
+> +	COUNTER_SYNAPSE_ACTION_BOTH_EDGES,
+> +	COUNTER_SYNAPSE_ACTION_NONE,
+>  };
+>  
+>  static int stm32_lptim_cnt_read(struct counter_device *counter,
+> -				struct counter_count *count, unsigned long *val)
+> +				struct counter_count *count, u64 *val)
+>  {
+>  	struct stm32_lptim_cnt *const priv = counter->priv;
+>  	u32 cnt;
+> @@ -170,28 +154,28 @@ static int stm32_lptim_cnt_read(struct counter_device *counter,
+>  	return 0;
+>  }
+>  
+> -static int stm32_lptim_cnt_function_get(struct counter_device *counter,
+> -					struct counter_count *count,
+> -					size_t *function)
+> +static int stm32_lptim_cnt_function_read(struct counter_device *counter,
+> +					 struct counter_count *count,
+> +					 enum counter_function *function)
+>  {
+>  	struct stm32_lptim_cnt *const priv = counter->priv;
+>  
+>  	if (!priv->quadrature_mode) {
+> -		*function = STM32_LPTIM_COUNTER_INCREASE;
+> +		*function = COUNTER_FUNCTION_INCREASE;
+>  		return 0;
+>  	}
+>  
+> -	if (priv->polarity == STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES) {
+> -		*function = STM32_LPTIM_ENCODER_BOTH_EDGE;
+> +	if (priv->polarity == 2) {
+
+This wants to have some sort of define for the register field value
+it corresponds to.
+
+> +		*function = COUNTER_FUNCTION_QUADRATURE_X4;
+>  		return 0;
+>  	}
+>  
+>  	return -EINVAL;
+>  }
+>  
+> -static int stm32_lptim_cnt_function_set(struct counter_device *counter,
+> -					struct counter_count *count,
+> -					size_t function)
+> +static int stm32_lptim_cnt_function_write(struct counter_device *counter,
+> +					  struct counter_count *count,
+> +					  enum counter_function function)
+>  {
+>  	struct stm32_lptim_cnt *const priv = counter->priv;
+>  
+> @@ -199,12 +183,12 @@ static int stm32_lptim_cnt_function_set(struct counter_device *counter,
+>  		return -EBUSY;
+>  
+>  	switch (function) {
+> -	case STM32_LPTIM_COUNTER_INCREASE:
+> +	case COUNTER_FUNCTION_INCREASE:
+>  		priv->quadrature_mode = 0;
+>  		return 0;
+> -	case STM32_LPTIM_ENCODER_BOTH_EDGE:
+> +	case COUNTER_FUNCTION_QUADRATURE_X4:
+>  		priv->quadrature_mode = 1;
+> -		priv->polarity = STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES;
+> +		priv->polarity = 2;
+>  		return 0;
+>  	default:
+>  		/* should never reach this path */
+> @@ -212,9 +196,9 @@ static int stm32_lptim_cnt_function_set(struct counter_device *counter,
+>  	}
+>  }
+
+...
+
+>  
+> -static int stm32_lptim_cnt_action_get(struct counter_device *counter,
+> -				      struct counter_count *count,
+> -				      struct counter_synapse *synapse,
+> -				      size_t *action)
+> +static int stm32_lptim_cnt_action_read(struct counter_device *counter,
+> +				       struct counter_count *count,
+> +				       struct counter_synapse *synapse,
+> +				       enum counter_synapse_action *action)
+>  {
+>  	struct stm32_lptim_cnt *const priv = counter->priv;
+> -	size_t function;
+> +	enum counter_function function;
+>  	int err;
+>  
+> -	err = stm32_lptim_cnt_function_get(counter, count, &function);
+> +	err = stm32_lptim_cnt_function_read(counter, count, &function);
+>  	if (err)
+>  		return err;
+>  
+>  	switch (function) {
+> -	case STM32_LPTIM_COUNTER_INCREASE:
+> +	case COUNTER_FUNCTION_INCREASE:
+>  		/* LP Timer acts as up-counter on input 1 */
+> -		if (synapse->signal->id == count->synapses[0].signal->id)
+> -			*action = priv->polarity;
+> -		else
+> -			*action = STM32_LPTIM_SYNAPSE_ACTION_NONE;
+> -		return 0;
+> -	case STM32_LPTIM_ENCODER_BOTH_EDGE:
+> -		*action = priv->polarity;
+> -		return 0;
+> +		if (synapse->signal->id != count->synapses[0].signal->id) {
+> +			*action = COUNTER_SYNAPSE_ACTION_NONE;
+> +			return 0;
+> +		}
+> +
+> +		switch (priv->polarity) {
+> +		case 0:
+
+These correspond to particular bits. As you use them elsewhere I think
+you need some defines.
+
+> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+> +			return 0;
+> +		case 1:
+> +			*action = COUNTER_SYNAPSE_ACTION_FALLING_EDGE;
+> +			return 0;
+> +		case 2:
+> +			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
+> +			return 0;
+> +		default:
+> +			/* should never reach this path */
+> +			return -EINVAL;
+> +		}
+> +	case COUNTER_FUNCTION_QUADRATURE_X4:
+> +		switch (priv->polarity) {
+> +		case 0:
+> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+> +			return 0;
+> +		case 1:
+> +			*action = COUNTER_SYNAPSE_ACTION_FALLING_EDGE;
+> +			return 0;
+> +		case 2:
+> +			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
+> +			return 0;
+> +		default:
+> +			/* should never reach this path */
+> +			return -EINVAL;
+> +		}
+>  	default:
+>  		/* should never reach this path */
+>  		return -EINVAL;
+>  	}
+>  }
+>  
+> -static int stm32_lptim_cnt_action_set(struct counter_device *counter,
+> -				      struct counter_count *count,
+> -				      struct counter_synapse *synapse,
+> -				      size_t action)
+> +static int stm32_lptim_cnt_action_write(struct counter_device *counter,
+> +					struct counter_count *count,
+> +					struct counter_synapse *synapse,
+> +					enum counter_synapse_action action)
+>  {
+>  	struct stm32_lptim_cnt *const priv = counter->priv;
+> -	size_t function;
+> +	enum counter_function function;
+>  	int err;
+>  
+>  	if (stm32_lptim_is_enabled(priv))
+>  		return -EBUSY;
+>  
+> -	err = stm32_lptim_cnt_function_get(counter, count, &function);
+> +	err = stm32_lptim_cnt_function_read(counter, count, &function);
+>  	if (err)
+>  		return err;
+>  
+>  	/* only set polarity when in counter mode (on input 1) */
+> -	if (function == STM32_LPTIM_COUNTER_INCREASE
+> -	    && synapse->signal->id == count->synapses[0].signal->id) {
+> -		switch (action) {
+> -		case STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE:
+> -		case STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE:
+> -		case STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES:
+> -			priv->polarity = action;
+> -			return 0;
+> -		}
 > -	}
->   
->   	ret = stm32_iwdg_clk_init(pdev, wdt);
->   	if (ret)
-> 
+> +	if (function != COUNTER_FUNCTION_INCREASE
+> +	    || synapse->signal->id != count->synapses[0].signal->id)
+> +		return -EINVAL;
+>  
+> -	return -EINVAL;
+> +	switch (action) {
+> +	case COUNTER_SYNAPSE_ACTION_RISING_EDGE:
+> +		priv->polarity = 0;
+> +		return 0;
+> +	case COUNTER_SYNAPSE_ACTION_FALLING_EDGE:
+> +		priv->polarity = 1;
+> +		return 0;
+> +	case COUNTER_SYNAPSE_ACTION_BOTH_EDGES:
+> +		priv->polarity = 2;
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+>  }
+>  
+>  static const struct counter_ops stm32_lptim_cnt_ops = {
+>  	.count_read = stm32_lptim_cnt_read,
+> -	.function_get = stm32_lptim_cnt_function_get,
+> -	.function_set = stm32_lptim_cnt_function_set,
+> -	.action_get = stm32_lptim_cnt_action_get,
+> -	.action_set = stm32_lptim_cnt_action_set,
+> +	.function_read = stm32_lptim_cnt_function_read,
+> +	.function_write = stm32_lptim_cnt_function_write,
+> +	.action_read = stm32_lptim_cnt_action_read,
+> +	.action_write = stm32_lptim_cnt_action_write,
+>  };
+>  
+>  static struct counter_signal stm32_lptim_cnt_signals[] = {
+> diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
+> index 3fb0debd7425..8b3759096d04 100644
+> --- a/drivers/counter/stm32-timer-cnt.c
+> +++ b/drivers/counter/stm32-timer-cnt.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/module.h>
+>  #include <linux/pinctrl/consumer.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/types.h>
+>  
+>  #define TIM_CCMR_CCXS	(BIT(8) | BIT(0))
+>  #define TIM_CCMR_MASK	(TIM_CCMR_CC1S | TIM_CCMR_CC2S | \
+> @@ -36,29 +37,15 @@ struct stm32_timer_cnt {
+>  	struct stm32_timer_regs bak;
+>  };
+>  
+> -/**
+> - * enum stm32_count_function - enumerates stm32 timer counter encoder modes
+> - * @STM32_COUNT_SLAVE_MODE_DISABLED: counts on internal clock when CEN=1
+> - * @STM32_COUNT_ENCODER_MODE_1: counts TI1FP1 edges, depending on TI2FP2 level
+> - * @STM32_COUNT_ENCODER_MODE_2: counts TI2FP2 edges, depending on TI1FP1 level
+> - * @STM32_COUNT_ENCODER_MODE_3: counts on both TI1FP1 and TI2FP2 edges
+> - */
+> -enum stm32_count_function {
+> -	STM32_COUNT_SLAVE_MODE_DISABLED,
+> -	STM32_COUNT_ENCODER_MODE_1,
+> -	STM32_COUNT_ENCODER_MODE_2,
+> -	STM32_COUNT_ENCODER_MODE_3,
+> -};
+> -
+>  static const enum counter_function stm32_count_functions[] = {
+> -	[STM32_COUNT_SLAVE_MODE_DISABLED] = COUNTER_FUNCTION_INCREASE,
+> -	[STM32_COUNT_ENCODER_MODE_1] = COUNTER_FUNCTION_QUADRATURE_X2_A,
+> -	[STM32_COUNT_ENCODER_MODE_2] = COUNTER_FUNCTION_QUADRATURE_X2_B,
+> -	[STM32_COUNT_ENCODER_MODE_3] = COUNTER_FUNCTION_QUADRATURE_X4,
+> +	COUNTER_FUNCTION_INCREASE,
+> +	COUNTER_FUNCTION_QUADRATURE_X2_A,
+> +	COUNTER_FUNCTION_QUADRATURE_X2_B,
+> +	COUNTER_FUNCTION_QUADRATURE_X4,
+>  };
+>  
+>  static int stm32_count_read(struct counter_device *counter,
+> -			    struct counter_count *count, unsigned long *val)
+> +			    struct counter_count *count, u64 *val)
+>  {
+>  	struct stm32_timer_cnt *const priv = counter->priv;
+>  	u32 cnt;
+> @@ -70,8 +57,7 @@ static int stm32_count_read(struct counter_device *counter,
+>  }
+>  
+>  static int stm32_count_write(struct counter_device *counter,
+> -			     struct counter_count *count,
+> -			     const unsigned long val)
+> +			     struct counter_count *count, const u64 val)
+>  {
+>  	struct stm32_timer_cnt *const priv = counter->priv;
+>  	u32 ceiling;
+> @@ -83,9 +69,9 @@ static int stm32_count_write(struct counter_device *counter,
+>  	return regmap_write(priv->regmap, TIM_CNT, val);
+>  }
+>  
+> -static int stm32_count_function_get(struct counter_device *counter,
+> -				    struct counter_count *count,
+> -				    size_t *function)
+> +static int stm32_count_function_read(struct counter_device *counter,
+> +				     struct counter_count *count,
+> +				     enum counter_function *function)
+>  {
+>  	struct stm32_timer_cnt *const priv = counter->priv;
+>  	u32 smcr;
+> @@ -94,40 +80,40 @@ static int stm32_count_function_get(struct counter_device *counter,
+>  
+>  	switch (smcr & TIM_SMCR_SMS) {
+>  	case 0:
+
+As below, these case values should be named.
+
+> -		*function = STM32_COUNT_SLAVE_MODE_DISABLED;
+> +		*function = COUNTER_FUNCTION_INCREASE;
+>  		return 0;
+>  	case 1:
+> -		*function = STM32_COUNT_ENCODER_MODE_1;
+> +		*function = COUNTER_FUNCTION_QUADRATURE_X2_A;
+>  		return 0;
+>  	case 2:
+> -		*function = STM32_COUNT_ENCODER_MODE_2;
+> +		*function = COUNTER_FUNCTION_QUADRATURE_X2_B;
+>  		return 0;
+>  	case 3:
+> -		*function = STM32_COUNT_ENCODER_MODE_3;
+> +		*function = COUNTER_FUNCTION_QUADRATURE_X4;
+>  		return 0;
+>  	default:
+>  		return -EINVAL;
+>  	}
+>  }
+>  
+> -static int stm32_count_function_set(struct counter_device *counter,
+> -				    struct counter_count *count,
+> -				    size_t function)
+> +static int stm32_count_function_write(struct counter_device *counter,
+> +				      struct counter_count *count,
+> +				      enum counter_function function)
+>  {
+>  	struct stm32_timer_cnt *const priv = counter->priv;
+>  	u32 cr1, sms;
+>  
+>  	switch (function) {
+> -	case STM32_COUNT_SLAVE_MODE_DISABLED:
+> +	case COUNTER_FUNCTION_INCREASE:
+>  		sms = 0;
+This code is odd in the original driver as sms is just set to the values of the 'function'
+enum.  Having said that, I think with the refactored code you want some symbolic names (defines)
+for the register field values.
+
+>  		break;
+> -	case STM32_COUNT_ENCODER_MODE_1:
+> +	case COUNTER_FUNCTION_QUADRATURE_X2_A:
+>  		sms = 1;
+>  		break;
+> -	case STM32_COUNT_ENCODER_MODE_2:
+> +	case COUNTER_FUNCTION_QUADRATURE_X2_B:
+>  		sms = 2;
+>  		break;
+> -	case STM32_COUNT_ENCODER_MODE_3:
+> +	case COUNTER_FUNCTION_QUADRATURE_X4:
+>  		sms = 3;
+>  		break;
+>  	default:
+
+...
+
 
 _______________________________________________
 Linux-stm32 mailing list
