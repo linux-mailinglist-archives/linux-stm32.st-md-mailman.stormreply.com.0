@@ -2,48 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75B243ED283
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Aug 2021 12:53:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CF3E3ED44F
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Aug 2021 14:50:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B802C57B7D;
-	Mon, 16 Aug 2021 10:53:37 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D968CC57B6D;
+	Mon, 16 Aug 2021 12:50:09 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8F73C57B60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7DE6C5719E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Aug 2021 10:53:31 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10077"; a="195422793"
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="195422793"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2021 03:53:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,324,1620716400"; d="scan'208";a="448502468"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga007.fm.intel.com with ESMTP; 16 Aug 2021 03:53:29 -0700
-Received: from linux.intel.com (vwong3-iLBPG3.png.intel.com [10.88.229.80])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id 944A85808DB;
- Mon, 16 Aug 2021 03:53:26 -0700 (PDT)
-Date: Mon, 16 Aug 2021 18:53:23 +0800
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: Vijayakannan Ayyathurai <vijayakannan.ayyathurai@intel.com>
-Message-ID: <20210816105323.GA13779@linux.intel.com>
-References: <cover.1629092894.git.vijayakannan.ayyathurai@intel.com>
- <5c956016465b688a2679bd02da1f751046be189c.1629092894.git.vijayakannan.ayyathurai@intel.com>
+ Mon, 16 Aug 2021 12:50:07 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 4D75F63284;
+ Mon, 16 Aug 2021 12:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629118206;
+ bh=c7ZFtzH6Mc72jNZYOrzmCuWao+Zj9ly03lg/CvEWra4=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=LCVInPQ7N/DSmGhQaKyWgvutzB75xFVN/YCuT+fRlrm0eNrZ/j+9yL+6D09UfSMHC
+ MiVC1pD7FF98iglR3SJRsD9aKWHtLg5wPekH50yS+IVgko8YwAwREa2RqYNGwEepNj
+ V6LVNTjpjFlGY7dc9539I4HM8mfRUHF1AEvU9obrajePzGfUSzYIUX5wdBENQjL53E
+ jBuXury7LQb3eloRL+F/vlMS7WPzNmbM6kRmDo4kf/MLFsI7BayKI0PdTxzoNBcZzF
+ /B4/1fXabRjYcMIC3opCo8597DKS5WtH0Uv86Tb2x8w01QqFwOQ5as1Muvux8pLgl9
+ +yMD/jPHfsl3w==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 45EAD604EB;
+ Mon, 16 Aug 2021 12:50:06 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5c956016465b688a2679bd02da1f751046be189c.1629092894.git.vijayakannan.ayyathurai@intel.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <162911820628.2793.5855796807565496042.git-patchwork-notify@kernel.org>
+Date: Mon, 16 Aug 2021 12:50:06 +0000
+References: <cover.1629092894.git.vijayakannan.ayyathurai@intel.com>
+In-Reply-To: <cover.1629092894.git.vijayakannan.ayyathurai@intel.com>
+To: Vijayakannan Ayyathurai <vijayakannan.ayyathurai@intel.com>
 Cc: linux-kernel@vger.kernel.org, weifeng.voon@intel.com,
  vee.khee.wong@intel.com, netdev@vger.kernel.org, alexandre.torgue@foss.st.com,
  linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
  mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v1 3/3] net: stmmac: add ethtool
- per-queue irq statistic support
+Subject: Re: [Linux-stm32] [PATCH net-next v1 0/3] net: stmmac: Add ethtool
+	per-queue statistic
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,73 +59,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 16, 2021 at 02:16:00PM +0800, Vijayakannan Ayyathurai wrote:
-> Adding ethtool per-queue statistics support to show number of interrupts
-> generated at DMA tx and DMA rx. All the counters are incremented at
-> dwmac4_dma_interrupt function.
->
+Hello:
 
-Acked-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
- 
-> Signed-off-by: Vijayakannan Ayyathurai <vijayakannan.ayyathurai@intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/common.h         | 2 ++
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c     | 2 ++
->  drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 2 ++
->  3 files changed, 6 insertions(+)
+This series was applied to netdev/net-next.git (refs/heads/master):
+
+On Mon, 16 Aug 2021 14:15:57 +0800 you wrote:
+> Adding generic ethtool per-queue statistic framework to display the
+> statistics for each rx/tx queue. In future, users can avail it to add
+> more per-queue specific counters. Number of rx/tx queues displayed is
+> depending on the available rx/tx queues in that particular MAC config
+> and this number is limited up to the MTL_MAX_{RX|TX}_QUEUES defined
+> in the driver.
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-> index 79333deef2e2..b6d945ea903d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-> @@ -60,10 +60,12 @@
->  
->  struct stmmac_txq_stats {
->  	unsigned long tx_pkt_n;
-> +	unsigned long tx_normal_irq_n;
->  };
->  
->  struct stmmac_rxq_stats {
->  	unsigned long rx_pkt_n;
-> +	unsigned long rx_normal_irq_n;
->  };
->  
->  /* Extra statistic and debug information exposed by ethtool */
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-> index f83db62938dd..9292a1fab7d3 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-> @@ -170,10 +170,12 @@ int dwmac4_dma_interrupt(void __iomem *ioaddr,
->  		x->normal_irq_n++;
->  	if (likely(intr_status & DMA_CHAN_STATUS_RI)) {
->  		x->rx_normal_irq_n++;
-> +		x->rxq_stats[chan].rx_normal_irq_n++;
->  		ret |= handle_rx;
->  	}
->  	if (likely(intr_status & DMA_CHAN_STATUS_TI)) {
->  		x->tx_normal_irq_n++;
-> +		x->txq_stats[chan].tx_normal_irq_n++;
->  		ret |= handle_tx;
->  	}
->  	if (unlikely(intr_status & DMA_CHAN_STATUS_TBU))
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> index 10c0895d0b43..595c3ccdcbb7 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> @@ -263,11 +263,13 @@ static const struct stmmac_stats stmmac_mmc[] = {
->  
->  static const char stmmac_qstats_tx_string[][ETH_GSTRING_LEN] = {
->  	"tx_pkt_n",
-> +	"tx_irq_n",
->  #define STMMAC_TXQ_STATS ARRAY_SIZE(stmmac_qstats_tx_string)
->  };
->  
->  static const char stmmac_qstats_rx_string[][ETH_GSTRING_LEN] = {
->  	"rx_pkt_n",
-> +	"rx_irq_n",
->  #define STMMAC_RXQ_STATS ARRAY_SIZE(stmmac_qstats_rx_string)
->  };
->  
+> [...]
+
+Here is the summary with links:
+  - [net-next,v1,1/3] net: stmmac: fix INTR TBU status affecting irq count statistic
+    https://git.kernel.org/netdev/net-next/c/1975df880b95
+  - [net-next,v1,2/3] net: stmmac: add ethtool per-queue statistic framework
+    https://git.kernel.org/netdev/net-next/c/68e9c5dee1cf
+  - [net-next,v1,3/3] net: stmmac: add ethtool per-queue irq statistic support
+    https://git.kernel.org/netdev/net-next/c/af9bf70154eb
+
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
