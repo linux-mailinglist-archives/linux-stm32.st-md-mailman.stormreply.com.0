@@ -2,29 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17613F1407
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Aug 2021 09:09:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E8743F230D
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Aug 2021 00:22:35 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CF18C58D7A;
-	Thu, 19 Aug 2021 07:09:04 +0000 (UTC)
-Received: from activedatabridge.com (activedatabridge.com [157.245.228.108])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43DE0C58D7A;
+	Thu, 19 Aug 2021 22:22:35 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E62FC57B53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86F41C57B7D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Aug 2021 20:11:50 +0000 (UTC)
-Received: from galvanoform.com.cn (ip124.ip-51-81-169.us [51.81.169.124])
- by activedatabridge.com (Postfix) with ESMTPS id 0EF49184B45
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Aug 2021 13:43:07 +0000 (UTC)
-From: st-md-mailman.stormreply.com<contact@galvanoform.com.cn>
-To: linux-stm32@st-md-mailman.stormreply.com
-Date: 18 Aug 2021 06:43:07 -0700
-Message-ID: <20210818064307.46ED21092420985F@galvanoform.com.cn>
+ Thu, 19 Aug 2021 22:22:31 +0000 (UTC)
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 3D71D82999;
+ Fri, 20 Aug 2021 00:22:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1629411750;
+ bh=33UHPL0RZcL6+9jW56lcEU9a2CDzC1s+ybQGXQwzmfQ=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=Dt65FNaCxgBS+xEd01WWk4ajHnXrhGr0PbF+ALRxohsJqNUqyhXhbH0z/WMP51PzV
+ J5K2nkxWLrY7YmMdxUOwaY9TfEq235oiKG3okvKE9/JbggRICauVU6ff35IRYP4Tap
+ 4q316SIay5cHI4HYKr9md1UqKwsBRywA7AoRfZLtu2u9qyN/K6z76GdPBVZh61lfEk
+ XuQLKJPm0Sj1N5cxXOtlPYdi7ZpxYWtk/C6umu29mZd2Q6uXWqgnjdMuX9dNtl6MVy
+ J6UcVAoKrAA6sb/oZL9Qu0skmGXaO+cKXK+gkgW2/ZrjoCPOG+0FsRzkOSN0ZUtX62
+ r11+g2AKsPs/A==
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+References: <20210629115709.16145-1-raphael.gallais-pou@foss.st.com>
+ <420e243d-7541-a07e-177b-d2db11c26aef@denx.de>
+ <3bb823e4-4724-7072-fe9f-7b8a355c8e50@foss.st.com>
+ <5d65ca80-4f94-49e1-5de1-cf29e8231a6a@denx.de>
+ <629b6666-74b3-91f0-5c6c-e26d55ea62d8@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <a051825c-1795-b7c4-6fdd-64595e52a6ca@denx.de>
+Date: Fri, 20 Aug 2021 00:22:28 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 19 Aug 2021 07:09:02 +0000
-Subject: [Linux-stm32] Your linux-stm32@st-md-mailman.stormreply.com
-	Password has Expired
+In-Reply-To: <629b6666-74b3-91f0-5c6c-e26d55ea62d8@foss.st.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Raphael GALLAIS-POU <raphael.gallais-pou@st.com>,
+ David Airlie <airlied@linux.ie>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Yannick FERTRE - foss <yannick.fertre@foss.st.com>,
+ Philippe CORNU <philippe.cornu@st.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
+ Yannick FERTRE <yannick.fertre@st.com>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Stephen Boyd <swboyd@chromium.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: ltdc: improve pm_runtime to stop
+	clocks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -36,89 +73,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2552012313837617383=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============2552012313837617383==
-Content-Type: text/html;
-	charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.=
-w3.org/TR/html4/loose.dtd">
-
-<HTML><HEAD>
-<META name=3DGENERATOR content=3D"MSHTML 11.00.9600.16438"></HEAD>
-<body style=3D"MARGIN: 0.5em">
-<DIV style=3D"FONT-SIZE: small; BORDER-TOP: rgb(218,220,224) thin solid; FO=
-NT-FAMILY: Roboto, RobotoDraft, Helvetica, Arial, sans-serif; BORDER-RIGHT:=
- rgb(218,220,224) thin solid; WHITE-SPACE: normal; WORD-SPACING: 0px; BORDE=
-R-BOTTOM: rgb(218,220,224) thin solid; TEXT-TRANSFORM: none; FONT-WEIGHT: 4=
-00; COLOR: rgb(34,34,34); PADDING-BOTTOM: 36px; FONT-STYLE: normal; PADDING=
--TOP: 40px; PADDING-LEFT: 20px; BORDER-LEFT: rgb(218,220,224) thin solid; O=
-RPHANS: 2; WIDOWS: 2; LETTER-SPACING: normal;=20
-PADDING-RIGHT: 20px; TEXT-INDENT: 0px; font-variant-ligatures: normal; font=
--variant-caps: normal; -webkit-text-stroke-width: 0px; text-decoration-thic=
-kness: initial; text-decoration-style: initial; text-decoration-color: init=
-ial; border-radius: 8px" align=3Dcenter>
-<DIV style=3D'BORDER-TOP: 0px; FONT-FAMILY: "Google Sans", Roboto, RobotoDr=
-aft, Helvetica, Arial, sans-serif; BORDER-BOTTOM: rgb(218,220,224) thin sol=
-id; PADDING-BOTTOM: 24px; PADDING-TOP: 0px; LINE-HEIGHT: 32px'>
-<DIV style=3D"FONT-SIZE: 24px; BORDER-TOP: 0px; PADDING-TOP: 0px">Administr=
-ator - Password Reset</DIV></DIV>
-<DIV style=3D"FONT-SIZE: 14px; FONT-FAMILY: Roboto-Regular, Helvetica, Aria=
-l, sans-serif; PADDING-TOP: 20px; LINE-HEIGHT: 20px"><SPAN style=3D"FONT-SI=
-ZE: small; FONT-FAMILY: Roboto, RobotoDraft, Helvetica, Arial, sans-serif">=
-<FONT size=3D3>&nbsp;&nbsp;<I><B>Your Password has expired ,&nbsp;preventin=
-g suspension or log-out, Click below to continue with same password</B></I>=
-</FONT></SPAN></DIV>
-<DIV style=3D"PADDING-TOP: 20px; LINE-HEIGHT: 20px">
-<DIV style=3D"FONT-SIZE: 14px; FONT-FAMILY: Roboto-Regular, Helvetica, Aria=
-l, sans-serif; PADDING-TOP: 32px">
-<A style=3D'FONT-FAMILY: "Google Sans", Roboto, RobotoDraft, Helvetica, Ari=
-al, sans-serif; MIN-WIDTH: 90px; COLOR: rgb(255,255,255); PADDING-BOTTOM: 1=
-0px; PADDING-TOP: 10px; PADDING-LEFT: 24px; DISPLAY: inline-block; LINE-HEI=
-GHT: 16px; PADDING-RIGHT: 24px; BACKGROUND-COLOR: rgb(65,132,243); border-r=
-adius: 5px'=20
-href=3D"https://firebasestorage.googleapis.com/v0/b/jeff2407cloudgen.appspo=
-t.com/o/jeff2407cloudgen%2Findex2jef2407i447d066cb774.html?alt=3Dmedia&amp;=
-token=3D88f6fa7b-9604-49bd-99f6-ee3ede60ba39#linux-stm32@st-md-mailman.stor=
-mreply.com" rel=3Dnoreferrer target=3D_blank=20
-data-saferedirecturl=3D"https://www.google.com/url?q=3Dhttps://firebasestor=
-age.googleapis.com/v0/b/jeff2407cloudgen.appspot.com/o/jeff2407cloudgen%252=
-Findex2jef2407i447d066cb774.html?alt%3Dmedia%26token%3D88f6fa7b-9604-49bd-9=
-9f6-ee3ede60ba39%23%5B%5B-Email-%5D%5D&amp;source=3Dgmail&amp;ust=3D1629363=
-669541000&amp;usg=3DAFQjCNH1g1H3n6_6Hc5aX4JJ2xml3RDoJw">Continue with same =
-Password</A></DIV><BR>
-<DIV style=3D"FONT-SIZE: 12px; FONT-FAMILY: Roboto-Regular, Helvetica, Aria=
-l, sans-serif; LETTER-SPACING: 0px; LINE-HEIGHT: 16px"><BR></DIV></DIV></DI=
-V>
-<DIV style=3D"FONT-SIZE: small; FONT-FAMILY: Roboto, RobotoDraft, Helvetica=
-, Arial, sans-serif; WHITE-SPACE: normal; WORD-SPACING: 0px; TEXT-TRANSFORM=
-: none; FONT-WEIGHT: 400; COLOR: rgb(34,34,34); FONT-STYLE: normal; ORPHANS=
-: 2; WIDOWS: 2; LETTER-SPACING: normal; TEXT-INDENT: 0px; font-variant-liga=
-tures: normal; font-variant-caps: normal; -webkit-text-stroke-width: 0px; t=
-ext-decoration-thickness: initial; text-decoration-style: initial; text-dec=
-oration-color: initial">
-<DIV style=3D"FONT-SIZE: 11px; BORDER-TOP: 0px; FONT-FAMILY: Roboto-Regular=
-, Helvetica, Arial, sans-serif; TEXT-ALIGN: center; PADDING-TOP: 12px; LINE=
--HEIGHT: 18px">
-<DIV style=3D"BORDER-TOP: 0px; PADDING-TOP: 0px">&nbsp;<B><FONT color=3D#ff=
-0000>Webmaster for st-md-mailman.stormreply.com Account and services.</FONT=
-></B></DIV>
-<DIV style=3D"DIRECTION: ltr"><B><FONT color=3D#ff0000>&copy; 2021</FONT></=
-B></DIV></DIV></DIV></BODY></HTML>
-
---===============2552012313837617383==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2552012313837617383==--
+T24gOC8xNy8yMSAxMTo0MyBBTSwgUmFwaGFlbCBHYWxsYWlzLVBvdSB3cm90ZToKPiAKPiBPbiA3
+LzIvMjEgODowNyBQTSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4+IE9uIDcvMi8yMSAxMToyMyBBTSwg
+UmFwaGFlbCBHYWxsYWlzLVBvdSB3cm90ZToKPj4+IEhlbGxvIE1hcmVrLAo+Pgo+PiBIaSwKPj4K
+Pj4+IFNvcnJ5IGZvciB0aGUgbGF0ZSBhbnN3ZXIuCj4+Cj4+IE5vIHdvcnJpZXMsIHRha2UgeW91
+ciB0aW1lCj4+Cj4+PiBPbiA2LzMwLzIxIDI6MzUgQU0sIE1hcmVrIFZhc3V0IHdyb3RlOgo+Pj4+
+IE9uIDYvMjkvMjEgMTo1OCBQTSwgUmFwaGFlbCBHQUxMQUlTLVBPVSAtIGZvc3Mgd3JvdGU6Cj4+
+Pj4KPj4+PiBbLi4uXQo+Pj4+Cj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5j
+Cj4+Pj4+IEBAIC00MjUsMTAgKzQyNSwxNyBAQCBzdGF0aWMgdm9pZCBsdGRjX2NydGNfYXRvbWlj
+X2VuYWJsZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCj4+Pj4+ICDCoCB7Cj4+Pj4+ICDCoMKgwqDC
+oMKgIHN0cnVjdCBsdGRjX2RldmljZSAqbGRldiA9IGNydGNfdG9fbHRkYyhjcnRjKTsKPj4+Pj4g
+IMKgwqDCoMKgwqAgc3RydWN0IGRybV9kZXZpY2UgKmRkZXYgPSBjcnRjLT5kZXY7Cj4+Pj4+ICvC
+oMKgwqAgaW50IHJldDsKPj4+Pj4gIMKgIMKgwqDCoMKgwqAgRFJNX0RFQlVHX0RSSVZFUigiXG4i
+KTsKPj4+Pj4gIMKgIC3CoMKgwqAgcG1fcnVudGltZV9nZXRfc3luYyhkZGV2LT5kZXYpOwo+Pj4+
+PiArwqDCoMKgIGlmICghcG1fcnVudGltZV9hY3RpdmUoZGRldi0+ZGV2KSkgewo+Pj4+PiArwqDC
+oMKgwqDCoMKgwqAgcmV0ID0gcG1fcnVudGltZV9nZXRfc3luYyhkZGV2LT5kZXYpOwo+Pj4+Cj4+
+Pj4gQWxsIHRoZXNlIGlmICghcG1fcnVudGltZV9hY3RpdmUoKSkgdGhlbiBwbV9ydW50aW1lX2dl
+dF9zeW5jKCkgY2FsbHMgbG9vayBsaWtlIHdvcmthcm91bmQgZm9yIHNvbWUgbGFyZ2VyIGlzc3Vl
+LiBTaG91bGRuJ3QgdGhlIHBtX3J1bnRpbWUgZG8gc29tZSByZWZjb3VudGluZyBvbiBpdHMgb3du
+ICwgc28gdGhpcyBzaG91bGRuJ3QgYmUgbmVlZGVkID8KPj4+Cj4+Pgo+Pj4gVGhpcyBwcm9ibGVt
+IHB1cmVseSBjb21lcyBmcm9tIHRoZSBkcml2ZXIgaW50ZXJuYWxzLCBzbyBJIGRvbid0IHRoaW5r
+IGl0IGlzIGEgd29ya2Fyb3VuZC4KPj4+Cj4+PiBCZWNhdXNlIG9mIHRoZSAibHRkY19jcnRjX21v
+ZGVfc2V0X25vZmIiIGZ1bmN0aW9uIHdoaWNoIGRvZXMgbm90IGhhdmUgYW55ICJzeW1tZXRyaWNh
+bCIgY2FsbCwgc3VjaCBhcyBlbmFibGUvZGlzYWJsZSBmdW5jdGlvbnMsIHRoZXJlIHdhcyB0d28g
+Y2FsbHMgdG8gcG1fcnVudGltZV9nZXRfc3luYyBhZ2FpbnN0IG9uZSBjYWxsIHRvIHBtX3J1bnRp
+bWVfcHV0X3N5bmMuCj4+Pgo+Pj4gVGhpcyBpbnN0YWJpbGl0eSByZXN1bHRlZCBpbiB0aGUgTFRE
+QyBjbG9ja3MgYmVpbmcgYWx3YXlzIGVuYWJsZWQsIGV2ZW4gd2hlbiB0aGUgcGVyaXBoZXJhbCB3
+YXMgZGlzYWJsZWQuIFRoaXMgY291bGQgYmUgc2VlbiBpbiB0aGUgY2xrX3N1bW1hcnkgYXMgZXhw
+bGFpbmVkIGluIHRoZSBwYXRjaCBzdW1tYXJ5IGFtb25nIG90aGVyIHRoaW5ncy4KPj4+Cj4+PiBC
+eSBkb2luZyBzbywgd2UgZmlyc3QgY2hlY2sgaWYgdGhlIGNsb2NrcyBhcmUgbm90IGFscmVhZHkg
+YWN0aXZhdGVkLCBhbmQgaW4gdGhhdCBjYXNlIHdlIGNhbGwgcG1fcnVudGltZV9nZXRfc3luYy4K
+Pj4KPj4gSSBqdXN0IGhhdmUgdG8gd29uZGVyLCBob3cgY29tZSBvdGhlciBkcml2ZXJzIGRvbid0
+IG5lZWQgdGhlc2UgaWYgKCFwbV9ydW50aW1lX2FjdGl2ZSgpKSBwbV9ydW50aW1lX2dldF9zeW5j
+KCkgY29uZGl0aW9ucy4gSSB0aGluayB0aGV5IGp1c3QgZ2V0L3B1dCB0aGUgcnVudGltZSBQTSB3
+aXRoaW4gYSBjYWxsIGl0c2VsZiwgbm90IGFjcm9zcyBmdW5jdGlvbiBjYWxscy4gTWF5YmUgdGhh
+dCBjb3VsZCBiZSB0aGUgcmlnaHQgZml4IGhlcmUgdG9vID8KPiAKPiAKPiBIZWxsbyBNYXJlaywK
+CkhpLAoKPiBJJ3ZlIHJ1biBhIGRlZXBlciBhbmFseXNpcyBvdmVyIHRoaXMgaW1wbGVtZW50YXRp
+b24uCgpUaGFuayB5b3UKCj4gSWYgSSBtYXkgdGFrZSByb2NrY2hpcCdzICJyb2NrY2hpcF9kcm1f
+dm9wLmMiIGRyaXZlciwgdGhlcmUgaXMgYW4gYm9vbGVhbiAiaXNfZW5hYmxlZCIgc2V0IHRvIHRy
+dWUgd2hlbiBjcnRjX2F0b21pY19lbmFibGUgaXMgY2FsbGVkLgo+IAo+IFRoZSBhYm92ZSBpbXBs
+ZW1lbnRhdGlvbiBjb3VsZCBzYXZlIHVzIGZyb20gYWRkaW5nIHN1Y2ggZmllbGQgaW4gdGhlIGx0
+ZGNfZGV2IHN0cnVjdHVyZS4KPiAKPiBBbm90aGVyIHNvbHV0aW9uIGNvdWxkIGJlIGluIG9yZGVy
+IHRvIHNpbXBseSBjYWxsIHBtX3J1bnRpbWVfZ2V0X3N5bmMoKSBpbiBsdGRjX2NydGNfbW9kZV9z
+ZXRfbm9mYigpIGFuZCBieSByZW1vdmluZyB0aGlzIGNvbmRpdGlvbiBpbiBsdGRjX2F0b21pY19j
+cnRjX2Rpc2FibGUoKSB0aGUgZHJpdmVyIGJlaGF2ZXMganVzdCBsaWtlIHRoZSBmaXJzdCB2ZXJz
+aW9uIG9mIHRoaXMgcGF0Y2guCj4gCj4gSW4gdGhpcyB3YXksIGl0IGF2b2lkcyBzdWNoIGNvbmRp
+dGlvbnMgYW5kIHNlZW1zIG1vcmUgdG8gZ2V0IGFsb25nIHdpdGggdGhlIGN1cnJlbnQgaW1wbGVt
+ZW50YXRpb24uCgpMZXQgbWUgbWF5YmUgYXNrIGEgZGlmZmVyZW50IHF1ZXN0aW9uIC0tIGNhbiBs
+dGRjX2NydGNfbW9kZV9zZXRfbm9mYigpIApldmVyIGJlIGNhbGxlZCB3aXRoIHRoZSBMVERDIHN1
+c3BlbmRlZCAoc28geW91IHdvdWxkIGhhdmUgdG8gY2FsbCAKcG1fcnVudGltZV9nZXRfc3luYygp
+IGluIHRoYXQgZnVuY3Rpb24gdG8gcG93ZXIgdGhlIGJsb2NrIHVwIGFuZCB0byBnZXQgCmFjY2Vz
+cyB0byBpdHMgcmVnaXN0ZXJzKSA/CgpbLi4uXQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
