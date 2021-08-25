@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9BCE3F72B5
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Aug 2021 12:10:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7224E3F72B3
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Aug 2021 12:10:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48F24C57B60;
-	Wed, 25 Aug 2021 10:10:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14213C58D58;
+	Wed, 25 Aug 2021 10:10:12 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6446FC57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6785BC57196
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed, 25 Aug 2021 10:10:08 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 5BE0761176;
+Received: by mail.kernel.org (Postfix) with ESMTPS id 70E7861183;
  Wed, 25 Aug 2021 10:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1629886206;
- bh=OSv0PWWhZVtTGTqPHk5I4aEOsasp+kDfKfr1GgHP/Jg=;
+ bh=65p/TIA87p7eJYjLp0QTn1JuyKk95BTYSGbqHgZY5Qw=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=hVsPT+kAgICx6tBRqyIhV1hRk3fq1W7DSNR3HAPr5WuXl5eeKpe6pOHyp3VqvwQ+N
- V2NcJFe7BRrX4E2rZW9V7IpHi87l3AwuzTSlIwr0GtiWQuR0C+NW1NStmGbAC8WtGk
- 17WSzEYastYu2FK5g/4nxI7RphiZGXc1o5vvfqJK+Bn2S3bJUueux+HYt5Q7JjN2ny
- RAYPQYojThwaAWg6UuqqDpeDrHkkQ6uEc9jfxKUOtPC8rigejMj6CLuNajaMPQQI3p
- h43ADJxrIs7x0vOkLUl4N6z7/Rf3WdnHcaDH0/VbhNEALssh4Ly4nIJw1td90EyvnF
- ZmbQ7VbqWHZIw==
+ b=k7iDOMivV62EC7EAlkOReOOg+q9yvXot4CH2A7q3TTMptJ+bq63IYHWTmnWcQ3E96
+ AgJnrzIdrXwvx1mVxOPiJ0iScY4sK2egYotLzkLp6IwhC/+BzCy9KAqDxK3hEUSfhE
+ 5QOLCu0TK9pxF4/RFTxb5lDAQeB3k0ikabURBLxAlr9AN4HRIde6CWe0S5JPtOiUaJ
+ CDIDQNYml/+nC8JInsBee7hXJsf7FrQFpwXRqps6TBe7+QqtRj74kdW8pXkk6ihKIU
+ B/JlBPr+1+GQy4ukz/UvgbmZO0r/0iLvjNNu2WlMkO/Cg0nFZXDyWNb4AqpcDnuTUB
+ 0lpK6X+uob/eQ==
 Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
  [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 4C1EF6097B;
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 671C360A0C;
  Wed, 25 Aug 2021 10:10:06 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <162988620630.3256.11386363919352017742.git-patchwork-notify@kernel.org>
+Message-Id: <162988620641.3256.15807737014421094725.git-patchwork-notify@kernel.org>
 Date: Wed, 25 Aug 2021 10:10:06 +0000
-References: <20210825005742.980267-1-yoong.siang.song@intel.com>
-In-Reply-To: <20210825005742.980267-1-yoong.siang.song@intel.com>
+References: <20210825005529.980109-1-yoong.siang.song@intel.com>
+In-Reply-To: <20210825005529.980109-1-yoong.siang.song@intel.com>
 To: Song Yoong Siang <yoong.siang.song@intel.com>
 Cc: linux-kernel@vger.kernel.org, hawk@kernel.org, daniel@iogearbox.net,
  netdev@vger.kernel.org, john.fastabend@gmail.com, ast@kernel.org,
@@ -44,7 +44,7 @@ Cc: linux-kernel@vger.kernel.org, hawk@kernel.org, daniel@iogearbox.net,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
  alexandre.torgue@st.com
 Subject: Re: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: fix kernel panic
- due to NULL pointer dereference of buf->xdp
+ due to NULL pointer dereference of xsk_pool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,29 +65,20 @@ Hello:
 
 This patch was applied to netdev/net.git (refs/heads/master):
 
-On Wed, 25 Aug 2021 08:57:42 +0800 you wrote:
-> Ensure a valid XSK buffer before proceed to free the xdp buffer.
+On Wed, 25 Aug 2021 08:55:29 +0800 you wrote:
+> After free xsk_pool, there is possibility that napi polling is still
+> running in the middle, thus causes a kernel crash due to kernel NULL
+> pointer dereference of rx_q->xsk_pool and tx_q->xsk_pool.
 > 
-> The following kernel panic is observed without this patch:
-> 
-> RIP: 0010:xp_free+0x5/0x40
-> Call Trace:
-> stmmac_napi_poll_rxtx+0x332/0xb30 [stmmac]
-> ? stmmac_tx_timer+0x3c/0xb0 [stmmac]
-> net_rx_action+0x13d/0x3d0
-> __do_softirq+0xfc/0x2fb
-> ? smpboot_register_percpu_thread+0xe0/0xe0
-> run_ksoftirqd+0x32/0x70
-> smpboot_thread_fn+0x1d8/0x2c0
-> kthread+0x169/0x1a0
-> ? kthread_park+0x90/0x90
-> ret_from_fork+0x1f/0x30
+> Fix this by changing the XDP pool setup sequence to:
+>  1. disable napi before free xsk_pool
+>  2. enable napi after init xsk_pool
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v2,1/1] net: stmmac: fix kernel panic due to NULL pointer dereference of buf->xdp
-    https://git.kernel.org/netdev/net/c/2b9fff64f032
+  - [net,v2,1/1] net: stmmac: fix kernel panic due to NULL pointer dereference of xsk_pool
+    https://git.kernel.org/netdev/net/c/a6451192da26
 
 You are awesome, thank you!
 --
