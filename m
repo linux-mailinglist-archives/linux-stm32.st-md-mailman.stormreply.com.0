@@ -2,47 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 594F93F724B
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Aug 2021 11:50:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9BCE3F72B5
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Aug 2021 12:10:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBF8FC57B60;
-	Wed, 25 Aug 2021 09:50:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48F24C57B60;
+	Wed, 25 Aug 2021 10:10:11 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC636C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6446FC57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Aug 2021 09:50:07 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id E37A6610FD;
- Wed, 25 Aug 2021 09:50:05 +0000 (UTC)
+ Wed, 25 Aug 2021 10:10:08 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 5BE0761176;
+ Wed, 25 Aug 2021 10:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1629885005;
- bh=G9W19wcM7scN5TQI5aCEGctxyPWqb76aI4QghIn1k44=;
+ s=k20201202; t=1629886206;
+ bh=OSv0PWWhZVtTGTqPHk5I4aEOsasp+kDfKfr1GgHP/Jg=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=T2Rd6S2Y6qeStlduHD6EE0+u4FNeu23Pg6ejMu5pFTLW9GWCCHnAP63t1j9/7zO2f
- i79zpmRX57TPJWgjo+iLJmDsDGqPciyWNXnYh5wgw9gzqDkw9GRcnFcynfO934GMcU
- B69aFjXC7ORzbHcOrwl0p7JjISS/ROb6zZBBBrchirvRdILedFW9Q53UF7r0ajbxXA
- 3XWPKCPKRz8p/0bMN0hJyXjLGGyU6mCAFKNcQFabqLy3VrWm2F1d6gii4FDSTbwZhE
- jl6XlQY0ovXdWomHJXYDke2e+fBUu0/IbQjkOH3jGK27PNIWVGXpmWueQ0P/XVWCgb
- lWB9Rr5HzNuUg==
+ b=hVsPT+kAgICx6tBRqyIhV1hRk3fq1W7DSNR3HAPr5WuXl5eeKpe6pOHyp3VqvwQ+N
+ V2NcJFe7BRrX4E2rZW9V7IpHi87l3AwuzTSlIwr0GtiWQuR0C+NW1NStmGbAC8WtGk
+ 17WSzEYastYu2FK5g/4nxI7RphiZGXc1o5vvfqJK+Bn2S3bJUueux+HYt5Q7JjN2ny
+ RAYPQYojThwaAWg6UuqqDpeDrHkkQ6uEc9jfxKUOtPC8rigejMj6CLuNajaMPQQI3p
+ h43ADJxrIs7x0vOkLUl4N6z7/Rf3WdnHcaDH0/VbhNEALssh4Ly4nIJw1td90EyvnF
+ ZmbQ7VbqWHZIw==
 Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
  [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id D0A6760A12;
- Wed, 25 Aug 2021 09:50:05 +0000 (UTC)
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 4C1EF6097B;
+ Wed, 25 Aug 2021 10:10:06 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <162988500584.26256.659865970373423632.git-patchwork-notify@kernel.org>
-Date: Wed, 25 Aug 2021 09:50:05 +0000
-References: <20210823143754.14294-1-michael.riesch@wolfvision.net>
-In-Reply-To: <20210823143754.14294-1-michael.riesch@wolfvision.net>
-To: Michael Riesch <michael.riesch@wolfvision.net>
-Cc: davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-rockchip@lists.infradead.org,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- peppe.cavallaro@st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-rk: fix unbalanced
- pm_runtime_enable warnings
+Message-Id: <162988620630.3256.11386363919352017742.git-patchwork-notify@kernel.org>
+Date: Wed, 25 Aug 2021 10:10:06 +0000
+References: <20210825005742.980267-1-yoong.siang.song@intel.com>
+In-Reply-To: <20210825005742.980267-1-yoong.siang.song@intel.com>
+To: Song Yoong Siang <yoong.siang.song@intel.com>
+Cc: linux-kernel@vger.kernel.org, hawk@kernel.org, daniel@iogearbox.net,
+ netdev@vger.kernel.org, john.fastabend@gmail.com, ast@kernel.org,
+ stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ boon.leong.ong@intel.com, kuba@kernel.org, bpf@vger.kernel.org,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: fix kernel panic
+ due to NULL pointer dereference of buf->xdp
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,21 +65,29 @@ Hello:
 
 This patch was applied to netdev/net.git (refs/heads/master):
 
-On Mon, 23 Aug 2021 16:37:54 +0200 you wrote:
-> This reverts commit 2c896fb02e7f65299646f295a007bda043e0f382
-> "net: stmmac: dwmac-rk: add pd_gmac support for rk3399" and fixes
-> unbalanced pm_runtime_enable warnings.
+On Wed, 25 Aug 2021 08:57:42 +0800 you wrote:
+> Ensure a valid XSK buffer before proceed to free the xdp buffer.
 > 
-> In the commit to be reverted, support for power management was
-> introduced to the Rockchip glue code. Later, power management support
-> was introduced to the stmmac core code, resulting in multiple
-> invocations of pm_runtime_{enable,disable,get_sync,put_sync}.
+> The following kernel panic is observed without this patch:
+> 
+> RIP: 0010:xp_free+0x5/0x40
+> Call Trace:
+> stmmac_napi_poll_rxtx+0x332/0xb30 [stmmac]
+> ? stmmac_tx_timer+0x3c/0xb0 [stmmac]
+> net_rx_action+0x13d/0x3d0
+> __do_softirq+0xfc/0x2fb
+> ? smpboot_register_percpu_thread+0xe0/0xe0
+> run_ksoftirqd+0x32/0x70
+> smpboot_thread_fn+0x1d8/0x2c0
+> kthread+0x169/0x1a0
+> ? kthread_park+0x90/0x90
+> ret_from_fork+0x1f/0x30
 > 
 > [...]
 
 Here is the summary with links:
-  - net: stmmac: dwmac-rk: fix unbalanced pm_runtime_enable warnings
-    https://git.kernel.org/netdev/net/c/2d26f6e39afb
+  - [net,v2,1/1] net: stmmac: fix kernel panic due to NULL pointer dereference of buf->xdp
+    https://git.kernel.org/netdev/net/c/2b9fff64f032
 
 You are awesome, thank you!
 --
