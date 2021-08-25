@@ -2,44 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6A173F7486
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Aug 2021 13:47:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F15A3F777A
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Aug 2021 16:34:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EED2C58D58;
-	Wed, 25 Aug 2021 11:47:57 +0000 (UTC)
-Received: from baidu.com (mx21.baidu.com [220.181.3.85])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 397DBC57196
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43D86C57B60;
+	Wed, 25 Aug 2021 14:34:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F218C5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Aug 2021 11:21:57 +0000 (UTC)
-Received: from BC-Mail-Ex18.internal.baidu.com (unknown [172.31.51.12])
- by Forcepoint Email with ESMTPS id F32F3B7DF3CB3292C294;
- Wed, 25 Aug 2021 19:21:55 +0800 (CST)
-Received: from BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) by
- BC-Mail-Ex18.internal.baidu.com (172.31.51.12) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2242.12; Wed, 25 Aug 2021 19:21:55 +0800
-Received: from LAPTOP-UKSR4ENP.internal.baidu.com (172.31.63.8) by
- BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2308.14; Wed, 25 Aug 2021 19:21:55 +0800
-From: Cai Huoqing <caihuoqing@baidu.com>
-To: <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
- <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
- <nicolas.toromanoff@st.com>
-Date: Wed, 25 Aug 2021 19:21:47 +0800
-Message-ID: <20210825112147.2669-3-caihuoqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210825112147.2669-1-caihuoqing@baidu.com>
-References: <20210825112147.2669-1-caihuoqing@baidu.com>
+ Wed, 25 Aug 2021 14:34:31 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 17PDhOum003655;
+ Wed, 25 Aug 2021 16:34:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : subject : to
+ : cc : message-id : date : mime-version : content-type :
+ content-transfer-encoding; s=selector1;
+ bh=uB5VgDvAvQ72i1SM94ZVMnpWG1uPhE/nxCUf1gUKsDM=;
+ b=J8/nsnlyrDt5jpFg+8ufKUpDe6dVqgJmzghbCCt+7/M/+I3kVGJCgbzgdP3TQZCjIOTe
+ iWbxcWomfrrB10/SNyFZTN1CM6gGvvVUDK5QtgRueMmhZnJIedm+5AVnYPd+Nlv1kono
+ MUbyH1DR3gCN6eP+mU/cbblmM8l5F+Oxg1IUTlE7N8wi+DTA6ewIA+82kIMzO4+KKv76
+ 9dxXrNsvU+WNHO0uqnXDhqyRYxo6MeCE+1ObFqDjvqAleK0tWd86Y5U7APjKMOvX3Xhn
+ C3f7JdvJgVPaALaIESNwEYpJClgEYYakEtGyDlmOAtlDSPv7nhgLs/3HfZnrhOe61voI Hg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3ana52vvwe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 25 Aug 2021 16:34:13 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 00AD910002A;
+ Wed, 25 Aug 2021 16:34:11 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C47FC25F3F3;
+ Wed, 25 Aug 2021 16:34:11 +0200 (CEST)
+Received: from lmecxl0504.lme.st.com (10.75.127.48) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 25 Aug
+ 2021 16:34:10 +0200
+From: Yann Gautier <yann.gautier@foss.st.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>, "linux-mmc@vger.kernel.org"
+ <linux-mmc@vger.kernel.org>
+Message-ID: <ccb2dad1-c8c1-9f19-92c4-7faf2b787e6d@foss.st.com>
+Date: Wed, 25 Aug 2021 16:34:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-Originating-IP: [172.31.63.8]
-X-ClientProxiedBy: BJHW-Mail-Ex14.internal.baidu.com (10.127.64.37) To
- BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42)
-X-Mailman-Approved-At: Wed, 25 Aug 2021 11:47:54 +0000
-Cc: Cai Huoqing <caihuoqing@baidu.com>, linux-crypto@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/2] crypto: stm32 - open the configuration
-	for COMPILE_TEST
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-08-25_06,2021-08-25_02,2020-04-07_01
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Russell King <linux@armlinux.org.uk>,
+ Rob Herring <robh+dt@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] Question about MMC_PM_KEEP_POWER in MMCI driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,34 +73,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-it could be opened for complie test in other platform(e.g.X86)
+Hi,
 
-Signed-off-by: Cai Huoqing <caihuoqing@baidu.com>
----
- drivers/crypto/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+In drivers/mmc/host/mmci.c, MMC_PM_KEEP_POWER is unconditionally enabled.
+This prevents correct low-power sequence on STM32MP157C-DK2 board which 
+embeds a Wifi chip brcm,bcm4329-fmac (this wifi part has not yet been 
+sent upstream).
 
-diff --git a/drivers/crypto/Makefile b/drivers/crypto/Makefile
-index 1fe5120eb966..17b640de1823 100644
---- a/drivers/crypto/Makefile
-+++ b/drivers/crypto/Makefile
-@@ -39,7 +39,7 @@ obj-$(CONFIG_CRYPTO_DEV_S5P) += s5p-sss.o
- obj-$(CONFIG_CRYPTO_DEV_SA2UL) += sa2ul.o
- obj-$(CONFIG_CRYPTO_DEV_SAHARA) += sahara.o
- obj-$(CONFIG_CRYPTO_DEV_SL3516) += gemini/
--obj-$(CONFIG_ARCH_STM32) += stm32/
-+obj-y += stm32/
- obj-$(CONFIG_CRYPTO_DEV_TALITOS) += talitos.o
- obj-$(CONFIG_CRYPTO_DEV_UX500) += ux500/
- obj-$(CONFIG_CRYPTO_DEV_VIRTIO) += virtio/
--- 
-2.25.1
+This MMC_PM_KEEP_POWER can be taken from DT with the property 
+keep-power-in-suspend. This is what is done for other MMC drivers.
 
+I wonder what should be the best solution for this.
+
+1) Remove MMC_PM_KEEP_POWER from the driver, and modify all SoC device 
+tree files embedding a arm,pl18x with adding keep-power-in-suspend; 
+property (except stm32mp151.dtsi file).
+This can be easy to do (~10 files to modify). But that could be more 
+board dependent, if an SDIO chip is plugged on this MMC IP.
+And the name keep-power-in-suspend can be misleading as it only applies 
+to SDIO.
+
+2) Remove MMC_PM_KEEP_POWER from the driver, and modify board DT files 
+with the property. This could be a difficult task to find all those 
+boards. And this should be applied only for SDIO configs.
+
+3) Just modify the driver to apply this capability for all MMCI chips 
+but STM32. This could be done in the dedicated file, in 
+sdmmc_variant_init() function. But some boards based on STM32MP15 chip 
+might want to keep this capability.
+
+All advice is welcome.
+
+
+Thanks,
+Yann
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
