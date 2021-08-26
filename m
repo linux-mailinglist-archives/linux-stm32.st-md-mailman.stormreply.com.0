@@ -2,57 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8E373F86B7
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Aug 2021 13:50:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A15DC3F8A5F
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Aug 2021 16:46:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34188C57B60;
-	Thu, 26 Aug 2021 11:50:27 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 446B6C57B7A;
+	Thu, 26 Aug 2021 14:46:06 +0000 (UTC)
+Received: from mx01.ayax.eu (mx01.ayax.eu [188.137.98.110])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2A91C5718D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8291AC424AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Aug 2021 11:50:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="214597319"
-X-IronPort-AV: E=Sophos;i="5.84,353,1620716400"; d="scan'208";a="214597319"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2021 04:50:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,353,1620716400"; d="scan'208";a="465099620"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga007.jf.intel.com with ESMTP; 26 Aug 2021 04:50:21 -0700
-Received: from linux.intel.com (vwong3-iLBPG3.png.intel.com [10.88.229.80])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id 719855805A3;
- Thu, 26 Aug 2021 04:50:17 -0700 (PDT)
-Date: Thu, 26 Aug 2021 19:50:14 +0800
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <20210826115014.GA5112@linux.intel.com>
-References: <20210809102229.933748-1-vee.khee.wong@linux.intel.com>
- <20210809102229.933748-2-vee.khee.wong@linux.intel.com>
- <YREvDRkiuScyN8Ws@lunn.ch> <20210810235529.GB30818@linux.intel.com>
- <f2a1f135-b77a-403d-5d2e-c497efc99df7@gmail.com>
- <YRPcyHTc2FJeEoqk@lunn.ch>
+ Thu, 26 Aug 2021 14:46:01 +0000 (UTC)
+Received: from [192.168.192.146] (port=53042 helo=nx64de-df6d00)
+ by mx01.ayax.eu with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <gszymaszek@short.pl>)
+ id 1mJGdV-0007Jl-4T; Thu, 26 Aug 2021 16:45:45 +0200
+Date: Thu, 26 Aug 2021 16:45:43 +0200
+From: Grzegorz Szymaszek <gszymaszek@short.pl>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Message-ID: <YSepFyt8o+5lAsrA@nx64de-df6d00>
+Mail-Followup-To: Grzegorz Szymaszek <gszymaszek@short.pl>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YRPcyHTc2FJeEoqk@lunn.ch>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Florian Fainelli <f.fainelli@gmail.com>, linux-kernel@vger.kernel.org,
- Voon Weifeng <weifeng.voon@intel.com>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "David S . Miller" <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Vladimir Oltean <olteanv@gmail.com>, Vivien Didelot <vivien.didelot@gmail.com>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: pcs: xpcs: enable skip
-	xPCS soft reset
+Cc: devicetree@vger.kernel.org, Grzegorz Szymaszek <gszymaszek@short.pl>,
+ linux-kernel@vger.kernel.org, Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: set the DCMI pins on
+	stm32mp157c-odyssey
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,33 +54,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Aug 11, 2021 at 04:20:56PM +0200, Andrew Lunn wrote:
-> > > BIOS does configured the SerDes. The problem here is that all the
-> > > configurations done by BIOS are being reset at xpcs_create().
-> > > 
-> > > We would want user of the pcs-xpcs module (stmmac, sja1105) to have
-> > > control whether or not we need to perform to the soft reset in the
-> > > xpcs_create() call.
-> > 
-> > I understood Andrew's response as suggesting to introduce the ability for
-> > xpcs_create() to make a BIOS call which would configure the SerDes after
-> > xpcs_soft_reset().
-> 
-> Yes. Exactly. That is what ACPI is for, so we should use it for this.
-> 
->      Andrew
+The Seeed Odyssey-STM32MP157C board has a 20-pin DVP camera output. The
+DCMI pins used on this output are defined in the pin state definition
+&pinctrl/dcmi-1, AKA &dcmi_pins_b (added in mainline commit
+02814a41529a55dbfb9fbb2a3728e78e70646ea6). Set these pins as the default
+pinctrl of the DCMI peripheral in the board device tree.
 
-Thanks Florian for the explaination.
+The pins are not used for any other purpose, so it seems safe to assume
+most users will not need to override (delete) what this patch provides.
+status defaults to "disabled", so the peripheral will not be
+unnecessarily started. And the users who actually intend to make use of
+a camera on the DVP port will have this little part of the configuration
+ready.
 
-I have checked with the BIOS developers and they did not implmenet a
-method to this at the kernel level.
+Signed-off-by: Grzegorz Szymaszek <gszymaszek@short.pl>
+---
+ arch/arm/boot/dts/stm32mp157c-odyssey.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Also, Intel AlderLake has both UEFI BIOS and Slim Bootloader which
-make it least feasible to go for the ACPI method as per suggested.
+diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey.dts b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
+index be1dd5e9e744..554f5d3bcdc3 100644
+--- a/arch/arm/boot/dts/stm32mp157c-odyssey.dts
++++ b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
+@@ -22,6 +22,12 @@ chosen {
+ 	};
+ };
+ 
++&dcmi {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&dcmi_pins_b>;
++	pinctrl-1 = <&dcmi_sleep_pins_b>;
++};
++
+ &ethernet0 {
+ 	status = "okay";
+ 	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
+-- 
+2.30.2
 
-
-Regards,
-  VK
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
