@@ -2,66 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F15A3F777A
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Aug 2021 16:34:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8E373F86B7
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Aug 2021 13:50:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 43D86C57B60;
-	Wed, 25 Aug 2021 14:34:34 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34188C57B60;
+	Thu, 26 Aug 2021 11:50:27 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F218C5718D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2A91C5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Aug 2021 14:34:31 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 17PDhOum003655;
- Wed, 25 Aug 2021 16:34:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : subject : to
- : cc : message-id : date : mime-version : content-type :
- content-transfer-encoding; s=selector1;
- bh=uB5VgDvAvQ72i1SM94ZVMnpWG1uPhE/nxCUf1gUKsDM=;
- b=J8/nsnlyrDt5jpFg+8ufKUpDe6dVqgJmzghbCCt+7/M/+I3kVGJCgbzgdP3TQZCjIOTe
- iWbxcWomfrrB10/SNyFZTN1CM6gGvvVUDK5QtgRueMmhZnJIedm+5AVnYPd+Nlv1kono
- MUbyH1DR3gCN6eP+mU/cbblmM8l5F+Oxg1IUTlE7N8wi+DTA6ewIA+82kIMzO4+KKv76
- 9dxXrNsvU+WNHO0uqnXDhqyRYxo6MeCE+1ObFqDjvqAleK0tWd86Y5U7APjKMOvX3Xhn
- C3f7JdvJgVPaALaIESNwEYpJClgEYYakEtGyDlmOAtlDSPv7nhgLs/3HfZnrhOe61voI Hg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3ana52vvwe-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Aug 2021 16:34:13 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 00AD910002A;
- Wed, 25 Aug 2021 16:34:11 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C47FC25F3F3;
- Wed, 25 Aug 2021 16:34:11 +0200 (CEST)
-Received: from lmecxl0504.lme.st.com (10.75.127.48) by SFHDAG2NODE3.st.com
- (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 25 Aug
- 2021 16:34:10 +0200
-From: Yann Gautier <yann.gautier@foss.st.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, "linux-mmc@vger.kernel.org"
- <linux-mmc@vger.kernel.org>
-Message-ID: <ccb2dad1-c8c1-9f19-92c4-7faf2b787e6d@foss.st.com>
-Date: Wed, 25 Aug 2021 16:34:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thu, 26 Aug 2021 11:50:24 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10087"; a="214597319"
+X-IronPort-AV: E=Sophos;i="5.84,353,1620716400"; d="scan'208";a="214597319"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2021 04:50:22 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.84,353,1620716400"; d="scan'208";a="465099620"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga007.jf.intel.com with ESMTP; 26 Aug 2021 04:50:21 -0700
+Received: from linux.intel.com (vwong3-iLBPG3.png.intel.com [10.88.229.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id 719855805A3;
+ Thu, 26 Aug 2021 04:50:17 -0700 (PDT)
+Date: Thu, 26 Aug 2021 19:50:14 +0800
+From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <20210826115014.GA5112@linux.intel.com>
+References: <20210809102229.933748-1-vee.khee.wong@linux.intel.com>
+ <20210809102229.933748-2-vee.khee.wong@linux.intel.com>
+ <YREvDRkiuScyN8Ws@lunn.ch> <20210810235529.GB30818@linux.intel.com>
+ <f2a1f135-b77a-403d-5d2e-c497efc99df7@gmail.com>
+ <YRPcyHTc2FJeEoqk@lunn.ch>
 MIME-Version: 1.0
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE3.st.com
- (10.75.127.6)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-08-25_06,2021-08-25_02,2020-04-07_01
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>, Russell King <linux@armlinux.org.uk>,
- Rob Herring <robh+dt@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] Question about MMC_PM_KEEP_POWER in MMCI driver
+Content-Disposition: inline
+In-Reply-To: <YRPcyHTc2FJeEoqk@lunn.ch>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Florian Fainelli <f.fainelli@gmail.com>, linux-kernel@vger.kernel.org,
+ Voon Weifeng <weifeng.voon@intel.com>, Russell King <linux@armlinux.org.uk>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "David S . Miller" <davem@davemloft.net>, Jose Abreu <joabreu@synopsys.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Vladimir Oltean <olteanv@gmail.com>, Vivien Didelot <vivien.didelot@gmail.com>,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: pcs: xpcs: enable skip
+	xPCS soft reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,45 +64,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+On Wed, Aug 11, 2021 at 04:20:56PM +0200, Andrew Lunn wrote:
+> > > BIOS does configured the SerDes. The problem here is that all the
+> > > configurations done by BIOS are being reset at xpcs_create().
+> > > 
+> > > We would want user of the pcs-xpcs module (stmmac, sja1105) to have
+> > > control whether or not we need to perform to the soft reset in the
+> > > xpcs_create() call.
+> > 
+> > I understood Andrew's response as suggesting to introduce the ability for
+> > xpcs_create() to make a BIOS call which would configure the SerDes after
+> > xpcs_soft_reset().
+> 
+> Yes. Exactly. That is what ACPI is for, so we should use it for this.
+> 
+>      Andrew
 
-In drivers/mmc/host/mmci.c, MMC_PM_KEEP_POWER is unconditionally enabled.
-This prevents correct low-power sequence on STM32MP157C-DK2 board which 
-embeds a Wifi chip brcm,bcm4329-fmac (this wifi part has not yet been 
-sent upstream).
+Thanks Florian for the explaination.
 
-This MMC_PM_KEEP_POWER can be taken from DT with the property 
-keep-power-in-suspend. This is what is done for other MMC drivers.
+I have checked with the BIOS developers and they did not implmenet a
+method to this at the kernel level.
 
-I wonder what should be the best solution for this.
-
-1) Remove MMC_PM_KEEP_POWER from the driver, and modify all SoC device 
-tree files embedding a arm,pl18x with adding keep-power-in-suspend; 
-property (except stm32mp151.dtsi file).
-This can be easy to do (~10 files to modify). But that could be more 
-board dependent, if an SDIO chip is plugged on this MMC IP.
-And the name keep-power-in-suspend can be misleading as it only applies 
-to SDIO.
-
-2) Remove MMC_PM_KEEP_POWER from the driver, and modify board DT files 
-with the property. This could be a difficult task to find all those 
-boards. And this should be applied only for SDIO configs.
-
-3) Just modify the driver to apply this capability for all MMCI chips 
-but STM32. This could be done in the dedicated file, in 
-sdmmc_variant_init() function. But some boards based on STM32MP15 chip 
-might want to keep this capability.
-
-All advice is welcome.
+Also, Intel AlderLake has both UEFI BIOS and Slim Bootloader which
+make it least feasible to go for the ACPI method as per suggested.
 
 
-Thanks,
-Yann
+Regards,
+  VK
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
