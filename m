@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9FEF3F910A
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Aug 2021 01:46:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 038343F910D
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Aug 2021 01:46:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BD2AC597B3;
-	Thu, 26 Aug 2021 23:46:02 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20520C597B4;
+	Thu, 26 Aug 2021 23:46:20 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 585ADC57196
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 293D3C597B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Aug 2021 23:46:00 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10088"; a="198101897"
-X-IronPort-AV: E=Sophos;i="5.84,354,1620716400"; d="scan'208";a="198101897"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2021 16:45:57 -0700
+ Thu, 26 Aug 2021 23:46:16 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10088"; a="205068851"
+X-IronPort-AV: E=Sophos;i="5.84,354,1620716400"; d="scan'208";a="205068851"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2021 16:46:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,354,1620716400"; d="scan'208";a="426956294"
+X-IronPort-AV: E=Sophos;i="5.84,354,1620716400"; d="scan'208";a="474386775"
 Received: from linux.intel.com ([10.54.29.200])
- by orsmga003.jf.intel.com with ESMTP; 26 Aug 2021 16:45:57 -0700
+ by orsmga008.jf.intel.com with ESMTP; 26 Aug 2021 16:46:02 -0700
 Received: from glass.png.intel.com (glass.png.intel.com [10.158.65.69])
- by linux.intel.com (Postfix) with ESMTP id 5BA635808BB;
- Thu, 26 Aug 2021 16:45:53 -0700 (PDT)
+ by linux.intel.com (Postfix) with ESMTP id 03EE45808BB;
+ Thu, 26 Aug 2021 16:45:57 -0700 (PDT)
 From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -36,9 +36,11 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Florian Fainelli <f.fainelli@gmail.com>,
  Russell King <linux@armlinux.org.uk>,
  Heiner Kallweit <hkallweit1@gmail.com>
-Date: Fri, 27 Aug 2021 07:51:32 +0800
-Message-Id: <20210826235134.4051310-1-vee.khee.wong@linux.intel.com>
+Date: Fri, 27 Aug 2021 07:51:33 +0800
+Message-Id: <20210826235134.4051310-2-vee.khee.wong@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210826235134.4051310-1-vee.khee.wong@linux.intel.com>
+References: <20210826235134.4051310-1-vee.khee.wong@linux.intel.com>
 MIME-Version: 1.0
 Cc: Voon Weifeng <weifeng.voon@intel.com>,
  Vladimir Oltean <vladimir.oltean@nxp.com>, linux-kernel@vger.kernel.org,
