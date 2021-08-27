@@ -2,52 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 018073F910C
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Aug 2021 01:46:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CF1B3F9226
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Aug 2021 03:58:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABB6FC597B3;
-	Thu, 26 Aug 2021 23:46:10 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFAFEC597B3;
+	Fri, 27 Aug 2021 01:58:22 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AEC28C57196
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77294C57196
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Aug 2021 23:46:08 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10088"; a="278877495"
-X-IronPort-AV: E=Sophos;i="5.84,354,1620716400"; d="scan'208";a="278877495"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2021 16:46:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.84,354,1620716400"; d="scan'208";a="426956326"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga003.jf.intel.com with ESMTP; 26 Aug 2021 16:46:06 -0700
-Received: from glass.png.intel.com (glass.png.intel.com [10.158.65.69])
- by linux.intel.com (Postfix) with ESMTP id A38D15808BB;
- Thu, 26 Aug 2021 16:46:02 -0700 (PDT)
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Vivien Didelot <vivien.didelot@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Date: Fri, 27 Aug 2021 07:51:34 +0800
-Message-Id: <20210826235134.4051310-3-vee.khee.wong@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210826235134.4051310-1-vee.khee.wong@linux.intel.com>
+ Fri, 27 Aug 2021 01:58:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=4lIne5FHlydWaN5UNR7D7DuxGZeLkCmilmM1YEyzkHc=; b=ezyVcrjDrkRWKg0PX0HxoXV32g
+ gTFQuWv1ugtYv7/sjr58dmaWOnmyEwhLd45JnHjyyUoOLB58EMlhmW8f1rKg+cjwDIktoL/MhqhyP
+ HeoMFd1WK4fmu8iHF+/l8+Bq9zaa7bJCD92s6DvF5Wg8Tta14kyPPm3LIaGeTodrP/kw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1mJR86-0042Z5-Sq; Fri, 27 Aug 2021 03:58:02 +0200
+Date: Fri, 27 Aug 2021 03:58:02 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+Message-ID: <YShGqldtThS2z0eI@lunn.ch>
 References: <20210826235134.4051310-1-vee.khee.wong@linux.intel.com>
+ <20210826235134.4051310-2-vee.khee.wong@linux.intel.com>
 MIME-Version: 1.0
-Cc: Voon Weifeng <weifeng.voon@intel.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>, linux-kernel@vger.kernel.org,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 2/2] stmmac: intel: Enable 2.5Gbps
-	on Intel AlderLake-S
+Content-Disposition: inline
+In-Reply-To: <20210826235134.4051310-2-vee.khee.wong@linux.intel.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>, linux-kernel@vger.kernel.org,
+ Voon Weifeng <weifeng.voon@intel.com>, Russell King <linux@armlinux.org.uk>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Vivien Didelot <vivien.didelot@gmail.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/2] net: pcs: xpcs: enable
+ skip xPCS soft reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,41 +62,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Intel AlderLake-S platform is capable of 2.5Gbps link speed.
+On Fri, Aug 27, 2021 at 07:51:33AM +0800, Wong Vee Khee wrote:
+> Unlike any other platforms, Intel AlderLake-S uses Synopsys SerDes where
+> all the SerDes PLL configurations are controlled by the xPCS at the BIOS
+> level. If the driver perform a xPCS soft reset on initialization, these
+> settings will be switched back to the power on reset values.
+> 
+> This patch introduced a new xpcs_reset() function for drivers such as
+> sja1105 and stmmac to decide whether or not to perform a xPCS soft
+> reset.
+> 
+> +	/* If Device ID are all ones, there is no device found */
+> +	if (xpcs_id == 0xffffffff)
+> +		goto out;
+> +
 
-This patch enables the 2.5Gbps link speed by adding the callback
-function in the AlderLake-S PCI info struct.
+This does not look like plain refactoring. It is not code moved from
+somewhere else. At minimum, it needs explaining in the commit message,
+but it probably should be a commit of its own.
 
-Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 8e8778cfbbad..c1db7e53e78f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -770,6 +770,8 @@ static int adls_sgmii_phy0_data(struct pci_dev *pdev,
- {
- 	plat->bus_id = 1;
- 	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
-+	plat->speed_mode_2500 = intel_speed_mode_2500;
-+	plat->skip_xpcs_soft_reset = 1;
- 
- 	/* SerDes power up and power down are done in BIOS for ADL */
- 
-@@ -785,6 +787,8 @@ static int adls_sgmii_phy1_data(struct pci_dev *pdev,
- {
- 	plat->bus_id = 2;
- 	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
-+	plat->speed_mode_2500 = intel_speed_mode_2500;
-+	plat->skip_xpcs_soft_reset = 1;
- 
- 	/* SerDes power up and power down are done in BIOS for ADL */
- 
--- 
-2.25.1
-
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
