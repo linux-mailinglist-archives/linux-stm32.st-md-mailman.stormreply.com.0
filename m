@@ -2,60 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30A2F3FB99C
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Aug 2021 18:03:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DB4A3FBAB1
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Aug 2021 19:14:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C438AC5A4D7;
-	Mon, 30 Aug 2021 16:03:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A52A8C5A4D9;
+	Mon, 30 Aug 2021 17:14:05 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD23FC57B51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD626C5A4D6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Aug 2021 16:03:15 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1308661039
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Aug 2021 16:03:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630339394;
- bh=aFevs/gSxbU10OD2HhmBmIy8lmlTrmGWeunJfZ8GXV4=;
- h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
- b=m2lWo3rrUt4CKtf+9F2RHi0LAvLDR2zr+nYw2qOLlFROMfazIHJUSBQ2RODMcrLCi
- pzQfitkSgwP1WJXPln2v8dn1uQJ2q+wfRUhgZJyRm18qEuds8+mYdqTboqvIdf+Gnc
- a4BTUmXO4/SkaUc8+GXU4aMi98MQ5kPd44a91lz4zWw+p2pitv8uVrAWtF7RFPapUA
- Eh/XkXZl59kLXE08NC8R2cnWZ8rufzCkM91fA3nPSBvo8tqYJDlSgUOZao+EXWjy15
- EboYQuQ5LkUOuRCJeXe7cq3/kwZ4dIFQnaekndyfxpXBsHJR1xjP87pkNRjPJsdOjz
- 2AC5wSIaP7m9g==
-Received: by mail-lf1-f44.google.com with SMTP id j4so32214276lfg.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Aug 2021 09:03:13 -0700 (PDT)
-X-Gm-Message-State: AOAM530V2RW0BBvFQECje+SzFeNgi5laKLyWrwSWK6G2Wcw8UJV5SEVO
- coH1+YTxSHoUH67YeXPwWES/bwlzthfCdnBr+2Q=
-X-Google-Smtp-Source: ABdhPJx2X93KAB+EVeQrnZM2DurW5sWa6kSM/wqlVkgAZbsxt9UtjBf99dzVD1xur/X4iU/kpcebwmpmAENY8zMU9po=
-X-Received: by 2002:a05:6512:3f89:: with SMTP id
- x9mr18217622lfa.233.1630339392410; 
- Mon, 30 Aug 2021 09:03:12 -0700 (PDT)
+ Mon, 30 Aug 2021 17:14:02 +0000 (UTC)
+Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 88C5860F57;
+ Mon, 30 Aug 2021 17:13:55 +0000 (UTC)
+Date: Mon, 30 Aug 2021 18:17:06 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>
+Message-ID: <20210830181706.74e45cb8@jic23-huawei>
+In-Reply-To: <cover.1630031207.git.vilhelm.gray@gmail.com>
+References: <cover.1630031207.git.vilhelm.gray@gmail.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <20210823143754.14294-1-michael.riesch@wolfvision.net>
- <CAGb2v67Duk_56fOKVwZsYn2HKJ99o8WJ+d4jetD2UjDsAt9BcA@mail.gmail.com>
- <568a0825-ed65-58d7-9c9c-cecb481cf9d9@wolfvision.net>
-In-Reply-To: <568a0825-ed65-58d7-9c9c-cecb481cf9d9@wolfvision.net>
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 31 Aug 2021 00:03:00 +0800
-X-Gmail-Original-Message-ID: <CAGb2v658bD91LereM-Mc-2usEq-RH=pn_8bR9fEgmDUqpi5OoQ@mail.gmail.com>
-Message-ID: <CAGb2v658bD91LereM-Mc-2usEq-RH=pn_8bR9fEgmDUqpi5OoQ@mail.gmail.com>
-To: Michael Riesch <michael.riesch@wolfvision.net>
-Cc: Sasha Levin <sashal@kernel.org>, "David S . Miller" <davem@davemloft.net>,
- netdev <netdev@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-rk: fix unbalanced
-	pm_runtime_enable warnings
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v16 00/14] Introduce the Counter character
+ device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,79 +47,117 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: wens@kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+On Fri, 27 Aug 2021 12:47:44 +0900
+William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
 
-On Mon, Aug 30, 2021 at 3:57 PM Michael Riesch
-<michael.riesch@wolfvision.net> wrote:
->
-> Hi ChenYu,
->
-> On 8/29/21 7:48 PM, Chen-Yu Tsai wrote:
-> > Hi,
-> >
-> > On Mon, Aug 23, 2021 at 10:39 PM Michael Riesch
-> > <michael.riesch@wolfvision.net> wrote:
-> >>
-> >> This reverts commit 2c896fb02e7f65299646f295a007bda043e0f382
-> >> "net: stmmac: dwmac-rk: add pd_gmac support for rk3399" and fixes
-> >> unbalanced pm_runtime_enable warnings.
-> >>
-> >> In the commit to be reverted, support for power management was
-> >> introduced to the Rockchip glue code. Later, power management support
-> >> was introduced to the stmmac core code, resulting in multiple
-> >> invocations of pm_runtime_{enable,disable,get_sync,put_sync}.
-> >>
-> >> The multiple invocations happen in rk_gmac_powerup and
-> >> stmmac_{dvr_probe, resume} as well as in rk_gmac_powerdown and
-> >> stmmac_{dvr_remove, suspend}, respectively, which are always called
-> >> in conjunction.
-> >>
-> >> Signed-off-by: Michael Riesch <michael.riesch@wolfvision.net>
-> >
-> > I just found that Ethernet stopped working on my RK3399 devices,
-> > and I bisected it down to this patch.
->
-> Oh dear. First patch in a kernel release for a while and I already break
-> things.
->
-> Cc: Sasha as this patch has just been applied to 5.13-stable.
->
-> > The symptom I see is no DHCP responses, either because the request
-> > isn't getting sent over the wire, or the response isn't getting
-> > received. The PHY seems to be working correctly.
->
-> Unfortunately I don't have any RK3399 hardware. Is this a custom
-> board/special hardware or something that is readily available in the
-> shops? Maybe this is a good reason to buy a RK3399 based single-board
-> computer :-)
+> Changes in v16:
+>  - Define magic numbers for stm32-lptimer-cnt clock polarities
+>  - Define magic numbers for stm32-timer-cnt encoder modes
+>  - Bump KernelVersion to 5.16 in sysfs-bus-counter ABI documentation
+>  - Fix typos in driver API generic-counter.rst documentation file
+> 
+> For convenience, this patchset is also available on my personal git
+> repo: https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v16
+> 
+> The patches preceding "counter: Internalize sysfs interface code" are
+> primarily cleanup and fixes that can be picked up and applied now to the
+> IIO tree if so desired. The "counter: Internalize sysfs interface code"
+> patch as well may be considered for pickup because it is relatively safe
+> and makes no changes to the userspace interface.
+> 
+> To summarize the main points of this patchset: there are no changes to
+> the existing Counter sysfs userspace interface; a Counter character
+> device interface is introduced that allows Counter events and associated
+> data to be read() by userspace; the events_configure() and
+> watch_validate() driver callbacks are introduced to support Counter
+> events; and IRQ support is added to the 104-QUAD-8 driver, serving as an
+> example of how to support the new Counter events functionality.
 
-I hit this on an ROC-RK3399-PC first, then bisected it on a NanoPi M4V2.
-They both should be easy to get from their respective vendors. AFAIK
-all the RK3399 devices have pretty much the same setup for Ethernet.
+Hi William,
 
-BTW, Don't get the Nanopi in the M4V2 variant. Get the original M4, or
-the M4B (but the WiFi on the M4B doesn't seem to work lately).
+I'll aim to pick up the first part in a week (too tired today after a lot
+of reviewing to even manage the basic sanity check on the changes).
 
-> I am working on the RK3568 EVB1 and have not encountered faulty
-> behavior. DHCP works fine and I can boot via NFS. Therefore, not sure
-> whether I can be much of help in this matter, but in case you want to
-> discuss this further please do not hesitate to contact me off-list.
+For the rest...
 
-My gut is telling me (without looking at the code) that maybe the GRF
-access was not going through, and so the RGMII delays and stuff weren't
-set properly, hence no traffic getting to/from the PHY. Otherwise there
-were no error messages. I don't think I'll be able to squeeze out more
-cycles to track down what actually went wrong though.
+What I'd really like to know is if anyone other than William and I is planning
+to review them in depth? (particularly 7 and 8 which are the new interface
+patch and docs)
 
+So if anyone reading this is in that category please let me know.  We can wait,
+but conversely if no one is going to get time / inclination to do it then I
+don't want to hold these up any longer and maximum time in linux-next may
+be more useful than sitting unloved on the mailing list.
 
-Regards
-ChenYu
+Jonathan
+
+> 
+> William Breathitt Gray (14):
+>   counter: stm32-lptimer-cnt: Provide defines for clock polarities
+>   counter: stm32-timer-cnt: Provide defines for slave mode selection
+>   counter: Internalize sysfs interface code
+>   counter: Update counter.h comments to reflect sysfs internalization
+>   docs: counter: Update to reflect sysfs internalization
+>   counter: Move counter enums to uapi header
+>   counter: Add character device interface
+>   docs: counter: Document character device interface
+>   tools/counter: Create Counter tools
+>   counter: Implement signalZ_action_component_id sysfs attribute
+>   counter: Implement *_component_id sysfs attributes
+>   counter: Implement events_queue_size sysfs attribute
+>   counter: 104-quad-8: Replace mutex with spinlock
+>   counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
+> 
+>  Documentation/ABI/testing/sysfs-bus-counter   |   38 +-
+>  Documentation/driver-api/generic-counter.rst  |  358 +++-
+>  .../userspace-api/ioctl/ioctl-number.rst      |    1 +
+>  MAINTAINERS                                   |    3 +-
+>  drivers/counter/104-quad-8.c                  |  699 ++++----
+>  drivers/counter/Kconfig                       |    6 +-
+>  drivers/counter/Makefile                      |    1 +
+>  drivers/counter/counter-chrdev.c              |  553 ++++++
+>  drivers/counter/counter-chrdev.h              |   14 +
+>  drivers/counter/counter-core.c                |  191 +++
+>  drivers/counter/counter-sysfs.c               |  960 +++++++++++
+>  drivers/counter/counter-sysfs.h               |   13 +
+>  drivers/counter/counter.c                     | 1496 -----------------
+>  drivers/counter/ftm-quaddec.c                 |   60 +-
+>  drivers/counter/intel-qep.c                   |  144 +-
+>  drivers/counter/interrupt-cnt.c               |   62 +-
+>  drivers/counter/microchip-tcb-capture.c       |   91 +-
+>  drivers/counter/stm32-lptimer-cnt.c           |  212 ++-
+>  drivers/counter/stm32-timer-cnt.c             |  195 +--
+>  drivers/counter/ti-eqep.c                     |  180 +-
+>  include/linux/counter.h                       |  715 ++++----
+>  include/linux/counter_enum.h                  |   45 -
+>  include/linux/mfd/stm32-lptimer.h             |    5 +
+>  include/linux/mfd/stm32-timers.h              |    4 +
+>  include/uapi/linux/counter.h                  |  154 ++
+>  tools/Makefile                                |   13 +-
+>  tools/counter/Build                           |    1 +
+>  tools/counter/Makefile                        |   53 +
+>  tools/counter/counter_example.c               |   93 +
+>  29 files changed, 3569 insertions(+), 2791 deletions(-)
+>  create mode 100644 drivers/counter/counter-chrdev.c
+>  create mode 100644 drivers/counter/counter-chrdev.h
+>  create mode 100644 drivers/counter/counter-core.c
+>  create mode 100644 drivers/counter/counter-sysfs.c
+>  create mode 100644 drivers/counter/counter-sysfs.h
+>  delete mode 100644 drivers/counter/counter.c
+>  delete mode 100644 include/linux/counter_enum.h
+>  create mode 100644 include/uapi/linux/counter.h
+>  create mode 100644 tools/counter/Build
+>  create mode 100644 tools/counter/Makefile
+>  create mode 100644 tools/counter/counter_example.c
+> 
+> 
+> base-commit: 5ffeb17c0d3dd44704b4aee83e297ec07666e4d6
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
