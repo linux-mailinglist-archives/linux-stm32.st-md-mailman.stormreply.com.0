@@ -2,46 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76E413FC078
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Aug 2021 03:25:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9E833FC878
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Aug 2021 15:40:45 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F45CC5A4D9;
-	Tue, 31 Aug 2021 01:25:48 +0000 (UTC)
-Received: from qq.com (smtpbg558.qq.com [183.3.226.228])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D626C57B7A;
+	Tue, 31 Aug 2021 13:40:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AE71C5A4D6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0AE99C424AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Aug 2021 01:25:44 +0000 (UTC)
-X-QQ-mid: bizesmtp32t1630373126teomyjyj
-Received: from localhost.localdomain (unknown [124.126.19.250])
- by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 31 Aug 2021 09:25:25 +0800 (CST)
-X-QQ-SSF: 0140000000200070D000B00A0000000
-X-QQ-FEAT: QX/rXDl9P1ur4thuaXke1KHxASVcRttKMr8SgRrWrHJ7vdSYee+STb7rwRvNS
- sSioNxtoNRvQdXaHdt/gZP7ep3cLZ+2mSc+TLLDhu+PJRkPnr/3b6me1qCR+Ft/sr7JOmCx
- ClRCMfbOCyqe8Mp+C1wt3z+xvjjxhapaVFVsPC+a03iFM6qMDX+4ARgI+FYShyrep2X3N3J
- igw08sXbMgoIypheYtzNk6gSadWhe8Yi7n5SWtXP0mAGVGp2TUWR+pCJ9Psdgfg0saf3ydE
- q+laIH+nK1uVbouPXdkNK/TWoAzcJ7cDssXQbaxkGtxdCJ0v01SVMeHmEzgiH7k4/O2sWEb
- oOvOrI5
-X-QQ-GoodBg: 2
-From: zhaoxiao <zhaoxiao@uniontech.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	mcoquelin.stm32@gmail.com
-Date: Tue, 31 Aug 2021 09:25:23 +0800
-Message-Id: <20210831012523.2691-1-zhaoxiao@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ Tue, 31 Aug 2021 13:40:32 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 17V923tF014249;
+ Tue, 31 Aug 2021 15:39:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=7TWD+I2wmEXOmT9BAsUP1oRCwO+F14w5H0sbol1tPM0=;
+ b=GKm6shn98d6ivZJO4J1igf5qaGP/Grc7aFiFfP7e0KzbQtmH6CsDEos2UgkI6/+MmR7f
+ PVeynkBbLlk9XbwWU5BIqSiDli9bFWukWfTfx8L1bjuMMHx8UIkmgYR+4rxtbOLNjP0I
+ f3lET4OVSlEJ4P2++7ZcWzUda5hURORDBs1c68AcoM6GRSwASN8Q2PzkzZ+hv0NP/9k4
+ 4XZqdnv7h07XNLR9vMsOwEn4Qi+/iiMPSUHwPQqTtgbtrDsv+Jx6gdZtDwtPyRyQQ6on
+ t82JG+oB1DTs4cGRIGr4BOAnxsDnvyPbrSfRG+yotOvZZ4DVd0G0EnysjRO9ct4J8D2S RA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3asheh1h64-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 31 Aug 2021 15:39:16 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4AFA510002A;
+ Tue, 31 Aug 2021 15:39:13 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 22513246929;
+ Tue, 31 Aug 2021 15:39:13 +0200 (CEST)
+Received: from [10.211.11.146] (10.75.127.46) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 31 Aug
+ 2021 15:39:11 +0200
+To: William Breathitt Gray <vilhelm.gray@gmail.com>, <jic23@kernel.org>
+References: <cover.1630031207.git.vilhelm.gray@gmail.com>
+ <a111c8905c467805ca530728f88189b59430f27e.1630031207.git.vilhelm.gray@gmail.com>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <ec80f7a8-5f2e-522f-6a66-ab25092618c2@foss.st.com>
+Date: Tue, 31 Aug 2021 15:38:50 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
-X-QQ-Bgrelay: 1
-Cc: zhaoxiao <zhaoxiao@uniontech.com>, netdev@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- joabreu@synopsys.com, peppe.cavallaro@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3] stmmac: dwmac-loongson: change the
-	pr_info() to dev_err() in loongson_dwmac_probe()
+In-Reply-To: <a111c8905c467805ca530728f88189b59430f27e.1630031207.git.vilhelm.gray@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE3.st.com
+ (10.75.127.6)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-08-31_05,2021-08-31_01,2020-04-07_01
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v16 01/14] counter: stm32-lptimer-cnt:
+ Provide defines for clock polarities
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,40 +82,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Change the pr_info to dev_err.
-
-Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
----
-v3:Remove the redundant blank line.
- drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-index 4c9a37dd0d3f..f03f25d9adb0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-@@ -54,14 +54,13 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
- 	bool mdio = false;
- 
- 	np = dev_of_node(&pdev->dev);
--
- 	if (!np) {
--		pr_info("dwmac_loongson_pci: No OF node\n");
-+		dev_err(&pdev->dev, "dwmac_loongson_pci: No OF node\n");
- 		return -ENODEV;
- 	}
- 
- 	if (!of_device_is_compatible(np, "loongson, pci-gmac")) {
--		pr_info("dwmac_loongson_pci: Incompatible OF node\n");
-+		dev_err(&pdev->dev, "dwmac_loongson_pci: Incompatible OF node\n");
- 		return -ENODEV;
- 	}
- 
--- 
-2.20.1
 
 
+On 8/27/21 5:47 AM, William Breathitt Gray wrote:
+> The STM32 low-power timer permits configuration of the clock polarity
+> via the LPTIMX_CFGR register CKPOL bits. This patch provides
+> preprocessor defines for the supported clock polarities.
+> 
+> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> ---
+>  drivers/counter/stm32-lptimer-cnt.c | 6 +++---
+>  include/linux/mfd/stm32-lptimer.h   | 5 +++++
+>  2 files changed, 8 insertions(+), 3 deletions(-)
 
+Hi William,
+
+You can add my:
+Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+Thanks,
+Fabrice
+
+> 
+> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+> index 13656957c45f..7367f46c6f91 100644
+> --- a/drivers/counter/stm32-lptimer-cnt.c
+> +++ b/drivers/counter/stm32-lptimer-cnt.c
+> @@ -140,9 +140,9 @@ static const enum counter_function stm32_lptim_cnt_functions[] = {
+>  };
+>  
+>  enum stm32_lptim_synapse_action {
+> -	STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE,
+> -	STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE,
+> -	STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES,
+> +	STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE = STM32_LPTIM_CKPOL_RISING_EDGE,
+> +	STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE = STM32_LPTIM_CKPOL_FALLING_EDGE,
+> +	STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES = STM32_LPTIM_CKPOL_BOTH_EDGES,
+>  	STM32_LPTIM_SYNAPSE_ACTION_NONE,
+>  };
+>  
+> diff --git a/include/linux/mfd/stm32-lptimer.h b/include/linux/mfd/stm32-lptimer.h
+> index 90b20550c1c8..06d3f11dc3c9 100644
+> --- a/include/linux/mfd/stm32-lptimer.h
+> +++ b/include/linux/mfd/stm32-lptimer.h
+> @@ -45,6 +45,11 @@
+>  #define STM32_LPTIM_PRESC	GENMASK(11, 9)
+>  #define STM32_LPTIM_CKPOL	GENMASK(2, 1)
+>  
+> +/* STM32_LPTIM_CKPOL */
+> +#define STM32_LPTIM_CKPOL_RISING_EDGE	0
+> +#define STM32_LPTIM_CKPOL_FALLING_EDGE	1
+> +#define STM32_LPTIM_CKPOL_BOTH_EDGES	2
+> +
+>  /* STM32_LPTIM_ARR */
+>  #define STM32_LPTIM_MAX_ARR	0xFFFF
+>  
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
