@@ -2,50 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC32E3FBCD4
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Aug 2021 21:22:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76E413FC078
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Aug 2021 03:25:48 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77641C5A4D9;
-	Mon, 30 Aug 2021 19:22:33 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F45CC5A4D9;
+	Tue, 31 Aug 2021 01:25:48 +0000 (UTC)
+Received: from qq.com (smtpbg558.qq.com [183.3.226.228])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 638F3C5A4D6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AE71C5A4D6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Aug 2021 19:22:32 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A2D0A60ED6;
- Mon, 30 Aug 2021 19:22:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1630351350;
- bh=bD/PRX2r6uMy0nvYwzbiesOU91GqKICjrpxoivduALw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T19AiTfTnKyfwpgvpfv9IKG7CwFyVDnmV/mPUC0e6TOvWEVKVJ2wDB87Y1OSsUyfp
- KC0MT9n/MLMFT5iuHKDdyH/VntBfk1Jg5XJPrY0Jqz9VxRx2/HKQr7OmSRlCfjDqu0
- EmDjt9STRLwjYp4e9OssvkLkc5066zWAv58kfEt5NbMFmDshc7TJQjCBRHy0rOYc/t
- VgbS7EXNoOCRPvoJE8BAXvc2vkcdFwDkMDeQjovoP2al0ihfkyj48q6/OM78wjy8km
- SDqeV1LuqJ57ECSpg9ZCWsGehI/lfAYSC/s7DY5rIax/0tgbyi0Z2jHbAZm+jpfKzt
- cdwLBElFdT3Hw==
-Date: Mon, 30 Aug 2021 15:22:29 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Michael Riesch <michael.riesch@wolfvision.net>
-Message-ID: <YS0v9UbzoHkiU9om@sashalap>
-References: <20210823143754.14294-1-michael.riesch@wolfvision.net>
- <CAGb2v67Duk_56fOKVwZsYn2HKJ99o8WJ+d4jetD2UjDsAt9BcA@mail.gmail.com>
- <568a0825-ed65-58d7-9c9c-cecb481cf9d9@wolfvision.net>
+ Tue, 31 Aug 2021 01:25:44 +0000 (UTC)
+X-QQ-mid: bizesmtp32t1630373126teomyjyj
+Received: from localhost.localdomain (unknown [124.126.19.250])
+ by esmtp6.qq.com (ESMTP) with 
+ id ; Tue, 31 Aug 2021 09:25:25 +0800 (CST)
+X-QQ-SSF: 0140000000200070D000B00A0000000
+X-QQ-FEAT: QX/rXDl9P1ur4thuaXke1KHxASVcRttKMr8SgRrWrHJ7vdSYee+STb7rwRvNS
+ sSioNxtoNRvQdXaHdt/gZP7ep3cLZ+2mSc+TLLDhu+PJRkPnr/3b6me1qCR+Ft/sr7JOmCx
+ ClRCMfbOCyqe8Mp+C1wt3z+xvjjxhapaVFVsPC+a03iFM6qMDX+4ARgI+FYShyrep2X3N3J
+ igw08sXbMgoIypheYtzNk6gSadWhe8Yi7n5SWtXP0mAGVGp2TUWR+pCJ9Psdgfg0saf3ydE
+ q+laIH+nK1uVbouPXdkNK/TWoAzcJ7cDssXQbaxkGtxdCJ0v01SVMeHmEzgiH7k4/O2sWEb
+ oOvOrI5
+X-QQ-GoodBg: 2
+From: zhaoxiao <zhaoxiao@uniontech.com>
+To: davem@davemloft.net,
+	kuba@kernel.org,
+	mcoquelin.stm32@gmail.com
+Date: Tue, 31 Aug 2021 09:25:23 +0800
+Message-Id: <20210831012523.2691-1-zhaoxiao@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <568a0825-ed65-58d7-9c9c-cecb481cf9d9@wolfvision.net>
-Cc: "David S . Miller" <davem@davemloft.net>, netdev <netdev@vger.kernel.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- wens@kernel.org, "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-rk: fix unbalanced
- pm_runtime_enable warnings
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
+X-QQ-Bgrelay: 1
+Cc: zhaoxiao <zhaoxiao@uniontech.com>, netdev@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
+ joabreu@synopsys.com, peppe.cavallaro@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3] stmmac: dwmac-loongson: change the
+	pr_info() to dev_err() in loongson_dwmac_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,49 +53,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Aug 30, 2021 at 09:57:51AM +0200, Michael Riesch wrote:
->Hi ChenYu,
->
->On 8/29/21 7:48 PM, Chen-Yu Tsai wrote:
->> Hi,
->>
->> On Mon, Aug 23, 2021 at 10:39 PM Michael Riesch
->> <michael.riesch@wolfvision.net> wrote:
->>>
->>> This reverts commit 2c896fb02e7f65299646f295a007bda043e0f382
->>> "net: stmmac: dwmac-rk: add pd_gmac support for rk3399" and fixes
->>> unbalanced pm_runtime_enable warnings.
->>>
->>> In the commit to be reverted, support for power management was
->>> introduced to the Rockchip glue code. Later, power management support
->>> was introduced to the stmmac core code, resulting in multiple
->>> invocations of pm_runtime_{enable,disable,get_sync,put_sync}.
->>>
->>> The multiple invocations happen in rk_gmac_powerup and
->>> stmmac_{dvr_probe, resume} as well as in rk_gmac_powerdown and
->>> stmmac_{dvr_remove, suspend}, respectively, which are always called
->>> in conjunction.
->>>
->>> Signed-off-by: Michael Riesch <michael.riesch@wolfvision.net>
->>
->> I just found that Ethernet stopped working on my RK3399 devices,
->> and I bisected it down to this patch.
->
->Oh dear. First patch in a kernel release for a while and I already break
->things.
->
->Cc: Sasha as this patch has just been applied to 5.13-stable.
+Change the pr_info to dev_err.
 
-I'll drop it for now, thanks for letting me know!
+Signed-off-by: zhaoxiao <zhaoxiao@uniontech.com>
+---
+v3:Remove the redundant blank line.
+ drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+index 4c9a37dd0d3f..f03f25d9adb0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+@@ -54,14 +54,13 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
+ 	bool mdio = false;
+ 
+ 	np = dev_of_node(&pdev->dev);
+-
+ 	if (!np) {
+-		pr_info("dwmac_loongson_pci: No OF node\n");
++		dev_err(&pdev->dev, "dwmac_loongson_pci: No OF node\n");
+ 		return -ENODEV;
+ 	}
+ 
+ 	if (!of_device_is_compatible(np, "loongson, pci-gmac")) {
+-		pr_info("dwmac_loongson_pci: Incompatible OF node\n");
++		dev_err(&pdev->dev, "dwmac_loongson_pci: Incompatible OF node\n");
+ 		return -ENODEV;
+ 	}
+ 
 -- 
-Thanks,
-Sasha
+2.20.1
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
