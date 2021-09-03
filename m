@@ -2,47 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C68903FF8C7
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Sep 2021 04:07:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7CDE3FFC7C
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Sep 2021 10:59:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BC20C597AC;
-	Fri,  3 Sep 2021 02:07:28 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9518CC597AC;
+	Fri,  3 Sep 2021 08:59:16 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E81B0C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E0ABC57B51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Sep 2021 02:07:24 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10095"; a="304864081"
-X-IronPort-AV: E=Sophos;i="5.85,264,1624345200"; d="scan'208";a="304864081"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2021 19:07:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,264,1624345200"; d="scan'208";a="691781879"
-Received: from siang-ilbpg0.png.intel.com ([10.88.227.28])
- by fmsmga005.fm.intel.com with ESMTP; 02 Sep 2021 19:07:18 -0700
-From: Song Yoong Siang <yoong.siang.song@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>
-Date: Fri,  3 Sep 2021 10:00:26 +0800
-Message-Id: <20210903020026.1381962-1-yoong.siang.song@intel.com>
-X-Mailer: git-send-email 2.25.1
+ Fri,  3 Sep 2021 08:59:13 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 1833290T018635;
+ Fri, 3 Sep 2021 10:59:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : content-type : content-transfer-encoding :
+ mime-version; s=selector1;
+ bh=qM6nfM/EQ+UgFxZBd6dlp2Ha4xEUW6TRbVAtokg2X2s=;
+ b=ePQj1vC88JM3ZPaQCo5XCFZhPkzgjogostt1fubgdPRjB54rqvt4jnAV6ejilLbTNhH3
+ sd8rxWuMFqM93Js48u/g0okGewme5rgmW4Zfos21RPDpBLqnaDv6zm2mzfwb8o23rQu0
+ P+OF/4IRAJNFT6MGpgWR9lNm7M2ZANOEAM9lKrs/9SwT19kdzsZKM8qoUhvwA4JCAduF
+ c3mBfJk1pwtIlXHMvNhkvwjl+8OJSq49fr4ZyiivJDBkjAl0MDuifxFJiAoPp1RUeBOI
+ 5fo5EeY0s343/NiljZ+Z5Vo6U+4AfizwVOVCw/AzlQsaAszdoQEle1rROgFAFHVLUM9u kA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3aubessvup-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 03 Sep 2021 10:59:00 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A92B410002A;
+ Fri,  3 Sep 2021 10:58:57 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node3.st.com [10.75.127.6])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7A9752171FD;
+ Fri,  3 Sep 2021 10:58:57 +0200 (CEST)
+Received: from SFHDAG2NODE3.st.com (10.75.127.6) by SFHDAG2NODE3.st.com
+ (10.75.127.6) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 3 Sep
+ 2021 10:58:56 +0200
+Received: from SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c]) by
+ SFHDAG2NODE3.st.com ([fe80::31b3:13bf:2dbe:f64c%20]) with mapi id
+ 15.00.1497.015; Fri, 3 Sep 2021 10:58:56 +0200
+From: Raphael GALLAIS-POU - foss <raphael.gallais-pou@foss.st.com>
+To: Yannick FERTRE - foss <yannick.fertre@foss.st.com>, Philippe CORNU - foss
+ <philippe.cornu@foss.st.com>, Benjamin Gaignard
+ <benjamin.gaignard@linaro.org>
+Thread-Topic: [PATCH] drm/stm: ltdc: add layer alpha support
+Thread-Index: AQHXoKHtnlZSU/d2YES0y3Gmjn+IKg==
+Date: Fri, 3 Sep 2021 08:58:56 +0000
+Message-ID: <20210903085740.23108-1-raphael.gallais-pou@foss.st.com>
+Accept-Language: fr-FR, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.46]
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 1/1] net: stmmac: Fix overall budget
-	calculation for rxtx_napi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-03_02,2021-09-03_01,2020-04-07_01
+Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Raphael GALLAIS-POU <raphael.gallais-pou@st.com>,
+ Alexandre TORGUE - foss <alexandre.torgue@foss.st.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH] drm/stm: ltdc: add layer alpha support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,89 +88,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-tx_done is not used for napi_complete_done(). Thus, NAPI busy polling
-mechanism by gro_flush_timeout and napi_defer_hard_irqs will not able
-be triggered after a packet is transmitted when there is no receive
-packet.
+Android Hardware Composer supports alpha values applied to layers.
+Enabling non-opaque layers for the STM CRTC could help offload GPU
+resources for screen composition.
 
-Fix this by taking the maximum value between tx_done and rx_done as
-overall budget completed by the rxtx NAPI poll to ensure XDP Tx ZC
-operation is continuously polling for next Tx frame. This gives
-benefit of lower packet submission processing latency and jitter
-under XDP Tx ZC mode.
-
-Performance of tx-only using xdp-sock on Intel ADL-S platform is
-the same with and without this patch.
-
-root@intel-corei7-64:~# ./xdpsock -i enp0s30f4 -t -z -q 1 -n 10
- sock0@enp0s30f4:1 txonly xdp-drv
-                   pps            pkts           10.00
-rx                 0              0
-tx                 511630         8659520
-
- sock0@enp0s30f4:1 txonly xdp-drv
-                   pps            pkts           10.00
-rx                 0              0
-tx                 511625         13775808
-
- sock0@enp0s30f4:1 txonly xdp-drv
-                   pps            pkts           10.00
-rx                 0              0
-tx                 511619         18892032
-
-Fixes: 132c32ee5bc0 ("net: stmmac: Add TX via XDP zero-copy socket")
-Cc: <stable@vger.kernel.org> # 5.13.x
-Co-developed-by: Ong Boon Leong <boon.leong.ong@intel.com>
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
-Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
+Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/stm/ltdc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index ed0cd3920171..97238359e101 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5347,7 +5347,7 @@ static int stmmac_napi_poll_rxtx(struct napi_struct *napi, int budget)
- 	struct stmmac_channel *ch =
- 		container_of(napi, struct stmmac_channel, rxtx_napi);
- 	struct stmmac_priv *priv = ch->priv_data;
--	int rx_done, tx_done;
-+	int rx_done, tx_done, rxtx_done;
- 	u32 chan = ch->index;
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 195de30eb90c..e0fef8bacfa8 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -845,7 +845,7 @@ static void ltdc_plane_atomic_update(struct drm_plane *plane,
+ 			LXCFBLR_CFBLL | LXCFBLR_CFBP, val);
  
- 	priv->xstats.napi_poll++;
-@@ -5357,14 +5357,16 @@ static int stmmac_napi_poll_rxtx(struct napi_struct *napi, int budget)
+ 	/* Specifies the constant alpha value */
+-	val = CONSTA_MAX;
++	val = newstate->alpha >> 8;
+ 	reg_update_bits(ldev->regs, LTDC_L1CACR + lofs, LXCACR_CONSTA, val);
  
- 	rx_done = stmmac_rx_zc(priv, budget, chan);
+ 	/* Specifies the blending factors */
+@@ -997,6 +997,8 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
  
-+	rxtx_done = max(tx_done, rx_done);
+ 	drm_plane_helper_add(plane, &ltdc_plane_helper_funcs);
+ 
++	drm_plane_create_alpha_property(plane);
 +
- 	/* If either TX or RX work is not complete, return budget
- 	 * and keep pooling
- 	 */
--	if (tx_done >= budget || rx_done >= budget)
-+	if (rxtx_done >= budget)
- 		return budget;
+ 	DRM_DEBUG_DRIVER("plane:%d created\n", plane->base.id);
  
- 	/* all work done, exit the polling mode */
--	if (napi_complete_done(napi, rx_done)) {
-+	if (napi_complete_done(napi, rxtx_done)) {
- 		unsigned long flags;
- 
- 		spin_lock_irqsave(&ch->lock, flags);
-@@ -5375,7 +5377,7 @@ static int stmmac_napi_poll_rxtx(struct napi_struct *napi, int budget)
- 		spin_unlock_irqrestore(&ch->lock, flags);
- 	}
- 
--	return min(rx_done, budget - 1);
-+	return min(rxtx_done, budget - 1);
- }
- 
- /**
+ 	return plane;
 -- 
-2.25.1
-
+2.17.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
