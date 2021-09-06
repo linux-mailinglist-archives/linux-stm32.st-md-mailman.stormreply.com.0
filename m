@@ -2,66 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6017A4016F7
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Sep 2021 09:31:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF91E401B1B
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Sep 2021 14:24:10 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C9A1C59783;
-	Mon,  6 Sep 2021 07:31:07 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8288C59783;
+	Mon,  6 Sep 2021 12:24:10 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D23A5C57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 621ACC5718F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Sep 2021 07:21:15 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id e7so3377157plh.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Sep 2021 00:21:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZIcr/6ZRbqQH3X7ecU0Oevl/GBI2TnFrWp3BjerTV2Y=;
- b=AsMDmlxdiu9IuKWP2c08amvI+a9DnAABdiJxgrfxdTs3xg454ApRz5tVIgXiajwRzT
- 2cUeMxseKavGtZeHfTe+Hqy1LNcpigQc4s9InO0Z3IK99Vc2NlYvWoavee6b+cyHRuqj
- 5aZbJZKx8Bq8RqRP6rlHunDAwDcFKzimwrGoXXBkBJOa3TeiuqdKVpUr2L4LSSEx3b4B
- q25Gvfs4yoyLVIwwfiSpFJ6z83mxqmaW4NL0WPX7j1/gnz8m3bFKct8ZuSzW8UIQHmim
- Y+xWedbuyR6Xjqe/+YzDFrU719MElgFiObJRV0uxku3y8K7zFQwppY4xqQxnqECs7DWP
- /buw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ZIcr/6ZRbqQH3X7ecU0Oevl/GBI2TnFrWp3BjerTV2Y=;
- b=ZidUIIYwGS5WanyCYWP9Dqwwsn8ztAgcFkcmaresZXT48ujYl0OeNtouqbulkhLgtu
- FXp8W3BKHlOeLP6dbb7Ii7pWCqfyupMMtOVlaKHx8fPqN8gF9AaWvrwcPST50mwdlfRh
- 7eG+PV3S1tYqS8Vht/cD84Rze1Gkywinajg8iR/6Z7gZmGkGJl8TJd6nBk4rk6TyOFo6
- EHPtSqoGInk1scdjzC13RElx7R210ylEHUYNIBeppzXqiFQjMayMxwDgbzUXgDyyVbUW
- EKFaYzxOjQSg0tRd0Nx3WnvVXgpj2QdGpmyYDZa38GouyHZRYKULQNK+92mIS/JJtvLy
- quVQ==
-X-Gm-Message-State: AOAM531OKaExECzHLwmS3VvoL5PHhXnlQeCfyy+hLCcgLqPVys5XZlnY
- Fjo98dNK3Lw9zqedhVTf+gA=
-X-Google-Smtp-Source: ABdhPJxaJzOu+ptHoWdAA1Zn4x5+cq67cLhzW32kK8JTeRlGIurgTODd4I4W91q9Oabq+DvRwmKxMA==
-X-Received: by 2002:a17:90b:4d09:: with SMTP id
- mw9mr11117532pjb.71.1630912873988; 
- Mon, 06 Sep 2021 00:21:13 -0700 (PDT)
-Received: from localhost.localdomain ([111.207.172.18])
- by smtp.gmail.com with ESMTPSA id w11sm7890885pgf.5.2021.09.06.00.21.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Sep 2021 00:21:13 -0700 (PDT)
-From: zhaoxiao <long870912@gmail.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	mcoquelin.stm32@gmail.com
-Date: Mon,  6 Sep 2021 15:21:07 +0800
-Message-Id: <20210906072107.10906-1-long870912@gmail.com>
-X-Mailer: git-send-email 2.20.1
+ Mon,  6 Sep 2021 12:24:08 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id D23AA60F45;
+ Mon,  6 Sep 2021 12:24:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1630931045;
+ bh=Zy6R3EZkqy/7oKKjFPZvaCgdsk/p/dmxINF1eormd2I=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=mobPM3FuHmPvktTp1XetDVVecmIwCeUfsHDs8j5oSSKxvo2JqTryi/bn+1d6a1vIj
+ uSMHzRYAvL+y36YcYNSjJYH8Z5IK3MEH8QVqtGIgmHpHPTe//3D70lYo/KnnGkKL/3
+ AbdKVXL/TOc/aH9Y2B/Ua55wXVcH1g2pE+KuqUyGU2aVqpkqZ81ytcGEzcWX8NyBBy
+ 8lfvP41sJxZdxfFTOY3Q58B4TofqImwr8yLj+oH6cULSwzrLbNlqgx2Mp8A89/scDT
+ ZA50tobH/qFBtF4eWP1e0JP3spgFNBMTNiPedyOF2yJHk1+ooNQlYSbL0JqbnL/Cie
+ 8uRYYsacyFA+A==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id C544F60A37;
+ Mon,  6 Sep 2021 12:24:05 +0000 (UTC)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 06 Sep 2021 07:31:05 +0000
-Cc: netdev@vger.kernel.org, zhaoxiao <long870912@gmail.com>,
- alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- joabreu@synopsys.com, peppe.cavallaro@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] stmmac: dwmac-loongson:Fix missing return
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <163093104580.13830.7607505980479153914.git-patchwork-notify@kernel.org>
+Date: Mon, 06 Sep 2021 12:24:05 +0000
+References: <20210906072107.10906-1-long870912@gmail.com>
+In-Reply-To: <20210906072107.10906-1-long870912@gmail.com>
+To: zhaoxiao <long870912@gmail.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ kuba@kernel.org, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] stmmac: dwmac-loongson:Fix missing return
 	value
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -79,31 +58,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the return value when phy_mode < 0.
+Hello:
 
-Signed-off-by: zhaoxiao <long870912@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+This patch was applied to netdev/net.git (refs/heads/master):
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-index 4c9a37dd0d3f..ecf759ee1c9f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-@@ -109,8 +109,10 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
- 		plat->bus_id = pci_dev_id(pdev);
- 
- 	phy_mode = device_get_phy_mode(&pdev->dev);
--	if (phy_mode < 0)
-+	if (phy_mode < 0) {
- 		dev_err(&pdev->dev, "phy_mode not found\n");
-+		return phy_mode;
-+	}
- 
- 	plat->phy_interface = phy_mode;
- 	plat->interface = PHY_INTERFACE_MODE_GMII;
--- 
-2.20.1
+On Mon,  6 Sep 2021 15:21:07 +0800 you wrote:
+> Add the return value when phy_mode < 0.
+> 
+> Signed-off-by: zhaoxiao <long870912@gmail.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+
+Here is the summary with links:
+  - stmmac: dwmac-loongson:Fix missing return value
+    https://git.kernel.org/netdev/net/c/5289de5929d1
+
+You are awesome, thank you!
+--
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
