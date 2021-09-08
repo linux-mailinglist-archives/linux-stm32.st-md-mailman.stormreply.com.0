@@ -2,67 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64A38403CFF
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Sep 2021 17:55:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66D44403E53
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Sep 2021 19:27:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E46CC5A4D8;
-	Wed,  8 Sep 2021 15:55:47 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17370C597AA;
+	Wed,  8 Sep 2021 17:27:49 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD8DEC56630
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  8 Sep 2021 17:27:47 +0000 (UTC)
+Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3D9FC5A4F3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Sep 2021 15:55:45 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 188FpD5a007620;
- Wed, 8 Sep 2021 17:55:27 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=VvHoepqjh9lgy+RlZqlNBMzDEwzNhV8nbDRE6/jdGUs=;
- b=wF/aRBZuNKRNfEeIHceMBnp0PrCCs+NjScRJlEVrPYJs9+ERF2Pmd3BT787tdkjJ3NfN
- wtN8i/iwUbQTrMx0vV/AdIYQbmG/3b4/LbZyzTgXH8G0iXA149ff7DgsYH4w6vfMZRjP
- Z4GFmdNN6fv2WjlaW1dLKmijBkbhzc5LeEDW+tQzb0gDpTN5zHdnv1mbzPEWiApYZtIM
- KInl2Uizv+w9+egygmjgpSR6kAIr/n35py7Jm9kwvna5y3CKJXEwbjMZU6mmf4acQHxB
- Qo4QVCveBYsjfZscvEvsBJK2OqGX/mRKfpXb4YQbgAN/2hoarhlaO2W/332VbuFm25WJ Zw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3axt4majjh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Sep 2021 17:55:27 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 23E5610003B;
- Wed,  8 Sep 2021 17:55:26 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag1node3.st.com [10.75.127.3])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1416721F0A7;
- Wed,  8 Sep 2021 17:55:26 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SFHDAG1NODE3.st.com (10.75.127.3)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 8 Sep 2021 17:55:25
- +0200
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Arnaud Pouliquen
- <arnaud.pouliquen@foss.st.com>, Fabrice Gasnier <fabrice.gasnier@st.com>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Olivier Moysan
- <olivier.moysan@foss.st.com>, Rob Herring <robh+dt@kernel.org>
-Date: Wed, 8 Sep 2021 17:54:52 +0200
-Message-ID: <20210908155452.25458-8-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210908155452.25458-1-olivier.moysan@foss.st.com>
-References: <20210908155452.25458-1-olivier.moysan@foss.st.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 0F19A60EBA;
+ Wed,  8 Sep 2021 17:27:39 +0000 (UTC)
+Date: Wed, 8 Sep 2021 18:31:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <20210908183105.062869dd@jic23-huawei>
+In-Reply-To: <ec80f7a8-5f2e-522f-6a66-ab25092618c2@foss.st.com>
+References: <cover.1630031207.git.vilhelm.gray@gmail.com>
+ <a111c8905c467805ca530728f88189b59430f27e.1630031207.git.vilhelm.gray@gmail.com>
+ <ec80f7a8-5f2e-522f-6a66-ab25092618c2@foss.st.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG1NODE3.st.com
- (10.75.127.3)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-08_06,2021-09-07_02,2020-04-07_01
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 7/7] iio: adc: stm32-adc: use generic binding
-	for sample-time
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ alexandre.belloni@bootlin.com, linux-iio@vger.kernel.org,
+ patrick.havelange@essensium.com,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v16 01/14] counter: stm32-lptimer-cnt:
+ Provide defines for clock polarities
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,155 +55,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add st,min-sample-time-nsecs to channel generic binding.
-Sample time can be defined par channel node. If a channel
-is configured as differential, the same sample time applies
-for both inputs.
-Keep support of legacy st,min-sample-time-nsecs property
-for backward compatibility.
+On Tue, 31 Aug 2021 15:38:50 +0200
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
----
- drivers/iio/adc/stm32-adc.c | 75 +++++++++++++++++++++----------------
- 1 file changed, 43 insertions(+), 32 deletions(-)
+> On 8/27/21 5:47 AM, William Breathitt Gray wrote:
+> > The STM32 low-power timer permits configuration of the clock polarity
+> > via the LPTIMX_CFGR register CKPOL bits. This patch provides
+> > preprocessor defines for the supported clock polarities.
+> > 
+> > Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>
+> > ---
+> >  drivers/counter/stm32-lptimer-cnt.c | 6 +++---
+> >  include/linux/mfd/stm32-lptimer.h   | 5 +++++
+> >  2 files changed, 8 insertions(+), 3 deletions(-)  
+> 
+> Hi William,
+> 
+> You can add my:
+> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Applied to the togreg branch of iio.git and push out as testing for all the normal reasons
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 9e52a7de9b16..2d52415770b3 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -1806,6 +1806,14 @@ static void stm32_adc_smpr_init(struct stm32_adc *adc, int channel, u32 smp_ns)
- 	u32 period_ns, shift = smpr->shift, mask = smpr->mask;
- 	unsigned int smp, r = smpr->reg;
- 
-+	/*
-+	 * For vrefint channel, ensure that the sampling time cannot
-+	 * be lower than the one specified in the datasheet
-+	 */
-+	if (channel == adc->int_ch[STM32_ADC_INT_CH_VREFINT] &&
-+	    smp_ns < adc->cfg->ts_vrefint_ns)
-+		smp_ns = adc->cfg->ts_vrefint_ns;
-+
- 	/* Determine sampling time (ADC clock cycles) */
- 	period_ns = NSEC_PER_SEC / adc->common->rate;
- 	for (smp = 0; smp <= STM32_ADC_MAX_SMP; smp++)
-@@ -1884,6 +1892,13 @@ static int stm32_adc_get_legacy_chan_count(struct iio_dev *indio_dev, struct stm
- 		return -ENODATA;
- 	}
- 
-+	/* Optional sample time is provided either for each, or all channels */
-+	ret = of_property_count_u32_elems(node, "st,min-sample-time-nsecs");
-+	if (ret > 1 && ret != num_channels) {
-+		dev_err(&indio_dev->dev, "Invalid st,min-sample-time-nsecs\n");
-+		return -EINVAL;
-+	}
-+
- 	return num_channels;
- }
- 
-@@ -1899,6 +1914,7 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
- 	int scan_index = 0, val, ret, i;
- 	struct property *prop;
- 	const __be32 *cur;
-+	u32 smp = 0;
- 
- 	if (num_diff) {
- 		ret = of_property_read_u32_array(node, "st,adc-diff-channels",
-@@ -1941,6 +1957,19 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
- 		scan_index++;
- 	}
- 
-+	for (i = 0; i < scan_index; i++) {
-+		/*
-+		 * Using of_property_read_u32_index(), smp value will only be
-+		 * modified if valid u32 value can be decoded. This allows to
-+		 * get either no value, 1 shared value for all indexes, or one
-+		 * value per channel.
-+		 */
-+		of_property_read_u32_index(node, "st,min-sample-time-nsecs", i, &smp);
-+
-+		/* Prepare sampling time settings */
-+		stm32_adc_smpr_init(adc, channels[i].channel, smp);
-+	}
-+
- 	return scan_index;
- }
- 
-@@ -2035,6 +2064,19 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
- 
- 		stm32_adc_chan_init_one(indio_dev, &channels[scan_index], val,
- 					vin[1], scan_index, differential);
-+
-+		ret = of_property_read_u32(child, "st,min-sample-time-nsecs", &val);
-+		/* st,min-sample-time-nsecs is optional */
-+		if (!ret) {
-+			stm32_adc_smpr_init(adc, channels[scan_index].channel, val);
-+			if (vin[1])
-+				stm32_adc_smpr_init(adc, vin[1], val);
-+		} else if (ret != -EINVAL) {
-+			dev_err(&indio_dev->dev, "Invalid st,min-sample-time-nsecs property %d\n",
-+				ret);
-+			goto err;
-+		}
-+
- 		scan_index++;
- 	}
- 
-@@ -2052,8 +2094,7 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
- 	struct stm32_adc *adc = iio_priv(indio_dev);
- 	const struct stm32_adc_info *adc_info = adc->cfg->adc_info;
- 	struct iio_chan_spec *channels;
--	int scan_index = 0, num_channels = 0, ret, i;
--	u32 smp = 0;
-+	int scan_index = 0, num_channels = 0, ret;
- 	bool legacy = false;
- 
- 	num_channels = of_get_available_child_count(node);
-@@ -2077,13 +2118,6 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
- 		return -EINVAL;
- 	}
- 
--	/* Optional sample time is provided either for each, or all channels */
--	ret = of_property_count_u32_elems(node, "st,min-sample-time-nsecs");
--	if (ret > 1 && ret != num_channels) {
--		dev_err(&indio_dev->dev, "Invalid st,min-sample-time-nsecs\n");
--		return -EINVAL;
--	}
--
- 	if (timestamping)
- 		num_channels++;
- 
-@@ -2100,29 +2134,6 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
- 		return ret;
- 	scan_index = ret;
- 
--	for (i = 0; i < scan_index; i++) {
--		/*
--		 * Using of_property_read_u32_index(), smp value will only be
--		 * modified if valid u32 value can be decoded. This allows to
--		 * get either no value, 1 shared value for all indexes, or one
--		 * value per channel.
--		 */
--		of_property_read_u32_index(node, "st,min-sample-time-nsecs",
--					   i, &smp);
--
--		/*
--		 * For vrefint channel, ensure that the sampling time cannot
--		 * be lower than the one specified in the datasheet
--		 */
--		if (channels[i].channel == adc->int_ch[STM32_ADC_INT_CH_VREFINT] &&
--		    smp < adc->cfg->ts_vrefint_ns) {
--			smp = adc->cfg->ts_vrefint_ns;
--		}
--
--		/* Prepare sampling time settings */
--		stm32_adc_smpr_init(adc, channels[i].channel, smp);
--	}
--
- 	if (timestamping) {
- 		struct iio_chan_spec *timestamp = &channels[scan_index];
- 
--- 
-2.17.1
+> 
+> Thanks,
+> Fabrice
+> 
+> > 
+> > diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-lptimer-cnt.c
+> > index 13656957c45f..7367f46c6f91 100644
+> > --- a/drivers/counter/stm32-lptimer-cnt.c
+> > +++ b/drivers/counter/stm32-lptimer-cnt.c
+> > @@ -140,9 +140,9 @@ static const enum counter_function stm32_lptim_cnt_functions[] = {
+> >  };
+> >  
+> >  enum stm32_lptim_synapse_action {
+> > -	STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE,
+> > -	STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE,
+> > -	STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES,
+> > +	STM32_LPTIM_SYNAPSE_ACTION_RISING_EDGE = STM32_LPTIM_CKPOL_RISING_EDGE,
+> > +	STM32_LPTIM_SYNAPSE_ACTION_FALLING_EDGE = STM32_LPTIM_CKPOL_FALLING_EDGE,
+> > +	STM32_LPTIM_SYNAPSE_ACTION_BOTH_EDGES = STM32_LPTIM_CKPOL_BOTH_EDGES,
+> >  	STM32_LPTIM_SYNAPSE_ACTION_NONE,
+> >  };
+> >  
+> > diff --git a/include/linux/mfd/stm32-lptimer.h b/include/linux/mfd/stm32-lptimer.h
+> > index 90b20550c1c8..06d3f11dc3c9 100644
+> > --- a/include/linux/mfd/stm32-lptimer.h
+> > +++ b/include/linux/mfd/stm32-lptimer.h
+> > @@ -45,6 +45,11 @@
+> >  #define STM32_LPTIM_PRESC	GENMASK(11, 9)
+> >  #define STM32_LPTIM_CKPOL	GENMASK(2, 1)
+> >  
+> > +/* STM32_LPTIM_CKPOL */
+> > +#define STM32_LPTIM_CKPOL_RISING_EDGE	0
+> > +#define STM32_LPTIM_CKPOL_FALLING_EDGE	1
+> > +#define STM32_LPTIM_CKPOL_BOTH_EDGES	2
+> > +
+> >  /* STM32_LPTIM_ARR */
+> >  #define STM32_LPTIM_MAX_ARR	0xFFFF
+> >  
+> >   
 
 _______________________________________________
 Linux-stm32 mailing list
