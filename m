@@ -2,26 +2,26 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CB32403815
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Sep 2021 12:43:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD41E40380E
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Sep 2021 12:43:38 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19EC3C5AB65;
-	Wed,  8 Sep 2021 10:43:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FBBAC597AA;
+	Wed,  8 Sep 2021 10:43:38 +0000 (UTC)
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D234C5A4F3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18C6CC5A4D4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Sep 2021 06:04:17 +0000 (UTC)
-X-UUID: ddee44c10f494fd687a3621fc18d3176-20210908
-X-UUID: ddee44c10f494fd687a3621fc18d3176-20210908
+ Wed,  8 Sep 2021 06:04:16 +0000 (UTC)
+X-UUID: 513cd57298794fcb88ff9401aad957fa-20210908
+X-UUID: 513cd57298794fcb88ff9401aad957fa-20210908
 Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
  mailgw02.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 745494952; Wed, 08 Sep 2021 14:04:12 +0800
-Received: from mtkcas07.mediatek.inc (172.21.101.84) by mtkexhb02.mediatek.inc
- (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 8 Sep 2021 14:04:10 +0800
+ with ESMTP id 870570395; Wed, 08 Sep 2021 14:04:11 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs06n1.mediatek.inc (172.21.101.129) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Wed, 8 Sep 2021 14:04:10 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas07.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
  Frontend Transport; Wed, 8 Sep 2021 14:04:10 +0800
@@ -29,14 +29,14 @@ From: jason-jh.lin <jason-jh.lin@mediatek.com>
 To: Rob Herring <robh+dt@kernel.org>, Matthias Brugger
  <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp
  Zabel <p.zabel@pengutronix.de>
-Date: Wed, 8 Sep 2021 14:03:02 +0800
-Message-ID: <20210908060312.24007-8-jason-jh.lin@mediatek.com>
+Date: Wed, 8 Sep 2021 14:03:03 +0800
+Message-ID: <20210908060312.24007-9-jason-jh.lin@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 In-Reply-To: <20210908060312.24007-1-jason-jh.lin@mediatek.com>
 References: <20210908060312.24007-1-jason-jh.lin@mediatek.com>
 MIME-Version: 1.0
 X-MTK: N
-X-Mailman-Approved-At: Wed, 08 Sep 2021 10:43:36 +0000
+X-Mailman-Approved-At: Wed, 08 Sep 2021 10:43:35 +0000
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, fshao@chromium.org,
  David Airlie <airlied@linux.ie>, jason-jh.lin@mediatek.com,
@@ -46,8 +46,8 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Daniel Vetter <daniel@ffwll.ch>, hsinyi@chromium.org,
  Enric Balletbo i Serra <enric.balletbo@collabora.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v10 07/17] dt-bindings: display: mediatek:
-	merge: add additional prop for mt8195
+Subject: [Linux-stm32] [PATCH v10 08/17] dt-bindings: display: mediatek: add
+	mt8195 SoC binding for vdosys0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,68 +64,127 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-add MERGE additional properties description for mt8195:
-1. async clock
-2. fifo setting enable
-3. reset controller
+Add mt8195 SoC binding to AAL, CCORR, COLOR, DITHER, GAMMA, MERGE,
+OVL and RDMA yaml schema for vdosys0.
 
 Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
 ---
- .../display/mediatek/mediatek,merge.yaml      | 30 +++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ .../devicetree/bindings/display/mediatek/mediatek,aal.yaml   | 1 +
+ .../devicetree/bindings/display/mediatek/mediatek,ccorr.yaml | 5 +++++
+ .../devicetree/bindings/display/mediatek/mediatek,color.yaml | 1 +
+ .../bindings/display/mediatek/mediatek,dither.yaml           | 1 +
+ .../devicetree/bindings/display/mediatek/mediatek,gamma.yaml | 1 +
+ .../devicetree/bindings/display/mediatek/mediatek,merge.yaml | 2 ++
+ .../devicetree/bindings/display/mediatek/mediatek,ovl.yaml   | 5 +++++
+ .../devicetree/bindings/display/mediatek/mediatek,rdma.yaml  | 2 ++
+ 8 files changed, 18 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
+index 92a350ab9722..311bbf05a967 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
+@@ -28,6 +28,7 @@ properties:
+               - mediatek,mt2712-disp-aal
+               - mediatek,mt8183-disp-aal
+               - mediatek,mt8192-disp-aal
++              - mediatek,mt8195-disp-aal
+           - enum:
+               - mediatek,mt8173-disp-aal
+ 
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
+index 7840e12d4caf..60752ce45d49 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
+@@ -25,6 +25,11 @@ properties:
+           - const: mediatek,mt8183-disp-ccorr
+       - items:
+           - const: mediatek,mt8192-disp-ccorr
++      - items:
++          - enum:
++              - mediatek,mt8195-disp-ccorr
++          - enum:
++              - mediatek,mt8192-disp-ccorr
+ 
+   reg:
+     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
+index 7a249ba8584c..f6636869909c 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
+@@ -38,6 +38,7 @@ properties:
+           - enum:
+               - mediatek,mt8183-disp-color
+               - mediatek,mt8192-disp-color
++              - mediatek,mt8195-disp-color
+           - enum:
+               - mediatek,mt8173-disp-color
+   reg:
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
+index 316374315962..d4fa75bb19a3 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
+@@ -27,6 +27,7 @@ properties:
+       - items:
+           - enum:
+               - mediatek,mt8192-disp-dither
++              - mediatek,mt8195-disp-dither
+           - enum:
+               - mediatek,mt8183-disp-dither
+ 
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
+index 1c53ce20a71e..8ce612b016ab 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
+@@ -28,6 +28,7 @@ properties:
+       - items:
+           - enum:
+               - mediatek,mt8192-disp-gamma
++              - mediatek,mt8195-disp-gamma
+           - enum:
+               - mediatek,mt8183-disp-gamma
+ 
 diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml
-index 75beeb207ceb..0fe204d9ad2c 100644
+index 0fe204d9ad2c..5639650073b1 100644
 --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml
 +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml
-@@ -38,6 +38,19 @@ properties:
-   clocks:
-     items:
-       - description: MERGE Clock
-+      - description: MERGE Async Clock
-+          Controlling the synchronous process between MERGE and other display
-+          function blocks cross clock domain.
-+
-+  mediatek,merge-fifo-en:
-+    description:
-+      The setting of merge fifo is mainly provided for the display latency
-+      buffer to ensure that the back-end panel display data will not be
-+      underrun, a little more data is needed in the fifo.
-+      According to the merge fifo settings, when the water level is detected
-+      to be insufficient, it will trigger RDMA sending ultra and preulra
-+      command to SMI to speed up the data rate.
-+    type: boolean
+@@ -23,6 +23,8 @@ properties:
+     oneOf:
+       - items:
+           - const: mediatek,mt8173-disp-merge
++      - items:
++          - const: mediatek,mt8195-disp-merge
  
-   mediatek,gce-client-reg:
-     description:
-@@ -50,6 +63,10 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/phandle-array
+   reg:
      maxItems: 1
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+index 50552428150f..a6dbbd65166e 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+@@ -35,6 +35,11 @@ properties:
+               - mediatek,mt2712-disp-ovl
+           - enum:
+               - mediatek,mt2701-disp-ovl
++      - items:
++          - enum:
++              - mediatek,mt8195-disp-ovl
++          - enum:
++              - mediatek,mt8183-disp-ovl
  
-+  resets:
-+    description: reset controller
-+      See Documentation/devicetree/bindings/reset/reset.txt for details.
-+
- required:
-   - compatible
-   - reg
-@@ -67,3 +84,16 @@ examples:
-         power-domains = <&spm MT8173_POWER_DOMAIN_MM>;
-         clocks = <&mmsys CLK_MM_DISP_MERGE>;
-     };
-+
-+    merge5: disp_vpp_merge5@1c110000 {
-+        compatible = "mediatek,mt8195-disp-merge";
-+        reg = <0 0x1c110000 0 0x1000>;
-+        interrupts = <GIC_SPI 507 IRQ_TYPE_LEVEL_HIGH 0>;
-+        clocks = <&vdosys1 CLK_VDO1_VPP_MERGE4>,
-+                 <&vdosys1 CLK_VDO1_MERGE4_DL_ASYNC>;
-+        clock-names = "merge","merge_async";
-+        power-domains = <&spm MT8195_POWER_DOMAIN_VDOSYS1>;
-+        mediatek,gce-client-reg = <&gce1 SUBSYS_1c11XXXX 0x0000 0x1000>;
-+        mediatek,merge-fifo-en = <1>;
-+        resets = <&vdosys1 MT8195_VDOSYS1_SW0_RST_B_MERGE4_DL_ASYNC>;
-+    };
+   reg:
+     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
+index 8393a25a3781..0dcde0749078 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
+@@ -29,6 +29,8 @@ properties:
+           - const: mediatek,mt8173-disp-rdma
+       - items:
+           - const: mediatek,mt8183-disp-rdma
++      - items:
++          - const: mediatek,mt8195-disp-rdma
+       - items:
+           - enum:
+               - mediatek,mt7623-disp-rdma
 -- 
 2.18.0
 
