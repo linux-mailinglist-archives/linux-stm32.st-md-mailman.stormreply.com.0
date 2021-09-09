@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98E64404CA0
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:58:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93796404CAE
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:59:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46A32C5A4F3;
-	Thu,  9 Sep 2021 11:58:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62384C5A4F3;
+	Thu,  9 Sep 2021 11:59:46 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AC3BC5A4D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35367C5A4D5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Sep 2021 11:58:22 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9A57A6325A;
- Thu,  9 Sep 2021 11:58:19 +0000 (UTC)
+ Thu,  9 Sep 2021 11:59:45 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B058263283;
+ Thu,  9 Sep 2021 11:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188700;
- bh=CcGd3tLppzua3RpBPmsOGIVB1hJU/S8evCoxGLnypmo=;
+ s=k20201202; t=1631188783;
+ bh=7rPPy9jsMIK4OkpCSNlE5O184vhskXR45nYeIa/uT1c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Yabs3BHL8OowMwctW5ScyD/zpb/qXjtBi93SxkX9JX+JEQK2jxhhLUKsPX+Q+3m25
- 8swAccPXrwz+UoDJPsoBSQ7sVb9MiaE2hZPgbNE5z1uzUlP6QEKoOKjbb6qv8FYenJ
- 10VerOFkq2v+HLxTCiiyfsCpf+Qwy800hOXWewPmHPVQjKfZqsn7bP2pPhZrl1KtZ/
- KWfmk/0P6nMROImaG99n32Fd/rsNrJxtf4HO1pQxwiSZ0mFWIyuC9dZsvX3vTPkD8F
- 5ze1/jkE51Gs6lDIb6KiMXoH4lbYxQm3bRDAvvvyUqc6PzC8++zv8hhl+J7q/jbtVx
- cdQ/sNiSUL6uA==
+ b=bO7DIqzrdnIHTJqolYJHyQ4N/NkqPwxq7cG781Zr54k8TUzl6M5rSH/l1/rUsiS4G
+ tUcORBf7I7YV+qOWdCHh8FxTx+2V7UGz5gi5LoERlGsfa8y2sdWl0dFyT3/rXy8b//
+ ajQ4tku9ZeMvVlsUUwdasMAcQ72R6BLXk7oAQwqyf6LaJaEaiamp2Z/+iIJ1uo2psR
+ ANnjbDXRBXKu1tEg/CzgrnkKO6Y6tozVuQd15jKKotUC7PoPXv7RB3NTcSB2Vw3qb0
+ vRqJaquFUt1rWo+jrhgtaXYGFuTXBRKuvDMwucgZeF2Ky8E5UtCw7804JUVXq2KNbm
+ UkXxX1JRx3b2w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu,  9 Sep 2021 07:56:55 -0400
-Message-Id: <20210909115726.149004-43-sashal@kernel.org>
+Date: Thu,  9 Sep 2021 07:58:35 -0400
+Message-Id: <20210909115900.149795-34-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210909115726.149004-1-sashal@kernel.org>
-References: <20210909115726.149004-1-sashal@kernel.org>
+In-Reply-To: <20210909115900.149795-1-sashal@kernel.org>
+References: <20210909115900.149795-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -41,7 +41,7 @@ Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
  Nathan Chancellor <nathan@kernel.org>, clang-built-linux@googlegroups.com,
  Sami Tolvanen <samitolvanen@google.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 43/74] net: ethernet: stmmac: Do
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 34/59] net: ethernet: stmmac: Do
 	not use unreachable() in ipq806x_gmac_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -90,10 +90,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 8 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-index 0f56f8e33691..03b11f191c26 100644
+index f4ff43a1b5ba..d8c40b68bc96 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-@@ -288,10 +288,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
+@@ -300,10 +300,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
  		val &= ~NSS_COMMON_GMAC_CTL_PHY_IFACE_SEL;
  		break;
  	default:
@@ -105,7 +105,7 @@ index 0f56f8e33691..03b11f191c26 100644
  	}
  	regmap_write(gmac->nss_common, NSS_COMMON_GMAC_CTL(gmac->id), val);
  
-@@ -308,10 +305,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
+@@ -320,10 +317,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
  			NSS_COMMON_CLK_SRC_CTRL_OFFSET(gmac->id);
  		break;
  	default:
@@ -117,7 +117,7 @@ index 0f56f8e33691..03b11f191c26 100644
  	}
  	regmap_write(gmac->nss_common, NSS_COMMON_CLK_SRC_CTRL, val);
  
-@@ -328,8 +322,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
+@@ -340,8 +334,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
  				NSS_COMMON_CLK_GATE_GMII_TX_EN(gmac->id);
  		break;
  	default:
@@ -127,7 +127,7 @@ index 0f56f8e33691..03b11f191c26 100644
  	}
  	regmap_write(gmac->nss_common, NSS_COMMON_CLK_GATE, val);
  
-@@ -360,6 +353,11 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
+@@ -372,6 +365,11 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
  
  	return 0;
  
