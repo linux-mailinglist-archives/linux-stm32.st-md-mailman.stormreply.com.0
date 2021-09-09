@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0F1E404BA4
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5ADA404BA5
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:52:44 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A74ABC5A4F3;
-	Thu,  9 Sep 2021 11:52:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3AD5C5A4F3;
+	Thu,  9 Sep 2021 11:52:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7F6DC5A4D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0EA0C5A4F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Sep 2021 11:52:41 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 22FAD6120F;
- Thu,  9 Sep 2021 11:52:39 +0000 (UTC)
+ Thu,  9 Sep 2021 11:52:42 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AAE1261B2A;
+ Thu,  9 Sep 2021 11:52:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188360;
- bh=9LvXklZcj9/XIzUWmLc1rL+l4+S8t4zhjjs4G1YCB7o=;
+ s=k20201202; t=1631188361;
+ bh=S3vf4fgyn1Pcg9CxCH1WT8AUrlqkl6LHtgFXFUhTzII=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EuYVKsQoobfkfECrs/tEbV/Sz/T9XGjaDLtYr3N4JOC36Lkdd+VWoqgIomzsXE3Us
- QMb817bgx9TuDX9osUGTCOtZg/vZ2W5CBqiqeAPZ2E1KQ7xEioHje5OK2PpRYGr+eu
- Z+90hTyM/VhJ/c7Xu10mVlv/S/sMhvXbh2nz14l/uW1w14e4FEI2rqIXokw91TlRIn
- RFzGzrov71rbZorzvu2/luM+abIKmzX/C5pd9NMgYvEy+kuZAywHiF3Ap9dPVhJs/l
- Mzm9HBeZvu68NltlSWvguWQN2xqayuzsLT4uv4DURD2BscRx7q9vGKocsiygNuQU7x
- CSbtrSZitrMbg==
+ b=aYcUthpci98Pjr+tMLIlooOnHG2YlbqzVcAERJBQEaa3yDB7Ia6okkAYpukXLoG05
+ DrSWNSF9ZrMW2gJ6nZrSIClOJCdkYgtw8XemTRgkUu1UgxLmwsa8KWKCCWHdhTSYAp
+ /RuFpWQOcwA1cce3m0my90ME5m9Yq4C9/qK7QEsHF4vKkSMW01FaOs0a7ZDWd9Ye3r
+ 6n3odZTEYzyJwanmnzph9rM7HdKeshD0BFwqhRDLIiXj1w/+wsuspYoMZUzeu5yO9f
+ sbzK1BV06E3Fg5Ol0q9J9AGpOss4JIwqZ5ENGPRjNL0IMvgbCm/iK+O/ddkLHArSZ6
+ a31EUOoQDfAiw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu,  9 Sep 2021 07:49:26 -0400
-Message-Id: <20210909115118.146181-64-sashal@kernel.org>
+Date: Thu,  9 Sep 2021 07:49:27 -0400
+Message-Id: <20210909115118.146181-65-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909115118.146181-1-sashal@kernel.org>
 References: <20210909115118.146181-1-sashal@kernel.org>
@@ -38,10 +38,10 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- kernel@dh-electronics.com, Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 064/176] ARM: dts: stm32: Set
-	{bitclock, frame}-master phandles on DHCOM SoM
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 065/176] ARM: dts: stm32: Set
+	{bitclock, frame}-master phandles on ST DKx
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,49 +60,48 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Marek Vasut <marex@denx.de>
 
-[ Upstream commit a79e78c391dc074742c855dc0108a88f781d56a3 ]
+[ Upstream commit 8aec45d7884f16cc21d668693c5b88bff8df0f02 ]
 
 Fix the following dtbs_check warning:
-arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: codec@a: port:endpoint@0:frame-master: True is not of type 'array'
-arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: codec@a: port:endpoint@0:bitclock-master: True is not of type 'array'
+cs42l51@4a: port:endpoint@0:frame-master: True is not of type 'array'
+cs42l51@4a: port:endpoint@0:bitclock-master: True is not of type 'array'
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Cc: Patrice Chotard <patrice.chotard@foss.st.com>
 Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-Cc: kernel@dh-electronics.com
 Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-arm-kernel@lists.infradead.org
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 8 ++++----
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-index 633079245601..fd0cd10cb093 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
-@@ -172,15 +172,15 @@ sgtl5000_port: port {
- 			sgtl5000_tx_endpoint: endpoint@0 {
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
+index 93398cfae97e..47df8ac67cf1 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
+@@ -212,15 +212,15 @@ cs42l51_port: port {
+ 			cs42l51_tx_endpoint: endpoint@0 {
  				reg = <0>;
  				remote-endpoint = <&sai2a_endpoint>;
 -				frame-master;
 -				bitclock-master;
-+				frame-master = <&sgtl5000_tx_endpoint>;
-+				bitclock-master = <&sgtl5000_tx_endpoint>;
++				frame-master = <&cs42l51_tx_endpoint>;
++				bitclock-master = <&cs42l51_tx_endpoint>;
  			};
  
- 			sgtl5000_rx_endpoint: endpoint@1 {
+ 			cs42l51_rx_endpoint: endpoint@1 {
  				reg = <1>;
  				remote-endpoint = <&sai2b_endpoint>;
 -				frame-master;
 -				bitclock-master;
-+				frame-master = <&sgtl5000_rx_endpoint>;
-+				bitclock-master = <&sgtl5000_rx_endpoint>;
++				frame-master = <&cs42l51_rx_endpoint>;
++				bitclock-master = <&cs42l51_rx_endpoint>;
  			};
  		};
- 
+ 	};
 -- 
 2.30.2
 
