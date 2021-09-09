@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 193D0404AB9
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:47:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15443404ACC
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:48:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2105C5A4D8;
-	Thu,  9 Sep 2021 11:47:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D043AC5A4D8;
+	Thu,  9 Sep 2021 11:48:19 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3793C59781
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB0D0C59781
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Sep 2021 11:47:36 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 085C861929;
- Thu,  9 Sep 2021 11:47:33 +0000 (UTC)
+ Thu,  9 Sep 2021 11:48:18 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 30FB4619FA;
+ Thu,  9 Sep 2021 11:48:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188055;
- bh=cuOdGNw7f1QnFZNVV4eoDeQrIqRmu4KsyB2G/6dTrig=;
+ s=k20201202; t=1631188097;
+ bh=CMqxuankr/nLAtF68BcOJcYLaZl/uFUfJwFMddfQBVE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=m3jtip9ycj6bBtdniIbFnM6GAa51QIRTe9t4B+zrggHShsdSLS818FC7oFaDbfO4x
- IV6XQx+B5j4jvNIrZM+4VnUKJcDsoLJk6crlufTrnGtY5Z4KTRb4CVd1fAFVxkgtNM
- HpVhI4EeZKI/0jLeLUzn6H0x3X8t02Zo0Amtj5fQcp+igp6UNmR+Enn9gdrFvrJpMX
- txoKqN4BjKCXv4iBU1xLQRjXrErSn/CJf5/Fw2isZnBS4BqVMND60uy+BGk7RWzydK
- pkzySZAFt1cxSax2+KUe1/rWtCz2WXQ/BuTi9SL/QRBq7N4RnsMOjAIQ3nBUJsxmZG
- AXnkgFsx2/suw==
+ b=VI7bnl3BXq2+NPjBQwTOERcohHyd2tSCJLeqDlyKMBx+0/mL7M3/ff2N69J+WxR4N
+ bS5qgHtfuEzKIWsQloz9oQAQoJkL5BMvM/emh2E4NkgVil2qqLBOIZmBrl4OPhvK/j
+ Nf9sofHSG4JDqi2UC3binUC+jBtPITcuEihY7FI27JnB2+qZGXOaAUIy/oUsSqdWQ3
+ Z0so1vvK4K36GRemEEDhS9fcGDiBG7r/pUSAwOh9r5ZbuwLRVNtIFrb5LrDzb5I4pk
+ 2Yw3x9PYPWZGCo9AcyWCjVwkj4Ilw9B0zI08QX6YXv7ib/d3Rzw/GhFe8G90aAVnBL
+ bdcGD3g7GtfmA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu,  9 Sep 2021 07:43:42 -0400
-Message-Id: <20210909114635.143983-46-sashal@kernel.org>
+Date: Thu,  9 Sep 2021 07:44:15 -0400
+Message-Id: <20210909114635.143983-79-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909114635.143983-1-sashal@kernel.org>
 References: <20210909114635.143983-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Evgeny Novikov <novikov@ispras.ru>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 046/219] media: platform: stm32:
-	unprepare clocks at handling errors in probe
+Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
+ devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ kernel@dh-electronics.com, Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 079/219] ARM: dts: stm32: Set
+	{bitclock, frame}-master phandles on DHCOM SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,80 +58,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Evgeny Novikov <novikov@ispras.ru>
+From: Marek Vasut <marex@denx.de>
 
-[ Upstream commit 055d2db28ec2fa3ab5c527c5604f1b32b89fa13a ]
+[ Upstream commit a79e78c391dc074742c855dc0108a88f781d56a3 ]
 
-stm32_cec_probe() did not unprepare clocks on error handling paths. The
-patch fixes that.
+Fix the following dtbs_check warning:
+arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: codec@a: port:endpoint@0:frame-master: True is not of type 'array'
+arch/arm/boot/dts/stm32mp157c-dhcom-pdk2.dt.yaml: codec@a: port:endpoint@0:bitclock-master: True is not of type 'array'
 
-Found by Linux Driver Verification project (linuxtesting.org).
-
-Signed-off-by: Evgeny Novikov <novikov@ispras.ru>
-Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
+Cc: kernel@dh-electronics.com
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-arm-kernel@lists.infradead.org
+Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/cec/platform/stm32/stm32-cec.c | 26 ++++++++++++++------
- 1 file changed, 18 insertions(+), 8 deletions(-)
+ arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/cec/platform/stm32/stm32-cec.c b/drivers/media/cec/platform/stm32/stm32-cec.c
-index ea4b1ebfca99..0ffd89712536 100644
---- a/drivers/media/cec/platform/stm32/stm32-cec.c
-+++ b/drivers/media/cec/platform/stm32/stm32-cec.c
-@@ -305,14 +305,16 @@ static int stm32_cec_probe(struct platform_device *pdev)
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+index 6cf1c8b4c6e2..c9577ba2973d 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi
+@@ -172,15 +172,15 @@ sgtl5000_port: port {
+ 			sgtl5000_tx_endpoint: endpoint@0 {
+ 				reg = <0>;
+ 				remote-endpoint = <&sai2a_endpoint>;
+-				frame-master;
+-				bitclock-master;
++				frame-master = <&sgtl5000_tx_endpoint>;
++				bitclock-master = <&sgtl5000_tx_endpoint>;
+ 			};
  
- 	cec->clk_hdmi_cec = devm_clk_get(&pdev->dev, "hdmi-cec");
- 	if (IS_ERR(cec->clk_hdmi_cec) &&
--	    PTR_ERR(cec->clk_hdmi_cec) == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	    PTR_ERR(cec->clk_hdmi_cec) == -EPROBE_DEFER) {
-+		ret = -EPROBE_DEFER;
-+		goto err_unprepare_cec_clk;
-+	}
+ 			sgtl5000_rx_endpoint: endpoint@1 {
+ 				reg = <1>;
+ 				remote-endpoint = <&sai2b_endpoint>;
+-				frame-master;
+-				bitclock-master;
++				frame-master = <&sgtl5000_rx_endpoint>;
++				bitclock-master = <&sgtl5000_rx_endpoint>;
+ 			};
+ 		};
  
- 	if (!IS_ERR(cec->clk_hdmi_cec)) {
- 		ret = clk_prepare(cec->clk_hdmi_cec);
- 		if (ret) {
- 			dev_err(&pdev->dev, "Can't prepare hdmi-cec clock\n");
--			return ret;
-+			goto err_unprepare_cec_clk;
- 		}
- 	}
- 
-@@ -324,19 +326,27 @@ static int stm32_cec_probe(struct platform_device *pdev)
- 			CEC_NAME, caps,	CEC_MAX_LOG_ADDRS);
- 	ret = PTR_ERR_OR_ZERO(cec->adap);
- 	if (ret)
--		return ret;
-+		goto err_unprepare_hdmi_cec_clk;
- 
- 	ret = cec_register_adapter(cec->adap, &pdev->dev);
--	if (ret) {
--		cec_delete_adapter(cec->adap);
--		return ret;
--	}
-+	if (ret)
-+		goto err_delete_adapter;
- 
- 	cec_hw_init(cec);
- 
- 	platform_set_drvdata(pdev, cec);
- 
- 	return 0;
-+
-+err_delete_adapter:
-+	cec_delete_adapter(cec->adap);
-+
-+err_unprepare_hdmi_cec_clk:
-+	clk_unprepare(cec->clk_hdmi_cec);
-+
-+err_unprepare_cec_clk:
-+	clk_unprepare(cec->clk_cec);
-+	return ret;
- }
- 
- static int stm32_cec_remove(struct platform_device *pdev)
 -- 
 2.30.2
 
