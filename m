@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5ADA404BA5
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:52:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F1B8404BA6
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:52:46 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3AD5C5A4F3;
-	Thu,  9 Sep 2021 11:52:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF02EC5A4F6;
+	Thu,  9 Sep 2021 11:52:45 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0EA0C5A4F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5537EC5A4D8
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  9 Sep 2021 11:52:44 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2B6FF61B40;
  Thu,  9 Sep 2021 11:52:42 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AAE1261B2A;
- Thu,  9 Sep 2021 11:52:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188361;
- bh=S3vf4fgyn1Pcg9CxCH1WT8AUrlqkl6LHtgFXFUhTzII=;
+ s=k20201202; t=1631188363;
+ bh=WO6ADGGSO99avQrDWRk0pqj7iOZKqfl96hWXBYYzfcE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aYcUthpci98Pjr+tMLIlooOnHG2YlbqzVcAERJBQEaa3yDB7Ia6okkAYpukXLoG05
- DrSWNSF9ZrMW2gJ6nZrSIClOJCdkYgtw8XemTRgkUu1UgxLmwsa8KWKCCWHdhTSYAp
- /RuFpWQOcwA1cce3m0my90ME5m9Yq4C9/qK7QEsHF4vKkSMW01FaOs0a7ZDWd9Ye3r
- 6n3odZTEYzyJwanmnzph9rM7HdKeshD0BFwqhRDLIiXj1w/+wsuspYoMZUzeu5yO9f
- sbzK1BV06E3Fg5Ol0q9J9AGpOss4JIwqZ5ENGPRjNL0IMvgbCm/iK+O/ddkLHArSZ6
- a31EUOoQDfAiw==
+ b=SyCXJZ/V0vbcDoYM+nDFOqitDaKRpJE4oP5i6HngzVV/TzcVuvym5qQnH7lvVgjs5
+ 3vdzIaLKgf1DeePEMIYl7QqIu0Cp+/QL6wXKxXhlA3qlN4QXqiZWO/ik6AtxgBP1BG
+ WK7dmrqCYcZDsO79wxevZhJoQhr2dCmRSB5gxbZsrfVL8E9SekeI4NsuFLgzeg9GBe
+ i9vkLQBU8NmGa/3D9FO+PUJFJ/EHAwSbhMw0fblxAp9QlqIZa8nbquJGa01jgTRil1
+ MhG4gqDmbLoraH3PEsUSTvP4ZSb+6BaNWk6KeGhGvSoG86Rb7cku4T2LtAqCTRc+3h
+ 6d6Ts+5smf9Fw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu,  9 Sep 2021 07:49:27 -0400
-Message-Id: <20210909115118.146181-65-sashal@kernel.org>
+Date: Thu,  9 Sep 2021 07:49:28 -0400
+Message-Id: <20210909115118.146181-66-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210909115118.146181-1-sashal@kernel.org>
 References: <20210909115118.146181-1-sashal@kernel.org>
@@ -40,8 +40,8 @@ Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Patrick Delaunay <patrick.delaunay@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 065/176] ARM: dts: stm32: Set
-	{bitclock, frame}-master phandles on ST DKx
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 066/176] ARM: dts: stm32: Update
+	AV96 adv7513 node per dtbs_check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,11 +60,14 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Marek Vasut <marex@denx.de>
 
-[ Upstream commit 8aec45d7884f16cc21d668693c5b88bff8df0f02 ]
+[ Upstream commit 1e6bc5987a5252948e3411e5a2dbb434fd1ea107 ]
 
-Fix the following dtbs_check warning:
-cs42l51@4a: port:endpoint@0:frame-master: True is not of type 'array'
-cs42l51@4a: port:endpoint@0:bitclock-master: True is not of type 'array'
+Swap reg and reg-names order and drop adi,input-justification
+and adi,input-style to fix the following dtbs_check warnings:
+arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dt.yaml: hdmi-transmitter@3d: adi,input-justification: False schema does not allow ['evenly']
+arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dt.yaml: hdmi-transmitter@3d: adi,input-style: False schema does not allow [[1]]
+arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dt.yaml: hdmi-transmitter@3d: reg-names:1: 'edid' was expected
+arch/arm/boot/dts/stm32mp157a-dhcor-avenger96.dt.yaml: hdmi-transmitter@3d: reg-names:2: 'cec' was expected
 
 Signed-off-by: Marek Vasut <marex@denx.de>
 Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
@@ -75,33 +78,33 @@ To: linux-arm-kernel@lists.infradead.org
 Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/boot/dts/stm32mp15xx-dkx.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-index 93398cfae97e..47df8ac67cf1 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
-@@ -212,15 +212,15 @@ cs42l51_port: port {
- 			cs42l51_tx_endpoint: endpoint@0 {
- 				reg = <0>;
- 				remote-endpoint = <&sai2a_endpoint>;
--				frame-master;
--				bitclock-master;
-+				frame-master = <&cs42l51_tx_endpoint>;
-+				bitclock-master = <&cs42l51_tx_endpoint>;
- 			};
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+index ec02cee1dd9b..944d38b85eef 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi
+@@ -185,8 +185,8 @@ &i2c2 {	/* X6 I2C2 */
+ &i2c4 {
+ 	hdmi-transmitter@3d {
+ 		compatible = "adi,adv7513";
+-		reg = <0x3d>, <0x2d>, <0x4d>, <0x5d>;
+-		reg-names = "main", "cec", "edid", "packet";
++		reg = <0x3d>, <0x4d>, <0x2d>, <0x5d>;
++		reg-names = "main", "edid", "cec", "packet";
+ 		clocks = <&cec_clock>;
+ 		clock-names = "cec";
  
- 			cs42l51_rx_endpoint: endpoint@1 {
- 				reg = <1>;
- 				remote-endpoint = <&sai2b_endpoint>;
--				frame-master;
--				bitclock-master;
-+				frame-master = <&cs42l51_rx_endpoint>;
-+				bitclock-master = <&cs42l51_rx_endpoint>;
- 			};
- 		};
- 	};
+@@ -204,8 +204,6 @@ hdmi-transmitter@3d {
+ 		adi,input-depth = <8>;
+ 		adi,input-colorspace = "rgb";
+ 		adi,input-clock = "1x";
+-		adi,input-style = <1>;
+-		adi,input-justification = "evenly";
+ 
+ 		ports {
+ 			#address-cells = <1>;
 -- 
 2.30.2
 
