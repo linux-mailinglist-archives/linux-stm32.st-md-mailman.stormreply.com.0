@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90A3B404AE8
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:49:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6295404B98
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 13:52:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A065C5A4F3;
-	Thu,  9 Sep 2021 11:49:02 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EF77C5A4F3;
+	Thu,  9 Sep 2021 11:52:05 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D61C6C5A4D5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81A0CC5A4D5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Sep 2021 11:49:00 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 51C5D61A53;
- Thu,  9 Sep 2021 11:48:58 +0000 (UTC)
+ Thu,  9 Sep 2021 11:52:03 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2F49661B3B;
+ Thu,  9 Sep 2021 11:52:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631188139;
- bh=A/QQumOH8O6k/Xn5qDY6TMC4AxTRp7rzpMcWLtKRmjY=;
+ s=k20201202; t=1631188322;
+ bh=cuOdGNw7f1QnFZNVV4eoDeQrIqRmu4KsyB2G/6dTrig=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qIpsI+Kw7lEaxymfyt+buu2NFhFI/CFrfxN5p973oUVlWvHTlZrz5wd5ZqcnzvjKw
- MwystkAOxZFWNwZfN7tGswApnljlJu5MBY6/p6ujeYKpp7SYsUDy2e6t07kZHnQoJy
- GaaNjg9rDVYKzseWwgP0qDhWAzocKEmsacsCpEV/H2yiBoHpI6JTbIL+iZ36g/uzxL
- IApw5ldWuSz26MNmHwqlPcp7Jw0eqDYuqsHwcnrMLJ3eeQ1prGQga+bze7V+4h+0Vg
- 05r2Rag/9IOtn88I9lnaux0s1QrNsIRFTldZesKYuHq4oyUSvD9bc6eUXdPBJj9tea
- UgoeU/Yi/+hZw==
+ b=qQzIMEwYWgZ/Ov4w0eRSeSNSf3Pz9def3FKb05PPXNoon/zKBQ/K0q9oFdcPYzj9x
+ FdHRAYYSDDp+SgXnXXdEdqhHLhjG0NtsX8Vpqe2JHytbf0zZwB0a7zxp+CC075U6H/
+ hV0O9b1gapcqRkExMcvhumQcq8QqPcLJ3bPDlQ5p4lXE27Gf4HCs+6r2tdUQ4H+P9h
+ GF8gXdTb8XkH+U6dLFMpu3aeXcoWxf4Yk5/V0GL2/sAMHM8ZNZgFDFlxEXpHoymS/Q
+ w0RW6fT4mi2rJLAJ1ZC8BbEkOwXlCELa7iZ+w/4DmtwJuzbMZPt4tp3kEXJ1h7HCM1
+ lCyfkvvqsYreA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu,  9 Sep 2021 07:44:47 -0400
-Message-Id: <20210909114635.143983-111-sashal@kernel.org>
+Date: Thu,  9 Sep 2021 07:48:56 -0400
+Message-Id: <20210909115118.146181-34-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210909114635.143983-1-sashal@kernel.org>
-References: <20210909114635.143983-1-sashal@kernel.org>
+In-Reply-To: <20210909115118.146181-1-sashal@kernel.org>
+References: <20210909115118.146181-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, netdev@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>,
- Nathan Chancellor <nathan@kernel.org>, clang-built-linux@googlegroups.com,
- Sami Tolvanen <samitolvanen@google.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 111/219] net: ethernet: stmmac:
-	Do not use unreachable() in ipq806x_gmac_probe()
+Cc: Sasha Levin <sashal@kernel.org>, Evgeny Novikov <novikov@ispras.ru>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 034/176] media: platform: stm32:
+	unprepare clocks at handling errors in probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,86 +59,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Nathan Chancellor <nathan@kernel.org>
+From: Evgeny Novikov <novikov@ispras.ru>
 
-[ Upstream commit 4367355dd90942a71641c98c40c74589c9bddf90 ]
+[ Upstream commit 055d2db28ec2fa3ab5c527c5604f1b32b89fa13a ]
 
-When compiling with clang in certain configurations, an objtool warning
-appears:
+stm32_cec_probe() did not unprepare clocks on error handling paths. The
+patch fixes that.
 
-drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.o: warning: objtool:
-ipq806x_gmac_probe() falls through to next function phy_modes()
+Found by Linux Driver Verification project (linuxtesting.org).
 
-This happens because the unreachable annotation in the third switch
-statement is not eliminated. The compiler should know that the first
-default case would prevent the second and third from being reached as
-the comment notes but sanitizer options can make it harder for the
-compiler to reason this out.
-
-Help the compiler out by eliminating the unreachable() annotation and
-unifying the default case error handling so that there is no objtool
-warning, the meaning of the code stays the same, and there is less
-duplication.
-
-Reported-by: Sami Tolvanen <samitolvanen@google.com>
-Tested-by: Sami Tolvanen <samitolvanen@google.com>
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: David S. Miller <davem@davemloft.net>
+Signed-off-by: Evgeny Novikov <novikov@ispras.ru>
+Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../ethernet/stmicro/stmmac/dwmac-ipq806x.c    | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ drivers/media/cec/platform/stm32/stm32-cec.c | 26 ++++++++++++++------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-index 28dd0ed85a82..f7dc8458cde8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
-@@ -289,10 +289,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
- 		val &= ~NSS_COMMON_GMAC_CTL_PHY_IFACE_SEL;
- 		break;
- 	default:
--		dev_err(&pdev->dev, "Unsupported PHY mode: \"%s\"\n",
--			phy_modes(gmac->phy_mode));
--		err = -EINVAL;
--		goto err_remove_config_dt;
-+		goto err_unsupported_phy;
- 	}
- 	regmap_write(gmac->nss_common, NSS_COMMON_GMAC_CTL(gmac->id), val);
+diff --git a/drivers/media/cec/platform/stm32/stm32-cec.c b/drivers/media/cec/platform/stm32/stm32-cec.c
+index ea4b1ebfca99..0ffd89712536 100644
+--- a/drivers/media/cec/platform/stm32/stm32-cec.c
++++ b/drivers/media/cec/platform/stm32/stm32-cec.c
+@@ -305,14 +305,16 @@ static int stm32_cec_probe(struct platform_device *pdev)
  
-@@ -309,10 +306,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
- 			NSS_COMMON_CLK_SRC_CTRL_OFFSET(gmac->id);
- 		break;
- 	default:
--		dev_err(&pdev->dev, "Unsupported PHY mode: \"%s\"\n",
--			phy_modes(gmac->phy_mode));
--		err = -EINVAL;
--		goto err_remove_config_dt;
-+		goto err_unsupported_phy;
- 	}
- 	regmap_write(gmac->nss_common, NSS_COMMON_CLK_SRC_CTRL, val);
+ 	cec->clk_hdmi_cec = devm_clk_get(&pdev->dev, "hdmi-cec");
+ 	if (IS_ERR(cec->clk_hdmi_cec) &&
+-	    PTR_ERR(cec->clk_hdmi_cec) == -EPROBE_DEFER)
+-		return -EPROBE_DEFER;
++	    PTR_ERR(cec->clk_hdmi_cec) == -EPROBE_DEFER) {
++		ret = -EPROBE_DEFER;
++		goto err_unprepare_cec_clk;
++	}
  
-@@ -329,8 +323,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
- 				NSS_COMMON_CLK_GATE_GMII_TX_EN(gmac->id);
- 		break;
- 	default:
--		/* We don't get here; the switch above will have errored out */
--		unreachable();
-+		goto err_unsupported_phy;
+ 	if (!IS_ERR(cec->clk_hdmi_cec)) {
+ 		ret = clk_prepare(cec->clk_hdmi_cec);
+ 		if (ret) {
+ 			dev_err(&pdev->dev, "Can't prepare hdmi-cec clock\n");
+-			return ret;
++			goto err_unprepare_cec_clk;
+ 		}
  	}
- 	regmap_write(gmac->nss_common, NSS_COMMON_CLK_GATE, val);
  
-@@ -361,6 +354,11 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
+@@ -324,19 +326,27 @@ static int stm32_cec_probe(struct platform_device *pdev)
+ 			CEC_NAME, caps,	CEC_MAX_LOG_ADDRS);
+ 	ret = PTR_ERR_OR_ZERO(cec->adap);
+ 	if (ret)
+-		return ret;
++		goto err_unprepare_hdmi_cec_clk;
+ 
+ 	ret = cec_register_adapter(cec->adap, &pdev->dev);
+-	if (ret) {
+-		cec_delete_adapter(cec->adap);
+-		return ret;
+-	}
++	if (ret)
++		goto err_delete_adapter;
+ 
+ 	cec_hw_init(cec);
+ 
+ 	platform_set_drvdata(pdev, cec);
  
  	return 0;
- 
-+err_unsupported_phy:
-+	dev_err(&pdev->dev, "Unsupported PHY mode: \"%s\"\n",
-+		phy_modes(gmac->phy_mode));
-+	err = -EINVAL;
 +
- err_remove_config_dt:
- 	stmmac_remove_config_dt(pdev, plat_dat);
++err_delete_adapter:
++	cec_delete_adapter(cec->adap);
++
++err_unprepare_hdmi_cec_clk:
++	clk_unprepare(cec->clk_hdmi_cec);
++
++err_unprepare_cec_clk:
++	clk_unprepare(cec->clk_cec);
++	return ret;
+ }
  
+ static int stm32_cec_remove(struct platform_device *pdev)
 -- 
 2.30.2
 
