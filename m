@@ -2,42 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADB1D405A42
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Sep 2021 17:39:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30DD94060A9
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Sep 2021 02:17:16 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63D27C5A4D5;
-	Thu,  9 Sep 2021 15:39:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4821C5A4D5;
+	Fri, 10 Sep 2021 00:17:15 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A485EC59781
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14B02C5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Sep 2021 15:39:35 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3BD1C61101;
- Thu,  9 Sep 2021 15:39:33 +0000 (UTC)
+ Fri, 10 Sep 2021 00:17:14 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6D59A611C2;
+ Fri, 10 Sep 2021 00:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631201973;
- bh=T/mw/UbjbrrOlnUVot7WIwHPaeG3mY6jLafZbnQXNto=;
+ s=k20201202; t=1631233032;
+ bh=EBKRkFeXmpsBAyqMWL8YMuJwzysuEp6koplyXOSW8iQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i8P0a3DYUqvolCsgpd39ALimrV04sYugsuGLc5z5sEQyVPkWyJFfAxH7cg9M1R2z5
- R/MKKdhX6Q7jDQZ7CZI/XES508M3xPOjd2XQuoSAilrOegH5H66zULlkHCLu0SFYJG
- DjLdUAQ8UPe5bXX2KeP3Q/qK0WC46Mb32vGS7fSBdcLt8MKvNiLCHRgEHg7CVBrlvH
- GiwtibH8jKOviM/abCb6w4QW1kXZRdpuONi+172Esj+bnZTO6ogtN+SF/yEYr0zjl/
- yGOvVIO5gTOh4eNh5pILwXnsMvc6/jxgChwt9ygrGCtKOrIw9u1L95SbNUDk9qtME7
- iUj+hTgHtlBTA==
-From: Mark Brown <broonie@kernel.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Date: Thu,  9 Sep 2021 16:38:51 +0100
-Message-Id: <163120168200.50116.15964820004324884962.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210909145449.24388-1-arnaud.pouliquen@foss.st.com>
-References: <20210909145449.24388-1-arnaud.pouliquen@foss.st.com>
+ b=LoEQQmMbS6CgzkiYqQJHwyuqCgoThdBhHjeqBdd7DJ50/dA2hyb6g4XORVBI8YALm
+ +VV/b3fu75Y0VjDWM4kMcu/g8VmyIIfwqd35HqMxlDLL5nn7iefWUXLbbCtwWEgfuI
+ ts9/pFG2l4qRlRVcBt0VPBoo55g3924//RgUcmnz3z+VjBrb+SOoBZy8kCz3AiAVpG
+ 1RxnOzv5PAZwQmXNx9Z2d1cbrINsyTMUuazGGo7KwenKI94F7vvzy+Up9MYMRgUTBy
+ STPL8S1Bbzj9OLD/vVeDZNMXERh2FYnjlJHAwaR4iYtp4dl8W/pl+VN71bpgHMLO6x
+ O6moBSB3CuRJQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Thu,  9 Sep 2021 20:15:12 -0400
+Message-Id: <20210910001558.173296-53-sashal@kernel.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210910001558.173296-1-sashal@kernel.org>
+References: <20210910001558.173296-1-sashal@kernel.org>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] MAINTAINERS: fix update references to
-	stm32 audio bindings
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, Evgeny Novikov <novikov@ispras.ru>,
+ Jiri Kosina <jkosina@suse.cz>, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.14 53/99] HID: thrustmaster: Fix
+	memory leaks in probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,46 +57,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 9 Sep 2021 16:54:49 +0200, Arnaud Pouliquen wrote:
-> The 00d38fd8d2524 ("MAINTAINERS: update references to stm32 audio bindings")
-> commit update the bindings reference, by
-> removing bindings/sound/st,stm32-adfsdm.txt, to set the
-> new reference to bindings/iio/adc/st,stm32-*.yaml.
-> 
-> This leads to "get_maintainer finds" the match for the
-> Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml,
-> but also to the IIO bindings
-> Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-> 
-> [...]
+From: Evgeny Novikov <novikov@ispras.ru>
 
-Applied to
+[ Upstream commit d0f1d5ae23803bd82647a337fa508fa8615defc5 ]
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+When thrustmaster_probe() handles errors of usb_submit_urb() it does not
+free allocated resources and fails. The patch fixes that.
 
-Thanks!
+Found by Linux Driver Verification project (linuxtesting.org).
 
-[1/1] MAINTAINERS: fix update references to stm32 audio bindings
-      commit: 26be23af1866eead5a29f8501f9d774ac277d0bd
+Signed-off-by: Evgeny Novikov <novikov@ispras.ru>
+Signed-off-by: Jiri Kosina <jkosina@suse.cz>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hid/hid-thrustmaster.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+diff --git a/drivers/hid/hid-thrustmaster.c b/drivers/hid/hid-thrustmaster.c
+index cdc7d82ae9ed..e94d3409fd10 100644
+--- a/drivers/hid/hid-thrustmaster.c
++++ b/drivers/hid/hid-thrustmaster.c
+@@ -336,11 +336,14 @@ static int thrustmaster_probe(struct hid_device *hdev, const struct hid_device_i
+ 	);
+ 
+ 	ret = usb_submit_urb(tm_wheel->urb, GFP_ATOMIC);
+-	if (ret)
++	if (ret) {
+ 		hid_err(hdev, "Error %d while submitting the URB. I am unable to initialize this wheel...\n", ret);
++		goto error6;
++	}
+ 
+ 	return ret;
+ 
++error6: kfree(tm_wheel->change_request);
+ error5: kfree(tm_wheel->response);
+ error4: kfree(tm_wheel->model_request);
+ error3: usb_free_urb(tm_wheel->urb);
+-- 
+2.30.2
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
