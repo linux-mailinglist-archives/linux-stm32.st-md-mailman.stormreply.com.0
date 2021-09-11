@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34113407715
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Sep 2021 15:14:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A7A2407717
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Sep 2021 15:14:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F16DEC5A4D8;
-	Sat, 11 Sep 2021 13:14:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12D61C5A4D8;
+	Sat, 11 Sep 2021 13:14:21 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2680C5A4D3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BB60C5A4D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Sep 2021 13:14:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1EC5B61222;
- Sat, 11 Sep 2021 13:14:07 +0000 (UTC)
+ Sat, 11 Sep 2021 13:14:20 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9AEA161362;
+ Sat, 11 Sep 2021 13:14:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631366048;
+ s=k20201202; t=1631366058;
  bh=PhARNM109JtGwXWwaOgpg2uYXqd+bYj8g31evhkCQcc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Hji25iCXNm7ZsQR6NOW35yrCRBou8yK2cBTvGL3HJYY4OSYi7CYw3CsARFGc3GIuo
- O4AtExEqt7yrfACNtyEqLbGcRElb6XR0mXtC7CTdZgL/rsZ8jTd67IbmH6Dhni+qGW
- 5l+ovBhjUv76xV47FRjTQ+H+kbAv2Clxq0sPxjDADvCfbfzCTinWxJbf8nyf/tvyHa
- Un68RWPn490TgF5d2+lLhm62aHWrGpOQCFhhZRthl2ZMYyYdwTEIlzeQd+Risv0PVp
- QV4WImDYV2x7g4GuyQS17f2Gd8OyPL9w1qo0V8hXtb9wx/DOoy9NAsinurUsjEtMz6
- v2c5vr7bXDxjw==
+ b=kFvLCKMijC/yU6+oYGtCflW73x4P8KYAmAAlhn78PIRhQPq8d873A/caAiCAhXEZR
+ S2W2ZYmUre6XbSthT9x0y1yGvUMo9mAVNNOw2RyCqkkWQi/yR0n4r+iLGB/jdoordB
+ gCC2aXD9rWGDckcbSy6lxvr+rfWkOBgAmq3S2Xn+Zu0OU8I1ByBi9lZk+q8QCoBNiz
+ vHPErS653bi3yn67wbXZYPNUFTrOKBdjPmEfmcViGwwHDS8GWNHKwtJYMPd6RIsJWM
+ K2YRMQ0KLsrEMkRP8wBGcBthIiKT4OKI6hSWH7KBhEb9koGaqq/vWTWjEALI1MPpu4
+ QJSCP/oNY6tWA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 11 Sep 2021 09:13:59 -0400
-Message-Id: <20210911131404.286005-2-sashal@kernel.org>
+Date: Sat, 11 Sep 2021 09:14:11 -0400
+Message-Id: <20210911131415.286125-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210911131404.286005-1-sashal@kernel.org>
-References: <20210911131404.286005-1-sashal@kernel.org>
+In-Reply-To: <20210911131415.286125-1-sashal@kernel.org>
+References: <20210911131415.286125-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -42,7 +42,7 @@ Cc: Sasha Levin <sashal@kernel.org>, Marc Zyngier <maz@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com,
  Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 2/7] mfd: Don't use
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 2/5] mfd: Don't use
 	irq_create_mapping() to resolve a mapping
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
