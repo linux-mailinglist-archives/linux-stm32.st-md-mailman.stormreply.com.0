@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD6DA4076DC
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Sep 2021 15:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15EFC4076E8
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Sep 2021 15:13:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9600FC5A4D8;
-	Sat, 11 Sep 2021 13:12:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB961C5A4D8;
+	Sat, 11 Sep 2021 13:13:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A86B5C5A4D3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50F1AC5A4D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Sep 2021 13:12:47 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3506261208;
- Sat, 11 Sep 2021 13:12:45 +0000 (UTC)
+ Sat, 11 Sep 2021 13:13:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AF9446124E;
+ Sat, 11 Sep 2021 13:13:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631365966;
- bh=k+zJ9HpFWx9vz26EzG6jsuGJChDmLv/oTyJs1XxDYr4=;
+ s=k20201202; t=1631366003;
+ bh=z2Y4h46IZL/+vRzsN5ynixlRwSeoPikMd59LsON7va4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rNBNweM6QT1F6fp05Lhr7uddnAO2lMoVyLuTKUNwPHCuer//Smd2YkDhFOHLaaCLH
- TkWGt7tLQbgbgFhESWY7RGIjjpK5oDhVDnYdWX1eFFq+JRd3Vpt65IbPxEg2xfc78Z
- +hLnXOctEJqZ38Vwj4+O5RwKrgSwZOfAU+k1pBpJSqUvVj59lTFuBN8341kaJJOECE
- 489ZyZODzoCKe8BMZniAh/qJYQQhphhjwp/4D1tbOEmubgyAABRHZDYF7Sgyms6kJ+
- r0Npx/Zd9imk09o7o0b79ndHdgfdFUvmfaeZuB8DyH6mcxQn+UwBurLLUdytf/cp4b
- 4jN7X6+F7HbnA==
+ b=d9xpS/aaWZSyn8d/NDq+3ZN0Ef439W/rNd4KOElQeP6eBuolfsJbjI0Hd/YgGs9Fb
+ P8WhieyCs/zUkWhrfQxuJv85VNrUhFzMVBSe6VHJylJmeJa8Lv0ej+ukzWlx5YcSGf
+ HUcXi9RLCY3kN8LZxxZvi6f/7C2e8fW/rNcZiecRLTCk8pcki09elJk9BwTQRGXZ2y
+ wX1SvnL8BYFBwBdSgzHfz6d0d6t1AJhFBsdfBc8LGG9YenczDp1jl7BewhBx1POh6T
+ 3NdqkAUt/foKUJ97GKY0qu37tL46ORi7vMKJb0b1zlgyLUSryMMTM/QXC4bLrcq5SM
+ zdmLgeQlIaMNg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 11 Sep 2021 09:12:13 -0400
-Message-Id: <20210911131233.284800-9-sashal@kernel.org>
+Date: Sat, 11 Sep 2021 09:12:55 -0400
+Message-Id: <20210911131312.285225-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210911131233.284800-1-sashal@kernel.org>
-References: <20210911131233.284800-1-sashal@kernel.org>
+In-Reply-To: <20210911131312.285225-1-sashal@kernel.org>
+References: <20210911131312.285225-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -42,7 +42,7 @@ Cc: Sasha Levin <sashal@kernel.org>, Marc Zyngier <maz@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com,
  Lee Jones <lee.jones@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.13 09/29] mfd: Don't use
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 08/25] mfd: Don't use
 	irq_create_mapping() to resolve a mapping
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -87,10 +87,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
-index c2ba498ad302..ee030b09a2ad 100644
+index a3bac9da8cbb..4cea63a4cab7 100644
 --- a/drivers/mfd/ab8500-core.c
 +++ b/drivers/mfd/ab8500-core.c
-@@ -485,7 +485,7 @@ static int ab8500_handle_hierarchical_line(struct ab8500 *ab8500,
+@@ -493,7 +493,7 @@ static int ab8500_handle_hierarchical_line(struct ab8500 *ab8500,
  		if (line == AB8540_INT_GPIO43F || line == AB8540_INT_GPIO44F)
  			line += 1;
  
@@ -100,10 +100,10 @@ index c2ba498ad302..ee030b09a2ad 100644
  
  	return 0;
 diff --git a/drivers/mfd/stmpe.c b/drivers/mfd/stmpe.c
-index 1dd39483e7c1..58d09c615e67 100644
+index 1aee3b3253fc..508349399f8a 100644
 --- a/drivers/mfd/stmpe.c
 +++ b/drivers/mfd/stmpe.c
-@@ -1095,7 +1095,7 @@ static irqreturn_t stmpe_irq(int irq, void *data)
+@@ -1091,7 +1091,7 @@ static irqreturn_t stmpe_irq(int irq, void *data)
  
  	if (variant->id_val == STMPE801_ID ||
  	    variant->id_val == STMPE1600_ID) {
@@ -112,7 +112,7 @@ index 1dd39483e7c1..58d09c615e67 100644
  
  		handle_nested_irq(base);
  		return IRQ_HANDLED;
-@@ -1123,7 +1123,7 @@ static irqreturn_t stmpe_irq(int irq, void *data)
+@@ -1119,7 +1119,7 @@ static irqreturn_t stmpe_irq(int irq, void *data)
  		while (status) {
  			int bit = __ffs(status);
  			int line = bank * 8 + bit;
@@ -122,7 +122,7 @@ index 1dd39483e7c1..58d09c615e67 100644
  			handle_nested_irq(nestedirq);
  			status &= ~(1 << bit);
 diff --git a/drivers/mfd/tc3589x.c b/drivers/mfd/tc3589x.c
-index 7614f8fe0e91..13583cdb93b6 100644
+index 7882a37ffc35..5c2d5a6a6da9 100644
 --- a/drivers/mfd/tc3589x.c
 +++ b/drivers/mfd/tc3589x.c
 @@ -187,7 +187,7 @@ static irqreturn_t tc3589x_irq(int irq, void *data)
