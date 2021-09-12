@@ -2,42 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D89407E8C
-	for <lists+linux-stm32@lfdr.de>; Sun, 12 Sep 2021 18:23:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BEDE407E9A
+	for <lists+linux-stm32@lfdr.de>; Sun, 12 Sep 2021 18:33:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F87FC597BE;
-	Sun, 12 Sep 2021 16:23:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B703EC597BE;
+	Sun, 12 Sep 2021 16:33:03 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B732CC5718F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC660C5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Sep 2021 16:23:08 +0000 (UTC)
+ Sun, 12 Sep 2021 16:33:00 +0000 (UTC)
 Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
  [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8742760F92;
- Sun, 12 Sep 2021 16:23:02 +0000 (UTC)
-Date: Sun, 12 Sep 2021 17:26:35 +0100
+ by mail.kernel.org (Postfix) with ESMTPSA id 58701608FB;
+ Sun, 12 Sep 2021 16:32:55 +0000 (UTC)
+Date: Sun, 12 Sep 2021 17:36:27 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Message-ID: <20210912172635.14cc0923@jic23-huawei>
-In-Reply-To: <7fb22281fde0874614a87b0a000b2bf27e17043e.1630031207.git.vilhelm.gray@gmail.com>
+Message-ID: <20210912173627.0a09144b@jic23-huawei>
+In-Reply-To: <20210830181706.74e45cb8@jic23-huawei>
 References: <cover.1630031207.git.vilhelm.gray@gmail.com>
- <7fb22281fde0874614a87b0a000b2bf27e17043e.1630031207.git.vilhelm.gray@gmail.com>
+ <20210830181706.74e45cb8@jic23-huawei>
 X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
- Pavel Machek <pavel@ucw.cz>, alexandre.belloni@bootlin.com,
- mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
- o.rempel@pengutronix.de, jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
- fabrice.gasnier@st.com, syednwaris@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- alexandre.torgue@st.com
-Subject: Re: [Linux-stm32] [PATCH v16 09/14] tools/counter: Create Counter
-	tools
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v16 00/14] Introduce the Counter character
+ device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,187 +48,142 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCAyNyBBdWcgMjAyMSAxMjo0Nzo1MyArMDkwMApXaWxsaWFtIEJyZWF0aGl0dCBHcmF5
-IDx2aWxoZWxtLmdyYXlAZ21haWwuY29tPiB3cm90ZToKCj4gVGhpcyBjcmVhdGVzIGFuIGV4YW1w
-bGUgQ291bnRlciBwcm9ncmFtIHVuZGVyIHRvb2xzL2NvdW50ZXIvKgo+IHRvIGV4ZW1wbGlmeSB0
-aGUgQ291bnRlciBjaGFyYWN0ZXIgZGV2aWNlIGludGVyZmFjZS4KPiAKPiBDYzogUGF2ZWwgTWFj
-aGVrIDxwYXZlbEB1Y3cuY3o+Cj4gU2lnbmVkLW9mZi1ieTogV2lsbGlhbSBCcmVhdGhpdHQgR3Jh
-eSA8dmlsaGVsbS5ncmF5QGdtYWlsLmNvbT4KCkl0J3MgZ3JlYXQgdG8gaGF2ZSB0aGlzIGV4YW1w
-bGUsIGJ1dCBpdCB2ZXJ5IG11Y2ggYW4gZXhhbXBsZSByYXRoZXIgdGhhbgphIGdlbmVyaWMgdG9v
-bC4gWW91IG1heSB3YW50IHRvIHJldmlzaXQgYW5kIHByb3ZpZGUgYSBtb3JlIGdlbmVyaWMKdG9v
-bCBpbiB0aGUgZnV0dXJlLgoKQSB0cml2aWFsIGNvbW1lbnQgYWJvdXQgdXNpbmcgYSBsb29wIGlu
-bGluZS4KCkpvbmF0aGFuCgo+IC0tLQo+ICBNQUlOVEFJTkVSUyAgICAgICAgICAgICAgICAgICAg
-IHwgIDEgKwo+ICB0b29scy9NYWtlZmlsZSAgICAgICAgICAgICAgICAgIHwgMTMgKystLS0KPiAg
-dG9vbHMvY291bnRlci9CdWlsZCAgICAgICAgICAgICB8ICAxICsKPiAgdG9vbHMvY291bnRlci9N
-YWtlZmlsZSAgICAgICAgICB8IDUzICsrKysrKysrKysrKysrKysrKysKPiAgdG9vbHMvY291bnRl
-ci9jb3VudGVyX2V4YW1wbGUuYyB8IDkzICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-Kwo+ICA1IGZpbGVzIGNoYW5nZWQsIDE1NSBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQo+
-ICBjcmVhdGUgbW9kZSAxMDA2NDQgdG9vbHMvY291bnRlci9CdWlsZAo+ICBjcmVhdGUgbW9kZSAx
-MDA2NDQgdG9vbHMvY291bnRlci9NYWtlZmlsZQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgdG9vbHMv
-Y291bnRlci9jb3VudGVyX2V4YW1wbGUuYwo+IAo+IGRpZmYgLS1naXQgYS9NQUlOVEFJTkVSUyBi
-L01BSU5UQUlORVJTCj4gaW5kZXggZjJmZGQyMjAyNjA1Li41N2RjOWI2ZmY4MmEgMTAwNjQ0Cj4g
-LS0tIGEvTUFJTlRBSU5FUlMKPiArKysgYi9NQUlOVEFJTkVSUwo+IEBAIC00NzgyLDYgKzQ3ODIs
-NyBAQCBGOglEb2N1bWVudGF0aW9uL2RyaXZlci1hcGkvZ2VuZXJpYy1jb3VudGVyLnJzdAo+ICBG
-Oglkcml2ZXJzL2NvdW50ZXIvCj4gIEY6CWluY2x1ZGUvbGludXgvY291bnRlci5oCj4gIEY6CWlu
-Y2x1ZGUvdWFwaS9saW51eC9jb3VudGVyLmgKPiArRjoJdG9vbHMvY291bnRlci8KPiAgCj4gIENQ
-MjYxNSBJMkMgRFJJVkVSCj4gIE06CUJlbmNlIENzw7Nrw6FzIDxiZW5jZTk4QHNjaC5ibWUuaHU+
-Cj4gZGlmZiAtLWdpdCBhL3Rvb2xzL01ha2VmaWxlIGIvdG9vbHMvTWFrZWZpbGUKPiBpbmRleCA3
-ZTlkMzRkZGQ3NGMuLjVkYTFmZGUwM2E5YSAxMDA2NDQKPiAtLS0gYS90b29scy9NYWtlZmlsZQo+
-ICsrKyBiL3Rvb2xzL01ha2VmaWxlCj4gQEAgLTEyLDYgKzEyLDcgQEAgaGVscDoKPiAgCUBlY2hv
-ICcgIGFjcGkgICAgICAgICAgICAgICAgICAgLSBBQ1BJIHRvb2xzJwo+ICAJQGVjaG8gJyAgYnBm
-ICAgICAgICAgICAgICAgICAgICAtIG1pc2MgQlBGIHRvb2xzJwo+ICAJQGVjaG8gJyAgY2dyb3Vw
-ICAgICAgICAgICAgICAgICAtIGNncm91cCB0b29scycKPiArCUBlY2hvICcgIGNvdW50ZXIgICAg
-ICAgICAgICAgICAgLSBjb3VudGVyIHRvb2xzJwo+ICAJQGVjaG8gJyAgY3B1cG93ZXIgICAgICAg
-ICAgICAgICAtIGEgdG9vbCBmb3IgYWxsIHRoaW5ncyB4ODYgQ1BVIHBvd2VyJwo+ICAJQGVjaG8g
-JyAgZGVidWdnaW5nICAgICAgICAgICAgICAtIHRvb2xzIGZvciBkZWJ1Z2dpbmcnCj4gIAlAZWNo
-byAnICBmaXJld2lyZSAgICAgICAgICAgICAgIC0gdGhlIHVzZXJzcGFjZSBwYXJ0IG9mIG5vc3ks
-IGFuIElFRUUtMTM5NCB0cmFmZmljIHNuaWZmZXInCj4gQEAgLTY1LDcgKzY2LDcgQEAgYWNwaTog
-Rk9SQ0UKPiAgY3B1cG93ZXI6IEZPUkNFCj4gIAkkKGNhbGwgZGVzY2VuZCxwb3dlci8kQCkKPiAg
-Cj4gLWNncm91cCBmaXJld2lyZSBodiBndWVzdCBib290Y29uZmlnIHNwaSB1c2IgdmlydGlvIHZt
-IGJwZiBpaW8gZ3BpbyBvYmp0b29sIGxlZHMgd21pIHBjaSBmaXJtd2FyZSBkZWJ1Z2dpbmcgdHJh
-Y2luZzogRk9SQ0UKPiArY2dyb3VwIGNvdW50ZXIgZmlyZXdpcmUgaHYgZ3Vlc3QgYm9vdGNvbmZp
-ZyBzcGkgdXNiIHZpcnRpbyB2bSBicGYgaWlvIGdwaW8gb2JqdG9vbCBsZWRzIHdtaSBwY2kgZmly
-bXdhcmUgZGVidWdnaW5nIHRyYWNpbmc6IEZPUkNFCj4gIAkkKGNhbGwgZGVzY2VuZCwkQCkKPiAg
-Cj4gIGJwZi8lOiBGT1JDRQo+IEBAIC0xMDAsNyArMTAxLDcgQEAgZnJlZWZhbGw6IEZPUkNFCj4g
-IGt2bV9zdGF0OiBGT1JDRQo+ICAJJChjYWxsIGRlc2NlbmQsa3ZtLyRAKQo+ICAKPiAtYWxsOiBh
-Y3BpIGNncm91cCBjcHVwb3dlciBncGlvIGh2IGZpcmV3aXJlIGxpYmxvY2tkZXAgXAo+ICthbGw6
-IGFjcGkgY2dyb3VwIGNvdW50ZXIgY3B1cG93ZXIgZ3BpbyBodiBmaXJld2lyZSBsaWJsb2NrZGVw
-IFwKPiAgCQlwZXJmIHNlbGZ0ZXN0cyBib290Y29uZmlnIHNwaSB0dXJib3N0YXQgdXNiIFwKPiAg
-CQl2aXJ0aW8gdm0gYnBmIHg4Nl9lbmVyZ3lfcGVyZl9wb2xpY3kgXAo+ICAJCXRtb24gZnJlZWZh
-bGwgaWlvIG9ianRvb2wga3ZtX3N0YXQgd21pIFwKPiBAQCAtMTEyLDcgKzExMyw3IEBAIGFjcGlf
-aW5zdGFsbDoKPiAgY3B1cG93ZXJfaW5zdGFsbDoKPiAgCSQoY2FsbCBkZXNjZW5kLHBvd2VyLyQo
-QDpfaW5zdGFsbD0pLGluc3RhbGwpCj4gIAo+IC1jZ3JvdXBfaW5zdGFsbCBmaXJld2lyZV9pbnN0
-YWxsIGdwaW9faW5zdGFsbCBodl9pbnN0YWxsIGlpb19pbnN0YWxsIHBlcmZfaW5zdGFsbCBib290
-Y29uZmlnX2luc3RhbGwgc3BpX2luc3RhbGwgdXNiX2luc3RhbGwgdmlydGlvX2luc3RhbGwgdm1f
-aW5zdGFsbCBicGZfaW5zdGFsbCBvYmp0b29sX2luc3RhbGwgd21pX2luc3RhbGwgcGNpX2luc3Rh
-bGwgZGVidWdnaW5nX2luc3RhbGwgdHJhY2luZ19pbnN0YWxsOgo+ICtjZ3JvdXBfaW5zdGFsbCBj
-b3VudGVyX2luc3RhbGwgZmlyZXdpcmVfaW5zdGFsbCBncGlvX2luc3RhbGwgaHZfaW5zdGFsbCBp
-aW9faW5zdGFsbCBwZXJmX2luc3RhbGwgYm9vdGNvbmZpZ19pbnN0YWxsIHNwaV9pbnN0YWxsIHVz
-Yl9pbnN0YWxsIHZpcnRpb19pbnN0YWxsIHZtX2luc3RhbGwgYnBmX2luc3RhbGwgb2JqdG9vbF9p
-bnN0YWxsIHdtaV9pbnN0YWxsIHBjaV9pbnN0YWxsIGRlYnVnZ2luZ19pbnN0YWxsIHRyYWNpbmdf
-aW5zdGFsbDoKPiAgCSQoY2FsbCBkZXNjZW5kLCQoQDpfaW5zdGFsbD0pLGluc3RhbGwpCj4gIAo+
-ICBsaWJsb2NrZGVwX2luc3RhbGw6Cj4gQEAgLTEzMyw3ICsxMzQsNyBAQCBmcmVlZmFsbF9pbnN0
-YWxsOgo+ICBrdm1fc3RhdF9pbnN0YWxsOgo+ICAJJChjYWxsIGRlc2NlbmQsa3ZtLyQoQDpfaW5z
-dGFsbD0pLGluc3RhbGwpCj4gIAo+IC1pbnN0YWxsOiBhY3BpX2luc3RhbGwgY2dyb3VwX2luc3Rh
-bGwgY3B1cG93ZXJfaW5zdGFsbCBncGlvX2luc3RhbGwgXAo+ICtpbnN0YWxsOiBhY3BpX2luc3Rh
-bGwgY2dyb3VwX2luc3RhbGwgY291bnRlcl9pbnN0YWxsIGNwdXBvd2VyX2luc3RhbGwgZ3Bpb19p
-bnN0YWxsIFwKPiAgCQlodl9pbnN0YWxsIGZpcmV3aXJlX2luc3RhbGwgaWlvX2luc3RhbGwgbGli
-bG9ja2RlcF9pbnN0YWxsIFwKPiAgCQlwZXJmX2luc3RhbGwgc2VsZnRlc3RzX2luc3RhbGwgdHVy
-Ym9zdGF0X2luc3RhbGwgdXNiX2luc3RhbGwgXAo+ICAJCXZpcnRpb19pbnN0YWxsIHZtX2luc3Rh
-bGwgYnBmX2luc3RhbGwgeDg2X2VuZXJneV9wZXJmX3BvbGljeV9pbnN0YWxsIFwKPiBAQCAtMTQ3
-LDcgKzE0OCw3IEBAIGFjcGlfY2xlYW46Cj4gIGNwdXBvd2VyX2NsZWFuOgo+ICAJJChjYWxsIGRl
-c2NlbmQscG93ZXIvY3B1cG93ZXIsY2xlYW4pCj4gIAo+IC1jZ3JvdXBfY2xlYW4gaHZfY2xlYW4g
-ZmlyZXdpcmVfY2xlYW4gYm9vdGNvbmZpZ19jbGVhbiBzcGlfY2xlYW4gdXNiX2NsZWFuIHZpcnRp
-b19jbGVhbiB2bV9jbGVhbiB3bWlfY2xlYW4gYnBmX2NsZWFuIGlpb19jbGVhbiBncGlvX2NsZWFu
-IG9ianRvb2xfY2xlYW4gbGVkc19jbGVhbiBwY2lfY2xlYW4gZmlybXdhcmVfY2xlYW4gZGVidWdn
-aW5nX2NsZWFuIHRyYWNpbmdfY2xlYW46Cj4gK2Nncm91cF9jbGVhbiBjb3VudGVyX2NsZWFuIGh2
-X2NsZWFuIGZpcmV3aXJlX2NsZWFuIGJvb3Rjb25maWdfY2xlYW4gc3BpX2NsZWFuIHVzYl9jbGVh
-biB2aXJ0aW9fY2xlYW4gdm1fY2xlYW4gd21pX2NsZWFuIGJwZl9jbGVhbiBpaW9fY2xlYW4gZ3Bp
-b19jbGVhbiBvYmp0b29sX2NsZWFuIGxlZHNfY2xlYW4gcGNpX2NsZWFuIGZpcm13YXJlX2NsZWFu
-IGRlYnVnZ2luZ19jbGVhbiB0cmFjaW5nX2NsZWFuOgo+ICAJJChjYWxsIGRlc2NlbmQsJChAOl9j
-bGVhbj0pLGNsZWFuKQo+ICAKPiAgbGlibG9ja2RlcF9jbGVhbjoKPiBAQCAtMTgxLDcgKzE4Miw3
-IEBAIGZyZWVmYWxsX2NsZWFuOgo+ICBidWlsZF9jbGVhbjoKPiAgCSQoY2FsbCBkZXNjZW5kLGJ1
-aWxkLGNsZWFuKQo+ICAKPiAtY2xlYW46IGFjcGlfY2xlYW4gY2dyb3VwX2NsZWFuIGNwdXBvd2Vy
-X2NsZWFuIGh2X2NsZWFuIGZpcmV3aXJlX2NsZWFuIFwKPiArY2xlYW46IGFjcGlfY2xlYW4gY2dy
-b3VwX2NsZWFuIGNvdW50ZXJfY2xlYW4gY3B1cG93ZXJfY2xlYW4gaHZfY2xlYW4gZmlyZXdpcmVf
-Y2xlYW4gXAoKVGhpcyBpcyBmYXIgZnJvbSBhbHBoYWJldGljYWwsIHRob3VnaCBJIGhhdmUgbm8g
-aWRlYSBpZiB0aGVyZSBpcyBhbnkgc3Ryb25nIGNvbnZlbnRpb24gb24gd2hlcmUKdG8gYWRkIG5l
-dyBlbnRyaWVzLgoKPiAgCQlwZXJmX2NsZWFuIHNlbGZ0ZXN0c19jbGVhbiB0dXJib3N0YXRfY2xl
-YW4gYm9vdGNvbmZpZ19jbGVhbiBzcGlfY2xlYW4gdXNiX2NsZWFuIHZpcnRpb19jbGVhbiBcCj4g
-IAkJdm1fY2xlYW4gYnBmX2NsZWFuIGlpb19jbGVhbiB4ODZfZW5lcmd5X3BlcmZfcG9saWN5X2Ns
-ZWFuIHRtb25fY2xlYW4gXAo+ICAJCWZyZWVmYWxsX2NsZWFuIGJ1aWxkX2NsZWFuIGxpYmJwZl9j
-bGVhbiBsaWJzdWJjbWRfY2xlYW4gbGlibG9ja2RlcF9jbGVhbiBcCj4gZGlmZiAtLWdpdCBhL3Rv
-b2xzL2NvdW50ZXIvQnVpbGQgYi90b29scy9jb3VudGVyL0J1aWxkCj4gbmV3IGZpbGUgbW9kZSAx
-MDA2NDQKPiBpbmRleCAwMDAwMDAwMDAwMDAuLjMzZjRhNTFkNzE1ZQo+IC0tLSAvZGV2L251bGwK
-PiArKysgYi90b29scy9jb3VudGVyL0J1aWxkCj4gQEAgLTAsMCArMSBAQAo+ICtjb3VudGVyX2V4
-YW1wbGUteSArPSBjb3VudGVyX2V4YW1wbGUubwo+IGRpZmYgLS1naXQgYS90b29scy9jb3VudGVy
-L01ha2VmaWxlIGIvdG9vbHMvY291bnRlci9NYWtlZmlsZQo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0
-Cj4gaW5kZXggMDAwMDAwMDAwMDAwLi41ZWJjMTk1ZmQ5YzAKPiAtLS0gL2Rldi9udWxsCj4gKysr
-IGIvdG9vbHMvY291bnRlci9NYWtlZmlsZQo+IEBAIC0wLDAgKzEsNTMgQEAKPiArIyBTUERYLUxp
-Y2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMAo+ICtpbmNsdWRlIC4uL3NjcmlwdHMvTWFrZWZpbGUu
-aW5jbHVkZQo+ICsKPiArYmluZGlyID89IC91c3IvYmluCj4gKwo+ICtpZmVxICgkKHNyY3RyZWUp
-LCkKPiArc3JjdHJlZSA6PSAkKHBhdHN1YnN0ICUvLCUsJChkaXIgJChDVVJESVIpKSkKPiArc3Jj
-dHJlZSA6PSAkKHBhdHN1YnN0ICUvLCUsJChkaXIgJChzcmN0cmVlKSkpCj4gK2VuZGlmCj4gKwo+
-ICsjIERvIG5vdCB1c2UgbWFrZSdzIGJ1aWx0LWluIHJ1bGVzCj4gKyMgKHRoaXMgaW1wcm92ZXMg
-cGVyZm9ybWFuY2UgYW5kIGF2b2lkcyBoYXJkLXRvLWRlYnVnIGJlaGF2aW91cik7Cj4gK01BS0VG
-TEFHUyArPSAtcgo+ICsKPiArb3ZlcnJpZGUgQ0ZMQUdTICs9IC1PMiAtV2FsbCAtZyAtRF9HTlVf
-U09VUkNFIC1JJChPVVRQVVQpaW5jbHVkZQo+ICsKPiArQUxMX1RBUkdFVFMgOj0gY291bnRlcl9l
-eGFtcGxlCj4gK0FMTF9QUk9HUkFNUyA6PSAkKHBhdHN1YnN0ICUsJChPVVRQVVQpJSwkKEFMTF9U
-QVJHRVRTKSkKPiArCj4gK2FsbDogJChBTExfUFJPR1JBTVMpCj4gKwo+ICtleHBvcnQgc3JjdHJl
-ZSBPVVRQVVQgQ0MgTEQgQ0ZMQUdTCj4gK2luY2x1ZGUgJChzcmN0cmVlKS90b29scy9idWlsZC9N
-YWtlZmlsZS5pbmNsdWRlCj4gKwo+ICsjCj4gKyMgV2UgbmVlZCB0aGUgZm9sbG93aW5nIHRvIGJl
-IG91dHNpZGUgb2Yga2VybmVsIHRyZWUKPiArIwo+ICskKE9VVFBVVClpbmNsdWRlL2xpbnV4L2Nv
-dW50ZXIuaDogLi4vLi4vaW5jbHVkZS91YXBpL2xpbnV4L2NvdW50ZXIuaAo+ICsJbWtkaXIgLXAg
-JChPVVRQVVQpaW5jbHVkZS9saW51eCAyPiYxIHx8IHRydWUKPiArCWxuIC1zZiAkKENVUkRJUikv
-Li4vLi4vaW5jbHVkZS91YXBpL2xpbnV4L2NvdW50ZXIuaCAkQAo+ICsKPiArcHJlcGFyZTogJChP
-VVRQVVQpaW5jbHVkZS9saW51eC9jb3VudGVyLmgKPiArCj4gK0NPVU5URVJfRVhBTVBMRSA6PSAk
-KE9VVFBVVCljb3VudGVyX2V4YW1wbGUubwo+ICskKENPVU5URVJfRVhBTVBMRSk6IHByZXBhcmUg
-Rk9SQ0UKPiArCSQoUSkkKE1BS0UpICQoYnVpbGQpPWNvdW50ZXJfZXhhbXBsZQo+ICskKE9VVFBV
-VCljb3VudGVyX2V4YW1wbGU6ICQoQ09VTlRFUl9FWEFNUExFKQo+ICsJJChRVUlFVF9MSU5LKSQo
-Q0MpICQoQ0ZMQUdTKSAkKExERkxBR1MpICQ8IC1vICRACj4gKwo+ICtjbGVhbjoKPiArCXJtIC1m
-ICQoQUxMX1BST0dSQU1TKQo+ICsJcm0gLXJmICQoT1VUUFVUKWluY2x1ZGUvbGludXgvY291bnRl
-ci5oCj4gKwlmaW5kICQoaWYgJChPVVRQVVQpLCQoT1VUUFVUKSwuKSAtbmFtZSAnKi5vJyAtZGVs
-ZXRlIC1vIC1uYW1lICdcLiouZCcgLWRlbGV0ZQo+ICsKPiAraW5zdGFsbDogJChBTExfUFJPR1JB
-TVMpCj4gKwlpbnN0YWxsIC1kIC1tIDc1NSAkKERFU1RESVIpJChiaW5kaXIpOwkJXAo+ICsJZm9y
-IHByb2dyYW0gaW4gJChBTExfUFJPR1JBTVMpOyBkbwkJXAo+ICsJCWluc3RhbGwgJCRwcm9ncmFt
-ICQoREVTVERJUikkKGJpbmRpcik7CVwKPiArCWRvbmUKPiArCj4gK0ZPUkNFOgo+ICsKPiArLlBI
-T05ZOiBhbGwgaW5zdGFsbCBjbGVhbiBGT1JDRSBwcmVwYXJlCj4gZGlmZiAtLWdpdCBhL3Rvb2xz
-L2NvdW50ZXIvY291bnRlcl9leGFtcGxlLmMgYi90b29scy9jb3VudGVyL2NvdW50ZXJfZXhhbXBs
-ZS5jCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBpbmRleCAwMDAwMDAwMDAwMDAuLjkwZDY5ZmI5
-NDYzYgo+IC0tLSAvZGV2L251bGwKPiArKysgYi90b29scy9jb3VudGVyL2NvdW50ZXJfZXhhbXBs
-ZS5jCj4gQEAgLTAsMCArMSw5MyBAQAo+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BM
-LTIuMC1vbmx5Cj4gKy8qIENvdW50ZXIgLSBleGFtcGxlIHVzZXJzcGFjZSBhcHBsaWNhdGlvbgo+
-ICsgKgo+ICsgKiBUaGUgdXNlcnNwYWNlIGFwcGxpY2F0aW9uIG9wZW5zIC9kZXYvY291bnRlcjAs
-IGNvbmZpZ3VyZXMgdGhlCj4gKyAqIENPVU5URVJfRVZFTlRfSU5ERVggZXZlbnQgY2hhbm5lbCAw
-IHRvIGdhdGhlciBDb3VudCAwIGNvdW50IGFuZCBDb3VudAo+ICsgKiAxIGNvdW50LCBhbmQgcHJp
-bnRzIG91dCB0aGUgZGF0YSBhcyBpdCBiZWNvbWVzIGF2YWlsYWJsZSBvbiB0aGUKPiArICogY2hh
-cmFjdGVyIGRldmljZSBub2RlLgo+ICsgKgo+ICsgKiBDb3B5cmlnaHQgKEMpIDIwMjEgV2lsbGlh
-bSBCcmVhdGhpdHQgR3JheQo+ICsgKi8KPiArI2luY2x1ZGUgPGVycm5vLmg+Cj4gKyNpbmNsdWRl
-IDxmY250bC5oPgo+ICsjaW5jbHVkZSA8bGludXgvY291bnRlci5oPgo+ICsjaW5jbHVkZSA8c3Rk
-aW8uaD4KPiArI2luY2x1ZGUgPHN0cmluZy5oPgo+ICsjaW5jbHVkZSA8c3lzL2lvY3RsLmg+Cj4g
-KyNpbmNsdWRlIDx1bmlzdGQuaD4KPiArCj4gK3N0YXRpYyBzdHJ1Y3QgY291bnRlcl93YXRjaCB3
-YXRjaGVzWzJdID0gewo+ICsJewo+ICsJCS8qIENvbXBvbmVudCBkYXRhOiBDb3VudCAwIGNvdW50
-ICovCj4gKwkJLmNvbXBvbmVudC50eXBlID0gQ09VTlRFUl9DT01QT05FTlRfQ09VTlQsCj4gKwkJ
-LmNvbXBvbmVudC5zY29wZSA9IENPVU5URVJfU0NPUEVfQ09VTlQsCj4gKwkJLmNvbXBvbmVudC5w
-YXJlbnQgPSAwLAo+ICsJCS8qIEV2ZW50IHR5cGU6IEluZGV4ICovCj4gKwkJLmV2ZW50ID0gQ09V
-TlRFUl9FVkVOVF9JTkRFWCwKPiArCQkvKiBEZXZpY2UgZXZlbnQgY2hhbm5lbCAwICovCj4gKwkJ
-LmNoYW5uZWwgPSAwLAo+ICsJfSwKPiArCXsKPiArCQkvKiBDb21wb25lbnQgZGF0YTogQ291bnQg
-MSBjb3VudCAqLwo+ICsJCS5jb21wb25lbnQudHlwZSA9IENPVU5URVJfQ09NUE9ORU5UX0NPVU5U
-LAo+ICsJCS5jb21wb25lbnQuc2NvcGUgPSBDT1VOVEVSX1NDT1BFX0NPVU5ULAo+ICsJCS5jb21w
-b25lbnQucGFyZW50ID0gMSwKPiArCQkvKiBFdmVudCB0eXBlOiBJbmRleCAqLwo+ICsJCS5ldmVu
-dCA9IENPVU5URVJfRVZFTlRfSU5ERVgsCj4gKwkJLyogRGV2aWNlIGV2ZW50IGNoYW5uZWwgMCAq
-Lwo+ICsJCS5jaGFubmVsID0gMCwKPiArCX0sCj4gK307Cj4gKwo+ICtpbnQgbWFpbih2b2lkKQo+
-ICt7Cj4gKwlpbnQgZmQ7Cj4gKwlpbnQgcmV0Owo+ICsJc3RydWN0IGNvdW50ZXJfZXZlbnQgZXZl
-bnRfZGF0YVsyXTsKPiArCj4gKwlmZCA9IG9wZW4oIi9kZXYvY291bnRlcjAiLCBPX1JEV1IpOwoK
-WW91IG1heSB3YW50IHRvIG1ha2UgdGhpcyB0b29sIG1vcmUgZmxleGlibGUgYXQgc29tZXBvaW50
-LiBJdCBpcwppbiB0b29scyByYXRoZXIgdGhhbiBEb2N1bWVudGF0aW9uIGFmdGVyIGFsbC4KCj4g
-KwlpZiAoZmQgPT0gLTEpIHsKPiArCQlwZXJyb3IoIlVuYWJsZSB0byBvcGVuIC9kZXYvY291bnRl
-cjAiKTsKPiArCQlyZXR1cm4gLWVycm5vOwo+ICsJfQo+ICsKPiArCXJldCA9IGlvY3RsKGZkLCBD
-T1VOVEVSX0FERF9XQVRDSF9JT0NUTCwgd2F0Y2hlcyk7CgpMb29wPwoKPiArCWlmIChyZXQgPT0g
-LTEpIHsKPiArCQlwZXJyb3IoIkVycm9yIGFkZGluZyB3YXRjaGVzWzBdIik7Cj4gKwkJcmV0dXJu
-IC1lcnJubzsKPiArCX0KPiArCXJldCA9IGlvY3RsKGZkLCBDT1VOVEVSX0FERF9XQVRDSF9JT0NU
-TCwgd2F0Y2hlcyArIDEpOwo+ICsJaWYgKHJldCA9PSAtMSkgewo+ICsJCXBlcnJvcigiRXJyb3Ig
-YWRkaW5nIHdhdGNoZXNbMV0iKTsKPiArCQlyZXR1cm4gLWVycm5vOwo+ICsJfQo+ICsJcmV0ID0g
-aW9jdGwoZmQsIENPVU5URVJfRU5BQkxFX0VWRU5UU19JT0NUTCk7Cj4gKwlpZiAocmV0ID09IC0x
-KSB7Cj4gKwkJcGVycm9yKCJFcnJvciBlbmFibGluZyBldmVudHMiKTsKPiArCQlyZXR1cm4gLWVy
-cm5vOwo+ICsJfQo+ICsKPiArCWZvciAoOzspIHsKPiArCQlyZXQgPSByZWFkKGZkLCBldmVudF9k
-YXRhLCBzaXplb2YoZXZlbnRfZGF0YSkpOwo+ICsJCWlmIChyZXQgPT0gLTEpIHsKPiArCQkJcGVy
-cm9yKCJGYWlsZWQgdG8gcmVhZCBldmVudCBkYXRhIik7Cj4gKwkJCXJldHVybiAxOwo+ICsJCX0K
-PiArCj4gKwkJaWYgKHJldCAhPSBzaXplb2YoZXZlbnRfZGF0YSkpIHsKPiArCQkJZnByaW50Zihz
-dGRlcnIsICJGYWlsZWQgdG8gcmVhZCBldmVudCBkYXRhXG4iKTsKPiArCQkJcmV0dXJuIC1FSU87
-Cj4gKwkJfQo+ICsKPiArCQlwcmludGYoIlRpbWVzdGFtcCAwOiAlbGx1XHRDb3VudCAwOiAlbGx1
-XG4iCj4gKwkJICAgICAgICJFcnJvciBNZXNzYWdlIDA6ICVzXG4iCj4gKwkJICAgICAgICJUaW1l
-c3RhbXAgMTogJWxsdVx0Q291bnQgMTogJWxsdVxuIgo+ICsJCSAgICAgICAiRXJyb3IgTWVzc2Fn
-ZSAxOiAlc1xuIiwKPiArCQkgICAgICAgZXZlbnRfZGF0YVswXS50aW1lc3RhbXAsIGV2ZW50X2Rh
-dGFbMF0udmFsdWUsCj4gKwkJICAgICAgIHN0cmVycm9yKGV2ZW50X2RhdGFbMF0uc3RhdHVzKSwK
-PiArCQkgICAgICAgZXZlbnRfZGF0YVsxXS50aW1lc3RhbXAsIGV2ZW50X2RhdGFbMV0udmFsdWUs
-Cj4gKwkJICAgICAgIHN0cmVycm9yKGV2ZW50X2RhdGFbMV0uc3RhdHVzKSk7Cj4gKwl9Cj4gKwo+
-ICsJcmV0dXJuIDA7Cj4gK30KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Mon, 30 Aug 2021 18:17:06 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
+
+> On Fri, 27 Aug 2021 12:47:44 +0900
+> William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+> 
+> > Changes in v16:
+> >  - Define magic numbers for stm32-lptimer-cnt clock polarities
+> >  - Define magic numbers for stm32-timer-cnt encoder modes
+> >  - Bump KernelVersion to 5.16 in sysfs-bus-counter ABI documentation
+> >  - Fix typos in driver API generic-counter.rst documentation file
+> > 
+> > For convenience, this patchset is also available on my personal git
+> > repo: https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v16
+> > 
+> > The patches preceding "counter: Internalize sysfs interface code" are
+> > primarily cleanup and fixes that can be picked up and applied now to the
+> > IIO tree if so desired. The "counter: Internalize sysfs interface code"
+> > patch as well may be considered for pickup because it is relatively safe
+> > and makes no changes to the userspace interface.
+> > 
+> > To summarize the main points of this patchset: there are no changes to
+> > the existing Counter sysfs userspace interface; a Counter character
+> > device interface is introduced that allows Counter events and associated
+> > data to be read() by userspace; the events_configure() and
+> > watch_validate() driver callbacks are introduced to support Counter
+> > events; and IRQ support is added to the 104-QUAD-8 driver, serving as an
+> > example of how to support the new Counter events functionality.  
+> 
+> Hi William,
+> 
+> I'll aim to pick up the first part in a week (too tired today after a lot
+> of reviewing to even manage the basic sanity check on the changes).
+> 
+> For the rest...
+> 
+> What I'd really like to know is if anyone other than William and I is planning
+> to review them in depth? (particularly 7 and 8 which are the new interface
+> patch and docs)
+> 
+> So if anyone reading this is in that category please let me know.  We can wait,
+> but conversely if no one is going to get time / inclination to do it then I
+> don't want to hold these up any longer and maximum time in linux-next may
+> be more useful than sitting unloved on the mailing list.
+
+Ah well, looks like it's just the two of us for the chrdev core patches :)
+
+Anyhow, I found time for a more thorough review.  I'm not 100% convinced on
+the model for the chrdev but you know a lot more about this sort of hardware than
+I do and it definitely seems reasonable - if anything it might be more flexible
+than it needs to be.
+
+I've highlighted a few small things in the patches.  With those fixed I'm happy
+to apply the remainder of this series unless someone shouts in the meantime.
+
+There has been plenty of time for review, so fingers crossed that anyone
+who hasn't commented, but cares, is happy with how you have done it.
+
+So, lucky v17!  Persistence pays off in the end.
+
+Thanks,
+
+Jonathan
+
+> 
+> Jonathan
+> 
+> > 
+> > William Breathitt Gray (14):
+> >   counter: stm32-lptimer-cnt: Provide defines for clock polarities
+> >   counter: stm32-timer-cnt: Provide defines for slave mode selection
+> >   counter: Internalize sysfs interface code
+> >   counter: Update counter.h comments to reflect sysfs internalization
+> >   docs: counter: Update to reflect sysfs internalization
+> >   counter: Move counter enums to uapi header
+> >   counter: Add character device interface
+> >   docs: counter: Document character device interface
+> >   tools/counter: Create Counter tools
+> >   counter: Implement signalZ_action_component_id sysfs attribute
+> >   counter: Implement *_component_id sysfs attributes
+> >   counter: Implement events_queue_size sysfs attribute
+> >   counter: 104-quad-8: Replace mutex with spinlock
+> >   counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
+> > 
+> >  Documentation/ABI/testing/sysfs-bus-counter   |   38 +-
+> >  Documentation/driver-api/generic-counter.rst  |  358 +++-
+> >  .../userspace-api/ioctl/ioctl-number.rst      |    1 +
+> >  MAINTAINERS                                   |    3 +-
+> >  drivers/counter/104-quad-8.c                  |  699 ++++----
+> >  drivers/counter/Kconfig                       |    6 +-
+> >  drivers/counter/Makefile                      |    1 +
+> >  drivers/counter/counter-chrdev.c              |  553 ++++++
+> >  drivers/counter/counter-chrdev.h              |   14 +
+> >  drivers/counter/counter-core.c                |  191 +++
+> >  drivers/counter/counter-sysfs.c               |  960 +++++++++++
+> >  drivers/counter/counter-sysfs.h               |   13 +
+> >  drivers/counter/counter.c                     | 1496 -----------------
+> >  drivers/counter/ftm-quaddec.c                 |   60 +-
+> >  drivers/counter/intel-qep.c                   |  144 +-
+> >  drivers/counter/interrupt-cnt.c               |   62 +-
+> >  drivers/counter/microchip-tcb-capture.c       |   91 +-
+> >  drivers/counter/stm32-lptimer-cnt.c           |  212 ++-
+> >  drivers/counter/stm32-timer-cnt.c             |  195 +--
+> >  drivers/counter/ti-eqep.c                     |  180 +-
+> >  include/linux/counter.h                       |  715 ++++----
+> >  include/linux/counter_enum.h                  |   45 -
+> >  include/linux/mfd/stm32-lptimer.h             |    5 +
+> >  include/linux/mfd/stm32-timers.h              |    4 +
+> >  include/uapi/linux/counter.h                  |  154 ++
+> >  tools/Makefile                                |   13 +-
+> >  tools/counter/Build                           |    1 +
+> >  tools/counter/Makefile                        |   53 +
+> >  tools/counter/counter_example.c               |   93 +
+> >  29 files changed, 3569 insertions(+), 2791 deletions(-)
+> >  create mode 100644 drivers/counter/counter-chrdev.c
+> >  create mode 100644 drivers/counter/counter-chrdev.h
+> >  create mode 100644 drivers/counter/counter-core.c
+> >  create mode 100644 drivers/counter/counter-sysfs.c
+> >  create mode 100644 drivers/counter/counter-sysfs.h
+> >  delete mode 100644 drivers/counter/counter.c
+> >  delete mode 100644 include/linux/counter_enum.h
+> >  create mode 100644 include/uapi/linux/counter.h
+> >  create mode 100644 tools/counter/Build
+> >  create mode 100644 tools/counter/Makefile
+> >  create mode 100644 tools/counter/counter_example.c
+> > 
+> > 
+> > base-commit: 5ffeb17c0d3dd44704b4aee83e297ec07666e4d6  
+> 
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
