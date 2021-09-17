@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 529C740EF57
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Sep 2021 04:34:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FEEC40EF58
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Sep 2021 04:35:06 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 198A5C5A4D4;
-	Fri, 17 Sep 2021 02:34:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7050C5A4F5;
+	Fri, 17 Sep 2021 02:35:05 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7BF8C5719E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB019C5A4D4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Sep 2021 02:34:55 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3759061248;
- Fri, 17 Sep 2021 02:34:53 +0000 (UTC)
+ Fri, 17 Sep 2021 02:35:03 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3089F6124F;
+ Fri, 17 Sep 2021 02:35:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1631846094;
- bh=/hb9GIZb9Fv8i8fpV9Vo6wFplZV9WG8Ic/1WvmTvOxA=;
+ s=k20201202; t=1631846102;
+ bh=V4+4fuchadtuptq/x/at9MpE0EbqUI1gLCg/TTB86Xo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rdk7Lqro1G0z/Bblx0B15S66YIC533xSQX0b0RFzly7mKGN6u9Ecxxwq9biNGzRHM
- 6sjecbpJ8Pit/rv1U3Gf5xSpfVCBbRtRRiGQCfWjMkJt9lZgE6Q/Rkpor8NmaISmq8
- px8dK+7X6220H9Wym4KweFPZ/x3uR+Xcg6ktvGTHQvN16Bd//O5tah8m32X2YGeWHi
- uEA/oY9Ns5YKPBamRBf9FL1FwWvXsBHa5uvirk9Nf8aLaFveP5ThRHSbi3rOE+GXAh
- dWGRDnu//LsRaFTtjwrWMQxKVuIFf3HcaH1DhdWp2haJgspGar4i7HnXhiuK4XZdER
- ZatBmZt1SSnpA==
+ b=CJbyDvADABI7auRSJSZEnI1bszSDsWBcd4ke3uDwNE/qlUj2AchTAuGF2JPy38iLG
+ 0lZ5XJ59fW+yotB0zwlZeo4RhsimHUCPwDSTIYmr/VDb4ScttJSq1ayeN2DORRltTW
+ Eh18TnKQOTQfEAeDh6Zy5yFQkkkgZiraE62nmW4JGRVgcRUjAOxzVdMUfVeRdkQSKC
+ SEgqSFupuCXH864+9edWVTQS9Jyci4gbJDK9ML3E7gl6DaI4py2kjzITUJFJAs59WL
+ rzJbK3I9dFf32ASgMMxPkI5NqeeHV++Aox21F4vS7U3Z95ueP3U0WJ/iSfRybYWrER
+ tK4oc4sk0YB5g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Sep 2021 22:34:47 -0400
-Message-Id: <20210917023449.816713-3-sashal@kernel.org>
+Date: Thu, 16 Sep 2021 22:34:56 -0400
+Message-Id: <20210917023457.816816-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210917023449.816713-1-sashal@kernel.org>
-References: <20210917023449.816713-1-sashal@kernel.org>
+In-Reply-To: <20210917023457.816816-1-sashal@kernel.org>
+References: <20210917023457.816816-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -42,7 +42,7 @@ Cc: Sasha Levin <sashal@kernel.org>, linux-pwm@vger.kernel.org,
  =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
  lee.jones@linaro.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 3/5] pwm: stm32-lp: Don't modify
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 3/4] pwm: stm32-lp: Don't modify
 	HW state in .remove() callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -72,9 +72,9 @@ b2VuaWdAcGVuZ3V0cm9uaXguZGU+ClNpZ25lZC1vZmYtYnk6IFRoaWVycnkgUmVkaW5nIDx0aGll
 cnJ5LnJlZGluZ0BnbWFpbC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxA
 a2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL3B3bS9wd20tc3RtMzItbHAuYyB8IDIgLS0KIDEgZmls
 ZSBjaGFuZ2VkLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvcHdtL3B3bS1z
-dG0zMi1scC5jIGIvZHJpdmVycy9wd20vcHdtLXN0bTMyLWxwLmMKaW5kZXggNjdmY2E2MjUyNGRj
-Li4wNWJiMWY5NWE3NzMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi1scC5jCisr
-KyBiL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi1scC5jCkBAIC0yMjUsOCArMjI1LDYgQEAgc3RhdGlj
+dG0zMi1scC5jIGIvZHJpdmVycy9wd20vcHdtLXN0bTMyLWxwLmMKaW5kZXggMjhlMWY2NDEzNDc2
+Li5lOTJhMTQwMDc0MjIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi1scC5jCisr
+KyBiL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi1scC5jCkBAIC0yMjQsOCArMjI0LDYgQEAgc3RhdGlj
 IGludCBzdG0zMl9wd21fbHBfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCiB7
 CiAJc3RydWN0IHN0bTMyX3B3bV9scCAqcHJpdiA9IHBsYXRmb3JtX2dldF9kcnZkYXRhKHBkZXYp
 OwogCi0JcHdtX2Rpc2FibGUoJnByaXYtPmNoaXAucHdtc1swXSk7Ci0KIAlyZXR1cm4gcHdtY2hp
