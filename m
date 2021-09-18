@@ -2,82 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C8940FB69
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Sep 2021 17:11:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87988410822
+	for <lists+linux-stm32@lfdr.de>; Sat, 18 Sep 2021 20:38:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78D43C5A4F7;
-	Fri, 17 Sep 2021 15:11:37 +0000 (UTC)
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FFA1C5A4F5;
+	Sat, 18 Sep 2021 18:38:28 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEA9BC5719E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41162C06B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Sep 2021 15:11:32 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- lb1-20020a17090b4a4100b001993f863df2so7594741pjb.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Sep 2021 08:11:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:references:date:in-reply-to:message-id
- :user-agent:mime-version;
- bh=r2RrJiEEpsRgQCHuxCAXJ8mbd4K7vVzXiaC0Gr2CnAw=;
- b=pWgcVNMhEZOA69aKFNWJwg3VmHa5LdQCEBJJZO1xH+PRmYT56z0jSKa+ggijbbaG+g
- 12kQ25dUH682gtDxa6vXF55uC/0/19zjH+j+0L36RS1J8JRgiE049uGkBIzP3HQPaI/r
- Yhly8/8LGIqQkwqBV35mLBjYOu59M4hLRNOZ4MCClnRVEd3rPP2Z7E3cDaMENg9aCXjT
- vk5kzkSFX2KbPvVtDbVIOgQElOyLo27baw3lkKP0oWqE4nJcpRR7tLKQenEE+etmdOYO
- 4GBXodOv3+WWTJhkjZA+XxZdicCjBUw6ekDnmevPQlOVqs6udae13ua6WsxCfbx0ti8X
- NSqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:references:date:in-reply-to
- :message-id:user-agent:mime-version;
- bh=r2RrJiEEpsRgQCHuxCAXJ8mbd4K7vVzXiaC0Gr2CnAw=;
- b=npovSrBZCbbhbh6bn/FtIxJAAw/gKjdFsAxbzq1XL1Us/8SuScSPvQ2tUUZZsFvffZ
- XeI0V1xZteNisZvhsM5/OZY0XujT7fGXKrd9n7VsLi8asx0TramvfMuTnqU7LNF61Trz
- Xt0hwNB72RpaaXZsO5xkTYY6yDOo/qloScFeZRSVMC5EwXWlqF277XthPiNXOytLYqv8
- hts376k4OVHQ1pyp6wJvATnVJwiwLNFtWIoznBrYz+/TIwtieNwFGawEZS21SLAHSKCG
- Lt5MbTkXM+dqRW9mdBWcO2rd1y6irMsceG8LxAiHFRhVH/6VMC1A/Z6RUZX/U4KIyT1S
- KVvg==
-X-Gm-Message-State: AOAM532CP8QL9PgGzXV/IKjgj+LH+ownYuCgc+MwNmNvmUzZqhg7WBp5
- XCOxXHKuJ01n/Jw/61H39vM=
-X-Google-Smtp-Source: ABdhPJxJ4+6F3QMapQMAbfBhQNz7vT4Jw2fiYFQYfg8YyrrllwIi2qtejMHSvQU8z3bC4P4bDpgqag==
-X-Received: by 2002:a17:90b:350d:: with SMTP id
- ls13mr21395876pjb.235.1631891491434; 
- Fri, 17 Sep 2021 08:11:31 -0700 (PDT)
-Received: from localhost (122x211x248x161.ap122.ftth.ucom.ne.jp.
- [122.211.248.161])
- by smtp.gmail.com with ESMTPSA id b10sm6450960pfi.122.2021.09.17.08.11.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Sep 2021 08:11:30 -0700 (PDT)
-From: Punit Agrawal <punitagrawal@gmail.com>
-To: Qu Wenruo <wqu@suse.com>
-References: <20210823143754.14294-1-michael.riesch@wolfvision.net>
- <CAGb2v67Duk_56fOKVwZsYn2HKJ99o8WJ+d4jetD2UjDsAt9BcA@mail.gmail.com>
- <568a0825-ed65-58d7-9c9c-cecb481cf9d9@wolfvision.net>
- <87czpvcaab.fsf@stealth>
- <aa905e4d-c5a7-e969-1171-3a90ecd9b9cc@wolfvision.net>
- <2424d7da-7022-0b38-46ba-b48f43cda23d@suse.com>
- <877dff7jq6.fsf@stealth>
- <902ad36d-153c-857b-40a6-449f76aa17b0@suse.com>
-Date: Sat, 18 Sep 2021 00:11:28 +0900
-In-Reply-To: <902ad36d-153c-857b-40a6-449f76aa17b0@suse.com> (Qu Wenruo's
- message of "Fri, 17 Sep 2021 16:02:01 +0800")
-Message-ID: <87zgsb5ja7.fsf@stealth>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+ Sat, 18 Sep 2021 18:38:26 +0000 (UTC)
+Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id BBB3B6113A;
+ Sat, 18 Sep 2021 18:38:20 +0000 (UTC)
+Date: Sat, 18 Sep 2021 19:42:00 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Message-ID: <20210918194149.546a5189@jic23-huawei>
+In-Reply-To: <865e35a2-47c1-336a-641a-365b7db8213a@foss.st.com>
+References: <20210908155452.25458-1-olivier.moysan@foss.st.com>
+ <20210908155452.25458-7-olivier.moysan@foss.st.com>
+ <20210911172834.401cf4c8@jic23-huawei>
+ <865e35a2-47c1-336a-641a-365b7db8213a@foss.st.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: sashal@kernel.org, netdev <netdev@vger.kernel.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, "David S .
- Miller" <davem@davemloft.net>, "open list:ARM/Rockchip
- SoC..." <linux-rockchip@lists.infradead.org>, Jose Abreu <joabreu@synopsys.com>,
- Michael Riesch <michael.riesch@wolfvision.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, wens@kernel.org,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-rk: fix unbalanced
- pm_runtime_enable warnings
+Cc: devicetree@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
+ linux-iio@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 6/7] iio: adc: stm32-adc: add vrefint
+ calibration support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,127 +55,323 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Qu Wenruo <wqu@suse.com> writes:
+On Wed, 15 Sep 2021 12:02:45 +0200
+Olivier MOYSAN <olivier.moysan@foss.st.com> wrote:
 
-> On 2021/9/17 15:18, Punit Agrawal wrote:
->> Hi Qu,
->> Qu Wenruo <wqu@suse.com> writes:
->> 
->>> On 2021/8/30 22:10, Michael Riesch wrote:
->>>> Hi Punit,
->>>> On 8/30/21 3:49 PM, Punit Agrawal wrote:
->>>>> Hi Michael,
->>>>>
->>>>> Michael Riesch <michael.riesch@wolfvision.net> writes:
->>>>>
->>>>>> Hi ChenYu,
->>>>>>
->>>>>> On 8/29/21 7:48 PM, Chen-Yu Tsai wrote:
->>>>>>> Hi,
->>>>>>>
->>>>>>> On Mon, Aug 23, 2021 at 10:39 PM Michael Riesch
->>>>>>> <michael.riesch@wolfvision.net> wrote:
->>>>>>>>
->>>>>>>> This reverts commit 2c896fb02e7f65299646f295a007bda043e0f382
->>>>>>>> "net: stmmac: dwmac-rk: add pd_gmac support for rk3399" and fixes
->>>>>>>> unbalanced pm_runtime_enable warnings.
->>>>>>>>
->>>>>>>> In the commit to be reverted, support for power management was
->>>>>>>> introduced to the Rockchip glue code. Later, power management support
->>>>>>>> was introduced to the stmmac core code, resulting in multiple
->>>>>>>> invocations of pm_runtime_{enable,disable,get_sync,put_sync}.
->>>>>>>>
->>>>>>>> The multiple invocations happen in rk_gmac_powerup and
->>>>>>>> stmmac_{dvr_probe, resume} as well as in rk_gmac_powerdown and
->>>>>>>> stmmac_{dvr_remove, suspend}, respectively, which are always called
->>>>>>>> in conjunction.
->>>>>>>>
->>>>>>>> Signed-off-by: Michael Riesch <michael.riesch@wolfvision.net>
->>>>>>>
->>>>>>> I just found that Ethernet stopped working on my RK3399 devices,
->>>>>>> and I bisected it down to this patch.
->>>>>>
->>>>>> Oh dear. First patch in a kernel release for a while and I already break
->>>>>> things.
->>>>>
->>>>> I am seeing the same failure symptoms reported by ChenYu on my RockPro64
->>>>> with v5.14. Reverting the revert i.e., 2d26f6e39afb ("net: stmmac:
->>>>> dwmac-rk: fix unbalanced pm_runtime_enable warnings") brings back the
->>>>> network.
->>>>>
->>>>>> Cc: Sasha as this patch has just been applied to 5.13-stable.
->>>>>>
->>>>>>> The symptom I see is no DHCP responses, either because the request
->>>>>>> isn't getting sent over the wire, or the response isn't getting
->>>>>>> received. The PHY seems to be working correctly.
->>>>>>
->>>>>> Unfortunately I don't have any RK3399 hardware. Is this a custom
->>>>>> board/special hardware or something that is readily available in the
->>>>>> shops? Maybe this is a good reason to buy a RK3399 based single-board
->>>>>> computer :-)
->>>>>
->>>>> Not sure about the other RK3399 boards but RockPro64 is easily
->>>>> available.
->>>> I was thinking to get one of those anyway ;-)
->>>>
->>>>>> I am working on the RK3568 EVB1 and have not encountered faulty
->>>>>> behavior. DHCP works fine and I can boot via NFS. Therefore, not sure
->>>>>> whether I can be much of help in this matter, but in case you want to
->>>>>> discuss this further please do not hesitate to contact me off-list.
->>>>>
->>>>> I tried to look for the differences between RK3568 and RK3399 but the
->>>>> upstream device tree doesn't seem to carry a gmac node in the device
->>>>> tree for EK3568 EVB1. Do you have a pointer for the dts you're using?
->>>> The gmac nodes have been added recently and should enter
->>>> 5.15-rc1. Until
->>>> then, you can check out the dts from linux-rockchip/for-next [0].
->>>
->>> Do you have the upstream commit?
->>>
->>> As I compiled v5.15-rc1 and still can't get the ethernet work.
->>>
->>> Not sure if it's my Uboot->systemd-boot->customer kernel setup not
->>> passing the device tree correctly or something else...
->> For the RK3568 device tree changes, I think the pull request got
->> delayed
->> to the next cycle. So likely to land in v5.16.
->> In case you're after ethernet on RK3399, there's no solution
->> yet. Reverting 2d26f6e39afb ("net: stmmac: dwmac-rk: fix unbalanced
->> pm_runtime_enable warnings") gets you there in the meanwhile.
->
-> Thanks, currently I have seen other distros like ManjaroARM is already
-> reverting that commit.
->
-> But even with that commit reverted, I still get some other strange
-> network behavior.
->
-> The most weird one is distcc, when the RK3399 board is the client and
-> x86_64 desktop acts as a volunteer, after compiling hundreds of files, 
-> it suddenly no longer work.
+> Hi Jonathan,
+> 
+> On 9/11/21 6:28 PM, Jonathan Cameron wrote:
+> > On Wed, 8 Sep 2021 17:54:51 +0200
+> > Olivier Moysan <olivier.moysan@foss.st.com> wrote:
+> >   
+> >> Add support of vrefint calibration.
+> >> If a channel is labeled as vrefint, get vrefint calibration
+> >> from non volatile memory for this channel.
+> >> A conversion on vrefint channel allows to update scale
+> >> factor according to vrefint deviation, compared to vrefint
+> >> calibration value.  
+> > 
+> > As I mention inline, whilst technically the ABI doesn't demand it
+> > the expectation of much of userspace software is that _scale is
+> > pseudo constant - that is it doesn't tend to change very often and when
+> > it does it's normally because someone deliberately made it change.
+> > As such most software reads it just once.
+> > 
+> > Normally we work around this by applying the maths in kernel and
+> > not exposing the scale at all. Is this something that could be done here?
+> > 
+> > Jonathan
+> >   
+> >>
+> >> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> >> ---
+> >>   drivers/iio/adc/stm32-adc.c | 88 ++++++++++++++++++++++++++++++++++---
+> >>   1 file changed, 82 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> >> index ef3d2af98025..9e52a7de9b16 100644
+> >> --- a/drivers/iio/adc/stm32-adc.c
+> >> +++ b/drivers/iio/adc/stm32-adc.c
+> >> @@ -21,6 +21,7 @@
+> >>   #include <linux/io.h>
+> >>   #include <linux/iopoll.h>
+> >>   #include <linux/module.h>
+> >> +#include <linux/nvmem-consumer.h>
+> >>   #include <linux/platform_device.h>
+> >>   #include <linux/pm_runtime.h>
+> >>   #include <linux/of.h>
+> >> @@ -42,6 +43,7 @@
+> >>   #define STM32_ADC_TIMEOUT	(msecs_to_jiffies(STM32_ADC_TIMEOUT_US / 1000))
+> >>   #define STM32_ADC_HW_STOP_DELAY_MS	100
+> >>   #define STM32_ADC_CHAN_NONE		-1
+> >> +#define STM32_ADC_VREFINT_VOLTAGE	3300
+> >>   
+> >>   #define STM32_DMA_BUFFER_SIZE		PAGE_SIZE
+> >>   
+> >> @@ -79,6 +81,7 @@ enum stm32_adc_extsel {
+> >>   };
+> >>   
+> >>   enum stm32_adc_int_ch {
+> >> +	STM32_ADC_INT_CH_NONE = -1,
+> >>   	STM32_ADC_INT_CH_VDDCORE,
+> >>   	STM32_ADC_INT_CH_VREFINT,
+> >>   	STM32_ADC_INT_CH_VBAT,
+> >> @@ -137,6 +140,16 @@ struct stm32_adc_regs {
+> >>   	int shift;
+> >>   };
+> >>   
+> >> +/**
+> >> + * struct stm32_adc_vrefint - stm32 ADC internal reference voltage data
+> >> + * @vrefint_cal:	vrefint calibration value from nvmem
+> >> + * @vrefint_data:	vrefint actual value
+> >> + */
+> >> +struct stm32_adc_vrefint {
+> >> +	u32 vrefint_cal;
+> >> +	u32 vrefint_data;
+> >> +};
+> >> +
+> >>   /**
+> >>    * struct stm32_adc_regspec - stm32 registers definition
+> >>    * @dr:			data register offset
+> >> @@ -186,6 +199,7 @@ struct stm32_adc;
+> >>    * @unprepare:		optional unprepare routine (disable, power-down)
+> >>    * @irq_clear:		routine to clear irqs
+> >>    * @smp_cycles:		programmable sampling time (ADC clock cycles)
+> >> + * @ts_vrefint_ns:	vrefint minimum sampling time in ns
+> >>    */
+> >>   struct stm32_adc_cfg {
+> >>   	const struct stm32_adc_regspec	*regs;
+> >> @@ -199,6 +213,7 @@ struct stm32_adc_cfg {
+> >>   	void (*unprepare)(struct iio_dev *);
+> >>   	void (*irq_clear)(struct iio_dev *indio_dev, u32 msk);
+> >>   	const unsigned int *smp_cycles;
+> >> +	const unsigned int ts_vrefint_ns;
+> >>   };
+> >>   
+> >>   /**
+> >> @@ -223,6 +238,7 @@ struct stm32_adc_cfg {
+> >>    * @pcsel:		bitmask to preselect channels on some devices
+> >>    * @smpr_val:		sampling time settings (e.g. smpr1 / smpr2)
+> >>    * @cal:		optional calibration data on some devices
+> >> + * @vrefint:		internal reference voltage data
+> >>    * @chan_name:		channel name array
+> >>    * @num_diff:		number of differential channels
+> >>    * @int_ch:		internal channel indexes array
+> >> @@ -248,6 +264,7 @@ struct stm32_adc {
+> >>   	u32			pcsel;
+> >>   	u32			smpr_val[2];
+> >>   	struct stm32_adc_calib	cal;
+> >> +	struct stm32_adc_vrefint vrefint;
+> >>   	char			chan_name[STM32_ADC_CH_MAX][STM32_ADC_CH_SZ];
+> >>   	u32			num_diff;
+> >>   	int			int_ch[STM32_ADC_INT_CH_NB];
+> >> @@ -1331,15 +1348,35 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
+> >>   			ret = stm32_adc_single_conv(indio_dev, chan, val);
+> >>   		else
+> >>   			ret = -EINVAL;
+> >> +
+> >> +		/* If channel mask corresponds to vrefint, store data */
+> >> +		if (adc->int_ch[STM32_ADC_INT_CH_VREFINT] == chan->channel)
+> >> +			adc->vrefint.vrefint_data = *val;
+> >> +
+> >>   		iio_device_release_direct_mode(indio_dev);
+> >>   		return ret;
+> >>   
+> >>   	case IIO_CHAN_INFO_SCALE:
+> >>   		if (chan->differential) {
+> >> -			*val = adc->common->vref_mv * 2;
+> >> +			if (adc->vrefint.vrefint_data &&
+> >> +			    adc->vrefint.vrefint_cal) {
+> >> +				*val = STM32_ADC_VREFINT_VOLTAGE * 2 *
+> >> +				       adc->vrefint.vrefint_cal /
+> >> +				       adc->vrefint.vrefint_data;  
+> > 
+> > Ah.. Dynamic scale.  This is always awkward when it occurs.
+> > Given most / possibly all userspace software assumes a pseudo static scale
+> > (not data dependent) we normally hide this by doing the maths internal to the
+> > driver - sometimes meaning we need to present the particular channel as processed
+> > not raw.
+> > 
+> > Is the expectation here that vrefint_data is actually very nearly constant? If
+> > so then what you have here may be fine as anyone not aware the scale might change
+> > will get very nearly the right value anyway.
+> >   
+> 
+> The need here is to compare the measured value of vrefint with the 
+> calibrated value saved in non volatile memory. The ratio between these 
+> two values can be used as a correction factor for the acquisitions on 
+> all other channels.
+> 
+> The vrefint data is expected to be close to the saved vrefint 
+> calibration value, and it should not vary strongly over time.
+> So, yes, we can indeed consider the scale as a pseudo constant. If the 
+> scale is not updated, the deviation with actual value should remain 
+> limited, as well.
 
-I haven't seen something like this - but then I am not a heavy user of
-the network on the board. 
+Ok, so in that case we could probably get away with having it as you have
+here, though for maximum precision we'd need userspace to occasionally check
+the scale.
 
-Is it just the network that dies or the whole system freezes? Sometimes
-I've seen the board lock up if it's under heavy load.
+> 
+> You suggest above to hide scale tuning through processed channels.
+> If I follow this logic, when vrefint channel is available, all channels 
+> should be defined as processed channels (excepted vrefint channel)
+> In this case no scale is exposed for these channels, and the vrefint 
+> calibration ratio can be used to provide converted data directly.
+> Do you prefer this implementation ?
 
-> All work can no longer be distributed to the same volunteer.
->
->
-> But on RPI CM4 board, the same kernel (both upstream 5.14.2, even the
-> binary is the same), the same distro (Manjaro ARM), the same distcc 
-> setup, the setup works flawless.
->
->
-> Not sure if this is related, but it looks like a network related
-> problem, and considering both boards are using the same kernel, just 
-> different ethernet driver, I guess there is something more problematic
-> here in recent RK3399 code.
+> 
+> In this case I wonder how buffered data have to be managed. These data 
+> are still provided as raw data, but the scale factor is not more 
+> available to convert them. I guess that these data have to be converted 
+> internally also, either in dma callback or irq handler.
+> Is this correct ?
 
-If you are only seeing the problem with recent kernels, maybe a bisect
-might help narrow things down.
+This is one of the holes in what IIO does today.  Without meta data in the
+buffer (which is hard to define in a clean fashion) it is hard to have
+a compact representation of the data in the presence of dynamic scaling.
+The vast majority of devices don't inherently support such scaling so
+this is only occasionally a problem. 
 
-[...]
+To support this at the moment you would indeed need to scale the data
+before pushing it to the buffer which is obviously really ugly.
+
+My gut feeling here is there are three possible approaches.
+
+1) Ignore the dynamic nature of the calibration and pretend it's static.
+2) Add an explicit 'calibration' sysfs attribute.
+   This is a fairly common model for other sensor types which don't do
+   dynamic calibration but instead require to you to start some special
+   calibration sequence.
+   As the calibration is not updated, except on explicit userspace action
+   we can assume that the scale is static unless userspace is aware of
+   the dynamic aspect.
+3) Add a userspace control to turn on dynamic calibration.  That makes it
+   opt in.  Everything will work reasonably well without it turned on
+   as we'll hopefully have a static estimate of scale which is good enough.
+   If aware software is using the device, it can enable this mode and
+   sample the scale as often as it wants to.
+
+I slightly favour option 3.  What do you think?  If we ever figure out
+the meta data question for buffered case then we can make that work on top
+of this.
+
+Jonathan
+> 
+> Regards
+> Olivier
+> 
+> >> +			} else {
+> >> +				*val = adc->common->vref_mv * 2;
+> >> +			}
+> >>   			*val2 = chan->scan_type.realbits;
+> >>   		} else {
+> >> -			*val = adc->common->vref_mv;
+> >> +			/* Use vrefint data if available */
+> >> +			if (adc->vrefint.vrefint_data &&
+> >> +			    adc->vrefint.vrefint_cal) {
+> >> +				*val = STM32_ADC_VREFINT_VOLTAGE *
+> >> +				       adc->vrefint.vrefint_cal /
+> >> +				       adc->vrefint.vrefint_data;
+> >> +			} else {
+> >> +				*val = adc->common->vref_mv;
+> >> +			}
+> >>   			*val2 = chan->scan_type.realbits;
+> >>   		}
+> >>   		return IIO_VAL_FRACTIONAL_LOG2;
+> >> @@ -1907,6 +1944,35 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
+> >>   	return scan_index;
+> >>   }
+> >>   
+> >> +static int stm32_adc_get_int_ch(struct iio_dev *indio_dev, const char *ch_name,
+> >> +				int chan)  
+> > 
+> > Naming would suggest to me that it would return a channel rather than setting it
+> > inside adc->int_ch[i]  Perhaps something like st32_adc_populate_int_ch() ?
+> > 
+> >   
+> >> +{
+> >> +	struct stm32_adc *adc = iio_priv(indio_dev);
+> >> +	u16 vrefint;
+> >> +	int i, ret;
+> >> +
+> >> +	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
+> >> +		if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
+> >> +			adc->int_ch[i] = chan;
+> >> +			/* If channel is vrefint get calibration data. */
+> >> +			if (stm32_adc_ic[i].idx == STM32_ADC_INT_CH_VREFINT) {  
+> > 
+> > I would reduce indentation by reversing the logic.
+> > 
+> > 			if (stm32_adc_ic[i].idx != STM32_ADC_INT_CH_VREFINT)
+> > 				continue;
+> > 
+> > 			ret =  
+> >> +				ret = nvmem_cell_read_u16(&indio_dev->dev, "vrefint", &vrefint);
+> >> +				if (ret && ret != -ENOENT && ret != -EOPNOTSUPP) {
+> >> +					dev_err(&indio_dev->dev, "nvmem access error %d\n", ret);
+> >> +					return ret;
+> >> +				}
+> >> +				if (ret == -ENOENT)
+> >> +					dev_dbg(&indio_dev->dev,
+> >> +						"vrefint calibration not found\n");
+> >> +				else
+> >> +					adc->vrefint.vrefint_cal = vrefint;
+> >> +			}
+> >> +		}
+> >> +	}
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +
+> >>   static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+> >>   				       struct stm32_adc *adc,
+> >>   				       struct iio_chan_spec *channels)
+> >> @@ -1938,10 +2004,9 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+> >>   				return -EINVAL;
+> >>   			}
+> >>   			strncpy(adc->chan_name[val], name, STM32_ADC_CH_SZ);
+> >> -			for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
+> >> -				if (!strncmp(stm32_adc_ic[i].name, name, STM32_ADC_CH_SZ))
+> >> -					adc->int_ch[i] = val;
+> >> -			}
+> >> +			ret = stm32_adc_get_int_ch(indio_dev, name, val);
+> >> +			if (ret)
+> >> +				goto err;
+> >>   		} else if (ret != -EINVAL) {
+> >>   			dev_err(&indio_dev->dev, "Invalid label %d\n", ret);
+> >>   			goto err;
+> >> @@ -2044,6 +2109,16 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
+> >>   		 */
+> >>   		of_property_read_u32_index(node, "st,min-sample-time-nsecs",
+> >>   					   i, &smp);
+> >> +
+> >> +		/*
+> >> +		 * For vrefint channel, ensure that the sampling time cannot
+> >> +		 * be lower than the one specified in the datasheet
+> >> +		 */
+> >> +		if (channels[i].channel == adc->int_ch[STM32_ADC_INT_CH_VREFINT] &&
+> >> +		    smp < adc->cfg->ts_vrefint_ns) {
+> >> +			smp = adc->cfg->ts_vrefint_ns;
+> >> +		}  
+> > 
+> > 		if (channels[i].channel == adc->int_ch[STM32_ADC_INT_CH_VREFINT])
+> > 			smp = max(smp, adc->cfg->ts_vrefint_ns);
+> >   
+> >> +
+> >>   		/* Prepare sampling time settings */
+> >>   		stm32_adc_smpr_init(adc, channels[i].channel, smp);
+> >>   	}
+> >> @@ -2350,6 +2425,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
+> >>   	.unprepare = stm32h7_adc_unprepare,
+> >>   	.smp_cycles = stm32h7_adc_smp_cycles,
+> >>   	.irq_clear = stm32h7_adc_irq_clear,
+> >> +	.ts_vrefint_ns = 4300,
+> >>   };
+> >>   
+> >>   static const struct of_device_id stm32_adc_of_match[] = {  
+> >   
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
