@@ -2,54 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A11B411814
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Sep 2021 17:22:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87EC6411810
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Sep 2021 17:22:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 766F8C5A4FB;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AAB1C5A4D1;
 	Mon, 20 Sep 2021 15:22:01 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6735C5A4CF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 543E6C5A4CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Sep 2021 15:21:59 +0000 (UTC)
+ Mon, 20 Sep 2021 15:21:58 +0000 (UTC)
 Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18K8jYXh030008; 
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18K8jYXi030008; 
  Mon, 20 Sep 2021 17:21:47 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=37QNl9P5De/Y/cw7XinD/wLqFsoYqybLsQYdh8u8mXs=;
- b=UJaZ4mS1npHgpNWt5XpcM/g/IYpfQu0OrtJYgIHbpPd1lRiKEj8ZApFgc3+gM7jvUUYd
- 1VeSVXLgwF/xcypXf+KW+ATjePSofgYn+FAWSjRBoR/QH4gfjnCbM4w02+qNwxy3MmP3
- 1xjkfLR0Le5//wWPY5TGuErWwFUzsd5SFkRovuPEM0fkY8bCqSMBKiKrfh8E/5Tmdi1O
- fHiJehLUMX9Oy7D0lWFEFVPFKpU40Mx1YMLizrHTBn9V6xfZk4Paf3xn4blVpYIKHL73
- Oru/JmUIbyfjfVq+zSMKNGAEm+wuGCHCevWG+J6mD2PC7hfDNjL9JvZoPelAgYesgP8D BQ== 
+ bh=lKK7tW0dd7BDh9Hbo0KoKkJC0ZxJv8/xpKW54tXqj/Q=;
+ b=lSCcqbEgGml1CoPg0Yo5dR8cHHDISDpzi+spWIJGJW2UGSRfvh4x4AZbTXzh2FBg9JEK
+ jyD5nTam+vloYK/vKwwiIoeeRKdO3Oa7sGk566bQUYfgQLBogo3jbBhm1E4ePb8xGUlO
+ Ge7YodYFA3Ad3Sqv5LDshNELC7skPXjQihJOEWdzi+XH+KiX+j848qqFBuA/NJ9CVkJV
+ cx16EdCCMxthJ36nI/aIMOwFk27h2sw3R1WCGq24Y7gsloqc/+NE6VFvw1UjaszFkVDf
+ v4y3yJhd1avfa+LyUhBVQdAmCubM+2ZpTY+7qX5zmzhqHlvxPU7nQcEyWLMAB5ts879u Mg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3b6q2shv5y-1
+ by mx07-00178001.pphosted.com with ESMTP id 3b6q2shv60-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 Sep 2021 17:21:46 +0200
+ Mon, 20 Sep 2021 17:21:47 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7987F100038;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DF0CB100039;
  Mon, 20 Sep 2021 17:21:46 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7233722F7B7;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D696222F7B7;
  Mon, 20 Sep 2021 17:21:46 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
+Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
  with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 20 Sep 2021 17:21:46
  +0200
 From: Alain Volmat <alain.volmat@foss.st.com>
 To: <wsa@kernel.org>, <pierre-yves.mordret@foss.st.com>
-Date: Mon, 20 Sep 2021 17:21:30 +0200
-Message-ID: <1632151292-18503-3-git-send-email-alain.volmat@foss.st.com>
+Date: Mon, 20 Sep 2021 17:21:31 +0200
+Message-ID: <1632151292-18503-4-git-send-email-alain.volmat@foss.st.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1632151292-18503-1-git-send-email-alain.volmat@foss.st.com>
 References: <1632151292-18503-1-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
@@ -57,8 +57,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
  linux-i2c@vger.kernel.org, alain.volmat@foss.st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/4] i2c: stm32f7: recover the bus on access
-	timeout
+Subject: [Linux-stm32] [PATCH 3/4] i2c: stm32f7: stop dma transfer in case
+	of NACK
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,36 +75,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When getting an access timeout, ensure that the bus is in a proper
-state prior to returning the error.
+In case of receiving a NACK, the dma transfer should be stopped
+to avoid feeding data into the FIFO.
+Also ensure to properly return the proper error code and avoid
+waiting for the end of the dma completion in case of
+error happening during the transmission.
 
-Fixes: aeb068c57214 ("i2c: i2c-stm32f7: add driver")
+Fixes: 7ecc8cfde553 ("i2c: i2c-stm32f7: Add DMA support")
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/i2c/busses/i2c-stm32f7.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index ed977b6f7ab6..ad3459a3bc5e 100644
+index ad3459a3bc5e..50d5ae81d227 100644
 --- a/drivers/i2c/busses/i2c-stm32f7.c
 +++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1712,6 +1712,7 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
- 			i2c_dev->msg->addr);
- 		if (i2c_dev->use_dma)
- 			dmaengine_terminate_all(dma->chan_using);
-+		stm32f7_i2c_wait_free_bus(i2c_dev);
- 		ret = -ETIMEDOUT;
+@@ -1493,6 +1493,7 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
+ {
+ 	struct stm32f7_i2c_dev *i2c_dev = data;
+ 	struct stm32f7_i2c_msg *f7_msg = &i2c_dev->f7_msg;
++	struct stm32_i2c_dma *dma = i2c_dev->dma;
+ 	void __iomem *base = i2c_dev->base;
+ 	u32 status, mask;
+ 	int ret = IRQ_HANDLED;
+@@ -1518,6 +1519,10 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
+ 		dev_dbg(i2c_dev->dev, "<%s>: Receive NACK (addr %x)\n",
+ 			__func__, f7_msg->addr);
+ 		writel_relaxed(STM32F7_I2C_ICR_NACKCF, base + STM32F7_I2C_ICR);
++		if (i2c_dev->use_dma) {
++			stm32f7_i2c_disable_dma_req(i2c_dev);
++			dmaengine_terminate_all(dma->chan_using);
++		}
+ 		f7_msg->result = -ENXIO;
  	}
  
-@@ -1769,6 +1770,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
- 		dev_dbg(dev, "Access to slave 0x%x timed out\n", f7_msg->addr);
- 		if (i2c_dev->use_dma)
- 			dmaengine_terminate_all(dma->chan_using);
-+		stm32f7_i2c_wait_free_bus(i2c_dev);
- 		ret = -ETIMEDOUT;
- 		goto pm_free;
- 	}
+@@ -1533,7 +1538,7 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
+ 		/* Clear STOP flag */
+ 		writel_relaxed(STM32F7_I2C_ICR_STOPCF, base + STM32F7_I2C_ICR);
+ 
+-		if (i2c_dev->use_dma) {
++		if (i2c_dev->use_dma && !f7_msg->result) {
+ 			ret = IRQ_WAKE_THREAD;
+ 		} else {
+ 			i2c_dev->master_mode = false;
+@@ -1546,7 +1551,7 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
+ 		if (f7_msg->stop) {
+ 			mask = STM32F7_I2C_CR2_STOP;
+ 			stm32f7_i2c_set_bits(base + STM32F7_I2C_CR2, mask);
+-		} else if (i2c_dev->use_dma) {
++		} else if (i2c_dev->use_dma && !f7_msg->result) {
+ 			ret = IRQ_WAKE_THREAD;
+ 		} else if (f7_msg->smbus) {
+ 			stm32f7_i2c_smbus_rep_start(i2c_dev);
 -- 
 2.25.1
 
