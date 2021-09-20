@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87EC6411810
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Sep 2021 17:22:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 961C8411813
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Sep 2021 17:22:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AAB1C5A4D1;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A3BCC5A4FE;
 	Mon, 20 Sep 2021 15:22:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 543E6C5A4CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E67DEC5A4D0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Sep 2021 15:21:58 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18K8jYXi030008; 
+ Mon, 20 Sep 2021 15:21:59 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18KAV2Bx031532; 
  Mon, 20 Sep 2021 17:21:47 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=lKK7tW0dd7BDh9Hbo0KoKkJC0ZxJv8/xpKW54tXqj/Q=;
- b=lSCcqbEgGml1CoPg0Yo5dR8cHHDISDpzi+spWIJGJW2UGSRfvh4x4AZbTXzh2FBg9JEK
- jyD5nTam+vloYK/vKwwiIoeeRKdO3Oa7sGk566bQUYfgQLBogo3jbBhm1E4ePb8xGUlO
- Ge7YodYFA3Ad3Sqv5LDshNELC7skPXjQihJOEWdzi+XH+KiX+j848qqFBuA/NJ9CVkJV
- cx16EdCCMxthJ36nI/aIMOwFk27h2sw3R1WCGq24Y7gsloqc/+NE6VFvw1UjaszFkVDf
- v4y3yJhd1avfa+LyUhBVQdAmCubM+2ZpTY+7qX5zmzhqHlvxPU7nQcEyWLMAB5ts879u Mg== 
+ bh=59qcHB1kF9PMeMXhh/v3Yee2c2CN5Mky8y5HqhJtLso=;
+ b=PPt0E2vuS+kU4Akd0kjN8nIC+/drHoClbzPszutOtLDBgwOe32SoxF70puZ8M6oEjUy9
+ R4fHvCnd/1XLywkXrDer+egW08LXIkf3wc27iGkZlaLyI47SQuu9AbcdXht/yaNMlNba
+ lJz2/eSvgqNu1OXgF4DmP7K0MTbpNE0vIXNbXLuoceSows4pLjy+OibJroqOqHi+UJ/u
+ 3U01jdPlbWMaYgOIAxx6i/qMlpq/FCgVlXQkqAGugHv4xzJkF1hUMGlgvdTrqH/fHSF3
+ XO5N7JV67EZVdHJ1yzizk/qvdO7X5uEbGq8XFqTGOXqsh1FNqMtpVigYsi1FapBVLo/K HA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3b6q2shv60-1
+ by mx07-00178001.pphosted.com with ESMTP id 3b6h723ajh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 20 Sep 2021 17:21:47 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DF0CB100039;
- Mon, 20 Sep 2021 17:21:46 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4BABC10002A;
+ Mon, 20 Sep 2021 17:21:47 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D696222F7B7;
- Mon, 20 Sep 2021 17:21:46 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4383922F7B7;
+ Mon, 20 Sep 2021 17:21:47 +0200 (CEST)
 Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 20 Sep 2021 17:21:46
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 20 Sep 2021 17:21:47
  +0200
 From: Alain Volmat <alain.volmat@foss.st.com>
 To: <wsa@kernel.org>, <pierre-yves.mordret@foss.st.com>
-Date: Mon, 20 Sep 2021 17:21:31 +0200
-Message-ID: <1632151292-18503-4-git-send-email-alain.volmat@foss.st.com>
+Date: Mon, 20 Sep 2021 17:21:32 +0200
+Message-ID: <1632151292-18503-5-git-send-email-alain.volmat@foss.st.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1632151292-18503-1-git-send-email-alain.volmat@foss.st.com>
 References: <1632151292-18503-1-git-send-email-alain.volmat@foss.st.com>
@@ -57,8 +57,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
  linux-i2c@vger.kernel.org, alain.volmat@foss.st.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/4] i2c: stm32f7: stop dma transfer in case
-	of NACK
+Subject: [Linux-stm32] [PATCH 4/4] i2c: stm32f7: use proper DMAENGINE API
+	for termination
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,60 +75,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In case of receiving a NACK, the dma transfer should be stopped
-to avoid feeding data into the FIFO.
-Also ensure to properly return the proper error code and avoid
-waiting for the end of the dma completion in case of
-error happening during the transmission.
-
-Fixes: 7ecc8cfde553 ("i2c: i2c-stm32f7: Add DMA support")
+dmaengine_terminate_all() is deprecated in favor of explicitly saying if
+it should be sync or async.  Here, we use dmaengine_terminate_sync in
+i2c_xfer and i2c_smbus_xfer handlers and rely on
+dmaengine_terminate_async within interrupt handlers
+(transmission error cases).
+dmaengine_synchronize is added within i2c_xfer and i2c_smbus_xfer handler
+to finalize terminate started in interrupt handlers.
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/i2c/busses/i2c-stm32f7.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index ad3459a3bc5e..50d5ae81d227 100644
+index 50d5ae81d227..66145d2b9b55 100644
 --- a/drivers/i2c/busses/i2c-stm32f7.c
 +++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1493,6 +1493,7 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = data;
- 	struct stm32f7_i2c_msg *f7_msg = &i2c_dev->f7_msg;
-+	struct stm32_i2c_dma *dma = i2c_dev->dma;
- 	void __iomem *base = i2c_dev->base;
- 	u32 status, mask;
- 	int ret = IRQ_HANDLED;
-@@ -1518,6 +1519,10 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
- 		dev_dbg(i2c_dev->dev, "<%s>: Receive NACK (addr %x)\n",
- 			__func__, f7_msg->addr);
+@@ -1521,7 +1521,7 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
  		writel_relaxed(STM32F7_I2C_ICR_NACKCF, base + STM32F7_I2C_ICR);
-+		if (i2c_dev->use_dma) {
-+			stm32f7_i2c_disable_dma_req(i2c_dev);
-+			dmaengine_terminate_all(dma->chan_using);
-+		}
+ 		if (i2c_dev->use_dma) {
+ 			stm32f7_i2c_disable_dma_req(i2c_dev);
+-			dmaengine_terminate_all(dma->chan_using);
++			dmaengine_terminate_async(dma->chan_using);
+ 		}
  		f7_msg->result = -ENXIO;
  	}
+@@ -1588,7 +1588,7 @@ static irqreturn_t stm32f7_i2c_isr_event_thread(int irq, void *data)
+ 	if (!ret) {
+ 		dev_dbg(i2c_dev->dev, "<%s>: Timed out\n", __func__);
+ 		stm32f7_i2c_disable_dma_req(i2c_dev);
+-		dmaengine_terminate_all(dma->chan_using);
++		dmaengine_terminate_async(dma->chan_using);
+ 		f7_msg->result = -ETIMEDOUT;
+ 	}
  
-@@ -1533,7 +1538,7 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
- 		/* Clear STOP flag */
- 		writel_relaxed(STM32F7_I2C_ICR_STOPCF, base + STM32F7_I2C_ICR);
+@@ -1665,7 +1665,7 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
+ 	/* Disable dma */
+ 	if (i2c_dev->use_dma) {
+ 		stm32f7_i2c_disable_dma_req(i2c_dev);
+-		dmaengine_terminate_all(dma->chan_using);
++		dmaengine_terminate_async(dma->chan_using);
+ 	}
  
--		if (i2c_dev->use_dma) {
-+		if (i2c_dev->use_dma && !f7_msg->result) {
- 			ret = IRQ_WAKE_THREAD;
- 		} else {
- 			i2c_dev->master_mode = false;
-@@ -1546,7 +1551,7 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
- 		if (f7_msg->stop) {
- 			mask = STM32F7_I2C_CR2_STOP;
- 			stm32f7_i2c_set_bits(base + STM32F7_I2C_CR2, mask);
--		} else if (i2c_dev->use_dma) {
-+		} else if (i2c_dev->use_dma && !f7_msg->result) {
- 			ret = IRQ_WAKE_THREAD;
- 		} else if (f7_msg->smbus) {
- 			stm32f7_i2c_smbus_rep_start(i2c_dev);
+ 	i2c_dev->master_mode = false;
+@@ -1702,6 +1702,9 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 						i2c_dev->adap.timeout);
+ 	ret = f7_msg->result;
+ 	if (ret) {
++		if (i2c_dev->use_dma)
++			dmaengine_synchronize(dma->chan_using);
++
+ 		/*
+ 		 * It is possible that some unsent data have already been
+ 		 * written into TXDR. To avoid sending old data in a
+@@ -1716,7 +1719,7 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 		dev_dbg(i2c_dev->dev, "Access to slave 0x%x timed out\n",
+ 			i2c_dev->msg->addr);
+ 		if (i2c_dev->use_dma)
+-			dmaengine_terminate_all(dma->chan_using);
++			dmaengine_terminate_sync(dma->chan_using);
+ 		stm32f7_i2c_wait_free_bus(i2c_dev);
+ 		ret = -ETIMEDOUT;
+ 	}
+@@ -1761,6 +1764,9 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
+ 					      i2c_dev->adap.timeout);
+ 	ret = f7_msg->result;
+ 	if (ret) {
++		if (i2c_dev->use_dma)
++			dmaengine_synchronize(dma->chan_using);
++
+ 		/*
+ 		 * It is possible that some unsent data have already been
+ 		 * written into TXDR. To avoid sending old data in a
+@@ -1774,7 +1780,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
+ 	if (!timeout) {
+ 		dev_dbg(dev, "Access to slave 0x%x timed out\n", f7_msg->addr);
+ 		if (i2c_dev->use_dma)
+-			dmaengine_terminate_all(dma->chan_using);
++			dmaengine_terminate_sync(dma->chan_using);
+ 		stm32f7_i2c_wait_free_bus(i2c_dev);
+ 		ret = -ETIMEDOUT;
+ 		goto pm_free;
 -- 
 2.25.1
 
