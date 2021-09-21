@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D594241380A
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Sep 2021 19:08:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 244D041381B
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Sep 2021 19:10:24 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80531C5A4CD;
-	Tue, 21 Sep 2021 17:08:39 +0000 (UTC)
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCE58C5A4CD;
+	Tue, 21 Sep 2021 17:10:23 +0000 (UTC)
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
+ [209.85.161.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BEEBC57189
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 206DBC57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Sep 2021 17:08:37 +0000 (UTC)
-Received: by mail-ot1-f43.google.com with SMTP id
- n65-20020a9d2047000000b00547334367efso2318786ota.1
+ Tue, 21 Sep 2021 17:10:22 +0000 (UTC)
+Received: by mail-oo1-f44.google.com with SMTP id
+ b5-20020a4ac285000000b0029038344c3dso7280497ooq.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Sep 2021 10:08:37 -0700 (PDT)
+ Tue, 21 Sep 2021 10:10:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=O9JEWZDMt2jcZLyP/IIVUSlCL8PUIazRPHBsmaclHCw=;
- b=8Evrv+NPKgRqrcFqCIJoAryuYy6It1fGUrq814gTk613Kpr/alspLAq/lqqDQ+yAob
- X59YMBX8HkZVrBWNrwBUofMfi0q4dDVCKMcKjIUD3OPyDm3LYclcaRvEzPKoMmMpBaPp
- 6WQpm0AhvXmjDFR4mY5V3LFtLpeGipa2+Pb8/22brmTWBXUWYHqGN6JWbCmjltxhKIJT
- C63rbAERySxHj6Q1ltLHX3ExilXAgvtIujJQvsIh1okepis9g11HCCHb2pISLvmPM0r8
- 7YRSnM2XcC1ZITEGbL55f1SBL+ShCXKpdFOeH5kWPYlnKEa+C6jxSELLPUB9r8s9ICig
- d8XA==
-X-Gm-Message-State: AOAM532L/m81fRuOiPUTN5xpZU+1o/rGr69xk+hbEIYMRgoqLN+AIMWJ
- gNrzMCoXUocazXV/winuSA==
-X-Google-Smtp-Source: ABdhPJyAoYtMFkASDt0IJc86gZEcglM6twQLZXsVUyPadtNltehV5spM1KvUGzi/ZewiYeR0LXPzOA==
-X-Received: by 2002:a9d:5a89:: with SMTP id w9mr26610982oth.91.1632244116250; 
- Tue, 21 Sep 2021 10:08:36 -0700 (PDT)
+ bh=S4rWK627e6yBDbCEhLg6VsNoB81RgebdS3Ln+6wAGas=;
+ b=LBBu/oSpmj2ew0PWy0O9LK4hDRZoaxzBoweSEABO4HltwMk+wt77BrWKtYCg9wwGUA
+ OfESkJdHgsP4uGn7mn9zdPiYjyrv+ynzw5jhlzXy0KXM8Xf0X97swKdAP+H3NxaqD264
+ e/A1McDQAipxLLoFHo7HGK4eaBrPCWnjdnYxRkI9y8JS/qeu6exLvHJ9PhBkGtHJSJcT
+ t4wFcL+6n9kJBH89WNgQqxYbo9lKQ5NzNQ6V1cIx4i7w+ThyazAAm4GP625U/03GHxm8
+ zGzKCMIcdU3BZ+C7e5aVr7nXs2eBEnyZxY9nK6Ktw46bo2sfsoIVA64ivGAMkY3ma2KE
+ x8ug==
+X-Gm-Message-State: AOAM5312fJPf1qgXze/+py42FzBkOVAKkDRisIqiDRDfZ32KvZJCmpoo
+ DKkUYS6ERZTALVZgbKjNRA==
+X-Google-Smtp-Source: ABdhPJws4TdO+DPNS83SxM7XXfOVzOeooClPFMk6APULxosklf1aAoTwygi1il30jNMUX7PawpRkzg==
+X-Received: by 2002:a4a:52c4:: with SMTP id d187mr10680196oob.53.1632244221024; 
+ Tue, 21 Sep 2021 10:10:21 -0700 (PDT)
 Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
  [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id f17sm3024717ook.9.2021.09.21.10.08.33
+ by smtp.gmail.com with ESMTPSA id h15sm372163ots.2.2021.09.21.10.10.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Sep 2021 10:08:34 -0700 (PDT)
-Received: (nullmailer pid 2964447 invoked by uid 1000);
- Tue, 21 Sep 2021 17:08:33 -0000
-Date: Tue, 21 Sep 2021 12:08:33 -0500
+ Tue, 21 Sep 2021 10:10:19 -0700 (PDT)
+Received: (nullmailer pid 2967390 invoked by uid 1000);
+ Tue, 21 Sep 2021 17:10:17 -0000
+Date: Tue, 21 Sep 2021 12:10:17 -0500
 From: Rob Herring <robh@kernel.org>
 To: Olivier Moysan <olivier.moysan@foss.st.com>
-Message-ID: <YUoRkepuJXRghzih@robh.at.kernel.org>
+Message-ID: <YUoR+Z5HEE56odzj@robh.at.kernel.org>
 References: <20210908155452.25458-1-olivier.moysan@foss.st.com>
- <20210908155452.25458-2-olivier.moysan@foss.st.com>
+ <20210908155452.25458-3-olivier.moysan@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210908155452.25458-2-olivier.moysan@foss.st.com>
+In-Reply-To: <20210908155452.25458-3-olivier.moysan@foss.st.com>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Fabrice Gasnier <fabrice.gasnier@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 1/7] dt-bindings: iio: adc: add generic
-	channel binding
+Subject: Re: [Linux-stm32] [PATCH 2/7] dt-bindings: iio: adc: add nvmem
+ support for vrefint internal channel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,205 +76,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Sep 08, 2021 at 05:54:46PM +0200, Olivier Moysan wrote:
-> Add ADC generic channel binding. This binding should
-> be used as an alternate to legacy channel properties
-> whenever possible.
-> ADC generic channel binding allows to identify supported
-> internal channels through the following reserved label names:
-> "vddcore", "vrefint" and "vbat".
-> This binding also allows to set a different sampling time
-> for each channel.
+On Wed, 08 Sep 2021 17:54:47 +0200, Olivier Moysan wrote:
+> Add support of nvmem. This allows to retrieve calibration data from OTP
+> for vrefint internal channel.
 > 
 > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 > ---
-> Note: The schema here is too permissive as either legacy or generic
-> channels properties are required. These properties are mutually
-> exclusive, however all attempts to describe this constraint are
-> failing. In particular the following schemas and their variants have
-> shown unsucessful.
+>  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml         | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> oneOf:
->   - anyOf:
-> 	- required:
-> 		- st,adc-channels
-> 	- required:
-> 		- st,adc-diff-channels
->   - anyOf:
-> 	- required:
-> 		- $nodename
-> 
-> - if:
->   patternProperties:
->     "^channel@([0-9]|1[0-9])$":
->       type: object
 
-This is considered true when you don't match this property. You would 
-need 'required', but that doesn't work for patterns. That's a 
-json-schema limitation that's on their radar to address.
-
-My advice is just mark the legacy nodes 'deprecated'. That doesn't do 
-anything yet, but I plan to add a 'disallow deprecated properties/nodes'
-mode.
-
-> then:
->   properties:
->     st,adc-channels: false
->     st,adc-diff-channels: false
-> else:
->   - anyOf:
->       - required:
->           - st,adc-channels
->       - required:
->           - st,adc-diff-channels
-> ---
->  .../bindings/iio/adc/st,stm32-adc.yaml        | 100 ++++++++++++++++--
->  1 file changed, 93 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-> index a58334c3bb76..a1f6cbe144ba 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
-> @@ -222,6 +222,12 @@ patternProperties:
->        '#io-channel-cells':
->          const: 1
->  
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
->        interrupts:
->          description: |
->            IRQ Line for the ADC instance. Valid values are:
-> @@ -265,7 +271,9 @@ patternProperties:
->            <vinp vinn>, <vinp vinn>,... vinp and vinn are numbered from 0 to 19.
->  
->            Note: At least one of "st,adc-channels" or "st,adc-diff-channels" is
-> -          required. Both properties can be used together. Some channels can be
-> +          required if no adc generic channel is defined. These legacy channel
-> +          properties are exclusive with adc generic channel bindings.
-> +          Both properties can be used together. Some channels can be
->            used as single-ended and some other ones as differential (mixed). But
->            channels can't be configured both as single-ended and differential.
->          $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> @@ -290,6 +298,44 @@ patternProperties:
->            each channel.
->          $ref: /schemas/types.yaml#/definitions/uint32-array
->  
-> +    patternProperties:
-> +      "^channel@([0-9]|1[0-9])$":
-> +        type: object
-> +        $ref: "adc.yaml"
-> +        description: |
-> +          Represents the external channels which are connected to the ADC.
-> +
-> +        properties:
-> +          reg:
-> +            items:
-> +              minimum: 0
-> +              maximum: 19
-> +
-> +          label:
-> +            description: |
-> +              Unique name to identify which channel this is.
-> +              Reserved label names "vddcore", "vrefint" and "vbat"
-> +              are used to identify internal channels with matching names.
-> +
-> +          diff-channels:
-> +            $ref: /schemas/types.yaml#/definitions/uint32-array
-> +            items:
-> +              minimum: 0
-> +              maximum: 19
-> +
-> +          st,min-sample-time-nsecs:
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            description: |
-> +              Minimum sampling time in nanoseconds. Depending on hardware (board)
-> +              e.g. high/low analog input source impedance, fine tune of ADC
-> +              sampling time may be recommended.
-> +
-> +        required:
-> +          - reg
-> +
-> +    dependencies:
-> +      $nodename: [ '#address-cells', '#size-cells' ]
-
-Drop this. $nodename is not a real property.
-
-> +
->      allOf:
->        - if:
->            properties:
-> @@ -369,12 +415,6 @@ patternProperties:
->  
->      additionalProperties: false
->  
-> -    anyOf:
-> -      - required:
-> -          - st,adc-channels
-> -      - required:
-> -          - st,adc-diff-channels
-> -
->      required:
->        - compatible
->        - reg
-> @@ -451,4 +491,50 @@ examples:
->          // other adc child node follow...
->        };
->  
-> +  - |
-> +    // Example 3: with stm32mp157c to setup ADC2 with:
-> +    // - internal channels 13, 14, 15.
-> +      #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +      #include <dt-bindings/clock/stm32mp1-clks.h>
-> +      adc122: adc@48003000 {
-> +        compatible = "st,stm32mp1-adc-core";
-> +        reg = <0x48003000 0x400>;
-> +        interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 90 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks = <&rcc ADC12>, <&rcc ADC12_K>;
-> +        clock-names = "bus", "adc";
-> +        booster-supply = <&booster>;
-> +        vdd-supply = <&vdd>;
-> +        vdda-supply = <&vdda>;
-> +        vref-supply = <&vref>;
-> +        st,syscfg = <&syscfg>;
-> +        interrupt-controller;
-> +        #interrupt-cells = <1>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        adc@100 {
-> +          compatible = "st,stm32mp1-adc";
-> +          #io-channel-cells = <1>;
-> +          reg = <0x100>;
-> +          interrupts = <1>;
-> +          #address-cells = <1>;
-> +          #size-cells = <0>;
-> +          channel@13 {
-> +            reg = <13>;
-> +            label = "vrefint";
-> +            st,min-sample-time-nsecs = <9000>;
-> +          };
-> +          channel@14 {
-> +            reg = <14>;
-> +            label = "vddcore";
-> +            st,min-sample-time-nsecs = <9000>;
-> +          };
-> +          channel@15 {
-> +            reg = <15>;
-> +            label = "vbat";
-> +            st,min-sample-time-nsecs = <9000>;
-> +          };
-> +        };
-> +      };
-> +
->  ...
-> -- 
-> 2.17.1
-> 
-> 
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
