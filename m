@@ -2,63 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 961C8411813
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Sep 2021 17:22:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D7F41344F
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Sep 2021 15:35:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A3BCC5A4FE;
-	Mon, 20 Sep 2021 15:22:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 789DBC5A4CD;
+	Tue, 21 Sep 2021 13:35:20 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E67DEC5A4D0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3153C5719E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Sep 2021 15:21:59 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18KAV2Bx031532; 
- Mon, 20 Sep 2021 17:21:47 +0200
+ Tue, 21 Sep 2021 13:35:19 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18L7AKhB006203; 
+ Tue, 21 Sep 2021 15:35:09 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=59qcHB1kF9PMeMXhh/v3Yee2c2CN5Mky8y5HqhJtLso=;
- b=PPt0E2vuS+kU4Akd0kjN8nIC+/drHoClbzPszutOtLDBgwOe32SoxF70puZ8M6oEjUy9
- R4fHvCnd/1XLywkXrDer+egW08LXIkf3wc27iGkZlaLyI47SQuu9AbcdXht/yaNMlNba
- lJz2/eSvgqNu1OXgF4DmP7K0MTbpNE0vIXNbXLuoceSows4pLjy+OibJroqOqHi+UJ/u
- 3U01jdPlbWMaYgOIAxx6i/qMlpq/FCgVlXQkqAGugHv4xzJkF1hUMGlgvdTrqH/fHSF3
- XO5N7JV67EZVdHJ1yzizk/qvdO7X5uEbGq8XFqTGOXqsh1FNqMtpVigYsi1FapBVLo/K HA== 
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=9+Kwlm+L8H7YKY6mvIF1mdYOkB2nTTC9Hu8EuriSzrU=;
+ b=nXFMZrZzOSdm5R6DaTY7ZzSwgPRXY9EWeYurFmkxS0NtlCvAxgTFNo+je7p/46boFQLY
+ 2aR2dK1A2nw6CrlrGcIN7bAv4l9vuwO4FSBMBCF1YwcfQCliyOq6Ez8IniEL38fF8bVc
+ 7+J+cA1lCMwhp2ZSN4deoNSzKgzbynxD1HYFXwkYEsK8A96ETfSlZ81nZ/ZWeodev0oX
+ g8bAFVyhAAzDWC06Rx7lCBqtInkt8EBW/eilPjkOvfsiOxrUdo47FOo7m1quuhE4xvSE
+ P3ZhBl+okv+B4uUiuZJVrY83MOIgPREY938GUv8022FCzjfc8k20+pzyVj/eu0pkc71M gA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3b6h723ajh-1
+ by mx07-00178001.pphosted.com with ESMTP id 3b7as51u8n-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 Sep 2021 17:21:47 +0200
+ Tue, 21 Sep 2021 15:35:09 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4BABC10002A;
- Mon, 20 Sep 2021 17:21:47 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A1364100034;
+ Tue, 21 Sep 2021 15:35:07 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4383922F7B7;
- Mon, 20 Sep 2021 17:21:47 +0200 (CEST)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 20 Sep 2021 17:21:47
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9A44D244899;
+ Tue, 21 Sep 2021 15:35:07 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 21 Sep 2021 15:35:04
  +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <wsa@kernel.org>, <pierre-yves.mordret@foss.st.com>
-Date: Mon, 20 Sep 2021 17:21:32 +0200
-Message-ID: <1632151292-18503-5-git-send-email-alain.volmat@foss.st.com>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <alexandre.torgue@foss.st.com>
+Date: Tue, 21 Sep 2021 15:34:49 +0200
+Message-ID: <1632231289-18881-1-git-send-email-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1632151292-18503-1-git-send-email-alain.volmat@foss.st.com>
-References: <1632151292-18503-1-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-20_07,2021-09-20_01,2020-04-07_01
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-i2c@vger.kernel.org, alain.volmat@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/4] i2c: stm32f7: use proper DMAENGINE API
-	for termination
+ definitions=2021-09-21_01,2021-09-20_01,2020-04-07_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: fix STUSB1600 Type-C irq
+	level on stm32mp15xx-dkx
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,90 +72,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-dmaengine_terminate_all() is deprecated in favor of explicitly saying if
-it should be sync or async.  Here, we use dmaengine_terminate_sync in
-i2c_xfer and i2c_smbus_xfer handlers and rely on
-dmaengine_terminate_async within interrupt handlers
-(transmission error cases).
-dmaengine_synchronize is added within i2c_xfer and i2c_smbus_xfer handler
-to finalize terminate started in interrupt handlers.
+STUSB1600 IRQ (Alert pin) is active low (open drain). Interrupts may get
+lost currently, so fix the IRQ type.
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+Fixes: 83686162c0eb ("ARM: dts: stm32: add STUSB1600 Type-C using I2C4 on stm32mp15xx-dkx")
+
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 50d5ae81d227..66145d2b9b55 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1521,7 +1521,7 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
- 		writel_relaxed(STM32F7_I2C_ICR_NACKCF, base + STM32F7_I2C_ICR);
- 		if (i2c_dev->use_dma) {
- 			stm32f7_i2c_disable_dma_req(i2c_dev);
--			dmaengine_terminate_all(dma->chan_using);
-+			dmaengine_terminate_async(dma->chan_using);
- 		}
- 		f7_msg->result = -ENXIO;
- 	}
-@@ -1588,7 +1588,7 @@ static irqreturn_t stm32f7_i2c_isr_event_thread(int irq, void *data)
- 	if (!ret) {
- 		dev_dbg(i2c_dev->dev, "<%s>: Timed out\n", __func__);
- 		stm32f7_i2c_disable_dma_req(i2c_dev);
--		dmaengine_terminate_all(dma->chan_using);
-+		dmaengine_terminate_async(dma->chan_using);
- 		f7_msg->result = -ETIMEDOUT;
- 	}
- 
-@@ -1665,7 +1665,7 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
- 	/* Disable dma */
- 	if (i2c_dev->use_dma) {
- 		stm32f7_i2c_disable_dma_req(i2c_dev);
--		dmaengine_terminate_all(dma->chan_using);
-+		dmaengine_terminate_async(dma->chan_using);
- 	}
- 
- 	i2c_dev->master_mode = false;
-@@ -1702,6 +1702,9 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
- 						i2c_dev->adap.timeout);
- 	ret = f7_msg->result;
- 	if (ret) {
-+		if (i2c_dev->use_dma)
-+			dmaengine_synchronize(dma->chan_using);
-+
- 		/*
- 		 * It is possible that some unsent data have already been
- 		 * written into TXDR. To avoid sending old data in a
-@@ -1716,7 +1719,7 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
- 		dev_dbg(i2c_dev->dev, "Access to slave 0x%x timed out\n",
- 			i2c_dev->msg->addr);
- 		if (i2c_dev->use_dma)
--			dmaengine_terminate_all(dma->chan_using);
-+			dmaengine_terminate_sync(dma->chan_using);
- 		stm32f7_i2c_wait_free_bus(i2c_dev);
- 		ret = -ETIMEDOUT;
- 	}
-@@ -1761,6 +1764,9 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
- 					      i2c_dev->adap.timeout);
- 	ret = f7_msg->result;
- 	if (ret) {
-+		if (i2c_dev->use_dma)
-+			dmaengine_synchronize(dma->chan_using);
-+
- 		/*
- 		 * It is possible that some unsent data have already been
- 		 * written into TXDR. To avoid sending old data in a
-@@ -1774,7 +1780,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
- 	if (!timeout) {
- 		dev_dbg(dev, "Access to slave 0x%x timed out\n", f7_msg->addr);
- 		if (i2c_dev->use_dma)
--			dmaengine_terminate_all(dma->chan_using);
-+			dmaengine_terminate_sync(dma->chan_using);
- 		stm32f7_i2c_wait_free_bus(i2c_dev);
- 		ret = -ETIMEDOUT;
- 		goto pm_free;
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
+index 9a95489..878ea36 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dkx.dtsi
+@@ -260,7 +260,7 @@
+ 	stusb1600@28 {
+ 		compatible = "st,stusb1600";
+ 		reg = <0x28>;
+-		interrupts = <11 IRQ_TYPE_EDGE_FALLING>;
++		interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+ 		interrupt-parent = <&gpioi>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&stusb1600_pins_a>;
 -- 
-2.25.1
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
