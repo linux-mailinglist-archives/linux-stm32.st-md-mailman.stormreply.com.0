@@ -2,73 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8F5B4142F1
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Sep 2021 09:54:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09303414CC5
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Sep 2021 17:13:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E3ADC5A4CD;
-	Wed, 22 Sep 2021 07:54:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0311C5A4CE;
+	Wed, 22 Sep 2021 15:13:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE153C5719E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93ED6C5718F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Sep 2021 07:54:23 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18M6jOXm005837; 
- Wed, 22 Sep 2021 09:54:01 +0200
+ Wed, 22 Sep 2021 15:13:07 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18MDOEjt004854; 
+ Wed, 22 Sep 2021 17:12:55 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=3vxZi4mFy6XkhIZ9zcGNRYsHShdsAcX48ITYfRbgjuQ=;
- b=V87FTO7bi680G0ptuqRJpmO5sIGXTYa3xROIuUYuEvaefK0NJ947tCVFAPcE9Yw4gTFg
- NIVqOVqcEeoXdMPe2CKvgAuxcAGdKVBsFm2Gy28d3ubespQuXEP0cKkClAkU+myl8Ik9
- s3jaCA6V9zyQOnD1t969n9+qnDsoRYcvDhpihjAIcZnozfeOA6NVWfIZ7WmnOyeoIBjE
- fayBd4IJHVHIfRCNWoIVsNKFFh4zqF6lCNh/KvJdRxHIFujZwLDDqvmYO/WBXvPaneUo
- YXcAIaX0IBkkbp/QA06ZiXTmek54f0jyDSF12V9Rce/C3j+a120c4AVK36LOkJqLrP+I LA== 
+ bh=/afVz4BYbCv1QBc7A6yEnhYY48kiqJk/gkkg2SsTPoU=;
+ b=rPsZh9FRAIAbjdVkSwuhlpCcsfhRNaBrstADCAP7i+ckqHaUBe2qvmZ+XdQfscGtnmzX
+ G8XDwnEc/t1MIc890hMJ/v6w9qhOHgO6yrQReBJ6y3KTtZ1DkRD5r0NxiCC0Y+UizQef
+ KfR7qA3D5qicszQe77pPzRwb3UI/SvnVkbh3cO3IYQYX9nLAWIpU5QV3c6RYVDEA7Pxa
+ 8WMYTMeYjuz9bTY6Z7xSf5aENFb4ea2j4ZlGe0s0TrLnQNJufgYCLFqqK5hyTygzXAlF
+ 6aQBN1LtEF3IzbWdf+azLH6n9cfbg5/vor3SMN1Ld4GGWH4Oz4K5GAeSpN+6xRyFvDtn dA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3b7q3hjfpy-1
+ by mx07-00178001.pphosted.com with ESMTP id 3b81gs28u1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 22 Sep 2021 09:54:01 +0200
+ Wed, 22 Sep 2021 17:12:54 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7ADD310002A;
- Wed, 22 Sep 2021 09:54:00 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 97FEE10002A;
+ Wed, 22 Sep 2021 17:12:52 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 70F7D21E679;
- Wed, 22 Sep 2021 09:54:00 +0200 (CEST)
-Received: from lmecxl0577.lme.st.com (10.75.127.48) by SFHDAG2NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8ECBD240A33;
+ Wed, 22 Sep 2021 17:12:52 +0200 (CEST)
+Received: from lmecxl0995.lme.st.com (10.75.127.44) by SFHDAG2NODE2.st.com
  (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 22 Sep
- 2021 09:53:59 +0200
-To: Jonathan Cameron <jic23@kernel.org>
-References: <20210908155452.25458-1-olivier.moysan@foss.st.com>
- <20210908155452.25458-7-olivier.moysan@foss.st.com>
- <20210911172834.401cf4c8@jic23-huawei>
- <865e35a2-47c1-336a-641a-365b7db8213a@foss.st.com>
- <20210918194149.546a5189@jic23-huawei>
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-Message-ID: <3284242f-b85f-3f96-c165-bf12325136c3@foss.st.com>
-Date: Wed, 22 Sep 2021 09:53:58 +0200
+ 2021 17:12:51 +0200
+To: Rob Herring <robh@kernel.org>
+References: <20210914145256.243869-1-amelie.delaunay@foss.st.com>
+ <20210914145256.243869-3-amelie.delaunay@foss.st.com>
+ <YUpGr5riT3+YpWDv@robh.at.kernel.org>
+From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
+Message-ID: <059578c4-1930-5fcb-55ef-f9b3b514ed56@foss.st.com>
+Date: Wed, 22 Sep 2021 17:12:50 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20210918194149.546a5189@jic23-huawei>
+In-Reply-To: <YUpGr5riT3+YpWDv@robh.at.kernel.org>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-22_02,2021-09-20_01,2020-04-07_01
-Cc: devicetree@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
- linux-iio@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Fabrice Gasnier <fabrice.gasnier@st.com>,
+ definitions=2021-09-22_05,2021-09-22_01,2020-04-07_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-phy@lists.infradead.org,
+ Kishon Vijay Abraham I <kishon@ti.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 6/7] iio: adc: stm32-adc: add vrefint
-	calibration support
+Subject: Re: [Linux-stm32] [PATCH 2/3] dt-bindings: phy: phy-stm32-usbphyc:
+ add st, phy-tuning optional property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,358 +81,175 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jonathan,
+Hi Rob,
 
-On 9/18/21 8:42 PM, Jonathan Cameron wrote:
-> On Wed, 15 Sep 2021 12:02:45 +0200
-> Olivier MOYSAN <olivier.moysan@foss.st.com> wrote:
+On 9/21/21 10:55 PM, Rob Herring wrote:
+> On Tue, Sep 14, 2021 at 04:52:55PM +0200, Amelie Delaunay wrote:
+>> This patch adds the description of a new optional property for usbphyc phy
 > 
->> Hi Jonathan,
+> Looks like a lot more than a property.
+> 
+>> sub nodes. st,phy-tuning contains all phy tuning parameters to apply on the
+>> phy.
 >>
->> On 9/11/21 6:28 PM, Jonathan Cameron wrote:
->>> On Wed, 8 Sep 2021 17:54:51 +0200
->>> Olivier Moysan <olivier.moysan@foss.st.com> wrote:
->>>    
->>>> Add support of vrefint calibration.
->>>> If a channel is labeled as vrefint, get vrefint calibration
->>>> from non volatile memory for this channel.
->>>> A conversion on vrefint channel allows to update scale
->>>> factor according to vrefint deviation, compared to vrefint
->>>> calibration value.
->>>
->>> As I mention inline, whilst technically the ABI doesn't demand it
->>> the expectation of much of userspace software is that _scale is
->>> pseudo constant - that is it doesn't tend to change very often and when
->>> it does it's normally because someone deliberately made it change.
->>> As such most software reads it just once.
->>>
->>> Normally we work around this by applying the maths in kernel and
->>> not exposing the scale at all. Is this something that could be done here?
->>>
->>> Jonathan
->>>    
->>>>
->>>> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
->>>> ---
->>>>    drivers/iio/adc/stm32-adc.c | 88 ++++++++++++++++++++++++++++++++++---
->>>>    1 file changed, 82 insertions(+), 6 deletions(-)
->>>>
->>>> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
->>>> index ef3d2af98025..9e52a7de9b16 100644
->>>> --- a/drivers/iio/adc/stm32-adc.c
->>>> +++ b/drivers/iio/adc/stm32-adc.c
->>>> @@ -21,6 +21,7 @@
->>>>    #include <linux/io.h>
->>>>    #include <linux/iopoll.h>
->>>>    #include <linux/module.h>
->>>> +#include <linux/nvmem-consumer.h>
->>>>    #include <linux/platform_device.h>
->>>>    #include <linux/pm_runtime.h>
->>>>    #include <linux/of.h>
->>>> @@ -42,6 +43,7 @@
->>>>    #define STM32_ADC_TIMEOUT	(msecs_to_jiffies(STM32_ADC_TIMEOUT_US / 1000))
->>>>    #define STM32_ADC_HW_STOP_DELAY_MS	100
->>>>    #define STM32_ADC_CHAN_NONE		-1
->>>> +#define STM32_ADC_VREFINT_VOLTAGE	3300
->>>>    
->>>>    #define STM32_DMA_BUFFER_SIZE		PAGE_SIZE
->>>>    
->>>> @@ -79,6 +81,7 @@ enum stm32_adc_extsel {
->>>>    };
->>>>    
->>>>    enum stm32_adc_int_ch {
->>>> +	STM32_ADC_INT_CH_NONE = -1,
->>>>    	STM32_ADC_INT_CH_VDDCORE,
->>>>    	STM32_ADC_INT_CH_VREFINT,
->>>>    	STM32_ADC_INT_CH_VBAT,
->>>> @@ -137,6 +140,16 @@ struct stm32_adc_regs {
->>>>    	int shift;
->>>>    };
->>>>    
->>>> +/**
->>>> + * struct stm32_adc_vrefint - stm32 ADC internal reference voltage data
->>>> + * @vrefint_cal:	vrefint calibration value from nvmem
->>>> + * @vrefint_data:	vrefint actual value
->>>> + */
->>>> +struct stm32_adc_vrefint {
->>>> +	u32 vrefint_cal;
->>>> +	u32 vrefint_data;
->>>> +};
->>>> +
->>>>    /**
->>>>     * struct stm32_adc_regspec - stm32 registers definition
->>>>     * @dr:			data register offset
->>>> @@ -186,6 +199,7 @@ struct stm32_adc;
->>>>     * @unprepare:		optional unprepare routine (disable, power-down)
->>>>     * @irq_clear:		routine to clear irqs
->>>>     * @smp_cycles:		programmable sampling time (ADC clock cycles)
->>>> + * @ts_vrefint_ns:	vrefint minimum sampling time in ns
->>>>     */
->>>>    struct stm32_adc_cfg {
->>>>    	const struct stm32_adc_regspec	*regs;
->>>> @@ -199,6 +213,7 @@ struct stm32_adc_cfg {
->>>>    	void (*unprepare)(struct iio_dev *);
->>>>    	void (*irq_clear)(struct iio_dev *indio_dev, u32 msk);
->>>>    	const unsigned int *smp_cycles;
->>>> +	const unsigned int ts_vrefint_ns;
->>>>    };
->>>>    
->>>>    /**
->>>> @@ -223,6 +238,7 @@ struct stm32_adc_cfg {
->>>>     * @pcsel:		bitmask to preselect channels on some devices
->>>>     * @smpr_val:		sampling time settings (e.g. smpr1 / smpr2)
->>>>     * @cal:		optional calibration data on some devices
->>>> + * @vrefint:		internal reference voltage data
->>>>     * @chan_name:		channel name array
->>>>     * @num_diff:		number of differential channels
->>>>     * @int_ch:		internal channel indexes array
->>>> @@ -248,6 +264,7 @@ struct stm32_adc {
->>>>    	u32			pcsel;
->>>>    	u32			smpr_val[2];
->>>>    	struct stm32_adc_calib	cal;
->>>> +	struct stm32_adc_vrefint vrefint;
->>>>    	char			chan_name[STM32_ADC_CH_MAX][STM32_ADC_CH_SZ];
->>>>    	u32			num_diff;
->>>>    	int			int_ch[STM32_ADC_INT_CH_NB];
->>>> @@ -1331,15 +1348,35 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
->>>>    			ret = stm32_adc_single_conv(indio_dev, chan, val);
->>>>    		else
->>>>    			ret = -EINVAL;
->>>> +
->>>> +		/* If channel mask corresponds to vrefint, store data */
->>>> +		if (adc->int_ch[STM32_ADC_INT_CH_VREFINT] == chan->channel)
->>>> +			adc->vrefint.vrefint_data = *val;
->>>> +
->>>>    		iio_device_release_direct_mode(indio_dev);
->>>>    		return ret;
->>>>    
->>>>    	case IIO_CHAN_INFO_SCALE:
->>>>    		if (chan->differential) {
->>>> -			*val = adc->common->vref_mv * 2;
->>>> +			if (adc->vrefint.vrefint_data &&
->>>> +			    adc->vrefint.vrefint_cal) {
->>>> +				*val = STM32_ADC_VREFINT_VOLTAGE * 2 *
->>>> +				       adc->vrefint.vrefint_cal /
->>>> +				       adc->vrefint.vrefint_data;
->>>
->>> Ah.. Dynamic scale.  This is always awkward when it occurs.
->>> Given most / possibly all userspace software assumes a pseudo static scale
->>> (not data dependent) we normally hide this by doing the maths internal to the
->>> driver - sometimes meaning we need to present the particular channel as processed
->>> not raw.
->>>
->>> Is the expectation here that vrefint_data is actually very nearly constant? If
->>> so then what you have here may be fine as anyone not aware the scale might change
->>> will get very nearly the right value anyway.
->>>    
+>> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+>> ---
+>>   .../bindings/phy/phy-stm32-usbphyc.yaml       | 68 +++++++++++++++++++
+>>   1 file changed, 68 insertions(+)
 >>
->> The need here is to compare the measured value of vrefint with the
->> calibrated value saved in non volatile memory. The ratio between these
->> two values can be used as a correction factor for the acquisitions on
->> all other channels.
+>> diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+>> index 3329f1d33a4f..0fa184ea54db 100644
+>> --- a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+>> +++ b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+>> @@ -81,6 +81,60 @@ patternProperties:
+>>           properties:
+>>             vbus-supply: true
+>>   
+>> +      st,phy-tuning:
+>> +        $ref: /schemas/types.yaml#/definitions/phandle
+> 
+> Looks like a node to me (type: object). But why is a node needed here?
+> 
+
+stm32-usbphyc has two phy/child nodes and each phy can be individually 
+tuned.
+
+Depending on the board layout, the tuning can be the same for each phy. 
+The node here avoid to duplicate the tuning parameter in each phy/child 
+node.
+
+I was inspired by Documentation/devicetree/bindings/net/snps,dwmac.yaml, 
+snps,axi-config for example.
+
+>> +        description:
+>> +          It can be necessary to adjust the PHY settings to compensate parasitics, which can be due
+>> +          to USB connector/receptacle, routing, ESD protection component,... Here is the list of
+>> +          all optional parameters to tune the interface of the PHY (HS for High-Speed, FS for Full-
+>> +          Speed, LS for Low-Speed)
+>> +            * st,current-boost, <1> current boosting of 1mA
+>> +                                <2> current boosting of 2mA
+> 
+> Use standard unit suffix.
+> 
+
+Ok.
+
+> All these need to be a schema, not free form text.
+>
+
+I'm not familiar with schema, could you please point me an example to 
+follow?
+
+>> +            * st,no-lsfs-fb-cap, disables the LS/FS feedback capacitor
+>> +            * st,hs-slew-ctrl, slows the HS driver slew rate by 10%
+> 
+> Name the property such that it is self describing. 'slew control'
+> doesn't say what it does to slew rate.
+> 
+
+Ok.
+
+>> +            * st,hs-dc-level, <0> = decreases the HS driver DC level by 5 to 7mV
+>> +                              <1> = increases the HS driver DC level by 5 to 7mV
+>> +                              <2> = increases the HS driver DC level by 10 to 14mV
+>> +            * st,fs-rftime-tuning, enables the FS rise/fall tuning option
+>> +            * st,hs-rftime-reduction, enables the HS rise/fall reduction feature
+>> +            * st,hs-current-trim, controls HS driver current trimming for choke
+>> +                                  <0> = 18.87 mA target current / nominal + 0%
+>> +                                  <1> = 19.165 mA target current / nominal + 1.56%
+>> +                                  <2> = 19.46 mA target current / nominal + 3.12%
+>> +                                  <3> = 19.755 mA target current / nominal + 4.68%
+>> +                                  <4> = 20.05 mA target current / nominal + 6.24%
+>> +                                  <5> = 20.345 mA target current / nominal + 7.8%
+>> +                                  <6> = 20.64 mA target current / nominal + 9.36%
+>> +                                  <7> = 20.935 mA target current / nominal + 10.92%
+>> +                                  <8> = 21.23 mA target current / nominal + 12.48%
+>> +                                  <9> = 21.525 mA target current / nominal + 14.04%
+>> +                                  <10> = 21.82 mA target current / nominal + 15.6%
+>> +                                  <11> = 22.115 mA target current / nominal + 17.16%
+>> +                                  <12> = 22.458 mA target current / nominal + 19.01%
+>> +                                  <13> = 22.755 mA target current / nominal + 20.58%
+>> +                                  <14> = 23.052 mA target current / nominal + 22.16%
+>> +                                  <15> = 23.348 mA target current / nominal + 23.73%
+>> +            * st,hs-impedance-trim, controls HS driver impedance tuning for choke
+>> +                                    <0> = no impedance offset
+>> +                                    <1> = reduces the impedance by 2 ohms
+>> +                                    <2> = reduces the impedance by 4 ohms
+>> +                                    <3> = reduces the impedance by 6 ohms
+>> +            * st,squelch-level, adjusts the squelch DC threshold value
+>> +                                <0> = no shift in threshold
+>> +                                <1> = threshold shift by +7 mV
+>> +                                <2> = threshold shift by -5 mV
+>> +                                <3> = threshold shift by +14 mV
+>> +            * st,hs-rx-gain-eq, enables the HS Rx gain equalizer
+>> +            * st,hs-rx-offset, adjusts the HS Rx offset
+>> +                               <0> = no offset
+>> +                               <1> = offset of +5 mV
+>> +                               <2> = offset of +10 mV
+>> +                               <3> = offset of -5 mV
+>> +            * st,no-hs-ftime-ctrl, disables the HS fall time control of single ended signals
+>> +                                   during pre-emphasis
+>> +            * st,no-lsfs-sc, disables the short circuit protection in LS/FS driver
+>> +            * st,hs-tx-staggering, enables the basic staggering in HS Tx mode
+>> +
+>>       allOf:
+>>         - if:
+>>             properties:
+>> @@ -122,6 +176,18 @@ examples:
+>>     - |
+>>       #include <dt-bindings/clock/stm32mp1-clks.h>
+>>       #include <dt-bindings/reset/stm32mp1-resets.h>
+>> +
+>> +    usb_phy_tuning: usb-phy-tuning {
+>> +        st,hs-dc-level = <2>;
+>> +        st,fs-rftime-tuning;
+>> +        st,hs-rftime-reduction;
+>> +        st,hs-current-trim = <15>;
+>> +        st,hs-impedance-trim = <1>;
+>> +        st,squelch-level = <3>;
+>> +        st,hs-rx-offset = <2>;
+>> +        st,no-lsfs-sc;
+>> +    };
+>> +
+>>       usbphyc: usbphyc@5a006000 {
+>>           compatible = "st,stm32mp1-usbphyc";
+>>           reg = <0x5a006000 0x1000>;
+>> @@ -137,6 +203,7 @@ examples:
+>>               reg = <0>;
+>>               phy-supply = <&vdd_usb>;
+>>               #phy-cells = <0>;
+>> +            st,phy-tuning = <&usb_phy_tuning>;
+> 
+> Just add all the properties here.
+> 
+
+If I add all the properties here...
+
+>>               connector {
+>>                   compatible = "usb-a-connector";
+>>                   vbus-supply = <&vbus_sw>;
+>> @@ -147,6 +214,7 @@ examples:
+>>               reg = <1>;
+>>               phy-supply = <&vdd_usb>;
+>>               #phy-cells = <1>;
+>> +            st,phy-tuning = <&usb_phy_tuning>;
+>>           };
+
+... I have to duplicate them also here (because on this example the 
+layout is the same for both phys.
+That's why st,phy-tuning was a node.
+
+Please advise.
+
+Regards,
+Amelie
+
+>>       };
+>>   ...
+>> -- 
+>> 2.25.1
 >>
->> The vrefint data is expected to be close to the saved vrefint
->> calibration value, and it should not vary strongly over time.
->> So, yes, we can indeed consider the scale as a pseudo constant. If the
->> scale is not updated, the deviation with actual value should remain
->> limited, as well.
-> 
-> Ok, so in that case we could probably get away with having it as you have
-> here, though for maximum precision we'd need userspace to occasionally check
-> the scale.
-> 
 >>
->> You suggest above to hide scale tuning through processed channels.
->> If I follow this logic, when vrefint channel is available, all channels
->> should be defined as processed channels (excepted vrefint channel)
->> In this case no scale is exposed for these channels, and the vrefint
->> calibration ratio can be used to provide converted data directly.
->> Do you prefer this implementation ?
-> 
->>
->> In this case I wonder how buffered data have to be managed. These data
->> are still provided as raw data, but the scale factor is not more
->> available to convert them. I guess that these data have to be converted
->> internally also, either in dma callback or irq handler.
->> Is this correct ?
-> 
-> This is one of the holes in what IIO does today.  Without meta data in the
-> buffer (which is hard to define in a clean fashion) it is hard to have
-> a compact representation of the data in the presence of dynamic scaling.
-> The vast majority of devices don't inherently support such scaling so
-> this is only occasionally a problem.
-> 
-> To support this at the moment you would indeed need to scale the data
-> before pushing it to the buffer which is obviously really ugly.
-> 
-> My gut feeling here is there are three possible approaches.
-> 
-> 1) Ignore the dynamic nature of the calibration and pretend it's static.
-> 2) Add an explicit 'calibration' sysfs attribute.
->     This is a fairly common model for other sensor types which don't do
->     dynamic calibration but instead require to you to start some special
->     calibration sequence.
->     As the calibration is not updated, except on explicit userspace action
->     we can assume that the scale is static unless userspace is aware of
->     the dynamic aspect.
-> 3) Add a userspace control to turn on dynamic calibration.  That makes it
->     opt in.  Everything will work reasonably well without it turned on
->     as we'll hopefully have a static estimate of scale which is good enough.
->     If aware software is using the device, it can enable this mode and
->     sample the scale as often as it wants to.
-> 
-> I slightly favour option 3.  What do you think?  If we ever figure out
-> the meta data question for buffered case then we can make that work on top
-> of this.
-> 
-> Jonathan
-
-This discussion made me revisit the calibration aspects in the ADC driver.
-
-We have three types of calibration in ADC:
-
-- Linear calibration: this calibration is not voltage or temperature 
-dependent. So, it can be done once at boot time, as this is done currently.
-
-- offset calibration: this calibration has a voltage and temperature 
-dependency. This calibration is currently done once at boot. But it 
-would be relevant to allow application to request a new offset 
-calibration, when supply or temperature change over time.
-Here the 'calibration' sysfs attribute you suggested in option 2, would 
-be convenient I think. I plan to submit this improvement in a separate 
-patch.
-
-- vref compensation: the vrefint channel offers a way to evaluate vref 
-deviation. Here I need to change a bit the logic. I think that putting 
-intelligence in the driver is not the best way at the end. This hides 
-voltage deviation information, where it could be useful to check if an 
-offset calibration is needed. Moreover we get a lack of consistency 
-between raw and buffered data.
-It looks that processed type is the good way to expose vrefint channel. 
-This allows to provide the actual vref voltage. And we can let the 
-application decide how to manage this information. (trigger offset 
-calibration / compensate raw data)
-I'm going to send a v2 serie with this change for vrefint support
-(plus the corrections for other comments)
-
-Regards
-Olivier
-
->>
->> Regards
->> Olivier
->>
->>>> +			} else {
->>>> +				*val = adc->common->vref_mv * 2;
->>>> +			}
->>>>    			*val2 = chan->scan_type.realbits;
->>>>    		} else {
->>>> -			*val = adc->common->vref_mv;
->>>> +			/* Use vrefint data if available */
->>>> +			if (adc->vrefint.vrefint_data &&
->>>> +			    adc->vrefint.vrefint_cal) {
->>>> +				*val = STM32_ADC_VREFINT_VOLTAGE *
->>>> +				       adc->vrefint.vrefint_cal /
->>>> +				       adc->vrefint.vrefint_data;
->>>> +			} else {
->>>> +				*val = adc->common->vref_mv;
->>>> +			}
->>>>    			*val2 = chan->scan_type.realbits;
->>>>    		}
->>>>    		return IIO_VAL_FRACTIONAL_LOG2;
->>>> @@ -1907,6 +1944,35 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
->>>>    	return scan_index;
->>>>    }
->>>>    
->>>> +static int stm32_adc_get_int_ch(struct iio_dev *indio_dev, const char *ch_name,
->>>> +				int chan)
->>>
->>> Naming would suggest to me that it would return a channel rather than setting it
->>> inside adc->int_ch[i]  Perhaps something like st32_adc_populate_int_ch() ?
->>>
->>>    
->>>> +{
->>>> +	struct stm32_adc *adc = iio_priv(indio_dev);
->>>> +	u16 vrefint;
->>>> +	int i, ret;
->>>> +
->>>> +	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
->>>> +		if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
->>>> +			adc->int_ch[i] = chan;
->>>> +			/* If channel is vrefint get calibration data. */
->>>> +			if (stm32_adc_ic[i].idx == STM32_ADC_INT_CH_VREFINT) {
->>>
->>> I would reduce indentation by reversing the logic.
->>>
->>> 			if (stm32_adc_ic[i].idx != STM32_ADC_INT_CH_VREFINT)
->>> 				continue;
->>>
->>> 			ret =
->>>> +				ret = nvmem_cell_read_u16(&indio_dev->dev, "vrefint", &vrefint);
->>>> +				if (ret && ret != -ENOENT && ret != -EOPNOTSUPP) {
->>>> +					dev_err(&indio_dev->dev, "nvmem access error %d\n", ret);
->>>> +					return ret;
->>>> +				}
->>>> +				if (ret == -ENOENT)
->>>> +					dev_dbg(&indio_dev->dev,
->>>> +						"vrefint calibration not found\n");
->>>> +				else
->>>> +					adc->vrefint.vrefint_cal = vrefint;
->>>> +			}
->>>> +		}
->>>> +	}
->>>> +
->>>> +	return 0;
->>>> +}
->>>> +
->>>>    static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
->>>>    				       struct stm32_adc *adc,
->>>>    				       struct iio_chan_spec *channels)
->>>> @@ -1938,10 +2004,9 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
->>>>    				return -EINVAL;
->>>>    			}
->>>>    			strncpy(adc->chan_name[val], name, STM32_ADC_CH_SZ);
->>>> -			for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
->>>> -				if (!strncmp(stm32_adc_ic[i].name, name, STM32_ADC_CH_SZ))
->>>> -					adc->int_ch[i] = val;
->>>> -			}
->>>> +			ret = stm32_adc_get_int_ch(indio_dev, name, val);
->>>> +			if (ret)
->>>> +				goto err;
->>>>    		} else if (ret != -EINVAL) {
->>>>    			dev_err(&indio_dev->dev, "Invalid label %d\n", ret);
->>>>    			goto err;
->>>> @@ -2044,6 +2109,16 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
->>>>    		 */
->>>>    		of_property_read_u32_index(node, "st,min-sample-time-nsecs",
->>>>    					   i, &smp);
->>>> +
->>>> +		/*
->>>> +		 * For vrefint channel, ensure that the sampling time cannot
->>>> +		 * be lower than the one specified in the datasheet
->>>> +		 */
->>>> +		if (channels[i].channel == adc->int_ch[STM32_ADC_INT_CH_VREFINT] &&
->>>> +		    smp < adc->cfg->ts_vrefint_ns) {
->>>> +			smp = adc->cfg->ts_vrefint_ns;
->>>> +		}
->>>
->>> 		if (channels[i].channel == adc->int_ch[STM32_ADC_INT_CH_VREFINT])
->>> 			smp = max(smp, adc->cfg->ts_vrefint_ns);
->>>    
->>>> +
->>>>    		/* Prepare sampling time settings */
->>>>    		stm32_adc_smpr_init(adc, channels[i].channel, smp);
->>>>    	}
->>>> @@ -2350,6 +2425,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
->>>>    	.unprepare = stm32h7_adc_unprepare,
->>>>    	.smp_cycles = stm32h7_adc_smp_cycles,
->>>>    	.irq_clear = stm32h7_adc_irq_clear,
->>>> +	.ts_vrefint_ns = 4300,
->>>>    };
->>>>    
->>>>    static const struct of_device_id stm32_adc_of_match[] = {
->>>    
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
