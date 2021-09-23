@@ -2,37 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DBFA41566D
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Sep 2021 05:40:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 502FC415683
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Sep 2021 05:40:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44D88C5A4D1;
-	Thu, 23 Sep 2021 03:40:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A161C5A4D1;
+	Thu, 23 Sep 2021 03:40:34 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95A36C5A4CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C931CC5A4CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Sep 2021 03:40:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EA174611C6;
- Thu, 23 Sep 2021 03:40:01 +0000 (UTC)
+ Thu, 23 Sep 2021 03:40:31 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 286116103C;
+ Thu, 23 Sep 2021 03:40:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632368403;
- bh=rIk913HgaEmXfWdxZWioNzquyCgiINrZfN8N3BKkNzs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SMXEsIeSN4JCW6VpdR5htNhMs0H6WneY6cPfy5YWAdxsmGviMN6kaE9hUt5cTtwd3
- 9DJi9+EEFdHHqxsDmKiEBf1ydduZCYvygiHEYRwY4JQVxH+i7Ku1Np3DvzWNXNcEc/
- P22UE+Xo/4zITkek3dK0CrT9/KnOSwAjXYuuT/uDrEpuC/9T5aduH6Kn0iFZAwPbwU
- ayn3mMl54Qdzebs3a4SLmPhoarigl+Y30xcmLS0ptTzGk6pmQje8YhCGEU66LKyN3S
- qfkKDTyySMaNIpxE/wiCkox80uE74/4IQcnshSfKVV3L+vd3y1Y/I0rhxKx6e0Qhv9
- 0+FC3QXn89CYw==
+ s=k20201202; t=1632368430;
+ bh=UOqMe7rrPxZxMYaRL4dCzAkja5xQ22ZRQL4zq4VgJKE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=s1O2TbhaDIizgBbTOdKOU0HzUW0ZAmMusbVeJbaWhn0QW/NiAR63zuMTyZdyelFTm
+ oiaOahr89I5kGOogV1kv2caxb9L+I4XEI9ALcKBd4mC7kpuJcGXHC9TFmcK03Vlayd
+ aWR341u+5HCwJr1GczuSODFN/XqH4OvU8WG3O2lNpaaFV8bThNiABQffxZy+imeLrS
+ KFeEZrRhD33gL67nKZYPKPZONXJ6HIVyLnRgajRJRYlA+wRYDP46yc4f4MIKhPKV8a
+ TEmCd1rQpOTfdg7O8W85qWtSNr77ezlkm9WJ897Bh3idJk3ZJOR6ngU58uh74Z13Ur
+ tmeP1/q406n6w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 22 Sep 2021 23:39:48 -0400
-Message-Id: <20210923033959.1421662-2-sashal@kernel.org>
+Date: Wed, 22 Sep 2021 23:40:17 -0400
+Message-Id: <20210923034028.1421876-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210923033959.1421662-1-sashal@kernel.org>
-References: <20210923033959.1421662-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -41,7 +39,7 @@ Cc: Sasha Levin <sashal@kernel.org>, Jesper Nilsson <jesper.nilsson@axis.com>,
  linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
  mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 02/13] net: stmmac: allow CSR
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.9 01/11] net: stmmac: allow CSR
 	clock of 300MHz
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -98,10 +96,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a7b30f060536..2be2b3055904 100644
+index dbd56fefa2f3..0a7ff854d1c3 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -232,7 +232,7 @@ static void stmmac_clk_csr_set(struct stmmac_priv *priv)
+@@ -178,7 +178,7 @@ static void stmmac_clk_csr_set(struct stmmac_priv *priv)
  			priv->clk_csr = STMMAC_CSR_100_150M;
  		else if ((clk_rate >= CSR_F_150M) && (clk_rate < CSR_F_250M))
  			priv->clk_csr = STMMAC_CSR_150_250M;
@@ -109,7 +107,7 @@ index a7b30f060536..2be2b3055904 100644
 +		else if ((clk_rate >= CSR_F_250M) && (clk_rate <= CSR_F_300M))
  			priv->clk_csr = STMMAC_CSR_250_300M;
  	}
- 
+ }
 -- 
 2.30.2
 
