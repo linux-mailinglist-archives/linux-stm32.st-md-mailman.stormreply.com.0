@@ -2,67 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A93B1415CB8
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Sep 2021 13:20:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75E2C415C3D
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Sep 2021 12:49:00 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39AF6C5A4FE;
-	Thu, 23 Sep 2021 11:20:21 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 201CEC5A4D1;
+	Thu, 23 Sep 2021 10:49:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2701C5A4D0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38631C5718F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Sep 2021 08:38:17 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18N2qx2N000635; 
- Thu, 23 Sep 2021 10:38:12 +0200
+ Thu, 23 Sep 2021 10:48:57 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18N8xkvd005755; 
+ Thu, 23 Sep 2021 12:48:33 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=jZB2v7cRtiNx2ClUgCrZhsw4GjZEOLW21gZOD4Egx74=;
- b=g4kDDX76uJWvBkxeIxrMOu4ZAS3aMX0w3N9V/bcTwqvfI6B5Bon6LfpxeZx7kcsw81n+
- LW7zqqMngAAReuXoJ9QlF1JcSB0L+CUMPsJRHCTxUNIyHxgJowRhMK5Ya1gKc/iiiBAE
- 2FJ988R6cCnl1es9Mx2v0a67bcrt/hCxl5TDIM2kV1R+tmYLHAD3wgxVsDa+1NJ8n42r
- QCBXLZ0LIEu1u/azEttDsbYon8NeE6B07o+q+a/rydqxtwHecO3WBKpqcLrih2r3guEX
- Zxr5uEvk+5NzBFeZ6ljao2MnPcncYXRqdgxXJ+3QLqGoMAI4p++JqUp5f3Jm9+NgZmZv bQ== 
+ bh=erpy7pilbQAUCgWWy8Jc10rf1wN9rih1xMYpuf1nGrI=;
+ b=tiZAK1KMKWbl0wv8ajSNPtaih5vem5xRVDdfw/gEsp1KOQhT65E4FePgQC4tC8ZEWVLj
+ WTimxHuwywMw2a+AbWEQAwktZFZxL5mi3Omq1ewnTPRGgvaJbKXs2MB9p4TH2yZ+ET2U
+ 49X0nyNZb6Q7NeRbkZA7Sk1SF/uBaPGv2hpqPb5Rn/hLFukSRn7+WIlPOtWSxhHAPAb9
+ TRVaTGclQKkpzsMCqmPzCM3xYDUi1JPQELJQ6bcPL9ebHUh4oR+TZmM2Kky+gIcqEY+U
+ m2OIAwQQ25E0RFhIf8HJ0yvnc1dhA5NbfgwWuS8wBKVsjhIb9F4HXn8xxuBZk9NOw3F/ wA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3b8h6f9u94-1
+ by mx07-00178001.pphosted.com with ESMTP id 3b8hngaj78-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Sep 2021 10:38:12 +0200
+ Thu, 23 Sep 2021 12:48:33 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 59ED910002A;
- Thu, 23 Sep 2021 10:38:11 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F837100034;
+ Thu, 23 Sep 2021 12:48:32 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 50F6C2248BF;
- Thu, 23 Sep 2021 10:38:11 +0200 (CEST)
-Received: from lmecxl1060.lme.st.com (10.75.127.48) by SFHDAG2NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7578822FE39;
+ Thu, 23 Sep 2021 12:48:32 +0200 (CEST)
+Received: from [10.48.0.126] (10.75.127.48) by SFHDAG2NODE2.st.com
  (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Thu, 23 Sep
- 2021 10:38:09 +0200
-To: Alain Volmat <alain.volmat@foss.st.com>, <wsa@kernel.org>
-References: <1632151292-18503-1-git-send-email-alain.volmat@foss.st.com>
- <1632151292-18503-5-git-send-email-alain.volmat@foss.st.com>
-From: Pierre Yves MORDRET <pierre-yves.mordret@foss.st.com>
-Message-ID: <1b717a3f-8e2f-2e78-4509-63b04648659b@foss.st.com>
-Date: Thu, 23 Sep 2021 10:38:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ 2021 12:48:30 +0200
+To: Olivier Moysan <olivier.moysan@foss.st.com>, Jonathan Cameron
+ <jic23@kernel.org>
+References: <20210922153418.21033-1-olivier.moysan@foss.st.com>
+ <20210922153418.21033-8-olivier.moysan@foss.st.com>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <6adf5b4d-8315-7311-8754-9c9ad5d6513a@foss.st.com>
+Date: Thu, 23 Sep 2021 12:48:28 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <1632151292-18503-5-git-send-email-alain.volmat@foss.st.com>
+In-Reply-To: <20210922153418.21033-8-olivier.moysan@foss.st.com>
 Content-Language: en-US
 X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-23_02,2021-09-22_01,2020-04-07_01
-X-Mailman-Approved-At: Thu, 23 Sep 2021 11:20:18 +0000
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 4/4] i2c: stm32f7: use proper DMAENGINE
- API for termination
+ definitions=2021-09-23_03,2021-09-23_01,2020-04-07_01
+Cc: devicetree@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
+ linux-iio@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 7/7] iio: adc: stm32-adc: use generic
+ binding for sample-time
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,103 +81,159 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Alain
-
-Look good to me
-
-Reviewed-by: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>
-
-Regards
-
-On 9/20/21 5:21 PM, Alain Volmat wrote:
-> dmaengine_terminate_all() is deprecated in favor of explicitly saying if
-> it should be sync or async.  Here, we use dmaengine_terminate_sync in
-> i2c_xfer and i2c_smbus_xfer handlers and rely on
-> dmaengine_terminate_async within interrupt handlers
-> (transmission error cases).
-> dmaengine_synchronize is added within i2c_xfer and i2c_smbus_xfer handler
-> to finalize terminate started in interrupt handlers.
+On 9/22/21 5:34 PM, Olivier Moysan wrote:
+> Add st,min-sample-time-nsecs to channel generic binding.
+> Sample time can be defined par channel node. If a channel
+> is configured as differential, the same sample time applies
+> for both inputs.
+> Keep support of legacy st,min-sample-time-nsecs property
+> for backward compatibility.
 > 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 > ---
->  drivers/i2c/busses/i2c-stm32f7.c | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
+>  drivers/iio/adc/stm32-adc.c | 70 +++++++++++++++++++++----------------
+>  1 file changed, 39 insertions(+), 31 deletions(-)
 > 
-> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-> index 50d5ae81d227..66145d2b9b55 100644
-> --- a/drivers/i2c/busses/i2c-stm32f7.c
-> +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> @@ -1521,7 +1521,7 @@ static irqreturn_t stm32f7_i2c_isr_event(int irq, void *data)
->  		writel_relaxed(STM32F7_I2C_ICR_NACKCF, base + STM32F7_I2C_ICR);
->  		if (i2c_dev->use_dma) {
->  			stm32f7_i2c_disable_dma_req(i2c_dev);
-> -			dmaengine_terminate_all(dma->chan_using);
-> +			dmaengine_terminate_async(dma->chan_using);
->  		}
->  		f7_msg->result = -ENXIO;
->  	}
-> @@ -1588,7 +1588,7 @@ static irqreturn_t stm32f7_i2c_isr_event_thread(int irq, void *data)
->  	if (!ret) {
->  		dev_dbg(i2c_dev->dev, "<%s>: Timed out\n", __func__);
->  		stm32f7_i2c_disable_dma_req(i2c_dev);
-> -		dmaengine_terminate_all(dma->chan_using);
-> +		dmaengine_terminate_async(dma->chan_using);
->  		f7_msg->result = -ETIMEDOUT;
->  	}
+> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> index c427e439bf4a..cfd11ff0cf36 100644
+> --- a/drivers/iio/adc/stm32-adc.c
+> +++ b/drivers/iio/adc/stm32-adc.c
+> @@ -1809,6 +1809,11 @@ static void stm32_adc_smpr_init(struct stm32_adc *adc, int channel, u32 smp_ns)
+>  	u32 period_ns, shift = smpr->shift, mask = smpr->mask;
+>  	unsigned int smp, r = smpr->reg;
 >  
-> @@ -1665,7 +1665,7 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
->  	/* Disable dma */
->  	if (i2c_dev->use_dma) {
->  		stm32f7_i2c_disable_dma_req(i2c_dev);
-> -		dmaengine_terminate_all(dma->chan_using);
-> +		dmaengine_terminate_async(dma->chan_using);
->  	}
->  
->  	i2c_dev->master_mode = false;
-> @@ -1702,6 +1702,9 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
->  						i2c_dev->adap.timeout);
->  	ret = f7_msg->result;
->  	if (ret) {
-> +		if (i2c_dev->use_dma)
-> +			dmaengine_synchronize(dma->chan_using);
+> +	/*
+> +	 * For vrefint channel, ensure that the sampling time cannot
+> +	 * be lower than the one specified in the datasheet
+> +	 */
 > +
->  		/*
->  		 * It is possible that some unsent data have already been
->  		 * written into TXDR. To avoid sending old data in a
-> @@ -1716,7 +1719,7 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
->  		dev_dbg(i2c_dev->dev, "Access to slave 0x%x timed out\n",
->  			i2c_dev->msg->addr);
->  		if (i2c_dev->use_dma)
-> -			dmaengine_terminate_all(dma->chan_using);
-> +			dmaengine_terminate_sync(dma->chan_using);
->  		stm32f7_i2c_wait_free_bus(i2c_dev);
->  		ret = -ETIMEDOUT;
->  	}
-> @@ -1761,6 +1764,9 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
->  					      i2c_dev->adap.timeout);
->  	ret = f7_msg->result;
->  	if (ret) {
-> +		if (i2c_dev->use_dma)
-> +			dmaengine_synchronize(dma->chan_using);
-> +
->  		/*
->  		 * It is possible that some unsent data have already been
->  		 * written into TXDR. To avoid sending old data in a
-> @@ -1774,7 +1780,7 @@ static int stm32f7_i2c_smbus_xfer(struct i2c_adapter *adapter, u16 addr,
->  	if (!timeout) {
->  		dev_dbg(dev, "Access to slave 0x%x timed out\n", f7_msg->addr);
->  		if (i2c_dev->use_dma)
-> -			dmaengine_terminate_all(dma->chan_using);
-> +			dmaengine_terminate_sync(dma->chan_using);
->  		stm32f7_i2c_wait_free_bus(i2c_dev);
->  		ret = -ETIMEDOUT;
->  		goto pm_free;
-> 
 
--- 
---
-~ Py MORDRET
---
+Hi Olivier,
+
+I had a quick look at this series. It looks like some code is missing
+here, e.g. to check "ts_vrefint_ns".
+
+Thanks & BR,
+Fabrice
+
+>  	/* Determine sampling time (ADC clock cycles) */
+>  	period_ns = NSEC_PER_SEC / adc->common->rate;
+>  	for (smp = 0; smp <= STM32_ADC_MAX_SMP; smp++)
+> @@ -1885,6 +1890,13 @@ static int stm32_adc_get_legacy_chan_count(struct iio_dev *indio_dev, struct stm
+>  		num_channels += ret;
+>  	}
+>  
+> +	/* Optional sample time is provided either for each, or all channels */
+> +	ret = of_property_count_u32_elems(node, "st,min-sample-time-nsecs");
+> +	if (ret > 1 && ret != num_channels) {
+> +		dev_err(&indio_dev->dev, "Invalid st,min-sample-time-nsecs\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	return num_channels;
+>  }
+>  
+> @@ -1900,6 +1912,7 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
+>  	int scan_index = 0, val, ret, i;
+>  	struct property *prop;
+>  	const __be32 *cur;
+> +	u32 smp = 0;
+>  
+>  	if (num_diff) {
+>  		ret = of_property_read_u32_array(node, "st,adc-diff-channels",
+> @@ -1942,6 +1955,19 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
+>  		scan_index++;
+>  	}
+>  
+> +	for (i = 0; i < scan_index; i++) {
+> +		/*
+> +		 * Using of_property_read_u32_index(), smp value will only be
+> +		 * modified if valid u32 value can be decoded. This allows to
+> +		 * get either no value, 1 shared value for all indexes, or one
+> +		 * value per channel.
+> +		 */
+> +		of_property_read_u32_index(node, "st,min-sample-time-nsecs", i, &smp);
+> +
+> +		/* Prepare sampling time settings */
+> +		stm32_adc_smpr_init(adc, channels[i].channel, smp);
+> +	}
+> +
+>  	return scan_index;
+>  }
+>  
+> @@ -2034,6 +2060,19 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+>  
+>  		stm32_adc_chan_init_one(indio_dev, &channels[scan_index], val,
+>  					vin[1], scan_index, differential);
+> +
+> +		ret = of_property_read_u32(child, "st,min-sample-time-nsecs", &val);
+> +		/* st,min-sample-time-nsecs is optional */
+> +		if (!ret) {
+> +			stm32_adc_smpr_init(adc, channels[scan_index].channel, val);
+> +			if (differential)
+> +				stm32_adc_smpr_init(adc, vin[1], val);
+> +		} else if (ret != -EINVAL) {
+> +			dev_err(&indio_dev->dev, "Invalid st,min-sample-time-nsecs property %d\n",
+> +				ret);
+> +			goto err;
+> +		}
+> +
+>  		scan_index++;
+>  	}
+>  
+> @@ -2052,7 +2091,6 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
+>  	const struct stm32_adc_info *adc_info = adc->cfg->adc_info;
+>  	struct iio_chan_spec *channels;
+>  	int scan_index = 0, num_channels = 0, ret, i;
+> -	u32 smp = 0;
+>  	bool legacy = false;
+>  
+>  	for (i = 0; i < STM32_ADC_INT_CH_NB; i++)
+> @@ -2080,13 +2118,6 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
+>  		return -EINVAL;
+>  	}
+>  
+> -	/* Optional sample time is provided either for each, or all channels */
+> -	ret = of_property_count_u32_elems(node, "st,min-sample-time-nsecs");
+> -	if (ret > 1 && ret != num_channels) {
+> -		dev_err(&indio_dev->dev, "Invalid st,min-sample-time-nsecs\n");
+> -		return -EINVAL;
+> -	}
+> -
+>  	if (timestamping)
+>  		num_channels++;
+>  
+> @@ -2103,29 +2134,6 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
+>  		return ret;
+>  	scan_index = ret;
+>  
+> -	for (i = 0; i < scan_index; i++) {
+> -		/*
+> -		 * Using of_property_read_u32_index(), smp value will only be
+> -		 * modified if valid u32 value can be decoded. This allows to
+> -		 * get either no value, 1 shared value for all indexes, or one
+> -		 * value per channel.
+> -		 */
+> -		of_property_read_u32_index(node, "st,min-sample-time-nsecs",
+> -					   i, &smp);
+> -
+> -		/*
+> -		 * For vrefint channel, ensure that the sampling time cannot
+> -		 * be lower than the one specified in the datasheet
+> -		 */
+> -		if (channels[i].channel == adc->int_ch[STM32_ADC_INT_CH_VREFINT] &&
+> -		    smp < adc->cfg->ts_vrefint_ns) {
+> -			smp = adc->cfg->ts_vrefint_ns;
+> -		}
+> -
+> -		/* Prepare sampling time settings */
+> -		stm32_adc_smpr_init(adc, channels[i].channel, smp);
+> -	}
+> -
+>  	if (timestamping) {
+>  		struct iio_chan_spec *timestamp = &channels[scan_index];
+>  
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
