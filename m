@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87B484190BC
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Sep 2021 10:26:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92B634190BF
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Sep 2021 10:26:33 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D5EDC5AB64;
-	Mon, 27 Sep 2021 08:26:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AB71C5AB64;
+	Mon, 27 Sep 2021 08:26:33 +0000 (UTC)
 Received: from baidu.com (mx24.baidu.com [111.206.215.185])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F2A3C5AB64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABEEEC5AB62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Sep 2021 08:26:27 +0000 (UTC)
-Received: from Bc-Mail-Ex13.internal.baidu.com (unknown [172.31.51.53])
- by Forcepoint Email with ESMTPS id 427D5A655954AD77177D;
- Mon, 27 Sep 2021 16:26:25 +0800 (CST)
+ Mon, 27 Sep 2021 08:26:29 +0000 (UTC)
+Received: from BC-Mail-Ex10.internal.baidu.com (unknown [172.31.51.50])
+ by Forcepoint Email with ESMTPS id 42B7D2C1A4CE0750EF77;
+ Mon, 27 Sep 2021 16:26:28 +0800 (CST)
 Received: from BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) by
- Bc-Mail-Ex13.internal.baidu.com (172.31.51.53) with Microsoft SMTP Server
+ BC-Mail-Ex10.internal.baidu.com (172.31.51.50) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2242.12; Mon, 27 Sep 2021 16:26:25 +0800
+ 15.1.2242.12; Mon, 27 Sep 2021 16:26:27 +0800
 Received: from LAPTOP-UKSR4ENP.internal.baidu.com (172.31.63.8) by
  BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2308.14; Mon, 27 Sep 2021 16:26:24 +0800
+ 15.1.2308.14; Mon, 27 Sep 2021 16:26:27 +0800
 From: Cai Huoqing <caihuoqing@baidu.com>
 To: <caihuoqing@baidu.com>
-Date: Mon, 27 Sep 2021 16:26:02 +0800
-Message-ID: <20210927082608.859-3-caihuoqing@baidu.com>
+Date: Mon, 27 Sep 2021 16:26:03 +0800
+Message-ID: <20210927082608.859-4-caihuoqing@baidu.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210927082608.859-1-caihuoqing@baidu.com>
 References: <20210927082608.859-1-caihuoqing@baidu.com>
@@ -40,7 +40,7 @@ Cc: Marcus Folkesson <marcus.folkesson@gmail.com>,
  Vladimir Zapolskiy <vz@mleia.com>, linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: [Linux-stm32] [PATCH 3/8] iio: dac: ltc1660: Make use of the helper
+Subject: [Linux-stm32] [PATCH 4/8] iio: dac: ds4424: Make use of the helper
 	function dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -66,27 +66,29 @@ gets printed.
 
 Signed-off-by: Cai Huoqing <caihuoqing@baidu.com>
 ---
- drivers/iio/dac/ltc1660.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/iio/dac/ds4424.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iio/dac/ltc1660.c b/drivers/iio/dac/ltc1660.c
-index dc10188540ca..f6ec9bf5815e 100644
---- a/drivers/iio/dac/ltc1660.c
-+++ b/drivers/iio/dac/ltc1660.c
-@@ -172,10 +172,9 @@ static int ltc1660_probe(struct spi_device *spi)
- 	}
+diff --git a/drivers/iio/dac/ds4424.c b/drivers/iio/dac/ds4424.c
+index 79527fbc250a..5a5e967b0be4 100644
+--- a/drivers/iio/dac/ds4424.c
++++ b/drivers/iio/dac/ds4424.c
+@@ -232,12 +232,9 @@ static int ds4424_probe(struct i2c_client *client,
+ 	indio_dev->name = id->name;
  
- 	priv->vref_reg = devm_regulator_get(&spi->dev, "vref");
--	if (IS_ERR(priv->vref_reg)) {
--		dev_err(&spi->dev, "vref regulator not specified\n");
--		return PTR_ERR(priv->vref_reg);
+ 	data->vcc_reg = devm_regulator_get(&client->dev, "vcc");
+-	if (IS_ERR(data->vcc_reg)) {
+-		dev_err(&client->dev,
+-			"Failed to get vcc-supply regulator. err: %ld\n",
+-				PTR_ERR(data->vcc_reg));
+-		return PTR_ERR(data->vcc_reg);
 -	}
-+	if (IS_ERR(priv->vref_reg))
-+		return dev_err_probe(&spi->dev, PTR_ERR(priv->vref_reg),
-+				     "vref regulator not specified\n");
++	if (IS_ERR(data->vcc_reg))
++		return dev_err_probe(&client->dev, PTR_ERR(data->vcc_reg),
++				     "Failed to get vcc-supply regulator.\n");
  
- 	ret = regulator_enable(priv->vref_reg);
- 	if (ret) {
+ 	mutex_init(&data->lock);
+ 	ret = regulator_enable(data->vcc_reg);
 -- 
 2.25.1
 
