@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CA004190BB
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Sep 2021 10:26:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87B484190BC
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Sep 2021 10:26:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 421ACC5AB63;
-	Mon, 27 Sep 2021 08:26:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D5EDC5AB64;
+	Mon, 27 Sep 2021 08:26:30 +0000 (UTC)
 Received: from baidu.com (mx24.baidu.com [111.206.215.185])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE896C57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F2A3C5AB64
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Sep 2021 08:26:23 +0000 (UTC)
-Received: from BC-Mail-HQEX01.internal.baidu.com (unknown [172.31.51.57])
- by Forcepoint Email with ESMTPS id 6FE43165FEE3BA9E5AD9;
- Mon, 27 Sep 2021 16:26:22 +0800 (CST)
+ Mon, 27 Sep 2021 08:26:27 +0000 (UTC)
+Received: from Bc-Mail-Ex13.internal.baidu.com (unknown [172.31.51.53])
+ by Forcepoint Email with ESMTPS id 427D5A655954AD77177D;
+ Mon, 27 Sep 2021 16:26:25 +0800 (CST)
 Received: from BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) by
- BC-Mail-HQEX01.internal.baidu.com (172.31.51.57) with Microsoft SMTP Server
+ Bc-Mail-Ex13.internal.baidu.com (172.31.51.53) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2242.12; Mon, 27 Sep 2021 16:26:22 +0800
+ 15.1.2242.12; Mon, 27 Sep 2021 16:26:25 +0800
 Received: from LAPTOP-UKSR4ENP.internal.baidu.com (172.31.63.8) by
  BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2308.14; Mon, 27 Sep 2021 16:26:21 +0800
+ 15.1.2308.14; Mon, 27 Sep 2021 16:26:24 +0800
 From: Cai Huoqing <caihuoqing@baidu.com>
 To: <caihuoqing@baidu.com>
-Date: Mon, 27 Sep 2021 16:26:01 +0800
-Message-ID: <20210927082608.859-2-caihuoqing@baidu.com>
+Date: Mon, 27 Sep 2021 16:26:02 +0800
+Message-ID: <20210927082608.859-3-caihuoqing@baidu.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210927082608.859-1-caihuoqing@baidu.com>
 References: <20210927082608.859-1-caihuoqing@baidu.com>
@@ -40,8 +40,8 @@ Cc: Marcus Folkesson <marcus.folkesson@gmail.com>,
  Vladimir Zapolskiy <vz@mleia.com>, linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: [Linux-stm32] [PATCH 2/8] iio: dac: lpc18xx_dac: Make use of the
-	helper function dev_err_probe()
+Subject: [Linux-stm32] [PATCH 3/8] iio: dac: ltc1660: Make use of the helper
+	function dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,38 +66,27 @@ gets printed.
 
 Signed-off-by: Cai Huoqing <caihuoqing@baidu.com>
 ---
- drivers/iio/dac/lpc18xx_dac.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/iio/dac/ltc1660.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iio/dac/lpc18xx_dac.c b/drivers/iio/dac/lpc18xx_dac.c
-index 9e38607a189e..afb37647b035 100644
---- a/drivers/iio/dac/lpc18xx_dac.c
-+++ b/drivers/iio/dac/lpc18xx_dac.c
-@@ -121,16 +121,16 @@ static int lpc18xx_dac_probe(struct platform_device *pdev)
- 		return PTR_ERR(dac->base);
+diff --git a/drivers/iio/dac/ltc1660.c b/drivers/iio/dac/ltc1660.c
+index dc10188540ca..f6ec9bf5815e 100644
+--- a/drivers/iio/dac/ltc1660.c
++++ b/drivers/iio/dac/ltc1660.c
+@@ -172,10 +172,9 @@ static int ltc1660_probe(struct spi_device *spi)
+ 	}
  
- 	dac->clk = devm_clk_get(&pdev->dev, NULL);
--	if (IS_ERR(dac->clk)) {
--		dev_err(&pdev->dev, "error getting clock\n");
--		return PTR_ERR(dac->clk);
+ 	priv->vref_reg = devm_regulator_get(&spi->dev, "vref");
+-	if (IS_ERR(priv->vref_reg)) {
+-		dev_err(&spi->dev, "vref regulator not specified\n");
+-		return PTR_ERR(priv->vref_reg);
 -	}
-+	if (IS_ERR(dac->clk))
-+		return dev_err_probe(&pdev->dev,
-+				     PTR_ERR(dac->clk),
-+				     "error getting clock\n");
++	if (IS_ERR(priv->vref_reg))
++		return dev_err_probe(&spi->dev, PTR_ERR(priv->vref_reg),
++				     "vref regulator not specified\n");
  
- 	dac->vref = devm_regulator_get(&pdev->dev, "vref");
--	if (IS_ERR(dac->vref)) {
--		dev_err(&pdev->dev, "error getting regulator\n");
--		return PTR_ERR(dac->vref);
--	}
-+	if (IS_ERR(dac->vref))
-+		return dev_err_probe(&pdev->dev,
-+				     PTR_ERR(dac->vref),
-+				     "error getting regulator\n");
- 
- 	indio_dev->name = dev_name(&pdev->dev);
- 	indio_dev->info = &lpc18xx_dac_info;
+ 	ret = regulator_enable(priv->vref_reg);
+ 	if (ret) {
 -- 
 2.25.1
 
