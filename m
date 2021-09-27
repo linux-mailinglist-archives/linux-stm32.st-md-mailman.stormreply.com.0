@@ -2,81 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18D7C419295
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Sep 2021 12:54:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70C2C4192FE
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Sep 2021 13:20:19 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA0EBC5AB62;
-	Mon, 27 Sep 2021 10:54:39 +0000 (UTC)
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19ABDC5AB62;
+	Mon, 27 Sep 2021 11:20:19 +0000 (UTC)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA9EFC5719E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B2C3C5719E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Sep 2021 10:54:37 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id B7603580A9C;
- Mon, 27 Sep 2021 06:54:36 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 27 Sep 2021 06:54:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=F1yC9e6f4L4P4vLBZgU6EcwSh7h
- BL4qthNhSxMuXr+E=; b=tjIGNlvj4WxYghk/RnCVES1C3O5C1YjvH7RI01Kn/Ak
- 8x0UnJ+PZ7nOIJVzh18TyOtJQ/Dm0zoYX0vnW3qFh1txbCtSdVwNOEppYkn2L4vQ
- 32iRuDgq4Kut90dlYjDkCQd7wNKvq+Hao5vmYn3erYOpSGPTJ5wpwWj0wgQgljXv
- 3Vf6DX/pUM8b2ND/K4DVLe2vqs71nPdjVNCxZpW7H9wvF6twa6tfUEPkf1hKKWCg
- ZzFMhtzojXmyN2HEL7szgPbSJ0KobvZopVb+9nb5FOnjuEd7t3Q+Sb75fPt895UK
- QGN5YD+WDzkq73r1p8CCerYCiFRIV0ZnaFRWAOJalLw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=F1yC9e
- 6f4L4P4vLBZgU6EcwSh7hBL4qthNhSxMuXr+E=; b=GqquaonZPY58341bDIoXOU
- oly2aOQsN6qNmROlqpIGUu91KB4AT+8Azg87t+iJTG4QXPLvumhQRNNhL88B2aF4
- ekH8gw7qjgpeRgddVtfJbC2cXKThwb1wDJFxMEYmxr+9eChUISdTB05pjxsI5lHF
- 7UOANZq1Vs+LqzDqL25oIdy3f84etwTesOgrYBqQ6WvmOQXHtQsIMrtNFydtTCza
- SKLZGjQVmbgrr0f7M4jFuH3IbulNgDwaR9JSRKRXpV+SZ/VU45zqIU+jDNjMoMIx
- oSeq19UIZ6i7xbmmDqu/ImfLtfX7hj7ZvZNfyx8pItbzy7cTAs42Uq1sjsJYmApA
- ==
-X-ME-Sender: <xms:66JRYXAzI3VN-ScFJUiuYAnbHR-nhPxDWXzaOFkIDwdxUH4ZLswHJQ>
- <xme:66JRYdiiaVONsg6JxjIyEnJxtiJR2UdyWp6w8v80ioCJkyd3JD-URPJ9jV-rRmHJB
- AZE0Alm2i52KQ>
-X-ME-Received: <xmr:66JRYSm-yNKnS4R-4-z_auq2CjNCMk6t1pxmB_MW1Nmb-X4l2ejKqfyy9fW7yT56uPt82Ry_S-f4oON8Pjpu0x_F8ubLjqFe>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejkedgfeefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgvghcu
- mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeevueehje
- fgfffgiedvudekvdektdelleelgefhleejieeugeegveeuuddukedvteenucevlhhushht
- vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvgheskhhrohgrhh
- drtghomh
-X-ME-Proxy: <xmx:66JRYZw5ATvnX-5qAnN7jQV19yLyuIhzwgUCNVCWZcE9xdOT7dZ1cQ>
- <xmx:66JRYcRzW9lnO6_IyBb_plXtgBbwppUAtWHPIwOxw2bMu3ZCRunq6Q>
- <xmx:66JRYcb-iOcKW_a7R-NgVdvZkY80BmTCbZ2i_lFihXy85REXBqhl6g>
- <xmx:7KJRYczSDkgyMmKtad1MyJU7eMbQqiUVFEkkJbqPZWejNWoxrAx_2A>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 27 Sep 2021 06:54:34 -0400 (EDT)
-Date: Mon, 27 Sep 2021 12:54:31 +0200
-From: Greg KH <greg@kroah.com>
-To: Macpaul Lin <macpaul.lin@mediatek.com>
-Message-ID: <YVGi5yuhExKhLNry@kroah.com>
-References: <20210927104500.1505-1-macpaul.lin@mediatek.com>
+ Mon, 27 Sep 2021 11:20:17 +0000 (UTC)
+Received: from fraeml713-chm.china.huawei.com (unknown [172.18.147.200])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4HJ0VH71Dnz67nPm;
+ Mon, 27 Sep 2021 19:17:43 +0800 (CST)
+Received: from lhreml710-chm.china.huawei.com (10.201.108.61) by
+ fraeml713-chm.china.huawei.com (10.206.15.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.8; Mon, 27 Sep 2021 13:20:15 +0200
+Received: from localhost (10.52.124.219) by lhreml710-chm.china.huawei.com
+ (10.201.108.61) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.8; Mon, 27 Sep
+ 2021 12:20:14 +0100
+Date: Mon, 27 Sep 2021 12:20:00 +0100
+From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>
+Message-ID: <20210927122000.00007d65@Huawei.com>
+In-Reply-To: <YVGbHQnpBTQYm/7/@shinobu>
+References: <cover.1630031207.git.vilhelm.gray@gmail.com>
+ <422c765c91d060cdebc4f17f7aeb255d9c1a4e16.1630031207.git.vilhelm.gray@gmail.com>
+ <20210912171821.54af145b@jic23-huawei> <YUhdyRdzuBtUxOzT@shinobu>
+ <20210926161542.5cf99b58@jic23-huawei> <YVGbHQnpBTQYm/7/@shinobu>
+Organization: Huawei Technologies Research and Development (UK) Ltd.
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; i686-w64-mingw32)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210927104500.1505-1-macpaul.lin@mediatek.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>, Leon Yu <leoyu@nvidia.com>,
- Fabien Parent <fparent@baylibre.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Pablo Sun <pablo.sun@mediatek.com>,
- Miles Chen <miles.chen@mediatek.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-mediatek@lists.infradead.org, Macpaul Lin <macpaul@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Bear Wang <bear.wang@mediatek.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] backport commit ("c739b17a715c net: stmmac: don't
- attach interface until resume finishes") to linux-5.4-stable
+X-Originating-IP: [10.52.124.219]
+X-ClientProxiedBy: lhreml707-chm.china.huawei.com (10.201.108.56) To
+ lhreml710-chm.china.huawei.com (10.201.108.61)
+X-CFilter-Loop: Reflected
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, linux-arm-kernel@lists.infradead.org,
+ kernel@pengutronix.de, Dan Carpenter <dan.carpenter@oracle.com>,
+ fabrice.gasnier@st.com, syednwaris@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>,
+ alexandre.torgue@st.com
+Subject: Re: [Linux-stm32] [PATCH v16 07/14] counter: Add character device
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,20 +68,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Sep 27, 2021 at 06:45:00PM +0800, Macpaul Lin wrote:
-> Hi reviewers,
+On Mon, 27 Sep 2021 19:21:17 +0900
+William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+
+> On Sun, Sep 26, 2021 at 04:15:42PM +0100, Jonathan Cameron wrote:
+> > On Mon, 20 Sep 2021 19:09:13 +0900
+> > William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+> >   
+> > > On Sun, Sep 12, 2021 at 05:18:42PM +0100, Jonathan Cameron wrote:  
+> > > > On Fri, 27 Aug 2021 12:47:51 +0900
+> > > > William Breathitt Gray <vilhelm.gray@gmail.com> wrote:
+> > > >     
+> > > > > This patch introduces a character device interface for the Counter
+> > > > > subsystem. Device data is exposed through standard character device read
+> > > > > operations. Device data is gathered when a Counter event is pushed by
+> > > > > the respective Counter device driver. Configuration is handled via ioctl
+> > > > > operations on the respective Counter character device node.
+> > > > > 
+> > > > > Cc: David Lechner <david@lechnology.com>
+> > > > > Cc: Gwendal Grignou <gwendal@chromium.org>
+> > > > > Cc: Dan Carpenter <dan.carpenter@oracle.com>
+> > > > > Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+> > > > > Signed-off-by: William Breathitt Gray <vilhelm.gray@gmail.com>    
+> > > > 
+> > > > Hi William,
+> > > > 
+> > > > Why the bit based lock?  It feels like a mutex_trylock() type approach or
+> > > > spinlock_trylock() would be a more common solution to this problem.
+> > > > There is precedence for doing what you have here though so I'm not that
+> > > > worried about it.    
+> > > 
+> > > Hi Jonathan,
+> > > 
+> > > We originally used a mutex for this, but Jarkko discovered that this
+> > > produced a warning because chrdev_lock would be held when returning to
+> > > user space:
+> > > https://lore.kernel.org/linux-arm-kernel/YOq19zTsOzKA8v7c@shinobu/T/#m6072133d418d598a5f368bb942c945e46cfab9a5
+> > > 
+> > > Following David Lechner's suggestion, I decided to reimplement
+> > > chrdev_lock as a bitmap using an atomic flag.  
+> > 
+> > Ok.  I'm not sure bit lock was quite what was intended (as there is only one of them)
+> > but I suppose it doesn't greatly matter.  
 > 
-> I suggest to backport 
-> commit "c739b17a715c net: stmmac: don't attach interface until resume finishes"
-> to linux-5.4 stable tree.
+> It didn't cross my mind before, but would declaring chrdev_lock as an
+> atomic_t be a more appropriate solution here because we have only one
+> flag?
+> 
+> William Breathitt Gray
+> 
 
-I see no such commit id in Linus's kernel tree.
+It would be less esoteric.  This was the first time I've ever come across the bitlock stuff
+whereas atomics are an every day thing.
 
-Are you sure you got the correct id?
+Thanks,
 
-thanks,
-
-greg k-h
+Jonathan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
