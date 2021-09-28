@@ -2,82 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C882F41AA14
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Sep 2021 09:49:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81DE341AAB1
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Sep 2021 10:36:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 700E4C5A4D0;
-	Tue, 28 Sep 2021 07:49:53 +0000 (UTC)
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 309BEC5A4D0;
+	Tue, 28 Sep 2021 08:36:53 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6F6DC57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02221CFAC52
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Sep 2021 07:49:50 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 46945580C56;
- Tue, 28 Sep 2021 03:49:49 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 28 Sep 2021 03:49:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=W1gTysFUCeHCFA697MxJ7RHRRe/
- 6ka4WMwz+p8/IZsg=; b=hEojnP22XPcGnEnxkVQa4yKcHzpbA5C4R8n21q/flzo
- Z7/18QIyEjpb4D70QOmLH6DLs8TgYkPB9aalehoUrc2OHvwD7pOUjJqdWgmh06w1
- C/GLUQqWEhxFjHepQmy0LC/DqFaU+cVoofEFfJCH4KnzF3fdwfVo6gINnv9MUwRa
- MItl2MCT7R0x5/kIIOzQNFdAyc3iQ9NJfDcakjdjuz6Nll+W89XPTH7jph9ziRKL
- TASTIKT+3hNbsIMQZBq0wcGiGvLQ3zjB3nxF79qSm+ofvhBPWZL6ecK9aHITirii
- DquuJLYoen09F7+KGfsp6dl6iSCf12+cbBBOwuqELGQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=W1gTys
- FUCeHCFA697MxJ7RHRRe/6ka4WMwz+p8/IZsg=; b=uRdWG9QqQbQi8PgDbRACtw
- kHFp5cFmNnlCIheCsKPpL5H8fLb50fqptgpfkDnfTSI6fvUJ1a1F26eWdumVY2IK
- q/4yJ8gjydEbODr+9OpuJA6oS+zkT+RKbwdrL6LHUQnZskPW/l2iEeeLDgIiQxLr
- O4mUP0NT82prseC1ijBDW8To/s8RqAO8YWkosl+crm8TDivCwhUYsND+eEbVaNox
- kuy9tGYWfqZruXpvLCUQkJ88RwSfNWMT8MdutRfjbwsbpd799Liw3trJY1AIxNut
- 3NPuceCXSRjDYzyOxTyItRPa4A8psIbLOqkouoRHaHZe6KJzUL/L6h6huyjI0TmA
- ==
-X-ME-Sender: <xms:HMlSYTgfgHC1NMelg3XOGENjEUQTCCwvwWorJsdmDfSG0FGWSdG3Ag>
- <xme:HMlSYQC3L6IKKzfdB9OF6qmwgCgA5MxPzhj8EnASQTo0f4MhgcbLj02Ajh3XJEb4R
- 2fqPLI5BrfM5A>
-X-ME-Received: <xmr:HMlSYTFDG5i2jDLoEeW2-0xcDtwhGAwzSCEq83zWPEr8vZHUk97I8vwQIlnR4xHDbAANeyhRwZk3o7HA7kGM5UzjLhDy6ztR>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudejledguddvudcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghg
- ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepveeuhe
- ejgfffgfeivddukedvkedtleelleeghfeljeeiueeggeevueduudekvdetnecuvehluhhs
- thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorg
- hhrdgtohhm
-X-ME-Proxy: <xmx:HMlSYQQOCfaa1Q4DUgvAIgMU659QePbUU65zRvSepId7Linfkl6cAA>
- <xmx:HMlSYQxUZoTxx9bBPG1zkJna2lup90jKHc-j0HXUC5OOJQ3c_NJr3g>
- <xmx:HMlSYW4tC7MQnQ4J5RvzcN1MPkyFI7JlUf1WO7bndCGnJZCJ1mS5uw>
- <xmx:HclSYRS4PI7qTS6AGin8LTYIYAeF-m3qJu2umnsKShY-JX6Cb7RpkQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 28 Sep 2021 03:49:48 -0400 (EDT)
-Date: Tue, 28 Sep 2021 09:49:45 +0200
-From: Greg KH <greg@kroah.com>
-To: Macpaul Lin <macpaul.lin@mediatek.com>
-Message-ID: <YVLJGT7JAVc7rnBx@kroah.com>
-References: <20210927104500.1505-1-macpaul.lin@mediatek.com>
- <20210928074349.24622-1-macpaul.lin@mediatek.com>
+ Tue, 28 Sep 2021 08:36:50 +0000 (UTC)
+X-UUID: 16b148b8893c4832acc3deec790d0fbf-20210928
+X-UUID: 16b148b8893c4832acc3deec790d0fbf-20210928
+Received: from mtkcas07.mediatek.inc [(172.21.101.84)] by mailgw01.mediatek.com
+ (envelope-from <macpaul.lin@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 880464663; Tue, 28 Sep 2021 16:36:46 +0800
+Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Tue, 28 Sep 2021 16:36:45 +0800
+Received: from MTKCAS06.mediatek.inc (172.21.101.30) by mtkexhb01.mediatek.inc
+ (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Tue, 28 Sep 2021 16:36:45 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by MTKCAS06.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Tue, 28 Sep 2021 16:36:45 +0800
+From: Macpaul Lin <macpaul.lin@mediatek.com>
+To: Leon Yu <leoyu@nvidia.com>, "David S . Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@st.com>, Russell King <linux@armlinux.org.uk>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <stable@vger.kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Date: Tue, 28 Sep 2021 16:36:20 +0800
+Message-ID: <20210928083620.29090-1-macpaul.lin@mediatek.com>
+X-Mailer: git-send-email 2.18.0
+In-Reply-To: <YVLJGT7JAVc7rnBx@kroah.com>
+References: <YVLJGT7JAVc7rnBx@kroah.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210928074349.24622-1-macpaul.lin@mediatek.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>, Leon Yu <leoyu@nvidia.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Fabien Parent <fparent@baylibre.com>,
- Miles Chen <miles.chen@mediatek.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-mediatek@lists.infradead.org, Pablo Sun <pablo.sun@mediatek.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Bear Wang <bear.wang@mediatek.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Macpaul Lin <macpaul@gmail.com>
-Subject: Re: [Linux-stm32] backport commit ("31096c3e8b11 net: stmmac: don't
- attach interface until resume finishes") to linux-5.4-stable
+X-MTK: N
+Cc: Fabien Parent <fparent@baylibre.com>, Miles Chen <miles.chen@mediatek.com>,
+ linux-mediatek@lists.infradead.org, Macpaul Lin <macpaul@gmail.com>,
+ Bear Wang <bear.wang@mediatek.com>, Pablo Sun <pablo.sun@mediatek.com>,
+ Macpaul Lin <macpaul.lin@mediatek.com>
+Subject: [Linux-stm32] [PATCH] net: stmmac: don't attach interface until
+	resume finishes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,25 +65,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Sep 28, 2021 at 03:43:49PM +0800, Macpaul Lin wrote:
-> Hi reviewers,
-> 
-> I suggest to backport 
-> commit "31096c3e8b11 net: stmmac: don't attach interface until resume finishes"
-> to linux-5.4 stable tree.
-> 
-> This patch fix resume issue by deferring netif_device_attach().
-> 
-> However, the patch cannot be cherry-pick directly on to stable-5.4.
-> A slightly change to the origin patch is required.
-> I'd like to provide the modification to stable-5.4 if it is needed.
+From: Leon Yu <leoyu@nvidia.com>
 
-Ok, can you please send a properly backported patch so that we can apply
-it?
+commit 31096c3e8b1163c6e966bf4d1f36d8b699008f84 upstream.
 
-thanks,
+Commit 14b41a2959fb ("net: stmmac: Delete txtimer in suspend()") was the
+first attempt to fix a race between mod_timer() and setup_timer()
+during stmmac_resume(). However the issue still exists as the commit
+only addressed half of the issue.
 
-greg k-h
+Same race can still happen as stmmac_resume() re-attaches interface
+way too early - even before hardware is fully initialized.  Worse,
+doing so allows network traffic to restart and stmmac_tx_timer_arm()
+being called in the middle of stmmac_resume(), which re-init tx timers
+in stmmac_init_coalesce().  timer_list will be corrupted and system
+crashes as a result of race between mod_timer() and setup_timer().
+
+  systemd--1995    2.... 552950018us : stmmac_suspend: 4994
+  ksoftirq-9       0..s2 553123133us : stmmac_tx_timer_arm: 2276
+  systemd--1995    0.... 553127896us : stmmac_resume: 5101
+  systemd--320     7...2 553132752us : stmmac_tx_timer_arm: 2276
+  (sd-exec-1999    5...2 553135204us : stmmac_tx_timer_arm: 2276
+  ---------------------------------
+  pc : run_timer_softirq+0x468/0x5e0
+  lr : run_timer_softirq+0x570/0x5e0
+  Call trace:
+   run_timer_softirq+0x468/0x5e0
+   __do_softirq+0x124/0x398
+   irq_exit+0xd8/0xe0
+   __handle_domain_irq+0x6c/0xc0
+   gic_handle_irq+0x60/0xb0
+   el1_irq+0xb8/0x180
+   arch_cpu_idle+0x38/0x230
+   default_idle_call+0x24/0x3c
+   do_idle+0x1e0/0x2b8
+   cpu_startup_entry+0x28/0x48
+   secondary_start_kernel+0x1b4/0x208
+
+Fix this by deferring netif_device_attach() to the end of
+stmmac_resume().
+
+Signed-off-by: Leon Yu <leoyu@nvidia.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 10d28be73f45..56d227b31dbd 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4853,8 +4853,6 @@ int stmmac_resume(struct device *dev)
+ 			stmmac_mdio_reset(priv->mii);
+ 	}
+ 
+-	netif_device_attach(ndev);
+-
+ 	mutex_lock(&priv->lock);
+ 
+ 	stmmac_reset_queues_param(priv);
+@@ -4878,6 +4876,8 @@ int stmmac_resume(struct device *dev)
+ 
+ 	phylink_mac_change(priv->phylink, true);
+ 
++	netif_device_attach(ndev);
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(stmmac_resume);
+-- 
+2.18.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
