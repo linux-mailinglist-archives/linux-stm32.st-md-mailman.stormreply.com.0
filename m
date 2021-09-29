@@ -2,40 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 723DA41ADB0
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Sep 2021 13:17:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1702241BD2D
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Sep 2021 05:16:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 067F8C5A4D0;
-	Tue, 28 Sep 2021 11:17:10 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56BCFCFAC52
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B378DC5A4F8;
+	Wed, 29 Sep 2021 03:16:35 +0000 (UTC)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7CF0C5719E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Sep 2021 09:24:37 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 029CD6D;
- Tue, 28 Sep 2021 02:24:37 -0700 (PDT)
-Received: from [192.168.0.110] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AD8B13F7B4;
- Tue, 28 Sep 2021 02:24:34 -0700 (PDT)
-Message-ID: <8e33c244-b786-18e8-79bc-407e27e4756b@arm.com>
-Date: Tue, 28 Sep 2021 10:25:59 +0100
+ Wed, 29 Sep 2021 03:16:28 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id u7so727511pfg.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 28 Sep 2021 20:16:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=nU8NjFcHiQb2juc6iNrXx4yBJlrwbry86U2d9RYhoEc=;
+ b=ea9XZQK839csHLMExTfIPXgY4B/YhV0ikwP4KLbKfdTb1LxOXTjjd0FVIUV/iIJWtZ
+ Lp5uwzTHdT025gACEWTVCKrIqCotGjaBLQ2fdEw97UKlIqGfhBxF8mpgRoTfseMak8EI
+ Pii6a5Q8dYw9f4vuaUYTjBrqxpCrN9H+dPa2rYDVJqnlspqTa1hi5LRVIIcO1OQOY/J2
+ /sWp0UxttFYUMYY44ACDYqPLL00wDoi1wzuhxoc4UWCUsV8jk6DYJM+a97gNnoZktkwd
+ pIquPCHLds98CRSIZoF668JVQX5NqZQ0i+EenkdwUmfiTCZ3MPavZwYbvxGcClk+dYcZ
+ /mNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=nU8NjFcHiQb2juc6iNrXx4yBJlrwbry86U2d9RYhoEc=;
+ b=6dnCo90QV2npvVia0YBUctGoXKhChamF+xRRuZrJMzssqiD9AQLJaf2IVZvcpoUP8c
+ V91CaG8tuwyT4rpeMPBRfdwCWb4ZMNfAqpFchPUOIiOr4JdlalhnnE7A3iWCpSVgwypT
+ 5o8/t5hY5WgP3QNzVZOHinFfKNH6XsDgT1wxTv+TALoHRuTouGGqK45k/QXkd/ZyBib6
+ fFY18XZqShNriyMZAlBIZ2GXIi2YOGz+VRF5qlJqYyv//pFb9SknON1xMfxaiIwXu1yk
+ 3zpzBnekyrlc+1cEmp0UC7gDr7RP2h01MZWwmNByzp43/GiVw34VY2930+Kygc8biVLA
+ HfyA==
+X-Gm-Message-State: AOAM533PirBnFYwWRSz7n8ghPsQq2ZD4N5q2SNtdj0vBtGTmJo1NhZRW
+ mv1pEnBYTprDiPCgw++FYNs=
+X-Google-Smtp-Source: ABdhPJypHhopEVNS9JguXT5SH+XWxunhd/Pyg0tmBrjCHDWxgUIykr9qaW8Y1Ww9rfYyZjTNTWu8AA==
+X-Received: by 2002:a63:e057:: with SMTP id n23mr7793886pgj.183.1632885386999; 
+ Tue, 28 Sep 2021 20:16:26 -0700 (PDT)
+Received: from localhost.localdomain ([156.146.35.76])
+ by smtp.gmail.com with ESMTPSA id 65sm464203pfv.210.2021.09.28.20.16.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Sep 2021 20:16:26 -0700 (PDT)
+From: William Breathitt Gray <vilhelm.gray@gmail.com>
+To: jic23@kernel.org
+Date: Wed, 29 Sep 2021 12:15:57 +0900
+Message-Id: <cover.1632884256.git.vilhelm.gray@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.1
-Content-Language: en-US
-To: davem@davemloft.net, michael.riesch@wolfvision.net,
- peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, joabreu@synopsys.com,
- kuba@kernel.org, mcoquelin.stm32@gmail.com, p.zabel@pengutronix.de,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- arm-mail-list <linux-arm-kernel@lists.infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-From: Alexandru Elisei <alexandru.elisei@arm.com>
-X-Mailman-Approved-At: Tue, 28 Sep 2021 11:17:06 +0000
-Cc: Alexandru Elisei <alexandru.elisei@arm.com>
-Subject: [Linux-stm32] [BUG] Ethernet broken on rockpro64 by commit
- 2d26f6e39afb ("net: stmmac: dwmac-rk: fix unbalanced pm_runtime_enable
- warnings")
+Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
+ linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
+ alexandre.belloni@bootlin.com, mcoquelin.stm32@gmail.com,
+ linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ jarkko.nikula@linux.intel.com, kernel@pengutronix.de,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
+ syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
+Subject: [Linux-stm32] [PATCH v17 0/9] Introduce the Counter character
+	device interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -47,114 +74,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-KFNvcnJ5IEknbSBzZW5kaW5nIHRoaXMgdG8gdGhlIHdyb25nIHBlcnNvbiwgdGhpcyBpcyB3aGF0
-IEkgZ290CnNjcmlwdHMvZ2V0X21haW50YWluZXIucGwgZm9yIHRoZSBmaWxlIHRvdWNoZWQgYnkg
-dGhlIGNvbW1pdCkKCkFmdGVyIGNvbW1pdCAyZDI2ZjZlMzlhZmIgKCJuZXQ6IHN0bW1hYzogZHdt
-YWMtcms6IGZpeCB1bmJhbGFuY2VkCnBtX3J1bnRpbWVfZW5hYmxlIHdhcm5pbmdzIiksIHRoZSBu
-ZXR3b3JrIGNhcmQgb24gbXkgcm9ja3BybzY0LXYyIHdhcyBsZWZ0IHVuYWJsZQp0byBnZXQgYSBE
-SENQIGxlYXNlIGZyb20gdGhlIG5ldHdvcmsuIFRoZSBvZmZlbmRpbmcgY29tbWl0IHdhcyBmb3Vu
-ZCBieSBiaXNlY3RpbmcKdGhlIGtlcm5lbDsgSSB0cmllZCByZXZlcnRpbmcgdGhlIGNvbW1pdCBm
-cm9tIGN1cnJlbnQgbWFzdGVyIChjb21taXQgMDUxM2U0NjRmOTAwCigiTWVyZ2UgdGFnICdwZXJm
-LXRvb2xzLWZpeGVzLWZvci12NS4xNS0yMDIxLTA5LTI3JyBvZgpnaXQ6Ly9naXQua2VybmVsLm9y
-Zy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvYWNtZS9saW51eCIpKSBhbmQgdGhlIG5ldHdvcmsg
-Y2FyZAp3YXMgd29ya2luZyBhcyBleHBlY3RlZC4KCkl0IGdvZXMgd2l0aG91dCBzYXlpbmcgdGhh
-dCBJIGNhbiBoZWxwIHdpdGggdGVzdGluZyB0aGUgZml4IGFuZCBmdXJ0aGVyIGRpYWdub3Npbmcu
-CgpUaGlzIGlzIHdoYXQgSSBnZXQgd2l0aCBhIGtlcm5lbCBidWlsdCBmcm9tIG1hc3RlciAoc28g
-d2l0aCB0aGUgY29tbWl0ICpub3QqCnJldmVydGVkKS4gRnVsbCBkbWVzZyBhdCBbMV0uCgpyb290
-QHJvY2twcm8gfiAjIHVuYW1lIC1hCkxpbnV4IHJvY2twcm8gNS4xNS4wLXJjMy0wMDA2OC1nMDUx
-M2U0NjRmOTAwICM4MiBTTVAgUFJFRU1QVCBUdWUgU2VwIDI4IDEwOjAxOjE4CkJTVCAyMDIxIGFh
-cmNoNjQgR05VL0xpbnV4CnJvb3RAcm9ja3BybyB+ICMgaXAgYQoxOiBsbzogPExPT1BCQUNLLFVQ
-LExPV0VSX1VQPiBtdHUgNjU1MzYgcWRpc2Mgbm9xdWV1ZSBzdGF0ZSBVTktOT1dOIGdyb3VwIGRl
-ZmF1bHQKcWxlbiAxMDAwCsKgwqDCoCBsaW5rL2xvb3BiYWNrIDAwOjAwOjAwOjAwOjAwOjAwIGJy
-ZCAwMDowMDowMDowMDowMDowMArCoMKgwqAgaW5ldCAxMjcuMC4wLjEvOCBzY29wZSBob3N0IGxv
-CsKgwqDCoMKgwqDCoCB2YWxpZF9sZnQgZm9yZXZlciBwcmVmZXJyZWRfbGZ0IGZvcmV2ZXIKMjog
-ZXRoMDogPEJST0FEQ0FTVCxNVUxUSUNBU1Q+IG10dSAxNTAwIHFkaXNjIG5vb3Agc3RhdGUgRE9X
-TiBncm91cCBkZWZhdWx0IHFsZW4gMTAwMArCoMKgwqAgbGluay9ldGhlciBjZTo3MTpjMTplZTo5
-NzplOCBicmQgZmY6ZmY6ZmY6ZmY6ZmY6ZmYKcm9vdEByb2NrcHJvIH4gIyBpcCBsIHNldCBldGgw
-IHVwClvCoMKgIDMwLjMyNTMxNl0gcmtfZ21hYy1kd21hYyBmZTMwMDAwMC5ldGhlcm5ldCBldGgw
-OiBQSFkgW3N0bW1hYy0wOjAwXSBkcml2ZXIKW0dlbmVyaWMgUEhZXSAoaXJxPVBPTEwpClvCoMKg
-IDMwLjMzMDE4NF0gcmtfZ21hYy1kd21hYyBmZTMwMDAwMC5ldGhlcm5ldCBldGgwOiBSZWdpc3Rl
-ciBNRU1fVFlQRV9QQUdFX1BPT0wgUnhRLTAKW8KgwqAgMzAuMzMxNjI2XSBya19nbWFjLWR3bWFj
-IGZlMzAwMDAwLmV0aGVybmV0IGV0aDA6IE5vIFNhZmV0eSBGZWF0dXJlcyBzdXBwb3J0IGZvdW5k
-ClvCoMKgIDMwLjMzMjMxMl0gcmtfZ21hYy1kd21hYyBmZTMwMDAwMC5ldGhlcm5ldCBldGgwOiBQ
-VFAgbm90IHN1cHBvcnRlZCBieSBIVwpbwqDCoCAzMC4zMzMyNThdIHJrX2dtYWMtZHdtYWMgZmUz
-MDAwMDAuZXRoZXJuZXQgZXRoMDogY29uZmlndXJpbmcgZm9yIHBoeS9yZ21paQpsaW5rIG1vZGUK
-cm9vdEByb2NrcHJvIH4gIyBbwqDCoCAzNC40MzE1MjZdIHJrX2dtYWMtZHdtYWMgZmUzMDAwMDAu
-ZXRoZXJuZXQgZXRoMDogTGluayBpcyBVcCAtCjFHYnBzL0Z1bGwgLSBmbG93IGNvbnRyb2wgcngv
-dHgKCnJvb3RAcm9ja3BybyB+ICMgaXAgYQoxOiBsbzogPExPT1BCQUNLLFVQLExPV0VSX1VQPiBt
-dHUgNjU1MzYgcWRpc2Mgbm9xdWV1ZSBzdGF0ZSBVTktOT1dOIGdyb3VwIGRlZmF1bHQKcWxlbiAx
-MDAwCsKgwqDCoCBsaW5rL2xvb3BiYWNrIDAwOjAwOjAwOjAwOjAwOjAwIGJyZCAwMDowMDowMDow
-MDowMDowMArCoMKgwqAgaW5ldCAxMjcuMC4wLjEvOCBzY29wZSBob3N0IGxvCsKgwqDCoMKgwqDC
-oCB2YWxpZF9sZnQgZm9yZXZlciBwcmVmZXJyZWRfbGZ0IGZvcmV2ZXIKMjogZXRoMDogPEJST0FE
-Q0FTVCxNVUxUSUNBU1QsVVAsTE9XRVJfVVA+IG10dSAxNTAwIHFkaXNjIG1xIHN0YXRlIFVQIGdy
-b3VwCmRlZmF1bHQgcWxlbiAxMDAwCsKgwqDCoCBsaW5rL2V0aGVyIGNlOjcxOmMxOmVlOjk3OmU4
-IGJyZCBmZjpmZjpmZjpmZjpmZjpmZgpyb290QHJvY2twcm8gfiAjIGRoY2xpZW50IC0tdmVyc2lv
-bgppc2MtZGhjbGllbnQtNC40LjItUDEKcm9vdEByb2NrcHJvIH4gIyBkaGNsaWVudCAtdiBldGgw
-CkludGVybmV0IFN5c3RlbXMgQ29uc29ydGl1bSBESENQIENsaWVudCA0LjQuMi1QMQpDb3B5cmln
-aHQgMjAwNC0yMDIxIEludGVybmV0IFN5c3RlbXMgQ29uc29ydGl1bS4KQWxsIHJpZ2h0cyByZXNl
-cnZlZC4KRm9yIGluZm8sIHBsZWFzZSB2aXNpdCBodHRwczovL3d3dy5pc2Mub3JnL3NvZnR3YXJl
-L2RoY3AvCgpMaXN0ZW5pbmcgb24gTFBGL2V0aDAvY2U6NzE6YzE6ZWU6OTc6ZTgKU2VuZGluZyBv
-bsKgwqAgTFBGL2V0aDAvY2U6NzE6YzE6ZWU6OTc6ZTgKU2VuZGluZyBvbsKgwqAgU29ja2V0L2Zh
-bGxiYWNrCkRIQ1BSRVFVRVNUIGZvciAxOTIuMTY4LjAuNDMgb24gZXRoMCB0byAyNTUuMjU1LjI1
-NS4yNTUgcG9ydCA2NwpESENQUkVRVUVTVCBmb3IgMTkyLjE2OC4wLjQzIG9uIGV0aDAgdG8gMjU1
-LjI1NS4yNTUuMjU1IHBvcnQgNjcKREhDUERJU0NPVkVSIG9uIGV0aDAgdG8gMjU1LjI1NS4yNTUu
-MjU1IHBvcnQgNjcgaW50ZXJ2YWwgOApESENQRElTQ09WRVIgb24gZXRoMCB0byAyNTUuMjU1LjI1
-NS4yNTUgcG9ydCA2NyBpbnRlcnZhbCAxNQpESENQRElTQ09WRVIgb24gZXRoMCB0byAyNTUuMjU1
-LjI1NS4yNTUgcG9ydCA2NyBpbnRlcnZhbCA5CkRIQ1BESVNDT1ZFUiBvbiBldGgwIHRvIDI1NS4y
-NTUuMjU1LjI1NSBwb3J0IDY3IGludGVydmFsIDEyCkRIQ1BESVNDT1ZFUiBvbiBldGgwIHRvIDI1
-NS4yNTUuMjU1LjI1NSBwb3J0IDY3IGludGVydmFsIDE1CkRIQ1BESVNDT1ZFUiBvbiBldGgwIHRv
-IDI1NS4yNTUuMjU1LjI1NSBwb3J0IDY3IGludGVydmFsIDIKTm8gREhDUE9GRkVSUyByZWNlaXZl
-ZC4KVHJ5aW5nIHJlY29yZGVkIGxlYXNlIDE5Mi4xNjguMC40MwpwaW5nOiBzb2NrZXQ6IEFkZHJl
-c3MgZmFtaWx5IG5vdCBzdXBwb3J0ZWQgYnkgcHJvdG9jb2wKUElORyAxOTIuMTY4LjAuMSAoMTky
-LjE2OC4wLjEpIDU2KDg0KSBieXRlcyBvZiBkYXRhLgoKLS0tIDE5Mi4xNjguMC4xIHBpbmcgc3Rh
-dGlzdGljcyAtLS0KMSBwYWNrZXRzIHRyYW5zbWl0dGVkLCAwIHJlY2VpdmVkLCArMSBlcnJvcnMs
-IDEwMCUgcGFja2V0IGxvc3MsIHRpbWUgMG1zCgpObyB3b3JraW5nIGxlYXNlcyBpbiBwZXJzaXN0
-ZW50IGRhdGFiYXNlIC0gc2xlZXBpbmcuCgpXaXRoIHRoZSBjb21taXQgcmV2ZXJ0ZWQ6Cgpyb290
-QHJvY2twcm8gfiAjIHVuYW1lIC1hCkxpbnV4IHJvY2twcm8gNS4xNS4wLXJjMy0wMDA2OS1nMGZl
-NWNhZDhiYTdkICM4MSBTTVAgUFJFRU1QVCBUdWUgU2VwIDI4IDA5OjU1OjEyCkJTVCAyMDIxIGFh
-cmNoNjQgR05VL0xpbnV4CnJvb3RAcm9ja3BybyB+ICMgaXAgYQoxOiBsbzogPExPT1BCQUNLLFVQ
-LExPV0VSX1VQPiBtdHUgNjU1MzYgcWRpc2Mgbm9xdWV1ZSBzdGF0ZSBVTktOT1dOIGdyb3VwIGRl
-ZmF1bHQKcWxlbiAxMDAwCsKgwqDCoCBsaW5rL2xvb3BiYWNrIDAwOjAwOjAwOjAwOjAwOjAwIGJy
-ZCAwMDowMDowMDowMDowMDowMArCoMKgwqAgaW5ldCAxMjcuMC4wLjEvOCBzY29wZSBob3N0IGxv
-CsKgwqDCoMKgwqDCoCB2YWxpZF9sZnQgZm9yZXZlciBwcmVmZXJyZWRfbGZ0IGZvcmV2ZXIKMjog
-ZXRoMDogPEJST0FEQ0FTVCxNVUxUSUNBU1Q+IG10dSAxNTAwIHFkaXNjIG5vb3Agc3RhdGUgRE9X
-TiBncm91cCBkZWZhdWx0IHFsZW4gMTAwMArCoMKgwqAgbGluay9ldGhlciBjZTo3MTpjMTplZTo5
-NzplOCBicmQgZmY6ZmY6ZmY6ZmY6ZmY6ZmYKcm9vdEByb2NrcHJvIH4gIyBpcCBsIHNldCBldGgw
-IHVwClvCoMKgIDM4LjMxNDU5M10gcmtfZ21hYy1kd21hYyBmZTMwMDAwMC5ldGhlcm5ldCBldGgw
-OiBQSFkgW3N0bW1hYy0wOjAwXSBkcml2ZXIKW0dlbmVyaWMgUEhZXSAoaXJxPVBPTEwpClvCoMKg
-IDM4LjMyMDU2OV0gcmtfZ21hYy1kd21hYyBmZTMwMDAwMC5ldGhlcm5ldCBldGgwOiBSZWdpc3Rl
-ciBNRU1fVFlQRV9QQUdFX1BPT0wgUnhRLTAKW8KgwqAgMzguMzIxOTcyXSBya19nbWFjLWR3bWFj
-IGZlMzAwMDAwLmV0aGVybmV0IGV0aDA6IE5vIFNhZmV0eSBGZWF0dXJlcyBzdXBwb3J0IGZvdW5k
-ClvCoMKgIDM4LjMyMjcwOV0gcmtfZ21hYy1kd21hYyBmZTMwMDAwMC5ldGhlcm5ldCBldGgwOiBQ
-VFAgbm90IHN1cHBvcnRlZCBieSBIVwpbwqDCoCAzOC4zMjM2OTZdIHJrX2dtYWMtZHdtYWMgZmUz
-MDAwMDAuZXRoZXJuZXQgZXRoMDogY29uZmlndXJpbmcgZm9yIHBoeS9yZ21paQpsaW5rIG1vZGUK
-cm9vdEByb2NrcHJvIH4gIyBbwqDCoCA0Mi4zOTk2ODRdIHJrX2dtYWMtZHdtYWMgZmUzMDAwMDAu
-ZXRoZXJuZXQgZXRoMDogTGluayBpcyBVcCAtCjFHYnBzL0Z1bGwgLSBmbG93IGNvbnRyb2wgcngv
-dHgKCnJvb3RAcm9ja3BybyB+ICMgaXAgYQoxOiBsbzogPExPT1BCQUNLLFVQLExPV0VSX1VQPiBt
-dHUgNjU1MzYgcWRpc2Mgbm9xdWV1ZSBzdGF0ZSBVTktOT1dOIGdyb3VwIGRlZmF1bHQKcWxlbiAx
-MDAwCsKgwqDCoCBsaW5rL2xvb3BiYWNrIDAwOjAwOjAwOjAwOjAwOjAwIGJyZCAwMDowMDowMDow
-MDowMDowMArCoMKgwqAgaW5ldCAxMjcuMC4wLjEvOCBzY29wZSBob3N0IGxvCsKgwqDCoMKgwqDC
-oCB2YWxpZF9sZnQgZm9yZXZlciBwcmVmZXJyZWRfbGZ0IGZvcmV2ZXIKMjogZXRoMDogPEJST0FE
-Q0FTVCxNVUxUSUNBU1QsVVAsTE9XRVJfVVA+IG10dSAxNTAwIHFkaXNjIG1xIHN0YXRlIFVQIGdy
-b3VwCmRlZmF1bHQgcWxlbiAxMDAwCsKgwqDCoCBsaW5rL2V0aGVyIGNlOjcxOmMxOmVlOjk3OmU4
-IGJyZCBmZjpmZjpmZjpmZjpmZjpmZgpyb290QHJvY2twcm8gfiAjIGRoY2xpZW50IC0tdmVyc2lv
-bgppc2MtZGhjbGllbnQtNC40LjItUDEKcm9vdEByb2NrcHJvIH4gIyBkaGNsaWVudCAtdiBldGgw
-CkludGVybmV0IFN5c3RlbXMgQ29uc29ydGl1bSBESENQIENsaWVudCA0LjQuMi1QMQpDb3B5cmln
-aHQgMjAwNC0yMDIxIEludGVybmV0IFN5c3RlbXMgQ29uc29ydGl1bS4KQWxsIHJpZ2h0cyByZXNl
-cnZlZC4KRm9yIGluZm8sIHBsZWFzZSB2aXNpdCBodHRwczovL3d3dy5pc2Mub3JnL3NvZnR3YXJl
-L2RoY3AvCgpMaXN0ZW5pbmcgb24gTFBGL2V0aDAvY2U6NzE6YzE6ZWU6OTc6ZTgKU2VuZGluZyBv
-bsKgwqAgTFBGL2V0aDAvY2U6NzE6YzE6ZWU6OTc6ZTgKU2VuZGluZyBvbsKgwqAgU29ja2V0L2Zh
-bGxiYWNrCkRIQ1BSRVFVRVNUIGZvciAxOTIuMTY4LjAuNDMgb24gZXRoMCB0byAyNTUuMjU1LjI1
-NS4yNTUgcG9ydCA2NwpESENQQUNLIG9mIDE5Mi4xNjguMC40MyBmcm9tIDE5Mi4xNjguMC4xCmJv
-dW5kIHRvIDE5Mi4xNjguMC40MyAtLSByZW5ld2FsIGluIDQwOTkyIHNlY29uZHMuCgpGdWxsIGRt
-ZXNnIGF0IFsyXS4gQWxsIHBhc3RlYmlucyB3aWxsIGV4cGlyZSBhZnRlciA2IG1vbnRocy4KClsx
-XSBodHRwczovL3Bhc3RlYmluLmNvbS9QbVNyQVphawoKWzJdIGh0dHBzOi8vcGFzdGViaW4uY29t
-L0QxRGRLMEpCCgpUaGFua3MsCgpBbGV4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Changes in v17:
+ - A couple minor improvements to documentation from review suggestions
+ - chrdev_lock redeclared as atomic_t; BITMAP was not necessary because
+   chrdev_lock is a single flag
+ - test_and_set_bit_lock(), clear_bit_unlock(), and clear_bit(),
+   replaced respectively with atomic_add_unless(), atomic_dec(), and
+   atomic_set()
+ - counter_comp_read_is_equal() and counter_comp_read_is_set() macros
+   implemented in order to properly test counter_comp structures' read
+   callback states
+ - counter_sysfs_add() call performed before counter_chrdev_add() call
+   in counter_register() in order to match unwinding sequence
+ - for-loop utilized in counter-example.c in order to simplify code
+ - counter-example.c returns 1 on error instead of -errno; errno may be
+   modified after a subsequent library call so we can't depend on it
+
+For convenience, this patchset is also available on my personal git
+repo: https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v17
+
+A Counter character device interface is introduced that allows Counter
+events and associated data to be read() by userspace; the
+events_configure() and watch_validate() driver callbacks are introduced
+to support Counter events; and IRQ support is added to the
+104-QUAD-8 driver, serving as an example of how to support the new
+Counter events functionality.
+
+William Breathitt Gray (9):
+  counter: Move counter enums to uapi header
+  counter: Add character device interface
+  docs: counter: Document character device interface
+  tools/counter: Create Counter tools
+  counter: Implement signalZ_action_component_id sysfs attribute
+  counter: Implement *_component_id sysfs attributes
+  counter: Implement events_queue_size sysfs attribute
+  counter: 104-quad-8: Replace mutex with spinlock
+  counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
+
+ Documentation/ABI/testing/sysfs-bus-counter   |  29 +
+ Documentation/driver-api/generic-counter.rst  | 177 ++++--
+ .../userspace-api/ioctl/ioctl-number.rst      |   1 +
+ MAINTAINERS                                   |   2 +
+ drivers/counter/104-quad-8.c                  | 256 ++++++--
+ drivers/counter/Kconfig                       |   6 +-
+ drivers/counter/Makefile                      |   2 +-
+ drivers/counter/counter-chrdev.c              | 578 ++++++++++++++++++
+ drivers/counter/counter-chrdev.h              |  14 +
+ drivers/counter/counter-core.c                |  56 +-
+ drivers/counter/counter-sysfs.c               | 123 +++-
+ include/linux/counter.h                       |  98 +--
+ include/uapi/linux/counter.h                  | 154 +++++
+ tools/Makefile                                |  13 +-
+ tools/counter/Build                           |   1 +
+ tools/counter/Makefile                        |  53 ++
+ tools/counter/counter_example.c               |  92 +++
+ 17 files changed, 1509 insertions(+), 146 deletions(-)
+ create mode 100644 drivers/counter/counter-chrdev.c
+ create mode 100644 drivers/counter/counter-chrdev.h
+ create mode 100644 include/uapi/linux/counter.h
+ create mode 100644 tools/counter/Build
+ create mode 100644 tools/counter/Makefile
+ create mode 100644 tools/counter/counter_example.c
+
+
+base-commit: a5ae0cfd53aaf031c2e9ba048281776fa67047c2
+-- 
+2.33.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
