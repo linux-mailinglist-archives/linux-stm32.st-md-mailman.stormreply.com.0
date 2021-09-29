@@ -2,56 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1702241BD2D
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Sep 2021 05:16:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13A7B41BD2F
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Sep 2021 05:16:37 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B378DC5A4F8;
-	Wed, 29 Sep 2021 03:16:35 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C46C6C5A4FA;
+	Wed, 29 Sep 2021 03:16:36 +0000 (UTC)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7CF0C5719E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91F2AC5719E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Sep 2021 03:16:28 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id u7so727511pfg.13
+ Wed, 29 Sep 2021 03:16:34 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ lb1-20020a17090b4a4100b001993f863df2so764638pjb.5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Sep 2021 20:16:28 -0700 (PDT)
+ Tue, 28 Sep 2021 20:16:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=nU8NjFcHiQb2juc6iNrXx4yBJlrwbry86U2d9RYhoEc=;
- b=ea9XZQK839csHLMExTfIPXgY4B/YhV0ikwP4KLbKfdTb1LxOXTjjd0FVIUV/iIJWtZ
- Lp5uwzTHdT025gACEWTVCKrIqCotGjaBLQ2fdEw97UKlIqGfhBxF8mpgRoTfseMak8EI
- Pii6a5Q8dYw9f4vuaUYTjBrqxpCrN9H+dPa2rYDVJqnlspqTa1hi5LRVIIcO1OQOY/J2
- /sWp0UxttFYUMYY44ACDYqPLL00wDoi1wzuhxoc4UWCUsV8jk6DYJM+a97gNnoZktkwd
- pIquPCHLds98CRSIZoF668JVQX5NqZQ0i+EenkdwUmfiTCZ3MPavZwYbvxGcClk+dYcZ
- /mNw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=+ZCX6l6rPkwSUwDGpanKFUA22NwjyP3olTKYpKgLOP0=;
+ b=UBYDsbSmiAdeqzoK0lYePg387mljjtNkfOL5zjqunA1iTil8qkxyOh7m1yNojsPMeB
+ ZQ30GEqz9lBqEVPxHRELpm1pB2RXwyvFDILe1/ljlImQFgYVYzld33Iwa1xycfy4qnFZ
+ zwklNYSJ9EX39cb0w0QchKs5RB6G9FGkhdwO5R1eP5+3Y8rt9IaZ1cRaqjchbh+AXPtV
+ uAXdOym7WBduGCQrUWJOM36WA+sRoFX5oacGACMo7MrElbmliu27g5BeDscAFcuh0A7a
+ cChfJYYlSzGWORde4BgXfjId7W00M2KdGVpFWIqeGoCyTBIeBsdJLWZlW5yKI/eVahlZ
+ H8hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=nU8NjFcHiQb2juc6iNrXx4yBJlrwbry86U2d9RYhoEc=;
- b=6dnCo90QV2npvVia0YBUctGoXKhChamF+xRRuZrJMzssqiD9AQLJaf2IVZvcpoUP8c
- V91CaG8tuwyT4rpeMPBRfdwCWb4ZMNfAqpFchPUOIiOr4JdlalhnnE7A3iWCpSVgwypT
- 5o8/t5hY5WgP3QNzVZOHinFfKNH6XsDgT1wxTv+TALoHRuTouGGqK45k/QXkd/ZyBib6
- fFY18XZqShNriyMZAlBIZ2GXIi2YOGz+VRF5qlJqYyv//pFb9SknON1xMfxaiIwXu1yk
- 3zpzBnekyrlc+1cEmp0UC7gDr7RP2h01MZWwmNByzp43/GiVw34VY2930+Kygc8biVLA
- HfyA==
-X-Gm-Message-State: AOAM533PirBnFYwWRSz7n8ghPsQq2ZD4N5q2SNtdj0vBtGTmJo1NhZRW
- mv1pEnBYTprDiPCgw++FYNs=
-X-Google-Smtp-Source: ABdhPJypHhopEVNS9JguXT5SH+XWxunhd/Pyg0tmBrjCHDWxgUIykr9qaW8Y1Ww9rfYyZjTNTWu8AA==
-X-Received: by 2002:a63:e057:: with SMTP id n23mr7793886pgj.183.1632885386999; 
- Tue, 28 Sep 2021 20:16:26 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=+ZCX6l6rPkwSUwDGpanKFUA22NwjyP3olTKYpKgLOP0=;
+ b=IHsD5QYSCwjx54LDlJTpvD24TiTv8Unkj/ykp+toZguLG5Um0Jd7pUFdkII3K2d49G
+ cb/SD7qt+tKnzVyMXxXg2suI5MPYlnM+ZumzVtKpGo2Fr7mRiTCTuS8PJyxlIr+7+/U4
+ an999cVcbBkLS1gKRkHLIpllOOdQDyIbnoDzYnl2QZ3Vn/RqwSxpZ2GlqzxGwSwZIhSw
+ 694no3kdy92dmfJnym6IjkKmvk1liDLdst5gM6papw4rqjGxh1vU9Ui+dQhwX0ZDLfxq
+ v85EUhHFf+Wtg7KJyaAZ6ZRuxk91koZssb5QX2C91i63Z7E1Xw1WdhtkqHbRFnP1Dm4t
+ Im7Q==
+X-Gm-Message-State: AOAM53146ijJwNDvUpPenR9fhjzVPKOwpQ1qYOANk952+/hXRM9w6cnv
+ b2Ihdtu9dsUr2QZtwPkv5f4=
+X-Google-Smtp-Source: ABdhPJw+pGXvad4GoCAkpWu5pR5c2sAi96CsuR8Ivvu1vBMAjxtRXb/rcDloD/HioA+ptVoLRixeew==
+X-Received: by 2002:a17:90a:9509:: with SMTP id
+ t9mr2582652pjo.149.1632885393205; 
+ Tue, 28 Sep 2021 20:16:33 -0700 (PDT)
 Received: from localhost.localdomain ([156.146.35.76])
- by smtp.gmail.com with ESMTPSA id 65sm464203pfv.210.2021.09.28.20.16.20
+ by smtp.gmail.com with ESMTPSA id 65sm464203pfv.210.2021.09.28.20.16.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Sep 2021 20:16:26 -0700 (PDT)
+ Tue, 28 Sep 2021 20:16:32 -0700 (PDT)
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: jic23@kernel.org
-Date: Wed, 29 Sep 2021 12:15:57 +0900
-Message-Id: <cover.1632884256.git.vilhelm.gray@gmail.com>
+Date: Wed, 29 Sep 2021 12:15:58 +0900
+Message-Id: <962a5f2027fafcf4f77c10e1baf520463960d1ee.1632884256.git.vilhelm.gray@gmail.com>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <cover.1632884256.git.vilhelm.gray@gmail.com>
+References: <cover.1632884256.git.vilhelm.gray@gmail.com>
 MIME-Version: 1.0
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
@@ -61,8 +65,8 @@ Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, fabrice.gasnier@st.com,
  syednwaris@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, alexandre.torgue@st.com
-Subject: [Linux-stm32] [PATCH v17 0/9] Introduce the Counter character
-	device interface
+Subject: [Linux-stm32] [PATCH v17 1/9] counter: Move counter enums to uapi
+	header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,79 +78,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Changes in v17:
- - A couple minor improvements to documentation from review suggestions
- - chrdev_lock redeclared as atomic_t; BITMAP was not necessary because
-   chrdev_lock is a single flag
- - test_and_set_bit_lock(), clear_bit_unlock(), and clear_bit(),
-   replaced respectively with atomic_add_unless(), atomic_dec(), and
-   atomic_set()
- - counter_comp_read_is_equal() and counter_comp_read_is_set() macros
-   implemented in order to properly test counter_comp structures' read
-   callback states
- - counter_sysfs_add() call performed before counter_chrdev_add() call
-   in counter_register() in order to match unwinding sequence
- - for-loop utilized in counter-example.c in order to simplify code
- - counter-example.c returns 1 on error instead of -errno; errno may be
-   modified after a subsequent library call so we can't depend on it
-
-For convenience, this patchset is also available on my personal git
-repo: https://gitlab.com/vilhelmgray/iio/-/tree/counter_chrdev_v17
-
-A Counter character device interface is introduced that allows Counter
-events and associated data to be read() by userspace; the
-events_configure() and watch_validate() driver callbacks are introduced
-to support Counter events; and IRQ support is added to the
-104-QUAD-8 driver, serving as an example of how to support the new
-Counter events functionality.
-
-William Breathitt Gray (9):
-  counter: Move counter enums to uapi header
-  counter: Add character device interface
-  docs: counter: Document character device interface
-  tools/counter: Create Counter tools
-  counter: Implement signalZ_action_component_id sysfs attribute
-  counter: Implement *_component_id sysfs attributes
-  counter: Implement events_queue_size sysfs attribute
-  counter: 104-quad-8: Replace mutex with spinlock
-  counter: 104-quad-8: Add IRQ support for the ACCES 104-QUAD-8
-
- Documentation/ABI/testing/sysfs-bus-counter   |  29 +
- Documentation/driver-api/generic-counter.rst  | 177 ++++--
- .../userspace-api/ioctl/ioctl-number.rst      |   1 +
- MAINTAINERS                                   |   2 +
- drivers/counter/104-quad-8.c                  | 256 ++++++--
- drivers/counter/Kconfig                       |   6 +-
- drivers/counter/Makefile                      |   2 +-
- drivers/counter/counter-chrdev.c              | 578 ++++++++++++++++++
- drivers/counter/counter-chrdev.h              |  14 +
- drivers/counter/counter-core.c                |  56 +-
- drivers/counter/counter-sysfs.c               | 123 +++-
- include/linux/counter.h                       |  98 +--
- include/uapi/linux/counter.h                  | 154 +++++
- tools/Makefile                                |  13 +-
- tools/counter/Build                           |   1 +
- tools/counter/Makefile                        |  53 ++
- tools/counter/counter_example.c               |  92 +++
- 17 files changed, 1509 insertions(+), 146 deletions(-)
- create mode 100644 drivers/counter/counter-chrdev.c
- create mode 100644 drivers/counter/counter-chrdev.h
- create mode 100644 include/uapi/linux/counter.h
- create mode 100644 tools/counter/Build
- create mode 100644 tools/counter/Makefile
- create mode 100644 tools/counter/counter_example.c
-
-
-base-commit: a5ae0cfd53aaf031c2e9ba048281776fa67047c2
--- 
-2.33.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhpcyBpcyBpbiBwcmVwYXJhdGlvbiBmb3IgYSBzdWJzZXF1ZW50IHBhdGNoIGltcGxlbWVudGlu
+ZyBhIGNoYXJhY3RlcgpkZXZpY2UgaW50ZXJmYWNlIGZvciB0aGUgQ291bnRlciBzdWJzeXN0ZW0u
+CgpSZXZpZXdlZC1ieTogRGF2aWQgTGVjaG5lciA8ZGF2aWRAbGVjaG5vbG9neS5jb20+ClNpZ25l
+ZC1vZmYtYnk6IFdpbGxpYW0gQnJlYXRoaXR0IEdyYXkgPHZpbGhlbG0uZ3JheUBnbWFpbC5jb20+
+Ci0tLQogTUFJTlRBSU5FUlMgICAgICAgICAgICAgICAgICB8ICAxICsKIGluY2x1ZGUvbGludXgv
+Y291bnRlci5oICAgICAgfCA0MiArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIGluY2x1ZGUv
+dWFwaS9saW51eC9jb3VudGVyLmggfCA1NiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysKIDMgZmlsZXMgY2hhbmdlZCwgNTggaW5zZXJ0aW9ucygrKSwgNDEgZGVsZXRpb25zKC0p
+CiBjcmVhdGUgbW9kZSAxMDA2NDQgaW5jbHVkZS91YXBpL2xpbnV4L2NvdW50ZXIuaAoKZGlmZiAt
+LWdpdCBhL01BSU5UQUlORVJTIGIvTUFJTlRBSU5FUlMKaW5kZXggOGQxZWEwMjk5MDA0Li4zYzk1
+YWRhMWI4MzAgMTAwNjQ0Ci0tLSBhL01BSU5UQUlORVJTCisrKyBiL01BSU5UQUlORVJTCkBAIC00
+ODIwLDYgKzQ4MjAsNyBAQCBGOglEb2N1bWVudGF0aW9uL0FCSS90ZXN0aW5nL3N5c2ZzLWJ1cy1j
+b3VudGVyCiBGOglEb2N1bWVudGF0aW9uL2RyaXZlci1hcGkvZ2VuZXJpYy1jb3VudGVyLnJzdAog
+RjoJZHJpdmVycy9jb3VudGVyLwogRjoJaW5jbHVkZS9saW51eC9jb3VudGVyLmgKK0Y6CWluY2x1
+ZGUvdWFwaS9saW51eC9jb3VudGVyLmgKIAogQ1AyNjE1IEkyQyBEUklWRVIKIE06CUJlbmNlIENz
+w7Nrw6FzIDxiZW5jZTk4QHNjaC5ibWUuaHU+CmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2Nv
+dW50ZXIuaCBiL2luY2x1ZGUvbGludXgvY291bnRlci5oCmluZGV4IDQ0NWYyMmQ4YmZlMi4uN2M5
+ZjdlMjM5NTNhIDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L2NvdW50ZXIuaAorKysgYi9pbmNs
+dWRlL2xpbnV4L2NvdW50ZXIuaApAQCAtOSw2ICs5LDcgQEAKICNpbmNsdWRlIDxsaW51eC9kZXZp
+Y2UuaD4KICNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KICNpbmNsdWRlIDxsaW51eC90eXBlcy5o
+PgorI2luY2x1ZGUgPHVhcGkvbGludXgvY291bnRlci5oPgogCiBzdHJ1Y3QgY291bnRlcl9kZXZp
+Y2U7CiBzdHJ1Y3QgY291bnRlcl9jb3VudDsKQEAgLTI3LDQ3ICsyOCw2IEBAIGVudW0gY291bnRl
+cl9jb21wX3R5cGUgewogCUNPVU5URVJfQ09NUF9DT1VOVF9NT0RFLAogfTsKIAotZW51bSBjb3Vu
+dGVyX3Njb3BlIHsKLQlDT1VOVEVSX1NDT1BFX0RFVklDRSwKLQlDT1VOVEVSX1NDT1BFX1NJR05B
+TCwKLQlDT1VOVEVSX1NDT1BFX0NPVU5ULAotfTsKLQotZW51bSBjb3VudGVyX2NvdW50X2RpcmVj
+dGlvbiB7Ci0JQ09VTlRFUl9DT1VOVF9ESVJFQ1RJT05fRk9SV0FSRCwKLQlDT1VOVEVSX0NPVU5U
+X0RJUkVDVElPTl9CQUNLV0FSRCwKLX07Ci0KLWVudW0gY291bnRlcl9jb3VudF9tb2RlIHsKLQlD
+T1VOVEVSX0NPVU5UX01PREVfTk9STUFMLAotCUNPVU5URVJfQ09VTlRfTU9ERV9SQU5HRV9MSU1J
+VCwKLQlDT1VOVEVSX0NPVU5UX01PREVfTk9OX1JFQ1lDTEUsCi0JQ09VTlRFUl9DT1VOVF9NT0RF
+X01PRFVMT19OLAotfTsKLQotZW51bSBjb3VudGVyX2Z1bmN0aW9uIHsKLQlDT1VOVEVSX0ZVTkNU
+SU9OX0lOQ1JFQVNFLAotCUNPVU5URVJfRlVOQ1RJT05fREVDUkVBU0UsCi0JQ09VTlRFUl9GVU5D
+VElPTl9QVUxTRV9ESVJFQ1RJT04sCi0JQ09VTlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1gxX0Es
+Ci0JQ09VTlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1gxX0IsCi0JQ09VTlRFUl9GVU5DVElPTl9R
+VUFEUkFUVVJFX1gyX0EsCi0JQ09VTlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1gyX0IsCi0JQ09V
+TlRFUl9GVU5DVElPTl9RVUFEUkFUVVJFX1g0LAotfTsKLQotZW51bSBjb3VudGVyX3NpZ25hbF9s
+ZXZlbCB7Ci0JQ09VTlRFUl9TSUdOQUxfTEVWRUxfTE9XLAotCUNPVU5URVJfU0lHTkFMX0xFVkVM
+X0hJR0gsCi19OwotCi1lbnVtIGNvdW50ZXJfc3luYXBzZV9hY3Rpb24gewotCUNPVU5URVJfU1lO
+QVBTRV9BQ1RJT05fTk9ORSwKLQlDT1VOVEVSX1NZTkFQU0VfQUNUSU9OX1JJU0lOR19FREdFLAot
+CUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fRkFMTElOR19FREdFLAotCUNPVU5URVJfU1lOQVBTRV9B
+Q1RJT05fQk9USF9FREdFUywKLX07Ci0KIC8qKgogICogc3RydWN0IGNvdW50ZXJfY29tcCAtIENv
+dW50ZXIgY29tcG9uZW50IG5vZGUKICAqIEB0eXBlOgkJQ291bnRlciBjb21wb25lbnQgZGF0YSB0
+eXBlCmRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvbGludXgvY291bnRlci5oIGIvaW5jbHVkZS91
+YXBpL2xpbnV4L2NvdW50ZXIuaApuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAw
+MDAuLjYxMTM5MzhhNjA0NAotLS0gL2Rldi9udWxsCisrKyBiL2luY2x1ZGUvdWFwaS9saW51eC9j
+b3VudGVyLmgKQEAgLTAsMCArMSw1NiBAQAorLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQ
+TC0yLjAgV0lUSCBMaW51eC1zeXNjYWxsLW5vdGUgKi8KKy8qCisgKiBVc2Vyc3BhY2UgQUJJIGZv
+ciBDb3VudGVyIGNoYXJhY3RlciBkZXZpY2VzCisgKiBDb3B5cmlnaHQgKEMpIDIwMjAgV2lsbGlh
+bSBCcmVhdGhpdHQgR3JheQorICovCisjaWZuZGVmIF9VQVBJX0NPVU5URVJfSF8KKyNkZWZpbmUg
+X1VBUElfQ09VTlRFUl9IXworCisvKiBDb21wb25lbnQgc2NvcGUgZGVmaW5pdGlvbnMgKi8KK2Vu
+dW0gY291bnRlcl9zY29wZSB7CisJQ09VTlRFUl9TQ09QRV9ERVZJQ0UsCisJQ09VTlRFUl9TQ09Q
+RV9TSUdOQUwsCisJQ09VTlRFUl9TQ09QRV9DT1VOVCwKK307CisKKy8qIENvdW50IGRpcmVjdGlv
+biB2YWx1ZXMgKi8KK2VudW0gY291bnRlcl9jb3VudF9kaXJlY3Rpb24geworCUNPVU5URVJfQ09V
+TlRfRElSRUNUSU9OX0ZPUldBUkQsCisJQ09VTlRFUl9DT1VOVF9ESVJFQ1RJT05fQkFDS1dBUkQs
+Cit9OworCisvKiBDb3VudCBtb2RlIHZhbHVlcyAqLworZW51bSBjb3VudGVyX2NvdW50X21vZGUg
+eworCUNPVU5URVJfQ09VTlRfTU9ERV9OT1JNQUwsCisJQ09VTlRFUl9DT1VOVF9NT0RFX1JBTkdF
+X0xJTUlULAorCUNPVU5URVJfQ09VTlRfTU9ERV9OT05fUkVDWUNMRSwKKwlDT1VOVEVSX0NPVU5U
+X01PREVfTU9EVUxPX04sCit9OworCisvKiBDb3VudCBmdW5jdGlvbiB2YWx1ZXMgKi8KK2VudW0g
+Y291bnRlcl9mdW5jdGlvbiB7CisJQ09VTlRFUl9GVU5DVElPTl9JTkNSRUFTRSwKKwlDT1VOVEVS
+X0ZVTkNUSU9OX0RFQ1JFQVNFLAorCUNPVU5URVJfRlVOQ1RJT05fUFVMU0VfRElSRUNUSU9OLAor
+CUNPVU5URVJfRlVOQ1RJT05fUVVBRFJBVFVSRV9YMV9BLAorCUNPVU5URVJfRlVOQ1RJT05fUVVB
+RFJBVFVSRV9YMV9CLAorCUNPVU5URVJfRlVOQ1RJT05fUVVBRFJBVFVSRV9YMl9BLAorCUNPVU5U
+RVJfRlVOQ1RJT05fUVVBRFJBVFVSRV9YMl9CLAorCUNPVU5URVJfRlVOQ1RJT05fUVVBRFJBVFVS
+RV9YNCwKK307CisKKy8qIFNpZ25hbCB2YWx1ZXMgKi8KK2VudW0gY291bnRlcl9zaWduYWxfbGV2
+ZWwgeworCUNPVU5URVJfU0lHTkFMX0xFVkVMX0xPVywKKwlDT1VOVEVSX1NJR05BTF9MRVZFTF9I
+SUdILAorfTsKKworLyogQWN0aW9uIG1vZGUgdmFsdWVzICovCitlbnVtIGNvdW50ZXJfc3luYXBz
+ZV9hY3Rpb24geworCUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fTk9ORSwKKwlDT1VOVEVSX1NZTkFQ
+U0VfQUNUSU9OX1JJU0lOR19FREdFLAorCUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fRkFMTElOR19F
+REdFLAorCUNPVU5URVJfU1lOQVBTRV9BQ1RJT05fQk9USF9FREdFUywKK307CisKKyNlbmRpZiAv
+KiBfVUFQSV9DT1VOVEVSX0hfICovCi0tIAoyLjMzLjAKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
+dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
