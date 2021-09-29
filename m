@@ -2,64 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B966E41C7C4
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Sep 2021 17:02:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5541741CA88
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Sep 2021 18:45:01 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FBB5C5A4F9;
-	Wed, 29 Sep 2021 15:02:32 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6624C5A4F8;
+	Wed, 29 Sep 2021 16:45:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F1BBC5A4CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A2D9C597BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Sep 2021 15:02:30 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EC34561381
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Sep 2021 15:02:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1632927749;
- bh=Rb95LMWh47lkI8s7wGkPcaV802n1stSCehSdkA9PaKQ=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=pd0QztlfMWSHfXZ8cXsVeD3HznWWKhVUTpL3ecbz+DdKlJE/vofMtKSM3eD5+cxah
- bxy3c9lj2V6+Q8/5IWoBzSj+mqpINf3cUCBlY4ZCgTt4NPK4u0tsYrm6OFEjkG3aoE
- mx+DqqctapB/LsWyc/Z8x2fjWhdVDDE9nMZ4Bv/3QKy058EBadfNIAXtnDj7KPHx2u
- eDeBP0KiRwUOMdtwi6czLFJSU8viEosVAJJfmEF7GsMN1w5UzyaffUrlemkrcmaYnG
- EQBc0hdSajK94g6VEm/16JcKcQ/rQtbr/vO4UtARX2VFWElTIPZCA/U32uRzjGZvvN
- 9BaaWEe4xKBQg==
-Received: by mail-ed1-f49.google.com with SMTP id v10so9901972edj.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Sep 2021 08:02:28 -0700 (PDT)
-X-Gm-Message-State: AOAM532X9O4J9XBiSJol6lz4lqlrQwo/1lL0/scBJ+cxG4gqgzXXE1rR
- VchwGhwaeul0elGBDsD4n0iz/SzN1zXZvF26HQ==
-X-Google-Smtp-Source: ABdhPJyGD4yUBeiN1FcgHZNJPxHnMI+9p1Py2c2bPEOLqdFuGORbP46IfgPD+pii/BFPuHFgoaHj6wzTgcL3LStrTuA=
-X-Received: by 2002:a17:906:3181:: with SMTP id 1mr210402ejy.388.1632927663938; 
- Wed, 29 Sep 2021 08:01:03 -0700 (PDT)
+ Wed, 29 Sep 2021 16:44:58 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18TGXpbh028065; 
+ Wed, 29 Sep 2021 18:44:34 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=++4ateDKXxW3JCyD3y4snRaohlrpaVUIJhNfEhDJ9aQ=;
+ b=UZ9k8yIYNXFpWrlxmOSsJGeCM8KwcSA0zHjY1aP0XFddjYkSNsKgdaxFyg3SFSxcPZ5W
+ lTc4uTU6mkMRNQbnWFYEfhNQrTw8lDS4UzlHqMfCTeQaUAbWEfQPFLwLKMxENN+1S3sE
+ 2fn9MGSreWdKxk4td3ua7wLkcyRZ5IgFhVOH66cXlpgtUoNX9ZeJJyHTt4HcfqBrtlpF
+ VwxM19bCiO07URDRIevJFKXwSZ7DHBXMmo9EgbsounNmHg/thqERLMDiV+x5c6zDlmFw
+ yyNOuyztr2g2bmEmbSQCEPR+jhNKee3SAgVwg39SSBBelN3MyQmx6YsXPrN3TsHtCc7d fQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3bcjc1kvh7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Sep 2021 18:44:34 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 96C6810002A;
+ Wed, 29 Sep 2021 18:44:32 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 66F9B24D194;
+ Wed, 29 Sep 2021 18:44:32 +0200 (CEST)
+Received: from lmecxl0577.lme.st.com (10.75.127.51) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 29 Sep
+ 2021 18:44:31 +0200
+To: Jonathan Cameron <jic23@kernel.org>
+References: <20200204101008.11411-1-olivier.moysan@st.com>
+ <20200204101008.11411-5-olivier.moysan@st.com>
+ <20200208161847.76c7d6e8@archlinux>
+ <8400827e-5f3d-ad3f-99c8-986934b1a7b8@st.com>
+ <20200214131113.70aa36b8@archlinux>
+ <5b2e74a0-71bd-46d0-0096-b33ff17f780b@st.com>
+ <20200214151011.20111e8c@archlinux>
+ <AM9PR10MB43558CEB8DAE7F373E9E7A5DF9D69@AM9PR10MB4355.EURPRD10.PROD.OUTLOOK.COM>
+ <78f4e4b9-ef4c-982f-7cd3-8d3052d99150@foss.st.com>
+ <20210912182617.5635fa06@jic23-huawei>
+ <a38906b8-7d28-b5e0-939b-e8108bd7266c@foss.st.com>
+ <20210919191414.09270f4e@jic23-huawei>
+ <2ac8eafa-25fe-6640-edef-960e56733534@foss.st.com>
+ <20210926155607.3a7fae81@jic23-huawei>
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Message-ID: <a7467649-e949-9d1d-eed6-93830bf83bb4@foss.st.com>
+Date: Wed, 29 Sep 2021 18:44:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-References: <20210921155218.10387-1-jason-jh.lin@mediatek.com>
- <20210921155218.10387-15-jason-jh.lin@mediatek.com>
-In-Reply-To: <20210921155218.10387-15-jason-jh.lin@mediatek.com>
-From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Date: Wed, 29 Sep 2021 23:00:52 +0800
-X-Gmail-Original-Message-ID: <CAAOTY__-O8PEZ0oo0wUTUeknEXSfkbmD5SSrnN6JCtn98k5U7A@mail.gmail.com>
-Message-ID: <CAAOTY__-O8PEZ0oo0wUTUeknEXSfkbmD5SSrnN6JCtn98k5U7A@mail.gmail.com>
-To: "jason-jh.lin" <jason-jh.lin@mediatek.com>
-Cc: fshao@chromium.org, David Airlie <airlied@linux.ie>,
- singo.chang@mediatek.com, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Fabien Parent <fparent@baylibre.com>, DTML <devicetree@vger.kernel.org>,
- Nancy Lin <nancy.lin@mediatek.com>, linux-stm32@st-md-mailman.stormreply.com,
- roy-cw.yeh@mediatek.com, Yongqiang Niu <yongqiang.niu@mediatek.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Hsin-Yi Wang <hsinyi@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Moudy Ho <moudy.ho@mediatek.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v11 14/16] drm/mediatek: add DSC support
-	for mediatek-drm
+In-Reply-To: <20210926155607.3a7fae81@jic23-huawei>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-29_06,2021-09-29_01,2020-04-07_01
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ pmeerw@pmeerw.net, knaack.h@gmx.de,
+ Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/4] iio: adc: stm32-dfsdm: add scale and
+	offset support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,108 +87,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksIEphc29uOgoKamFzb24tamgubGluIDxqYXNvbi1qaC5saW5AbWVkaWF0ZWsuY29tPiDmlrwg
-MjAyMeW5tDnmnIgyMeaXpSDpgLHkuowg5LiL5Y2IMTE6NTLlr6vpgZPvvJoKPgo+IERTQyBpcyBk
-ZXNpZ25lZCBmb3IgcmVhbC10aW1lIHN5c3RlbXMgd2l0aCByZWFsLXRpbWUgY29tcHJlc3Npb24s
-Cj4gdHJhbnNtaXNzaW9uLCBkZWNvbXByZXNzaW9uIGFuZCBkaXNwbGF5Lgo+IFRoZSBEU0Mgc3Rh
-bmRhcmQgaXMgYSBzcGVjaWZpY2F0aW9uIG9mIHRoZSBhbGdvcml0aG1zIHVzZWQgZm9yCj4gY29t
-cHJlc3NpbmcgYW5kIGRlY29tcHJlc3NpbmcgaW1hZ2UgZGlzcGxheSBzdHJlYW1zLCBpbmNsdWRp
-bmcKPiB0aGUgc3BlY2lmaWNhdGlvbiBvZiB0aGUgc3ludGF4IGFuZCBzZW1hbnRpY3Mgb2YgdGhl
-IGNvbXByZXNzZWQKPiB2aWRlbyBiaXQgc3RyZWFtLgoKUmV2aWV3ZWQtYnk6IENodW4tS3Vhbmcg
-SHUgPGNodW5rdWFuZy5odUBrZXJuZWwub3JnPgoKPgo+IFNpZ25lZC1vZmYtYnk6IGphc29uLWpo
-LmxpbiA8amFzb24tamgubGluQG1lZGlhdGVrLmNvbT4KPiAtLS0KPiByZWJhc2Ugb24gc2VyaWVz
-IFsxXQo+Cj4gWzFdIGRybS9tZWRpYXRlazogYWRkIHN1cHBvcnQgZm9yIG1lZGlhdGVrIFNPQyBN
-VDgxOTIKPiAtIGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9saW51eC1tZWRp
-YXRlay9saXN0Lz9zZXJpZXM9NTI5NDg5Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9tZWRpYXRl
-ay9tdGtfZHJtX2RkcF9jb21wLmMgfCA0NyArKysrKysrKysrKysrKysrKysrKysKPiAgZHJpdmVy
-cy9ncHUvZHJtL21lZGlhdGVrL210a19kcm1fZGRwX2NvbXAuaCB8ICAxICsKPiAgMiBmaWxlcyBj
-aGFuZ2VkLCA0OCBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L21lZGlhdGVrL210a19kcm1fZGRwX2NvbXAuYyBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9t
-dGtfZHJtX2RkcF9jb21wLmMKPiBpbmRleCAyM2MwM2U1NTA2NTguLmNlNmM5MGI5ZWRlZiAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RybV9kZHBfY29tcC5jCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcm1fZGRwX2NvbXAuYwo+IEBAIC00
-MCw2ICs0MCwxMiBAQAo+ICAjZGVmaW5lIERJVEhFUl9MU0JfRVJSX1NISUZUX0coeCkgICAgICAg
-ICAgICAgICgoKHgpICYgMHg3KSA8PCAxMikKPiAgI2RlZmluZSBESVRIRVJfQUREX0xTSElGVF9H
-KHgpICAgICAgICAgICAgICAgICAoKCh4KSAmIDB4NykgPDwgNCkKPgo+ICsjZGVmaW5lIERJU1Bf
-UkVHX0RTQ19DT04gICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMAo+ICsjZGVmaW5lIERTQ19F
-TiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJJVCgwKQo+ICsjZGVmaW5lIERTQ19E
-VUFMX0lOT1VUICAgICAgICAgICAgICAgICAgICAgICAgIEJJVCgyKQo+ICsjZGVmaW5lIERTQ19C
-WVBBU1MgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJJVCg0KQo+ICsjZGVmaW5lIERTQ19V
-Rk9FX1NFTCAgICAgICAgICAgICAgICAgICAgICAgICAgIEJJVCgxNikKPiArCj4gICNkZWZpbmUg
-RElTUF9SRUdfT0RfRU4gICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwCj4gICNkZWZpbmUg
-RElTUF9SRUdfT0RfQ0ZHICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDAwMjAKPiAg
-I2RlZmluZSBPRF9SRUxBWU1PREUgICAgICAgICAgICAgICAgICAgICAgICAgICBCSVQoMCkKPiBA
-QCAtMTgxLDYgKzE4NywzNiBAQCBzdGF0aWMgdm9pZCBtdGtfZGl0aGVyX3NldChzdHJ1Y3QgZGV2
-aWNlICpkZXYsIHVuc2lnbmVkIGludCBicGMsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgRElTUF9ESVRIRVJJTkcsIGNtZHFfcGt0KTsKPiAgfQo+Cj4gK3N0YXRpYyB2b2lkIG10a19k
-c2NfY29uZmlnKHN0cnVjdCBkZXZpY2UgKmRldiwgdW5zaWduZWQgaW50IHcsCj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgdW5zaWduZWQgaW50IGgsIHVuc2lnbmVkIGludCB2cmVmcmVzaCwK
-PiArICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBpbnQgYnBjLCBzdHJ1Y3QgY21k
-cV9wa3QgKmNtZHFfcGt0KQo+ICt7Cj4gKyAgICAgICBzdHJ1Y3QgbXRrX2RkcF9jb21wX2RldiAq
-cHJpdiA9IGRldl9nZXRfZHJ2ZGF0YShkZXYpOwo+ICsKPiArICAgICAgIC8qIGRzYyBieXBhc3Mg
-bW9kZSAqLwo+ICsgICAgICAgbXRrX2RkcF93cml0ZV9tYXNrKGNtZHFfcGt0LCBEU0NfQllQQVNT
-LCAmcHJpdi0+Y21kcV9yZWcsIHByaXYtPnJlZ3MsCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgRElTUF9SRUdfRFNDX0NPTiwgRFNDX0JZUEFTUyk7Cj4gKyAgICAgICBtdGtfZGRwX3dyaXRl
-X21hc2soY21kcV9wa3QsIERTQ19VRk9FX1NFTCwgJnByaXYtPmNtZHFfcmVnLCBwcml2LT5yZWdz
-LAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgIERJU1BfUkVHX0RTQ19DT04sIERTQ19VRk9F
-X1NFTCk7Cj4gKyAgICAgICBtdGtfZGRwX3dyaXRlX21hc2soY21kcV9wa3QsIERTQ19EVUFMX0lO
-T1VULCAmcHJpdi0+Y21kcV9yZWcsIHByaXYtPnJlZ3MsCj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgRElTUF9SRUdfRFNDX0NPTiwgRFNDX0RVQUxfSU5PVVQpOwo+ICt9Cj4gKwo+ICtzdGF0
-aWMgdm9pZCBtdGtfZHNjX3N0YXJ0KHN0cnVjdCBkZXZpY2UgKmRldikKPiArewo+ICsgICAgICAg
-c3RydWN0IG10a19kZHBfY29tcF9kZXYgKnByaXYgPSBkZXZfZ2V0X2RydmRhdGEoZGV2KTsKPiAr
-Cj4gKyAgICAgICAvKiB3cml0ZSB3aXRoIG1hc2sgdG8gcmVzZXJ2ZSB0aGUgdmFsdWUgc2V0IGlu
-IG10a19kc2NfY29uZmlnICovCj4gKyAgICAgICBtdGtfZGRwX3dyaXRlX21hc2soTlVMTCwgRFND
-X0VOLCAmcHJpdi0+Y21kcV9yZWcsIHByaXYtPnJlZ3MsIERJU1BfUkVHX0RTQ19DT04sIERTQ19F
-Tik7Cj4gK30KPiArCj4gK3N0YXRpYyB2b2lkIG10a19kc2Nfc3RvcChzdHJ1Y3QgZGV2aWNlICpk
-ZXYpCj4gK3sKPiArICAgICAgIHN0cnVjdCBtdGtfZGRwX2NvbXBfZGV2ICpwcml2ID0gZGV2X2dl
-dF9kcnZkYXRhKGRldik7Cj4gKwo+ICsgICAgICAgd3JpdGVsX3JlbGF4ZWQoMHgwLCBwcml2LT5y
-ZWdzICsgRElTUF9SRUdfRFNDX0NPTik7Cj4gK30KPiArCj4gIHN0YXRpYyB2b2lkIG10a19vZF9j
-b25maWcoc3RydWN0IGRldmljZSAqZGV2LCB1bnNpZ25lZCBpbnQgdywKPiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHVuc2lnbmVkIGludCBoLCB1bnNpZ25lZCBpbnQgdnJlZnJlc2gsCj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBpbnQgYnBjLCBzdHJ1Y3QgY21kcV9wa3Qg
-KmNtZHFfcGt0KQo+IEBAIC0yNzAsNiArMzA2LDE0IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgbXRr
-X2RkcF9jb21wX2Z1bmNzIGRkcF9kcGkgPSB7Cj4gICAgICAgICAuc3RvcCA9IG10a19kcGlfc3Rv
-cCwKPiAgfTsKPgo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IG10a19kZHBfY29tcF9mdW5jcyBkZHBf
-ZHNjID0gewo+ICsgICAgICAgLmNsa19lbmFibGUgPSBtdGtfZGRwX2Nsa19lbmFibGUsCj4gKyAg
-ICAgICAuY2xrX2Rpc2FibGUgPSBtdGtfZGRwX2Nsa19kaXNhYmxlLAo+ICsgICAgICAgLmNvbmZp
-ZyA9IG10a19kc2NfY29uZmlnLAo+ICsgICAgICAgLnN0YXJ0ID0gbXRrX2RzY19zdGFydCwKPiAr
-ICAgICAgIC5zdG9wID0gbXRrX2RzY19zdG9wLAo+ICt9Owo+ICsKPiAgc3RhdGljIGNvbnN0IHN0
-cnVjdCBtdGtfZGRwX2NvbXBfZnVuY3MgZGRwX2RzaSA9IHsKPiAgICAgICAgIC5zdGFydCA9IG10
-a19kc2lfZGRwX3N0YXJ0LAo+ICAgICAgICAgLnN0b3AgPSBtdGtfZHNpX2RkcF9zdG9wLAo+IEBA
-IC0zMzksNiArMzgzLDcgQEAgc3RhdGljIGNvbnN0IGNoYXIgKiBjb25zdCBtdGtfZGRwX2NvbXBf
-c3RlbVtNVEtfRERQX0NPTVBfVFlQRV9NQVhdID0gewo+ICAgICAgICAgW01US19ESVNQX0NDT1JS
-XSA9ICJjY29yciIsCj4gICAgICAgICBbTVRLX0RJU1BfQ09MT1JdID0gImNvbG9yIiwKPiAgICAg
-ICAgIFtNVEtfRElTUF9ESVRIRVJdID0gImRpdGhlciIsCj4gKyAgICAgICBbTVRLX0RJU1BfRFND
-XSA9ICJkc2MiLAo+ICAgICAgICAgW01US19ESVNQX0dBTU1BXSA9ICJnYW1tYSIsCj4gICAgICAg
-ICBbTVRLX0RJU1BfTVVURVhdID0gIm11dGV4IiwKPiAgICAgICAgIFtNVEtfRElTUF9PRF0gPSAi
-b2QiLAo+IEBAIC0zNjksNiArNDE0LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBtdGtfZGRwX2Nv
-bXBfbWF0Y2ggbXRrX2RkcF9tYXRjaGVzW0REUF9DT01QT05FTlRfSURfTUFYXSA9IHsKPiAgICAg
-ICAgIFtERFBfQ09NUE9ORU5UX0RJVEhFUl0gICAgICAgICAgPSB7IE1US19ESVNQX0RJVEhFUiwg
-ICAgMCwgJmRkcF9kaXRoZXIgfSwKPiAgICAgICAgIFtERFBfQ09NUE9ORU5UX0RQSTBdICAgICAg
-ICAgICAgPSB7IE1US19EUEksICAgICAgICAgICAgMCwgJmRkcF9kcGkgfSwKPiAgICAgICAgIFtE
-RFBfQ09NUE9ORU5UX0RQSTFdICAgICAgICAgICAgPSB7IE1US19EUEksICAgICAgICAgICAgMSwg
-JmRkcF9kcGkgfSwKPiArICAgICAgIFtERFBfQ09NUE9ORU5UX0RTQzBdICAgICAgICAgICAgPSB7
-IE1US19ESVNQX0RTQywgICAgICAgMCwgJmRkcF9kc2MgfSwKPiArICAgICAgIFtERFBfQ09NUE9O
-RU5UX0RTQzFdICAgICAgICAgICAgPSB7IE1US19ESVNQX0RTQywgICAgICAgMSwgJmRkcF9kc2Mg
-fSwKPiAgICAgICAgIFtERFBfQ09NUE9ORU5UX0RTSTBdICAgICAgICAgICAgPSB7IE1US19EU0ks
-ICAgICAgICAgICAgMCwgJmRkcF9kc2kgfSwKPiAgICAgICAgIFtERFBfQ09NUE9ORU5UX0RTSTFd
-ICAgICAgICAgICAgPSB7IE1US19EU0ksICAgICAgICAgICAgMSwgJmRkcF9kc2kgfSwKPiAgICAg
-ICAgIFtERFBfQ09NUE9ORU5UX0RTSTJdICAgICAgICAgICAgPSB7IE1US19EU0ksICAgICAgICAg
-ICAgMiwgJmRkcF9kc2kgfSwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVr
-L210a19kcm1fZGRwX2NvbXAuaCBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2Rk
-cF9jb21wLmgKPiBpbmRleCA0YzZhOTg2NjIzMDUuLjVlNmZmMTJmMTZhZCAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RybV9kZHBfY29tcC5oCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcm1fZGRwX2NvbXAuaAo+IEBAIC0yMyw2ICsyMyw3
-IEBAIGVudW0gbXRrX2RkcF9jb21wX3R5cGUgewo+ICAgICAgICAgTVRLX0RJU1BfQ0NPUlIsCj4g
-ICAgICAgICBNVEtfRElTUF9DT0xPUiwKPiAgICAgICAgIE1US19ESVNQX0RJVEhFUiwKPiArICAg
-ICAgIE1US19ESVNQX0RTQywKPiAgICAgICAgIE1US19ESVNQX0dBTU1BLAo+ICAgICAgICAgTVRL
-X0RJU1BfTVVURVgsCj4gICAgICAgICBNVEtfRElTUF9PRCwKPiAtLQo+IDIuMTguMAo+Cl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+Hi Jonathan,
+
+>>>>
+>>>> If 'backend' option turns out to be the most appropriated to match DFSDM
+>>>> constraints, I can prepare some patches to support it.
+>>>> Would you have some guidelines or requirements for the implementation of
+>>>> such feature, in this case ?
+>>>
+>>> Closest example is that rcar-gyroadc but in this case we'd want to define
+>>> something standard to support the modulators so that if we have other filters
+>>> in future we can reuse them.
+>>>
+>>> That means implementing them as child devices of the filter - probably put
+>>> the on the IIO bus, but as different device type.  Take a look at how
+>>> triggers are done in industrialio-trigger.c
+>>> You need struct device_type sd_modulator
+>>> and a suitable device struct (burred in an iio_sd_modulator struct probably).
+>>>
+>>> Also needed would be a bunch of standard callbacks to allow you to query things
+>>> like scaling.   Keep that interface simple. Until we have a lot of modulator
+>>> drivers it will be hard to know exactly what is needed.  Also whilst we don't
+>>> have many it is easy to modify the interface.
+>>>
+>>> Then have your filter driver walk it's own dt children and instantiate
+>>> appropriate new elements and register them on the iio_bus.  They will have
+>>> the filter as their parent.
+>>>
+>>> There are various examples of this sort of thing in tree.
+>>> If you want a good one, drivers/cxl does a lot of this sort magic to manage
+>>> a fairly complex graph of devices including some nice registration stuff to
+>>> cause the correct device drivers to load automatically.
+>>>
+>>> Hmm.  Thinking more on this, there is an ordering issue for driver load.
+>>> Instead of making the modulator nodes children of the modulator, you may need
+>>> to give them their own existence and use a phandle to reference them.
+>>> That will let you defer probe in the filter driver until those
+>>> modulator drivers are ready.
+>>>
+>>> This isn't going to be particularly simple, so you may want to have a look
+>>> at how various other subsystems do similar things and mock up the dependencies
+>>> to make sure you have something that doesn't end up with a loop of dependencies.
+>>> In some ways the modulators are on a bus below the filter, but the filter driver
+>>> needs them to be in place to do the rest.
+>>> You may end up with some sort of delayed load.
+>>> 1. Initial filter driver load + parsing of the modulator dt children (if done that way).
+>>> 2. Filter driver goes to sleep until...
+>>> 3. Modulator drivers call something on the filter driver to say they are ready.
+>>> 4. Filter driver finishes loading and create the IIO device etc.
+>>> You'll need some reference counting etc in there to make removal safe etc but it
+>>> shouldn't be 'too bad'.
+>>>
+>>> Good luck!
+>>>
+>>> Jonathan
+>>>
+I'am on the way to prototype this proposal for DFSDM.
+Looking at your advices, I see that the current topolgy based on 
+hardware consumer, already meets most of the requirements.
+
+- SD modulators are described in DT with their own nodes and are 
+referred in DFSDM nodes through their phandle.
+- Dependencies at probe are managed (defer probe through 
+devm_iio_hw_consumer_alloc())
+- SD modulator scaling is retrieved through iio_read_channel_scale() ABI.
+
+So, it seems that the current implementation is not so far from this 
+solution.
+It remains the unwanted sysfs interface for SD modulator. Or more than 
+that, if I missed something ?
+Instead of introducing a new device type for SD modulator, could the 
+mode field be used to identify devices not requesting an IIO sysfs ?
+(A dedicated mode may be used to skip sysfs register in device registration)
+Otherwise let's go for a new type.
+
+Regards
+Olivier
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
