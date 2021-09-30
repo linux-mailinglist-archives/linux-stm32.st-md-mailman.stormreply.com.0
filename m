@@ -2,45 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FEE341D386
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Sep 2021 08:38:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEEDA41D5A7
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Sep 2021 10:48:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04035C5A4F8;
-	Thu, 30 Sep 2021 06:38:35 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E6B3C5A4F8;
+	Thu, 30 Sep 2021 08:48:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37EC4C597AB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F21DC597AB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Sep 2021 06:38:33 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10122"; a="288771863"
-X-IronPort-AV: E=Sophos;i="5.85,335,1624345200"; d="scan'208";a="288771863"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2021 23:38:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,335,1624345200"; d="scan'208";a="479743120"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga007.fm.intel.com with ESMTP; 29 Sep 2021 23:38:30 -0700
-Received: from glass.png.intel.com (glass.png.intel.com [10.158.65.69])
- by linux.intel.com (Postfix) with ESMTP id 52BDF58097E;
- Wed, 29 Sep 2021 23:38:28 -0700 (PDT)
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Thu, 30 Sep 2021 14:44:36 +0800
-Message-Id: <20210930064436.1502516-1-vee.khee.wong@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+ Thu, 30 Sep 2021 08:48:06 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18U7NYEa006694; 
+ Thu, 30 Sep 2021 10:47:53 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=LuzvPakSGeIgrzpUBElZTEkeMxrFYfaFwh7HewqAPWs=;
+ b=riU96bxiu2IzHgCfubE5+yFhTdT736xfd0meWSqb2gaJS2XmyWat0RfGl2RGKDTEHmlR
+ ze9stPzbdnU5EUIQdfbuHNICLIxlVly6nrxN8Z8PlWp8ykgpDUITyNi3MxS1Nt1lurdO
+ Twklu1Bj3gEnXNsyaV8KqA9p9dxTQdjbSCnoWxS1+fP2m4cs9hF5XVAqrPGjdH8ub6Md
+ LvQIpOTAHW7FzTSwIMaVKytHkg4kSauknczwzA54RL/nRrtbIHwPDm/MOA9jttm82/MQ
+ SofjMEslDFLc23WvJp8x4sd2tsrM0jFlTzGg9fNM0wPupj9AO71CHsBBQftiTA0qbniD Aw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3bd0gg2ts3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Sep 2021 10:47:53 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EC68B10002A;
+ Thu, 30 Sep 2021 10:47:52 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C708A233C97;
+ Thu, 30 Sep 2021 10:47:52 +0200 (CEST)
+Received: from lmecxl0912.lme.st.com (10.75.127.48) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Thu, 30 Sep
+ 2021 10:47:51 +0200
+To: Marek Vasut <marex@denx.de>, Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>
+References: <20210927114553.21843-1-olivier.moysan@foss.st.com>
+ <beb6e7c8-f3c8-fc4e-6017-fea5690b9f33@denx.de>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <e8d40be8-045c-096a-f079-d9f6364254e9@foss.st.com>
+Date: Thu, 30 Sep 2021 10:47:50 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Wong Vee Khee <veekhee@gmail.com>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v1 1/1] net: stmmac: fix EEE init issue
-	when paired with EEE capable PHYs
+In-Reply-To: <beb6e7c8-f3c8-fc4e-6017-fea5690b9f33@denx.de>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-30_02,2021-09-29_01,2020-04-07_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/1] ARM: dts: stm32: fix AV96 board SAI2B
+ pin muxing on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,44 +74,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When STMMAC is paired with Energy-Efficient Ethernet(EEE) capable PHY,
-and the PHY is advertising EEE by default, we need to enable EEE on the
-xPCS side too, instead of having user to manually trigger the enabling
-config via ethtool.
-
-Fixed this by adding xpcs_config_eee() call in stmmac_eee_init().
-
-Fixes: 7617af3d1a5e ("net: pcs: Introducing support for DWC xpcs Energy Efficient Ethernet")
-Cc: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 553c4403258a..981ccf47dcea 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -486,6 +486,10 @@ bool stmmac_eee_init(struct stmmac_priv *priv)
- 		timer_setup(&priv->eee_ctrl_timer, stmmac_eee_ctrl_timer, 0);
- 		stmmac_set_eee_timer(priv, priv->hw, STMMAC_DEFAULT_LIT_LS,
- 				     eee_tw_timer);
-+		if (priv->hw->xpcs)
-+			xpcs_config_eee(priv->hw->xpcs,
-+					priv->plat->mult_fact_100ns,
-+					true);
- 	}
- 
- 	if (priv->plat->has_gmac4 && priv->tx_lpi_timer <= STMMAC_ET_MAX) {
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgTWFyZWsKCk9uIDkvMjkvMjEgMToxOCBQTSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4gT24gOS8y
+Ny8yMSAxOjQ1IFBNLCBPbGl2aWVyIE1veXNhbiB3cm90ZToKPj4gRml4IFNBSTJCIHBpbiBtdXhp
+bmcgZm9yIEFWOTYgYm9hcmQgb24gU1RNMzJNUDE1Lgo+PiBUaGUgbGFiZWwgInNhaTJhLTQiIGlz
+IGRlZmluZWQgdHdpY2UuIENoYW5nZSByZWR1bmRhbnQgbGFiZWwgdG8gCj4+ICJzYWkyYi00Ii4K
+Pj4KPj4gRml4ZXM6IGRjZjE4NWNhODE3NSAoIkFSTTogZHRzOiBzdG0zMjogQWRkIGFsdGVybmF0
+ZSBwaW5tdXggZm9yIFNBSTIgCj4+IHBpbnMgb24gc3RtMzJtcDE1IikKPj4KPj4gU2lnbmVkLW9m
+Zi1ieTogT2xpdmllciBNb3lzYW4gPG9saXZpZXIubW95c2FuQGZvc3Muc3QuY29tPgo+PiAtLS0K
+Pj4gwqAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1LXBpbmN0cmwuZHRzaSB8IDIgKy0KPj4g
+wqAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4+Cj4+IGRp
+ZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTUtcGluY3RybC5kdHNpIAo+PiBi
+L2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNS1waW5jdHJsLmR0c2kKPj4gaW5kZXggNWI2MGVj
+YmQ3MThmLi5iOWNjOWUwZGQ0ZmMgMTAwNjQ0Cj4+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0
+bTMybXAxNS1waW5jdHJsLmR0c2kKPj4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1
+LXBpbmN0cmwuZHRzaQo+PiBAQCAtMTIzNSw3ICsxMjM1LDcgQEAKPj4gwqDCoMKgwqDCoMKgwqDC
+oMKgIH07Cj4+IMKgwqDCoMKgwqAgfTsKPj4gLcKgwqDCoCBzYWkyYl9waW5zX2M6IHNhaTJhLTQg
+ewo+PiArwqDCoMKgIHNhaTJiX3BpbnNfYzogc2FpMmItNCB7Cj4+IMKgwqDCoMKgwqDCoMKgwqDC
+oCBwaW5zMSB7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHBpbm11eCA9IDxTVE0zMl9Q
+SU5NVVgoJ0YnLCAxMSwgQUYxMCk+OyAvKiBTQUkyX1NEX0IgKi8KPj4gwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgYmlhcy1kaXNhYmxlOwo+IAo+IFRoaXMgbXAxIHBpbm11eGluZyBpcyBhIHRv
+dGFsIG1lc3MsIHNpZ2guCgpXaGF0IGlzIHRoZSBpc3N1ZSBoZXJlID8KCj4gQ2FuIHlvdSBwbGVh
+c2UgYWxzbyBmaXggc2FpMWEtNCBhbmQgc2FpMWEtNSwgd2hpY2ggc2hvdWxkIHJlYWxseSBiZSAK
+PiBzYWkxYS0yIGFuZCBzYWkxYS1zbGVlcC0yID8gU2FtZSBhcyB0aGUgc2FpMmItNCBhbmQgc2Fp
+MmItNSBzaG91bGQgYmUgCj4gc2FpMmItMiBhbmQgc2FpMmItc2xlZXAtMiAuCj4gCj4gV2l0aCB0
+aGF0LCBpdCB3b3VsZCBiZSBwZXJmZWN0LCB0aGFuayB5b3UuCj4gCj4gWy4uLl0KCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
+bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
+Cg==
