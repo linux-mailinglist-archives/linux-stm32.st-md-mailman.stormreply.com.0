@@ -2,65 +2,164 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 822FF41EAD0
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Oct 2021 12:15:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9219B41EB76
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Oct 2021 13:10:30 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B473C5AB69;
-	Fri,  1 Oct 2021 10:15:01 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 424A5C5A4D2;
+	Fri,  1 Oct 2021 11:10:30 +0000 (UTC)
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
+ [149.117.87.133])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA687C5AB64
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC011C597BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Oct 2021 10:14:58 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1916jZGB023307; 
- Fri, 1 Oct 2021 12:12:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=k5eZoy/Oi0pd8rrnAh553nooZA4WeP9CiI99yZeGReQ=;
- b=YdBfRDRdo3ebDqlp43jG0bqw/YH4C4ARtHGVvmy2nQ8SFQ9AnaOBF92Jr3QJvOASX+DW
- OJDYz0QH7LpZUPtoE0LJ0+WhyJ2hVkYn8f3JyoCdlfzhBXKNqB788JUr6WCTQhv8pzW+
- zu/V1Pb1AOmdRUgaYYh+VUEqdZtVwivfId/piyuU2FV6ywMtcsrzjBA4eSCsAzsXXh3K
- B83/IeTQTDhuQLK7jpl8wRKuyDg92439ptNI+OUboLsA0csKu0dw4P5aMl5DREeW9nXE
- AocXyM1sqvDp7fZ1aByHvwszjfHj4kj8FjjeBn1nyQe31/szseiToHLkIrOPkXMgh8st TA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3bdwbjh77f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 01 Oct 2021 12:12:54 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8F1F4100038;
- Fri,  1 Oct 2021 12:12:49 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 84D92226FDD;
- Fri,  1 Oct 2021 12:12:49 +0200 (CEST)
-Received: from localhost (10.75.127.48) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Fri, 1 Oct 2021 12:12:48
- +0200
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
- <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Fri, 1 Oct 2021 12:12:34 +0200
-Message-ID: <20211001101234.4247-8-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
-References: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
+ Fri,  1 Oct 2021 11:10:25 +0000 (UTC)
+Received: from mailhost.synopsys.com (us03-mailhost2.synopsys.com [10.4.17.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 01F65C0B90;
+ Fri,  1 Oct 2021 11:10:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+ t=1633086624; bh=H5DltQTasUfP1GjfRhjORlr8g8ukOViMtA0ynp/epOA=;
+ h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+ b=XGqY3vuiYQMlpHhJDAjceNFEfvT4zsAIjgvGRBZl/4NUDcpX12qk+WkuU3z2ku40T
+ H2pBkurR5RB38XwkjgV0uHr+SoXUi+xDV1FLHKw74i8bNmZkYRI5TwU591Q0vLn8jY
+ 54ukpIb9SZWC1257DGdfOCpkW9Pvklx/+jySrNarThEYX5hZxCJ/CLlR+YngPGdizz
+ OR6g/Nchtl3QqW20BJowDN7EA6l9lC0QnZT2SbXjFrgE2P0xZ9/rAPw1hlrbdXbGxV
+ h8Vo1l9tuaPOxznnnqT7CnHYDlMtspaZwabc9tQcKwuZymNtqsRWLU3tf/sdgIwbJo
+ PcwO6yyL/OBDA==
+Received: from o365relay-in.synopsys.com (us03-o365relay3.synopsys.com
+ [10.4.161.139])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (Client CN "o365relay-in.synopsys.com",
+ Issuer "Entrust Certification Authority - L1K" (verified OK))
+ by mailhost.synopsys.com (Postfix) with ESMTPS id 898B9A0081;
+ Fri,  1 Oct 2021 11:10:22 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11lp2176.outbound.protection.outlook.com [104.47.58.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "mail.protection.outlook.com",
+ Issuer "DigiCert Cloud Services CA-1" (verified OK))
+ by o365relay-in.synopsys.com (Postfix) with ESMTPS id 6F801800BA;
+ Fri,  1 Oct 2021 11:10:21 +0000 (UTC)
+Authentication-Results: o365relay-in.synopsys.com;
+ dmarc=pass (p=reject dis=none) header.from=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com;
+ spf=pass smtp.mailfrom=hminas@synopsys.com
+Authentication-Results: o365relay-in.synopsys.com; dkim=pass (1024-bit key;
+ unprotected) header.d=synopsys.com header.i=@synopsys.com header.b="WIJoajwi";
+ dkim-atps=neutral
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hpVb7guU5i9X1rQ4eUPP3VX1Qfvsz23Bso++GXaOXIwV7XBxujHyavfc+FqpR/coHvFf39pvUQ5Ng20+11Lz+18m9IF+A44Tuileg7GJ+zgZtddjyISlSUlTnBMATu63TVl7u5LF5HVssABKTkjL0eNOCV5CkkF1aPOkbAx3XbXBNuXJFzZNxw5yiQ308RFQUvmm39fUhzuZjwWTkLc7HkAbB1IzpFag27V247m/vBNNset2ap2c7ihaF3gRHRMkti98mMO+EPv1oppw8BKEFtwJBiCkf2NRJAAlUqCEwsEc3VXhuQPqKg3jUF3JIq88eHS+i/qOOa/3JgcLwGecgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H5DltQTasUfP1GjfRhjORlr8g8ukOViMtA0ynp/epOA=;
+ b=BDm74tjlLzlVvM/gK/O3l/iHcRQFlXdj5xS+p0uIrm/Ct97Y7OiHDxs+OyCDJ4xAM3U99NjsxFXxMXAQITXghqQtvYD8qOB5Bo5o5smKmJVOiIRD2I/oRtsgV+LdCoNI/oCwSiXpLIsKNmTgwOPPRCPHdpE0CzqYk8iunPdeIMNHIgEFlGLEwGPxbkHJ1FKtmmRBSaMWqjjv1eONnRwJi1VDWMXNQR2WAhXWOPthTLaNyFjrNifezKOzJ9c6cIo2BrXQ2Um8cltiZ/gWSb2VXNT63hhLM424MnLtSMx/dSn6/SqHnUCJjwEgpxLlYGjF/xQTac+ZYluQCG8L4ozsSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H5DltQTasUfP1GjfRhjORlr8g8ukOViMtA0ynp/epOA=;
+ b=WIJoajwih45XuwyvUDXp9x4VcPSpYJv/kVzvqxtrIPAsQ0moKduI6gW78NeX+IPWe25j08nuh12HIjZJJ/a/bL6wwe4SfFgoPKpzllWqicshA8Qa85h6PuHvCYPzwTFHzyeIsO669jmpN8sdP1RmTwIRNMhoMGyD0DERwSYBFwQ=
+Received: from DM4PR12MB5390.namprd12.prod.outlook.com (2603:10b6:5:39a::12)
+ by DM4PR12MB5328.namprd12.prod.outlook.com (2603:10b6:5:39f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.13; Fri, 1 Oct
+ 2021 11:10:19 +0000
+Received: from DM4PR12MB5390.namprd12.prod.outlook.com
+ ([fe80::c91a:f6fc:9847:4dcd]) by DM4PR12MB5390.namprd12.prod.outlook.com
+ ([fe80::c91a:f6fc:9847:4dcd%8]) with mapi id 15.20.4566.015; Fri, 1 Oct 2021
+ 11:10:19 +0000
+X-SNPS-Relay: synopsys.com
+From: Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>, "alexandre.torgue@foss.st.com"
+ <alexandre.torgue@foss.st.com>
+Thread-Topic: [PATCH 1/3] usb: dwc2: add otg_rev and otg_caps information for
+ gadget driver
+Thread-Index: AQHXqgb2WiIYWLtBVEidgzMo9ji6xau+FccA
+Date: Fri, 1 Oct 2021 11:10:19 +0000
+Message-ID: <a183ddf9-c578-0b45-1aa2-4fcd1fbf17eb@synopsys.com>
+References: <1631692473-8732-1-git-send-email-fabrice.gasnier@foss.st.com>
+ <1631692473-8732-2-git-send-email-fabrice.gasnier@foss.st.com>
+In-Reply-To: <1631692473-8732-2-git-send-email-fabrice.gasnier@foss.st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
+authentication-results: foss.st.com; dkim=none (message not signed)
+ header.d=none;foss.st.com; dmarc=none action=none header.from=synopsys.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 7f02c8de-98c8-44ba-df65-08d984cc0e3c
+x-ms-traffictypediagnostic: DM4PR12MB5328:
+x-microsoft-antispam-prvs: <DM4PR12MB532849C218FDF7C35349B1BDA7AB9@DM4PR12MB5328.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Q3a7fKQD8lomE7HrippnANRdFep8eElDaPPrIk9pwam6nafoORyQYCv2vkcY+vMxiZpgdUGnB12NgQedrg7CI89U9KO5cpwKNKza7XDzxG44r0h6US4sbXrMFsDrlHNadDAloMZ0eCc9vxVhPdBhNnAVWKkF2Qyi5yeMCJC6J8d6o7aTNnA1VIexPCHvy1N4mW+9p+D/TDI2B6Gjh0uJ5gDZf1M2uuVdDPnKlQ1AdnG3a+AAqnSVmPbTzzPOGW4su8OwT16Wuo+hrq4kYswXZGEN+QaPDsX4+jrQcbf7BJArZ683CH+v8xkj8cd3LXdwUQKe9sfm0NfW2RzfTRpUGG/LXQpXsxPsZ523ep+yLj3iolGIyeuPvnezRLCNMM1YITqBCR23DP0zYrbxikgHJkoa9l3BP+B/cBjoGW8Rg9RhkV6cHAaH8QDm+jyGaPLpseiszLEol7W4H2n+KROiknh/NWq5+ysRQZDDs61FBTZsipqDief1bvqiOmuErN+UQ/UzgPsiUmDbAvqdRAoCbCdqwBKMm0NSKOXJzA7Ju0Lob2RlJI3YtwhYbm74LQ2ycF3Kahzud9rYZEQXd6AoxuPWI/GYzzK4PVzdOID4POU4d6GQSPqjVRy/G2L/VmsrHxW0rzn9NMH6qoQoTJFGTBNZgZbtBSQSB3ux316nuTw2Pc/p4XGws92DyIvKL2EtqakJhyC7I+WtZ8uvP/tiwm6r/REbTBi7C3w3W5HVpmyGEp3nXdxvRTbIPDEw8AYc9/2BFrwKGA0ML9XKd2ocNQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5390.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(508600001)(8936002)(7416002)(66946007)(66476007)(66446008)(64756008)(66556008)(8676002)(38100700002)(91956017)(122000001)(76116006)(6512007)(6506007)(53546011)(4326008)(38070700005)(36756003)(86362001)(2906002)(54906003)(110136005)(31696002)(2616005)(316002)(83380400001)(71200400001)(4744005)(186003)(26005)(31686004)(5660300002)(6486002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ODFaWkZwTkVXbHNvYmdEOW9uMnVpMDZrVDVLYVhsSEUySlRxaDdoa3I2ekhl?=
+ =?utf-8?B?eUVCK0lUK2RPcEtsWWc2THhFNWt2K1NwWGpJWDBRNHVaSlp0TmlDYXhyelQr?=
+ =?utf-8?B?MXBLNjdPUng1VllMbVBEVUtWYVV6OENSRGdhWUo0dHNVM2tQMGdFMmhidjNN?=
+ =?utf-8?B?L01oekN4VVZGK2krbFRiOTJOdXprSkxWdE1yYXdPSXdONmcvdUJIN1UwVHYz?=
+ =?utf-8?B?bGRMOE1NVzNGUnh0RVVUYnl3Z1NGN01TcUpCd0FmL0FsTkZlMVBWazl4SlYx?=
+ =?utf-8?B?UDdzZ00vOXRPdHZNbXcwbnhoTlVxWWVTbXlUbEdiSmtjRTF0UWlVMW5Mbjhx?=
+ =?utf-8?B?QkJiUytjNTB4blhncTBpU2g5VjBFSUoyYWh5QWRzUmVUcml3TlVsdkgzdWhP?=
+ =?utf-8?B?d1BGSnZadGoyTXR4c0RLNEt3QVNVTTYvYWFRei9YSW5OZzYxcXFrcWFlbnNU?=
+ =?utf-8?B?bG53UnRLdHE2ajFUdGMrNzh0VUNkRmVCUGJDZGMra1V0MmN4THgrUHY2cmwy?=
+ =?utf-8?B?eVo4NzBTSmNIM3dFcm13Z2NSRzdaaHFnMlBya3l1RGNoUHYvNjJva3dtL0dH?=
+ =?utf-8?B?V201bUdFS2tIOVZIclJHbkZiMDBON0Y4V0RjSnI3bDE3V2plTFFXTHNENlNp?=
+ =?utf-8?B?OE5mcXlzbTd2VXdVUTZDT3J6ZVVFeHRSSEhyVEIvQjR1NzdUYThOd25hVGFV?=
+ =?utf-8?B?cVl6VDZjMEZTbVA0U29CSTVycDF2V1NJS3h2YWtHMDN5QytWdzJteGJFMVNt?=
+ =?utf-8?B?NTVVQTlidFJOWGxOdVRVRW5BaFdEcWNVR3RVbEpaLzhjTTdhMXdKVWR3RFZ2?=
+ =?utf-8?B?MmcvK0lZbGRaUmRDckxyQk4yV0RJVFR4TDR2YU1QdDJiL0F1ZDN3Qys1YVhu?=
+ =?utf-8?B?dGhaSU1uUElTVXJHcStRZVhpVUdmcFZHTnRKY2ZCNWR5NG1ndTBaaGVPbmJK?=
+ =?utf-8?B?RVROU3JjdThJRDZIdTN4ajlEWjJ3TGdXVlUwWklnNmNqOFROR2p1R1NWdjhB?=
+ =?utf-8?B?UVRJY2JiZmtLZGwyd0dSUzVOdTI1T2FNclB1R3d1SGQ4V05QVlJvbTFsSG5W?=
+ =?utf-8?B?S041UzJvQTRpVkJGZzkrR2FwcGpKaVBYQU9GWDNEdEFobHZySzViZ0R4cEhM?=
+ =?utf-8?B?M09kZFRUQ3JDYzZzR3RZTytzM2RiMW5RZ3UvZktXb0prblF4TEF3cEthbWJo?=
+ =?utf-8?B?L2Zzbi9lcjRNMG1DdlljMVpvbjhaNVMrSTFpQUhZRmx2QW5ZR0NGNzYyLzVk?=
+ =?utf-8?B?QWNpR1VDQlErM0VzY3ZkY1Q2bzVwN25UTWdXRUEwV2taaGxMOHFUNzZ4SXFn?=
+ =?utf-8?B?U3ZrdGdRTFZQaFcxajhNUEFucGI0MVlHSUtmMnRCeFRvZjJLZUxNRnloYUdq?=
+ =?utf-8?B?NHVoNWNpeXVIeVo5dHhRZVFlcXNxMW53SWRqZEFPYXIrdzZHWWxmSXc2UHVX?=
+ =?utf-8?B?MDYxR2FITVBUdkZXR2lSazd0a2FlSnVPNnZUOWFjaUxtcjBMZnJXbDd0SHQ0?=
+ =?utf-8?B?MjJ4Q1JNcjBSVUhSZGs3enZEU2NGcDhvU3RVVFU0d1VLOEtQRWMwREFvWlAv?=
+ =?utf-8?B?ZVpPY2lnTHI0TVNCMHFvR2xTcXBUajNSRzhnd05BemdHUW40UFF3TG8xOUVZ?=
+ =?utf-8?B?VjJ2QUczcHV0TUxVZEJDd1lnQnFiN3lKT3ozU2hGcm9DSWxndkxHanQyRGcx?=
+ =?utf-8?B?cFJLbXMwR0tvSWMxbGtxano5Y0dYK2hiT0N1dmsrQTVWSHM2OXBRVUpsSnAy?=
+ =?utf-8?Q?k0boDkIXijx1z26xZk=3D?=
+x-ms-exchange-transport-forked: True
+Content-ID: <51436DF2D402CF40BB308AD2480725C3@namprd12.prod.outlook.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-10-01_01,2021-10-01_01,2020-04-07_01
-Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
- Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- arnaud.pouliquen@foss.st.com, Christoph Hellwig <hch@lst.de>
-Subject: [Linux-stm32] [RFC PATCH 7/7] remoteproc: Instantiate the new
-	remoteproc virtio platform device
+X-OriginatorOrg: synopsys.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5390.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f02c8de-98c8-44ba-df65-08d984cc0e3c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2021 11:10:19.5446 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: zXb2fbMoKAbJXY5U2Z3PQfs1xWxm3d6Wdxcka4NDRfwT8SkCftj0+IAWcvTq1su7wD4KA2Mx1wwGfBk+OAzHmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5328
+Cc: "balbi@kernel.org" <balbi@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH 1/3] usb: dwc2: add otg_rev and otg_caps
+ information for gadget driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,363 +176,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Migrate from the rvdev device to the rvdev platform device.
-From this patch, when a vdev resource is found in the resource table
-the remoteproc core register a platform device.
-
-All reference to the rvdev->dev has been updated to rvdev-pdev->dev
-
-The use of kref counter is replaced by get/put_device on the remoteproc
-virtio device.
-
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/remoteproc/remoteproc_core.c     | 49 +++++++------
- drivers/remoteproc/remoteproc_internal.h | 16 ----
- drivers/remoteproc/remoteproc_virtio.c   | 93 ++++++------------------
- include/linux/remoteproc.h               |  4 -
- 4 files changed, 50 insertions(+), 112 deletions(-)
-
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index 67ccd088db8f..d9256db8b130 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -467,6 +467,8 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- {
- 	struct fw_rsc_vdev *rsc = ptr;
- 	struct device *dev = &rproc->dev;
-+	struct rproc_vdev_data vdev_data;
-+	struct platform_device *pdev;
- 	struct rproc_vdev *rvdev;
- 	int i, ret;
- 
-@@ -486,28 +488,34 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- 	dev_dbg(dev, "vdev rsc: id %d, dfeatures 0x%x, cfg len %d, %d vrings\n",
- 		rsc->id, rsc->dfeatures, rsc->config_len, rsc->num_of_vrings);
- 
--	/* we currently support only two vrings per rvdev */
--	if (rsc->num_of_vrings > ARRAY_SIZE(rvdev->vring)) {
--		dev_err(dev, "too many vrings: %d\n", rsc->num_of_vrings);
--		return -EINVAL;
--	}
-+	/* platform data of the new rvdev platform */
-+	vdev_data.rsc_offset = offset;
-+	vdev_data.id  = rsc->id;
-+	vdev_data.index  = rproc->nb_vdev;
- 
--	rvdev = kzalloc(sizeof(*rvdev), GFP_KERNEL);
--	if (!rvdev)
--		return -ENOMEM;
--
--	kref_init(&rvdev->refcount);
--
--	rvdev->id = rsc->id;
--	rvdev->rproc = rproc;
--	rvdev->index = rproc->nb_vdev;
-+	pdev = rproc_virtio_register_device(rproc, &vdev_data);
-+	if (PTR_ERR_OR_ZERO(pdev)) {
-+		dev_err(rproc->dev.parent,
-+			"failed to create rproc-virtio device\n");
-+		return PTR_ERR_OR_ZERO(pdev);
-+	}
- 
--	ret = rproc_rvdev_add_device(rvdev);
--	if (ret)
--		return ret;
-+	/* If we made it to this point the remote proc virtio platform at been probed */
-+	rvdev = platform_get_drvdata(pdev);
-+	if (WARN_ON(!rvdev)) {
-+		ret = -EINVAL;
-+		goto free_rvdev;
-+	}
- 
- 	rproc->nb_vdev++;
- 
-+	/* we currently support only two vrings per rvdev */
-+	if (rsc->num_of_vrings > ARRAY_SIZE(rvdev->vring)) {
-+		dev_err(dev, "too many vrings: %d\n", rsc->num_of_vrings);
-+		ret = -EINVAL;
-+		goto free_rvdev;
-+	}
-+
- 	/* parse the vrings */
- 	for (i = 0; i < rsc->num_of_vrings; i++) {
- 		ret = rproc_parse_vring(rvdev, rsc, i);
-@@ -515,9 +523,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- 			goto free_rvdev;
- 	}
- 
--	/* remember the resource offset*/
--	rvdev->rsc_offset = offset;
--
- 	/* allocate the vring resources */
- 	for (i = 0; i < rsc->num_of_vrings; i++) {
- 		ret = rproc_alloc_vring(rvdev, i);
-@@ -531,7 +536,7 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- 	for (i--; i >= 0; i--)
- 		rproc_free_vring(&rvdev->vring[i]);
- free_rvdev:
--	device_unregister(&rvdev->dev);
-+	rproc_virtio_unregister_device(rvdev);
- 	return ret;
- }
- 
-@@ -1270,7 +1275,7 @@ void rproc_resource_cleanup(struct rproc *rproc)
- 
- 	/* clean up remote vdev entries */
- 	list_for_each_entry_safe(rvdev, rvtmp, &rproc->rvdevs, node)
--		kref_put(&rvdev->refcount, rproc_vdev_release);
-+		rproc_virtio_unregister_device(rvdev);
- 
- 	rproc_coredump_cleanup(rproc);
- }
-diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-index 0bb1b14e5136..2f68e7380c77 100644
---- a/drivers/remoteproc/remoteproc_internal.h
-+++ b/drivers/remoteproc/remoteproc_internal.h
-@@ -38,12 +38,10 @@ int rproc_of_parse_firmware(struct device *dev, int index,
- /* from remoteproc_virtio.c */
- #if IS_ENABLED(CONFIG_REMOTEPROC_VIRTIO)
- 
--int rproc_rvdev_add_device(struct rproc_vdev *rvdev);
- struct platform_device *
- rproc_virtio_register_device(struct rproc *rproc, struct rproc_vdev_data *vdev_data);
- void rproc_virtio_unregister_device(struct rproc_vdev *rvdev);
- irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id);
--void rproc_vdev_release(struct kref *ref);
- 
- #else
- 
-@@ -59,14 +57,6 @@ static inline void rproc_virtio_unregister_device(struct rproc_vdev *rvdev)
- 	WARN_ON(1);
- }
- 
--int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
--{
--	/* This shouldn't be possible */
--	WARN_ON(1);
--
--	return -ENXIO;
--}
--
- static inline irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id)
- {
- 	/* This shouldn't be possible */
-@@ -75,12 +65,6 @@ static inline irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id)
- 	return IRQ_NONE;
- }
- 
--static inline void rproc_vdev_release(struct kref *ref)
--{
--	/* This shouldn't be possible */
--	WARN_ON(1);
--}
--
- #endif
- 
- /* from remoteproc_debugfs.c */
-diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-index 7188fb8ce40f..34781a2136e6 100644
---- a/drivers/remoteproc/remoteproc_virtio.c
-+++ b/drivers/remoteproc/remoteproc_virtio.c
-@@ -29,7 +29,11 @@
- 
- static struct rproc_vdev *vdev_to_rvdev(struct virtio_device *vdev)
- {
--	return container_of(vdev->dev.parent, struct rproc_vdev, dev);
-+	struct platform_device *pdev;
-+
-+	pdev = container_of(vdev->dev.parent, struct platform_device, dev);
-+
-+	return platform_get_drvdata(pdev);
- }
- 
- static  struct rproc *vdev_to_rproc(struct virtio_device *vdev)
-@@ -343,13 +347,10 @@ static void rproc_virtio_dev_release(struct device *dev)
- {
- 	struct virtio_device *vdev = dev_to_virtio(dev);
- 	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
--	struct rproc *rproc = vdev_to_rproc(vdev);
- 
- 	kfree(vdev);
- 
--	kref_put(&rvdev->refcount, rproc_vdev_release);
--
--	put_device(&rproc->dev);
-+	put_device(&rvdev->pdev->dev);
- }
- 
- /**
-@@ -365,7 +366,7 @@ static void rproc_virtio_dev_release(struct device *dev)
- static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
- {
- 	struct rproc *rproc = rvdev->rproc;
--	struct device *dev = &rvdev->dev;
-+	struct device *dev = &rvdev->pdev->dev;
- 	struct virtio_device *vdev;
- 	struct rproc_mem_entry *mem;
- 	int ret;
-@@ -436,17 +437,15 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
- 	vdev->dev.release = rproc_virtio_dev_release;
- 
- 	/*
--	 * We're indirectly making a non-temporary copy of the rproc pointer
-+	 * We're indirectly making a non-temporary copy of the rvdev pointer
- 	 * here, because drivers probed with this vdev will indirectly
- 	 * access the wrapping rproc.
- 	 *
--	 * Therefore we must increment the rproc refcount here, and decrement
-+	 * Therefore we must increment the rvdev refcount here, and decrement
- 	 * it _only_ when the vdev is released.
- 	 */
--	get_device(&rproc->dev);
-+	get_device(dev);
- 
--	/* Reference the vdev and vring allocations */
--	kref_get(&rvdev->refcount);
- 
- 	ret = register_virtio_device(vdev);
- 	if (ret) {
-@@ -488,57 +487,33 @@ static int rproc_vdev_do_start(struct rproc_subdev *subdev)
- static void rproc_vdev_do_stop(struct rproc_subdev *subdev, bool crashed)
- {
- 	struct rproc_vdev *rvdev = container_of(subdev, struct rproc_vdev, subdev);
-+	struct device *dev = &rvdev->pdev->dev;
- 	int ret;
- 
--	ret = device_for_each_child(&rvdev->dev, NULL, rproc_remove_virtio_dev);
-+	ret = device_for_each_child(dev, NULL, rproc_remove_virtio_dev);
- 	if (ret)
--		dev_warn(&rvdev->dev, "can't remove vdev child device: %d\n", ret);
--}
--
--/**
-- * rproc_rvdev_release() - release the existence of a rvdev
-- *
-- * @dev: the subdevice's dev
-- */
--static void rproc_rvdev_release(struct device *dev)
--{
--	struct rproc_vdev *rvdev = container_of(dev, struct rproc_vdev, dev);
--
--	of_reserved_mem_device_release(dev);
--
--	kfree(rvdev);
-+		dev_warn(dev, "can't remove vdev child device: %d\n", ret);
- }
- 
--int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
-+static int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
- {
- 	struct rproc *rproc = rvdev->rproc;
--	char name[16];
-+	struct device *dev = &rvdev->pdev->dev;
- 	int ret;
- 
--	snprintf(name, sizeof(name), "vdev%dbuffer", rvdev->index);
--	rvdev->dev.parent = &rproc->dev;
--	ret = copy_dma_range_map(&rvdev->dev, rproc->dev.parent);
-+	ret = copy_dma_range_map(dev, rproc->dev.parent);
- 	if (ret)
- 		return ret;
- 
--	rvdev->dev.release = rproc_rvdev_release;
--	dev_set_name(&rvdev->dev, "%s#%s", dev_name(rvdev->dev.parent), name);
--	dev_set_drvdata(&rvdev->dev, rvdev);
- 
--	ret = device_register(&rvdev->dev);
--	if (ret) {
--		put_device(&rvdev->dev);
--		return ret;
--	}
- 	/* Make device dma capable by inheriting from parent's capabilities */
--	set_dma_ops(&rvdev->dev, get_dma_ops(rproc->dev.parent));
-+	set_dma_ops(dev, get_dma_ops(rproc->dev.parent));
- 
--	ret = dma_coerce_mask_and_coherent(&rvdev->dev,
--					   dma_get_mask(rproc->dev.parent));
-+	ret = dma_coerce_mask_and_coherent(dev, dma_get_mask(rproc->dev.parent));
- 	if (ret) {
--		dev_warn(&rvdev->dev,
--			 "Failed to set DMA mask %llx. Trying to continue... %x\n",
-+		dev_warn(dev, "Failed to set DMA mask %llx. Trying to continue... %x\n",
- 			 dma_get_mask(rproc->dev.parent), ret);
-+		return ret;
- 	}
- 
- 	rproc_register_rvdev(rvdev);
-@@ -548,30 +523,9 @@ int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
- 
- 	rproc_add_subdev(rproc, &rvdev->subdev);
- 
--	return 0;
--}
--
--static void rproc_rvdev_remove_device(struct rproc_vdev *rvdev)
--{
--	struct rproc *rproc = rvdev->rproc;
--
--	rproc_remove_subdev(rproc, &rvdev->subdev);
--	rproc_unregister_rvdev(rvdev);
--	device_unregister(&rvdev->dev);
--}
--
--void rproc_vdev_release(struct kref *ref)
--{
--	struct rproc_vdev *rvdev = container_of(ref, struct rproc_vdev, refcount);
--	struct rproc_vring *rvring;
--	int id;
-+	dev_dbg(dev, "virtio dev %d added\n",  rvdev->index);
- 
--	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
--		rvring = &rvdev->vring[id];
--		rproc_free_vring(rvring);
--	}
--
--	rproc_rvdev_remove_device(rvdev);
-+	return 0;
- }
- 
- /**
-@@ -590,8 +544,7 @@ rproc_virtio_register_device(struct rproc *rproc, struct rproc_vdev_data *vdev_d
- 	pdev = platform_device_register_data(dev, "rproc-virtio", vdev_data->index, vdev_data,
- 					     sizeof(*vdev_data));
- 	if (PTR_ERR_OR_ZERO(pdev)) {
--		dev_err(rproc->dev.parent,
--			"failed to create rproc-virtio device\n");
-+		dev_err(rproc->dev.parent, "failed to create rproc-virtio device\n");
- 	}
- 
- 	return  pdev;
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index 542a3d4664f2..7951a3e2b62a 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -614,10 +614,8 @@ struct rproc_vring {
- 
- /**
-  * struct rproc_vdev - remoteproc state for a supported virtio device
-- * @refcount: reference counter for the vdev and vring allocations
-  * @subdev: handle for registering the vdev as a rproc subdevice
-  * @pdev: remoteproc virtio platform device
-- * @dev: device struct used for reference count semantics
-  * @id: virtio device id (as in virtio_ids.h)
-  * @node: list node
-  * @rproc: the rproc handle
-@@ -626,11 +624,9 @@ struct rproc_vring {
-  * @index: vdev position versus other vdev declared in resource table
-  */
- struct rproc_vdev {
--	struct kref refcount;
- 
- 	struct rproc_subdev subdev;
- 	struct platform_device *pdev;
--	struct device dev;
- 
- 	unsigned int id;
- 	struct list_head node;
--- 
-2.17.1
+On 9/15/2021 11:54 AM, Fabrice Gasnier wrote:
+> Currently the dwc2 doesn't fill in the 'otg_caps' of usb_gadget structure.
+> When registering a gadget device (e.g. via configfs), the
+> usb_otg_descriptor_init() checks the 'otg_caps' and 'otg_rev'. It defaults
+> to HNP and SRP bmAttributes if unspecified. There may be a mismatch with
+> what's being set in dwc2 params structure. This result in the descriptors
+> to be miss-configured in this case.
+> 
+> So add an option to setup 'otg_caps' and 'otg_rev' in the params. It's
+> then provided to the gadget struct. These parameters can then be tuned
+> for each platform. In case it's not set, it will default to current
+> behavior.
+> Also add option to setup these from the device tree by calling
+> of_usb_update_otg_caps(). This provides support for standard properties
+> such as "otg-rev", "hnp-disable" and "srp-disable" (see usb-drd.yaml).
+> 
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Acked-by: Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>
 
 _______________________________________________
 Linux-stm32 mailing list
