@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F28941EAC8
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Oct 2021 12:14:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55CB841EACE
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Oct 2021 12:14:59 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5F6CC5AB66;
-	Fri,  1 Oct 2021 10:14:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DD9AC5AB66;
+	Fri,  1 Oct 2021 10:14:59 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5ADCC5AB63
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73B10C5AB63
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Oct 2021 10:14:51 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1918RG1V001404; 
- Fri, 1 Oct 2021 12:12:47 +0200
+ Fri,  1 Oct 2021 10:14:57 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1916jbE5023327; 
+ Fri, 1 Oct 2021 12:12:53 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=klYlsgXNrX/dEhQFG0PtdrruuCVV1pMU8Q+SHb4aKw4=;
- b=fSxYlbA0sG2aM8ouZccxZ0mGQGvJRYZDEjs+78o9/nWkru+XxgtM4Ov3Cscuv7GAIS9+
- nu5m3XiKsgS688dhX5AH2Qd5gmqQ1IdikWRNQkFM3jIr/IuXk22fedxb2c8Uccfxxzr1
- dO4s5hg5qkLbvL6hPBhbYs7kVpO1XDNmFlMUmVGub8x+ToVBFVDUORswr/PMSmq4Wo8L
- dL1UaN403UeHpWwV6nQdedU0PRaW5V/WUo8593SXqbkuKSzS8bojUIZaq3qG3ELC3t2Y
- 3DelcD38VOxA1gEcZXAHBOnoyw3e6ypGUYKWPZPx2QcV8zJGu01NT0ChUaYDlzAAoGQU sw== 
+ bh=E1I/w2w0cB+PtZXQKX4NanqnPqz4eb/cNsElTQRr8GA=;
+ b=UWtK9qrmNWR0rsbOjmooR6tvJpUyxf2OqiyvxwtVIj/kYwuIWnS+NFlUF08gCQBNR+79
+ SK8uIc5vmNaUQRjiIRWwFMHjqRUEgSR4lIiEyTooY23FdNye+4FwOleiMJJu/U/JTwmY
+ sW2UrpipGyizxkDXov7dbVdIxGpjJKsSQFvcK1tyTEut8hjSDhJRo/8hx08c4CI5n5Gb
+ 1suTVZllNCnw8lQ3OAatyM6rijVAoGrSmwujnCoyNwCoo7nCkeN2iLBjBrfU+HpHsU3P
+ 6bs7CCOk4YzINBh1xXqMqgdyLC9yWzr/PDxXNGlst8gRm1dxUCIvGEmt/h9zb78Q5InB xA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3bds9njb51-1
+ by mx07-00178001.pphosted.com with ESMTP id 3bdwbjh779-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 01 Oct 2021 12:12:47 +0200
+ Fri, 01 Oct 2021 12:12:53 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3F013100038;
- Fri,  1 Oct 2021 12:12:47 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 02E0E100034;
+ Fri,  1 Oct 2021 12:12:48 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 35C93226FDD;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EE751226FDD;
  Fri,  1 Oct 2021 12:12:47 +0200 (CEST)
-Received: from localhost (10.75.127.51) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Fri, 1 Oct 2021 12:12:46
+Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Fri, 1 Oct 2021 12:12:47
  +0200
 From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
  <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Fri, 1 Oct 2021 12:12:31 +0200
-Message-ID: <20211001101234.4247-5-arnaud.pouliquen@foss.st.com>
+Date: Fri, 1 Oct 2021 12:12:32 +0200
+Message-ID: <20211001101234.4247-6-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
 References: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-10-01_01,2021-09-30_01,2020-04-07_01
+ definitions=2021-10-01_01,2021-10-01_01,2020-04-07_01
 Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
  Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  arnaud.pouliquen@foss.st.com, Christoph Hellwig <hch@lst.de>
-Subject: [Linux-stm32] [RFC PATCH 4/7] remoteproc: create the
-	REMOTEPROC_VIRTIO config
+Subject: [Linux-stm32] [RFC PATCH 5/7] remoteproc: virtio: Create platform
+	device for the remoteproc_virtio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,106 +77,146 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Create the config to associate to the remoteproc virtio.
+Define a platform device for the remoteproc virtio to prepare the
+management of the remoteproc virtio as a platform device.
 
-Notice that the REMOTEPROC_VIRTIO config can not set to m. the reason
-is that it defines API that is used by the built-in remote proc core.
-Functions such are rproc_add_virtio_dev can be called during the
-Linux boot phase.
+The platform device allows to pass rproc_vdev_data platform data to
+specify properties that are stored in the rproc_vdev structure.
+
+Such approach will allow to preserve legacy remoteproc virtio device
+creation but also to probe the device using device tree mechanism.
 
 Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 ---
- drivers/remoteproc/Kconfig               | 11 +++++++++-
- drivers/remoteproc/Makefile              |  2 +-
- drivers/remoteproc/remoteproc_internal.h | 28 ++++++++++++++++++++++++
- 3 files changed, 39 insertions(+), 2 deletions(-)
+ drivers/remoteproc/remoteproc_internal.h |  6 +++
+ drivers/remoteproc/remoteproc_virtio.c   | 65 ++++++++++++++++++++++++
+ include/linux/remoteproc.h               |  2 +
+ 3 files changed, 73 insertions(+)
 
-diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-index 9a6eedc3994a..f271552c0d84 100644
---- a/drivers/remoteproc/Kconfig
-+++ b/drivers/remoteproc/Kconfig
-@@ -6,7 +6,7 @@ config REMOTEPROC
- 	depends on HAS_DMA
- 	select CRC32
- 	select FW_LOADER
--	select VIRTIO
-+	select REMOTEPROC_VIRTIO
- 	select WANT_DEV_COREDUMP
- 	help
- 	  Support for remote processors (such as DSP coprocessors). These
-@@ -14,6 +14,15 @@ config REMOTEPROC
- 
- if REMOTEPROC
- 
-+config REMOTEPROC_VIRTIO
-+	bool "Remoteproc virtio device "
-+	select VIRTIO
-+	help
-+	  Say y here to have a virtio device support for the remoteproc
-+	  communication.
-+
-+	  It's safe to say N if you don't use the virtio for the IPC.
-+
- config REMOTEPROC_CDEV
- 	bool "Remoteproc character device interface"
- 	help
-diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
-index bb26c9e4ef9c..73d2384a76aa 100644
---- a/drivers/remoteproc/Makefile
-+++ b/drivers/remoteproc/Makefile
-@@ -8,8 +8,8 @@ remoteproc-y				:= remoteproc_core.o
- remoteproc-y				+= remoteproc_coredump.o
- remoteproc-y				+= remoteproc_debugfs.o
- remoteproc-y				+= remoteproc_sysfs.o
--remoteproc-y				+= remoteproc_virtio.o
- remoteproc-y				+= remoteproc_elf_loader.o
-+obj-$(CONFIG_REMOTEPROC_VIRTIO)		+= remoteproc_virtio.o
- obj-$(CONFIG_REMOTEPROC_CDEV)		+= remoteproc_cdev.o
- obj-$(CONFIG_IMX_REMOTEPROC)		+= imx_rproc.o
- obj-$(CONFIG_INGENIC_VPU_RPROC)		+= ingenic_rproc.o
 diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-index 152fe2e8668a..4ce012c353c0 100644
+index 4ce012c353c0..1b963a8912ed 100644
 --- a/drivers/remoteproc/remoteproc_internal.h
 +++ b/drivers/remoteproc/remoteproc_internal.h
-@@ -30,10 +30,38 @@ int rproc_of_parse_firmware(struct device *dev, int index,
- 			    const char **fw_name);
+@@ -24,6 +24,12 @@ struct rproc_debug_trace {
+ 	struct rproc_mem_entry trace_mem;
+ };
  
- /* from remoteproc_virtio.c */
-+#if IS_ENABLED(CONFIG_REMOTEPROC_VIRTIO)
++struct rproc_vdev_data {
++	u32 rsc_offset;
++	unsigned int id;
++	unsigned int index;
++};
 +
- int rproc_rvdev_add_device(struct rproc_vdev *rvdev);
- irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id);
- void rproc_vdev_release(struct kref *ref);
+ /* from remoteproc_core.c */
+ void rproc_release(struct kref *kref);
+ int rproc_of_parse_firmware(struct device *dev, int index,
+diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+index c9eecd2f9fb2..9b2ab79e4c4c 100644
+--- a/drivers/remoteproc/remoteproc_virtio.c
++++ b/drivers/remoteproc/remoteproc_virtio.c
+@@ -4,6 +4,7 @@
+  *
+  * Copyright (C) 2011 Texas Instruments, Inc.
+  * Copyright (C) 2011 Google, Inc.
++ * Copyright (C) 2021 STMicroelectronics
+  *
+  * Ohad Ben-Cohen <ohad@wizery.com>
+  * Brian Swetland <swetland@google.com>
+@@ -13,6 +14,7 @@
+ #include <linux/dma-map-ops.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/export.h>
++#include <linux/of_platform.h>
+ #include <linux/of_reserved_mem.h>
+ #include <linux/remoteproc.h>
+ #include <linux/virtio.h>
+@@ -571,3 +573,66 @@ void rproc_vdev_release(struct kref *ref)
  
-+#else
+ 	rproc_rvdev_remove_device(rvdev);
+ }
 +
-+int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
++static int rproc_virtio_probe(struct platform_device *pdev)
 +{
-+	/* This shouldn't be possible */
-+	WARN_ON(1);
++	struct device *dev = &pdev->dev;
++	struct rproc_vdev_data *vdev_data = dev->platform_data;
++	struct rproc_vdev *rvdev;
++	struct rproc *rproc;
 +
-+	return -ENXIO;
++	if (!vdev_data)
++		return -EINVAL;
++
++	rvdev = devm_kzalloc(dev, sizeof(*rvdev), GFP_KERNEL);
++	if (!rvdev)
++		return -ENOMEM;
++
++	rproc = container_of(dev->parent, struct rproc, dev);
++
++	rvdev->rsc_offset = vdev_data->rsc_offset;
++	rvdev->id = vdev_data->id;
++	rvdev->index = vdev_data->index;
++
++	rvdev->pdev = pdev;
++	rvdev->rproc = rproc;
++
++	platform_set_drvdata(pdev, rvdev);
++
++	return rproc_rvdev_add_device(rvdev);
 +}
 +
-+static inline irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id)
++static int rproc_virtio_remove(struct platform_device *pdev)
 +{
-+	/* This shouldn't be possible */
-+	WARN_ON(1);
++	struct rproc_vdev *rvdev = dev_get_drvdata(&pdev->dev);
++	struct rproc *rproc = rvdev->rproc;
++	struct rproc_vring *rvring;
++	int id;
 +
-+	return IRQ_NONE;
++	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
++		rvring = &rvdev->vring[id];
++		rproc_free_vring(rvring);
++	}
++
++	rproc_remove_subdev(rproc, &rvdev->subdev);
++	rproc_unregister_rvdev(rvdev);
++	dev_dbg(&pdev->dev, "virtio dev %d removed\n",  rvdev->index);
++
++	return 0;
 +}
 +
-+static inline void rproc_vdev_release(struct kref *ref)
-+{
-+	/* This shouldn't be possible */
-+	WARN_ON(1);
-+}
++/* Platform driver */
++static const struct of_device_id rproc_virtio_match[] = {
++	{ .compatible = "rproc-virtio", },
++	{},
++};
 +
-+#endif
-+
- /* from remoteproc_debugfs.c */
- void rproc_remove_trace_file(struct dentry *tfile);
- struct dentry *rproc_create_trace_file(const char *name, struct rproc *rproc,
++static struct platform_driver rproc_virtio_driver = {
++	.probe		= rproc_virtio_probe,
++	.remove		= rproc_virtio_remove,
++	.driver		= {
++		.name	= "rproc-virtio",
++		.of_match_table	= rproc_virtio_match,
++	},
++};
++builtin_platform_driver(rproc_virtio_driver);
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index e0600e1e5c17..542a3d4664f2 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -616,6 +616,7 @@ struct rproc_vring {
+  * struct rproc_vdev - remoteproc state for a supported virtio device
+  * @refcount: reference counter for the vdev and vring allocations
+  * @subdev: handle for registering the vdev as a rproc subdevice
++ * @pdev: remoteproc virtio platform device
+  * @dev: device struct used for reference count semantics
+  * @id: virtio device id (as in virtio_ids.h)
+  * @node: list node
+@@ -628,6 +629,7 @@ struct rproc_vdev {
+ 	struct kref refcount;
+ 
+ 	struct rproc_subdev subdev;
++	struct platform_device *pdev;
+ 	struct device dev;
+ 
+ 	unsigned int id;
 -- 
 2.17.1
 
