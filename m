@@ -2,46 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85A4A41E502
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Oct 2021 01:31:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A290841E821
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Oct 2021 09:15:18 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BAF8C5A4CD;
-	Thu, 30 Sep 2021 23:31:52 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52E2CC5A4F8;
+	Fri,  1 Oct 2021 07:15:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B952FCFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECF89C597BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Sep 2021 23:31:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=9gmdjG51P4sUtdlckZMNf2bN5+zN0n8cVhZkk4LzqwE=; b=pC5GRS0XWArGvEi55mbqERtVOh
- N39cL3bi9yU69ML2hwVJ6lOe3tLcxU7O827WLtiuL720YgiSe9kDsdVok9lzuD2BvtKu/R58bCI/Q
- MYdjTqAQIQ2WB73gZnYaDK+3pG5Qm/xwNDy25zsvvgUUv3CtLNCW0CYzJDdNpoYvb3HU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1mW5Wa-0091JE-Nn; Fri, 01 Oct 2021 01:31:36 +0200
-Date: Fri, 1 Oct 2021 01:31:36 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-Message-ID: <YVZI2GWxUNZdL2SX@lunn.ch>
-References: <20210930064436.1502516-1-vee.khee.wong@linux.intel.com>
+ Fri,  1 Oct 2021 07:15:16 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19129KNc001404; 
+ Fri, 1 Oct 2021 09:15:02 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=l2iRc9kE2dEezV+1JNj+2fgTrN2R77mcxJ4PyU00rHI=;
+ b=s3sfagtqbEzHHRR7KHJtK29t/qWlc7KaqSCMMZd6wXby6gYi6QoM/G9FSInnHCltCajY
+ aSgiufAe2PZYntmsee+ajhZSnC4b2+RowNEMUwXUakl3KB9vY0IiILKB5dGhbFEAWQOV
+ 0X8biN7PWN2Zz3ySA5+SSls98/9/oMGJqs+F/CkozqQL59p9QnFzzzKTWK8s3fktSOQM
+ C41qyf0Z41jx2x3leRdAK+wWZHeoD3/K9MrgHcwhVnftQaaS+9okQLqcMOlWoowJkZqF
+ 0ZY3yXDdJl7msgkcWptNrEKxYMn8VhiGxfh+oFRi/CQGoDA8wkWfie2dqShmq9anoy2q 5A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3bds9nh9pe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 01 Oct 2021 09:15:02 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B950A10002A;
+ Fri,  1 Oct 2021 09:14:59 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AE47A211F3F;
+ Fri,  1 Oct 2021 09:14:59 +0200 (CEST)
+Received: from lmecxl0995.lme.st.com (10.75.127.44) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Fri, 1 Oct
+ 2021 09:14:59 +0200
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>, Vinod Koul
+ <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>
+References: <20210929222922.GA357509@embeddedor>
+From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
+Message-ID: <2e2fdc65-da02-90f3-e870-d63b43593c10@foss.st.com>
+Date: Fri, 1 Oct 2021 09:14:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210930064436.1502516-1-vee.khee.wong@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Wong Vee Khee <veekhee@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v1 1/1] net: stmmac: fix EEE init
- issue when paired with EEE capable PHYs
+In-Reply-To: <20210929222922.GA357509@embeddedor>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-30_07,2021-09-30_01,2020-04-07_01
+Cc: dmaengine@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH][next] dmaengine: stm32-mdma: Use
+ struct_size() helper in devm_kzalloc()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,56 +74,42 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 30, 2021 at 02:44:36PM +0800, Wong Vee Khee wrote:
-> When STMMAC is paired with Energy-Efficient Ethernet(EEE) capable PHY,
-> and the PHY is advertising EEE by default, we need to enable EEE on the
-> xPCS side too, instead of having user to manually trigger the enabling
-> config via ethtool.
+
+
+On 9/30/21 12:29 AM, Gustavo A. R. Silva wrote:
+> Make use of the struct_size() helper instead of an open-coded version,
+> in order to avoid any potential type mistakes or integer overflows that,
+> in the worse scenario, could lead to heap overflows.
 > 
-> Fixed this by adding xpcs_config_eee() call in stmmac_eee_init().
-> 
-> Fixes: 7617af3d1a5e ("net: pcs: Introducing support for DWC xpcs Energy Efficient Ethernet")
-> Cc: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-> Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+> Link: https://github.com/KSPP/linux/issues/160
+> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+
+Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>   drivers/dma/stm32-mdma.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 553c4403258a..981ccf47dcea 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -486,6 +486,10 @@ bool stmmac_eee_init(struct stmmac_priv *priv)
->  		timer_setup(&priv->eee_ctrl_timer, stmmac_eee_ctrl_timer, 0);
->  		stmmac_set_eee_timer(priv, priv->hw, STMMAC_DEFAULT_LIT_LS,
->  				     eee_tw_timer);
-> +		if (priv->hw->xpcs)
-> +			xpcs_config_eee(priv->hw->xpcs,
-> +					priv->plat->mult_fact_100ns,
-> +					true);
->  	}
-
-
-       /* Check if it needs to be deactivated */
-        if (!priv->eee_active) {
-                if (priv->eee_enabled) {
-                        netdev_dbg(priv->dev, "disable EEE\n");
-                        stmmac_lpi_entry_timer_config(priv, 0);
-                        del_timer_sync(&priv->eee_ctrl_timer);
-                        stmmac_set_eee_timer(priv, priv->hw, 0, eee_tw_timer);
-                }
-                mutex_unlock(&priv->lock);
-                return false;
-        }
-
-Don't you want to turn it of in here?
-
-      Andrew
+> diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
+> index 18cbd1e43c2e..d30a4a28d3bf 100644
+> --- a/drivers/dma/stm32-mdma.c
+> +++ b/drivers/dma/stm32-mdma.c
+> @@ -1566,7 +1566,8 @@ static int stm32_mdma_probe(struct platform_device *pdev)
+>   	if (count < 0)
+>   		count = 0;
+>   
+> -	dmadev = devm_kzalloc(&pdev->dev, sizeof(*dmadev) + sizeof(u32) * count,
+> +	dmadev = devm_kzalloc(&pdev->dev,
+> +			      struct_size(dmadev, ahb_addr_masks, count),
+>   			      GFP_KERNEL);
+>   	if (!dmadev)
+>   		return -ENOMEM;
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
