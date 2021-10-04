@@ -2,43 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3189242025F
-	for <lists+linux-stm32@lfdr.de>; Sun,  3 Oct 2021 17:43:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02BD54207C7
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Oct 2021 11:03:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA1DDC597B5;
-	Sun,  3 Oct 2021 15:43:34 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FC52C597B3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  3 Oct 2021 15:43:33 +0000 (UTC)
-Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
- [81.101.6.87])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91260C5AB65;
+	Mon,  4 Oct 2021 09:03:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DB684611C2;
- Sun,  3 Oct 2021 15:43:28 +0000 (UTC)
-Date: Sun, 3 Oct 2021 16:47:26 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Yizhuo <yzhai003@ucr.edu>, Mugilraj Dhavachelvan <dmugil2000@gmail.com>,
- Olivier Moysan <olivier.moysan@st.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, Arnaud Pouliquen <arnaud.pouliquen@st.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Message-ID: <20211003164726.42e20526@jic23-huawei>
-In-Reply-To: <20210808183243.70619aa8@jic23-huawei>
-References: <20210719195313.40341-1-yzhai003@ucr.edu>
- <20210724164840.7381053b@jic23-huawei>
- <20210808183243.70619aa8@jic23-huawei>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02C0CC5AB62
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  4 Oct 2021 09:03:47 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19493Sph008959; 
+ Mon, 4 Oct 2021 11:03:34 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=nJpxX9PGQq7OHBwCh6Km3sL4rv9XksaSXEVrd4QAuFc=;
+ b=tbkpxkKvj+VO404KHISL2TMnk3AZxb9hxVqanjJmg9RYtbQtdg8f+mxmouc34wx3Yet7
+ rr8Xj2xjL9LzMVWJl4Ule6Ha7TLsGnSjOABmrwdurCjSu9ZMUX9CkO3X9dpoWYHGwtvz
+ QOWqnpWik14IEOPXpGI+nZtomNTk9vf4CVGTNJwEA5klfEc08erfdGWnCrChGNFil4lv
+ 0Cv7dse3+QDbu97rlKPdrU2UVssG72jgPXQsp/8ujvpoXyhZK8v5uerAPPORFm6fyAHW
+ FVQn1xS6gLW9xEwj20ceAbMn87q7ZO3rnjLOnpLaO6BPn49frOqMpyOPNAxo398SRDRD 6g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3bfxn7800u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Oct 2021 11:03:34 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F3592100040;
+ Mon,  4 Oct 2021 11:03:32 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D09B822FA2E;
+ Mon,  4 Oct 2021 11:03:32 +0200 (CEST)
+Received: from localhost (10.75.127.48) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 4 Oct 2021 11:03:32
+ +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
+ <marex@denx.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring
+ <robh+dt@kernel.org>
+Date: Mon, 4 Oct 2021 11:03:04 +0200
+Message-ID: <20211004090304.8984-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: Fix the
- uninitialized use if regmap_read() fails
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-10-04_02,2021-10-01_02,2020-04-07_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2] ARM: dts: stm32: fix AV96 board SAI2 pin
+	muxing on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,83 +73,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 8 Aug 2021 18:32:43 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+Fix SAI2A and SAI2B pin muxings for AV96 board on STM32MP15.
+Change sai2a-4 & sai2a-5 to sai2a-2 & sai2a-2.
+Change sai2a-4 & sai2a-sleep-5 to sai2b-2 & sai2b-sleep-2
 
-> On Sat, 24 Jul 2021 16:48:40 +0100
-> Jonathan Cameron <jic23@kernel.org> wrote:
-> 
-> > On Mon, 19 Jul 2021 19:53:11 +0000
-> > Yizhuo <yzhai003@ucr.edu> wrote:
-> >   
-> > > Inside function stm32_dfsdm_irq(), the variable "status", "int_en"
-> > > could be uninitialized if the regmap_read() fails and returns an error
-> > > code.  However, they are directly used in the later context to decide
-> > > the control flow, which is potentially unsafe.
-> > > 
-> > > Fixes: e2e6771c64625 ("IIO: ADC: add STM32 DFSDM sigma delta ADC support")
-> > > 
-> > > Signed-off-by: Yizhuo <yzhai003@ucr.edu>    
-> > 
-> > Hi Yizhou
-> > 
-> > I want to get some review of this from people familiar with the
-> > hardware as there is a small possibility your reordering might have
-> > introduced a problem.  
-> 
-> To stm32 people, can someone take a look at this?
+Fixes: dcf185ca8175 ("ARM: dts: stm32: Add alternate pinmux for SAI2 pins on stm32mp15")
 
-This one is still outstanding.  If anyone from stm32 side of things could take a look
-that would be great,
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Jonathan
-
-> 
-> Thanks,
-> 
-> Jonathan
-> 
-> >   
-> > > ---
-> > >  drivers/iio/adc/stm32-dfsdm-adc.c | 9 +++++++--
-> > >  1 file changed, 7 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-> > > index 1cfefb3b5e56..d8b78aead942 100644
-> > > --- a/drivers/iio/adc/stm32-dfsdm-adc.c
-> > > +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-> > > @@ -1292,9 +1292,11 @@ static irqreturn_t stm32_dfsdm_irq(int irq, void *arg)
-> > >  	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
-> > >  	struct regmap *regmap = adc->dfsdm->regmap;
-> > >  	unsigned int status, int_en;
-> > > +	int ret;
-> > >  
-> > > -	regmap_read(regmap, DFSDM_ISR(adc->fl_id), &status);
-> > > -	regmap_read(regmap, DFSDM_CR2(adc->fl_id), &int_en);    
-> > 
-> > Moving this later is only valid if there aren't any side effects.
-> > The current ordering is strange enough it makes me wonder if there might be!
-> > 
-> > Jonathan
-> >   
-> > > +	ret = regmap_read(regmap, DFSDM_ISR(adc->fl_id), &status);
-> > > +	if (ret)
-> > > +		return IRQ_HANDLED;
-> > >  
-> > >  	if (status & DFSDM_ISR_REOCF_MASK) {
-> > >  		/* Read the data register clean the IRQ status */
-> > > @@ -1303,6 +1305,9 @@ static irqreturn_t stm32_dfsdm_irq(int irq, void *arg)
-> > >  	}
-> > >  
-> > >  	if (status & DFSDM_ISR_ROVRF_MASK) {
-> > > +		ret = regmap_read(regmap, DFSDM_CR2(adc->fl_id), &int_en);
-> > > +		if (ret)
-> > > +			return IRQ_HANDLED;
-> > >  		if (int_en & DFSDM_CR2_ROVRIE_MASK)
-> > >  			dev_warn(&indio_dev->dev, "Overrun detected\n");
-> > >  		regmap_update_bits(regmap, DFSDM_ICR(adc->fl_id),    
-> >   
-> 
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index 5b60ecbd718f..2ebafe27a865 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -1179,7 +1179,7 @@
+ 		};
+ 	};
+ 
+-	sai2a_pins_c: sai2a-4 {
++	sai2a_pins_c: sai2a-2 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('D', 13, AF10)>, /* SAI2_SCK_A */
+ 				 <STM32_PINMUX('D', 11, AF10)>, /* SAI2_SD_A */
+@@ -1190,7 +1190,7 @@
+ 		};
+ 	};
+ 
+-	sai2a_sleep_pins_c: sai2a-5 {
++	sai2a_sleep_pins_c: sai2a-2 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('D', 13, ANALOG)>, /* SAI2_SCK_A */
+ 				 <STM32_PINMUX('D', 11, ANALOG)>, /* SAI2_SD_A */
+@@ -1235,14 +1235,14 @@
+ 		};
+ 	};
+ 
+-	sai2b_pins_c: sai2a-4 {
++	sai2b_pins_c: sai2b-2 {
+ 		pins1 {
+ 			pinmux = <STM32_PINMUX('F', 11, AF10)>; /* SAI2_SD_B */
+ 			bias-disable;
+ 		};
+ 	};
+ 
+-	sai2b_sleep_pins_c: sai2a-sleep-5 {
++	sai2b_sleep_pins_c: sai2b-sleep-2 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('F', 11, ANALOG)>; /* SAI2_SD_B */
+ 		};
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
