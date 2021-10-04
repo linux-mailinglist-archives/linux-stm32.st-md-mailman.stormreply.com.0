@@ -2,51 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F6694207D0
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Oct 2021 11:05:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D7DA42091C
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Oct 2021 12:11:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCC69C5AB65;
-	Mon,  4 Oct 2021 09:05:09 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29823C5AB74;
+	Mon,  4 Oct 2021 10:11:34 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D09DDC5AB62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9782EC57182
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Oct 2021 09:05:07 +0000 (UTC)
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 8E8D380D2E;
- Mon,  4 Oct 2021 11:05:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1633338307;
- bh=SdoqJLKmubUagmXHnGxb49M8Qt5ZdbF/okH3GByeG98=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=OOOW3ycLKZ5AX08jBnTL86jvCfKkQr0ebqwxPgZ4DeHeOovbNGxTxxntTlV7YC98z
- evuCKh+s4IIkXABNzj8Q1F2C0GiCQYdS8CBRYF+2B6az6aX6rcIqkM5KHq1PamGgho
- x5Lc0ysBKD7RuPEJsexrVY5tKo/hy/Fy8MeqYTxXucKNuJQnEX6VtUH2N6FmtFAfJu
- CZLNnanNJyERacGXN3o79fj8JyWu0ai+MwRmNNnBRkKfjlO8lyjw59+Ur4sicZUlCV
- CIVnXjYeyLSMMcItYMlDPYMS9bFqt7nrA1hVz+sDXYj5+udmIple9+TpM0j5FBmtoA
- RTNkF7HAQRW3w==
-To: Olivier Moysan <olivier.moysan@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>
-References: <20211004090304.8984-1-olivier.moysan@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <e8440a2b-521f-75f5-c529-e05c93e9a40f@denx.de>
-Date: Mon, 4 Oct 2021 11:05:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Mon,  4 Oct 2021 10:11:30 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 181846128A;
+ Mon,  4 Oct 2021 10:11:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1633342288;
+ bh=1FSxfpr/+AzmR56G+WHMLcUMmcad+HJ+4J+awlrJc74=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Y59mMT+RPi9DqLc0Wka7wXw2M2M21GlY/CeMGz8rg8M9pqDaIDFlGZ91Xpd3GgLuI
+ syQGEASbts46K9fNVmHs/WuNNQ98A+RVkYfl6mUYBWleNkBj+BV4TTMFvbwDIHp8Zf
+ GwI0cVaQ2qM+akXGUBRqlbW+Qs/Bd1TrpFfv7fd8=
+Date: Mon, 4 Oct 2021 12:11:20 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Macpaul Lin <macpaul.lin@mediatek.com>
+Message-ID: <YVrTSLuCJaqKqmb0@kroah.com>
+References: <YVLJGT7JAVc7rnBx@kroah.com>
+ <20210928083620.29090-1-macpaul.lin@mediatek.com>
 MIME-Version: 1.0
-In-Reply-To: <20211004090304.8984-1-olivier.moysan@foss.st.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2] ARM: dts: stm32: fix AV96 board SAI2
- pin muxing on stm32mp15
+Content-Disposition: inline
+In-Reply-To: <20210928083620.29090-1-macpaul.lin@mediatek.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>, Leon Yu <leoyu@nvidia.com>,
+ linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ stable@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
+ Fabien Parent <fparent@baylibre.com>, Miles Chen <miles.chen@mediatek.com>,
+ Pablo Sun <pablo.sun@mediatek.com>, linux-mediatek@lists.infradead.org,
+ Macpaul Lin <macpaul@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ netdev@vger.kernel.org, Bear Wang <bear.wang@mediatek.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: don't attach interface until
+	resume finishes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,23 +52,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/4/21 11:03 AM, Olivier Moysan wrote:
-> Fix SAI2A and SAI2B pin muxings for AV96 board on STM32MP15.
-> Change sai2a-4 & sai2a-5 to sai2a-2 & sai2a-2.
-> Change sai2a-4 & sai2a-sleep-5 to sai2b-2 & sai2b-sleep-2
+On Tue, Sep 28, 2021 at 04:36:20PM +0800, Macpaul Lin wrote:
+> From: Leon Yu <leoyu@nvidia.com>
 > 
-> Fixes: dcf185ca8175 ("ARM: dts: stm32: Add alternate pinmux for SAI2 pins on stm32mp15")
+> commit 31096c3e8b1163c6e966bf4d1f36d8b699008f84 upstream.
 > 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> Commit 14b41a2959fb ("net: stmmac: Delete txtimer in suspend()") was the
+> first attempt to fix a race between mod_timer() and setup_timer()
+> during stmmac_resume(). However the issue still exists as the commit
+> only addressed half of the issue.
+> 
+> Same race can still happen as stmmac_resume() re-attaches interface
+> way too early - even before hardware is fully initialized.  Worse,
+> doing so allows network traffic to restart and stmmac_tx_timer_arm()
+> being called in the middle of stmmac_resume(), which re-init tx timers
+> in stmmac_init_coalesce().  timer_list will be corrupted and system
+> crashes as a result of race between mod_timer() and setup_timer().
+> 
+>   systemd--1995    2.... 552950018us : stmmac_suspend: 4994
+>   ksoftirq-9       0..s2 553123133us : stmmac_tx_timer_arm: 2276
+>   systemd--1995    0.... 553127896us : stmmac_resume: 5101
+>   systemd--320     7...2 553132752us : stmmac_tx_timer_arm: 2276
+>   (sd-exec-1999    5...2 553135204us : stmmac_tx_timer_arm: 2276
+>   ---------------------------------
+>   pc : run_timer_softirq+0x468/0x5e0
+>   lr : run_timer_softirq+0x570/0x5e0
+>   Call trace:
+>    run_timer_softirq+0x468/0x5e0
+>    __do_softirq+0x124/0x398
+>    irq_exit+0xd8/0xe0
+>    __handle_domain_irq+0x6c/0xc0
+>    gic_handle_irq+0x60/0xb0
+>    el1_irq+0xb8/0x180
+>    arch_cpu_idle+0x38/0x230
+>    default_idle_call+0x24/0x3c
+>    do_idle+0x1e0/0x2b8
+>    cpu_startup_entry+0x28/0x48
+>    secondary_start_kernel+0x1b4/0x208
+> 
+> Fix this by deferring netif_device_attach() to the end of
+> stmmac_resume().
+> 
+> Signed-off-by: Leon Yu <leoyu@nvidia.com>
+> Signed-off-by: David S. Miller <davem@davemloft.net>
 
-Nice, thank you.
+Whenever you forward on a patch, you should add yourself to the
+signed-off-by chain.
 
-Reviewed-by: Marek Vasut <marex@denx.de>
+I'll just add you to the cc: to let us know who asked for this patch.
+
+thanks,
+
+greg k-h
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
