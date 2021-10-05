@@ -2,50 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A70342258B
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Oct 2021 13:45:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB08422743
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Oct 2021 14:59:27 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04097C5AB82;
-	Tue,  5 Oct 2021 11:45:13 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42D30C5AB7E;
+	Tue,  5 Oct 2021 12:59:27 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EAABC5719C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF6BAC5719C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Oct 2021 11:45:10 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10127"; a="225615936"
-X-IronPort-AV: E=Sophos;i="5.85,348,1624345200"; d="scan'208";a="225615936"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2021 04:45:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.85,348,1624345200"; d="scan'208";a="477646437"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga007.jf.intel.com with ESMTP; 05 Oct 2021 04:44:59 -0700
-Received: from glass.png.intel.com (glass.png.intel.com [10.158.65.69])
- by linux.intel.com (Postfix) with ESMTP id 8D65A5809EB;
- Tue,  5 Oct 2021 04:44:56 -0700 (PDT)
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Tue,  5 Oct 2021 19:51:00 +0800
-Message-Id: <20211005115100.1648170-3-vee.khee.wong@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211005115100.1648170-1-vee.khee.wong@linux.intel.com>
-References: <20211005115100.1648170-1-vee.khee.wong@linux.intel.com>
+ Tue,  5 Oct 2021 12:59:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 305686124F;
+ Tue,  5 Oct 2021 12:59:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1633438763;
+ bh=vc0AIiiG/lp+/3L1MOoDAGLKzrH8rDn2SCnuHBCQD+I=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=0KQNPijNSHaLEfz57hoIKkXndl4fOOZwnsBH9Gby6N4c2PS658FEY7w2CMFP3zRk0
+ 5eFV1ExPhXdtJ1JssFVfra+vs5TqWh9ozoys6JkdEAsVA2rPweqq8OPIZdfwFTi1uz
+ Sf6UoiRbkhy3RqLIrKTMbpNotQm5Ttb6Cf3uLUac=
+Date: Tue, 5 Oct 2021 14:59:21 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <YVxMKekWW0w0+qoM@kroah.com>
+References: <20210930160520.19678-1-arnaud.pouliquen@foss.st.com>
+ <20210930160520.19678-3-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- Wong Vee Khee <veekhee@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 2/2] net: stmmac: trigger PCS EEE to turn
-	off on link down
+Content-Disposition: inline
+In-Reply-To: <20210930160520.19678-3-arnaud.pouliquen@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
+ linux-doc@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Suman Anna <s-anna@ti.com>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v8 2/2] tty: add rpmsg driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,44 +54,197 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The current implementation enable PCS EEE feature in the event of link
-up, but PCS EEE feature is not disabled on link down.
+On Thu, Sep 30, 2021 at 06:05:20PM +0200, Arnaud Pouliquen wrote:
+> This driver exposes a standard TTY interface on top of the rpmsg
+> framework through a rpmsg service.
+> 
+> This driver supports multi-instances, offering a /dev/ttyRPMSGx entry
+> per rpmsg endpoint.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  Documentation/serial/tty_rpmsg.rst |  15 ++
+>  drivers/tty/Kconfig                |   9 +
+>  drivers/tty/Makefile               |   1 +
+>  drivers/tty/rpmsg_tty.c            | 275 +++++++++++++++++++++++++++++
+>  4 files changed, 300 insertions(+)
+>  create mode 100644 Documentation/serial/tty_rpmsg.rst
+>  create mode 100644 drivers/tty/rpmsg_tty.c
+> 
+> diff --git a/Documentation/serial/tty_rpmsg.rst b/Documentation/serial/tty_rpmsg.rst
+> new file mode 100644
+> index 000000000000..b055107866c9
+> --- /dev/null
+> +++ b/Documentation/serial/tty_rpmsg.rst
+> @@ -0,0 +1,15 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +=========
+> +RPMsg TTY
+> +=========
+> +
+> +The rpmsg tty driver implements serial communication on the RPMsg bus to makes possible for
+> +user-space programs to send and receive rpmsg messages as a standard tty protocol.
+> +
+> +The remote processor can instantiate a new tty by requesting a "rpmsg-tty" RPMsg service.
+> +
+> +The "rpmsg-tty" service is directly used for data exchange. No flow control is implemented.
+> +
+> +Information related to the RPMsg and associated tty device is available in
+> +/sys/bus/rpmsg/devices/.
 
-This patch makes sure PCE EEE feature is disabled on link down.
 
-Fixes: 656ed8b015f1 ("net: stmmac: fix EEE init issue when paired with EEE capable PHYs")
-Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Why is this file needed?  Nothing references it, and this would be the
+only file in this directory.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 981ccf47dcea..eb3b7bf771d7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -477,6 +477,10 @@ bool stmmac_eee_init(struct stmmac_priv *priv)
- 			stmmac_lpi_entry_timer_config(priv, 0);
- 			del_timer_sync(&priv->eee_ctrl_timer);
- 			stmmac_set_eee_timer(priv, priv->hw, 0, eee_tw_timer);
-+			if (priv->hw->xpcs)
-+				xpcs_config_eee(priv->hw->xpcs,
-+						priv->plat->mult_fact_100ns,
-+						false);
- 		}
- 		mutex_unlock(&priv->lock);
- 		return false;
-@@ -1038,7 +1042,7 @@ static void stmmac_mac_link_down(struct phylink_config *config,
- 	stmmac_mac_set(priv, priv->ioaddr, false);
- 	priv->eee_active = false;
- 	priv->tx_lpi_enabled = false;
--	stmmac_eee_init(priv);
-+	priv->eee_enabled = stmmac_eee_init(priv);
- 	stmmac_set_eee_pls(priv, priv->hw, false);
- 
- 	if (priv->dma_cap.fpesel)
--- 
-2.25.1
+> diff --git a/drivers/tty/Kconfig b/drivers/tty/Kconfig
+> index 23cc988c68a4..5095513029d7 100644
+> --- a/drivers/tty/Kconfig
+> +++ b/drivers/tty/Kconfig
+> @@ -368,6 +368,15 @@ config VCC
+>  
+>  source "drivers/tty/hvc/Kconfig"
+>  
+> +config RPMSG_TTY
+> +	tristate "RPMSG tty driver"
+> +	depends on RPMSG
+> +	help
+> +	  Say y here to export rpmsg endpoints as tty devices, usually found
+> +	  in /dev/ttyRPMSGx.
+> +	  This makes it possible for user-space programs to send and receive
+> +	  rpmsg messages as a standard tty protocol.
 
+What is the module name going to be?
+
+
+> +
+>  endif # TTY
+>  
+>  source "drivers/tty/serdev/Kconfig"
+> diff --git a/drivers/tty/Makefile b/drivers/tty/Makefile
+> index a2bd75fbaaa4..07aca5184a55 100644
+> --- a/drivers/tty/Makefile
+> +++ b/drivers/tty/Makefile
+> @@ -26,5 +26,6 @@ obj-$(CONFIG_PPC_EPAPR_HV_BYTECHAN) += ehv_bytechan.o
+>  obj-$(CONFIG_GOLDFISH_TTY)	+= goldfish.o
+>  obj-$(CONFIG_MIPS_EJTAG_FDC_TTY) += mips_ejtag_fdc.o
+>  obj-$(CONFIG_VCC)		+= vcc.o
+> +obj-$(CONFIG_RPMSG_TTY)		+= rpmsg_tty.o
+>  
+>  obj-y += ipwireless/
+> diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
+> new file mode 100644
+> index 000000000000..0c99f54c2911
+> --- /dev/null
+> +++ b/drivers/tty/rpmsg_tty.c
+> @@ -0,0 +1,275 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) STMicroelectronics 2021 - All Rights Reserved
+
+Copyright needs a year, right?
+
+> + */
+> +
+> +#include <linux/module.h>
+> +#include <linux/rpmsg.h>
+> +#include <linux/slab.h>
+> +#include <linux/tty.h>
+> +#include <linux/tty_flip.h>
+> +
+> +#define MAX_TTY_RPMSG	32
+
+Why have a max at all?
+
+
+> +
+> +static DEFINE_IDR(tty_idr);	/* tty instance id */
+> +static DEFINE_MUTEX(idr_lock);	/* protects tty_idr */
+
+I didn't think an idr needed a lock anymore, are you sure this is
+needed?
+
+
+> +
+> +static struct tty_driver *rpmsg_tty_driver;
+> +
+> +struct rpmsg_tty_port {
+> +	struct tty_port		port;	 /* TTY port data */
+> +	int			id;	 /* TTY rpmsg index */
+> +	struct rpmsg_device	*rpdev;	 /* rpmsg device */
+> +};
+> +
+> +static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len, void *priv, u32 src)
+> +{
+> +	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
+> +	int copied;
+> +
+> +	if (!len)
+> +		return -EINVAL;
+
+How can len be 0?
+
+
+> +	copied = tty_insert_flip_string(&cport->port, data, len);
+> +	if (copied != len)
+> +		dev_dbg(&rpdev->dev, "Trunc buffer: available space is %d\n",
+> +			copied);
+
+Is this the proper error handling?
+
+
+> +	tty_flip_buffer_push(&cport->port);
+
+Shouldn't you return the number of bytes sent?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
+> +{
+> +	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
+> +
+> +	if (!cport) {
+> +		dev_err(tty->dev, "Cannot get cport\n");
+
+How can this happen?
+
+
+> +		return -ENODEV;
+> +	}
+> +
+> +	tty->driver_data = cport;
+> +
+> +	return tty_port_install(&cport->port, driver, tty);
+> +}
+> +
+> +static int rpmsg_tty_open(struct tty_struct *tty, struct file *filp)
+> +{
+> +	return tty_port_open(tty->port, tty, filp);
+> +}
+> +
+> +static void rpmsg_tty_close(struct tty_struct *tty, struct file *filp)
+> +{
+> +	return tty_port_close(tty->port, tty, filp);
+> +}
+> +
+> +static int rpmsg_tty_write(struct tty_struct *tty, const u8 *buf, int len)
+> +{
+> +	struct rpmsg_tty_port *cport = tty->driver_data;
+> +	struct rpmsg_device *rpdev;
+> +	int msg_max_size, msg_size;
+> +	int ret;
+> +
+> +	rpdev = cport->rpdev;
+> +
+> +	dev_dbg(&rpdev->dev, "Send msg from tty->index = %d, len = %d\n", tty->index, len);
+
+ftrace is your friend, is this really still needed?
+
+thanks,
+
+greg k-h
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
