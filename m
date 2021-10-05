@@ -2,69 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6575C421835
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Oct 2021 22:10:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83B98422087
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Oct 2021 10:19:08 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17718C5AB7B;
-	Mon,  4 Oct 2021 20:10:31 +0000 (UTC)
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 673A2C5AB7F;
+	Tue,  5 Oct 2021 08:19:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 703DCC57182
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58466C5719C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Oct 2021 20:10:29 +0000 (UTC)
-Received: by mail-ot1-f54.google.com with SMTP id
- e66-20020a9d2ac8000000b0054da8bdf2aeso20924785otb.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 04 Oct 2021 13:10:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=2IjqeebslfjZFjiWi5h8wmGYR7aD/ftvHUya8Ji09OY=;
- b=Np7tEo4wE/tkhaYZI3ubMhQxwdQVpAuXRZHbHtO88i2K9QZzSZVK7T79QAzt9qEkwb
- pDTiJtcqXF2zjbQU7ax2MUPOuE+MGXLQaU2i7lG4E14SAOztBvxRnTxksixvCJafgvW/
- 61JOA7guVCSfQ43ErCgIghtem2bKLke0TvNS0eP9ZIZX3j9heNe8m1WiNGX/CLG7nAYz
- nW5soTMXFMvOmWeCxXRmHgOhdueJiJlYs/w1CA6W4+cAdQJ3HtbgJP/+rVZU3CWJywFE
- 5wZltMq3yIj92uDlO1ZXF/dz2Yu8hxfAcB+rsiFHYBHb6Llfa/emWPeLw4FOEaay9k9p
- c78Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=2IjqeebslfjZFjiWi5h8wmGYR7aD/ftvHUya8Ji09OY=;
- b=flITx2NnUW4C0sgOj/Pk6DW6uHFr6yRCpIPXZh+Rz/JEhbCnvLmnMo9eqwSl7txaBY
- QaPdevXzIkPTYplwGsrsxOMupxO1vUjR4AYFvesTZXaXA8wQub8iai6nRuvJ9S2i4zl0
- nwLTYIPBxfBrfk/qVtFlaYpIRS4xzNpdEmc/8qJmBKkc120NhxahfJQMzLggyiZKh6lJ
- o5pHKwYgtFPz9HVlZXz9fQiQbmLUKFyQtmqf8n4+kcngsfsJ67N3O0olYrJyB53Gs3PQ
- H9ouybVzXj+OfL1cfNfjb9A726qix//sZQzH5brMCLXW/uGgeqmgbhPzITWVCzxx0FsX
- iXYA==
-X-Gm-Message-State: AOAM530TBLrfvye3XSt5mdE4NMHERaDAVBX0/bxOWpBo/8lnJ7oTuyHE
- fLVUWfoIbFYTBsfAS7f8lE234g==
-X-Google-Smtp-Source: ABdhPJxhpZwAsCzsDVsU6LANToXM5vUQpEidGRdMi32lWUPvukREEXc8G7o+3QWNmcgrvNYklWN/CQ==
-X-Received: by 2002:a05:6830:1212:: with SMTP id
- r18mr11305263otp.212.1633378228213; 
- Mon, 04 Oct 2021 13:10:28 -0700 (PDT)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id be7sm2975805oib.15.2021.10.04.13.10.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Oct 2021 13:10:27 -0700 (PDT)
-Date: Mon, 4 Oct 2021 13:12:11 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <YVtgG01o5pyB3Tc8@ripper>
-References: <20210930160520.19678-1-arnaud.pouliquen@foss.st.com>
- <20210930160520.19678-3-arnaud.pouliquen@foss.st.com>
+ Tue,  5 Oct 2021 08:19:04 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1952IMrp032013; 
+ Tue, 5 Oct 2021 10:18:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=rvTXK7UCH3kxOfjWH75rXK7MS8enLLD50wSRBR+Rn4M=;
+ b=2kxAcWWdKJiFZsAdkoe7e75BBNxOq9UfAJSML32VlRP+YVrVM782zAFlR5SuA1DdVBQP
+ 4zd2pQ4a8NmWoP7uL/GMV5z6dzLZtzrvXyXWPcYi1QRWGPjX/17WaVoMWWC1Wey66Hy2
+ FCUXWhCg8P0clVPx8UZ66kD3pKJ+3D/TWyam9x3kVmCADLRqqU+W5CPMwUi0dknSJeCr
+ UZPiMUj6pNjQ8zLH18Hx42ZooVF3KxRifqseT1SWvPLzQATuSZJa5oNLFx3HuPdAOTro
+ DmIXdSXRtcHdvcDaVG+92betXVgYmwZyHElb42w4UxEsaj4hgfu1AdQUHgsETv2VgB6N +A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3bgdt9sjtw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 05 Oct 2021 10:18:37 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0B2B110002A;
+ Tue,  5 Oct 2021 10:18:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 018E9222C86;
+ Tue,  5 Oct 2021 10:18:36 +0200 (CEST)
+Received: from lmecxl0577.lme.st.com (10.75.127.48) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 5 Oct
+ 2021 10:18:34 +0200
+To: Jonathan Cameron <jic23@kernel.org>, Yizhuo <yzhai003@ucr.edu>, "Mugilraj
+ Dhavachelvan" <dmugil2000@gmail.com>,
+ Olivier Moysan <olivier.moysan@st.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Arnaud Pouliquen
+ <arnaud.pouliquen@st.com>, <linux-stm32@st-md-mailman.stormreply.com>
+References: <20210719195313.40341-1-yzhai003@ucr.edu>
+ <20210724164840.7381053b@jic23-huawei> <20210808183243.70619aa8@jic23-huawei>
+ <20211003164726.42e20526@jic23-huawei>
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Message-ID: <9d8d6633-deba-bcf8-f717-68def3ef798e@foss.st.com>
+Date: Tue, 5 Oct 2021 10:18:33 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210930160520.19678-3-arnaud.pouliquen@foss.st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-doc@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Suman Anna <s-anna@ti.com>, Jiri Slaby <jirislaby@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v8 2/2] tty: add rpmsg driver
+In-Reply-To: <20211003164726.42e20526@jic23-huawei>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-10-04_05,2021-10-04_01,2020-04-07_01
+Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-dfsdm: Fix the
+ uninitialized use if regmap_read() fails
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,379 +80,101 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu 30 Sep 09:05 PDT 2021, Arnaud Pouliquen wrote:
+Hi,
 
-> This driver exposes a standard TTY interface on top of the rpmsg
-> framework through a rpmsg service.
+On 10/3/21 5:47 PM, Jonathan Cameron wrote:
+> On Sun, 8 Aug 2021 18:32:43 +0100
+> Jonathan Cameron <jic23@kernel.org> wrote:
 > 
-> This driver supports multi-instances, offering a /dev/ttyRPMSGx entry
-> per rpmsg endpoint.
+>> On Sat, 24 Jul 2021 16:48:40 +0100
+>> Jonathan Cameron <jic23@kernel.org> wrote:
+>>
+>>> On Mon, 19 Jul 2021 19:53:11 +0000
+>>> Yizhuo <yzhai003@ucr.edu> wrote:
+>>>    
+>>>> Inside function stm32_dfsdm_irq(), the variable "status", "int_en"
+>>>> could be uninitialized if the regmap_read() fails and returns an error
+>>>> code.  However, they are directly used in the later context to decide
+>>>> the control flow, which is potentially unsafe.
+>>>>
+>>>> Fixes: e2e6771c64625 ("IIO: ADC: add STM32 DFSDM sigma delta ADC support")
+>>>>
+>>>> Signed-off-by: Yizhuo <yzhai003@ucr.edu>
+>>>
+>>> Hi Yizhou
+>>>
+>>> I want to get some review of this from people familiar with the
+>>> hardware as there is a small possibility your reordering might have
+>>> introduced a problem.
+>>
+>> To stm32 people, can someone take a look at this?
+> 
+> This one is still outstanding.  If anyone from stm32 side of things could take a look
+> that would be great,
+> 
+> Jonathan
 > 
 
-I think this looks pretty good, but it's a while since we discussed
-this, reading your patches again makes me wonder:
+I cannot see side effects with reordering itself.
+However, if we get an error with the read access, just leaving with
+irq_handled status is probably not enough.
+In such case we are facing a serious issue and it would make sense to 
+return irq_none instead, as the interrupt will probably never be 
+acknowledged.
 
-1) With all the efforts related to virtualization and adding things such
-as I2C support there, what are the merits of putting a tty driver ontop
-of rpmsg in comparison with directly on virtio - which would be used for
-virtualization as well.
+BRs
 
-2) What prevents you from pointing your userspace tool at an rpmsg_char
-endpoint?
-
-Thanks,
-Bjorn
-
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
->  Documentation/serial/tty_rpmsg.rst |  15 ++
->  drivers/tty/Kconfig                |   9 +
->  drivers/tty/Makefile               |   1 +
->  drivers/tty/rpmsg_tty.c            | 275 +++++++++++++++++++++++++++++
->  4 files changed, 300 insertions(+)
->  create mode 100644 Documentation/serial/tty_rpmsg.rst
->  create mode 100644 drivers/tty/rpmsg_tty.c
-> 
-> diff --git a/Documentation/serial/tty_rpmsg.rst b/Documentation/serial/tty_rpmsg.rst
-> new file mode 100644
-> index 000000000000..b055107866c9
-> --- /dev/null
-> +++ b/Documentation/serial/tty_rpmsg.rst
-> @@ -0,0 +1,15 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +=========
-> +RPMsg TTY
-> +=========
-> +
-> +The rpmsg tty driver implements serial communication on the RPMsg bus to makes possible for
-> +user-space programs to send and receive rpmsg messages as a standard tty protocol.
-> +
-> +The remote processor can instantiate a new tty by requesting a "rpmsg-tty" RPMsg service.
-> +
-> +The "rpmsg-tty" service is directly used for data exchange. No flow control is implemented.
-> +
-> +Information related to the RPMsg and associated tty device is available in
-> +/sys/bus/rpmsg/devices/.
-> diff --git a/drivers/tty/Kconfig b/drivers/tty/Kconfig
-> index 23cc988c68a4..5095513029d7 100644
-> --- a/drivers/tty/Kconfig
-> +++ b/drivers/tty/Kconfig
-> @@ -368,6 +368,15 @@ config VCC
->  
->  source "drivers/tty/hvc/Kconfig"
->  
-> +config RPMSG_TTY
-> +	tristate "RPMSG tty driver"
-> +	depends on RPMSG
-> +	help
-> +	  Say y here to export rpmsg endpoints as tty devices, usually found
-> +	  in /dev/ttyRPMSGx.
-> +	  This makes it possible for user-space programs to send and receive
-> +	  rpmsg messages as a standard tty protocol.
-> +
->  endif # TTY
->  
->  source "drivers/tty/serdev/Kconfig"
-> diff --git a/drivers/tty/Makefile b/drivers/tty/Makefile
-> index a2bd75fbaaa4..07aca5184a55 100644
-> --- a/drivers/tty/Makefile
-> +++ b/drivers/tty/Makefile
-> @@ -26,5 +26,6 @@ obj-$(CONFIG_PPC_EPAPR_HV_BYTECHAN) += ehv_bytechan.o
->  obj-$(CONFIG_GOLDFISH_TTY)	+= goldfish.o
->  obj-$(CONFIG_MIPS_EJTAG_FDC_TTY) += mips_ejtag_fdc.o
->  obj-$(CONFIG_VCC)		+= vcc.o
-> +obj-$(CONFIG_RPMSG_TTY)		+= rpmsg_tty.o
->  
->  obj-y += ipwireless/
-> diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
-> new file mode 100644
-> index 000000000000..0c99f54c2911
-> --- /dev/null
-> +++ b/drivers/tty/rpmsg_tty.c
-> @@ -0,0 +1,275 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) STMicroelectronics 2021 - All Rights Reserved
-> + */
-> +
-> +#include <linux/module.h>
-> +#include <linux/rpmsg.h>
-> +#include <linux/slab.h>
-> +#include <linux/tty.h>
-> +#include <linux/tty_flip.h>
-> +
-> +#define MAX_TTY_RPMSG	32
-> +
-> +static DEFINE_IDR(tty_idr);	/* tty instance id */
-> +static DEFINE_MUTEX(idr_lock);	/* protects tty_idr */
-> +
-> +static struct tty_driver *rpmsg_tty_driver;
-> +
-> +struct rpmsg_tty_port {
-> +	struct tty_port		port;	 /* TTY port data */
-> +	int			id;	 /* TTY rpmsg index */
-> +	struct rpmsg_device	*rpdev;	 /* rpmsg device */
-> +};
-> +
-> +static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len, void *priv, u32 src)
-> +{
-> +	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
-> +	int copied;
-> +
-> +	if (!len)
-> +		return -EINVAL;
-> +	copied = tty_insert_flip_string(&cport->port, data, len);
-> +	if (copied != len)
-> +		dev_dbg(&rpdev->dev, "Trunc buffer: available space is %d\n",
-> +			copied);
-> +	tty_flip_buffer_push(&cport->port);
-> +
-> +	return 0;
-> +}
-> +
-> +static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
-> +{
-> +	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
-> +
-> +	if (!cport) {
-> +		dev_err(tty->dev, "Cannot get cport\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	tty->driver_data = cport;
-> +
-> +	return tty_port_install(&cport->port, driver, tty);
-> +}
-> +
-> +static int rpmsg_tty_open(struct tty_struct *tty, struct file *filp)
-> +{
-> +	return tty_port_open(tty->port, tty, filp);
-> +}
-> +
-> +static void rpmsg_tty_close(struct tty_struct *tty, struct file *filp)
-> +{
-> +	return tty_port_close(tty->port, tty, filp);
-> +}
-> +
-> +static int rpmsg_tty_write(struct tty_struct *tty, const u8 *buf, int len)
-> +{
-> +	struct rpmsg_tty_port *cport = tty->driver_data;
-> +	struct rpmsg_device *rpdev;
-> +	int msg_max_size, msg_size;
-> +	int ret;
-> +
-> +	rpdev = cport->rpdev;
-> +
-> +	dev_dbg(&rpdev->dev, "Send msg from tty->index = %d, len = %d\n", tty->index, len);
-> +
-> +	msg_max_size = rpmsg_get_mtu(rpdev->ept);
-> +	if (msg_max_size < 0)
-> +		return msg_max_size;
-> +
-> +	msg_size = min(len, msg_max_size);
-> +
-> +	/*
-> +	 * Use rpmsg_trysend instead of rpmsg_send to send the message so the caller is not
-> +	 * hung until a rpmsg buffer is available. In such case rpmsg_trysend returns -ENOMEM.
-> +	 */
-> +	ret = rpmsg_trysend(rpdev->ept, (void *)buf, msg_size);
-> +	if (ret) {
-> +		dev_dbg(&rpdev->dev, "rpmsg_send failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return msg_size;
-> +}
-> +
-> +static unsigned int rpmsg_tty_write_room(struct tty_struct *tty)
-> +{
-> +	struct rpmsg_tty_port *cport = tty->driver_data;
-> +	int size;
-> +
-> +	size = rpmsg_get_mtu(cport->rpdev->ept);
-> +	if (size < 0)
-> +		return 0;
-> +
-> +	return size;
-> +}
-> +
-> +static const struct tty_operations rpmsg_tty_ops = {
-> +	.install	= rpmsg_tty_install,
-> +	.open		= rpmsg_tty_open,
-> +	.close		= rpmsg_tty_close,
-> +	.write		= rpmsg_tty_write,
-> +	.write_room	= rpmsg_tty_write_room,
-> +};
-> +
-> +static struct rpmsg_tty_port *rpmsg_tty_alloc_cport(void)
-> +{
-> +	struct rpmsg_tty_port *cport;
-> +	int err;
-> +
-> +	cport = kzalloc(sizeof(*cport), GFP_KERNEL);
-> +	if (!cport)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	mutex_lock(&idr_lock);
-> +	cport->id = idr_alloc(&tty_idr, cport, 0, MAX_TTY_RPMSG, GFP_KERNEL);
-> +	mutex_unlock(&idr_lock);
-> +
-> +	if (cport->id < 0) {
-> +		err = cport->id;
-> +		kfree(cport);
-> +		return ERR_PTR(err);
-> +	}
-> +
-> +	return cport;
-> +}
-> +
-> +static void rpmsg_tty_release_cport(struct rpmsg_tty_port *cport)
-> +{
-> +	mutex_lock(&idr_lock);
-> +	idr_remove(&tty_idr, cport->id);
-> +	mutex_unlock(&idr_lock);
-> +
-> +	kfree(cport);
-> +}
-> +
-> +static const struct tty_port_operations rpmsg_tty_port_ops = { };
-> +
-> +static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
-> +{
-> +	struct rpmsg_tty_port *cport;
-> +	struct device *dev = &rpdev->dev;
-> +	struct device *tty_dev;
-> +	int ret;
-> +
-> +	cport = rpmsg_tty_alloc_cport();
-> +	if (IS_ERR(cport)) {
-> +		dev_err(dev, "Failed to alloc tty port\n");
-> +		return PTR_ERR(cport);
-> +	}
-> +
-> +	tty_port_init(&cport->port);
-> +	cport->port.ops = &rpmsg_tty_port_ops;
-> +
-> +	tty_dev = tty_port_register_device(&cport->port, rpmsg_tty_driver,
-> +					   cport->id, dev);
-> +	if (IS_ERR(tty_dev)) {
-> +		dev_err(dev, "Failed to register tty port\n");
-> +		ret = PTR_ERR(tty_dev);
-> +		goto  err_destroy;
-> +	}
-> +
-> +	cport->rpdev = rpdev;
-> +
-> +	dev_set_drvdata(dev, cport);
-> +
-> +	dev_dbg(dev, "New channel: 0x%x -> 0x%x : ttyRPMSG%d\n",
-> +		rpdev->src, rpdev->dst, cport->id);
-> +
-> +	return 0;
-> +
-> +err_destroy:
-> +	tty_port_destroy(&cport->port);
-> +	rpmsg_tty_release_cport(cport);
-> +
-> +	return ret;
-> +}
-> +
-> +static void rpmsg_tty_remove(struct rpmsg_device *rpdev)
-> +{
-> +	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
-> +
-> +	dev_dbg(&rpdev->dev, "Removing rpmsg tty device %d\n", cport->id);
-> +
-> +	/* User hang up to release the tty */
-> +	if (tty_port_initialized(&cport->port))
-> +		tty_port_tty_hangup(&cport->port, false);
-> +
-> +	tty_unregister_device(rpmsg_tty_driver, cport->id);
-> +
-> +	tty_port_destroy(&cport->port);
-> +	rpmsg_tty_release_cport(cport);
-> +}
-> +
-> +static struct rpmsg_device_id rpmsg_driver_tty_id_table[] = {
-> +	{ .name	= "rpmsg-tty" },
-> +	{ },
-> +};
-> +MODULE_DEVICE_TABLE(rpmsg, rpmsg_driver_tty_id_table);
-> +
-> +static struct rpmsg_driver rpmsg_tty_rpmsg_drv = {
-> +	.drv.name	= KBUILD_MODNAME,
-> +	.id_table	= rpmsg_driver_tty_id_table,
-> +	.probe		= rpmsg_tty_probe,
-> +	.callback	= rpmsg_tty_cb,
-> +	.remove		= rpmsg_tty_remove,
-> +};
-> +
-> +static int __init rpmsg_tty_init(void)
-> +{
-> +	int err;
-> +
-> +	rpmsg_tty_driver = tty_alloc_driver(MAX_TTY_RPMSG, TTY_DRIVER_REAL_RAW |
-> +					    TTY_DRIVER_DYNAMIC_DEV);
-> +	if (IS_ERR(rpmsg_tty_driver))
-> +		return PTR_ERR(rpmsg_tty_driver);
-> +
-> +	rpmsg_tty_driver->driver_name = "rpmsg_tty";
-> +	rpmsg_tty_driver->name = "ttyRPMSG";
-> +	rpmsg_tty_driver->major = 0;
-> +	rpmsg_tty_driver->type = TTY_DRIVER_TYPE_CONSOLE;
-> +
-> +	/* Disable unused mode by default */
-> +	rpmsg_tty_driver->init_termios = tty_std_termios;
-> +	rpmsg_tty_driver->init_termios.c_lflag &= ~(ECHO | ICANON);
-> +	rpmsg_tty_driver->init_termios.c_oflag &= ~(OPOST | ONLCR);
-> +
-> +	tty_set_operations(rpmsg_tty_driver, &rpmsg_tty_ops);
-> +
-> +	err = tty_register_driver(rpmsg_tty_driver);
-> +	if (err < 0) {
-> +		pr_err("Couldn't install rpmsg tty driver: err %d\n", err);
-> +		goto error_put;
-> +	}
-> +
-> +	err = register_rpmsg_driver(&rpmsg_tty_rpmsg_drv);
-> +	if (err < 0) {
-> +		pr_err("Couldn't register rpmsg tty driver: err %d\n", err);
-> +		goto error_unregister;
-> +	}
-> +
-> +	return 0;
-> +
-> +error_unregister:
-> +	tty_unregister_driver(rpmsg_tty_driver);
-> +
-> +error_put:
-> +	tty_driver_kref_put(rpmsg_tty_driver);
-> +
-> +	return err;
-> +}
-> +
-> +static void __exit rpmsg_tty_exit(void)
-> +{
-> +	unregister_rpmsg_driver(&rpmsg_tty_rpmsg_drv);
-> +	tty_unregister_driver(rpmsg_tty_driver);
-> +	tty_driver_kref_put(rpmsg_tty_driver);
-> +	idr_destroy(&tty_idr);
-> +}
-> +
-> +module_init(rpmsg_tty_init);
-> +module_exit(rpmsg_tty_exit);
-> +
-> +MODULE_AUTHOR("Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>");
-> +MODULE_DESCRIPTION("remote processor messaging tty driver");
-> +MODULE_LICENSE("GPL v2");
-> -- 
-> 2.17.1
+>>
+>> Thanks,
+>>
+>> Jonathan
+>>
+>>>    
+>>>> ---
+>>>>   drivers/iio/adc/stm32-dfsdm-adc.c | 9 +++++++--
+>>>>   1 file changed, 7 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+>>>> index 1cfefb3b5e56..d8b78aead942 100644
+>>>> --- a/drivers/iio/adc/stm32-dfsdm-adc.c
+>>>> +++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+>>>> @@ -1292,9 +1292,11 @@ static irqreturn_t stm32_dfsdm_irq(int irq, void *arg)
+>>>>   	struct stm32_dfsdm_adc *adc = iio_priv(indio_dev);
+>>>>   	struct regmap *regmap = adc->dfsdm->regmap;
+>>>>   	unsigned int status, int_en;
+>>>> +	int ret;
+>>>>   
+>>>> -	regmap_read(regmap, DFSDM_ISR(adc->fl_id), &status);
+>>>> -	regmap_read(regmap, DFSDM_CR2(adc->fl_id), &int_en);
+>>>
+>>> Moving this later is only valid if there aren't any side effects.
+>>> The current ordering is strange enough it makes me wonder if there might be!
+>>>
+>>> Jonathan
+>>>    
+>>>> +	ret = regmap_read(regmap, DFSDM_ISR(adc->fl_id), &status);
+>>>> +	if (ret)
+>>>> +		return IRQ_HANDLED;
+>>>>   
+>>>>   	if (status & DFSDM_ISR_REOCF_MASK) {
+>>>>   		/* Read the data register clean the IRQ status */
+>>>> @@ -1303,6 +1305,9 @@ static irqreturn_t stm32_dfsdm_irq(int irq, void *arg)
+>>>>   	}
+>>>>   
+>>>>   	if (status & DFSDM_ISR_ROVRF_MASK) {
+>>>> +		ret = regmap_read(regmap, DFSDM_CR2(adc->fl_id), &int_en);
+>>>> +		if (ret)
+>>>> +			return IRQ_HANDLED;
+>>>>   		if (int_en & DFSDM_CR2_ROVRIE_MASK)
+>>>>   			dev_warn(&indio_dev->dev, "Overrun detected\n");
+>>>>   		regmap_update_bits(regmap, DFSDM_ICR(adc->fl_id),
+>>>    
+>>
 > 
 _______________________________________________
 Linux-stm32 mailing list
