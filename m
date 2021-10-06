@@ -2,36 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E66F4241EE
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Oct 2021 17:56:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 801F6424455
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Oct 2021 19:32:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3FD8C597B3;
-	Wed,  6 Oct 2021 15:56:41 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A56E7C32E8F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32400C597B3;
+	Wed,  6 Oct 2021 17:32:36 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E085C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Oct 2021 15:56:40 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE0086D;
- Wed,  6 Oct 2021 08:56:39 -0700 (PDT)
-Received: from monolith.localdoman (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 666F63F70D;
- Wed,  6 Oct 2021 08:56:37 -0700 (PDT)
-Date: Wed, 6 Oct 2021 16:58:11 +0100
-From: Alexandru Elisei <alexandru.elisei@arm.com>
-To: davem@davemloft.net, michael.riesch@wolfvision.net,
- peppe.cavallaro@st.com, alexandre.torgue@foss.st.com,
- joabreu@synopsys.com, kuba@kernel.org, mcoquelin.stm32@gmail.com,
- p.zabel@pengutronix.de, lgirdwood@gmail.com, broonie@kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Message-ID: <YV3Hk2R4uDKbTy43@monolith.localdoman>
+ Wed,  6 Oct 2021 17:32:32 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CA90060F22;
+ Wed,  6 Oct 2021 17:32:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1633541550;
+ bh=xoTeSecthPoIVCFE9eaK5YWgW5FqM8Wx1GaGkk8TILk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iIbYkjKXrup+H9Fn37cRW5UkrXPxi8XPCEh7pJPwELSWYkHM9P2RBvoyr8xSXQYq3
+ OZUYyP8/0tbM5ndWjzDB3EhVUfZd9ZNshZPZEro1JQkGhGdPWogZfXEtpywQY4vGj7
+ eAGd2gNPrs/+bx+28YK/h+h0YKJnxLmOfTKpkmpVR+ZtvwONSiZGMn/zUpzPojvM6S
+ UQmGx3moCXZ7C2g5tPB2eC7jUjwCE+yE6HI0+9xlUQAZqIy3V9ttlHj81WvoeKzDBN
+ 4OoToLMnLBBmGUnLnb874Z3JkteR1r4l2WjeSTm/D7S/9j5ATxGC7Ij9qC1zkrTdyg
+ lVn24l3nvK+LA==
+Date: Wed, 6 Oct 2021 18:32:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alexandru Elisei <alexandru.elisei@arm.com>
+Message-ID: <YV3dqmLefGVAjH2T@sirena.org.uk>
+References: <YV3Hk2R4uDKbTy43@monolith.localdoman>
 MIME-Version: 1.0
-Content-Disposition: inline
-Cc: Alexandru Elisei <alexandru.elisei@arm.com>
-Subject: [Linux-stm32] [BUG RESEND] net: stmmac: dwmac-rk: Ethernet broken
- on rockpro64 by commit 2d26f6e39afb ("net: stmmac: dwmac-rk: fix unbalanced
- pm_runtime_enable warnings")
+In-Reply-To: <YV3Hk2R4uDKbTy43@monolith.localdoman>
+X-Cookie: A is for Apple.
+Cc: linux-kernel@vger.kernel.org, p.zabel@pengutronix.de,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ alexandre.torgue@foss.st.com, lgirdwood@gmail.com, joabreu@synopsys.com,
+ michael.riesch@wolfvision.net, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [BUG RESEND] net: stmmac: dwmac-rk: Ethernet
+ broken on rockpro64 by commit 2d26f6e39afb ("net: stmmac: dwmac-rk: fix
+ unbalanced pm_runtime_enable warnings")
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -43,144 +53,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8410572448978105277=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Resending this because my previous email client inserted HTML into the email,
-which was then rejected by the linux-kernel@vger.kernel.org spam filter.
 
-After commit 2d26f6e39afb ("net: stmmac: dwmac-rk: fix unbalanced
-pm_runtime_enable warnings"), the network card on my rockpro64-v2 was left
-unable to get a DHCP lease from the network. The offending commit was found by
-bisecting the kernel; I tried reverting the commit from v5.15-rc4 and the
-network card started working as expected.
+--===============8410572448978105277==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6A6VXl3ajkDFtK+b"
+Content-Disposition: inline
 
-I can help with testing a fix or further diagnosing if needed.
 
-his is what I get with a kernel built from v5.15-rc4 (so with the commit *not*
-reverted). Full dmesg at [1].
+--6A6VXl3ajkDFtK+b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-root@rockpro ~ # uname -a
-Linux rockpro 5.15.0-rc4 #83 SMP PREEMPT Wed Oct 6 16:06:31 BST 2021 aarch64 GNU/Linux
-root@rockpro ~ # ip a
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
-    link/ether ce:71:c1:ee:97:e8 brd ff:ff:ff:ff:ff:ff
-root@rockpro ~ # ip l set eth0 up
-[   33.398930] rk_gmac-dwmac fe300000.ethernet eth0: PHY [stmmac-0:00] driver [Generic PHY] (irq=POLL)
-[   33.404390] rk_gmac-dwmac fe300000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
-[   33.405795] rk_gmac-dwmac fe300000.ethernet eth0: No Safety Features support found
-[   33.406479] rk_gmac-dwmac fe300000.ethernet eth0: PTP not supported by HW
-[   33.407528] rk_gmac-dwmac fe300000.ethernet eth0: configuring for phy/rgmii link mode
-root@rockpro ~ # [   37.503570] rk_gmac-dwmac fe300000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
+On Wed, Oct 06, 2021 at 04:58:11PM +0100, Alexandru Elisei wrote:
+> Resending this because my previous email client inserted HTML into the em=
+ail,
+> which was then rejected by the linux-kernel@vger.kernel.org spam filter.
+>=20
+> After commit 2d26f6e39afb ("net: stmmac: dwmac-rk: fix unbalanced
+> pm_runtime_enable warnings"), the network card on my rockpro64-v2 was left
+> unable to get a DHCP lease from the network. The offending commit was fou=
+nd by
+> bisecting the kernel; I tried reverting the commit from v5.15-rc4 and the
+> network card started working as expected.
 
-root@rockpro ~ # ip a
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether ce:71:c1:ee:97:e8 brd ff:ff:ff:ff:ff:ff
-root@rockpro ~ # dhclient --version
-isc-dhclient-4.4.2-P1
-root@rockpro ~ # dhclient -v eth0
-Internet Systems Consortium DHCP Client 4.4.2-P1
-Copyright 2004-2021 Internet Systems Consortium.
-All rights reserved.
-For info, please visit https://www.isc.org/software/dhcp/
+I did end up glancing briefly at this (though no idea how I ended up
+showing in get_maintainers...) - the revert dropped both the runtime PM
+enables and the get/puts, I suspect the driver may need the get/puts
+either where they are in the commit or at a level up.
 
-Listening on LPF/eth0/ce:71:c1:ee:97:e8
-Sending on   LPF/eth0/ce:71:c1:ee:97:e8
-Sending on   Socket/fallback
-DHCPREQUEST for 192.168.0.43 on eth0 to 255.255.255.255 port 67
-DHCPREQUEST for 192.168.0.43 on eth0 to 255.255.255.255 port 67
-DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 8
-DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 7
-DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 20
-DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 20
-DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 6
-No DHCPOFFERS received.
-Trying recorded lease 192.168.0.43
-ping: socket: Address family not supported by protocol
-PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.
+--6A6VXl3ajkDFtK+b
+Content-Type: application/pgp-signature; name="signature.asc"
 
---- 192.168.0.1 ping statistics ---
-1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+-----BEGIN PGP SIGNATURE-----
 
-No working leases in persistent database - sleeping.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmFd3akACgkQJNaLcl1U
+h9A+tAf/R80GdTYRa1orKc1W7WXATKEMT82qq11h/wdjVecfx/p0OGtKF6DGKXE5
+fiDA0ZogMuvjFc0keAF/hwoPTvfYbKyxpXFVphdvUZgprmRbY2VXXnbAvVf/nkEz
+an9dEsWf4CQiMa1ZlF0klMbQN/R8+CmnTlK7bJ8tz7sRXRZOPU5Gq+DYSYKs729h
+UMCqB/oD6f+9MSIqCFu0ltirDRL6Gih9ZAGcbvluUKJjkqiTrbjXIpVNw6nqBFOt
+3DZMTrgWyfHOyEFnRFeGD3yEb6zFCPC/IB/PZzHN01DFw7oC0jAFBQko+Jlijzur
+DZF6KX1d84dhjWLO5WeS6ctqCQQKSA==
+=8enb
+-----END PGP SIGNATURE-----
 
-With the commit reverted, the NIC is working again (dmesg at [2]).
+--6A6VXl3ajkDFtK+b--
 
-root@rockpro ~ # uname -a
-Linux rockpro 5.15.0-rc4-00001-g6ac1832b7cc5 #84 SMP PREEMPT Wed Oct 6 16:24:54 BST 2021 aarch64 GNU/Linux
-root@rockpro ~ # ip a
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
-    link/ether ce:71:c1:ee:97:e8 brd ff:ff:ff:ff:ff:ff
-root@rockpro ~ # ip l set eth0 up
-[   76.094639] rk_gmac-dwmac fe300000.ethernet eth0: PHY [stmmac-0:00] driver [Generic PHY] (irq=POLL)
-[   76.100233] rk_gmac-dwmac fe300000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
-[   76.101646] rk_gmac-dwmac fe300000.ethernet eth0: No Safety Features support found
-[   76.102374] rk_gmac-dwmac fe300000.ethernet eth0: PTP not supported by HW
-[   76.103335] rk_gmac-dwmac fe300000.ethernet eth0: configuring for phy/rgmii link mode
-root@rockpro ~ # [   80.191353] rk_gmac-dwmac fe300000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
+--===============8410572448978105277==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-root@rockpro ~ # ip a
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether ce:71:c1:ee:97:e8 brd ff:ff:ff:ff:ff:ff
-root@rockpro ~ # dhclient --version
-isc-dhclient-4.4.2-P1
-root@rockpro ~ # dhclient -v eth0
-Internet Systems Consortium DHCP Client 4.4.2-P1
-Copyright 2004-2021 Internet Systems Consortium.
-All rights reserved.
-For info, please visit https://www.isc.org/software/dhcp/
-
-Listening on LPF/eth0/ce:71:c1:ee:97:e8
-Sending on   LPF/eth0/ce:71:c1:ee:97:e8
-Sending on   Socket/fallback
-DHCPREQUEST for 192.168.0.43 on eth0 to 255.255.255.255 port 67
-DHCPACK of 192.168.0.43 from 192.168.0.1
-bound to 192.168.0.43 -- renewal in 36072 seconds.
-root@rockpro ~ # ip a
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether ce:71:c1:ee:97:e8 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.0.43/24 brd 192.168.0.255 scope global eth0
-       valid_lft forever preferred_lft forever
-root@rockpro ~ # ping google.com
-ping: socket: Address family not supported by protocol
-PING google.com (172.217.169.46) 56(84) bytes of data.
-64 bytes from lhr48s08-in-f14.1e100.net (172.217.169.46): icmp_seq=1 ttl=117 time=21.7 ms
-64 bytes from lhr48s08-in-f14.1e100.net (172.217.169.46): icmp_seq=2 ttl=117 time=19.1 ms
-
---- google.com ping statistics ---
-2 packets transmitted, 2 received, 0% packet loss, time 1001ms
-rtt min/avg/max/mdev = 19.058/20.392/21.726/1.334 ms
-
-Pastebins will expire after 6 months.
-
-[1] https://pastebin.com/JrViZTPe
-[2] https://pastebin.com/EwEbWRfY
-
-Thanks,
-Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8410572448978105277==--
