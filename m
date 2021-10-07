@@ -2,47 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF5334257BC
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Oct 2021 18:20:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A7AF42590D
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Oct 2021 19:14:28 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 651AFC597B3;
-	Thu,  7 Oct 2021 16:20:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5847C597B3;
+	Thu,  7 Oct 2021 17:14:27 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 561CAC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 603DAC57182
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Oct 2021 16:20:09 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id 871096135E;
- Thu,  7 Oct 2021 16:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1633623607;
- bh=L0i1qPf2V13h6B1q2pkjFrt4h5K0cOE8115GACJqXNM=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=WIol9e7/V2qd5ftXNq8bBX9zBiph0QVHWMxPs3j+0nVe/rGDX7vMdAkbkEFpiZwIa
- qyUYdBNV9ejiDmmQBYfzIHg/EKrONFCur/x0T8LdVFjFPx34bCQjJCqlD+dvL6D6b2
- zubmsn6NmJiVT7ZqwuhuZNmk0ukebzUADOEUSxrDyC8KSWO8971H2sATsMmr7fy+3p
- TmDWILz95aOsUI1FtNGEqYSHHev5+GuUzExgk9O9KmI+2sKjb0qsr+07WaG/TDxXzT
- 8DQ7Y6qcU40sP1GIkUL5olJi+eRUm+JOwCnjQbQNA0yyYU2aOOivX59y7ri4TVsmSp
- SZRHPgUqJJ+gw==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 7FE7860971;
- Thu,  7 Oct 2021 16:20:07 +0000 (UTC)
+ Thu,  7 Oct 2021 17:14:25 +0000 (UTC)
+Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AE32E61108;
+ Thu,  7 Oct 2021 17:14:20 +0000 (UTC)
+Date: Thu, 7 Oct 2021 18:18:23 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Cai Huoqing <caihuoqing@baidu.com>
+Message-ID: <20211007181741.65f56d13@jic23-huawei>
+In-Reply-To: <20210928013902.1341-1-caihuoqing@baidu.com>
+References: <20210928013902.1341-1-caihuoqing@baidu.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <163362360751.31605.17812637314977823996.git-patchwork-notify@kernel.org>
-Date: Thu, 07 Oct 2021 16:20:07 +0000
-References: <20211006180944.GA913477@embeddedor>
-In-Reply-To: <20211006180944.GA913477@embeddedor>
-To: Gustavo A. R. Silva <gustavoars@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, linux-hardening@vger.kernel.org,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH][next] net: stmmac: selftests: Use
- kcalloc() instead of kzalloc()
+Cc: Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/8] iio: dac: ad8801: Make use of the
+ helper function dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,30 +51,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+On Tue, 28 Sep 2021 09:38:54 +0800
+Cai Huoqing <caihuoqing@baidu.com> wrote:
 
-This patch was applied to netdev/net-next.git (master)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Wed, 6 Oct 2021 13:09:44 -0500 you wrote:
-> Use 2-factor multiplication argument form kcalloc() instead
-> of kzalloc().
+> When possible use dev_err_probe help to properly deal with the
+> PROBE_DEFER error, the benefit is that DEFER issue will be logged
+> in the devices_deferred debugfs file.
+> Using dev_err_probe() can reduce code size, and the error value
+> gets printed.
 > 
-> Link: https://github.com/KSPP/linux/issues/162
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> Signed-off-by: Cai Huoqing <caihuoqing@baidu.com>
+
+Hi Cai,
+
+I made a modification to this patch whilst applying as described below.
+Please take care to not mix different types of change like you did here
+in one patch.
+
+With that change applied to the togreg branch of iio.git and pushed out as testing
+for 0-day to work it's magic and see if we missed anything,
+
+Thanks,
+
+Jonathan
+
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/iio/dac/ad8801.c | 15 +++++++--------
+>  1 file changed, 7 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/iio/dac/ad8801.c b/drivers/iio/dac/ad8801.c
+> index 6354b7c8f052..8acb9fee273c 100644
+> --- a/drivers/iio/dac/ad8801.c
+> +++ b/drivers/iio/dac/ad8801.c
+> @@ -123,10 +123,9 @@ static int ad8801_probe(struct spi_device *spi)
+>  	id = spi_get_device_id(spi);
+>  
+>  	state->vrefh_reg = devm_regulator_get(&spi->dev, "vrefh");
+> -	if (IS_ERR(state->vrefh_reg)) {
+> -		dev_err(&spi->dev, "Vrefh regulator not specified\n");
+> -		return PTR_ERR(state->vrefh_reg);
+> -	}
+> +	if (IS_ERR(state->vrefh_reg))
+> +		return dev_err_probe(&spi->dev, PTR_ERR(state->vrefh_reg),
+> +				     "Vrefh regulator not specified\n");
+>  
+>  	ret = regulator_enable(state->vrefh_reg);
+>  	if (ret) {
+> @@ -146,15 +145,15 @@ static int ad8801_probe(struct spi_device *spi)
+>  	if (id->driver_data == ID_AD8803) {
+>  		state->vrefl_reg = devm_regulator_get(&spi->dev, "vrefl");
+>  		if (IS_ERR(state->vrefl_reg)) {
+> -			dev_err(&spi->dev, "Vrefl regulator not specified\n");
+> -			ret = PTR_ERR(state->vrefl_reg);
+> +			ret = dev_err_probe(&spi->dev, PTR_ERR(state->vrefl_reg),
+> +					    "Vrefl regulator not specified\n");
+>  			goto error_disable_vrefh_reg;
+>  		}
+>  
+>  		ret = regulator_enable(state->vrefl_reg);
+>  		if (ret) {
+> -			dev_err(&spi->dev, "Failed to enable vrefl regulator: %d\n",
+> -					ret);
+> +			dev_err(&spi->dev,
+> +				"Failed to enable vrefl regulator: %d\n", ret);
+This last change is unconnected to the rest of the patch. I've dropped it whilst
+applying.
 
-Here is the summary with links:
-  - [next] net: stmmac: selftests: Use kcalloc() instead of kzalloc()
-    https://git.kernel.org/netdev/net-next/c/36371876e000
-
-You are awesome, thank you!
---
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+>  			goto error_disable_vrefh_reg;
+>  		}
+>  
 
 _______________________________________________
 Linux-stm32 mailing list
