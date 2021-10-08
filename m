@@ -2,37 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F116A426C5B
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Oct 2021 16:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3A57426D8E
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Oct 2021 17:35:56 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A430BC597B2;
-	Fri,  8 Oct 2021 14:06:46 +0000 (UTC)
-Received: from mail.monkeyblade.net (shards.monkeyblade.net [23.128.96.9])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 755B1C597B2;
+	Fri,  8 Oct 2021 15:35:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 035F2C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09721C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Oct 2021 14:06:43 +0000 (UTC)
-Received: from localhost (unknown [149.11.102.75])
- by mail.monkeyblade.net (Postfix) with ESMTPSA id 6A6604FEE346B;
- Fri,  8 Oct 2021 07:06:39 -0700 (PDT)
-Date: Fri, 08 Oct 2021 15:06:31 +0100 (BST)
-Message-Id: <20211008.150631.1431526603282542833.davem@davemloft.net>
-To: hmz007@gmail.com
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20211008102410.6535-1-hmz007@gmail.com>
-References: <20211008102410.6535-1-hmz007@gmail.com>
-X-Mailer: Mew version 6.8 on Emacs 27.2
-Mime-Version: 1.0
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2
- (mail.monkeyblade.net [0.0.0.0]); Fri, 08 Oct 2021 07:06:42 -0700 (PDT)
-Cc: linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, broonie@kernel.org, alexandre.torgue@foss.st.com,
- lgirdwood@gmail.com, joabreu@synopsys.com, p.zabel@pengutronix.de,
- kuba@kernel.org, peppe.cavallaro@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-rk: Add runtime PM
-	support
+ Fri,  8 Oct 2021 15:35:53 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1989fqnV023368; 
+ Fri, 8 Oct 2021 17:35:45 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=QmQxNQufiV2GsuHqMFZOe4B4PMKFaz6wLa6CZ7V7C+s=;
+ b=hSODOskKfdFbXZ8C0dDucIejQii9ipzIXg/DOTtsuS/il3p54JqBsND9ntlJRZ3DKdca
+ uqx3zVfc9LyvzfzwHf09n+Rr4u5r7xwlFXqlraqGVv/mOE1X3VnwA0KYHJ/h3NnNmg5F
+ /Uoi3OlZ6KU8XV52YgFYocUASDO1+9BCDgEP2om9l7eS/9lHq4K27vvkDpEF5myVDGmg
+ bBEQOhor6UeJRxCxSNc6EciGAwWSmFbdybMQ5qj5zkMSgUbIFQxlH+qh29dq/PdoyCoM
+ u7nuETV4CMQ8otVgfUsOhv/IF3xmP034cg6tikO1rcHPzDu/6kZnXrtp9NblbsliDo1o +Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3bjkk79wja-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 08 Oct 2021 17:35:45 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 05B5410002A;
+ Fri,  8 Oct 2021 17:35:44 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EC5AD237D9A;
+ Fri,  8 Oct 2021 17:35:43 +0200 (CEST)
+Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Fri, 8 Oct 2021 17:35:43
+ +0200
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Jonathan Corbet <corbet@lwn.net>, Mathieu
+ Poirier <mathieu.poirier@linaro.org>
+Date: Fri, 8 Oct 2021 17:34:44 +0200
+Message-ID: <20211008153446.23188-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-10-08_04,2021-10-07_02,2020-04-07_01
+Cc: linux-doc@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ arnaud.pouliquen@foss.st.com, Suman Anna <s-anna@ti.com>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v9 0/2] Add rpmsg tty driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,19 +74,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: hmz007 <hmz007@gmail.com>
-Date: Fri,  8 Oct 2021 18:24:10 +0800
+This new revision reopens subject started a long time ago. Previous revision discussions
+available here [1]. 
 
-> Commit 2d26f6e39afb ("fix unbalanced pm_runtime_enable warnings")
-> also enables runtime PM, which affects rk3399 with power-domain.
-> 
-> After an off-on switch of power-domain, the GMAC doesn't work properly,
-> calling rk_gmac_powerup at runtime resume fixes this issue.
-> 
-> Fixes: 2d26f6e39afb ("net: stmmac: dwmac-rk: fix unbalanced pm_runtime_enable warnings")
-> Signed-off-by: hmz007 <hmz007@gmail.com>
+This patchset introduces a TTY console on top of the RPMsg framework which
+enables the following use cases:
+- Provide a console to communicate easily with the remote processor application.
+- Provide an interface to get the remote processor log traces without ring
+  buffer limitation.
+- Ease the migration from MPU + MCU processors to multi core processors
+  (MPU and MCU integrated in one processor) by offering a virtual serial link.
 
-This patch does not apply to any of the networking trees.
+An alternative of this proposed solution would consist in using the virtio
+console:
+The drawback with that solution is that it requires a specific virtio buffer
+(in addition to the one already used for RPMsg) which does not fit with remote
+processors with little memory. The proposed solution allows to multiplex the
+console with the other rpmsg services, optimizing the memory.
+
+The first patch adds an API to the rpmsg framework ('get max transmission unit')
+and the second one is the rpmsg tty driver itself.
+
+Update previous revision [1] based on Bjorn Andersson and Greg Kroah-Hartman comments.
+
+Applied and tested on kernel V5.15-rc1
+
+[1] https://lkml.org/lkml/2021/9/30/792 
+
+Arnaud Pouliquen (2):
+  rpmsg: core: add API to get MTU
+  tty: add rpmsg driver
+
+ drivers/rpmsg/rpmsg_core.c       |  21 +++
+ drivers/rpmsg/rpmsg_internal.h   |   2 +
+ drivers/rpmsg/virtio_rpmsg_bus.c |  10 ++
+ drivers/tty/Kconfig              |  12 ++
+ drivers/tty/Makefile             |   1 +
+ drivers/tty/rpmsg_tty.c          | 275 +++++++++++++++++++++++++++++++
+ include/linux/rpmsg.h            |  10 ++
+ 7 files changed, 331 insertions(+)
+ create mode 100644 drivers/tty/rpmsg_tty.c
+
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
