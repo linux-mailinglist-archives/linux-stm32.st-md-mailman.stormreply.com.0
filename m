@@ -2,61 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB14242657D
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Oct 2021 09:57:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D13F4266BC
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Oct 2021 11:26:09 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D44FC5A4FB;
-	Fri,  8 Oct 2021 07:57:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9089BC597B3
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC861C597B3;
+	Fri,  8 Oct 2021 09:26:08 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1F1EC5719E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Oct 2021 07:57:05 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1984abmV020364; 
- Fri, 8 Oct 2021 09:57:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=c6EaOVGfb8Sa8HSlE1ms6Xot8j3nZXJs3bVkNF7A+D8=;
- b=P9RS1+4eRbSDQhkaKAaGifIzcOlHW5vPJLPNx2blBuLiEa+/h+V1Gmi/FKUDt4SoQPtX
- 8CnHd6bGEw5qmB0z94ZlGYgAwuzgQvWrCtLf7fRKUgQr5V6eVaObajTknxMoCQ2lYMHB
- e5NWg3zD6Gky/CYLFJTeKfxB1PwwP8/9oNQAWWojcPGfwU4KQGO5k/6ZpMUR/GRwTGe0
- 4P7ml7uBNk595PrSMRpIMpQMJnSZHn2YioDT9GkNbErnzS0+cnf4SbU0AAn71G0/VlCV
- 8LngPsIlJnrkIbN8TG9er7a1oAyvE0BaWEi9LEFSN4zBfOEV9D0pbjCB+4w56t7gz0q9 rQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3bjdun9fxj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 08 Oct 2021 09:57:04 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6E42B100034;
- Fri,  8 Oct 2021 09:57:04 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 63696218110;
- Fri,  8 Oct 2021 09:57:04 +0200 (CEST)
-Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Fri, 8 Oct 2021 09:57:03
- +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <hminas@synopsys.com>, <gregkh@linuxfoundation.org>
-Date: Fri, 8 Oct 2021 09:53:09 +0200
-Message-ID: <1633679589-16021-3-git-send-email-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1633679589-16021-1-git-send-email-fabrice.gasnier@foss.st.com>
-References: <1633679589-16021-1-git-send-email-fabrice.gasnier@foss.st.com>
+ Fri,  8 Oct 2021 09:26:05 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B9DB0D6E;
+ Fri,  8 Oct 2021 02:26:04 -0700 (PDT)
+Received: from monolith.localdoman (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CEA153F70D;
+ Fri,  8 Oct 2021 02:26:01 -0700 (PDT)
+Date: Fri, 8 Oct 2021 10:27:41 +0100
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: Punit Agrawal <punitagrawal@gmail.com>
+Message-ID: <YWAO/gibeTDelPVq@monolith.localdoman>
+References: <8e33c244-b786-18e8-79bc-407e27e4756b@arm.com>
+ <87zgrk19yb.fsf@stealth>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-10-08_02,2021-10-07_02,2020-04-07_01
-Cc: linux-usb@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 2/2] usb: dwc2: stm32mp15: set otg_rev
+Content-Disposition: inline
+In-Reply-To: <87zgrk19yb.fsf@stealth>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ p.zabel@pengutronix.de, netdev@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ alexandre.torgue@foss.st.com, lgirdwood@gmail.com, joabreu@synopsys.com,
+ michael.riesch@wolfvision.net, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, davem@davemloft.net,
+ arm-mail-list <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [BUG] Ethernet broken on rockpro64 by commit
+ 2d26f6e39afb ("net: stmmac: dwmac-rk: fix unbalanced pm_runtime_enable
+ warnings")
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,41 +52,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32MP15 complies with the OTG 2.0. Set OTG revision accordingly. It is
-useful for the of_usb_update_otg_caps() routine to check and update
-otg_rev to the lower value between DT and provided params.
+Hi Punit,
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
-Changes in v2:
-- set otg_rev in otg_caps structure directly
----
- drivers/usb/dwc2/params.c | 2 ++
- 1 file changed, 2 insertions(+)
+On Fri, Oct 08, 2021 at 12:17:48PM +0900, Punit Agrawal wrote:
+> Alexandru Elisei <alexandru.elisei@arm.com> writes:
+> 
+> > (Sorry I'm sending this to the wrong person, this is what I got
+> > scripts/get_maintainer.pl for the file touched by the commit)
+> >
+> > After commit 2d26f6e39afb ("net: stmmac: dwmac-rk: fix unbalanced
+> > pm_runtime_enable warnings"), the network card on my rockpro64-v2 was left unable
+> > to get a DHCP lease from the network. The offending commit was found by bisecting
+> > the kernel; I tried reverting the commit from current master (commit 0513e464f900
+> > ("Merge tag 'perf-tools-fixes-for-v5.15-2021-09-27' of
+> > git://git.kernel.org/pub/scm/linux/kernel/git/acme/linux")) and the network card
+> > was working as expected.
+> >
+> > It goes without saying that I can help with testing the fix and
+> > further diagnosing.
+> 
+> A fix was recently merged for this (see aec3f415f724 ("net: stmmac:
+> dwmac-rk: Fix ethernet on rk3399 based devices") and should show up in
+> the next rc. Please shout out if that doesn't fix the broken ethernet
+> for you.
 
-diff --git a/drivers/usb/dwc2/params.c b/drivers/usb/dwc2/params.c
-index 99d3b62..d300ae3 100644
---- a/drivers/usb/dwc2/params.c
-+++ b/drivers/usb/dwc2/params.c
-@@ -176,6 +176,7 @@ static void dwc2_set_stm32mp15_fsotg_params(struct dwc2_hsotg *hsotg)
- 
- 	p->otg_caps.hnp_support = false;
- 	p->otg_caps.srp_support = false;
-+	p->otg_caps.otg_rev = 0x200;
- 	p->speed = DWC2_SPEED_PARAM_FULL;
- 	p->host_rx_fifo_size = 128;
- 	p->host_nperio_tx_fifo_size = 96;
-@@ -197,6 +198,7 @@ static void dwc2_set_stm32mp15_hsotg_params(struct dwc2_hsotg *hsotg)
- 
- 	p->otg_caps.hnp_support = false;
- 	p->otg_caps.srp_support = false;
-+	p->otg_caps.otg_rev = 0x200;
- 	p->activate_stm_id_vb_detection = !device_property_read_bool(hsotg->dev, "usb-role-switch");
- 	p->host_rx_fifo_size = 440;
- 	p->host_nperio_tx_fifo_size = 256;
--- 
-2.7.4
+I can confirm that it's now working, many thanks.
 
+Alex
+
+> 
+> Thanks,
+> Punit
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
