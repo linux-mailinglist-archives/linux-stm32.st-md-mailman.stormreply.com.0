@@ -2,25 +2,25 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CF5742681C
+	by mail.lfdr.de (Postfix) with ESMTPS id C379C42681D
 	for <lists+linux-stm32@lfdr.de>; Fri,  8 Oct 2021 12:42:36 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03C30C5C825;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21740C5C828;
 	Fri,  8 Oct 2021 10:42:36 +0000 (UTC)
 Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
  [217.70.183.193])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22D13C597B2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D514BC597B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Oct 2021 10:35:13 +0000 (UTC)
+ Fri,  8 Oct 2021 10:35:14 +0000 (UTC)
 Received: (Authenticated sender: herve.codina@bootlin.com)
- by relay1-d.mail.gandi.net (Postfix) with ESMTPA id 972B924000E;
- Fri,  8 Oct 2021 10:35:11 +0000 (UTC)
+ by relay1-d.mail.gandi.net (Postfix) with ESMTPA id 6F39424000F;
+ Fri,  8 Oct 2021 10:35:13 +0000 (UTC)
 From: Herve Codina <herve.codina@bootlin.com>
 To: 
-Date: Fri,  8 Oct 2021 12:34:38 +0200
-Message-Id: <20211008103440.3929006-3-herve.codina@bootlin.com>
+Date: Fri,  8 Oct 2021 12:34:39 +0200
+Message-Id: <20211008103440.3929006-4-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20211008103440.3929006-1-herve.codina@bootlin.com>
 References: <20211008103440.3929006-1-herve.codina@bootlin.com>
@@ -34,8 +34,7 @@ Cc: Jose Abreu <joabreu@synopsys.com>, Herve Codina <herve.codina@bootlin.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
  netdev@vger.kernel.org, Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/4] dt-bindings: net: snps,
-	dwmac: add dwmac 3.40a IP version
+Subject: [Linux-stm32] [PATCH 3/4] net: stmmac: add support for dwmac 3.40a
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,29 +55,41 @@ dwmac 3.40a is an old ip version that can be found on SPEAr3xx soc.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- Documentation/devicetree/bindings/net/snps,dwmac.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c   | 1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 8 ++++++++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 42689b7d03a2..c115c95ee584 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -21,6 +21,7 @@ select:
-       contains:
-         enum:
-           - snps,dwmac
-+          - snps,dwmac-3.40a
-           - snps,dwmac-3.50a
-           - snps,dwmac-3.610
-           - snps,dwmac-3.70a
-@@ -76,6 +77,7 @@ properties:
-         - rockchip,rk3399-gmac
-         - rockchip,rv1108-gmac
-         - snps,dwmac
-+        - snps,dwmac-3.40a
-         - snps,dwmac-3.50a
-         - snps,dwmac-3.610
-         - snps,dwmac-3.70a
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
+index fbfda55b4c52..5e731a72cce8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
+@@ -71,6 +71,7 @@ static int dwmac_generic_probe(struct platform_device *pdev)
+ 
+ static const struct of_device_id dwmac_generic_match[] = {
+ 	{ .compatible = "st,spear600-gmac"},
++	{ .compatible = "snps,dwmac-3.40a"},
+ 	{ .compatible = "snps,dwmac-3.50a"},
+ 	{ .compatible = "snps,dwmac-3.610"},
+ 	{ .compatible = "snps,dwmac-3.70a"},
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 62cec9bfcd33..232ac98943cd 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -508,6 +508,14 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 		plat->pmt = 1;
+ 	}
+ 
++	if (of_device_is_compatible(np, "snps,dwmac-3.40a")) {
++		plat->has_gmac = 1;
++		plat->enh_desc = 1;
++		plat->tx_coe = 1;
++		plat->bugged_jumbo = 1;
++		plat->pmt = 1;
++	}
++
+ 	if (of_device_is_compatible(np, "snps,dwmac-4.00") ||
+ 	    of_device_is_compatible(np, "snps,dwmac-4.10a") ||
+ 	    of_device_is_compatible(np, "snps,dwmac-4.20a") ||
 -- 
 2.31.1
 
