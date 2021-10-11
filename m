@@ -2,67 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89778428B01
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Oct 2021 12:46:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60D13428C90
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Oct 2021 14:06:52 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34BBEC5C82E;
-	Mon, 11 Oct 2021 10:46:53 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93F85C5C82E;
+	Mon, 11 Oct 2021 12:06:51 +0000 (UTC)
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
+ [209.85.166.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6647EC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63EA7C58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Oct 2021 10:46:49 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19B9Ru8l022177; 
- Mon, 11 Oct 2021 12:46:48 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=MGTAKhW1EuXoe7o3K5K7J44GWxLr6cNvfJJs+YkI2z8=;
- b=JwoYxRPEfEHe4f1sAVWOAKSep0pIe8VGw8tGNg5CVH3ikqzLAs162jNqkpRm7rCLYDRI
- CqVZ8TDyKeVCDetyzRGKaWjN0PrtF7qRP06/ySJygVj1Ipbz/gHkHclt2UmD8/smK77r
- v6+rkllDmigMIO6o/2QREMv0OYFKTq8cMWWhy8SUgOspdAFmORI5P2mjmDPG0PdwgWrD
- tKjYFupOxU3tzqYe35vkR45JCVn5FbK9XJH4QJAVAMUXG8WZENVVJO/V02/KJCUIWdBX
- 3zDF55mPHlOGNrzW0gknaCyIP3dRUc7cCmin/b2w2laJY2RsL9HLfWDE1Ulelo/ZT553 tg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3bmd35tcpk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Oct 2021 12:46:48 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1646F100034;
- Mon, 11 Oct 2021 12:46:48 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0DC5021CA74;
- Mon, 11 Oct 2021 12:46:48 +0200 (CEST)
-Received: from lmecxl0889.lme.st.com (10.75.127.50) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 11 Oct
- 2021 12:46:47 +0200
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <20210712123752.10449-1-arnaud.pouliquen@foss.st.com>
- <20210712123752.10449-4-arnaud.pouliquen@foss.st.com>
- <YWDVwArEz5Yub3GJ@ripper>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <f0696b4d-c0b6-5283-2eda-e5791462cbba@foss.st.com>
-Date: Mon, 11 Oct 2021 12:46:47 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ Mon, 11 Oct 2021 12:06:48 +0000 (UTC)
+Received: by mail-io1-f54.google.com with SMTP id i189so11773052ioa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 Oct 2021 05:06:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dvdG6HlDmxXl9QNwcywivYC+PXm6/ITcCVPBJxzG4NY=;
+ b=C1qWsjLw5l4MNV2aAjNVBfIS0Ba83JnhaE5w4yLp23z9eyqZcY7rCQUlPqisUVyy61
+ TMR4OYOYxcKtyP4116tuDpZBxy8KS6/jU3LQ/mifoV4Ku6/1LBL1c61SsoU6El1THs1T
+ HuxSdtePsl06pPukRu7yEn1suDC/Pay8UyDRmMtLbf+Fc+IktFu4R8ZBabk9RCgNjKbJ
+ eLohIYPRD5N4g+zvuH0kTsrDamfeZlWI/gSWVxG30BmXaDB0T72z94uL2aKUvNaLl6ew
+ wt06vHeiZM1mPC2O48ACgXGiiw2oJ4sAzPUO9/iFB4dOeUyKOar1/qFxwX2eSQBf8ga7
+ kKwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dvdG6HlDmxXl9QNwcywivYC+PXm6/ITcCVPBJxzG4NY=;
+ b=Oo2Sa/DinmHJjx4N+8C6CyEgQVwKRVg9hwYGKHtVeEpYNa9A/DLIb3gRS5CXiOK+44
+ BjTC9cvP5yLMmm3QCN7IBwsna+m9hBVaeheJCNYBLfLJ6wJUeRETXXzMS0T43i7+THjx
+ /C4dhDEZNT+F5vSN+4EhPQricCXMKwhrU6Ux5d62LPeDIfxMPCqvE9/vQC+QI/ywTskN
+ DBUfSlQKdzcryma21lv3oAsrveHW9X6n99olaujZNBGVlMVfV1beDwVT1hIoZLT3uw9k
+ TFUXIvWw9y5/waWYlf3xUWTnILM4W8COmRpez03hN7/fntZ6PHYiDVOV9KOWcMt32jwB
+ Uh8w==
+X-Gm-Message-State: AOAM533D2jRrN1ndnqTX2FzZjGLOc1zHQN4+PoIA/TIrY+DJaghPmlK2
+ goL6EbceeRoGswCzvo/alty0wR53zp74XxC6MFY=
+X-Google-Smtp-Source: ABdhPJxle/Xfeq3Sdhdl2xj1q6S4qQCVGRu1IYV9HGZIZOmwpayBPeL+fM6GCwe1jE9UBeOgci4CTt5bzx3wirfDGkU=
+X-Received: by 2002:a05:6638:24c4:: with SMTP id
+ y4mr18408723jat.31.1633954006985; 
+ Mon, 11 Oct 2021 05:06:46 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <YWDVwArEz5Yub3GJ@ripper>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-10-11_03,2021-10-07_02,2020-04-07_01
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v5 3/4] rpmsg: Move the rpmsg control
- device from rpmsg_char to rpmsg_ctrl
+References: <1633689012-14492-1-git-send-email-dillon.minfei@gmail.com>
+ <1633689012-14492-7-git-send-email-dillon.minfei@gmail.com>
+ <290d78b5-b6d4-a115-9556-f2f909f573da@xs4all.nl>
+ <CAL9mu0KxAmULQofQMgt2JxVLs=L-YT5HZa+mA7sSKebG88GbcA@mail.gmail.com>
+ <8331ab8a-39b7-588c-146d-77197d7637a8@xs4all.nl>
+In-Reply-To: <8331ab8a-39b7-588c-146d-77197d7637a8@xs4all.nl>
+From: Dillon Min <dillon.minfei@gmail.com>
+Date: Mon, 11 Oct 2021 20:06:10 +0800
+Message-ID: <CAL9mu0J7GmojuRbvqpCg6X=nkXiMgb9NLMmt3RxLO8wfhMUL-g@mail.gmail.com>
+To: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, gnurou@gmail.com,
+ linux-clk <linux-clk@vger.kernel.org>, Pi-Hsun Shih <pihsun@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, mchehab+huawei@kernel.org,
+ hugues.fruchet@foss.st.com, Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>, gabriel.fernandez@foss.st.com,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, ezequiel@collabora.com,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-media <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v3 6/8] media: v4l2-ctrls: Add ARGB color
+	effects control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,80 +84,159 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, 11 Oct 2021 at 18:04, Hans Verkuil <hverkuil-cisco@xs4all.nl> wrote:
+>
+> On 11/10/2021 12:00, Dillon Min wrote:
+> > Hi Hans
+> >
+> > Thanks for the quick reply.
+> >
+> > On Mon, 11 Oct 2021 at 17:40, Hans Verkuil <hverkuil-cisco@xs4all.nl> wrote:
+> >>
+> >> On 08/10/2021 12:30, dillon.minfei@gmail.com wrote:
+> >>> From: Dillon Min <dillon.minfei@gmail.com>
+> >>>
+> >>> - add V4L2_COLORFX_SET_ARGB color effects control.
+> >>> - add V4L2_CID_COLORFX_ARGB for ARGB color setting.
+> >>>
+> >>> Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
+> >>> ---
+> >>> v3: according to Hans's suggestion, thanks.
+> >>> - remove old stm32 private R2M ioctl
+> >>> - add V4L2_CID_COLORFX_ARGB
+> >>> - add V4L2_COLORFX_SET_ARGB
+> >>>
+> >>>  Documentation/userspace-api/media/v4l/control.rst | 8 ++++++++
+> >>>  drivers/media/v4l2-core/v4l2-ctrls-defs.c         | 2 ++
+> >>>  include/uapi/linux/v4l2-controls.h                | 4 +++-
+> >>>  3 files changed, 13 insertions(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/Documentation/userspace-api/media/v4l/control.rst b/Documentation/userspace-api/media/v4l/control.rst
+> >>> index f8d0b923da20..319606a6288f 100644
+> >>> --- a/Documentation/userspace-api/media/v4l/control.rst
+> >>> +++ b/Documentation/userspace-api/media/v4l/control.rst
+> >>> @@ -242,8 +242,16 @@ Control IDs
+> >>>      * - ``V4L2_COLORFX_SET_CBCR``
+> >>>        - The Cb and Cr chroma components are replaced by fixed coefficients
+> >>>       determined by ``V4L2_CID_COLORFX_CBCR`` control.
+> >>> +    * - ``V4L2_COLORFX_SET_ARGB``
+> >>> +      - ARGB colors.
+> >>
+> >> How about:
+> >>
+> >>         - The ARGB components are replaced by the fixed ARGB components
+> >>         determined by ``V4L2_CID_COLORFX_ARGB`` control.
+> >
+> > Sure, will be addressed by v4.
+> >
+> >>
+> >> I also wonder if it makes sense to include the alpha channel here.
+> >>
+> >> Looking at the driver code it appears to me (I might be wrong) that the alpha
+> >> channel is never touched (DMA2D_ALPHA_MODE_NO_MODIF), and setting the alpha
+> >> channel as part of a color effects control is rather odd as well.
+> >
+> > Indeed, Alpha channel is not used in current code. I'll remove this item in v4.
+> > how about change the code like below:
+> >
+> >     * - ``V4L2_COLORFX_SET_RGB``
+> >        - The RGB components are replaced by the fixed RGB components
+> >          determined by ``V4L2_CID_COLORFX_RGB`` control.
+> >
+> > ``V4L2_CID_COLORFX_RGB`` ``(integer)``
+> >     Determines the Red, Green, and Blue coefficients for
+> >     ``V4L2_COLORFX_SET_RGB`` color effect.
+> >     Bits [7:0] of the supplied 32 bit value are interpreted as Blue component,
+> >     bits [15:8] as Green component, bits [23:16] as Red component, and
+> >     bits [31:24] must be zero.
+>
+> Yes, that looks OK to me.
 
+Ok, after getting your review feedback about the dma2d driver code.
+I will submit the v4 version. thanks.
 
-On 10/9/21 1:35 AM, Bjorn Andersson wrote:
-> On Mon 12 Jul 05:37 PDT 2021, Arnaud Pouliquen wrote:
-> 
->> Create the rpmsg_ctrl.c module and move the code related to the
->> rpmsg_ctrldev device in this new module.
->>
->> Add the dependency between rpmsg_char and rpmsg_ctrl in the
->> kconfig file.
->>
-> 
-> As I said in the cover letter, the only reason I can see for doing this
-> refactoring is in relation to the introduction of
-> RPMSG_CREATE_DEV_IOCTL. So I would like this patch to go together with
-> that patch, together with a good motivation why there's merit to
-> creating yet another kernel module (and by bind/unbind can't be used).
-> 
-> Perhaps I'm just missing some good usecase related to this?
+Best Regards.
+Dillon
 
-
-> 
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
->> ---
->>  drivers/rpmsg/Kconfig      |   9 ++
->>  drivers/rpmsg/Makefile     |   1 +
->>  drivers/rpmsg/rpmsg_char.c | 170 +----------------------------
->>  drivers/rpmsg/rpmsg_char.h |   2 +
->>  drivers/rpmsg/rpmsg_ctrl.c | 215 +++++++++++++++++++++++++++++++++++++
->>  5 files changed, 229 insertions(+), 168 deletions(-)
->>  create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
->>
-> [..]
->> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-> [..]
->> -static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
->> -{
-> [..]
->> -	dev = &ctrldev->dev;
->> -	device_initialize(dev);
->> -	dev->parent = &rpdev->dev;
->> -	dev->class = rpmsg_class;
-> [..]
->> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
-> [..]
->> +static int rpmsg_ctrldev_probe(struct rpmsg_device *rpdev)
->> +{
-> [..]
->> +	dev = &ctrldev->dev;
->> +	device_initialize(dev);
->> +	dev->parent = &rpdev->dev;
-> 
-> You lost the assignment of dev->class here, which breaks the udev rules
-> we use to invoke rpmsgexport to create endpoints and it causes udevadm
-> to complain that rpmsg_ctrlN doesn't have a "subsystem".
-
-We discussed this point with Mathieu, as a first step i kept the class, but that
-generated another dependency with the rpmsg_char device while information was
-available on the rpmsg bus. The char device and ctrl device should share the
-same class. As rpmsg_ctrl is created first it would have to create the class,and
-provide an API to rpmsg char
-
-Please could you details what does means "rpmsg_ctrlN doesn't have a
-"subsystem"." What exactly the udev is looking for? could it base it check on
-the /dev/rpmsg_ctrl0 or /sys/bus/rpmsg/devices/...?
-
-Thanks,
-Arnaud
-
-> 
+>
 > Regards,
-> Bjorn
-> 
+>
+>         Hans
+>
+> >
+> >
+> >>
+> >> Alpha channel manipulation really is separate from the color and - if needed - should
+> >> be done with a separate control.
+> >
+> > OK, Will use a separate control when adding blend features.
+> >
+> > Best Regards,
+> > Dillon
+> >
+> >>
+> >> Regards,
+> >>
+> >>         Hans
+> >>
+> >>>
+> >>>
+> >>> +``V4L2_CID_COLORFX_ARGB`` ``(integer)``
+> >>> +    Determines the Alpha, Red, Green, and Blue coefficients for
+> >>> +    ``V4L2_COLORFX_SET_ARGB`` color effect.
+> >>> +    Bits [7:0] of the supplied 32 bit value are interpreted as Blue component,
+> >>> +    bits [15:8] as Green component, bits [23:16] as Red component, and
+> >>> +    bits [31:24] as Alpha component.
+> >>>
+> >>>  ``V4L2_CID_COLORFX_CBCR`` ``(integer)``
+> >>>      Determines the Cb and Cr coefficients for ``V4L2_COLORFX_SET_CBCR``
+> >>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> >>> index 421300e13a41..53be6aadb289 100644
+> >>> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> >>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> >>> @@ -785,6 +785,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+> >>>       case V4L2_CID_MIN_BUFFERS_FOR_OUTPUT:   return "Min Number of Output Buffers";
+> >>>       case V4L2_CID_ALPHA_COMPONENT:          return "Alpha Component";
+> >>>       case V4L2_CID_COLORFX_CBCR:             return "Color Effects, CbCr";
+> >>> +     case V4L2_CID_COLORFX_ARGB:             return "Color Effects, ARGB";
+> >>>
+> >>>       /*
+> >>>        * Codec controls
+> >>> @@ -1392,6 +1393,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+> >>>               *min = *max = *step = *def = 0;
+> >>>               break;
+> >>>       case V4L2_CID_BG_COLOR:
+> >>> +     case V4L2_CID_COLORFX_ARGB:
+> >>>               *type = V4L2_CTRL_TYPE_INTEGER;
+> >>>               *step = 1;
+> >>>               *min = 0;
+> >>> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+> >>> index 5532b5f68493..2876c2282a68 100644
+> >>> --- a/include/uapi/linux/v4l2-controls.h
+> >>> +++ b/include/uapi/linux/v4l2-controls.h
+> >>> @@ -128,6 +128,7 @@ enum v4l2_colorfx {
+> >>>       V4L2_COLORFX_SOLARIZATION               = 13,
+> >>>       V4L2_COLORFX_ANTIQUE                    = 14,
+> >>>       V4L2_COLORFX_SET_CBCR                   = 15,
+> >>> +     V4L2_COLORFX_SET_ARGB                   = 16,
+> >>>  };
+> >>>  #define V4L2_CID_AUTOBRIGHTNESS                      (V4L2_CID_BASE+32)
+> >>>  #define V4L2_CID_BAND_STOP_FILTER            (V4L2_CID_BASE+33)
+> >>> @@ -145,9 +146,10 @@ enum v4l2_colorfx {
+> >>>
+> >>>  #define V4L2_CID_ALPHA_COMPONENT             (V4L2_CID_BASE+41)
+> >>>  #define V4L2_CID_COLORFX_CBCR                        (V4L2_CID_BASE+42)
+> >>> +#define V4L2_CID_COLORFX_ARGB                        (V4L2_CID_BASE+43)
+> >>>
+> >>>  /* last CID + 1 */
+> >>> -#define V4L2_CID_LASTP1                         (V4L2_CID_BASE+43)
+> >>> +#define V4L2_CID_LASTP1                         (V4L2_CID_BASE+44)
+> >>>
+> >>>  /* USER-class private control IDs */
+> >>>
+> >>>
+> >>
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
