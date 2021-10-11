@@ -2,70 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CD374276F1
-	for <lists+linux-stm32@lfdr.de>; Sat,  9 Oct 2021 05:36:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1371F4289B6
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Oct 2021 11:33:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05B66C5C824;
-	Sat,  9 Oct 2021 03:36:07 +0000 (UTC)
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE2F4C5C82E;
+	Mon, 11 Oct 2021 09:33:50 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28338C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E11DC58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  9 Oct 2021 03:36:04 +0000 (UTC)
-Received: by mail-ot1-f43.google.com with SMTP id
- 5-20020a9d0685000000b0054706d7b8e5so13972349otx.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 08 Oct 2021 20:36:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=4bSpNJPwT1vNF1+AfYe0YCy792p+0Ep8kGezfzAgQtY=;
- b=DHngEJe1oZcDoy9FWK6YfExDfhAM35H4sK9yztoZ9RAL2HE94VKG2iO5zTejlkOqVF
- HgJtOG63wpgRxOxpMkqwHuNdwJ06u8HMsoRrItl3svlMaa9jssnUCdgOOxNc8yPlboFo
- 7gxrlt8APJeBIIkLcovevN/nmkJBW5i1f8gnxGSiZWpA6+kMDcv1PIxwkH1OAtGeWqL8
- hgB2xC6FY6aTKzUNS5Zu89jFvGHmzNeMhm+NH7zwfjvI6Ig5R/JE+51d0s3D5woEAdgt
- +6q1Al51Gsjif1dcNGyXd3wZ5vd6A7mPFNd6iIMALu+ztlZDiQs8hd8PlrO5EknG+h4s
- DbGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=4bSpNJPwT1vNF1+AfYe0YCy792p+0Ep8kGezfzAgQtY=;
- b=YAqNKGyrALIPBRiesr+Vjulvbd7gTPHk2tBUGbCvuSFNlC6A4r/tbpW0ie7C8rirpb
- 5JdlnmH15Vb3Rd+cNegJnFkWZ4lTPqvI+PyP9bR6lNvzKeni7x28aWE1JH86QomEXiv3
- U3hBfiNiY1lXTtPQ90WfUEyDko4pCiP9H2b+vvOaHnBwOjWhNJj0dIIiMSQvWsdayPgM
- 41xs3dzZ8lzyLvG+divOx7P38tpf/nBtX1UsKp7FbJyveNvwIEwfhzJc3xPdnGmTB4Y5
- CmiWWbXcTErGBvQOELIBBMjLiiPGX4c1Ueqej/9tQngz0BevhYmebugfada9L4ibncwY
- +RtQ==
-X-Gm-Message-State: AOAM530T2IHgy+xpdUgYnUKGqCEJ2jEXvwIeDi04j5a0YE0FG/nPIsE4
- uK0kt+T8RKGpWxECTtWlwuIOIw==
-X-Google-Smtp-Source: ABdhPJyaa9dlRviM/cAUSatTSRIaJzgJe5GD1iSAJtY5jd32p+Rh+j0pYpc0Yc+BgfmZscIvNaUurg==
-X-Received: by 2002:a05:6830:1d8b:: with SMTP id
- y11mr11561729oti.291.1633750562871; 
- Fri, 08 Oct 2021 20:36:02 -0700 (PDT)
-Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
- by smtp.gmail.com with ESMTPSA id j12sm283806ota.47.2021.10.08.20.36.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Oct 2021 20:36:02 -0700 (PDT)
-Date: Fri, 8 Oct 2021 22:36:00 -0500
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <YWEOIHrp4Z8+MHaE@builder.lan>
-References: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
- <20211001101234.4247-5-arnaud.pouliquen@foss.st.com>
+ Mon, 11 Oct 2021 09:33:48 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19B824oX014133; 
+ Mon, 11 Oct 2021 11:33:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=4IZcyiEmJqJknYqY3HebfFSwzt2k+W5tkomkh6G8X1U=;
+ b=CbpIgAnUR55EcjRZf1X0kVgjPWJoRIC618TZrDIDc9/hstdYIZNTKjMaAcVFmmEiA9ty
+ 9dfQFnqopE80XabEmUdrUQO0oB2f96ucYo2SLLksyD905bB5ncCtsbn0czgIAdKVlhva
+ Y3k12HR74UnyQPep/lQwo+GEaNRfy1bAd2Tn8CScDYlIFp2g2JikFdq0xWSZvj5ZCtKg
+ 5fYwD0gSx56Oed3f5XEea04yInq+K+1GZQUR323V9PWI1wr8Ld7NrviGJQccj/DoWBHk
+ Kx0EBNzHumqaUoR/4nNJwWMqX//70/k+xvWFkVdwgP8jY7A+iY9sUHj9WaeXKFzKKx/x qw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3bmasq2kc3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Oct 2021 11:33:39 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5049510002A;
+ Mon, 11 Oct 2021 11:33:37 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 47C9E21B501;
+ Mon, 11 Oct 2021 11:33:37 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 11 Oct 2021 11:33:36
+ +0200
+From: Fabien Dessenne <fabien.dessenne@foss.st.com>
+To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-remoteproc@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Mon, 11 Oct 2021 11:33:26 +0200
+Message-ID: <20211011093326.817797-1-fabien.dessenne@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211001101234.4247-5-arnaud.pouliquen@foss.st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, Rob Herring <robh@kernel.org>,
- Bruce Ashfield <bruce.ashfield@xilinx.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [RFC PATCH 4/7] remoteproc: create the
-	REMOTEPROC_VIRTIO config
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-10-11_03,2021-10-07_02,2020-04-07_01
+Subject: [Linux-stm32] [PATCH] hwspinlock: stm32: enable clock at probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,121 +74,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri 01 Oct 05:12 CDT 2021, Arnaud Pouliquen wrote:
+Set the clock during probe and keep its control during suspend / resume
+operations.
+This fixes an issue when CONFIG_PM is not set and where the clock is
+never enabled.
 
-> Create the config to associate to the remoteproc virtio.
-> 
-> Notice that the REMOTEPROC_VIRTIO config can not set to m. the reason
-> is that it defines API that is used by the built-in remote proc core.
-> Functions such are rproc_add_virtio_dev can be called during the
-> Linux boot phase.
-> 
+Make use of devm_ functions to simplify the code.
 
-Please don't introduce new Kconfig options for everything. Consider that
-the expectation should be that everyone runs the default defconfig on
-their boards - and if someone actually needs this level of control, they
-are welcome to present patches with numbers showing the benefit of the
-savings.
+Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
+---
+ drivers/hwspinlock/stm32_hwspinlock.c | 60 +++++++++++++++++----------
+ 1 file changed, 38 insertions(+), 22 deletions(-)
 
-Thanks,
-Bjorn
+diff --git a/drivers/hwspinlock/stm32_hwspinlock.c b/drivers/hwspinlock/stm32_hwspinlock.c
+index 3ad0ce0da4d9..6c3be33f3faf 100644
+--- a/drivers/hwspinlock/stm32_hwspinlock.c
++++ b/drivers/hwspinlock/stm32_hwspinlock.c
+@@ -54,8 +54,23 @@ static const struct hwspinlock_ops stm32_hwspinlock_ops = {
+ 	.relax		= stm32_hwspinlock_relax,
+ };
+ 
++static void stm32_hwspinlock_disable_clk(void *data)
++{
++	struct platform_device *pdev = data;
++	struct stm32_hwspinlock *hw = platform_get_drvdata(pdev);
++	struct device *dev = &pdev->dev;
++
++	pm_runtime_get_sync(dev);
++	pm_runtime_disable(dev);
++	pm_runtime_set_suspended(dev);
++	pm_runtime_put_noidle(dev);
++
++	clk_disable_unprepare(hw->clk);
++}
++
+ static int stm32_hwspinlock_probe(struct platform_device *pdev)
+ {
++	struct device *dev = &pdev->dev;
+ 	struct stm32_hwspinlock *hw;
+ 	void __iomem *io_base;
+ 	size_t array_size;
+@@ -66,41 +81,43 @@ static int stm32_hwspinlock_probe(struct platform_device *pdev)
+ 		return PTR_ERR(io_base);
+ 
+ 	array_size = STM32_MUTEX_NUM_LOCKS * sizeof(struct hwspinlock);
+-	hw = devm_kzalloc(&pdev->dev, sizeof(*hw) + array_size, GFP_KERNEL);
++	hw = devm_kzalloc(dev, sizeof(*hw) + array_size, GFP_KERNEL);
+ 	if (!hw)
+ 		return -ENOMEM;
+ 
+-	hw->clk = devm_clk_get(&pdev->dev, "hsem");
++	hw->clk = devm_clk_get(dev, "hsem");
+ 	if (IS_ERR(hw->clk))
+ 		return PTR_ERR(hw->clk);
+ 
+-	for (i = 0; i < STM32_MUTEX_NUM_LOCKS; i++)
+-		hw->bank.lock[i].priv = io_base + i * sizeof(u32);
++	ret = clk_prepare_enable(hw->clk);
++	if (ret) {
++		dev_err(dev, "Failed to prepare_enable clock\n");
++		return ret;
++	}
++
++	pm_runtime_get_noresume(dev);
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++	pm_runtime_put(dev);
+ 
+ 	platform_set_drvdata(pdev, hw);
+-	pm_runtime_enable(&pdev->dev);
+ 
+-	ret = hwspin_lock_register(&hw->bank, &pdev->dev, &stm32_hwspinlock_ops,
+-				   0, STM32_MUTEX_NUM_LOCKS);
++	ret = devm_add_action_or_reset(dev, stm32_hwspinlock_disable_clk, pdev);
++	if (ret) {
++		dev_err(dev, "Failed to register action\n");
++		return ret;
++	}
+ 
+-	if (ret)
+-		pm_runtime_disable(&pdev->dev);
+-
+-	return ret;
+-}
++	for (i = 0; i < STM32_MUTEX_NUM_LOCKS; i++)
++		hw->bank.lock[i].priv = io_base + i * sizeof(u32);
+ 
+-static int stm32_hwspinlock_remove(struct platform_device *pdev)
+-{
+-	struct stm32_hwspinlock *hw = platform_get_drvdata(pdev);
+-	int ret;
++	ret = devm_hwspin_lock_register(dev, &hw->bank, &stm32_hwspinlock_ops,
++					0, STM32_MUTEX_NUM_LOCKS);
+ 
+-	ret = hwspin_lock_unregister(&hw->bank);
+ 	if (ret)
+-		dev_err(&pdev->dev, "%s failed: %d\n", __func__, ret);
+-
+-	pm_runtime_disable(&pdev->dev);
++		dev_err(dev, "Failed to register hwspinlock\n");
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int __maybe_unused stm32_hwspinlock_runtime_suspend(struct device *dev)
+@@ -135,7 +152,6 @@ MODULE_DEVICE_TABLE(of, stm32_hwpinlock_ids);
+ 
+ static struct platform_driver stm32_hwspinlock_driver = {
+ 	.probe		= stm32_hwspinlock_probe,
+-	.remove		= stm32_hwspinlock_remove,
+ 	.driver		= {
+ 		.name	= "stm32_hwspinlock",
+ 		.of_match_table = stm32_hwpinlock_ids,
+-- 
+2.25.1
 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
->  drivers/remoteproc/Kconfig               | 11 +++++++++-
->  drivers/remoteproc/Makefile              |  2 +-
->  drivers/remoteproc/remoteproc_internal.h | 28 ++++++++++++++++++++++++
->  3 files changed, 39 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-> index 9a6eedc3994a..f271552c0d84 100644
-> --- a/drivers/remoteproc/Kconfig
-> +++ b/drivers/remoteproc/Kconfig
-> @@ -6,7 +6,7 @@ config REMOTEPROC
->  	depends on HAS_DMA
->  	select CRC32
->  	select FW_LOADER
-> -	select VIRTIO
-> +	select REMOTEPROC_VIRTIO
->  	select WANT_DEV_COREDUMP
->  	help
->  	  Support for remote processors (such as DSP coprocessors). These
-> @@ -14,6 +14,15 @@ config REMOTEPROC
->  
->  if REMOTEPROC
->  
-> +config REMOTEPROC_VIRTIO
-> +	bool "Remoteproc virtio device "
-> +	select VIRTIO
-> +	help
-> +	  Say y here to have a virtio device support for the remoteproc
-> +	  communication.
-> +
-> +	  It's safe to say N if you don't use the virtio for the IPC.
-> +
->  config REMOTEPROC_CDEV
->  	bool "Remoteproc character device interface"
->  	help
-> diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
-> index bb26c9e4ef9c..73d2384a76aa 100644
-> --- a/drivers/remoteproc/Makefile
-> +++ b/drivers/remoteproc/Makefile
-> @@ -8,8 +8,8 @@ remoteproc-y				:= remoteproc_core.o
->  remoteproc-y				+= remoteproc_coredump.o
->  remoteproc-y				+= remoteproc_debugfs.o
->  remoteproc-y				+= remoteproc_sysfs.o
-> -remoteproc-y				+= remoteproc_virtio.o
->  remoteproc-y				+= remoteproc_elf_loader.o
-> +obj-$(CONFIG_REMOTEPROC_VIRTIO)		+= remoteproc_virtio.o
->  obj-$(CONFIG_REMOTEPROC_CDEV)		+= remoteproc_cdev.o
->  obj-$(CONFIG_IMX_REMOTEPROC)		+= imx_rproc.o
->  obj-$(CONFIG_INGENIC_VPU_RPROC)		+= ingenic_rproc.o
-> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-> index 152fe2e8668a..4ce012c353c0 100644
-> --- a/drivers/remoteproc/remoteproc_internal.h
-> +++ b/drivers/remoteproc/remoteproc_internal.h
-> @@ -30,10 +30,38 @@ int rproc_of_parse_firmware(struct device *dev, int index,
->  			    const char **fw_name);
->  
->  /* from remoteproc_virtio.c */
-> +#if IS_ENABLED(CONFIG_REMOTEPROC_VIRTIO)
-> +
->  int rproc_rvdev_add_device(struct rproc_vdev *rvdev);
->  irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id);
->  void rproc_vdev_release(struct kref *ref);
->  
-> +#else
-> +
-> +int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
-> +{
-> +	/* This shouldn't be possible */
-> +	WARN_ON(1);
-> +
-> +	return -ENXIO;
-> +}
-> +
-> +static inline irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id)
-> +{
-> +	/* This shouldn't be possible */
-> +	WARN_ON(1);
-> +
-> +	return IRQ_NONE;
-> +}
-> +
-> +static inline void rproc_vdev_release(struct kref *ref)
-> +{
-> +	/* This shouldn't be possible */
-> +	WARN_ON(1);
-> +}
-> +
-> +#endif
-> +
->  /* from remoteproc_debugfs.c */
->  void rproc_remove_trace_file(struct dentry *tfile);
->  struct dentry *rproc_create_trace_file(const char *name, struct rproc *rproc,
-> -- 
-> 2.17.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
