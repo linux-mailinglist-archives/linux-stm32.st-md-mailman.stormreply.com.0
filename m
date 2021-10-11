@@ -2,63 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27F7C42983C
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Oct 2021 22:42:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 546A34299B0
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Oct 2021 01:13:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA68AC5C82E;
-	Mon, 11 Oct 2021 20:42:39 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BD47C5C82F;
+	Mon, 11 Oct 2021 23:13:50 +0000 (UTC)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39190C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9CBBC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Oct 2021 20:42:38 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1ma27j-0006Dn-4t; Mon, 11 Oct 2021 22:42:15 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1ma27c-0003x4-Pt; Mon, 11 Oct 2021 22:42:08 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1ma27c-0001bN-Nd; Mon, 11 Oct 2021 22:42:08 +0200
-Date: Mon, 11 Oct 2021 22:42:07 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Guenter Roeck <linux@roeck-us.net>, Jarkko Sakkinen <jarkko@kernel.org>,
- Jean Delvare <jdelvare@suse.com>, Jiri Slaby <jirislaby@kernel.org>,
- Lee Jones <lee.jones@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Mon, 11 Oct 2021 23:13:48 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ l7-20020a0568302b0700b0054e40740571so17934607otv.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 Oct 2021 16:13:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=7zuoS5ImJfku8d8xCEMyvxbsSp1wfRVxODVvjTNPpWI=;
+ b=Q+7f5wZNa9dwrTmebu6kuWJL3cPOSXjF18xugKynNb1jLzDfBan5qiJBKZKbk7RADT
+ KZiMp7Ong4vXejq06MT2zISMfXMKDM3IACGDFajOXMZn92ug0njy3JSgZqrtfhvQ4FGK
+ PVNH3p3ngwQ9g2CZ51qDVkk15LTu1mtVBMlUJhje5BE4sIzj1cQkyksspac61AK5Vk8J
+ 3IokesuLUP3kCsDLJ1pgThOEIo+aJYHQmhaUqMRfTxWT8NyGOZvFY7Im9T2D8Qwy1MIc
+ woHPdx0WZbXDpwE9PWkBHY0UzZvIWSHO3hE1r9T0XbWNtLqoK7J+Oh6plal6/dDZXT4P
+ 5kig==
+X-Gm-Message-State: AOAM533aiyg3wO3Rn7VPw1LHC0CreiGb9OIyT+4pOZGw2vS4G06OAZVR
+ 1vR0rata6GVmbQCqx4UORw==
+X-Google-Smtp-Source: ABdhPJwgjqa80alYqxnGTfd3HMgT9XwEeOu7Wz9fbyC7hQnvyMYxKzqnL/RZNXXaNYHYTgIuXCirxw==
+X-Received: by 2002:a9d:7114:: with SMTP id n20mr14348496otj.25.1633994026820; 
+ Mon, 11 Oct 2021 16:13:46 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id r4sm2049640oiw.36.2021.10.11.16.13.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Oct 2021 16:13:45 -0700 (PDT)
+Received: (nullmailer pid 1347640 invoked by uid 1000);
+ Mon, 11 Oct 2021 23:13:43 -0000
+From: Rob Herring <robh@kernel.org>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+In-Reply-To: <20211011155717.1594-2-olivier.moysan@foss.st.com>
+References: <20211011155717.1594-1-olivier.moysan@foss.st.com>
+ <20211011155717.1594-2-olivier.moysan@foss.st.com>
+Date: Mon, 11 Oct 2021 18:13:43 -0500
+Message-Id: <1633994023.340533.1347639.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
+ linux-iio@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Peter Huewe <peterhuewe@gmx.de>, Thierry Reding <thierry.reding@gmail.com>,
- Yasunari Takiguchi <Yasunari.Takiguchi@sony.com>
-Message-ID: <20211011204207.zfmofwf4d6ga45ao@pengutronix.de>
-References: <20211011132754.2479853-1-u.kleine-koenig@pengutronix.de>
-MIME-Version: 1.0
-In-Reply-To: <20211011132754.2479853-1-u.kleine-koenig@pengutronix.de>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-hwmon@vger.kernel.org, kernel@pengutronix.de,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-spi@vger.kernel.org, Wolfram Sang <wsa@kernel.org>,
- "Jason Gunthorpe linux-integrity @ vger . kernel . org" <jgg@ziepe.ca>,
- Mark Brown <broonie@kernel.org>, linux-i2c@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 00/13] Make some spi device drivers return
- zero in .remove()
+ Fabrice Gasnier <fabrice.gasnier@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 1/7] dt-bindings: iio: stm32-adc: add
+	generic channel binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,103 +68,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2918967824262417884=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, 11 Oct 2021 17:57:11 +0200, Olivier Moysan wrote:
+> Add ADC generic channel binding. This binding should
+> be used as an alternate to legacy channel properties
+> whenever possible.
+> ADC generic channel binding allows to identify supported
+> internal channels through the following reserved label names:
+> "vddcore", "vrefint" and "vbat".
+> This binding also allows to set a different sampling time
+> for each channel.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> ---
+>  .../bindings/iio/adc/st,stm32-adc.yaml        | 100 ++++++++++++++++--
+>  1 file changed, 93 insertions(+), 7 deletions(-)
+> 
 
---===============2918967824262417884==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4crg6rmgkslx3kie"
-Content-Disposition: inline
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
+yamllint warnings/errors:
 
---4crg6rmgkslx3kie
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.example.dt.yaml: adc@48003000: adc@100:channel@13: 'st,min-sample-time-nsecs' does not match any of the regexes: 'pinctrl-[0-9]+'
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.example.dt.yaml: adc@48003000: adc@100:channel@14: 'st,min-sample-time-nsecs' does not match any of the regexes: 'pinctrl-[0-9]+'
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.example.dt.yaml: adc@48003000: adc@100:channel@15: 'st,min-sample-time-nsecs' does not match any of the regexes: 'pinctrl-[0-9]+'
+	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
 
-Hello,
+doc reference errors (make refcheckdocs):
 
-On Mon, Oct 11, 2021 at 03:27:41PM +0200, Uwe Kleine-K=F6nig wrote:
-> this series is part of my new quest to make spi remove callbacks return
-> void. Today they return an int, but the only result of returning a
-> non-zero value is a warning message. So it's a bad idea to return an
-> error code in the expectation that not freeing some resources is ok
-> then. The same holds true for i2c and platform devices which benefit en
-> passant for a few drivers.
->=20
-> The patches in this series address some of the spi drivers that might
-> return non-zero and adapt them accordingly to return zero instead. For
-> most drivers it's just about not hiding the fact that they already
-> return zero.
->=20
-> Given that there are quite some more patches of this type to create
-> before I can change the spi remove callback, I suggest the respecive
-> subsystem maintainers pick up these patches. There are no
-> interdependencies in this series.
->=20
-> Uwe Kleine-K=F6nig (13):
->   drm/panel: s6e63m0: Make s6e63m0_remove() return void
->   hwmon: adt7x10: Make adt7x10_remove() return void
->   hwmon: max31722: Warn about failure to put device in stand-by in
->     .remove()
->   input: adxl34xx: Make adxl34x_remove() return void
->   input: touchscreen: tsc200x: Make tsc200x_remove() return void
->   media: cxd2880: Eliminate dead code
->   mfd: mc13xxx: Make mc13xxx_common_exit() return void
->   mfd: stmpe: Make stmpe_remove() return void
->   mfd: tps65912: Make tps65912_device_exit() return void
->   serial: max310x: Make max310x_remove() return void
->   serial: sc16is7xx: Make sc16is7xx_remove() return void
->   staging: fbtft: Make fbtft_remove_common() return void
->   tpm: st33zp24: Make st33zp24_remove() return void
+See https://patchwork.ozlabs.org/patch/1539385
 
-I thought I would be a good enough programmer to not need build tests.
-Obviously I was wrong and introduced build problems with the following
-patches:
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
 
-	input: touchscreen: tsc200x: Make tsc200x_remove() return void
-	mfd: mc13xxx: Make mc13xxx_common_exit() return void
-	serial: max310x: Make max310x_remove() return void
-	serial: sc16is7xx: Make sc16is7xx_remove() return void
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Please don't apply these (unless you also fix the trivial problems in
-them). I will prepare a v2 soon.
+pip3 install dtschema --upgrade
 
-Best regards and sorry for the inconvenience,
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---4crg6rmgkslx3kie
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmFkoZsACgkQwfwUeK3K
-7AkTugf9FW8u+Q+uOdqyv/dig5mZMoKZ01YqhMcNB1hLm+NpjtUVPs0yR3CgUTq2
-lhQH+cy+0zeuFQEuyDRBXSLYHuSJJKVES8CBrpN960wFh6WaLLKLet8ri0sBJRe3
-gakaZ/TcwPP4RwY/f1V4w/APWuU3or8dviF7hasfFR+D8tIMK+Wgi0LbdWMQIRHf
-P9T60rK5sOnHH33Kksf5stqLxdk06MBHzwJV15PhzWc0TUQAmO+oG0FDfxq+C8tQ
-8lXq6dtxtEMlzLhtLsBBHoUegGR/XbnKUmxT6kC0nO+G88xCYTO+BBjIGacAxhmQ
-2mK/fRgMytsTSX41qXejUgp6TuoW+Q==
-=mP11
------END PGP SIGNATURE-----
-
---4crg6rmgkslx3kie--
-
---===============2918967824262417884==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Please check and re-submit.
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2918967824262417884==--
