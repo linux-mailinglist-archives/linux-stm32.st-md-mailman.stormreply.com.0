@@ -2,63 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3875D428DD4
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Oct 2021 15:28:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FC2B428FB5
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Oct 2021 15:58:53 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE6C7C5C82E;
-	Mon, 11 Oct 2021 13:28:13 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F15BAC5C82E;
+	Mon, 11 Oct 2021 13:58:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E73BC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0B4FC58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Oct 2021 13:28:12 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mZvLe-0006z2-IO; Mon, 11 Oct 2021 15:28:10 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mZvLd-0003pm-Vi; Mon, 11 Oct 2021 15:28:09 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mZvLW-0000T7-LN; Mon, 11 Oct 2021 15:28:02 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Lee Jones <lee.jones@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 11 Oct 2021 15:27:49 +0200
-Message-Id: <20211011132754.2479853-9-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211011132754.2479853-1-u.kleine-koenig@pengutronix.de>
-References: <20211011132754.2479853-1-u.kleine-koenig@pengutronix.de>
+ Mon, 11 Oct 2021 13:58:50 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19B9etZA022265; 
+ Mon, 11 Oct 2021 15:58:43 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=0wse3awVSetc/Wr70lqYwJ90ngXqWfR4toGfT0ByfJ0=;
+ b=1wv9zdYqJfUOTEuF72ZPfORVnFSTlUbnk+I+xHu8KvBnuzUzWpXHmHIh1kgxziM1QChj
+ e05OxpwEIRcCpvwH1oU9EIutrDduHA4OyUU+6/STTmkzBWWjsduvHqAZyNdL/Nlxf913
+ 28t7+T3e8g7Y6VQDHA9Mggm4LZ7Q8wSxGGKZVJy7+m+vax44XFrplsw0fmZZnF9m6CUe
+ W9Ofxx0pRu07bEm/KG29Uu4YYjjZecDQ76ST2cMv0yerBAG38jOXjtCPEqQwI1RpdpaJ
+ 5xwM+V58ff58Za0I0cUR472DdScna1bntH7X+zoKZ0Gywmpw22jsZxMoaZvXGozVJEuP rw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3bmdxrk7p1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Oct 2021 15:58:43 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C049110002A;
+ Mon, 11 Oct 2021 15:58:42 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B708022D165;
+ Mon, 11 Oct 2021 15:58:42 +0200 (CEST)
+Received: from localhost (10.75.127.48) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 11 Oct 2021 15:58:42
+ +0200
+From: Fabien Dessenne <fabien.dessenne@foss.st.com>
+To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-remoteproc@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Date: Mon, 11 Oct 2021 15:58:36 +0200
+Message-ID: <20211011135836.1045437-1-fabien.dessenne@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Patch-Hashes: v=1; h=sha256; i=SOnI2C3pbw0/O28+bQURH4mfZHs+NU3wIaeoHQEhKVQ=;
- m=WtM/zIhnsdBjs14lkJxT6oj9lbrAmktyLAk6bUH98nQ=;
- p=12TNER7mUCvsHC1mdfBXwGyRLzDN5LFZT6ziTZdlCA0=;
- g=86f514a8b5b16374e79dbf0810b2cbb16248162e
-X-Patch-Sig: m=pgp; i=u.kleine-koenig@pengutronix.de;
- s=0x0D2511F322BFAB1C1580266BE2DCDD9132669BD6;
- b=iQEyBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmFkO3YACgkQwfwUeK3K7AnLJgf0CXJ
- kO3lt9dwzmdwAhoUUdGY6ItzC5+w1ZUdYOQ2UXn/Scg0G/igZPuE017453oaD/7jMPzji8xjBzD3h
- asxVuFEi5MzewAGHnSzgPLnu4PLKmX718KpGDtUshkqEH2cXNH0PpPJVrCf2mZsh7qRGW4FNbb50M
- fu58sSGoWPOrvGNjgWU1oFhynzOHXpqYNOMUSYOgM/uQCGNOCj82vjDhu6R3RadP5ye/EhtPzK28f
- UfTq89346qOjHUNY3IY1vqDNhNLaMVjI0JVuB99NYrRt+6QsIS1n3um6IkAENUoNFpFFExMcrwqzZ
- +Ac8Ka1M50+aEll3WnfovxhTCdu7e
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Wolfram Sang <wsa@kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-i2c@vger.kernel.org, kernel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 08/13] mfd: stmpe: Make stmpe_remove() return
-	void
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-10-11_04,2021-10-07_02,2020-04-07_01
+Subject: [Linux-stm32] [PATCH v2] hwspinlock: stm32: enable clock at probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,53 +69,130 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VXAgdG8gbm93IHN0bXBlX3JlbW92ZSgpIHJldHVybnMgemVybyB1bmNvbmRpdGlvbmFsbHkuIE1h
-a2UgaXQgcmV0dXJuCnZvaWQgaW5zdGVhZCB3aGljaCBtYWtlcyBpdCBlYXNpZXIgdG8gc2VlIGlu
-IHRoZSBjYWxsZXJzIHRoYXQgdGhlcmUgaXMKbm8gZXJyb3IgdG8gaGFuZGxlLgoKQWxzbyB0aGUg
-cmV0dXJuIHZhbHVlIG9mIGkyYyBhbmQgc3BpIHJlbW92ZSBjYWxsYmFja3MgaXMgaWdub3JlZCBh
-bnl3YXkuCgpTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmln
-QHBlbmd1dHJvbml4LmRlPgotLS0KIGRyaXZlcnMvbWZkL3N0bXBlLWkyYy5jIHwgNCArKystCiBk
-cml2ZXJzL21mZC9zdG1wZS1zcGkuYyB8IDQgKysrLQogZHJpdmVycy9tZmQvc3RtcGUuYyAgICAg
-fCA0ICstLS0KIGRyaXZlcnMvbWZkL3N0bXBlLmggICAgIHwgMiArLQogNCBmaWxlcyBjaGFuZ2Vk
-LCA4IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9t
-ZmQvc3RtcGUtaTJjLmMgYi9kcml2ZXJzL21mZC9zdG1wZS1pMmMuYwppbmRleCBjZDJmNDUyNTdk
-YzEuLmQzZWVkZjNkNjA3ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9tZmQvc3RtcGUtaTJjLmMKKysr
-IGIvZHJpdmVycy9tZmQvc3RtcGUtaTJjLmMKQEAgLTk1LDcgKzk1LDkgQEAgc3RhdGljIGludCBz
-dG1wZV9pMmNfcmVtb3ZlKHN0cnVjdCBpMmNfY2xpZW50ICppMmMpCiB7CiAJc3RydWN0IHN0bXBl
-ICpzdG1wZSA9IGRldl9nZXRfZHJ2ZGF0YSgmaTJjLT5kZXYpOwogCi0JcmV0dXJuIHN0bXBlX3Jl
-bW92ZShzdG1wZSk7CisJc3RtcGVfcmVtb3ZlKHN0bXBlKTsKKworCXJldHVybiAwOwogfQogCiBz
-dGF0aWMgY29uc3Qgc3RydWN0IGkyY19kZXZpY2VfaWQgc3RtcGVfaTJjX2lkW10gPSB7CmRpZmYg
-LS1naXQgYS9kcml2ZXJzL21mZC9zdG1wZS1zcGkuYyBiL2RyaXZlcnMvbWZkL3N0bXBlLXNwaS5j
-CmluZGV4IDczNTE3MzRmNzU5My4uNmM1OTE1MDE2YmU1IDEwMDY0NAotLS0gYS9kcml2ZXJzL21m
-ZC9zdG1wZS1zcGkuYworKysgYi9kcml2ZXJzL21mZC9zdG1wZS1zcGkuYwpAQCAtMTA2LDcgKzEw
-Niw5IEBAIHN0YXRpYyBpbnQgc3RtcGVfc3BpX3JlbW92ZShzdHJ1Y3Qgc3BpX2RldmljZSAqc3Bp
-KQogewogCXN0cnVjdCBzdG1wZSAqc3RtcGUgPSBzcGlfZ2V0X2RydmRhdGEoc3BpKTsKIAotCXJl
-dHVybiBzdG1wZV9yZW1vdmUoc3RtcGUpOworCXN0bXBlX3JlbW92ZShzdG1wZSk7CisKKwlyZXR1
-cm4gMDsKIH0KIAogc3RhdGljIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQgc3RtcGVfc3BpX29m
-X21hdGNoW10gPSB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL21mZC9zdG1wZS5jIGIvZHJpdmVycy9t
-ZmQvc3RtcGUuYwppbmRleCA1OGQwOWM2MTVlNjcuLmU5MjhkZjk1ZTMxNiAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9tZmQvc3RtcGUuYworKysgYi9kcml2ZXJzL21mZC9zdG1wZS5jCkBAIC0xNDk2LDcg
-KzE0OTYsNyBAQCBpbnQgc3RtcGVfcHJvYmUoc3RydWN0IHN0bXBlX2NsaWVudF9pbmZvICpjaSwg
-ZW51bSBzdG1wZV9wYXJ0bnVtIHBhcnRudW0pCiAJcmV0dXJuIHJldDsKIH0KIAotaW50IHN0bXBl
-X3JlbW92ZShzdHJ1Y3Qgc3RtcGUgKnN0bXBlKQordm9pZCBzdG1wZV9yZW1vdmUoc3RydWN0IHN0
-bXBlICpzdG1wZSkKIHsKIAlpZiAoIUlTX0VSUihzdG1wZS0+dmlvKSkKIAkJcmVndWxhdG9yX2Rp
-c2FibGUoc3RtcGUtPnZpbyk7CkBAIC0xNTA2LDggKzE1MDYsNiBAQCBpbnQgc3RtcGVfcmVtb3Zl
-KHN0cnVjdCBzdG1wZSAqc3RtcGUpCiAJX19zdG1wZV9kaXNhYmxlKHN0bXBlLCBTVE1QRV9CTE9D
-S19BREMpOwogCiAJbWZkX3JlbW92ZV9kZXZpY2VzKHN0bXBlLT5kZXYpOwotCi0JcmV0dXJuIDA7
-CiB9CiAKICNpZmRlZiBDT05GSUdfUE0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWZkL3N0bXBlLmgg
-Yi9kcml2ZXJzL21mZC9zdG1wZS5oCmluZGV4IDgzNDkxZTk5YmEzYy4uMWI0ZjkxZDAzYmJmIDEw
-MDY0NAotLS0gYS9kcml2ZXJzL21mZC9zdG1wZS5oCisrKyBiL2RyaXZlcnMvbWZkL3N0bXBlLmgK
-QEAgLTk4LDcgKzk4LDcgQEAgc3RydWN0IHN0bXBlX2NsaWVudF9pbmZvIHsKIH07CiAKIGludCBz
-dG1wZV9wcm9iZShzdHJ1Y3Qgc3RtcGVfY2xpZW50X2luZm8gKmNpLCBlbnVtIHN0bXBlX3BhcnRu
-dW0gcGFydG51bSk7Ci1pbnQgc3RtcGVfcmVtb3ZlKHN0cnVjdCBzdG1wZSAqc3RtcGUpOwordm9p
-ZCBzdG1wZV9yZW1vdmUoc3RydWN0IHN0bXBlICpzdG1wZSk7CiAKICNkZWZpbmUgU1RNUEVfSUNS
-X0xTQl9ISUdICSgxIDw8IDIpCiAjZGVmaW5lIFNUTVBFX0lDUl9MU0JfRURHRQkoMSA8PCAxKQot
-LSAKMi4zMC4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+Set the clock during probe and keep its control during suspend / resume
+operations.
+This fixes an issue when CONFIG_PM is not set and where the clock is
+never enabled.
+
+Make use of devm_ functions to simplify the code.
+
+Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
+---
+Changes since v1:
+- Call platform_set_drvdata() before pm_runtime_...() calls
+---
+ drivers/hwspinlock/stm32_hwspinlock.c | 58 +++++++++++++++++----------
+ 1 file changed, 37 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/hwspinlock/stm32_hwspinlock.c b/drivers/hwspinlock/stm32_hwspinlock.c
+index 3ad0ce0da4d9..5bd11a7fab65 100644
+--- a/drivers/hwspinlock/stm32_hwspinlock.c
++++ b/drivers/hwspinlock/stm32_hwspinlock.c
+@@ -54,8 +54,23 @@ static const struct hwspinlock_ops stm32_hwspinlock_ops = {
+ 	.relax		= stm32_hwspinlock_relax,
+ };
+ 
++static void stm32_hwspinlock_disable_clk(void *data)
++{
++	struct platform_device *pdev = data;
++	struct stm32_hwspinlock *hw = platform_get_drvdata(pdev);
++	struct device *dev = &pdev->dev;
++
++	pm_runtime_get_sync(dev);
++	pm_runtime_disable(dev);
++	pm_runtime_set_suspended(dev);
++	pm_runtime_put_noidle(dev);
++
++	clk_disable_unprepare(hw->clk);
++}
++
+ static int stm32_hwspinlock_probe(struct platform_device *pdev)
+ {
++	struct device *dev = &pdev->dev;
+ 	struct stm32_hwspinlock *hw;
+ 	void __iomem *io_base;
+ 	size_t array_size;
+@@ -66,41 +81,43 @@ static int stm32_hwspinlock_probe(struct platform_device *pdev)
+ 		return PTR_ERR(io_base);
+ 
+ 	array_size = STM32_MUTEX_NUM_LOCKS * sizeof(struct hwspinlock);
+-	hw = devm_kzalloc(&pdev->dev, sizeof(*hw) + array_size, GFP_KERNEL);
++	hw = devm_kzalloc(dev, sizeof(*hw) + array_size, GFP_KERNEL);
+ 	if (!hw)
+ 		return -ENOMEM;
+ 
+-	hw->clk = devm_clk_get(&pdev->dev, "hsem");
++	hw->clk = devm_clk_get(dev, "hsem");
+ 	if (IS_ERR(hw->clk))
+ 		return PTR_ERR(hw->clk);
+ 
+-	for (i = 0; i < STM32_MUTEX_NUM_LOCKS; i++)
+-		hw->bank.lock[i].priv = io_base + i * sizeof(u32);
++	ret = clk_prepare_enable(hw->clk);
++	if (ret) {
++		dev_err(dev, "Failed to prepare_enable clock\n");
++		return ret;
++	}
+ 
+ 	platform_set_drvdata(pdev, hw);
+-	pm_runtime_enable(&pdev->dev);
+ 
+-	ret = hwspin_lock_register(&hw->bank, &pdev->dev, &stm32_hwspinlock_ops,
+-				   0, STM32_MUTEX_NUM_LOCKS);
++	pm_runtime_get_noresume(dev);
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++	pm_runtime_put(dev);
+ 
+-	if (ret)
+-		pm_runtime_disable(&pdev->dev);
++	ret = devm_add_action_or_reset(dev, stm32_hwspinlock_disable_clk, pdev);
++	if (ret) {
++		dev_err(dev, "Failed to register action\n");
++		return ret;
++	}
+ 
+-	return ret;
+-}
++	for (i = 0; i < STM32_MUTEX_NUM_LOCKS; i++)
++		hw->bank.lock[i].priv = io_base + i * sizeof(u32);
+ 
+-static int stm32_hwspinlock_remove(struct platform_device *pdev)
+-{
+-	struct stm32_hwspinlock *hw = platform_get_drvdata(pdev);
+-	int ret;
++	ret = devm_hwspin_lock_register(dev, &hw->bank, &stm32_hwspinlock_ops,
++					0, STM32_MUTEX_NUM_LOCKS);
+ 
+-	ret = hwspin_lock_unregister(&hw->bank);
+ 	if (ret)
+-		dev_err(&pdev->dev, "%s failed: %d\n", __func__, ret);
+-
+-	pm_runtime_disable(&pdev->dev);
++		dev_err(dev, "Failed to register hwspinlock\n");
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int __maybe_unused stm32_hwspinlock_runtime_suspend(struct device *dev)
+@@ -135,7 +152,6 @@ MODULE_DEVICE_TABLE(of, stm32_hwpinlock_ids);
+ 
+ static struct platform_driver stm32_hwspinlock_driver = {
+ 	.probe		= stm32_hwspinlock_probe,
+-	.remove		= stm32_hwspinlock_remove,
+ 	.driver		= {
+ 		.name	= "stm32_hwspinlock",
+ 		.of_match_table = stm32_hwpinlock_ids,
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
