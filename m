@@ -2,71 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9FB942957B
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Oct 2021 19:22:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27F7C42983C
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Oct 2021 22:42:40 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93BA6C5C82E;
-	Mon, 11 Oct 2021 17:22:05 +0000 (UTC)
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CA68AC5C82E;
+	Mon, 11 Oct 2021 20:42:39 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86CFCC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39190C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Oct 2021 17:22:03 +0000 (UTC)
-Received: by mail-oi1-f181.google.com with SMTP id t4so23751296oie.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Oct 2021 10:22:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=HmEokn5oUdJqWXRoigMGBMDU0hXxS+4uBuxS3ZcINxM=;
- b=HWG22c1i7wrXnbbUxNqP0GHByQbqHrpCQ9uBz2JGkqyvFn+qNXPaX/ofKK/2zDb9wV
- k8m9YtNdJeHBPpQpvMYTpL420BuMUzo+ihnJARKQz72AF+LjHSrYQZ2oe4q68WisiOzc
- /JEtbiU1rPu5UMpvkqoY2d8M2LvxemL3g1do7ma8MOEVSzdUoBuCMSyg/L4G8ADl7Vv4
- ZlBTJX14Ao0cu5Vu5jTq1DEnIU113RrIYZPWuJe31JHmIRrT887KU4xz1yqpQ7T6mYbc
- wCsv1jKQqL/JUrEzyfyIjQrAQD9ZGOstplnB2HBmL1QHMykf53J3vIo0pKIEzpCAD2d5
- /SUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=HmEokn5oUdJqWXRoigMGBMDU0hXxS+4uBuxS3ZcINxM=;
- b=vCTymRBSvNLkQg5f8w6HMJzIV3fvzcOvG2RlF4t1JutE/7pLCp/s+CUJhP35AfM+1g
- ToxpaFlzZaoMM4AFXKuC3IXNftB1/bpHPn/7DWTo86v8Yjr6JmzBHRTVgLuh9DnHc9SG
- oepAJW4tuEUD61g9ivoU98rOFw92uPjT3DjAMjLvyRlzam/BCjD9BMexytPCzqP8cMnQ
- 8qZ8unvSwK/KF0J9LmAQ6409XXpZnAhS/ugOhYC2fsq12QInpl64ZCsfhdjfWQLULvT5
- gRHop/XTpWzP6LHuziUYg4gQOH9ZiPZBYxlVJb5kLQAKN3zUOfMXl5X8mG6P7ym776qP
- uPuw==
-X-Gm-Message-State: AOAM531IjH326Yu4P84HfMMVT/D8krx7Kx8K5ozOr9iXTdxNUe6Q37Vq
- YgBacEsxCBa/krsNpHil4tbWAQ==
-X-Google-Smtp-Source: ABdhPJwlzOLG1W4ub2KbV14y6v+gpH90jywxXp37DBQhUdP75EU/sPsEI8FpAo2YyRWcehb3ZZte3A==
-X-Received: by 2002:a05:6808:1141:: with SMTP id
- u1mr135628oiu.123.1633972922358; 
- Mon, 11 Oct 2021 10:22:02 -0700 (PDT)
-Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
- by smtp.gmail.com with ESMTPSA id n12sm1596854otq.32.2021.10.11.10.22.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Oct 2021 10:22:01 -0700 (PDT)
-Date: Mon, 11 Oct 2021 10:23:35 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <YWRzFyS5WX6m5rNd@ripper>
-References: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
- <20211001101234.4247-5-arnaud.pouliquen@foss.st.com>
- <YWEOIHrp4Z8+MHaE@builder.lan>
- <c16ca06a-96da-ac04-5ae7-bbbdf4b48ee5@foss.st.com>
+ Mon, 11 Oct 2021 20:42:38 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1ma27j-0006Dn-4t; Mon, 11 Oct 2021 22:42:15 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1ma27c-0003x4-Pt; Mon, 11 Oct 2021 22:42:08 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1ma27c-0001bN-Nd; Mon, 11 Oct 2021 22:42:08 +0200
+Date: Mon, 11 Oct 2021 22:42:07 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Guenter Roeck <linux@roeck-us.net>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Jean Delvare <jdelvare@suse.com>, Jiri Slaby <jirislaby@kernel.org>,
+ Lee Jones <lee.jones@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Peter Huewe <peterhuewe@gmx.de>, Thierry Reding <thierry.reding@gmail.com>,
+ Yasunari Takiguchi <Yasunari.Takiguchi@sony.com>
+Message-ID: <20211011204207.zfmofwf4d6ga45ao@pengutronix.de>
+References: <20211011132754.2479853-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c16ca06a-96da-ac04-5ae7-bbbdf4b48ee5@foss.st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, Rob Herring <robh@kernel.org>,
- Bruce Ashfield <bruce.ashfield@xilinx.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [RFC PATCH 4/7] remoteproc: create the
-	REMOTEPROC_VIRTIO config
+In-Reply-To: <20211011132754.2479853-1-u.kleine-koenig@pengutronix.de>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-hwmon@vger.kernel.org, kernel@pengutronix.de,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-spi@vger.kernel.org, Wolfram Sang <wsa@kernel.org>,
+ "Jason Gunthorpe linux-integrity @ vger . kernel . org" <jgg@ziepe.ca>,
+ Mark Brown <broonie@kernel.org>, linux-i2c@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
+ Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/13] Make some spi device drivers return
+ zero in .remove()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,162 +70,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2918967824262417884=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon 11 Oct 08:58 PDT 2021, Arnaud POULIQUEN wrote:
 
-> 
-> 
-> On 10/9/21 5:36 AM, Bjorn Andersson wrote:
-> > On Fri 01 Oct 05:12 CDT 2021, Arnaud Pouliquen wrote:
-> > 
-> >> Create the config to associate to the remoteproc virtio.
-> >>
-> >> Notice that the REMOTEPROC_VIRTIO config can not set to m. the reason
-> >> is that it defines API that is used by the built-in remote proc core.
-> >> Functions such are rproc_add_virtio_dev can be called during the
-> >> Linux boot phase.
-> >>
-> > 
-> > Please don't introduce new Kconfig options for everything. Consider that
-> > the expectation should be that everyone runs the default defconfig on
-> > their boards - and if someone actually needs this level of control, they
-> > are welcome to present patches with numbers showing the benefit of the
-> > savings.
-> 
-> My goal here was to decorrelate the remote virtio from the remote proc,
-> so that platforms based on a non-virtio solution do not embed the code.
-> By reading your commentary it jumps out at me that that's stupid.
+--===============2918967824262417884==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4crg6rmgkslx3kie"
+Content-Disposition: inline
 
-I definitely don't think it's stupid. In a resource constraint
-environment that want to use remoteproc but won't use virtio this makes
-total sense.
 
-But the added Kconfig creates complexity and people run into issues
-because the default defconfig is incomplete, they got their defconfig
-"wrong" or "make olddefconfig" misses the new config.
+--4crg6rmgkslx3kie
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-As such, I simply would like us to postpone the introduction of
-configurability until there's someone that can show it's worth the
-complexity.
+Hello,
 
-> The REMOTEPROC_VIRTIO config is useless as the remoteproc_virtio must
-> be kept built-in for legacy compatibility.
-> 
+On Mon, Oct 11, 2021 at 03:27:41PM +0200, Uwe Kleine-K=F6nig wrote:
+> this series is part of my new quest to make spi remove callbacks return
+> void. Today they return an int, but the only result of returning a
+> non-zero value is a warning message. So it's a bad idea to return an
+> error code in the expectation that not freeing some resources is ok
+> then. The same holds true for i2c and platform devices which benefit en
+> passant for a few drivers.
+>=20
+> The patches in this series address some of the spi drivers that might
+> return non-zero and adapt them accordingly to return zero instead. For
+> most drivers it's just about not hiding the fact that they already
+> return zero.
+>=20
+> Given that there are quite some more patches of this type to create
+> before I can change the spi remove callback, I suggest the respecive
+> subsystem maintainers pick up these patches. There are no
+> interdependencies in this series.
+>=20
+> Uwe Kleine-K=F6nig (13):
+>   drm/panel: s6e63m0: Make s6e63m0_remove() return void
+>   hwmon: adt7x10: Make adt7x10_remove() return void
+>   hwmon: max31722: Warn about failure to put device in stand-by in
+>     .remove()
+>   input: adxl34xx: Make adxl34x_remove() return void
+>   input: touchscreen: tsc200x: Make tsc200x_remove() return void
+>   media: cxd2880: Eliminate dead code
+>   mfd: mc13xxx: Make mc13xxx_common_exit() return void
+>   mfd: stmpe: Make stmpe_remove() return void
+>   mfd: tps65912: Make tps65912_device_exit() return void
+>   serial: max310x: Make max310x_remove() return void
+>   serial: sc16is7xx: Make sc16is7xx_remove() return void
+>   staging: fbtft: Make fbtft_remove_common() return void
+>   tpm: st33zp24: Make st33zp24_remove() return void
 
-Right, so we would have to make sure that in all "standard"
-configurations REMOTEPROC_VIRTIO is included.
+I thought I would be a good enough programmer to not need build tests.
+Obviously I was wrong and introduced build problems with the following
+patches:
 
-Regards,
-Bjorn
+	input: touchscreen: tsc200x: Make tsc200x_remove() return void
+	mfd: mc13xxx: Make mc13xxx_common_exit() return void
+	serial: max310x: Make max310x_remove() return void
+	serial: sc16is7xx: Make sc16is7xx_remove() return void
 
-> Thanks,
-> Arnaud
-> 
-> > 
-> > Thanks,
-> > Bjorn
-> > 
-> >> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> >> ---
-> >>  drivers/remoteproc/Kconfig               | 11 +++++++++-
-> >>  drivers/remoteproc/Makefile              |  2 +-
-> >>  drivers/remoteproc/remoteproc_internal.h | 28 ++++++++++++++++++++++++
-> >>  3 files changed, 39 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-> >> index 9a6eedc3994a..f271552c0d84 100644
-> >> --- a/drivers/remoteproc/Kconfig
-> >> +++ b/drivers/remoteproc/Kconfig
-> >> @@ -6,7 +6,7 @@ config REMOTEPROC
-> >>  	depends on HAS_DMA
-> >>  	select CRC32
-> >>  	select FW_LOADER
-> >> -	select VIRTIO
-> >> +	select REMOTEPROC_VIRTIO
-> >>  	select WANT_DEV_COREDUMP
-> >>  	help
-> >>  	  Support for remote processors (such as DSP coprocessors). These
-> >> @@ -14,6 +14,15 @@ config REMOTEPROC
-> >>  
-> >>  if REMOTEPROC
-> >>  
-> >> +config REMOTEPROC_VIRTIO
-> >> +	bool "Remoteproc virtio device "
-> >> +	select VIRTIO
-> >> +	help
-> >> +	  Say y here to have a virtio device support for the remoteproc
-> >> +	  communication.
-> >> +
-> >> +	  It's safe to say N if you don't use the virtio for the IPC.
-> >> +
-> >>  config REMOTEPROC_CDEV
-> >>  	bool "Remoteproc character device interface"
-> >>  	help
-> >> diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
-> >> index bb26c9e4ef9c..73d2384a76aa 100644
-> >> --- a/drivers/remoteproc/Makefile
-> >> +++ b/drivers/remoteproc/Makefile
-> >> @@ -8,8 +8,8 @@ remoteproc-y				:= remoteproc_core.o
-> >>  remoteproc-y				+= remoteproc_coredump.o
-> >>  remoteproc-y				+= remoteproc_debugfs.o
-> >>  remoteproc-y				+= remoteproc_sysfs.o
-> >> -remoteproc-y				+= remoteproc_virtio.o
-> >>  remoteproc-y				+= remoteproc_elf_loader.o
-> >> +obj-$(CONFIG_REMOTEPROC_VIRTIO)		+= remoteproc_virtio.o
-> >>  obj-$(CONFIG_REMOTEPROC_CDEV)		+= remoteproc_cdev.o
-> >>  obj-$(CONFIG_IMX_REMOTEPROC)		+= imx_rproc.o
-> >>  obj-$(CONFIG_INGENIC_VPU_RPROC)		+= ingenic_rproc.o
-> >> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-> >> index 152fe2e8668a..4ce012c353c0 100644
-> >> --- a/drivers/remoteproc/remoteproc_internal.h
-> >> +++ b/drivers/remoteproc/remoteproc_internal.h
-> >> @@ -30,10 +30,38 @@ int rproc_of_parse_firmware(struct device *dev, int index,
-> >>  			    const char **fw_name);
-> >>  
-> >>  /* from remoteproc_virtio.c */
-> >> +#if IS_ENABLED(CONFIG_REMOTEPROC_VIRTIO)
-> >> +
-> >>  int rproc_rvdev_add_device(struct rproc_vdev *rvdev);
-> >>  irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id);
-> >>  void rproc_vdev_release(struct kref *ref);
-> >>  
-> >> +#else
-> >> +
-> >> +int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
-> >> +{
-> >> +	/* This shouldn't be possible */
-> >> +	WARN_ON(1);
-> >> +
-> >> +	return -ENXIO;
-> >> +}
-> >> +
-> >> +static inline irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id)
-> >> +{
-> >> +	/* This shouldn't be possible */
-> >> +	WARN_ON(1);
-> >> +
-> >> +	return IRQ_NONE;
-> >> +}
-> >> +
-> >> +static inline void rproc_vdev_release(struct kref *ref)
-> >> +{
-> >> +	/* This shouldn't be possible */
-> >> +	WARN_ON(1);
-> >> +}
-> >> +
-> >> +#endif
-> >> +
-> >>  /* from remoteproc_debugfs.c */
-> >>  void rproc_remove_trace_file(struct dentry *tfile);
-> >>  struct dentry *rproc_create_trace_file(const char *name, struct rproc *rproc,
-> >> -- 
-> >> 2.17.1
-> >>
+Please don't apply these (unless you also fix the trivial problems in
+them). I will prepare a v2 soon.
+
+Best regards and sorry for the inconvenience,
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--4crg6rmgkslx3kie
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmFkoZsACgkQwfwUeK3K
+7AkTugf9FW8u+Q+uOdqyv/dig5mZMoKZ01YqhMcNB1hLm+NpjtUVPs0yR3CgUTq2
+lhQH+cy+0zeuFQEuyDRBXSLYHuSJJKVES8CBrpN960wFh6WaLLKLet8ri0sBJRe3
+gakaZ/TcwPP4RwY/f1V4w/APWuU3or8dviF7hasfFR+D8tIMK+Wgi0LbdWMQIRHf
+P9T60rK5sOnHH33Kksf5stqLxdk06MBHzwJV15PhzWc0TUQAmO+oG0FDfxq+C8tQ
+8lXq6dtxtEMlzLhtLsBBHoUegGR/XbnKUmxT6kC0nO+G88xCYTO+BBjIGacAxhmQ
+2mK/fRgMytsTSX41qXejUgp6TuoW+Q==
+=mP11
+-----END PGP SIGNATURE-----
+
+--4crg6rmgkslx3kie--
+
+--===============2918967824262417884==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2918967824262417884==--
