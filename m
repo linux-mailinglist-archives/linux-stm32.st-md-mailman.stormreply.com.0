@@ -2,62 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BB5D42C1E1
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Oct 2021 15:57:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E7AB42C1FD
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Oct 2021 16:00:29 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8525C5C837;
-	Wed, 13 Oct 2021 13:57:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17ED7C5C835;
+	Wed, 13 Oct 2021 14:00:29 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31FA5C5C834
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF147C58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Oct 2021 13:57:32 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19DCcwex013621; 
- Wed, 13 Oct 2021 15:57:28 +0200
+ Wed, 13 Oct 2021 14:00:25 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19DDN6eM011490; 
+ Wed, 13 Oct 2021 16:00:24 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=c6EaOVGfb8Sa8HSlE1ms6Xot8j3nZXJs3bVkNF7A+D8=;
- b=pUqda/VnJg8+97jZZU/JDtAxf111B9t9AoWFu3I1uo49fgks6eJq3FR1tpn7AXkcqI1b
- 9e9lJppo0TR/qY91UK3YFU91O1DiovWI2mqFey8mew+mJgGhwtlNYahee6oeiT1n8xtm
- +dBbQH42Id6nYrhzPZ5oApOPOdIc+0T+e4fuVZ6+iDakDfkTyS4Bon9JebethxinoK14
- mf59++9Vvt0H3azZVkw4E1O/uzToKKgPo+AFsgI09FBvhFHWMw4g6CNPlpPgIoFU6CDi
- LtjHecohh3pvSGogzXkEVavgWON9lxOEtlFiSG7WJ6WsZW50qapwkxuK0A5XWEuDsdaY Vg== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=fCSqyNLZi/i47QTIlxvDJ8Eee5KYsx+MfdTqMt9Kdc0=;
+ b=iC+84/nFPw5V7xCloQvvjVfvnEuuEi+MWBmN7CJBEaOdVE2Fhwwywv2YL+ZfzFUB7uuX
+ kcc1sxjSFVMzuZvTR28I4m74NMF4gKWaJMAATsKRvRmCvrhJdb0RaZObMgc5+u2QhV5x
+ AX77qWrBywxeqr+QLeJ1zazZf6ShbLF7+7zxDgdPhw3DIUP1cX8zr52Yrtpgi6gNZum8
+ jQTmMhLa1Kkpc8mkDGXRobG1MuKUgKHIJ+fFLOQ4mOErOgo1ktBZQl58OBQ2qpxKZ3bw
+ razL6Z7oALDJxHL6OTczsiwDxq+76GkHQEhFJXceSiXyA8f96lPwyX7bLnCCeP/3MOVJ vw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3bnumjace8-1
+ by mx07-00178001.pphosted.com with ESMTP id 3bnuxttbaq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Oct 2021 15:57:28 +0200
+ Wed, 13 Oct 2021 16:00:24 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7621D10002A;
- Wed, 13 Oct 2021 15:57:28 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0F8EB10002A;
+ Wed, 13 Oct 2021 16:00:24 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6E50B22F7CA;
- Wed, 13 Oct 2021 15:57:28 +0200 (CEST)
-Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 13 Oct 2021 15:57:27
- +0200
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0799622F7D6;
+ Wed, 13 Oct 2021 16:00:24 +0200 (CEST)
+Received: from [10.211.0.59] (10.75.127.49) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 13 Oct
+ 2021 16:00:22 +0200
+To: <hminas@synopsys.com>, <gregkh@linuxfoundation.org>
+References: <1633679589-16021-1-git-send-email-fabrice.gasnier@foss.st.com>
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <hminas@synopsys.com>, <gregkh@linuxfoundation.org>, <robh+dt@kernel.org>
-Date: Wed, 13 Oct 2021 15:57:05 +0200
-Message-ID: <1634133425-25670-5-git-send-email-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1634133425-25670-1-git-send-email-fabrice.gasnier@foss.st.com>
-References: <1634133425-25670-1-git-send-email-fabrice.gasnier@foss.st.com>
+Message-ID: <1000e62a-26e2-90d3-afee-a4166bb4ff79@foss.st.com>
+Date: Wed, 13 Oct 2021 16:00:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <1633679589-16021-1-git-send-email-fabrice.gasnier@foss.st.com>
+Content-Language: en-US
 X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
  definitions=2021-10-13_05,2021-10-13_02,2020-04-07_01
-Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v3 4/4] usb: dwc2: stm32mp15: set otg_rev
+Cc: alexandre.torgue@foss.st.com, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 0/2] usb: dwc2: fill in gadget caps,
+ configure it for stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,41 +76,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32MP15 complies with the OTG 2.0. Set OTG revision accordingly. It is
-useful for the of_usb_update_otg_caps() routine to check and update
-otg_rev to the lower value between DT and provided params.
+On 10/8/21 9:53 AM, Fabrice Gasnier wrote:
+> This patchset fills in 'otg_caps' of the usb_gadget structure, and
+> configures it on stm32mp15.
+> 
+> When dwc2 is configured as dual role (OTG), the USB gadget descriptors
+> (device mode) are configured via configfs. This lead in calling
+> usb_otg_descriptor_init().
+> In usb_otg_descriptor_init() (drivers/usb/gadget/config.c):
+> - If otg caps structure is provided -> use it
+> - If otg caps structure isn't provided -> HNP and SRP are enabled by default
+> 
+> This could lead to a configuration mismatch beetween:
+> - OTG controller: HNP and SRP aren't enabled
+> - gadget descriptors: HNP and SRP are advertised
+> 
+> ---
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
-Changes in v2:
-- set otg_rev in otg_caps structure directly
----
- drivers/usb/dwc2/params.c | 2 ++
- 1 file changed, 2 insertions(+)
+Hi All, I just sent a v3 of this series, to add the dt-bindings.
 
-diff --git a/drivers/usb/dwc2/params.c b/drivers/usb/dwc2/params.c
-index 99d3b62..d300ae3 100644
---- a/drivers/usb/dwc2/params.c
-+++ b/drivers/usb/dwc2/params.c
-@@ -176,6 +176,7 @@ static void dwc2_set_stm32mp15_fsotg_params(struct dwc2_hsotg *hsotg)
- 
- 	p->otg_caps.hnp_support = false;
- 	p->otg_caps.srp_support = false;
-+	p->otg_caps.otg_rev = 0x200;
- 	p->speed = DWC2_SPEED_PARAM_FULL;
- 	p->host_rx_fifo_size = 128;
- 	p->host_nperio_tx_fifo_size = 96;
-@@ -197,6 +198,7 @@ static void dwc2_set_stm32mp15_hsotg_params(struct dwc2_hsotg *hsotg)
- 
- 	p->otg_caps.hnp_support = false;
- 	p->otg_caps.srp_support = false;
-+	p->otg_caps.otg_rev = 0x200;
- 	p->activate_stm_id_vb_detection = !device_property_read_bool(hsotg->dev, "usb-role-switch");
- 	p->host_rx_fifo_size = 440;
- 	p->host_nperio_tx_fifo_size = 256;
--- 
-2.7.4
+Please rather review the v3.
 
+Thanks in advance,
+Fabrice
+
+
+> Changes in v2:
+> - replace otg_cap bit field by otg_caps structure.
+> - Fix build issue when HOST only mode is selected [1]
+> - DT patch for stm32mp151 merged in v1, so not resent
+> 
+> [1] https://syzkaller.appspot.com/bug?extid=7af597ce2b38596c16ea
+> 
+> Fabrice Gasnier (2):
+>   usb: dwc2: add otg_rev and otg_caps information for gadget driver
+>   usb: dwc2: stm32mp15: set otg_rev
+> 
+>  drivers/usb/dwc2/core.h    | 19 ++++++------
+>  drivers/usb/dwc2/debugfs.c |  4 ++-
+>  drivers/usb/dwc2/gadget.c  |  1 +
+>  drivers/usb/dwc2/hcd.c     | 12 +++-----
+>  drivers/usb/dwc2/params.c  | 75 ++++++++++++++++++++++++++--------------------
+>  5 files changed, 59 insertions(+), 52 deletions(-)
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
