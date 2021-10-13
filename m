@@ -2,64 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E7AB42C1FD
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Oct 2021 16:00:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC1A942C6D6
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Oct 2021 18:54:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17ED7C5C835;
-	Wed, 13 Oct 2021 14:00:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A198C5C836;
+	Wed, 13 Oct 2021 16:54:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF147C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7B12C5C831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Oct 2021 14:00:25 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19DDN6eM011490; 
- Wed, 13 Oct 2021 16:00:24 +0200
+ Wed, 13 Oct 2021 16:54:02 +0000 (UTC)
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19DEdTa3014971; 
+ Wed, 13 Oct 2021 18:53:57 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=fCSqyNLZi/i47QTIlxvDJ8Eee5KYsx+MfdTqMt9Kdc0=;
- b=iC+84/nFPw5V7xCloQvvjVfvnEuuEi+MWBmN7CJBEaOdVE2Fhwwywv2YL+ZfzFUB7uuX
- kcc1sxjSFVMzuZvTR28I4m74NMF4gKWaJMAATsKRvRmCvrhJdb0RaZObMgc5+u2QhV5x
- AX77qWrBywxeqr+QLeJ1zazZf6ShbLF7+7zxDgdPhw3DIUP1cX8zr52Yrtpgi6gNZum8
- jQTmMhLa1Kkpc8mkDGXRobG1MuKUgKHIJ+fFLOQ4mOErOgo1ktBZQl58OBQ2qpxKZ3bw
- razL6Z7oALDJxHL6OTczsiwDxq+76GkHQEhFJXceSiXyA8f96lPwyX7bLnCCeP/3MOVJ vw== 
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=YBdX9wdz7iUgzxH36AjVlR6UXTnIlQMVglJrl1+MRJ4=;
+ b=la7knO+U0Hs9Qv4w9Pkl8IoPUJFZfODk9dAX12EoA3gPZtrcdwfYWQfypWVIKQUrTHAE
+ anG41W+hA1D34BA0KHNiAdJYMtEO66Ku4AOxvcIQ4LCZYh8fVn6g9n5KBZGaHjiEaVow
+ T2k1xzg4nGZDgJUEA7ifS2w6UgUI0LN1bWk6y/WklRQmMnh526+kv2r48uHEjOfqtiy2
+ Ue1I61/CvTXjiF2Cu4P+JfSjpzOpTwI84kjKoyF8B+whW22ludeoWG79zxoOdEyyEk7r
+ Dgb2CX/UsGNNQgM7q6zkv+enSK8X9jFdK/VbPZr/uwWc5wbC+7cqVRJ9g3tuy1SgUj19 tw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3bnuxttbaq-1
+ by mx07-00178001.pphosted.com with ESMTP id 3bp1dqgnav-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Oct 2021 16:00:24 +0200
+ Wed, 13 Oct 2021 18:53:57 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0F8EB10002A;
- Wed, 13 Oct 2021 16:00:24 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ACF3510002A;
+ Wed, 13 Oct 2021 18:53:56 +0200 (CEST)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0799622F7D6;
- Wed, 13 Oct 2021 16:00:24 +0200 (CEST)
-Received: from [10.211.0.59] (10.75.127.49) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 13 Oct
- 2021 16:00:22 +0200
-To: <hminas@synopsys.com>, <gregkh@linuxfoundation.org>
-References: <1633679589-16021-1-git-send-email-fabrice.gasnier@foss.st.com>
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A26D924489A;
+ Wed, 13 Oct 2021 18:53:56 +0200 (CEST)
+Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 13 Oct 2021 18:53:55
+ +0200
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <1000e62a-26e2-90d3-afee-a4166bb4ff79@foss.st.com>
-Date: Wed, 13 Oct 2021 16:00:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+To: <hminas@synopsys.com>, <gregkh@linuxfoundation.org>, <robh+dt@kernel.org>
+Date: Wed, 13 Oct 2021 18:53:46 +0200
+Message-ID: <1634144026-3326-1-git-send-email-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <1633679589-16021-1-git-send-email-fabrice.gasnier@foss.st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-10-13_05,2021-10-13_02,2020-04-07_01
-Cc: alexandre.torgue@foss.st.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 0/2] usb: dwc2: fill in gadget caps,
- configure it for stm32mp15
+ definitions=2021-10-13_06,2021-10-13_02,2020-04-07_01
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] dt-bindings: usb: dwc2: document the port
+	when usb-role-switch is used
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,49 +72,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/8/21 9:53 AM, Fabrice Gasnier wrote:
-> This patchset fills in 'otg_caps' of the usb_gadget structure, and
-> configures it on stm32mp15.
-> 
-> When dwc2 is configured as dual role (OTG), the USB gadget descriptors
-> (device mode) are configured via configfs. This lead in calling
-> usb_otg_descriptor_init().
-> In usb_otg_descriptor_init() (drivers/usb/gadget/config.c):
-> - If otg caps structure is provided -> use it
-> - If otg caps structure isn't provided -> HNP and SRP are enabled by default
-> 
-> This could lead to a configuration mismatch beetween:
-> - OTG controller: HNP and SRP aren't enabled
-> - gadget descriptors: HNP and SRP are advertised
-> 
-> ---
+Document the "port" property, which is used with "usb-role-switch"
+to describe the bus connector.
+Definition is inspired from mediatek,mtu3.yaml.
 
-Hi All, I just sent a v3 of this series, to add the dt-bindings.
+This fixes some errors seen when running "make dtbs_check":
+... 'port' does not match any of the regexes: 'pinctrl-[0-9]+'
+        From schema: ... Documentation/devicetree/bindings/usb/dwc2.yaml
 
-Please rather review the v3.
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ Documentation/devicetree/bindings/usb/dwc2.yaml | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Thanks in advance,
-Fabrice
+diff --git a/Documentation/devicetree/bindings/usb/dwc2.yaml b/Documentation/devicetree/bindings/usb/dwc2.yaml
+index 10c7d9b..7d1aa53 100644
+--- a/Documentation/devicetree/bindings/usb/dwc2.yaml
++++ b/Documentation/devicetree/bindings/usb/dwc2.yaml
+@@ -130,6 +130,16 @@ properties:
+     description: If present indicates that we need to reset the PHY when we 
+       detect a wakeup. This is due to a hardware errata.
+ 
++  port:
++    description:
++      Any connector to the data bus of this controller should be modelled
++      using the OF graph bindings specified, if the "usb-role-switch"
++      property is used. See graph.txt
++    $ref: /schemas/graph.yaml#/properties/port
++
++dependencies:
++  port: [ 'usb-role-switch' ]
++
+ required:
+   - compatible
+   - reg
+-- 
+2.7.4
 
-
-> Changes in v2:
-> - replace otg_cap bit field by otg_caps structure.
-> - Fix build issue when HOST only mode is selected [1]
-> - DT patch for stm32mp151 merged in v1, so not resent
-> 
-> [1] https://syzkaller.appspot.com/bug?extid=7af597ce2b38596c16ea
-> 
-> Fabrice Gasnier (2):
->   usb: dwc2: add otg_rev and otg_caps information for gadget driver
->   usb: dwc2: stm32mp15: set otg_rev
-> 
->  drivers/usb/dwc2/core.h    | 19 ++++++------
->  drivers/usb/dwc2/debugfs.c |  4 ++-
->  drivers/usb/dwc2/gadget.c  |  1 +
->  drivers/usb/dwc2/hcd.c     | 12 +++-----
->  drivers/usb/dwc2/params.c  | 75 ++++++++++++++++++++++++++--------------------
->  5 files changed, 59 insertions(+), 52 deletions(-)
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
