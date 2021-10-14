@@ -2,68 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CBDF42DF65
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Oct 2021 18:45:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DF4F42E00A
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Oct 2021 19:26:50 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DA7DC5C83E;
-	Thu, 14 Oct 2021 16:45:16 +0000 (UTC)
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60450C5C83E;
+	Thu, 14 Oct 2021 17:26:49 +0000 (UTC)
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98A15C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42F6FC32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Oct 2021 16:45:14 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id v8so1823745pfu.11
+ Thu, 14 Oct 2021 17:26:48 +0000 (UTC)
+Received: by mail-oi1-f178.google.com with SMTP id y207so9380400oia.11
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Oct 2021 09:45:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=8Ngj7j8BBNeyxut6zrN8DgCX52tIOMZ+Jc/rfRZBRTA=;
- b=f7cy0ryuZxrRSNiXOnKkDyGZ4mqZr0H8naGdE2mI/n57DEs9MaLiFUS8af3Vu2ZRln
- fLIMktrsRwptFjqB6HWhQdM7b5ER+SvV+rqnkL+utuUzGzLbQvkzcVuvsg2gu5B5tZ65
- Ax3sY5uxjHc5/AQU4SPDidRl/AK4r8C/cmZLC+mh3WMi/wj4xp6bUfmujsvR3y08jXWp
- nTEi27ECltlSUDPomOd7bB1SgZZa4zA+c0s+G27sZqQnExA71yd3TanYFyUCE15M8hfl
- pXpX9xa92ggx/4ry18Jh3SLRyhavdU74Hgo4OioLrRgxs/ZGsvVPpre7f4rzCYS40UNe
- a8tA==
+ Thu, 14 Oct 2021 10:26:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=8Ngj7j8BBNeyxut6zrN8DgCX52tIOMZ+Jc/rfRZBRTA=;
- b=CsZVvEqBiahfo2AtrLwZZ/8hCSkiZltzYgSgomhLWVXCn6wD98qX26Q8/Zej0qA5VY
- x1/nDcaFZUhAiBKnWCNu+0zEt4h02xLCYznJR9kDJKifis5MYB/Q8AciN0l1kGXIvo5S
- hQG3Q9PqvGyOWe2VJlGml6SqmWPW+fC1vyfs3eRBQBSbuqsh56OTLyV25FQa0Povhxhx
- 9D3SOAIKNcziTBTaUtBv0AAK+4/fhmvhA4BIncKcU4/6jAp7UKKmO2kXzar+SVgNATLQ
- g5udG04ZU0nlqB5C1w5YBF6ztchKvjGRlyQpgO+94OEEjGpAMLK16uDPX1IpPBImjXLo
- 1IXA==
-X-Gm-Message-State: AOAM530Vvyj7xU5gus2tMkirCFwotIz1gAaRhd3L7XBjICFMIrng/Ig1
- QxKDjItVywLQ8ROzjsFbWFIdVQ==
-X-Google-Smtp-Source: ABdhPJzBDPCxbtgn5YUbwc1rjEGZOSsTmd9r0OF8XM/Nh5ogvQDd4ozq4SePUWYem1TgsdwaigTcpA==
-X-Received: by 2002:a63:6ac8:: with SMTP id f191mr179461pgc.386.1634229912978; 
- Thu, 14 Oct 2021 09:45:12 -0700 (PDT)
-Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
- by smtp.gmail.com with ESMTPSA id u4sm3074161pfh.147.2021.10.14.09.45.10
+ bh=aZhMJFR7qEIO7M61CFkCjB5kHmujnbdK6yv9W6S7EmM=;
+ b=y1JWbpmdumRz109wIjve4W3a+9j0OLTpz33dZLZQwVDFi2s47Ihohgr9aDozFDRcoO
+ BY5AybPDy1lG+FsqQJVGOQs7x7+LysL3Gh/tSyWrvw4PcE0WE/BKbeiNcyhVMGdK8kVQ
+ B51erwoDSs7SA6u77Ifjc7g7F+TwjzrIl35HdeSWpjLup6udL+rWEMeZFihI/JuI/2rx
+ Atovlhh5Cv4hjbFIvCa2Zm9LPR3ueWSpSmiP1/mdMvTqK4vbCFZpYQZstPpY8pecyOit
+ ji+yKKlpuxfPKmIsHOa0g5unUwTzJFcAWTv12+wO4WdcRSwOa1RPvbVC6yzkvfx5xvHc
+ gqgw==
+X-Gm-Message-State: AOAM531L8rvXBl9MZNp0Mp1jeZ1B38jsEAx0358WtYUedOruJDD4NWhq
+ tqj7nv4WZbI4yYBSP0sY9w==
+X-Google-Smtp-Source: ABdhPJzpW374h0wPKAjFh+UaJiw4S6Qg9dmeEbajDJXoaNMqM0XlLBMT14ZlD69a1wFChgOc8hrx3A==
+X-Received: by 2002:aca:3656:: with SMTP id d83mr13912263oia.176.1634232407099; 
+ Thu, 14 Oct 2021 10:26:47 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id bp21sm420799oib.31.2021.10.14.10.26.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Oct 2021 09:45:11 -0700 (PDT)
-Date: Thu, 14 Oct 2021 10:45:09 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <20211014164509.GB2847733@p14s>
-References: <20211008153446.23188-1-arnaud.pouliquen@foss.st.com>
- <20211008153446.23188-3-arnaud.pouliquen@foss.st.com>
- <20211012180723.GC4010675@p14s>
- <0439d5ea-0ef0-e715-0558-15bb23e042ea@foss.st.com>
+ Thu, 14 Oct 2021 10:26:46 -0700 (PDT)
+Received: (nullmailer pid 3584071 invoked by uid 1000);
+ Thu, 14 Oct 2021 17:26:45 -0000
+Date: Thu, 14 Oct 2021 12:26:45 -0500
+From: Rob Herring <robh@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Message-ID: <YWhoVd/XR2SdAbXV@robh.at.kernel.org>
+References: <20211005152453.89330-1-amelie.delaunay@foss.st.com>
+ <20211005152453.89330-3-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <0439d5ea-0ef0-e715-0558-15bb23e042ea@foss.st.com>
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-doc@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Suman Anna <s-anna@ti.com>,
- Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v9 2/2] tty: add rpmsg driver
+In-Reply-To: <20211005152453.89330-3-amelie.delaunay@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-phy@lists.infradead.org,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 2/3] dt-bindings: phy:
+ phy-stm32-usbphyc: add optional phy tuning properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,391 +72,182 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Good morning,
+On Tue, Oct 05, 2021 at 05:24:52PM +0200, Amelie Delaunay wrote:
+> This patch adds the description of new optional phy tuning properties
+> for usbphyc phy sub nodes.
+> 
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> ---
+> Changes in v2:
+> - st,phy-tuning property removed
+> - tuning properties are now put directly in each child node
+> - tuning properties are no more free form text and their name reworked
+> ---
+>  .../bindings/phy/phy-stm32-usbphyc.yaml       | 126 ++++++++++++++++++
+>  1 file changed, 126 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+> index 3329f1d33a4f..c0f4dff2b8cb 100644
+> --- a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+> +++ b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+> @@ -81,6 +81,116 @@ patternProperties:
+>          properties:
+>            vbus-supply: true
+>  
+> +      # It can be necessary to adjust the PHY settings to compensate parasitics, which can be due
+> +      # to USB connector/receptacle, routing, ESD protection component,... Here is the list of
+> +      # all optional parameters to tune the interface of the PHY (HS for High-Speed, FS for Full-
+> +      # Speed, LS for Low-Speed)
+> +
+> +      st,current-boost-milliamp:
 
-On Thu, Oct 14, 2021 at 09:45:07AM +0200, Arnaud POULIQUEN wrote:
-> Hello Mathieu,
-> 
-> On 10/12/21 8:07 PM, Mathieu Poirier wrote:
-> > On Fri, Oct 08, 2021 at 05:34:46PM +0200, Arnaud Pouliquen wrote:
-> >> This driver exposes a standard TTY interface on top of the rpmsg
-> >> framework through a rpmsg service.
-> >>
-> >> This driver supports multi-instances, offering a /dev/ttyRPMSGx entry
-> >> per rpmsg endpoint.
-> >>
-> >> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> >>
-> >> ---
-> >> Update from V8
-> >> => Update based on Greg Greg Kroah-Hartman comments:
-> >>  - add module name in kconfig
-> >>  - remove the tty_rpmsg.rst documentation file and add description in
-> >>    rpmsg_tty.c.
-> >>  - rpmsg_tty.c remove of useless check and logs.
-> >>  - print err log instead of debug log on truncated RX buffer.
-> >> ---
-> >>  drivers/tty/Kconfig     |  12 ++
-> >>  drivers/tty/Makefile    |   1 +
-> >>  drivers/tty/rpmsg_tty.c | 275 ++++++++++++++++++++++++++++++++++++++++
-> >>  3 files changed, 288 insertions(+)
-> >>  create mode 100644 drivers/tty/rpmsg_tty.c
-> >>
-> >> diff --git a/drivers/tty/Kconfig b/drivers/tty/Kconfig
-> >> index 23cc988c68a4..cc30ff93e2e4 100644
-> >> --- a/drivers/tty/Kconfig
-> >> +++ b/drivers/tty/Kconfig
-> >> @@ -368,6 +368,18 @@ config VCC
-> >>  
-> >>  source "drivers/tty/hvc/Kconfig"
-> >>  
-> >> +config RPMSG_TTY
-> >> +	tristate "RPMSG tty driver"
-> >> +	depends on RPMSG
-> >> +	help
-> >> +	  Say y here to export rpmsg endpoints as tty devices, usually found
-> >> +	  in /dev/ttyRPMSGx.
-> >> +	  This makes it possible for user-space programs to send and receive
-> >> +	  rpmsg messages as a standard tty protocol.
-> >> +
-> >> +	  To compile this driver as a module, choose M here: the module will be
-> >> +	  called rpmsg_tty.
-> >> +
-> >>  endif # TTY
-> >>  
-> >>  source "drivers/tty/serdev/Kconfig"
-> >> diff --git a/drivers/tty/Makefile b/drivers/tty/Makefile
-> >> index a2bd75fbaaa4..07aca5184a55 100644
-> >> --- a/drivers/tty/Makefile
-> >> +++ b/drivers/tty/Makefile
-> >> @@ -26,5 +26,6 @@ obj-$(CONFIG_PPC_EPAPR_HV_BYTECHAN) += ehv_bytechan.o
-> >>  obj-$(CONFIG_GOLDFISH_TTY)	+= goldfish.o
-> >>  obj-$(CONFIG_MIPS_EJTAG_FDC_TTY) += mips_ejtag_fdc.o
-> >>  obj-$(CONFIG_VCC)		+= vcc.o
-> >> +obj-$(CONFIG_RPMSG_TTY)		+= rpmsg_tty.o
-> >>  
-> >>  obj-y += ipwireless/
-> >> diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
-> >> new file mode 100644
-> >> index 000000000000..226a13f6ef94
-> >> --- /dev/null
-> >> +++ b/drivers/tty/rpmsg_tty.c
-> >> @@ -0,0 +1,275 @@
-> >> +// SPDX-License-Identifier: GPL-2.0
-> >> +/*
-> >> + * Copyright (C) 2021 STMicroelectronics - All Rights Reserved
-> >> + *
-> >> + * The rpmsg tty driver implements serial communication on the RPMsg bus to makes
-> >> + * possible for user-space programs to send and receive rpmsg messages as a standard
-> >> + * tty protocol.
-> >> + *
-> >> + * The remote processor can instantiate a new tty by requesting a "rpmsg-tty" RPMsg service.
-> >> + * The "rpmsg-tty" service is directly used for data exchange. No flow control is implemented yet.
-> >> + */
-> >> +
-> >> +#include <linux/module.h>
-> >> +#include <linux/rpmsg.h>
-> >> +#include <linux/slab.h>
-> >> +#include <linux/tty.h>
-> >> +#include <linux/tty_flip.h>
-> >> +
-> >> +#define MAX_TTY_RPMSG	32
-> >> +
-> >> +static DEFINE_IDR(tty_idr);	/* tty instance id */
-> >> +static DEFINE_MUTEX(idr_lock);	/* protects tty_idr */
-> >> +
-> >> +static struct tty_driver *rpmsg_tty_driver;
-> >> +
-> >> +struct rpmsg_tty_port {
-> >> +	struct tty_port		port;	 /* TTY port data */
-> >> +	int			id;	 /* TTY rpmsg index */
-> >> +	struct rpmsg_device	*rpdev;	 /* rpmsg device */
-> >> +};
-> >> +
-> >> +static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len, void *priv, u32 src)
-> >> +{
-> >> +	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
-> >> +	int copied;
-> >> +
-> >> +	if (!len)
-> >> +		return -EINVAL;
-> >> +	copied = tty_insert_flip_string(&cport->port, data, len);
-> >> +	if (copied != len)
-> >> +		dev_err(&rpdev->dev, "Trunc buffer: available space is %d\n",
-> >> +			copied);
-> 
-> Here as the rpmsg callback return is not tested we need to log something because
-> data is lost. I will add the ratelimited version to limit logs.
-> 
-> >> +	tty_flip_buffer_push(&cport->port);
-> >> +
-> >> +	return 0;
-> >> +}
-> >> +
-> >> +static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
-> >> +{
-> >> +	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
-> >> +
-> >> +	tty->driver_data = cport;
-> >> +
-> >> +	return tty_port_install(&cport->port, driver, tty);
-> >> +}
-> >> +
-> >> +static int rpmsg_tty_open(struct tty_struct *tty, struct file *filp)
-> >> +{
-> >> +	return tty_port_open(tty->port, tty, filp);
-> >> +}
-> >> +
-> >> +static void rpmsg_tty_close(struct tty_struct *tty, struct file *filp)
-> >> +{
-> >> +	return tty_port_close(tty->port, tty, filp);
-> >> +}
-> >> +
-> >> +static int rpmsg_tty_write(struct tty_struct *tty, const u8 *buf, int len)
-> >> +{
-> >> +	struct rpmsg_tty_port *cport = tty->driver_data;
-> >> +	struct rpmsg_device *rpdev;
-> >> +	int msg_max_size, msg_size;
-> >> +	int ret;
-> >> +
-> >> +	rpdev = cport->rpdev;
-> >> +
-> >> +	msg_max_size = rpmsg_get_mtu(rpdev->ept);
-> >> +	if (msg_max_size < 0)
-> >> +		return msg_max_size;
-> >> +
-> >> +	msg_size = min(len, msg_max_size);
-> >> +
-> >> +	/*
-> >> +	 * Use rpmsg_trysend instead of rpmsg_send to send the message so the caller is not
-> >> +	 * hung until a rpmsg buffer is available. In such case rpmsg_trysend returns -ENOMEM.
-> >> +	 */
-> >> +	ret = rpmsg_trysend(rpdev->ept, (void *)buf, msg_size);
-> >> +	if (ret) {
-> >> +		dev_dbg(&rpdev->dev, "rpmsg_send failed: %d\n", ret);
-> > 
-> > I'm with Greg on this one.  Event if it's a dev_dbg() something like this could
-> > quickly fill the logs. 
-> That's right,if the remote side is stalled and application doesn't propertly
-> handle the error returned.
-> 
-> > Customers should learn to use ftrace.  At the very least
-> > please use the ratelimited() version.  Same comment applies to rpmsg_tty_cb().
-> 
-> I'm not yet an expert in ftrace, I don't see trace that would highligth this
-> error (return value not traced), except adding trace_printk. If you have a
-> solution, please could you point that out to me?
-> The goal here is that a customers (who has an user spece application develloper
-> profile) has the explicit information that something goes wrong.
+Not a documented unit. Use '-microamp'.
 
-Typically trance_printk() are removed after debugging and spinning off your own
-events file under include/trace/events/ seems overkill to me.  
+> +        description: Current boosting in mA
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 1
+> +        maximum: 2
+> +
+> +      st,no-lsfs-fb-cap:
+> +        description: Disables the LS/FS feedback capacitor
+> +        type: boolean
+> +
+> +      st,decrease-hs-slew-rate:
+> +        description: Decreases the HS driver slew rate by 10%
+> +        type: boolean
+> +
+> +      st,tune-hs-dc-level:
+> +        description: Tunes the HS driver DC level
 
-> 
-> By default I would be in favour of using ratelimited version also here.
+You need '|' after 'description:' to retain the formatting you have 
+here.
 
-Yes, ratelimited should do just fine. 
-
+> +          - <0> normal level
+> +          - <1> increases the level by 5 to 7 mV
+> +          - <2> increases the level by 10 to 14 mV
+> +          - <3> decreases the level by 5 to 7 mV
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 0
+> +        maximum: 3
+> +        default: 0
+> +
+> +      st,enable-fs-rftime-tuning:
+> +        description: Enables the FS rise/fall tuning option
+> +        type: boolean
+> +
+> +      st,enable-hs-rftime-reduction:
+> +        description: Enables the HS rise/fall reduction feature
+> +        type: boolean
+> +
+> +      st,trim-hs-current:
+> +        description: Controls HS driver current trimming for choke compensation
+> +          - <0> = 18.87 mA target current / nominal + 0%
+> +          - <1> = 19.165 mA target current / nominal + 1.56%
+> +          - <2> = 19.46 mA target current / nominal + 3.12%
+> +          - <3> = 19.755 mA target current / nominal + 4.68%
+> +          - <4> = 20.05 mA target current / nominal + 6.24%
+> +          - <5> = 20.345 mA target current / nominal + 7.8%
+> +          - <6> = 20.64 mA target current / nominal + 9.36%
+> +          - <7> = 20.935 mA target current / nominal + 10.92%
+> +          - <8> = 21.23 mA target current / nominal + 12.48%
+> +          - <9> = 21.525 mA target current / nominal + 14.04%
+> +          - <10> = 21.82 mA target current / nominal + 15.6%
+> +          - <11> = 22.115 mA target current / nominal + 17.16%
+> +          - <12> = 22.458 mA target current / nominal + 19.01%
+> +          - <13> = 22.755 mA target current / nominal + 20.58%
+> +          - <14> = 23.052 mA target current / nominal + 22.16%
+> +          - <15> = 23.348 mA target current / nominal + 23.73%
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 0
+> +        maximum: 15
+> +        default: 0
+> +
+> +      st,trim-hs-impedance:
+> +        description: Controls HS driver impedance tuning for choke compensation
+> +          - <0> = no impedance offset
+> +          - <1> = reduce the impedance by 2 ohms
+> +          - <2> = reduce the impedance by 4 ohms
+> +          - <3> = reduce the impedance by 6 ohms
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 0
+> +        maximum: 3
+> +        default: 0
+> +
+> +      st,tune-squelch-level:
+> +        description: Tunes the squelch DC threshold value
+> +          - <0> = no shift in threshold
+> +          - <1> = threshold shift by +7 mV
+> +          - <2> = threshold shift by -5 mV
+> +          - <3> = threshold shift by +14 mV
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 0
+> +        maximum: 3
+> +        default: 0
+> +
+> +      st,enable-hs-rx-gain-eq:
+> +        description: Enables the HS Rx gain equalizer
+> +        type: boolean
+> +
+> +      st,tune-hs-rx-offset:
+> +        description: Adjusts the HS Rx offset
+> +          - <0> = no offset
+> +          - <1> = offset of +5 mV
+> +          - <2> = offset of +10 mV
+> +          - <3> = offset of -5 mV
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 0
+> +        maximum: 3
+> +        default: 0
+> +
+> +      st,no-hs-ftime-ctrl:
+> +        description: Disables the HS fall time control of single ended signals during pre-emphasis
+> +        type: boolean
+> +
+> +      st,no-lsfs-sc:
+> +        description: Disables the short circuit protection in LS/FS driver
+> +        type: boolean
+> +
+> +      st,enable-hs-tx-staggering:
+> +        description: Enables the basic staggering in HS Tx mode
+> +        type: boolean
+> +
+>      allOf:
+>        - if:
+>            properties:
+> @@ -137,6 +247,14 @@ examples:
+>              reg = <0>;
+>              phy-supply = <&vdd_usb>;
+>              #phy-cells = <0>;
+> +            st,tune-hs-dc-level = <2>;
+> +            st,enable-fs-rftime-tuning;
+> +            st,enable-hs-rftime-reduction;
+> +            st,trim-hs-current = <15>;
+> +            st,trim-hs-impedance = <1>;
+> +            st,tune-squelch-level = <3>;
+> +            st,tune-hs-rx-offset = <2>;
+> +            st,no-lsfs-sc;
+>              connector {
+>                  compatible = "usb-a-connector";
+>                  vbus-supply = <&vbus_sw>;
+> @@ -147,6 +265,14 @@ examples:
+>              reg = <1>;
+>              phy-supply = <&vdd_usb>;
+>              #phy-cells = <1>;
+> +            st,tune-hs-dc-level = <2>;
+> +            st,enable-fs-rftime-tuning;
+> +            st,enable-hs-rftime-reduction;
+> +            st,trim-hs-current = <15>;
+> +            st,trim-hs-impedance = <1>;
+> +            st,tune-squelch-level = <3>;
+> +            st,tune-hs-rx-offset = <2>;
+> +            st,no-lsfs-sc;
+>          };
+>      };
+>  ...
+> -- 
+> 2.25.1
 > 
-> > 
-> > Otherwise:
-> > 
-> > Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-> > 
 > 
-> Thanks,
-> Arnaud
-> 
-> >> +		return ret;
-> >> +	}
-> >> +
-> >> +	return msg_size;
-> >> +}
-> >> +
-> >> +static unsigned int rpmsg_tty_write_room(struct tty_struct *tty)
-> >> +{
-> >> +	struct rpmsg_tty_port *cport = tty->driver_data;
-> >> +	int size;
-> >> +
-> >> +	size = rpmsg_get_mtu(cport->rpdev->ept);
-> >> +	if (size < 0)
-> >> +		return 0;
-> >> +
-> >> +	return size;
-> >> +}
-> >> +
-> >> +static const struct tty_operations rpmsg_tty_ops = {
-> >> +	.install	= rpmsg_tty_install,
-> >> +	.open		= rpmsg_tty_open,
-> >> +	.close		= rpmsg_tty_close,
-> >> +	.write		= rpmsg_tty_write,
-> >> +	.write_room	= rpmsg_tty_write_room,
-> >> +};
-> >> +
-> >> +static struct rpmsg_tty_port *rpmsg_tty_alloc_cport(void)
-> >> +{
-> >> +	struct rpmsg_tty_port *cport;
-> >> +	int err;
-> >> +
-> >> +	cport = kzalloc(sizeof(*cport), GFP_KERNEL);
-> >> +	if (!cport)
-> >> +		return ERR_PTR(-ENOMEM);
-> >> +
-> >> +	mutex_lock(&idr_lock);
-> >> +	cport->id = idr_alloc(&tty_idr, cport, 0, MAX_TTY_RPMSG, GFP_KERNEL);
-> >> +	mutex_unlock(&idr_lock);
-> >> +
-> >> +	if (cport->id < 0) {
-> >> +		err = cport->id;
-> >> +		kfree(cport);
-> >> +		return ERR_PTR(err);
-> >> +	}
-> >> +
-> >> +	return cport;
-> >> +}
-> >> +
-> >> +static void rpmsg_tty_release_cport(struct rpmsg_tty_port *cport)
-> >> +{
-> >> +	mutex_lock(&idr_lock);
-> >> +	idr_remove(&tty_idr, cport->id);
-> >> +	mutex_unlock(&idr_lock);
-> >> +
-> >> +	kfree(cport);
-> >> +}
-> >> +
-> >> +static const struct tty_port_operations rpmsg_tty_port_ops = { };
-> >> +
-> >> +static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
-> >> +{
-> >> +	struct rpmsg_tty_port *cport;
-> >> +	struct device *dev = &rpdev->dev;
-> >> +	struct device *tty_dev;
-> >> +	int ret;
-> >> +
-> >> +	cport = rpmsg_tty_alloc_cport();
-> >> +	if (IS_ERR(cport)) {
-> >> +		dev_err(dev, "Failed to alloc tty port\n");
-> >> +		return PTR_ERR(cport);
-> >> +	}
-> >> +
-> >> +	tty_port_init(&cport->port);
-> >> +	cport->port.ops = &rpmsg_tty_port_ops;
-> >> +
-> >> +	tty_dev = tty_port_register_device(&cport->port, rpmsg_tty_driver,
-> >> +					   cport->id, dev);
-> >> +	if (IS_ERR(tty_dev)) {
-> >> +		dev_err(dev, "Failed to register tty port\n");
-> >> +		ret = PTR_ERR(tty_dev);
-> >> +		goto  err_destroy;
-> >> +	}
-> >> +
-> >> +	cport->rpdev = rpdev;
-> >> +
-> >> +	dev_set_drvdata(dev, cport);
-> >> +
-> >> +	dev_dbg(dev, "New channel: 0x%x -> 0x%x : ttyRPMSG%d\n",
-> >> +		rpdev->src, rpdev->dst, cport->id);
-> >> +
-> >> +	return 0;
-> >> +
-> >> +err_destroy:
-> >> +	tty_port_destroy(&cport->port);
-> >> +	rpmsg_tty_release_cport(cport);
-> >> +
-> >> +	return ret;
-> >> +}
-> >> +
-> >> +static void rpmsg_tty_remove(struct rpmsg_device *rpdev)
-> >> +{
-> >> +	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
-> >> +
-> >> +	dev_dbg(&rpdev->dev, "Removing rpmsg tty device %d\n", cport->id);
-> >> +
-> >> +	/* User hang up to release the tty */
-> >> +	if (tty_port_initialized(&cport->port))
-> >> +		tty_port_tty_hangup(&cport->port, false);
-> >> +
-> >> +	tty_unregister_device(rpmsg_tty_driver, cport->id);
-> >> +
-> >> +	tty_port_destroy(&cport->port);
-> >> +	rpmsg_tty_release_cport(cport);
-> >> +}
-> >> +
-> >> +static struct rpmsg_device_id rpmsg_driver_tty_id_table[] = {
-> >> +	{ .name	= "rpmsg-tty" },
-> >> +	{ },
-> >> +};
-> >> +MODULE_DEVICE_TABLE(rpmsg, rpmsg_driver_tty_id_table);
-> >> +
-> >> +static struct rpmsg_driver rpmsg_tty_rpmsg_drv = {
-> >> +	.drv.name	= KBUILD_MODNAME,
-> >> +	.id_table	= rpmsg_driver_tty_id_table,
-> >> +	.probe		= rpmsg_tty_probe,
-> >> +	.callback	= rpmsg_tty_cb,
-> >> +	.remove		= rpmsg_tty_remove,
-> >> +};
-> >> +
-> >> +static int __init rpmsg_tty_init(void)
-> >> +{
-> >> +	int err;
-> >> +
-> >> +	rpmsg_tty_driver = tty_alloc_driver(MAX_TTY_RPMSG, TTY_DRIVER_REAL_RAW |
-> >> +					    TTY_DRIVER_DYNAMIC_DEV);
-> >> +	if (IS_ERR(rpmsg_tty_driver))
-> >> +		return PTR_ERR(rpmsg_tty_driver);
-> >> +
-> >> +	rpmsg_tty_driver->driver_name = "rpmsg_tty";
-> >> +	rpmsg_tty_driver->name = "ttyRPMSG";
-> >> +	rpmsg_tty_driver->major = 0;
-> >> +	rpmsg_tty_driver->type = TTY_DRIVER_TYPE_CONSOLE;
-> >> +
-> >> +	/* Disable unused mode by default */
-> >> +	rpmsg_tty_driver->init_termios = tty_std_termios;
-> >> +	rpmsg_tty_driver->init_termios.c_lflag &= ~(ECHO | ICANON);
-> >> +	rpmsg_tty_driver->init_termios.c_oflag &= ~(OPOST | ONLCR);
-> >> +
-> >> +	tty_set_operations(rpmsg_tty_driver, &rpmsg_tty_ops);
-> >> +
-> >> +	err = tty_register_driver(rpmsg_tty_driver);
-> >> +	if (err < 0) {
-> >> +		pr_err("Couldn't install rpmsg tty driver: err %d\n", err);
-> >> +		goto error_put;
-> >> +	}
-> >> +
-> >> +	err = register_rpmsg_driver(&rpmsg_tty_rpmsg_drv);
-> >> +	if (err < 0) {
-> >> +		pr_err("Couldn't register rpmsg tty driver: err %d\n", err);
-> >> +		goto error_unregister;
-> >> +	}
-> >> +
-> >> +	return 0;
-> >> +
-> >> +error_unregister:
-> >> +	tty_unregister_driver(rpmsg_tty_driver);
-> >> +
-> >> +error_put:
-> >> +	tty_driver_kref_put(rpmsg_tty_driver);
-> >> +
-> >> +	return err;
-> >> +}
-> >> +
-> >> +static void __exit rpmsg_tty_exit(void)
-> >> +{
-> >> +	unregister_rpmsg_driver(&rpmsg_tty_rpmsg_drv);
-> >> +	tty_unregister_driver(rpmsg_tty_driver);
-> >> +	tty_driver_kref_put(rpmsg_tty_driver);
-> >> +	idr_destroy(&tty_idr);
-> >> +}
-> >> +
-> >> +module_init(rpmsg_tty_init);
-> >> +module_exit(rpmsg_tty_exit);
-> >> +
-> >> +MODULE_AUTHOR("Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>");
-> >> +MODULE_DESCRIPTION("remote processor messaging tty driver");
-> >> +MODULE_LICENSE("GPL v2");
-> >> -- 
-> >> 2.17.1
-> >>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
