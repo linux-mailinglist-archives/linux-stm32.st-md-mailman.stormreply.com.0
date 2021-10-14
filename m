@@ -2,67 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92EB942DA07
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Oct 2021 15:15:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5961C42DAFE
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Oct 2021 16:01:20 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57F2EC5C839;
-	Thu, 14 Oct 2021 13:15:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F35C8C5C837;
+	Thu, 14 Oct 2021 14:01:19 +0000 (UTC)
+Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
+ [209.85.166.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7031C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E83A5C5C831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Oct 2021 13:15:25 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19EBk6wG019993; 
- Thu, 14 Oct 2021 15:15:09 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=YPYrwvAiX914U8uW0f9AIFwRwTu5lxAhkXAMOfZgYGw=;
- b=QBK7ueh3XmfIj9BxrkF4ZI52X6UyqiMfilpiyxp0DdT+TlzniL1ICaOOb23933xuQFn1
- BFAIM4Jh+ceAhExM1u36EbXZbwF5tdIHhGVkPqLeEljZelyPYXZkkgm3ZlokAz+ghtH0
- 6xygmP2Ybyy9mZ7z6WHaeoDlTRR5hhL84K2CoD8p9BRGn7zzSVQ+qx9gyyl3f4j93haR
- /HVQYJjhecmuscgkDRLmdvcwfn6ZeIHml5p4TvUCMa753Lsoh6WcWEvLby877bqiO/WQ
- IaQTz/OLZb4T4fAOc5SNNVSw2z5atb8tIupYCnrwiOMeASJf8Iz1+RzyLl8T2TETjJZX fw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3bpkye8gdt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 14 Oct 2021 15:15:09 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 021D8100039;
- Thu, 14 Oct 2021 15:15:09 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EDB79222C81;
- Thu, 14 Oct 2021 15:15:08 +0200 (CEST)
-Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Thu, 14 Oct 2021 15:15:08
- +0200
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Fabrice Gasnier
- <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Olivier Moysan <olivier.moysan@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>
-Date: Thu, 14 Oct 2021 15:12:28 +0200
-Message-ID: <20211014131228.4692-8-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211014131228.4692-1-olivier.moysan@foss.st.com>
-References: <20211014131228.4692-1-olivier.moysan@foss.st.com>
+ Thu, 14 Oct 2021 14:01:17 +0000 (UTC)
+Received: by mail-io1-f48.google.com with SMTP id s17so3822031ioa.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 14 Oct 2021 07:01:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=gMW7UXdmvsJT5m+Unn8LuzhWNMWKfB1LZgpARZu3h64=;
+ b=SMa678vtRRct+9n4DfGBLqZbAGScVM2pO7kFcUbYoWYWLOdtHvFOApF+QasmcIS2Tv
+ CnI5eTtKuh/YitnWZuy2znpW3L0iEW4gMf6tZSprPWTp89c+yVavbOy5Jflg9r/QIryH
+ n7MUf89CrFHtn6vAn3k8vUMP9ai+o4KiK3jbhVL1OOuETLycRiN+FzYDN0MQyiF4Q7Mj
+ SYupSuR5H7jBsKb2grUm7L3tt6VXVSiiBCqAdDVyzj+cCya9uTVJG3rSVOAdp/Ye8WE0
+ USkqWmuvqTT+4W6t4bEukf2Yi7MySr0G5i53x1vrtVSCFhBfFo/aMdNN1ZGEPg5LSG7s
+ Tclw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gMW7UXdmvsJT5m+Unn8LuzhWNMWKfB1LZgpARZu3h64=;
+ b=7bFTXOTFsLq0xfYI7BOqUWoIiXte5iIBHs3ZJFhus017pyJJCgrcKTLLufk3oCl/mI
+ NmV2c3xe0wfAF+Q3oEO4I1W5zPr3x+Y80owotXpwoP3NdN7ZeCMDeyso3wTDMdHC9D7S
+ kDNOE1qUCOYA7D0QQSA/5Wuqq3RI8L4LkaTavEGcjVbhPJTX3w6YJCMUkg4TlqyQ/nfw
+ hv991yVnQ2LkEb62EcN9rVu1vE1AkeTOq3yjTv+88NGn7HJovkYMOaZ8P9pLbP/2BFjA
+ S1n4qT3R3MA76UoK60Aqh9R2ns4lrC+6EVYOGqEvL50hPyGSKbyrAZEOCXB9SWPl0nQf
+ 1ZIQ==
+X-Gm-Message-State: AOAM531gU/z0c7gxzwDkDAwt0meucd7Ioj+zOsCUUi1g5YVpT0d1MPOU
+ J+OWUyXy/rVhAvmU2E+Ke8BdOQYFDCpe98rx53M=
+X-Google-Smtp-Source: ABdhPJxjnX9wflAJg2fDLZI9CUfRZD8jZ7JeIn2UpSBHSxq/DFwxGjB0oXM6rkNnZq+ZpvHc5d0hy1AMI3cbbD99wRg=
+X-Received: by 2002:a05:6602:3cb:: with SMTP id
+ g11mr2525849iov.204.1634220076780; 
+ Thu, 14 Oct 2021 07:01:16 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-10-14_08,2021-10-14_02,2020-04-07_01
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v5 7/7] iio: adc: stm32-adc: use generic
-	binding for sample-time
+References: <1634207106-7632-1-git-send-email-dillon.minfei@gmail.com>
+ <1634207106-7632-7-git-send-email-dillon.minfei@gmail.com>
+ <2b0739f1-85e4-6b19-ff30-2587f0c622c2@xs4all.nl>
+ <CAL9mu0LqkCpjYft4z6V4T97Mq46dCTXZ=BvfQa+DijjRd4pDkA@mail.gmail.com>
+ <1d0e5b17-dd2c-d3d3-c514-775806ae99c9@xs4all.nl>
+In-Reply-To: <1d0e5b17-dd2c-d3d3-c514-775806ae99c9@xs4all.nl>
+From: Dillon Min <dillon.minfei@gmail.com>
+Date: Thu, 14 Oct 2021 22:00:54 +0800
+Message-ID: <CAL9mu0KLckxypYMc=mWRrXYOiwLeo98rNBWLwzA2gK9JJEHf1Q@mail.gmail.com>
+To: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, gnurou@gmail.com,
+ linux-clk <linux-clk@vger.kernel.org>, Pi-Hsun Shih <pihsun@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, mchehab+huawei@kernel.org,
+ hugues.fruchet@foss.st.com, Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>, gabriel.fernandez@foss.st.com,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, ezequiel@collabora.com,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-media <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v4 6/8] media: v4l2-ctrls: Add RGB color
+	effects control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,152 +84,162 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add st,min-sample-time-nsecs to channel generic binding.
-Sample time can be defined par channel node. If a channel
-is configured as differential, the same sample time applies
-for both inputs.
-Keep support of legacy st,min-sample-time-nsecs property
-for backward compatibility.
+On Thu, 14 Oct 2021 at 19:22, Hans Verkuil <hverkuil-cisco@xs4all.nl> wrote:
+>
+> On 14/10/2021 12:53, Dillon Min wrote:
+> > Hi Hans
+> >
+> > Thanks for quick reply
+> >
+> > On Thu, 14 Oct 2021 at 18:44, Hans Verkuil <hverkuil-cisco@xs4all.nl> wrote:
+> >>
+> >> On 14/10/2021 12:25, dillon.minfei@gmail.com wrote:
+> >>> From: Dillon Min <dillon.minfei@gmail.com>
+> >>>
+> >>> Add V4L2_COLORFX_SET_RGB color effects control, V4L2_CID_COLORFX_RGB
+> >>> for RGB color setting.
+> >>>
+> >>> Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
+> >>> ---
+> >>> v4:
+> >>> - replace V4L2_COLORFX_SET_ARGB, V4L2_CID_COLORFX_ARGB to
+> >>>   V4L2_COLORFX_SET_RGB, V4L2_CID_COLORFX_RGB since Alpha paramter not used
+> >>>   in current. thanks Hans.
+> >>>
+> >>>  Documentation/userspace-api/media/v4l/control.rst | 9 +++++++++
+> >>>  drivers/media/v4l2-core/v4l2-ctrls-defs.c         | 2 ++
+> >>>  include/uapi/linux/v4l2-controls.h                | 4 +++-
+> >>>  3 files changed, 14 insertions(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/Documentation/userspace-api/media/v4l/control.rst b/Documentation/userspace-api/media/v4l/control.rst
+> >>> index f8d0b923da20..3eec65174260 100644
+> >>> --- a/Documentation/userspace-api/media/v4l/control.rst
+> >>> +++ b/Documentation/userspace-api/media/v4l/control.rst
+> >>> @@ -242,8 +242,17 @@ Control IDs
+> >>>      * - ``V4L2_COLORFX_SET_CBCR``
+> >>>        - The Cb and Cr chroma components are replaced by fixed coefficients
+> >>>       determined by ``V4L2_CID_COLORFX_CBCR`` control.
+> >>> +    * - ``V4L2_COLORFX_SET_RGB``
+> >>> +      - The RGB components are replaced by the fixed RGB components determined
+> >>> +        by ``V4L2_CID_COLORFX_RGB`` control.
+> >>>
+> >>>
+> >>> +``V4L2_CID_COLORFX_RGB`` ``(integer)``
+> >>> +    Determines the Red, Green, and Blue coefficients for
+> >>> +    ``V4L2_COLORFX_SET_RGB`` color effect.
+> >>> +    Bits [7:0] of the supplied 32 bit value are interpreted as Blue component,
+> >>> +    bits [15:8] as Green component, bits [23:16] as Red component, and
+> >>> +    bits [31:24] must be zero.
+> >>>
+> >>>  ``V4L2_CID_COLORFX_CBCR`` ``(integer)``
+> >>>      Determines the Cb and Cr coefficients for ``V4L2_COLORFX_SET_CBCR``
+> >>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> >>> index 421300e13a41..f4bd90170105 100644
+> >>> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> >>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> >>> @@ -785,6 +785,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+> >>>       case V4L2_CID_MIN_BUFFERS_FOR_OUTPUT:   return "Min Number of Output Buffers";
+> >>>       case V4L2_CID_ALPHA_COMPONENT:          return "Alpha Component";
+> >>>       case V4L2_CID_COLORFX_CBCR:             return "Color Effects, CbCr";
+> >>> +     case V4L2_CID_COLORFX_RGB:              return "Color Effects, RGB";
+> >>>
+> >>>       /*
+> >>>        * Codec controls
+> >>> @@ -1392,6 +1393,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+> >>>               *min = *max = *step = *def = 0;
+> >>>               break;
+> >>>       case V4L2_CID_BG_COLOR:
+> >>> +     case V4L2_CID_COLORFX_RGB:
+> >>>               *type = V4L2_CTRL_TYPE_INTEGER;
+> >>>               *step = 1;
+> >>>               *min = 0;
+> >>
+> >> Can you make another small change here? Please change:
+> >>
+> >>         *max = 0xFFFFFF;
+> >>
+> >> to:
+> >>
+> >>         *max = 0xffffff;
+> >>
+> >> to keep in line with the coding standard for hex values.
+> >
+> > Sure, do it right now.
+> >
+> >>
+> >> Also, can you add a separate patch that adds an entry here for V4L2_CID_COLORFX_CBCR
+> >> that sets *max to 0xffff? I noticed that that was missing. While adding V4L2_CID_COLORFX_RGB
+> >> it's good to fix V4L2_CID_COLORFX_CBCR as well.
+> >
+> > Sure, you mean the final code like this? first patch to fix cbcr 0xFFFFFF,
+>
+> For cbcr max should be 0xffff.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- drivers/iio/adc/stm32-adc.c | 70 ++++++++++++++++++++++---------------
- 1 file changed, 41 insertions(+), 29 deletions(-)
+Sure.
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 5269bb87d094..6245434f8377 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -1805,6 +1805,13 @@ static void stm32_adc_smpr_init(struct stm32_adc *adc, int channel, u32 smp_ns)
- 	u32 period_ns, shift = smpr->shift, mask = smpr->mask;
- 	unsigned int smp, r = smpr->reg;
- 
-+	/*
-+	 * For vrefint channel, ensure that the sampling time cannot
-+	 * be lower than the one specified in the datasheet
-+	 */
-+	if (channel == adc->int_ch[STM32_ADC_INT_CH_VREFINT])
-+		smp_ns = max(smp_ns, adc->cfg->ts_vrefint_ns);
-+
- 	/* Determine sampling time (ADC clock cycles) */
- 	period_ns = NSEC_PER_SEC / adc->common->rate;
- 	for (smp = 0; smp <= STM32_ADC_MAX_SMP; smp++)
-@@ -1881,6 +1888,13 @@ static int stm32_adc_get_legacy_chan_count(struct iio_dev *indio_dev, struct stm
- 		num_channels += ret;
- 	}
- 
-+	/* Optional sample time is provided either for each, or all channels */
-+	ret = of_property_count_u32_elems(node, "st,min-sample-time-nsecs");
-+	if (ret > 1 && ret != num_channels) {
-+		dev_err(&indio_dev->dev, "Invalid st,min-sample-time-nsecs\n");
-+		return -EINVAL;
-+	}
-+
- 	return num_channels;
- }
- 
-@@ -1896,6 +1910,7 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
- 	int scan_index = 0, val, ret, i;
- 	struct property *prop;
- 	const __be32 *cur;
-+	u32 smp = 0;
- 
- 	if (num_diff) {
- 		ret = of_property_read_u32_array(node, "st,adc-diff-channels",
-@@ -1938,6 +1953,19 @@ static int stm32_adc_legacy_chan_init(struct iio_dev *indio_dev,
- 		scan_index++;
- 	}
- 
-+	for (i = 0; i < scan_index; i++) {
-+		/*
-+		 * Using of_property_read_u32_index(), smp value will only be
-+		 * modified if valid u32 value can be decoded. This allows to
-+		 * get either no value, 1 shared value for all indexes, or one
-+		 * value per channel.
-+		 */
-+		of_property_read_u32_index(node, "st,min-sample-time-nsecs", i, &smp);
-+
-+		/* Prepare sampling time settings */
-+		stm32_adc_smpr_init(adc, channels[i].channel, smp);
-+	}
-+
- 	return scan_index;
- }
- 
-@@ -2030,6 +2058,19 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
- 
- 		stm32_adc_chan_init_one(indio_dev, &channels[scan_index], val,
- 					vin[1], scan_index, differential);
-+
-+		ret = of_property_read_u32(child, "st,min-sample-time-ns", &val);
-+		/* st,min-sample-time-ns is optional */
-+		if (!ret) {
-+			stm32_adc_smpr_init(adc, channels[scan_index].channel, val);
-+			if (differential)
-+				stm32_adc_smpr_init(adc, vin[1], val);
-+		} else if (ret != -EINVAL) {
-+			dev_err(&indio_dev->dev, "Invalid st,min-sample-time-ns property %d\n",
-+				ret);
-+			goto err;
-+		}
-+
- 		scan_index++;
- 	}
- 
-@@ -2048,7 +2089,6 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
- 	const struct stm32_adc_info *adc_info = adc->cfg->adc_info;
- 	struct iio_chan_spec *channels;
- 	int scan_index = 0, num_channels = 0, ret, i;
--	u32 smp = 0;
- 	bool legacy = false;
- 
- 	for (i = 0; i < STM32_ADC_INT_CH_NB; i++)
-@@ -2076,13 +2116,6 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
- 		return -EINVAL;
- 	}
- 
--	/* Optional sample time is provided either for each, or all channels */
--	ret = of_property_count_u32_elems(node, "st,min-sample-time-nsecs");
--	if (ret > 1 && ret != num_channels) {
--		dev_err(&indio_dev->dev, "Invalid st,min-sample-time-nsecs\n");
--		return -EINVAL;
--	}
--
- 	if (timestamping)
- 		num_channels++;
- 
-@@ -2099,27 +2132,6 @@ static int stm32_adc_chan_of_init(struct iio_dev *indio_dev, bool timestamping)
- 		return ret;
- 	scan_index = ret;
- 
--	for (i = 0; i < scan_index; i++) {
--		/*
--		 * Using of_property_read_u32_index(), smp value will only be
--		 * modified if valid u32 value can be decoded. This allows to
--		 * get either no value, 1 shared value for all indexes, or one
--		 * value per channel.
--		 */
--		of_property_read_u32_index(node, "st,min-sample-time-nsecs",
--					   i, &smp);
--
--		/*
--		 * For vrefint channel, ensure that the sampling time cannot
--		 * be lower than the one specified in the datasheet
--		 */
--		if (channels[i].channel == adc->int_ch[STM32_ADC_INT_CH_VREFINT])
--			smp = max(smp, adc->cfg->ts_vrefint_ns);
--
--		/* Prepare sampling time settings */
--		stm32_adc_smpr_init(adc, channels[i].channel, smp);
--	}
--
- 	if (timestamping) {
- 		struct iio_chan_spec *timestamp = &channels[scan_index];
- 
--- 
-2.17.1
+>
+> > another one to add V4L2_CID_COLORFX_RGB entry.
+> >
+> > 1395         case V4L2_CID_BG_COLOR:
+> > 1396         case V4L2_CID_COLORFX_RGB:
+> > 1397                 *type = V4L2_CTRL_TYPE_INTEGER;
+> > 1398                 *step = 1;
+> > 1399                 *min = 0;
+> > 1400                 /* Max is calculated as RGB888 that is 2^24 */
+>
+> Actually, the comment is wrong: it should be 2^24-1. Let's fix that too.
 
+Okay.
+
+>
+> > 1401                 *max = 0xffffff;
+>
+> Yes, that's what I am looking for.
+>
+> Regards,
+>
+>         Hans
+>
+> > 1402                 break;
+> >
+> > Best Regards
+> > Dillon
+> >
+> >>
+> >> Regards,
+> >>
+> >>         Hans
+> >>
+> >>> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+> >>> index 5532b5f68493..9aa3fd368383 100644
+> >>> --- a/include/uapi/linux/v4l2-controls.h
+> >>> +++ b/include/uapi/linux/v4l2-controls.h
+> >>> @@ -128,6 +128,7 @@ enum v4l2_colorfx {
+> >>>       V4L2_COLORFX_SOLARIZATION               = 13,
+> >>>       V4L2_COLORFX_ANTIQUE                    = 14,
+> >>>       V4L2_COLORFX_SET_CBCR                   = 15,
+> >>> +     V4L2_COLORFX_SET_RGB                    = 16,
+> >>>  };
+> >>>  #define V4L2_CID_AUTOBRIGHTNESS                      (V4L2_CID_BASE+32)
+> >>>  #define V4L2_CID_BAND_STOP_FILTER            (V4L2_CID_BASE+33)
+> >>> @@ -145,9 +146,10 @@ enum v4l2_colorfx {
+> >>>
+> >>>  #define V4L2_CID_ALPHA_COMPONENT             (V4L2_CID_BASE+41)
+> >>>  #define V4L2_CID_COLORFX_CBCR                        (V4L2_CID_BASE+42)
+> >>> +#define V4L2_CID_COLORFX_RGB                 (V4L2_CID_BASE+43)
+> >>>
+> >>>  /* last CID + 1 */
+> >>> -#define V4L2_CID_LASTP1                         (V4L2_CID_BASE+43)
+> >>> +#define V4L2_CID_LASTP1                         (V4L2_CID_BASE+44)
+> >>>
+> >>>  /* USER-class private control IDs */
+> >>>
+> >>>
+> >>
+>
+
+Best Regards.
+Dillon
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
