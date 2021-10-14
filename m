@@ -2,60 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DF4F42E00A
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Oct 2021 19:26:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64F8E42E069
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Oct 2021 19:49:02 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60450C5C83E;
-	Thu, 14 Oct 2021 17:26:49 +0000 (UTC)
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DDA1C5C83E;
+	Thu, 14 Oct 2021 17:49:02 +0000 (UTC)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42F6FC32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEDC6C5C831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Oct 2021 17:26:48 +0000 (UTC)
-Received: by mail-oi1-f178.google.com with SMTP id y207so9380400oia.11
+ Thu, 14 Oct 2021 17:48:59 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id 133so6243559pgb.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Oct 2021 10:26:48 -0700 (PDT)
+ Thu, 14 Oct 2021 10:48:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=OT60huJcLUzU4uMTP0Y4zXm9R8zcbb51JLuxqfMRZ94=;
+ b=wLDDuoJmX85HQzNdokG+Ttetn04Um6PGIAdCcgnT1SUrnTJbr9y7xmCqiEt5pzQD21
+ /oGZrw2O11WaGmL9Su9ZammcH9guMQB2/Ha6UTySsxZ5b+/7TW6kft8hZ2EYLz3mBuEn
+ 7YZLHItUk7NEl5XvoRG9vEoln7N+JH+GNBOk8+JUBB067D+JWPELkbIRfV+8Id8L6Lkr
+ aJpk9Q3gd4IQ/nVxW3zQb0j0M546bBU+/4Fkk+CXe1UkcavcfOABwBzY5yqbOcXTyPbh
+ HJyT8o4QcoGPYzcm/9dSZZWJsFzOT9VaQiWqB5KdPMW5xmrVIEIKc5OSsx9ZTQlN99Uf
+ SxLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=aZhMJFR7qEIO7M61CFkCjB5kHmujnbdK6yv9W6S7EmM=;
- b=y1JWbpmdumRz109wIjve4W3a+9j0OLTpz33dZLZQwVDFi2s47Ihohgr9aDozFDRcoO
- BY5AybPDy1lG+FsqQJVGOQs7x7+LysL3Gh/tSyWrvw4PcE0WE/BKbeiNcyhVMGdK8kVQ
- B51erwoDSs7SA6u77Ifjc7g7F+TwjzrIl35HdeSWpjLup6udL+rWEMeZFihI/JuI/2rx
- Atovlhh5Cv4hjbFIvCa2Zm9LPR3ueWSpSmiP1/mdMvTqK4vbCFZpYQZstPpY8pecyOit
- ji+yKKlpuxfPKmIsHOa0g5unUwTzJFcAWTv12+wO4WdcRSwOa1RPvbVC6yzkvfx5xvHc
- gqgw==
-X-Gm-Message-State: AOAM531L8rvXBl9MZNp0Mp1jeZ1B38jsEAx0358WtYUedOruJDD4NWhq
- tqj7nv4WZbI4yYBSP0sY9w==
-X-Google-Smtp-Source: ABdhPJzpW374h0wPKAjFh+UaJiw4S6Qg9dmeEbajDJXoaNMqM0XlLBMT14ZlD69a1wFChgOc8hrx3A==
-X-Received: by 2002:aca:3656:: with SMTP id d83mr13912263oia.176.1634232407099; 
- Thu, 14 Oct 2021 10:26:47 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id bp21sm420799oib.31.2021.10.14.10.26.45
+ bh=OT60huJcLUzU4uMTP0Y4zXm9R8zcbb51JLuxqfMRZ94=;
+ b=2Gv8XQJ320DzM3IbMfqEL6q1iQX/wiC43417QbPtABvnqhOaEKfSnurSMZJ6pl4PD7
+ bp1gVaXZRfppkLg/hNPMDiHil3UuL+qPB8uh7gdKK/0yGSBsD6ThheVQf2NCFlIK5XOj
+ icnhRAZUteMIpabJHf51lBdpSwhUcBaHbj79IXBIisyB1wEDrYuCcrsPTn8dOne631ku
+ dHrnzAeMeESw1PcmoZcMmNorW4i1lNVbVYgKCKSi/ZJPXXvpeTpyUh4RPdKS2DL6CQ2h
+ KrQHiXzSu9tH8g24Vjw1s9kZdni0WEAda3dowgLrTS59RpwcbI0nAvVI2Nf8QmqmXvxc
+ pNLA==
+X-Gm-Message-State: AOAM532PlKH6iAMuMMhDUEVvCYPZ43BARuRimbnkazLNQKu7E5gWW/be
+ h5S1xCAbOtzTXhAxLtce5b5O3A==
+X-Google-Smtp-Source: ABdhPJxmvaatFc+QnqNBQePvZ4CbvHeNQ65c0Ulj65LLhxEKTQGYa8hLZAe0hs+8d7h5nHtD9QEZfw==
+X-Received: by 2002:aa7:9f8f:0:b0:44c:cf63:ec7c with SMTP id
+ z15-20020aa79f8f000000b0044ccf63ec7cmr6741449pfr.77.1634233738398; 
+ Thu, 14 Oct 2021 10:48:58 -0700 (PDT)
+Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id lp9sm3424575pjb.35.2021.10.14.10.48.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Oct 2021 10:26:46 -0700 (PDT)
-Received: (nullmailer pid 3584071 invoked by uid 1000);
- Thu, 14 Oct 2021 17:26:45 -0000
-Date: Thu, 14 Oct 2021 12:26:45 -0500
-From: Rob Herring <robh@kernel.org>
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <YWhoVd/XR2SdAbXV@robh.at.kernel.org>
-References: <20211005152453.89330-1-amelie.delaunay@foss.st.com>
- <20211005152453.89330-3-amelie.delaunay@foss.st.com>
+ Thu, 14 Oct 2021 10:48:57 -0700 (PDT)
+Date: Thu, 14 Oct 2021 11:48:54 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20211014174854.GC2847733@p14s>
+References: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
+ <20211001101234.4247-2-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20211005152453.89330-3-amelie.delaunay@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-phy@lists.infradead.org,
- Kishon Vijay Abraham I <kishon@ti.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/3] dt-bindings: phy:
- phy-stm32-usbphyc: add optional phy tuning properties
+In-Reply-To: <20211001101234.4247-2-arnaud.pouliquen@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, Rob Herring <robh@kernel.org>,
+ Bruce Ashfield <bruce.ashfield@xilinx.com>,
+ Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Christoph Hellwig <hch@lst.de>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [RFC PATCH 1/7] remoteproc: core: Introduce
+ virtio device add/remove functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,181 +80,211 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 05, 2021 at 05:24:52PM +0200, Amelie Delaunay wrote:
-> This patch adds the description of new optional phy tuning properties
-> for usbphyc phy sub nodes.
+Hi,
+
+I have started reviewing this set.  Comments herein are related to code logic
+only.  I will comment on the overall approach at a later time.
+
+On Fri, Oct 01, 2021 at 12:12:28PM +0200, Arnaud Pouliquen wrote:
+> In preparation of the migration of the management of rvdev in
+> rproc_virtio, this patch spins off new functions to manage the
+
+Are you referring to file remoteproc_virtio.c?  If so please clearly state that
+it is the case by using the real name.  Otherwise it is very confusing.
+
+> remoteproc virtio device.
 > 
-> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-> ---
-> Changes in v2:
-> - st,phy-tuning property removed
-> - tuning properties are now put directly in each child node
-> - tuning properties are no more free form text and their name reworked
-> ---
->  .../bindings/phy/phy-stm32-usbphyc.yaml       | 126 ++++++++++++++++++
->  1 file changed, 126 insertions(+)
+> The rproc_rvdev_add_device and rproc_rvdev_remove_device will be
+> moved to remoteproc_virtio.
+
+Here too I have to guess that you mean remoteproc_virtio.c.  Moreover two
+different nomenclatures are used in 3 lines.
+
 > 
-> diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
-> index 3329f1d33a4f..c0f4dff2b8cb 100644
-> --- a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
-> +++ b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
-> @@ -81,6 +81,116 @@ patternProperties:
->          properties:
->            vbus-supply: true
+> In addition the rproc_register_rvdev and rproc_unregister_rvdev is created
+> as it will be exported (used in rproc_rvdev_add_device
+> and rproc_rvdev_remove_device functions).
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  drivers/remoteproc/remoteproc_core.c | 102 ++++++++++++++++++---------
+>  1 file changed, 67 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index 502b6604b757..7c783ca291a7 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -484,6 +484,69 @@ static int copy_dma_range_map(struct device *to, struct device *from)
+>  	return 0;
+>  }
 >  
-> +      # It can be necessary to adjust the PHY settings to compensate parasitics, which can be due
-> +      # to USB connector/receptacle, routing, ESD protection component,... Here is the list of
-> +      # all optional parameters to tune the interface of the PHY (HS for High-Speed, FS for Full-
-> +      # Speed, LS for Low-Speed)
+> +static void rproc_register_rvdev(struct rproc_vdev *rvdev)
+> +{
+> +	if (rvdev && rvdev->rproc)
+> +		list_add_tail(&rvdev->node, &rvdev->rproc->rvdevs);
+> +}
 > +
-> +      st,current-boost-milliamp:
+> +static void rproc_unregister_rvdev(struct rproc_vdev *rvdev)
+> +{
+> +	if (rvdev)
+> +		list_del(&rvdev->node);
+> +}
 
-Not a documented unit. Use '-microamp'.
+This file is a simple refactoring of the current code.  Additions such as this
+one should be done in a separate patch.
 
-> +        description: Current boosting in mA
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        minimum: 1
-> +        maximum: 2
 > +
-> +      st,no-lsfs-fb-cap:
-> +        description: Disables the LS/FS feedback capacitor
-> +        type: boolean
+> +static int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
+> +{
+> +	struct rproc *rproc = rvdev->rproc;
+> +	char name[16];
+> +	int ret;
 > +
-> +      st,decrease-hs-slew-rate:
-> +        description: Decreases the HS driver slew rate by 10%
-> +        type: boolean
-> +
-> +      st,tune-hs-dc-level:
-> +        description: Tunes the HS driver DC level
+> +	snprintf(name, sizeof(name), "vdev%dbuffer", rvdev->index);
+> +	rvdev->dev.parent = &rproc->dev;
+> +	ret = copy_dma_range_map(&rvdev->dev, rproc->dev.parent);
+> +	if (ret)
+> +		return ret;
 
-You need '|' after 'description:' to retain the formatting you have 
-here.
+Memory is allocated for @rvdev in rproc_handle_vdev() using kzalloc().  If
+we return prematurely that memory will be leaked.  Note that this problem is
+present in the current code base.  I suggest sending a separate patch to fix it
+while this work is ongoing.
 
-> +          - <0> normal level
-> +          - <1> increases the level by 5 to 7 mV
-> +          - <2> increases the level by 10 to 14 mV
-> +          - <3> decreases the level by 5 to 7 mV
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        minimum: 0
-> +        maximum: 3
-> +        default: 0
 > +
-> +      st,enable-fs-rftime-tuning:
-> +        description: Enables the FS rise/fall tuning option
-> +        type: boolean
+> +	rvdev->dev.release = rproc_rvdev_release;
+> +	dev_set_name(&rvdev->dev, "%s#%s", dev_name(rvdev->dev.parent), name);
+> +	dev_set_drvdata(&rvdev->dev, rvdev);
 > +
-> +      st,enable-hs-rftime-reduction:
-> +        description: Enables the HS rise/fall reduction feature
-> +        type: boolean
+> +	ret = device_register(&rvdev->dev);
+> +	if (ret) {
+> +		put_device(&rvdev->dev);
+> +		return ret;
+> +	}
+> +	/* Make device dma capable by inheriting from parent's capabilities */
+> +	set_dma_ops(&rvdev->dev, get_dma_ops(rproc->dev.parent));
 > +
-> +      st,trim-hs-current:
-> +        description: Controls HS driver current trimming for choke compensation
-> +          - <0> = 18.87 mA target current / nominal + 0%
-> +          - <1> = 19.165 mA target current / nominal + 1.56%
-> +          - <2> = 19.46 mA target current / nominal + 3.12%
-> +          - <3> = 19.755 mA target current / nominal + 4.68%
-> +          - <4> = 20.05 mA target current / nominal + 6.24%
-> +          - <5> = 20.345 mA target current / nominal + 7.8%
-> +          - <6> = 20.64 mA target current / nominal + 9.36%
-> +          - <7> = 20.935 mA target current / nominal + 10.92%
-> +          - <8> = 21.23 mA target current / nominal + 12.48%
-> +          - <9> = 21.525 mA target current / nominal + 14.04%
-> +          - <10> = 21.82 mA target current / nominal + 15.6%
-> +          - <11> = 22.115 mA target current / nominal + 17.16%
-> +          - <12> = 22.458 mA target current / nominal + 19.01%
-> +          - <13> = 22.755 mA target current / nominal + 20.58%
-> +          - <14> = 23.052 mA target current / nominal + 22.16%
-> +          - <15> = 23.348 mA target current / nominal + 23.73%
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        minimum: 0
-> +        maximum: 15
-> +        default: 0
+> +	ret = dma_coerce_mask_and_coherent(&rvdev->dev,
+> +					   dma_get_mask(rproc->dev.parent));
+> +	if (ret) {
+> +		dev_warn(&rvdev->dev,
+> +			 "Failed to set DMA mask %llx. Trying to continue... %x\n",
+> +			 dma_get_mask(rproc->dev.parent), ret);
+> +	}
 > +
-> +      st,trim-hs-impedance:
-> +        description: Controls HS driver impedance tuning for choke compensation
-> +          - <0> = no impedance offset
-> +          - <1> = reduce the impedance by 2 ohms
-> +          - <2> = reduce the impedance by 4 ohms
-> +          - <3> = reduce the impedance by 6 ohms
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        minimum: 0
-> +        maximum: 3
-> +        default: 0
+> +	rproc_register_rvdev(rvdev);
 > +
-> +      st,tune-squelch-level:
-> +        description: Tunes the squelch DC threshold value
-> +          - <0> = no shift in threshold
-> +          - <1> = threshold shift by +7 mV
-> +          - <2> = threshold shift by -5 mV
-> +          - <3> = threshold shift by +14 mV
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        minimum: 0
-> +        maximum: 3
-> +        default: 0
+> +	rvdev->subdev.start = rproc_vdev_do_start;
+> +	rvdev->subdev.stop = rproc_vdev_do_stop;
 > +
-> +      st,enable-hs-rx-gain-eq:
-> +        description: Enables the HS Rx gain equalizer
-> +        type: boolean
+> +	rproc_add_subdev(rproc, &rvdev->subdev);
+
+Please see comment above.
+
 > +
-> +      st,tune-hs-rx-offset:
-> +        description: Adjusts the HS Rx offset
-> +          - <0> = no offset
-> +          - <1> = offset of +5 mV
-> +          - <2> = offset of +10 mV
-> +          - <3> = offset of -5 mV
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        minimum: 0
-> +        maximum: 3
-> +        default: 0
+> +	return 0;
+> +}
 > +
-> +      st,no-hs-ftime-ctrl:
-> +        description: Disables the HS fall time control of single ended signals during pre-emphasis
-> +        type: boolean
+> +static void rproc_rvdev_remove_device(struct rproc_vdev *rvdev)
+> +{
+> +	struct rproc *rproc = rvdev->rproc;
 > +
-> +      st,no-lsfs-sc:
-> +        description: Disables the short circuit protection in LS/FS driver
-> +        type: boolean
+> +	rproc_remove_subdev(rproc, &rvdev->subdev);
+> +	rproc_unregister_rvdev(rvdev);
+> +	device_unregister(&rvdev->dev);
+> +}
 > +
-> +      st,enable-hs-tx-staggering:
-> +        description: Enables the basic staggering in HS Tx mode
-> +        type: boolean
-> +
->      allOf:
->        - if:
->            properties:
-> @@ -137,6 +247,14 @@ examples:
->              reg = <0>;
->              phy-supply = <&vdd_usb>;
->              #phy-cells = <0>;
-> +            st,tune-hs-dc-level = <2>;
-> +            st,enable-fs-rftime-tuning;
-> +            st,enable-hs-rftime-reduction;
-> +            st,trim-hs-current = <15>;
-> +            st,trim-hs-impedance = <1>;
-> +            st,tune-squelch-level = <3>;
-> +            st,tune-hs-rx-offset = <2>;
-> +            st,no-lsfs-sc;
->              connector {
->                  compatible = "usb-a-connector";
->                  vbus-supply = <&vbus_sw>;
-> @@ -147,6 +265,14 @@ examples:
->              reg = <1>;
->              phy-supply = <&vdd_usb>;
->              #phy-cells = <1>;
-> +            st,tune-hs-dc-level = <2>;
-> +            st,enable-fs-rftime-tuning;
-> +            st,enable-hs-rftime-reduction;
-> +            st,trim-hs-current = <15>;
-> +            st,trim-hs-impedance = <1>;
-> +            st,tune-squelch-level = <3>;
-> +            st,tune-hs-rx-offset = <2>;
-> +            st,no-lsfs-sc;
->          };
->      };
->  ...
+>  /**
+>   * rproc_handle_vdev() - handle a vdev fw resource
+>   * @rproc: the remote processor
+> @@ -519,7 +582,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+>  	struct device *dev = &rproc->dev;
+>  	struct rproc_vdev *rvdev;
+>  	int i, ret;
+> -	char name[16];
+>  
+>  	/* make sure resource isn't truncated */
+>  	if (struct_size(rsc, vring, rsc->num_of_vrings) + rsc->config_len >
+> @@ -551,33 +613,13 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+>  
+>  	rvdev->id = rsc->id;
+>  	rvdev->rproc = rproc;
+> -	rvdev->index = rproc->nb_vdev++;
+> +	rvdev->index = rproc->nb_vdev;
+
+This one may make sense in a later patch but for now it doesn't.
+
+Depending on the time I have more comments to come later, tomorrow or on Monday.
+
+Thanks,
+Mathieu
+
+>  
+> -	/* Initialise vdev subdevice */
+> -	snprintf(name, sizeof(name), "vdev%dbuffer", rvdev->index);
+> -	rvdev->dev.parent = &rproc->dev;
+> -	ret = copy_dma_range_map(&rvdev->dev, rproc->dev.parent);
+> +	ret = rproc_rvdev_add_device(rvdev);
+>  	if (ret)
+>  		return ret;
+> -	rvdev->dev.release = rproc_rvdev_release;
+> -	dev_set_name(&rvdev->dev, "%s#%s", dev_name(rvdev->dev.parent), name);
+> -	dev_set_drvdata(&rvdev->dev, rvdev);
+>  
+> -	ret = device_register(&rvdev->dev);
+> -	if (ret) {
+> -		put_device(&rvdev->dev);
+> -		return ret;
+> -	}
+> -	/* Make device dma capable by inheriting from parent's capabilities */
+> -	set_dma_ops(&rvdev->dev, get_dma_ops(rproc->dev.parent));
+> -
+> -	ret = dma_coerce_mask_and_coherent(&rvdev->dev,
+> -					   dma_get_mask(rproc->dev.parent));
+> -	if (ret) {
+> -		dev_warn(dev,
+> -			 "Failed to set DMA mask %llx. Trying to continue... %x\n",
+> -			 dma_get_mask(rproc->dev.parent), ret);
+> -	}
+> +	rproc->nb_vdev++;
+>  
+>  	/* parse the vrings */
+>  	for (i = 0; i < rsc->num_of_vrings; i++) {
+> @@ -596,13 +638,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+>  			goto unwind_vring_allocations;
+>  	}
+>  
+> -	list_add_tail(&rvdev->node, &rproc->rvdevs);
+> -
+> -	rvdev->subdev.start = rproc_vdev_do_start;
+> -	rvdev->subdev.stop = rproc_vdev_do_stop;
+> -
+> -	rproc_add_subdev(rproc, &rvdev->subdev);
+> -
+>  	return 0;
+>  
+>  unwind_vring_allocations:
+> @@ -617,7 +652,6 @@ void rproc_vdev_release(struct kref *ref)
+>  {
+>  	struct rproc_vdev *rvdev = container_of(ref, struct rproc_vdev, refcount);
+>  	struct rproc_vring *rvring;
+> -	struct rproc *rproc = rvdev->rproc;
+>  	int id;
+>  
+>  	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
+> @@ -625,9 +659,7 @@ void rproc_vdev_release(struct kref *ref)
+>  		rproc_free_vring(rvring);
+>  	}
+>  
+> -	rproc_remove_subdev(rproc, &rvdev->subdev);
+> -	list_del(&rvdev->node);
+> -	device_unregister(&rvdev->dev);
+> +	rproc_rvdev_remove_device(rvdev);
+>  }
+>  
+>  /**
 > -- 
-> 2.25.1
-> 
+> 2.17.1
 > 
 _______________________________________________
 Linux-stm32 mailing list
