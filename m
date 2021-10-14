@@ -2,67 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D15942D812
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Oct 2021 13:22:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D404542D9E9
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Oct 2021 15:13:43 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4527FC5C837;
-	Thu, 14 Oct 2021 11:22:46 +0000 (UTC)
-Received: from lb2-smtp-cloud7.xs4all.net (lb2-smtp-cloud7.xs4all.net
- [194.109.24.28])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6992FC5C83D;
+	Thu, 14 Oct 2021 13:13:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 611B8C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 113C6C5C837
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Oct 2021 11:22:45 +0000 (UTC)
-Received: from cust-b5b5937f ([IPv6:fc0c:c16d:66b8:757f:c639:739b:9d66:799d])
- by smtp-cloud7.xs4all.net with ESMTPA
- id ayormQkrqk3b0ayoumYC8d; Thu, 14 Oct 2021 13:22:45 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xs4all.nl; s=s2;
- t=1634210565; bh=8KTB2+Q7JrWGhv8MdC4DXwLhN1UM+TlCt/Lif4SrTKs=;
- h=Subject:To:From:Message-ID:Date:MIME-Version:Content-Type:From:
- Subject;
- b=e3MxV3wgT8GwV8bz7oF7rPiITdIhnw4vWkuOePSzMh7iBZL1v1xGlEzYnwghRFqA3
- HS5EfHz57aOipBbhnvbBRti/abkt/7h6Zz6GESsqflC6v6PQ6PZ0DkiAATWL/0ScMw
- Bsww050dvjnc1xFKsN5pzMaCYeCvw7UpHMNE2gdrC+0c6VH+Idw6uh9a/o/JiMIZ2S
- WEHtDDm7oNQWN4r84OHUocxrc1tTnatsQ4OxVHcPiJKgxHVT+I+3BlGiBcPAYiYQHn
- /wear97xboMd9dx6NryeAwPvO7g8FuR9I7fuRalwPw1LtSH/mz5ypd3Grqa1T2btFa
- +NVOAtP6C5Jlg==
-To: Dillon Min <dillon.minfei@gmail.com>
-References: <1634207106-7632-1-git-send-email-dillon.minfei@gmail.com>
- <1634207106-7632-7-git-send-email-dillon.minfei@gmail.com>
- <2b0739f1-85e4-6b19-ff30-2587f0c622c2@xs4all.nl>
- <CAL9mu0LqkCpjYft4z6V4T97Mq46dCTXZ=BvfQa+DijjRd4pDkA@mail.gmail.com>
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Message-ID: <1d0e5b17-dd2c-d3d3-c514-775806ae99c9@xs4all.nl>
-Date: Thu, 14 Oct 2021 13:22:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Firefox/78.0 Thunderbird/78.14.0
+ Thu, 14 Oct 2021 13:13:41 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19EBk9nv020035; 
+ Thu, 14 Oct 2021 15:13:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=YjQ3urDAJXHR/F3Axv6sVr5AjLaz89bV+mq261IIQQY=;
+ b=cXLM99+NE6XvfugKPfl3nOtV9X2sQ/UGiGn/Bvwn3yIg8Gn0qOfhVlkLqQfWVcKxOZeK
+ G0cwYu83kyoIwGUQqSd0yq8PnIRe26WIYHH5JhXbNnCcHEAHGktFfERka4p3W7lxTJIt
+ OdVjWUec3Dgp8ZwhccwWGS62tJ14ZBJV6jcgsm3VtLQyZgx7+oa7jRTp7JNtunbMgNVc
+ MgRwNE3WKuNKA4YqaGdFqFX1CK23b677pH1LJa+FxRclmCe/1Rm5AXM2Z2+Zgt7Pt9w0
+ 6d+wxfql0WvJ3soU5kWG1F55dP1GqduQzrXXod0gQ1+/9rku79lOOSTwguCxbLPxpPJa YQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3bpkye8fy7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 14 Oct 2021 15:13:16 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 87DB410002A;
+ Thu, 14 Oct 2021 15:13:14 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7FA5622179A;
+ Thu, 14 Oct 2021 15:13:14 +0200 (CEST)
+Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Thu, 14 Oct 2021 15:13:14
+ +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Fabrice Gasnier
+ <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Olivier Moysan <olivier.moysan@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>
+Date: Thu, 14 Oct 2021 15:12:21 +0200
+Message-ID: <20211014131228.4692-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <CAL9mu0LqkCpjYft4z6V4T97Mq46dCTXZ=BvfQa+DijjRd4pDkA@mail.gmail.com>
-Content-Language: en-US
-X-CMAE-Envelope: MS4xfDoed45rU1XMoHUiCtoyy6GO82RajXOAuq0okRq9Kg/1ImwWutmeAs6WL5eO+Y+tOe6gMec2b6uIu46btDt8KmKVRmbPu5fuSsge8EaRIbe/EMY+2IOV
- tmPI5YCGHIu+aackpCK26x69Duu2OsHQVDKQW6qqk08Drs9vCJa6hWojS+iax9DR+/3V72PrTVo6GLkX8M8AoO7vJGi95Op4ljwl5G/TUjcRwZVwBBuz2Ca6
- mJHvtfqKwHMD0d3WmVvn/HSUNVAw1HapFgBQ9NWbGF2M33dX7WDLy8Ll7QGDpl3RFi9WHVawkxCOClfMLuPztvy6vyK4ZpUQNYEno2WRdv41Az/+OGTYBReF
- 8BCq2qARHLp7jk8KJGphfsCL0HguLSeJwB2xGedGYQ4nTO6nhMBlqg3H5UtT861IFMtSXsiwNDHYZzBE5ztpdfsJZItlSt/56T4qWqbRaGnCEi8+CA6vM+WH
- Qm5qN4sZp+mPmNcPbbsxNt+nKlS6toivePX7ZWQQMqpDNSZKN+G1Jyr/eyTJpG3pdSPzcZjAXcgRUOODgNIjtS2pstPWN/x8F6WPy8zkqqj1G+abHLZCBkT/
- gQypCgfV/M5/OsrXpSH70QjGaLUB7HLifsWbF8w6wjJ+1CYAm99cWya9peM73C1D6NExbgsMASR0nwpGs8JSOutN4mhXsvf25yD2rpOXHALPSwTTf7V4ZH9n
- IjTvc70Dr97bCzxTvDAYhsp2FK46fyLSmOwv81uOQ6jY1GP02noRNOG8L8xvkmc6iPoTVbhtduTfJzKGslLynOJNwMTUcru1qIjDDCe3URrSodYEy+EkljVM
- ZroVl7TwidvAzrdMdVqNLhLvLwvC/S8OAyDiQYsxo6366pdhaZDunRh+G4hoU3hvtdzRAtb5kU1iEca8bUsYXCrS/ZCvYIEkFiE8EozQwnzot8buVAXYs7Ej
- COU3Pud39XURrUI1XJ0xP4V4q7Y=
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, gnurou@gmail.com,
- linux-clk <linux-clk@vger.kernel.org>, Pi-Hsun Shih <pihsun@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, mchehab+huawei@kernel.org,
- hugues.fruchet@foss.st.com, Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>, gabriel.fernandez@foss.st.com,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, ezequiel@collabora.com,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-media <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v4 6/8] media: v4l2-ctrls: Add RGB color
-	effects control
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-10-14_08,2021-10-14_02,2020-04-07_01
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v5 0/7] iio: adc: stm32-adc: add internal
+	channels support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,150 +76,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 14/10/2021 12:53, Dillon Min wrote:
-> Hi Hans
-> 
-> Thanks for quick reply
-> 
-> On Thu, 14 Oct 2021 at 18:44, Hans Verkuil <hverkuil-cisco@xs4all.nl> wrote:
->>
->> On 14/10/2021 12:25, dillon.minfei@gmail.com wrote:
->>> From: Dillon Min <dillon.minfei@gmail.com>
->>>
->>> Add V4L2_COLORFX_SET_RGB color effects control, V4L2_CID_COLORFX_RGB
->>> for RGB color setting.
->>>
->>> Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
->>> ---
->>> v4:
->>> - replace V4L2_COLORFX_SET_ARGB, V4L2_CID_COLORFX_ARGB to
->>>   V4L2_COLORFX_SET_RGB, V4L2_CID_COLORFX_RGB since Alpha paramter not used
->>>   in current. thanks Hans.
->>>
->>>  Documentation/userspace-api/media/v4l/control.rst | 9 +++++++++
->>>  drivers/media/v4l2-core/v4l2-ctrls-defs.c         | 2 ++
->>>  include/uapi/linux/v4l2-controls.h                | 4 +++-
->>>  3 files changed, 14 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/userspace-api/media/v4l/control.rst b/Documentation/userspace-api/media/v4l/control.rst
->>> index f8d0b923da20..3eec65174260 100644
->>> --- a/Documentation/userspace-api/media/v4l/control.rst
->>> +++ b/Documentation/userspace-api/media/v4l/control.rst
->>> @@ -242,8 +242,17 @@ Control IDs
->>>      * - ``V4L2_COLORFX_SET_CBCR``
->>>        - The Cb and Cr chroma components are replaced by fixed coefficients
->>>       determined by ``V4L2_CID_COLORFX_CBCR`` control.
->>> +    * - ``V4L2_COLORFX_SET_RGB``
->>> +      - The RGB components are replaced by the fixed RGB components determined
->>> +        by ``V4L2_CID_COLORFX_RGB`` control.
->>>
->>>
->>> +``V4L2_CID_COLORFX_RGB`` ``(integer)``
->>> +    Determines the Red, Green, and Blue coefficients for
->>> +    ``V4L2_COLORFX_SET_RGB`` color effect.
->>> +    Bits [7:0] of the supplied 32 bit value are interpreted as Blue component,
->>> +    bits [15:8] as Green component, bits [23:16] as Red component, and
->>> +    bits [31:24] must be zero.
->>>
->>>  ``V4L2_CID_COLORFX_CBCR`` ``(integer)``
->>>      Determines the Cb and Cr coefficients for ``V4L2_COLORFX_SET_CBCR``
->>> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
->>> index 421300e13a41..f4bd90170105 100644
->>> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
->>> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
->>> @@ -785,6 +785,7 @@ const char *v4l2_ctrl_get_name(u32 id)
->>>       case V4L2_CID_MIN_BUFFERS_FOR_OUTPUT:   return "Min Number of Output Buffers";
->>>       case V4L2_CID_ALPHA_COMPONENT:          return "Alpha Component";
->>>       case V4L2_CID_COLORFX_CBCR:             return "Color Effects, CbCr";
->>> +     case V4L2_CID_COLORFX_RGB:              return "Color Effects, RGB";
->>>
->>>       /*
->>>        * Codec controls
->>> @@ -1392,6 +1393,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
->>>               *min = *max = *step = *def = 0;
->>>               break;
->>>       case V4L2_CID_BG_COLOR:
->>> +     case V4L2_CID_COLORFX_RGB:
->>>               *type = V4L2_CTRL_TYPE_INTEGER;
->>>               *step = 1;
->>>               *min = 0;
->>
->> Can you make another small change here? Please change:
->>
->>         *max = 0xFFFFFF;
->>
->> to:
->>
->>         *max = 0xffffff;
->>
->> to keep in line with the coding standard for hex values.
-> 
-> Sure, do it right now.
-> 
->>
->> Also, can you add a separate patch that adds an entry here for V4L2_CID_COLORFX_CBCR
->> that sets *max to 0xffff? I noticed that that was missing. While adding V4L2_CID_COLORFX_RGB
->> it's good to fix V4L2_CID_COLORFX_CBCR as well.
-> 
-> Sure, you mean the final code like this? first patch to fix cbcr 0xFFFFFF,
+This patchset adds support of ADC2 internal channels VDDCORE, VREFINT and VBAT
+on STM32MP15x SoCs. The generic IIO channel bindings is also introduced here
+to provide this feature. The legacy channel binding is kept for backward compatibility.
 
-For cbcr max should be 0xffff.
+Changes in v2:
+- Add 'deprecated' to channels legacy properties in ADC bindings
+- Add set/clr service for common registers, to make code more generic in
+  internal channels enable/disable services.
+- Expose vrefint channel as a processed channel to return
+  the actual value of vrefp.
+- Minor code improvements
 
-> another one to add V4L2_CID_COLORFX_RGB entry.
-> 
-> 1395         case V4L2_CID_BG_COLOR:
-> 1396         case V4L2_CID_COLORFX_RGB:
-> 1397                 *type = V4L2_CTRL_TYPE_INTEGER;
-> 1398                 *step = 1;
-> 1399                 *min = 0;
-> 1400                 /* Max is calculated as RGB888 that is 2^24 */
+Changes in v3:
+- fix vrefint sampling time check.
 
-Actually, the comment is wrong: it should be 2^24-1. Let's fix that too.
+Changes in v4:
+- fix binding
+- add dedicated spin lock for common register
+- manage probe_defer on nvmem read
 
-> 1401                 *max = 0xffffff;
+Changes in v5:
+- fix binding example
 
-Yes, that's what I am looking for.
+v5 resent as serie index was wrong on previous post. sorry !
 
-Regards,
+Olivier Moysan (7):
+  dt-bindings: iio: stm32-adc: add generic channel binding
+  dt-bindings: iio: stm32-adc: add nvmem support for vrefint internal
+    channel
+  iio: adc: stm32-adc: split channel init into several routines
+  iio: adc: stm32-adc: add support of generic channels binding
+  iio: adc: stm32-adc: add support of internal channels
+  iio: adc: stm32-adc: add vrefint calibration support
+  iio: adc: stm32-adc: use generic binding for sample-time
 
-	Hans
+ .../bindings/iio/adc/st,stm32-adc.yaml        | 108 ++++-
+ drivers/iio/adc/stm32-adc-core.c              |   1 +
+ drivers/iio/adc/stm32-adc-core.h              |  10 +
+ drivers/iio/adc/stm32-adc.c                   | 422 ++++++++++++++++--
+ 4 files changed, 486 insertions(+), 55 deletions(-)
 
-> 1402                 break;
-> 
-> Best Regards
-> Dillon
-> 
->>
->> Regards,
->>
->>         Hans
->>
->>> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
->>> index 5532b5f68493..9aa3fd368383 100644
->>> --- a/include/uapi/linux/v4l2-controls.h
->>> +++ b/include/uapi/linux/v4l2-controls.h
->>> @@ -128,6 +128,7 @@ enum v4l2_colorfx {
->>>       V4L2_COLORFX_SOLARIZATION               = 13,
->>>       V4L2_COLORFX_ANTIQUE                    = 14,
->>>       V4L2_COLORFX_SET_CBCR                   = 15,
->>> +     V4L2_COLORFX_SET_RGB                    = 16,
->>>  };
->>>  #define V4L2_CID_AUTOBRIGHTNESS                      (V4L2_CID_BASE+32)
->>>  #define V4L2_CID_BAND_STOP_FILTER            (V4L2_CID_BASE+33)
->>> @@ -145,9 +146,10 @@ enum v4l2_colorfx {
->>>
->>>  #define V4L2_CID_ALPHA_COMPONENT             (V4L2_CID_BASE+41)
->>>  #define V4L2_CID_COLORFX_CBCR                        (V4L2_CID_BASE+42)
->>> +#define V4L2_CID_COLORFX_RGB                 (V4L2_CID_BASE+43)
->>>
->>>  /* last CID + 1 */
->>> -#define V4L2_CID_LASTP1                         (V4L2_CID_BASE+43)
->>> +#define V4L2_CID_LASTP1                         (V4L2_CID_BASE+44)
->>>
->>>  /* USER-class private control IDs */
->>>
->>>
->>
+-- 
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
