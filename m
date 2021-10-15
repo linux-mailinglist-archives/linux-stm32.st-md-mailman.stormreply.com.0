@@ -2,69 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56F6742FA07
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Oct 2021 19:22:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AA8442FA08
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Oct 2021 19:22:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F17FCC5C841;
-	Fri, 15 Oct 2021 17:22:26 +0000 (UTC)
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F9D0C5C841;
+	Fri, 15 Oct 2021 17:22:34 +0000 (UTC)
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7EC7C32E8F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72A81C32E8F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Oct 2021 17:22:23 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id v77so9704848oie.1
+ Fri, 15 Oct 2021 17:22:32 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ 34-20020a9d0325000000b00552cae0decbso3520645otv.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Oct 2021 10:22:23 -0700 (PDT)
+ Fri, 15 Oct 2021 10:22:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=UQGBuMylvu9UpPG16xaz7lVAENRpwI6V6j3bp4rN4V8=;
- b=Z32jp32n95zqUqhWkMrX4wuXD7gqEWBUoQ3lI3z+JPu9Fqs8D/TCdHv+/oKcxvuVsG
- 5MY5DZtqjnWF45OCt8tP248VQrelq4DcFwkxYxGoVTrSToE2pBu0O0A0l0XVWNAN3fUG
- efgStWf1jtSTQp/PZpdavWMCawX29qpoDDGIaIRW+/soU9tgtY1BRlAkbEL0t6dhAk+t
- tWgdSnaMz4d9TWk166bIDJh2rApyQi8cTisbI8ueK6nyA3KDTjHFCzw/kI+XWq6torNd
- dg4vCsPgcBUuRrHxqxYrOPAMIheidts6ccxkhsuxY4Hl0wrvmGuY6We0/7bjZ2B5hzDW
- aRlg==
+ bh=8GXf6iIkeLSmbnCwp/TnDsH3fwbQUD1XiOH8muSbIdM=;
+ b=AzlT/VF3vNrvaXMA6yupvoTzvJVIPoxbKtPfW8YnVJaJ6TvF75GPEm8I4v8TBAuHwD
+ xXYMe3/F5qzdc2toQmMpBJSi9ufh/kCygFWvbceu3OB5hvfjZenyOaoDv/DaCxg8Pr5b
+ b3A+1O8vmB3bA6FY9c4XPjwoTNYLEvt4DEKLfLyVisJRLl/sj4+qjBYAS4JL+Aje633l
+ UJ6BvkSmhvdUJYWiRgjmsebeqbbwUFMELtCNLmRyjheSv8M6Sq2bsWw1onXUQEIWWN++
+ 693DPX65oIdROYAMmDNG8DTq/cOg5xD9+/IHzoeqmtl72bYa+FJHBSrFOwpyxe+bKkmY
+ g5Fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=UQGBuMylvu9UpPG16xaz7lVAENRpwI6V6j3bp4rN4V8=;
- b=qVbZ725eA6oNHrjCsczr+cCGWybtg8+74yIMDb3FHrlHSAReK7W24vj8XQyPrEL8z/
- 61phnegWlnVQQj76AxHOudP5O6SJwEe43ay54QBxbQRN5QelQH4R4z1/6pMBvqqMpE3X
- bh0Jww3rgb1KoQJ5R/aSiJ4AQnsU2GHBJqdpJ2h1jvlL5QNmTPe1aQnEdwNtZGoghS3k
- ThtgTlAjWiGWuHpBSgkAlCh2b6xeygMRsDYPDliWal+Qvib1yusnk6KS3PFT2F9ic9ru
- gevKQk0EI/EF41PAIvUCTq3uIG4b8B3yZlAXuhecTcGj7SXsGq/UQWpHzd6gZjRH/Hdf
- WYdw==
-X-Gm-Message-State: AOAM533/ZIBK2Z91TUpY+9+dVgziRPzXHx9kM5OuId8CQu0SC/9uMy7U
- 6MUV17KyoaA61+eUyQR6z0doOw==
-X-Google-Smtp-Source: ABdhPJwa8s1a0Vpv49BVQ3zzH13cErd4RoRJClmYGmIqUl6vc5OL2TMuNEsVurpHsk1CKWr2KKNkXw==
-X-Received: by 2002:a05:6808:1802:: with SMTP id
- bh2mr8031298oib.142.1634318542710; 
- Fri, 15 Oct 2021 10:22:22 -0700 (PDT)
+ bh=8GXf6iIkeLSmbnCwp/TnDsH3fwbQUD1XiOH8muSbIdM=;
+ b=7o4wEtsZ9mgT5OT8hvvqeRFK7vxEzy7ZS6DO1QH4ob1hDYRiiIchYOywK73lFriX9w
+ AgXI4L4KWGuzxrRmWPZOBGpSskXAh36uHEDyigXg5NMBE8V9+hfK+avByB8pbfMtlrrh
+ Fwz7qj8IC2MiMP9+6vI7ISsRF/IRRZqdcu9iiB0ahQnjogl9tyR4wDEfRjNOz/rkZBhZ
+ on2M0mCGfITTyOY5MAlpZpGX56uphXf+nb8CFn86iGHvo33yskB+Ke44VriFgHRKTzZm
+ pFoB8m1Tw0Ta0WZP2/fg8niFL37/HTrYuzlMi6vFgAXcRNIyPrHx1o+ztPlQPQraD0X+
+ 92Rw==
+X-Gm-Message-State: AOAM533sqFnniWLEcpSUwqUNHSw8me+4WHjl3ddSFtLiyXRj9wlbKe85
+ KCmYPBIQcQef4gxg+VZQC/c7Sw==
+X-Google-Smtp-Source: ABdhPJw43C2jPHke2r6UygEFoXfBVXJc2rkJUM25RFmbv18wSheOEBVNo3sZzMCBhf8p+nKZSpfNiQ==
+X-Received: by 2002:a05:6830:2805:: with SMTP id
+ w5mr9028837otu.248.1634318549944; 
+ Fri, 15 Oct 2021 10:22:29 -0700 (PDT)
 Received: from builder.lan ([2600:1700:a0:3dc8:3697:f6ff:fe85:aac9])
- by smtp.gmail.com with ESMTPSA id s206sm1289635oia.33.2021.10.15.10.22.21
+ by smtp.gmail.com with ESMTPSA id s206sm1289635oia.33.2021.10.15.10.22.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Oct 2021 10:22:22 -0700 (PDT)
+ Fri, 15 Oct 2021 10:22:29 -0700 (PDT)
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>,
- Ohad Ben-Cohen <ohad@wizery.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Date: Fri, 15 Oct 2021 12:22:12 -0500
-Message-Id: <163431847249.251657.1509146684272045901.b4-ty@linaro.org>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ linux-kernel@vger.kernel.org
+Date: Fri, 15 Oct 2021 12:22:20 -0500
+Message-Id: <163431847249.251657.9669509178222541492.b4-ty@linaro.org>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211001101234.4247-4-arnaud.pouliquen@foss.st.com>
-References: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
- <20211001101234.4247-4-arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20210920090522.23784-1-wsa+renesas@sang-engineering.com>
+References: <20210920090522.23784-1-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
-Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Stefano Stabellini <stefanos@xilinx.com>, Christoph Hellwig <hch@lst.de>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] (subset) [RFC PATCH 3/7] remoteproc: Remove
-	vdev_to_rvdev and vdev_to_rproc from remoteproc API
+Cc: linux-iio@vger.kernel.org, netdev@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, freedreno@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/9] treewide: simplify getting
+	.driver_data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,17 +82,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 1 Oct 2021 12:12:30 +0200, Arnaud Pouliquen wrote:
-> These both functions are only used by the remoteproc_virtio.
-> There is no reason to expose them in the API.
-> Move the functions in remoteproc_virtio.c
+On Mon, 20 Sep 2021 11:05:12 +0200, Wolfram Sang wrote:
+> I got tired of fixing this in Renesas drivers manually, so I took the big
+> hammer. Remove this cumbersome code pattern which got copy-pasted too much
+> already:
 > 
+> -	struct platform_device *pdev = to_platform_device(dev);
+> -	struct ep93xx_keypad *keypad = platform_get_drvdata(pdev);
+> +	struct ep93xx_keypad *keypad = dev_get_drvdata(dev);
 > 
+> [...]
 
 Applied, thanks!
 
-[3/7] remoteproc: Remove vdev_to_rvdev and vdev_to_rproc from remoteproc API
-      commit: 9955548919c47a6987b40d90a30fd56bbc043e7b
+[1/9] dmaengine: stm32-dmamux: simplify getting .driver_data
+      (no commit info)
+[2/9] firmware: meson: simplify getting .driver_data
+      (no commit info)
+[3/9] gpio: xilinx: simplify getting .driver_data
+      (no commit info)
+[4/9] drm/msm: simplify getting .driver_data
+      (no commit info)
+[5/9] drm/panfrost: simplify getting .driver_data
+      (no commit info)
+[6/9] iio: common: cros_ec_sensors: simplify getting .driver_data
+      (no commit info)
+[7/9] net: mdio: mdio-bcm-iproc: simplify getting .driver_data
+      (no commit info)
+[8/9] platform: chrome: cros_ec_sensorhub: simplify getting .driver_data
+      (no commit info)
+[9/9] remoteproc: omap_remoteproc: simplify getting .driver_data
+      commit: c34bfafd7c6ce8bdb5205aa990973b6ec7a6557c
 
 Best regards,
 -- 
