@@ -2,31 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C75AD430992
-	for <lists+linux-stm32@lfdr.de>; Sun, 17 Oct 2021 16:02:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2FA24309CE
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 Oct 2021 16:40:21 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D628C5C847;
-	Sun, 17 Oct 2021 14:02:46 +0000 (UTC)
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FF7BC5C847;
+	Sun, 17 Oct 2021 14:40:21 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CFE5C597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FBF7C32E90
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 Oct 2021 14:02:45 +0000 (UTC)
-Received: (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay7-d.mail.gandi.net (Postfix) with ESMTPSA id 5112E20005;
- Sun, 17 Oct 2021 14:02:42 +0000 (UTC)
-Date: Sun, 17 Oct 2021 16:02:42 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Message-ID: <YWwtAm0o6wVMG6xc@piout.net>
+ Sun, 17 Oct 2021 14:40:19 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 519B16103B;
+ Sun, 17 Oct 2021 14:40:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1634481617;
+ bh=yFokzv3wpJKEz8i/ueDpiyf7dalfoEdoP328kL01z5Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jdhzIg9PWvJ9gB7pq+4GqWniCadchsF7B2whNVeipbDqyzKEoqqlUrKKyUdfO/PIZ
+ mhAKh74yT6zwxTrg+a4WlpDVmam2x+I3Sc3YEUq0M4Pcz7jNKVdUKh6gV4iqV4Qu4h
+ 8FTROEnuqqDSFeEL7Zoyy2+SNflEKDYIQHhlAlQ4=
+Date: Sun, 17 Oct 2021 16:40:14 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Message-ID: <YWw1zoGX6SwSEVw/@kroah.com>
 References: <cover.1632884256.git.vilhelm.gray@gmail.com>
  <b8b8c64b4065aedff43699ad1f0e2f8d1419c15b.1632884256.git.vilhelm.gray@gmail.com>
- <YWwqE5T6h5j14M/M@kroah.com>
+ <YWwqE5T6h5j14M/M@kroah.com> <YWwtAm0o6wVMG6xc@piout.net>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YWwqE5T6h5j14M/M@kroah.com>
+In-Reply-To: <YWwtAm0o6wVMG6xc@piout.net>
 Cc: kamel.bouhara@bootlin.com, gwendal@chromium.org, david@lechnology.com,
  linux-iio@vger.kernel.org, patrick.havelange@essensium.com,
  William Breathitt Gray <vilhelm.gray@gmail.com>, mcoquelin.stm32@gmail.com,
@@ -54,43 +59,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 17/10/2021 15:50:11+0200, Greg KH wrote:
-> Note, review of this now that it has been submitted in a pull request to
-> me, sorry I missed this previously...
+On Sun, Oct 17, 2021 at 04:02:42PM +0200, Alexandre Belloni wrote:
+> On 17/10/2021 15:50:11+0200, Greg KH wrote:
+> > Note, review of this now that it has been submitted in a pull request to
+> > me, sorry I missed this previously...
+> > 
+> > On Wed, Sep 29, 2021 at 12:15:59PM +0900, William Breathitt Gray wrote:
+> > > +static int counter_chrdev_open(struct inode *inode, struct file *filp)
+> > > +{
+> > > +	struct counter_device *const counter = container_of(inode->i_cdev,
+> > > +							    typeof(*counter),
+> > > +							    chrdev);
+> > > +
+> > > +	/* Ensure chrdev is not opened more than 1 at a time */
+> > > +	if (!atomic_add_unless(&counter->chrdev_lock, 1, 1))
+> > > +		return -EBUSY;
+> > 
+> > I understand the feeling that you wish to stop userspace from doing
+> > this, but really, it does not work.  Eventhough you are doing this
+> > correctly (you should see all the other attempts at doing this), you are
+> > not preventing userspace from having multiple processes access this
+> > device node at the same time, so please, don't even attempt to stop this
+> > from happening.
+> > 
+> > So you can drop the atomic "lock" you have here, it's not needed at all.
+> > 
 > 
-> On Wed, Sep 29, 2021 at 12:15:59PM +0900, William Breathitt Gray wrote:
-> > +static int counter_chrdev_open(struct inode *inode, struct file *filp)
-> > +{
-> > +	struct counter_device *const counter = container_of(inode->i_cdev,
-> > +							    typeof(*counter),
-> > +							    chrdev);
-> > +
-> > +	/* Ensure chrdev is not opened more than 1 at a time */
-> > +	if (!atomic_add_unless(&counter->chrdev_lock, 1, 1))
-> > +		return -EBUSY;
+> Could you elaborate a bit here because we've had a similar thing in the
+> RTC subsystem:
 > 
-> I understand the feeling that you wish to stop userspace from doing
-> this, but really, it does not work.  Eventhough you are doing this
-> correctly (you should see all the other attempts at doing this), you are
-> not preventing userspace from having multiple processes access this
-> device node at the same time, so please, don't even attempt to stop this
-> from happening.
-> 
-> So you can drop the atomic "lock" you have here, it's not needed at all.
-> 
+> https://elixir.bootlin.com/linux/latest/source/drivers/rtc/dev.c#L28
 
-Could you elaborate a bit here because we've had a similar thing in the
-RTC subsystem:
+Yeah, that too will not work :(  Note, it does stop open from being
+called from different processes, but think of the following sequence of
+userspace calls:
+	open()
+	fork/exec()
+	both processes access the file descriptor
 
-https://elixir.bootlin.com/linux/latest/source/drivers/rtc/dev.c#L28
+or passing a fd across a socket?
 
-And it would mean I can remove rtc->flags completely.
+Or duplicating the file descriptor and sending it to a different task
+(like across a socket or many other IPC ways)?
 
+Once userspace has a file descriptor, all bets are off as to where it
+goes and what it does with it.  There's no need to try to save userspace
+from itself by preventing multiple opens when really, it doesn't stop
+anyone who really wants to do this.
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+If userspace does do multiple read/writes from different threads /
+processes / whatever on the same file descriptor, it gets to keep the
+pieces of the mess it causes.  It's not the kernel's job to try to
+"protect" userspace from itself here.
+
+Look at serial/tty connections as one example of this always being the
+case.
+
+Does that help?
+
+> And it would mean I can remove rtc->flags completely.
+
+I think you can do that.
+
+thanks,
+
+greg k-h
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
