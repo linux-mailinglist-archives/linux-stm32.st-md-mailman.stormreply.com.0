@@ -2,40 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CF68432582
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Oct 2021 19:50:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F027643276D
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Oct 2021 21:19:07 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DA96C5A4D5;
-	Mon, 18 Oct 2021 17:50:38 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BBC6C5A4D5;
+	Mon, 18 Oct 2021 19:19:07 +0000 (UTC)
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
+ [209.85.167.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EB8EC32E90
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93E91C597BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Oct 2021 17:50:35 +0000 (UTC)
-Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
- [81.101.6.87])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E3B7C61074;
- Mon, 18 Oct 2021 17:50:30 +0000 (UTC)
-Date: Mon, 18 Oct 2021 18:54:45 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <20211018185445.3b6d9963@jic23-huawei>
-In-Reply-To: <YW2mYKpWSPzGvzUa@robh.at.kernel.org>
-References: <20211014131228.4692-1-olivier.moysan@foss.st.com>
- <20211014131228.4692-2-olivier.moysan@foss.st.com>
- <YW2mYKpWSPzGvzUa@robh.at.kernel.org>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
+ Mon, 18 Oct 2021 19:19:06 +0000 (UTC)
+Received: by mail-oi1-f170.google.com with SMTP id m67so1210818oif.6
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 18 Oct 2021 12:19:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=XzZA50mc4BjmpmEztRaxMISR4WRQ5FsdiLAiBdxZMQ8=;
+ b=oP3MHf2qfkLOWUUCUzxZCHJwkx41E88yU0IvZpGsxgnlstKL1vKU/IstwkAGVKXmOl
+ iS9i/AUPoX04JL7Dhb5/AgnvAv/90fIGT/TqG5ldXt1NjGU6pYRhubgX216B/0BrXFAV
+ YGeT/ALWqa5/N76d9ww+Ks5m0SUjGMqeOdFjhUOsIpxk25PxQMxO+5fFjouM9hMr7sDZ
+ edHP+t/32gilieQazCGg+zjcd+a/rQ/Us3zoqyGVOnzz0KOM2XOiaqd+cyq4yEdpdhQg
+ ceqPGBFGYiL5WZYhw3RgF0rZJ7WQ9LZXf4uBzTBOvkNx2N4ZlmSVJEMHcN4sR9Fkh4Fi
+ XuLg==
+X-Gm-Message-State: AOAM530+4N/Mkhl8FQWRnHxHdjjajiiK4yUn8qZ1n37tbhXXvfBb0Tpb
+ gltms8QjQjl9M8qE6hdjag==
+X-Google-Smtp-Source: ABdhPJzi5oIzQvFFsTJQzRG1M4YHxjr7RvG38AEuCWK4MXFxFyARyWTLHNWWGxwh4ifKNHkYHkbDVA==
+X-Received: by 2002:a05:6808:20a6:: with SMTP id
+ s38mr563895oiw.149.1634584745423; 
+ Mon, 18 Oct 2021 12:19:05 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id l26sm3248993oti.45.2021.10.18.12.19.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Oct 2021 12:19:04 -0700 (PDT)
+Received: (nullmailer pid 2788566 invoked by uid 1000);
+ Mon, 18 Oct 2021 19:19:03 -0000
+Date: Mon, 18 Oct 2021 14:19:03 -0500
+From: Rob Herring <robh@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <YW3Ip4gxMnYSIsUg@robh.at.kernel.org>
+References: <1634133425-25670-1-git-send-email-fabrice.gasnier@foss.st.com>
+ <1634133425-25670-2-git-send-email-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 1/7] dt-bindings: iio: stm32-adc: add
- generic channel binding
+Content-Disposition: inline
+In-Reply-To: <1634133425-25670-2-git-send-email-fabrice.gasnier@foss.st.com>
+Cc: devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, alexandre.torgue@foss.st.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, hminas@synopsys.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 1/4] dt-bindings: usb: dwc2: Add
+ reference to usb-drd.yaml
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,35 +72,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 18 Oct 2021 11:52:48 -0500
-Rob Herring <robh@kernel.org> wrote:
-
-> On Thu, 14 Oct 2021 15:12:22 +0200, Olivier Moysan wrote:
-> > Add ADC generic channel binding. This binding should
-> > be used as an alternate to legacy channel properties
-> > whenever possible.
-> > ADC generic channel binding allows to identify supported
-> > internal channels through the following reserved label names:
-> > "vddcore", "vrefint" and "vbat".
-> > This binding also allows to set a different sampling time
-> > for each channel.
-> > 
-> > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> > Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> > ---
-> >  .../bindings/iio/adc/st,stm32-adc.yaml        | 100 ++++++++++++++++--
-> >  1 file changed, 93 insertions(+), 7 deletions(-)
-> >   
+On Wed, 13 Oct 2021 15:57:02 +0200, Fabrice Gasnier wrote:
+> Add a reference to usb-drd.yaml, in order to:
+> - extend possible supported properties
+> - avoid duplicated definitions of standard properties
+> Remove definitions for dr_mode and usb-role-switch standard properties.
 > 
-> Reviewed-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> ---
+>  Documentation/devicetree/bindings/usb/dwc2.yaml | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
 
-
-Thanks.  Series applied to the iio-togreg branch of iio.git and 
-pushed out as testing to let 0-day take a look at it.
-
-Thanks,
-
-Jonathan
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
