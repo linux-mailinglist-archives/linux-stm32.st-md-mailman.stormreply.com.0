@@ -2,42 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4056E433AA1
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Oct 2021 17:35:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39C13433DA5
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Oct 2021 19:39:23 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9A3EC5C854;
-	Tue, 19 Oct 2021 15:35:39 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD7C1C5C857;
+	Tue, 19 Oct 2021 17:39:22 +0000 (UTC)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3538C5C852
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C84E7C5C854
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Oct 2021 15:35:37 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 84BEE61074;
- Tue, 19 Oct 2021 15:35:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634657736;
- bh=DxWRJWAj/zdrQswUAfCVlDVJpMFIF9IpXMFPLAXRYKM=;
- h=From:To:Cc:Subject:Date:From;
- b=GMsDOCQAJEt1Pl+XVrt0Iv8x1+PjbfYdPlx9J7nbNsAiudShRlGG9Dr3cDkSrF6bN
- 14GyBkn5FUfK98ABuA7gwqGb+nIWyFMebbtGStkFXt73MCDjAOx608vUXnFLIkAgHr
- rWirUVzn9ynJxsdrp05ZZy3HGtcCavsgD4g4E02kDGG4PW6K6/FVOL26xJ74NV0UhR
- 69HvskM7S6jwMecRCS6K8SjQYKtw/Ck/uBW9+emraQTk5MuPfDZKjenF9WYhLg/GQy
- xZNqZmdzfl2r8Ip4jjO01eRN9z9Xtpko7dQx+h0W9V4PBVbv5MHSQhT2zKfIZV7QCl
- zl/O9vWN6eAgg==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Tue, 19 Oct 2021 17:35:27 +0200
-Message-Id: <20211019153532.366429-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.29.2
+ Tue, 19 Oct 2021 17:39:20 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ pf6-20020a17090b1d8600b0019fa884ab85so424983pjb.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 Oct 2021 10:39:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=aIh9saArreNJuwW89Ey0XiYCdKVw/+DI3nSpmQ+KnZk=;
+ b=ac840SZ2tQBDysEKUu7JIgqu1DXb/RmqyWhcj5aO2bQsaec36NNyRrw7pYE264Aa5l
+ ATGTgHvDix/PMVU1JKvrbhcYkr/KC0TuyK0mc0cZsv0vE8aS45RLJ7LeCGNTf2ZL5jHF
+ CtNvMW1dAFALRT2gpeSywg6F+zzVhW27ths3n7cj1blOPf0uhWRHx8WQ46UcNTEYeJG5
+ o93i0WIbyL1I799Q/TWI7/IdN8iBKZVJboon555BYJ70EVm9zaDXiwwzQ+4ypc7/9cBd
+ MExoZJwoUrefvgA+q+ufCjpadLgSVqkmusnSlVWXff5wAxkYRN/G09drV2SwbBce4Mpf
+ xvOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=aIh9saArreNJuwW89Ey0XiYCdKVw/+DI3nSpmQ+KnZk=;
+ b=n6FpM+UQMyKjBHpnrQpe6uUPW9dZbkTmGiqII5acZSEOxc4aqnzYyYIaT60SveXnNG
+ /iChFAoeuL2h+rNoLfbnb411U8P/CQgTlluwbAgXm9DHi63mPWFMeohXgrUsJBBH1p3i
+ DdX3vfTAo/v4wYUHMGPErBf2zClZDsaBbKE7fTpepZjr7sv+d6nsRs2RDfmXIYjAY0ME
+ 3Vs0N32srMUckjvGHiOeQ2l+4Z3IxCqRey3x5TH9T8VJCoXPF2BXVOGiKy1nWvq5ugH/
+ dOk44Vq6GV4+3cqwG5QiAz1gdPzKd6txSnlEfzxKJGkUuPY+/W0/kl88ITd4b+IoZr3D
+ Qv4w==
+X-Gm-Message-State: AOAM533e+eB6if2b4mt13cNNislPeXoyznqHXUDObmEQ45E/UdIgDoYp
+ hAFea4mKBqwxvrTnkbOYHyh1qg==
+X-Google-Smtp-Source: ABdhPJx6cYHvmTePVyoaUN9kahG9ENPoRxK6HbCGmsj8n9eioURUv101fiZoSUAt0tGA3cwa32k8cA==
+X-Received: by 2002:a17:90a:414c:: with SMTP id
+ m12mr1388141pjg.187.1634665159309; 
+ Tue, 19 Oct 2021 10:39:19 -0700 (PDT)
+Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id d23sm3386554pjx.4.2021.10.19.10.39.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Oct 2021 10:39:17 -0700 (PDT)
+Date: Tue, 19 Oct 2021 11:39:15 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20211019173915.GA3340362@p14s>
+References: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
+ <20211001101234.4247-4-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-Cc: Arnd Bergmann <arnd@arndb.de>, Zhang Qilong <zhangqilong3@huawei.com>,
- linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dmaengine: stm32-dma: avoid 64-bit division
-	in stm32_dma_get_max_width
+Content-Disposition: inline
+In-Reply-To: <20211001101234.4247-4-arnaud.pouliquen@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, Rob Herring <robh@kernel.org>,
+ Bruce Ashfield <bruce.ashfield@xilinx.com>,
+ Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Christoph Hellwig <hch@lst.de>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [RFC PATCH 3/7] remoteproc: Remove vdev_to_rvdev
+ and vdev_to_rproc from remoteproc API
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,67 +81,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Arnd Bergmann <arnd@arndb.de>
+Good morning,
 
-Using the % operator on a 64-bit variable is expensive and can
-cause a link failure:
+On Fri, Oct 01, 2021 at 12:12:30PM +0200, Arnaud Pouliquen wrote:
+> These both functions are only used by the remoteproc_virtio.
 
-arm-linux-gnueabi-ld: drivers/dma/stm32-dma.o: in function `stm32_dma_get_max_width':
-stm32-dma.c:(.text+0x170): undefined reference to `__aeabi_uldivmod'
-arm-linux-gnueabi-ld: drivers/dma/stm32-dma.o: in function `stm32_dma_set_xfer_param':
-stm32-dma.c:(.text+0x1cd4): undefined reference to `__aeabi_uldivmod'
+s/"These both functions"/"Both of these functions"
 
-As we know that we just want to check the alignment in
-stm32_dma_get_max_width(), there is no need for a full division, and
-using a simple mask is a faster replacement.
-
-In stm32_dma_set_xfer_param(), it is possible to pass a non-power-of-two
-length, so this does not work. I assume this would in fact be a mistake,
-and the hardware does not work correctly with a burst of e.g. 5 bytes
-on a five-byte aligned address. Change this to only allow burst
-transfers if the address is a multiple of the length, and that length
-is a power-of-two number.
-
-Fixes: b20fd5fa310c ("dmaengine: stm32-dma: fix stm32_dma_get_max_width")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/dma/stm32-dma.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/dma/stm32-dma.c b/drivers/dma/stm32-dma.c
-index 2283c500f4ce..102278f7d13e 100644
---- a/drivers/dma/stm32-dma.c
-+++ b/drivers/dma/stm32-dma.c
-@@ -280,7 +280,7 @@ static enum dma_slave_buswidth stm32_dma_get_max_width(u32 buf_len,
- 	       max_width > DMA_SLAVE_BUSWIDTH_1_BYTE)
- 		max_width = max_width >> 1;
- 
--	if (buf_addr % max_width)
-+	if (buf_addr & (max_width - 1))
- 		max_width = DMA_SLAVE_BUSWIDTH_1_BYTE;
- 
- 	return max_width;
-@@ -757,7 +757,7 @@ static int stm32_dma_set_xfer_param(struct stm32_dma_chan *chan,
- 		 * Set memory burst size - burst not possible if address is not aligned on
- 		 * the address boundary equal to the size of the transfer
- 		 */
--		if (buf_addr % buf_len)
-+		if (!is_power_of_2(buf_len) || (buf_addr & (buf_len -1)))
- 			src_maxburst = 1;
- 		else
- 			src_maxburst = STM32_DMA_MAX_BURST;
-@@ -813,7 +813,7 @@ static int stm32_dma_set_xfer_param(struct stm32_dma_chan *chan,
- 		 * Set memory burst size - burst not possible if address is not aligned on
- 		 * the address boundary equal to the size of the transfer
- 		 */
--		if (buf_addr % buf_len)
-+		if (!is_power_of_2(buf_len) || (buf_addr & (buf_len -1)))
- 			dst_maxburst = 1;
- 		else
- 			dst_maxburst = STM32_DMA_MAX_BURST;
--- 
-2.29.2
-
+> There is no reason to expose them in the API.
+> Move the functions in remoteproc_virtio.c
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  drivers/remoteproc/remoteproc_virtio.c | 12 ++++++++++++
+>  include/linux/remoteproc.h             | 12 ------------
+>  2 files changed, 12 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+> index 5e5a78b3243f..c9eecd2f9fb2 100644
+> --- a/drivers/remoteproc/remoteproc_virtio.c
+> +++ b/drivers/remoteproc/remoteproc_virtio.c
+> @@ -25,6 +25,18 @@
+>  
+>  #include "remoteproc_internal.h"
+>  
+> +static struct rproc_vdev *vdev_to_rvdev(struct virtio_device *vdev)
+> +{
+> +	return container_of(vdev->dev.parent, struct rproc_vdev, dev);
+> +}
+> +
+> +static  struct rproc *vdev_to_rproc(struct virtio_device *vdev)
+> +{
+> +	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
+> +
+> +	return rvdev->rproc;
+> +}
+> +
+>  static int copy_dma_range_map(struct device *to, struct device *from)
+>  {
+>  	const struct bus_dma_region *map = from->dma_range_map, *new_map, *r;
+> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> index 83c09ac36b13..e0600e1e5c17 100644
+> --- a/include/linux/remoteproc.h
+> +++ b/include/linux/remoteproc.h
+> @@ -684,18 +684,6 @@ int rproc_coredump_add_custom_segment(struct rproc *rproc,
+>  				      void *priv);
+>  int rproc_coredump_set_elf_info(struct rproc *rproc, u8 class, u16 machine);
+>  
+> -static inline struct rproc_vdev *vdev_to_rvdev(struct virtio_device *vdev)
+> -{
+> -	return container_of(vdev->dev.parent, struct rproc_vdev, dev);
+> -}
+> -
+> -static inline struct rproc *vdev_to_rproc(struct virtio_device *vdev)
+> -{
+> -	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
+> -
+> -	return rvdev->rproc;
+> -}
+> -
+>  void rproc_add_subdev(struct rproc *rproc, struct rproc_subdev *subdev);
+>  
+>  void rproc_remove_subdev(struct rproc *rproc, struct rproc_subdev *subdev);
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
