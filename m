@@ -2,71 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18F65432BD6
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Oct 2021 04:30:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74793432C0D
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Oct 2021 05:07:04 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C19D1C5C848;
-	Tue, 19 Oct 2021 02:30:40 +0000 (UTC)
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22099C5C848;
+	Tue, 19 Oct 2021 03:07:04 +0000 (UTC)
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3785C597BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60316C597BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Oct 2021 02:30:38 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id s3so17057296ild.0
+ Tue, 19 Oct 2021 03:07:00 +0000 (UTC)
+Received: by mail-oi1-f178.google.com with SMTP id u69so2779652oie.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Oct 2021 19:30:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nCwuUr5pAdfay/KdZ4f9hTVYfYbpLZ7R3+OaHbG1qmw=;
- b=PnkTm31JfSdFy7nLTXYMv5z5h/CWNgpGPqZruaAfo5qTS59XZT9R7Mrnyi70E6nkkC
- qin2YG48pGWgrlFVr7EymqEzb7Ss7HhUVlH2qL06ECu1gEPE4cyHYGjnw3zJNJUGFhi9
- aq2IS5qfmNkk4hFQy833qdiJNWZyiUJJs49NstNRfgK+M+Ge1DIKVM1vpFQe22j6IBGb
- PgwAAa0xhzKripIxt6Ojca4yDRMvICPpgyb9CD7nLwNuNyMfPJ/gMJbSNOBBgV0XtXRZ
- tZ+QgTnFyH6nigJB/HjTPvdKhL6z0IqntUxd/dbpSzZIOgiOZp7JgxSfHVFkf1Pl62Kn
- 4z2w==
+ Mon, 18 Oct 2021 20:07:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=ASSGMPImuuIUj7uz+ftmcXorRU78+ZHBGPyjATEUEfo=;
+ b=Ox2299nAE1pU/PWKgODFZpHzshOzObJFcqhUd2WPbUovkTzsbAMEPXCV0PorYRCOhs
+ 3fBSM0TLiv+ZbELS428PdTjFzvmIJw6CJfHflvpW+J0UcqKQf2Y+6p4Fcguvsj2qB/aV
+ g7cGaKUeGiVHZy7ay6dutbhy4dMwX/lCDQrDG60mMJTqsFOuAt8DyvQYExXdpypmEHNW
+ khiOns6T3xDLtJEJYQ/AO1eKHRNED9iNYvlb0Ng9scxP1QinlRlgdcdF6zpra+dIy1G8
+ u4+Tgv+gbk7HtwwhvXaFjKGnwHqinyp5UN1tmrhqstyWaMeKeq7ay4eFqHJqdYh0ZE3s
+ 6WKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nCwuUr5pAdfay/KdZ4f9hTVYfYbpLZ7R3+OaHbG1qmw=;
- b=jwssqnmJIxHDrJJxfSUvQwwJ4/4NUwFMaQgiJD/LXTmWpHymBlc0UKgmHsD2nqa2Ab
- 8LRDHfX/5uU1y7ok54tympRxKTc8OeazgUn3GQwiYVT01l9jvI1kFUsAKElFvTKLdc4d
- fPVv3p5+suh6el9qspie7uDkEGLqt0lOk4Icgojh5FxcHH17a3m1vu961sCn9pWVdeua
- WF3D7+p8QfRYhVAsbw7tzp3/izT3s/0Ofj3zzGSKbSlOOb9JofyO4lm9KT8M1Brrn28c
- +uAznpMVVRTyuSXUlUTjvspD1MqxhOWrpAVDz8xSYbsvk6H/tDiA/l9doFPaDFunQIoe
- aCGA==
-X-Gm-Message-State: AOAM5315N0ParK8ztL0QYW+LZllCE6pfbjdewsaz9k9+W8ddEomdghwr
- GRN8G/568LiZcNFHUalhCQ7nkPJQkEHjcvj//GY=
-X-Google-Smtp-Source: ABdhPJxHl+tgaXBoTKMWp6406v+aM11a0B6mE0L0AYRCJp89aIAltxU9yVD3F0LHbPOzKy1zUAuu2nBUBuGr2YziJQM=
-X-Received: by 2002:a05:6e02:1c43:: with SMTP id
- d3mr17530787ilg.153.1634610637783; 
- Mon, 18 Oct 2021 19:30:37 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ASSGMPImuuIUj7uz+ftmcXorRU78+ZHBGPyjATEUEfo=;
+ b=Ox2s14twzMOz8KCFMiHMszTu9xKxOp5u3AAOGMgcyZB9q79tDBe2oWPGkcFobSuXRR
+ 4gQe+slt1Jm5ISVmr7N93Pn4kae3Jk1EsCsDVCGKQv1guRgkORHad+6gUb+GE5q16VvY
+ kI5fZvlFWnt+V8qAgMYUof4b5iCKCo5zBqj0wgUOMz6GOiNaFRIoiHo4SmabHcFtOCYa
+ w6dE5d2t1hhlCGmQbAXFqZMkBP4Gljd0VXUj//OSSZ1DJjl8UrjqGolwIXzP0bsw6JnX
+ 9hqOl7NB/uTJL8z1I3aTht/bRv1v9+ko8eWRsbQ2LOZABlxbEFXmJGc2HKOzvXVeqkOw
+ qHVQ==
+X-Gm-Message-State: AOAM5300gzPsNiWqCGNokHR6T6OiXsYTYifotSC/vM2YNMPmdo62kf8O
+ gPwDTBqi/j/KnyUnq8gaXt7GdQ==
+X-Google-Smtp-Source: ABdhPJy4qDdJNNcQjwuwmXCRWPdhKKHoAauqZHPXMBGZiUgS0AS23J/ZoJi0aKHfopmr9e4hvYvQQw==
+X-Received: by 2002:aca:2406:: with SMTP id n6mr2131470oic.28.1634612819796;
+ Mon, 18 Oct 2021 20:06:59 -0700 (PDT)
+Received: from ripper ([2600:1700:a0:3dc8:205:1bff:fec0:b9b3])
+ by smtp.gmail.com with ESMTPSA id e23sm3408844oih.40.2021.10.18.20.06.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Oct 2021 20:06:59 -0700 (PDT)
+Date: Mon, 18 Oct 2021 20:08:46 -0700
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <YW42vhByiSG1hhqc@ripper>
+References: <20210712123752.10449-1-arnaud.pouliquen@foss.st.com>
+ <20210712123752.10449-4-arnaud.pouliquen@foss.st.com>
+ <YWDVwArEz5Yub3GJ@ripper>
+ <f0696b4d-c0b6-5283-2eda-e5791462cbba@foss.st.com>
+ <YWpZMwgWqcPMvL5q@yoga>
+ <ffb110dc-bc3b-dbc2-679f-de2416f7b90f@foss.st.com>
 MIME-Version: 1.0
-References: <1634533488-25334-1-git-send-email-dillon.minfei@gmail.com>
- <1634533488-25334-11-git-send-email-dillon.minfei@gmail.com>
- <5393e39f-cee8-cbe6-f8fd-203a48b35ed8@xs4all.nl>
- <CAL9mu0+Ea7eQDetJs8He9RNUDOO3UejQVepVLr_LTYqOYeUrXA@mail.gmail.com>
-In-Reply-To: <CAL9mu0+Ea7eQDetJs8He9RNUDOO3UejQVepVLr_LTYqOYeUrXA@mail.gmail.com>
-From: Dillon Min <dillon.minfei@gmail.com>
-Date: Tue, 19 Oct 2021 10:30:01 +0800
-Message-ID: <CAL9mu0JY-9UuJ9QOXrqYFvSE_LhCw7Lhd+UwnXUsoY2vsRD_mA@mail.gmail.com>
-To: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, gnurou@gmail.com,
- linux-clk <linux-clk@vger.kernel.org>, Pi-Hsun Shih <pihsun@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, mchehab+huawei@kernel.org,
- hugues.fruchet@foss.st.com, Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>, gabriel.fernandez@foss.st.com,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, ezequiel@collabora.com,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-media <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v5 10/10] media: stm32-dma2d: STM32 DMA2D
-	driver
+Content-Disposition: inline
+In-Reply-To: <ffb110dc-bc3b-dbc2-679f-de2416f7b90f@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v5 3/4] rpmsg: Move the rpmsg control
+ device from rpmsg_char to rpmsg_ctrl
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,404 +81,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Hans
+On Mon 18 Oct 02:13 PDT 2021, Arnaud POULIQUEN wrote:
 
-On Mon, 18 Oct 2021 at 18:25, Dillon Min <dillon.minfei@gmail.com> wrote:
->
-> Hi Hans
->
-> On Mon, 18 Oct 2021 at 17:30, Hans Verkuil <hverkuil-cisco@xs4all.nl> wrote:
-> >
-> > On 18/10/2021 07:04, dillon.minfei@gmail.com wrote:
-> > > From: Dillon Min <dillon.minfei@gmail.com>
-> > >
-> > > This V4L2 subdev m2m driver enables Chrom-Art Accelerator unit
-> > > of STMicroelectronics STM32 SoC series.
-> > >
-> > > Currently support r2m, m2m, m2m_pfc functions.
-> > > - r2m, Filling a part or the whole of a destination image with a specific
-> > >   color.
-> > > - m2m, Copying a part or the whole of a source image into a part or the
-> > >   whole of a destination.
-> > > - m2m_pfc, Copying a part or the whole of a source image into a part or the
-> > >   whole of a destination image with a pixel format conversion.
-> > >
-> > > Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
-> > > ---
-> > > v5:
-> > > - remove useless log from dma2d driver.
-> > > - update config VIDEO_STM32_DMA2D description.
-> > >
-> > >  drivers/media/platform/Kconfig                  |  11 +
-> > >  drivers/media/platform/Makefile                 |   1 +
-> > >  drivers/media/platform/stm32/Makefile           |   2 +
-> > >  drivers/media/platform/stm32/dma2d/dma2d-hw.c   | 143 +++++
-> > >  drivers/media/platform/stm32/dma2d/dma2d-regs.h | 113 ++++
-> > >  drivers/media/platform/stm32/dma2d/dma2d.c      | 739 ++++++++++++++++++++++++
-> > >  drivers/media/platform/stm32/dma2d/dma2d.h      | 135 +++++
-> > >  7 files changed, 1144 insertions(+)
-> > >  create mode 100644 drivers/media/platform/stm32/dma2d/dma2d-hw.c
-> > >  create mode 100644 drivers/media/platform/stm32/dma2d/dma2d-regs.h
-> > >  create mode 100644 drivers/media/platform/stm32/dma2d/dma2d.c
-> > >  create mode 100644 drivers/media/platform/stm32/dma2d/dma2d.h
-> > >
-> > > diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
-> > > index d9f90084c2f6..0b3bdf56b44e 100644
-> > > --- a/drivers/media/platform/Kconfig
-> > > +++ b/drivers/media/platform/Kconfig
-> > > @@ -476,6 +476,17 @@ config VIDEO_STI_DELTA_DRIVER
-> > >
-> > >  endif # VIDEO_STI_DELTA
-> > >
-> > > +config VIDEO_STM32_DMA2D
-> > > +     tristate "STM32 Chrom-Art Accelerator (DMA2D)"
-> > > +     depends on (VIDEO_DEV && VIDEO_V4L2 && ARCH_STM32) || COMPILE_TEST
-> > > +     select VIDEOBUF2_DMA_CONTIG
-> > > +     select V4L2_MEM2MEM_DEV
-> > > +     help
-> > > +       Enables DMA2D hwarware support on stm32.
-> > > +
-> > > +       The STM32 DMA2D is a memory-to-memory engine for pixel conversion
-> > > +       and specialized DMA dedicated to image manipulation.
-> > > +
-> > >  config VIDEO_RENESAS_FDP1
-> > >       tristate "Renesas Fine Display Processor"
-> > >       depends on VIDEO_DEV && VIDEO_V4L2
-> > > diff --git a/drivers/media/platform/Makefile b/drivers/media/platform/Makefile
-> > > index 73ce083c2fc6..46f1c05bc576 100644
-> > > --- a/drivers/media/platform/Makefile
-> > > +++ b/drivers/media/platform/Makefile
-> > > @@ -70,6 +70,7 @@ obj-$(CONFIG_VIDEO_ATMEL_ISI)               += atmel/
-> > >  obj-$(CONFIG_VIDEO_ATMEL_XISC)               += atmel/
-> > >
-> > >  obj-$(CONFIG_VIDEO_STM32_DCMI)               += stm32/
-> > > +obj-$(CONFIG_VIDEO_STM32_DMA2D)              += stm32/
-> > >
-> > >  obj-$(CONFIG_VIDEO_MEDIATEK_VPU)     += mtk-vpu/
-> > >
-> > > diff --git a/drivers/media/platform/stm32/Makefile b/drivers/media/platform/stm32/Makefile
-> > > index 48b36db2c2e2..896ef98a73ab 100644
-> > > --- a/drivers/media/platform/stm32/Makefile
-> > > +++ b/drivers/media/platform/stm32/Makefile
-> > > @@ -1,2 +1,4 @@
-> > >  # SPDX-License-Identifier: GPL-2.0-only
-> > >  obj-$(CONFIG_VIDEO_STM32_DCMI) += stm32-dcmi.o
-> > > +stm32-dma2d-objs := dma2d/dma2d.o dma2d/dma2d-hw.o
-> > > +obj-$(CONFIG_VIDEO_STM32_DMA2D) += stm32-dma2d.o
-> > > diff --git a/drivers/media/platform/stm32/dma2d/dma2d-hw.c b/drivers/media/platform/stm32/dma2d/dma2d-hw.c
-> > > new file mode 100644
-> > > index 000000000000..8c1c664ab13b
-> > > --- /dev/null
-> > > +++ b/drivers/media/platform/stm32/dma2d/dma2d-hw.c
-> > > @@ -0,0 +1,143 @@
-> > > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > > +/*
-> > > + * ST stm32 Chrom-Art - 2D Graphics Accelerator Driver
-> > > + *
-> > > + * Copyright (c) 2021 Dillon Min
-> > > + * Dillon Min, <dillon.minfei@gmail.com>
-> > > + *
-> > > + * based on s5p-g2d
-> > > + *
-> > > + * Copyright (c) 2011 Samsung Electronics Co., Ltd.
-> > > + * Kamil Debski, <k.debski@samsung.com>
-> > > + */
-> > > +
-> > > +#include <linux/io.h>
-> > > +
-> > > +#include "dma2d.h"
-> > > +#include "dma2d-regs.h"
-> > > +
-> > > +static inline u32 reg_read(void __iomem *base, u32 reg)
-> > > +{
-> > > +     return readl_relaxed(base + reg);
-> > > +}
-> > > +
-> > > +static inline void reg_write(void __iomem *base, u32 reg, u32 val)
-> > > +{
-> > > +     writel_relaxed(val, base + reg);
-> > > +}
-> > > +
-> > > +static inline void reg_set(void __iomem *base, u32 reg, u32 mask)
-> > > +{
-> > > +     reg_write(base, reg, reg_read(base, reg) | mask);
-> > > +}
-> > > +
-> > > +static inline void reg_clear(void __iomem *base, u32 reg, u32 mask)
-> > > +{
-> > > +     reg_write(base, reg, reg_read(base, reg) & ~mask);
-> > > +}
-> > > +
-> > > +static inline void reg_update_bits(void __iomem *base, u32 reg, u32 mask,
-> > > +                                u32 val)
-> > > +{
-> > > +     reg_write(base, reg, (reg_read(base, reg) & ~mask) | val);
-> > > +}
-> > > +
-> > > +void dma2d_start(struct dma2d_dev *d)
-> > > +{
-> > > +     reg_update_bits(d->regs, DMA2D_CR_REG, CR_START, CR_START);
-> > > +}
-> > > +
-> > > +u32 dma2d_get_int(struct dma2d_dev *d)
-> > > +{
-> > > +     return reg_read(d->regs, DMA2D_ISR_REG);
-> > > +}
-> > > +
-> > > +void dma2d_clear_int(struct dma2d_dev *d)
-> > > +{
-> > > +     u32 isr_val = reg_read(d->regs, DMA2D_ISR_REG);
-> > > +
-> > > +     reg_write(d->regs, DMA2D_IFCR_REG, isr_val & 0x003f);
-> > > +}
-> > > +
-> > > +void dma2d_config_common(struct dma2d_dev *d, enum dma2d_op_mode op_mode,
-> > > +                      u16 width, u16 height)
-> > > +{
-> > > +     reg_update_bits(d->regs, DMA2D_CR_REG, CR_MODE_MASK,
-> > > +                     op_mode << CR_MODE_SHIFT);
-> > > +
-> > > +     reg_write(d->regs, DMA2D_NLR_REG, (width << 16) | height);
-> > > +}
-> > > +
-> > > +void dma2d_config_out(struct dma2d_dev *d, struct dma2d_frame *frm,
-> > > +                   dma_addr_t o_addr)
-> > > +{
-> > > +     reg_update_bits(d->regs, DMA2D_CR_REG, CR_CEIE, CR_CEIE);
-> > > +     reg_update_bits(d->regs, DMA2D_CR_REG, CR_CTCIE, CR_CTCIE);
-> > > +     reg_update_bits(d->regs, DMA2D_CR_REG, CR_CAEIE, CR_CAEIE);
-> > > +     reg_update_bits(d->regs, DMA2D_CR_REG, CR_TCIE, CR_TCIE);
-> > > +     reg_update_bits(d->regs, DMA2D_CR_REG, CR_TEIE, CR_TEIE);
-> > > +
-> > > +     if (frm->fmt->cmode >= CM_MODE_ARGB8888 &&
-> > > +         frm->fmt->cmode <= CM_MODE_ARGB4444)
-> > > +             reg_update_bits(d->regs, DMA2D_OPFCCR_REG, OPFCCR_CM_MASK,
-> > > +                             frm->fmt->cmode);
-> > > +
-> > > +     reg_write(d->regs, DMA2D_OMAR_REG, o_addr);
-> > > +
-> > > +     reg_write(d->regs, DMA2D_OCOLR_REG,
-> > > +               (frm->a_rgb[3] << 24) |
-> > > +               (frm->a_rgb[2] << 16) |
-> > > +               (frm->a_rgb[1] << 8) |
-> > > +               frm->a_rgb[0]);
-> > > +
-> > > +     reg_update_bits(d->regs, DMA2D_OOR_REG, OOR_LO_MASK,
-> > > +                     frm->line_offset & 0x3fff);
-> > > +}
-> > > +
-> > > +void dma2d_config_fg(struct dma2d_dev *d, struct dma2d_frame *frm,
-> > > +                  dma_addr_t f_addr)
-> > > +{
-> > > +     reg_write(d->regs, DMA2D_FGMAR_REG, f_addr);
-> > > +     reg_update_bits(d->regs, DMA2D_FGOR_REG, FGOR_LO_MASK,
-> > > +                     frm->line_offset);
-> > > +
-> > > +     if (frm->fmt->cmode >= CM_MODE_ARGB8888 &&
-> > > +         frm->fmt->cmode <= CM_MODE_A4)
-> > > +             reg_update_bits(d->regs, DMA2D_FGPFCCR_REG, FGPFCCR_CM_MASK,
-> > > +                             frm->fmt->cmode);
-> > > +
-> > > +     reg_update_bits(d->regs, DMA2D_FGPFCCR_REG, FGPFCCR_AM_MASK,
-> > > +                     (frm->a_mode << 16) & 0x03);
-> > > +
-> > > +     reg_update_bits(d->regs, DMA2D_FGPFCCR_REG, FGPFCCR_ALPHA_MASK,
-> > > +                     frm->a_rgb[3] << 24);
-> > > +
-> > > +     reg_write(d->regs, DMA2D_FGCOLR_REG,
-> > > +               (frm->a_rgb[2] << 16) |
-> > > +               (frm->a_rgb[1] << 8) |
-> > > +               frm->a_rgb[0]);
-> > > +}
-> > > +
-> > > +void dma2d_config_bg(struct dma2d_dev *d, struct dma2d_frame *frm,
-> > > +                  dma_addr_t b_addr)
-> > > +{
-> > > +     reg_write(d->regs, DMA2D_BGMAR_REG, b_addr);
-> > > +     reg_update_bits(d->regs, DMA2D_BGOR_REG, BGOR_LO_MASK,
-> > > +                     frm->line_offset);
-> > > +
-> > > +     if (frm->fmt->cmode >= CM_MODE_ARGB8888 &&
-> > > +         frm->fmt->cmode <= CM_MODE_A4)
-> > > +             reg_update_bits(d->regs, DMA2D_BGPFCCR_REG, BGPFCCR_CM_MASK,
-> > > +                             frm->fmt->cmode);
-> > > +
-> > > +     reg_update_bits(d->regs, DMA2D_BGPFCCR_REG, BGPFCCR_AM_MASK,
-> > > +                     (frm->a_mode << 16) & 0x03);
-> > > +
-> > > +     reg_update_bits(d->regs, DMA2D_BGPFCCR_REG, BGPFCCR_ALPHA_MASK,
-> > > +                     frm->a_rgb[3] << 24);
-> > > +
-> > > +     reg_write(d->regs, DMA2D_BGCOLR_REG,
-> > > +               (frm->a_rgb[2] << 16) |
-> > > +               (frm->a_rgb[1] << 8) |
-> > > +               frm->a_rgb[0]);
-> > > +}
-> > > diff --git a/drivers/media/platform/stm32/dma2d/dma2d-regs.h b/drivers/media/platform/stm32/dma2d/dma2d-regs.h
-> > > new file mode 100644
-> > > index 000000000000..2128364406c8
-> > > --- /dev/null
-> > > +++ b/drivers/media/platform/stm32/dma2d/dma2d-regs.h
-> > > @@ -0,0 +1,113 @@
-> > > +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> > > +/*
-> > > + * ST stm32 Chrom-Art - 2D Graphics Accelerator Driver
-> > > + *
-> > > + * Copyright (c) 2021 Dillon Min
-> > > + * Dillon Min, <dillon.minfei@gmail.com>
-> > > + *
-> > > + * based on s5p-g2d
-> > > + *
-> > > + * Copyright (c) 2011 Samsung Electronics Co., Ltd.
-> > > + * Kamil Debski, <k.debski@samsung.com>
-> > > + */
-> > > +
-> > > +#ifndef __DMA2D_REGS_H__
-> > > +#define __DMA2D_REGS_H__
-> > > +
-> > > +#define DMA2D_CR_REG         0x0000
-> > > +#define CR_MODE_MASK         GENMASK(17, 16)
-> > > +#define CR_MODE_SHIFT                16
-> > > +#define CR_M2M                       0x0000
-> > > +#define CR_M2M_PFC           BIT(16)
-> > > +#define CR_M2M_BLEND         BIT(17)
-> > > +#define CR_R2M                       (BIT(17) | BIT(16))
-> > > +#define CR_CEIE                      BIT(13)
-> > > +#define CR_CTCIE             BIT(12)
-> > > +#define CR_CAEIE             BIT(11)
-> > > +#define CR_TWIE                      BIT(10)
-> > > +#define CR_TCIE                      BIT(9)
-> > > +#define CR_TEIE                      BIT(8)
-> > > +#define CR_ABORT             BIT(2)
-> > > +#define CR_SUSP                      BIT(1)
-> > > +#define CR_START             BIT(0)
-> > > +
-> > > +#define DMA2D_ISR_REG                0x0004
-> > > +#define ISR_CEIF             BIT(5)
-> > > +#define ISR_CTCIF            BIT(4)
-> > > +#define ISR_CAEIF            BIT(3)
-> > > +#define ISR_TWIF             BIT(2)
-> > > +#define ISR_TCIF             BIT(1)
-> > > +#define ISR_TEIF             BIT(0)
-> > > +
-> > > +#define DMA2D_IFCR_REG               0x0008
-> > > +#define IFCR_CCEIF           BIT(5)
-> > > +#define IFCR_CCTCIF          BIT(4)
-> > > +#define IFCR_CAECIF          BIT(3)
-> > > +#define IFCR_CTWIF           BIT(2)
-> > > +#define IFCR_CTCIF           BIT(1)
-> > > +#define IFCR_CTEIF           BIT(0)
-> > > +
-> > > +#define DMA2D_FGMAR_REG              0x000c
-> > > +#define DMA2D_FGOR_REG               0x0010
-> > > +#define FGOR_LO_MASK         GENMASK(13, 0)
-> > > +
-> > > +#define DMA2D_BGMAR_REG              0x0014
-> > > +#define DMA2D_BGOR_REG               0x0018
-> > > +#define BGOR_LO_MASK         GENMASK(13, 0)
-> > > +
-> > > +#define DMA2D_FGPFCCR_REG    0x001c
-> > > +#define FGPFCCR_ALPHA_MASK   GENMASK(31, 24)
-> > > +#define FGPFCCR_AM_MASK              GENMASK(17, 16)
-> > > +#define FGPFCCR_CS_MASK              GENMASK(15, 8)
-> > > +#define FGPFCCR_START                BIT(5)
-> > > +#define FGPFCCR_CCM_RGB888   BIT(4)
-> > > +#define FGPFCCR_CM_MASK              GENMASK(3, 0)
-> > > +
-> > > +#define DMA2D_FGCOLR_REG     0x0020
-> > > +#define FGCOLR_REG_MASK              GENMASK(23, 16)
-> > > +#define FGCOLR_GREEN_MASK    GENMASK(15, 8)
-> > > +#define FGCOLR_BLUE_MASK     GENMASK(7, 0)
-> > > +
-> > > +#define DMA2D_BGPFCCR_REG    0x0024
-> > > +#define BGPFCCR_ALPHA_MASK   GENMASK(31, 24)
-> > > +#define BGPFCCR_AM_MASK              GENMASK(17, 16)
-> > > +#define BGPFCCR_CS_MASK              GENMASK(15, 8)
-> > > +#define BGPFCCR_START                BIT(5)
-> > > +#define BGPFCCR_CCM_RGB888   BIT(4)
-> > > +#define BGPFCCR_CM_MASK              GENMASK(3, 0)
-> > > +
-> > > +#define DMA2D_BGCOLR_REG     0x0028
-> > > +#define BGCOLR_REG_MASK              GENMASK(23, 16)
-> > > +#define BGCOLR_GREEN_MASK    GENMASK(15, 8)
-> > > +#define BGCOLR_BLUE_MASK     GENMASK(7, 0)
-> > > +
-> > > +#define DMA2D_OPFCCR_REG     0x0034
-> > > +#define OPFCCR_CM_MASK               GENMASK(2, 0)
-> > > +
-> > > +#define DMA2D_OCOLR_REG              0x0038
-> > > +#define OCOLR_ALPHA_MASK     GENMASK(31, 24)
-> > > +#define OCOLR_RED_MASK               GENMASK(23, 16)
-> > > +#define OCOLR_GREEN_MASK     GENMASK(15, 8)
-> > > +#define OCOLR_BLUE_MASK              GENMASK(7, 0)
-> > > +
-> > > +#define DMA2D_OMAR_REG               0x003c
-> > > +
-> > > +#define DMA2D_OOR_REG                0x0040
-> > > +#define OOR_LO_MASK          GENMASK(13, 0)
-> > > +
-> > > +#define DMA2D_NLR_REG                0x0044
-> > > +#define NLR_PL_MASK          GENMASK(29, 16)
-> > > +#define NLR_NL_MASK          GENMASK(15, 0)
-> > > +
-> > > +/* Hardware limits */
-> > > +#define MAX_WIDTH            0x3fff
-> > > +#define MAX_HEIGHT           0xffff
-> >
-> > I think these max width/height values are unrealistic. Even though the hardware
-> > theoretically supports this, it is causing the memory alloc failures.
->
-> Oh, I suppose the memory alloc failures test case was fixed, designed
-> by v4l2-compliance , actually it depends on the driver's ability.
->
-> >
-> > I see that the camera driver has 2592x2592 as the max width/height, so perhaps
-> > that should be used? Or alternatively the max resolution of the video output driver,
-> > whatever that is?
->
-> I will try 2592x2592, and 2048x2048[display driver]. It fits the
-> camera's output or display input is a good idea.
+> 
+> 
+> On 10/16/21 6:46 AM, Bjorn Andersson wrote:
+> > On Mon 11 Oct 05:46 CDT 2021, Arnaud POULIQUEN wrote:
+> > 
+> >>
+> >>
+> >> On 10/9/21 1:35 AM, Bjorn Andersson wrote:
+> >>> On Mon 12 Jul 05:37 PDT 2021, Arnaud Pouliquen wrote:
+> >>>
+> >>>> Create the rpmsg_ctrl.c module and move the code related to the
+> >>>> rpmsg_ctrldev device in this new module.
+> >>>>
+> >>>> Add the dependency between rpmsg_char and rpmsg_ctrl in the
+> >>>> kconfig file.
+> >>>>
+> >>>
+> >>> As I said in the cover letter, the only reason I can see for doing this
+> >>> refactoring is in relation to the introduction of
+> >>> RPMSG_CREATE_DEV_IOCTL. So I would like this patch to go together with
+> >>> that patch, together with a good motivation why there's merit to
+> >>> creating yet another kernel module (and by bind/unbind can't be used).
+> >>>
+> >>> Perhaps I'm just missing some good usecase related to this?
+> >>
+> >>
+> >>>
+> >>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> >>>> Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+> >>>> ---
+> >>>>  drivers/rpmsg/Kconfig      |   9 ++
+> >>>>  drivers/rpmsg/Makefile     |   1 +
+> >>>>  drivers/rpmsg/rpmsg_char.c | 170 +----------------------------
+> >>>>  drivers/rpmsg/rpmsg_char.h |   2 +
+> >>>>  drivers/rpmsg/rpmsg_ctrl.c | 215 +++++++++++++++++++++++++++++++++++++
+> >>>>  5 files changed, 229 insertions(+), 168 deletions(-)
+> >>>>  create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
+> >>>>
+> >>> [..]
+> >>>> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+> >>> [..]
+> >>>> -static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
+> >>>> -{
+> >>> [..]
+> >>>> -	dev = &ctrldev->dev;
+> >>>> -	device_initialize(dev);
+> >>>> -	dev->parent = &rpdev->dev;
+> >>>> -	dev->class = rpmsg_class;
+> >>> [..]
+> >>>> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
+> >>> [..]
+> >>>> +static int rpmsg_ctrldev_probe(struct rpmsg_device *rpdev)
+> >>>> +{
+> >>> [..]
+> >>>> +	dev = &ctrldev->dev;
+> >>>> +	device_initialize(dev);
+> >>>> +	dev->parent = &rpdev->dev;
+> >>>
+> >>> You lost the assignment of dev->class here, which breaks the udev rules
+> >>> we use to invoke rpmsgexport to create endpoints and it causes udevadm
+> >>> to complain that rpmsg_ctrlN doesn't have a "subsystem".
+> >>
+> >> We discussed this point with Mathieu, as a first step i kept the class, but that
+> >> generated another dependency with the rpmsg_char device while information was
+> >> available on the rpmsg bus. The char device and ctrl device should share the
+> >> same class. As rpmsg_ctrl is created first it would have to create the class,and
+> >> provide an API to rpmsg char
+> >>
+> > 
+> > Perhaps if this is considered a common piece shared between multiple
+> > rpmsg modules we can create such class in the rpmsg "core" itself?
+> 
+> Yes that seems a good alternative
+> 
+> > 
+> >> Please could you details what does means "rpmsg_ctrlN doesn't have a
+> >> "subsystem"." What exactly the udev is looking for? could it base it check on
+> >> the /dev/rpmsg_ctrl0 or /sys/bus/rpmsg/devices/...?
+> >>
+> > 
+> > If I read the uevent messages correctly they seem to contain a SUBSYTEM=
+> > property when the class is provided. But I'm not sure about the reasons
+> > for that.
+> 
+> If it part of the udev requirement, i suppose that it is mandatory, and in this
+> case, declare the class in the core make sense.
+> 
 
-Tried 2592x2592 and 2048x2048, both failed on my setup due to the low
-memory size. I'd like to send v6 with max 2592x2592 if you prefer?
+I don't know if it's a requirement. But I think it's worth keeping the
+class around, as it's the only problem I've found with existing users.
 
-fail: v4l2-test-buffers.cpp(1349): q.reqbufs(node, 2)
-        BA24 (32-bit ARGB 8-8-8-8) 2048x2048 -> BA24 (32-bit ARGB
-8-8-8-8) 2048x2048: FAIL
+> I will send a new patchset that will squash all the remaining patches, taking
+> into account your comment.
+> 
 
-fail: v4l2-test-buffers.cpp(1349): q.reqbufs(node, 2)
-        BA24 (32-bit ARGB 8-8-8-8) 2592x2592 -> BA24 (32-bit ARGB
-8-8-8-8) 2592x2592: FAIL
+Thanks,
+Bjorn
 
-~ # free
-                    total          used        free          shared
-buff/cache available
-Mem:          15648        4060        8276           0        3312        7648
-
-Thanks & Regards
-
-Dillon
-
->
-> [display driver] drivers/gpu/drm/stm/drv.c
->
-> Thanks & Regards
-> Dillon
->
-> >
+> Thanks,
+> Arnaud
+> 
+> > 
 > > Regards,
-> >
-> >         Hans
-> >
-> > > +
-> > > +#define DEFAULT_WIDTH                240
-> > > +#define DEFAULT_HEIGHT               320
-> > > +#define DEFAULT_SIZE         307200
-> > > +
-> > > +#define CM_MODE_ARGB8888     0x00
-> > > +#define CM_MODE_ARGB4444     0x04
-> > > +#define CM_MODE_A4           0x0a
-> > > +#endif /* __DMA2D_REGS_H__ */
+> > Bjorn
+> > 
+> >> Thanks,
+> >> Arnaud
+> >>
+> >>>
+> >>> Regards,
+> >>> Bjorn
+> >>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
