@@ -2,67 +2,115 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 857E9435EE4
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Oct 2021 12:19:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B476C436029
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Oct 2021 13:25:13 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35A0FC5C854;
-	Thu, 21 Oct 2021 10:19:30 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C881CC5C854;
+	Thu, 21 Oct 2021 11:25:12 +0000 (UTC)
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-eopbgr1310125.outbound.protection.outlook.com [40.107.131.125])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16F40C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9463C597AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Oct 2021 10:19:26 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id y3so307079wrl.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Oct 2021 03:19:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=HcuIt7/7PaI53mxMN1zYIYC7d3hS/MtLZOfEoIwhomI=;
- b=cL/9bzy7HR6WRfHYo7K1Fxw4FWYZhPptGiCRn9fQERQ4E0r+/+p0LuezBf2VkADPUY
- 3dmBZhv6nJBirFy27vmSGfZWq6xfmWBKK4ZyQrJZqrm1zloSDLB3iUZhs1n0p4jyWKq9
- 4nEr2tvsPKi+eixU1hq0h8c+qjCVdpH7eC7ib0AsGB3fXtmeYAXWAP5g9hY34IU20SWc
- js/q31V29Z/dWp+IA8snrIALGSidN/oOX/umonuc2KHsKRiHJvciAjDhrvKL6nBEivKY
- gFQn0IyFdqSfgdyb7nFl9luDb/XKh91MiGnvdgkG8hVkggSZRH9X3KsiwTe6hsPlLt4e
- DIiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=HcuIt7/7PaI53mxMN1zYIYC7d3hS/MtLZOfEoIwhomI=;
- b=L9M4EFE6gnvqWpnFOQwN7dMvfhgstQSsXk+vYQiueGSBfpxPGZwMZGRNa8iClGE5mJ
- lFA2srK1XLXvjFEGDU5TIQjwg8NXi2wujue3l17ex0NeXXm2LhI58Alxcdt5QoEDwi9p
- sqNcc1KEh5sVGJM4jshgOQm1GMbD6JZrgV1pMdowHHkrrXn5RYAcRA0MUzOUM/eAL/22
- ZG+fzZuNWrrCySvpI9ySJcmcQIz5f1Cj0ck/JFYyotYkcUbsU2G+O3njtoyjUISCvavF
- xyXTpM/xTODYwbJ5kmh238LkaSyxaips1/1oNkjmcsoJk/y3+kfcuKfNwRVwAHUgpivk
- 2jOA==
-X-Gm-Message-State: AOAM532NzB9Flo3zC2ycaPdW2GRwpl4g71kQJMwAqAqvhGu68Bc4b7JO
- Ltl4hc+FPvWgo2HH0RGN2i4sRw==
-X-Google-Smtp-Source: ABdhPJzwV4llaBHW3GPEKFOSStvceavjRaL8orYDfMptOnOkOdVq+p2+QBVgeWrzCKaDMSgV+ExHjg==
-X-Received: by 2002:adf:ab46:: with SMTP id r6mr6189970wrc.71.1634811565959;
- Thu, 21 Oct 2021 03:19:25 -0700 (PDT)
-Received: from google.com ([95.148.6.207])
- by smtp.gmail.com with ESMTPSA id m8sm4414195wri.33.2021.10.21.03.19.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Oct 2021 03:19:25 -0700 (PDT)
-Date: Thu, 21 Oct 2021 11:19:23 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <YXE+qx6hZ4T9B+QP@google.com>
-References: <20211012153945.2651412-1-u.kleine-koenig@pengutronix.de>
- <20211012153945.2651412-10-u.kleine-koenig@pengutronix.de>
+ Thu, 21 Oct 2021 11:25:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZTrYnh3aVMTB7O29DKXgdd9QNNVg/YwYkYOlZ3XGyMzEDdxg6FQ+uqfYtp+d5Z8jqP4E4Qq6u7T4I8gJoyTNaAcGJns9+6kGMW3wbjmjEMVlg/kgVHrZ5vbG3d12y2Pysyk313tf6tqquUM6hr2ugLu5nU7m9LyJerBbrwM+bJp4ORiG8jZJ5hRemRjbFYGWSNu5enYSV269rJ6GSfHljt3G1BuV5DDGrbLPVlytdLhHj/+/ycPBCyzRXMJggntAW739Nqpi9DfF0QoaevoBP1wbs9iRM5S67Ho64R/Wg3gixDdyNncBX9PXrzc6QCrF6JrtV5db84dVYu3NNKXP2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wZXq6ygkNsrLJjXtGer1fvQZNjdjIaUbYKaj5NFk8RA=;
+ b=BhbGQILSHqANFiX2FEIorcg+y10zXYVj9+1Wh+VO4kLpmsuSHCzSSPiom3GyCEKy14vwp4giVGNIGj3hEa0a76onPyZHB5fgIXWLBCiMrIwH3S6zfCnljjvSsJcom2sS7U+oPGd4Y1r2A+DDTKGLY2zoiC2usz8VHiJHIuWGVthMdXNwOxd8GyEV411iFvMri46QlTEWpn96HaOvZOkC/MPmxyCPaGbrlluC1p/bx2GKWiFKhXaOgBx3JyxP1d5x5UHq91IZHj53pAHnKMX+kGmcFeOZCUQZOzHB7Ltf/tYbL4NU5ZYyddk9YqRr0MxGKj/Il7zYTnVFmhpfn9p7ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com; 
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wZXq6ygkNsrLJjXtGer1fvQZNjdjIaUbYKaj5NFk8RA=;
+ b=mS6QBGHeS4tRRgx1AqqCYRlOaPO6wILTGUpZPspNTggt3ocqBzZhoVk6nzehaCf58akUefdqDq4yFnTXRo2tnY3JZQO5CQXhfYo/YnBeERZgtmnxpizKuDPv8xVU50ubW59hg6TeUlt5e8JcOHKW9KlDsbH9kfaDvIJ5M9OakAA=
+Authentication-Results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=vivo.com;
+Received: from SG2PR06MB3367.apcprd06.prod.outlook.com (2603:1096:4:78::19) by
+ SG2PR06MB2779.apcprd06.prod.outlook.com (2603:1096:4:21::21) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.18; Thu, 21 Oct 2021 11:25:04 +0000
+Received: from SG2PR06MB3367.apcprd06.prod.outlook.com
+ ([fe80::fc12:4e1b:cc77:6c0]) by SG2PR06MB3367.apcprd06.prod.outlook.com
+ ([fe80::fc12:4e1b:cc77:6c0%6]) with mapi id 15.20.4628.018; Thu, 21 Oct 2021
+ 11:25:04 +0000
+From: Wan Jiabing <wanjiabing@vivo.com>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>, Xu Wang <vulab@iscas.ac.cn>,
+ Wan Jiabing <wanjiabing@vivo.com>, Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 21 Oct 2021 07:24:49 -0400
+Message-Id: <20211021112452.9491-1-wanjiabing@vivo.com>
+X-Mailer: git-send-email 2.20.1
+X-ClientProxiedBy: HK2PR04CA0075.apcprd04.prod.outlook.com
+ (2603:1096:202:15::19) To SG2PR06MB3367.apcprd06.prod.outlook.com
+ (2603:1096:4:78::19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211012153945.2651412-10-u.kleine-koenig@pengutronix.de>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, kernel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 09/20] mfd: stmpe: Make stmpe_remove()
-	return void
+Received: from localhost.localdomain (203.90.234.87) by
+ HK2PR04CA0075.apcprd04.prod.outlook.com (2603:1096:202:15::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4628.16 via Frontend Transport; Thu, 21 Oct 2021 11:25:02 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 985d6a5f-530d-4d35-109b-08d994856da9
+X-MS-TrafficTypeDiagnostic: SG2PR06MB2779:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SG2PR06MB27795CEE13D6FE6CC3CD2713ABBF9@SG2PR06MB2779.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: brLOAQMuP2YSwdPbhbCR6nqRyf/OaoGP7JkseL7PeTKhE5/fG9qlcaUUlBesOzSfam9NuWrFVp671HZhA41vPl0GNHZqPdUV1ERfLXD/+yhZ7bjOJGReSrPiGA5P0YH47ywoTaRathGfZ+fDzbJTsFDdUp8x37x+0HmO9blKj2pdXL4r/bbV3NvWTcbM/BV5IWmDaxmd3HxSsVvzJ3z2840cnsF9zEtT9hMmF/RJ04U2qD9DLAfBRy/W8AKA6J3Xa+A5w3HUgktxHmtz1mQih1cX3SpZr/cucNgGHqTbm1Hx8W/Lq6DIn9xo4N++Ee0Qde+gFN9857RVdvm3B2Fv2qx4PulvBhy2fRI6WYwj+XHi7bzdGZ0BTirmhomo4Ea8K6Toy09LyB67qMW/HTiK+QUFkIY6KdTRCT71zt3t/cLUuWzzNTn1cRX3B79ZeeavSOy4Biaj3MzvuzkKlZB7GIN75x/+AokJkSYsmC33LLqIjE6FA3SYw2DsXuzGfX/mHaE28XuUX5D5/PRjuK+8qYxJV2hoBtZRfmOgkDvO06f79SizTwTc6WWOlZDm+b6R1xhdMbosDwqEMqDi63DWWXaQj4blJYwSXDFlHlktJtHJCNavZ76YD9dbopQ1wtPeNz12a47cuBcxpM8QTNWERY7mjk/MpNYwGeaFmbX0TyWx1V7hbiHS8yAu7pCx2dm8neVmxmfXoQOG43OD8PksdJu3tlTed8KndmZhn4+E4fM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SG2PR06MB3367.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(36756003)(316002)(38100700002)(186003)(38350700002)(66556008)(1076003)(66946007)(6512007)(110136005)(5660300002)(956004)(4744005)(4326008)(52116002)(7416002)(6666004)(6506007)(26005)(508600001)(2906002)(8676002)(66476007)(83380400001)(921005)(86362001)(8936002)(6486002)(2616005);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?aV8Ui46EVrgn+mcR/bBih+lnQ7+8cQOL5+cIrNhaGHt75DQVj5SYecLYKwYu?=
+ =?us-ascii?Q?TFwrtUIpBKo3TOg8s5pGpvxBB56lsuOOPg4lfZqBAt0Y/uwJQYklS2Jgui6j?=
+ =?us-ascii?Q?QmQ/2LDnxjZrCVqVMPpLy0iVa8SjuPOrPTtgLs+MKCaur7RSSP/i1PIOLfrN?=
+ =?us-ascii?Q?BVxNq951dsDI++k5yZ/m3Z3AfRiiyBE5K66QaKVmMK4KmiXy4r5tsZg4Vsho?=
+ =?us-ascii?Q?Qp5XR9qbsQHs66ouh7UUnXKgptepYi6VBjnHdVhCN+iUsxhV55QOQwL20Fts?=
+ =?us-ascii?Q?5fm+Oyjn4OZkkeEMXRqQEoMZ5fN0xtL2Zmg7lgNgXYI13HKb4KX1DnfDbyu4?=
+ =?us-ascii?Q?rZe0CfMvo5Q14v+b1YfR8ec+0E/ZGEkYZWoqRg3BQoBpdAppjhJ0Dg5KQrk+?=
+ =?us-ascii?Q?8D/Cr2Nn1rWTyAXCj3Uwa9r5DzRAC2Q6jjuY2qS28OFB4j+TJ/8h6s61SL1z?=
+ =?us-ascii?Q?uUfBybzvoaAtEumLimzGdDeFYoDgW1ceOh7ogmQXgx6nhbggS6e5Kx6SQMR6?=
+ =?us-ascii?Q?ke0DH4pu+XGtl4pdAo0298wfSqjZIYYsFVcf+Vhry4zkMPgaavhINEA/Alr+?=
+ =?us-ascii?Q?JxkjvNRyK7Nz0VtokEpG9/HCaXMD+0OgTwEMQP5SIDuGNARBxO3ikcN0vLu1?=
+ =?us-ascii?Q?NE3UoVa+ml6vtuNztQ8NAR7ZIdsD1EAy1WH+eT6UEZkthTHcHhFZm0Yh4Aue?=
+ =?us-ascii?Q?kc86nUD/PFWHc9gNSEy7+7dkeVv/TVcU4Eshr+t6v8bKFyrKe6X54WMxXqw1?=
+ =?us-ascii?Q?2pLb3e/wzMqy/PpJMenNjGqUnTw7073PYikXxl8rw17fTPuCgMn2S3KSCLqN?=
+ =?us-ascii?Q?xrK3GgUHSjk46yb3Df9Efhs4gg1kuY4STxjMX6ngbeEoECYKVzk4MI1Ue9fe?=
+ =?us-ascii?Q?QJg27xQbQEshvRI3teS79Baqe9OH42kS2sKSbOiOHqBm+zEu3WTV+KW8nsFc?=
+ =?us-ascii?Q?1Y9a2frb8xqvWy+WEl40RRZbKv+yUrouTXCqh/for1j7ZZU5NtBtDTXUCkaX?=
+ =?us-ascii?Q?/mhgh3AqGGMXKSYA5pnFF0DOgPeExUMjbem/5aFa66JbV6qqK31rK7Rnf/Rh?=
+ =?us-ascii?Q?jElufN5jZYfrvIOhIS4R0Z8GxY57o9eMxWq8ZbSLtyYVPIorIQT9A8p8DQ8/?=
+ =?us-ascii?Q?sBmcnOXH5Sa8FN01wR/ey4Gn5XES6SVLv5+p6SH7TdaOc+fu1kGd9KznZSPj?=
+ =?us-ascii?Q?hZZJy9RAH2HYBd25iIey869Xei1WkfwcuZ7mASFulbNqfG5o5iYery7AEiIM?=
+ =?us-ascii?Q?gwS1N/ZM2oQ8FpvL2PDlZkLYJqhWCLLCmUNo84JbdcRNigXmWarsdrhIlS7D?=
+ =?us-ascii?Q?Oj/shEI6WGQDp1kFVROWXPt7?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 985d6a5f-530d-4d35-109b-08d994856da9
+X-MS-Exchange-CrossTenant-AuthSource: SG2PR06MB3367.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 11:25:04.3841 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 11126903@vivo.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR06MB2779
+Cc: kael_w@yeah.net
+Subject: [Linux-stm32] [PATCH] iio: adc: stm32-adc: Fix of_node_put() issue
+	in stm32-adc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,25 +122,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCAxMiBPY3QgMjAyMSwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cgo+IFVwIHRvIG5v
-dyBzdG1wZV9yZW1vdmUoKSByZXR1cm5zIHplcm8gdW5jb25kaXRpb25hbGx5LiBNYWtlIGl0IHJl
-dHVybgo+IHZvaWQgaW5zdGVhZCB3aGljaCBtYWtlcyBpdCBlYXNpZXIgdG8gc2VlIGluIHRoZSBj
-YWxsZXJzIHRoYXQgdGhlcmUgaXMKPiBubyBlcnJvciB0byBoYW5kbGUuCj4gCj4gQWxzbyB0aGUg
-cmV0dXJuIHZhbHVlIG9mIGkyYyBhbmQgc3BpIHJlbW92ZSBjYWxsYmFja3MgaXMgaWdub3JlZCBh
-bnl3YXkuCj4gCj4gU2lnbmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtv
-ZW5pZ0BwZW5ndXRyb25peC5kZT4KPiAtLS0KPiAgZHJpdmVycy9tZmQvc3RtcGUtaTJjLmMgfCA0
-ICsrKy0KPiAgZHJpdmVycy9tZmQvc3RtcGUtc3BpLmMgfCA0ICsrKy0KPiAgZHJpdmVycy9tZmQv
-c3RtcGUuYyAgICAgfCA0ICstLS0KPiAgZHJpdmVycy9tZmQvc3RtcGUuaCAgICAgfCAyICstCj4g
-IDQgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQoKQXBwbGll
-ZCwgdGhhbmtzLgoKLS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpTZW5pb3IgVGVjaG5pY2FsIExl
-YWQgLSBEZXZlbG9wZXIgU2VydmljZXMKTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdh
-cmUgZm9yIEFybSBTb0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
-MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
-aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
-dXgtc3RtMzIK
+Fix following coccicheck warning:
+./drivers/iio/adc/stm32-adc.c:2014:1-33: WARNING: Function
+for_each_available_child_of_node should have of_node_put() before return.
+
+Early exits from for_each_available_child_of_node should decrement the
+node reference counter. Replce return by goto here.
+
+Signed-off-by: Wan Jiabing <wanjiabing@vivo.com>
+---
+ drivers/iio/adc/stm32-adc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 6245434f8377..7f1fb36c747c 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -2024,7 +2024,8 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+ 			if (strlen(name) >= STM32_ADC_CH_SZ) {
+ 				dev_err(&indio_dev->dev, "Label %s exceeds %d characters\n",
+ 					name, STM32_ADC_CH_SZ);
+-				return -EINVAL;
++				ret = -EINVAL;
++				goto err;
+ 			}
+ 			strncpy(adc->chan_name[val], name, STM32_ADC_CH_SZ);
+ 			ret = stm32_adc_populate_int_ch(indio_dev, name, val);
+-- 
+2.20.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
