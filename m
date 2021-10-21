@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46E8943573F
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Oct 2021 02:23:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC941435741
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Oct 2021 02:23:41 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 106F9C5C857;
-	Thu, 21 Oct 2021 00:23:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B49EAC5C857;
+	Thu, 21 Oct 2021 00:23:41 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DB23C5C831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 442F1C5C831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Oct 2021 00:23:13 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AA6B661260;
- Thu, 21 Oct 2021 00:23:10 +0000 (UTC)
+ Thu, 21 Oct 2021 00:23:39 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9644461221;
+ Thu, 21 Oct 2021 00:23:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634775791;
- bh=qmnfZ1A8ecuIGUREcjAFkojUBDHknIeD//6jyvwyaOo=;
+ s=k20201202; t=1634775817;
+ bh=FYq6S9ih2L0A6RmAzBjbIhueiwdGUCvB+RSXXjh22Gg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZuCfCP7N4PJgKo6WR55noBmkvz/YpSgQiydD56d12/uOG/0ZiiDQ1eJUn2f0VYMUM
- hYmBOGunoOQl6Dm9coDk9J3TXvP9gW/jrGkmI5mf0HxbC/rbPa7Nrd0DOnmJRrjxBZ
- OXyFfMQBMNZgVsFY3QSAa4MImfDNgavdeRZmXOszNS3/TpHrd14PsBAQr10FOynvI5
- pmyzZwn7dzV3Zy/EJeBvJDamVzqLGUjCrdHKQu4rHoYNU5xBtjfBe3+Lr8RO4U9YfZ
- Hb9j3wT73nzuyg9A5yBYWprxSBdJtvHEVoggSmK6MDeKynt5TSYFCYt4q+RIov8AXC
- Nx7722oTZudBw==
+ b=uPAzK55+Rz0L0YrU7ddiMtLydFYBemTcCUe+R6hUc3YHRvWCW2dnQnIjW+stQ+smJ
+ mSCOjJT7nAQMsnWP3LHI87o0mcJlOL5GHzak6GdWQ0Frpo10+JvNI5T2ZlD4xcF1F2
+ 7HbOkcagOXTz0zwUD3oV4cJ0suavKWLgZBHByWXjFEqpGhrLXVX8/pK1LLbzMR/6nJ
+ Kq7FStMof9y5MOcANWuIwJd5k+2oac/BARF6l1TvbTX+BXAENwaEMA/fBCCm4qpban
+ o/G7Bh5kv1WIyeBLFUJbRfSNSkJJ++XtqFqAAzWPwnrT1WmYQg+AnIv6M1stXVIp15
+ txqj9q8C8VfHA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 20 Oct 2021 20:22:58 -0400
-Message-Id: <20211021002305.1129633-3-sashal@kernel.org>
+Date: Wed, 20 Oct 2021 20:23:26 -0400
+Message-Id: <20211021002333.1129824-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211021002305.1129633-1-sashal@kernel.org>
-References: <20211021002305.1129633-1-sashal@kernel.org>
+In-Reply-To: <20211021002333.1129824-1-sashal@kernel.org>
+References: <20211021002333.1129824-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -41,8 +41,8 @@ Cc: Sasha Levin <sashal@kernel.org>, Herve Codina <herve.codina@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
  mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 03/10] net: stmmac: add support
-	for dwmac 3.40a
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 2/9] net: stmmac: add support for
+	dwmac 3.40a
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,7 +74,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 9 insertions(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
-index fad503820e04..b3365b34cac7 100644
+index 3304095c934c..47842a796c3b 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
 @@ -71,6 +71,7 @@ static int dwmac_generic_probe(struct platform_device *pdev)
@@ -86,10 +86,10 @@ index fad503820e04..b3365b34cac7 100644
  	{ .compatible = "snps,dwmac-3.610"},
  	{ .compatible = "snps,dwmac-3.70a"},
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 2b800ce1d5bf..05f5084158bf 100644
+index d48cc32dc507..d008e9d1518b 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -469,6 +469,14 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
+@@ -458,6 +458,14 @@ stmmac_probe_config_dt(struct platform_device *pdev, const char **mac)
  		plat->pmt = 1;
  	}
  
@@ -102,8 +102,8 @@ index 2b800ce1d5bf..05f5084158bf 100644
 +	}
 +
  	if (of_device_is_compatible(np, "snps,dwmac-4.00") ||
- 	    of_device_is_compatible(np, "snps,dwmac-4.10a") ||
- 	    of_device_is_compatible(np, "snps,dwmac-4.20a")) {
+ 	    of_device_is_compatible(np, "snps,dwmac-4.10a")) {
+ 		plat->has_gmac4 = 1;
 -- 
 2.33.0
 
