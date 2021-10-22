@@ -2,44 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 406C543754F
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Oct 2021 12:13:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34FD3437570
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Oct 2021 12:30:49 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC2BFC5C857;
-	Fri, 22 Oct 2021 10:13:33 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFACCC5C857;
+	Fri, 22 Oct 2021 10:30:48 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 211C9C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48B6FC597AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Oct 2021 10:13:29 +0000 (UTC)
-X-UUID: d80e3027f026469f9531ae037f3ae4a0-20211022
-X-UUID: d80e3027f026469f9531ae037f3ae4a0-20211022
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw01.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1832692527; Fri, 22 Oct 2021 18:13:24 +0800
-Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 22 Oct 2021 18:13:22 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb01.mediatek.inc
- (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Fri, 22 Oct 2021 18:13:22 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
+ Fri, 22 Oct 2021 10:30:44 +0000 (UTC)
+X-UUID: 5ee641a17dd94a58aa7a494abd9ee8fe-20211022
+X-UUID: 5ee641a17dd94a58aa7a494abd9ee8fe-20211022
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw02.mediatek.com
+ (envelope-from <jason-jh.lin@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1778794933; Fri, 22 Oct 2021 18:30:37 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Fri, 22 Oct 2021 18:30:36 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 22 Oct 2021 18:13:22 +0800
-Message-ID: <29992126d39a7f381a516fdb9cd6e39f1e51afdb.camel@mediatek.com>
+ Transport; Fri, 22 Oct 2021 18:30:36 +0800
+Message-ID: <c15cc3f5e507e03c15be14c929430ce5bf313139.camel@mediatek.com>
 From: Jason-JH Lin <jason-jh.lin@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, "Rob
- Herring" <robh+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Rob
+ Herring <robh+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, "Philipp Zabel"
  <p.zabel@pengutronix.de>
-Date: Fri, 22 Oct 2021 18:13:22 +0800
-In-Reply-To: <8b509551-7cfa-f55c-fc0f-db7d0a3886eb@collabora.com>
+Date: Fri, 22 Oct 2021 18:30:36 +0800
+In-Reply-To: <3e72dd1e-edf2-6d42-40e7-0c1c72749a20@collabora.com>
 References: <20210921155218.10387-1-jason-jh.lin@mediatek.com>
- <20210921155218.10387-10-jason-jh.lin@mediatek.com>
- <8b509551-7cfa-f55c-fc0f-db7d0a3886eb@collabora.com>
+ <20210921155218.10387-16-jason-jh.lin@mediatek.com>
+ <3e72dd1e-edf2-6d42-40e7-0c1c72749a20@collabora.com>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
 X-MTK: N
@@ -54,8 +50,8 @@ Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
  nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v11 09/16] soc: mediatek: add mtk-mmsys
- support for mt8195 vdosys0
+Subject: Re: [Linux-stm32] [PATCH v11 15/16] drm/mediatek: add MERGE support
+ for mediatek-drm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,126 +70,140 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Angelo,
 
-Thanks for the reviews.
+thanks for the review.
 
-
-On Thu, 2021-10-14 at 16:05 +0200, AngeloGioacchino Del Regno wrote:
-> > Add mt8195 vdosys0 clock driver name and routing table to
-> > the driver data of mtk-mmsys.
-> > 
+On Thu, 2021-10-14 at 16:27 +0200, AngeloGioacchino Del Regno wrote:
+> Il 21/09/21 17:52, jason-jh.lin ha scritto:
+> > Add MERGE engine file:
 
 [snip]
 
-> >  
-> > ---
+> > +int mtk_merge_clk_enable(struct device *dev)
+> > +{
+> > +	int ret = 0;
+> > +	struct mtk_disp_merge *priv = dev_get_drvdata(dev);
+> > +
+> > +	ret = clk_prepare_enable(priv->clk);
+> > +	if (ret)
+> > +		pr_err("merge clk prepare enable failed\n");
 > 
-> Hello Jason,
-> thanks for the patch! However, there are a few things to improve:
+> If you failed to enable this clock, I take it as the hardware won't
+> work or
+> won't work as expected, hence you should return a failure before
+> trying to
+> call prepare_enable for async_clk.
+> 
+OK I'll fix it.
+
+> > +	ret = clk_prepare_enable(priv->async_clk);
+> > +	if (ret)
+> > +		pr_err("async clk prepare enable failed\n");
+> > +
+> 
+> You should also return a failure here but, before that, you should
+> clean up
+> the state by calling clk_disable_unprepare(priv->clk), or you will
+> leave it
+> enabled, eventually getting a hardware fault later on (which may or
+> may not
+> result in a board reboot), or other sorts of unexpected states.
+> 
+> At least, you will get issues with the refcount for "clk" and/or
+> "async_clk".
+> 
+> Please fix that.
+> 
+> Also, please use dev_err or, more appropriately, DRM_ERROR instead or
+> pr_err.
 > 
 
-[snip]
+OK I'll fix it .
 
-> > +#define MT8195_VDO0_SEL_IN					0xf34
-> > +#define MT8195_SEL_IN_VPP_MERGE_FROM_DSC_WRAP0_OUT		(0 <<
-> > 0)
+> > +	return ret;
+> > +}
+> > +
+> > +void mtk_merge_clk_disable(struct device *dev)
+> > +{
+> > +	struct mtk_disp_merge *priv = dev_get_drvdata(dev);
+> > +
+> > +	clk_disable_unprepare(priv->async_clk); > +	clk_disable_unprepa
+> > re(priv->clk);
+> > +}
+> > +
+> > +static int mtk_disp_merge_bind(struct device *dev, struct device
+> > *master,
+> > +			       void *data)
+> > +{
+> > +	return 0;
+> > +}
+> > +
+> > +static void mtk_disp_merge_unbind(struct device *dev, struct
+> > device *master,
+> > +				  void *data)
+> > +{
+> > +}
+> > +
+> > +static const struct component_ops mtk_disp_merge_component_ops = {
+> > +	.bind	= mtk_disp_merge_bind,
+> > +	.unbind = mtk_disp_merge_unbind,
+> > +};
+> > +
+> > +static int mtk_disp_merge_probe(struct platform_device *pdev)
+> > +{
+> > +	struct device *dev = &pdev->dev;
+> > +	struct resource *res;
+> > +	struct mtk_disp_merge *priv;
+> > +	int ret;
+> > +
+> > +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> > +	if (!priv)
+> > +		return -ENOMEM;
+> > +
+> > +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> > +	priv->regs = devm_ioremap_resource(dev, res);
+> > +	if (IS_ERR(priv->regs)) {
+> > +		dev_err(dev, "failed to ioremap merge\n");
+> > +		return PTR_ERR(priv->regs);
+> > +	}
+> > +
+> > +	priv->clk = devm_clk_get(dev, NULL);
+> > +	if (IS_ERR(priv->clk)) {
+> > +		dev_err(dev, "failed to get merge clk\n");
+> > +		return PTR_ERR(priv->clk);
+> > +	}
+> > +
+> > +	priv->async_clk = of_clk_get(dev->of_node, 1);
+> > +	if (IS_ERR(priv->async_clk)) {
+> > +		ret = PTR_ERR(priv->async_clk);
+> > +		dev_dbg(dev, "No merge async clock: %d\n", ret);
+> > +		priv->async_clk = NULL;
+> > +	}
+> > +
 > 
-> Bitshifting 0 by 0 bits == 0, so this is simply 0.
+> You are using devm_clk_get for the first clock, of_clk_get for the
+> second one:
+> what's the reason for that?
 > 
-> > +#define MT8195_SEL_IN_VPP_MERGE_FROM_DISP_DITHER1		(1 <<
-> > 0)
+> Also, async_clk seems to be optional... and there's the right API for
+> you!
+> If you use devm_clk_get_optional(), you won't have to manually assign
+> NULL
+> to priv->async_clk, as that's API handled... and you'll get a failure
+> if
+> the return value is an error that's not -ENOENT (so, it'll fail if
+> the clock
+> was declared in DT, but there was an error acquiring it).
 > 
-> I would write 0x1 here
+> Please use devm_clk_get_optional() here.
 > 
-> > +#define MT8195_SEL_IN_VPP_MERGE_FROM_VDO1_VIRTUAL0		(2 <<
-> > 0)
-> 
-> ....and 0x2 here: bitshifting of 0 bits makes little sense.
-> 
-> > +#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0		
-> > (0 << 4)
-> 
-> Bitshifting 0 by 4 bits is still 0, so this is again 0.
-> This is repeated too many times, so I will not list it for all of the
-> occurrences.
-> 
-> > +#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_VPP_MERGE		(1 <<
-> > 4)
-> 
-> This is BIT(4).
-> 
-> > +#define MT8195_SEL_IN_DSC_WRAP1_IN_FROM_DISP_DITHER1		
-> > (0 << 5) > +#define MT8195_SEL_IN_DSC_WRAP1_IN_FROM_VPP_MERGE	
-> > 	(1 << 5)
-> 
-> ...and this is BIT(5)
-> 
-> > +#define MT8195_SEL_IN_SINA_VIRTUAL0_FROM_VPP_MERGE		(0 <<
-> > 8)
-> > +#define MT8195_SEL_IN_SINA_VIRTUAL0_FROM_DSC_WRAP1_OUT		
-> > (1 << 8)
-> 
-> BIT(8)
-> 
-> > +#define MT8195_SEL_IN_SINB_VIRTUAL0_FROM_DSC_WRAP0_OUT		
-> > (0 << 9)
-> > +#define MT8195_SEL_IN_DP_INTF0_FROM_DSC_WRAP1_OUT		(0 <<
-> > 12)
-> > +#define MT8195_SEL_IN_DP_INTF0_FROM_VPP_MERGE			
-> > (1 << 12)
-> 
-> BIT(12)
-> 
-> > +#define MT8195_SEL_IN_DP_INTF0_FROM_VDO1_VIRTUAL0		(2 <<
-> > 12)
-> 
-> BIT(13)
-> 
-> ... and please, use the BIT(nr) macro for all these bit definitions,
-> it's way more
-> readable like that.
-> 
+
+Yes, async_clk is optional.
+Thanks for your suggestion.
+I'll try it.
+
 > Regards,
 > - Angelo
-
-Because the HW register design of MT8195_VDO0_SEL_IN 0xf34 is like
-this:
-
-bit[1:0] as MT8195_SEL_IN_VPP_MERGE and
-  value: 0 as MT8195_SEL_IN_VPP_MERGE_FROM_DSC_WRAP0_OUT
-  value: 1 as MT8195_SEL_IN_VPP_MERGE_FROM_DISP_DITHER1
-  value: 2 as MT8195_SEL_IN_VPP_MERGE_FROM_VDO1_VIRTUAL0
-bit[4:4] as MT8195_SEL_IN_DSC_WRAP0_IN and
-  value 0 as MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0
-  value 1 as MT8195_SEL_IN_DSC_WRAP0_IN_FROM_VPP_MERGE
-bit[5:5] as MT8195_SEL_IN_DSC_WRAP1_IN and
-  value 0 as
-MT8195_SEL_IN_DSC_WRAP1_IN_FROM_DISP_DITHER1
-  value 1 as
-MT8195_SEL_IN_DSC_WRAP1_IN_FROM_VPP_MERGE
-and so on...
-
-I think using BIT(nr) macro directly is not easy to debug.
-
-
-Is it better to define another MACRO like this?
-
-#define BIT_VAL(val, bit)  ((val) << (bit))
-#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0  BIT_VAL(0, 4)
-#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_VPP_MERGE  BIT_VAL(1, 4)
-...
-
-or
-
-#define MT8195_SEL_IN_DSC_WRAP0_IN (4)
-#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0  (0
-<< MT8195_SEL_IN_DSC_WRAP0_IN)
-#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_VPP_MERGE  (1 <<
-MT8195_SEL_IN_DSC_WRAP0_IN)
-...
-
-What do you think?
-
-
+-- 
 Regards,
 Jason-JH Lin <jason-jh.lin@mediatek.com>
 
