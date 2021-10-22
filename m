@@ -2,72 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97F9143748B
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Oct 2021 11:15:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 406C543754F
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Oct 2021 12:13:34 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 486F7C5C857;
-	Fri, 22 Oct 2021 09:15:12 +0000 (UTC)
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
- [209.85.166.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC2BFC5C857;
+	Fri, 22 Oct 2021 10:13:33 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A717C597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 211C9C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Oct 2021 09:15:10 +0000 (UTC)
-Received: by mail-il1-f178.google.com with SMTP id j3so3537875ilr.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Oct 2021 02:15:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7DczJgTsrEUe66TRocDFUq17LG2eh3rHGp1OMow1/+w=;
- b=cHca5wcCZFcIOzsxgI1SKRJm8zwJz8tYeN49PeA6DW51nZrTWPmUGV1y4rogZ4zSFc
- FZMCPJHOh7X1ODHnoJNdw6DWP+YeSlhnfEaymoqnvhpfuP7onfUFf72lohDWEOb0hoLs
- 36jokar2MqMJ3pcYomSDGtSeTtvKnJGNSqxLypDcez+ghR3Vnj+vYl/0z1E/bZoWd2eB
- OKCV/6+77knnFz0msLAAuecBmCe3xnK7tIdyNj+Vh3dzfeK4A7WCOOsEjPYVTdC5b/JU
- OHo8kRyaBQuN6FrGp7cFTtM0FSUAcCNSpezlTec+R0Vh+F1i98sDepdpXGrfQwbzT7cj
- k22w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7DczJgTsrEUe66TRocDFUq17LG2eh3rHGp1OMow1/+w=;
- b=Z5ari4ZS41WMrANW3Vk852zpESEPOyH+zJSl2Eg4/qjj2X9127i+vl1OxhmciatHtK
- JhBNKADyioFQiSLSKTkJ24e3eabbApJjTcRPV8y9hDSes6x3Nc4PSVC0DdrOpvXNFF2a
- pxUvFsr4K7ktlX25YMfIpt5olsIHGdGoC+blcV1obbhR0i7ykmJpN30Evf047DaMCZJn
- 7SkxdDlfwjJXWqmxUBktFqakEa8/HJpGIQLl55Q9ZmcEmHg5qXZEpap7URZT6/bDZBbn
- +L5cDM6mN26RI4PggxUu019GmoB1aEg2hv0XJv+XwybOltCtYrlW4f6PR/XtRIDHbB8o
- mrIQ==
-X-Gm-Message-State: AOAM533LjRK77be0ZRHHIlHglCKx91Bdq4lVWTCcdZzOK1Bg5bEjqHL+
- UqNW7bwPRUEJE7HcPPjMmUhay4fcN925ss8s3iw=
-X-Google-Smtp-Source: ABdhPJztOeX0qbkcDhGUgqmJkz/Xjz1Z8hBdU+o7cNL+/8jFrXgzSoqv4ReeXcrxKop/kg/iRZYdgBvZCtGp/EOroWY=
-X-Received: by 2002:a05:6e02:1a05:: with SMTP id
- s5mr7531783ild.303.1634894109439; 
- Fri, 22 Oct 2021 02:15:09 -0700 (PDT)
+ Fri, 22 Oct 2021 10:13:29 +0000 (UTC)
+X-UUID: d80e3027f026469f9531ae037f3ae4a0-20211022
+X-UUID: d80e3027f026469f9531ae037f3ae4a0-20211022
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw01.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1832692527; Fri, 22 Oct 2021 18:13:24 +0800
+Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Fri, 22 Oct 2021 18:13:22 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb01.mediatek.inc
+ (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Fri, 22 Oct 2021 18:13:22 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Fri, 22 Oct 2021 18:13:22 +0800
+Message-ID: <29992126d39a7f381a516fdb9cd6e39f1e51afdb.camel@mediatek.com>
+From: Jason-JH Lin <jason-jh.lin@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, "Rob
+ Herring" <robh+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>
+Date: Fri, 22 Oct 2021 18:13:22 +0800
+In-Reply-To: <8b509551-7cfa-f55c-fc0f-db7d0a3886eb@collabora.com>
+References: <20210921155218.10387-1-jason-jh.lin@mediatek.com>
+ <20210921155218.10387-10-jason-jh.lin@mediatek.com>
+ <8b509551-7cfa-f55c-fc0f-db7d0a3886eb@collabora.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-References: <1634633003-18132-1-git-send-email-dillon.minfei@gmail.com>
- <1634633003-18132-10-git-send-email-dillon.minfei@gmail.com>
- <CAL9mu0Jw99aeSmwy7gnY3XQK3V1V-C1-R8ET5jvSMz7niH=g4g@mail.gmail.com>
- <b43699a6-dc53-3fcd-6cc9-6b05025cad96@foss.st.com>
-In-Reply-To: <b43699a6-dc53-3fcd-6cc9-6b05025cad96@foss.st.com>
-From: Dillon Min <dillon.minfei@gmail.com>
-Date: Fri, 22 Oct 2021 17:14:32 +0800
-Message-ID: <CAL9mu0LUs0iwn2NUaUrbDjDGkB8dahdW+86RSeVJPpaP=V8f6A@mail.gmail.com>
-To: "gabriel.fernandez@foss.st.com" <gabriel.fernandez@foss.st.com>
-Cc: gnurou@gmail.com, linux-clk <linux-clk@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, mchehab+huawei@kernel.org,
- hugues.fruchet@foss.st.com, Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Pi-Hsun Shih <pihsun@chromium.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, ezequiel@collabora.com,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-media <linux-media@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v6 09/10] clk: stm32: Fix ltdc's clock
- turn off by clk_disable_unused() after system enter shell
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ fshao@chromium.org, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, singo.chang@mediatek.com, Yongqiang
+ Niu <yongqiang.niu@mediatek.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ dri-devel@lists.freedesktop.org, roy-cw.yeh@mediatek.com,
+ Fabien Parent <fparent@baylibre.com>, moudy.ho@mediatek.com,
+ linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
+ hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v11 09/16] soc: mediatek: add mtk-mmsys
+ support for mt8195 vdosys0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,108 +72,131 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Gabriel
+Hi Angelo,
 
-Thanks for the quick response.
+Thanks for the reviews.
 
-Best Regards
-Dillon
 
-On Fri, 22 Oct 2021 at 17:10, gabriel.fernandez@foss.st.com
-<gabriel.fernandez@foss.st.com> wrote:
->
-> Hi Dillon,
->
-> You can add my Acked-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
->
-> Best Regards
-> Gabriel
->
-> On 10/22/21 9:25 AM, Dillon Min wrote:
-> > Hi Gabriel
-> >
-> > I guess you are the maintainer of stm32 clk subsystem from [1], Could
-> > you help to review this patch, just give a brief of the history:
-> >
-> > - this patch was acked by Stephen Boyd at [2].
-> > - reviewed by Patrice Chotard at [3].
-> >
-> > Without this patch , the kernel will turn off ltdc's clk after the
-> > system reach shell.
-> >
-> > [1] https://lore.kernel.org/lkml/AM8PR10MB4785545DC980090C1E7D66B281009@AM8PR10MB4785.EURPRD10.PROD.OUTLOOK.COM/
-> >
-> > [2] https://lore.kernel.org/linux-arm-kernel/159056850835.88029.9264848839121822798@swboyd.mtv.corp.google.com/
-> >
-> > [3] https://lore.kernel.org/lkml/6915fa2a-e211-476f-8317-6825e280c322@foss.st.com/#t
-> >
-> > Best Regards
-> > Dillon
-> >
-> > On Tue, 19 Oct 2021 at 16:44, Dillon Min <dillon.minfei@gmail.com> wrote:
-> >>
-> >> stm32's clk driver register two ltdc gate clk to clk core by
-> >> clk_hw_register_gate() and clk_hw_register_composite()
-> >>
-> >> first: 'stm32f429_gates[]', clk name is 'ltdc', which no user to use.
-> >> second: 'stm32f429_aux_clk[]', clk name is 'lcd-tft', used by ltdc driver
-> >>
-> >> both of them point to the same offset of stm32's RCC register. after
-> >> kernel enter console, clk core turn off ltdc's clk as 'stm32f429_gates[]'
-> >> is no one to use. but, actually 'stm32f429_aux_clk[]' is in use.
-> >>
-> >> stm32f469/746/769 have the same issue, fix it.
-> >>
-> >> Fixes: daf2d117cbca ("clk: stm32f4: Add lcd-tft clock")
-> >> Acked-by: Stephen Boyd <sboyd@kernel.org>
-> >> Link: https://lore.kernel.org/linux-arm-kernel/1590564453-24499-7-git-send-email-dillon.minfei@gmail.com/
-> >> Link: https://lore.kernel.org/lkml/CAPTRvHkf0cK_4ZidM17rPo99gWDmxgqFt4CDUjqFFwkOeQeFDg@mail.gmail.com/
-> >> Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
-> >> ---
-> >> v6: no change.
-> >>
-> >>   drivers/clk/clk-stm32f4.c | 4 ----
-> >>   1 file changed, 4 deletions(-)
-> >>
-> >> diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
-> >> index af46176ad053..473dfe632cc5 100644
-> >> --- a/drivers/clk/clk-stm32f4.c
-> >> +++ b/drivers/clk/clk-stm32f4.c
-> >> @@ -129,7 +129,6 @@ static const struct stm32f4_gate_data stm32f429_gates[] __initconst = {
-> >>          { STM32F4_RCC_APB2ENR, 20,      "spi5",         "apb2_div" },
-> >>          { STM32F4_RCC_APB2ENR, 21,      "spi6",         "apb2_div" },
-> >>          { STM32F4_RCC_APB2ENR, 22,      "sai1",         "apb2_div" },
-> >> -       { STM32F4_RCC_APB2ENR, 26,      "ltdc",         "apb2_div" },
-> >>   };
-> >>
-> >>   static const struct stm32f4_gate_data stm32f469_gates[] __initconst = {
-> >> @@ -211,7 +210,6 @@ static const struct stm32f4_gate_data stm32f469_gates[] __initconst = {
-> >>          { STM32F4_RCC_APB2ENR, 20,      "spi5",         "apb2_div" },
-> >>          { STM32F4_RCC_APB2ENR, 21,      "spi6",         "apb2_div" },
-> >>          { STM32F4_RCC_APB2ENR, 22,      "sai1",         "apb2_div" },
-> >> -       { STM32F4_RCC_APB2ENR, 26,      "ltdc",         "apb2_div" },
-> >>   };
-> >>
-> >>   static const struct stm32f4_gate_data stm32f746_gates[] __initconst = {
-> >> @@ -286,7 +284,6 @@ static const struct stm32f4_gate_data stm32f746_gates[] __initconst = {
-> >>          { STM32F4_RCC_APB2ENR, 21,      "spi6",         "apb2_div" },
-> >>          { STM32F4_RCC_APB2ENR, 22,      "sai1",         "apb2_div" },
-> >>          { STM32F4_RCC_APB2ENR, 23,      "sai2",         "apb2_div" },
-> >> -       { STM32F4_RCC_APB2ENR, 26,      "ltdc",         "apb2_div" },
-> >>   };
-> >>
-> >>   static const struct stm32f4_gate_data stm32f769_gates[] __initconst = {
-> >> @@ -364,7 +361,6 @@ static const struct stm32f4_gate_data stm32f769_gates[] __initconst = {
-> >>          { STM32F4_RCC_APB2ENR, 21,      "spi6",         "apb2_div" },
-> >>          { STM32F4_RCC_APB2ENR, 22,      "sai1",         "apb2_div" },
-> >>          { STM32F4_RCC_APB2ENR, 23,      "sai2",         "apb2_div" },
-> >> -       { STM32F4_RCC_APB2ENR, 26,      "ltdc",         "apb2_div" },
-> >>          { STM32F4_RCC_APB2ENR, 30,      "mdio",         "apb2_div" },
-> >>   };
-> >>
-> >> --
-> >> 2.7.4
-> >>
+On Thu, 2021-10-14 at 16:05 +0200, AngeloGioacchino Del Regno wrote:
+> > Add mt8195 vdosys0 clock driver name and routing table to
+> > the driver data of mtk-mmsys.
+> > 
+
+[snip]
+
+> >  
+> > ---
+> 
+> Hello Jason,
+> thanks for the patch! However, there are a few things to improve:
+> 
+
+[snip]
+
+> > +#define MT8195_VDO0_SEL_IN					0xf34
+> > +#define MT8195_SEL_IN_VPP_MERGE_FROM_DSC_WRAP0_OUT		(0 <<
+> > 0)
+> 
+> Bitshifting 0 by 0 bits == 0, so this is simply 0.
+> 
+> > +#define MT8195_SEL_IN_VPP_MERGE_FROM_DISP_DITHER1		(1 <<
+> > 0)
+> 
+> I would write 0x1 here
+> 
+> > +#define MT8195_SEL_IN_VPP_MERGE_FROM_VDO1_VIRTUAL0		(2 <<
+> > 0)
+> 
+> ....and 0x2 here: bitshifting of 0 bits makes little sense.
+> 
+> > +#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0		
+> > (0 << 4)
+> 
+> Bitshifting 0 by 4 bits is still 0, so this is again 0.
+> This is repeated too many times, so I will not list it for all of the
+> occurrences.
+> 
+> > +#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_VPP_MERGE		(1 <<
+> > 4)
+> 
+> This is BIT(4).
+> 
+> > +#define MT8195_SEL_IN_DSC_WRAP1_IN_FROM_DISP_DITHER1		
+> > (0 << 5) > +#define MT8195_SEL_IN_DSC_WRAP1_IN_FROM_VPP_MERGE	
+> > 	(1 << 5)
+> 
+> ...and this is BIT(5)
+> 
+> > +#define MT8195_SEL_IN_SINA_VIRTUAL0_FROM_VPP_MERGE		(0 <<
+> > 8)
+> > +#define MT8195_SEL_IN_SINA_VIRTUAL0_FROM_DSC_WRAP1_OUT		
+> > (1 << 8)
+> 
+> BIT(8)
+> 
+> > +#define MT8195_SEL_IN_SINB_VIRTUAL0_FROM_DSC_WRAP0_OUT		
+> > (0 << 9)
+> > +#define MT8195_SEL_IN_DP_INTF0_FROM_DSC_WRAP1_OUT		(0 <<
+> > 12)
+> > +#define MT8195_SEL_IN_DP_INTF0_FROM_VPP_MERGE			
+> > (1 << 12)
+> 
+> BIT(12)
+> 
+> > +#define MT8195_SEL_IN_DP_INTF0_FROM_VDO1_VIRTUAL0		(2 <<
+> > 12)
+> 
+> BIT(13)
+> 
+> ... and please, use the BIT(nr) macro for all these bit definitions,
+> it's way more
+> readable like that.
+> 
+> Regards,
+> - Angelo
+
+Because the HW register design of MT8195_VDO0_SEL_IN 0xf34 is like
+this:
+
+bit[1:0] as MT8195_SEL_IN_VPP_MERGE and
+  value: 0 as MT8195_SEL_IN_VPP_MERGE_FROM_DSC_WRAP0_OUT
+  value: 1 as MT8195_SEL_IN_VPP_MERGE_FROM_DISP_DITHER1
+  value: 2 as MT8195_SEL_IN_VPP_MERGE_FROM_VDO1_VIRTUAL0
+bit[4:4] as MT8195_SEL_IN_DSC_WRAP0_IN and
+  value 0 as MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0
+  value 1 as MT8195_SEL_IN_DSC_WRAP0_IN_FROM_VPP_MERGE
+bit[5:5] as MT8195_SEL_IN_DSC_WRAP1_IN and
+  value 0 as
+MT8195_SEL_IN_DSC_WRAP1_IN_FROM_DISP_DITHER1
+  value 1 as
+MT8195_SEL_IN_DSC_WRAP1_IN_FROM_VPP_MERGE
+and so on...
+
+I think using BIT(nr) macro directly is not easy to debug.
+
+
+Is it better to define another MACRO like this?
+
+#define BIT_VAL(val, bit)  ((val) << (bit))
+#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0  BIT_VAL(0, 4)
+#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_VPP_MERGE  BIT_VAL(1, 4)
+...
+
+or
+
+#define MT8195_SEL_IN_DSC_WRAP0_IN (4)
+#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0  (0
+<< MT8195_SEL_IN_DSC_WRAP0_IN)
+#define MT8195_SEL_IN_DSC_WRAP0_IN_FROM_VPP_MERGE  (1 <<
+MT8195_SEL_IN_DSC_WRAP0_IN)
+...
+
+What do you think?
+
+
+Regards,
+Jason-JH Lin <jason-jh.lin@mediatek.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
