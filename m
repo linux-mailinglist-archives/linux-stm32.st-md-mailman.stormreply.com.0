@@ -2,56 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBEFF437C12
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Oct 2021 19:40:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D6B8437C33
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Oct 2021 19:43:05 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 772A5C5C85B;
-	Fri, 22 Oct 2021 17:40:24 +0000 (UTC)
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A621C5C85B;
+	Fri, 22 Oct 2021 17:43:05 +0000 (UTC)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BA4CC57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52DFCC57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Oct 2021 17:40:22 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id om14so3452364pjb.5
+ Fri, 22 Oct 2021 17:43:02 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id y7so4291238pfg.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Oct 2021 10:40:22 -0700 (PDT)
+ Fri, 22 Oct 2021 10:43:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=liWZli0eAF8afgakhBPCOuJHOqUaz+9glMsUeQZ0bBE=;
- b=gh/gv+dOl3T/Yz05wZAfdRzAQ4bnQBamqpZxekxHgeqJ2A79ET86YbMYyM1JZ2iFmu
- Cjpnhc0niQwAJKYkuGzKVLSvsdyxdBUaZZPv+N4kgz8Vhn3pZsZxqMRQ/gOHyd3cb8ot
- PISuK6HiPDwX2jOiQbiVy/2wAp8HHQxSbCvog1OQLw5YYrEceThndvKImgBFIsU5BKuS
- Vyacuioa2wnsH4ODtvE+/aYsXk9Qg/0rulnzNOyOEc3LFsQR+baYe1mYxGiz6CiNecsD
- ebVdw/TQ3UNceLFu7ZoOW0+dfxv4pgfyI4qiOUgUkw1fvKJtQllDW4Kn8dqMfU3mllHr
- MtPg==
+ bh=9n/cqrzRbqe+8NgRURNa9xyWoP4yHX8hd+RzSNaaxRM=;
+ b=nzYbGo7KXNJ+pz9cuiwU9Et1Mhjpd9qmzBAJPhTz/EY2AyAu+nrL6LRL0mn9i0Y7cY
+ 4WjRzRGmQpIa2RhU8uw/NgsAMyXnlHjd0PLI0TXEN0dDUtkzb8qvOgYoq1vH3uUHgcoe
+ W8oqq8wQ+5Q4ffoKQcKSBv28/YiHcgpzde+/zGV0QVJ55g1wJ9wrO3YsuIF5XRXhaH13
+ yc01/smZgcUa9KfuDd4ZdhzDWkUt9NHgvGIXROrIZ3satkK04u+s3gsdUTEeM+W/rG68
+ xneGbKP8fJ5W5Jn0suJ0dAvUx/PGbTzpi/HSM0GAGlodBQXTO4e8XGjYmoFqjsfijV8V
+ uqsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=liWZli0eAF8afgakhBPCOuJHOqUaz+9glMsUeQZ0bBE=;
- b=qHQIerpoMfRurPF0zngmfwKUJkEAE0IfHxSKSCG5be24U3rPGm6Om/Nxr7cksRiL5X
- zf1dOxNOH74nlv0+PCoZ7jvVXQsDcUdHiMX1yz0tRudXM4DzK62YEgCGonDT1FWZ6mgp
- H1bcIC2ZzXH6tZLRGYIgvIFM88eeqqEdvkWo8r4CUdmnbrSRtpFAFqrqe4GiHQWD8gFx
- a+k3GOZS2YLBGyO11Ybz4IrITA0IT26xEyHMxehv02qGVVDhCWEA+AQT+fVsdREmz72M
- zsT3hG5tBlJPltSNekJEc3R1qkkZJWQJQoJDqYIfRSGfxxGv91mBIIHwA7oQMmRQyqpZ
- VlUQ==
-X-Gm-Message-State: AOAM532ULK0V9Z9sTwdWSi2tSRWpXsEU0FIJckdO9R0qhRR0gDYFMPl6
- kiaY9erOiSFupsNtFYb1e4CD9A==
-X-Google-Smtp-Source: ABdhPJz1BO5gT/0qxla2xBJC7oQyx8/tu9cL5I+Ak00IcmUjFcs98nrq0S0UY2+Ty/lGxPN/egORYQ==
-X-Received: by 2002:a17:90a:6583:: with SMTP id
- k3mr16418390pjj.147.1634924420954; 
- Fri, 22 Oct 2021 10:40:20 -0700 (PDT)
+ bh=9n/cqrzRbqe+8NgRURNa9xyWoP4yHX8hd+RzSNaaxRM=;
+ b=tV5T6eUTOjXCRtzTFIPK7bEqebGwrVVWojwiEiZtgSJuEsYqnAsdDmDSYnzmbUs3Ve
+ u8WQAz/OavKov9FGJgcg46VAqz3aFo1ZMqBNUAzH41mt1L4xPFPsnD1gd/ucxsBFA8O/
+ sH5jWxLn0o3QSYPOtgnMLGISYmMovaLYrw0ZbbdmlRv3di3Wr7ZffcHjhHzxSOWKy9GW
+ ltPSUfrw3/M3RrFo13Osw+31LKxqW3iUVbzvjAleWJgjGaCLT8WeUJssksoVux3FnaDO
+ 5iDtT6kNX3m+dxwVlDZ+CrDw+e0Lhb6+Yd71+buqiIWHnNwQpw+JqbxeijVfX8VNubES
+ C1XA==
+X-Gm-Message-State: AOAM531JEQy+JaIkMZipSmm4hpZT7qBPXcB1lvgxaZ3jYM0bSlutlKWD
+ tEX0Ie3LRIyXuoa6vpcWZQ9C/Q==
+X-Google-Smtp-Source: ABdhPJx0pd6dzLUNZono6TwvzeMgOEHqx8YHF0LofvRdAtYUOGdpReFSxR3L85OmL6WGUlVTO/eG3g==
+X-Received: by 2002:a63:561a:: with SMTP id k26mr894072pgb.144.1634924581389; 
+ Fri, 22 Oct 2021 10:43:01 -0700 (PDT)
 Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
- by smtp.gmail.com with ESMTPSA id p16sm9142083pgd.78.2021.10.22.10.40.19
+ by smtp.gmail.com with ESMTPSA id b18sm12047386pfl.24.2021.10.22.10.42.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Oct 2021 10:40:19 -0700 (PDT)
-Date: Fri, 22 Oct 2021 11:40:17 -0600
+ Fri, 22 Oct 2021 10:43:00 -0700 (PDT)
+Date: Fri, 22 Oct 2021 11:42:58 -0600
 From: Mathieu Poirier <mathieu.poirier@linaro.org>
 To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <20211022174017.GB3659113@p14s>
+Message-ID: <20211022174258.GC3659113@p14s>
 References: <20211001101234.4247-1-arnaud.pouliquen@foss.st.com>
  <20211001101234.4247-6-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
@@ -80,18 +79,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The title mentions the creation of a "platform device" but this patch adds a
-platform driver interface.
-
 On Fri, Oct 01, 2021 at 12:12:32PM +0200, Arnaud Pouliquen wrote:
 > Define a platform device for the remoteproc virtio to prepare the
 > management of the remoteproc virtio as a platform device.
-
-The above should be:
-
-"Define a platform driver to prepare for the managemnt of remoteproc virtio
-devices as platform devices."
-
 > 
 > The platform device allows to pass rproc_vdev_data platform data to
 > specify properties that are stored in the rproc_vdev structure.
@@ -115,6 +105,9 @@ devices as platform devices."
 >  };
 >  
 > +struct rproc_vdev_data {
+
+s/rproc_vdev_data/rproc_vdev_pdata
+
 > +	u32 rsc_offset;
 > +	unsigned int id;
 > +	unsigned int index;
