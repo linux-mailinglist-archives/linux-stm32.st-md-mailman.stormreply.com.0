@@ -2,56 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34FD3437570
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Oct 2021 12:30:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B02014376B4
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Oct 2021 14:19:51 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFACCC5C857;
-	Fri, 22 Oct 2021 10:30:48 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E2C5C5C857;
+	Fri, 22 Oct 2021 12:19:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48B6FC597AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5311C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Oct 2021 10:30:44 +0000 (UTC)
-X-UUID: 5ee641a17dd94a58aa7a494abd9ee8fe-20211022
-X-UUID: 5ee641a17dd94a58aa7a494abd9ee8fe-20211022
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw02.mediatek.com
- (envelope-from <jason-jh.lin@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1778794933; Fri, 22 Oct 2021 18:30:37 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 22 Oct 2021 18:30:36 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 22 Oct 2021 18:30:36 +0800
-Message-ID: <c15cc3f5e507e03c15be14c929430ce5bf313139.camel@mediatek.com>
-From: Jason-JH Lin <jason-jh.lin@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Rob
- Herring <robh+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, "Philipp Zabel"
- <p.zabel@pengutronix.de>
-Date: Fri, 22 Oct 2021 18:30:36 +0800
-In-Reply-To: <3e72dd1e-edf2-6d42-40e7-0c1c72749a20@collabora.com>
-References: <20210921155218.10387-1-jason-jh.lin@mediatek.com>
- <20210921155218.10387-16-jason-jh.lin@mediatek.com>
- <3e72dd1e-edf2-6d42-40e7-0c1c72749a20@collabora.com>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ Fri, 22 Oct 2021 12:19:49 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19M9KiFE026560; 
+ Fri, 22 Oct 2021 14:19:37 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=W+avfcbVE3ooTZraWY0QHUAVP7fdnfpPvL3ByfAnco0=;
+ b=xo76YZwFxb1yVWVWLUct10G1AEatspQZxwFpEc2qOPRksjPznO/QS2ou35TQ8LRg/kls
+ 60FqDZo9ZtrJGCLa3EEwe+cP+ZJqB9+xvzhydouxqLiXqzsmRTVxiUSt8PPC/99S7ALD
+ GTzVLxbhKVELW42zz3Txtq4mz8etZ+krUn9Snyx2x01yhuTff6UUxyPMeyCO0vZouPJs
+ vtSZ3ZFb8P201Qa2ADi9BTdJJx+ilHL3bgB609x+A4UW79mk2Y5hzgOCdGT4cmOTsCaK
+ nk95SQ8umpVKR9uUgoGNG+bjyEF60gzGTsKOcgzA2mmgkDQTUFJBpLCXVWXhP1BB4w7k Mg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3butka12ar-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 22 Oct 2021 14:19:37 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E20CD10002A;
+ Fri, 22 Oct 2021 14:19:36 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D639C218111;
+ Fri, 22 Oct 2021 14:19:36 +0200 (CEST)
+Received: from localhost (10.75.127.48) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Fri, 22 Oct 2021 14:19:36
+ +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <jic23@kernel.org>
+Date: Fri, 22 Oct 2021 14:19:29 +0200
+Message-ID: <1634905169-23762-1-git-send-email-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- fshao@chromium.org, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org, singo.chang@mediatek.com, Yongqiang
- Niu <yongqiang.niu@mediatek.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- dri-devel@lists.freedesktop.org, roy-cw.yeh@mediatek.com,
- Fabien Parent <fparent@baylibre.com>, moudy.ho@mediatek.com,
- linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
- hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-10-22_03,2021-10-21_02,2020-04-07_01
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v11 15/16] drm/mediatek: add MERGE support
- for mediatek-drm
+Subject: [Linux-stm32] [PATCH] iio: adc: stm32: fix a leak by resetting
+	pcsel before disabling vdda
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,144 +72,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Angelo,
+Some I/Os are connected to ADC input channels, when the corresponding bit
+in PCSEL register are set on STM32H7 and STM32MP15. This is done in the
+prepare routine of stm32-adc driver.
+There are constraints here, as PCSEL shouldn't be set when VDDA supply
+is disabled. Enabling/disabling of VDDA supply in done via stm32-adc-core
+runtime PM routines (before/after ADC is enabled/disabled).
 
-thanks for the review.
+Currently, PCSEL remains set when disabling ADC. Later on, PM runtime
+can disable the VDDA supply. This creates some conditions on I/Os that
+can start to leak current.
+So PCSEL needs to be cleared when disabling the ADC.
 
-On Thu, 2021-10-14 at 16:27 +0200, AngeloGioacchino Del Regno wrote:
-> Il 21/09/21 17:52, jason-jh.lin ha scritto:
-> > Add MERGE engine file:
+Fixes: 95e339b6e85d ("iio: adc: stm32: add support for STM32H7")
 
-[snip]
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+ drivers/iio/adc/stm32-adc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> > +int mtk_merge_clk_enable(struct device *dev)
-> > +{
-> > +	int ret = 0;
-> > +	struct mtk_disp_merge *priv = dev_get_drvdata(dev);
-> > +
-> > +	ret = clk_prepare_enable(priv->clk);
-> > +	if (ret)
-> > +		pr_err("merge clk prepare enable failed\n");
-> 
-> If you failed to enable this clock, I take it as the hardware won't
-> work or
-> won't work as expected, hence you should return a failure before
-> trying to
-> call prepare_enable for async_clk.
-> 
-OK I'll fix it.
-
-> > +	ret = clk_prepare_enable(priv->async_clk);
-> > +	if (ret)
-> > +		pr_err("async clk prepare enable failed\n");
-> > +
-> 
-> You should also return a failure here but, before that, you should
-> clean up
-> the state by calling clk_disable_unprepare(priv->clk), or you will
-> leave it
-> enabled, eventually getting a hardware fault later on (which may or
-> may not
-> result in a board reboot), or other sorts of unexpected states.
-> 
-> At least, you will get issues with the refcount for "clk" and/or
-> "async_clk".
-> 
-> Please fix that.
-> 
-> Also, please use dev_err or, more appropriately, DRM_ERROR instead or
-> pr_err.
-> 
-
-OK I'll fix it .
-
-> > +	return ret;
-> > +}
-> > +
-> > +void mtk_merge_clk_disable(struct device *dev)
-> > +{
-> > +	struct mtk_disp_merge *priv = dev_get_drvdata(dev);
-> > +
-> > +	clk_disable_unprepare(priv->async_clk); > +	clk_disable_unprepa
-> > re(priv->clk);
-> > +}
-> > +
-> > +static int mtk_disp_merge_bind(struct device *dev, struct device
-> > *master,
-> > +			       void *data)
-> > +{
-> > +	return 0;
-> > +}
-> > +
-> > +static void mtk_disp_merge_unbind(struct device *dev, struct
-> > device *master,
-> > +				  void *data)
-> > +{
-> > +}
-> > +
-> > +static const struct component_ops mtk_disp_merge_component_ops = {
-> > +	.bind	= mtk_disp_merge_bind,
-> > +	.unbind = mtk_disp_merge_unbind,
-> > +};
-> > +
-> > +static int mtk_disp_merge_probe(struct platform_device *pdev)
-> > +{
-> > +	struct device *dev = &pdev->dev;
-> > +	struct resource *res;
-> > +	struct mtk_disp_merge *priv;
-> > +	int ret;
-> > +
-> > +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> > +	if (!priv)
-> > +		return -ENOMEM;
-> > +
-> > +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> > +	priv->regs = devm_ioremap_resource(dev, res);
-> > +	if (IS_ERR(priv->regs)) {
-> > +		dev_err(dev, "failed to ioremap merge\n");
-> > +		return PTR_ERR(priv->regs);
-> > +	}
-> > +
-> > +	priv->clk = devm_clk_get(dev, NULL);
-> > +	if (IS_ERR(priv->clk)) {
-> > +		dev_err(dev, "failed to get merge clk\n");
-> > +		return PTR_ERR(priv->clk);
-> > +	}
-> > +
-> > +	priv->async_clk = of_clk_get(dev->of_node, 1);
-> > +	if (IS_ERR(priv->async_clk)) {
-> > +		ret = PTR_ERR(priv->async_clk);
-> > +		dev_dbg(dev, "No merge async clock: %d\n", ret);
-> > +		priv->async_clk = NULL;
-> > +	}
-> > +
-> 
-> You are using devm_clk_get for the first clock, of_clk_get for the
-> second one:
-> what's the reason for that?
-> 
-> Also, async_clk seems to be optional... and there's the right API for
-> you!
-> If you use devm_clk_get_optional(), you won't have to manually assign
-> NULL
-> to priv->async_clk, as that's API handled... and you'll get a failure
-> if
-> the return value is an error that's not -ENOENT (so, it'll fail if
-> the clock
-> was declared in DT, but there was an error acquiring it).
-> 
-> Please use devm_clk_get_optional() here.
-> 
-
-Yes, async_clk is optional.
-Thanks for your suggestion.
-I'll try it.
-
-> Regards,
-> - Angelo
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 5088de8..e3e7541 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -975,6 +975,7 @@ static void stm32h7_adc_unprepare(struct iio_dev *indio_dev)
+ {
+ 	struct stm32_adc *adc = iio_priv(indio_dev);
+ 
++	stm32_adc_writel(adc, STM32H7_ADC_PCSEL, 0);
+ 	stm32h7_adc_disable(indio_dev);
+ 	stm32h7_adc_enter_pwr_down(adc);
+ }
 -- 
-Regards,
-Jason-JH Lin <jason-jh.lin@mediatek.com>
+2.7.4
 
 _______________________________________________
 Linux-stm32 mailing list
