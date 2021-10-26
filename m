@@ -2,54 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06B6443B653
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Oct 2021 17:59:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8485A43BBAB
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Oct 2021 22:38:12 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0FB7C5E2B4;
-	Tue, 26 Oct 2021 15:59:27 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BBDCC5660B;
+	Tue, 26 Oct 2021 20:38:12 +0000 (UTC)
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54195C5E2A4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF146C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Oct 2021 15:59:21 +0000 (UTC)
-X-UUID: c04a93ef281f467ca9069a22ed15425d-20211026
-X-UUID: c04a93ef281f467ca9069a22ed15425d-20211026
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw01.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 938705346; Tue, 26 Oct 2021 23:59:16 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Tue, 26 Oct 2021 23:59:15 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Tue, 26 Oct 2021 23:59:14 +0800
-From: jason-jh.lin <jason-jh.lin@mediatek.com>
-To: Rob Herring <robh+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>
-Date: Tue, 26 Oct 2021 23:59:11 +0800
-Message-ID: <20211026155911.17651-17-jason-jh.lin@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20211026155911.17651-1-jason-jh.lin@mediatek.com>
-References: <20211026155911.17651-1-jason-jh.lin@mediatek.com>
+ Tue, 26 Oct 2021 20:38:08 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id r6so402013oiw.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 26 Oct 2021 13:38:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=cQAy+ch/uXL0enK+MtdMfdJNuhvgB4pFrD8BNcOrG1A=;
+ b=ReNOO64HYbOOrEiI8YiXMyN5hbxSzJsAYczGB8dWY6em1eg99Q4imqYsLm/t7e+0gz
+ MklK+4a/rFSX7AjZ1fAasHq5KCxjsQgaZYxng25IlZHzGvM0YotsMN/9EC9U74i4aAPW
+ 0Xyns5FmsiJ8mHBW0TMuKVw4xFTyrmvoDBOcW0tL0saudb+gyC50hXKQvTZEgN3OvkmF
+ xKkAEM/4HvpJxVFYc8iNYxTwMwk5q8UgSkF0MTb5/ItMqMAF04H0GCVxRaN7K4hAwDqQ
+ clIDWfASIj9X2CFrYDMsZPe141bZQ5joolISwuDuhXK16pidUaBTvBAWKeVllvUJmYCF
+ OXsQ==
+X-Gm-Message-State: AOAM5323s6QBRV8hGFEWOz0UlVR0CusBTboOJLFJCK9PdaJwC8golgHs
+ u6WQkPoOnyQVbJ2t1AKexg==
+X-Google-Smtp-Source: ABdhPJzauTHPSFI/P4AXq1Lb+Cgj5u3xsLCqIk3BpGpme6R4fCMv6FXhMoQpXBkiuqzHK27I78Rb8g==
+X-Received: by 2002:a05:6808:1cc:: with SMTP id
+ x12mr780989oic.88.1635280687533; 
+ Tue, 26 Oct 2021 13:38:07 -0700 (PDT)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id c5sm935744oiw.13.2021.10.26.13.38.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 Oct 2021 13:38:07 -0700 (PDT)
+Received: (nullmailer pid 3202845 invoked by uid 1000);
+ Tue, 26 Oct 2021 20:38:06 -0000
+Date: Tue, 26 Oct 2021 15:38:06 -0500
+From: Rob Herring <robh@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <YXhnLh9OYxUz8dIC@robh.at.kernel.org>
+References: <1634144026-3326-1-git-send-email-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, fshao@chromium.org,
- David Airlie <airlied@linux.ie>, jason-jh.lin@mediatek.com,
- singo.chang@mediatek.com, Yongqiang Niu <yongqiang.niu@mediatek.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, roy-cw.yeh@mediatek.com,
- Fabien Parent <fparent@baylibre.com>, moudy.ho@mediatek.com,
- linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
- hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v12 16/16] drm/mediatek: add mediatek-drm of
-	vdosys0 support for mt8195
+Content-Disposition: inline
+In-Reply-To: <1634144026-3326-1-git-send-email-fabrice.gasnier@foss.st.com>
+Cc: devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alexandre.torgue@foss.st.com, hminas@synopsys.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: usb: dwc2: document the port
+ when usb-role-switch is used
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,126 +71,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add driver data of mt8195 vdosys0 to mediatek-drm and the sub driver.
+On Wed, Oct 13, 2021 at 06:53:46PM +0200, Fabrice Gasnier wrote:
+> Document the "port" property, which is used with "usb-role-switch"
+> to describe the bus connector.
+> Definition is inspired from mediatek,mtu3.yaml.
+> 
+> This fixes some errors seen when running "make dtbs_check":
+> ... 'port' does not match any of the regexes: 'pinctrl-[0-9]+'
+>         From schema: ... Documentation/devicetree/bindings/usb/dwc2.yaml
+> 
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> ---
+>  Documentation/devicetree/bindings/usb/dwc2.yaml | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/dwc2.yaml b/Documentation/devicetree/bindings/usb/dwc2.yaml
+> index 10c7d9b..7d1aa53 100644
+> --- a/Documentation/devicetree/bindings/usb/dwc2.yaml
+> +++ b/Documentation/devicetree/bindings/usb/dwc2.yaml
+> @@ -130,6 +130,16 @@ properties:
+>      description: If present indicates that we need to reset the PHY when we 
+>        detect a wakeup. This is due to a hardware errata.
+>  
+> +  port:
+> +    description:
+> +      Any connector to the data bus of this controller should be modelled
+> +      using the OF graph bindings specified, if the "usb-role-switch"
+> +      property is used. See graph.txt
 
-Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
----
-rebase on series [1]
+Drop 'See graph.txt'
 
-[1] drm/mediatek: add support for mediatek SOC MT8192
-- https://patchwork.kernel.org/project/linux-mediatek/list/?series=529489
----
- drivers/gpu/drm/mediatek/mtk_disp_rdma.c |  6 +++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c   | 28 ++++++++++++++++++++++++
- 2 files changed, 34 insertions(+)
+> +    $ref: /schemas/graph.yaml#/properties/port
+> +
+> +dependencies:
+> +  port: [ 'usb-role-switch' ]
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_rdma.c b/drivers/gpu/drm/mediatek/mtk_disp_rdma.c
-index d41a3970b944..77c952bdc88c 100644
---- a/drivers/gpu/drm/mediatek/mtk_disp_rdma.c
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_rdma.c
-@@ -357,6 +357,10 @@ static const struct mtk_disp_rdma_data mt8192_rdma_driver_data = {
- 	.fifo_size = 5 * SZ_1K,
- };
- 
-+static const struct mtk_disp_rdma_data mt8195_rdma_driver_data = {
-+	.fifo_size = 1920,
-+};
-+
- static const struct of_device_id mtk_disp_rdma_driver_dt_match[] = {
- 	{ .compatible = "mediatek,mt2701-disp-rdma",
- 	  .data = &mt2701_rdma_driver_data},
-@@ -366,6 +370,8 @@ static const struct of_device_id mtk_disp_rdma_driver_dt_match[] = {
- 	  .data = &mt8183_rdma_driver_data},
- 	{ .compatible = "mediatek,mt8192-disp-rdma",
- 	  .data = &mt8192_rdma_driver_data},
-+	{ .compatible = "mediatek,mt8195-disp-rdma",
-+	  .data = &mt8195_rdma_driver_data},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtk_disp_rdma_driver_dt_match);
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index 2f33fe8ad46b..274a5bb10851 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -177,6 +177,19 @@ static const enum mtk_ddp_comp_id mt8192_mtk_ddp_ext[] = {
- 	DDP_COMPONENT_DPI0,
- };
- 
-+static const enum mtk_ddp_comp_id mt8195_mtk_ddp_main[] = {
-+	DDP_COMPONENT_OVL0,
-+	DDP_COMPONENT_RDMA0,
-+	DDP_COMPONENT_COLOR0,
-+	DDP_COMPONENT_CCORR,
-+	DDP_COMPONENT_AAL0,
-+	DDP_COMPONENT_GAMMA,
-+	DDP_COMPONENT_DITHER,
-+	DDP_COMPONENT_DSC0,
-+	DDP_COMPONENT_MERGE0,
-+	DDP_COMPONENT_DP_INTF0,
-+};
-+
- static const struct mtk_mmsys_driver_data mt2701_mmsys_driver_data = {
- 	.main_path = mt2701_mtk_ddp_main,
- 	.main_len = ARRAY_SIZE(mt2701_mtk_ddp_main),
-@@ -228,6 +241,11 @@ static const struct mtk_mmsys_driver_data mt8192_mmsys_driver_data = {
- 	.ext_len = ARRAY_SIZE(mt8192_mtk_ddp_ext),
- };
- 
-+static const struct mtk_mmsys_driver_data mt8195_vdosys0_driver_data = {
-+	.main_path = mt8195_mtk_ddp_main,
-+	.main_len = ARRAY_SIZE(mt8195_mtk_ddp_main),
-+};
-+
- static int mtk_drm_kms_init(struct drm_device *drm)
- {
- 	struct mtk_drm_private *private = drm->dev_private;
-@@ -447,12 +465,16 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_DITHER },
- 	{ .compatible = "mediatek,mt8183-disp-dither",
- 	  .data = (void *)MTK_DISP_DITHER },
-+	{ .compatible = "mediatek,mt8195-disp-dsc",
-+	  .data = (void *)MTK_DISP_DSC },
- 	{ .compatible = "mediatek,mt8167-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
- 	{ .compatible = "mediatek,mt8173-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
- 	{ .compatible = "mediatek,mt8183-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
-+	{ .compatible = "mediatek,mt8195-disp-merge",
-+	  .data = (void *)MTK_DISP_MERGE },
- 	{ .compatible = "mediatek,mt2701-disp-mutex",
- 	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt2712-disp-mutex",
-@@ -465,6 +487,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt8192-disp-mutex",
- 	  .data = (void *)MTK_DISP_MUTEX },
-+	{ .compatible = "mediatek,mt8195-disp-mutex",
-+	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt8173-disp-od",
- 	  .data = (void *)MTK_DISP_OD },
- 	{ .compatible = "mediatek,mt2701-disp-ovl",
-@@ -499,6 +523,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8192-disp-rdma",
- 	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8195-disp-rdma",
-+	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8173-disp-ufoe",
- 	  .data = (void *)MTK_DISP_UFOE },
- 	{ .compatible = "mediatek,mt8173-disp-wdma",
-@@ -535,6 +561,8 @@ static const struct of_device_id mtk_drm_of_ids[] = {
- 	  .data = &mt8183_mmsys_driver_data},
- 	{ .compatible = "mediatek,mt8192-mmsys",
- 	  .data = &mt8192_mmsys_driver_data},
-+	{.compatible = "mediatek,mt8195-vdosys0",
-+	  .data = &mt8195_vdosys0_driver_data},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, mtk_drm_of_ids);
--- 
-2.18.0
+usb-role-switch without port is valid or both must be present. In case 
+of the latter, you need to add:
 
+usb-role-switch: [ port ]
+
+Also, you don't need quotes.
+
+> +
+>  required:
+>    - compatible
+>    - reg
+> -- 
+> 2.7.4
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
