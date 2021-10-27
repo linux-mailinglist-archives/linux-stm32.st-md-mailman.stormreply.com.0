@@ -2,59 +2,123 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8485A43BBAB
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Oct 2021 22:38:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC3C43C296
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Oct 2021 08:11:17 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BBDCC5660B;
-	Tue, 26 Oct 2021 20:38:12 +0000 (UTC)
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
- [209.85.167.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5129FC57183;
+	Wed, 27 Oct 2021 06:11:17 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF146C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8367CC06B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Oct 2021 20:38:08 +0000 (UTC)
-Received: by mail-oi1-f174.google.com with SMTP id r6so402013oiw.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Oct 2021 13:38:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=cQAy+ch/uXL0enK+MtdMfdJNuhvgB4pFrD8BNcOrG1A=;
- b=ReNOO64HYbOOrEiI8YiXMyN5hbxSzJsAYczGB8dWY6em1eg99Q4imqYsLm/t7e+0gz
- MklK+4a/rFSX7AjZ1fAasHq5KCxjsQgaZYxng25IlZHzGvM0YotsMN/9EC9U74i4aAPW
- 0Xyns5FmsiJ8mHBW0TMuKVw4xFTyrmvoDBOcW0tL0saudb+gyC50hXKQvTZEgN3OvkmF
- xKkAEM/4HvpJxVFYc8iNYxTwMwk5q8UgSkF0MTb5/ItMqMAF04H0GCVxRaN7K4hAwDqQ
- clIDWfASIj9X2CFrYDMsZPe141bZQ5joolISwuDuhXK16pidUaBTvBAWKeVllvUJmYCF
- OXsQ==
-X-Gm-Message-State: AOAM5323s6QBRV8hGFEWOz0UlVR0CusBTboOJLFJCK9PdaJwC8golgHs
- u6WQkPoOnyQVbJ2t1AKexg==
-X-Google-Smtp-Source: ABdhPJzauTHPSFI/P4AXq1Lb+Cgj5u3xsLCqIk3BpGpme6R4fCMv6FXhMoQpXBkiuqzHK27I78Rb8g==
-X-Received: by 2002:a05:6808:1cc:: with SMTP id
- x12mr780989oic.88.1635280687533; 
- Tue, 26 Oct 2021 13:38:07 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id c5sm935744oiw.13.2021.10.26.13.38.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Oct 2021 13:38:07 -0700 (PDT)
-Received: (nullmailer pid 3202845 invoked by uid 1000);
- Tue, 26 Oct 2021 20:38:06 -0000
-Date: Tue, 26 Oct 2021 15:38:06 -0500
-From: Rob Herring <robh@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <YXhnLh9OYxUz8dIC@robh.at.kernel.org>
-References: <1634144026-3326-1-git-send-email-fabrice.gasnier@foss.st.com>
+ Wed, 27 Oct 2021 06:11:13 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19R5prE3007246; 
+ Wed, 27 Oct 2021 08:10:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=q0IzamWoBnMLIIIWgH1c6YZ0YARVpDAlAywCoCd8O6A=;
+ b=pLut+GxRqLoEwutxmEsKmT0U9f6n8Czu59GaLbziADOMwtznLgQUZ54Gw0mFG30LzTFI
+ mAf8pn9K9k2l9XDGD8kyB8y+cnm5BmAO3YB00+gyy/yFMSCCO5HF8/PQ6lATeCubYrNt
+ DdiIwe9I6oNJ1LpNKfJ0tNMiodtkGtIRzCLDVOx9JfwIBUGTkeKgOf8Hru+PdxHSGGIB
+ WmjLMAKdFPGg4+kJmvUsa+tgl9tTdDraTeFW116MnoqgEuCPXI2gblkV13eeEpJbnLHW
+ 9gSaSeXE68XwgQBNQi7Ez8d68t00m5nmdGyM96U93gZ2aaDRvaLknKJ4aiI1DjaFKmGE dQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 3by10br34g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 Oct 2021 08:10:50 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 08F3C100034;
+ Wed, 27 Oct 2021 08:10:46 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A09DC21810A;
+ Wed, 27 Oct 2021 08:10:46 +0200 (CEST)
+Received: from lmecxl0573.lme.st.com (10.75.127.49) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Wed, 27 Oct
+ 2021 08:10:43 +0200
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>, Rob Herring
+ <robh+dt@kernel.org>, maxime coquelin <mcoquelin.stm32@gmail.com>,
+ "alexandre torgue" <alexandre.torgue@foss.st.com>, michael turquette
+ <mturquette@baylibre.com>, stephen boyd <sboyd@kernel.org>, herbert xu
+ <herbert@gondor.apana.org.au>, "david s . miller" <davem@davemloft.net>,
+ david airlie <airlied@linux.ie>, daniel vetter <daniel@ffwll.ch>, "thierry
+ reding" <thierry.reding@gmail.com>, sam ravnborg <sam@ravnborg.org>,
+ "yannick fertre" <yannick.fertre@foss.st.com>, philippe cornu
+ <philippe.cornu@foss.st.com>, benjamin gaignard
+ <benjamin.gaignard@linaro.org>,
+ vinod koul <vkoul@kernel.org>, ohad ben-cohen <ohad@wizery.com>,
+ bjorn andersson <bjorn.andersson@linaro.org>, baolin wang
+ <baolin.wang7@gmail.com>, jonathan cameron <jic23@kernel.org>, "lars-peter
+ clausen" <lars@metafoo.de>, olivier moysan <olivier.moysan@foss.st.com>,
+ arnaud pouliquen <arnaud.pouliquen@foss.st.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>, Jassi Brar
+ <jassisinghbrar@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, Fabrice Gasnier
+ <fabrice.gasnier@foss.st.com>, Lee Jones <lee.jones@linaro.org>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Jakub Kicinski <kuba@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Matt Mackall <mpm@selenic.com>, "Alessandro
+ Zummo" <a.zummo@towertech.it>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Amit Kucheria <amitk@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Viresh Kumar <viresh.kumar@linaro.org>, "Ahmad
+ Fatoum" <a.fatoum@pengutronix.de>, Jagan Teki <jagan@amarulasolutions.com>,
+ dillon min <dillon.minfei@gmail.com>, Marek Vasut <marex@denx.de>, "Laurent
+ Pinchart" <laurent.pinchart@ideasonboard.com>, Sebastian Reichel
+ <sre@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Fabien Dessenne <fabien.dessenne@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>, Gabriel Fernandez
+ <gabriel.fernandez@foss.st.com>,
+ Lionel Debieve <lionel.debieve@foss.st.com>,
+ Amelie Delaunay <amelie.delaunay@foss.st.com>, Pierre-Yves MORDRET
+ <pierre-yves.mordret@foss.st.com>,
+ Ludovic Barre <ludovic.barre@foss.st.com>,
+ Christophe Kerello <christophe.kerello@foss.st.com>, pascal Paillet
+ <p.paillet@foss.st.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, "Jose
+ Abreu" <joabreu@synopsys.com>, Le Ray <erwan.leray@foss.st.com>
+References: <20211020065000.21312-1-patrice.chotard@foss.st.com>
+ <22fb6f19-21eb-dcb5-fa31-bb243d4a7eaf@canonical.com>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+Message-ID: <e8ddc63b-a0b5-79ae-6aff-19810cf74920@foss.st.com>
+Date: Wed, 27 Oct 2021 08:10:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1634144026-3326-1-git-send-email-fabrice.gasnier@foss.st.com>
-Cc: devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
+In-Reply-To: <22fb6f19-21eb-dcb5-fa31-bb243d4a7eaf@canonical.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-10-27_01,2021-10-26_01,2020-04-07_01
+Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-rtc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
  linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- alexandre.torgue@foss.st.com, hminas@synopsys.com,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: usb: dwc2: document the port
- when usb-role-switch is used
+ linux-spi@vger.kernel.org, linux-crypto@vger.kernel.org,
+ dmaengine@vger.kernel.org
+Subject: Re: [Linux-stm32] dt-bindings: treewide: Update @st.com email
+ address to @foss.st.com
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,55 +135,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 13, 2021 at 06:53:46PM +0200, Fabrice Gasnier wrote:
-> Document the "port" property, which is used with "usb-role-switch"
-> to describe the bus connector.
-> Definition is inspired from mediatek,mtu3.yaml.
+Hi Krzysztof
+
+On 10/20/21 9:45 AM, Krzysztof Kozlowski wrote:
+> On 20/10/2021 08:50, patrice.chotard@foss.st.com wrote:
+>> From: Patrice Chotard <patrice.chotard@foss.st.com>
+>>
+>> Not all @st.com email address are concerned, only people who have
+>> a specific @foss.st.com email will see their entry updated.
+>> For some people, who left the company, remove their email.
+>>
 > 
-> This fixes some errors seen when running "make dtbs_check":
-> ... 'port' does not match any of the regexes: 'pinctrl-[0-9]+'
->         From schema: ... Documentation/devicetree/bindings/usb/dwc2.yaml
+> Please split simple address change from maintainer updates (removal,
+> addition).
+
+ok
+
 > 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/usb/dwc2.yaml | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+> Also would be nice to see here explained *why* are you doing this.
+
+Our @foss.st.com address are dedicated for upstream activities, 
+i will add a comment about this.
+
+Thanks
+Patrice
+
 > 
-> diff --git a/Documentation/devicetree/bindings/usb/dwc2.yaml b/Documentation/devicetree/bindings/usb/dwc2.yaml
-> index 10c7d9b..7d1aa53 100644
-> --- a/Documentation/devicetree/bindings/usb/dwc2.yaml
-> +++ b/Documentation/devicetree/bindings/usb/dwc2.yaml
-> @@ -130,6 +130,16 @@ properties:
->      description: If present indicates that we need to reset the PHY when we 
->        detect a wakeup. This is due to a hardware errata.
->  
-> +  port:
-> +    description:
-> +      Any connector to the data bus of this controller should be modelled
-> +      using the OF graph bindings specified, if the "usb-role-switch"
-> +      property is used. See graph.txt
-
-Drop 'See graph.txt'
-
-> +    $ref: /schemas/graph.yaml#/properties/port
-> +
-> +dependencies:
-> +  port: [ 'usb-role-switch' ]
-
-usb-role-switch without port is valid or both must be present. In case 
-of the latter, you need to add:
-
-usb-role-switch: [ port ]
-
-Also, you don't need quotes.
-
-> +
->  required:
->    - compatible
->    - reg
-> -- 
-> 2.7.4
-> 
+> Best regards,
+> Krzysztof
 > 
 _______________________________________________
 Linux-stm32 mailing list
