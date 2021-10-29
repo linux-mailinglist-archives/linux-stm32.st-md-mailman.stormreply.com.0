@@ -2,71 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C2BD43FEB2
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Oct 2021 16:52:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45BE4440095
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 Oct 2021 18:48:47 +0200 (CEST)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36982C5E2C2;
-	Fri, 29 Oct 2021 14:52:18 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9E26C5E2C2;
+	Fri, 29 Oct 2021 16:48:46 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A2E1C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF0E8C23E53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Oct 2021 14:52:16 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19TDDB1d031438; 
- Fri, 29 Oct 2021 16:52:13 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=I1juxWCbFobtAQIbrKW1gjVS0UkgsEenVBQr32iMpWc=;
- b=cUjW0fCFUkxrpDLYpGUU2+Rjec67+uiIE7jgCN8GypfCENziuHwR+/6PR7jSO111tyQn
- 8xQRlGQsVr63YqWXmvK8jB9rxa/Joahi3wdS0Gf/Y8dg59IB6KsosPp5qOw9TzSbShj0
- z9ePYaDCoCPYh4hRB2uAUnSjgcZxV9F6U3WrfVe1Id9bHGZSfJEJfeCA2QDQGApC8QRv
- YLB5nkswb+gVzzVMALfdtbMrk+jUCdgRJmgg54wy5mm6/iiEYkw/lEhDhLLY+BD5W3uw
- d/YsWPG74JZ3oZBG1dg6MesUHDVrRY9MocoG88xGHwiyHgk3hNnvbpjzwtqjz4yJ1bZT jg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3c0c4y2qp2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Oct 2021 16:52:13 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3C3A710002A;
- Fri, 29 Oct 2021 16:52:11 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3035B2C41F5;
- Fri, 29 Oct 2021 16:52:11 +0200 (CEST)
-Received: from [10.48.0.126] (10.75.127.51) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Fri, 29 Oct
- 2021 16:52:10 +0200
-To: Rob Herring <robh@kernel.org>
-References: <1634144026-3326-1-git-send-email-fabrice.gasnier@foss.st.com>
- <YXhnLh9OYxUz8dIC@robh.at.kernel.org>
- <be749cbe-c029-7a24-da0e-94ab363ea07e@foss.st.com>
- <CAL_JsqJPbJiNi5=YT3siGrb-vu2+Ex6Xa5=XQQ9NR2iMv-3Fxg@mail.gmail.com>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <c5e5b327-4f92-4623-56d3-62e6f7dc8604@foss.st.com>
-Date: Fri, 29 Oct 2021 16:52:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Fri, 29 Oct 2021 16:48:45 +0000 (UTC)
+Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 28B7C82952;
+ Fri, 29 Oct 2021 18:48:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1635526125;
+ bh=6zdVEZVllSYH2Pu2kQDESwjXTwsDnaWusbLxdvceA80=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=Qm2LC35DVg0x4tRrz3XRlrKkmMk8WgAGYcTHDq6/7sMIka9JAy/hBAu+OpkwqD8B9
+ L0nM++Z+eWa3pgNf/ecCpkmYgU4FZqeyLZQYOS7+33nCZuIAoMu10RaKDbWBlt6Kem
+ KH8cPSoiFHst4BMuQ/x6zvmVw9bOWGcXmCB0Eu4jlx1gVEa+SzLFAxiYTKe+c+GncX
+ buALthx3xKmG3TINMPfhBBZZ59wqTkjFQqkFMICmYpM/VBbAx1hzW3YhRey3cqYszs
+ 4uxXTYK+gZYHLpMFxCcdJOAOi4/sV6N2CUFN3Q6KsiSXAwAd5rfw4l8WoLErO+QNp5
+ VJCLO/wL+V0DA==
+To: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
+References: <20211029135454.4383-1-nicolas.toromanoff@foss.st.com>
+ <20211029135454.4383-5-nicolas.toromanoff@foss.st.com>
+ <1ec60d9c-1ab4-8a92-1c6d-8093232ca039@denx.de>
+ <alpine.DEB.2.21.2110291708040.20378@gnbcxd0088.gnb.st.com>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <f8de0493-29f3-550c-611e-97b7ee36e628@denx.de>
+Date: Fri, 29 Oct 2021 18:48:43 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqJPbJiNi5=YT3siGrb-vu2+Ex6Xa5=XQQ9NR2iMv-3Fxg@mail.gmail.com>
+In-Reply-To: <alpine.DEB.2.21.2110291708040.20378@gnbcxd0088.gnb.st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-10-29_03,2021-10-29_01,2020-04-07_01
-Cc: devicetree@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux USB List <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, linux-kernel@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Minas Harutyunyan <hminas@synopsys.com>, "moderated
- list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: usb: dwc2: document the port
- when usb-role-switch is used
+ "David S . Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/8] crypto: stm32/cryp - fix race
+	condition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,121 +62,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/29/21 12:50 AM, Rob Herring wrote:
-> On Wed, Oct 27, 2021 at 7:05 AM Fabrice Gasnier
-> <fabrice.gasnier@foss.st.com> wrote:
->>
->> On 10/26/21 10:38 PM, Rob Herring wrote:
->>> On Wed, Oct 13, 2021 at 06:53:46PM +0200, Fabrice Gasnier wrote:
->>>> Document the "port" property, which is used with "usb-role-switch"
->>>> to describe the bus connector.
->>>> Definition is inspired from mediatek,mtu3.yaml.
->>>>
->>>> This fixes some errors seen when running "make dtbs_check":
->>>> ... 'port' does not match any of the regexes: 'pinctrl-[0-9]+'
->>>>         From schema: ... Documentation/devicetree/bindings/usb/dwc2.yaml
->>>>
->>>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->>>> ---
->>>>  Documentation/devicetree/bindings/usb/dwc2.yaml | 10 ++++++++++
->>>>  1 file changed, 10 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/usb/dwc2.yaml b/Documentation/devicetree/bindings/usb/dwc2.yaml
->>>> index 10c7d9b..7d1aa53 100644
->>>> --- a/Documentation/devicetree/bindings/usb/dwc2.yaml
->>>> +++ b/Documentation/devicetree/bindings/usb/dwc2.yaml
->>>> @@ -130,6 +130,16 @@ properties:
->>>>      description: If present indicates that we need to reset the PHY when we
->>>>        detect a wakeup. This is due to a hardware errata.
->>>>
->>>> +  port:
->>>> +    description:
->>>> +      Any connector to the data bus of this controller should be modelled
->>>> +      using the OF graph bindings specified, if the "usb-role-switch"
->>>> +      property is used. See graph.txt
->>>
->>> Drop 'See graph.txt'
->>>
->>>> +    $ref: /schemas/graph.yaml#/properties/port
->>>> +
->>>> +dependencies:
->>>> +  port: [ 'usb-role-switch' ]
->>>
->>> usb-role-switch without port is valid or both must be present. In case
->>> of the latter, you need to add:
-> 
-> If I wasn't clear, that was a question. Is usb-role-switch without
-> port is valid?
-
-Hi Rob,
-
-Ah ok... I didn't get it was a question.
-So, usb-role-switch without port is valid.
-
-> 
->>
->> Hi Rob,
->>
->> Thanks for your review.
->> I agree with your statement. But I miss something in this proposal:
->>
->>>
->>> usb-role-switch: [ port ]
->>
->> I tried this without success, when running dt_binding_check.
->>
->> For testing, I added locally in the example successively:
->>
->> 1 - usb-role-switch (alone)
->> -----
->> +        usb-role-switch;
->> "dwc2.example.dt.yaml: usb@101c0000: 'port' is a dependency of
->> 'usb-role-switch'
->>
->> 2 - port without usb-role-switch
->> -----
->> +        //usb-role-switch;
->> +
->> +        port {
->> +          usb_role_sw: endpoint {
->> +            remote-endpoint = <&hs_ep>;
->> +          };
->> +        };
->> dt_binding_check is happy here. But it shouldn't, right ?
-> 
-> You had this?:
-> 
-> dependencies:
->   usb-role-switch: [ port ]
->   port: [ usb-role-switch ]
-
-no, above test was only with "usb-role-switch: [ port ]"
-
-> 
-> 
-> If both properties have to be present together, then you need the above.
-
-This isn't the case. The only constraints here is, if port is used, then
-usb-role-switch must be set.
-
-dependencies:
-  port: [ usb-role-switch ]
-
-V2 is under review, with the above.
-
-BR,
-Fabrice
-> 
->>
->> 3 - both (port + usb-role-switch)
->> -----
->> dt_binding_check is ok.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTAvMjkvMjEgNToyMSBQTSwgTmljb2xhcyBUb3JvbWFub2ZmIHdyb3RlOgo+IE9uIEZyaSwg
+MjkgT2N0IDIwMjEsIE1hcmVrIFZhc3V0IHdyb3RlOgo+IAo+PiBPbiAxMC8yOS8yMSAzOjU0IFBN
+LCBOaWNvbGFzIFRvcm9tYW5vZmYgd3JvdGU6Cj4+PiBFcmFzZSBrZXkgYmVmb3JlIGZpbmFsaXpp
+bmcgcmVxdWVzdC4KPj4+IEZpeGVzOiA5ZTA1NGVjMjFlZjggKCJjcnlwdG86IHN0bTMyIC0gU3Vw
+cG9ydCBmb3IgU1RNMzIgQ1JZUCBjcnlwdG8gCj4+PiBtb2R1bGUiKQo+Pgo+PiBDYW4geW91IGJl
+IGEgYml0IG1vcmUgc3BlY2lmaWMgaW4geW91ciBjb21taXQgbWVzc2FnZXMgPyBUaGF0IGFwcGxp
+ZXMgCj4+IHRvIHRoZSBlbnRpcmUgcGF0Y2hzZXQuIEl0IGlzIGFic29sdXRlbHkgaW1wb3NzaWJs
+ZSB0byB0ZWxsIHdoYXQgcmFjZSAKPj4gaXMgZml4ZWQgaGVyZSBvciB3aHkgaXQgaXMgZml4ZWQg
+YnkgZXhhY3RseSB0aGlzIGNoYW5nZS4gVGhpcyBhcHBsaWVzIAo+PiB0byB0aGUgZW50aXJlIHNl
+cmllcy4KPiAKPiBJJ2xsIHNlbmQgYSB2MiB3aXRoIGJldHRlciBjb21taXQgbWVzc2FnZXMuCj4g
+Cj4gZm9yIHRoaXMgc3BlY2lmaWMgcGF0Y2g6Cj4gV2UgcmVzZXQgdGhlIHNhdmVkIGtleSBiZWZv
+cmUgdGhlIGNyeXB0b19maW5hbGl6ZV8qKCkgY2FsbC4gT3RoZXJ3aXNlIGEgCj4gc3RpbGwgcGVu
+ZGluZyBjcnlwdG8gYWN0aW9uIGNvdWxkIGJlIHJhbiB3aXRoIGEgd3Jvbmcga2V5ID0gezB9Owo+
+IAo+PiBBbmQgd2hpbGUgSSBhbSBhdCBpdCwgZG9lcyB0aGUgQ1JZUCBmaW5hbGx5IHBhc3MgYXQg
+bGVhc3QgdGhlIG1vc3QgCj4+IGJhc2ljIGtlcm5lbCBib290IHRpbWUgY3J5cHRvIHRlc3RzIG9y
+IGRvZXMgcnVubmluZyB0aG9zZSBzdGlsbCAKPj4gb3ZlcndyaXRlIGtlcm5lbCBtZW1vcnkgYW5k
+L29yIGNvbXBsZXRlbHkgY3Jhc2ggb3IgbG9jayB1cCB0aGUgbWFjaGluZSA/Cj4gCj4gQWxsIGV4
+dHJhIHRlc3RzIChmaW5hbGx5KSBwYXNzLgo+IAo+IFdpdGggYSBrZXJuZWwgY29uZmlnIDoKPiAg
+wqAgIyBDT05GSUdfQ1JZUFRPX01BTkFHRVJfRElTQUJMRV9URVNUUyBpcyBub3Qgc2V0Cj4gIMKg
+IENPTkZJR19DUllQVE9fTUFOQUdFUl9FWFRSQV9URVNUUz15Cj4gIMKgIENPTkZJR19DUllQVE9f
+REVWX1NUTTMyX0NSWVA9bQoKQ2FuIHlvdSBhbHNvIGRvIGEgYm9vdCB0ZXN0IHdpdGggQ1JZUCBj
+b21waWxlZCBpbnRvIHRoZSBrZXJuZWwgPwpJIHJlY2FsbCB0aGF0IGlzIGhvdyB0aGUgb3JpZ2lu
+YWwgYnVnIHdhcyByZXBvcnRlZCAtLSB0aGUgbWFjaGluZSAKY3Jhc2hlZCBjb21wbGV0ZWx5IG9u
+IGJvb3QgZXZlbiBiZWZvcmUgcmVhY2hpbmcgdXNlcnNwYWNlLCBvciB0aGUga2VybmVsIApjcmFz
+aGVkIG9uIG1lbW9yeSBjb3JydXB0aW9uIGJlZm9yZSByZWFjaGluZyB1c2Vyc3BhY2UuCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
