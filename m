@@ -2,55 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45BE4440095
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Oct 2021 18:48:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 644C5440E69
+	for <lists+linux-stm32@lfdr.de>; Sun, 31 Oct 2021 13:29:17 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9E26C5E2C2;
-	Fri, 29 Oct 2021 16:48:46 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02DECC5A4FF;
+	Sun, 31 Oct 2021 12:29:17 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF0E8C23E53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0268EC23E53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Oct 2021 16:48:45 +0000 (UTC)
-Received: from [IPv6:::1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 28B7C82952;
- Fri, 29 Oct 2021 18:48:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1635526125;
- bh=6zdVEZVllSYH2Pu2kQDESwjXTwsDnaWusbLxdvceA80=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=Qm2LC35DVg0x4tRrz3XRlrKkmMk8WgAGYcTHDq6/7sMIka9JAy/hBAu+OpkwqD8B9
- L0nM++Z+eWa3pgNf/ecCpkmYgU4FZqeyLZQYOS7+33nCZuIAoMu10RaKDbWBlt6Kem
- KH8cPSoiFHst4BMuQ/x6zvmVw9bOWGcXmCB0Eu4jlx1gVEa+SzLFAxiYTKe+c+GncX
- buALthx3xKmG3TINMPfhBBZZ59wqTkjFQqkFMICmYpM/VBbAx1hzW3YhRey3cqYszs
- 4uxXTYK+gZYHLpMFxCcdJOAOi4/sV6N2CUFN3Q6KsiSXAwAd5rfw4l8WoLErO+QNp5
- VJCLO/wL+V0DA==
-To: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
-References: <20211029135454.4383-1-nicolas.toromanoff@foss.st.com>
- <20211029135454.4383-5-nicolas.toromanoff@foss.st.com>
- <1ec60d9c-1ab4-8a92-1c6d-8093232ca039@denx.de>
- <alpine.DEB.2.21.2110291708040.20378@gnbcxd0088.gnb.st.com>
-From: Marek Vasut <marex@denx.de>
-Message-ID: <f8de0493-29f3-550c-611e-97b7ee36e628@denx.de>
-Date: Fri, 29 Oct 2021 18:48:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Sun, 31 Oct 2021 12:29:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DF57660FC2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 31 Oct 2021 12:29:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1635683350;
+ bh=ph3gBE0UwLAlyx3ipLRKhIarn/rc9a7pyxJUqyXnYE8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=usE8+qRTvJpP2yse/64Lo3Y95bBTZOSbybWVCe/z6i/VN9YxpGpT3jfz498VeY9Nj
+ F+yz9QH1YiCG0kZfB8iYvyZ5Urn69rYXmh+XH/ymgj4wqCcc1713qVr17IYMqTnaXk
+ 8PQHebb2OQ4Hv9Ka1DHq+ik86BqFI13JmBQOzHR2KFeu5ru9lYsu9RzToXK4pjq3vO
+ wnAk9HDnNYU4k+KZ6ME1MN1zpbt76wLMFmisi3jtxN0LwLKlF5rbGMsegMAHuJyr5t
+ i8WuGy4gLiKvtwxtgsybrjpwkNsAlRbBt0yVZK+WG623uk3zIgPcEh2XeRk89OaDS4
+ agunQIVu7fEmw==
+Received: by mail-ot1-f54.google.com with SMTP id
+ 71-20020a9d034d000000b00553e24ce2b8so16586571otv.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 31 Oct 2021 05:29:10 -0700 (PDT)
+X-Gm-Message-State: AOAM5321QLSoVRBwtgHD1RD3QfqtA7Z7mzHvd7WHJU5djsrSwAMrIrG5
+ p0ub1RW3sEYNt50VRFfjI+eclP7StBANfRe8HMI=
+X-Google-Smtp-Source: ABdhPJwgPIx5Ajj0S1T2KjyV/1WG7VBWyhFaagI5h0bGfEPDwtYo8G+a8GQ77xOCXiUmzae1g2e9z77AEw4JstfixnE=
+X-Received: by 2002:a05:6830:1d6e:: with SMTP id
+ l14mr16396459oti.147.1635683350134; 
+ Sun, 31 Oct 2021 05:29:10 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2110291708040.20378@gnbcxd0088.gnb.st.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, linux-kernel@vger.kernel.org,
+References: <20211029135454.4383-1-nicolas.toromanoff@foss.st.com>
+ <20211029135454.4383-4-nicolas.toromanoff@foss.st.com>
+In-Reply-To: <20211029135454.4383-4-nicolas.toromanoff@foss.st.com>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Sun, 31 Oct 2021 13:28:58 +0100
+X-Gmail-Original-Message-ID: <CAMj1kXF5_2AnQH8pjgzbeq63iSkdkUVq3wZM_NURotoHj0sJMw@mail.gmail.com>
+Message-ID: <CAMj1kXF5_2AnQH8pjgzbeq63iSkdkUVq3wZM_NURotoHj0sJMw@mail.gmail.com>
+To: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
+Cc: Marek Vasut <marex@denx.de>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 4/8] crypto: stm32/cryp - fix race
-	condition
+ "David S . Miller" <davem@davemloft.net>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 3/8] crypto: stm32/cryp - fix CTR counter
+	carry
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,37 +66,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTAvMjkvMjEgNToyMSBQTSwgTmljb2xhcyBUb3JvbWFub2ZmIHdyb3RlOgo+IE9uIEZyaSwg
-MjkgT2N0IDIwMjEsIE1hcmVrIFZhc3V0IHdyb3RlOgo+IAo+PiBPbiAxMC8yOS8yMSAzOjU0IFBN
-LCBOaWNvbGFzIFRvcm9tYW5vZmYgd3JvdGU6Cj4+PiBFcmFzZSBrZXkgYmVmb3JlIGZpbmFsaXpp
-bmcgcmVxdWVzdC4KPj4+IEZpeGVzOiA5ZTA1NGVjMjFlZjggKCJjcnlwdG86IHN0bTMyIC0gU3Vw
-cG9ydCBmb3IgU1RNMzIgQ1JZUCBjcnlwdG8gCj4+PiBtb2R1bGUiKQo+Pgo+PiBDYW4geW91IGJl
-IGEgYml0IG1vcmUgc3BlY2lmaWMgaW4geW91ciBjb21taXQgbWVzc2FnZXMgPyBUaGF0IGFwcGxp
-ZXMgCj4+IHRvIHRoZSBlbnRpcmUgcGF0Y2hzZXQuIEl0IGlzIGFic29sdXRlbHkgaW1wb3NzaWJs
-ZSB0byB0ZWxsIHdoYXQgcmFjZSAKPj4gaXMgZml4ZWQgaGVyZSBvciB3aHkgaXQgaXMgZml4ZWQg
-YnkgZXhhY3RseSB0aGlzIGNoYW5nZS4gVGhpcyBhcHBsaWVzIAo+PiB0byB0aGUgZW50aXJlIHNl
-cmllcy4KPiAKPiBJJ2xsIHNlbmQgYSB2MiB3aXRoIGJldHRlciBjb21taXQgbWVzc2FnZXMuCj4g
-Cj4gZm9yIHRoaXMgc3BlY2lmaWMgcGF0Y2g6Cj4gV2UgcmVzZXQgdGhlIHNhdmVkIGtleSBiZWZv
-cmUgdGhlIGNyeXB0b19maW5hbGl6ZV8qKCkgY2FsbC4gT3RoZXJ3aXNlIGEgCj4gc3RpbGwgcGVu
-ZGluZyBjcnlwdG8gYWN0aW9uIGNvdWxkIGJlIHJhbiB3aXRoIGEgd3Jvbmcga2V5ID0gezB9Owo+
-IAo+PiBBbmQgd2hpbGUgSSBhbSBhdCBpdCwgZG9lcyB0aGUgQ1JZUCBmaW5hbGx5IHBhc3MgYXQg
-bGVhc3QgdGhlIG1vc3QgCj4+IGJhc2ljIGtlcm5lbCBib290IHRpbWUgY3J5cHRvIHRlc3RzIG9y
-IGRvZXMgcnVubmluZyB0aG9zZSBzdGlsbCAKPj4gb3ZlcndyaXRlIGtlcm5lbCBtZW1vcnkgYW5k
-L29yIGNvbXBsZXRlbHkgY3Jhc2ggb3IgbG9jayB1cCB0aGUgbWFjaGluZSA/Cj4gCj4gQWxsIGV4
-dHJhIHRlc3RzIChmaW5hbGx5KSBwYXNzLgo+IAo+IFdpdGggYSBrZXJuZWwgY29uZmlnIDoKPiAg
-wqAgIyBDT05GSUdfQ1JZUFRPX01BTkFHRVJfRElTQUJMRV9URVNUUyBpcyBub3Qgc2V0Cj4gIMKg
-IENPTkZJR19DUllQVE9fTUFOQUdFUl9FWFRSQV9URVNUUz15Cj4gIMKgIENPTkZJR19DUllQVE9f
-REVWX1NUTTMyX0NSWVA9bQoKQ2FuIHlvdSBhbHNvIGRvIGEgYm9vdCB0ZXN0IHdpdGggQ1JZUCBj
-b21waWxlZCBpbnRvIHRoZSBrZXJuZWwgPwpJIHJlY2FsbCB0aGF0IGlzIGhvdyB0aGUgb3JpZ2lu
-YWwgYnVnIHdhcyByZXBvcnRlZCAtLSB0aGUgbWFjaGluZSAKY3Jhc2hlZCBjb21wbGV0ZWx5IG9u
-IGJvb3QgZXZlbiBiZWZvcmUgcmVhY2hpbmcgdXNlcnNwYWNlLCBvciB0aGUga2VybmVsIApjcmFz
-aGVkIG9uIG1lbW9yeSBjb3JydXB0aW9uIGJlZm9yZSByZWFjaGluZyB1c2Vyc3BhY2UuCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+On Fri, 29 Oct 2021 at 16:01, Nicolas Toromanoff
+<nicolas.toromanoff@foss.st.com> wrote:
+>
+> Fix issue in CTR counter overflow, the carry-over is now properly
+> managed.
+> Fixes: bbb2832620ac ("crypto: stm32 - Fix sparse warnings")
+>
+> Signed-off-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
+> ---
+>  drivers/crypto/stm32/stm32-cryp.c | 19 ++++++++++---------
+>  1 file changed, 10 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/crypto/stm32/stm32-cryp.c b/drivers/crypto/stm32/stm32-cryp.c
+> index 7b55ad6d2f1a..6eeeca0d70ce 100644
+> --- a/drivers/crypto/stm32/stm32-cryp.c
+> +++ b/drivers/crypto/stm32/stm32-cryp.c
+> @@ -163,7 +163,7 @@ struct stm32_cryp {
+>         struct scatter_walk     in_walk;
+>         struct scatter_walk     out_walk;
+>
+> -       u32                     last_ctr[4];
+> +       __be32                  last_ctr[4];
+>         u32                     gcm_ctr;
+>  };
+>
+> @@ -1219,25 +1219,26 @@ static void stm32_cryp_check_ctr_counter(struct stm32_cryp *cryp)
+>
+>         if (unlikely(cryp->last_ctr[3] == 0xFFFFFFFF)) {
+>                 cryp->last_ctr[3] = 0;
+> -               cryp->last_ctr[2]++;
+> +               cryp->last_ctr[2] = cpu_to_be32(be32_to_cpu(cryp->last_ctr[2]) + 1);
+>                 if (!cryp->last_ctr[2]) {
+> -                       cryp->last_ctr[1]++;
+> +                       cryp->last_ctr[1] = cpu_to_be32(be32_to_cpu(cryp->last_ctr[1]) + 1);
+>                         if (!cryp->last_ctr[1])
+> -                               cryp->last_ctr[0]++;
+> +                               cryp->last_ctr[0] = cpu_to_be32(be32_to_cpu(cryp->last_ctr[0]) + 1);
+>                 }
+>
+
+crypto_inc() ??
+
+>                 cr = stm32_cryp_read(cryp, CRYP_CR);
+>                 stm32_cryp_write(cryp, CRYP_CR, cr & ~CR_CRYPEN);
+>
+> -               stm32_cryp_hw_write_iv(cryp, (__be32 *)cryp->last_ctr);
+> +               stm32_cryp_hw_write_iv(cryp, cryp->last_ctr);
+>
+>                 stm32_cryp_write(cryp, CRYP_CR, cr);
+>         }
+>
+> -       cryp->last_ctr[0] = stm32_cryp_read(cryp, CRYP_IV0LR);
+> -       cryp->last_ctr[1] = stm32_cryp_read(cryp, CRYP_IV0RR);
+> -       cryp->last_ctr[2] = stm32_cryp_read(cryp, CRYP_IV1LR);
+> -       cryp->last_ctr[3] = stm32_cryp_read(cryp, CRYP_IV1RR);
+> +       /* The IV registers are BE  */
+> +       cryp->last_ctr[0] = cpu_to_be32(stm32_cryp_read(cryp, CRYP_IV0LR));
+> +       cryp->last_ctr[1] = cpu_to_be32(stm32_cryp_read(cryp, CRYP_IV0RR));
+> +       cryp->last_ctr[2] = cpu_to_be32(stm32_cryp_read(cryp, CRYP_IV1LR));
+> +       cryp->last_ctr[3] = cpu_to_be32(stm32_cryp_read(cryp, CRYP_IV1RR));
+>  }
+>
+>  static bool stm32_cryp_irq_read_data(struct stm32_cryp *cryp)
+> --
+> 2.17.1
+>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
