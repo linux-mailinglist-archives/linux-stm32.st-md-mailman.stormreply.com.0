@@ -2,120 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F03AC441890
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Nov 2021 10:48:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87B43441B03
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Nov 2021 13:13:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5758C5A4FF;
-	Mon,  1 Nov 2021 09:48:52 +0000 (UTC)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr50121.outbound.protection.outlook.com [40.107.5.121])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 387E9C5A4FF;
+	Mon,  1 Nov 2021 12:13:31 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70123C5660B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4E48C5660B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Nov 2021 09:48:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UXt+nZ2u0IuglEayyCmbXijsUeDj1zQlXe2+yEr6yNghZqTif4y++R1d3uAfb6oe1BAWJarLfXM/kFlDkzDXgDlMhtiLxUP6iTzU6Bi6Siah0UKNhPibPvdlqsfn9Q6/GPGwbz/ZhQhMQgcTpewkGwOn4lZlcgFvzSVr1l20gAxwhvazWES/UJ3d8GNBBA+mliDARjGVapRj+9y2T+rKheK5r75q0Im3f7UWCHkeQ0htDc0L+ACO1xgHQoRkEp4Nd/NL3QjMY9eOMec5tQ6jq4y2U5Y/chq/9vzji6xfQfm3ZUOE162c/dugfNQQiHwnF0aQgoQKNMrZCEBDT9L3IA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UJWe57C+cC2ydX0EcPyZfym/oxR0jt1JwuMNpStHf/4=;
- b=KleiBuBj+xyUci2SmoI5yXWhSjtZ3PSxOnls2Iql8LZC3pa7flZITerHHG4bCeXuU20YYJqVVYFAUFfWaoGgt+llrzw5vVKE29xt9TmwMFgNLgnKLlh3d0FtPprUnMNttAAnD6QGl4nQVjPmlA30EObWoQ7cxv1duJHU7v5hrkFCFwyHcpycuLaHqvYQmHwDo9Crcqfqh887QIRpXz9pHCuHZa80ivpkFVJ7LGWId0G+oZLiA9YKSkF5QW1+zXy5NLe+2NFx/XwyovlWUXBa/4++zbDyDWnsardx9Qq14km6YbwiVjKOJN2eO8mq1L5aLfV5TAz9YYk1dSDw8uq8xA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=toradex.com; dmarc=pass action=none header.from=toradex.com;
- dkim=pass header.d=toradex.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UJWe57C+cC2ydX0EcPyZfym/oxR0jt1JwuMNpStHf/4=;
- b=HlMFjaODZKXoinnNULouvbCanpN23DKOM+ukihDzznXmpqNc8n/uYNJJUXbr/k33vJyEVmVwmhbg8CbvcZYKI2hGtOWo5k9BukkfWAg8qglhYJsUSJxOkCjSWFhS+48iL3w24tetMXoYoqCYi69xnEp77Dn4PoY3o5ZzBXbmaN8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=toradex.com;
-Received: from DBAPR05MB7445.eurprd05.prod.outlook.com (2603:10a6:10:1a0::8)
- by DB8PR05MB6092.eurprd05.prod.outlook.com (2603:10a6:10:a7::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.18; Mon, 1 Nov
- 2021 09:48:46 +0000
-Received: from DBAPR05MB7445.eurprd05.prod.outlook.com
- ([fe80::90ca:ed3d:a3e5:1651]) by DBAPR05MB7445.eurprd05.prod.outlook.com
- ([fe80::90ca:ed3d:a3e5:1651%3]) with mapi id 15.20.4649.019; Mon, 1 Nov 2021
- 09:48:46 +0000
-Date: Mon, 1 Nov 2021 10:48:44 +0100
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
-To: Lee Jones <lee.jones@linaro.org>
-Message-ID: <20211101094844.GA4549@francesco-nb.int.toradex.com>
+ Mon,  1 Nov 2021 12:13:27 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id s13so20704486wrb.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 01 Nov 2021 05:13:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=pz3A5N3I8y1fwIAFwuqkVwsnZQS1wS7neAtkz1GBL4A=;
+ b=Gl6KBHBzdzXWw/gNX0hXmokxv66bIEbaEsr0k7CyVEJUBhcxkc47cDhG5xwRwwddPV
+ k+hk3CpNAdRqJJSGTw25TQzVH2aVa1TDFQbJUUB78FQ0tZrX4rCQFtqBb5ZFF8MKjDaz
+ ZlI4NkWVSal7xfE0K8kGeON9SuIHEzOVCvkwUyA+60y2EGBQJVxamnYOMPYeR+cvcdXd
+ SnKL0AWgrQ1nBrRA1b2cjookP6XwqQd3FPKaNvnxcFP20RD2yCLz4fiRgC3bRjLXPo3J
+ JhltuGUpEcbsZSpAkrgsxO6a16htSLraYTJ/ndRWFzqlQ8YFJ25U3Ek10Ph2/qTwhB2H
+ DgVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=pz3A5N3I8y1fwIAFwuqkVwsnZQS1wS7neAtkz1GBL4A=;
+ b=omw28WpI3AbnzezXVq/ZwTo5FKZg8ZnHdI3zN3Lsvasxpawol+m3GRJN3i1ROMf5tX
+ GCPVD2cF2F2Cl44m/57TqHotpUplkRakzuKlHXHSwTiC1cSEedFCHAeqbVl+H6iLv0al
+ zA0OERyJ1xe6XVPzz8A7PxFZilp1KMo1qN7DoVXJLoZIrWeeAEqDrx4BGugQ/T4+PCsa
+ jk4dfnikvbx8X5VDuauyrwkfOHfvtfPK7y4AUx4BUOdvSrsnmH1NiJdjy/kAAPKs+apj
+ 8Gzdd9AVj/1r12WUg9bcgVBuLahMVBYSCwSWlXbHXZNA6ffbxlR8hzBYX4qw4cg5vUUR
+ u2yw==
+X-Gm-Message-State: AOAM532TXxfNoAV4/QHNs20sm7AR6a305EZBCaJ74roBJZzg5fFz21aa
+ 7oJia/xZWYs2EB3FDc2UsHMH3w==
+X-Google-Smtp-Source: ABdhPJxVmUs0wVK3uKMWzroM9WV0UXXMqlPS6Ijhq9FGK/6yInjHF9WXv94m0AplS0MrrDsfnC0Dhg==
+X-Received: by 2002:a5d:5504:: with SMTP id b4mr27927061wrv.307.1635768806159; 
+ Mon, 01 Nov 2021 05:13:26 -0700 (PDT)
+Received: from google.com ([95.148.6.174])
+ by smtp.gmail.com with ESMTPSA id s13sm16282744wmc.47.2021.11.01.05.13.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Nov 2021 05:13:25 -0700 (PDT)
+Date: Mon, 1 Nov 2021 12:13:23 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Message-ID: <YX/Z47ztw8d4uMuQ@google.com>
 References: <20211027082155.206449-1-francesco.dolcini@toradex.com>
-Content-Disposition: inline
-In-Reply-To: <20211027082155.206449-1-francesco.dolcini@toradex.com>
-X-ClientProxiedBy: MR2P264CA0021.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:1::33) To DBAPR05MB7445.eurprd05.prod.outlook.com
- (2603:10a6:10:1a0::8)
+ <20211101094844.GA4549@francesco-nb.int.toradex.com>
 MIME-Version: 1.0
-Received: from francesco-nb.toradex.int (93.49.2.63) by
- MR2P264CA0021.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500:1::33) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4649.17 via Frontend Transport; Mon, 1 Nov 2021 09:48:45 +0000
-Received: by francesco-nb.toradex.int (Postfix, from userid 1000)	id
- 7DC4110A03BE; Mon,  1 Nov 2021 10:48:44 +0100 (CET)
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3c25e727-326e-4c25-1c62-08d99d1ccc27
-X-MS-TrafficTypeDiagnostic: DB8PR05MB6092:
-X-Microsoft-Antispam-PRVS: <DB8PR05MB6092317CCA13FED0BE33EA64E28A9@DB8PR05MB6092.eurprd05.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ktKRYdQKoUUcPbDKT3XkCJ1nrjJuK5usPQ43sVXy0xxLzoSlsAc8ARCqrWi1MBUV6GujtNhoV87Us6DaCZAyvtiGdxhJyksn0SL46AwLfQZx2ZC0pwt71Fid7kv/zsE0ImPe21m8Y4Z/9T9MY0D3ceDnCR/jjbo5iepQExUCmC9VybX5xiI3TFy7N2e4wndRaUbJXqAROmTfQ9hi/zLWzMNGXBLJu5v19WPyNlw5WSTn7Kz1nhzV9neh24A+pjipPh1LlTVGxwYMEpok/H2DC4/iX1+lZjT8K9LTmk6kSIf21YPZb8ZfJjK8K5VXJP4nXZhnjLjvoOcDxgqjzf6LW6f6X7JpaSiWbH7hiH3OOuzVrX6b6uRTuHPG1cMxJT3kzmQlB+fn0uijABGaV/BNGVwZbGVbjgoiy0QE68jJa9ANV3mPBb2xcNnpY6niMo8AjuUmlIF8gHzpbiQ0ICbTbvsNwL/sq4v1slSdTkYD7m27VtA8CXD3s9bORlWpjZ0Sl6f+MNtYPpES/1cEkQBI5G1lzXitKpO/HLV45YUTRjaxaVw5LX+llZW5hUzwqTuJQMMRI/XeJZpO2FuCw/H8LUFSiV5obxog1Fvij2E95IM/QVdBNEpJOlkA2Zb7k1LXds4R7WTclgjaRkQ1zLdAmhjcXTzPCaiUetHRGa/G2y+hK9cwzfV52Msnd0gYZoTV5OAqumoxVSATAfQ7UyvQgA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DBAPR05MB7445.eurprd05.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(366004)(5660300002)(1076003)(8676002)(4744005)(8936002)(38350700002)(38100700002)(44832011)(186003)(33656002)(508600001)(66556008)(66476007)(4326008)(66946007)(86362001)(54906003)(42186006)(83380400001)(6916009)(2906002)(6266002)(26005)(52116002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wOb2D/zpcpHprnWqkG0aMzFH9qhxOnYnUgMLObda6oWZVHsB0sXfKzgYRSFt?=
- =?us-ascii?Q?9SP4PLO1uyzOjzmd6pzNuxlVW/xeEc2QUDTEvUq/SXoxSeelIcygnA4iqzg6?=
- =?us-ascii?Q?reaOox4eXzVec/UwQ8LPa2OUkNIG79LonEkGqSvHs5e0jOaHu74/nns7Xoul?=
- =?us-ascii?Q?zsyiSwUARDJzDQ6xBrTQP3HUc2v7Js4/UQ3gp5nZU48lIuplXVUlCgVMHgi6?=
- =?us-ascii?Q?F2x7TaNSvl3HRykq+7m23QVlIVPmeH/WUcPnOXxGcikhaWRNU92ZOKJ1j9mH?=
- =?us-ascii?Q?XF/Fsyf0oD8gMTaflNxPldDoXr0323S7PBUyFXmqSSgKihUjfKqJbjYyhOXJ?=
- =?us-ascii?Q?1buBrNdMAn9r388lgno9+ZCHVvKRLcXfOrKoK3EBAz0xpmkdrvvVxPdsKVjw?=
- =?us-ascii?Q?vzCxjPy8+7U3WWtCkCMuzFChK431xvYH9rc1N6mOYk73kC9p5i2UbxzEx32t?=
- =?us-ascii?Q?31HiuSgRd0PKfB+42kTJiVuX+YWC/mm3YQS1YVepjvm8ltRpP2mYoHBfPZn7?=
- =?us-ascii?Q?5s8XH3lDRNUM8AZST5bzvMJR7/7cwLJ0u2DMffAYtGSV2nYzLYTMWg7iUaS5?=
- =?us-ascii?Q?Ic1SuXenQfVSxrqvbwpvLOqYFMUZ9WFXu7hdS/PX5uDLRy/aNiNQafuKtHvt?=
- =?us-ascii?Q?VuYCumjPWNcPSIyvvKfYdy0Tgmqd+e8/5DZD48+v4ZyCBn2ixxoOaC954nAh?=
- =?us-ascii?Q?4r7XGjyIdW2DBC9X4z86OeY5Jv4iI1zAURm8C6nCCdv97X351OfxdcCN6onS?=
- =?us-ascii?Q?YrqwGlt3B20vMaKZmwEOvCeuw0L057TouZP6UJGuUiUUU/UtQYJW7FnBTo8P?=
- =?us-ascii?Q?asOtCVN4fkWN8Ni9cWgBUiF9FKbM56RF01YtIiWVHVmre08AavuuZzDV+Vb1?=
- =?us-ascii?Q?QoSLCayrods5g+p/V+EDF+tLe/uFrww/VMvE/eIGnrBCJ5T+ep9NBbWcCovt?=
- =?us-ascii?Q?Q4ARlQIuMgRnsRN3pkQ63HHHk5mJZz4klUvTLra7d3RuBrelL2mGMJA+yuU6?=
- =?us-ascii?Q?F0AfDA6tQz/YSikA3MDuYZSs/kuD8MuWxeh9+lNlaMK8bkeqnzPq30vBQto2?=
- =?us-ascii?Q?QSC6YF+WKnMslDeSNQlcMvQHQuOGZltpjG29ijT42pBlvL67Ib9ZR/GuDf7x?=
- =?us-ascii?Q?iIUxF57jHKEFTwexUhoeP1SZ1iwOdkMYetYIazj4xeM/rg1JnChWn1haR1L5?=
- =?us-ascii?Q?iSapfacK81T+euhutO7Ko2QVR/+9MUsDP31PfhQbWLrmy5a8vgxdtdaCzXwH?=
- =?us-ascii?Q?MThz/bcU+zI8m4wglYnWzazpTC22gXJyMm9GLAfMw+1skfhdoRYWyO7BW8IG?=
- =?us-ascii?Q?ApuarmZrm6w1JoA0I2IjblU7UdHR7oOxKlDeKpFt6HH4DUHwYd0axpWdUJLm?=
- =?us-ascii?Q?iBfmVAsc+VBzr9A3aTIsJTa//oxrWgE875X0VvfkAH0+mqJD7mdb13gqvFHz?=
- =?us-ascii?Q?N0thwLcEK/nESCIB7xpRwzE4TXf6M8nWheFyxMXM2RnDMmxRr671UwNxlhEl?=
- =?us-ascii?Q?zrhDwkIqLNVAeouVNiSXBgQ0qsgFN8KpWCVKydEG75bLnv1zxG7psmPn2Q08?=
- =?us-ascii?Q?+X7QpvL19Z3yioPzrO0mpHz4jHOoZ0uPsxHvfuxuc89nOqW4VNqN5Khe2KlW?=
- =?us-ascii?Q?8QQcw0uEWFyCbsaMPrdk+ZASOWUD9r8xW4HxNc2KmLzEu+g5IW9oSrmRuYkV?=
- =?us-ascii?Q?KgD59A=3D=3D?=
-X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c25e727-326e-4c25-1c62-08d99d1ccc27
-X-MS-Exchange-CrossTenant-AuthSource: DBAPR05MB7445.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2021 09:48:46.0431 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vBOChEdNj8ta/Kp4UnD6tAUPsDwjOvIoxMVsTwwZIufkaeBNrhC4W3RsMABAAl9mGwdrXyau3QSbFFVQig0q90R3PGrgApwWYI9DmMKOe2U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR05MB6092
+Content-Disposition: inline
+In-Reply-To: <20211101094844.GA4549@francesco-nb.int.toradex.com>
 Cc: marcel.ziswiler@toradex.com,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
  Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Oleksandr Suvorov <oleksandr.suvorov@foundries.io>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH] mfd: stmpe: Support disabling
 	sub-functions
@@ -130,27 +76,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 27, 2021 at 10:21:55AM +0200, Francesco Dolcini wrote:
-> From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-> 
-> Add support of sub-functions disabling. It allows one to define
-> an stmpe sub-function device in devicetree, but keep it disabled.
-> 
-> Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-> Cc: Oleksandr Suvorov <oleksandr.suvorov@foundries.io>
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-
-Hello Lee,
-any chance you could take this one line patch for this merge window?
-
-Francesco
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCAwMSBOb3YgMjAyMSwgRnJhbmNlc2NvIERvbGNpbmkgd3JvdGU6Cgo+IE9uIFdlZCwg
+T2N0IDI3LCAyMDIxIGF0IDEwOjIxOjU1QU0gKzAyMDAsIEZyYW5jZXNjbyBEb2xjaW5pIHdyb3Rl
+Ogo+ID4gRnJvbTogT2xla3NhbmRyIFN1dm9yb3YgPG9sZWtzYW5kci5zdXZvcm92QHRvcmFkZXgu
+Y29tPgo+ID4gCj4gPiBBZGQgc3VwcG9ydCBvZiBzdWItZnVuY3Rpb25zIGRpc2FibGluZy4gSXQg
+YWxsb3dzIG9uZSB0byBkZWZpbmUKPiA+IGFuIHN0bXBlIHN1Yi1mdW5jdGlvbiBkZXZpY2UgaW4g
+ZGV2aWNldHJlZSwgYnV0IGtlZXAgaXQgZGlzYWJsZWQuCj4gPiAKPiA+IFNpZ25lZC1vZmYtYnk6
+IE9sZWtzYW5kciBTdXZvcm92IDxvbGVrc2FuZHIuc3V2b3JvdkB0b3JhZGV4LmNvbT4KPiA+IENj
+OiBPbGVrc2FuZHIgU3V2b3JvdiA8b2xla3NhbmRyLnN1dm9yb3ZAZm91bmRyaWVzLmlvPgo+ID4g
+U2lnbmVkLW9mZi1ieTogRnJhbmNlc2NvIERvbGNpbmkgPGZyYW5jZXNjby5kb2xjaW5pQHRvcmFk
+ZXguY29tPgo+IAo+IEhlbGxvIExlZSwKPiBhbnkgY2hhbmNlIHlvdSBjb3VsZCB0YWtlIHRoaXMg
+b25lIGxpbmUgcGF0Y2ggZm9yIHRoaXMgbWVyZ2Ugd2luZG93PwoKRm9yIGEgcGF0Y2ggc2VudCAw
+LjUgd2Vla3MgYmVmb3JlIHRoZSBtZXJnZS13aW5kb3c/ICBOb3BlLiA6KQoKLS0gCkxlZSBKb25l
+cyBb5p2O55C85pavXQpTZW5pb3IgVGVjaG5pY2FsIExlYWQgLSBEZXZlbG9wZXIgU2VydmljZXMK
+TGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFybSBTb0NzCkZvbGxvdyBM
+aW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
+bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
