@@ -2,59 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 644C5440E69
-	for <lists+linux-stm32@lfdr.de>; Sun, 31 Oct 2021 13:29:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95ED6441424
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Nov 2021 08:27:32 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02DECC5A4FF;
-	Sun, 31 Oct 2021 12:29:17 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 325C7C5A4FF;
+	Mon,  1 Nov 2021 07:27:32 +0000 (UTC)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0268EC23E53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E46D8C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 Oct 2021 12:29:12 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DF57660FC2
+ Mon,  1 Nov 2021 07:27:28 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id s1so61386731edd.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 Oct 2021 12:29:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1635683350;
- bh=ph3gBE0UwLAlyx3ipLRKhIarn/rc9a7pyxJUqyXnYE8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=usE8+qRTvJpP2yse/64Lo3Y95bBTZOSbybWVCe/z6i/VN9YxpGpT3jfz498VeY9Nj
- F+yz9QH1YiCG0kZfB8iYvyZ5Urn69rYXmh+XH/ymgj4wqCcc1713qVr17IYMqTnaXk
- 8PQHebb2OQ4Hv9Ka1DHq+ik86BqFI13JmBQOzHR2KFeu5ru9lYsu9RzToXK4pjq3vO
- wnAk9HDnNYU4k+KZ6ME1MN1zpbt76wLMFmisi3jtxN0LwLKlF5rbGMsegMAHuJyr5t
- i8WuGy4gLiKvtwxtgsybrjpwkNsAlRbBt0yVZK+WG623uk3zIgPcEh2XeRk89OaDS4
- agunQIVu7fEmw==
-Received: by mail-ot1-f54.google.com with SMTP id
- 71-20020a9d034d000000b00553e24ce2b8so16586571otv.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 Oct 2021 05:29:10 -0700 (PDT)
-X-Gm-Message-State: AOAM5321QLSoVRBwtgHD1RD3QfqtA7Z7mzHvd7WHJU5djsrSwAMrIrG5
- p0ub1RW3sEYNt50VRFfjI+eclP7StBANfRe8HMI=
-X-Google-Smtp-Source: ABdhPJwgPIx5Ajj0S1T2KjyV/1WG7VBWyhFaagI5h0bGfEPDwtYo8G+a8GQ77xOCXiUmzae1g2e9z77AEw4JstfixnE=
-X-Received: by 2002:a05:6830:1d6e:: with SMTP id
- l14mr16396459oti.147.1635683350134; 
- Sun, 31 Oct 2021 05:29:10 -0700 (PDT)
+ Mon, 01 Nov 2021 00:27:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=QX73/TVtR5W8m/Vq63b5sJhbliBL72ushPOHfy32+cA=;
+ b=n6uFN6SpgKEONNUQYWEMk3QSatL2VU+3OIE365rTDm3tiXT6C2SFl9eNPrjpy0n3yf
+ bliXoXmfekvp/fwai3s73qeJy8IQNtaYnhX+a+inMSkk4CCcz0YxxFCRlzA5+MhkDloB
+ mZCJ6uYgoAAq2W5aLVj+kH/vSE0icEdQobOlrM3q2LpTF6FPxXqI/uaEdopabkkIRMiV
+ c4Gd0f5Mr9fTyrmp9yJF+RHZsAwJalbWM4IGPMOsZNgN/aokE9a7IQyVQD4bjD8Fn7sU
+ eSvVqs4C7lPKTyFbRxDeFwI1TDcIa1lN1CNrPFDSvkmSBHGQKd1pzR+0TkhLgY3dr1SG
+ /1vQ==
+X-Gm-Message-State: AOAM53127xnwLmJxepZg8IpwKx4ljFoTpJxPEzbyGQdJ+mct3rVH3kWp
+ /YIq2LVKseHJNCzyJi9WX7c=
+X-Google-Smtp-Source: ABdhPJz67dOV3GnCoSUWOvabzexqGXdP8guxumkAaVgH9YZqCSQCmsiydaI/dW9/wtOJPyA45DiFiw==
+X-Received: by 2002:a17:906:4e54:: with SMTP id
+ g20mr31002753ejw.284.1635751648035; 
+ Mon, 01 Nov 2021 00:27:28 -0700 (PDT)
+Received: from ?IPV6:2a0b:e7c0:0:107::70f? ([2a0b:e7c0:0:107::70f])
+ by smtp.gmail.com with ESMTPSA id w1sm1854315edd.49.2021.11.01.00.27.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Nov 2021 00:27:27 -0700 (PDT)
+Message-ID: <0b42eede-d909-1afb-f3fc-c4ee1e2fc0f4@kernel.org>
+Date: Mon, 1 Nov 2021 08:27:26 +0100
 MIME-Version: 1.0
-References: <20211029135454.4383-1-nicolas.toromanoff@foss.st.com>
- <20211029135454.4383-4-nicolas.toromanoff@foss.st.com>
-In-Reply-To: <20211029135454.4383-4-nicolas.toromanoff@foss.st.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Sun, 31 Oct 2021 13:28:58 +0100
-X-Gmail-Original-Message-ID: <CAMj1kXF5_2AnQH8pjgzbeq63iSkdkUVq3wZM_NURotoHj0sJMw@mail.gmail.com>
-Message-ID: <CAMj1kXF5_2AnQH8pjgzbeq63iSkdkUVq3wZM_NURotoHj0sJMw@mail.gmail.com>
-To: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
-Cc: Marek Vasut <marex@denx.de>, Herbert Xu <herbert@gondor.apana.org.au>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH 3/8] crypto: stm32/cryp - fix CTR counter
-	carry
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Content-Language: en-US
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Ohad Ben-Cohen <ohad@wizery.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20211015094701.5732-1-arnaud.pouliquen@foss.st.com>
+From: Jiri Slaby <jirislaby@kernel.org>
+In-Reply-To: <20211015094701.5732-1-arnaud.pouliquen@foss.st.com>
+Cc: linux-doc@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v10 0/2] Add rpmsg tty driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,77 +68,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 29 Oct 2021 at 16:01, Nicolas Toromanoff
-<nicolas.toromanoff@foss.st.com> wrote:
->
-> Fix issue in CTR counter overflow, the carry-over is now properly
-> managed.
-> Fixes: bbb2832620ac ("crypto: stm32 - Fix sparse warnings")
->
-> Signed-off-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
-> ---
->  drivers/crypto/stm32/stm32-cryp.c | 19 ++++++++++---------
->  1 file changed, 10 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/crypto/stm32/stm32-cryp.c b/drivers/crypto/stm32/stm32-cryp.c
-> index 7b55ad6d2f1a..6eeeca0d70ce 100644
-> --- a/drivers/crypto/stm32/stm32-cryp.c
-> +++ b/drivers/crypto/stm32/stm32-cryp.c
-> @@ -163,7 +163,7 @@ struct stm32_cryp {
->         struct scatter_walk     in_walk;
->         struct scatter_walk     out_walk;
->
-> -       u32                     last_ctr[4];
-> +       __be32                  last_ctr[4];
->         u32                     gcm_ctr;
->  };
->
-> @@ -1219,25 +1219,26 @@ static void stm32_cryp_check_ctr_counter(struct stm32_cryp *cryp)
->
->         if (unlikely(cryp->last_ctr[3] == 0xFFFFFFFF)) {
->                 cryp->last_ctr[3] = 0;
-> -               cryp->last_ctr[2]++;
-> +               cryp->last_ctr[2] = cpu_to_be32(be32_to_cpu(cryp->last_ctr[2]) + 1);
->                 if (!cryp->last_ctr[2]) {
-> -                       cryp->last_ctr[1]++;
-> +                       cryp->last_ctr[1] = cpu_to_be32(be32_to_cpu(cryp->last_ctr[1]) + 1);
->                         if (!cryp->last_ctr[1])
-> -                               cryp->last_ctr[0]++;
-> +                               cryp->last_ctr[0] = cpu_to_be32(be32_to_cpu(cryp->last_ctr[0]) + 1);
->                 }
->
+On 15. 10. 21, 11:46, Arnaud Pouliquen wrote:
+...
+>   drivers/rpmsg/rpmsg_core.c       |  21 +++
+>   drivers/rpmsg/rpmsg_internal.h   |   2 +
+>   drivers/rpmsg/virtio_rpmsg_bus.c |  10 ++
+>   drivers/tty/Kconfig              |  12 ++
+>   drivers/tty/Makefile             |   1 +
+>   drivers/tty/rpmsg_tty.c          | 274 +++++++++++++++++++++++++++++++
+>   include/linux/rpmsg.h            |  10 ++
 
-crypto_inc() ??
+Hi,
 
->                 cr = stm32_cryp_read(cryp, CRYP_CR);
->                 stm32_cryp_write(cryp, CRYP_CR, cr & ~CR_CRYPEN);
->
-> -               stm32_cryp_hw_write_iv(cryp, (__be32 *)cryp->last_ctr);
-> +               stm32_cryp_hw_write_iv(cryp, cryp->last_ctr);
->
->                 stm32_cryp_write(cryp, CRYP_CR, cr);
->         }
->
-> -       cryp->last_ctr[0] = stm32_cryp_read(cryp, CRYP_IV0LR);
-> -       cryp->last_ctr[1] = stm32_cryp_read(cryp, CRYP_IV0RR);
-> -       cryp->last_ctr[2] = stm32_cryp_read(cryp, CRYP_IV1LR);
-> -       cryp->last_ctr[3] = stm32_cryp_read(cryp, CRYP_IV1RR);
-> +       /* The IV registers are BE  */
-> +       cryp->last_ctr[0] = cpu_to_be32(stm32_cryp_read(cryp, CRYP_IV0LR));
-> +       cryp->last_ctr[1] = cpu_to_be32(stm32_cryp_read(cryp, CRYP_IV0RR));
-> +       cryp->last_ctr[2] = cpu_to_be32(stm32_cryp_read(cryp, CRYP_IV1LR));
-> +       cryp->last_ctr[3] = cpu_to_be32(stm32_cryp_read(cryp, CRYP_IV1RR));
->  }
->
->  static bool stm32_cryp_irq_read_data(struct stm32_cryp *cryp)
-> --
-> 2.17.1
->
+care to add an entry to MAINTAINERS too?
+
+thanks,
+-- 
+js
+suse labs
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
