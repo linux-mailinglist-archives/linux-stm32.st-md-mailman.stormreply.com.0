@@ -2,68 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01B86441EFA
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Nov 2021 18:07:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 743FD441F0C
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Nov 2021 18:14:53 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8796C5A4FF;
-	Mon,  1 Nov 2021 17:07:41 +0000 (UTC)
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
- [209.85.161.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D5DFC5A4FF;
+	Mon,  1 Nov 2021 17:14:53 +0000 (UTC)
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
+ [209.85.167.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2FF6C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 779F4C5660B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Nov 2021 17:07:38 +0000 (UTC)
-Received: by mail-oo1-f46.google.com with SMTP id
- a17-20020a4a6851000000b002b59bfbf669so6469879oof.9
+ Mon,  1 Nov 2021 17:14:50 +0000 (UTC)
+Received: by mail-oi1-f182.google.com with SMTP id x8so21594239oix.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 01 Nov 2021 10:07:38 -0700 (PDT)
+ Mon, 01 Nov 2021 10:14:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=xVH7dLm0NAiqoLAhT9eKibAtQ2bOK8bGBgP1Bfreb6M=;
- b=Y7LiKl4nLyrRiuKlSgX4TjQcpM/ylW9QAivpFGHp+nQJ7zxIUjCOFhD+kzh5McY4h1
- +H1aixASX0mry5G6V/Z0qoRU9xckH2ocSJbO1nov8xtJiLSBnuVOvHAcpkpVc0/QuJlc
- gt/1aRb65eLVQoawG2wD0dwRxsUWxd+lSG6O5CbCBs9rsafy0Sqv5ieJBA7VHeYC3D1f
- HBbgiInO7WuUKG0rHO/+B1cizGFwUnR4/ITkJm09EfHyBrGWpzEHQ7mwM2X+SUyPAOQu
- eiL4SeE047ZrL2edy1cf4J3NpIE65OJJtCZZLBIe1E1pejg6te0ixt7CCaPwMQBHyq8+
- RlJg==
+ bh=TAQqw3KjdM4L0YpQtUnwgo97V5E+/VwuteYqlXaknWA=;
+ b=Lka1HvsUaKOYF6Bvf7hwnE9Kv3V83IbfyA8r5O7+34g3lLxVwuhdEuG4VEObsH+5fD
+ xUSuQ21SDBahArvc+vuvR96BUML/E8pjCzW3vnNFR/oo3MGxYoDbrVK7vTumhcATBC8X
+ kgkeIN7XnYFLM5q2cj9DqrftSEgVt2UZja/VDQzCfJDSbUaR+YSW4+4s/WjIMThr8NH3
+ /tyZ3AwTYg6+Zp2voiFUiaRTQgw6As+clfCeytEsXUFjPnMN9ctyliCaliRZUN3FB2us
+ q2+ZsvplMEZvGEGe386FZQYNKD6MSQQ/l7Fn5qu+vbXclnBG/5+RbcgJxonx215qUFEd
+ c0FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=xVH7dLm0NAiqoLAhT9eKibAtQ2bOK8bGBgP1Bfreb6M=;
- b=JFWG6PRVnqCOnxNT06SIjYFIobnxd5dz0wqZUMXhtCYm2hk8kBd+Q7VLob94WYuOVz
- EA6q5XB0h1U+KwupElbP6pXpwZuc2yIj0LFvnWltrTOkalxBmayuyUJCgHqm7DAW/Nd4
- /ivkqP0wkh3SbnbFamlEx70T2cBRAvDeDCA4VKYT8hYid0VRiZTJfQjRc+SXcneSSPWL
- 9RJz6c/R2U4KClTiCiV9LYky3b9QfFjkNoEYQFdin0i/dxp9KTcGHi/i+SIGvskmndCv
- cg+3pdP2FGnVWE1ZDasimfZXHySgeSCyYR37eo7jopqBOYrwIlAsYfGkqonjNv4Jz0hD
- SeJA==
-X-Gm-Message-State: AOAM531xf0SchvWZwMJZPCsRXblhbMdSUvuDxcvyN26bt7uVsvc6y2Nc
- qM0nML1f9ju8sGvZbK4///C9Mg==
-X-Google-Smtp-Source: ABdhPJwfISfjV4+0OloX272RAvaTJ2ui4IC0YqQHQJCAITahYdUIwlTQExuPan7NMGj5ayWP5r+ERA==
-X-Received: by 2002:a4a:958b:: with SMTP id o11mr20251516ooi.35.1635786457450; 
- Mon, 01 Nov 2021 10:07:37 -0700 (PDT)
+ bh=TAQqw3KjdM4L0YpQtUnwgo97V5E+/VwuteYqlXaknWA=;
+ b=oE5V9VkYkPhhPfhzU3/58YBa5xpGi+61Haqz/urElpopTwB+ij3Z+IacmNV4iCKqP7
+ vJgQqfld8MLIUmZ9UD8yxmZtMefz1fjq13Lm+FA88b7AO+Vh2q6RwPDUwm0f8torrwTX
+ p75iES36PYmtZi1bA4IiYY37NKW1KhVcwA/WQD0bN+WatJDBbmni3yMgy2q9YsjuWLcw
+ nxKNy58BuUHufuKL8PTdvGl1ip/4Vm7QCFH56Pw5nxJLX9j8mGAZyODgQLwS9EclHlan
+ 8DOTs1N7qMPQDwac0ZNRUSKcLL/RzlVVPnc+WdWw3oztzjrdHCDm3wgjd9u2p1aazObV
+ dZAg==
+X-Gm-Message-State: AOAM531W2Hp0QpC+7BsAOc9hEOSB8Ddo9KIvm1+YANt+UobdhJF6kIl1
+ 8r2lPGikhuL8awDc1aI/ri4xHg==
+X-Google-Smtp-Source: ABdhPJz6QQFMXhR9zJ4GABG0Qu6iyAK2xcv2AQMoASAhiR6mwR16lRfY6/NHWX/riQrqo+D6PpjksQ==
+X-Received: by 2002:aca:3b89:: with SMTP id i131mr219401oia.102.1635786889248; 
+ Mon, 01 Nov 2021 10:14:49 -0700 (PDT)
 Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
  [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id x65sm4187270oix.43.2021.11.01.10.07.36
+ by smtp.gmail.com with ESMTPSA id bd5sm1783921oib.2.2021.11.01.10.14.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Nov 2021 10:07:36 -0700 (PDT)
-Date: Mon, 1 Nov 2021 12:07:34 -0500
+ Mon, 01 Nov 2021 10:14:48 -0700 (PDT)
+Date: Mon, 1 Nov 2021 12:14:44 -0500
 From: Bjorn Andersson <bjorn.andersson@linaro.org>
 To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <YYAe1tUR+aCZ8cw0@builder.lan>
+Message-ID: <YYAghC2xVYoPyrpK@builder.lan>
 References: <20211022125426.2579-1-arnaud.pouliquen@foss.st.com>
- <20211022125426.2579-4-arnaud.pouliquen@foss.st.com>
+ <20211022125426.2579-5-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20211022125426.2579-4-arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20211022125426.2579-5-arnaud.pouliquen@foss.st.com>
 Cc: Ohad Ben-Cohen <ohad@wizery.com>,
  Mathieu Poirier <mathieu.poirier@linaro.org>, julien.massot@iot.bzh,
  linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v6 03/10] rpmsg: Move the rpmsg control
- device from rpmsg_char to rpmsg_ctrl
+Subject: Re: [Linux-stm32] [PATCH v6 04/10] rpmsg: Update
+ rpmsg_chrdev_register_device function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,130 +81,111 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On Fri 22 Oct 07:54 CDT 2021, Arnaud Pouliquen wrote:
 
-> Create the rpmsg_ctrl.c module and move the code related to the
-> rpmsg_ctrldev device in this new module.
+> The rpmsg_chrdev driver has been replaced by the rpmsg_ctrl driver
+> for the /dev/rpmsg_ctrlX devices management. The reference for the
+> driver override is now the rpmsg_ctrl.
 > 
-> Add the dependency between rpmsg_char and rpmsg_ctrl in the
-> kconfig file.
+> Update the rpmsg_chrdev_register_device function to reflect the update,
+> and rename the function to use the rpmsg_ctrldev prefix.
+> 
+> The platform drivers are updated accordingly.
 > 
 > Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 > Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-> 
-> ---
-> update vs previous version:
-> - set the ctrl device class with new rpmsg_get_class API for legacy support
-> ---
->  drivers/rpmsg/Kconfig      |   9 ++
->  drivers/rpmsg/Makefile     |   1 +
->  drivers/rpmsg/rpmsg_char.c | 169 +----------------------------
->  drivers/rpmsg/rpmsg_char.h |   2 +
->  drivers/rpmsg/rpmsg_ctrl.c | 216 +++++++++++++++++++++++++++++++++++++
->  5 files changed, 230 insertions(+), 167 deletions(-)
->  create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
-> 
-> diff --git a/drivers/rpmsg/Kconfig b/drivers/rpmsg/Kconfig
-> index 0b4407abdf13..d822ec9ec692 100644
-> --- a/drivers/rpmsg/Kconfig
-> +++ b/drivers/rpmsg/Kconfig
-> @@ -10,11 +10,20 @@ config RPMSG_CHAR
->  	tristate "RPMSG device interface"
->  	depends on RPMSG
->  	depends on NET
-> +	select RPMSG_CTRL
 
-We don't want select of user selectable config options.
-
->  	help
->  	  Say Y here to export rpmsg endpoints as device files, usually found
->  	  in /dev. They make it possible for user-space programs to send and
->  	  receive rpmsg packets.
->  
-> +config RPMSG_CTRL
-
-I still don't like the introduction of more Kconfig options - search the
-list for the number of patches that has corrected Kconfig dependency
-issues.
-
-That said, if you get it right...
-
-> +	tristate "RPMSG control interface"
-> +	depends on RPMSG
-> +	help
-> +	  Say Y here to enable the support of the /dev/rpmsg_ctrlX API. This API
-> +	  allows user-space programs to create endpoints with specific service name,
-> +	  source and destination addresses.
-> +
->  config RPMSG_NS
->  	tristate "RPMSG name service announcement"
->  	depends on RPMSG
-[..]
-> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-[..]
-> diff --git a/drivers/rpmsg/rpmsg_char.h b/drivers/rpmsg/rpmsg_char.h
-> index 109c2c43005f..ff1acc42628a 100644
-> --- a/drivers/rpmsg/rpmsg_char.h
-> +++ b/drivers/rpmsg/rpmsg_char.h
-> @@ -12,6 +12,8 @@
->   * In such case a kernel warning is printed to help develloper to fix the issue.
->   */
->  
-> +#define RPMSG_DEV_MAX	(MINORMASK + 1)
-
-This was used to define the minors of the rpmsg chdev, now you're
-splitting that range in one for the ctrl and one for the char.
-
-Moving this define to a common place gives an impression that there's a
-relationship between the two, but I don't see any. So I think you should
-duplicate this in the two files - just like the other stuff.
-
-> +
->  #if IS_REACHABLE(CONFIG_RPMSG_CHAR)
->  /**
->   * rpmsg_chrdev_eptdev_create() - register char device based on an endpoint
-> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
-> new file mode 100644
-> index 000000000000..1d3c12e5cdcf
-> --- /dev/null
-> +++ b/drivers/rpmsg/rpmsg_ctrl.c
-> @@ -0,0 +1,216 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2021, STMicroelectronics
-
-Did you actually change anything that warrant the explicit copyright
-claim?
-
-> + * Copyright (c) 2016, Linaro Ltd.
-> + * Copyright (c) 2012, Michal Simek <monstr@monstr.eu>
-> + * Copyright (c) 2012, PetaLogix
-> + * Copyright (c) 2011, Texas Instruments, Inc.
-> + * Copyright (c) 2011, Google, Inc.
-> + *
-> + * Based on rpmsg performance statistics driver by Michal Simek, which in turn
-> + * was based on TI & Google OMX rpmsg driver.
-> + */
-[..]
-> +static int rpmsg_ctrldev_probe(struct rpmsg_device *rpdev)
-> +{
-> +	struct rpmsg_ctrldev *ctrldev;
-> +	struct device *dev;
-> +	int ret;
-> +
-> +	ctrldev = kzalloc(sizeof(*ctrldev), GFP_KERNEL);
-> +	if (!ctrldev)
-> +		return -ENOMEM;
-> +
-> +	ctrldev->rpdev = rpdev;
-> +
-> +	dev = &ctrldev->dev;
-> +	device_initialize(dev);
-> +	dev->parent = &rpdev->dev;
-> +	dev->class = rpmsg_get_class();
-
-Thank you.
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
 Regards,
 Bjorn
+
+> ---
+>  drivers/rpmsg/qcom_glink_native.c | 2 +-
+>  drivers/rpmsg/qcom_smd.c          | 2 +-
+>  drivers/rpmsg/rpmsg_ctrl.c        | 2 +-
+>  drivers/rpmsg/rpmsg_internal.h    | 8 ++++----
+>  drivers/rpmsg/virtio_rpmsg_bus.c  | 2 +-
+>  5 files changed, 8 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
+> index 3f377a795b33..e6eb7fd126c9 100644
+> --- a/drivers/rpmsg/qcom_glink_native.c
+> +++ b/drivers/rpmsg/qcom_glink_native.c
+> @@ -1715,7 +1715,7 @@ static int qcom_glink_create_chrdev(struct qcom_glink *glink)
+>  	rpdev->dev.parent = glink->dev;
+>  	rpdev->dev.release = qcom_glink_device_release;
+>  
+> -	return rpmsg_chrdev_register_device(rpdev);
+> +	return rpmsg_ctrldev_register_device(rpdev);
+>  }
+>  
+>  struct qcom_glink *qcom_glink_native_probe(struct device *dev,
+> diff --git a/drivers/rpmsg/qcom_smd.c b/drivers/rpmsg/qcom_smd.c
+> index 8da1b5cb31b3..d223e438d17c 100644
+> --- a/drivers/rpmsg/qcom_smd.c
+> +++ b/drivers/rpmsg/qcom_smd.c
+> @@ -1113,7 +1113,7 @@ static int qcom_smd_create_chrdev(struct qcom_smd_edge *edge)
+>  	qsdev->rpdev.dev.parent = &edge->dev;
+>  	qsdev->rpdev.dev.release = qcom_smd_release_device;
+>  
+> -	return rpmsg_chrdev_register_device(&qsdev->rpdev);
+> +	return rpmsg_ctrldev_register_device(&qsdev->rpdev);
+>  }
+>  
+>  /*
+> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
+> index 1d3c12e5cdcf..4734ce9d927b 100644
+> --- a/drivers/rpmsg/rpmsg_ctrl.c
+> +++ b/drivers/rpmsg/rpmsg_ctrl.c
+> @@ -180,7 +180,7 @@ static struct rpmsg_driver rpmsg_ctrldev_driver = {
+>  	.probe = rpmsg_ctrldev_probe,
+>  	.remove = rpmsg_ctrldev_remove,
+>  	.drv = {
+> -		.name = "rpmsg_chrdev",
+> +		.name = "rpmsg_ctrl",
+>  	},
+>  };
+>  
+> diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
+> index a76c344253bf..d6056f09bcd8 100644
+> --- a/drivers/rpmsg/rpmsg_internal.h
+> +++ b/drivers/rpmsg/rpmsg_internal.h
+> @@ -82,16 +82,16 @@ struct rpmsg_device *rpmsg_create_channel(struct rpmsg_device *rpdev,
+>  int rpmsg_release_channel(struct rpmsg_device *rpdev,
+>  			  struct rpmsg_channel_info *chinfo);
+>  /**
+> - * rpmsg_chrdev_register_device() - register chrdev device based on rpdev
+> + * rpmsg_ctrldev_register_device() - register a char device for control based on rpdev
+>   * @rpdev:	prepared rpdev to be used for creating endpoints
+>   *
+>   * This function wraps rpmsg_register_device() preparing the rpdev for use as
+>   * basis for the rpmsg chrdev.
+>   */
+> -static inline int rpmsg_chrdev_register_device(struct rpmsg_device *rpdev)
+> +static inline int rpmsg_ctrldev_register_device(struct rpmsg_device *rpdev)
+>  {
+> -	strcpy(rpdev->id.name, "rpmsg_chrdev");
+> -	rpdev->driver_override = "rpmsg_chrdev";
+> +	strcpy(rpdev->id.name, "rpmsg_ctrl");
+> +	rpdev->driver_override = "rpmsg_ctrl";
+>  
+>  	return rpmsg_register_device(rpdev);
+>  }
+> diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+> index 5da622eb1c8f..2acec7f37474 100644
+> --- a/drivers/rpmsg/virtio_rpmsg_bus.c
+> +++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+> @@ -839,7 +839,7 @@ static struct rpmsg_device *rpmsg_virtio_add_ctrl_dev(struct virtio_device *vdev
+>  	rpdev_ctrl->dev.release = virtio_rpmsg_release_device;
+>  	rpdev_ctrl->little_endian = virtio_is_little_endian(vrp->vdev);
+>  
+> -	err = rpmsg_chrdev_register_device(rpdev_ctrl);
+> +	err = rpmsg_ctrldev_register_device(rpdev_ctrl);
+>  	if (err) {
+>  		kfree(vch);
+>  		return ERR_PTR(err);
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
