@@ -2,61 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95ED6441424
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Nov 2021 08:27:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECE34441528
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Nov 2021 09:17:55 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 325C7C5A4FF;
-	Mon,  1 Nov 2021 07:27:32 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8335AC5A4FF;
+	Mon,  1 Nov 2021 08:17:55 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E46D8C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8926AC5660B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Nov 2021 07:27:28 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id s1so61386731edd.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 01 Nov 2021 00:27:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=QX73/TVtR5W8m/Vq63b5sJhbliBL72ushPOHfy32+cA=;
- b=n6uFN6SpgKEONNUQYWEMk3QSatL2VU+3OIE365rTDm3tiXT6C2SFl9eNPrjpy0n3yf
- bliXoXmfekvp/fwai3s73qeJy8IQNtaYnhX+a+inMSkk4CCcz0YxxFCRlzA5+MhkDloB
- mZCJ6uYgoAAq2W5aLVj+kH/vSE0icEdQobOlrM3q2LpTF6FPxXqI/uaEdopabkkIRMiV
- c4Gd0f5Mr9fTyrmp9yJF+RHZsAwJalbWM4IGPMOsZNgN/aokE9a7IQyVQD4bjD8Fn7sU
- eSvVqs4C7lPKTyFbRxDeFwI1TDcIa1lN1CNrPFDSvkmSBHGQKd1pzR+0TkhLgY3dr1SG
- /1vQ==
-X-Gm-Message-State: AOAM53127xnwLmJxepZg8IpwKx4ljFoTpJxPEzbyGQdJ+mct3rVH3kWp
- /YIq2LVKseHJNCzyJi9WX7c=
-X-Google-Smtp-Source: ABdhPJz67dOV3GnCoSUWOvabzexqGXdP8guxumkAaVgH9YZqCSQCmsiydaI/dW9/wtOJPyA45DiFiw==
-X-Received: by 2002:a17:906:4e54:: with SMTP id
- g20mr31002753ejw.284.1635751648035; 
- Mon, 01 Nov 2021 00:27:28 -0700 (PDT)
-Received: from ?IPV6:2a0b:e7c0:0:107::70f? ([2a0b:e7c0:0:107::70f])
- by smtp.gmail.com with ESMTPSA id w1sm1854315edd.49.2021.11.01.00.27.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Nov 2021 00:27:27 -0700 (PDT)
-Message-ID: <0b42eede-d909-1afb-f3fc-c4ee1e2fc0f4@kernel.org>
-Date: Mon, 1 Nov 2021 08:27:26 +0100
+ Mon,  1 Nov 2021 08:17:53 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E76C1212C7;
+ Mon,  1 Nov 2021 08:17:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1635754672; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=froXKkwnXcE09hCLAbIHSihJ/nL3UBMsXPk/fd1O4Cg=;
+ b=Ofrd8rLNErIfwlciDlpg7G4g2oRWnuCd/EYLyZo4l1Tf+J5KSJmNLbB8/jRtq9pP87Mngi
+ u/GZA5CCRgRERoUS8x+iPkf3p6tPki631VOLLVpn8i9d3ZMXyHx1K1jMctj6KsitYD3qjI
+ Mz7yB1cf1nLDJSAaOYEvKkYiXzfox90=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1635754672;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=froXKkwnXcE09hCLAbIHSihJ/nL3UBMsXPk/fd1O4Cg=;
+ b=19E+Jk2zifLgLxkjMjIKZ6k4BeftOIiScpU3DtesQB4m4QWycwzbz0A6jFfElB0XbIDyqr
+ JcD2/xC8RLfXENBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 92C9013AA1;
+ Mon,  1 Nov 2021 08:17:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id /SfQIrCif2EIIAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 01 Nov 2021 08:17:52 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+ daniel@ffwll.ch, noralf@tronnes.org, marcel@ziswiler.com,
+ naresh.kamboju@linaro.org
+Date: Mon,  1 Nov 2021 09:17:49 +0100
+Message-Id: <20211101081751.24613-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.1
-Content-Language: en-US
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Ohad Ben-Cohen <ohad@wizery.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Jonathan Corbet <corbet@lwn.net>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20211015094701.5732-1-arnaud.pouliquen@foss.st.com>
-From: Jiri Slaby <jirislaby@kernel.org>
-In-Reply-To: <20211015094701.5732-1-arnaud.pouliquen@foss.st.com>
-Cc: linux-doc@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Suman Anna <s-anna@ti.com>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v10 0/2] Add rpmsg tty driver
+Cc: linux-aspeed@lists.ozlabs.org, linux-mips@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] drm: Small CMA cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,29 +67,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 15. 10. 21, 11:46, Arnaud Pouliquen wrote:
-...
->   drivers/rpmsg/rpmsg_core.c       |  21 +++
->   drivers/rpmsg/rpmsg_internal.h   |   2 +
->   drivers/rpmsg/virtio_rpmsg_bus.c |  10 ++
->   drivers/tty/Kconfig              |  12 ++
->   drivers/tty/Makefile             |   1 +
->   drivers/tty/rpmsg_tty.c          | 274 +++++++++++++++++++++++++++++++
->   include/linux/rpmsg.h            |  10 ++
+Remove CMA dependencies from MIPI-DBI and replace the config
+symbol DRM_KMS_CMA_HELPER with DRM_KMS_HELPER. This allows to
+link drm_fb_cma_helper.o into a helper library.
 
-Hi,
+Thomas Zimmermann (2):
+  drm/mipi-dbi: Remove dependency on GEM CMA helper library
+  drm: Remove CONFIG_DRM_KMS_CMA_HELPER option
 
-care to add an entry to MAINTAINERS too?
+ drivers/gpu/drm/Kconfig                 |  7 -----
+ drivers/gpu/drm/Makefile                |  2 +-
+ drivers/gpu/drm/arm/Kconfig             |  2 --
+ drivers/gpu/drm/arm/display/Kconfig     |  1 -
+ drivers/gpu/drm/aspeed/Kconfig          |  1 -
+ drivers/gpu/drm/atmel-hlcdc/Kconfig     |  1 -
+ drivers/gpu/drm/drm_mipi_dbi.c          | 34 ++++++++++++++++++-------
+ drivers/gpu/drm/fsl-dcu/Kconfig         |  1 -
+ drivers/gpu/drm/hisilicon/kirin/Kconfig |  1 -
+ drivers/gpu/drm/imx/Kconfig             |  2 +-
+ drivers/gpu/drm/imx/dcss/Kconfig        |  2 +-
+ drivers/gpu/drm/ingenic/Kconfig         |  1 -
+ drivers/gpu/drm/kmb/Kconfig             |  1 -
+ drivers/gpu/drm/mcde/Kconfig            |  1 -
+ drivers/gpu/drm/meson/Kconfig           |  1 -
+ drivers/gpu/drm/mxsfb/Kconfig           |  2 +-
+ drivers/gpu/drm/panel/Kconfig           |  2 +-
+ drivers/gpu/drm/pl111/Kconfig           |  1 -
+ drivers/gpu/drm/rcar-du/Kconfig         |  1 -
+ drivers/gpu/drm/shmobile/Kconfig        |  1 -
+ drivers/gpu/drm/sti/Kconfig             |  1 -
+ drivers/gpu/drm/stm/Kconfig             |  1 -
+ drivers/gpu/drm/sun4i/Kconfig           |  1 -
+ drivers/gpu/drm/tidss/Kconfig           |  1 -
+ drivers/gpu/drm/tilcdc/Kconfig          |  1 -
+ drivers/gpu/drm/tiny/Kconfig            | 20 +++++++--------
+ drivers/gpu/drm/tve200/Kconfig          |  1 -
+ drivers/gpu/drm/vc4/Kconfig             |  1 -
+ drivers/gpu/drm/xlnx/Kconfig            |  1 -
+ 29 files changed, 40 insertions(+), 53 deletions(-)
 
-thanks,
--- 
-js
-suse labs
+--
+2.33.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
