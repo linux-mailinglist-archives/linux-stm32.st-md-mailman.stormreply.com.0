@@ -2,67 +2,123 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 217DB44152B
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Nov 2021 09:17:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F03AC441890
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Nov 2021 10:48:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5981C5E2CA;
-	Mon,  1 Nov 2021 08:17:55 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5758C5A4FF;
+	Mon,  1 Nov 2021 09:48:52 +0000 (UTC)
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr50121.outbound.protection.outlook.com [40.107.5.121])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D1B2C5660B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70123C5660B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Nov 2021 08:17:54 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AA8A821940;
- Mon,  1 Nov 2021 08:17:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1635754673; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4EzLk3mwa187FL/XE7jeS9GSjupmN43r6Vq/C6Y2LPU=;
- b=yLm4gpNm1iYNSayrPo3XWs3850JPpJ9CEs1muvDr8ldl0ZQqkPuFBa1+qvHZpKLHJE075S
- fEg2zGrFnKisP4jQ3AftjudvlZSW/Di30OPh8AW0yPKiTm/2wYGNIirMHnZXM5lC4gSNnf
- gQDTzKVG/oSQV6dQRpTf65jVjVD9XMo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1635754673;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4EzLk3mwa187FL/XE7jeS9GSjupmN43r6Vq/C6Y2LPU=;
- b=D7lKLuF8jyweDDEF9uzozML3ERrhCgCblvEvmTLye+vWySc8JC7B3T4xgnm8BbsYXgGOtp
- xJv3RI/bKXeWsyBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5173813AA1;
- Mon,  1 Nov 2021 08:17:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wNHOErGif2EIIAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 01 Nov 2021 08:17:53 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
- daniel@ffwll.ch, noralf@tronnes.org, marcel@ziswiler.com,
- naresh.kamboju@linaro.org
-Date: Mon,  1 Nov 2021 09:17:51 +0100
-Message-Id: <20211101081751.24613-3-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211101081751.24613-1-tzimmermann@suse.de>
-References: <20211101081751.24613-1-tzimmermann@suse.de>
+ Mon,  1 Nov 2021 09:48:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UXt+nZ2u0IuglEayyCmbXijsUeDj1zQlXe2+yEr6yNghZqTif4y++R1d3uAfb6oe1BAWJarLfXM/kFlDkzDXgDlMhtiLxUP6iTzU6Bi6Siah0UKNhPibPvdlqsfn9Q6/GPGwbz/ZhQhMQgcTpewkGwOn4lZlcgFvzSVr1l20gAxwhvazWES/UJ3d8GNBBA+mliDARjGVapRj+9y2T+rKheK5r75q0Im3f7UWCHkeQ0htDc0L+ACO1xgHQoRkEp4Nd/NL3QjMY9eOMec5tQ6jq4y2U5Y/chq/9vzji6xfQfm3ZUOE162c/dugfNQQiHwnF0aQgoQKNMrZCEBDT9L3IA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UJWe57C+cC2ydX0EcPyZfym/oxR0jt1JwuMNpStHf/4=;
+ b=KleiBuBj+xyUci2SmoI5yXWhSjtZ3PSxOnls2Iql8LZC3pa7flZITerHHG4bCeXuU20YYJqVVYFAUFfWaoGgt+llrzw5vVKE29xt9TmwMFgNLgnKLlh3d0FtPprUnMNttAAnD6QGl4nQVjPmlA30EObWoQ7cxv1duJHU7v5hrkFCFwyHcpycuLaHqvYQmHwDo9Crcqfqh887QIRpXz9pHCuHZa80ivpkFVJ7LGWId0G+oZLiA9YKSkF5QW1+zXy5NLe+2NFx/XwyovlWUXBa/4++zbDyDWnsardx9Qq14km6YbwiVjKOJN2eO8mq1L5aLfV5TAz9YYk1dSDw8uq8xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=toradex.com; dmarc=pass action=none header.from=toradex.com;
+ dkim=pass header.d=toradex.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UJWe57C+cC2ydX0EcPyZfym/oxR0jt1JwuMNpStHf/4=;
+ b=HlMFjaODZKXoinnNULouvbCanpN23DKOM+ukihDzznXmpqNc8n/uYNJJUXbr/k33vJyEVmVwmhbg8CbvcZYKI2hGtOWo5k9BukkfWAg8qglhYJsUSJxOkCjSWFhS+48iL3w24tetMXoYoqCYi69xnEp77Dn4PoY3o5ZzBXbmaN8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=toradex.com;
+Received: from DBAPR05MB7445.eurprd05.prod.outlook.com (2603:10a6:10:1a0::8)
+ by DB8PR05MB6092.eurprd05.prod.outlook.com (2603:10a6:10:a7::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.18; Mon, 1 Nov
+ 2021 09:48:46 +0000
+Received: from DBAPR05MB7445.eurprd05.prod.outlook.com
+ ([fe80::90ca:ed3d:a3e5:1651]) by DBAPR05MB7445.eurprd05.prod.outlook.com
+ ([fe80::90ca:ed3d:a3e5:1651%3]) with mapi id 15.20.4649.019; Mon, 1 Nov 2021
+ 09:48:46 +0000
+Date: Mon, 1 Nov 2021 10:48:44 +0100
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
+To: Lee Jones <lee.jones@linaro.org>
+Message-ID: <20211101094844.GA4549@francesco-nb.int.toradex.com>
+References: <20211027082155.206449-1-francesco.dolcini@toradex.com>
+Content-Disposition: inline
+In-Reply-To: <20211027082155.206449-1-francesco.dolcini@toradex.com>
+X-ClientProxiedBy: MR2P264CA0021.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:1::33) To DBAPR05MB7445.eurprd05.prod.outlook.com
+ (2603:10a6:10:1a0::8)
 MIME-Version: 1.0
-Cc: linux-aspeed@lists.ozlabs.org, linux-mips@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- linux-renesas-soc@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] drm: Remove CONFIG_DRM_KMS_CMA_HELPER
-	option
+Received: from francesco-nb.toradex.int (93.49.2.63) by
+ MR2P264CA0021.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500:1::33) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.17 via Frontend Transport; Mon, 1 Nov 2021 09:48:45 +0000
+Received: by francesco-nb.toradex.int (Postfix, from userid 1000)	id
+ 7DC4110A03BE; Mon,  1 Nov 2021 10:48:44 +0100 (CET)
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3c25e727-326e-4c25-1c62-08d99d1ccc27
+X-MS-TrafficTypeDiagnostic: DB8PR05MB6092:
+X-Microsoft-Antispam-PRVS: <DB8PR05MB6092317CCA13FED0BE33EA64E28A9@DB8PR05MB6092.eurprd05.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ktKRYdQKoUUcPbDKT3XkCJ1nrjJuK5usPQ43sVXy0xxLzoSlsAc8ARCqrWi1MBUV6GujtNhoV87Us6DaCZAyvtiGdxhJyksn0SL46AwLfQZx2ZC0pwt71Fid7kv/zsE0ImPe21m8Y4Z/9T9MY0D3ceDnCR/jjbo5iepQExUCmC9VybX5xiI3TFy7N2e4wndRaUbJXqAROmTfQ9hi/zLWzMNGXBLJu5v19WPyNlw5WSTn7Kz1nhzV9neh24A+pjipPh1LlTVGxwYMEpok/H2DC4/iX1+lZjT8K9LTmk6kSIf21YPZb8ZfJjK8K5VXJP4nXZhnjLjvoOcDxgqjzf6LW6f6X7JpaSiWbH7hiH3OOuzVrX6b6uRTuHPG1cMxJT3kzmQlB+fn0uijABGaV/BNGVwZbGVbjgoiy0QE68jJa9ANV3mPBb2xcNnpY6niMo8AjuUmlIF8gHzpbiQ0ICbTbvsNwL/sq4v1slSdTkYD7m27VtA8CXD3s9bORlWpjZ0Sl6f+MNtYPpES/1cEkQBI5G1lzXitKpO/HLV45YUTRjaxaVw5LX+llZW5hUzwqTuJQMMRI/XeJZpO2FuCw/H8LUFSiV5obxog1Fvij2E95IM/QVdBNEpJOlkA2Zb7k1LXds4R7WTclgjaRkQ1zLdAmhjcXTzPCaiUetHRGa/G2y+hK9cwzfV52Msnd0gYZoTV5OAqumoxVSATAfQ7UyvQgA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DBAPR05MB7445.eurprd05.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(5660300002)(1076003)(8676002)(4744005)(8936002)(38350700002)(38100700002)(44832011)(186003)(33656002)(508600001)(66556008)(66476007)(4326008)(66946007)(86362001)(54906003)(42186006)(83380400001)(6916009)(2906002)(6266002)(26005)(52116002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wOb2D/zpcpHprnWqkG0aMzFH9qhxOnYnUgMLObda6oWZVHsB0sXfKzgYRSFt?=
+ =?us-ascii?Q?9SP4PLO1uyzOjzmd6pzNuxlVW/xeEc2QUDTEvUq/SXoxSeelIcygnA4iqzg6?=
+ =?us-ascii?Q?reaOox4eXzVec/UwQ8LPa2OUkNIG79LonEkGqSvHs5e0jOaHu74/nns7Xoul?=
+ =?us-ascii?Q?zsyiSwUARDJzDQ6xBrTQP3HUc2v7Js4/UQ3gp5nZU48lIuplXVUlCgVMHgi6?=
+ =?us-ascii?Q?F2x7TaNSvl3HRykq+7m23QVlIVPmeH/WUcPnOXxGcikhaWRNU92ZOKJ1j9mH?=
+ =?us-ascii?Q?XF/Fsyf0oD8gMTaflNxPldDoXr0323S7PBUyFXmqSSgKihUjfKqJbjYyhOXJ?=
+ =?us-ascii?Q?1buBrNdMAn9r388lgno9+ZCHVvKRLcXfOrKoK3EBAz0xpmkdrvvVxPdsKVjw?=
+ =?us-ascii?Q?vzCxjPy8+7U3WWtCkCMuzFChK431xvYH9rc1N6mOYk73kC9p5i2UbxzEx32t?=
+ =?us-ascii?Q?31HiuSgRd0PKfB+42kTJiVuX+YWC/mm3YQS1YVepjvm8ltRpP2mYoHBfPZn7?=
+ =?us-ascii?Q?5s8XH3lDRNUM8AZST5bzvMJR7/7cwLJ0u2DMffAYtGSV2nYzLYTMWg7iUaS5?=
+ =?us-ascii?Q?Ic1SuXenQfVSxrqvbwpvLOqYFMUZ9WFXu7hdS/PX5uDLRy/aNiNQafuKtHvt?=
+ =?us-ascii?Q?VuYCumjPWNcPSIyvvKfYdy0Tgmqd+e8/5DZD48+v4ZyCBn2ixxoOaC954nAh?=
+ =?us-ascii?Q?4r7XGjyIdW2DBC9X4z86OeY5Jv4iI1zAURm8C6nCCdv97X351OfxdcCN6onS?=
+ =?us-ascii?Q?YrqwGlt3B20vMaKZmwEOvCeuw0L057TouZP6UJGuUiUUU/UtQYJW7FnBTo8P?=
+ =?us-ascii?Q?asOtCVN4fkWN8Ni9cWgBUiF9FKbM56RF01YtIiWVHVmre08AavuuZzDV+Vb1?=
+ =?us-ascii?Q?QoSLCayrods5g+p/V+EDF+tLe/uFrww/VMvE/eIGnrBCJ5T+ep9NBbWcCovt?=
+ =?us-ascii?Q?Q4ARlQIuMgRnsRN3pkQ63HHHk5mJZz4klUvTLra7d3RuBrelL2mGMJA+yuU6?=
+ =?us-ascii?Q?F0AfDA6tQz/YSikA3MDuYZSs/kuD8MuWxeh9+lNlaMK8bkeqnzPq30vBQto2?=
+ =?us-ascii?Q?QSC6YF+WKnMslDeSNQlcMvQHQuOGZltpjG29ijT42pBlvL67Ib9ZR/GuDf7x?=
+ =?us-ascii?Q?iIUxF57jHKEFTwexUhoeP1SZ1iwOdkMYetYIazj4xeM/rg1JnChWn1haR1L5?=
+ =?us-ascii?Q?iSapfacK81T+euhutO7Ko2QVR/+9MUsDP31PfhQbWLrmy5a8vgxdtdaCzXwH?=
+ =?us-ascii?Q?MThz/bcU+zI8m4wglYnWzazpTC22gXJyMm9GLAfMw+1skfhdoRYWyO7BW8IG?=
+ =?us-ascii?Q?ApuarmZrm6w1JoA0I2IjblU7UdHR7oOxKlDeKpFt6HH4DUHwYd0axpWdUJLm?=
+ =?us-ascii?Q?iBfmVAsc+VBzr9A3aTIsJTa//oxrWgE875X0VvfkAH0+mqJD7mdb13gqvFHz?=
+ =?us-ascii?Q?N0thwLcEK/nESCIB7xpRwzE4TXf6M8nWheFyxMXM2RnDMmxRr671UwNxlhEl?=
+ =?us-ascii?Q?zrhDwkIqLNVAeouVNiSXBgQ0qsgFN8KpWCVKydEG75bLnv1zxG7psmPn2Q08?=
+ =?us-ascii?Q?+X7QpvL19Z3yioPzrO0mpHz4jHOoZ0uPsxHvfuxuc89nOqW4VNqN5Khe2KlW?=
+ =?us-ascii?Q?8QQcw0uEWFyCbsaMPrdk+ZASOWUD9r8xW4HxNc2KmLzEu+g5IW9oSrmRuYkV?=
+ =?us-ascii?Q?KgD59A=3D=3D?=
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c25e727-326e-4c25-1c62-08d99d1ccc27
+X-MS-Exchange-CrossTenant-AuthSource: DBAPR05MB7445.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2021 09:48:46.0431 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vBOChEdNj8ta/Kp4UnD6tAUPsDwjOvIoxMVsTwwZIufkaeBNrhC4W3RsMABAAl9mGwdrXyau3QSbFFVQig0q90R3PGrgApwWYI9DmMKOe2U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR05MB6092
+Cc: marcel.ziswiler@toradex.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Oleksandr Suvorov <oleksandr.suvorov@foundries.io>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] mfd: stmpe: Support disabling
+	sub-functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,491 +135,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Link drm_fb_cma_helper.o into drm_cma_helper.ko if CONFIG_DRM_KMS_HELPER
-has been set. Remove CONFIG_DRM_KMS_CMA_HELPER config option. Selecting
-KMS helpers and CMA will now automatically enable CMA KMS helpers.
+On Wed, Oct 27, 2021 at 10:21:55AM +0200, Francesco Dolcini wrote:
+> From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+> 
+> Add support of sub-functions disabling. It allows one to define
+> an stmpe sub-function device in devicetree, but keep it disabled.
+> 
+> Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+> Cc: Oleksandr Suvorov <oleksandr.suvorov@foundries.io>
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Some drivers' Kconfig files did not correctly select KMS or CMA helpers.
-Fix this as part of the change.
+Hello Lee,
+any chance you could take this one line patch for this merge window?
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/Kconfig                 |  7 -------
- drivers/gpu/drm/Makefile                |  2 +-
- drivers/gpu/drm/arm/Kconfig             |  2 --
- drivers/gpu/drm/arm/display/Kconfig     |  1 -
- drivers/gpu/drm/aspeed/Kconfig          |  1 -
- drivers/gpu/drm/atmel-hlcdc/Kconfig     |  1 -
- drivers/gpu/drm/fsl-dcu/Kconfig         |  1 -
- drivers/gpu/drm/hisilicon/kirin/Kconfig |  1 -
- drivers/gpu/drm/imx/Kconfig             |  2 +-
- drivers/gpu/drm/imx/dcss/Kconfig        |  2 +-
- drivers/gpu/drm/ingenic/Kconfig         |  1 -
- drivers/gpu/drm/kmb/Kconfig             |  1 -
- drivers/gpu/drm/mcde/Kconfig            |  1 -
- drivers/gpu/drm/meson/Kconfig           |  1 -
- drivers/gpu/drm/mxsfb/Kconfig           |  2 +-
- drivers/gpu/drm/panel/Kconfig           |  2 +-
- drivers/gpu/drm/pl111/Kconfig           |  1 -
- drivers/gpu/drm/rcar-du/Kconfig         |  1 -
- drivers/gpu/drm/shmobile/Kconfig        |  1 -
- drivers/gpu/drm/sti/Kconfig             |  1 -
- drivers/gpu/drm/stm/Kconfig             |  1 -
- drivers/gpu/drm/sun4i/Kconfig           |  1 -
- drivers/gpu/drm/tidss/Kconfig           |  1 -
- drivers/gpu/drm/tilcdc/Kconfig          |  1 -
- drivers/gpu/drm/tiny/Kconfig            | 20 ++++++++++----------
- drivers/gpu/drm/tve200/Kconfig          |  1 -
- drivers/gpu/drm/vc4/Kconfig             |  1 -
- drivers/gpu/drm/xlnx/Kconfig            |  1 -
- 28 files changed, 15 insertions(+), 44 deletions(-)
-
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index fb144617055b..5e147593bb6c 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -217,13 +217,6 @@ config DRM_GEM_CMA_HELPER
- 	help
- 	  Choose this if you need the GEM CMA helper functions
- 
--config DRM_KMS_CMA_HELPER
--	bool
--	depends on DRM
--	select DRM_GEM_CMA_HELPER
--	help
--	  Choose this if you need the KMS CMA helper functions
--
- config DRM_GEM_SHMEM_HELPER
- 	tristate
- 	depends on DRM && MMU
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 1c41156deb5f..7125318d6c95 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -34,6 +34,7 @@ drm-$(CONFIG_DRM_PRIVACY_SCREEN) += drm_privacy_screen.o drm_privacy_screen_x86.
- obj-$(CONFIG_DRM_DP_AUX_BUS) += drm_dp_aux_bus.o
- 
- drm_cma_helper-y := drm_gem_cma_helper.o
-+drm_cma_helper-$(CONFIG_DRM_KMS_HELPER) += drm_fb_cma_helper.o
- obj-$(CONFIG_DRM_GEM_CMA_HELPER) += drm_cma_helper.o
- 
- drm_shmem_helper-y := drm_gem_shmem_helper.o
-@@ -58,7 +59,6 @@ drm_kms_helper-y := drm_bridge_connector.o drm_crtc_helper.o drm_dp_helper.o \
- 
- drm_kms_helper-$(CONFIG_DRM_PANEL_BRIDGE) += bridge/panel.o
- drm_kms_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fb_helper.o
--drm_kms_helper-$(CONFIG_DRM_KMS_CMA_HELPER) += drm_fb_cma_helper.o
- drm_kms_helper-$(CONFIG_DRM_DP_AUX_CHARDEV) += drm_dp_aux_dev.o
- drm_kms_helper-$(CONFIG_DRM_DP_CEC) += drm_dp_cec.o
- 
-diff --git a/drivers/gpu/drm/arm/Kconfig b/drivers/gpu/drm/arm/Kconfig
-index 3a9e966e0e78..58a242871b28 100644
---- a/drivers/gpu/drm/arm/Kconfig
-+++ b/drivers/gpu/drm/arm/Kconfig
-@@ -6,7 +6,6 @@ config DRM_HDLCD
- 	depends on DRM && OF && (ARM || ARM64 || COMPILE_TEST)
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	help
- 	  Choose this option if you have an ARM High Definition Colour LCD
- 	  controller.
-@@ -27,7 +26,6 @@ config DRM_MALI_DISPLAY
- 	depends on DRM && OF && (ARM || ARM64 || COMPILE_TEST)
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VIDEOMODE_HELPERS
- 	help
-diff --git a/drivers/gpu/drm/arm/display/Kconfig b/drivers/gpu/drm/arm/display/Kconfig
-index cec0639e3aa1..e91598b60781 100644
---- a/drivers/gpu/drm/arm/display/Kconfig
-+++ b/drivers/gpu/drm/arm/display/Kconfig
-@@ -4,7 +4,6 @@ config DRM_KOMEDA
- 	depends on DRM && OF
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VIDEOMODE_HELPERS
- 	help
-diff --git a/drivers/gpu/drm/aspeed/Kconfig b/drivers/gpu/drm/aspeed/Kconfig
-index 5e95bcea43e9..36c4a7e86981 100644
---- a/drivers/gpu/drm/aspeed/Kconfig
-+++ b/drivers/gpu/drm/aspeed/Kconfig
-@@ -5,7 +5,6 @@ config DRM_ASPEED_GFX
- 	depends on (COMPILE_TEST || ARCH_ASPEED)
- 	depends on MMU
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DMA_CMA if HAVE_DMA_CONTIGUOUS
- 	select CMA if HAVE_DMA_CONTIGUOUS
- 	select MFD_SYSCON
-diff --git a/drivers/gpu/drm/atmel-hlcdc/Kconfig b/drivers/gpu/drm/atmel-hlcdc/Kconfig
-index 5f67f001553b..8ae679f1a518 100644
---- a/drivers/gpu/drm/atmel-hlcdc/Kconfig
-+++ b/drivers/gpu/drm/atmel-hlcdc/Kconfig
-@@ -4,7 +4,6 @@ config DRM_ATMEL_HLCDC
- 	depends on DRM && OF && COMMON_CLK && MFD_ATMEL_HLCDC && ARM
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL
- 	help
- 	  Choose this option if you have an ATMEL SoC with an HLCDC display
-diff --git a/drivers/gpu/drm/fsl-dcu/Kconfig b/drivers/gpu/drm/fsl-dcu/Kconfig
-index d7dd8ba90e3a..2a13ea5c8539 100644
---- a/drivers/gpu/drm/fsl-dcu/Kconfig
-+++ b/drivers/gpu/drm/fsl-dcu/Kconfig
-@@ -4,7 +4,6 @@ config DRM_FSL_DCU
- 	depends on DRM && OF && ARM && COMMON_CLK
- 	select BACKLIGHT_CLASS_DEVICE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL
- 	select REGMAP_MMIO
- 	select VIDEOMODE_HELPERS
-diff --git a/drivers/gpu/drm/hisilicon/kirin/Kconfig b/drivers/gpu/drm/hisilicon/kirin/Kconfig
-index 290553e2f6b4..b770f7662830 100644
---- a/drivers/gpu/drm/hisilicon/kirin/Kconfig
-+++ b/drivers/gpu/drm/hisilicon/kirin/Kconfig
-@@ -4,7 +4,6 @@ config DRM_HISI_KIRIN
- 	depends on DRM && OF && ARM64
- 	select DRM_KMS_HELPER
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_MIPI_DSI
- 	help
- 	  Choose this option if you have a hisilicon Kirin chipsets(hi6220).
-diff --git a/drivers/gpu/drm/imx/Kconfig b/drivers/gpu/drm/imx/Kconfig
-index b5fa0e45a839..bb9738c7c825 100644
---- a/drivers/gpu/drm/imx/Kconfig
-+++ b/drivers/gpu/drm/imx/Kconfig
-@@ -4,7 +4,7 @@ config DRM_IMX
- 	select DRM_KMS_HELPER
- 	select VIDEOMODE_HELPERS
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_KMS_HELPER
- 	depends on DRM && (ARCH_MXC || ARCH_MULTIPLATFORM || COMPILE_TEST)
- 	depends on IMX_IPUV3_CORE
- 	help
-diff --git a/drivers/gpu/drm/imx/dcss/Kconfig b/drivers/gpu/drm/imx/dcss/Kconfig
-index 2b17a964ff05..7374f1952762 100644
---- a/drivers/gpu/drm/imx/dcss/Kconfig
-+++ b/drivers/gpu/drm/imx/dcss/Kconfig
-@@ -1,7 +1,7 @@
- config DRM_IMX_DCSS
- 	tristate "i.MX8MQ DCSS"
- 	select IMX_IRQSTEER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_KMS_HELPER
- 	select VIDEOMODE_HELPERS
- 	depends on DRM && ARCH_MXC && ARM64
- 	help
-diff --git a/drivers/gpu/drm/ingenic/Kconfig b/drivers/gpu/drm/ingenic/Kconfig
-index 3b57f8be007c..001f59fb06d5 100644
---- a/drivers/gpu/drm/ingenic/Kconfig
-+++ b/drivers/gpu/drm/ingenic/Kconfig
-@@ -8,7 +8,6 @@ config DRM_INGENIC
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VT_HW_CONSOLE_BINDING if FRAMEBUFFER_CONSOLE
- 	help
-diff --git a/drivers/gpu/drm/kmb/Kconfig b/drivers/gpu/drm/kmb/Kconfig
-index bc4cb5e1cd8a..5fdd43dad507 100644
---- a/drivers/gpu/drm/kmb/Kconfig
-+++ b/drivers/gpu/drm/kmb/Kconfig
-@@ -3,7 +3,6 @@ config DRM_KMB_DISPLAY
- 	depends on DRM
- 	depends on ARCH_KEEMBAY || COMPILE_TEST
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DSI
- 	help
-diff --git a/drivers/gpu/drm/mcde/Kconfig b/drivers/gpu/drm/mcde/Kconfig
-index 71c689b573c9..d0bf1bc8da3f 100644
---- a/drivers/gpu/drm/mcde/Kconfig
-+++ b/drivers/gpu/drm/mcde/Kconfig
-@@ -10,7 +10,6 @@ config DRM_MCDE
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VT_HW_CONSOLE_BINDING if FRAMEBUFFER_CONSOLE
- 	help
-diff --git a/drivers/gpu/drm/meson/Kconfig b/drivers/gpu/drm/meson/Kconfig
-index 9f9281dd49f8..df0da9e03000 100644
---- a/drivers/gpu/drm/meson/Kconfig
-+++ b/drivers/gpu/drm/meson/Kconfig
-@@ -4,7 +4,6 @@ config DRM_MESON
- 	depends on DRM && OF && (ARM || ARM64)
- 	depends on ARCH_MESON || COMPILE_TEST
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VIDEOMODE_HELPERS
- 	select REGMAP_MMIO
-diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
-index ee22cd25d3e3..987170e16ebd 100644
---- a/drivers/gpu/drm/mxsfb/Kconfig
-+++ b/drivers/gpu/drm/mxsfb/Kconfig
-@@ -10,7 +10,7 @@ config DRM_MXSFB
- 	depends on COMMON_CLK
- 	select DRM_MXS
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_PANEL
- 	select DRM_PANEL_BRIDGE
- 	help
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7770b1802291..434c2861bb40 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -152,7 +152,7 @@ config DRM_PANEL_ILITEK_ILI9341
- 	tristate "Ilitek ILI9341 240x320 QVGA panels"
- 	depends on OF && SPI
- 	depends on DRM_KMS_HELPER
--	depends on DRM_KMS_CMA_HELPER
-+	depends on DRM_GEM_CMA_HELPER
- 	depends on BACKLIGHT_CLASS_DEVICE
- 	select DRM_MIPI_DBI
- 	help
-diff --git a/drivers/gpu/drm/pl111/Kconfig b/drivers/gpu/drm/pl111/Kconfig
-index 3aae387a96af..91ee05b01303 100644
---- a/drivers/gpu/drm/pl111/Kconfig
-+++ b/drivers/gpu/drm/pl111/Kconfig
-@@ -6,7 +6,6 @@ config DRM_PL111
- 	depends on VEXPRESS_CONFIG || VEXPRESS_CONFIG=n
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
-diff --git a/drivers/gpu/drm/rcar-du/Kconfig b/drivers/gpu/drm/rcar-du/Kconfig
-index b47e74421e34..71a4611e1557 100644
---- a/drivers/gpu/drm/rcar-du/Kconfig
-+++ b/drivers/gpu/drm/rcar-du/Kconfig
-@@ -7,7 +7,6 @@ config DRM_RCAR_DU
- 	imply DRM_RCAR_CMM
- 	imply DRM_RCAR_LVDS
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VIDEOMODE_HELPERS
- 	help
-diff --git a/drivers/gpu/drm/shmobile/Kconfig b/drivers/gpu/drm/shmobile/Kconfig
-index e2a6c82c8252..288b838a904a 100644
---- a/drivers/gpu/drm/shmobile/Kconfig
-+++ b/drivers/gpu/drm/shmobile/Kconfig
-@@ -5,7 +5,6 @@ config DRM_SHMOBILE
- 	depends on ARCH_SHMOBILE || COMPILE_TEST
- 	select BACKLIGHT_CLASS_DEVICE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	help
- 	  Choose this option if you have an SH Mobile chipset.
-diff --git a/drivers/gpu/drm/sti/Kconfig b/drivers/gpu/drm/sti/Kconfig
-index d0cfdd36b38f..246a94afbe74 100644
---- a/drivers/gpu/drm/sti/Kconfig
-+++ b/drivers/gpu/drm/sti/Kconfig
-@@ -5,7 +5,6 @@ config DRM_STI
- 	select RESET_CONTROLLER
- 	select DRM_KMS_HELPER
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL
- 	select FW_LOADER
- 	select SND_SOC_HDMI_CODEC if SND_SOC
-diff --git a/drivers/gpu/drm/stm/Kconfig b/drivers/gpu/drm/stm/Kconfig
-index b7d66915a2be..e0379488cd0d 100644
---- a/drivers/gpu/drm/stm/Kconfig
-+++ b/drivers/gpu/drm/stm/Kconfig
-@@ -4,7 +4,6 @@ config DRM_STM
- 	depends on DRM && (ARCH_STM32 || ARCH_MULTIPLATFORM)
- 	select DRM_KMS_HELPER
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL_BRIDGE
- 	select VIDEOMODE_HELPERS
- 	select FB_PROVIDE_GET_FB_UNMAPPED_AREA if FB
-diff --git a/drivers/gpu/drm/sun4i/Kconfig b/drivers/gpu/drm/sun4i/Kconfig
-index 5755f0432e77..92651f6a9e7d 100644
---- a/drivers/gpu/drm/sun4i/Kconfig
-+++ b/drivers/gpu/drm/sun4i/Kconfig
-@@ -5,7 +5,6 @@ config DRM_SUN4I
- 	depends on ARCH_SUNXI || COMPILE_TEST
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL
- 	select REGMAP_MMIO
- 	select VIDEOMODE_HELPERS
-diff --git a/drivers/gpu/drm/tidss/Kconfig b/drivers/gpu/drm/tidss/Kconfig
-index f790a5215302..bc4fa59b6fa9 100644
---- a/drivers/gpu/drm/tidss/Kconfig
-+++ b/drivers/gpu/drm/tidss/Kconfig
-@@ -3,7 +3,6 @@ config DRM_TIDSS
- 	depends on DRM && OF
- 	depends on ARM || ARM64 || COMPILE_TEST
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	help
- 	  The TI Keystone family SoCs introduced a new generation of
-diff --git a/drivers/gpu/drm/tilcdc/Kconfig b/drivers/gpu/drm/tilcdc/Kconfig
-index 9f505a149990..e315591eb36b 100644
---- a/drivers/gpu/drm/tilcdc/Kconfig
-+++ b/drivers/gpu/drm/tilcdc/Kconfig
-@@ -3,7 +3,6 @@ config DRM_TILCDC
- 	tristate "DRM Support for TI LCDC Display Controller"
- 	depends on DRM && OF && ARM
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
-diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-index 4ca309f80dee..712e0004e96e 100644
---- a/drivers/gpu/drm/tiny/Kconfig
-+++ b/drivers/gpu/drm/tiny/Kconfig
-@@ -3,7 +3,7 @@
- config DRM_ARCPGU
- 	tristate "ARC PGU"
- 	depends on DRM && OF
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_KMS_HELPER
- 	help
- 	  Choose this option if you have an ARC PGU controller.
-@@ -71,7 +71,7 @@ config TINYDRM_HX8357D
- 	tristate "DRM support for HX8357D display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -84,7 +84,7 @@ config TINYDRM_ILI9163
- 	tristate "DRM support for ILI9163 display panels"
- 	depends on DRM && SPI
- 	select BACKLIGHT_CLASS_DEVICE
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_KMS_HELPER
- 	select DRM_MIPI_DBI
- 	help
-@@ -97,7 +97,7 @@ config TINYDRM_ILI9225
- 	tristate "DRM support for ILI9225 display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	help
- 	  DRM driver for the following Ilitek ILI9225 panels:
-@@ -109,7 +109,7 @@ config TINYDRM_ILI9341
- 	tristate "DRM support for ILI9341 display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -122,7 +122,7 @@ config TINYDRM_ILI9486
- 	tristate "DRM support for ILI9486 display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -136,7 +136,7 @@ config TINYDRM_MI0283QT
- 	tristate "DRM support for MI0283QT"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -147,7 +147,7 @@ config TINYDRM_REPAPER
- 	tristate "DRM support for Pervasive Displays RePaper panels (V231)"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	help
- 	  DRM driver for the following Pervasive Displays panels:
- 	  1.44" TFT EPD Panel (E1144CS021)
-@@ -161,7 +161,7 @@ config TINYDRM_ST7586
- 	tristate "DRM support for Sitronix ST7586 display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	help
- 	  DRM driver for the following Sitronix ST7586 panels:
-@@ -173,7 +173,7 @@ config TINYDRM_ST7735R
- 	tristate "DRM support for Sitronix ST7715R/ST7735R display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-diff --git a/drivers/gpu/drm/tve200/Kconfig b/drivers/gpu/drm/tve200/Kconfig
-index e2d163c74ed6..47a7dbe6c114 100644
---- a/drivers/gpu/drm/tve200/Kconfig
-+++ b/drivers/gpu/drm/tve200/Kconfig
-@@ -8,7 +8,6 @@ config DRM_TVE200
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VT_HW_CONSOLE_BINDING if FRAMEBUFFER_CONSOLE
- 	help
-diff --git a/drivers/gpu/drm/vc4/Kconfig b/drivers/gpu/drm/vc4/Kconfig
-index 345a5570a3da..de3424fed2fc 100644
---- a/drivers/gpu/drm/vc4/Kconfig
-+++ b/drivers/gpu/drm/vc4/Kconfig
-@@ -6,7 +6,6 @@ config DRM_VC4
- 	depends on SND && SND_SOC
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_PANEL_BRIDGE
- 	select SND_PCM
-diff --git a/drivers/gpu/drm/xlnx/Kconfig b/drivers/gpu/drm/xlnx/Kconfig
-index c3d08269faa9..d8d38d86d5c6 100644
---- a/drivers/gpu/drm/xlnx/Kconfig
-+++ b/drivers/gpu/drm/xlnx/Kconfig
-@@ -7,7 +7,6 @@ config DRM_ZYNQMP_DPSUB
- 	depends on XILINX_ZYNQMP_DPDMA
- 	select DMA_ENGINE
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_KMS_HELPER
- 	select GENERIC_PHY
- 	help
--- 
-2.33.1
+Francesco
 
 _______________________________________________
 Linux-stm32 mailing list
