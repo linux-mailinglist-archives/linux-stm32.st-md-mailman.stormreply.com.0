@@ -2,65 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14E354433C4
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Nov 2021 17:49:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D41644341D
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Nov 2021 17:57:03 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBFC3C5E2C6;
-	Tue,  2 Nov 2021 16:49:34 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B669EC5E2C6;
+	Tue,  2 Nov 2021 16:57:02 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AF61C5E2AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4D7DC5E2AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Nov 2021 16:49:33 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A2ELW5I011686;
- Tue, 2 Nov 2021 17:49:21 +0100
+ Tue,  2 Nov 2021 16:57:00 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A2GBcXa027700;
+ Tue, 2 Nov 2021 17:56:53 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=QJ6uXo4CEaD4BilyVlTiA31QtvvAdHcFZfiTCH/Jv/U=;
- b=SyxBB5Wmxqce4kvtjGlGooBkwoBhYMQxW1jBIpbmkTrGmQtONC94S3D19jpN1pv4cYsd
- cQcVtfLU4qiosRqjCTTp+ApLCu5g+1NZggXUaYPZiwT59jD3+qdIpeZTTnMBCNi/y2iV
- q2dktGQnLryKh9y/+vsilWEE/l/I5TewQskuLdC05mIXy3OTphz07vDFXlrtp55o6EfB
- ysGcql6O2Do/+A9A8Xnb5DGMozfuLSruW/yKxG40zewohfUF7ekwznzMDqam4N0Lty+Y
- KzCV7yORo2jAOT6lnf3LcvMY+ixCKzQUWLq18xindPvlkzu4Wl4UYXgl6AH4o6b9iInL Yw== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=Cco84+3VE3T5v9x8tbKVq5wUeAloej3D5kb7+sWmIDA=;
+ b=6Mb0MsR79aHQ5ZUSvM+jfTP0Q4jBdKYRBxk7fV8biwkoBpuvX888am/qkx9bTBnDM2EZ
+ MwlbLxEl62DamCeTXC82jGZsINUejBqLrYlzxFIeZuL0eE3W2sq8AWNQA799DAVH/jAA
+ gFJro5VUOBYkdxon4omzPFr/dIp3CMYwiUJLhwzyz3J8yxZeT+lHMoW1XDMBxxijBval
+ k+ieW+txFt9d7zDaPPdjlYqWGk2g4H4Cj3IOZK3c9UikxFd96NmtNEkPXHWxiVQHRvcX
+ 1Lnrk1u8AlnLpCP0x5Z46gUIaKGZX4AfYDAGGNuuWEP/tjQUJHk/S7RnIeYNJPI4beRm wA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3c2jfj6pjw-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3c30uvkru9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 Nov 2021 17:49:21 +0100
+ Tue, 02 Nov 2021 17:56:53 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 06F4D100038;
- Tue,  2 Nov 2021 17:49:21 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B948910002A;
+ Tue,  2 Nov 2021 17:56:52 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F205123535A;
- Tue,  2 Nov 2021 17:49:20 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 2 Nov 2021 17:49:20
- +0100
-From: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller"
- <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 2 Nov 2021 17:47:29 +0100
-Message-ID: <20211102164729.9957-9-nicolas.toromanoff@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211102164729.9957-1-nicolas.toromanoff@foss.st.com>
-References: <20211102164729.9957-1-nicolas.toromanoff@foss.st.com>
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ACACA21AE21;
+ Tue,  2 Nov 2021 17:56:52 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.49) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 2 Nov
+ 2021 17:56:52 +0100
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <20211022125426.2579-1-arnaud.pouliquen@foss.st.com>
+ <20211022125426.2579-7-arnaud.pouliquen@foss.st.com>
+ <YYAlzvXns4Ejxa6S@builder.lan>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <d1352a00-bc6d-91ae-b902-622c75448e3a@foss.st.com>
+Date: Tue, 2 Nov 2021 17:56:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+In-Reply-To: <YYAlzvXns4Ejxa6S@builder.lan>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
  definitions=2021-11-02_08,2021-11-02_01,2020-04-07_01
-Cc: Marek Vasut <marex@denx.de>, linux-kernel@vger.kernel.org,
- Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 8/8] crypto: stm32/cryp - reorder hw
-	initialization
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, julien.massot@iot.bzh,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v6 06/10] rpmsg: Introduce
+ rpmsg_create_default_ept function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,99 +80,171 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The CRYP IP checks the written key depending of the configuration, it's
-safer to write the whole configuration to hardware then the key to avoid
-unexpected key rejection.
 
-Signed-off-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
----
- drivers/crypto/stm32/stm32-cryp.c | 39 ++++++++++++++++++++-----------
- 1 file changed, 26 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/crypto/stm32/stm32-cryp.c b/drivers/crypto/stm32/stm32-cryp.c
-index 5962fbb0bc91..d99eea9cb8cd 100644
---- a/drivers/crypto/stm32/stm32-cryp.c
-+++ b/drivers/crypto/stm32/stm32-cryp.c
-@@ -232,6 +232,11 @@ static inline int stm32_cryp_wait_busy(struct stm32_cryp *cryp)
- 			!(status & SR_BUSY), 10, 100000);
- }
- 
-+static inline void stm32_cryp_enable(struct stm32_cryp *cryp)
-+{
-+	writel_relaxed(readl_relaxed(cryp->regs + CRYP_CR) | CR_CRYPEN, cryp->regs + CRYP_CR);
-+}
-+
- static inline int stm32_cryp_wait_enable(struct stm32_cryp *cryp)
- {
- 	u32 status;
-@@ -534,9 +539,6 @@ static int stm32_cryp_hw_init(struct stm32_cryp *cryp)
- 	/* Disable interrupt */
- 	stm32_cryp_write(cryp, CRYP_IMSCR, 0);
- 
--	/* Set key */
--	stm32_cryp_hw_write_key(cryp);
--
- 	/* Set configuration */
- 	cfg = CR_DATA8 | CR_FFLUSH;
- 
-@@ -562,23 +564,36 @@ static int stm32_cryp_hw_init(struct stm32_cryp *cryp)
- 	/* AES ECB/CBC decrypt: run key preparation first */
- 	if (is_decrypt(cryp) &&
- 	    ((hw_mode == CR_AES_ECB) || (hw_mode == CR_AES_CBC))) {
--		stm32_cryp_write(cryp, CRYP_CR, cfg | CR_AES_KP | CR_CRYPEN);
-+		/* Configure in key preparation mode */
-+		stm32_cryp_write(cryp, CRYP_CR, cfg | CR_AES_KP);
- 
-+		/* Set key only after full configuration done */
-+		stm32_cryp_hw_write_key(cryp);
-+
-+		/* Start prepare key */
-+		stm32_cryp_enable(cryp);
- 		/* Wait for end of processing */
- 		ret = stm32_cryp_wait_busy(cryp);
- 		if (ret) {
- 			dev_err(cryp->dev, "Timeout (key preparation)\n");
- 			return ret;
- 		}
--	}
- 
--	cfg |= hw_mode;
-+		cfg |= hw_mode | CR_DEC_NOT_ENC;
- 
--	if (is_decrypt(cryp))
--		cfg |= CR_DEC_NOT_ENC;
-+		/* Apply updated config (Decrypt + algo) and flush */
-+		stm32_cryp_write(cryp, CRYP_CR, cfg);
-+	} else {
-+		cfg |= hw_mode;
-+		if (is_decrypt(cryp))
-+			cfg |= CR_DEC_NOT_ENC;
- 
--	/* Apply config and flush (valid when CRYPEN = 0) */
--	stm32_cryp_write(cryp, CRYP_CR, cfg);
-+		/* Apply config and flush */
-+		stm32_cryp_write(cryp, CRYP_CR, cfg);
-+
-+		/* Set key only after configuration done */
-+		stm32_cryp_hw_write_key(cryp);
-+	}
- 
- 	switch (hw_mode) {
- 	case CR_AES_GCM:
-@@ -606,9 +621,7 @@ static int stm32_cryp_hw_init(struct stm32_cryp *cryp)
- 	}
- 
- 	/* Enable now */
--	cfg |= CR_CRYPEN;
--
--	stm32_cryp_write(cryp, CRYP_CR, cfg);
-+	stm32_cryp_enable(cryp);
- 
- 	return 0;
- }
--- 
-2.17.1
+On 11/1/21 6:37 PM, Bjorn Andersson wrote:
+> On Fri 22 Oct 07:54 CDT 2021, Arnaud Pouliquen wrote:
+> 
+>> By providing a callback in the rpmsg_driver structure, the rpmsg devices
+>> can be probed with a default endpoint created.
+>>
+>> In this case, it is not possible to associated to this endpoint private data
+>> that could allow the driver to retrieve the context.
+>>
+>> This helper function allows rpmsg drivers to create a default endpoint
+>> on runtime with an associated private context.
+>>
+>> For example, a driver might create a context structure on the probe and
+>> want to provide that context as private data for the default rpmsg
+>> callback.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+>> Tested-by: Julien Massot <julien.massot@iot.bzh>
+>> ---
+>>  drivers/rpmsg/rpmsg_core.c | 51 ++++++++++++++++++++++++++++++++++++++
+>>  include/linux/rpmsg.h      | 13 ++++++++++
+>>  2 files changed, 64 insertions(+)
+>>
+>> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+>> index 53162038254d..92557c49d460 100644
+>> --- a/drivers/rpmsg/rpmsg_core.c
+>> +++ b/drivers/rpmsg/rpmsg_core.c
+>> @@ -132,6 +132,57 @@ void rpmsg_destroy_ept(struct rpmsg_endpoint *ept)
+>>  }
+>>  EXPORT_SYMBOL(rpmsg_destroy_ept);
+>>  
+>> +/**
+>> + * rpmsg_create_default_ept() - create a default rpmsg_endpoint for a rpmsg device
+>> + * @rpdev: rpmsg channel device
+>> + * @cb: rx callback handler
+>> + * @priv: private data for the driver's use
+>> + * @chinfo: channel_info with the local rpmsg address to bind with @cb
+>> + *
+>> + * On register_rpmsg_driver if no callback is provided in the rpmsg_driver structure,
+>> + * no endpoint is created when the device is probed by the rpmsg bus.
+>> + *
+>> + * This function returns a pointer to the default endpoint if already created or creates
+>> + * an endpoint and assign it as the default endpoint of the rpmsg device.
+> 
+> But if the driver didn't specify a callback, when would this ever
+> happen?
 
+Not sure to understand your point here...
+Do you mean that something is missing in description such as:
+ * On register_rpmsg_driver if no callback is provided in the rpmsg_driver
+ * structure, no endpoint is created when the device is probed by the rpmsg bus.
+ * The rpmsg driver can call rpmsg_create_default_ept during or after its
+ * probing to register a default endpoint with an associated callback and @priv
+ * context.
+
+> 
+>> + *
+>> + * Drivers should provide their @rpdev channel (so the new endpoint would belong
+>> + * to the same remote processor their channel belongs to), an rx callback
+>> + * function, an optional private data (which is provided back when the
+>> + * rx callback is invoked), and an address they want to bind with the
+>> + * callback. If @addr is RPMSG_ADDR_ANY, then rpmsg_create_ept will
+>> + * dynamically assign them an available rpmsg address (drivers should have
+>> + * a very good reason why not to always use RPMSG_ADDR_ANY here).
+>> + *
+>> + * Returns a pointer to the endpoint on success, or NULL on error.
+> 
+> Correct kerneldoc is "Return: ..."
+
+I will update this
+
+> 
+>> + */
+>> +struct rpmsg_endpoint *rpmsg_create_default_ept(struct rpmsg_device *rpdev,
+>> +						rpmsg_rx_cb_t cb, void *priv,
+>> +						struct rpmsg_channel_info chinfo)
+>> +{
+>> +	struct rpmsg_endpoint *ept;
+>> +
+>> +	if (WARN_ON(!rpdev))
+>> +		return NULL;
+>> +
+>> +	/* It does not make sense to create a default endpoint without a callback. */
+>> +	if (!cb)
+>> +		return NULL;
+>> +
+>> +	if (rpdev->ept)
+>> +		return rpdev->ept;
+> 
+> How does the caller know if they should call rpmsg_destroy_ept() on the
+> returned ept or not?
+
+This case is probably a bug. What about replacing the condition by
+if(WARN_ON(rpdev->ept))?
+
+> 
+>> +
+>> +	ept = rpdev->ops->create_ept(rpdev, cb, priv, chinfo);
+>> +	if (!ept)
+>> +		return NULL;
+>> +
+>> +	/* Assign the new endpoint as default endpoint */
+>> +	rpdev->ept = ept;
+>> +	rpdev->src = ept->addr;
+>> +
+>> +	return ept;
+>> +}
+>> +EXPORT_SYMBOL(rpmsg_create_default_ept);
+>> +
+>>  /**
+>>   * rpmsg_send() - send a message across to the remote processor
+>>   * @ept: the rpmsg endpoint
+>> diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
+>> index 6fe51549d931..b071ac17ff78 100644
+>> --- a/include/linux/rpmsg.h
+>> +++ b/include/linux/rpmsg.h
+>> @@ -172,6 +172,9 @@ void rpmsg_destroy_ept(struct rpmsg_endpoint *);
+>>  struct rpmsg_endpoint *rpmsg_create_ept(struct rpmsg_device *,
+>>  					rpmsg_rx_cb_t cb, void *priv,
+>>  					struct rpmsg_channel_info chinfo);
+>> +struct rpmsg_endpoint *rpmsg_create_default_ept(struct rpmsg_device *rpdev,
+> 
+> Is there ever a case where someone outside drivers/rpmsg/ should call
+> this function?
+
+A rpmsg service driver could call it to generate the ns announcement after
+the probe (for instance on a sysfs open).
+(Please have a look to [PATCH v6 10/10] rpmsg: core: send a ns announcement when
+a default endpoint is created)
+
+Thanks,
+Arnaud
+
+> 
+> Regards,
+> Bjorn
+> 
+>> +						rpmsg_rx_cb_t cb, void *priv,
+>> +						struct rpmsg_channel_info chinfo);
+>>  
+>>  int rpmsg_send(struct rpmsg_endpoint *ept, void *data, int len);
+>>  int rpmsg_sendto(struct rpmsg_endpoint *ept, void *data, int len, u32 dst);
+>> @@ -236,6 +239,16 @@ static inline struct rpmsg_endpoint *rpmsg_create_ept(struct rpmsg_device *rpdev
+>>  	return NULL;
+>>  }
+>>  
+>> +static inline struct rpmsg_endpoint *rpmsg_create_default_ept(struct rpmsg_device *rpdev,
+>> +							      rpmsg_rx_cb_t cb, void *priv,
+>> +							      struct rpmsg_channel_info chinfo)
+>> +{
+>> +	/* This shouldn't be possible */
+>> +	WARN_ON(1);
+>> +
+>> +	return NULL;
+>> +}
+>> +
+>>  static inline int rpmsg_send(struct rpmsg_endpoint *ept, void *data, int len)
+>>  {
+>>  	/* This shouldn't be possible */
+>> -- 
+>> 2.17.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
