@@ -2,69 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2699A449829
+	by mail.lfdr.de (Postfix) with ESMTPS id 3123144982A
 	for <lists+linux-stm32@lfdr.de>; Mon,  8 Nov 2021 16:26:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E85BBC5EC4F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF475C5EC5E;
 	Mon,  8 Nov 2021 15:26:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 685A4C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E710C5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Oct 2021 15:26:19 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19TDDFCP001362; 
- Fri, 29 Oct 2021 17:21:37 +0200
+ Tue,  2 Nov 2021 11:12:47 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A27KVoe027239;
+ Tue, 2 Nov 2021 12:12:28 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=date : from : to :
  cc : subject : in-reply-to : message-id : references : mime-version :
  content-type; s=selector1;
- bh=tlJPjaHr3bopdMN69Mr2F3ZcC3w0YkJhjYgUllbtTzk=;
- b=pPsh8uZN+ePssNyktStyh7o0Dg/jk9WMjY2jihqFmYkCghCj1EQOXga0aNjz3D3DpUEL
- Mw74NxKPI/F8330np5Ii9uggT+7oyLNubEwC3gxK7ZHh7CpSZ0aA3rt4meILPcRQEdVN
- ip5BTO/7rS03ZyzdYOFuYsTEWRL/qyL0BRdveISBgj4N9DRYbPU229QqV5fNF/qspnNr
- xCUHSOlhP50GVDd6PtxZ1Rr6yyKRdCbYMcSEz+vXjpLNETaTMUbV25vq/KQz3Zl9tFj+
- eVuTBMm5Ho5NDupycvI8/Bz6LwDzgS1KO+7RZggca6Lgw9JBhgdKqVrv2p+N20Aoa/aV zQ== 
+ bh=3zDfwzbTTckNrmCbEG6nrtNSQ4GjS+cI8xuZ1RFHfsk=;
+ b=mG1V3qX4rn4Qfinl6jU2a9fwfE8Zq+4pJtqkPBl/cvMOuRePHTS5sQ/BXNFahEWfy0EL
+ OxZAfDs5yrSnyrNAAwBXYeFw2cUL5NXt7rc3Z9l0v3415K9m1p48Ig8LeHEbH7J916iB
+ QFUdCmmRV+trXo60nVuMzgKhvvMDnB/+wy3kftY0+AyKjM+YOV1Xij/hrKrIjJ4acBJE
+ lksOk/0EgpJHtqk1q6f1Ks8/eYyLEbMDYriYh/7dCgWXbQ4HfnP/ZKFQcyws/Er9vgcg
+ OP1f/HrTK9yhgYRiVApaZxC1D/8Qm7GXQSsjMPq7d5DYd64ujPRAInc9MwvyMl4sU/CL 9w== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3c07xgm36t-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3c30uvhf96-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 29 Oct 2021 17:21:37 +0200
+ Tue, 02 Nov 2021 12:12:28 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4DD1C10002A;
- Fri, 29 Oct 2021 17:21:36 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 91F7210002A;
+ Tue,  2 Nov 2021 12:12:26 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 14B87240741;
- Fri, 29 Oct 2021 17:21:36 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4C21B22BFC2;
+ Tue,  2 Nov 2021 12:12:26 +0100 (CET)
 Received: from gnbcxd0088.gnb.st.com (10.75.127.48) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Fri, 29 Oct
- 2021 17:21:35 +0200
-Date: Fri, 29 Oct 2021 17:21:24 +0200
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 2 Nov
+ 2021 12:12:25 +0100
+Date: Tue, 2 Nov 2021 12:12:20 +0100
 From: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
 X-X-Sender: toromano@gnbcxd0088.gnb.st.com
-To: Marek Vasut <marex@denx.de>
-In-Reply-To: <1ec60d9c-1ab4-8a92-1c6d-8093232ca039@denx.de>
-Message-ID: <alpine.DEB.2.21.2110291708040.20378@gnbcxd0088.gnb.st.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+In-Reply-To: <CAMj1kXF5_2AnQH8pjgzbeq63iSkdkUVq3wZM_NURotoHj0sJMw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.2111020907550.20378@gnbcxd0088.gnb.st.com>
 References: <20211029135454.4383-1-nicolas.toromanoff@foss.st.com>
- <20211029135454.4383-5-nicolas.toromanoff@foss.st.com>
- <1ec60d9c-1ab4-8a92-1c6d-8093232ca039@denx.de>
+ <20211029135454.4383-4-nicolas.toromanoff@foss.st.com>
+ <CAMj1kXF5_2AnQH8pjgzbeq63iSkdkUVq3wZM_NURotoHj0sJMw@mail.gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-10-29_04,2021-10-29_01,2020-04-07_01
+ definitions=2021-11-02_07,2021-11-02_01,2020-04-07_01
 X-Mailman-Approved-At: Mon, 08 Nov 2021 15:26:11 +0000
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, linux-kernel@vger.kernel.org,
+Cc: Marek Vasut <marex@denx.de>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 4/8] crypto: stm32/cryp - fix race
-	condition
+ "David S . Miller" <davem@davemloft.net>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH 3/8] crypto: stm32/cryp - fix CTR counter
+	carry
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,39 +84,35 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 29 Oct 2021, Marek Vasut wrote:
 
-> On 10/29/21 3:54 PM, Nicolas Toromanoff wrote:
->> Erase key before finalizing request.
->> Fixes: 9e054ec21ef8 ("crypto: stm32 - Support for STM32 CRYP crypto 
->> module")
+
+On Sun, 31 Oct 2021, Ard Biesheuvel wrote:
+
+> On Fri, 29 Oct 2021 at 16:01, Nicolas Toromanoff
+> <nicolas.toromanoff@foss.st.com> wrote:
+>>
+>> [...]
+>>
+>> @@ -1219,25 +1219,26 @@ static void stm32_cryp_check_ctr_counter(struct stm32_cryp *cryp)
+>>
+>>         if (unlikely(cryp->last_ctr[3] == 0xFFFFFFFF)) {
+>>                 cryp->last_ctr[3] = 0;
+>> -               cryp->last_ctr[2]++;
+>> +               cryp->last_ctr[2] = cpu_to_be32(be32_to_cpu(cryp->last_ctr[2]) + 1);
+>>                 if (!cryp->last_ctr[2]) {
+>> -                       cryp->last_ctr[1]++;
+>> +                       cryp->last_ctr[1] = cpu_to_be32(be32_to_cpu(cryp->last_ctr[1]) + 1);
+>>                         if (!cryp->last_ctr[1])
+>> -                               cryp->last_ctr[0]++;
+>> +                               cryp->last_ctr[0] = cpu_to_be32(be32_to_cpu(cryp->last_ctr[0]) + 1);
+>>                 }
+>>
 >
-> Can you be a bit more specific in your commit messages ? That applies to the 
-> entire patchset. It is absolutely impossible to tell what race is fixed here 
-> or why it is fixed by exactly this change. This applies to the entire series.
+> crypto_inc() ??
 
-I'll send a v2 with better commit messages.
+Good point, I didn't know/find this function.
 
-for this specific patch:
-We reset the saved key before the crypto_finalize_*() call. Otherwise a 
-still pending crypto action could be ran with a wrong key = {0};
-
-> And while I am at it, does the CRYP finally pass at least the most basic 
-> kernel boot time crypto tests or does running those still overwrite kernel 
-> memory and/or completely crash or lock up the machine ?
-
-All extra tests (finally) pass.
-
-With a kernel config :
-   # CONFIG_CRYPTO_MANAGER_DISABLE_TESTS is not set
-   CONFIG_CRYPTO_MANAGER_EXTRA_TESTS=y
-   CONFIG_CRYPTO_DEV_STM32_CRYP=m
-
-while(true) do ; modprobe stm32-cryp && modprobe -r stm32-cryp ; done
-
-ran a whole day without a crash, nor a detected error.
-
--- 
+Thanks,
 Nicolas.
 _______________________________________________
 Linux-stm32 mailing list
