@@ -2,69 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F8344345E
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Nov 2021 18:11:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACFF44438CD
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Nov 2021 23:54:31 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E1FFC5AB60;
-	Tue,  2 Nov 2021 17:11:27 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58CD7C5AB60;
+	Tue,  2 Nov 2021 22:54:31 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF877C5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECA5BC5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Nov 2021 17:11:26 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A2EJUeG011773;
- Tue, 2 Nov 2021 18:11:14 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=jFbWexfVVsZE7MzAbDgySXVklqbP8iiroGc1J7oWwmQ=;
- b=lsx/4bc/GxkdTj3DB+PeRaUmncpVUwzcqZKITD3aJMI4U6D9OzZPu0cdPByz7uh3oWy9
- odEuRi7FTN9CkgD3t7i4VswSk3/4yIsuT5pyScb8FP0WWoq0G9zUHLt26ZdxXojMT53n
- Vhs5WliNbwchJ82JX/0QqQc4H2HKKvmj67NhvP8bZ3nnlhcPuhdsFsSuzmn9ZtrFFOIU
- CDd8zGsl1wl0LaN2/SFb6VF0eNI3sHat9FfjQQH9XFSgsLzP9DcfJlnHR+oiJ/+XlT7F
- TlqC6b1TW5yA3nkIjVmmRUvW4jaDM14eVXW5ehxsQwqwQgJo5l4jEXx2r640eOqtrXOF 4g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3c2jfj6s7c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 Nov 2021 18:11:14 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1466B10002A;
- Tue,  2 Nov 2021 18:11:13 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 094DF220C6D;
- Tue,  2 Nov 2021 18:11:13 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.50) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 2 Nov
- 2021 18:11:12 +0100
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <20211022125426.2579-1-arnaud.pouliquen@foss.st.com>
- <20211022125426.2579-3-arnaud.pouliquen@foss.st.com>
- <YYAcYLxEmbwJShg7@builder.lan>
- <962ca426-5cc4-4adb-df55-27fe93f7e767@foss.st.com> <YYFpit0SixojReo+@ripper>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <16853c3d-0b23-4d59-9c33-c7c99da4b9a1@foss.st.com>
-Date: Tue, 2 Nov 2021 18:11:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ Tue,  2 Nov 2021 22:54:28 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 808776113D
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  2 Nov 2021 22:54:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1635893667;
+ bh=vZAm7ovxBi6d/ZH+uziWTG6NBTualBYKsCvLvL3Gx7g=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=opY/abwJOWe66VHhwlVSS287YA1M9yULIi5wQIYoJ96jO4hPky0vB6vi6tafilMD7
+ rFkhmoLtQ0JjoO8LGuoGLus6tF2fIduGVRZrrxl51/4nWYnKX6dKCQmBd2uSI9wlMD
+ UO1XahuUVS5GKl3M0Aq9gJC4BEv6fCqD0q/CztW5e7meAcaEELHE3R2JXtckUw0jPy
+ z9VAQruKylB+jiZA16OORnFfBMF6rFzu7wr/0EvG1Cg0KZUTyId6/tOrFKoGJf1Uai
+ AP8H78hxGwQ6Ru8B4/CqaU93n8Gf4J+XTNIO9nFkSdgPnmTW9hS6RjiTF0OsrhHByR
+ HNvU7DC6mlsLg==
+Received: by mail-ed1-f47.google.com with SMTP id f8so2758812edy.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 02 Nov 2021 15:54:27 -0700 (PDT)
+X-Gm-Message-State: AOAM532RAn8DEfZ9wOG7eQI618aKk4ql4eOTlBl4rKSLXuNMQm5hhDTD
+ bHXu8ufOIDglh5inYNWBth+NxF3wu5ZTBLv/ZA==
+X-Google-Smtp-Source: ABdhPJwvOPkHrOahXa3xj/c9OSX7wBr+wcK0xwNgYPaLagkYmgf2JQOlOc1GXKmuNsno2PWPju9ZZUGHXtyfOv39J7g=
+X-Received: by 2002:a17:907:2ce1:: with SMTP id
+ hz1mr49090047ejc.241.1635893665770; 
+ Tue, 02 Nov 2021 15:54:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <YYFpit0SixojReo+@ripper>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-02_08,2021-11-02_01,2020-04-07_01
-Cc: Ohad Ben-Cohen <ohad@wizery.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, julien.massot@iot.bzh,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v6 02/10] rpmsg: create the rpmsg class in
- core instead of in rpmsg char
+References: <20211026155911.17651-1-jason-jh.lin@mediatek.com>
+ <20211026155911.17651-6-jason-jh.lin@mediatek.com>
+In-Reply-To: <20211026155911.17651-6-jason-jh.lin@mediatek.com>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Wed, 3 Nov 2021 06:54:14 +0800
+X-Gmail-Original-Message-ID: <CAAOTY__cyFB6VyKFUZsy+-9+Nz7QTR4QiGUXQApOdiFXQESi4g@mail.gmail.com>
+Message-ID: <CAAOTY__cyFB6VyKFUZsy+-9+Nz7QTR4QiGUXQApOdiFXQESi4g@mail.gmail.com>
+To: "jason-jh.lin" <jason-jh.lin@mediatek.com>
+Cc: Fei Shao <fshao@chromium.org>, David Airlie <airlied@linux.ie>,
+ singo.chang@mediatek.com, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Fabien Parent <fparent@baylibre.com>, DTML <devicetree@vger.kernel.org>,
+ Nancy Lin <nancy.lin@mediatek.com>, linux-stm32@st-md-mailman.stormreply.com,
+ roy-cw.yeh@mediatek.com, Yongqiang Niu <yongqiang.niu@mediatek.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Hsin-Yi Wang <hsinyi@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Moudy Ho <moudy.ho@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH v12 05/16] dt-bindings: display: mediatek:
+ merge: add additional prop for mt8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,214 +72,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 11/2/21 5:38 PM, Bjorn Andersson wrote:
-> On Tue 02 Nov 08:23 PDT 2021, Arnaud POULIQUEN wrote:
-> 
->>
->>
->> On 11/1/21 5:57 PM, Bjorn Andersson wrote:
->>> On Fri 22 Oct 07:54 CDT 2021, Arnaud Pouliquen wrote:
->>>
->>>> Migrate the creation of the rpmsg class from the rpmsg_char
->>>> to the core that the class is usable by all rpmsg services.
->>>>
->>>> Suggested-by: Bjorn Andersson <bjorn.andersson@linaro.org>
->>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->>>> ---
->>>>  drivers/rpmsg/rpmsg_char.c | 14 ++------------
->>>>  drivers/rpmsg/rpmsg_core.c | 26 ++++++++++++++++++++++++--
->>>>  include/linux/rpmsg.h      | 10 ++++++++++
->>>>  3 files changed, 36 insertions(+), 14 deletions(-)
->>>>
->>>> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
->>>> index 941c5c54dd72..327ed739a3a7 100644
->>>> --- a/drivers/rpmsg/rpmsg_char.c
->>>> +++ b/drivers/rpmsg/rpmsg_char.c
->>>> @@ -28,7 +28,6 @@
->>>>  #define RPMSG_DEV_MAX	(MINORMASK + 1)
->>>>  
->>>>  static dev_t rpmsg_major;
->>>> -static struct class *rpmsg_class;
->>>>  
->>>>  static DEFINE_IDA(rpmsg_ctrl_ida);
->>>>  static DEFINE_IDA(rpmsg_ept_ida);
->>>> @@ -362,7 +361,7 @@ int rpmsg_chrdev_eptdev_create(struct rpmsg_device *rpdev, struct device *parent
->>>>  	init_waitqueue_head(&eptdev->readq);
->>>>  
->>>>  	device_initialize(dev);
->>>> -	dev->class = rpmsg_class;
->>>> +	dev->class = rpmsg_get_class();
->>>>  	dev->parent = parent;
->>>>  	dev->groups = rpmsg_eptdev_groups;
->>>>  	dev_set_drvdata(dev, eptdev);
->>>> @@ -482,7 +481,7 @@ static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
->>>>  	dev = &ctrldev->dev;
->>>>  	device_initialize(dev);
->>>>  	dev->parent = &rpdev->dev;
->>>> -	dev->class = rpmsg_class;
->>>> +	dev->class = rpmsg_get_class();
->>>>  
->>>>  	cdev_init(&ctrldev->cdev, &rpmsg_ctrldev_fops);
->>>>  	ctrldev->cdev.owner = THIS_MODULE;
->>>> @@ -558,17 +557,9 @@ static int rpmsg_chrdev_init(void)
->>>>  		return ret;
->>>>  	}
->>>>  
->>>> -	rpmsg_class = class_create(THIS_MODULE, "rpmsg");
->>>> -	if (IS_ERR(rpmsg_class)) {
->>>> -		pr_err("failed to create rpmsg class\n");
->>>> -		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->>>> -		return PTR_ERR(rpmsg_class);
->>>> -	}
->>>> -
->>>>  	ret = register_rpmsg_driver(&rpmsg_chrdev_driver);
->>>>  	if (ret < 0) {
->>>>  		pr_err("rpmsgchr: failed to register rpmsg driver\n");
->>>> -		class_destroy(rpmsg_class);
->>>>  		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->>>>  	}
->>>>  
->>>> @@ -579,7 +570,6 @@ postcore_initcall(rpmsg_chrdev_init);
->>>>  static void rpmsg_chrdev_exit(void)
->>>>  {
->>>>  	unregister_rpmsg_driver(&rpmsg_chrdev_driver);
->>>> -	class_destroy(rpmsg_class);
->>>>  	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->>>>  }
->>>>  module_exit(rpmsg_chrdev_exit);
->>>> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
->>>> index 9151836190ce..53162038254d 100644
->>>> --- a/drivers/rpmsg/rpmsg_core.c
->>>> +++ b/drivers/rpmsg/rpmsg_core.c
->>>> @@ -20,6 +20,8 @@
->>>>  
->>>>  #include "rpmsg_internal.h"
->>>>  
->>>> +static struct class *rpmsg_class;
->>>> +
->>>>  /**
->>>>   * rpmsg_create_channel() - create a new rpmsg channel
->>>>   * using its name and address info.
->>>> @@ -296,6 +298,19 @@ __poll_t rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
->>>>  }
->>>>  EXPORT_SYMBOL(rpmsg_poll);
->>>>  
->>>> +/**
->>>> + * rpmsg_get_class() - get reference to the sysfs rpmsg class
->>>> + *
->>>> + * This function return the pointer to the "rpmsg" class created by the rpmsg core.
->>>> + *
->>>> + * Returns the struct class pointer
->>>> + */
->>>> +struct class *rpmsg_get_class(void)
->>>
->>> What value does this helper function add? Can't we just expose
->>> rpmsg_class directly?
->>
->> look to me cleaner to not expose directly the rpmsg_class in rpmsg.h as this
->> variable is read only for rpmsg services.
->>
-> 
-> The pointer is read only, but the object isn't. So I think it's cleaner
-> to just share the pointer in the first place.
-> 
-> But that said, looking at this a little bit more, I don't think there's
-> any guarantee that class_create() has been executed before
-> rpmsg_ctrl_probe() is being invoked.
-
-class_create is called in in the rpmsg_init (rpmsg_core.c). as RPMSG_CTRL and
-RPMSG_CHAR depend on RPMSG config this use case should not occurs, or did I miss
-something?
-
-> 
->>>
->>>> +{
->>>> +	return rpmsg_class;
->>>> +}
->>>> +EXPORT_SYMBOL(rpmsg_get_class);
-> [..]
->>>> diff --git a/include/linux/rpmsg.h b/include/linux/rpmsg.h
->>>
->>> Isn't this just going to be used by rpmsg_char and rpmsg_ctrl? Do we
->>> really need to expose it in the client-facing API?
->>
->> I based this dev on hypothesis that the class could be used by some other rpmsg
->> clients. But it is not mandatory. It can be extended later, on need.
->>
-> 
-> That's a good hypothesis, it might be useful in other places as well.
-> But I think it's best to keep it local for now and make an explicit
-> decision about opening up when that need comes.
-> 
->> What would you propose as an alternative to this API?
->>
->> I can see 2 alternatives:
->> - Define the rpmsg_class in rpmsg_internal.h
->>   In current patchset rpmsg_char.c does not include the rpmsg_internal.h.
->>   I'm not sure if this include makes sense for an rpmsg service driver.
->>
-> 
-> rpmsg_ctrl and rpmsg_char are more tightly coupled to rpmsg than typical
-> rpmsg drivers, so I think it's better to include rpmsg_internal.h than to
-> open up the API to the clients.
-
-So i will declare the variable in rpmsg_internal.h and remove the
-rpmsg_get_class to use directly the variable.
-
-Thanks,
-Arnaud
-
-> 
-> Thanks,
-> Bjorn
-> 
->> - Use "extern struct class *rpmsg_class; " in rpmsg_char and rpmsg_ctrl modules
->>
->> Regards,
->> Arnaud
->>
->>>
->>> Regards,
->>> Bjorn
->>>
->>>> index a8dcf8a9ae88..6fe51549d931 100644
->>>> --- a/include/linux/rpmsg.h
->>>> +++ b/include/linux/rpmsg.h
->>>> @@ -186,6 +186,8 @@ int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
->>>>  __poll_t rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
->>>>  			poll_table *wait);
->>>>  
->>>> +struct class *rpmsg_get_class(void);
->>>> +
->>>>  #else
->>>>  
->>>>  static inline int rpmsg_register_device(struct rpmsg_device *rpdev)
->>>> @@ -296,6 +298,14 @@ static inline __poll_t rpmsg_poll(struct rpmsg_endpoint *ept,
->>>>  	return 0;
->>>>  }
->>>>  
->>>> +static inline struct class *rpmsg_get_class(void)
->>>> +{
->>>> +	/* This shouldn't be possible */
->>>> +	WARN_ON(1);
->>>> +
->>>> +	return NULL;
->>>> +}
->>>> +
->>>>  #endif /* IS_ENABLED(CONFIG_RPMSG) */
->>>>  
->>>>  /* use a macro to avoid include chaining to get THIS_MODULE */
->>>> -- 
->>>> 2.17.1
->>>>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksIEphc29uOgoKamFzb24tamgubGluIDxqYXNvbi1qaC5saW5AbWVkaWF0ZWsuY29tPiDmlrwg
+MjAyMeW5tDEw5pyIMjbml6Ug6YCx5LqMIOS4i+WNiDExOjU55a+r6YGT77yaCj4KPiBhZGQgTUVS
+R0UgYWRkaXRpb25hbCBwcm9wZXJ0aWVzIGRlc2NyaXB0aW9uIGZvciBtdDgxOTU6Cj4gMS4gYXN5
+bmMgY2xvY2sKPiAyLiBmaWZvIHNldHRpbmcgZW5hYmxlCj4gMy4gcmVzZXQgY29udHJvbGxlcgoK
+UmV2aWV3ZWQtYnk6IENodW4tS3VhbmcgSHUgPGNodW5rdWFuZy5odUBrZXJuZWwub3JnPgoKPgo+
+IFNpZ25lZC1vZmYtYnk6IGphc29uLWpoLmxpbiA8amFzb24tamgubGluQG1lZGlhdGVrLmNvbT4K
+PiAtLS0KPiAgLi4uL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssbWVyZ2UueWFtbCAgICAgIHwg
+MzggKysrKysrKysrKysrKysrKysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgMzggaW5zZXJ0aW9ucygr
+KQo+Cj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNw
+bGF5L21lZGlhdGVrL21lZGlhdGVrLG1lcmdlLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRy
+ZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxtZXJnZS55YW1sCj4gaW5kZXgg
+NzViZWViMjA3Y2ViLi42MTQ3MjFiZGJmNzMgMTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0ZWsvbWVkaWF0ZWssbWVyZ2UueWFtbAo+
+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVr
+L21lZGlhdGVrLG1lcmdlLnlhbWwKPiBAQCAtMzYsOCArMzYsMjggQEAgcHJvcGVydGllczoKPiAg
+ICAgICAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3Bvd2VyL3Bvd2VyLWRvbWFp
+bi55YW1sIGZvciBkZXRhaWxzLgo+Cj4gICAgY2xvY2tzOgo+ICsgICAgbWF4SXRlbXM6IDIKPiAg
+ICAgIGl0ZW1zOgo+ICAgICAgICAtIGRlc2NyaXB0aW9uOiBNRVJHRSBDbG9jawo+ICsgICAgICAt
+IGRlc2NyaXB0aW9uOiBNRVJHRSBBc3luYyBDbG9jawo+ICsgICAgICAgICAgQ29udHJvbGxpbmcg
+dGhlIHN5bmNocm9ub3VzIHByb2Nlc3MgYmV0d2VlbiBNRVJHRSBhbmQgb3RoZXIgZGlzcGxheQo+
+ICsgICAgICAgICAgZnVuY3Rpb24gYmxvY2tzIGNyb3NzIGNsb2NrIGRvbWFpbi4KPiArCj4gKyAg
+Y2xvY2stbmFtZXM6Cj4gKyAgICBtYXhJdGVtczogMgo+ICsgICAgaXRlbXM6Cj4gKyAgICAgIC0g
+Y29uc3Q6IG1lcmdlCj4gKyAgICAgIC0gY29uc3Q6IG1lcmdlX2FzeW5jCj4gKwo+ICsgIG1lZGlh
+dGVrLG1lcmdlLWZpZm8tZW46Cj4gKyAgICBkZXNjcmlwdGlvbjoKPiArICAgICAgVGhlIHNldHRp
+bmcgb2YgbWVyZ2UgZmlmbyBpcyBtYWlubHkgcHJvdmlkZWQgZm9yIHRoZSBkaXNwbGF5IGxhdGVu
+Y3kKPiArICAgICAgYnVmZmVyIHRvIGVuc3VyZSB0aGF0IHRoZSBiYWNrLWVuZCBwYW5lbCBkaXNw
+bGF5IGRhdGEgd2lsbCBub3QgYmUKPiArICAgICAgdW5kZXJydW4sIGEgbGl0dGxlIG1vcmUgZGF0
+YSBpcyBuZWVkZWQgaW4gdGhlIGZpZm8uCj4gKyAgICAgIEFjY29yZGluZyB0byB0aGUgbWVyZ2Ug
+ZmlmbyBzZXR0aW5ncywgd2hlbiB0aGUgd2F0ZXIgbGV2ZWwgaXMgZGV0ZWN0ZWQKPiArICAgICAg
+dG8gYmUgaW5zdWZmaWNpZW50LCBpdCB3aWxsIHRyaWdnZXIgUkRNQSBzZW5kaW5nIHVsdHJhIGFu
+ZCBwcmV1bHJhCj4gKyAgICAgIGNvbW1hbmQgdG8gU01JIHRvIHNwZWVkIHVwIHRoZSBkYXRhIHJh
+dGUuCj4gKyAgICB0eXBlOiBib29sZWFuCj4KPiAgICBtZWRpYXRlayxnY2UtY2xpZW50LXJlZzoK
+PiAgICAgIGRlc2NyaXB0aW9uOgo+IEBAIC01MCw2ICs3MCwxMSBAQCBwcm9wZXJ0aWVzOgo+ICAg
+ICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvcGhhbmRsZS1hcnJheQo+
+ICAgICAgbWF4SXRlbXM6IDEKPgo+ICsgIHJlc2V0czoKPiArICAgIGRlc2NyaXB0aW9uOiByZXNl
+dCBjb250cm9sbGVyCj4gKyAgICAgIFNlZSBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
+Z3MvcmVzZXQvcmVzZXQudHh0IGZvciBkZXRhaWxzLgo+ICsgICAgbWF4SXRlbXM6IDEKPiArCj4g
+IHJlcXVpcmVkOgo+ICAgIC0gY29tcGF0aWJsZQo+ICAgIC0gcmVnCj4gQEAgLTY3LDMgKzkyLDE2
+IEBAIGV4YW1wbGVzOgo+ICAgICAgICAgIHBvd2VyLWRvbWFpbnMgPSA8JnNwbSBNVDgxNzNfUE9X
+RVJfRE9NQUlOX01NPjsKPiAgICAgICAgICBjbG9ja3MgPSA8Jm1tc3lzIENMS19NTV9ESVNQX01F
+UkdFPjsKPiAgICAgIH07Cj4gKwo+ICsgICAgbWVyZ2U1OiBkaXNwX3ZwcF9tZXJnZTVAMWMxMTAw
+MDAgewo+ICsgICAgICAgIGNvbXBhdGlibGUgPSAibWVkaWF0ZWssbXQ4MTk1LWRpc3AtbWVyZ2Ui
+Owo+ICsgICAgICAgIHJlZyA9IDwwIDB4MWMxMTAwMDAgMCAweDEwMDA+Owo+ICsgICAgICAgIGlu
+dGVycnVwdHMgPSA8R0lDX1NQSSA1MDcgSVJRX1RZUEVfTEVWRUxfSElHSCAwPjsKPiArICAgICAg
+ICBjbG9ja3MgPSA8JnZkb3N5czEgQ0xLX1ZETzFfVlBQX01FUkdFND4sCj4gKyAgICAgICAgICAg
+ICAgICAgPCZ2ZG9zeXMxIENMS19WRE8xX01FUkdFNF9ETF9BU1lOQz47Cj4gKyAgICAgICAgY2xv
+Y2stbmFtZXMgPSAibWVyZ2UiLCJtZXJnZV9hc3luYyI7Cj4gKyAgICAgICAgcG93ZXItZG9tYWlu
+cyA9IDwmc3BtIE1UODE5NV9QT1dFUl9ET01BSU5fVkRPU1lTMT47Cj4gKyAgICAgICAgbWVkaWF0
+ZWssZ2NlLWNsaWVudC1yZWcgPSA8JmdjZTEgU1VCU1lTXzFjMTFYWFhYIDB4MDAwMCAweDEwMDA+
+Owo+ICsgICAgICAgIG1lZGlhdGVrLG1lcmdlLWZpZm8tZW4gPSA8MT47Cj4gKyAgICAgICAgcmVz
+ZXRzID0gPCZ2ZG9zeXMxIE1UODE5NV9WRE9TWVMxX1NXMF9SU1RfQl9NRVJHRTRfRExfQVNZTkM+
+Owo+ICsgICAgfTsKPiAtLQo+IDIuMTguMAo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
