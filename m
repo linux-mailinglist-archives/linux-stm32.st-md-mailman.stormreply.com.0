@@ -2,60 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA9F7442E4B
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Nov 2021 13:38:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D99A4430DD
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Nov 2021 15:53:08 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 473FFC5AB60;
-	Tue,  2 Nov 2021 12:38:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACCD6C5AB60;
+	Tue,  2 Nov 2021 14:53:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F229C5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B270C5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Nov 2021 12:38:46 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A2A7Umr011675;
- Tue, 2 Nov 2021 13:38:41 +0100
+ Tue,  2 Nov 2021 14:53:04 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A2CdoCn027700;
+ Tue, 2 Nov 2021 15:52:57 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=fiHhS2Mb7kwte0tsuCAFhpaUls6IvBjNVIQ/S4SDy1g=;
- b=icOoH+XRauc55CGZP2dmSImAVNf/ZkmUg9OIC2x15kSzSzngOp00m3mJsh4IhUza6Zql
- ReYXby2LFHigK0frV6vU6JoFFoO9oDjJ5BJYDQ/4Cn2S3Zr0Haf0DhsYsF7DQPA1YMc7
- hp+yLLb0smnueRpFWRrhaCngXnBrgNeOPLriMIhUP0uppwNlVYdJlJK+8sygfCn0eBcU
- Iov43u/cq8sIhFRi/7K4USNcVMMOXbUg4G2Sw0ztVZgA7tlLdG/3EERfstMNsIxcAdIq
- T0ELHPiToShB0j6sIH9BERSnWGuzJUbq/VnlPfFH/4PxPJeL8OhsUx8SxwXXeiLyPEAR MQ== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=eqvDdd0ahR8WFYpXCJbJgfrk+LtLUkWSTird/QHRFCA=;
+ b=0mpz1fqwlOx5hgWloXUXxbwxWISXqNoqiMewf04rZRXuE4Htlst4Jp8D9WtPgpiZOgAP
+ ne00m6j7wPwFJmqIvEwsgmrfjsco6RF7t/+viJBYGo4RsIQOmYEgggyFPfjX5QOpMYzY
+ BXAzbOQ+9QH29vApoCKUIQCy/NkNN7H9fcAeUMgSij6k2+QALc7U3c1kgDTNICi0aeVn
+ e3UTDdpRYZ2huhc7YS2gSqLjsj4sTDTsgkaCDMH8Dl8rSyHjwzsZNW/HfuAxf+4NZV5L
+ uwDKN+Bz9iVkpsBNniLmo/PcrR/YgnJBV9ApCDHeiL4jdrzslCIH54fYsC5EuT6Q2H73 /A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3c2jfj51t7-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3c30uvk2hc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 02 Nov 2021 13:38:41 +0100
+ Tue, 02 Nov 2021 15:52:57 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F8AA10002A;
- Tue,  2 Nov 2021 13:38:40 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1CEEE10002A;
+ Tue,  2 Nov 2021 15:52:56 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 73F97231DC7;
- Tue,  2 Nov 2021 13:38:40 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 2 Nov 2021 13:38:40
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Tue, 2 Nov 2021 13:38:17 +0100
-Message-ID: <20211102123817.19874-1-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0CE3E24165D;
+ Tue,  2 Nov 2021 15:52:56 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.48) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.18; Tue, 2 Nov
+ 2021 15:52:55 +0100
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <20211022125426.2579-1-arnaud.pouliquen@foss.st.com>
+ <20211022125426.2579-2-arnaud.pouliquen@foss.st.com>
+ <YYAb8P1Exqf4emQ3@builder.lan>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <c7a7d901-8472-d641-1e14-4c8339d124fc@foss.st.com>
+Date: Tue, 2 Nov 2021 15:52:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+In-Reply-To: <YYAb8P1Exqf4emQ3@builder.lan>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
  definitions=2021-11-02_08,2021-11-02_01,2020-04-07_01
-Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] MAINTAINERS: Add rpmsg tty driver maintainer
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, julien.massot@iot.bzh,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v6 01/10] rpmsg: char: Export eptdev
+ create an destroy functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,34 +80,215 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Adding myself as rpmsg tty maintainer and also adding remoteproc
-mailing list to inform about changes in the driver.
+Hi Bjorn,
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
+On 11/1/21 5:55 PM, Bjorn Andersson wrote:
+> On Fri 22 Oct 07:54 CDT 2021, Arnaud Pouliquen wrote:
+> 
+>> To prepare the split of the code related to the control (ctrldev)
+>> and the endpoint (eptdev) devices in 2 separate files:
+>>
+>> - Rename and export the functions in rpmsg_char.h.
+>>
+>> - Suppress the dependency with the rpmsg_ctrldev struct in the
+>>   rpmsg_eptdev_create function.
+>>
+>> Suggested-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>>  update vs previous revision:
+>>   - add comment to explain the IS_REACHABLE usage
+>>   - remove Mathieu Poirier reviewed-by as patch updated
+>> ---
+>>  drivers/rpmsg/rpmsg_char.c | 18 +++++++-----
+>>  drivers/rpmsg/rpmsg_char.h | 57 ++++++++++++++++++++++++++++++++++++++
+>>  2 files changed, 68 insertions(+), 7 deletions(-)
+>>  create mode 100644 drivers/rpmsg/rpmsg_char.h
+>>
+>> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+>> index b5907b80727c..941c5c54dd72 100644
+>> --- a/drivers/rpmsg/rpmsg_char.c
+>> +++ b/drivers/rpmsg/rpmsg_char.c
+>> @@ -1,5 +1,6 @@
+>>  // SPDX-License-Identifier: GPL-2.0
+>>  /*
+>> + * Copyright (C) 2021, STMicroelectronics
+>>   * Copyright (c) 2016, Linaro Ltd.
+>>   * Copyright (c) 2012, Michal Simek <monstr@monstr.eu>
+>>   * Copyright (c) 2012, PetaLogix
+>> @@ -22,6 +23,8 @@
+>>  #include <linux/uaccess.h>
+>>  #include <uapi/linux/rpmsg.h>
+>>  
+>> +#include "rpmsg_char.h"
+>> +
+>>  #define RPMSG_DEV_MAX	(MINORMASK + 1)
+>>  
+>>  static dev_t rpmsg_major;
+>> @@ -76,7 +79,7 @@ struct rpmsg_eptdev {
+>>  	wait_queue_head_t readq;
+>>  };
+>>  
+>> -static int rpmsg_eptdev_destroy(struct device *dev, void *data)
+>> +int rpmsg_chrdev_eptdev_destroy(struct device *dev, void *data)
+>>  {
+>>  	struct rpmsg_eptdev *eptdev = dev_to_eptdev(dev);
+>>  
+>> @@ -95,6 +98,7 @@ static int rpmsg_eptdev_destroy(struct device *dev, void *data)
+>>  
+>>  	return 0;
+>>  }
+>> +EXPORT_SYMBOL(rpmsg_chrdev_eptdev_destroy);
+>>  
+>>  static int rpmsg_ept_cb(struct rpmsg_device *rpdev, void *buf, int len,
+>>  			void *priv, u32 addr)
+>> @@ -278,7 +282,7 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
+>>  	if (cmd != RPMSG_DESTROY_EPT_IOCTL)
+>>  		return -EINVAL;
+>>  
+>> -	return rpmsg_eptdev_destroy(&eptdev->dev, NULL);
+>> +	return rpmsg_chrdev_eptdev_destroy(&eptdev->dev, NULL);
+>>  }
+>>  
+>>  static const struct file_operations rpmsg_eptdev_fops = {
+>> @@ -337,10 +341,9 @@ static void rpmsg_eptdev_release_device(struct device *dev)
+>>  	kfree(eptdev);
+>>  }
+>>  
+>> -static int rpmsg_eptdev_create(struct rpmsg_ctrldev *ctrldev,
+>> +int rpmsg_chrdev_eptdev_create(struct rpmsg_device *rpdev, struct device *parent,
+>>  			       struct rpmsg_channel_info chinfo)
+>>  {
+>> -	struct rpmsg_device *rpdev = ctrldev->rpdev;
+>>  	struct rpmsg_eptdev *eptdev;
+>>  	struct device *dev;
+>>  	int ret;
+>> @@ -360,7 +363,7 @@ static int rpmsg_eptdev_create(struct rpmsg_ctrldev *ctrldev,
+>>  
+>>  	device_initialize(dev);
+>>  	dev->class = rpmsg_class;
+>> -	dev->parent = &ctrldev->dev;
+>> +	dev->parent = parent;
+>>  	dev->groups = rpmsg_eptdev_groups;
+>>  	dev_set_drvdata(dev, eptdev);
+>>  
+>> @@ -403,6 +406,7 @@ static int rpmsg_eptdev_create(struct rpmsg_ctrldev *ctrldev,
+>>  
+>>  	return ret;
+>>  }
+>> +EXPORT_SYMBOL(rpmsg_chrdev_eptdev_create);
+>>  
+>>  static int rpmsg_ctrldev_open(struct inode *inode, struct file *filp)
+>>  {
+>> @@ -442,7 +446,7 @@ static long rpmsg_ctrldev_ioctl(struct file *fp, unsigned int cmd,
+>>  	chinfo.src = eptinfo.src;
+>>  	chinfo.dst = eptinfo.dst;
+>>  
+>> -	return rpmsg_eptdev_create(ctrldev, chinfo);
+>> +	return rpmsg_chrdev_eptdev_create(ctrldev->rpdev, &ctrldev->dev, chinfo);
+>>  };
+>>  
+>>  static const struct file_operations rpmsg_ctrldev_fops = {
+>> @@ -528,7 +532,7 @@ static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
+>>  	int ret;
+>>  
+>>  	/* Destroy all endpoints */
+>> -	ret = device_for_each_child(&ctrldev->dev, NULL, rpmsg_eptdev_destroy);
+>> +	ret = device_for_each_child(&ctrldev->dev, NULL, rpmsg_chrdev_eptdev_destroy);
+>>  	if (ret)
+>>  		dev_warn(&rpdev->dev, "failed to nuke endpoints: %d\n", ret);
+>>  
+>> diff --git a/drivers/rpmsg/rpmsg_char.h b/drivers/rpmsg/rpmsg_char.h
+>> new file mode 100644
+>> index 000000000000..109c2c43005f
+>> --- /dev/null
+>> +++ b/drivers/rpmsg/rpmsg_char.h
+>> @@ -0,0 +1,57 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
+>> +/*
+>> + * Copyright (C) STMicroelectronics 2021.
+>> + */
+>> +
+>> +#ifndef __RPMSG_CHRDEV_H__
+>> +#define __RPMSG_CHRDEV_H__
+>> +
+>> +/*
+>> + * The IS_REACHABLE macro is used here to prevent unresolved symbol error during link,
+>> + * building with RPMSG_CHAR=m and RPMSG_CTRL=y configuration.
+>> + * In such case a kernel warning is printed to help develloper to fix the issue.
+>> + */
+> 
+> I think we concluded that RPMSG_CHAR=n, RPMSG_CTRL=y is a valid
+> combination. If so I presume you don't want the user to get the kernel
+> log spammed by the WARN_ON()?
+> 
+> Afaict this should only ever be invoked by rpmsg_ctrl and with
+> RPMSG_CHAR disabled the related ioctls should just fail nicely.
+> 
+> 
+> As such. I think this should be #if IS_ENABLED() and we should put:
+> 
+> 	depends on RPMSG_CHAR || RPMSG_CHAR=n
+> 
+> in the RPMSG_CTRL Kconfig.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ba9f6537abc3..e234a740707b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16482,6 +16482,12 @@ T:	git git://linuxtv.org/media_tree.git
- F:	Documentation/devicetree/bindings/media/allwinner,sun8i-a83t-de2-rotate.yaml
- F:	drivers/media/platform/sunxi/sun8i-rotate/
- 
-+RPMSG TTY DRIVER
-+M:	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-+L:	linux-remoteproc@vger.kernel.org
-+S:	Maintained
-+F:	drivers/tty/rpmsg_tty.c
-+
- RTL2830 MEDIA DRIVER
- M:	Antti Palosaari <crope@iki.fi>
- L:	linux-media@vger.kernel.org
--- 
-2.17.1
+Need to make more tests but that seems to me a very good way to solve the
+dependency.
 
+Thanks,
+Arnaud
+
+> 
+> Regards,
+> Bjorn
+> 
+>> +
+>> +#if IS_REACHABLE(CONFIG_RPMSG_CHAR)
+>> +/**
+>> + * rpmsg_chrdev_eptdev_create() - register char device based on an endpoint
+>> + * @rpdev:  prepared rpdev to be used for creating endpoints
+>> + * @parent: parent device
+>> + * @chinfo: associated endpoint channel information.
+>> + *
+>> + * This function create a new rpmsg char endpoint device to instantiate a new
+>> + * endpoint based on chinfo information.
+>> + */
+>> +int rpmsg_chrdev_eptdev_create(struct rpmsg_device *rpdev, struct device *parent,
+>> +			       struct rpmsg_channel_info chinfo);
+>> +
+>> +/**
+>> + * rpmsg_chrdev_eptdev_destroy() - destroy created char device endpoint.
+>> + * @data: private data associated to the endpoint device
+>> + *
+>> + * This function destroys a rpmsg char endpoint device created by the RPMSG_DESTROY_EPT_IOCTL
+>> + * control.
+>> + */
+>> +int rpmsg_chrdev_eptdev_destroy(struct device *dev, void *data);
+>> +
+>> +#else  /*IS_REACHABLE(CONFIG_RPMSG_CHAR) */
+>> +
+>> +static inline int rpmsg_chrdev_eptdev_create(struct rpmsg_device *rpdev, struct device *parent,
+>> +					     struct rpmsg_channel_info chinfo)
+>> +{
+>> +	/* This shouldn't be possible */
+>> +	WARN_ON(1);
+>> +	return -EINVAL;
+>> +}
+>> +
+>> +static inline int rpmsg_chrdev_eptdev_destroy(struct device *dev, void *data)
+>> +{
+>> +	/* This shouldn't be possible */
+>> +	WARN_ON(1);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +#endif /*IS_REACHABLE(CONFIG_RPMSG_CHAR) */
+>> +
+>> +#endif /*__RPMSG_CHRDEV_H__ */
+>> -- 
+>> 2.17.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
