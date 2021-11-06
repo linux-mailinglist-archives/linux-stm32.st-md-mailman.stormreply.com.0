@@ -2,38 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939E1444865
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Nov 2021 19:39:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06A8244702E
+	for <lists+linux-stm32@lfdr.de>; Sat,  6 Nov 2021 20:35:18 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B127C5E2CA;
-	Wed,  3 Nov 2021 18:39:23 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp03.smtpout.orange.fr
- [80.12.242.125])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B97FC5E2C9;
+	Sat,  6 Nov 2021 19:35:17 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17CC1C5E2C5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35569C5AB61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Nov 2021 18:39:22 +0000 (UTC)
-Received: from pop-os.home ([86.243.171.122]) by smtp.orange.fr with ESMTPA
- id iLANmt2fXUGqliLAOmrupw; Wed, 03 Nov 2021 19:39:21 +0100
-X-ME-Helo: pop-os.home
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Wed, 03 Nov 2021 19:39:21 +0100
-X-ME-IP: 86.243.171.122
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: mathieu.poirier@linaro.org, suzuki.poulose@arm.com, mike.leach@linaro.org,
- leo.yan@linaro.org, alexander.shishkin@linux.intel.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-Date: Wed,  3 Nov 2021 19:39:18 +0100
-Message-Id: <a4b8454f560b70cedf0e4d06275787f08d576ee5.1635964610.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.30.2
+ Sat,  6 Nov 2021 19:35:13 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 46CE12171F;
+ Sat,  6 Nov 2021 19:35:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636227313; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5D/EvtfQAj4wvspwPbd79LEEeiKkU4WNjg4xKiX4H7E=;
+ b=0BQpqv/Fi8WEKJvFjOf9j7KsG30YsKsa6cB8ZQrSoAka66ebVbfwjPWz4LpoylYsf1pt38
+ PAjHVusD8As2XaVCz+0tSM18TtQuAY5L/mCNQf/wZpXeVeMcN2azIKmXpaoYo9fqn05md0
+ lwLRK1ORaMdobbTaNU6/PgQxJplIEt4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636227313;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5D/EvtfQAj4wvspwPbd79LEEeiKkU4WNjg4xKiX4H7E=;
+ b=iP9aR7b9xMeCarp9AXAxmYxCWo3zJywkz2IqvlcT0H0gyznyTsnDvfoXybyE3TI/0ITSKd
+ yamf/sq6e4ntsFDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E539313A1D;
+ Sat,  6 Nov 2021 19:35:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id cBLSNvDYhmEdLQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Sat, 06 Nov 2021 19:35:12 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
+ daniel@ffwll.ch, noralf@tronnes.org, marcel@ziswiler.com,
+ naresh.kamboju@linaro.org
+Date: Sat,  6 Nov 2021 20:35:07 +0100
+Message-Id: <20211106193509.17472-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Cc: coresight@lists.linaro.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] coresight: Use devm_bitmap_zalloc when
-	applicable
+Cc: linux-aspeed@lists.ozlabs.org, linux-mips@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [RESEND PATCH v2 0/2] drm: Small CMA cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,53 +72,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-'drvdata->chs.guaranteed' is a bitmap. So use 'devm_bitmap_kzalloc()' to
-simplify code, improve the semantic and avoid some open-coded arithmetic
-in allocator arguments.
+(no changes; resending for kernel CI)
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
-v1 --> v2: remove the 'guaranteed' variable to be even less verbose
----
- drivers/hwtracing/coresight/coresight-stm.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+Remove CMA dependencies from MIPI-DBI and replace the config
+symbol DRM_KMS_CMA_HELPER with DRM_KMS_HELPER. This allows to
+link drm_fb_cma_helper.o into a helper library.
 
-diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-index 58062a5a8238..bb14a3a8a921 100644
---- a/drivers/hwtracing/coresight/coresight-stm.c
-+++ b/drivers/hwtracing/coresight/coresight-stm.c
-@@ -856,13 +856,11 @@ static int stm_probe(struct amba_device *adev, const struct amba_id *id)
- {
- 	int ret;
- 	void __iomem *base;
--	unsigned long *guaranteed;
- 	struct device *dev = &adev->dev;
- 	struct coresight_platform_data *pdata = NULL;
- 	struct stm_drvdata *drvdata;
- 	struct resource *res = &adev->res;
- 	struct resource ch_res;
--	size_t bitmap_size;
- 	struct coresight_desc desc = { 0 };
- 
- 	desc.name = coresight_alloc_device_name(&stm_devs, dev);
-@@ -904,12 +902,10 @@ static int stm_probe(struct amba_device *adev, const struct amba_id *id)
- 	else
- 		drvdata->numsp = stm_num_stimulus_port(drvdata);
- 
--	bitmap_size = BITS_TO_LONGS(drvdata->numsp) * sizeof(long);
--
--	guaranteed = devm_kzalloc(dev, bitmap_size, GFP_KERNEL);
--	if (!guaranteed)
-+	drvdata->chs.guaranteed = devm_bitmap_zalloc(dev, drvdata->numsp,
-+						     GFP_KERNEL);
-+	if (!drvdata->chs.guaranteed)
- 		return -ENOMEM;
--	drvdata->chs.guaranteed = guaranteed;
- 
- 	spin_lock_init(&drvdata->spinlock);
- 
--- 
-2.30.2
+Thomas Zimmermann (2):
+  drm/mipi-dbi: Remove dependency on GEM CMA helper library
+  drm: Remove CONFIG_DRM_KMS_CMA_HELPER option
+
+ drivers/gpu/drm/Kconfig                 |  7 -----
+ drivers/gpu/drm/Makefile                |  2 +-
+ drivers/gpu/drm/arm/Kconfig             |  2 --
+ drivers/gpu/drm/arm/display/Kconfig     |  1 -
+ drivers/gpu/drm/aspeed/Kconfig          |  1 -
+ drivers/gpu/drm/atmel-hlcdc/Kconfig     |  1 -
+ drivers/gpu/drm/drm_mipi_dbi.c          | 34 ++++++++++++++++++-------
+ drivers/gpu/drm/fsl-dcu/Kconfig         |  1 -
+ drivers/gpu/drm/hisilicon/kirin/Kconfig |  1 -
+ drivers/gpu/drm/imx/Kconfig             |  2 +-
+ drivers/gpu/drm/imx/dcss/Kconfig        |  2 +-
+ drivers/gpu/drm/ingenic/Kconfig         |  1 -
+ drivers/gpu/drm/kmb/Kconfig             |  1 -
+ drivers/gpu/drm/mcde/Kconfig            |  1 -
+ drivers/gpu/drm/meson/Kconfig           |  1 -
+ drivers/gpu/drm/mxsfb/Kconfig           |  2 +-
+ drivers/gpu/drm/panel/Kconfig           |  2 +-
+ drivers/gpu/drm/pl111/Kconfig           |  1 -
+ drivers/gpu/drm/rcar-du/Kconfig         |  1 -
+ drivers/gpu/drm/shmobile/Kconfig        |  1 -
+ drivers/gpu/drm/sti/Kconfig             |  1 -
+ drivers/gpu/drm/stm/Kconfig             |  1 -
+ drivers/gpu/drm/sun4i/Kconfig           |  1 -
+ drivers/gpu/drm/tidss/Kconfig           |  1 -
+ drivers/gpu/drm/tilcdc/Kconfig          |  1 -
+ drivers/gpu/drm/tiny/Kconfig            | 20 +++++++--------
+ drivers/gpu/drm/tve200/Kconfig          |  1 -
+ drivers/gpu/drm/vc4/Kconfig             |  1 -
+ drivers/gpu/drm/xlnx/Kconfig            |  1 -
+ 29 files changed, 40 insertions(+), 53 deletions(-)
+
+
+base-commit: c2502072fe2bd823d59749dca7fde064b345e61c
+--
+2.33.1
 
 _______________________________________________
 Linux-stm32 mailing list
