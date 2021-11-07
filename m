@@ -2,67 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25EE444702F
-	for <lists+linux-stm32@lfdr.de>; Sat,  6 Nov 2021 20:35:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C7A6447358
+	for <lists+linux-stm32@lfdr.de>; Sun,  7 Nov 2021 15:41:54 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2C15C5E2CD;
-	Sat,  6 Nov 2021 19:35:17 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5BB7C5A4F8;
+	Sun,  7 Nov 2021 14:41:53 +0000 (UTC)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 391B0C5E2AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EE4FC5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  6 Nov 2021 19:35:14 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0A94821763;
- Sat,  6 Nov 2021 19:35:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636227314; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=o8bjc8IXupPIuSd0yHRy+D4P8pYpTOvHk1u1OjIxXdo=;
- b=eUMd7cqEASyGoUrO3iKyqDzvHE2uNzQMN0iLvG+UVKdMjHjDpUvThgEcyTPNNtyEL0eF8J
- EzOLGeRO2kYHsRA9arckkXuX3GJQNHEY61n88MpAD0efBUEjDpIHUHHtJ8esuAZo/Q6cIn
- O9/ERdmJg2pWslVBAjVuxw1qL2DNpDU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636227314;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=o8bjc8IXupPIuSd0yHRy+D4P8pYpTOvHk1u1OjIxXdo=;
- b=aGzFfgoGMoF6E/gsGqiKFn8a37oxyEfnuH/zc5Os4jTN0z90Oo9rjxcyzmnHEV3pzkuekz
- /S/7XYT2HpfDGSCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A36B713A1D;
- Sat,  6 Nov 2021 19:35:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UNb4JvHYhmEdLQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Sat, 06 Nov 2021 19:35:13 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@linux.ie,
- daniel@ffwll.ch, noralf@tronnes.org, marcel@ziswiler.com,
- naresh.kamboju@linaro.org
-Date: Sat,  6 Nov 2021 20:35:09 +0100
-Message-Id: <20211106193509.17472-3-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211106193509.17472-1-tzimmermann@suse.de>
-References: <20211106193509.17472-1-tzimmermann@suse.de>
+ Sun,  7 Nov 2021 14:41:52 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id o14so14127206plg.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 07 Nov 2021 06:41:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UrbpIa2R21nt9CsUHSpqQAdzhw13K5VFRKU4lZDfbyE=;
+ b=oKZrRbI/SUBOu+OiClukmnFZpxRlDN5huFzwvEf0bjZHQXroydaB+/X+a5nqBSumpa
+ QjvWhZcmGRxSPzGPu0Ud/9dC/CsqWtAVzi20+5ll6JN6NXddd7lsiRE+QSY4PjbeECeC
+ fTAW6sBa/+2ToFws1NBC/2iNVYmFLQs7aS9+Y3eXcER4QXUqMkGcJfkT2/ndZ3Of6Fdf
+ NCkfSZ8vcslGJXvEeg5z8Gzr6EnQTJxleM3PbU8uBf+tPO4xxveSTgj7GBkKfSIgNOkz
+ cFkFNYMUSonssfnZ1sgVsNUTXEn5Q+9J/Ddl+CyMRD04yJ+Q2ujrbYIuoElPoP33jqxJ
+ NFLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UrbpIa2R21nt9CsUHSpqQAdzhw13K5VFRKU4lZDfbyE=;
+ b=S+7AKm85+CIfI3EDKX0k2W3bYzZR7UcagvjhAGwLJMV7/xNEuHJ/a2xezBIAipFfOO
+ Bsf3Q59E40KM7CcuM4KXxTfHF+QLtco3yHtrg1Ju15qvGrHJLS1S2RLkYKxD6xLSDPzQ
+ Q+5CYlV1cTErVBItqKf+Ws5G+PBmNYGuKgPsXLPS/TPcLlAwuDpjCbIDSMm36zLhvCAh
+ dSibmxkc3j69oVm0129sMNyyruqJmt+LCYAGzfKwV6GM7SVhF0qFPSHKh8X6rrDBT0uf
+ 77yPlj3+1OcjiIB+WalhR8XA5c9U4gYz+6/yJP97zHdabb3yAom334hQNd/oNWj47qdv
+ am2w==
+X-Gm-Message-State: AOAM531ZWSiFZ9WoTC3kbMIAyc5lBowgxb1KQu24wnalT1LHhifboA1s
+ XmFmd9KiCusrsqkh8ceujNY=
+X-Google-Smtp-Source: ABdhPJwABYLHqc1afqQP1rkSVQdMHlYkszHG+qtGeTZkZ5Q0jtHqy+7ZaUghWKrcUz5kv9MEl+UQEQ==
+X-Received: by 2002:a17:903:2445:b0:142:830:ea8e with SMTP id
+ l5-20020a170903244500b001420830ea8emr37491574pls.54.1636296110594; 
+ Sun, 07 Nov 2021 06:41:50 -0800 (PST)
+Received: from localhost.localdomain ([37.120.154.98])
+ by smtp.gmail.com with ESMTPSA id c6sm12669781pfd.114.2021.11.07.06.41.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Nov 2021 06:41:50 -0800 (PST)
+From: Dillon Min <dillon.minfei@gmail.com>
+To: mchehab@kernel.org,
+	hverkuil-cisco@xs4all.nl
+Date: Sun,  7 Nov 2021 22:41:44 +0800
+Message-Id: <20211107144144.482969-1-dillon.minfei@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: linux-aspeed@lists.ozlabs.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-sunxi@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-amlogic@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/2] drm: Remove CONFIG_DRM_KMS_CMA_HELPER
-	option
+Cc: kernel test robot <lkp@intel.com>, linux-kernel@vger.kernel.org,
+ alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] media: stm32-dma2d: fix compile errors when
+	W=1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,492 +77,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Link drm_fb_cma_helper.o into drm_cma_helper.ko if CONFIG_DRM_KMS_HELPER
-has been set. Remove CONFIG_DRM_KMS_CMA_HELPER config option. Selecting
-KMS helpers and CMA will now automatically enable CMA KMS helpers.
+remove unused functions to avoid compile errors when W=1.
 
-Some drivers' Kconfig files did not correctly select KMS or CMA helpers.
-Fix this as part of the change.
+>> drivers/media/platform/stm32/dma2d/dma2d-hw.c:29:20:
+	error: unused function 'reg_set' [-Werror,-Wunused-function]
+	static inline void reg_set(void __iomem *base, u32 reg, u32 mask)
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>> drivers/media/platform/stm32/dma2d/dma2d-hw.c:34:20:
+	error: unused function 'reg_clear' [-Werror,-Wunused-function]
+	static inline void reg_clear(void __iomem *base, u32 reg, u32 mask)
+
+Fixes: bdbbd511ef0c ("media: stm32-dma2d: STM32 DMA2D driver")
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
 ---
- drivers/gpu/drm/Kconfig                 |  7 -------
- drivers/gpu/drm/Makefile                |  2 +-
- drivers/gpu/drm/arm/Kconfig             |  2 --
- drivers/gpu/drm/arm/display/Kconfig     |  1 -
- drivers/gpu/drm/aspeed/Kconfig          |  1 -
- drivers/gpu/drm/atmel-hlcdc/Kconfig     |  1 -
- drivers/gpu/drm/fsl-dcu/Kconfig         |  1 -
- drivers/gpu/drm/hisilicon/kirin/Kconfig |  1 -
- drivers/gpu/drm/imx/Kconfig             |  2 +-
- drivers/gpu/drm/imx/dcss/Kconfig        |  2 +-
- drivers/gpu/drm/ingenic/Kconfig         |  1 -
- drivers/gpu/drm/kmb/Kconfig             |  1 -
- drivers/gpu/drm/mcde/Kconfig            |  1 -
- drivers/gpu/drm/meson/Kconfig           |  1 -
- drivers/gpu/drm/mxsfb/Kconfig           |  2 +-
- drivers/gpu/drm/panel/Kconfig           |  2 +-
- drivers/gpu/drm/pl111/Kconfig           |  1 -
- drivers/gpu/drm/rcar-du/Kconfig         |  1 -
- drivers/gpu/drm/shmobile/Kconfig        |  1 -
- drivers/gpu/drm/sti/Kconfig             |  1 -
- drivers/gpu/drm/stm/Kconfig             |  1 -
- drivers/gpu/drm/sun4i/Kconfig           |  1 -
- drivers/gpu/drm/tidss/Kconfig           |  1 -
- drivers/gpu/drm/tilcdc/Kconfig          |  1 -
- drivers/gpu/drm/tiny/Kconfig            | 20 ++++++++++----------
- drivers/gpu/drm/tve200/Kconfig          |  1 -
- drivers/gpu/drm/vc4/Kconfig             |  1 -
- drivers/gpu/drm/xlnx/Kconfig            |  1 -
- 28 files changed, 15 insertions(+), 44 deletions(-)
+ drivers/media/platform/stm32/dma2d/dma2d-hw.c | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index fb144617055b..5e147593bb6c 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -217,13 +217,6 @@ config DRM_GEM_CMA_HELPER
- 	help
- 	  Choose this if you need the GEM CMA helper functions
+diff --git a/drivers/media/platform/stm32/dma2d/dma2d-hw.c b/drivers/media/platform/stm32/dma2d/dma2d-hw.c
+index 8c1c664ab13b..ea4cc84d8a39 100644
+--- a/drivers/media/platform/stm32/dma2d/dma2d-hw.c
++++ b/drivers/media/platform/stm32/dma2d/dma2d-hw.c
+@@ -26,16 +26,6 @@ static inline void reg_write(void __iomem *base, u32 reg, u32 val)
+ 	writel_relaxed(val, base + reg);
+ }
  
--config DRM_KMS_CMA_HELPER
--	bool
--	depends on DRM
--	select DRM_GEM_CMA_HELPER
--	help
--	  Choose this if you need the KMS CMA helper functions
+-static inline void reg_set(void __iomem *base, u32 reg, u32 mask)
+-{
+-	reg_write(base, reg, reg_read(base, reg) | mask);
+-}
 -
- config DRM_GEM_SHMEM_HELPER
- 	tristate
- 	depends on DRM && MMU
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 1c41156deb5f..7125318d6c95 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -34,6 +34,7 @@ drm-$(CONFIG_DRM_PRIVACY_SCREEN) += drm_privacy_screen.o drm_privacy_screen_x86.
- obj-$(CONFIG_DRM_DP_AUX_BUS) += drm_dp_aux_bus.o
- 
- drm_cma_helper-y := drm_gem_cma_helper.o
-+drm_cma_helper-$(CONFIG_DRM_KMS_HELPER) += drm_fb_cma_helper.o
- obj-$(CONFIG_DRM_GEM_CMA_HELPER) += drm_cma_helper.o
- 
- drm_shmem_helper-y := drm_gem_shmem_helper.o
-@@ -58,7 +59,6 @@ drm_kms_helper-y := drm_bridge_connector.o drm_crtc_helper.o drm_dp_helper.o \
- 
- drm_kms_helper-$(CONFIG_DRM_PANEL_BRIDGE) += bridge/panel.o
- drm_kms_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fb_helper.o
--drm_kms_helper-$(CONFIG_DRM_KMS_CMA_HELPER) += drm_fb_cma_helper.o
- drm_kms_helper-$(CONFIG_DRM_DP_AUX_CHARDEV) += drm_dp_aux_dev.o
- drm_kms_helper-$(CONFIG_DRM_DP_CEC) += drm_dp_cec.o
- 
-diff --git a/drivers/gpu/drm/arm/Kconfig b/drivers/gpu/drm/arm/Kconfig
-index 3a9e966e0e78..58a242871b28 100644
---- a/drivers/gpu/drm/arm/Kconfig
-+++ b/drivers/gpu/drm/arm/Kconfig
-@@ -6,7 +6,6 @@ config DRM_HDLCD
- 	depends on DRM && OF && (ARM || ARM64 || COMPILE_TEST)
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	help
- 	  Choose this option if you have an ARM High Definition Colour LCD
- 	  controller.
-@@ -27,7 +26,6 @@ config DRM_MALI_DISPLAY
- 	depends on DRM && OF && (ARM || ARM64 || COMPILE_TEST)
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VIDEOMODE_HELPERS
- 	help
-diff --git a/drivers/gpu/drm/arm/display/Kconfig b/drivers/gpu/drm/arm/display/Kconfig
-index cec0639e3aa1..e91598b60781 100644
---- a/drivers/gpu/drm/arm/display/Kconfig
-+++ b/drivers/gpu/drm/arm/display/Kconfig
-@@ -4,7 +4,6 @@ config DRM_KOMEDA
- 	depends on DRM && OF
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VIDEOMODE_HELPERS
- 	help
-diff --git a/drivers/gpu/drm/aspeed/Kconfig b/drivers/gpu/drm/aspeed/Kconfig
-index 5e95bcea43e9..36c4a7e86981 100644
---- a/drivers/gpu/drm/aspeed/Kconfig
-+++ b/drivers/gpu/drm/aspeed/Kconfig
-@@ -5,7 +5,6 @@ config DRM_ASPEED_GFX
- 	depends on (COMPILE_TEST || ARCH_ASPEED)
- 	depends on MMU
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DMA_CMA if HAVE_DMA_CONTIGUOUS
- 	select CMA if HAVE_DMA_CONTIGUOUS
- 	select MFD_SYSCON
-diff --git a/drivers/gpu/drm/atmel-hlcdc/Kconfig b/drivers/gpu/drm/atmel-hlcdc/Kconfig
-index 5f67f001553b..8ae679f1a518 100644
---- a/drivers/gpu/drm/atmel-hlcdc/Kconfig
-+++ b/drivers/gpu/drm/atmel-hlcdc/Kconfig
-@@ -4,7 +4,6 @@ config DRM_ATMEL_HLCDC
- 	depends on DRM && OF && COMMON_CLK && MFD_ATMEL_HLCDC && ARM
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL
- 	help
- 	  Choose this option if you have an ATMEL SoC with an HLCDC display
-diff --git a/drivers/gpu/drm/fsl-dcu/Kconfig b/drivers/gpu/drm/fsl-dcu/Kconfig
-index d7dd8ba90e3a..2a13ea5c8539 100644
---- a/drivers/gpu/drm/fsl-dcu/Kconfig
-+++ b/drivers/gpu/drm/fsl-dcu/Kconfig
-@@ -4,7 +4,6 @@ config DRM_FSL_DCU
- 	depends on DRM && OF && ARM && COMMON_CLK
- 	select BACKLIGHT_CLASS_DEVICE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL
- 	select REGMAP_MMIO
- 	select VIDEOMODE_HELPERS
-diff --git a/drivers/gpu/drm/hisilicon/kirin/Kconfig b/drivers/gpu/drm/hisilicon/kirin/Kconfig
-index 290553e2f6b4..b770f7662830 100644
---- a/drivers/gpu/drm/hisilicon/kirin/Kconfig
-+++ b/drivers/gpu/drm/hisilicon/kirin/Kconfig
-@@ -4,7 +4,6 @@ config DRM_HISI_KIRIN
- 	depends on DRM && OF && ARM64
- 	select DRM_KMS_HELPER
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_MIPI_DSI
- 	help
- 	  Choose this option if you have a hisilicon Kirin chipsets(hi6220).
-diff --git a/drivers/gpu/drm/imx/Kconfig b/drivers/gpu/drm/imx/Kconfig
-index b5fa0e45a839..bb9738c7c825 100644
---- a/drivers/gpu/drm/imx/Kconfig
-+++ b/drivers/gpu/drm/imx/Kconfig
-@@ -4,7 +4,7 @@ config DRM_IMX
- 	select DRM_KMS_HELPER
- 	select VIDEOMODE_HELPERS
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_KMS_HELPER
- 	depends on DRM && (ARCH_MXC || ARCH_MULTIPLATFORM || COMPILE_TEST)
- 	depends on IMX_IPUV3_CORE
- 	help
-diff --git a/drivers/gpu/drm/imx/dcss/Kconfig b/drivers/gpu/drm/imx/dcss/Kconfig
-index 2b17a964ff05..7374f1952762 100644
---- a/drivers/gpu/drm/imx/dcss/Kconfig
-+++ b/drivers/gpu/drm/imx/dcss/Kconfig
-@@ -1,7 +1,7 @@
- config DRM_IMX_DCSS
- 	tristate "i.MX8MQ DCSS"
- 	select IMX_IRQSTEER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_KMS_HELPER
- 	select VIDEOMODE_HELPERS
- 	depends on DRM && ARCH_MXC && ARM64
- 	help
-diff --git a/drivers/gpu/drm/ingenic/Kconfig b/drivers/gpu/drm/ingenic/Kconfig
-index 3b57f8be007c..001f59fb06d5 100644
---- a/drivers/gpu/drm/ingenic/Kconfig
-+++ b/drivers/gpu/drm/ingenic/Kconfig
-@@ -8,7 +8,6 @@ config DRM_INGENIC
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VT_HW_CONSOLE_BINDING if FRAMEBUFFER_CONSOLE
- 	help
-diff --git a/drivers/gpu/drm/kmb/Kconfig b/drivers/gpu/drm/kmb/Kconfig
-index bc4cb5e1cd8a..5fdd43dad507 100644
---- a/drivers/gpu/drm/kmb/Kconfig
-+++ b/drivers/gpu/drm/kmb/Kconfig
-@@ -3,7 +3,6 @@ config DRM_KMB_DISPLAY
- 	depends on DRM
- 	depends on ARCH_KEEMBAY || COMPILE_TEST
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DSI
- 	help
-diff --git a/drivers/gpu/drm/mcde/Kconfig b/drivers/gpu/drm/mcde/Kconfig
-index 71c689b573c9..d0bf1bc8da3f 100644
---- a/drivers/gpu/drm/mcde/Kconfig
-+++ b/drivers/gpu/drm/mcde/Kconfig
-@@ -10,7 +10,6 @@ config DRM_MCDE
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VT_HW_CONSOLE_BINDING if FRAMEBUFFER_CONSOLE
- 	help
-diff --git a/drivers/gpu/drm/meson/Kconfig b/drivers/gpu/drm/meson/Kconfig
-index 9f9281dd49f8..df0da9e03000 100644
---- a/drivers/gpu/drm/meson/Kconfig
-+++ b/drivers/gpu/drm/meson/Kconfig
-@@ -4,7 +4,6 @@ config DRM_MESON
- 	depends on DRM && OF && (ARM || ARM64)
- 	depends on ARCH_MESON || COMPILE_TEST
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VIDEOMODE_HELPERS
- 	select REGMAP_MMIO
-diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
-index ee22cd25d3e3..987170e16ebd 100644
---- a/drivers/gpu/drm/mxsfb/Kconfig
-+++ b/drivers/gpu/drm/mxsfb/Kconfig
-@@ -10,7 +10,7 @@ config DRM_MXSFB
- 	depends on COMMON_CLK
- 	select DRM_MXS
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_PANEL
- 	select DRM_PANEL_BRIDGE
- 	help
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7770b1802291..434c2861bb40 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -152,7 +152,7 @@ config DRM_PANEL_ILITEK_ILI9341
- 	tristate "Ilitek ILI9341 240x320 QVGA panels"
- 	depends on OF && SPI
- 	depends on DRM_KMS_HELPER
--	depends on DRM_KMS_CMA_HELPER
-+	depends on DRM_GEM_CMA_HELPER
- 	depends on BACKLIGHT_CLASS_DEVICE
- 	select DRM_MIPI_DBI
- 	help
-diff --git a/drivers/gpu/drm/pl111/Kconfig b/drivers/gpu/drm/pl111/Kconfig
-index 3aae387a96af..91ee05b01303 100644
---- a/drivers/gpu/drm/pl111/Kconfig
-+++ b/drivers/gpu/drm/pl111/Kconfig
-@@ -6,7 +6,6 @@ config DRM_PL111
- 	depends on VEXPRESS_CONFIG || VEXPRESS_CONFIG=n
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
-diff --git a/drivers/gpu/drm/rcar-du/Kconfig b/drivers/gpu/drm/rcar-du/Kconfig
-index b47e74421e34..71a4611e1557 100644
---- a/drivers/gpu/drm/rcar-du/Kconfig
-+++ b/drivers/gpu/drm/rcar-du/Kconfig
-@@ -7,7 +7,6 @@ config DRM_RCAR_DU
- 	imply DRM_RCAR_CMM
- 	imply DRM_RCAR_LVDS
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VIDEOMODE_HELPERS
- 	help
-diff --git a/drivers/gpu/drm/shmobile/Kconfig b/drivers/gpu/drm/shmobile/Kconfig
-index e2a6c82c8252..288b838a904a 100644
---- a/drivers/gpu/drm/shmobile/Kconfig
-+++ b/drivers/gpu/drm/shmobile/Kconfig
-@@ -5,7 +5,6 @@ config DRM_SHMOBILE
- 	depends on ARCH_SHMOBILE || COMPILE_TEST
- 	select BACKLIGHT_CLASS_DEVICE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	help
- 	  Choose this option if you have an SH Mobile chipset.
-diff --git a/drivers/gpu/drm/sti/Kconfig b/drivers/gpu/drm/sti/Kconfig
-index d0cfdd36b38f..246a94afbe74 100644
---- a/drivers/gpu/drm/sti/Kconfig
-+++ b/drivers/gpu/drm/sti/Kconfig
-@@ -5,7 +5,6 @@ config DRM_STI
- 	select RESET_CONTROLLER
- 	select DRM_KMS_HELPER
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL
- 	select FW_LOADER
- 	select SND_SOC_HDMI_CODEC if SND_SOC
-diff --git a/drivers/gpu/drm/stm/Kconfig b/drivers/gpu/drm/stm/Kconfig
-index b7d66915a2be..e0379488cd0d 100644
---- a/drivers/gpu/drm/stm/Kconfig
-+++ b/drivers/gpu/drm/stm/Kconfig
-@@ -4,7 +4,6 @@ config DRM_STM
- 	depends on DRM && (ARCH_STM32 || ARCH_MULTIPLATFORM)
- 	select DRM_KMS_HELPER
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL_BRIDGE
- 	select VIDEOMODE_HELPERS
- 	select FB_PROVIDE_GET_FB_UNMAPPED_AREA if FB
-diff --git a/drivers/gpu/drm/sun4i/Kconfig b/drivers/gpu/drm/sun4i/Kconfig
-index 5755f0432e77..92651f6a9e7d 100644
---- a/drivers/gpu/drm/sun4i/Kconfig
-+++ b/drivers/gpu/drm/sun4i/Kconfig
-@@ -5,7 +5,6 @@ config DRM_SUN4I
- 	depends on ARCH_SUNXI || COMPILE_TEST
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_PANEL
- 	select REGMAP_MMIO
- 	select VIDEOMODE_HELPERS
-diff --git a/drivers/gpu/drm/tidss/Kconfig b/drivers/gpu/drm/tidss/Kconfig
-index f790a5215302..bc4fa59b6fa9 100644
---- a/drivers/gpu/drm/tidss/Kconfig
-+++ b/drivers/gpu/drm/tidss/Kconfig
-@@ -3,7 +3,6 @@ config DRM_TIDSS
- 	depends on DRM && OF
- 	depends on ARM || ARM64 || COMPILE_TEST
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	help
- 	  The TI Keystone family SoCs introduced a new generation of
-diff --git a/drivers/gpu/drm/tilcdc/Kconfig b/drivers/gpu/drm/tilcdc/Kconfig
-index 9f505a149990..e315591eb36b 100644
---- a/drivers/gpu/drm/tilcdc/Kconfig
-+++ b/drivers/gpu/drm/tilcdc/Kconfig
-@@ -3,7 +3,6 @@ config DRM_TILCDC
- 	tristate "DRM Support for TI LCDC Display Controller"
- 	depends on DRM && OF && ARM
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
-diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-index 4ca309f80dee..712e0004e96e 100644
---- a/drivers/gpu/drm/tiny/Kconfig
-+++ b/drivers/gpu/drm/tiny/Kconfig
-@@ -3,7 +3,7 @@
- config DRM_ARCPGU
- 	tristate "ARC PGU"
- 	depends on DRM && OF
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_KMS_HELPER
- 	help
- 	  Choose this option if you have an ARC PGU controller.
-@@ -71,7 +71,7 @@ config TINYDRM_HX8357D
- 	tristate "DRM support for HX8357D display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -84,7 +84,7 @@ config TINYDRM_ILI9163
- 	tristate "DRM support for ILI9163 display panels"
- 	depends on DRM && SPI
- 	select BACKLIGHT_CLASS_DEVICE
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_KMS_HELPER
- 	select DRM_MIPI_DBI
- 	help
-@@ -97,7 +97,7 @@ config TINYDRM_ILI9225
- 	tristate "DRM support for ILI9225 display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	help
- 	  DRM driver for the following Ilitek ILI9225 panels:
-@@ -109,7 +109,7 @@ config TINYDRM_ILI9341
- 	tristate "DRM support for ILI9341 display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -122,7 +122,7 @@ config TINYDRM_ILI9486
- 	tristate "DRM support for ILI9486 display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -136,7 +136,7 @@ config TINYDRM_MI0283QT
- 	tristate "DRM support for MI0283QT"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-@@ -147,7 +147,7 @@ config TINYDRM_REPAPER
- 	tristate "DRM support for Pervasive Displays RePaper panels (V231)"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	help
- 	  DRM driver for the following Pervasive Displays panels:
- 	  1.44" TFT EPD Panel (E1144CS021)
-@@ -161,7 +161,7 @@ config TINYDRM_ST7586
- 	tristate "DRM support for Sitronix ST7586 display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	help
- 	  DRM driver for the following Sitronix ST7586 panels:
-@@ -173,7 +173,7 @@ config TINYDRM_ST7735R
- 	tristate "DRM support for Sitronix ST7715R/ST7735R display panels"
- 	depends on DRM && SPI
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
-+	select DRM_GEM_CMA_HELPER
- 	select DRM_MIPI_DBI
- 	select BACKLIGHT_CLASS_DEVICE
- 	help
-diff --git a/drivers/gpu/drm/tve200/Kconfig b/drivers/gpu/drm/tve200/Kconfig
-index e2d163c74ed6..47a7dbe6c114 100644
---- a/drivers/gpu/drm/tve200/Kconfig
-+++ b/drivers/gpu/drm/tve200/Kconfig
-@@ -8,7 +8,6 @@ config DRM_TVE200
- 	select DRM_BRIDGE
- 	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select VT_HW_CONSOLE_BINDING if FRAMEBUFFER_CONSOLE
- 	help
-diff --git a/drivers/gpu/drm/vc4/Kconfig b/drivers/gpu/drm/vc4/Kconfig
-index 345a5570a3da..de3424fed2fc 100644
---- a/drivers/gpu/drm/vc4/Kconfig
-+++ b/drivers/gpu/drm/vc4/Kconfig
-@@ -6,7 +6,6 @@ config DRM_VC4
- 	depends on SND && SND_SOC
- 	depends on COMMON_CLK
- 	select DRM_KMS_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_GEM_CMA_HELPER
- 	select DRM_PANEL_BRIDGE
- 	select SND_PCM
-diff --git a/drivers/gpu/drm/xlnx/Kconfig b/drivers/gpu/drm/xlnx/Kconfig
-index c3d08269faa9..d8d38d86d5c6 100644
---- a/drivers/gpu/drm/xlnx/Kconfig
-+++ b/drivers/gpu/drm/xlnx/Kconfig
-@@ -7,7 +7,6 @@ config DRM_ZYNQMP_DPSUB
- 	depends on XILINX_ZYNQMP_DPDMA
- 	select DMA_ENGINE
- 	select DRM_GEM_CMA_HELPER
--	select DRM_KMS_CMA_HELPER
- 	select DRM_KMS_HELPER
- 	select GENERIC_PHY
- 	help
+-static inline void reg_clear(void __iomem *base, u32 reg, u32 mask)
+-{
+-	reg_write(base, reg, reg_read(base, reg) & ~mask);
+-}
+-
+ static inline void reg_update_bits(void __iomem *base, u32 reg, u32 mask,
+ 				   u32 val)
+ {
 -- 
-2.33.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
