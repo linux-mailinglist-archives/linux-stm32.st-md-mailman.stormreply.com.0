@@ -2,68 +2,118 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD5614498B3
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Nov 2021 16:45:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29707449D12
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Nov 2021 21:29:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D13FC5E2D5;
-	Mon,  8 Nov 2021 15:45:58 +0000 (UTC)
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D660CC5EC6C;
+	Mon,  8 Nov 2021 20:29:09 +0000 (UTC)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-eopbgr60065.outbound.protection.outlook.com [40.107.6.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 113EAC5A4F3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79419C5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Nov 2021 15:45:57 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id w1so64628601edd.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 08 Nov 2021 07:45:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=PVza8bc+buwzI929X8sHOlCTGiVgpXXZXYwI8Fybjx0=;
- b=phVki65L5hxv+xQOyJZrMNRFTbKH8OSIgDhhxuQwrxszhIsMEYK2tLOpFd6UvSQPhZ
- tzin2L3SCtV4nnTmGGJee1cW3YYxd2bTzWjqD9czUAc0h44JLEhAKGuwEmZB6EaBSfJo
- aZRUcsFCRMxgBKkmcuGfNo0wHG/5hbZG8j/GZ5Tae7vFKszVoaG7AF0a3LjEmzjYOhZ0
- RYXNe9hex9CxKhRjDVTeUKxGdC5eJBSheHLCJWgEsbiPt9X4UqRvrzxeKDoDoGtHx53u
- STkv5P52gd9jJpYVeCz1rbzirDzJU4brHGIaFJT8ndihadb6Y6Bk5i8AK3cinOYPniap
- Y/Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=PVza8bc+buwzI929X8sHOlCTGiVgpXXZXYwI8Fybjx0=;
- b=Ea5fZyBSDWPSmQV6GSmkvrrtRyoOMVVeGCI9pE4z4fd1abN8NNqRUREhSAln5/Ad/t
- qdWwxZ2/3ET/zVhqH/4wbRR40hhvAvjjf7S83c/fXboQj9o03CvrXvGcWipdSoQrV9tb
- vbmHNOzkR9xzzIKiw6udKdHlrXOWwJSrtrheVqkQvHGkRu01nzum3OQTHuETIngJjhmv
- WLiIQJPv/YnVcbJawnaWaudvVt2fJfEV1CUQiNf3mVpZ0h2ZLwoKpuPPKM8GDKFZUtIZ
- SNYiNLHIAiUshuOHZf02RwcXWquDs2jk5OWoGHSJJKxC7Tf21QWA63bCs752ooEZcrRb
- zliA==
-X-Gm-Message-State: AOAM531Jb/k5dxlIIRY4+3JbSjtdYk4e6OC3O4qKYJ0vHBJCWbYHKI8a
- nWSW4pI7WE25TPdjrjLYzP8=
-X-Google-Smtp-Source: ABdhPJwJmcAuxFWPTO6M9QJsOkA9H+B2EKW7FArIW5Jx9cV/hYP96PeZTzf5PPn+RN4BVA5Gqqtdvg==
-X-Received: by 2002:a17:907:3f18:: with SMTP id
- hq24mr302251ejc.506.1636386356512; 
- Mon, 08 Nov 2021 07:45:56 -0800 (PST)
-Received: from skbuf ([188.25.175.102])
- by smtp.gmail.com with ESMTPSA id f7sm9536865edl.33.2021.11.08.07.45.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Nov 2021 07:45:56 -0800 (PST)
-Date: Mon, 8 Nov 2021 17:45:54 +0200
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-Message-ID: <20211108154554.axd2lmm2a3gw6vfu@skbuf>
-References: <20210305054930.7434-1-boon.leong.ong@intel.com>
+ Mon,  8 Nov 2021 20:29:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DiyoQTLrI42gNw0/lBlOCzo10d3+AXjNGKKyxzfjest33wqigGJyBuB9klqNYvsBsCZwgIm7+tn7f9g3CBAbqNfT5B7ylqh8WC6Arc64pmulindbi2N/Nl/Qe2TVJNxDU12yhVZJcvcH0urIkWI7Kw0HRhxjYi7GdFvhhGoM1A5t76kZzwOX7u8cdOPcxldUzCpaBaMxy/+SwTZiFKWvUlHMWS48EBtsr5tVtqfUs/LjBtiurmu5lwbo4Uu/yh26oZX4CtgGbJ3MUwkdlXq4bYvxcrnf8eSm1yrvlG0k4+8WAdGy+d+2AfaG7l/ZY8OKA5FvuLOl9KbXMKHBVf8vKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hVsTRZq9WkcssXhpGm5Iw4+ekDFi1xfYdIEm9F1nyk8=;
+ b=N36kcf9VIKhEQ8UJDWJWl1JGGZB3HZul1wrn9Bb4yCyNNqgJd3E8qAr3FE7Mwg68Rysn9JuuNuUfMbB2garMrWrC0evcP/YCMg8w6TsyhObgkCTmn5uoX7O3ewhayjzrhrLc6NG+/G1K7sO1kjuRxYATVNEiqG3EkAiyk5tAK2X3qZpRpZFXdCSA4ufgPkCio6GdTfHfyqOro4KQndz90KYfEm3llPa7He/zdVDEtTFMZ7h2RTWhWCCVHnuDUGtRrF03/DZVRRj9hbpLMjRGwcALwaY4K/+Gli+GFk3NHrJ6RqHF314quFifumuDsHEODszsOSsCqGnksfrKvnVGlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hVsTRZq9WkcssXhpGm5Iw4+ekDFi1xfYdIEm9F1nyk8=;
+ b=sX+9pLiFTnTJ0+uwyHEgcyzGSrLDc2AsuWouU6IILs/F0TrMshp5fOXduKR9nk1s7lHTAL+LcJKXM3wVCUbSZzbPt2qLyi7VGZ+nivLh6+dMA+4cFObxxjLugdjxbw85+BPbpycq23zzdJJkNgjsD9Sk8rvFoTxMhmqTroAUHcQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VI1PR04MB5136.eurprd04.prod.outlook.com (2603:10a6:803:55::19)
+ by VI1PR04MB5693.eurprd04.prod.outlook.com (2603:10a6:803:e2::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Mon, 8 Nov
+ 2021 20:29:07 +0000
+Received: from VI1PR04MB5136.eurprd04.prod.outlook.com
+ ([fe80::e157:3280:7bc3:18c4]) by VI1PR04MB5136.eurprd04.prod.outlook.com
+ ([fe80::e157:3280:7bc3:18c4%5]) with mapi id 15.20.4669.016; Mon, 8 Nov 2021
+ 20:29:06 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: netdev@vger.kernel.org
+Date: Mon,  8 Nov 2021 22:28:54 +0200
+Message-Id: <20211108202854.1740995-1-vladimir.oltean@nxp.com>
+X-Mailer: git-send-email 2.25.1
+X-ClientProxiedBy: VI1PR0401CA0001.eurprd04.prod.outlook.com
+ (2603:10a6:800:4a::11) To VI1PR04MB5136.eurprd04.prod.outlook.com
+ (2603:10a6:803:55::19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210305054930.7434-1-boon.leong.ong@intel.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>,
- Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Fix VLAN filter
- delete timeout issue in Intel mGBE SGMII
+Received: from localhost.localdomain (188.25.175.102) by
+ VI1PR0401CA0001.eurprd04.prod.outlook.com (2603:10a6:800:4a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
+ Transport; Mon, 8 Nov 2021 20:29:06 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d13b47b1-2325-4b33-ffc4-08d9a2f66986
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5693:
+X-Microsoft-Antispam-PRVS: <VI1PR04MB569383A7CB9461A192D9B8D3E0919@VI1PR04MB5693.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XX9qkU5Dkxs219FA4Pi2vrlwA6QyLcE0hsWUMJUefUnJ81preKqQ1qFv+peltpmoqh1FC3oez6oS0LvqGT/A51p/P5qJMRV/KMmJvD3nVmEOXNp2wpKSP22VuzO82SZZucjP2byi68qM4zoaqan+WCS7vicy2/Vs4uiyLBjzv44Td/tneTptKWxQn8c5sJdjRalnGnLkKRh38nx+0lyUFpVpNoK/1MHj0LeE6dant6ERYJvy6GSf4IcSAjTjhzYgyZ2YF8xudSmPb+Zzmqtz35D9o8KYePiWU6wjuJvFsdxabGBh1XWj79OSAD5KOfidR6rYle3tzliY7Unu5cYvBOaQKhEU6YyEVQFgd1/1QqTPwVzQqfnjAJyhbPSfzOw/L0YEdYqQQm967M9rr7ffUBzXSwOe8FbOfiRUjsMgvzWT7Ae3/DtIBHINbgJPI2njnGeHDI3/LCIrb0Fo1VgGRdnA6gO5u87qSdnB6gAVrknsueGbwDbPsDBsgIG+3THCDssrwRkmOzKFLnJa1FJRIXBG+gEi9s/Hugo8FdXE0bjUj+OGMRnfrQD4Wr0cb1eGNMbs+BfMI5UYC6q2QRDoEO6qEgBjkpqMbvmQbjxtb0Rkz1tHGzCwfyH+i67/jSlbZXMYD1u3OU9Nnyn6VRiOeZg1rbju8qR0/rVcYLs3cp6D7uFLO8DDWgB7nN7HdX/pCqCi/C3+DCHg7sc/j1lQEA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB5136.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(5660300002)(4326008)(6506007)(38100700002)(38350700002)(83380400001)(6916009)(186003)(316002)(7416002)(8936002)(54906003)(1076003)(8676002)(6666004)(956004)(2616005)(36756003)(6512007)(44832011)(66476007)(508600001)(6486002)(66946007)(52116002)(66556008)(2906002)(26005)(4744005)(86362001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?CxbTtRigIS8qkWmBSLUUDMFoHfGosTujEtXP81zy50CtgWswvWXKRpZr7woT?=
+ =?us-ascii?Q?F+EPVnjptdRT4nYlZDv2jMlghm0Fx4VTLfmntnjY8hFx4hdaYHgKUxKQCpnm?=
+ =?us-ascii?Q?xb+O8AbFUMl6wH0OQCmYtTn8zpSVC7f9x88df0vb+W+gDL5oTiFYN+kz0Yv9?=
+ =?us-ascii?Q?/+FnfGQdKN/YQTVu7PyQzi/7n8DruSPzkeZ4J32JRsNIhtUw/jr5sQxH+tXv?=
+ =?us-ascii?Q?dmtHMvLFMk0F7wJsp+tYuml+ccIaKpucayMN8HhbnCIu80mYyTbNjMhiszXJ?=
+ =?us-ascii?Q?uTBQh+Vhue7opM40ZQeJjHnsyguVMFfYu4sVk4ZMxMd0FXCARY8vpeSpqYRC?=
+ =?us-ascii?Q?XmQ4IuqQgDQtB/o/CwCGvtdyiflzsl3vXVPh1RBXes5P2nZLSaD9MJep5eyx?=
+ =?us-ascii?Q?5rNhJk3SNUDN/cgve7Yf9GP9J11YbcNfeNYvy3H8R5pBU/yjOjyLKdZXuBQQ?=
+ =?us-ascii?Q?1XMAk7jRZQCHK/rK5BZ3XI6PH4MdsIyaNHdvI0G4rkXcsG+mDePwIvhY7asj?=
+ =?us-ascii?Q?GDmJBobqJP+hL4es8/fazbc36JVg/iEk3Tojd2B7AloQZML704YlLacxRpJ9?=
+ =?us-ascii?Q?SPi93ZzyMjHuMLjss7xdlvxo0Acx+Ocic99xO2W6Q5FKXp5+XWpTZXmmkIf0?=
+ =?us-ascii?Q?mrhzLSIROa7Id0NLyXkchjeNgA6juJ5dSGQFHtrennkwaQloAcaOQIRYL2CU?=
+ =?us-ascii?Q?rQ7N/OTbpD4R9GSEpJsA3ZFRBS/P6b8CvJcpyw7MwLFZxXqg7tIczy/nqryk?=
+ =?us-ascii?Q?JIARJ4ou39plHd2i7rLcsqBtExsvcglGQE6t56/REinXAf+sd3Zp9hEss5KA?=
+ =?us-ascii?Q?ZVw1z/ZQmj/N1bdw92KO5WEieZEdPSTL5X/GMUv70NJ9uqpwrOdXzBeBDsCT?=
+ =?us-ascii?Q?TKN+HnLYJYxWSXBGQzIftllPnwpEHr+Ua/sAAlyDxZK7bQ9WAzBkRH14F/eW?=
+ =?us-ascii?Q?Xf1a+V5Zp7H90ISC80jemWLoYDTaE4E7pEPQti0G6M8WU1pcHu/OhdxvSyJH?=
+ =?us-ascii?Q?9hZPz4Wh+DGsOdStjBN9fnqwrf74DTVWjn97WHItsEedM+dBrQAaWk2juunv?=
+ =?us-ascii?Q?xtuk52kEDBZQpKQTLkNpZE5x2rKhY+tqCM/QvV/KLyNRNUj5sN38oOXPZ46t?=
+ =?us-ascii?Q?wBOPoD1xPZA9KXOW7hoPN2cpLccL4QIJ9szfuJGIbzMdyMNOtGIGXuBJSHtN?=
+ =?us-ascii?Q?BlbedbPZR2rhkniVs9YqwvmfxWDb2L9pQqWZLGJmkXfjc6zReXFuMw1ERJUU?=
+ =?us-ascii?Q?/r2P0LKZ4WtP0O6giYwe1a8N+qEbUtoqdyetZiZCnN5WVX5uY6OPL2ehtXfn?=
+ =?us-ascii?Q?8weAkP03ZWQh3kKrbJOpPobSa5b09l4QqqDFfNbGXUN4ilffxih6vZTcddBb?=
+ =?us-ascii?Q?f6K7kk0AJZxyiG12X0DL6pOlrKatWXZCUxSwaeBcyejODlRYcpheRmF5lN08?=
+ =?us-ascii?Q?KbSZOcbUkOWjpeXM3HH7sZCxJuN+jNsG+u5XQYwaZjQaUodeoAGenn0B84ny?=
+ =?us-ascii?Q?QnfE8uXQ488Gf/9tAeTxpg+juW6l984gpXyCSJVnvyoQiUvWj3GujpVSpVYU?=
+ =?us-ascii?Q?2dtOayhn7gjBiK+Hdr3UF/v6H9KrCCngREen52Mnl09wUxPeAt0U+hnTQOrJ?=
+ =?us-ascii?Q?o1ZI/AZ3fKSDa7XQx3+GkIs=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d13b47b1-2325-4b33-ffc4-08d9a2f66986
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5136.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2021 20:29:06.8084 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7rKpU12JXgVpgvPJ+hKBhyZLEydHdr1ro+ZKRs+2faySTdM3RlL2M0OriSx27iZVI5Zssk5nRceVFf3SEc4h8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5693
+Cc: Yannick Vignon <yannick.vignon@nxp.com>, linux-kernel@vger.kernel.org,
+ Xiaoliang Yang <xiaoliang.yang_1@nxp.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: allow a tc-taprio base-time
+	of zero
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,74 +130,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 05, 2021 at 01:49:30PM +0800, Ong Boon Leong wrote:
-> For Intel mGbE controller, MAC VLAN filter delete operation will time-out
-> if serdes power-down sequence happened first during driver remove() with
-> below message.
-> 
-> [82294.764958] intel-eth-pci 0000:00:1e.4 eth2: stmmac_dvr_remove: removing driver
-> [82294.778677] intel-eth-pci 0000:00:1e.4 eth2: Timeout accessing MAC_VLAN_Tag_Filter
-> [82294.779997] intel-eth-pci 0000:00:1e.4 eth2: failed to kill vid 0081/0
-> [82294.947053] intel-eth-pci 0000:00:1d.2 eth1: stmmac_dvr_remove: removing driver
-> [82295.002091] intel-eth-pci 0000:00:1d.1 eth0: stmmac_dvr_remove: removing driver
-> 
-> Therefore, we delay the serdes power-down to be after unregister_netdev()
-> which triggers the VLAN filter delete.
-> 
-> Fixes: b9663b7ca6ff ("net: stmmac: Enable SERDES power up/down sequence")
-> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 0eba44e9c1f8..208cae344ffa 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5249,13 +5249,16 @@ int stmmac_dvr_remove(struct device *dev)
->  	netdev_info(priv->dev, "%s: removing driver", __func__);
->  
->  	stmmac_stop_all_dma(priv);
-> +	stmmac_mac_set(priv, priv->ioaddr, false);
-> +	netif_carrier_off(ndev);
-> +	unregister_netdev(ndev);
->  
-> +	/* Serdes power down needs to happen after VLAN filter
-> +	 * is deleted that is triggered by unregister_netdev().
-> +	 */
->  	if (priv->plat->serdes_powerdown)
->  		priv->plat->serdes_powerdown(ndev, priv->plat->bsp_priv);
->  
-> -	stmmac_mac_set(priv, priv->ioaddr, false);
-> -	netif_carrier_off(ndev);
-> -	unregister_netdev(ndev);
->  #ifdef CONFIG_DEBUG_FS
->  	stmmac_exit_fs(ndev);
->  #endif
-> -- 
-> 2.17.0
-> 
+Commit fe28c53ed71d ("net: stmmac: fix taprio configuration when
+base_time is in the past") allowed some base time values in the past,
+but apparently not all, the base-time value of 0 (Jan 1st 1970) is still
+explicitly denied by the driver.
 
-Don't you also want to fix the probe path?
+Remove the bogus check.
 
-stmmac_dvr_probe:
-	ret = register_netdev(ndev);
-	if (ret) {
-		dev_err(priv->device, "%s: ERROR %i registering the device\n",
-			__func__, ret);
-		goto error_netdev_register;
-	}
+Fixes: b60189e0392f ("net: stmmac: Integrate EST with TAPRIO scheduler API")
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-	if (priv->plat->serdes_powerup) {
-		ret = priv->plat->serdes_powerup(ndev,
-						 priv->plat->bsp_priv);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index 8160087ee92f..1c4ea0b1b845 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -786,8 +786,6 @@ static int tc_setup_taprio(struct stmmac_priv *priv,
+ 		goto disable;
+ 	if (qopt->num_entries >= dep)
+ 		return -EINVAL;
+-	if (!qopt->base_time)
+-		return -ERANGE;
+ 	if (!qopt->cycle_time)
+ 		return -ERANGE;
+ 
+-- 
+2.25.1
 
-		if (ret < 0)
-			goto error_serdes_powerup;
-	}
-
-Since the device can start being used immediately after registration, it
-depends upon the SERDES clock being powered up.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
