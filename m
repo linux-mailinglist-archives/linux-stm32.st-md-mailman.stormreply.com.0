@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A0E944A0F7
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Nov 2021 02:04:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B8CD44A11C
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Nov 2021 02:05:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D182BC5EC6C;
-	Tue,  9 Nov 2021 01:04:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7C13C5EC6E;
+	Tue,  9 Nov 2021 01:05:06 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3333C5A4D4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36C73C5EC6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Nov 2021 01:04:16 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id DCC7F61A79;
- Tue,  9 Nov 2021 01:04:13 +0000 (UTC)
+ Tue,  9 Nov 2021 01:05:06 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5BF6161A8D;
+ Tue,  9 Nov 2021 01:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1636419855;
- bh=+ZCuS/jyle/F5oQcp3L8uoU1f3CFUz1vHNZQeW79T8k=;
+ s=k20201202; t=1636419904;
+ bh=i6jWeeqOD0/qiaPBSregEny3dWEgc7cIDgs3yisbJtc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AZPx8TTscN0BWTMzGep4T+WWkRo1WpFDSqG/GME755uSez3eyRW93nq2s9ErJefLF
- 504Mv48DAdkJZPHIetyjMi7O5HkGvwrVHdcdfnnjhAGWTceUMHjsCqr7tm53Ct/1pR
- kX7GTqph0NGHtOp0N6WXqoF2aBVynAMA8Ybh21hDSdPgITcAsPvuNTaWLBgm4zaDC0
- vnXdMcfozXcIrQ6bUKchslAyAcVSOsoA5hAWTtZIGPKph36s9iWe2THGVEn/W+0UxS
- cT8Xyao7DDImn2UVvhJtcHOfFQyn8QGS0Ko8+sts7mk+k901TuZovCcRx4MRWP1Tsd
- xtiH1w9KVIgTA==
+ b=rLl62tLtZiu8Yb1VdD/cmCjdg+9Bl9z5zAEYv6HHJjUQuxU80ShIBV0R1uP7g7nhj
+ +Uv81/tFkG4T21Xb77dEXKaEjFwzewwoNdXfyiczriKnSKd7sL2qIGzenJkQ68Weip
+ 6TTCDrGg/OwEiRtQ2eWIpgx4voQq0z0Fna1ypI8M/DQZZXacIR5kw8FplLx1oKW2DD
+ jzbtQJ2HL/D7+T0pIw9h9e6rBsX985Ghl7gXDtGlXCOETY6TIxvpXm4RosrhqfseBR
+ 5EMUQvT8zgCEoITYZxvOdXz/z7bBGPmbQBwT4CuGRCL+PqG1mcG3DkeAeki/z6Np9Y
+ VXAfn7axUIzsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon,  8 Nov 2021 12:47:20 -0500
-Message-Id: <20211108174832.1189312-30-sashal@kernel.org>
+Date: Mon,  8 Nov 2021 12:48:48 -0500
+Message-Id: <20211108174942.1189927-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211108174832.1189312-1-sashal@kernel.org>
-References: <20211108174832.1189312-1-sashal@kernel.org>
+In-Reply-To: <20211108174942.1189927-1-sashal@kernel.org>
+References: <20211108174942.1189927-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -43,7 +43,7 @@ Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
  Sakari Ailus <sakari.ailus@linux.intel.com>, mchehab@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  Alexey Khoroshilov <khoroshilov@ispras.ru>, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 030/101] media: stm32: Potential
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 21/74] media: stm32: Potential
 	NULL pointer dereference in dcmi_irq_thread()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -97,7 +97,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 11 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-index fd1c41cba52fc..233e4d3feacd9 100644
+index d41475f56ab54..72798aae7a628 100644
 --- a/drivers/media/platform/stm32/stm32-dcmi.c
 +++ b/drivers/media/platform/stm32/stm32-dcmi.c
 @@ -135,6 +135,7 @@ struct stm32_dcmi {
