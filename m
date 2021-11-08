@@ -2,46 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE0B1449E3D
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Nov 2021 22:30:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D61B344A07C
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Nov 2021 02:01:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77A7DC5EC6C;
-	Mon,  8 Nov 2021 21:30:50 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org [178.238.156.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C8C4C5EC6C;
+	Tue,  9 Nov 2021 01:01:15 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03971C5718D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3E56C5660B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Nov 2021 21:30:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description;
- bh=0iwskvT7/hdjJZTdU1Eyzgws/WDVQd1HAOKc57+uQjw=; b=pocPJMpyTmtM9PRMwz8gM4cb65
- ARrDqhE6l7qEoqBDn++car9Pk7CDPei4UiXKcIDsH/a1HDLe6m2anTctYJ62lvbBmUynMSr0G0+yZ
- b75PmapDuqR+2iZrpLdqTgkA0usuSwZ86/bjCEqWJrjVJUkmMfzUuON1gWib2CGIZ0BWuuOWKZ00d
- RtKjM2s7wqMwC262T1JMmh65f+iu3S+hh1vAV4sRq5pZHW1YTr/6yBjjRAs4aDk6BeGRIn9InQwEq
- GeZQBBjbwIrbskHtmOw1Og0DWU7kH2MMn5gKVxTOMB+ti/ODlT/TrdS9oCok+IWUIuKMXcpkQpT2N
- jU+nRFxQ==;
-Received: from [2601:1c0:6280:3f0::aa0b]
- by merlin.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1mkCE1-008jfC-Qe; Mon, 08 Nov 2021 21:30:46 +0000
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Ohad Ben-Cohen <ohad@wizery.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20211108140126.3530-1-arnaud.pouliquen@foss.st.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <67712270-d8b3-8475-f365-d24ed4cbb117@infradead.org>
-Date: Mon, 8 Nov 2021 13:30:35 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ Tue,  9 Nov 2021 01:01:13 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BD3B4613A6;
+ Tue,  9 Nov 2021 01:01:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1636419672;
+ bh=S4LCCpzYJLPe4LBP4YPSi1HqUeJ5icw6ybAi5xgnjM8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Oai3aJfk7LOr1FnDvBNre/W7eD2+ZwxmzgYKRq8/av6f1E7Sx6GrR10BSL4qDOEFH
+ d1BQe+S+3+VceNS04K4YhROsP+1fM5JYDz+o1aI295sLfFsQFejx/jXiZMnsc+6Y40
+ 50LRK4oiYnbWaKTZZeA4p2AWLmHMJnPm6DB/Mwl78BJSWXwj0kyi6mwn1CH+hzWePi
+ xGADI7EHWFpHqdPmY6Z6olY75uFWD3Hj8QOeuJyAhD+VGrtfuEgegOPZAkXFAWfG4G
+ CUPV3gu1ST7WCbe4PFfiizedAvoFwhWFR/RDWKVsVNwNqhIte2wdCgAq5tv9n/UC43
+ 3UR4etyQywc/Q==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Mon,  8 Nov 2021 12:43:08 -0500
+Message-Id: <20211108174453.1187052-41-sashal@kernel.org>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211108174453.1187052-1-sashal@kernel.org>
+References: <20211108174453.1187052-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20211108140126.3530-1-arnaud.pouliquen@foss.st.com>
-Content-Language: en-US
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] rpmsg: Fix documentation return formatting
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, hugues.fruchet@foss.st.com,
+ alexandre.torgue@foss.st.com, Dmitriy Ulitin <ulitin@ispras.ru>,
+ linux-arm-kernel@lists.infradead.org,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, mchehab@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexey Khoroshilov <khoroshilov@ispras.ru>, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 041/146] media: stm32: Potential
+	NULL pointer dereference in dcmi_irq_thread()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,30 +56,100 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/8/21 6:01 AM, Arnaud Pouliquen wrote:
-> kernel documentation specification:
-> "The return value, if any, should be described in a dedicated section
-> named Return."
-> 
-> Signed-off-by: Arnaud Pouliquen<arnaud.pouliquen@foss.st.com>
-> ---
->   drivers/rpmsg/qcom_glink_native.c |  2 +-
->   drivers/rpmsg/qcom_smd.c          |  2 +-
->   drivers/rpmsg/rpmsg_core.c        | 24 ++++++++++++------------
->   drivers/rpmsg/virtio_rpmsg_bus.c  |  2 +-
->   4 files changed, 15 insertions(+), 15 deletions(-)
+From: Dmitriy Ulitin <ulitin@ispras.ru>
 
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+[ Upstream commit 548fa43a58696450c15b8f5564e99589c5144664 ]
 
-Thanks.
+At the moment of enabling irq handling:
 
+1922 ret = devm_request_threaded_irq(&pdev->dev, irq, dcmi_irq_callback,
+1923			dcmi_irq_thread, IRQF_ONESHOT,
+1924			dev_name(&pdev->dev), dcmi);
+
+there is still uninitialized field sd_format of struct stm32_dcmi *dcmi.
+If an interrupt occurs in the interval between the installation of the
+interrupt handler and the initialization of this field, NULL pointer
+dereference happens.
+
+This field is dereferenced in the handler function without any check:
+
+457 if (dcmi->sd_format->fourcc == V4L2_PIX_FMT_JPEG &&
+458	    dcmi->misr & IT_FRAME) {
+
+The patch moves interrupt handler installation
+after initialization of the sd_format field that happens in
+dcmi_graph_notify_complete() via dcmi_set_default_fmt().
+
+Found by Linux Driver Verification project (linuxtesting.org).
+
+Signed-off-by: Dmitriy Ulitin <ulitin@ispras.ru>
+Signed-off-by: Alexey Khoroshilov <khoroshilov@ispras.ru>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/platform/stm32/stm32-dcmi.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
+index d914ccef98317..6110718645a4f 100644
+--- a/drivers/media/platform/stm32/stm32-dcmi.c
++++ b/drivers/media/platform/stm32/stm32-dcmi.c
+@@ -128,6 +128,7 @@ struct stm32_dcmi {
+ 	int				sequence;
+ 	struct list_head		buffers;
+ 	struct dcmi_buf			*active;
++	int			irq;
+ 
+ 	struct v4l2_device		v4l2_dev;
+ 	struct video_device		*vdev;
+@@ -1759,6 +1760,14 @@ static int dcmi_graph_notify_complete(struct v4l2_async_notifier *notifier)
+ 		return ret;
+ 	}
+ 
++	ret = devm_request_threaded_irq(dcmi->dev, dcmi->irq, dcmi_irq_callback,
++					dcmi_irq_thread, IRQF_ONESHOT,
++					dev_name(dcmi->dev), dcmi);
++	if (ret) {
++		dev_err(dcmi->dev, "Unable to request irq %d\n", dcmi->irq);
++		return ret;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -1914,6 +1923,8 @@ static int dcmi_probe(struct platform_device *pdev)
+ 	if (irq <= 0)
+ 		return irq ? irq : -ENXIO;
+ 
++	dcmi->irq = irq;
++
+ 	dcmi->res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	if (!dcmi->res) {
+ 		dev_err(&pdev->dev, "Could not get resource\n");
+@@ -1926,14 +1937,6 @@ static int dcmi_probe(struct platform_device *pdev)
+ 		return PTR_ERR(dcmi->regs);
+ 	}
+ 
+-	ret = devm_request_threaded_irq(&pdev->dev, irq, dcmi_irq_callback,
+-					dcmi_irq_thread, IRQF_ONESHOT,
+-					dev_name(&pdev->dev), dcmi);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Unable to request irq %d\n", irq);
+-		return ret;
+-	}
+-
+ 	mclk = devm_clk_get(&pdev->dev, "mclk");
+ 	if (IS_ERR(mclk)) {
+ 		if (PTR_ERR(mclk) != -EPROBE_DEFER)
 -- 
-~Randy
+2.33.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
