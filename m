@@ -2,118 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29707449D12
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Nov 2021 21:29:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE0B1449E3D
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Nov 2021 22:30:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D660CC5EC6C;
-	Mon,  8 Nov 2021 20:29:09 +0000 (UTC)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60065.outbound.protection.outlook.com [40.107.6.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77A7DC5EC6C;
+	Mon,  8 Nov 2021 21:30:50 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org [178.238.156.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79419C5718D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03971C5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Nov 2021 20:29:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DiyoQTLrI42gNw0/lBlOCzo10d3+AXjNGKKyxzfjest33wqigGJyBuB9klqNYvsBsCZwgIm7+tn7f9g3CBAbqNfT5B7ylqh8WC6Arc64pmulindbi2N/Nl/Qe2TVJNxDU12yhVZJcvcH0urIkWI7Kw0HRhxjYi7GdFvhhGoM1A5t76kZzwOX7u8cdOPcxldUzCpaBaMxy/+SwTZiFKWvUlHMWS48EBtsr5tVtqfUs/LjBtiurmu5lwbo4Uu/yh26oZX4CtgGbJ3MUwkdlXq4bYvxcrnf8eSm1yrvlG0k4+8WAdGy+d+2AfaG7l/ZY8OKA5FvuLOl9KbXMKHBVf8vKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hVsTRZq9WkcssXhpGm5Iw4+ekDFi1xfYdIEm9F1nyk8=;
- b=N36kcf9VIKhEQ8UJDWJWl1JGGZB3HZul1wrn9Bb4yCyNNqgJd3E8qAr3FE7Mwg68Rysn9JuuNuUfMbB2garMrWrC0evcP/YCMg8w6TsyhObgkCTmn5uoX7O3ewhayjzrhrLc6NG+/G1K7sO1kjuRxYATVNEiqG3EkAiyk5tAK2X3qZpRpZFXdCSA4ufgPkCio6GdTfHfyqOro4KQndz90KYfEm3llPa7He/zdVDEtTFMZ7h2RTWhWCCVHnuDUGtRrF03/DZVRRj9hbpLMjRGwcALwaY4K/+Gli+GFk3NHrJ6RqHF314quFifumuDsHEODszsOSsCqGnksfrKvnVGlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hVsTRZq9WkcssXhpGm5Iw4+ekDFi1xfYdIEm9F1nyk8=;
- b=sX+9pLiFTnTJ0+uwyHEgcyzGSrLDc2AsuWouU6IILs/F0TrMshp5fOXduKR9nk1s7lHTAL+LcJKXM3wVCUbSZzbPt2qLyi7VGZ+nivLh6+dMA+4cFObxxjLugdjxbw85+BPbpycq23zzdJJkNgjsD9Sk8rvFoTxMhmqTroAUHcQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from VI1PR04MB5136.eurprd04.prod.outlook.com (2603:10a6:803:55::19)
- by VI1PR04MB5693.eurprd04.prod.outlook.com (2603:10a6:803:e2::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Mon, 8 Nov
- 2021 20:29:07 +0000
-Received: from VI1PR04MB5136.eurprd04.prod.outlook.com
- ([fe80::e157:3280:7bc3:18c4]) by VI1PR04MB5136.eurprd04.prod.outlook.com
- ([fe80::e157:3280:7bc3:18c4%5]) with mapi id 15.20.4669.016; Mon, 8 Nov 2021
- 20:29:06 +0000
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: netdev@vger.kernel.org
-Date: Mon,  8 Nov 2021 22:28:54 +0200
-Message-Id: <20211108202854.1740995-1-vladimir.oltean@nxp.com>
-X-Mailer: git-send-email 2.25.1
-X-ClientProxiedBy: VI1PR0401CA0001.eurprd04.prod.outlook.com
- (2603:10a6:800:4a::11) To VI1PR04MB5136.eurprd04.prod.outlook.com
- (2603:10a6:803:55::19)
+ Mon,  8 Nov 2021 21:30:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=0iwskvT7/hdjJZTdU1Eyzgws/WDVQd1HAOKc57+uQjw=; b=pocPJMpyTmtM9PRMwz8gM4cb65
+ ARrDqhE6l7qEoqBDn++car9Pk7CDPei4UiXKcIDsH/a1HDLe6m2anTctYJ62lvbBmUynMSr0G0+yZ
+ b75PmapDuqR+2iZrpLdqTgkA0usuSwZ86/bjCEqWJrjVJUkmMfzUuON1gWib2CGIZ0BWuuOWKZ00d
+ RtKjM2s7wqMwC262T1JMmh65f+iu3S+hh1vAV4sRq5pZHW1YTr/6yBjjRAs4aDk6BeGRIn9InQwEq
+ GeZQBBjbwIrbskHtmOw1Og0DWU7kH2MMn5gKVxTOMB+ti/ODlT/TrdS9oCok+IWUIuKMXcpkQpT2N
+ jU+nRFxQ==;
+Received: from [2601:1c0:6280:3f0::aa0b]
+ by merlin.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1mkCE1-008jfC-Qe; Mon, 08 Nov 2021 21:30:46 +0000
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20211108140126.3530-1-arnaud.pouliquen@foss.st.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <67712270-d8b3-8475-f365-d24ed4cbb117@infradead.org>
+Date: Mon, 8 Nov 2021 13:30:35 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Received: from localhost.localdomain (188.25.175.102) by
- VI1PR0401CA0001.eurprd04.prod.outlook.com (2603:10a6:800:4a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
- Transport; Mon, 8 Nov 2021 20:29:06 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d13b47b1-2325-4b33-ffc4-08d9a2f66986
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5693:
-X-Microsoft-Antispam-PRVS: <VI1PR04MB569383A7CB9461A192D9B8D3E0919@VI1PR04MB5693.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XX9qkU5Dkxs219FA4Pi2vrlwA6QyLcE0hsWUMJUefUnJ81preKqQ1qFv+peltpmoqh1FC3oez6oS0LvqGT/A51p/P5qJMRV/KMmJvD3nVmEOXNp2wpKSP22VuzO82SZZucjP2byi68qM4zoaqan+WCS7vicy2/Vs4uiyLBjzv44Td/tneTptKWxQn8c5sJdjRalnGnLkKRh38nx+0lyUFpVpNoK/1MHj0LeE6dant6ERYJvy6GSf4IcSAjTjhzYgyZ2YF8xudSmPb+Zzmqtz35D9o8KYePiWU6wjuJvFsdxabGBh1XWj79OSAD5KOfidR6rYle3tzliY7Unu5cYvBOaQKhEU6YyEVQFgd1/1QqTPwVzQqfnjAJyhbPSfzOw/L0YEdYqQQm967M9rr7ffUBzXSwOe8FbOfiRUjsMgvzWT7Ae3/DtIBHINbgJPI2njnGeHDI3/LCIrb0Fo1VgGRdnA6gO5u87qSdnB6gAVrknsueGbwDbPsDBsgIG+3THCDssrwRkmOzKFLnJa1FJRIXBG+gEi9s/Hugo8FdXE0bjUj+OGMRnfrQD4Wr0cb1eGNMbs+BfMI5UYC6q2QRDoEO6qEgBjkpqMbvmQbjxtb0Rkz1tHGzCwfyH+i67/jSlbZXMYD1u3OU9Nnyn6VRiOeZg1rbju8qR0/rVcYLs3cp6D7uFLO8DDWgB7nN7HdX/pCqCi/C3+DCHg7sc/j1lQEA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB5136.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(5660300002)(4326008)(6506007)(38100700002)(38350700002)(83380400001)(6916009)(186003)(316002)(7416002)(8936002)(54906003)(1076003)(8676002)(6666004)(956004)(2616005)(36756003)(6512007)(44832011)(66476007)(508600001)(6486002)(66946007)(52116002)(66556008)(2906002)(26005)(4744005)(86362001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?CxbTtRigIS8qkWmBSLUUDMFoHfGosTujEtXP81zy50CtgWswvWXKRpZr7woT?=
- =?us-ascii?Q?F+EPVnjptdRT4nYlZDv2jMlghm0Fx4VTLfmntnjY8hFx4hdaYHgKUxKQCpnm?=
- =?us-ascii?Q?xb+O8AbFUMl6wH0OQCmYtTn8zpSVC7f9x88df0vb+W+gDL5oTiFYN+kz0Yv9?=
- =?us-ascii?Q?/+FnfGQdKN/YQTVu7PyQzi/7n8DruSPzkeZ4J32JRsNIhtUw/jr5sQxH+tXv?=
- =?us-ascii?Q?dmtHMvLFMk0F7wJsp+tYuml+ccIaKpucayMN8HhbnCIu80mYyTbNjMhiszXJ?=
- =?us-ascii?Q?uTBQh+Vhue7opM40ZQeJjHnsyguVMFfYu4sVk4ZMxMd0FXCARY8vpeSpqYRC?=
- =?us-ascii?Q?XmQ4IuqQgDQtB/o/CwCGvtdyiflzsl3vXVPh1RBXes5P2nZLSaD9MJep5eyx?=
- =?us-ascii?Q?5rNhJk3SNUDN/cgve7Yf9GP9J11YbcNfeNYvy3H8R5pBU/yjOjyLKdZXuBQQ?=
- =?us-ascii?Q?1XMAk7jRZQCHK/rK5BZ3XI6PH4MdsIyaNHdvI0G4rkXcsG+mDePwIvhY7asj?=
- =?us-ascii?Q?GDmJBobqJP+hL4es8/fazbc36JVg/iEk3Tojd2B7AloQZML704YlLacxRpJ9?=
- =?us-ascii?Q?SPi93ZzyMjHuMLjss7xdlvxo0Acx+Ocic99xO2W6Q5FKXp5+XWpTZXmmkIf0?=
- =?us-ascii?Q?mrhzLSIROa7Id0NLyXkchjeNgA6juJ5dSGQFHtrennkwaQloAcaOQIRYL2CU?=
- =?us-ascii?Q?rQ7N/OTbpD4R9GSEpJsA3ZFRBS/P6b8CvJcpyw7MwLFZxXqg7tIczy/nqryk?=
- =?us-ascii?Q?JIARJ4ou39plHd2i7rLcsqBtExsvcglGQE6t56/REinXAf+sd3Zp9hEss5KA?=
- =?us-ascii?Q?ZVw1z/ZQmj/N1bdw92KO5WEieZEdPSTL5X/GMUv70NJ9uqpwrOdXzBeBDsCT?=
- =?us-ascii?Q?TKN+HnLYJYxWSXBGQzIftllPnwpEHr+Ua/sAAlyDxZK7bQ9WAzBkRH14F/eW?=
- =?us-ascii?Q?Xf1a+V5Zp7H90ISC80jemWLoYDTaE4E7pEPQti0G6M8WU1pcHu/OhdxvSyJH?=
- =?us-ascii?Q?9hZPz4Wh+DGsOdStjBN9fnqwrf74DTVWjn97WHItsEedM+dBrQAaWk2juunv?=
- =?us-ascii?Q?xtuk52kEDBZQpKQTLkNpZE5x2rKhY+tqCM/QvV/KLyNRNUj5sN38oOXPZ46t?=
- =?us-ascii?Q?wBOPoD1xPZA9KXOW7hoPN2cpLccL4QIJ9szfuJGIbzMdyMNOtGIGXuBJSHtN?=
- =?us-ascii?Q?BlbedbPZR2rhkniVs9YqwvmfxWDb2L9pQqWZLGJmkXfjc6zReXFuMw1ERJUU?=
- =?us-ascii?Q?/r2P0LKZ4WtP0O6giYwe1a8N+qEbUtoqdyetZiZCnN5WVX5uY6OPL2ehtXfn?=
- =?us-ascii?Q?8weAkP03ZWQh3kKrbJOpPobSa5b09l4QqqDFfNbGXUN4ilffxih6vZTcddBb?=
- =?us-ascii?Q?f6K7kk0AJZxyiG12X0DL6pOlrKatWXZCUxSwaeBcyejODlRYcpheRmF5lN08?=
- =?us-ascii?Q?KbSZOcbUkOWjpeXM3HH7sZCxJuN+jNsG+u5XQYwaZjQaUodeoAGenn0B84ny?=
- =?us-ascii?Q?QnfE8uXQ488Gf/9tAeTxpg+juW6l984gpXyCSJVnvyoQiUvWj3GujpVSpVYU?=
- =?us-ascii?Q?2dtOayhn7gjBiK+Hdr3UF/v6H9KrCCngREen52Mnl09wUxPeAt0U+hnTQOrJ?=
- =?us-ascii?Q?o1ZI/AZ3fKSDa7XQx3+GkIs=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d13b47b1-2325-4b33-ffc4-08d9a2f66986
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5136.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2021 20:29:06.8084 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7rKpU12JXgVpgvPJ+hKBhyZLEydHdr1ro+ZKRs+2faySTdM3RlL2M0OriSx27iZVI5Zssk5nRceVFf3SEc4h8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5693
-Cc: Yannick Vignon <yannick.vignon@nxp.com>, linux-kernel@vger.kernel.org,
- Xiaoliang Yang <xiaoliang.yang_1@nxp.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: allow a tc-taprio base-time
-	of zero
+In-Reply-To: <20211108140126.3530-1-arnaud.pouliquen@foss.st.com>
+Content-Language: en-US
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] rpmsg: Fix documentation return formatting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,40 +53,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit fe28c53ed71d ("net: stmmac: fix taprio configuration when
-base_time is in the past") allowed some base time values in the past,
-but apparently not all, the base-time value of 0 (Jan 1st 1970) is still
-explicitly denied by the driver.
+On 11/8/21 6:01 AM, Arnaud Pouliquen wrote:
+> kernel documentation specification:
+> "The return value, if any, should be described in a dedicated section
+> named Return."
+> 
+> Signed-off-by: Arnaud Pouliquen<arnaud.pouliquen@foss.st.com>
+> ---
+>   drivers/rpmsg/qcom_glink_native.c |  2 +-
+>   drivers/rpmsg/qcom_smd.c          |  2 +-
+>   drivers/rpmsg/rpmsg_core.c        | 24 ++++++++++++------------
+>   drivers/rpmsg/virtio_rpmsg_bus.c  |  2 +-
+>   4 files changed, 15 insertions(+), 15 deletions(-)
 
-Remove the bogus check.
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
 
-Fixes: b60189e0392f ("net: stmmac: Integrate EST with TAPRIO scheduler API")
-Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 2 --
- 1 file changed, 2 deletions(-)
+Thanks.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 8160087ee92f..1c4ea0b1b845 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -786,8 +786,6 @@ static int tc_setup_taprio(struct stmmac_priv *priv,
- 		goto disable;
- 	if (qopt->num_entries >= dep)
- 		return -EINVAL;
--	if (!qopt->base_time)
--		return -ERANGE;
- 	if (!qopt->cycle_time)
- 		return -ERANGE;
- 
 -- 
-2.25.1
-
+~Randy
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
