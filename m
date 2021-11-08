@@ -2,60 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2C2C4480B5
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Nov 2021 15:01:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AF5544813E
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Nov 2021 15:19:52 +0100 (CET)
 Received: from ip-172-31-3-76.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7961BC5E2CF;
-	Mon,  8 Nov 2021 14:01:36 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88CF9C5E2D4;
+	Mon,  8 Nov 2021 14:19:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D4EFC5A4D4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2E84C5E2CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Nov 2021 14:01:34 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A8DGOhU021040;
- Mon, 8 Nov 2021 15:01:33 +0100
+ Mon,  8 Nov 2021 14:19:48 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A8Ds7cM012060;
+ Mon, 8 Nov 2021 15:19:42 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : mime-version : content-type; s=selector1;
- bh=G26Ve/HFn2wXHMnOpCOEz7WG0SiuPkgmMHKdcZnpApE=;
- b=G4XywgKF/KG2XlKQbaQVfawPeH/cbo6DwsjHG0n0WssAvgqltnKMYtp4cp7TKYJL8SJ2
- mJZYqF+EWm+uFOM8HZqO4JGOFrbjDxTjar8PaPlHxy2P8e5SU+yXnopYq69GXgo+tVbI
- pCZpnmDxBUyo4YADduhRSumo4EjS8TJ9t7SGOp4cRmkcPMibG2rRJuBzK5IaT1Y+lXIC
- yB+H+vakNEHBNkxLSi8XJWS38ZCMulJZ6zKnb1a8wR0H2dNDiJJ//AVNCAZxVnxR77PB
- Rz7Ial5i0D2ZSGweiSkcFLCjRUfA7E502AMxdc/Rw8PRdx9xzAgbSp3djJNX6alSYIgo fQ== 
+ bh=lmF5oPPLeXyqn8t5sWIyEw/YfHGjBm/0hY8o/n1uANg=;
+ b=QaaNXw5c130TSXa+G4RoyDAGINd6ILwFT2SezLJnfeSQ8AVKjX0Lg2sMY94pyp3y/7tk
+ qiHSMzusRpqdIjATIJDuG+HsQWgR1FOk/DxIoLLLIcf4mF+zibmgQE3eWQQNpElTXQgo
+ wxnWCIhRPvPEJ1KCAg43e064zjDd33ehfRn45eDsAZwezEF97iO3E0wZXNfhaHLimL+U
+ rtRRNyb1EaFanF0KhrLuv0Ya07mq0Yn6IymVQJLDSdshVvToqpeO/60HqWKq+X9HPVqq
+ VJHY8XGidghfrRHkLtwL7R6OuEkixHiNX9Gd35ivK2qYDCUqFlKi6WOLbAHzlmKjYDgH 2w== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3c709q26am-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3c70ym2bpr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Nov 2021 15:01:33 +0100
+ Mon, 08 Nov 2021 15:19:42 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 79D4710002A;
- Mon,  8 Nov 2021 15:01:32 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1219010002A;
+ Mon,  8 Nov 2021 15:19:41 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 698A322D19D;
- Mon,  8 Nov 2021 15:01:32 +0100 (CET)
-Received: from localhost (10.75.127.48) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 8 Nov 2021 15:01:32
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DCD1E21BF6B;
+ Mon,  8 Nov 2021 15:19:41 +0100 (CET)
+Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.18; Mon, 8 Nov 2021 15:19:41
  +0100
 From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
  <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Mon, 8 Nov 2021 15:01:26 +0100
-Message-ID: <20211108140126.3530-1-arnaud.pouliquen@foss.st.com>
+Date: Mon, 8 Nov 2021 15:19:25 +0100
+Message-ID: <20211108141937.13016-1-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
  definitions=2021-11-08_05,2021-11-08_01,2020-04-07_01
-Cc: linux-arm-msm@vger.kernel.org, arnaud.pouliquen@foss.st.com,
+Cc: julien.massot@iot.bzh, arnaud.pouliquen@foss.st.com,
  linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] rpmsg: Fix documentation return formatting
+Subject: [Linux-stm32] [PATCH v7 00/12] Restructure the rpmsg_char driver
+	and introduce rpmsg_ctrl driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,169 +73,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-kernel documentation specification:
-"The return value, if any, should be described in a dedicated section
-named Return."
+Update from V6 [1] based on Bjorn Andersson comments:
+- rework rpmsg class: suppress API in rpmsg.h and expose directly the variable in rpmsg_internal.h
+- move rpmsg_create_default_ept declaration from rpmsg.h to rpmsg_internal.h
+- rework the configs dependencies between RPMSG_CTRL and RPMSG_CHAR
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/rpmsg/qcom_glink_native.c |  2 +-
- drivers/rpmsg/qcom_smd.c          |  2 +-
- drivers/rpmsg/rpmsg_core.c        | 24 ++++++++++++------------
- drivers/rpmsg/virtio_rpmsg_bus.c  |  2 +-
- 4 files changed, 15 insertions(+), 15 deletions(-)
+Remaining discussion from V6:
+-  use of the rpmsg_create_default_ept API (proposal is to put it in rpmsg_internal.h).
 
-diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
-index 3f377a795b33..1030cfa80e04 100644
---- a/drivers/rpmsg/qcom_glink_native.c
-+++ b/drivers/rpmsg/qcom_glink_native.c
-@@ -427,7 +427,7 @@ static void qcom_glink_handle_intent_req_ack(struct qcom_glink *glink,
-  * Allocates a local channel id and sends a RPM_CMD_OPEN message to the remote.
-  * Will return with refcount held, regardless of outcome.
-  *
-- * Returns 0 on success, negative errno otherwise.
-+ * Return: 0 on success, negative errno otherwise.
-  */
- static int qcom_glink_send_open_req(struct qcom_glink *glink,
- 				    struct glink_channel *channel)
-diff --git a/drivers/rpmsg/qcom_smd.c b/drivers/rpmsg/qcom_smd.c
-index 8da1b5cb31b3..540e027f08c4 100644
---- a/drivers/rpmsg/qcom_smd.c
-+++ b/drivers/rpmsg/qcom_smd.c
-@@ -1467,7 +1467,7 @@ ATTRIBUTE_GROUPS(qcom_smd_edge);
-  * @parent:    parent device for the edge
-  * @node:      device_node describing the edge
-  *
-- * Returns an edge reference, or negative ERR_PTR() on failure.
-+ * Return: an edge reference, or negative ERR_PTR() on failure.
-  */
- struct qcom_smd_edge *qcom_smd_register_edge(struct device *parent,
- 					     struct device_node *node)
-diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
-index d3eb60059ef1..f031b2b1b21c 100644
---- a/drivers/rpmsg/rpmsg_core.c
-+++ b/drivers/rpmsg/rpmsg_core.c
-@@ -26,7 +26,7 @@
-  * @rpdev: rpmsg device
-  * @chinfo: channel_info to bind
-  *
-- * Returns a pointer to the new rpmsg device on success, or NULL on error.
-+ * Return: a pointer to the new rpmsg device on success, or NULL on error.
-  */
- struct rpmsg_device *rpmsg_create_channel(struct rpmsg_device *rpdev,
- 					  struct rpmsg_channel_info *chinfo)
-@@ -48,7 +48,7 @@ EXPORT_SYMBOL(rpmsg_create_channel);
-  * @rpdev: rpmsg device
-  * @chinfo: channel_info to bind
-  *
-- * Returns 0 on success or an appropriate error value.
-+ * Return: 0 on success or an appropriate error value.
-  */
- int rpmsg_release_channel(struct rpmsg_device *rpdev,
- 			  struct rpmsg_channel_info *chinfo)
-@@ -102,7 +102,7 @@ EXPORT_SYMBOL(rpmsg_release_channel);
-  * dynamically assign them an available rpmsg address (drivers should have
-  * a very good reason why not to always use RPMSG_ADDR_ANY here).
-  *
-- * Returns a pointer to the endpoint on success, or NULL on error.
-+ * Return: a pointer to the endpoint on success, or NULL on error.
-  */
- struct rpmsg_endpoint *rpmsg_create_ept(struct rpmsg_device *rpdev,
- 					rpmsg_rx_cb_t cb, void *priv,
-@@ -146,7 +146,7 @@ EXPORT_SYMBOL(rpmsg_destroy_ept);
-  *
-  * Can only be called from process context (for now).
-  *
-- * Returns 0 on success and an appropriate error value on failure.
-+ * Return: 0 on success and an appropriate error value on failure.
-  */
- int rpmsg_send(struct rpmsg_endpoint *ept, void *data, int len)
- {
-@@ -175,7 +175,7 @@ EXPORT_SYMBOL(rpmsg_send);
-  *
-  * Can only be called from process context (for now).
-  *
-- * Returns 0 on success and an appropriate error value on failure.
-+ * Return: 0 on success and an appropriate error value on failure.
-  */
- int rpmsg_sendto(struct rpmsg_endpoint *ept, void *data, int len, u32 dst)
- {
-@@ -206,7 +206,7 @@ EXPORT_SYMBOL(rpmsg_sendto);
-  *
-  * Can only be called from process context (for now).
-  *
-- * Returns 0 on success and an appropriate error value on failure.
-+ * Return: 0 on success and an appropriate error value on failure.
-  */
- int rpmsg_send_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
- 			  void *data, int len)
-@@ -235,7 +235,7 @@ EXPORT_SYMBOL(rpmsg_send_offchannel);
-  *
-  * Can only be called from process context (for now).
-  *
-- * Returns 0 on success and an appropriate error value on failure.
-+ * Return: 0 on success and an appropriate error value on failure.
-  */
- int rpmsg_trysend(struct rpmsg_endpoint *ept, void *data, int len)
- {
-@@ -263,7 +263,7 @@ EXPORT_SYMBOL(rpmsg_trysend);
-  *
-  * Can only be called from process context (for now).
-  *
-- * Returns 0 on success and an appropriate error value on failure.
-+ * Return: 0 on success and an appropriate error value on failure.
-  */
- int rpmsg_trysendto(struct rpmsg_endpoint *ept, void *data, int len, u32 dst)
- {
-@@ -282,7 +282,7 @@ EXPORT_SYMBOL(rpmsg_trysendto);
-  * @filp:	file for poll_wait()
-  * @wait:	poll_table for poll_wait()
-  *
-- * Returns mask representing the current state of the endpoint's send buffers
-+ * Return: mask representing the current state of the endpoint's send buffers
-  */
- __poll_t rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
- 			poll_table *wait)
-@@ -313,7 +313,7 @@ EXPORT_SYMBOL(rpmsg_poll);
-  *
-  * Can only be called from process context (for now).
-  *
-- * Returns 0 on success and an appropriate error value on failure.
-+ * Return: 0 on success and an appropriate error value on failure.
-  */
- int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
- 			     void *data, int len)
-@@ -623,7 +623,7 @@ EXPORT_SYMBOL(rpmsg_unregister_device);
-  * @rpdrv: pointer to a struct rpmsg_driver
-  * @owner: owning module/driver
-  *
-- * Returns 0 on success, and an appropriate error value on failure.
-+ * Return: 0 on success, and an appropriate error value on failure.
-  */
- int __register_rpmsg_driver(struct rpmsg_driver *rpdrv, struct module *owner)
- {
-@@ -637,7 +637,7 @@ EXPORT_SYMBOL(__register_rpmsg_driver);
-  * unregister_rpmsg_driver() - unregister an rpmsg driver from the rpmsg bus
-  * @rpdrv: pointer to a struct rpmsg_driver
-  *
-- * Returns 0 on success, and an appropriate error value on failure.
-+ * Return: 0 on success, and an appropriate error value on failure.
-  */
- void unregister_rpmsg_driver(struct rpmsg_driver *rpdrv)
- {
-diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-index 9c112aa65040..c37451512835 100644
---- a/drivers/rpmsg/virtio_rpmsg_bus.c
-+++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-@@ -547,7 +547,7 @@ static void rpmsg_downref_sleepers(struct virtproc_info *vrp)
-  * should use the appropriate rpmsg_{try}send{to, _offchannel} API
-  * (see include/linux/rpmsg.h).
-  *
-- * Returns 0 on success and an appropriate error value on failure.
-+ * Return: 0 on success and an appropriate error value on failure.
-  */
- static int rpmsg_send_offchannel_raw(struct rpmsg_device *rpdev,
- 				     u32 src, u32 dst,
+And a new patch to fix ns announcement on default endpoint creation.
+
+Patchset description:
+
+The current rpmsg_char module implements a /dev/rpmsg_ctrl interface that provides the ability to
+instantiate char devices (/dev/rpmsgX) associated with an rpmsg endpoint for communication with the
+remote processor.
+This implementation fit with QCOM rpmsg backend but not with themagement by chanel implemented in 
+the generic rpmsg virtio backend.
+This series restructures the rpmsg_char driver to decorrelate the control part from the data part
+in order to improve its compatible with the rpmsg virtio backend.
+
+Objective:
+- Expose a /dev/rpmsg_ctrlX interface for the application that is no longer dedicated to the
+  rpmsg_char but generalized to all rpmsg services. This offers capability to create and destroy
+  rpmsg channels from a user's application initiative (using the new RPMSG_CREATE_DEV_IOCTL and
+  RPMSG_DESTROY_DEV_IOCTL controls).
+  An application will be able to create/establish an rpmsg communication channel to communicate
+  with the remote processor, and not only wait the remote processor initiative.
+  This is interesting for example to establish a temporary communication link for diagnosis,
+  calibration, debugging... or instantiate  new data flows on some user actions.
+- Add capability to probe the rpmsg_char device at the initiative of the remote processor
+ (rpmsg service announcement mechanism).
+  This allows platforms based on the rpmsg virtio backend to create the /dev/rpmgX interface with
+  a rpmsg name service announcement.
+
+Subsets:
+  - Extract the control part of the char dev and create the rpmsg_ctrl.c file (patches 1 to 6)
+  - Introduce the "rpmsg-raw" channel in rpmsg_char(patches 7 to 10)
+  - Introduce the RPMSG_CREATE_DEV_IOCTL IOCTL and RPMSG_DESTROY_DEV_IOCTL to instantiate RPMsg
+    devices (patch 11)
+    The application can then create or release a channel by specifying:
+       - the name service of the device to instantiate.   
+       - the source address.
+       - the destination address.
+  - Send a ns announcement to the remote processor on default endpoint creation (patche 12)
+
+This series has be applied and tested on 5.15 branch (6ee5808de074)[2].
+
+[1] https://lkml.org/lkml/2021/10/22/431
+[2] https://github.com/torvalds/linux.git
+
+Arnaud Pouliquen (10):
+  rpmsg: char: Export eptdev create an destroy functions
+  rpmsg: create the rpmsg class in core instead of in rpmsg char
+  rpmsg: Move the rpmsg control device from rpmsg_char to rpmsg_ctrl
+  ARM: configs: Configs that had RPMSG_CHAR now gets RPMSG_CTRL
+  RISCV: configs: Configs that had RPMSG_CHAR now gets RPMSG_CTRL
+  rpmsg: Update rpmsg_chrdev_register_device function
+  rpmsg: char: Refactor rpmsg_chrdev_eptdev_create function
+  rpmsg: Introduce rpmsg_create_default_ept function
+  rpmsg: char: Add possibility to use default endpoint of the rpmsg
+    device.
+  rpmsg: char: Introduce the "rpmsg-raw" channel
+  rpmsg: ctrl: Introduce new RPMSG_CREATE/RELEASE_DEV_IOCTL controls
+  rpmsg: core: send a ns announcement when a default endpoint is created
+
+ arch/arm/configs/qcom_defconfig   |   1 +
+ arch/riscv/configs/defconfig      |   1 +
+ arch/riscv/configs/rv32_defconfig |   1 +
+ drivers/rpmsg/Kconfig             |   8 +
+ drivers/rpmsg/Makefile            |   1 +
+ drivers/rpmsg/qcom_glink_native.c |   2 +-
+ drivers/rpmsg/qcom_smd.c          |   2 +-
+ drivers/rpmsg/rpmsg_char.c        | 244 +++++++++++------------------
+ drivers/rpmsg/rpmsg_char.h        |  51 ++++++
+ drivers/rpmsg/rpmsg_core.c        |  83 +++++++++-
+ drivers/rpmsg/rpmsg_ctrl.c        | 250 ++++++++++++++++++++++++++++++
+ drivers/rpmsg/rpmsg_internal.h    |  14 +-
+ drivers/rpmsg/virtio_rpmsg_bus.c  |   2 +-
+ include/uapi/linux/rpmsg.h        |  10 ++
+ 14 files changed, 506 insertions(+), 164 deletions(-)
+ create mode 100644 drivers/rpmsg/rpmsg_char.h
+ create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
+
 -- 
 2.17.1
 
