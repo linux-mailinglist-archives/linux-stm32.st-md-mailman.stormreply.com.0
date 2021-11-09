@@ -2,50 +2,124 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1022544AF51
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Nov 2021 15:19:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47A7D44AF66
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Nov 2021 15:23:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF9B9C5EC6F;
-	Tue,  9 Nov 2021 14:19:41 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 068B2C5EC6F
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Nov 2021 14:23:01 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2072.outbound.protection.outlook.com [40.107.22.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A5D7C5EC6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9350FC5EC6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Nov 2021 14:19:40 +0000 (UTC)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[127.0.0.1])
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1mkRyH-0003AW-2g; Tue, 09 Nov 2021 15:19:33 +0100
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>,
- Kurt Kanzenbach <kurt.kanzenbach@linutronix.de>,
- Holger Assmann <h.assmann@pengutronix.de>
+ Tue,  9 Nov 2021 14:22:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ScKjMtDl5nzYovW8sq6sZO90Yg0kLFxh2zTak6AUxWG6MZGmjqxss6rdbxbvP1VSXJpRkbroY+CrQNTc7vwT0nO9Hz8WrlCWqxfrPH3l8nLZbKfeq71bs6k9zoM9E0/lFBKkuE5SlEBvGA5OErGaUHZu2R7loJ9Y3WOfRMRUmqCCb7QHQvyLnuZWD2WXa4kRuVJmFiDSGlyR/ARqyNjD/Ise1V5T138Ui+kczovurLKSIZQ7+qHyDsI+9gMSEukpzbl3os9CRnM/HWO0SsKptVKZftsLZzm+dAsNea3t6XsdUSKhmNXQc1Nbz0X/2n6xQ+huCNo8db0i4ofRgbBhaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qsJGN42ZxuqHOiwt60A5yb6VA8TqqKe1/m87ijszZ14=;
+ b=WvOUo44C8CmsOE5E+u0aY2JquPR7bzpe6bG8la97cxo+NzbmjwKBu4C3/pRUvymdRnXXFVwpheO5yKKlXMXLWXnUO1jtCYgE4+p0ez87Ax4mHhv579eMB+1MEdZ0EkZNVr0imlTBHAnoKv44o/m4KcQxXq21JtnmR7RPfOrw16BYeHi9HukAPvYlZPT6D6pZ8y3Rgo1JWVmJRkwLtJMB5O42I1VEfIDUbcjjVE6UuZMXQ/vJIS0wWt4neNmnW7wxXy7KoQ/2FsMK/4UcVbeEOZqljJ0DbPUvJ9vFCSGIBDgGfS/vIhZkHSUcNgHvzrlflYnW3H+y2Z5aGG/RslfQaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qsJGN42ZxuqHOiwt60A5yb6VA8TqqKe1/m87ijszZ14=;
+ b=YeKVLAcAV5G6LKu828JaX620UBaGWMof9VxIuKm2GgC1BN1EkIF+sQ1s/ZOE8f7kaKYLYNb3Tg2LtM/fF8Jh3ck8InOmXYjaCiNqhXJ+A+rD89DQZPpOW1taH+SndKU8Az6UMDsZ8fb33OZXTh5qtTZka9Fr+UoEekEaGmFxmIU=
+Received: from VI1PR04MB5136.eurprd04.prod.outlook.com (2603:10a6:803:55::19)
+ by VI1PR04MB5504.eurprd04.prod.outlook.com (2603:10a6:803:d8::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Tue, 9 Nov
+ 2021 14:22:56 +0000
+Received: from VI1PR04MB5136.eurprd04.prod.outlook.com
+ ([fe80::e157:3280:7bc3:18c4]) by VI1PR04MB5136.eurprd04.prod.outlook.com
+ ([fe80::e157:3280:7bc3:18c4%5]) with mapi id 15.20.4669.016; Tue, 9 Nov 2021
+ 14:22:56 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Thread-Topic: [Linux-stm32] [PATCH net] net: stmmac: allow a tc-taprio
+ base-time of zero
+Thread-Index: AQHX1N9HLp/45dXZAUyXM5qWRykZXav6262AgAAlfgCAAD6yAIAAAPeA
+Date: Tue, 9 Nov 2021 14:22:56 +0000
+Message-ID: <20211109142255.5ohhfyin7hsffmlk@skbuf>
 References: <20211108202854.1740995-1-vladimir.oltean@nxp.com>
  <87bl2t3fkq.fsf@kurt> <20211109103504.ahl2djymnevsbhoj@skbuf>
-Message-ID: <6bf6db8b-4717-71fe-b6de-9f6e12202dad@pengutronix.de>
-Date: Tue, 9 Nov 2021 15:19:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <20211109103504.ahl2djymnevsbhoj@skbuf>
+ <6bf6db8b-4717-71fe-b6de-9f6e12202dad@pengutronix.de>
+In-Reply-To: <6bf6db8b-4717-71fe-b6de-9f6e12202dad@pengutronix.de>
+Accept-Language: en-US
 Content-Language: en-US
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3189aa90-2da1-4172-f5ca-08d9a38c6c9f
+x-ms-traffictypediagnostic: VI1PR04MB5504:
+x-ld-processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+x-microsoft-antispam-prvs: <VI1PR04MB5504072BA8EB8CC322A5DA2AE0929@VI1PR04MB5504.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2201;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: RTFdaZHqgglxD875tsHaaQCYW87gkWu9dwNw1csbIUL/Zm6l0SViZD63mhw6p1ovXfdTGMt/MsXUcoKh7FLtkzaTXnrBOvv7OsKbcC1kbCPw0uOB1XNe7vMtVc0b3y7eoKSNXsUFIZtBxRUi5Qllv620rlxdfTGkBjS7yGTfMCAoELYFF0Um6bqNWMdjnfkQB+jTPVoHjYY0aDS61X9n/54gQqNxMh8b/TkTd6HzINV+2ZvCHC9LKxLnjPGjydocuwydUFt0SRjr84YE31C8IrzU/YH4PaQsdk41bIo4+20Wt5g9RhR8efqGFnmQioRlhOgfNoO6Hja5Tu0QxR5N/8xE/JoBTruwp+b88BxWkz29apyDO146MaX/vDvV/T2VnjElHCkPuB/WnillBzLq3RcS4D7lrk2s7ENqXXpZBbzD0QW9q+d6B6rFYOwqxx6MiVOFVMm8OtLEND3mlAZjwssuWiP++CjeedUpRgpxf/FW6sI9WIh/DSn5LdHv2V24QNrU92Z+O/itkEpvPUcb+TuF39DwcMDb8QFni29WxV2PL/wkpqA5Zl82XYa//O6ZNWjBHX8cd5shlNsg47EAqUKdORxmRFY4wBxkYwSe3kAQU2bWo4/DAhO8acI3Y4tEfHlQ39rFyTt6aFw0cAEcrceh7dUROaHPtyuoBmEzQse1pyUw8GnxJdl8Z2/mFoRE3irVBTwz9IeDJsbR+TVefllgWnEvCy9yfrI2C28UCY4XtvyNRpgCdu4PvMAv0KvhUKDWnINBI4k+hK/QF3Osdrod8sXHNPmuKSh1d1F1d6E=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB5136.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(7916004)(4636009)(366004)(2906002)(8936002)(66946007)(86362001)(26005)(53546011)(66476007)(83380400001)(76116006)(64756008)(33716001)(44832011)(8676002)(5660300002)(4326008)(6916009)(6512007)(9686003)(1076003)(7416002)(6506007)(966005)(316002)(54906003)(6486002)(71200400001)(186003)(122000001)(508600001)(38100700002)(38070700005)(66556008)(66446008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8I3Nw5cZZsp9zLRzv0odq+3pslFD4qHR2o58UtF/U4wy1+N96ULvXfJWTvUL?=
+ =?us-ascii?Q?uCvkJP1A+77PZS0ppgX6zebpbypylYaC7g+HqG1d4jHcH7VreThch4O9nyZk?=
+ =?us-ascii?Q?HV4dnhwEWtivLa9BvgZiyuNa3BoI2I0I2zk+JingoP4cISASbZxcwU2z3Zph?=
+ =?us-ascii?Q?Qmij1fFY30wCYVkqsB/k8GMlLQoD65yHGn/jem+kA4jLNEe6GTWQhxzM0UMA?=
+ =?us-ascii?Q?YeczYx/RC7p11XEIHqZOTckX9thGDk8L1TvIDkQ2/bWj3cezdCq7/kS3S3j9?=
+ =?us-ascii?Q?ifPk9dzfPRZwwpf3xS0omlM41jXbHLfCJiMyAhDXrmOMVp2rVb2d83EbNFxM?=
+ =?us-ascii?Q?Q0pkW+zzedv74hU8UfwbaaWPdos2aH8JeT4El0hSqPeaxEwKumcRkB/rW2iW?=
+ =?us-ascii?Q?nL3j+omRt+vD0ARZApP5L2qqIEIJurQbTqdRArTTJBlX03YnK84DguJT6Nua?=
+ =?us-ascii?Q?bdIqSGN3uKFaiZ0TVxiJQtnSHLC1M1ntDtaYcj/KarmQsJbsPakPkO5rO0+K?=
+ =?us-ascii?Q?h+cABIzp5itoC0DSTygUKeYpGAwQIMoy1EVam/FWtF5s8f5P3Lpm2BFgylT3?=
+ =?us-ascii?Q?Pigeo5syicMgCzpMIj7waLULLXDOrD/uVvIc9VvQA4e1bJiG15MX3FRlP0VB?=
+ =?us-ascii?Q?J+K1zYew6k2waK2FBQVAhJcryrfXDZhqpuXEH6VYCJnF3oZSOGzUp4m8CJ2h?=
+ =?us-ascii?Q?VcUJPxtHU6asWZJr9UfQaa5pyoO0tXvWdzq9ONK/UDWsir4RaTNlegrQmy4a?=
+ =?us-ascii?Q?BlVnscEe2GRqoO857hvcom2KCd8QIQn1DKfzAtmZAfNPZUo7PItOwBPriFrS?=
+ =?us-ascii?Q?XgcX6OVqjy6qxj6iN+k5wTS5WiTlhP7lzHzooZVX/TBU1Qw03LlCm3sJNtms?=
+ =?us-ascii?Q?2/WAmM8wt0el2mjwr37XvLfZRRb9rQHJRGjh8LZ+RTdefrYUJSs1sz3sTCE2?=
+ =?us-ascii?Q?8H+lOgq9QDf1bz7pCryHQ6yIo1U/FHaLOC2cgsSyy524RthCSlcn7D2eIfGK?=
+ =?us-ascii?Q?0gZxWUyhU7LdJbvYQL2sOqZgA5jKz2H4j07KEDVTRGtj5XzuWBZ0vcP2nk7V?=
+ =?us-ascii?Q?u3JpPkduq2lliSVgQgM4bEDFNFtT96B7qDemKrmtQRdXBehJr7b57T3jHZAb?=
+ =?us-ascii?Q?FZpFAH4Wa2spUJbkadxx+XR819YypfVEjjOWeCRiBWzWAgZ7NK6oEU9MxLdT?=
+ =?us-ascii?Q?Gt7jG+f410jc9UzpAOL9mYvNAoGL2Fwlh+IfRGIljaIREFXOQ4bQ3+AyrhjO?=
+ =?us-ascii?Q?5BwThq8UV3QdAPGejKZQOj1rHjkj1TCVEgSsbpOm4O994K1lElUsjYkkGI5p?=
+ =?us-ascii?Q?x3mZzUkPymPP3aH4I9S4X2t8wPkECQx+6sFQb8aKl4+H5fYgFCww7n/l7mRk?=
+ =?us-ascii?Q?0oqbtGiPphnZAOWqSJG4f6lzi8CsGCfZqUzRo8Pn4bOVyMuB/H1JFY6PyanH?=
+ =?us-ascii?Q?sCdutpxiZWrRT5JQ/IloU16ka/7RQuSFqKuOpA8+6Jd3WOgAWXforCYNY2z2?=
+ =?us-ascii?Q?C8EV/H8H+E93pqo3RHCULGmFN7N8EgEoVIwD1tO8hAdfw8DjJbovAZUgEb0s?=
+ =?us-ascii?Q?/smxY5YAblfTvNaPxGDG7Wy1OInjdXQ8z+URb3a1BJFIIeAco8FIuqDX9nBg?=
+ =?us-ascii?Q?/m+LoweA6XckLOMr2ba43C0=3D?=
+Content-ID: <8690164EFC827142AC5912731C8D30D3@eurprd04.prod.outlook.com>
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5136.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3189aa90-2da1-4172-f5ca-08d9a38c6c9f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2021 14:22:56.1637 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uVZ4yEJCTsTCbFTBUEJHYfRpRyNmkyHhky17nNjsbEzKYXHRiWWP/qJbFXs9KQGMTBuF8E9mRnViy6zTk7M6sQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5504
 Cc: Yannick Vignon <yannick.vignon@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- "David S. Miller" <davem@davemloft.net>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, "David
+ S. Miller" <davem@davemloft.net>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  Xiaoliang Yang <xiaoliang.yang_1@nxp.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jakub Kicinski <kuba@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Kurt Kanzenbach <kurt.kanzenbach@linutronix.de>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
@@ -67,52 +141,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Vladimir, Kurt,
-
-On 09.11.21 11:35, Vladimir Oltean wrote:
-> On Tue, Nov 09, 2021 at 09:20:53AM +0100, Kurt Kanzenbach wrote:
->> Hi Vladimir,
->>
->> On Mon Nov 08 2021, Vladimir Oltean wrote:
->>> Commit fe28c53ed71d ("net: stmmac: fix taprio configuration when
->>> base_time is in the past") allowed some base time values in the past,
->>> but apparently not all, the base-time value of 0 (Jan 1st 1970) is still
->>> explicitly denied by the driver.
->>>
->>> Remove the bogus check.
->>>
->>> Fixes: b60189e0392f ("net: stmmac: Integrate EST with TAPRIO scheduler API")
->>> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
->>
->> I've experienced the same problem and wanted to send a patch for
->> it. Thanks!
->>
->> Reviewed-by: Kurt Kanzenbach <kurt@linutronix.de>
+On Tue, Nov 09, 2021 at 03:19:28PM +0100, Ahmad Fatoum wrote:
+> Hello Vladimir, Kurt,
 > 
-> Cool. So you had that patch queued up? What other stmmac patches do you
-> have queued up? :) Do you have a fix for the driver setting the PTP time
-> every time when SIOCSHWTSTAMP is called? This breaks the UTC-to-TAI
-> offset established by phc2sys and it takes a few seconds to readjust,
-> which is very annoying.
-
-Sounds like the same issue in:
-https://lore.kernel.org/netdev/20201216113239.2980816-1-h.assmann@pengutronix.de/
-
-Cheers,
-Ahmad
-
-> _______________________________________________
-> Linux-stm32 mailing list
-> Linux-stm32@st-md-mailman.stormreply.com
-> https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+> On 09.11.21 11:35, Vladimir Oltean wrote:
+> > On Tue, Nov 09, 2021 at 09:20:53AM +0100, Kurt Kanzenbach wrote:
+> >> Hi Vladimir,
+> >>
+> >> On Mon Nov 08 2021, Vladimir Oltean wrote:
+> >>> Commit fe28c53ed71d ("net: stmmac: fix taprio configuration when
+> >>> base_time is in the past") allowed some base time values in the past,
+> >>> but apparently not all, the base-time value of 0 (Jan 1st 1970) is still
+> >>> explicitly denied by the driver.
+> >>>
+> >>> Remove the bogus check.
+> >>>
+> >>> Fixes: b60189e0392f ("net: stmmac: Integrate EST with TAPRIO scheduler API")
+> >>> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> >>
+> >> I've experienced the same problem and wanted to send a patch for
+> >> it. Thanks!
+> >>
+> >> Reviewed-by: Kurt Kanzenbach <kurt@linutronix.de>
+> > 
+> > Cool. So you had that patch queued up? What other stmmac patches do you
+> > have queued up? :) Do you have a fix for the driver setting the PTP time
+> > every time when SIOCSHWTSTAMP is called? This breaks the UTC-to-TAI
+> > offset established by phc2sys and it takes a few seconds to readjust,
+> > which is very annoying.
 > 
+> Sounds like the same issue in:
+> https://lore.kernel.org/netdev/20201216113239.2980816-1-h.assmann@pengutronix.de/
+> 
+> Cheers,
+> Ahmad
 
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Indeed. Was there a v2 to that?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
