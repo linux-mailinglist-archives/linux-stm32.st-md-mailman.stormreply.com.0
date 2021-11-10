@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1432C44C46B
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Nov 2021 16:31:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B4B044C46F
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Nov 2021 16:32:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE52CC5EC71;
-	Wed, 10 Nov 2021 15:31:58 +0000 (UTC)
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8127BC5EC6D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6970C5EC72;
+	Wed, 10 Nov 2021 15:32:00 +0000 (UTC)
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BA65C5EC72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Nov 2021 15:31:56 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="5.87,224,1631545200"; d="scan'208";a="100118282"
+ Wed, 10 Nov 2021 15:31:58 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="5.87,224,1631545200"; d="scan'208";a="99810505"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 11 Nov 2021 00:31:54 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 11 Nov 2021 00:31:58 +0900
 Received: from localhost.localdomain (unknown [10.226.92.40])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1CAFB4000931;
- Thu, 11 Nov 2021 00:31:50 +0900 (JST)
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 2389F40065BB;
+ Thu, 11 Nov 2021 00:31:54 +0900 (JST)
 From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 10 Nov 2021 15:31:41 +0000
-Message-Id: <20211110153142.3451-3-biju.das.jz@bp.renesas.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Date: Wed, 10 Nov 2021 15:31:42 +0000
+Message-Id: <20211110153142.3451-4-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20211110153142.3451-1-biju.das.jz@bp.renesas.com>
 References: <20211110153142.3451-1-biju.das.jz@bp.renesas.com>
-Cc: devicetree@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>,
+Cc: Chris Paterson <Chris.Paterson2@renesas.com>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
  Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
@@ -35,8 +35,8 @@ Cc: devicetree@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>,
  Chris Brandt <chris.brandt@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>,
  Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/3] dt-bindings: timer: renesas: ostm:
-	Document Renesas RZ/G2L OSTM
+Subject: [Linux-stm32] [PATCH v2 3/3] clocksource/drivers/renesas-ostm: Add
+	RZ/G2L OSTM support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,62 +54,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Document the General Timer Module(a.k.a OSTM) found on the RZ/G2L SoC.
+RZ/G2L SoC has Generic Timer Module(a.k.a OSTM) which needs to
+deassert the reset line before accessing any registers.
+
+This patch adds an entry point for RZ/G2L so that we can deassert
+the reset line in probe callback.
 
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
 v1->v2:
- * Use renesas,ostm instead od rzg2l-ostm
+ * Added reset handling inside ostm_init
+ * Used same compatible for builtin driver aswell
 ---
- .../bindings/timer/renesas,ostm.yaml          | 20 ++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ drivers/clocksource/renesas-ostm.c | 37 +++++++++++++++++++++++++++++-
+ 1 file changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
-index 600d47ab7d58..7fa7f977b44c 100644
---- a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
-+++ b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
-@@ -21,9 +21,10 @@ properties:
-   compatible:
-     items:
-       - enum:
--          - renesas,r7s72100-ostm # RZ/A1H
--          - renesas,r7s9210-ostm  # RZ/A2M
--      - const: renesas,ostm       # Generic
-+          - renesas,r7s72100-ostm  # RZ/A1H
-+          - renesas,r7s9210-ostm   # RZ/A2M
-+          - renesas,r9a07g044-ostm # RZ/G2{L,LC}
-+      - const: renesas,ostm        # Generic
+diff --git a/drivers/clocksource/renesas-ostm.c b/drivers/clocksource/renesas-ostm.c
+index 3d06ba66008c..3fe78bc4ad88 100644
+--- a/drivers/clocksource/renesas-ostm.c
++++ b/drivers/clocksource/renesas-ostm.c
+@@ -9,6 +9,8 @@
+ #include <linux/clk.h>
+ #include <linux/clockchips.h>
+ #include <linux/interrupt.h>
++#include <linux/platform_device.h>
++#include <linux/reset.h>
+ #include <linux/sched_clock.h>
+ #include <linux/slab.h>
  
-   reg:
-     maxItems: 1
-@@ -37,6 +38,9 @@ properties:
-   power-domains:
-     maxItems: 1
+@@ -159,6 +161,7 @@ static int __init ostm_init_clkevt(struct timer_of *to)
  
-+  resets:
-+    maxItems: 1
+ static int __init ostm_init(struct device_node *np)
+ {
++	struct reset_control *rstc;
+ 	struct timer_of *to;
+ 	int ret;
+ 
+@@ -166,6 +169,14 @@ static int __init ostm_init(struct device_node *np)
+ 	if (!to)
+ 		return -ENOMEM;
+ 
++	rstc = of_reset_control_get_optional_exclusive(np, NULL);
++	if (IS_ERR(rstc)) {
++		ret = PTR_ERR(rstc);
++		goto err_free;
++	}
 +
- required:
-   - compatible
-   - reg
-@@ -44,6 +48,16 @@ required:
-   - clocks
-   - power-domains
- 
-+if:
-+  properties:
-+    compatible:
-+      contains:
-+        enum:
-+          - renesas,r9a07g044-ostm
-+then:
-+  required:
-+    - resets
++	reset_control_deassert(rstc);
 +
- additionalProperties: false
+ 	to->flags = TIMER_OF_BASE | TIMER_OF_CLOCK;
+ 	if (system_clock) {
+ 		/*
+@@ -178,7 +189,7 @@ static int __init ostm_init(struct device_node *np)
  
- examples:
+ 	ret = timer_of_init(np, to);
+ 	if (ret)
+-		goto err_free;
++		goto err_reset;
+ 
+ 	/*
+ 	 * First probed device will be used as system clocksource. Any
+@@ -203,9 +214,33 @@ static int __init ostm_init(struct device_node *np)
+ 
+ err_cleanup:
+ 	timer_of_cleanup(to);
++err_reset:
++	reset_control_assert(rstc);
+ err_free:
+ 	kfree(to);
+ 	return ret;
+ }
+ 
+ TIMER_OF_DECLARE(ostm, "renesas,ostm", ostm_init);
++
++#ifdef CONFIG_ARCH_R9A07G044
++static int __init ostm_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++
++	return ostm_init(dev->of_node);
++}
++
++static const struct of_device_id ostm_of_table[] = {
++	{ .compatible = "renesas,ostm", },
++	{ /* sentinel */ }
++};
++
++static struct platform_driver ostm_device_driver = {
++	.driver = {
++		.name = "renesas_ostm",
++		.of_match_table = of_match_ptr(ostm_of_table),
++	},
++};
++builtin_platform_driver_probe(ostm_device_driver, ostm_probe);
++#endif
 -- 
 2.17.1
 
