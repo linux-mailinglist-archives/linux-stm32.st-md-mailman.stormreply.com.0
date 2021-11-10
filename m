@@ -2,41 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B4B044C46F
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Nov 2021 16:32:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CABD244C92F
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Nov 2021 20:44:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6970C5EC72;
-	Wed, 10 Nov 2021 15:32:00 +0000 (UTC)
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BA65C5EC72
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80CA5C5EC70;
+	Wed, 10 Nov 2021 19:44:24 +0000 (UTC)
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B711DCFAC4B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Nov 2021 15:31:58 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="5.87,224,1631545200"; d="scan'208";a="99810505"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 11 Nov 2021 00:31:58 +0900
-Received: from localhost.localdomain (unknown [10.226.92.40])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 2389F40065BB;
- Thu, 11 Nov 2021 00:31:54 +0900 (JST)
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Wed, 10 Nov 2021 19:44:23 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id u2so7210491oiu.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 10 Nov 2021 11:44:23 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
+ :message-id;
+ bh=likDWmDbN5o7SnT6cQ2yzO1g3PQ+qTt1FP1WspXaXGk=;
+ b=OWVKf0rz+QlM0uHlJa/O9CvowMEk3pPU1t41Wrc21nK+bzlGv7IN7eZOUngNNV/Pd7
+ aC6LziZ60wQCsXLWXt/AJiS7mjn8LDMHg8dRcqLnUUXpAy7SfqsKg1YcmEU3fxORWR4W
+ smR0zWv7ECwZexknfuZiIlw2yc6A02kPPf+lya+CEMLi+a5n4IS2ZA49Q/mm/1irL8tC
+ aRqhftP6l1sgApwZULK3NjouhCvC0uOue3V/+E1kW2hXr7Uh13gD5TJGj/soEfX+CUTi
+ yPQXfvPgmKBzfnITqSuTdv+h1rYOHRiXQ5cnn9EfH0tdTwNI4JTgz/uq5ECebbIuvtYJ
+ VOQg==
+X-Gm-Message-State: AOAM533xcxS5uPecrbweqNK1pyHzJbtuWRDoobxnbVtQde7fKMEFe5JB
+ tIfPLWE8rGcXvPdYo0WgJg==
+X-Google-Smtp-Source: ABdhPJwlYFTqlf/pRDAF7GOesoK3aqCR/9qaTWoFXcVxyzNBSZ+QDPSjYJOp7qkgxie7eyK+wcyhhg==
+X-Received: by 2002:aca:be54:: with SMTP id o81mr14764752oif.64.1636573462569; 
+ Wed, 10 Nov 2021 11:44:22 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id 3sm162484otl.60.2021.11.10.11.44.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Nov 2021 11:44:22 -0800 (PST)
+Received: (nullmailer pid 1783736 invoked by uid 1000);
+ Wed, 10 Nov 2021 19:44:20 -0000
+From: Rob Herring <robh@kernel.org>
+To: Biao Huang <biao.huang@mediatek.com>
+In-Reply-To: <20211110083948.6082-5-biao.huang@mediatek.com>
+References: <20211110083948.6082-1-biao.huang@mediatek.com>
+ <20211110083948.6082-5-biao.huang@mediatek.com>
+Date: Wed, 10 Nov 2021 13:44:20 -0600
+Message-Id: <1636573460.872424.1783735.nullmailer@robh.at.kernel.org>
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Date: Wed, 10 Nov 2021 15:31:42 +0000
-Message-Id: <20211110153142.3451-4-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211110153142.3451-1-biju.das.jz@bp.renesas.com>
-References: <20211110153142.3451-1-biju.das.jz@bp.renesas.com>
-Cc: Chris Paterson <Chris.Paterson2@renesas.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das@bp.renesas.com>, linux-renesas-soc@vger.kernel.org,
- Chris Brandt <chris.brandt@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 3/3] clocksource/drivers/renesas-ostm: Add
-	RZ/G2L OSTM support
+Subject: Re: [Linux-stm32] [PATCH 4/5] dt-bindings: net: dwmac: Convert
+	mediatek-dwmac to DT schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,103 +75,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RZ/G2L SoC has Generic Timer Module(a.k.a OSTM) which needs to
-deassert the reset line before accessing any registers.
+On Wed, 10 Nov 2021 16:39:47 +0800, Biao Huang wrote:
+> Convert mediatek-dwmac to DT schema, and delete old mediatek-dwmac.txt.
+> 
+> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+> ---
+>  .../bindings/net/mediatek-dwmac.txt           |  91 ---------
+>  .../bindings/net/mediatek-dwmac.yaml          | 179 ++++++++++++++++++
+>  2 files changed, 179 insertions(+), 91 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.txt
+>  create mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+> 
 
-This patch adds an entry point for RZ/G2L so that we can deassert
-the reset line in probe callback.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
-v1->v2:
- * Added reset handling inside ostm_init
- * Used same compatible for builtin driver aswell
----
- drivers/clocksource/renesas-ostm.c | 37 +++++++++++++++++++++++++++++-
- 1 file changed, 36 insertions(+), 1 deletion(-)
+yamllint warnings/errors:
 
-diff --git a/drivers/clocksource/renesas-ostm.c b/drivers/clocksource/renesas-ostm.c
-index 3d06ba66008c..3fe78bc4ad88 100644
---- a/drivers/clocksource/renesas-ostm.c
-+++ b/drivers/clocksource/renesas-ostm.c
-@@ -9,6 +9,8 @@
- #include <linux/clk.h>
- #include <linux/clockchips.h>
- #include <linux/interrupt.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
- #include <linux/sched_clock.h>
- #include <linux/slab.h>
- 
-@@ -159,6 +161,7 @@ static int __init ostm_init_clkevt(struct timer_of *to)
- 
- static int __init ostm_init(struct device_node *np)
- {
-+	struct reset_control *rstc;
- 	struct timer_of *to;
- 	int ret;
- 
-@@ -166,6 +169,14 @@ static int __init ostm_init(struct device_node *np)
- 	if (!to)
- 		return -ENOMEM;
- 
-+	rstc = of_reset_control_get_optional_exclusive(np, NULL);
-+	if (IS_ERR(rstc)) {
-+		ret = PTR_ERR(rstc);
-+		goto err_free;
-+	}
-+
-+	reset_control_deassert(rstc);
-+
- 	to->flags = TIMER_OF_BASE | TIMER_OF_CLOCK;
- 	if (system_clock) {
- 		/*
-@@ -178,7 +189,7 @@ static int __init ostm_init(struct device_node *np)
- 
- 	ret = timer_of_init(np, to);
- 	if (ret)
--		goto err_free;
-+		goto err_reset;
- 
- 	/*
- 	 * First probed device will be used as system clocksource. Any
-@@ -203,9 +214,33 @@ static int __init ostm_init(struct device_node *np)
- 
- err_cleanup:
- 	timer_of_cleanup(to);
-+err_reset:
-+	reset_control_assert(rstc);
- err_free:
- 	kfree(to);
- 	return ret;
- }
- 
- TIMER_OF_DECLARE(ostm, "renesas,ostm", ostm_init);
-+
-+#ifdef CONFIG_ARCH_R9A07G044
-+static int __init ostm_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+
-+	return ostm_init(dev->of_node);
-+}
-+
-+static const struct of_device_id ostm_of_table[] = {
-+	{ .compatible = "renesas,ostm", },
-+	{ /* sentinel */ }
-+};
-+
-+static struct platform_driver ostm_device_driver = {
-+	.driver = {
-+		.name = "renesas_ostm",
-+		.of_match_table = of_match_ptr(ostm_of_table),
-+	},
-+};
-+builtin_platform_driver_probe(ostm_device_driver, ostm_probe);
-+#endif
--- 
-2.17.1
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml: properties:mediatek,tx-delay-ps: '$ref' should not be valid under {'const': '$ref'}
+	hint: Standard unit suffix properties don't need a type $ref
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml: properties:mediatek,rx-delay-ps: '$ref' should not be valid under {'const': '$ref'}
+	hint: Standard unit suffix properties don't need a type $ref
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml: properties:clocks: {'minItems': 5, 'maxItems': 6, 'items': [{'description': 'AXI clock'}, {'description': 'APB clock'}, {'description': 'MAC clock gate'}, {'description': 'MAC Main clock'}, {'description': 'PTP clock'}, {'description': 'RMII reference clock provided by MAC'}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml: ignoring, error in schema: properties: mediatek,tx-delay-ps
+warning: no schema found in file: ./Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+Documentation/devicetree/bindings/net/mediatek-dwmac.example.dt.yaml:0:0: /example-0/ethernet@1101c000: failed to match any schema with compatible: ['mediatek,mt2712-gmac', 'snps,dwmac-4.20a']
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/patch/1553304
+
+This check can fail if there are any dependencies. The base for a patch
+series is generally the most recent rc1.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit.
 
 _______________________________________________
 Linux-stm32 mailing list
