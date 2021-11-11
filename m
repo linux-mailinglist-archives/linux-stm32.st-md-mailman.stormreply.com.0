@@ -2,63 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 616A044D8B4
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Nov 2021 15:57:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6065544D961
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Nov 2021 16:46:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22A33C5EC72;
-	Thu, 11 Nov 2021 14:57:38 +0000 (UTC)
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
- [209.85.167.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17D5AC5EC72;
+	Thu, 11 Nov 2021 15:46:08 +0000 (UTC)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 69761C5660B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F8F3C5EC70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 14:57:36 +0000 (UTC)
-Received: by mail-oi1-f171.google.com with SMTP id u74so12003361oie.8
+ Thu, 11 Nov 2021 15:46:06 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ t5-20020a17090a4e4500b001a0a284fcc2so4929483pjl.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 06:57:36 -0800 (PST)
+ Thu, 11 Nov 2021 07:46:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=IHt50f9mlyj2/SGCeb4ttMHVOWoii0nmE+uZwCQwvss=;
+ b=pJ+aj0QcW5CArcwgJ/NlNf7LjHw/5Dte0pH8KK1eCFpa3e3bzsXEOjr0mZfAd97E87
+ wneccpy8j5SVG3wQuitDaYXf3q+k4h3nGJYGTDSsR/tMAZyDl4IFpSOQvlzkInw3kAR2
+ Md4gPyfxT+6FZ+yPkZo0DiItVLsxp4GaQPqB0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=eOq5ir+TFZBL5cj7XaOZPw0GldpRN8fcVtMKUZ8KDPc=;
- b=CGf/jfu002TqTia56Er5+pT/4sSU5W1S/cLQfoef8KMh7YkTmc9nKRoPeX+2DL2Hg9
- 8NKQnULXLN8W4fBLk1TagEXCM17j2CtWqtuak2yAyTqRBLJKM7R1xj6u+7KqBRl6zAUc
- Y4X2FYZO4UP1BQdLvElorijuGvZK/LWX7Y0BmgZSq5TNH8sDj2PdWUHsypjKh6Js0+Zj
- 9X5NxIyiLW+7RfA6L2Umr65WnjTzgk0bJZ1DaKvb/EGIDtCU1r0/mxhBg6PTIPzvM127
- nr0AwIxmLhU86ARLkIP6rm1PTWD/lkV4n/Ofr8XFGmO/4+Goe1YCMAbvNt9zGTDakmlk
- bHag==
-X-Gm-Message-State: AOAM5308Cv3DMfHp6SM0rdnPKEKVrgYXpaKJUZHKqMyrvYMKC+gwwZ6C
- P0YiaSyKF+6agioLNbAJqQ==
-X-Google-Smtp-Source: ABdhPJylUnRgVbfCJwWY8YapTYWcyJT8PtHaBGyigns+dkTO2lU8gHUIpbJagVcgphNPxro1ePlm2w==
-X-Received: by 2002:a05:6808:159a:: with SMTP id
- t26mr20008829oiw.106.1636642655301; 
- Thu, 11 Nov 2021 06:57:35 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id ay42sm769577oib.22.2021.11.11.06.57.34
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=IHt50f9mlyj2/SGCeb4ttMHVOWoii0nmE+uZwCQwvss=;
+ b=i03ajPh40hOlW8JmSgRBj/4I3uwR77X9mv7A/aOiGS5jjwd8zFEIIMQfyjzI8SpYvu
+ k22qi4tBXXn0Z8S9DYV8IDA25N8zgH5qPBYDEa3p0HJBbVDa/bgONsfrKLWtiUN+2EG7
+ HK8tLv3wrPfqLBhU1K98ce7dzcT+OJWxv1tujDmW6m7KMbixXl6RA0jy1wy5OR+5MaPw
+ syfpngVeUhzZgN/Mjq0X1pjfeuT8BUXCyUxnt+Vb3QYqWu4HTwZBIOA/kTeQ20Q1wdKt
+ K8V9NvJCEHykUbKnz3XHyuiCWitw3eiRwZ+xMkucAjWi9YBP1Qii0ny/OiPdhNEQv/p/
+ wZDg==
+X-Gm-Message-State: AOAM531ZIlL4zuOivAaJmURmfSFqYscAc7wXv2FvJdnETnZ6dLbGYP1w
+ ILK9Cb+5i77Io1iozfqX75fsYw==
+X-Google-Smtp-Source: ABdhPJxC6ZgyozJNOpUT/48/RGwMj3ZvL6O5TXHm+OR45a6ap3fs4/22wlkQl/SgvLOHLCzAQ+3q/Q==
+X-Received: by 2002:a17:90a:17a5:: with SMTP id
+ q34mr27153922pja.122.1636645564865; 
+ Thu, 11 Nov 2021 07:46:04 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:c00a:a0a9:3041:135c:4e21:846c])
+ by smtp.gmail.com with ESMTPSA id m15sm2782122pjf.49.2021.11.11.07.46.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Nov 2021 06:57:34 -0800 (PST)
-Received: (nullmailer pid 3774089 invoked by uid 1000);
- Thu, 11 Nov 2021 14:57:26 -0000
-From: Rob Herring <robh@kernel.org>
-To: Biao Huang <biao.huang@mediatek.com>
-In-Reply-To: <20211111071214.21027-5-biao.huang@mediatek.com>
-References: <20211111071214.21027-1-biao.huang@mediatek.com>
- <20211111071214.21027-5-biao.huang@mediatek.com>
-Date: Thu, 11 Nov 2021 08:57:26 -0600
-Message-Id: <1636642646.918741.3774088.nullmailer@robh.at.kernel.org>
-Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- davem@davemloft.net, Jose Abreu <joabreu@synopsys.com>,
- linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
+ Thu, 11 Nov 2021 07:46:04 -0800 (PST)
+From: Jagan Teki <jagan@amarulasolutions.com>
+To: Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Thu, 11 Nov 2021 21:15:55 +0530
+Message-Id: <20211111154557.852637-1-jagan@amarulasolutions.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, Matteo Lisi <matteo.lisi@engicam.com>,
+ Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 4/5] dt-bindings: net: dwmac: Convert
-	mediatek-dwmac to DT schema
+Subject: [Linux-stm32] [PATCH 1/3] ARM: dts: stm32: Enable LVDS panel on
+	i.Core STM32MP1 EDIMM2.2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,45 +71,122 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 11 Nov 2021 15:12:13 +0800, Biao Huang wrote:
-> Convert mediatek-dwmac to DT schema, and delete old mediatek-dwmac.txt.
-> 
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> ---
->  .../bindings/net/mediatek-dwmac.txt           |  91 --------
->  .../bindings/net/mediatek-dwmac.yaml          | 211 ++++++++++++++++++
->  2 files changed, 211 insertions(+), 91 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.txt
->  create mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> 
+Engicam i.Core STM32MP1 EDIMM2.2 Starter Kit has plugged with
+7" LVDS panel.
 
-Running 'make dtbs_check' with the schema in this patch gives the
-following warnings. Consider if they are expected or the schema is
-incorrect. These may not be new warnings.
+Engicam i.Core STM32MP1 SoM has SN65DSI84 DSI to LVDS bridge.
 
-Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-This will change in the future.
+This patch adds a display pipeline to connect DSI to SN65DSI84
+to 7" LVDS panel.
 
-Full log is available here: https://patchwork.ozlabs.org/patch/1553803
+Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+---
+ .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   | 85 +++++++++++++++++++
+ 1 file changed, 85 insertions(+)
 
-
-ethernet@1101c000: clock-names: ['axi', 'apb', 'mac_main', 'ptp_ref'] is too short
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-
-ethernet@1101c000: clocks: [[27, 34], [27, 37], [6, 154], [6, 155]] is too short
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-
-ethernet@1101c000: compatible: ['mediatek,mt2712-gmac'] does not contain items matching the given schema
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-
-ethernet@1101c000: compatible: 'oneOf' conditional failed, one must be fixed:
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
+diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+index ec9f1d1cd50f..d80b4415e761 100644
+--- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
++++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+@@ -24,6 +24,91 @@ aliases {
+ 	chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
++
++	backlight: backlight {
++		compatible = "gpio-backlight";
++		gpios = <&gpiod 13 GPIO_ACTIVE_HIGH>;
++		default-on;
++	};
++
++	panel {
++		compatible = "yes-optoelectronics,ytc700tlag-05-201c";
++		backlight = <&backlight>;
++		power-supply = <&v3v3>;
++
++		port {
++			panel_out_bridge: endpoint {
++				remote-endpoint = <&bridge_out_panel>;
++			};
++		};
++	};
++};
++
++&dsi {
++	status = "okay";
++	phy-dsi-supply = <&reg18>;
++
++	ports {
++		port@0 {
++			reg = <0>;
++			dsi_in_ltdc: endpoint {
++				remote-endpoint = <&ltdc_out_dsi>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++			dsi_out_bridge: endpoint {
++				remote-endpoint = <&bridge_in_dsi>;
++			};
++		};
++	};
++};
++
++&i2c6 {
++	i2c-scl-falling-time-ns = <20>;
++	i2c-scl-rising-time-ns = <185>;
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&i2c6_pins_a>;
++	pinctrl-1 = <&i2c6_sleep_pins_a>;
++	status = "okay";
++
++	bridge@2c {
++		compatible = "ti,sn65dsi84";
++		reg = <0x2c>;
++		enable-gpios = <&gpiof 15 GPIO_ACTIVE_HIGH>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				bridge_in_dsi: endpoint {
++					remote-endpoint = <&dsi_out_bridge>;
++					data-lanes = <0 1>;
++				};
++			};
++
++			port@2 {
++				reg = <2>;
++				bridge_out_panel: endpoint {
++					remote-endpoint = <&panel_out_bridge>;
++				};
++			};
++		};
++	};
++};
++
++&ltdc {
++	status = "okay";
++
++	port {
++		ltdc_out_dsi: endpoint@0 {
++			reg = <0>;
++			remote-endpoint = <&dsi_in_ltdc>;
++		};
++	};
+ };
+ 
+ &sdmmc1 {
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
