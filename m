@@ -2,50 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 775B944D240
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Nov 2021 08:12:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3E3F44D544
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Nov 2021 11:48:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DA2CC5EC75;
-	Thu, 11 Nov 2021 07:12:32 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F8EBC5EC71;
+	Thu, 11 Nov 2021 10:48:46 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 314A6C5EC72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68236C5660B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 07:12:29 +0000 (UTC)
-X-UUID: 72a5d5c72bb746b09b4da0bec55eab1d-20211111
-X-UUID: 72a5d5c72bb746b09b4da0bec55eab1d-20211111
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 437877343; Thu, 11 Nov 2021 15:12:25 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.792.15; Thu, 11 Nov 2021 15:12:24 +0800
-Received: from localhost.localdomain (10.17.3.154) by mtkmbs10n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via
- Frontend Transport; Thu, 11 Nov 2021 15:12:23 +0800
-From: Biao Huang <biao.huang@mediatek.com>
-To: <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Rob Herring
- <robh+dt@kernel.org>
-Date: Thu, 11 Nov 2021 15:12:14 +0800
-Message-ID: <20211111071214.21027-6-biao.huang@mediatek.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211111071214.21027-1-biao.huang@mediatek.com>
-References: <20211111071214.21027-1-biao.huang@mediatek.com>
+ Thu, 11 Nov 2021 10:48:44 +0000 (UTC)
+Received: from gallifrey.ext.pengutronix.de
+ ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[127.0.0.1])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <h.assmann@pengutronix.de>)
+ id 1ml7dL-00011i-GX; Thu, 11 Nov 2021 11:48:43 +0100
+To: Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ Michael Olbrich <m.olbrich@pengutronix.de>
+References: <20211108202854.1740995-1-vladimir.oltean@nxp.com>
+ <87bl2t3fkq.fsf@kurt> <20211109103504.ahl2djymnevsbhoj@skbuf>
+ <6bf6db8b-4717-71fe-b6de-9f6e12202dad@pengutronix.de>
+ <20211109142255.5ohhfyin7hsffmlk@skbuf>
+ <20211110123843.3u4jo3xe7plows6r@skbuf>
+From: Holger Assmann <h.assmann@pengutronix.de>
+Message-ID: <7090ab87-e0ba-3f5a-116d-71ce34a94c97@pengutronix.de>
+Date: Thu, 11 Nov 2021 11:48:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
- Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
- macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 5/5] arm64: dts: mt8195: add ethernet
-	device node
+In-Reply-To: <20211110123843.3u4jo3xe7plows6r@skbuf>
+Content-Language: de-DE
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: h.assmann@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Yannick Vignon <yannick.vignon@nxp.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Xiaoliang Yang <xiaoliang.yang_1@nxp.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Kurt Kanzenbach <kurt.kanzenbach@linutronix.de>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: allow a tc-taprio
+ base-time of zero
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,208 +72,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds device node for mt8195 ethernet.
+Hi,
 
-Signed-off-by: Biao Huang <biao.huang@mediatek.com>
----
- arch/arm64/boot/dts/mediatek/mt8195-evb.dts | 92 +++++++++++++++++++++
- arch/arm64/boot/dts/mediatek/mt8195.dtsi    | 70 ++++++++++++++++
- 2 files changed, 162 insertions(+)
+Am 10.11.21 um 13:38 schrieb Vladimir Oltean:
+>>
+>> Indeed. Was there a v2 to that?
+> 
+> FWIW I've applied that patch and made a few fixups according to my
+> liking, and it works fine. I can resend it myself if there aren't any
+> volunteers from Pengutronix.
+> 
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8195-evb.dts b/arch/arm64/boot/dts/mediatek/mt8195-evb.dts
-index 5cce9a5d3163..d90308f80229 100644
---- a/arch/arm64/boot/dts/mediatek/mt8195-evb.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt8195-evb.dts
-@@ -5,6 +5,8 @@
-  */
- /dts-v1/;
- #include "mt8195.dtsi"
-+#include <dt-bindings/pinctrl/mt8195-pinfunc.h>
-+#include <dt-bindings/gpio/gpio.h>
- 
- / {
- 	model = "MediaTek MT8195 evaluation board";
-@@ -32,6 +34,96 @@ reserved_memory: reserved-memory {
- 	};
- };
- 
-+&eth {
-+	phy-mode ="rgmii-rxid";
-+	phy-handle = <&eth_phy0>;
-+	snps,reset-gpio = <&pio 93 GPIO_ACTIVE_HIGH>;
-+	snps,reset-delays-us = <0 10000 10000>;
-+	mediatek,tx-delay-ps = <2030>;
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&eth_default>;
-+	pinctrl-1 = <&eth_sleep>;
-+	status = "okay";
-+
-+	mdio {
-+		compatible = "snps,dwmac-mdio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		eth_phy0: eth_phy0@1 {
-+			compatible = "ethernet-phy-id001c.c916";
-+			reg = <0x1>;
-+		};
-+	};
-+};
-+
-+&pio {
-+	eth_default: eth_default {
-+		txd_pins {
-+			pinmux = <PINMUX_GPIO77__FUNC_GBE_TXD3>,
-+				 <PINMUX_GPIO78__FUNC_GBE_TXD2>,
-+				 <PINMUX_GPIO79__FUNC_GBE_TXD1>,
-+				 <PINMUX_GPIO80__FUNC_GBE_TXD0>;
-+			drive-strength = <MTK_DRIVE_8mA>;
-+		};
-+		cc_pins {
-+			pinmux = <PINMUX_GPIO85__FUNC_GBE_TXC>,
-+				 <PINMUX_GPIO88__FUNC_GBE_TXEN>,
-+				 <PINMUX_GPIO87__FUNC_GBE_RXDV>,
-+				 <PINMUX_GPIO86__FUNC_GBE_RXC>;
-+			drive-strength = <MTK_DRIVE_8mA>;
-+		};
-+		rxd_pins {
-+			pinmux = <PINMUX_GPIO81__FUNC_GBE_RXD3>,
-+				 <PINMUX_GPIO82__FUNC_GBE_RXD2>,
-+				 <PINMUX_GPIO83__FUNC_GBE_RXD1>,
-+				 <PINMUX_GPIO84__FUNC_GBE_RXD0>;
-+		};
-+		mdio_pins {
-+			pinmux = <PINMUX_GPIO89__FUNC_GBE_MDC>,
-+				 <PINMUX_GPIO90__FUNC_GBE_MDIO>;
-+			input-enable;
-+		};
-+		power_pins {
-+			pinmux = <PINMUX_GPIO91__FUNC_GPIO91>,
-+				 <PINMUX_GPIO92__FUNC_GPIO92>;
-+			output-high;
-+		};
-+	};
-+
-+	eth_sleep: eth_sleep {
-+		txd_pins {
-+			pinmux = <PINMUX_GPIO77__FUNC_GPIO77>,
-+				 <PINMUX_GPIO78__FUNC_GPIO78>,
-+				 <PINMUX_GPIO79__FUNC_GPIO79>,
-+				 <PINMUX_GPIO80__FUNC_GPIO80>;
-+		};
-+		cc_pins {
-+			pinmux = <PINMUX_GPIO85__FUNC_GPIO85>,
-+				 <PINMUX_GPIO88__FUNC_GPIO88>,
-+				 <PINMUX_GPIO87__FUNC_GPIO87>,
-+				 <PINMUX_GPIO86__FUNC_GPIO86>;
-+		};
-+		rxd_pins {
-+			pinmux = <PINMUX_GPIO81__FUNC_GPIO81>,
-+				 <PINMUX_GPIO82__FUNC_GPIO82>,
-+				 <PINMUX_GPIO83__FUNC_GPIO83>,
-+				 <PINMUX_GPIO84__FUNC_GPIO84>;
-+		};
-+		mdio_pins {
-+			pinmux = <PINMUX_GPIO89__FUNC_GPIO89>,
-+				 <PINMUX_GPIO90__FUNC_GPIO90>;
-+			input-disable;
-+			bias-disable;
-+		};
-+		power_pins {
-+			pinmux = <PINMUX_GPIO91__FUNC_GPIO91>,
-+				 <PINMUX_GPIO92__FUNC_GPIO92>;
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+};
-+
- &uart0 {
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/mediatek/mt8195.dtsi b/arch/arm64/boot/dts/mediatek/mt8195.dtsi
-index a59c0e9d1fc2..f30a60dca5ef 100644
---- a/arch/arm64/boot/dts/mediatek/mt8195.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8195.dtsi
-@@ -823,6 +823,76 @@ spis1: spi@1101e000 {
- 			status = "disabled";
- 		};
- 
-+		eth: ethernet@11021000 {
-+			compatible = "mediatek,mt8195-gmac", "snps,dwmac-5.10a";
-+			reg = <0 0x11021000 0 0x4000>;
-+			interrupts = <GIC_SPI 716 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "macirq";
-+			mac-address = [00 55 7b b5 7d f7];
-+			clock-names = "axi",
-+				      "apb",
-+				      "mac_cg",
-+				      "mac_main",
-+				      "ptp_ref",
-+				      "rmii_internal";
-+			clocks = <&pericfg_ao CLK_PERI_AO_ETHERNET>,
-+				 <&pericfg_ao CLK_PERI_AO_ETHERNET_BUS>,
-+				 <&pericfg_ao CLK_PERI_AO_ETHERNET_MAC>,
-+				 <&topckgen CLK_TOP_SNPS_ETH_250M>,
-+				 <&topckgen CLK_TOP_SNPS_ETH_62P4M_PTP>,
-+				 <&topckgen CLK_TOP_SNPS_ETH_50M_RMII>;
-+			assigned-clocks = <&topckgen CLK_TOP_SNPS_ETH_250M>,
-+					  <&topckgen CLK_TOP_SNPS_ETH_62P4M_PTP>,
-+					  <&topckgen CLK_TOP_SNPS_ETH_50M_RMII>;
-+			assigned-clock-parents = <&topckgen CLK_TOP_ETHPLL_D2>,
-+						 <&topckgen CLK_TOP_ETHPLL_D8>,
-+						 <&topckgen CLK_TOP_ETHPLL_D10>;
-+			power-domains = <&spm MT8195_POWER_DOMAIN_ETHER>;
-+			mediatek,pericfg = <&infracfg_ao>;
-+			snps,axi-config = <&stmmac_axi_setup>;
-+			snps,mtl-rx-config = <&mtl_rx_setup>;
-+			snps,mtl-tx-config = <&mtl_tx_setup>;
-+			snps,txpbl = <16>;
-+			snps,rxpbl = <16>;
-+			clk_csr = <0>;
-+			status = "disabled";
-+
-+			stmmac_axi_setup: stmmac-axi-config {
-+				snps,wr_osr_lmt = <0x7>;
-+				snps,rd_osr_lmt = <0x7>;
-+				snps,blen = <0 0 0 0 16 8 4>;
-+			};
-+
-+			mtl_rx_setup: rx-queues-config {
-+				snps,rx-queues-to-use = <1>;
-+				snps,rx-sched-sp;
-+				queue0 {
-+					snps,dcb-algorithm;
-+					snps,map-to-dma-channel = <0x0>;
-+					snps,priority = <0x0>;
-+				};
-+			};
-+			mtl_tx_setup: tx-queues-config {
-+				snps,tx-queues-to-use = <3>;
-+				snps,tx-sched-wrr;
-+				queue0 {
-+					snps,weight = <0x10>;
-+					snps,dcb-algorithm;
-+					snps,priority = <0x0>;
-+				};
-+				queue1 {
-+					snps,weight = <0x11>;
-+					snps,dcb-algorithm;
-+					snps,priority = <0x1>;
-+				};
-+				queue2 {
-+					snps,weight = <0x12>;
-+					snps,dcb-algorithm;
-+					snps,priority = <0x2>;
-+				};
-+			};
-+		};
-+
- 		mmc0: mmc@11230000 {
- 			compatible = "mediatek,mt8195-mmc", "mediatek,mt8192-mmc";
- 			reg = <0 0x11230000 0 0x10000>,
+Feel free to do so!
+
+Greetings,
+Holger
+
 -- 
-2.25.1
-
+Pengutronix e.K.                         | Holger Assmann              |
+Steuerwalder Str. 21                     | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686         | Fax:   +49-5121-206917-5555 |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
