@@ -2,64 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6065544D961
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Nov 2021 16:46:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5651E44D963
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Nov 2021 16:46:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17D5AC5EC72;
-	Thu, 11 Nov 2021 15:46:08 +0000 (UTC)
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20DA0C5EC73;
+	Thu, 11 Nov 2021 15:46:11 +0000 (UTC)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F8F3C5EC70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 506C2C5EC73
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 15:46:06 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- t5-20020a17090a4e4500b001a0a284fcc2so4929483pjl.2
+ Thu, 11 Nov 2021 15:46:09 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ t5-20020a17090a4e4500b001a0a284fcc2so4929677pjl.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 07:46:06 -0800 (PST)
+ Thu, 11 Nov 2021 07:46:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amarulasolutions.com; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IHt50f9mlyj2/SGCeb4ttMHVOWoii0nmE+uZwCQwvss=;
- b=pJ+aj0QcW5CArcwgJ/NlNf7LjHw/5Dte0pH8KK1eCFpa3e3bzsXEOjr0mZfAd97E87
- wneccpy8j5SVG3wQuitDaYXf3q+k4h3nGJYGTDSsR/tMAZyDl4IFpSOQvlzkInw3kAR2
- Md4gPyfxT+6FZ+yPkZo0DiItVLsxp4GaQPqB0=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=XH4HtUz8oW0xzhVze5j7Kybwjbu7oDVLM7iF1rNAOBM=;
+ b=l1ul0dc4fHtFQMBujyOWfT75JAyOGkrlGEHEEj1yOZDBB55DqcWknkLtB5UQlHN3Eo
+ KK628YsJBJWi1pann0TjFFR4ZbUTuCstlKXntWOVhqxkjh/cy7zn8M9B37ucxoBg5lrE
+ ehEIxozpyOn9V1/hgNaoZZMC72AoBFARRAbMk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=IHt50f9mlyj2/SGCeb4ttMHVOWoii0nmE+uZwCQwvss=;
- b=i03ajPh40hOlW8JmSgRBj/4I3uwR77X9mv7A/aOiGS5jjwd8zFEIIMQfyjzI8SpYvu
- k22qi4tBXXn0Z8S9DYV8IDA25N8zgH5qPBYDEa3p0HJBbVDa/bgONsfrKLWtiUN+2EG7
- HK8tLv3wrPfqLBhU1K98ce7dzcT+OJWxv1tujDmW6m7KMbixXl6RA0jy1wy5OR+5MaPw
- syfpngVeUhzZgN/Mjq0X1pjfeuT8BUXCyUxnt+Vb3QYqWu4HTwZBIOA/kTeQ20Q1wdKt
- K8V9NvJCEHykUbKnz3XHyuiCWitw3eiRwZ+xMkucAjWi9YBP1Qii0ny/OiPdhNEQv/p/
- wZDg==
-X-Gm-Message-State: AOAM531ZIlL4zuOivAaJmURmfSFqYscAc7wXv2FvJdnETnZ6dLbGYP1w
- ILK9Cb+5i77Io1iozfqX75fsYw==
-X-Google-Smtp-Source: ABdhPJxC6ZgyozJNOpUT/48/RGwMj3ZvL6O5TXHm+OR45a6ap3fs4/22wlkQl/SgvLOHLCzAQ+3q/Q==
-X-Received: by 2002:a17:90a:17a5:: with SMTP id
- q34mr27153922pja.122.1636645564865; 
- Thu, 11 Nov 2021 07:46:04 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=XH4HtUz8oW0xzhVze5j7Kybwjbu7oDVLM7iF1rNAOBM=;
+ b=7m3wWqHX/BzDfk9mMea7uxh1kJ5BcptU5Gz/SHmhrh6Y6AHVFH4RjcInKXtTd5/tTd
+ 2Xvtaln28RS2mAZK7gUuRViK4g+hH4dS8n2+FJ3lI6fgkrUb/BIhIH9zY0+rZcsrfb+E
+ LsdT+UoC4gIxepjbuRxiUtwpqe+YIU8FTd+e7X3FopR0yjBvVAxcLHDKHRWfU9SgNyNl
+ koormWAKmSRkcuS5wnB8FkdJ1J/xotSUkQ7ZYEo8tkXqwmRYcYwGdzhjYdtc0hLBDyu2
+ h1CwyxvonhbAI/uk75zZNPaf0Z8kOLF6DJp1h6iEbAQKREqQl/2gzjFiVT72fq0FTyUw
+ w6QA==
+X-Gm-Message-State: AOAM533MjM6QwXzJsnoWl7eU3WYr1Gy4TnKNT30h1aiHdBchDxXg52YZ
+ YHCAka7oUtfrUWmDchQ9AMMtYQ==
+X-Google-Smtp-Source: ABdhPJwTPiI9XvS4RwFxLLTvsnKMZ6GDcL/bbEwZMlMWhin+G7wV5HeZAeO3L3i6hza3lMdnQe7U7g==
+X-Received: by 2002:a17:90b:4b0e:: with SMTP id
+ lx14mr26068293pjb.160.1636645568044; 
+ Thu, 11 Nov 2021 07:46:08 -0800 (PST)
 Received: from localhost.localdomain ([2405:201:c00a:a0a9:3041:135c:4e21:846c])
- by smtp.gmail.com with ESMTPSA id m15sm2782122pjf.49.2021.11.11.07.46.01
+ by smtp.gmail.com with ESMTPSA id m15sm2782122pjf.49.2021.11.11.07.46.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Nov 2021 07:46:04 -0800 (PST)
+ Thu, 11 Nov 2021 07:46:07 -0800 (PST)
 From: Jagan Teki <jagan@amarulasolutions.com>
 To: Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 11 Nov 2021 21:15:55 +0530
-Message-Id: <20211111154557.852637-1-jagan@amarulasolutions.com>
+Date: Thu, 11 Nov 2021 21:15:56 +0530
+Message-Id: <20211111154557.852637-2-jagan@amarulasolutions.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211111154557.852637-1-jagan@amarulasolutions.com>
+References: <20211111154557.852637-1-jagan@amarulasolutions.com>
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, Matteo Lisi <matteo.lisi@engicam.com>,
  Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/3] ARM: dts: stm32: Enable LVDS panel on
-	i.Core STM32MP1 EDIMM2.2
+Subject: [Linux-stm32] [PATCH 2/3] dt-bindings: arm: stm32: Add Engicam
+	i.Core STM32MP1 C.TOUCH 2.0 10.1" OF
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,115 +78,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Engicam i.Core STM32MP1 EDIMM2.2 Starter Kit has plugged with
-7" LVDS panel.
+i.Core STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
 
-Engicam i.Core STM32MP1 SoM has SN65DSI84 DSI to LVDS bridge.
+C.TOUCH 2.0 is a general purpose carrier board with capacitive
+touch interface support.
 
-This patch adds a display pipeline to connect DSI to SN65DSI84
-to 7" LVDS panel.
+10.1" OF is a capacitive touch 10.1" Open Frame panel solutions.
+
+i.Core STM32MP1 needs to mount on top of C.TOUCH 2.0 carrier with
+pluged 10.1" OF for creating complete i.Core STM32MP1 C.TOUCH 2.0
+10.1" Open Frame board.
+
+Add bindings for it.
 
 Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
 ---
- .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   | 85 +++++++++++++++++++
- 1 file changed, 85 insertions(+)
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-index ec9f1d1cd50f..d80b4415e761 100644
---- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-+++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
-@@ -24,6 +24,91 @@ aliases {
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-+
-+	backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&gpiod 13 GPIO_ACTIVE_HIGH>;
-+		default-on;
-+	};
-+
-+	panel {
-+		compatible = "yes-optoelectronics,ytc700tlag-05-201c";
-+		backlight = <&backlight>;
-+		power-supply = <&v3v3>;
-+
-+		port {
-+			panel_out_bridge: endpoint {
-+				remote-endpoint = <&bridge_out_panel>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsi {
-+	status = "okay";
-+	phy-dsi-supply = <&reg18>;
-+
-+	ports {
-+		port@0 {
-+			reg = <0>;
-+			dsi_in_ltdc: endpoint {
-+				remote-endpoint = <&ltdc_out_dsi>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			dsi_out_bridge: endpoint {
-+				remote-endpoint = <&bridge_in_dsi>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c6 {
-+	i2c-scl-falling-time-ns = <20>;
-+	i2c-scl-rising-time-ns = <185>;
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c6_pins_a>;
-+	pinctrl-1 = <&i2c6_sleep_pins_a>;
-+	status = "okay";
-+
-+	bridge@2c {
-+		compatible = "ti,sn65dsi84";
-+		reg = <0x2c>;
-+		enable-gpios = <&gpiof 15 GPIO_ACTIVE_HIGH>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				bridge_in_dsi: endpoint {
-+					remote-endpoint = <&dsi_out_bridge>;
-+					data-lanes = <0 1>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+				bridge_out_panel: endpoint {
-+					remote-endpoint = <&panel_out_bridge>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&ltdc {
-+	status = "okay";
-+
-+	port {
-+		ltdc_out_dsi: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&dsi_in_ltdc>;
-+		};
-+	};
- };
- 
- &sdmmc1 {
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index bcaf7be3ab37..d2dd3f1847bb 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -77,6 +77,7 @@ properties:
+         items:
+           - enum:
+               - engicam,icore-stm32mp1-ctouch2       # STM32MP1 Engicam i.Core STM32MP1 C.TOUCH 2.0
++              - engicam,icore-stm32mp1-ctouch2-of10  # STM32MP1 Engicam i.Core STM32MP1 C.TOUCH 2.0 10.1" Open Frame
+               - engicam,icore-stm32mp1-edimm2.2      # STM32MP1 Engicam i.Core STM32MP1 EDIMM2.2 Starter Kit
+           - const: engicam,icore-stm32mp1            # STM32MP1 Engicam i.Core STM32MP1 SoM
+           - const: st,stm32mp157
 -- 
 2.25.1
 
