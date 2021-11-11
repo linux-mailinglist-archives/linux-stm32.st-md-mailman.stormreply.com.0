@@ -2,113 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79DE544C9CB
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Nov 2021 20:53:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B95244D1DD
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Nov 2021 07:16:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40FF7C5EC70;
-	Wed, 10 Nov 2021 19:53:38 +0000 (UTC)
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
- [209.85.210.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3761C5EC71;
+	Thu, 11 Nov 2021 06:16:06 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07996CFAC4B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E6E8CFAC4B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Nov 2021 19:53:37 +0000 (UTC)
-Received: by mail-ot1-f46.google.com with SMTP id
- u18-20020a9d7212000000b00560cb1dc10bso5527914otj.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Nov 2021 11:53:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=rtQL/sbdzpxz6Lu8ElJAZUiYQnGOPRjAvEo183EhEZQ=;
- b=OhagAcBvcokb6WBlqdTrDCT8W7PBSwWcPagmOsz6ruY15ElmHMUHEEl+EoApcLMKSy
- Y9FnNsUUoPKGKW8J4Tu7CQBnBg29i/etLAHLkQLRlG2q5v442Gg/GV0nce+YC9DoVjKK
- Sxbst0laW15p96RZv1NJ319QfcnG7tETlqAIsCerMt4pVErPXJxLwTNeF19ls58+GXu1
- sExm1blTOsoNgPd+XbPzTBW/yQ9ab0OV/3jfh8oFtcVE3P2WQ9vcU46N4rSAAsEYQsp/
- 1rt4j2F7PWiW/H6V0C6gC6VFiLuiUvPBkgWv8DZBGwXUYDDutPZUjy/Nh7uySojnU1nX
- GYPg==
-X-Gm-Message-State: AOAM532A3hVr6EHJ5i9xsyC37E95bIVCFAlHLBjHmchu+6kf0VnCuBFP
- KUcRQmxKKEB/UxEfnm24/Q==
-X-Google-Smtp-Source: ABdhPJzPMoAqV3AUGDDa1G/mcQBg1/+e3vLu75Mv4kA30QovRpmA/hmvXuDtC6I5AysjT0t7pidUQg==
-X-Received: by 2002:a9d:6a4e:: with SMTP id h14mr1449816otn.134.1636574015905; 
- Wed, 10 Nov 2021 11:53:35 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id j7sm129827oon.13.2021.11.10.11.53.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Nov 2021 11:53:35 -0800 (PST)
-Received: (nullmailer pid 1864115 invoked by uid 1000);
- Wed, 10 Nov 2021 19:53:32 -0000
-Date: Wed, 10 Nov 2021 13:53:32 -0600
-From: Rob Herring <robh@kernel.org>
-To: patrice.chotard@foss.st.com
-Message-ID: <YYwjPAoCtuM6iycz@robh.at.kernel.org>
-References: <20211110150144.18272-1-patrice.chotard@foss.st.com>
- <20211110150144.18272-3-patrice.chotard@foss.st.com>
+ Thu, 11 Nov 2021 06:16:03 +0000 (UTC)
+X-UUID: b19ff7f055f84f59846da09edcc5d20f-20211111
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=tHZR4ShgONrY1xlUrKSMoIV7qdy+WnxCRT5rQr7aNKg=; 
+ b=AXypkWyzZ8T+5Xhbxi3j/hp1XjY94qr1XZyfZ6FI6buZRJY/nBAWGrytEpmzcR7H7w8Op8tWD2eRS37nUO8JtFNGQ5OQ51zcKR8IOKQ+m0hQNnEqR5phz2VHzEorka/4HK1ULoVzlb9AasCtv13+S6RVkeHXI3lLXcPPeNZk/B8=;
+X-UUID: b19ff7f055f84f59846da09edcc5d20f-20211111
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 806377556; Thu, 11 Nov 2021 14:15:57 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.792.3; 
+ Thu, 11 Nov 2021 14:15:56 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkmbs10n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.792.15 via Frontend
+ Transport; Thu, 11 Nov 2021 14:15:55 +0800
+Message-ID: <426d15179d7d79c3f3bd4774e23d4f5e384c7956.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: Rob Herring <robh@kernel.org>
+Date: Thu, 11 Nov 2021 14:15:55 +0800
+In-Reply-To: <1636573460.872424.1783735.nullmailer@robh.at.kernel.org>
+References: <20211110083948.6082-1-biao.huang@mediatek.com>
+ <20211110083948.6082-5-biao.huang@mediatek.com>
+ <1636573460.872424.1783735.nullmailer@robh.at.kernel.org>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211110150144.18272-3-patrice.chotard@foss.st.com>
-Cc: Ludovic Barre <ludovic.barre@foss.st.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-clk@vger.kernel.org,
- Jassi Brar <jassisinghbrar@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
- Guenter Roeck <linux@roeck-us.net>, ohad ben-cohen <ohad@wizery.com>,
- linux-pm@vger.kernel.org, Matt Mackall <mpm@selenic.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- david airlie <airlied@linux.ie>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- thierry reding <thierry.reding@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
- lars-peter clausen <lars@metafoo.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jagan Teki <jagan@amarulasolutions.com>, linux-media@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org,
- Mathieu Poirier <mathieu.poirier@linaro.org>, stephen boyd <sboyd@kernel.org>,
- pascal Paillet <p.paillet@foss.st.com>,
- maxime coquelin <mcoquelin.stm32@gmail.com>,
- Sebastian Reichel <sre@kernel.org>, jonathan cameron <jic23@kernel.org>,
- linux-iio@vger.kernel.org, michael turquette <mturquette@baylibre.com>,
- Amit Kucheria <amitk@kernel.org>, alsa-devel@alsa-project.org,
- linux-mtd@lists.infradead.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- benjamin gaignard <benjamin.gaignard@linaro.org>,
- linux-phy@lists.infradead.org, sam ravnborg <sam@ravnborg.org>,
- linux-rtc@vger.kernel.org, Kishon Vijay Abraham I <kishon@ti.com>,
- arnaud pouliquen <arnaud.pouliquen@foss.st.com>,
- Mark Brown <broonie@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, baolin wang <baolin.wang7@gmail.com>,
- "david s . miller" <davem@davemloft.net>,
- Vignesh Raghavendra <vigneshr@ti.com>, linux-remoteproc@vger.kernel.org,
- alexandre torgue <alexandre.torgue@foss.st.com>,
- bjorn andersson <bjorn.andersson@linaro.org>,
- Paul Cercueil <paul@crapouillou.net>, Lee Jones <lee.jones@linaro.org>,
- Marek Vasut <marex@denx.de>, Marc Zyngier <maz@kernel.org>,
- herbert xu <herbert@gondor.apana.org.au>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-serial@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- dillon min <dillon.minfei@gmail.com>, Alessandro Zummo <a.zummo@towertech.it>,
- netdev@vger.kernel.org, yannick fertre <yannick.fertre@foss.st.com>,
- vinod koul <vkoul@kernel.org>, daniel vetter <daniel@ffwll.ch>,
- Richard Weinberger <richard@nod.at>, dmaengine@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 2/5] dt-bindings: mfd: timers: Update
- maintainers for st, stm32-timers
+X-MTK: N
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ macpaul.lin@mediatek.com, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Jakub
+ Kicinski <kuba@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/5] dt-bindings: net: dwmac: Convert
+ mediatek-dwmac to DT schema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,20 +70,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 10 Nov 2021 16:01:41 +0100, patrice.chotard@foss.st.com wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
-> 
-> Benjamin has left the company, remove his name from maintainers.
-> 
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml | 1 -
->  1 file changed, 1 deletion(-)
-> 
+Dear Rob,
+	Thanks for your comments~
+	I'll check again with updated dtschema, and send in next
+version.
+	
+Best Regards!
+Biao
 
-Lee indicated he was going to pick this one up, so:
-
-Acked-by: Rob Herring <robh@kernel.org>
+On Wed, 2021-11-10 at 13:44 -0600, Rob Herring wrote:
+> On Wed, 10 Nov 2021 16:39:47 +0800, Biao Huang wrote:
+> > Convert mediatek-dwmac to DT schema, and delete old mediatek-
+> > dwmac.txt.
+> > 
+> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+> > ---
+> >  .../bindings/net/mediatek-dwmac.txt           |  91 ---------
+> >  .../bindings/net/mediatek-dwmac.yaml          | 179
+> > ++++++++++++++++++
+> >  2 files changed, 179 insertions(+), 91 deletions(-)
+> >  delete mode 100644 Documentation/devicetree/bindings/net/mediatek-
+> > dwmac.txt
+> >  create mode 100644 Documentation/devicetree/bindings/net/mediatek-
+> > dwmac.yaml
+> > 
+> 
+> My bot found errors running 'make DT_CHECKER_FLAGS=-m
+> dt_binding_check'
+> on your patch (DT_CHECKER_FLAGS is new in v5.13):
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/linux-dt-
+> review/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml:
+> properties:mediatek,tx-delay-ps: '$ref' should not be valid under
+> {'const': '$ref'}
+> 	hint: Standard unit suffix properties don't need a type $ref
+> 	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+> /builds/robherring/linux-dt-
+> review/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml:
+> properties:mediatek,rx-delay-ps: '$ref' should not be valid under
+> {'const': '$ref'}
+> 	hint: Standard unit suffix properties don't need a type $ref
+> 	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+> /builds/robherring/linux-dt-
+> review/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml:
+> properties:clocks: {'minItems': 5, 'maxItems': 6, 'items':
+> [{'description': 'AXI clock'}, {'description': 'APB clock'},
+> {'description': 'MAC clock gate'}, {'description': 'MAC Main clock'},
+> {'description': 'PTP clock'}, {'description': 'RMII reference clock
+> provided by MAC'}]} should not be valid under {'required':
+> ['maxItems']}
+> 	hint: "maxItems" is not needed with an "items" list
+> 	from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+> /builds/robherring/linux-dt-
+> review/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml:
+> ignoring, error in schema: properties: mediatek,tx-delay-ps
+> warning: no schema found in file:
+> ./Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+> Documentation/devicetree/bindings/net/mediatek-
+> dwmac.example.dt.yaml:0:0: /example-0/ethernet@1101c000: failed to
+> match any schema with compatible: ['mediatek,mt2712-gmac',
+> 'snps,dwmac-4.20a']
+> 
+> doc reference errors (make refcheckdocs):
+> 
+> See https://patchwork.ozlabs.org/patch/1553304
+> 
+> This check can fail if there are any dependencies. The base for a
+> patch
+> series is generally the most recent rc1.
+> 
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up
+> to
+> date:
+> 
+> pip3 install dtschema --upgrade
+> 
+> Please check and re-submit.
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
