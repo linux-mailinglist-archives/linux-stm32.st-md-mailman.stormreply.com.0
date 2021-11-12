@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73BA144E19B
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Nov 2021 06:39:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FA4044E19E
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Nov 2021 06:39:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AC51C5EC71;
-	Fri, 12 Nov 2021 05:39:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44237C5EC73;
+	Fri, 12 Nov 2021 05:39:14 +0000 (UTC)
 Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
  [209.85.216.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 01972C5EC72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0EC6C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Nov 2021 05:39:09 +0000 (UTC)
+ Fri, 12 Nov 2021 05:39:12 +0000 (UTC)
 Received: by mail-pj1-f49.google.com with SMTP id
- n15-20020a17090a160f00b001a75089daa3so6419254pja.1
+ o6-20020a17090a0a0600b001a64b9a11aeso6677854pjo.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 21:39:08 -0800 (PST)
+ Thu, 11 Nov 2021 21:39:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amarulasolutions.com; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=y7lfOFFMzKe+kiTUn4fLEQP7ZxMtSNXXkb4oUnjFYrE=;
- b=Uut0dc0q27gGEIx7ezk23/w2XG4rJfYHhE2oWggCCsYaAnJCBmwLRTj9oX5bmB5rN1
- waLtj6A1dBZwvUCD98FlX59U4XCMDysMvyEwso+d8tyylbljugbujgFEtsXg2HA5UUNX
- ffRsMLCan8qlMSkQRMVAmpE4ARai1Kd0MWCK0=
+ bh=zwSmaZ0/XBjCCpcjkMDJ976dMmOGPgUfSWLa9+mY8As=;
+ b=LsRTIR3Qwpo3xYnQju230XT6ajXoYMJ4sg7/11NlrfGxKyymx1z915yRin5ORS7iJa
+ Cv+YJbpWTh0wsKxHrecAzLKua8xlqEiCQ6zgVmyFs6NTzVdWbjARc6bpiiW1IXb7+Hqc
+ iEzraWwhtZP3VJntGgJEaIe4YYhy1y8/vK9u8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=y7lfOFFMzKe+kiTUn4fLEQP7ZxMtSNXXkb4oUnjFYrE=;
- b=kWJtsT8UdFmhm6TnBaMibvG7tGvxqiUrFl2qRLHLCrhSNdUz2yUBYKDrSsubeq+Fit
- agkTXMN52cy9oog/jRMcq5gY9ex83bayp6EgcAW3ch2j9bo/qLBtoHi0Oj21RmM6WkId
- Xzbx19V+DLTPfdtozrgZwzk1lcXtd/MOeKv20cKHNRdzXzeUY4bTlU/IBKPS7rly07fp
- 5brez77eGFQKyqVT4B7HI9NfuUXeXiBHaffhLo6e+9GuTDyd0pF9dOVBv9z7ZgFNyD8C
- HA7QjJWHZM32o51O3icvF0gN3MFB/4zWRU0IhaGWdMaGzE5b8vDB/iIYfq7p0z7BP79F
- 9Hhw==
-X-Gm-Message-State: AOAM533ip9fA66lyw8IdNJCgqbINNEx9n1FX83T2DlrPRle/PNQXvQlQ
- E92/YHhQT2GHAtLqxFNXolKSGjjFMoYkpw==
-X-Google-Smtp-Source: ABdhPJxvpPfjHFmX6h1llLBSmbiKNzUM2EMJL/tdlZxM0sd1VXO3uhl5VV3vwQ5PPsM+cP3kzXCxGg==
-X-Received: by 2002:a17:902:ec8f:b0:142:11aa:3974 with SMTP id
- x15-20020a170902ec8f00b0014211aa3974mr5227566plg.30.1636695547706; 
- Thu, 11 Nov 2021 21:39:07 -0800 (PST)
+ bh=zwSmaZ0/XBjCCpcjkMDJ976dMmOGPgUfSWLa9+mY8As=;
+ b=5o9jHl3wX+f9XNx09/G3AWDT9vyIe4Zmi2VuAivhy5zATIt1w1CBzVvWFH8ydl9I6n
+ lWCNPw93IzlJgoSt+TJyHqavaZhztihRhTtuKTkuGy6iuSM18QgbJUm/6QLECfXYjAbG
+ tKtm8fxGdsbgLjjb9RxL1LepeJbvmq16scdl0CG+J9OqyJVzHhd0K59H9w0GGN/I6RHC
+ Jg7w2aEdTegdCGvPJkEZ8cxlQqTu4nNNkXizHLCkMisIqBKXrCy4niOZ1Urj1CWkT5bZ
+ DWP2xLjlIvN92R3wHO5ak1WDbUm92qilvGhG7dTqB4n+O3hTIXstIx/hYZRsPAZcptsK
+ IKEw==
+X-Gm-Message-State: AOAM531IOOejujrf6NaNksP0ZTTGov3y5fULs32u/JbOjZKIyQy/vnQ/
+ ERkca/wfhMrWfB0xIDN8gE9YVg==
+X-Google-Smtp-Source: ABdhPJzeFsEK8Jc335z0N/alGaTtbAlORtl477rEH9WM9e0Tb0J3yfZCT2kMOeWDWNvqfrf37hTHBg==
+X-Received: by 2002:a17:902:8f93:b0:142:8731:1a5d with SMTP id
+ z19-20020a1709028f9300b0014287311a5dmr5490076plo.60.1636695551306; 
+ Thu, 11 Nov 2021 21:39:11 -0800 (PST)
 Received: from localhost.localdomain ([2405:201:c00a:a0a9:de19:8cdf:97cf:a6b1])
- by smtp.gmail.com with ESMTPSA id v38sm3764345pgl.38.2021.11.11.21.39.04
+ by smtp.gmail.com with ESMTPSA id v38sm3764345pgl.38.2021.11.11.21.39.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Nov 2021 21:39:07 -0800 (PST)
+ Thu, 11 Nov 2021 21:39:10 -0800 (PST)
 From: Jagan Teki <jagan@amarulasolutions.com>
 To: Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 12 Nov 2021 11:08:55 +0530
-Message-Id: <20211112053856.18412-2-jagan@amarulasolutions.com>
+Date: Fri, 12 Nov 2021 11:08:56 +0530
+Message-Id: <20211112053856.18412-3-jagan@amarulasolutions.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211112053856.18412-1-jagan@amarulasolutions.com>
 References: <20211112053856.18412-1-jagan@amarulasolutions.com>
@@ -60,8 +60,8 @@ MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, Matteo Lisi <matteo.lisi@engicam.com>,
  Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/3] dt-bindings: arm: stm32: Add Engicam
-	i.Core STM32MP1 C.TOUCH 2.0 10.1" OF
+Subject: [Linux-stm32] [PATCH v2 3/3] ARM: dts: stm32: Add Engicam i.Core
+	STM32MP1 C.TOUCH 2.0 10.1" OF
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,10 +78,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-i.Core STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
+ARM: dts: stm32: Add Engicam i.Core STM32MP1 C.TOUCH 2.0
 
-C.TOUCH 2.0 is a general purpose carrier board with capacitive
-touch interface support.
+Engicam C.TOUCH 2.0 is an EDIMM compliant general purpose Carrier
+board.
+
+Genaral features:
+- Ethernet 10/100
+- Wifi/BT
+- USB Type A/OTG
+- Audio Out
+- CAN
+- 10" LVDS Panel (SN65DSI84 DSI-LVDS bridge on SoM)
+
+i.Core STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
 
 10.1" OF is a capacitive touch 10.1" Open Frame panel solutions.
 
@@ -89,28 +99,168 @@ i.Core STM32MP1 needs to mount on top of C.TOUCH 2.0 carrier with
 pluged 10.1" OF for creating complete i.Core STM32MP1 C.TOUCH 2.0
 10.1" Open Frame board.
 
-Add bindings for it.
+Add support for it.
 
 Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
 ---
 Changes for v2:
-- Fix line-length warning 
+- none
 
- Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/boot/dts/Makefile                    |   1 +
+ ...tm32mp157a-icore-stm32mp1-ctouch2-of10.dts | 132 ++++++++++++++++++
+ 2 files changed, 133 insertions(+)
+ create mode 100644 arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-index bcaf7be3ab37..b07720ea9611 100644
---- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -77,6 +77,7 @@ properties:
-         items:
-           - enum:
-               - engicam,icore-stm32mp1-ctouch2       # STM32MP1 Engicam i.Core STM32MP1 C.TOUCH 2.0
-+              - engicam,icore-stm32mp1-ctouch2-of10  # STM32MP1 Engicam i.Core STM32MP1 C.TOUCH 2.0 10.1" OF
-               - engicam,icore-stm32mp1-edimm2.2      # STM32MP1 Engicam i.Core STM32MP1 EDIMM2.2 Starter Kit
-           - const: engicam,icore-stm32mp1            # STM32MP1 Engicam i.Core STM32MP1 SoM
-           - const: st,stm32mp157
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 0de64f237cd8..641220e970e8 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1140,6 +1140,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
+ 	stm32mp157a-microgea-stm32mp1-microdev2.0.dtb \
+ 	stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dtb \
+ 	stm32mp157a-icore-stm32mp1-ctouch2.dtb \
++	stm32mp157a-icore-stm32mp1-ctouch2-of10.dtb \
+ 	stm32mp157a-icore-stm32mp1-edimm2.2.dtb \
+ 	stm32mp157a-stinger96.dtb \
+ 	stm32mp157c-dhcom-pdk2.dtb \
+diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
+new file mode 100644
+index 000000000000..351be43b3d39
+--- /dev/null
++++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
+@@ -0,0 +1,132 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
++/*
++ * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
++ * Copyright (c) 2020 Engicam srl
++ * Copyright (c) 2020 Amarula Solutons(India)
++ */
++
++/dts-v1/;
++#include "stm32mp157.dtsi"
++#include "stm32mp157a-icore-stm32mp1.dtsi"
++#include "stm32mp15-pinctrl.dtsi"
++#include "stm32mp15xxaa-pinctrl.dtsi"
++#include <dt-bindings/gpio/gpio.h>
++
++/ {
++	model = "Engicam i.Core STM32MP1 C.TOUCH 2.0 10.1\" Open Frame";
++	compatible = "engicam,icore-stm32mp1-ctouch2-of10",
++		     "engicam,icore-stm32mp1", "st,stm32mp157";
++
++	aliases {
++		serial0 = &uart4;
++	};
++
++	backlight: backlight {
++		compatible = "gpio-backlight";
++		gpios = <&gpiod 13 GPIO_ACTIVE_HIGH>;
++		default-on;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	panel {
++		compatible = "ampire,am-1280800n3tzqw-t00h";
++		backlight = <&backlight>;
++		power-supply = <&v3v3>;
++
++		port {
++			panel_in_lvds: endpoint {
++				remote-endpoint = <&bridge_out>;
++			};
++		};
++	};
++};
++
++&dsi {
++	status = "okay";
++	phy-dsi-supply = <&reg18>;
++
++	ports {
++		port@0 {
++			reg = <0>;
++			dsi_in: endpoint {
++				remote-endpoint = <&ltdc_ep0_out>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++			dsi_out: endpoint {
++				remote-endpoint = <&bridge_in>;
++			};
++		};
++	};
++};
++
++&i2c6 {
++	i2c-scl-falling-time-ns = <20>;
++	i2c-scl-rising-time-ns = <185>;
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&i2c6_pins_a>;
++	pinctrl-1 = <&i2c6_sleep_pins_a>;
++	status = "okay";
++
++	bridge@2c {
++		compatible = "ti,sn65dsi84";
++		reg = <0x2c>;
++		enable-gpios = <&gpiof 15 GPIO_ACTIVE_HIGH>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				bridge_in: endpoint {
++					remote-endpoint = <&dsi_out>;
++					data-lanes = <0 1>;
++				};
++			};
++
++			port@2 {
++				reg = <2>;
++				bridge_out: endpoint {
++					remote-endpoint = <&panel_in_lvds>;
++				};
++			};
++		};
++	};
++};
++
++&ltdc {
++	status = "okay";
++
++	port {
++		ltdc_ep0_out: endpoint@0 {
++			reg = <0>;
++			remote-endpoint = <&dsi_in>;
++		};
++	};
++};
++
++&sdmmc1 {
++	bus-width = <4>;
++	disable-wp;
++	pinctrl-names = "default", "opendrain", "sleep";
++	pinctrl-0 = <&sdmmc1_b4_pins_a>;
++	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
++	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
++	st,neg-edge;
++	vmmc-supply = <&v3v3>;
++	status = "okay";
++};
++
++&uart4 {
++	pinctrl-names = "default", "sleep", "idle";
++	pinctrl-0 = <&uart4_pins_a>;
++	pinctrl-1 = <&uart4_sleep_pins_a>;
++	pinctrl-2 = <&uart4_idle_pins_a>;
++	status = "okay";
++};
 -- 
 2.25.1
 
