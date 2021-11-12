@@ -2,62 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DECF44DB92
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Nov 2021 19:25:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCA144DFAE
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Nov 2021 02:22:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AE0BC5EC71;
-	Thu, 11 Nov 2021 18:25:26 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10ABBC5EC72;
+	Fri, 12 Nov 2021 01:22:57 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AF27C5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7E9BC5660B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 18:25:24 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id z10so1173598edc.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 10:25:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=txXLZF+9GfwagVnL9c9/R4fXHlgcGjXwIQ9SEznOgw0=;
- b=DsB69FvhZeAIbA18E5lHyHhIB+6y0QEHISA/MG0eDH6ZxBcMLGUWVQ73YJDeYYAuHw
- e6V86fgWC1PkbhMVTYclUPfSFPLWwo492vk1iDlCsBGyKY/2zadSes9BDcjIiMh/01rd
- LPCk0ucKKmeu6HPFTyXRbZ9bD/1Be5x3+UyrvsuuAv+XlPY+sXKphDeW2InKsrnoHSqe
- XgUh6JVC7DlIInCuCaKz0thozytIvWre7vRcqx25k4CO7zYNJR7ZjncGFTzqMMPWHlEu
- JQBbd/cULS7+E+9oGsIMEUZw5VX4IeNRzDW9pJqmZgopfUrOgBy6giZ0dNaaCDDd5gG5
- MGug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=txXLZF+9GfwagVnL9c9/R4fXHlgcGjXwIQ9SEznOgw0=;
- b=ZPWbsu1A/+ul0X/oJhHkof4pIE0a4lm0rNP6oqQvhXcw9FkXCWCvV0Dgn2/H3vjFD8
- Tkj2suW7d7HLB9zC8J9JndgNlJGKofp5cPZXY6CS/fvb9bfuVIPn9/E9sp04+pWn/enP
- tN6gpIh85xKEHQycxsX/Ja89AglRfjuPxftYZfM5jvhEvVqxQiNY2jQ9BTSRAdKcpsGj
- vW0u0hPTuPAjpftt2g60Mx2bF/Ku/yyYFaNDt22TpXoWrHoCBDvfNS53gIe08DWGu1zG
- ZSFp3eeSM6fo4KNmIyaRSFyjXgZTkOv+Uxk977Ib+BWFmz4fVODHb3zAIFKTLHkl+KyK
- khiw==
-X-Gm-Message-State: AOAM533l8q3JXNpcLmUCy+0n/iKTA/RCiTi7GXLqsJnPF+l/OxslrjPB
- cjHCqvtJf/KridJVWkZmUns/yoP9n8nwbTb+MS3Snw==
-X-Google-Smtp-Source: ABdhPJxFE9orYhB3+TLnpd1AnZFajEuUTnGFTtb8ntq5zjW336ZzFGuMzgIOFqm93IGf+xvcyleIp9lOGq1fKGp/DkU=
-X-Received: by 2002:a05:6402:280d:: with SMTP id
- h13mr12768202ede.346.1636655124051; 
- Thu, 11 Nov 2021 10:25:24 -0800 (PST)
+ Fri, 12 Nov 2021 01:22:55 +0000 (UTC)
+X-UUID: 8d362d5021e548f182ca0bafda93cf03-20211112
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=TtsxtXZ5jRLUQ4PRm4V/CvWh/SoHbjgXn3ntlYhdugA=; 
+ b=QZUULZPMPnjJkhdhSfGfPNNnGzIFxsVOpmfm75ZzlDf6w4r5upmSGRDJb+3u/+8ez+1zvTVHnvUkxLocUZbK3UVlidN7BX7fcR8al9WjXk1dbB23EIzer0rpBI4HwhS/beNF89lTmk9s8dm4SSZXsfUN56S1Yf95LohSs4ukYh0=;
+X-UUID: 8d362d5021e548f182ca0bafda93cf03-20211112
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
+ (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1707439807; Fri, 12 Nov 2021 09:22:49 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Fri, 12 Nov 2021 09:22:48 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Fri, 12 Nov 2021 09:22:47 +0800
+Message-ID: <52eeec07d0b909f652716e24ab360de353480484.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: Denis Kirjanov <dkirjanov@suse.de>, <davem@davemloft.net>, Jakub Kicinski
+ <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>
+Date: Fri, 12 Nov 2021 09:22:47 +0800
+In-Reply-To: <c2d3c746-ab32-eb99-0408-1409f43248cd@suse.de>
+References: <20211111071214.21027-1-biao.huang@mediatek.com>
+ <c2d3c746-ab32-eb99-0408-1409f43248cd@suse.de>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-References: <a4b8454f560b70cedf0e4d06275787f08d576ee5.1635964610.git.christophe.jaillet@wanadoo.fr>
-In-Reply-To: <a4b8454f560b70cedf0e4d06275787f08d576ee5.1635964610.git.christophe.jaillet@wanadoo.fr>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Thu, 11 Nov 2021 11:25:12 -0700
-Message-ID: <CANLsYkxQu1Prfg64qqWF7fRMp_rVXoL6PG1trWaX8bSNnaiY4g@mail.gmail.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: Suzuki.Poulose@arm.com, alexander.shishkin@linux.intel.com,
- coresight@lists.linaro.org, kernel-janitors@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, leo.yan@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- mike.leach@linaro.org
-Subject: Re: [Linux-stm32] [PATCH v2] coresight: Use devm_bitmap_zalloc when
-	applicable
+X-MTK: N
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
+ linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/5] MediaTek Ethernet Patches on MT8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,71 +62,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Christophe,
-
-On Wed, 3 Nov 2021 at 12:39, Christophe JAILLET
-<christophe.jaillet@wanadoo.fr> wrote:
->
-> 'drvdata->chs.guaranteed' is a bitmap. So use 'devm_bitmap_kzalloc()' to
-> simplify code, improve the semantic and avoid some open-coded arithmetic
-> in allocator arguments.
->
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
-> v1 --> v2: remove the 'guaranteed' variable to be even less verbose
-> ---
->  drivers/hwtracing/coresight/coresight-stm.c | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-> index 58062a5a8238..bb14a3a8a921 100644
-> --- a/drivers/hwtracing/coresight/coresight-stm.c
-> +++ b/drivers/hwtracing/coresight/coresight-stm.c
-> @@ -856,13 +856,11 @@ static int stm_probe(struct amba_device *adev, const struct amba_id *id)
->  {
->         int ret;
->         void __iomem *base;
-> -       unsigned long *guaranteed;
->         struct device *dev = &adev->dev;
->         struct coresight_platform_data *pdata = NULL;
->         struct stm_drvdata *drvdata;
->         struct resource *res = &adev->res;
->         struct resource ch_res;
-> -       size_t bitmap_size;
->         struct coresight_desc desc = { 0 };
->
->         desc.name = coresight_alloc_device_name(&stm_devs, dev);
-> @@ -904,12 +902,10 @@ static int stm_probe(struct amba_device *adev, const struct amba_id *id)
->         else
->                 drvdata->numsp = stm_num_stimulus_port(drvdata);
->
-> -       bitmap_size = BITS_TO_LONGS(drvdata->numsp) * sizeof(long);
-> -
-> -       guaranteed = devm_kzalloc(dev, bitmap_size, GFP_KERNEL);
-> -       if (!guaranteed)
-> +       drvdata->chs.guaranteed = devm_bitmap_zalloc(dev, drvdata->numsp,
-> +                                                    GFP_KERNEL);
-> +       if (!drvdata->chs.guaranteed)
->                 return -ENOMEM;
-> -       drvdata->chs.guaranteed = guaranteed;
-
-I will pick up this patch when -rc1 gets released.
-
-Thanks,
-Mathieu
-
->
->         spin_lock_init(&drvdata->spinlock);
->
-> --
-> 2.30.2
->
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RGVhciBEZW5pcywNCglUaGFua3MgZm9yIHlvdXIgY29tbWVudHN+DQoNCk9uIFRodSwgMjAyMS0x
+MS0xMSBhdCAxNDozNSArMDMwMCwgRGVuaXMgS2lyamFub3Ygd3JvdGU6DQo+IA0KPiAxMS8xMS8y
+MSAxMDoxMiBBTSwgQmlhbyBIdWFuZyDQv9C40YjQtdGCOg0KPiA+IENoYW5nZXMgaW4gdjI6DQo+
+ID4gMS4gZml4IGVycm9ycy93YXJuaW5ncyBpbiBtZWRpYXRlay1kd21hYy55YW1sIHdpdGggdXBn
+cmFkZWQNCj4gPiBkdHNjaGVtYSB0b29scw0KPiA+IA0KPiA+IFRoaXMgc2VyaWVzIGluY2x1ZGUg
+NSBwYXRjaGVzOg0KPiA+IDEuIGFkZCBwbGF0Zm9ybSBsZXZlbCBjbG9ja3MgbWFuYWdlbWVudCBm
+b3IgZHdtYWMtbWVkaWF0ZWsNCj4gPiAyLiByZXN1ZSBtb3JlIGNvbW1vbiBmZWF0dXJlcyBkZWZp
+bmVkIGluIHN0bW1hY19wbGF0Zm9ybS5jDQo+ID4gMy4gYWRkIGV0aGVybmV0IGVudHJ5IGZvciBt
+dDgxOTUNCj4gPiA0LiBjb252ZXJ0IG1lZGlhdGVrLWR3bWFjLnR4dCB0byBtZWRpYXRlay1kd21h
+Yy55YW1sDQo+ID4gNS4gYWRkIGV0aGVybmV0IGRldmljZSBub2RlIGZvciBtdDgxOTUNCj4gDQo+
+IGFsbCBuZXcgZmVhdHVyZSBzaG91bGQgYmUgc2VudCBwcmVmaXhlZCB3aXRoIG5ldC1uZXh0DQpP
+SywgSSdsbCBmaXggaXQgaW4gbmV4dCB2ZXJzaW9uLg0KPiA+IA0KPiA+IEJpYW8gSHVhbmcgKDUp
+Og0KPiA+ICAgIG5ldDogc3RtbWFjOiBkd21hYy1tZWRpYXRlazogYWRkIHBsYXRmb3JtIGxldmVs
+IGNsb2Nrcw0KPiA+IG1hbmFnZW1lbnQNCj4gPiAgICBuZXQ6IHN0bW1hYzogZHdtYWMtbWVkaWF0
+ZWs6IFJldXNlIG1vcmUgY29tbW9uIGZlYXR1cmVzDQo+ID4gICAgbmV0OiBzdG1tYWM6IGR3bWFj
+LW1lZGlhdGVrOiBhZGQgc3VwcG9ydCBmb3IgbXQ4MTk1DQo+ID4gICAgZHQtYmluZGluZ3M6IG5l
+dDogZHdtYWM6IENvbnZlcnQgbWVkaWF0ZWstZHdtYWMgdG8gRFQgc2NoZW1hDQo+ID4gICAgYXJt
+NjQ6IGR0czogbXQ4MTk1OiBhZGQgZXRoZXJuZXQgZGV2aWNlIG5vZGUNCj4gPiANCj4gPiAgIC4u
+Li9iaW5kaW5ncy9uZXQvbWVkaWF0ZWstZHdtYWMudHh0ICAgICAgICAgICB8ICA5MSAtLS0tLQ0K
+PiA+ICAgLi4uL2JpbmRpbmdzL25ldC9tZWRpYXRlay1kd21hYy55YW1sICAgICAgICAgIHwgMjEx
+ICsrKysrKysrKysrKw0KPiA+ICAgYXJjaC9hcm02NC9ib290L2R0cy9tZWRpYXRlay9tdDgxOTUt
+ZXZiLmR0cyAgIHwgIDkyICsrKysrDQo+ID4gICBhcmNoL2FybTY0L2Jvb3QvZHRzL21lZGlhdGVr
+L210ODE5NS5kdHNpICAgICAgfCAgNzAgKysrKw0KPiA+ICAgLi4uL2V0aGVybmV0L3N0bWljcm8v
+c3RtbWFjL2R3bWFjLW1lZGlhdGVrLmMgIHwgMzEzDQo+ID4gKysrKysrKysrKysrKysrKy0tDQo+
+ID4gICA1IGZpbGVzIGNoYW5nZWQsIDY2NCBpbnNlcnRpb25zKCspLCAxMTMgZGVsZXRpb25zKC0p
+DQo+ID4gICBkZWxldGUgbW9kZSAxMDA2NDQNCj4gPiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
+YmluZGluZ3MvbmV0L21lZGlhdGVrLWR3bWFjLnR4dA0KPiA+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0
+DQo+ID4gRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9tZWRpYXRlay1kd21h
+Yy55YW1sDQo+ID4gDQo+ID4gLS0NCj4gPiAyLjE4LjANCj4gPiANCj4gPiANCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
