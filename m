@@ -2,60 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60C1044E0B6
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Nov 2021 04:14:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8063C44E199
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Nov 2021 06:39:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 178FFC5EC71;
-	Fri, 12 Nov 2021 03:14:49 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30C04C5EC71;
+	Fri, 12 Nov 2021 05:39:07 +0000 (UTC)
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55022C5660B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 422FBC0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Nov 2021 03:14:47 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- h12-20020a056830034c00b0055c8458126fso11985168ote.0
+ Fri, 12 Nov 2021 05:39:05 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id n23so7107660pgh.8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 19:14:47 -0800 (PST)
+ Thu, 11 Nov 2021 21:39:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3ux6niDLdsPk8MAPGpHmvnQ2ygKaZewBFfo24yv2+C0=;
+ b=YbqZyz32VjJoNgJyTfYsHMJIaZX/N7I4TESRxWQdTDBoGQq+LaMfgTPHRbmp5K46W2
+ kxVvI2DGKMifDyqSNwbmav+QT0I6qXGGBiGro/DphwUBgBnaW6PT+6B1FS8ocLlJg9Yt
+ eo7iER8bl49ip/AgCJqUaLOOyYJB1Z+Al0Vsc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=FhkP3DqyQXh5RMUcdf21YAJZtHtRc6ehAtBhoS54R60=;
- b=rC7H1Cq/UwVTVFr9oBDpvB1UiugYImqdP20pdQg/L+7rANgfKhZKwZX8j3qsCGK+bt
- J5KUNGN+8x3Tp+n5XPcUmnivW/WTEMAbk4jIi/QGy0br0X08J4RlSPIzoYHYC71Who4g
- eJRDQT4UBv/p/79zOraplCaLdux82NMyf3X9H8Of6EVJXkGQAKE2+RDEtdir8Pf9q3LY
- r2o6ulMOwawXnLSeHBMbskmHcIEokbNo2e5EMntrYCfmiCAAHQaz57pud7aNQzsuTG2o
- oSoBNNXgxnRt/9Dwfy4kE5JWctkM1kmrRpKdefjpEmS+FqbBTqVEbqgmRsFUQdEUWmWv
- 1p4A==
-X-Gm-Message-State: AOAM530YdtlKXRCZSG6pPShSSg+cs7wdkzfB0z33L+yyQcziiXDKt9En
- gWgWlqZTm4unmt4Xh3cJpA==
-X-Google-Smtp-Source: ABdhPJxnY5O0cEKzuWXi7lcuRysab5RQjF26ANiZ53Y0PdC4u9Y+5lzakJ/OFSJKr8zDNBVstn+TbA==
-X-Received: by 2002:a05:6830:1da:: with SMTP id
- r26mr9840805ota.73.1636686886205; 
- Thu, 11 Nov 2021 19:14:46 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id o26sm993950otj.14.2021.11.11.19.14.45
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=3ux6niDLdsPk8MAPGpHmvnQ2ygKaZewBFfo24yv2+C0=;
+ b=2b2HLij/25PYTf7GtCjYtzvC2/2heV2iIV88X9MSZuzDBppRtjDxInq1jMj1ctG/+y
+ wW01mPONktQGDsNBB/MYcOrHI5M+ZrUx+m4qywUaak90zztVhU3Ms5F8c1Bdyx1Khgmx
+ KyEnKhRi9ZcTwA2pmN/bWynHbSPbU0I6NYxx+xrLiqFFfI9UOsJXHDpc/QNV9/Rx22YB
+ Lz46hSElHTf6d8MA14z+1aBVLWtXgxjbcG6ZrYilx2jY5ORGIwGKv/4wb4mdHK+yOgMh
+ wQqDLn61eMIFmqCumI8ITA+VTWzO+7lQ9TDLY50W0BFmRxuAtSLHG7uBIefP7G+/ibt4
+ UxgQ==
+X-Gm-Message-State: AOAM5318SpG5rDGdjqahkbu5GtuAJj58NVTnuCJU0HthrbMPTfRaBqoo
+ Op4pG0UQDs/EyiKIMS4RrPGYe05ZxR/zoQ==
+X-Google-Smtp-Source: ABdhPJy3ErD6gWNx649ZzuzsxaCDMhfAx9aFJnqoT/BdK6zR/T4Gqt4M4ev8huLNxKBpY09CTRjf0g==
+X-Received: by 2002:a63:414:: with SMTP id 20mr434718pge.178.1636695543804;
+ Thu, 11 Nov 2021 21:39:03 -0800 (PST)
+Received: from localhost.localdomain ([2405:201:c00a:a0a9:de19:8cdf:97cf:a6b1])
+ by smtp.gmail.com with ESMTPSA id v38sm3764345pgl.38.2021.11.11.21.39.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Nov 2021 19:14:45 -0800 (PST)
-Received: (nullmailer pid 621132 invoked by uid 1000);
- Fri, 12 Nov 2021 03:14:44 -0000
-From: Rob Herring <robh@kernel.org>
-To: Jagan Teki <jagan@amarulasolutions.com>
-In-Reply-To: <20211111154557.852637-2-jagan@amarulasolutions.com>
-References: <20211111154557.852637-1-jagan@amarulasolutions.com>
- <20211111154557.852637-2-jagan@amarulasolutions.com>
-Date: Thu, 11 Nov 2021 21:14:44 -0600
-Message-Id: <1636686884.626655.621131.nullmailer@robh.at.kernel.org>
+ Thu, 11 Nov 2021 21:39:03 -0800 (PST)
+From: Jagan Teki <jagan@amarulasolutions.com>
+To: Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri, 12 Nov 2021 11:08:54 +0530
+Message-Id: <20211112053856.18412-1-jagan@amarulasolutions.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, Matteo Lisi <matteo.lisi@engicam.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] dt-bindings: arm: stm32: Add Engicam
-	i.Core STM32MP1 C.TOUCH 2.0 10.1" OF
+ Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 1/3] ARM: dts: stm32: Enable LVDS panel on
+	i.Core STM32MP1 EDIMM2.2
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,54 +69,125 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 11 Nov 2021 21:15:56 +0530, Jagan Teki wrote:
-> i.Core STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
-> 
-> C.TOUCH 2.0 is a general purpose carrier board with capacitive
-> touch interface support.
-> 
-> 10.1" OF is a capacitive touch 10.1" Open Frame panel solutions.
-> 
-> i.Core STM32MP1 needs to mount on top of C.TOUCH 2.0 carrier with
-> pluged 10.1" OF for creating complete i.Core STM32MP1 C.TOUCH 2.0
-> 10.1" Open Frame board.
-> 
-> Add bindings for it.
-> 
-> Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
-> ---
->  Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+Engicam i.Core STM32MP1 EDIMM2.2 Starter Kit has plugged with
+7" LVDS panel.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Engicam i.Core STM32MP1 SoM has SN65DSI84 DSI to LVDS bridge.
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/arm/stm32/stm32.yaml:76:111: [warning] line too long (116 > 110 characters) (line-length)
+This patch adds a display pipeline to connect DSI to SN65DSI84
+to 7" LVDS panel.
 
-dtschema/dtc warnings/errors:
+Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+---
+Changes for v2:
+- none
 
-doc reference errors (make refcheckdocs):
+ .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   | 85 +++++++++++++++++++
+ 1 file changed, 85 insertions(+)
 
-See https://patchwork.ozlabs.org/patch/1553999
-
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
+diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+index ec9f1d1cd50f..d80b4415e761 100644
+--- a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
++++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+@@ -24,6 +24,91 @@ aliases {
+ 	chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
++
++	backlight: backlight {
++		compatible = "gpio-backlight";
++		gpios = <&gpiod 13 GPIO_ACTIVE_HIGH>;
++		default-on;
++	};
++
++	panel {
++		compatible = "yes-optoelectronics,ytc700tlag-05-201c";
++		backlight = <&backlight>;
++		power-supply = <&v3v3>;
++
++		port {
++			panel_out_bridge: endpoint {
++				remote-endpoint = <&bridge_out_panel>;
++			};
++		};
++	};
++};
++
++&dsi {
++	status = "okay";
++	phy-dsi-supply = <&reg18>;
++
++	ports {
++		port@0 {
++			reg = <0>;
++			dsi_in_ltdc: endpoint {
++				remote-endpoint = <&ltdc_out_dsi>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++			dsi_out_bridge: endpoint {
++				remote-endpoint = <&bridge_in_dsi>;
++			};
++		};
++	};
++};
++
++&i2c6 {
++	i2c-scl-falling-time-ns = <20>;
++	i2c-scl-rising-time-ns = <185>;
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&i2c6_pins_a>;
++	pinctrl-1 = <&i2c6_sleep_pins_a>;
++	status = "okay";
++
++	bridge@2c {
++		compatible = "ti,sn65dsi84";
++		reg = <0x2c>;
++		enable-gpios = <&gpiof 15 GPIO_ACTIVE_HIGH>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				bridge_in_dsi: endpoint {
++					remote-endpoint = <&dsi_out_bridge>;
++					data-lanes = <0 1>;
++				};
++			};
++
++			port@2 {
++				reg = <2>;
++				bridge_out_panel: endpoint {
++					remote-endpoint = <&panel_out_bridge>;
++				};
++			};
++		};
++	};
++};
++
++&ltdc {
++	status = "okay";
++
++	port {
++		ltdc_out_dsi: endpoint@0 {
++			reg = <0>;
++			remote-endpoint = <&dsi_in_ltdc>;
++		};
++	};
+ };
+ 
+ &sdmmc1 {
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
