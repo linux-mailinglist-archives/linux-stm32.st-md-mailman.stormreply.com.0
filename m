@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FA4044E19E
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Nov 2021 06:39:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0499444E1D1
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Nov 2021 07:17:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44237C5EC73;
-	Fri, 12 Nov 2021 05:39:14 +0000 (UTC)
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1AFBC5EC71;
+	Fri, 12 Nov 2021 06:17:58 +0000 (UTC)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0EC6C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08327C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Nov 2021 05:39:12 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- o6-20020a17090a0a0600b001a64b9a11aeso6677854pjo.3
+ Fri, 12 Nov 2021 06:17:56 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id q126so7200022pgq.13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Nov 2021 21:39:12 -0800 (PST)
+ Thu, 11 Nov 2021 22:17:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amarulasolutions.com; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=zwSmaZ0/XBjCCpcjkMDJ976dMmOGPgUfSWLa9+mY8As=;
- b=LsRTIR3Qwpo3xYnQju230XT6ajXoYMJ4sg7/11NlrfGxKyymx1z915yRin5ORS7iJa
- Cv+YJbpWTh0wsKxHrecAzLKua8xlqEiCQ6zgVmyFs6NTzVdWbjARc6bpiiW1IXb7+Hqc
- iEzraWwhtZP3VJntGgJEaIe4YYhy1y8/vK9u8=
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Wad9gm8CW+7Vaw+M+Mr+ioYMu34NOVqzp5WCaNgwVbY=;
+ b=XBsjNUuyVhMdEj6T7LniJnG0Zs5LA+VbgnGBfQb2/yEIovOQ26QS75TvmwcUxYYj8o
+ XUZCGeL55EbUVuh9CaFpgRh4eh21p04ASs/2EMfKq1Id1lCT/03sAdEofOeXLGSZNbCK
+ T5+569KWt5KyguW/Cg9aGjBEp2scHHKq1mMzE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=zwSmaZ0/XBjCCpcjkMDJ976dMmOGPgUfSWLa9+mY8As=;
- b=5o9jHl3wX+f9XNx09/G3AWDT9vyIe4Zmi2VuAivhy5zATIt1w1CBzVvWFH8ydl9I6n
- lWCNPw93IzlJgoSt+TJyHqavaZhztihRhTtuKTkuGy6iuSM18QgbJUm/6QLECfXYjAbG
- tKtm8fxGdsbgLjjb9RxL1LepeJbvmq16scdl0CG+J9OqyJVzHhd0K59H9w0GGN/I6RHC
- Jg7w2aEdTegdCGvPJkEZ8cxlQqTu4nNNkXizHLCkMisIqBKXrCy4niOZ1Urj1CWkT5bZ
- DWP2xLjlIvN92R3wHO5ak1WDbUm92qilvGhG7dTqB4n+O3hTIXstIx/hYZRsPAZcptsK
- IKEw==
-X-Gm-Message-State: AOAM531IOOejujrf6NaNksP0ZTTGov3y5fULs32u/JbOjZKIyQy/vnQ/
- ERkca/wfhMrWfB0xIDN8gE9YVg==
-X-Google-Smtp-Source: ABdhPJzeFsEK8Jc335z0N/alGaTtbAlORtl477rEH9WM9e0Tb0J3yfZCT2kMOeWDWNvqfrf37hTHBg==
-X-Received: by 2002:a17:902:8f93:b0:142:8731:1a5d with SMTP id
- z19-20020a1709028f9300b0014287311a5dmr5490076plo.60.1636695551306; 
- Thu, 11 Nov 2021 21:39:11 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Wad9gm8CW+7Vaw+M+Mr+ioYMu34NOVqzp5WCaNgwVbY=;
+ b=ZgQ5LJ1z2/IwDEwCZmRF3A4myRDlFzy2aSkXzSbd/YzXzDruHdR6SbYGxq0SLgtp4G
+ qtIjxNAxYcNS98iZNXwgDaA+0KUZbUKd4NTAyrHqWuTXY1w8CndtoxljwdzUuSPLgvHy
+ 4APLXBSGDBeGnheUBPQms+trtJnMo0dVeGeUSXkJ5t3S/+zU1lcvviI7ceDE4U5tT+4/
+ b/j6DQHrAhF/gxBT3NQWCeU/dcFBaoCngdPSLzuCaRDN49hceHf+E5oSt/UEXfoFRVzY
+ 4NboZDm6XwWd1QnIHLYUOPW/GoBG6SWMwjTx7k6waGcHrHFONWwTAim7qj/VshIq7Cxu
+ Mrzw==
+X-Gm-Message-State: AOAM531skSAPQDvMx2q02zoBFM2nVhK8cLW6xMBRlYiadSQINQLJgS1F
+ 4gwjjaCqC422eQM3PchIZ+qLKg==
+X-Google-Smtp-Source: ABdhPJzccvCuuKTMzT5Xf+4TNMKBG21tNmi42SFsyLthwZSXilj5YfBBc68olJ3IKJ1pgUcov4iMLA==
+X-Received: by 2002:a05:6a00:158a:b0:49f:be86:c78f with SMTP id
+ u10-20020a056a00158a00b0049fbe86c78fmr12004616pfk.56.1636697875509; 
+ Thu, 11 Nov 2021 22:17:55 -0800 (PST)
 Received: from localhost.localdomain ([2405:201:c00a:a0a9:de19:8cdf:97cf:a6b1])
- by smtp.gmail.com with ESMTPSA id v38sm3764345pgl.38.2021.11.11.21.39.08
+ by smtp.gmail.com with ESMTPSA id p3sm4727856pfb.205.2021.11.11.22.17.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Nov 2021 21:39:10 -0800 (PST)
+ Thu, 11 Nov 2021 22:17:55 -0800 (PST)
 From: Jagan Teki <jagan@amarulasolutions.com>
-To: Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 12 Nov 2021 11:08:56 +0530
-Message-Id: <20211112053856.18412-3-jagan@amarulasolutions.com>
+To: Andrzej Hajda <a.hajda@samsung.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Robert Foss <robert.foss@linaro.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Heiko Stubner <heiko@sntech.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>
+Date: Fri, 12 Nov 2021 11:47:41 +0530
+Message-Id: <20211112061741.120898-1-jagan@amarulasolutions.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211112053856.18412-1-jagan@amarulasolutions.com>
-References: <20211112053856.18412-1-jagan@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Matteo Lisi <matteo.lisi@engicam.com>,
- Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 3/3] ARM: dts: stm32: Add Engicam i.Core
-	STM32MP1 C.TOUCH 2.0 10.1" OF
+Cc: linux-amarula@amarulasolutions.com,
+ linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
+ Jagan Teki <jagan@amarulasolutions.com>
+Subject: [Linux-stm32] [PATCH] drm/bridge: dw-mipi-dsi: Switch to atomic
+	operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,189 +78,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-ARM: dts: stm32: Add Engicam i.Core STM32MP1 C.TOUCH 2.0
+Replace atomic version of the enable/disable operations to
+continue the transition to the atomic API.
 
-Engicam C.TOUCH 2.0 is an EDIMM compliant general purpose Carrier
-board.
+Also added default drm atomic operations for duplicate, destroy
+and reset state API's in order to have smooth transition on
+atomic API's.
 
-Genaral features:
-- Ethernet 10/100
-- Wifi/BT
-- USB Type A/OTG
-- Audio Out
-- CAN
-- 10" LVDS Panel (SN65DSI84 DSI-LVDS bridge on SoM)
-
-i.Core STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
-
-10.1" OF is a capacitive touch 10.1" Open Frame panel solutions.
-
-i.Core STM32MP1 needs to mount on top of C.TOUCH 2.0 carrier with
-pluged 10.1" OF for creating complete i.Core STM32MP1 C.TOUCH 2.0
-10.1" Open Frame board.
-
-Add support for it.
+Tested on Engicam i.Core STM32MP1 SoM.
 
 Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
 ---
-Changes for v2:
-- none
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
- arch/arm/boot/dts/Makefile                    |   1 +
- ...tm32mp157a-icore-stm32mp1-ctouch2-of10.dts | 132 ++++++++++++++++++
- 2 files changed, 133 insertions(+)
- create mode 100644 arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 0de64f237cd8..641220e970e8 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1140,6 +1140,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp157a-microgea-stm32mp1-microdev2.0.dtb \
- 	stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dtb \
- 	stm32mp157a-icore-stm32mp1-ctouch2.dtb \
-+	stm32mp157a-icore-stm32mp1-ctouch2-of10.dtb \
- 	stm32mp157a-icore-stm32mp1-edimm2.2.dtb \
- 	stm32mp157a-stinger96.dtb \
- 	stm32mp157c-dhcom-pdk2.dtb \
-diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-new file mode 100644
-index 000000000000..351be43b3d39
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-@@ -0,0 +1,132 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
-+ * Copyright (c) 2020 Engicam srl
-+ * Copyright (c) 2020 Amarula Solutons(India)
-+ */
-+
-+/dts-v1/;
-+#include "stm32mp157.dtsi"
-+#include "stm32mp157a-icore-stm32mp1.dtsi"
-+#include "stm32mp15-pinctrl.dtsi"
-+#include "stm32mp15xxaa-pinctrl.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "Engicam i.Core STM32MP1 C.TOUCH 2.0 10.1\" Open Frame";
-+	compatible = "engicam,icore-stm32mp1-ctouch2-of10",
-+		     "engicam,icore-stm32mp1", "st,stm32mp157";
-+
-+	aliases {
-+		serial0 = &uart4;
-+	};
-+
-+	backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&gpiod 13 GPIO_ACTIVE_HIGH>;
-+		default-on;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	panel {
-+		compatible = "ampire,am-1280800n3tzqw-t00h";
-+		backlight = <&backlight>;
-+		power-supply = <&v3v3>;
-+
-+		port {
-+			panel_in_lvds: endpoint {
-+				remote-endpoint = <&bridge_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsi {
-+	status = "okay";
-+	phy-dsi-supply = <&reg18>;
-+
-+	ports {
-+		port@0 {
-+			reg = <0>;
-+			dsi_in: endpoint {
-+				remote-endpoint = <&ltdc_ep0_out>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			dsi_out: endpoint {
-+				remote-endpoint = <&bridge_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c6 {
-+	i2c-scl-falling-time-ns = <20>;
-+	i2c-scl-rising-time-ns = <185>;
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c6_pins_a>;
-+	pinctrl-1 = <&i2c6_sleep_pins_a>;
-+	status = "okay";
-+
-+	bridge@2c {
-+		compatible = "ti,sn65dsi84";
-+		reg = <0x2c>;
-+		enable-gpios = <&gpiof 15 GPIO_ACTIVE_HIGH>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				bridge_in: endpoint {
-+					remote-endpoint = <&dsi_out>;
-+					data-lanes = <0 1>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+				bridge_out: endpoint {
-+					remote-endpoint = <&panel_in_lvds>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&ltdc {
-+	status = "okay";
-+
-+	port {
-+		ltdc_ep0_out: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&dsi_in>;
-+		};
-+	};
-+};
-+
-+&sdmmc1 {
-+	bus-width = <4>;
-+	disable-wp;
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	st,neg-edge;
-+	vmmc-supply = <&v3v3>;
-+	status = "okay";
-+};
-+
-+&uart4 {
-+	pinctrl-names = "default", "sleep", "idle";
-+	pinctrl-0 = <&uart4_pins_a>;
-+	pinctrl-1 = <&uart4_sleep_pins_a>;
-+	pinctrl-2 = <&uart4_idle_pins_a>;
-+	status = "okay";
-+};
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+index e44e18a0112a..ff0db96dfcd5 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+@@ -871,7 +871,8 @@ static void dw_mipi_dsi_clear_err(struct dw_mipi_dsi *dsi)
+ 	dsi_write(dsi, DSI_INT_MSK1, 0);
+ }
+ 
+-static void dw_mipi_dsi_bridge_post_disable(struct drm_bridge *bridge)
++static void dw_mipi_dsi_bridge_post_atomic_disable(struct drm_bridge *bridge,
++						   struct drm_bridge_state *old_bridge_state)
+ {
+ 	struct dw_mipi_dsi *dsi = bridge_to_dsi(bridge);
+ 	const struct dw_mipi_dsi_phy_ops *phy_ops = dsi->plat_data->phy_ops;
+@@ -978,7 +979,8 @@ static void dw_mipi_dsi_bridge_mode_set(struct drm_bridge *bridge,
+ 		dw_mipi_dsi_mode_set(dsi->slave, adjusted_mode);
+ }
+ 
+-static void dw_mipi_dsi_bridge_enable(struct drm_bridge *bridge)
++static void dw_mipi_dsi_bridge_atomic_enable(struct drm_bridge *bridge,
++					     struct drm_bridge_state *old_bridge_state)
+ {
+ 	struct dw_mipi_dsi *dsi = bridge_to_dsi(bridge);
+ 
+@@ -1032,11 +1034,14 @@ static int dw_mipi_dsi_bridge_attach(struct drm_bridge *bridge,
+ }
+ 
+ static const struct drm_bridge_funcs dw_mipi_dsi_bridge_funcs = {
+-	.mode_set     = dw_mipi_dsi_bridge_mode_set,
+-	.enable	      = dw_mipi_dsi_bridge_enable,
+-	.post_disable = dw_mipi_dsi_bridge_post_disable,
+-	.mode_valid   = dw_mipi_dsi_bridge_mode_valid,
+-	.attach	      = dw_mipi_dsi_bridge_attach,
++	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
++	.atomic_reset		= drm_atomic_helper_bridge_reset,
++	.atomic_enable		= dw_mipi_dsi_bridge_atomic_enable,
++	.atomic_post_disable	= dw_mipi_dsi_bridge_post_atomic_disable,
++	.mode_set		= dw_mipi_dsi_bridge_mode_set,
++	.mode_valid		= dw_mipi_dsi_bridge_mode_valid,
++	.attach			= dw_mipi_dsi_bridge_attach,
+ };
+ 
+ #ifdef CONFIG_DEBUG_FS
 -- 
 2.25.1
 
