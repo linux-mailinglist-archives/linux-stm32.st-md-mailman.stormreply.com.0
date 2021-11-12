@@ -2,58 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D0BB44E066
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Nov 2021 03:40:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 103BD44E069
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Nov 2021 03:40:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7806C5EC71;
-	Fri, 12 Nov 2021 02:40:19 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CED85C5EC71;
+	Fri, 12 Nov 2021 02:40:47 +0000 (UTC)
+Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
+ [209.85.166.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E074C5660B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BA8EC5660B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Nov 2021 02:40:17 +0000 (UTC)
-X-UUID: 57f40e69967044519c569faeb653ac67-20211112
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=jhvV0QYIAimmXVpb1XvdS3q/B/rdcRUe6J94AG4NF6k=; 
- b=d7YNgC1O7SdpmbnbTn56XnNryt+Nh3EdWl7ND7kzcPlLwgZyfk6RA2nMZUBlT4zndPbyoYdtxgJCpMnJRclHjCtneVQndT/nJx1C5sdKKHqDJV3puTU6KGkpM0xdkQ+DzovjQQpFRycaWpYklWhNoiqPJyf9QROSzx6XC7U9FuY=;
-X-UUID: 57f40e69967044519c569faeb653ac67-20211112
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
- (envelope-from <biao.huang@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 362740188; Fri, 12 Nov 2021 10:40:10 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Fri, 12 Nov 2021 10:40:08 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 12 Nov 2021 10:40:07 +0800
-Message-ID: <d66c18f41bcbc502a0e7f0f7345412ca888d6a49.camel@mediatek.com>
-From: Biao Huang <biao.huang@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Rob Herring
- <robh+dt@kernel.org>
-Date: Fri, 12 Nov 2021 10:40:07 +0800
-In-Reply-To: <6f894146-692b-63c7-cef6-2b26a171f006@somainline.org>
-References: <20211111071214.21027-1-biao.huang@mediatek.com>
- <20211111071214.21027-4-biao.huang@mediatek.com>
- <6f894146-692b-63c7-cef6-2b26a171f006@somainline.org>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ Fri, 12 Nov 2021 02:40:46 +0000 (UTC)
+Received: by mail-il1-f181.google.com with SMTP id i11so7638856ilv.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 11 Nov 2021 18:40:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=JYtrXD23shdyMcsFVgaL3Kb0G11os2lduL5hO5DAisc=;
+ b=jRE5rg1/zaGSX+gVN/bOD8YjB3IaKxvdDoCmy5NcoFuoswXqvRBlIst8meObLmBAxs
+ u/iuQQm9Sdbq38gLkav2/5wyrj5hRbZLNC2yZYHXZndX64i53+t1v/b3YSrFbbT6PMy0
+ 537NSp+aaWYstCxLd0AGLdcUiCzol4Thn5IZvGZNcczz1qFiNFgtEXqQDmTiZ6ewZihF
+ JlwJg4FTlauqHGaSdvvOS3CSQLPQaY1aRnSxbCOS4lZ9eppD74hTQpz/MhS5OdftxJ8e
+ Q3rKYFyRn8u70EYZ2hxZGjsCB4hQ3VKG44uS59rBEngDVa7kK51VuXWejwMAMg+P2co4
+ en0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=JYtrXD23shdyMcsFVgaL3Kb0G11os2lduL5hO5DAisc=;
+ b=sQO+nPusPGfU2zxfV1Lnb7LxFyUs5yeTr7R6K+uHyi0dkm4md/iMxQtJNe4Y0bFC55
+ dYLSJNrcD5JMClec5QrsU9BxQQ0JwCKy4uH3Cdqr6QgfLQxhTwKozmEbykTtlCLHgcdk
+ 3j3Zm0HP57QG3sx6S2yrrksaxTr/fekv/iQwaVjjwt3LsPufzoxfWsFROHVL6MVtx1h8
+ 5oOfUX3bt8aa5a8WoUhs+PSXcLzchhBeIvn3b8iuO0vhMxS6pNW3lbBYZQoRo5ZZV+fj
+ 3hmRA2m0NK7z5nS2vMdL1OVx2IpsMp19FVJzTopGqyejAghI63bxhFga6oIAsuM/umkB
+ HjyA==
+X-Gm-Message-State: AOAM5307YDvBSA5g+/Lw2WkOWDpFqOaRyrd38wElF6irBQSpiaRlKXYG
+ FqR2716sFP+MCC6XYs+RShAMuwpzdPQvv+JA19o=
+X-Google-Smtp-Source: ABdhPJx2ylAuHoOxN4N4gLfnyGTlEMXkoeCsHghAswy/PPJwkBYT64Wngb8jz94z0xFcQDtSgx6XsgDViC6DmJSuuiY=
+X-Received: by 2002:a05:6e02:1d1a:: with SMTP id
+ i26mr7591972ila.303.1636684845448; 
+ Thu, 11 Nov 2021 18:40:45 -0800 (PST)
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
- netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
- linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
+References: <1635232282-3992-1-git-send-email-dillon.minfei@gmail.com>
+ <1635232282-3992-10-git-send-email-dillon.minfei@gmail.com>
+In-Reply-To: <1635232282-3992-10-git-send-email-dillon.minfei@gmail.com>
+From: Dillon Min <dillon.minfei@gmail.com>
+Date: Fri, 12 Nov 2021 10:40:09 +0800
+Message-ID: <CAL9mu0LVBSorMK9KbZ3kXYcnubi44yPDxzMroKYVYB2c=o+xjQ@mail.gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: gnurou@gmail.com, kbuild-all@lists.01.org,
+ Pi-Hsun Shih <pihsun@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, mchehab+huawei@kernel.org,
+ hugues.fruchet@foss.st.com, llvm@lists.linux.dev,
+ linux-clk <linux-clk@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, kernel test robot <lkp@intel.com>,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/5] net: stmmac: dwmac-mediatek: add
- support for mt8195
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, ezequiel@collabora.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ linux-media <linux-media@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v7 09/10] clk: stm32: Fix ltdc's clock
+ turn off by clk_disable_unused() after system enter shell
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,431 +83,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear Angelo,
-	Thanks for your comments~
+Hi Stephen
 
-On Thu, 2021-11-11 at 14:26 +0100, AngeloGioacchino Del Regno wrote:
-> Il 11/11/21 08:12, Biao Huang ha scritto:
-> > Add Ethernet support for MediaTek SoCs from the mt8195 family.
-> > 
-> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> > ---
-> >   .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 261
-> > +++++++++++++++++-
-> >   1 file changed, 260 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > index 6ea972e96665..b1266b68e21f 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> > @@ -40,6 +40,33 @@
-> >   #define ETH_FINE_DLY_GTXC	BIT(1)
-> >   #define ETH_FINE_DLY_RXC	BIT(0)
-> >   
-> > +/* Peri Configuration register for mt8195 */
-> > +#define MT8195_PERI_ETH_CTRL0		0xFD0
-> > +#define MT8195_RMII_CLK_SRC_INTERNAL	BIT(28)
-> > +#define MT8195_RMII_CLK_SRC_RXC		BIT(27)
-> > +#define MT8195_ETH_INTF_SEL		GENMASK(26, 24)
-> > +#define MT8195_RGMII_TXC_PHASE_CTRL	BIT(22)
-> > +#define MT8195_EXT_PHY_MODE		BIT(21)
-> > +#define MT8195_DLY_GTXC_INV		BIT(12)
-> > +#define MT8195_DLY_GTXC_ENABLE		BIT(5)
-> > +#define MT8195_DLY_GTXC_STAGES		GENMASK(4, 0)
-> > +
-> > +#define MT8195_PERI_ETH_CTRL1		0xFD4
-> > +#define MT8195_DLY_RXC_INV		BIT(25)
-> > +#define MT8195_DLY_RXC_ENABLE		BIT(18)
-> > +#define MT8195_DLY_RXC_STAGES		GENMASK(17, 13)
-> > +#define MT8195_DLY_TXC_INV		BIT(12)
-> > +#define MT8195_DLY_TXC_ENABLE		BIT(5)
-> > +#define MT8195_DLY_TXC_STAGES		GENMASK(4, 0)
-> > +
-> > +#define MT8195_PERI_ETH_CTRL2		0xFD8
-> > +#define MT8195_DLY_RMII_RXC_INV		BIT(25)
-> > +#define MT8195_DLY_RMII_RXC_ENABLE	BIT(18)
-> > +#define MT8195_DLY_RMII_RXC_STAGES	GENMASK(17, 13)
-> > +#define MT8195_DLY_RMII_TXC_INV		BIT(12)
-> > +#define MT8195_DLY_RMII_TXC_ENABLE	BIT(5)
-> > +#define MT8195_DLY_RMII_TXC_STAGES	GENMASK(4, 0)
-> > +
-> >   struct mac_delay_struct {
-> >   	u32 tx_delay;
-> >   	u32 rx_delay;
-> > @@ -58,11 +85,13 @@ struct mediatek_dwmac_plat_data {
-> >   	int num_clks_to_config;
-> >   	bool rmii_clk_from_mac;
-> >   	bool rmii_rxc;
-> > +	bool mac_wol;
-> >   };
-> >   
-> >   struct mediatek_dwmac_variant {
-> >   	int (*dwmac_set_phy_interface)(struct mediatek_dwmac_plat_data
-> > *plat);
-> >   	int (*dwmac_set_delay)(struct mediatek_dwmac_plat_data *plat);
-> > +	void (*dwmac_fix_mac_speed)(void *priv, unsigned int speed);
-> >   
-> >   	/* clock ids to be requested */
-> >   	const char * const *clk_list;
-> > @@ -78,6 +107,10 @@ static const char * const mt2712_dwmac_clk_l[]
-> > = {
-> >   	"axi", "apb", "mac_main", "ptp_ref", "rmii_internal"
-> >   };
-> >   
-> > +static const char * const mt8195_dwmac_clk_l[] = {
-> > +	"axi", "apb", "mac_cg", "mac_main", "ptp_ref", "rmii_internal"
-> > +};
-> > +
-> >   static int mt2712_set_interface(struct mediatek_dwmac_plat_data
-> > *plat)
-> >   {
-> >   	int rmii_clk_from_mac = plat->rmii_clk_from_mac ?
-> > RMII_CLK_SRC_INTERNAL : 0;
-> > @@ -268,6 +301,204 @@ static const struct mediatek_dwmac_variant
-> > mt2712_gmac_variant = {
-> >   		.tx_delay_max = 17600,
-> >   };
-> >   
-> > +static int mt8195_set_interface(struct mediatek_dwmac_plat_data
-> > *plat)
-> > +{
-> > +	int rmii_clk_from_mac = plat->rmii_clk_from_mac ?
-> > MT8195_RMII_CLK_SRC_INTERNAL : 0;
-> > +	int rmii_rxc = plat->rmii_rxc ? MT8195_RMII_CLK_SRC_RXC : 0;
-> > +	u32 intf_val = 0;
-> > +
-> > +	/* The clock labeled as "rmii_internal" in mt8195_dwmac_clk_l
-> > is needed
-> > +	 * only in RMII(when MAC provides the reference clock), and
-> > useless for
-> > +	 * RGMII/MII/RMII(when PHY provides the reference clock).
-> > +	 * num_clks_to_config indicates the real number of clocks
-> > should be
-> > +	 * configured, equals to (plat->variant->num_clks - 1) in
-> > default for all the case,
-> > +	 * then +1 for rmii_clk_from_mac case.
-> > +	 */
-> > +	plat->num_clks_to_config = plat->variant->num_clks - 1;
-> > +
-> > +	/* select phy interface in top control domain */
-> > +	switch (plat->phy_mode) {
-> > +	case PHY_INTERFACE_MODE_MII:
-> > +		intf_val |= FIELD_PREP(MT8195_ETH_INTF_SEL,
-> > PHY_INTF_MII);
-> > +		break;
-> > +	case PHY_INTERFACE_MODE_RMII:
-> > +		if (plat->rmii_clk_from_mac)
-> > +			plat->num_clks_to_config++;
-> > +		intf_val |= (rmii_rxc | rmii_clk_from_mac);
-> > +		intf_val |= FIELD_PREP(MT8195_ETH_INTF_SEL,
-> > PHY_INTF_RMII);
-> > +		break;
-> > +	case PHY_INTERFACE_MODE_RGMII:
-> > +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> > +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> > +	case PHY_INTERFACE_MODE_RGMII_ID:
-> > +		intf_val |= FIELD_PREP(MT8195_ETH_INTF_SEL,
-> > PHY_INTF_RGMII);
-> > +		break;
-> > +	default:
-> > +		dev_err(plat->dev, "phy interface not supported\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	/* MT8195 only support external PHY */
-> > +	intf_val |= MT8195_EXT_PHY_MODE;
-> > +
-> > +	regmap_write(plat->peri_regmap, MT8195_PERI_ETH_CTRL0,
-> > intf_val);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static void mt8195_delay_ps2stage(struct mediatek_dwmac_plat_data
-> > *plat)
-> > +{
-> > +	struct mac_delay_struct *mac_delay = &plat->mac_delay;
-> > +
-> > +	/* 290ps per stage */
-> > +	mac_delay->tx_delay /= 290;
-> > +	mac_delay->rx_delay /= 290;
-> > +}
-> > +
-> > +static void mt8195_delay_stage2ps(struct mediatek_dwmac_plat_data
-> > *plat)
-> > +{
-> > +	struct mac_delay_struct *mac_delay = &plat->mac_delay;
-> > +
-> > +	/* 290ps per stage */
-> > +	mac_delay->tx_delay *= 290;
-> > +	mac_delay->rx_delay *= 290;
-> > +}
-> > +
-> > +static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
-> > +{
-> > +	struct mac_delay_struct *mac_delay = &plat->mac_delay;
-> > +	u32 gtxc_delay_val, delay_val = 0, rmii_delay_val = 0;
-> > +
-> > +	mt8195_delay_ps2stage(plat);
-> > +
-> > +	switch (plat->phy_mode) {
-> > +	case PHY_INTERFACE_MODE_MII:
-> > +		delay_val |= FIELD_PREP(MT8195_DLY_TXC_ENABLE,
-> > !!mac_delay->tx_delay);
-> > +		delay_val |= FIELD_PREP(MT8195_DLY_TXC_STAGES,
-> > mac_delay->tx_delay);
-> > +		delay_val |= FIELD_PREP(MT8195_DLY_TXC_INV, mac_delay-
-> > >tx_inv);
-> > +
-> > +		delay_val |= FIELD_PREP(MT8195_DLY_RXC_ENABLE,
-> > !!mac_delay->rx_delay);
-> > +		delay_val |= FIELD_PREP(MT8195_DLY_RXC_STAGES,
-> > mac_delay->rx_delay);
-> > +		delay_val |= FIELD_PREP(MT8195_DLY_RXC_INV, mac_delay-
-> > >rx_inv);
-> > +		break;
-> > +	case PHY_INTERFACE_MODE_RMII:
-> > +		if (plat->rmii_clk_from_mac) {
-> > +			/* case 1: mac provides the rmii reference
-> > clock,
-> > +			 * and the clock output to TXC pin.
-> > +			 * The egress timing can be adjusted by
-> > RMII_TXC delay macro circuit.
-> > +			 * The ingress timing can be adjusted by
-> > RMII_RXC delay macro circuit.
-> > +			 */
-> > +			rmii_delay_val |=
-> > FIELD_PREP(MT8195_DLY_RMII_TXC_ENABLE,
-> > +						     !!mac_delay-
-> > >tx_delay);
-> > +			rmii_delay_val |=
-> > FIELD_PREP(MT8195_DLY_RMII_TXC_STAGES,
-> > +						     mac_delay-
-> > >tx_delay);
-> > +			rmii_delay_val |=
-> > FIELD_PREP(MT8195_DLY_RMII_TXC_INV,
-> > +						     mac_delay-
-> > >tx_inv);
-> > +
-> > +			rmii_delay_val |=
-> > FIELD_PREP(MT8195_DLY_RMII_RXC_ENABLE,
-> > +						     !!mac_delay-
-> > >rx_delay);
-> > +			rmii_delay_val |=
-> > FIELD_PREP(MT8195_DLY_RMII_RXC_STAGES,
-> > +						     mac_delay-
-> > >rx_delay);
-> > +			rmii_delay_val |=
-> > FIELD_PREP(MT8195_DLY_RMII_RXC_INV,
-> > +						     mac_delay-
-> > >rx_inv);
-> > +		} else {
-> > +			/* case 2: the rmii reference clock is from
-> > external phy,
-> > +			 * and the property "rmii_rxc" indicates which
-> > pin(TXC/RXC)
-> > +			 * the reference clk is connected to. The
-> > reference clock is a
-> > +			 * received signal, so rx_delay/rx_inv are used
-> > to indicate
-> > +			 * the reference clock timing adjustment
-> > +			 */
-> > +			if (plat->rmii_rxc) {
-> > +				/* the rmii reference clock from
-> > outside is connected
-> > +				 * to RXC pin, the reference clock will
-> > be adjusted
-> > +				 * by RXC delay macro circuit.
-> > +				 */
-> > +				delay_val |=
-> > FIELD_PREP(MT8195_DLY_RXC_ENABLE,
-> > +							!!mac_delay-
-> > >rx_delay);
-> > +				delay_val |=
-> > FIELD_PREP(MT8195_DLY_RXC_STAGES,
-> > +							mac_delay-
-> > >rx_delay);
-> > +				delay_val |=
-> > FIELD_PREP(MT8195_DLY_RXC_INV,
-> > +							mac_delay-
-> > >rx_inv);
-> > +			} else {
-> > +				/* the rmii reference clock from
-> > outside is connected
-> > +				 * to TXC pin, the reference clock will
-> > be adjusted
-> > +				 * by TXC delay macro circuit.
-> > +				 */
-> > +				delay_val |=
-> > FIELD_PREP(MT8195_DLY_TXC_ENABLE,
-> > +							!!mac_delay-
-> > >rx_delay);
-> > +				delay_val |=
-> > FIELD_PREP(MT8195_DLY_TXC_STAGES,
-> > +							mac_delay-
-> > >rx_delay);
-> > +				delay_val |=
-> > FIELD_PREP(MT8195_DLY_TXC_INV,
-> > +							mac_delay-
-> > >rx_inv);
-> > +			}
-> > +		}
-> > +		break;
-> > +	case PHY_INTERFACE_MODE_RGMII:
-> > +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> > +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> > +	case PHY_INTERFACE_MODE_RGMII_ID:
-> > +		gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_ENABLE,
-> > !!mac_delay->tx_delay);
-> > +		gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_STAGES,
-> > mac_delay->tx_delay);
-> > +		gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_INV,
-> > mac_delay->tx_inv);
-> > +
-> > +		delay_val |= FIELD_PREP(MT8195_DLY_RXC_ENABLE,
-> > !!mac_delay->rx_delay);
-> > +		delay_val |= FIELD_PREP(MT8195_DLY_RXC_STAGES,
-> > mac_delay->rx_delay);
-> > +		delay_val |= FIELD_PREP(MT8195_DLY_RXC_INV, mac_delay-
-> > >rx_inv);
-> > +
-> > +		break;
-> > +	default:
-> > +		dev_err(plat->dev, "phy interface not supported\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	regmap_update_bits(plat->peri_regmap,
-> > +			   MT8195_PERI_ETH_CTRL0,
-> > +			   MT8195_RGMII_TXC_PHASE_CTRL |
-> > +			   MT8195_DLY_GTXC_INV |
-> > +			   MT8195_DLY_GTXC_ENABLE |
-> > +			   MT8195_DLY_GTXC_STAGES,
-> > +			   gtxc_delay_val);
-> > +	regmap_write(plat->peri_regmap, MT8195_PERI_ETH_CTRL1,
-> > delay_val);
-> > +	regmap_write(plat->peri_regmap, MT8195_PERI_ETH_CTRL2,
-> > rmii_delay_val);
-> > +
-> > +	mt8195_delay_stage2ps(plat);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static void mt8195_fix_mac_speed(void *priv, unsigned int speed)
-> > +{
-> > +	struct mediatek_dwmac_plat_data *priv_plat = priv;
-> > +
-> > +	if ((phy_interface_mode_is_rgmii(priv_plat->phy_mode))) {
-> > +		/* prefer 2ns fixed delay which is controlled by
-> > TXC_PHASE_CTRL,
-> > +		 * when link speed is 1Gbps with RGMII interface,
-> > +		 * Fall back to delay macro circuit for 10/100Mbps link
-> > speed.
-> > +		 */
-> > +		if (speed == SPEED_1000)
-> > +			regmap_update_bits(priv_plat->peri_regmap,
-> > +					   MT8195_PERI_ETH_CTRL0,
-> > +					   MT8195_RGMII_TXC_PHASE_CTRL
-> > |
-> > +					   MT8195_DLY_GTXC_ENABLE |
-> > +					   MT8195_DLY_GTXC_INV |
-> > +					   MT8195_DLY_GTXC_STAGES,
-> > +					   MT8195_RGMII_TXC_PHASE_CTRL)
-> > ;
-> > +		else
-> > +			mt8195_set_delay(priv_plat);
-> > +	}
-> > +}
-> > +
-> > +static const struct mediatek_dwmac_variant mt8195_gmac_variant = {
-> > +	.dwmac_set_phy_interface = mt8195_set_interface,
-> > +	.dwmac_set_delay = mt8195_set_delay,
-> > +	.dwmac_fix_mac_speed = mt8195_fix_mac_speed,
-> > +	.clk_list = mt8195_dwmac_clk_l,
-> > +	.num_clks = ARRAY_SIZE(mt8195_dwmac_clk_l),
-> > +	.dma_bit_mask = 35,
-> > +	.rx_delay_max = 9280,
-> > +	.tx_delay_max = 9280,
-> > +};
-> > +
-> >   static int mediatek_dwmac_config_dt(struct
-> > mediatek_dwmac_plat_data *plat)
-> >   {
-> >   	struct mac_delay_struct *mac_delay = &plat->mac_delay;
-> > @@ -308,6 +539,7 @@ static int mediatek_dwmac_config_dt(struct
-> > mediatek_dwmac_plat_data *plat)
-> >   	mac_delay->rx_inv = of_property_read_bool(plat->np,
-> > "mediatek,rxc-inverse");
-> >   	plat->rmii_rxc = of_property_read_bool(plat->np,
-> > "mediatek,rmii-rxc");
-> >   	plat->rmii_clk_from_mac = of_property_read_bool(plat->np,
-> > "mediatek,rmii-clk-from-mac");
-> > +	plat->mac_wol = of_property_read_bool(plat->np, "mediatek,mac-
-> > wol");
-> >   
-> >   	return 0;
-> >   }
-> > @@ -384,6 +616,16 @@ static int mediatek_dwmac_clks_config(void
-> > *priv, bool enabled)
-> >   
-> >   	return ret;
-> >   }
-> > +
-> > +static void mediatek_fix_mac_speed(void *priv, unsigned int speed)
-> > +{
-> > +	struct mediatek_dwmac_plat_data *plat = priv;
-> > +	const struct mediatek_dwmac_variant *variant = plat->variant;
-> > +
-> > +	if (variant->dwmac_fix_mac_speed)
-> > +		variant->dwmac_fix_mac_speed(priv, speed);
-> > +}
-> > +
-> >   static int mediatek_dwmac_probe(struct platform_device *pdev)
-> >   {
-> >   	struct mediatek_dwmac_plat_data *priv_plat;
-> > @@ -421,7 +663,7 @@ static int mediatek_dwmac_probe(struct
-> > platform_device *pdev)
-> >   		return PTR_ERR(plat_dat);
-> >   
-> >   	plat_dat->interface = priv_plat->phy_mode;
-> > -	plat_dat->use_phy_wol = 1;
-> > +	plat_dat->use_phy_wol = priv_plat->mac_wol ? 0 : 1;
-> >   	plat_dat->riwt_off = 1;
-> >   	plat_dat->maxmtu = ETH_DATA_LEN;
-> >   	plat_dat->addr64 = priv_plat->variant->dma_bit_mask;
-> > @@ -429,7 +671,22 @@ static int mediatek_dwmac_probe(struct
-> > platform_device *pdev)
-> >   	plat_dat->init = mediatek_dwmac_init;
-> >   	plat_dat->exit = mediatek_dwmac_exit;
-> >   	plat_dat->clks_config = mediatek_dwmac_clks_config;
-> > +	plat_dat->fix_mac_speed = mediatek_fix_mac_speed;
-> 
-> 
-> 
-> So, since that function serves as a wrapper only....
-> 
-> 
-> 
-> 	if (priv_plat->variant->dwmac_fix_mac_speed)
-> 
-> 		lat_dat->fix_mac_speed = priv_plat->variant-
-> >dwmac_fix_mac_speed;
-> 
-> 
-> 
-> seems to be a good option :)
-> 
-Yes, that makes sense, will fix it in next send.
-> 
-> 
-> 
-> 
-> Regards,
-> 
-> - Angelo
-> 
+Would you pick up this patch? Thanks.
+
+Best Regards.
+Dillon
+
+On Tue, 26 Oct 2021 at 15:12, Dillon Min <dillon.minfei@gmail.com> wrote:
+>
+> stm32's clk driver register two ltdc gate clk to clk core by
+> clk_hw_register_gate() and clk_hw_register_composite()
+>
+> first: 'stm32f429_gates[]', clk name is 'ltdc', which no user to use.
+> second: 'stm32f429_aux_clk[]', clk name is 'lcd-tft', used by ltdc driver
+>
+> both of them point to the same offset of stm32's RCC register. after
+> kernel enter console, clk core turn off ltdc's clk as 'stm32f429_gates[]'
+> is no one to use. but, actually 'stm32f429_aux_clk[]' is in use.
+>
+> stm32f469/746/769 have the same issue, fix it.
+>
+> Fixes: daf2d117cbca ("clk: stm32f4: Add lcd-tft clock")
+> Link: https://lore.kernel.org/linux-arm-kernel/1590564453-24499-7-git-send-email-dillon.minfei@gmail.com/
+> Link: https://lore.kernel.org/lkml/CAPTRvHkf0cK_4ZidM17rPo99gWDmxgqFt4CDUjqFFwkOeQeFDg@mail.gmail.com/
+> Signed-off-by: Dillon Min <dillon.minfei@gmail.com>
+> Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> Acked-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> Acked-by: Stephen Boyd <sboyd@kernel.org>
+> ---
+> v7:
+> - collect acked-by, reviewed-by from Gabriel, Patrice.
+>
+>  drivers/clk/clk-stm32f4.c | 4 ----
+>  1 file changed, 4 deletions(-)
+>
+> diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
+> index af46176ad053..473dfe632cc5 100644
+> --- a/drivers/clk/clk-stm32f4.c
+> +++ b/drivers/clk/clk-stm32f4.c
+> @@ -129,7 +129,6 @@ static const struct stm32f4_gate_data stm32f429_gates[] __initconst = {
+>         { STM32F4_RCC_APB2ENR, 20,      "spi5",         "apb2_div" },
+>         { STM32F4_RCC_APB2ENR, 21,      "spi6",         "apb2_div" },
+>         { STM32F4_RCC_APB2ENR, 22,      "sai1",         "apb2_div" },
+> -       { STM32F4_RCC_APB2ENR, 26,      "ltdc",         "apb2_div" },
+>  };
+>
+>  static const struct stm32f4_gate_data stm32f469_gates[] __initconst = {
+> @@ -211,7 +210,6 @@ static const struct stm32f4_gate_data stm32f469_gates[] __initconst = {
+>         { STM32F4_RCC_APB2ENR, 20,      "spi5",         "apb2_div" },
+>         { STM32F4_RCC_APB2ENR, 21,      "spi6",         "apb2_div" },
+>         { STM32F4_RCC_APB2ENR, 22,      "sai1",         "apb2_div" },
+> -       { STM32F4_RCC_APB2ENR, 26,      "ltdc",         "apb2_div" },
+>  };
+>
+>  static const struct stm32f4_gate_data stm32f746_gates[] __initconst = {
+> @@ -286,7 +284,6 @@ static const struct stm32f4_gate_data stm32f746_gates[] __initconst = {
+>         { STM32F4_RCC_APB2ENR, 21,      "spi6",         "apb2_div" },
+>         { STM32F4_RCC_APB2ENR, 22,      "sai1",         "apb2_div" },
+>         { STM32F4_RCC_APB2ENR, 23,      "sai2",         "apb2_div" },
+> -       { STM32F4_RCC_APB2ENR, 26,      "ltdc",         "apb2_div" },
+>  };
+>
+>  static const struct stm32f4_gate_data stm32f769_gates[] __initconst = {
+> @@ -364,7 +361,6 @@ static const struct stm32f4_gate_data stm32f769_gates[] __initconst = {
+>         { STM32F4_RCC_APB2ENR, 21,      "spi6",         "apb2_div" },
+>         { STM32F4_RCC_APB2ENR, 22,      "sai1",         "apb2_div" },
+>         { STM32F4_RCC_APB2ENR, 23,      "sai2",         "apb2_div" },
+> -       { STM32F4_RCC_APB2ENR, 26,      "ltdc",         "apb2_div" },
+>         { STM32F4_RCC_APB2ENR, 30,      "mdio",         "apb2_div" },
+>  };
+>
+> --
+> 2.7.4
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
