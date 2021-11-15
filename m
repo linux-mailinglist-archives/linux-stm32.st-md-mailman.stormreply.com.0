@@ -2,57 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E6044FCC3
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Nov 2021 02:39:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89A3845027C
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Nov 2021 11:26:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6459C5C82B;
-	Mon, 15 Nov 2021 01:39:48 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 404D5C5C82B;
+	Mon, 15 Nov 2021 10:26:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2A49C5C828
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 015B1C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Nov 2021 01:39:46 +0000 (UTC)
-X-UUID: 4ea61d22a0674b3eaf17b791f61cfc37-20211115
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=m7CZhzDmIxIx57bHGNSmwup8iYmTNmCUfIGDVzGXVbI=; 
- b=ZqA1CGpDxe00eLHYI80qrx8SXmFhx7ISGC+Z0v02SS09MY/ebnzk08QRoVyPGiMZX7DR8ZHkmp4VvPHwLm4vkpy/KlK6F29mm29CW5qJolilbUosI7G2bwpx+IBoHOg8Xhf0c5HcTuExB3X9rL3+Smee34i08ukk8qI4QsWcOeI=;
-X-UUID: 4ea61d22a0674b3eaf17b791f61cfc37-20211115
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1421660592; Mon, 15 Nov 2021 09:39:41 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Mon, 15 Nov 2021 09:39:39 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Mon, 15 Nov 2021 09:39:38 +0800
-Message-ID: <ec7c46b2846a42e18bbaea2f811386bacdd26985.camel@mediatek.com>
-From: Biao Huang <biao.huang@mediatek.com>
-To: Rob Herring <robh@kernel.org>
-Date: Mon, 15 Nov 2021 09:39:38 +0800
-In-Reply-To: <1636724917.159298.2463374.nullmailer@robh.at.kernel.org>
-References: <20211112093918.11061-1-biao.huang@mediatek.com>
- <20211112093918.11061-5-biao.huang@mediatek.com>
- <1636724917.159298.2463374.nullmailer@robh.at.kernel.org>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ Mon, 15 Nov 2021 10:26:07 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AF8sjc7006661;
+ Mon, 15 Nov 2021 11:25:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=OBTHaDPVAeUyWjvL19tyCYUzLLTVfgrUYyMf7H/p9Ow=;
+ b=nVlBUXxLNUBPS9t4Q6GA2ogtF7ORLFRmgtuAOJYdbR/1Yr/HSlDuKFG+kXWaZkeKruH0
+ KJeaJqMl2cSNjrGBAVUOrMAOpjqGW69blIda/p6xpOAcQhfC5p6fGuwkhmTN6BR3tsK/
+ BGnn/1hh3SvlCr2F3tUwMpefNweeTDNUuy4duYrQ+8mLrCaG+rbh2otl+a9PNaajWdG/
+ jQrY/JC8O/RdPPGwyTB+DDLU8lRpgabhsgrtFcsiLmi1j0h5Q0OTd7ZcdSmQog1TCjHU
+ VrymE4bszjBgKhiS+QpHj4uNBObsb+6HwK/eNreU+SPWrhCb+MgqqqgfsgZ3V/BXR+Yx Dg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cbmf40kc9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Nov 2021 11:25:53 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EB2DA10002A;
+ Mon, 15 Nov 2021 11:25:51 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E1CB02291B8;
+ Mon, 15 Nov 2021 11:25:51 +0100 (CET)
+Received: from lmecxl0995.lme.st.com (10.75.127.47) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 15 Nov
+ 2021 11:25:50 +0100
+To: Kishon Vijay Abraham I <kishon@ti.com>, Vinod Koul <vkoul@kernel.org>, Rob
+ Herring <robh+dt@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+References: <20211026154817.198937-1-amelie.delaunay@foss.st.com>
+From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
+Message-ID: <d4e76549-4f27-6043-64c1-411261b8a5aa@foss.st.com>
+Date: Mon, 15 Nov 2021 11:25:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, dkirjanov@suse.de, Jose
- Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
- macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH v3 4/7] net-next: dt-bindings: dwmac:
- Convert mediatek-dwmac to DT schema
+In-Reply-To: <20211026154817.198937-1-amelie.delaunay@foss.st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-11-15_09,2021-11-12_01,2020-04-07_01
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/1] phy: stm32: fix st,
+ slow-hs-slew-rate with st, decrease-hs-slew-rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,65 +74,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear Rob,
+Hi,
 
-There is a patch named "[PATCH v3 3/7] arm64: dts: mt2712: update
-ethernet device node" to fix these warnings in this series.
+Kind reminder.
 
-Could you give me some hints why these warnings still there, or how to
-fix them?
+Regards,
+Amelie
 
-Best Regards!
-
-On Fri, 2021-11-12 at 07:48 -0600, Rob Herring wrote:
-> On Fri, 12 Nov 2021 17:39:15 +0800, Biao Huang wrote:
-> > Convert mediatek-dwmac to DT schema, and delete old mediatek-
-> > dwmac.txt.
-> > 
-> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> > ---
-> >  .../bindings/net/mediatek-dwmac.txt           |  91 ----------
-> >  .../bindings/net/mediatek-dwmac.yaml          | 157
-> > ++++++++++++++++++
-> >  2 files changed, 157 insertions(+), 91 deletions(-)
-> >  delete mode 100644 Documentation/devicetree/bindings/net/mediatek-
-> > dwmac.txt
-> >  create mode 100644 Documentation/devicetree/bindings/net/mediatek-
-> > dwmac.yaml
-> > 
+On 10/26/21 5:48 PM, Amelie Delaunay wrote:
+> st,decrease-hs-slew-rate is described in phy-stm32-usbphyc.yaml. Then
+> fix the property name in driver.
 > 
-> Running 'make dtbs_check' with the schema in this patch gives the
-> following warnings. Consider if they are expected or the schema is
-> incorrect. These may not be new warnings.
+> Fixes: 2f5e9f815a2f ("phy: stm32: add phy tuning support")
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> ---
+>   drivers/phy/st/phy-stm32-usbphyc.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Note that it is not yet a requirement to have 0 warnings for
-> dtbs_check.
-> This will change in the future.
-> 
-> Full log is available here: 
-> https://patchwork.ozlabs.org/patch/1554228
-> 
-> 
-> ethernet@1101c000: clock-names: ['axi', 'apb', 'mac_main', 'ptp_ref']
-> is too short
-> 	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-> 
-> ethernet@1101c000: clocks: [[27, 34], [27, 37], [6, 154], [6, 155]]
-> is too short
-> 	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-> 
-> ethernet@1101c000: compatible: ['mediatek,mt2712-gmac'] does not
-> contain items matching the given schema
-> 	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-> 
-> ethernet@1101c000: compatible: 'oneOf' conditional failed, one must
-> be fixed:
-> 	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
+> diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
+> index 7df6a63ad37b..e4f4a9be5132 100644
+> --- a/drivers/phy/st/phy-stm32-usbphyc.c
+> +++ b/drivers/phy/st/phy-stm32-usbphyc.c
+> @@ -478,7 +478,7 @@ static void stm32_usbphyc_phy_tuning(struct stm32_usbphyc *usbphyc,
+>   	if (!of_property_read_bool(np, "st,no-lsfs-fb-cap"))
+>   		usbphyc_phy->tune |= LFSCAPEN;
+>   
+> -	if (of_property_read_bool(np, "st,slow-hs-slew-rate"))
+> +	if (of_property_read_bool(np, "st,decrease-hs-slew-rate"))
+>   		usbphyc_phy->tune |= HSDRVSLEW;
+>   
+>   	ret = of_property_read_u32(np, "st,tune-hs-dc-level", &val);
 > 
 _______________________________________________
 Linux-stm32 mailing list
