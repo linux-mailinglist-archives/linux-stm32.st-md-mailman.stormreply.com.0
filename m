@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A30D451120
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Nov 2021 19:58:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9812E450D09
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Nov 2021 18:45:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBF05C5C82A;
-	Mon, 15 Nov 2021 18:58:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 492DEC5C82A;
+	Mon, 15 Nov 2021 17:45:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C6C5C57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CF8FC5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Nov 2021 18:58:33 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7D47D633DA;
- Mon, 15 Nov 2021 18:58:31 +0000 (UTC)
+ Mon, 15 Nov 2021 17:45:24 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 74DF4633A5;
+ Mon, 15 Nov 2021 17:45:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1637002712;
- bh=yIzlTmEWChwZQlGr+UE5tzq2u0HIYJzQuxIIgotRxm0=;
+ s=korg; t=1636998323;
+ bh=rLY4Mke7S36U1O4oppZxQHTcYaUOjDpT7lsAxWlWmoA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FKEDo7NqYGYOUuhSeJfPL6gp3lDY9yiHH6/y/EmDF80wCz7S3rYgnvM+72CVqkr7F
- 3/zD1RARvMmYik7ON3Tp57a07sa7zgwIdS3q6nF7RT3M+h/Y7O8QR7BqlN7FfI7wbY
- H6Qhlg93TaEls61ECf1SSLNX2ge7m6XCPHI9qi7U=
+ b=i7tNAxdIY4dfVm/M0BDiQu0AC0d4WoltfD5+Myi0imYB+kI2VOcGG0aqIu/iOR59J
+ KsH3AdxKBem3S0JwKdYPlwzrunG7s4jxaoUiZhCRoFmkTkq+plpnxvAOSOxNiOWywL
+ XVfnsjt7qbcv2zE5TVffaJZgNqu5Fl1Bg+nxtiGE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Date: Mon, 15 Nov 2021 18:02:11 +0100
-Message-Id: <20211115165450.381284021@linuxfoundation.org>
+Date: Mon, 15 Nov 2021 18:02:40 +0100
+Message-Id: <20211115165358.816966209@linuxfoundation.org>
 X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211115165428.722074685@linuxfoundation.org>
-References: <20211115165428.722074685@linuxfoundation.org>
+In-Reply-To: <20211115165343.579890274@linuxfoundation.org>
+References: <20211115165343.579890274@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
@@ -37,7 +37,7 @@ Cc: Marek Vasut <marex@denx.de>, Sasha Levin <sashal@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  Patrick Delaunay <patrick.delaunay@foss.st.com>
-Subject: [Linux-stm32] [PATCH 5.15 636/917] ARM: dts: stm32: Reduce DHCOR
+Subject: [Linux-stm32] [PATCH 5.10 435/575] ARM: dts: stm32: Reduce DHCOR
 	SPI NOR frequency to 50 MHz
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -83,10 +83,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-index 2b0ac605549d7..44ecc47085871 100644
+index a9eb82b2f1704..5af32140e128b 100644
 --- a/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi
-@@ -202,7 +202,7 @@
+@@ -198,7 +198,7 @@
  		compatible = "jedec,spi-nor";
  		reg = <0>;
  		spi-rx-bus-width = <4>;
