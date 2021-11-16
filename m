@@ -2,58 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4DEA4531FF
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Nov 2021 13:18:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0076D4535A0
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Nov 2021 16:21:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F7A1C5E2CC;
-	Tue, 16 Nov 2021 12:18:56 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5D34C5E2CC;
+	Tue, 16 Nov 2021 15:21:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 585AEC5718D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B13EC5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Nov 2021 12:18:55 +0000 (UTC)
-From: Kurt Kanzenbach <kurt.kanzenbach@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1637065134;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UxstMfuhLeN5/jMedYHgGOo7lkIy2tu51aj5ea1+e58=;
- b=uYIo1Vt2tdTSXYliTzbzT6S6b0CrV5Gr4nA28gFpToXF5O1N1997tpEdijFmcGr5/r5rL4
- xQiUKC3xXFEah3n3usNFY2C7CBGNXHqVaQw5MHliEHhtRzwQeuRbG81nlA/0ivud4wmSos
- +zNO658/K2HU0nOQX2NdXim4vTEjkmwpZJ/hwyZZYN5LGpMqv3ENg/yKU3cO1pivb8g7Si
- 4zNhT0YNQwKWaQM27+jk13Fy32qLvCnkSEHCRg5m12EGfyi6dD9U8ZnRJsHK/qadvmljqg
- VpeVYeXpg5pCmI1+z53GAKcTL1VtU121h3n6zoCuNUZ4DOfXjklRM9Yv1Eg8fA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1637065134;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UxstMfuhLeN5/jMedYHgGOo7lkIy2tu51aj5ea1+e58=;
- b=ZmZWJTEapiDDCqzr36mlSXGjduoTOQVb+V2nbXl+6eLeRFytjAZFC/T1Kz7KiZGBc2J97j
- 3beddcUAXXZMzHBQ==
-To: Yannick Vignon <yannick.vignon@oss.nxp.com>, Vladimir Oltean
- <vladimir.oltean@nxp.com>
-In-Reply-To: <144f229b-fc8b-92fd-1031-f24fcc740064@oss.nxp.com>
-References: <20211108202854.1740995-1-vladimir.oltean@nxp.com>
- <87bl2t3fkq.fsf@kurt> <20211109103504.ahl2djymnevsbhoj@skbuf>
- <87h7cl1j41.fsf@kurt> <144f229b-fc8b-92fd-1031-f24fcc740064@oss.nxp.com>
-Date: Tue, 16 Nov 2021 13:18:53 +0100
-Message-ID: <87v90s9tua.fsf@kurt>
+ Tue, 16 Nov 2021 15:21:03 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AGDcCsf017657;
+ Tue, 16 Nov 2021 16:20:41 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=date : from : to :
+ cc : subject : in-reply-to : message-id : references : mime-version :
+ content-type; s=selector1;
+ bh=QoQgYbIAYqqyndy0lpMG3AWVrk68VVjTmBAW9B7ADps=;
+ b=Fc5c0QCnFHbqDnhYoeNR2fBkRjdgcJ8PhXDr+lPVffNKwrhbNStOGymy20c11kfkOMsn
+ FJz65/diglwzHLsF4OPc+3P00RCuw7ewUV4/NO64rN2HRWTp1lw7up/TIh/I9iZw6Ukf
+ 3BhTEnHRzO/Iy0/0KOs1Yjb+n78uDbgnbz43D0I3DvDLtXDPI7zSA+v9aIhlOlvL/4PJ
+ NfV3cUOmGyHoBsoO/jd12B5O19sBgcpkcIxOJJpQKhYKNsGC3182+ZD5Unwrww5KXGVG
+ 1KHULA/l6pAz+VEPcGue4z2Y8UyQVNKBnmh3F8yh8+21upvJWzL8iVWFkCMdDobmnn/0 5g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cc2u453x6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Nov 2021 16:20:41 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 62BE210002A;
+ Tue, 16 Nov 2021 16:20:39 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1E2762350F0;
+ Tue, 16 Nov 2021 16:20:39 +0100 (CET)
+Received: from gnbcxd0088.gnb.st.com (10.75.127.46) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 16 Nov
+ 2021 16:20:38 +0100
+Date: Tue, 16 Nov 2021 16:20:28 +0100
+From: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
+X-X-Sender: toromano@gnbcxd0088.gnb.st.com
+To: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
+In-Reply-To: <20211102164729.9957-8-nicolas.toromanoff@foss.st.com>
+Message-ID: <alpine.DEB.2.21.2111161614500.27385@gnbcxd0088.gnb.st.com>
+References: <20211102164729.9957-1-nicolas.toromanoff@foss.st.com>
+ <20211102164729.9957-8-nicolas.toromanoff@foss.st.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Xiaoliang Yang <xiaoliang.yang_1@nxp.com>,
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-11-16_03,2021-11-16_01,2020-04-07_01
+Cc: Marek Vasut <marex@denx.de>, Herbert Xu <herbert@gondor.apana.org.au>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: allow a tc-taprio
-	base-time of zero
+ "David S . Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ard Biesheuvel <ardb@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 7/8] crypto: stm32/cryp - fix bugs and
+ crash in tests
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,111 +75,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6411628487373712505=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============6411628487373712505==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+Hello,
 
-Hi Yannick,
+> +static void stm32_cryp_write_ccm_first_header(struct stm32_cryp *cryp)
+> +{
+> [...]
+> +	} else {
+> +		/* Build the two first u32 of B1 */
+> +		b8[0] = 0xFF;
+> +		b8[1] = 0xFE;
+> +		b8[2] = alen & 0xFF000000 >> 24;
+> +		b8[3] = alen & 0x00FF0000 >> 16;
+> +		b8[4] = alen & 0x0000FF00 >> 8;
 
-On Tue Nov 09 2021, Yannick Vignon wrote:
-> Hi Kurt,
->
-> On 11/9/2021 3:47 PM, Kurt Kanzenbach wrote:
->> On Tue Nov 09 2021, Vladimir Oltean wrote:
->>> On Tue, Nov 09, 2021 at 09:20:53AM +0100, Kurt Kanzenbach wrote:
->>>> Hi Vladimir,
->>>>
->>>> On Mon Nov 08 2021, Vladimir Oltean wrote:
->>>>> Commit fe28c53ed71d ("net: stmmac: fix taprio configuration when
->>>>> base_time is in the past") allowed some base time values in the past,
->>>>> but apparently not all, the base-time value of 0 (Jan 1st 1970) is st=
-ill
->>>>> explicitly denied by the driver.
->>>>>
->>>>> Remove the bogus check.
->>>>>
->>>>> Fixes: b60189e0392f ("net: stmmac: Integrate EST with TAPRIO schedule=
-r API")
->>>>> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
->>>>
->>>> I've experienced the same problem and wanted to send a patch for
->>>> it. Thanks!
->>>>
->>>> Reviewed-by: Kurt Kanzenbach <kurt@linutronix.de>
->>>
->>> Cool. So you had that patch queued up? What other stmmac patches do you
->>> have queued up? :).
->>=20
->> I'm experiencing some problems with XDP using this driver. We're
->> currently investigating.
->
-> Could you elaborate a bit?
+Smatch found a bug here: "warn: shift has higher precedence than mask"
 
-It was a combination of oddities within the PCP based VLAN steering and
-bugs in my application. No driver issues.
-
-The last issue I have is packet loss from time to time. Still debugging.
-
-> I've been using XDP a lot with the stmmac driver recently, and while I=20
-> did see issues initially, most of them got fixed by using a recent=20
-> enough kernel, thanks to the following commits:
-> . a6451192da2691dcf39507bd ("net: stmmac: fix kernel panic due to NULL=20
-> pointer dereference of xsk_pool")
-> . 2b9fff64f03219d78044d1ab ("net: stmmac: fix kernel panic due to NULL=20
-> pointer dereference of buf->xdp")
-> . 81d0885d68ec427e62044cf4 ("net: stmmac: Fix overall budget calculation=
-=20
-> for rxtx_napi")
->
-> There was one remaining issue for which I need to push a fix: if you=20
-> remove an XDP program from an interface while transmitting traffic, you=20
-> are likely to trigger a kernel panic. I'll try to push a patch for that=20
-> soon.
-
-OK, great.
-
-Thanks,
-Kurt
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQJSBAEBCgA8FiEEooWgvezyxHPhdEojeSpbgcuY8KYFAmGToa0eHGt1cnQua2Fu
-emVuYmFjaEBsaW51dHJvbml4LmRlAAoJEHkqW4HLmPCmNfkP/21fsU6JI1QnFA6+
-d5SZvciv0J2GEQ4aSXLeixh3ciUdx66t5+Sug8hen2yCJcEsbl6nCpIg/I0JcpZG
-OYvSvnj2FC1CfHPqaqeDaslMcUtKtUjsvC2T7RnO5avSgn9otk9p7khEVd1VOWwL
-Q7Cq+ee5ykcQ5UE180RtkGrL/9qRmRhKYEifvGdyJoQE7VagXXD/wlnk5Wbjvhfw
-JrXpnBMtiQbrRzgRtYtnjqDMW+M4HGVSDVe0LOIhcR7MD0vm8kyJ15Q38Oepn+xI
-c6W7mIlhBtw0lDwaX9lsj7Mk5mfF72Op0qzA+FtmYxw1tzH6yZyHpyQK3Jkl4KRu
-qkF4wmLpac/SWJCWj23lTanxohDpw1Hf3jsKJBD2221/2cFBjbDmEDKCpJQz4cMX
-3kZvPse5CyaQ2C/Bf87yIJrkxh+sxfixj0TIECMDgNsTjY8yS0uZ+GffLkfkDzjx
-/AVs58RoSJBVWcA7zFdd/jTo9kcYe9vx/w8dYumA7XIBy4gRon2M8m11bjMnnSul
-bwDoWI6VYqgTLTogZWvdPodr3bo+cEDfgBowbfbSuGMqCk0KP0zrIV6TJxDSkQK6
-iC0n8vd3+CDv3/ZwbVCK+Zg561D/gvLYyrO9l7xeYBUyAjME6/XDIoBAgHln8eST
-O4VKyIuoB+PNyWz6O9T1BCkssk1h
-=M39l
------END PGP SIGNATURE-----
---=-=-=--
-
---===============6411628487373712505==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Regards,
+Nicolas.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6411628487373712505==--
