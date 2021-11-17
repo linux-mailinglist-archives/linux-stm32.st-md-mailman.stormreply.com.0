@@ -2,67 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6878454504
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Nov 2021 11:32:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7396454527
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Nov 2021 11:45:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CADDC5E2CC;
-	Wed, 17 Nov 2021 10:32:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72398C5E2CC;
+	Wed, 17 Nov 2021 10:45:39 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8156CC5C829
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B96CC5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Nov 2021 10:32:05 +0000 (UTC)
+ Wed, 17 Nov 2021 10:45:38 +0000 (UTC)
 Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AH9HG1q024586;
- Wed, 17 Nov 2021 11:31:50 +0100
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AH9HK1g024792;
+ Wed, 17 Nov 2021 11:44:49 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=ItCNOr90QvyLYq07k9Khq7vpfw9YNJZcCAItt8FlzoA=;
- b=awlTVtSGC9SvWGVE1JzvNnO+RluWPO8hab7PVlP0zO1dx0yb8FgO7WkzWRlERK1uXMhz
- ULfExpOq+gWUgjAVFj0mozkDQHEvUV+AH7VMAnmdeniF5po8gBpubhXx2AEzBg7gUrYz
- 6K/2HR2U4AuTz8Vy5im9LSdZTWX/juqksiLepdkCsfRUZOYhslyXR5sHuOxb/gKLUqoi
- cUDoVy8STnRHuA5MLDfqqF0FrIVVBEBuhYswTZaT8KujDUDtA5wxytQOxA8A5ZGHEVZu
- QaRaafR+tdr8fJelLgUkF8S9KVClk5yihOdsqrcwrW7IPoPaAO9BJGh9JFbAw2yxMSny DA== 
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=6pg6K8gBh2cerBYz6mBDWC+nZHXKNeCSWupwbJmZ6RQ=;
+ b=Is+BCHvc2dH6/lwryIQIMXmbes8Z35xUOTPUWzxzZx6DNH8QUbYaviJACApf+1Hmkulm
+ m0Bstjgov1gMU6NIlyYvMf3pvrhsaDOdVLrmHc7PD0ym1Tj9RU2YKUU3YkMtsPMwJ5iJ
+ qCPl5HN+2v2mJ3q3LH0tkXGNkos1Le5jqjKXZg4FlJXmnP/FHBcWzZwlLr1cG4RGpT3i
+ BvfbNBTQs27QWLodi4BqEnswCO4YY7OJNKnJmfVQKebnKUVON8Ol4NIDRtvq17CDHN1G
+ ySdXcqznaAPAN6B8AlmKg3NgfdIgQt+hYFwXJ6PRmqZfgY6sz/Zo/2MXjNRtvwXP9F1/ 1Q== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ccxypggsa-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ccxypgkmy-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 17 Nov 2021 11:31:50 +0100
+ Wed, 17 Nov 2021 11:44:49 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3D5BB10002A;
- Wed, 17 Nov 2021 11:31:49 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6CA6610002A;
+ Wed, 17 Nov 2021 11:44:48 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 33B82221795;
- Wed, 17 Nov 2021 11:31:49 +0100 (CET)
-Received: from lmecxl1091.lme.st.com (10.75.127.48) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 17 Nov
- 2021 11:31:48 +0100
-To: Ohad Ben-Cohen <ohad@wizery.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- <linux-remoteproc@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20211011135836.1045437-1-fabien.dessenne@foss.st.com>
-From: Fabien DESSENNE <fabien.dessenne@foss.st.com>
-Message-ID: <aa3e90a8-4b48-c2ea-2b8b-88e6c30204d2@foss.st.com>
-Date: Wed, 17 Nov 2021 11:31:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2A51E209300;
+ Wed, 17 Nov 2021 11:44:48 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 17 Nov 2021 11:44:47
+ +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Arnaud Pouliquen
+ <arnaud.pouliquen@foss.st.com>, Jaroslav Kysela <perex@perex.cz>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>, Takashi Iwai <tiwai@suse.com>
+Date: Wed, 17 Nov 2021 11:44:04 +0100
+Message-ID: <20211117104404.3832-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20211011135836.1045437-1-fabien.dessenne@foss.st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
  definitions=2021-11-17_03,2021-11-17_01,2020-04-07_01
-Subject: Re: [Linux-stm32] [PATCH v2] hwspinlock: stm32: enable clock at
-	probe
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ASoC: stm32: i2s: fix 32 bits channel length
+	without mclk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,136 +70,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
+Fix divider calculation in the case of 32 bits channel
+configuration, when no master clock is used.
 
-Any comments on this patch?
+Fixes: e4e6ec7b127c ("ASoC: stm32: Add I2S driver")
 
-BR
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ sound/soc/stm/stm32_i2s.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Fabien
+diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+index 6254bacad6eb..717f45a83445 100644
+--- a/sound/soc/stm/stm32_i2s.c
++++ b/sound/soc/stm/stm32_i2s.c
+@@ -700,7 +700,7 @@ static int stm32_i2s_configure_clock(struct snd_soc_dai *cpu_dai,
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		nb_bits = frame_len * ((cgfr & I2S_CGFR_CHLEN) + 1);
++		nb_bits = frame_len * (FIELD_GET(I2S_CGFR_CHLEN, cgfr) + 1);
+ 		ret = stm32_i2s_calc_clk_div(i2s, i2s_clock_rate,
+ 					     (nb_bits * rate));
+ 		if (ret)
+-- 
+2.17.1
 
-On 11/10/2021 15:58, Fabien Dessenne wrote:
-> Set the clock during probe and keep its control during suspend / resume
-> operations.
-> This fixes an issue when CONFIG_PM is not set and where the clock is
-> never enabled.
-> 
-> Make use of devm_ functions to simplify the code.
-> 
-> Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
-> ---
-> Changes since v1:
-> - Call platform_set_drvdata() before pm_runtime_...() calls
-> ---
->   drivers/hwspinlock/stm32_hwspinlock.c | 58 +++++++++++++++++----------
->   1 file changed, 37 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/hwspinlock/stm32_hwspinlock.c b/drivers/hwspinlock/stm32_hwspinlock.c
-> index 3ad0ce0da4d9..5bd11a7fab65 100644
-> --- a/drivers/hwspinlock/stm32_hwspinlock.c
-> +++ b/drivers/hwspinlock/stm32_hwspinlock.c
-> @@ -54,8 +54,23 @@ static const struct hwspinlock_ops stm32_hwspinlock_ops = {
->   	.relax		= stm32_hwspinlock_relax,
->   };
->   
-> +static void stm32_hwspinlock_disable_clk(void *data)
-> +{
-> +	struct platform_device *pdev = data;
-> +	struct stm32_hwspinlock *hw = platform_get_drvdata(pdev);
-> +	struct device *dev = &pdev->dev;
-> +
-> +	pm_runtime_get_sync(dev);
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_set_suspended(dev);
-> +	pm_runtime_put_noidle(dev);
-> +
-> +	clk_disable_unprepare(hw->clk);
-> +}
-> +
->   static int stm32_hwspinlock_probe(struct platform_device *pdev)
->   {
-> +	struct device *dev = &pdev->dev;
->   	struct stm32_hwspinlock *hw;
->   	void __iomem *io_base;
->   	size_t array_size;
-> @@ -66,41 +81,43 @@ static int stm32_hwspinlock_probe(struct platform_device *pdev)
->   		return PTR_ERR(io_base);
->   
->   	array_size = STM32_MUTEX_NUM_LOCKS * sizeof(struct hwspinlock);
-> -	hw = devm_kzalloc(&pdev->dev, sizeof(*hw) + array_size, GFP_KERNEL);
-> +	hw = devm_kzalloc(dev, sizeof(*hw) + array_size, GFP_KERNEL);
->   	if (!hw)
->   		return -ENOMEM;
->   
-> -	hw->clk = devm_clk_get(&pdev->dev, "hsem");
-> +	hw->clk = devm_clk_get(dev, "hsem");
->   	if (IS_ERR(hw->clk))
->   		return PTR_ERR(hw->clk);
->   
-> -	for (i = 0; i < STM32_MUTEX_NUM_LOCKS; i++)
-> -		hw->bank.lock[i].priv = io_base + i * sizeof(u32);
-> +	ret = clk_prepare_enable(hw->clk);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to prepare_enable clock\n");
-> +		return ret;
-> +	}
->   
->   	platform_set_drvdata(pdev, hw);
-> -	pm_runtime_enable(&pdev->dev);
->   
-> -	ret = hwspin_lock_register(&hw->bank, &pdev->dev, &stm32_hwspinlock_ops,
-> -				   0, STM32_MUTEX_NUM_LOCKS);
-> +	pm_runtime_get_noresume(dev);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_put(dev);
->   
-> -	if (ret)
-> -		pm_runtime_disable(&pdev->dev);
-> +	ret = devm_add_action_or_reset(dev, stm32_hwspinlock_disable_clk, pdev);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to register action\n");
-> +		return ret;
-> +	}
->   
-> -	return ret;
-> -}
-> +	for (i = 0; i < STM32_MUTEX_NUM_LOCKS; i++)
-> +		hw->bank.lock[i].priv = io_base + i * sizeof(u32);
->   
-> -static int stm32_hwspinlock_remove(struct platform_device *pdev)
-> -{
-> -	struct stm32_hwspinlock *hw = platform_get_drvdata(pdev);
-> -	int ret;
-> +	ret = devm_hwspin_lock_register(dev, &hw->bank, &stm32_hwspinlock_ops,
-> +					0, STM32_MUTEX_NUM_LOCKS);
->   
-> -	ret = hwspin_lock_unregister(&hw->bank);
->   	if (ret)
-> -		dev_err(&pdev->dev, "%s failed: %d\n", __func__, ret);
-> -
-> -	pm_runtime_disable(&pdev->dev);
-> +		dev_err(dev, "Failed to register hwspinlock\n");
->   
-> -	return 0;
-> +	return ret;
->   }
->   
->   static int __maybe_unused stm32_hwspinlock_runtime_suspend(struct device *dev)
-> @@ -135,7 +152,6 @@ MODULE_DEVICE_TABLE(of, stm32_hwpinlock_ids);
->   
->   static struct platform_driver stm32_hwspinlock_driver = {
->   	.probe		= stm32_hwspinlock_probe,
-> -	.remove		= stm32_hwspinlock_remove,
->   	.driver		= {
->   		.name	= "stm32_hwspinlock",
->   		.of_match_table = stm32_hwpinlock_ids,
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
