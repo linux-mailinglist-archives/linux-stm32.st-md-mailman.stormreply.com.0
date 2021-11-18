@@ -2,71 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C30FC45594D
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Nov 2021 11:44:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29D12455BA0
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Nov 2021 13:41:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 827B4C5E2CC;
-	Thu, 18 Nov 2021 10:44:18 +0000 (UTC)
-Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com
- [209.85.222.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D321BC5E2CC;
+	Thu, 18 Nov 2021 12:41:55 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CF32C5C829
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 594DAC5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Nov 2021 10:44:17 +0000 (UTC)
-Received: by mail-ua1-f50.google.com with SMTP id i6so12615673uae.6
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Nov 2021 02:44:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4v2AD/7kPOPPNFxUrwvcAKdN8Awv89acKC5POSyWGVI=;
- b=LEOi7SYX01DcWhDLpUCso9QTboa2lp47YFGQKJTULr6qKJsLUf6nuM7pFs6GbcnUZO
- KdWBAz2+lpG0ANnDtwSr7Nlu/U4b3ilLZJ6t6jdKFVTtuaAQ/ZMULF7jnsxk+He54N+b
- jhcEg5eJqbnkBqkhUS65nZDCjJrxl97GLvjQh+dXQzVfzMwL4+JQzS+/koNiRj1hlp3k
- W4QUcX4sbMgVccIjvOs9bEGw+JbOE3w14bxvXVzjJmU7rOGGCrjT7UPqYQT8lMKGq22o
- 3jzi7QsmnKI/QjIZJffkdPGf9aVCndqXH+ZamPgpE9iGhM6tZ7ZSZKEJePH+6kzVldkQ
- rakQ==
-X-Gm-Message-State: AOAM531qiO5MI5mgIw0c+4u2GLxXo4m+84DM/8Hq6j9sgQhj8SjPoABY
- 9cow4vcxFpVjgxLxqRbscAjSYcaLqpmUEg==
-X-Google-Smtp-Source: ABdhPJwt7MJOJxAEBrveW+vjBKmbIjMKW1LpBSCjWVlfQgpfkrl6ADFR+MXqwJSbp229e68Ge/bqdA==
-X-Received: by 2002:a05:6102:c8a:: with SMTP id
- f10mr24451716vst.22.1637232256073; 
- Thu, 18 Nov 2021 02:44:16 -0800 (PST)
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com.
- [209.85.222.53])
- by smtp.gmail.com with ESMTPSA id 3sm1335137vsq.1.2021.11.18.02.44.14
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Nov 2021 02:44:15 -0800 (PST)
-Received: by mail-ua1-f53.google.com with SMTP id ay21so12542458uab.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Nov 2021 02:44:14 -0800 (PST)
-X-Received: by 2002:ab0:15a1:: with SMTP id i30mr35081179uae.122.1637232254305; 
- Thu, 18 Nov 2021 02:44:14 -0800 (PST)
+ Thu, 18 Nov 2021 12:41:54 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AI9ZkHS011332;
+ Thu, 18 Nov 2021 13:41:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=bZLyccCPkGwBC1ILuSoOqJaq32TOZCofwJur9eMV86c=;
+ b=OgwKPvKIo8GkStXgpTIemvV3xjtrU71q80vfqsu+RPjq8KNkagcNevO+gMJu6Hefqm39
+ j8qU8SEVwUHIRg7S6MeMxrpqY2TPFRc9pgSE27MurQcQZfrenOKBOYY1PkPdXL7ir9uY
+ hnC2b14uHPk+mZ29WUn2PWjvO5WEq60QQ1bnYyTYSZccmmyWUcEPorbcFZ/7/Fpmw0y0
+ a8TgtYC4QUatnBW6QRQlIIa4nOrS3X7R+dyT19VhVEyMWeBbXWtCJx81ptBWAQ6AsGxb
+ NrUaPP+Yy22urQHSdNyFnj2YYTi9dslV/5ERtjW19OQcm3rWTFNEDx/IWb1Q+zE/ueTv ag== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cdcvuumpd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 18 Nov 2021 13:41:22 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2B35710002A;
+ Thu, 18 Nov 2021 13:41:19 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 224BB2291A7;
+ Thu, 18 Nov 2021 13:41:19 +0100 (CET)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 18 Nov 2021 13:41:18
+ +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Fabrice Gasnier
+ <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Mauro Carvalho Chehab
+ <mchehab+huawei@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>, Wan Jiabing
+ <wanjiabing@vivo.com>, Xu Wang <vulab@iscas.ac.cn>
+Date: Thu, 18 Nov 2021 13:39:52 +0100
+Message-ID: <20211118123952.15383-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20211112184413.4391-1-biju.das.jz@bp.renesas.com>
- <20211112184413.4391-4-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20211112184413.4391-4-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 18 Nov 2021 11:44:03 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdW3LP6YkGPwiA0Cpmmmb5YkL5LcSgp0C9JKPDvHfV0KGg@mail.gmail.com>
-Message-ID: <CAMuHMdW3LP6YkGPwiA0Cpmmmb5YkL5LcSgp0C9JKPDvHfV0KGg@mail.gmail.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Chris Paterson <Chris.Paterson2@renesas.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Biju Das <biju.das@bp.renesas.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Chris Brandt <chris.brandt@renesas.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@linutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v3 3/4] clocksource/drivers/renesas-ostm:
-	Add RZ/G2L OSTM support
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-11-18_05,2021-11-17_01,2020-04-07_01
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] iio: adc: stm32: fix null pointer on
+	defer_probe error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,34 +77,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Nov 12, 2021 at 7:44 PM Biju Das <biju.das.jz@bp.renesas.com> wrote:
-> RZ/G2L SoC has Generic Timer Module(a.k.a OSTM) which needs to
-> deassert the reset line before accessing any registers.
->
-> This patch adds an entry point for RZ/G2L so that we can deassert
-> the reset line in probe callback.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v2->v3:
->  * Added reset_control_put() on error path.
->  * enabled suppress_bind_attrs in ostm_device_driver structure
+dev_err_probe() calls __device_set_deferred_probe_reason()
+on -EPROBE_DEFER error.
+If device pointer to driver core private structure is not initialized,
+a null pointer error occurs.
+This pointer is set too late on iio_device_register() call, for iio device.
+So use parent device instead for dev_err_probe() call.
 
-Thanks for the update!
+Fixes: 0e346b2cfa85 ("iio: adc: stm32-adc: add vrefint calibration support")
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ drivers/iio/adc/stm32-adc.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Gr{oetje,eeting}s,
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 7f1fb36c747c..14c7c9d390e8 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -217,6 +217,7 @@ struct stm32_adc_cfg {
+ 
+ /**
+  * struct stm32_adc - private data of each ADC IIO instance
++ * dev:			parent device
+  * @common:		reference to ADC block common data
+  * @offset:		ADC instance register offset in ADC block
+  * @cfg:		compatible configuration data
+@@ -243,6 +244,7 @@ struct stm32_adc_cfg {
+  * @int_ch:		internal channel indexes array
+  */
+ struct stm32_adc {
++	struct device		*dev;
+ 	struct stm32_adc_common	*common;
+ 	u32			offset;
+ 	const struct stm32_adc_cfg	*cfg;
+@@ -1986,8 +1988,7 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
+ 			/* Get calibration data for vrefint channel */
+ 			ret = nvmem_cell_read_u16(&indio_dev->dev, "vrefint", &vrefint);
+ 			if (ret && ret != -ENOENT) {
+-				return dev_err_probe(&indio_dev->dev, ret,
+-						     "nvmem access error\n");
++				return dev_err_probe(adc->dev, ret, "nvmem access error\n");
+ 			}
+ 			if (ret == -ENOENT)
+ 				dev_dbg(&indio_dev->dev, "vrefint calibration not found\n");
+@@ -2221,6 +2222,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	init_completion(&adc->completion);
+ 	adc->cfg = (const struct stm32_adc_cfg *)
+ 		of_match_device(dev->driver->of_match_table, dev)->data;
++	adc->dev = &pdev->dev;
+ 
+ 	indio_dev->name = dev_name(&pdev->dev);
+ 	indio_dev->dev.of_node = pdev->dev.of_node;
+-- 
+2.17.1
 
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
