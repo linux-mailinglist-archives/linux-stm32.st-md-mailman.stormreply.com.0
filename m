@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 161D7455F13
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Nov 2021 16:10:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77198456170
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Nov 2021 18:26:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2512C5EC6B;
-	Thu, 18 Nov 2021 15:10:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26575C5E2CC;
+	Thu, 18 Nov 2021 17:26:54 +0000 (UTC)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1468C5EC56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34889C5C82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Nov 2021 15:10:13 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AIEtuHw011544;
- Thu, 18 Nov 2021 16:10:00 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=BWmW5pq/zgV6f3eSDMj8654QBdWPwwPRztBffBxZYkQ=;
- b=VPPpR9uoKDdphLNJIPBMn7i+lG+XGxmPggE1zQa5JVOLZtNjKbupVQLFgwI1RXSnLOkt
- CPi2907BL2G66mglwncSTsRNTChnQGgb2I00GI7L4Pfo3/3j1kHKlNaocFIzQEZkWjIJ
- KmxZh8tz14+Zu9ghpDxPorbpncHd0YTTnqPZfh9OLlq3w05ZbUU0WtnV4bJbrctKG/M4
- x6lEjWyu5F+A3bLxrwuEC6U7G2mZuVEzCa/CADFso3hJEqdg9RPpNYAJStZ6G4h3W3HB
- Nk3nVQlqofbhYLdnMaRzDw68kupXdaLwmUnpG0aMaeB6D6waM2iIvMOW6j3dOeQyCuil CA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cdcvuvk5w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Nov 2021 16:10:00 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 125ED10002A;
- Thu, 18 Nov 2021 16:10:00 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 06651222C87;
- Thu, 18 Nov 2021 16:10:00 +0100 (CET)
-Received: from localhost (10.75.127.51) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 18 Nov 2021 16:09:59
- +0100
-From: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller"
- <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 18 Nov 2021 16:07:56 +0100
-Message-ID: <20211118150756.6593-10-nicolas.toromanoff@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211118150756.6593-1-nicolas.toromanoff@foss.st.com>
-References: <20211118150756.6593-1-nicolas.toromanoff@foss.st.com>
+ Thu, 18 Nov 2021 17:26:53 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id o14so5846071plg.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 18 Nov 2021 09:26:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=ffg8RENMvUuNEkBhbj1rA+p5DmTOHVu6yl2demT0EE4=;
+ b=fb17491S/0gCnhjw+z0N6OqW92Tpeno6JI0c/csN8eX8CnIeKqlHLLnbYOpgouQx5q
+ /vtBplywQdcqf0PQ3Qwot2PPxBcx3YU6PQ2GCes4CuxMTHWYtAK1HKc0+3i8o7FAbRpY
+ 01mzWpo1DwrHuAepeXOHU6IF2mjHq+r09yhUe01Lh42slxYx0G0lRzkQWMNGjzL1ixPw
+ Yxp4dRABOXdkmw/u3rWxmnxmfcPPSBUfUvSfP63GYg4Rz2jZ16TtwkMYE1Imud86YSZ+
+ +iPhSMPj46izY9h6v8K7QFlyNbHHE3x4LMg3ekEun1ZTGngs9MDjCwXVWFVLZIWKo/FG
+ wJNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ffg8RENMvUuNEkBhbj1rA+p5DmTOHVu6yl2demT0EE4=;
+ b=hb/mUQzBUI0zEhVBeI5ETXErQg3lEHVLANvFup/YPw+TJnyZKL1jp8gTBAuRl6ihyg
+ J8q1DFNwiyTAI0YCPDL0EyoCd8DWT2u2lhshK8uW1yaFr11UHV30rrWmN6DOh8onP3Fw
+ infSziom/J5t0KLH2H3AyVLLUB6KegYUmh6SYvY5mriyRR6Pr3SlQZnvjOht11juZ6MS
+ mtbTjUzoVhEJTzAbffjqKcCXSP0fBPMW7RxKWCk0ZPWxi6pYn1euqvOH4X5YKboVe79d
+ UrSzAYFKl/iUM7dkY43EW01qu/E1gBVtRJNl7Vg37CPYQ9tt/0h/7LaXByqyMVD2m0JV
+ syTw==
+X-Gm-Message-State: AOAM531bUenjJdHCHENV2lKyKPA3Lwwu/8AbN2FVxBG5ORZiEk0kHx7v
+ GE3ojgqlecL5D3ub3bA3Rt/1PA==
+X-Google-Smtp-Source: ABdhPJwT015s86rLy9F8ng6d55iG1IPThLw+nvpC0UIAsjoQ/rL8E+JpvJUMBGsEjaoL3VO27U59zg==
+X-Received: by 2002:a17:902:e548:b0:141:f4ae:d2bd with SMTP id
+ n8-20020a170902e54800b00141f4aed2bdmr69754101plf.41.1637256411831; 
+ Thu, 18 Nov 2021 09:26:51 -0800 (PST)
+Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id z22sm233489pfe.93.2021.11.18.09.26.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Nov 2021 09:26:50 -0800 (PST)
+Date: Thu, 18 Nov 2021 10:26:48 -0700
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20211118172648.GC2530497@p14s>
+References: <20211108135945.3364-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-18_12,2021-11-17_01,2020-04-07_01
-Cc: Marek Vasut <marex@denx.de>, linux-kernel@vger.kernel.org,
- Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 9/9] crypto: stm32/cryp - reorder hw
-	initialization
+Content-Disposition: inline
+In-Reply-To: <20211108135945.3364-1-arnaud.pouliquen@foss.st.com>
+Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH] rpmsg: char: Add pr_fmt() to prefix
+	messages
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,99 +77,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The CRYP IP checks the written key depending of the configuration, it's
-safer to write the whole configuration to hardware then the key to avoid
-unexpected key rejection.
+On Mon, Nov 08, 2021 at 02:59:45PM +0100, Arnaud Pouliquen wrote:
+> Make all messages to be prefixed in a unified way.
+> Add pr_fmt() to achieve this.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  drivers/rpmsg/rpmsg_char.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+> index b5907b80727c..d6214cb66026 100644
+> --- a/drivers/rpmsg/rpmsg_char.c
+> +++ b/drivers/rpmsg/rpmsg_char.c
+> @@ -9,6 +9,9 @@
+>   * Based on rpmsg performance statistics driver by Michal Simek, which in turn
+>   * was based on TI & Google OMX rpmsg driver.
+>   */
+> +
+> +#define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
+> +
+>  #include <linux/cdev.h>
+>  #include <linux/device.h>
+>  #include <linux/fs.h>
+> @@ -550,7 +553,7 @@ static int rpmsg_chrdev_init(void)
+>  
+>  	ret = alloc_chrdev_region(&rpmsg_major, 0, RPMSG_DEV_MAX, "rpmsg");
+>  	if (ret < 0) {
+> -		pr_err("rpmsg: failed to allocate char dev region\n");
+> +		pr_err("failed to allocate char dev region\n");
+>  		return ret;
+>  	}
+>  
+> @@ -563,7 +566,7 @@ static int rpmsg_chrdev_init(void)
+>  
+>  	ret = register_rpmsg_driver(&rpmsg_chrdev_driver);
+>  	if (ret < 0) {
+> -		pr_err("rpmsgchr: failed to register rpmsg driver\n");
+> +		pr_err("failed to register rpmsg driver\n");
 
-Signed-off-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
----
- drivers/crypto/stm32/stm32-cryp.c | 39 ++++++++++++++++++++-----------
- 1 file changed, 26 insertions(+), 13 deletions(-)
+This probably the right thing to do - I will pick up this patch.
 
-diff --git a/drivers/crypto/stm32/stm32-cryp.c b/drivers/crypto/stm32/stm32-cryp.c
-index 9607a06f1a04..5b3f57ed4699 100644
---- a/drivers/crypto/stm32/stm32-cryp.c
-+++ b/drivers/crypto/stm32/stm32-cryp.c
-@@ -232,6 +232,11 @@ static inline int stm32_cryp_wait_busy(struct stm32_cryp *cryp)
- 			!(status & SR_BUSY), 10, 100000);
- }
- 
-+static inline void stm32_cryp_enable(struct stm32_cryp *cryp)
-+{
-+	writel_relaxed(readl_relaxed(cryp->regs + CRYP_CR) | CR_CRYPEN, cryp->regs + CRYP_CR);
-+}
-+
- static inline int stm32_cryp_wait_enable(struct stm32_cryp *cryp)
- {
- 	u32 status;
-@@ -534,9 +539,6 @@ static int stm32_cryp_hw_init(struct stm32_cryp *cryp)
- 	/* Disable interrupt */
- 	stm32_cryp_write(cryp, CRYP_IMSCR, 0);
- 
--	/* Set key */
--	stm32_cryp_hw_write_key(cryp);
--
- 	/* Set configuration */
- 	cfg = CR_DATA8 | CR_FFLUSH;
- 
-@@ -562,23 +564,36 @@ static int stm32_cryp_hw_init(struct stm32_cryp *cryp)
- 	/* AES ECB/CBC decrypt: run key preparation first */
- 	if (is_decrypt(cryp) &&
- 	    ((hw_mode == CR_AES_ECB) || (hw_mode == CR_AES_CBC))) {
--		stm32_cryp_write(cryp, CRYP_CR, cfg | CR_AES_KP | CR_CRYPEN);
-+		/* Configure in key preparation mode */
-+		stm32_cryp_write(cryp, CRYP_CR, cfg | CR_AES_KP);
- 
-+		/* Set key only after full configuration done */
-+		stm32_cryp_hw_write_key(cryp);
-+
-+		/* Start prepare key */
-+		stm32_cryp_enable(cryp);
- 		/* Wait for end of processing */
- 		ret = stm32_cryp_wait_busy(cryp);
- 		if (ret) {
- 			dev_err(cryp->dev, "Timeout (key preparation)\n");
- 			return ret;
- 		}
--	}
- 
--	cfg |= hw_mode;
-+		cfg |= hw_mode | CR_DEC_NOT_ENC;
- 
--	if (is_decrypt(cryp))
--		cfg |= CR_DEC_NOT_ENC;
-+		/* Apply updated config (Decrypt + algo) and flush */
-+		stm32_cryp_write(cryp, CRYP_CR, cfg);
-+	} else {
-+		cfg |= hw_mode;
-+		if (is_decrypt(cryp))
-+			cfg |= CR_DEC_NOT_ENC;
- 
--	/* Apply config and flush (valid when CRYPEN = 0) */
--	stm32_cryp_write(cryp, CRYP_CR, cfg);
-+		/* Apply config and flush */
-+		stm32_cryp_write(cryp, CRYP_CR, cfg);
-+
-+		/* Set key only after configuration done */
-+		stm32_cryp_hw_write_key(cryp);
-+	}
- 
- 	switch (hw_mode) {
- 	case CR_AES_GCM:
-@@ -606,9 +621,7 @@ static int stm32_cryp_hw_init(struct stm32_cryp *cryp)
- 	}
- 
- 	/* Enable now */
--	cfg |= CR_CRYPEN;
--
--	stm32_cryp_write(cryp, CRYP_CR, cfg);
-+	stm32_cryp_enable(cryp);
- 
- 	return 0;
- }
--- 
-2.17.1
+Thanks,
+Mathieu
 
+>  		class_destroy(rpmsg_class);
+>  		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
+>  	}
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
