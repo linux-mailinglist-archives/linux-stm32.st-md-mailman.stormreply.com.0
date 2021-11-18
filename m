@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B64F456254
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Nov 2021 19:27:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4756D456A9F
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Nov 2021 08:03:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31E73C5E2CC;
-	Thu, 18 Nov 2021 18:27:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBCE9C5EC56;
+	Fri, 19 Nov 2021 07:03:35 +0000 (UTC)
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
+ [209.85.160.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A41EAC57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFEB6C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Nov 2021 18:27:44 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AIEiEYM004075;
- Thu, 18 Nov 2021 19:27:42 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=kST35QHjE3V0REnjYkLa0vwE23IVL2b0RQCX7EBoynA=;
- b=oEaPmG8F8JO1826F/HlvpvHz7+GUiQkwTbDqOPeWTu85GZDcCL8TObMrHc2Y2Ua4kG66
- DhTD/zqna5jIqkPq1o1ONpHVgp7zJG/DXtLNrj0Hm7Ln/dtqN97n8/X0hnjkndKzFVyu
- jgJAJlOneiM5P+jCmUFbJAne07ENbmXXY/bKUIAHIH0XB4MnoEbnHHt2HTqafsgxTwPw
- GDlOV/GGkTs30HiNqBNQAHQgaux3O+9/29+0FFamLJm0deAB/ddaWxm5DEpgsP4vmhAP
- q6qsZJMu10hu8Op9qZJyFhBPKXwn0ftQkIO/GXoIHlin6VSXcDcuAyefTEMOtiByOkMD Yg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cdm1n3byv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Nov 2021 19:27:42 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 433F010002A;
- Thu, 18 Nov 2021 19:27:41 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2859523DCAB;
- Thu, 18 Nov 2021 19:27:41 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.44) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 18 Nov
- 2021 19:27:40 +0100
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20211108140126.3530-1-arnaud.pouliquen@foss.st.com>
- <20211118173842.GD2530497@p14s>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <dbd7ee08-4893-4065-9c27-8c40d9fbef58@foss.st.com>
-Date: Thu, 18 Nov 2021 19:27:40 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Thu, 18 Nov 2021 21:42:51 +0000 (UTC)
+Received: by mail-qt1-f174.google.com with SMTP id f20so7584701qtb.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 18 Nov 2021 13:42:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+ bh=bozUgf/JVDF2e98+kGGhI0ahPdp4o4xUb4tT8hjMa9U=;
+ b=fH70x1KjXkm8uy3kmKPOTiZnE/rXw9bnp9IGFoT6JpzTna6lLNGEUDXFNUA5+k6CNR
+ vNiFUuAD3BcGAXp8eoAvx0jtcU+pftXPljd4AOMGOjyn/QOb2ICo7/Qfa8DYFSV+OLuA
+ CgQGXdEmZ7S8A9PcSGOT++N8of31R4Hki9/k0OeUZ+MaECZ3AX3jLkRLONiDCXGcr5A6
+ uAHhw/js1ZOfXHwBvAbFyoFZAJ3Tp/lfQGxu2HJP52DG6M3aIboV82ruOOQm+PWJ5vSl
+ vjhe1VAW2DD1Ip7q6PP/YgdwW8RY+987CoCdaVGO/FTgXGdDPpDdvkrKM4pv3cHkOKGk
+ w6vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=bozUgf/JVDF2e98+kGGhI0ahPdp4o4xUb4tT8hjMa9U=;
+ b=yrX5GOp+B4kiKp8QRCmSb0V6ZVnKzi26UB/n7S/W0rVsMmcOy7c32DE4bec4V6jdLe
+ lH+RsSD139yFe2QzfAlqrW64uJXoEiLeRU+X98Zl6p9J1hnD5MfZmurwP+R/VnK3QBkh
+ VNlCq2k1JrKGxu88Kr/TVYdZzmwLh/Bn0vpK4Aqrph3Tc2x5yE0JHHglopiOVja9UZv8
+ WoPt4fa9ou8nhBokQKsEEy6bzEqk6ESCxPWA1ChR0Ui+G1dYPUWwKZKTB4DuCU8qCKrH
+ aHRkFJpx0QKmrhshzqNje9RCDFm1La3w1jqxTtusbD4yEY/GDx2EdQUtlkv+NkcGfytC
+ D6xg==
+X-Gm-Message-State: AOAM531vC1RO2HAWLmhh0+WspaGfmEe2BVcJ8G5kKos5P63vothcH4TI
+ OM12P8Ai8a2bKgksyy/+Gk0=
+X-Google-Smtp-Source: ABdhPJx2j983TdsJHGBzYG1RBGVSh/tKIu6Ok29h5ntWsS4UxYP0c+eQXGFl2kzxAVfPBqMiMLLOHw==
+X-Received: by 2002:ac8:57ca:: with SMTP id w10mr830467qta.88.1637271770675;
+ Thu, 18 Nov 2021 13:42:50 -0800 (PST)
+Received: from a-10-27-17-117.dynapool.vpn.nyu.edu
+ (vpnrasa-wwh-pat-01.natpool.nyu.edu. [216.165.95.84])
+ by smtp.gmail.com with ESMTPSA id t11sm528153qkm.96.2021.11.18.13.42.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Nov 2021 13:42:50 -0800 (PST)
+Date: Thu, 18 Nov 2021 16:42:47 -0500
+From: Zekun Shen <bruceshenzk@gmail.com>
+To: bruceshenzk@gmail.com
+Message-ID: <YZbI12/g04GlzdIU@a-10-27-17-117.dynapool.vpn.nyu.edu>
 MIME-Version: 1.0
-In-Reply-To: <20211118173842.GD2530497@p14s>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-18_12,2021-11-17_01,2020-04-07_01
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] rpmsg: Fix documentation return formatting
+Content-Disposition: inline
+X-Mailman-Approved-At: Fri, 19 Nov 2021 07:03:34 +0000
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ brendandg@nyu.edu, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] stmmac_pci: Fix underflow size in stmmac_rx
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,190 +77,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This bug report came up when we were testing the device driver
+by fuzzing. It shows that buf1_len can get underflowed and be
+0xfffffffc (4294967292).
 
+This bug is triggerable with a compromised/malfunctioning device.
+We found the bug through QEMU emulation tested the patch with
+emulation. We did NOT test it on real hardware.
 
-On 11/18/21 6:38 PM, Mathieu Poirier wrote:
-> On Mon, Nov 08, 2021 at 03:01:26PM +0100, Arnaud Pouliquen wrote:
->> kernel documentation specification:
->> "The return value, if any, should be described in a dedicated section
->> named Return."
->>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> ---
->>  drivers/rpmsg/qcom_glink_native.c |  2 +-
->>  drivers/rpmsg/qcom_smd.c          |  2 +-
->>  drivers/rpmsg/rpmsg_core.c        | 24 ++++++++++++------------
->>  drivers/rpmsg/virtio_rpmsg_bus.c  |  2 +-
->>  4 files changed, 15 insertions(+), 15 deletions(-)
-> 
-> I have applied this set.  There is a few more instances in drivers/remoteproc
-> that could be fixed the same way.
+Attached is the bug report by fuzzing.
 
-If nobody fix this before, I will address it when preparing the V2 for my
-series on remoteproc virtio restructuring.
+BUG: KASAN: use-after-free in stmmac_napi_poll_rx+0x1c08/0x36e0 [stmmac]
+Read of size 4294967292 at addr ffff888016358000 by task ksoftirqd/0/9
 
-Thanks,
-Arnaud
+CPU: 0 PID: 9 Comm: ksoftirqd/0 Tainted: G        W         5.6.0 #1
+Call Trace:
+ dump_stack+0x76/0xa0
+ print_address_description.constprop.0+0x16/0x200
+ ? stmmac_napi_poll_rx+0x1c08/0x36e0 [stmmac]
+ ? stmmac_napi_poll_rx+0x1c08/0x36e0 [stmmac]
+ __kasan_report.cold+0x37/0x7c
+ ? stmmac_napi_poll_rx+0x1c08/0x36e0 [stmmac]
+ kasan_report+0xe/0x20
+ check_memory_region+0x15a/0x1d0
+ memcpy+0x20/0x50
+ stmmac_napi_poll_rx+0x1c08/0x36e0 [stmmac]
+ ? stmmac_suspend+0x850/0x850 [stmmac]
+ ? __next_timer_interrupt+0xba/0xf0
+ net_rx_action+0x363/0xbd0
+ ? call_timer_fn+0x240/0x240
+ ? __switch_to_asm+0x40/0x70
+ ? napi_busy_loop+0x520/0x520
+ ? __schedule+0x839/0x15a0
+ __do_softirq+0x18c/0x634
+ ? takeover_tasklets+0x5f0/0x5f0
+ run_ksoftirqd+0x15/0x20
+ smpboot_thread_fn+0x2f1/0x6b0
+ ? smpboot_unregister_percpu_thread+0x160/0x160
+ ? __kthread_parkme+0x80/0x100
+ ? smpboot_unregister_percpu_thread+0x160/0x160
+ kthread+0x2b5/0x3b0
+ ? kthread_create_on_node+0xd0/0xd0
+ ret_from_fork+0x22/0x40
 
-> 
-> Thanks,
-> Mathieu
-> 
->>
->> diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
->> index 3f377a795b33..1030cfa80e04 100644
->> --- a/drivers/rpmsg/qcom_glink_native.c
->> +++ b/drivers/rpmsg/qcom_glink_native.c
->> @@ -427,7 +427,7 @@ static void qcom_glink_handle_intent_req_ack(struct qcom_glink *glink,
->>   * Allocates a local channel id and sends a RPM_CMD_OPEN message to the remote.
->>   * Will return with refcount held, regardless of outcome.
->>   *
->> - * Returns 0 on success, negative errno otherwise.
->> + * Return: 0 on success, negative errno otherwise.
->>   */
->>  static int qcom_glink_send_open_req(struct qcom_glink *glink,
->>  				    struct glink_channel *channel)
->> diff --git a/drivers/rpmsg/qcom_smd.c b/drivers/rpmsg/qcom_smd.c
->> index 8da1b5cb31b3..540e027f08c4 100644
->> --- a/drivers/rpmsg/qcom_smd.c
->> +++ b/drivers/rpmsg/qcom_smd.c
->> @@ -1467,7 +1467,7 @@ ATTRIBUTE_GROUPS(qcom_smd_edge);
->>   * @parent:    parent device for the edge
->>   * @node:      device_node describing the edge
->>   *
->> - * Returns an edge reference, or negative ERR_PTR() on failure.
->> + * Return: an edge reference, or negative ERR_PTR() on failure.
->>   */
->>  struct qcom_smd_edge *qcom_smd_register_edge(struct device *parent,
->>  					     struct device_node *node)
->> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
->> index d3eb60059ef1..f031b2b1b21c 100644
->> --- a/drivers/rpmsg/rpmsg_core.c
->> +++ b/drivers/rpmsg/rpmsg_core.c
->> @@ -26,7 +26,7 @@
->>   * @rpdev: rpmsg device
->>   * @chinfo: channel_info to bind
->>   *
->> - * Returns a pointer to the new rpmsg device on success, or NULL on error.
->> + * Return: a pointer to the new rpmsg device on success, or NULL on error.
->>   */
->>  struct rpmsg_device *rpmsg_create_channel(struct rpmsg_device *rpdev,
->>  					  struct rpmsg_channel_info *chinfo)
->> @@ -48,7 +48,7 @@ EXPORT_SYMBOL(rpmsg_create_channel);
->>   * @rpdev: rpmsg device
->>   * @chinfo: channel_info to bind
->>   *
->> - * Returns 0 on success or an appropriate error value.
->> + * Return: 0 on success or an appropriate error value.
->>   */
->>  int rpmsg_release_channel(struct rpmsg_device *rpdev,
->>  			  struct rpmsg_channel_info *chinfo)
->> @@ -102,7 +102,7 @@ EXPORT_SYMBOL(rpmsg_release_channel);
->>   * dynamically assign them an available rpmsg address (drivers should have
->>   * a very good reason why not to always use RPMSG_ADDR_ANY here).
->>   *
->> - * Returns a pointer to the endpoint on success, or NULL on error.
->> + * Return: a pointer to the endpoint on success, or NULL on error.
->>   */
->>  struct rpmsg_endpoint *rpmsg_create_ept(struct rpmsg_device *rpdev,
->>  					rpmsg_rx_cb_t cb, void *priv,
->> @@ -146,7 +146,7 @@ EXPORT_SYMBOL(rpmsg_destroy_ept);
->>   *
->>   * Can only be called from process context (for now).
->>   *
->> - * Returns 0 on success and an appropriate error value on failure.
->> + * Return: 0 on success and an appropriate error value on failure.
->>   */
->>  int rpmsg_send(struct rpmsg_endpoint *ept, void *data, int len)
->>  {
->> @@ -175,7 +175,7 @@ EXPORT_SYMBOL(rpmsg_send);
->>   *
->>   * Can only be called from process context (for now).
->>   *
->> - * Returns 0 on success and an appropriate error value on failure.
->> + * Return: 0 on success and an appropriate error value on failure.
->>   */
->>  int rpmsg_sendto(struct rpmsg_endpoint *ept, void *data, int len, u32 dst)
->>  {
->> @@ -206,7 +206,7 @@ EXPORT_SYMBOL(rpmsg_sendto);
->>   *
->>   * Can only be called from process context (for now).
->>   *
->> - * Returns 0 on success and an appropriate error value on failure.
->> + * Return: 0 on success and an appropriate error value on failure.
->>   */
->>  int rpmsg_send_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
->>  			  void *data, int len)
->> @@ -235,7 +235,7 @@ EXPORT_SYMBOL(rpmsg_send_offchannel);
->>   *
->>   * Can only be called from process context (for now).
->>   *
->> - * Returns 0 on success and an appropriate error value on failure.
->> + * Return: 0 on success and an appropriate error value on failure.
->>   */
->>  int rpmsg_trysend(struct rpmsg_endpoint *ept, void *data, int len)
->>  {
->> @@ -263,7 +263,7 @@ EXPORT_SYMBOL(rpmsg_trysend);
->>   *
->>   * Can only be called from process context (for now).
->>   *
->> - * Returns 0 on success and an appropriate error value on failure.
->> + * Return: 0 on success and an appropriate error value on failure.
->>   */
->>  int rpmsg_trysendto(struct rpmsg_endpoint *ept, void *data, int len, u32 dst)
->>  {
->> @@ -282,7 +282,7 @@ EXPORT_SYMBOL(rpmsg_trysendto);
->>   * @filp:	file for poll_wait()
->>   * @wait:	poll_table for poll_wait()
->>   *
->> - * Returns mask representing the current state of the endpoint's send buffers
->> + * Return: mask representing the current state of the endpoint's send buffers
->>   */
->>  __poll_t rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
->>  			poll_table *wait)
->> @@ -313,7 +313,7 @@ EXPORT_SYMBOL(rpmsg_poll);
->>   *
->>   * Can only be called from process context (for now).
->>   *
->> - * Returns 0 on success and an appropriate error value on failure.
->> + * Return: 0 on success and an appropriate error value on failure.
->>   */
->>  int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept, u32 src, u32 dst,
->>  			     void *data, int len)
->> @@ -623,7 +623,7 @@ EXPORT_SYMBOL(rpmsg_unregister_device);
->>   * @rpdrv: pointer to a struct rpmsg_driver
->>   * @owner: owning module/driver
->>   *
->> - * Returns 0 on success, and an appropriate error value on failure.
->> + * Return: 0 on success, and an appropriate error value on failure.
->>   */
->>  int __register_rpmsg_driver(struct rpmsg_driver *rpdrv, struct module *owner)
->>  {
->> @@ -637,7 +637,7 @@ EXPORT_SYMBOL(__register_rpmsg_driver);
->>   * unregister_rpmsg_driver() - unregister an rpmsg driver from the rpmsg bus
->>   * @rpdrv: pointer to a struct rpmsg_driver
->>   *
->> - * Returns 0 on success, and an appropriate error value on failure.
->> + * Return: 0 on success, and an appropriate error value on failure.
->>   */
->>  void unregister_rpmsg_driver(struct rpmsg_driver *rpdrv)
->>  {
->> diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
->> index 9c112aa65040..c37451512835 100644
->> --- a/drivers/rpmsg/virtio_rpmsg_bus.c
->> +++ b/drivers/rpmsg/virtio_rpmsg_bus.c
->> @@ -547,7 +547,7 @@ static void rpmsg_downref_sleepers(struct virtproc_info *vrp)
->>   * should use the appropriate rpmsg_{try}send{to, _offchannel} API
->>   * (see include/linux/rpmsg.h).
->>   *
->> - * Returns 0 on success and an appropriate error value on failure.
->> + * Return: 0 on success and an appropriate error value on failure.
->>   */
->>  static int rpmsg_send_offchannel_raw(struct rpmsg_device *rpdev,
->>  				     u32 src, u32 dst,
->> -- 
->> 2.17.1
->>
+Reported-by: Brendan Dolan-Gavitt <brendandg@nyu.edu>
+Signed-off-by: Zekun Shen <bruceshenzk@gmail.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index d3f350c25b9b..bb35378d93bc 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5164,12 +5164,13 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		if (likely(!(status & rx_not_ls)) &&
+ 		    (likely(priv->synopsys_id >= DWMAC_CORE_4_00) ||
+ 		     unlikely(status != llc_snap))) {
+-			if (buf2_len)
++			if (buf2_len) {
+ 				buf2_len -= ETH_FCS_LEN;
+-			else
++				len -= ETH_FCS_LEN;
++			} else if (buf1_len) {
+ 				buf1_len -= ETH_FCS_LEN;
+-
+-			len -= ETH_FCS_LEN;
++				len -= ETH_FCS_LEN;
++			}
+ 		}
+ 
+ 		if (!skb) {
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
