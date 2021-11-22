@@ -2,55 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DC44458D40
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Nov 2021 12:19:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCABC458D73
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Nov 2021 12:30:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CECA6C5C82A;
-	Mon, 22 Nov 2021 11:19:36 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BEBD3C57189
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85872C5C82A;
+	Mon, 22 Nov 2021 11:30:08 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E09B7C597BE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Nov 2021 11:19:35 +0000 (UTC)
-From: Kurt Kanzenbach <kurt@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1637579975;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=18h7AWE82V/ymcyoQ30Rf8aLfEhY3Kk3Mvu3zde2ltM=;
- b=Hqb4lRVUCFHVpi9hFPpHek6pfnQNd1MEEDmaNVOTbVVGxWwz+1MYBzQ8eXSCet5b7+T+z/
- M74V7QpbOAJTqglw0A5GYe9hKvbb5aBTsvOnJwhMrvA8u8rRMklUnJbUeXYI6atWD6pvpo
- gUD7b5snw60u4TlBWr19PiDW7758Z85ZXhep6Av9OFFKcMEror0Q6OPwPfW5eE0C23xNIp
- k4oWxUYXijUbCS4uzzqtuHnwrMjqPnnRJKRkkQMeZgGsC02kIu4iR1UZMTkobUvNwhWmeE
- ACZ59z0ZKCTbaAfHiVsiEVeTeRriAvEjVhGHK02s/ES2ov/JQXvdCQEZo0HnSg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1637579975;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=18h7AWE82V/ymcyoQ30Rf8aLfEhY3Kk3Mvu3zde2ltM=;
- b=z4vbqy1CcgeV9jwPmSdgX8TTZmfK7f4+ewud9RA5Kcl00rhxKCwFw2GGNGSL/8Wvc7h+pP
- 552T4/+n0Ts2DjBw==
-To: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
-Date: Mon, 22 Nov 2021 12:19:31 +0100
-Message-Id: <20211122111931.135135-1-kurt@linutronix.de>
+ Mon, 22 Nov 2021 11:30:06 +0000 (UTC)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 2B53120CDF9E
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 22 Nov 2021 03:30:06 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2B53120CDF9E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1637580606;
+ bh=Gc95weIGGpO+jXyf82d/fH9Q/HcQ7XjvTMwfhsgPgI4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=OI4ZWxsym+mw7hYk8A2um8Y/M/Iwse97wugDiCCxlFnyfQcsFtsRLS1z2D5hW+Vkx
+ ZvfKh0GEahgx9z15FD8Kg/9y2H4v0Bskj8nYnCPjrsBuE9e+z7e9DR/nE4/0Liwy/Y
+ 7PUedmA1zE8iO5LF/8jCK7UhzX+cPqFhS+dLlt0w=
+Received: by mail-pf1-f180.google.com with SMTP id n85so15772399pfd.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 22 Nov 2021 03:30:06 -0800 (PST)
+X-Gm-Message-State: AOAM531HB4Fke+jvNuUAtnK8maIpQ1YXJ38uBb1bnXAtIxfHh4qFMyj7
+ GVg/80DzoOABTh3BNPOvWqadMW1xI1RL8i7/IoU=
+X-Google-Smtp-Source: ABdhPJxSTevhDOzsZ28L/0ODxidwCGCcz7z3raqHwmrHB2ue0L4viG8Xnag+6PfN/t0C11BGDPcCuvS4O41ETSmLU0s=
+X-Received: by 2002:aa7:98dd:0:b0:49f:bab8:3b67 with SMTP id
+ e29-20020aa798dd000000b0049fbab83b67mr42597291pfm.86.1637580605680; Mon, 22
+ Nov 2021 03:30:05 -0800 (PST)
 MIME-Version: 1.0
+References: <20211122111931.135135-1-kurt@linutronix.de>
+In-Reply-To: <20211122111931.135135-1-kurt@linutronix.de>
+From: Matteo Croce <mcroce@linux.microsoft.com>
+Date: Mon, 22 Nov 2021 12:29:29 +0100
+X-Gmail-Original-Message-ID: <CAFnufp2U8Dv3yJiw+uPGOiYXxdNspmvsJ0rWKicvXTi4R32tdQ@mail.gmail.com>
+Message-ID: <CAFnufp2U8Dv3yJiw+uPGOiYXxdNspmvsJ0rWKicvXTi4R32tdQ@mail.gmail.com>
+To: Kurt Kanzenbach <kurt@linutronix.de>
 Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>,
  Benedikt Spranger <b.spranger@linutronix.de>,
  Voon Weifeng <weifeng.voon@intel.com>, "Wong,
  Vee Khee" <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
- Xiaoliang Yang <xiaoliang.yang_1@nxp.com>,
- Kurt Kanzenbach <kurt@linutronix.de>,
+ Xiaoliang Yang <xiaoliang.yang_1@nxp.com>, Tan Tee Min <tee.min.tan@intel.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tan Tee Min <tee.min.tan@intel.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+ Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: Caclucate CDC error
-	only once
+Subject: Re: [Linux-stm32] [PATCH net-next v2] net: stmmac: Caclucate CDC
+	error only once
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,102 +71,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The clock domain crossing error (CDC) is calculated at every fetch of Tx or Rx
-timestamps. It includes a division. Especially on arm32 based systems it is
-expensive. It also requires two conditionals in the hotpath.
+On Mon, Nov 22, 2021 at 12:19 PM Kurt Kanzenbach <kurt@linutronix.de> wrote:
+>
+> The clock domain crossing error (CDC) is calculated at every fetch of Tx or Rx
+> timestamps. It includes a division. Especially on arm32 based systems it is
+> expensive. It also requires two conditionals in the hotpath.
+>
+> Add a compensation value cache to struct plat_stmmacenet_data and subtract it
+> unconditionally in the RX/TX functions which spares the conditionals.
+>
+> The value is initialized to 0 and if supported calculated in the PTP
+> initialization code.
+>
+> Suggested-by: Thomas Gleixner <tglx@linutronix.de>
+> Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
+> ---
 
-Add a compensation value cache to struct plat_stmmacenet_data and subtract it
-unconditionally in the RX/TX functions which spares the conditionals.
+Nit: "Caclucate" in the subject
 
-The value is initialized to 0 and if supported calculated in the PTP
-initialization code.
-
-Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
----
-
-Changes since v1:
-
- * Coding style
- * Changelog
-
-Previous version:
-
- * https://lore.kernel.org/netdev/20211119081010.27084-1-kurt@linutronix.de/
-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 ++----------
- drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c  |  5 +++++
- include/linux/stmmac.h                            |  1 +
- 3 files changed, 8 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 21111df73719..340076b5bb38 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -511,14 +511,6 @@ bool stmmac_eee_init(struct stmmac_priv *priv)
- 	return true;
- }
- 
--static inline u32 stmmac_cdc_adjust(struct stmmac_priv *priv)
--{
--	/* Correct the clk domain crossing(CDC) error */
--	if (priv->plat->has_gmac4 && priv->plat->clk_ptp_rate)
--		return (2 * NSEC_PER_SEC) / priv->plat->clk_ptp_rate;
--	return 0;
--}
--
- /* stmmac_get_tx_hwtstamp - get HW TX timestamps
-  * @priv: driver private structure
-  * @p : descriptor pointer
-@@ -550,7 +542,7 @@ static void stmmac_get_tx_hwtstamp(struct stmmac_priv *priv,
- 	}
- 
- 	if (found) {
--		ns -= stmmac_cdc_adjust(priv);
-+		ns -= priv->plat->cdc_error_adj;
- 
- 		memset(&shhwtstamp, 0, sizeof(struct skb_shared_hwtstamps));
- 		shhwtstamp.hwtstamp = ns_to_ktime(ns);
-@@ -587,7 +579,7 @@ static void stmmac_get_rx_hwtstamp(struct stmmac_priv *priv, struct dma_desc *p,
- 	if (stmmac_get_rx_timestamp_status(priv, p, np, priv->adv_ts)) {
- 		stmmac_get_timestamp(priv, desc, priv->adv_ts, &ns);
- 
--		ns -= stmmac_cdc_adjust(priv);
-+		ns -= priv->plat->cdc_error_adj;
- 
- 		netdev_dbg(priv->dev, "get valid RX hw timestamp %llu\n", ns);
- 		shhwtstamp = skb_hwtstamps(skb);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-index 580cc035536b..e14c97c04317 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-@@ -309,6 +309,11 @@ void stmmac_ptp_register(struct stmmac_priv *priv)
- 	if (priv->plat->ptp_max_adj)
- 		stmmac_ptp_clock_ops.max_adj = priv->plat->ptp_max_adj;
- 
-+	/* Calculate the clock domain crossing (CDC) error if necessary */
-+	priv->plat->cdc_error_adj = 0;
-+	if (priv->plat->has_gmac4 && priv->plat->clk_ptp_rate)
-+		priv->plat->cdc_error_adj = (2 * NSEC_PER_SEC) / priv->plat->clk_ptp_rate;
-+
- 	stmmac_ptp_clock_ops.n_per_out = priv->dma_cap.pps_out_num;
- 	stmmac_ptp_clock_ops.n_ext_ts = priv->dma_cap.aux_snapshot_n;
- 
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index a6f03b36fc4f..89b8e208cd7b 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -241,6 +241,7 @@ struct plat_stmmacenet_data {
- 	unsigned int clk_ref_rate;
- 	unsigned int mult_fact_100ns;
- 	s32 ptp_max_adj;
-+	u32 cdc_error_adj;
- 	struct reset_control *stmmac_rst;
- 	struct reset_control *stmmac_ahb_rst;
- 	struct stmmac_axi *axi;
 -- 
-2.30.2
-
+per aspera ad upstream
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
