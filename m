@@ -2,59 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCABC458D73
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Nov 2021 12:30:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92E3945905A
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Nov 2021 15:39:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85872C5C82A;
-	Mon, 22 Nov 2021 11:30:08 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E09B7C597BE
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4974DC5A4FD;
+	Mon, 22 Nov 2021 14:39:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3670C57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Nov 2021 11:30:06 +0000 (UTC)
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- by linux.microsoft.com (Postfix) with ESMTPSA id 2B53120CDF9E
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Nov 2021 03:30:06 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2B53120CDF9E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1637580606;
- bh=Gc95weIGGpO+jXyf82d/fH9Q/HcQ7XjvTMwfhsgPgI4=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=OI4ZWxsym+mw7hYk8A2um8Y/M/Iwse97wugDiCCxlFnyfQcsFtsRLS1z2D5hW+Vkx
- ZvfKh0GEahgx9z15FD8Kg/9y2H4v0Bskj8nYnCPjrsBuE9e+z7e9DR/nE4/0Liwy/Y
- 7PUedmA1zE8iO5LF/8jCK7UhzX+cPqFhS+dLlt0w=
-Received: by mail-pf1-f180.google.com with SMTP id n85so15772399pfd.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Nov 2021 03:30:06 -0800 (PST)
-X-Gm-Message-State: AOAM531HB4Fke+jvNuUAtnK8maIpQ1YXJ38uBb1bnXAtIxfHh4qFMyj7
- GVg/80DzoOABTh3BNPOvWqadMW1xI1RL8i7/IoU=
-X-Google-Smtp-Source: ABdhPJxSTevhDOzsZ28L/0ODxidwCGCcz7z3raqHwmrHB2ue0L4viG8Xnag+6PfN/t0C11BGDPcCuvS4O41ETSmLU0s=
-X-Received: by 2002:aa7:98dd:0:b0:49f:bab8:3b67 with SMTP id
- e29-20020aa798dd000000b0049fbab83b67mr42597291pfm.86.1637580605680; Mon, 22
- Nov 2021 03:30:05 -0800 (PST)
+ Mon, 22 Nov 2021 14:39:44 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AMDXEST003144;
+ Mon, 22 Nov 2021 15:39:11 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=qzuzXnps8uoSg/5ew9p+2cb+8oRWmDxyBUwVDf0JQFk=;
+ b=LDLlWUJxqdFImWXoAb0qbfbYMpq+V6bq9Dg7wKPpgxsumRcp/g0c6ya59q3fe8IaiICB
+ 06DBqVbrwvXKZ/9j8inUeBB/P1E+ohezfv5DCPxNN8K8qFNF5bMnfxJLC4P5Sepsiz0b
+ 6GoDetiSly76xNjt0A+Rrcwp2ZTQAJvaVR8ZiqosIb+wVu7a/da+4ko+lM/UqSWRjjZ8
+ 02P3supEAj95/PdGiCsQ0bqQd1SZAkiEOaQIj2A8ylxj+TQaoS4X8naaDxFYDaV+xsWS
+ re07pz3h6c/6d7fg7ihLeeJreEvEiAf4QTdIgC8TMD5tFUD9i/RVsR1uNYfrWM9G2v2c Bg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cgc6p0c2y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 22 Nov 2021 15:39:11 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3C00B10002A;
+ Mon, 22 Nov 2021 15:39:08 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3276821AAAC;
+ Mon, 22 Nov 2021 15:39:08 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 22 Nov 2021 15:39:07
+ +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Fabrice Gasnier
+ <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Olivier Moysan <olivier.moysan@foss.st.com>,
+ Wan Jiabing <wanjiabing@vivo.com>, Xu Wang <vulab@iscas.ac.cn>
+Date: Mon, 22 Nov 2021 15:38:09 +0100
+Message-ID: <20211122143809.2332-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20211122111931.135135-1-kurt@linutronix.de>
-In-Reply-To: <20211122111931.135135-1-kurt@linutronix.de>
-From: Matteo Croce <mcroce@linux.microsoft.com>
-Date: Mon, 22 Nov 2021 12:29:29 +0100
-X-Gmail-Original-Message-ID: <CAFnufp2U8Dv3yJiw+uPGOiYXxdNspmvsJ0rWKicvXTi4R32tdQ@mail.gmail.com>
-Message-ID: <CAFnufp2U8Dv3yJiw+uPGOiYXxdNspmvsJ0rWKicvXTi4R32tdQ@mail.gmail.com>
-To: Kurt Kanzenbach <kurt@linutronix.de>
-Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>,
- Benedikt Spranger <b.spranger@linutronix.de>,
- Voon Weifeng <weifeng.voon@intel.com>, "Wong,
- Vee Khee" <vee.khee.wong@intel.com>, netdev@vger.kernel.org,
- Xiaoliang Yang <xiaoliang.yang_1@nxp.com>, Tan Tee Min <tee.min.tan@intel.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2] net: stmmac: Caclucate CDC
-	error only once
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-11-22_07,2021-11-22_02,2020-04-07_01
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2] iio: adc: stm32: fix null pointer on
+	defer_probe error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,26 +76,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Nov 22, 2021 at 12:19 PM Kurt Kanzenbach <kurt@linutronix.de> wrote:
->
-> The clock domain crossing error (CDC) is calculated at every fetch of Tx or Rx
-> timestamps. It includes a division. Especially on arm32 based systems it is
-> expensive. It also requires two conditionals in the hotpath.
->
-> Add a compensation value cache to struct plat_stmmacenet_data and subtract it
-> unconditionally in the RX/TX functions which spares the conditionals.
->
-> The value is initialized to 0 and if supported calculated in the PTP
-> initialization code.
->
-> Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-> Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
-> ---
+dev_err_probe() calls __device_set_deferred_probe_reason()
+on -EPROBE_DEFER error. If device pointer to driver core
+private structure is not initialized, an null pointer error occurs.
+This pointer is set on iio_device_register() call for iio device.
 
-Nit: "Caclucate" in the subject
+dev_err_probe() must be called with the device which is probing.
+Replace iio device by its parent device.
 
+Fixes: 0e346b2cfa85 ("iio: adc: stm32-adc: add vrefint calibration support")
+
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+Changes in v2:
+- Use parent device from indio_dev instead of private structure
+---
+ drivers/iio/adc/stm32-adc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index 7f1fb36c747c..341afdd342cc 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -1986,7 +1986,7 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
+ 			/* Get calibration data for vrefint channel */
+ 			ret = nvmem_cell_read_u16(&indio_dev->dev, "vrefint", &vrefint);
+ 			if (ret && ret != -ENOENT) {
+-				return dev_err_probe(&indio_dev->dev, ret,
++				return dev_err_probe(indio_dev->dev.parent, ret,
+ 						     "nvmem access error\n");
+ 			}
+ 			if (ret == -ENOENT)
 -- 
-per aspera ad upstream
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
