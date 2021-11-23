@@ -2,61 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDE2F4592AA
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Nov 2021 17:08:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C1754598B9
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Nov 2021 01:00:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8494EC5A4FD;
-	Mon, 22 Nov 2021 16:08:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34C6AC5C82A;
+	Tue, 23 Nov 2021 00:00:14 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EDACC58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 293CAC58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Nov 2021 16:08:21 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AMB3vXw000844;
- Mon, 22 Nov 2021 17:08:16 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=JUfDtadMUblm027RI2ylSBjI6IFG9jvYkFA5bjRWYso=;
- b=jNgwyqJuRvLhuEmT1/rJ6WapxGuLznmoRXQDRX5AbnY59UQolS1+05e+u7m2ej7/BClv
- TuSq2nH9FEYWX3iZo52Sh2FGm/G7XNV1Kl7/WxSL3xin2mAPVPw5+cG31pOcYTzZCFMF
- c8zntrZKeS8ugYN+jepuDcAy5tj60HwfdQY9eqMCLu/85GraVR/sYDyL9KMATIhaluWy
- C5qrz1KrXACNvCd2XzrwDvVyoHW1KUsNbOIpX+fdqpWzh0z5jiOtg2D3Q1dXeqbbPtaB
- jhSi3VRs1Qy2HbOKYyjvcRgEvM83gKLEsHe34+317hcBs3qUKOZ9tjwgtr0kQLMYq8FP TQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cg5sfka9e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 22 Nov 2021 17:08:16 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3568410002A;
- Mon, 22 Nov 2021 17:08:16 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 277D021E17D;
- Mon, 22 Nov 2021 17:08:16 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 22 Nov 2021 17:08:15
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Ohad Ben-Cohen
- <ohad@wizery.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Mon, 22 Nov 2021 17:08:12 +0100
-Message-ID: <20211122160812.25125-1-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ Tue, 23 Nov 2021 00:00:12 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E448660E08;
+ Tue, 23 Nov 2021 00:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1637625610;
+ bh=vxGV5wzjy0QQFIApAyOfWagXPSDG+s+TC+Gf6T38UHo=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=iMHjChp/FsrwxsNjV9fA8FujPkuw61bjwbP/rc44PNuYuui1XSmiKtVsKiVnsrBPF
+ LN/mxz0WRpIYj74g2imnUlPHoQ0wE9dq3+6d2YOXIBnKFIn8Cur8YXC/kxlQY4C4zH
+ Hp/QuS1cBdPCIMZ+YcNZ3gR1FZEtdwSH/UDMbjDBFanJZn6Ur0DYre3zxJbp733zyJ
+ LYNHT4jKe/+VZzdagCP98b5kXeyAgQdWLzk/W3L9PftwuQQeGcljwJf/blP2EMpZ20
+ FXMBFN75M0TcSST6ldN1PBc7z3JG0GQbEAZdPz3Sqc9YeDYdmjdPmgUUTR3Xm50mmr
+ jVSCuWGlwrLHQ==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20211119104752.13564-1-olivier.moysan@foss.st.com>
+References: <20211119104752.13564-1-olivier.moysan@foss.st.com>
+Message-Id: <163762560655.2471742.5896666264679935449.b4-ty@kernel.org>
+Date: Tue, 23 Nov 2021 00:00:06 +0000
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-22_08,2021-11-22_02,2020-04-07_01
-Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- arnaud.pouliquen@foss.st.com, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] rpmsg: virtio: don't let virtio core to
-	validate used length
+Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/3] ASoC: stm32: add pm runtime support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,38 +56,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-For RX virtqueue, the used length is validated in all the three paths
-(big, small and mergeable). For control vq, we never tries to use used
-length. So this patch forbids the core to validate the used length.
+On Fri, 19 Nov 2021 11:47:49 +0100, Olivier Moysan wrote:
+> Enable support of pm runtime on STM32 SPDIFRX, I2S and DFSDM drivers
+> to allow power state monitoring.
+> 
+> Changes in v2:
+> - Move pm runtime enabling before component registration
+> 
+> Olivier Moysan (3):
+>   ASoC: stm32: i2s: add pm_runtime support
+>   ASoC: stm32: dfsdm: add pm_runtime support for audio
+>   ASoC: stm32: spdifrx: add pm_runtime support
+> 
+> [...]
 
-Without patch the rpmsg client sample does not work.
+Applied to
 
-Fixes: 939779f5152d ("virtio_ring: validate used buffer length")
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Cc: Jason Wang <jasowang@redhat.com>
-Cc: Michael S. Tsirkin <mst@redhat.com>
----
-base-commit: fa55b7dcdc43c1aa1ba12bca9d2dd4318c2a0dbf
----
- drivers/rpmsg/virtio_rpmsg_bus.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks!
 
-diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-index 9c112aa65040..5f73f19c2c38 100644
---- a/drivers/rpmsg/virtio_rpmsg_bus.c
-+++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-@@ -1054,6 +1054,7 @@ static struct virtio_driver virtio_ipc_driver = {
- 	.feature_table_size = ARRAY_SIZE(features),
- 	.driver.name	= KBUILD_MODNAME,
- 	.driver.owner	= THIS_MODULE,
-+	.suppress_used_validation = true,
- 	.id_table	= id_table,
- 	.probe		= rpmsg_probe,
- 	.remove		= rpmsg_remove,
--- 
-2.17.1
+[1/3] ASoC: stm32: i2s: add pm_runtime support
+      commit: 32a956a1fadfd7d3924ab8ada2b7754054375903
+[2/3] ASoC: stm32: dfsdm: add pm_runtime support for audio
+      commit: 98e500a12f934531b0d44eac6bc53c3d4b66aa74
+[3/3] ASoC: stm32: spdifrx: add pm_runtime support
+      commit: ac5e3efd55868d8c12a178123b24616a22db274d
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
