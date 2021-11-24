@@ -2,51 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACB6C45B984
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Nov 2021 12:56:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7922C45C91C
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Nov 2021 16:45:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 592BDC597BE;
-	Wed, 24 Nov 2021 11:56:19 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14EF5C597BE;
+	Wed, 24 Nov 2021 15:45:38 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54CB1C56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A12CAC56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Nov 2021 11:56:18 +0000 (UTC)
-From: Kurt Kanzenbach <kurt@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1637754977;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=dV0T9NFOfR7A0s7gpzqC4XY8Wgq7BahgzV+vSPDvUs0=;
- b=ljco+TBNgl2lWIfB8P59MhxZzQjo6AdjmCTHHwH0pLkFaflsejo9oD1qPiDzpFhA/3U0zD
- 6ckFl6vRx7uhLUmwIYWdClhpPu9vSU7yoHcfGPrhkc7obXxGKyKtIcYO/BQsOtVbKp9022
- gTTyQV86i/O1VVjL6Ng2J+JaAxWIk923aacYF6Jh1NHwa1g9BjP0loE2Nyv+UT9ItU2XBB
- EHtsV6prU7lAR0AYRLppglIHscFmWDqWgLezK/nUT4SDbDzpGKPvbQKCp25ML3s8/Ge9mw
- eop9waerl1/uVZ/uxqUUU13XQPnerov4WY6SItflXdvY1A3lHtLYIIpQHLTA1Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1637754977;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=dV0T9NFOfR7A0s7gpzqC4XY8Wgq7BahgzV+vSPDvUs0=;
- b=E5PFkpkeaKwwZY2bbeODDtZbDdXrMmKP0tI4hq/rwiV+NYuXGjzWA+IA34TDoJ1QkFrSQv
- rZ8ALpYgzb8JIaDQ==
-To: Ong Boon Leong <boon.leong.ong@intel.com>, netdev@vger.kernel.org
-In-Reply-To: <20211124114019.3949125-1-boon.leong.ong@intel.com>
-References: <20211124114019.3949125-1-boon.leong.ong@intel.com>
-Date: Wed, 24 Nov 2021 12:56:16 +0100
-Message-ID: <87k0gxhin3.fsf@kurt>
+ Wed, 24 Nov 2021 15:45:37 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id r8so4969943wra.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 24 Nov 2021 07:45:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=gCMiGATfuKFNvhjai5hA/48G/fLNoKNdO6OP8Yup/4M=;
+ b=CkVbdCaWAb6m0dMBGC8Z5BlM58LWgarAQ32uX/q68uQ2I7F/F79VZTOtG4VdFtGYH6
+ EJhU5vuiztCdt0BeO5KBNWOXooV71TSgaKa1F+HQpc0gWJLXW1IIdxJ3N5o5hH+b9jxo
+ vo6pyuonFjbHgwbaVEYKXh1di5e2iEcDl3trvUEmitnxkAMNIz6HlFQ9dQZf7p4qKfH1
+ Ja3ycs8GWgi1l55P0Y5N085pVrbzUENtRW3sfCoSSR6CpvmlF80TpPkD63+5wnHyNYkp
+ umEgbcqeaBj22ptswj7tffLKUIZMvmRw4P5w6SFR9JBQEQzhxHDFWh+XL6x6rW5yHnIQ
+ hYwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=gCMiGATfuKFNvhjai5hA/48G/fLNoKNdO6OP8Yup/4M=;
+ b=HB7zXCbwaFYpM31O0oMG60x3378JEHqE26TlAPJ5DzbcQ1Xod6ONKcW4rxzMFRfFj5
+ H8cdJ6OvJiaHulyZ5Pobkc3sVV8PbjqusZWbQoNrji48kZFtXB92cF84z+Sg4N6xaQ9M
+ YQpK/3E9Bagd+aH8UTc9+nYezIrLvYxbje2xuAPQUBkzXC8aE0BUP29pncC3NfWZx87r
+ ObWbiln/r9mfi66sRuYWB08dOR+4QyXGnE21fl5kOPx2YlGr5J+8Nvq9GalETRT4th1O
+ J0QVvZ5x9Vh3Ob511sOjWS9DcDB0IN9bCw1lpOWKGEOY1coNtWgPzsC75tIpXyMT8csm
+ GrJQ==
+X-Gm-Message-State: AOAM531pN8+tKVlAwv+7y5KT7cjcWy+TbKTNABB+GWyNFEpZBfbRTjgd
+ XaxVcNI3v0SZ1oZnEXqG4cbzGg==
+X-Google-Smtp-Source: ABdhPJxKP1EIe2YzDKu+gyYM9Ufj1TC/VyWllVX+bm0/ENSsvPRD/xHmWkwLeOOlgh8S00FJaVOL1A==
+X-Received: by 2002:adf:ce03:: with SMTP id p3mr20439457wrn.145.1637768736246; 
+ Wed, 24 Nov 2021 07:45:36 -0800 (PST)
+Received: from google.com ([2.31.167.61])
+ by smtp.gmail.com with ESMTPSA id o4sm219343wry.80.2021.11.24.07.45.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Nov 2021 07:45:35 -0800 (PST)
+Date: Wed, 24 Nov 2021 15:45:29 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Message-ID: <YZ5eGRC7XhrbgsN7@google.com>
+References: <20211027082155.206449-1-francesco.dolcini@toradex.com>
 MIME-Version: 1.0
-Cc: Alexandre Torgue <alexandre.torgue@st.com>, alexandre.torgue@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: perserve TX and
- RX coalesce value during XDP setup
+Content-Disposition: inline
+In-Reply-To: <20211027082155.206449-1-francesco.dolcini@toradex.com>
+Cc: marcel.ziswiler@toradex.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Oleksandr Suvorov <oleksandr.suvorov@foundries.io>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] mfd: stmpe: Support disabling
+	sub-functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,59 +75,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1666760306997830604=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============1666760306997830604==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
-
---=-=-=
-Content-Type: text/plain
-
-On Wed Nov 24 2021, Ong Boon Leong wrote:
-> When XDP program is loaded, it is desirable that the previous TX and RX
-> coalesce values are not re-inited to its default value. This prevents
-> unnecessary re-configurig the coalesce values that were working fine
-> before.
->
-> Fixes: ac746c8520d9 ("net: stmmac: enhance XDP ZC driver level switching performance")
-> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
-
-Tested-by: Kurt Kanzenbach <kurt@linutronix.de>
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQJHBAEBCgAxFiEEooWgvezyxHPhdEojeSpbgcuY8KYFAmGeKGATHGt1cnRAbGlu
-dXRyb25peC5kZQAKCRB5KluBy5jwpgFYEACC6wX+b3hh/rszdizC6oH6JsfQZjqX
-kEjwGOzIx1D3be4l7obEPaLVB9OUS0AxcsWuvLQl5L/ZVQOO4MXAseKFlju8iE1o
-+wKeALZD1eZ69xs9h/XooQzOqunZ5hFF3Bnl1Wh2fpz/uI3qJ4TafE8QF8rfIJWl
-ppywC8kxkknvFUa+rO6JTSTCmZx8p6dRzS6oBG0NDCy4SIqVo5AjD2eEBBpE70mM
-ulPbmjb2ABLT+qK9smmh5Hp/FdSLo9/Aop4l2xevyRfiWh02Njp0p8kOe+Z8j3QW
-T408UkEXm0tmFBSPy7ImEcqUbhqBU1pQdmxz98HpMhhrGnLKGzGZu8toyQn1BDnM
-F2PDAT1WqsXhWBVycQV1v2cJ2VdQcSRTJU7gr4tg8sYKkY9rSzLCKM6tlFLSdqRM
-egObj0X766EZ+kdlJKIoEepXlh3gUm8l5JE0V/7geYgdvcSlJGldR+nAjoX2TqlG
-S0ZORYkO6byNZQkpuz840hrdtyQ3irHSBI8ZB8heWNfnOBrqznze2ggsWEpMwrwk
-vz2FVM/+zzpPS3PmvQJvBIbHdQ/tUVkmpkDAczk9WPUiQGpnxGvlCd651UgGlgrL
-ffPPiEYvT/0VQgv/REDPceDblcloa8erQzZ7MWqOmdNiV9vWFui8pyEM4tV0Mgd/
-mqIpatJ6BfYUlQ==
-=Tozc
------END PGP SIGNATURE-----
---=-=-=--
-
---===============1666760306997830604==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1666760306997830604==--
+T24gV2VkLCAyNyBPY3QgMjAyMSwgRnJhbmNlc2NvIERvbGNpbmkgd3JvdGU6Cgo+IEZyb206IE9s
+ZWtzYW5kciBTdXZvcm92IDxvbGVrc2FuZHIuc3V2b3JvdkB0b3JhZGV4LmNvbT4KPiAKPiBBZGQg
+c3VwcG9ydCBvZiBzdWItZnVuY3Rpb25zIGRpc2FibGluZy4gSXQgYWxsb3dzIG9uZSB0byBkZWZp
+bmUKPiBhbiBzdG1wZSBzdWItZnVuY3Rpb24gZGV2aWNlIGluIGRldmljZXRyZWUsIGJ1dCBrZWVw
+IGl0IGRpc2FibGVkLgo+IAo+IFNpZ25lZC1vZmYtYnk6IE9sZWtzYW5kciBTdXZvcm92IDxvbGVr
+c2FuZHIuc3V2b3JvdkB0b3JhZGV4LmNvbT4KPiBDYzogT2xla3NhbmRyIFN1dm9yb3YgPG9sZWtz
+YW5kci5zdXZvcm92QGZvdW5kcmllcy5pbz4KPiBTaWduZWQtb2ZmLWJ5OiBGcmFuY2VzY28gRG9s
+Y2luaSA8ZnJhbmNlc2NvLmRvbGNpbmlAdG9yYWRleC5jb20+Cj4gLS0tCj4gSGVsbG8sCj4gdGhl
+IG1haW4gcmVhc29uIGZvciB0aGlzIHBhdGNoIGlzIHRvIGFsbG93IGVuYWJsaW5nL2Rpc2FibGlu
+ZyBzdWItZnVjdGlvbnMKPiB1c2luZyBEVFMgb3ZlcmxheSB0byBlbmFibGUgbW9yZSBmbGV4aWJp
+bGl0eSBvbiBTb00vQ2FycmllciBib2FyZHMKPiBjb21iaW5hdGlvbnMuCj4gLS0tCj4gIGRyaXZl
+cnMvbWZkL3N0bXBlLmMgfCAyICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwg
+MSBkZWxldGlvbigtKQoKQXBwbGllZCwgdGhhbmtzLgoKLS0gCkxlZSBKb25lcyBb5p2O55C85pav
+XQpTZW5pb3IgVGVjaG5pY2FsIExlYWQgLSBEZXZlbG9wZXIgU2VydmljZXMKTGluYXJvLm9yZyDi
+lIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFybSBTb0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vi
+b29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
