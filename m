@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3152E45DDC4
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Nov 2021 16:43:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE44D45DE15
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Nov 2021 16:53:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DABB9C597BE;
-	Thu, 25 Nov 2021 15:43:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DFD4C597BE;
+	Thu, 25 Nov 2021 15:53:53 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07967C57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CED02C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Nov 2021 15:43:04 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1APEApQ3029076;
- Thu, 25 Nov 2021 16:42:57 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=0Iz+5s60sQLr6dSevW6pEwhxuRykpii00GdV0s3IDOk=;
- b=iBNLuo5MreCOWwA86U+bhH6QTU+8LqMGmUUoU/coFT5kAZ94faJjjkEpBLExep1l5nHC
- D08a9rPHsoDDC0lmH4rE6YNT5PXgO4Hs3upbz96KWwKcsC8HnN6gYtaZABFnYog+eJMu
- 7aSP/vMgTpwvLdI5oiQFc4YGJD+AlANW4PxJRaUys9+Bra34Z6RXPcl5A2ujjxhyLBk6
- XSjThNlJTHU4cjikXrj4VScZR406HKiFLxND4Pk/Ncj0H/VkTaiiYBavr96Mdh1eJNPR
- ijX0fCwdXFgix1LL3ELQqCXXCzvWRiCrCBgmKZc4wJVhHxj+hkox/GGsR/AmslKagElw bg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cj24vcm8k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Nov 2021 16:42:57 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8AD6610002A;
- Thu, 25 Nov 2021 16:42:56 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 82CAC23C256;
- Thu, 25 Nov 2021 16:42:56 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.48) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 25 Nov
- 2021 16:42:56 +0100
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-References: <1635175070-28722-1-git-send-email-fabrice.gasnier@foss.st.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <c101d5eb-00e5-7994-d503-f2a5dad61bf9@foss.st.com>
-Date: Thu, 25 Nov 2021 16:42:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Thu, 25 Nov 2021 15:53:51 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 00878610F9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 25 Nov 2021 15:53:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1637855628;
+ bh=WQKBVuM8/HahVHD2Ha+5Ib66vd148D5kd4JIoF5YXYw=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=NJkIymGInuducGSTAKj/FQ8gLVkz2guOuDv+NT8zNFhcLJ4OYAtEIftb7v5XFBcgX
+ JZ1x/jgUqfHXU9vVfmZSYZy+b6Vg/gw9woBsTGPEL9+Vv12wpZ6iUXQIt7lCnN8yln
+ 0GIaZUtswzpAGLUtFCwwUNzktWCSwsj3XmnCEx1tqK4MOe/+N6++JLBF/TshxWVyZc
+ Chsh5hPgEKTETRUaPkgZ17zyJMxFNCoQWkQXk9ODLTxZam0Yr7erF/f/XmtfmW/B2s
+ ky4iDsYpMMQyo5zvVp/y9/lzZbQ5joAp6UYTWD9IERHDzmy6/XjtkNkO8RQSZ0RKKq
+ 7BH3JvLwRkKng==
+Received: by mail-ed1-f43.google.com with SMTP id x6so27326146edr.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 25 Nov 2021 07:53:47 -0800 (PST)
+X-Gm-Message-State: AOAM531UQ7Dy84Qfor52f5OuS3l+iUn8uMl8ma7KiDNDs4KH2JyoaMtI
+ 63sWbPbCnpX0Mz7EyZJeFg8VL5DypRY4kR7qlw==
+X-Google-Smtp-Source: ABdhPJyWuSCxWweua9Qb5oiDhlo9g8K+nlZBzMrHfDLk16MCEQQl+zFjUJxBfRZ+oWeUyMxTWfL4Uc81RcQThqCEADs=
+X-Received: by 2002:a17:906:79c8:: with SMTP id
+ m8mr30595476ejo.511.1637855626321; 
+ Thu, 25 Nov 2021 07:53:46 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1635175070-28722-1-git-send-email-fabrice.gasnier@foss.st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-25_06,2021-11-25_01,2020-04-07_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/2] tune the HS USB PHYs on stm32mp15
- eval and disco boards
+References: <20211026155911.17651-1-jason-jh.lin@mediatek.com>
+ <20211026155911.17651-12-jason-jh.lin@mediatek.com>
+In-Reply-To: <20211026155911.17651-12-jason-jh.lin@mediatek.com>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Thu, 25 Nov 2021 23:53:34 +0800
+X-Gmail-Original-Message-ID: <CAAOTY__8Bh_Me8sDYgAM4ZQiDxkz55BZyrwNuVRqxyfK79rYkg@mail.gmail.com>
+Message-ID: <CAAOTY__8Bh_Me8sDYgAM4ZQiDxkz55BZyrwNuVRqxyfK79rYkg@mail.gmail.com>
+To: "jason-jh.lin" <jason-jh.lin@mediatek.com>
+Cc: Fei Shao <fshao@chromium.org>, David Airlie <airlied@linux.ie>,
+ singo.chang@mediatek.com, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Fabien Parent <fparent@baylibre.com>, DTML <devicetree@vger.kernel.org>,
+ Nancy Lin <nancy.lin@mediatek.com>, linux-stm32@st-md-mailman.stormreply.com,
+ roy-cw.yeh@mediatek.com, Yongqiang Niu <yongqiang.niu@mediatek.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Hsin-Yi Wang <hsinyi@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Moudy Ho <moudy.ho@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH v12 11/16] drm/mediatek: remove unused
+	define in mtk_drm_ddp_comp.c
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,33 +72,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Fabrice
-
-On 10/25/21 5:17 PM, Fabrice Gasnier wrote:
-> This series tune the HS USB PHYs on stm32mp15 eval and disco boards, now that
-> dt-bindings and drivers have been merged in [1].
-> 
-> [1] https://lore.kernel.org/all/20211015161427.220784-1-amelie.delaunay@foss.st.com/
-> 
-> Fabrice Gasnier (2):
->    ARM: dts: stm32: tune the HS USB PHYs on stm32mp15xx-dkx
->    ARM: dts: stm32: tune the HS USB PHYs on stm32mp157c-ev1
-> 
->   arch/arm/boot/dts/stm32mp157c-ev1.dts  | 22 ++++++++++++++++++++++
->   arch/arm/boot/dts/stm32mp15xx-dkx.dtsi | 16 ++++++++++++++++
->   2 files changed, 38 insertions(+)
-> 
-
-Series applied on stm32-next.
-
-Thanks!
-Alex
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksIEphc29uOgoKV2hlbiBJIGFwcGx5IHRoaXMgcGF0Y2ggdG8gbWVkaWF0ZWstZHJtLW5leHQs
+IEkgZ2V0IHRoaXMgZXJyb3I6CgpBcHBseWluZzogZHJtL21lZGlhdGVrOiByZW1vdmUgdW51c2Vk
+IGRlZmluZSBpbiBtdGtfZHJtX2RkcF9jb21wLmMKZXJyb3I6IHBhdGNoIGZhaWxlZDogZHJpdmVy
+cy9ncHUvZHJtL21lZGlhdGVrL210a19kcm1fZGRwX2NvbXAuYzo1MwoKUGxlYXNlIHJlYmFzZSB0
+aGlzIHBhdGNoIG9udG8gbWVkaWF0ZWstZHJtLW5leHQuCgpSZWdhcmRzLApDaHVuLUt1YW5nLgoK
+amFzb24tamgubGluIDxqYXNvbi1qaC5saW5AbWVkaWF0ZWsuY29tPiDmlrwgMjAyMeW5tDEw5pyI
+Mjbml6Ug6YCx5LqMIOS4i+WNiDExOjU55a+r6YGT77yaCj4KPiBSZW1vdmUgdGhlIHVuc2VkIGRl
+ZmluZSBpbiBtdGtfZHJtX2RkcF9jb21wLmMKPgo+IFNpZ25lZC1vZmYtYnk6IGphc29uLWpoLmxp
+biA8amFzb24tamgubGluQG1lZGlhdGVrLmNvbT4KPiBSZXZpZXdlZC1ieTogQ2h1bi1LdWFuZyBI
+dSA8Y2h1bmt1YW5nLmh1QGtlcm5lbC5vcmc+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9tZWRp
+YXRlay9tdGtfZHJtX2RkcF9jb21wLmMgfCAxMCAtLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2Vk
+LCAxMCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0
+ZWsvbXRrX2RybV9kZHBfY29tcC5jIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcm1f
+ZGRwX2NvbXAuYwo+IGluZGV4IGYzZGI5NmExYjI0ZC4uODM5ZmZhZTMwMTljIDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2RkcF9jb21wLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RybV9kZHBfY29tcC5jCj4gQEAgLTIxLDggKzIx
+LDYgQEAKPiAgI2luY2x1ZGUgIm10a19kcm1fY3J0Yy5oIgo+Cj4gICNkZWZpbmUgRElTUF9PRF9F
+TiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwCj4gLSNkZWZpbmUgRElTUF9PRF9J
+TlRFTiAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDA4Cj4gLSNkZWZpbmUgRElTUF9PRF9J
+TlRTVEEgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDBjCj4gICNkZWZpbmUgRElTUF9PRF9D
+RkcgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDIwCj4gICNkZWZpbmUgRElTUF9PRF9T
+SVpFICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDMwCj4gICNkZWZpbmUgRElTUF9ESVRI
+RVJfNSAgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMTE0Cj4gQEAgLTM5LDggKzM3LDYgQEAK
+PiAgI2RlZmluZSBESVRIRVJfRU5HSU5FX0VOICAgICAgICAgICAgICAgICAgICAgICBCSVQoMSkK
+PiAgI2RlZmluZSBESVNQX0RJVEhFUl9TSVpFICAgICAgICAgICAgICAgICAgICAgICAweDAwMzAK
+Pgo+IC0jZGVmaW5lIExVVF8xMEJJVF9NQVNLICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDNm
+Zgo+IC0KPiAgI2RlZmluZSBPRF9SRUxBWU1PREUgICAgICAgICAgICAgICAgICAgICAgICAgICBC
+SVQoMCkKPgo+ICAjZGVmaW5lIFVGT19CWVBBU1MgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IEJJVCgyKQo+IEBAIC01MywxOCArNDksMTIgQEAKPgo+ICAjZGVmaW5lIERJU1BfRElUSEVSSU5H
+ICAgICAgICAgICAgICAgICAgICAgICAgIEJJVCgyKQo+ICAjZGVmaW5lIERJVEhFUl9MU0JfRVJS
+X1NISUZUX1IoeCkgICAgICAgICAgICAgICgoKHgpICYgMHg3KSA8PCAyOCkKPiAtI2RlZmluZSBE
+SVRIRVJfT1ZGTFdfQklUX1IoeCkgICAgICAgICAgICAgICAgICAoKCh4KSAmIDB4NykgPDwgMjQp
+Cj4gICNkZWZpbmUgRElUSEVSX0FERF9MU0hJRlRfUih4KSAgICAgICAgICAgICAgICAgKCgoeCkg
+JiAweDcpIDw8IDIwKQo+IC0jZGVmaW5lIERJVEhFUl9BRERfUlNISUZUX1IoeCkgICAgICAgICAg
+ICAgICAgICgoKHgpICYgMHg3KSA8PCAxNikKPiAgI2RlZmluZSBESVRIRVJfTkVXX0JJVF9NT0RF
+ICAgICAgICAgICAgICAgICAgICBCSVQoMCkKPiAgI2RlZmluZSBESVRIRVJfTFNCX0VSUl9TSElG
+VF9CKHgpICAgICAgICAgICAgICAoKCh4KSAmIDB4NykgPDwgMjgpCj4gLSNkZWZpbmUgRElUSEVS
+X09WRkxXX0JJVF9CKHgpICAgICAgICAgICAgICAgICAgKCgoeCkgJiAweDcpIDw8IDI0KQo+ICAj
+ZGVmaW5lIERJVEhFUl9BRERfTFNISUZUX0IoeCkgICAgICAgICAgICAgICAgICgoKHgpICYgMHg3
+KSA8PCAyMCkKPiAtI2RlZmluZSBESVRIRVJfQUREX1JTSElGVF9CKHgpICAgICAgICAgICAgICAg
+ICAoKCh4KSAmIDB4NykgPDwgMTYpCj4gICNkZWZpbmUgRElUSEVSX0xTQl9FUlJfU0hJRlRfRyh4
+KSAgICAgICAgICAgICAgKCgoeCkgJiAweDcpIDw8IDEyKQo+IC0jZGVmaW5lIERJVEhFUl9PVkZM
+V19CSVRfRyh4KSAgICAgICAgICAgICAgICAgICgoKHgpICYgMHg3KSA8PCA4KQo+ICAjZGVmaW5l
+IERJVEhFUl9BRERfTFNISUZUX0coeCkgICAgICAgICAgICAgICAgICgoKHgpICYgMHg3KSA8PCA0
+KQo+IC0jZGVmaW5lIERJVEhFUl9BRERfUlNISUZUX0coeCkgICAgICAgICAgICAgICAgICgoKHgp
+ICYgMHg3KSA8PCAwKQo+Cj4gIHN0cnVjdCBtdGtfZGRwX2NvbXBfZGV2IHsKPiAgICAgICAgIHN0
+cnVjdCBjbGsgKmNsazsKPiAtLQo+IDIuMTguMAo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
