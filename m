@@ -2,60 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6F2E45ECB9
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Nov 2021 12:34:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AA4445F149
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Nov 2021 17:07:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E6E9C5A4FD;
-	Fri, 26 Nov 2021 11:34:52 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F4B0C5A4FD;
+	Fri, 26 Nov 2021 16:07:22 +0000 (UTC)
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7ADEEC57189
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B067FC57189
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Nov 2021 11:34:51 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AQAIQGG005791;
- Fri, 26 Nov 2021 12:34:39 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=t9BKOAnNH3/ir6fGgTKt/gxb6w6S9NYgh/v5dE749Lk=;
- b=Y91G++Exgef0SjdUHnFKX2ctR+4/xDbf1vo4KZBAx418t76tFKrNPXMai/eDpGGcCnWR
- BsKsVu2P7EPX++ogveSDG8UrGgk8Zkd7TAS9aqXZUfGsht1MUMXLsxwpem19R1EX246a
- +q+6lyQ0LhyZZ3XtfQqkVR2f8fx0FJ5lxyBMj3uunMaAJRjDEOW9w1BM+lhSJ3JIvqz+
- t/nfM2A06iHfzT4h09ghGZz03lQ9Dh01PlQbVobWdafRHdK/3M2KMC+HVni5oKxMUaDG
- IhOGHM006w577nMCcym9hO8oih0b3mYyB7wVd1gR9STX387t+jXDm1xIINBQlmvLfGLp Kw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cjptfarr9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 26 Nov 2021 12:34:39 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CE88910002A;
- Fri, 26 Nov 2021 12:34:38 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C2BFB2261F2;
- Fri, 26 Nov 2021 12:34:38 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 26 Nov 2021 12:34:38
- +0100
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <alexandre.torgue@foss.st.com>
-Date: Fri, 26 Nov 2021 12:33:40 +0100
-Message-ID: <1637926420-5116-1-git-send-email-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.7.4
+ Fri, 26 Nov 2021 15:51:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1637941902;
+ x=1669477902;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ZKY0ZUn6hBuF4L45SUjR2Of2kdJCM0Bs6BEONxhZqMk=;
+ b=dGc/W9+A12sqq6jUQOUB7Jcuzy9U1Eoz68qWdJTnab6eCiKz6QofvB+S
+ sWIWN+k5DSvYvkbAap0QW90iqaaDhhJxVlGyCsNtnWGgDKPJ+UzpOwSCR
+ Ge46TULMcGLJhgbiByWJu/gcYXv+vV3TLVUBuOBp1y/eSMjPZUyVYeg8u
+ 7LII1NLsJ4VTmBo+8LhQXuyq6xROFUHoOrc/Iwx2I/0cTto12UUf32iNL
+ RS0IcRIM3LUjrSSkAfAhqA13nYyiQvXlEXcd/2Ekvrpom7HlmOXc0xKN1
+ kcwiI6xDNayxKR7Roy/hBB1vljvHPr1Di5ygGstF59+e5pXc9HKz35Wn+ Q==;
+From: Vincent Whitchurch <vincent.whitchurch@axis.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
+ Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>
+Date: Fri, 26 Nov 2021 16:51:15 +0100
+Message-ID: <20211126155115.12394-1-vincent.whitchurch@axis.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-26_03,2021-11-25_02,2020-04-07_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+X-Mailman-Approved-At: Fri, 26 Nov 2021 16:07:21 +0000
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, netdev@vger.kernel.org,
+ Vincent Whitchurch <vincent.whitchurch@axis.com>, linux-kernel@vger.kernel.org,
+ kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: fix stusb1600 pinctrl used
-	on stm32mp157c-dk
+Subject: [Linux-stm32] [PATCH net] net: stmmac: Avoid DMA_CHAN_CONTROL write
+	if no Split Header support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,33 +57,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-A pinctrl handle is used to setup a pull-up on the stusb1600 IRQ pin (that
-is open drain).
-When in ANALOG state, no pull-up can be applied in the GPIO HW controller,
-still the setting is done into the register. The pull-up is effective
-currently, only when the GPIO IRQ is requested. The correct setting is to
-use directly the GPIO, instead of ANALOG state.
+The driver assumes that split headers can be enabled/disabled without
+stopping/starting the device, so it writes DMA_CHAN_CONTROL from
+stmmac_set_features().  However, on my system (IP v5.10a without Split
+Header support), simply writing DMA_CHAN_CONTROL when DMA is running
+(for example, with the commands below) leads to a TX watchdog timeout.
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+ host$ socat TCP-LISTEN:1024,fork,reuseaddr - &
+ device$ ethtool -K eth0 tso off
+ device$ ethtool -K eth0 tso on
+ device$ dd if=/dev/zero bs=1M count=10 | socat - TCP4:host:1024
+ <tx watchdog timeout>
+
+Note that since my IP is configured without Split Header support, the
+driver always just reads and writes the same value to the
+DMA_CHAN_CONTROL register.
+
+I don't have access to any platforms with Split Header support so I
+don't know if these writes to the DMA_CHAN_CONTROL while DMA is running
+actually work properly on such systems.  I could not find anything in
+the databook that says that DMA_CHAN_CONTROL should not be written when
+the DMA is running.
+
+But on systems without Split Header support, there is in any case no
+need to call enable_sph() in stmmac_set_features() at all since SPH can
+never be toggled, so we can avoid the watchdog timeout there by skipping
+this call.
+
+Fixes: 8c6fc097a2f4acf ("net: stmmac: gmac4+: Add Split Header support")
+Signed-off-by: Vincent Whitchurch <vincent.whitchurch@axis.com>
 ---
- arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-index 5f060fe..3b65130 100644
---- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
-@@ -1718,7 +1718,7 @@
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 2eb284576336..0ee513f67677 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5504,8 +5504,6 @@ static int stmmac_set_features(struct net_device *netdev,
+ 			       netdev_features_t features)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(netdev);
+-	bool sph_en;
+-	u32 chan;
  
- 	stusb1600_pins_a: stusb1600-0 {
- 		pins {
--			pinmux = <STM32_PINMUX('I', 11, ANALOG)>;
-+			pinmux = <STM32_PINMUX('I', 11, GPIO)>;
- 			bias-pull-up;
- 		};
- 	};
+ 	/* Keep the COE Type in case of csum is supporting */
+ 	if (features & NETIF_F_RXCSUM)
+@@ -5517,10 +5515,13 @@ static int stmmac_set_features(struct net_device *netdev,
+ 	 */
+ 	stmmac_rx_ipc(priv, priv->hw);
+ 
+-	sph_en = (priv->hw->rx_csum > 0) && priv->sph;
++	if (priv->sph_cap) {
++		bool sph_en = (priv->hw->rx_csum > 0) && priv->sph;
++		u32 chan;
+ 
+-	for (chan = 0; chan < priv->plat->rx_queues_to_use; chan++)
+-		stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
++		for (chan = 0; chan < priv->plat->rx_queues_to_use; chan++)
++			stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
++	}
+ 
+ 	return 0;
+ }
 -- 
-2.7.4
+2.33.1
 
 _______________________________________________
 Linux-stm32 mailing list
