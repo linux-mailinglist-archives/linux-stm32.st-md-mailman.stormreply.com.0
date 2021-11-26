@@ -2,60 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 812EC45E266
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Nov 2021 22:26:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53D5F45E68B
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Nov 2021 04:30:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B1C1C5A4D4;
-	Thu, 25 Nov 2021 21:26:29 +0000 (UTC)
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00DFCC5A4D4;
+	Fri, 26 Nov 2021 03:30:14 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1619AC57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E38DC57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Nov 2021 21:26:28 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id s139so14879026oie.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Nov 2021 13:26:27 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=Irmkz+2IkREM42YOJmVlq/heQU408FIz6tCFuZLCU8s=;
- b=EUVbW8ceK6GHshTM9iH31Mr8SBWT/X8wxzWw9LSlL46J47yXgx9oDqiq/sNmH58PQ2
- DKKxEKNAlPFN5qPYnanTP4DtFOAk+ztzFk6DssiI6fhMLUbYt3r3h7rI108ZuPd8u0HY
- xVAjDruhgCWoRGcKezyBe2DQGWc/lA0yAcU8moObZr3XF+fhKlpEycNJHjKZ0L43u0kr
- g7WGxz5CRLw25StPqRdH3hhXea8yapKyvhFsR3Q0n+lFM+WH1JOaMBsTX8kbquuhlKlN
- Pglh0n3nLUGz5Rch85sFRjH/bh4oGKv5zYFySznzakoiFjfftW1l+GTha0WkSfi/NAnA
- kvwA==
-X-Gm-Message-State: AOAM530v7HC69Za6qOpRUUW5mDNilnM09V3mukHWZ6Nan6Hu2ZQK6RfF
- iskzgb+6F3Bo99jjDJwlqA==
-X-Google-Smtp-Source: ABdhPJyEIeYGx4xMc1J7Gwjxw4a3IIrOE4Xx6LFo3WAtPewKP4oi94Bvlm37BYHDgo8Y45xaFqR2Wg==
-X-Received: by 2002:a05:6808:3d2:: with SMTP id
- o18mr18848517oie.14.1637875586898; 
- Thu, 25 Nov 2021 13:26:26 -0800 (PST)
-Received: from robh.at.kernel.org ([64.188.179.248])
- by smtp.gmail.com with ESMTPSA id p14sm670414oov.0.2021.11.25.13.26.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Nov 2021 13:26:26 -0800 (PST)
-Received: (nullmailer pid 2858319 invoked by uid 1000);
- Thu, 25 Nov 2021 21:26:02 -0000
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-In-Reply-To: <20211125144053.774-2-olivier.moysan@foss.st.com>
-References: <20211125144053.774-1-olivier.moysan@foss.st.com>
- <20211125144053.774-2-olivier.moysan@foss.st.com>
-Date: Thu, 25 Nov 2021 14:26:02 -0700
-Message-Id: <1637875562.357461.2858318.nullmailer@robh.at.kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, alain.volmat@foss.st.com,
- arnaud.pouliquen@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/4] ASoC: dt-bindings: stm32: i2s: add
-	audio-graph-card port
+ Fri, 26 Nov 2021 03:30:11 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 546EC6112F;
+ Fri, 26 Nov 2021 03:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1637897409;
+ bh=GTT1ehgWI25ZSOWRHixiqqVgfEY61Uge6R/e5yv1jcU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=Kvw6GgQPfrWL9pA7OHQXSzVQ9iAULXaxTUs3p9Hx8kiQkd4i3tzuqiKfTu/KsAxja
+ IO2DzYNLPEA0btM/LFo2Op8JCBQxE/uN/w0XcjIbp4TyP2TYE/YLIdcX803gaNR9rh
+ nhgwISY/msBGDzwec6QUXJevS520Khrp6xNqNKkqL5UfNRinEfGyX0KJsGxA2QeiOz
+ +G+mB7JEaL/79hP2ccOcN3b1VOjLvc2tyHh9Pe6qXBJkxf4AKt/DMs9fXabrFrH7B1
+ p/ndcWQUTM70p5tgeVu3CHZkI9IzKUTMJhv8tKoOQqdLRKhjWyarwGaVP2U7BXl8zI
+ LCtiz8F15mvkA==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 43CA160BCF;
+ Fri, 26 Nov 2021 03:30:09 +0000 (UTC)
+MIME-Version: 1.0
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <163789740927.8117.11153473080203312776.git-patchwork-notify@kernel.org>
+Date: Fri, 26 Nov 2021 03:30:09 +0000
+References: <20211124114019.3949125-1-boon.leong.ong@intel.com>
+In-Reply-To: <20211124114019.3949125-1-boon.leong.ong@intel.com>
+To: Ong Boon Leong <boon.leong.ong@intel.com>
+Cc: alexandre.torgue@st.com, netdev@vger.kernel.org, kurt@linutronix.de,
+ alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ kuba@kernel.org, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: perserve TX and
+ RX coalesce value during XDP setup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,35 +53,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 25 Nov 2021 15:40:50 +0100, Olivier Moysan wrote:
-> The STM2 I2S DAI can be connected via the audio-graph-card.
-> Add port entry into the bindings.
+Hello:
+
+This patch was applied to netdev/net-next.git (master)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 24 Nov 2021 19:40:19 +0800 you wrote:
+> When XDP program is loaded, it is desirable that the previous TX and RX
+> coalesce values are not re-inited to its default value. This prevents
+> unnecessary re-configurig the coalesce values that were working fine
+> before.
 > 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+> Fixes: ac746c8520d9 ("net: stmmac: enhance XDP ZC driver level switching performance")
+> Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
 > 
+> [...]
 
-Running 'make dtbs_check' with the schema in this patch gives the
-following warnings. Consider if they are expected or the schema is
-incorrect. These may not be new warnings.
+Here is the summary with links:
+  - [net-next,1/1] net: stmmac: perserve TX and RX coalesce value during XDP setup
+    https://git.kernel.org/netdev/net-next/c/61da6ac71570
 
-Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-This will change in the future.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Full log is available here: https://patchwork.ozlabs.org/patch/1559750
-
-
-audio-controller@4000b000: 'port' does not match any of the regexes: '^port@[0-9]', 'pinctrl-[0-9]+'
-	arch/arm/boot/dts/stm32mp157a-dk1.dt.yaml
-	arch/arm/boot/dts/stm32mp157c-dk2.dt.yaml
 
 _______________________________________________
 Linux-stm32 mailing list
