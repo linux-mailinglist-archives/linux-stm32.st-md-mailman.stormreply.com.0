@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AA4445F149
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Nov 2021 17:07:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BCA146000B
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Nov 2021 17:05:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F4B0C5A4FD;
-	Fri, 26 Nov 2021 16:07:22 +0000 (UTC)
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA384C5C83D;
+	Sat, 27 Nov 2021 16:05:32 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4A97C56630
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 27 Nov 2021 16:05:31 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B067FC57189
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Nov 2021 15:51:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1637941902;
- x=1669477902;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ZKY0ZUn6hBuF4L45SUjR2Of2kdJCM0Bs6BEONxhZqMk=;
- b=dGc/W9+A12sqq6jUQOUB7Jcuzy9U1Eoz68qWdJTnab6eCiKz6QofvB+S
- sWIWN+k5DSvYvkbAap0QW90iqaaDhhJxVlGyCsNtnWGgDKPJ+UzpOwSCR
- Ge46TULMcGLJhgbiByWJu/gcYXv+vV3TLVUBuOBp1y/eSMjPZUyVYeg8u
- 7LII1NLsJ4VTmBo+8LhQXuyq6xROFUHoOrc/Iwx2I/0cTto12UUf32iNL
- RS0IcRIM3LUjrSSkAfAhqA13nYyiQvXlEXcd/2Ekvrpom7HlmOXc0xKN1
- kcwiI6xDNayxKR7Roy/hBB1vljvHPr1Di5ygGstF59+e5pXc9HKz35Wn+ Q==;
-From: Vincent Whitchurch <vincent.whitchurch@axis.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
- Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>
-Date: Fri, 26 Nov 2021 16:51:15 +0100
-Message-ID: <20211126155115.12394-1-vincent.whitchurch@axis.com>
-X-Mailer: git-send-email 2.33.1
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4ED4D60EC1;
+ Sat, 27 Nov 2021 16:05:30 +0000 (UTC)
+Received: from jic23-huawei (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPSA id 61591C53FBF;
+ Sat, 27 Nov 2021 16:05:25 +0000 (UTC)
+Date: Sat, 27 Nov 2021 16:10:26 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+Message-ID: <20211127161026.2e725d5a@jic23-huawei>
+In-Reply-To: <20211122144501.000014a3@Huawei.com>
+References: <20211122143809.2332-1-olivier.moysan@foss.st.com>
+ <2ca4ad17-d7e5-f4be-1596-7c7de0fa5661@pengutronix.de>
+ <20211122144501.000014a3@Huawei.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 26 Nov 2021 16:07:21 +0000
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, netdev@vger.kernel.org,
- Vincent Whitchurch <vincent.whitchurch@axis.com>, linux-kernel@vger.kernel.org,
- kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
+Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ Xu Wang <vulab@iscas.ac.cn>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Wan Jiabing <wanjiabing@vivo.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: Avoid DMA_CHAN_CONTROL write
-	if no Split Header support
+Subject: Re: [Linux-stm32] [PATCH v2] iio: adc: stm32: fix null pointer on
+ defer_probe error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,71 +57,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The driver assumes that split headers can be enabled/disabled without
-stopping/starting the device, so it writes DMA_CHAN_CONTROL from
-stmmac_set_features().  However, on my system (IP v5.10a without Split
-Header support), simply writing DMA_CHAN_CONTROL when DMA is running
-(for example, with the commands below) leads to a TX watchdog timeout.
+On Mon, 22 Nov 2021 14:45:01 +0000
+Jonathan Cameron <Jonathan.Cameron@Huawei.com> wrote:
 
- host$ socat TCP-LISTEN:1024,fork,reuseaddr - &
- device$ ethtool -K eth0 tso off
- device$ ethtool -K eth0 tso on
- device$ dd if=/dev/zero bs=1M count=10 | socat - TCP4:host:1024
- <tx watchdog timeout>
+> On Mon, 22 Nov 2021 15:41:10 +0100
+> Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
+> 
+> > On 22.11.21 15:38, Olivier Moysan wrote:  
+> > > dev_err_probe() calls __device_set_deferred_probe_reason()
+> > > on -EPROBE_DEFER error. If device pointer to driver core
+> > > private structure is not initialized, an null pointer error occurs.
+> > > This pointer is set on iio_device_register() call for iio device.
+> > > 
+> > > dev_err_probe() must be called with the device which is probing.
+> > > Replace iio device by its parent device.
+> > > 
+> > > Fixes: 0e346b2cfa85 ("iio: adc: stm32-adc: add vrefint calibration support")
+> > >   
+> 
+> I'll fix it when applying, but no blank line between Fixes tag and the others.
+Applied to the fixes-togreg branch of iio.git.
 
-Note that since my IP is configured without Split Header support, the
-driver always just reads and writes the same value to the
-DMA_CHAN_CONTROL register.
+I'll probably do a pull request later this week,
 
-I don't have access to any platforms with Split Header support so I
-don't know if these writes to the DMA_CHAN_CONTROL while DMA is running
-actually work properly on such systems.  I could not find anything in
-the databook that says that DMA_CHAN_CONTROL should not be written when
-the DMA is running.
+Jonathan
 
-But on systems without Split Header support, there is in any case no
-need to call enable_sph() in stmmac_set_features() at all since SPH can
-never be toggled, so we can avoid the watchdog timeout there by skipping
-this call.
-
-Fixes: 8c6fc097a2f4acf ("net: stmmac: gmac4+: Add Split Header support")
-Signed-off-by: Vincent Whitchurch <vincent.whitchurch@axis.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 2eb284576336..0ee513f67677 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5504,8 +5504,6 @@ static int stmmac_set_features(struct net_device *netdev,
- 			       netdev_features_t features)
- {
- 	struct stmmac_priv *priv = netdev_priv(netdev);
--	bool sph_en;
--	u32 chan;
- 
- 	/* Keep the COE Type in case of csum is supporting */
- 	if (features & NETIF_F_RXCSUM)
-@@ -5517,10 +5515,13 @@ static int stmmac_set_features(struct net_device *netdev,
- 	 */
- 	stmmac_rx_ipc(priv, priv->hw);
- 
--	sph_en = (priv->hw->rx_csum > 0) && priv->sph;
-+	if (priv->sph_cap) {
-+		bool sph_en = (priv->hw->rx_csum > 0) && priv->sph;
-+		u32 chan;
- 
--	for (chan = 0; chan < priv->plat->rx_queues_to_use; chan++)
--		stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
-+		for (chan = 0; chan < priv->plat->rx_queues_to_use; chan++)
-+			stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
-+	}
- 
- 	return 0;
- }
--- 
-2.33.1
+> 
+> > > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>    
+> > 
+> > Reviewed-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+> >   
+> > > ---
+> > > Changes in v2:
+> > > - Use parent device from indio_dev instead of private structure
+> > > ---
+> > >  drivers/iio/adc/stm32-adc.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> > > index 7f1fb36c747c..341afdd342cc 100644
+> > > --- a/drivers/iio/adc/stm32-adc.c
+> > > +++ b/drivers/iio/adc/stm32-adc.c
+> > > @@ -1986,7 +1986,7 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
+> > >  			/* Get calibration data for vrefint channel */
+> > >  			ret = nvmem_cell_read_u16(&indio_dev->dev, "vrefint", &vrefint);
+> > >  			if (ret && ret != -ENOENT) {
+> > > -				return dev_err_probe(&indio_dev->dev, ret,
+> > > +				return dev_err_probe(indio_dev->dev.parent, ret,
+> > >  						     "nvmem access error\n");
+> > >  			}
+> > >  			if (ret == -ENOENT)
+> > >     
+> > 
+> >   
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
