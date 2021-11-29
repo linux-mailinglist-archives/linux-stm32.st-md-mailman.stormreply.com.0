@@ -2,74 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DADA64611EC
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Nov 2021 11:16:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D34684614CE
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Nov 2021 13:12:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AC4BC57B6F;
-	Mon, 29 Nov 2021 10:16:15 +0000 (UTC)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com
- [209.85.222.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 896FDC57B6F;
+	Mon, 29 Nov 2021 12:12:37 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CECDC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47DA3C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Nov 2021 10:16:13 +0000 (UTC)
-Received: by mail-ua1-f48.google.com with SMTP id w23so32837243uao.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Nov 2021 02:16:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ApfswTLClXd7P1vfPysclDhxAh5BJExQ1LUH6zQE/1E=;
- b=FU/nmpB0Mu75WjuifixHJOa8V9GAuVoZXnY/cvv5LS1frWBU985pj3f5yzL7IhcvCD
- 1E0/iwcCJGQ/RuxSCcEpqclY1kQCHCdy1GRv7UqUMVXZx+dwN2VHLUcmzH2HBoNK9qRQ
- YUaSNRw1r9HKneNXT2LpZv5yR/A60V5fC8xrhQ9Liz92lsHXjyphELhA/ajxpDpslUub
- tAswmzX+Qb7CegQ1C8TiYb1BdB/RKT3k+artiTxv0wmGkAtEWZK1WImGeXSCRL7X86Gp
- WVP4mJIjahkKEjnKOe/p0HcDBkYasOYl1X/qLZd7kRee8LiiFOp2d5Anmma3vtH5UYLZ
- WeSQ==
-X-Gm-Message-State: AOAM533s7rMl71zGbPM5X13xPrd0/aJd/x3rOeGWgQPra6zmBY8TK08p
- nmPHL8e4SG9RvEcl9ZVQWBhqD4NowWF4IA==
-X-Google-Smtp-Source: ABdhPJzsKT0ODMyfepl+4SKIIfr3X/b+skzHBxOxr1nOuk+VlF3Sv3a7Iff20dhwy8QrY2+UcZptIw==
-X-Received: by 2002:ab0:2a10:: with SMTP id o16mr48045665uar.36.1638180972178; 
- Mon, 29 Nov 2021 02:16:12 -0800 (PST)
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com.
- [209.85.222.47])
- by smtp.gmail.com with ESMTPSA id a128sm7785911vki.11.2021.11.29.02.16.11
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Nov 2021 02:16:11 -0800 (PST)
-Received: by mail-ua1-f47.google.com with SMTP id a14so32931931uak.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Nov 2021 02:16:11 -0800 (PST)
-X-Received: by 2002:a05:6102:e10:: with SMTP id
- o16mr30760064vst.5.1638180970757; 
- Mon, 29 Nov 2021 02:16:10 -0800 (PST)
+ Mon, 29 Nov 2021 12:12:36 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 03B8961333;
+ Mon, 29 Nov 2021 12:12:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289B2C53FCE;
+ Mon, 29 Nov 2021 12:12:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1638187954;
+ bh=J6RU2160OUE42YClmwCyG+Es52HOmnCZuL2GlsaaDUA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YPRGsL++uiB3n5nNE5PzP2RGHUyBDokqG/NKvrtScM9Oh4RKIMg86l5nanCG7PrFx
+ iFMbwUcqhy8fRD/W++CIRzMnk0Ptf91HS6XtY7JReJiexj3VhWRdau+eg+Ij/GZU2F
+ 2bOcooFnAgY59Yql6MD9P700Q+vT0NRVCUwlUwyRb5NAO+UY7RvmxyHtFQEFcd5uts
+ S8+zK4cvkKzcXZA1T141wTP7p2XzALwsLeEbN9ZWYIH04ccR125TZgrvTPiSqtKfil
+ V1uvWJj9SyRzRCjoD2qtCwvxRowyesZwEkIvV8gS4jJlxbWCiImkx31eBObYUovW64
+ xi4aJxt5yV8CA==
+Date: Mon, 29 Nov 2021 13:12:31 +0100
+From: Wolfram Sang <wsa@kernel.org>
+To: Alain Volmat <alain.volmat@foss.st.com>
+Message-ID: <YaTDr7tFo844UAIf@kunai>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ pierre-yves.mordret@foss.st.com, alexandre.torgue@foss.st.com,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ fabrice.gasnier@foss.st.com, amelie.delaunay@foss.st.com
+References: <1632151292-18503-1-git-send-email-alain.volmat@foss.st.com>
+ <1632151292-18503-2-git-send-email-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-References: <20211112184413.4391-1-biju.das.jz@bp.renesas.com>
- <20211112184413.4391-4-biju.das.jz@bp.renesas.com>
- <c4869451-e879-aa58-29ba-ef3e94b03527@linaro.org>
- <OS0PR01MB592240481D7503FFC505BD5E86669@OS0PR01MB5922.jpnprd01.prod.outlook.com>
-In-Reply-To: <OS0PR01MB592240481D7503FFC505BD5E86669@OS0PR01MB5922.jpnprd01.prod.outlook.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 29 Nov 2021 11:15:59 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUE3A0WwhGYpVK52S0C5xMqccpvHp0hHdnqq3aawzb7DQ@mail.gmail.com>
-Message-ID: <CAMuHMdUE3A0WwhGYpVK52S0C5xMqccpvHp0hHdnqq3aawzb7DQ@mail.gmail.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>
-Cc: Chris Paterson <Chris.Paterson2@renesas.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Biju Das <biju.das@bp.renesas.com>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- Chris Brandt <Chris.Brandt@renesas.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@linutronix.de>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v3 3/4] clocksource/drivers/renesas-ostm:
-	Add RZ/G2L OSTM support
+In-Reply-To: <1632151292-18503-2-git-send-email-alain.volmat@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/4] i2c: stm32f7: flush TX FIFO upon
+	transfer errors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,157 +60,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0909150157321925227=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Biju, Daniel,
 
-On Mon, Nov 29, 2021 at 11:06 AM Biju Das <biju.das.jz@bp.renesas.com> wrote:
-> > Subject: Re: [PATCH v3 3/4] clocksource/drivers/renesas-ostm: Add RZ/G2L
-> > OSTM support
-> >
-> > On 12/11/2021 19:44, Biju Das wrote:
-> > > RZ/G2L SoC has Generic Timer Module(a.k.a OSTM) which needs to
-> > > deassert the reset line before accessing any registers.
-> > >
-> > > This patch adds an entry point for RZ/G2L so that we can deassert the
-> > > reset line in probe callback.
-> >
-> > What is the connection between adding the reset line control and the
-> > platform driver at the end of the driver ?
->
-> The original driver has no arm architecture timer, so it needs to be
-
-s/driver/SoC used with this driver/
-
-> called very early in the boot and using of calls for handling the clocks.
-
-Hence must be handled by TIMER_OF_DECLARE().
-
-> Where as RZ/G2L has arm architecture timer and it needs to release the module
-> Reset before accessing any registers. So it has to be built in and it needs cpg driver
-> which happens at later stage compared to the original case, for de-asserting the reset.
->
-> Geert, please correct me if I am wrong.
-
-The reset driver is not available yet at TIMER_OF_DECLARE() time,
-so of_reset_control_get_optional_exclusive() returns -EPROBE_DEFER
-on RZ/G2L.  Fortunately there is no need to have this timer available
-early on RZ/G2L, as it uses the arm architecture timer as the main
-clock source.  Still, to be available at all, the platform driver
-is needed to support re-probing after the reset driver has become
-available.
+--===============0909150157321925227==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1sYfu5XiG+wi/5C6"
+Content-Disposition: inline
 
 
-> > > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> > > Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > ---
-> > > v2->v3:
-> > >  * Added reset_control_put() on error path.
-> > >  * enabled suppress_bind_attrs in ostm_device_driver structure
-> > > v1->v2:
-> > >  * Added reset handling inside ostm_init
-> > >  * Used same compatible for builtin driver aswell
-> > > ---
-> > >  drivers/clocksource/renesas-ostm.c | 39
-> > > +++++++++++++++++++++++++++++-
-> > >  1 file changed, 38 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/clocksource/renesas-ostm.c
-> > > b/drivers/clocksource/renesas-ostm.c
-> > > index 3d06ba66008c..21d1392637b8 100644
-> > > --- a/drivers/clocksource/renesas-ostm.c
-> > > +++ b/drivers/clocksource/renesas-ostm.c
-> > > @@ -9,6 +9,8 @@
-> > >  #include <linux/clk.h>
-> > >  #include <linux/clockchips.h>
-> > >  #include <linux/interrupt.h>
-> > > +#include <linux/platform_device.h>
-> > > +#include <linux/reset.h>
-> > >  #include <linux/sched_clock.h>
-> > >  #include <linux/slab.h>
-> > >
-> > > @@ -159,6 +161,7 @@ static int __init ostm_init_clkevt(struct timer_of
-> > > *to)
-> > >
-> > >  static int __init ostm_init(struct device_node *np)  {
-> > > +   struct reset_control *rstc;
-> > >     struct timer_of *to;
-> > >     int ret;
-> > >
-> > > @@ -166,6 +169,14 @@ static int __init ostm_init(struct device_node *np)
-> > >     if (!to)
-> > >             return -ENOMEM;
-> > >
-> > > +   rstc = of_reset_control_get_optional_exclusive(np, NULL);
-> > > +   if (IS_ERR(rstc)) {
-> > > +           ret = PTR_ERR(rstc);
-> > > +           goto err_free;
-> > > +   }
-> > > +
-> > > +   reset_control_deassert(rstc);
-> > > +
-> > >     to->flags = TIMER_OF_BASE | TIMER_OF_CLOCK;
-> > >     if (system_clock) {
-> > >             /*
-> > > @@ -178,7 +189,7 @@ static int __init ostm_init(struct device_node
-> > > *np)
-> > >
-> > >     ret = timer_of_init(np, to);
-> > >     if (ret)
-> > > -           goto err_free;
-> > > +           goto err_reset;
-> > >
-> > >     /*
-> > >      * First probed device will be used as system clocksource. Any @@
-> > > -203,9 +214,35 @@ static int __init ostm_init(struct device_node *np)
-> > >
-> > >  err_cleanup:
-> > >     timer_of_cleanup(to);
-> > > +err_reset:
-> > > +   reset_control_assert(rstc);
-> > > +   reset_control_put(rstc);
-> > >  err_free:
-> > >     kfree(to);
-> > >     return ret;
-> > >  }
-> > >
-> > >  TIMER_OF_DECLARE(ostm, "renesas,ostm", ostm_init);
-> > > +
-> > > +#ifdef CONFIG_ARCH_R9A07G044
-> > > +static int __init ostm_probe(struct platform_device *pdev) {
-> > > +   struct device *dev = &pdev->dev;
-> > > +
-> > > +   return ostm_init(dev->of_node);
-> > > +}
-> > > +
-> > > +static const struct of_device_id ostm_of_table[] = {
-> > > +   { .compatible = "renesas,ostm", },
-> > > +   { /* sentinel */ }
-> > > +};
-> > > +
-> > > +static struct platform_driver ostm_device_driver = {
-> > > +   .driver = {
-> > > +           .name = "renesas_ostm",
-> > > +           .of_match_table = of_match_ptr(ostm_of_table),
-> > > +           .suppress_bind_attrs = true,
-> > > +   },
-> > > +};
-> > > +builtin_platform_driver_probe(ostm_device_driver, ostm_probe); #endif
+--1sYfu5XiG+wi/5C6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Gr{oetje,eeting}s,
+On Mon, Sep 20, 2021 at 05:21:29PM +0200, Alain Volmat wrote:
+> While handling an error during transfer (ex: NACK), it could
+> happen that the driver has already written data into TXDR
+> before the transfer get stopped.
+> This commit add TXDR Flush after end of transfer in case of error to
+> avoid sending a wrong data on any other slave upon next transfer.
+>=20
+> Fixes: aeb068c57214 ("i2c: i2c-stm32f7: add driver")
+>=20
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 
-                        Geert
+Applied to for-current, thanks!
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--1sYfu5XiG+wi/5C6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmGkw68ACgkQFA3kzBSg
+KbY0GQ/9FflxoUzCZMy+SZ4u/71HEEbXOxCS4MJG2HYHtPtgSgzzXqHEnPkkO7y1
+3w0wztsBDOVyam0ooiwOgYaP2sQmB3WPFnz3e3OcV2nXgr7Y9MravpnwKF9LO6Lq
+tywOzSI/MVbuRQeb2RlzGyIQ0l3Cbm/rzKoc1bPmhklD6j0qzHV4EH+HQpSHbSZy
+sehUSx3tA8KL8CtGr9Nr2mwj3d3rtjHXB5SLzR3tPH+0ScALH/E3B3OUK69xUaHz
+crKTFwdQL8Rx2XNsyRbGpO3LKanzcu36iTUZGGo5OI8JOh6eD4O8ft0HSId4wIr1
+56fiIUU84iVh6cTPWhSOsHFE46w+bxiTgtqR3x5KiWUSFTf1VljdVKW/e38d55M0
+CY69kMcYirqiOtrsdHpYGDjUZ/5QWI8zNxYTKVuln1JGIcv3sZF9U6yTEdbUzPbG
+GJ/vatVo7LJJlFoFrxZma40ozkUUp+Xb19yN6lxlk/w08N0lRyDyxu0gCHV7Ho8A
+A8gODXZDfw9POXXJPXSf2CZzoN9myMiEks1U33JmbLlNUZA012x9mU2V3Zk0Pbi7
+r0EEngpsrnXeH6laHBTHdjXTH2fSOLP6uxA0GDZwhz1+OuIrhDvHSmhROnjmtNWj
+gbt0uIPbT+BWcveNKvB7pBkJ0uAtsrP/PItvYm1k8aS9qQva99E=
+=tguV
+-----END PGP SIGNATURE-----
+
+--1sYfu5XiG+wi/5C6--
+
+--===============0909150157321925227==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0909150157321925227==--
