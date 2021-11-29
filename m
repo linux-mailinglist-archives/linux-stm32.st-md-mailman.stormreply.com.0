@@ -2,26 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8D0E461F89
+	by mail.lfdr.de (Postfix) with ESMTPS id BA228461F88
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Nov 2021 19:44:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C874C5F1CC;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DC59C5F1D6;
 	Mon, 29 Nov 2021 18:44:59 +0000 (UTC)
 Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0CE0C5EC78
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89570C5EC74
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon, 29 Nov 2021 18:44:55 +0000 (UTC)
-X-UUID: 376d605b89f94b31b0c60f52856a57ac-20211130
-X-UUID: 376d605b89f94b31b0c60f52856a57ac-20211130
+X-UUID: 3151c716dd79471080d865141f43dcf8-20211130
+X-UUID: 3151c716dd79471080d865141f43dcf8-20211130
 Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
  mailgw01.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1425508568; Tue, 30 Nov 2021 02:44:44 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ with ESMTP id 1055591785; Tue, 30 Nov 2021 02:44:44 +0800
+Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
  mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Tue, 30 Nov 2021 02:44:44 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb01.mediatek.inc
+ (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
  Tue, 30 Nov 2021 02:44:43 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
@@ -31,8 +34,8 @@ To: Rob Herring <robh+dt@kernel.org>, Matthias Brugger
  <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, "Philipp
  Zabel" <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
  <angelogioacchino.delregno@collabora.com>
-Date: Tue, 30 Nov 2021 02:44:36 +0800
-Message-ID: <20211129184439.16892-13-jason-jh.lin@mediatek.com>
+Date: Tue, 30 Nov 2021 02:44:37 +0800
+Message-ID: <20211129184439.16892-14-jason-jh.lin@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 In-Reply-To: <20211129184439.16892-1-jason-jh.lin@mediatek.com>
 References: <20211129184439.16892-1-jason-jh.lin@mediatek.com>
@@ -48,8 +51,8 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
  nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v13 12/15] drm/mediatek: adjust to the
-	alphabetic order for mediatek-drm
+Subject: [Linux-stm32] [PATCH v13 13/15] drm/mediatek: add DSC support for
+	mediatek-drm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,8 +69,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Adjust to the alphabetic order for the define, function, struct
-and array in mediatek-drm driver
+DSC is designed for real-time systems with real-time compression,
+transmission, decompression and display.
+The DSC standard is a specification of the algorithms used for
+compressing and decompressing image display streams, including
+the specification of the syntax and semantics of the compressed
+video bit stream.
 
 Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
 Reviewed-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
@@ -77,432 +84,108 @@ rebase on series [1]
 [1] drm/mediatek: add support for mediatek SOC MT8192
 - https://patchwork.kernel.org/project/linux-mediatek/list/?series=529489
 ---
- drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c | 121 ++++++++++----------
- drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.h |  24 ++--
- drivers/gpu/drm/mediatek/mtk_drm_drv.c      | 120 +++++++++----------
- 3 files changed, 131 insertions(+), 134 deletions(-)
+ drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c | 47 +++++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.h |  1 +
+ 2 files changed, 48 insertions(+)
 
 diff --git a/drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c
-index 40ea57fc4473..b4b682bc1991 100644
+index b4b682bc1991..90b289b5f9a4 100644
 --- a/drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c
 +++ b/drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c
-@@ -20,42 +20,40 @@
- #include "mtk_drm_ddp_comp.h"
- #include "mtk_drm_crtc.h"
- 
--#define DISP_REG_OD_EN				0x0000
--#define DISP_REG_OD_CFG				0x0020
--#define DISP_REG_OD_SIZE			0x0030
--#define DISP_REG_DITHER_5			0x0114
--#define DISP_REG_DITHER_7			0x011c
--#define DISP_REG_DITHER_15			0x013c
--#define DISP_REG_DITHER_16			0x0140
--
--#define DISP_REG_UFO_START			0x0000
- 
- #define DISP_REG_DITHER_EN			0x0000
- #define DITHER_EN				BIT(0)
- #define DISP_REG_DITHER_CFG			0x0020
- #define DITHER_RELAY_MODE			BIT(0)
- #define DITHER_ENGINE_EN			BIT(1)
--#define DISP_REG_DITHER_SIZE			0x0030
--
--#define OD_RELAYMODE				BIT(0)
--
--#define UFO_BYPASS				BIT(2)
--
- #define DISP_DITHERING				BIT(2)
-+#define DISP_REG_DITHER_SIZE			0x0030
-+#define DISP_REG_DITHER_5			0x0114
-+#define DISP_REG_DITHER_7			0x011c
-+#define DISP_REG_DITHER_15			0x013c
- #define DITHER_LSB_ERR_SHIFT_R(x)		(((x) & 0x7) << 28)
- #define DITHER_ADD_LSHIFT_R(x)			(((x) & 0x7) << 20)
- #define DITHER_NEW_BIT_MODE			BIT(0)
-+#define DISP_REG_DITHER_16			0x0140
- #define DITHER_LSB_ERR_SHIFT_B(x)		(((x) & 0x7) << 28)
- #define DITHER_ADD_LSHIFT_B(x)			(((x) & 0x7) << 20)
+@@ -40,6 +40,12 @@
  #define DITHER_LSB_ERR_SHIFT_G(x)		(((x) & 0x7) << 12)
  #define DITHER_ADD_LSHIFT_G(x)			(((x) & 0x7) << 4)
  
-+#define DISP_REG_OD_EN				0x0000
-+#define DISP_REG_OD_CFG				0x0020
-+#define OD_RELAYMODE				BIT(0)
-+#define DISP_REG_OD_SIZE			0x0030
++#define DISP_REG_DSC_CON			0x0000
++#define DSC_EN					BIT(0)
++#define DSC_DUAL_INOUT				BIT(2)
++#define DSC_BYPASS				BIT(4)
++#define DSC_UFOE_SEL				BIT(16)
 +
- #define DISP_REG_POSTMASK_EN			0x0000
- #define POSTMASK_EN					BIT(0)
- #define DISP_REG_POSTMASK_CFG			0x0020
- #define POSTMASK_RELAY_MODE				BIT(0)
- #define DISP_REG_POSTMASK_SIZE			0x0030
- 
-+#define DISP_REG_UFO_START			0x0000
-+#define UFO_BYPASS				BIT(2)
-+
- struct mtk_ddp_comp_dev {
- 	struct clk *clk;
- 	void __iomem *regs;
-@@ -147,66 +145,58 @@ void mtk_dither_set_common(void __iomem *regs, struct cmdq_client_reg *cmdq_reg,
- 	}
+ #define DISP_REG_OD_EN				0x0000
+ #define DISP_REG_OD_CFG				0x0020
+ #define OD_RELAYMODE				BIT(0)
+@@ -181,6 +187,36 @@ static void mtk_dither_set(struct device *dev, unsigned int bpc,
+ 			      DISP_DITHERING, cmdq_pkt);
  }
  
--static void mtk_dither_set(struct device *dev, unsigned int bpc,
--		    unsigned int cfg, struct cmdq_pkt *cmdq_pkt)
--{
--	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
--
--	mtk_dither_set_common(priv->regs, &priv->cmdq_reg, bpc, cfg,
--			      DISP_DITHERING, cmdq_pkt);
--}
--
--static void mtk_od_config(struct device *dev, unsigned int w,
--			  unsigned int h, unsigned int vrefresh,
--			  unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-+static void mtk_dither_config(struct device *dev, unsigned int w,
-+			      unsigned int h, unsigned int vrefresh,
-+			      unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
- {
- 	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
- 
--	mtk_ddp_write(cmdq_pkt, w << 16 | h, &priv->cmdq_reg, priv->regs, DISP_REG_OD_SIZE);
--	mtk_ddp_write(cmdq_pkt, OD_RELAYMODE, &priv->cmdq_reg, priv->regs, DISP_REG_OD_CFG);
--	mtk_dither_set(dev, bpc, DISP_REG_OD_CFG, cmdq_pkt);
-+	mtk_ddp_write(cmdq_pkt, h << 16 | w, &priv->cmdq_reg, priv->regs, DISP_REG_DITHER_SIZE);
-+	mtk_ddp_write(cmdq_pkt, DITHER_RELAY_MODE, &priv->cmdq_reg, priv->regs,
-+		      DISP_REG_DITHER_CFG);
-+	mtk_dither_set_common(priv->regs, &priv->cmdq_reg, bpc, DISP_REG_DITHER_CFG,
-+			      DITHER_ENGINE_EN, cmdq_pkt);
- }
- 
--static void mtk_od_start(struct device *dev)
-+static void mtk_dither_start(struct device *dev)
- {
- 	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
- 
--	writel(1, priv->regs + DISP_REG_OD_EN);
-+	writel(DITHER_EN, priv->regs + DISP_REG_DITHER_EN);
- }
- 
--static void mtk_ufoe_start(struct device *dev)
-+static void mtk_dither_stop(struct device *dev)
- {
- 	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
- 
--	writel(UFO_BYPASS, priv->regs + DISP_REG_UFO_START);
-+	writel_relaxed(0x0, priv->regs + DISP_REG_DITHER_EN);
- }
- 
--static void mtk_dither_config(struct device *dev, unsigned int w,
--			      unsigned int h, unsigned int vrefresh,
--			      unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-+static void mtk_dither_set(struct device *dev, unsigned int bpc,
-+			   unsigned int cfg, struct cmdq_pkt *cmdq_pkt)
- {
- 	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
- 
--	mtk_ddp_write(cmdq_pkt, h << 16 | w, &priv->cmdq_reg, priv->regs,
--		      DISP_REG_DITHER_SIZE);
--	mtk_ddp_write(cmdq_pkt, DITHER_RELAY_MODE, &priv->cmdq_reg, priv->regs,
--		      DISP_REG_DITHER_CFG);
--	mtk_dither_set_common(priv->regs, &priv->cmdq_reg, bpc, DISP_REG_DITHER_CFG,
--			      DITHER_ENGINE_EN, cmdq_pkt);
-+	mtk_dither_set_common(priv->regs, &priv->cmdq_reg, bpc, cfg,
-+			      DISP_DITHERING, cmdq_pkt);
- }
- 
--static void mtk_dither_start(struct device *dev)
-+static void mtk_od_config(struct device *dev, unsigned int w,
-+			  unsigned int h, unsigned int vrefresh,
-+			  unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
- {
- 	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
- 
--	writel(DITHER_EN, priv->regs + DISP_REG_DITHER_EN);
-+	mtk_ddp_write(cmdq_pkt, w << 16 | h, &priv->cmdq_reg, priv->regs, DISP_REG_OD_SIZE);
-+	mtk_ddp_write(cmdq_pkt, OD_RELAYMODE, &priv->cmdq_reg, priv->regs, DISP_REG_OD_CFG);
-+	mtk_dither_set(dev, bpc, DISP_REG_OD_CFG, cmdq_pkt);
- }
- 
--static void mtk_dither_stop(struct device *dev)
-+static void mtk_od_start(struct device *dev)
- {
- 	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
- 
--	writel_relaxed(0x0, priv->regs + DISP_REG_DITHER_EN);
-+	writel(1, priv->regs + DISP_REG_OD_EN);
- }
- 
- static void mtk_postmask_config(struct device *dev, unsigned int w,
-@@ -235,6 +225,13 @@ static void mtk_postmask_stop(struct device *dev)
- 	writel_relaxed(0x0, priv->regs + DISP_REG_POSTMASK_EN);
- }
- 
-+static void mtk_ufoe_start(struct device *dev)
++static void mtk_dsc_config(struct device *dev, unsigned int w,
++			   unsigned int h, unsigned int vrefresh,
++			   unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
 +{
 +	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
 +
-+	writel(UFO_BYPASS, priv->regs + DISP_REG_UFO_START);
++	/* dsc bypass mode */
++	mtk_ddp_write_mask(cmdq_pkt, DSC_BYPASS, &priv->cmdq_reg, priv->regs,
++			   DISP_REG_DSC_CON, DSC_BYPASS);
++	mtk_ddp_write_mask(cmdq_pkt, DSC_UFOE_SEL, &priv->cmdq_reg, priv->regs,
++			   DISP_REG_DSC_CON, DSC_UFOE_SEL);
++	mtk_ddp_write_mask(cmdq_pkt, DSC_DUAL_INOUT, &priv->cmdq_reg, priv->regs,
++			   DISP_REG_DSC_CON, DSC_DUAL_INOUT);
 +}
 +
- static const struct mtk_ddp_comp_funcs ddp_aal = {
- 	.clk_enable = mtk_aal_clk_enable,
- 	.clk_disable = mtk_aal_clk_disable,
-@@ -337,23 +334,23 @@ static const struct mtk_ddp_comp_funcs ddp_ufoe = {
++static void mtk_dsc_start(struct device *dev)
++{
++	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
++
++	/* write with mask to reserve the value set in mtk_dsc_config */
++	mtk_ddp_write_mask(NULL, DSC_EN, &priv->cmdq_reg, priv->regs, DISP_REG_DSC_CON, DSC_EN);
++}
++
++static void mtk_dsc_stop(struct device *dev)
++{
++	struct mtk_ddp_comp_dev *priv = dev_get_drvdata(dev);
++
++	writel_relaxed(0x0, priv->regs + DISP_REG_DSC_CON);
++}
++
+ static void mtk_od_config(struct device *dev, unsigned int w,
+ 			  unsigned int h, unsigned int vrefresh,
+ 			  unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
+@@ -270,6 +306,14 @@ static const struct mtk_ddp_comp_funcs ddp_dpi = {
+ 	.stop = mtk_dpi_stop,
  };
  
- static const char * const mtk_ddp_comp_stem[MTK_DDP_COMP_TYPE_MAX] = {
--	[MTK_DISP_OVL] = "ovl",
--	[MTK_DISP_OVL_2L] = "ovl-2l",
--	[MTK_DISP_RDMA] = "rdma",
--	[MTK_DISP_WDMA] = "wdma",
--	[MTK_DISP_COLOR] = "color",
--	[MTK_DISP_CCORR] = "ccorr",
- 	[MTK_DISP_AAL] = "aal",
--	[MTK_DISP_GAMMA] = "gamma",
-+	[MTK_DISP_BLS] = "bls",
-+	[MTK_DISP_CCORR] = "ccorr",
-+	[MTK_DISP_COLOR] = "color",
++static const struct mtk_ddp_comp_funcs ddp_dsc = {
++	.clk_enable = mtk_ddp_clk_enable,
++	.clk_disable = mtk_ddp_clk_disable,
++	.config = mtk_dsc_config,
++	.start = mtk_dsc_start,
++	.stop = mtk_dsc_stop,
++};
++
+ static const struct mtk_ddp_comp_funcs ddp_dsi = {
+ 	.start = mtk_dsi_ddp_start,
+ 	.stop = mtk_dsi_ddp_stop,
+@@ -339,6 +383,7 @@ static const char * const mtk_ddp_comp_stem[MTK_DDP_COMP_TYPE_MAX] = {
+ 	[MTK_DISP_CCORR] = "ccorr",
+ 	[MTK_DISP_COLOR] = "color",
  	[MTK_DISP_DITHER] = "dither",
--	[MTK_DISP_UFOE] = "ufoe",
--	[MTK_DSI] = "dsi",
--	[MTK_DPI] = "dpi",
--	[MTK_DISP_PWM] = "pwm",
-+	[MTK_DISP_GAMMA] = "gamma",
++	[MTK_DISP_DSC] = "dsc",
+ 	[MTK_DISP_GAMMA] = "gamma",
  	[MTK_DISP_MUTEX] = "mutex",
  	[MTK_DISP_OD] = "od",
--	[MTK_DISP_BLS] = "bls",
-+	[MTK_DISP_OVL] = "ovl",
-+	[MTK_DISP_OVL_2L] = "ovl-2l",
- 	[MTK_DISP_POSTMASK] = "postmask",
-+	[MTK_DISP_PWM] = "pwm",
-+	[MTK_DISP_RDMA] = "rdma",
-+	[MTK_DISP_UFOE] = "ufoe",
-+	[MTK_DISP_WDMA] = "wdma",
-+	[MTK_DPI] = "dpi",
-+	[MTK_DSI] = "dsi",
- };
- 
- struct mtk_ddp_comp_match {
-@@ -511,12 +508,12 @@ int mtk_ddp_comp_init(struct device_node *node, struct mtk_ddp_comp *comp,
- 	    type == MTK_DISP_CCORR ||
- 	    type == MTK_DISP_COLOR ||
- 	    type == MTK_DISP_GAMMA ||
--	    type == MTK_DPI ||
--	    type == MTK_DSI ||
- 	    type == MTK_DISP_OVL ||
- 	    type == MTK_DISP_OVL_2L ||
- 	    type == MTK_DISP_PWM ||
--	    type == MTK_DISP_RDMA)
-+	    type == MTK_DISP_RDMA ||
-+	    type == MTK_DPI ||
-+	    type == MTK_DSI)
- 		return 0;
- 
- 	priv = devm_kzalloc(comp->dev, sizeof(*priv), GFP_KERNEL);
+@@ -369,6 +414,8 @@ static const struct mtk_ddp_comp_match mtk_ddp_matches[DDP_COMPONENT_ID_MAX] = {
+ 	[DDP_COMPONENT_DITHER]		= { MTK_DISP_DITHER,	0, &ddp_dither },
+ 	[DDP_COMPONENT_DPI0]		= { MTK_DPI,		0, &ddp_dpi },
+ 	[DDP_COMPONENT_DPI1]		= { MTK_DPI,		1, &ddp_dpi },
++	[DDP_COMPONENT_DSC0]		= { MTK_DISP_DSC,	0, &ddp_dsc },
++	[DDP_COMPONENT_DSC1]		= { MTK_DISP_DSC,	1, &ddp_dsc },
+ 	[DDP_COMPONENT_DSI0]		= { MTK_DSI,		0, &ddp_dsi },
+ 	[DDP_COMPONENT_DSI1]		= { MTK_DSI,		1, &ddp_dsi },
+ 	[DDP_COMPONENT_DSI2]		= { MTK_DSI,		2, &ddp_dsi },
 diff --git a/drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.h b/drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.h
-index cd1dec6b4cdf..4c6a98662305 100644
+index 4c6a98662305..5e6ff12f16ad 100644
 --- a/drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.h
 +++ b/drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.h
-@@ -18,23 +18,23 @@ struct mtk_plane_state;
- struct drm_crtc_state;
- 
- enum mtk_ddp_comp_type {
--	MTK_DISP_OVL,
--	MTK_DISP_OVL_2L,
--	MTK_DISP_RDMA,
--	MTK_DISP_WDMA,
--	MTK_DISP_COLOR,
-+	MTK_DISP_AAL,
-+	MTK_DISP_BLS,
+@@ -23,6 +23,7 @@ enum mtk_ddp_comp_type {
  	MTK_DISP_CCORR,
-+	MTK_DISP_COLOR,
+ 	MTK_DISP_COLOR,
  	MTK_DISP_DITHER,
--	MTK_DISP_AAL,
++	MTK_DISP_DSC,
  	MTK_DISP_GAMMA,
--	MTK_DISP_UFOE,
--	MTK_DSI,
--	MTK_DPI,
--	MTK_DISP_POSTMASK,
--	MTK_DISP_PWM,
  	MTK_DISP_MUTEX,
  	MTK_DISP_OD,
--	MTK_DISP_BLS,
-+	MTK_DISP_OVL,
-+	MTK_DISP_OVL_2L,
-+	MTK_DISP_POSTMASK,
-+	MTK_DISP_PWM,
-+	MTK_DISP_RDMA,
-+	MTK_DISP_UFOE,
-+	MTK_DISP_WDMA,
-+	MTK_DPI,
-+	MTK_DSI,
- 	MTK_DDP_COMP_TYPE_MAX,
- };
- 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index fa86485b4b9a..56ff8c57ef8f 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -423,32 +423,14 @@ static const struct component_master_ops mtk_drm_ops = {
- };
- 
- static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
--	{ .compatible = "mediatek,mt2701-disp-ovl",
--	  .data = (void *)MTK_DISP_OVL },
--	{ .compatible = "mediatek,mt8167-disp-ovl",
--	  .data = (void *)MTK_DISP_OVL },
--	{ .compatible = "mediatek,mt8173-disp-ovl",
--	  .data = (void *)MTK_DISP_OVL },
--	{ .compatible = "mediatek,mt8183-disp-ovl",
--	  .data = (void *)MTK_DISP_OVL },
--	{ .compatible = "mediatek,mt8183-disp-ovl-2l",
--	  .data = (void *)MTK_DISP_OVL_2L },
--	{ .compatible = "mediatek,mt8192-disp-ovl",
--	  .data = (void *)MTK_DISP_OVL },
--	{ .compatible = "mediatek,mt8192-disp-ovl-2l",
--	  .data = (void *)MTK_DISP_OVL_2L },
--	{ .compatible = "mediatek,mt2701-disp-rdma",
--	  .data = (void *)MTK_DISP_RDMA },
--	{ .compatible = "mediatek,mt8167-disp-rdma",
--	  .data = (void *)MTK_DISP_RDMA },
--	{ .compatible = "mediatek,mt8173-disp-rdma",
--	  .data = (void *)MTK_DISP_RDMA },
--	{ .compatible = "mediatek,mt8183-disp-rdma",
--	  .data = (void *)MTK_DISP_RDMA },
--	{ .compatible = "mediatek,mt8192-disp-rdma",
--	  .data = (void *)MTK_DISP_RDMA },
--	{ .compatible = "mediatek,mt8173-disp-wdma",
--	  .data = (void *)MTK_DISP_WDMA },
-+	{ .compatible = "mediatek,mt8167-disp-aal",
-+	  .data = (void *)MTK_DISP_AAL},
-+	{ .compatible = "mediatek,mt8173-disp-aal",
-+	  .data = (void *)MTK_DISP_AAL},
-+	{ .compatible = "mediatek,mt8183-disp-aal",
-+	  .data = (void *)MTK_DISP_AAL},
-+	{ .compatible = "mediatek,mt8192-disp-aal",
-+	  .data = (void *)MTK_DISP_AAL},
- 	{ .compatible = "mediatek,mt8167-disp-ccorr",
- 	  .data = (void *)MTK_DISP_CCORR },
- 	{ .compatible = "mediatek,mt8183-disp-ccorr",
-@@ -461,40 +443,16 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_COLOR },
- 	{ .compatible = "mediatek,mt8173-disp-color",
- 	  .data = (void *)MTK_DISP_COLOR },
--	{ .compatible = "mediatek,mt8167-disp-aal",
--	  .data = (void *)MTK_DISP_AAL},
--	{ .compatible = "mediatek,mt8173-disp-aal",
--	  .data = (void *)MTK_DISP_AAL},
--	{ .compatible = "mediatek,mt8183-disp-aal",
--	  .data = (void *)MTK_DISP_AAL},
--	{ .compatible = "mediatek,mt8192-disp-aal",
--	  .data = (void *)MTK_DISP_AAL},
-+	{ .compatible = "mediatek,mt8167-disp-dither",
-+	  .data = (void *)MTK_DISP_DITHER },
-+	{ .compatible = "mediatek,mt8183-disp-dither",
-+	  .data = (void *)MTK_DISP_DITHER },
- 	{ .compatible = "mediatek,mt8167-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
- 	{ .compatible = "mediatek,mt8173-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
- 	{ .compatible = "mediatek,mt8183-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
--	{ .compatible = "mediatek,mt8167-disp-dither",
--	  .data = (void *)MTK_DISP_DITHER },
--	{ .compatible = "mediatek,mt8183-disp-dither",
--	  .data = (void *)MTK_DISP_DITHER },
--	{ .compatible = "mediatek,mt8173-disp-ufoe",
--	  .data = (void *)MTK_DISP_UFOE },
--	{ .compatible = "mediatek,mt2701-dsi",
--	  .data = (void *)MTK_DSI },
--	{ .compatible = "mediatek,mt8167-dsi",
--	  .data = (void *)MTK_DSI },
--	{ .compatible = "mediatek,mt8173-dsi",
--	  .data = (void *)MTK_DSI },
--	{ .compatible = "mediatek,mt8183-dsi",
--	  .data = (void *)MTK_DSI },
--	{ .compatible = "mediatek,mt2701-dpi",
--	  .data = (void *)MTK_DPI },
--	{ .compatible = "mediatek,mt8173-dpi",
--	  .data = (void *)MTK_DPI },
--	{ .compatible = "mediatek,mt8183-dpi",
--	  .data = (void *)MTK_DPI },
- 	{ .compatible = "mediatek,mt2701-disp-mutex",
- 	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt2712-disp-mutex",
-@@ -507,16 +465,58 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt8192-disp-mutex",
- 	  .data = (void *)MTK_DISP_MUTEX },
-+	{ .compatible = "mediatek,mt8173-disp-od",
-+	  .data = (void *)MTK_DISP_OD },
-+	{ .compatible = "mediatek,mt2701-disp-ovl",
-+	  .data = (void *)MTK_DISP_OVL },
-+	{ .compatible = "mediatek,mt8167-disp-ovl",
-+	  .data = (void *)MTK_DISP_OVL },
-+	{ .compatible = "mediatek,mt8173-disp-ovl",
-+	  .data = (void *)MTK_DISP_OVL },
-+	{ .compatible = "mediatek,mt8183-disp-ovl",
-+	  .data = (void *)MTK_DISP_OVL },
-+	{ .compatible = "mediatek,mt8192-disp-ovl",
-+	  .data = (void *)MTK_DISP_OVL },
-+	{ .compatible = "mediatek,mt8183-disp-ovl-2l",
-+	  .data = (void *)MTK_DISP_OVL_2L },
-+	{ .compatible = "mediatek,mt8192-disp-ovl-2l",
-+	  .data = (void *)MTK_DISP_OVL_2L },
-+	{ .compatible = "mediatek,mt8192-disp-postmask",
-+	  .data = (void *)MTK_DISP_POSTMASK },
- 	{ .compatible = "mediatek,mt2701-disp-pwm",
- 	  .data = (void *)MTK_DISP_BLS },
- 	{ .compatible = "mediatek,mt8167-disp-pwm",
- 	  .data = (void *)MTK_DISP_PWM },
- 	{ .compatible = "mediatek,mt8173-disp-pwm",
- 	  .data = (void *)MTK_DISP_PWM },
--	{ .compatible = "mediatek,mt8173-disp-od",
--	  .data = (void *)MTK_DISP_OD },
--	{ .compatible = "mediatek,mt8192-disp-postmask",
--	  .data = (void *)MTK_DISP_POSTMASK },
-+	{ .compatible = "mediatek,mt2701-disp-rdma",
-+	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8167-disp-rdma",
-+	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8173-disp-rdma",
-+	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8183-disp-rdma",
-+	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8192-disp-rdma",
-+	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8173-disp-ufoe",
-+	  .data = (void *)MTK_DISP_UFOE },
-+	{ .compatible = "mediatek,mt8173-disp-wdma",
-+	  .data = (void *)MTK_DISP_WDMA },
-+	{ .compatible = "mediatek,mt2701-dpi",
-+	  .data = (void *)MTK_DPI },
-+	{ .compatible = "mediatek,mt8167-dsi",
-+	  .data = (void *)MTK_DSI },
-+	{ .compatible = "mediatek,mt8173-dpi",
-+	  .data = (void *)MTK_DPI },
-+	{ .compatible = "mediatek,mt8183-dpi",
-+	  .data = (void *)MTK_DPI },
-+	{ .compatible = "mediatek,mt2701-dsi",
-+	  .data = (void *)MTK_DSI },
-+	{ .compatible = "mediatek,mt8173-dsi",
-+	  .data = (void *)MTK_DSI },
-+	{ .compatible = "mediatek,mt8183-dsi",
-+	  .data = (void *)MTK_DSI },
- 	{ }
- };
- 
-@@ -610,8 +610,8 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 		    comp_type == MTK_DISP_OVL ||
- 		    comp_type == MTK_DISP_OVL_2L ||
- 		    comp_type == MTK_DISP_RDMA ||
--		    comp_type == MTK_DSI ||
--		    comp_type == MTK_DPI) {
-+		    comp_type == MTK_DPI ||
-+		    comp_type == MTK_DSI) {
- 			dev_info(dev, "Adding component match for %pOF\n",
- 				 node);
- 			drm_of_component_match_add(dev, &match, compare_of,
 -- 
 2.18.0
 
