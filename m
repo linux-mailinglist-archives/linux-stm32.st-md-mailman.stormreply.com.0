@@ -2,67 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26353464E7F
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Dec 2021 14:08:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12A01465946
+	for <lists+linux-stm32@lfdr.de>; Wed,  1 Dec 2021 23:31:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2BB2C597BE;
-	Wed,  1 Dec 2021 13:08:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B053DC5A4F8;
+	Wed,  1 Dec 2021 22:31:43 +0000 (UTC)
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 461CFCFAC4B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B09F0C597B6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Dec 2021 13:08:24 +0000 (UTC)
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B1BXqVn026536;
- Wed, 1 Dec 2021 12:41:57 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=date : from : to :
- cc : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=selector1; bh=y+lWVTF7ChstYU55k0XJsQjtnrTGXQm1BJqRGO3NL6k=;
- b=fAqFS9wDCZu+bDhm+hcsbf59KUJ8W9VyaQ7atI03nhsmoXaaZOeA2iavt3sMIq74FV0h
- KU/Yo9+ZSNWZT/FQWs7zAVH5P+KzL1rGwBOZfLx6ojPnspETMREQJJepOOHPTryuLdcR
- ghlcl+F7KYAPZ1k4v9C+A0TpVrfD632Q75Fk1Wa3iJaFGOGfbPJZBBNtzCOzvJmDhh8/
- lPo/Oqp9/cJHqhaKAyh2l/deOmaB6fdoVS4UlIvBt9zoGmZY9czplaJm/ogLEFW0g+PM
- Jk0tF8S2xwiO3Z0O2jJF1e66KjaZO937vYsaESRWV1boebWQaSkIKSpYkad77PLxyGJE eA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cnyy6jv26-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Dec 2021 12:41:57 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 618C6100034;
- Wed,  1 Dec 2021 12:41:56 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5627A2190E8;
- Wed,  1 Dec 2021 12:41:56 +0100 (CET)
-Received: from gnbcxd0016.gnb.st.com (10.75.127.50) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 1 Dec
- 2021 12:41:55 +0100
-Date: Wed, 1 Dec 2021 12:41:48 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <wsa@kernel.org>
-Message-ID: <20211201114148.GA828165@gnbcxd0016.gnb.st.com>
-Mail-Followup-To: wsa@kernel.org, pierre-yves.mordret@foss.st.com,
- alexandre.torgue@foss.st.com, linux-i2c@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- fabrice.gasnier@foss.st.com, amelie.delaunay@foss.st.com
-References: <20211201110348.825901-1-alain.volmat@foss.st.com>
+ Wed,  1 Dec 2021 22:31:42 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ h19-20020a9d3e53000000b0056547b797b2so37367373otg.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 01 Dec 2021 14:31:42 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=T5dDFTbqoVtVfAAIqapjKcFefz1Su1Y3Jb3TmXDSfLM=;
+ b=U/UiRO+T794v5Ozs1PKoK3IYks0nmPBhOF5Ctcp/uplWZGbieyHFgFmtuSUXmX/lVD
+ MbLPfTy1RrrYS8I0FMIhv+oAlxlUrt6udV5dLUx/YYOBoxxAzS2aQWpOd1DzxXvGNdnr
+ cuEonmx+xlHVAw72smD3geUatRb2UCuMsLQkX+FaAUQ1zte28iqiQ2uyJlz5UtWa7+Gn
+ LjZ5MNcnUWzIXtu2K9CySxfivYv0kVXRt7YSuRcE+Ki5+Q9A1T2OKYxbhR46y96GJqVN
+ O4Y4ryqRQhCAAeT5xjNB9wCMg4kf1ChFq6ng8McHpbfQLeooBChgA5LlEq4zTg36Fk9I
+ RbmA==
+X-Gm-Message-State: AOAM531ubHbr8neM+d1B4Vc0XJKPd3Y8wJ8QD35GTgOvZsE1Ko3TN0Uy
+ b7WO811LDmNiuPByeng5ow==
+X-Google-Smtp-Source: ABdhPJy8bnGR48W/xJpn01QnF07dEzkJUHFVw79LlhkqiRr6++P/Ysr9/PjH2SDv8XKQNdKBo6V6lg==
+X-Received: by 2002:a05:6830:2aa7:: with SMTP id
+ s39mr8424157otu.151.1638397901599; 
+ Wed, 01 Dec 2021 14:31:41 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id bi20sm592910oib.29.2021.12.01.14.31.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Dec 2021 14:31:40 -0800 (PST)
+Received: (nullmailer pid 2899335 invoked by uid 1000);
+ Wed, 01 Dec 2021 22:31:39 -0000
+Date: Wed, 1 Dec 2021 16:31:39 -0600
+From: Rob Herring <robh@kernel.org>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Message-ID: <Yaf3yy3tiTOaNBDY@robh.at.kernel.org>
+References: <20211125144053.774-1-olivier.moysan@foss.st.com>
+ <20211125144053.774-3-olivier.moysan@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20211201110348.825901-1-alain.volmat@foss.st.com>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-30_10,2021-12-01_01,2020-04-07_01
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+In-Reply-To: <20211125144053.774-3-olivier.moysan@foss.st.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, alain.volmat@foss.st.com,
+ arnaud.pouliquen@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/2] i2c: stm32: A few cleanups
+Subject: Re: [Linux-stm32] [PATCH v2 2/4] ASoC: dt-bindings: stm32: i2s:
+ allow additional properties.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,28 +75,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Sorry for the noise.  Issue with my mailer.  Will resend properly
-the same serie in a sec.
+On Thu, Nov 25, 2021 at 03:40:51PM +0100, Olivier Moysan wrote:
+> The STM32 SPI peripheral supports both SPI and I2S protocols.
+> In the SoC device tree the node describes the peripheral as an
+> SPI peripheral by default. This default configuration can be
+> overwritten in board device tree to use the IP as an I2S peripheral.
+> In this case the address-cells and size-cells properties from
+> SoC DT SPI node should not be checked against STM32 I2S bindings.
+> Set additionalProperties to "true" to allow these extra properties.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> ---
+>  Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+> index 64b70ac539f8..33ba15363c0f 100644
+> --- a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+> +++ b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+> @@ -73,7 +73,7 @@ required:
+>    - dmas
+>    - dma-names
+>  
+> -additionalProperties: false
+> +additionalProperties: true
 
-On Wed, Dec 01, 2021 at 12:03:46PM +0100, Alain VOLMAT wrote:
-> A few cleanup, removal of unnecessary messages regarding bus busy
-> and recovering bus.
-> Make the function stm32f7_i2c_release_bus void since it is never
-> returning any error message, allowing to get rid of the error handling
-> within the calling function.
-> 
-> Alain Volmat (1):
->   i2c: stm32: get rid of stm32f7_i2c_release_bus return value
-> 
-> Wolfram Sang (1):
->   i2c: stm32f7: remove noisy and imprecise log messages
-> 
->  drivers/i2c/busses/i2c-stm32f7.c | 14 ++------------
->  1 file changed, 2 insertions(+), 12 deletions(-)
-> 
-> -- 
-> 2.25.1
-> 
+This is only allowed for schemas that are incomplete collections of 
+properties such as common bindings.
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
