@@ -2,73 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE47B466B7B
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 Dec 2021 22:17:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4ACA466E4E
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Dec 2021 01:07:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BC97C5F1DD;
-	Thu,  2 Dec 2021 21:17:41 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FB19C5F1DC;
+	Fri,  3 Dec 2021 00:07:03 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00485C5F1D9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri,  3 Dec 2021 00:07:01 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1921C5F1DA
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9D76C628F9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Dec 2021 21:17:39 +0000 (UTC)
-X-IronPort-AV: E=McAfee;i="6200,9189,10186"; a="300230732"
-X-IronPort-AV: E=Sophos;i="5.87,282,1631602800"; d="scan'208";a="300230732"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2021 13:17:38 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.87,282,1631602800"; d="scan'208";a="541381178"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga001.jf.intel.com with ESMTP; 02 Dec 2021 13:17:26 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id B5DAE165; Thu,  2 Dec 2021 23:17:31 +0200 (EET)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Marc Zyngier <maz@kernel.org>,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Sergio Paracuellos <sergio.paracuellos@gmail.com>,
- Chunyan Zhang <chunyan.zhang@unisoc.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Baruch Siach <baruch@tkos.co.il>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Tony Lindgren <tony@atomide.com>,
- Nicolas Saenz Julienne <nsaenz@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Jianqun Xu <jay.xu@rock-chips.com>,
- Alexandru Ardelean <aardelean@deviqon.com>,
- Thierry Reding <treding@nvidia.com>, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- bcm-kernel-feedback-list@broadcom.com, linux-power@fi.rohmeurope.com,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-unisoc@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org
-Date: Thu,  2 Dec 2021 23:08:39 +0200
-Message-Id: <20211202210839.79140-3-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
-References: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
+ Fri,  3 Dec 2021 00:07:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2A64C56748
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri,  3 Dec 2021 00:06:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1638490018;
+ bh=hUUGmi1Kxjg4GVMJJk27j4s8CR+5/UrEzujzqqM7DVc=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=lODZkcZ6BvnOCz4O6iIV8krAEhmKF9YU38giD5x/tcmBjHGC3UagRE9v+yFJwvKCg
+ vj6BIa+dluXsClTi/MxisQBtIOISTtvwatHIfILWRDwS17zmq05s5SQqKHNHB4nvNG
+ J5JxyfEG+BRwHjpfqF4Hxj4PRPsQ/AbshzYRawqO+P4dJhXlv19pa/4EHR4XseSRsA
+ B3ObZEF8xI3U7IwT6l9AUu8peIJdLqzRkud5+SUOpKyn0T+TEhwHhMaynBvaFn8xRq
+ 6BH/qAfQJ+saTZr6CJWlVOqGhYAWlwJ9fMb4Z8wNYSVxzyALMQZfhrwdwnNdYOdvcF
+ dGzEVF5XoTayQ==
+Received: by mail-ed1-f46.google.com with SMTP id v1so4660531edx.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 02 Dec 2021 16:06:58 -0800 (PST)
+X-Gm-Message-State: AOAM533U2YZHEVG6OKaXo/1DDvXaZAm9xKi2nrrpl1cABGAWpsQAzoPl
+ ZyHsCKkELUGh2MEt+CDmzbfyuQAWYR5LKAaEDg==
+X-Google-Smtp-Source: ABdhPJy/vfyFg8Uq9KjiNMxw9kzU+8NVCXfS+xyKdO85QAO1nUO0e3tnO/OopVm4P79WiTBhXyFZoO0samMN/lsdoo4=
+X-Received: by 2002:a17:907:7f2a:: with SMTP id
+ qf42mr19657908ejc.388.1638490017099; 
+ Thu, 02 Dec 2021 16:06:57 -0800 (PST)
 MIME-Version: 1.0
-Cc: Heiko Stuebner <heiko@sntech.de>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>,
- Florian Fainelli <f.fainelli@gmail.com>, Kevin Hilman <khilman@kernel.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Orson Zhai <orsonzhai@gmail.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Grygorii Strashko <grygorii.strashko@ti.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Gregory Fong <gregory.0xf0@gmail.com>,
- Santosh Shilimkar <ssantosh@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- Scott Branden <sbranden@broadcom.com>, Keerthy <j-keerthy@ti.com>,
+References: <20211129184439.16892-1-jason-jh.lin@mediatek.com>
+ <20211129184439.16892-11-jason-jh.lin@mediatek.com>
+In-Reply-To: <20211129184439.16892-11-jason-jh.lin@mediatek.com>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Fri, 3 Dec 2021 08:06:45 +0800
+X-Gmail-Original-Message-ID: <CAAOTY_-edo+HagSJPxgFyYT2itXk4isbY=fnd=o6YO8kx0Ms=g@mail.gmail.com>
+Message-ID: <CAAOTY_-edo+HagSJPxgFyYT2itXk4isbY=fnd=o6YO8kx0Ms=g@mail.gmail.com>
+To: "jason-jh.lin" <jason-jh.lin@mediatek.com>
+Cc: Fei Shao <fshao@chromium.org>, David Airlie <airlied@linux.ie>,
+ singo.chang@mediatek.com, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Fabien Parent <fparent@baylibre.com>, DTML <devicetree@vger.kernel.org>,
+ Nancy Lin <nancy.lin@mediatek.com>, linux-stm32@st-md-mailman.stormreply.com,
+ roy-cw.yeh@mediatek.com, Yongqiang Niu <yongqiang.niu@mediatek.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Hsin-Yi Wang <hsinyi@chromium.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Moudy Ho <moudy.ho@mediatek.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Baolin Wang <baolin.wang7@gmail.com>
-Subject: [Linux-stm32] [PATCH v1 3/3] gpio: Propagate firmware node from a
-	parent device
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH v13 10/15] drm/mediatek: remove unused
+	define in mtk_drm_ddp_comp.c
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,145 +78,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When creating MFD platform devices the firmware node is left unset.
-This, in particular, prevents GPIO library to use it for different
-purposes. Propagate firmware node from the parent device and let
-GPIO library do the right thing.
-
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/gpio/gpio-arizona.c  | 5 ++---
- drivers/gpio/gpio-tps6586x.c | 5 ++---
- drivers/gpio/gpio-tps65910.c | 6 +++---
- drivers/gpio/gpio-twl6040.c  | 5 ++---
- drivers/gpio/gpio-wm831x.c   | 5 ++---
- 5 files changed, 11 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpio/gpio-arizona.c b/drivers/gpio/gpio-arizona.c
-index 2bc173c352ce..02f9ae19cd44 100644
---- a/drivers/gpio/gpio-arizona.c
-+++ b/drivers/gpio/gpio-arizona.c
-@@ -151,6 +151,8 @@ static int arizona_gpio_probe(struct platform_device *pdev)
- 	struct arizona_gpio *arizona_gpio;
- 	int ret;
- 
-+	device_set_node(&pdev->dev, dev_fwnode(pdev->dev.parent));
-+
- 	arizona_gpio = devm_kzalloc(&pdev->dev, sizeof(*arizona_gpio),
- 				    GFP_KERNEL);
- 	if (!arizona_gpio)
-@@ -159,9 +161,6 @@ static int arizona_gpio_probe(struct platform_device *pdev)
- 	arizona_gpio->arizona = arizona;
- 	arizona_gpio->gpio_chip = template_chip;
- 	arizona_gpio->gpio_chip.parent = &pdev->dev;
--#ifdef CONFIG_OF_GPIO
--	arizona_gpio->gpio_chip.of_node = arizona->dev->of_node;
--#endif
- 
- 	switch (arizona->type) {
- 	case WM5102:
-diff --git a/drivers/gpio/gpio-tps6586x.c b/drivers/gpio/gpio-tps6586x.c
-index da0304b764a5..c5713524b581 100644
---- a/drivers/gpio/gpio-tps6586x.c
-+++ b/drivers/gpio/gpio-tps6586x.c
-@@ -77,6 +77,8 @@ static int tps6586x_gpio_probe(struct platform_device *pdev)
- 	struct tps6586x_platform_data *pdata;
- 	struct tps6586x_gpio *tps6586x_gpio;
- 
-+	device_set_node(&pdev->dev, dev_fwnode(pdev->dev.parent));
-+
- 	pdata = dev_get_platdata(pdev->dev.parent);
- 	tps6586x_gpio = devm_kzalloc(&pdev->dev,
- 				sizeof(*tps6586x_gpio), GFP_KERNEL);
-@@ -97,9 +99,6 @@ static int tps6586x_gpio_probe(struct platform_device *pdev)
- 	tps6586x_gpio->gpio_chip.get	= tps6586x_gpio_get;
- 	tps6586x_gpio->gpio_chip.to_irq	= tps6586x_gpio_to_irq;
- 
--#ifdef CONFIG_OF_GPIO
--	tps6586x_gpio->gpio_chip.of_node = pdev->dev.parent->of_node;
--#endif
- 	if (pdata && pdata->gpio_base)
- 		tps6586x_gpio->gpio_chip.base = pdata->gpio_base;
- 	else
-diff --git a/drivers/gpio/gpio-tps65910.c b/drivers/gpio/gpio-tps65910.c
-index 7fa8c841081f..321e6945f0be 100644
---- a/drivers/gpio/gpio-tps65910.c
-+++ b/drivers/gpio/gpio-tps65910.c
-@@ -111,6 +111,8 @@ static int tps65910_gpio_probe(struct platform_device *pdev)
- 	int ret;
- 	int i;
- 
-+	device_set_node(&pdev->dev, dev_fwnode(pdev->dev.parent));
-+
- 	tps65910_gpio = devm_kzalloc(&pdev->dev,
- 				sizeof(*tps65910_gpio), GFP_KERNEL);
- 	if (!tps65910_gpio)
-@@ -137,9 +139,7 @@ static int tps65910_gpio_probe(struct platform_device *pdev)
- 	tps65910_gpio->gpio_chip.set	= tps65910_gpio_set;
- 	tps65910_gpio->gpio_chip.get	= tps65910_gpio_get;
- 	tps65910_gpio->gpio_chip.parent = &pdev->dev;
--#ifdef CONFIG_OF_GPIO
--	tps65910_gpio->gpio_chip.of_node = tps65910->dev->of_node;
--#endif
-+
- 	if (pdata && pdata->gpio_base)
- 		tps65910_gpio->gpio_chip.base = pdata->gpio_base;
- 	else
-diff --git a/drivers/gpio/gpio-twl6040.c b/drivers/gpio/gpio-twl6040.c
-index 648fb418d775..6c3fbf382dba 100644
---- a/drivers/gpio/gpio-twl6040.c
-+++ b/drivers/gpio/gpio-twl6040.c
-@@ -80,6 +80,8 @@ static int gpo_twl6040_probe(struct platform_device *pdev)
- 	struct twl6040 *twl6040 = dev_get_drvdata(twl6040_core_dev);
- 	int ret;
- 
-+	device_set_node(&pdev->dev, dev_fwnode(pdev->dev.parent));
-+
- 	twl6040gpo_chip.base = -1;
- 
- 	if (twl6040_get_revid(twl6040) < TWL6041_REV_ES2_0)
-@@ -88,9 +90,6 @@ static int gpo_twl6040_probe(struct platform_device *pdev)
- 		twl6040gpo_chip.ngpio = 1; /* twl6041 have 1 GPO */
- 
- 	twl6040gpo_chip.parent = &pdev->dev;
--#ifdef CONFIG_OF_GPIO
--	twl6040gpo_chip.of_node = twl6040_core_dev->of_node;
--#endif
- 
- 	ret = devm_gpiochip_add_data(&pdev->dev, &twl6040gpo_chip, NULL);
- 	if (ret < 0) {
-diff --git a/drivers/gpio/gpio-wm831x.c b/drivers/gpio/gpio-wm831x.c
-index 9cf1e5ebb352..7eaf8a28638c 100644
---- a/drivers/gpio/gpio-wm831x.c
-+++ b/drivers/gpio/gpio-wm831x.c
-@@ -262,6 +262,8 @@ static int wm831x_gpio_probe(struct platform_device *pdev)
- 	struct wm831x_pdata *pdata = &wm831x->pdata;
- 	struct wm831x_gpio *wm831x_gpio;
- 
-+	device_set_node(&pdev->dev, dev_fwnode(pdev->dev.parent));
-+
- 	wm831x_gpio = devm_kzalloc(&pdev->dev, sizeof(*wm831x_gpio),
- 				   GFP_KERNEL);
- 	if (wm831x_gpio == NULL)
-@@ -275,9 +277,6 @@ static int wm831x_gpio_probe(struct platform_device *pdev)
- 		wm831x_gpio->gpio_chip.base = pdata->gpio_base;
- 	else
- 		wm831x_gpio->gpio_chip.base = -1;
--#ifdef CONFIG_OF_GPIO
--	wm831x_gpio->gpio_chip.of_node = wm831x->dev->of_node;
--#endif
- 
- 	return devm_gpiochip_add_data(&pdev->dev, &wm831x_gpio->gpio_chip, wm831x_gpio);
- }
--- 
-2.33.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGksIEphc29uOgoKamFzb24tamgubGluIDxqYXNvbi1qaC5saW5AbWVkaWF0ZWsuY29tPiDmlrwg
+MjAyMeW5tDEx5pyIMzDml6Ug6YCx5LqMIOS4iuWNiDI6NDTlr6vpgZPvvJoKPgo+IFJlbW92ZSB0
+aGUgdW5zZWQgZGVmaW5lIGluIG10a19kcm1fZGRwX2NvbXAuYwoKQXBwbGllZCB0byBtZWRpYXRl
+ay1kcm0tbmV4dCBbMV0sIHRoYW5rcy4KClsxXSBodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9z
+Y20vbGludXgva2VybmVsL2dpdC9jaHVua3VhbmcuaHUvbGludXguZ2l0L2xvZy8/aD1tZWRpYXRl
+ay1kcm0tbmV4dAoKUmVnYXJkcywKQ2h1bi1LdWFuZy4KCj4KPiBTaWduZWQtb2ZmLWJ5OiBqYXNv
+bi1qaC5saW4gPGphc29uLWpoLmxpbkBtZWRpYXRlay5jb20+Cj4gUmV2aWV3ZWQtYnk6IENodW4t
+S3VhbmcgSHUgPGNodW5rdWFuZy5odUBrZXJuZWwub3JnPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9k
+cm0vbWVkaWF0ZWsvbXRrX2RybV9kZHBfY29tcC5jIHwgMTAgLS0tLS0tLS0tLQo+ICAxIGZpbGUg
+Y2hhbmdlZCwgMTAgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L21lZGlhdGVrL210a19kcm1fZGRwX2NvbXAuYyBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9t
+dGtfZHJtX2RkcF9jb21wLmMKPiBpbmRleCAzNzA0ZTRiN2YzYzUuLjdkM2JkNjIxNGMxNSAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RybV9kZHBfY29tcC5jCj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcm1fZGRwX2NvbXAuYwo+IEBAIC0y
+MSw4ICsyMSw2IEBACj4gICNpbmNsdWRlICJtdGtfZHJtX2NydGMuaCIKPgo+ICAjZGVmaW5lIERJ
+U1BfT0RfRU4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMAo+IC0jZGVmaW5lIERJ
+U1BfT0RfSU5URU4gICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwOAo+IC0jZGVmaW5lIERJ
+U1BfT0RfSU5UU1RBICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwYwo+ICAjZGVmaW5lIERJ
+U1BfT0RfQ0ZHICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAyMAo+ICAjZGVmaW5lIERJ
+U1BfT0RfU0laRSAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAzMAo+ICAjZGVmaW5lIERJ
+U1BfRElUSEVSXzUgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MDExNAo+IEBAIC0zOSwyNiAr
+MzcsMTggQEAKPiAgI2RlZmluZSBESVRIRVJfRU5HSU5FX0VOICAgICAgICAgICAgICAgICAgICAg
+ICBCSVQoMSkKPiAgI2RlZmluZSBESVNQX0RJVEhFUl9TSVpFICAgICAgICAgICAgICAgICAgICAg
+ICAweDAwMzAKPgo+IC0jZGVmaW5lIExVVF8xMEJJVF9NQVNLICAgICAgICAgICAgICAgICAgICAg
+ICAgIDB4MDNmZgo+IC0KPiAgI2RlZmluZSBPRF9SRUxBWU1PREUgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBCSVQoMCkKPgo+ICAjZGVmaW5lIFVGT19CWVBBU1MgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIEJJVCgyKQo+Cj4gICNkZWZpbmUgRElTUF9ESVRIRVJJTkcgICAgICAgICAgICAg
+ICAgICAgICAgICAgQklUKDIpCj4gICNkZWZpbmUgRElUSEVSX0xTQl9FUlJfU0hJRlRfUih4KSAg
+ICAgICAgICAgICAgKCgoeCkgJiAweDcpIDw8IDI4KQo+IC0jZGVmaW5lIERJVEhFUl9PVkZMV19C
+SVRfUih4KSAgICAgICAgICAgICAgICAgICgoKHgpICYgMHg3KSA8PCAyNCkKPiAgI2RlZmluZSBE
+SVRIRVJfQUREX0xTSElGVF9SKHgpICAgICAgICAgICAgICAgICAoKCh4KSAmIDB4NykgPDwgMjAp
+Cj4gLSNkZWZpbmUgRElUSEVSX0FERF9SU0hJRlRfUih4KSAgICAgICAgICAgICAgICAgKCgoeCkg
+JiAweDcpIDw8IDE2KQo+ICAjZGVmaW5lIERJVEhFUl9ORVdfQklUX01PREUgICAgICAgICAgICAg
+ICAgICAgIEJJVCgwKQo+ICAjZGVmaW5lIERJVEhFUl9MU0JfRVJSX1NISUZUX0IoeCkgICAgICAg
+ICAgICAgICgoKHgpICYgMHg3KSA8PCAyOCkKPiAtI2RlZmluZSBESVRIRVJfT1ZGTFdfQklUX0Io
+eCkgICAgICAgICAgICAgICAgICAoKCh4KSAmIDB4NykgPDwgMjQpCj4gICNkZWZpbmUgRElUSEVS
+X0FERF9MU0hJRlRfQih4KSAgICAgICAgICAgICAgICAgKCgoeCkgJiAweDcpIDw8IDIwKQo+IC0j
+ZGVmaW5lIERJVEhFUl9BRERfUlNISUZUX0IoeCkgICAgICAgICAgICAgICAgICgoKHgpICYgMHg3
+KSA8PCAxNikKPiAgI2RlZmluZSBESVRIRVJfTFNCX0VSUl9TSElGVF9HKHgpICAgICAgICAgICAg
+ICAoKCh4KSAmIDB4NykgPDwgMTIpCj4gLSNkZWZpbmUgRElUSEVSX09WRkxXX0JJVF9HKHgpICAg
+ICAgICAgICAgICAgICAgKCgoeCkgJiAweDcpIDw8IDgpCj4gICNkZWZpbmUgRElUSEVSX0FERF9M
+U0hJRlRfRyh4KSAgICAgICAgICAgICAgICAgKCgoeCkgJiAweDcpIDw8IDQpCj4gLSNkZWZpbmUg
+RElUSEVSX0FERF9SU0hJRlRfRyh4KSAgICAgICAgICAgICAgICAgKCgoeCkgJiAweDcpIDw8IDAp
+Cj4KPiAgI2RlZmluZSBESVNQX1BPU1RNQVNLX0VOICAgICAgICAgICAgICAgICAgICAgICAweDAw
+MDAKPiAgI2RlZmluZSBQT1NUTUFTS19FTiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIEJJVCgwKQo+IC0tCj4gMi4xOC4wCj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
