@@ -2,65 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51BDA467BDF
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Dec 2021 17:55:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8147E467BE3
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Dec 2021 17:56:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17313C5F1D6;
-	Fri,  3 Dec 2021 16:55:09 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4168AC5F1D6;
+	Fri,  3 Dec 2021 16:56:59 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CCB58C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4982CC5F1D4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Dec 2021 16:55:06 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id u17so2511871plg.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 03 Dec 2021 08:55:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=TpS2YL61YHWZgUBV1xYwkCUo8ZrXNrqKv+qQZlMOcKU=;
- b=fkDmK2/7QbfpGUSzfAnG2GWFoqlztEHg8GsIediZsGV+iSsX9rPmbIenCsx9EMqIQo
- VzwnXh2IIcGOD9wBCGR4N3Pr8F2bQMXkq5HZTZiyDmbKi2qaHfWMnmOLZENGMK0AksoO
- 5ps12JZ5kobkB/JwouxZDNcbVDtX07esXedeg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=TpS2YL61YHWZgUBV1xYwkCUo8ZrXNrqKv+qQZlMOcKU=;
- b=jiP5zRaCyCUofiZTIsEkapt0Voe9V4xP6dqQ5kQgHP6z2BXcAnuwGywBtLoXus8yPq
- UaA8Zsknf1u4wCKQMfqlSdHaYoff4SrgSne0xAyg6XgswxT0Ejeu94EoRiG9nWdZFFHj
- GmPojq4c2ehlpWfqLHrzg+iSeAPnmj/oZKUQhv9BOZKGRkIlpJEG5an/mMaJwecx/TW+
- H5tqaF7LevQ+hBp6s21co8iXJAYycpkdeQ8zVejHmt81gd4X28yGu3QeasmbbUK7H8Ad
- MIroBdZG2Wlb0QXD0zu0ydylZUc7ETWB8gkWFVYnmrKehvpAmmzIlIPT0NbxJhGPsE5m
- /cYA==
-X-Gm-Message-State: AOAM533z4SvElnKARgomOUMezzRT0/lZNYid1L1wGghL1bIhHS2ziuiX
- 4QLaqSPzgIcf6GHEqofLxrj4Zg==
-X-Google-Smtp-Source: ABdhPJwgc3geQjKTnKBjpmGWy9Mp7ji+pJOvmJEealvqKz5JoNEk0k64bKXw+qIIfRZpsYN/jX+7cw==
-X-Received: by 2002:a17:90b:4b04:: with SMTP id
- lx4mr15463297pjb.11.1638550505453; 
- Fri, 03 Dec 2021 08:55:05 -0800 (PST)
-Received: from localhost.localdomain ([2405:201:c00a:a0a9:9d21:588c:4f26:8400])
- by smtp.gmail.com with ESMTPSA id s72sm2783693pgc.69.2021.12.03.08.54.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Dec 2021 08:55:05 -0800 (PST)
-From: Jagan Teki <jagan@amarulasolutions.com>
-To: Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri,  3 Dec 2021 22:24:35 +0530
-Message-Id: <20211203165435.8042-3-jagan@amarulasolutions.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211203165435.8042-1-jagan@amarulasolutions.com>
-References: <20211203165435.8042-1-jagan@amarulasolutions.com>
+ Fri,  3 Dec 2021 16:56:57 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B3FHjxt024476;
+ Fri, 3 Dec 2021 17:56:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=lVFPlD5zTSPixkBBTEMlFlHKw7YEEz4hyL4vWG8qF4A=;
+ b=ZNWWUMWGhQ0vTcZDWynG49WfgKhPG35aeVNdMit6tCxev/MdNmA2C5M3YuUO7fMxwN1d
+ Kmk4OTV4L3m2KFaA2/Oa+aHZxlNvQPkWxeV4sQOEL5vlmQ+8z5ZphGr5mX+JjA370jdR
+ 1LwRkdtXtCAWQULvoMupxV4v51Ujv0c0c8PHVYJf9dz/Evmb7yPvqZ7XnSMUiDmJfoWV
+ IJZzahGlnkamkfrF6jMqcfA0rzlhYcYvo7wqgUOCfoPFfmvkKcIrQSDPmeNvnMC/hc6U
+ LDJcZ5x/vFXUwZeExp3vjmD7xcA/+U1fdDV/K84aPxlGjsNiCQR2x7gghrct7Fh9Caq7 TQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cqnrmrdw4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 03 Dec 2021 17:56:50 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CC64510002A;
+ Fri,  3 Dec 2021 17:56:49 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C467D20C118;
+ Fri,  3 Dec 2021 17:56:49 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.45) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 3 Dec
+ 2021 17:56:49 +0100
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <20211108141937.13016-1-arnaud.pouliquen@foss.st.com>
+ <20211108141937.13016-13-arnaud.pouliquen@foss.st.com>
+ <Yal5tplvcqDjEeTs@builder.lan>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <eb3cc7a1-251e-7d40-225a-a5528a22323e@foss.st.com>
+Date: Fri, 3 Dec 2021 17:56:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Matteo Lisi <matteo.lisi@engicam.com>,
- Jagan Teki <jagan@amarulasolutions.com>, linux-amarula@amarulasolutions.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 3/3] ARM: dts: stm32: Add Engicam i.Core
-	STM32MP1 C.TOUCH 2.0 10.1" OF
+In-Reply-To: <Yal5tplvcqDjEeTs@builder.lan>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-03_07,2021-12-02_01,2021-12-02_01
+Cc: Ohad Ben-Cohen <ohad@wizery.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, julien.massot@iot.bzh,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v7 12/12] rpmsg: core: send a ns
+ announcement when a default endpoint is created
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,193 +80,99 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Engicam C.TOUCH 2.0 is an EDIMM compliant general purpose Carrier
-board.
 
-Genaral features:
-- Ethernet 10/100
-- Wifi/BT
-- USB Type A/OTG
-- Audio Out
-- CAN
-- 10" LVDS Panel (SN65DSI84 DSI-LVDS bridge on SoM)
 
-i.Core STM32MP1 is an EDIMM SoM based on STM32MP157A from Engicam.
+On 12/3/21 2:58 AM, Bjorn Andersson wrote:
+> On Mon 08 Nov 08:19 CST 2021, Arnaud Pouliquen wrote:
+> 
+>> When a channel is created by user space application with the
+>> RPMSG_CREATE_DEV_IOCTL controls, a ns announcement has to be sent
+>> (depending on backend) to inform the remote side that a new service
+>> is available.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>>  drivers/rpmsg/rpmsg_core.c | 14 ++++++++++++++
+>>  1 file changed, 14 insertions(+)
+>>
+>> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+>> index bdcde57c22f6..63227279397d 100644
+>> --- a/drivers/rpmsg/rpmsg_core.c
+>> +++ b/drivers/rpmsg/rpmsg_core.c
+>> @@ -145,6 +145,9 @@ EXPORT_SYMBOL(rpmsg_destroy_ept);
+>>   *
+>>   * This function returns a pointer to an endpoint created and assigned as the default
+>>   * endpoint of the rpmsg device.
+>> + * If we need to, we also announce about this channel to the remote
+>> + * processor. This announcement is needed in case the driver is exposing an rpmsg service that has
+>> + * been created locally.
+>>   *
+>>   * Drivers should provide their @rpdev channel (so the new endpoint would belong
+>>   * to the same remote processor their channel belongs to), an rx callback
+>> @@ -161,6 +164,7 @@ struct rpmsg_endpoint *rpmsg_create_default_ept(struct rpmsg_device *rpdev,
+>>  						struct rpmsg_channel_info chinfo)
+>>  {
+>>  	struct rpmsg_endpoint *ept;
+>> +	int err = 0;
+>>  
+>>  	if (WARN_ON(!rpdev))
+>>  		return NULL;
+>> @@ -183,6 +187,16 @@ struct rpmsg_endpoint *rpmsg_create_default_ept(struct rpmsg_device *rpdev,
+>>  	rpdev->ept = ept;
+>>  	rpdev->src = ept->addr;
+>>  
+>> +	if (rpdev->ops->announce_create)
+>> +		err = rpdev->ops->announce_create(rpdev);
+>> +	if (err) {
+>> +		rpmsg_destroy_ept(ept);
+>> +		rpdev->ept = NULL;
+>> +		rpdev->src = RPMSG_ADDR_ANY;
+>> +
+>> +		return NULL;
+>> +	}
+>> +
+> 
+> Unless I'm missing something I think this would be cleaner as:
+> 
+> 	if (rpdev->ops->announce_create) {
+> 		err = rpdev->ops->announce_create(rpdev);
+> 		if (err) {
+> 			...;
+> 		}
+> 	}
+> 
+> which also implies that you don't need to zero-initialize err.
 
-10.1" OF is a capacitive touch 10.1" Open Frame panel solutions.
+Ack, i will change this.
 
-i.Core STM32MP1 needs to mount on top of C.TOUCH 2.0 carrier with
-pluged 10.1" OF for creating complete i.Core STM32MP1 C.TOUCH 2.0
-10.1" Open Frame board.
+> 
+> Other than that, this looks good and follows what would happen in
+> rpmsg_dev_probe()...
+> 
+> 
+> PS. In rpmsg_dev_probe(), if rpdrv->probe() succeeds but announce_create
+> returns a failure we will exit the function with an error, which will
+> just fail really_probe() and we won't ever clean up the device (i.e.
+> call rpdev->remove()).
 
-Add support for it.
+Right the error management in rpmsg_dev_probe needs to be improved.
+I will probably found time to address this when preparing the next revision
+of my patchset (just need before a clarification from you about patch
+v7 10/12] rpmsg: char: Introduce the "rpmsg-raw" channel).
 
-Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
----
-Changes for v3:
-- drop redundent commit details.
-- fix dtbs_check
-Changes for v2:
-- none
+Thanks,
+Arnaud
 
- arch/arm/boot/dts/Makefile                    |   1 +
- ...tm32mp157a-icore-stm32mp1-ctouch2-of10.dts | 132 ++++++++++++++++++
- 2 files changed, 133 insertions(+)
- create mode 100644 arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 8a2dfdf01ce3..47878c1e878b 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1140,6 +1140,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp157a-microgea-stm32mp1-microdev2.0.dtb \
- 	stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dtb \
- 	stm32mp157a-icore-stm32mp1-ctouch2.dtb \
-+	stm32mp157a-icore-stm32mp1-ctouch2-of10.dtb \
- 	stm32mp157a-icore-stm32mp1-edimm2.2.dtb \
- 	stm32mp157a-stinger96.dtb \
- 	stm32mp157c-dhcom-pdk2.dtb \
-diff --git a/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-new file mode 100644
-index 000000000000..2a2829283456
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
-@@ -0,0 +1,132 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (c) STMicroelectronics 2019 - All Rights Reserved
-+ * Copyright (c) 2020 Engicam srl
-+ * Copyright (c) 2020 Amarula Solutons(India)
-+ */
-+
-+/dts-v1/;
-+#include "stm32mp157.dtsi"
-+#include "stm32mp157a-icore-stm32mp1.dtsi"
-+#include "stm32mp15-pinctrl.dtsi"
-+#include "stm32mp15xxaa-pinctrl.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "Engicam i.Core STM32MP1 C.TOUCH 2.0 10.1\" Open Frame";
-+	compatible = "engicam,icore-stm32mp1-ctouch2-of10",
-+		     "engicam,icore-stm32mp1", "st,stm32mp157";
-+
-+	aliases {
-+		serial0 = &uart4;
-+	};
-+
-+	backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&gpiod 13 GPIO_ACTIVE_HIGH>;
-+		default-on;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	panel {
-+		compatible = "ampire,am-1280800n3tzqw-t00h";
-+		backlight = <&backlight>;
-+		power-supply = <&v3v3>;
-+
-+		port {
-+			panel_in_lvds: endpoint {
-+				remote-endpoint = <&bridge_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsi {
-+	status = "okay";
-+	phy-dsi-supply = <&reg18>;
-+
-+	ports {
-+		port@0 {
-+			reg = <0>;
-+			dsi_in: endpoint {
-+				remote-endpoint = <&ltdc_ep0_out>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			dsi_out: endpoint {
-+				remote-endpoint = <&bridge_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c6 {
-+	i2c-scl-falling-time-ns = <20>;
-+	i2c-scl-rising-time-ns = <185>;
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c6_pins_a>;
-+	pinctrl-1 = <&i2c6_sleep_pins_a>;
-+	status = "okay";
-+
-+	bridge@2c {
-+		compatible = "ti,sn65dsi84";
-+		reg = <0x2c>;
-+		enable-gpios = <&gpiof 15 GPIO_ACTIVE_HIGH>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				bridge_in: endpoint {
-+					remote-endpoint = <&dsi_out>;
-+					data-lanes = <1 2>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+				bridge_out: endpoint {
-+					remote-endpoint = <&panel_in_lvds>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&ltdc {
-+	status = "okay";
-+
-+	port {
-+		ltdc_ep0_out: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&dsi_in>;
-+		};
-+	};
-+};
-+
-+&sdmmc1 {
-+	bus-width = <4>;
-+	disable-wp;
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	st,neg-edge;
-+	vmmc-supply = <&v3v3>;
-+	status = "okay";
-+};
-+
-+&uart4 {
-+	pinctrl-names = "default", "sleep", "idle";
-+	pinctrl-0 = <&uart4_pins_a>;
-+	pinctrl-1 = <&uart4_sleep_pins_a>;
-+	pinctrl-2 = <&uart4_idle_pins_a>;
-+	status = "okay";
-+};
--- 
-2.25.1
-
+> 
+> Regards,
+> Bjorn
+> 
+>>  	return ept;
+>>  }
+>>  EXPORT_SYMBOL(rpmsg_create_default_ept);
+>> -- 
+>> 2.17.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
