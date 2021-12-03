@@ -2,63 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C46946738C
-	for <lists+linux-stm32@lfdr.de>; Fri,  3 Dec 2021 09:56:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF97A467425
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Dec 2021 10:35:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4ED23C5F1E1;
-	Fri,  3 Dec 2021 08:56:34 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85A2BC5F1E1;
+	Fri,  3 Dec 2021 09:35:06 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7A06CFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D64CC5F1DB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Dec 2021 08:56:33 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B320UDC016744;
- Fri, 3 Dec 2021 09:56:26 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : subject
- : date : message-id : mime-version : content-type; s=selector1;
- bh=XrLbeIeUYiT9KcguK1deuZsNiWLu+GVdqLFPcsOABMY=;
- b=wXxcVCO0nNRlyU3ctgVduj6m1SgRgKEJEZwQsd9X/9KsVH+/qCCvlI17RsoOQ7go9GFy
- TlODWXQ8ZKNoNUdPJcX+l3tZZX0fnY+kk89FE2AfhuiVSfp+RAU9oqMku4W1WHpImbyD
- rBpLufYoIeAfOXvSvQ9iJ4THOF4BApU4+JGqM1g0aoEfc6sE7vdKcQPmvgSQrc6eUk4z
- hEaGlpq4ximxnD03fEll+5cL4b8t5p/o9C9YAF8ystgBboyRW5Hv1Q8ZCkHz6A6gLqnI
- 8NC1M2Y8N7Sw2BTTbscqMt8GzGpdBfvQaAOqsa27UmLeE1ZSCjj9X1lHir5o7RChCeUB Sg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cqa2x9sw2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 03 Dec 2021 09:56:26 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 459EB10002A;
- Fri,  3 Dec 2021 09:56:25 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3CDF1226FB7;
- Fri,  3 Dec 2021 09:56:25 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 3 Dec 2021 09:56:24
- +0100
-From: Yannick Fertre <yannick.fertre@foss.st.com>
-To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
- <philippe.cornu@foss.st.com>, Raphael Gallais-Pou
- <raphael.gallais-pou@foss.st.com>, David Airlie <airlied@linux.ie>, Daniel
- Vetter <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- <dri-devel@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Date: Fri, 3 Dec 2021 09:56:18 +0100
-Message-ID: <20211203085618.11314-1-yannick.fertre@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ Fri,  3 Dec 2021 09:35:05 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 39311212CA;
+ Fri,  3 Dec 2021 09:35:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1638524105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zSNfU4icadvzlJZjRyXS0VEcChBgb89lhRgthpyYGgY=;
+ b=dM5+f3wlSvrdMD+GpAxow3dRuc4Zl8WeliQrEIXA1KlDYipjZyS8ej+wjmgYiL1kGI3Ca3
+ tfnW0cdf/iYt8lTDgFxsRs3pY1k7ceHUhKRjvO+MaeKgWIt5ptBjM7Be4UlSSlrNSKDbza
+ +0DwPMbx9zYC3enOI+tpU82DG0PS+Ps=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1638524105;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zSNfU4icadvzlJZjRyXS0VEcChBgb89lhRgthpyYGgY=;
+ b=hpukj8e0tA3G99BFC9+LNoGYrI5b9LMUE8dDeHm5v2hsDDBlhIkrSUNEaOv62AmnJ0Hprq
+ +evZ2nqCnQsin6Dw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F294713D9E;
+ Fri,  3 Dec 2021 09:35:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OvFPOsjkqWHtdwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Fri, 03 Dec 2021 09:35:04 +0000
+Message-ID: <7469e918-b2bf-00a9-1bbc-2f3514ec0816@suse.de>
+Date: Fri, 3 Dec 2021 10:35:04 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-03_05,2021-12-02_01,2021-12-02_01
-Subject: [Linux-stm32] [PATCH] drm/stm: ltdc: support of new hardware version
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-US
+To: Yannick Fertre <yannick.fertre@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20211203085512.11127-1-yannick.fertre@foss.st.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20211203085512.11127-1-yannick.fertre@foss.st.com>
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: remove conflicting framebuffers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,266 +73,102 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5457199302057335775=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support of new hardware version 0x40100.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============5457199302057335775==
+Content-Language: en-US
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------DFU8K9UBXjQ1FZY83MRcWDwj"
 
-Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
----
- drivers/gpu/drm/stm/ltdc.c | 172 ++++++++++++++++++++++++++++++-------
- drivers/gpu/drm/stm/ltdc.h |   3 +-
- 2 files changed, 145 insertions(+), 30 deletions(-)
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------DFU8K9UBXjQ1FZY83MRcWDwj
+Content-Type: multipart/mixed; boundary="------------pJVY4Pdtym1G0TkQl2dh1mDd";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Yannick Fertre <yannick.fertre@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Message-ID: <7469e918-b2bf-00a9-1bbc-2f3514ec0816@suse.de>
+Subject: Re: [PATCH] drm/stm: remove conflicting framebuffers
+References: <20211203085512.11127-1-yannick.fertre@foss.st.com>
+In-Reply-To: <20211203085512.11127-1-yannick.fertre@foss.st.com>
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index dbdee954692a..c0619f372630 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -46,15 +46,15 @@
- #define HWVER_10200 0x010200
- #define HWVER_10300 0x010300
- #define HWVER_20101 0x020101
-+#define HWVER_40100 0x040100
- 
- /*
-  * The address of some registers depends on the HW version: such registers have
-- * an extra offset specified with reg_ofs.
-+ * an extra offset specified with layer_ofs.
-  */
--#define REG_OFS_NONE	0
--#define REG_OFS_4	4		/* Insertion of "Layer Conf. 2" reg */
--#define REG_OFS		(ldev->caps.reg_ofs)
--#define LAY_OFS		0x80		/* Register Offset between 2 layers */
-+#define LAY_OFS_0	0x80
-+#define LAY_OFS_1	0x100
-+#define LAY_OFS	(ldev->caps.layer_ofs)
- 
- /* Global register offsets */
- #define LTDC_IDR	0x0000		/* IDentification */
-@@ -75,29 +75,34 @@
- #define LTDC_LIPCR	0x0040		/* Line Interrupt Position Conf. */
- #define LTDC_CPSR	0x0044		/* Current Position Status */
- #define LTDC_CDSR	0x0048		/* Current Display Status */
-+#define LTDC_FUT	0x0090		/* Fifo underrun Threshold */
- 
- /* Layer register offsets */
--#define LTDC_L1LC1R	(0x80)		/* L1 Layer Configuration 1 */
--#define LTDC_L1LC2R	(0x84)		/* L1 Layer Configuration 2 */
--#define LTDC_L1CR	(0x84 + REG_OFS)/* L1 Control */
--#define LTDC_L1WHPCR	(0x88 + REG_OFS)/* L1 Window Hor Position Config */
--#define LTDC_L1WVPCR	(0x8C + REG_OFS)/* L1 Window Vert Position Config */
--#define LTDC_L1CKCR	(0x90 + REG_OFS)/* L1 Color Keying Configuration */
--#define LTDC_L1PFCR	(0x94 + REG_OFS)/* L1 Pixel Format Configuration */
--#define LTDC_L1CACR	(0x98 + REG_OFS)/* L1 Constant Alpha Config */
--#define LTDC_L1DCCR	(0x9C + REG_OFS)/* L1 Default Color Configuration */
--#define LTDC_L1BFCR	(0xA0 + REG_OFS)/* L1 Blend Factors Configuration */
--#define LTDC_L1FBBCR	(0xA4 + REG_OFS)/* L1 FrameBuffer Bus Control */
--#define LTDC_L1AFBCR	(0xA8 + REG_OFS)/* L1 AuxFB Control */
--#define LTDC_L1CFBAR	(0xAC + REG_OFS)/* L1 Color FrameBuffer Address */
--#define LTDC_L1CFBLR	(0xB0 + REG_OFS)/* L1 Color FrameBuffer Length */
--#define LTDC_L1CFBLNR	(0xB4 + REG_OFS)/* L1 Color FrameBuffer Line Nb */
--#define LTDC_L1AFBAR	(0xB8 + REG_OFS)/* L1 AuxFB Address */
--#define LTDC_L1AFBLR	(0xBC + REG_OFS)/* L1 AuxFB Length */
--#define LTDC_L1AFBLNR	(0xC0 + REG_OFS)/* L1 AuxFB Line Number */
--#define LTDC_L1CLUTWR	(0xC4 + REG_OFS)/* L1 CLUT Write */
--#define LTDC_L1YS1R	(0xE0 + REG_OFS)/* L1 YCbCr Scale 1 */
--#define LTDC_L1YS2R	(0xE4 + REG_OFS)/* L1 YCbCr Scale 2 */
-+#define LTDC_L1C0R	(ldev->caps.layer_regs[0])	/* L1 configuration 0 */
-+#define LTDC_L1C1R	(ldev->caps.layer_regs[1])	/* L1 configuration 1 */
-+#define LTDC_L1RCR	(ldev->caps.layer_regs[2])	/* L1 reload control */
-+#define LTDC_L1CR	(ldev->caps.layer_regs[3])	/* L1 control register */
-+#define LTDC_L1WHPCR	(ldev->caps.layer_regs[4])	/* L1 window horizontal position configuration */
-+#define LTDC_L1WVPCR	(ldev->caps.layer_regs[5])	/* L1 window vertical position configuration */
-+#define LTDC_L1CKCR	(ldev->caps.layer_regs[6])	/* L1 color keying configuration */
-+#define LTDC_L1PFCR	(ldev->caps.layer_regs[7])	/* L1 pixel format configuration */
-+#define LTDC_L1CACR	(ldev->caps.layer_regs[8])	/* L1 constant alpha configuration */
-+#define LTDC_L1DCCR	(ldev->caps.layer_regs[9])	/* L1 default color configuration */
-+#define LTDC_L1BFCR	(ldev->caps.layer_regs[10])	/* L1 blending factors configuration */
-+#define LTDC_L1BLCR	(ldev->caps.layer_regs[11])	/* L1 burst length configuration */
-+#define LTDC_L1PCR	(ldev->caps.layer_regs[12])	/* L1 planar configuration */
-+#define LTDC_L1CFBAR	(ldev->caps.layer_regs[13])	/* L1 color frame buffer address */
-+#define LTDC_L1CFBLR	(ldev->caps.layer_regs[14])	/* L1 color frame buffer length */
-+#define LTDC_L1CFBLNR	(ldev->caps.layer_regs[15])	/* L1 color frame buffer line number */
-+#define LTDC_L1AFBA0R	(ldev->caps.layer_regs[16])	/* L1 auxiliary frame buffer address 0 */
-+#define LTDC_L1AFBA1R	(ldev->caps.layer_regs[17])	/* L1 auxiliary frame buffer address 1 */
-+#define LTDC_L1AFBLR	(ldev->caps.layer_regs[18])	/* L1 auxiliary frame buffer length */
-+#define LTDC_L1AFBLNR	(ldev->caps.layer_regs[19])	/* L1 auxiliary frame buffer line number */
-+#define LTDC_L1CLUTWR	(ldev->caps.layer_regs[20])	/* L1 CLUT write */
-+#define LTDC_L1CYR0R	(ldev->caps.layer_regs[21])	/* L1 Conversion YCbCr RGB 0 */
-+#define LTDC_L1CYR1R	(ldev->caps.layer_regs[22])	/* L1 Conversion YCbCr RGB 1 */
-+#define LTDC_L1FPF0R	(ldev->caps.layer_regs[23])	/* L1 Flexible Pixel Format 0 */
-+#define LTDC_L1FPF1R	(ldev->caps.layer_regs[24])	/* L1 Flexible Pixel Format 1 */
- 
- /* Bit definitions */
- #define SSCR_VSH	GENMASK(10, 0)	/* Vertical Synchronization Height */
-@@ -208,7 +213,10 @@ enum ltdc_pix_fmt {
- 	/* Indexed formats */
- 	PF_L8,			/* Indexed 8 bits [8 bits] */
- 	PF_AL44,		/* Alpha:4 bits + indexed 4 bits [8 bits] */
--	PF_AL88			/* Alpha:8 bits + indexed 8 bits [16 bits] */
-+	PF_AL88,		/* Alpha:8 bits + indexed 8 bits [16 bits] */
-+	PF_ABGR8888,		/* ABGR [32 bits] */
-+	PF_BGRA8888,		/* BGRA [32 bits] */
-+	PF_BGR565		/* RGB [16 bits] */
- };
- 
- /* The index gives the encoding of the pixel format for an HW version */
-@@ -234,6 +242,102 @@ static const enum ltdc_pix_fmt ltdc_pix_fmt_a1[NB_PF] = {
- 	PF_ARGB4444		/* 0x07 */
- };
- 
-+static const enum ltdc_pix_fmt ltdc_pix_fmt_a2[NB_PF] = {
-+	PF_ARGB8888,		/* 0x00 */
-+	PF_ABGR8888,		/* 0x01 */
-+	PF_RGBA8888,		/* 0x02 */
-+	PF_BGRA8888,		/* 0x03 */
-+	PF_RGB565,		/* 0x04 */
-+	PF_BGR565,		/* 0x05 */
-+	PF_RGB888,		/* 0x06 */
-+	PF_ARGB1555		/* 0x07 */
-+};
-+
-+/* Layer register offsets */
-+static const u32 ltdc_layer_regs_a0[] = {
-+	0x80,	/* L1 configuration 0 */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x84,	/* L1 control register */
-+	0x88,	/* L1 window horizontal position configuration */
-+	0x8c,	/* L1 window vertical position configuration */
-+	0x90,	/* L1 color keying configuration */
-+	0x94,	/* L1 pixel format configuration */
-+	0x98,	/* L1 constant alpha configuration */
-+	0x9c,	/* L1 default color configuration */
-+	0xa0,	/* L1 blending factors configuration */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0xac,	/* L1 color frame buffer address */
-+	0xb0,	/* L1 color frame buffer length */
-+	0xb4,	/* L1 color frame buffer line number */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0xc4,	/* L1 CLUT write */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00	/* not available */
-+};
-+
-+static const u32 ltdc_layer_regs_a1[] = {
-+	0x80,	/* L1 configuration 0 */
-+	0x84,	/* L1 configuration 1 */
-+	0x00,	/* L1 reload control */
-+	0x88,	/* L1 control register */
-+	0x8c,	/* L1 window horizontal position configuration */
-+	0x90,	/* L1 window vertical position configuration */
-+	0x94,	/* L1 color keying configuration */
-+	0x98,	/* L1 pixel format configuration */
-+	0x9c,	/* L1 constant alpha configuration */
-+	0xa0,	/* L1 default color configuration */
-+	0xa4,	/* L1 blending factors configuration */
-+	0xa8,	/* L1 burst length configuration */
-+	0x00,	/* not available */
-+	0xac,	/* L1 color frame buffer address */
-+	0xb0,	/* L1 color frame buffer length */
-+	0xb4,	/* L1 color frame buffer line number */
-+	0xb8,	/* L1 auxiliary frame buffer address 0 */
-+	0xbc,	/* L1 auxiliary frame buffer address 1 */
-+	0xc0,	/* L1 auxiliary frame buffer length */
-+	0xc4,	/* L1 auxiliary frame buffer line number */
-+	0xc8,	/* L1 CLUT write */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00	/* not available */
-+};
-+
-+static const u32 ltdc_layer_regs_a2[] = {
-+	0x100,	/* L1 configuration 0 */
-+	0x104,	/* L1 configuration 1 */
-+	0x108,	/* L1 reload control */
-+	0x10c,	/* L1 control register */
-+	0x110,	/* L1 window horizontal position configuration */
-+	0x114,	/* L1 window vertical position configuration */
-+	0x118,	/* L1 color keying configuration */
-+	0x11c,	/* L1 pixel format configuration */
-+	0x120,	/* L1 constant alpha configuration */
-+	0x124,	/* L1 default color configuration */
-+	0x128,	/* L1 blending factors configuration */
-+	0x12c,	/* L1 burst length configuration */
-+	0x130,	/* L1 planar configuration */
-+	0x134,	/* L1 color frame buffer address */
-+	0x138,	/* L1 color frame buffer length */
-+	0x13c,	/* L1 color frame buffer line number */
-+	0x140,	/* L1 auxiliary frame buffer address 0 */
-+	0x144,	/* L1 auxiliary frame buffer address 1 */
-+	0x148,	/* L1 auxiliary frame buffer length */
-+	0x14c,	/* L1 auxiliary frame buffer line number */
-+	0x150,	/* L1 CLUT write */
-+	0x16c,	/* L1 Conversion YCbCr RGB 0 */
-+	0x170,	/* L1 Conversion YCbCr RGB 1 */
-+	0x174,	/* L1 Flexible Pixel Format 0 */
-+	0x178	/* L1 Flexible Pixel Format 1 */
-+};
-+
- static const u64 ltdc_format_modifiers[] = {
- 	DRM_FORMAT_MOD_LINEAR,
- 	DRM_FORMAT_MOD_INVALID
-@@ -1158,7 +1262,8 @@ static int ltdc_get_caps(struct drm_device *ddev)
- 	switch (ldev->caps.hw_version) {
- 	case HWVER_10200:
- 	case HWVER_10300:
--		ldev->caps.reg_ofs = REG_OFS_NONE;
-+		ldev->caps.layer_ofs = LAY_OFS_0;
-+		ldev->caps.layer_regs = ltdc_layer_regs_a0;
- 		ldev->caps.pix_fmt_hw = ltdc_pix_fmt_a0;
- 		/*
- 		 * Hw older versions support non-alpha color formats derived
-@@ -1174,12 +1279,21 @@ static int ltdc_get_caps(struct drm_device *ddev)
- 		ldev->caps.nb_irq = 2;
- 		break;
- 	case HWVER_20101:
--		ldev->caps.reg_ofs = REG_OFS_4;
-+		ldev->caps.layer_ofs = LAY_OFS_0;
-+		ldev->caps.layer_regs = ltdc_layer_regs_a1;
- 		ldev->caps.pix_fmt_hw = ltdc_pix_fmt_a1;
- 		ldev->caps.non_alpha_only_l1 = false;
- 		ldev->caps.pad_max_freq_hz = 150000000;
- 		ldev->caps.nb_irq = 4;
- 		break;
-+	case HWVER_40100:
-+		ldev->caps.layer_ofs = LAY_OFS_1;
-+		ldev->caps.layer_regs = ltdc_layer_regs_a2;
-+		ldev->caps.pix_fmt_hw = ltdc_pix_fmt_a2;
-+		ldev->caps.non_alpha_only_l1 = false;
-+		ldev->caps.pad_max_freq_hz = 90000000;
-+		ldev->caps.nb_irq = 2;
-+		break;
- 	default:
- 		return -ENODEV;
- 	}
-diff --git a/drivers/gpu/drm/stm/ltdc.h b/drivers/gpu/drm/stm/ltdc.h
-index f153b908c70e..55a125f89af6 100644
---- a/drivers/gpu/drm/stm/ltdc.h
-+++ b/drivers/gpu/drm/stm/ltdc.h
-@@ -14,7 +14,8 @@
- struct ltdc_caps {
- 	u32 hw_version;		/* hardware version */
- 	u32 nb_layers;		/* number of supported layers */
--	u32 reg_ofs;		/* register offset for applicable regs */
-+	u32 layer_ofs;		/* layer offset for applicable regs */
-+	const u32 *layer_regs;	/* layer register offset */
- 	u32 bus_width;		/* bus width (32 or 64 bits) */
- 	const u32 *pix_fmt_hw;	/* supported pixel formats */
- 	bool non_alpha_only_l1; /* non-native no-alpha formats on layer 1 */
--- 
-2.17.1
+--------------pJVY4Pdtym1G0TkQl2dh1mDd
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+SGkNCg0KQW0gMDMuMTIuMjEgdW0gMDk6NTUgc2NocmllYiBZYW5uaWNrIEZlcnRyZToNCj4g
+SW4gY2FzZSBvZiB1c2luZyBzaW1wbGVmYiBvciBhbm90aGVyIGNvbmZsaWN0aW5nIGZyYW1l
+YnVmZmVyLA0KPiBjYWxsIGRybV9hcGVydHVyZV9yZW1vdmVfZnJhbWVidWZmZXJzKCkgdG8g
+cmVtb3ZlIG1lbW9yeSBhbGxvY2F0ZWQuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBZYW5uaWNr
+IEZlcnRyZSA8eWFubmljay5mZXJ0cmVAZm9zcy5zdC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9zdG0vZHJ2LmMgfCA1ICsrKysrDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDUg
+aW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdG0v
+ZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2Rydi5jDQo+IGluZGV4IDIyMjg2OWIyMzJh
+ZS4uNWJhNDZmNzBmMDgxIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2Ry
+di5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMNCj4gQEAgLTE0LDYgKzE0
+LDcgQEANCj4gICAjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZvcm0uaD4NCj4gICAjaW5jbHVk
+ZSA8bGludXgvcG1fcnVudGltZS5oPg0KPiAgIA0KPiArI2luY2x1ZGUgPGRybS9kcm1fYXBl
+cnR1cmUuaD4NCj4gICAjaW5jbHVkZSA8ZHJtL2RybV9hdG9taWMuaD4NCj4gICAjaW5jbHVk
+ZSA8ZHJtL2RybV9hdG9taWNfaGVscGVyLmg+DQo+ICAgI2luY2x1ZGUgPGRybS9kcm1fZHJ2
+Lmg+DQo+IEBAIC0xOTMsNiArMTk0LDEwIEBAIHN0YXRpYyBpbnQgc3RtX2RybV9wbGF0Zm9y
+bV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQ0KPiAgIAlpZiAocmV0KQ0K
+PiAgIAkJZ290byBlcnJfcHV0Ow0KPiAgIA0KPiArCXJldCA9IGRybV9hcGVydHVyZV9yZW1v
+dmVfZnJhbWVidWZmZXJzKGZhbHNlLCAmZHJ2X2RyaXZlcik7DQo+ICsJaWYgKHJldCkNCj4g
+KwkJZ290byBlcnJfcHV0Ow0KPiArDQoNClRoaXMgaGFzIHRvIGJlIGRvbmUgYXQgdGhlIHZl
+cnkgdG9wIG9mIHRoZSBwcm9iZSBmdW5jdGlvbiwgYmVmb3JlIA0KYW55dGhpbmcgdGhhdCB0
+b3VjaGVzIHRoZSBkZXZpY2UuIE90aGVyd2lzZSBib3RoIGRyaXZlcnMgaW50ZXJmZXJlIHdp
+dGggDQplYWNoIG90aGVyIHdoaWxlIHByb2JpbmcgYW5kIHNldHVwJ3MgZ29pbmcgb24uDQoN
+CkJlc3QgcmVnYXJkcw0KVGhvbWFzDQoNCj4gICAJcmV0ID0gZHJtX2Rldl9yZWdpc3Rlcihk
+ZGV2LCAwKTsNCj4gICAJaWYgKHJldCkNCj4gICAJCWdvdG8gZXJyX3B1dDsNCj4gDQoNCi0t
+IA0KVGhvbWFzIFppbW1lcm1hbm4NCkdyYXBoaWNzIERyaXZlciBEZXZlbG9wZXINClNVU0Ug
+U29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSA0KTWF4ZmVsZHN0ci4gNSwgOTA0MDkg
+TsO8cm5iZXJnLCBHZXJtYW55DQooSFJCIDM2ODA5LCBBRyBOw7xybmJlcmcpDQpHZXNjaMOk
+ZnRzZsO8aHJlcjogSXZvIFRvdGV2DQo=
+
+--------------pJVY4Pdtym1G0TkQl2dh1mDd--
+
+--------------DFU8K9UBXjQ1FZY83MRcWDwj
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmGp5MgFAwAAAAAACgkQlh/E3EQov+CH
+hRAAkBBbTnUmmdwnR9pxdbyvR9gSBtupKiVfslYcPCmUGEexHF/W1mzBhWu9BrnlXr9fV0F4xgW3
+QKpNXnYyj5aXCOxS9XOduXKVgcjswwQ69/CbxzBfHYBmxUJuq4xgOvYksHRJgeXo/KP/vUB6htOx
+ogdsxOQSPMKn/z8VRPpAjCMPUIpD2QX/x/Q4DtaiKEUtb9F4pYsNg/gJrrNPnojauMByTPbl+avJ
+qR/Fov+BVBf785qEkaLWpqkcjD24x7uVMEsiQ8km9rTMObXiFG9rcZSMjiVhP3Y2tupxPIyrU6zZ
+VbVC3Pj5l9MlqifTiwm5E6RBLkzL/N2RTVxuZ/CA+p5Llt3mZReeMFosoZlBjcaJa+l8DILhlYyZ
+iPyyY4FC0Ta4rWWPaheQxIhwKogL0CqgKOyWmba0inH7dIpBXTvczi9TBhugp3G7bt3BpiI5q1qu
+QXqpFBJ1j0qdpi8re5u4jTmyjjUCUNcxTskCUkZykmioyIcfgaqyZ8L0tUd3mFg3MsQVHe4dmEwq
+GN7Q6IC59Xeqi4WZdlnPnEaoTXopZaTDOVusKxjca8AmLTY962fOPUZHSdgP3BvdGML39/0wbapd
+MOUCg4sZXlICLp2tjtLuD4ZncksM80aRP/UagdZtZz8jGn35X2sauQvUWy+zvDTukO7B+cGW9TQQ
+G2k=
+=rwiW
+-----END PGP SIGNATURE-----
+
+--------------DFU8K9UBXjQ1FZY83MRcWDwj--
+
+--===============5457199302057335775==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5457199302057335775==--
