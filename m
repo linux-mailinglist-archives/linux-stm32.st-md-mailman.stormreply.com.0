@@ -2,65 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE6A0468091
-	for <lists+linux-stm32@lfdr.de>; Sat,  4 Dec 2021 00:34:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC4D646888C
+	for <lists+linux-stm32@lfdr.de>; Sun,  5 Dec 2021 01:06:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59271C5F1D5;
-	Fri,  3 Dec 2021 23:34:30 +0000 (UTC)
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
- [209.85.210.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53C4DC5F1D5;
+	Sun,  5 Dec 2021 00:06:21 +0000 (UTC)
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 563E9CFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9754C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Dec 2021 23:34:29 +0000 (UTC)
-Received: by mail-ot1-f47.google.com with SMTP id
- 35-20020a9d08a6000000b00579cd5e605eso5484677otf.0
+ Sun,  5 Dec 2021 00:06:19 +0000 (UTC)
+Received: by mail-oi1-f171.google.com with SMTP id m6so13826526oim.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 03 Dec 2021 15:34:29 -0800 (PST)
+ Sat, 04 Dec 2021 16:06:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=aLM7Vzy6+wcFi2+uw4mY6eHdc1c6QIPZ2YzBFSeQVDk=;
+ b=oypqQM9WYczOUD8yOv4W0b0J4SdrSIP2/GWFE4TR5k1CGEkHNy9WPiO008zNzsg3Pz
+ zh9bUtf/VG6/b3zJ480BiJtwEa7PuEjsHQIWuEsggMdMqcZfJwsOE3iFtiG2DEPADAsO
+ hqFPrgRv7CWtgQ4J5ZJRkR9iA1oQHlUoWYY8QDKpr7VM+f+8Yrryge0w8oCSslRvNp+6
+ exKWbX0iHLd50+WQaM9fAnPeBnEozwwfUcCOKBUJC5pSMVg0d33S/UEK3rrGtAaDpFWu
+ Uv4am7V67+qDJ2gKBQwHEmdYiUOqE7eMf4wLG94y+RQ3YPpVsZKN31tRHAbmVgDqfwLj
+ frKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=GE0Zk+eX8sZDvupP4sJ6Ohc20e/z8kxjxl7o4izocKY=;
- b=eoq3m+8LaxwcoWrvySk6yCSD39cf6pKsQ8hV1KRi22GK5+uHkKiCR2/KP8JbNnoyck
- SEWldah3FT5qEdMO2xTBhupWv7M1RzEeCtLy39Pdj1suVsNunolZWt1Xx/0/Im2CRq1m
- y2zOqJ/G9nYJ/6OgAiQpLEpAfMohXMk24AO+dOJeNLEsTDatoE2ZhGvHBzc2tdQZ1dZX
- OLMezLX2sC7x02kRMF2tW7yGmwGlfGfZjFVUahS/PbgpuZvrRCudv1Q0V+LLOYz2UCJr
- 33V76IxaRRWDbDn4+bpJB5boPEO8jClq+fscaUPJB/gOqs3cAU3afFmTlSv8zzG7MB7X
- CKtg==
-X-Gm-Message-State: AOAM532lGE/dP3HhW0b2IpptSH8+5ok1DvG88sx1OtfVwxY3zrzfCLtr
- XjhcKLjl7uVInHpWYTiGjQ==
-X-Google-Smtp-Source: ABdhPJy3PCupkz+n/wmG78XL1Oz6xk1rXf5k7wFa5WXphozZiozk+A42lWVF0CAkCDKJY7uEHFyW9w==
-X-Received: by 2002:a9d:2486:: with SMTP id z6mr19250720ota.210.1638574468140; 
- Fri, 03 Dec 2021 15:34:28 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id c41sm939822otu.7.2021.12.03.15.34.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Dec 2021 15:34:27 -0800 (PST)
-Received: (nullmailer pid 1043011 invoked by uid 1000);
- Fri, 03 Dec 2021 23:34:15 -0000
-From: Rob Herring <robh@kernel.org>
-To: Biao Huang <biao.huang@mediatek.com>
-In-Reply-To: <20211203063418.14892-5-biao.huang@mediatek.com>
-References: <20211203063418.14892-1-biao.huang@mediatek.com>
- <20211203063418.14892-5-biao.huang@mediatek.com>
-Date: Fri, 03 Dec 2021 17:34:15 -0600
-Message-Id: <1638574455.270026.1043010.nullmailer@robh.at.kernel.org>
-Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
- davem@davemloft.net, netdev@vger.kernel.org,
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=aLM7Vzy6+wcFi2+uw4mY6eHdc1c6QIPZ2YzBFSeQVDk=;
+ b=ReQwWOpirE/REBbJqsxknRrhkUtC9JN8E6fDWjWxFkevJ1ljnuv8lpjS7ZoK72fLVu
+ HgdmNVeVd475HpyTbebj7PKXtm+lncuZplUrsMoRZt5T/aufnUeCA7/N2U1JgpGFCqkg
+ yEibSxFVWvL7TXupnS+JQ38l+BrTihVqRZcY8hLwr33xcSLygcvAr8POLKoVbP/Q9Xup
+ gHgB8mUE8BtgQ1TD5KTP9ENBd3+be0L3CtF9EknY5qqjgr2XyYQedqizkFzKZXAxsqgn
+ tHXkqldD51cDd5jeTSdG7O+hFsyq590/75n+m+4Ot1HnGlYp51TMMVxq80seIB0fsn7c
+ CLuA==
+X-Gm-Message-State: AOAM530R5O5ddpjT+ekQ44joskYHB4bqeMITFsYX5TsFuddGerpTacwF
+ 9ealXvlyWgLF/dTogIt4UXL65nChdNopT/gfAyWZ2g==
+X-Google-Smtp-Source: ABdhPJy/aeGs123LiAIPsyMW3EdsawUgHdqxl5iex8vMswm1x7JAmAebxj9z1jBeNmQdoS/RXvDPX+AOcq/DNJTtHIA=
+X-Received: by 2002:aca:120f:: with SMTP id 15mr16602417ois.132.1638662778472; 
+ Sat, 04 Dec 2021 16:06:18 -0800 (PST)
+MIME-Version: 1.0
+References: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sun, 5 Dec 2021 01:06:07 +0100
+Message-ID: <CACRpkdZbpKqG_uS2N8TW2-HL5CqnuKDpHVCabf66MyQQof0jOw@mail.gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Baruch Siach <baruch@tkos.co.il>, Heiko Stuebner <heiko@sntech.de>,
+ Tony Lindgren <tony@atomide.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
- dkirjanov@suse.de, Jose Abreu <joabreu@synopsys.com>,
- linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH v4 4/7] net-next: dt-bindings: dwmac:
-	Convert mediatek-dwmac to DT schema
+ Chunyan Zhang <chunyan.zhang@unisoc.com>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ linux-rockchip@lists.infradead.org, Marc Zyngier <maz@kernel.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ Alexandru Ardelean <aardelean@deviqon.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Orson Zhai <orsonzhai@gmail.com>, Grygorii Strashko <grygorii.strashko@ti.com>,
+ Thierry Reding <treding@nvidia.com>, Jianqun Xu <jay.xu@rock-chips.com>,
+ linux-pwm@vger.kernel.org, Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Vladimir Zapolskiy <vz@mleia.com>,
+ linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Gregory Fong <gregory.0xf0@gmail.com>, Santosh Shilimkar <ssantosh@kernel.org>,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Scott Branden <sbranden@broadcom.com>,
+ linux-unisoc@lists.infradead.org, patches@opensource.cirrus.com,
+ Kevin Hilman <khilman@kernel.org>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Keerthy <j-keerthy@ti.com>, Baolin Wang <baolin.wang7@gmail.com>,
+ linux-power@fi.rohmeurope.com
+Subject: Re: [Linux-stm32] [PATCH v1 1/3] gpio: Get rid of duplicate of_node
+ assignment in the drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,55 +93,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 03 Dec 2021 14:34:15 +0800, Biao Huang wrote:
-> Convert mediatek-dwmac to DT schema, and delete old mediatek-dwmac.txt.
-> And there are some changes in .yaml than .txt, others almost keep the same:
->   1. compatible "const: snps,dwmac-4.20".
->   2. delete "snps,reset-active-low;" in example, since driver remove this
->      property long ago.
->   3. add "snps,reset-delay-us = <0 10000 10000>" in example.
->   4. the example is for rgmii interface, keep related properties only.
-> 
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> ---
->  .../bindings/net/mediatek-dwmac.txt           |  91 ----------
->  .../bindings/net/mediatek-dwmac.yaml          | 156 ++++++++++++++++++
->  2 files changed, 156 insertions(+), 91 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.txt
->  create mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> 
+On Thu, Dec 2, 2021 at 10:17 PM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
 
-Running 'make dtbs_check' with the schema in this patch gives the
-following warnings. Consider if they are expected or the schema is
-incorrect. These may not be new warnings.
+> GPIO library does copy the of_node from the parent device of
+> the GPIO chip, there is no need to repeat this in the individual
+> drivers. Remove these assignment all at once.
+>
+> For the details one may look into the of_gpio_dev_init() implementation.
+>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-This will change in the future.
+This is definitely a patch in the right direction, as Bart says
+it can be a bit dangerous, the outliers are those drivers that
+assign the .dev to something completely different than the
+the dev where the of_node is copied from.
 
-Full log is available here: https://patchwork.ozlabs.org/patch/1563125
+The idea was definitely always to only assign it in the core
+*unless* there is a reason to have a completely different
+of_node for some reason.
 
+> +++ b/drivers/gpio/gpio-rda.c
+> @@ -240,8 +240,6 @@ static int rda_gpio_probe(struct platform_device *pdev)
+>         rda_gpio->chip.label = dev_name(dev);
+>         rda_gpio->chip.ngpio = ngpios;
+>         rda_gpio->chip.base = -1;
+> -       rda_gpio->chip.parent = dev;
+> -       rda_gpio->chip.of_node = np;
 
-ethernet@1101c000: clock-names: ['axi', 'apb', 'mac_main', 'ptp_ref'] is too short
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
+Mention in the commit message that in this driver
+you also drop the the .parent assignment because the
+core will handle it.
 
-ethernet@1101c000: clocks: [[27, 34], [27, 37], [6, 154], [6, 155]] is too short
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-
-ethernet@1101c000: compatible: ['mediatek,mt2712-gmac'] does not contain items matching the given schema
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-
-ethernet@1101c000: compatible: 'oneOf' conditional failed, one must be fixed:
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-
-ethernet@1101c000: Unevaluated properties are not allowed ('compatible', 'reg', 'interrupts', 'interrupt-names', 'mac-address', 'clock-names', 'clocks', 'power-domains', 'snps,axi-config', 'snps,mtl-rx-config', 'snps,mtl-tx-config', 'snps,txpbl', 'snps,rxpbl', 'clk_csr', 'phy-mode', 'phy-handle', 'snps,reset-gpio', 'mdio' were unexpected)
-	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
-
+Yours,
+Linus Walleij
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
