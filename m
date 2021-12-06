@@ -2,65 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E93546A339
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 18:41:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B39446A55C
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 20:08:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0514EC5F1E5;
-	Mon,  6 Dec 2021 17:41:57 +0000 (UTC)
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1D01C5F1E5;
+	Mon,  6 Dec 2021 19:08:13 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D82CC597BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C41EBC58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Dec 2021 17:41:56 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id be32so22721075oib.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Dec 2021 09:41:56 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=iJa24hh6sDEUpEz26btAdpVnkRSWQr1kx84SVvqDXJo=;
- b=L1ejHZyquH9tZhm6jpwDAfhwY1v7mFNgi2EmNwvGhoHQNuRfBkvcYZAYZ0lV93MZ/H
- SgP96q4AGfhsuMUlE0qEmb0ReLpBWnhYzSRw9N2BeyhSt2/jWaO+XAc/ulatid+xbCAL
- JrhTkcbyPdkX3nZHTpa20+GTI4tkTNFg5QvfG0sbReWCr1SQUzcEZlo7YmHyVrtjnod5
- HbYoXh4ZmA0p7Oqq4JS37XLswXNR1Rtd3GQZta4zzQYvUNU+sdcJcYinIZYJr++Rjm4t
- DQnA+ih1gnU68ZOwx0hEXZnTOY8GfgOx12S9kggH3lbiQynZPg4jwhUOiJCF9K2dsIdL
- Iq/Q==
-X-Gm-Message-State: AOAM533chraDe98yc25Feu9VbF0HctLe5NLoMD1YqCwaw7IGK+MGeLh2
- AD/IDsrUj9bxCRgxzAFR8w==
-X-Google-Smtp-Source: ABdhPJwCOBxPc6keMUGzARcRIl4lodA3f7cfPdab0zIok2z2RMJGpP+DSzeGEUCy3de/yvSDymwccA==
-X-Received: by 2002:a05:6808:649:: with SMTP id
- z9mr24422724oih.125.1638812515071; 
- Mon, 06 Dec 2021 09:41:55 -0800 (PST)
-Received: from xps15.herring.priv (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.googlemail.com with ESMTPSA id bj8sm2965511oib.51.2021.12.06.09.41.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Dec 2021 09:41:54 -0800 (PST)
-From: Rob Herring <robh@kernel.org>
-To: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
- "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Grygorii Strashko <grygorii.strashko@ti.com>
-Date: Mon,  6 Dec 2021 11:41:52 -0600
-Message-Id: <20211206174153.2296977-1-robh@kernel.org>
-X-Mailer: git-send-email 2.32.0
+ Mon,  6 Dec 2021 19:08:12 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B6F9w3n003232;
+ Mon, 6 Dec 2021 20:08:12 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=3pk5K2bLOEaobNBUebhHMo5aHf9XY7QA5+jodg260G4=;
+ b=uLwf6R7SN24/NQ4zuHAw4/p51jlY8ZO6kNYx+H1TGEKUHZEYkTbXFLyeouwpI2yqshuq
+ 2+YZ2ytvo2ug3ULyr9qwng2PT16CNq0R8MLG1vgN35pSrwjT7KVLI0w1vAQitX1sQRX2
+ BWiehA76Y+Qbz6oMnrekOcCKdBc6Ev4Y3LAOI5DEVR5JGKaTXXe9tRk+FMA7awlraxpL
+ uF26C8gFBsj3KEHBb0vDHVh6Ly3p3pz8RPvLcq7jvoccvAPUU1faF7fJHCNr6wfYTaLd
+ N/QNysd/BCbgWtF+pH6qr3h/ZjiK6WCwvqXxhEfGSqwnow9EVw3dfggf1oBpLecpI9HF 1Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3csmx0h0bu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 Dec 2021 20:08:11 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7391010002A;
+ Mon,  6 Dec 2021 20:08:10 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E7334212FC4;
+ Mon,  6 Dec 2021 20:08:10 +0100 (CET)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 6 Dec 2021 20:08:10
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Mon, 6 Dec 2021 20:07:58 +0100
+Message-ID: <20211206190758.10004-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: net: Add missing properties used
-	in examples
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-06_07,2021-12-06_02,2021-12-02_01
+Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] rpmsg: core: Clean up resources on
+	announce_create failure.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,118 +67,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-V2l0aCAndW5ldmFsdWF0ZWRQcm9wZXJ0aWVzJyBzdXBwb3J0IGltcGxlbWVudGVkLCB0aGUgZm9s
-bG93aW5nIHdhcm5pbmdzCmFyZSBnZW5lcmF0ZWQgaW4gdGhlIG5ldCBiaW5kaW5nczoKCkRvY3Vt
-ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvYWN0aW9ucyxvd2wtZW1hYy5leGFtcGxl
-LmR0LnlhbWw6IGV0aGVybmV0QGIwMzEwMDAwOiBVbmV2YWx1YXRlZCBwcm9wZXJ0aWVzIGFyZSBu
-b3QgYWxsb3dlZCAoJ21kaW8nIHdhcyB1bmV4cGVjdGVkKQpEb2N1bWVudGF0aW9uL2RldmljZXRy
-ZWUvYmluZGluZ3MvbmV0L2ludGVsLGR3bWFjLXBsYXQuZXhhbXBsZS5kdC55YW1sOiBldGhlcm5l
-dEAzYTAwMDAwMDogVW5ldmFsdWF0ZWQgcHJvcGVydGllcyBhcmUgbm90IGFsbG93ZWQgKCdzbnBz
-LHBibCcsICdtZGlvMCcgd2VyZSB1bmV4cGVjdGVkKQpEb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvbmV0L3FjYSxhcjcxeHguZXhhbXBsZS5kdC55YW1sOiBldGhlcm5ldEAxOTAwMDAw
-MDogVW5ldmFsdWF0ZWQgcHJvcGVydGllcyBhcmUgbm90IGFsbG93ZWQgKCdxY2EsZXRoY2ZnJyB3
-YXMgdW5leHBlY3RlZCkKRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9xY2Es
-YXI3MXh4LmV4YW1wbGUuZHQueWFtbDogZXRoZXJuZXRAMWEwMDAwMDA6IFVuZXZhbHVhdGVkIHBy
-b3BlcnRpZXMgYXJlIG5vdCBhbGxvd2VkICgnbWRpbycgd2FzIHVuZXhwZWN0ZWQpCkRvY3VtZW50
-YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvc3RtMzItZHdtYWMuZXhhbXBsZS5kdC55YW1s
-OiBldGhlcm5ldEA0MDAyODAwMDogVW5ldmFsdWF0ZWQgcHJvcGVydGllcyBhcmUgbm90IGFsbG93
-ZWQgKCdyZWctbmFtZXMnLCAnc25wcyxwYmwnIHdlcmUgdW5leHBlY3RlZCkKRG9jdW1lbnRhdGlv
-bi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC90aSxjcHN3LXN3aXRjaC5leGFtcGxlLmR0LnlhbWw6
-IG1kaW9AMTAwMDogVW5ldmFsdWF0ZWQgcHJvcGVydGllcyBhcmUgbm90IGFsbG93ZWQgKCdjbG9j
-a3MnLCAnY2xvY2stbmFtZXMnIHdlcmUgdW5leHBlY3RlZCkKRG9jdW1lbnRhdGlvbi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL25ldC90aSxrMy1hbTY1NC1jcHN3LW51c3MuZXhhbXBsZS5kdC55YW1sOiBt
-ZGlvQGYwMDogVW5ldmFsdWF0ZWQgcHJvcGVydGllcyBhcmUgbm90IGFsbG93ZWQgKCdjbG9ja3Mn
-LCAnY2xvY2stbmFtZXMnIHdlcmUgdW5leHBlY3RlZCkKCkFkZCB0aGUgbWlzc2luZyBwcm9wZXJ0
-aWVzL25vZGVzIGFzIG5lY2Vzc2FyeS4KCkNjOiAiRGF2aWQgUy4gTWlsbGVyIiA8ZGF2ZW1AZGF2
-ZW1sb2Z0Lm5ldD4KQ2M6IEpha3ViIEtpY2luc2tpIDxrdWJhQGtlcm5lbC5vcmc+CkNjOiAiQW5k
-cmVhcyBGw6RyYmVyIiA8YWZhZXJiZXJAc3VzZS5kZT4KQ2M6IE1hbml2YW5uYW4gU2FkaGFzaXZh
-bSA8bWFuaUBrZXJuZWwub3JnPgpDYzogTWF4aW1lIENvcXVlbGluIDxtY29xdWVsaW4uc3RtMzJA
-Z21haWwuY29tPgpDYzogQWxleGFuZHJlIFRvcmd1ZSA8YWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0
-LmNvbT4KQ2M6IE5vYnVoaXJvIEl3YW1hdHN1IDxub2J1aGlybzEuaXdhbWF0c3VAdG9zaGliYS5j
-by5qcD4KQ2M6IENyaXN0aWFuIENpb2NhbHRlYSA8Y3Jpc3RpYW4uY2lvY2FsdGVhQGdtYWlsLmNv
-bT4KQ2M6ICJHLiBKYXlhIEt1bWFyYW4iIDx2aW5lZXRoYS5nLmpheWEua3VtYXJhbkBpbnRlbC5j
-b20+CkNjOiBPbGVrc2lqIFJlbXBlbCA8by5yZW1wZWxAcGVuZ3V0cm9uaXguZGU+CkNjOiBDaHJp
-c3RvcGhlIFJvdWxsaWVyIDxjaHJpc3RvcGhlLnJvdWxsaWVyQGZvc3Muc3QuY29tPgpDYzogR3J5
-Z29yaWkgU3RyYXNoa28gPGdyeWdvcmlpLnN0cmFzaGtvQHRpLmNvbT4KQ2M6IG5ldGRldkB2Z2Vy
-Lmtlcm5lbC5vcmcKQ2M6IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZwpDYzog
-bGludXgtYWN0aW9uc0BsaXN0cy5pbmZyYWRlYWQub3JnCkNjOiBsaW51eC1zdG0zMkBzdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tClNpZ25lZC1vZmYtYnk6IFJvYiBIZXJyaW5nIDxyb2JoQGtl
-cm5lbC5vcmc+Ci0tLQogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2FjdGlvbnMsb3dsLWVt
-YWMueWFtbCAgICAgICAgICB8IDMgKysrCiAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvaW50
-ZWwsZHdtYWMtcGxhdC55YW1sICAgICAgICAgIHwgMiArLQogRG9jdW1lbnRhdGlvbi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL25ldC9xY2EsYXI3MXh4LnlhbWwgICAgICB8IDUgKysrKy0KIERvY3VtZW50
-YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvc3RtMzItZHdtYWMueWFtbCAgICAgfCA2ICsr
-KysrKwogRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC90aSxkYXZpbmNpLW1k
-aW8ueWFtbCB8IDcgKysrKysrKwogLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3Rvc2hpYmEs
-dmlzY29udGktZHdtYWMueWFtbCAgICB8IDUgKysrKy0KIDYgZmlsZXMgY2hhbmdlZCwgMjUgaW5z
-ZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2Rl
-dmljZXRyZWUvYmluZGluZ3MvbmV0L2FjdGlvbnMsb3dsLWVtYWMueWFtbCBiL0RvY3VtZW50YXRp
-b24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvYWN0aW9ucyxvd2wtZW1hYy55YW1sCmluZGV4IDE2
-MjZlMGE4MjFiMC4uZTljMGQ2MzYwZTc0IDEwMDY0NAotLS0gYS9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvbmV0L2FjdGlvbnMsb3dsLWVtYWMueWFtbAorKysgYi9Eb2N1bWVudGF0
-aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2FjdGlvbnMsb3dsLWVtYWMueWFtbApAQCAtNTEs
-NiArNTEsOSBAQCBwcm9wZXJ0aWVzOgogICAgIGRlc2NyaXB0aW9uOgogICAgICAgUGhhbmRsZSB0
-byB0aGUgZGV2aWNlIGNvbnRhaW5pbmcgY3VzdG9tIGNvbmZpZy4KIAorICBtZGlvOgorICAgIHR5
-cGU6IG9iamVjdAorCiByZXF1aXJlZDoKICAgLSBjb21wYXRpYmxlCiAgIC0gcmVnCmRpZmYgLS1n
-aXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2ludGVsLGR3bWFjLXBs
-YXQueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvaW50ZWwsZHdt
-YWMtcGxhdC55YW1sCmluZGV4IDA4YTNmMWY2YWVhMi4uNTJhN2ZhNGY0OWE0IDEwMDY0NAotLS0g
-YS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2ludGVsLGR3bWFjLXBsYXQu
-eWFtbAorKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2ludGVsLGR3
-bWFjLXBsYXQueWFtbApAQCAtMTE3LDcgKzExNyw3IEBAIGV4YW1wbGVzOgogICAgICAgICBzbnBz
-LG10bC10eC1jb25maWcgPSA8Jm10bF90eF9zZXR1cD47CiAgICAgICAgIHNucHMsdHNvOwogCi0g
-ICAgICAgIG1kaW8wIHsKKyAgICAgICAgbWRpbyB7CiAgICAgICAgICAgICAjYWRkcmVzcy1jZWxs
-cyA9IDwxPjsKICAgICAgICAgICAgICNzaXplLWNlbGxzID0gPDA+OwogICAgICAgICAgICAgY29t
-cGF0aWJsZSA9ICJzbnBzLGR3bWFjLW1kaW8iOwpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9k
-ZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9xY2EsYXI3MXh4LnlhbWwgYi9Eb2N1bWVudGF0aW9uL2Rl
-dmljZXRyZWUvYmluZGluZ3MvbmV0L3FjYSxhcjcxeHgueWFtbAppbmRleCBjZjRkMzVlZGFhMWIu
-LmYyYmYxMDk0ZDg4NyAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL25ldC9xY2EsYXI3MXh4LnlhbWwKKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
-bmRpbmdzL25ldC9xY2EsYXI3MXh4LnlhbWwKQEAgLTYyLDYgKzYyLDEwIEBAIHByb3BlcnRpZXM6
-CiAgICAgICAtIGNvbnN0OiBtYWMKICAgICAgIC0gY29uc3Q6IG1kaW8KIAorCisgIG1kaW86Cisg
-ICAgdHlwZTogb2JqZWN0CisKIHJlcXVpcmVkOgogICAtIGNvbXBhdGlibGUKICAgLSByZWcKQEAg
-LTg1LDcgKzg5LDYgQEAgZXhhbXBsZXM6CiAgICAgICAgIHJlc2V0LW5hbWVzID0gIm1hYyIsICJt
-ZGlvIjsKICAgICAgICAgY2xvY2tzID0gPCZwbGwgMT4sIDwmcGxsIDI+OwogICAgICAgICBjbG9j
-ay1uYW1lcyA9ICJldGgiLCAibWRpbyI7Ci0gICAgICAgIHFjYSxldGhjZmcgPSA8JmV0aGNmZz47
-CiAgICAgICAgIHBoeS1tb2RlID0gIm1paSI7CiAgICAgICAgIHBoeS1oYW5kbGUgPSA8JnBoeV9w
-b3J0ND47CiAgICAgfTsKZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy9uZXQvc3RtMzItZHdtYWMueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy9uZXQvc3RtMzItZHdtYWMueWFtbAppbmRleCA1NzdmNGUyODQ0MjUuLjg2NjMyZTlkOTg3
-ZSAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9zdG0z
-Mi1kd21hYy55YW1sCisrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQv
-c3RtMzItZHdtYWMueWFtbApAQCAtNDQsNiArNDQsMTIgQEAgcHJvcGVydGllczoKICAgICAgICAg
-ICAgICAgLSBzdCxzdG0zMi1kd21hYwogICAgICAgICAgIC0gY29uc3Q6IHNucHMsZHdtYWMtMy41
-MGEKIAorICByZWc6IHRydWUKKworICByZWctbmFtZXM6CisgICAgaXRlbXM6CisgICAgICAtIGNv
-bnN0OiBzdG1tYWNldGgKKwogICBjbG9ja3M6CiAgICAgbWluSXRlbXM6IDMKICAgICBpdGVtczoK
-ZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvdGksZGF2
-aW5jaS1tZGlvLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3Rp
-LGRhdmluY2ktbWRpby55YW1sCmluZGV4IDU3MjhmZTIzZjUzMC4uZGJmY2E1ZWU5MTM5IDEwMDY0
-NAotLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3RpLGRhdmluY2kt
-bWRpby55YW1sCisrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvdGks
-ZGF2aW5jaS1tZGlvLnlhbWwKQEAgLTM3LDYgKzM3LDEzIEBAIHByb3BlcnRpZXM6CiAgICAgbWF4
-aW11bTogMjUwMDAwMAogICAgIGRlc2NyaXB0aW9uOiBNRElPIEJ1cyBmcmVxdWVuY3kKIAorICBj
-bG9ja3M6CisgICAgbWF4SXRlbXM6IDEKKworICBjbG9jay1uYW1lczoKKyAgICBpdGVtczoKKyAg
-ICAgIC0gY29uc3Q6IGZjaworCiAgIHRpLGh3bW9kczoKICAgICBkZXNjcmlwdGlvbjogVEkgaHdt
-b2QgbmFtZQogICAgIGRlcHJlY2F0ZWQ6IHRydWUKZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24v
-ZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvdG9zaGliYSx2aXNjb250aS1kd21hYy55YW1sIGIvRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC90b3NoaWJhLHZpc2NvbnRpLWR3bWFj
-LnlhbWwKaW5kZXggNTk3MjRkMThlNmYzLi5mNWJlYzk3NDYwZTQgMTAwNjQ0Ci0tLSBhL0RvY3Vt
-ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvdG9zaGliYSx2aXNjb250aS1kd21hYy55
-YW1sCisrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvdG9zaGliYSx2
-aXNjb250aS1kd21hYy55YW1sCkBAIC00Miw2ICs0Miw5IEBAIHByb3BlcnRpZXM6CiAgICAgICAt
-IGNvbnN0OiBzdG1tYWNldGgKICAgICAgIC0gY29uc3Q6IHBoeV9yZWZfY2xrCiAKKyAgbWRpbzoK
-KyAgICB0eXBlOiBvYmplY3QKKwogcmVxdWlyZWQ6CiAgIC0gY29tcGF0aWJsZQogICAtIHJlZwpA
-QCAtNzEsNyArNzQsNyBAQCBleGFtcGxlczoKICAgICAgICAgICAgIHBoeS1tb2RlID0gInJnbWlp
-LWlkIjsKICAgICAgICAgICAgIHBoeS1oYW5kbGUgPSA8JnBoeTA+OwogCi0gICAgICAgICAgICBt
-ZGlvMCB7CisgICAgICAgICAgICBtZGlvIHsKICAgICAgICAgICAgICAgICAjYWRkcmVzcy1jZWxs
-cyA9IDwweDE+OwogICAgICAgICAgICAgICAgICNzaXplLWNlbGxzID0gPDB4MD47CiAgICAgICAg
-ICAgICAgICAgY29tcGF0aWJsZSA9ICJzbnBzLGR3bWFjLW1kaW8iOwotLSAKMi4zMi4wCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+During the rpmsg_dev_probe, if rpdev->ops->announce_create returns an
+error, the rpmsg device and default endpoint should be freed before
+exiting the function.
+
+Fixes: 5e619b48677c ("rpmsg: Split rpmsg core and virtio backend")
+Suggested-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
+ drivers/rpmsg/rpmsg_core.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+index 27aad6baf7c5..12d7b7c6e5f9 100644
+--- a/drivers/rpmsg/rpmsg_core.c
++++ b/drivers/rpmsg/rpmsg_core.c
+@@ -612,13 +612,25 @@ static int rpmsg_dev_probe(struct device *dev)
+ 	err = rpdrv->probe(rpdev);
+ 	if (err) {
+ 		dev_err(dev, "%s: failed: %d\n", __func__, err);
+-		if (ept)
+-			rpmsg_destroy_ept(ept);
+-		goto out;
++		goto destroy_ept;
+ 	}
+ 
+-	if (ept && rpdev->ops->announce_create)
++	if (ept && rpdev->ops->announce_create) {
+ 		err = rpdev->ops->announce_create(rpdev);
++		if (err) {
++			dev_err(dev, "failed to announce creation\n");
++			goto remove_rpdev;
++		}
++	}
++
++	return 0;
++
++remove_rpdev:
++	if (rpdrv->remove)
++		rpdrv->remove(rpdev);
++destroy_ept:
++	if (ept)
++		rpmsg_destroy_ept(ept);
+ out:
+ 	return err;
+ }
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
