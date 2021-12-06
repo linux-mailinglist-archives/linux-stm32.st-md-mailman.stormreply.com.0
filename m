@@ -2,61 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B24E546A582
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 20:19:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 296FC46A5A0
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 20:26:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67A53C5F1E5;
-	Mon,  6 Dec 2021 19:19:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D39F1C5F1E5;
+	Mon,  6 Dec 2021 19:26:36 +0000 (UTC)
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 350EDC58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C22F9C58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Dec 2021 19:19:21 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B6DBMxU016569;
- Mon, 6 Dec 2021 20:19:17 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=LswolZltv4wHUvra42xDx0HudOGvUKO0BcGRhPhum3k=;
- b=jsIY4KfZfmh3+mpWNx2m+OwWDXN0ykRDJUZPs71GYxpEcudm+weah5mOopNfn65mAFLH
- ag5yXOVs+413FsE8zX8DyhaelRR4cIy6v0N2oHEfQ59QOPSsFNU+MmRzKChDbAnePAq8
- oJl4oEWdUz+ee1fhl+O10H+KYXQuwbDROI+omsV6kCNc4X5ny5eb/HbYtw2qVEi8d4GS
- TzF/HTG7p3gUhdvDUpdQsuhk+wzpTomAeCwbh9rC3D61G/+K0zeHq1/0cXWvpqsOLbvP
- qPngjKAiA5exMvPf0b2MUqWrG3fvsaTvnlVgGu8XVd6ZCXQZGIW9GRLIpA0huh45LSi1 4w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cseqrk9re-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Dec 2021 20:19:17 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E594810002A;
- Mon,  6 Dec 2021 20:19:16 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DD2C22138CC;
- Mon,  6 Dec 2021 20:19:16 +0100 (CET)
-Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 6 Dec 2021 20:19:16
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>
-Date: Mon, 6 Dec 2021 20:18:58 +0100
-Message-ID: <20211206191858.10741-1-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.17.1
+ Mon,  6 Dec 2021 19:26:35 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 47-20020a9d0332000000b005798ac20d72so14929554otv.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 06 Dec 2021 11:26:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=dwqTA7sQYf8xpac6AilPkHwdcgSbiu32CvJYi480RsI=;
+ b=FYHtHc5UGLNmKp1G5mrPrFMktid2lyzAT2kpnDND1Zwvg6Z0zoylL7mzLrYceoFnyH
+ on+lGWMozyPcEHjGpe2uTdUGBlivfATLnNV2RphCFvRtv1k0xwXi2uDoVtHgv5Da2Lt2
+ S/bpK0u1xNcsSzVLn4Xxf+3m0NU2b/um74rpkYBXhSSPJANBrQY0UsFtfTLaLui2ylr6
+ DzBvKbrdg9UcvxbGXm7pEm/XMRMQC3e5+3xnWcR+CUp2L1by60biCF54HYNgibEd+Btr
+ ZkxwmJclf02PuSngswN/bj8S+hqDpAfF+d8dTwDILCukgCxiPpxb2vhMguWADDtTZE9b
+ LzlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=dwqTA7sQYf8xpac6AilPkHwdcgSbiu32CvJYi480RsI=;
+ b=138NAbAm9+Yv47woLd1IeHqFaaVLRSEfuXYW2e4tEHlDXixo06YjIeWPZ4fcoG/8rV
+ a2kj0zEjV9GGbC7v+p0NCDWYpWVCqeSoNwMYVCqp1SCAH+Y6304/sz/Zmiq7aZRTJXqe
+ 4YhYW1NmhXuMhbGS994sdQa+CaGdrOUnZ4fNF06udCcmfCkPlzfHibvPB729DrObaM1x
+ FrR1uRwHgyvYozwMnt6A4vt5LGt0uDiwWHHRlYcsgflOCqqufbD/MyB/DW3+oiAgt7eh
+ VqeDyXRfF+AD8S9L5IFuXwSvvE+Z2796LtBSmodQYOKvwzvoe/5OIoaz7OoXLRkFjRq8
+ iT5Q==
+X-Gm-Message-State: AOAM5315Jd5ovPtTNL8yNbkIr/Q1Wv5gdRC+TVFRhzghJRahMV+ljm3Z
+ cxglmM+bWdtu4LI/hw7wFRKpNxCSrKLf8g==
+X-Google-Smtp-Source: ABdhPJwJL6uhitz9DTb0wdVgXt9MqFimGDKfjzroarL7wqEJVMshws/SxADnwXdThrKiosCkI/kpGg==
+X-Received: by 2002:a9d:6f0e:: with SMTP id n14mr31292882otq.173.1638818794435; 
+ Mon, 06 Dec 2021 11:26:34 -0800 (PST)
+Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
+ [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id g2sm2677566oic.35.2021.12.06.11.26.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Dec 2021 11:26:33 -0800 (PST)
+Date: Mon, 6 Dec 2021 13:26:31 -0600
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <Ya5j55sgDNr/sdJW@builder.lan>
+References: <20211206190758.10004-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-06_07,2021-12-06_02,2021-12-02_01
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, arnaud.pouliquen@foss.st.com,
- linux-remoteproc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] remoteproc: Fix remaining wrong return
-	formatting in documentation
+Content-Disposition: inline
+In-Reply-To: <20211206190758.10004-1-arnaud.pouliquen@foss.st.com>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] rpmsg: core: Clean up resources on
+ announce_create failure.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,54 +78,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-kernel documentation specification:
-"The return value, if any, should be described in a dedicated section
-named Return."
+On Mon 06 Dec 13:07 CST 2021, Arnaud Pouliquen wrote:
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
- drivers/remoteproc/mtk_scp_ipi.c   | 4 ++--
- drivers/remoteproc/st_slim_rproc.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+> During the rpmsg_dev_probe, if rpdev->ops->announce_create returns an
+> error, the rpmsg device and default endpoint should be freed before
+> exiting the function.
+> 
+> Fixes: 5e619b48677c ("rpmsg: Split rpmsg core and virtio backend")
+> Suggested-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 
-diff --git a/drivers/remoteproc/mtk_scp_ipi.c b/drivers/remoteproc/mtk_scp_ipi.c
-index 6dc955ecab80..00f041ebcde6 100644
---- a/drivers/remoteproc/mtk_scp_ipi.c
-+++ b/drivers/remoteproc/mtk_scp_ipi.c
-@@ -23,7 +23,7 @@
-  *
-  * Register an ipi function to receive ipi interrupt from SCP.
-  *
-- * Returns 0 if ipi registers successfully, -error on error.
-+ * Return: 0 if ipi registers successfully, -error on error.
-  */
- int scp_ipi_register(struct mtk_scp *scp,
- 		     u32 id,
-@@ -150,7 +150,7 @@ EXPORT_SYMBOL_GPL(scp_ipi_unlock);
-  * When the processing completes, IPI handler registered
-  * by scp_ipi_register will be called in interrupt context.
-  *
-- * Returns 0 if sending data successfully, -error on error.
-+ * Return: 0 if sending data successfully, -error on error.
-  **/
- int scp_ipi_send(struct mtk_scp *scp, u32 id, void *buf, unsigned int len,
- 		 unsigned int wait)
-diff --git a/drivers/remoteproc/st_slim_rproc.c b/drivers/remoteproc/st_slim_rproc.c
-index 22096adc1ad3..4ed9467897e5 100644
---- a/drivers/remoteproc/st_slim_rproc.c
-+++ b/drivers/remoteproc/st_slim_rproc.c
-@@ -216,7 +216,7 @@ static const struct rproc_ops slim_rproc_ops = {
-  * obtains and enables any clocks required by the SLIM core and also
-  * ioremaps the various IO.
-  *
-- * Returns st_slim_rproc pointer or PTR_ERR() on error.
-+ * Return: st_slim_rproc pointer or PTR_ERR() on error.
-  */
- 
- struct st_slim_rproc *st_slim_rproc_alloc(struct platform_device *pdev,
--- 
-2.17.1
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
+Thanks,
+Bjorn
+
+> ---
+>  drivers/rpmsg/rpmsg_core.c | 20 ++++++++++++++++----
+>  1 file changed, 16 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+> index 27aad6baf7c5..12d7b7c6e5f9 100644
+> --- a/drivers/rpmsg/rpmsg_core.c
+> +++ b/drivers/rpmsg/rpmsg_core.c
+> @@ -612,13 +612,25 @@ static int rpmsg_dev_probe(struct device *dev)
+>  	err = rpdrv->probe(rpdev);
+>  	if (err) {
+>  		dev_err(dev, "%s: failed: %d\n", __func__, err);
+> -		if (ept)
+> -			rpmsg_destroy_ept(ept);
+> -		goto out;
+> +		goto destroy_ept;
+>  	}
+>  
+> -	if (ept && rpdev->ops->announce_create)
+> +	if (ept && rpdev->ops->announce_create) {
+>  		err = rpdev->ops->announce_create(rpdev);
+> +		if (err) {
+> +			dev_err(dev, "failed to announce creation\n");
+> +			goto remove_rpdev;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +
+> +remove_rpdev:
+> +	if (rpdrv->remove)
+> +		rpdrv->remove(rpdev);
+> +destroy_ept:
+> +	if (ept)
+> +		rpmsg_destroy_ept(ept);
+>  out:
+>  	return err;
+>  }
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
