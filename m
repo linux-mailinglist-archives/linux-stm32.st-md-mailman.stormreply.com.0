@@ -2,50 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B813469CBC
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 16:22:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8871446A038
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 16:58:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3701FC5F1E5;
-	Mon,  6 Dec 2021 15:22:09 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D098C597BA
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D331C5F1EA;
+	Mon,  6 Dec 2021 15:58:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7D61C5EC72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Dec 2021 15:22:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id D414B1F448BD
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=collabora.com; s=mail;
- t=1638804126; bh=ux40/LC0D3LdxvH8CUOyRevnqGZQpDWpUZPhHgMMiiU=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=UNGhVTAxhT2aSUwjSANNqykn4+1GineOgwgoSHquBuYDW5iqjva5ToheZb47waOxk
- Tqd5NtT2NhHBAMAWoWhwRMERBN//nwuuewSMD2V6f/EOHffUZs43Bt9yBsGCgrDTYW
- w4Hh0SOKRfML6f5wtAIf7bOgE30QvCGVKpfxt87xifBuc14jj7GVMef9YCNWjhtFhh
- xp3nr5bizuUgCUlK69CNW595ZkFNsOUO/uqNbEQoax+qtsX1vkCPaMY8fz8PyZHhzH
- C46q+hPllY0i1z8AeleH1/vQh7mB2Rcrt5YFEg5wm6gSaG1aDiiClYMGlvcayEuykv
- /guBZe13EOy2w==
-To: Biao Huang <biao.huang@mediatek.com>, davem@davemloft.net,
- Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>
-References: <20211203063418.14892-1-biao.huang@mediatek.com>
- <20211203063418.14892-6-biao.huang@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Message-ID: <0efc7cfd-f048-3c69-0ef3-5904c245f914@collabora.com>
-Date: Mon, 6 Dec 2021 16:22:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ Mon,  6 Dec 2021 15:58:28 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B6AQR5W010379;
+ Mon, 6 Dec 2021 16:58:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=6j4JfF7PbNsMncG3LrQqk6YgpvQ6hOU4ElFAtx3ffEM=;
+ b=ZM9ZGLVdYE0/DUA5HJ3p9ahKRAbDyOel66t2LdNl1YNPuCcewhYtfNI4SLBXBZD5SyEB
+ p/M5p7cOE8qadKdsur5r389hh/m0as+etEIVgkQjSvjIqVRciYXsvJQDsT1x4bwbzU5l
+ YWhognaGjW22khtobrFlzCw83i5U9xcgB8pZG01Yyg3MUveK3DetQTnEEDE6PWVgMlcB
+ Acpasp71la5dl8R2ZYJrGpB8gta4AnIFJ/041lvvNL0kkzpY+zynQbiKn2tvU/xxUKag
+ FYon4hJx05n5GtaVL3Qfy7J3JT7VA9pnQtg2n4s7UzLnX11hcjs3l2mNeNVE2Zi4a43S 7w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3csb4j3dx1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 Dec 2021 16:58:22 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2FA1510002A;
+ Mon,  6 Dec 2021 16:58:21 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 23E6820930D;
+ Mon,  6 Dec 2021 16:58:21 +0100 (CET)
+Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 6 Dec 2021 16:58:20
+ +0100
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <hminas@synopsys.com>, <gregkh@linuxfoundation.org>, <robh+dt@kernel.org>
+Date: Mon, 6 Dec 2021 16:56:40 +0100
+Message-ID: <1638806203-6624-1-git-send-email-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <20211203063418.14892-6-biao.huang@mediatek.com>
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
- netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, dkirjanov@suse.de,
- Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
- macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 5/7] net-next: stmmac: dwmac-mediatek:
- add support for mt8195
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-06_05,2021-12-06_02,2021-12-02_01
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/3] usb: dwc2: drd: add support for
+	role-switch-default-mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,17 +67,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Il 03/12/21 07:34, Biao Huang ha scritto:
-> Add Ethernet support for MediaTek SoCs from the mt8195 family.
-> 
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+This series adds support for the role-switch-default-mode binding, to configure
+the controller default mode, when the role is USB_ROLE_NONE.
 
-Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+This has been tested on STM32MP15 DK2 board, with:
+ &usbotg_hs {
+ 	phys = <&usbphyc_port1 0>;
+ 	phy-names = "usb2-phy";
+ 	usb-role-switch;
+ 	dr_mode = "peripheral";
+ 	role-switch-default-mode = "peripheral";
+ 	status = "okay";
+ }
+
+Fabrice Gasnier (3):
+  dt-bindings: usb: document role-switch-default-mode property in dwc2
+  usb: dwc2: drd: add role-switch-default-node support
+  usb: dwc2: drd: restore role and overrides upon resume
+
+ Documentation/devicetree/bindings/usb/dwc2.yaml |  3 ++
+ drivers/usb/dwc2/core.h                         |  3 ++
+ drivers/usb/dwc2/drd.c                          | 51 ++++++++++++++++++++++++-
+ drivers/usb/dwc2/platform.c                     | 10 +++--
+ 4 files changed, 61 insertions(+), 6 deletions(-)
+
+-- 
+2.7.4
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
