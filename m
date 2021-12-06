@@ -2,66 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 491AE4690AE
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 08:14:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9343C46917A
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 09:29:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E515AC5F1E8;
-	Mon,  6 Dec 2021 07:14:30 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4113DC5F1E5;
+	Mon,  6 Dec 2021 08:29:51 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6BD2CFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59D73C58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  4 Dec 2021 14:00:34 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id v11so11962590wrw.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 04 Dec 2021 06:00:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=jRydfW5dCvLP5M5W9G1L390OMoiuU4elPL4v0ocR8GI=;
- b=KfBlGlO8ievFtXcZ7gIBb6tFFJy1t6XUKHG/+LBpAlwkhYzMt4QygssKPV4cSEp9wr
- l8v7mvBYvpnvaoybP7iEBDWWBLj88MUDWtLVwWwcQ7bogU9kgBUFI+blguQoahyTJdwg
- 74Gf23L4aIFOZuTq/B+31fc5qrMC4ihUcVyeuE/krOPX/sNL4KgOw1+Dy2+jbc3ejX9W
- ogG1Pj0IrNllvaQB8qIU71LDG/R5LJUxrM3yy7eSbTDwOfk6v3qzNT1X6hgSyftXnqDt
- uqwFaxyaHDbfstTuvUmfoAuxpljnwINbegY+dUs/3NQq5sdMdYBF7MhdfyWTzHX8G7Wm
- Yllw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=jRydfW5dCvLP5M5W9G1L390OMoiuU4elPL4v0ocR8GI=;
- b=zHhoggtOtPFcBEcJY7W8atJHNd/DyKC0Q9LzlSJlfgWcz2Jph2JxMlzILzW44xe6Pf
- 5hNEdue6MYeECupwivTkavtKxijXCvEWLWnCl4T8qvEBH5m1aBmNR9cl69LFGA/5ujaA
- d2hhRnywiwBJET3Gtd0XXrkEjGovecfxLu8EJDYDsBByMg9sEPXT3f57bKRtj0FqgWO8
- NsGI0hLd3QjqpwxmcMyEW361XtdURhPJYqPC6X8J5V8L2V5aVypWgtEZziosVwxnxihJ
- TzyEV6DApnTnM+AKoPkTZj5Ly6r4zhsJC+N2TBgPAQNjz0xKAFZq3O/MrqPl+DsAdYTA
- OnQQ==
-X-Gm-Message-State: AOAM533nOaFvTXIoL18QVrGCrkCRfdNflosJ/UktOsirVjbEC6ewXDW0
- w6F6c3J2WJrxyeMZP2LmgO4=
-X-Google-Smtp-Source: ABdhPJyp7Kwzh+WrHOuorXsYydzGifWlvVI1GsnYoZkSBQZorTbVIt+cVUlpC6Lv0Xx65iNRHim+7g==
-X-Received: by 2002:a05:6000:15c1:: with SMTP id
- y1mr31001064wry.63.1638626434368; 
- Sat, 04 Dec 2021 06:00:34 -0800 (PST)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194])
- by smtp.gmail.com with ESMTPSA id i7sm5593646wro.58.2021.12.04.06.00.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Dec 2021 06:00:33 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, dmaengine@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Sat,  4 Dec 2021 14:00:32 +0000
-Message-Id: <20211204140032.548066-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.33.1
+ Mon,  6 Dec 2021 08:29:49 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B641GlM010420;
+ Mon, 6 Dec 2021 09:29:31 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=7dw5R5/FK9LuNdO5hgpabaKMusyc01qO1lYQBujU+TM=;
+ b=FnMw9A7tSgCl3z59RZaPD3wp5cQcGGcg+WromuhUTmwRcomG+0M7vrXNO+2aFPOmFTh+
+ HbcNYxd617kUOFO3At+3+6qPG55LHxAyzUq7cvf5M09dC+gV1sed0DPMsbY5eoWrKabd
+ rgOn2B54dxH0Ldf820aVlAMEyAjfKSTmLJo7RrBgJwKskzbJnYmM21UWH1iQUpX+xd9V
+ /S50NrAhY9SZ5JC+cAUfyBiWWqy7akQ186qSkIdjz1+WWetaGuIl3Ap6yeOJxUVcHPtN
+ tSc1Yk1YfuLsYLWCTZg5BTQ8eEoIQttJKZSLvnffEiv5i1bfxhbuk+ev9MHfqSXuL3Tp zQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3csb4j12uq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 Dec 2021 09:29:31 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F80910002A;
+ Mon,  6 Dec 2021 09:29:30 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 776942239B2;
+ Mon,  6 Dec 2021 09:29:30 +0100 (CET)
+Received: from lmecxl0995.lme.st.com (10.75.127.44) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 6 Dec
+ 2021 09:29:29 +0100
+To: Colin Ian King <colin.i.king@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, <dmaengine@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>
+References: <20211204140032.548066-1-colin.i.king@gmail.com>
+From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
+Message-ID: <6ddc679f-c6d4-c0b7-5e1c-ef156a392488@foss.st.com>
+Date: Mon, 6 Dec 2021 09:29:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 06 Dec 2021 07:14:28 +0000
+In-Reply-To: <20211204140032.548066-1-colin.i.king@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-06_03,2021-12-06_01,2021-12-02_01
 Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] dmaengine: stm32-mdma: Remove redundant
-	initialization of pointer hwdesc
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-mdma: Remove redundant
+ initialization of pointer hwdesc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,36 +74,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The pointer hwdesc is being initialized with a value that is never
-read, it is being updated later in a for-loop. The assignment is
-redundant and can be removed.
+Hi,
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/dma/stm32-mdma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 12/4/21 3:00 PM, Colin Ian King wrote:
+> The pointer hwdesc is being initialized with a value that is never
+> read, it is being updated later in a for-loop. The assignment is
+> redundant and can be removed.
+> 
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-index d30a4a28d3bf..805a449ff301 100644
---- a/drivers/dma/stm32-mdma.c
-+++ b/drivers/dma/stm32-mdma.c
-@@ -1279,7 +1279,7 @@ static size_t stm32_mdma_desc_residue(struct stm32_mdma_chan *chan,
- 				      u32 curr_hwdesc)
- {
- 	struct stm32_mdma_device *dmadev = stm32_mdma_get_dev(chan);
--	struct stm32_mdma_hwdesc *hwdesc = desc->node[0].hwdesc;
-+	struct stm32_mdma_hwdesc *hwdesc;
- 	u32 cbndtr, residue, modulo, burst_size;
- 	int i;
- 
--- 
-2.33.1
+Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
+> ---
+>   drivers/dma/stm32-mdma.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
+> index d30a4a28d3bf..805a449ff301 100644
+> --- a/drivers/dma/stm32-mdma.c
+> +++ b/drivers/dma/stm32-mdma.c
+> @@ -1279,7 +1279,7 @@ static size_t stm32_mdma_desc_residue(struct stm32_mdma_chan *chan,
+>   				      u32 curr_hwdesc)
+>   {
+>   	struct stm32_mdma_device *dmadev = stm32_mdma_get_dev(chan);
+> -	struct stm32_mdma_hwdesc *hwdesc = desc->node[0].hwdesc;
+> +	struct stm32_mdma_hwdesc *hwdesc;
+>   	u32 cbndtr, residue, modulo, burst_size;
+>   	int i;
+>   
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
