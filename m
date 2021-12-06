@@ -2,67 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9343C46917A
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 09:29:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D3E0469681
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 14:13:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4113DC5F1E5;
-	Mon,  6 Dec 2021 08:29:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E99FFC5F1E5;
+	Mon,  6 Dec 2021 13:13:04 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59D73C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14BFBC597BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Dec 2021 08:29:49 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B641GlM010420;
- Mon, 6 Dec 2021 09:29:31 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=7dw5R5/FK9LuNdO5hgpabaKMusyc01qO1lYQBujU+TM=;
- b=FnMw9A7tSgCl3z59RZaPD3wp5cQcGGcg+WromuhUTmwRcomG+0M7vrXNO+2aFPOmFTh+
- HbcNYxd617kUOFO3At+3+6qPG55LHxAyzUq7cvf5M09dC+gV1sed0DPMsbY5eoWrKabd
- rgOn2B54dxH0Ldf820aVlAMEyAjfKSTmLJo7RrBgJwKskzbJnYmM21UWH1iQUpX+xd9V
- /S50NrAhY9SZ5JC+cAUfyBiWWqy7akQ186qSkIdjz1+WWetaGuIl3Ap6yeOJxUVcHPtN
- tSc1Yk1YfuLsYLWCTZg5BTQ8eEoIQttJKZSLvnffEiv5i1bfxhbuk+ev9MHfqSXuL3Tp zQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3csb4j12uq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Dec 2021 09:29:31 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F80910002A;
- Mon,  6 Dec 2021 09:29:30 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 776942239B2;
- Mon,  6 Dec 2021 09:29:30 +0100 (CET)
-Received: from lmecxl0995.lme.st.com (10.75.127.44) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 6 Dec
- 2021 09:29:29 +0100
-To: Colin Ian King <colin.i.king@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, <dmaengine@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>
-References: <20211204140032.548066-1-colin.i.king@gmail.com>
-From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
-Message-ID: <6ddc679f-c6d4-c0b7-5e1c-ef156a392488@foss.st.com>
-Date: Mon, 6 Dec 2021 09:29:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Mon,  6 Dec 2021 13:13:02 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10189"; a="234823316"
+X-IronPort-AV: E=Sophos;i="5.87,291,1631602800"; d="scan'208";a="234823316"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2021 05:13:01 -0800
+X-IronPort-AV: E=Sophos;i="5.87,291,1631602800"; d="scan'208";a="604986568"
+Received: from smile.fi.intel.com ([10.237.72.184])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Dec 2021 05:12:50 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1muDmW-002mwh-84; Mon, 06 Dec 2021 15:11:48 +0200
+Date: Mon, 6 Dec 2021 15:11:48 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <Ya4MFMWSyj4YbdNG@smile.fi.intel.com>
+References: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
+ <CACRpkdZbpKqG_uS2N8TW2-HL5CqnuKDpHVCabf66MyQQof0jOw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20211204140032.548066-1-colin.i.king@gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-06_03,2021-12-06_01,2021-12-02_01
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-mdma: Remove redundant
- initialization of pointer hwdesc
+Content-Disposition: inline
+In-Reply-To: <CACRpkdZbpKqG_uS2N8TW2-HL5CqnuKDpHVCabf66MyQQof0jOw@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: Baruch Siach <baruch@tkos.co.il>, Heiko Stuebner <heiko@sntech.de>,
+ Tony Lindgren <tony@atomide.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Chunyan Zhang <chunyan.zhang@unisoc.com>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ linux-rockchip@lists.infradead.org, Marc Zyngier <maz@kernel.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ Alexandru Ardelean <aardelean@deviqon.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Orson Zhai <orsonzhai@gmail.com>, Grygorii Strashko <grygorii.strashko@ti.com>,
+ Thierry Reding <treding@nvidia.com>, Jianqun Xu <jay.xu@rock-chips.com>,
+ linux-pwm@vger.kernel.org, Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Vladimir Zapolskiy <vz@mleia.com>,
+ linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Gregory Fong <gregory.0xf0@gmail.com>, Santosh Shilimkar <ssantosh@kernel.org>,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Scott Branden <sbranden@broadcom.com>,
+ linux-unisoc@lists.infradead.org, patches@opensource.cirrus.com,
+ Kevin Hilman <khilman@kernel.org>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Keerthy <j-keerthy@ti.com>, Baolin Wang <baolin.wang7@gmail.com>,
+ linux-power@fi.rohmeurope.com
+Subject: Re: [Linux-stm32] [PATCH v1 1/3] gpio: Get rid of duplicate of_node
+ assignment in the drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,40 +79,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-On 12/4/21 3:00 PM, Colin Ian King wrote:
-> The pointer hwdesc is being initialized with a value that is never
-> read, it is being updated later in a for-loop. The assignment is
-> redundant and can be removed.
+On Sun, Dec 05, 2021 at 01:06:07AM +0100, Linus Walleij wrote:
+> On Thu, Dec 2, 2021 at 10:17 PM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
 > 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-
-Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
-
-> ---
->   drivers/dma/stm32-mdma.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> > GPIO library does copy the of_node from the parent device of
+> > the GPIO chip, there is no need to repeat this in the individual
+> > drivers. Remove these assignment all at once.
+> >
+> > For the details one may look into the of_gpio_dev_init() implementation.
+> >
+> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > 
-> diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-> index d30a4a28d3bf..805a449ff301 100644
-> --- a/drivers/dma/stm32-mdma.c
-> +++ b/drivers/dma/stm32-mdma.c
-> @@ -1279,7 +1279,7 @@ static size_t stm32_mdma_desc_residue(struct stm32_mdma_chan *chan,
->   				      u32 curr_hwdesc)
->   {
->   	struct stm32_mdma_device *dmadev = stm32_mdma_get_dev(chan);
-> -	struct stm32_mdma_hwdesc *hwdesc = desc->node[0].hwdesc;
-> +	struct stm32_mdma_hwdesc *hwdesc;
->   	u32 cbndtr, residue, modulo, burst_size;
->   	int i;
->   
+> This is definitely a patch in the right direction, as Bart says
+> it can be a bit dangerous, the outliers are those drivers that
+> assign the .dev to something completely different than the
+> the dev where the of_node is copied from.
+
+I carefully checked these all and this patch series is only for the cases
+when I'm sure it's the same device, which is used as parent, and its of_node
+supplied.
+
+> The idea was definitely always to only assign it in the core
+> *unless* there is a reason to have a completely different
+> of_node for some reason.
 > 
+> > +++ b/drivers/gpio/gpio-rda.c
+> > @@ -240,8 +240,6 @@ static int rda_gpio_probe(struct platform_device *pdev)
+> >         rda_gpio->chip.label = dev_name(dev);
+> >         rda_gpio->chip.ngpio = ngpios;
+> >         rda_gpio->chip.base = -1;
+> > -       rda_gpio->chip.parent = dev;
+> > -       rda_gpio->chip.of_node = np;
+> 
+> Mention in the commit message that in this driver
+> you also drop the the .parent assignment because the
+> core will handle it.
+
+Okay, I will update it. Also I'll update to the last codebase (dunno if Bart
+is going to pull the IB from Lee where one of the drivers is gone: da53cc634cea
+("gpio: bd70528 Drop BD70528 support").
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
