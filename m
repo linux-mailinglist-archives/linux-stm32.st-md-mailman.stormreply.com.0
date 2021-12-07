@@ -2,74 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 715BF46B60D
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:33:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA8DF46B625
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:37:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29C92C5F1E5;
-	Tue,  7 Dec 2021 08:33:50 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70CC9C5F1E5;
+	Tue,  7 Dec 2021 08:37:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2107C58D58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82270C58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Dec 2021 08:33:48 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id c4so27775879wrd.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Dec 2021 00:33:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=5w7GJDcAWufEOgwRxxDKQLdJYteK1rDYzUGs71X/NGY=;
- b=AMkLgOPZO03DJEz3tdJo6JpQ9IuUJXONLDsX19CMNOVfJx7gPLKrU7SrYrpY3Eb7bw
- o52Jvv+6LlkQgatItp9J+ki3oyzN8WgzZ2MmqbC8fg2ap/SLlmUmJcNXLjel64vWKsHK
- y7Pfr39wNkrtQu+JKG3M9bDu/sORmwluqLhLN2ewCiw3q2eyOaqT84/PAzHvkBk5Bi29
- piz9ol2mOvYoJkC7/QcPjlnrHjAHsYfVRFHkiJ8RJsmw57vkh15fP5i674j4SnZx9YRB
- FX51hNGKfoRH80wIiKfyPDGvsxy4uLOPFi84eurytYejSoruwQbtjY1LOOPTcSZNNdVQ
- IxeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=5w7GJDcAWufEOgwRxxDKQLdJYteK1rDYzUGs71X/NGY=;
- b=J75z2LFp1mUzuCCD3LXBI2zJ0t90Bl+nK0BAiP/Xcr/+uqaBgVBwzCZUBie7pzfuFb
- gKnkDmIFLhgpRHY4HvJH4rKvwIcFBr0PFT6P1zcomie4WNWM3HyrZYCHbX1XWj3PPTgd
- sxfQ8vi3yaqHQkTOFACRb+IHOsdnEJGmX9naBMPw/6xweQzWkIxfHifPNc4ozUAP3EuB
- 735IUbNiC4M5ynbBqJ43SPIYRK+tJAEwljHK06ZluzIN0X+oi3oNAB10qu+WyA2neHn3
- dK9IRHPlr2jtUXjEG8yUVd8xmb4n4gpLSlFLcH7nQEvEtVsIsNNxGj0ilRaaRrFjwaLo
- LQfA==
-X-Gm-Message-State: AOAM532YgmntvcpbPlIxmW9IR6cOCaTXFvWBsHOiIV9yR13A9hXNMuiA
- jXMA6k7D+8X4/NkGpZ+q720=
-X-Google-Smtp-Source: ABdhPJz7Lwdj7tU0pXaU19+1uN5CbY2adjHOZl8nh90hv/58XxNJ6ZL3j4RRIhHgIfiJ3mk87Gcfqw==
-X-Received: by 2002:a5d:584c:: with SMTP id i12mr48899153wrf.95.1638866028372; 
- Tue, 07 Dec 2021 00:33:48 -0800 (PST)
-Received: from orome.fritz.box ([193.209.96.43])
- by smtp.gmail.com with ESMTPSA id d6sm14060823wrn.53.2021.12.07.00.33.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Dec 2021 00:33:47 -0800 (PST)
-Date: Tue, 7 Dec 2021 09:33:43 +0100
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <Ya8cZ69WGfeh0G4I@orome.fritz.box>
-References: <20211206174153.2296977-1-robh@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <20211206174153.2296977-1-robh@kernel.org>
-User-Agent: Mutt/2.1.3 (987dde4c) (2021-09-10)
-Cc: devicetree@vger.kernel.org, Grygorii Strashko <grygorii.strashko@ti.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Manivannan Sadhasivam <mani@kernel.org>, netdev@vger.kernel.org,
- linux-actions@lists.infradead.org,
+ Tue,  7 Dec 2021 08:37:06 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B71xGYE003241;
+ Tue, 7 Dec 2021 09:36:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=H0RdRCe9r35PH+cGUXxi9Pl2iNpVWrQNSlKDf0Qq5Es=;
+ b=NvG3SuPeVcHYMcUeywekfq3HEmNKckXki3QFqjwo5j2iCxmHh+ejD0gONJP3i3bhIgSw
+ PGmdB7kd3x8Ky6l0jdO8skFJBO6NkrxthUb0VDUv2Nuu6IvvmuBySHpG5cilXczGabTV
+ FpODdM7kCWITkNDme980XZl+Xlf+VXHxqydS7IY2AwlB7MNNxEPOInZXm7d2+J3/mdW4
+ 9vAxrj7aKuJskNutuKpIv4JySZZ80LFH3JZhMlXtMMm6L8TtO5BDhkJJdq3hZ+WJOvoT
+ ZYK4OuurVc908Q59eB5aTLNLeLcehGABMLqWBpNAwrWq/IuzyS3HgukkeV55uz/2/vza LQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3csmx0kuf0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 07 Dec 2021 09:36:53 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 090A610002A;
+ Tue,  7 Dec 2021 09:36:51 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F2ED62265EF;
+ Tue,  7 Dec 2021 09:36:50 +0100 (CET)
+Received: from [10.211.7.5] (10.75.127.51) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 7 Dec
+ 2021 09:36:49 +0100
+To: Rob Herring <robh@kernel.org>, Srinivas Kandagatla
+ <srinivas.kandagatla@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: Add missing properties
-	used in examples
+ Saenz Julienne <nsaenzjulienne@suse.de>
+References: <20211206174133.2296265-1-robh@kernel.org>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <0bfd3425-77f6-e00b-e7f9-581917c6dc99@foss.st.com>
+Date: Tue, 7 Dec 2021 09:36:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <20211206174133.2296265-1-robh@kernel.org>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-07_03,2021-12-06_02,2021-12-02_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Patrick DELAUNAY-SCND-02 <patrick.delaunay@foss.st.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: nvmem: Add missing 'reg'
+	property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,242 +78,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5473258575432128079=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============5473258575432128079==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="jliEij1nEk5boU2d"
-Content-Disposition: inline
-
-
---jliEij1nEk5boU2d
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Dec 06, 2021 at 11:41:52AM -0600, Rob Herring wrote:
-> With 'unevaluatedProperties' support implemented, the following warnings
-> are generated in the net bindings:
->=20
-> Documentation/devicetree/bindings/net/actions,owl-emac.example.dt.yaml: e=
-thernet@b0310000: Unevaluated properties are not allowed ('mdio' was unexpe=
-cted)
-> Documentation/devicetree/bindings/net/intel,dwmac-plat.example.dt.yaml: e=
-thernet@3a000000: Unevaluated properties are not allowed ('snps,pbl', 'mdio=
-0' were unexpected)
-> Documentation/devicetree/bindings/net/qca,ar71xx.example.dt.yaml: etherne=
-t@19000000: Unevaluated properties are not allowed ('qca,ethcfg' was unexpe=
-cted)
-> Documentation/devicetree/bindings/net/qca,ar71xx.example.dt.yaml: etherne=
-t@1a000000: Unevaluated properties are not allowed ('mdio' was unexpected)
-> Documentation/devicetree/bindings/net/stm32-dwmac.example.dt.yaml: ethern=
-et@40028000: Unevaluated properties are not allowed ('reg-names', 'snps,pbl=
-' were unexpected)
-> Documentation/devicetree/bindings/net/ti,cpsw-switch.example.dt.yaml: mdi=
-o@1000: Unevaluated properties are not allowed ('clocks', 'clock-names' wer=
-e unexpected)
-> Documentation/devicetree/bindings/net/ti,k3-am654-cpsw-nuss.example.dt.ya=
-ml: mdio@f00: Unevaluated properties are not allowed ('clocks', 'clock-name=
-s' were unexpected)
->=20
-> Add the missing properties/nodes as necessary.
->=20
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: "Andreas F=C3=A4rber" <afaerber@suse.de>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
-> Cc: Cristian Ciocaltea <cristian.ciocaltea@gmail.com>
-> Cc: "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>
-> Cc: Oleksij Rempel <o.rempel@pengutronix.de>
-> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-> Cc: Grygorii Strashko <grygorii.strashko@ti.com>
-> Cc: netdev@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-actions@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  .../devicetree/bindings/net/actions,owl-emac.yaml          | 3 +++
->  .../devicetree/bindings/net/intel,dwmac-plat.yaml          | 2 +-
->  Documentation/devicetree/bindings/net/qca,ar71xx.yaml      | 5 ++++-
->  Documentation/devicetree/bindings/net/stm32-dwmac.yaml     | 6 ++++++
->  Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml | 7 +++++++
->  .../devicetree/bindings/net/toshiba,visconti-dwmac.yaml    | 5 ++++-
->  6 files changed, 25 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/actions,owl-emac.yaml =
-b/Documentation/devicetree/bindings/net/actions,owl-emac.yaml
-> index 1626e0a821b0..e9c0d6360e74 100644
-> --- a/Documentation/devicetree/bindings/net/actions,owl-emac.yaml
-> +++ b/Documentation/devicetree/bindings/net/actions,owl-emac.yaml
-> @@ -51,6 +51,9 @@ properties:
->      description:
->        Phandle to the device containing custom config.
-> =20
-> +  mdio:
-> +    type: object
-
-In one of the conversions I've been working on, I've used this construct
-for the mdio node:
-
-	mdio:
-	  $ref: mdio.yaml
-
-In the cases here this may not be necessary because we could also match
-on the compatible string, but for the example that I've been working on
-there is no compatible string for the MDIO bus, so that's not an option.
-
-On the other hand, it looks like the snps,dwmac-mdio that the examples
-here use don't end up including mdio.yaml, so no validation (or rather
-only very limited validation) will be performed on their properties and
-children.
-
-Thierry
-
-> +
->  required:
->    - compatible
->    - reg
-> diff --git a/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml =
-b/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml
-> index 08a3f1f6aea2..52a7fa4f49a4 100644
-> --- a/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml
-> +++ b/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml
-> @@ -117,7 +117,7 @@ examples:
->          snps,mtl-tx-config =3D <&mtl_tx_setup>;
->          snps,tso;
-> =20
-> -        mdio0 {
-> +        mdio {
->              #address-cells =3D <1>;
->              #size-cells =3D <0>;
->              compatible =3D "snps,dwmac-mdio";
-> diff --git a/Documentation/devicetree/bindings/net/qca,ar71xx.yaml b/Docu=
-mentation/devicetree/bindings/net/qca,ar71xx.yaml
-> index cf4d35edaa1b..f2bf1094d887 100644
-> --- a/Documentation/devicetree/bindings/net/qca,ar71xx.yaml
-> +++ b/Documentation/devicetree/bindings/net/qca,ar71xx.yaml
-> @@ -62,6 +62,10 @@ properties:
->        - const: mac
->        - const: mdio
-> =20
-> +
-> +  mdio:
-> +    type: object
-> +
->  required:
->    - compatible
->    - reg
-> @@ -85,7 +89,6 @@ examples:
->          reset-names =3D "mac", "mdio";
->          clocks =3D <&pll 1>, <&pll 2>;
->          clock-names =3D "eth", "mdio";
-> -        qca,ethcfg =3D <&ethcfg>;
->          phy-mode =3D "mii";
->          phy-handle =3D <&phy_port4>;
->      };
-> diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Doc=
-umentation/devicetree/bindings/net/stm32-dwmac.yaml
-> index 577f4e284425..86632e9d987e 100644
-> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> @@ -44,6 +44,12 @@ properties:
->                - st,stm32-dwmac
->            - const: snps,dwmac-3.50a
-> =20
-> +  reg: true
-> +
-> +  reg-names:
-> +    items:
-> +      - const: stmmaceth
-> +
->    clocks:
->      minItems: 3
->      items:
-> diff --git a/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml b=
-/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml
-> index 5728fe23f530..dbfca5ee9139 100644
-> --- a/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml
-> +++ b/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml
-> @@ -37,6 +37,13 @@ properties:
->      maximum: 2500000
->      description: MDIO Bus frequency
-> =20
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: fck
-> +
->    ti,hwmods:
->      description: TI hwmod name
->      deprecated: true
-> diff --git a/Documentation/devicetree/bindings/net/toshiba,visconti-dwmac=
-=2Eyaml b/Documentation/devicetree/bindings/net/toshiba,visconti-dwmac.yaml
-> index 59724d18e6f3..f5bec97460e4 100644
-> --- a/Documentation/devicetree/bindings/net/toshiba,visconti-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/toshiba,visconti-dwmac.yaml
-> @@ -42,6 +42,9 @@ properties:
->        - const: stmmaceth
->        - const: phy_ref_clk
-> =20
-> +  mdio:
-> +    type: object
-> +
->  required:
->    - compatible
->    - reg
-> @@ -71,7 +74,7 @@ examples:
->              phy-mode =3D "rgmii-id";
->              phy-handle =3D <&phy0>;
-> =20
-> -            mdio0 {
-> +            mdio {
->                  #address-cells =3D <0x1>;
->                  #size-cells =3D <0x0>;
->                  compatible =3D "snps,dwmac-mdio";
-> --=20
-> 2.32.0
->=20
-
---jliEij1nEk5boU2d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmGvHGcACgkQ3SOs138+
-s6H8Jw//WclnebfLzRqSdyWulOD0fPLCDtxwQKijio6FvjU/kOTbOzrCNOPLASCb
-yZVH0hUXMr5h8Rk5BvFp+3SnEZu5zuunMz5MiySM1BU+26yxYM9vePeaz8ke3Lo5
-Ar+85QXegvpsqTXQkLTH9XeA2lUftnnM47p/ZGE4zKhGnwItgQGxL3z7KNalN/eM
-I8m75rVPcwhpcw261o5Ffuc4FhQjKR0FQOkFVZQNRmMx8t/JAtFzEPjAV9DNwn49
-J2hMx4G3acBTCsa7Hnmjp3G1v4+6EffmCCDoe9w6+LOCVMoEks+QKa5ZdIaeVKhP
-ZrAswWo1a/pa22WHnDSrfZbr7IRBHVpTGXJurBFYwfXQxAdUR1RcGyNb9QHrMPHZ
-DhPR36xMEdmRTJ/6E4xHE0hh0XRjUDthKKAvGHdOVONpNUzFs8eJ4tsMmE2Y/2qM
-wL6IgNBN2p4UK0WwE/GH0MfF41eTaMShlZKl+lDd49BXRlG8h38uQRRMnGvtjc6r
-OdW3YQPbjDAcV0Dp174DFKyWH00lslf5DbiGsctxlj52THJn7/yIwBGSI66TNZAo
-B3T8miFX+rTLdJ8SuviR3mbEynf0AtJBy5P1dUZP9Ux2I21+eop4fT7m4ol8vsUW
-vz5PLqWt0xB/ukD1TioMEdY0Yhdv+4kajo7Qlb+FQOQvLkbTiHM=
-=dwOt
------END PGP SIGNATURE-----
-
---jliEij1nEk5boU2d--
-
---===============5473258575432128079==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5473258575432128079==--
+T24gMTIvNi8yMSA2OjQxIFBNLCBSb2IgSGVycmluZyB3cm90ZToKPiBXaXRoICd1bmV2YWx1YXRl
+ZFByb3BlcnRpZXMnIHN1cHBvcnQgaW1wbGVtZW50ZWQsIHRoZSBmb2xsb3dpbmcgd2FybmluZ3MK
+PiBhcmUgZ2VuZXJhdGVkIGluIHRoZSBudm1lbSBleGFtcGxlczoKPiAKPiBEb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vc3Qsc3RtMzItcm9tZW0uZXhhbXBsZS5kdC55YW1s
+OiBlZnVzZUAxZmZmNzgwMDogVW5ldmFsdWF0ZWQgcHJvcGVydGllcyBhcmUgbm90IGFsbG93ZWQg
+KCdyZWcnIHdhcyB1bmV4cGVjdGVkKQo+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
+cy9udm1lbS9ybWVtLmV4YW1wbGUuZHQueWFtbDogbnZyYW1AMTAwMDAwMDA6IFVuZXZhbHVhdGVk
+IHByb3BlcnRpZXMgYXJlIG5vdCBhbGxvd2VkICgncmVnJyB3YXMgdW5leHBlY3RlZCkKPiBEb2N1
+bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYnJjbSxudnJhbS5leGFtcGxlLmR0
+LnlhbWw6IG52cmFtQDFlZmYwMDAwOiBVbmV2YWx1YXRlZCBwcm9wZXJ0aWVzIGFyZSBub3QgYWxs
+b3dlZCAoJ3JlZycgd2FzIHVuZXhwZWN0ZWQpCj4gCj4gQWRkIHRoZSBtaXNzaW5nICdyZWcnIHBy
+b3BlcnR5IGRlZmluaXRpb24uCj4gCj4gQ2M6IFNyaW5pdmFzIEthbmRhZ2F0bGEgPHNyaW5pdmFz
+LmthbmRhZ2F0bGFAbGluYXJvLm9yZz4KPiBDYzogTWF4aW1lIENvcXVlbGluIDxtY29xdWVsaW4u
+c3RtMzJAZ21haWwuY29tPgo+IENjOiBBbGV4YW5kcmUgVG9yZ3VlIDxhbGV4YW5kcmUudG9yZ3Vl
+QGZvc3Muc3QuY29tPgo+IENjOiBSYWZhxYIgTWnFgmVja2kgPHJhZmFsQG1pbGVja2kucGw+Cj4g
+Q2M6IFNhZW56IEp1bGllbm5lIDxuc2FlbnpqdWxpZW5uZUBzdXNlLmRlPgo+IENjOiBGYWJyaWNl
+IEdhc25pZXIgPGZhYnJpY2UuZ2FzbmllckBmb3NzLnN0LmNvbT4KPiBDYzogbGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQo+IENjOiBsaW51eC1hcm0ta2VybmVsQGxpc3Rz
+LmluZnJhZGVhZC5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwu
+b3JnPgo+IC0tLQo+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYnJj
+bSxudnJhbS55YW1sICAgICB8IDMgKysrCj4gIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
+aW5ncy9udm1lbS9ybWVtLnlhbWwgICAgICAgICAgIHwgMyArKysKPiAgRG9jdW1lbnRhdGlvbi9k
+ZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3N0LHN0bTMyLXJvbWVtLnlhbWwgfCAzICsrKwo+ICAz
+IGZpbGVzIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKQoKSGkgUm9iLAoKRm9yIHRoZSBzdG0zMi1y
+b21lbSwgeW91IGNhbiBhZGQgbXk6CgpSZXZpZXdlZC1ieTogRmFicmljZSBHYXNuaWVyIDxmYWJy
+aWNlLmdhc25pZXJAZm9zcy5zdC5jb20+CgpUaGFua3MsCkZhYnJpY2UKPiAKPiBkaWZmIC0tZ2l0
+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL2JyY20sbnZyYW0ueWFt
+bCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9icmNtLG52cmFtLnlh
+bWwKPiBpbmRleCA1OGZmNmIwYmRiMWEuLjhjM2YwY2QyMjgyMSAxMDA2NDQKPiAtLS0gYS9Eb2N1
+bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vYnJjbSxudnJhbS55YW1sCj4gKysr
+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL2JyY20sbnZyYW0ueWFt
+bAo+IEBAIC0yNCw2ICsyNCw5IEBAIHByb3BlcnRpZXM6Cj4gICAgY29tcGF0aWJsZToKPiAgICAg
+IGNvbnN0OiBicmNtLG52cmFtCj4gIAo+ICsgIHJlZzoKPiArICAgIG1heEl0ZW1zOiAxCj4gKwo+
+ICB1bmV2YWx1YXRlZFByb3BlcnRpZXM6IGZhbHNlCj4gIAo+ICBleGFtcGxlczoKPiBkaWZmIC0t
+Z2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3JtZW0ueWFtbCBi
+L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9ybWVtLnlhbWwKPiBpbmRl
+eCAxZDg1YTBhMzA4NDYuLmE0YTc1NWRjZmM0MyAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vcm1lbS55YW1sCj4gKysrIGIvRG9jdW1lbnRhdGlv
+bi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3JtZW0ueWFtbAo+IEBAIC0xOSw2ICsxOSw5IEBA
+IHByb3BlcnRpZXM6Cj4gICAgICAgICAgICAtIHJhc3BiZXJyeXBpLGJvb3Rsb2FkZXItY29uZmln
+Cj4gICAgICAgIC0gY29uc3Q6IG52bWVtLXJtZW0KPiAgCj4gKyAgcmVnOgo+ICsgICAgbWF4SXRl
+bXM6IDEKPiArCj4gICAgbm8tbWFwOgo+ICAgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMv
+ZGVmaW5pdGlvbnMvZmxhZwo+ICAgICAgZGVzY3JpcHRpb246Cj4gZGlmZiAtLWdpdCBhL0RvY3Vt
+ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9zdCxzdG0zMi1yb21lbS55YW1sIGIv
+RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL252bWVtL3N0LHN0bTMyLXJvbWVtLnlh
+bWwKPiBpbmRleCBhNDhjOGZhNTZiY2UuLjQ0OGEyNjc4ZGM2MiAxMDA2NDQKPiAtLS0gYS9Eb2N1
+bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbnZtZW0vc3Qsc3RtMzItcm9tZW0ueWFtbAo+
+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lbS9zdCxzdG0zMi1y
+b21lbS55YW1sCj4gQEAgLTI0LDYgKzI0LDkgQEAgcHJvcGVydGllczoKPiAgICAgICAgLSBzdCxz
+dG0zMmY0LW90cAo+ICAgICAgICAtIHN0LHN0bTMybXAxNS1ic2VjCj4gIAo+ICsgIHJlZzoKPiAr
+ICAgIG1heEl0ZW1zOiAxCj4gKwo+ICBwYXR0ZXJuUHJvcGVydGllczoKPiAgICAiXi4qQFswLTlh
+LWZdKyQiOgo+ICAgICAgdHlwZTogb2JqZWN0Cj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
