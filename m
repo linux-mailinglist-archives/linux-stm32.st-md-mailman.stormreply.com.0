@@ -2,69 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB6DA46B5B2
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:25:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 715BF46B60D
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:33:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BEF4C5F1E5;
-	Tue,  7 Dec 2021 08:25:04 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29C92C5F1E5;
+	Tue,  7 Dec 2021 08:33:50 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41091C597BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2107C58D58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Dec 2021 08:25:03 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id u17so20441578wrt.3
+ Tue,  7 Dec 2021 08:33:48 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id c4so27775879wrd.9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Dec 2021 00:25:03 -0800 (PST)
+ Tue, 07 Dec 2021 00:33:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=4YlEfyGuTmDXWogHreM3HEOr8rkPGxqlzzFFm3Xfiy4=;
- b=ffvAuXb5kJHzfREehTKFvUUH09vCvdNH50SejEzrlyeectHx/A36dFNSykSxtll2xB
- XcKunvxaHKdpsTfe7e1hLc5jkoGWrICZc0xm3PI10gEtrrdVadfC1O1Q34cWmhjf5HAH
- yTvrXDWFKO7k7JK8cRv4ixVGK7xUIkx5qILEqTyCzfV0EH4iMpwxpqiUauXpgyAxcfFK
- J9KN0i6mVXbI2x3AZMYMYwPfQg1OFvsXv7zT9p9yYmfqrIJiasHBBBEGjWUSlONukmut
- HCufQltVSZW+FBKXPoLK82VJGpA68pdJ2gmD0+gXjVobj95BcmZTQ4FcThzeXfg2QC9r
- Axow==
+ bh=5w7GJDcAWufEOgwRxxDKQLdJYteK1rDYzUGs71X/NGY=;
+ b=AMkLgOPZO03DJEz3tdJo6JpQ9IuUJXONLDsX19CMNOVfJx7gPLKrU7SrYrpY3Eb7bw
+ o52Jvv+6LlkQgatItp9J+ki3oyzN8WgzZ2MmqbC8fg2ap/SLlmUmJcNXLjel64vWKsHK
+ y7Pfr39wNkrtQu+JKG3M9bDu/sORmwluqLhLN2ewCiw3q2eyOaqT84/PAzHvkBk5Bi29
+ piz9ol2mOvYoJkC7/QcPjlnrHjAHsYfVRFHkiJ8RJsmw57vkh15fP5i674j4SnZx9YRB
+ FX51hNGKfoRH80wIiKfyPDGvsxy4uLOPFi84eurytYejSoruwQbtjY1LOOPTcSZNNdVQ
+ IxeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=4YlEfyGuTmDXWogHreM3HEOr8rkPGxqlzzFFm3Xfiy4=;
- b=y5PL8oNlbwuxvam5+01pZGtxifw4XSqRKdZ8OahOvLFUiA2vDcz7tDhXHp0VMIQqD/
- 4uaa45fiuzgLCN5btT6JWTV+eqGjn4qEjU7y+F5xHOG/+oM4RT7FIbHSwkQyXi8Rw3XB
- 0KNZW75cekgoIMf7KzxHGQkm3V+Ocx151JARr2v/djYNgVQEQtvSeEPOsf7zS3xFedz5
- pBIDBo6FAfMW6i2z1/GsCZ682AsKSd4B/vmbZeMv0wJ7QXjAiBFYWgGZkgyquVLTvOPb
- 9n/56ZVnHCkXBuCGHQSAwGtLXVHRHsLhZgw1wRqNjzD+kvX9rrn9ATTxYHy6DOQmSvU8
- 4MTA==
-X-Gm-Message-State: AOAM530pvPlLecoj9rRhksg3hAMMAHMutiteGsiB9NfSmkbMMmD5JHPq
- qFyUMUJlY9xK03ab0Le9Hcg=
-X-Google-Smtp-Source: ABdhPJwbUL0fTO99+HdWSJwsFoxTmvpq4owS4lYyH4cCQYndpxbqVysByZe3TJgd7AZv1/OnljTdkg==
-X-Received: by 2002:a5d:64cc:: with SMTP id f12mr49167922wri.322.1638865502795; 
- Tue, 07 Dec 2021 00:25:02 -0800 (PST)
+ bh=5w7GJDcAWufEOgwRxxDKQLdJYteK1rDYzUGs71X/NGY=;
+ b=J75z2LFp1mUzuCCD3LXBI2zJ0t90Bl+nK0BAiP/Xcr/+uqaBgVBwzCZUBie7pzfuFb
+ gKnkDmIFLhgpRHY4HvJH4rKvwIcFBr0PFT6P1zcomie4WNWM3HyrZYCHbX1XWj3PPTgd
+ sxfQ8vi3yaqHQkTOFACRb+IHOsdnEJGmX9naBMPw/6xweQzWkIxfHifPNc4ozUAP3EuB
+ 735IUbNiC4M5ynbBqJ43SPIYRK+tJAEwljHK06ZluzIN0X+oi3oNAB10qu+WyA2neHn3
+ dK9IRHPlr2jtUXjEG8yUVd8xmb4n4gpLSlFLcH7nQEvEtVsIsNNxGj0ilRaaRrFjwaLo
+ LQfA==
+X-Gm-Message-State: AOAM532YgmntvcpbPlIxmW9IR6cOCaTXFvWBsHOiIV9yR13A9hXNMuiA
+ jXMA6k7D+8X4/NkGpZ+q720=
+X-Google-Smtp-Source: ABdhPJz7Lwdj7tU0pXaU19+1uN5CbY2adjHOZl8nh90hv/58XxNJ6ZL3j4RRIhHgIfiJ3mk87Gcfqw==
+X-Received: by 2002:a5d:584c:: with SMTP id i12mr48899153wrf.95.1638866028372; 
+ Tue, 07 Dec 2021 00:33:48 -0800 (PST)
 Received: from orome.fritz.box ([193.209.96.43])
- by smtp.gmail.com with ESMTPSA id o4sm2081738wmq.31.2021.12.07.00.25.00
+ by smtp.gmail.com with ESMTPSA id d6sm14060823wrn.53.2021.12.07.00.33.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Dec 2021 00:25:01 -0800 (PST)
-Date: Tue, 7 Dec 2021 09:24:58 +0100
+ Tue, 07 Dec 2021 00:33:47 -0800 (PST)
+Date: Tue, 7 Dec 2021 09:33:43 +0100
 From: Thierry Reding <thierry.reding@gmail.com>
 To: Rob Herring <robh@kernel.org>
-Message-ID: <Ya8aWrMb805uPGt4@orome.fritz.box>
-References: <20211206174133.2296265-1-robh@kernel.org>
+Message-ID: <Ya8cZ69WGfeh0G4I@orome.fritz.box>
+References: <20211206174153.2296977-1-robh@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20211206174133.2296265-1-robh@kernel.org>
+In-Reply-To: <20211206174153.2296977-1-robh@kernel.org>
 User-Agent: Mutt/2.1.3 (987dde4c) (2021-09-10)
-Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- linux-stm32@st-md-mailman.stormreply.com,
- Saenz Julienne <nsaenzjulienne@suse.de>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: nvmem: Add missing 'reg'
-	property
+Cc: devicetree@vger.kernel.org, Grygorii Strashko <grygorii.strashko@ti.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Manivannan Sadhasivam <mani@kernel.org>, netdev@vger.kernel.org,
+ linux-actions@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Christophe Roullier <christophe.roullier@foss.st.com>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: Add missing properties
+	used in examples
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,75 +81,234 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1062312574913485412=="
+Content-Type: multipart/mixed; boundary="===============5473258575432128079=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============1062312574913485412==
+--===============5473258575432128079==
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="j4zidih6AkAbzGvE"
+	protocol="application/pgp-signature"; boundary="jliEij1nEk5boU2d"
 Content-Disposition: inline
 
 
---j4zidih6AkAbzGvE
+--jliEij1nEk5boU2d
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Dec 06, 2021 at 11:41:33AM -0600, Rob Herring wrote:
+On Mon, Dec 06, 2021 at 11:41:52AM -0600, Rob Herring wrote:
 > With 'unevaluatedProperties' support implemented, the following warnings
-> are generated in the nvmem examples:
+> are generated in the net bindings:
 >=20
-> Documentation/devicetree/bindings/nvmem/st,stm32-romem.example.dt.yaml: e=
-fuse@1fff7800: Unevaluated properties are not allowed ('reg' was unexpected)
-> Documentation/devicetree/bindings/nvmem/rmem.example.dt.yaml: nvram@10000=
-000: Unevaluated properties are not allowed ('reg' was unexpected)
-> Documentation/devicetree/bindings/nvmem/brcm,nvram.example.dt.yaml: nvram=
-@1eff0000: Unevaluated properties are not allowed ('reg' was unexpected)
+> Documentation/devicetree/bindings/net/actions,owl-emac.example.dt.yaml: e=
+thernet@b0310000: Unevaluated properties are not allowed ('mdio' was unexpe=
+cted)
+> Documentation/devicetree/bindings/net/intel,dwmac-plat.example.dt.yaml: e=
+thernet@3a000000: Unevaluated properties are not allowed ('snps,pbl', 'mdio=
+0' were unexpected)
+> Documentation/devicetree/bindings/net/qca,ar71xx.example.dt.yaml: etherne=
+t@19000000: Unevaluated properties are not allowed ('qca,ethcfg' was unexpe=
+cted)
+> Documentation/devicetree/bindings/net/qca,ar71xx.example.dt.yaml: etherne=
+t@1a000000: Unevaluated properties are not allowed ('mdio' was unexpected)
+> Documentation/devicetree/bindings/net/stm32-dwmac.example.dt.yaml: ethern=
+et@40028000: Unevaluated properties are not allowed ('reg-names', 'snps,pbl=
+' were unexpected)
+> Documentation/devicetree/bindings/net/ti,cpsw-switch.example.dt.yaml: mdi=
+o@1000: Unevaluated properties are not allowed ('clocks', 'clock-names' wer=
+e unexpected)
+> Documentation/devicetree/bindings/net/ti,k3-am654-cpsw-nuss.example.dt.ya=
+ml: mdio@f00: Unevaluated properties are not allowed ('clocks', 'clock-name=
+s' were unexpected)
 >=20
-> Add the missing 'reg' property definition.
+> Add the missing properties/nodes as necessary.
 >=20
-> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: "Andreas F=C3=A4rber" <afaerber@suse.de>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
 > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
 > Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Rafa=C5=82 Mi=C5=82ecki <rafal@milecki.pl>
-> Cc: Saenz Julienne <nsaenzjulienne@suse.de>
-> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>
+> Cc: Cristian Ciocaltea <cristian.ciocaltea@gmail.com>
+> Cc: "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>
+> Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+> Cc: Grygorii Strashko <grygorii.strashko@ti.com>
+> Cc: netdev@vger.kernel.org
 > Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-actions@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
 > Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
->  Documentation/devicetree/bindings/nvmem/brcm,nvram.yaml     | 3 +++
->  Documentation/devicetree/bindings/nvmem/rmem.yaml           | 3 +++
->  Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml | 3 +++
->  3 files changed, 9 insertions(+)
+>  .../devicetree/bindings/net/actions,owl-emac.yaml          | 3 +++
+>  .../devicetree/bindings/net/intel,dwmac-plat.yaml          | 2 +-
+>  Documentation/devicetree/bindings/net/qca,ar71xx.yaml      | 5 ++++-
+>  Documentation/devicetree/bindings/net/stm32-dwmac.yaml     | 6 ++++++
+>  Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml | 7 +++++++
+>  .../devicetree/bindings/net/toshiba,visconti-dwmac.yaml    | 5 ++++-
+>  6 files changed, 25 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/actions,owl-emac.yaml =
+b/Documentation/devicetree/bindings/net/actions,owl-emac.yaml
+> index 1626e0a821b0..e9c0d6360e74 100644
+> --- a/Documentation/devicetree/bindings/net/actions,owl-emac.yaml
+> +++ b/Documentation/devicetree/bindings/net/actions,owl-emac.yaml
+> @@ -51,6 +51,9 @@ properties:
+>      description:
+>        Phandle to the device containing custom config.
+> =20
+> +  mdio:
+> +    type: object
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
+In one of the conversions I've been working on, I've used this construct
+for the mdio node:
 
---j4zidih6AkAbzGvE
+	mdio:
+	  $ref: mdio.yaml
+
+In the cases here this may not be necessary because we could also match
+on the compatible string, but for the example that I've been working on
+there is no compatible string for the MDIO bus, so that's not an option.
+
+On the other hand, it looks like the snps,dwmac-mdio that the examples
+here use don't end up including mdio.yaml, so no validation (or rather
+only very limited validation) will be performed on their properties and
+children.
+
+Thierry
+
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml =
+b/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml
+> index 08a3f1f6aea2..52a7fa4f49a4 100644
+> --- a/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml
+> +++ b/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml
+> @@ -117,7 +117,7 @@ examples:
+>          snps,mtl-tx-config =3D <&mtl_tx_setup>;
+>          snps,tso;
+> =20
+> -        mdio0 {
+> +        mdio {
+>              #address-cells =3D <1>;
+>              #size-cells =3D <0>;
+>              compatible =3D "snps,dwmac-mdio";
+> diff --git a/Documentation/devicetree/bindings/net/qca,ar71xx.yaml b/Docu=
+mentation/devicetree/bindings/net/qca,ar71xx.yaml
+> index cf4d35edaa1b..f2bf1094d887 100644
+> --- a/Documentation/devicetree/bindings/net/qca,ar71xx.yaml
+> +++ b/Documentation/devicetree/bindings/net/qca,ar71xx.yaml
+> @@ -62,6 +62,10 @@ properties:
+>        - const: mac
+>        - const: mdio
+> =20
+> +
+> +  mdio:
+> +    type: object
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -85,7 +89,6 @@ examples:
+>          reset-names =3D "mac", "mdio";
+>          clocks =3D <&pll 1>, <&pll 2>;
+>          clock-names =3D "eth", "mdio";
+> -        qca,ethcfg =3D <&ethcfg>;
+>          phy-mode =3D "mii";
+>          phy-handle =3D <&phy_port4>;
+>      };
+> diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Doc=
+umentation/devicetree/bindings/net/stm32-dwmac.yaml
+> index 577f4e284425..86632e9d987e 100644
+> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> @@ -44,6 +44,12 @@ properties:
+>                - st,stm32-dwmac
+>            - const: snps,dwmac-3.50a
+> =20
+> +  reg: true
+> +
+> +  reg-names:
+> +    items:
+> +      - const: stmmaceth
+> +
+>    clocks:
+>      minItems: 3
+>      items:
+> diff --git a/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml b=
+/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml
+> index 5728fe23f530..dbfca5ee9139 100644
+> --- a/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml
+> +++ b/Documentation/devicetree/bindings/net/ti,davinci-mdio.yaml
+> @@ -37,6 +37,13 @@ properties:
+>      maximum: 2500000
+>      description: MDIO Bus frequency
+> =20
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: fck
+> +
+>    ti,hwmods:
+>      description: TI hwmod name
+>      deprecated: true
+> diff --git a/Documentation/devicetree/bindings/net/toshiba,visconti-dwmac=
+=2Eyaml b/Documentation/devicetree/bindings/net/toshiba,visconti-dwmac.yaml
+> index 59724d18e6f3..f5bec97460e4 100644
+> --- a/Documentation/devicetree/bindings/net/toshiba,visconti-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/toshiba,visconti-dwmac.yaml
+> @@ -42,6 +42,9 @@ properties:
+>        - const: stmmaceth
+>        - const: phy_ref_clk
+> =20
+> +  mdio:
+> +    type: object
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -71,7 +74,7 @@ examples:
+>              phy-mode =3D "rgmii-id";
+>              phy-handle =3D <&phy0>;
+> =20
+> -            mdio0 {
+> +            mdio {
+>                  #address-cells =3D <0x1>;
+>                  #size-cells =3D <0x0>;
+>                  compatible =3D "snps,dwmac-mdio";
+> --=20
+> 2.32.0
+>=20
+
+--jliEij1nEk5boU2d
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmGvGloACgkQ3SOs138+
-s6F0Hg//WQA8UyTwQry88qNWR9u3sktX7xIveJPuMNLvE7TLRbNIEHWutUHA4f1w
-NuCeBlfpTWWlBC5g5LoGV2khS+TSI/amcdTQ3vvKAYyMy9tGByKfnGv0vXuz8ddM
-0Q3opyzR+rp55TRdQoBqDWBWpUojYVeOpdfw9h8e5/H6eR3yVyx+CzpGZWDJWTi5
-dyz5U0AX78TQeaWk2oo1lo1PMiG/Mn/hlaZMGm/seqeftGcrVXHPtn+jJcNlgSkK
-m+ED7Fl604ryrPG8/HV2+UcgILWskHyVceCf7JEhBDocpLohubTXq53T1IixC+H5
-r9uRb/AjzzIfaA+9ku/db2XOa0PkPizzY7DXAQSdBgsFa8TK7QAkX+5IXqqE0YAO
-Qs4jf4EEMioMhB7g9as5YBf2jkNOuj/E2NcgEWvw2sybdyfb6QplwXMXAxImL1bH
-1Hou+yCHGR6aVeJsXfLVe7ezBp6hF1FNspSOxYC72VmiMpg3kZKSxF9vavonj+CD
-WOxjWQ/0wZzPNfv69Xd5PnviaHqY5ggJW6pl9VpZlyQjCiff2IUodDlUIUU3gR5I
-C5YvipfJFFf2K4BsTae/Er7EIO2+3HId9swtVilMOwOnMm1S8Oh6aLZZkPHe4Pqg
-SuVcQ19Yk0bR+PQ5zhlOIBv4Tn0H4omiRa9LQnRnEXXK5DukdVs=
-=YdRa
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmGvHGcACgkQ3SOs138+
+s6H8Jw//WclnebfLzRqSdyWulOD0fPLCDtxwQKijio6FvjU/kOTbOzrCNOPLASCb
+yZVH0hUXMr5h8Rk5BvFp+3SnEZu5zuunMz5MiySM1BU+26yxYM9vePeaz8ke3Lo5
+Ar+85QXegvpsqTXQkLTH9XeA2lUftnnM47p/ZGE4zKhGnwItgQGxL3z7KNalN/eM
+I8m75rVPcwhpcw261o5Ffuc4FhQjKR0FQOkFVZQNRmMx8t/JAtFzEPjAV9DNwn49
+J2hMx4G3acBTCsa7Hnmjp3G1v4+6EffmCCDoe9w6+LOCVMoEks+QKa5ZdIaeVKhP
+ZrAswWo1a/pa22WHnDSrfZbr7IRBHVpTGXJurBFYwfXQxAdUR1RcGyNb9QHrMPHZ
+DhPR36xMEdmRTJ/6E4xHE0hh0XRjUDthKKAvGHdOVONpNUzFs8eJ4tsMmE2Y/2qM
+wL6IgNBN2p4UK0WwE/GH0MfF41eTaMShlZKl+lDd49BXRlG8h38uQRRMnGvtjc6r
+OdW3YQPbjDAcV0Dp174DFKyWH00lslf5DbiGsctxlj52THJn7/yIwBGSI66TNZAo
+B3T8miFX+rTLdJ8SuviR3mbEynf0AtJBy5P1dUZP9Ux2I21+eop4fT7m4ol8vsUW
+vz5PLqWt0xB/ukD1TioMEdY0Yhdv+4kajo7Qlb+FQOQvLkbTiHM=
+=dwOt
 -----END PGP SIGNATURE-----
 
---j4zidih6AkAbzGvE--
+--jliEij1nEk5boU2d--
 
---===============1062312574913485412==
+--===============5473258575432128079==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -155,4 +319,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============1062312574913485412==--
+--===============5473258575432128079==--
