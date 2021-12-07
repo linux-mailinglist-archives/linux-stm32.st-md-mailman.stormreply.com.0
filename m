@@ -2,66 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1E9D46A694
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Dec 2021 21:11:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0018546AFE1
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 02:38:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55617C5F1E5;
-	Mon,  6 Dec 2021 20:11:35 +0000 (UTC)
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A814BC5F1E5;
+	Tue,  7 Dec 2021 01:38:11 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B4FFC597BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C5CDC597BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Dec 2021 20:11:34 +0000 (UTC)
-Received: by mail-ot1-f43.google.com with SMTP id
- x43-20020a056830246b00b00570d09d34ebso15158015otr.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Dec 2021 12:11:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=ypDUIho7eWHCZJ7Rm8us7oavNNmEtNxG3tY05fvu+RY=;
- b=XyUZEWbAbyTD3x8dQ0p4NuyJAKpyRvj+HcEOYnANI8nHWL+EDMYBkNOYd8KkvNo7rr
- H7aODQqhN0WeBX86PxnV6HGVSJQ8tugnbzyQYFmtDECQgYqjhF3Oxoh25iq+Jt2LBjJd
- S1c1GUR6Z/a+4ww8MN0HudJG+cJfdlrC/yydAMmDrxz057uJxYXNVHnigGxiMOqih+ql
- YWgsgm9xIDs/jeZ/snxT8AOdXJXIjk5cvgaTfpBX92Pt8p74dNz1WkiSgKKJIy6JYm/a
- 0Qv8Kjx3FlVasKJ2TpLwvfHxWo7Vu16ubsK9o+AsZzuCcUtriZbw79MyZ8Ovhzbk/qjr
- ZILw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=ypDUIho7eWHCZJ7Rm8us7oavNNmEtNxG3tY05fvu+RY=;
- b=XbX663glMgUaQU+IYNVX+tYBdmczTGrwI6lMRwZVP4ohwP/phEHGfdmWOGsT/YBNC+
- oJmrqY4EFL80VB92jofuxRa1BfzE80MDqWAfpJ0DLEk4LKP4LQ+xfEwFpJB4KnK47Tb0
- Es+2VaOYOSEPXkvU0ZxFsGt5fLM85iprfGI2LYL2WnS/YfjkwtPZJiRTM7AAfdVf6FGl
- k4UfuZQWv04de6R2Q/wbx0cN91AbTd5saRH3WzYQ2jKPc9lqvb4rGpRYAHuh58t0/bao
- lEnfO9emGrpr+EJu8eg+PDk72RQkzzW1OZHns/Ve21M9XHVsUtWG9ptlRzXfLw/K0/aC
- xzmA==
-X-Gm-Message-State: AOAM530Rs5ivrGWO2heFzZTr1fwTsnp3w2jcIHB9L+utAGY3T3njRlx8
- VBoDvqibvE/PIDqNaKH9D+Imbg==
-X-Google-Smtp-Source: ABdhPJxquBRAhZlmEi8XL4TUa6etjEftnBL+pcRWhwWyPPZUItxs0BtS0PUQYihYDzhMNEPZEIkxBw==
-X-Received: by 2002:a9d:7f91:: with SMTP id t17mr30910146otp.197.1638821492818; 
- Mon, 06 Dec 2021 12:11:32 -0800 (PST)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id q2sm2478175otg.64.2021.12.06.12.11.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Dec 2021 12:11:32 -0800 (PST)
-Date: Mon, 6 Dec 2021 14:11:29 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <Ya5ucVAGf/qFpVbx@builder.lan>
-References: <20211206191858.10741-1-arnaud.pouliquen@foss.st.com>
+ Tue,  7 Dec 2021 01:38:08 +0000 (UTC)
+X-UUID: 32177f0f9dad488fbfee9df3ac98470c-20211207
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=a+w0KP+ZqAlkYFHTZ/XSFagOIiGrcVHtihSDas+AcT4=; 
+ b=j7qV0gIriJWgPSxvYACBe8xuOczSgbVqyG/FuluiK26Nirbkr6b06MvSYIOKdMVjGDjvTG7gZ3dbOk5KreLcGcxX9gsfSAeFJZRA76heLXi2Se9Ezi4BibkTbjBtxLpNGA15obNHQgh5SW8iHjZE+Ilt0b2DZf4Lw+JA/jgW5bc=;
+X-UUID: 32177f0f9dad488fbfee9df3ac98470c-20211207
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1468461342; Tue, 07 Dec 2021 09:38:02 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Tue, 7 Dec 2021 09:38:02 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 7 Dec 2021 09:38:01 +0800
+Message-ID: <183a86f912ba28930845847c0b19b4118e3db80a.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>
+Date: Tue, 7 Dec 2021 09:38:00 +0800
+In-Reply-To: <9dc0cbc3-8de0-f1ed-cfc9-852b7e69ab3c@collabora.com>
+References: <20211203063418.14892-1-biao.huang@mediatek.com>
+ <20211203063418.14892-2-biao.huang@mediatek.com>
+ <9dc0cbc3-8de0-f1ed-cfc9-852b7e69ab3c@collabora.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211206191858.10741-1-arnaud.pouliquen@foss.st.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, linux-remoteproc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Mathieu Poirier <mathieu.poirier@linaro.org>, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: Fix remaining wrong return
- formatting in documentation
+X-MTK: N
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, dkirjanov@suse.de,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 1/7] net-next: stmmac: dwmac-mediatek:
+ add platform level clocks management
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,62 +70,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon 06 Dec 13:18 CST 2021, Arnaud Pouliquen wrote:
+Dear Angelo,
+	Thanks for your comments~
 
-> kernel documentation specification:
-> "The return value, if any, should be described in a dedicated section
-> named Return."
+On Mon, 2021-12-06 at 16:14 +0100, AngeloGioacchino Del Regno wrote:
+> Il 03/12/21 07:34, Biao Huang ha scritto:
+> > This patch implements clks_config callback for dwmac-mediatek
+> > platform,
+> > which could support platform level clocks management.
+> > 
+> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+> > ---
+> >   .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 24
+> > ++++++++++++++-----
+> >   1 file changed, 18 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > index 58c0feaa8131..157ff655c85e 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > @@ -359,9 +359,6 @@ static int mediatek_dwmac_init(struct
+> > platform_device *pdev, void *priv)
+> >   		return ret;
+> >   	}
+> >   
+> > -	pm_runtime_enable(&pdev->dev);
+> > -	pm_runtime_get_sync(&pdev->dev);
+> > -
+> >   	return 0;
+> >   }
+> >   
+> > @@ -370,11 +367,25 @@ static void mediatek_dwmac_exit(struct
+> > platform_device *pdev, void *priv)
+> >   	struct mediatek_dwmac_plat_data *plat = priv;
+> >   
+> >   	clk_bulk_disable_unprepare(plat->num_clks_to_config, plat-
+> > >clks);
+> > -
+> > -	pm_runtime_put_sync(&pdev->dev);
+> > -	pm_runtime_disable(&pdev->dev);
+> >   }
+> >   
+> > +static int mediatek_dwmac_clks_config(void *priv, bool enabled)
+> > +{
+> > +	struct mediatek_dwmac_plat_data *plat = priv;
+> > +	int ret = 0;
+> > +
+> > +	if (enabled) {
+> > +		ret = clk_bulk_prepare_enable(plat->num_clks_to_config, 
+> > plat->clks);
+> > +		if (ret) {
+> > +			dev_err(plat->dev, "failed to enable clks, err
+> > = %d\n", ret);
+> > +			return ret;
+> > +		}
+> > +	} else {
+> > +		clk_bulk_disable_unprepare(plat->num_clks_to_config,
+> > plat->clks);
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> >   static int mediatek_dwmac_probe(struct platform_device *pdev)
+> >   {
+> >   	struct mediatek_dwmac_plat_data *priv_plat;
+> > @@ -420,6 +431,7 @@ static int mediatek_dwmac_probe(struct
+> > platform_device *pdev)
+> >   	plat_dat->bsp_priv = priv_plat;
+> >   	plat_dat->init = mediatek_dwmac_init;
+> >   	plat_dat->exit = mediatek_dwmac_exit;
+> > +	plat_dat->clks_config = mediatek_dwmac_clks_config;
+> >   	mediatek_dwmac_init(pdev, priv_plat);
+> >   
+> >   	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+> > 
 > 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-
-Thanks,
-Bjorn
-
-> ---
->  drivers/remoteproc/mtk_scp_ipi.c   | 4 ++--
->  drivers/remoteproc/st_slim_rproc.c | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
+> Hello Biao,
 > 
-> diff --git a/drivers/remoteproc/mtk_scp_ipi.c b/drivers/remoteproc/mtk_scp_ipi.c
-> index 6dc955ecab80..00f041ebcde6 100644
-> --- a/drivers/remoteproc/mtk_scp_ipi.c
-> +++ b/drivers/remoteproc/mtk_scp_ipi.c
-> @@ -23,7 +23,7 @@
->   *
->   * Register an ipi function to receive ipi interrupt from SCP.
->   *
-> - * Returns 0 if ipi registers successfully, -error on error.
-> + * Return: 0 if ipi registers successfully, -error on error.
->   */
->  int scp_ipi_register(struct mtk_scp *scp,
->  		     u32 id,
-> @@ -150,7 +150,7 @@ EXPORT_SYMBOL_GPL(scp_ipi_unlock);
->   * When the processing completes, IPI handler registered
->   * by scp_ipi_register will be called in interrupt context.
->   *
-> - * Returns 0 if sending data successfully, -error on error.
-> + * Return: 0 if sending data successfully, -error on error.
->   **/
->  int scp_ipi_send(struct mtk_scp *scp, u32 id, void *buf, unsigned int len,
->  		 unsigned int wait)
-> diff --git a/drivers/remoteproc/st_slim_rproc.c b/drivers/remoteproc/st_slim_rproc.c
-> index 22096adc1ad3..4ed9467897e5 100644
-> --- a/drivers/remoteproc/st_slim_rproc.c
-> +++ b/drivers/remoteproc/st_slim_rproc.c
-> @@ -216,7 +216,7 @@ static const struct rproc_ops slim_rproc_ops = {
->   * obtains and enables any clocks required by the SLIM core and also
->   * ioremaps the various IO.
->   *
-> - * Returns st_slim_rproc pointer or PTR_ERR() on error.
-> + * Return: st_slim_rproc pointer or PTR_ERR() on error.
->   */
->  
->  struct st_slim_rproc *st_slim_rproc_alloc(struct platform_device *pdev,
-> -- 
-> 2.17.1
+> you're removing all calls to pm_runtime_* functions, so there is no
+> more reason
+> to include linux/pm_runtime.h in this file: please also remove the
+> inclusion.
 > 
+> Thanks!
+Yes, I'll remove the inclusion in the next send.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
