@@ -2,76 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B1346B653
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:46:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E871746B52F
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:09:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D4A8C5F1E5;
-	Tue,  7 Dec 2021 08:46:54 +0000 (UTC)
-Received: from mx.tkos.co.il (bzq-84-110-109-230.red.bezeqint.net
- [84.110.109.230])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3DEDC5EC72
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Dec 2021 08:06:27 +0000 (UTC)
-Received: from tarshish (unknown [10.0.8.2])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92705C5F1E7;
+	Tue,  7 Dec 2021 08:09:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mx.tkos.co.il (Postfix) with ESMTPS id E1A8A440855;
- Tue,  7 Dec 2021 10:06:08 +0200 (IST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tkos.co.il;
- s=default; t=1638864370;
- bh=esweGkmM1TaFxAsLsotS7LKsL2FjaGbpG3oTnnMt2EY=;
- h=References:From:To:Cc:Subject:Date:In-reply-to:From;
- b=GcPgxTp47EJex9304Cwrh1a93q3dHMKWiHIjz8ZTn4NegGPU69yqh7Su5vmg5fO+P
- Kh7nqdgkBIpI3Rf9UzzHq/x7N7cBaA/7R0ZE12PQaFHPd0XT3nfMmWwSoc6YNW6HJ/
- sY7u4RIykgN0trrfVUJdtS/HSKo97dqJciT8yZxSr0wjGT9g5g4otk+PHV0JYm9p9k
- P9YzQWW8WWhUeig+fPqnm1HPGtUlIZxk5urZr4h4aKbE+4xA9oZm9Je0d93bTim8GN
- 1As0GD0fgMDT/yrRdfvnw9AkNJRlBW1Fj0uJad+Crzam3J4mee0elu9epTaexUTQ7t
- Pqt45gjbFAkpw==
-References: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
- <20211207080325.6hfokrrcs45iucx6@pengutronix.de>
-User-agent: mu4e 1.6.10; emacs 27.1
-From: Baruch Siach <baruch@tkos.co.il>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Date: Tue, 07 Dec 2021 10:05:08 +0200
-In-reply-to: <20211207080325.6hfokrrcs45iucx6@pengutronix.de>
-Message-ID: <87ilw0on3z.fsf@tarshish>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 503CBC5F1E5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  7 Dec 2021 08:09:07 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B73n2xh018579;
+ Tue, 7 Dec 2021 09:08:54 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=gjFn/nVZwppaV7/cJByjqjgVSBYzYI5mm14aPOcd/5E=;
+ b=PkSr1dkwbvvrtFEcGYEqKAXakUbvVRy3xBvMrhdHKO8q/XBW/5Xv2z9yirTkyZ7aNR6G
+ 1/k1dv7mAwkR7r/XCgrRuwn5Njg3OPEaTKXIGJvwrXQj8wfQ1MhSvECKCGptat/PzwRa
+ n5F8vzQvHeA9gQ0MqlDn1z8BEuFkiO5FmAuF6FM2ztAZY6D382Dle+iMKytKNl5tjW3J
+ 6Kw3LbE20l1V55WiMzG5xSLT/f1aDowkfZXbZ2GL/OZgo+fih/cPDnFwo/j/g8f8XGNy
+ flzG61QggEG479Y8Ww5MXg6K2A7/2WkwRC3EgUa4nSczzHkWA6xrcIQySqTttc/u9yjJ oA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3csp32bc8s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 07 Dec 2021 09:08:54 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AFE7510002A;
+ Tue,  7 Dec 2021 09:08:52 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D268E2220AE;
+ Tue,  7 Dec 2021 09:08:52 +0100 (CET)
+Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 7 Dec 2021 09:08:52
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Tue, 7 Dec 2021 09:08:30 +0100
+Message-ID: <20211207080843.21222-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 07 Dec 2021 08:46:53 +0000
-Cc: Heiko Stuebner <heiko@sntech.de>, Tony Lindgren <tony@atomide.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Chunyan Zhang <chunyan.zhang@unisoc.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, linux-rockchip@lists.infradead.org,
- Marc Zyngier <maz@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sergio Paracuellos <sergio.paracuellos@gmail.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Alexandru Ardelean <aardelean@deviqon.com>, Orson Zhai <orsonzhai@gmail.com>,
- Grygorii Strashko <grygorii.strashko@ti.com>,
- Thierry Reding <treding@nvidia.com>, Jianqun Xu <jay.xu@rock-chips.com>,
- linux-pwm@vger.kernel.org, Nicolas Saenz Julienne <nsaenz@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Vladimir Zapolskiy <vz@mleia.com>,
- linux-gpio@vger.kernel.org, Florian Fainelli <f.fainelli@gmail.com>,
- linux-mediatek@lists.infradead.org, Gregory Fong <gregory.0xf0@gmail.com>,
- Santosh Shilimkar <ssantosh@kernel.org>, linux-tegra@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Scott Branden <sbranden@broadcom.com>, linux-unisoc@lists.infradead.org,
- patches@opensource.cirrus.com, Kevin Hilman <khilman@kernel.org>,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Keerthy <j-keerthy@ti.com>, Baolin Wang <baolin.wang7@gmail.com>,
- linux-power@fi.rohmeurope.com
-Subject: Re: [Linux-stm32] [PATCH v1 1/3] gpio: Get rid of duplicate of_node
- assignment in the drivers
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-07_03,2021-12-06_02,2021-12-02_01
+Cc: julien.massot@iot.bzh, arnaud.pouliquen@foss.st.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v8 00/13] Restructure the rpmsg_char driver
+	and introduce rpmsg_ctrl driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,22 +68,95 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgVXdlLAoKT24gVHVlLCBEZWMgMDcgMjAyMSwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4g
-SGVsbG8gQW5keSwKPgo+IHlvdSBDYzogbGludXgtcHdtIGFuZCB0aGUgcHdtIG1haW50YWluZXJz
-IGluIHRoaXMgc2VyaWVzLiBJIGRvbid0IHNwb3QKPiBhbnl0aGluZyBwd20gc3BlY2lmaWMgaGVy
-ZSAoYXBhcnQgZnJvbSB0b3VjaGluZyBncGlvLW12ZWJ1IHdoaWNoIGFsc28KPiBjb250YWlucyBh
-IFBXTSBkcml2ZXIpLiBEbyBJIG1pc3Mgc29tZXRoaW5nPwoKVGhhdCdzIHByb2JhYmx5IGJlY2F1
-c2Ugb2YgZHJpdmVycy9ncGlvL2dwaW8tbXZlYnUuYyB0aGF0IGFwcGVhcnMgaW4gdGhlCk1BSU5U
-QUlORVJTIFBXTSBlbnRyeS4KCmJhcnVjaAoKLS0gCiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgfi4gLn4gICBUayBPcGVuIFN5c3RlbXMKPX0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1vb08tLVUtLU9vby0t
-LS0tLS0tLS0tLXs9CiAgIC0gYmFydWNoQHRrb3MuY28uaWwgLSB0ZWw6ICs5NzIuNTIuMzY4LjQ2
-NTYsIGh0dHA6Ly93d3cudGtvcy5jby5pbCAtCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Update from V7 [1]:
+- miscellaneous fixes based on Bjorn Andersson's comments
+- add "arm64: defconfig: Config that had RPMSG_CHAR now gets RPMSG_CTRL"
+  for 5.16 compatibility
+
+Patchset description:
+
+The current rpmsg_char module implements a /dev/rpmsg_ctrl interface that provides the ability to
+instantiate char devices (/dev/rpmsgX) associated with an rpmsg endpoint for communication with the
+remote processor.
+This implementation fit with QCOM rpmsg backend but not with themagement by chanel implemented in 
+the generic rpmsg virtio backend.
+This series restructures the rpmsg_char driver to decorrelate the control part from the data part
+in order to improve its compatible with the rpmsg virtio backend.
+
+Objective:
+- Expose a /dev/rpmsg_ctrlX interface for the application that is no longer dedicated to the
+  rpmsg_char but generalized to all rpmsg services. This offers capability to create and destroy
+  rpmsg channels from a user's application initiative (using the new RPMSG_CREATE_DEV_IOCTL and
+  RPMSG_DESTROY_DEV_IOCTL controls).
+  An application will be able to create/establish an rpmsg communication channel to communicate
+  with the remote processor, and not only wait the remote processor initiative.
+  This is interesting for example to establish a temporary communication link for diagnosis,
+  calibration, debugging... or instantiate  new data flows on some user actions.
+- Add capability to probe the rpmsg_char device at the initiative of the remote processor
+ (rpmsg service announcement mechanism).
+  This allows platforms based on the rpmsg virtio backend to create the /dev/rpmgX interface with
+  a rpmsg name service announcement.
+
+Subsets:
+  - Extract the control part of the char dev and create the rpmsg_ctrl.c file (patches 1 to 6)
+  - Introduce the "rpmsg-raw" channel in rpmsg_char(patches 7 to 11)
+  - Introduce the RPMSG_CREATE_DEV_IOCTL IOCTL and RPMSG_DESTROY_DEV_IOCTL to instantiate RPMsg
+    devices (patch 12)
+    The application can then create or release a channel by specifying:
+       - the name service of the device to instantiate.   
+       - the source address.
+       - the destination address.
+  - Send a ns announcement to the remote processor on default endpoint creation (patche 13)
+
+This series has be applied and tested on for-next branch 'c4b39a582b9b)[2].
+
+[1] https://lkml.org/lkml/2021/11/8/501
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git
+
+Arnaud Pouliquen (10):
+  rpmsg: char: Export eptdev create an destroy functions
+  rpmsg: Create the rpmsg class in core instead of in rpmsg char
+  rpmsg: Move the rpmsg control device from rpmsg_char to rpmsg_ctrl
+  arm: configs: Configs that had RPMSG_CHAR now get RPMSG_CTRL
+  RISC-V: configs: Configs that had RPMSG_CHAR now get RPMSG_CTRL
+  arm64: defconfig: Config that had RPMSG_CHAR now gets RPMSG_CTRL
+  rpmsg: Update rpmsg_chrdev_register_device function
+  rpmsg: char: Refactor rpmsg_chrdev_eptdev_create function
+  rpmsg: Introduce rpmsg_create_default_ept function
+  rpmsg: char: Add possibility to use default endpoint of the rpmsg
+    device.
+  rpmsg: char: Introduce the "rpmsg-raw" channel
+  rpmsg: ctrl: Introduce new RPMSG_CREATE/RELEASE_DEV_IOCTL controls
+  rpmsg: core: Send a ns announcement when a default endpoint is created
+
+ arch/arm/configs/qcom_defconfig   |   1 +
+ arch/arm64/configs/defconfig      |   1 +
+ arch/riscv/configs/defconfig      |   1 +
+ arch/riscv/configs/rv32_defconfig |   1 +
+ drivers/rpmsg/Kconfig             |   8 +
+ drivers/rpmsg/Makefile            |   1 +
+ drivers/rpmsg/qcom_glink_native.c |   2 +-
+ drivers/rpmsg/qcom_smd.c          |   2 +-
+ drivers/rpmsg/rpmsg_char.c        | 246 +++++++++++------------------
+ drivers/rpmsg/rpmsg_char.h        |  46 ++++++
+ drivers/rpmsg/rpmsg_core.c        |  84 +++++++++-
+ drivers/rpmsg/rpmsg_ctrl.c        | 250 ++++++++++++++++++++++++++++++
+ drivers/rpmsg/rpmsg_internal.h    |  14 +-
+ drivers/rpmsg/virtio_rpmsg_bus.c  |   2 +-
+ include/uapi/linux/rpmsg.h        |  10 ++
+ 15 files changed, 505 insertions(+), 164 deletions(-)
+ create mode 100644 drivers/rpmsg/rpmsg_char.h
+ create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
+
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
