@@ -2,65 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 884D146B654
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:46:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB6DA46B5B2
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:25:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E9F1C5F1E8;
-	Tue,  7 Dec 2021 08:46:54 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BEF4C5F1E5;
+	Tue,  7 Dec 2021 08:25:04 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D10DEC597BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41091C597BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Dec 2021 08:16:14 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- p27-20020a05600c1d9b00b0033bf8532855so1591087wms.3
+ Tue,  7 Dec 2021 08:25:03 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id u17so20441578wrt.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Dec 2021 00:16:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=brainfault-org.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=wV05YmqytZZ4i77GlP1Brthyva63mRUa2qE0+W2OXv4=;
- b=cC1Hbczjdh2dzt9ciK2qiKC3ZkYz1fGNc8p1h3oLUa2PWAkb2rVdSC0aavqJ+hIEzx
- pcvAhgPMbMkSHKM2in+pdz8ejZ2PqF/iimPZYtPQuW4YbhrLGril86javjmtKtUImtuH
- ZbQ9sVHkJZyetxai1yhoAKKC9qIRnccfGo4bqqCYFOUoJ0nMsc4ZaNR4ohPMMBMLYeq7
- 5uSC9mLsvmQineh9UG21iURMUPJPQuwv8iGgoi/PBa323WyfEWbcdE7FWPdyC/L6aDau
- PXbmlej1r2JWIDKbmZZVVFWUIEidbsWHPyibno6dYOAKDAvZ/QWNTpn80CUMKZO2uJqe
- Q38g==
+ Tue, 07 Dec 2021 00:25:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=4YlEfyGuTmDXWogHreM3HEOr8rkPGxqlzzFFm3Xfiy4=;
+ b=ffvAuXb5kJHzfREehTKFvUUH09vCvdNH50SejEzrlyeectHx/A36dFNSykSxtll2xB
+ XcKunvxaHKdpsTfe7e1hLc5jkoGWrICZc0xm3PI10gEtrrdVadfC1O1Q34cWmhjf5HAH
+ yTvrXDWFKO7k7JK8cRv4ixVGK7xUIkx5qILEqTyCzfV0EH4iMpwxpqiUauXpgyAxcfFK
+ J9KN0i6mVXbI2x3AZMYMYwPfQg1OFvsXv7zT9p9yYmfqrIJiasHBBBEGjWUSlONukmut
+ HCufQltVSZW+FBKXPoLK82VJGpA68pdJ2gmD0+gXjVobj95BcmZTQ4FcThzeXfg2QC9r
+ Axow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wV05YmqytZZ4i77GlP1Brthyva63mRUa2qE0+W2OXv4=;
- b=xxny6kFXW9OznB+6daT/PbH0p4uuqG0Cw2JPk7Er6JJ+GplesTZt9y8UsTcoukX4ww
- PCMj0Azv1bZK5AwnHmM1RX8lyqkmdu+Syj5Imz9YvlwMOsu6bdvc6UonXojXOsYFOZIK
- U6agi23bF+EuoBZ/tIhvGbu50ueRcvC+QauuW9Oc1TNCPjEOeZ4Ef2/3mkYXbZFXx9yS
- S5xZSTTGCI4ABJ/E/PNgWgsOaKHKPwwV8cxG653EglaBHC4oA2XOiQKbPc6wd2f3VVxU
- tHa2HLBeHpCVOzl+n81+Lu2h3j9svAuEpOjWtfjEh/ZB7kHdif8kECXzt88OlvL+cT4v
- sIkQ==
-X-Gm-Message-State: AOAM533/9aHL7G4ITvhYBsaQZ0ELP4mdxvv+Smmfdlv46gWnlI+VAu3L
- UmLAWxiq5Ifp5NZZBhzn8OpBJ6MNfP6FCx1T3G2/3Q==
-X-Google-Smtp-Source: ABdhPJy/5bX081hEllcHF+ciiU1wOWxT4YMmlv0lSO4Mp0uNC6xawLDFYKeG14mC3/pJJ+ZqaKc0D9h7/Cwk8IFQCsM=
-X-Received: by 2002:a7b:c7cd:: with SMTP id z13mr5087144wmk.59.1638864974238; 
- Tue, 07 Dec 2021 00:16:14 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=4YlEfyGuTmDXWogHreM3HEOr8rkPGxqlzzFFm3Xfiy4=;
+ b=y5PL8oNlbwuxvam5+01pZGtxifw4XSqRKdZ8OahOvLFUiA2vDcz7tDhXHp0VMIQqD/
+ 4uaa45fiuzgLCN5btT6JWTV+eqGjn4qEjU7y+F5xHOG/+oM4RT7FIbHSwkQyXi8Rw3XB
+ 0KNZW75cekgoIMf7KzxHGQkm3V+Ocx151JARr2v/djYNgVQEQtvSeEPOsf7zS3xFedz5
+ pBIDBo6FAfMW6i2z1/GsCZ682AsKSd4B/vmbZeMv0wJ7QXjAiBFYWgGZkgyquVLTvOPb
+ 9n/56ZVnHCkXBuCGHQSAwGtLXVHRHsLhZgw1wRqNjzD+kvX9rrn9ATTxYHy6DOQmSvU8
+ 4MTA==
+X-Gm-Message-State: AOAM530pvPlLecoj9rRhksg3hAMMAHMutiteGsiB9NfSmkbMMmD5JHPq
+ qFyUMUJlY9xK03ab0Le9Hcg=
+X-Google-Smtp-Source: ABdhPJwbUL0fTO99+HdWSJwsFoxTmvpq4owS4lYyH4cCQYndpxbqVysByZe3TJgd7AZv1/OnljTdkg==
+X-Received: by 2002:a5d:64cc:: with SMTP id f12mr49167922wri.322.1638865502795; 
+ Tue, 07 Dec 2021 00:25:02 -0800 (PST)
+Received: from orome.fritz.box ([193.209.96.43])
+ by smtp.gmail.com with ESMTPSA id o4sm2081738wmq.31.2021.12.07.00.25.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Dec 2021 00:25:01 -0800 (PST)
+Date: Tue, 7 Dec 2021 09:24:58 +0100
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <Ya8aWrMb805uPGt4@orome.fritz.box>
+References: <20211206174133.2296265-1-robh@kernel.org>
 MIME-Version: 1.0
-References: <20211207080843.21222-1-arnaud.pouliquen@foss.st.com>
- <20211207080843.21222-6-arnaud.pouliquen@foss.st.com>
-In-Reply-To: <20211207080843.21222-6-arnaud.pouliquen@foss.st.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Tue, 7 Dec 2021 13:46:03 +0530
-Message-ID: <CAAhSdy3GDArfbQgusdDg-mi1bdTfDhFMaF4qa5-KFv1regwJ-Q@mail.gmail.com>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-X-Mailman-Approved-At: Tue, 07 Dec 2021 08:46:53 +0000
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, julien.massot@iot.bzh,
- linux-remoteproc@vger.kernel.org,
- "linux-kernel@vger.kernel.org List" <linux-kernel@vger.kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v8 05/13] RISC-V: configs: Configs that
- had RPMSG_CHAR now get RPMSG_CTRL
+In-Reply-To: <20211206174133.2296265-1-robh@kernel.org>
+User-Agent: Mutt/2.1.3 (987dde4c) (2021-09-10)
+Cc: devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Saenz Julienne <nsaenzjulienne@suse.de>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: nvmem: Add missing 'reg'
+	property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,62 +76,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1062312574913485412=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 7, 2021 at 1:39 PM Arnaud Pouliquen
-<arnaud.pouliquen@foss.st.com> wrote:
->
-> In the patch "rpmsg: Move the rpmsg control device from rpmsg_char
-> to rpmsg_ctrl", we split the rpmsg_char driver in two.
-> By default give everyone who had the old driver enabled the rpmsg_ctrl
-> driver too.
->
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> cc: linux-riscv@lists.infradead.org
 
-Looks good to me.
+--===============1062312574913485412==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="j4zidih6AkAbzGvE"
+Content-Disposition: inline
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
 
-Regards,
-Anup
+--j4zidih6AkAbzGvE
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Dec 06, 2021 at 11:41:33AM -0600, Rob Herring wrote:
+> With 'unevaluatedProperties' support implemented, the following warnings
+> are generated in the nvmem examples:
+>=20
+> Documentation/devicetree/bindings/nvmem/st,stm32-romem.example.dt.yaml: e=
+fuse@1fff7800: Unevaluated properties are not allowed ('reg' was unexpected)
+> Documentation/devicetree/bindings/nvmem/rmem.example.dt.yaml: nvram@10000=
+000: Unevaluated properties are not allowed ('reg' was unexpected)
+> Documentation/devicetree/bindings/nvmem/brcm,nvram.example.dt.yaml: nvram=
+@1eff0000: Unevaluated properties are not allowed ('reg' was unexpected)
+>=20
+> Add the missing 'reg' property definition.
+>=20
+> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Rafa=C5=82 Mi=C5=82ecki <rafal@milecki.pl>
+> Cc: Saenz Julienne <nsaenzjulienne@suse.de>
+> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
->  arch/riscv/configs/defconfig      | 1 +
->  arch/riscv/configs/rv32_defconfig | 1 +
->  2 files changed, 2 insertions(+)
->
-> diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-> index c252fd5706d2..c0439d3ffb8c 100644
-> --- a/arch/riscv/configs/defconfig
-> +++ b/arch/riscv/configs/defconfig
-> @@ -97,6 +97,7 @@ CONFIG_VIRTIO_BALLOON=y
->  CONFIG_VIRTIO_INPUT=y
->  CONFIG_VIRTIO_MMIO=y
->  CONFIG_RPMSG_CHAR=y
-> +CONFIG_RPMSG_CTRL=y
->  CONFIG_RPMSG_VIRTIO=y
->  CONFIG_EXT4_FS=y
->  CONFIG_EXT4_FS_POSIX_ACL=y
-> diff --git a/arch/riscv/configs/rv32_defconfig b/arch/riscv/configs/rv32_defconfig
-> index 434ef5b64599..99eabad7ca0f 100644
-> --- a/arch/riscv/configs/rv32_defconfig
-> +++ b/arch/riscv/configs/rv32_defconfig
-> @@ -89,6 +89,7 @@ CONFIG_VIRTIO_BALLOON=y
->  CONFIG_VIRTIO_INPUT=y
->  CONFIG_VIRTIO_MMIO=y
->  CONFIG_RPMSG_CHAR=y
-> +CONFIG_RPMSG_CTRL=y
->  CONFIG_RPMSG_VIRTIO=y
->  CONFIG_EXT4_FS=y
->  CONFIG_EXT4_FS_POSIX_ACL=y
-> --
-> 2.17.1
->
+>  Documentation/devicetree/bindings/nvmem/brcm,nvram.yaml     | 3 +++
+>  Documentation/devicetree/bindings/nvmem/rmem.yaml           | 3 +++
+>  Documentation/devicetree/bindings/nvmem/st,stm32-romem.yaml | 3 +++
+>  3 files changed, 9 insertions(+)
+
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+
+--j4zidih6AkAbzGvE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmGvGloACgkQ3SOs138+
+s6F0Hg//WQA8UyTwQry88qNWR9u3sktX7xIveJPuMNLvE7TLRbNIEHWutUHA4f1w
+NuCeBlfpTWWlBC5g5LoGV2khS+TSI/amcdTQ3vvKAYyMy9tGByKfnGv0vXuz8ddM
+0Q3opyzR+rp55TRdQoBqDWBWpUojYVeOpdfw9h8e5/H6eR3yVyx+CzpGZWDJWTi5
+dyz5U0AX78TQeaWk2oo1lo1PMiG/Mn/hlaZMGm/seqeftGcrVXHPtn+jJcNlgSkK
+m+ED7Fl604ryrPG8/HV2+UcgILWskHyVceCf7JEhBDocpLohubTXq53T1IixC+H5
+r9uRb/AjzzIfaA+9ku/db2XOa0PkPizzY7DXAQSdBgsFa8TK7QAkX+5IXqqE0YAO
+Qs4jf4EEMioMhB7g9as5YBf2jkNOuj/E2NcgEWvw2sybdyfb6QplwXMXAxImL1bH
+1Hou+yCHGR6aVeJsXfLVe7ezBp6hF1FNspSOxYC72VmiMpg3kZKSxF9vavonj+CD
+WOxjWQ/0wZzPNfv69Xd5PnviaHqY5ggJW6pl9VpZlyQjCiff2IUodDlUIUU3gR5I
+C5YvipfJFFf2K4BsTae/Er7EIO2+3HId9swtVilMOwOnMm1S8Oh6aLZZkPHe4Pqg
+SuVcQ19Yk0bR+PQ5zhlOIBv4Tn0H4omiRa9LQnRnEXXK5DukdVs=
+=YdRa
+-----END PGP SIGNATURE-----
+
+--j4zidih6AkAbzGvE--
+
+--===============1062312574913485412==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1062312574913485412==--
