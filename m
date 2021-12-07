@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8183A46B53D
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:09:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B10946B532
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 09:09:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48ABCC60463;
-	Tue,  7 Dec 2021 08:09:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1CABC5F1F3;
+	Tue,  7 Dec 2021 08:09:08 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0D42C60460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7A85C5F1E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Dec 2021 08:09:15 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B749etU019774;
- Tue, 7 Dec 2021 09:08:58 +0100
+ Tue,  7 Dec 2021 08:09:07 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B75RNgu021902;
+ Tue, 7 Dec 2021 09:08:59 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=qquEqQQfTwFJc/VbXxhf77Z3Tf2disQV9OX8y/t31G4=;
- b=JCXArjhX008JMNQToBJi4UskMsQLm6Bopisu+ELgneFINdo6zn+ntZyvTd316LHabsJF
- n4McfXM+w3m0o7eNjITSjVVmksLlEQWQjplyZKMpMOG7FRypmnPnRVzpJGNTzRD9uwsY
- ufekuxVKAQ/sk70W16av/vOg9AKJYf1NkEqM5BFzhAMoghYzCwbnkYmPAwUq0bXhbOV5
- HwyU9SLhebx3kQNYlHFu6cCZf5wnfgw1sCtv5s+GVDhClV4poeU+V1gXthlMCN8nFweH
- G8TVFdno7tidCrztsVMIGXQj9pSlxUJeif9ZWwGJ+HQbmY4UU7URdMX64kxC41VLKrgC nw== 
+ bh=nuURO2W1SWhsAI0sfv3vm7CocfSqChGxGc5QjbrslfA=;
+ b=awLvh8qQICL/HqFha1BbUd6OI5hphEnErPEyteey9V5A3gf9i3jKnRWcFNLARzEEDPad
+ obGX8fW+Jwd1M3Y3xo4QlyIxVhEZWReQO3DQW+Xe7hvegA2XmVCPpgZUVrBDpbhDibUA
+ 5x2F0LHRLuSYM1MX1EIlBgR3GwInIQdEVCGLTdCHZJchLow4IsZ353K/uUKEdFmh2uhX
+ LmF5J7YWkG8TBLEI9oRg1TeE9RYMm5Ua5OCsURX8O4cMNC7JgiCNJkKVH7EzxbRtnavL
+ lhXWrE7M3JnkN4fwUGos3+scAJi5oV7Zb3Ixfd9WCvLrz1GELdNsVs+JfNS2cP3E4OLf 1A== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3csp32bc9g-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ct1fx8rgc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Dec 2021 09:08:58 +0100
+ Tue, 07 Dec 2021 09:08:59 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B3A2E10002A;
- Tue,  7 Dec 2021 09:08:57 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8326F100038;
+ Tue,  7 Dec 2021 09:08:58 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ABB0B2220B0;
- Tue,  7 Dec 2021 09:08:57 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7B5E22220AE;
+ Tue,  7 Dec 2021 09:08:58 +0100 (CET)
 Received: from localhost (10.75.127.48) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 7 Dec 2021 09:08:57
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 7 Dec 2021 09:08:58
  +0100
 From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
  <mathieu.poirier@linaro.org>
-Date: Tue, 7 Dec 2021 09:08:36 +0100
-Message-ID: <20211207080843.21222-7-arnaud.pouliquen@foss.st.com>
+Date: Tue, 7 Dec 2021 09:08:37 +0100
+Message-ID: <20211207080843.21222-8-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20211207080843.21222-1-arnaud.pouliquen@foss.st.com>
 References: <20211207080843.21222-1-arnaud.pouliquen@foss.st.com>
@@ -55,11 +55,11 @@ X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2021-12-07_03,2021-12-06_02,2021-12-02_01
-Cc: julien.massot@iot.bzh, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, arnaud.pouliquen@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v8 06/13] arm64: defconfig: Config that had
-	RPMSG_CHAR now gets RPMSG_CTRL
+Cc: julien.massot@iot.bzh, arnaud.pouliquen@foss.st.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v8 07/13] rpmsg: Update
+	rpmsg_chrdev_register_device function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,29 +76,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the patch "rpmsg: Move the rpmsg control device from rpmsg_char
-to rpmsg_ctrl", we split the rpmsg_char driver in two.
-By default give everyone who had the old driver enabled the rpmsg_ctrl
-driver too.
+The rpmsg_chrdev driver has been replaced by the rpmsg_ctrl driver
+for the /dev/rpmsg_ctrlX devices management. The reference for the
+driver override is now the rpmsg_ctrl.
+
+Update the rpmsg_chrdev_register_device function to reflect the update,
+and rename the function to use the rpmsg_ctrldev prefix.
+
+The platform drivers are updated accordingly.
 
 Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-cc: linux-arm-kernel@lists.infradead.org
+Reviewed-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/rpmsg/qcom_glink_native.c | 2 +-
+ drivers/rpmsg/qcom_smd.c          | 2 +-
+ drivers/rpmsg/rpmsg_ctrl.c        | 2 +-
+ drivers/rpmsg/rpmsg_internal.h    | 8 ++++----
+ drivers/rpmsg/virtio_rpmsg_bus.c  | 2 +-
+ 5 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index f2e2b9bdd702..34e721f1d561 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -1029,6 +1029,7 @@ CONFIG_QCOM_Q6V5_PAS=m
- CONFIG_QCOM_SYSMON=m
- CONFIG_QCOM_WCNSS_PIL=m
- CONFIG_RPMSG_CHAR=m
-+CONFIG_RPMSG_CTRL=m
- CONFIG_RPMSG_QCOM_GLINK_RPM=y
- CONFIG_RPMSG_QCOM_GLINK_SMEM=m
- CONFIG_RPMSG_QCOM_SMD=y
+diff --git a/drivers/rpmsg/qcom_glink_native.c b/drivers/rpmsg/qcom_glink_native.c
+index 1030cfa80e04..cf2c057b738c 100644
+--- a/drivers/rpmsg/qcom_glink_native.c
++++ b/drivers/rpmsg/qcom_glink_native.c
+@@ -1715,7 +1715,7 @@ static int qcom_glink_create_chrdev(struct qcom_glink *glink)
+ 	rpdev->dev.parent = glink->dev;
+ 	rpdev->dev.release = qcom_glink_device_release;
+ 
+-	return rpmsg_chrdev_register_device(rpdev);
++	return rpmsg_ctrldev_register_device(rpdev);
+ }
+ 
+ struct qcom_glink *qcom_glink_native_probe(struct device *dev,
+diff --git a/drivers/rpmsg/qcom_smd.c b/drivers/rpmsg/qcom_smd.c
+index 540e027f08c4..cd623e3e8aa9 100644
+--- a/drivers/rpmsg/qcom_smd.c
++++ b/drivers/rpmsg/qcom_smd.c
+@@ -1113,7 +1113,7 @@ static int qcom_smd_create_chrdev(struct qcom_smd_edge *edge)
+ 	qsdev->rpdev.dev.parent = &edge->dev;
+ 	qsdev->rpdev.dev.release = qcom_smd_release_device;
+ 
+-	return rpmsg_chrdev_register_device(&qsdev->rpdev);
++	return rpmsg_ctrldev_register_device(&qsdev->rpdev);
+ }
+ 
+ /*
+diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
+index 33c38cbf2b83..59d2bd264fdb 100644
+--- a/drivers/rpmsg/rpmsg_ctrl.c
++++ b/drivers/rpmsg/rpmsg_ctrl.c
+@@ -183,7 +183,7 @@ static struct rpmsg_driver rpmsg_ctrldev_driver = {
+ 	.probe = rpmsg_ctrldev_probe,
+ 	.remove = rpmsg_ctrldev_remove,
+ 	.drv = {
+-		.name = "rpmsg_chrdev",
++		.name = "rpmsg_ctrl",
+ 	},
+ };
+ 
+diff --git a/drivers/rpmsg/rpmsg_internal.h b/drivers/rpmsg/rpmsg_internal.h
+index 416316200bde..d4b23fd019a8 100644
+--- a/drivers/rpmsg/rpmsg_internal.h
++++ b/drivers/rpmsg/rpmsg_internal.h
+@@ -86,16 +86,16 @@ struct rpmsg_device *rpmsg_create_channel(struct rpmsg_device *rpdev,
+ int rpmsg_release_channel(struct rpmsg_device *rpdev,
+ 			  struct rpmsg_channel_info *chinfo);
+ /**
+- * rpmsg_chrdev_register_device() - register chrdev device based on rpdev
++ * rpmsg_ctrldev_register_device() - register a char device for control based on rpdev
+  * @rpdev:	prepared rpdev to be used for creating endpoints
+  *
+  * This function wraps rpmsg_register_device() preparing the rpdev for use as
+  * basis for the rpmsg chrdev.
+  */
+-static inline int rpmsg_chrdev_register_device(struct rpmsg_device *rpdev)
++static inline int rpmsg_ctrldev_register_device(struct rpmsg_device *rpdev)
+ {
+-	strcpy(rpdev->id.name, "rpmsg_chrdev");
+-	rpdev->driver_override = "rpmsg_chrdev";
++	strcpy(rpdev->id.name, "rpmsg_ctrl");
++	rpdev->driver_override = "rpmsg_ctrl";
+ 
+ 	return rpmsg_register_device(rpdev);
+ }
+diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+index c37451512835..7f786cc70df9 100644
+--- a/drivers/rpmsg/virtio_rpmsg_bus.c
++++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+@@ -849,7 +849,7 @@ static struct rpmsg_device *rpmsg_virtio_add_ctrl_dev(struct virtio_device *vdev
+ 	rpdev_ctrl->dev.release = virtio_rpmsg_release_device;
+ 	rpdev_ctrl->little_endian = virtio_is_little_endian(vrp->vdev);
+ 
+-	err = rpmsg_chrdev_register_device(rpdev_ctrl);
++	err = rpmsg_ctrldev_register_device(rpdev_ctrl);
+ 	if (err) {
+ 		kfree(vch);
+ 		return ERR_PTR(err);
 -- 
 2.17.1
 
