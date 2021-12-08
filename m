@@ -2,69 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8737846C0BA
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Dec 2021 17:29:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6606846C9D8
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 02:20:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25594C5F1E8;
-	Tue,  7 Dec 2021 16:29:44 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91E02C597BA
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Dec 2021 16:29:41 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F5E0C5F1E8;
+	Wed,  8 Dec 2021 01:20:52 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id CB803CE1C48
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 020A3C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Dec 2021 16:29:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04274C341D1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Dec 2021 16:29:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638894575;
- bh=EhrcWI9mWDI5wSadeNb9DYuTlUXsfjqAGucxFodehUM=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=HwQuodYiV1cvktr8DSD64ibwe4FqllvLmCAai+Estk/nHpPeuNuoI4/1vCJVB26Cn
- UYexeb4a/j4Wkw02s5R4pXWUeapZrbZlrsAPwxQmKl51fRrANByNdWu/BCxgZWE+tS
- 121mDNsMb8Q7Oop4vk5PEMJnbKzTBasSqymql6IBeAP2DewolTPf5y6sADA3594KPE
- xKqRu9gd/pbEMlaaZc+EIfmvBx6CLU3ZfXhs3qmp3XQuTDxfxL7DO53SnJ+WDOFVB+
- 0+x9zX5GOiE2lz2hVsNHnpapU/XfOzjFaTU78Wcnp1GTVlcf+Q5IveHfvmMBAGG7iO
- D00lVxWYrGYYw==
-Received: by mail-ed1-f47.google.com with SMTP id r11so58891924edd.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 07 Dec 2021 08:29:34 -0800 (PST)
-X-Gm-Message-State: AOAM532p2IKkOc/EaKUWjZrQElZE/lgZcoNzNumtmSpFDVFBbOBk+umt
- gHfUqyA9GjGJqVvuemXwxv122GpLqGUucXwlhg==
-X-Google-Smtp-Source: ABdhPJz98fbAnvVe1AhaSmP08wxHXrR8BpSqIXazh8lXQCVGqRo0DowpOQD1f/F8ykH7vGksg5xQxq1VgImntCBby0Y=
-X-Received: by 2002:a05:6402:84f:: with SMTP id
- b15mr5840714edz.342.1638894573258; 
- Tue, 07 Dec 2021 08:29:33 -0800 (PST)
+ Wed,  8 Dec 2021 01:20:49 +0000 (UTC)
+X-UUID: 7fbad56d52224e3d8cb0af2aa1b7785d-20211208
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=8MEfUWmmn3GyKsBzKhZSTZEmNpkk6avA7qVgY8BtriE=; 
+ b=bufZfLL/YW1OXhgCj+OVYknySZMrucfJ73JZdVMLJuvr6GbYOsYUVD2bzTLq9ypD4jcBb7QeISOFvLzW0Bpc+5mmfh2Jxu9+SlyxaOJAOkfY+OeQFGv4azNGjfs6ej4QwmdioYCQmiWUsLGAqO1zijOm1Fd5APfQWPlEP9EaaEg=;
+X-UUID: 7fbad56d52224e3d8cb0af2aa1b7785d-20211208
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
+ (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 465109991; Wed, 08 Dec 2021 09:20:45 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Wed, 8 Dec 2021 09:20:44 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 8 Dec 2021 09:20:43 +0800
+Message-ID: <25e2a50392beeb3e7c7428f53fac617a5a5b30f9.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Date: Wed, 8 Dec 2021 09:20:38 +0800
+In-Reply-To: <20211207064627.5623f3bf@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+References: <20211207015505.16746-1-biao.huang@mediatek.com>
+ <20211207064345.2c6427a1@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <20211207064627.5623f3bf@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-References: <20211206174153.2296977-1-robh@kernel.org>
- <Ya8cZ69WGfeh0G4I@orome.fritz.box>
-In-Reply-To: <Ya8cZ69WGfeh0G4I@orome.fritz.box>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 7 Dec 2021 10:29:21 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqLmeLKeORpPtUFAZc9Uy7uFc0DnVQuczkkEvDq8CyQN1w@mail.gmail.com>
-Message-ID: <CAL_JsqLmeLKeORpPtUFAZc9Uy7uFc0DnVQuczkkEvDq8CyQN1w@mail.gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>
-Cc: devicetree@vger.kernel.org, Grygorii Strashko <grygorii.strashko@ti.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Manivannan Sadhasivam <mani@kernel.org>, netdev@vger.kernel.org,
- linux-actions@lists.infradead.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
- "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: net: Add missing properties
-	used in examples
+X-MTK: N
+Cc: Jose Abreu <joabreu@synopsys.com>, srv_heupstream@mediatek.com,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ dkirjanov@suse.de, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH v5 0/7] MediaTek Ethernet Patches on MT8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,93 +64,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBEZWMgNywgMjAyMSBhdCAyOjMzIEFNIFRoaWVycnkgUmVkaW5nIDx0aGllcnJ5LnJl
-ZGluZ0BnbWFpbC5jb20+IHdyb3RlOgo+Cj4gT24gTW9uLCBEZWMgMDYsIDIwMjEgYXQgMTE6NDE6
-NTJBTSAtMDYwMCwgUm9iIEhlcnJpbmcgd3JvdGU6Cj4gPiBXaXRoICd1bmV2YWx1YXRlZFByb3Bl
-cnRpZXMnIHN1cHBvcnQgaW1wbGVtZW50ZWQsIHRoZSBmb2xsb3dpbmcgd2FybmluZ3MKPiA+IGFy
-ZSBnZW5lcmF0ZWQgaW4gdGhlIG5ldCBiaW5kaW5nczoKPiA+Cj4gPiBEb2N1bWVudGF0aW9uL2Rl
-dmljZXRyZWUvYmluZGluZ3MvbmV0L2FjdGlvbnMsb3dsLWVtYWMuZXhhbXBsZS5kdC55YW1sOiBl
-dGhlcm5ldEBiMDMxMDAwMDogVW5ldmFsdWF0ZWQgcHJvcGVydGllcyBhcmUgbm90IGFsbG93ZWQg
-KCdtZGlvJyB3YXMgdW5leHBlY3RlZCkKPiA+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy9uZXQvaW50ZWwsZHdtYWMtcGxhdC5leGFtcGxlLmR0LnlhbWw6IGV0aGVybmV0QDNhMDAw
-MDAwOiBVbmV2YWx1YXRlZCBwcm9wZXJ0aWVzIGFyZSBub3QgYWxsb3dlZCAoJ3NucHMscGJsJywg
-J21kaW8wJyB3ZXJlIHVuZXhwZWN0ZWQpCj4gPiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvbmV0L3FjYSxhcjcxeHguZXhhbXBsZS5kdC55YW1sOiBldGhlcm5ldEAxOTAwMDAwMDog
-VW5ldmFsdWF0ZWQgcHJvcGVydGllcyBhcmUgbm90IGFsbG93ZWQgKCdxY2EsZXRoY2ZnJyB3YXMg
-dW5leHBlY3RlZCkKPiA+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvcWNh
-LGFyNzF4eC5leGFtcGxlLmR0LnlhbWw6IGV0aGVybmV0QDFhMDAwMDAwOiBVbmV2YWx1YXRlZCBw
-cm9wZXJ0aWVzIGFyZSBub3QgYWxsb3dlZCAoJ21kaW8nIHdhcyB1bmV4cGVjdGVkKQo+ID4gRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9zdG0zMi1kd21hYy5leGFtcGxlLmR0
-LnlhbWw6IGV0aGVybmV0QDQwMDI4MDAwOiBVbmV2YWx1YXRlZCBwcm9wZXJ0aWVzIGFyZSBub3Qg
-YWxsb3dlZCAoJ3JlZy1uYW1lcycsICdzbnBzLHBibCcgd2VyZSB1bmV4cGVjdGVkKQo+ID4gRG9j
-dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC90aSxjcHN3LXN3aXRjaC5leGFtcGxl
-LmR0LnlhbWw6IG1kaW9AMTAwMDogVW5ldmFsdWF0ZWQgcHJvcGVydGllcyBhcmUgbm90IGFsbG93
-ZWQgKCdjbG9ja3MnLCAnY2xvY2stbmFtZXMnIHdlcmUgdW5leHBlY3RlZCkKPiA+IERvY3VtZW50
-YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvdGksazMtYW02NTQtY3Bzdy1udXNzLmV4YW1w
-bGUuZHQueWFtbDogbWRpb0BmMDA6IFVuZXZhbHVhdGVkIHByb3BlcnRpZXMgYXJlIG5vdCBhbGxv
-d2VkICgnY2xvY2tzJywgJ2Nsb2NrLW5hbWVzJyB3ZXJlIHVuZXhwZWN0ZWQpCj4gPgo+ID4gQWRk
-IHRoZSBtaXNzaW5nIHByb3BlcnRpZXMvbm9kZXMgYXMgbmVjZXNzYXJ5Lgo+ID4KPiA+IENjOiAi
-RGF2aWQgUy4gTWlsbGVyIiA8ZGF2ZW1AZGF2ZW1sb2Z0Lm5ldD4KPiA+IENjOiBKYWt1YiBLaWNp
-bnNraSA8a3ViYUBrZXJuZWwub3JnPgo+ID4gQ2M6ICJBbmRyZWFzIEbDpHJiZXIiIDxhZmFlcmJl
-ckBzdXNlLmRlPgo+ID4gQ2M6IE1hbml2YW5uYW4gU2FkaGFzaXZhbSA8bWFuaUBrZXJuZWwub3Jn
-Pgo+ID4gQ2M6IE1heGltZSBDb3F1ZWxpbiA8bWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbT4KPiA+
-IENjOiBBbGV4YW5kcmUgVG9yZ3VlIDxhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPgo+ID4g
-Q2M6IE5vYnVoaXJvIEl3YW1hdHN1IDxub2J1aGlybzEuaXdhbWF0c3VAdG9zaGliYS5jby5qcD4K
-PiA+IENjOiBDcmlzdGlhbiBDaW9jYWx0ZWEgPGNyaXN0aWFuLmNpb2NhbHRlYUBnbWFpbC5jb20+
-Cj4gPiBDYzogIkcuIEpheWEgS3VtYXJhbiIgPHZpbmVldGhhLmcuamF5YS5rdW1hcmFuQGludGVs
-LmNvbT4KPiA+IENjOiBPbGVrc2lqIFJlbXBlbCA8by5yZW1wZWxAcGVuZ3V0cm9uaXguZGU+Cj4g
-PiBDYzogQ2hyaXN0b3BoZSBSb3VsbGllciA8Y2hyaXN0b3BoZS5yb3VsbGllckBmb3NzLnN0LmNv
-bT4KPiA+IENjOiBHcnlnb3JpaSBTdHJhc2hrbyA8Z3J5Z29yaWkuc3RyYXNoa29AdGkuY29tPgo+
-ID4gQ2M6IG5ldGRldkB2Z2VyLmtlcm5lbC5vcmcKPiA+IENjOiBsaW51eC1hcm0ta2VybmVsQGxp
-c3RzLmluZnJhZGVhZC5vcmcKPiA+IENjOiBsaW51eC1hY3Rpb25zQGxpc3RzLmluZnJhZGVhZC5v
-cmcKPiA+IENjOiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCj4gPiBT
-aWduZWQtb2ZmLWJ5OiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPgo+ID4gLS0tCj4gPiAg
-Li4uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2FjdGlvbnMsb3dsLWVtYWMueWFtbCAgICAgICAg
-ICB8IDMgKysrCj4gPiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2ludGVsLGR3bWFjLXBs
-YXQueWFtbCAgICAgICAgICB8IDIgKy0KPiA+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvbmV0L3FjYSxhcjcxeHgueWFtbCAgICAgIHwgNSArKysrLQo+ID4gIERvY3VtZW50YXRp
-b24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvc3RtMzItZHdtYWMueWFtbCAgICAgfCA2ICsrKysr
-Kwo+ID4gIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvdGksZGF2aW5jaS1t
-ZGlvLnlhbWwgfCA3ICsrKysrKysKPiA+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvdG9z
-aGliYSx2aXNjb250aS1kd21hYy55YW1sICAgIHwgNSArKysrLQo+ID4gIDYgZmlsZXMgY2hhbmdl
-ZCwgMjUgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9hY3Rpb25zLG93bC1lbWFjLnlh
-bWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2FjdGlvbnMsb3dsLWVt
-YWMueWFtbAo+ID4gaW5kZXggMTYyNmUwYTgyMWIwLi5lOWMwZDYzNjBlNzQgMTAwNjQ0Cj4gPiAt
-LS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L2FjdGlvbnMsb3dsLWVt
-YWMueWFtbAo+ID4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9h
-Y3Rpb25zLG93bC1lbWFjLnlhbWwKPiA+IEBAIC01MSw2ICs1MSw5IEBAIHByb3BlcnRpZXM6Cj4g
-PiAgICAgIGRlc2NyaXB0aW9uOgo+ID4gICAgICAgIFBoYW5kbGUgdG8gdGhlIGRldmljZSBjb250
-YWluaW5nIGN1c3RvbSBjb25maWcuCj4gPgo+ID4gKyAgbWRpbzoKPiA+ICsgICAgdHlwZTogb2Jq
-ZWN0Cj4KPiBJbiBvbmUgb2YgdGhlIGNvbnZlcnNpb25zIEkndmUgYmVlbiB3b3JraW5nIG9uLCBJ
-J3ZlIHVzZWQgdGhpcyBjb25zdHJ1Y3QKPiBmb3IgdGhlIG1kaW8gbm9kZToKPgo+ICAgICAgICAg
-bWRpbzoKPiAgICAgICAgICAgJHJlZjogbWRpby55YW1sCj4KPiBJbiB0aGUgY2FzZXMgaGVyZSB0
-aGlzIG1heSBub3QgYmUgbmVjZXNzYXJ5IGJlY2F1c2Ugd2UgY291bGQgYWxzbyBtYXRjaAo+IG9u
-IHRoZSBjb21wYXRpYmxlIHN0cmluZywgYnV0IGZvciB0aGUgZXhhbXBsZSB0aGF0IEkndmUgYmVl
-biB3b3JraW5nIG9uCj4gdGhlcmUgaXMgbm8gY29tcGF0aWJsZSBzdHJpbmcgZm9yIHRoZSBNRElP
-IGJ1cywgc28gdGhhdCdzIG5vdCBhbiBvcHRpb24uCgokbm9kZW5hbWUgaXMgYWxzbyB1c2VkIHRv
-IG1hdGNoIGlmIHRoZXJlJ3Mgbm8gY29tcGF0aWJsZSwgc28gdGhlIGFib3ZlCmlzIHNvbWV3aGF0
-IHJlZHVuZGFudCAodGhlIHNjaGVtYSB3aWxsIGJlIGFwcGxpZWQgdHdpY2UpLiBNYXRjaGluZyBv
-bgp0aGUgbm9kZSBuYW1lIGlzIHVzZWZ1bCB3aGVyZSB3ZSBkb24ndCBoYXZlIGEgc3BlY2lmaWMg
-c2NoZW1hIGluIHBsYWNlCm9yIGlmIHlvdSB3YW50IHRvIHZhbGlkYXRlIERUIGZpbGVzIHdpdGgg
-anVzdCB0aGF0IHNjaGVtYSwgYnV0IHRoYXQncwpiZWNvbWluZyBsZXNzIHVzZWZ1bCBhcyB3ZSBn
-ZXQgc2NoZW1hcyBmb3IgZXZlcnl0aGluZy4KClRoaW5raW5nIGFib3V0IHRoaXMgc29tZSBtb3Jl
-LCB3aGF0IHdlIG5lZWQgZm9yIHRoZXNlIGlzOgoKbWRpbzoKICAkcmVmOiBtZGlvLnlhbWwKICB1
-bmV2YWx1YXRlZFByb3BlcnRpZXM6IGZhbHNlCgpCZWNhdXNlIG1kaW8ueWFtbCBvbiBpdHMgb3du
-IGlzIGluY29tcGxldGUgYW5kIGFsbG93cyBmb3IgYWRkaXRpb25hbApwcm9wZXJ0aWVzLiBUaGF0
-IGVuc3VyZXMgYWxsIHRoZSBwcm9wZXJ0aWVzIGFyZSBkb2N1bWVudGVkIGFuZCBubwpleHRyYSBw
-cm9wZXJ0aWVzIGFyZSBwcmVzZW50LgoKPiBPbiB0aGUgb3RoZXIgaGFuZCwgaXQgbG9va3MgbGlr
-ZSB0aGUgc25wcyxkd21hYy1tZGlvIHRoYXQgdGhlIGV4YW1wbGVzCj4gaGVyZSB1c2UgZG9uJ3Qg
-ZW5kIHVwIGluY2x1ZGluZyBtZGlvLnlhbWwsIHNvIG5vIHZhbGlkYXRpb24gKG9yIHJhdGhlcgo+
-IG9ubHkgdmVyeSBsaW1pdGVkIHZhbGlkYXRpb24pIHdpbGwgYmUgcGVyZm9ybWVkIG9uIHRoZWly
-IHByb3BlcnRpZXMgYW5kCj4gY2hpbGRyZW4uCgpUaGVyZSBpcyBtb3JlIHZhbGlkYXRpb24gdGhh
-biB5b3Ugd2VyZSB0aGlua2luZywgYnV0IGl0IGFsc28gbmVlZHMgdGhlCmFib3ZlIGFkZGVkLgoK
-Um9iCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+Dear Jakub,
+	Thanks for your comments~
+On Tue, 2021-12-07 at 06:46 -0800, Jakub Kicinski wrote:
+> On Tue, 7 Dec 2021 06:43:45 -0800 Jakub Kicinski wrote:
+> > On Tue, 7 Dec 2021 09:54:58 +0800 Biao Huang wrote:
+> > > Changes in v5:
+> > > 1. remove useless inclusion in dwmac-mediatek.c as Angelo's
+> > > comments.
+> > > 2. add acked-by in "net-next: stmmac: dwmac-mediatek: add support
+> > > for
+> > >    mt8195" patch  
+> > 
+> > Which tree is this series based on? It doesn't seem to apply to
+> > net-next. Also the net-next in the subjects is misplaced. If the
+> > series
+> > is supposed to be merged to net-next the subject should be like:
+> > 
+> > [PATCH net-next v5 1/7] stmmac: dwmac-mediatek: add platform level
+> > clocks management
+> > 
+> > You can use --subject-prefix="PATCH net-next v6" in git-format-
+> > patch to
+> > add the prefix.
+> 
+> FWIW patch 6 is the one with the conflict: "arm64: dts: mt8195: add
+> ethernet device node"
+I'll rebase to the latest net-next tree, and fix these issues in next
+send
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
