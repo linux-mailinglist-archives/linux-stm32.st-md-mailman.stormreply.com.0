@@ -2,42 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA94A46CBE1
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 05:04:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F86746CD33
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 06:34:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 806A8C5F1E8;
-	Wed,  8 Dec 2021 04:04:55 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B46CC5F1D8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Dec 2021 04:04:53 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55C61C5F1E8;
+	Wed,  8 Dec 2021 05:34:38 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id DD631B81F61;
- Wed,  8 Dec 2021 04:04:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF090C00446;
- Wed,  8 Dec 2021 04:04:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638936292;
- bh=1r558GTEUAd1QgB8UN7qYm8RGcn1C0as6rGvCpBhBdg=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=c01kKm4/EQD7+IVBOaAq4j4UcZQ8YLSq5USj5LOyOi9aX3+mCathluYcIjJ6SABi9
- g6J0suXdmg7hRkpTD9nD0lhFCoZ9yuz+Zha87gSo0B81XoZ5LO2IcTmUehjajCNvuc
- gWt2m4OLGEn4G+74hnr4wyEQsmZFGPgbqs+BzyXw+cYqOnnDz2TV5GBHl/eUIEKH0w
- ZnrENM1w3kmAGUmCml5MsV3rywh3o9w0nWgWiDRJzkVXkx4/Cj2N/skV24SooOyIGW
- vkgg4brNMcg56vFmOwqGqJSy8a5uKsKViW1Bz5YusbPYnG2t6+OaJWJFmi9JoUMoEz
- F8gDOIWeoA5Xw==
-Date: Tue, 7 Dec 2021 20:04:50 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Biao Huang <biao.huang@mediatek.com>
-Message-ID: <20211207200450.093f94a8@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20211208030354.31877-6-biao.huang@mediatek.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 471CCC5F1D8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  8 Dec 2021 05:34:35 +0000 (UTC)
+X-UUID: cf248f2ca8064c1ebb4fe1e09bec9971-20211208
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=cREHopv2I0vmXpVmvz4oR9TOg4BtDWc6c9ra60cPwdA=; 
+ b=on6EpM+AbDWjXT9jBYfizWJCj0ANlmQ2lRClcyvzjau6jLEswATkMDxC2n+Jf7eH/Hn8wFNaxc50vr5dX8Lrf297nDFRa3C5Qd1a9FV3ISNodXlBbTdJ8gy8GPRzWkCG4DBeeTDDIroPg6tDvqyLOBm6Ak72pvuDJdQXpcMjwKM=;
+X-UUID: cf248f2ca8064c1ebb4fe1e09bec9971-20211208
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 736930027; Wed, 08 Dec 2021 13:34:29 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 8 Dec 2021 13:34:28 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 8 Dec 2021 13:34:27 +0800
+Message-ID: <9d559afc6ae7c5f85bff222aa0c326f3f3e46fcf.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Date: Wed, 8 Dec 2021 13:34:23 +0800
+In-Reply-To: <20211207200450.093f94a8@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 References: <20211208030354.31877-1-biao.huang@mediatek.com>
  <20211208030354.31877-6-biao.huang@mediatek.com>
+ <20211207200450.093f94a8@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
+X-MTK: N
 Cc: Jose Abreu <joabreu@synopsys.com>, srv_heupstream@mediatek.com,
  devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
@@ -66,27 +70,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 8 Dec 2021 11:03:53 +0800 Biao Huang wrote:
-> Add Ethernet support for MediaTek SoCs from the mt8195 family.
+Dear Jakub,
+	Thanks for your comments.
+On Tue, 2021-12-07 at 20:04 -0800, Jakub Kicinski wrote:
+> On Wed, 8 Dec 2021 11:03:53 +0800 Biao Huang wrote:
+> > Add Ethernet support for MediaTek SoCs from the mt8195 family.
+> > 
+> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+> > Acked-by: AngeloGioacchino Del Regno <
+> > angelogioacchino.delregno@collabora.com>
 > 
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:439:3: warning: variable 'gtxc_delay_val' is uninitialized when used here [-Wuninitialized]
-                gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_ENABLE, !!mac_delay->tx_delay);
-                ^~~~~~~~~~~~~~
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:369:20: note: initialize the variable 'gtxc_delay_val' to silence this warning
-        u32 gtxc_delay_val, delay_val = 0, rmii_delay_val = 0;
-                          ^
-                           = 0
-1 warning generated.
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:439:3: warning: variable 'gtxc_delay_val' is uninitialized when used here [-Wuninitialized]
-                gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_ENABLE, !!mac_delay->tx_delay);
-                ^~~~~~~~~~~~~~
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:369:20: note: initialize the variable 'gtxc_delay_val' to silence this warning
-        u32 gtxc_delay_val, delay_val = 0, rmii_delay_val = 0;
-                          ^
-                           = 0
+> drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:439:3: warning:
+> variable 'gtxc_delay_val' is uninitialized when used here [-
+> Wuninitialized]
+>                 gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_ENABLE,
+> !!mac_delay->tx_delay);
+>                 ^~~~~~~~~~~~~~
+> drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:369:20: note:
+> initialize the variable 'gtxc_delay_val' to silence this warning
+>         u32 gtxc_delay_val, delay_val = 0, rmii_delay_val = 0;
+>                           ^
+>                            = 0
+> 1 warning generated.
+> drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:439:3: warning:
+> variable 'gtxc_delay_val' is uninitialized when used here [-
+> Wuninitialized]
+>                 gtxc_delay_val |= FIELD_PREP(MT8195_DLY_GTXC_ENABLE,
+> !!mac_delay->tx_delay);
+>                 ^~~~~~~~~~~~~~
+> drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:369:20: note:
+> initialize the variable 'gtxc_delay_val' to silence this warning
+>         u32 gtxc_delay_val, delay_val = 0, rmii_delay_val = 0;
+>                           ^
+>                            = 0
+I'll fix the uninitialized warning in next send.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
