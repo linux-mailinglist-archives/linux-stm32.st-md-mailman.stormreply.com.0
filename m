@@ -2,57 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6606846C9D8
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 02:20:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22E7546CB48
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 04:04:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F5E0C5F1E8;
-	Wed,  8 Dec 2021 01:20:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD7A6C5F1EA;
+	Wed,  8 Dec 2021 03:04:10 +0000 (UTC)
 Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 020A3C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4549C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Dec 2021 01:20:49 +0000 (UTC)
-X-UUID: 7fbad56d52224e3d8cb0af2aa1b7785d-20211208
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=8MEfUWmmn3GyKsBzKhZSTZEmNpkk6avA7qVgY8BtriE=; 
- b=bufZfLL/YW1OXhgCj+OVYknySZMrucfJ73JZdVMLJuvr6GbYOsYUVD2bzTLq9ypD4jcBb7QeISOFvLzW0Bpc+5mmfh2Jxu9+SlyxaOJAOkfY+OeQFGv4azNGjfs6ej4QwmdioYCQmiWUsLGAqO1zijOm1Fd5APfQWPlEP9EaaEg=;
-X-UUID: 7fbad56d52224e3d8cb0af2aa1b7785d-20211208
+ Wed,  8 Dec 2021 03:04:08 +0000 (UTC)
+X-UUID: ca472f1d17ca4b6dbdb6fc7c94ba8cf1-20211208
+X-UUID: ca472f1d17ca4b6dbdb6fc7c94ba8cf1-20211208
 Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw01.mediatek.com
  (envelope-from <biao.huang@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 465109991; Wed, 08 Dec 2021 09:20:45 +0800
+ with ESMTP id 498581839; Wed, 08 Dec 2021 11:04:02 +0800
 Received: from mtkcas10.mediatek.inc (172.21.101.39) by
  mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Wed, 8 Dec 2021 09:20:44 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 8 Dec 2021 09:20:43 +0800
-Message-ID: <25e2a50392beeb3e7c7428f53fac617a5a5b30f9.camel@mediatek.com>
+ Wed, 8 Dec 2021 11:04:02 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkcas10.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.0.1497.2 via Frontend Transport; Wed, 8 Dec 2021 11:04:01 +0800
 From: Biao Huang <biao.huang@mediatek.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Date: Wed, 8 Dec 2021 09:20:38 +0800
-In-Reply-To: <20211207064627.5623f3bf@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-References: <20211207015505.16746-1-biao.huang@mediatek.com>
- <20211207064345.2c6427a1@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <20211207064627.5623f3bf@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+To: <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>
+Date: Wed, 8 Dec 2021 11:03:48 +0800
+Message-ID: <20211208030354.31877-1-biao.huang@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-MTK: N
-Cc: Jose Abreu <joabreu@synopsys.com>, srv_heupstream@mediatek.com,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- dkirjanov@suse.de, Rob Herring <robh+dt@kernel.org>,
+ dkirjanov@suse.de, Jose Abreu <joabreu@synopsys.com>,
  linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH v5 0/7] MediaTek Ethernet Patches on MT8195
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
+Subject: [Linux-stm32] [PATCH net-next v6 0/6] MediaTek Ethernet Patches on
+	MT8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,34 +62,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear Jakub,
-	Thanks for your comments~
-On Tue, 2021-12-07 at 06:46 -0800, Jakub Kicinski wrote:
-> On Tue, 7 Dec 2021 06:43:45 -0800 Jakub Kicinski wrote:
-> > On Tue, 7 Dec 2021 09:54:58 +0800 Biao Huang wrote:
-> > > Changes in v5:
-> > > 1. remove useless inclusion in dwmac-mediatek.c as Angelo's
-> > > comments.
-> > > 2. add acked-by in "net-next: stmmac: dwmac-mediatek: add support
-> > > for
-> > >    mt8195" patch  
-> > 
-> > Which tree is this series based on? It doesn't seem to apply to
-> > net-next. Also the net-next in the subjects is misplaced. If the
-> > series
-> > is supposed to be merged to net-next the subject should be like:
-> > 
-> > [PATCH net-next v5 1/7] stmmac: dwmac-mediatek: add platform level
-> > clocks management
-> > 
-> > You can use --subject-prefix="PATCH net-next v6" in git-format-
-> > patch to
-> > add the prefix.
-> 
-> FWIW patch 6 is the one with the conflict: "arm64: dts: mt8195: add
-> ethernet device node"
-I'll rebase to the latest net-next tree, and fix these issues in next
-send
+Changes in v6:
+1. update commit message as Jacub's comments.
+2. split mt8195 eth dts patch("arm64: dts: mt8195: add ethernet device
+   node") from this series, since mt8195 dtsi/dts basic patches is still
+   under reviewing.
+   https://patchwork.kernel.org/project/linux-mediatek/list/?series=579071
+   we'll resend mt8195 eth dts patch once all the dependent patches are
+   accepted.
+
+Changes in v5:
+1. remove useless inclusion in dwmac-mediatek.c as Angelo's comments.
+2. add acked-by in "net-next: stmmac: dwmac-mediatek: add support for
+   mt8195" patch
+
+Changes in v4:
+1. add changes in commit message in "net-next: dt-bindings: dwmac:
+   Convert mediatek-dwmac to DT schema" patch.
+2. remove ethernet-controller.yaml since snps,dwmac.yaml already include it.
+
+Changes in v3:
+1. Add prefix "net-next" to support new IC as Denis's suggestion.
+2. Split dt-bindings to two patches, one for conversion, and the other for
+   new IC.
+3. add a new patch to update device node in mt2712-evb.dts to accommodate to
+   changes in driver.
+4. remove unnecessary wrapper as Angelo's suggestion.
+5. Add acked-by in "net-next: stmmac: dwmac-mediatek: Reuse more common
+   features" patch.
+
+Changes in v2:
+1. fix errors/warnings in mediatek-dwmac.yaml with upgraded dtschema tools
+
+This series include 5 patches:
+1. add platform level clocks management for dwmac-mediatek
+2. resue more common features defined in stmmac_platform.c
+3. add ethernet entry for mt8195
+4. convert mediatek-dwmac.txt to mediatek-dwmac.yaml
+
+
+Biao Huang (6):
+  stmmac: dwmac-mediatek: add platform level clocks management
+  stmmac: dwmac-mediatek: Reuse more common features
+  arm64: dts: mt2712: update ethernet device node
+  net: dt-bindings: dwmac: Convert mediatek-dwmac to DT schema
+  stmmac: dwmac-mediatek: add support for mt8195
+  net: dt-bindings: dwmac: add support for mt8195
+
+ .../bindings/net/mediatek-dwmac.txt           |  91 ------
+ .../bindings/net/mediatek-dwmac.yaml          | 210 ++++++++++++
+ arch/arm64/boot/dts/mediatek/mt2712-evb.dts   |   1 +
+ arch/arm64/boot/dts/mediatek/mt2712e.dtsi     |  14 +-
+ .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 306 ++++++++++++++++--
+ 5 files changed, 503 insertions(+), 119 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.txt
+ create mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+
+--
+2.18.0
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
