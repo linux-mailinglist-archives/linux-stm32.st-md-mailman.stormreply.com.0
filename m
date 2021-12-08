@@ -2,69 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27F4546D625
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 15:52:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38FAE46D99C
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 18:27:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBCCEC5F1E8;
-	Wed,  8 Dec 2021 14:52:10 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBAE7C5F1E8;
+	Wed,  8 Dec 2021 17:27:13 +0000 (UTC)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C8F9C5F1E1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACEF0C5F1E1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Dec 2021 14:52:10 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B89sqIR020212;
- Wed, 8 Dec 2021 15:51:52 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=IpuZOGwO/v7ipbt03x8yTn8Car/0TQpCG5NiK+X11ao=;
- b=8ck3ngzmTL3Z/pah5tFBBSgSPJFOfn5R30BELfAYwrlYVBzDmNKFT5Z1/GUmtaE/cHhi
- uXxs2YXAfZTlz1e8ute9dZP+JiMY76u5dWLV86a15TQYfIT3KskJTzQC2mP75Fxx2Njw
- hx7HHLlwoqOPKtS/SfsNMTTySxEcjL2bpFrYKdjpxcxVpltFPFvR8kbTfA9ZCYRuZcoq
- pLYYRRHauF4g7gzOdm3WdzyNt1i1wxEYGMJjsF/5GYMWfBYoPAjQgOruUslvwbMGLhsu
- 9Pop5tMVGjmyGczLWotKmu34RlDFNujAZkI5ByCJhAlgVLFLjgUxwfq9S8csDivcJMkH Uw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cttga9kby-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Dec 2021 15:51:52 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0DFC010002A;
- Wed,  8 Dec 2021 15:51:51 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 00A7E22CD49;
- Wed,  8 Dec 2021 15:51:51 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 8 Dec
- 2021 15:51:49 +0100
-To: Marc Zyngier <maz@kernel.org>
-References: <20211208130456.4002-1-alexandre.torgue@foss.st.com>
- <20211208130456.4002-3-alexandre.torgue@foss.st.com>
- <87fsr31aex.wl-maz@kernel.org>
- <fffb9758-8071-edd8-8fe9-d0d2a57fac05@foss.st.com>
- <87ee6n18im.wl-maz@kernel.org>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <701f4954-5dc8-9b4f-674c-c40d7e6e3df1@foss.st.com>
-Date: Wed, 8 Dec 2021 15:51:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Wed,  8 Dec 2021 17:27:11 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id m24so1958456pls.10
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 08 Dec 2021 09:27:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=m8VpMd4QQt4Wgj7pyIRFiqXG6HSsK0frykwiCUZYPoE=;
+ b=JaLaINinRsMmtnSF2KBDAcNmbP2oYmHFn0f7RfloS4CbaAXYj18vgZ2O/+lQ8QKj7y
+ 76dFhKZKkg15t25eSZu0aobxxt4lcXy2Ad29GMxTO+h4JkQYzzOL+7Zxb4xx2Fi0d0iE
+ YnqSm7MFlb+tZLEjG4CrkvqAeZxWvjWLKUFXyBfQx85Dqu75oO/6VZVAyVoJBIswK90E
+ LXP/ttWqRihx82SqtI3BqYGfmePYWAUE0f0X/tU5Li6Jqbvu8CplYhmoZL4NMOTPjC0d
+ x+0YnExbCw+36g1KFi9xXRQqr8xVwUR2HSzPtz/K/3eUWvMorfhCbnhvc6sw3599MAyt
+ XfoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=m8VpMd4QQt4Wgj7pyIRFiqXG6HSsK0frykwiCUZYPoE=;
+ b=gRF1mI+dXcK31zTqNyzE9AB0OhD/X1yz2n2IZRM7XHre5KiwBmut1wEcilctpFSMWq
+ Q49LABi0/5rcoDgWSWQhkSku6V9HLBCF6S4FIXRqd7qy436Xo+6ItaW5UjNvrWj7fjQv
+ bomnj6cR3ueRLHOq8glPK09+0R8N1jZYPjFnwTWmTL0PW7YKF+6MLarBn0GHltIYS6W9
+ XkV3fCVVL3Mm+5VySLbon3VTgYqJIX+Ji/96iCEC/gPj7fmr4DZNj8pF7Yi63rmcFwJp
+ IZBymyxRUsHCI3KQK+duclaRMxIWOMRgY+kjHa/ux9Ibc2DB30zsNpFFFYC2pMKAcS3v
+ PscA==
+X-Gm-Message-State: AOAM531jeQDsk2Hcn9Is3SvUFR35AE4h4s0Yh1JwXOf2atfTTywv0jtJ
+ 7ajIvv5YaCFC6MXUF7Bs2rCDug==
+X-Google-Smtp-Source: ABdhPJyaN+OyXY6UATU6r9jVTHsuum3aXZi5+UaSOv8+1kBsGUDZzxcsazbrHVbedPScGMFsPHBz8w==
+X-Received: by 2002:a17:903:285:b0:142:21ba:2191 with SMTP id
+ j5-20020a170903028500b0014221ba2191mr60809773plr.28.1638984430273; 
+ Wed, 08 Dec 2021 09:27:10 -0800 (PST)
+Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
+ by smtp.gmail.com with ESMTPSA id on5sm3714725pjb.23.2021.12.08.09.27.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Dec 2021 09:27:08 -0800 (PST)
+Date: Wed, 8 Dec 2021 10:27:06 -0700
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20211208172706.GA1138949@p14s>
+References: <20211206190758.10004-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <87ee6n18im.wl-maz@kernel.org>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-08_05,2021-12-08_01,2021-12-02_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/3] irqchip/stm32-exti: add STM32MP13
-	support
+Content-Disposition: inline
+In-Reply-To: <20211206190758.10004-1-arnaud.pouliquen@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH] rpmsg: core: Clean up resources on
+ announce_create failure.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,46 +71,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/8/21 3:22 PM, Marc Zyngier wrote:
-> Hi Alexandre,
+On Mon, Dec 06, 2021 at 08:07:58PM +0100, Arnaud Pouliquen wrote:
+> During the rpmsg_dev_probe, if rpdev->ops->announce_create returns an
+> error, the rpmsg device and default endpoint should be freed before
+> exiting the function.
 > 
-> On Wed, 08 Dec 2021 13:58:46 +0000,
-> Alexandre TORGUE <alexandre.torgue@foss.st.com> wrote:
->>
->>> Why does the driver need to carry these tables? This sort of
->>> information should really come from DT, instead of being hardcoded in
->>> the driver and bloating it for no reason. This all has a funny taste
->>> of the board files we used to have pre-DT.
->>>
->>
->> There are absolutely no reason to have it in driver. Honestly It has
->> been done in this way to have minimal changes adding this new SoC
->> support (and it's not smart, I agree).
->>
->> I think it is better to abandon this series. I will create a new one
->> which moves mapping table for MP15 and adds MP13 support to.
+> Fixes: 5e619b48677c ("rpmsg: Split rpmsg core and virtio backend")
+> Suggested-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+>  drivers/rpmsg/rpmsg_core.c | 20 ++++++++++++++++----
+>  1 file changed, 16 insertions(+), 4 deletions(-)
 > 
-> I'm afraid you'll have to keep the in-kernel table for MP15, since the
-> driver needs to work with old DTs. For new SoCs (such as MP13), moving
-> the table into DT would be good.
+> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
+> index 27aad6baf7c5..12d7b7c6e5f9 100644
+> --- a/drivers/rpmsg/rpmsg_core.c
+> +++ b/drivers/rpmsg/rpmsg_core.c
+> @@ -612,13 +612,25 @@ static int rpmsg_dev_probe(struct device *dev)
+>  	err = rpdrv->probe(rpdev);
+>  	if (err) {
+>  		dev_err(dev, "%s: failed: %d\n", __func__, err);
+> -		if (ept)
+> -			rpmsg_destroy_ept(ept);
+> -		goto out;
+> +		goto destroy_ept;
+>  	}
+>  
+> -	if (ept && rpdev->ops->announce_create)
+> +	if (ept && rpdev->ops->announce_create) {
+>  		err = rpdev->ops->announce_create(rpdev);
+> +		if (err) {
+> +			dev_err(dev, "failed to announce creation\n");
+> +			goto remove_rpdev;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +
+> +remove_rpdev:
+> +	if (rpdrv->remove)
+> +		rpdrv->remove(rpdev);
+> +destroy_ept:
+> +	if (ept)
+> +		rpmsg_destroy_ept(ept);
+>  out:
+>  	return err;
 
-I can try to have both for MP15:use new mechanism as MP13 and keep the 
-table inside the driver as a fallback if DT mapping is not provided (for 
-old DT).
+Applied.
 
-Thanks
+Thanks,
+Mathieu
 
+>  }
+> -- 
+> 2.17.1
 > 
-> Thanks,
-> 
-> 	M.
-> 
-
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
