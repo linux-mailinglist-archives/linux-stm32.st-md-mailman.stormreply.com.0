@@ -2,62 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48F3346D118
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 11:33:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C007346D308
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 13:08:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D15CC5F1F5;
-	Wed,  8 Dec 2021 10:33:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 685CBC5F1E8;
+	Wed,  8 Dec 2021 12:08:46 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DEEB3C5F1EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2B8FC5F1E2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Dec 2021 10:33:42 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B89pLPd009148;
- Wed, 8 Dec 2021 11:33:26 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=GYxfSXf9w2NFMXCcNiHGT9pdbGEG14Y73aVi9O0OxeE=;
- b=hY8fbsDBOl4Iw05EG5pauOT8JyP923N05oSoyYtjPo4/IFQsYh9i4QfchGwRdkReP2wb
- eI55cXor4qc+hUVraf98ieLpok0jXcOvuVxYQnTI1WR68l95m6XQcIKGQs09GWqrX/Se
- JGCBYx+C3DvLjUESL6HEqTle5LrgUXteFdNBcBxnzI61q6wBpGa2XOsaH8W6VPPz1aD7
- dzb157XIqJgPzue8D2vR2SxtZRbum0iHFS7bnae1L68n2KfxXETzfSErusZzVoNd1YLr
- YvfbTkZokTP7Wa6P/PBFfWJGTT1s0qsj+cAzq79WU6epetXeprgkmSTwNQd8VcHl1Vjm cg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ct9xm4emc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Dec 2021 11:33:26 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B64D510002A;
- Wed,  8 Dec 2021 11:33:25 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id ADAFA23153B;
- Wed,  8 Dec 2021 11:33:25 +0100 (CET)
-Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 8 Dec 2021 11:33:25
- +0100
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <alexandre.torgue@foss.st.com>, <robh+dt@kernel.org>
-Date: Wed, 8 Dec 2021 11:33:16 +0100
-Message-ID: <1638959596-6656-3-git-send-email-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1638959596-6656-1-git-send-email-fabrice.gasnier@foss.st.com>
-References: <1638959596-6656-1-git-send-email-fabrice.gasnier@foss.st.com>
+ Wed,  8 Dec 2021 12:08:44 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ g191-20020a1c9dc8000000b0032fbf912885so1623747wme.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 08 Dec 2021 04:08:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=R1D6vu1LwULEAHB02GfzTtDg6CGj6MOMTTzNmc1nbxo=;
+ b=KQcEugiexb23klmZMI5tSlYPQm99/Zv4PPINCgHpDwY3fjhv8d0Zyt/TJihnvq0Ubc
+ ulosvJ/VXLX1hsUssnt5uBohWJZavOjioliqCxG6+Fd8okWoYwHI2BVepUSR0LBr86HD
+ skDjsgdbR4jSE6lb4q4Zlx9xgvaWcPL5d3HZlJwf7MaAII/UBpHDs5GKMn8vC3hcqSa3
+ j4/ExVLga/qmDqhXUjoeArZW4LSTad6LvvGw661WNvCjd6p1lh2C7KtyBv3dDjDaftSb
+ XhUy+zdWjtjEKSsqIID9dZjM+D3L0QtRBY1Wti5aUSzDt2JGywGA79EdQUO47xDDGRwp
+ aTAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=R1D6vu1LwULEAHB02GfzTtDg6CGj6MOMTTzNmc1nbxo=;
+ b=qrnqnAGqeufPwdZ2d7Lc7QjWBquXbcUjC9JLlrSYldBn5nN5xCEVftoTW6JhgeMXiG
+ CigoCzCqXe/vWkSy1xIPou6FV5OzdvP9arItz+YoX4rJm6DRyE4c8zMQgZK64JJRgrVs
+ FAlzgu0o8MlNlcuy/Yy5QKzZGf6WyQw5l8SGTnNKXMVMddAoRu+MWwkpNgBxLw4OsIp8
+ yrC/unr2+7BLcZxclGGzmRhpeOeuFJ4ynUhAGc+t0Put6hjNqYVfzg07PaGc11j6mBVU
+ IUHLxZIPw7wO3oeuTHy48XmULT8zlTWQpMywRO+azHNDgKqKXX9c7P/5rKYnPYUHpaF0
+ XLbw==
+X-Gm-Message-State: AOAM531B09H4XigdshorinVtAYluQhwtc5W62nzqCNSIzXcZMRgXzXh5
+ QlEKdpFyjcwJxYzlmmfmzeSj/w==
+X-Google-Smtp-Source: ABdhPJwP41Y8jw1WGUE8GAzmHo4vkR9Ff92/aNI150r9LWBWlHejIG/y9c1S8ZGyrHAs6k1jt25u+w==
+X-Received: by 2002:a05:600c:2252:: with SMTP id
+ a18mr15774810wmm.133.1638965324354; 
+ Wed, 08 Dec 2021 04:08:44 -0800 (PST)
+Received: from google.com ([2.31.167.18])
+ by smtp.gmail.com with ESMTPSA id u13sm6297713wmq.14.2021.12.08.04.08.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Dec 2021 04:08:43 -0800 (PST)
+Date: Wed, 8 Dec 2021 12:08:41 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <YbCgSeA1++U82jtn@google.com>
+References: <20211125144053.774-1-olivier.moysan@foss.st.com>
+ <20211125144053.774-2-olivier.moysan@foss.st.com>
+ <1637875562.357461.2858318.nullmailer@robh.at.kernel.org>
+ <237f56b3-0597-2526-a182-f1fbdd327338@foss.st.com>
+ <Yaf4jiZIp8+ndaXs@robh.at.kernel.org>
+ <627777a4-7458-88ed-e7c5-d11e3db847b5@foss.st.com>
+ <cf5f994b-aecf-e051-f5c9-4a46e6414207@pengutronix.de>
+ <cb7f19c0-3826-fcc8-227c-982838acf599@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-08_03,2021-12-08_01,2021-12-02_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <cb7f19c0-3826-fcc8-227c-982838acf599@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, alain.volmat@foss.st.com,
+ arnaud.pouliquen@foss.st.com, Fabrice GASNIER <fabrice.gasnier@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: remove timer5 duplicate
-	unit-address on stm32f4 series
+Subject: Re: [Linux-stm32] [PATCH v2 1/4] ASoC: dt-bindings: stm32: i2s: add
+ audio-graph-card port
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,132 +84,96 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Remove the following warnings seen when building with W=1.
-Warning (unique_unit_address): /soc/timer@40000c00: duplicate unit-address
-(also used in node /soc/timers@40000c00)
-This approach is based on some discussions[1], to restructure the dtsi
-and dts files.
-
-Timer5 is enabled by default on stm32f4 series, to act as clockevent. In
-order to get rid of the W=1 warning, and be compliant with dt-schemas
-(e.g. dtbs_check):
-- In stm32f429.dtsi:
-  . Keep the more complete timers5 description
-  . Remove the most simple timer5 node that is duplicate
-- In each board:
-  . adopt "st,stm32-timer" compatible for timers5, also add the interrupt
-  . use /delete-property/ and /delete-node/ so the it matches the
-    clockevent bindings
-
-Note: all this is done in one shot (e.g. not split) to keep clockevent
-functionality.
-
-[1] https://lore.kernel.org/linux-arm-kernel/Yaf4jiZIp8+ndaXs@robh.at.kernel.org/
-
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- arch/arm/boot/dts/stm32429i-eval.dts  | 12 ++++++++++++
- arch/arm/boot/dts/stm32f429-disco.dts | 12 ++++++++++++
- arch/arm/boot/dts/stm32f429.dtsi      |  7 -------
- arch/arm/boot/dts/stm32f469-disco.dts | 12 ++++++++++++
- 4 files changed, 36 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm/boot/dts/stm32429i-eval.dts b/arch/arm/boot/dts/stm32429i-eval.dts
-index cb46326..0d98aca 100644
---- a/arch/arm/boot/dts/stm32429i-eval.dts
-+++ b/arch/arm/boot/dts/stm32429i-eval.dts
-@@ -308,6 +308,18 @@
- 	};
- };
- 
-+&timers5 {
-+	/* Override timer5 to act as clockevent */
-+	compatible = "st,stm32-timer";
-+	interrupts = <50>;
-+	status = "okay";
-+	/delete-property/#address-cells;
-+	/delete-property/#size-cells;
-+	/delete-property/clock-names;
-+	/delete-node/pwm;
-+	/delete-node/timer@4;
-+};
-+
- &usart1 {
- 	pinctrl-0 = <&usart1_pins_a>;
- 	pinctrl-names = "default";
-diff --git a/arch/arm/boot/dts/stm32f429-disco.dts b/arch/arm/boot/dts/stm32f429-disco.dts
-index 075ac57..06a7091 100644
---- a/arch/arm/boot/dts/stm32f429-disco.dts
-+++ b/arch/arm/boot/dts/stm32f429-disco.dts
-@@ -205,6 +205,18 @@
- 	};
- };
- 
-+&timers5 {
-+	/* Override timer5 to act as clockevent */
-+	compatible = "st,stm32-timer";
-+	interrupts = <50>;
-+	status = "okay";
-+	/delete-property/#address-cells;
-+	/delete-property/#size-cells;
-+	/delete-property/clock-names;
-+	/delete-node/pwm;
-+	/delete-node/timer@4;
-+};
-+
- &usart1 {
- 	pinctrl-0 = <&usart1_pins_a>;
- 	pinctrl-names = "default";
-diff --git a/arch/arm/boot/dts/stm32f429.dtsi b/arch/arm/boot/dts/stm32f429.dtsi
-index f21b322..1723346 100644
---- a/arch/arm/boot/dts/stm32f429.dtsi
-+++ b/arch/arm/boot/dts/stm32f429.dtsi
-@@ -159,13 +159,6 @@
- 			};
- 		};
- 
--		timer5: timer@40000c00 {
--			compatible = "st,stm32-timer";
--			reg = <0x40000c00 0x400>;
--			interrupts = <50>;
--			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM5)>;
--		};
--
- 		timers5: timers@40000c00 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-diff --git a/arch/arm/boot/dts/stm32f469-disco.dts b/arch/arm/boot/dts/stm32f469-disco.dts
-index 30905ce6..cac3a67 100644
---- a/arch/arm/boot/dts/stm32f469-disco.dts
-+++ b/arch/arm/boot/dts/stm32f469-disco.dts
-@@ -224,6 +224,18 @@
- 	bus-width = <4>;
- };
- 
-+&timers5 {
-+	/* Override timer5 to act as clockevent */
-+	compatible = "st,stm32-timer";
-+	interrupts = <50>;
-+	status = "okay";
-+	/delete-property/#address-cells;
-+	/delete-property/#size-cells;
-+	/delete-property/clock-names;
-+	/delete-node/pwm;
-+	/delete-node/timer@4;
-+};
-+
- &usart3 {
- 	pinctrl-0 = <&usart3_pins_a>;
- 	pinctrl-names = "default";
--- 
-2.7.4
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCAwOCBEZWMgMjAyMSwgQWxleGFuZHJlIFRPUkdVRSB3cm90ZToKCj4gSGkgQWhtYWQK
+PiAKPiBPbiAxMi83LzIxIDI6NTkgUE0sIEFobWFkIEZhdG91bSB3cm90ZToKPiA+IEhlbGxvIEFs
+ZXgsCj4gPiAKPiA+IE9uIDA3LjEyLjIxIDE0OjUyLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3RlOgo+
+ID4gPiBIaSBSb2IKPiA+ID4gCj4gPiA+IE9uIDEyLzEvMjEgMTE6MzQgUE0sIFJvYiBIZXJyaW5n
+IHdyb3RlOgo+ID4gPiA+IE9uIEZyaSwgTm92IDI2LCAyMDIxIGF0IDExOjI1OjI3QU0gKzAxMDAs
+IE9saXZpZXIgTU9ZU0FOIHdyb3RlOgo+ID4gPiA+ID4gSGkgUm9iLAo+ID4gPiA+ID4gCj4gPiA+
+ID4gPiBPbiAxMS8yNS8yMSAxMDoyNiBQTSwgUm9iIEhlcnJpbmcgd3JvdGU6Cj4gPiA+ID4gPiA+
+IE9uIFRodSwgMjUgTm92IDIwMjEgMTU6NDA6NTAgKzAxMDAsIE9saXZpZXIgTW95c2FuIHdyb3Rl
+Ogo+ID4gPiA+ID4gPiA+IFRoZSBTVE0yIEkyUyBEQUkgY2FuIGJlIGNvbm5lY3RlZCB2aWEgdGhl
+IGF1ZGlvLWdyYXBoLWNhcmQuCj4gPiA+ID4gPiA+ID4gQWRkIHBvcnQgZW50cnkgaW50byB0aGUg
+YmluZGluZ3MuCj4gPiA+ID4gPiA+ID4gCj4gPiA+ID4gPiA+ID4gU2lnbmVkLW9mZi1ieTogT2xp
+dmllciBNb3lzYW4gPG9saXZpZXIubW95c2FuQGZvc3Muc3QuY29tPgo+ID4gPiA+ID4gPiA+IC0t
+LQo+ID4gPiA+ID4gPiA+ICDCoMKgIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9z
+b3VuZC9zdCxzdG0zMi1pMnMueWFtbCB8IDUgKysrKysKPiA+ID4gPiA+ID4gPiAgwqDCoCAxIGZp
+bGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspCj4gPiA+ID4gPiA+ID4gCj4gPiA+ID4gPiA+IAo+
+ID4gPiA+ID4gPiBSdW5uaW5nICdtYWtlIGR0YnNfY2hlY2snIHdpdGggdGhlIHNjaGVtYSBpbiB0
+aGlzIHBhdGNoIGdpdmVzIHRoZQo+ID4gPiA+ID4gPiBmb2xsb3dpbmcgd2FybmluZ3MuIENvbnNp
+ZGVyIGlmIHRoZXkgYXJlIGV4cGVjdGVkIG9yIHRoZSBzY2hlbWEgaXMKPiA+ID4gPiA+ID4gaW5j
+b3JyZWN0LiBUaGVzZSBtYXkgbm90IGJlIG5ldyB3YXJuaW5ncy4KPiA+ID4gPiA+ID4gCj4gPiA+
+ID4gPiA+IE5vdGUgdGhhdCBpdCBpcyBub3QgeWV0IGEgcmVxdWlyZW1lbnQgdG8gaGF2ZSAwIHdh
+cm5pbmdzIGZvciBkdGJzX2NoZWNrLgo+ID4gPiA+ID4gPiBUaGlzIHdpbGwgY2hhbmdlIGluIHRo
+ZSBmdXR1cmUuCj4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBGdWxsIGxvZyBpcyBhdmFpbGFibGUg
+aGVyZTogaHR0cHM6Ly9wYXRjaHdvcmsub3psYWJzLm9yZy9wYXRjaC8xNTU5NzUwCj4gPiA+ID4g
+PiA+IAo+ID4gPiA+ID4gPiAKPiA+ID4gPiA+ID4gYXVkaW8tY29udHJvbGxlckA0MDAwYjAwMDog
+J3BvcnQnIGRvZXMgbm90IG1hdGNoIGFueSBvZiB0aGUgcmVnZXhlczogJ15wb3J0QFswLTldJywg
+J3BpbmN0cmwtWzAtOV0rJwo+ID4gPiA+ID4gPiAgwqDCoMKgwqBhcmNoL2FybS9ib290L2R0cy9z
+dG0zMm1wMTU3YS1kazEuZHQueWFtbAo+ID4gPiA+ID4gPiAgwqDCoMKgwqBhcmNoL2FybS9ib290
+L2R0cy9zdG0zMm1wMTU3Yy1kazIuZHQueWFtbAo+ID4gPiA+ID4gPiAKPiA+ID4gPiA+IAo+ID4g
+PiA+ID4gVGhpcyB3YXJuaW5nIGlzIG5vdCBhIG5ldyBvbmUuCj4gPiA+ID4gPiAKPiA+ID4gPiA+
+IFRoZSBpMnMyIG5vZGUgaW4gc3RtMzJtcDE1eHgtZGt4LmR0c2kgd291bGQgcmVxdWlyZSB0aGUg
+Zm9sbG93aW5nIGJpbmRpbmc6Cj4gPiA+ID4gPiBwb3J0Ogo+ID4gPiA+ID4gIMKgwqDCoMKgJHJl
+ZjogYXVkaW8tZ3JhcGgtcG9ydC55YW1sIwo+ID4gPiA+ID4gIMKgwqDCoMKgdW5ldmFsdWF0ZWRQ
+cm9wZXJ0aWVzOiBmYWxzZQo+ID4gPiA+ID4gCj4gPiA+ID4gPiBIb3dldmVyIHRoZSBzcGkgYmlu
+ZGluZyByZXF1aXJlcyB0byBpbnRyb2R1Y2UgYSB1bml0IGFkZHJlc3M6Cj4gPiA+ID4gPiBwYXR0
+ZXJuUHJvcGVydGllczoKPiA+ID4gPiA+ICDCoMKgICdecG9ydEBbMC05XSc6Cj4gPiA+ID4gPiAg
+wqDCoMKgwqAgJHJlZjogYXVkaW8tZ3JhcGgtcG9ydC55YW1sIwo+ID4gPiA+ID4gIMKgwqDCoMKg
+IHVuZXZhbHVhdGVkUHJvcGVydGllczogZmFsc2UKPiA+ID4gPiA+IAo+ID4gPiA+ID4gVGhlIHdh
+cm5pbmcgY2FuIGJlIHJlbW92ZWQgYnkgcmUtb3JkZXJpbmcgdGhlIGJpbmRpbmdzIHBhdGNoZXMg
+aW4gdGhlIHNlcmllLAo+ID4gPiA+ID4gYXMgImFkZGl0aW9uYWxQcm9wZXJ0aWVzOiB0cnVlIiBt
+YWtlcyB0aGUgY2hlY2sgbW9yZSB0b2xlcmFudCBvbiBleHRyYQo+ID4gPiA+ID4gcHJvcGVydGll
+cy4KPiA+ID4gPiAKPiA+ID4gPiBUaGF0J3MgbmV2ZXIgcmlnaHQuCj4gPiA+ID4gCj4gPiA+ID4g
+PiBUaGUgcGF0Y2ggIkFTb0M6IGR0LWJpbmRpbmdzOiBzdG0zMjogaTJzOiBhZGQgYXVkaW8tZ3Jh
+cGgtY2FyZCBwb3J0IiBjYW4KPiA+ID4gPiA+IGV2ZW4gYmUgbWVyZWx5IGRyb3BwZWQuCj4gPiA+
+ID4gPiBTbywgSSBzdWdnZXN0IHRvIHJlc2VuZCB0aGUgc2VyaWUgd2l0aG91dCBhdWRpby1ncmFw
+aC1jYXJkIHBhdGNoLgo+ID4gPiA+IAo+ID4gPiA+IE9ubHkgaWYgeW91IGFyZW4ndCB1c2luZyBh
+dWRpby1ncmFwaC1jYXJkLgo+ID4gPiA+IAo+ID4gPiA+ID4gCj4gPiA+ID4gPiBEb2VzIGl0IHNv
+dW5kIHRvbyBwZXJtaXNzaXZlIHRvIHlvdSA/Cj4gPiA+ID4gCj4gPiA+ID4gSSB0aGluayBwZXJo
+YXBzIHlvdSBuZWVkIHRvIGNvbWJpbmUgdGhlIHNjaGVtYXMgaW50byAxLiBPciB5b3UgbmVlZCB0
+bwo+ID4gPiA+IHJlc3RydWN0dXJlIHlvdXIgZHRzaSBmaWxlcyBzdWNoIHRoYXQgeW91IG9ubHkg
+YWRkIHNwaSBzcGVjaWZpYwo+ID4gPiA+IHByb3BlcnRpZXMgd2hlbiBzcGkgbW9kZSBpcyBlbmFi
+bGVkIGFuZCBvbmx5IGFkZCBpMnMgc3BlY2lmaWMgcHJvcGVydGllcwo+ID4gPiA+IHdoZW4gaTJz
+IG1vZGUgaXMgZW5hYmxlZC4gT3IgdXNlIHRoZSAvZGVsZXRlLXByb3BlcnR5LyBkaXJlY3RpdmUu
+Cj4gPiA+IAo+ID4gPiBJbml0aWFsbHkgdGhlIGFpbSBvZiB0aGlzIHNlcmllcyB3YXMgdG8gZml4
+IGEgIm1ha2UgVz0xIiB3YXJuaW5ncyBzZWVuIG9uIHNwaSBhbmQgaTJzIG5vZGVzIChkdXBsaWNh
+dGUgdW5pdC1hZGRyZXNzKS4gTW92aW5nIGJvdGggbm9kZXMgaW4gYSBjb21tb24gbm9kZSArIHVz
+aW5nIGEgZGlmZmVyZW50IGNvbXBhdGlibGUgZGVwZW5kaW5nIG9uIFNQSSBvciBJMlMgdXNhZ2Ug
+c291bmRlZCBnb29kKSBidXQgaXQgaXMgbm90IGVub3VnaC4gSW4gdGhpcyBzZXJpZXMgdGhlIGNv
+bW1vbiBub2RlIGlzIG5hbWVkIGFzIGZvbGxvd2luZzogInNwaTJzMjogc3BpQDQwMDBiMDAwIi4g
+SXQgaXMgZmluZSBmb3IgYSBzcGkgdXNhZ2UgYnV0IGlmIHdlIHdhbnQgdG8gdXNlIHRoaXMgImNv
+bW1vbiBub2RlIiB3aXRoIEkyUyBjb21wYXRpYmxlIGFuZCBzcGVjaWZpYyBiaW5kaW5ncywgdGhl
+IG5vZGUgbmFtZSByZW1haW5zIHNwaUAuLi4gYW5kIHRoZW4gc3BlY2lmaWMgc3BpIGNoZWNrcyBh
+cmUgZG9uZS4gRm9yIHRoaXMgd2l0aCB0aGlzIHNlcmllcyBhcHBsaWVkIHdlIGdvdCB0aGlzIGlz
+c3VlIHJlcG9ydGVkIGJ5IHNwaS1jb250cm9sbGVyLnlhbWw6Cj4gPiA+IAo+ID4gPiBzcGlANDAw
+MGIwMDA6IHBvcnRAMDogJ2NvbXBhdGlibGUnIGlzIGEgcmVxdWlyZWQgcHJvcGVydHkKPiA+ID4g
+Cj4gPiA+IFNvLCBpZiB3ZSB1c2UgdHdvIHNlcGFyYXRlcyBub2RlcyB3ZSBnb3QgVz0xIHdhcm5p
+bmcgYW5kIGlmIHdlIHVzZSBhIGNvbW1vbiBub2RlIHdlIGdvdCB5YW1sIGNoZWNrIGlzc3VlLiBP
+bmUgcG9zc2liaWxpdHkgd291bGQgYmUgdG8gdXNlIGEgY29tbW9uIG5vZGUgd2l0aCBhIG5ldyBu
+b2RlIG5hbWUgKGZvciBleGFtcGxlIGkyc3BpQC4uLikgYnV0IEkgdGhpbmsgaXQgaXMgbm90IGFj
+Y2VwdGFibGUuCj4gPiA+IAo+ID4gPiBIb3cgdG8gcHJvZ3Jlc3MgPwo+ID4gCj4gPiBBdG1lbCBG
+bGV4Y29tIGNhbiBiZSBjb25maWd1cmVkIHRvIGJlIGVpdGhlciBVQVJULCBTUEkgb3IgaTJjLiBG
+dW5jdGlvbnMKPiA+IGFyZSBjaGlsZCBub2RlcyBvZiB0aGUgZmxleGNvbSBub2RlIGFuZCB0aGUg
+TUZEIGRyaXZlciBtYXRjaGluZyBhZ2FpbnN0IGl0LAo+ID4ganVzdCBjb25maWd1cmUgdGhlIG9w
+ZXJhdGluZyBtb2RlIGFuZCB0aGVuIGNhbGxzIG9mX3BsYXRmb3JtX3BvcHVsYXRlLgo+ID4gCj4g
+PiBXb3VsZCBzb21ldGhpbmcgYWxvbmcgdGhlc2UgbGluZXMgZml0IGhlcmUgYXMgd2VsbD8KPiAK
+PiBZZXMgaXQgY291bGQgYnV0IGluIG15IG1pbmQgaXQgd2FzIG5vdCBhIE1GRCBhcyBib3RoIGZl
+YXR1cmUgY2Fubm90IGJlIHVzZWQKPiBhdCB0aGUgc2FtZSB0aW1lOiBpdCBpcyBlaXRoZXIgU1BJ
+IG9yIEkyUyBhbmQgY2hvaWNlIGlzIGRvbmUgInN0YXRpY2FsbHkiIGluCj4gZGV2aWNlIHRyZWUg
+ZGVwZW5kaW5nIGJvYXJkIHVzYWdlLgo+IAo+IExlZSwgd2hhdCBpdCBpcyB5b3VyIGZlZWxpbmcg
+YWJvdXQgdGhhdCA/IFdpbGwgeW91IGFjY2VwdCB0byBhZGQgYSBNRkQKPiBkcml2ZXIgZm9yIHRo
+aXMgU1BJL0kyUyBwZXJpcGhlcmFsIHdob3NlIHBydXJwb3NlIGlzIG9ubHkgdG8gcG9wdWxhdGUg
+Y2hpbGQKPiBub2RlIChlaXRoZXIgU1BJIG9yIEkyUykgPwoKRnJvbSB5b3VyIGRlc2NyaXB0aW9u
+LCB0aGlzIGRvZXNuJ3Qgc291bmQgbGlrZSBhIGdvb2QgZml0IGZvciBNRkQuCgotLSAKTGVlIEpv
+bmVzIFvmnY7nkLzmlq9dClNlbmlvciBUZWNobmljYWwgTGVhZCAtIERldmVsb3BlciBTZXJ2aWNl
+cwpMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0d2FyZSBmb3IgQXJtIFNvQ3MKRm9sbG93
+IExpbmFybzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxvZwpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
+c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
