@@ -2,54 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C6B146D5E4
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 15:38:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27F4546D625
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Dec 2021 15:52:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F5F9C5F1E8;
-	Wed,  8 Dec 2021 14:38:28 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F32E2C5F1E1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Dec 2021 14:38:26 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBCCEC5F1E8;
+	Wed,  8 Dec 2021 14:52:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 63F05CE2047;
- Wed,  8 Dec 2021 14:38:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B87CC00446;
- Wed,  8 Dec 2021 14:38:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1638974302;
- bh=yXfh7LEnE2SBFeZnbDCRhoa2fYrDl431va9ASGoK3xc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ePG6a3u+RKIuDqJvkYwSIhSrvLzAwk4R95Pz004tE+MKwsjneRc5qYZ1ctrybVWOx
- 8OvzKebSMPv5AfTSRecr9VYHmJ5hom8mKWPiK9FnmH7VfkC4ixVpbOGT5skIyoPUbQ
- 6X/FaLA+Cj3RbknoaO8q1u8ejxdobhWnoj77nH8Z2V2cJmdT6K+LG0ZHWjiJDUakDu
- jDXyyJ1/5leDAVknYJWaR288T5WP0UUwWDa5HNTtHk7VyVQRNVdBZHgBBxOL/J+t8F
- j3oPmxrCA9IppRlr3Yrc5DOkm9tmQJvJY0GHT6+MYvjbAnyRUIzxrM798ub7keO9rN
- Jxz4n1SQ5XnZQ==
-Date: Wed, 8 Dec 2021 06:38:20 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Biao Huang <biao.huang@mediatek.com>
-Message-ID: <20211208063820.264df62d@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20211208054716.603-6-biao.huang@mediatek.com>
-References: <20211208054716.603-1-biao.huang@mediatek.com>
- <20211208054716.603-6-biao.huang@mediatek.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C8F9C5F1E1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  8 Dec 2021 14:52:10 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1B89sqIR020212;
+ Wed, 8 Dec 2021 15:51:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=IpuZOGwO/v7ipbt03x8yTn8Car/0TQpCG5NiK+X11ao=;
+ b=8ck3ngzmTL3Z/pah5tFBBSgSPJFOfn5R30BELfAYwrlYVBzDmNKFT5Z1/GUmtaE/cHhi
+ uXxs2YXAfZTlz1e8ute9dZP+JiMY76u5dWLV86a15TQYfIT3KskJTzQC2mP75Fxx2Njw
+ hx7HHLlwoqOPKtS/SfsNMTTySxEcjL2bpFrYKdjpxcxVpltFPFvR8kbTfA9ZCYRuZcoq
+ pLYYRRHauF4g7gzOdm3WdzyNt1i1wxEYGMJjsF/5GYMWfBYoPAjQgOruUslvwbMGLhsu
+ 9Pop5tMVGjmyGczLWotKmu34RlDFNujAZkI5ByCJhAlgVLFLjgUxwfq9S8csDivcJMkH Uw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cttga9kby-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Dec 2021 15:51:52 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0DFC010002A;
+ Wed,  8 Dec 2021 15:51:51 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 00A7E22CD49;
+ Wed,  8 Dec 2021 15:51:51 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 8 Dec
+ 2021 15:51:49 +0100
+To: Marc Zyngier <maz@kernel.org>
+References: <20211208130456.4002-1-alexandre.torgue@foss.st.com>
+ <20211208130456.4002-3-alexandre.torgue@foss.st.com>
+ <87fsr31aex.wl-maz@kernel.org>
+ <fffb9758-8071-edd8-8fe9-d0d2a57fac05@foss.st.com>
+ <87ee6n18im.wl-maz@kernel.org>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <701f4954-5dc8-9b4f-674c-c40d7e6e3df1@foss.st.com>
+Date: Wed, 8 Dec 2021 15:51:49 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Cc: Jose Abreu <joabreu@synopsys.com>, srv_heupstream@mediatek.com,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- dkirjanov@suse.de, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH net-next v7 5/6] stmmac: dwmac-mediatek:
- add support for mt8195
+In-Reply-To: <87ee6n18im.wl-maz@kernel.org>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-08_05,2021-12-08_01,2021-12-02_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/3] irqchip/stm32-exti: add STM32MP13
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,37 +76,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 8 Dec 2021 13:47:15 +0800 Biao Huang wrote:
-> Add Ethernet support for MediaTek SoCs from the mt8195 family.
+On 12/8/21 3:22 PM, Marc Zyngier wrote:
+> Hi Alexandre,
 > 
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> On Wed, 08 Dec 2021 13:58:46 +0000,
+> Alexandre TORGUE <alexandre.torgue@foss.st.com> wrote:
+>>
+>>> Why does the driver need to carry these tables? This sort of
+>>> information should really come from DT, instead of being hardcoded in
+>>> the driver and bloating it for no reason. This all has a funny taste
+>>> of the board files we used to have pre-DT.
+>>>
+>>
+>> There are absolutely no reason to have it in driver. Honestly It has
+>> been done in this way to have minimal changes adding this new SoC
+>> support (and it's not smart, I agree).
+>>
+>> I think it is better to abandon this series. I will create a new one
+>> which moves mapping table for MP15 and adds MP13 support to.
+> 
+> I'm afraid you'll have to keep the in-kernel table for MP15, since the
+> driver needs to work with old DTs. For new SoCs (such as MP13), moving
+> the table into DT would be good.
 
-sparse reports whole bunch of warnings like this:
+I can try to have both for MP15:use new mechanism as MP13 and keep the 
+table inside the driver as a fallback if DT mapping is not provided (for 
+old DT).
 
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:213:30: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:217:30: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:228:38: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:232:38: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:247:46: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:255:46: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:273:30: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:277:30: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:375:30: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:379:30: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:390:43: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:397:43: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:415:46: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:426:46: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:439:35: warning: dubious: x & !y
-drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c:443:30: warning: dubious: x & !y
+Thanks
 
-Any idea on where these come from?
+> 
+> Thanks,
+> 
+> 	M.
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
