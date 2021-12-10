@@ -2,44 +2,163 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0ABF4721E0
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D5A4721E1
 	for <lists+linux-stm32@lfdr.de>; Mon, 13 Dec 2021 08:45:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7283DC5F1EF;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BF8CC5F1F2;
 	Mon, 13 Dec 2021 07:45:49 +0000 (UTC)
-Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E98DFC5E2C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5DB3C5F1E0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Dec 2021 18:13:08 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by honk.sigxcpu.org (Postfix) with ESMTP id 4E744FB04;
- Fri, 10 Dec 2021 19:13:07 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at honk.sigxcpu.org
-Received: from honk.sigxcpu.org ([127.0.0.1])
- by localhost (honk.sigxcpu.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id o6mwTDWk7X1X; Fri, 10 Dec 2021 19:13:06 +0100 (CET)
-Date: Fri, 10 Dec 2021 19:13:04 +0100
-From: Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>
-To: Jagan Teki <jagan@amarulasolutions.com>
-Message-ID: <YbOYsENSsiG1jM7O@qwark.sigxcpu.org>
-References: <20211210174819.2250178-1-jagan@amarulasolutions.com>
+ Fri, 10 Dec 2021 23:57:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639180675; x=1670716675;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=2GfPkgsU4M83+XQL971N+Cr5qNq9AMg9VNjkiQvt9ik=;
+ b=bA9slomLJYccP4E3xqhxQyuTHllFgKDBii1K0+c6PU2OWmIrrme3mRqn
+ tItmYOU6rS65Nctd5JFCCuyU6kClTXOFsd21eIPkR+5P7uytEo/6cE8VQ
+ 4Qbrire7ryR7zkRMOK9hvyOxZfG0JzRvhW5aVGZbT0+Hw+E+K5iT/Ezbe
+ gYJt0bU4ia9cA2cmmNo7E2LdBdWCOmaXwFy08+W4dld6OkhBV+rlqq8fe
+ r+YVpfwNF/8mZ8Ye/D2wAuTsx3U2A/a5xHHOOmMzTNWtrvChwMBDMld+N
+ 7SBo2KAZKZS8lWeym+wt8GZ8fZdxeYiwdVN8BIr8Rz5EtokxCH3GoBqF/ A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="225348696"
+X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="225348696"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Dec 2021 15:57:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="463874648"
+Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
+ by orsmga006.jf.intel.com with ESMTP; 10 Dec 2021 15:57:53 -0800
+Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
+ ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Fri, 10 Dec 2021 15:57:53 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20 via Frontend Transport; Fri, 10 Dec 2021 15:57:53 -0800
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.44) by
+ edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Fri, 10 Dec 2021 15:57:52 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WY280OeRs+btAPpe+d7G55Sg8CxINPclWrzVx+aFitqFlVv9Yn8oAg7MmdlCNbH5CyOC35AKzyN+dduk/sUUGMuymzUREW0qX/deQxBvAXCp4/VsUphj2BKb+uwIKCxGAlIWwRoFELZlhfqdtjZtwW3dyWSM9vc6/ICHnzk9lA6W6LULkUBh+ZV0ZYIP7N83vupx0k7IP2FgYmhPT8/G4QR2t3dwpuZFTZJO2AWn03IyNI/VelgWGokJBCH5ylIrUUdI0wn+G4UkEKdQd93s5RrBL+aDylcBfql1g+KFaXe8TRm+d3F8tE4qUHFXAAQuxkU5AvIhBEL0MEXG3hfUrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2GfPkgsU4M83+XQL971N+Cr5qNq9AMg9VNjkiQvt9ik=;
+ b=KV4pyu8ZmhF2N97mTQNjcbuwSXkvdKCuzG1ZZm0p8NUwCLcK6jKGolt1rXR0zgTeyqCCFhiRyWPEQySKh5iqjCthgDZ5AcA1By81EiCsFRkJ/oVqqlnkCMaCtIJGLtTeg31LdwdnhhjBMu9Tb2qVy1rMqQkdj+R9LveA8OR3OD73K4XrLS/fQb4IXQkMxu5+PDMVhJvjhnk6uszofmYjvVzBRt7j5iFOEiS982BDoQPKhCgCb+sl51YZlq5q4bnajdMSD8RbGNG5TSlLCGxZYPJ4WaKyJNdfQqP5kjtJI9mjaE6JBXp7fN/zt0O7X/u4F05rNgdFijwvbVA/XDjLVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2GfPkgsU4M83+XQL971N+Cr5qNq9AMg9VNjkiQvt9ik=;
+ b=X21+kwpKSOoTRwKx1cZ+Suw/sCocEStnwQq8epnKiYyBPqLjYLggkhTAyDkmks9oTE446uDkGfa6l3z5C4CNowcA28ghOV5uGKaoY2stAg9fm9lxx+As9P+/khQKuy4FHNAmmLmZpeBnrjpbMaxcSLX8YsZvoM9FWky6RaWIpq0=
+Received: from MWHPR11MB1293.namprd11.prod.outlook.com (2603:10b6:300:1e::8)
+ by MWHPR11MB2048.namprd11.prod.outlook.com (2603:10b6:300:27::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.22; Fri, 10 Dec
+ 2021 23:57:50 +0000
+Received: from MWHPR11MB1293.namprd11.prod.outlook.com
+ ([fe80::d0b1:12c0:62d3:7c9b]) by MWHPR11MB1293.namprd11.prod.outlook.com
+ ([fe80::d0b1:12c0:62d3:7c9b%7]) with mapi id 15.20.4755.027; Fri, 10 Dec 2021
+ 23:57:50 +0000
+From: "Nambiar, Amritha" <amritha.nambiar@intel.com>
+To: Jakub Kicinski <kuba@kernel.org>, Vladimir Oltean <olteanv@gmail.com>
+Thread-Topic: [PATCH net-next 0/2] net: stmmac: add EthType Rx Frame steering
+Thread-Index: AQHX7RBf8jboHl+820enr5wfqhDOc6wroBYAgACAw4CAAEMQ4A==
+Date: Fri, 10 Dec 2021 23:57:50 +0000
+Message-ID: <MWHPR11MB1293030F02EDACD0A7C25425F1719@MWHPR11MB1293.namprd11.prod.outlook.com>
+References: <20211209151631.138326-1-boon.leong.ong@intel.com>
+ <20211210115730.bcdh7jvwt24u5em3@skbuf>
+ <20211210113821.522b7c00@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20211210113821.522b7c00@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-version: 11.6.200.16
+dlp-reaction: no-action
+dlp-product: dlpe-windows
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 9c4093a0-6306-447d-40b3-08d9bc38dfd3
+x-ms-traffictypediagnostic: MWHPR11MB2048:EE_
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-microsoft-antispam-prvs: <MWHPR11MB2048AF08421699DB2F5786E0F1719@MWHPR11MB2048.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: cCNtbMyT69S204lMC0ykuo8pp/uElwIuExa+RweGToJ0BJB3u5+lLi1KOZ5SalU3hcn29t+zI33gDuSw2FTs/HlonX7fzIXJ5qPwu0CvxenH7vPVXriDGvhZ296jGfB74sOZ4UZTF8EvPnV1dC24PDyeTaoGNf7tzu7JzDwEDbsayqH6yP8nTb+zuy+jagucAi7jwZH4fq6PKMxjsIYuECOA19CGBaoE5QOVjVbrIy1pnCm4/8cgmGdTD6zel5mpVa2c+1xAOD3PzVoh8J1nO0BmduHega97IjFABEqfvPoqbfM9pz6Xqz7OKBEbeD/nOw4bqIjMCNC99k9YsrNwOFVc3q/6Pq+QTsqGlEaCeJVVNO6MWtGizAYON1W8bJUmg+h4HfsMvRFOt/iUHPwHedVaZARKJif8JeKZM8kbjNwLAbgdZXDPv7Sbo+3O2txSMmc3SA4RosmJCBBJ8rgef0+bdUm6xDNI1qKLqX6Xi2CxvHbwQ2KB81BSEGBwPPYhOjPFMuRmayHHTMmQzDUaoZCNTi6kfJpofz7NCoFfPTQJWiwb6h4iH6nZ6Rgs5VcgxpSAcpB3nGzVBTZirg2RuJBdfH+Qdq4pwVOrvierDkLwnSbCr+Xo9ZD4lLUfvtVDg3h1iLg+FtXb2PBQnPpqs2o3vbMMQUmGNV8nqM8HwFZd7WUDx+V9S6KgjzvvhU0MsV51iCVPH7r+XmG7ddsMNqqiZUE+KsQ+02BGTlr5SQhOsPQ9MAeDhIl3+J6gMUEh0/fvcELwlMAdVL+CrgZZWjtTNpmyg9UyCYUi7mUisqE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR11MB1293.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(107886003)(66446008)(9686003)(2906002)(54906003)(64756008)(66556008)(7416002)(186003)(4326008)(110136005)(76116006)(66946007)(122000001)(66476007)(7696005)(8676002)(38100700002)(8936002)(38070700005)(6506007)(316002)(33656002)(86362001)(52536014)(53546011)(508600001)(83380400001)(55016003)(82960400001)(5660300002)(71200400001)(26005);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2zyYC/uVnT55WCckmqmm2g99y182uoutGddj9+R35B1i3OlFNU1m6j8AG7sm?=
+ =?us-ascii?Q?UDKMQ7hCnct2B71N+QLVjVhGewHsjIliBC6Im6oEXHQFOShpvLWXEFaJM0pq?=
+ =?us-ascii?Q?iElTOeG9xxrky0bv+tS9WJQfg46qlA7mChHfUgCX0IqSXI3nNEoMedDxhZEK?=
+ =?us-ascii?Q?2PEp5Hs+fOM6eMwu9KmuJ598FN4zUYPxNz+zABr9YFOsDZ9cwx31NHv2XAQl?=
+ =?us-ascii?Q?KLY+3PQLdRxX04m0EKg5z2FFwt6k5GriI05UBZoFWLiY1qzZ4/IkZX70c3lS?=
+ =?us-ascii?Q?4zkFLc+8z6ZSJWq6gxwopdbwh21HHRrfeejFwIj3OrdGcxGWCtiVLtkBfE96?=
+ =?us-ascii?Q?/oeCx6k8k+MS+v8u2mT7xau4bpz5bYmYjRwEh9B0GOb9aLuZmsSrmKIVZPJf?=
+ =?us-ascii?Q?u9a6ZFQV8kc0mnezl3m74FrjMLyXkxz/Bg0PLXjkhErzbcPQx5A6Q/dP3Fvm?=
+ =?us-ascii?Q?dLNCE9QFampoqV64RcX7LVrsggYqdA6nbVI9TPYEGuM5eHPYOJBxPuH3wDyO?=
+ =?us-ascii?Q?u+9zduAhVttms8r/xMPPssayag7lSQhYYPpc6/tXJv/kOXemjWu9rxGqvmqT?=
+ =?us-ascii?Q?pBP6zFMOT3VAIIrQ6vN6Gles5D6WJOhv3pN8pGXKqLO6LqtBem+s/DES8QXl?=
+ =?us-ascii?Q?gVrbyd8ACK9c8mF+tcxCR0T5w56vmm3TBads6oL4jTJFGU0IG0JkxIfhEGn3?=
+ =?us-ascii?Q?8WZoqZ9u/54G0lnqDNQrnydpVtuhpdm/VuO6upULL/PlqdB/FPH895Navtj4?=
+ =?us-ascii?Q?OXs2QUg/p530cxHsdHCmlJXl0Mpctr+l2lafG3HrdG00eFMipvMRo+nhK/RP?=
+ =?us-ascii?Q?Gk0to3FSU87LFOOGS61nFGJ+0Ha3ZViGb3VrNvynUJPGNK4QGXgOCjELCutk?=
+ =?us-ascii?Q?HG+R2VFUA1LKpGvl+Yp6+5hsKYapIaWknJqyGTaddm6C1tFAKEjU65wn8ZtR?=
+ =?us-ascii?Q?N/cdPMH/WgZ6lrcndwodwKy3SdHOZbdq5h/HXn6rFKXknImXmjizaoD4+6M4?=
+ =?us-ascii?Q?/e4vOXZTk0gcdTOtfvTtuAmNucGLeh+fzp+EtBafUDBN2kLYGDvrAyd/mO5J?=
+ =?us-ascii?Q?fpv8yFtcluGE3dpQ1zpDdA77wcTdhU508jdJvCHmf1rwAJr1ZicrdtMpPPlj?=
+ =?us-ascii?Q?jxduGCJjMVEVQOTztR65MLTY/BSflNk55oOQfjVOMOfJeT6MHwLZIWO8076X?=
+ =?us-ascii?Q?ayEnMHrhL2Oa1AQhH17Czu7dE4CnuSW82R8WFgZsXD4SV457vCk00VmHX+NH?=
+ =?us-ascii?Q?Id5+Q2vMVu6Qk9z7tJ+uHd4BkUHPVLpB3oXQ5cjSdKI1jD6I0TbLS2/6Q5Bu?=
+ =?us-ascii?Q?Oefh2iOiGB7Q1nF47E5ldqY2SjlOQkIxGYJbHl2J5uBO5LI8mHN5ODNFP8Jx?=
+ =?us-ascii?Q?/KKbtB4W/EHcQixLPWvoc5PVuHekcR8TXIQK4T5MFcW3dZUnpTWrQOabXqK6?=
+ =?us-ascii?Q?LUNmc8/SeYvjwh+4iy1nE3GxjGkDfANtnzarzUiAa7lMOg7Ab0QYDnzl0cbX?=
+ =?us-ascii?Q?NlFAsABgKY9Wyo6gxV2FRnknSUd1NmQhD+qdi0hxRDarRGH7kMJfaK6jAOc2?=
+ =?us-ascii?Q?MXuS+yZmhq6gHEwuPshBE0l+xVbVk9W9A6hAHZgXTetLPvUgBFdQwlENXMRx?=
+ =?us-ascii?Q?4XHtnqnJl0yIcUZT+lM9KLkDnkz1Pzs0FMFuTxRvFg7PZNcqxWRUMe1drcaj?=
+ =?us-ascii?Q?98ISYw=3D=3D?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211210174819.2250178-1-jagan@amarulasolutions.com>
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1293.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c4093a0-6306-447d-40b3-08d9bc38dfd3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2021 23:57:50.7860 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZAqWtPl5AfSG0+S961k6Y+Mn8HuSb4mb1QEP1UGuNWSISnFmqdszIk+NR48bOgijnPAyDl58TJK/Ez69M8XO11nL+JzDrBRHEbsTvND4FAc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB2048
+X-OriginatorOrg: intel.com
 X-Mailman-Approved-At: Mon, 13 Dec 2021 07:45:47 +0000
-Cc: dri-devel@lists.freedesktop.org, Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Maxime Ripard <mripard@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Michael Nazzareno Trimarchi <michael@amarulasolutions.com>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-amarula@amarulasolutions.com
-Subject: Re: [Linux-stm32] [PATCH 1/3] drm: bridge: nwl-dsi: Drop
-	panel_bridge from nwl_dsi
+Cc: Alexandre Torgue <alexandre.torgue@st.com>, "Samudrala,
+ Sridhar" <sridhar.samudrala@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Kanzenbach,
+ Kurt" <kurt.kanzenbach@linutronix.de>, "Ong,
+ Boon Leong" <boon.leong.ong@intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: add EthType Rx
+	Frame steering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,68 +170,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-On Fri, Dec 10, 2021 at 11:18:17PM +0530, Jagan Teki wrote:
-> panel_bridge pointer never used anywhere except the one it
-> looked up at nwl_dsi_bridge_attach.
-> =
+> -----Original Message-----
+> From: Jakub Kicinski <kuba@kernel.org>
+> Sent: Friday, December 10, 2021 11:38 AM
+> To: Vladimir Oltean <olteanv@gmail.com>
+> Cc: Ong, Boon Leong <boon.leong.ong@intel.com>; David S . Miller
+> <davem@davemloft.net>; Giuseppe Cavallaro <peppe.cavallaro@st.com>;
+> Alexandre Torgue <alexandre.torgue@st.com>; Jose Abreu
+> <joabreu@synopsys.com>; Maxime Coquelin
+> <mcoquelin.stm32@gmail.com>; alexandre.torgue@foss.st.com;
+> Kanzenbach, Kurt <kurt.kanzenbach@linutronix.de>;
+> netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
+> linux-arm-kernel@lists.infradead.org; Nambiar, Amritha
+> <amritha.nambiar@intel.com>
+> Subject: Re: [PATCH net-next 0/2] net: stmmac: add EthType Rx Frame
+> steering
+> 
+> On Fri, 10 Dec 2021 13:57:30 +0200 Vladimir Oltean wrote:
+> > Is it the canonical approach to perform flow steering via tc-flower hw_tc,
+> > as opposed to ethtool --config-nfc? My understanding from reading the
+> > documentation is that tc-flower hw_tc only selects the hardware traffic
+> > class for a packet, and that this has to do with prioritization
+> > (although the concept in itself is a bit ill-defined as far as I
+> > understand it, how does it relate to things like offloaded skbedit priority?).
+> > But selecting a traffic class, in itself, doesn't (directly or
+> > necessarily) select a ring per se, as ethtool does? Just like ethtool
+> > doesn't select packet priority, just RX queue. When the RX queue
+> > priority is configurable (see the "snps,priority" device tree property
+> > in stmmac_mtl_setup) and more RX queues have the same priority, I'm not
+> > sure what hw_tc is supposed to do in terms of RX queue selection?
+> 
+> You didn't mention the mqprio, but I think that's the piece that maps
+> TCs to queue pairs. You can have multiple queues in a TC.
+> 
+> Obviously that's still pretty weird what the flow rules should select
+> is an RSS context. mqprio is a qdisc, which means Tx, not Rx.
+> 
+> Adding Amritha who I believe added the concept of selecting Rx queues
+> via hw_tc. Can you comment?
 
-> Drop it from the nwl_dsi structure.
-> =
+So tc-mpqrio is the piece that is needed to set up the queue-groups. The offload
+mode "hw 2" in mqprio will offload the TCs, the queue configurations and
+bandwidth rate limits. The prio-tc map in mqprio will map a user priority to the
+TC/queue-group. The priority to traffic class mapping and the user specified
+queue ranges are used to configure the traffic class when the 'hw' option is set to 2.
+Drivers can then configure queue-pairs based on the offsets and queue ranges
+in mqprio.
 
-> Cc: Guido G=FCnther <agx@sigxcpu.org>
-> Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+The hw_tc option in tc-flower for ingress filter is used to direct Rx traffic to the
+queue-group (configured via mqprio). Queue selection within the queue group can
+be achieved using RSS.
 
-Reviewed-by: Guido G=FCnther <agx@sigxcpu.org>
+I agree mqprio qdisc should be used to set up Tx queues only, but the limitation was the
+absence of a single interface that could configure both Tx and Rx queue-groups/queue-sets
+(ethtool did not support directing flows to a queue-group, but only a specific individual
+queue, TC does not support Rx queue-group configuration either). The hw_tc in mqprio is a
+range of class ids reserved to identify hardware traffic classes normally reported
+via dev->num_tc. For Rx queue-group configuration, the gap is that the ingress/clsact qdisc
+does not expose a set of virtual qdiscs similar to HW traffic classes in mqprio.
+This was discussed in Slide 20 from Netdev 0x14 
+(https://legacy.netdevconf.info/0x14/pub/slides/28/Application%20Device%20Queues%20for%20system-level%20network%20IO%20performance%20improvements.pdf)
 
-> ---
->  drivers/gpu/drm/bridge/nwl-dsi.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
-> =
-
-> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nw=
-l-dsi.c
-> index a7389a0facfb..6becdcdc99fe 100644
-> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
-> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-> @@ -65,7 +65,6 @@ struct nwl_dsi_transfer {
->  struct nwl_dsi {
->  	struct drm_bridge bridge;
->  	struct mipi_dsi_host dsi_host;
-> -	struct drm_bridge *panel_bridge;
->  	struct device *dev;
->  	struct phy *phy;
->  	union phy_configure_opts phy_cfg;
-> @@ -924,13 +923,11 @@ static int nwl_dsi_bridge_attach(struct drm_bridge =
-*bridge,
->  		if (IS_ERR(panel_bridge))
->  			return PTR_ERR(panel_bridge);
->  	}
-> -	dsi->panel_bridge =3D panel_bridge;
->  =
-
-> -	if (!dsi->panel_bridge)
-> +	if (!panel_bridge)
->  		return -EPROBE_DEFER;
->  =
-
-> -	return drm_bridge_attach(bridge->encoder, dsi->panel_bridge, bridge,
-> -				 flags);
-> +	return drm_bridge_attach(bridge->encoder, panel_bridge, bridge, flags);
->  }
->  =
-
->  static void nwl_dsi_bridge_detach(struct drm_bridge *bridge)
-> -- =
-
-> 2.25.1
-> =
-
+-Amritha
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
