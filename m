@@ -2,36 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF3246F87E
+	by mail.lfdr.de (Postfix) with ESMTPS id A90DA46F87F
 	for <lists+linux-stm32@lfdr.de>; Fri, 10 Dec 2021 02:31:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4490AC5F1EA;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58899C5F1EE;
 	Fri, 10 Dec 2021 01:31:39 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57AACCFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA712C5F1E8
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 10 Dec 2021 01:31:37 +0000 (UTC)
-X-UUID: c75e23a142a143ada9a00390100291b9-20211210
-X-UUID: c75e23a142a143ada9a00390100291b9-20211210
+X-UUID: 34dc7abe9b084d638336c3ee2d19a504-20211210
+X-UUID: 34dc7abe9b084d638336c3ee2d19a504-20211210
 Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 940972850; Fri, 10 Dec 2021 09:31:32 +0800
+ with ESMTP id 1183319308; Fri, 10 Dec 2021 09:31:33 +0800
 Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Fri, 10 Dec 2021 09:31:30 +0800
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Fri, 10 Dec 2021 09:31:31 +0800
 Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
  mtkcas10.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.0.1497.2 via Frontend Transport; Fri, 10 Dec 2021 09:31:29 +0800
+ 15.0.1497.2 via Frontend Transport; Fri, 10 Dec 2021 09:31:30 +0800
 From: Biao Huang <biao.huang@mediatek.com>
 To: <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Rob Herring
  <robh+dt@kernel.org>
-Date: Fri, 10 Dec 2021 09:31:23 +0800
-Message-ID: <20211210013129.811-1-biao.huang@mediatek.com>
+Date: Fri, 10 Dec 2021 09:31:24 +0800
+Message-ID: <20211210013129.811-2-biao.huang@mediatek.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211210013129.811-1-biao.huang@mediatek.com>
+References: <20211210013129.811-1-biao.huang@mediatek.com>
 MIME-Version: 1.0
 X-MTK: N
 Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
@@ -44,8 +46,8 @@ Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  angelogioacchino.delregno@collabora.com
-Subject: [Linux-stm32] [PATCH net-next v8 0/6] MediaTek Ethernet Patches on
-	MT8195
+Subject: [Linux-stm32] [PATCH net-next v8 1/6] stmmac: dwmac-mediatek: add
+	platform level clocks management
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,71 +64,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Changes in v8:
-1.  add acked-by in "stmmac: dwmac-mediatek: add platform level clocks
-    management" patch
+This patch implements clks_config callback for dwmac-mediatek platform,
+which could support platform level clocks management.
 
-Changes in v7:
-1. fix uninitialized warning as Jakub's comments.
+Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 25 +++++++++++++------
+ 1 file changed, 18 insertions(+), 7 deletions(-)
 
-Changes in v6:
-1. update commit message as Jakub's comments.
-2. split mt8195 eth dts patch("arm64: dts: mt8195: add ethernet device
-   node") from this series, since mt8195 dtsi/dts basic patches is still
-   under reviewing.
-   https://patchwork.kernel.org/project/linux-mediatek/list/?series=579071
-   we'll resend mt8195 eth dts patch once all the dependent patches are
-   accepted.
-
-Changes in v5:
-1. remove useless inclusion in dwmac-mediatek.c as Angelo's comments.
-2. add acked-by in "net-next: stmmac: dwmac-mediatek: add support for
-   mt8195" patch
-
-Changes in v4:
-1. add changes in commit message in "net-next: dt-bindings: dwmac:
-   Convert mediatek-dwmac to DT schema" patch.
-2. remove ethernet-controller.yaml since snps,dwmac.yaml already include it.
-
-Changes in v3:
-1. Add prefix "net-next" to support new IC as Denis's suggestion.
-2. Split dt-bindings to two patches, one for conversion, and the other for
-   new IC.
-3. add a new patch to update device node in mt2712-evb.dts to accommodate to
-   changes in driver.
-4. remove unnecessary wrapper as Angelo's suggestion.
-5. Add acked-by in "net-next: stmmac: dwmac-mediatek: Reuse more common
-   features" patch.
-
-Changes in v2:
-1. fix errors/warnings in mediatek-dwmac.yaml with upgraded dtschema tools
-
-This series include 5 patches:
-1. add platform level clocks management for dwmac-mediatek
-2. resue more common features defined in stmmac_platform.c
-3. add ethernet entry for mt8195
-4. convert mediatek-dwmac.txt to mediatek-dwmac.yaml
-
-Biao Huang (6):
-  stmmac: dwmac-mediatek: add platform level clocks management
-  stmmac: dwmac-mediatek: Reuse more common features
-  arm64: dts: mt2712: update ethernet device node
-  net: dt-bindings: dwmac: Convert mediatek-dwmac to DT schema
-  stmmac: dwmac-mediatek: add support for mt8195
-  net: dt-bindings: dwmac: add support for mt8195
-
- .../bindings/net/mediatek-dwmac.txt           |  91 ------
- .../bindings/net/mediatek-dwmac.yaml          | 210 ++++++++++++
- arch/arm64/boot/dts/mediatek/mt2712-evb.dts   |   1 +
- arch/arm64/boot/dts/mediatek/mt2712e.dtsi     |  14 +-
- .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 306 ++++++++++++++++--
- 5 files changed, 503 insertions(+), 119 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.txt
- create mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-
---
-2.18.0
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+index 58c0feaa8131..0ff57c268dca 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+@@ -9,7 +9,6 @@
+ #include <linux/of.h>
+ #include <linux/of_device.h>
+ #include <linux/of_net.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/stmmac.h>
+ 
+@@ -359,9 +358,6 @@ static int mediatek_dwmac_init(struct platform_device *pdev, void *priv)
+ 		return ret;
+ 	}
+ 
+-	pm_runtime_enable(&pdev->dev);
+-	pm_runtime_get_sync(&pdev->dev);
+-
+ 	return 0;
+ }
+ 
+@@ -370,11 +366,25 @@ static void mediatek_dwmac_exit(struct platform_device *pdev, void *priv)
+ 	struct mediatek_dwmac_plat_data *plat = priv;
+ 
+ 	clk_bulk_disable_unprepare(plat->num_clks_to_config, plat->clks);
+-
+-	pm_runtime_put_sync(&pdev->dev);
+-	pm_runtime_disable(&pdev->dev);
+ }
+ 
++static int mediatek_dwmac_clks_config(void *priv, bool enabled)
++{
++	struct mediatek_dwmac_plat_data *plat = priv;
++	int ret = 0;
++
++	if (enabled) {
++		ret = clk_bulk_prepare_enable(plat->num_clks_to_config, plat->clks);
++		if (ret) {
++			dev_err(plat->dev, "failed to enable clks, err = %d\n", ret);
++			return ret;
++		}
++	} else {
++		clk_bulk_disable_unprepare(plat->num_clks_to_config, plat->clks);
++	}
++
++	return ret;
++}
+ static int mediatek_dwmac_probe(struct platform_device *pdev)
+ {
+ 	struct mediatek_dwmac_plat_data *priv_plat;
+@@ -420,6 +430,7 @@ static int mediatek_dwmac_probe(struct platform_device *pdev)
+ 	plat_dat->bsp_priv = priv_plat;
+ 	plat_dat->init = mediatek_dwmac_init;
+ 	plat_dat->exit = mediatek_dwmac_exit;
++	plat_dat->clks_config = mediatek_dwmac_clks_config;
+ 	mediatek_dwmac_init(pdev, priv_plat);
+ 
+ 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
