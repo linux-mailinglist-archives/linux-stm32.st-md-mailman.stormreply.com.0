@@ -2,51 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4A174707A8
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Dec 2021 18:49:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E05D44707AA
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Dec 2021 18:49:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A4A1C5F1EB;
-	Fri, 10 Dec 2021 17:49:09 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A88B6C5F1EA;
+	Fri, 10 Dec 2021 17:49:16 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C970C5F1E0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77D42C5E2C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Dec 2021 17:49:08 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- j5-20020a17090a318500b001a6c749e697so8546433pjb.1
+ Fri, 10 Dec 2021 17:49:15 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id y8so6764139plg.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Dec 2021 09:49:08 -0800 (PST)
+ Fri, 10 Dec 2021 09:49:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amarulasolutions.com; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=7Nc8TwxfVSVe1wllVo9dJ3a2pGJ8q3XwPSEkE8/FYhQ=;
- b=MM1upYS/L61PPHLwy82sz4xLdDLCNMYLsz3hvq5k4dJ0seo7e2I8P9hGsJaVnRj4Qo
- wGId760gCZIOES6wHXn6bALjUUSUB5H9uw2SKJdOzi4rlEj63e9F/GkmvVh7vulHUFnY
- tmAjwVLLN+vjQ2fTVO4KWh5+c/sUw+g17cdh4=
+ bh=/0452zXAT4kPvtxYy8MYfb9PCgWUx3+xujH6gdkFnig=;
+ b=lQzcmxEq/HQ+S6b0KkSdFJ9mFLNudD+Lw09n8NPh5KuOALmyKaaDwst+J6rBW3Ob+o
+ 4iawSteHVcyLRt3MUiYGnkHqYqrdWEH3dGPKAGXcOpapXSaR5Ylu/S1oRszRsTfmpK+8
+ Iuky+UN1egWphvCTZGxo2y1vD5z/YmVHHliNs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=7Nc8TwxfVSVe1wllVo9dJ3a2pGJ8q3XwPSEkE8/FYhQ=;
- b=sgzz3dfVH5ip3zwN+psFKPfZtNTfbD2oYPyExiHk/4fY44VXRYN/TaCq6fE5V8ZEsu
- J18kyAppn5Xx7pnqsp9HjXVHlgdKMObNpHhES0aViFOJSd/Idr+5OddrH2AC58iAMOvT
- x84SepSrdN6jaVvZmTszadB/9jYIZHjrC4DdTwtIRGDXJQ2NeAgxM0AYMbMFNHKCLoQ5
- 7fVkDUOg6eJR4EVwflHIrBh6+dik9JWzhmyz83q/XtWJMlRH7la+1sFLy7QwX+PM46F/
- n+80BgRc9tK3bcqWx2DjxIA8KT2zdXCILgSf5Q9G3l0LgriaMStsMxQydg7Xd+kiDGe9
- K3CQ==
-X-Gm-Message-State: AOAM5330xIKk0zA2A7Z8y2bYjKCEK3Dia1IlZmCV9DbvMT4JnBvgRNA6
- iQkjkMce+Pc+kAkusc4IpanxjA==
-X-Google-Smtp-Source: ABdhPJzzBhRewYnBoc9OlhBIdNPvxMiLbkkqd4UnFm0O7xyADqdLzVdA2mRgO/x3MXNAD3M5iCbqcg==
-X-Received: by 2002:a17:902:c702:b0:144:ce0e:d47 with SMTP id
- p2-20020a170902c70200b00144ce0e0d47mr75825180plp.69.1639158546872; 
- Fri, 10 Dec 2021 09:49:06 -0800 (PST)
+ bh=/0452zXAT4kPvtxYy8MYfb9PCgWUx3+xujH6gdkFnig=;
+ b=gKCKQGuESY22L3TLWZR7btFXsN3l6OkwgsG2dJ7ZhCzxV5qDK9J/ishAAee920WqKT
+ CwQF2EBQjEeS8EjlUodEA6w1tTnOO9LKWtv525i/FzyKnBMDrYEcIBZpevRN/uT1WEOk
+ IuaCg9fwMMebBw6DLyeSr7TA7XYCqriPW2a4ZGatrz2kJwpiT5g9/tisb9u2/m7lD79/
+ 1W0IbORscBpM/t7DA++A1b3nsfmqkVXEtEVWqHogId/mHz6buRh/VzWAt1jlg67jLvi9
+ YCdUd0CEee2qTRzGnRjwmvs7Btt6NHQGD08deKxJY5vM/CAI9Oyagh8+42wdJ7Tqk4Sv
+ sSRQ==
+X-Gm-Message-State: AOAM531IfYQc5KwxUsQ3RGnjWB2BwGQhtHxac+Q/mD2WOo9iAbKA4I9k
+ ErSsTe9iyqlSobXk5jWfAMXuDw==
+X-Google-Smtp-Source: ABdhPJx5VzkKqdDSyH3h2IKMXg/aRZ083K6gnAxnl5L1tUTC7fksmMdwpGDqSg6jMS7SCmh6QdepWA==
+X-Received: by 2002:a17:90a:c506:: with SMTP id
+ k6mr25968773pjt.74.1639158554132; 
+ Fri, 10 Dec 2021 09:49:14 -0800 (PST)
 Received: from localhost.localdomain ([2405:201:c00a:a0a9:28d6:2bae:633e:b110])
- by smtp.gmail.com with ESMTPSA id w1sm4039644pfg.11.2021.12.10.09.49.02
+ by smtp.gmail.com with ESMTPSA id w1sm4039644pfg.11.2021.12.10.09.49.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Dec 2021 09:49:06 -0800 (PST)
+ Fri, 10 Dec 2021 09:49:13 -0800 (PST)
 From: Jagan Teki <jagan@amarulasolutions.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <narmstrong@baylibre.com>,
@@ -55,17 +54,19 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Yannick Fertre <yannick.fertre@foss.st.com>,
  Maxime Ripard <mripard@kernel.org>, Sam Ravnborg <sam@ravnborg.org>,
  Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
-Date: Fri, 10 Dec 2021 23:18:18 +0530
-Message-Id: <20211210174819.2250178-2-jagan@amarulasolutions.com>
+Date: Fri, 10 Dec 2021 23:18:19 +0530
+Message-Id: <20211210174819.2250178-3-jagan@amarulasolutions.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211210174819.2250178-1-jagan@amarulasolutions.com>
 References: <20211210174819.2250178-1-jagan@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: linux-amarula@amarulasolutions.com,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
- Jagan Teki <jagan@amarulasolutions.com>
-Subject: [Linux-stm32] [PATCH 2/3] Revert "drm/bridge: dw-mipi-dsi: Find the
-	possible DSI devices"
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-amarula@amarulasolutions.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 3/3] drm: bridge: Switch to
+	devm_drm_of_get_bridge
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,78 +78,297 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhpcyByZXZlcnRzIGNvbW1pdCBjMjA2YzdmYWViMzI2M2E3Y2M3YjRkZTQ0M2EzODc3Y2Q3YTVl
-NzRiLgoKSW4gb3JkZXIgdG8gYXZvaWQgYW55IHByb2JlIG9yZGVyaW5nIGlzc3VlcywgdGhlIEky
-QyBiYXNlZCBkb3duc3RyZWFtCmJyaWRnZSBkcml2ZXJzIG5vdyByZWdpc3RlciBhbmQgYXR0YWNo
-wqB0aGUgRFNJIGRldmljZXMgYXQgdGhlIHByb2JlCmluc3RlYWQgb2YgZG9pbmcgaXQgb24gZHJt
-X2JyaWRnZV9mdW5jdGlvbi5hdHRhY2goKS4KCkV4YW1wbGVzIG9mIHRob3NlIGNvbW1pdHMgYXJl
-OgoKY29tbWl0IDw2ZWY3ZWU0ODc2NWY+ICgiZHJtL2JyaWRnZTogc242NWRzaTgzOiBSZWdpc3Rl
-ciBhbmQgYXR0YWNoIG91cgpEU0kgZGV2aWNlIGF0IHByb2JlIikKY29tbWl0IDxkODkwNzhjMzdi
-MTA+ICgiZHJtL2JyaWRnZTogbHQ4OTEyYjogUmVnaXN0ZXIgYW5kIGF0dGFjaCBvdXIgRFNJCmRl
-dmljZSBhdCBwcm9iZSIpCmNvbW1pdCA8ODY0YzQ5YTMxZDZiPiAoImRybS9icmlkZ2U6IGFkdjc1
-MTE6IFJlZ2lzdGVyIGFuZCBhdHRhY2ggb3VyIERTSQpkZXZpY2UgYXQgcHJvYmUiKQoKZHctbWlw
-aS1kc2kgaGFzIHBhbmVsIG9yIGJyaWRnZSBmaW5kaW5nIGNvZGUgYmFzZWQgb24gcHJldmlvdXMg
-ZG93bnN0cmVhbQpicmlkZ2VzLCBzbyByZXZlcnQgdGhlIHNhbWUgYW5kIG1ha2UgdGhlIHBhbmVs
-IG9yIGJyaWRnZSBmdW5kaW5nIGluIGhvc3QKYXR0YWNoIGFzIGJlZm9yZS4KClNpZ25lZC1vZmYt
-Ynk6IEphZ2FuIFRla2kgPGphZ2FuQGFtYXJ1bGFzb2x1dGlvbnMuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctbWlwaS1kc2kuYyB8IDU4ICsrKysrLS0tLS0tLS0t
-LS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspLCA0MyBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LW1pcGktZHNp
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LW1pcGktZHNpLmMKaW5kZXgg
-ZTQ0ZTE4YTAxMTJhLi43OTAwZGExZDQzMjUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9i
-cmlkZ2Uvc3lub3BzeXMvZHctbWlwaS1kc2kuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdl
-L3N5bm9wc3lzL2R3LW1pcGktZHNpLmMKQEAgLTI0Niw3ICsyNDYsNiBAQCBzdHJ1Y3QgZHdfbWlw
-aV9kc2kgewogCiAJc3RydWN0IGNsayAqcGNsazsKIAotCWJvb2wgZGV2aWNlX2ZvdW5kOwogCXVu
-c2lnbmVkIGludCBsYW5lX21icHM7IC8qIHBlciBsYW5lICovCiAJdTMyIGNoYW5uZWw7CiAJdTMy
-IGxhbmVzOwpAQCAtMzEwLDM3ICszMDksMTMgQEAgc3RhdGljIGlubGluZSB1MzIgZHNpX3JlYWQo
-c3RydWN0IGR3X21pcGlfZHNpICpkc2ksIHUzMiByZWcpCiAJcmV0dXJuIHJlYWRsKGRzaS0+YmFz
-ZSArIHJlZyk7CiB9CiAKLXN0YXRpYyBpbnQgZHdfbWlwaV9kc2lfcGFuZWxfb3JfYnJpZGdlKHN0
-cnVjdCBkd19taXBpX2RzaSAqZHNpLAotCQkJCSAgICAgICBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5v
-ZGUpCi17Ci0Jc3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZTsKLQlzdHJ1Y3QgZHJtX3BhbmVsICpw
-YW5lbDsKLQlpbnQgcmV0OwotCi0JcmV0ID0gZHJtX29mX2ZpbmRfcGFuZWxfb3JfYnJpZGdlKG5v
-ZGUsIDEsIDAsICZwYW5lbCwgJmJyaWRnZSk7Ci0JaWYgKHJldCkKLQkJcmV0dXJuIHJldDsKLQot
-CWlmIChwYW5lbCkgewotCQlicmlkZ2UgPSBkcm1fcGFuZWxfYnJpZGdlX2FkZF90eXBlZChwYW5l
-bCwKLQkJCQkJCSAgICBEUk1fTU9ERV9DT05ORUNUT1JfRFNJKTsKLQkJaWYgKElTX0VSUihicmlk
-Z2UpKQotCQkJcmV0dXJuIFBUUl9FUlIoYnJpZGdlKTsKLQl9Ci0KLQlkc2ktPnBhbmVsX2JyaWRn
-ZSA9IGJyaWRnZTsKLQotCWlmICghZHNpLT5wYW5lbF9icmlkZ2UpCi0JCXJldHVybiAtRVBST0JF
-X0RFRkVSOwotCi0JcmV0dXJuIDA7Ci19Ci0KIHN0YXRpYyBpbnQgZHdfbWlwaV9kc2lfaG9zdF9h
-dHRhY2goc3RydWN0IG1pcGlfZHNpX2hvc3QgKmhvc3QsCiAJCQkJICAgc3RydWN0IG1pcGlfZHNp
-X2RldmljZSAqZGV2aWNlKQogewogCXN0cnVjdCBkd19taXBpX2RzaSAqZHNpID0gaG9zdF90b19k
-c2koaG9zdCk7CiAJY29uc3Qgc3RydWN0IGR3X21pcGlfZHNpX3BsYXRfZGF0YSAqcGRhdGEgPSBk
-c2ktPnBsYXRfZGF0YTsKKwlzdHJ1Y3QgZHJtX2JyaWRnZSAqYnJpZGdlOworCXN0cnVjdCBkcm1f
-cGFuZWwgKnBhbmVsOwogCWludCByZXQ7CiAKIAlpZiAoZGV2aWNlLT5sYW5lcyA+IGRzaS0+cGxh
-dF9kYXRhLT5tYXhfZGF0YV9sYW5lcykgewpAQCAtMzU0LDE0ICszMjksMjIgQEAgc3RhdGljIGlu
-dCBkd19taXBpX2RzaV9ob3N0X2F0dGFjaChzdHJ1Y3QgbWlwaV9kc2lfaG9zdCAqaG9zdCwKIAlk
-c2ktPmZvcm1hdCA9IGRldmljZS0+Zm9ybWF0OwogCWRzaS0+bW9kZV9mbGFncyA9IGRldmljZS0+
-bW9kZV9mbGFnczsKIAotCWlmICghZHNpLT5kZXZpY2VfZm91bmQpIHsKLQkJcmV0ID0gZHdfbWlw
-aV9kc2lfcGFuZWxfb3JfYnJpZGdlKGRzaSwgaG9zdC0+ZGV2LT5vZl9ub2RlKTsKLQkJaWYgKHJl
-dCkKLQkJCXJldHVybiByZXQ7CisJcmV0ID0gZHJtX29mX2ZpbmRfcGFuZWxfb3JfYnJpZGdlKGhv
-c3QtPmRldi0+b2Zfbm9kZSwgMSwgMCwKKwkJCQkJICAmcGFuZWwsICZicmlkZ2UpOworCWlmIChy
-ZXQpCisJCXJldHVybiByZXQ7CiAKLQkJZHNpLT5kZXZpY2VfZm91bmQgPSB0cnVlOworCWlmIChw
-YW5lbCkgeworCQlicmlkZ2UgPSBkcm1fcGFuZWxfYnJpZGdlX2FkZF90eXBlZChwYW5lbCwKKwkJ
-CQkJCSAgICBEUk1fTU9ERV9DT05ORUNUT1JfRFNJKTsKKwkJaWYgKElTX0VSUihicmlkZ2UpKQor
-CQkJcmV0dXJuIFBUUl9FUlIoYnJpZGdlKTsKIAl9CiAKKwlkc2ktPnBhbmVsX2JyaWRnZSA9IGJy
-aWRnZTsKKworCWRybV9icmlkZ2VfYWRkKCZkc2ktPmJyaWRnZSk7CisKIAlpZiAocGRhdGEtPmhv
-c3Rfb3BzICYmIHBkYXRhLT5ob3N0X29wcy0+YXR0YWNoKSB7CiAJCXJldCA9IHBkYXRhLT5ob3N0
-X29wcy0+YXR0YWNoKHBkYXRhLT5wcml2X2RhdGEsIGRldmljZSk7CiAJCWlmIChyZXQgPCAwKQpA
-QCAtMTAxNiwxNiArOTk5LDYgQEAgc3RhdGljIGludCBkd19taXBpX2RzaV9icmlkZ2VfYXR0YWNo
-KHN0cnVjdCBkcm1fYnJpZGdlICpicmlkZ2UsCiAJLyogU2V0IHRoZSBlbmNvZGVyIHR5cGUgYXMg
-Y2FsbGVyIGRvZXMgbm90IGtub3cgaXQgKi8KIAlicmlkZ2UtPmVuY29kZXItPmVuY29kZXJfdHlw
-ZSA9IERSTV9NT0RFX0VOQ09ERVJfRFNJOwogCi0JaWYgKCFkc2ktPmRldmljZV9mb3VuZCkgewot
-CQlpbnQgcmV0OwotCi0JCXJldCA9IGR3X21pcGlfZHNpX3BhbmVsX29yX2JyaWRnZShkc2ksIGRz
-aS0+ZGV2LT5vZl9ub2RlKTsKLQkJaWYgKHJldCkKLQkJCXJldHVybiByZXQ7Ci0KLQkJZHNpLT5k
-ZXZpY2VfZm91bmQgPSB0cnVlOwotCX0KLQogCS8qIEF0dGFjaCB0aGUgcGFuZWwtYnJpZGdlIHRv
-IHRoZSBkc2kgYnJpZGdlICovCiAJcmV0dXJuIGRybV9icmlkZ2VfYXR0YWNoKGJyaWRnZS0+ZW5j
-b2RlciwgZHNpLT5wYW5lbF9icmlkZ2UsIGJyaWRnZSwKIAkJCQkgZmxhZ3MpOwpAQCAtMTIwOCw3
-ICsxMTgxLDYgQEAgX19kd19taXBpX2RzaV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpw
-ZGV2LAogI2lmZGVmIENPTkZJR19PRgogCWRzaS0+YnJpZGdlLm9mX25vZGUgPSBwZGV2LT5kZXYu
-b2Zfbm9kZTsKICNlbmRpZgotCWRybV9icmlkZ2VfYWRkKCZkc2ktPmJyaWRnZSk7CiAKIAlyZXR1
-cm4gZHNpOwogfQotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+devm_drm_of_get_bridge is capable of looking up the downstream
+bridge and panel and trying to add a panel bridge if the panel
+is found.
+
+Replace explicit finding calls with devm_drm_of_get_bridge.
+
+Cc: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+---
+Note: for mcde_dsi child lookups has dependecy with
+https://patchwork.kernel.org/project/dri-devel/cover/20211207054747.461029-1-jagan@amarulasolutions.com/
+
+ drivers/gpu/drm/bridge/analogix/anx7625.c     | 13 +------
+ drivers/gpu/drm/bridge/chipone-icn6211.c      |  7 +---
+ drivers/gpu/drm/bridge/nwl-dsi.c              | 18 ++-------
+ drivers/gpu/drm/bridge/nxp-ptn3460.c          |  7 +---
+ drivers/gpu/drm/bridge/parade-ps8622.c        |  7 +---
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 15 ++-----
+ drivers/gpu/drm/mcde/mcde_dsi.c               | 39 +++----------------
+ drivers/gpu/drm/mediatek/mtk_dsi.c            | 14 ++-----
+ 8 files changed, 18 insertions(+), 102 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+index 001fb39d9919..065cc3b041dd 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.c
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+@@ -1333,8 +1333,6 @@ static int anx7625_parse_dt(struct device *dev,
+ 			    struct anx7625_platform_data *pdata)
+ {
+ 	struct device_node *np = dev->of_node, *ep0;
+-	struct drm_panel *panel;
+-	int ret;
+ 	int bus_type, mipi_lanes;
+ 
+ 	anx7625_get_swing_setting(dev, pdata);
+@@ -1371,16 +1369,7 @@ static int anx7625_parse_dt(struct device *dev,
+ 	if (of_property_read_bool(np, "analogix,audio-enable"))
+ 		pdata->audio_en = 1;
+ 
+-	ret = drm_of_find_panel_or_bridge(np, 1, 0, &panel, NULL);
+-	if (ret < 0) {
+-		if (ret == -ENODEV)
+-			return 0;
+-		return ret;
+-	}
+-	if (!panel)
+-		return -ENODEV;
+-
+-	pdata->panel_bridge = devm_drm_panel_bridge_add(dev, panel);
++	pdata->panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
+ 	if (IS_ERR(pdata->panel_bridge))
+ 		return PTR_ERR(pdata->panel_bridge);
+ 	DRM_DEV_DEBUG_DRIVER(dev, "get panel node.\n");
+diff --git a/drivers/gpu/drm/bridge/chipone-icn6211.c b/drivers/gpu/drm/bridge/chipone-icn6211.c
+index a6151db95586..23c34039ac48 100644
+--- a/drivers/gpu/drm/bridge/chipone-icn6211.c
++++ b/drivers/gpu/drm/bridge/chipone-icn6211.c
+@@ -178,7 +178,6 @@ static const struct drm_bridge_funcs chipone_bridge_funcs = {
+ static int chipone_parse_dt(struct chipone *icn)
+ {
+ 	struct device *dev = icn->dev;
+-	struct drm_panel *panel;
+ 	int ret;
+ 
+ 	icn->vdd1 = devm_regulator_get_optional(dev, "vdd1");
+@@ -214,11 +213,7 @@ static int chipone_parse_dt(struct chipone *icn)
+ 		return PTR_ERR(icn->enable_gpio);
+ 	}
+ 
+-	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, 0, &panel, NULL);
+-	if (ret)
+-		return ret;
+-
+-	icn->panel_bridge = devm_drm_panel_bridge_add(dev, panel);
++	icn->panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
+ 	if (IS_ERR(icn->panel_bridge))
+ 		return PTR_ERR(icn->panel_bridge);
+ 
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index 6becdcdc99fe..f6859dfa6d36 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -910,22 +910,10 @@ static int nwl_dsi_bridge_attach(struct drm_bridge *bridge,
+ {
+ 	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
+ 	struct drm_bridge *panel_bridge;
+-	struct drm_panel *panel;
+-	int ret;
+-
+-	ret = drm_of_find_panel_or_bridge(dsi->dev->of_node, 1, 0, &panel,
+-					  &panel_bridge);
+-	if (ret)
+-		return ret;
+-
+-	if (panel) {
+-		panel_bridge = drm_panel_bridge_add(panel);
+-		if (IS_ERR(panel_bridge))
+-			return PTR_ERR(panel_bridge);
+-	}
+ 
+-	if (!panel_bridge)
+-		return -EPROBE_DEFER;
++	panel_bridge = devm_drm_of_get_bridge(dsi->dev, dsi->dev->of_node, 1, 0);
++	if (IS_ERR(panel_bridge))
++		return PTR_ERR(panel_bridge);
+ 
+ 	return drm_bridge_attach(bridge->encoder, panel_bridge, bridge, flags);
+ }
+diff --git a/drivers/gpu/drm/bridge/nxp-ptn3460.c b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+index e941c1132598..1ab91f4e057b 100644
+--- a/drivers/gpu/drm/bridge/nxp-ptn3460.c
++++ b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+@@ -263,7 +263,6 @@ static int ptn3460_probe(struct i2c_client *client,
+ 	struct device *dev = &client->dev;
+ 	struct ptn3460_bridge *ptn_bridge;
+ 	struct drm_bridge *panel_bridge;
+-	struct drm_panel *panel;
+ 	int ret;
+ 
+ 	ptn_bridge = devm_kzalloc(dev, sizeof(*ptn_bridge), GFP_KERNEL);
+@@ -271,11 +270,7 @@ static int ptn3460_probe(struct i2c_client *client,
+ 		return -ENOMEM;
+ 	}
+ 
+-	ret = drm_of_find_panel_or_bridge(dev->of_node, 0, 0, &panel, NULL);
+-	if (ret)
+-		return ret;
+-
+-	panel_bridge = devm_drm_panel_bridge_add(dev, panel);
++	panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
+ 	if (IS_ERR(panel_bridge))
+ 		return PTR_ERR(panel_bridge);
+ 
+diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
+index 614b19f0f1b7..37b308850b4e 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8622.c
++++ b/drivers/gpu/drm/bridge/parade-ps8622.c
+@@ -452,18 +452,13 @@ static int ps8622_probe(struct i2c_client *client,
+ 	struct device *dev = &client->dev;
+ 	struct ps8622_bridge *ps8622;
+ 	struct drm_bridge *panel_bridge;
+-	struct drm_panel *panel;
+ 	int ret;
+ 
+ 	ps8622 = devm_kzalloc(dev, sizeof(*ps8622), GFP_KERNEL);
+ 	if (!ps8622)
+ 		return -ENOMEM;
+ 
+-	ret = drm_of_find_panel_or_bridge(dev->of_node, 0, 0, &panel, NULL);
+-	if (ret)
+-		return ret;
+-
+-	panel_bridge = devm_drm_panel_bridge_add(dev, panel);
++	panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
+ 	if (IS_ERR(panel_bridge))
+ 		return PTR_ERR(panel_bridge);
+ 
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+index 7900da1d4325..eafd1e5e6852 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+@@ -315,7 +315,6 @@ static int dw_mipi_dsi_host_attach(struct mipi_dsi_host *host,
+ 	struct dw_mipi_dsi *dsi = host_to_dsi(host);
+ 	const struct dw_mipi_dsi_plat_data *pdata = dsi->plat_data;
+ 	struct drm_bridge *bridge;
+-	struct drm_panel *panel;
+ 	int ret;
+ 
+ 	if (device->lanes > dsi->plat_data->max_data_lanes) {
+@@ -329,17 +328,9 @@ static int dw_mipi_dsi_host_attach(struct mipi_dsi_host *host,
+ 	dsi->format = device->format;
+ 	dsi->mode_flags = device->mode_flags;
+ 
+-	ret = drm_of_find_panel_or_bridge(host->dev->of_node, 1, 0,
+-					  &panel, &bridge);
+-	if (ret)
+-		return ret;
+-
+-	if (panel) {
+-		bridge = drm_panel_bridge_add_typed(panel,
+-						    DRM_MODE_CONNECTOR_DSI);
+-		if (IS_ERR(bridge))
+-			return PTR_ERR(bridge);
+-	}
++	bridge = devm_drm_of_get_bridge(dsi->dev, dsi->dev->of_node, 1, 0);
++	if (IS_ERR(bridge))
++		return PTR_ERR(bridge);
+ 
+ 	dsi->panel_bridge = bridge;
+ 
+diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
+index 5651734ce977..9371349b8b25 100644
+--- a/drivers/gpu/drm/mcde/mcde_dsi.c
++++ b/drivers/gpu/drm/mcde/mcde_dsi.c
+@@ -1073,9 +1073,7 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
+ 	struct drm_device *drm = data;
+ 	struct mcde *mcde = to_mcde(drm);
+ 	struct mcde_dsi *d = dev_get_drvdata(dev);
+-	struct device_node *child;
+-	struct drm_panel *panel = NULL;
+-	struct drm_bridge *bridge = NULL;
++	struct drm_bridge *bridge;
+ 
+ 	if (!of_get_available_child_count(dev->of_node)) {
+ 		dev_info(dev, "unused DSI interface\n");
+@@ -1100,37 +1098,10 @@ static int mcde_dsi_bind(struct device *dev, struct device *master,
+ 		return PTR_ERR(d->lp_clk);
+ 	}
+ 
+-	/* Look for a panel as a child to this node */
+-	for_each_available_child_of_node(dev->of_node, child) {
+-		panel = of_drm_find_panel(child);
+-		if (IS_ERR(panel)) {
+-			dev_err(dev, "failed to find panel try bridge (%ld)\n",
+-				PTR_ERR(panel));
+-			panel = NULL;
+-
+-			bridge = of_drm_find_bridge(child);
+-			if (!bridge) {
+-				dev_err(dev, "failed to find bridge\n");
+-				return -EINVAL;
+-			}
+-		}
+-	}
+-	if (panel) {
+-		bridge = drm_panel_bridge_add_typed(panel,
+-						    DRM_MODE_CONNECTOR_DSI);
+-		if (IS_ERR(bridge)) {
+-			dev_err(dev, "error adding panel bridge\n");
+-			return PTR_ERR(bridge);
+-		}
+-		dev_info(dev, "connected to panel\n");
+-		d->panel = panel;
+-	} else if (bridge) {
+-		/* TODO: AV8100 HDMI encoder goes here for example */
+-		dev_info(dev, "connected to non-panel bridge (unsupported)\n");
+-		return -ENODEV;
+-	} else {
+-		dev_err(dev, "no panel or bridge\n");
+-		return -ENODEV;
++	bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
++	if (IS_ERR(bridge)) {
++		dev_err(dev, "error to get bridge\n");
++		return PTR_ERR(bridge);
+ 	}
+ 
+ 	d->bridge_out = bridge;
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index 5d90d2eb0019..a1b3e1f4b497 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -1004,7 +1004,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ {
+ 	struct mtk_dsi *dsi;
+ 	struct device *dev = &pdev->dev;
+-	struct drm_panel *panel;
+ 	struct resource *regs;
+ 	int irq_num;
+ 	int ret;
+@@ -1021,17 +1020,10 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	ret = drm_of_find_panel_or_bridge(dev->of_node, 0, 0,
+-					  &panel, &dsi->next_bridge);
+-	if (ret)
++	dsi->next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
++	if (IS_ERR(dsi->next_bridge)) {
++		ret = PTR_ERR(dsi->next_bridge);
+ 		goto err_unregister_host;
+-
+-	if (panel) {
+-		dsi->next_bridge = devm_drm_panel_bridge_add(dev, panel);
+-		if (IS_ERR(dsi->next_bridge)) {
+-			ret = PTR_ERR(dsi->next_bridge);
+-			goto err_unregister_host;
+-		}
+ 	}
+ 
+ 	dsi->driver_data = of_device_get_match_data(dev);
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
