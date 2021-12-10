@@ -2,66 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D21CE470962
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Dec 2021 19:52:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7941C470A8B
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Dec 2021 20:38:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90AD8C5F1EA;
-	Fri, 10 Dec 2021 18:52:22 +0000 (UTC)
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
- [209.85.210.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21ECCC5F1EA;
+	Fri, 10 Dec 2021 19:38:29 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5339DC57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5213C5E2C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Dec 2021 18:52:21 +0000 (UTC)
-Received: by mail-ot1-f49.google.com with SMTP id
- 35-20020a9d08a6000000b00579cd5e605eso10607813otf.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Dec 2021 10:52:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Y7NmFP1p6Qd1b0fL9f5rRq9R2qqG2ejfV+/bfCnpsio=;
- b=lFzj2giJ81kYvh1SKkBKGAOK2HYRkcCgxXSIYFQIQM9gavFv+OJ1QVvFvS4BYqbYkO
- 2zQJtNn773Py9uoNQY+EppYDb7ISscCGPO3M/KIciHskXC/pC3F9cvKGi4TUgtp5irdh
- XXGMfK471jW94vLab71+8ezTXvokVkxmWUsFjVeuuOrKAcCU2zAQGYYnm1XFjJACGN9W
- iior2Md+/YMihmhELoQM5rwaxosu2VXeeR9+RXrw/BhN8ayTCRNzwYat0LKXlumFWYh/
- qRgoz9S8ZX2MkS8hFUsXYHKeKVKZLgSNArkBtX9YsJxh3fkv7qUaFxEr797G/N5iGaXd
- UxaA==
-X-Gm-Message-State: AOAM532y6wDxIz/a/2gvdvsNAK3Xhclika5XISxi8a2jw7CiamJtpVSv
- IPwta2hCnpS5ZljtZ9qOjg==
-X-Google-Smtp-Source: ABdhPJxJINpWT9IGxH/gECmIc454mQcQqjJ6lflDgb0psgutHeLk4C87tidil+dvRTPlkQbusGCZJQ==
-X-Received: by 2002:a9d:6190:: with SMTP id g16mr12460797otk.54.1639162340148; 
- Fri, 10 Dec 2021 10:52:20 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id z12sm686907oor.45.2021.12.10.10.52.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Dec 2021 10:52:19 -0800 (PST)
-Received: (nullmailer pid 1694615 invoked by uid 1000);
- Fri, 10 Dec 2021 18:52:18 -0000
-Date: Fri, 10 Dec 2021 12:52:18 -0600
-From: Rob Herring <robh@kernel.org>
-To: Biao Huang <biao.huang@mediatek.com>
-Message-ID: <YbOh4hZfc+QKA/hO@robh.at.kernel.org>
-References: <20211210013129.811-1-biao.huang@mediatek.com>
- <20211210013129.811-7-biao.huang@mediatek.com>
+ Fri, 10 Dec 2021 19:38:27 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 6393ACE2D06;
+ Fri, 10 Dec 2021 19:38:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FBFCC00446;
+ Fri, 10 Dec 2021 19:38:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1639165103;
+ bh=aoOA0pMHAABLa1W3yYm9uarwooXzNi/jwYwWfmI/kHc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Uo4Ycg+mUUsohs7TJTCdYdEyaRkqxmsbjAFfGQ4IKMLr0tmMREgW2lXQM7smL4f2T
+ KolNGkP5qEupdbJCagxMSrWLAgjIhmASfyWtHqYDIczIP/KwzUZxXgkVesQojzEwZF
+ 2lbWJwKwgZ2ZCjmTg6ZN/CoWPu6aYZQ0HS27Z01DowTnICZBGLWZ+bLVnJadM9e4cb
+ d3C6Ah/3Iu8Ajz3gAUBxl6/0kaDpvStEUEjbb3tbvIwTxVz254wQiJd6iHEPt+spxN
+ JCF71KrafhvlPccQqw9A8ndIW5yYEeR/AHhzHXJGGy61ylZOdtf4Hp1TqkoAGf4yR8
+ adLRymFZPFQMA==
+Date: Fri, 10 Dec 2021 11:38:21 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Vladimir Oltean <olteanv@gmail.com>
+Message-ID: <20211210113821.522b7c00@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20211210115730.bcdh7jvwt24u5em3@skbuf>
+References: <20211209151631.138326-1-boon.leong.ong@intel.com>
+ <20211210115730.bcdh7jvwt24u5em3@skbuf>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211210013129.811-7-biao.huang@mediatek.com>
-Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- dkirjanov@suse.de, Jose Abreu <joabreu@synopsys.com>,
- linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Cc: Alexandre Torgue <alexandre.torgue@st.com>,
+ Amritha Nambiar <amritha.nambiar@intel.com>, netdev@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kurt Kanzenbach <kurt.kanzenbach@linutronix.de>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH net-next v8 6/6] net: dt-bindings: dwmac:
- add support for mt8195
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: add EthType Rx
+	Frame steering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,152 +64,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Dec 10, 2021 at 09:31:29AM +0800, Biao Huang wrote:
-> Add binding document for the ethernet on mt8195.
-> 
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> ---
->  .../bindings/net/mediatek-dwmac.yaml          | 86 +++++++++++++++----
->  1 file changed, 70 insertions(+), 16 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> index 9207266a6e69..fb04166404d8 100644
-> --- a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> @@ -19,11 +19,67 @@ select:
->        contains:
->          enum:
->            - mediatek,mt2712-gmac
-> +          - mediatek,mt8195-gmac
->    required:
->      - compatible
->  
->  allOf:
->    - $ref: "snps,dwmac.yaml#"
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - mediatek,mt2712-gmac
-> +
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 5
-> +          items:
-> +            - description: AXI clock
-> +            - description: APB clock
-> +            - description: MAC Main clock
-> +            - description: PTP clock
-> +            - description: RMII reference clock provided by MAC
-> +
-> +        clock-names:
-> +          minItems: 5
-> +          items:
-> +            - const: axi
-> +            - const: apb
-> +            - const: mac_main
-> +            - const: ptp_ref
-> +            - const: rmii_internal
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - mediatek,mt8195-gmac
-> +
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 6
-> +          items:
-> +            - description: AXI clock
-> +            - description: APB clock
-> +            - description: MAC clock gate
+On Fri, 10 Dec 2021 13:57:30 +0200 Vladimir Oltean wrote:
+> Is it the canonical approach to perform flow steering via tc-flower hw_tc,
+> as opposed to ethtool --config-nfc? My understanding from reading the
+> documentation is that tc-flower hw_tc only selects the hardware traffic
+> class for a packet, and that this has to do with prioritization
+> (although the concept in itself is a bit ill-defined as far as I
+> understand it, how does it relate to things like offloaded skbedit priority?).
+> But selecting a traffic class, in itself, doesn't (directly or
+> necessarily) select a ring per se, as ethtool does? Just like ethtool
+> doesn't select packet priority, just RX queue. When the RX queue
+> priority is configurable (see the "snps,priority" device tree property
+> in stmmac_mtl_setup) and more RX queues have the same priority, I'm not
+> sure what hw_tc is supposed to do in terms of RX queue selection?
 
-Add new clocks on to the end of existing clocks. That will simplify the 
-binding as here you will just need 'minItems: 6'.
+You didn't mention the mqprio, but I think that's the piece that maps
+TCs to queue pairs. You can have multiple queues in a TC.
 
-> +            - description: MAC Main clock
-> +            - description: PTP clock
-> +            - description: RMII reference clock provided by MAC
-> +
-> +        clock-names:
-> +          minItems: 6
-> +          items:
-> +            - const: axi
-> +            - const: apb
-> +            - const: mac_cg
-> +            - const: mac_main
-> +            - const: ptp_ref
-> +            - const: rmii_internal
->  
->  properties:
->    compatible:
-> @@ -32,22 +88,10 @@ properties:
->            - enum:
->                - mediatek,mt2712-gmac
->            - const: snps,dwmac-4.20a
-> -
-> -  clocks:
-> -    items:
-> -      - description: AXI clock
-> -      - description: APB clock
-> -      - description: MAC Main clock
-> -      - description: PTP clock
-> -      - description: RMII reference clock provided by MAC
-> -
-> -  clock-names:
-> -    items:
-> -      - const: axi
-> -      - const: apb
-> -      - const: mac_main
-> -      - const: ptp_ref
-> -      - const: rmii_internal
-> +      - items:
-> +          - enum:
-> +              - mediatek,mt8195-gmac
-> +          - const: snps,dwmac-5.10a
->  
->    mediatek,pericfg:
->      $ref: /schemas/types.yaml#/definitions/phandle
-> @@ -62,6 +106,8 @@ properties:
->        or will round down. Range 0~31*170.
->        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
->        or will round down. Range 0~31*550.
-> +      For MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple of 290,
-> +      or will round down. Range 0~31*290.
->  
->    mediatek,rx-delay-ps:
->      description:
-> @@ -70,6 +116,8 @@ properties:
->        or will round down. Range 0~31*170.
->        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
->        or will round down. Range 0~31*550.
-> +      For MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple
-> +      of 290, or will round down. Range 0~31*290.
->  
->    mediatek,rmii-rxc:
->      type: boolean
-> @@ -103,6 +151,12 @@ properties:
->        3. the inside clock, which be sent to MAC, will be inversed in RMII case when
->           the reference clock is from MAC.
->  
-> +  mediatek,mac-wol:
-> +    type: boolean
-> +    description:
-> +      If present, indicates that MAC supports WOL(Wake-On-LAN), and MAC WOL will be enabled.
-> +      Otherwise, PHY WOL is perferred.
-> +
->  required:
->    - compatible
->    - reg
-> -- 
-> 2.25.1
-> 
-> 
+Obviously that's still pretty weird what the flow rules should select
+is an RSS context. mqprio is a qdisc, which means Tx, not Rx.
+
+Adding Amritha who I believe added the concept of selecting Rx queues
+via hw_tc. Can you comment?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
