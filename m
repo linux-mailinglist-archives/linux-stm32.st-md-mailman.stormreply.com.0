@@ -2,56 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA91C471450
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Dec 2021 15:54:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9EF471603
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Dec 2021 21:05:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54595C5F1EB;
-	Sat, 11 Dec 2021 14:54:52 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70A89C5F1EB;
+	Sat, 11 Dec 2021 20:05:37 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA0BDC06F81
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 11 Dec 2021 20:05:35 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03E95C5F1E9
+ by sin.source.kernel.org (Postfix) with ESMTPS id D2591CE0A6A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Dec 2021 14:54:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639234490; x=1670770490;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=UOLKBoHSgO+0GowgGZAGTm6qW/9LK+in/UDqb9zQlK8=;
- b=QJsnFd51gZLlcAsl6oQ0gMi3rZS17S8TGf+FKeet5298jXjVCl5WOouT
- FOn24exuEmW8FAQ3ECw1UGvL9lW9oVNCfE91yw7xpt0+koJtddURbzbgW
- FcX1TiKq2QBP9ZmFZzVsa4TwkC4/mZhNzHE/Er5nMXdwEvndKQblknVsb
- PG2MqZafHM9BlK+4T4VcnSVoN9ac4vWGdVRUHl4gL6RwJrnnMMAWMS3rS
- 2aju9yb8B+Cd3WHxCfXDfeJimjHf+leCcfDpU4hhED7vMCi86DVwWyYgb
- AwpbSzhUNvyGXYdKbIyZyGI+oEA6Jh5X5cclf4Ksw188fFytUPW5k6pO/ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="225811422"
-X-IronPort-AV: E=Sophos;i="5.88,198,1635231600"; d="scan'208";a="225811422"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Dec 2021 06:54:48 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,198,1635231600"; d="scan'208";a="481046501"
-Received: from p12hl98bong5.png.intel.com ([10.158.65.178])
- by orsmga002.jf.intel.com with ESMTP; 11 Dec 2021 06:54:44 -0800
-From: Ong Boon Leong <boon.leong.ong@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, alexandre.torgue@foss.st.com,
- Kurt Kanzenbach <kurt@linutronix.de>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Yannick Vignon <yannick.vignon@oss.nxp.com>,
- Vladimir Oltean <olteanv@gmail.com>
-Date: Sat, 11 Dec 2021 22:51:34 +0800
-Message-Id: <20211211145134.630258-1-boon.leong.ong@intel.com>
-X-Mailer: git-send-email 2.25.1
+ Sat, 11 Dec 2021 20:05:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC7CC341CE
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 11 Dec 2021 20:05:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1639253128;
+ bh=qeCm/LKaezkiKrTscTfvAMTl8B5t7FsCgi2rQzCUItE=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=puBnUmRFUOjWrx+LwEOma2RsAt0l+p/1YivjU5rXFjlecFvUcUAgULA95uSYH2oQm
+ FDFpIXZfLf5kmjwUnC9ts/GCuXLoBmIbPQqccT9rdqjYfp7P87nk2jyQ7obvC+zsZ+
+ gVvOjaLHALfo7rvIPDkZhQxyW+bvfRQem0+jYvgNaXOUXo+VwTHcUG2mbq1d3tdEYG
+ pD+jemFrpzvk1l1L3T8kqwiJaG2I3+Z+JVE2zI1HVYDpnjg+Lya4vHoztPKM0hCblb
+ og6uJmLNCxd+AWMTeDDFma/20SAPr0m+ytn4x4/BIl2J7sSd6auhmcujAjl+nqm6lP
+ XRLdtDQiYPYng==
+Received: by mail-ed1-f49.google.com with SMTP id x15so40889325edv.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 11 Dec 2021 12:05:28 -0800 (PST)
+X-Gm-Message-State: AOAM5311AvPizC6k2xgMFjb1SDvjdlicK9NoPmWLdIKEHz+058HU1Igz
+ ynxRjbjbS+FbB15S3hmh5Ua6r9cKzPhfFs0tgA==
+X-Google-Smtp-Source: ABdhPJz6oQ9/ea55Af7SWA6OUXDM4KBuM9Bev/q3Uf53wZn1RxRMeyn57YfpSjZuONVgP96T1zkE3DQebWnJ1Q7LP+0=
+X-Received: by 2002:a05:6402:440f:: with SMTP id
+ y15mr50056378eda.22.1639253126974; 
+ Sat, 11 Dec 2021 12:05:26 -0800 (PST)
 MIME-Version: 1.0
-Cc: Ong Boon Leong <boon.leong.ong@intel.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: fix tc flower
-	deletion for VLAN priority Rx steering
+References: <20211125144053.774-1-olivier.moysan@foss.st.com>
+ <20211125144053.774-2-olivier.moysan@foss.st.com>
+ <1637875562.357461.2858318.nullmailer@robh.at.kernel.org>
+ <237f56b3-0597-2526-a182-f1fbdd327338@foss.st.com>
+ <Yaf4jiZIp8+ndaXs@robh.at.kernel.org>
+ <627777a4-7458-88ed-e7c5-d11e3db847b5@foss.st.com>
+In-Reply-To: <627777a4-7458-88ed-e7c5-d11e3db847b5@foss.st.com>
+From: Rob Herring <robh@kernel.org>
+Date: Sat, 11 Dec 2021 14:05:15 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+ZVU=DR0vXq6YOsrK9-MoUp5DJ6RKHmtL-ZGSxQ7qyJQ@mail.gmail.com>
+Message-ID: <CAL_Jsq+ZVU=DR0vXq6YOsrK9-MoUp5DJ6RKHmtL-ZGSxQ7qyJQ@mail.gmail.com>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v2 1/4] ASoC: dt-bindings: stm32: i2s: add
+ audio-graph-card port
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,254 +82,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-To replicate the issue:-
+On Tue, Dec 7, 2021 at 7:52 AM Alexandre TORGUE
+<alexandre.torgue@foss.st.com> wrote:
+>
+> Hi Rob
+>
+> On 12/1/21 11:34 PM, Rob Herring wrote:
+> > On Fri, Nov 26, 2021 at 11:25:27AM +0100, Olivier MOYSAN wrote:
+> >> Hi Rob,
+> >>
+> >> On 11/25/21 10:26 PM, Rob Herring wrote:
+> >>> On Thu, 25 Nov 2021 15:40:50 +0100, Olivier Moysan wrote:
+> >>>> The STM2 I2S DAI can be connected via the audio-graph-card.
+> >>>> Add port entry into the bindings.
+> >>>>
+> >>>> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> >>>> ---
+> >>>>    Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml | 5 +++++
+> >>>>    1 file changed, 5 insertions(+)
+> >>>>
+> >>>
+> >>> Running 'make dtbs_check' with the schema in this patch gives the
+> >>> following warnings. Consider if they are expected or the schema is
+> >>> incorrect. These may not be new warnings.
+> >>>
+> >>> Note that it is not yet a requirement to have 0 warnings for dtbs_check.
+> >>> This will change in the future.
+> >>>
+> >>> Full log is available here: https://patchwork.ozlabs.org/patch/1559750
+> >>>
+> >>>
+> >>> audio-controller@4000b000: 'port' does not match any of the regexes: '^port@[0-9]', 'pinctrl-[0-9]+'
+> >>>     arch/arm/boot/dts/stm32mp157a-dk1.dt.yaml
+> >>>     arch/arm/boot/dts/stm32mp157c-dk2.dt.yaml
+> >>>
+> >>
+> >> This warning is not a new one.
+> >>
+> >> The i2s2 node in stm32mp15xx-dkx.dtsi would require the following binding:
+> >> port:
+> >>      $ref: audio-graph-port.yaml#
+> >>      unevaluatedProperties: false
+> >>
+> >> However the spi binding requires to introduce a unit address:
+> >> patternProperties:
+> >>    '^port@[0-9]':
+> >>      $ref: audio-graph-port.yaml#
+> >>      unevaluatedProperties: false
+> >>
+> >> The warning can be removed by re-ordering the bindings patches in the serie,
+> >> as "additionalProperties: true" makes the check more tolerant on extra
+> >> properties.
+> >
+> > That's never right.
+> >
+> >> The patch "ASoC: dt-bindings: stm32: i2s: add audio-graph-card port" can
+> >> even be merely dropped.
+> >> So, I suggest to resend the serie without audio-graph-card patch.
+> >
+> > Only if you aren't using audio-graph-card.
+> >
+> >>
+> >> Does it sound too permissive to you ?
+> >
+> > I think perhaps you need to combine the schemas into 1. Or you need to
+> > restructure your dtsi files such that you only add spi specific
+> > properties when spi mode is enabled and only add i2s specific properties
+> > when i2s mode is enabled. Or use the /delete-property/ directive.
+>
+> Initially the aim of this series was to fix a "make W=1" warnings seen
+> on spi and i2s nodes (duplicate unit-address). Moving both nodes in a
+> common node + using a different compatible depending on SPI or I2S usage
+> sounded good) but it is not enough. In this series the common node is
+> named as following: "spi2s2: spi@4000b000". It is fine for a spi usage
+> but if we want to use this "common node" with I2S compatible and
+> specific bindings, the node name remains spi@... and then specific spi
+> checks are done. For this with this series applied we got this issue
+> reported by spi-controller.yaml:
+>
+> spi@4000b000: port@0: 'compatible' is a required property
+>
+> So, if we use two separates nodes we got W=1 warning and if we use a
+> common node we got yaml check issue. One possibility would be to use a
+> common node with a new node name (for example i2spi@...) but I think it
+> is not acceptable.
 
-1) Add 1 flower filter for VLAN Priority based frame steering:-
-$ IFDEVNAME=eth0
-$ tc qdisc add dev $IFDEVNAME ingress
-$ tc qdisc add dev $IFDEVNAME root mqprio num_tc 8 \
-   map 0 1 2 3 4 5 6 7 0 0 0 0 0 0 0 0 \
-   queues 1@0 1@1 1@2 1@3 1@4 1@5 1@6 1@7 hw 0
-$ tc filter add dev $IFDEVNAME parent ffff: protocol 802.1Q \
-   flower vlan_prio 0 hw_tc 0
+It is acceptable, see this thread[1].
 
-2) Get the 'pref' id
-$ tc filter show dev $IFDEVNAME ingress
+Rob
 
-3) Delete a specific tc flower record (say pref 49151)
-$ tc filter del dev $IFDEVNAME parent ffff: pref 49151
-
-From dmesg, we will observe kernel NULL pointer ooops
-
-[  197.170464] BUG: kernel NULL pointer dereference, address: 0000000000000000
-[  197.171367] #PF: supervisor read access in kernel mode
-[  197.171367] #PF: error_code(0x0000) - not-present page
-[  197.171367] PGD 0 P4D 0
-[  197.171367] Oops: 0000 [#1] PREEMPT SMP NOPTI
-
-<snip>
-
-[  197.171367] RIP: 0010:tc_setup_cls+0x20b/0x4a0 [stmmac]
-
-<snip>
-
-[  197.171367] Call Trace:
-[  197.171367]  <TASK>
-[  197.171367]  ? __stmmac_disable_all_queues+0xa8/0xe0 [stmmac]
-[  197.171367]  stmmac_setup_tc_block_cb+0x70/0x110 [stmmac]
-[  197.171367]  tc_setup_cb_destroy+0xb3/0x180
-[  197.171367]  fl_hw_destroy_filter+0x94/0xc0 [cls_flower]
-
-The above issue is due to previous incorrect implementation of
-tc_del_vlan_flow(), shown below, that uses flow_cls_offload_flow_rule()
-to get struct flow_rule *rule which is no longer valid for tc filter
-delete operation.
-
-  struct flow_rule *rule = flow_cls_offload_flow_rule(cls);
-  struct flow_dissector *dissector = rule->match.dissector;
-
-So, to ensure tc_del_vlan_flow() deletes the right VLAN cls record for
-earlier configured RX queue (configured by hw_tc) in tc_add_vlan_flow(),
-this patch introduces stmmac_rfs_entry as driver-side flow_cls_offload
-record for 'RX frame steering' tc flower, currently used for VLAN
-priority. The implementation has taken consideration for future extension
-to include other type RX frame steering such as EtherType based.
-
-v2:
- - Clean up overly extensive backtrace and rewrite git message to better
-   explain the kernel NULL pointer issue.
-
-Fixes: 0e039f5cf86c ("net: stmmac: add RX frame steering based on VLAN priority in tc flower")
-Tested-by: Kurt Kanzenbach <kurt@linutronix.de>
-Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  | 17 ++++
- .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 86 ++++++++++++++++---
- 2 files changed, 90 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 4f5292cadf5..18a262ef17f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -171,6 +171,19 @@ struct stmmac_flow_entry {
- 	int is_l4;
- };
- 
-+/* Rx Frame Steering */
-+enum stmmac_rfs_type {
-+	STMMAC_RFS_T_VLAN,
-+	STMMAC_RFS_T_MAX,
-+};
-+
-+struct stmmac_rfs_entry {
-+	unsigned long cookie;
-+	int in_use;
-+	int type;
-+	int tc;
-+};
-+
- struct stmmac_priv {
- 	/* Frequently used values are kept adjacent for cache effect */
- 	u32 tx_coal_frames[MTL_MAX_TX_QUEUES];
-@@ -288,6 +301,10 @@ struct stmmac_priv {
- 	struct stmmac_tc_entry *tc_entries;
- 	unsigned int flow_entries_max;
- 	struct stmmac_flow_entry *flow_entries;
-+	unsigned int rfs_entries_max[STMMAC_RFS_T_MAX];
-+	unsigned int rfs_entries_cnt[STMMAC_RFS_T_MAX];
-+	unsigned int rfs_entries_total;
-+	struct stmmac_rfs_entry *rfs_entries;
- 
- 	/* Pulse Per Second output */
- 	struct stmmac_pps_cfg pps[STMMAC_PPS_MAX];
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 1c4ea0b1b84..d0a2b289f46 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -232,11 +232,33 @@ static int tc_setup_cls_u32(struct stmmac_priv *priv,
- 	}
- }
- 
-+static int tc_rfs_init(struct stmmac_priv *priv)
-+{
-+	int i;
-+
-+	priv->rfs_entries_max[STMMAC_RFS_T_VLAN] = 8;
-+
-+	for (i = 0; i < STMMAC_RFS_T_MAX; i++)
-+		priv->rfs_entries_total += priv->rfs_entries_max[i];
-+
-+	priv->rfs_entries = devm_kcalloc(priv->device,
-+					 priv->rfs_entries_total,
-+					 sizeof(*priv->rfs_entries),
-+					 GFP_KERNEL);
-+	if (!priv->rfs_entries)
-+		return -ENOMEM;
-+
-+	dev_info(priv->device, "Enabled RFS Flow TC (entries=%d)\n",
-+		 priv->rfs_entries_total);
-+
-+	return 0;
-+}
-+
- static int tc_init(struct stmmac_priv *priv)
- {
- 	struct dma_features *dma_cap = &priv->dma_cap;
- 	unsigned int count;
--	int i;
-+	int ret, i;
- 
- 	if (dma_cap->l3l4fnum) {
- 		priv->flow_entries_max = dma_cap->l3l4fnum;
-@@ -250,10 +272,14 @@ static int tc_init(struct stmmac_priv *priv)
- 		for (i = 0; i < priv->flow_entries_max; i++)
- 			priv->flow_entries[i].idx = i;
- 
--		dev_info(priv->device, "Enabled Flow TC (entries=%d)\n",
-+		dev_info(priv->device, "Enabled L3L4 Flow TC (entries=%d)\n",
- 			 priv->flow_entries_max);
- 	}
- 
-+	ret = tc_rfs_init(priv);
-+	if (ret)
-+		return -ENOMEM;
-+
- 	if (!priv->plat->fpe_cfg) {
- 		priv->plat->fpe_cfg = devm_kzalloc(priv->device,
- 						   sizeof(*priv->plat->fpe_cfg),
-@@ -607,16 +633,45 @@ static int tc_del_flow(struct stmmac_priv *priv,
- 	return ret;
- }
- 
-+static struct stmmac_rfs_entry *tc_find_rfs(struct stmmac_priv *priv,
-+					    struct flow_cls_offload *cls,
-+					    bool get_free)
-+{
-+	int i;
-+
-+	for (i = 0; i < priv->rfs_entries_total; i++) {
-+		struct stmmac_rfs_entry *entry = &priv->rfs_entries[i];
-+
-+		if (entry->cookie == cls->cookie)
-+			return entry;
-+		if (get_free && entry->in_use == false)
-+			return entry;
-+	}
-+
-+	return NULL;
-+}
-+
- #define VLAN_PRIO_FULL_MASK (0x07)
- 
- static int tc_add_vlan_flow(struct stmmac_priv *priv,
- 			    struct flow_cls_offload *cls)
- {
-+	struct stmmac_rfs_entry *entry = tc_find_rfs(priv, cls, false);
- 	struct flow_rule *rule = flow_cls_offload_flow_rule(cls);
- 	struct flow_dissector *dissector = rule->match.dissector;
- 	int tc = tc_classid_to_hwtc(priv->dev, cls->classid);
- 	struct flow_match_vlan match;
- 
-+	if (!entry) {
-+		entry = tc_find_rfs(priv, cls, true);
-+		if (!entry)
-+			return -ENOENT;
-+	}
-+
-+	if (priv->rfs_entries_cnt[STMMAC_RFS_T_VLAN] >=
-+	    priv->rfs_entries_max[STMMAC_RFS_T_VLAN])
-+		return -ENOENT;
-+
- 	/* Nothing to do here */
- 	if (!dissector_uses_key(dissector, FLOW_DISSECTOR_KEY_VLAN))
- 		return -EINVAL;
-@@ -638,6 +693,12 @@ static int tc_add_vlan_flow(struct stmmac_priv *priv,
- 
- 		prio = BIT(match.key->vlan_priority);
- 		stmmac_rx_queue_prio(priv, priv->hw, prio, tc);
-+
-+		entry->in_use = true;
-+		entry->cookie = cls->cookie;
-+		entry->tc = tc;
-+		entry->type = STMMAC_RFS_T_VLAN;
-+		priv->rfs_entries_cnt[STMMAC_RFS_T_VLAN]++;
- 	}
- 
- 	return 0;
-@@ -646,20 +707,19 @@ static int tc_add_vlan_flow(struct stmmac_priv *priv,
- static int tc_del_vlan_flow(struct stmmac_priv *priv,
- 			    struct flow_cls_offload *cls)
- {
--	struct flow_rule *rule = flow_cls_offload_flow_rule(cls);
--	struct flow_dissector *dissector = rule->match.dissector;
--	int tc = tc_classid_to_hwtc(priv->dev, cls->classid);
-+	struct stmmac_rfs_entry *entry = tc_find_rfs(priv, cls, false);
- 
--	/* Nothing to do here */
--	if (!dissector_uses_key(dissector, FLOW_DISSECTOR_KEY_VLAN))
--		return -EINVAL;
-+	if (!entry || !entry->in_use || entry->type != STMMAC_RFS_T_VLAN)
-+		return -ENOENT;
- 
--	if (tc < 0) {
--		netdev_err(priv->dev, "Invalid traffic class\n");
--		return -EINVAL;
--	}
-+	stmmac_rx_queue_prio(priv, priv->hw, 0, entry->tc);
-+
-+	entry->in_use = false;
-+	entry->cookie = 0;
-+	entry->tc = 0;
-+	entry->type = 0;
- 
--	stmmac_rx_queue_prio(priv, priv->hw, 0, tc);
-+	priv->rfs_entries_cnt[STMMAC_RFS_T_VLAN]--;
- 
- 	return 0;
- }
--- 
-2.25.1
-
+[1] https://lore.kernel.org/all/20211203183517.11390-1-semen.protsenko@linaro.org/
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
