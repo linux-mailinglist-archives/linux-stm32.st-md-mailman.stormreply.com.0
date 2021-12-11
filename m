@@ -2,68 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFEAA470F7F
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Dec 2021 01:35:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62A5E471107
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Dec 2021 03:55:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 658D7C5F1EB;
-	Sat, 11 Dec 2021 00:35:47 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 199FBC5F1EB;
+	Sat, 11 Dec 2021 02:55:25 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59282C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF01DC57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Dec 2021 00:35:45 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- x43-20020a056830246b00b00570d09d34ebso11342298otr.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Dec 2021 16:35:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=e5x1ZjLFt2D7tDxJkUBVGLXNcKm1tzU4wK9evqtEkww=;
- b=O7hwBTF5k+CrSbVIJz7E/Ja3jnkWRmNNlGupROLqkAREKGvQ7klIt163ni1FQLHeIy
- lqXa+Q079+k8F8KqDCPqC2c0wLokSb7E39OH17K3im5utFF9U5L6MDLtFc4Ci4d6qeA5
- HAH2qe5ECgoRCiFKH3z0nW5vBh/UaDGurQ7R3U8/HaBRvMjxm+TK/o1ICV9J03f9/yxU
- FprbGD+dqdt1muP1VFGPUJKlCJZJQtBZtH1wXKKNO3U92hiExCF/1LgCkChHZm58/skJ
- c39v2CAVrlbZ5NH4ksghAc9FDOosX56s8hhX3DUCR3AZ9445uzQXOeoj9k4XVBRbYSNv
- +VaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=e5x1ZjLFt2D7tDxJkUBVGLXNcKm1tzU4wK9evqtEkww=;
- b=Q3MLkNyzj0Y0oREcigDZNGvp5o5IGF/YFeSjvSy2Jvv6Eyum/mtQR7AggTIPX7rIR/
- eLOBOFW6DnJfOPFEZ/XH+VDf18nvDdsUb9iv71X26Z+H/a4vXKNflL8W1grqbJh3a1gW
- VfeT/OjcXIRouelpSizl2kQihAr1jEYyNwkSTAXZM+WrjDltRoC5NWxbFYJfCTjA8B81
- dupI6HsEyUXXvWSrqFcTN0IBmYJroy9oUhkFlYmJkrIXyeQWttxtFmkGs47i4hAbNp2g
- k5yQLanqTFBeHHViRkHiEWmWBUz3knoDeoAylN/Snj2tEGZngu5ydGoymLn3yhUbeRGW
- o5Ig==
-X-Gm-Message-State: AOAM532h/2qCLRhLN4/MAgtV+MpJeVDjp7+s1ClQpC31s2PtDcpMFyYA
- R1jQQ/2yl2mGd1zrZE55n05dSQHgQOzhAkfYbuGpvw==
-X-Google-Smtp-Source: ABdhPJzikiVI8vcao0kj+q441azYFjZ6pqZrjkhHa3ehGwijjFUBuob39jPpZnmU8LWbI38sHbTYQoddgoE2n4/7fKo=
-X-Received: by 2002:a9d:a42:: with SMTP id 60mr13978796otg.179.1639182944229; 
- Fri, 10 Dec 2021 16:35:44 -0800 (PST)
+ Sat, 11 Dec 2021 02:55:23 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 3BEC0CE2E94;
+ Sat, 11 Dec 2021 02:55:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6B0FC00446;
+ Sat, 11 Dec 2021 02:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1639191318;
+ bh=RY84ZI2kloyXVIY567DWStXfiiZPq0O0dF+oSlOguCw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=TdiT8ipkwcoqGEKluX2HgCMrOopAjmu6G8/vxg3TTrwj6VOP/Zz/2hPJCqumwFjUb
+ vgyDqwZNxztJ8GlDFQGTDTN3xfW53R79RS0q9DdilTVzbLqBNkEO7PHpy616WxYfWX
+ 5agexy8rOxd+eU2tXjErKY8fRoH/vy9WyGHBNU7xvW8kFvlZDKuc3JTept0fB7d3OA
+ MGRrOESTgI9NHfXAW0UmSw0iqSONPPoWsz52jthVhE4+YTJYxMLO3f1XXkZ04cbk3z
+ /tUiQFPpZK4UdWrssXv4IQP28AyoDZieBloCmhdhfIGEZc/kA1OIcSU137olg1vwtl
+ iomFQl2DcK+ug==
+Date: Fri, 10 Dec 2021 18:55:17 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Nambiar, Amritha" <amritha.nambiar@intel.com>
+Message-ID: <20211210185517.30d27cfd@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <MWHPR11MB1293030F02EDACD0A7C25425F1719@MWHPR11MB1293.namprd11.prod.outlook.com>
+References: <20211209151631.138326-1-boon.leong.ong@intel.com>
+ <20211210115730.bcdh7jvwt24u5em3@skbuf>
+ <20211210113821.522b7c00@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <MWHPR11MB1293030F02EDACD0A7C25425F1719@MWHPR11MB1293.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-References: <20211210174819.2250178-1-jagan@amarulasolutions.com>
- <20211210174819.2250178-3-jagan@amarulasolutions.com>
- <CACRpkdb4JGCNyjncqgh8=3wWi4BRCqGNuLyTBRzLiVLK38UzqA@mail.gmail.com>
-In-Reply-To: <CACRpkdb4JGCNyjncqgh8=3wWi4BRCqGNuLyTBRzLiVLK38UzqA@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sat, 11 Dec 2021 01:35:32 +0100
-Message-ID: <CACRpkda=yAk9kQ20ey+am7xjuVDvgDcup6B5vxb3WeuzMiy+kQ@mail.gmail.com>
-To: Jagan Teki <jagan@amarulasolutions.com>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, dri-devel@lists.freedesktop.org,
- Neil Armstrong <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Maxime Ripard <mripard@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Michael Nazzareno Trimarchi <michael@amarulasolutions.com>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-amarula@amarulasolutions.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] drm: bridge: Switch to
-	devm_drm_of_get_bridge
+Cc: "linux-stm32@st-md-mailman.stormreply.com\"       <linux-stm32@st-md-mailman.stormreply.com>,  " linux-arm-kernel@lists.infradead."org," Alexandre Torgue <alexandre.torgue@st.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	Sridhar@stm-ict-prod-mailman-01.stormreply.prv,
+	"alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	<linux-arm-kernel@lists.infradead.org>, ,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	"Kanzenbach,  Kurt" <kurt.kanzenbach@linutronix.de>,
+	"Ong,  Boon Leong" <boon.leong.ong@intel.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: add EthType Rx
+	Frame steering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,30 +70,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Dec 11, 2021 at 1:07 AM Linus Walleij <linus.walleij@linaro.org> wrote:
-> On Fri, Dec 10, 2021 at 6:49 PM Jagan Teki <jagan@amarulasolutions.com> wrote:
+On Fri, 10 Dec 2021 23:57:50 +0000 Nambiar, Amritha wrote:
+> ethtool did not support directing flows to a queue-group, but only a specific individual
+> queue
 
-> > -               dev_info(dev, "connected to panel\n");
-> > -               d->panel = panel;
->
-> How does this assignment happen after your patch?
-> I'm using that...
->
-> devm_drm_of_get_bridge() needs some more argument right?
-
-Actually it is only used in unbind right below:
-
-       if (d->panel)
-                drm_panel_bridge_remove(d->bridge_out);
-
-If it is not needed at all after your patch (because devm removes
-the bridge) then also delete this code, and delete the
-struct drm_panel *panel from struct mcde_dsi at the top
-and possibly also drop the header #include <drm/drm_panel.h>
-entirely.
-
-Yours,
-Linus Walleij
+Just to clarify - not sure how true that part is, ethtool rules can
+direct to RSS contexts since March 2018, your presentation is from 2020.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
