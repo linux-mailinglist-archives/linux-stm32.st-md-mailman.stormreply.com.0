@@ -2,163 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6D5A4721E1
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Dec 2021 08:45:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 070064721E2
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Dec 2021 08:45:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BF8CC5F1F2;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4E38C5F1F6;
 	Mon, 13 Dec 2021 07:45:49 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5DB3C5F1E0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FC00C5F1E9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Dec 2021 23:57:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1639180675; x=1670716675;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=2GfPkgsU4M83+XQL971N+Cr5qNq9AMg9VNjkiQvt9ik=;
- b=bA9slomLJYccP4E3xqhxQyuTHllFgKDBii1K0+c6PU2OWmIrrme3mRqn
- tItmYOU6rS65Nctd5JFCCuyU6kClTXOFsd21eIPkR+5P7uytEo/6cE8VQ
- 4Qbrire7ryR7zkRMOK9hvyOxZfG0JzRvhW5aVGZbT0+Hw+E+K5iT/Ezbe
- gYJt0bU4ia9cA2cmmNo7E2LdBdWCOmaXwFy08+W4dld6OkhBV+rlqq8fe
- r+YVpfwNF/8mZ8Ye/D2wAuTsx3U2A/a5xHHOOmMzTNWtrvChwMBDMld+N
- 7SBo2KAZKZS8lWeym+wt8GZ8fZdxeYiwdVN8BIr8Rz5EtokxCH3GoBqF/ A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="225348696"
-X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="225348696"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2021 15:57:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,197,1635231600"; d="scan'208";a="463874648"
-Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
- by orsmga006.jf.intel.com with ESMTP; 10 Dec 2021 15:57:53 -0800
-Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
- ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Fri, 10 Dec 2021 15:57:53 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20 via Frontend Transport; Fri, 10 Dec 2021 15:57:53 -0800
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.44) by
- edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.20; Fri, 10 Dec 2021 15:57:52 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WY280OeRs+btAPpe+d7G55Sg8CxINPclWrzVx+aFitqFlVv9Yn8oAg7MmdlCNbH5CyOC35AKzyN+dduk/sUUGMuymzUREW0qX/deQxBvAXCp4/VsUphj2BKb+uwIKCxGAlIWwRoFELZlhfqdtjZtwW3dyWSM9vc6/ICHnzk9lA6W6LULkUBh+ZV0ZYIP7N83vupx0k7IP2FgYmhPT8/G4QR2t3dwpuZFTZJO2AWn03IyNI/VelgWGokJBCH5ylIrUUdI0wn+G4UkEKdQd93s5RrBL+aDylcBfql1g+KFaXe8TRm+d3F8tE4qUHFXAAQuxkU5AvIhBEL0MEXG3hfUrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2GfPkgsU4M83+XQL971N+Cr5qNq9AMg9VNjkiQvt9ik=;
- b=KV4pyu8ZmhF2N97mTQNjcbuwSXkvdKCuzG1ZZm0p8NUwCLcK6jKGolt1rXR0zgTeyqCCFhiRyWPEQySKh5iqjCthgDZ5AcA1By81EiCsFRkJ/oVqqlnkCMaCtIJGLtTeg31LdwdnhhjBMu9Tb2qVy1rMqQkdj+R9LveA8OR3OD73K4XrLS/fQb4IXQkMxu5+PDMVhJvjhnk6uszofmYjvVzBRt7j5iFOEiS982BDoQPKhCgCb+sl51YZlq5q4bnajdMSD8RbGNG5TSlLCGxZYPJ4WaKyJNdfQqP5kjtJI9mjaE6JBXp7fN/zt0O7X/u4F05rNgdFijwvbVA/XDjLVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2GfPkgsU4M83+XQL971N+Cr5qNq9AMg9VNjkiQvt9ik=;
- b=X21+kwpKSOoTRwKx1cZ+Suw/sCocEStnwQq8epnKiYyBPqLjYLggkhTAyDkmks9oTE446uDkGfa6l3z5C4CNowcA28ghOV5uGKaoY2stAg9fm9lxx+As9P+/khQKuy4FHNAmmLmZpeBnrjpbMaxcSLX8YsZvoM9FWky6RaWIpq0=
-Received: from MWHPR11MB1293.namprd11.prod.outlook.com (2603:10b6:300:1e::8)
- by MWHPR11MB2048.namprd11.prod.outlook.com (2603:10b6:300:27::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.22; Fri, 10 Dec
- 2021 23:57:50 +0000
-Received: from MWHPR11MB1293.namprd11.prod.outlook.com
- ([fe80::d0b1:12c0:62d3:7c9b]) by MWHPR11MB1293.namprd11.prod.outlook.com
- ([fe80::d0b1:12c0:62d3:7c9b%7]) with mapi id 15.20.4755.027; Fri, 10 Dec 2021
- 23:57:50 +0000
-From: "Nambiar, Amritha" <amritha.nambiar@intel.com>
-To: Jakub Kicinski <kuba@kernel.org>, Vladimir Oltean <olteanv@gmail.com>
-Thread-Topic: [PATCH net-next 0/2] net: stmmac: add EthType Rx Frame steering
-Thread-Index: AQHX7RBf8jboHl+820enr5wfqhDOc6wroBYAgACAw4CAAEMQ4A==
-Date: Fri, 10 Dec 2021 23:57:50 +0000
-Message-ID: <MWHPR11MB1293030F02EDACD0A7C25425F1719@MWHPR11MB1293.namprd11.prod.outlook.com>
-References: <20211209151631.138326-1-boon.leong.ong@intel.com>
- <20211210115730.bcdh7jvwt24u5em3@skbuf>
- <20211210113821.522b7c00@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20211210113821.522b7c00@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.6.200.16
-dlp-reaction: no-action
-dlp-product: dlpe-windows
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9c4093a0-6306-447d-40b3-08d9bc38dfd3
-x-ms-traffictypediagnostic: MWHPR11MB2048:EE_
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-microsoft-antispam-prvs: <MWHPR11MB2048AF08421699DB2F5786E0F1719@MWHPR11MB2048.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: cCNtbMyT69S204lMC0ykuo8pp/uElwIuExa+RweGToJ0BJB3u5+lLi1KOZ5SalU3hcn29t+zI33gDuSw2FTs/HlonX7fzIXJ5qPwu0CvxenH7vPVXriDGvhZ296jGfB74sOZ4UZTF8EvPnV1dC24PDyeTaoGNf7tzu7JzDwEDbsayqH6yP8nTb+zuy+jagucAi7jwZH4fq6PKMxjsIYuECOA19CGBaoE5QOVjVbrIy1pnCm4/8cgmGdTD6zel5mpVa2c+1xAOD3PzVoh8J1nO0BmduHega97IjFABEqfvPoqbfM9pz6Xqz7OKBEbeD/nOw4bqIjMCNC99k9YsrNwOFVc3q/6Pq+QTsqGlEaCeJVVNO6MWtGizAYON1W8bJUmg+h4HfsMvRFOt/iUHPwHedVaZARKJif8JeKZM8kbjNwLAbgdZXDPv7Sbo+3O2txSMmc3SA4RosmJCBBJ8rgef0+bdUm6xDNI1qKLqX6Xi2CxvHbwQ2KB81BSEGBwPPYhOjPFMuRmayHHTMmQzDUaoZCNTi6kfJpofz7NCoFfPTQJWiwb6h4iH6nZ6Rgs5VcgxpSAcpB3nGzVBTZirg2RuJBdfH+Qdq4pwVOrvierDkLwnSbCr+Xo9ZD4lLUfvtVDg3h1iLg+FtXb2PBQnPpqs2o3vbMMQUmGNV8nqM8HwFZd7WUDx+V9S6KgjzvvhU0MsV51iCVPH7r+XmG7ddsMNqqiZUE+KsQ+02BGTlr5SQhOsPQ9MAeDhIl3+J6gMUEh0/fvcELwlMAdVL+CrgZZWjtTNpmyg9UyCYUi7mUisqE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR11MB1293.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(107886003)(66446008)(9686003)(2906002)(54906003)(64756008)(66556008)(7416002)(186003)(4326008)(110136005)(76116006)(66946007)(122000001)(66476007)(7696005)(8676002)(38100700002)(8936002)(38070700005)(6506007)(316002)(33656002)(86362001)(52536014)(53546011)(508600001)(83380400001)(55016003)(82960400001)(5660300002)(71200400001)(26005);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2zyYC/uVnT55WCckmqmm2g99y182uoutGddj9+R35B1i3OlFNU1m6j8AG7sm?=
- =?us-ascii?Q?UDKMQ7hCnct2B71N+QLVjVhGewHsjIliBC6Im6oEXHQFOShpvLWXEFaJM0pq?=
- =?us-ascii?Q?iElTOeG9xxrky0bv+tS9WJQfg46qlA7mChHfUgCX0IqSXI3nNEoMedDxhZEK?=
- =?us-ascii?Q?2PEp5Hs+fOM6eMwu9KmuJ598FN4zUYPxNz+zABr9YFOsDZ9cwx31NHv2XAQl?=
- =?us-ascii?Q?KLY+3PQLdRxX04m0EKg5z2FFwt6k5GriI05UBZoFWLiY1qzZ4/IkZX70c3lS?=
- =?us-ascii?Q?4zkFLc+8z6ZSJWq6gxwopdbwh21HHRrfeejFwIj3OrdGcxGWCtiVLtkBfE96?=
- =?us-ascii?Q?/oeCx6k8k+MS+v8u2mT7xau4bpz5bYmYjRwEh9B0GOb9aLuZmsSrmKIVZPJf?=
- =?us-ascii?Q?u9a6ZFQV8kc0mnezl3m74FrjMLyXkxz/Bg0PLXjkhErzbcPQx5A6Q/dP3Fvm?=
- =?us-ascii?Q?dLNCE9QFampoqV64RcX7LVrsggYqdA6nbVI9TPYEGuM5eHPYOJBxPuH3wDyO?=
- =?us-ascii?Q?u+9zduAhVttms8r/xMPPssayag7lSQhYYPpc6/tXJv/kOXemjWu9rxGqvmqT?=
- =?us-ascii?Q?pBP6zFMOT3VAIIrQ6vN6Gles5D6WJOhv3pN8pGXKqLO6LqtBem+s/DES8QXl?=
- =?us-ascii?Q?gVrbyd8ACK9c8mF+tcxCR0T5w56vmm3TBads6oL4jTJFGU0IG0JkxIfhEGn3?=
- =?us-ascii?Q?8WZoqZ9u/54G0lnqDNQrnydpVtuhpdm/VuO6upULL/PlqdB/FPH895Navtj4?=
- =?us-ascii?Q?OXs2QUg/p530cxHsdHCmlJXl0Mpctr+l2lafG3HrdG00eFMipvMRo+nhK/RP?=
- =?us-ascii?Q?Gk0to3FSU87LFOOGS61nFGJ+0Ha3ZViGb3VrNvynUJPGNK4QGXgOCjELCutk?=
- =?us-ascii?Q?HG+R2VFUA1LKpGvl+Yp6+5hsKYapIaWknJqyGTaddm6C1tFAKEjU65wn8ZtR?=
- =?us-ascii?Q?N/cdPMH/WgZ6lrcndwodwKy3SdHOZbdq5h/HXn6rFKXknImXmjizaoD4+6M4?=
- =?us-ascii?Q?/e4vOXZTk0gcdTOtfvTtuAmNucGLeh+fzp+EtBafUDBN2kLYGDvrAyd/mO5J?=
- =?us-ascii?Q?fpv8yFtcluGE3dpQ1zpDdA77wcTdhU508jdJvCHmf1rwAJr1ZicrdtMpPPlj?=
- =?us-ascii?Q?jxduGCJjMVEVQOTztR65MLTY/BSflNk55oOQfjVOMOfJeT6MHwLZIWO8076X?=
- =?us-ascii?Q?ayEnMHrhL2Oa1AQhH17Czu7dE4CnuSW82R8WFgZsXD4SV457vCk00VmHX+NH?=
- =?us-ascii?Q?Id5+Q2vMVu6Qk9z7tJ+uHd4BkUHPVLpB3oXQ5cjSdKI1jD6I0TbLS2/6Q5Bu?=
- =?us-ascii?Q?Oefh2iOiGB7Q1nF47E5ldqY2SjlOQkIxGYJbHl2J5uBO5LI8mHN5ODNFP8Jx?=
- =?us-ascii?Q?/KKbtB4W/EHcQixLPWvoc5PVuHekcR8TXIQK4T5MFcW3dZUnpTWrQOabXqK6?=
- =?us-ascii?Q?LUNmc8/SeYvjwh+4iy1nE3GxjGkDfANtnzarzUiAa7lMOg7Ab0QYDnzl0cbX?=
- =?us-ascii?Q?NlFAsABgKY9Wyo6gxV2FRnknSUd1NmQhD+qdi0hxRDarRGH7kMJfaK6jAOc2?=
- =?us-ascii?Q?MXuS+yZmhq6gHEwuPshBE0l+xVbVk9W9A6hAHZgXTetLPvUgBFdQwlENXMRx?=
- =?us-ascii?Q?4XHtnqnJl0yIcUZT+lM9KLkDnkz1Pzs0FMFuTxRvFg7PZNcqxWRUMe1drcaj?=
- =?us-ascii?Q?98ISYw=3D=3D?=
+ Sat, 11 Dec 2021 18:53:48 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id d24so20419728wra.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 11 Dec 2021 10:53:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20210112;
+ h=message-id:subject:from:reply-to:to:cc:date:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=TWUrlcTesqI3HuTnG0bLpcjjpTZsdRdkaEZo0eKnu84=;
+ b=fCL9nwjqyRotkVGUmDRGaxph9Ky8MEnAbUbKRK5eMmoxQy7SE9OCh5OVQFcE66Kljk
+ AvH2OxW7k6uW+AzQmDqqAmKJ8M+gevk8Nc6hmGbV4AM+xi6kfXf3/pphzxc+B9uFwz+P
+ 47pJ4uovEDr45okzlU37gM7i/cIUyrXNQ0SX8j2nc3DwgN0UzRPLlKPDlpRnQ4+UTy2n
+ jTpwagJw4shutT/8DYzlGdSR5yFaS+WdDNXyeRgkZcfGNvrafQU3+KnVWFeRe9qyjoDD
+ rKC1ZJ/Utty1edqCmXNOK3WpNp7loKq6vGq6ZQ4KAcJRS3q2Ne3MZh+eVyAtWeCBKWnf
+ 5llw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:reply-to:to:cc:date
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=TWUrlcTesqI3HuTnG0bLpcjjpTZsdRdkaEZo0eKnu84=;
+ b=X+Qrf31ZtjEMLBhnrhcfJK8v4fmQLhb6740tOXvYJZST6Z2RfMq60XJegkS2C9lXhV
+ d22g8zDGScff64SWMQARmA+aEEILkM/7gZio3vzEsa6nhTPc3Okxv+6uWw6Trk5UhIbq
+ zvnZcR5lZu5OeWqyeTbRgrL5n0Ph/tBGcN0z8Y/xtUcJJg2K5rXGzw5vTgzY3y7/F1yO
+ 7ZPEWbXpsOQ+w+O7Gt3BaeDzgCp/6VQ9idkW5zcfbJKpu0iFmA4IXEoCbnNA9A30py4+
+ cjB8gaTMEtq6VHsGnveGQAd8PtAzMhG6mlXjrwjqkIsZF6wa0ypKaca1FhuLB81sBlZh
+ K0wg==
+X-Gm-Message-State: AOAM5332ZGqqy2DUcXM+lBWq+hCB8abfOejbUe9DyxL7zBcLR2JivA7d
+ iLC0SulvVcuBpnb7XJPvk3w=
+X-Google-Smtp-Source: ABdhPJx2knX4bKY7hBXMatBBZT+FGKyzvmJWAx1y6UenAlTIGdo8x6ppcC11ynSU11xW1h6iL4GEUA==
+X-Received: by 2002:a5d:6a89:: with SMTP id s9mr21980731wru.123.1639248827955; 
+ Sat, 11 Dec 2021 10:53:47 -0800 (PST)
+Received: from mars.fritz.box ([2a02:8070:bb0:8700:b62e:e6aa:398b:fb9d])
+ by smtp.gmail.com with ESMTPSA id m21sm5529538wrb.2.2021.12.11.10.53.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 11 Dec 2021 10:53:47 -0800 (PST)
+Message-ID: <a5b8e3ea13de0b2976bb9622dd410dd110f3f66c.camel@googlemail.com>
+From: Christoph Fritz <chf.fritz@googlemail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Linus Walleij <linus.walleij@linaro.org>
+Date: Sat, 11 Dec 2021 19:53:39 +0100
+User-Agent: Evolution 3.38.3-1 
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1293.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c4093a0-6306-447d-40b3-08d9bc38dfd3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2021 23:57:50.7860 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZAqWtPl5AfSG0+S961k6Y+Mn8HuSb4mb1QEP1UGuNWSISnFmqdszIk+NR48bOgijnPAyDl58TJK/Ez69M8XO11nL+JzDrBRHEbsTvND4FAc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB2048
-X-OriginatorOrg: intel.com
 X-Mailman-Approved-At: Mon, 13 Dec 2021 07:45:47 +0000
-Cc: Alexandre Torgue <alexandre.torgue@st.com>, "Samudrala,
- Sridhar" <sridhar.samudrala@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Kanzenbach,
- Kurt" <kurt.kanzenbach@linutronix.de>, "Ong,
- Boon Leong" <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: add EthType Rx
-	Frame steering
+Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] Revert "pinctrl: stm32: fix the reported
+ number of GPIO lines per bank"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -170,73 +71,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: chf.fritz@googlemail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> -----Original Message-----
-> From: Jakub Kicinski <kuba@kernel.org>
-> Sent: Friday, December 10, 2021 11:38 AM
-> To: Vladimir Oltean <olteanv@gmail.com>
-> Cc: Ong, Boon Leong <boon.leong.ong@intel.com>; David S . Miller
-> <davem@davemloft.net>; Giuseppe Cavallaro <peppe.cavallaro@st.com>;
-> Alexandre Torgue <alexandre.torgue@st.com>; Jose Abreu
-> <joabreu@synopsys.com>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>; alexandre.torgue@foss.st.com;
-> Kanzenbach, Kurt <kurt.kanzenbach@linutronix.de>;
-> netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com;
-> linux-arm-kernel@lists.infradead.org; Nambiar, Amritha
-> <amritha.nambiar@intel.com>
-> Subject: Re: [PATCH net-next 0/2] net: stmmac: add EthType Rx Frame
-> steering
-> 
-> On Fri, 10 Dec 2021 13:57:30 +0200 Vladimir Oltean wrote:
-> > Is it the canonical approach to perform flow steering via tc-flower hw_tc,
-> > as opposed to ethtool --config-nfc? My understanding from reading the
-> > documentation is that tc-flower hw_tc only selects the hardware traffic
-> > class for a packet, and that this has to do with prioritization
-> > (although the concept in itself is a bit ill-defined as far as I
-> > understand it, how does it relate to things like offloaded skbedit priority?).
-> > But selecting a traffic class, in itself, doesn't (directly or
-> > necessarily) select a ring per se, as ethtool does? Just like ethtool
-> > doesn't select packet priority, just RX queue. When the RX queue
-> > priority is configurable (see the "snps,priority" device tree property
-> > in stmmac_mtl_setup) and more RX queues have the same priority, I'm not
-> > sure what hw_tc is supposed to do in terms of RX queue selection?
-> 
-> You didn't mention the mqprio, but I think that's the piece that maps
-> TCs to queue pairs. You can have multiple queues in a TC.
-> 
-> Obviously that's still pretty weird what the flow rules should select
-> is an RSS context. mqprio is a qdisc, which means Tx, not Rx.
-> 
-> Adding Amritha who I believe added the concept of selecting Rx queues
-> via hw_tc. Can you comment?
+This reverts commit 67e2996f72c71ebe4ac2fcbcf77e54479bb7aa11 because it
+breaks pin usage for gpio-nodes with an offset in gpio-ranges (like
+&gpiof from stm32mp15xxab-pinctrl.dtsi).
 
-So tc-mpqrio is the piece that is needed to set up the queue-groups. The offload
-mode "hw 2" in mqprio will offload the TCs, the queue configurations and
-bandwidth rate limits. The prio-tc map in mqprio will map a user priority to the
-TC/queue-group. The priority to traffic class mapping and the user specified
-queue ranges are used to configure the traffic class when the 'hw' option is set to 2.
-Drivers can then configure queue-pairs based on the offsets and queue ranges
-in mqprio.
+For example the following reset gpio of a wifi module on a stm32mp153c
+board works again after applying this revert patch:
 
-The hw_tc option in tc-flower for ingress filter is used to direct Rx traffic to the
-queue-group (configured via mqprio). Queue selection within the queue group can
-be achieved using RSS.
+	wifi_pwrseq: wifi-pwrseq {
+		compatible = "mmc-pwrseq-simple";
+		reset-gpios = <&gpiof 9 GPIO_ACTIVE_LOW>;
+	};
 
-I agree mqprio qdisc should be used to set up Tx queues only, but the limitation was the
-absence of a single interface that could configure both Tx and Rx queue-groups/queue-sets
-(ethtool did not support directing flows to a queue-group, but only a specific individual
-queue, TC does not support Rx queue-group configuration either). The hw_tc in mqprio is a
-range of class ids reserved to identify hardware traffic classes normally reported
-via dev->num_tc. For Rx queue-group configuration, the gap is that the ingress/clsact qdisc
-does not expose a set of virtual qdiscs similar to HW traffic classes in mqprio.
-This was discussed in Slide 20 from Netdev 0x14 
-(https://legacy.netdevconf.info/0x14/pub/slides/28/Application%20Device%20Queues%20for%20system-level%20network%20IO%20performance%20improvements.pdf)
+Signed-off-by: Christoph Fritz <chf.fritz@googlemail.com>
+---
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
--Amritha
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index 24764ebcc936..73f49c596cef 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -1225,7 +1225,7 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl,
+ 	struct device *dev = pctl->dev;
+ 	struct resource res;
+ 	int npins = STM32_GPIO_PINS_PER_BANK;
+-	int bank_nr, err, i = 0;
++	int bank_nr, err;
+ 
+ 	if (!IS_ERR(bank->rstc))
+ 		reset_control_deassert(bank->rstc);
+@@ -1247,14 +1247,9 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl,
+ 
+ 	of_property_read_string(np, "st,bank-name", &bank->gpio_chip.label);
+ 
+-	if (!of_parse_phandle_with_fixed_args(np, "gpio-ranges", 3, i, &args)) {
++	if (!of_parse_phandle_with_fixed_args(np, "gpio-ranges", 3, 0, &args)) {
+ 		bank_nr = args.args[1] / STM32_GPIO_PINS_PER_BANK;
+ 		bank->gpio_chip.base = args.args[1];
+-
+-		npins = args.args[2];
+-		while (!of_parse_phandle_with_fixed_args(np, "gpio-ranges", 3,
+-							 ++i, &args))
+-			npins += args.args[2];
+ 	} else {
+ 		bank_nr = pctl->nbanks;
+ 		bank->gpio_chip.base = bank_nr * STM32_GPIO_PINS_PER_BANK;
+-- 
+2.30.2
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
