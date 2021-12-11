@@ -2,66 +2,164 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2247E47121D
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Dec 2021 07:30:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8A6B471412
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Dec 2021 14:52:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5FD5C5F1EB;
-	Sat, 11 Dec 2021 06:30:06 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74FF2C5F1EB;
+	Sat, 11 Dec 2021 13:52:02 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB024C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D85AC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Dec 2021 06:30:04 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id g14so35475309edb.8
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Dec 2021 22:30:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=45gYyp/LH8Yh+4Quc0RZZryBEQFveslIoKz3TB5FrP4=;
- b=ciXDvjftMrr9Nf2NKNvcndMo/u9VbeWTyHwikmAUaIXZILeDHotOpLIdApFHeBZuGy
- E8roVb5/e0sBBwhK7QdkAGq0VZTe3Do+f9kK/AAy/QgZUKxoXkOuG/hl1uyxnkrt38If
- 2pPBtTyhXThQ8jEGw0ft7UbmsU4EF9bMePUGA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=45gYyp/LH8Yh+4Quc0RZZryBEQFveslIoKz3TB5FrP4=;
- b=UDM6eBQdp+Vpkno4dsCmEkBD5yVlbJZQunEaQUBFQvAOWUEK4a5zLeDxOaytnwvvC/
- kIF1TFyJ8r2be2eNMw5zGPwj8rtIq8IXgTVxFKSskCblAF4eVSlv4Jq0uDV6Ptu5KyWl
- m49KgeKXlM/LzJjXfZozQHO2WnXllwwZOuZ7gNoAAshYcQh5b/pYvZFW95c9ZrKsaHBU
- 6Y0oIpcARVK3SXgGCBrzg/Msd28GudojzEPrY73LxQHiar9gD9LGV1BdQ/Fw6fXyLisY
- pSBaKhHyDRxv98qIEcKEIPzogbKbM4BkHGHu1l0ajwX4O13V1QHR04gEeNwofNBpeQ7x
- bi4Q==
-X-Gm-Message-State: AOAM530LnBgCkjUlZj37p+LM3oGjgXoobQKlElF8vWhfLvoj3u4DsBmO
- 9rU5KsYlFLteZtX6E8OzCkllXC19zxj5gC9ewaTu/w==
-X-Google-Smtp-Source: ABdhPJzOc7DXoTv6rRM6jE61YHbKn0YtCORKfDFzJ1FTBp3lshE0zR5AwnU8/KYRvsWcgp0xVZ0JZAeYGbNOhgn2+wo=
-X-Received: by 2002:a17:906:4099:: with SMTP id
- u25mr30932419ejj.453.1639204204296; 
- Fri, 10 Dec 2021 22:30:04 -0800 (PST)
+ Sat, 11 Dec 2021 13:52:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639230720; x=1670766720;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=pvEr81TQcHTgmwn1EZGOyqNqF8VjbiJVmkE5Ck64gek=;
+ b=g0iLOEDGcLeK+mQ/7RU2UVNDqY+tPclKOvJW62+55rNY8eJOBKu5qSuT
+ 4Oltgz4Vw+v3kwuLCYJXHHXV7fpsrg+6ab3ppatZYxIfB6wmh2bpUC8Gg
+ 5xG/LuCehq7tV5t37Ud+5QLSHgcln1+HtNbJh04LfPCrLpZqXqBb5YXGA
+ K4yFGO8clu9XdB4h8LfRxZcIVcWCgJT7J++vBeOH0hjea1QWDS14o3uQ+
+ d4lE1l1u5ikiG1fu70aLlZO943QgAPIp86O57udBgqzClmPPchUaC+qet
+ +JuKxBW2LchInUfZGAnS3HTbTJ4QAMfvV6km3MH2CkfPhZlw3JxWeigoV g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10194"; a="237269446"
+X-IronPort-AV: E=Sophos;i="5.88,198,1635231600"; d="scan'208";a="237269446"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2021 05:51:58 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,198,1635231600"; d="scan'208";a="602512617"
+Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+ by FMSMGA003.fm.intel.com with ESMTP; 11 Dec 2021 05:51:58 -0800
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Sat, 11 Dec 2021 05:51:57 -0800
+Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Sat, 11 Dec 2021 05:51:57 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20 via Frontend Transport; Sat, 11 Dec 2021 05:51:57 -0800
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.170)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Sat, 11 Dec 2021 05:51:57 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IcKtXegnhsPfBrmm1eYRkYoJYkX2jayeiIkuGrm+cAO9zSFQbZPvCSrfmCuoLp2aaUONHVUNzHNRd08LESo7PbVy2GIM1gt3cBAjKbV0PZuDyUQZGNrQv5U6wEltqhzSqS+YEmou9q6riWubiQUfxWEaMwyZGlvKhzXrNHLIqB2ZCPJp4qF5bu1GitGXMYHLC2qFSQW/pRfmyJrilqZUiUTcyZRpkNfbUn6fcFsG/g3pC10PRdkVFXKeaiEwbJvrkhUH4D9/vvygNmLCBdWjfWFC7VOTl8npXvJntCAFYjKH/MLTEHOA9IzF49PNeNrQ7BA0xLOPuUE2KUylUyWWsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pvEr81TQcHTgmwn1EZGOyqNqF8VjbiJVmkE5Ck64gek=;
+ b=Nd5yLECMMpoVfJAzYuG61wiVF5lGgRTwNvBL/BpBBGZLW510qC0tQl7DEks2FUsWMednxHSXIgy32DyR/yyVZg4SZftygWsNXbHeP6FW9KYN/dBgtjSBV7QimsVT9REDAmB8HY6n65+m8FUWqoS0j06aI30775OPXaV+vr+hnb2HuSdOerCySHLaCdrHQuyc00e5BVODwwf5QCWr/yhMO7lBrJnE5Hw53kKovkF0S/Y/BwCrt+OdtBerE4oSZ30WQxZ479TbBA8XibCOMXlxBBrHXsbnU2jJxi1YmmDfcorvvkVOKwodRdjehYq4mlq2Uz6NCbVW11fl31ZmT8vMyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pvEr81TQcHTgmwn1EZGOyqNqF8VjbiJVmkE5Ck64gek=;
+ b=D+mryS56P28k0ZIgyzDwy+Un+ncwrLPN+OWPU2tDRZn13KSTt0IF5mCW/GEHYIYcGxjrUQ/N6im2iGKDzauHPeNs5onscFIjCXDMz+r+CfXuPYnH5emUDw1+qA3giraefBb+01ARpJ2UnigM8hVueDDmJYeB3pwdEghcUfthXKQ=
+Received: from DM6PR11MB2780.namprd11.prod.outlook.com (2603:10b6:5:c8::19) by
+ DM6PR11MB3004.namprd11.prod.outlook.com (2603:10b6:5:67::17) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4778.16; Sat, 11 Dec 2021 13:51:50 +0000
+Received: from DM6PR11MB2780.namprd11.prod.outlook.com
+ ([fe80::e08d:fd5a:f208:566d]) by DM6PR11MB2780.namprd11.prod.outlook.com
+ ([fe80::e08d:fd5a:f208:566d%4]) with mapi id 15.20.4755.026; Sat, 11 Dec 2021
+ 13:51:50 +0000
+From: "Ong, Boon Leong" <boon.leong.ong@intel.com>
+To: "Kanzenbach, Kurt" <kurt.kanzenbach@linutronix.de>, Giuseppe Cavallaro
+ <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, "Jose
+ Abreu" <joabreu@synopsys.com>, "David S . Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, "alexandre.torgue@foss.st.com"
+ <alexandre.torgue@foss.st.com>
+Thread-Topic: [PATCH net-next 1/2] net: stmmac: fix tc flower deletion for
+ VLAN priority Rx steering
+Thread-Index: AQHX7RBbS77e6pkAekizP9E4vauzMqwrdbWAgAHbyHA=
+Date: Sat, 11 Dec 2021 13:51:50 +0000
+Message-ID: <DM6PR11MB27809EA3B9840D49F3377B8CCA729@DM6PR11MB2780.namprd11.prod.outlook.com>
+References: <20211209151631.138326-1-boon.leong.ong@intel.com>
+ <20211209151631.138326-2-boon.leong.ong@intel.com> <87lf0szu8y.fsf@kurt>
+In-Reply-To: <87lf0szu8y.fsf@kurt>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.6.200.16
+dlp-reaction: no-action
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 76e7507d-618d-45bc-9e47-08d9bcad61d9
+x-ms-traffictypediagnostic: DM6PR11MB3004:EE_
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-microsoft-antispam-prvs: <DM6PR11MB3004FC6B389B3F4DA7F57A61CA729@DM6PR11MB3004.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: P1cJE+nGzUldXc4mVdBQX/S31iCIIcLaBzuy8YpkJEcRYjSRrWUG6+raHx34eqGsNmSkPqVDTH+G04uAbhbHByW/6ERxpzB1EG0qFulneCy5sqhjpiU8dnB+aOcgcJxd1nf4ccXSGH9psmYAG2AETYvXkpLfUIP4xXTq0oqWp4jTLwtzKV29D3oNMLAkrbuVQ9g2NEzZnHLrzVkPHMYyvKxGLwMX2Yrd1kB27gJiRhJjs7a3HvDzdPY72eDB+FCbcaI5R6vVodc1VbDvF57qiNRijxl2ULN7rOfLnzK5UdGioQIE4q4cSBFsyHVjh5E8kryGHm7Kkfv1qRqoGMsg8uDnmrjFDO3DyZbvTEH1PJq+0ZlmK7/2CtqBlOP3pyRZOXLorG8pnR90oofNttcNtXPOs30DFJ+IstlDbc8VzSzkoqTztgdEIL9Fvf8vyK1xZIV4fo61dVWyKBkvktA/JxOPg0R91ZqZLzV24Fxqpg8RDv3SIc+5H7lMXFjoQsnCWEMOy1SF2AXEh18rd9S4nq8x9XetKmIrBVY0gaLN7U/jCEIda/fARoHjZ5OqynPr1tVt8BrkPeJ6ird6jZiIl6cvptEWnwKl8QR4odoFbWzrqO4U/HE9lEWSyqUU8ZhiklX3KFt7Hl6qESWzlodV9uv3/YIAVSf7Ia1tREDAYqvQwfQ/SbayT1ob8wQ5ioxoVBPJYkCZjkoa6/oRvDBPlg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB2780.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(186003)(55016003)(316002)(122000001)(8936002)(71200400001)(54906003)(4326008)(66946007)(26005)(110136005)(66476007)(76116006)(8676002)(508600001)(64756008)(66446008)(4744005)(33656002)(7416002)(82960400001)(5660300002)(52536014)(7696005)(6506007)(86362001)(9686003)(2906002)(38100700002)(38070700005)(66556008);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NxBM8k8zKGBFU3K7IE89Pow5JZo7BvSEOdKtz7hvJkJ0i/zRHIa6L3x3PHdS?=
+ =?us-ascii?Q?DFRkDKvjIebkjlEsnv5Cg4KvEPaRRhss0Kjd4lH96FXbS8tL8bqXvn8F2lgt?=
+ =?us-ascii?Q?O30j3/P5DMpqHFMsoYPalGV+nI1oeObDZVUz72tL2uJeIuYBBlqvHOyLLZDd?=
+ =?us-ascii?Q?vVIb97UJpqPx6CMEmCzcLT7R6YRfWJ85ECwYGdsbHPALOzP8yqfbbj9hVBzV?=
+ =?us-ascii?Q?wW2MgfOgL0YJWPLoknmD0vaNc+b3XkloNdxB0/hOuwD9VYSJywND1oiSwLZ3?=
+ =?us-ascii?Q?/d4SmgrPXI2RGe7RlwPyZzn82Ye50qiiejvwGZ68fLjmNjCothLBIalF36P1?=
+ =?us-ascii?Q?7t5C/MYMIQAG9IjSmE658VGHEc3cNYvKu1Nk86wCRUWlttDFo0O1CGZzqQvK?=
+ =?us-ascii?Q?9LK3hluxPbVNo7H+yVZCrFTRvdkya7yIegr32gvCMygGzobImCBDpSHxzrQe?=
+ =?us-ascii?Q?yJCiEYvpBR+ODsU+7vRWk17eYbZRBHgY31k3z3O/ZWRkM5TUWGxwnypZJVVa?=
+ =?us-ascii?Q?WMR/SnSCPG+cQQgxxj2SMQqVe7RVqBwov++Zu2qETQUXwLvQZARIIBg4ynfc?=
+ =?us-ascii?Q?DjyKX5o8D/qfxQtnvnjeNJWlo18KHa8anHaWtk+GJR6odqjy04FXvNAnlhtz?=
+ =?us-ascii?Q?lVmp+jN79+4gJh2PFcIDDZetNj6Tmi/moMevyCwmv7gsj/5VPI0zQr+54rN2?=
+ =?us-ascii?Q?g7H1A6gutK7dxZQ3BSzYqhSAUKRISNQ6SlmZ20TgiYfAFLvuDAYspOH+dnRb?=
+ =?us-ascii?Q?29n8buXUiTvvbaKJ1b7ogeFAxSXE0Ciuontsu08Mxo+zuWIfSDW3yYIp8T88?=
+ =?us-ascii?Q?8VAiVlZ71CmNtuSxXZRrxs5bmBIjIYh9voEK81xSVopqSX1lDsPUd+c9pnyy?=
+ =?us-ascii?Q?ETp2taq70+f3yNenXD5cZ4eN00Kp4thql0NSdEVNo2NDcbHoRs2EtEdpPqoL?=
+ =?us-ascii?Q?+iaDU8xOb63hRRBM9UEHEyZP+Yjpc2gTbMC36Ua/CcXcpaE4MShgATx6RYbW?=
+ =?us-ascii?Q?YY2/jNZPqjxvHhpN0+7MFaym1j3wXNsrBj8HWgsYTjtcD/xxhpewvoi8hxp4?=
+ =?us-ascii?Q?t47dfNY2tjDO2yIBnsXidqD54OKJU0L63Jvyeaj8OlJDmXEu/hD3xJ2mGYdr?=
+ =?us-ascii?Q?Mf5PkaoSystSvF3J01roJRvIq2zlVi0+ETi9+6eKmuEHQyrK2EkDIxwLN/kE?=
+ =?us-ascii?Q?GP/h0T2wEdOUZAFYZKSyMVelf+p2jt5ZzKxlemTm1JeBDH5fGMD+iGbXIiau?=
+ =?us-ascii?Q?nnC3rlRAi5UFFkoXOqsXKcsRRb3xluXDeXE7eE6bCa/bug/0Ke2eN+cQTVxM?=
+ =?us-ascii?Q?v0ubItgU52KIQDwFuDxzBm9AERRaTwsm7aMX05X0aI3p6Kl5jVwKOkNBVaHL?=
+ =?us-ascii?Q?c+H8j+7wbAuLqoCUk0Oz9i6j9lEMhNsv6/Yr46BUuxx8QJwovy6KiYFEOeMJ?=
+ =?us-ascii?Q?gW6ZATrkWf74CiHUvUW6kje5KKMassA3Z70BTvwW7k6Um1fAECbx7E+iWCka?=
+ =?us-ascii?Q?QDudY0YeRGhktfr6WnBifH81o3yxLoZqAcyzzVIF7fEwI1JyF/mUd0x3jsol?=
+ =?us-ascii?Q?wJToAzll75E2HU/WSO39EufmKcTncM00Moi7orcTCsRLZLa6HiwXS2oqxsmT?=
+ =?us-ascii?Q?QprqKs/C4Jw0naBvwnDH9sRsUT+bweIGLJB6/UtNMwcZobeCeqJ9yUVJk143?=
+ =?us-ascii?Q?rb0ajg=3D=3D?=
 MIME-Version: 1.0
-References: <20211210174819.2250178-1-jagan@amarulasolutions.com>
- <20211210174819.2250178-3-jagan@amarulasolutions.com>
- <CACRpkdb4JGCNyjncqgh8=3wWi4BRCqGNuLyTBRzLiVLK38UzqA@mail.gmail.com>
-In-Reply-To: <CACRpkdb4JGCNyjncqgh8=3wWi4BRCqGNuLyTBRzLiVLK38UzqA@mail.gmail.com>
-From: Jagan Teki <jagan@amarulasolutions.com>
-Date: Sat, 11 Dec 2021 11:59:53 +0530
-Message-ID: <CAMty3ZDDdxkTiC2GByuiVW9obXW_jdBFK+R2-BAh0k_uB=GApQ@mail.gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, dri-devel@lists.freedesktop.org,
- Neil Armstrong <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Maxime Ripard <mripard@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Michael Nazzareno Trimarchi <michael@amarulasolutions.com>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-amarula@amarulasolutions.com
-Subject: Re: [Linux-stm32] [PATCH 3/3] drm: bridge: Switch to
-	devm_drm_of_get_bridge
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2780.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76e7507d-618d-45bc-9e47-08d9bcad61d9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Dec 2021 13:51:50.5870 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1i5m6mFZ04Xke0fscsEitDErUvZduqa/jsUvu18wm3DqVOwODTn2uPJX1smvCfHVUAdwRmvp07yF+x8V+VIiZA9PhBRL4nWg+4htPMM9FEg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB3004
+X-OriginatorOrg: intel.com
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: fix tc flower
+ deletion for VLAN priority Rx steering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,89 +176,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Linus,
-
-On Sat, Dec 11, 2021 at 5:37 AM Linus Walleij <linus.walleij@linaro.org> wrote:
->
-> On Fri, Dec 10, 2021 at 6:49 PM Jagan Teki <jagan@amarulasolutions.com> wrote:
-> >
-> > devm_drm_of_get_bridge is capable of looking up the downstream
-> > bridge and panel and trying to add a panel bridge if the panel
-> > is found.
-> >
-> > Replace explicit finding calls with devm_drm_of_get_bridge.
-> >
-> > Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> > Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-> > Cc: Linus Walleij <linus.walleij@linaro.org>
-> > Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
->
-> Nice overall!
->
-> > -       /* Look for a panel as a child to this node */
-> > -       for_each_available_child_of_node(dev->of_node, child) {
-> > -               panel = of_drm_find_panel(child);
-> > -               if (IS_ERR(panel)) {
-> > -                       dev_err(dev, "failed to find panel try bridge (%ld)\n",
-> > -                               PTR_ERR(panel));
-> > -                       panel = NULL;
-> > -
-> > -                       bridge = of_drm_find_bridge(child);
-> > -                       if (!bridge) {
-> > -                               dev_err(dev, "failed to find bridge\n");
-> > -                               return -EINVAL;
-> > -                       }
-> > -               }
-> > -       }
-> > -       if (panel) {
-> > -               bridge = drm_panel_bridge_add_typed(panel,
-> > -                                                   DRM_MODE_CONNECTOR_DSI);
->
-> And we are guaranteed that the right type of connector will be
-> used here? (Just checking.)
-
-Yes. Each panel driver initialised the connector_type via
-drm_panel_init and it will check during devm_drm_of_get_bridge.
-
->
-> > -               if (IS_ERR(bridge)) {
-> > -                       dev_err(dev, "error adding panel bridge\n");
-> > -                       return PTR_ERR(bridge);
-> > -               }
-> > -               dev_info(dev, "connected to panel\n");
-> > -               d->panel = panel;
->
-> How does this assignment happen after your patch?
-> I'm using that...
->
-> devm_drm_of_get_bridge() needs some more argument right?
-
-Yes, but I think we don't need to preserve the panel here. Yes I
-didn't add that change, will take care in v2.
-
->
-> > -       } else if (bridge) {
-> > -               /* TODO: AV8100 HDMI encoder goes here for example */
-> > -               dev_info(dev, "connected to non-panel bridge (unsupported)\n");
-> > -               return -ENODEV;
-> > -       } else {
-> > -               dev_err(dev, "no panel or bridge\n");
-> > -               return -ENODEV;
-> > +       bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
-> > +       if (IS_ERR(bridge)) {
-> > +               dev_err(dev, "error to get bridge\n");
-> > +               return PTR_ERR(bridge);
->
-> I'm gonna want to test this somehow on the hardware. But the TODO comment
-> there wasn't supposed to be deleted if I will still need to take some special
-> action whether this is a panel bridge or some other bridge.
-
-Agreed. Even I do like to add this prints, since
-devm_drm_of_get_bridge is not able to return differentiated bridge so
-it it not possible now. May be we can discuss this point.
-
-Thanks,
-Jagan.
+>You submitted this patch to net as well. I guess, it should be merged to
+>net. After net is merged into net-next we can proceed with the EtherType
+>steering?
+ 
+Yes, my intention is to make sure anyone who wants to the EthType steering
+will be aware of this patch. That is why I am sending the patch in both 
+net and net-next with a cover letter to inform about the dependency.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
