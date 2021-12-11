@@ -2,53 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27293470F32
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Dec 2021 01:07:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFEAA470F7F
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Dec 2021 01:35:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBFC4C5F1EB;
-	Sat, 11 Dec 2021 00:07:27 +0000 (UTC)
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 658D7C5F1EB;
+	Sat, 11 Dec 2021 00:35:47 +0000 (UTC)
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CB97C5F1E0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59282C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Dec 2021 00:07:26 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id bk14so15429397oib.7
+ Sat, 11 Dec 2021 00:35:45 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ x43-20020a056830246b00b00570d09d34ebso11342298otr.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Dec 2021 16:07:26 -0800 (PST)
+ Fri, 10 Dec 2021 16:35:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Qig9qwOGoBvnHg7tX1jnWpBgUUxlTEaBoNWwy9fRxAA=;
- b=LYKvaouQK49EpVPst3Wl1jp9uanlO8+/fsf3o8zvyUAD/TWtG7bSAnYGfveQgsi+l/
- pOULHbtJZkHDhj1P02cSLpjfe6NEgoe3OAdNNcnBOiuPOPRdeZnpi8Y3Fff5aby81YQs
- fPhpADdzgSMu37lIhibBpY9OzkPocIVBDZs0IDTmESOd7sqUhWdUsIwT4MaPiGkGzN9O
- DaE8Ps69zfMEhxBnqYEXiPM/uWWeLnq69F7+JEBaAG6jO6dIP2g1bYOOwB1YhlxNC0tC
- mzf/RG8CYNTlgX1j753NKNt5UlAox5RHR7S5ZiwMmcwBL2qVHz0DRZAnnKmhNp145y2B
- +J4g==
+ :cc; bh=e5x1ZjLFt2D7tDxJkUBVGLXNcKm1tzU4wK9evqtEkww=;
+ b=O7hwBTF5k+CrSbVIJz7E/Ja3jnkWRmNNlGupROLqkAREKGvQ7klIt163ni1FQLHeIy
+ lqXa+Q079+k8F8KqDCPqC2c0wLokSb7E39OH17K3im5utFF9U5L6MDLtFc4Ci4d6qeA5
+ HAH2qe5ECgoRCiFKH3z0nW5vBh/UaDGurQ7R3U8/HaBRvMjxm+TK/o1ICV9J03f9/yxU
+ FprbGD+dqdt1muP1VFGPUJKlCJZJQtBZtH1wXKKNO3U92hiExCF/1LgCkChHZm58/skJ
+ c39v2CAVrlbZ5NH4ksghAc9FDOosX56s8hhX3DUCR3AZ9445uzQXOeoj9k4XVBRbYSNv
+ +VaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Qig9qwOGoBvnHg7tX1jnWpBgUUxlTEaBoNWwy9fRxAA=;
- b=FdSWNc8INvFQzKpLjMLiWm+CEBFdPJYmxkTtDDpIsc6rXJkny9ZaiBdrMP/SgeczDd
- LJQsWG8zBi+FeW6ynfU+rOqq4yOxQZ9x+qVOftuectlBCFAB2elHRfK7owXKrr7J/KY4
- M/YJmyjZ9zYu18E1FZUqdBhvop0oVcSUZZTDU0x5Zb7ksEs4NV8hmag+qX0iFhdqEO4T
- +K9HL+epFjbcinB2fPFPQ3zaJJAz1WmjR2foe2+ZyDCuAHFm5O3ns/uOjnpCAv2NBBW+
- LW68bjy/XgH2DdUjl1pLQfIZ0tMeiyxeqQt+aeNCmgJKushdRt5QE37nCrNRB2NmY6F/
- 119g==
-X-Gm-Message-State: AOAM5309CYvGykrAkSYRKeD93wfZV3BxmdP8ww1EIIOO+Hc8jq07PAoy
- gM6sjmC/99SBca0ALxxIlm4z/X7ky4uLrg2vE0jBdA==
-X-Google-Smtp-Source: ABdhPJzXH8G3CxM8f1dVbL2fs9y2zVr5fX8welXMizONG6Brv5hnOIdYNhyIV1TO6rIbKlx9NQGdXT1Zm6G0UGYTiTs=
-X-Received: by 2002:a54:4791:: with SMTP id o17mr15621211oic.114.1639181245034; 
- Fri, 10 Dec 2021 16:07:25 -0800 (PST)
+ bh=e5x1ZjLFt2D7tDxJkUBVGLXNcKm1tzU4wK9evqtEkww=;
+ b=Q3MLkNyzj0Y0oREcigDZNGvp5o5IGF/YFeSjvSy2Jvv6Eyum/mtQR7AggTIPX7rIR/
+ eLOBOFW6DnJfOPFEZ/XH+VDf18nvDdsUb9iv71X26Z+H/a4vXKNflL8W1grqbJh3a1gW
+ VfeT/OjcXIRouelpSizl2kQihAr1jEYyNwkSTAXZM+WrjDltRoC5NWxbFYJfCTjA8B81
+ dupI6HsEyUXXvWSrqFcTN0IBmYJroy9oUhkFlYmJkrIXyeQWttxtFmkGs47i4hAbNp2g
+ k5yQLanqTFBeHHViRkHiEWmWBUz3knoDeoAylN/Snj2tEGZngu5ydGoymLn3yhUbeRGW
+ o5Ig==
+X-Gm-Message-State: AOAM532h/2qCLRhLN4/MAgtV+MpJeVDjp7+s1ClQpC31s2PtDcpMFyYA
+ R1jQQ/2yl2mGd1zrZE55n05dSQHgQOzhAkfYbuGpvw==
+X-Google-Smtp-Source: ABdhPJzikiVI8vcao0kj+q441azYFjZ6pqZrjkhHa3ehGwijjFUBuob39jPpZnmU8LWbI38sHbTYQoddgoE2n4/7fKo=
+X-Received: by 2002:a9d:a42:: with SMTP id 60mr13978796otg.179.1639182944229; 
+ Fri, 10 Dec 2021 16:35:44 -0800 (PST)
 MIME-Version: 1.0
 References: <20211210174819.2250178-1-jagan@amarulasolutions.com>
  <20211210174819.2250178-3-jagan@amarulasolutions.com>
-In-Reply-To: <20211210174819.2250178-3-jagan@amarulasolutions.com>
+ <CACRpkdb4JGCNyjncqgh8=3wWi4BRCqGNuLyTBRzLiVLK38UzqA@mail.gmail.com>
+In-Reply-To: <CACRpkdb4JGCNyjncqgh8=3wWi4BRCqGNuLyTBRzLiVLK38UzqA@mail.gmail.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sat, 11 Dec 2021 01:07:13 +0100
-Message-ID: <CACRpkdb4JGCNyjncqgh8=3wWi4BRCqGNuLyTBRzLiVLK38UzqA@mail.gmail.com>
+Date: Sat, 11 Dec 2021 01:35:32 +0100
+Message-ID: <CACRpkda=yAk9kQ20ey+am7xjuVDvgDcup6B5vxb3WeuzMiy+kQ@mail.gmail.com>
 To: Jagan Teki <jagan@amarulasolutions.com>
 Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, dri-devel@lists.freedesktop.org,
  Neil Armstrong <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>,
@@ -78,70 +80,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Dec 10, 2021 at 6:49 PM Jagan Teki <jagan@amarulasolutions.com> wrote:
+On Sat, Dec 11, 2021 at 1:07 AM Linus Walleij <linus.walleij@linaro.org> wrote:
+> On Fri, Dec 10, 2021 at 6:49 PM Jagan Teki <jagan@amarulasolutions.com> wrote:
+
+> > -               dev_info(dev, "connected to panel\n");
+> > -               d->panel = panel;
 >
-> devm_drm_of_get_bridge is capable of looking up the downstream
-> bridge and panel and trying to add a panel bridge if the panel
-> is found.
+> How does this assignment happen after your patch?
+> I'm using that...
 >
-> Replace explicit finding calls with devm_drm_of_get_bridge.
->
-> Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+> devm_drm_of_get_bridge() needs some more argument right?
 
-Nice overall!
+Actually it is only used in unbind right below:
 
-> -       /* Look for a panel as a child to this node */
-> -       for_each_available_child_of_node(dev->of_node, child) {
-> -               panel = of_drm_find_panel(child);
-> -               if (IS_ERR(panel)) {
-> -                       dev_err(dev, "failed to find panel try bridge (%ld)\n",
-> -                               PTR_ERR(panel));
-> -                       panel = NULL;
-> -
-> -                       bridge = of_drm_find_bridge(child);
-> -                       if (!bridge) {
-> -                               dev_err(dev, "failed to find bridge\n");
-> -                               return -EINVAL;
-> -                       }
-> -               }
-> -       }
-> -       if (panel) {
-> -               bridge = drm_panel_bridge_add_typed(panel,
-> -                                                   DRM_MODE_CONNECTOR_DSI);
+       if (d->panel)
+                drm_panel_bridge_remove(d->bridge_out);
 
-And we are guaranteed that the right type of connector will be
-used here? (Just checking.)
-
-> -               if (IS_ERR(bridge)) {
-> -                       dev_err(dev, "error adding panel bridge\n");
-> -                       return PTR_ERR(bridge);
-> -               }
-> -               dev_info(dev, "connected to panel\n");
-> -               d->panel = panel;
-
-How does this assignment happen after your patch?
-I'm using that...
-
-devm_drm_of_get_bridge() needs some more argument right?
-
-> -       } else if (bridge) {
-> -               /* TODO: AV8100 HDMI encoder goes here for example */
-> -               dev_info(dev, "connected to non-panel bridge (unsupported)\n");
-> -               return -ENODEV;
-> -       } else {
-> -               dev_err(dev, "no panel or bridge\n");
-> -               return -ENODEV;
-> +       bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
-> +       if (IS_ERR(bridge)) {
-> +               dev_err(dev, "error to get bridge\n");
-> +               return PTR_ERR(bridge);
-
-I'm gonna want to test this somehow on the hardware. But the TODO comment
-there wasn't supposed to be deleted if I will still need to take some special
-action whether this is a panel bridge or some other bridge.
+If it is not needed at all after your patch (because devm removes
+the bridge) then also delete this code, and delete the
+struct drm_panel *panel from struct mcde_dsi at the top
+and possibly also drop the header #include <drm/drm_panel.h>
+entirely.
 
 Yours,
 Linus Walleij
