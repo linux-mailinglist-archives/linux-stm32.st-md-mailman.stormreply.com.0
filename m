@@ -2,55 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B24472DE1
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Dec 2021 14:51:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 994FA472E98
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Dec 2021 15:10:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F1FFC5EC6B;
-	Mon, 13 Dec 2021 13:51:11 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B03EC5EC6B;
+	Mon, 13 Dec 2021 14:10:56 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CDACC0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99BE9C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Dec 2021 13:51:09 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id l25so52689179eda.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Dec 2021 05:51:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JA6W9bf1908WD6cfFb6AhPYhGreRD1L3ZPU1ovM0YAo=;
- b=JR+DaCc5q3x/nJ52dLl6r+4FwSEv9WD0p7h6CAvJzuCN4LA6+wkAYifxMiKmhtGPMC
- FTN/0x8gYKn6C0DH+DPrgH6lH2w+WJEIfGDy1/YzVD0zU202RDccLQt46z8yx/mv5SEQ
- orFijgywNSCXDOJ/OPyq3mvh5NlrdflBnU+13ax6fE2dt0FQGfzQsQKPQMlWf12X6gYS
- H/d+nrvTinlxhp9IzxuZ3LhRXaM+23FWY9lMgayxh0hvEqluoQhfJStRiFE2+rfIOnQF
- Iw8LA3Ko152lC8tyud5LtFSKXRrJ7LmTPR7MzT1Pb8/drF5Zj0ygRhSQOmk3y0qr4lHt
- 19ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=JA6W9bf1908WD6cfFb6AhPYhGreRD1L3ZPU1ovM0YAo=;
- b=yvFWmlsLvhuP8earQBSTRPWUmjlf+j0GvCwfj5KS+jWuwZegaZeo19CLxIxhlNZ1Ci
- rQMFZeBoLE8sgdCMjJPyLKV16JxL9m1L+nMgK+D8PDaiwhDtsZRRjEcMiYhBe/DBxl1E
- I8eoguZCJjI0ryUbw5Pyn2PLuPdyv0ECrx3IPzOFDQAz/RjWLqkT4DCYFQFQ8MVctjg9
- atpoHhg/0sFRGMGEv+NMYg91JHcBi+BYtuyLuwGS1DZMbgI2IB463qoIg4deVxNnfoFv
- YxxLCq7bcQPaktmTrb2YqFZgGd34ySUxn5m2Iw9IyxZjxKqyTbvTlmDWjxyGGLqF6X6l
- MsJg==
-X-Gm-Message-State: AOAM530JnsqtMkRaiOln//GePXAyCQFJuCUxDHF5x8EefMeOKZg+nq4r
- RTOqDPlczBa4djn6jOOFJ2LsJ6Q7VwwJg3UD9yvaEg==
-X-Google-Smtp-Source: ABdhPJyUfRonKaOMYp5CA3+4Qguk6GD9f9+ENkQJ7XEThNqMIaIY/ZVhde1IxmgVdguaMtUOm8hj/b6kBh4NcjdyhEI=
-X-Received: by 2002:a05:6402:354e:: with SMTP id
- f14mr63951085edd.245.1639403467922; 
- Mon, 13 Dec 2021 05:51:07 -0800 (PST)
-MIME-Version: 1.0
+ Mon, 13 Dec 2021 14:10:54 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10196"; a="325009657"
+X-IronPort-AV: E=Sophos;i="5.88,202,1635231600"; d="scan'208";a="325009657"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2021 06:05:41 -0800
+X-IronPort-AV: E=Sophos;i="5.88,202,1635231600"; d="scan'208";a="609028967"
+Received: from smile.fi.intel.com ([10.237.72.184])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2021 06:05:31 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.95)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1mwlwO-005dxK-9w; Mon, 13 Dec 2021 16:04:32 +0200
+Date: Mon, 13 Dec 2021 16:04:32 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Message-ID: <YbdS8E6lHGzWniba@smile.fi.intel.com>
 References: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Mon, 13 Dec 2021 14:50:57 +0100
-Message-ID: <CAMRc=Meve=W3yvPmakFap-s6cOY1GUq7c1VjJE2dEH4f0+shag@mail.gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+ <CAMRc=Meve=W3yvPmakFap-s6cOY1GUq7c1VjJE2dEH4f0+shag@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAMRc=Meve=W3yvPmakFap-s6cOY1GUq7c1VjJE2dEH4f0+shag@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: Baruch Siach <baruch@tkos.co.il>, Heiko Stuebner <heiko@sntech.de>,
  Tony Lindgren <tony@atomide.com>, Linus Walleij <linus.walleij@linaro.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -66,7 +50,7 @@ Cc: Baruch Siach <baruch@tkos.co.il>, Heiko Stuebner <heiko@sntech.de>,
  Ludovic Desroches <ludovic.desroches@microchip.com>,
  bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
  Alexandru Ardelean <aardelean@deviqon.com>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
  Orson Zhai <orsonzhai@gmail.com>, Grygorii Strashko <grygorii.strashko@ti.com>,
  Thierry Reding <treding@nvidia.com>, Jianqun Xu <jay.xu@rock-chips.com>,
  "open list:PWM SUBSYSTEM" <linux-pwm@vger.kernel.org>,
@@ -103,23 +87,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Dec 2, 2021 at 10:17 PM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> GPIO library does copy the of_node from the parent device of
-> the GPIO chip, there is no need to repeat this in the individual
-> drivers. Remove these assignment all at once.
->
-> For the details one may look into the of_gpio_dev_init() implementation.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
+On Mon, Dec 13, 2021 at 02:50:57PM +0100, Bartosz Golaszewski wrote:
+> On Thu, Dec 2, 2021 at 10:17 PM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> >
+> > GPIO library does copy the of_node from the parent device of
+> > the GPIO chip, there is no need to repeat this in the individual
+> > drivers. Remove these assignment all at once.
+> >
+> > For the details one may look into the of_gpio_dev_init() implementation.
 
-If there are no objections, I am willing to apply this to give it some
-time in next and get the work on dropping the OF APIs from gpiolib
-going.
+> If there are no objections, I am willing to apply this to give it some
+> time in next and get the work on dropping the OF APIs from gpiolib
+> going.
 
-Bart
+There was a v2 sent out.
+
+  Message-Id: <20211206131852.74746-1-andriy.shevchenko@linux.intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
