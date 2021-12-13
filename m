@@ -2,77 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F5954731BA
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Dec 2021 17:27:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1EF54731F1
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Dec 2021 17:39:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6C2AC5EC6B;
-	Mon, 13 Dec 2021 16:27:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92E48C5F1D8;
+	Mon, 13 Dec 2021 16:39:53 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94859C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FB58C5E2AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Dec 2021 16:27:00 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BDDUOdp007349;
- Mon, 13 Dec 2021 17:26:40 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=AMqCiIRkWtkqrv1nskqNq6Hf7G/bZt9G2AkpY5HjNks=;
- b=Wl66NFXfLdXhQCTHLMeLPXIqvpRZTvpvrF/7+ZOyTWqdAc1vjChDZPsyf3p46wp1jJtR
- rse78LD+loSiakgKOkROH/mjztGisSuG2sizK0GYj2Z8fnikIrXScArGxh1y4NqYHZSK
- Fl/16adJaGjldWs8zEAKNRndRgankgPHHMSbqmbOIqEBCIbOLMsuqV7V39Z2hpiuw2Mp
- VTkwA99rMdwKEaYdcUTW7WhKdg5ZHOG3N8wxVDfN9DuCDuiJ6k1xmaNzFyopddElU2eb
- JG+8PNar5q1UHGG3hxuIcszwX7GzpoTNHTWiwqo4eB1eyTJwtJU92EQ5/hViceS5JkgI hA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cx2c72gy6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Dec 2021 17:26:40 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AA8EF10002A;
- Mon, 13 Dec 2021 17:26:38 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D3AA8209F5E;
- Mon, 13 Dec 2021 17:26:38 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.45) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 13 Dec
- 2021 17:26:37 +0100
-To: Rob Herring <robh@kernel.org>
-References: <20211125144053.774-1-olivier.moysan@foss.st.com>
- <20211125144053.774-2-olivier.moysan@foss.st.com>
- <1637875562.357461.2858318.nullmailer@robh.at.kernel.org>
- <237f56b3-0597-2526-a182-f1fbdd327338@foss.st.com>
- <Yaf4jiZIp8+ndaXs@robh.at.kernel.org>
- <627777a4-7458-88ed-e7c5-d11e3db847b5@foss.st.com>
- <CAL_Jsq+ZVU=DR0vXq6YOsrK9-MoUp5DJ6RKHmtL-ZGSxQ7qyJQ@mail.gmail.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <47efb431-6e75-40ac-484c-d84cf4157a04@foss.st.com>
-Date: Mon, 13 Dec 2021 17:26:37 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Mon, 13 Dec 2021 16:39:52 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6200,9189,10196"; a="236303450"
+X-IronPort-AV: E=Sophos;i="5.88,203,1635231600"; d="scan'208";a="236303450"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2021 08:39:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,203,1635231600"; d="scan'208";a="566744810"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmsmga008.fm.intel.com with ESMTP; 13 Dec 2021 08:39:39 -0800
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id AD272144; Mon, 13 Dec 2021 18:39:46 +0200 (EET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Linus Walleij <linus.walleij@linaro.org>, Marc Zyngier <maz@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Sam Shih <sam.shih@mediatek.com>, Zhiyong Tao <zhiyong.tao@mediatek.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Radim Pavlik <radim.pavlik@tbs-biometrics.com>,
+ Kavyasree Kotagiri <kavyasree.kotagiri@microchip.com>,
+ Colin Foster <colin.foster@in-advantage.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Herve Codina <herve.codina@bootlin.com>, linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
+ linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
+ linux-rpi-kernel@lists.infradead.org, patches@opensource.cirrus.com,
+ alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-oxnas@groups.io, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Date: Mon, 13 Dec 2021 18:39:28 +0200
+Message-Id: <20211213163929.7509-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-In-Reply-To: <CAL_Jsq+ZVU=DR0vXq6YOsrK9-MoUp5DJ6RKHmtL-ZGSxQ7qyJQ@mail.gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-13_08,2021-12-13_01,2021-12-02_01
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alain Volmat <alain.volmat@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2 1/4] ASoC: dt-bindings: stm32: i2s: add
- audio-graph-card port
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, soc@kernel.org,
+ Viresh Kumar <vireshk@kernel.org>, Neil Armstrong <narmstrong@baylibre.com>,
+ Andy Gross <agross@kernel.org>, Baruch Siach <baruch@tkos.co.il>,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Scott Branden <sbranden@broadcom.com>, Sean Wang <sean.wang@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
+ =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>
+Subject: [Linux-stm32] [PATCH v1 1/2] pinctrl: Get rid of duplicate of_node
+	assignment in the drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,113 +78,405 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob,
+GPIO library does copy the of_node from the parent device of
+the GPIO chip, there is no need to repeat this in the individual
+drivers. Remove these assignment all at once.
 
-On 12/11/21 9:05 PM, Rob Herring wrote:
-> On Tue, Dec 7, 2021 at 7:52 AM Alexandre TORGUE
-> <alexandre.torgue@foss.st.com> wrote:
->>
->> Hi Rob
->>
->> On 12/1/21 11:34 PM, Rob Herring wrote:
->>> On Fri, Nov 26, 2021 at 11:25:27AM +0100, Olivier MOYSAN wrote:
->>>> Hi Rob,
->>>>
->>>> On 11/25/21 10:26 PM, Rob Herring wrote:
->>>>> On Thu, 25 Nov 2021 15:40:50 +0100, Olivier Moysan wrote:
->>>>>> The STM2 I2S DAI can be connected via the audio-graph-card.
->>>>>> Add port entry into the bindings.
->>>>>>
->>>>>> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
->>>>>> ---
->>>>>>     Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml | 5 +++++
->>>>>>     1 file changed, 5 insertions(+)
->>>>>>
->>>>>
->>>>> Running 'make dtbs_check' with the schema in this patch gives the
->>>>> following warnings. Consider if they are expected or the schema is
->>>>> incorrect. These may not be new warnings.
->>>>>
->>>>> Note that it is not yet a requirement to have 0 warnings for dtbs_check.
->>>>> This will change in the future.
->>>>>
->>>>> Full log is available here: https://patchwork.ozlabs.org/patch/1559750
->>>>>
->>>>>
->>>>> audio-controller@4000b000: 'port' does not match any of the regexes: '^port@[0-9]', 'pinctrl-[0-9]+'
->>>>>      arch/arm/boot/dts/stm32mp157a-dk1.dt.yaml
->>>>>      arch/arm/boot/dts/stm32mp157c-dk2.dt.yaml
->>>>>
->>>>
->>>> This warning is not a new one.
->>>>
->>>> The i2s2 node in stm32mp15xx-dkx.dtsi would require the following binding:
->>>> port:
->>>>       $ref: audio-graph-port.yaml#
->>>>       unevaluatedProperties: false
->>>>
->>>> However the spi binding requires to introduce a unit address:
->>>> patternProperties:
->>>>     '^port@[0-9]':
->>>>       $ref: audio-graph-port.yaml#
->>>>       unevaluatedProperties: false
->>>>
->>>> The warning can be removed by re-ordering the bindings patches in the serie,
->>>> as "additionalProperties: true" makes the check more tolerant on extra
->>>> properties.
->>>
->>> That's never right.
->>>
->>>> The patch "ASoC: dt-bindings: stm32: i2s: add audio-graph-card port" can
->>>> even be merely dropped.
->>>> So, I suggest to resend the serie without audio-graph-card patch.
->>>
->>> Only if you aren't using audio-graph-card.
->>>
->>>>
->>>> Does it sound too permissive to you ?
->>>
->>> I think perhaps you need to combine the schemas into 1. Or you need to
->>> restructure your dtsi files such that you only add spi specific
->>> properties when spi mode is enabled and only add i2s specific properties
->>> when i2s mode is enabled. Or use the /delete-property/ directive.
->>
->> Initially the aim of this series was to fix a "make W=1" warnings seen
->> on spi and i2s nodes (duplicate unit-address). Moving both nodes in a
->> common node + using a different compatible depending on SPI or I2S usage
->> sounded good) but it is not enough. In this series the common node is
->> named as following: "spi2s2: spi@4000b000". It is fine for a spi usage
->> but if we want to use this "common node" with I2S compatible and
->> specific bindings, the node name remains spi@... and then specific spi
->> checks are done. For this with this series applied we got this issue
->> reported by spi-controller.yaml:
->>
->> spi@4000b000: port@0: 'compatible' is a required property
->>
->> So, if we use two separates nodes we got W=1 warning and if we use a
->> common node we got yaml check issue. One possibility would be to use a
->> common node with a new node name (for example i2spi@...) but I think it
->> is not acceptable.
-> 
-> It is acceptable, see this thread[1].
-> 
-> Rob
-> 
-> [1] https://lore.kernel.org/all/20211203183517.11390-1-semen.protsenko@linaro.org/
+For the details one may look into the of_gpio_dev_init() implementation.
 
-Perfect! So we can abandon this series. Do you know if a patch has been 
-sent to also update scripts/Makefile.lib ?
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/pinctrl/actions/pinctrl-owl.c      | 1 -
+ drivers/pinctrl/bcm/pinctrl-bcm2835.c      | 1 -
+ drivers/pinctrl/bcm/pinctrl-iproc-gpio.c   | 1 -
+ drivers/pinctrl/bcm/pinctrl-nsp-gpio.c     | 1 -
+ drivers/pinctrl/cirrus/pinctrl-lochnagar.c | 3 ---
+ drivers/pinctrl/mediatek/pinctrl-moore.c   | 7 +++----
+ drivers/pinctrl/mediatek/pinctrl-paris.c   | 5 ++---
+ drivers/pinctrl/pinctrl-amd.c              | 3 ---
+ drivers/pinctrl/pinctrl-at91-pio4.c        | 1 -
+ drivers/pinctrl/pinctrl-at91.c             | 1 -
+ drivers/pinctrl/pinctrl-digicolor.c        | 5 ++---
+ drivers/pinctrl/pinctrl-mcp23s08.c         | 1 -
+ drivers/pinctrl/pinctrl-ocelot.c           | 1 -
+ drivers/pinctrl/pinctrl-oxnas.c            | 1 -
+ drivers/pinctrl/pinctrl-pic32.c            | 2 +-
+ drivers/pinctrl/pinctrl-stmfx.c            | 1 -
+ drivers/pinctrl/pinctrl-sx150x.c           | 3 ---
+ drivers/pinctrl/pinctrl-xway.c             | 1 -
+ drivers/pinctrl/qcom/pinctrl-msm.c         | 1 -
+ drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c   | 1 -
+ drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c    | 1 -
+ drivers/pinctrl/renesas/pinctrl-rza2.c     | 1 -
+ drivers/pinctrl/spear/pinctrl-plgpio.c     | 1 -
+ drivers/pinctrl/vt8500/pinctrl-wmt.c       | 1 -
+ 24 files changed, 8 insertions(+), 37 deletions(-)
 
-Regards
-Alex
-
-
-> 
+diff --git a/drivers/pinctrl/actions/pinctrl-owl.c b/drivers/pinctrl/actions/pinctrl-owl.c
+index 781f2200ed58..ed46abc15d72 100644
+--- a/drivers/pinctrl/actions/pinctrl-owl.c
++++ b/drivers/pinctrl/actions/pinctrl-owl.c
+@@ -874,7 +874,6 @@ static int owl_gpio_init(struct owl_pinctrl *pctrl)
+ 	chip->label = dev_name(pctrl->dev);
+ 	chip->parent = pctrl->dev;
+ 	chip->owner = THIS_MODULE;
+-	chip->of_node = pctrl->dev->of_node;
+ 
+ 	pctrl->irq_chip.name = chip->of_node->name;
+ 	pctrl->irq_chip.irq_ack = owl_gpio_irq_ack;
+diff --git a/drivers/pinctrl/bcm/pinctrl-bcm2835.c b/drivers/pinctrl/bcm/pinctrl-bcm2835.c
+index 2abcc6ce4eba..c677be102938 100644
+--- a/drivers/pinctrl/bcm/pinctrl-bcm2835.c
++++ b/drivers/pinctrl/bcm/pinctrl-bcm2835.c
+@@ -1222,7 +1222,6 @@ static int bcm2835_pinctrl_probe(struct platform_device *pdev)
+ 
+ 	pc->gpio_chip = *pdata->gpio_chip;
+ 	pc->gpio_chip.parent = dev;
+-	pc->gpio_chip.of_node = np;
+ 
+ 	for (i = 0; i < BCM2835_NUM_BANKS; i++) {
+ 		unsigned long events;
+diff --git a/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c b/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c
+index a7a0dd638a26..52fa2f4cd618 100644
+--- a/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c
++++ b/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c
+@@ -836,7 +836,6 @@ static int iproc_gpio_probe(struct platform_device *pdev)
+ 	chip->num_banks = (ngpios + NGPIOS_PER_BANK - 1) / NGPIOS_PER_BANK;
+ 	gc->label = dev_name(dev);
+ 	gc->parent = dev;
+-	gc->of_node = dev->of_node;
+ 	gc->request = iproc_gpio_request;
+ 	gc->free = iproc_gpio_free;
+ 	gc->direction_input = iproc_gpio_direction_input;
+diff --git a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
+index e03142895f61..643dbd315033 100644
+--- a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
++++ b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
+@@ -648,7 +648,6 @@ static int nsp_gpio_probe(struct platform_device *pdev)
+ 	gc->ngpio = val;
+ 	gc->label = dev_name(dev);
+ 	gc->parent = dev;
+-	gc->of_node = dev->of_node;
+ 	gc->request = gpiochip_generic_request;
+ 	gc->free = gpiochip_generic_free;
+ 	gc->direction_input = nsp_gpio_direction_input;
+diff --git a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
+index 670ac53a3141..3fda4446d70b 100644
+--- a/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
++++ b/drivers/pinctrl/cirrus/pinctrl-lochnagar.c
+@@ -1161,9 +1161,6 @@ static int lochnagar_pin_probe(struct platform_device *pdev)
+ 	priv->gpio_chip.can_sleep = true;
+ 	priv->gpio_chip.parent = dev;
+ 	priv->gpio_chip.base = -1;
+-#ifdef CONFIG_OF_GPIO
+-	priv->gpio_chip.of_node = dev->of_node;
+-#endif
+ 
+ 	switch (lochnagar->type) {
+ 	case LOCHNAGAR1:
+diff --git a/drivers/pinctrl/mediatek/pinctrl-moore.c b/drivers/pinctrl/mediatek/pinctrl-moore.c
+index ad3b67163973..5bfaa84839c7 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-moore.c
++++ b/drivers/pinctrl/mediatek/pinctrl-moore.c
+@@ -519,7 +519,7 @@ static int mtk_gpio_set_config(struct gpio_chip *chip, unsigned int offset,
+ 	return mtk_eint_set_debounce(hw->eint, desc->eint.eint_n, debounce);
+ }
+ 
+-static int mtk_build_gpiochip(struct mtk_pinctrl *hw, struct device_node *np)
++static int mtk_build_gpiochip(struct mtk_pinctrl *hw)
+ {
+ 	struct gpio_chip *chip = &hw->chip;
+ 	int ret;
+@@ -536,7 +536,6 @@ static int mtk_build_gpiochip(struct mtk_pinctrl *hw, struct device_node *np)
+ 	chip->set_config	= mtk_gpio_set_config;
+ 	chip->base		= -1;
+ 	chip->ngpio		= hw->soc->npins;
+-	chip->of_node		= np;
+ 	chip->of_gpio_n_cells	= 2;
+ 
+ 	ret = gpiochip_add_data(chip, hw);
+@@ -550,7 +549,7 @@ static int mtk_build_gpiochip(struct mtk_pinctrl *hw, struct device_node *np)
+ 	 * Documentation/devicetree/bindings/gpio/gpio.txt on how to
+ 	 * bind pinctrl and gpio drivers via the "gpio-ranges" property.
+ 	 */
+-	if (!of_find_property(np, "gpio-ranges", NULL)) {
++	if (!of_find_property(hw->dev->of_node, "gpio-ranges", NULL)) {
+ 		ret = gpiochip_add_pin_range(chip, dev_name(hw->dev), 0, 0,
+ 					     chip->ngpio);
+ 		if (ret < 0) {
+@@ -691,7 +690,7 @@ int mtk_moore_pinctrl_probe(struct platform_device *pdev,
+ 			 "Failed to add EINT, but pinctrl still can work\n");
+ 
+ 	/* Build gpiochip should be after pinctrl_enable is done */
+-	err = mtk_build_gpiochip(hw, pdev->dev.of_node);
++	err = mtk_build_gpiochip(hw);
+ 	if (err) {
+ 		dev_err(&pdev->dev, "Failed to add gpio_chip\n");
+ 		return err;
+diff --git a/drivers/pinctrl/mediatek/pinctrl-paris.c b/drivers/pinctrl/mediatek/pinctrl-paris.c
+index 4c6f6d967b18..f9f9110f2107 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-paris.c
++++ b/drivers/pinctrl/mediatek/pinctrl-paris.c
+@@ -895,7 +895,7 @@ static int mtk_gpio_set_config(struct gpio_chip *chip, unsigned int offset,
+ 	return mtk_eint_set_debounce(hw->eint, desc->eint.eint_n, debounce);
+ }
+ 
+-static int mtk_build_gpiochip(struct mtk_pinctrl *hw, struct device_node *np)
++static int mtk_build_gpiochip(struct mtk_pinctrl *hw)
+ {
+ 	struct gpio_chip *chip = &hw->chip;
+ 	int ret;
+@@ -913,7 +913,6 @@ static int mtk_build_gpiochip(struct mtk_pinctrl *hw, struct device_node *np)
+ 	chip->set_config	= mtk_gpio_set_config;
+ 	chip->base		= -1;
+ 	chip->ngpio		= hw->soc->npins;
+-	chip->of_node		= np;
+ 	chip->of_gpio_n_cells	= 2;
+ 
+ 	ret = gpiochip_add_data(chip, hw);
+@@ -1037,7 +1036,7 @@ int mtk_paris_pinctrl_probe(struct platform_device *pdev,
+ 			 "Failed to add EINT, but pinctrl still can work\n");
+ 
+ 	/* Build gpiochip should be after pinctrl_enable is done */
+-	err = mtk_build_gpiochip(hw, pdev->dev.of_node);
++	err = mtk_build_gpiochip(hw);
+ 	if (err) {
+ 		dev_err(&pdev->dev, "Failed to add gpio_chip\n");
+ 		return err;
+diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
+index ecab9064a845..1a7d686494ff 100644
+--- a/drivers/pinctrl/pinctrl-amd.c
++++ b/drivers/pinctrl/pinctrl-amd.c
+@@ -1009,9 +1009,6 @@ static int amd_gpio_probe(struct platform_device *pdev)
+ 	gpio_dev->gc.owner			= THIS_MODULE;
+ 	gpio_dev->gc.parent			= &pdev->dev;
+ 	gpio_dev->gc.ngpio			= resource_size(res) / 4;
+-#if defined(CONFIG_OF_GPIO)
+-	gpio_dev->gc.of_node			= pdev->dev.of_node;
+-#endif
+ 
+ 	gpio_dev->hwbank_num = gpio_dev->gc.ngpio / 64;
+ 	gpio_dev->groups = kerncz_groups;
+diff --git a/drivers/pinctrl/pinctrl-at91-pio4.c b/drivers/pinctrl/pinctrl-at91-pio4.c
+index 03c32b2c5d30..fafd1f55cba7 100644
+--- a/drivers/pinctrl/pinctrl-at91-pio4.c
++++ b/drivers/pinctrl/pinctrl-at91-pio4.c
+@@ -1136,7 +1136,6 @@ static int atmel_pinctrl_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	atmel_pioctrl->gpio_chip = &atmel_gpio_chip;
+-	atmel_pioctrl->gpio_chip->of_node = dev->of_node;
+ 	atmel_pioctrl->gpio_chip->ngpio = atmel_pioctrl->npins;
+ 	atmel_pioctrl->gpio_chip->label = dev_name(dev);
+ 	atmel_pioctrl->gpio_chip->parent = dev;
+diff --git a/drivers/pinctrl/pinctrl-at91.c b/drivers/pinctrl/pinctrl-at91.c
+index 6022496bb6a9..d91a010e65f5 100644
+--- a/drivers/pinctrl/pinctrl-at91.c
++++ b/drivers/pinctrl/pinctrl-at91.c
+@@ -1868,7 +1868,6 @@ static int at91_gpio_probe(struct platform_device *pdev)
+ 	at91_chip->chip = at91_gpio_template;
+ 
+ 	chip = &at91_chip->chip;
+-	chip->of_node = np;
+ 	chip->label = dev_name(&pdev->dev);
+ 	chip->parent = &pdev->dev;
+ 	chip->owner = THIS_MODULE;
+diff --git a/drivers/pinctrl/pinctrl-digicolor.c b/drivers/pinctrl/pinctrl-digicolor.c
+index ff702cfbaa28..cc3546fc4610 100644
+--- a/drivers/pinctrl/pinctrl-digicolor.c
++++ b/drivers/pinctrl/pinctrl-digicolor.c
+@@ -233,7 +233,7 @@ static void dc_gpio_set(struct gpio_chip *chip, unsigned gpio, int value)
+ 	spin_unlock_irqrestore(&pmap->lock, flags);
+ }
+ 
+-static int dc_gpiochip_add(struct dc_pinmap *pmap, struct device_node *np)
++static int dc_gpiochip_add(struct dc_pinmap *pmap)
+ {
+ 	struct gpio_chip *chip = &pmap->chip;
+ 	int ret;
+@@ -248,7 +248,6 @@ static int dc_gpiochip_add(struct dc_pinmap *pmap, struct device_node *np)
+ 	chip->set		= dc_gpio_set;
+ 	chip->base		= -1;
+ 	chip->ngpio		= PINS_COUNT;
+-	chip->of_node		= np;
+ 	chip->of_gpio_n_cells	= 2;
+ 
+ 	spin_lock_init(&pmap->lock);
+@@ -326,7 +325,7 @@ static int dc_pinctrl_probe(struct platform_device *pdev)
+ 		return PTR_ERR(pmap->pctl);
+ 	}
+ 
+-	return dc_gpiochip_add(pmap, pdev->dev.of_node);
++	return dc_gpiochip_add(pmap);
+ }
+ 
+ static const struct of_device_id dc_pinctrl_ids[] = {
+diff --git a/drivers/pinctrl/pinctrl-mcp23s08.c b/drivers/pinctrl/pinctrl-mcp23s08.c
+index bccebe43dd6a..695236636d05 100644
+--- a/drivers/pinctrl/pinctrl-mcp23s08.c
++++ b/drivers/pinctrl/pinctrl-mcp23s08.c
+@@ -551,7 +551,6 @@ int mcp23s08_probe_one(struct mcp23s08 *mcp, struct device *dev,
+ 	mcp->chip.set = mcp23s08_set;
+ #ifdef CONFIG_OF_GPIO
+ 	mcp->chip.of_gpio_n_cells = 2;
+-	mcp->chip.of_node = dev->of_node;
+ #endif
+ 
+ 	mcp->chip.base = base;
+diff --git a/drivers/pinctrl/pinctrl-ocelot.c b/drivers/pinctrl/pinctrl-ocelot.c
+index 42aab9ba049a..fc969208d904 100644
+--- a/drivers/pinctrl/pinctrl-ocelot.c
++++ b/drivers/pinctrl/pinctrl-ocelot.c
+@@ -1748,7 +1748,6 @@ static int ocelot_gpiochip_register(struct platform_device *pdev,
+ 	gc->ngpio = info->desc->npins;
+ 	gc->parent = &pdev->dev;
+ 	gc->base = -1;
+-	gc->of_node = info->dev->of_node;
+ 	gc->label = "ocelot-gpio";
+ 
+ 	irq = irq_of_parse_and_map(gc->of_node, 0);
+diff --git a/drivers/pinctrl/pinctrl-oxnas.c b/drivers/pinctrl/pinctrl-oxnas.c
+index cebd810bd6d1..fb10a8473ebe 100644
+--- a/drivers/pinctrl/pinctrl-oxnas.c
++++ b/drivers/pinctrl/pinctrl-oxnas.c
+@@ -1232,7 +1232,6 @@ static int oxnas_gpio_probe(struct platform_device *pdev)
+ 
+ 	bank->id = id;
+ 	bank->gpio_chip.parent = &pdev->dev;
+-	bank->gpio_chip.of_node = np;
+ 	bank->gpio_chip.ngpio = ngpios;
+ 	girq = &bank->gpio_chip.irq;
+ 	girq->chip = &bank->irq_chip;
+diff --git a/drivers/pinctrl/pinctrl-pic32.c b/drivers/pinctrl/pinctrl-pic32.c
+index 748dabd8db6e..37acfdfc2cae 100644
+--- a/drivers/pinctrl/pinctrl-pic32.c
++++ b/drivers/pinctrl/pinctrl-pic32.c
+@@ -2241,7 +2241,7 @@ static int pic32_gpio_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	bank->gpio_chip.parent = &pdev->dev;
+-	bank->gpio_chip.of_node = np;
++
+ 	girq = &bank->gpio_chip.irq;
+ 	girq->chip = &bank->irq_chip;
+ 	girq->parent_handler = pic32_gpio_irq_handler;
+diff --git a/drivers/pinctrl/pinctrl-stmfx.c b/drivers/pinctrl/pinctrl-stmfx.c
+index 5fa2488fae87..ab4dde40d3ed 100644
+--- a/drivers/pinctrl/pinctrl-stmfx.c
++++ b/drivers/pinctrl/pinctrl-stmfx.c
+@@ -675,7 +675,6 @@ static int stmfx_pinctrl_probe(struct platform_device *pdev)
+ 	pctl->gpio_chip.base = -1;
+ 	pctl->gpio_chip.ngpio = pctl->pctl_desc.npins;
+ 	pctl->gpio_chip.can_sleep = true;
+-	pctl->gpio_chip.of_node = np;
+ 
+ 	pctl->irq_chip.name = dev_name(pctl->dev);
+ 	pctl->irq_chip.irq_mask = stmfx_pinctrl_irq_mask;
+diff --git a/drivers/pinctrl/pinctrl-sx150x.c b/drivers/pinctrl/pinctrl-sx150x.c
+index 484a3b9e875c..a87ea3b95cf4 100644
+--- a/drivers/pinctrl/pinctrl-sx150x.c
++++ b/drivers/pinctrl/pinctrl-sx150x.c
+@@ -1163,9 +1163,6 @@ static int sx150x_probe(struct i2c_client *client,
+ 	pctl->gpio.set = sx150x_gpio_set;
+ 	pctl->gpio.set_config = gpiochip_generic_config;
+ 	pctl->gpio.parent = dev;
+-#ifdef CONFIG_OF_GPIO
+-	pctl->gpio.of_node = dev->of_node;
+-#endif
+ 	pctl->gpio.can_sleep = true;
+ 	pctl->gpio.label = devm_kstrdup(dev, client->name, GFP_KERNEL);
+ 	if (!pctl->gpio.label)
+diff --git a/drivers/pinctrl/pinctrl-xway.c b/drivers/pinctrl/pinctrl-xway.c
+index 5e3f31b55eb7..3a03beb8a755 100644
+--- a/drivers/pinctrl/pinctrl-xway.c
++++ b/drivers/pinctrl/pinctrl-xway.c
+@@ -1763,7 +1763,6 @@ static int pinmux_xway_probe(struct platform_device *pdev)
+ 	/* register the gpio chip */
+ 	xway_chip.parent = &pdev->dev;
+ 	xway_chip.owner = THIS_MODULE;
+-	xway_chip.of_node = pdev->dev.of_node;
+ 	ret = devm_gpiochip_add_data(&pdev->dev, &xway_chip, NULL);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Failed to register gpio chip\n");
+diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
+index ae09e2dd8a50..780878dede9e 100644
+--- a/drivers/pinctrl/qcom/pinctrl-msm.c
++++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+@@ -1264,7 +1264,6 @@ static int msm_gpio_init(struct msm_pinctrl *pctrl)
+ 	chip->label = dev_name(pctrl->dev);
+ 	chip->parent = pctrl->dev;
+ 	chip->owner = THIS_MODULE;
+-	chip->of_node = pctrl->dev->of_node;
+ 	if (msm_gpio_needs_valid_mask(pctrl))
+ 		chip->init_valid_mask = msm_gpio_init_valid_mask;
+ 
+diff --git a/drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c b/drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c
+index b5949f766a7a..1b41adda8129 100644
+--- a/drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c
++++ b/drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c
+@@ -773,7 +773,6 @@ static int pm8xxx_gpio_probe(struct platform_device *pdev)
+ 	pctrl->chip = pm8xxx_gpio_template;
+ 	pctrl->chip.base = -1;
+ 	pctrl->chip.parent = &pdev->dev;
+-	pctrl->chip.of_node = pdev->dev.of_node;
+ 	pctrl->chip.of_gpio_n_cells = 2;
+ 	pctrl->chip.label = dev_name(pctrl->dev);
+ 	pctrl->chip.ngpio = pctrl->npins;
+diff --git a/drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c b/drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c
+index 842940594c4a..49893a5133a8 100644
+--- a/drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c
++++ b/drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c
+@@ -857,7 +857,6 @@ static int pm8xxx_mpp_probe(struct platform_device *pdev)
+ 	pctrl->chip = pm8xxx_mpp_template;
+ 	pctrl->chip.base = -1;
+ 	pctrl->chip.parent = &pdev->dev;
+-	pctrl->chip.of_node = pdev->dev.of_node;
+ 	pctrl->chip.of_gpio_n_cells = 2;
+ 	pctrl->chip.label = dev_name(pctrl->dev);
+ 	pctrl->chip.ngpio = pctrl->npins;
+diff --git a/drivers/pinctrl/renesas/pinctrl-rza2.c b/drivers/pinctrl/renesas/pinctrl-rza2.c
+index 32829eb9656c..c0a04f1ee994 100644
+--- a/drivers/pinctrl/renesas/pinctrl-rza2.c
++++ b/drivers/pinctrl/renesas/pinctrl-rza2.c
+@@ -240,7 +240,6 @@ static int rza2_gpio_register(struct rza2_pinctrl_priv *priv)
+ 	int ret;
+ 
+ 	chip.label = devm_kasprintf(priv->dev, GFP_KERNEL, "%pOFn", np);
+-	chip.of_node = np;
+ 	chip.parent = priv->dev;
+ 	chip.ngpio = priv->npins;
+ 
+diff --git a/drivers/pinctrl/spear/pinctrl-plgpio.c b/drivers/pinctrl/spear/pinctrl-plgpio.c
+index b36449724f3f..ada401ef4342 100644
+--- a/drivers/pinctrl/spear/pinctrl-plgpio.c
++++ b/drivers/pinctrl/spear/pinctrl-plgpio.c
+@@ -581,7 +581,6 @@ static int plgpio_probe(struct platform_device *pdev)
+ 	plgpio->chip.label = dev_name(&pdev->dev);
+ 	plgpio->chip.parent = &pdev->dev;
+ 	plgpio->chip.owner = THIS_MODULE;
+-	plgpio->chip.of_node = pdev->dev.of_node;
+ 
+ 	if (!IS_ERR(plgpio->clk)) {
+ 		ret = clk_prepare(plgpio->clk);
+diff --git a/drivers/pinctrl/vt8500/pinctrl-wmt.c b/drivers/pinctrl/vt8500/pinctrl-wmt.c
+index 65b97e240196..6fac30de1c6a 100644
+--- a/drivers/pinctrl/vt8500/pinctrl-wmt.c
++++ b/drivers/pinctrl/vt8500/pinctrl-wmt.c
+@@ -565,7 +565,6 @@ int wmt_pinctrl_probe(struct platform_device *pdev,
+ 
+ 	data->gpio_chip = wmt_gpio_chip;
+ 	data->gpio_chip.parent = &pdev->dev;
+-	data->gpio_chip.of_node = pdev->dev.of_node;
+ 	data->gpio_chip.ngpio = data->nbanks * 32;
+ 
+ 	platform_set_drvdata(pdev, data);
+-- 
+2.33.0
 
 _______________________________________________
 Linux-stm32 mailing list
