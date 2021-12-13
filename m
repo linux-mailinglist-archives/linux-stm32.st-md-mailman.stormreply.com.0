@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8801B472333
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Dec 2021 09:48:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3637947235A
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Dec 2021 09:58:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29E1FC5E2AF;
-	Mon, 13 Dec 2021 08:48:16 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCEEAC5E2AF;
+	Mon, 13 Dec 2021 08:58:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2ED8C5A4FE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAC53C5A4FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Dec 2021 08:48:15 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BD6IGA5026382;
- Mon, 13 Dec 2021 09:47:52 +0100
+ Mon, 13 Dec 2021 08:58:06 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BD85p53007337;
+ Mon, 13 Dec 2021 09:57:58 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=subject : to :
  references : from : message-id : date : mime-version : in-reply-to :
- content-type; s=selector1;
- bh=qLRnPS7AgqDpXP52Goprj3cYI/EZsOvaVxslaZoPL48=;
- b=r1l3/JW8Vmcp5+5togCnkWoXOPk5uuEEIS6W71l1RMYBJBOjLIXXgLyYZBlWnrXTREk6
- Zk9P7GnYdQdPUS8KMI7AtthOfrBF+Q5/p1YY11pFfmopqfmvMEvISCKEGcK5DtNVmO1U
- kSzF+d8EdsvfcSeggscF8Lmwyrrt2wF8F8K9Z3/8K7hYpa7obntZbWmBNp2mJ/Db5d0m
- yYB6ViFO8Unr/WIQ8DgeL/gARaFHH0h2cRHDXXzy4owjyVyH+cBpy4nAj13hwDbgdLCM
- pKYSjfswcZxhrqGZVu6Rh1J4Za+oLbOQUu4Yn2TVsdQs3lQnBNf6Zb7JkeCVXx46Chsn jA== 
+ content-type : content-transfer-encoding; s=selector1;
+ bh=SeZDBFVaRDbxNKpAz/6sNDYoE6Cy11vIthxzbtG3n/E=;
+ b=3twl9z0/8PmZf2fK15a5ruSE1VqhnbmZINcPTEK9JhNECNZVx6Jecz6zv4FE9dc88hP+
+ 9Mqv9wdEbWc1yLqoNm51wsmRWHJjmuZnMsSKlrWl9wP2bR74CZ02+JNhTNGWC6CmUzaI
+ R/CYSo782bpuEI5zJin4xZWSP/dPL3xUe23erKZWZLEQctHNk/6aX3bnP4fGnc8sseNZ
+ csW/11XJ1CVmsTIMRJixUiY7fFaxww10IapuDm3nRKz3NnA3Y34x+rVi5cFpMBFzkite
+ GzXgdQJOO8m40ewwl33cwweclI7vHIq+dA4BHF1Vg/7tJlFJfMYyypDKSUafcQoG+4HY XA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cx0sqruf6-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cx2c709s8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 13 Dec 2021 09:47:52 +0100
+ Mon, 13 Dec 2021 09:57:58 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D9EA0100034;
- Mon, 13 Dec 2021 09:47:50 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A243110002A;
+ Mon, 13 Dec 2021 09:57:57 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C80D3226239;
- Mon, 13 Dec 2021 09:47:50 +0100 (CET)
-Received: from lmecxl0557.lme.st.com (10.75.127.45) by SFHDAG2NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9958522685D;
+ Mon, 13 Dec 2021 09:57:57 +0100 (CET)
+Received: from lmecxl0557.lme.st.com (10.75.127.47) by SFHDAG2NODE2.st.com
  (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 13 Dec
- 2021 09:47:50 +0100
+ 2021 09:57:56 +0100
 To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
  <philippe.cornu@foss.st.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
@@ -49,14 +49,14 @@ To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
  <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
 References: <20211203085618.11314-1-yannick.fertre@foss.st.com>
 From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Message-ID: <7d371a3a-5fb5-06c6-8308-317ae01f80fb@foss.st.com>
-Date: Mon, 13 Dec 2021 09:47:49 +0100
+Message-ID: <57a01b8e-a894-09d1-523b-dd77f38783e6@foss.st.com>
+Date: Mon, 13 Dec 2021 09:57:56 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
 In-Reply-To: <20211203085618.11314-1-yannick.fertre@foss.st.com>
 Content-Language: en-US
-X-Originating-IP: [10.75.127.45]
+X-Originating-IP: [10.75.127.47]
 X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
@@ -75,598 +75,218 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3883661477047360387=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============3883661477047360387==
-Content-Type: multipart/alternative;
-	boundary="------------DD24992B9DB85B64020E82DB"
-Content-Language: en-US
-
---------------DD24992B9DB85B64020E82DB
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-Hello Yannick,
-
-
-Thank you for this patch.
-
-
-Tested-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com <mailto:raphael.gallais-pou@foss.st.com>>
-
-Reviewed-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com <mailto:raphael.gallais-pou@foss.st.com>>
-
-
-Regards,
-
-Raphaël Gallais-Pou
-
-
-On 12/3/21 9:56 AM, Yannick Fertre wrote:
-> Add support of new hardware version 0x40100.
->
-> Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
-> ---
->  drivers/gpu/drm/stm/ltdc.c | 172 ++++++++++++++++++++++++++++++-------
->  drivers/gpu/drm/stm/ltdc.h |   3 +-
->  2 files changed, 145 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index dbdee954692a..c0619f372630 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -46,15 +46,15 @@
->  #define HWVER_10200 0x010200
->  #define HWVER_10300 0x010300
->  #define HWVER_20101 0x020101
-> +#define HWVER_40100 0x040100
->  
->  /*
->   * The address of some registers depends on the HW version: such registers have
-> - * an extra offset specified with reg_ofs.
-> + * an extra offset specified with layer_ofs.
->   */
-> -#define REG_OFS_NONE	0
-> -#define REG_OFS_4	4		/* Insertion of "Layer Conf. 2" reg */
-> -#define REG_OFS		(ldev->caps.reg_ofs)
-> -#define LAY_OFS		0x80		/* Register Offset between 2 layers */
-> +#define LAY_OFS_0	0x80
-> +#define LAY_OFS_1	0x100
-> +#define LAY_OFS	(ldev->caps.layer_ofs)
->  
->  /* Global register offsets */
->  #define LTDC_IDR	0x0000		/* IDentification */
-> @@ -75,29 +75,34 @@
->  #define LTDC_LIPCR	0x0040		/* Line Interrupt Position Conf. */
->  #define LTDC_CPSR	0x0044		/* Current Position Status */
->  #define LTDC_CDSR	0x0048		/* Current Display Status */
-> +#define LTDC_FUT	0x0090		/* Fifo underrun Threshold */
->  
->  /* Layer register offsets */
-> -#define LTDC_L1LC1R	(0x80)		/* L1 Layer Configuration 1 */
-> -#define LTDC_L1LC2R	(0x84)		/* L1 Layer Configuration 2 */
-> -#define LTDC_L1CR	(0x84 + REG_OFS)/* L1 Control */
-> -#define LTDC_L1WHPCR	(0x88 + REG_OFS)/* L1 Window Hor Position Config */
-> -#define LTDC_L1WVPCR	(0x8C + REG_OFS)/* L1 Window Vert Position Config */
-> -#define LTDC_L1CKCR	(0x90 + REG_OFS)/* L1 Color Keying Configuration */
-> -#define LTDC_L1PFCR	(0x94 + REG_OFS)/* L1 Pixel Format Configuration */
-> -#define LTDC_L1CACR	(0x98 + REG_OFS)/* L1 Constant Alpha Config */
-> -#define LTDC_L1DCCR	(0x9C + REG_OFS)/* L1 Default Color Configuration */
-> -#define LTDC_L1BFCR	(0xA0 + REG_OFS)/* L1 Blend Factors Configuration */
-> -#define LTDC_L1FBBCR	(0xA4 + REG_OFS)/* L1 FrameBuffer Bus Control */
-> -#define LTDC_L1AFBCR	(0xA8 + REG_OFS)/* L1 AuxFB Control */
-> -#define LTDC_L1CFBAR	(0xAC + REG_OFS)/* L1 Color FrameBuffer Address */
-> -#define LTDC_L1CFBLR	(0xB0 + REG_OFS)/* L1 Color FrameBuffer Length */
-> -#define LTDC_L1CFBLNR	(0xB4 + REG_OFS)/* L1 Color FrameBuffer Line Nb */
-> -#define LTDC_L1AFBAR	(0xB8 + REG_OFS)/* L1 AuxFB Address */
-> -#define LTDC_L1AFBLR	(0xBC + REG_OFS)/* L1 AuxFB Length */
-> -#define LTDC_L1AFBLNR	(0xC0 + REG_OFS)/* L1 AuxFB Line Number */
-> -#define LTDC_L1CLUTWR	(0xC4 + REG_OFS)/* L1 CLUT Write */
-> -#define LTDC_L1YS1R	(0xE0 + REG_OFS)/* L1 YCbCr Scale 1 */
-> -#define LTDC_L1YS2R	(0xE4 + REG_OFS)/* L1 YCbCr Scale 2 */
-> +#define LTDC_L1C0R	(ldev->caps.layer_regs[0])	/* L1 configuration 0 */
-> +#define LTDC_L1C1R	(ldev->caps.layer_regs[1])	/* L1 configuration 1 */
-> +#define LTDC_L1RCR	(ldev->caps.layer_regs[2])	/* L1 reload control */
-> +#define LTDC_L1CR	(ldev->caps.layer_regs[3])	/* L1 control register */
-> +#define LTDC_L1WHPCR	(ldev->caps.layer_regs[4])	/* L1 window horizontal position configuration */
-> +#define LTDC_L1WVPCR	(ldev->caps.layer_regs[5])	/* L1 window vertical position configuration */
-> +#define LTDC_L1CKCR	(ldev->caps.layer_regs[6])	/* L1 color keying configuration */
-> +#define LTDC_L1PFCR	(ldev->caps.layer_regs[7])	/* L1 pixel format configuration */
-> +#define LTDC_L1CACR	(ldev->caps.layer_regs[8])	/* L1 constant alpha configuration */
-> +#define LTDC_L1DCCR	(ldev->caps.layer_regs[9])	/* L1 default color configuration */
-> +#define LTDC_L1BFCR	(ldev->caps.layer_regs[10])	/* L1 blending factors configuration */
-> +#define LTDC_L1BLCR	(ldev->caps.layer_regs[11])	/* L1 burst length configuration */
-> +#define LTDC_L1PCR	(ldev->caps.layer_regs[12])	/* L1 planar configuration */
-> +#define LTDC_L1CFBAR	(ldev->caps.layer_regs[13])	/* L1 color frame buffer address */
-> +#define LTDC_L1CFBLR	(ldev->caps.layer_regs[14])	/* L1 color frame buffer length */
-> +#define LTDC_L1CFBLNR	(ldev->caps.layer_regs[15])	/* L1 color frame buffer line number */
-> +#define LTDC_L1AFBA0R	(ldev->caps.layer_regs[16])	/* L1 auxiliary frame buffer address 0 */
-> +#define LTDC_L1AFBA1R	(ldev->caps.layer_regs[17])	/* L1 auxiliary frame buffer address 1 */
-> +#define LTDC_L1AFBLR	(ldev->caps.layer_regs[18])	/* L1 auxiliary frame buffer length */
-> +#define LTDC_L1AFBLNR	(ldev->caps.layer_regs[19])	/* L1 auxiliary frame buffer line number */
-> +#define LTDC_L1CLUTWR	(ldev->caps.layer_regs[20])	/* L1 CLUT write */
-> +#define LTDC_L1CYR0R	(ldev->caps.layer_regs[21])	/* L1 Conversion YCbCr RGB 0 */
-> +#define LTDC_L1CYR1R	(ldev->caps.layer_regs[22])	/* L1 Conversion YCbCr RGB 1 */
-> +#define LTDC_L1FPF0R	(ldev->caps.layer_regs[23])	/* L1 Flexible Pixel Format 0 */
-> +#define LTDC_L1FPF1R	(ldev->caps.layer_regs[24])	/* L1 Flexible Pixel Format 1 */
->  
->  /* Bit definitions */
->  #define SSCR_VSH	GENMASK(10, 0)	/* Vertical Synchronization Height */
-> @@ -208,7 +213,10 @@ enum ltdc_pix_fmt {
->  	/* Indexed formats */
->  	PF_L8,			/* Indexed 8 bits [8 bits] */
->  	PF_AL44,		/* Alpha:4 bits + indexed 4 bits [8 bits] */
-> -	PF_AL88			/* Alpha:8 bits + indexed 8 bits [16 bits] */
-> +	PF_AL88,		/* Alpha:8 bits + indexed 8 bits [16 bits] */
-> +	PF_ABGR8888,		/* ABGR [32 bits] */
-> +	PF_BGRA8888,		/* BGRA [32 bits] */
-> +	PF_BGR565		/* RGB [16 bits] */
->  };
->  
->  /* The index gives the encoding of the pixel format for an HW version */
-> @@ -234,6 +242,102 @@ static const enum ltdc_pix_fmt ltdc_pix_fmt_a1[NB_PF] = {
->  	PF_ARGB4444		/* 0x07 */
->  };
->  
-> +static const enum ltdc_pix_fmt ltdc_pix_fmt_a2[NB_PF] = {
-> +	PF_ARGB8888,		/* 0x00 */
-> +	PF_ABGR8888,		/* 0x01 */
-> +	PF_RGBA8888,		/* 0x02 */
-> +	PF_BGRA8888,		/* 0x03 */
-> +	PF_RGB565,		/* 0x04 */
-> +	PF_BGR565,		/* 0x05 */
-> +	PF_RGB888,		/* 0x06 */
-> +	PF_ARGB1555		/* 0x07 */
-> +};
-> +
-> +/* Layer register offsets */
-> +static const u32 ltdc_layer_regs_a0[] = {
-> +	0x80,	/* L1 configuration 0 */
-> +	0x00,	/* not available */
-> +	0x00,	/* not available */
-> +	0x84,	/* L1 control register */
-> +	0x88,	/* L1 window horizontal position configuration */
-> +	0x8c,	/* L1 window vertical position configuration */
-> +	0x90,	/* L1 color keying configuration */
-> +	0x94,	/* L1 pixel format configuration */
-> +	0x98,	/* L1 constant alpha configuration */
-> +	0x9c,	/* L1 default color configuration */
-> +	0xa0,	/* L1 blending factors configuration */
-> +	0x00,	/* not available */
-> +	0x00,	/* not available */
-> +	0xac,	/* L1 color frame buffer address */
-> +	0xb0,	/* L1 color frame buffer length */
-> +	0xb4,	/* L1 color frame buffer line number */
-> +	0x00,	/* not available */
-> +	0x00,	/* not available */
-> +	0x00,	/* not available */
-> +	0x00,	/* not available */
-> +	0xc4,	/* L1 CLUT write */
-> +	0x00,	/* not available */
-> +	0x00,	/* not available */
-> +	0x00,	/* not available */
-> +	0x00	/* not available */
-> +};
-> +
-> +static const u32 ltdc_layer_regs_a1[] = {
-> +	0x80,	/* L1 configuration 0 */
-> +	0x84,	/* L1 configuration 1 */
-> +	0x00,	/* L1 reload control */
-> +	0x88,	/* L1 control register */
-> +	0x8c,	/* L1 window horizontal position configuration */
-> +	0x90,	/* L1 window vertical position configuration */
-> +	0x94,	/* L1 color keying configuration */
-> +	0x98,	/* L1 pixel format configuration */
-> +	0x9c,	/* L1 constant alpha configuration */
-> +	0xa0,	/* L1 default color configuration */
-> +	0xa4,	/* L1 blending factors configuration */
-> +	0xa8,	/* L1 burst length configuration */
-> +	0x00,	/* not available */
-> +	0xac,	/* L1 color frame buffer address */
-> +	0xb0,	/* L1 color frame buffer length */
-> +	0xb4,	/* L1 color frame buffer line number */
-> +	0xb8,	/* L1 auxiliary frame buffer address 0 */
-> +	0xbc,	/* L1 auxiliary frame buffer address 1 */
-> +	0xc0,	/* L1 auxiliary frame buffer length */
-> +	0xc4,	/* L1 auxiliary frame buffer line number */
-> +	0xc8,	/* L1 CLUT write */
-> +	0x00,	/* not available */
-> +	0x00,	/* not available */
-> +	0x00,	/* not available */
-> +	0x00	/* not available */
-> +};
-> +
-> +static const u32 ltdc_layer_regs_a2[] = {
-> +	0x100,	/* L1 configuration 0 */
-> +	0x104,	/* L1 configuration 1 */
-> +	0x108,	/* L1 reload control */
-> +	0x10c,	/* L1 control register */
-> +	0x110,	/* L1 window horizontal position configuration */
-> +	0x114,	/* L1 window vertical position configuration */
-> +	0x118,	/* L1 color keying configuration */
-> +	0x11c,	/* L1 pixel format configuration */
-> +	0x120,	/* L1 constant alpha configuration */
-> +	0x124,	/* L1 default color configuration */
-> +	0x128,	/* L1 blending factors configuration */
-> +	0x12c,	/* L1 burst length configuration */
-> +	0x130,	/* L1 planar configuration */
-> +	0x134,	/* L1 color frame buffer address */
-> +	0x138,	/* L1 color frame buffer length */
-> +	0x13c,	/* L1 color frame buffer line number */
-> +	0x140,	/* L1 auxiliary frame buffer address 0 */
-> +	0x144,	/* L1 auxiliary frame buffer address 1 */
-> +	0x148,	/* L1 auxiliary frame buffer length */
-> +	0x14c,	/* L1 auxiliary frame buffer line number */
-> +	0x150,	/* L1 CLUT write */
-> +	0x16c,	/* L1 Conversion YCbCr RGB 0 */
-> +	0x170,	/* L1 Conversion YCbCr RGB 1 */
-> +	0x174,	/* L1 Flexible Pixel Format 0 */
-> +	0x178	/* L1 Flexible Pixel Format 1 */
-> +};
-> +
->  static const u64 ltdc_format_modifiers[] = {
->  	DRM_FORMAT_MOD_LINEAR,
->  	DRM_FORMAT_MOD_INVALID
-> @@ -1158,7 +1262,8 @@ static int ltdc_get_caps(struct drm_device *ddev)
->  	switch (ldev->caps.hw_version) {
->  	case HWVER_10200:
->  	case HWVER_10300:
-> -		ldev->caps.reg_ofs = REG_OFS_NONE;
-> +		ldev->caps.layer_ofs = LAY_OFS_0;
-> +		ldev->caps.layer_regs = ltdc_layer_regs_a0;
->  		ldev->caps.pix_fmt_hw = ltdc_pix_fmt_a0;
->  		/*
->  		 * Hw older versions support non-alpha color formats derived
-> @@ -1174,12 +1279,21 @@ static int ltdc_get_caps(struct drm_device *ddev)
->  		ldev->caps.nb_irq = 2;
->  		break;
->  	case HWVER_20101:
-> -		ldev->caps.reg_ofs = REG_OFS_4;
-> +		ldev->caps.layer_ofs = LAY_OFS_0;
-> +		ldev->caps.layer_regs = ltdc_layer_regs_a1;
->  		ldev->caps.pix_fmt_hw = ltdc_pix_fmt_a1;
->  		ldev->caps.non_alpha_only_l1 = false;
->  		ldev->caps.pad_max_freq_hz = 150000000;
->  		ldev->caps.nb_irq = 4;
->  		break;
-> +	case HWVER_40100:
-> +		ldev->caps.layer_ofs = LAY_OFS_1;
-> +		ldev->caps.layer_regs = ltdc_layer_regs_a2;
-> +		ldev->caps.pix_fmt_hw = ltdc_pix_fmt_a2;
-> +		ldev->caps.non_alpha_only_l1 = false;
-> +		ldev->caps.pad_max_freq_hz = 90000000;
-> +		ldev->caps.nb_irq = 2;
-> +		break;
->  	default:
->  		return -ENODEV;
->  	}
-> diff --git a/drivers/gpu/drm/stm/ltdc.h b/drivers/gpu/drm/stm/ltdc.h
-> index f153b908c70e..55a125f89af6 100644
-> --- a/drivers/gpu/drm/stm/ltdc.h
-> +++ b/drivers/gpu/drm/stm/ltdc.h
-> @@ -14,7 +14,8 @@
->  struct ltdc_caps {
->  	u32 hw_version;		/* hardware version */
->  	u32 nb_layers;		/* number of supported layers */
-> -	u32 reg_ofs;		/* register offset for applicable regs */
-> +	u32 layer_ofs;		/* layer offset for applicable regs */
-> +	const u32 *layer_regs;	/* layer register offset */
->  	u32 bus_width;		/* bus width (32 or 64 bits) */
->  	const u32 *pix_fmt_hw;	/* supported pixel formats */
->  	bool non_alpha_only_l1; /* non-native no-alpha formats on layer 1 */
-
---------------DD24992B9DB85B64020E82DB
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Hello Yannick, <br>
-    </p>
-    <p><br>
-    </p>
-    <p>Thank you for this patch.</p>
-    <p><br>
-    </p>
-    <p>
-    </p>
-    <p>
-      Tested-by: Raphael Gallais-Pou &lt;<a
-        href="mailto:raphael.gallais-pou@foss.st.com"
-        title="raphael.gallais-pou@foss.st.com" class="mailto">raphael.gallais-pou@foss.st.com</a>&gt;
-    </p>
-    <p>
-    </p>
-    <p>
-      Reviewed-by: Raphael Gallais-Pou &lt;<a
-        href="mailto:raphael.gallais-pou@foss.st.com"
-        title="raphael.gallais-pou@foss.st.com" class="mailto">raphael.gallais-pou@foss.st.com</a>&gt;
-    </p>
-    <p><br>
-    </p>
-    <p>Regards, <br>
-    </p>
-    <p>Raphaël Gallais-Pou<br>
-    </p>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 12/3/21 9:56 AM, Yannick Fertre
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20211203085618.11314-1-yannick.fertre@foss.st.com">
-      <pre class="moz-quote-pre" wrap="">Add support of new hardware version 0x40100.
-
-Signed-off-by: Yannick Fertre <a class="moz-txt-link-rfc2396E" href="mailto:yannick.fertre@foss.st.com">&lt;yannick.fertre@foss.st.com&gt;</a>
----
- drivers/gpu/drm/stm/ltdc.c | 172 ++++++++++++++++++++++++++++++-------
- drivers/gpu/drm/stm/ltdc.h |   3 +-
- 2 files changed, 145 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index dbdee954692a..c0619f372630 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -46,15 +46,15 @@
- #define HWVER_10200 0x010200
- #define HWVER_10300 0x010300
- #define HWVER_20101 0x020101
-+#define HWVER_40100 0x040100
- 
- /*
-  * The address of some registers depends on the HW version: such registers have
-- * an extra offset specified with reg_ofs.
-+ * an extra offset specified with layer_ofs.
-  */
--#define REG_OFS_NONE	0
--#define REG_OFS_4	4		/* Insertion of "Layer Conf. 2" reg */
--#define REG_OFS		(ldev-&gt;caps.reg_ofs)
--#define LAY_OFS		0x80		/* Register Offset between 2 layers */
-+#define LAY_OFS_0	0x80
-+#define LAY_OFS_1	0x100
-+#define LAY_OFS	(ldev-&gt;caps.layer_ofs)
- 
- /* Global register offsets */
- #define LTDC_IDR	0x0000		/* IDentification */
-@@ -75,29 +75,34 @@
- #define LTDC_LIPCR	0x0040		/* Line Interrupt Position Conf. */
- #define LTDC_CPSR	0x0044		/* Current Position Status */
- #define LTDC_CDSR	0x0048		/* Current Display Status */
-+#define LTDC_FUT	0x0090		/* Fifo underrun Threshold */
- 
- /* Layer register offsets */
--#define LTDC_L1LC1R	(0x80)		/* L1 Layer Configuration 1 */
--#define LTDC_L1LC2R	(0x84)		/* L1 Layer Configuration 2 */
--#define LTDC_L1CR	(0x84 + REG_OFS)/* L1 Control */
--#define LTDC_L1WHPCR	(0x88 + REG_OFS)/* L1 Window Hor Position Config */
--#define LTDC_L1WVPCR	(0x8C + REG_OFS)/* L1 Window Vert Position Config */
--#define LTDC_L1CKCR	(0x90 + REG_OFS)/* L1 Color Keying Configuration */
--#define LTDC_L1PFCR	(0x94 + REG_OFS)/* L1 Pixel Format Configuration */
--#define LTDC_L1CACR	(0x98 + REG_OFS)/* L1 Constant Alpha Config */
--#define LTDC_L1DCCR	(0x9C + REG_OFS)/* L1 Default Color Configuration */
--#define LTDC_L1BFCR	(0xA0 + REG_OFS)/* L1 Blend Factors Configuration */
--#define LTDC_L1FBBCR	(0xA4 + REG_OFS)/* L1 FrameBuffer Bus Control */
--#define LTDC_L1AFBCR	(0xA8 + REG_OFS)/* L1 AuxFB Control */
--#define LTDC_L1CFBAR	(0xAC + REG_OFS)/* L1 Color FrameBuffer Address */
--#define LTDC_L1CFBLR	(0xB0 + REG_OFS)/* L1 Color FrameBuffer Length */
--#define LTDC_L1CFBLNR	(0xB4 + REG_OFS)/* L1 Color FrameBuffer Line Nb */
--#define LTDC_L1AFBAR	(0xB8 + REG_OFS)/* L1 AuxFB Address */
--#define LTDC_L1AFBLR	(0xBC + REG_OFS)/* L1 AuxFB Length */
--#define LTDC_L1AFBLNR	(0xC0 + REG_OFS)/* L1 AuxFB Line Number */
--#define LTDC_L1CLUTWR	(0xC4 + REG_OFS)/* L1 CLUT Write */
--#define LTDC_L1YS1R	(0xE0 + REG_OFS)/* L1 YCbCr Scale 1 */
--#define LTDC_L1YS2R	(0xE4 + REG_OFS)/* L1 YCbCr Scale 2 */
-+#define LTDC_L1C0R	(ldev-&gt;caps.layer_regs[0])	/* L1 configuration 0 */
-+#define LTDC_L1C1R	(ldev-&gt;caps.layer_regs[1])	/* L1 configuration 1 */
-+#define LTDC_L1RCR	(ldev-&gt;caps.layer_regs[2])	/* L1 reload control */
-+#define LTDC_L1CR	(ldev-&gt;caps.layer_regs[3])	/* L1 control register */
-+#define LTDC_L1WHPCR	(ldev-&gt;caps.layer_regs[4])	/* L1 window horizontal position configuration */
-+#define LTDC_L1WVPCR	(ldev-&gt;caps.layer_regs[5])	/* L1 window vertical position configuration */
-+#define LTDC_L1CKCR	(ldev-&gt;caps.layer_regs[6])	/* L1 color keying configuration */
-+#define LTDC_L1PFCR	(ldev-&gt;caps.layer_regs[7])	/* L1 pixel format configuration */
-+#define LTDC_L1CACR	(ldev-&gt;caps.layer_regs[8])	/* L1 constant alpha configuration */
-+#define LTDC_L1DCCR	(ldev-&gt;caps.layer_regs[9])	/* L1 default color configuration */
-+#define LTDC_L1BFCR	(ldev-&gt;caps.layer_regs[10])	/* L1 blending factors configuration */
-+#define LTDC_L1BLCR	(ldev-&gt;caps.layer_regs[11])	/* L1 burst length configuration */
-+#define LTDC_L1PCR	(ldev-&gt;caps.layer_regs[12])	/* L1 planar configuration */
-+#define LTDC_L1CFBAR	(ldev-&gt;caps.layer_regs[13])	/* L1 color frame buffer address */
-+#define LTDC_L1CFBLR	(ldev-&gt;caps.layer_regs[14])	/* L1 color frame buffer length */
-+#define LTDC_L1CFBLNR	(ldev-&gt;caps.layer_regs[15])	/* L1 color frame buffer line number */
-+#define LTDC_L1AFBA0R	(ldev-&gt;caps.layer_regs[16])	/* L1 auxiliary frame buffer address 0 */
-+#define LTDC_L1AFBA1R	(ldev-&gt;caps.layer_regs[17])	/* L1 auxiliary frame buffer address 1 */
-+#define LTDC_L1AFBLR	(ldev-&gt;caps.layer_regs[18])	/* L1 auxiliary frame buffer length */
-+#define LTDC_L1AFBLNR	(ldev-&gt;caps.layer_regs[19])	/* L1 auxiliary frame buffer line number */
-+#define LTDC_L1CLUTWR	(ldev-&gt;caps.layer_regs[20])	/* L1 CLUT write */
-+#define LTDC_L1CYR0R	(ldev-&gt;caps.layer_regs[21])	/* L1 Conversion YCbCr RGB 0 */
-+#define LTDC_L1CYR1R	(ldev-&gt;caps.layer_regs[22])	/* L1 Conversion YCbCr RGB 1 */
-+#define LTDC_L1FPF0R	(ldev-&gt;caps.layer_regs[23])	/* L1 Flexible Pixel Format 0 */
-+#define LTDC_L1FPF1R	(ldev-&gt;caps.layer_regs[24])	/* L1 Flexible Pixel Format 1 */
- 
- /* Bit definitions */
- #define SSCR_VSH	GENMASK(10, 0)	/* Vertical Synchronization Height */
-@@ -208,7 +213,10 @@ enum ltdc_pix_fmt {
- 	/* Indexed formats */
- 	PF_L8,			/* Indexed 8 bits [8 bits] */
- 	PF_AL44,		/* Alpha:4 bits + indexed 4 bits [8 bits] */
--	PF_AL88			/* Alpha:8 bits + indexed 8 bits [16 bits] */
-+	PF_AL88,		/* Alpha:8 bits + indexed 8 bits [16 bits] */
-+	PF_ABGR8888,		/* ABGR [32 bits] */
-+	PF_BGRA8888,		/* BGRA [32 bits] */
-+	PF_BGR565		/* RGB [16 bits] */
- };
- 
- /* The index gives the encoding of the pixel format for an HW version */
-@@ -234,6 +242,102 @@ static const enum ltdc_pix_fmt ltdc_pix_fmt_a1[NB_PF] = {
- 	PF_ARGB4444		/* 0x07 */
- };
- 
-+static const enum ltdc_pix_fmt ltdc_pix_fmt_a2[NB_PF] = {
-+	PF_ARGB8888,		/* 0x00 */
-+	PF_ABGR8888,		/* 0x01 */
-+	PF_RGBA8888,		/* 0x02 */
-+	PF_BGRA8888,		/* 0x03 */
-+	PF_RGB565,		/* 0x04 */
-+	PF_BGR565,		/* 0x05 */
-+	PF_RGB888,		/* 0x06 */
-+	PF_ARGB1555		/* 0x07 */
-+};
-+
-+/* Layer register offsets */
-+static const u32 ltdc_layer_regs_a0[] = {
-+	0x80,	/* L1 configuration 0 */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x84,	/* L1 control register */
-+	0x88,	/* L1 window horizontal position configuration */
-+	0x8c,	/* L1 window vertical position configuration */
-+	0x90,	/* L1 color keying configuration */
-+	0x94,	/* L1 pixel format configuration */
-+	0x98,	/* L1 constant alpha configuration */
-+	0x9c,	/* L1 default color configuration */
-+	0xa0,	/* L1 blending factors configuration */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0xac,	/* L1 color frame buffer address */
-+	0xb0,	/* L1 color frame buffer length */
-+	0xb4,	/* L1 color frame buffer line number */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0xc4,	/* L1 CLUT write */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00	/* not available */
-+};
-+
-+static const u32 ltdc_layer_regs_a1[] = {
-+	0x80,	/* L1 configuration 0 */
-+	0x84,	/* L1 configuration 1 */
-+	0x00,	/* L1 reload control */
-+	0x88,	/* L1 control register */
-+	0x8c,	/* L1 window horizontal position configuration */
-+	0x90,	/* L1 window vertical position configuration */
-+	0x94,	/* L1 color keying configuration */
-+	0x98,	/* L1 pixel format configuration */
-+	0x9c,	/* L1 constant alpha configuration */
-+	0xa0,	/* L1 default color configuration */
-+	0xa4,	/* L1 blending factors configuration */
-+	0xa8,	/* L1 burst length configuration */
-+	0x00,	/* not available */
-+	0xac,	/* L1 color frame buffer address */
-+	0xb0,	/* L1 color frame buffer length */
-+	0xb4,	/* L1 color frame buffer line number */
-+	0xb8,	/* L1 auxiliary frame buffer address 0 */
-+	0xbc,	/* L1 auxiliary frame buffer address 1 */
-+	0xc0,	/* L1 auxiliary frame buffer length */
-+	0xc4,	/* L1 auxiliary frame buffer line number */
-+	0xc8,	/* L1 CLUT write */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00,	/* not available */
-+	0x00	/* not available */
-+};
-+
-+static const u32 ltdc_layer_regs_a2[] = {
-+	0x100,	/* L1 configuration 0 */
-+	0x104,	/* L1 configuration 1 */
-+	0x108,	/* L1 reload control */
-+	0x10c,	/* L1 control register */
-+	0x110,	/* L1 window horizontal position configuration */
-+	0x114,	/* L1 window vertical position configuration */
-+	0x118,	/* L1 color keying configuration */
-+	0x11c,	/* L1 pixel format configuration */
-+	0x120,	/* L1 constant alpha configuration */
-+	0x124,	/* L1 default color configuration */
-+	0x128,	/* L1 blending factors configuration */
-+	0x12c,	/* L1 burst length configuration */
-+	0x130,	/* L1 planar configuration */
-+	0x134,	/* L1 color frame buffer address */
-+	0x138,	/* L1 color frame buffer length */
-+	0x13c,	/* L1 color frame buffer line number */
-+	0x140,	/* L1 auxiliary frame buffer address 0 */
-+	0x144,	/* L1 auxiliary frame buffer address 1 */
-+	0x148,	/* L1 auxiliary frame buffer length */
-+	0x14c,	/* L1 auxiliary frame buffer line number */
-+	0x150,	/* L1 CLUT write */
-+	0x16c,	/* L1 Conversion YCbCr RGB 0 */
-+	0x170,	/* L1 Conversion YCbCr RGB 1 */
-+	0x174,	/* L1 Flexible Pixel Format 0 */
-+	0x178	/* L1 Flexible Pixel Format 1 */
-+};
-+
- static const u64 ltdc_format_modifiers[] = {
- 	DRM_FORMAT_MOD_LINEAR,
- 	DRM_FORMAT_MOD_INVALID
-@@ -1158,7 +1262,8 @@ static int ltdc_get_caps(struct drm_device *ddev)
- 	switch (ldev-&gt;caps.hw_version) {
- 	case HWVER_10200:
- 	case HWVER_10300:
--		ldev-&gt;caps.reg_ofs = REG_OFS_NONE;
-+		ldev-&gt;caps.layer_ofs = LAY_OFS_0;
-+		ldev-&gt;caps.layer_regs = ltdc_layer_regs_a0;
- 		ldev-&gt;caps.pix_fmt_hw = ltdc_pix_fmt_a0;
- 		/*
- 		 * Hw older versions support non-alpha color formats derived
-@@ -1174,12 +1279,21 @@ static int ltdc_get_caps(struct drm_device *ddev)
- 		ldev-&gt;caps.nb_irq = 2;
- 		break;
- 	case HWVER_20101:
--		ldev-&gt;caps.reg_ofs = REG_OFS_4;
-+		ldev-&gt;caps.layer_ofs = LAY_OFS_0;
-+		ldev-&gt;caps.layer_regs = ltdc_layer_regs_a1;
- 		ldev-&gt;caps.pix_fmt_hw = ltdc_pix_fmt_a1;
- 		ldev-&gt;caps.non_alpha_only_l1 = false;
- 		ldev-&gt;caps.pad_max_freq_hz = 150000000;
- 		ldev-&gt;caps.nb_irq = 4;
- 		break;
-+	case HWVER_40100:
-+		ldev-&gt;caps.layer_ofs = LAY_OFS_1;
-+		ldev-&gt;caps.layer_regs = ltdc_layer_regs_a2;
-+		ldev-&gt;caps.pix_fmt_hw = ltdc_pix_fmt_a2;
-+		ldev-&gt;caps.non_alpha_only_l1 = false;
-+		ldev-&gt;caps.pad_max_freq_hz = 90000000;
-+		ldev-&gt;caps.nb_irq = 2;
-+		break;
- 	default:
- 		return -ENODEV;
- 	}
-diff --git a/drivers/gpu/drm/stm/ltdc.h b/drivers/gpu/drm/stm/ltdc.h
-index f153b908c70e..55a125f89af6 100644
---- a/drivers/gpu/drm/stm/ltdc.h
-+++ b/drivers/gpu/drm/stm/ltdc.h
-@@ -14,7 +14,8 @@
- struct ltdc_caps {
- 	u32 hw_version;		/* hardware version */
- 	u32 nb_layers;		/* number of supported layers */
--	u32 reg_ofs;		/* register offset for applicable regs */
-+	u32 layer_ofs;		/* layer offset for applicable regs */
-+	const u32 *layer_regs;	/* layer register offset */
- 	u32 bus_width;		/* bus width (32 or 64 bits) */
- 	const u32 *pix_fmt_hw;	/* supported pixel formats */
- 	bool non_alpha_only_l1; /* non-native no-alpha formats on layer 1 */
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------DD24992B9DB85B64020E82DB--
-
---===============3883661477047360387==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3883661477047360387==--
+SGVsbG8gWWFubmljaywKCgpUaGFuayB5b3UgZm9yIHRoaXMgcGF0Y2guCgoKVGVzdGVkLWJ5OiBS
+YXBoYWVsIEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxhaXMtcG91QGZvc3Muc3QuY29tIDxtYWls
+dG86cmFwaGFlbC5nYWxsYWlzLXBvdUBmb3NzLnN0LmNvbT4+ClJldmlld2VkLWJ5OiBSYXBoYWVs
+IEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxhaXMtcG91QGZvc3Muc3QuY29tIDxtYWlsdG86cmFw
+aGFlbC5nYWxsYWlzLXBvdUBmb3NzLnN0LmNvbT4+CgoKUmVnYXJkcywKClJhcGhhw6tsIEdhbGxh
+aXMtUG91CgoKT24gMTIvMy8yMSA5OjU2IEFNLCBZYW5uaWNrIEZlcnRyZSB3cm90ZToKPiBBZGQg
+c3VwcG9ydCBvZiBuZXcgaGFyZHdhcmUgdmVyc2lvbiAweDQwMTAwLgo+Cj4gU2lnbmVkLW9mZi1i
+eTogWWFubmljayBGZXJ0cmUgPHlhbm5pY2suZmVydHJlQGZvc3Muc3QuY29tPgo+IC0tLQo+ICBk
+cml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyB8IDE3MiArKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKystLS0tLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5oIHwgICAzICstCj4gIDIg
+ZmlsZXMgY2hhbmdlZCwgMTQ1IGluc2VydGlvbnMoKyksIDMwIGRlbGV0aW9ucygtKQo+Cj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jIGIvZHJpdmVycy9ncHUvZHJtL3N0
+bS9sdGRjLmMKPiBpbmRleCBkYmRlZTk1NDY5MmEuLmMwNjE5ZjM3MjYzMCAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0v
+bHRkYy5jCj4gQEAgLTQ2LDE1ICs0NiwxNSBAQAo+ICAjZGVmaW5lIEhXVkVSXzEwMjAwIDB4MDEw
+MjAwCj4gICNkZWZpbmUgSFdWRVJfMTAzMDAgMHgwMTAzMDAKPiAgI2RlZmluZSBIV1ZFUl8yMDEw
+MSAweDAyMDEwMQo+ICsjZGVmaW5lIEhXVkVSXzQwMTAwIDB4MDQwMTAwCj4gIAo+ICAvKgo+ICAg
+KiBUaGUgYWRkcmVzcyBvZiBzb21lIHJlZ2lzdGVycyBkZXBlbmRzIG9uIHRoZSBIVyB2ZXJzaW9u
+OiBzdWNoIHJlZ2lzdGVycyBoYXZlCj4gLSAqIGFuIGV4dHJhIG9mZnNldCBzcGVjaWZpZWQgd2l0
+aCByZWdfb2ZzLgo+ICsgKiBhbiBleHRyYSBvZmZzZXQgc3BlY2lmaWVkIHdpdGggbGF5ZXJfb2Zz
+Lgo+ICAgKi8KPiAtI2RlZmluZSBSRUdfT0ZTX05PTkUJMAo+IC0jZGVmaW5lIFJFR19PRlNfNAk0
+CQkvKiBJbnNlcnRpb24gb2YgIkxheWVyIENvbmYuIDIiIHJlZyAqLwo+IC0jZGVmaW5lIFJFR19P
+RlMJCShsZGV2LT5jYXBzLnJlZ19vZnMpCj4gLSNkZWZpbmUgTEFZX09GUwkJMHg4MAkJLyogUmVn
+aXN0ZXIgT2Zmc2V0IGJldHdlZW4gMiBsYXllcnMgKi8KPiArI2RlZmluZSBMQVlfT0ZTXzAJMHg4
+MAo+ICsjZGVmaW5lIExBWV9PRlNfMQkweDEwMAo+ICsjZGVmaW5lIExBWV9PRlMJKGxkZXYtPmNh
+cHMubGF5ZXJfb2ZzKQo+ICAKPiAgLyogR2xvYmFsIHJlZ2lzdGVyIG9mZnNldHMgKi8KPiAgI2Rl
+ZmluZSBMVERDX0lEUgkweDAwMDAJCS8qIElEZW50aWZpY2F0aW9uICovCj4gQEAgLTc1LDI5ICs3
+NSwzNCBAQAo+ICAjZGVmaW5lIExURENfTElQQ1IJMHgwMDQwCQkvKiBMaW5lIEludGVycnVwdCBQ
+b3NpdGlvbiBDb25mLiAqLwo+ICAjZGVmaW5lIExURENfQ1BTUgkweDAwNDQJCS8qIEN1cnJlbnQg
+UG9zaXRpb24gU3RhdHVzICovCj4gICNkZWZpbmUgTFREQ19DRFNSCTB4MDA0OAkJLyogQ3VycmVu
+dCBEaXNwbGF5IFN0YXR1cyAqLwo+ICsjZGVmaW5lIExURENfRlVUCTB4MDA5MAkJLyogRmlmbyB1
+bmRlcnJ1biBUaHJlc2hvbGQgKi8KPiAgCj4gIC8qIExheWVyIHJlZ2lzdGVyIG9mZnNldHMgKi8K
+PiAtI2RlZmluZSBMVERDX0wxTEMxUgkoMHg4MCkJCS8qIEwxIExheWVyIENvbmZpZ3VyYXRpb24g
+MSAqLwo+IC0jZGVmaW5lIExURENfTDFMQzJSCSgweDg0KQkJLyogTDEgTGF5ZXIgQ29uZmlndXJh
+dGlvbiAyICovCj4gLSNkZWZpbmUgTFREQ19MMUNSCSgweDg0ICsgUkVHX09GUykvKiBMMSBDb250
+cm9sICovCj4gLSNkZWZpbmUgTFREQ19MMVdIUENSCSgweDg4ICsgUkVHX09GUykvKiBMMSBXaW5k
+b3cgSG9yIFBvc2l0aW9uIENvbmZpZyAqLwo+IC0jZGVmaW5lIExURENfTDFXVlBDUgkoMHg4QyAr
+IFJFR19PRlMpLyogTDEgV2luZG93IFZlcnQgUG9zaXRpb24gQ29uZmlnICovCj4gLSNkZWZpbmUg
+TFREQ19MMUNLQ1IJKDB4OTAgKyBSRUdfT0ZTKS8qIEwxIENvbG9yIEtleWluZyBDb25maWd1cmF0
+aW9uICovCj4gLSNkZWZpbmUgTFREQ19MMVBGQ1IJKDB4OTQgKyBSRUdfT0ZTKS8qIEwxIFBpeGVs
+IEZvcm1hdCBDb25maWd1cmF0aW9uICovCj4gLSNkZWZpbmUgTFREQ19MMUNBQ1IJKDB4OTggKyBS
+RUdfT0ZTKS8qIEwxIENvbnN0YW50IEFscGhhIENvbmZpZyAqLwo+IC0jZGVmaW5lIExURENfTDFE
+Q0NSCSgweDlDICsgUkVHX09GUykvKiBMMSBEZWZhdWx0IENvbG9yIENvbmZpZ3VyYXRpb24gKi8K
+PiAtI2RlZmluZSBMVERDX0wxQkZDUgkoMHhBMCArIFJFR19PRlMpLyogTDEgQmxlbmQgRmFjdG9y
+cyBDb25maWd1cmF0aW9uICovCj4gLSNkZWZpbmUgTFREQ19MMUZCQkNSCSgweEE0ICsgUkVHX09G
+UykvKiBMMSBGcmFtZUJ1ZmZlciBCdXMgQ29udHJvbCAqLwo+IC0jZGVmaW5lIExURENfTDFBRkJD
+UgkoMHhBOCArIFJFR19PRlMpLyogTDEgQXV4RkIgQ29udHJvbCAqLwo+IC0jZGVmaW5lIExURENf
+TDFDRkJBUgkoMHhBQyArIFJFR19PRlMpLyogTDEgQ29sb3IgRnJhbWVCdWZmZXIgQWRkcmVzcyAq
+Lwo+IC0jZGVmaW5lIExURENfTDFDRkJMUgkoMHhCMCArIFJFR19PRlMpLyogTDEgQ29sb3IgRnJh
+bWVCdWZmZXIgTGVuZ3RoICovCj4gLSNkZWZpbmUgTFREQ19MMUNGQkxOUgkoMHhCNCArIFJFR19P
+RlMpLyogTDEgQ29sb3IgRnJhbWVCdWZmZXIgTGluZSBOYiAqLwo+IC0jZGVmaW5lIExURENfTDFB
+RkJBUgkoMHhCOCArIFJFR19PRlMpLyogTDEgQXV4RkIgQWRkcmVzcyAqLwo+IC0jZGVmaW5lIExU
+RENfTDFBRkJMUgkoMHhCQyArIFJFR19PRlMpLyogTDEgQXV4RkIgTGVuZ3RoICovCj4gLSNkZWZp
+bmUgTFREQ19MMUFGQkxOUgkoMHhDMCArIFJFR19PRlMpLyogTDEgQXV4RkIgTGluZSBOdW1iZXIg
+Ki8KPiAtI2RlZmluZSBMVERDX0wxQ0xVVFdSCSgweEM0ICsgUkVHX09GUykvKiBMMSBDTFVUIFdy
+aXRlICovCj4gLSNkZWZpbmUgTFREQ19MMVlTMVIJKDB4RTAgKyBSRUdfT0ZTKS8qIEwxIFlDYkNy
+IFNjYWxlIDEgKi8KPiAtI2RlZmluZSBMVERDX0wxWVMyUgkoMHhFNCArIFJFR19PRlMpLyogTDEg
+WUNiQ3IgU2NhbGUgMiAqLwo+ICsjZGVmaW5lIExURENfTDFDMFIJKGxkZXYtPmNhcHMubGF5ZXJf
+cmVnc1swXSkJLyogTDEgY29uZmlndXJhdGlvbiAwICovCj4gKyNkZWZpbmUgTFREQ19MMUMxUgko
+bGRldi0+Y2Fwcy5sYXllcl9yZWdzWzFdKQkvKiBMMSBjb25maWd1cmF0aW9uIDEgKi8KPiArI2Rl
+ZmluZSBMVERDX0wxUkNSCShsZGV2LT5jYXBzLmxheWVyX3JlZ3NbMl0pCS8qIEwxIHJlbG9hZCBj
+b250cm9sICovCj4gKyNkZWZpbmUgTFREQ19MMUNSCShsZGV2LT5jYXBzLmxheWVyX3JlZ3NbM10p
+CS8qIEwxIGNvbnRyb2wgcmVnaXN0ZXIgKi8KPiArI2RlZmluZSBMVERDX0wxV0hQQ1IJKGxkZXYt
+PmNhcHMubGF5ZXJfcmVnc1s0XSkJLyogTDEgd2luZG93IGhvcml6b250YWwgcG9zaXRpb24gY29u
+ZmlndXJhdGlvbiAqLwo+ICsjZGVmaW5lIExURENfTDFXVlBDUgkobGRldi0+Y2Fwcy5sYXllcl9y
+ZWdzWzVdKQkvKiBMMSB3aW5kb3cgdmVydGljYWwgcG9zaXRpb24gY29uZmlndXJhdGlvbiAqLwo+
+ICsjZGVmaW5lIExURENfTDFDS0NSCShsZGV2LT5jYXBzLmxheWVyX3JlZ3NbNl0pCS8qIEwxIGNv
+bG9yIGtleWluZyBjb25maWd1cmF0aW9uICovCj4gKyNkZWZpbmUgTFREQ19MMVBGQ1IJKGxkZXYt
+PmNhcHMubGF5ZXJfcmVnc1s3XSkJLyogTDEgcGl4ZWwgZm9ybWF0IGNvbmZpZ3VyYXRpb24gKi8K
+PiArI2RlZmluZSBMVERDX0wxQ0FDUgkobGRldi0+Y2Fwcy5sYXllcl9yZWdzWzhdKQkvKiBMMSBj
+b25zdGFudCBhbHBoYSBjb25maWd1cmF0aW9uICovCj4gKyNkZWZpbmUgTFREQ19MMURDQ1IJKGxk
+ZXYtPmNhcHMubGF5ZXJfcmVnc1s5XSkJLyogTDEgZGVmYXVsdCBjb2xvciBjb25maWd1cmF0aW9u
+ICovCj4gKyNkZWZpbmUgTFREQ19MMUJGQ1IJKGxkZXYtPmNhcHMubGF5ZXJfcmVnc1sxMF0pCS8q
+IEwxIGJsZW5kaW5nIGZhY3RvcnMgY29uZmlndXJhdGlvbiAqLwo+ICsjZGVmaW5lIExURENfTDFC
+TENSCShsZGV2LT5jYXBzLmxheWVyX3JlZ3NbMTFdKQkvKiBMMSBidXJzdCBsZW5ndGggY29uZmln
+dXJhdGlvbiAqLwo+ICsjZGVmaW5lIExURENfTDFQQ1IJKGxkZXYtPmNhcHMubGF5ZXJfcmVnc1sx
+Ml0pCS8qIEwxIHBsYW5hciBjb25maWd1cmF0aW9uICovCj4gKyNkZWZpbmUgTFREQ19MMUNGQkFS
+CShsZGV2LT5jYXBzLmxheWVyX3JlZ3NbMTNdKQkvKiBMMSBjb2xvciBmcmFtZSBidWZmZXIgYWRk
+cmVzcyAqLwo+ICsjZGVmaW5lIExURENfTDFDRkJMUgkobGRldi0+Y2Fwcy5sYXllcl9yZWdzWzE0
+XSkJLyogTDEgY29sb3IgZnJhbWUgYnVmZmVyIGxlbmd0aCAqLwo+ICsjZGVmaW5lIExURENfTDFD
+RkJMTlIJKGxkZXYtPmNhcHMubGF5ZXJfcmVnc1sxNV0pCS8qIEwxIGNvbG9yIGZyYW1lIGJ1ZmZl
+ciBsaW5lIG51bWJlciAqLwo+ICsjZGVmaW5lIExURENfTDFBRkJBMFIJKGxkZXYtPmNhcHMubGF5
+ZXJfcmVnc1sxNl0pCS8qIEwxIGF1eGlsaWFyeSBmcmFtZSBidWZmZXIgYWRkcmVzcyAwICovCj4g
+KyNkZWZpbmUgTFREQ19MMUFGQkExUgkobGRldi0+Y2Fwcy5sYXllcl9yZWdzWzE3XSkJLyogTDEg
+YXV4aWxpYXJ5IGZyYW1lIGJ1ZmZlciBhZGRyZXNzIDEgKi8KPiArI2RlZmluZSBMVERDX0wxQUZC
+TFIJKGxkZXYtPmNhcHMubGF5ZXJfcmVnc1sxOF0pCS8qIEwxIGF1eGlsaWFyeSBmcmFtZSBidWZm
+ZXIgbGVuZ3RoICovCj4gKyNkZWZpbmUgTFREQ19MMUFGQkxOUgkobGRldi0+Y2Fwcy5sYXllcl9y
+ZWdzWzE5XSkJLyogTDEgYXV4aWxpYXJ5IGZyYW1lIGJ1ZmZlciBsaW5lIG51bWJlciAqLwo+ICsj
+ZGVmaW5lIExURENfTDFDTFVUV1IJKGxkZXYtPmNhcHMubGF5ZXJfcmVnc1syMF0pCS8qIEwxIENM
+VVQgd3JpdGUgKi8KPiArI2RlZmluZSBMVERDX0wxQ1lSMFIJKGxkZXYtPmNhcHMubGF5ZXJfcmVn
+c1syMV0pCS8qIEwxIENvbnZlcnNpb24gWUNiQ3IgUkdCIDAgKi8KPiArI2RlZmluZSBMVERDX0wx
+Q1lSMVIJKGxkZXYtPmNhcHMubGF5ZXJfcmVnc1syMl0pCS8qIEwxIENvbnZlcnNpb24gWUNiQ3Ig
+UkdCIDEgKi8KPiArI2RlZmluZSBMVERDX0wxRlBGMFIJKGxkZXYtPmNhcHMubGF5ZXJfcmVnc1sy
+M10pCS8qIEwxIEZsZXhpYmxlIFBpeGVsIEZvcm1hdCAwICovCj4gKyNkZWZpbmUgTFREQ19MMUZQ
+RjFSCShsZGV2LT5jYXBzLmxheWVyX3JlZ3NbMjRdKQkvKiBMMSBGbGV4aWJsZSBQaXhlbCBGb3Jt
+YXQgMSAqLwo+ICAKPiAgLyogQml0IGRlZmluaXRpb25zICovCj4gICNkZWZpbmUgU1NDUl9WU0gJ
+R0VOTUFTSygxMCwgMCkJLyogVmVydGljYWwgU3luY2hyb25pemF0aW9uIEhlaWdodCAqLwo+IEBA
+IC0yMDgsNyArMjEzLDEwIEBAIGVudW0gbHRkY19waXhfZm10IHsKPiAgCS8qIEluZGV4ZWQgZm9y
+bWF0cyAqLwo+ICAJUEZfTDgsCQkJLyogSW5kZXhlZCA4IGJpdHMgWzggYml0c10gKi8KPiAgCVBG
+X0FMNDQsCQkvKiBBbHBoYTo0IGJpdHMgKyBpbmRleGVkIDQgYml0cyBbOCBiaXRzXSAqLwo+IC0J
+UEZfQUw4OAkJCS8qIEFscGhhOjggYml0cyArIGluZGV4ZWQgOCBiaXRzIFsxNiBiaXRzXSAqLwo+
+ICsJUEZfQUw4OCwJCS8qIEFscGhhOjggYml0cyArIGluZGV4ZWQgOCBiaXRzIFsxNiBiaXRzXSAq
+Lwo+ICsJUEZfQUJHUjg4ODgsCQkvKiBBQkdSIFszMiBiaXRzXSAqLwo+ICsJUEZfQkdSQTg4ODgs
+CQkvKiBCR1JBIFszMiBiaXRzXSAqLwo+ICsJUEZfQkdSNTY1CQkvKiBSR0IgWzE2IGJpdHNdICov
+Cj4gIH07Cj4gIAo+ICAvKiBUaGUgaW5kZXggZ2l2ZXMgdGhlIGVuY29kaW5nIG9mIHRoZSBwaXhl
+bCBmb3JtYXQgZm9yIGFuIEhXIHZlcnNpb24gKi8KPiBAQCAtMjM0LDYgKzI0MiwxMDIgQEAgc3Rh
+dGljIGNvbnN0IGVudW0gbHRkY19waXhfZm10IGx0ZGNfcGl4X2ZtdF9hMVtOQl9QRl0gPSB7Cj4g
+IAlQRl9BUkdCNDQ0NAkJLyogMHgwNyAqLwo+ICB9Owo+ICAKPiArc3RhdGljIGNvbnN0IGVudW0g
+bHRkY19waXhfZm10IGx0ZGNfcGl4X2ZtdF9hMltOQl9QRl0gPSB7Cj4gKwlQRl9BUkdCODg4OCwJ
+CS8qIDB4MDAgKi8KPiArCVBGX0FCR1I4ODg4LAkJLyogMHgwMSAqLwo+ICsJUEZfUkdCQTg4ODgs
+CQkvKiAweDAyICovCj4gKwlQRl9CR1JBODg4OCwJCS8qIDB4MDMgKi8KPiArCVBGX1JHQjU2NSwJ
+CS8qIDB4MDQgKi8KPiArCVBGX0JHUjU2NSwJCS8qIDB4MDUgKi8KPiArCVBGX1JHQjg4OCwJCS8q
+IDB4MDYgKi8KPiArCVBGX0FSR0IxNTU1CQkvKiAweDA3ICovCj4gK307Cj4gKwo+ICsvKiBMYXll
+ciByZWdpc3RlciBvZmZzZXRzICovCj4gK3N0YXRpYyBjb25zdCB1MzIgbHRkY19sYXllcl9yZWdz
+X2EwW10gPSB7Cj4gKwkweDgwLAkvKiBMMSBjb25maWd1cmF0aW9uIDAgKi8KPiArCTB4MDAsCS8q
+IG5vdCBhdmFpbGFibGUgKi8KPiArCTB4MDAsCS8qIG5vdCBhdmFpbGFibGUgKi8KPiArCTB4ODQs
+CS8qIEwxIGNvbnRyb2wgcmVnaXN0ZXIgKi8KPiArCTB4ODgsCS8qIEwxIHdpbmRvdyBob3Jpem9u
+dGFsIHBvc2l0aW9uIGNvbmZpZ3VyYXRpb24gKi8KPiArCTB4OGMsCS8qIEwxIHdpbmRvdyB2ZXJ0
+aWNhbCBwb3NpdGlvbiBjb25maWd1cmF0aW9uICovCj4gKwkweDkwLAkvKiBMMSBjb2xvciBrZXlp
+bmcgY29uZmlndXJhdGlvbiAqLwo+ICsJMHg5NCwJLyogTDEgcGl4ZWwgZm9ybWF0IGNvbmZpZ3Vy
+YXRpb24gKi8KPiArCTB4OTgsCS8qIEwxIGNvbnN0YW50IGFscGhhIGNvbmZpZ3VyYXRpb24gKi8K
+PiArCTB4OWMsCS8qIEwxIGRlZmF1bHQgY29sb3IgY29uZmlndXJhdGlvbiAqLwo+ICsJMHhhMCwJ
+LyogTDEgYmxlbmRpbmcgZmFjdG9ycyBjb25maWd1cmF0aW9uICovCj4gKwkweDAwLAkvKiBub3Qg
+YXZhaWxhYmxlICovCj4gKwkweDAwLAkvKiBub3QgYXZhaWxhYmxlICovCj4gKwkweGFjLAkvKiBM
+MSBjb2xvciBmcmFtZSBidWZmZXIgYWRkcmVzcyAqLwo+ICsJMHhiMCwJLyogTDEgY29sb3IgZnJh
+bWUgYnVmZmVyIGxlbmd0aCAqLwo+ICsJMHhiNCwJLyogTDEgY29sb3IgZnJhbWUgYnVmZmVyIGxp
+bmUgbnVtYmVyICovCj4gKwkweDAwLAkvKiBub3QgYXZhaWxhYmxlICovCj4gKwkweDAwLAkvKiBu
+b3QgYXZhaWxhYmxlICovCj4gKwkweDAwLAkvKiBub3QgYXZhaWxhYmxlICovCj4gKwkweDAwLAkv
+KiBub3QgYXZhaWxhYmxlICovCj4gKwkweGM0LAkvKiBMMSBDTFVUIHdyaXRlICovCj4gKwkweDAw
+LAkvKiBub3QgYXZhaWxhYmxlICovCj4gKwkweDAwLAkvKiBub3QgYXZhaWxhYmxlICovCj4gKwkw
+eDAwLAkvKiBub3QgYXZhaWxhYmxlICovCj4gKwkweDAwCS8qIG5vdCBhdmFpbGFibGUgKi8KPiAr
+fTsKPiArCj4gK3N0YXRpYyBjb25zdCB1MzIgbHRkY19sYXllcl9yZWdzX2ExW10gPSB7Cj4gKwkw
+eDgwLAkvKiBMMSBjb25maWd1cmF0aW9uIDAgKi8KPiArCTB4ODQsCS8qIEwxIGNvbmZpZ3VyYXRp
+b24gMSAqLwo+ICsJMHgwMCwJLyogTDEgcmVsb2FkIGNvbnRyb2wgKi8KPiArCTB4ODgsCS8qIEwx
+IGNvbnRyb2wgcmVnaXN0ZXIgKi8KPiArCTB4OGMsCS8qIEwxIHdpbmRvdyBob3Jpem9udGFsIHBv
+c2l0aW9uIGNvbmZpZ3VyYXRpb24gKi8KPiArCTB4OTAsCS8qIEwxIHdpbmRvdyB2ZXJ0aWNhbCBw
+b3NpdGlvbiBjb25maWd1cmF0aW9uICovCj4gKwkweDk0LAkvKiBMMSBjb2xvciBrZXlpbmcgY29u
+ZmlndXJhdGlvbiAqLwo+ICsJMHg5OCwJLyogTDEgcGl4ZWwgZm9ybWF0IGNvbmZpZ3VyYXRpb24g
+Ki8KPiArCTB4OWMsCS8qIEwxIGNvbnN0YW50IGFscGhhIGNvbmZpZ3VyYXRpb24gKi8KPiArCTB4
+YTAsCS8qIEwxIGRlZmF1bHQgY29sb3IgY29uZmlndXJhdGlvbiAqLwo+ICsJMHhhNCwJLyogTDEg
+YmxlbmRpbmcgZmFjdG9ycyBjb25maWd1cmF0aW9uICovCj4gKwkweGE4LAkvKiBMMSBidXJzdCBs
+ZW5ndGggY29uZmlndXJhdGlvbiAqLwo+ICsJMHgwMCwJLyogbm90IGF2YWlsYWJsZSAqLwo+ICsJ
+MHhhYywJLyogTDEgY29sb3IgZnJhbWUgYnVmZmVyIGFkZHJlc3MgKi8KPiArCTB4YjAsCS8qIEwx
+IGNvbG9yIGZyYW1lIGJ1ZmZlciBsZW5ndGggKi8KPiArCTB4YjQsCS8qIEwxIGNvbG9yIGZyYW1l
+IGJ1ZmZlciBsaW5lIG51bWJlciAqLwo+ICsJMHhiOCwJLyogTDEgYXV4aWxpYXJ5IGZyYW1lIGJ1
+ZmZlciBhZGRyZXNzIDAgKi8KPiArCTB4YmMsCS8qIEwxIGF1eGlsaWFyeSBmcmFtZSBidWZmZXIg
+YWRkcmVzcyAxICovCj4gKwkweGMwLAkvKiBMMSBhdXhpbGlhcnkgZnJhbWUgYnVmZmVyIGxlbmd0
+aCAqLwo+ICsJMHhjNCwJLyogTDEgYXV4aWxpYXJ5IGZyYW1lIGJ1ZmZlciBsaW5lIG51bWJlciAq
+Lwo+ICsJMHhjOCwJLyogTDEgQ0xVVCB3cml0ZSAqLwo+ICsJMHgwMCwJLyogbm90IGF2YWlsYWJs
+ZSAqLwo+ICsJMHgwMCwJLyogbm90IGF2YWlsYWJsZSAqLwo+ICsJMHgwMCwJLyogbm90IGF2YWls
+YWJsZSAqLwo+ICsJMHgwMAkvKiBub3QgYXZhaWxhYmxlICovCj4gK307Cj4gKwo+ICtzdGF0aWMg
+Y29uc3QgdTMyIGx0ZGNfbGF5ZXJfcmVnc19hMltdID0gewo+ICsJMHgxMDAsCS8qIEwxIGNvbmZp
+Z3VyYXRpb24gMCAqLwo+ICsJMHgxMDQsCS8qIEwxIGNvbmZpZ3VyYXRpb24gMSAqLwo+ICsJMHgx
+MDgsCS8qIEwxIHJlbG9hZCBjb250cm9sICovCj4gKwkweDEwYywJLyogTDEgY29udHJvbCByZWdp
+c3RlciAqLwo+ICsJMHgxMTAsCS8qIEwxIHdpbmRvdyBob3Jpem9udGFsIHBvc2l0aW9uIGNvbmZp
+Z3VyYXRpb24gKi8KPiArCTB4MTE0LAkvKiBMMSB3aW5kb3cgdmVydGljYWwgcG9zaXRpb24gY29u
+ZmlndXJhdGlvbiAqLwo+ICsJMHgxMTgsCS8qIEwxIGNvbG9yIGtleWluZyBjb25maWd1cmF0aW9u
+ICovCj4gKwkweDExYywJLyogTDEgcGl4ZWwgZm9ybWF0IGNvbmZpZ3VyYXRpb24gKi8KPiArCTB4
+MTIwLAkvKiBMMSBjb25zdGFudCBhbHBoYSBjb25maWd1cmF0aW9uICovCj4gKwkweDEyNCwJLyog
+TDEgZGVmYXVsdCBjb2xvciBjb25maWd1cmF0aW9uICovCj4gKwkweDEyOCwJLyogTDEgYmxlbmRp
+bmcgZmFjdG9ycyBjb25maWd1cmF0aW9uICovCj4gKwkweDEyYywJLyogTDEgYnVyc3QgbGVuZ3Ro
+IGNvbmZpZ3VyYXRpb24gKi8KPiArCTB4MTMwLAkvKiBMMSBwbGFuYXIgY29uZmlndXJhdGlvbiAq
+Lwo+ICsJMHgxMzQsCS8qIEwxIGNvbG9yIGZyYW1lIGJ1ZmZlciBhZGRyZXNzICovCj4gKwkweDEz
+OCwJLyogTDEgY29sb3IgZnJhbWUgYnVmZmVyIGxlbmd0aCAqLwo+ICsJMHgxM2MsCS8qIEwxIGNv
+bG9yIGZyYW1lIGJ1ZmZlciBsaW5lIG51bWJlciAqLwo+ICsJMHgxNDAsCS8qIEwxIGF1eGlsaWFy
+eSBmcmFtZSBidWZmZXIgYWRkcmVzcyAwICovCj4gKwkweDE0NCwJLyogTDEgYXV4aWxpYXJ5IGZy
+YW1lIGJ1ZmZlciBhZGRyZXNzIDEgKi8KPiArCTB4MTQ4LAkvKiBMMSBhdXhpbGlhcnkgZnJhbWUg
+YnVmZmVyIGxlbmd0aCAqLwo+ICsJMHgxNGMsCS8qIEwxIGF1eGlsaWFyeSBmcmFtZSBidWZmZXIg
+bGluZSBudW1iZXIgKi8KPiArCTB4MTUwLAkvKiBMMSBDTFVUIHdyaXRlICovCj4gKwkweDE2YywJ
+LyogTDEgQ29udmVyc2lvbiBZQ2JDciBSR0IgMCAqLwo+ICsJMHgxNzAsCS8qIEwxIENvbnZlcnNp
+b24gWUNiQ3IgUkdCIDEgKi8KPiArCTB4MTc0LAkvKiBMMSBGbGV4aWJsZSBQaXhlbCBGb3JtYXQg
+MCAqLwo+ICsJMHgxNzgJLyogTDEgRmxleGlibGUgUGl4ZWwgRm9ybWF0IDEgKi8KPiArfTsKPiAr
+Cj4gIHN0YXRpYyBjb25zdCB1NjQgbHRkY19mb3JtYXRfbW9kaWZpZXJzW10gPSB7Cj4gIAlEUk1f
+Rk9STUFUX01PRF9MSU5FQVIsCj4gIAlEUk1fRk9STUFUX01PRF9JTlZBTElECj4gQEAgLTExNTgs
+NyArMTI2Miw4IEBAIHN0YXRpYyBpbnQgbHRkY19nZXRfY2FwcyhzdHJ1Y3QgZHJtX2RldmljZSAq
+ZGRldikKPiAgCXN3aXRjaCAobGRldi0+Y2Fwcy5od192ZXJzaW9uKSB7Cj4gIAljYXNlIEhXVkVS
+XzEwMjAwOgo+ICAJY2FzZSBIV1ZFUl8xMDMwMDoKPiAtCQlsZGV2LT5jYXBzLnJlZ19vZnMgPSBS
+RUdfT0ZTX05PTkU7Cj4gKwkJbGRldi0+Y2Fwcy5sYXllcl9vZnMgPSBMQVlfT0ZTXzA7Cj4gKwkJ
+bGRldi0+Y2Fwcy5sYXllcl9yZWdzID0gbHRkY19sYXllcl9yZWdzX2EwOwo+ICAJCWxkZXYtPmNh
+cHMucGl4X2ZtdF9odyA9IGx0ZGNfcGl4X2ZtdF9hMDsKPiAgCQkvKgo+ICAJCSAqIEh3IG9sZGVy
+IHZlcnNpb25zIHN1cHBvcnQgbm9uLWFscGhhIGNvbG9yIGZvcm1hdHMgZGVyaXZlZAo+IEBAIC0x
+MTc0LDEyICsxMjc5LDIxIEBAIHN0YXRpYyBpbnQgbHRkY19nZXRfY2FwcyhzdHJ1Y3QgZHJtX2Rl
+dmljZSAqZGRldikKPiAgCQlsZGV2LT5jYXBzLm5iX2lycSA9IDI7Cj4gIAkJYnJlYWs7Cj4gIAlj
+YXNlIEhXVkVSXzIwMTAxOgo+IC0JCWxkZXYtPmNhcHMucmVnX29mcyA9IFJFR19PRlNfNDsKPiAr
+CQlsZGV2LT5jYXBzLmxheWVyX29mcyA9IExBWV9PRlNfMDsKPiArCQlsZGV2LT5jYXBzLmxheWVy
+X3JlZ3MgPSBsdGRjX2xheWVyX3JlZ3NfYTE7Cj4gIAkJbGRldi0+Y2Fwcy5waXhfZm10X2h3ID0g
+bHRkY19waXhfZm10X2ExOwo+ICAJCWxkZXYtPmNhcHMubm9uX2FscGhhX29ubHlfbDEgPSBmYWxz
+ZTsKPiAgCQlsZGV2LT5jYXBzLnBhZF9tYXhfZnJlcV9oeiA9IDE1MDAwMDAwMDsKPiAgCQlsZGV2
+LT5jYXBzLm5iX2lycSA9IDQ7Cj4gIAkJYnJlYWs7Cj4gKwljYXNlIEhXVkVSXzQwMTAwOgo+ICsJ
+CWxkZXYtPmNhcHMubGF5ZXJfb2ZzID0gTEFZX09GU18xOwo+ICsJCWxkZXYtPmNhcHMubGF5ZXJf
+cmVncyA9IGx0ZGNfbGF5ZXJfcmVnc19hMjsKPiArCQlsZGV2LT5jYXBzLnBpeF9mbXRfaHcgPSBs
+dGRjX3BpeF9mbXRfYTI7Cj4gKwkJbGRldi0+Y2Fwcy5ub25fYWxwaGFfb25seV9sMSA9IGZhbHNl
+Owo+ICsJCWxkZXYtPmNhcHMucGFkX21heF9mcmVxX2h6ID0gOTAwMDAwMDA7Cj4gKwkJbGRldi0+
+Y2Fwcy5uYl9pcnEgPSAyOwo+ICsJCWJyZWFrOwo+ICAJZGVmYXVsdDoKPiAgCQlyZXR1cm4gLUVO
+T0RFVjsKPiAgCX0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmggYi9k
+cml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuaAo+IGluZGV4IGYxNTNiOTA4YzcwZS4uNTVhMTI1Zjg5
+YWY2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5oCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL3N0bS9sdGRjLmgKPiBAQCAtMTQsNyArMTQsOCBAQAo+ICBzdHJ1Y3QgbHRk
+Y19jYXBzIHsKPiAgCXUzMiBod192ZXJzaW9uOwkJLyogaGFyZHdhcmUgdmVyc2lvbiAqLwo+ICAJ
+dTMyIG5iX2xheWVyczsJCS8qIG51bWJlciBvZiBzdXBwb3J0ZWQgbGF5ZXJzICovCj4gLQl1MzIg
+cmVnX29mczsJCS8qIHJlZ2lzdGVyIG9mZnNldCBmb3IgYXBwbGljYWJsZSByZWdzICovCj4gKwl1
+MzIgbGF5ZXJfb2ZzOwkJLyogbGF5ZXIgb2Zmc2V0IGZvciBhcHBsaWNhYmxlIHJlZ3MgKi8KPiAr
+CWNvbnN0IHUzMiAqbGF5ZXJfcmVnczsJLyogbGF5ZXIgcmVnaXN0ZXIgb2Zmc2V0ICovCj4gIAl1
+MzIgYnVzX3dpZHRoOwkJLyogYnVzIHdpZHRoICgzMiBvciA2NCBiaXRzKSAqLwo+ICAJY29uc3Qg
+dTMyICpwaXhfZm10X2h3OwkvKiBzdXBwb3J0ZWQgcGl4ZWwgZm9ybWF0cyAqLwo+ICAJYm9vbCBu
+b25fYWxwaGFfb25seV9sMTsgLyogbm9uLW5hdGl2ZSBuby1hbHBoYSBmb3JtYXRzIG9uIGxheWVy
+IDEgKi8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
