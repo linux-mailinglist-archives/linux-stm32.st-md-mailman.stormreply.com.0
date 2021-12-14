@@ -2,59 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73A6A473D4A
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Dec 2021 07:43:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48F4A474033
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Dec 2021 11:15:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12C90C5EC76;
-	Tue, 14 Dec 2021 06:43:14 +0000 (UTC)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9A36C5F1EF;
+	Tue, 14 Dec 2021 10:15:42 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DCDDC5E2AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB74DC597BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Dec 2021 06:43:12 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id z5so60241953edd.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Dec 2021 22:43:12 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=mES/VN9NDUylN7hikeYFALLjEFWfcxTzSl0FnDEQ4qo=;
- b=409rUEX6wazBLoZXHZQeuiU4ead83Ri5mlnBQ3SZRd/lvNcpZpwAKBHt+a4wDWGaxZ
- Oa0IHz5h/9tPC0C2ueJ3DUaTdG6gxrAHVVzvfBf3bOv0iBVVnI9JXp//Nxg1UgIx7stC
- 3rJBSsbeivBKSuQulb/EVMMQXIEiwW5cZzJ18rISj0cg9DpH0hpzQTtfDTFSHstMJirM
- PwyadAISsdHhORCVjShQksSKhTSOXtZN6HHrOFZjpvsfYB0qckA0W5jfriSwYe6YhO0k
- YfwD6m8yp4yQllhplDvhj1EYj0BcXT3hFN0mpazKxOy5FBkAAnkDuQVx1cflPAhkD1+n
- oESw==
-X-Gm-Message-State: AOAM533/Mrd3ijbD3igB0zYxemTvP/37hMTab/mFkD5/rNNcn1xYrPfM
- 6VYJ0kI+eFsI3WX1CAu9HHM=
-X-Google-Smtp-Source: ABdhPJwoeQCTf8Mof4FF699wk5L77oT25Ghoc8KhHQrzUkQstWBRt8nQILINgn+e7vIb09ikundH8Q==
-X-Received: by 2002:a17:906:c08:: with SMTP id
- s8mr3626628ejf.673.1639464191777; 
- Mon, 13 Dec 2021 22:43:11 -0800 (PST)
-Received: from [192.168.1.49] (185-219-167-24-static.vivo.cz. [185.219.167.24])
- by smtp.gmail.com with ESMTPSA id e19sm7251549edu.47.2021.12.13.22.43.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Dec 2021 22:43:11 -0800 (PST)
-Message-ID: <8bbd1a77-5f88-bb97-db88-6842df2e3e3c@kernel.org>
-Date: Tue, 14 Dec 2021 07:43:10 +0100
+ Tue, 14 Dec 2021 10:15:41 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BE90PHA021201;
+ Tue, 14 Dec 2021 11:15:30 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=nlbvaCpQQU3d8rdYZzHfsFBdcktl3fiaFrosAYYj4j8=;
+ b=fEv2GzUAik9hz064aPegO+BHjhT79pdXStLPJSl73C6z0+mLA5o76esXkhCq4jDSDdCk
+ RdXa6qG4tC+YHcB1w+gJYGxVIwXh5iCNnSpX3+GLnwN7LcBbWbR8lAX1Zvf7Kuwz8H+7
+ bgDzYBypk1HN5aa5JJmQTfyYL++Y/UGQc9bQfBtq3xcTckh+LSCuAMNt3Nz4ACDOBI9/
+ gRbycwczmUfrhe1/n36gBhQPwnHKwnO+wU6xtHdKY4Kk+E7mj06+26hN1YY3kz9qyWX0
+ BrZsrRvP5N+87plQxCu9Wkc4Qfk3d6FouUCQ/xd7gpK8HQi44hgdfPoZ+BiEqIiLVsUS 6w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cxr8r8gy0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 14 Dec 2021 11:15:30 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4777910002A;
+ Tue, 14 Dec 2021 11:15:28 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2B41222C8A9;
+ Tue, 14 Dec 2021 11:15:28 +0100 (CET)
+Received: from lmecxl0993.lme.st.com (10.75.127.48) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 14 Dec
+ 2021 11:15:27 +0100
+To: Thomas Zimmermann <tzimmermann@suse.de>, Yannick Fertre
+ <yannick.fertre@foss.st.com>, Raphael Gallais-Pou
+ <raphael.gallais-pou@foss.st.com>, David Airlie <airlied@linux.ie>, Daniel
+ Vetter <daniel@ffwll.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <dri-devel@lists.freedesktop.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20211206134735.13537-1-yannick.fertre@foss.st.com>
+ <10c5672d-a228-ed9e-2f32-1ce9ae86dbcc@suse.de>
+From: Philippe CORNU <philippe.cornu@foss.st.com>
+Message-ID: <58cc264b-7b46-7869-1c38-f6d79a4daafe@foss.st.com>
+Date: Tue, 14 Dec 2021 11:15:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
+In-Reply-To: <10c5672d-a228-ed9e-2f32-1ce9ae86dbcc@suse.de>
 Content-Language: en-US
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20211213195346.12894-1-arnaud.pouliquen@foss.st.com>
-From: Jiri Slaby <jirislaby@kernel.org>
-In-Reply-To: <20211213195346.12894-1-arnaud.pouliquen@foss.st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] tty: rpmsg: Fix race condition releasing
-	tty port
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-14_05,2021-12-14_01,2021-12-02_01
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: remove conflicting framebuffers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,60 +76,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-
-On 13. 12. 21, 20:53, Arnaud Pouliquen wrote:
-> In current implementation the tty_port struct is part of the
-> rpmsg_tty_port structure.The issue is that the rpmsg_tty_port structure is
-> freed on rpmsg_tty_remove but also referenced in the tty_struct.
-> Its release is not predictable due to workqueues.
-> 
-> For instance following ftrace shows that rpmsg_tty_close is called after
-> rpmsg_tty_release_cport:
-> 
->       nr_test.sh-389     [000] .....   212.093752: rpmsg_tty_remove <-rpmsg_dev_
-> remove
->               cat-1191    [001] .....   212.095697: tty_release <-__fput
->        nr_test.sh-389     [000] .....   212.099166: rpmsg_tty_release_cport <-rpm
-> sg_tty_remove
->               cat-1191    [001] .....   212.115352: rpmsg_tty_close <-tty_release
->               cat-1191    [001] .....   212.115371: release_tty <-tty_release_str
-> 
-> As consequence, the port must be free only when user has released the TTY
-> interface.
-> 
-> This path (inspired from vcc.c):
-> - moves the management of the port in the install and clean-up tty ops,
-> - allocates the tty_port struct independently of the rpmsg_tty_port structure,
-
-This looks rather wrong. Why not to use tty_port refcounting?
-
-> - uses tty_vhangup and tty_port_hangup.
-
-OK, but don't store a tty pointer as it looks racy. You should use 
-tty_port_tty_get instead.
-
-Hm, we look we need tty_port_tty_vhangup (aside from 
-tty_port_tty_hangup). There are plenty of drivers doing:
-     tty = tty_port_tty_get(port);
-     if (tty) {
-             tty_vhangup(port->tty);
-             tty_kref_put(tty);
-
-
-> Fixes: 7c0408d80579 ("tty: add rpmsg driver")
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-
-thanks,
--- 
-js
-suse labs
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAxMi82LzIxIDM6MjMgUE0sIFRob21hcyBaaW1tZXJtYW5uIHdyb3RlOgo+IEhpCj4gCj4g
+QW0gMDYuMTIuMjEgdW0gMTQ6NDcgc2NocmllYiBZYW5uaWNrIEZlcnRyZToKPj4gSW4gY2FzZSBv
+ZiB1c2luZyBzaW1wbGVmYiBvciBhbm90aGVyIGNvbmZsaWN0aW5nIGZyYW1lYnVmZmVyLAo+PiBj
+YWxsIGRybV9hcGVydHVyZV9yZW1vdmVfZnJhbWVidWZmZXJzKCkgdG8gcmVtb3ZlIG1lbW9yeSBh
+bGxvY2F0ZWQuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFlhbm5pY2sgRmVydHJlIDx5YW5uaWNrLmZl
+cnRyZUBmb3NzLnN0LmNvbT4KPiAKPiBUaGUgcGF0Y2ggc2hvdWxkIGhhdmUgY29udGFpbmVkIGEg
+bm90ZSB0aGF0IHRoaXMgaXMgdmVyc2lvbiAyIG9mIHRoZSAKPiBjaGFuZ2Ugd2l0aCBhIHNob3J0
+IGNoYW5nZWxvZy4gQW55d2F5Cj4gCj4gUmV2aWV3ZWQtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0
+emltbWVybWFubkBzdXNlLmRlPgo+IAo+IEJlc3QgcmVnYXJkcwo+IFRob21hcwo+IAo+PiAtLS0K
+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYyB8IDUgKysrKysKPj4gwqAgMSBmaWxlIGNo
+YW5nZWQsIDUgaW5zZXJ0aW9ucygrKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L3N0bS9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMKPj4gaW5kZXggMjIyODY5YjIz
+MmFlLi45ZjQ0MWFhZGYyZDUgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2
+LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYwo+PiBAQCAtMTQsNiArMTQsNyBA
+QAo+PiDCoCAjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZvcm0uaD4KPj4gwqAgI2luY2x1ZGUgPGxp
+bnV4L3BtX3J1bnRpbWUuaD4KPj4gKyNpbmNsdWRlIDxkcm0vZHJtX2FwZXJ0dXJlLmg+Cj4+IMKg
+ICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pYy5oPgo+PiDCoCAjaW5jbHVkZSA8ZHJtL2RybV9hdG9t
+aWNfaGVscGVyLmg+Cj4+IMKgICNpbmNsdWRlIDxkcm0vZHJtX2Rydi5oPgo+PiBAQCAtMTgzLDYg
+KzE4NCwxMCBAQCBzdGF0aWMgaW50IHN0bV9kcm1fcGxhdGZvcm1fcHJvYmUoc3RydWN0IAo+PiBw
+bGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+IMKgwqDCoMKgwqAgRFJNX0RFQlVHKCIlc1xuIiwgX19m
+dW5jX18pOwo+PiArwqDCoMKgIHJldCA9IGRybV9hcGVydHVyZV9yZW1vdmVfZnJhbWVidWZmZXJz
+KGZhbHNlLCAmZHJ2X2RyaXZlcik7Cj4+ICvCoMKgwqAgaWYgKHJldCkKPj4gK8KgwqDCoMKgwqDC
+oMKgIHJldHVybiByZXQ7Cj4+ICsKCkhpIFlhbm5pY2ssCmFuZCBtYW55IHRoYW5rcyBmb3IgeW91
+ciBwYXRjaC4KQWNrZWQtYnk6IFBoaWxpcHBlIENvcm51IDxwaGlsaXBwZS5jb3JudUBmb3NzLnN0
+LmNvbT4KUGhpbGlwcGUgOi0pCgoKPj4gwqDCoMKgwqDCoCBkbWFfc2V0X2NvaGVyZW50X21hc2so
+ZGV2LCBETUFfQklUX01BU0soMzIpKTsKPj4gwqDCoMKgwqDCoCBkZGV2ID0gZHJtX2Rldl9hbGxv
+YygmZHJ2X2RyaXZlciwgZGV2KTsKPj4KPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
