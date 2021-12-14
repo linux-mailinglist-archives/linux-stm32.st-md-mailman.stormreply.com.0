@@ -2,66 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C362B474697
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Dec 2021 16:38:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB174748E3
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Dec 2021 18:08:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A91AC5E2C5;
-	Tue, 14 Dec 2021 15:38:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D619CC5E2C5;
+	Tue, 14 Dec 2021 17:08:22 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF148CFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41826C597BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Dec 2021 15:38:18 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BEE7ZFO021142;
- Tue, 14 Dec 2021 16:38:09 +0100
+ Tue, 14 Dec 2021 17:08:21 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BEFIo6k015351;
+ Tue, 14 Dec 2021 18:08:10 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=55TRlyPa1csvltjFSGJc7MC8zSTcqi9KhSJ8TqVGvPo=;
- b=n4+2qguQFrO2LYPE3fxelbRizl65JB5BEn63gFRrVQmTMRUTJDZ66gtp4iEFhwdVz7X7
- fbajk/6aI96BMvzNELKmpPIJsB/of0mFT88fv5jJus/KUlRFl9a3ydTEsQlI9XAdz4Gb
- mHuUm+7sk3df/dZ1fARuuxutN8fI0F7nusZKlc2kyd/LoatRFmwBrtHyxBFyVQC3iVH7
- j4aI1G4Na2zhfKFP+w1JAe8IDFA/zVS3ShfCa8w131v2mTZIdwI0IZJlnxrwxDgygerf
- oJI8FqZW8myIDqstxY4mGQ2bFaXnMAIZUmoWVzjGcURYbUX7P05yZWigPjE0rAd96fx5 3A== 
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=3Xtp4aP90kvDpm0AC8bVtGgEJLQdVLnsqjJXaa8DtyM=;
+ b=zpZOjai97Le2JOpHJJBjOduoOrSHwk/frK7zZ9GHgRa/ZAjGxSEFF8mPu+iPpfp0FpCr
+ /SylndrRd7Yb/F36hNnZYR25ETK23KKoVPhjXIcP9p0JwFxdIxYUijX5zJnXv3KF/3NI
+ Gc58rmkNpgx+GQGyP9jTbja+sASHuQJacwWiWQh0oJjEgxPxl81lNBsG20n3PyfLg+2e
+ TAiv0RTzeR6dmPj8YlTIrboBXt9vOjdSVuEM5E1HkPU4He8vcay/qiWv6p6xNHpnJhOH
+ v/MniMAVpe5Y/ChyCJhH3p7YQnr/ZfCvSO2InN6J0iFJbfHsf91jCN/uroPZhD8w+geS Xg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cxr8rabpj-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cxrththv8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 14 Dec 2021 16:38:09 +0100
+ Tue, 14 Dec 2021 18:08:09 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8B8A910002A;
- Tue, 14 Dec 2021 16:38:08 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 64C6610002A;
+ Tue, 14 Dec 2021 18:08:09 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7E662231DEF;
- Tue, 14 Dec 2021 16:38:08 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.50) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 14 Dec
- 2021 16:38:07 +0100
-To: Jiri Slaby <jirislaby@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-References: <20211213195346.12894-1-arnaud.pouliquen@foss.st.com>
- <8bbd1a77-5f88-bb97-db88-6842df2e3e3c@kernel.org>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <2008dd33-5d23-961c-ca61-53ff3e34479a@foss.st.com>
-Date: Tue, 14 Dec 2021 16:38:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5981820AA86;
+ Tue, 14 Dec 2021 18:08:09 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 14 Dec 2021 18:08:08
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>
+Date: Tue, 14 Dec 2021 18:06:46 +0100
+Message-ID: <20211214170646.25775-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <8bbd1a77-5f88-bb97-db88-6842df2e3e3c@kernel.org>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2021-12-14_07,2021-12-14_01,2021-12-02_01
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] tty: rpmsg: Fix race condition releasing
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, arnaud.pouliquen@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2] tty: rpmsg: Fix race condition releasing
 	tty port
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -74,58 +69,157 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gSmlyaSwKCk9uIDEyLzE0LzIxIDc6NDMgQU0sIEppcmkgU2xhYnkgd3JvdGU6Cj4gSGks
-Cj4gCj4gT24gMTMuIDEyLiAyMSwgMjA6NTMsIEFybmF1ZCBQb3VsaXF1ZW4gd3JvdGU6Cj4+IElu
-IGN1cnJlbnQgaW1wbGVtZW50YXRpb24gdGhlIHR0eV9wb3J0IHN0cnVjdCBpcyBwYXJ0IG9mIHRo
-ZQo+PiBycG1zZ190dHlfcG9ydCBzdHJ1Y3R1cmUuVGhlIGlzc3VlIGlzIHRoYXQgdGhlIHJwbXNn
-X3R0eV9wb3J0IHN0cnVjdHVyZSBpcwo+PiBmcmVlZCBvbiBycG1zZ190dHlfcmVtb3ZlIGJ1dCBh
-bHNvIHJlZmVyZW5jZWQgaW4gdGhlIHR0eV9zdHJ1Y3QuCj4+IEl0cyByZWxlYXNlIGlzIG5vdCBw
-cmVkaWN0YWJsZSBkdWUgdG8gd29ya3F1ZXVlcy4KPj4KPj4gRm9yIGluc3RhbmNlIGZvbGxvd2lu
-ZyBmdHJhY2Ugc2hvd3MgdGhhdCBycG1zZ190dHlfY2xvc2UgaXMgY2FsbGVkIGFmdGVyCj4+IHJw
-bXNnX3R0eV9yZWxlYXNlX2Nwb3J0Ogo+Pgo+PiDCoMKgwqDCoMKgIG5yX3Rlc3Quc2gtMzg5wqDC
-oMKgwqAgWzAwMF0gLi4uLi7CoMKgIDIxMi4wOTM3NTI6IHJwbXNnX3R0eV9yZW1vdmUgPC1ycG1z
-Z19kZXZfCj4+IHJlbW92ZQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjYXQtMTE5McKg
-wqDCoCBbMDAxXSAuLi4uLsKgwqAgMjEyLjA5NTY5NzogdHR5X3JlbGVhc2UgPC1fX2ZwdXQKPj4g
-wqDCoMKgwqDCoMKgIG5yX3Rlc3Quc2gtMzg5wqDCoMKgwqAgWzAwMF0gLi4uLi7CoMKgIDIxMi4w
-OTkxNjY6IHJwbXNnX3R0eV9yZWxlYXNlX2Nwb3J0IDwtcnBtCj4+IHNnX3R0eV9yZW1vdmUKPj4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2F0LTExOTHCoMKgwqAgWzAwMV0gLi4uLi7CoMKg
-IDIxMi4xMTUzNTI6IHJwbXNnX3R0eV9jbG9zZSA8LXR0eV9yZWxlYXNlCj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGNhdC0xMTkxwqDCoMKgIFswMDFdIC4uLi4uwqDCoCAyMTIuMTE1Mzcx
-OiByZWxlYXNlX3R0eSA8LXR0eV9yZWxlYXNlX3N0cgo+Pgo+PiBBcyBjb25zZXF1ZW5jZSwgdGhl
-IHBvcnQgbXVzdCBiZSBmcmVlIG9ubHkgd2hlbiB1c2VyIGhhcyByZWxlYXNlZCB0aGUgVFRZCj4+
-IGludGVyZmFjZS4KPj4KPj4gVGhpcyBwYXRoIChpbnNwaXJlZCBmcm9tIHZjYy5jKToKPj4gLSBt
-b3ZlcyB0aGUgbWFuYWdlbWVudCBvZiB0aGUgcG9ydCBpbiB0aGUgaW5zdGFsbCBhbmQgY2xlYW4t
-dXAgdHR5IG9wcywKPj4gLSBhbGxvY2F0ZXMgdGhlIHR0eV9wb3J0IHN0cnVjdCBpbmRlcGVuZGVu
-dGx5IG9mIHRoZSBycG1zZ190dHlfcG9ydCBzdHJ1Y3R1cmUsCj4gCj4gVGhpcyBsb29rcyByYXRo
-ZXIgd3JvbmcuIFdoeSBub3QgdG8gdXNlIHR0eV9wb3J0IHJlZmNvdW50aW5nPwoKUGxlYXNlIGNv
-dWxkIHlvdSBkZXRhaWwgd2hhdCBzZWVtcyByYXRoZXIgd3JvbmcgZm9yIHlvdT8gRXZlcnl0aGlu
-ZyBvciBkbyB0aGUKdHR5X3BvcnQgcG9ydCBzdHJ1Y3QgaW5kZXBlbmRlbnRseSBvZiB0aGUgcnBt
-c2dfdHR5X3BvcnQgc3RydWN0dXJlPwoKQ29uY2VybmluZyB0aGUgdHR5X3BvcnQgcmVmY291bnRp
-bmc6ClllcyBpdCBhbHNvIGFuIG9wdGlvbiB0aGF0IEkgaGF2ZSBhbHJlYWR5IHRyaWVkIHdpdGhv
-dXQgc3VjY2VzcywgYmVmb3JlCmltcGxlbWVudGluZyB0aGlzIHBhdGNoLgpUaGF0IHNhaWQsIGFz
-IHlvdSBwb2ludGVkIGl0IG91dCwgSSByZWltcGxlbWVudGVkIGl0IHRvZGF5IGluIGFub3RoZXIg
-d2F5LCBhbmQKdGhpcyB0aW1lIGl0IHNlZW1zIHRoYXQgaXQgd29ya3Mgd2l0aG91dCBhbnkgcnVu
-dGltZSB3YXJuaW5nIG9yIGVycm9yLgpJIG5lZWQgdG8gcGVyZm9ybSBtb3JlIHRlc3QgdG8gY29u
-ZmlybSwgdGhlbiBJIHdpbGwgcHJvcG9zZSBhIFYyIGJhc2VkIG9uCnR0eV9wb3J0IHJlZmNvdW50
-aW5ndCBhbmQgdGhlIC5kZXN0cnVjdCB0dHlfcG9ydF9vcGVyYXRpb25zLgoKPiAKPj4gLSB1c2Vz
-IHR0eV92aGFuZ3VwIGFuZCB0dHlfcG9ydF9oYW5ndXAuCj4gCj4gT0ssIGJ1dCBkb24ndCBzdG9y
-ZSBhIHR0eSBwb2ludGVyIGFzIGl0IGxvb2tzIHJhY3kuIFlvdSBzaG91bGQgdXNlCj4gdHR5X3Bv
-cnRfdHR5X2dldCBpbnN0ZWFkLgo+IAo+IEhtLCB3ZSBsb29rIHdlIG5lZWQgdHR5X3BvcnRfdHR5
-X3ZoYW5ndXAgKGFzaWRlIGZyb20gdHR5X3BvcnRfdHR5X2hhbmd1cCkuIFRoZXJlCj4gYXJlIHBs
-ZW50eSBvZiBkcml2ZXJzIGRvaW5nOgo+IMKgwqDCoCB0dHkgPSB0dHlfcG9ydF90dHlfZ2V0KHBv
-cnQpOwo+IMKgwqDCoCBpZiAodHR5KSB7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0dHlfdmhh
-bmd1cChwb3J0LT50dHkpOwo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdHR5X2tyZWZfcHV0KHR0
-eSk7CgpJIHdvdWxkIGxpa2UgdG8gZmlyc3QgZml4IHRoZSBpc3N1ZSBpbiBycG1zZ190dHkuYyBp
-biBzZXBhcmF0ZSB0aHJlYWQuCkJ1dCB5ZXMgdGhpcyBzaG91bGQgbm90IHRha2UgbWUgdG9vIG11
-Y2ggdGltZSB0byBwcm9wb3NlIHRoaXMgaGVscGVyIG5leHQuCgpUaGFua3MsCkFybmF1ZAoKPiAK
-PiAKPj4gRml4ZXM6IDdjMDQwOGQ4MDU3OSAoInR0eTogYWRkIHJwbXNnIGRyaXZlciIpCj4+IFNp
-Z25lZC1vZmYtYnk6IEFybmF1ZCBQb3VsaXF1ZW4gPGFybmF1ZC5wb3VsaXF1ZW5AZm9zcy5zdC5j
-b20+Cj4gCj4gdGhhbmtzLApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
-bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+In current implementation the tty_port struct is part of the
+rpmsg_tty_port structure.The issue is that the rpmsg_tty_port structure is
+freed on rpmsg_tty_remove but also referenced in the tty_struct.
+Its release is not predictable due to workqueues.
+
+For instance following ftrace shows that rpmsg_tty_close is called after
+rpmsg_tty_release_cport:
+
+     nr_test.sh-389     [000] .....   212.093752: rpmsg_tty_remove <-rpmsg_dev_
+remove
+             cat-1191    [001] .....   212.095697: tty_release <-__fput
+      nr_test.sh-389     [000] .....   212.099166: rpmsg_tty_release_cport <-rpm
+sg_tty_remove
+             cat-1191    [001] .....   212.115352: rpmsg_tty_close <-tty_release
+             cat-1191    [001] .....   212.115371: release_tty <-tty_release_str
+
+As consequence, the port must be free only when user has released the TTY
+interface.
+
+This path :
+- manages the port refcounting to trig the .destruct port ops,
+- introduces the rpmsg_tty_cleanup function to ensure that the TTY is
+  removed before decreasing the port refcount.
+- calls rpmsg_tty_release_cport function in the rpmsg_tty_destruct_port
+  function instead of in the rpmsg_tty_remove function.
+- uses tty_vhangup and tty_port_hangup instead of tty_port_tty_hangup.
+
+Fixes: 7c0408d80579 ("tty: add rpmsg driver")
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+---
+diff vs V1:
+ - rework patch based on port refcounting.
+Applied and tested on fa55b7dcdc43 ("Linux 5.16-rc1", 2021-11-14)
+---
+ drivers/tty/rpmsg_tty.c | 43 +++++++++++++++++++++++++++++++++++------
+ 1 file changed, 37 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
+index dae2a4e44f38..69272ad92266 100644
+--- a/drivers/tty/rpmsg_tty.c
++++ b/drivers/tty/rpmsg_tty.c
+@@ -53,9 +53,19 @@ static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
+ 
+ 	tty->driver_data = cport;
+ 
++	tty_port_get(&cport->port);
+ 	return tty_port_install(&cport->port, driver, tty);
+ }
+ 
++static void rpmsg_tty_cleanup(struct tty_struct *tty)
++{
++	struct tty_port *port = tty->port;
++
++	WARN_ON(!port);
++
++	tty_port_put(port);
++}
++
+ static int rpmsg_tty_open(struct tty_struct *tty, struct file *filp)
+ {
+ 	return tty_port_open(tty->port, tty, filp);
+@@ -106,12 +116,19 @@ static unsigned int rpmsg_tty_write_room(struct tty_struct *tty)
+ 	return size;
+ }
+ 
++static void rpmsg_tty_hangup(struct tty_struct *tty)
++{
++	tty_port_hangup(tty->port);
++}
++
+ static const struct tty_operations rpmsg_tty_ops = {
+ 	.install	= rpmsg_tty_install,
+ 	.open		= rpmsg_tty_open,
+ 	.close		= rpmsg_tty_close,
+ 	.write		= rpmsg_tty_write,
+ 	.write_room	= rpmsg_tty_write_room,
++	.hangup		= rpmsg_tty_hangup,
++	.cleanup	= rpmsg_tty_cleanup,
+ };
+ 
+ static struct rpmsg_tty_port *rpmsg_tty_alloc_cport(void)
+@@ -139,6 +156,8 @@ static struct rpmsg_tty_port *rpmsg_tty_alloc_cport(void)
+ 
+ static void rpmsg_tty_release_cport(struct rpmsg_tty_port *cport)
+ {
++	tty_port_destroy(&cport->port);
++
+ 	mutex_lock(&idr_lock);
+ 	idr_remove(&tty_idr, cport->id);
+ 	mutex_unlock(&idr_lock);
+@@ -146,7 +165,17 @@ static void rpmsg_tty_release_cport(struct rpmsg_tty_port *cport)
+ 	kfree(cport);
+ }
+ 
+-static const struct tty_port_operations rpmsg_tty_port_ops = { };
++static void rpmsg_tty_destruct_port(struct tty_port *port)
++{
++	struct rpmsg_tty_port *cport = container_of(port, struct rpmsg_tty_port, port);
++
++	rpmsg_tty_release_cport(cport);
++}
++
++static const struct tty_port_operations rpmsg_tty_port_ops = {
++	.destruct = rpmsg_tty_destruct_port,
++};
++
+ 
+ static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
+ {
+@@ -179,7 +208,6 @@ static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
+ 	return 0;
+ 
+ err_destroy:
+-	tty_port_destroy(&cport->port);
+ 	rpmsg_tty_release_cport(cport);
+ 
+ 	return ret;
+@@ -188,17 +216,20 @@ static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
+ static void rpmsg_tty_remove(struct rpmsg_device *rpdev)
+ {
+ 	struct rpmsg_tty_port *cport = dev_get_drvdata(&rpdev->dev);
++	struct tty_struct *tty;
+ 
+ 	dev_dbg(&rpdev->dev, "Removing rpmsg tty device %d\n", cport->id);
+ 
+ 	/* User hang up to release the tty */
+-	if (tty_port_initialized(&cport->port))
+-		tty_port_tty_hangup(&cport->port, false);
++	tty = tty_port_tty_get(&cport->port);
++	if (tty) {
++		tty_vhangup(tty);
++		tty_kref_put(tty);
++	}
+ 
+ 	tty_unregister_device(rpmsg_tty_driver, cport->id);
+ 
+-	tty_port_destroy(&cport->port);
+-	rpmsg_tty_release_cport(cport);
++	tty_port_put(&cport->port);
+ }
+ 
+ static struct rpmsg_device_id rpmsg_driver_tty_id_table[] = {
+-- 
+2.17.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
