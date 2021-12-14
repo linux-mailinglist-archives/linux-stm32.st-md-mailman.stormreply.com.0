@@ -2,52 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543974742C4
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Dec 2021 13:40:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2505B4742F7
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Dec 2021 13:53:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0083FC5E2C5;
-	Tue, 14 Dec 2021 12:40:15 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7054BC597BA
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Dec 2021 12:40:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE0BDC5E2C5;
+	Tue, 14 Dec 2021 12:53:48 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BA385B81978;
- Tue, 14 Dec 2021 12:40:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 56D78C34606;
- Tue, 14 Dec 2021 12:40:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1639485610;
- bh=h8V7zXX+upGWCiSmZdX9Mv0fkIwrT5zALRr/nQXpHfo=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=B522xN9Hviu+kuYoqoo6wXCWIcXjzgvQbzIoUI+G7teuEfFxcw3lFre4CySiHkA8k
- MIgB3tB05H3X87gJVAZbNTYkdsV6yolZ+OxQsBw2tFW/ym9uB5jZNmFtHWrMuhlP2O
- 6sNRe6zxRDrA1mz/lfpTe9dq/4j5NxOC+ww8lzA5ZH4b6eT5/AE/aQp6CSfZdWPb5Z
- xsNytCtaF0w+8lj5sNeaJRwR0gyKgFKVWOA/qshkmR6exJPQ1QFyQ5WQuCgC9r0oHL
- fM7qSVotdJUco5Q+SVmZSy8rc9wJTdHglRXr46KTOKKw9kFdhNAmtTFusL01Spbua5
- nMqSUvBsWFe1w==
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 4384C60A2F;
- Tue, 14 Dec 2021 12:40:10 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29286C597BA
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Dec 2021 12:53:47 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BEBATlS010386;
+ Tue, 14 Dec 2021 13:53:45 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=T8Jcu6wd8lh9q27ClOVg9B6XcchEPMvYgTCpRDM1f1Y=;
+ b=A1uV+mgMPOfIqsCQD2tu5fLxQyCBk+vLukOexqoMu3kJACmbMOBM09e105MzUholRucQ
+ YXKaWPA2ETPKznmCPKH8nagQ1YsyoqnT5/SP42werPXFtyxDuyt/3UKSI+Xm+UbFI6Sh
+ X362Lab5PQj78U7XIGBy3dnKAbaYjU5unw8k0n/jfvenoETXZMTUKecDkRkiFR3NhHal
+ d3audN5DSOyNCASuP25+Cnx1f+aJ0xsuEbPZgMjjgghl9lmnNqW1fUHPLAf3+GjP6/m5
+ GnZg2fILgWqBJt37SzW/cRf4sXuY3vgl2AOh/3BowQTN46TvsCJJAPknACjRBkJUirTW AQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cxnqb2trc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 14 Dec 2021 13:53:45 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A72DA10002A;
+ Tue, 14 Dec 2021 13:53:44 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 969AB23EF35;
+ Tue, 14 Dec 2021 13:53:44 +0100 (CET)
+Received: from lmecxl0995.lme.st.com (10.75.127.45) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 14 Dec
+ 2021 13:53:42 +0100
+To: Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+References: <20211207130101.270314-1-amelie.delaunay@foss.st.com>
+ <46125d28-b065-b882-8a62-9d494b271755@synopsys.com>
+From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
+Message-ID: <7bef0e3b-3430-1ad1-127d-7093511b6493@foss.st.com>
+Date: Tue, 14 Dec 2021 13:53:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <163948561027.12013.1168434953133030170.git-patchwork-notify@kernel.org>
-Date: Tue, 14 Dec 2021 12:40:10 +0000
-References: <20211211145134.630258-1-boon.leong.ong@intel.com>
-In-Reply-To: <20211211145134.630258-1-boon.leong.ong@intel.com>
-To: Ong Boon Leong <boon.leong.ong@intel.com>
-Cc: yannick.vignon@oss.nxp.com, alexandre.torgue@st.com, netdev@vger.kernel.org,
- bigeasy@linutronix.de, kurt@linutronix.de, alexandre.torgue@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
- olteanv@gmail.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: fix tc flower
- deletion for VLAN priority Rx steering
+In-Reply-To: <46125d28-b065-b882-8a62-9d494b271755@synopsys.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-14_06,2021-12-14_01,2021-12-02_01
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH 1/1] usb: dwc2: gadget: don't try to
+ disable ep0 in dwc2_hsotg_suspend
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,40 +75,110 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hi Minas,
 
-This patch was applied to netdev/net.git (master)
-by David S. Miller <davem@davemloft.net>:
-
-On Sat, 11 Dec 2021 22:51:34 +0800 you wrote:
-> To replicate the issue:-
+On 12/14/21 7:22 AM, Minas Harutyunyan wrote:
+> Hi Amelie,
 > 
-> 1) Add 1 flower filter for VLAN Priority based frame steering:-
-> $ IFDEVNAME=eth0
-> $ tc qdisc add dev $IFDEVNAME ingress
-> $ tc qdisc add dev $IFDEVNAME root mqprio num_tc 8 \
->    map 0 1 2 3 4 5 6 7 0 0 0 0 0 0 0 0 \
->    queues 1@0 1@1 1@2 1@3 1@4 1@5 1@6 1@7 hw 0
-> $ tc filter add dev $IFDEVNAME parent ffff: protocol 802.1Q \
->    flower vlan_prio 0 hw_tc 0
+> On 12/7/2021 5:01 PM, Amelie Delaunay wrote:
+>> Calling dwc2_hsotg_ep_disable on ep0 (in/out) will lead to the following
+>> logs before returning -EINVAL:
+>> dwc2 49000000.usb-otg: dwc2_hsotg_ep_disable: called for ep0
+>> dwc2 49000000.usb-otg: dwc2_hsotg_ep_disable: called for ep0
+>>
 > 
-> [...]
-
-Here is the summary with links:
-  - [net,v2,1/1] net: stmmac: fix tc flower deletion for VLAN priority Rx steering
-    https://git.kernel.org/netdev/net/c/aeb7c75cb774
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> This messages printed for EP0 OUT which can't be disabled, but EP0 IN
+> can and should be disabled. Your patch exclude EP0 IN from disabling flow.
 
 
+Thanks for the review. I wonder why then in dwc2_hsotg_udc_stop and 
+dwc2_hsotg_core_init_disconnected EP0 IN is not disabled (loop starts 
+from EP1) ?
+
+Due to:
+	/* Same dwc2_hsotg_ep is used in both directions for ep0 */
+	hsotg->eps_out[0] = hsotg->eps_in[0];
+
+the condition in dwc2_hsotg_ep_disable to display the error is always 
+true for EP0, whatever the direction, so the log appears for EP0 IN & OUT:
+	if (ep == &hsotg->eps_out[0]->ep) {
+		dev_err(hsotg->dev, "%s: called for ep0\n", __func__);
+		return -EINVAL;
+	}
+
+Should all loops need to be fixed to start loop from EP0 but exclude EP0 
+OUT from being disabled, so that EP0 IN can be disabled ? e.g. for 
+dwc2_hsotg_suspend:
+	
+
+$ git diff drivers/usb/dwc2/gadget.c
+diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
+index 11d85a6e0b0d..0c12219bfbf4 100644
+--- a/drivers/usb/dwc2/gadget.c
++++ b/drivers/usb/dwc2/gadget.c
+@@ -4231,7 +4231,7 @@ static int dwc2_hsotg_ep_disable(struct usb_ep *ep)
+
+         dev_dbg(hsotg->dev, "%s(ep %p)\n", __func__, ep);
+
+-       if (ep == &hsotg->eps_out[0]->ep) {
++       if (ep == &hsotg->eps_out[0]->ep && !dir_in) {
+                 dev_err(hsotg->dev, "%s: called for ep0\n", __func__);
+                 return -EINVAL;
+         }
+@@ -5077,7 +5077,7 @@ int dwc2_hsotg_suspend(struct dwc2_hsotg *hsotg)
+                 for (ep = 0; ep < hsotg->num_of_eps; ep++) {
+                         if (hsotg->eps_in[ep])
+ 
+dwc2_hsotg_ep_disable_lock(&hsotg->eps_in[ep]->ep);
+-                       if (hsotg->eps_out[ep])
++                       if (ep > 0 && hsotg->eps_out[ep])
+ 
+dwc2_hsotg_ep_disable_lock(&hsotg->eps_out[ep]->ep);
+                 }
+         }
+
+Regards,
+Amelie
+
+> 
+> Thanks,
+> Minas
+> 
+>> To avoid these two logs while suspending, start disabling the endpoint
+>> from the index 1, as done in dwc2_hsotg_udc_stop:
+>>
+>> 	/* all endpoints should be shutdown */
+>> 	for (ep = 1; ep < hsotg->num_of_eps; ep++) {
+>> 		if (hsotg->eps_in[ep])
+>> 			dwc2_hsotg_ep_disable_lock(&hsotg->eps_in[ep]->ep);
+>> 		if (hsotg->eps_out[ep])
+>> 			dwc2_hsotg_ep_disable_lock(&hsotg->eps_out[ep]->ep);
+>> 	}
+>>
+>> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+>> ---
+>>    drivers/usb/dwc2/gadget.c | 2 +-
+>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
+>> index b884a83b26a6..ee31f9a328da 100644
+>> --- a/drivers/usb/dwc2/gadget.c
+>> +++ b/drivers/usb/dwc2/gadget.c
+>> @@ -5086,7 +5086,7 @@ int dwc2_hsotg_suspend(struct dwc2_hsotg *hsotg)
+>>    		hsotg->gadget.speed = USB_SPEED_UNKNOWN;
+>>    		spin_unlock_irqrestore(&hsotg->lock, flags);
+>>    
+>> -		for (ep = 0; ep < hsotg->num_of_eps; ep++) {
+>> +		for (ep = 1; ep < hsotg->num_of_eps; ep++) {
+>>    			if (hsotg->eps_in[ep])
+>>    				dwc2_hsotg_ep_disable_lock(&hsotg->eps_in[ep]->ep);
+>>    			if (hsotg->eps_out[ep])
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
