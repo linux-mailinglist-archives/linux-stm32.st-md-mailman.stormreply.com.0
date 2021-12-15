@@ -2,47 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10442474B9C
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Dec 2021 20:10:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE9D6475083
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Dec 2021 02:30:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86049C5E2C5;
-	Tue, 14 Dec 2021 19:10:48 +0000 (UTC)
-Received: from metanate.com (dougal.metanate.com [90.155.101.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F051C5E2C5;
+	Wed, 15 Dec 2021 01:30:22 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B3BFC597BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C404FCFAC52
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Dec 2021 19:10:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=metanate.com; s=stronger; h=Content-Transfer-Encoding:Message-Id:Date:
- Subject:Cc:To:From:Content-Type:Reply-To:Content-ID:Content-Description:
- In-Reply-To:References; bh=XsmCqJao1bqLigheUsyxqJhjt/PPR1l+mc8RxY9x2iQ=; b=H0
- CFCxlxGEzAFTR6neO9QTDh6LY+bZ1Zc7fFXBjm1KanTVI4Vwn6ktU/hcyHxL9NvgTYrPcKz/sYKSR
- OazQuw4/rE5cV3f8OYGEDQISIMpCct0yYpP7uS0jKsxtEauLKDEHVaK9BjLTW0M35OjNrVtS9qbvk
- 7u2PZzj+jkj1CmrzlNKb7Y3+YHUc0wvjbDSo5zguKAID9Tlnnp7Sg15DDnOIKLjveFybXPR01q6Ay
- P0FSgEnI5zyK2trbI9b92QCFjq/kKFsOrV/1JvfrSAnSHJcpudVl2qxLQPc1wcfkZxmwQC6a95L4m
- AH1ILmzIJ4n6cYcmY21A0pQDiPwyWftQ==;
-Received: from [81.174.171.191] (helo=donbot.metanate.com)
- by email.metanate.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.93) (envelope-from <john@metanate.com>)
- id 1mxDBt-0000nB-0n; Tue, 14 Dec 2021 19:10:21 +0000
-From: John Keeping <john@metanate.com>
-To: netdev@vger.kernel.org
-Date: Tue, 14 Dec 2021 19:10:09 +0000
-Message-Id: <20211214191009.2454599-1-john@metanate.com>
-X-Mailer: git-send-email 2.34.1
+ Wed, 15 Dec 2021 01:30:21 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id o13so35333591wrs.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Dec 2021 17:30:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20210112;
+ h=message-id:subject:from:reply-to:to:cc:date:in-reply-to:references
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=ssImNAp25VSfpjtWIa6nzdRJnou4SLqvIgmNzKI3Ps8=;
+ b=qydlwCrFMmktBUYxvY5tXGUsd2Ig/GOL2jM1OdBRqZoyXmiVcpR5pagBVHD03wkAFm
+ zUtiW7nUvWS5OyhX3HY9a19PdDYBmrJTaAZhXxjtAk12t7q1ohm3/VDZibA6rlrFz4Ec
+ l/PnpyOmevBH4Z/DSXcJZrYb7ms5A0kqP9qV6C4tWTp+7+irH23kOMpi7y2+LqcQOY6P
+ LE3GNep6Uc6kAOauIeJoszvyV37B2IzGk3crkH6WER57f/5CqtywGg3DSzOHdqHDdwPg
+ WfQVyKmfaaE3bPv/4+6Y967fU1Tk52Oyy/25MVbOZtQOIbdUwtknv88l8C1b/8qMoe13
+ 9Rzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:reply-to:to:cc:date
+ :in-reply-to:references:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=ssImNAp25VSfpjtWIa6nzdRJnou4SLqvIgmNzKI3Ps8=;
+ b=GKhg2CK3inrTavEVtRoH/7F28/RtVsq3k4295jmIOMR1kFu3f7PTQnkVcSLWRAlqta
+ 6yqYm914S2Yj+PX+AOvcyWQOZ/iz2Ep/PauTYP4SCM0hnCfPpFOBwBdHlbgM8V9LNXVh
+ lFPOxvw9vYhJvYBzt2LaIq0mK56JatV2btZedmIAu5HwX7zi/TK7AUv7GDBwAs1JshRL
+ 5mQXg1OkyTFFhNG2nsetg3DGSrL0e285W+r0pV52dMHtFb17TqzbC38O7NGs5O5osQPg
+ rexDbKwcvmjNeQw5IpbrgcKiAGZApltrMcUC6XbBsy5XWBHdGBb4Ni9h+yea+0VI5Up6
+ k8Ww==
+X-Gm-Message-State: AOAM533j5iw1Io/lZr0+1xino44MWCj+TNdbnOvVWNezTjFoGE0XVtVp
+ oJXZI3RutXTWrrgCBROZ4qs=
+X-Google-Smtp-Source: ABdhPJypix1kagUzDsn4lpHSfEOLbPLySXi8Ej51HQIsQO0pv/fgBwdDpn3W3hTQqsB9xdvXPM9oMQ==
+X-Received: by 2002:adf:ce0e:: with SMTP id p14mr2159648wrn.423.1639531821452; 
+ Tue, 14 Dec 2021 17:30:21 -0800 (PST)
+Received: from mars.fritz.box ([2a02:8070:bb0:8700:3e7c:3fff:fe20:2cae])
+ by smtp.gmail.com with ESMTPSA id e7sm524323wrg.31.2021.12.14.17.30.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Dec 2021 17:30:20 -0800 (PST)
+Message-ID: <4204e95bc2306796fb834e74a01d75a47d45ecbc.camel@googlemail.com>
+From: Christoph Fritz <chf.fritz@googlemail.com>
+To: Fabien Dessenne <fabien.dessenne@foss.st.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,  Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 15 Dec 2021 02:30:19 +0100
+In-Reply-To: <46f07510-b6aa-4619-9c54-048464bfbaf3@foss.st.com>
+References: <a5b8e3ea13de0b2976bb9622dd410dd110f3f66c.camel@googlemail.com>
+ <46f07510-b6aa-4619-9c54-048464bfbaf3@foss.st.com>
+User-Agent: Evolution 3.38.3-1 
 MIME-Version: 1.0
-X-Authenticated: YES
-Cc: linux-kernel@vger.kernel.org, David Wu <david.wu@rock-chips.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- Jose Abreu <joabreu@synopsys.com>, John Keeping <john@metanate.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: dwmac-rk: fix oob read in
-	rk_gmac_setup
+Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] Revert "pinctrl: stm32: fix the reported
+ number of GPIO lines per bank"
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,61 +75,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: chf.fritz@googlemail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-KASAN reports an out-of-bounds read in rk_gmac_setup on the line:
+On Tue, 2021-12-14 at 15:17 +0100, Fabien DESSENNE wrote:
+> I have been able to reproduce the issue you reported.
+> Instead of reverting the guilty patch, I am working to fix it.
+> I am currently testing a candidate patch, and will share it in the 
+> coming days.
 
-	while (ops->regs[i]) {
-
-This happens for most platforms since the regs flexible array member is
-empty, so the memory after the ops structure is being read here.  It
-seems that mostly this happens to contain zero anyway, so we get lucky
-and everything still works.
-
-To avoid adding redundant data to nearly all the ops structures, add a
-new flag to indicate whether the regs field is valid and avoid this loop
-when it is not.
-
-Fixes: 3bb3d6b1c195 ("net: stmmac: Add RK3566/RK3568 SoC support")
-Signed-off-by: John Keeping <john@metanate.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 6924a6aacbd5..c469abc91fa1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -33,6 +33,7 @@ struct rk_gmac_ops {
- 	void (*set_rgmii_speed)(struct rk_priv_data *bsp_priv, int speed);
- 	void (*set_rmii_speed)(struct rk_priv_data *bsp_priv, int speed);
- 	void (*integrated_phy_powerup)(struct rk_priv_data *bsp_priv);
-+	bool regs_valid;
- 	u32 regs[];
- };
- 
-@@ -1092,6 +1093,7 @@ static const struct rk_gmac_ops rk3568_ops = {
- 	.set_to_rmii = rk3568_set_to_rmii,
- 	.set_rgmii_speed = rk3568_set_gmac_speed,
- 	.set_rmii_speed = rk3568_set_gmac_speed,
-+	.regs_valid = true,
- 	.regs = {
- 		0xfe2a0000, /* gmac0 */
- 		0xfe010000, /* gmac1 */
-@@ -1383,7 +1385,7 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
- 	 * to be distinguished.
- 	 */
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (res) {
-+	if (res && ops->regs_valid) {
- 		int i = 0;
- 
- 		while (ops->regs[i]) {
--- 
-2.34.1
+FYI, the regression was also merged into most of the stable and
+longterm stable releases: 5.15, 5.10, 5.4 and 4.19.
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
