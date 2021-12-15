@@ -2,67 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2FBF476575
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Dec 2021 23:13:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBAF4476676
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 00:25:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7936DC5E2C5;
-	Wed, 15 Dec 2021 22:13:05 +0000 (UTC)
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
- [209.85.210.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83968C5E2C5;
+	Wed, 15 Dec 2021 23:25:18 +0000 (UTC)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7369FC597BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41EBEC0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Dec 2021 22:13:03 +0000 (UTC)
-Received: by mail-ot1-f49.google.com with SMTP id
- v15-20020a9d604f000000b0056cdb373b82so26654793otj.7
+ Wed, 15 Dec 2021 23:25:16 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id w24so5187872ply.12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Dec 2021 14:13:03 -0800 (PST)
+ Wed, 15 Dec 2021 15:25:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vDUcxi+1vGmZblRbJ1Sm9A93/BTFWuWvpCJG8LRDqkk=;
+ b=DXYPMTYBbhpvhrxDXuuENJokIN1C4FOkTY68o9ZdjY2X0pGgYoeO8rgMJaLTIsJsrs
+ hmhV7bxWtULdRgZPqxLDrtgFNOXSv0KV8oWxGpMGFNLqSmTy7fmcHkQ1kpl4yEeKFaCQ
+ UoJ3WJjaqxJiystBa+XimfZjMEBdQR3ZC1UQg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=ITxrC42cpEdFPF3axFsIeZiANWHi83eE7MbTcA8W+gg=;
- b=s0KHcFsAzmnaoyOkZJVPiruGNbNGDwI8DfdOepOa7POSbgDX6z7p0r/ti8dFRGOHW3
- /x5Rf6SuOyjXOMaGLgDLhRjBZtQio+1rj5tQO8oOQk65+g33cHgrAxFsBzIX6D8ql4ND
- qsOqxL57TFwMI65kOj8map9xyfLv8VQWJ+OoDaux3DMrxAv9Pc79W7ZcitVNw2TZ0Ui3
- a46QHGcU7WFSZM2OFxSEIBR/LbYxQGWtsjx2/bD1J2yFXktMxENg5HPqoHtURrXugwAs
- QDja1+3zgNsv+5MggUyKdRL66ubE8r3rqM6pPtntjJzlEUIShK8GA+QfqJGAPrBkcNHs
- ag9A==
-X-Gm-Message-State: AOAM533sWf5h8D0Y2H8dm8O8EIs8tDNUJV4H+Ks+H4MXYL8tDTniSBfq
- 7m71JxChgShr5FdJTdciZg==
-X-Google-Smtp-Source: ABdhPJwaDEcWGo2pJ8CHSx9viVOHay+ZBu3YGBOyUvT6TDJu7jRsraMtVM63nT7+QEIcvGrQCS8ePw==
-X-Received: by 2002:a05:6830:1092:: with SMTP id
- y18mr10206759oto.119.1639606382307; 
- Wed, 15 Dec 2021 14:13:02 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id t18sm698156ott.2.2021.12.15.14.13.01
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vDUcxi+1vGmZblRbJ1Sm9A93/BTFWuWvpCJG8LRDqkk=;
+ b=MtUGiwYCZmb2IiwuKjlGzllmPSUAFkEx+ziRAjlcPBldR8wFyamRpNao+2vX1axgI9
+ gMntpNnavSfr7njpLi89W7qgrqH58mrvp4dwL38/2SyIMTa17NOcWuT6z0VTWZ8oKqj2
+ 8QQiw78YRPINlr4F3b8UMOncChyoMjFQsvt8r4qdQt5bdkiQLOpec884kYirRgpIILu+
+ HTPyI5Ca2jT/a1j74RavGQkg1ELrISvorlB2f9YViYUUg7+ya+aKYSya3Lb9y7tGUIY4
+ TMoaIbRkrnHWLiRH2ha5IwxRFs6G1PJuqQBaxfIhHXrQ0tiAC6u5imNpkyxM8EdmPZ/c
+ inlw==
+X-Gm-Message-State: AOAM531q2vHndc5v5Idj3Y4Eo3dOblwNp1sCRsK9rzltgxjxj4O7l4pm
+ cKAfeB/m0oG3FHFkoX5NCXN/ZA==
+X-Google-Smtp-Source: ABdhPJy5py/792S478eMSZrNlgV3972pgHifUoF5SICCwYNK+P2sBeyjHIvi7Ls6eSNJ7zV9Rq3Hlg==
+X-Received: by 2002:a17:902:b712:b0:143:72b7:4096 with SMTP id
+ d18-20020a170902b71200b0014372b74096mr13995974pls.25.1639610714881; 
+ Wed, 15 Dec 2021 15:25:14 -0800 (PST)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id b18sm3120925pjo.31.2021.12.15.15.25.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Dec 2021 14:13:01 -0800 (PST)
-Received: (nullmailer pid 1932976 invoked by uid 1000);
- Wed, 15 Dec 2021 22:13:00 -0000
-Date: Wed, 15 Dec 2021 16:13:00 -0600
-From: Rob Herring <robh@kernel.org>
-To: Biao Huang <biao.huang@mediatek.com>
-Message-ID: <YbpobIscSDPKuxxY@robh.at.kernel.org>
-References: <20211215021652.7270-1-biao.huang@mediatek.com>
- <20211215021652.7270-7-biao.huang@mediatek.com>
+ Wed, 15 Dec 2021 15:25:14 -0800 (PST)
+From: Kees Cook <keescook@chromium.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Date: Wed, 15 Dec 2021 15:25:13 -0800
+Message-Id: <20211215232513.2070158-1-keescook@chromium.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211215021652.7270-7-biao.huang@mediatek.com>
-Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- dkirjanov@suse.de, Jose Abreu <joabreu@synopsys.com>,
- linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH net-next v9 6/6] net: dt-bindings: dwmac:
- add support for mt8195
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2545; h=from:subject;
+ bh=S+yja+ZH2OmWXK3ijI5wGcAm/sNwDDcR7CmSYgsRQzo=;
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBhunlYeGsDYpcqYmqKGq1gspbWZM1i9uJh+lhO3VSQ
+ FHREJxSJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYbp5WAAKCRCJcvTf3G3AJlBiD/
+ 9NL3ZLujTHevof7dlDGHJPmKwu+YtML22gc59bhFYHNlrW1bYIyk8TVkzq+kmWec+iWtOk61RpCSXS
+ Z0k7OnyjFshW0V/lqBxlh9J5enIY+QUpyTtjZItLHc+peGRRmKU3uDXa8yjTgmYevNLvTHfOipZRzz
+ YX5h1sDytZpE3iLSCyn/6iQF51ttub/xD2LyDYPWCVRhJxhfyqNNLqMT9ieTj7XSNP7ho0xpLojXtG
+ tYWFm1l7YezgqMr59jAE6fQpMkolVM6/jLRvwm94HRifQWDQlVIJz2D/fE/HI8uMpMN9h/dj3lWqCz
+ b4ueQOnKzDV9J1CjKjjZzWHmB+YITuSkqr1zsPTHvccwOfdpBMTwPqh9G2MRm0jUXjYh5wbbdX0RnY
+ JVZy4dPkxUArpoQx+Xv4Tfh8F/WXlRyqbV/+GBScF9djq6yabzoTpogdl8ms5SWTD/qQZalMX7vnQS
+ b71qchU1Q+2z06VaTVhRZQ/+9b0CpOQNr0Dwnp7anmFBJ+HiWBzxsh5MK6pgbk4EDXUwePl6dA/RyO
+ nVDXPwtQGKzNPzhRAFRnnBCAqowSzkQzNAUNtmHVyPfmg5yUjLgG9QlaoTPq/J+G5/qAgZv8HMan4Q
+ g/nbEXYvBPu9ipCueVOY3evU+0zo1CFssLloRyC7DBje0O6J/hslJrPUKIfw==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Kees Cook <keescook@chromium.org>,
+ Yury Norov <yury.norov@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-hardening@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] iio: stmpe-adc: Use correctly sized arguments
+	for bit field
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,122 +89,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Dec 15, 2021 at 10:16:52AM +0800, Biao Huang wrote:
-> Add binding document for the ethernet on mt8195.
-> 
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> ---
->  .../bindings/net/mediatek-dwmac.yaml          | 42 ++++++++++++++-----
->  1 file changed, 32 insertions(+), 10 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> index 8ad6e19661b8..44d55146def4 100644
-> --- a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
-> @@ -19,6 +19,7 @@ select:
->        contains:
->          enum:
->            - mediatek,mt2712-gmac
-> +          - mediatek,mt8195-gmac
->    required:
->      - compatible
->  
-> @@ -27,26 +28,37 @@ allOf:
->  
->  properties:
->    compatible:
-> -    items:
-> -      - enum:
-> -          - mediatek,mt2712-gmac
-> -      - const: snps,dwmac-4.20a
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - mediatek,mt2712-gmac
-> +          - const: snps,dwmac-4.20a
-> +      - items:
-> +          - enum:
-> +              - mediatek,mt8195-gmac
-> +          - const: snps,dwmac-5.10a
->  
->    clocks:
-> +    minItems: 5
+The find.h APIs are designed to be used only on unsigned long arguments.
+This can technically result in a over-read, but it is harmless in this
+case. Regardless, fix it to avoid the warning seen under -Warray-bounds,
+which we'd like to enable globally:
 
-As before, you need 'minItems: 4' in the previous patch.
+In file included from ./include/linux/bitmap.h:9,
+                 from ./include/linux/cpumask.h:12,
+                 from ./arch/x86/include/asm/cpumask.h:5,
+                 from ./arch/x86/include/asm/msr.h:11,
+                 from ./arch/x86/include/asm/processor.h:22,
+                 from ./arch/x86/include/asm/cpufeature.h:5,
+                 from ./arch/x86/include/asm/thread_info.h:53,
+                 from ./include/linux/thread_info.h:60,
+                 from ./arch/x86/include/asm/preempt.h:7,
+                 from ./include/linux/preempt.h:78,
+                 from ./include/linux/spinlock.h:55,
+                 from ./include/linux/swait.h:7,
+                 from ./include/linux/completion.h:12,
+                 from drivers/iio/adc/stmpe-adc.c:10:
+drivers/iio/adc/stmpe-adc.c: In function 'stmpe_adc_probe':
+./include/linux/find.h:98:23: warning: array subscript 'long unsigned int[0]' is partly outside array bounds of 'u32[1]' {aka 'unsigned int[1]'} [-Warray-bounds]
+   98 |                 val = *addr | ~GENMASK(size - 1, offset);
+      |                       ^~~~~
+drivers/iio/adc/stmpe-adc.c:258:13: note: while referencing 'norequest_mask'
+  258 |         u32 norequest_mask = 0;
+      |             ^~~~~~~~~~~~~~
 
-If you aren't clear what's needed, run 'make dtbs_checks' yourself 
-before submitting again.
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+ drivers/iio/adc/stmpe-adc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
->      items:
->        - description: AXI clock
->        - description: APB clock
->        - description: MAC Main clock
->        - description: PTP clock
->        - description: RMII reference clock provided by MAC
-> +      - description: MAC clock gate
->  
->    clock-names:
-> -    items:
-> -      - const: axi
-> -      - const: apb
-> -      - const: mac_main
-> -      - const: ptp_ref
-> -      - const: rmii_internal
-> +    minItems: 5
-> +    maxItems: 6
-> +    contains:
+diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
+index fba659bfdb40..d2d405388499 100644
+--- a/drivers/iio/adc/stmpe-adc.c
++++ b/drivers/iio/adc/stmpe-adc.c
+@@ -256,6 +256,7 @@ static int stmpe_adc_probe(struct platform_device *pdev)
+ 	struct stmpe_adc *info;
+ 	struct device_node *np;
+ 	u32 norequest_mask = 0;
++	unsigned long bits;
+ 	int irq_temp, irq_adc;
+ 	int num_chan = 0;
+ 	int i = 0;
+@@ -309,8 +310,8 @@ static int stmpe_adc_probe(struct platform_device *pdev)
+ 
+ 	of_property_read_u32(np, "st,norequest-mask", &norequest_mask);
+ 
+-	for_each_clear_bit(i, (unsigned long *) &norequest_mask,
+-			   (STMPE_ADC_LAST_NR + 1)) {
++	bits = norequest_mask;
++	for_each_clear_bit(i, &bits, (STMPE_ADC_LAST_NR + 1)) {
+ 		stmpe_adc_voltage_chan(&info->stmpe_adc_iio_channels[num_chan], i);
+ 		num_chan++;
+ 	}
+-- 
+2.30.2
 
-No, you just threw out the order requirements. And this schema will be 
-true with just 1 of the strings below plus any other strings. For 
-example, this will pass:
-
-clock-names = "foo", "bar", "axi", "baz", "rob";
-
-> +      enum:
-> +        - axi
-> +        - apb
-> +        - mac_main
-> +        - ptp_ref
-> +        - rmii_internal
-> +        - mac_cg
->  
->    mediatek,pericfg:
->      $ref: /schemas/types.yaml#/definitions/phandle
-> @@ -61,6 +73,8 @@ properties:
->        or will round down. Range 0~31*170.
->        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
->        or will round down. Range 0~31*550.
-> +      For MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple of 290,
-> +      or will round down. Range 0~31*290.
->  
->    mediatek,rx-delay-ps:
->      description:
-> @@ -69,6 +83,8 @@ properties:
->        or will round down. Range 0~31*170.
->        For MT2712 RMII/MII interface, Allowed value need to be a multiple of 550,
->        or will round down. Range 0~31*550.
-> +      For MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple
-> +      of 290, or will round down. Range 0~31*290.
->  
->    mediatek,rmii-rxc:
->      type: boolean
-> @@ -102,6 +118,12 @@ properties:
->        3. the inside clock, which be sent to MAC, will be inversed in RMII case when
->           the reference clock is from MAC.
->  
-> +  mediatek,mac-wol:
-> +    type: boolean
-> +    description:
-> +      If present, indicates that MAC supports WOL(Wake-On-LAN), and MAC WOL will be enabled.
-> +      Otherwise, PHY WOL is perferred.
-> +
->  required:
->    - compatible
->    - reg
-> -- 
-> 2.25.1
-> 
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
