@@ -2,64 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39509475F8C
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Dec 2021 18:43:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E792476094
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Dec 2021 19:20:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5AFAC5E2C5;
-	Wed, 15 Dec 2021 17:43:27 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08364C5E2C5;
+	Wed, 15 Dec 2021 18:20:32 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 631A1C597BA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7285AC597BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Dec 2021 17:43:26 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BFGovat014145;
- Wed, 15 Dec 2021 18:43:09 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=ycM4N0uy64wR1/3vvP+mqTytinbOJwEnhN6gwQx8mpQ=;
- b=rgGamqhiwt22+VQTB3U0PIRbvGa+Bha+2Qxwt00RCEE4NMa/8r0XM4HxKoJc8QTwtwC3
- k73cLuX2l5/a0ufleWfIppXN0DyKS/eskG0C5nVrbFiud/RqWy7KSWM2aNWqCXNkCIcV
- yz9U3tQlhWmhrYy/ptwAN4fkdAaFgmG2OJNngTMqIyIxWn4lxBZ8Y0igh0QJgkuRYzhy
- 3QX2GyUFzg2n4jCV1xRgn9P6wJhSRLNb+jmMaIl5pLo7HLnIrly7f06SS0qiDAA9rxRJ
- a+Et243HAmkU+SSSL7agQ9fy1qEupd+VLwwxKrKKpOTFdQIELf8OxPqsY/Mkc9SF/QOP rg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cyekaa546-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Dec 2021 18:43:09 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C426510002A;
- Wed, 15 Dec 2021 18:43:08 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BBB292163EC;
- Wed, 15 Dec 2021 18:43:08 +0100 (CET)
-Received: from [10.48.0.126] (10.75.127.49) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 15 Dec
- 2021 18:43:07 +0100
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>, Rob
- Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
+ Wed, 15 Dec 2021 18:20:30 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mxYt6-0003bp-Qa; Wed, 15 Dec 2021 19:20:24 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mxYt5-004iJ4-Ot; Wed, 15 Dec 2021 19:20:23 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mxYt4-0002Lk-0F; Wed, 15 Dec 2021 19:20:22 +0100
+Date: Wed, 15 Dec 2021 19:20:18 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <20211215182018.2ro7vt2qbgpbjzk5@pengutronix.de>
 References: <20211215152535.41200-1-u.kleine-koenig@pengutronix.de>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <4ecadf77-0fa7-80eb-7f1f-0404a236ce58@foss.st.com>
-Date: Wed, 15 Dec 2021 18:43:06 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ <4ecadf77-0fa7-80eb-7f1f-0404a236ce58@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <20211215152535.41200-1-u.kleine-koenig@pengutronix.de>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-15_10,2021-12-14_01,2021-12-02_01
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- kernel@pengutronix.de
+In-Reply-To: <4ecadf77-0fa7-80eb-7f1f-0404a236ce58@foss.st.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel@pengutronix.de, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add timer interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -72,125 +56,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7002863716468517665=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTIvMTUvMjEgNDoyNSBQTSwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gVGhlIHRpbWVy
-IHVuaXRzIGluIHRoZSBzdG0zMm1wMSBDUFVzIGhhdmUgaW50ZXJydXB0cywgZGVwZW5kaW5nIG9u
-IHRoZQo+IHRpbWVyIGZsYXZvdXIgZWl0aGVyIG9uZSAiZ2xvYmFsIiBvciBmb3VyIGRlZGljYXRl
-ZCBvbmVzLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1r
-b2VuaWdAcGVuZ3V0cm9uaXguZGU+Cj4gLS0tCj4gIC4uLi9iaW5kaW5ncy9tZmQvc3Qsc3RtMzIt
-dGltZXJzLnlhbWwgICAgICAgICB8IDEzICsrKysrKysKPiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Rt
-MzJtcDE1MS5kdHNpICAgICAgICAgICAgIHwgMzQgKysrKysrKysrKysrKysrKysrKwo+ICAyIGZp
-bGVzIGNoYW5nZWQsIDQ3IGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRh
-dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9zdCxzdG0zMi10aW1lcnMueWFtbCBiL0RvY3Vt
-ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvc3Qsc3RtMzItdGltZXJzLnlhbWwKPiBp
-bmRleCAxMGIzMzBkNDI5MDEuLjVlNDIxNGQxNjEzYiAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0
-aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWZkL3N0LHN0bTMyLXRpbWVycy55YW1sCj4gKysrIGIv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21mZC9zdCxzdG0zMi10aW1lcnMueWFt
-bAo+IEBAIC00Niw2ICs0NiwxOSBAQCBwcm9wZXJ0aWVzOgo+ICAgICAgbWluSXRlbXM6IDEKPiAg
-ICAgIG1heEl0ZW1zOiA3Cj4gIAo+ICsgIGludGVycnVwdHM6Cj4gKyAgICBtYXhJdGVtczogNAo+
-ICsKPiArICBpbnRlcnJ1cHQtbmFtZXM6Cj4gKyAgICBhbnlPZjoKPiArICAgICAgLSBpdGVtczoK
-PiArICAgICAgICAgIC0gY29uc3Q6IGdsb2JhbAo+ICsgICAgICAtIGl0ZW1zOgo+ICsgICAgICAg
-ICAgLSBjb25zdDogYnJrCj4gKyAgICAgICAgICAtIGNvbnN0OiB1cAo+ICsgICAgICAgICAgLSBj
-b25zdDogdHJnLWNvbQo+ICsgICAgICAgICAgLSBjb25zdDogY2MKPiArCj4gICAgIiNhZGRyZXNz
-LWNlbGxzIjoKPiAgICAgIGNvbnN0OiAxCgpIaSBVd2UsCgpDb3VsZCB5b3Ugc3BsaXQgZHQtYmlu
-ZGluZ3MgaW50byBhIHNlcGFyYXRlIHBhdGNoID8KCkknbSBhIGJpdCBjdXJpb3VzLi4uIEkgZG9u
-J3Qgc2VlIGRyaXZlciB1cGRhdGUgaGVyZSwgdG8gdXNlIHRoZSB0aW1lcgppbnRlcnJ1cHRzIGZy
-b20gdGhlIE1GRCwgb3IgY2hpbGQgZHJpdmVycy4KRG8geW91IGhhdmUgcGFydGljdWxhciB1c2Ug
-Y2FzZSBpbiBtaW5kID8KClRoYW5rcywKUmVnYXJkcywKRmFicmljZQoKPiAgCj4gZGlmZiAtLWdp
-dCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaSBiL2FyY2gvYXJtL2Jvb3QvZHRz
-L3N0bTMybXAxNTEuZHRzaQo+IGluZGV4IDFjZmMyZjAxMWU3MC4uZGFiMzk3MmZjZmZkIDEwMDY0
-NAo+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaQo+ICsrKyBiL2FyY2gv
-YXJtL2Jvb3QvZHRzL3N0bTMybXAxNTEuZHRzaQo+IEBAIC0xMjcsNiArMTI3LDggQEAgdGltZXJz
-MjogdGltZXJANDAwMDAwMDAgewo+ICAJCQkjc2l6ZS1jZWxscyA9IDwwPjsKPiAgCQkJY29tcGF0
-aWJsZSA9ICJzdCxzdG0zMi10aW1lcnMiOwo+ICAJCQlyZWcgPSA8MHg0MDAwMDAwMCAweDQwMD47
-Cj4gKwkJCWludGVycnVwdHMgPSA8R0lDX1NQSSAyOCBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKPiAr
-CQkJaW50ZXJydXB0LW5hbWVzID0gImdsb2JhbCI7Cj4gIAkJCWNsb2NrcyA9IDwmcmNjIFRJTTJf
-Sz47Cj4gIAkJCWNsb2NrLW5hbWVzID0gImludCI7Cj4gIAkJCWRtYXMgPSA8JmRtYW11eDEgMTgg
-MHg0MDAgMHgxPiwKPiBAQCAtMTYwLDYgKzE2Miw4IEBAIHRpbWVyczM6IHRpbWVyQDQwMDAxMDAw
-IHsKPiAgCQkJI3NpemUtY2VsbHMgPSA8MD47Cj4gIAkJCWNvbXBhdGlibGUgPSAic3Qsc3RtMzIt
-dGltZXJzIjsKPiAgCQkJcmVnID0gPDB4NDAwMDEwMDAgMHg0MDA+Owo+ICsJCQlpbnRlcnJ1cHRz
-ID0gPEdJQ19TUEkgMjkgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gKwkJCWludGVycnVwdC1uYW1l
-cyA9ICJnbG9iYWwiOwo+ICAJCQljbG9ja3MgPSA8JnJjYyBUSU0zX0s+Owo+ICAJCQljbG9jay1u
-YW1lcyA9ICJpbnQiOwo+ICAJCQlkbWFzID0gPCZkbWFtdXgxIDIzIDB4NDAwIDB4MT4sCj4gQEAg
-LTE5NCw2ICsxOTgsOCBAQCB0aW1lcnM0OiB0aW1lckA0MDAwMjAwMCB7Cj4gIAkJCSNzaXplLWNl
-bGxzID0gPDA+Owo+ICAJCQljb21wYXRpYmxlID0gInN0LHN0bTMyLXRpbWVycyI7Cj4gIAkJCXJl
-ZyA9IDwweDQwMDAyMDAwIDB4NDAwPjsKPiArCQkJaW50ZXJydXB0cyA9IDxHSUNfU1BJIDMwIElS
-UV9UWVBFX0xFVkVMX0hJR0g+Owo+ICsJCQlpbnRlcnJ1cHQtbmFtZXMgPSAiZ2xvYmFsIjsKPiAg
-CQkJY2xvY2tzID0gPCZyY2MgVElNNF9LPjsKPiAgCQkJY2xvY2stbmFtZXMgPSAiaW50IjsKPiAg
-CQkJZG1hcyA9IDwmZG1hbXV4MSAyOSAweDQwMCAweDE+LAo+IEBAIC0yMjYsNiArMjMyLDggQEAg
-dGltZXJzNTogdGltZXJANDAwMDMwMDAgewo+ICAJCQkjc2l6ZS1jZWxscyA9IDwwPjsKPiAgCQkJ
-Y29tcGF0aWJsZSA9ICJzdCxzdG0zMi10aW1lcnMiOwo+ICAJCQlyZWcgPSA8MHg0MDAwMzAwMCAw
-eDQwMD47Cj4gKwkJCWludGVycnVwdHMgPSA8R0lDX1NQSSA1MCBJUlFfVFlQRV9MRVZFTF9ISUdI
-PjsKPiArCQkJaW50ZXJydXB0LW5hbWVzID0gImdsb2JhbCI7Cj4gIAkJCWNsb2NrcyA9IDwmcmNj
-IFRJTTVfSz47Cj4gIAkJCWNsb2NrLW5hbWVzID0gImludCI7Cj4gIAkJCWRtYXMgPSA8JmRtYW11
-eDEgNTUgMHg0MDAgMHgxPiwKPiBAQCAtMjYwLDYgKzI2OCw4IEBAIHRpbWVyczY6IHRpbWVyQDQw
-MDA0MDAwIHsKPiAgCQkJI3NpemUtY2VsbHMgPSA8MD47Cj4gIAkJCWNvbXBhdGlibGUgPSAic3Qs
-c3RtMzItdGltZXJzIjsKPiAgCQkJcmVnID0gPDB4NDAwMDQwMDAgMHg0MDA+Owo+ICsJCQlpbnRl
-cnJ1cHRzID0gPEdJQ19TUEkgNTQgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gKwkJCWludGVycnVw
-dC1uYW1lcyA9ICJnbG9iYWwiOwo+ICAJCQljbG9ja3MgPSA8JnJjYyBUSU02X0s+Owo+ICAJCQlj
-bG9jay1uYW1lcyA9ICJpbnQiOwo+ICAJCQlkbWFzID0gPCZkbWFtdXgxIDY5IDB4NDAwIDB4MT47
-Cj4gQEAgLTI3OCw2ICsyODgsOCBAQCB0aW1lcnM3OiB0aW1lckA0MDAwNTAwMCB7Cj4gIAkJCSNz
-aXplLWNlbGxzID0gPDA+Owo+ICAJCQljb21wYXRpYmxlID0gInN0LHN0bTMyLXRpbWVycyI7Cj4g
-IAkJCXJlZyA9IDwweDQwMDA1MDAwIDB4NDAwPjsKPiArCQkJaW50ZXJydXB0cyA9IDxHSUNfU1BJ
-IDU1IElSUV9UWVBFX0xFVkVMX0hJR0g+Owo+ICsJCQlpbnRlcnJ1cHQtbmFtZXMgPSAiZ2xvYmFs
-IjsKPiAgCQkJY2xvY2tzID0gPCZyY2MgVElNN19LPjsKPiAgCQkJY2xvY2stbmFtZXMgPSAiaW50
-IjsKPiAgCQkJZG1hcyA9IDwmZG1hbXV4MSA3MCAweDQwMCAweDE+Owo+IEBAIC0yOTYsNiArMzA4
-LDggQEAgdGltZXJzMTI6IHRpbWVyQDQwMDA2MDAwIHsKPiAgCQkJI3NpemUtY2VsbHMgPSA8MD47
-Cj4gIAkJCWNvbXBhdGlibGUgPSAic3Qsc3RtMzItdGltZXJzIjsKPiAgCQkJcmVnID0gPDB4NDAw
-MDYwMDAgMHg0MDA+Owo+ICsJCQlpbnRlcnJ1cHRzID0gPEdJQ19TUEkgMTE5IElSUV9UWVBFX0xF
-VkVMX0hJR0g+Owo+ICsJCQlpbnRlcnJ1cHQtbmFtZXMgPSAiZ2xvYmFsIjsKPiAgCQkJY2xvY2tz
-ID0gPCZyY2MgVElNMTJfSz47Cj4gIAkJCWNsb2NrLW5hbWVzID0gImludCI7Cj4gIAkJCXN0YXR1
-cyA9ICJkaXNhYmxlZCI7Cj4gQEAgLTMxOCw2ICszMzIsOCBAQCB0aW1lcnMxMzogdGltZXJANDAw
-MDcwMDAgewo+ICAJCQkjc2l6ZS1jZWxscyA9IDwwPjsKPiAgCQkJY29tcGF0aWJsZSA9ICJzdCxz
-dG0zMi10aW1lcnMiOwo+ICAJCQlyZWcgPSA8MHg0MDAwNzAwMCAweDQwMD47Cj4gKwkJCWludGVy
-cnVwdHMgPSA8R0lDX1NQSSAxMzAgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gKwkJCWludGVycnVw
-dC1uYW1lcyA9ICJnbG9iYWwiOwo+ICAJCQljbG9ja3MgPSA8JnJjYyBUSU0xM19LPjsKPiAgCQkJ
-Y2xvY2stbmFtZXMgPSAiaW50IjsKPiAgCQkJc3RhdHVzID0gImRpc2FibGVkIjsKPiBAQCAtMzQw
-LDYgKzM1Niw4IEBAIHRpbWVyczE0OiB0aW1lckA0MDAwODAwMCB7Cj4gIAkJCSNzaXplLWNlbGxz
-ID0gPDA+Owo+ICAJCQljb21wYXRpYmxlID0gInN0LHN0bTMyLXRpbWVycyI7Cj4gIAkJCXJlZyA9
-IDwweDQwMDA4MDAwIDB4NDAwPjsKPiArCQkJaW50ZXJydXB0cyA9IDxHSUNfU1BJIDEzMSBJUlFf
-VFlQRV9MRVZFTF9ISUdIPjsKPiArCQkJaW50ZXJydXB0LW5hbWVzID0gImdsb2JhbCI7Cj4gIAkJ
-CWNsb2NrcyA9IDwmcmNjIFRJTTE0X0s+Owo+ICAJCQljbG9jay1uYW1lcyA9ICJpbnQiOwo+ICAJ
-CQlzdGF0dXMgPSAiZGlzYWJsZWQiOwo+IEBAIC02MDUsNiArNjIzLDExIEBAIHRpbWVyczE6IHRp
-bWVyQDQ0MDAwMDAwIHsKPiAgCQkJI3NpemUtY2VsbHMgPSA8MD47Cj4gIAkJCWNvbXBhdGlibGUg
-PSAic3Qsc3RtMzItdGltZXJzIjsKPiAgCQkJcmVnID0gPDB4NDQwMDAwMDAgMHg0MDA+Owo+ICsJ
-CQlpbnRlcnJ1cHRzID0gPEdJQ19TUEkgMjQgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4gKwkJCQkg
-ICAgIDxHSUNfU1BJIDI1IElSUV9UWVBFX0xFVkVMX0hJR0g+LAo+ICsJCQkJICAgICA8R0lDX1NQ
-SSAyNiBJUlFfVFlQRV9MRVZFTF9ISUdIPiwKPiArCQkJCSAgICAgPEdJQ19TUEkgMjcgSVJRX1RZ
-UEVfTEVWRUxfSElHSD47Cj4gKwkJCWludGVycnVwdC1uYW1lcyA9ICJicmsiLCAidXAiLCAidHJn
-LWNvbSIsICJjYyI7Cj4gIAkJCWNsb2NrcyA9IDwmcmNjIFRJTTFfSz47Cj4gIAkJCWNsb2NrLW5h
-bWVzID0gImludCI7Cj4gIAkJCWRtYXMgPSA8JmRtYW11eDEgMTEgMHg0MDAgMHgxPiwKPiBAQCAt
-NjQxLDYgKzY2NCwxMSBAQCB0aW1lcnM4OiB0aW1lckA0NDAwMTAwMCB7Cj4gIAkJCSNzaXplLWNl
-bGxzID0gPDA+Owo+ICAJCQljb21wYXRpYmxlID0gInN0LHN0bTMyLXRpbWVycyI7Cj4gIAkJCXJl
-ZyA9IDwweDQ0MDAxMDAwIDB4NDAwPjsKPiArCQkJaW50ZXJydXB0cyA9IDxHSUNfU1BJIDQzIElS
-UV9UWVBFX0xFVkVMX0hJR0g+LAo+ICsJCQkJICAgICA8R0lDX1NQSSA0NCBJUlFfVFlQRV9MRVZF
-TF9ISUdIPiwKPiArCQkJCSAgICAgPEdJQ19TUEkgNDUgSVJRX1RZUEVfTEVWRUxfSElHSD4sCj4g
-KwkJCQkgICAgIDxHSUNfU1BJIDQ2IElSUV9UWVBFX0xFVkVMX0hJR0g+Owo+ICsJCQlpbnRlcnJ1
-cHQtbmFtZXMgPSAiYnJrIiwgInVwIiwgInRyZy1jb20iLCAiY2MiOwo+ICAJCQljbG9ja3MgPSA8
-JnJjYyBUSU04X0s+Owo+ICAJCQljbG9jay1uYW1lcyA9ICJpbnQiOwo+ICAJCQlkbWFzID0gPCZk
-bWFtdXgxIDQ3IDB4NDAwIDB4MT4sCj4gQEAgLTcyNSw2ICs3NTMsOCBAQCB0aW1lcnMxNTogdGlt
-ZXJANDQwMDYwMDAgewo+ICAJCQkjc2l6ZS1jZWxscyA9IDwwPjsKPiAgCQkJY29tcGF0aWJsZSA9
-ICJzdCxzdG0zMi10aW1lcnMiOwo+ICAJCQlyZWcgPSA8MHg0NDAwNjAwMCAweDQwMD47Cj4gKwkJ
-CWludGVycnVwdHMgPSA8R0lDX1NQSSAxMTYgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4gKwkJCWlu
-dGVycnVwdC1uYW1lcyA9ICJnbG9iYWwiOwo+ICAJCQljbG9ja3MgPSA8JnJjYyBUSU0xNV9LPjsK
-PiAgCQkJY2xvY2stbmFtZXMgPSAiaW50IjsKPiAgCQkJZG1hcyA9IDwmZG1hbXV4MSAxMDUgMHg0
-MDAgMHgxPiwKPiBAQCAtNzUyLDYgKzc4Miw4IEBAIHRpbWVyczE2OiB0aW1lckA0NDAwNzAwMCB7
-Cj4gIAkJCSNzaXplLWNlbGxzID0gPDA+Owo+ICAJCQljb21wYXRpYmxlID0gInN0LHN0bTMyLXRp
-bWVycyI7Cj4gIAkJCXJlZyA9IDwweDQ0MDA3MDAwIDB4NDAwPjsKPiArCQkJaW50ZXJydXB0cyA9
-IDxHSUNfU1BJIDExNyBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKPiArCQkJaW50ZXJydXB0LW5hbWVz
-ID0gImdsb2JhbCI7Cj4gIAkJCWNsb2NrcyA9IDwmcmNjIFRJTTE2X0s+Owo+ICAJCQljbG9jay1u
-YW1lcyA9ICJpbnQiOwo+ICAJCQlkbWFzID0gPCZkbWFtdXgxIDEwOSAweDQwMCAweDE+LAo+IEBA
-IC03NzYsNiArODA4LDggQEAgdGltZXJzMTc6IHRpbWVyQDQ0MDA4MDAwIHsKPiAgCQkJI3NpemUt
-Y2VsbHMgPSA8MD47Cj4gIAkJCWNvbXBhdGlibGUgPSAic3Qsc3RtMzItdGltZXJzIjsKPiAgCQkJ
-cmVnID0gPDB4NDQwMDgwMDAgMHg0MDA+Owo+ICsJCQlpbnRlcnJ1cHRzID0gPEdJQ19TUEkgMTE4
-IElSUV9UWVBFX0xFVkVMX0hJR0g+Owo+ICsJCQlpbnRlcnJ1cHQtbmFtZXMgPSAiZ2xvYmFsIjsK
-PiAgCQkJY2xvY2tzID0gPCZyY2MgVElNMTdfSz47Cj4gIAkJCWNsb2NrLW5hbWVzID0gImludCI7
-Cj4gIAkJCWRtYXMgPSA8JmRtYW11eDEgMTExIDB4NDAwIDB4MT4sCj4gCj4gYmFzZS1jb21taXQ6
-IDBiYWZiOGYzZWJjODQ1MjVkMGFlMGZjZWEyMmQxMjE1MWI5OTMxMmYKPiAKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+--===============7002863716468517665==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="opvr7lggvvkkqvsp"
+Content-Disposition: inline
+
+
+--opvr7lggvvkkqvsp
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Fabrice,
+
+On Wed, Dec 15, 2021 at 06:43:06PM +0100, Fabrice Gasnier wrote:
+> On 12/15/21 4:25 PM, Uwe Kleine-K=F6nig wrote:
+> >  .../bindings/mfd/st,stm32-timers.yaml         | 13 +++++++
+> >  arch/arm/boot/dts/stm32mp151.dtsi             | 34 +++++++++++++++++++
+> >  2 files changed, 47 insertions(+)
+
+> Could you split dt-bindings into a separate patch ?
+
+sure. I considered that before sending, but wasn't sure it's worth these
+two little changes.
+
+> I'm a bit curious... I don't see driver update here, to use the timer
+> interrupts from the MFD, or child drivers.
+> Do you have particular use case in mind ?
+
+My usecase is the compare-capture functionality. The eventual goal is to
+measure the frequency of rising edges on an input.
+
+The current situation is that there is already a custom driver for the
+i.MX25 SoC, the short-term goal is to replicate it's functionality on
+stm32mp1. The long-term goal is to create a counter driver for both.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--opvr7lggvvkkqvsp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmG6Md8ACgkQwfwUeK3K
+7AnN2gf/eCc8QIpUSnk3BE8640RpZPn+wN6Pyj8xi8INwOIOb5Owm1qyUfvoCfjG
+20cu1ie53TJ3z0766QtkUAW6jIKyPcSDaskI+/tfaLIFcvmHXK7rrLQqxJw5i8My
+OhpYvevX/fbUqVDAM1Z9VpJ6OEOrAA7aa8SguZ/Q7ModVaWewQDcC9fRZ5s/KzUm
+G8oun/OJzHGyvbQIMQ1h1ff4KV28w32kFuju3lTf87VzKhTjG3IOj6K0ftlR5iWd
+LgvVMnrqQYn6Ln/9V4omM8o+U6NUlxiDFTOmAAuqpldxLpku2OgD3t4C7+i06uU+
+CCNyBTWvMUkdDPZGQBURpD4l+3+jIw==
+=xGlQ
+-----END PGP SIGNATURE-----
+
+--opvr7lggvvkkqvsp--
+
+--===============7002863716468517665==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7002863716468517665==--
