@@ -2,67 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE93D4755C5
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Dec 2021 11:05:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A90447565B
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Dec 2021 11:28:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62E30C5EC6C;
-	Wed, 15 Dec 2021 10:05:39 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B03D9C5EC6C;
+	Wed, 15 Dec 2021 10:28:49 +0000 (UTC)
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com
+ [209.85.222.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89BACC5E2C5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C3DDC5E2C5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Dec 2021 10:05:38 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BF8xctf015267;
- Wed, 15 Dec 2021 11:05:33 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=3BmR+IunfXlXTt4gyyNN854tdQIgeq49/tg0NzOw1sQ=;
- b=l2jYnSVWXey8pRiDuQw4YH4DuQVxXo3jqJkwJcbVK37Le0q8hwUdzuj+kUf96Jk/3LK1
- FvrSsXTIWQkMEneDrNoPNbFsj3hibP6w38qdfACestZ6GG37qqD4oL6D+MoBLbqzVvKH
- utgoDUvyMx6jeB2KOsjmxv7xsHcIwNk8UW2V7gPJngmAOEJevFFEMBkNdIuib4EJZxmA
- ZqnTKuMR5RnK0pcymYxpRuUKGMCLmQa42Jp+2bNRbWywQsRGw3wwal1vaK2DpMHmQfmm
- X6K+JWxk9845ZMqJ9HDWbQA8nKWM0QffWdZqUfNT+4peTTiS1e74aLaNnpKC9dlo3njN BA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3cxrthxptn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Dec 2021 11:05:33 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5B75B10002A;
- Wed, 15 Dec 2021 11:05:32 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BE06222682C;
- Wed, 15 Dec 2021 11:05:27 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.49) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 15 Dec
- 2021 11:05:27 +0100
-To: Jiri Slaby <jirislaby@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-References: <20211214170646.25775-1-arnaud.pouliquen@foss.st.com>
- <3fc784f1-5985-1553-c39f-8472cb63b1af@kernel.org>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <250fd384-1dde-e800-2bac-ca37e53d50a2@foss.st.com>
-Date: Wed, 15 Dec 2021 11:05:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Wed, 15 Dec 2021 10:28:48 +0000 (UTC)
+Received: by mail-ua1-f47.google.com with SMTP id p2so40031964uad.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Dec 2021 02:28:48 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6KatagByVh+i+7U2cQTugmti3xcd82C2QfCSX1Fy8Jo=;
+ b=iiRBrtTg5I9twZ8AYQBp7ofu7xaztPr7TPjCwI7XQDVY5LDwOfHd62xM4f2unrjWFg
+ JLLp8+n0VL5bOwGkYZX0HgceCdSUeDf5PCRLkSD7N+nx3+UmbeHBW7fCc9kxqA5REBwU
+ 10jJiA8c6CMIhdv6Sztfy5aB1VrUFYFQbwtEcyEirSk7bYORFNJLJZS9WfinS7eCGjwz
+ lnP9W2pL7BQgshmijgpL0CpXN90WPGX7rvluT9v6/AJ7+umkukymP4gK2abSX7bS8ISU
+ TjtYRhpjAhXyExps6G80HdSMWHszLZSzJvSN+dwolNcr8JdIQyKpx3NvVsfJJ+tXMb+a
+ yjyQ==
+X-Gm-Message-State: AOAM533sHU9G5Hgiv8Y5nFMYAeNlbBHViHGVQO/K8RbwdomODCgId9IH
+ VqM9eL0C1rPOvae1ed53/rEr/0aGL6gWPw==
+X-Google-Smtp-Source: ABdhPJwhG5rQafu64bKGjklVb5ySYx3icDiGHXAr7FUsF28ZjR4WTLA8emMeIABOZSNhK4hvRJtmAQ==
+X-Received: by 2002:ab0:3ca0:: with SMTP id a32mr9364700uax.63.1639564126990; 
+ Wed, 15 Dec 2021 02:28:46 -0800 (PST)
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com.
+ [209.85.221.182])
+ by smtp.gmail.com with ESMTPSA id i7sm328969vkh.24.2021.12.15.02.28.45
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Dec 2021 02:28:46 -0800 (PST)
+Received: by mail-vk1-f182.google.com with SMTP id m19so14292766vko.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Dec 2021 02:28:45 -0800 (PST)
+X-Received: by 2002:a05:6122:920:: with SMTP id
+ j32mr2889520vka.20.1639564125403; 
+ Wed, 15 Dec 2021 02:28:45 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <3fc784f1-5985-1553-c39f-8472cb63b1af@kernel.org>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-15_07,2021-12-14_01,2021-12-02_01
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v2] tty: rpmsg: Fix race condition
-	releasing tty port
+References: <20211213163929.7509-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20211213163929.7509-1-andriy.shevchenko@linux.intel.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 15 Dec 2021 11:28:34 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdW_CKcXwOSUAbCreHVM62E35yjiCfpXC_wM0zK-V43CnA@mail.gmail.com>
+Message-ID: <CAMuHMdW_CKcXwOSUAbCreHVM62E35yjiCfpXC_wM0zK-V43CnA@mail.gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Herve Codina <herve.codina@bootlin.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Viresh Kumar <vireshk@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Douglas Anderson <dianders@chromium.org>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, arm-soc <soc@kernel.org>,
+ Marc Zyngier <maz@kernel.org>, Neil Armstrong <narmstrong@baylibre.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Andy Gross <agross@kernel.org>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Baruch Siach <baruch@tkos.co.il>, Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Sam Shih <sam.shih@mediatek.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-actions@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ linux-mediatek@lists.infradead.org,
+ Radim Pavlik <radim.pavlik@tbs-biometrics.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Scott Branden <sbranden@broadcom.com>, - <patches@opensource.cirrus.com>,
+ Sean Wang <sean.wang@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Ray Jui <rjui@broadcom.com>, Colin Foster <colin.foster@in-advantage.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Kavyasree Kotagiri <kavyasree.kotagiri@microchip.com>,
+ Zhiyong Tao <zhiyong.tao@mediatek.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-oxnas@groups.io,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v1 1/2] pinctrl: Get rid of duplicate
+ of_node assignment in the drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,55 +106,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAxMi8xNS8yMSA3OjQ5IEFNLCBKaXJpIFNsYWJ5IHdyb3RlOgo+IEhpLAo+IAo+IG11Y2gg
-YmV0dGVyIElNTy4KPiAKPiBPbiAxNC4gMTIuIDIxLCAxODowNiwgQXJuYXVkIFBvdWxpcXVlbiB3
-cm90ZToKPj4gSW4gY3VycmVudCBpbXBsZW1lbnRhdGlvbiB0aGUgdHR5X3BvcnQgc3RydWN0IGlz
-IHBhcnQgb2YgdGhlCj4+IHJwbXNnX3R0eV9wb3J0IHN0cnVjdHVyZS5UaGUgaXNzdWUgaXMgdGhh
-dCB0aGUgcnBtc2dfdHR5X3BvcnQgc3RydWN0dXJlIGlzCj4+IGZyZWVkIG9uIHJwbXNnX3R0eV9y
-ZW1vdmUgYnV0IGFsc28gcmVmZXJlbmNlZCBpbiB0aGUgdHR5X3N0cnVjdC4KPj4gSXRzIHJlbGVh
-c2UgaXMgbm90IHByZWRpY3RhYmxlIGR1ZSB0byB3b3JrcXVldWVzLgo+Pgo+PiBGb3IgaW5zdGFu
-Y2UgZm9sbG93aW5nIGZ0cmFjZSBzaG93cyB0aGF0IHJwbXNnX3R0eV9jbG9zZSBpcyBjYWxsZWQg
-YWZ0ZXIKPj4gcnBtc2dfdHR5X3JlbGVhc2VfY3BvcnQ6Cj4gLi4uCj4+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL3R0eS9ycG1zZ190dHkuYyBiL2RyaXZlcnMvdHR5L3JwbXNnX3R0eS5jCj4+IGluZGV4
-IGRhZTJhNGU0NGYzOC4uNjkyNzJhZDkyMjY2IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL3R0eS9y
-cG1zZ190dHkuYwo+PiArKysgYi9kcml2ZXJzL3R0eS9ycG1zZ190dHkuYwo+PiBAQCAtNTMsOSAr
-NTMsMTkgQEAgc3RhdGljIGludCBycG1zZ190dHlfaW5zdGFsbChzdHJ1Y3QgdHR5X2RyaXZlciAq
-ZHJpdmVyLAo+PiBzdHJ1Y3QgdHR5X3N0cnVjdCAqdHR5KQo+PiDCoCDCoMKgwqDCoMKgIHR0eS0+
-ZHJpdmVyX2RhdGEgPSBjcG9ydDsKPj4gwqAgK8KgwqDCoCB0dHlfcG9ydF9nZXQoJmNwb3J0LT5w
-b3J0KTsKPiAKPiBDYW4ndCB0aGlzIGZhaWw/IExpa2Ugd2hlbiByYWNpbmcgd2l0aCByZW1vdmFs
-Pwo+IAo+PiDCoMKgwqDCoMKgIHJldHVybiB0dHlfcG9ydF9pbnN0YWxsKCZjcG9ydC0+cG9ydCwg
-ZHJpdmVyLCB0dHkpOwo+PiDCoCB9Cj4gLi4uCj4+IMKgIHN0YXRpYyBzdHJ1Y3QgcnBtc2dfdHR5
-X3BvcnQgKnJwbXNnX3R0eV9hbGxvY19jcG9ydCh2b2lkKQo+PiBAQCAtMTM5LDYgKzE1Niw4IEBA
-IHN0YXRpYyBzdHJ1Y3QgcnBtc2dfdHR5X3BvcnQgKnJwbXNnX3R0eV9hbGxvY19jcG9ydCh2b2lk
-KQo+PiDCoCDCoCBzdGF0aWMgdm9pZCBycG1zZ190dHlfcmVsZWFzZV9jcG9ydChzdHJ1Y3QgcnBt
-c2dfdHR5X3BvcnQgKmNwb3J0KQo+PiDCoCB7Cj4+ICvCoMKgwqAgdHR5X3BvcnRfZGVzdHJveSgm
-Y3BvcnQtPnBvcnQpOwo+PiArCj4gCj4gWW91IHNob3VsZCBub3QgY2FsbCB0dHlfcG9ydF9kZXN0
-cm95IHdoZW4geW91IHVzZSByZWZjb3VudGluZy4gVGhlIHBvcnQgaXMKPiBhbHJlYWR5IGRlc3Ry
-b3llZCB3aGVuIC0+ZGVzdHJ1Y3QoKSBpcyBjYWxsZWQuIChJdCBoYXMgY3VycmVudGx5IG5vIGJh
-ZCBlZmZlY3QKPiBjYWxsaW5nIGl0IHR3aWNlIG9uIGEgcG9ydCB0aG91Z2guKQo+IAo+PiBAQCAt
-MTQ2LDcgKzE2NSwxNyBAQCBzdGF0aWMgdm9pZCBycG1zZ190dHlfcmVsZWFzZV9jcG9ydChzdHJ1
-Y3QgcnBtc2dfdHR5X3BvcnQKPj4gKmNwb3J0KQo+PiDCoMKgwqDCoMKgIGtmcmVlKGNwb3J0KTsK
-Pj4gwqAgfQo+PiDCoCAtc3RhdGljIGNvbnN0IHN0cnVjdCB0dHlfcG9ydF9vcGVyYXRpb25zIHJw
-bXNnX3R0eV9wb3J0X29wcyA9IHsgfTsKPj4gK3N0YXRpYyB2b2lkIHJwbXNnX3R0eV9kZXN0cnVj
-dF9wb3J0KHN0cnVjdCB0dHlfcG9ydCAqcG9ydCkKPj4gK3sKPj4gK8KgwqDCoCBzdHJ1Y3QgcnBt
-c2dfdHR5X3BvcnQgKmNwb3J0ID0gY29udGFpbmVyX29mKHBvcnQsIHN0cnVjdCBycG1zZ190dHlf
-cG9ydCwKPj4gcG9ydCk7Cj4+ICsKPj4gK8KgwqDCoCBycG1zZ190dHlfcmVsZWFzZV9jcG9ydChj
-cG9ydCk7Cj4+ICt9Cj4+ICsKPj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgdHR5X3BvcnRfb3BlcmF0
-aW9ucyBycG1zZ190dHlfcG9ydF9vcHMgPSB7Cj4+ICvCoMKgwqAgLmRlc3RydWN0ID0gcnBtc2df
-dHR5X2Rlc3RydWN0X3BvcnQsCj4+ICt9Owo+PiArCj4+IMKgIMKgIHN0YXRpYyBpbnQgcnBtc2df
-dHR5X3Byb2JlKHN0cnVjdCBycG1zZ19kZXZpY2UgKnJwZGV2KQo+PiDCoCB7Cj4+IEBAIC0xNzks
-NyArMjA4LDYgQEAgc3RhdGljIGludCBycG1zZ190dHlfcHJvYmUoc3RydWN0IHJwbXNnX2Rldmlj
-ZSAqcnBkZXYpCj4+IMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+IMKgIMKgIGVycl9kZXN0cm95Ogo+
-PiAtwqDCoMKgIHR0eV9wb3J0X2Rlc3Ryb3koJmNwb3J0LT5wb3J0KTsKPj4gwqDCoMKgwqDCoCBy
-cG1zZ190dHlfcmVsZWFzZV9jcG9ydChjcG9ydCk7Cj4gCj4gQ291bGRuJ3QgeW91IGp1c3QgcHV0
-IHRoZSBwb3J0IGhlcmU/IEFuZCBpbmxpbmUgcnBtc2dfdHR5X3JlbGVhc2VfY3BvcnQgaW50byB0
-aGUKPiBuZXcgcnBtc2dfdHR5X2Rlc3RydWN0X3BvcnQ/Cj4gCgpUaGFua3MgZm9yIGFsbCB0aGUg
-aW5zaWdodGZ1bCBjb21tZW50cywgVjMgaXMgY29taW5nLgoKPiB0aGFua3MsCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
-bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Mon, Dec 13, 2021 at 5:40 PM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+> GPIO library does copy the of_node from the parent device of
+> the GPIO chip, there is no need to repeat this in the individual
+> drivers. Remove these assignment all at once.
+>
+> For the details one may look into the of_gpio_dev_init() implementation.
+>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+
+>  drivers/pinctrl/renesas/pinctrl-rza2.c     | 1 -
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
