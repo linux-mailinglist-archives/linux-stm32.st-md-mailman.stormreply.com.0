@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFA494772C1
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 14:12:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0234C4772C4
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 14:12:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 812AAC5F1D8;
-	Thu, 16 Dec 2021 13:12:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 937BCC5F1D8;
+	Thu, 16 Dec 2021 13:12:26 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3293C5EC6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A83B4C5EC6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Dec 2021 13:12:04 +0000 (UTC)
+ Thu, 16 Dec 2021 13:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=wHsilHS0z8BwdSdM+lXoMOjmJiClWgkl8JYzzdvfN88=; b=DMeto2sE7xQ6XVdNbAW3Pu1UbB
- Qy4zgZ9S2hlzoPaEUHhz5wHhFQbgc5xI9YYHwdX+A8vcrbvgfRzeiSoztKMLRmxJfPLAVksfU14Es
- WV/DD/oX8qLfDM5Io/y0sTFQ+vr8/+rGrMMsNgfbX4TCWnBdX13HNYwAqpbgybYj9YFrVrCsX8Qwg
- vIk9h1A5ZKp1nCLez492YkBvnxLIEN6KZ8cDpxao5NJHhTc+S9yH5dyH79JYo43oLL8C23pZET7VI
- OpndX1Sxe3fobzuRa2dzTYJErFfx0v9GRKs7AFP8K54cMynp8oqICmVWZsqQGQFPbjoGHuDZCCOdG
- qjiRfpYw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56320)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=t2vjzoX9cwMjGlu4dHBqN2Zl8P2+SybJYTU85oK98A4=; b=SMZj88Eiuw7lYX5Oa3yKrx3JGW
+ BgDOrx6bkqpyDEKqhZXpUwVAu6bmXPI0zWuXzQJ+NvCwdum6Hh1yUvlBTixy/ZWPk3eIl6rfNchLw
+ R2p7gdCz2uqjOuQ+o99Hzjv3FpV//SOC+7nESCl0AYVuXGgeQ2wfkXFisx2njI93ek3D4BcXj6hJM
+ rwtToUHU2xpmS7l5rQrr+JT17AUt/sxkJdS4knKKcWt7QRxLv28vAjHWRH8rgRLO44bpRMT35JShI
+ SZ+4y7ONV2/1ko/nVXvwbYA2itVZZBrLCHBiv5fngUomG4ICXlbvbng+G0Qwzq1PNm3JpvURRrk5o
+ Xhfkfptg==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:49902 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1mxqY6-0007sD-O7; Thu, 16 Dec 2021 13:11:54 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1mxqXs-0005Rj-Cp; Thu, 16 Dec 2021 13:11:40 +0000
-Date: Thu, 16 Dec 2021 13:11:40 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>)
+ id 1mxqYY-0007sf-SG; Thu, 16 Dec 2021 13:12:22 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@armlinux.org.uk>)
+ id 1mxqYY-00GYYc-EW; Thu, 16 Dec 2021 13:12:22 +0000
+In-Reply-To: <Ybs7DNDkBrf73jDi@shell.armlinux.org.uk>
+References: <Ybs7DNDkBrf73jDi@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Jose Abreu <Jose.Abreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Message-ID: <Ybs7DNDkBrf73jDi@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH CFT net-next 0/6] net: stmmac/xpcs: modernise
-	PCS support
+Message-Id: <E1mxqYY-00GYYc-EW@rmk-PC.armlinux.org.uk>
+Date: Thu, 16 Dec 2021 13:12:22 +0000
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH CFT net-next 2/6] net: stmmac: convert to
+ phylink_get_linkmodes()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,59 +66,174 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Add the MAC speed, duplex and pause capabilities to the phylink_config
+structure, and switch stmmac_validate() to use phylink_get_linkmodes()
+to generate the mask of supported ethtool link modes.
 
-This series updates xpcs and stmmac for the recent changes to phylink
-to better support split PCS and to get rid of private MAC validation
-functions.
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 125 ++++++------------
+ 1 file changed, 42 insertions(+), 83 deletions(-)
 
-This series is slightly more involved than other conversions as stmmac
-has already had optional proper split PCS support.
-
-The patches:
-
-1) Provide a function to query the xpcs for the interface modes that
-   are supported.
-
-2) Populates the MAC capabilities and switches stmmac_validate() to use
-   phylink_get_linkmodes(). We do not use phylink_generic_validate() yet
-   as (a) we do not always have the supported interfaces populated, and
-   (b) the existing code does not restrict based on interface. There
-   should be no functional effect from this patch.
-
-3) Populates phylink's supported interfaces from the xpcs when the xpcs
-   is configured by firmware and also the firmware configured interface
-   mode. Note: this will restrict stmmac to only supporting these
-   interfaces modes - stmmac maintainers need to verify that this
-   behaviour is acceptable.
-
-4) stmmac_validate() tail-calls xpcs_validate(), but we don't need it to
-   now that PCS have their own validation method. Convert stmmac and
-   xpcs to use this method instead.
-
-5) xpcs sets the poll field of phylink_pcs to true, meaning xpcs
-   requires its status to be polled. There is no need to also set the
-   phylink_config.pcs_poll. Remove this.
-
-6) Switch to phylink_generic_validate(). This is probably the most
-   contravertial change in this patch set as this will cause the MAC to
-   restrict link modes based on the interface mode. From an inspection
-   of the xpcs driver, this should be safe, as XPCS only further
-   restricts the link modes to a subset of these (whether that is
-   correct or not is not an issue I am addressing here.) For
-   implementations that do not use xpcs, this is a more open question
-   and needs feedback from stmmac maintainers.
-
-Please review and test this series. Thanks!
-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 144 ++++++----------------
- drivers/net/pcs/pcs-xpcs.c                        |  41 +++---
- include/linux/pcs/pcs-xpcs.h                      |   3 +-
- 3 files changed, 67 insertions(+), 121 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index c26ac288f981..09bef8310360 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -942,95 +942,22 @@ static void stmmac_validate(struct phylink_config *config,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
+ 	__ETHTOOL_DECLARE_LINK_MODE_MASK(mac_supported) = { 0, };
+-	__ETHTOOL_DECLARE_LINK_MODE_MASK(mask) = { 0, };
+-	int tx_cnt = priv->plat->tx_queues_to_use;
+-	int max_speed = priv->plat->max_speed;
+-
+-	phylink_set(mac_supported, 10baseT_Half);
+-	phylink_set(mac_supported, 10baseT_Full);
+-	phylink_set(mac_supported, 100baseT_Half);
+-	phylink_set(mac_supported, 100baseT_Full);
+-	phylink_set(mac_supported, 1000baseT_Half);
+-	phylink_set(mac_supported, 1000baseT_Full);
+-	phylink_set(mac_supported, 1000baseKX_Full);
+ 
++	/* This is very similar to phylink_generic_validate() except that
++	 * we always use PHY_INTERFACE_MODE_INTERNAL to get all capabilities.
++	 * This is because we don't always have config->supported_interfaces
++	 * populated (only when we have the XPCS.)
++	 *
++	 * When we do have an XPCS, we could pass state->interface, as XPCS
++	 * limits to a subset of the ethtool link modes allowed here.
++	 */
+ 	phylink_set(mac_supported, Autoneg);
+-	phylink_set(mac_supported, Pause);
+-	phylink_set(mac_supported, Asym_Pause);
+ 	phylink_set_port_modes(mac_supported);
+-
+-	/* Cut down 1G if asked to */
+-	if ((max_speed > 0) && (max_speed < 1000)) {
+-		phylink_set(mask, 1000baseT_Full);
+-		phylink_set(mask, 1000baseX_Full);
+-	} else if (priv->plat->has_gmac4) {
+-		if (!max_speed || max_speed >= 2500) {
+-			phylink_set(mac_supported, 2500baseT_Full);
+-			phylink_set(mac_supported, 2500baseX_Full);
+-		}
+-	} else if (priv->plat->has_xgmac) {
+-		if (!max_speed || (max_speed >= 2500)) {
+-			phylink_set(mac_supported, 2500baseT_Full);
+-			phylink_set(mac_supported, 2500baseX_Full);
+-		}
+-		if (!max_speed || (max_speed >= 5000)) {
+-			phylink_set(mac_supported, 5000baseT_Full);
+-		}
+-		if (!max_speed || (max_speed >= 10000)) {
+-			phylink_set(mac_supported, 10000baseSR_Full);
+-			phylink_set(mac_supported, 10000baseLR_Full);
+-			phylink_set(mac_supported, 10000baseER_Full);
+-			phylink_set(mac_supported, 10000baseLRM_Full);
+-			phylink_set(mac_supported, 10000baseT_Full);
+-			phylink_set(mac_supported, 10000baseKX4_Full);
+-			phylink_set(mac_supported, 10000baseKR_Full);
+-		}
+-		if (!max_speed || (max_speed >= 25000)) {
+-			phylink_set(mac_supported, 25000baseCR_Full);
+-			phylink_set(mac_supported, 25000baseKR_Full);
+-			phylink_set(mac_supported, 25000baseSR_Full);
+-		}
+-		if (!max_speed || (max_speed >= 40000)) {
+-			phylink_set(mac_supported, 40000baseKR4_Full);
+-			phylink_set(mac_supported, 40000baseCR4_Full);
+-			phylink_set(mac_supported, 40000baseSR4_Full);
+-			phylink_set(mac_supported, 40000baseLR4_Full);
+-		}
+-		if (!max_speed || (max_speed >= 50000)) {
+-			phylink_set(mac_supported, 50000baseCR2_Full);
+-			phylink_set(mac_supported, 50000baseKR2_Full);
+-			phylink_set(mac_supported, 50000baseSR2_Full);
+-			phylink_set(mac_supported, 50000baseKR_Full);
+-			phylink_set(mac_supported, 50000baseSR_Full);
+-			phylink_set(mac_supported, 50000baseCR_Full);
+-			phylink_set(mac_supported, 50000baseLR_ER_FR_Full);
+-			phylink_set(mac_supported, 50000baseDR_Full);
+-		}
+-		if (!max_speed || (max_speed >= 100000)) {
+-			phylink_set(mac_supported, 100000baseKR4_Full);
+-			phylink_set(mac_supported, 100000baseSR4_Full);
+-			phylink_set(mac_supported, 100000baseCR4_Full);
+-			phylink_set(mac_supported, 100000baseLR4_ER4_Full);
+-			phylink_set(mac_supported, 100000baseKR2_Full);
+-			phylink_set(mac_supported, 100000baseSR2_Full);
+-			phylink_set(mac_supported, 100000baseCR2_Full);
+-			phylink_set(mac_supported, 100000baseLR2_ER2_FR2_Full);
+-			phylink_set(mac_supported, 100000baseDR2_Full);
+-		}
+-	}
+-
+-	/* Half-Duplex can only work with single queue */
+-	if (tx_cnt > 1) {
+-		phylink_set(mask, 10baseT_Half);
+-		phylink_set(mask, 100baseT_Half);
+-		phylink_set(mask, 1000baseT_Half);
+-	}
++	phylink_get_linkmodes(mac_supported, PHY_INTERFACE_MODE_INTERNAL,
++			      config->mac_capabilities);
+ 
+ 	linkmode_and(supported, supported, mac_supported);
+-	linkmode_andnot(supported, supported, mask);
+-
+ 	linkmode_and(state->advertising, state->advertising, mac_supported);
+-	linkmode_andnot(state->advertising, state->advertising, mask);
+ 
+ 	/* If PCS is supported, check which modes it supports. */
+ 	if (priv->hw->xpcs)
+@@ -1253,6 +1180,7 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+ {
+ 	struct stmmac_mdio_bus_data *mdio_bus_data = priv->plat->mdio_bus_data;
+ 	struct fwnode_handle *fwnode = of_fwnode_handle(priv->plat->phylink_node);
++	int max_speed = priv->plat->max_speed;
+ 	int mode = priv->plat->phy_interface;
+ 	struct phylink *phylink;
+ 
+@@ -1266,6 +1194,37 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+ 	if (!fwnode)
+ 		fwnode = dev_fwnode(priv->device);
+ 
++	priv->phylink_config.mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
++		MAC_10 | MAC_100;
++
++	if (!max_speed || max_speed >= 1000)
++		priv->phylink_config.mac_capabilities |= MAC_1000;
++
++	if (priv->plat->has_gmac4) {
++		if (!max_speed || max_speed >= 2500)
++			priv->phylink_config.mac_capabilities |= MAC_2500FD;
++	} else if (priv->plat->has_xgmac) {
++		if (!max_speed || max_speed >= 2500)
++			priv->phylink_config.mac_capabilities |= MAC_2500FD;
++		if (!max_speed || max_speed >= 5000)
++			priv->phylink_config.mac_capabilities |= MAC_5000FD;
++		if (!max_speed || max_speed >= 10000)
++			priv->phylink_config.mac_capabilities |= MAC_10000FD;
++		if (!max_speed || max_speed >= 25000)
++			priv->phylink_config.mac_capabilities |= MAC_25000FD;
++		if (!max_speed || max_speed >= 40000)
++			priv->phylink_config.mac_capabilities |= MAC_40000FD;
++		if (!max_speed || max_speed >= 50000)
++			priv->phylink_config.mac_capabilities |= MAC_50000FD;
++		if (!max_speed || max_speed >= 100000)
++			priv->phylink_config.mac_capabilities |= MAC_100000FD;
++	}
++
++	/* Half-Duplex can only work with single queue */
++	if (priv->plat->tx_queues_to_use > 1)
++		priv->phylink_config.mac_capabilities &=
++			~(MAC_10HD | MAC_100HD | MAC_1000HD);
++
+ 	phylink = phylink_create(&priv->phylink_config, fwnode,
+ 				 mode, &stmmac_phylink_mac_ops);
+ 	if (IS_ERR(phylink))
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
