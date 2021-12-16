@@ -2,61 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59FB8477D34
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 21:15:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B057477DD8
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 21:51:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 200DEC5F1D9;
-	Thu, 16 Dec 2021 20:15:49 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C6D8C5F1D9;
+	Thu, 16 Dec 2021 20:51:45 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E149AC5EC76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD834C5EC6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Dec 2021 20:15:47 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- i5-20020a05683033e500b0057a369ac614so256921otu.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Dec 2021 12:15:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=gnZ2FBw98i/ACm5Oz2lt4Y7quKT4nxqXJ+lm8AP+1O0=;
- b=3oArRsvvnuLM4oPm5JvIYR/eGJt2WoEmUrBKOvV68WHfcSpLyLe1kHLadd2cYEgrY4
- qJTsahp5d051HEwMdDICgMJgdRsXoxwWXi1hpx+PvuI+e/adxlLNd+/HG3xZ0mwttqVL
- Dc8M8fwPl/Jv2a+iREq3vfRsL/6Rrv51finLV4ws7O38zKq0I5PDKrmb8mmoMu71SnF2
- h+6z3dIRLaqLqJ9oTsjxpuOSRduPhJs3uj2UXDhkyFIywTQ/dT5cIWg+1gcvtH9eGNDk
- aySmH7GJnaAhYSW4XXMx9DrRrcA/+Dk2GEEQ3PWsGzUKcIbqv81B4wK44YOLK9GvBD47
- Ebyw==
-X-Gm-Message-State: AOAM533qsop9VPYwPcsrLRi8VuSK+aj/WYM283N62t6+0kd20FRyGKC0
- KXeOj+Far03PomDvESgVCw==
-X-Google-Smtp-Source: ABdhPJySK6rf6Rcp4m3frEmeBIfJFU98tfB1Ohx58HPIMFdOnSgnDvtOpeqqOegdtB4lfWkjYj/zfg==
-X-Received: by 2002:a05:6830:1281:: with SMTP id
- z1mr13987300otp.230.1639685746879; 
- Thu, 16 Dec 2021 12:15:46 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id bh12sm1188906oib.25.2021.12.16.12.15.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Dec 2021 12:15:46 -0800 (PST)
-Received: (nullmailer pid 682135 invoked by uid 1000);
- Thu, 16 Dec 2021 20:15:45 -0000
-Date: Thu, 16 Dec 2021 14:15:45 -0600
-From: Rob Herring <robh@kernel.org>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Message-ID: <YbuecSGljX4Zzso+@robh.at.kernel.org>
-References: <20211215105847.2328-1-alexandre.torgue@foss.st.com>
- <20211215105847.2328-4-alexandre.torgue@foss.st.com>
+ Thu, 16 Dec 2021 20:51:43 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 936E7B82644;
+ Thu, 16 Dec 2021 20:51:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CDAF6C36AEE;
+ Thu, 16 Dec 2021 20:51:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1639687900;
+ bh=Ud7JEZsgfXJLxq8d3PVyQQhBSvG6W/4Xe5JpvEINbpY=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=ACk2ZAjMluqh/Ro4YXUl4Ntia5uwxYnXNQEu+tvecRNud+n7900O7s48InNPUlcgr
+ ie/q4Up5cBG6UW2/vTOHK9lXcT1tEGq2AIDOZDlGieRpDp0YoEDlADNFYVSFLrSzIw
+ 1wV/KHUQwp90Fnn6UoF9GIyRjyvPPRYyv8oQf1LoH9JMdyyVyec0xIqCVg2B1QjN3U
+ QzE9PrMjXcgoAzzxhNK/ftV7S0LKMYbiLU/bLReE18Ekm/uuXTaYxcly266u5NwGNg
+ cr1i9iW20Dk9AP5GjhNHfKbsUaaxJaQ/0f0sqv0fFiS3PGaooP7modkYncRJDBH6WX
+ aX6RhElbPkuGA==
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id B00FF60A4F;
+ Thu, 16 Dec 2021 20:51:40 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211215105847.2328-4-alexandre.torgue@foss.st.com>
-Cc: devicetree@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <163968790071.17466.7200435085941937139.git-patchwork-notify@kernel.org>
+Date: Thu, 16 Dec 2021 20:51:40 +0000
+References: <20211214191009.2454599-1-john@metanate.com>
+In-Reply-To: <20211214191009.2454599-1-john@metanate.com>
+To: John Keeping <john@metanate.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ david.wu@rock-chips.com, alexandre.torgue@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ joabreu@synopsys.com, ezequiel@vanguardiasur.com.ar, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, peppe.cavallaro@st.com, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/5] dt-bindings: interrupt-controller:
- stm32-exti: document st, stm32mp13-exti
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-rk: fix oob read in
+	rk_gmac_setup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,13 +65,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 15 Dec 2021 11:58:45 +0100, Alexandre Torgue wrote:
-> Support of STM32MP13 SoC implies a new EXTI-GIC mapping.
-> 
-> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> 
+Hello:
 
-Acked-by: Rob Herring <robh@kernel.org>
+This patch was applied to netdev/net.git (master)
+by David S. Miller <davem@davemloft.net>:
+
+On Tue, 14 Dec 2021 19:10:09 +0000 you wrote:
+> KASAN reports an out-of-bounds read in rk_gmac_setup on the line:
+> 
+> 	while (ops->regs[i]) {
+> 
+> This happens for most platforms since the regs flexible array member is
+> empty, so the memory after the ops structure is being read here.  It
+> seems that mostly this happens to contain zero anyway, so we get lucky
+> and everything still works.
+> 
+> [...]
+
+Here is the summary with links:
+  - net: stmmac: dwmac-rk: fix oob read in rk_gmac_setup
+    https://git.kernel.org/netdev/net/c/0546b224cc77
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
