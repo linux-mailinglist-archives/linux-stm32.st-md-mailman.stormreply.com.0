@@ -2,63 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D0D44768A3
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 04:23:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F53D4769E8
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 06:53:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEC47C5E2C6;
-	Thu, 16 Dec 2021 03:23:48 +0000 (UTC)
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
- [209.85.210.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E52BC5E2C6;
+	Thu, 16 Dec 2021 05:53:35 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D021C5E2C3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA0C7C597BA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Dec 2021 03:23:47 +0000 (UTC)
-Received: by mail-ot1-f46.google.com with SMTP id
- v15-20020a9d604f000000b0056cdb373b82so27376020otj.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Dec 2021 19:23:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Tu2NGSrgJfVwTrxV5gAyRVtFDdQnC1eWVUu1iP8zEN8=;
- b=BlF8OZZXcAlTD9yavJ/2Edp4bspRnEAudkBYiMjp27yXG0WM3UUR+WX7lrDx86g/r1
- 1cF4LKNGY4eWGWN1q/+PQI32Xz/2UD9dyaH00o1Bz4yMSYof1gowQ25Tve05nMhwtSon
- wop7AtGlpomNS+xRb6S1LeTK1QzpnQW3IZsWf9wKeNNGmbThmoUzPGUrtYtVyJDWXZVt
- wU7Bn4o+5eYSEuG2glrrrM4VsVYeYQEZ8TlgZpzjNORHL/x4mK2tb55jxY3gxCfSOJPE
- y4DBlM7lzB+0PXsWSV0TlytbpgTRzp0ft0QMpIsyiDFnjweiDywaO4sraUrApVDXMWZx
- aLTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Tu2NGSrgJfVwTrxV5gAyRVtFDdQnC1eWVUu1iP8zEN8=;
- b=OIsHEiqSzBSew123DDqmM2pucQ5QvZj3EEVWNoDhrtAsoKkIEORXFDR4FLKtmx49u3
- +w9UcIKaWp2dl+rz19FuUvsBplILFf6z06IIkCszkhzE10GqRB+O22rAnwT3iED9dNlf
- veYbABCSAo+eFsVXp2leB+Q3EefC8JFm5PZMUEnvN9gXx4oE6yND6O7eGRELZOUi7wYi
- XawvxvccgVBAgvppbLnOk71zWitPD9kSLHUpSrYSVtDDjyRT53RSk0eS3FZaAODC/G1Q
- XSdg+5H4ufQLc7oU6mFP4nex1+wFwXsipZ43OAhtkTYqoWQdWw9UIykQadmlkYa6Xn/g
- bE1Q==
-X-Gm-Message-State: AOAM530Sy3M3676SSrlxcLJ+yWjoL/e1Kp82jJjOQhndBTfD71Tz1ANQ
- Dui4baFGpEDVJ/+2outz2nYSsV7n6Q/+fko4IK5YSQ==
-X-Google-Smtp-Source: ABdhPJyY+kaKouB91L9mIADgugdeKmhVXLKaMwoLSKVdKhTyrm1W05U50db4LhIhM9NZuvZLM8U0AIG+vZRgFzXO658=
-X-Received: by 2002:a9d:74d0:: with SMTP id a16mr10939446otl.237.1639625026377; 
- Wed, 15 Dec 2021 19:23:46 -0800 (PST)
+ Thu, 16 Dec 2021 05:53:33 +0000 (UTC)
+X-UUID: c61256ed9c834d5d9960755e2bf63d76-20211216
+X-UUID: c61256ed9c834d5d9960755e2bf63d76-20211216
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 113848959; Thu, 16 Dec 2021 13:53:30 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Thu, 16 Dec 2021 13:53:29 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkcas10.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.0.1497.2 via Frontend Transport; Thu, 16 Dec 2021 13:53:28 +0800
+From: Biao Huang <biao.huang@mediatek.com>
+To: <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>
+Date: Thu, 16 Dec 2021 13:53:22 +0800
+Message-ID: <20211216055328.15953-1-biao.huang@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20211215141727.4901-1-yann.gautier@foss.st.com>
-In-Reply-To: <20211215141727.4901-1-yann.gautier@foss.st.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 16 Dec 2021 04:23:34 +0100
-Message-ID: <CACRpkdagP-UoSyWeOVoxitaMJru+Z_rRa-V3RbLg2jHOnq=_hQ@mail.gmail.com>
-To: Yann Gautier <yann.gautier@foss.st.com>
-Cc: Marek Vasut <marex@denx.de>, Ludovic Barre <ludovic.barre@foss.st.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+X-MTK: N
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- Vladimir Zapolskiy <vz@mleia.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- u.kleine-koenig@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/4] mmc: mmci: updates for STM32MP13
+ dkirjanov@suse.de, Jose Abreu <joabreu@synopsys.com>,
+ linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
+Subject: [Linux-stm32] [PATCH net-next v10 0/6] MediaTek Ethernet Patches on
+	MT8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,17 +62,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Dec 15, 2021 at 3:18 PM Yann Gautier <yann.gautier@foss.st.com> wrote:
+Changes in v10:
+1. add detailed description in "arm64: dts: mt2712: update ethernet
+   device node" to make the modifications clearer as Matthias's coments.
+2. modify dt-binding description as Rob's comments, and "make dtbs_check" runs
+   pass locally with "arm64: dts: mt2712: update ethernet device node"
+   in this series.
 
-> The new STmicroelectronics STM32MP13 SoC embeds a new version
-> of the SDMMC peripheral (v2.2).
-> It supports SDR104 and HS200 modes.
+Changes in v9:
+1. remove oneOf for 1 entry as Rob's comments.
+2. add new clocks to the end of existing clocks to simplify
+   the binding as Rob's comments.
 
-Patches look good to me!
-Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Changes in v8:
+1. add acked-by in "stmmac: dwmac-mediatek: add platform level clocks
+   management" patch
 
-Yours,
-Linus Walleij
+Changes in v7:
+1. fix uninitialized warning as Jakub's comments.
+
+Changes in v6:
+1. update commit message as Jakub's comments.
+2. split mt8195 eth dts patch("arm64: dts: mt8195: add ethernet device
+   node") from this series, since mt8195 dtsi/dts basic patches is still
+   under reviewing.
+   https://patchwork.kernel.org/project/linux-mediatek/list/?series=579071
+   we'll resend mt8195 eth dts patch once all the dependent patches are
+   accepted.
+
+Changes in v5:
+1. remove useless inclusion in dwmac-mediatek.c as Angelo's comments.
+2. add acked-by in "net-next: stmmac: dwmac-mediatek: add support for
+   mt8195" patch
+
+Changes in v4:
+1. add changes in commit message in "net-next: dt-bindings: dwmac:
+   Convert mediatek-dwmac to DT schema" patch.
+2. remove ethernet-controller.yaml since snps,dwmac.yaml already include it.
+
+Changes in v3:
+1. Add prefix "net-next" to support new IC as Denis's suggestion.
+2. Split dt-bindings to two patches, one for conversion, and the other for
+   new IC.
+3. add a new patch to update device node in mt2712-evb.dts to accommodate to
+   changes in driver.
+4. remove unnecessary wrapper as Angelo's suggestion.
+5. Add acked-by in "net-next: stmmac: dwmac-mediatek: Reuse more common
+   features" patch.
+
+Changes in v2:
+1. fix errors/warnings in mediatek-dwmac.yaml with upgraded dtschema tools
+
+This series include 5 patches:
+1. add platform level clocks management for dwmac-mediatek
+2. resue more common features defined in stmmac_platform.c
+3. add ethernet entry for mt8195
+
+Biao Huang (6):
+  stmmac: dwmac-mediatek: add platform level clocks management
+  stmmac: dwmac-mediatek: Reuse more common features
+  arm64: dts: mt2712: update ethernet device node
+  net: dt-bindings: dwmac: Convert mediatek-dwmac to DT schema
+  stmmac: dwmac-mediatek: add support for mt8195
+  net: dt-bindings: dwmac: add support for mt8195
+
+ .../bindings/net/mediatek-dwmac.txt           |  91 ------
+ .../bindings/net/mediatek-dwmac.yaml          | 176 ++++++++++
+ arch/arm64/boot/dts/mediatek/mt2712-evb.dts   |   1 +
+ arch/arm64/boot/dts/mediatek/mt2712e.dtsi     |  14 +-
+ .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 306 ++++++++++++++++--
+ 5 files changed, 469 insertions(+), 119 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.txt
+ create mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+
+--
+2.18.0
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
