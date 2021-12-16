@@ -2,40 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D0BF4771D5
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 13:31:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 933E74772B2
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 14:07:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E21AC5E2C5;
-	Thu, 16 Dec 2021 12:31:17 +0000 (UTC)
-Received: from haggis.mythic-beasts.com (haggis.mythic-beasts.com
- [46.235.224.141])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37119C5F1D8;
+	Thu, 16 Dec 2021 13:07:34 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA5B9C5E2C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE063C5EC6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Dec 2021 12:31:15 +0000 (UTC)
-Received: from [81.101.6.87] (port=52570 helo=jic23-huawei)
- by haggis.mythic-beasts.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92.3)
- (envelope-from <jic23@jic23.retrosnub.co.uk>)
- id 1mxpuh-0005Cz-Dz; Thu, 16 Dec 2021 12:31:11 +0000
-Date: Thu, 16 Dec 2021 12:36:27 +0000
-From: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20211216123615.3e311c2b@jic23-huawei>
-In-Reply-To: <20211215232513.2070158-1-keescook@chromium.org>
-References: <20211215232513.2070158-1-keescook@chromium.org>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-pc-linux-gnu)
+ Thu, 16 Dec 2021 13:07:32 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mxqTn-000443-EX; Thu, 16 Dec 2021 14:07:27 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mxqTm-004r7E-CV; Thu, 16 Dec 2021 14:07:25 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1mxqTk-0004pe-Nu; Thu, 16 Dec 2021 14:07:24 +0100
+Date: Thu, 16 Dec 2021 14:07:24 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <20211216130724.qhragmcgtgvgwghq@pengutronix.de>
+References: <20211215152535.41200-1-u.kleine-koenig@pengutronix.de>
+ <CAL_JsqKW3XJ6n5CLg_BNEaASkUnXLM=J_XZW8M6i7sGPuZ8_9A@mail.gmail.com>
 MIME-Version: 1.0
-X-BlackCat-Spam-Score: 19
-X-Spam-Status: No, score=1.9
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Yury Norov <yury.norov@gmail.com>,
- linux-iio@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: stmpe-adc: Use correctly sized
- arguments for bit field
+In-Reply-To: <CAL_JsqKW3XJ6n5CLg_BNEaASkUnXLM=J_XZW8M6i7sGPuZ8_9A@mail.gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Sascha Hauer <kernel@pengutronix.de>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add timer interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -47,83 +57,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7625356950130136668=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 15 Dec 2021 15:25:13 -0800
-Kees Cook <keescook@chromium.org> wrote:
 
-> The find.h APIs are designed to be used only on unsigned long arguments.
-> This can technically result in a over-read, but it is harmless in this
-> case. Regardless, fix it to avoid the warning seen under -Warray-bounds,
-> which we'd like to enable globally:
-> 
-> In file included from ./include/linux/bitmap.h:9,
->                  from ./include/linux/cpumask.h:12,
->                  from ./arch/x86/include/asm/cpumask.h:5,
->                  from ./arch/x86/include/asm/msr.h:11,
->                  from ./arch/x86/include/asm/processor.h:22,
->                  from ./arch/x86/include/asm/cpufeature.h:5,
->                  from ./arch/x86/include/asm/thread_info.h:53,
->                  from ./include/linux/thread_info.h:60,
->                  from ./arch/x86/include/asm/preempt.h:7,
->                  from ./include/linux/preempt.h:78,
->                  from ./include/linux/spinlock.h:55,
->                  from ./include/linux/swait.h:7,
->                  from ./include/linux/completion.h:12,
->                  from drivers/iio/adc/stmpe-adc.c:10:
-> drivers/iio/adc/stmpe-adc.c: In function 'stmpe_adc_probe':
-> ./include/linux/find.h:98:23: warning: array subscript 'long unsigned int[0]' is partly outside array bounds of 'u32[1]' {aka 'unsigned int[1]'} [-Warray-bounds]
->    98 |                 val = *addr | ~GENMASK(size - 1, offset);
->       |                       ^~~~~
-> drivers/iio/adc/stmpe-adc.c:258:13: note: while referencing 'norequest_mask'
->   258 |         u32 norequest_mask = 0;
->       |             ^~~~~~~~~~~~~~
-> 
-> Signed-off-by: Kees Cook <keescook@chromium.org>
+--===============7625356950130136668==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jhcaijwvjxwchgmv"
+Content-Disposition: inline
 
-Applied to the togreg branch of iio.git and pushed out as testing to let
-0-day have a first poke at it.
 
-I took the view this one was trivial, but if anyone else wants to add
-tags there will be a few days before this goes out in a form I'm not happy
-to rebase.
+--jhcaijwvjxwchgmv
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
+Hello Rob,
 
-Jonathan
+On Wed, Dec 15, 2021 at 06:49:33PM -0600, Rob Herring wrote:
+> > diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml=
+ b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> > index 10b330d42901..5e4214d1613b 100644
+> > --- a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> > +++ b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> > @@ -46,6 +46,19 @@ properties:
+> >      minItems: 1
+> >      maxItems: 7
+> >
+> > +  interrupts:
+> > +    maxItems: 4
+>=20
+> Please test this against your dts change. It will fail.
 
-> ---
->  drivers/iio/adc/stmpe-adc.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
-> index fba659bfdb40..d2d405388499 100644
-> --- a/drivers/iio/adc/stmpe-adc.c
-> +++ b/drivers/iio/adc/stmpe-adc.c
-> @@ -256,6 +256,7 @@ static int stmpe_adc_probe(struct platform_device *pdev)
->  	struct stmpe_adc *info;
->  	struct device_node *np;
->  	u32 norequest_mask = 0;
-> +	unsigned long bits;
->  	int irq_temp, irq_adc;
->  	int num_chan = 0;
->  	int i = 0;
-> @@ -309,8 +310,8 @@ static int stmpe_adc_probe(struct platform_device *pdev)
->  
->  	of_property_read_u32(np, "st,norequest-mask", &norequest_mask);
->  
-> -	for_each_clear_bit(i, (unsigned long *) &norequest_mask,
-> -			   (STMPE_ADC_LAST_NR + 1)) {
-> +	bits = norequest_mask;
-> +	for_each_clear_bit(i, &bits, (STMPE_ADC_LAST_NR + 1)) {
->  		stmpe_adc_voltage_chan(&info->stmpe_adc_iio_channels[num_chan], i);
->  		num_chan++;
->  	}
+I thought I did. Probably I missed the error message in the noise ...
+
+> You need a 'minItems: 1' otherwise 4 interrupts are always required.
+
+Will address your feedback in a v3. (I sent a v2 already that still
+suffers from the issues you pointed out.)
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--jhcaijwvjxwchgmv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEyBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmG7OgkACgkQwfwUeK3K
+7AnibgfzB3/gD2BwmKgOmJcvAR4QPHR88UgN0Z6Ru8KvgvK7xa2GJG2vz/YTHeNM
+L6JKso+pJYelRYjEZlD9f3cExmphoDUCHtRun/wTyPtDebOh+Jj5moFmBNGlK7h+
+zRpztk7ZERGLbJA4udGQ8JTtE6ualFH8i6/P9ZQQs6HzlnV0ylLPrO0jpJ2ma0+R
+BlkVOYBI5XKEON7bmoTzhJdwKeFR+WvbiB3wNYea7vF+dpov5w2ZSxHPqPoxHF1z
+kM2XY2wxBcq+A42ITWrlgc6phIsTIUN9WLlikd/+vk4NWhlfFoqDI11XL1lpsss+
+ZbnUwITPw6N0sJ1A1bSOEP/MtpKM
+=AtDJ
+-----END PGP SIGNATURE-----
+
+--jhcaijwvjxwchgmv--
+
+--===============7625356950130136668==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7625356950130136668==--
