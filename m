@@ -2,58 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A588476D26
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 10:14:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1FA5476D43
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Dec 2021 10:19:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21EC9C5E2C5;
-	Thu, 16 Dec 2021 09:14:49 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 788FBC5E2C5;
+	Thu, 16 Dec 2021 09:19:17 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE925C5E2C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CF3BC5E2C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Dec 2021 09:14:47 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 36F7181184;
- Thu, 16 Dec 2021 10:14:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1639646087;
- bh=4KGuTwhojZAMWLlAy5DjgLUqaT2ZYVoaf+TvkydJd6g=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=Ry1NwOreBD5Fe9kQOZopFc9TvTpmrIth2ygVZpeDfr6aTJx1VpTSKFVDxhmdMHb/4
- TcrlwAE8nzgtFB+okKjLeukYCAh2I8v+jPXVXXrjZsxvC1so8XiJRXgZv3ha4e6IN+
- 1FwibcMnBppdrAl5dMInx4KoVz8VHCWVUB/wTXbNNmQyYgHO82aVf1RKJz0LBjDy8E
- fTniyOFhZof+egJs8XoT5h6580xX6qpGop+ROnMIyUHq9VOhL0ki9jkTsqnkGHEi5f
- S18AscO+GQJ85tpuHBu4LEto9Tkcuvfnp1kUSRl7Y7QmWreKz/Itq4xX302Ya9SL+v
- jZ1q1G+adstkQ==
-Message-ID: <c4528bc5-a826-a4ed-c4d6-e0ab84651ea2@denx.de>
-Date: Thu, 16 Dec 2021 10:14:45 +0100
+ Thu, 16 Dec 2021 09:19:15 +0000 (UTC)
+X-UUID: f91818ef3da34782b93f95ad3c737cfc-20211216
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=bTB+d+6540APzNiuwJ5CwBTovmrwX9Xq5yWvw8PCSXY=; 
+ b=cS9T+nR/oUDhKuj17kXm4Ub8rHufXyrLJAUMRPdXVtAHfbvQpQ2l9Ug65u5OXcNOqmdIXyTf6LQLJoJwf7vl00+DMG1IRYXatZ2LBGxtgaId8ESFEMfReOwFeab1MTBa4VPo3mfXlTExHD3Zyhy0Io5sZVkEyg97Jnw4z1t8BKk=;
+X-UUID: f91818ef3da34782b93f95ad3c737cfc-20211216
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1481544654; Thu, 16 Dec 2021 17:19:09 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Thu, 16 Dec 2021 17:19:08 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Thu, 16 Dec 2021 17:19:06 +0800
+Message-ID: <a5f6a29fed9c0c886b4a09cfa258e8d87d0340fd.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, <davem@davemloft.net>, "Jakub
+ Kicinski" <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>
+Date: Thu, 16 Dec 2021 17:19:08 +0800
+In-Reply-To: <c3f49e45-ccfe-dc11-52c5-c204d6f7a889@gmail.com>
+References: <20211210013129.811-1-biao.huang@mediatek.com>
+ <20211210013129.811-4-biao.huang@mediatek.com>
+ <c3f49e45-ccfe-dc11-52c5-c204d6f7a889@gmail.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Content-Language: en-US
-To: Yann Gautier <yann.gautier@foss.st.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, Russell King <linux@armlinux.org.uk>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Linus Walleij <linus.walleij@linaro.org>, Vladimir Zapolskiy <vz@mleia.com>,
- u.kleine-koenig@pengutronix.de,
- Christophe Kerello <christophe.kerello@foss.st.com>,
- Ludovic Barre <ludovic.barre@foss.st.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20211215141727.4901-1-yann.gautier@foss.st.com>
- <20211215141727.4901-5-yann.gautier@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <20211215141727.4901-5-yann.gautier@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
-X-Virus-Status: Clean
-Subject: Re: [Linux-stm32] [PATCH 4/4] mmc: mmci: add hs200 support for
-	stm32 sdmmc
+X-MTK: N
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, dkirjanov@suse.de,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH net-next v8 3/6] arm64: dts: mt2712:
+ update ethernet device node
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,19 +64,104 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/15/21 15:17, Yann Gautier wrote:
-> Use feedback clock for HS200 mode, as for SDR104.
-> The HS200 mode can be enabled through DT by using mmc-hs200-1_8v.
-> It is possible to use it on STM32MP13, but not STM32MP15 platforms.
+Dear Matthias,
+	Thanks for your comments~
 
-HS200 is possible even on the MP15, it just doesn't yield any 
-(performance) benefits due to the slower bus clock (125 MHz or so?), so 
-it isn't worth enabling it on MP15. It is nice to see MP13 can do better.
+On Wed, 2021-12-15 at 20:20 +0100, Matthias Brugger wrote:
+> 
+> On 10/12/2021 02:31, Biao Huang wrote:
+> > Since there are some changes in ethernet driver,
+> > update ethernet device node in dts to accommodate to it.
+> > 
+> 
+> I have a hard time to understand how the changes in 1/6 and 2/6 are
+> related to 
+> that.
+> 
+> Please explain better what has changed. Also beware that we shouldn't
+> introduce 
+> any non-backward compatible DTS changes. That means, the device
+> should work with 
+> the new driver but an older device tree.
+> 
+> Regards,
+> Matthias
+> 
+
+http://lists.infradead.org/pipermail/linux-mediatek/2021-December/032812.html
+I've add more details to commit message in v10 send,
+please kindly review it.
+
+Regards!
+Biao
+
+> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+> > ---
+> >   arch/arm64/boot/dts/mediatek/mt2712-evb.dts |  1 +
+> >   arch/arm64/boot/dts/mediatek/mt2712e.dtsi   | 14 +++++++++-----
+> >   2 files changed, 10 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/arch/arm64/boot/dts/mediatek/mt2712-evb.dts
+> > b/arch/arm64/boot/dts/mediatek/mt2712-evb.dts
+> > index 7d369fdd3117..11aa135aa0f3 100644
+> > --- a/arch/arm64/boot/dts/mediatek/mt2712-evb.dts
+> > +++ b/arch/arm64/boot/dts/mediatek/mt2712-evb.dts
+> > @@ -110,6 +110,7 @@ &eth {
+> >   	phy-handle = <&ethernet_phy0>;
+> >   	mediatek,tx-delay-ps = <1530>;
+> >   	snps,reset-gpio = <&pio 87 GPIO_ACTIVE_LOW>;
+> > +	snps,reset-delays-us = <0 10000 10000>;
+> >   	pinctrl-names = "default", "sleep";
+> >   	pinctrl-0 = <&eth_default>;
+> >   	pinctrl-1 = <&eth_sleep>;
+> > diff --git a/arch/arm64/boot/dts/mediatek/mt2712e.dtsi
+> > b/arch/arm64/boot/dts/mediatek/mt2712e.dtsi
+> > index a9cca9c146fd..9e850e04fffb 100644
+> > --- a/arch/arm64/boot/dts/mediatek/mt2712e.dtsi
+> > +++ b/arch/arm64/boot/dts/mediatek/mt2712e.dtsi
+> > @@ -726,7 +726,7 @@ queue2 {
+> >   	};
+> >   
+> >   	eth: ethernet@1101c000 {
+> > -		compatible = "mediatek,mt2712-gmac";
+> > +		compatible = "mediatek,mt2712-gmac", "snps,dwmac-
+> > 4.20a";
+> >   		reg = <0 0x1101c000 0 0x1300>;
+> >   		interrupts = <GIC_SPI 237 IRQ_TYPE_LEVEL_LOW>;
+> >   		interrupt-names = "macirq";
+> > @@ -734,15 +734,19 @@ eth: ethernet@1101c000 {
+> >   		clock-names = "axi",
+> >   			      "apb",
+> >   			      "mac_main",
+> > -			      "ptp_ref";
+> > +			      "ptp_ref",
+> > +			      "rmii_internal";
+> >   		clocks = <&pericfg CLK_PERI_GMAC>,
+> >   			 <&pericfg CLK_PERI_GMAC_PCLK>,
+> >   			 <&topckgen CLK_TOP_ETHER_125M_SEL>,
+> > -			 <&topckgen CLK_TOP_ETHER_50M_SEL>;
+> > +			 <&topckgen CLK_TOP_ETHER_50M_SEL>,
+> > +			 <&topckgen CLK_TOP_ETHER_50M_RMII_SEL>;
+> >   		assigned-clocks = <&topckgen CLK_TOP_ETHER_125M_SEL>,
+> > -				  <&topckgen CLK_TOP_ETHER_50M_SEL>;
+> > +				  <&topckgen CLK_TOP_ETHER_50M_SEL>,
+> > +				  <&topckgen
+> > CLK_TOP_ETHER_50M_RMII_SEL>;
+> >   		assigned-clock-parents = <&topckgen
+> > CLK_TOP_ETHERPLL_125M>,
+> > -					 <&topckgen CLK_TOP_APLL1_D3>;
+> > +					 <&topckgen CLK_TOP_APLL1_D3>,
+> > +					 <&topckgen
+> > CLK_TOP_ETHERPLL_50M>;
+> >   		power-domains = <&scpsys MT2712_POWER_DOMAIN_AUDIO>;
+> >   		mediatek,pericfg = <&pericfg>;
+> >   		snps,axi-config = <&stmmac_axi_setup>;
+> > 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
