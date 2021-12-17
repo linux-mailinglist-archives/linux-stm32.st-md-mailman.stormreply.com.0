@@ -2,67 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A221E478C7A
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Dec 2021 14:39:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8908E4791F6
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Dec 2021 17:54:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48C62C5E2C6;
-	Fri, 17 Dec 2021 13:39:45 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 351B0C5EC6B;
+	Fri, 17 Dec 2021 16:54:14 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9FA7C5E2C3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F34B5C5E2C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Dec 2021 13:39:43 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BH95VjB017120;
- Fri, 17 Dec 2021 14:39:13 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=sf5uZNarzEN4TERvydNuYULwo+KSEp3Kwpq0Fge0HkQ=;
- b=MahiPfCpeGVzNejyi725J/V/qh66zSiStEiMcYOVnSPo2in4TbexVHP5jf01iOR36i8S
- o/T1JN/ahixC1p3tIYU4fbsrBGwfuNgcxlu2ew9pLaKmGq6TRXPMkz/ZpgbZhb++U/jk
- k+wfrIP/8w++BiqHpZHCmZbplEUdh/R0Teo3AnLV81A3EGW95Dg1MC7ZKp5FKSU1gtPj
- 3eTTOf/p/pkvs+IOHqB/fAmAdnb/hrCCTEN9y6XgjQDNrgkBZ3m1TbR0PcIt2DgsB4k7
- QLomrl/6AtCDAroSQyXCMbqPA6FMCxFMRjzk0DPgQgG8FJRoLHlcEjLUJb+De828wEZy aA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3d0hd83gak-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 Dec 2021 14:39:13 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 21D0910002A;
- Fri, 17 Dec 2021 14:39:12 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F1F692259D3;
- Fri, 17 Dec 2021 14:39:11 +0100 (CET)
-Received: from lmecxl0912.lme.st.com (10.75.127.46) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 17 Dec
- 2021 14:39:11 +0100
-To: Rob Herring <robh@kernel.org>, Marc Zyngier <maz@kernel.org>
-References: <20211215105847.2328-1-alexandre.torgue@foss.st.com>
- <20211215105847.2328-2-alexandre.torgue@foss.st.com>
- <YbueUmqyzwS9rOu5@robh.at.kernel.org>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <3f8acbb8-0b7e-2f47-eefc-67e5a7632445@foss.st.com>
-Date: Fri, 17 Dec 2021 14:39:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Fri, 17 Dec 2021 16:54:11 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id y13so10030804edd.13
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 17 Dec 2021 08:54:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ty3idGCi5XDl9xKvErHWNjIC6p7/NuEe9TiwxcVy8Us=;
+ b=u9I1oPvsJNdQBSYXsGSVFvOEzPGh8YHNrcZyV4Kd4Ux0b007WnOatjgAjtpO7ElHj+
+ hGmuiwerkfDuIqCHLAo613SY2tvmSUxTdYM0wU8p9QmiQVr9m9JA3Naueo3Yfodz6PXK
+ 87Kghc+eG799moXmgTvzehIou/OBfRSxy6uKhrkhotiEqkh8JRKrsnfTTnYL5U6M1B7t
+ FETyeoncmUeYZBM045702egEznZCU4GjmYR8491uENA8sjto4EZdTiZlL58Y1yKTVgEN
+ CaZJ582PxifNLXiMmL7WreCUCgOo3GYwkOWTOTqbS20yiN2i6DT8eADFIDVoM7GOLwCY
+ 9cRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ty3idGCi5XDl9xKvErHWNjIC6p7/NuEe9TiwxcVy8Us=;
+ b=7+J62TI0nmT/UOC6MX/EDof2VUeaZila3kkoNcc/gfZr0fBjYLnDRpXNwPa463AxBU
+ 2SJS6T4KbboUruLrwCqmLKjZO/jB7ghtPP0tnblK89HbirRU94ucsm/68CtawqwKWuGV
+ U5EKeqV9mh1TzfsCshF1HusVKYY61GLYbwQm6l++6YVgSbBoNZkjxka1ZTTiiDVIYiWW
+ 5mVh48Bu8YyMnxHWoRTagXtaahXT443ul5FnpWRwDrzFORD/n9sZWjZYIX2dT6NWaKSB
+ TMALXG4iKl96LS9j3Xd1EFGARFW52FdgwxeC9FNUdt1RUnv0a+0Mqi+2er8zs6sNXABH
+ c7TQ==
+X-Gm-Message-State: AOAM530U0rG8SqI9oEf7GLLnUVQJ9aZorTbKlGnSIqF0C157//DZ9RPW
+ 4WmUblVeB3Si/Z6d5woOOeCpTp5YsPhC7+XnUkO2SA==
+X-Google-Smtp-Source: ABdhPJx8NgewPvw8C9vg5xgAqhhQeH0jCc31PRQMmf/5wN37PHnQyAoHsmmMeZhdRGMORIs9EvU83ilcsDAuLWfaiLU=
+X-Received: by 2002:a17:906:249a:: with SMTP id
+ e26mr3225602ejb.492.1639760051506; 
+ Fri, 17 Dec 2021 08:54:11 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <YbueUmqyzwS9rOu5@robh.at.kernel.org>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-17_05,2021-12-16_01,2021-12-02_01
-Cc: devicetree@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 1/5] dt-bindings: interrupt-controller:
- Update STM32 EXTI interrupt controller
+References: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Fri, 17 Dec 2021 17:54:00 +0100
+Message-ID: <CAMRc=Mct9FuYvT-0gFrpUuNBnCVdmCp_cNESkL5NSgVVP6vezQ@mail.gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Baruch Siach <baruch@tkos.co.il>, Heiko Stuebner <heiko@sntech.de>,
+ Tony Lindgren <tony@atomide.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Chunyan Zhang <chunyan.zhang@unisoc.com>,
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <f.fainelli@gmail.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Marc Zyngier <maz@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Sergio Paracuellos <sergio.paracuellos@gmail.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
+ Alexandru Ardelean <aardelean@deviqon.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Orson Zhai <orsonzhai@gmail.com>, Grygorii Strashko <grygorii.strashko@ti.com>,
+ Thierry Reding <treding@nvidia.com>, Jianqun Xu <jay.xu@rock-chips.com>,
+ "open list:PWM SUBSYSTEM" <linux-pwm@vger.kernel.org>,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Vladimir Zapolskiy <vz@mleia.com>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ "moderated list:ARM/Mediatek SoC..." <linux-mediatek@lists.infradead.org>,
+ Gregory Fong <gregory.0xf0@gmail.com>, Santosh Shilimkar <ssantosh@kernel.org>,
+ linux-tegra@vger.kernel.org, Linux-OMAP <linux-omap@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Scott Branden <sbranden@broadcom.com>, linux-unisoc@lists.infradead.org,
+ patches@opensource.cirrus.com, Kevin Hilman <khilman@kernel.org>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Keerthy <j-keerthy@ti.com>,
+ Baolin Wang <baolin.wang7@gmail.com>,
+ linux-power <linux-power@fi.rohmeurope.com>
+Subject: Re: [Linux-stm32] [PATCH v1 1/3] gpio: Get rid of duplicate of_node
+ assignment in the drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,68 +98,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/16/21 9:15 PM, Rob Herring wrote:
-> On Wed, Dec 15, 2021 at 11:58:43AM +0100, Alexandre Torgue wrote:
->> Document new entry "st,exti-mapping" which links EXTI lines with GIC
->> interrupt lines and add an include file to define EXTI interrupt type.
->>
->> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
->>
->> diff --git a/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml b/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml
->> index d19c881b4abc..e08bb51e97a8 100644
->> --- a/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml
->> +++ b/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml
->> @@ -41,6 +41,17 @@ properties:
->>       description:
->>         Interrupts references to primary interrupt controller
->>   
->> +  st,exti-mapping:
->> +    $ref: "/schemas/types.yaml#/definitions/uint32-matrix"
->> +    description: |
->> +            Define mapping between EXTI lines and GIC irq lines. Should be:
->> +            st,exti-mapping = <EXTI_LINE GIC_IRQ EXTI_TYPE>, ...;
->> +            With:
->> +            - EXTI_LINE: EXTI line number.
->> +            - GIC_IRQ: GIC IRQ associated to the EXTI line.
->> +            - EXTI_TYPE: STM32_EXTI_TYPE_CONFIGURABLE or STM32_EXTI_TYPE_DIRECT.
->> +              Defined in include/dt-bindings/interrupt-controller/stm32-exti.h
-> 
-> No custom properties for this. See[1][2][3].
-> 
+On Thu, Dec 2, 2021 at 10:17 PM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> GPIO library does copy the of_node from the parent device of
+> the GPIO chip, there is no need to repeat this in the individual
+> drivers. Remove these assignment all at once.
+>
+> For the details one may look into the of_gpio_dev_init() implementation.
+>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Thanks for inputs. In my case the mapping consists to map an EXTI line 
-with a GIC irq line which could be done using interrupt-map (avoiding to 
-parse it in my driver). But for each EXTI/GIC association I would like 
-also to describe the EXTI_TYPE (which actually describe the well irqchip 
-to use inside my exti driver) . This property is not generic and so I 
-assume I can't use a generic binding such "interrupt-map".
+Queued the series for next, thanks!
 
-If the solution consists to use a common binding (i.e. interrupt-map) 
-plus a conversion table in exti driver to affect the well irq_chip to 
-the well EXTI line then we could envisage to keep the whole mapping 
-inside the driver (even if it's not the best solution).
-
-Another solution could be to define two exti irq-controllers (one for 
-configurable type and another one for direct type) and use interrupt-map 
-inside each. It means to have 2 child node inside (one per irq 
-controller) EXTI node.
-
-Alex
-
-
-> Rob
-> 
-> 
-> [1] https://lore.kernel.org/all/20211122103032.517923-1-maz@kernel.org/
-> [2] https://lore.kernel.org/all/87k0g8jlmg.wl-maz@kernel.org/
-> [3] https://lore.kernel.org/all/CAL_JsqK2Shj6smam7HgNAmy3UG+vVQPkU3Q0OjyEHOEJB45n0A@mail.gmail.com/
-> 
-
+Bart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
