@@ -2,91 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8908E4791F6
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Dec 2021 17:54:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022E3479C0C
+	for <lists+linux-stm32@lfdr.de>; Sat, 18 Dec 2021 19:28:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 351B0C5EC6B;
-	Fri, 17 Dec 2021 16:54:14 +0000 (UTC)
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE582C5EC6C;
+	Sat, 18 Dec 2021 18:28:53 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F34B5C5E2C1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14FC8C5A4FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Dec 2021 16:54:11 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id y13so10030804edd.13
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Dec 2021 08:54:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ty3idGCi5XDl9xKvErHWNjIC6p7/NuEe9TiwxcVy8Us=;
- b=u9I1oPvsJNdQBSYXsGSVFvOEzPGh8YHNrcZyV4Kd4Ux0b007WnOatjgAjtpO7ElHj+
- hGmuiwerkfDuIqCHLAo613SY2tvmSUxTdYM0wU8p9QmiQVr9m9JA3Naueo3Yfodz6PXK
- 87Kghc+eG799moXmgTvzehIou/OBfRSxy6uKhrkhotiEqkh8JRKrsnfTTnYL5U6M1B7t
- FETyeoncmUeYZBM045702egEznZCU4GjmYR8491uENA8sjto4EZdTiZlL58Y1yKTVgEN
- CaZJ582PxifNLXiMmL7WreCUCgOo3GYwkOWTOTqbS20yiN2i6DT8eADFIDVoM7GOLwCY
- 9cRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ty3idGCi5XDl9xKvErHWNjIC6p7/NuEe9TiwxcVy8Us=;
- b=7+J62TI0nmT/UOC6MX/EDof2VUeaZila3kkoNcc/gfZr0fBjYLnDRpXNwPa463AxBU
- 2SJS6T4KbboUruLrwCqmLKjZO/jB7ghtPP0tnblK89HbirRU94ucsm/68CtawqwKWuGV
- U5EKeqV9mh1TzfsCshF1HusVKYY61GLYbwQm6l++6YVgSbBoNZkjxka1ZTTiiDVIYiWW
- 5mVh48Bu8YyMnxHWoRTagXtaahXT443ul5FnpWRwDrzFORD/n9sZWjZYIX2dT6NWaKSB
- TMALXG4iKl96LS9j3Xd1EFGARFW52FdgwxeC9FNUdt1RUnv0a+0Mqi+2er8zs6sNXABH
- c7TQ==
-X-Gm-Message-State: AOAM530U0rG8SqI9oEf7GLLnUVQJ9aZorTbKlGnSIqF0C157//DZ9RPW
- 4WmUblVeB3Si/Z6d5woOOeCpTp5YsPhC7+XnUkO2SA==
-X-Google-Smtp-Source: ABdhPJx8NgewPvw8C9vg5xgAqhhQeH0jCc31PRQMmf/5wN37PHnQyAoHsmmMeZhdRGMORIs9EvU83ilcsDAuLWfaiLU=
-X-Received: by 2002:a17:906:249a:: with SMTP id
- e26mr3225602ejb.492.1639760051506; 
- Fri, 17 Dec 2021 08:54:11 -0800 (PST)
+ Sat, 18 Dec 2021 18:28:53 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BIHkXCg006115;
+ Sat, 18 Dec 2021 19:28:29 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=GljNz8SkdRMIPtXOeeLR4thwjr9SnWsELYQJQuX0dtQ=;
+ b=WX3tnHlBYvfz4t24dhg662/05NEUMOW5ui4i0UndQgDQTJV0f3weBtT+Tsc+ghBmi0yn
+ 3AfA/BYDj7OyOGhXJiE2Co7O3XYNlkJs1Uu5Vb8AhKnnQxHUPTNvyXI7V3X8Mu9VP0oK
+ ARMdugN5CJw/AeNK/fWLG2ZPxamyOlmml77i859pv3Ua8xdI0NHiBXyo6blxU1ID3Ntc
+ y0bs3fNRiMQLVfrxC8AOp5bXS6KAwe4dNHfXlytABeUS7RJ7LTvVU6R5SJm0BAdsIa8B
+ LYpQOpgnj3baIrQU9kIzQN9SAfNQFcG3inHrk96ynabVUPRKikaREhgffbyPD/BvDv0r eQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3d15natqcx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 18 Dec 2021 19:28:29 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id EF5D910002A;
+ Sat, 18 Dec 2021 19:28:25 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D7B4B241DCD;
+ Sat, 18 Dec 2021 19:28:25 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Sat, 18 Dec 2021 19:28:25
+ +0100
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Andrzej Hajda <a.hajda@samsung.com>, Neil Armstrong
+ <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie
+ <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Kieran Bingham
+ <kieran.bingham+renesas@ideasonboard.com>,
+ <dri-devel@lists.freedesktop.org>
+Date: Sat, 18 Dec 2021 19:28:04 +0100
+Message-ID: <20211218182804.208906-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20211202210839.79140-1-andriy.shevchenko@linux.intel.com>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Fri, 17 Dec 2021 17:54:00 +0100
-Message-ID: <CAMRc=Mct9FuYvT-0gFrpUuNBnCVdmCp_cNESkL5NSgVVP6vezQ@mail.gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Baruch Siach <baruch@tkos.co.il>, Heiko Stuebner <heiko@sntech.de>,
- Tony Lindgren <tony@atomide.com>, Linus Walleij <linus.walleij@linaro.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Chunyan Zhang <chunyan.zhang@unisoc.com>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Florian Fainelli <f.fainelli@gmail.com>, Chunyan Zhang <zhang.lyra@gmail.com>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Marc Zyngier <maz@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- Sergio Paracuellos <sergio.paracuellos@gmail.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- Alexandru Ardelean <aardelean@deviqon.com>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Orson Zhai <orsonzhai@gmail.com>, Grygorii Strashko <grygorii.strashko@ti.com>,
- Thierry Reding <treding@nvidia.com>, Jianqun Xu <jay.xu@rock-chips.com>,
- "open list:PWM SUBSYSTEM" <linux-pwm@vger.kernel.org>,
- Nicolas Saenz Julienne <nsaenz@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Vladimir Zapolskiy <vz@mleia.com>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- "moderated list:ARM/Mediatek SoC..." <linux-mediatek@lists.infradead.org>,
- Gregory Fong <gregory.0xf0@gmail.com>, Santosh Shilimkar <ssantosh@kernel.org>,
- linux-tegra@vger.kernel.org, Linux-OMAP <linux-omap@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Scott Branden <sbranden@broadcom.com>, linux-unisoc@lists.infradead.org,
- patches@opensource.cirrus.com, Kevin Hilman <khilman@kernel.org>,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Keerthy <j-keerthy@ti.com>,
- Baolin Wang <baolin.wang7@gmail.com>,
- linux-power <linux-power@fi.rohmeurope.com>
-Subject: Re: [Linux-stm32] [PATCH v1 1/3] gpio: Get rid of duplicate of_node
- assignment in the drivers
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-18_08,2021-12-16_01,2021-12-02_01
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] drm: adv7511: override i2c address of cec
+	before accessing it
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,20 +77,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Dec 2, 2021 at 10:17 PM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> GPIO library does copy the of_node from the parent device of
-> the GPIO chip, there is no need to repeat this in the individual
-> drivers. Remove these assignment all at once.
->
-> For the details one may look into the of_gpio_dev_init() implementation.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Commit 680532c50bca ("drm: adv7511: Add support for
+i2c_new_secondary_device") allows a device tree node to override
+the default addresses of the secondary i2c devices. This is useful
+for solving address conflicts on the i2c bus.
 
-Queued the series for next, thanks!
+In adv7511_init_cec_regmap() the new i2c address of cec device is
+read from device tree and immediately accessed, well before it is
+written in the proper register to override the default address.
+This can cause an i2c error during probe and a consequent probe
+failure.
 
-Bart
+Once the new i2c address is read from the device tree, override
+the default address before any attempt to access the cec.
+
+Tested with adv7533 and stm32mp157f.
+
+Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+Fixes: 680532c50bca ("drm: adv7511: Add support for i2c_new_secondary_device")
+---
+To: Andrzej Hajda <a.hajda@samsung.com>
+To: Neil Armstrong <narmstrong@baylibre.com>
+To: Robert Foss <robert.foss@linaro.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: David Airlie <airlied@linux.ie>
+To: Daniel Vetter <daniel@ffwll.ch>
+To: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 76555ae64e9c..629e05286fd9 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -1048,6 +1048,10 @@ static int adv7511_init_cec_regmap(struct adv7511 *adv)
+ 						ADV7511_CEC_I2C_ADDR_DEFAULT);
+ 	if (IS_ERR(adv->i2c_cec))
+ 		return PTR_ERR(adv->i2c_cec);
++
++	regmap_write(adv->regmap, ADV7511_REG_CEC_I2C_ADDR,
++		     adv->i2c_cec->addr << 1);
++
+ 	i2c_set_clientdata(adv->i2c_cec, adv);
+ 
+ 	adv->regmap_cec = devm_regmap_init_i2c(adv->i2c_cec,
+@@ -1252,9 +1256,6 @@ static int adv7511_probe(struct i2c_client *i2c, const struct i2c_device_id *id)
+ 	if (ret)
+ 		goto err_i2c_unregister_packet;
+ 
+-	regmap_write(adv7511->regmap, ADV7511_REG_CEC_I2C_ADDR,
+-		     adv7511->i2c_cec->addr << 1);
+-
+ 	INIT_WORK(&adv7511->hpd_work, adv7511_hpd_work);
+ 
+ 	if (i2c->irq) {
+
+base-commit: fc74881c28d314b10efac016ef49df4ff40b8b97
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
