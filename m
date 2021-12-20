@@ -2,72 +2,159 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55138479DD7
-	for <lists+linux-stm32@lfdr.de>; Sat, 18 Dec 2021 22:51:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3972D47A499
+	for <lists+linux-stm32@lfdr.de>; Mon, 20 Dec 2021 06:33:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07FC7C5F1D9;
-	Sat, 18 Dec 2021 21:51:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCD13C5E2D4;
+	Mon, 20 Dec 2021 05:33:47 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5476DC5A4FE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66FA6C5E2C4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 18 Dec 2021 21:51:54 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BIJBpmg009048;
- Sat, 18 Dec 2021 22:51:19 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=Hsaf/Vk5S9zRrZgVqgpJZFMVuyj6RDrxxYbMaKuMPNQ=;
- b=KyTEgAF7IwB46PBWnMN2MChNL12wR+2Byyf7X5WIMEwmxDhhH9Gx0swNIRONg5nFAyO0
- 17UX3/p8phDGMDb9WBfDqMK48GsdgcUDiNFUj2E8mQdDzelJCsFWDeEGGGlUnaPDx1bk
- dSQZaRJb9xXNTollzB1BiXKW1AHe2yV4WR5xMbigwkMCtgQCkIx54wieaS/uJX4LIrZB
- lrx+1Z77RhLXTq6pWp8IeE5BV609g8IpzNgaSLZpKTHfEHiM+h6C3oTK8sqVFRhiDyi/
- LEdLrJZHymkoUi4e5TcBofC2dQWwb3PClnlL9zsRPmGkQpP12yXWjIIXeHYdYNg1j4ox iQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3d17v3te3c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 18 Dec 2021 22:51:19 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1025B100038;
- Sat, 18 Dec 2021 22:51:17 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 02E54209F5F;
- Sat, 18 Dec 2021 22:51:17 +0100 (CET)
-Received: from localhost (10.75.127.51) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Sat, 18 Dec 2021 22:51:16
- +0100
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Andrzej
- Hajda <a.hajda@samsung.com>, Neil Armstrong <narmstrong@baylibre.com>,
- Robert Foss <robert.foss@linaro.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Yannick Fertre
- <yannick.fertre@foss.st.com>, Philippe Cornu <philippe.cornu@foss.st.com>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, <dri-devel@lists.freedesktop.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>
-Date: Sat, 18 Dec 2021 22:50:54 +0100
-Message-ID: <20211218215055.212421-3-antonio.borneo@foss.st.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20211218215055.212421-1-antonio.borneo@foss.st.com>
-References: <20211218215055.212421-1-antonio.borneo@foss.st.com>
+ Mon, 20 Dec 2021 05:33:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1639978426; x=1671514426;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=DALxOANWIj1HP151VnflsbPzZg029LyLtvZCU8S2fG8=;
+ b=axwGACAWW56ofaozRcxeThzevQRKielVuTjn5yJCD4G4YLQJ5gxe1tHW
+ 6sPQZJlwwckngJb+h+QQy/Zepk1p0VdFG8Ms0iWvCZ7rZX8q5PHa3sGWb
+ lfqmszwHuGh3+IG6MmJ2YQlBQmOMEMgylJo7i45Y5bEBXtwXZK88h6lJq
+ bmjG8YqTDSi+6Krvf8CkLTb+wqMn9DPdxaozRTDTw8s1tq9aT2oApg8Tr
+ V/HVDnR2ImBLVQrRVAcbf4t+wDfx6N0WtvO393mCKEeNPe8wCFAklwgYu
+ oi0Pw6Q53ZjbQ7ExeLO0vWb08SBaVWwh/bIH74K98M5eYOi0L2l0UXtpB g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10203"; a="220777493"
+X-IronPort-AV: E=Sophos;i="5.88,219,1635231600"; d="scan'208";a="220777493"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Dec 2021 21:33:44 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,219,1635231600"; d="scan'208";a="569734845"
+Received: from orsmsx605.amr.corp.intel.com ([10.22.229.18])
+ by fmsmga008.fm.intel.com with ESMTP; 19 Dec 2021 21:33:44 -0800
+Received: from orsmsx605.amr.corp.intel.com (10.22.229.18) by
+ ORSMSX605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20; Sun, 19 Dec 2021 21:33:43 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx605.amr.corp.intel.com (10.22.229.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.20 via Frontend Transport; Sun, 19 Dec 2021 21:33:43 -0800
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.172)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.20; Sun, 19 Dec 2021 21:33:42 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PjcTDdRLuk5U5l72MDb+PKtcP//MMoqLOBkv+rx2GmQdvs56A3yDgttw8/fP0QvnVwAOPFTWbVhUezFM6vAPID49UpyPHgD/bHCAPP/RLsGQoEJYZQuLa3rYob2KX7fcbm7my7+PHh1IEkEOUlkIsbLkynXnazEZXrP0oTHmJGOqMbu7NcjiuCZ14HGgKBER/OmhkHyJvN452rz6CgKhL/5YDe0GOX8jOpEJlSLlYukbveFC3noZNdrboPQFPIuQVee6E5iKqtU8LW0GmJDJn5r7FlG8iN2P0KGw72gbvXLCIEGP+lFMsZ0LFo5iQLEf1IrURLiI3Oq9uu/VECIFBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DALxOANWIj1HP151VnflsbPzZg029LyLtvZCU8S2fG8=;
+ b=nOZ2YcJ1oLmKDbzk0QHvaMRM7z8Hi7Po0JagJqKJyM9qYTiU9asudwOET5K+6C4fiHcHVvS15BIHLn8Mb6LWRwQxG/VQKLcGvMsQHXe3Le/y/86oRc+Lpokct+JNqX3xx4BHtcxwWouwlv+eFLBIUX0ByL6duvyqvWoKyWKQl6o6MDX/k16tHNKWf/ll87ljaSfpnks7wWQdbPac4unsxZ2ezTcTteXgcoa8DxwAji8zbrZveChW5u4Eut9gMeKVq3Km2UhJdhAnCEitYbbsH3jXLBCPaIERz2JRDB4loozETqc7Es+C2BhA5um7TFPpvjf+fgZv4S2MFkgPdlG8Gw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM6PR11MB2780.namprd11.prod.outlook.com (2603:10b6:5:c8::19) by
+ DM6PR11MB3497.namprd11.prod.outlook.com (2603:10b6:5:6e::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4801.14; Mon, 20 Dec 2021 05:33:40 +0000
+Received: from DM6PR11MB2780.namprd11.prod.outlook.com
+ ([fe80::e08d:fd5a:f208:566d]) by DM6PR11MB2780.namprd11.prod.outlook.com
+ ([fe80::e08d:fd5a:f208:566d%5]) with mapi id 15.20.4801.020; Mon, 20 Dec 2021
+ 05:33:40 +0000
+From: "Ong, Boon Leong" <boon.leong.ong@intel.com>
+To: Jakub Kicinski <kuba@kernel.org>, "Nambiar, Amritha"
+ <amritha.nambiar@intel.com>
+Thread-Topic: [PATCH net-next 0/2] net: stmmac: add EthType Rx Frame steering
+Thread-Index: AQHX7RBbnZeGu5vcJkStLNALMpEpYqwroBYAgACAw4CAAEh/AIAAMZWAgA5PcvA=
+Date: Mon, 20 Dec 2021 05:33:40 +0000
+Message-ID: <DM6PR11MB27804CFB9A93A287DC4CB3A9CA7B9@DM6PR11MB2780.namprd11.prod.outlook.com>
+References: <20211209151631.138326-1-boon.leong.ong@intel.com>
+ <20211210115730.bcdh7jvwt24u5em3@skbuf>
+ <20211210113821.522b7c00@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <MWHPR11MB1293030F02EDACD0A7C25425F1719@MWHPR11MB1293.namprd11.prod.outlook.com>
+ <20211210185517.30d27cfd@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20211210185517.30d27cfd@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.6.200.16
+dlp-reaction: no-action
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 933ce088-79c2-4b4a-0ffe-08d9c37a47ae
+x-ms-traffictypediagnostic: DM6PR11MB3497:EE_
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-microsoft-antispam-prvs: <DM6PR11MB3497BBB0324009DFF31D22D7CA7B9@DM6PR11MB3497.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 9YYjMRYPQ20lu+fi2Rz+BRb4QczYOCQcR6AooHX4QaZOxJpYoBSapZ1XOkjfzo8Oe3dJs/qEtzqK/BUKuX/FwKw8vjwWQ97ZL0q8/iF4W2yOFSm+PcX9pGfGDdq/fxFiHG/p/6GDMVr7z9paiLIzZs2A1JF1MlBR8bkZjKY0DxigK/NrotjmzmCNCjNWWs05N3BnNWPa72sxASltfuzDo/wBLCsLiia7cC/3oqognRkdT4tL5247SsP6Ub0qiXqDFWD9mUd0hY1qVkBrUaJGs0NdZQ0oHcV4RhPMvZtZoP42gh5NT3PfNt28M+Rey2sfVq7Ofa2FTZkmtGPGBTBOL8r/KbYDsWQyHm5nHUiUMp7CrfZn8R7dnQ8BnOf5VxMLKHMJ/XTnO6pWZNjqcduiyUCLWvpMfaTOAY8+CwvfWGtN4d3sYNo/07tsHFMKXQaRDVmRbCESXuGyE9A6lXvOqds8DraD5jCtAD8FeJjT2jYftVQphe2eYV7CZ0+4mpbCuYFSbXsk1Ywo2Z5QReWGGaWs94sIByzUyFF22stJe+XwK6aYstBzvQygzNIDm4qJbWk63cQbBPU6gO9HF4Dcn9IC1ZCegqw59lv4Y6qimcoeh8l8mDoa/CWy3rQS/pyedM8ZlHTeqiGiyVaIBLXGEBu2gKW2izhRHs561b4V1qUdpsTf/vCK8P9OI51A24mSSu7GGx9iqLVrG/CxXha/pBtzPdpBB0tPDYD5KUIU7Fp5gqHl0xKgzi/RrM6PHGnCkXFq6Fz4s7Z2W6pksmFrEI1ECfNWgbEnEiN8brD9fnU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB2780.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(38070700005)(4326008)(52536014)(966005)(55016003)(107886003)(71200400001)(82960400001)(7696005)(76116006)(66946007)(66556008)(110136005)(64756008)(54906003)(66446008)(316002)(508600001)(8936002)(9686003)(5660300002)(86362001)(4744005)(8676002)(7416002)(122000001)(6506007)(38100700002)(33656002)(2906002)(26005)(186003)(6636002)(66476007);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+m7DkwfsEsn+RIK/HWrO3froIt0/mglw8qdcaxdo5aR72roPOEvrnJ67l8iv?=
+ =?us-ascii?Q?5AEZ7jyAnowTr5hx/F2o7FbDqnWMxbbiTFs2R05ZsBEqzKzgDBAI5I1UZEBu?=
+ =?us-ascii?Q?bKCAj5fs67S9L1R2iCGTWzOHSRJIExPYdChtZQMjaXBIDCYjXkY2uaxy2KSk?=
+ =?us-ascii?Q?uLh/EvixZ0S7n+s2U3ApdzlLN/Fd85WFj/VBpBjiD+foBOSlBibRblyQrFNk?=
+ =?us-ascii?Q?sprq5gLnasWuaPZeDuHK8SnspG0oYP+ntsJOWfc26XSdbE0ZfcNl05sfoOQU?=
+ =?us-ascii?Q?diXagJp3+g43HH1WrJqjmOf0pTF3NzaBiNEXY5SZVJONxfYMkey0nIsEpNpt?=
+ =?us-ascii?Q?btneHy7etgkjizqBHKaf9mzGkCZFScg2skjnZMDFwnfNJkMFvSava1/JGFXa?=
+ =?us-ascii?Q?6/fUjkC/j6LK6zVIWmEbK40Q2URZrCaK5LPV1QQlnMNnoiKDquKBgyo4KHOH?=
+ =?us-ascii?Q?7a51GoHWcClK8picV9TLdjmJsdQYNEpE6Go5i179nhFgQaApb/9I+N/5dTQq?=
+ =?us-ascii?Q?MKunr2a0/57L+jFF2dzXUwRV792ydHEde4kMHN+NQ/GmUqKhDO1L90MJvXdE?=
+ =?us-ascii?Q?8cKdds1UxskHbq44f0Rr5jBm/KMlLO6rL0gxgaMZqjQ1hjTLr9OYGo5OIeO6?=
+ =?us-ascii?Q?wWNfZMs3uM/g2zJPEIRyw0JaRy7S9NBF7VjJ2t6oHk+GC+osGS/1TP6Jlkqy?=
+ =?us-ascii?Q?ufyVc43dwW99EIwFcQVGLTv1zc+af0Z0QTp1bgCwJIYuuFEK71xm3v5cQqqG?=
+ =?us-ascii?Q?/YyuMrCyDqxwJvpgY7htTn+xdXsfcvbFTJryCScTyeYHyPtdO6T2zCEehzKG?=
+ =?us-ascii?Q?nqyX6gw5jUGQqMZ+97dLPBalxPyNemYDmW6lUstwJHqQEzjkB1GcijsPNqHh?=
+ =?us-ascii?Q?Y6PRg4L1QPoLh33EtzX439glCSf+YBUSseM0EoXQRY5cx6DJEyBdb1rkY8kP?=
+ =?us-ascii?Q?gmCoMxh/THxUj7bHBnI12Gd2/EgzHFX3I7btnnTwZthvv3zBOk+jN+TFX4IU?=
+ =?us-ascii?Q?0qqJln8Rul6qZXWJlvJoniNllUt3ngaUB3wvEjRStEWzJKUgWNFx1c/GHB6l?=
+ =?us-ascii?Q?cqB7QCgqWNHXfYZDFsqCEzqdMtcvGIZS4Z5kh8ovK4eycUGsswmNixHhyPTg?=
+ =?us-ascii?Q?pIdRkbJXzb02A9jpZxhl0YY8/SXFd3AZQe9roLq66h++t5vXTnmh5pz331Zk?=
+ =?us-ascii?Q?eJwN9zCP45fy1AOblNFlRVaRNw+zUPsU7CuJVYQpSUTYRwhEYEVPo47cHiD4?=
+ =?us-ascii?Q?KQTfPMybmQCCI7j0JBb/h/GMyZMQmOKDSeWn420OMGJmJl9iN38TTlZ2KnYy?=
+ =?us-ascii?Q?Yiw/73dqlWUWyZPbQ/nRedI70jtd9cPM2Q7D2Ormux4UznUy8mSMOVAWQfKC?=
+ =?us-ascii?Q?zOBqbsQZoJomSXU2IL3kp3QslPN7KCJAEioizaicblr1un3Agw5HVKeuweFS?=
+ =?us-ascii?Q?lA/IUTGAi9TxUeW2L94io03O8a4qCFa4oYtDqjeIXhf1QWLqGXbwKvFrdPBH?=
+ =?us-ascii?Q?LbvJS7dfakAg6Up2btus6guELozSVrCF9DmYjMRpuJ168wFyhnoG+a0AXPLf?=
+ =?us-ascii?Q?9TLeM8R40JgVAXZLDFXpV77Dx2Cv7SEbkIlA+NfZGORmbcqXvymYER05aQX+?=
+ =?us-ascii?Q?qi49FCXI2C0LWsqEnI9aE2zo2NfhHnuGtyhfAT2A3US+mpTvsPIBQCbmZ+R5?=
+ =?us-ascii?Q?0zdg6Q=3D=3D?=
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-18_08,2021-12-16_01,2021-12-02_01
-Cc: linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 3/3] drm/stm: dsi: provide the implementation
-	of mode_valid()
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2780.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 933ce088-79c2-4b4a-0ffe-08d9c37a47ae
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Dec 2021 05:33:40.4714 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EwPaJrrVfcxpK70JbzPxtRMXNPPNOlPmMidR+x0xnITRkmKpM5BtstdPu81VERwRqWilmfBa3cX3ieajlh8qiXwnRMO8AlgLjQDRTNzNMQE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB3497
+X-OriginatorOrg: intel.com
+Cc: Alexandre Torgue <alexandre.torgue@st.com>, "Samudrala,
+ Sridhar" <sridhar.samudrala@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Kanzenbach,
+ Kurt" <kurt.kanzenbach@linutronix.de>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: add EthType Rx
+	Frame steering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,161 +171,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The dsi has several constraints on the video modes it can support,
-mainly due to the frequencies that can be generated by the PLL
-integrated in the DSI device.
+>On Fri, 10 Dec 2021 23:57:50 +0000 Nambiar, Amritha wrote:
+>> ethtool did not support directing flows to a queue-group, but only a specific
+>individual
+>> queue
+>
+>Just to clarify - not sure how true that part is, ethtool rules can
+>direct to RSS contexts since March 2018, your presentation is from 2020.
 
-Verify that the required HS clock can be generated by the PLL.
+Just realized there is mistake in reply-to email list.
 
-The dsi clock from the dsi PLL and the ltdc pixel clock are
-asynchronous. The dsi needs to return in LP mode during HFP or HBP
-to re-synchronize at each video line.
+Now that the VLAN priority based RX steering patch is merged to net branch [1],
+I would like to resume the discussion for this track.
 
-Verify that the duration of HFP and HBP allows the dsi to enter in
-LP mode.
+Currently, we have vlan priority based RX steering be configured for stmmac
+driver using tc flower way. Will community agree to the same tc flower
+interface for EtherType based RX frame steering? If there is no further concern
+on this, I will send v2 for the patch. 
 
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
----
-To: David Airlie <airlied@linux.ie>
-To: Daniel Vetter <daniel@ffwll.ch>
-To: Andrzej Hajda <a.hajda@samsung.com>
-To: Neil Armstrong <narmstrong@baylibre.com>
-To: Robert Foss <robert.foss@linaro.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Yannick Fertre <yannick.fertre@foss.st.com>
-To: Philippe Cornu <philippe.cornu@foss.st.com>
-To: Benjamin Gaignard <benjamin.gaignard@linaro.org>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-To: dri-devel@lists.freedesktop.org
-To: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 98 +++++++++++++++++++++++++++
- 1 file changed, 98 insertions(+)
+[1] https://patchwork.kernel.org/project/netdevbpf/patch/20211211145134.630258-1-boon.leong.ong@intel.com/
 
-diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-index 480fdf256f01..89897d5f5c72 100644
---- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-+++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-@@ -322,6 +322,103 @@ dw_mipi_dsi_phy_get_timing(void *priv_data, unsigned int lane_mbps,
- 	return 0;
- }
- 
-+#define CLK_TOLERANCE_HZ 50
-+
-+static enum drm_mode_status
-+dw_mipi_dsi_stm_mode_valid(void *priv_data,
-+			   const struct drm_display_mode *mode,
-+			   unsigned long mode_flags, u32 lanes, u32 format)
-+{
-+	struct dw_mipi_dsi_stm *dsi = priv_data;
-+	unsigned int idf, ndiv, odf, pll_in_khz, pll_out_khz;
-+	int ret, bpp;
-+
-+	bpp = mipi_dsi_pixel_format_to_bpp(format);
-+	if (bpp < 0)
-+		return MODE_BAD;
-+
-+	/* Compute requested pll out */
-+	pll_out_khz = mode->clock * bpp / lanes;
-+
-+	if (pll_out_khz > dsi->lane_max_kbps)
-+		return MODE_CLOCK_HIGH;
-+
-+	if (mode_flags & MIPI_DSI_MODE_VIDEO_BURST) {
-+		/* Add 20% to pll out to be higher than pixel bw */
-+		pll_out_khz = (pll_out_khz * 12) / 10;
-+	} else {
-+		if (pll_out_khz < dsi->lane_min_kbps)
-+			return MODE_CLOCK_LOW;
-+	}
-+
-+	/* Compute best pll parameters */
-+	idf = 0;
-+	ndiv = 0;
-+	odf = 0;
-+	pll_in_khz = clk_get_rate(dsi->pllref_clk) / 1000;
-+	ret = dsi_pll_get_params(dsi, pll_in_khz, pll_out_khz, &idf, &ndiv, &odf);
-+	if (ret) {
-+		DRM_WARN("Warning dsi_pll_get_params(): bad params\n");
-+		return MODE_ERROR;
-+	}
-+
-+	if (!(mode_flags & MIPI_DSI_MODE_VIDEO_BURST)) {
-+		unsigned int px_clock_hz, target_px_clock_hz, lane_mbps;
-+		int dsi_short_packet_size_px, hfp, hsync, hbp, delay_to_lp;
-+		struct dw_mipi_dsi_dphy_timing dphy_timing;
-+
-+		/* Get the adjusted pll out value */
-+		pll_out_khz = dsi_pll_get_clkout_khz(pll_in_khz, idf, ndiv, odf);
-+
-+		px_clock_hz = DIV_ROUND_CLOSEST_ULL(1000ULL * pll_out_khz * lanes, bpp);
-+		target_px_clock_hz = mode->clock * 1000;
-+		/*
-+		 * Filter modes according to the clock value, particularly useful for
-+		 * hdmi modes that require precise pixel clocks.
-+		 */
-+		if (px_clock_hz < target_px_clock_hz - CLK_TOLERANCE_HZ ||
-+		    px_clock_hz > target_px_clock_hz + CLK_TOLERANCE_HZ)
-+			return MODE_CLOCK_RANGE;
-+
-+		/* sync packets are codes as DSI short packets (4 bytes) */
-+		dsi_short_packet_size_px = DIV_ROUND_UP(4 * BITS_PER_BYTE, bpp);
-+
-+		hfp = mode->hsync_start - mode->hdisplay;
-+		hsync = mode->hsync_end - mode->hsync_start;
-+		hbp = mode->htotal - mode->hsync_end;
-+
-+		/* hsync must be longer than 4 bytes HSS packets */
-+		if (hsync < dsi_short_packet_size_px)
-+			return MODE_HSYNC_NARROW;
-+
-+		if (mode_flags & MIPI_DSI_MODE_VIDEO_SYNC_PULSE) {
-+			/* HBP must be longer than 4 bytes HSE packets */
-+			if (hbp < dsi_short_packet_size_px)
-+				return MODE_HSYNC_NARROW;
-+			hbp -= dsi_short_packet_size_px;
-+		} else {
-+			/* With sync events HBP extends in the hsync */
-+			hbp += hsync - dsi_short_packet_size_px;
-+		}
-+
-+		lane_mbps = pll_out_khz / 1000;
-+		ret = dw_mipi_dsi_phy_get_timing(priv_data, lane_mbps, &dphy_timing);
-+		if (ret)
-+			return MODE_ERROR;
-+		/*
-+		 * In non-burst mode DSI has to enter in LP during HFP
-+		 * (horizontal front porch) or HBP (horizontal back porch) to
-+		 * resync with LTDC pixel clock.
-+		 */
-+		delay_to_lp = DIV_ROUND_UP((dphy_timing.data_hs2lp + dphy_timing.data_lp2hs) *
-+					   lanes * BITS_PER_BYTE, bpp);
-+		if (hfp < delay_to_lp && hbp < delay_to_lp)
-+			return MODE_HSYNC;
-+	}
-+
-+	return MODE_OK;
-+}
-+
- static const struct dw_mipi_dsi_phy_ops dw_mipi_dsi_stm_phy_ops = {
- 	.init = dw_mipi_dsi_phy_init,
- 	.power_on = dw_mipi_dsi_phy_power_on,
-@@ -332,6 +429,7 @@ static const struct dw_mipi_dsi_phy_ops dw_mipi_dsi_stm_phy_ops = {
- 
- static struct dw_mipi_dsi_plat_data dw_mipi_dsi_stm_plat_data = {
- 	.max_data_lanes = 2,
-+	.mode_valid = dw_mipi_dsi_stm_mode_valid,
- 	.phy_ops = &dw_mipi_dsi_stm_phy_ops,
- };
- 
--- 
-2.34.1
+
+
 
 _______________________________________________
 Linux-stm32 mailing list
