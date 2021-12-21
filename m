@@ -2,48 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB0AC47B436
-	for <lists+linux-stm32@lfdr.de>; Mon, 20 Dec 2021 21:07:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFE4E47BB87
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Dec 2021 09:13:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8636DC5EC55;
-	Mon, 20 Dec 2021 20:07:48 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64E0CC5E2D4;
+	Tue, 21 Dec 2021 08:13:43 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB14EC5E2C3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07AA9C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 20 Dec 2021 20:07:47 +0000 (UTC)
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id D434F8369E;
- Mon, 20 Dec 2021 21:07:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1640030867;
- bh=+3qpjUt+GDs5ylQBvaqPpnxB29sxAVnO393MXB5xCCQ=;
- h=From:To:Cc:Subject:Date:From;
- b=q23QL+JkMDT2mzj2t7zjknBdyWFfJ9a5+pTeVSPnEuH1mPaY/9Md2ufQP4Vf3sl4o
- 8UQfHQmYFuIoFgY9pt8uIwNc/FGJG6iVL66oFaiRLPhICKi15klH4qBRfzSkLfU8J5
- xeIhcWDNIQ986P9HHD+DoWyUEhMw0VHuR8Gs8VHomJ02WayFRWz0oMHr1bU1e8hSdh
- AY9QnrW6ekfm8hk7V3HjeLM8c493J01OLVk0i5sOrFUi6MC+Q977Rm8PEnhsi3NN/H
- cVJuT8uswSPo/1/k1T7TNNrsqPVRHRdZGrtbKBjG2vetjAMu6q2LdIMXWoqLp9+GNJ
- SExSz6Gbbc3ZA==
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Mon, 20 Dec 2021 21:07:33 +0100
-Message-Id: <20211220200733.1391088-1-marex@denx.de>
-X-Mailer: git-send-email 2.34.1
+ Tue, 21 Dec 2021 08:13:41 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BL5YxKS014789;
+ Tue, 21 Dec 2021 09:13:25 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=date : from : to :
+ cc : subject : in-reply-to : message-id : references : mime-version :
+ content-type; s=selector1;
+ bh=maZSNZJEXk+v3gf/cuhFsQAVI0wk81zZoIV/aka8yJM=;
+ b=Rzk5jmvO46qS77p39WPTv3GZ5mUVb90hNFhX5EB3RJkw4N5PzzTxSSBdo5j6XCdKnu6s
+ 9tnG1h81whI0SO8CfmEIjm0aLG647TBmhGXyGZLO0drKk1HGejRAc/Lb8b1L1UMp7zxE
+ LEIQnXTige9dbk+kDL67j956UTwFrA4lCQ11knfVZDv6bXHW6IF7kNUBwNMg1sneVbRP
+ vjqxARMqpzTNaHCKhxO2VGoSQOmOyTZSRD1izFpFgEd5FxHWwsv6XGIMS4ez1zCGXsjS
+ +Ltgg8FrTtmfy9N4jtjxsPwmzppn2iIvRSM0igxLIBhn9SLYIfdhryu4MHSk0XNJ+p1y 1A== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3d2keaxcvw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 21 Dec 2021 09:13:25 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0DA8D10002A;
+ Tue, 21 Dec 2021 09:13:22 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DC65921BF6A;
+ Tue, 21 Dec 2021 09:13:22 +0100 (CET)
+Received: from gnbcxd0088.gnb.st.com (10.75.127.50) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 21 Dec
+ 2021 09:13:22 +0100
+Date: Tue, 21 Dec 2021 09:12:56 +0100
+From: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
+X-X-Sender: toromano@gnbcxd0088.gnb.st.com
+To: Marek Vasut <marex@denx.de>
+In-Reply-To: <20211220195022.1387104-1-marex@denx.de>
+Message-ID: <alpine.DEB.2.21.2112210826250.21632@gnbcxd0088.gnb.st.com>
+References: <20211220195022.1387104-1-marex@denx.de>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>,
- Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com,
- Patrick Delaunay <patrick.delaunay@foss.st.com>
-Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Drop duplicate status okay
-	from DHCOM gpioc node
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-21_03,2021-12-21_01,2021-12-02_01
+Cc: Lionel Debieve <lionel.debieve@st.com>,
+ Nicolas Toromanoff <nicolas.toromanoff@st.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Fabien Dessenne <fabien.dessenne@st.com>
+Subject: Re: [Linux-stm32] [PATCH] crypto: stm32/crc32 - Fix kernel BUG
+ triggered in probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,40 +74,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The stm32mp15xxaa-pinctrl.dtsi included in stm32mp15xx-dhcom-som.dtsi
-already sets status = "okay" in gpioc: gpio@50004000 node, drop the
-duplicate from stm32mp15xx-dhcom-som.dtsi . No functional change.
+On Mon, 20 Dec 2021, Marek Vasut wrote:
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-Cc: kernel@dh-electronics.com
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
- arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 1 -
- 1 file changed, 1 deletion(-)
+> The include/linux/crypto.h struct crypto_alg field cra_driver_name description
+> states "Unique name of the transformation provider. " ... " this contains the
+> name of the chip or provider and the name of the transformation algorithm."
+>
+> In case of the stm32-crc driver, field cra_driver_name is identical for all
+> registered transformation providers and set to the name of the driver itself,
+> which is incorrect. This patch fixes it by assigning a unique cra_driver_name
+> to each registered transformation provider.
+>
+> The kernel crash is triggered when the driver calls crypto_register_shashes()
+> which calls crypto_register_shash(), which calls crypto_register_alg(), which
+> calls __crypto_register_alg(), which returns -EEXIST, which is propagated
+> back through this call chain. Upon -EEXIST from crypto_register_shash(), the
+> crypto_register_shashes() starts unregistering the providers back, and calls
+> crypto_unregister_shash(), which calls crypto_unregister_alg(), and this is
+> where the BUG() triggers due to incorrect cra_refcnt.
+>
+> Fixes: b51dbe90912a ("crypto: stm32 - Support for STM32 CRC32 crypto module")
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> Cc: <stable@vger.kernel.org> # 4.12+
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Fabien Dessenne <fabien.dessenne@st.com>
+> Cc: Herbert Xu <herbert@gondor.apana.org.au>
+> Cc: Lionel Debieve <lionel.debieve@st.com>
+> Cc: Nicolas Toromanoff <nicolas.toromanoff@st.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> To: linux-crypto@vger.kernel.org
+> ---
+> drivers/crypto/stm32/stm32-crc32.c | 4 ++--
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-index 724feba8a3df..4cb626b636cb 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-@@ -226,7 +226,6 @@ &gpioc {
- 			  "", "", "DHCOM-E", "",
- 			  "", "", "", "",
- 			  "", "", "", "";
--	status = "okay";
- };
- 
- &gpiod {
--- 
-2.34.1
+Hello Marek,
+
+Thanks for the fix.
+
+Acked-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
