@@ -2,63 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5F9847BF4F
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Dec 2021 13:05:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E60A47C009
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Dec 2021 13:51:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86F1FC5E2D4;
-	Tue, 21 Dec 2021 12:05:07 +0000 (UTC)
-Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4223DC5E2D4;
+	Tue, 21 Dec 2021 12:51:59 +0000 (UTC)
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
+ [209.85.219.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C96B9C5C842
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF4A4C5E2C3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Dec 2021 12:05:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
- s=default2002;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=piV6SIE1+0IdMSZ7ySmRFXOklhct4UYro/BH75s56m4=; b=ErsanGshiTquvyXPP+8A3aoOk5
- TeyCHba9dP5FJUKQSq6ww37eXKqdfcpezwnDqa9hJtrLaWSv7mgeNTxKmeZ9nCJfrHAHqOgwNb+zU
- MAADUl2azg16xuh15qya0Ur1t/E45uup7IYGlM6qW/qKmabUy3iL/YpQekwqkQt0gr6G4m6+Me5Os
- PoupNivAQmB7eP2tIygJmF/80LdzU0o+ve7wqwXhbiRK452MjeSJaH2mGJZAvYY9Mz0hFJQYm6r/S
- yGGwrRk8HQQffgZqr0Yr3l624lfN6yydiZQLPfv5mpNGQE0ENxdLIxzIo0UlkUHZqWBB+mu6eUXg6
- 5xzKK3/g==;
-Received: from sslproxy06.your-server.de ([78.46.172.3])
- by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
- id 1mzdsx-0006fC-6V; Tue, 21 Dec 2021 13:04:51 +0100
-Received: from [2001:a61:2bc8:8501:9e5c:8eff:fe01:8578]
- by sslproxy06.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <lars@metafoo.de>)
- id 1mzdsw-000FnK-Po; Tue, 21 Dec 2021 13:04:50 +0100
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-References: <20211221104546.214066-1-u.kleine-koenig@pengutronix.de>
- <dadb79b2-ac21-1899-48b9-1c6723afb1b4@metafoo.de>
- <20211221113542.rl4aburbzzrgs3km@pengutronix.de>
-From: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <65009237-7e61-21aa-60cd-b7f7e0bb2f91@metafoo.de>
-Date: Tue, 21 Dec 2021 13:04:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <20211221113542.rl4aburbzzrgs3km@pengutronix.de>
-Content-Language: en-US
-X-Authenticated-Sender: lars@metafoo.de
-X-Virus-Scanned: Clear (ClamAV 0.103.3/26395/Tue Dec 21 10:18:41 2021)
-Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>, linux-kernel@vger.kernel.org,
- David Lechner <david@lechnology.com>, linux-iio@vger.kernel.org,
- Patrick Havelange <patrick.havelange@essensium.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Oleksij Rempel <linux@rempel-privat.de>,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Tue, 21 Dec 2021 12:51:57 +0000 (UTC)
+Received: by mail-qv1-f41.google.com with SMTP id kk22so12333048qvb.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 21 Dec 2021 04:51:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CXUVbYOFX+qNt7zC1+Gzh0+PjSFhu0u9+OwdjiLHOzQ=;
+ b=UJRyU/CSOSo4FW1JHkICm91S5AAZl0cyDSajGwejRa+c69+ET8ml/hNN45a7x2O2xp
+ 3UUfFYtTl7lOOfEsrpYY+m5WWT6DYzcaybdfsgCfDLUG9j0f4wh0+1BJlw1GZw+jo7bA
+ litxXgfn2ytNz/mRE+T64ubenrG9Pf0vBD+zOpOPBzF7+ZdCiM+3DDEr2DdDaSmpLKd9
+ SsUlCM/dwhWjYwEpx1XfEcGxmGlxYgYrTgAT5WMcJTfh9Ldrxmxlq4uztVHJUgptCtir
+ ECoVeMaI/FKKK5VNdr05w/cMlR3jY2OVVLocm2Cidr5z2Im7gA/cdncxUC4Zn2bLWFbs
+ Xgxw==
+X-Gm-Message-State: AOAM533MjzhlX4qSF4z3HOp0aVEHpNbeenDc3QCBnGGRAToMm2zfPlEa
+ Jw4O3xS1wWCRD9VrVCUXzw==
+X-Google-Smtp-Source: ABdhPJzo1zRafFgA1Rs/dx78OvoHKnIPrB8GViOOzCeTRGNIK14UPySnci9L369mX/rxt06+xfJBpg==
+X-Received: by 2002:a05:6214:20af:: with SMTP id
+ 15mr2236132qvd.95.1640091116951; 
+ Tue, 21 Dec 2021 04:51:56 -0800 (PST)
+Received: from xps15.. ([24.55.105.145])
+ by smtp.googlemail.com with ESMTPSA id f21sm16840871qte.52.2021.12.21.04.51.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Dec 2021 04:51:56 -0800 (PST)
+From: Rob Herring <robh@kernel.org>
+To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Syed Nayyar Waris <syednwaris@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/8] counter: Remove struct
-	counter_device::priv
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>
+Date: Tue, 21 Dec 2021 08:51:45 -0400
+Message-Id: <20211221125145.1195234-1-robh@kernel.org>
+X-Mailer: git-send-email 2.32.0
+MIME-Version: 1.0
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: display: st,
+	stm32-dsi: Fix panel node name in example
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,69 +64,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="windows-1252"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/21/21 12:35 PM, Uwe Kleine-K=F6nig wrote:
-> Hello Lars,
->
-> On Tue, Dec 21, 2021 at 12:12:12PM +0100, Lars-Peter Clausen wrote:
->> On 12/21/21 11:45 AM, Uwe Kleine-K=F6nig wrote:
->>> similar to patch
->>> https://lore.kernel.org/r/4bde7cbd9e43a5909208102094444219d3154466.1640=
-072891.git.vilhelm.gray@gmail.com
->>> the usage of struct counter_device::priv can be replaced by
->>> container_of which improves type safety and code size.
->>>
->>> This series depends on above patch, converts the remaining drivers and
->>> finally drops struct counter_device::priv.
->> Not sure if this is such a good idea. struct counter_device should not be
->> embedded in the drivers state struct in the first place.
-> Just to mention it: My patch series didn't change this, this was already
-> broken before.
-I know, but this series has to be reverted when the framework is fixed.
->
->> struct counter_device contains a struct device, which is a reference cou=
-nted
->> object. But by embedding it in the driver state struct the life time of =
-both
->> the struct counter_device and and struct device are bound to the life ti=
-me
->> of the driver state struct.
->>
->> Which means the struct device memory can get freed before the last refer=
-ence
->> is dropped, which leads to a use-after-free and undefined behavior.
-> Well, the driver struct is allocated using devm_kzalloc for all drivers.
+With 'unevaluatedProperties' support enabled, the st,stm32-dsi binding
+has a new warning:
 
-devm_kzalloc() doesn't make a difference. The managed memory is freed =
+Documentation/devicetree/bindings/display/st,stm32-dsi.example.dt.yaml: dsi@5a000000: Unevaluated properties are not allowed ('panel-dsi@0' was unexpected)
 
-when the parent device is unbound/removed. There may very well be =
+The documented child node name is 'panel', so update the example.
 
-reference to the counter_device at this point.
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/display/st,stm32-dsi.yaml | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> So I think it's not *very* urgent to fix. Still you're right, this
-> should be addressed.
-
-Yes and no, this can trivially be used for privilege escalation, but =
-
-then again on systems with a counter_device probably everything runs as =
-
-root anyway.
-
->   =
-
->> The framework should be changed to rather then embedding the struct
->> counter_device in the state struct to just have a pointer to it. With the
->> struct counter_device having its own allocation that will be freed when =
-the
->> last reference to the struct device is dropped.
-> My favourite would be to implement a counter_device_alloc /
-> counter_device_add approach, similar to what spi_alloc_controller and
-> alloc_etherdev do. The downside is that this isn't typesafe either :-\
-
+diff --git a/Documentation/devicetree/bindings/display/st,stm32-dsi.yaml b/Documentation/devicetree/bindings/display/st,stm32-dsi.yaml
+index ce1ef93cce93..54f67cb51040 100644
+--- a/Documentation/devicetree/bindings/display/st,stm32-dsi.yaml
++++ b/Documentation/devicetree/bindings/display/st,stm32-dsi.yaml
+@@ -110,7 +110,7 @@ examples:
+               };
+         };
+ 
+-        panel-dsi@0 {
++        panel@0 {
+               compatible = "orisetech,otm8009a";
+               reg = <0>;
+               reset-gpios = <&gpioe 4 GPIO_ACTIVE_LOW>;
+@@ -125,4 +125,3 @@ examples:
+     };
+ 
+ ...
+-
+-- 
+2.32.0
 
 _______________________________________________
 Linux-stm32 mailing list
