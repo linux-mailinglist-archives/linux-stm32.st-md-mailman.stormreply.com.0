@@ -2,56 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 107B747BF07
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Dec 2021 12:36:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F7BC47BF0B
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Dec 2021 12:39:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7184C5E2D4;
-	Tue, 21 Dec 2021 11:36:44 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2840C5E2D4;
+	Tue, 21 Dec 2021 11:39:55 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E41EC5C842
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 043DAC5C842
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Dec 2021 11:36:43 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mzdRH-0001PR-5j; Tue, 21 Dec 2021 12:36:15 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1mzdRF-005o83-Gu; Tue, 21 Dec 2021 12:36:12 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1mzdRD-00072F-O5; Tue, 21 Dec 2021 12:36:11 +0100
-Date: Tue, 21 Dec 2021 12:35:42 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <20211221113542.rl4aburbzzrgs3km@pengutronix.de>
-References: <20211221104546.214066-1-u.kleine-koenig@pengutronix.de>
- <dadb79b2-ac21-1899-48b9-1c6723afb1b4@metafoo.de>
+ Tue, 21 Dec 2021 11:39:54 +0000 (UTC)
+Received: from pendragon.ideasonboard.com
+ (cpc89244-aztw30-2-0-cust3082.18-1.cable.virginm.net [86.31.172.11])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1DE7C881;
+ Tue, 21 Dec 2021 12:39:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1640086794;
+ bh=+zx35ApipIwzpR2JUnKwmUzBhBtFhQVEcaXKQzBURZE=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=qpbqBbV7mLRQ/LTYmZele+Jiaf5hSp3Mjt98byY3LnEv0TrgoJfVoe4yiWvmhYTut
+ ADnJaF5u8mSofPrJltGtoh9cxgvJnHT5CBO5oAAXf75f66TDvGMHBA15r8uFX2uQiN
+ iLxxCKcscRsF/K+f5hUMHVyAnwiPOhnai3Kb+3cY=
 MIME-Version: 1.0
-In-Reply-To: <dadb79b2-ac21-1899-48b9-1c6723afb1b4@metafoo.de>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>, linux-kernel@vger.kernel.org,
- David Lechner <david@lechnology.com>, linux-iio@vger.kernel.org,
- Patrick Havelange <patrick.havelange@essensium.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Oleksij Rempel <linux@rempel-privat.de>,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Syed Nayyar Waris <syednwaris@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/8] counter: Remove struct
-	counter_device::priv
+In-Reply-To: <210c1e7c333b42702ac0c3ba0da639e82327d035.camel@foss.st.com>
+References: <20211218182804.208906-1-antonio.borneo@foss.st.com>
+ <164001209406.2512616.469307346369770543@Monstersaurus>
+ <210c1e7c333b42702ac0c3ba0da639e82327d035.camel@foss.st.com>
+From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+To: Andrzej Hajda <a.hajda@samsung.com>,
+ Antonio Borneo <antonio.borneo@foss.st.com>, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@linux.ie>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>,
+ dri-devel@lists.freedesktop.org
+Date: Tue, 21 Dec 2021 11:39:51 +0000
+Message-ID: <164008679146.2512616.5965783147922289011@Monstersaurus>
+User-Agent: alot/0.10
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] drm: adv7511: override i2c address of cec
+	before accessing it
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,99 +55,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1771225286199411751=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============1771225286199411751==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="apqkyk5gu62tvk7i"
-Content-Disposition: inline
-
-
---apqkyk5gu62tvk7i
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello Lars,
-
-On Tue, Dec 21, 2021 at 12:12:12PM +0100, Lars-Peter Clausen wrote:
-> On 12/21/21 11:45 AM, Uwe Kleine-K=F6nig wrote:
-> > similar to patch
-> > https://lore.kernel.org/r/4bde7cbd9e43a5909208102094444219d3154466.1640=
-072891.git.vilhelm.gray@gmail.com
-> > the usage of struct counter_device::priv can be replaced by
-> > container_of which improves type safety and code size.
-> >=20
-> > This series depends on above patch, converts the remaining drivers and
-> > finally drops struct counter_device::priv.
->=20
-> Not sure if this is such a good idea. struct counter_device should not be
-> embedded in the drivers state struct in the first place.
-
-Just to mention it: My patch series didn't change this, this was already
-broken before.
-
-> struct counter_device contains a struct device, which is a reference coun=
-ted
-> object. But by embedding it in the driver state struct the life time of b=
-oth
-> the struct counter_device and and struct device are bound to the life time
-> of the driver state struct.
->=20
-> Which means the struct device memory can get freed before the last refere=
-nce
-> is dropped, which leads to a use-after-free and undefined behavior.
-
-Well, the driver struct is allocated using devm_kzalloc for all drivers.
-So I think it's not *very* urgent to fix. Still you're right, this
-should be addressed.
-=20
-> The framework should be changed to rather then embedding the struct
-> counter_device in the state struct to just have a pointer to it. With the
-> struct counter_device having its own allocation that will be freed when t=
-he
-> last reference to the struct device is dropped.
-
-My favourite would be to implement a counter_device_alloc /
-counter_device_add approach, similar to what spi_alloc_controller and
-alloc_etherdev do. The downside is that this isn't typesafe either :-\
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---apqkyk5gu62tvk7i
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmHBvAsACgkQwfwUeK3K
-7AkKxwf/eZMlm5W7BNNqhbv4to+2ASYVEhk+7+b6u4plF+l3ew+B0i0uhOD7DQnP
-N520u6PRwJgIgIwVA12ciu6ohLlr7ObF2tkmcIZ2wka5HvY9xoWeR77cHmAtrS6e
-oziMIs2//n85stSzMskek5imJo0Ow9eLT3Ee+fJxadHns8pe0SxmPsZnYGvkNot4
-c0pLfLx4rEwZ6HDPCT/DvRCmRKFs0MEv9sTEYZV4x+EBMDmYfzSI8A+kxZe6mEKJ
-NIwRhObAX0t7NzsMF8+HjIIPCxwX/vsE1aXpIbQezpEzUCsJ1IORbGziByuceBAt
-G1O0rlMD5vtRt3Ey7EUFYY3XRaufJg==
-=4FJC
------END PGP SIGNATURE-----
-
---apqkyk5gu62tvk7i--
-
---===============1771225286199411751==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1771225286199411751==--
+UXVvdGluZyBBbnRvbmlvIEJvcm5lbyAoMjAyMS0xMi0yMCAxNTo1MzoxMikKPiBPbiBNb24sIDIw
+MjEtMTItMjAgYXQgMTQ6NTQgKzAwMDAsIEtpZXJhbiBCaW5naGFtIHdyb3RlOgo+ID4gSGkgQW50
+b25pbywKPiA+IAo+ID4gUXVvdGluZyBBbnRvbmlvIEJvcm5lbyAoMjAyMS0xMi0xOCAxODoyODow
+NCkKPiA+ID4gQ29tbWl0IDY4MDUzMmM1MGJjYSAoImRybTogYWR2NzUxMTogQWRkIHN1cHBvcnQg
+Zm9yCj4gPiA+IGkyY19uZXdfc2Vjb25kYXJ5X2RldmljZSIpIGFsbG93cyBhIGRldmljZSB0cmVl
+IG5vZGUgdG8gb3ZlcnJpZGUKPiA+ID4gdGhlIGRlZmF1bHQgYWRkcmVzc2VzIG9mIHRoZSBzZWNv
+bmRhcnkgaTJjIGRldmljZXMuIFRoaXMgaXMgdXNlZnVsCj4gPiA+IGZvciBzb2x2aW5nIGFkZHJl
+c3MgY29uZmxpY3RzIG9uIHRoZSBpMmMgYnVzLgo+ID4gPiAKPiA+ID4gSW4gYWR2NzUxMV9pbml0
+X2NlY19yZWdtYXAoKSB0aGUgbmV3IGkyYyBhZGRyZXNzIG9mIGNlYyBkZXZpY2UgaXMKPiA+ID4g
+cmVhZCBmcm9tIGRldmljZSB0cmVlIGFuZCBpbW1lZGlhdGVseSBhY2Nlc3NlZCwgd2VsbCBiZWZv
+cmUgaXQgaXMKPiA+ID4gd3JpdHRlbiBpbiB0aGUgcHJvcGVyIHJlZ2lzdGVyIHRvIG92ZXJyaWRl
+IHRoZSBkZWZhdWx0IGFkZHJlc3MuCj4gPiA+IFRoaXMgY2FuIGNhdXNlIGFuIGkyYyBlcnJvciBk
+dXJpbmcgcHJvYmUgYW5kIGEgY29uc2VxdWVudCBwcm9iZQo+ID4gPiBmYWlsdXJlLgo+ID4gCj4g
+PiBPdWNoLCBpdCBkb2VzIHNlZW0gdGhhdCB3YXkuIEkgZ3Vlc3Mgbm8gb25lIGhhcyB1c2VkIHRo
+ZSBDRUMgZm9yCj4gPiBxdWl0ZQo+ID4gc29tZSB0aW1lLCBhcyBpdCBtdXN0IGhhdmUgYmVlbiBs
+aWtlIHRoaXMgZm9yIGEgd2hpbGU/Cj4gCj4gVXNpbmcgdGhlIGRlZmF1bHQgaTJjIGFkZHJlc3Mg
+Zm9yIGNlYyB3b3JrcyB3aXRob3V0IHByb2JsZW07IGFwcGFyZW50bHkKPiBldmVyeW9uZSBpcyBo
+YXBweSB3aXRoIHN1Y2ggZGVmYXVsdC4gVGhlIGlzc3VlIGFwcGVhcnMgb25seSB3aGVuIHlvdQo+
+IGhhdmUgdG8gb3ZlcnJpZGUgdGhlIGRlZmF1bHQgY2VjIGFkZHJlc3MuCj4gVGhlIGNvbW1pdCA2
+ODA1MzJjNTBiY2EgbGFuZGVkIGluIHY0LjE4LgoKT2ssIHBoZXcgLSBzbyB0aGUgJ25vcm1hbCcg
+Y2FzZSBzdGlsbCB3b3JrZWQuIFRoYXQgbWFrZXMgc2Vuc2UuCgpTb3JyeSBmb3IgZ2V0dGluZyBp
+dCB3cm9uZywgYW5kIEkgaG9wZSBpdCBkaWRuJ3QgdGFrZSB0b28gbG9uZyB0byBmaW5kCmFuZCBm
+aXguIEknbSBzdXJlIHdlJ2xsIHNlZSBpdCBwZXJjb2xhdGUgZG93biB0aGUgc3RhYmxlIHRyZWVz
+IG9uY2UKaW50ZWdyYXRlZC4KCi0tCktpZXJhbgoKPiA+ID4gT25jZSB0aGUgbmV3IGkyYyBhZGRy
+ZXNzIGlzIHJlYWQgZnJvbSB0aGUgZGV2aWNlIHRyZWUsIG92ZXJyaWRlCj4gPiA+IHRoZSBkZWZh
+dWx0IGFkZHJlc3MgYmVmb3JlIGFueSBhdHRlbXB0IHRvIGFjY2VzcyB0aGUgY2VjLgo+ID4gCj4g
+PiBSZXZpZXdlZC1ieTogS2llcmFuIEJpbmdoYW0gPGtpZXJhbi5iaW5naGFtK3JlbmVzYXNAaWRl
+YXNvbmJvYXJkLmNvbT4KPiAKPiBUaGFua3MhCj4gQW50b25pbwo+IAo+ID4gPiBUZXN0ZWQgd2l0
+aCBhZHY3NTMzIGFuZCBzdG0zMm1wMTU3Zi4KPiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYtYnk6IEFu
+dG9uaW8gQm9ybmVvIDxhbnRvbmlvLmJvcm5lb0Bmb3NzLnN0LmNvbT4KPiA+ID4gRml4ZXM6IDY4
+MDUzMmM1MGJjYSAoImRybTogYWR2NzUxMTogQWRkIHN1cHBvcnQgZm9yCj4gPiA+IGkyY19uZXdf
+c2Vjb25kYXJ5X2RldmljZSIpCj4gPiA+IC0tLQo+ID4gPiBUbzogQW5kcnplaiBIYWpkYSA8YS5o
+YWpkYUBzYW1zdW5nLmNvbT4KPiA+ID4gVG86IE5laWwgQXJtc3Ryb25nIDxuYXJtc3Ryb25nQGJh
+eWxpYnJlLmNvbT4KPiA+ID4gVG86IFJvYmVydCBGb3NzIDxyb2JlcnQuZm9zc0BsaW5hcm8ub3Jn
+Pgo+ID4gPiBUbzogTGF1cmVudCBQaW5jaGFydCA8TGF1cmVudC5waW5jaGFydEBpZGVhc29uYm9h
+cmQuY29tPgo+ID4gPiBUbzogSm9uYXMgS2FybG1hbiA8am9uYXNAa3dpYm9vLnNlPgo+ID4gPiBU
+bzogSmVybmVqIFNrcmFiZWMgPGplcm5lai5za3JhYmVjQGdtYWlsLmNvbT4KPiA+ID4gVG86IERh
+dmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4KPiA+ID4gVG86IERhbmllbCBWZXR0ZXIgPGRh
+bmllbEBmZndsbC5jaD4KPiA+ID4gVG86IEtpZXJhbiBCaW5naGFtIDxraWVyYW4uYmluZ2hhbSty
+ZW5lc2FzQGlkZWFzb25ib2FyZC5jb20+Cj4gPiA+IFRvOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gPiA+IENjOiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnCj4gPiA+IENj
+OiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCj4gPiA+IC0tLQo+ID4g
+PiDCoGRyaXZlcnMvZ3B1L2RybS9icmlkZ2UvYWR2NzUxMS9hZHY3NTExX2Rydi5jIHwgNyArKysr
+LS0tCj4gPiA+IMKgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMo
+LSkKPiA+ID4gCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2Fkdjc1
+MTEvYWR2NzUxMV9kcnYuYwo+ID4gPiBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvYWR2NzUxMS9h
+ZHY3NTExX2Rydi5jCj4gPiA+IGluZGV4IDc2NTU1YWU2NGU5Yy4uNjI5ZTA1Mjg2ZmQ5IDEwMDY0
+NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2Fkdjc1MTEvYWR2NzUxMV9kcnYu
+Ywo+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2Fkdjc1MTEvYWR2NzUxMV9kcnYu
+Ywo+ID4gPiBAQCAtMTA0OCw2ICsxMDQ4LDEwIEBAIHN0YXRpYyBpbnQgYWR2NzUxMV9pbml0X2Nl
+Y19yZWdtYXAoc3RydWN0Cj4gPiA+IGFkdjc1MTEgKmFkdikKPiA+ID4gwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoAo+ID4gPiBBRFY3NTExX0NFQ19JMkNfQUREUl9ERUZBVUxU
+KTsKPiA+ID4gwqDCoMKgwqDCoMKgwqAgaWYgKElTX0VSUihhZHYtPmkyY19jZWMpKQo+ID4gPiDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIFBUUl9FUlIoYWR2LT5pMmNfY2Vj
+KTsKPiA+ID4gKwo+ID4gPiArwqDCoMKgwqDCoMKgIHJlZ21hcF93cml0ZShhZHYtPnJlZ21hcCwg
+QURWNzUxMV9SRUdfQ0VDX0kyQ19BRERSLAo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgYWR2LT5pMmNfY2VjLT5hZGRyIDw8IDEpOwo+ID4gPiArCj4gPiA+IMKg
+wqDCoMKgwqDCoMKgIGkyY19zZXRfY2xpZW50ZGF0YShhZHYtPmkyY19jZWMsIGFkdik7Cj4gPiA+
+IMKgCj4gPiA+IMKgwqDCoMKgwqDCoMKgIGFkdi0+cmVnbWFwX2NlYyA9IGRldm1fcmVnbWFwX2lu
+aXRfaTJjKGFkdi0+aTJjX2NlYywKPiA+ID4gQEAgLTEyNTIsOSArMTI1Niw2IEBAIHN0YXRpYyBp
+bnQgYWR2NzUxMV9wcm9iZShzdHJ1Y3QgaTJjX2NsaWVudAo+ID4gPiAqaTJjLCBjb25zdCBzdHJ1
+Y3QgaTJjX2RldmljZV9pZCAqaWQpCj4gPiA+IMKgwqDCoMKgwqDCoMKgIGlmIChyZXQpCj4gPiA+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycl9pMmNfdW5yZWdpc3Rlcl9w
+YWNrZXQ7Cj4gPiA+IMKgCj4gPiA+IC3CoMKgwqDCoMKgwqAgcmVnbWFwX3dyaXRlKGFkdjc1MTEt
+PnJlZ21hcCwgQURWNzUxMV9SRUdfQ0VDX0kyQ19BRERSLAo+ID4gPiAtwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYWR2NzUxMS0+aTJjX2NlYy0+YWRkciA8PCAxKTsKPiA+
+ID4gLQo+ID4gPiDCoMKgwqDCoMKgwqDCoCBJTklUX1dPUksoJmFkdjc1MTEtPmhwZF93b3JrLCBh
+ZHY3NTExX2hwZF93b3JrKTsKPiA+ID4gwqAKPiA+ID4gwqDCoMKgwqDCoMKgwqAgaWYgKGkyYy0+
+aXJxKSB7Cj4gPiA+IAo+ID4gPiBiYXNlLWNvbW1pdDogZmM3NDg4MWMyOGQzMTRiMTBlZmFjMDE2
+ZWY0OWRmNGZmNDBiOGI5Nwo+ID4gPiAtLSAKPiA+ID4gMi4zNC4xCj4gPiA+IAo+Cl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
+bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
+Cg==
