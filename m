@@ -2,67 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE4E47BB87
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Dec 2021 09:13:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0280447BBA1
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Dec 2021 09:18:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64E0CC5E2D4;
-	Tue, 21 Dec 2021 08:13:43 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4EA6C5E2D4;
+	Tue, 21 Dec 2021 08:18:31 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11036C0614D
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 21 Dec 2021 08:18:30 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07AA9C0614D
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Dec 2021 08:13:41 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BL5YxKS014789;
- Tue, 21 Dec 2021 09:13:25 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=date : from : to :
- cc : subject : in-reply-to : message-id : references : mime-version :
- content-type; s=selector1;
- bh=maZSNZJEXk+v3gf/cuhFsQAVI0wk81zZoIV/aka8yJM=;
- b=Rzk5jmvO46qS77p39WPTv3GZ5mUVb90hNFhX5EB3RJkw4N5PzzTxSSBdo5j6XCdKnu6s
- 9tnG1h81whI0SO8CfmEIjm0aLG647TBmhGXyGZLO0drKk1HGejRAc/Lb8b1L1UMp7zxE
- LEIQnXTige9dbk+kDL67j956UTwFrA4lCQ11knfVZDv6bXHW6IF7kNUBwNMg1sneVbRP
- vjqxARMqpzTNaHCKhxO2VGoSQOmOyTZSRD1izFpFgEd5FxHWwsv6XGIMS4ez1zCGXsjS
- +Ltgg8FrTtmfy9N4jtjxsPwmzppn2iIvRSM0igxLIBhn9SLYIfdhryu4MHSk0XNJ+p1y 1A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3d2keaxcvw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 21 Dec 2021 09:13:25 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0DA8D10002A;
- Tue, 21 Dec 2021 09:13:22 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DC65921BF6A;
- Tue, 21 Dec 2021 09:13:22 +0100 (CET)
-Received: from gnbcxd0088.gnb.st.com (10.75.127.50) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 21 Dec
- 2021 09:13:22 +0100
-Date: Tue, 21 Dec 2021 09:12:56 +0100
-From: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
-X-X-Sender: toromano@gnbcxd0088.gnb.st.com
-To: Marek Vasut <marex@denx.de>
-In-Reply-To: <20211220195022.1387104-1-marex@denx.de>
-Message-ID: <alpine.DEB.2.21.2112210826250.21632@gnbcxd0088.gnb.st.com>
-References: <20211220195022.1387104-1-marex@denx.de>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BF19061465;
+ Tue, 21 Dec 2021 08:18:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1161C36AE7;
+ Tue, 21 Dec 2021 08:18:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1640074708;
+ bh=vrx6RPSDmWAICZO/O856wjjtSS7R7umwCZ+joXnTXy8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=f2fbqHayxI5zE8rz7XssFncNFlkheTrC0qEaUpbufP9D9nhnmrUkTSTw4Fd3KzNzw
+ XvDaug56XhG1VsIE0IDzOOaRQiMo3IR70nij7cfM1Gse1OCuIQ72t7al9hpTAAoPXG
+ EmRiiBLfpv7UZXc9K41Jl5l0+8LPNyGRwQhRcf6g=
+Date: Tue, 21 Dec 2021 09:18:25 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <YcGN0fDn2hqAdrP9@kroah.com>
+References: <20211215153121.30010-1-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG1NODE2.st.com (10.75.127.2) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-21_03,2021-12-21_01,2021-12-02_01
-Cc: Lionel Debieve <lionel.debieve@st.com>,
- Nicolas Toromanoff <nicolas.toromanoff@st.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Fabien Dessenne <fabien.dessenne@st.com>
-Subject: Re: [Linux-stm32] [PATCH] crypto: stm32/crc32 - Fix kernel BUG
- triggered in probe()
+Content-Disposition: inline
+In-Reply-To: <20211215153121.30010-1-arnaud.pouliquen@foss.st.com>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3] tty: rpmsg: Fix race condition
+	releasing tty port
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,50 +52,84 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 20 Dec 2021, Marek Vasut wrote:
+On Wed, Dec 15, 2021 at 04:31:21PM +0100, Arnaud Pouliquen wrote:
+> The tty_port struct is part of the rpmsg_tty_port structure.
+> The issue is that the rpmsg_tty_port structure is freed on
+> rpmsg_tty_remove while it is still referenced in the tty_struct.
+> Its release is not predictable due to workqueues.
+> 
+> For instance following ftrace shows that rpmsg_tty_close is called after
+> rpmsg_tty_release_cport:
+> 
+>      nr_test.sh-389     [000] .....   212.093752: rpmsg_tty_remove <-rpmsg_dev_
+> remove
+>              cat-1191    [001] .....   212.095697: tty_release <-__fput
+>       nr_test.sh-389     [000] .....   212.099166: rpmsg_tty_release_cport <-rpm
+> sg_tty_remove
+>              cat-1191    [001] .....   212.115352: rpmsg_tty_close <-tty_release
+>              cat-1191    [001] .....   212.115371: release_tty <-tty_release_str
+> 
+> As consequence, the port must be free only when user has released the TTY
+> interface.
+> 
+> This path :
+> - Introduce the .destruct port ops function to release the allocated
+>   rpmsg_tty_port structure.
+> - Manages the tty port refcounting to trig the .destruct port ops,
+> - Introduces the rpmsg_tty_cleanup function to ensure that the TTY is
+>   removed before decreasing the port refcount.
+> - Uses tty_vhangup and tty_port_hangup instead of tty_port_tty_hangup.
 
-> The include/linux/crypto.h struct crypto_alg field cra_driver_name description
-> states "Unique name of the transformation provider. " ... " this contains the
-> name of the chip or provider and the name of the transformation algorithm."
->
-> In case of the stm32-crc driver, field cra_driver_name is identical for all
-> registered transformation providers and set to the name of the driver itself,
-> which is incorrect. This patch fixes it by assigning a unique cra_driver_name
-> to each registered transformation provider.
->
-> The kernel crash is triggered when the driver calls crypto_register_shashes()
-> which calls crypto_register_shash(), which calls crypto_register_alg(), which
-> calls __crypto_register_alg(), which returns -EEXIST, which is propagated
-> back through this call chain. Upon -EEXIST from crypto_register_shash(), the
-> crypto_register_shashes() starts unregistering the providers back, and calls
-> crypto_unregister_shash(), which calls crypto_unregister_alg(), and this is
-> where the BUG() triggers due to incorrect cra_refcnt.
->
-> Fixes: b51dbe90912a ("crypto: stm32 - Support for STM32 CRC32 crypto module")
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: <stable@vger.kernel.org> # 4.12+
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Fabien Dessenne <fabien.dessenne@st.com>
-> Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> Cc: Lionel Debieve <lionel.debieve@st.com>
-> Cc: Nicolas Toromanoff <nicolas.toromanoff@st.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-crypto@vger.kernel.org
+Shouldn't this hangup change be a separate change?
+
+> 
+> Fixes: 7c0408d80579 ("tty: add rpmsg driver")
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 > ---
-> drivers/crypto/stm32/stm32-crc32.c | 4 ++--
+> delta vs V2: taking into account Jiri Slaby's comments:
+>  - Inline rpmsg_tty_release_cport in rpmsg_tty_destruct_port,
+>  - call tty_port_put in case of error in rpmsg_tty_probe,
+>  - use tty_port_get port return in rpmsg_tty_install to take into account
+>    NULL port return case.
+> 
+> Applied and tested on fa55b7dcdc43 ("Linux 5.16-rc1", 2021-11-14)
+> ---
+>  drivers/tty/rpmsg_tty.c | 49 +++++++++++++++++++++++++++++------------
+>  1 file changed, 35 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
+> index dae2a4e44f38..cdc590c63f03 100644
+> --- a/drivers/tty/rpmsg_tty.c
+> +++ b/drivers/tty/rpmsg_tty.c
+> @@ -50,10 +50,21 @@ static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len, void *p
+>  static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
+>  {
+>  	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
+> +	struct tty_port *port = tty->port;
+>  
+>  	tty->driver_data = cport;
+>  
+> -	return tty_port_install(&cport->port, driver, tty);
+> +	port = tty_port_get(&cport->port);
+> +	return tty_port_install(port, driver, tty);
+> +}
+> +
+> +static void rpmsg_tty_cleanup(struct tty_struct *tty)
+> +{
+> +	struct tty_port *port = tty->port;
+> +
+> +	WARN_ON(!port);
 
-Hello Marek,
+How can this ever trigger?  Shouldn't you do something if it can?
 
-Thanks for the fix.
+thanks,
 
-Acked-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
-
+greg k-h
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
