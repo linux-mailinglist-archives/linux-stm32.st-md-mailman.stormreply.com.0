@@ -2,65 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 238D447C136
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Dec 2021 15:12:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A49F347C153
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Dec 2021 15:19:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0AF1C5E2D4;
-	Tue, 21 Dec 2021 14:12:22 +0000 (UTC)
-Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55AA7C5E2D4;
+	Tue, 21 Dec 2021 14:19:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC355C5C842
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB511C5C842
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Dec 2021 14:12:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
- s=default2002;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=8p7ecK45hVMn5gLDPgo9VsNqGb2KdV/HRhC09pdrmXQ=; b=auQvbmMR1lTu3+4B8lLJSfCCri
- jztKfEm+WOTER+y7KhwgBnlpRm2QYYXRlqr1SkrvZ7TFaZILqUl3Gokrjj/L1yjQUkWvGTCT5rhkw
- NMugzh36V7+wYIIucohNF+O22YE2RZkk2RZB+vd3A648gPXQSNwZw1+6ZTE+g2+EIsVQaEKlL8s7A
- 3BDXMLIcpaEgLntQPQBqGN0bd7kDy9RZnkOvlpS2XQ0g28xywVGyudp9lxDjQnPrTlpKGl1B9QAAy
- iPd7Rr3ZbwWkZf1201pumlFkbn5Hqx5rY1TjHZK7mYNsX3OfullOvzRDiUIzepbsNY8PxlmAIa/gV
- QiVKHiCA==;
-Received: from [78.46.152.42] (helo=sslproxy04.your-server.de)
- by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
- id 1mzfs7-000CA8-6D; Tue, 21 Dec 2021 15:12:07 +0100
-Received: from [2001:a61:2bc8:8501:9e5c:8eff:fe01:8578]
- by sslproxy04.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <lars@metafoo.de>)
- id 1mzfs6-000PVb-PF; Tue, 21 Dec 2021 15:12:06 +0100
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-References: <20211221104546.214066-1-u.kleine-koenig@pengutronix.de>
- <dadb79b2-ac21-1899-48b9-1c6723afb1b4@metafoo.de>
- <20211221113542.rl4aburbzzrgs3km@pengutronix.de>
- <65009237-7e61-21aa-60cd-b7f7e0bb2f91@metafoo.de>
- <20211221132258.472t537373vto7bz@pengutronix.de>
-From: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <9d5788ab-4576-08c3-e347-9348aba3804a@metafoo.de>
-Date: Tue, 21 Dec 2021 15:12:05 +0100
+ Tue, 21 Dec 2021 14:19:06 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BL9m9ri031016;
+ Tue, 21 Dec 2021 15:19:00 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=Ne4xZt4WaaOmRccD8H/aG3fcyOqrhCzBoBiBiz/kLxU=;
+ b=WP82BkSGcyUjqemKGD/sOdvZqJuYhvXi7BzeXSSyMD6fbdk/6/BdYJAeHgFt7WZnMyU1
+ iXwbkoD3GowWXvX5IbCx+KuasiFvB+eVEoPm7mAnUKXoTQHLox/yD2dUaQW6lrhHy3up
+ 3+dTfiSIZFpGFM6YyMrkUYqqnyXrUjwMdfjoLWPFHfldoDeIjWdyqgqcfajRZsll4evJ
+ 25vuuXUlh4MxnuvKTm5+/V8KiMnxEjA/5EuX58Uxg3l2XNwObpe/zFkjaoEO6hm3tht6
+ 9qcb5L/u3iWHadCGm4lCqdxhKO9Vy5xUjeyRcV6DmrAvrjvnaHgMXFC9npnzvdow91en iQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3d37emu4q0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 21 Dec 2021 15:19:00 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6D12010002A;
+ Tue, 21 Dec 2021 15:18:59 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 60D7E20B85E;
+ Tue, 21 Dec 2021 15:18:59 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.46) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 21 Dec
+ 2021 15:18:58 +0100
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20211215153121.30010-1-arnaud.pouliquen@foss.st.com>
+ <YcGN0fDn2hqAdrP9@kroah.com>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <318a02fe-0317-d27e-06bc-61bdb8feec79@foss.st.com>
+Date: Tue, 21 Dec 2021 15:18:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20211221132258.472t537373vto7bz@pengutronix.de>
+In-Reply-To: <YcGN0fDn2hqAdrP9@kroah.com>
 Content-Language: en-US
-X-Authenticated-Sender: lars@metafoo.de
-X-Virus-Scanned: Clear (ClamAV 0.103.3/26395/Tue Dec 21 10:18:41 2021)
-Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>, linux-kernel@vger.kernel.org,
- David Lechner <david@lechnology.com>, linux-iio@vger.kernel.org,
- Patrick Havelange <patrick.havelange@essensium.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Oleksij Rempel <linux@rempel-privat.de>,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Syed Nayyar Waris <syednwaris@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/8] counter: Remove struct
-	counter_device::priv
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-21_04,2021-12-21_01,2021-12-02_01
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3] tty: rpmsg: Fix race condition
+	releasing tty port
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,43 +74,117 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="windows-1252"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/21/21 2:22 PM, Uwe Kleine-K=F6nig wrote:
-> On Tue, Dec 21, 2021 at 01:04:50PM +0100, Lars-Peter Clausen wrote:
->> On 12/21/21 12:35 PM, Uwe Kleine-K=F6nig wrote:
->>> On Tue, Dec 21, 2021 at 12:12:12PM +0100, Lars-Peter Clausen wrote:
->>>> On 12/21/21 11:45 AM, Uwe Kleine-K=F6nig wrote:
->>>>> similar to patch
->>>>> https://lore.kernel.org/r/4bde7cbd9e43a5909208102094444219d3154466.16=
-40072891.git.vilhelm.gray@gmail.com
->>>>> the usage of struct counter_device::priv can be replaced by
->>>>> container_of which improves type safety and code size.
->>>>>
->>>>> This series depends on above patch, converts the remaining drivers and
->>>>> finally drops struct counter_device::priv.
->>>> Not sure if this is such a good idea. struct counter_device should not=
- be
->>>> embedded in the drivers state struct in the first place.
->>> Just to mention it: My patch series didn't change this, this was already
->>> broken before.
->> I know, but this series has to be reverted when the framework is fixed.
-> All drivers have to be touched. With my patch series you have to modify
-> one function in each driver, without my patch you have touch nearly
-> every function.
->
-I'm not so sure. I don't see how you have to modify every function. =
-
-You'd keep using priv to get a pointer to the state struct.
-
-That said having a centralized function in each driver to get the state =
-
-struct from the counter device doesn't hurt either.
+Hello Greg,
 
 
+On 12/21/21 9:18 AM, Greg Kroah-Hartman wrote:
+> On Wed, Dec 15, 2021 at 04:31:21PM +0100, Arnaud Pouliquen wrote:
+>> The tty_port struct is part of the rpmsg_tty_port structure.
+>> The issue is that the rpmsg_tty_port structure is freed on
+>> rpmsg_tty_remove while it is still referenced in the tty_struct.
+>> Its release is not predictable due to workqueues.
+>>
+>> For instance following ftrace shows that rpmsg_tty_close is called after
+>> rpmsg_tty_release_cport:
+>>
+>>      nr_test.sh-389     [000] .....   212.093752: rpmsg_tty_remove <-rpmsg_dev_
+>> remove
+>>              cat-1191    [001] .....   212.095697: tty_release <-__fput
+>>       nr_test.sh-389     [000] .....   212.099166: rpmsg_tty_release_cport <-rpm
+>> sg_tty_remove
+>>              cat-1191    [001] .....   212.115352: rpmsg_tty_close <-tty_release
+>>              cat-1191    [001] .....   212.115371: release_tty <-tty_release_str
+>>
+>> As consequence, the port must be free only when user has released the TTY
+>> interface.
+>>
+>> This path :
+>> - Introduce the .destruct port ops function to release the allocated
+>>   rpmsg_tty_port structure.
+>> - Manages the tty port refcounting to trig the .destruct port ops,
+>> - Introduces the rpmsg_tty_cleanup function to ensure that the TTY is
+>>   removed before decreasing the port refcount.
+>> - Uses tty_vhangup and tty_port_hangup instead of tty_port_tty_hangup.
+> 
+> Shouldn't this hangup change be a separate change?
+
+Thanks for pointing this!
+
+My first answer was that this is part of the fix to make the hangup synchronous.
+But making more tests I'm not able to reproduce the reproduce the race issue
+using tty_port_tty_hangup.
+
+I don't master enough the TTY framework to know if using tty_vhangup is safer...
+The difference between tty_vhangup and tty_hangup seems only that __tty_hangup
+is directly called in tty_vhangup while a work is created in tty_hangup.
+
+But after that tty_kref_put calls queue_release_one_tty making the rest of the
+release asynchronous. And this last part of the release is the cause of the race
+condition i observed.
+
+So i propose to just drop this part and keep the use of tty_port_tty_hangup.
+
+The alternative is to add it in a separate patch as you propose. But from now I
+have not more rational.
+
+Any advice is welcome!
+
+> 
+>>
+>> Fixes: 7c0408d80579 ("tty: add rpmsg driver")
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>> delta vs V2: taking into account Jiri Slaby's comments:
+>>  - Inline rpmsg_tty_release_cport in rpmsg_tty_destruct_port,
+>>  - call tty_port_put in case of error in rpmsg_tty_probe,
+>>  - use tty_port_get port return in rpmsg_tty_install to take into account
+>>    NULL port return case.
+>>
+>> Applied and tested on fa55b7dcdc43 ("Linux 5.16-rc1", 2021-11-14)
+>> ---
+>>  drivers/tty/rpmsg_tty.c | 49 +++++++++++++++++++++++++++++------------
+>>  1 file changed, 35 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
+>> index dae2a4e44f38..cdc590c63f03 100644
+>> --- a/drivers/tty/rpmsg_tty.c
+>> +++ b/drivers/tty/rpmsg_tty.c
+>> @@ -50,10 +50,21 @@ static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len, void *p
+>>  static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
+>>  {
+>>  	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
+>> +	struct tty_port *port = tty->port;
+>>  
+>>  	tty->driver_data = cport;
+>>  
+>> -	return tty_port_install(&cport->port, driver, tty);
+>> +	port = tty_port_get(&cport->port);
+>> +	return tty_port_install(port, driver, tty);
+>> +}
+>> +
+>> +static void rpmsg_tty_cleanup(struct tty_struct *tty)
+>> +{
+>> +	struct tty_port *port = tty->port;
+>> +
+>> +	WARN_ON(!port);
+> 
+> How can this ever trigger?  Shouldn't you do something if it can?
+
+Over-protection i will suppress it.
+
+Thanks and Regards,
+Arnaud
+
+> 
+> thanks,
+> 
+> greg k-h
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
