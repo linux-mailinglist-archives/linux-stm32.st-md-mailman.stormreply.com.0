@@ -2,63 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F96847CE21
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Dec 2021 09:24:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F77A47D030
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Dec 2021 11:45:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDF22C5F1EF;
-	Wed, 22 Dec 2021 08:24:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4626C5F1EE;
+	Wed, 22 Dec 2021 10:45:15 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75406C5F1EE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08FBEC5A4FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Dec 2021 08:23:59 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BM1nx1W001281;
- Wed, 22 Dec 2021 09:23:58 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=cW1XKxVQ3gNR6IkwBl5MQb9itHtVpcIlflSW4RNdt+Y=;
- b=2M97OT1hsIzohmP8+yNJ7H3m1xBaFMJATFBtNrrSBOcH/x6RKy3be8cTPQ3TmMmCY1N4
- NqLVUelJMTn3h4yc+NLd2b53pXpzMcYy3XDa/5oKDada8wLbIDIaOxoE5g53z54bTLSr
- xn2BFaHx+sxCjDG6Fg4nk+/vIx3rxRGg34Re8Rp/EEqDcpnD9mwJPFiWQVDIcBrfsLMl
- AVB0MiWkRNH7fWjRGrrDVSfBXlUaWhgYfy5Bi3IBUb5rvmRLUCI4yU1EyNP36SJa3t11
- q8sJIM40TsdKP2H3USdCIrCEHpKiDnujZo7KtbqFEGPYCgVVn/NtBKhyY6/0Fan6nJqT 2g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3d3bq05djm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 22 Dec 2021 09:23:58 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6D1A0100038;
- Wed, 22 Dec 2021 09:23:58 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6488F2221D6;
- Wed, 22 Dec 2021 09:23:58 +0100 (CET)
-Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 22 Dec 2021 09:23:57
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>
-Date: Wed, 22 Dec 2021 09:23:49 +0100
-Message-ID: <20211222082349.30378-7-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20211222082349.30378-1-arnaud.pouliquen@foss.st.com>
-References: <20211222082349.30378-1-arnaud.pouliquen@foss.st.com>
+ Wed, 22 Dec 2021 09:05:56 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id d9so3580191wrb.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 22 Dec 2021 01:05:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yFNkjOhkbVUPCPag3+lAuNDHEf6o3ru8j250NbFjPto=;
+ b=PWovdBphqrEK39M+gpDvGqxAdVPJl6QRH08LDrE+POux+PO7tP7Nq3+hmvFGa/a53/
+ XL4qcWwkKXpqepZ9OJ6dRIlDgLiBr3KiSIaAltvzLJG+QFcoIeTRF+DE3+Lq8xaCSkcO
+ DCmqg/yNfXwUSWbixP4Nz4sPf/o+ES/VSQZ8Jq8iUBnnixA7IEI2eepCOHFPVWsyTEre
+ VrauRXaUmPCXzMC+Pnr0GHA4Aj7LOhjmvVG1i0T5IXo8SZiYdj/FkZZ7dJSrSMSN3tbx
+ c+6weXHSCO2prqtwazZPDjQ4pA2nwe5rCz5NLTI4oGG5wPHKr2CBamLoX96GgGiPaFHp
+ cY1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yFNkjOhkbVUPCPag3+lAuNDHEf6o3ru8j250NbFjPto=;
+ b=Jkp3ICpNjubujA0/Zobt+zi9/sq2R8J97WG3EPM/y7/1AHbcKxkYc2LEAgd1VezCAM
+ GTq/QrkASKScx5wcVWlVBo4E9NVAGvlw6fLLVxoQ8biOBLsjxHh4zRT3XfQ2eEnMPY0K
+ MT1LloZU0AZrbuv4MeqNEYuY7/SmU9gxjuYqqLQVrFBOOPgZUK3dHTx3P8gwikhqNN39
+ S2bZRRb5MhJ6WVtLrcU6YxvINVh+dQiS+Se2bdCruyo9PmAwN+YaoS/kq5POxR6EPdnI
+ pQIJ893S7v2qiUgs/Mr3pMtg7UFEbQssbivfo73two732/fycHCRAfRSTRs7CvD24ATn
+ wUmw==
+X-Gm-Message-State: AOAM5317tGqglN64Otj+CgElmtMiTI69PgQOtk5TQRfajh+eJPbaERBR
+ D+nUSpMnqTmWG4ht4TpCCNU=
+X-Google-Smtp-Source: ABdhPJy7flmzMTQMI+3SUiNfM2NPwtetHwfXTX+i112NC6r7WXwuYpXcaDAx0EErcXx/XtP7nmcycA==
+X-Received: by 2002:a5d:64ed:: with SMTP id g13mr1384847wri.197.1640163956459; 
+ Wed, 22 Dec 2021 01:05:56 -0800 (PST)
+Received: from localhost.localdomain ([217.113.240.86])
+ by smtp.gmail.com with ESMTPSA id a22sm1139775wme.19.2021.12.22.01.05.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Dec 2021 01:05:56 -0800 (PST)
+From: =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>
+To: contact@emersion.fr
+Date: Wed, 22 Dec 2021 10:05:46 +0100
+Message-Id: <20211222090552.25972-1-jose.exposito89@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2021-12-22_03,2021-12-21_01,2021-12-02_01
-Cc: arnaud.pouliquen@foss.st.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [RFC PATCH v2 6/6] remoteproc: Instantiate the new
-	remoteproc virtio platform device
+X-Mailman-Approved-At: Wed, 22 Dec 2021 10:45:15 +0000
+Cc: airlied@linux.ie, joonas.lahtinen@linux.intel.com,
+ alexandre.torgue@foss.st.com, stefan@agner.ch, benjamin.gaignard@linaro.org,
+ festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com, marex@denx.de,
+ linux-imx@nxp.com, intel-gfx@lists.freedesktop.org, tzimmermann@suse.de,
+ s.hauer@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, daniel@ffwll.ch,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ jani.nikula@linux.intel.com, yannick.fertre@foss.st.com,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ dmitry.baryshkov@linaro.org,
+ =?UTF-8?q?Jos=C3=A9=20Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ shawnguo@kernel.org
+Subject: [Linux-stm32] [PATCH v2 0/6] Add missing format_mod_supported
+	functions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,348 +79,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Migrate from the rvdev device to the rvdev platform device.
-From this patch, when a vdev resource is found in the resource table
-the remoteproc core register a platform device.
-
-All reference to the rvdev->dev has been updated to rvdev-pdev->dev
-
-The use of kref counter is replaced by get/put_device on the remoteproc
-virtio device.
-
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-
----
-Update vs previous revision:
-  - rework comments around virtio platform device creation
----
- drivers/remoteproc/remoteproc_core.c     | 48 +++++++-----
- drivers/remoteproc/remoteproc_internal.h |  2 -
- drivers/remoteproc/remoteproc_virtio.c   | 99 ++++++------------------
- include/linux/remoteproc.h               |  4 -
- 4 files changed, 52 insertions(+), 101 deletions(-)
-
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index ca2fe8d9cac8..4f332ec0fdd0 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -465,6 +465,8 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- {
- 	struct fw_rsc_vdev *rsc = ptr;
- 	struct device *dev = &rproc->dev;
-+	struct rproc_vdev_pdata vdev_data;
-+	struct platform_device *pdev;
- 	struct rproc_vdev *rvdev;
- 	int i, ret;
- 
-@@ -484,25 +486,36 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- 	dev_dbg(dev, "vdev rsc: id %d, dfeatures 0x%x, cfg len %d, %d vrings\n",
- 		rsc->id, rsc->dfeatures, rsc->config_len, rsc->num_of_vrings);
- 
--	/* we currently support only two vrings per rvdev */
--	if (rsc->num_of_vrings > ARRAY_SIZE(rvdev->vring)) {
--		dev_err(dev, "too many vrings: %d\n", rsc->num_of_vrings);
--		return -EINVAL;
--	}
-+	/* Register a remoteproc virtio platform device in charge of the virtio device */
-+	vdev_data.rsc_offset = offset;
-+	vdev_data.id  = rsc->id;
-+	vdev_data.index  = rproc->nb_vdev;
- 
--	rvdev = kzalloc(sizeof(*rvdev), GFP_KERNEL);
--	if (!rvdev)
--		return -ENOMEM;
-+	pdev = rproc_virtio_register_device(rproc, &vdev_data);
-+	if (PTR_ERR_OR_ZERO(pdev)) {
-+		dev_err(rproc->dev.parent,
-+			"failed to create rproc-virtio device\n");
-+		return PTR_ERR_OR_ZERO(pdev);
-+	}
- 
--	kref_init(&rvdev->refcount);
-+	/*
-+	 * At this point the registered remoteproc virtio platform device should has been probed.
-+	 * Get the associated rproc_vdev struct to assign the vrings
-+	 */
-+	rvdev = platform_get_drvdata(pdev);
-+	if (WARN_ON(!rvdev)) {
-+		ret = -EINVAL;
-+		goto free_rvdev;
-+	}
- 
--	rvdev->id = rsc->id;
--	rvdev->rproc = rproc;
--	rvdev->index = rproc->nb_vdev++;
-+	rproc->nb_vdev++;
- 
--	ret = rproc_rvdev_add_device(rvdev);
--	if (ret)
-+	/* we currently support only two vrings per rvdev */
-+	if (rsc->num_of_vrings > ARRAY_SIZE(rvdev->vring)) {
-+		dev_err(dev, "too many vrings: %d\n", rsc->num_of_vrings);
-+		ret = -EINVAL;
- 		goto free_rvdev;
-+	}
- 
- 	/* parse the vrings */
- 	for (i = 0; i < rsc->num_of_vrings; i++) {
-@@ -511,9 +524,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- 			goto free_rvdev;
- 	}
- 
--	/* remember the resource offset*/
--	rvdev->rsc_offset = offset;
--
- 	/* allocate the vring resources */
- 	for (i = 0; i < rsc->num_of_vrings; i++) {
- 		ret = rproc_alloc_vring(rvdev, i);
-@@ -527,7 +537,7 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
- 	for (i--; i >= 0; i--)
- 		rproc_free_vring(&rvdev->vring[i]);
- free_rvdev:
--	device_unregister(&rvdev->dev);
-+	rproc_virtio_unregister_device(rvdev);
- 	return ret;
- }
- 
-@@ -1266,7 +1276,7 @@ void rproc_resource_cleanup(struct rproc *rproc)
- 
- 	/* clean up remote vdev entries */
- 	list_for_each_entry_safe(rvdev, rvtmp, &rproc->rvdevs, node)
--		kref_put(&rvdev->refcount, rproc_vdev_release);
-+		rproc_virtio_unregister_device(rvdev);
- 
- 	rproc_coredump_cleanup(rproc);
- }
-diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-index 3007d29a26e1..1479c5e33e2e 100644
---- a/drivers/remoteproc/remoteproc_internal.h
-+++ b/drivers/remoteproc/remoteproc_internal.h
-@@ -36,12 +36,10 @@ int rproc_of_parse_firmware(struct device *dev, int index,
- 			    const char **fw_name);
- 
- /* from remoteproc_virtio.c */
--int rproc_rvdev_add_device(struct rproc_vdev *rvdev);
- struct platform_device *
- rproc_virtio_register_device(struct rproc *rproc, struct rproc_vdev_pdata *vdev_data);
- void rproc_virtio_unregister_device(struct rproc_vdev *rvdev);
- irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id);
--void rproc_vdev_release(struct kref *ref);
- 
- /* from remoteproc_debugfs.c */
- void rproc_remove_trace_file(struct dentry *tfile);
-diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-index 5eef679cc520..55e797095bfe 100644
---- a/drivers/remoteproc/remoteproc_virtio.c
-+++ b/drivers/remoteproc/remoteproc_virtio.c
-@@ -48,7 +48,11 @@ static int copy_dma_range_map(struct device *to, struct device *from)
- 
- static struct rproc_vdev *vdev_to_rvdev(struct virtio_device *vdev)
- {
--	return container_of(vdev->dev.parent, struct rproc_vdev, dev);
-+	struct platform_device *pdev;
-+
-+	pdev = container_of(vdev->dev.parent, struct platform_device, dev);
-+
-+	return platform_get_drvdata(pdev);
- }
- 
- static  struct rproc *vdev_to_rproc(struct virtio_device *vdev)
-@@ -343,13 +347,10 @@ static void rproc_virtio_dev_release(struct device *dev)
- {
- 	struct virtio_device *vdev = dev_to_virtio(dev);
- 	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
--	struct rproc *rproc = vdev_to_rproc(vdev);
- 
- 	kfree(vdev);
- 
--	kref_put(&rvdev->refcount, rproc_vdev_release);
--
--	put_device(&rproc->dev);
-+	put_device(&rvdev->pdev->dev);
- }
- 
- /**
-@@ -365,7 +366,7 @@ static void rproc_virtio_dev_release(struct device *dev)
- static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
- {
- 	struct rproc *rproc = rvdev->rproc;
--	struct device *dev = &rvdev->dev;
-+	struct device *dev = &rvdev->pdev->dev;
- 	struct virtio_device *vdev;
- 	struct rproc_mem_entry *mem;
- 	int ret;
-@@ -436,17 +437,15 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
- 	vdev->dev.release = rproc_virtio_dev_release;
- 
- 	/*
--	 * We're indirectly making a non-temporary copy of the rproc pointer
-+	 * We're indirectly making a non-temporary copy of the rvdev pointer
- 	 * here, because drivers probed with this vdev will indirectly
- 	 * access the wrapping rproc.
- 	 *
--	 * Therefore we must increment the rproc refcount here, and decrement
-+	 * Therefore we must increment the rvdev refcount here, and decrement
- 	 * it _only_ when the vdev is released.
- 	 */
--	get_device(&rproc->dev);
-+	get_device(dev);
- 
--	/* Reference the vdev and vring allocations */
--	kref_get(&rvdev->refcount);
- 
- 	ret = register_virtio_device(vdev);
- 	if (ret) {
-@@ -488,56 +487,30 @@ static int rproc_vdev_do_start(struct rproc_subdev *subdev)
- static void rproc_vdev_do_stop(struct rproc_subdev *subdev, bool crashed)
- {
- 	struct rproc_vdev *rvdev = container_of(subdev, struct rproc_vdev, subdev);
-+	struct device *dev = &rvdev->pdev->dev;
- 	int ret;
- 
--	ret = device_for_each_child(&rvdev->dev, NULL, rproc_remove_virtio_dev);
-+	ret = device_for_each_child(dev, NULL, rproc_remove_virtio_dev);
- 	if (ret)
--		dev_warn(&rvdev->dev, "can't remove vdev child device: %d\n", ret);
--}
--
--/**
-- * rproc_rvdev_release() - release the existence of a rvdev
-- *
-- * @dev: the subdevice's dev
-- */
--static void rproc_rvdev_release(struct device *dev)
--{
--	struct rproc_vdev *rvdev = container_of(dev, struct rproc_vdev, dev);
--
--	of_reserved_mem_device_release(dev);
--
--	kfree(rvdev);
-+		dev_warn(dev, "can't remove vdev child device: %d\n", ret);
- }
- 
--int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
-+static int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
- {
- 	struct rproc *rproc = rvdev->rproc;
--	char name[16];
-+	struct device *dev = &rvdev->pdev->dev;
- 	int ret;
- 
--	snprintf(name, sizeof(name), "vdev%dbuffer", rvdev->index);
--	rvdev->dev.parent = &rproc->dev;
--	rvdev->dev.release = rproc_rvdev_release;
--	dev_set_name(&rvdev->dev, "%s#%s", dev_name(rvdev->dev.parent), name);
--	dev_set_drvdata(&rvdev->dev, rvdev);
--
--	ret = device_register(&rvdev->dev);
--	if (ret) {
--		put_device(&rvdev->dev);
--		return ret;
--	}
--	ret = copy_dma_range_map(&rvdev->dev, rproc->dev.parent);
-+	ret = copy_dma_range_map(dev, rproc->dev.parent);
- 	if (ret)
--		goto free_rvdev;
-+		return ret;
- 
- 	/* Make device dma capable by inheriting from parent's capabilities */
--	set_dma_ops(&rvdev->dev, get_dma_ops(rproc->dev.parent));
-+	set_dma_ops(dev, get_dma_ops(rproc->dev.parent));
- 
--	ret = dma_coerce_mask_and_coherent(&rvdev->dev,
--					   dma_get_mask(rproc->dev.parent));
-+	ret = dma_coerce_mask_and_coherent(dev, dma_get_mask(rproc->dev.parent));
- 	if (ret) {
--		dev_warn(&rvdev->dev,
--			 "Failed to set DMA mask %llx. Trying to continue... (%pe)\n",
-+		dev_warn(dev, "Failed to set DMA mask %llx. Trying to continue... (%pe)\n",
- 			 dma_get_mask(rproc->dev.parent), ERR_PTR(ret));
- 	}
- 
-@@ -548,34 +521,9 @@ int rproc_rvdev_add_device(struct rproc_vdev *rvdev)
- 
- 	rproc_add_subdev(rproc, &rvdev->subdev);
- 
--	return 0;
-+	dev_dbg(dev, "virtio dev %d added\n",  rvdev->index);
- 
--free_rvdev:
--	device_unregister(&rvdev->dev);
--	return ret;
--}
--
--static void rproc_rvdev_remove_device(struct rproc_vdev *rvdev)
--{
--	struct rproc *rproc = rvdev->rproc;
--
--	rproc_remove_subdev(rproc, &rvdev->subdev);
--	rproc_unregister_rvdev(rvdev);
--	device_unregister(&rvdev->dev);
--}
--
--void rproc_vdev_release(struct kref *ref)
--{
--	struct rproc_vdev *rvdev = container_of(ref, struct rproc_vdev, refcount);
--	struct rproc_vring *rvring;
--	int id;
--
--	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
--		rvring = &rvdev->vring[id];
--		rproc_free_vring(rvring);
--	}
--
--	rproc_rvdev_remove_device(rvdev);
-+	return 0;
- }
- 
- /**
-@@ -594,8 +542,7 @@ rproc_virtio_register_device(struct rproc *rproc, struct rproc_vdev_pdata *vdev_
- 	pdev = platform_device_register_data(dev, "rproc-virtio", vdev_data->index, vdev_data,
- 					     sizeof(*vdev_data));
- 	if (PTR_ERR_OR_ZERO(pdev)) {
--		dev_err(rproc->dev.parent,
--			"failed to create rproc-virtio device\n");
-+		dev_err(rproc->dev.parent, "failed to create rproc-virtio device\n");
- 	}
- 
- 	return  pdev;
-diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-index 542a3d4664f2..7951a3e2b62a 100644
---- a/include/linux/remoteproc.h
-+++ b/include/linux/remoteproc.h
-@@ -614,10 +614,8 @@ struct rproc_vring {
- 
- /**
-  * struct rproc_vdev - remoteproc state for a supported virtio device
-- * @refcount: reference counter for the vdev and vring allocations
-  * @subdev: handle for registering the vdev as a rproc subdevice
-  * @pdev: remoteproc virtio platform device
-- * @dev: device struct used for reference count semantics
-  * @id: virtio device id (as in virtio_ids.h)
-  * @node: list node
-  * @rproc: the rproc handle
-@@ -626,11 +624,9 @@ struct rproc_vring {
-  * @index: vdev position versus other vdev declared in resource table
-  */
- struct rproc_vdev {
--	struct kref refcount;
- 
- 	struct rproc_subdev subdev;
- 	struct platform_device *pdev;
--	struct device dev;
- 
- 	unsigned int id;
- 	struct list_head node;
--- 
-2.17.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgYWxsLAoKVGhpcyBwYXRjaHNldCBzdXBlcnNlZGVzIFsxXS4gTm93IHRoZSB0aXRsZSBpcyBh
+IGJpdCBtaXNsZWFkaW5nLCBidXQKSSBsZWZ0IGl0IHRoaXMgd2F5IHRvIChob3BlZnVsbHkpIGZh
+Y2lsaXRhdGUgdGhlIG1haW50YWluZXJzJyB3b3JrLgoKQSBsaXR0bGUgY29udGV4dDogT3JpZ2lu
+YWxseSwgSSBzZW50IGEgcGF0Y2ggYWRkaW5nIG1vZGlmaWVycyB0byB0aGUKVktNUyBkcml2ZXIg
+YW5kIFNpbW9uIFNlciBraW5kbHkgcmV2aWV3ZWQgaXQgYW5kIHBvaW50ZWQgb3V0IHRoYXQKImZv
+cm1hdF9tb2Rfc3VwcG9ydGVkIiB3YXMgbWlzc2luZyBbMl0uCkkgYXNrZWQgaWYgdGhlIGRvY3Mg
+d2VyZSBpbmNvcnJlY3Qgb3IgaWYgaXQgd2FzIGEgYnVnIGluCiJjcmVhdGVfaW5fZm9ybWF0X2Js
+b2IiLgoKSW4gdGhlIGZpcnN0IHZlcnNpb24gb2YgdGhpcyBzZXJpZXMsIFNpbW9uIFNlciBhbmQg
+RG1pdHJ5IEJhcnlzaGtvdgphZ3JlZWQgWzFdIHRoYXQgdGhlIGNvZGUgc2hvdWxkIGJlaGF2ZSBh
+cyBkb2N1bWVudGVkIGFuZAoiY3JlYXRlX2luX2Zvcm1hdF9ibG9iIiBzaG91bGQgYmUgY2hhbmdl
+ZC4KClRoaXMgc2Vjb25kIHZlcnNpb24gaW1wbGVtZW50cyB0aGUgcmVxdWlyZWQgY2hhbmdlcyBh
+bmQgZHJvcHMgdGhlCiJmb3JtYXRfbW9kX3N1cHBvcnRlZCIgaW4gdGhlIGRyaXZlcnMgdGhhdCBj
+YW4gdXNlIHRoZSBkZWZhdWx0CmltcGxlbWVudGF0aW9uLgoKSm9zZQoKWzFdIGh0dHBzOi8vbG9y
+ZS5rZXJuZWwub3JnL2RyaS1kZXZlbC9DQUE4RUpwcUotdFdtYjVCYTZYU0s1OXRvQ3RMYjNuUlJt
+Vkg4ZGE0VWRfcnJSWXl0bXdAbWFpbC5nbWFpbC5jb20vVC8KWzJdIGh0dHBzOi8vbG9yZS5rZXJu
+ZWwub3JnL2RyaS1kZXZlbC8yMDIxMTIxNjE3MDUzMi5HQTE2MzQ5QGVsZW1lbnRhcnkvVC8KCkpv
+c8OpIEV4cMOzc2l0byAoNik6CiAgZHJtL3BsYW5lOiBNYWtlIGZvcm1hdF9tb2Rfc3VwcG9ydGVk
+IHRydWx5wqBvcHRpb25hbAogIGRybS9wbGFuZTogRml4IHR5cG8gaW4gZm9ybWF0X21vZF9zdXBw
+b3J0ZWQgZG9jdW1lbnRhdGlvbgogIGRybS9zaW1wbGUta21zOiBEcm9wIGZvcm1hdF9tb2Rfc3Vw
+cG9ydGVkIGZ1bmN0aW9uCiAgZHJtL2k5MTUvZGlzcGxheTogRHJvcCBmb3JtYXRfbW9kX3N1cHBv
+cnRlZCBmdW5jdGlvbgogIGRybTogbXhzZmI6IERyb3AgZm9ybWF0X21vZF9zdXBwb3J0ZWQgZnVu
+Y3Rpb24KICBkcm0vc3RtOiBsdGRjOiBEcm9wIGZvcm1hdF9tb2Rfc3VwcG9ydGVkIGZ1bmN0aW9u
+CgogZHJpdmVycy9ncHUvZHJtL2RybV9wbGFuZS5jICAgICAgICAgICAgICAgICB8ICA4ICsrLS0t
+LS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX3NpbXBsZV9rbXNfaGVscGVyLmMgICAgIHwgIDggLS0t
+LS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3Vyc29yLmMgfCAgOCAt
+LS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL214c2ZiL214c2ZiX2ttcy5jICAgICAgICAgICB8ICA4
+IC0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyAgICAgICAgICAgICAgICAgIHwg
+MTEgLS0tLS0tLS0tLS0KIGluY2x1ZGUvZHJtL2RybV9wbGFuZS5oICAgICAgICAgICAgICAgICAg
+ICAgfCAgMiArLQogNiBmaWxlcyBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDQyIGRlbGV0aW9u
+cygtKQoKLS0gCjIuMjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
