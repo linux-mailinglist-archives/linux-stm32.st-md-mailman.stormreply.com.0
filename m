@@ -2,55 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02D3247E11C
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Dec 2021 11:10:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E5D847E244
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Dec 2021 12:30:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3B9DC5F1F7;
-	Thu, 23 Dec 2021 10:10:24 +0000 (UTC)
-Received: from mail-4022.proton.ch (mail-4022.proton.ch [185.70.40.22])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34271C5F1F7;
+	Thu, 23 Dec 2021 11:30:14 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A4FCC5F1F5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 23 Dec 2021 11:30:13 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F32D0C5F1F5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Dec 2021 10:10:23 +0000 (UTC)
-Date: Thu, 23 Dec 2021 10:10:22 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1640254223;
- bh=JZk2QkwvQMw2dr3xN0Nul1fIObR/x6Mzssnku9CKGxI=;
- h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
- References:From:To:Cc;
- b=jogA9ITM2pLDQetcpufIntC4yTHzrr4+DWIpmT87TPMpju4Ot4RMQ+WoPBM247Tpu
- O8vwV/m9VY6TxbagfU0VqDfUoySRpsVQo8xeuk9rtka7kmhULzDeBU2qj80qLAr/Pl
- tyDxdNlMTeN0/VI1nIPmPi2rBZGD7vDOaQvRjOwGNN+LymeR2yX0gOrADjxqBRv/DK
- ozo9R/9VLfI7qonEXrrdE+T/byG6eNDz/7xkaNdebwMR90q+uJRbnzVrYS6X2DgczQ
- EA5Qt9X6ExeKkKVzmhOOM5KaR6wD89AGhOi8m7lMoK37T0naYw47i++tgbFwpoVybB
- Jjs8alSOHkPVQ==
-To: =?utf-8?Q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito89@gmail.com>
-From: Simon Ser <contact@emersion.fr>
-Message-ID: <8OwW5vWFemsZ6SHYICEo6Ic972ApufOImdVLLprAxvjF3AxrjQghwFAZsQ1WJNqrv2fCTyB16g4JALC8omFmZ8-vcmTV289KfBEIkKMS5xc=@emersion.fr>
-In-Reply-To: <20211222090552.25972-2-jose.exposito89@gmail.com>
-References: <20211222090552.25972-1-jose.exposito89@gmail.com>
- <20211222090552.25972-2-jose.exposito89@gmail.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2CC6761E45;
+ Thu, 23 Dec 2021 11:30:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 10FF0C36AE9;
+ Thu, 23 Dec 2021 11:30:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1640259011;
+ bh=8kb38L1MaWKcmKK3bOhkpFTFUVb66W9Ad8UXKRnX214=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=j3VgpMOu8wCL+VVDkn+5+WZjt8CIe2G1MNzCsbTS4FukNs8h4rjVl6bf+hkfGHRzd
+ MhwHW4cOT3Y6luF5dmZPmAlb+9Rg5rPYBmZuxSn6FzHZ9Vy83+p+n2bkPydUvREs4K
+ EERs6ydJq9ka1EmQxiquUt6yT/8GZnaY32HEUHdOloeuoLClxuvBmZdcuvAX+9FDH/
+ ZOOrqaY0ZlH33CJCxzOBThyvtuV//aisu3MDGTCuMnc7n3/pXz8QVLHILQjTHGMDfE
+ maBKuyimsvQtDPKR4ClWZN/jeBBVDuDR9HUcJfIW7ErYj9xyEkkSYaKdih41x7D/qb
+ Osib+mz1x59rA==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ EBD16EAC060; Thu, 23 Dec 2021 11:30:10 +0000 (UTC)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
- mailout.protonmail.ch
-Cc: airlied@linux.ie, joonas.lahtinen@linux.intel.com,
- alexandre.torgue@foss.st.com, stefan@agner.ch, benjamin.gaignard@linaro.org,
- festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- Ville Syrjala <ville.syrjala@linux.intel.com>, marex@denx.de,
- linux-imx@nxp.com, intel-gfx@lists.freedesktop.org, tzimmermann@suse.de,
- s.hauer@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, daniel@ffwll.ch,
- kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- jani.nikula@linux.intel.com, yannick.fertre@foss.st.com,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- dmitry.baryshkov@linaro.org, shawnguo@kernel.org
-Subject: Re: [Linux-stm32]
-	=?utf-8?q?=5BPATCH_v2_1/6=5D_drm/plane=3A_Make_form?=
-	=?utf-8?q?at=5Fmod=5Fsupported_truly=C2=A0optional?=
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <164025901096.907.10306154000549571254.git-patchwork-notify@kernel.org>
+Date: Thu, 23 Dec 2021 11:30:10 +0000
+References: <20211222144310.2761661-1-boon.leong.ong@intel.com>
+In-Reply-To: <20211222144310.2761661-1-boon.leong.ong@intel.com>
+To: Ong Boon Leong <boon.leong.ong@intel.com>
+Cc: alexandre.torgue@st.com, netdev@vger.kernel.org, bigeasy@linutronix.de,
+ alexandre.torgue@foss.st.com, kurt.kanzenbach@linutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/1] net: stmmac: add EthType
+	Rx Frame steering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,17 +59,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkbmVzZGF5LCBEZWNlbWJlciAyMm5kLCAyMDIxIGF0IDEwOjA1LCBKb3PDqSBFeHDDs3Np
-dG8gPGpvc2UuZXhwb3NpdG84OUBnbWFpbC5jb20+IHdyb3RlOgoKPiBNYWtlICJjcmVhdGVfaW5f
-Zm9ybWF0X2Jsb2IiIGJlaGF2ZSBhcyBkb2N1bWVudGVkLgoKTEdUTSwgbmljZSEKClJldmlld2Vk
-LWJ5OiBTaW1vbiBTZXIgPGNvbnRhY3RAZW1lcnNpb24uZnI+CgpDQyBWaWxsZSBqdXN0IGluIGNh
-c2UKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+Hello:
+
+This patch was applied to netdev/net-next.git (master)
+by David S. Miller <davem@davemloft.net>:
+
+On Wed, 22 Dec 2021 22:43:09 +0800 you wrote:
+> Hi,
+> 
+> Now that VLAN priority RX steering issue patch [1] is merged, this is
+> the remaining patch from the original series to add LLDP and IEEE1588
+> EtherType RX frame steering in tc flower.
+> 
+> As before, below are the test steps for checking out the newly added
+> features (LLDP and PTP) together with VLAN priority:-
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v2,1/1] net: stmmac: add tc flower filter for EtherType matching
+    https://git.kernel.org/netdev/net-next/c/e48cb313fde3
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
