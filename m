@@ -2,61 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C6BA47E2C3
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Dec 2021 12:57:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 298C447E42E
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Dec 2021 14:42:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCF7CC5F1F7;
-	Thu, 23 Dec 2021 11:57:05 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8B04C5F1F7;
+	Thu, 23 Dec 2021 13:42:36 +0000 (UTC)
+Received: from mail-4018.proton.ch (mail-4018.proton.ch [185.70.40.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51B9FC5F1F5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39E7DC5F1F5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Dec 2021 11:57:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1640260624; x=1671796624;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=l7/Ec1k8g+Fuqc+4+s0zclAcRcBVVg9oTnf/81Ddgz8=;
- b=DhlGuSHBN1p4wzm2Z2sV398PAAfHfmsX7OcssyodZBb0Lj7ZpOcdsOpe
- aC+J6XZ62GtLKb35HMxqjut7LE+hZwz6AgVs3XHv7Q6nyuTte9L3HdNaU
- qosEoB/zXj6JSJWxMc/Kyn6Iq0ublbEL4beVKj3FD+jG1gccYrsxDicln
- 7BDhWXzAmjG6+fxP5tlUUi+/iwEsTO3YBvnvfwPj0rCRDEWK+b44POjBV
- VsjbwbS+8US4c67HKjzVl3rtEB3PmuKiA+AslejW6IxEGPJj3ZYkUDC5G
- sHY/JujqHV3xtusITmSR8PUUiZypftg3ztIOAPevUc6z0un1SHXPj3fA2 g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="240615250"
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="240615250"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2021 03:57:02 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,229,1635231600"; d="scan'208";a="607735683"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.147])
- by FMSMGA003.fm.intel.com with SMTP; 23 Dec 2021 03:56:55 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 23 Dec 2021 13:56:55 +0200
-Date: Thu, 23 Dec 2021 13:56:55 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: =?iso-8859-1?Q?Jos=E9_Exp=F3sito?= <jose.exposito89@gmail.com>
-Message-ID: <YcRkB7uWyt4EbcZm@intel.com>
+ Thu, 23 Dec 2021 13:42:35 +0000 (UTC)
+Date: Thu, 23 Dec 2021 13:42:32 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1640266953;
+ bh=KcpuETzMNMdxDT2q0V4AwCRe4eDh3KXENxpCUjqyk4Q=;
+ h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+ References:From:To:Cc;
+ b=P1Q1DQglL3/H+NbZPwD5FQ5BU9Uxk6pxEJUlWRgkAN0OLEHRoQXT9P6vmQVgI4Shq
+ qswBkVMsLvmRRHD/3SjdYOuBD/GGsV6atIzIAPtvsIcihzg+XQOhNKJ4S5zw4d90GD
+ yw00fU5YY0aXBm/7z9QW1y6keFUYtpbhm6KU5cycwBKvr1TY5EinTkhSnF0bxps/kb
+ vJWQQ7wnICVOxl/imolN69xOrpDSgPFAomrww24G1XS9mkDEk/KWt9aiTZ7c6IFz9B
+ aSiRxt4r6e7O5KrjN0k2a+YJ9Dp9EVAP0/Mu3FzFpyLIEkg43paDmTiPHdA5LXgzCF
+ ZLdjYyzNmAUHg==
+To: =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+From: Simon Ser <contact@emersion.fr>
+Message-ID: <PIq2EEI7giz2rOuv2cfySbdxwht8AaCye140X5C7NejjXT6kD67E3E28uvg4Ebhob12EJUBtAxGPFNOgZwSWLYEfMtdhRNt3mR8bBGBJmU4=@emersion.fr>
+In-Reply-To: <YcRkB7uWyt4EbcZm@intel.com>
 References: <20211222090552.25972-1-jose.exposito89@gmail.com>
  <20211222090552.25972-2-jose.exposito89@gmail.com>
+ <YcRkB7uWyt4EbcZm@intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211222090552.25972-2-jose.exposito89@gmail.com>
-X-Patchwork-Hint: comment
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+ mailout.protonmail.ch
 Cc: marex@denx.de, mcoquelin.stm32@gmail.com, s.hauer@pengutronix.de,
  tzimmermann@suse.de, kernel@pengutronix.de, airlied@linux.ie,
- contact@emersion.fr, intel-gfx@lists.freedesktop.org,
- alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, yannick.fertre@foss.st.com, linux-imx@nxp.com,
- benjamin.gaignard@linaro.org, rodrigo.vivi@intel.com,
- dmitry.baryshkov@linaro.org, shawnguo@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ intel-gfx@lists.freedesktop.org, alexandre.torgue@foss.st.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yannick.fertre@foss.st.com, linux-imx@nxp.com, benjamin.gaignard@linaro.org,
+ rodrigo.vivi@intel.com, dmitry.baryshkov@linaro.org,
+ =?utf-8?Q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito89@gmail.com>,
+ shawnguo@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32]
- =?iso-8859-1?q?=5BPATCH_v2_1/6=5D_drm/plane=3A_Make?=
- =?iso-8859-1?q?_format=5Fmod=5Fsupported_truly=A0optional?=
+	=?utf-8?q?=5BPATCH_v2_1/6=5D_drm/plane=3A_Make_form?=
+	=?utf-8?q?at=5Fmod=5Fsupported_truly=C2=A0optional?=
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,84 +61,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Reply-To: Simon Ser <contact@emersion.fr>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Dec 22, 2021 at 10:05:47AM +0100, Jos=E9 Exp=F3sito wrote:
-> The documentation for "drm_plane_funcs.format_mod_supported" reads:
-> =
-
->   This *optional* hook is used for the DRM to determine if the given
->   format/modifier combination is valid for the plane. This allows the
->   DRM to generate the correct format bitmask (which formats apply to
->   which modifier), and to validate modifiers at atomic_check time.
-> =
-
->   *If not present*, then any modifier in the plane's modifier
->   list is allowed with any of the plane's formats.
-> =
-
-> However, where the function is not present, an invalid IN_FORMATS blob
-> property with modifiers but no formats is exposed to user-space.
-> =
-
-> This breaks the latest Weston [1]. For testing purposes, I extracted the
-> affected code to a standalone program [2].
-> =
-
-> Make "create_in_format_blob" behave as documented.
-> =
-
-> [1] https://gitlab.freedesktop.org/wayland/weston/-/blob/9.0/libweston/ba=
-ckend-drm/kms.c#L431
-> [2] https://github.com/JoseExposito/drm-sandbox/blob/main/in_formats.c
-> =
-
-> Signed-off-by: Jos=E9 Exp=F3sito <jose.exposito89@gmail.com>
-> ---
->  drivers/gpu/drm/drm_plane.c | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
-> =
-
-> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-> index 82afb854141b..c1186b7215ee 100644
-> --- a/drivers/gpu/drm/drm_plane.c
-> +++ b/drivers/gpu/drm/drm_plane.c
-> @@ -202,17 +202,13 @@ static int create_in_format_blob(struct drm_device =
-*dev, struct drm_plane *plane
->  =
-
->  	memcpy(formats_ptr(blob_data), plane->format_types, formats_size);
->  =
-
-> -	/* If we can't determine support, just bail */
-> -	if (!plane->funcs->format_mod_supported)
-> -		goto done;
-> -
->  	mod =3D modifiers_ptr(blob_data);
->  	for (i =3D 0; i < plane->modifier_count; i++) {
->  		for (j =3D 0; j < plane->format_count; j++) {
-> -			if (plane->funcs->format_mod_supported(plane,
-> +			if (!plane->funcs->format_mod_supported ||
-> +			    plane->funcs->format_mod_supported(plane,
->  							       plane->format_types[j],
->  							       plane->modifiers[i])) {
-
-So instead of skipping the whole loop you just skip doing anything
-inside the loop? Can't see how that achieves anything at all.
-
-https://patchwork.freedesktop.org/series/83018/
-is what I had in mind earlier but no one reviewed it and =
-
-the discussion veered off track IIRC.
-
--- =
-
-Ville Syrj=E4l=E4
-Intel
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1cnNkYXksIERlY2VtYmVyIDIzcmQsIDIwMjEgYXQgMTI6NTYsIFZpbGxlIFN5cmrDpGzD
+pCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+IHdyb3RlOgoKPiA+IC0JLyogSWYgd2Ug
+Y2FuJ3QgZGV0ZXJtaW5lIHN1cHBvcnQsIGp1c3QgYmFpbCAqLwo+ID4gLQlpZiAoIXBsYW5lLT5m
+dW5jcy0+Zm9ybWF0X21vZF9zdXBwb3J0ZWQpCj4gPiAtCQlnb3RvIGRvbmU7Cj4gPiAtCj4gPiAg
+CW1vZCA9IG1vZGlmaWVyc19wdHIoYmxvYl9kYXRhKTsKPiA+ICAJZm9yIChpID0gMDsgaSA8IHBs
+YW5lLT5tb2RpZmllcl9jb3VudDsgaSsrKSB7Cj4gPiAgCQlmb3IgKGogPSAwOyBqIDwgcGxhbmUt
+PmZvcm1hdF9jb3VudDsgaisrKSB7Cj4gPiAtCQkJaWYgKHBsYW5lLT5mdW5jcy0+Zm9ybWF0X21v
+ZF9zdXBwb3J0ZWQocGxhbmUsCj4gPiArCQkJaWYgKCFwbGFuZS0+ZnVuY3MtPmZvcm1hdF9tb2Rf
+c3VwcG9ydGVkIHx8Cj4gPiArCQkJICAgIHBsYW5lLT5mdW5jcy0+Zm9ybWF0X21vZF9zdXBwb3J0
+ZWQocGxhbmUsCj4gPiAgCQkJCQkJCSAgICAgICBwbGFuZS0+Zm9ybWF0X3R5cGVzW2pdLAo+ID4g
+IAkJCQkJCQkgICAgICAgcGxhbmUtPm1vZGlmaWVyc1tpXSkpIHsKPgo+IFNvIGluc3RlYWQgb2Yg
+c2tpcHBpbmcgdGhlIHdob2xlIGxvb3AgeW91IGp1c3Qgc2tpcCBkb2luZyBhbnl0aGluZwo+IGlu
+c2lkZSB0aGUgbG9vcD8gQ2FuJ3Qgc2VlIGhvdyB0aGF0IGFjaGlldmVzIGFueXRoaW5nIGF0IGFs
+bC4KCk5vLCB0aGUgY2hlY2sgaXMgc2tpcHBlZCB3aGVuIHRoZSBmdW5jdGlvbiBpc24ndCBwb3B1
+bGF0ZWQgYnkgdGhlIGRyaXZlci4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
