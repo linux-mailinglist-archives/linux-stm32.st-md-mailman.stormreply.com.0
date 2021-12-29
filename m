@@ -2,59 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDAD4481100
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Dec 2021 09:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECD0B481102
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Dec 2021 09:39:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92B70C5F1F0;
-	Wed, 29 Dec 2021 08:37:50 +0000 (UTC)
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5623C5F1F0;
+	Wed, 29 Dec 2021 08:39:19 +0000 (UTC)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEB9BC5F1EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB5F9C5F1EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Dec 2021 08:37:48 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id 205so18281408pfu.0
+ Wed, 29 Dec 2021 08:39:17 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ f18-20020a17090aa79200b001ad9cb23022so19313778pjq.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Dec 2021 00:37:48 -0800 (PST)
+ Wed, 29 Dec 2021 00:39:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=Tp9+ts4r4iSaag9XVPpRfX+PmWxIsRRvBCN5AJ9Jbp0=;
- b=E71yWLJgveFDrNB/h4TyPaq9V4bEQa34H7CfZUPtrmDsh0w4MGmJ0xk380p8y9xM4l
- 8dkVp530toEoSSN/+qj8ECEQwx9b9+tU7ppcG8INT2ZS1brMpyLlIGV/ZBWfOEEMJdtx
- tz+o79TLsm/6JcbN0xMLnf/AaSp8+BSV6bJVjAt5bUTyzRVpuElHJX3UjNa9kKSdGs3e
- 6KTMW+pdJ7ld126fgRIFUmLDYDOQInUnBYBh73HfDGxYhf6iaIK9w3jd3L7VgGjdPmrr
- FjMabUZ3UHOJfv0FnaodRvjxcXOuXQQbo6nLeDp3Wa4QJJFMAhSz7WGLIcym25pfYnVO
- R69g==
+ bh=rwgpylQD3xznv5252WPOffHp4v+CVHiecDhyYcwBvBY=;
+ b=CxWQKROGnH1pN+FtbS5nC3oOtnNbM3Jp5XCd6IidWWpmkZ/Q4zw0teBk4mx4OVqwdo
+ mTKz4IFcsZp0zzawC1K0x87djgfkSaZ49T1Y6uKJeVVN7M7IGdxATcsbUb8Rz6yJpZTY
+ K9jUsqPVJM2h2cfjkpO2RXvufrCcxx0Fr3jnE5KX4xxXrjNBWh3jhsUzCjpyTRV2nBwy
+ 4fgICgB6VBCZMIdGsLcf4Wa8/MiRi1leXCNCblDL08JlZHE4A2T4RiPTdKwxPYVzEZKT
+ XlDvdZusy9Xidy3NCDOkQauuUQW18z8AOOH9ocPrWUU9SGUoHphlndXMKlu6tcVdzzIy
+ a2BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=Tp9+ts4r4iSaag9XVPpRfX+PmWxIsRRvBCN5AJ9Jbp0=;
- b=HOEIHDz66PwXvPrcvKelZB7A0xw6f/3baf0WbJNcLo99IJaJ+9DlJm0RdUSXFdRGWq
- k6MYtXP80ETmruXoyWHypcxGk+IZw8qQbillufgaoHv86RLMikP888Zz9l/zxaD/Z6tx
- 04R2H8Fhmxtbs92qHUmuAjFKG6XqM/L0NGGOWsR1cSXv5SwMPrY2kV6ROnl4U462ZxCd
- VvoAAsQu+VBA7ZFDFiO6MhFNZTnMzzKpCB7p9gWEu5gTivgFEweYM1WfLNhmw3ZB+8Lw
- HB6SP1N2YheKDb9TfOMueqvTq1s8aiSh1o0v0BOO5fT4rcRtCQalwBrooD4H53rDIwri
- /0Ww==
-X-Gm-Message-State: AOAM530618m4zUe5Z60bqhO33MdMuWR197SNd/rW2fyUIC4rphIp1ckq
- ija7GQDPpYIiot7NWhNSyRE=
-X-Google-Smtp-Source: ABdhPJxbpL2ZJYwix7EvOYhO3g/40cJ/p+DflzW/feyAqcRbJgnZl2H7HlSKIjGvIf3RbxQvtgHGUw==
-X-Received: by 2002:a63:f5e:: with SMTP id 30mr22764170pgp.487.1640767067433; 
- Wed, 29 Dec 2021 00:37:47 -0800 (PST)
+ bh=rwgpylQD3xznv5252WPOffHp4v+CVHiecDhyYcwBvBY=;
+ b=k51VZnvfjDKon1gNwW6qXoFeUUdbLsbjy4ev0Jpj6fhsMtWje9dmRR83uMOyz1L8oy
+ 4VK9OqL212jQuc8DIyKulfXxWm8N2XY7wRju7Mjg+4y2acJjrZFrVBz48Pq8N54SDc2W
+ Jesc8xeCVc8YBP1JmKEWMybyAvtUGKkvg+A5GlrEHrXmh32YCFonhri6cdIOY6f3m7IU
+ uC5kfXo0M+lgX/gJGxSdxVOs86lXX7BzBehUrD+vi7QqBNoyJnmTaRk7mxIwHNVWUqE3
+ fVaM4YKr2IUKcBmcnoOaX3vNTijiZHTHUpjFw5FcFT9vD5UX8oYWKHVgKB70SeIINvej
+ CEfQ==
+X-Gm-Message-State: AOAM5334Py49n2DV+F1Skps7MnxXBCFXvMIqcbUWa1kn/KOpKpaJtDOd
+ Ojv96Ep79j/CKgR+xWWS/F8=
+X-Google-Smtp-Source: ABdhPJxDBM9mQ+RTBEe/p5HOZeRRYy1+MxqZqQwYwJknCx6F9s85lSIUqiOI9b91jK4Q3aDIDocBag==
+X-Received: by 2002:a17:90b:3a86:: with SMTP id
+ om6mr31267026pjb.16.1640767156669; 
+ Wed, 29 Dec 2021 00:39:16 -0800 (PST)
 Received: from shinobu (113x37x72x24.ap113.ftth.ucom.ne.jp. [113.37.72.24])
- by smtp.gmail.com with ESMTPSA id e12sm15562128pjs.35.2021.12.29.00.37.41
+ by smtp.gmail.com with ESMTPSA id ng7sm23152762pjb.41.2021.12.29.00.39.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Dec 2021 00:37:46 -0800 (PST)
-Date: Wed, 29 Dec 2021 17:37:34 +0900
+ Wed, 29 Dec 2021 00:39:16 -0800 (PST)
+Date: Wed, 29 Dec 2021 17:39:07 +0900
 From: William Breathitt Gray <vilhelm.gray@gmail.com>
 To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <YcweTgHPyTa8ARF5@shinobu>
+Message-ID: <YcweqxWiXX/wN4g+@shinobu>
 References: <20211227094526.698714-1-u.kleine-koenig@pengutronix.de>
- <20211227094526.698714-21-u.kleine-koenig@pengutronix.de>
+ <20211227094526.698714-22-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <20211227094526.698714-21-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20211227094526.698714-22-u.kleine-koenig@pengutronix.de>
 Cc: Lars-Peter Clausen <lars@metafoo.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
@@ -62,7 +64,7 @@ Cc: Lars-Peter Clausen <lars@metafoo.de>,
  Jonathan Cameron <Jonathan.Cameron@huawei.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Benjamin Gaignard <benjamin.gaignard@st.com>
-Subject: Re: [Linux-stm32] [PATCH v2 20/23] counter: stm32-timer-cnt:
+Subject: Re: [Linux-stm32] [PATCH v2 21/23] counter: stm32-lptimer-cnt:
  Convert to new counter registration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -75,126 +77,135 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1677853537797092842=="
+Content-Type: multipart/mixed; boundary="===============2704980405666779544=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============1677853537797092842==
+--===============2704980405666779544==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="M61Nh2MdAynJs2z/"
+	protocol="application/pgp-signature"; boundary="jINEkwZdUatBrt71"
 Content-Disposition: inline
 
 
---M61Nh2MdAynJs2z/
+--jINEkwZdUatBrt71
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Dec 27, 2021 at 10:45:23AM +0100, Uwe Kleine-K=C3=B6nig wrote:
+On Mon, Dec 27, 2021 at 10:45:24AM +0100, Uwe Kleine-K=C3=B6nig wrote:
 > This fixes device lifetime issues where it was possible to free a live
 > struct device.
 >=20
-> Fixes: ad29937e206f ("counter: Add STM32 Timer quadrature encoder")
+> Fixes: 597f55e3f36c ("counter: stm32-lptimer: add counter device")
 > Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
 
 Acked-by: William Breathitt Gray <vilhelm.gray@gmail.com>
 
 > ---
->  drivers/counter/stm32-timer-cnt.c | 30 ++++++++++++++++++------------
->  1 file changed, 18 insertions(+), 12 deletions(-)
+>  drivers/counter/stm32-lptimer-cnt.c | 33 +++++++++++++++++------------
+>  1 file changed, 19 insertions(+), 14 deletions(-)
 >=20
-> diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-ti=
-mer-cnt.c
-> index 4b05b198a8d8..5779ae7c73cf 100644
-> --- a/drivers/counter/stm32-timer-cnt.c
-> +++ b/drivers/counter/stm32-timer-cnt.c
-> @@ -29,7 +29,6 @@ struct stm32_timer_regs {
->  };
+> diff --git a/drivers/counter/stm32-lptimer-cnt.c b/drivers/counter/stm32-=
+lptimer-cnt.c
+> index 9cf00e929cc0..68031d93ce89 100644
+> --- a/drivers/counter/stm32-lptimer-cnt.c
+> +++ b/drivers/counter/stm32-lptimer-cnt.c
+> @@ -20,7 +20,6 @@
+>  #include <linux/types.h>
 > =20
->  struct stm32_timer_cnt {
+>  struct stm32_lptim_cnt {
 > -	struct counter_device counter;
+>  	struct device *dev;
 >  	struct regmap *regmap;
 >  	struct clk *clk;
->  	u32 max_arr;
-> @@ -317,31 +316,38 @@ static int stm32_timer_cnt_probe(struct platform_de=
-vice *pdev)
->  	struct stm32_timers *ddata =3D dev_get_drvdata(pdev->dev.parent);
->  	struct device *dev =3D &pdev->dev;
->  	struct stm32_timer_cnt *priv;
+> @@ -411,14 +410,17 @@ static struct counter_count stm32_lptim_in1_counts =
+=3D {
+>  static int stm32_lptim_cnt_probe(struct platform_device *pdev)
+>  {
+>  	struct stm32_lptimer *ddata =3D dev_get_drvdata(pdev->dev.parent);
 > +	struct counter_device *counter;
+>  	struct stm32_lptim_cnt *priv;
 > +	int ret;
 > =20
 >  	if (IS_ERR_OR_NULL(ddata))
 >  		return -EINVAL;
 > =20
-> -	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> -	priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
 > -	if (!priv)
-> +	counter =3D devm_counter_alloc(dev, sizeof(*priv));
+> +	counter =3D devm_counter_alloc(&pdev->dev, sizeof(*priv));
 > +	if (!counter)
 >  		return -ENOMEM;
-> =20
 > +	priv =3D counter_priv(counter);
-> +
->  	priv->regmap =3D ddata->regmap;
->  	priv->clk =3D ddata->clk;
->  	priv->max_arr =3D ddata->max_arr;
 > =20
-> -	priv->counter.name =3D dev_name(dev);
-> -	priv->counter.parent =3D dev;
-> -	priv->counter.ops =3D &stm32_timer_cnt_ops;
-> -	priv->counter.counts =3D &stm32_counts;
+>  	priv->dev =3D &pdev->dev;
+>  	priv->regmap =3D ddata->regmap;
+> @@ -426,23 +428,26 @@ static int stm32_lptim_cnt_probe(struct platform_de=
+vice *pdev)
+>  	priv->ceiling =3D STM32_LPTIM_MAX_ARR;
+> =20
+>  	/* Initialize Counter device */
+> -	priv->counter.name =3D dev_name(&pdev->dev);
+> -	priv->counter.parent =3D &pdev->dev;
+> -	priv->counter.ops =3D &stm32_lptim_cnt_ops;
+> +	counter->name =3D dev_name(&pdev->dev);
+> +	counter->parent =3D &pdev->dev;
+> +	counter->ops =3D &stm32_lptim_cnt_ops;
+>  	if (ddata->has_encoder) {
+> -		priv->counter.counts =3D &stm32_lptim_enc_counts;
+> -		priv->counter.num_signals =3D ARRAY_SIZE(stm32_lptim_cnt_signals);
+> +		counter->counts =3D &stm32_lptim_enc_counts;
+> +		counter->num_signals =3D ARRAY_SIZE(stm32_lptim_cnt_signals);
+>  	} else {
+> -		priv->counter.counts =3D &stm32_lptim_in1_counts;
+> -		priv->counter.num_signals =3D 1;
+> +		counter->counts =3D &stm32_lptim_in1_counts;
+> +		counter->num_signals =3D 1;
+>  	}
 > -	priv->counter.num_counts =3D 1;
-> -	priv->counter.signals =3D stm32_signals;
-> -	priv->counter.num_signals =3D ARRAY_SIZE(stm32_signals);
+> -	priv->counter.signals =3D stm32_lptim_cnt_signals;
 > -	priv->counter.priv =3D priv;
-> +	counter->name =3D dev_name(dev);
-> +	counter->parent =3D dev;
-> +	counter->ops =3D &stm32_timer_cnt_ops;
-> +	counter->counts =3D &stm32_counts;
 > +	counter->num_counts =3D 1;
-> +	counter->signals =3D stm32_signals;
-> +	counter->num_signals =3D ARRAY_SIZE(stm32_signals);
+> +	counter->signals =3D stm32_lptim_cnt_signals;
 > =20
 >  	platform_set_drvdata(pdev, priv);
 > =20
->  	/* Register Counter device */
-> -	return devm_counter_register(dev, &priv->counter);
-> +	ret =3D devm_counter_add(dev, counter);
+> -	return devm_counter_register(&pdev->dev, &priv->counter);
+> +	ret =3D devm_counter_add(&pdev->dev, counter);
 > +	if (ret < 0)
-> +		dev_err_probe(dev, ret, "Failed to add counter\n");
+> +		return dev_err_probe(&pdev->dev, ret, "Failed to add counter\n");
 > +
-> +	return ret;
+> +	return 0;
 >  }
 > =20
->  static int __maybe_unused stm32_timer_cnt_suspend(struct device *dev)
+>  #ifdef CONFIG_PM_SLEEP
 > --=20
 > 2.33.0
 >=20
 
---M61Nh2MdAynJs2z/
+--jINEkwZdUatBrt71
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmHMHk0ACgkQhvpINdm7
-VJKtvA//eCpZQDQfpyoCqlfr7K3oDTL+eoMaDC4q3bECuJzsTfXVq6QfyyOaKWW0
-Wqp/zk0lBu2DWC7nK7Fk9S03F4Eu0VEpEd02RPIstYt9vuIq/NBCbp4BkePREEox
-G24XpTA3rC7I5KKua8OTPmiSxF1OZF72L8ah0wTi8TzB4ovB0Uq9WGoghr2CpJ66
-4yWZh5F1NJ3hw8lmjnw+PV/rwrWYntZonuc5OcLIPquB7Zze+8THrE548AgWynaK
-NVXLpYnjI7UqwwRjj+wV5mX/KqPZdXi5ForsNcHNo0St74t/af3hiIJPDXAH/mwq
-8WDoSEZQHY822BdS7dc1umkQhucNZLnhLm6hXFWywC9JjgplWvKT8U81G2nFKyy3
-lcDDNuXMPfG6u0h11wvQi5zRAveGxWeXZkysC7NiBXP75pvjq2Be19wPg2UoqlJj
-XQzmdJuvlwWcj/hl8iw5/FMxfbE6VAjCVOcE4n7vJ9fWEsoR/F1mX/BqbYV4Umwa
-jdCNVde4m6eca6/YR0178IR+wBUCfBBARpzN+iB06ZEDcVpsTtCB3Yy3U9S5QSem
-KgGJmUWSaEKxnW8Ox9WOBtbBSRdiCpuFn7xtz/QOUSUDYSwH1XGb325/SsNzD7bv
-1EJJNcNwR5B8XVX/8EKrJIInhMQBZFnXHzSGzn8VbMKX2LmSpm8=
-=3OIs
+iQIzBAABCgAdFiEEk5I4PDJ2w1cDf/bghvpINdm7VJIFAmHMHqsACgkQhvpINdm7
+VJJj0w/+MtS4fndaOqmAscESS+cLhT0mRxGJAiaqWZgpzsnyW8wM/LvD99sK1hB3
+XCFexXaQ6EzBEmoLF3T4vf1FUHxFrS0wpNGAxgnSOb0ASSlzRYQ7reUMYzUkeuBO
+BWdt4ONDa5n0QGxMmmHmiyiD6Z6puC6l5/0g4Ly5ZXVBrFxoNMXnAuIBW++S2JJ/
+5mftVDjY3tkZPRpjZuUJtRyNtoJmrOgG5eJ3Oae+L7ssGTlH+a526j6oxKP/9lKg
+XZoo3RwnrfoilBSJepEGLftO1g/iW4SnE7CoHS/CbXJmg5FKqejsza9o6mCfueji
+1E/EwxpnJMdKBaH7i1j7pnKEfLGxdvkE4SRNsJxmN7f9MT20j0BGGvfSzBgig8M+
+sAuk6nHh/dv3AhPxUwlx8MCX1GyXSRVLWnkgH1DfCf3xbMpppznIzdkLBaOf2B3e
+VzFrwmfpS/781qkoiyygPXwqqJiGYG8ks1CYExY73tLwJq0goowKn3V6kvh98xEq
+6SgGNgVB+3nx6QFt8RDBz8UrzCMk31o+9WrHGT2WLWkezzeocDoyajqrYEDthL2D
+QLxAwYGnzyzVuNnjPDuZYQjUmDtW7r0ljdzcxYkT5jw8uvabltlC7VeyUzS0Bv/p
+ZajhNytqNye6er4H5UDyVudh6GoOgXL6D6zcbIO0twbAjXPZ7wc=
+=xYTw
 -----END PGP SIGNATURE-----
 
---M61Nh2MdAynJs2z/--
+--jINEkwZdUatBrt71--
 
---===============1677853537797092842==
+--===============2704980405666779544==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -205,4 +216,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============1677853537797092842==--
+--===============2704980405666779544==--
