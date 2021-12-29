@@ -2,62 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D47A481499
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Dec 2021 16:45:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 937A4481746
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Dec 2021 23:31:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B02AAC5E2CC;
-	Wed, 29 Dec 2021 15:45:06 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BFD4C5E2CC;
+	Wed, 29 Dec 2021 22:31:52 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1633C57183
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 29 Dec 2021 22:31:50 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F165C5C82B
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Dec 2021 15:45:06 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1n2b8N-0006qd-52; Wed, 29 Dec 2021 16:44:59 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1n2b8H-007KHf-NK; Wed, 29 Dec 2021 16:44:52 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1n2b8G-00015t-Bc; Wed, 29 Dec 2021 16:44:52 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: William Breathitt Gray <vilhelm.gray@gmail.com>
-Date: Wed, 29 Dec 2021 16:44:39 +0100
-Message-Id: <20211229154441.38045-22-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20211229154441.38045-1-u.kleine-koenig@pengutronix.de>
-References: <20211229154441.38045-1-u.kleine-koenig@pengutronix.de>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5BA0AB81840;
+ Wed, 29 Dec 2021 22:31:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086E3C36AEC;
+ Wed, 29 Dec 2021 22:31:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1640817108;
+ bh=B4HVt5LABOlLWHuHdH8fZyS2jYElsURWkNBEs1eJcD4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=frU5+fxE/J6Uql1O2WBDMETbgRbTR4pLU9XU7UX0asg9wlJZJLGZWbwANOMSQzO5A
+ lR4u9baiD4O7s6ENK3x4IZTQB6tUEmUn+N2LdX54kvjjRzW1cnMhQp6O9tBqH+uBng
+ 4MzzeMcchs5qjCBqOQQYl31OQOtM5mK1DR17Vp38Y6cNyjDQOMh0S/RnVETIAq0TEW
+ 635PsES1z6RT4dyrOSC+7jzPWzAVmCb6aAMDjlMom1kPyzTWSf6u5QL62yW5hIxuU6
+ smi1JiutLmqQRZCwBuuoJxCWBIm6lSiFX7/WIB4RbS+FooYV45VhqXJQcpA11NTBSj
+ NvTSNIY8rEE0A==
+From: Jakub Kicinski <kuba@kernel.org>
+To: ast@kernel.org,
+	daniel@iogearbox.net
+Date: Wed, 29 Dec 2021 14:31:38 -0800
+Message-Id: <20211229223139.708975-2-kuba@kernel.org>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20211229223139.708975-1-kuba@kernel.org>
+References: <20211229223139.708975-1-kuba@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2830; h=from:subject;
- bh=Z30Y5klYFwnFI5jJS4Jj6GD8bn4cD3tqmAq9j/Gq+4c=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBhzIJacwTnYraxEudTA2g4uyLsOHdO8G35dTdIsTc6
- TGeqWNSJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYcyCWgAKCRDB/BR4rcrsCdEXB/
- 9ak1i59flop7l6GePuduqIvXEWIS7FcFHzY5YVx4oZA854nfbqb6wl9rFw4ITFyrc3lnLgG7w4oeS8
- yZoTQW+0GuyOXCm1gGExDXyVjGUHCpmqMLqUUKMrymaA72Z+xVR/MyCRlqxYnycc5h3k6g2VDIg/pa
- EoUWnI00EeeXOJtG3BUhSmS+cmI0bAU5O0N5vEdGujTrMFxImHRE+xULBSye/Koj/UdXiYHZNZ/kBO
- PrP/0JF9c8MN/iw4IJZH6vm2h+d9SGRpkpdP++575L9PEWcxg0uN/Fx7Jm93YTvOmYN5XeIvLUf3MZ
- 69FznVb2cDpbc4C9pkWDl1rGJhK9mb
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-iio@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, kernel@pengutronix.de,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 21/23] counter: stm32-lptimer-cnt: Convert
-	to new counter registration
+Cc: linux-hyperv@vger.kernel.org, alexandre.torgue@foss.st.com,
+ chenhao288@hisilicon.com, ndagan@amazon.com, wei.liu@kernel.org,
+ kys@microsoft.com, sthemmin@microsoft.com, decui@microsoft.com,
+ moyufeng@huawei.com, joabreu@synopsys.com, Jakub Kicinski <kuba@kernel.org>,
+ sgoutham@marvell.com, grygorii.strashko@ti.com, haiyangz@microsoft.com,
+ akiyano@amazon.com, saeedb@amazon.com, peppe.cavallaro@st.com,
+ shayagr@amazon.com, linux-omap@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
+ darinzon@amazon.com, sameehj@amazon.com, bpf@vger.kernel.org
+Subject: [Linux-stm32] [PATCH bpf-next 1/2] net: add includes masked by
+	netdevice.h including uapi/bpf.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,60 +62,127 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhpcyBmaXhlcyBkZXZpY2UgbGlmZXRpbWUgaXNzdWVzIHdoZXJlIGl0IHdhcyBwb3NzaWJsZSB0
-byBmcmVlIGEgbGl2ZQpzdHJ1Y3QgZGV2aWNlLgoKRml4ZXM6IDU5N2Y1NWUzZjM2YyAoImNvdW50
-ZXI6IHN0bTMyLWxwdGltZXI6IGFkZCBjb3VudGVyIGRldmljZSIpClJldmlld2VkLWJ5OiBKb25h
-dGhhbiBDYW1lcm9uIDxKb25hdGhhbi5DYW1lcm9uQGh1YXdlaS5jb20+CkFja2VkLWJ5OiBXaWxs
-aWFtIEJyZWF0aGl0dCBHcmF5IDx2aWxoZWxtLmdyYXlAZ21haWwuY29tPgpTaWduZWQtb2ZmLWJ5
-OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlPgotLS0K
-IGRyaXZlcnMvY291bnRlci9zdG0zMi1scHRpbWVyLWNudC5jIHwgMzMgKysrKysrKysrKysrKysr
-KystLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxOSBpbnNlcnRpb25zKCspLCAxNCBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2NvdW50ZXIvc3RtMzItbHB0aW1lci1jbnQu
-YyBiL2RyaXZlcnMvY291bnRlci9zdG0zMi1scHRpbWVyLWNudC5jCmluZGV4IDljZjAwZTkyOWNj
-MC4uNjgwMzFkOTNjZTg5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2NvdW50ZXIvc3RtMzItbHB0aW1l
-ci1jbnQuYworKysgYi9kcml2ZXJzL2NvdW50ZXIvc3RtMzItbHB0aW1lci1jbnQuYwpAQCAtMjAs
-NyArMjAsNiBAQAogI2luY2x1ZGUgPGxpbnV4L3R5cGVzLmg+CiAKIHN0cnVjdCBzdG0zMl9scHRp
-bV9jbnQgewotCXN0cnVjdCBjb3VudGVyX2RldmljZSBjb3VudGVyOwogCXN0cnVjdCBkZXZpY2Ug
-KmRldjsKIAlzdHJ1Y3QgcmVnbWFwICpyZWdtYXA7CiAJc3RydWN0IGNsayAqY2xrOwpAQCAtNDEx
-LDE0ICs0MTAsMTcgQEAgc3RhdGljIHN0cnVjdCBjb3VudGVyX2NvdW50IHN0bTMyX2xwdGltX2lu
-MV9jb3VudHMgPSB7CiBzdGF0aWMgaW50IHN0bTMyX2xwdGltX2NudF9wcm9iZShzdHJ1Y3QgcGxh
-dGZvcm1fZGV2aWNlICpwZGV2KQogewogCXN0cnVjdCBzdG0zMl9scHRpbWVyICpkZGF0YSA9IGRl
-dl9nZXRfZHJ2ZGF0YShwZGV2LT5kZXYucGFyZW50KTsKKwlzdHJ1Y3QgY291bnRlcl9kZXZpY2Ug
-KmNvdW50ZXI7CiAJc3RydWN0IHN0bTMyX2xwdGltX2NudCAqcHJpdjsKKwlpbnQgcmV0OwogCiAJ
-aWYgKElTX0VSUl9PUl9OVUxMKGRkYXRhKSkKIAkJcmV0dXJuIC1FSU5WQUw7CiAKLQlwcml2ID0g
-ZGV2bV9remFsbG9jKCZwZGV2LT5kZXYsIHNpemVvZigqcHJpdiksIEdGUF9LRVJORUwpOwotCWlm
-ICghcHJpdikKKwljb3VudGVyID0gZGV2bV9jb3VudGVyX2FsbG9jKCZwZGV2LT5kZXYsIHNpemVv
-ZigqcHJpdikpOworCWlmICghY291bnRlcikKIAkJcmV0dXJuIC1FTk9NRU07CisJcHJpdiA9IGNv
-dW50ZXJfcHJpdihjb3VudGVyKTsKIAogCXByaXYtPmRldiA9ICZwZGV2LT5kZXY7CiAJcHJpdi0+
-cmVnbWFwID0gZGRhdGEtPnJlZ21hcDsKQEAgLTQyNiwyMyArNDI4LDI2IEBAIHN0YXRpYyBpbnQg
-c3RtMzJfbHB0aW1fY250X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCiAJcHJp
-di0+Y2VpbGluZyA9IFNUTTMyX0xQVElNX01BWF9BUlI7CiAKIAkvKiBJbml0aWFsaXplIENvdW50
-ZXIgZGV2aWNlICovCi0JcHJpdi0+Y291bnRlci5uYW1lID0gZGV2X25hbWUoJnBkZXYtPmRldik7
-Ci0JcHJpdi0+Y291bnRlci5wYXJlbnQgPSAmcGRldi0+ZGV2OwotCXByaXYtPmNvdW50ZXIub3Bz
-ID0gJnN0bTMyX2xwdGltX2NudF9vcHM7CisJY291bnRlci0+bmFtZSA9IGRldl9uYW1lKCZwZGV2
-LT5kZXYpOworCWNvdW50ZXItPnBhcmVudCA9ICZwZGV2LT5kZXY7CisJY291bnRlci0+b3BzID0g
-JnN0bTMyX2xwdGltX2NudF9vcHM7CiAJaWYgKGRkYXRhLT5oYXNfZW5jb2RlcikgewotCQlwcml2
-LT5jb3VudGVyLmNvdW50cyA9ICZzdG0zMl9scHRpbV9lbmNfY291bnRzOwotCQlwcml2LT5jb3Vu
-dGVyLm51bV9zaWduYWxzID0gQVJSQVlfU0laRShzdG0zMl9scHRpbV9jbnRfc2lnbmFscyk7CisJ
-CWNvdW50ZXItPmNvdW50cyA9ICZzdG0zMl9scHRpbV9lbmNfY291bnRzOworCQljb3VudGVyLT5u
-dW1fc2lnbmFscyA9IEFSUkFZX1NJWkUoc3RtMzJfbHB0aW1fY250X3NpZ25hbHMpOwogCX0gZWxz
-ZSB7Ci0JCXByaXYtPmNvdW50ZXIuY291bnRzID0gJnN0bTMyX2xwdGltX2luMV9jb3VudHM7Ci0J
-CXByaXYtPmNvdW50ZXIubnVtX3NpZ25hbHMgPSAxOworCQljb3VudGVyLT5jb3VudHMgPSAmc3Rt
-MzJfbHB0aW1faW4xX2NvdW50czsKKwkJY291bnRlci0+bnVtX3NpZ25hbHMgPSAxOwogCX0KLQlw
-cml2LT5jb3VudGVyLm51bV9jb3VudHMgPSAxOwotCXByaXYtPmNvdW50ZXIuc2lnbmFscyA9IHN0
-bTMyX2xwdGltX2NudF9zaWduYWxzOwotCXByaXYtPmNvdW50ZXIucHJpdiA9IHByaXY7CisJY291
-bnRlci0+bnVtX2NvdW50cyA9IDE7CisJY291bnRlci0+c2lnbmFscyA9IHN0bTMyX2xwdGltX2Nu
-dF9zaWduYWxzOwogCiAJcGxhdGZvcm1fc2V0X2RydmRhdGEocGRldiwgcHJpdik7CiAKLQlyZXR1
-cm4gZGV2bV9jb3VudGVyX3JlZ2lzdGVyKCZwZGV2LT5kZXYsICZwcml2LT5jb3VudGVyKTsKKwly
-ZXQgPSBkZXZtX2NvdW50ZXJfYWRkKCZwZGV2LT5kZXYsIGNvdW50ZXIpOworCWlmIChyZXQgPCAw
-KQorCQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCByZXQsICJGYWlsZWQgdG8gYWRk
-IGNvdW50ZXJcbiIpOworCisJcmV0dXJuIDA7CiB9CiAKICNpZmRlZiBDT05GSUdfUE1fU0xFRVAK
-LS0gCjIuMzQuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+Add missing includes unmasked by the subsequent change.
+
+Mostly network drivers missing an include for XDP_PACKET_HEADROOM.
+
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+---
+CC: shayagr@amazon.com
+CC: akiyano@amazon.com
+CC: darinzon@amazon.com
+CC: ndagan@amazon.com
+CC: saeedb@amazon.com
+CC: sgoutham@marvell.com
+CC: kys@microsoft.com
+CC: haiyangz@microsoft.com
+CC: sthemmin@microsoft.com
+CC: wei.liu@kernel.org
+CC: decui@microsoft.com
+CC: peppe.cavallaro@st.com
+CC: alexandre.torgue@foss.st.com
+CC: joabreu@synopsys.com
+CC: mcoquelin.stm32@gmail.com
+CC: grygorii.strashko@ti.com
+CC: sameehj@amazon.com
+CC: chenhao288@hisilicon.com
+CC: moyufeng@huawei.com
+CC: linux-arm-kernel@lists.infradead.org
+CC: linux-hyperv@vger.kernel.org
+CC: linux-stm32@st-md-mailman.stormreply.com
+CC: linux-omap@vger.kernel.org
+---
+ drivers/net/ethernet/amazon/ena/ena_netdev.h       | 1 +
+ drivers/net/ethernet/cavium/thunder/nicvf_queues.c | 1 +
+ drivers/net/ethernet/microsoft/mana/mana_en.c      | 2 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       | 1 +
+ drivers/net/ethernet/ti/cpsw_priv.h                | 2 ++
+ kernel/bpf/net_namespace.c                         | 1 +
+ 6 files changed, 8 insertions(+)
+
+diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.h b/drivers/net/ethernet/amazon/ena/ena_netdev.h
+index 0c39fc2fa345..9391c7101fba 100644
+--- a/drivers/net/ethernet/amazon/ena/ena_netdev.h
++++ b/drivers/net/ethernet/amazon/ena/ena_netdev.h
+@@ -14,6 +14,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/netdevice.h>
+ #include <linux/skbuff.h>
++#include <uapi/linux/bpf.h>
+ 
+ #include "ena_com.h"
+ #include "ena_eth_com.h"
+diff --git a/drivers/net/ethernet/cavium/thunder/nicvf_queues.c b/drivers/net/ethernet/cavium/thunder/nicvf_queues.c
+index 50bbe79fb93d..4367edbdd579 100644
+--- a/drivers/net/ethernet/cavium/thunder/nicvf_queues.c
++++ b/drivers/net/ethernet/cavium/thunder/nicvf_queues.c
+@@ -10,6 +10,7 @@
+ #include <linux/iommu.h>
+ #include <net/ip.h>
+ #include <net/tso.h>
++#include <uapi/linux/bpf.h>
+ 
+ #include "nic_reg.h"
+ #include "nic.h"
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index c1d5a374b967..2ece9e90dc50 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+ /* Copyright (c) 2021, Microsoft Corporation. */
+ 
++#include <uapi/linux/bpf.h>
++
+ #include <linux/inetdevice.h>
+ #include <linux/etherdevice.h>
+ #include <linux/ethtool.h>
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 4f5292cadf54..d42b6af32d6e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -22,6 +22,7 @@
+ #include <linux/net_tstamp.h>
+ #include <linux/reset.h>
+ #include <net/page_pool.h>
++#include <uapi/linux/bpf.h>
+ 
+ struct stmmac_resources {
+ 	void __iomem *addr;
+diff --git a/drivers/net/ethernet/ti/cpsw_priv.h b/drivers/net/ethernet/ti/cpsw_priv.h
+index f33c882eb70e..74555970730c 100644
+--- a/drivers/net/ethernet/ti/cpsw_priv.h
++++ b/drivers/net/ethernet/ti/cpsw_priv.h
+@@ -6,6 +6,8 @@
+ #ifndef DRIVERS_NET_ETHERNET_TI_CPSW_PRIV_H_
+ #define DRIVERS_NET_ETHERNET_TI_CPSW_PRIV_H_
+ 
++#include <uapi/linux/bpf.h>
++
+ #include "davinci_cpdma.h"
+ 
+ #define CPSW_DEBUG	(NETIF_MSG_HW		| NETIF_MSG_WOL		| \
+diff --git a/kernel/bpf/net_namespace.c b/kernel/bpf/net_namespace.c
+index 542f275bf252..868cc2c43899 100644
+--- a/kernel/bpf/net_namespace.c
++++ b/kernel/bpf/net_namespace.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
+ #include <linux/bpf.h>
++#include <linux/bpf-netns.h>
+ #include <linux/filter.h>
+ #include <net/net_namespace.h>
+ 
+-- 
+2.31.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
