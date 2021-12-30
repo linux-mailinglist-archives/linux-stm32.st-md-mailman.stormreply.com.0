@@ -2,55 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E4B348180C
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Dec 2021 02:27:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A508481AEB
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Dec 2021 09:54:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A74EC5E2C5;
-	Thu, 30 Dec 2021 01:27:51 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA0E6C57183
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Dec 2021 01:27:49 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3C7EC5E2C5;
+	Thu, 30 Dec 2021 08:54:41 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 60EDB615BC;
- Thu, 30 Dec 2021 01:27:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABA02C36AEE;
- Thu, 30 Dec 2021 01:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1640827667;
- bh=VyHQY8J49gY+iAihRqxjOKsUj4wupvO0oUTJjIn1KrA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PCRujHrlvJ++eMV+8eOATEJODo3khk0hQq/qcOGZJbOYVzdGaJEIdQpe3ygUNnexv
- h2B2UhmvvwrWYfXay/0DFsT+93ABO9urf7cswier/8esz/sWGUfqzUcXlAOR+gKynv
- 1a/grh6c0mmNY7d0MGHXlo8O9AskGejfATQlOS0UmQGGRK7+ZmQGx+2pLxQMtoRjKi
- CwuAD0fmyCWoX1DMFsFLfNE8h0v8OIFLrH113Ncsdk2CgRt3oUx/bi75brGOEczrS5
- TMAuPXSAUe1oT7//Rt10B20IOyCqz8tUfPiccgTDL8cTvGrxN3k3fiMz1b5EvnF7c3
- RQR99+BMsZxQg==
-From: Jakub Kicinski <kuba@kernel.org>
-To: ast@kernel.org,
-	daniel@iogearbox.net
-Date: Wed, 29 Dec 2021 17:27:41 -0800
-Message-Id: <20211230012742.770642-2-kuba@kernel.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20211230012742.770642-1-kuba@kernel.org>
-References: <20211230012742.770642-1-kuba@kernel.org>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBD0EC5C829
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 30 Dec 2021 08:54:40 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1n2rCN-0001Ho-RK; Thu, 30 Dec 2021 09:54:11 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1n2rCI-007SB9-Oz; Thu, 30 Dec 2021 09:54:06 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1n2rCH-00052f-Q5; Thu, 30 Dec 2021 09:54:05 +0100
+Date: Thu, 30 Dec 2021 09:53:51 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Message-ID: <20211230085351.pywngltvdam25emx@pengutronix.de>
+References: <20211229154441.38045-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Cc: linux-hyperv@vger.kernel.org, alexandre.torgue@foss.st.com,
- chenhao288@hisilicon.com, ndagan@amazon.com, wei.liu@kernel.org,
- kys@microsoft.com, sthemmin@microsoft.com, decui@microsoft.com,
- moyufeng@huawei.com, joabreu@synopsys.com, Jakub Kicinski <kuba@kernel.org>,
- sgoutham@marvell.com, grygorii.strashko@ti.com, haiyangz@microsoft.com,
- akiyano@amazon.com, saeedb@amazon.com, peppe.cavallaro@st.com,
- shayagr@amazon.com, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
- darinzon@amazon.com, sameehj@amazon.com, bpf@vger.kernel.org
-Subject: [Linux-stm32] [PATCH bpf-next v2 1/2] net: add includes masked by
-	netdevice.h including uapi/bpf.h
+In-Reply-To: <20211229154441.38045-1-u.kleine-koenig@pengutronix.de>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>,
+ David Lechner <david@lechnology.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-iio@vger.kernel.org, Patrick Havelange <patrick.havelange@essensium.com>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Oleksij Rempel <linux@rempel-privat.de>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>, kernel@pengutronix.de,
+ Syed Nayyar Waris <syednwaris@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 00/23] counter: cleanups and device
+	lifetime fixes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,143 +63,122 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4436050435456499547=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add missing includes unmasked by the subsequent change.
 
-Mostly network drivers missing an include for XDP_PACKET_HEADROOM.
+--===============4436050435456499547==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7z7zb2yi7csslu7s"
+Content-Disposition: inline
 
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
----
-v2:
- - fix buildbot's randconfig failure in ipv6
 
-CC: shayagr@amazon.com
-CC: akiyano@amazon.com
-CC: darinzon@amazon.com
-CC: ndagan@amazon.com
-CC: saeedb@amazon.com
-CC: sgoutham@marvell.com
-CC: kys@microsoft.com
-CC: haiyangz@microsoft.com
-CC: sthemmin@microsoft.com
-CC: wei.liu@kernel.org
-CC: decui@microsoft.com
-CC: peppe.cavallaro@st.com
-CC: alexandre.torgue@foss.st.com
-CC: joabreu@synopsys.com
-CC: mcoquelin.stm32@gmail.com
-CC: grygorii.strashko@ti.com
-CC: sameehj@amazon.com
-CC: chenhao288@hisilicon.com
-CC: moyufeng@huawei.com
-CC: linux-arm-kernel@lists.infradead.org
-CC: linux-hyperv@vger.kernel.org
-CC: linux-stm32@st-md-mailman.stormreply.com
-CC: linux-omap@vger.kernel.org
----
- drivers/net/ethernet/amazon/ena/ena_netdev.h       | 1 +
- drivers/net/ethernet/cavium/thunder/nicvf_queues.c | 1 +
- drivers/net/ethernet/microsoft/mana/mana_en.c      | 2 ++
- drivers/net/ethernet/stmicro/stmmac/stmmac.h       | 1 +
- drivers/net/ethernet/ti/cpsw_priv.h                | 2 ++
- include/net/ip6_fib.h                              | 1 +
- kernel/bpf/net_namespace.c                         | 1 +
- 7 files changed, 9 insertions(+)
+--7z7zb2yi7csslu7s
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.h b/drivers/net/ethernet/amazon/ena/ena_netdev.h
-index 0c39fc2fa345..9391c7101fba 100644
---- a/drivers/net/ethernet/amazon/ena/ena_netdev.h
-+++ b/drivers/net/ethernet/amazon/ena/ena_netdev.h
-@@ -14,6 +14,7 @@
- #include <linux/interrupt.h>
- #include <linux/netdevice.h>
- #include <linux/skbuff.h>
-+#include <uapi/linux/bpf.h>
- 
- #include "ena_com.h"
- #include "ena_eth_com.h"
-diff --git a/drivers/net/ethernet/cavium/thunder/nicvf_queues.c b/drivers/net/ethernet/cavium/thunder/nicvf_queues.c
-index 50bbe79fb93d..4367edbdd579 100644
---- a/drivers/net/ethernet/cavium/thunder/nicvf_queues.c
-+++ b/drivers/net/ethernet/cavium/thunder/nicvf_queues.c
-@@ -10,6 +10,7 @@
- #include <linux/iommu.h>
- #include <net/ip.h>
- #include <net/tso.h>
-+#include <uapi/linux/bpf.h>
- 
- #include "nic_reg.h"
- #include "nic.h"
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index c1d5a374b967..2ece9e90dc50 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -1,6 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
- /* Copyright (c) 2021, Microsoft Corporation. */
- 
-+#include <uapi/linux/bpf.h>
-+
- #include <linux/inetdevice.h>
- #include <linux/etherdevice.h>
- #include <linux/ethtool.h>
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 4f5292cadf54..d42b6af32d6e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -22,6 +22,7 @@
- #include <linux/net_tstamp.h>
- #include <linux/reset.h>
- #include <net/page_pool.h>
-+#include <uapi/linux/bpf.h>
- 
- struct stmmac_resources {
- 	void __iomem *addr;
-diff --git a/drivers/net/ethernet/ti/cpsw_priv.h b/drivers/net/ethernet/ti/cpsw_priv.h
-index f33c882eb70e..74555970730c 100644
---- a/drivers/net/ethernet/ti/cpsw_priv.h
-+++ b/drivers/net/ethernet/ti/cpsw_priv.h
-@@ -6,6 +6,8 @@
- #ifndef DRIVERS_NET_ETHERNET_TI_CPSW_PRIV_H_
- #define DRIVERS_NET_ETHERNET_TI_CPSW_PRIV_H_
- 
-+#include <uapi/linux/bpf.h>
-+
- #include "davinci_cpdma.h"
- 
- #define CPSW_DEBUG	(NETIF_MSG_HW		| NETIF_MSG_WOL		| \
-diff --git a/include/net/ip6_fib.h b/include/net/ip6_fib.h
-index 83b8070d1cc9..a9a4ccc0cdb5 100644
---- a/include/net/ip6_fib.h
-+++ b/include/net/ip6_fib.h
-@@ -20,6 +20,7 @@
- #include <net/inetpeer.h>
- #include <net/fib_notifier.h>
- #include <linux/indirect_call_wrapper.h>
-+#include <uapi/linux/bpf.h>
- 
- #ifdef CONFIG_IPV6_MULTIPLE_TABLES
- #define FIB6_TABLE_HASHSZ 256
-diff --git a/kernel/bpf/net_namespace.c b/kernel/bpf/net_namespace.c
-index 542f275bf252..868cc2c43899 100644
---- a/kernel/bpf/net_namespace.c
-+++ b/kernel/bpf/net_namespace.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- 
- #include <linux/bpf.h>
-+#include <linux/bpf-netns.h>
- #include <linux/filter.h>
- #include <net/net_namespace.h>
- 
--- 
-2.31.1
+Hello,
+
+On Wed, Dec 29, 2021 at 04:44:18PM +0100, Uwe Kleine-K=F6nig wrote:
+> this is v3 of my series to fix device lifetime issues in the counter
+> framework. This hopefully addresses all things pointed out for v2.
+>=20
+> Note this depends on 60f07e74f86b (which is in next) now. Full diffstat
+> below.
+>=20
+> Things that could be further improved:
+>=20
+> [...]
+>=20
+> Uwe Kleine-K=F6nig (23):
+>   counter: Use container_of instead of drvdata to track counter_device
+>   counter: ftm-quaddec: Drop unused platform_set_drvdata()
+>   counter: microchip-tcb-capture: Drop unused platform_set_drvdata()
+>   counter: Provide a wrapper to access device private data
+>   counter: 104-quad-8: Convert to counter_priv() wrapper
+>   counter: interrupt-cnt: Convert to counter_priv() wrapper
+>   counter: microchip-tcb-capture: Convert to counter_priv() wrapper
+>   counter: intel-qep: Convert to counter_priv() wrapper
+>   counter: ftm-quaddec: Convert to counter_priv() wrapper
+>   counter: ti-eqep: Convert to counter_priv() wrapper
+>   counter: stm32-lptimer-cnt: Convert to counter_priv() wrapper
+>   counter: stm32-timer-cnt: Convert to counter_priv() wrapper
+>   counter: Provide alternative counter registration functions
+>   counter: Update documentation for new counter registration functions
+>   counter: 104-quad-8: Convert to new counter registration
+>   counter: interrupt-cnt: Convert to new counter registration
+>   counter: intel-qep: Convert to new counter registration
+>   counter: ftm-quaddec: Convert to new counter registration
+>   counter: microchip-tcb-capture: Convert to new counter registration
+>   counter: stm32-timer-cnt: Convert to new counter registration
+>   counter: stm32-lptimer-cnt: Convert to new counter registration
+>   counter: ti-eqep: Convert to new counter registration
+>   counter: remove old and now unused registration API
+>=20
+>  Documentation/driver-api/generic-counter.rst |  10 +-
+>  drivers/counter/104-quad-8.c                 |  93 +++++-----
+>  drivers/counter/counter-core.c               | 186 ++++++++++++++-----
+>  drivers/counter/ftm-quaddec.c                |  36 ++--
+>  drivers/counter/intel-qep.c                  |  46 ++---
+>  drivers/counter/interrupt-cnt.c              |  38 ++--
+>  drivers/counter/microchip-tcb-capture.c      |  44 ++---
+>  drivers/counter/stm32-lptimer-cnt.c          |  51 ++---
+>  drivers/counter/stm32-timer-cnt.c            |  48 ++---
+>  drivers/counter/ti-eqep.c                    |  31 ++--
+>  include/linux/counter.h                      |  15 +-
+>  11 files changed, 356 insertions(+), 242 deletions(-)
+>=20
+> Range-diff against v2:
+> [...]
+>=20
+> base-commit: a7904a538933c525096ca2ccde1e60d0ee62c08e
+> prerequisite-patch-id: 9459ad8bc78190558df9123f8bebe28ca1c396ea
+
+All patches have a blessing by at least one of William and Jonathan.
+The prerequisite commit (60f07e74f86b) is in Greg's char-misc-next branch.
+
+Assuming noone still finds a problem in this series that requires me to
+respin I wonder who will pick it up? Greg?
+
+Given that it fixes a possible use-after-free in all counter drivers,
+I'd like to see it hit before v5.17-rc1. For 5.16 it's probably too
+late.
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--7z7zb2yi7csslu7s
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmHNc5sACgkQwfwUeK3K
+7AmHGwf/cW+uf1nbbMoCP+vuGJBcf8R3c4fj5eEs6StdeeqHl+4a9zmWUm2lRpK/
+nP641JA+KRobAEsp6GzoUMT+XZiVK+Vkq5oUl6SzYDi9E7ngcCIHcFX0KGeleAJO
+NbucXfodd1UyRSnJxuHAJtgV+SqqWzitl0Bcnk6aEEAvfmxsagEzAWTaEZbtlBpS
+qyoUpE7RdVKCS6D7YSTEgvDXizq1LCIouqvlVOQJeSYgtVlMAZhNI5sED9Powoer
+qogiBqD/ct96Khptz+zvZgyivhlKY2bOZQj2J7Or+FR7qvTx/unx2IA1j9US6Khx
+tsgbEo6PmHqbM2kCu/bkI06NRS7lcw==
+=asmE
+-----END PGP SIGNATURE-----
+
+--7z7zb2yi7csslu7s--
+
+--===============4436050435456499547==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4436050435456499547==--
