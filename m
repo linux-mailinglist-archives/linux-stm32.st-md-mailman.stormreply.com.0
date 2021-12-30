@@ -2,63 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84022481D61
-	for <lists+linux-stm32@lfdr.de>; Thu, 30 Dec 2021 16:03:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D9EC481D97
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Dec 2021 16:08:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4939EC5F1F1;
-	Thu, 30 Dec 2021 15:03:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C44A4C5E2C5;
+	Thu, 30 Dec 2021 15:08:56 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E1AAC5C829
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0ACDEC5C829
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Dec 2021 15:03:15 +0000 (UTC)
+ Thu, 30 Dec 2021 15:08:55 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ukl@pengutronix.de>)
- id 1n2wxR-0000ey-Ev; Thu, 30 Dec 2021 16:03:09 +0100
+ id 1n2x2e-0002NA-4e; Thu, 30 Dec 2021 16:08:32 +0100
 Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1n2wxQ-007VLf-Ey; Thu, 30 Dec 2021 16:03:07 +0100
+ id 1n2x2b-007VMX-5P; Thu, 30 Dec 2021 16:08:28 +0100
 Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.92)
  (envelope-from <ukl@pengutronix.de>)
- id 1n2wxP-0007k5-7D; Thu, 30 Dec 2021 16:03:07 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Thu, 30 Dec 2021 16:02:58 +0100
-Message-Id: <20211230150300.72196-22-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20211230150300.72196-1-u.kleine-koenig@pengutronix.de>
-References: <20211230150300.72196-1-u.kleine-koenig@pengutronix.de>
+ id 1n2x2a-00081Q-4e; Thu, 30 Dec 2021 16:08:28 +0100
+Date: Thu, 30 Dec 2021 16:08:28 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <20211230150828.iy7julxbvlcupazx@pengutronix.de>
+References: <20211229154441.38045-1-u.kleine-koenig@pengutronix.de>
+ <20211230085351.pywngltvdam25emx@pengutronix.de>
+ <20211230145826.7f23becb@jic23-huawei>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2830; h=from:subject;
- bh=Z30Y5klYFwnFI5jJS4Jj6GD8bn4cD3tqmAq9j/Gq+4c=;
- b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBhzcmzcwTnYraxEudTA2g4uyLsOHdO8G35dTdIsTc6
- TGeqWNSJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCYc3JswAKCRDB/BR4rcrsCbTsB/
- 4sHcSMVx026q0hGj12f7lLbPCtyoOL0yHuhBXYyYgkwJt08N9b4tg5tQhkY1h4SF7gRzeYF9TwQXC+
- aYeKBBnNjx+b0IOgqnvq3lH4QyrIPDZCYteD3o2e8GJE3air52PqqIrym1p4MFKgOoKig12LBH5ThF
- wON8fqwPZpE/Wp3IKbZhnRIJhqHPF92cuRpxk5w+NJj5lIi24HE9Z2ps4ODIqFg//kdRVpsJnOrE68
- qptifsgVFn1hxobcKrQx3nCQ8VGY1eh4Li52yoO9YaElTpfYoZqXlgiStBWq52PjbU9FHwW2XKGhRo
- Y6pk5JxaCZdpvf5PZwkSBLb6e0HP0E
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+In-Reply-To: <20211230145826.7f23becb@jic23-huawei>
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
 X-SA-Exim-Mail-From: ukl@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: kernel@pengutronix.de, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+Cc: Kamel Bouhara <kamel.bouhara@bootlin.com>,
+ David Lechner <david@lechnology.com>, Jonathan Corbet <corbet@lwn.net>,
+ linux-iio@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ William Breathitt Gray <vilhelm.gray@gmail.com>, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Patrick Havelange <patrick.havelange@essensium.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 21/23] counter: stm32-lptimer-cnt: Convert
-	to new counter registration
+ Oleksij Rempel <linux@rempel-privat.de>,
+ Syed Nayyar Waris <syednwaris@gmail.com>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 00/23] counter: cleanups and device
+	lifetime fixes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,60 +67,135 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============5930773336522303721=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhpcyBmaXhlcyBkZXZpY2UgbGlmZXRpbWUgaXNzdWVzIHdoZXJlIGl0IHdhcyBwb3NzaWJsZSB0
-byBmcmVlIGEgbGl2ZQpzdHJ1Y3QgZGV2aWNlLgoKRml4ZXM6IDU5N2Y1NWUzZjM2YyAoImNvdW50
-ZXI6IHN0bTMyLWxwdGltZXI6IGFkZCBjb3VudGVyIGRldmljZSIpClJldmlld2VkLWJ5OiBKb25h
-dGhhbiBDYW1lcm9uIDxKb25hdGhhbi5DYW1lcm9uQGh1YXdlaS5jb20+CkFja2VkLWJ5OiBXaWxs
-aWFtIEJyZWF0aGl0dCBHcmF5IDx2aWxoZWxtLmdyYXlAZ21haWwuY29tPgpTaWduZWQtb2ZmLWJ5
-OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlPgotLS0K
-IGRyaXZlcnMvY291bnRlci9zdG0zMi1scHRpbWVyLWNudC5jIHwgMzMgKysrKysrKysrKysrKysr
-KystLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxOSBpbnNlcnRpb25zKCspLCAxNCBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2NvdW50ZXIvc3RtMzItbHB0aW1lci1jbnQu
-YyBiL2RyaXZlcnMvY291bnRlci9zdG0zMi1scHRpbWVyLWNudC5jCmluZGV4IDljZjAwZTkyOWNj
-MC4uNjgwMzFkOTNjZTg5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2NvdW50ZXIvc3RtMzItbHB0aW1l
-ci1jbnQuYworKysgYi9kcml2ZXJzL2NvdW50ZXIvc3RtMzItbHB0aW1lci1jbnQuYwpAQCAtMjAs
-NyArMjAsNiBAQAogI2luY2x1ZGUgPGxpbnV4L3R5cGVzLmg+CiAKIHN0cnVjdCBzdG0zMl9scHRp
-bV9jbnQgewotCXN0cnVjdCBjb3VudGVyX2RldmljZSBjb3VudGVyOwogCXN0cnVjdCBkZXZpY2Ug
-KmRldjsKIAlzdHJ1Y3QgcmVnbWFwICpyZWdtYXA7CiAJc3RydWN0IGNsayAqY2xrOwpAQCAtNDEx
-LDE0ICs0MTAsMTcgQEAgc3RhdGljIHN0cnVjdCBjb3VudGVyX2NvdW50IHN0bTMyX2xwdGltX2lu
-MV9jb3VudHMgPSB7CiBzdGF0aWMgaW50IHN0bTMyX2xwdGltX2NudF9wcm9iZShzdHJ1Y3QgcGxh
-dGZvcm1fZGV2aWNlICpwZGV2KQogewogCXN0cnVjdCBzdG0zMl9scHRpbWVyICpkZGF0YSA9IGRl
-dl9nZXRfZHJ2ZGF0YShwZGV2LT5kZXYucGFyZW50KTsKKwlzdHJ1Y3QgY291bnRlcl9kZXZpY2Ug
-KmNvdW50ZXI7CiAJc3RydWN0IHN0bTMyX2xwdGltX2NudCAqcHJpdjsKKwlpbnQgcmV0OwogCiAJ
-aWYgKElTX0VSUl9PUl9OVUxMKGRkYXRhKSkKIAkJcmV0dXJuIC1FSU5WQUw7CiAKLQlwcml2ID0g
-ZGV2bV9remFsbG9jKCZwZGV2LT5kZXYsIHNpemVvZigqcHJpdiksIEdGUF9LRVJORUwpOwotCWlm
-ICghcHJpdikKKwljb3VudGVyID0gZGV2bV9jb3VudGVyX2FsbG9jKCZwZGV2LT5kZXYsIHNpemVv
-ZigqcHJpdikpOworCWlmICghY291bnRlcikKIAkJcmV0dXJuIC1FTk9NRU07CisJcHJpdiA9IGNv
-dW50ZXJfcHJpdihjb3VudGVyKTsKIAogCXByaXYtPmRldiA9ICZwZGV2LT5kZXY7CiAJcHJpdi0+
-cmVnbWFwID0gZGRhdGEtPnJlZ21hcDsKQEAgLTQyNiwyMyArNDI4LDI2IEBAIHN0YXRpYyBpbnQg
-c3RtMzJfbHB0aW1fY250X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCiAJcHJp
-di0+Y2VpbGluZyA9IFNUTTMyX0xQVElNX01BWF9BUlI7CiAKIAkvKiBJbml0aWFsaXplIENvdW50
-ZXIgZGV2aWNlICovCi0JcHJpdi0+Y291bnRlci5uYW1lID0gZGV2X25hbWUoJnBkZXYtPmRldik7
-Ci0JcHJpdi0+Y291bnRlci5wYXJlbnQgPSAmcGRldi0+ZGV2OwotCXByaXYtPmNvdW50ZXIub3Bz
-ID0gJnN0bTMyX2xwdGltX2NudF9vcHM7CisJY291bnRlci0+bmFtZSA9IGRldl9uYW1lKCZwZGV2
-LT5kZXYpOworCWNvdW50ZXItPnBhcmVudCA9ICZwZGV2LT5kZXY7CisJY291bnRlci0+b3BzID0g
-JnN0bTMyX2xwdGltX2NudF9vcHM7CiAJaWYgKGRkYXRhLT5oYXNfZW5jb2RlcikgewotCQlwcml2
-LT5jb3VudGVyLmNvdW50cyA9ICZzdG0zMl9scHRpbV9lbmNfY291bnRzOwotCQlwcml2LT5jb3Vu
-dGVyLm51bV9zaWduYWxzID0gQVJSQVlfU0laRShzdG0zMl9scHRpbV9jbnRfc2lnbmFscyk7CisJ
-CWNvdW50ZXItPmNvdW50cyA9ICZzdG0zMl9scHRpbV9lbmNfY291bnRzOworCQljb3VudGVyLT5u
-dW1fc2lnbmFscyA9IEFSUkFZX1NJWkUoc3RtMzJfbHB0aW1fY250X3NpZ25hbHMpOwogCX0gZWxz
-ZSB7Ci0JCXByaXYtPmNvdW50ZXIuY291bnRzID0gJnN0bTMyX2xwdGltX2luMV9jb3VudHM7Ci0J
-CXByaXYtPmNvdW50ZXIubnVtX3NpZ25hbHMgPSAxOworCQljb3VudGVyLT5jb3VudHMgPSAmc3Rt
-MzJfbHB0aW1faW4xX2NvdW50czsKKwkJY291bnRlci0+bnVtX3NpZ25hbHMgPSAxOwogCX0KLQlw
-cml2LT5jb3VudGVyLm51bV9jb3VudHMgPSAxOwotCXByaXYtPmNvdW50ZXIuc2lnbmFscyA9IHN0
-bTMyX2xwdGltX2NudF9zaWduYWxzOwotCXByaXYtPmNvdW50ZXIucHJpdiA9IHByaXY7CisJY291
-bnRlci0+bnVtX2NvdW50cyA9IDE7CisJY291bnRlci0+c2lnbmFscyA9IHN0bTMyX2xwdGltX2Nu
-dF9zaWduYWxzOwogCiAJcGxhdGZvcm1fc2V0X2RydmRhdGEocGRldiwgcHJpdik7CiAKLQlyZXR1
-cm4gZGV2bV9jb3VudGVyX3JlZ2lzdGVyKCZwZGV2LT5kZXYsICZwcml2LT5jb3VudGVyKTsKKwly
-ZXQgPSBkZXZtX2NvdW50ZXJfYWRkKCZwZGV2LT5kZXYsIGNvdW50ZXIpOworCWlmIChyZXQgPCAw
-KQorCQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCByZXQsICJGYWlsZWQgdG8gYWRk
-IGNvdW50ZXJcbiIpOworCisJcmV0dXJuIDA7CiB9CiAKICNpZmRlZiBDT05GSUdfUE1fU0xFRVAK
-LS0gCjIuMzQuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
-bGlzdGluZm8vbGludXgtc3RtMzIK
+
+--===============5930773336522303721==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7547pgm5uqxs232y"
+Content-Disposition: inline
+
+
+--7547pgm5uqxs232y
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Dec 30, 2021 at 02:58:26PM +0000, Jonathan Cameron wrote:
+> On Thu, 30 Dec 2021 09:53:51 +0100
+> Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de> wrote:
+>=20
+> > Hello,
+> >=20
+> > On Wed, Dec 29, 2021 at 04:44:18PM +0100, Uwe Kleine-K=F6nig wrote:
+> > > this is v3 of my series to fix device lifetime issues in the counter
+> > > framework. This hopefully addresses all things pointed out for v2.
+> > >=20
+> > > Note this depends on 60f07e74f86b (which is in next) now. Full diffst=
+at
+> > > below.
+> > >=20
+> > > Things that could be further improved:
+> > >=20
+> > > [...]
+> > >=20
+> > > Uwe Kleine-K=F6nig (23):
+> > >   counter: Use container_of instead of drvdata to track counter_device
+> > >   counter: ftm-quaddec: Drop unused platform_set_drvdata()
+> > >   counter: microchip-tcb-capture: Drop unused platform_set_drvdata()
+> > >   counter: Provide a wrapper to access device private data
+> > >   counter: 104-quad-8: Convert to counter_priv() wrapper
+> > >   counter: interrupt-cnt: Convert to counter_priv() wrapper
+> > >   counter: microchip-tcb-capture: Convert to counter_priv() wrapper
+> > >   counter: intel-qep: Convert to counter_priv() wrapper
+> > >   counter: ftm-quaddec: Convert to counter_priv() wrapper
+> > >   counter: ti-eqep: Convert to counter_priv() wrapper
+> > >   counter: stm32-lptimer-cnt: Convert to counter_priv() wrapper
+> > >   counter: stm32-timer-cnt: Convert to counter_priv() wrapper
+> > >   counter: Provide alternative counter registration functions
+> > >   counter: Update documentation for new counter registration functions
+> > >   counter: 104-quad-8: Convert to new counter registration
+> > >   counter: interrupt-cnt: Convert to new counter registration
+> > >   counter: intel-qep: Convert to new counter registration
+> > >   counter: ftm-quaddec: Convert to new counter registration
+> > >   counter: microchip-tcb-capture: Convert to new counter registration
+> > >   counter: stm32-timer-cnt: Convert to new counter registration
+> > >   counter: stm32-lptimer-cnt: Convert to new counter registration
+> > >   counter: ti-eqep: Convert to new counter registration
+> > >   counter: remove old and now unused registration API
+> > >=20
+> > >  Documentation/driver-api/generic-counter.rst |  10 +-
+> > >  drivers/counter/104-quad-8.c                 |  93 +++++-----
+> > >  drivers/counter/counter-core.c               | 186 ++++++++++++++---=
+--
+> > >  drivers/counter/ftm-quaddec.c                |  36 ++--
+> > >  drivers/counter/intel-qep.c                  |  46 ++---
+> > >  drivers/counter/interrupt-cnt.c              |  38 ++--
+> > >  drivers/counter/microchip-tcb-capture.c      |  44 ++---
+> > >  drivers/counter/stm32-lptimer-cnt.c          |  51 ++---
+> > >  drivers/counter/stm32-timer-cnt.c            |  48 ++---
+> > >  drivers/counter/ti-eqep.c                    |  31 ++--
+> > >  include/linux/counter.h                      |  15 +-
+> > >  11 files changed, 356 insertions(+), 242 deletions(-)
+> > >=20
+> > > Range-diff against v2:
+> > > [...]
+> > >=20
+> > > base-commit: a7904a538933c525096ca2ccde1e60d0ee62c08e
+> > > prerequisite-patch-id: 9459ad8bc78190558df9123f8bebe28ca1c396ea =20
+> >=20
+> > All patches have a blessing by at least one of William and Jonathan.
+>=20
+> For future reference (may be fine this time) William has final say on cou=
+nter
+> stuff as the maintainer so treat my input as just another set of eyes.
+
+Yeah, right. William only didn't ack patch 13 but wrote in reply it in v2:
+
+	I agree with the approach taken in this patch, and I don't have much to
+	add after the suggestions Lars-Peter and Jonathan have already given. So
+	assuming those are addressed in the next version I expect to Ack this
+	patch as well.
+
+So I assume it's just that William didn't have the time yet to look into
+v3 (or v4 that I just sent out) yet.
+
+Best regards and thanks to all who gave feedback to improve this patch
+set,
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--7547pgm5uqxs232y
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmHNy2gACgkQwfwUeK3K
+7AkVxgf/YEpJYjM3bn0tJoCZm5z1+9HEyxBcCdYvZkrR/r1W76x+QjoTmtqoUkOw
+W2dJAKUIPtSZrkPAqUudrsQPnWo7wIBGKtC1tW6E38jCe9o7A/SFFopedwIF9clI
+X28pk3rY9kFj9l6WK4yef2abY7hGAyi3eYyorm8QJzkdQF3HuiR2BEFevGKcEGMr
+HRvP6V5NZ06+pYkNI4arg0hqFAlJZb9h+LdrhcQjFxYW4HROL+pe4iy1xkEGKVQO
+mwbVNjhEfNaLwKUm58fyNr77vebIPhNrTuiRDM/f+gKcu07zThgxiaS/CLH5Tqkw
+OoVyfyqM6/6thSXjoor4nmGo/xH2Ew==
+=Y3X/
+-----END PGP SIGNATURE-----
+
+--7547pgm5uqxs232y--
+
+--===============5930773336522303721==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5930773336522303721==--
