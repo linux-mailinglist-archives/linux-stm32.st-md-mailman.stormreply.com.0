@@ -2,38 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AF6D4823B8
-	for <lists+linux-stm32@lfdr.de>; Fri, 31 Dec 2021 12:35:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F05C483087
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jan 2022 12:30:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD873C5E2C5;
-	Fri, 31 Dec 2021 11:35:03 +0000 (UTC)
-Received: from fornost.hmeau.com (helcar.hmeau.com [216.24.177.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2671C5F1EE;
+	Mon,  3 Jan 2022 11:30:27 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DE3FC57B6C
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  3 Jan 2022 11:30:26 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3B30C5C828
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 31 Dec 2021 11:35:01 +0000 (UTC)
-Received: from gwarestrin.arnor.me.apana.org.au ([192.168.103.7])
- by fornost.hmeau.com with smtp (Exim 4.92 #5 (Debian))
- id 1n3GBG-0004se-P3; Fri, 31 Dec 2021 22:34:43 +1100
-Received: by gwarestrin.arnor.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 31 Dec 2021 22:34:42 +1100
-Date: Fri, 31 Dec 2021 22:34:42 +1100
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <Yc7q0o1HL2THW2Kc@gondor.apana.org.au>
-References: <20211220195022.1387104-1-marex@denx.de>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2230160FF8;
+ Mon,  3 Jan 2022 11:30:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F8AC36AE9;
+ Mon,  3 Jan 2022 11:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1641209424;
+ bh=PJcapKAIeWCUQ8GEVmO6uaKfnmXoKarLeDRQFQ8RRmc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lAY4Akej43xDQ97sjIXy535eaDqM81L/c/e6eFlI227rlPAmVbmajUjKE6ibSGk/I
+ wnLfwC8nzjz36FgejGavM3szdsoGS9wA9vpcEPFdIbyqTHfMbE3CN52hCcWxvkGDHU
+ 9xpzMr3S6lxtoIaMCkcHqHPYzygNpUj8BSi1ie03uL+9NZhKWljyeUMXxjR0ek/PlF
+ uGRI/qoVIhihMp30DHtksnsklHM/0kUl64dENP421pnE3BqifnBp1XgK2kpZOHiaUi
+ T6atGKekATheFBtX1ModuAqzrK5IgtrWI46g+aVuDDpkSv/IkcdWJA6TLyjG6F3FBQ
+ 1knCr03OsXQJg==
+Date: Mon, 3 Jan 2022 17:00:20 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Message-ID: <YdLeTC+H92xZHi77@matsya>
+References: <20211220165827.1238097-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20211220195022.1387104-1-marex@denx.de>
-Cc: Lionel Debieve <lionel.debieve@st.com>,
- Nicolas Toromanoff <nicolas.toromanoff@st.com>,
+In-Reply-To: <20211220165827.1238097-1-amelie.delaunay@foss.st.com>
+Cc: linux-kernel@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Fabien Dessenne <fabien.dessenne@st.com>, linux-crypto@vger.kernel.org,
- stable@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] crypto: stm32/crc32 - Fix kernel BUG
-	triggered in probe()
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/1] dmaengine: stm32-mdma: fix
+	STM32_MDMA_CTBR_TSEL_MASK
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,44 +60,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 20, 2021 at 08:50:22PM +0100, Marek Vasut wrote:
-> The include/linux/crypto.h struct crypto_alg field cra_driver_name description
-> states "Unique name of the transformation provider. " ... " this contains the
-> name of the chip or provider and the name of the transformation algorithm."
-> 
-> In case of the stm32-crc driver, field cra_driver_name is identical for all
-> registered transformation providers and set to the name of the driver itself,
-> which is incorrect. This patch fixes it by assigning a unique cra_driver_name
-> to each registered transformation provider.
-> 
-> The kernel crash is triggered when the driver calls crypto_register_shashes()
-> which calls crypto_register_shash(), which calls crypto_register_alg(), which
-> calls __crypto_register_alg(), which returns -EEXIST, which is propagated
-> back through this call chain. Upon -EEXIST from crypto_register_shash(), the
-> crypto_register_shashes() starts unregistering the providers back, and calls
-> crypto_unregister_shash(), which calls crypto_unregister_alg(), and this is
-> where the BUG() triggers due to incorrect cra_refcnt.
-> 
-> Fixes: b51dbe90912a ("crypto: stm32 - Support for STM32 CRC32 crypto module")
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: <stable@vger.kernel.org> # 4.12+
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Fabien Dessenne <fabien.dessenne@st.com>
-> Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> Cc: Lionel Debieve <lionel.debieve@st.com>
-> Cc: Nicolas Toromanoff <nicolas.toromanoff@st.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-crypto@vger.kernel.org
-> ---
->  drivers/crypto/stm32/stm32-crc32.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+On 20-12-21, 17:58, Amelie Delaunay wrote:
+> This patch fixes STM32_MDMA_CTBR_TSEL_MASK, which is [5:0], not [7:0].
 
-Patch applied.  Thanks.
+Applied, thanks
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+~Vinod
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
