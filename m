@@ -2,63 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5DD7484604
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jan 2022 17:35:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0B744846BC
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jan 2022 18:14:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 518F3C5F1F9;
-	Tue,  4 Jan 2022 16:35:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D808C5F1F9;
+	Tue,  4 Jan 2022 17:14:32 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 625F3C5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44B0FC5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Jan 2022 16:35:58 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 204FLlE9029256;
- Tue, 4 Jan 2022 17:35:51 +0100
+ Tue,  4 Jan 2022 17:14:31 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 204G48t9024898;
+ Tue, 4 Jan 2022 18:14:17 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=+jWUHPERe/nevyKX3aqinPpPiMKKYwzJ7ruEcy/S6Pg=;
- b=PnbqfR3AHdZfDPPtgTZR3iBZIvYHE1obPniwFMAXOENKMnG1UFd2D5A04Fci427gvcYn
- 1ZEZbe8OAECSecxdP64WLTgNBTy8IbCaU5OaT63dxcUsplu1WZQSClb5nCi89PsQ/I67
- CyAsFaOpXsiBZrXJwMBQNDMr9xKaGWs0MFME1PanCbOPp3ck4AfFMgXKeHES4GbwHYXn
- ux9tVwJQ76rVKVr4FJhJV/KUStH80IVIEtVAAyX1Rgu7o4/iWy+sv7ei+2nkYAfVor27
- p22Saf35leC0h5ow0p+x4koBG8kX06kqOWbslMq5lLV6bpDnoj8t9eSPsTGRY9yc3WVx oA== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=wHPBT0wAHw5ib6wUpPmF/acTa+Fowr72BsBbL8DTsHo=;
+ b=KQHHIZcVFbZjtI+fxihU0Nq30HSY0rAQr+22q6VQLt4cSpbss+UxC6Uxuu106WKR+KaA
+ QwbnW4B1tLXIm3RB2SeFLqszyb1a/G1J1dVkpfreGdsvf4IdHWXfjGdz3euhqsavSV6X
+ NVdJPaKZa77o9DBrcGW7zTfhQwgITwA+pY6QP8zN7hUBcL6Bx77o92tLPlMWHMB3xZLP
+ f8//VOO0/EoarDPl8DCD5Dcw09riZtV1lwSF3hHX2tKNg5yWPmt28v4Lpt9Jg3GiBHJS
+ H/Q8+saOQ1gyIXKAyVGDpdtvTgCfhAVZQiQuyoZqQqIp4Ngsh2l44MwSBC4UZho2xZRz Ag== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dcagrbv9p-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dcbt0kumc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Jan 2022 17:35:51 +0100
+ Tue, 04 Jan 2022 18:14:17 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4DFA610002A;
- Tue,  4 Jan 2022 17:35:50 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7DD2A10002A;
+ Tue,  4 Jan 2022 18:14:15 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 30692245CC5;
- Tue,  4 Jan 2022 17:35:50 +0100 (CET)
-Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 4 Jan 2022 17:35:49
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>
-Date: Tue, 4 Jan 2022 17:35:45 +0100
-Message-ID: <20220104163545.34710-1-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7156325805A;
+ Tue,  4 Jan 2022 18:14:15 +0100 (CET)
+Received: from lmecxl0912.lme.st.com (10.75.127.44) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 4 Jan
+ 2022 18:14:14 +0100
+To: Marc Zyngier <maz@kernel.org>
+References: <20211215105847.2328-1-alexandre.torgue@foss.st.com>
+ <20211215105847.2328-2-alexandre.torgue@foss.st.com>
+ <YbueUmqyzwS9rOu5@robh.at.kernel.org>
+ <3f8acbb8-0b7e-2f47-eefc-67e5a7632445@foss.st.com>
+ <87bl1bwj2z.wl-maz@kernel.org>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Message-ID: <e5754264-b263-1090-3017-1a6fec284614@foss.st.com>
+Date: Tue, 4 Jan 2022 18:14:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+In-Reply-To: <87bl1bwj2z.wl-maz@kernel.org>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-04_07,2022-01-04_01,2021-12-02_01
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@linaro.org>, arnaud.pouliquen@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v4] tty: rpmsg: Fix race condition releasing
-	tty port
+ definitions=2022-01-04_08,2022-01-04_01,2021-12-02_01
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/5] dt-bindings: interrupt-controller:
+ Update STM32 EXTI interrupt controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,170 +76,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The tty_port struct is part of the rpmsg_tty_port structure.
-The issue is that the rpmsg_tty_port structure is freed on
-rpmsg_tty_remove while it is still referenced in the tty_struct.
-Its release is not predictable due to workqueues.
+Hi Marc
 
-For instance following ftrace shows that rpmsg_tty_close is called after
-rpmsg_tty_release_cport:
+On 12/20/21 1:34 PM, Marc Zyngier wrote:
+> On Fri, 17 Dec 2021 13:39:11 +0000,
+> Alexandre TORGUE <alexandre.torgue@foss.st.com> wrote:
+>>
+>> On 12/16/21 9:15 PM, Rob Herring wrote:
+>>> On Wed, Dec 15, 2021 at 11:58:43AM +0100, Alexandre Torgue wrote:
+>>>> Document new entry "st,exti-mapping" which links EXTI lines with GIC
+>>>> interrupt lines and add an include file to define EXTI interrupt type.
+>>>>
+>>>> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml b/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml
+>>>> index d19c881b4abc..e08bb51e97a8 100644
+>>>> --- a/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml
+>>>> +++ b/Documentation/devicetree/bindings/interrupt-controller/st,stm32-exti.yaml
+>>>> @@ -41,6 +41,17 @@ properties:
+>>>>        description:
+>>>>          Interrupts references to primary interrupt controller
+>>>>    +  st,exti-mapping:
+>>>> +    $ref: "/schemas/types.yaml#/definitions/uint32-matrix"
+>>>> +    description: |
+>>>> +            Define mapping between EXTI lines and GIC irq lines. Should be:
+>>>> +            st,exti-mapping = <EXTI_LINE GIC_IRQ EXTI_TYPE>, ...;
+>>>> +            With:
+>>>> +            - EXTI_LINE: EXTI line number.
+>>>> +            - GIC_IRQ: GIC IRQ associated to the EXTI line.
+>>>> +            - EXTI_TYPE: STM32_EXTI_TYPE_CONFIGURABLE or STM32_EXTI_TYPE_DIRECT.
+>>>> +              Defined in include/dt-bindings/interrupt-controller/stm32-exti.h
+>>>
+>>> No custom properties for this. See[1][2][3].
+>>>
+>>
+>> Thanks for inputs. In my case the mapping consists to map an EXTI line
+>> with a GIC irq line which could be done using interrupt-map (avoiding
+>> to parse it in my driver).
+> 
+> The problem is that 'interrupt-map' defines an interrupt mapping
+> between an input and an output, and that mentioning the GIC in such a
+> table will only result in your EXTI to be bypassed.
+> 
+> 'interrupt-map' really is a dispatch table for targeting an interrupt
+> controller (or multiple controllers, even), but really isn't the
+> correct tool to carry configuration informations to an interrupt
+> controller driver.
 
-     nr_test.sh-389     [000] .....   212.093752: rpmsg_tty_remove <-rpmsg_dev_
-remove
-             cat-1191    [001] .....   212.095697: tty_release <-__fput
-      nr_test.sh-389     [000] .....   212.099166: rpmsg_tty_release_cport <-rpm
-sg_tty_remove
-             cat-1191    [001] .....   212.115352: rpmsg_tty_close <-tty_release
-             cat-1191    [001] .....   212.115371: release_tty <-tty_release_str
+Ok so let's forget "interrupt-map"
 
-As consequence, the port must be free only when user has released the TTY
-interface.
+>> But for each EXTI/GIC association I would
+>> like also to describe the EXTI_TYPE (which actually describe the well
+>> irqchip to use inside my exti driver) . This property is not generic
+>> and so I assume I can't use a generic binding such "interrupt-map".
+>>
+>> If the solution consists to use a common binding (i.e. interrupt-map)
+>> plus a conversion table in exti driver to affect the well irq_chip to
+>> the well EXTI line then we could envisage to keep the whole mapping
+>> inside the driver (even if it's not the best solution).
+> 
+> A possible solution would be to have:
+> 
+> - A set of standard 'interrupts' properties describing the output
+> signals
+> 
+> - A set of properties describing the input to output mapping (if
+> relevant) and additional configuration information that for the
+> interrupt controller driver.
 
-This path :
-- Introduce the .destruct port tty ops function to release the allocated
-  rpmsg_tty_port structure.
-- Introduce the .hangup tty ops function to call tty_port_hangup.
-- Manages the tty port refcounting to trig the .destruct port ops,
-- Introduces the rpmsg_tty_cleanup function to ensure that the TTY is
-  removed before decreasing the port refcount.
+Does it means to have my own description of "interrupt" property using 
+xlate function in EXTI driver ?
 
+something like that:
 
-Fixes: 7c0408d80579 ("tty: add rpmsg driver")
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
-delta vs V3 [1]: take into account Greg Kroah-Hartman's comments:
-- remove uses of tty_vhangup instead of tty_port_tty_hangup.
-- remove useless WARM_ON(!cport) in rpmsg_tty_cleanup.
+interrupt = <GIC_SPI 6 EXTI_LINE EXTI_TYPE>, ...
 
-Remaining point to clarify:
-Is it a  benefict to use tty_vhangup as done in V3 [1] instead of
-tty_hangup (called by tty_port_tty_hangup)?
-In both cases, tty_kref_put calls queue_release_one_tty making the rest
-of the release asynchronous.
--> proposal to address this in a separate patchset if needed (introducing
-tty_port_tty_vhangup helper).
-
-[1]https://lore.kernel.org/all/YcGN0fDn2hqAdrP9@kroah.com/T/#m4e02ed9ca71387f447b5dc35402f10f4313f44d2
-of
-
-Applied and tested on fa55b7dcdc43 ("Linux 5.16-rc1", 2021-11-14)
----
- drivers/tty/rpmsg_tty.c | 40 ++++++++++++++++++++++++++--------------
- 1 file changed, 26 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/tty/rpmsg_tty.c b/drivers/tty/rpmsg_tty.c
-index dae2a4e44f38..29db413bbc03 100644
---- a/drivers/tty/rpmsg_tty.c
-+++ b/drivers/tty/rpmsg_tty.c
-@@ -50,10 +50,17 @@ static int rpmsg_tty_cb(struct rpmsg_device *rpdev, void *data, int len, void *p
- static int rpmsg_tty_install(struct tty_driver *driver, struct tty_struct *tty)
- {
- 	struct rpmsg_tty_port *cport = idr_find(&tty_idr, tty->index);
-+	struct tty_port *port;
- 
- 	tty->driver_data = cport;
- 
--	return tty_port_install(&cport->port, driver, tty);
-+	port = tty_port_get(&cport->port);
-+	return tty_port_install(port, driver, tty);
-+}
-+
-+static void rpmsg_tty_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
- }
- 
- static int rpmsg_tty_open(struct tty_struct *tty, struct file *filp)
-@@ -106,12 +113,19 @@ static unsigned int rpmsg_tty_write_room(struct tty_struct *tty)
- 	return size;
- }
- 
-+static void rpmsg_tty_hangup(struct tty_struct *tty)
-+{
-+	tty_port_hangup(tty->port);
-+}
-+
- static const struct tty_operations rpmsg_tty_ops = {
- 	.install	= rpmsg_tty_install,
- 	.open		= rpmsg_tty_open,
- 	.close		= rpmsg_tty_close,
- 	.write		= rpmsg_tty_write,
- 	.write_room	= rpmsg_tty_write_room,
-+	.hangup		= rpmsg_tty_hangup,
-+	.cleanup	= rpmsg_tty_cleanup,
- };
- 
- static struct rpmsg_tty_port *rpmsg_tty_alloc_cport(void)
-@@ -137,8 +151,10 @@ static struct rpmsg_tty_port *rpmsg_tty_alloc_cport(void)
- 	return cport;
- }
- 
--static void rpmsg_tty_release_cport(struct rpmsg_tty_port *cport)
-+static void rpmsg_tty_destruct_port(struct tty_port *port)
- {
-+	struct rpmsg_tty_port *cport = container_of(port, struct rpmsg_tty_port, port);
-+
- 	mutex_lock(&idr_lock);
- 	idr_remove(&tty_idr, cport->id);
- 	mutex_unlock(&idr_lock);
-@@ -146,7 +162,10 @@ static void rpmsg_tty_release_cport(struct rpmsg_tty_port *cport)
- 	kfree(cport);
- }
- 
--static const struct tty_port_operations rpmsg_tty_port_ops = { };
-+static const struct tty_port_operations rpmsg_tty_port_ops = {
-+	.destruct = rpmsg_tty_destruct_port,
-+};
-+
- 
- static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
- {
-@@ -166,7 +185,8 @@ static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
- 					   cport->id, dev);
- 	if (IS_ERR(tty_dev)) {
- 		ret = dev_err_probe(dev, PTR_ERR(tty_dev), "Failed to register tty port\n");
--		goto err_destroy;
-+		tty_port_put(&cport->port);
-+		return ret;
- 	}
- 
- 	cport->rpdev = rpdev;
-@@ -177,12 +197,6 @@ static int rpmsg_tty_probe(struct rpmsg_device *rpdev)
- 		rpdev->src, rpdev->dst, cport->id);
- 
- 	return 0;
--
--err_destroy:
--	tty_port_destroy(&cport->port);
--	rpmsg_tty_release_cport(cport);
--
--	return ret;
- }
- 
- static void rpmsg_tty_remove(struct rpmsg_device *rpdev)
-@@ -192,13 +206,11 @@ static void rpmsg_tty_remove(struct rpmsg_device *rpdev)
- 	dev_dbg(&rpdev->dev, "Removing rpmsg tty device %d\n", cport->id);
- 
- 	/* User hang up to release the tty */
--	if (tty_port_initialized(&cport->port))
--		tty_port_tty_hangup(&cport->port, false);
-+	tty_port_tty_hangup(&cport->port, false);
- 
- 	tty_unregister_device(rpmsg_tty_driver, cport->id);
- 
--	tty_port_destroy(&cport->port);
--	rpmsg_tty_release_cport(cport);
-+	tty_port_put(&cport->port);
- }
- 
- static struct rpmsg_device_id rpmsg_driver_tty_id_table[] = {
--- 
-2.25.1
+regards
+Alex
+> 
+> 	M.
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
