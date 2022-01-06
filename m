@@ -2,65 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 132D14869B1
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jan 2022 19:23:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37E2F4869C2
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jan 2022 19:25:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC5CEC5F1FD;
-	Thu,  6 Jan 2022 18:23:03 +0000 (UTC)
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E055AC5F1FD;
+	Thu,  6 Jan 2022 18:25:38 +0000 (UTC)
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0ED1C5F1F7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DA8AC5F1F7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Jan 2022 18:23:02 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id g2so3295331pgo.9
+ Thu,  6 Jan 2022 18:25:37 +0000 (UTC)
+Received: by mail-oi1-f169.google.com with SMTP id s127so4943347oig.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Jan 2022 10:23:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=I6+gV85PzROEGlYJM3N+KOto4KJj2e4PqdsLK48TsUs=;
- b=qvHLaU3I3YHDRWNvqsGcro4TTgHFq2pBWDkhh+5jgB4eOqgbpj5ZCHLIQ0V7nJil/u
- BD5adDExOHzqInisF7KA4q8Tz7Cx5KPp3CZ1a5IgJm1Gon01ol41Ls1ekUgfhNeH4Q6g
- AcDFmuyhPhazBpQv/9E3VnzrPp9DhAmW6LGIL+dXfICMpOLUYv9Sleqyc5fvTo8cJfql
- Qo5HXw15lB60EWDFs6KPA4Yk2B7keLcBFBd+rUzQOEaznukkXCTIcByhnz1pOXswuD44
- JSXRCJwuqN9ISpUcHUY2LcMe9riJaB+pCbsAcUpi33/HnQIJMojMK60TS1knUVuChIwL
- Mxhg==
+ Thu, 06 Jan 2022 10:25:37 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=I6+gV85PzROEGlYJM3N+KOto4KJj2e4PqdsLK48TsUs=;
- b=IanoUnwH5iGspQqAyAoOkuW3Eoix3XVK8s/j+lHKyw4azaUkOgkEQdVO5KMJ2vcXFt
- Nzj+MsrfGMEFjcc8HM4Ky1QB/In/q5yxE/AEtg0beNSYddrzaUVM1iwWutxQzQqDOdiG
- 0krXgGiW/t8tRDst8b186VWWcIzgQW9UhLPttnerq0Mdrk57H+BQc0neRn6FlPzGwN24
- lzY1lSurIL1zbUpmG8/x9UcUm6KJFdH7FBMoUK47ylH9iZwR/n9TIbptHtnY99Kzzx/Z
- /iwcjyFIzos8HjHoldeMJUfaxMcSYBotZS7q0OoeTQHC+yECXrOYniBHdlybFYurMlfl
- AbtQ==
-X-Gm-Message-State: AOAM532xBSxLkRsgcw1nVMfcwf+xTKF4VH7CgURdZdOz0Ji4iXx+3tb/
- MskyXcMQ/rto845/vigRMzfmPg==
-X-Google-Smtp-Source: ABdhPJweRsimwQSAjoYAJsBtwWD4QinEfZXmqu0x7zDDpGDGjuPdd9wgT90Qo4sNJ3RXACOsdEu6vQ==
-X-Received: by 2002:a05:6a00:1509:b0:4ba:f004:e3af with SMTP id
- q9-20020a056a00150900b004baf004e3afmr61701114pfu.32.1641493381292; 
- Thu, 06 Jan 2022 10:23:01 -0800 (PST)
-Received: from p14s (S0106889e681aac74.cg.shawcable.net. [68.147.0.187])
- by smtp.gmail.com with ESMTPSA id z23sm3173944pfr.189.2022.01.06.10.22.59
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=5h1dR4PNN5NFkFW0+XiCyKA8d8fazWVArSi0BOxk1SE=;
+ b=086O7UQZGYPj7uKeBIvPk1jWu46oWRb/d9a6P/Y0dLRnpC3bieUgHyVSB73Jp0pS4B
+ +Ntc6YRIQ28QEV9mt33jd+jaAzs7NOrY7tAr6OI8Sai0p5DMp6ErCP6T69PfRxDM/Q3X
+ 44SeED5wbdUhvuT5a1S+nUJnDhnCeX/3WVBPhEAUrXgz2wCo7ouPzI1M3sH+HcAP5vhF
+ RcfO9/WF0uhCjPujcDONs3XCjkc4pdedipQzd5Irb2vSzZY4VYVemmPE8tW4mhYvHLoX
+ 7hraxRED3ic1EE2gyb0P9aYphPQo5zDfZ4Sf2RzaV8RZ8eGCv5ozgW9LWNztJv5nE3BC
+ FVwQ==
+X-Gm-Message-State: AOAM533CjmHatHr4Wid53Z5rraBfhlcbsWXlxRPwEAXLf5o3le7dXM+N
+ mTsLB5hk4efscfFw37cQLA==
+X-Google-Smtp-Source: ABdhPJzepteQkCoDKy1ujIilUFsyTVi5z9LtR0nkVZhj5YPNewotOVWZzrv2vR4uYHaHaLpVu1wZ6A==
+X-Received: by 2002:a54:4502:: with SMTP id l2mr3544191oil.167.1641493536337; 
+ Thu, 06 Jan 2022 10:25:36 -0800 (PST)
+Received: from xps15.herring.priv (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.googlemail.com with ESMTPSA id r13sm484949oth.21.2022.01.06.10.25.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jan 2022 10:23:00 -0800 (PST)
-Date: Thu, 6 Jan 2022 11:22:58 -0700
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <20220106182258.GA642186@p14s>
-References: <20211222082349.30378-1-arnaud.pouliquen@foss.st.com>
- <20211222082349.30378-6-arnaud.pouliquen@foss.st.com>
+ Thu, 06 Jan 2022 10:25:35 -0800 (PST)
+From: Rob Herring <robh@kernel.org>
+To: Alessandro Zummo <a.zummo@towertech.it>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Date: Thu,  6 Jan 2022 12:25:15 -0600
+Message-Id: <20220106182518.1435497-7-robh@kernel.org>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211222082349.30378-6-arnaud.pouliquen@foss.st.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [RFC PATCH v2 5/6] remoteproc: virtio: Add helper
- to create platform device
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: rtc: st,
+	stm32-rtc: Make each example a separate entry
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,88 +69,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Arnaud,
+Each independent example should be a separate entry. This allows for
+'interrupts' to have different cell sizes.
 
-On Wed, Dec 22, 2021 at 09:23:48AM +0100, Arnaud Pouliquen wrote:
-> Add capability to create platform device for the rproc virtio.
-> This is a step to move forward the management of the rproc virtio
-> as an independent device.
-> 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
->  drivers/remoteproc/remoteproc_internal.h |  3 ++
->  drivers/remoteproc/remoteproc_virtio.c   | 36 ++++++++++++++++++++++++
->  2 files changed, 39 insertions(+)
-> 
-> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-> index 6f511c50a15d..3007d29a26e1 100644
-> --- a/drivers/remoteproc/remoteproc_internal.h
-> +++ b/drivers/remoteproc/remoteproc_internal.h
-> @@ -37,6 +37,9 @@ int rproc_of_parse_firmware(struct device *dev, int index,
->  
->  /* from remoteproc_virtio.c */
->  int rproc_rvdev_add_device(struct rproc_vdev *rvdev);
-> +struct platform_device *
-> +rproc_virtio_register_device(struct rproc *rproc, struct rproc_vdev_pdata *vdev_data);
-> +void rproc_virtio_unregister_device(struct rproc_vdev *rvdev);
->  irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id);
->  void rproc_vdev_release(struct kref *ref);
->  
-> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-> index 5f8005caeb6e..5eef679cc520 100644
-> --- a/drivers/remoteproc/remoteproc_virtio.c
-> +++ b/drivers/remoteproc/remoteproc_virtio.c
-> @@ -578,6 +578,42 @@ void rproc_vdev_release(struct kref *ref)
->  	rproc_rvdev_remove_device(rvdev);
->  }
->  
-> +/**
-> + * rproc_virtio_register_device() - register a remoteproc virtio device
-> + * @rproc: rproc handle to add the remoteproc virtio device to
-> + * @vdev_data: platform device data
-> + *
-> + * Return: 0 on success, and an appropriate error value otherwise
-> + */
-> +struct platform_device *
-> +rproc_virtio_register_device(struct rproc *rproc, struct rproc_vdev_pdata *vdev_data)
-> +{
-> +	struct device *dev = &rproc->dev;
-> +	struct platform_device *pdev;
-> +
-> +	pdev = platform_device_register_data(dev, "rproc-virtio", vdev_data->index, vdev_data,
-> +					     sizeof(*vdev_data));
-> +	if (PTR_ERR_OR_ZERO(pdev)) {
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Can you expand on the reason to use PTR_ERR_OR_ZERO() rather than IS_ERR()?
-Looking at the documentation for platform_device_register_data(), it should not
-return 0...
+diff --git a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
+index 2359f541b770..764717ce1873 100644
+--- a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
++++ b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
+@@ -127,6 +127,7 @@ examples:
+       st,syscfg = <&pwrcfg 0x00 0x100>;
+     };
+ 
++  - |
+     #include <dt-bindings/interrupt-controller/arm-gic.h>
+     #include <dt-bindings/clock/stm32mp1-clks.h>
+     rtc@5c004000 {
+-- 
+2.32.0
 
-> +		dev_err(rproc->dev.parent,
-> +			"failed to create rproc-virtio device\n");
-> +	}
-> +
-> +	return  pdev;
-> +}
-> +EXPORT_SYMBOL(rproc_virtio_register_device);
-> +
-> +/**
-> + * rproc_virtio_unregister_device() - unregister a remoteproc virtio device
-> + * @rvdev: remote proc virtio handle to unregister
-> + *
-> + */
-> +void rproc_virtio_unregister_device(struct rproc_vdev *rvdev)
-> +{
-> +	if (rvdev->pdev)
-> +		platform_device_unregister(rvdev->pdev);
-> +}
-> +EXPORT_SYMBOL(rproc_virtio_unregister_device);
-> +
->  static int rproc_virtio_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
-> -- 
-> 2.17.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
