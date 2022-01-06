@@ -2,57 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37E2F4869C2
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jan 2022 19:25:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BF6A4869C5
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jan 2022 19:25:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E055AC5F1FD;
-	Thu,  6 Jan 2022 18:25:38 +0000 (UTC)
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EBABCC60460;
+	Thu,  6 Jan 2022 18:25:39 +0000 (UTC)
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DA8AC5F1F7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F34E9C5F1FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Jan 2022 18:25:37 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id s127so4943347oig.2
+ Thu,  6 Jan 2022 18:25:38 +0000 (UTC)
+Received: by mail-oi1-f171.google.com with SMTP id t204so4897446oie.7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Jan 2022 10:25:37 -0800 (PST)
+ Thu, 06 Jan 2022 10:25:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=5h1dR4PNN5NFkFW0+XiCyKA8d8fazWVArSi0BOxk1SE=;
- b=086O7UQZGYPj7uKeBIvPk1jWu46oWRb/d9a6P/Y0dLRnpC3bieUgHyVSB73Jp0pS4B
- +Ntc6YRIQ28QEV9mt33jd+jaAzs7NOrY7tAr6OI8Sai0p5DMp6ErCP6T69PfRxDM/Q3X
- 44SeED5wbdUhvuT5a1S+nUJnDhnCeX/3WVBPhEAUrXgz2wCo7ouPzI1M3sH+HcAP5vhF
- RcfO9/WF0uhCjPujcDONs3XCjkc4pdedipQzd5Irb2vSzZY4VYVemmPE8tW4mhYvHLoX
- 7hraxRED3ic1EE2gyb0P9aYphPQo5zDfZ4Sf2RzaV8RZ8eGCv5ozgW9LWNztJv5nE3BC
- FVwQ==
-X-Gm-Message-State: AOAM533CjmHatHr4Wid53Z5rraBfhlcbsWXlxRPwEAXLf5o3le7dXM+N
- mTsLB5hk4efscfFw37cQLA==
-X-Google-Smtp-Source: ABdhPJzepteQkCoDKy1ujIilUFsyTVi5z9LtR0nkVZhj5YPNewotOVWZzrv2vR4uYHaHaLpVu1wZ6A==
-X-Received: by 2002:a54:4502:: with SMTP id l2mr3544191oil.167.1641493536337; 
- Thu, 06 Jan 2022 10:25:36 -0800 (PST)
+ bh=0GqoTWktQCAeb/b2q3miftVXfpqdRPH7Wi0Ph2/me+8=;
+ b=0UB+zhrFKEQrJ0Rxft1+wtcBuDK+0cfXpIVc5uffOWXtroC4fFjqI08hur7EAzCjvZ
+ AvmjucjomMTt/BUIwTo4pGR2GNB3nfnfErMN04j0vppk51dBEfHH9WHJpFibOqmEfAYh
+ BRyXFRFetYoPYDy8FY/r05b7Yob7u89h0xSBvM6znAToSLf7F+uWJIf71MeEo+r9Fk4L
+ 1qVG0rQmDwHYl2SaKS4CSPYciQQZ4Hkgwgy5AXT2XsWZb5zPzMoF6N12NCMgTUr74+07
+ QbIekAp4rzUF9hL7TDciwhAhCluP1H1ttHCGyJoHL5+LUZ5OiuMjlBwTbtSty64U+Fd7
+ 5AVw==
+X-Gm-Message-State: AOAM530s6nbb0UL8TRPmTntK/DMD7g0OtCI4ic6rsUrWvgr3Mnb5nZij
+ yJBDzMCgw7S7ZrXnN57Dkw==
+X-Google-Smtp-Source: ABdhPJx0/7FuhIt5ZofcvReC3m8vHWsc5MYNpHeEWkedihlt3E7Ykuzt1p4+IbAXWN4jmADlwgW3Aw==
+X-Received: by 2002:a54:450b:: with SMTP id l11mr7108210oil.139.1641493537898; 
+ Thu, 06 Jan 2022 10:25:37 -0800 (PST)
 Received: from xps15.herring.priv (66-90-148-213.dyn.grandenetworks.net.
  [66.90.148.213])
- by smtp.googlemail.com with ESMTPSA id r13sm484949oth.21.2022.01.06.10.25.35
+ by smtp.googlemail.com with ESMTPSA id r13sm484949oth.21.2022.01.06.10.25.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jan 2022 10:25:35 -0800 (PST)
+ Thu, 06 Jan 2022 10:25:37 -0800 (PST)
 From: Rob Herring <robh@kernel.org>
-To: Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
+To: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Thu,  6 Jan 2022 12:25:15 -0600
-Message-Id: <20220106182518.1435497-7-robh@kernel.org>
+ Christophe Roullier <christophe.roullier@foss.st.com>
+Date: Thu,  6 Jan 2022 12:25:16 -0600
+Message-Id: <20220106182518.1435497-8-robh@kernel.org>
 X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: rtc: st,
-	stm32-rtc: Make each example a separate entry
+ devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: net: stm32-dwmac: Make each
+	example a separate entry
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,23 +71,42 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Each independent example should be a separate entry. This allows for
 'interrupts' to have different cell sizes.
 
+The first example also has a phandle in 'interrupts', so drop the phandle.
+
 Signed-off-by: Rob Herring <robh@kernel.org>
 ---
- Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
-index 2359f541b770..764717ce1873 100644
---- a/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
-+++ b/Documentation/devicetree/bindings/rtc/st,stm32-rtc.yaml
-@@ -127,6 +127,7 @@ examples:
-       st,syscfg = <&pwrcfg 0x00 0x100>;
-     };
+diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+index 577f4e284425..f41d5e386080 100644
+--- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+@@ -102,7 +102,7 @@ examples:
+            compatible = "st,stm32mp1-dwmac", "snps,dwmac-4.20a";
+            reg = <0x5800a000 0x2000>;
+            reg-names = "stmmaceth";
+-           interrupts = <&intc GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>;
++           interrupts = <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>;
+            interrupt-names = "macirq";
+            clock-names = "stmmaceth",
+                      "mac-clk-tx",
+@@ -121,6 +121,7 @@ examples:
+            phy-mode = "rgmii";
+        };
  
 +  - |
-     #include <dt-bindings/interrupt-controller/arm-gic.h>
-     #include <dt-bindings/clock/stm32mp1-clks.h>
-     rtc@5c004000 {
+     //Example 2 (MCU example)
+      ethernet1: ethernet@40028000 {
+            compatible = "st,stm32-dwmac", "snps,dwmac-3.50a";
+@@ -136,6 +137,7 @@ examples:
+            phy-mode = "mii";
+        };
+ 
++  - |
+     //Example 3
+      ethernet2: ethernet@40027000 {
+            compatible = "st,stm32-dwmac", "snps,dwmac-4.10a";
 -- 
 2.32.0
 
