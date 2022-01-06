@@ -2,64 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6606F48658E
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jan 2022 14:52:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B070F48653A
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jan 2022 14:23:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27EDFC5F1FA;
-	Thu,  6 Jan 2022 13:52:15 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BE4BC5F1F9;
+	Thu,  6 Jan 2022 13:23:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3AC67C5F1F5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0695BC5F1F5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Jan 2022 13:03:40 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id e5so1717231wmq.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 06 Jan 2022 05:03:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=vcYnekM26AwY1vgrHqt3niX4oXoouwaBi8z/zP8TK7s=;
- b=K5/JYstTGkxbeN0YvKz+Tqdb+3ss/MByUbytP1n7lkqc+BLTfeSIKuNqo+tqQw1CDJ
- sD2Ozv1rAbosYiX0z1FS6+Xm+Fzw5Hg1NS8zskoqSS6wZbPFZ1INM0WFjCfq/h6cGq3l
- XW714Vgez6ONhDdhKKfH+Q1emjt6eRFCX78q07C36swCFvxwAQ+ncOaz7MLhaVSGnbo+
- Hdf9UYVQRUAUOpa/ei5cue9sJl8rckGbDqMdy9uZrzg91JO7D12djUxBv8xYlx1op4r3
- EfKFrr551vNdn/t5df7mvlylLBZ0hOb/wS0QMAsBC4j1x++LgjQtJ+bt1tdO6h5IRN++
- kIWg==
-X-Gm-Message-State: AOAM531BPyysMIPuXp9ofpanWkM3rI+BqeWeQO7lre0DinXKyMfItY5W
- aji9Aj6H7tzcA9SNh20t8S8=
-X-Google-Smtp-Source: ABdhPJxjG8n0y9ZGjhfUAQ/lARqGtAcsKv1amFfIs3NrZLQDMXO0cFdv3+3SKS6rfToX8YU5cknK9Q==
-X-Received: by 2002:a05:600c:acf:: with SMTP id
- c15mr6826950wmr.7.1641474219848; 
- Thu, 06 Jan 2022 05:03:39 -0800 (PST)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id b6sm2089988wri.56.2022.01.06.05.03.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jan 2022 05:03:39 -0800 (PST)
-Date: Thu, 6 Jan 2022 13:03:37 +0000
-From: Wei Liu <wei.liu@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <20220106130337.qtvjgffwlyzy7j2y@liuwe-devbox-debian-v2>
-References: <20211230012742.770642-1-kuba@kernel.org>
- <20211230012742.770642-2-kuba@kernel.org>
+ Thu,  6 Jan 2022 13:23:02 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20683sij011437;
+ Thu, 6 Jan 2022 14:22:51 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=GXNow/WGCNS6VVfniMqNqO7XFYKxdCU9IcX7ReUi5Ig=;
+ b=7WCqrJph1nk6Rds7gdVixNTL61WhNlAQ+8j0n33ji7P9yRQ8jqTl/WVDzJknzvC5riLT
+ JzVrzPGjIPLFWEnfNKS4ECYgbbxalb0pEOnU0OaVhlG0tsnC0m5hFk5Uwi1gzB44IFWE
+ pRL0lVNYuC9MacEMHVlykogS2pD2qDrhCc+cGfhO9Xx+DaWmztDPA0w6WVliG0GO5kUm
+ rbHRnGFxU9hBwJwY31QTf1OVcI/MD9lqT1tugu4p9hkN6GXXiWGpPPT08mhxY4PAgJZH
+ pij525yUn4f20kraWJ2hYGqqxaKi5SvJJAzeyteu2hiQYxxM7i10ymHvMz9M3E0Rk9GJ vg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ddmqubbfb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 06 Jan 2022 14:22:50 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9766B10002A;
+ Thu,  6 Jan 2022 14:22:49 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8C5C924DE9D;
+ Thu,  6 Jan 2022 14:22:49 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 6 Jan 2022 14:22:49
+ +0100
+From: <patrice.chotard@foss.st.com>
+To: Mark Brown <broonie@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Thu, 6 Jan 2022 14:20:52 +0100
+Message-ID: <20220106132052.7227-1-patrice.chotard@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211230012742.770642-2-kuba@kernel.org>
-X-Mailman-Approved-At: Thu, 06 Jan 2022 13:52:13 +0000
-Cc: linux-hyperv@vger.kernel.org, alexandre.torgue@foss.st.com,
- chenhao288@hisilicon.com, akiyano@amazon.com, wei.liu@kernel.org,
- kys@microsoft.com, sthemmin@microsoft.com, daniel@iogearbox.net,
- decui@microsoft.com, ndagan@amazon.com, joabreu@synopsys.com,
- linux-arm-kernel@lists.infradead.org, sgoutham@marvell.com,
- grygorii.strashko@ti.com, haiyangz@microsoft.com, ast@kernel.org,
- saeedb@amazon.com, peppe.cavallaro@st.com, shayagr@amazon.com,
- linux-omap@vger.kernel.org, moyufeng@huawei.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
- darinzon@amazon.com, sameehj@amazon.com, bpf@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v2 1/2] net: add includes masked
- by netdevice.h including uapi/bpf.h
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-06_05,2022-01-06_01,2021-12-02_01
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] spi: stm32-qspi: Update spi registering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,32 +71,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Dec 29, 2021 at 05:27:41PM -0800, Jakub Kicinski wrote:
-> Add missing includes unmasked by the subsequent change.
-> 
-> Mostly network drivers missing an include for XDP_PACKET_HEADROOM.
-> 
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[...]
->  drivers/net/ethernet/microsoft/mana/mana_en.c      | 2 ++
+From: Patrice Chotard <patrice.chotard@foss.st.com>
 
-This seems trivially correct, so in case an ack is needed:
+Replace devm_spi_register_master() by spi_register_master() to ensure
+that spi sub-nodes are unregistered in the correct order when qspi driver
+is removed.
+This issue was put in evidence using kernel v5.11 and later
+with a spi-nor which supports the software reset feature introduced
+by commit d73ee7534cc5 ("mtd: spi-nor: core: perform a Soft Reset on shutdown")
 
-Acked-by: Wei Liu <wei.liu@kernel.org>
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+ drivers/spi/spi-stm32-qspi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> index c1d5a374b967..2ece9e90dc50 100644
-> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-> @@ -1,6 +1,8 @@
->  // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
->  /* Copyright (c) 2021, Microsoft Corporation. */
->  
-> +#include <uapi/linux/bpf.h>
-> +
->  #include <linux/inetdevice.h>
->  #include <linux/etherdevice.h>
->  #include <linux/ethtool.h>
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index 514337c86d2c..db005443aa7c 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -784,7 +784,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
+ 	pm_runtime_enable(dev);
+ 	pm_runtime_get_noresume(dev);
+ 
+-	ret = devm_spi_register_master(dev, ctrl);
++	ret = spi_register_master(ctrl);
+ 	if (ret)
+ 		goto err_pm_runtime_free;
+ 
+@@ -817,6 +817,7 @@ static int stm32_qspi_remove(struct platform_device *pdev)
+ 	struct stm32_qspi *qspi = platform_get_drvdata(pdev);
+ 
+ 	pm_runtime_get_sync(qspi->dev);
++	spi_unregister_master(qspi->ctrl);
+ 	/* disable qspi */
+ 	writel_relaxed(0, qspi->io_base + QSPI_CR);
+ 	stm32_qspi_dma_free(qspi);
+-- 
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
