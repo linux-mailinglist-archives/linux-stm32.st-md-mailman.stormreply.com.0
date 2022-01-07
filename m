@@ -2,40 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C074487543
+	by mail.lfdr.de (Postfix) with ESMTPS id 565DA487545
 	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jan 2022 11:14:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE6B2C6046E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1D96C6047A;
 	Fri,  7 Jan 2022 10:14:37 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0AB9C60461
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF04DC0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Jan 2022 10:14:34 +0000 (UTC)
-X-UUID: 9f1fbac65b2949689b03ae686e0f4914-20220107
-X-UUID: 9f1fbac65b2949689b03ae686e0f4914-20220107
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw02.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
+ Fri,  7 Jan 2022 10:14:35 +0000 (UTC)
+X-UUID: aeccc809bad947bb8652bc67d08a84b8-20220107
+X-UUID: aeccc809bad947bb8652bc67d08a84b8-20220107
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw01.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1993794300; Fri, 07 Jan 2022 18:14:29 +0800
-Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 7 Jan 2022 18:14:28 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb01.mediatek.inc
- (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Fri, 7 Jan 2022 18:14:27 +0800
+ with ESMTP id 164781033; Fri, 07 Jan 2022 18:14:30 +0800
+Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Fri, 7 Jan 2022 18:14:29 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb02.mediatek.inc
+ (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Fri, 7 Jan 2022 18:14:28 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Fri, 7 Jan 2022 18:14:26 +0800
+ Frontend Transport; Fri, 7 Jan 2022 18:14:27 +0800
 From: jason-jh.lin <jason-jh.lin@mediatek.com>
 To: Rob Herring <robh+dt@kernel.org>, Matthias Brugger
  <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, "Philipp
  Zabel" <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
  <angelogioacchino.delregno@collabora.com>
-Date: Fri, 7 Jan 2022 18:14:14 +0800
-Message-ID: <20220107101425.6917-2-jason-jh.lin@mediatek.com>
+Date: Fri, 7 Jan 2022 18:14:15 +0800
+Message-ID: <20220107101425.6917-3-jason-jh.lin@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 In-Reply-To: <20220107101425.6917-1-jason-jh.lin@mediatek.com>
 References: <20220107101425.6917-1-jason-jh.lin@mediatek.com>
@@ -52,8 +51,8 @@ Cc: devicetree@vger.kernel.org, Jitao shi <jitao.shi@mediatek.com>,
  hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
  nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v14 01/12] dt-bindings: arm: mediatek: mmsys:
-	add power and gce properties
+Subject: [Linux-stm32] [PATCH v14 02/12] dt-bindings: arm: mediatek: mmsys:
+	add mt8195 SoC binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,66 +69,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Power:
-1. Add description for power-domains property.
-
-GCE:
-1. Add description for mboxes property.
-2. Add description for mediatek,gce-client-reg property.
+There are 2 mmsys, namely vdosys0 and vdosys1 in mt8195.
+Each of them is bound to a display pipeline, so add their
+definition in mtk-mmsys documentation with 2 compatibles.
 
 Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
 ---
- .../bindings/arm/mediatek/mediatek,mmsys.yaml | 30 ++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/arm/mediatek/mediatek,mmsys.yaml        | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/arm/mediatek/mediatek,mmsys.yaml b/Documentation/devicetree/bindings/arm/mediatek/mediatek,mmsys.yaml
-index 763c62323a74..474bcf9c250d 100644
+index 474bcf9c250d..a978cdd32575 100644
 --- a/Documentation/devicetree/bindings/arm/mediatek/mediatek,mmsys.yaml
 +++ b/Documentation/devicetree/bindings/arm/mediatek/mediatek,mmsys.yaml
-@@ -40,6 +40,30 @@ properties:
-   reg:
-     maxItems: 1
- 
-+  power-domains:
-+    description:
-+      A phandle and PM domain specifier as defined by bindings
-+      of the power controller specified by phandle. See
-+      Documentation/devicetree/bindings/power/power-domain.yaml for details.
-+
-+  mboxes:
-+    description:
-+      Using mailbox to communicate with GCE, it should have this
-+      property and list of phandle, mailbox specifiers. See
-+      Documentation/devicetree/bindings/mailbox/mtk-gce.txt for details.
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+
-+  mediatek,gce-client-reg:
-+    description:
-+      The register of client driver can be configured by gce with 4 arguments
-+      defined in this property, such as phandle of gce, subsys id,
-+      register offset and size.
-+      Each subsys id is mapping to a base address of display function blocks
-+      register which is defined in the gce header
-+      include/dt-bindings/gce/<chip>-gce.h.
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    maxItems: 1
-+
-   "#clock-cells":
-     const: 1
- 
-@@ -57,7 +81,11 @@ examples:
-   - |
-     mmsys: syscon@14000000 {
-         compatible = "mediatek,mt8173-mmsys", "syscon";
--        reg = <0x14000000 0x1000>;
-+        reg = <0 0x14000000 0 0x1000>;
-+        power-domains = <&spm MT8173_POWER_DOMAIN_MM>;
-         #clock-cells = <1>;
-         #reset-cells = <1>;
-+        mboxes = <&gce 0 CMDQ_THR_PRIO_HIGHEST>,
-+                 <&gce 1 CMDQ_THR_PRIO_HIGHEST>;
-+        mediatek,gce-client-reg = <&gce SUBSYS_1400XXXX 0 0x1000>;
-     };
+@@ -31,6 +31,8 @@ properties:
+               - mediatek,mt8183-mmsys
+               - mediatek,mt8192-mmsys
+               - mediatek,mt8365-mmsys
++              - mediatek,mt8195-vdosys0
++              - mediatek,mt8195-vdosys1
+           - const: syscon
+       - items:
+           - const: mediatek,mt7623-mmsys
 -- 
 2.18.0
 
