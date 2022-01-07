@@ -2,66 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A7E04874AE
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jan 2022 10:30:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E6B2487544
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jan 2022 11:14:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06D2BC60460;
-	Fri,  7 Jan 2022 09:30:50 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF5DFC60470;
+	Fri,  7 Jan 2022 10:14:37 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3325C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDD44C60460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Jan 2022 09:30:48 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2073QS4Z006682;
- Fri, 7 Jan 2022 10:30:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=njjTQT5IQ5eB7fKzfPlds5Is3OPkOU/De7uRH4puqME=;
- b=zamRNdL+VKaV/8briNcysd3xmDIPiLBvYQACoJ6ct9vLGaFTr27uVwzN+uTzr4CE6Uav
- SkjrTVrN/5se36tM832Ur7ib9AF/V6p0Po1LPZzUQG1L7EHAXTEyrehGpZRslTsz58PI
- +LpuOQ5ov5zMJPNjMkkNS1lgYc+6vxaXkNLDBoJ3+selUpbzT29/QdTM3+HRxZ7m6+tC
- geZQY5TWpo9O7OKUSBX0VfBK+IXdQamhXi1ARip4H6eVEaCAA4DsGU4MRVpczwPm1q1/
- B0u2Rtc8vAuOJDEVbYESXAGp98B8FFJZsFsggg+VOGkVKX4imHcLyjWcEQZAVkp+od8M mg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3de4usayn3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 07 Jan 2022 10:30:47 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 266E5100042;
- Fri,  7 Jan 2022 10:30:46 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1C76722DB62;
- Fri,  7 Jan 2022 10:30:46 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.46) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 7 Jan
- 2022 10:30:45 +0100
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20211222082349.30378-1-arnaud.pouliquen@foss.st.com>
- <20211222082349.30378-5-arnaud.pouliquen@foss.st.com>
- <20220106185309.GC642186@p14s>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <676aa4c6-d317-a447-ddc1-9dd9fcc92c8f@foss.st.com>
-Date: Fri, 7 Jan 2022 10:30:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Fri,  7 Jan 2022 10:14:34 +0000 (UTC)
+X-UUID: 6e2fedbe09f247149fd8eb5b66f92ce2-20220107
+X-UUID: 6e2fedbe09f247149fd8eb5b66f92ce2-20220107
+Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw02.mediatek.com
+ (envelope-from <jason-jh.lin@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1181225386; Fri, 07 Jan 2022 18:14:28 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Fri, 7 Jan 2022 18:14:26 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Fri, 7 Jan 2022 18:14:26 +0800
+From: jason-jh.lin <jason-jh.lin@mediatek.com>
+To: Rob Herring <robh+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+Date: Fri, 7 Jan 2022 18:14:13 +0800
+Message-ID: <20220107101425.6917-1-jason-jh.lin@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-In-Reply-To: <20220106185309.GC642186@p14s>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-07_03,2022-01-06_01,2021-12-02_01
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: Re: [Linux-stm32] [RFC PATCH v2 4/6] remoteproc: virtio: Create
- platform device for the remoteproc_virtio
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Jitao shi <jitao.shi@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, fshao@chromium.org,
+ David Airlie <airlied@linux.ie>, "jason-jh . lin" <jason-jh.lin@mediatek.com>,
+ singo.chang@mediatek.com, Fabien Parent <fparent@baylibre.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, roy-cw.yeh@mediatek.com,
+ linux-kernel@vger.kernel.org, CK
+ Hu <ck.hu@mediatek.com>, moudy.ho@mediatek.com,
+ linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
+ hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v14 00/12] Add Mediatek Soc DRM (vdosys0)
+	support for mt8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,178 +60,161 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Mathieu,
+Change in v14:
+- rebase on mediatek-drm-next-5.17
+- rebase on "Add mmsys and mutex support for MDP" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=602528
+- rebase on "media: mediatek: support mdp3 on mt8183 platform" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=602834
 
-On 1/6/22 7:53 PM, Mathieu Poirier wrote:
-> On Wed, Dec 22, 2021 at 09:23:47AM +0100, Arnaud Pouliquen wrote:
->> Define a platform driver to prepare for the management of
->> remoteproc virtio devices as platform devices.
->>
->> The platform device allows to pass rproc_vdev_data platform data to
->> specify properties that are stored in the rproc_vdev structure.
->>
->> Such approach will allow to preserve legacy remoteproc virtio device
->> creation but also to probe the device using device tree mechanism.
->>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> ---
->> Update vs previous revision:
->>    - Fix commit and rename rproc_vdev_data to rproc_vdev_pdata
->> ---
->>   drivers/remoteproc/remoteproc_internal.h |  6 +++
->>   drivers/remoteproc/remoteproc_virtio.c   | 65 ++++++++++++++++++++++++
->>   include/linux/remoteproc.h               |  2 +
->>   3 files changed, 73 insertions(+)
->>
->> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
->> index e9e9a551a8c2..6f511c50a15d 100644
->> --- a/drivers/remoteproc/remoteproc_internal.h
->> +++ b/drivers/remoteproc/remoteproc_internal.h
->> @@ -24,6 +24,12 @@ struct rproc_debug_trace {
->>   	struct rproc_mem_entry trace_mem;
->>   };
->>   
->> +struct rproc_vdev_pdata {
->> +	u32 rsc_offset;
->> +	unsigned int id;
->> +	unsigned int index;
->> +};
->> +
->>   /* from remoteproc_core.c */
->>   void rproc_release(struct kref *kref);
->>   int rproc_of_parse_firmware(struct device *dev, int index,
->> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
->> index 51d415744fc6..5f8005caeb6e 100644
->> --- a/drivers/remoteproc/remoteproc_virtio.c
->> +++ b/drivers/remoteproc/remoteproc_virtio.c
->> @@ -4,6 +4,7 @@
->>    *
->>    * Copyright (C) 2011 Texas Instruments, Inc.
->>    * Copyright (C) 2011 Google, Inc.
->> + * Copyright (C) 2021 STMicroelectronics
->>    *
->>    * Ohad Ben-Cohen <ohad@wizery.com>
->>    * Brian Swetland <swetland@google.com>
->> @@ -13,6 +14,7 @@
->>   #include <linux/dma-map-ops.h>
->>   #include <linux/dma-mapping.h>
->>   #include <linux/export.h>
->> +#include <linux/of_platform.h>
->>   #include <linux/of_reserved_mem.h>
->>   #include <linux/remoteproc.h>
->>   #include <linux/virtio.h>
->> @@ -575,3 +577,66 @@ void rproc_vdev_release(struct kref *ref)
->>   
->>   	rproc_rvdev_remove_device(rvdev);
->>   }
->> +
->> +static int rproc_virtio_probe(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct rproc_vdev_pdata *vdev_data = dev->platform_data;
->> +	struct rproc_vdev *rvdev;
->> +	struct rproc *rproc;
->> +
->> +	if (!vdev_data)
->> +		return -EINVAL;
->> +
->> +	rvdev = devm_kzalloc(dev, sizeof(*rvdev), GFP_KERNEL);
->> +	if (!rvdev)
->> +		return -ENOMEM;
->> +
->> +	rproc = container_of(dev->parent, struct rproc, dev);
->> +
->> +	rvdev->rsc_offset = vdev_data->rsc_offset;
->> +	rvdev->id = vdev_data->id;
->> +	rvdev->index = vdev_data->index;
->> +
->> +	rvdev->pdev = pdev;
->> +	rvdev->rproc = rproc;
->> +
->> +	platform_set_drvdata(pdev, rvdev);
->> +
->> +	return rproc_rvdev_add_device(rvdev);
->> +}
->> +
->> +static int rproc_virtio_remove(struct platform_device *pdev)
->> +{
->> +	struct rproc_vdev *rvdev = dev_get_drvdata(&pdev->dev);
->> +	struct rproc *rproc = rvdev->rproc;
->> +	struct rproc_vring *rvring;
->> +	int id;
->> +
->> +	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
->> +		rvring = &rvdev->vring[id];
->> +		rproc_free_vring(rvring);
->> +	}
->> +
->> +	rproc_remove_subdev(rproc, &rvdev->subdev);
->> +	rproc_unregister_rvdev(rvdev);
->> +	dev_dbg(&pdev->dev, "virtio dev %d removed\n",  rvdev->index);
->> +
-> 
-> Function rproc_virtio_remove() doesn't do the opposite of rproc_virtio_probe(),
-> making it hard for people to wrap their head around what is happening.  This may
-> get cleaned up as part of the error path problem we already talked about...  If not
-> this is something to improve one.
-> 
-> I am done reviewing this set.
+Change in v13:
+- remove dts patch
+- rebase on kernel-5.16-rc1
+- rebase on mediatek-drm-next
 
-Thanks for the review. I will address all your points in next version.
+Change in v12:
+- add clock-names property to merge yaml
+- using BIT(nr) macro to define the settings of mmsys routing table
+- fix clk_get and clk_prepare_enable error handling issue
 
-Regards,
-Arnaud
+Change in v11:
+- rebase on kernel-5.15-rc1
+- change mbox label to gce0 for dts node of vdosys0
+- change ovl compatibale to mt8192 to set smi_id_en=true in driver data
+- move common module from display folder to common folder,
+  such as AAL, COCLOR, CCORR and MUTEX
 
-> 
-> Thanks,
-> Mathieu
-> 
->> +	return 0;
->> +}
->> +
->> +/* Platform driver */
->> +static const struct of_device_id rproc_virtio_match[] = {
->> +	{ .compatible = "rproc-virtio", },
->> +	{},
->> +};
->> +
->> +static struct platform_driver rproc_virtio_driver = {
->> +	.probe		= rproc_virtio_probe,
->> +	.remove		= rproc_virtio_remove,
->> +	.driver		= {
->> +		.name	= "rproc-virtio",
->> +		.of_match_table	= rproc_virtio_match,
->> +	},
->> +};
->> +builtin_platform_driver(rproc_virtio_driver);
->> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
->> index e0600e1e5c17..542a3d4664f2 100644
->> --- a/include/linux/remoteproc.h
->> +++ b/include/linux/remoteproc.h
->> @@ -616,6 +616,7 @@ struct rproc_vring {
->>    * struct rproc_vdev - remoteproc state for a supported virtio device
->>    * @refcount: reference counter for the vdev and vring allocations
->>    * @subdev: handle for registering the vdev as a rproc subdevice
->> + * @pdev: remoteproc virtio platform device
->>    * @dev: device struct used for reference count semantics
->>    * @id: virtio device id (as in virtio_ids.h)
->>    * @node: list node
->> @@ -628,6 +629,7 @@ struct rproc_vdev {
->>   	struct kref refcount;
->>   
->>   	struct rproc_subdev subdev;
->> +	struct platform_device *pdev;
->>   	struct device dev;
->>   
->>   	unsigned int id;
->> -- 
->> 2.17.1
->>
+Change in v10:
+- rebase on "drm/mediatek: add support for mediatek SOC MT8192" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=529489
+- rebase on "soc: mediatek: mmsys: add mt8192 mmsys support" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=524857
+- fix some typo and "mediatek" start with capital in every dt-bindings
+- move mutex yaml from dfisplay folder to soc folder
+- separate merge additional propoerties to an individual dt-bindings patch
+
+Change in v9:
+- separate power and gce properties of mmsys into another dt-binding patch
+- rebase on "Separate aal module" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=516463
+- keep mtk_ddp_clk_enable/disable in the same place
+- change mtk_dsc_start config register to mtk_drm_ddp_write_mask
+- remove the 0 setting of merge fifo config function
+- add CCORR driver data for mt8195
+
+Change in v8:
+- add DP_INTF0 mux into mmsys routing table
+- add DP_INTF0 mutex mod and enum into add/remove comp function
+- remove bypass DSC enum in mtk_ddp_comp_init
+
+Change in v7:
+- add dt=binding of mmsys and disp path into this series
+- separate th modidfication of alphabetic order, remove unused define and
+  rename the define of register offset to individual patch
+- add comment for MERGE ultra and preultra setting
+
+Change in v6:
+- adjust alphabetic order for mediatek-drm
+- move the patch that add mt8195 support for mediatek-drm as
+  the lastest patch
+- add MERGE define for const varriable 
+
+Change in v5:
+- add power-domain property into vdosys0 and vdosys1 dts node.
+- add MT8195 prifix and remove unused VDO1 define in mt8195-mmsys.h
+
+Change in v4:
+- extract dt-binding patches to another patch series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=519597
+- squash DSC module into mtk_drm_ddp_comp.c
+- add coment and simplify MERGE config function
+
+Change in v3:
+- change mmsys and display dt-bindings document from txt to yaml
+- add MERGE additional description in display dt-bindings document
+- fix mboxes-cells number of vdosys0 node in dts
+- drop mutex eof convert define
+- remove pm_runtime apis in DSC and MERGE
+- change DSC and MERGE enum to alphabetic order
+
+Change in v2:
+- add DSC yaml file
+- add mt8195 drm driver porting parts in to one patch
+- remove useless define, variable, structure member and function
+- simplify DSC and MERGE file and switch threre order
+
+jason-jh.lin (12):
+  dt-bindings: arm: mediatek: mmsys: add power and gce properties
+  dt-bindings: arm: mediatek: mmsys: add mt8195 SoC binding
+  dt-bindings: display: mediatek: disp: split each block to individual
+    yaml
+  dt-bindings: display: mediatek: dsc: add yaml for mt8195 SoC binding
+  dt-bindings: display: mediatek: merge: add additional prop for mt8195
+  dt-bindings: display: mediatek: add mt8195 SoC binding for vdosys0
+  dt-bindings: arm: mediatek: move out common module from display folder
+  soc: mediatek: add mtk-mmsys support for mt8195 vdosys0
+  soc: mediatek: add mtk-mutex support for mt8195 vdosys0
+  drm/mediatek: add DSC support for mediatek-drm
+  drm/mediatek: add MERGE support for mediatek-drm
+  drm/mediatek: add mediatek-drm of vdosys0 support for mt8195
+
+ .../bindings/arm/mediatek/mediatek,mmsys.yaml |  32 ++-
+ .../display/mediatek/mediatek,disp.txt        | 219 ----------------
+ .../display/mediatek/mediatek,dither.yaml     |  76 ++++++
+ .../display/mediatek/mediatek,dsc.yaml        |  71 +++++
+ .../display/mediatek/mediatek,gamma.yaml      |  77 ++++++
+ .../display/mediatek/mediatek,merge.yaml      | 106 ++++++++
+ .../display/mediatek/mediatek,od.yaml         |  53 ++++
+ .../display/mediatek/mediatek,ovl-2l.yaml     |  88 +++++++
+ .../display/mediatek/mediatek,ovl.yaml        | 103 ++++++++
+ .../display/mediatek/mediatek,postmask.yaml   |  69 +++++
+ .../display/mediatek/mediatek,rdma.yaml       | 117 +++++++++
+ .../display/mediatek/mediatek,split.yaml      |  58 +++++
+ .../display/mediatek/mediatek,ufoe.yaml       |  61 +++++
+ .../bindings/soc/mediatek/mediatek,aal.yaml   |  72 +++++
+ .../bindings/soc/mediatek/mediatek,ccorr.yaml |  46 +++-
+ .../bindings/soc/mediatek/mediatek,color.yaml |  81 ++++++
+ .../bindings/soc/mediatek/mediatek,mutex.yaml |  77 ++++++
+ .../bindings/soc/mediatek/mediatek,wdma.yaml  |  47 +++-
+ drivers/gpu/drm/mediatek/Makefile             |   1 +
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |   8 +
+ drivers/gpu/drm/mediatek/mtk_disp_merge.c     | 246 ++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_disp_rdma.c      |   6 +
+ drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c   |  63 +++++
+ drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.h   |   2 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  32 ++-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   1 +
+ drivers/soc/mediatek/mt8195-mmsys.h           | 220 ++++++++++++++++
+ drivers/soc/mediatek/mtk-mmsys.c              |  11 +
+ drivers/soc/mediatek/mtk-mutex.c              |  95 ++++++-
+ include/linux/soc/mediatek/mtk-mmsys.h        |   9 +
+ 30 files changed, 1914 insertions(+), 233 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,disp.txt
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,aal.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,color.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_merge.c
+ create mode 100644 drivers/soc/mediatek/mt8195-mmsys.h
+
+-- 
+2.18.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
