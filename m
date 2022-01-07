@@ -2,63 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E260348787B
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jan 2022 14:47:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF44F487B5E
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jan 2022 18:26:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91038C60460;
-	Fri,  7 Jan 2022 13:47:27 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AACCC60460;
+	Fri,  7 Jan 2022 17:26:09 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A3EECFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C9BBC5F1F9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Jan 2022 13:47:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1641563246; x=1673099246;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=S6EB7K/mWQGJ4edWsfLqzaPrJ4f9R1H4mn7kwvidIW0=;
- b=I48AmC1bkQM5Vn9AJ26gyLQfDPyBzCs5POKiSbZkOfMohvLq4neDNBku
- eXmL4lqk6ZapJoiktoUpxYfoV8QaV+EodWv8XfRIpi4rjOxY7q/Mq7BZT
- LE48cC5XIyoLkN+iRJq+t2UJEZu67mXoUwa12p4E08vZNkTVwMYC62pBM
- 32j3JMXZ4SRqVB2kAVtP+ITiBW5OTMowtIUScLwzE1eSXF0oxEvMvLFbf
- maWS0JDPRRDe557+YuasleQY9q59sWwMlz5tbkg4fdIfGnH76xd/Ukzzd
- 0IKkdF4mFaK3vQ2vM1/I7ktur++0MMS0wgf8tYQCe7wuyjCZQ11q3py2O A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10219"; a="242820362"
-X-IronPort-AV: E=Sophos;i="5.88,270,1635231600"; d="scan'208";a="242820362"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2022 05:47:24 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,270,1635231600"; d="scan'208";a="513800161"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga007.jf.intel.com with ESMTP; 07 Jan 2022 05:47:23 -0800
-Received: from linux.intel.com (vwong3-iLBPG3.png.intel.com [10.88.229.80])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id D5238580806;
- Fri,  7 Jan 2022 05:47:20 -0800 (PST)
-Date: Fri, 7 Jan 2022 21:47:17 +0800
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20220107134717.GA10144@linux.intel.com>
-References: <Ybs7DNDkBrf73jDi@shell.armlinux.org.uk>
- <20211217055729.GA14835@linux.intel.com>
- <YdhCts9ZPMyzO8oX@shell.armlinux.org.uk>
+ Fri,  7 Jan 2022 17:26:08 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 2-20020a05600c02c200b003470f96e778so3145740wmn.5
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 07 Jan 2022 09:26:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=Ht1OfskK18Tncu8hyQlhD7qZAAQL5kUIMY/RPcI5GWg=;
+ b=ovBuHMMnaNmXki6e8ZuoIbwSgvKSbD1rksXRBmgyYUmyP/xeQbqX4CMXw2qDxMN1Vj
+ v7Bki5RCHpIU0e56V7Y7EQ3kE2ZXPFmptqvRvDxQZ7chM4UIxRpXdp4o+0LjlKd7pW8q
+ cXEGNj0CLps7TCexKvhCcrnl6NC6GUvVbPn8655XITD+oVFX6A77Yf0ibTqVflUqhgVm
+ PGjvs5ZFG+72tWQn2lyUd3vH8tp3g1Iw+bUZuz3gxylapUn9yZgbIyZOi1em49vjoi94
+ cNXMt0hYVQD9rJAfir0whVAbi7g644rWd6NP5cRkYKgohSf4SMg+HMJ/SIjKzTUI7Shm
+ kngw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=Ht1OfskK18Tncu8hyQlhD7qZAAQL5kUIMY/RPcI5GWg=;
+ b=S9giCiJ9OB2t94WR7Y529IANIXnlOGsNPb97kLWPHSbf096e2qs0oiUIGxcTvagGDY
+ SPi3QtekvxppiSCKqmQ25yONZcWm4CEtAfTIwFb1jRDb01nck3tCGPxCN98CuP+MIMQX
+ amUU3bFI6j3/iekrMrnvplhkR1eMzUpYfYZZreIJJHYaKt6B+2xckpT7CCbvJMsobzSe
+ EVAmCltTCQkTSnj09QkYtkEHicEabQ7gb9ek8QhKLYKbTx8DJE4RTnL+zn+L4F8s7d/y
+ KrC2uA4N3HzmwHSR3+HXLOnm5OmrMIO91CKwErplZ0ncNvnIxphvtO7NnlqZgielpINM
+ jIyg==
+X-Gm-Message-State: AOAM530fFZI9Kdco3ouxyd/TR+vULwqLOfMVxB28l3Q7Lv9nPB3DKMM4
+ w7k0mJVPnENcTvS0KERAWKs=
+X-Google-Smtp-Source: ABdhPJxKyHsrAgQTVgZgLm+52z4ULS2Pqwjxj4lcuAMX76VGeJnjfcycUSa/PS919Hvdw9jf9FQEkg==
+X-Received: by 2002:a1c:5403:: with SMTP id i3mr10241280wmb.66.1641576368115; 
+ Fri, 07 Jan 2022 09:26:08 -0800 (PST)
+Received: from elementary ([217.113.240.86])
+ by smtp.gmail.com with ESMTPSA id s10sm8325202wmr.30.2022.01.07.09.26.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Jan 2022 09:26:07 -0800 (PST)
+Date: Fri, 7 Jan 2022 18:26:01 +0100
+From: =?iso-8859-1?Q?Jos=E9_Exp=F3sito?= <jose.exposito89@gmail.com>
+To: Simon Ser <contact@emersion.fr>
+Message-ID: <20220107172601.GA122757@elementary>
+References: <20211226112503.31771-1-jose.exposito89@gmail.com>
+ <20211226112503.31771-3-jose.exposito89@gmail.com>
+ <3DdB6YPUQr4O063yNreefZcIm6p5Z6HORoVVbk5RTMmjz8qvnxMse42hLvfDmA323KG-TWLc_JUFZEEEIkoINXQuAzjLVe2jRRM01tQgYOU=@emersion.fr>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YdhCts9ZPMyzO8oX@shell.armlinux.org.uk>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH CFT net-next 0/6] net: stmmac/xpcs:
-	modernise PCS support
+In-Reply-To: <3DdB6YPUQr4O063yNreefZcIm6p5Z6HORoVVbk5RTMmjz8qvnxMse42hLvfDmA323KG-TWLc_JUFZEEEIkoINXQuAzjLVe2jRRM01tQgYOU=@emersion.fr>
+Cc: airlied@linux.ie, joonas.lahtinen@linux.intel.com,
+ alexandre.torgue@foss.st.com, stefan@agner.ch, benjamin.gaignard@linaro.org,
+ festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ ville.syrjala@linux.intel.com, marex@denx.de, linux-imx@nxp.com,
+ intel-gfx@lists.freedesktop.org, daniel@ffwll.ch, s.hauer@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ tzimmermann@suse.de, yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, dmitry.baryshkov@linaro.org, shawnguo@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 2/6] drm/plane: Fix typo in
+ format_mod_supported documentation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,80 +82,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 07, 2022 at 01:40:06PM +0000, Russell King (Oracle) wrote:
-> On Fri, Dec 17, 2021 at 01:57:29PM +0800, Wong Vee Khee wrote:
-> > On Thu, Dec 16, 2021 at 01:11:40PM +0000, Russell King (Oracle) wrote:
-> > > Hi,
-> > > 
-> > > This series updates xpcs and stmmac for the recent changes to phylink
-> > > to better support split PCS and to get rid of private MAC validation
-> > > functions.
-> > > 
-> > > This series is slightly more involved than other conversions as stmmac
-> > > has already had optional proper split PCS support.
-> > > 
-> > > The patches:
-> > > 
-> > > 1) Provide a function to query the xpcs for the interface modes that
-> > >    are supported.
-> > > 
-> > > 2) Populates the MAC capabilities and switches stmmac_validate() to use
-> > >    phylink_get_linkmodes(). We do not use phylink_generic_validate() yet
-> > >    as (a) we do not always have the supported interfaces populated, and
-> > >    (b) the existing code does not restrict based on interface. There
-> > >    should be no functional effect from this patch.
-> > > 
-> > > 3) Populates phylink's supported interfaces from the xpcs when the xpcs
-> > >    is configured by firmware and also the firmware configured interface
-> > >    mode. Note: this will restrict stmmac to only supporting these
-> > >    interfaces modes - stmmac maintainers need to verify that this
-> > >    behaviour is acceptable.
-> > > 
-> > > 4) stmmac_validate() tail-calls xpcs_validate(), but we don't need it to
-> > >    now that PCS have their own validation method. Convert stmmac and
-> > >    xpcs to use this method instead.
-> > > 
-> > > 5) xpcs sets the poll field of phylink_pcs to true, meaning xpcs
-> > >    requires its status to be polled. There is no need to also set the
-> > >    phylink_config.pcs_poll. Remove this.
-> > > 
-> > > 6) Switch to phylink_generic_validate(). This is probably the most
-> > >    contravertial change in this patch set as this will cause the MAC to
-> > >    restrict link modes based on the interface mode. From an inspection
-> > >    of the xpcs driver, this should be safe, as XPCS only further
-> > >    restricts the link modes to a subset of these (whether that is
-> > >    correct or not is not an issue I am addressing here.) For
-> > >    implementations that do not use xpcs, this is a more open question
-> > >    and needs feedback from stmmac maintainers.
-> > > 
-> > > Please review and test this series. Thanks!
-> > > 
-> > 
-> > Tested this patch series on my Intel Elkhart Lake setup with Marvell
-> > 88E1510 PHY. 
-> > 
-> > Everything works perfectly!
-> 
-> Can I take that as a tested-by please?
-> 
+Hi Simon,
 
-Sure.
+On Wed, Jan 05, 2022 at 11:54:43PM +0000, Simon Ser wrote:
+> Pushed patches 1 & 2 to drm-misc-next. Thanks for your contribution!
 
-Tested-by: Wong Vee Khee <vee.khee.wong@linux.intel.com> # Intel EHL
+Thanks a lot for the review and for applying the changes, appreciate it.
 
-> It would be good to get some feedback from other stmmac users, since I
-> believe stmmac is used in multiple different configurations.
-> 
-> Thanks!
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+Is there something that needs to improve in the other 4 patches?
+Or just waiting on maintainers input?
+
+Thanks,
+Jos=E9 Exp=F3sito
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
