@@ -2,58 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94C7A487549
-	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jan 2022 11:14:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F258487857
+	for <lists+linux-stm32@lfdr.de>; Fri,  7 Jan 2022 14:40:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5967AC60462;
-	Fri,  7 Jan 2022 10:14:41 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 226BEC60460;
+	Fri,  7 Jan 2022 13:40:41 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F7FDC60461
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99594CFAC52
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  7 Jan 2022 10:14:36 +0000 (UTC)
-X-UUID: 09a8cd907fa04fc9ab58868c58f775c5-20220107
-X-UUID: 09a8cd907fa04fc9ab58868c58f775c5-20220107
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
- (envelope-from <jason-jh.lin@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1216698207; Fri, 07 Jan 2022 18:14:32 +0800
-Received: from mtkexhb01.mediatek.inc (172.21.101.102) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
- Fri, 7 Jan 2022 18:14:31 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb01.mediatek.inc
- (172.21.101.102) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Fri, 7 Jan 2022 18:14:30 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Fri, 7 Jan 2022 18:14:30 +0800
-From: jason-jh.lin <jason-jh.lin@mediatek.com>
-To: Rob Herring <robh+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>
-Date: Fri, 7 Jan 2022 18:14:25 +0800
-Message-ID: <20220107101425.6917-13-jason-jh.lin@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20220107101425.6917-1-jason-jh.lin@mediatek.com>
-References: <20220107101425.6917-1-jason-jh.lin@mediatek.com>
+ Fri,  7 Jan 2022 13:40:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=roykdlR5flEhZ6dRP2lKS2E2FMz0xnDr1kND8pmlxs8=; b=SA0dUA/xwGm9nAtScJUYjToRNo
+ NMR4bFnQ1Z/eF4oYZ4shzg1y3vdHlWFRS9G3WDnhIIr+1WYcwGid3tgGXB3y9ExsMkkMtwKfcAuG7
+ 5YAD2BI6mlj2ZB2sJT5FAMWPjUihBEioZf1EXm3LIQrRPC/rfTFXR3Cq/MVBQ9gG6PkcnspvND1id
+ bnLG/E6vc3FlO6LT6Tua/RKW+PS6S3uh3XcOTeC6/A92CZt0OJSqdgR5BWs6wQpaoQPWU6UPKRR1+
+ dTvg7tirAnw6u+aJGyJ2twhP4t5mTECFpEFheIzAqqn+EWUSRpO+AWdMz/h6On2Pq1yb4V1sTs6z0
+ ZmiUk+hQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56612)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1n5pTh-0001Sz-EV; Fri, 07 Jan 2022 13:40:21 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1n5pTS-0001y8-QO; Fri, 07 Jan 2022 13:40:06 +0000
+Date: Fri, 7 Jan 2022 13:40:06 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
+Message-ID: <YdhCts9ZPMyzO8oX@shell.armlinux.org.uk>
+References: <Ybs7DNDkBrf73jDi@shell.armlinux.org.uk>
+ <20211217055729.GA14835@linux.intel.com>
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, Jitao shi <jitao.shi@mediatek.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, fshao@chromium.org,
- David Airlie <airlied@linux.ie>, "jason-jh . lin" <jason-jh.lin@mediatek.com>,
- singo.chang@mediatek.com, Fabien Parent <fparent@baylibre.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, roy-cw.yeh@mediatek.com,
- linux-kernel@vger.kernel.org, CK
- Hu <ck.hu@mediatek.com>, moudy.ho@mediatek.com,
- linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
- hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v14 12/12] drm/mediatek: add mediatek-drm of
-	vdosys0 support for mt8195
+Content-Disposition: inline
+In-Reply-To: <20211217055729.GA14835@linux.intel.com>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
+ netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH CFT net-next 0/6] net: stmmac/xpcs:
+	modernise PCS support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,123 +68,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add driver data of mt8195 vdosys0 to mediatek-drm and the sub driver.
+On Fri, Dec 17, 2021 at 01:57:29PM +0800, Wong Vee Khee wrote:
+> On Thu, Dec 16, 2021 at 01:11:40PM +0000, Russell King (Oracle) wrote:
+> > Hi,
+> > 
+> > This series updates xpcs and stmmac for the recent changes to phylink
+> > to better support split PCS and to get rid of private MAC validation
+> > functions.
+> > 
+> > This series is slightly more involved than other conversions as stmmac
+> > has already had optional proper split PCS support.
+> > 
+> > The patches:
+> > 
+> > 1) Provide a function to query the xpcs for the interface modes that
+> >    are supported.
+> > 
+> > 2) Populates the MAC capabilities and switches stmmac_validate() to use
+> >    phylink_get_linkmodes(). We do not use phylink_generic_validate() yet
+> >    as (a) we do not always have the supported interfaces populated, and
+> >    (b) the existing code does not restrict based on interface. There
+> >    should be no functional effect from this patch.
+> > 
+> > 3) Populates phylink's supported interfaces from the xpcs when the xpcs
+> >    is configured by firmware and also the firmware configured interface
+> >    mode. Note: this will restrict stmmac to only supporting these
+> >    interfaces modes - stmmac maintainers need to verify that this
+> >    behaviour is acceptable.
+> > 
+> > 4) stmmac_validate() tail-calls xpcs_validate(), but we don't need it to
+> >    now that PCS have their own validation method. Convert stmmac and
+> >    xpcs to use this method instead.
+> > 
+> > 5) xpcs sets the poll field of phylink_pcs to true, meaning xpcs
+> >    requires its status to be polled. There is no need to also set the
+> >    phylink_config.pcs_poll. Remove this.
+> > 
+> > 6) Switch to phylink_generic_validate(). This is probably the most
+> >    contravertial change in this patch set as this will cause the MAC to
+> >    restrict link modes based on the interface mode. From an inspection
+> >    of the xpcs driver, this should be safe, as XPCS only further
+> >    restricts the link modes to a subset of these (whether that is
+> >    correct or not is not an issue I am addressing here.) For
+> >    implementations that do not use xpcs, this is a more open question
+> >    and needs feedback from stmmac maintainers.
+> > 
+> > Please review and test this series. Thanks!
+> > 
+> 
+> Tested this patch series on my Intel Elkhart Lake setup with Marvell
+> 88E1510 PHY. 
+> 
+> Everything works perfectly!
 
-Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
-Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
----
- drivers/gpu/drm/mediatek/mtk_disp_rdma.c |  6 +++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c   | 28 ++++++++++++++++++++++++
- 2 files changed, 34 insertions(+)
+Can I take that as a tested-by please?
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_rdma.c b/drivers/gpu/drm/mediatek/mtk_disp_rdma.c
-index d41a3970b944..77c952bdc88c 100644
---- a/drivers/gpu/drm/mediatek/mtk_disp_rdma.c
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_rdma.c
-@@ -357,6 +357,10 @@ static const struct mtk_disp_rdma_data mt8192_rdma_driver_data = {
- 	.fifo_size = 5 * SZ_1K,
- };
- 
-+static const struct mtk_disp_rdma_data mt8195_rdma_driver_data = {
-+	.fifo_size = 1920,
-+};
-+
- static const struct of_device_id mtk_disp_rdma_driver_dt_match[] = {
- 	{ .compatible = "mediatek,mt2701-disp-rdma",
- 	  .data = &mt2701_rdma_driver_data},
-@@ -366,6 +370,8 @@ static const struct of_device_id mtk_disp_rdma_driver_dt_match[] = {
- 	  .data = &mt8183_rdma_driver_data},
- 	{ .compatible = "mediatek,mt8192-disp-rdma",
- 	  .data = &mt8192_rdma_driver_data},
-+	{ .compatible = "mediatek,mt8195-disp-rdma",
-+	  .data = &mt8195_rdma_driver_data},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtk_disp_rdma_driver_dt_match);
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index 2f33fe8ad46b..274a5bb10851 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -177,6 +177,19 @@ static const enum mtk_ddp_comp_id mt8192_mtk_ddp_ext[] = {
- 	DDP_COMPONENT_DPI0,
- };
- 
-+static const enum mtk_ddp_comp_id mt8195_mtk_ddp_main[] = {
-+	DDP_COMPONENT_OVL0,
-+	DDP_COMPONENT_RDMA0,
-+	DDP_COMPONENT_COLOR0,
-+	DDP_COMPONENT_CCORR,
-+	DDP_COMPONENT_AAL0,
-+	DDP_COMPONENT_GAMMA,
-+	DDP_COMPONENT_DITHER,
-+	DDP_COMPONENT_DSC0,
-+	DDP_COMPONENT_MERGE0,
-+	DDP_COMPONENT_DP_INTF0,
-+};
-+
- static const struct mtk_mmsys_driver_data mt2701_mmsys_driver_data = {
- 	.main_path = mt2701_mtk_ddp_main,
- 	.main_len = ARRAY_SIZE(mt2701_mtk_ddp_main),
-@@ -228,6 +241,11 @@ static const struct mtk_mmsys_driver_data mt8192_mmsys_driver_data = {
- 	.ext_len = ARRAY_SIZE(mt8192_mtk_ddp_ext),
- };
- 
-+static const struct mtk_mmsys_driver_data mt8195_vdosys0_driver_data = {
-+	.main_path = mt8195_mtk_ddp_main,
-+	.main_len = ARRAY_SIZE(mt8195_mtk_ddp_main),
-+};
-+
- static int mtk_drm_kms_init(struct drm_device *drm)
- {
- 	struct mtk_drm_private *private = drm->dev_private;
-@@ -447,12 +465,16 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_DITHER },
- 	{ .compatible = "mediatek,mt8183-disp-dither",
- 	  .data = (void *)MTK_DISP_DITHER },
-+	{ .compatible = "mediatek,mt8195-disp-dsc",
-+	  .data = (void *)MTK_DISP_DSC },
- 	{ .compatible = "mediatek,mt8167-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
- 	{ .compatible = "mediatek,mt8173-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
- 	{ .compatible = "mediatek,mt8183-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
-+	{ .compatible = "mediatek,mt8195-disp-merge",
-+	  .data = (void *)MTK_DISP_MERGE },
- 	{ .compatible = "mediatek,mt2701-disp-mutex",
- 	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt2712-disp-mutex",
-@@ -465,6 +487,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt8192-disp-mutex",
- 	  .data = (void *)MTK_DISP_MUTEX },
-+	{ .compatible = "mediatek,mt8195-disp-mutex",
-+	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt8173-disp-od",
- 	  .data = (void *)MTK_DISP_OD },
- 	{ .compatible = "mediatek,mt2701-disp-ovl",
-@@ -499,6 +523,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8192-disp-rdma",
- 	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8195-disp-rdma",
-+	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8173-disp-ufoe",
- 	  .data = (void *)MTK_DISP_UFOE },
- 	{ .compatible = "mediatek,mt8173-disp-wdma",
-@@ -535,6 +561,8 @@ static const struct of_device_id mtk_drm_of_ids[] = {
- 	  .data = &mt8183_mmsys_driver_data},
- 	{ .compatible = "mediatek,mt8192-mmsys",
- 	  .data = &mt8192_mmsys_driver_data},
-+	{.compatible = "mediatek,mt8195-vdosys0",
-+	  .data = &mt8195_vdosys0_driver_data},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, mtk_drm_of_ids);
+It would be good to get some feedback from other stmmac users, since I
+believe stmmac is used in multiple different configurations.
+
+Thanks!
+
 -- 
-2.18.0
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
