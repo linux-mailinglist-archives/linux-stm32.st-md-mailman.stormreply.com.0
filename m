@@ -2,63 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DBB248907D
+	by mail.lfdr.de (Postfix) with ESMTPS id 3305848907E
 	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jan 2022 08:02:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B913DC5F1FC;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB1FAC60460;
 	Mon, 10 Jan 2022 07:02:25 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 337EBC23E53
+Received: from m12-11.163.com (m12-11.163.com [220.181.12.11])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8270FC5C82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  8 Jan 2022 08:53:44 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id gp5so7281328pjb.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 08 Jan 2022 00:53:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id;
- bh=7kXCs28W66sTjdWSN/kGCXx/YzaMyVz/KostDbMYDNo=;
- b=XYUtRnSqZLyCfMJsjZiPZ6h/tM6wDNm3I9gT0fv2sqsgH+HHPZS83umFpLfZcbkZA6
- YtBJInOUEnA9DtoRjmHquuxagajzQT97tqjhwPiJvWaOuRVOIDF6t+0c9aRxLr9ofA6e
- +RvNPW6lDhE+/Cj0eC1X2R857mHky757FYqJGlizehwvgNdRG0jTzbNeBOZpLwnVBaEs
- clDEN4YXe3ULyy5kQEq1q4lUeeeaHKysiMbLuH8XK567CFvyq6oIal2zRKmeKH3xlUHb
- hUkmru9s0pH0grqTZ8nDUV7+JvDsRrMJreX4CM4zEPFY0tEcEheoInx0xPu8p5s+LRjq
- go0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=7kXCs28W66sTjdWSN/kGCXx/YzaMyVz/KostDbMYDNo=;
- b=Qd0XbbbogxcLIw8tguoDwg/xQy/2PlF914P7pk+Ybh/ei74YgIYN20nqSsVko+K2UF
- qusaf5AktkWqD/S/h0KOD1rEPXIGL564GN0wCDH/5iiBXshsEWld7Cl9NrTkLCi5jou7
- D0RqswUdipsRZlXlEtlaWMeRXemR6Wp2k6PcE2yB2tISECfQ5EgWfaxEZKVQMGNpBSHv
- DeztBA4vyO4QJ4dRsdYfNrzOK5VRf8tYssJJuLsiOjtRfnKtae3PByL0JDENl12cg6EF
- 0EeJC933OXJfuMie3zTrZvVDeQa9J6sJ+Na3wWzlaRd+50TQfMO4/DTRj7Pf0bOWvs00
- x2IA==
-X-Gm-Message-State: AOAM531zKPtOtEbqFE+v0PN9SAAbgijdc4na+mwzJjN6apAQtAhQvf+p
- KowHg6lExTU+bn/U8dxkGb8=
-X-Google-Smtp-Source: ABdhPJxRGudJlEubQRa6AT+BqCt57yVyLI5cKLsapEtYJ/lqs2rRTAfk7sN5HbiEu0UTf+5GGsAlTA==
-X-Received: by 2002:a17:902:a505:b0:149:b646:a173 with SMTP id
- s5-20020a170902a50500b00149b646a173mr29701788plq.64.1641632022784; 
- Sat, 08 Jan 2022 00:53:42 -0800 (PST)
-Received: from localhost.localdomain ([159.226.95.43])
- by smtp.googlemail.com with ESMTPSA id ot7sm1427048pjb.12.2022.01.08.00.53.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Jan 2022 00:53:42 -0800 (PST)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: 
-Date: Sat,  8 Jan 2022 08:53:36 +0000
-Message-Id: <20220108085336.11992-1-linmq006@gmail.com>
+ Sun,  9 Jan 2022 17:04:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=/3u4u8Sx8RQrVhoBwH
+ sSEkpcdFoYJP3wCDfinFuxldY=; b=iJUj2xn7ijz84WUkFgFVjRlU2wC2Bb4Ynt
+ Jl7jR50ddLMEl/qkkqtcpMMcA6wq8GTFEERS77jDV2dvBHnoRAJy/iDpK9WU+8iL
+ SjdaDwdNNq8vt8CkoXoyPE2J3dxN9agkQRZaXk6iopLzXOR2pUrRL+N+x20hewOO
+ +a9sq3fsU=
+Received: from ubuntu.localdomain (unknown [115.171.170.5])
+ by smtp7 (Coremail) with SMTP id C8CowADnDMovFdthAi5jPQ--.10064S2;
+ Mon, 10 Jan 2022 01:02:40 +0800 (CST)
+From: Peng Luo <wuhanluop@163.com>
+To: herbert@gondor.apana.org.au,
+	davem@davemloft.net
+Date: Mon, 10 Jan 2022 01:02:39 +0800
+Message-Id: <20220109170239.4322-1-wuhanluop@163.com>
 X-Mailer: git-send-email 2.17.1
+X-CM-TRANSID: C8CowADnDMovFdthAi5jPQ--.10064S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZryrKFyDJFykCr15tw1DKFg_yoW8WrWDpr
+ Z7JFWjyFWDWa4rKF1UJw4UGF47Wr9Ivws7u3W8J3s7GF13Gw1rZFW2kw10qF1DWFykCr45
+ ArWUAry5uw43trDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ul1v-UUUUU=
+X-Originating-IP: [115.171.170.5]
+X-CM-SenderInfo: pzxkt0hoxr1qqrwthudrp/1tbiEBCD9F8YI7XEFAAAs2
 X-Mailman-Approved-At: Mon, 10 Jan 2022 07:02:24 +0000
-Cc: linmq006@gmail.com, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+Cc: alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org,
+ Peng Luo <wuhanluop@163.com>, terrelln@fb.com, linux-crypto@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dmaengine: stm32-dmamux: Fix PM disable depth
-	imbalance in stm32_dmamux_probe
+Subject: [Linux-stm32] [PATCH] crypto: testmgr - fix some wrong vectors of
+	aes-ccm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,34 +57,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The pm_runtime_enable will increase power disable depth.
-If the probe fails, we should use pm_runtime_disable() to balance
-pm_runtime_enable().
+Some vectors of aes-ccm are wrong.
+This patch has been tested with kernel 4.9 and openssl1.1.1k.
 
-Fixes: 4f3ceca254e0 ("dmaengine: stm32-dmamux: Add PM Runtime support")
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+Signed-off-by: Peng Luo <wuhanluop@163.com>
 ---
- drivers/dma/stm32-dmamux.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ crypto/testmgr.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/dma/stm32-dmamux.c b/drivers/dma/stm32-dmamux.c
-index a42164389ebc..d5d55732adba 100644
---- a/drivers/dma/stm32-dmamux.c
-+++ b/drivers/dma/stm32-dmamux.c
-@@ -292,10 +292,12 @@ static int stm32_dmamux_probe(struct platform_device *pdev)
- 	ret = of_dma_router_register(node, stm32_dmamux_route_allocate,
- 				     &stm32_dmamux->dmarouter);
- 	if (ret)
--		goto err_clk;
-+		goto pm_disable;
- 
- 	return 0;
- 
-+pm_disable:
-+	pm_runtime_disable(&pdev->dev);
- err_clk:
- 	clk_disable_unprepare(stm32_dmamux->clk);
- 
+diff --git a/crypto/testmgr.h b/crypto/testmgr.h
+index a253d66ba1c1..ff171fe53979 100644
+--- a/crypto/testmgr.h
++++ b/crypto/testmgr.h
+@@ -19865,8 +19865,8 @@ static const struct aead_testvec aes_ccm_tv_template[] = {
+ 			  "\xd0\xd1\x3d\x1a\xa3\x6d\xe4\x0a"
+ 			  "\x86\xb0\x87\x6b\x62\x33\x8c\x34"
+ 			  "\xce\xab\x57\xcc\x79\x0b\xe0\x6f"
+-			  "\x5c\x3e\x48\x1f\x6c\x46\xf7\x51"
+-			  "\x8b\x84\x83\x2a\xc1\x05\xb8\xc5",
++			  "\xCF\xE9\xF9\x21\x3C\x1A\xCE\x67"
++			  "\x62\x7B\x36\x3A\xEA\x19\xAC\x58",
+ 		.clen	= 48,
+ 		.novrfy	= 1,
+ 	}, {
+@@ -19952,8 +19952,8 @@ static const struct aead_testvec aes_ccm_tv_template[] = {
+ 			  "\xc6\x0e\x6e\xe5\xd6\x98\xa6\x37"
+ 			  "\x8c\x26\x33\xc6\xb2\xa2\x17\xfa"
+ 			  "\x64\x19\xc0\x30\xd7\xfc\x14\x6b"
+-			  "\xe3\x33\xc2\x04\xb0\x37\xbe\x3f"
+-			  "\xa9\xb4\x2d\x68\x03\xa3\x44\xef",
++			  "\x08\x5A\x20\x4A\xB0\x2C\xF9\x49"
++			  "\x10\x1C\x9C\x85\x8C\x12\xE0\x3A",
+ 		.clen	= 48,
+ 		.novrfy	= 1,
+ 	}, {
+@@ -19983,7 +19983,7 @@ static const struct aead_testvec aes_ccm_tv_template[] = {
+ 			  "\x3e\xaf\x70\x5e\xb2\x4d\xea\x39"
+ 			  "\x89\xd4\x75\x7a\x63\xb1\xda\x93",
+ 		.plen	= 32,
+-		.ctext	= "\x48\x01\x5e\x02\x24\x04\x66\x47"
++		.ctext	= "\x14\x01\x5e\x02\x24\x04\x66\x47"
+ 			  "\xa1\xea\x6f\xaf\xe8\xfc\xfb\xdd"
+ 			  "\xa5\xa9\x87\x8d\x84\xee\x2e\x77"
+ 			  "\xbb\x86\xb9\xf5\x5c\x6c\xff\xf6"
 -- 
 2.17.1
 
