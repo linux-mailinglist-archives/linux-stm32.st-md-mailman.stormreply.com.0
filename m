@@ -2,62 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2EC6489682
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jan 2022 11:38:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9953C489D2F
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jan 2022 17:11:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DC2FC5F1FC;
-	Mon, 10 Jan 2022 10:38:04 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 445F6C5F1FC;
+	Mon, 10 Jan 2022 16:11:19 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C00FECFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6EB8CFAC52
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jan 2022 10:38:02 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20A9V4IQ030680;
- Mon, 10 Jan 2022 11:37:42 +0100
+ Mon, 10 Jan 2022 16:11:18 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20ADo8Tj021602;
+ Mon, 10 Jan 2022 17:11:03 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=ltuKY3JbZ9a8gnDMbB/xLmLbXhMhu4XfcFmrhNwLzSU=;
- b=puEdB7FwTo5ZqfbW9w6h8VvccFHdyT7TqxDMeKo8OWELlPslVpd/OcpdjmcDrHTi9/yt
- X3nKp4jkAK8ZgZj79voIn9XBnsumcaJ/a0kOQOZFxy5xluMeV/LSpP1HmHndwlHIJhq+
- Kb9ha/tS7d33SGyHIh8gAze9WjZEiUoTtjymq5JCjwHO07tDvr9qESvqmAvSvDDZB8ow
- dwxPzdcWpEErcqH/k71R4FU9bU0bz60UHUakVhUwlCKDYicKXMDd0WahiMLnzro8zNB+
- 0B7AjqAgGJXNVkpSdCDymvgV10JFf/vxnlDWYqaEyljYOsS0FYnlIZGiW7cPqQasLMG7 TA== 
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=G0yUSQsLfDcfZw5v2vGpXxdzo++cGRi64INcl+rPjA4=;
+ b=QFtqsp6QQ3IVh9a/ajeAsDwe9Txg/0e1+JRjSF3obXv8sHCiF4QLXgL0ho5Geh7VDfhS
+ 72YslM6blIQaSSKJKJEgbFzunW8EFfmSu9bRsqHwirUXXDXclZN4yC+kD1/LfgqGYAin
+ x8/fj8btxe1g8ffS6X0jYx5KC6WGs3vAXOLT4qPTvVgkZHzPttbNQRvJ81kJ4SQp7FtY
+ NKvgSJddKG+kRv+uduspI/9KzWtPf01gQONc8vpFSkNuMyaUvADJjFx7xNssE2lgpr3C
+ CmMT+SlSwsBB/KmCJkQzTRGUKrXavfGOY+HxIlFVQxfO28u2kSuAWbbg/pXmP0+iY5ZJ dA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dgj85rakv-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dgh6uj1x0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Jan 2022 11:37:42 +0100
+ Mon, 10 Jan 2022 17:11:03 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3896D10002A;
- Mon, 10 Jan 2022 11:37:40 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9971110002A;
+ Mon, 10 Jan 2022 17:11:02 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2AFE9235F0F;
- Mon, 10 Jan 2022 11:37:40 +0100 (CET)
-Received: from localhost (10.75.127.48) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 10 Jan 2022 11:37:39
- +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <hugues.fruchet@foss.st.com>, <mchehab@kernel.org>
-Date: Mon, 10 Jan 2022 11:37:39 +0100
-Message-ID: <20220110103739.118426-1-alain.volmat@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8EA9A20757D;
+ Mon, 10 Jan 2022 17:11:02 +0100 (CET)
+Received: from lmecxl0995.lme.st.com (10.75.127.49) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 10 Jan
+ 2022 17:11:01 +0100
+To: Miaoqian Lin <linmq006@gmail.com>
+References: <20220108085336.11992-1-linmq006@gmail.com>
+From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
+Message-ID: <37a66156-a616-058d-b3c0-6d2ca22a12ed@foss.st.com>
+Date: Mon, 10 Jan 2022 17:11:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
+In-Reply-To: <20220108085336.11992-1-linmq006@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.49]
 X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-10_04,2022-01-10_01,2021-12-02_01
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] media: stm32: dcmi: create a dma scatterlist
-	based on DMA max_sg_burst value
+ definitions=2022-01-10_07,2022-01-10_02,2021-12-02_01
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Pierre-Yves MORDRET <pierre-yves.mordret@st.com>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: stm32-dmamux: Fix PM disable
+ depth imbalance in stm32_dmamux_probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,132 +74,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Prior to submitting a transfer to the DMA, the client should first check
-the capabilities of the DMA channel in term of maximum of each segment.
-This is given by the max_sg_burst value reported by dma_get_slave_caps API.
-Based on that, if the transfer is larger than what can be handled by the
-DMA channel, we split the transfer into several scatterlist elements.
+On 1/8/22 9:53 AM, Miaoqian Lin wrote:
+> The pm_runtime_enable will increase power disable depth.
+> If the probe fails, we should use pm_runtime_disable() to balance
+> pm_runtime_enable().
+> 
+> Fixes: 4f3ceca254e0 ("dmaengine: stm32-dmamux: Add PM Runtime support")
+> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
- drivers/media/platform/stm32/stm32-dcmi.c | 47 ++++++++++++++++++-----
- 1 file changed, 37 insertions(+), 10 deletions(-)
+Thanks for your patch,
 
-diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
-index e1b17c05229c..ee170e999a88 100644
---- a/drivers/media/platform/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/stm32/stm32-dcmi.c
-@@ -113,7 +113,7 @@ struct dcmi_framesize {
- struct dcmi_buf {
- 	struct vb2_v4l2_buffer	vb;
- 	bool			prepared;
--	dma_addr_t		paddr;
-+	struct sg_table		sgt;
- 	size_t			size;
- 	struct list_head	list;
- };
-@@ -157,6 +157,7 @@ struct stm32_dcmi {
- 	enum state			state;
- 	struct dma_chan			*dma_chan;
- 	dma_cookie_t			dma_cookie;
-+	u32				dma_max_burst;
- 	u32				misr;
- 	int				errors_count;
- 	int				overrun_count;
-@@ -326,13 +327,11 @@ static int dcmi_start_dma(struct stm32_dcmi *dcmi,
- 	mutex_lock(&dcmi->dma_lock);
- 
- 	/* Prepare a DMA transaction */
--	desc = dmaengine_prep_slave_single(dcmi->dma_chan, buf->paddr,
--					   buf->size,
-+	desc = dmaengine_prep_slave_sg(dcmi->dma_chan, buf->sgt.sgl, buf->sgt.nents,
- 					   DMA_DEV_TO_MEM,
- 					   DMA_PREP_INTERRUPT);
- 	if (!desc) {
--		dev_err(dcmi->dev, "%s: DMA dmaengine_prep_slave_single failed for buffer phy=%pad size=%zu\n",
--			__func__, &buf->paddr, buf->size);
-+		dev_err(dcmi->dev, "%s: DMA dmaengine_prep_slave_sg failed\n", __func__);
- 		mutex_unlock(&dcmi->dma_lock);
- 		return -EINVAL;
- 	}
-@@ -524,6 +523,10 @@ static int dcmi_buf_prepare(struct vb2_buffer *vb)
- 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
- 	struct dcmi_buf *buf = container_of(vbuf, struct dcmi_buf, vb);
- 	unsigned long size;
-+	unsigned int num_sgs = 1;
-+	dma_addr_t dma_buf;
-+	struct scatterlist *sg;
-+	int i, ret;
- 
- 	size = dcmi->fmt.fmt.pix.sizeimage;
- 
-@@ -537,15 +540,33 @@ static int dcmi_buf_prepare(struct vb2_buffer *vb)
- 
- 	if (!buf->prepared) {
- 		/* Get memory addresses */
--		buf->paddr =
--			vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
- 		buf->size = vb2_plane_size(&buf->vb.vb2_buf, 0);
--		buf->prepared = true;
-+		if (buf->size > dcmi->dma_max_burst)
-+			num_sgs = DIV_ROUND_UP(buf->size, dcmi->dma_max_burst);
- 
--		vb2_set_plane_payload(&buf->vb.vb2_buf, 0, buf->size);
-+		ret = sg_alloc_table(&buf->sgt, num_sgs, GFP_ATOMIC);
-+		if (ret) {
-+			dev_err(dcmi->dev, "sg table alloc failed\n");
-+			return ret;
-+		}
-+
-+		dma_buf = vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
- 
- 		dev_dbg(dcmi->dev, "buffer[%d] phy=%pad size=%zu\n",
--			vb->index, &buf->paddr, buf->size);
-+			vb->index, &dma_buf, buf->size);
-+
-+		for_each_sg(buf->sgt.sgl, sg, num_sgs, i) {
-+			size_t bytes = min_t(size_t, size, dcmi->dma_max_burst);
-+
-+			sg_dma_address(sg) = dma_buf;
-+			sg_dma_len(sg) = bytes;
-+			dma_buf += bytes;
-+			size -= bytes;
-+		}
-+
-+		buf->prepared = true;
-+
-+		vb2_set_plane_payload(&buf->vb.vb2_buf, 0, buf->size);
- 	}
- 
- 	return 0;
-@@ -1866,6 +1887,7 @@ static int dcmi_probe(struct platform_device *pdev)
- 	struct stm32_dcmi *dcmi;
- 	struct vb2_queue *q;
- 	struct dma_chan *chan;
-+	struct dma_slave_caps caps;
- 	struct clk *mclk;
- 	int irq;
- 	int ret = 0;
-@@ -1953,6 +1975,11 @@ static int dcmi_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	dcmi->dma_max_burst = UINT_MAX;
-+	ret = dma_get_slave_caps(chan, &caps);
-+	if (!ret && caps.max_sg_burst)
-+		dcmi->dma_max_burst = caps.max_sg_burst	* DMA_SLAVE_BUSWIDTH_4_BYTES;
-+
- 	spin_lock_init(&dcmi->irqlock);
- 	mutex_init(&dcmi->lock);
- 	mutex_init(&dcmi->dma_lock);
--- 
-2.25.1
+Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
+> ---
+>   drivers/dma/stm32-dmamux.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma/stm32-dmamux.c b/drivers/dma/stm32-dmamux.c
+> index a42164389ebc..d5d55732adba 100644
+> --- a/drivers/dma/stm32-dmamux.c
+> +++ b/drivers/dma/stm32-dmamux.c
+> @@ -292,10 +292,12 @@ static int stm32_dmamux_probe(struct platform_device *pdev)
+>   	ret = of_dma_router_register(node, stm32_dmamux_route_allocate,
+>   				     &stm32_dmamux->dmarouter);
+>   	if (ret)
+> -		goto err_clk;
+> +		goto pm_disable;
+>   
+>   	return 0;
+>   
+> +pm_disable:
+> +	pm_runtime_disable(&pdev->dev);
+>   err_clk:
+>   	clk_disable_unprepare(stm32_dmamux->clk);
+>   
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
