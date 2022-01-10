@@ -2,65 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F127548946E
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jan 2022 09:56:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2EC6489682
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jan 2022 11:38:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BF8AC5F1FC;
-	Mon, 10 Jan 2022 08:48:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DC2FC5F1FC;
+	Mon, 10 Jan 2022 10:38:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36FA8CFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C00FECFAC52
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jan 2022 08:48:49 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20A6Qmr9008917;
- Mon, 10 Jan 2022 09:48:41 +0100
+ Mon, 10 Jan 2022 10:38:02 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20A9V4IQ030680;
+ Mon, 10 Jan 2022 11:37:42 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=6QC6fNL+mfmlwFssZDHcJVIPOyYB0T4GdiuhsjNBWmA=;
- b=ZCh2qWPk4JE8CU27jI7Nqsc5dhv2qODRrv/c7NFkHPAmm3p2vm0XcFtD19RojnTUUDFB
- QxmpRIPY2h69U0FybOjSPyyuA7HgERiSqtNBKwXR+hFhQQQoYG5JCWKDYQQzdTTPrjxC
- SaA0xHf7tBAXvD26JkpxkOcs4YNwroSiWPaKFPo7XGsSDXBpvBZFnkfOAIkD6dQa4TOw
- buChMBRXZuxVkTM3XXnFQEy0zMe88UT6KJz0RDgO4tCopm9obyV9WLTl49PxcQk7qFLX
- 9RfTVBX2pA5RQe4zA9mo5eLh0qfnwDZKul2FCP+eta1lphvHz/Xz6uUvwIAzMXeC8qcb cA== 
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=ltuKY3JbZ9a8gnDMbB/xLmLbXhMhu4XfcFmrhNwLzSU=;
+ b=puEdB7FwTo5ZqfbW9w6h8VvccFHdyT7TqxDMeKo8OWELlPslVpd/OcpdjmcDrHTi9/yt
+ X3nKp4jkAK8ZgZj79voIn9XBnsumcaJ/a0kOQOZFxy5xluMeV/LSpP1HmHndwlHIJhq+
+ Kb9ha/tS7d33SGyHIh8gAze9WjZEiUoTtjymq5JCjwHO07tDvr9qESvqmAvSvDDZB8ow
+ dwxPzdcWpEErcqH/k71R4FU9bU0bz60UHUakVhUwlCKDYicKXMDd0WahiMLnzro8zNB+
+ 0B7AjqAgGJXNVkpSdCDymvgV10JFf/vxnlDWYqaEyljYOsS0FYnlIZGiW7cPqQasLMG7 TA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dgfhr0pmn-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dgj85rakv-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Jan 2022 09:48:41 +0100
+ Mon, 10 Jan 2022 11:37:42 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 75B4E10002A;
- Mon, 10 Jan 2022 09:48:40 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3896D10002A;
+ Mon, 10 Jan 2022 11:37:40 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5E2A0226D50;
- Mon, 10 Jan 2022 09:48:40 +0100 (CET)
-Received: from lmecxl0889.lme.st.com (10.75.127.50) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 10 Jan
- 2022 09:48:39 +0100
-To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>
-References: <20211207080843.21222-1-arnaud.pouliquen@foss.st.com>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <b5b3f474-f84d-d682-2987-a6f812da0710@foss.st.com>
-Date: Mon, 10 Jan 2022 09:48:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2AFE9235F0F;
+ Mon, 10 Jan 2022 11:37:40 +0100 (CET)
+Received: from localhost (10.75.127.48) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 10 Jan 2022 11:37:39
+ +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: <hugues.fruchet@foss.st.com>, <mchehab@kernel.org>
+Date: Mon, 10 Jan 2022 11:37:39 +0100
+Message-ID: <20220110103739.118426-1-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20211207080843.21222-1-arnaud.pouliquen@foss.st.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-10_03,2022-01-07_01,2021-12-02_01
-Cc: julien.massot@iot.bzh, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v8 00/13] Restructure the rpmsg_char
- driver and introduce rpmsg_ctrl driver
+ definitions=2022-01-10_04,2022-01-10_01,2021-12-02_01
+Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] media: stm32: dcmi: create a dma scatterlist
+	based on DMA max_sg_burst value
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,102 +69,132 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Bjorn,
+Prior to submitting a transfer to the DMA, the client should first check
+the capabilities of the DMA channel in term of maximum of each segment.
+This is given by the max_sg_burst value reported by dma_get_slave_caps API.
+Based on that, if the transfer is larger than what can be handled by the
+DMA channel, we split the transfer into several scatterlist elements.
 
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+---
+ drivers/media/platform/stm32/stm32-dcmi.c | 47 ++++++++++++++++++-----
+ 1 file changed, 37 insertions(+), 10 deletions(-)
 
-On 12/7/21 9:08 AM, Arnaud Pouliquen wrote:
-> Update from V7 [1]:
-> - miscellaneous fixes based on Bjorn Andersson's comments
-> - add "arm64: defconfig: Config that had RPMSG_CHAR now gets RPMSG_CTRL"
->    for 5.16 compatibility
+diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
+index e1b17c05229c..ee170e999a88 100644
+--- a/drivers/media/platform/stm32/stm32-dcmi.c
++++ b/drivers/media/platform/stm32/stm32-dcmi.c
+@@ -113,7 +113,7 @@ struct dcmi_framesize {
+ struct dcmi_buf {
+ 	struct vb2_v4l2_buffer	vb;
+ 	bool			prepared;
+-	dma_addr_t		paddr;
++	struct sg_table		sgt;
+ 	size_t			size;
+ 	struct list_head	list;
+ };
+@@ -157,6 +157,7 @@ struct stm32_dcmi {
+ 	enum state			state;
+ 	struct dma_chan			*dma_chan;
+ 	dma_cookie_t			dma_cookie;
++	u32				dma_max_burst;
+ 	u32				misr;
+ 	int				errors_count;
+ 	int				overrun_count;
+@@ -326,13 +327,11 @@ static int dcmi_start_dma(struct stm32_dcmi *dcmi,
+ 	mutex_lock(&dcmi->dma_lock);
+ 
+ 	/* Prepare a DMA transaction */
+-	desc = dmaengine_prep_slave_single(dcmi->dma_chan, buf->paddr,
+-					   buf->size,
++	desc = dmaengine_prep_slave_sg(dcmi->dma_chan, buf->sgt.sgl, buf->sgt.nents,
+ 					   DMA_DEV_TO_MEM,
+ 					   DMA_PREP_INTERRUPT);
+ 	if (!desc) {
+-		dev_err(dcmi->dev, "%s: DMA dmaengine_prep_slave_single failed for buffer phy=%pad size=%zu\n",
+-			__func__, &buf->paddr, buf->size);
++		dev_err(dcmi->dev, "%s: DMA dmaengine_prep_slave_sg failed\n", __func__);
+ 		mutex_unlock(&dcmi->dma_lock);
+ 		return -EINVAL;
+ 	}
+@@ -524,6 +523,10 @@ static int dcmi_buf_prepare(struct vb2_buffer *vb)
+ 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+ 	struct dcmi_buf *buf = container_of(vbuf, struct dcmi_buf, vb);
+ 	unsigned long size;
++	unsigned int num_sgs = 1;
++	dma_addr_t dma_buf;
++	struct scatterlist *sg;
++	int i, ret;
+ 
+ 	size = dcmi->fmt.fmt.pix.sizeimage;
+ 
+@@ -537,15 +540,33 @@ static int dcmi_buf_prepare(struct vb2_buffer *vb)
+ 
+ 	if (!buf->prepared) {
+ 		/* Get memory addresses */
+-		buf->paddr =
+-			vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
+ 		buf->size = vb2_plane_size(&buf->vb.vb2_buf, 0);
+-		buf->prepared = true;
++		if (buf->size > dcmi->dma_max_burst)
++			num_sgs = DIV_ROUND_UP(buf->size, dcmi->dma_max_burst);
+ 
+-		vb2_set_plane_payload(&buf->vb.vb2_buf, 0, buf->size);
++		ret = sg_alloc_table(&buf->sgt, num_sgs, GFP_ATOMIC);
++		if (ret) {
++			dev_err(dcmi->dev, "sg table alloc failed\n");
++			return ret;
++		}
++
++		dma_buf = vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
+ 
+ 		dev_dbg(dcmi->dev, "buffer[%d] phy=%pad size=%zu\n",
+-			vb->index, &buf->paddr, buf->size);
++			vb->index, &dma_buf, buf->size);
++
++		for_each_sg(buf->sgt.sgl, sg, num_sgs, i) {
++			size_t bytes = min_t(size_t, size, dcmi->dma_max_burst);
++
++			sg_dma_address(sg) = dma_buf;
++			sg_dma_len(sg) = bytes;
++			dma_buf += bytes;
++			size -= bytes;
++		}
++
++		buf->prepared = true;
++
++		vb2_set_plane_payload(&buf->vb.vb2_buf, 0, buf->size);
+ 	}
+ 
+ 	return 0;
+@@ -1866,6 +1887,7 @@ static int dcmi_probe(struct platform_device *pdev)
+ 	struct stm32_dcmi *dcmi;
+ 	struct vb2_queue *q;
+ 	struct dma_chan *chan;
++	struct dma_slave_caps caps;
+ 	struct clk *mclk;
+ 	int irq;
+ 	int ret = 0;
+@@ -1953,6 +1975,11 @@ static int dcmi_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
++	dcmi->dma_max_burst = UINT_MAX;
++	ret = dma_get_slave_caps(chan, &caps);
++	if (!ret && caps.max_sg_burst)
++		dcmi->dma_max_burst = caps.max_sg_burst	* DMA_SLAVE_BUSWIDTH_4_BYTES;
++
+ 	spin_lock_init(&dcmi->irqlock);
+ 	mutex_init(&dcmi->lock);
+ 	mutex_init(&dcmi->dma_lock);
+-- 
+2.25.1
 
-Gentle reminder.
-Any new comment or concern on this patchset?
-
-Regards,
-Arnaud
-
-> 
-> Patchset description:
-> 
-> The current rpmsg_char module implements a /dev/rpmsg_ctrl interface that provides the ability to
-> instantiate char devices (/dev/rpmsgX) associated with an rpmsg endpoint for communication with the
-> remote processor.
-> This implementation fit with QCOM rpmsg backend but not with themagement by chanel implemented in
-> the generic rpmsg virtio backend.
-> This series restructures the rpmsg_char driver to decorrelate the control part from the data part
-> in order to improve its compatible with the rpmsg virtio backend.
-> 
-> Objective:
-> - Expose a /dev/rpmsg_ctrlX interface for the application that is no longer dedicated to the
->    rpmsg_char but generalized to all rpmsg services. This offers capability to create and destroy
->    rpmsg channels from a user's application initiative (using the new RPMSG_CREATE_DEV_IOCTL and
->    RPMSG_DESTROY_DEV_IOCTL controls).
->    An application will be able to create/establish an rpmsg communication channel to communicate
->    with the remote processor, and not only wait the remote processor initiative.
->    This is interesting for example to establish a temporary communication link for diagnosis,
->    calibration, debugging... or instantiate  new data flows on some user actions.
-> - Add capability to probe the rpmsg_char device at the initiative of the remote processor
->   (rpmsg service announcement mechanism).
->    This allows platforms based on the rpmsg virtio backend to create the /dev/rpmgX interface with
->    a rpmsg name service announcement.
-> 
-> Subsets:
->    - Extract the control part of the char dev and create the rpmsg_ctrl.c file (patches 1 to 6)
->    - Introduce the "rpmsg-raw" channel in rpmsg_char(patches 7 to 11)
->    - Introduce the RPMSG_CREATE_DEV_IOCTL IOCTL and RPMSG_DESTROY_DEV_IOCTL to instantiate RPMsg
->      devices (patch 12)
->      The application can then create or release a channel by specifying:
->         - the name service of the device to instantiate.
->         - the source address.
->         - the destination address.
->    - Send a ns announcement to the remote processor on default endpoint creation (patche 13)
-> 
-> This series has be applied and tested on for-next branch 'c4b39a582b9b)[2].
-> 
-> [1] https://lkml.org/lkml/2021/11/8/501
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git
-> 
-> Arnaud Pouliquen (10):
->    rpmsg: char: Export eptdev create an destroy functions
->    rpmsg: Create the rpmsg class in core instead of in rpmsg char
->    rpmsg: Move the rpmsg control device from rpmsg_char to rpmsg_ctrl
->    arm: configs: Configs that had RPMSG_CHAR now get RPMSG_CTRL
->    RISC-V: configs: Configs that had RPMSG_CHAR now get RPMSG_CTRL
->    arm64: defconfig: Config that had RPMSG_CHAR now gets RPMSG_CTRL
->    rpmsg: Update rpmsg_chrdev_register_device function
->    rpmsg: char: Refactor rpmsg_chrdev_eptdev_create function
->    rpmsg: Introduce rpmsg_create_default_ept function
->    rpmsg: char: Add possibility to use default endpoint of the rpmsg
->      device.
->    rpmsg: char: Introduce the "rpmsg-raw" channel
->    rpmsg: ctrl: Introduce new RPMSG_CREATE/RELEASE_DEV_IOCTL controls
->    rpmsg: core: Send a ns announcement when a default endpoint is created
-> 
->   arch/arm/configs/qcom_defconfig   |   1 +
->   arch/arm64/configs/defconfig      |   1 +
->   arch/riscv/configs/defconfig      |   1 +
->   arch/riscv/configs/rv32_defconfig |   1 +
->   drivers/rpmsg/Kconfig             |   8 +
->   drivers/rpmsg/Makefile            |   1 +
->   drivers/rpmsg/qcom_glink_native.c |   2 +-
->   drivers/rpmsg/qcom_smd.c          |   2 +-
->   drivers/rpmsg/rpmsg_char.c        | 246 +++++++++++------------------
->   drivers/rpmsg/rpmsg_char.h        |  46 ++++++
->   drivers/rpmsg/rpmsg_core.c        |  84 +++++++++-
->   drivers/rpmsg/rpmsg_ctrl.c        | 250 ++++++++++++++++++++++++++++++
->   drivers/rpmsg/rpmsg_internal.h    |  14 +-
->   drivers/rpmsg/virtio_rpmsg_bus.c  |   2 +-
->   include/uapi/linux/rpmsg.h        |  10 ++
->   15 files changed, 505 insertions(+), 164 deletions(-)
->   create mode 100644 drivers/rpmsg/rpmsg_char.h
->   create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
