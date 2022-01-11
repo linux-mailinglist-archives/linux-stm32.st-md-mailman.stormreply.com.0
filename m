@@ -2,66 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D71BB48A91A
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jan 2022 09:11:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 621AC48AD3D
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jan 2022 13:02:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 859F4C5F1FC;
-	Tue, 11 Jan 2022 08:11:24 +0000 (UTC)
-Received: from mxout01.lancloud.ru (mxout01.lancloud.ru [45.84.86.81])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15776C5F1F7;
+	Tue, 11 Jan 2022 12:02:58 +0000 (UTC)
+Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4ED7AC5F1F5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4340BC56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jan 2022 19:54:58 +0000 (UTC)
-Received: from LanCloud
-DKIM-Filter: OpenDKIM Filter v2.11.0 mxout01.lancloud.ru 40192209A558
-Received: from LanCloud
-Received: from LanCloud
-Received: from LanCloud
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Mon, 10 Jan 2022 22:54:49 +0300
-Message-ID: <20220110195449.12448-3-s.shtylyov@omp.ru>
-X-Mailer: git-send-email 2.26.3
-In-Reply-To: <20220110195449.12448-1-s.shtylyov@omp.ru>
-References: <20220110195449.12448-1-s.shtylyov@omp.ru>
+ Tue, 11 Jan 2022 12:02:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tronnes.org
+ ; s=ds202112;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ Subject:References:Cc:To:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=jyL93/6BnSzZVNk0d+pZVStpOnNWGIWV0cp232YBOgI=; b=mT2tFt8Aj6L1bsweeK606aleQA
+ 0q/CwoWO+evMQh6GF50pJ9PCCCJyuXmOhrRYLTjQTDKpOhN5D1TYzPaDFKoepp28vQrmdjWG6wUW8
+ LGlw4YnNeBeXX7pKtIYZ3/rLRKgUBssnd7als6RGu0CxyV46XVwUK4IDmmPFA3ITABbriBLqZUyX7
+ UWENmSQBWStSeVvtNjuAYCql48TE2QdR6owbFy1pu34zh7hD38mCeIMvQV128RgQ14GVHI+BlaVUf
+ s1SRoWZUU6eUnGUkYz/h6+kwWvf5T6XHSBuiDwqgK/Ebb/WdPwu+Hoa2GmokqiDnSf/G5RdV5o7Ly
+ 1/sUx6RQ==;
+Received: from 211.81-166-168.customer.lyse.net ([81.166.168.211]:50898
+ helo=[192.168.10.61])
+ by smtp.domeneshop.no with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <noralf@tronnes.org>)
+ id 1n7Frc-0003rr-1p; Tue, 11 Jan 2022 13:02:56 +0100
+Message-ID: <a9e2d66e-1a85-b61f-ee3b-ca7032e0516f@tronnes.org>
+Date: Tue, 11 Jan 2022 13:02:50 +0100
 MIME-Version: 1.0
-X-Originating-IP: [192.168.11.198]
-X-ClientProxiedBy: LFEXT02.lancloud.ru (fd00:f066::142) To
- LFEX1907.lancloud.ru (fd00:f066::207)
-X-Mailman-Approved-At: Tue, 11 Jan 2022 08:11:23 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- David Airlie <airlied@linux.ie>, linux-pci@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- dri-devel@lists.freedesktop.org, Aswath Govindraju <a-govindraju@ti.com>,
- Thierry Reding <thierry.reding@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>, lima@lists.freedesktop.org,
- Kamal Dasu <kdasu.kdev@gmail.com>, Jassi Brar <jassisinghbrar@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jose Abreu <joabreu@synopsys.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Jakub Kicinski <kuba@kernel.org>,
- Vivien Didelot <vivien.didelot@gmail.com>, Wolfgang
- Grandegger <wg@grandegger.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Pawel Laszczak <pawell@cadence.com>, linux-tegra@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Mathias Nyman <mathias.nyman@intel.com>,
- linux-can@vger.kernel.org, Roger Quadros <rogerq@kernel.org>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Bjorn Helgaas <bhelgaas@google.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, Jingoo Han <jingoohan1@gmail.com>,
- Peter Chen <peter.chen@kernel.org>, linux-usb@vger.kernel.org,
- Joakim Zhang <qiangqing.zhang@nxp.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Qiang Yu <yuq825@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- linux-mediatek@lists.infradead.org, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH 2/2] platform: make
-	platform_get_irq_byname_optional() optional
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+To: tzimmermann@suse.de
+References: <20211106193509.17472-2-tzimmermann@suse.de>
+From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>
+In-Reply-To: <20211106193509.17472-2-tzimmermann@suse.de>
+Cc: mripard@kernel.org, linux-aspeed@lists.ozlabs.org, airlied@linux.ie,
+ daniel.vetter@ffwll.ch, naresh.kamboju@linaro.org,
+ maarten.lankhorst@linux.intel.com, linux-mips@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, noralf@tronnes.org, marcel@ziswiler.com,
+ daniel@ffwll.ch, linux-amlogic@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/2] drm/mipi-dbi: Remove dependency on
+ GEM CMA helper library
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,310 +65,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently platform_get_irq_byname_optional() returns an error code even
-if IRQ resource simply has not been found. It prevents the callers from
-being error code agnostic in their error handling:
+> The MIPI DBI helpers access struct drm_gem_cma_object.vaddr in a
+> few places. Replace all instances with the correct generic GEM
+> functions. Use drm_gem_fb_vmap() for mapping a framebuffer's GEM
+> objects and drm_gem_fb_vunmap() for unmapping them. This removes
+> the dependency on CMA helpers within MIPI DBI.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> ---
+>  drivers/gpu/drm/drm_mipi_dbi.c | 34 +++++++++++++++++++++++++---------
+>  1 file changed, 25 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_mipi_dbi.c
+b/drivers/gpu/drm/drm_mipi_dbi.c
+> index 71b646c4131f..f80fd6c0ccf8 100644
+> --- a/drivers/gpu/drm/drm_mipi_dbi.c
+> +++ b/drivers/gpu/drm/drm_mipi_dbi.c
+> @@ -15,9 +15,10 @@
+>  #include <drm/drm_connector.h>
+>  #include <drm/drm_damage_helper.h>
+>  #include <drm/drm_drv.h>
+> -#include <drm/drm_gem_cma_helper.h>
+> +#include <drm/drm_file.h>
+>  #include <drm/drm_format_helper.h>
+>  #include <drm/drm_fourcc.h>
+> +#include <drm/drm_gem.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+>  #include <drm/drm_mipi_dbi.h>
+>  #include <drm/drm_modes.h>
+> @@ -200,13 +201,19 @@ int mipi_dbi_buf_copy(void *dst, struct
+drm_framebuffer *fb,
+>  		      struct drm_rect *clip, bool swap)
+>  {
+>  	struct drm_gem_object *gem = drm_gem_fb_get_obj(fb, 0);
+> -	struct drm_gem_cma_object *cma_obj = to_drm_gem_cma_obj(gem);
+> -	void *src = cma_obj->vaddr;
+> +	struct dma_buf_map map[DRM_FORMAT_MAX_PLANES];
+> +	struct dma_buf_map data[DRM_FORMAT_MAX_PLANES];
+> +	void *src;
+>  	int ret;
+>
+>  	ret = drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
+>  	if (ret)
+>  		return ret;
+> +	src = data[0].vaddr; /* TODO: Use mapping abstraction properly */
 
-	ret = platform_get_irq_byname_optional(...);
-	if (ret < 0 && ret != -ENXIO)
-		return ret; // respect deferred probe
-	if (ret > 0)
-		...we get an IRQ...
+This assignment should be after the _vmap() call. The MIPI DBI drivers
+are currently broken because of this.
 
-All other *_optional() APIs seem to return 0 or NULL in case an optional
-resource is not available. Let's follow this good example, so that the
-callers would look like:
+Noralf.
 
-	ret = platform_get_irq_byname_optional(...);
-	if (ret < 0)
-		return ret;
-	if (ret > 0)
-		...we get an IRQ...
-
-Signed-off-by: Sergey Shtylyov <s.shtylyov@omp.ru>
----
- drivers/base/platform.c                             | 13 ++++++++++---
- drivers/gpu/drm/lima/lima_device.c                  |  2 +-
- drivers/mailbox/tegra-hsp.c                         |  4 ++--
- drivers/net/can/rcar/rcar_canfd.c                   |  4 ++--
- drivers/net/dsa/b53/b53_srab.c                      |  2 +-
- drivers/net/ethernet/freescale/fec_main.c           |  2 +-
- drivers/net/ethernet/freescale/fec_ptp.c            |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c   |  4 ++--
- .../net/ethernet/stmicro/stmmac/stmmac_platform.c   |  4 ++--
- drivers/pci/controller/dwc/pcie-designware-host.c   |  2 +-
- drivers/spi/spi-bcm-qspi.c                          |  2 +-
- drivers/spi/spi-rspi.c                              |  8 ++++----
- drivers/usb/cdns3/cdns3-plat.c                      |  5 +----
- drivers/usb/host/xhci-mtk.c                         |  2 +-
- drivers/usb/mtu3/mtu3_core.c                        |  2 +-
- 15 files changed, 31 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index 7c7b3638f02d..1d0ea635922b 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -495,14 +495,21 @@ EXPORT_SYMBOL_GPL(platform_get_irq_byname);
-  * @name: IRQ name
-  *
-  * Get an optional IRQ by name like platform_get_irq_byname(). Except that it
-- * does not print an error message if an IRQ can not be obtained.
-+ * does not print an error message if an IRQ can not be obtained and returns
-+ * 0 when IRQ resource has not been found.
-  *
-- * Return: non-zero IRQ number on success, negative error number on failure.
-+ * Return: non-zero IRQ number on success, 0 if IRQ wasn't found, negative error
-+ * number on failure.
-  */
- int platform_get_irq_byname_optional(struct platform_device *dev,
- 				     const char *name)
- {
--	return __platform_get_irq_byname(dev, name);
-+	int ret;
-+
-+	ret = __platform_get_irq_byname(dev, name);
-+	if (ret == -ENXIO)
-+		return 0;
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(platform_get_irq_byname_optional);
- 
-diff --git a/drivers/gpu/drm/lima/lima_device.c b/drivers/gpu/drm/lima/lima_device.c
-index 65fdca366e41..e3659aa687c2 100644
---- a/drivers/gpu/drm/lima/lima_device.c
-+++ b/drivers/gpu/drm/lima/lima_device.c
-@@ -223,7 +223,7 @@ static int lima_init_ip(struct lima_device *dev, int index)
- 	if (irq_name) {
- 		err = must ? platform_get_irq_byname(pdev, irq_name) :
- 			     platform_get_irq_byname_optional(pdev, irq_name);
--		if (err < 0)
-+		if (err <= 0)
- 			goto out;
- 		ip->irq = err;
- 	}
-diff --git a/drivers/mailbox/tegra-hsp.c b/drivers/mailbox/tegra-hsp.c
-index acd0675da681..17aa88e31445 100644
---- a/drivers/mailbox/tegra-hsp.c
-+++ b/drivers/mailbox/tegra-hsp.c
-@@ -667,7 +667,7 @@ static int tegra_hsp_probe(struct platform_device *pdev)
- 	hsp->num_si = (value >> HSP_nSI_SHIFT) & HSP_nINT_MASK;
- 
- 	err = platform_get_irq_byname_optional(pdev, "doorbell");
--	if (err >= 0)
-+	if (err > 0)
- 		hsp->doorbell_irq = err;
- 
- 	if (hsp->num_si > 0) {
-@@ -687,7 +687,7 @@ static int tegra_hsp_probe(struct platform_device *pdev)
- 				return -ENOMEM;
- 
- 			err = platform_get_irq_byname_optional(pdev, name);
--			if (err >= 0) {
-+			if (err > 0) {
- 				hsp->shared_irqs[i] = err;
- 				count++;
- 			}
-diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
-index ff9d0f5ae0dd..1d4794493c6a 100644
---- a/drivers/net/can/rcar/rcar_canfd.c
-+++ b/drivers/net/can/rcar/rcar_canfd.c
-@@ -1778,7 +1778,7 @@ static int rcar_canfd_probe(struct platform_device *pdev)
- 
- 	if (chip_id == RENESAS_RCAR_GEN3) {
- 		ch_irq = platform_get_irq_byname_optional(pdev, "ch_int");
--		if (ch_irq < 0) {
-+		if (ch_irq <= 0) {
- 			/* For backward compatibility get irq by index */
- 			ch_irq = platform_get_irq(pdev, 0);
- 			if (ch_irq < 0)
-@@ -1786,7 +1786,7 @@ static int rcar_canfd_probe(struct platform_device *pdev)
- 		}
- 
- 		g_irq = platform_get_irq_byname_optional(pdev, "g_int");
--		if (g_irq < 0) {
-+		if (g_irq <= 0) {
- 			/* For backward compatibility get irq by index */
- 			g_irq = platform_get_irq(pdev, 1);
- 			if (g_irq < 0)
-diff --git a/drivers/net/dsa/b53/b53_srab.c b/drivers/net/dsa/b53/b53_srab.c
-index 4591bb1c05d2..80b7c8f053ad 100644
---- a/drivers/net/dsa/b53/b53_srab.c
-+++ b/drivers/net/dsa/b53/b53_srab.c
-@@ -420,7 +420,7 @@ static int b53_srab_irq_enable(struct b53_device *dev, int port)
- 	/* Interrupt is optional and was not specified, do not make
- 	 * this fatal
- 	 */
--	if (p->irq == -ENXIO)
-+	if (!p->irq)
- 		return ret;
- 
- 	ret = request_threaded_irq(p->irq, b53_srab_port_isr,
-diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
-index bc418b910999..fba36d09a6e0 100644
---- a/drivers/net/ethernet/freescale/fec_main.c
-+++ b/drivers/net/ethernet/freescale/fec_main.c
-@@ -3933,7 +3933,7 @@ fec_probe(struct platform_device *pdev)
- 	for (i = 0; i < irq_cnt; i++) {
- 		snprintf(irq_name, sizeof(irq_name), "int%d", i);
- 		irq = platform_get_irq_byname_optional(pdev, irq_name);
--		if (irq < 0)
-+		if (irq <= 0)
- 			irq = platform_get_irq(pdev, i);
- 		if (irq < 0) {
- 			ret = irq;
-diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
-index 158676eda48d..251863c2d5a4 100644
---- a/drivers/net/ethernet/freescale/fec_ptp.c
-+++ b/drivers/net/ethernet/freescale/fec_ptp.c
-@@ -615,7 +615,7 @@ void fec_ptp_init(struct platform_device *pdev, int irq_idx)
- 	INIT_DELAYED_WORK(&fep->time_keep, fec_time_keep);
- 
- 	irq = platform_get_irq_byname_optional(pdev, "pps");
--	if (irq < 0)
-+	if (irq <= 0)
- 		irq = platform_get_irq_optional(pdev, irq_idx);
- 	/* Failure to get an irq is not fatal,
- 	 * only the PTP_CLOCK_PPS clock events should stop
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-index 2b38a499a404..5519b5b35365 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-@@ -342,7 +342,7 @@ static int stm32mp1_parse_data(struct stm32_dwmac *dwmac,
- 	if (dwmac->irq_pwr_wakeup == -EPROBE_DEFER)
- 		return -EPROBE_DEFER;
- 
--	if (!dwmac->clk_eth_ck && dwmac->irq_pwr_wakeup >= 0) {
-+	if (!dwmac->clk_eth_ck && dwmac->irq_pwr_wakeup > 0) {
- 		err = device_init_wakeup(&pdev->dev, true);
- 		if (err) {
- 			dev_err(&pdev->dev, "Failed to init wake up irq\n");
-@@ -426,7 +426,7 @@ static int stm32_dwmac_remove(struct platform_device *pdev)
- 
- 	stm32_dwmac_clk_disable(priv->plat->bsp_priv);
- 
--	if (dwmac->irq_pwr_wakeup >= 0) {
-+	if (dwmac->irq_pwr_wakeup > 0) {
- 		dev_pm_clear_wake_irq(&pdev->dev);
- 		device_init_wakeup(&pdev->dev, false);
- 	}
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 232ac98943cd..dcfc04f7bfd4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -679,7 +679,7 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 	 */
- 	stmmac_res->wol_irq =
- 		platform_get_irq_byname_optional(pdev, "eth_wake_irq");
--	if (stmmac_res->wol_irq < 0) {
-+	if (stmmac_res->wol_irq <= 0) {
- 		if (stmmac_res->wol_irq == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
- 		dev_info(&pdev->dev, "IRQ eth_wake_irq not found\n");
-@@ -688,7 +688,7 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 
- 	stmmac_res->lpi_irq =
- 		platform_get_irq_byname_optional(pdev, "eth_lpi");
--	if (stmmac_res->lpi_irq < 0) {
-+	if (stmmac_res->lpi_irq <= 0) {
- 		if (stmmac_res->lpi_irq == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
- 		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
-diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
-index f4755f3a03be..00e1a33fd06d 100644
---- a/drivers/pci/controller/dwc/pcie-designware-host.c
-+++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-@@ -364,7 +364,7 @@ int dw_pcie_host_init(struct pcie_port *pp)
- 		} else if (pp->has_msi_ctrl) {
- 			if (!pp->msi_irq) {
- 				pp->msi_irq = platform_get_irq_byname_optional(pdev, "msi");
--				if (pp->msi_irq < 0) {
-+				if (pp->msi_irq <= 0) {
- 					pp->msi_irq = platform_get_irq(pdev, 0);
- 					if (pp->msi_irq < 0)
- 						return pp->msi_irq;
-diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
-index f3de3305d0f5..40ca101e9875 100644
---- a/drivers/spi/spi-bcm-qspi.c
-+++ b/drivers/spi/spi-bcm-qspi.c
-@@ -1595,7 +1595,7 @@ int bcm_qspi_probe(struct platform_device *pdev,
- 			irq = platform_get_irq(pdev, 0);
- 		}
- 
--		if (irq  >= 0) {
-+		if (irq > 0) {
- 			ret = devm_request_irq(&pdev->dev, irq,
- 					       qspi_irq_tab[val].irq_handler, 0,
- 					       name,
-diff --git a/drivers/spi/spi-rspi.c b/drivers/spi/spi-rspi.c
-index 41761f0d892a..b736b57f5ff2 100644
---- a/drivers/spi/spi-rspi.c
-+++ b/drivers/spi/spi-rspi.c
-@@ -1330,16 +1330,16 @@ static int rspi_probe(struct platform_device *pdev)
- 	ctlr->max_native_cs = rspi->ops->num_hw_ss;
- 
- 	ret = platform_get_irq_byname_optional(pdev, "rx");
--	if (ret < 0) {
-+	if (ret <= 0) {
- 		ret = platform_get_irq_byname_optional(pdev, "mux");
--		if (ret < 0)
-+		if (ret <= 0)
- 			ret = platform_get_irq(pdev, 0);
--		if (ret >= 0)
-+		if (ret > 0)
- 			rspi->rx_irq = rspi->tx_irq = ret;
- 	} else {
- 		rspi->rx_irq = ret;
- 		ret = platform_get_irq_byname(pdev, "tx");
--		if (ret >= 0)
-+		if (ret > 0)
- 			rspi->tx_irq = ret;
- 	}
- 
-diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
-index 4d0f027e5bd3..7379b6026f9f 100644
---- a/drivers/usb/cdns3/cdns3-plat.c
-+++ b/drivers/usb/cdns3/cdns3-plat.c
-@@ -108,10 +108,7 @@ static int cdns3_plat_probe(struct platform_device *pdev)
- 	cdns->wakeup_irq = platform_get_irq_byname_optional(pdev, "wakeup");
- 	if (cdns->wakeup_irq == -EPROBE_DEFER)
- 		return cdns->wakeup_irq;
--	else if (cdns->wakeup_irq == 0)
--		return -EINVAL;
--
--	if (cdns->wakeup_irq < 0) {
-+	if (cdns->wakeup_irq <= 0) {
- 		dev_dbg(dev, "couldn't get wakeup irq\n");
- 		cdns->wakeup_irq = 0x0;
- 	}
-diff --git a/drivers/usb/host/xhci-mtk.c b/drivers/usb/host/xhci-mtk.c
-index 58a0eae4f41b..e3071e7cb165 100644
---- a/drivers/usb/host/xhci-mtk.c
-+++ b/drivers/usb/host/xhci-mtk.c
-@@ -495,7 +495,7 @@ static int xhci_mtk_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	irq = platform_get_irq_byname_optional(pdev, "host");
--	if (irq < 0) {
-+	if (irq <= 0) {
- 		if (irq == -EPROBE_DEFER)
- 			return irq;
- 
-diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
-index c4a2c37abf62..08173c05a1d6 100644
---- a/drivers/usb/mtu3/mtu3_core.c
-+++ b/drivers/usb/mtu3/mtu3_core.c
-@@ -925,7 +925,7 @@ int ssusb_gadget_init(struct ssusb_mtk *ssusb)
- 		return -ENOMEM;
- 
- 	mtu->irq = platform_get_irq_byname_optional(pdev, "device");
--	if (mtu->irq < 0) {
-+	if (mtu->irq <= 0) {
- 		if (mtu->irq == -EPROBE_DEFER)
- 			return mtu->irq;
- 
--- 
-2.26.3
-
+> +
+> +	ret = drm_gem_fb_vmap(fb, map, data);
+> +	if (ret)
+> +		goto out_drm_gem_fb_end_cpu_access;
+>
+>  	switch (fb->format->format) {
+>  	case DRM_FORMAT_RGB565:
+> @@ -221,9 +228,11 @@ int mipi_dbi_buf_copy(void *dst, struct
+drm_framebuffer *fb,
+>  	default:
+>  		drm_err_once(fb->dev, "Format is not supported: %p4cc\n",
+>  			     &fb->format->format);
+> -		return -EINVAL;
+> +		ret = -EINVAL;
+>  	}
+>
+> +	drm_gem_fb_vunmap(fb, map);
+> +out_drm_gem_fb_end_cpu_access:
+>  	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
+>
+>  	return ret;
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
