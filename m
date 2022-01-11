@@ -2,38 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9794C48A455
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jan 2022 01:23:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21B1E48A546
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jan 2022 02:45:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CD1CC5F1FD;
-	Tue, 11 Jan 2022 00:23:43 +0000 (UTC)
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE480C5F1F5
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB1E8C5F1FD;
+	Tue, 11 Jan 2022 01:45:11 +0000 (UTC)
+Received: from m13134.mail.163.com (m13134.mail.163.com [220.181.13.134])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16BE6C5F1F5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jan 2022 00:23:41 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="5.88,278,1635174000"; d="scan'208";a="106050151"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 11 Jan 2022 09:23:38 +0900
-Received: from localhost.localdomain (unknown [10.226.36.204])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id D5B604157D34;
- Tue, 11 Jan 2022 09:23:35 +0900 (JST)
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 11 Jan 2022 00:23:06 +0000
-Message-Id: <20220111002314.15213-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220111002314.15213-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20220111002314.15213-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Cc: linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 05/13] media: stm32-dma2d: Use
-	platform_get_irq() to get the interrupt
+ Tue, 11 Jan 2022 01:45:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=lO67b
+ vS7LanGArya2oHBR6wGesF2KF5ya5davPjihRE=; b=Z2oOjhL9GUPUvCIV383Fr
+ /AMaycfBfO8NF93UN4YrpL5VRodnL13Jfva8cHvIP5//spUA7VWKyufxIMbdPZyb
+ ByL9iuhdNc8CHISagCnTkpaWEgsKAB2yKtLKz/W2XZi1fWSKk0M+jPY4DzMvDb8g
+ 2sFLLP/pVbWqtlilt2h7YU=
+Received: from wuhanluop$163.com ( [65.49.195.68] ) by ajax-webmail-wmsvr134
+ (Coremail) ; Tue, 11 Jan 2022 09:43:29 +0800 (CST)
+X-Originating-IP: [65.49.195.68]
+Date: Tue, 11 Jan 2022 09:43:29 +0800 (CST)
+From: =?GBK?B?wt7F9A==?= <wuhanluop@163.com>
+To: "Eric Biggers" <ebiggers@kernel.org>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.13 build 20210622(1d4788a8)
+ Copyright (c) 2002-2022 www.mailtech.cn 163com
+In-Reply-To: <YdxxZmmlWp+RQeGC@sol.localdomain>
+References: <20220109170239.4322-1-wuhanluop@163.com>
+ <YdxxZmmlWp+RQeGC@sol.localdomain>
+X-CM-CTRLDATA: oDe2+2Zvb3Rlcl9odG09Mjk0OTo1Ng==
+MIME-Version: 1.0
+Message-ID: <2c53b0c2.ba2.17e46cdf542.Coremail.wuhanluop@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: hsGowAD3_0fC4Nxhx1UPAA--.59838W
+X-CM-SenderInfo: pzxkt0hoxr1qqrwthudrp/xtbBEgKF9F6ie8JHlgAAs1
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Cc: herbert@gondor.apana.org.au, linux-kernel@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ terrelln@fb.com, linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] crypto: testmgr - fix some wrong vectors
+	of aes-ccm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -45,55 +53,132 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1231158598377914003=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-platform_get_resource(pdev, IORESOURCE_IRQ, ..) relies on static
-allocation of IRQ resources in DT core code, this causes an issue
-when using hierarchical interrupt domains using "interrupts" property
-in the node as this bypasses the hierarchical setup and messes up the
-irq chaining.
+--===============1231158598377914003==
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_10889_420749618.1641865409858"
 
-In preparation for removal of static setup of IRQ resource from DT core
-code use platform_get_irq().
+------=_Part_10889_420749618.1641865409858
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
-v1->v2
-* No change.
----
- drivers/media/platform/stm32/dma2d/dma2d.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+SSBqdXN0IG5vdGljZSB0aGVzZSB0aHJlZSB2ZWN0b3JzIGV4cGVjdCBmYWlsIGJ5IGRlc2lnbi4g
+U28gdGhleSBhcmUgYWxsIGNvcnJlY3QuCkknbSBzbyBzb3JyeSB0byBpbnRlcnJ1cHQgeW91LiBQ
+bGVhc2UgaWdub3JlIHRoaXMuCgoKCgpBdCAyMDIyLTAxLTExIDAxOjQ4OjIyLCAiRXJpYyBCaWdn
+ZXJzIiA8ZWJpZ2dlcnNAa2VybmVsLm9yZz4gd3JvdGU6Cj5PbiBNb24sIEphbiAxMCwgMjAyMiBh
+dCAwMTowMjozOUFNICswODAwLCBQZW5nIEx1byB3cm90ZToKPj4gU29tZSB2ZWN0b3JzIG9mIGFl
+cy1jY20gYXJlIHdyb25nLgo+PiBUaGlzIHBhdGNoIGhhcyBiZWVuIHRlc3RlZCB3aXRoIGtlcm5l
+bCA0LjkgYW5kIG9wZW5zc2wxLjEuMWsuCj4+IAo+PiBTaWduZWQtb2ZmLWJ5OiBQZW5nIEx1byA8
+d3VoYW5sdW9wQDE2My5jb20+Cj4+IC0tLQo+PiAgY3J5cHRvL3Rlc3RtZ3IuaCB8IDEwICsrKysr
+LS0tLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0p
+Cj4+IAo+PiBkaWZmIC0tZ2l0IGEvY3J5cHRvL3Rlc3RtZ3IuaCBiL2NyeXB0by90ZXN0bWdyLmgK
+Pj4gaW5kZXggYTI1M2Q2NmJhMWMxLi5mZjE3MWZlNTM5NzkgMTAwNjQ0Cj4+IC0tLSBhL2NyeXB0
+by90ZXN0bWdyLmgKPj4gKysrIGIvY3J5cHRvL3Rlc3RtZ3IuaAo+PiBAQCAtMTk4NjUsOCArMTk4
+NjUsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFlYWRfdGVzdHZlYyBhZXNfY2NtX3R2X3RlbXBs
+YXRlW10gPSB7Cj4+ICAJCQkgICJceGQwXHhkMVx4M2RceDFhXHhhM1x4NmRceGU0XHgwYSIKPj4g
+IAkJCSAgIlx4ODZceGIwXHg4N1x4NmJceDYyXHgzM1x4OGNceDM0Igo+PiAgCQkJICAiXHhjZVx4
+YWJceDU3XHhjY1x4NzlceDBiXHhlMFx4NmYiCj4+IC0JCQkgICJceDVjXHgzZVx4NDhceDFmXHg2
+Y1x4NDZceGY3XHg1MSIKPj4gLQkJCSAgIlx4OGJceDg0XHg4M1x4MmFceGMxXHgwNVx4YjhceGM1
+IiwKPj4gKwkJCSAgIlx4Q0ZceEU5XHhGOVx4MjFceDNDXHgxQVx4Q0VceDY3Igo+PiArCQkJICAi
+XHg2Mlx4N0JceDM2XHgzQVx4RUFceDE5XHhBQ1x4NTgiLAo+PiAgCQkuY2xlbgk9IDQ4LAo+PiAg
+CQkubm92cmZ5CT0gMSwKPj4gIAl9LCB7Cj4+IEBAIC0xOTk1Miw4ICsxOTk1Miw4IEBAIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgYWVhZF90ZXN0dmVjIGFlc19jY21fdHZfdGVtcGxhdGVbXSA9IHsKPj4g
+IAkJCSAgIlx4YzZceDBlXHg2ZVx4ZTVceGQ2XHg5OFx4YTZceDM3Igo+PiAgCQkJICAiXHg4Y1x4
+MjZceDMzXHhjNlx4YjJceGEyXHgxN1x4ZmEiCj4+ICAJCQkgICJceDY0XHgxOVx4YzBceDMwXHhk
+N1x4ZmNceDE0XHg2YiIKPj4gLQkJCSAgIlx4ZTNceDMzXHhjMlx4MDRceGIwXHgzN1x4YmVceDNm
+Igo+PiAtCQkJICAiXHhhOVx4YjRceDJkXHg2OFx4MDNceGEzXHg0NFx4ZWYiLAo+PiArCQkJICAi
+XHgwOFx4NUFceDIwXHg0QVx4QjBceDJDXHhGOVx4NDkiCj4+ICsJCQkgICJceDEwXHgxQ1x4OUNc
+eDg1XHg4Q1x4MTJceEUwXHgzQSIsCj4+ICAJCS5jbGVuCT0gNDgsCj4+ICAJCS5ub3ZyZnkJPSAx
+LAo+PiAgCX0sIHsKPj4gQEAgLTE5OTgzLDcgKzE5OTgzLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVj
+dCBhZWFkX3Rlc3R2ZWMgYWVzX2NjbV90dl90ZW1wbGF0ZVtdID0gewo+PiAgCQkJICAiXHgzZVx4
+YWZceDcwXHg1ZVx4YjJceDRkXHhlYVx4MzkiCj4+ICAJCQkgICJceDg5XHhkNFx4NzVceDdhXHg2
+M1x4YjFceGRhXHg5MyIsCj4+ICAJCS5wbGVuCT0gMzIsCj4+IC0JCS5jdGV4dAk9ICJceDQ4XHgw
+MVx4NWVceDAyXHgyNFx4MDRceDY2XHg0NyIKPj4gKwkJLmN0ZXh0CT0gIlx4MTRceDAxXHg1ZVx4
+MDJceDI0XHgwNFx4NjZceDQ3Igo+PiAgCQkJICAiXHhhMVx4ZWFceDZmXHhhZlx4ZThceGZjXHhm
+Ylx4ZGQiCj4+ICAJCQkgICJceGE1XHhhOVx4ODdceDhkXHg4NFx4ZWVceDJlXHg3NyIKPj4gIAkJ
+CSAgIlx4YmJceDg2XHhiOVx4ZjVceDVjXHg2Y1x4ZmZceGY2Igo+Cj5UaGlzIHBhdGNoIGNhdXNl
+cyBhIHNlbGYtdGVzdCBmYWlsdXJlOgo+Cj4JWyAgIDIyLjM1NDUyN10gYWxnOiBhZWFkOiBjY21f
+YmFzZShjdHItYWVzLWFlc25pLGNiY21hYyhhZXMtYWVzbmkpKSBkZWNyeXB0aW9uIHVuZXhwZWN0
+ZWRseSBzdWNjZWVkZWQgb24gdGVzdCB2ZWN0b3IgMTY7IGV4cGVjdGVkX2Vycm9yIgo+CVsgICAy
+Mi4zNTU4NDNdIC0tLS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQo+CVsgICAyMi4z
+NTYzMDZdIGFsZzogc2VsZi10ZXN0cyBmb3IgY2NtX2Jhc2UoY3RyLWFlcy1hZXNuaSxjYmNtYWMo
+YWVzLWFlc25pKSkgKGNjbShhZXMpKSBmYWlsZWQgKHJjPS0yMikKPgo+UGxlYXNlIGJlIG1vcmUg
+c3BlY2lmaWMgYWJvdXQgd2hhdCBpcyB3cm9uZy4gIEFsc28sIHBsZWFzZSB0ZXN0IHdpdGggdGhl
+IGxhdGVzdAo+dXBzdHJlYW0ga2VybmVsLCBub3QgdjQuOSB3aGljaCBpcyBvdmVyIDUgeWVhcnMg
+b2xkLgo+Cj4tIEVyaWMK
+------=_Part_10889_420749618.1641865409858
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-diff --git a/drivers/media/platform/stm32/dma2d/dma2d.c b/drivers/media/platform/stm32/dma2d/dma2d.c
-index 17af90d86898..9706aa41b5d2 100644
---- a/drivers/media/platform/stm32/dma2d/dma2d.c
-+++ b/drivers/media/platform/stm32/dma2d/dma2d.c
-@@ -633,14 +633,11 @@ static int dma2d_probe(struct platform_device *pdev)
- 		goto put_clk_gate;
- 	}
- 
--	res = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
--	if (!res) {
--		dev_err(&pdev->dev, "failed to find IRQ\n");
--		ret = -ENXIO;
-+	ret = platform_get_irq(pdev, 0);
-+	if (ret < 0)
- 		goto unprep_clk_gate;
--	}
- 
--	dev->irq = res->start;
-+	dev->irq = ret;
- 
- 	ret = devm_request_irq(&pdev->dev, dev->irq, dma2d_isr,
- 			       0, pdev->name, dev);
--- 
-2.17.1
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXYgc3R5bGU9Im1hcmdpbjogMDsiPkkganVzdCBub3RpY2Ug
+dGhlc2UgdGhyZWUgdmVjdG9ycyBleHBlY3QgZmFpbCBieSBkZXNpZ24uIFNvIHRoZXkgYXJlIGFs
+bCBjb3JyZWN0LjwvZGl2PjxkaXYgc3R5bGU9Im1hcmdpbjogMDsiPkknbSBzbyBzb3JyeSB0byBp
+bnRlcnJ1cHQgeW91LiBQbGVhc2UgaWdub3JlIHRoaXMuPC9kaXY+PHAgc3R5bGU9Im1hcmdpbjog
+MDsiPjxicj48L3A+PHByZT5BdCAyMDIyLTAxLTExIDAxOjQ4OjIyLCAiRXJpYyBCaWdnZXJzIiAm
+bHQ7ZWJpZ2dlcnNAa2VybmVsLm9yZyZndDsgd3JvdGU6CiZndDtPbiBNb24sIEphbiAxMCwgMjAy
+MiBhdCAwMTowMjozOUFNICswODAwLCBQZW5nIEx1byB3cm90ZToKJmd0OyZndDsgU29tZSB2ZWN0
+b3JzIG9mIGFlcy1jY20gYXJlIHdyb25nLgomZ3Q7Jmd0OyBUaGlzIHBhdGNoIGhhcyBiZWVuIHRl
+c3RlZCB3aXRoIGtlcm5lbCA0LjkgYW5kIG9wZW5zc2wxLjEuMWsuCiZndDsmZ3Q7IAomZ3Q7Jmd0
+OyBTaWduZWQtb2ZmLWJ5OiBQZW5nIEx1byAmbHQ7d3VoYW5sdW9wQDE2My5jb20mZ3Q7CiZndDsm
+Z3Q7IC0tLQomZ3Q7Jmd0OyAgY3J5cHRvL3Rlc3RtZ3IuaCB8IDEwICsrKysrLS0tLS0KJmd0OyZn
+dDsgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCiZndDsm
+Z3Q7IAomZ3Q7Jmd0OyBkaWZmIC0tZ2l0IGEvY3J5cHRvL3Rlc3RtZ3IuaCBiL2NyeXB0by90ZXN0
+bWdyLmgKJmd0OyZndDsgaW5kZXggYTI1M2Q2NmJhMWMxLi5mZjE3MWZlNTM5NzkgMTAwNjQ0CiZn
+dDsmZ3Q7IC0tLSBhL2NyeXB0by90ZXN0bWdyLmgKJmd0OyZndDsgKysrIGIvY3J5cHRvL3Rlc3Rt
+Z3IuaAomZ3Q7Jmd0OyBAQCAtMTk4NjUsOCArMTk4NjUsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
+IGFlYWRfdGVzdHZlYyBhZXNfY2NtX3R2X3RlbXBsYXRlW10gPSB7CiZndDsmZ3Q7ICAJCQkgICJc
+eGQwXHhkMVx4M2RceDFhXHhhM1x4NmRceGU0XHgwYSIKJmd0OyZndDsgIAkJCSAgIlx4ODZceGIw
+XHg4N1x4NmJceDYyXHgzM1x4OGNceDM0IgomZ3Q7Jmd0OyAgCQkJICAiXHhjZVx4YWJceDU3XHhj
+Y1x4NzlceDBiXHhlMFx4NmYiCiZndDsmZ3Q7IC0JCQkgICJceDVjXHgzZVx4NDhceDFmXHg2Y1x4
+NDZceGY3XHg1MSIKJmd0OyZndDsgLQkJCSAgIlx4OGJceDg0XHg4M1x4MmFceGMxXHgwNVx4Yjhc
+eGM1IiwKJmd0OyZndDsgKwkJCSAgIlx4Q0ZceEU5XHhGOVx4MjFceDNDXHgxQVx4Q0VceDY3Igom
+Z3Q7Jmd0OyArCQkJICAiXHg2Mlx4N0JceDM2XHgzQVx4RUFceDE5XHhBQ1x4NTgiLAomZ3Q7Jmd0
+OyAgCQkuY2xlbgk9IDQ4LAomZ3Q7Jmd0OyAgCQkubm92cmZ5CT0gMSwKJmd0OyZndDsgIAl9LCB7
+CiZndDsmZ3Q7IEBAIC0xOTk1Miw4ICsxOTk1Miw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYWVh
+ZF90ZXN0dmVjIGFlc19jY21fdHZfdGVtcGxhdGVbXSA9IHsKJmd0OyZndDsgIAkJCSAgIlx4YzZc
+eDBlXHg2ZVx4ZTVceGQ2XHg5OFx4YTZceDM3IgomZ3Q7Jmd0OyAgCQkJICAiXHg4Y1x4MjZceDMz
+XHhjNlx4YjJceGEyXHgxN1x4ZmEiCiZndDsmZ3Q7ICAJCQkgICJceDY0XHgxOVx4YzBceDMwXHhk
+N1x4ZmNceDE0XHg2YiIKJmd0OyZndDsgLQkJCSAgIlx4ZTNceDMzXHhjMlx4MDRceGIwXHgzN1x4
+YmVceDNmIgomZ3Q7Jmd0OyAtCQkJICAiXHhhOVx4YjRceDJkXHg2OFx4MDNceGEzXHg0NFx4ZWYi
+LAomZ3Q7Jmd0OyArCQkJICAiXHgwOFx4NUFceDIwXHg0QVx4QjBceDJDXHhGOVx4NDkiCiZndDsm
+Z3Q7ICsJCQkgICJceDEwXHgxQ1x4OUNceDg1XHg4Q1x4MTJceEUwXHgzQSIsCiZndDsmZ3Q7ICAJ
+CS5jbGVuCT0gNDgsCiZndDsmZ3Q7ICAJCS5ub3ZyZnkJPSAxLAomZ3Q7Jmd0OyAgCX0sIHsKJmd0
+OyZndDsgQEAgLTE5OTgzLDcgKzE5OTgzLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhZWFkX3Rl
+c3R2ZWMgYWVzX2NjbV90dl90ZW1wbGF0ZVtdID0gewomZ3Q7Jmd0OyAgCQkJICAiXHgzZVx4YWZc
+eDcwXHg1ZVx4YjJceDRkXHhlYVx4MzkiCiZndDsmZ3Q7ICAJCQkgICJceDg5XHhkNFx4NzVceDdh
+XHg2M1x4YjFceGRhXHg5MyIsCiZndDsmZ3Q7ICAJCS5wbGVuCT0gMzIsCiZndDsmZ3Q7IC0JCS5j
+dGV4dAk9ICJceDQ4XHgwMVx4NWVceDAyXHgyNFx4MDRceDY2XHg0NyIKJmd0OyZndDsgKwkJLmN0
+ZXh0CT0gIlx4MTRceDAxXHg1ZVx4MDJceDI0XHgwNFx4NjZceDQ3IgomZ3Q7Jmd0OyAgCQkJICAi
+XHhhMVx4ZWFceDZmXHhhZlx4ZThceGZjXHhmYlx4ZGQiCiZndDsmZ3Q7ICAJCQkgICJceGE1XHhh
+OVx4ODdceDhkXHg4NFx4ZWVceDJlXHg3NyIKJmd0OyZndDsgIAkJCSAgIlx4YmJceDg2XHhiOVx4
+ZjVceDVjXHg2Y1x4ZmZceGY2IgomZ3Q7CiZndDtUaGlzIHBhdGNoIGNhdXNlcyBhIHNlbGYtdGVz
+dCBmYWlsdXJlOgomZ3Q7CiZndDsJWyAgIDIyLjM1NDUyN10gYWxnOiBhZWFkOiBjY21fYmFzZShj
+dHItYWVzLWFlc25pLGNiY21hYyhhZXMtYWVzbmkpKSBkZWNyeXB0aW9uIHVuZXhwZWN0ZWRseSBz
+dWNjZWVkZWQgb24gdGVzdCB2ZWN0b3IgMTY7IGV4cGVjdGVkX2Vycm9yIgomZ3Q7CVsgICAyMi4z
+NTU4NDNdIC0tLS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQomZ3Q7CVsgICAyMi4z
+NTYzMDZdIGFsZzogc2VsZi10ZXN0cyBmb3IgY2NtX2Jhc2UoY3RyLWFlcy1hZXNuaSxjYmNtYWMo
+YWVzLWFlc25pKSkgKGNjbShhZXMpKSBmYWlsZWQgKHJjPS0yMikKJmd0OwomZ3Q7UGxlYXNlIGJl
+IG1vcmUgc3BlY2lmaWMgYWJvdXQgd2hhdCBpcyB3cm9uZy4gIEFsc28sIHBsZWFzZSB0ZXN0IHdp
+dGggdGhlIGxhdGVzdAomZ3Q7dXBzdHJlYW0ga2VybmVsLCBub3QgdjQuOSB3aGljaCBpcyBvdmVy
+IDUgeWVhcnMgb2xkLgomZ3Q7CiZndDstIEVyaWMKPC9wcmU+PC9kaXY+PGJyPjxicj48c3BhbiB0
+aXRsZT0ibmV0ZWFzZWZvb3RlciI+PHA+Jm5ic3A7PC9wPjwvc3Bhbj4=
+------=_Part_10889_420749618.1641865409858--
+
+
+--===============1231158598377914003==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1231158598377914003==--
+
