@@ -2,73 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC0A448BB7E
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jan 2022 00:37:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2312F48C139
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jan 2022 10:45:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D9D1C5F1F4;
-	Tue, 11 Jan 2022 23:37:12 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2784CFAC52
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jan 2022 23:37:10 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1005C5F1F5;
+	Wed, 12 Jan 2022 09:45:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BDC46B81D4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AAEEC5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jan 2022 23:37:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7C3C36AE3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jan 2022 23:37:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641944228;
- bh=v20NyJnnrpRCSXRNC/bxgBQIPv65XMpppqdhmj/Hzvs=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=s9qNkpwcKPVuanI5Kw+TTgMfk7JJRYxrLKhky2VaBe7JNusoldsDzVbrjJtz5IJls
- Dsap4Rdhc6KW5naVyUP3cl1e1mVMROZxwCoexpiuLfl8u40GZbm3ya0Yw9twDUA7CB
- 8CkqCDJpa1VfiCFRLF3GovLW4tn4VdSbg+3mJTu/JPKY8eqLzxK4cO6GbhCwzoZ5pu
- ybvTJ1zkHXn24U3x7EsUMl44HQiT6Nxp9pIRjH15EP6d6GaRUU4QitjRXpw30E+v6Z
- /0XUi3/R0tE6lQvSGunHAc+KbF7DcXE9z9iWN3n3WPB+8oYnVy4gwT7gt7heV3QF15
- MvdeUZUFYqkAQ==
-Received: by mail-ed1-f47.google.com with SMTP id i5so2634384edf.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jan 2022 15:37:08 -0800 (PST)
-X-Gm-Message-State: AOAM532+8xiMNK3voy7WiKf6q17Q3RQiDeRZPGpp75wnOUD273kw0RKt
- X31zikDCzxLMqa3IReC+tZEDso17FMS8Z17mGw==
-X-Google-Smtp-Source: ABdhPJw710G1pZDb3HvgWDjTL63fkfcrpRHCZFpw//6sxrytQyY8zszFTXytk0jVWFHu0ZF1BEoxLUB6BT1sM9dzczw=
-X-Received: by 2002:a17:906:d184:: with SMTP id
- c4mr5387166ejz.20.1641944226855; 
- Tue, 11 Jan 2022 15:37:06 -0800 (PST)
+ Wed, 12 Jan 2022 09:45:17 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20C7J52B019096;
+ Wed, 12 Jan 2022 10:44:32 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=QKXUvjkTnqfyuuJJ/9fLbLqUbNNWBj6UxoTZSD1VgXg=;
+ b=0g/MsK1OiOZU3dq3G+D9GapTzmQoW0YuFw/h5Ckk73elOP3+Le70B19CLQZcWzaRyP+A
+ CJJBRhXPyMms72FMVYJk3TOCHFDbI5dWJ6SRMK37GhUNW+Xo/92x3ZUQYRTNMetn/plf
+ qJcjWFbMshrfUEyUXbAa96a9pb1pTnOQFHy/Va4Cm9oO1XzV1IU5a26vFN/B3CzB+UHH
+ zpD3IaZSjYd4SMqVYH1WdlcLmzjSoZLij/SvntyI0C2GCNkF7D3DQ9W2G9qqPfn8IGo9
+ LUnkfzMr0E40eeuyzSNluk4L97Pk3TSMlhXoXbFvXqZctksW32DqKb/1XyS2fsZah23f aA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dhtg9s0m5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 Jan 2022 10:44:32 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 81091100034;
+ Wed, 12 Jan 2022 10:44:28 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 72E2D218120;
+ Wed, 12 Jan 2022 10:44:28 +0100 (CET)
+Received: from lmecxl0951.lme.st.com (10.75.127.46) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 12 Jan
+ 2022 10:44:27 +0100
+To: =?UTF-8?B?Sm9zw6kgRXhww7NzaXRv?= <jose.exposito89@gmail.com>,
+ <contact@emersion.fr>
+References: <20211222090552.25972-1-jose.exposito89@gmail.com>
+ <20211222090552.25972-7-jose.exposito89@gmail.com>
+From: yannick Fertre <yannick.fertre@foss.st.com>
+Message-ID: <c5ffa201-4811-b070-75b5-85064cd78506@foss.st.com>
+Date: Wed, 12 Jan 2022 10:44:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-References: <20211216055328.15953-1-biao.huang@mediatek.com>
- <20211216055328.15953-7-biao.huang@mediatek.com>
- <1639662782.987227.4004875.nullmailer@robh.at.kernel.org>
- <be023f9d2fb2a8f947bd0075e8732ba07cfd7b89.camel@mediatek.com>
-In-Reply-To: <be023f9d2fb2a8f947bd0075e8732ba07cfd7b89.camel@mediatek.com>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 11 Jan 2022 17:36:55 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqLo7z-KWtwFx+Kng2aQuCpQwJaO6mHnyBzmCKCJDK5n+Q@mail.gmail.com>
-Message-ID: <CAL_JsqLo7z-KWtwFx+Kng2aQuCpQwJaO6mHnyBzmCKCJDK5n+Q@mail.gmail.com>
-To: Biao Huang <biao.huang@mediatek.com>
-Cc: devicetree@vger.kernel.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- srv_heupstream <srv_heupstream@mediatek.com>, netdev <netdev@vger.kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- David Miller <davem@davemloft.net>, dkirjanov@suse.de,
- Jose Abreu <joabreu@synopsys.com>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Macpaul Lin <macpaul.lin@mediatek.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v10 6/6] net: dt-bindings: dwmac:
-	add support for mt8195
+In-Reply-To: <20211222090552.25972-7-jose.exposito89@gmail.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-12_03,2022-01-11_01,2021-12-02_01
+Cc: airlied@linux.ie, joonas.lahtinen@linux.intel.com,
+ alexandre.torgue@foss.st.com, stefan@agner.ch, benjamin.gaignard@linaro.org,
+ festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com, marex@denx.de,
+ linux-imx@nxp.com, intel-gfx@lists.freedesktop.org, tzimmermann@suse.de,
+ s.hauer@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, daniel@ffwll.ch,
+ kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ jani.nikula@linux.intel.com, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, dmitry.baryshkov@linaro.org, shawnguo@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 6/6] drm/stm: ltdc: Drop
+	format_mod_supported function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,109 +80,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Dec 16, 2021 at 8:06 PM Biao Huang <biao.huang@mediatek.com> wrote:
->
-> Dear Rob,
->   Thanks for your comments~
->
->   For mt8195, the eth device node will look like:
->   eth: ethernet@11021000 {
->     compatible = "mediatek,mt8195-gmac", "snps,dwmac-5.10a";
->     ...
->     clock-names = "axi",
->                   "apb",
->                   "mac_cg",
->                   "mac_main",
->                   "ptp_ref",
->                   "rmii_internal";
->     clocks = <&pericfg_ao CLK_PERI_AO_ETHERNET>,
->              <&pericfg_ao CLK_PERI_AO_ETHERNET_BUS>,
->              <&pericfg_ao CLK_PERI_AO_ETHERNET_MAC>,
->              <&topckgen CLK_TOP_SNPS_ETH_250M>,
->              <&topckgen CLK_TOP_SNPS_ETH_62P4M_PTP>,
->              <&topckgen CLK_TOP_SNPS_ETH_50M_RMII>;
->     ...
->   }
->
-> 1. "rmii_internal" is a special clock only required for
->    RMII phy interface, dwmac-mediatek.c will enable clocks
->    invoking clk_bulk_prepare_enable(xx, 6) for RMII,
->    and clk_bulk_prepare_enable(xx, 5) for other phy interfaces.
->    so, mt2712/mt8195 all put "rmii_internal" clock to the
->    end of clock list to simplify clock handling.
->
->    If I put mac_cg as described above, a if condition is required
-> for clocks description in dt-binding, just like what I do in v7 send:
->   - if:
->       properties:
->         compatible:
->           contains:
->             enum:
->               - mediatek,mt2712-gmac
->
->     then:
->       properties:
->         clocks:
->           minItems: 5
->           items:
->             - description: AXI clock
->             - description: APB clock
->             - description: MAC Main clock
->             - description: PTP clock
->             - description: RMII reference clock provided by MAC
->
->         clock-names:
->           minItems: 5
->           items:
->             - const: axi
->             - const: apb
->             - const: mac_main
->             - const: ptp_ref
->             - const: rmii_internal
->
->   - if:
->       properties:
->         compatible:
->           contains:
->             enum:
->               - mediatek,mt8195-gmac
->
->     then:
->       properties:
->         clocks:
->           minItems: 6
->           items:
->             - description: AXI clock
->             - description: APB clock
->             - description: MAC clock gate
->             - description: MAC Main clock
->             - description: PTP clock
->             - description: RMII reference clock provided by MAC
->
->    This introduces some duplicated description.
->
-> 2. If I put "mac_cg" to the end of clock list,
->    the dt-binding file can be simple just like
->    what we do in this v10 patch(need fix warnings reported by "make
-> DT_CHECKER_FLAGS=-m dt_binding_check").
->
->    But for mt8195:
->      the eth node in dts should be modified,
-
-I hope you are defining the binding before you use it... That's not
-good practice and not a valid argument.
-
->      and eth driver clock handling will be complex;
-
-How so?
-
-Rob
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gSm9zw6ksCnRoYW5rcyBmb3IgeW91ciBwYXRjaC4KClJldmlld2VkLWJ5OiBZYW5uaWNr
+IEZlcnRyZSA8eWFubmljay5mZXJ0cmVAZm9zcy5zdC5jb20+ClRlc3RlZC1ieTogWWFubmljayBG
+ZXJ0cmUgPHlhbm5pY2suZmVydHJlQGZvc3Muc3QuY29tPgoKCk9uIDEyLzIyLzIxIDEwOjA1IEFN
+LCBKb3PDqSBFeHDDs3NpdG8gd3JvdGU6Cj4gVGhlICJkcm1fcGxhbmVfZnVuY3MuZm9ybWF0X21v
+ZF9zdXBwb3J0ZWQiIGNhbiBiZSByZW1vdmVkIGluIGZhdm9yIG9mCj4gdGhlIGRlZmF1bHQgaW1w
+bGVtZW50YXRpb24uCj4gCj4gU2lnbmVkLW9mZi1ieTogSm9zw6kgRXhww7NzaXRvIDxqb3NlLmV4
+cG9zaXRvODlAZ21haWwuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMg
+fCAxMSAtLS0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDExIGRlbGV0aW9ucygtKQo+IAo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9zdG0vbHRkYy5jCj4gaW5kZXggZGJkZWU5NTQ2OTJhLi5lZjkwOWU1MGYwZTQgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+c3RtL2x0ZGMuYwo+IEBAIC05MjUsMTYgKzkyNSw2IEBAIHN0YXRpYyB2b2lkIGx0ZGNfcGxhbmVf
+YXRvbWljX3ByaW50X3N0YXRlKHN0cnVjdCBkcm1fcHJpbnRlciAqcCwKPiAgIAlmcHNpLT5jb3Vu
+dGVyID0gMDsKPiAgIH0KPiAgIAo+IC1zdGF0aWMgYm9vbCBsdGRjX3BsYW5lX2Zvcm1hdF9tb2Rf
+c3VwcG9ydGVkKHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAo+IC0JCQkJCSAgICB1MzIgZm9ybWF0
+LAo+IC0JCQkJCSAgICB1NjQgbW9kaWZpZXIpCj4gLXsKPiAtCWlmIChtb2RpZmllciA9PSBEUk1f
+Rk9STUFUX01PRF9MSU5FQVIpCj4gLQkJcmV0dXJuIHRydWU7Cj4gLQo+IC0JcmV0dXJuIGZhbHNl
+Owo+IC19Cj4gLQo+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fcGxhbmVfZnVuY3MgbHRkY19w
+bGFuZV9mdW5jcyA9IHsKPiAgIAkudXBkYXRlX3BsYW5lID0gZHJtX2F0b21pY19oZWxwZXJfdXBk
+YXRlX3BsYW5lLAo+ICAgCS5kaXNhYmxlX3BsYW5lID0gZHJtX2F0b21pY19oZWxwZXJfZGlzYWJs
+ZV9wbGFuZSwKPiBAQCAtOTQzLDcgKzkzMyw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX3Bs
+YW5lX2Z1bmNzIGx0ZGNfcGxhbmVfZnVuY3MgPSB7Cj4gICAJLmF0b21pY19kdXBsaWNhdGVfc3Rh
+dGUgPSBkcm1fYXRvbWljX2hlbHBlcl9wbGFuZV9kdXBsaWNhdGVfc3RhdGUsCj4gICAJLmF0b21p
+Y19kZXN0cm95X3N0YXRlID0gZHJtX2F0b21pY19oZWxwZXJfcGxhbmVfZGVzdHJveV9zdGF0ZSwK
+PiAgIAkuYXRvbWljX3ByaW50X3N0YXRlID0gbHRkY19wbGFuZV9hdG9taWNfcHJpbnRfc3RhdGUs
+Cj4gLQkuZm9ybWF0X21vZF9zdXBwb3J0ZWQgPSBsdGRjX3BsYW5lX2Zvcm1hdF9tb2Rfc3VwcG9y
+dGVkLAo+ICAgfTsKPiAgIAo+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fcGxhbmVfaGVscGVy
+X2Z1bmNzIGx0ZGNfcGxhbmVfaGVscGVyX2Z1bmNzID0gewo+IApfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
