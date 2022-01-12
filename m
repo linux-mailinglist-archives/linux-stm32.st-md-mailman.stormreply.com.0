@@ -2,71 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2312F48C139
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jan 2022 10:45:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C115348C1DD
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jan 2022 11:01:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1005C5F1F5;
-	Wed, 12 Jan 2022 09:45:18 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67B42C5F1F5;
+	Wed, 12 Jan 2022 10:01:34 +0000 (UTC)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AAEEC5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55B70C5A4FD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jan 2022 09:45:17 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20C7J52B019096;
- Wed, 12 Jan 2022 10:44:32 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=QKXUvjkTnqfyuuJJ/9fLbLqUbNNWBj6UxoTZSD1VgXg=;
- b=0g/MsK1OiOZU3dq3G+D9GapTzmQoW0YuFw/h5Ckk73elOP3+Le70B19CLQZcWzaRyP+A
- CJJBRhXPyMms72FMVYJk3TOCHFDbI5dWJ6SRMK37GhUNW+Xo/92x3ZUQYRTNMetn/plf
- qJcjWFbMshrfUEyUXbAa96a9pb1pTnOQFHy/Va4Cm9oO1XzV1IU5a26vFN/B3CzB+UHH
- zpD3IaZSjYd4SMqVYH1WdlcLmzjSoZLij/SvntyI0C2GCNkF7D3DQ9W2G9qqPfn8IGo9
- LUnkfzMr0E40eeuyzSNluk4L97Pk3TSMlhXoXbFvXqZctksW32DqKb/1XyS2fsZah23f aA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dhtg9s0m5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Jan 2022 10:44:32 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 81091100034;
- Wed, 12 Jan 2022 10:44:28 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 72E2D218120;
- Wed, 12 Jan 2022 10:44:28 +0100 (CET)
-Received: from lmecxl0951.lme.st.com (10.75.127.46) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 12 Jan
- 2022 10:44:27 +0100
-To: =?UTF-8?B?Sm9zw6kgRXhww7NzaXRv?= <jose.exposito89@gmail.com>,
- <contact@emersion.fr>
+ Wed, 12 Jan 2022 10:01:33 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id a18so7711655edj.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 12 Jan 2022 02:01:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=T5yvoHZXf5sRcIr28nRZ918Ghx2PDXySAnpXVpTEeyo=;
+ b=IFnPU1h6tQdehMMmQirBcyt3PUDYvOYItJ7Gc2qM2IvjLICD+XK0IF0sEZnFTQ6aHg
+ n2++qzfy9+/2SstO58HcFlkSXrXky9rMusNMOMWIom7d7hQeTilkwcspTekZ2lKPzg4r
+ 0xpEifFX8O1cCdxr8NyqVOr4UxU7UKQscxxcc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=T5yvoHZXf5sRcIr28nRZ918Ghx2PDXySAnpXVpTEeyo=;
+ b=uy/PqwT6bIxRFCYf4tqP+3Q2rWh/2OAKI37s7EzZDfZMg9liPnWjeVJu88YvEPYiyV
+ /f9LQkR9cfNXaZA4njKTO4hntXv3xgIKKbgTJOgkpHs6wan1hua2nFSNTYxkBqKb0KwO
+ Ymyv98UpVk4IfnsnsGPYVk1K5Ot4BlLJ2cAph6EgLgHDSRUICT0o98SLdfze6kuikE5i
+ 24rKbV3DUUFlSrCzTadTMdgYH2iMat+QP2lAYaHtojzf1/nIcEdxS7SFtAZJ9kF+ZMT7
+ 7eXwkBqTGbwq/CUUYLnVN95sjYBfbj0gmk4dlOc8Yfe8mvoPnWNdpgsWRNI6DdHWOkXf
+ yg4A==
+X-Gm-Message-State: AOAM531t4X1nk/GwFDK/zqN3HRVyxjX0axp5TtTSK9aQYJRYy/D1uoyn
+ XIYKFWpF+/AorNimjx+kGZ8FODejOFb7OELw/opAdw==
+X-Google-Smtp-Source: ABdhPJzBCKeQImyBz9RVwKOY2T54xBFQQK7yDRACZFnbHnlAKzoMjJH8dsFKhcz6QDIsGnLn67HJYp60Nwck4y9NKCk=
+X-Received: by 2002:a17:906:bc56:: with SMTP id
+ s22mr7649762ejv.760.1641981692859; 
+ Wed, 12 Jan 2022 02:01:32 -0800 (PST)
+MIME-Version: 1.0
 References: <20211222090552.25972-1-jose.exposito89@gmail.com>
  <20211222090552.25972-7-jose.exposito89@gmail.com>
-From: yannick Fertre <yannick.fertre@foss.st.com>
-Message-ID: <c5ffa201-4811-b070-75b5-85064cd78506@foss.st.com>
-Date: Wed, 12 Jan 2022 10:44:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
 In-Reply-To: <20211222090552.25972-7-jose.exposito89@gmail.com>
-Content-Language: en-US
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-12_03,2022-01-11_01,2021-12-02_01
-Cc: airlied@linux.ie, joonas.lahtinen@linux.intel.com,
- alexandre.torgue@foss.st.com, stefan@agner.ch, benjamin.gaignard@linaro.org,
- festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com, marex@denx.de,
- linux-imx@nxp.com, intel-gfx@lists.freedesktop.org, tzimmermann@suse.de,
- s.hauer@pengutronix.de, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, daniel@ffwll.ch,
- kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- jani.nikula@linux.intel.com, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, dmitry.baryshkov@linaro.org, shawnguo@kernel.org
+From: Jagan Teki <jagan@amarulasolutions.com>
+Date: Wed, 12 Jan 2022 15:31:21 +0530
+Message-ID: <CAMty3ZD_R+Tzab-qcWEcbTKVCKq3pNTi7Mr7903Vu9a9M5EefQ@mail.gmail.com>
+To: =?UTF-8?B?Sm9zw6kgRXhww7NzaXRv?= <jose.exposito89@gmail.com>
+Cc: marex@denx.de, mcoquelin.stm32@gmail.com, s.hauer@pengutronix.de,
+ tzimmermann@suse.de, kernel@pengutronix.de, airlied@linux.ie,
+ contact@emersion.fr, intel-gfx@lists.freedesktop.org,
+ alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, yannick.fertre@foss.st.com, linux-imx@nxp.com,
+ benjamin.gaignard@linaro.org, rodrigo.vivi@intel.com,
+ dmitry.baryshkov@linaro.org, shawnguo@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v2 6/6] drm/stm: ltdc: Drop
 	format_mod_supported function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -80,39 +71,18 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gSm9zw6ksCnRoYW5rcyBmb3IgeW91ciBwYXRjaC4KClJldmlld2VkLWJ5OiBZYW5uaWNr
-IEZlcnRyZSA8eWFubmljay5mZXJ0cmVAZm9zcy5zdC5jb20+ClRlc3RlZC1ieTogWWFubmljayBG
-ZXJ0cmUgPHlhbm5pY2suZmVydHJlQGZvc3Muc3QuY29tPgoKCk9uIDEyLzIyLzIxIDEwOjA1IEFN
-LCBKb3PDqSBFeHDDs3NpdG8gd3JvdGU6Cj4gVGhlICJkcm1fcGxhbmVfZnVuY3MuZm9ybWF0X21v
-ZF9zdXBwb3J0ZWQiIGNhbiBiZSByZW1vdmVkIGluIGZhdm9yIG9mCj4gdGhlIGRlZmF1bHQgaW1w
-bGVtZW50YXRpb24uCj4gCj4gU2lnbmVkLW9mZi1ieTogSm9zw6kgRXhww7NzaXRvIDxqb3NlLmV4
-cG9zaXRvODlAZ21haWwuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMg
-fCAxMSAtLS0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDExIGRlbGV0aW9ucygtKQo+IAo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9zdG0vbHRkYy5jCj4gaW5kZXggZGJkZWU5NTQ2OTJhLi5lZjkwOWU1MGYwZTQgMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-c3RtL2x0ZGMuYwo+IEBAIC05MjUsMTYgKzkyNSw2IEBAIHN0YXRpYyB2b2lkIGx0ZGNfcGxhbmVf
-YXRvbWljX3ByaW50X3N0YXRlKHN0cnVjdCBkcm1fcHJpbnRlciAqcCwKPiAgIAlmcHNpLT5jb3Vu
-dGVyID0gMDsKPiAgIH0KPiAgIAo+IC1zdGF0aWMgYm9vbCBsdGRjX3BsYW5lX2Zvcm1hdF9tb2Rf
-c3VwcG9ydGVkKHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAo+IC0JCQkJCSAgICB1MzIgZm9ybWF0
-LAo+IC0JCQkJCSAgICB1NjQgbW9kaWZpZXIpCj4gLXsKPiAtCWlmIChtb2RpZmllciA9PSBEUk1f
-Rk9STUFUX01PRF9MSU5FQVIpCj4gLQkJcmV0dXJuIHRydWU7Cj4gLQo+IC0JcmV0dXJuIGZhbHNl
-Owo+IC19Cj4gLQo+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fcGxhbmVfZnVuY3MgbHRkY19w
-bGFuZV9mdW5jcyA9IHsKPiAgIAkudXBkYXRlX3BsYW5lID0gZHJtX2F0b21pY19oZWxwZXJfdXBk
-YXRlX3BsYW5lLAo+ICAgCS5kaXNhYmxlX3BsYW5lID0gZHJtX2F0b21pY19oZWxwZXJfZGlzYWJs
-ZV9wbGFuZSwKPiBAQCAtOTQzLDcgKzkzMyw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX3Bs
-YW5lX2Z1bmNzIGx0ZGNfcGxhbmVfZnVuY3MgPSB7Cj4gICAJLmF0b21pY19kdXBsaWNhdGVfc3Rh
-dGUgPSBkcm1fYXRvbWljX2hlbHBlcl9wbGFuZV9kdXBsaWNhdGVfc3RhdGUsCj4gICAJLmF0b21p
-Y19kZXN0cm95X3N0YXRlID0gZHJtX2F0b21pY19oZWxwZXJfcGxhbmVfZGVzdHJveV9zdGF0ZSwK
-PiAgIAkuYXRvbWljX3ByaW50X3N0YXRlID0gbHRkY19wbGFuZV9hdG9taWNfcHJpbnRfc3RhdGUs
-Cj4gLQkuZm9ybWF0X21vZF9zdXBwb3J0ZWQgPSBsdGRjX3BsYW5lX2Zvcm1hdF9tb2Rfc3VwcG9y
-dGVkLAo+ICAgfTsKPiAgIAo+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fcGxhbmVfaGVscGVy
-X2Z1bmNzIGx0ZGNfcGxhbmVfaGVscGVyX2Z1bmNzID0gewo+IApfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
-dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+T24gV2VkLCBEZWMgMjIsIDIwMjEgYXQgMjozNiBQTSBKb3PDqSBFeHDDs3NpdG8gPGpvc2UuZXhw
+b3NpdG84OUBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gVGhlICJkcm1fcGxhbmVfZnVuY3MuZm9ybWF0
+X21vZF9zdXBwb3J0ZWQiIGNhbiBiZSByZW1vdmVkIGluIGZhdm9yIG9mCj4gdGhlIGRlZmF1bHQg
+aW1wbGVtZW50YXRpb24uCj4KPiBTaWduZWQtb2ZmLWJ5OiBKb3PDqSBFeHDDs3NpdG8gPGpvc2Uu
+ZXhwb3NpdG84OUBnbWFpbC5jb20+Cj4gLS0tCgpSZXZpZXdlZC1ieTogSmFnYW4gVGVraSA8amFn
+YW5AYW1hcnVsYXNvbHV0aW9ucy5jb20+ClRlc3RlZC1ieTogSmFnYW4gVGVraSA8amFnYW5AYW1h
+cnVsYXNvbHV0aW9ucy5jb20+ICMgaS5Db3JlIFNUTTMyTVAxCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
