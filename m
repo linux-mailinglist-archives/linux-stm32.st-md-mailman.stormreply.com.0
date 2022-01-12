@@ -2,60 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B79848C658
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jan 2022 15:46:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85BE948C856
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jan 2022 17:32:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CC99C5F1F4;
-	Wed, 12 Jan 2022 14:46:14 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B02AC5F1FD;
+	Wed, 12 Jan 2022 16:32:47 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D74E5CFAC4B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F942C5C82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jan 2022 14:46:12 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20CBMfZx006161;
- Wed, 12 Jan 2022 15:45:59 +0100
+ Wed, 12 Jan 2022 16:32:46 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20CBGCPj019089;
+ Wed, 12 Jan 2022 17:32:33 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : mime-version : content-type; s=selector1;
- bh=PFOJ1LsMAP6bXSULAimH2RrG6EWZ3R86IFqcQserM2E=;
- b=gR3mTW6VGxbAGQblc9l7ZUntrUiuq9cBQ4wZSPIUXNpOhUhmxROiRk10SdemD2U8+YQ/
- l2TOpzRt+HfBe7vkS4GaoaF7mnsyoOLNc7e7gvSSTBvaWCQRQwJo3ZkiywC8JLZVfVh+
- XWUWeaclTc9i+D9zICQ7lZbh0E4GJvgqgVQHKVyatBZJEXQWQgeo3pKEVl+g7N8eele/
- JFZ+R3JErvjE6ZH5wm5KHOpimjmKGur/O0iZnKk0IPTwzeJH6jTvWgVZf4jwJ5z4FLe4
- zE0KMmkLmcsqafb7GJLkWgleHlaDRU8LUpd8VVVr/ndU0PJzZ7dHhSP2rleA+G2eU0je 1Q== 
+ bh=nJFFg7Jg5nwGSZI7zTj0mF4qnxKp4dp2BsQXGHK2x1Q=;
+ b=YxLVdyrTPlAlEgOnlj6octXuB8eH7jxiTb151QaR07OwTIkxKtutY0KmU278cnXSVCtw
+ LYBj3NsIuYzOhM9rJajTdiffmVeXHzx0k2AcGYiwjhp3DtUW27T14BWb+BLhYeMLkGqL
+ aPbISc8luhrNp9/AL3iCz/HCbXUNZfvrYsrqUKwNqJSGsHB0ATN2o8aB5iX5CFh6Ihaf
+ CB24RWDZcVhSYzTrt9TqKLe3lZlvBC/U0Ww1lrOLpv1nkuaNlX92fzu9oAP66uIwLFZh
+ kg0IRpXfviir2bke16thGRFHBQkF+mOBVtYEW/R4Dus+BODa5k/rRovywriShJEPI2XS Cg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dhtft2jvj-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dhtg9u810-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Jan 2022 15:45:59 +0100
+ Wed, 12 Jan 2022 17:32:33 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D6BB410002A;
- Wed, 12 Jan 2022 15:45:58 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2E31A100034;
+ Wed, 12 Jan 2022 17:32:33 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CB61123C6A2;
- Wed, 12 Jan 2022 15:45:58 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 12 Jan 2022 15:45:58
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 24E5F24B8B1;
+ Wed, 12 Jan 2022 17:32:33 +0100 (CET)
+Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 12 Jan 2022 17:32:32
  +0100
-From: <patrice.chotard@foss.st.com>
-To: Mark Brown <broonie@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Date: Wed, 12 Jan 2022 15:44:24 +0100
-Message-ID: <20220112144424.5278-1-patrice.chotard@foss.st.com>
+From: Yann Gautier <yann.gautier@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, <devicetree@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>
+Date: Wed, 12 Jan 2022 17:32:16 +0100
+Message-ID: <20220112163226.25384-1-yann.gautier@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2022-01-12_04,2022-01-11_01,2021-12-02_01
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-spi@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] spi: stm32-qspi: Update spi registering
+Cc: linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 00/10] ARM: dts: stm32: update sdmmc nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,64 +73,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Patrice Chotard <patrice.chotard@foss.st.com>
+This patches series brings updates for SDMMC nodes on STM32MP13
+(max frequency, pins slew-rates, sleep pins, and controller version).
+The sdmmc2 node is also added as STM32MP13 embeds 2 SDMMC controllers.
 
-Some device driver need to communicate to qspi device during the remove
-process, qspi controller must be functional when spi_unregister_master()
-is called.
+The compatible for sdmmc nodes is also updated for both STM32MP13
+and STM32MP15, to align with bootloaders DT, and after arm,pl18x.yaml
+has been updated [1].
 
-To ensure this, replace devm_spi_register_master() by spi_register_master()
-and spi_unregister_master() is called directly in .remove callback before
-stopping the qspi controller.
+[1] commit 552bc46484b3 ("dt-bindings: mmc: mmci: Add st,stm32-sdmmc2
+    compatible")
 
-This issue was put in evidence using kernel v5.11 and later
-with a spi-nor which supports the software reset feature introduced
-by commit d73ee7534cc5 ("mtd: spi-nor: core: perform a Soft Reset on
-shutdown")
+Gerald Baeza (1):
+  ARM: dts: stm32: update sdmmc slew-rate in stm32mp13 pinctrl
 
-Fixes: c530cd1d9d5e ("spi: spi-mem: add stm32 qspi controller")
+Yann Gautier (9):
+  ARM: dts: stm32: add st,stm32-sdmmc2 compatible on stm32mp151
+  ARM: dts: stm32: add st,stm32-sdmmc2 compatible on stm32mp131
+  ARM: dts: stm32: increase SDMMC max-frequency for STM32MP13
+  ARM: dts: stm32: update SDMMC clock slew-rate on STM32MP135F-DK board
+  ARM: dts: stm32: add sdmmc sleep pins for STM32MP13
+  ARM: dts: stm32: add sdmmc sleep config for STM32MP135F-DK
+  ARM: dts: stm32: update SDMMC version for STM32MP13
+  ARM: dts: stm32: add SDMMC2 in STM32MP13 DT
+  ARM: dts: stm32: add sdmmc2 pins for STM32MP13
 
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: <stable@vger.kernel.org> # 5.8.x
----
+ arch/arm/boot/dts/stm32mp13-pinctrl.dtsi | 81 ++++++++++++++++++++----
+ arch/arm/boot/dts/stm32mp131.dtsi        | 20 +++++-
+ arch/arm/boot/dts/stm32mp135f-dk.dts     |  7 +-
+ arch/arm/boot/dts/stm32mp151.dtsi        |  6 +-
+ 4 files changed, 94 insertions(+), 20 deletions(-)
 
-v2: 
-  _ update commit message
-  _ make usage of devm_spi_alloc_master() instead of spi_alloc_master()
-
- drivers/spi/spi-stm32-qspi.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index 514337c86d2c..09839a3dbb26 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -688,7 +688,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
- 	struct resource *res;
- 	int ret, irq;
- 
--	ctrl = spi_alloc_master(dev, sizeof(*qspi));
-+	ctrl = devm_spi_alloc_master(dev, sizeof(*qspi));
- 	if (!ctrl)
- 		return -ENOMEM;
- 
-@@ -784,7 +784,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
- 	pm_runtime_enable(dev);
- 	pm_runtime_get_noresume(dev);
- 
--	ret = devm_spi_register_master(dev, ctrl);
-+	ret = spi_register_master(ctrl);
- 	if (ret)
- 		goto err_pm_runtime_free;
- 
-@@ -817,6 +817,7 @@ static int stm32_qspi_remove(struct platform_device *pdev)
- 	struct stm32_qspi *qspi = platform_get_drvdata(pdev);
- 
- 	pm_runtime_get_sync(qspi->dev);
-+	spi_unregister_master(qspi->ctrl);
- 	/* disable qspi */
- 	writel_relaxed(0, qspi->io_base + QSPI_CR);
- 	stm32_qspi_dma_free(qspi);
 -- 
 2.17.1
 
