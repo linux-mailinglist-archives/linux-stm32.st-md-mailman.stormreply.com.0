@@ -2,147 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 085D848C2F8
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jan 2022 12:18:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06ED48C4A3
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jan 2022 14:18:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AECBFC5F1F5;
-	Wed, 12 Jan 2022 11:18:04 +0000 (UTC)
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F89DC5F1F4;
+	Wed, 12 Jan 2022 13:18:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 553A8C5C82A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57402CFAC4B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jan 2022 11:18:03 +0000 (UTC)
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20CADuZ0009456; 
- Wed, 12 Jan 2022 11:17:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : content-type : mime-version; s=corp-2021-07-09;
- bh=H84/ey5C2YutgTCIqff466C/8hMZPqoaIpzexTbC9Xo=;
- b=PzTuJb24KG4Nr+Cj7c4u587FEFPvDPEDbxrOk407D74YTytEFghJfnCLlc6AJEBy9Vmu
- tiQ+UUr81VBL5leUTP+9kE3rR69CjzjxVm4vtjoRFWzhW4c7qs/61DOYwvmJxcsnblj/
- Pmd8OjmlwjpVjBX1ABFqe1TynkLUPGM/WNstQS9SU4iw1bdmR15zcchyXKd86ykYByBc
- jkpO1sE1Pyx4oOXbceJZbz8u0NYXmn3qJkwJhkIk+VjUUO0alr6BMg5M2kSuz+fs2NH0
- U7maPEJvykCr99k3jbdP8fCUYGt2oxonQCx+wzAEOS50Kyb3CE4/OuBhZl3WLhIFnOCe uw== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by mx0b-00069f02.pphosted.com with ESMTP id 3dgn74dt00-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 12 Jan 2022 11:17:41 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 20CBGCs8024842;
- Wed, 12 Jan 2022 11:17:38 GMT
-Received: from nam11-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam11lp2172.outbound.protection.outlook.com [104.47.57.172])
- by userp3030.oracle.com with ESMTP id 3deyqyrcje-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 12 Jan 2022 11:17:38 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VdbAUm8zCtUbJRZSR9RoSlRGp+vN1Vb5on2hgxgjdJ3ZXPZmvenzFiFvP0bxYYlAyX6X3fonORHRvwHqeD8VCWny5POLrDu4r36cwoB4IongXxWn7Jf4qoQdfPOsTIt38ya+7WFG0ZIcfjipk+Rgq/FT/S21plts/RcaUxNqZ6X4GUes7RV16rj54F9eGyzkmdZuyta7HYuZC96H+6WvsfRWuQhLf2Xx53YDRi6y6Phyu51Ts1MrXRPh9e8ewye/SKZqkKcU/rnT/x4NEQLdhfC1J1mqyqBwFfrPXqUkHAX2D8JNZeyUOxQQfa+1B/qi4BHd9zw9hDxGfnlUH0ZKjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H84/ey5C2YutgTCIqff466C/8hMZPqoaIpzexTbC9Xo=;
- b=XBmAvECL4351FD4zzKmwrznMZr5seaaLgeIEMyQhSaNab3enH89LlGBMoz/3FKsT9XdO14Kzv4/UhJspAjqUxFGAIdiYhYAcSWZBbpPO14Bxjrdh25WrraD5PG0JlQsJyemZ3WXmxpWdTPhXqt257axVPpf7UxrFcHd4s15U8x+RsEMesBIto9mVgfZ03ju5gSwDN6LaV6pjtW7NtnZV/htCSta7iQ03bdMF6WTHfujmqjiaYXmFxp1v6xw7EMrAgRy+lJl69I4KlYhQe6XpRszf1sf/WK6Y127cltt7DKpefevZriZkuF708t5RLZd3e9Z1KmkStM9ePWHov5r9ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H84/ey5C2YutgTCIqff466C/8hMZPqoaIpzexTbC9Xo=;
- b=QJszcSt4HlcLLamz9sNLsYKUQLvaflbpea99nzjvZc7dvFA62wjv2vNFiOC6MtwJ5SkXIBWqO33eAnGp60izA6oaQi10P9EettHcYBWr0qeVE58AWwwsANdiiUFElcxqHO/r/5uJV7CgqXFXl2ZLC/ca5gOhoOwbOv31sUh6Ixg=
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28) by MWHPR10MB1550.namprd10.prod.outlook.com
- (2603:10b6:300:25::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10; Wed, 12 Jan
- 2022 11:17:36 +0000
-Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::b889:5c86:23c0:82b8]) by MWHPR1001MB2365.namprd10.prod.outlook.com
- ([fe80::b889:5c86:23c0:82b8%4]) with mapi id 15.20.4867.012; Wed, 12 Jan 2022
- 11:17:36 +0000
-Date: Wed, 12 Jan 2022 14:17:24 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Kishon Vijay Abraham I <kishon@ti.com>,
- Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <20220112111724.GB3019@kili>
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-ClientProxiedBy: ZR0P278CA0002.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:16::12) To MWHPR1001MB2365.namprd10.prod.outlook.com
- (2603:10b6:301:2d::28)
+ Wed, 12 Jan 2022 13:18:19 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20CBDTFE023994;
+ Wed, 12 Jan 2022 14:18:03 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=T7flA1KHr7bxUHl76iX93w+upbHvsWFpRfz43ZOMylQ=;
+ b=aPv+FaTvaYpTOAVTZuEnK+KOlsuAuBibWtoqGHI7QPb7LKQQaskm70Wi0MkS/mhhm0tt
+ RV0LbVhNLek/KGNCXgk2dZqiWtZjtcSo16XsVYYkQxUcW3zut7Vq1gkawC2Ui75RP6IS
+ GqJcTPHKjuYJyzI9om2w6s3xYyBlYzSfdj7NNNId8X5Esrc2Z9q5FpWaVAGlVQSOHvsN
+ bC4gC93RguezUTIsO6W//PeGNiLpri9/G5lCvAZzNxrR42AcpmbTPJYf5X0xGuzfNSin
+ k2d0Z0OIHVEQAwpobHZfi0HpAVySnzRM3tE54u/HMN3f7kz9KIdILgEpNBGIozexww0u iQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dh9cbeedd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 Jan 2022 14:18:03 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 58F6D10002A;
+ Wed, 12 Jan 2022 14:18:02 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4D5EE231523;
+ Wed, 12 Jan 2022 14:18:02 +0100 (CET)
+Received: from lmecxl0573.lme.st.com (10.75.127.47) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 12 Jan
+ 2022 14:18:01 +0100
+To: Mark Brown <broonie@kernel.org>
+References: <20220106132052.7227-1-patrice.chotard@foss.st.com>
+ <Ydbz2JkT8jRvNBBZ@sirena.org.uk>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+Message-ID: <dda713f1-165b-0877-5467-457805fb9d43@foss.st.com>
+Date: Wed, 12 Jan 2022 14:18:01 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c941a197-4e23-45fd-699c-08d9d5bd22e6
-X-MS-TrafficTypeDiagnostic: MWHPR10MB1550:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR10MB15507E7E4582B56A9A2B4E868E529@MWHPR10MB1550.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:431;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ymRWvFe44+WwVTIU1H7ScC4cVXmvocmnkQXBYlN9anGTbGumwSxaJIcLgkzn8x+6zyitY09ovdwNMN1UFun7x6UoERUOIhJF5bV/jA0/0Pfn/EOyVpxaX1XpAy8aPNkxXmNSzPCteWvalk2YkHjQL2vQMT69xGi00bUaR6XKENlvu0nuebRYcjHAYCCl7nQzLzvhnQbwlhmGENwGaakSGG6QzKAcW5TvGCVwRyUpVWC6PwMeA81UNwjaQjTwkE/MhLm9LXV9fwZbe6XfXVF2jv/mC4AGMwGO3rsATtexesKZp/J3Zg6MHmWq4YEOpWF8yt5BAZva1RziSuyolm+SUg8mhp1pTbETl6cn2HaJdibP162U3yQRsEmNjpCaTqMfZKH3U3v4FE3hFr+XZdvfCsmo7YzzyLTLY8yhQa2voOy6m/Uw6AV16ZFnIXXjudYDS9q2VFwdW93Klj9JCDqqTyx631V+R50DRouzgWcIJ6wI8vTiGBpfmw3TnUKaKCBYwbg6ZrPDupcAPhO9OcjqxH2zIZOYyxEnG6YZJ3ejEJIXNiyBt3rbjNMO4d+Iw+3IACS17AkpPrPdl25PJtIafhGZn0ee32BD2HhBAXPQL3hasZepCRwj3yoH8Z0okepnm1TLJrHjgMm7Mqavub0orgxxsM2LBDk8MuVcz0qQWUN4gUlHuIiSau+lyLc0P0+Yh9zRgX1YbAadaLfGNWWEWA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(7916004)(366004)(26005)(6506007)(6486002)(66556008)(66476007)(38100700002)(186003)(7416002)(8936002)(8676002)(4744005)(508600001)(52116002)(38350700002)(5660300002)(54906003)(110136005)(316002)(4326008)(2906002)(44832011)(6512007)(9686003)(66946007)(83380400001)(1076003)(33656002)(86362001)(6666004)(33716001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+1nWrfPx7WEhNzogZrdCiW2UMtq6PLyR6A5vjQ7KGxIJDj/P7WvOkZKaROmT?=
- =?us-ascii?Q?XJ0taNuCfmY2KP5dACpACG9p+kAiejskVr+CMK31bXOigZFEBxCSJvTI3Gae?=
- =?us-ascii?Q?64f5zgNVbWSsiGI+XNfQs1lp8ESvmDGjTebl/S68oeGgopas5gbqWBef1jyE?=
- =?us-ascii?Q?mkzpi5zZxquIJfl5tf1BUTKmMox/85ay1dgegYWjsCXOJcydk1FcO21kcA1R?=
- =?us-ascii?Q?OzJHrTCqmcCZXGf5nM9vMBqzEPafE4DRW5ba6NX9J1I3fGNH1R/S+sWqrkGa?=
- =?us-ascii?Q?ze6Pr9gDIeUDYbAMfJhaAtziokpeMAkLrbRrP31r+h8sRuxdjHKLEqieWpEm?=
- =?us-ascii?Q?FyXR7ZTEZkBWQFMzzv8RpfUToF/v/QHwij6ENO1OP0gznplGP/a266541fyo?=
- =?us-ascii?Q?lHpoQTvNuDQ0zaAQPcsAYX7wOnSDvwl6AKf1lUyKmlJqwH0yNAA7KQja4tCs?=
- =?us-ascii?Q?G1sNzBidqbuE5x6L3Loy9aM6+mSFRGjkwg2tPIimkb62r9hrpWu/YyqRLOgE?=
- =?us-ascii?Q?7E8xVwM+CcOlCryN/2cCdNDewHvAjEw4uWvUeQSPMdAAbkT+U9YZUYMtPuaZ?=
- =?us-ascii?Q?ft4u/0SRvIaQ7FMsLqkmzqglBGlf+xXCEMXf9vNF5pMrqHSfeuWj8hZYtLwN?=
- =?us-ascii?Q?+/i2zGslPFAqI5v3SCK8j1TmmRh69eDrLjxlBcqgX9FxKy9SHWlz4McBvcy2?=
- =?us-ascii?Q?IUferlqljvKoieZJLCcqguSbb1WtKsWFCAt+5E6XIi6AnkjADPLDVlE+MlC9?=
- =?us-ascii?Q?jiIWkBrgDCxwxn7j5t/PU2aSY4AuYPBkxfjzbuN8CVRRTpZ1rRB6UGuiz5Sl?=
- =?us-ascii?Q?g0gE7oOj20rcxbcmqY6uqvR6QES9vlJflX6ynJo2LO47j1Gb4ObbrFm5Wzus?=
- =?us-ascii?Q?0QE2kCDkkDiJjxmiBi8zsUvFAMK5r475i8ko+AFvdXHHZfCOSr5WFoEL0oDR?=
- =?us-ascii?Q?7oz0a9+ZnkgasMC3ZqqM2QhFoxVpmD3I1oNkuV6VMJ/hnBtykAsI0QplpOYs?=
- =?us-ascii?Q?5RWqhKBZjRmpym85rOBpx/iTI1HEJwvMyozwXlT937YupsMELKBhYYBjEt3j?=
- =?us-ascii?Q?+UKKtalyPF94pQOq4p6KMuX+Mu8SVzhiMHL2c8bN00igMSXcHGJu0mqBzSzh?=
- =?us-ascii?Q?4udDknTH3zfjkiK+VE66UKe/YBPTDU5NJfnfHfCTk8WnDqi+C8gYWYffOJ8I?=
- =?us-ascii?Q?cL9/uPs+LqvJ7TmcRwhCsunsjCEBytwW7jpEN/gBufs3pqBa8lHxlasPH8VY?=
- =?us-ascii?Q?+UcjH+OOFK78fVfzce5Pf7lL81z9wXt0IvBT0XWFXI75Tc6SwoIi2f62bWTd?=
- =?us-ascii?Q?CEz+6//3jY1yi9RYVxHtZtb8/jue75b7dvCBaObjwc6k56FB8K+EK9ATSbO1?=
- =?us-ascii?Q?jagoECO3xjaG21Hcz8qnDTbvkDz5ouCnycLOhfc+lCL5785YQoAiEneAGhp8?=
- =?us-ascii?Q?UMGlfgrITU4OvUpmexlvDXDZ6NTtZP/S+9vd83Oczm6eoNbEeFR/Pphmhg8I?=
- =?us-ascii?Q?D7+KDVF4dgFEXu6HS9ngS124H09QiOEyIiscAQthqzrTPC5EKd/w7GRst1lu?=
- =?us-ascii?Q?mBUkG+ATtFmdCyIhytnGlzD1EVAVkPkA6lUc8otRlXKruCy73g84j/kcdx3i?=
- =?us-ascii?Q?4PVXfGVH1nCTDKlqkvRnppJtJbqvUg7WVWp2ZUT7NtqtmuaFlR/XqteaRMZi?=
- =?us-ascii?Q?Kd5rSB7ilkfXzGMk3L7iJOtlFo0=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c941a197-4e23-45fd-699c-08d9d5bd22e6
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 11:17:36.1790 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c1/kohLsC1BqONdaf+t7gqsGDqQ9ZofOVIZ58KjEuJ+kvIzs7NeAc/TL25BL6zMJi8WYp1vCJfPizjpjOrxOEQCtro7asAq/eoe4ebBadmo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR10MB1550
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10224
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- suspectscore=0 spamscore=0
- mlxlogscore=999 adultscore=0 phishscore=0 malwarescore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2201120074
-X-Proofpoint-ORIG-GUID: -idx8__eUtUrkwWijI2_qAUeqH9YSLfG
-X-Proofpoint-GUID: -idx8__eUtUrkwWijI2_qAUeqH9YSLfG
-Cc: Daniel Lezcano <daniel.lezcano@linaro.org>, kernel-janitors@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-phy@lists.infradead.org,
- Andrew Morton <akpm@linux-foundation.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] phy: stm32: fix a refcount leak in
-	stm32_usbphyc_pll_enable()
+In-Reply-To: <Ydbz2JkT8jRvNBBZ@sirena.org.uk>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-12_04,2022-01-11_01,2021-12-02_01
+Cc: linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] spi: stm32-qspi: Update spi registering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -159,31 +77,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This error path needs to decrement "usbphyc->n_pll_cons.counter" before
-returning.
+Hi Mark
 
-Fixes: 5b1af71280ab ("phy: stm32: rework PLL Lock detection")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/phy/st/phy-stm32-usbphyc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 1/6/22 2:51 PM, Mark Brown wrote:
+> On Thu, Jan 06, 2022 at 02:20:52PM +0100, patrice.chotard@foss.st.com wrote:
+>> From: Patrice Chotard <patrice.chotard@foss.st.com>
+>>
+>> Replace devm_spi_register_master() by spi_register_master() to ensure
+>> that spi sub-nodes are unregistered in the correct order when qspi driver
+>> is removed.
+> 
+> This commit message doesn't describe the actual issue.  The change is
+> fixing ordering within the driver itself - the driver is freeing things
+> in the remove() callback which are used by the controller but thanks to
+> the use of devm the controller isn't unregistered from the core until
+> after the remove() callback has run so we might still have something
+> running.  "Subnodes" aren't an issue here.
 
-diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
-index 2ce9bfd783d4..007a23c78d56 100644
---- a/drivers/phy/st/phy-stm32-usbphyc.c
-+++ b/drivers/phy/st/phy-stm32-usbphyc.c
-@@ -304,7 +304,7 @@ static int stm32_usbphyc_pll_enable(struct stm32_usbphyc *usbphyc)
- 
- 		ret = __stm32_usbphyc_pll_disable(usbphyc);
- 		if (ret)
--			return ret;
-+			goto dec_n_pll_cons;
- 	}
- 
- 	ret = stm32_usbphyc_regulators_enable(usbphyc);
--- 
-2.20.1
+OK i will update this comment to be clearer.
 
+> 
+> Please submit patches using subject lines reflecting the style for the
+> subsystem, this makes it easier for people to identify relevant patches.
+> Look at what existing commits in the area you're changing are doing and
+> make sure your subject lines visually resemble what they're doing.
+> There's no need to resubmit to fix this alone.
+> 
+
+Agree, i forgot to use the correct script to submit patches to ML.
+
+Thanks
+Patrice
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
