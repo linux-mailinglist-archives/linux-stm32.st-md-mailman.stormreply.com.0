@@ -2,59 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3965B48DE35
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Jan 2022 20:43:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46CA448E040
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Jan 2022 23:29:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCEF7C5F1F5;
-	Thu, 13 Jan 2022 19:43:41 +0000 (UTC)
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC6C4C5F1F5;
+	Thu, 13 Jan 2022 22:29:21 +0000 (UTC)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C823C5C842
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90CEFC5C842
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Jan 2022 19:43:40 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id c71so27040137edf.6
+ Thu, 13 Jan 2022 22:29:20 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id a7so8891914plh.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Jan 2022 11:43:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
+ Thu, 13 Jan 2022 14:29:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3gm+gNo0zjsmtqAqZojO6FheaWTHrpjc/JFQYPb+89I=;
- b=Elpf6wzr/rTYwUH8dDbMnQY/eDnzUUmm6V69NIGrg24nZi5yWGtRxKEcJXZUyE4nKT
- 6+TF1/R3CI09N0TxwNXFbWKVrUZZG7zcUY7a+8L1/I31dx2ROW2vvhkF51t709mJOD1Y
- ou1pdCySuHLCorZtWvidHkllvvBCi9qG+K1Lo=
+ :cc; bh=/1K/yKL2WvJn2YGUJo5lqXQyVrI3vSCmiCN73nfsZf0=;
+ b=zEXhmHNz02RxVCbfspu8UevBoIHOwntAfwjELDVfcib02KtcHHCr83emWqVXZvUG5g
+ ORk3BAuPg6rO+b8p8aS1ctaoBVAZ7sfyrTrALV+u/X483FmP03scphDbgix+/xy1URKP
+ JaPyVQEigh8P5N1xmcNeRVdfPWcs3o2WAEJjMovYHdahAapP55kkuO/SlGbD64nsbHfY
+ eYoU6Z8Mtq+2SNoJYYzpJeAEVC+XqSMClPYOwG7bYbaiX3zr+h11w0F5X+x4Yt3zDZnt
+ l4jKFRGRCUZ+eAuDrgFBiOGs1YpXggpAIIjI6MHOBATAJZBj/13Sbpzx5sB67Pq0//oD
+ d98Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=3gm+gNo0zjsmtqAqZojO6FheaWTHrpjc/JFQYPb+89I=;
- b=MnZXR18h4JbkK8Sg0h22+LBJN239xdEWkq1bLLh+8iwXGltMNBvRDR79NygMWK5Lk9
- t7xIImLrEaO8mWL4qPmdBnScGmNPBh6H2zmcIVjvFeec7v1SozfbfUGnnXZ0Qc42k3FX
- FKYFOUjmPaKOQ+xvmSmf49+CZygqM//6+wkWMgAa+S/FbTEFRh/t3tIjiN5qadLbEDsD
- GVSz8VLuwyk04pbQ06C+1SMHmcjCe0V+kyHcFpqozy0ZtFEJB2/w6b7a+MctDuCjUFlH
- UVXQKiRiNvWk2tE96LOe2vte/g7NA1Y7EWKgSETP+BEejMRcQwUkqvcGF362V07N6Y8w
- D7DA==
-X-Gm-Message-State: AOAM5311M13udzi3QqYm093ko+4VPywhW8KGbkOZ9WSQzLEi9VIkoCsF
- BVfI7nK/s6U+leZBLIAbmgQFmqEwdCxdeknFiu/kSg==
-X-Google-Smtp-Source: ABdhPJwSGzQMALZDzukZvCwFu3bEC7PAaQZfsvUvIf4CKj49ZhnRmcM+B3lppKCcQPik7TqQq7RqyylpbRv0o97G6ME=
-X-Received: by 2002:a17:906:b003:: with SMTP id
- v3mr4797695ejy.770.1642103020036; 
- Thu, 13 Jan 2022 11:43:40 -0800 (PST)
+ bh=/1K/yKL2WvJn2YGUJo5lqXQyVrI3vSCmiCN73nfsZf0=;
+ b=2M5hdv9KkFAcqEs3U7zUppTIvZTSNkVShIZxZiYEkoG9tnqz10r8Mbv9LCYhKFEghy
+ 1/C7A0snH0U1Lhk4+GiWjGe/xT38ZoxsRT8KKR5cXuBMTldh3XEGRS+XCCRJhtAAiX0b
+ u9DNVDcN4nwg3dP8yGKFSu4L2+gIuFgOtK/PXkPDwag5uD2y266AjLiYE3f1+kGLoU7P
+ ZVt+2LmX3Lhh5tpBBiwTaJ5Om+cVsJYZCd3m6Bq6p4PKhOfixqXLtehib81X3XL4/N6q
+ JCxY8EJooN+a+KVN/pjp2Ca/vCNhDyrPCkeghCAVCM2HtPOpeSK4ycjxbC9EDxu4anKH
+ jwig==
+X-Gm-Message-State: AOAM532A3/J9MwPIx+A7Qanh83UIqbD5sTcOwgqJy7lH8fTHND8ajYpz
+ aDbaq/Vyvxt9RGMmnLfzU36fCUlXB7PPiUf17hXtsA==
+X-Google-Smtp-Source: ABdhPJzFlKwHmQIvDDrxARkQ+dVH6aAfYK79ymciXrpQfjKxHQ+oYkRfxCZT9peoGZcOcpvJA0wCSIjbeGeYZewWHr8=
+X-Received: by 2002:a17:90b:3e8e:: with SMTP id
+ rj14mr1025161pjb.179.1642112958996; 
+ Thu, 13 Jan 2022 14:29:18 -0800 (PST)
 MIME-Version: 1.0
 References: <20211112061741.120898-1-jagan@amarulasolutions.com>
-In-Reply-To: <20211112061741.120898-1-jagan@amarulasolutions.com>
-From: Jagan Teki <jagan@amarulasolutions.com>
-Date: Fri, 14 Jan 2022 01:13:29 +0530
-Message-ID: <CAMty3ZD_JUBzEDky8Q0N4QEmaWkpkd4gUYmLzDPBhKvi=eiVDQ@mail.gmail.com>
-To: Andrzej Hajda <a.hajda@samsung.com>,
- Neil Armstrong <narmstrong@baylibre.com>, 
- Robert Foss <robert.foss@linaro.org>, 
+ <CAMty3ZD_JUBzEDky8Q0N4QEmaWkpkd4gUYmLzDPBhKvi=eiVDQ@mail.gmail.com>
+In-Reply-To: <CAMty3ZD_JUBzEDky8Q0N4QEmaWkpkd4gUYmLzDPBhKvi=eiVDQ@mail.gmail.com>
+From: Robert Foss <robert.foss@linaro.org>
+Date: Thu, 13 Jan 2022 23:29:07 +0100
+Message-ID: <CAG3jFytf4XBQN3kfAtyE+f48zdN2bcSzUzcZQ9B2vYiSwSXQ5g@mail.gmail.com>
+To: Jagan Teki <jagan@amarulasolutions.com>
+Cc: Heiko Stubner <heiko@sntech.de>, Neil Armstrong <narmstrong@baylibre.com>,
+ linux-amarula@amarulasolutions.com,
+ Yannick Fertre <yannick.fertre@foss.st.com>, dri-devel@lists.freedesktop.org,
+ Andrzej Hajda <a.hajda@samsung.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sam Ravnborg <sam@ravnborg.org>, 
- Heiko Stubner <heiko@sntech.de>, Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: linux-amarula@amarulasolutions.com,
- linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org
+ Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] [PATCH] drm/bridge: dw-mipi-dsi: Switch to atomic
 	operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -73,21 +75,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Nov 12, 2021 at 11:47 AM Jagan Teki <jagan@amarulasolutions.com> wrote:
->
-> Replace atomic version of the enable/disable operations to
-> continue the transition to the atomic API.
->
-> Also added default drm atomic operations for duplicate, destroy
-> and reset state API's in order to have smooth transition on
-> atomic API's.
->
-> Tested on Engicam i.Core STM32MP1 SoM.
->
-> Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
-> ---
+Reviewed-by: Robert Foss <robert.foss@linaro.org>
 
-Gentle ping!
+Applied to drm-misc-next.
+
+On Thu, 13 Jan 2022 at 20:43, Jagan Teki <jagan@amarulasolutions.com> wrote:
+>
+> On Fri, Nov 12, 2021 at 11:47 AM Jagan Teki <jagan@amarulasolutions.com> wrote:
+> >
+> > Replace atomic version of the enable/disable operations to
+> > continue the transition to the atomic API.
+> >
+> > Also added default drm atomic operations for duplicate, destroy
+> > and reset state API's in order to have smooth transition on
+> > atomic API's.
+> >
+> > Tested on Engicam i.Core STM32MP1 SoM.
+> >
+> > Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+> > ---
+>
+> Gentle ping!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
