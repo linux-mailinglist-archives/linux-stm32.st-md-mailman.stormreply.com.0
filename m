@@ -2,65 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CCA748C87C
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jan 2022 17:34:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BE1048D460
+	for <lists+linux-stm32@lfdr.de>; Thu, 13 Jan 2022 10:37:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17770C60466;
-	Wed, 12 Jan 2022 16:34:41 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEBDFC5F1F5;
+	Thu, 13 Jan 2022 09:37:45 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34B7EC60461
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C2C9C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jan 2022 16:34:39 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20CAjf5I018214;
- Wed, 12 Jan 2022 17:34:25 +0100
+ Thu, 13 Jan 2022 09:37:44 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20D8S200016899;
+ Thu, 13 Jan 2022 10:37:31 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=selector1;
- bh=tsZZYByhBt3iMrVmHEOmuez8eGtVX2YnJRTRXajIhto=;
- b=23JDogZfQLRE+QI9XfydsgVWdlqKnI39iHWp0SDb2i7E+RITFfZ6w30kwnJm4HnnLJrp
- /w2PPtPq4s+V/1/MLOZv3gaCojb1+OWTL82FlSAYjOERHIEit6oOBMehbrxySU4bH7DZ
- bMEjVGpcQr6ISvoJuZpoYNf3qgUsDVeSWcRlp0bfQ6DGDrzplExQwCMBKEW9i19+9rTw
- VsAJlpCTvI0n0u+fI1bCi4whVYYItWaOe7TeebCQkyr3c25RICPK+zZIC72jHEZAu9Qa
- Kjp0sQVzA8Pyn4ozljZvB6DYkEKntrPRuqzfioCxpMJY0Srn9/a+YVLt6V8S3rJ1hVK/ sw== 
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=Jr0kWY9uB9p4RjnCqgSrRBVIiTgElsIdkCEOg8QxsTA=;
+ b=MtKA6cVOr3qfrzr6C1hmoORVpQHAkWONsiJ3xuq331e7FKLP/ccg9L/B2gf26rx8ICYS
+ 0U83ZDNDblU6skCyt8lOzkH/iC5I4jo3vEP3IKqa4uP5Z/O8oEL/4p03CKLJTzC5RksO
+ mSwPTJHDsfsi0tOQ+FCchZeUZAbx1nnc5oax9Fadr93Xhv9Sn5VWTNmBZIdmQrTaxLOb
+ LGYRG+AN8KXSfFkuVE37Wv53zX0Xrahwp8nm4DoAyKgy3jBOWMpo6k3KXaIgclrQaxZn
+ najDeBfglhcv93hOfSmwt8gICZyN84RXWtaobVmt2VCB85Ohg7I59O60rWFF+i3vLGHD iA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dhssdugv6-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3djgkkretb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 12 Jan 2022 17:34:25 +0100
+ Thu, 13 Jan 2022 10:37:30 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7A0A410002A;
- Wed, 12 Jan 2022 17:34:24 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7FF6E100034;
+ Thu, 13 Jan 2022 10:37:29 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 718E424B8BB;
- Wed, 12 Jan 2022 17:34:24 +0100 (CET)
-Received: from localhost (10.75.127.48) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 12 Jan 2022 17:34:24
- +0100
-From: Yann Gautier <yann.gautier@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, <devicetree@vger.kernel.org>,
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5992020BA00;
+ Thu, 13 Jan 2022 10:37:29 +0100 (CET)
+Received: from lmecxl1137.lme.st.com (10.75.127.45) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 13 Jan
+ 2022 10:37:28 +0100
+To: Yannick Fertre <yannick.fertre@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>, <dri-devel@lists.freedesktop.org>,
  <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>
-Date: Wed, 12 Jan 2022 17:33:56 +0100
-Message-ID: <20220112163356.25634-11-yann.gautier@foss.st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220112163356.25634-9-yann.gautier@foss.st.com>
-References: <20220112163356.25634-9-yann.gautier@foss.st.com>
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20211215214738.19946-1-yannick.fertre@foss.st.com>
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Message-ID: <87cd3111-75bd-e66c-5ba8-af3ff76bedad@foss.st.com>
+Date: Thu, 13 Jan 2022 10:37:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.48]
-X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+In-Reply-To: <20211215214738.19946-1-yannick.fertre@foss.st.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-12_04,2022-01-11_01,2021-12-02_01
-Cc: linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 10/10] ARM: dts: stm32: add sdmmc2 pins for
-	STM32MP13
+ definitions=2022-01-13_02,2022-01-11_01,2021-12-02_01
+Subject: Re: [Linux-stm32] [PATCH 1/5] drm/stm: ltdc: switch to regmap
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,84 +74,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Those pins are used for SDIO on STM32MP135F-DK board.
-
-Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
----
- arch/arm/boot/dts/stm32mp13-pinctrl.dtsi | 51 ++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
-
-diff --git a/arch/arm/boot/dts/stm32mp13-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp13-pinctrl.dtsi
-index c6f78eef3698..d2472cd8f1d0 100644
---- a/arch/arm/boot/dts/stm32mp13-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/stm32mp13-pinctrl.dtsi
-@@ -57,6 +57,57 @@
- 		};
- 	};
- 
-+	sdmmc2_b4_pins_a: sdmmc2-b4-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('B', 14, AF10)>, /* SDMMC2_D0 */
-+				 <STM32_PINMUX('B', 15, AF10)>, /* SDMMC2_D1 */
-+				 <STM32_PINMUX('B', 3, AF10)>, /* SDMMC2_D2 */
-+				 <STM32_PINMUX('B', 4, AF10)>, /* SDMMC2_D3 */
-+				 <STM32_PINMUX('G', 6, AF10)>; /* SDMMC2_CMD */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	sdmmc2_b4_od_pins_a: sdmmc2-b4-od-0 {
-+		pins1 {
-+			pinmux = <STM32_PINMUX('B', 14, AF10)>, /* SDMMC2_D0 */
-+				 <STM32_PINMUX('B', 15, AF10)>, /* SDMMC2_D1 */
-+				 <STM32_PINMUX('B', 3, AF10)>, /* SDMMC2_D2 */
-+				 <STM32_PINMUX('B', 4, AF10)>; /* SDMMC2_D3 */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+		pins2 {
-+			pinmux = <STM32_PINMUX('G', 6, AF10)>; /* SDMMC2_CMD */
-+			slew-rate = <1>;
-+			drive-open-drain;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	sdmmc2_b4_sleep_pins_a: sdmmc2-b4-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('B', 14, ANALOG)>, /* SDMMC2_D0 */
-+				 <STM32_PINMUX('B', 15, ANALOG)>, /* SDMMC2_D1 */
-+				 <STM32_PINMUX('B', 3, ANALOG)>, /* SDMMC2_D2 */
-+				 <STM32_PINMUX('B', 4, ANALOG)>, /* SDMMC2_D3 */
-+				 <STM32_PINMUX('E', 3, ANALOG)>, /* SDMMC2_CK */
-+				 <STM32_PINMUX('G', 6, ANALOG)>; /* SDMMC2_CMD */
-+		};
-+	};
-+
-+	sdmmc2_clk_pins_a: sdmmc2-clk-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('E', 3, AF10)>; /* SDMMC2_CK */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+	};
-+
- 	uart4_pins_a: uart4-0 {
- 		pins1 {
- 			pinmux = <STM32_PINMUX('D', 6, AF8)>; /* UART4_TX */
--- 
-2.17.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Ck9uIDEyLzE1LzIxIDEwOjQ3IFBNLCBZYW5uaWNrIEZlcnRyZSB3cm90ZToKPiBSZXBsYWNlIHRo
+ZSBsZWdhY3kgcmVnaXN0ZXIgYWNjZXNzIGJ5IHJlZ21hcCBBUEkuCj4KPiBTaWduZWQtb2ZmLWJ5
+OiBZYW5uaWNrIEZlcnRyZSA8eWFubmljay5mZXJ0cmVAZm9zcy5zdC5jb20+Cj4gLS0tCj4gIGRy
+aXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jIHwgMTM4ICsrKysrKysrKysrKysrKysrKy0tLS0tLS0t
+LS0tLS0tLS0tLS0KPiAgZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmggfCAgIDEgKwo+ICAyIGZp
+bGVzIGNoYW5nZWQsIDY4IGluc2VydGlvbnMoKyksIDcxIGRlbGV0aW9ucygtKQoKCkhlbGxvIFlh
+bm5pY2ssCgpSZXZpZXdlZC1ieTogUmFwaGFlbCBHYWxsYWlzLVBvdSA8cmFwaGFlbC5nYWxsYWlz
+LXBvdUBmb3NzLnN0LmNvbT4KVGVzdGVkLWJ5OiBSYXBoYWVsIEdhbGxhaXMtUG91IDxyYXBoYWVs
+LmdhbGxhaXMtcG91QGZvc3Muc3QuY29tPgoKVGhhbmtzIGZvciB0aGUgcGF0Y2gsCgpSYXBoYcOr
+bAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
