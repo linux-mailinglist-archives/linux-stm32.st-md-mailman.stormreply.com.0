@@ -2,60 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6597248E3CD
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 06:38:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 898B748E482
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 07:54:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 128A3C5F1F5;
-	Fri, 14 Jan 2022 05:38:37 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E14CC5F1FE;
+	Fri, 14 Jan 2022 06:54:47 +0000 (UTC)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59710C5C842
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54225CFAC52
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jan 2022 05:38:34 +0000 (UTC)
-X-UUID: 3abcf59a8c2d45249804e5ded4671120-20220114
-X-UUID: 3abcf59a8c2d45249804e5ded4671120-20220114
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1136806152; Fri, 14 Jan 2022 13:38:27 +0800
-Received: from mtkcas10.mediatek.inc (172.21.101.39) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Fri, 14 Jan 2022 13:38:25 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 14 Jan 2022 13:38:24 +0800
-Message-ID: <14636842a61bb7631584315901bcc06ccbdb0f90.camel@mediatek.com>
-From: Biao Huang <biao.huang@mediatek.com>
-To: Rob Herring <robh@kernel.org>
-Date: Fri, 14 Jan 2022 13:38:24 +0800
-In-Reply-To: <CAL_JsqLo7z-KWtwFx+Kng2aQuCpQwJaO6mHnyBzmCKCJDK5n+Q@mail.gmail.com>
-References: <20211216055328.15953-1-biao.huang@mediatek.com>
- <20211216055328.15953-7-biao.huang@mediatek.com>
- <1639662782.987227.4004875.nullmailer@robh.at.kernel.org>
- <be023f9d2fb2a8f947bd0075e8732ba07cfd7b89.camel@mediatek.com>
- <CAL_JsqLo7z-KWtwFx+Kng2aQuCpQwJaO6mHnyBzmCKCJDK5n+Q@mail.gmail.com>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ Fri, 14 Jan 2022 06:48:07 +0000 (UTC)
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
+ [209.85.161.69])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9080F40033
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 14 Jan 2022 06:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1642142881;
+ bh=PKBAkmJ7or0T/bxHU0Wvyq29ugXtwBBaF+RK3mybysU=;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=hDIiylRN/BhR3ijiiWn2wBFPyRwRb06nqYpmUx4C+aV6dTp5xI2nRrJGZ3n50E7O0
+ CbS1pO8x86DkqH4QUbPue5kg/sSXD9bqZpvAf6m2k82QB941iO2baagLssj9WarLQp
+ KLMiSonoqyTJSWEY/X1fHx6nD9jrRmdvDsSCvcQA131JdAOjfBHyzZEDjO6GLgkrRv
+ T4f0LMD1m9xLE6iEabDWROdRNcJxN7SJ1YiYOJpqX0/n+K9GaTyTVxQWEqYSQ/CYe/
+ G1NT0CiQdqFfO09vj0y7XGfVyJ8KK1+hN7FARhe5AJ5XMiXttlAht6j3CNnkTUH50B
+ CeV74hekx6AnQ==
+Received: by mail-oo1-f69.google.com with SMTP id
+ w25-20020a4a6d59000000b002daaed72624so5410464oof.23
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 13 Jan 2022 22:48:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=PKBAkmJ7or0T/bxHU0Wvyq29ugXtwBBaF+RK3mybysU=;
+ b=CHac+vTJ8lduek0I4j3WNA2PTY7RODzlYeSCJi4YRlY4QWyG1GoIgbd0Tgqm+R74fd
+ khhD62QdXzJvgmLCjBeqGlYnLopU9rWKqoBgHrc5s1zrzYMLzjqi7yopsxdBzxYof9rq
+ SepHr3VlaeKzuAux9EwoeIbiFZe3/EoSqTV1UXKvSi8EX0tRNb7yvU6NM3QLXF0NERJe
+ TLt/SyA4yzAD14h4MZS3T0ell5JKjLL70Kmuf2EJpAsDgqeqieHxkC5SmWnj3JF7fv6+
+ x1F6yzbINEBqjVTD0v0zxjSolMNB48+8c5BF84sOZFR79Odn4V9C+PxsAtGbCgiMHxYQ
+ ei6g==
+X-Gm-Message-State: AOAM530+puAYQNu89Qx3Pxry98YgSE84NaXUJURSEy82F318cm0QCGhj
+ g+Nrddfin5IHYH5bh/rPGuBAs2a2L3AmXd2uThYJqYhiSHeLDlegUxlAXP78J/D318Z9d8a+06O
+ L04uXpaL7M3Dhvw3QD3+kVSpi837NIqUaTkwK94Ftb0d416CSbG7YnyzKthXhrBsWoMqjHT6yeQ
+ ==
+X-Received: by 2002:a05:6808:293:: with SMTP id
+ z19mr10972597oic.41.1642142879352; 
+ Thu, 13 Jan 2022 22:47:59 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJye/IK1OGddDRHlpoRSRDwJDrr3evy3FfczWQgU60l1SslTO9lJxeMi9V5rBVY0jKXg6Ly5r0DmOwSH1F8j5i0=
+X-Received: by 2002:a05:6808:293:: with SMTP id
+ z19mr10972566oic.41.1642142878837; 
+ Thu, 13 Jan 2022 22:47:58 -0800 (PST)
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- srv_heupstream <srv_heupstream@mediatek.com>, netdev <netdev@vger.kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- David Miller <davem@davemloft.net>, dkirjanov@suse.de,
- Jose Abreu <joabreu@synopsys.com>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Macpaul Lin <macpaul.lin@mediatek.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v10 6/6] net: dt-bindings: dwmac:
- add support for mt8195
+References: <20220114040755.1314349-1-kai.heng.feng@canonical.com>
+ <20220114040755.1314349-2-kai.heng.feng@canonical.com>
+ <20220113203523.310e13d3@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
+In-Reply-To: <20220113203523.310e13d3@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Date: Fri, 14 Jan 2022 14:47:47 +0800
+Message-ID: <CAAd53p6rW7PcugY7okKsXybK2O=pS8qAhctMzsa-MEgJrKhEdg@mail.gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+X-Mailman-Approved-At: Fri, 14 Jan 2022 06:54:46 +0000
+Cc: =?UTF-8?B?TWFyZWsgQmVow7pu?= <kabel@kernel.org>,
+ Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ alexandre.torgue@foss.st.com, Russell King <linux@armlinux.org.uk>,
+ joabreu@synopsys.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ peppe.cavallaro@st.com, Ivan Bornyakov <i.bornyakov@metrotek.ru>,
+ =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 2/2] stmmac: intel: Honor phy LED set by
+ system firmware on a Dell hardware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,111 +96,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 2022-01-11 at 17:36 -0600, Rob Herring wrote:
-> On Thu, Dec 16, 2021 at 8:06 PM Biao Huang <biao.huang@mediatek.com>
-> wrote:
-> > 
-> > Dear Rob,
-> >   Thanks for your comments~
-> > 
-> >   For mt8195, the eth device node will look like:
-> >   eth: ethernet@11021000 {
-> >     compatible = "mediatek,mt8195-gmac", "snps,dwmac-5.10a";
-> >     ...
-> >     clock-names = "axi",
-> >                   "apb",
-> >                   "mac_cg",
-> >                   "mac_main",
-> >                   "ptp_ref",
-> >                   "rmii_internal";
-> >     clocks = <&pericfg_ao CLK_PERI_AO_ETHERNET>,
-> >              <&pericfg_ao CLK_PERI_AO_ETHERNET_BUS>,
-> >              <&pericfg_ao CLK_PERI_AO_ETHERNET_MAC>,
-> >              <&topckgen CLK_TOP_SNPS_ETH_250M>,
-> >              <&topckgen CLK_TOP_SNPS_ETH_62P4M_PTP>,
-> >              <&topckgen CLK_TOP_SNPS_ETH_50M_RMII>;
-> >     ...
-> >   }
-> > 
-> > 1. "rmii_internal" is a special clock only required for
-> >    RMII phy interface, dwmac-mediatek.c will enable clocks
-> >    invoking clk_bulk_prepare_enable(xx, 6) for RMII,
-> >    and clk_bulk_prepare_enable(xx, 5) for other phy interfaces.
-> >    so, mt2712/mt8195 all put "rmii_internal" clock to the
-> >    end of clock list to simplify clock handling.
-> > 
-> >    If I put mac_cg as described above, a if condition is required
-> > for clocks description in dt-binding, just like what I do in v7
-> > send:
-> >   - if:
-> >       properties:
-> >         compatible:
-> >           contains:
-> >             enum:
-> >               - mediatek,mt2712-gmac
-> > 
-> >     then:
-> >       properties:
-> >         clocks:
-> >           minItems: 5
-> >           items:
-> >             - description: AXI clock
-> >             - description: APB clock
-> >             - description: MAC Main clock
-> >             - description: PTP clock
-> >             - description: RMII reference clock provided by MAC
-> > 
-> >         clock-names:
-> >           minItems: 5
-> >           items:
-> >             - const: axi
-> >             - const: apb
-> >             - const: mac_main
-> >             - const: ptp_ref
-> >             - const: rmii_internal
-> > 
-> >   - if:
-> >       properties:
-> >         compatible:
-> >           contains:
-> >             enum:
-> >               - mediatek,mt8195-gmac
-> > 
-> >     then:
-> >       properties:
-> >         clocks:
-> >           minItems: 6
-> >           items:
-> >             - description: AXI clock
-> >             - description: APB clock
-> >             - description: MAC clock gate
-> >             - description: MAC Main clock
-> >             - description: PTP clock
-> >             - description: RMII reference clock provided by MAC
-> > 
-> >    This introduces some duplicated description.
-> > 
-> > 2. If I put "mac_cg" to the end of clock list,
-> >    the dt-binding file can be simple just like
-> >    what we do in this v10 patch(need fix warnings reported by "make
-> > DT_CHECKER_FLAGS=-m dt_binding_check").
-> > 
-> >    But for mt8195:
-> >      the eth node in dts should be modified,
-> 
-> I hope you are defining the binding before you use it... That's not
-> good practice and not a valid argument.
-> 
-> >      and eth driver clock handling will be complex;
-> 
-> How so?
-> 
-> Rob
-OK, I'll add a driver patch to make clock setting more reasonable,
-and modify this patch as previous comments.
+On Fri, Jan 14, 2022 at 12:35 PM Jakub Kicinski <kuba@kernel.org> wrote:
+>
+> On Fri, 14 Jan 2022 12:07:54 +0800 Kai-Heng Feng wrote:
+> > BIOS on Dell Edge Gateway 3200 already makes its own phy LED setting, so
+> > instead of setting another value, keep it untouched and restore the saved
+> > value on system resume.
+> >
+> > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+>
+> I defer to PHY experts for review. Coincidentally the first Marvell
+> flag appears dead, nobody sets it:
+>
+> $ git grep MARVELL_PHY_M1145_FLAGS_RESISTANCE
+> drivers/net/phy/marvell.c:      if (phydev->dev_flags & MARVELL_PHY_M1145_FLAGS_RESISTANCE) {
+> include/linux/marvell_phy.h:#define MARVELL_PHY_M1145_FLAGS_RESISTANCE  0x00000001
+> $
+>
+> unless it's read from DT under different name or something.
 
-Thanks for your comments~
+It was introduced by 95d21ff4c645 without any user. Should we keep it?
 
+>
+>
+> Once you get some reviews please wait for net-next to open:
+>
+> http://vger.kernel.org/~davem/net-next.html
+>
+> and repost. It should happen the week of Jan 24th. When you repost
+> please drop the first patch, I believe Russell does not like the BIT()
+> macro, his opinion overrides checkpatch.
+
+Of course. I'll wait for the review and resubmit the 2nd patch.
+
+Kai-Heng
+
+>
+> Thanks!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
