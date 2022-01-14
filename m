@@ -2,63 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46CA448E040
-	for <lists+linux-stm32@lfdr.de>; Thu, 13 Jan 2022 23:29:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD67948E1B5
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 01:45:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC6C4C5F1F5;
-	Thu, 13 Jan 2022 22:29:21 +0000 (UTC)
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7560CC5F1F5;
+	Fri, 14 Jan 2022 00:45:56 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90CEFC5C842
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8DB4AC5C82A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Jan 2022 22:29:20 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id a7so8891914plh.1
+ Fri, 14 Jan 2022 00:45:54 +0000 (UTC)
+Received: from mail-wm1-f50.google.com ([209.85.128.50]) by
+ mrelayeu.kundenserver.de (mreue106 [213.165.67.113]) with ESMTPSA (Nemesis)
+ id 1MmkfQ-1mRiNQ00qE-00jnYs for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 14 Jan 2022 01:45:54 +0100
+Received: by mail-wm1-f50.google.com with SMTP id
+ s6-20020a7bc386000000b0034a89445406so2575717wmj.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 13 Jan 2022 14:29:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/1K/yKL2WvJn2YGUJo5lqXQyVrI3vSCmiCN73nfsZf0=;
- b=zEXhmHNz02RxVCbfspu8UevBoIHOwntAfwjELDVfcib02KtcHHCr83emWqVXZvUG5g
- ORk3BAuPg6rO+b8p8aS1ctaoBVAZ7sfyrTrALV+u/X483FmP03scphDbgix+/xy1URKP
- JaPyVQEigh8P5N1xmcNeRVdfPWcs3o2WAEJjMovYHdahAapP55kkuO/SlGbD64nsbHfY
- eYoU6Z8Mtq+2SNoJYYzpJeAEVC+XqSMClPYOwG7bYbaiX3zr+h11w0F5X+x4Yt3zDZnt
- l4jKFRGRCUZ+eAuDrgFBiOGs1YpXggpAIIjI6MHOBATAJZBj/13Sbpzx5sB67Pq0//oD
- d98Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/1K/yKL2WvJn2YGUJo5lqXQyVrI3vSCmiCN73nfsZf0=;
- b=2M5hdv9KkFAcqEs3U7zUppTIvZTSNkVShIZxZiYEkoG9tnqz10r8Mbv9LCYhKFEghy
- 1/C7A0snH0U1Lhk4+GiWjGe/xT38ZoxsRT8KKR5cXuBMTldh3XEGRS+XCCRJhtAAiX0b
- u9DNVDcN4nwg3dP8yGKFSu4L2+gIuFgOtK/PXkPDwag5uD2y266AjLiYE3f1+kGLoU7P
- ZVt+2LmX3Lhh5tpBBiwTaJ5Om+cVsJYZCd3m6Bq6p4PKhOfixqXLtehib81X3XL4/N6q
- JCxY8EJooN+a+KVN/pjp2Ca/vCNhDyrPCkeghCAVCM2HtPOpeSK4ycjxbC9EDxu4anKH
- jwig==
-X-Gm-Message-State: AOAM532A3/J9MwPIx+A7Qanh83UIqbD5sTcOwgqJy7lH8fTHND8ajYpz
- aDbaq/Vyvxt9RGMmnLfzU36fCUlXB7PPiUf17hXtsA==
-X-Google-Smtp-Source: ABdhPJzFlKwHmQIvDDrxARkQ+dVH6aAfYK79ymciXrpQfjKxHQ+oYkRfxCZT9peoGZcOcpvJA0wCSIjbeGeYZewWHr8=
-X-Received: by 2002:a17:90b:3e8e:: with SMTP id
- rj14mr1025161pjb.179.1642112958996; 
- Thu, 13 Jan 2022 14:29:18 -0800 (PST)
+ Thu, 13 Jan 2022 16:45:53 -0800 (PST)
+X-Gm-Message-State: AOAM5335gd2em0sW8bddpmKfnOPPy2st6L2il/+xtumw+dy/aqbYVL1Y
+ RphiZWtM6BXhpfewxr2F0JN5NWbAEHq2M2Yfyhw=
+X-Google-Smtp-Source: ABdhPJwV4G3A5mpFnAW11HwlY/Tf7y1xRC36rwdQkkqDkkOWfKAxxiuv8Puk8O7tRRiiu1Ah39q+R3OAJUeOa6nnmfM=
+X-Received: by 2002:a05:600c:287:: with SMTP id 7mr6081734wmk.98.1642121153661; 
+ Thu, 13 Jan 2022 16:45:53 -0800 (PST)
 MIME-Version: 1.0
-References: <20211112061741.120898-1-jagan@amarulasolutions.com>
- <CAMty3ZD_JUBzEDky8Q0N4QEmaWkpkd4gUYmLzDPBhKvi=eiVDQ@mail.gmail.com>
-In-Reply-To: <CAMty3ZD_JUBzEDky8Q0N4QEmaWkpkd4gUYmLzDPBhKvi=eiVDQ@mail.gmail.com>
-From: Robert Foss <robert.foss@linaro.org>
-Date: Thu, 13 Jan 2022 23:29:07 +0100
-Message-ID: <CAG3jFytf4XBQN3kfAtyE+f48zdN2bcSzUzcZQ9B2vYiSwSXQ5g@mail.gmail.com>
-To: Jagan Teki <jagan@amarulasolutions.com>
-Cc: Heiko Stubner <heiko@sntech.de>, Neil Armstrong <narmstrong@baylibre.com>,
- linux-amarula@amarulasolutions.com,
- Yannick Fertre <yannick.fertre@foss.st.com>, dri-devel@lists.freedesktop.org,
- Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] drm/bridge: dw-mipi-dsi: Switch to atomic
-	operations
+References: <20220113171921.17466-1-philippe.cornu@foss.st.com>
+ <20220113171921.17466-2-philippe.cornu@foss.st.com>
+In-Reply-To: <20220113171921.17466-2-philippe.cornu@foss.st.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 14 Jan 2022 01:45:37 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a0Nn3fwEMtb9f0DZhbyY+mLva5XR332XfXqX=WSmB9a8w@mail.gmail.com>
+Message-ID: <CAK8P3a0Nn3fwEMtb9f0DZhbyY+mLva5XR332XfXqX=WSmB9a8w@mail.gmail.com>
+To: Philippe Cornu <philippe.cornu@foss.st.com>
+X-Provags-ID: V03:K1:fvHzV5QrfcFE5nmIzh+JzjOgxspxzxqMUpVctTWd9N1W+F5kOVA
+ dSchuMYo7gSTfavwflYsYp2TL+GrUUguRhyOZQlFvetdnBjYAMyYCAesyNAymJ8xfyYwKo0
+ G8kEuTSEkqUiJTA47oNNECol9t83dwKD8hY9264JGjHXEwLkfMxniFiQLaiDA0D/3zKfSWw
+ boS/R2m0L0KGSRYnX7htw==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:tKbQx4C83k8=:X9fs98/DJ8shIayMM//vu+
+ Xw/8oZ7AnsJJhk8ePNr7oPN2EqbwCSGXWcTCUZTahMPvxsv0XVu5nutPYsLZWszA6GZKr0L04
+ HdJcdbyyaD52TUuHJt7n6SCUfiAD4s5/c4/kh3NLuBCjoqpxnCDEdVC3HaEkaqQcCVpW/8X9r
+ ItZweZa+UNfJVhL9d+j7jq4+PKwxiykJOVtoDuNWc1YNuJrLRbY54r8aQMGJvCrLz8s4wjcCc
+ b66AO/f2RpWj9N3/HRQv5kG2Qta6f3QxAgCr7FIve/14GynmjuOO/3wwhoYcYZmY2iJEA1Zgp
+ FldAIsn/yxmjGjihSXcAZJW8F4KlV+CDFB7TYXluReHbf3Rdr2kR79kv94hCVjj0WrRKRpkos
+ iNJnMGgn6nl6mTH1pMl2BdDn0cbFqQ5gJCOinVPNsQSRTcC+JO2EbY1fIsC9e2/qDYFNVQDex
+ dyUmIopajQEhfzQzWSmtTVKiWEK68K+tIZvdRuu4OlLqfjh5sKJLccm7uzA0xr9AOnZiMMxNh
+ 2T5rnnklxGa96HzIUaOrnbCGMS0GjigbbXpX/3gB/jjrInWgV+czg1581tA/t4lMBATzLU0UI
+ QIZWyh6cslWBb0jjJEVlZjmjY1kYQkVXg67JJ1GGp73oyhMrM0vtmcZzQUh7KbEP8DNgfArgI
+ Spx5ssA9LgQkhheEIKKSvfF6PKDM4ah8287xp4GbOSyY3t6vnj7A5qjlfF1LJBu8oGEhm9jkr
+ /Vnhb4GAxF6oz9B64D3Z9m2sqi7CZUqVe63fvTsspT/GvNj1V0cVFc96/nZcB9TnHQ6uHf2ct
+ 8cVJ56n5yrSQ6/oGYGjU90poMCRAsctGaJeRy6K0V8wrDsE0C8=
+Cc: David Airlie <airlied@linux.ie>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Alain Volmat <alain.volmat@foss.st.com>, Laura Abbott <labbott@redhat.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linaro-mm-sig@lists.linaro.org,
+ SoC Team <soc@kernel.org>, John Stultz <john.stultz@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Liam Mark <lmark@codeaurora.org>, Christian Konig <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Brian Starkey <Brian.Starkey@arm.com>
+Subject: Re: [Linux-stm32] [PATCH 1/2] MAINTAINERS: Update Benjamin Gaignard
+	maintainer status
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,27 +88,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Reviewed-by: Robert Foss <robert.foss@linaro.org>
-
-Applied to drm-misc-next.
-
-On Thu, 13 Jan 2022 at 20:43, Jagan Teki <jagan@amarulasolutions.com> wrote:
+On Thu, Jan 13, 2022 at 6:19 PM Philippe Cornu
+<philippe.cornu@foss.st.com> wrote:
 >
-> On Fri, Nov 12, 2021 at 11:47 AM Jagan Teki <jagan@amarulasolutions.com> wrote:
-> >
-> > Replace atomic version of the enable/disable operations to
-> > continue the transition to the atomic API.
-> >
-> > Also added default drm atomic operations for duplicate, destroy
-> > and reset state API's in order to have smooth transition on
-> > atomic API's.
-> >
-> > Tested on Engicam i.Core STM32MP1 SoM.
-> >
-> > Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
-> > ---
->
-> Gentle ping!
+>  DRM DRIVERS FOR STI
+> -M:     Benjamin Gaignard <benjamin.gaignard@linaro.org>
+>  L:     dri-devel@lists.freedesktop.org
+>  S:     Maintained
+>  T:     git git://anongit.freedesktop.org/drm/drm-misc
+
+If there is no longer a maintainer, I suppose it should also be marked as
+
+S: Orphaned
+
+         Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
