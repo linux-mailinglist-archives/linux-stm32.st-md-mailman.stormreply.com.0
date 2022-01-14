@@ -2,51 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B116C48EE06
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 17:23:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3365748EF34
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 18:25:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62061C5F1F4;
-	Fri, 14 Jan 2022 16:23:13 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59A03C5C842
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jan 2022 16:23:12 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC949C5F1F4;
+	Fri, 14 Jan 2022 17:25:55 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 183CF61F85;
- Fri, 14 Jan 2022 16:23:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D75BDC36AE5;
- Fri, 14 Jan 2022 16:23:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642177390;
- bh=8EEtbq135Y0w2OjVUTuJBP80ewEFZkVxYRnAxWNG0eY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=G+MoEykL1Bzcf4w4AmXD+dX82/JB8pi55zC1aY+51movMZJ+fQNkqDJiNVLBeqaXK
- 66h8mj10pJnEMsA6EcLsz7bK+9zrJr73Aknmr80Wk5g5sbyfRb+cbAIbZdEgLdqNWH
- 3sgBSDZteg/GXq5TSfGLXRb/cimeHMgq17JkgyCsrAGc/fW4IMm5IjXknUz97qp1K/
- JQEW+Kpy21DFQOGvcGI7kypMT707B7HmAfLHT+lmSdicfoXklTmnuY2hgT+6OsaZOV
- bUZ69y/0FBYanLA3SOuetWFb6qZv7vva5S9whhT5I3vqFJheVnSKeItWWBiWkAE4WW
- BjIFhvUDzN1HQ==
-Date: Fri, 14 Jan 2022 08:23:08 -0800
-From: Jakub Kicinski <kuba@kernel.org>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45AE1C5E2AF
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 14 Jan 2022 17:25:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=JwoliXcJ7ab5c8+F4xKeDTkJ6noi7Vx/K/CQ+XG7ErE=; b=Ez6nvfIec49hV3Dsh4GUYRqhWB
+ fGpwDEyw3EXhakHWRoPB9/BpJ9jUnYqugH6S98n+/OQIr1a2ts414G0cdMTQb1mGeBlx5eD1U2mNz
+ A3GK7IJTX7datZmfZaoYS9A4Ue3fDF8a08l7vgZVKs5nk1PsjR9haYe5qtzTXDJcQXcY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1n8QKb-001Qx9-N6; Fri, 14 Jan 2022 18:25:41 +0100
+Date: Fri, 14 Jan 2022 18:25:41 +0100
+From: Andrew Lunn <andrew@lunn.ch>
 To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Message-ID: <20220114082308.76a5cca5@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
-In-Reply-To: <CAAd53p6rW7PcugY7okKsXybK2O=pS8qAhctMzsa-MEgJrKhEdg@mail.gmail.com>
+Message-ID: <YeGyFabsBAfzvnU+@lunn.ch>
 References: <20220114040755.1314349-1-kai.heng.feng@canonical.com>
  <20220114040755.1314349-2-kai.heng.feng@canonical.com>
- <20220113203523.310e13d3@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
- <CAAd53p6rW7PcugY7okKsXybK2O=pS8qAhctMzsa-MEgJrKhEdg@mail.gmail.com>
+ <YeF18mxKuO4/4G0V@lunn.ch>
+ <CAAd53p5R2y-2JhWx3wp2=aBypJO=iV7fFS99eAgk6q7KBZMFMA@mail.gmail.com>
 MIME-Version: 1.0
-Cc: Marek =?UTF-8?B?QmVow7pu?= <kabel@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+Content-Disposition: inline
+In-Reply-To: <CAAd53p5R2y-2JhWx3wp2=aBypJO=iV7fFS99eAgk6q7KBZMFMA@mail.gmail.com>
+Cc: Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
  Russell King <linux@armlinux.org.uk>, joabreu@synopsys.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, peppe.cavallaro@st.com,
- Ivan Bornyakov <i.bornyakov@metrotek.ru>,
- Pali =?UTF-8?B?Um9ow6Fy?= <pali@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ peppe.cavallaro@st.com, Ivan Bornyakov <i.bornyakov@metrotek.ru>,
+ Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  Heiner Kallweit <hkallweit1@gmail.com>
 Subject: Re: [Linux-stm32] [PATCH 2/2] stmmac: intel: Honor phy LED set by
@@ -67,21 +62,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 14 Jan 2022 14:47:47 +0800 Kai-Heng Feng wrote:
-> > Coincidentally the first Marvell flag appears dead, nobody sets it:
-> >
-> > $ git grep MARVELL_PHY_M1145_FLAGS_RESISTANCE
-> > drivers/net/phy/marvell.c:      if (phydev->dev_flags & MARVELL_PHY_M1145_FLAGS_RESISTANCE) {
-> > include/linux/marvell_phy.h:#define MARVELL_PHY_M1145_FLAGS_RESISTANCE  0x00000001
-> > $
-> >
-> > unless it's read from DT under different name or something.  
+> > This is a PHY property. Why is the MAC involved?
 > 
-> It was introduced by 95d21ff4c645 without any user. Should we keep it?
+> This is inspired by commit a93f7fe13454 ("net: phy: marvell: add new
+> default led configure for m88e151x") which passes the flag from MAC to
+> PHY.
 
-Not unless someone explains that it's actually used somehow.
+But in this case, the MAC does not care what the LEDs are. The
+platform wants them left alone, not the MAC.
 
-Please post a patch once net-next opens.
+> > Please also think about how to make this generic, so any ACPI based
+> > system can use it, with any PHY.
+
+...
+
+> So the only approach I can think of is to use DMI match directly in PHY driver.
+
+In the phylib core. And the core then asks the specific PHY driver to
+not touch the LED configuration. It is then generic.
+
+      Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
