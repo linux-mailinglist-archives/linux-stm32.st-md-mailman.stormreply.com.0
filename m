@@ -2,52 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 574D048E923
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 12:30:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFDE148EA61
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 14:09:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D2DFC5F1F5;
-	Fri, 14 Jan 2022 11:30:15 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2683EC5C842
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jan 2022 11:30:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5919CC5F1F4;
+	Fri, 14 Jan 2022 13:09:36 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 96375B825C7;
- Fri, 14 Jan 2022 11:30:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 96872C36AEC;
- Fri, 14 Jan 2022 11:30:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642159810;
- bh=iv/QOvqC9qyOc3SjCNDYCNqSP2ggbWCYneFvulLQWxU=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=KPaPzLdhx70hl13pH+duFJ6n1hyfe8GkTm2aPHupCMzKUd2NO2AKWeYlBiipnJ6nb
- o7+0SBH8cmFsGwuNhCS2i5y9Pko/E4zdyzdRdflCKGfZqwicNCwIZJYRmYxnTRpjiT
- 1WOTDtjb7bHUsjbgj1nfWe2y8v6v1uq70J+HpV/14HdEH/nHW5eSje9j5U9ThVWyBN
- F9/PtdLHXAr8PVdGItqm7V4yd1qExjaPxnP8nCzW9hhb+4vLk98YdgMfaK0xLWCaFT
- rmTneiUahxV+8FpJKM8ZFVIjemqY0SRRcEzTZZ5Tz5+2MPSeUzN4MoXvw1uEfDmlPy
- t146DtBccTnvg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 6FAD6F60799; Fri, 14 Jan 2022 11:30:10 +0000 (UTC)
-MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <164215981045.30922.3548719266097575473.git-patchwork-notify@kernel.org>
-Date: Fri, 14 Jan 2022 11:30:10 +0000
-References: <20220114071430.1335872-1-kai.heng.feng@canonical.com>
-In-Reply-To: <20220114071430.1335872-1-kai.heng.feng@canonical.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FB83C5E2AF
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 14 Jan 2022 13:09:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=YnTWFx/yPuQ1VJBPYKlDARZ46we08KrqVjJlbdgCYJc=; b=Sw/ckGTBxXX43aAOM1HZp2w+Ez
+ c0haMM5HFuJ3YE9bAx+QhnWH2u7ueis4Pt8sdrZT6uzVuKm9Pp8mrpqpkM3vtD6NxUHs9/tBm2TS3
+ nsFL9ZEpMXQrH2XWnBRp+S0b6KT8yhYVBVpOFWyQysliV5Dk/NjnbnYx1JCh9nqlElug=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1n8MKI-001Pd9-Rk; Fri, 14 Jan 2022 14:09:06 +0100
+Date: Fri, 14 Jan 2022 14:09:06 +0100
+From: Andrew Lunn <andrew@lunn.ch>
 To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Fix "Unbalanced
-	pm_runtime_enable!" warning
+Message-ID: <YeF18mxKuO4/4G0V@lunn.ch>
+References: <20220114040755.1314349-1-kai.heng.feng@canonical.com>
+ <20220114040755.1314349-2-kai.heng.feng@canonical.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20220114040755.1314349-2-kai.heng.feng@canonical.com>
+Cc: Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
+ Russell King <linux@armlinux.org.uk>, joabreu@synopsys.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ peppe.cavallaro@st.com, Ivan Bornyakov <i.bornyakov@metrotek.ru>,
+ Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 2/2] stmmac: intel: Honor phy LED set by
+ system firmware on a Dell hardware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,31 +60,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net.git (master)
-by David S. Miller <davem@davemloft.net>:
-
-On Fri, 14 Jan 2022 15:14:30 +0800 you wrote:
-> If the device is PCI based like intel-eth-pci, pm_runtime_enable() is
-> already called by pci_pm_init().
-> 
-> So only pm_runtime_enable() when it's not already enabled.
+On Fri, Jan 14, 2022 at 12:07:54PM +0800, Kai-Heng Feng wrote:
+> BIOS on Dell Edge Gateway 3200 already makes its own phy LED setting, so
+> instead of setting another value, keep it untouched and restore the saved
+> value on system resume.
 > 
 > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> ---
+>  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 16 +++++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 +
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c |  4 ++
+>  drivers/net/phy/marvell.c                     | 58 ++++++++++++-------
+>  include/linux/marvell_phy.h                   |  1 +
+>  5 files changed, 61 insertions(+), 20 deletions(-)
 > 
-> [...]
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> index 8e8778cfbbadd..f8a2879e0264a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> @@ -857,6 +857,16 @@ static const struct dmi_system_id quark_pci_dmi[] = {
+>  	{}
+>  };
+>  
+> +static const struct dmi_system_id use_preset_led[] = {
+> +	{
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Dell EMC"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Edge Gateway 3200"),
+> +		},
+> +	},
+> +	{}
+> +};
 
-Here is the summary with links:
-  - net: stmmac: Fix "Unbalanced pm_runtime_enable!" warning
-    https://git.kernel.org/netdev/net/c/d90d0c175cf2
+This is a PHY property. Why is the MAC involved?
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Please also think about how to make this generic, so any ACPI based
+system can use it, with any PHY.
 
-
+     Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
