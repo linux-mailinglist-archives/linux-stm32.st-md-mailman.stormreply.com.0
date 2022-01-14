@@ -2,69 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CA2B48ED16
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 16:23:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F87B48ED19
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 16:25:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11260C5F1F4;
-	Fri, 14 Jan 2022 15:23:11 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A448C5F1F4;
+	Fri, 14 Jan 2022 15:25:32 +0000 (UTC)
 Received: from smtp-relay-internal-0.canonical.com
  (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 727EDC5E2AF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6497BC5E2AF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jan 2022 15:23:10 +0000 (UTC)
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
- [209.85.161.69])
+ Fri, 14 Jan 2022 15:25:31 +0000 (UTC)
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 98A4E402A5
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 15FA8402A6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jan 2022 15:23:06 +0000 (UTC)
+ Fri, 14 Jan 2022 15:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1642173786;
- bh=Ia9jCR2j/rA1cIOYRQT6jRXDjntVCpr3+k1Bg19zGmo=;
+ s=20210705; t=1642173931;
+ bh=1r53LGbRrCdIDFkdFatBJl+cYRNX8emZDBqZeKrVhA0=;
  h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
  To:Cc:Content-Type;
- b=NGGEQPQ6DXcJv+0lF0fm9b6XPu/oIqpT5+UDOSbramjwxe3NOW7JkGSGbI//COBye
- IHCMEB43PMIS7vkxOVLiF2a1MyHzJ5qMf33VzIHsXNGLMHrXJVETj8Kp6G7AFOdCCT
- v/05dhuQgRhxAoLt+O2vb42GymvVY1+hG8cJzQ5uAucXaDWzY8ynsD7MHRQMK6Rfvc
- LaGyQDbCj64H0SW8m0fPlcpqn+Qre3xnoiVgdH85uXuREfGSgBFTFmxfavqitr1yWR
- HHt1pOATlmz7xDo6DIR91CRvczo2XLD6rRexdj4RoHGRYeSffu9JH9Sr8bz5auS9nw
- VR8zC13W8CSig==
-Received: by mail-oo1-f69.google.com with SMTP id
- t12-20020a4aa3cc000000b002e087a8da2eso1377071ool.8
+ b=rWGtiG9uI4y+5AlEq01ZA/NeofQf4xdOaoq1Bd7EpvRhO9llNE1be6mBHZnXOGpNE
+ rFMxgkluHL3kSiobH0wPVgc/wiuriEyImbvnTlLKArbvo7RmolyD2M41YUDniw5TbC
+ KSzoETYEZUR8LeK8gEoGJjeUpPqM2/KaCd+YeLyyHvwyevGLy/ypyORnbNB43PBo4U
+ 1uAIp87RuCdA38PzcGr2Rp/w4tQJ1JDHH+PEENbSHaNBuO9UZs1cxpLJeegjfwgnBP
+ i2Usy4+d5F8ZfvXmKZm3UBFS+UekTupOTbsG1XyJaFa1YPvyxonxPPsIS/n9Xe6MMa
+ S8Ws5BL7QbytQ==
+Received: by mail-oi1-f198.google.com with SMTP id
+ g4-20020acab604000000b002c8b24c3964so6174375oif.22
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jan 2022 07:23:06 -0800 (PST)
+ Fri, 14 Jan 2022 07:25:31 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Ia9jCR2j/rA1cIOYRQT6jRXDjntVCpr3+k1Bg19zGmo=;
- b=R+pB0d4gs5fJOS+DEqWgyxN7kRM4t6zkE9EKOiKhJQlTI7HxYyY/OpOR2HI+7oXt6i
- cemXi1OCuaTRPXjNJK74x7y9+tMuYf1ADMcP0KjKoVUy6IXwm8EuhXBFjMYi0dHQvsG2
- E67XwATpo+lluyxYQAcrmUQwjXXRZ1I3lY8aRg44YYjSlS8ED8eiyfYNKw0i7V19CevF
- 5tOHrQj5jOJbxkkqvX72jmRfAo2rhk7B26MdGUMDqUSQmYRphcVIokfVUjs+Kgfq80qM
- A8fTIW3fd1Tyx7RnxeNgZaljGZO2zV67uhRFoHIVxRcIOcYvPg7t1S9uKReGDu1g2tx1
- KGmA==
-X-Gm-Message-State: AOAM531JjxCivDQHdWaCXDRsH7Rg9qMAc+Kt0k1TdB33ceLP8U/ID6xu
- Lih73Tx/3CgwrdKWnI0BU71lkDPHsm6pmCYfdOxlgajQpWYUsOF6MGdtWDrBV5JANmcxOwXATNZ
- zU3nvf7zSi3t1aFZi3kobkNGYOjxQ/1LwDV4Sgk8aL+3f8oIBFVBref2MGJJH2AdICBhVd5hnTQ
+ bh=1r53LGbRrCdIDFkdFatBJl+cYRNX8emZDBqZeKrVhA0=;
+ b=IY6a3BFSJACWd2/mkU1Xl4wVi7fENlvmF3QJJkDqruv5wTE7XEqpwtBfAoAdFbFBDZ
+ y88h4ZKbnjdgYOT0d+hcgyiWd7n7oCII2aCAjv8CYV2mEZVyi5n4fLXyhilSMqwhGYNa
+ FGlLwzSEll1Udn8TOx3HYTyRNQFHs5XkUBxC2NJ38zvv220LRL/nOx01W22p86ptb3MB
+ 3ywWMk/M8ZHkD2j/k1WagJgg3GX4BZ6quGgJj+Wf+wC5UYe7RnH9jicrcGAeLFScacU3
+ 3EpcisLQ/SDlB3V4RNh09Zz8ThYKoZp+emZWlzjsAY1E9pSvpYYXKJMJ+72DIvFd3P0t
+ HpMw==
+X-Gm-Message-State: AOAM532bnso4xizGaeXdjrv2whAllaiwnK3YSduF0JWi6AzodyEQrEAo
+ VPSfmHueM7aLj1IqI3EvY/nowM7grUTIIN5xTHaEZMpYZ5vtWup6fF2mUrZZoh9oHQp1r1vS0qb
+ EPIwCkwPwyFxruh/CA+CYYs0g1c+zUi+0s8jhX9qDL2JvXnb8cjmyRTBnzE42qnu7wYL39yLbJg
  ==
-X-Received: by 2002:a9d:24e4:: with SMTP id z91mr7171446ota.11.1642173785397; 
- Fri, 14 Jan 2022 07:23:05 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy1rRcmwLgU1sdJqzQCBSfOAGlb01uPOBf0ZfAZY09v0WzUQ92iIkMR8shxtN95ewZDg/NvYsXU4kg6yfRt754=
-X-Received: by 2002:a9d:24e4:: with SMTP id z91mr7171417ota.11.1642173785054; 
- Fri, 14 Jan 2022 07:23:05 -0800 (PST)
+X-Received: by 2002:a05:6808:199a:: with SMTP id
+ bj26mr13097379oib.98.1642173929765; 
+ Fri, 14 Jan 2022 07:25:29 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwjc8OhFrl0+4UKcBWR0AvxTCF+lZaB9wkXprPPao3yjX3bM54hzP09Hoph4ybKCG+Gsz+cmAnQZkDe5pkkoW8=
+X-Received: by 2002:a05:6808:199a:: with SMTP id
+ bj26mr13097353oib.98.1642173929496; 
+ Fri, 14 Jan 2022 07:25:29 -0800 (PST)
 MIME-Version: 1.0
 References: <20220114040755.1314349-1-kai.heng.feng@canonical.com>
  <20220114040755.1314349-2-kai.heng.feng@canonical.com>
- <YeF18mxKuO4/4G0V@lunn.ch>
-In-Reply-To: <YeF18mxKuO4/4G0V@lunn.ch>
+ <YeF4kbsqag+kZ7ji@lunn.ch>
+In-Reply-To: <YeF4kbsqag+kZ7ji@lunn.ch>
 From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Date: Fri, 14 Jan 2022 23:22:53 +0800
-Message-ID: <CAAd53p5R2y-2JhWx3wp2=aBypJO=iV7fFS99eAgk6q7KBZMFMA@mail.gmail.com>
+Date: Fri, 14 Jan 2022 23:25:17 +0800
+Message-ID: <CAAd53p4P9STxTUsZ2fXNqOnmwLMfOBXpYR5hvcJHk5-0V7MPgA@mail.gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>
 Cc: =?UTF-8?B?TWFyZWsgQmVow7pu?= <kabel@kernel.org>,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
@@ -93,59 +95,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 14, 2022 at 9:09 PM Andrew Lunn <andrew@lunn.ch> wrote:
+On Fri, Jan 14, 2022 at 9:20 PM Andrew Lunn <andrew@lunn.ch> wrote:
 >
-> On Fri, Jan 14, 2022 at 12:07:54PM +0800, Kai-Heng Feng wrote:
-> > BIOS on Dell Edge Gateway 3200 already makes its own phy LED setting, so
-> > instead of setting another value, keep it untouched and restore the saved
-> > value on system resume.
+> >  static void marvell_config_led(struct phy_device *phydev)
+> >  {
+> > -     u16 def_config;
+> > +     struct marvell_priv *priv = phydev->priv;
+> >       int err;
 > >
-> > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> > ---
-> >  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 16 +++++
-> >  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 +
-> >  .../net/ethernet/stmicro/stmmac/stmmac_main.c |  4 ++
-> >  drivers/net/phy/marvell.c                     | 58 ++++++++++++-------
-> >  include/linux/marvell_phy.h                   |  1 +
-> >  5 files changed, 61 insertions(+), 20 deletions(-)
-> >
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> > index 8e8778cfbbadd..f8a2879e0264a 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> > @@ -857,6 +857,16 @@ static const struct dmi_system_id quark_pci_dmi[] = {
-> >       {}
-> >  };
-> >
-> > +static const struct dmi_system_id use_preset_led[] = {
-> > +     {
-> > +             .matches = {
-> > +                     DMI_MATCH(DMI_SYS_VENDOR, "Dell EMC"),
-> > +                     DMI_MATCH(DMI_PRODUCT_NAME, "Edge Gateway 3200"),
-> > +             },
-> > +     },
-> > +     {}
-> > +};
+> > -     switch (MARVELL_PHY_FAMILY_ID(phydev->phy_id)) {
+> > -     /* Default PHY LED config: LED[0] .. Link, LED[1] .. Activity */
+> > -     case MARVELL_PHY_FAMILY_ID(MARVELL_PHY_ID_88E1121R):
+> > -     case MARVELL_PHY_FAMILY_ID(MARVELL_PHY_ID_88E1318S):
+> > -             def_config = MII_88E1121_PHY_LED_DEF;
+> > -             break;
+> > -     /* Default PHY LED config:
+> > -      * LED[0] .. 1000Mbps Link
+> > -      * LED[1] .. 100Mbps Link
+> > -      * LED[2] .. Blink, Activity
+> > -      */
+> > -     case MARVELL_PHY_FAMILY_ID(MARVELL_PHY_ID_88E1510):
+> > -             if (phydev->dev_flags & MARVELL_PHY_LED0_LINK_LED1_ACTIVE)
+> > -                     def_config = MII_88E1510_PHY_LED0_LINK_LED1_ACTIVE;
+> > -             else
+> > -                     def_config = MII_88E1510_PHY_LED_DEF;
+> > -             break;
+> > -     default:
+> > +     if (priv->led_def_config == -1)
+> >               return;
+> > +
+> > +     if (priv->led_def_config)
+> > +             goto write;
 >
-> This is a PHY property. Why is the MAC involved?
+> Really?
+>
+> Please restructure this code. Take it apart into helpers. You need:
+>
+> A function to set the actual LED configuration.
+> A function to decide what, if any, configuration to set
+> A function to store the current configuration on suspend.
+> A function to restore the current configuration on resume.
+>
+> Lots of little functions will make it much easier to understand, and
+> avoid 1980s BASIC style.
 
-This is inspired by commit a93f7fe13454 ("net: phy: marvell: add new
-default led configure for m88e151x") which passes the flag from MAC to
-PHY.
+Sure, will turn these into helper functions.
 
 >
-> Please also think about how to make this generic, so any ACPI based
-> system can use it, with any PHY.
+> I'm also surprised you need to deal with suspend/resume. Why does the
+> BIOS not set the LED mode on resume, same as it does on power up?
 
-ACPI property won't work because it ties to ACPI platform device or
-PCI device, so the property still needs to be passed from MAC to PHY.
-
-So the only approach I can think of is to use DMI match directly in PHY driver.
+I was told this is a BIOS limitation. I'll ask vendor _why_ the LED
+can't be restored by BIOS.
 
 Kai-Heng
 
 >
->      Andrew
+>       Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
