@@ -2,56 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82C6A48E481
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 07:54:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6597248E3CD
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jan 2022 06:38:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25FE0C5F1F5;
-	Fri, 14 Jan 2022 06:54:47 +0000 (UTC)
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 128A3C5F1F5;
+	Fri, 14 Jan 2022 05:38:37 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8D08C5C842
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59710C5C842
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jan 2022 04:08:27 +0000 (UTC)
-Received: from HP-EliteBook-840-G7.. (223-140-209-80.emome-ip.hinet.net
- [223.140.209.80])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id CFC7E40D48; 
- Fri, 14 Jan 2022 04:08:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1642133302;
- bh=gR2rWv4Rs5xoIZe6hJeo4oK3gVvpoLRh+lUPZPgU6kM=;
- h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
- MIME-Version;
- b=o85ieK+2Iya7Vv2JWErShAzs7tu9R1RKLrVIckit+MKTAey6kgGd4LBeR0VsMNN8H
- 9xcYyimdFKyqftwJM+MMGpYQ29GKP9piL4lhGFX0v4Pa+KkoewfoyNYmPkICq5b7X9
- 1Mkk8+DWyPhhNz69xS4fsBBFUzWTdZx+3JaVf0sXiYW9YZUTZcVqGvZlOaqtFdMiuE
- m3dnXn940wEvkHo20UPNEQLYOerJBXcQnfWfkBcHp7Pveq4xEaAa6xBYFCq2S74up3
- /72o0nWyLW3aM4Dbd3gmrivuIZjrKQDzagE06A/n3DwW6U8xGuQRfsJaasxPkFtXlB
- e3SzBKeENy+9g==
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, joabreu@synopsys.com
-Date: Fri, 14 Jan 2022 12:07:54 +0800
-Message-Id: <20220114040755.1314349-2-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20220114040755.1314349-1-kai.heng.feng@canonical.com>
-References: <20220114040755.1314349-1-kai.heng.feng@canonical.com>
+ Fri, 14 Jan 2022 05:38:34 +0000 (UTC)
+X-UUID: 3abcf59a8c2d45249804e5ded4671120-20220114
+X-UUID: 3abcf59a8c2d45249804e5ded4671120-20220114
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1136806152; Fri, 14 Jan 2022 13:38:27 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Fri, 14 Jan 2022 13:38:25 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Fri, 14 Jan 2022 13:38:24 +0800
+Message-ID: <14636842a61bb7631584315901bcc06ccbdb0f90.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: Rob Herring <robh@kernel.org>
+Date: Fri, 14 Jan 2022 13:38:24 +0800
+In-Reply-To: <CAL_JsqLo7z-KWtwFx+Kng2aQuCpQwJaO6mHnyBzmCKCJDK5n+Q@mail.gmail.com>
+References: <20211216055328.15953-1-biao.huang@mediatek.com>
+ <20211216055328.15953-7-biao.huang@mediatek.com>
+ <1639662782.987227.4004875.nullmailer@robh.at.kernel.org>
+ <be023f9d2fb2a8f947bd0075e8732ba07cfd7b89.camel@mediatek.com>
+ <CAL_JsqLo7z-KWtwFx+Kng2aQuCpQwJaO6mHnyBzmCKCJDK5n+Q@mail.gmail.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 14 Jan 2022 06:54:46 +0000
-Cc: =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
- Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, Ivan Bornyakov <i.bornyakov@metrotek.ru>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
+X-MTK: N
+Cc: devicetree@vger.kernel.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ srv_heupstream <srv_heupstream@mediatek.com>, netdev <netdev@vger.kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ David Miller <davem@davemloft.net>, dkirjanov@suse.de,
+ Jose Abreu <joabreu@synopsys.com>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Macpaul Lin <macpaul.lin@mediatek.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH 2/2] stmmac: intel: Honor phy LED set by
-	system firmware on a Dell hardware
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v10 6/6] net: dt-bindings: dwmac:
+ add support for mt8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,190 +72,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-BIOS on Dell Edge Gateway 3200 already makes its own phy LED setting, so
-instead of setting another value, keep it untouched and restore the saved
-value on system resume.
+On Tue, 2022-01-11 at 17:36 -0600, Rob Herring wrote:
+> On Thu, Dec 16, 2021 at 8:06 PM Biao Huang <biao.huang@mediatek.com>
+> wrote:
+> > 
+> > Dear Rob,
+> >   Thanks for your comments~
+> > 
+> >   For mt8195, the eth device node will look like:
+> >   eth: ethernet@11021000 {
+> >     compatible = "mediatek,mt8195-gmac", "snps,dwmac-5.10a";
+> >     ...
+> >     clock-names = "axi",
+> >                   "apb",
+> >                   "mac_cg",
+> >                   "mac_main",
+> >                   "ptp_ref",
+> >                   "rmii_internal";
+> >     clocks = <&pericfg_ao CLK_PERI_AO_ETHERNET>,
+> >              <&pericfg_ao CLK_PERI_AO_ETHERNET_BUS>,
+> >              <&pericfg_ao CLK_PERI_AO_ETHERNET_MAC>,
+> >              <&topckgen CLK_TOP_SNPS_ETH_250M>,
+> >              <&topckgen CLK_TOP_SNPS_ETH_62P4M_PTP>,
+> >              <&topckgen CLK_TOP_SNPS_ETH_50M_RMII>;
+> >     ...
+> >   }
+> > 
+> > 1. "rmii_internal" is a special clock only required for
+> >    RMII phy interface, dwmac-mediatek.c will enable clocks
+> >    invoking clk_bulk_prepare_enable(xx, 6) for RMII,
+> >    and clk_bulk_prepare_enable(xx, 5) for other phy interfaces.
+> >    so, mt2712/mt8195 all put "rmii_internal" clock to the
+> >    end of clock list to simplify clock handling.
+> > 
+> >    If I put mac_cg as described above, a if condition is required
+> > for clocks description in dt-binding, just like what I do in v7
+> > send:
+> >   - if:
+> >       properties:
+> >         compatible:
+> >           contains:
+> >             enum:
+> >               - mediatek,mt2712-gmac
+> > 
+> >     then:
+> >       properties:
+> >         clocks:
+> >           minItems: 5
+> >           items:
+> >             - description: AXI clock
+> >             - description: APB clock
+> >             - description: MAC Main clock
+> >             - description: PTP clock
+> >             - description: RMII reference clock provided by MAC
+> > 
+> >         clock-names:
+> >           minItems: 5
+> >           items:
+> >             - const: axi
+> >             - const: apb
+> >             - const: mac_main
+> >             - const: ptp_ref
+> >             - const: rmii_internal
+> > 
+> >   - if:
+> >       properties:
+> >         compatible:
+> >           contains:
+> >             enum:
+> >               - mediatek,mt8195-gmac
+> > 
+> >     then:
+> >       properties:
+> >         clocks:
+> >           minItems: 6
+> >           items:
+> >             - description: AXI clock
+> >             - description: APB clock
+> >             - description: MAC clock gate
+> >             - description: MAC Main clock
+> >             - description: PTP clock
+> >             - description: RMII reference clock provided by MAC
+> > 
+> >    This introduces some duplicated description.
+> > 
+> > 2. If I put "mac_cg" to the end of clock list,
+> >    the dt-binding file can be simple just like
+> >    what we do in this v10 patch(need fix warnings reported by "make
+> > DT_CHECKER_FLAGS=-m dt_binding_check").
+> > 
+> >    But for mt8195:
+> >      the eth node in dts should be modified,
+> 
+> I hope you are defining the binding before you use it... That's not
+> good practice and not a valid argument.
+> 
+> >      and eth driver clock handling will be complex;
+> 
+> How so?
+> 
+> Rob
+OK, I'll add a driver patch to make clock setting more reasonable,
+and modify this patch as previous comments.
 
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 16 +++++
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  4 ++
- drivers/net/phy/marvell.c                     | 58 ++++++++++++-------
- include/linux/marvell_phy.h                   |  1 +
- 5 files changed, 61 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 8e8778cfbbadd..f8a2879e0264a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -857,6 +857,16 @@ static const struct dmi_system_id quark_pci_dmi[] = {
- 	{}
- };
- 
-+static const struct dmi_system_id use_preset_led[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell EMC"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Edge Gateway 3200"),
-+		},
-+	},
-+	{}
-+};
-+
- static int quark_default_data(struct pci_dev *pdev,
- 			      struct plat_stmmacenet_data *plat)
- {
-@@ -989,6 +999,7 @@ static int intel_eth_pci_probe(struct pci_dev *pdev,
- 	struct intel_priv_data *intel_priv;
- 	struct plat_stmmacenet_data *plat;
- 	struct stmmac_resources res;
-+	struct stmmac_priv *priv;
- 	int ret;
- 
- 	intel_priv = devm_kzalloc(&pdev->dev, sizeof(*intel_priv), GFP_KERNEL);
-@@ -1075,6 +1086,11 @@ static int intel_eth_pci_probe(struct pci_dev *pdev,
- 		goto err_dvr_probe;
- 	}
- 
-+	if (dmi_check_system(use_preset_led)) {
-+		priv = netdev_priv(dev_get_drvdata(&pdev->dev));
-+		priv->use_preset_led = true;
-+	}
-+
- 	return 0;
- 
- err_dvr_probe:
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 40b5ed94cb54a..525701acbbdbb 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -319,6 +319,8 @@ struct stmmac_priv {
- 	/* XDP BPF Program */
- 	unsigned long *af_xdp_zc_qps;
- 	struct bpf_prog *xdp_prog;
-+
-+	bool use_preset_led;
- };
- 
- enum stmmac_state {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 63ff2dad8c85f..155412656b8bf 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -49,6 +49,7 @@
- #include "dwmac1000.h"
- #include "dwxgmac2.h"
- #include "hwif.h"
-+#include <linux/marvell_phy.h>
- 
- /* As long as the interface is active, we keep the timestamping counter enabled
-  * with fine resolution and binary rollover. This avoid non-monotonic behavior
-@@ -1236,6 +1237,9 @@ static int stmmac_init_phy(struct net_device *dev)
- 			return -ENODEV;
- 		}
- 
-+		if (priv->use_preset_led)
-+			phydev->dev_flags |= MARVELL_PHY_USE_PRESET_LED;
-+
- 		ret = phylink_connect_phy(priv->phylink, phydev);
- 	}
- 
-diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
-index 739859c0dfb18..45be432188781 100644
---- a/drivers/net/phy/marvell.c
-+++ b/drivers/net/phy/marvell.c
-@@ -304,6 +304,7 @@ struct marvell_priv {
- 	u32 last;
- 	u32 step;
- 	s8 pair;
-+	u16 led_def_config;
- };
- 
- static int marvell_read_page(struct phy_device *phydev)
-@@ -748,32 +749,49 @@ static int m88e1510_config_aneg(struct phy_device *phydev)
- 
- static void marvell_config_led(struct phy_device *phydev)
- {
--	u16 def_config;
-+	struct marvell_priv *priv = phydev->priv;
- 	int err;
- 
--	switch (MARVELL_PHY_FAMILY_ID(phydev->phy_id)) {
--	/* Default PHY LED config: LED[0] .. Link, LED[1] .. Activity */
--	case MARVELL_PHY_FAMILY_ID(MARVELL_PHY_ID_88E1121R):
--	case MARVELL_PHY_FAMILY_ID(MARVELL_PHY_ID_88E1318S):
--		def_config = MII_88E1121_PHY_LED_DEF;
--		break;
--	/* Default PHY LED config:
--	 * LED[0] .. 1000Mbps Link
--	 * LED[1] .. 100Mbps Link
--	 * LED[2] .. Blink, Activity
--	 */
--	case MARVELL_PHY_FAMILY_ID(MARVELL_PHY_ID_88E1510):
--		if (phydev->dev_flags & MARVELL_PHY_LED0_LINK_LED1_ACTIVE)
--			def_config = MII_88E1510_PHY_LED0_LINK_LED1_ACTIVE;
--		else
--			def_config = MII_88E1510_PHY_LED_DEF;
--		break;
--	default:
-+	if (priv->led_def_config == -1)
- 		return;
-+
-+	if (priv->led_def_config)
-+		goto write;
-+
-+	if (phydev->dev_flags & MARVELL_PHY_USE_PRESET_LED) {
-+		priv->led_def_config = phy_read_paged(phydev, MII_MARVELL_LED_PAGE,
-+						      MII_PHY_LED_CTRL);
-+		if (priv->led_def_config < 0) {
-+			priv->led_def_config = -1;
-+			return;
-+		}
-+	} else {
-+		switch (MARVELL_PHY_FAMILY_ID(phydev->phy_id)) {
-+		/* Default PHY LED config: LED[0] .. Link, LED[1] .. Activity */
-+		case MARVELL_PHY_FAMILY_ID(MARVELL_PHY_ID_88E1121R):
-+		case MARVELL_PHY_FAMILY_ID(MARVELL_PHY_ID_88E1318S):
-+			priv->led_def_config = MII_88E1121_PHY_LED_DEF;
-+			break;
-+		/* Default PHY LED config:
-+		 * LED[0] .. 1000Mbps Link
-+		 * LED[1] .. 100Mbps Link
-+		 * LED[2] .. Blink, Activity
-+		 */
-+		case MARVELL_PHY_FAMILY_ID(MARVELL_PHY_ID_88E1510):
-+			if (phydev->dev_flags & MARVELL_PHY_LED0_LINK_LED1_ACTIVE)
-+				priv->led_def_config = MII_88E1510_PHY_LED0_LINK_LED1_ACTIVE;
-+			else
-+				priv->led_def_config = MII_88E1510_PHY_LED_DEF;
-+			break;
-+		default:
-+			priv->led_def_config = -1;
-+			return;
-+		}
- 	}
- 
-+write:
- 	err = phy_write_paged(phydev, MII_MARVELL_LED_PAGE, MII_PHY_LED_CTRL,
--			      def_config);
-+			      priv->led_def_config);
- 	if (err < 0)
- 		phydev_warn(phydev, "Fail to config marvell phy LED.\n");
- }
-diff --git a/include/linux/marvell_phy.h b/include/linux/marvell_phy.h
-index ea5995d9ad6c1..492f07620b6c0 100644
---- a/include/linux/marvell_phy.h
-+++ b/include/linux/marvell_phy.h
-@@ -43,5 +43,6 @@
- #define MARVELL_PHY_M1145_FLAGS_RESISTANCE	BIT(0)
- #define MARVELL_PHY_M1118_DNS323_LEDS		BIT(1)
- #define MARVELL_PHY_LED0_LINK_LED1_ACTIVE	BIT(2)
-+#define MARVELL_PHY_USE_PRESET_LED		BIT(3)
- 
- #endif /* _MARVELL_PHY_H */
--- 
-2.33.1
+Thanks for your comments~
 
 _______________________________________________
 Linux-stm32 mailing list
