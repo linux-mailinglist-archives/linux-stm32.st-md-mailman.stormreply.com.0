@@ -2,40 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DFA748FD08
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jan 2022 13:52:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A63CF49027A
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jan 2022 08:07:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2440C5F1ED;
-	Sun, 16 Jan 2022 12:52:07 +0000 (UTC)
-Received: from bmailout3.hostsharing.net (bmailout3.hostsharing.net
- [176.9.242.62])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 540FEC60460;
+	Mon, 17 Jan 2022 07:07:21 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C20FCFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 606CDC5C82B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Jan 2022 12:52:06 +0000 (UTC)
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client CN "*.hostsharing.net",
- Issuer "RapidSSL TLS DV RSA Mixed SHA256 2020 CA-1" (verified OK))
- by bmailout3.hostsharing.net (Postfix) with ESMTPS id CA353100D940F;
- Sun, 16 Jan 2022 13:52:05 +0100 (CET)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
- id A7CE14A85B; Sun, 16 Jan 2022 13:52:05 +0100 (CET)
-Date: Sun, 16 Jan 2022 13:52:05 +0100
-From: Lukas Wunner <lukas@wunner.de>
-To: patrice.chotard@foss.st.com
-Message-ID: <20220116125205.GA18267@wunner.de>
-References: <20220112144424.5278-1-patrice.chotard@foss.st.com>
+ Mon, 17 Jan 2022 07:07:17 +0000 (UTC)
+X-UUID: a11f0ba067c94d599b676bfdcdaf970d-20220117
+X-UUID: a11f0ba067c94d599b676bfdcdaf970d-20220117
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 734564802; Mon, 17 Jan 2022 15:07:10 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Mon, 17 Jan 2022 15:07:10 +0800
+Received: from localhost.localdomain (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Mon, 17 Jan 2022 15:07:08 +0800
+From: Biao Huang <biao.huang@mediatek.com>
+To: <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>, <angelogioacchino.delregno@collabora.com>
+Date: Mon, 17 Jan 2022 15:06:59 +0800
+Message-ID: <20220117070706.17853-1-biao.huang@mediatek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220112144424.5278-1-patrice.chotard@foss.st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
+X-MTK: N
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ Biao Huang <biao.huang@mediatek.com>, netdev@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ dkirjanov@suse.de, Jose Abreu <joabreu@synopsys.com>,
+ linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] spi: stm32-qspi: Update spi registering
+Subject: [Linux-stm32] [PATCH net-next v12 0/7] MediaTek Ethernet Patches on
+	MT8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,44 +61,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 12, 2022 at 03:44:24PM +0100, patrice.chotard@foss.st.com wrote:
-> diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-> index 514337c86d2c..09839a3dbb26 100644
-> --- a/drivers/spi/spi-stm32-qspi.c
-> +++ b/drivers/spi/spi-stm32-qspi.c
-> @@ -688,7 +688,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
->  	struct resource *res;
->  	int ret, irq;
->  
-> -	ctrl = spi_alloc_master(dev, sizeof(*qspi));
-> +	ctrl = devm_spi_alloc_master(dev, sizeof(*qspi));
->  	if (!ctrl)
->  		return -ENOMEM;
->  
-> @@ -784,7 +784,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
->  	pm_runtime_enable(dev);
->  	pm_runtime_get_noresume(dev);
->  
-> -	ret = devm_spi_register_master(dev, ctrl);
-> +	ret = spi_register_master(ctrl);
->  	if (ret)
->  		goto err_pm_runtime_free;
->
+Changes in v12:
+1. add a new patch "stmmac: dwmac-mediatek: re-arrange clock setting" to
+   this series, to simplify clock handling in driver, which benefits to
+   binding file mediatek-dwmac.yaml.
+2. modify dt-binding description in patch "net: dt-bindings: dwmac: add
+   support for mt8195" as Rob's comments in v10 series, put mac_cg to the
+   end of clock list.
+3. there are small changes in patch "stmmac: dwmac-mediatek: add support
+   for mt8195", @AngeloGioacchino, please review it kindly.
 
-Unfortunately this patch is still not correct:  It introduces a
-double free in the probe error path.
+Changes in v11:
+1. add reivewed-by in "net: dt-bindings: dwmac: Convert mediatek-dwmac to
+   DT schema" as Rob's comments.
+2. fall back "net: dt-bindings: dwmac: add support for mt8195" to v8 version
+   as mentioned in previous reply(https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20211216055328.15953-7-biao.huang@mediatek.com/):
+   2.1 there is already a special clock named "rmii_internal", which need to
+       be put to the end of the clock list(driver special handling),
+       so we can't simply put new "mac_cg" for mt8195 to the end of the clock
+       list.
+   2.2 we prefer the if-then schema, which will make mt8195 clock list clearer
+       with some duplicated information.
+   2.3 we expect the future IC will follow mt2712 or mt8195, so we only need
+       add new IC name to compatible list for future IC, and will not make the
+       clock list binding files worse.
 
-You need to remove this...
+Changes in v10:
+1. add detailed description in "arm64: dts: mt2712: update ethernet
+   device node" to make the modifications clearer as Matthias's comments.
+2. modify dt-binding description as Rob's comments, and "make dtbs_check" runs
+   pass locally with "arm64: dts: mt2712: update ethernet device node"
+   in this series.
 
-err_master_put:
-	spi_master_put(qspi->ctrl);
+Changes in v9:
+1. remove oneOf for 1 entry as Rob's comments.
+2. add new clocks to the end of existing clocks to simplify
+   the binding as Rob's comments.
 
-...and replace all the gotos in stm32_qspi_probe() which jump
-to the err_master_put label with a return statement.
+Changes in v8:
+1. add acked-by in "stmmac: dwmac-mediatek: add platform level clocks
+   management" patch
 
-Thanks,
+Changes in v7:
+1. fix uninitialized warning as Jakub's comments.
 
-Lukas
+Changes in v6:
+1. update commit message as Jakub's comments.
+2. split mt8195 eth dts patch("arm64: dts: mt8195: add ethernet device
+   node") from this series, since mt8195 dtsi/dts basic patches is still
+   under reviewing.
+   https://patchwork.kernel.org/project/linux-mediatek/list/?series=579071
+   we'll resend mt8195 eth dts patch once all the dependent patches are
+   accepted.
+
+Changes in v5:
+1. remove useless inclusion in dwmac-mediatek.c as Angelo's comments.
+2. add acked-by in "net-next: stmmac: dwmac-mediatek: add support for
+   mt8195" patch
+
+Changes in v4:
+1. add changes in commit message in "net-next: dt-bindings: dwmac:
+   Convert mediatek-dwmac to DT schema" patch.
+2. remove ethernet-controller.yaml since snps,dwmac.yaml already include it.
+
+Changes in v3:
+1. Add prefix "net-next" to support new IC as Denis's suggestion.
+2. Split dt-bindings to two patches, one for conversion, and the other for
+   new IC.
+3. add a new patch to update device node in mt2712-evb.dts to accommodate to
+   changes in driver.
+4. remove unnecessary wrapper as Angelo's suggestion.
+5. Add acked-by in "net-next: stmmac: dwmac-mediatek: Reuse more common
+   features" patch.
+
+Changes in v2:
+1. fix errors/warnings in mediatek-dwmac.yaml with upgraded dtschema tools
+
+Changes in v1:
+This series include 5 patches:
+1. add platform level clocks management for dwmac-mediatek
+2. resue more common features defined in stmmac_platform.c
+3. add ethernet entry for mt8195
+
+Biao Huang (7):
+  stmmac: dwmac-mediatek: add platform level clocks management
+  stmmac: dwmac-mediatek: Reuse more common features
+  stmmac: dwmac-mediatek: re-arrange clock setting
+  arm64: dts: mt2712: update ethernet device node
+  net: dt-bindings: dwmac: Convert mediatek-dwmac to DT schema
+  stmmac: dwmac-mediatek: add support for mt8195
+  net: dt-bindings: dwmac: add support for mt8195
+
+ .../bindings/net/mediatek-dwmac.txt           |  91 ----
+ .../bindings/net/mediatek-dwmac.yaml          | 175 ++++++++
+ arch/arm64/boot/dts/mediatek/mt2712-evb.dts   |   1 +
+ arch/arm64/boot/dts/mediatek/mt2712e.dtsi     |  14 +-
+ .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 389 +++++++++++++++---
+ 5 files changed, 526 insertions(+), 144 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.txt
+ create mode 100644 Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+
+--
+2.18.0
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
