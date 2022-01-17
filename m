@@ -2,61 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A90E4905A3
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jan 2022 11:03:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11113490610
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jan 2022 11:38:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B69CAC5C83D;
-	Mon, 17 Jan 2022 10:03:19 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A298EC57183
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BBC89C5C83D;
+	Mon, 17 Jan 2022 10:38:20 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73661C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jan 2022 10:03:18 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20H7ssvF007714;
- Mon, 17 Jan 2022 11:03:01 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=RQJJgQY1Idxf2tTyWLXLLK2DgfgnOIBmtxr9Lc7hWX8=;
- b=Qw0RY8iouxcUrfYnk1T42n6imKaX0Rp9da09yLAvJVJhe2TvKkHwa8hzVebJx8LpXMge
- hkWuNAEYIHldBRA0lWmCx9rOfOHYZzf4Sd2OiWBxcqKdgtlcH/qlSHCK9LaNCqFVQIfp
- OmC6TZ1FJE8Wv5XMIDx/yB1NzSdwaam32iiozE8ZEHpYBx/FkdbL0JihprsR/Npeevtj
- kKTxjkLeIO/Xv58BzF+4isuuejmmkn0jLNVZyPxvsqc41dUIPY2spZU1pPLHy3M+dXQN
- JAEC5Qy6symtj07dAtCk/DlWfrXWqyp9kqKW2MaZ5g5bFbS4tf1dBW42hUvNb4ZA9zuW Xw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dmwkwj9rh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 17 Jan 2022 11:03:01 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3D487100038;
- Mon, 17 Jan 2022 11:03:01 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node1.st.com [10.75.127.4])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 348FD2122EE;
- Mon, 17 Jan 2022 11:03:01 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE1.st.com (10.75.127.4)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 17 Jan 2022 11:03:00
- +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 17 Jan 2022 11:03:00 +0100
-Message-ID: <20220117100300.14150-1-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Mon, 17 Jan 2022 10:38:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id AA09C1F437BF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1642415898;
+ bh=jqiDzA7U4dHZTbnAE4kudgIyEogo59g2smc2wtyjBCQ=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=Q6wzCvc9qE0otYn2eiO7z1qOqwYBxHD2hj+a9xD+ZDbEhnoPnsww9q5sCVT0Ri90b
+ +awd9SB778AgeVBUFaDcC2d0vYHLTDNlR6B3P2Qs40ImprpGrZj8dfJigFwyVREDlB
+ g+YfVxD6EYxW0Q5gDY/5uEiedsqHf6Tg+ke3OIAPMgmjecb6RHfPaUpW/BjD0FrJXH
+ c3nEvZFMef538HdXkXk6pHUNI0NdpJsV6hl8eGnrD32iqbvqg+2UjZgGn90oO/QuXf
+ iX2yVyXjgpyM+Z8D6uzegZMrImvaYVEwywN/L9gHGyuYDgS96jvjZKHOkElscpyKyC
+ wR3X2XAYjOkoQ==
+To: Biao Huang <biao.huang@mediatek.com>, davem@davemloft.net,
+ Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>
+References: <20220117070706.17853-1-biao.huang@mediatek.com>
+ <20220117070706.17853-4-biao.huang@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Message-ID: <2c62f337-5eb4-e525-7e3a-289435315c09@collabora.com>
+Date: Mon, 17 Jan 2022 11:38:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE1.st.com
- (10.75.127.4)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-17_03,2022-01-14_01,2021-12-02_01
-Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] dmaengine: stm32-mdma: check the channel
-	availability (secure or not)
+In-Reply-To: <20220117070706.17853-4-biao.huang@mediatek.com>
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, dkirjanov@suse.de,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v12 3/7] stmmac: dwmac-mediatek:
+ re-arrange clock setting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,90 +58,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32_MDMA_CCR bit[8] is used to enable Secure Mode (SM). If this bit is
-set, it means that all the channel registers are write-protected. So the
-channel is not available for Linux use.
+Il 17/01/22 08:07, Biao Huang ha scritto:
+> The rmii_internal clock is needed only when PHY
+> interface is RMII, and reference clock is from MAC.
+> 
+> Re-arrange the clock setting as following:
+> 1. the optional "rmii_internal" is controlled by devm_clk_get(),
+> 2. other clocks still be configured by devm_clk_bulk_get().
+> 
+> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+> ---
+>   .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 72 +++++++++++++------
+>   1 file changed, 49 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index 8747aa4403e8..2678d2deb26a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> @@ -49,14 +49,15 @@ struct mac_delay_struct {
+>   struct mediatek_dwmac_plat_data {
+>   	const struct mediatek_dwmac_variant *variant;
+>   	struct mac_delay_struct mac_delay;
+> +	struct clk *rmii_internal_clk;
+>   	struct clk_bulk_data *clks;
+> -	struct device_node *np;
+>   	struct regmap *peri_regmap;
+> +	struct device_node *np;
+>   	struct device *dev;
+>   	phy_interface_t phy_mode;
+> -	int num_clks_to_config;
+>   	bool rmii_clk_from_mac;
+>   	bool rmii_rxc;
+> +	int num_clks;
 
-Add stm32_mdma_filter_fn() callback filter and give it to
-__dma_request_chan (instead of dma_get_any_slave_channel()), to exclude the
-channel if it is marked Secure.
+I don't see any need to get a num_clks here, at this point: since all functions
+reading this are getting passed a pointer to this entire structure, you can
+simply always access plat->variant->num_clks.
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- drivers/dma/stm32-mdma.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+Please, drop the addition of num_clks in this struct.
 
-diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-index 6f57ff0e7b37..95e5831e490a 100644
---- a/drivers/dma/stm32-mdma.c
-+++ b/drivers/dma/stm32-mdma.c
-@@ -73,6 +73,7 @@
- #define STM32_MDMA_CCR_WEX		BIT(14)
- #define STM32_MDMA_CCR_HEX		BIT(13)
- #define STM32_MDMA_CCR_BEX		BIT(12)
-+#define STM32_MDMA_CCR_SM		BIT(8)
- #define STM32_MDMA_CCR_PL_MASK		GENMASK(7, 6)
- #define STM32_MDMA_CCR_PL(n)		FIELD_PREP(STM32_MDMA_CCR_PL_MASK, (n))
- #define STM32_MDMA_CCR_TCIE		BIT(5)
-@@ -248,6 +249,7 @@ struct stm32_mdma_device {
- 	u32 nr_channels;
- 	u32 nr_requests;
- 	u32 nr_ahb_addr_masks;
-+	u32 chan_reserved;
- 	struct stm32_mdma_chan chan[STM32_MDMA_MAX_CHANNELS];
- 	u32 ahb_addr_masks[];
- };
-@@ -1456,10 +1458,23 @@ static void stm32_mdma_free_chan_resources(struct dma_chan *c)
- 	chan->desc_pool = NULL;
- }
- 
-+static bool stm32_mdma_filter_fn(struct dma_chan *c, void *fn_param)
-+{
-+	struct stm32_mdma_chan *chan = to_stm32_mdma_chan(c);
-+	struct stm32_mdma_device *dmadev = stm32_mdma_get_dev(chan);
-+
-+	/* Check if chan is marked Secure */
-+	if (dmadev->chan_reserved & BIT(chan->id))
-+		return false;
-+
-+	return true;
-+}
-+
- static struct dma_chan *stm32_mdma_of_xlate(struct of_phandle_args *dma_spec,
- 					    struct of_dma *ofdma)
- {
- 	struct stm32_mdma_device *dmadev = ofdma->of_dma_data;
-+	dma_cap_mask_t mask = dmadev->ddev.cap_mask;
- 	struct stm32_mdma_chan *chan;
- 	struct dma_chan *c;
- 	struct stm32_mdma_chan_config config;
-@@ -1485,7 +1500,7 @@ static struct dma_chan *stm32_mdma_of_xlate(struct of_phandle_args *dma_spec,
- 		return NULL;
- 	}
- 
--	c = dma_get_any_slave_channel(&dmadev->ddev);
-+	c = __dma_request_channel(&mask, stm32_mdma_filter_fn, &config, ofdma->of_node);
- 	if (!c) {
- 		dev_err(mdma2dev(dmadev), "No more channels available\n");
- 		return NULL;
-@@ -1615,6 +1630,10 @@ static int stm32_mdma_probe(struct platform_device *pdev)
- 	for (i = 0; i < dmadev->nr_channels; i++) {
- 		chan = &dmadev->chan[i];
- 		chan->id = i;
-+
-+		if (stm32_mdma_read(dmadev, STM32_MDMA_CCR(i)) & STM32_MDMA_CCR_SM)
-+			dmadev->chan_reserved |= BIT(i);
-+
- 		chan->vchan.desc_free = stm32_mdma_desc_free;
- 		vchan_init(&chan->vchan, dd);
- 	}
--- 
-2.25.1
+Regards,
+Angelo
 
 _______________________________________________
 Linux-stm32 mailing list
