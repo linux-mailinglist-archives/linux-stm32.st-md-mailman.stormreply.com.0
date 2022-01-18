@@ -2,48 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA165492432
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jan 2022 12:01:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F124149243A
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jan 2022 12:04:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67833C5C82B;
-	Tue, 18 Jan 2022 11:01:07 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56E50C56630
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jan 2022 11:01:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3D51C5C82B;
+	Tue, 18 Jan 2022 11:04:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 147EA612B9;
- Tue, 18 Jan 2022 11:01:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21D2C00446;
- Tue, 18 Jan 2022 11:01:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1642503664;
- bh=bR6Zjg1Rsoqe4xWLfMAOJ4LfxnIbMO5RLSncYA0sU18=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=vobSL6dYkoyCr+D2L2GS1X8zpncLBcAGlkWAVSL6e++m2GjH4M4CeqJotOW/0S2uP
- M0d0ir9EdHSCbQaHXAcVUqIgA7wP/wNwA/MfCxDBuePvBcATRMa0/UtxEGkZ+Efo+Y
- XQeBqsn5JZnTo5v9DhQWJCxMRqL5gZZGasYcN3YY=
-Date: Tue, 18 Jan 2022 12:01:01 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
-Message-ID: <Yead7Sjo85S8+hHq@kroah.com>
-References: <20211207130101.270314-1-amelie.delaunay@foss.st.com>
- <39694435-d44b-64f8-9614-6082f9c22443@synopsys.com>
- <1f8db483-0965-e87d-20b0-4f2bccd9a3dd@foss.st.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2886DC56630
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 18 Jan 2022 11:04:17 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20I93Idc009646;
+ Tue, 18 Jan 2022 12:04:14 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=RnzBcJkwn9+YhSqc0hY7vDRWf1fQflevXV2FqDpbpEM=;
+ b=uNACs/CFWZr8UrsclxSvYEfM+tWpOkhLB4h5osJ/cboEtbhDb12mTcdcVNSN/X3v++jR
+ tntX7O2AuJXk7oz3A5X9CtDt6/oHoGv8VB2Xh/u9IiZYiay2KP1F/cYo/8jKG3Pj8Jhq
+ CUJHiKUa139ABHiQa7F+S3X6gRcLYPCVi6+u7CBByzkzZXm2uRhHcVn+TW4dlDhlZhOd
+ rwvUTOyBu60cExxM/LAiSyfQvS8pnWvTmagTlPCvWFZjxlk5w6n2isqVdxo/thL0gt4s
+ c1Fg2ECRIbzuLKqhFtVQGsVPFrmQEebdUnoTLPxEMoWDUFB2rE8g3Y1UskQOr5Nc9XeL iQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dnkesjs07-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Jan 2022 12:04:14 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5BC8810002A;
+ Tue, 18 Jan 2022 12:04:14 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node1.st.com [10.75.127.4])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5278321279B;
+ Tue, 18 Jan 2022 12:04:14 +0100 (CET)
+Received: from lmecxl0889.lme.st.com (10.75.127.51) by SFHDAG2NODE1.st.com
+ (10.75.127.4) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 18 Jan
+ 2022 12:04:13 +0100
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+References: <20211207080843.21222-1-arnaud.pouliquen@foss.st.com>
+ <20211207080843.21222-12-arnaud.pouliquen@foss.st.com>
+ <YeX13cUAerjCM5Li@builder.lan>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <6db32381-6615-3916-088a-d1cd27e3443a@foss.st.com>
+Date: Tue, 18 Jan 2022 12:04:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1f8db483-0965-e87d-20b0-4f2bccd9a3dd@foss.st.com>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 1/1] usb: dwc2: gadget: don't try to
- disable ep0 in dwc2_hsotg_suspend
+In-Reply-To: <YeX13cUAerjCM5Li@builder.lan>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE1.st.com
+ (10.75.127.4)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-18_03,2022-01-18_01,2021-12-02_01
+Cc: julien.massot@iot.bzh, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v8 11/13] rpmsg: char: Introduce the
+	"rpmsg-raw" channel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,22 +74,192 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 18, 2022 at 11:40:46AM +0100, Amelie DELAUNAY wrote:
-> Hi Greg,
+
+
+On 1/18/22 12:03 AM, Bjorn Andersson wrote:
+> On Tue 07 Dec 02:08 CST 2021, Arnaud Pouliquen wrote:
 > 
-> Kind reminder about this patch.
+>> Allows to probe the endpoint device on a remote name service announcement,
+>> by registering a rpmsg_driverfor the "rpmsg-raw" channel.
+>>
+>> With this patch the /dev/rpmsgX interface can be instantiated by the remote
+>> firmware.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>>   drivers/rpmsg/rpmsg_char.c | 64 ++++++++++++++++++++++++++++++++++++++
+>>   drivers/rpmsg/rpmsg_ctrl.c |  7 +++--
+>>   2 files changed, 69 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+>> index cf97839f5833..92b44630e03a 100644
+>> --- a/drivers/rpmsg/rpmsg_char.c
+>> +++ b/drivers/rpmsg/rpmsg_char.c
+>> @@ -435,6 +435,58 @@ int rpmsg_chrdev_eptdev_create(struct rpmsg_device *rpdev, struct device *parent
+>>   }
+>>   EXPORT_SYMBOL(rpmsg_chrdev_eptdev_create);
+>>   
+>> +static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
+>> +{
+>> +	struct rpmsg_channel_info chinfo;
+>> +	struct rpmsg_eptdev *eptdev;
+>> +	struct device *dev = &rpdev->dev;
+>> +
+>> +	memcpy(chinfo.name, rpdev->id.name, RPMSG_NAME_SIZE);
+>> +	chinfo.src = rpdev->src;
+>> +	chinfo.dst = rpdev->dst;
+>> +
+>> +	eptdev = rpmsg_chrdev_eptdev_alloc(rpdev, dev);
+>> +	if (IS_ERR(eptdev))
+>> +		return PTR_ERR(eptdev);
+>> +
+>> +	/*
+>> +	 * Create the default endpoint associated to the rpmsg device and provide rpmsg_eptdev
+>> +	 * structure as callback private data.
+> 
+> If the only this the probe function does is to create a new endpoint
+> with the same properties as the rpdev, why can't you just specify a
+> callback on the rpmsg_chrdev_driver?
+> 
+> As this isn't the typical way you create a default endpoint I think the
+> reasoning behind this warrants a proper explanation in the commit
+> message.
+> 
 
-It is the middle of the merge window, I can not add any patches to my
-tree until 5.17-rc1 is out.
+As mentioned in [PATCH v8 09/13] rpmsg: Introduce rpmsg_create_default_ept function
+"This helper function allows rpmsg drivers to create a default endpoint
+on runtime with an associated private context."
 
-thanks,
+Here the private context is the eptdev structure. I need to create the structure 
+first, before
+the endpoint.
+I will add more details in the commit message as you suggest.
 
-greg k-h
+An alternative could be to directly set default_ept->priv but as the 
+rpmsg_create_default_ept
+"priv" parameter is forwarded to the rpmsg backend (using create_ept ops).
+This could introduces unexpected side effect.
+
+>> +	 * Do not allow the creation and release of an endpoint on /dev/rpmsgX open and close,
+>> +	 * reuse the default endpoint instead
+> 
+> This sentence doesn't tell me anything about this code snippet and
+> doesn't indicate that it relates to the snippet added elsewhere in this
+> file by the previous patch.
+> 
+>> +	 */
+>> +	eptdev->default_ept = rpmsg_create_default_ept(rpdev, rpmsg_ept_cb, eptdev, chinfo);
+>> +	if (!eptdev->default_ept) {
+>> +		dev_err(&rpdev->dev, "failed to create %s\n", chinfo.name);
+>> +		put_device(dev);
+>> +		kfree(eptdev);
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return rpmsg_chrdev_eptdev_add(eptdev, chinfo);
+>> +}
+>> +
+>> +static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
+>> +{
+>> +	int ret;
+>> +
+>> +	ret = device_for_each_child(&rpdev->dev, NULL, rpmsg_chrdev_eptdev_destroy);
+>> +	if (ret)
+>> +		dev_warn(&rpdev->dev, "failed to destroy endpoints: %d\n", ret);
+>> +}
+>> +
+>> +static struct rpmsg_device_id rpmsg_chrdev_id_table[] = {
+>> +	{ .name	= "rpmsg-raw" },
+>> +	{ },
+>> +};
+>> +
+>> +static struct rpmsg_driver rpmsg_chrdev_driver = {
+>> +	.probe = rpmsg_chrdev_probe,
+>> +	.remove = rpmsg_chrdev_remove,
+>> +	.id_table = rpmsg_chrdev_id_table,
+>> +	.drv.name = "rpmsg_chrdev",
+>> +};
+>> +
+>>   static int rpmsg_chrdev_init(void)
+>>   {
+>>   	int ret;
+>> @@ -445,12 +497,24 @@ static int rpmsg_chrdev_init(void)
+>>   		return ret;
+>>   	}
+>>   
+>> +	ret = register_rpmsg_driver(&rpmsg_chrdev_driver);
+>> +	if (ret < 0) {
+>> +		pr_err("rpmsg: failed to register rpmsg raw driver\n");
+>> +		goto free_region;
+>> +	}
+>> +
+>>   	return 0;
+>> +
+>> +free_region:
+>> +	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
+>> +
+>> +	return ret;
+>>   }
+>>   postcore_initcall(rpmsg_chrdev_init);
+>>   
+>>   static void rpmsg_chrdev_exit(void)
+>>   {
+>> +	unregister_rpmsg_driver(&rpmsg_chrdev_driver);
+>>   	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
+>>   }
+>>   module_exit(rpmsg_chrdev_exit);
+>> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
+>> index 59d2bd264fdb..298e75dc7774 100644
+>> --- a/drivers/rpmsg/rpmsg_ctrl.c
+>> +++ b/drivers/rpmsg/rpmsg_ctrl.c
+>> @@ -10,6 +10,9 @@
+>>    * Based on rpmsg performance statistics driver by Michal Simek, which in turn
+>>    * was based on TI & Google OMX rpmsg driver.
+>>    */
+>> +
+>> +#define pr_fmt(fmt)		KBUILD_MODNAME ": " fmt
+> 
+> These changes seems unrelated to above.
+
+I apparently broke something in my patchset here during a rebase. The previous
+irrelevant comment you pointed out to me is also a consequence. My apologies for 
+this dirty patch...
+
+Thanks,
+Arnaud
+
+> 
+> Regards,
+> Bjorn
+> 
+>> +
+>>   #include <linux/cdev.h>
+>>   #include <linux/device.h>
+>>   #include <linux/fs.h>
+>> @@ -193,13 +196,13 @@ static int rpmsg_ctrldev_init(void)
+>>   
+>>   	ret = alloc_chrdev_region(&rpmsg_major, 0, RPMSG_DEV_MAX, "rpmsg_ctrl");
+>>   	if (ret < 0) {
+>> -		pr_err("rpmsg: failed to allocate char dev region\n");
+>> +		pr_err("failed to allocate char dev region\n");
+>>   		return ret;
+>>   	}
+>>   
+>>   	ret = register_rpmsg_driver(&rpmsg_ctrldev_driver);
+>>   	if (ret < 0) {
+>> -		pr_err("rpmsg ctrl: failed to register rpmsg driver\n");
+>> +		pr_err("failed to register rpmsg driver\n");
+>>   		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
+>>   	}
+>>   
+>> -- 
+>> 2.17.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
