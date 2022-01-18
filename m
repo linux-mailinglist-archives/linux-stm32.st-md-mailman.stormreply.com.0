@@ -2,64 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 863AF492149
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jan 2022 09:36:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92B174923E4
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jan 2022 11:40:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B960C5C82B;
-	Tue, 18 Jan 2022 08:36:56 +0000 (UTC)
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
- [209.85.221.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39B28C5C82B;
+	Tue, 18 Jan 2022 10:40:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D8A6CFAC52
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30D6FC56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jan 2022 05:10:05 +0000 (UTC)
-Received: by mail-vk1-f176.google.com with SMTP id 191so9679989vkc.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Jan 2022 21:10:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=VVMSvibBEDQWmTS4Y5AZX2LAQUp1loCiB0WTviYsyCk=;
- b=Wp3wRPz+YyRwJiNCgcQ1UGidIy+Nwa2YffuUNaXCKfkVGDhJCJ5WIu4mHaoh3UXrF9
- 41NqRlnXBQfBvfZ7YC8spNt4xR4glQMU1VbvTkl3ovutQZkIIdPh0Dgpti5yo0RlGVFA
- pSGBKuW8baLlQRLOSJSx6mPdj1f90VLiFJWq8UzHGvQVyu/MPmhYt9afH7Ri0S6XrHi7
- DfmNkcZqTJJRyqpXRhsQ+h66uW20gdwqd30U9ZgsmQemyzExhkJcx4ODI+ezcMPyidiF
- SrizIKUgtFFiSWUh2HUn8jBmLZpEiIe1Q522+9PwaCA+txKXMwvnjur8LZAePLhS5egS
- l42Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=VVMSvibBEDQWmTS4Y5AZX2LAQUp1loCiB0WTviYsyCk=;
- b=Xc9xbK0ez1Yy4hJJwuqn71OO3W+KHA1ndzewCCBFOGh+51sVjhNuUkCYIxPh7J4Xij
- 4yyO0nxMMlyXgNBDhbBG2hOZFq4vTYXBXFmVv8RC1GKg3Z35efx2/RK8x+46kMpDwbG5
- KeC0SGx+29QKVKrGmkmYb4uMhsAqOFUmKlzv3rXZY5/C/goyVwo2Bbi3VcC/qi1QkEXV
- atnEliCIoae/sMBl0YfB4JPyJPYuFZYjdVP7mV44K/Yz35CdKGhq4kIdIqUNxdcnGpbM
- lVrcj66qbYil6liWlTBJPAE8rvdFYTLDcywtxg1YStxDh27Fr73Zr8Gx7xawxlWDvkzQ
- zF0Q==
-X-Gm-Message-State: AOAM532cj0bxvBXVo4/NYlB6w8BaOpcSB7zJlErTyMogUhu/rLavEEv5
- fHfHqJ78UEENroJHzBBv5FA=
-X-Google-Smtp-Source: ABdhPJxsGuOnDKIZ3OkIIR5d038ZKXPOcXRRRKUP/O6Gfk8vqlxZaG0VpNTjIN7SEL/jiT7/HewuUQ==
-X-Received: by 2002:a1f:fcc9:: with SMTP id a192mr7446632vki.1.1642396204346; 
- Sun, 16 Jan 2022 21:10:04 -0800 (PST)
-Received: from kubuntu-desktop.. ([67.8.38.84])
- by smtp.gmail.com with ESMTPSA id d124sm3543878vkb.9.2022.01.16.21.10.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 16 Jan 2022 21:10:03 -0800 (PST)
-From: Julian Braha <julianbraha@gmail.com>
-To: broonie@kernel.org, olivier.moysan@foss.st.com,
- arnaud.pouliquen@foss.st.com, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
-Date: Mon, 17 Jan 2022 00:10:02 -0500
-Message-Id: <20220117051002.70270-1-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.32.0
+ Tue, 18 Jan 2022 10:40:52 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20I7fugc023855;
+ Tue, 18 Jan 2022 11:40:51 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=R6yADMWkGnmfWZMh+iGP3k6JFWg14mCBCHvlHpxq0KU=;
+ b=Z5C+Oi43Bt/d5AjD5nfHnuvfBoeFRh4wyGMVDAbeTiTsHd/WD+VBcNsMdlfYQw74pVrG
+ Km3p2TC+Ylpg6Nk6HIXV7AyUrRYtKYI3B8N7xzCEfci3RwZBjmBAV5X6eF5cnTgtgFw3
+ PlXHCrlWrLSWuHqxkjmmvVf5LK6hVDJ6C37zGHmtgOmGldM6e9PaiMqXDT4sDtojjgua
+ qvB9c9o7jILeRNpValsH6si80TIRsVdZIUMzMolIKsXUaakTCU2j+zj/qSoMeSJNVmeF
+ XpI4DAgNoGzZBjjElZYOZhaCGz0D/mLQt8OZUGtuNkn4hyyyn2C0g4BMclMTnPl5sMjl AA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dnsd0908v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Jan 2022 11:40:50 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4F3BC10002A;
+ Tue, 18 Jan 2022 11:40:49 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node1.st.com [10.75.127.4])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 83CC4212300;
+ Tue, 18 Jan 2022 11:40:49 +0100 (CET)
+Received: from lmecxl0995.lme.st.com (10.75.127.46) by SFHDAG2NODE1.st.com
+ (10.75.127.4) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Tue, 18 Jan
+ 2022 11:40:48 +0100
+To: Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+References: <20211207130101.270314-1-amelie.delaunay@foss.st.com>
+ <39694435-d44b-64f8-9614-6082f9c22443@synopsys.com>
+From: Amelie DELAUNAY <amelie.delaunay@foss.st.com>
+Message-ID: <1f8db483-0965-e87d-20b0-4f2bccd9a3dd@foss.st.com>
+Date: Tue, 18 Jan 2022 11:40:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 18 Jan 2022 08:36:55 +0000
-Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] ASoC: stm32: fix unmet dependency on GPIOLIB
-	for SND_SOC_DMIC
+In-Reply-To: <39694435-d44b-64f8-9614-6082f9c22443@synopsys.com>
+Content-Language: en-US
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE1.st.com
+ (10.75.127.4)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-18_02,2022-01-18_01,2021-12-02_01
+Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: Re: [Linux-stm32] [PATCH 1/1] usb: dwc2: gadget: don't try to
+ disable ep0 in dwc2_hsotg_suspend
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,48 +75,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When SND_SOC_STM32_DFSDM is selected,
-and GPIOLIB is not selected,
-Kbuild gives the following warning:
+Hi Greg,
 
-WARNING: unmet direct dependencies detected for SND_SOC_DMIC
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && GPIOLIB [=n]
-  Selected by [y]:
-  - SND_SOC_STM32_DFSDM [=y] && SOUND [=y] && !UML && SND [=y] && (ARCH_STM32 || COMPILE_TEST [=y]) && SND_SOC [=y] && STM32_DFSDM_ADC [=y]
+Kind reminder about this patch.
 
-This is because SND_SOC_STM32_DFSDM selects
-SND_SOC_DMIC without selecting or depending on
-GPIOLIB, despite SND_SOC_DMIC depending on GPIOLIB.
+Thanks,
+Amelie
 
-This unmet dependency bug was detected by Kismet,
-a static analysis tool for Kconfig. Please advise
-if this is not the appropriate solution.
-
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
----
- sound/soc/stm/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/stm/Kconfig b/sound/soc/stm/Kconfig
-index da1f7a16605b..bfc11b606bbd 100644
---- a/sound/soc/stm/Kconfig
-+++ b/sound/soc/stm/Kconfig
-@@ -37,6 +37,7 @@ config SND_SOC_STM32_DFSDM
- 	depends on ARCH_STM32 || COMPILE_TEST
- 	depends on SND_SOC
- 	depends on STM32_DFSDM_ADC
-+	depends on GPIOLIB
- 	select SND_SOC_GENERIC_DMAENGINE_PCM
- 	select SND_SOC_DMIC
- 	select IIO_BUFFER_CB
--- 
-2.32.0
-
+On 12/16/21 11:20 AM, Minas Harutyunyan wrote:
+> On 12/7/2021 5:01 PM, Amelie Delaunay wrote:
+>> Calling dwc2_hsotg_ep_disable on ep0 (in/out) will lead to the following
+>> logs before returning -EINVAL:
+>> dwc2 49000000.usb-otg: dwc2_hsotg_ep_disable: called for ep0
+>> dwc2 49000000.usb-otg: dwc2_hsotg_ep_disable: called for ep0
+>>
+>> To avoid these two logs while suspending, start disabling the endpoint
+>> from the index 1, as done in dwc2_hsotg_udc_stop:
+>>
+>> 	/* all endpoints should be shutdown */
+>> 	for (ep = 1; ep < hsotg->num_of_eps; ep++) {
+>> 		if (hsotg->eps_in[ep])
+>> 			dwc2_hsotg_ep_disable_lock(&hsotg->eps_in[ep]->ep);
+>> 		if (hsotg->eps_out[ep])
+>> 			dwc2_hsotg_ep_disable_lock(&hsotg->eps_out[ep]->ep);
+>> 	}
+>>
+>> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> 
+> Acked-by: Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>
+> 
+>> ---
+>>    drivers/usb/dwc2/gadget.c | 2 +-
+>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
+>> index b884a83b26a6..ee31f9a328da 100644
+>> --- a/drivers/usb/dwc2/gadget.c
+>> +++ b/drivers/usb/dwc2/gadget.c
+>> @@ -5086,7 +5086,7 @@ int dwc2_hsotg_suspend(struct dwc2_hsotg *hsotg)
+>>    		hsotg->gadget.speed = USB_SPEED_UNKNOWN;
+>>    		spin_unlock_irqrestore(&hsotg->lock, flags);
+>>    
+>> -		for (ep = 0; ep < hsotg->num_of_eps; ep++) {
+>> +		for (ep = 1; ep < hsotg->num_of_eps; ep++) {
+>>    			if (hsotg->eps_in[ep])
+>>    				dwc2_hsotg_ep_disable_lock(&hsotg->eps_in[ep]->ep);
+>>    			if (hsotg->eps_out[ep])
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
