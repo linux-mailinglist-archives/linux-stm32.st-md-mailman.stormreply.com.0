@@ -2,51 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B53A492F5F
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jan 2022 21:30:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A17A493055
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jan 2022 23:11:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C41D0C60464;
-	Tue, 18 Jan 2022 20:30:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F44AC5EC57;
+	Tue, 18 Jan 2022 22:11:03 +0000 (UTC)
 Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 173D8C5EC59
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47317C5AB61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jan 2022 20:30:20 +0000 (UTC)
-Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ Tue, 18 Jan 2022 22:11:02 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id 231F283878;
- Tue, 18 Jan 2022 21:30:19 +0100 (CET)
+ by phobos.denx.de (Postfix) with ESMTPSA id C8BA68386E;
+ Tue, 18 Jan 2022 23:11:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1642537819;
- bh=544BxrUuj6LbHblbcR7osiHCm7h4aMKpTHRAZpU0RZc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iFQX7wiE0F51PFeNxyzHScsIx9MvzkTYau8w4o7YxOgfvScWqfQ5heUJtnj/KVRFu
- oS1XeuIN4NM8FexfHUXs+nkwEOM0Juc+Kv+oRLXwn6PPx1v9UCShEcqkkyv25jnD1p
- vMREI/hunZgkTSj/MoXee50tPZPvNF9LxrXKDazZjmorwP9NOfapynG/fij3s8THNG
- vUHN+D9LTbIjOviTahJsfyY6q4kXNEdSGCFbfgd+Di/e5Tsrs8Xlzrfx6uDkwmyzMk
- B4RgtD6XUCjK7X8PDQSxhvyAZGuhcgI87rPz87efe4DclQHFkNo9fv6pArg6fClMXv
- 92Ic/A+kECV3A==
-From: Marek Vasut <marex@denx.de>
-To: linux-arm-kernel@lists.infradead.org
-Date: Tue, 18 Jan 2022 21:29:58 +0100
-Message-Id: <20220118202958.1840431-5-marex@denx.de>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220118202958.1840431-1-marex@denx.de>
-References: <20220118202958.1840431-1-marex@denx.de>
+ s=phobos-20191101; t=1642543861;
+ bh=fqeXuE/XXckCu93jIWdmh4PNY5CzdbtbGiAytW9ROWU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=WVZquKiTV2WFiyKZt8pTsDiB3ai/OFk96h9GqpqbjpGwJ7vY3VbOsushJsPwvNt3C
+ BOK+ffrVqhAkF5dp9IMBZGPKUTIFGtVu/7VsTSR0ILJ7WUyY8YJQHd44GGqv+kTXQw
+ cLBH6ard8rJxB26DMW4nxfeWxRyv51Y3KVSzfLDQM6g8+F4+yHZ8IwsS6acMIpZbYU
+ 18Semowie0hFEQL0yavuiiMg0cbNa3sHjPt2jnrjYeRJRCMLt4IR7Lmi+yF4LhyLZC
+ d8j5yw7fG4O4lwqz/1cCU7zZm8zvDnPkhTe6mQXZzpASH0+yaXqe+snUcEJ3k04GIQ
+ 96eF3hEYJhx0g==
+Message-ID: <8d02eb84-704e-ea67-0050-78c40f930094@denx.de>
+Date: Tue, 18 Jan 2022 23:11:00 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: "gabriel.fernandez@foss.st.com" <gabriel.fernandez@foss.st.com>,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ linux-arm-kernel@lists.infradead.org
+References: <20210408185731.135511-1-marex@denx.de>
+ <20210408185731.135511-2-marex@denx.de>
+ <2b10f5d9-54cb-ce83-b7aa-f4ec8e67c001@foss.st.com>
+ <92dd5798-8f5a-66e4-06bc-e3beb16690f5@denx.de>
+ <d168aed8-aebd-1bee-aa72-3a3601718cad@foss.st.com>
+ <e27dbccd-518f-7718-8cf7-cc9c8adb8a56@denx.de>
+ <6416577a-ea06-a014-543a-9ef86aae603d@foss.st.com>
+ <2281af74-33a0-df45-968b-baa1ddd9d6e0@denx.de>
+ <8481872c-9ee0-c759-3ab0-5209165ad9b2@foss.st.com>
+From: Marek Vasut <marex@denx.de>
+In-Reply-To: <8481872c-9ee0-c759-3ab0-5209165ad9b2@foss.st.com>
 X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
 X-Virus-Status: Clean
-Cc: Marek Vasut <marex@denx.de>, linux-stm32@st-md-mailman.stormreply.com,
- Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, jneuhauser@dh-electronics.com,
+Cc: Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Stephen Boyd <swboyd@chromium.org>,
  Patrick Delaunay <patrick.delaunay@foss.st.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Subject: [Linux-stm32] [PATCH 5/5] ARM: dts: stm32: Switch DWMAC RMII clock
-	to MCO2 on DHCOM
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/7] clk: stm32mp1: Split ETHCK_K into
+ separate MUX and GATE clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,94 +69,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DHCOM SoM has two options for supplying ETHRX clock to the DWMAC
-block and PHY. Either (1) ETHCK_K generates 50 MHz clock on ETH_CLK
-pad for the PHY and the same 50 MHz clock are fed back to ETHRX via
-internal eth_clk_fb clock connection OR (2) ETH_CLK is not used at
-all, MCO2 generates 50 MHz clock on MCO2 output pad for the PHY and
-the same MCO2 clock are fed back into ETHRX via ETH_RX_CLK input pad
-using external pad-to-pad connection.
+On 4/19/21 09:46, gabriel.fernandez@foss.st.com wrote:
 
-Option (1) has two downsides. ETHCK_K is supplied directly from either
-PLL3_Q or PLL4_P, hence the PLL output is limited to exactly 50 MHz and
-since the same PLL output is also used to supply SDMMC blocks, the
-performance of SD and eMMC access is affected. The second downside is
-that using this option, the EMI of the SoM is higher.
+Hello again,
 
-Option (2) solves both of those problems, so implement it here. In this
-case, the PLL4_P is no longer limited and can be operated faster, at
-100 MHz, which improves SDMMC performance (read performance is improved
-from ~41 MiB/s to ~57 MiB/s with dd if=/dev/mmcblk1 of=/dev/null bs=64M
-count=1). The EMI interference also decreases.
+[...]
 
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-Cc: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>
-Cc: linux-clk@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-To: linux-arm-kernel@lists.infradead.org
----
- arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 22 ++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+I sent out an rebased (and much shorter) patch series now:
 
-diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-index 8c41f819f7769..b091d9901e976 100644
---- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-+++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-@@ -116,15 +116,29 @@ &dts {
- 	status = "okay";
- };
- 
-+&rcc {
-+	/* Connect MCO2 output to ETH_RX_CLK input via pad-pad connection */
-+	clocks = <&rcc CK_MCO2>;
-+	clock-names = "ETH_RX_CLK/ETH_REF_CLK";
-+
-+	/*
-+	 * Set PLL4P output to 100 MHz to supply SDMMC with faster clock,
-+	 * set MCO2 output to 50 MHz to supply ETHRX clock with PLL4P/2,
-+	 * so that MCO2 behaves as a divider for the ETHRX clock here.
-+	 */
-+	assigned-clocks = <&rcc CK_MCO2>, <&rcc PLL4_P>;
-+	assigned-clock-parents = <&rcc PLL4_P>;
-+	assigned-clock-rates = <50000000>, <100000000>;
-+};
-+
- &ethernet0 {
- 	status = "okay";
--	pinctrl-0 = <&ethernet0_rmii_pins_a>;
--	pinctrl-1 = <&ethernet0_rmii_sleep_pins_a>;
-+	pinctrl-0 = <&ethernet0_rmii_pins_b &mco2_pins_a>;
-+	pinctrl-1 = <&ethernet0_rmii_sleep_pins_b &mco2_sleep_pins_a>;
- 	pinctrl-names = "default", "sleep";
- 	phy-mode = "rmii";
- 	max-speed = <100>;
- 	phy-handle = <&phy0>;
--	st,eth-ref-clk-sel;
- 
- 	mdio0 {
- 		#address-cells = <1>;
-@@ -136,7 +150,7 @@ phy0: ethernet-phy@1 {
- 			/* LAN8710Ai */
- 			compatible = "ethernet-phy-id0007.c0f0",
- 				     "ethernet-phy-ieee802.3-c22";
--			clocks = <&rcc ETHCK_K>;
-+			clocks = <&rcc CK_MCO2>;
- 			reset-gpios = <&gpioh 3 GPIO_ACTIVE_LOW>;
- 			reset-assert-us = <500>;
- 			reset-deassert-us = <500>;
+https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=606380
+
 -- 
-2.34.1
-
+Best regards,
+Marek Vasut
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
