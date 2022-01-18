@@ -2,67 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D4D3491222
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jan 2022 00:04:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6AB54913C3
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jan 2022 02:51:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5108BC5C82B;
-	Mon, 17 Jan 2022 23:04:05 +0000 (UTC)
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87117C5C82B;
+	Tue, 18 Jan 2022 01:51:54 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 101F3C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0897C56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jan 2022 23:04:04 +0000 (UTC)
-Received: by mail-oi1-f173.google.com with SMTP id bx18so7386456oib.7
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jan 2022 15:04:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=F0QppAE3dgrO3ATeoBVK+jA9wQIIxsU1AloQj3TMNp8=;
- b=Uby76qXesTFxE/+DH5qAsUshOdsEdI2bykwDeFrfltv3ZmvtZtPWtnV2c4h+x7wfxW
- qCJbMNuR2SA9Adi4FcRyxAcYHf+R+truNFoZjNFKdrSkSUvws6lN+vZM7bG2S/IzFZJI
- 9hGT8WvwcSn7uAUO+PLiOaS4/mNcJw0Db4OVtbsjOD48q8f/8HwXQMAYVuhJuQquTRsA
- oVzvyVlYYCLuO/g37ge/Nry8owS+nFgfOER8fdPGUrGYy8CjY+itDcIXiP8jNaTAeD7o
- KXgXMFYc0hiiKQ6EMzQkM75w/qkUWqViB6teaJylpAw5TU0tcgDSLpDl1ZCEXSCYN9nW
- i0ZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=F0QppAE3dgrO3ATeoBVK+jA9wQIIxsU1AloQj3TMNp8=;
- b=hEHid1iYSxX0Rte8uP3piNce2VYnFnzQVu5xGAt4T4DGH4y2CsrSXfCg2zr3ZBxwri
- 7risIJ4ntobukM/oJlJmsdVD9ns/XIgM+nlJu1u0UXDBvAPCSBTe5jS6fV0xcxTW15RK
- M1psCpEH2DQl0BaNCvarvOpHbd4sW06mo30JhrQ1c5zn4Fw4j+In/ButWBZt4z5QDo6s
- BLwesqhiDzppxSp/9L4rPpMIUVM6B7tsabCILMUsdS0XQENsE6vtDBQABDdA8MTbwq9u
- SmnwvuPx5g+chX3TyVmsmGGrHHKXYrdLvWbYWBH+qV105warR6k80tqXY/73s8qQFckv
- XB8Q==
-X-Gm-Message-State: AOAM532voDsujztI7pZv9wb+ihIUrw55EKtBox9UaQNbRBBHnrIsW6h8
- jOdlA9R5K7MQYHm7shTa2Mu7og==
-X-Google-Smtp-Source: ABdhPJxCaDj7BjPF0fezJDfx1f2OYftgE4/mn+paMKJrEWGTwkSNf0Ue8jHo5S1hMCHKH4eVtEGXpw==
-X-Received: by 2002:a05:6808:169f:: with SMTP id
- bb31mr25041369oib.87.1642460642878; 
- Mon, 17 Jan 2022 15:04:02 -0800 (PST)
-Received: from builder.lan (104-57-184-186.lightspeed.austtx.sbcglobal.net.
- [104.57.184.186])
- by smtp.gmail.com with ESMTPSA id l39sm6514722otv.63.2022.01.17.15.04.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jan 2022 15:04:02 -0800 (PST)
-Date: Mon, 17 Jan 2022 17:03:57 -0600
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <YeX13cUAerjCM5Li@builder.lan>
-References: <20211207080843.21222-1-arnaud.pouliquen@foss.st.com>
- <20211207080843.21222-12-arnaud.pouliquen@foss.st.com>
+ Tue, 18 Jan 2022 01:51:52 +0000 (UTC)
+X-UUID: 7fe5b39085b348c1972f0ae24ea6cf92-20220118
+X-UUID: 7fe5b39085b348c1972f0ae24ea6cf92-20220118
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw01.mediatek.com
+ (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 805230940; Tue, 18 Jan 2022 09:51:48 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Tue, 18 Jan 2022 09:51:47 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 18 Jan 2022 09:51:45 +0800
+Message-ID: <f9e3a862ecdb914a0efb52582989e975a742e918.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>
+Date: Tue, 18 Jan 2022 09:51:45 +0800
+In-Reply-To: <2c62f337-5eb4-e525-7e3a-289435315c09@collabora.com>
+References: <20220117070706.17853-1-biao.huang@mediatek.com>
+ <20220117070706.17853-4-biao.huang@mediatek.com>
+ <2c62f337-5eb4-e525-7e3a-289435315c09@collabora.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211207080843.21222-12-arnaud.pouliquen@foss.st.com>
-Cc: julien.massot@iot.bzh, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v8 11/13] rpmsg: char: Introduce the
-	"rpmsg-raw" channel
+X-MTK: N
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, dkirjanov@suse.de,
+ Jose Abreu <joabreu@synopsys.com>, linux-mediatek@lists.infradead.org,
+ macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v12 3/7] stmmac: dwmac-mediatek:
+ re-arrange clock setting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,161 +65,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue 07 Dec 02:08 CST 2021, Arnaud Pouliquen wrote:
-
-> Allows to probe the endpoint device on a remote name service announcement,
-> by registering a rpmsg_driverfor the "rpmsg-raw" channel.
+Dear Angelo,
+	Thanks for your comments.
+On Mon, 2022-01-17 at 11:38 +0100, AngeloGioacchino Del Regno wrote:
+> Il 17/01/22 08:07, Biao Huang ha scritto:
+> > The rmii_internal clock is needed only when PHY
+> > interface is RMII, and reference clock is from MAC.
+> > 
+> > Re-arrange the clock setting as following:
+> > 1. the optional "rmii_internal" is controlled by devm_clk_get(),
+> > 2. other clocks still be configured by devm_clk_bulk_get().
+> > 
+> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+> > ---
+> >   .../ethernet/stmicro/stmmac/dwmac-mediatek.c  | 72 +++++++++++++-
+> > -----
+> >   1 file changed, 49 insertions(+), 23 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > index 8747aa4403e8..2678d2deb26a 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > @@ -49,14 +49,15 @@ struct mac_delay_struct {
+> >   struct mediatek_dwmac_plat_data {
+> >   	const struct mediatek_dwmac_variant *variant;
+> >   	struct mac_delay_struct mac_delay;
+> > +	struct clk *rmii_internal_clk;
+> >   	struct clk_bulk_data *clks;
+> > -	struct device_node *np;
+> >   	struct regmap *peri_regmap;
+> > +	struct device_node *np;
+> >   	struct device *dev;
+> >   	phy_interface_t phy_mode;
+> > -	int num_clks_to_config;
+> >   	bool rmii_clk_from_mac;
+> >   	bool rmii_rxc;
+> > +	int num_clks;
 > 
-> With this patch the /dev/rpmsgX interface can be instantiated by the remote
-> firmware.
+> I don't see any need to get a num_clks here, at this point: since all
+> functions
+> reading this are getting passed a pointer to this entire structure,
+> you can
+> simply always access plat->variant->num_clks.
 > 
-> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> ---
->  drivers/rpmsg/rpmsg_char.c | 64 ++++++++++++++++++++++++++++++++++++++
->  drivers/rpmsg/rpmsg_ctrl.c |  7 +++--
->  2 files changed, 69 insertions(+), 2 deletions(-)
+> Please, drop the addition of num_clks in this struct.
 > 
-> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-> index cf97839f5833..92b44630e03a 100644
-> --- a/drivers/rpmsg/rpmsg_char.c
-> +++ b/drivers/rpmsg/rpmsg_char.c
-> @@ -435,6 +435,58 @@ int rpmsg_chrdev_eptdev_create(struct rpmsg_device *rpdev, struct device *parent
->  }
->  EXPORT_SYMBOL(rpmsg_chrdev_eptdev_create);
->  
-> +static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
-> +{
-> +	struct rpmsg_channel_info chinfo;
-> +	struct rpmsg_eptdev *eptdev;
-> +	struct device *dev = &rpdev->dev;
-> +
-> +	memcpy(chinfo.name, rpdev->id.name, RPMSG_NAME_SIZE);
-> +	chinfo.src = rpdev->src;
-> +	chinfo.dst = rpdev->dst;
-> +
-> +	eptdev = rpmsg_chrdev_eptdev_alloc(rpdev, dev);
-> +	if (IS_ERR(eptdev))
-> +		return PTR_ERR(eptdev);
-> +
-> +	/*
-> +	 * Create the default endpoint associated to the rpmsg device and provide rpmsg_eptdev
-> +	 * structure as callback private data.
+> Regards,
+> Angelo
+OK, will remove it in next send.
 
-If the only this the probe function does is to create a new endpoint
-with the same properties as the rpdev, why can't you just specify a
-callback on the rpmsg_chrdev_driver?
-
-As this isn't the typical way you create a default endpoint I think the
-reasoning behind this warrants a proper explanation in the commit
-message.
-
-> +	 * Do not allow the creation and release of an endpoint on /dev/rpmsgX open and close,
-> +	 * reuse the default endpoint instead
-
-This sentence doesn't tell me anything about this code snippet and
-doesn't indicate that it relates to the snippet added elsewhere in this
-file by the previous patch.
-
-> +	 */
-> +	eptdev->default_ept = rpmsg_create_default_ept(rpdev, rpmsg_ept_cb, eptdev, chinfo);
-> +	if (!eptdev->default_ept) {
-> +		dev_err(&rpdev->dev, "failed to create %s\n", chinfo.name);
-> +		put_device(dev);
-> +		kfree(eptdev);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return rpmsg_chrdev_eptdev_add(eptdev, chinfo);
-> +}
-> +
-> +static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
-> +{
-> +	int ret;
-> +
-> +	ret = device_for_each_child(&rpdev->dev, NULL, rpmsg_chrdev_eptdev_destroy);
-> +	if (ret)
-> +		dev_warn(&rpdev->dev, "failed to destroy endpoints: %d\n", ret);
-> +}
-> +
-> +static struct rpmsg_device_id rpmsg_chrdev_id_table[] = {
-> +	{ .name	= "rpmsg-raw" },
-> +	{ },
-> +};
-> +
-> +static struct rpmsg_driver rpmsg_chrdev_driver = {
-> +	.probe = rpmsg_chrdev_probe,
-> +	.remove = rpmsg_chrdev_remove,
-> +	.id_table = rpmsg_chrdev_id_table,
-> +	.drv.name = "rpmsg_chrdev",
-> +};
-> +
->  static int rpmsg_chrdev_init(void)
->  {
->  	int ret;
-> @@ -445,12 +497,24 @@ static int rpmsg_chrdev_init(void)
->  		return ret;
->  	}
->  
-> +	ret = register_rpmsg_driver(&rpmsg_chrdev_driver);
-> +	if (ret < 0) {
-> +		pr_err("rpmsg: failed to register rpmsg raw driver\n");
-> +		goto free_region;
-> +	}
-> +
->  	return 0;
-> +
-> +free_region:
-> +	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
-> +
-> +	return ret;
->  }
->  postcore_initcall(rpmsg_chrdev_init);
->  
->  static void rpmsg_chrdev_exit(void)
->  {
-> +	unregister_rpmsg_driver(&rpmsg_chrdev_driver);
->  	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->  }
->  module_exit(rpmsg_chrdev_exit);
-> diff --git a/drivers/rpmsg/rpmsg_ctrl.c b/drivers/rpmsg/rpmsg_ctrl.c
-> index 59d2bd264fdb..298e75dc7774 100644
-> --- a/drivers/rpmsg/rpmsg_ctrl.c
-> +++ b/drivers/rpmsg/rpmsg_ctrl.c
-> @@ -10,6 +10,9 @@
->   * Based on rpmsg performance statistics driver by Michal Simek, which in turn
->   * was based on TI & Google OMX rpmsg driver.
->   */
-> +
-> +#define pr_fmt(fmt)		KBUILD_MODNAME ": " fmt
-
-These changes seems unrelated to above.
-
-Regards,
-Bjorn
-
-> +
->  #include <linux/cdev.h>
->  #include <linux/device.h>
->  #include <linux/fs.h>
-> @@ -193,13 +196,13 @@ static int rpmsg_ctrldev_init(void)
->  
->  	ret = alloc_chrdev_region(&rpmsg_major, 0, RPMSG_DEV_MAX, "rpmsg_ctrl");
->  	if (ret < 0) {
-> -		pr_err("rpmsg: failed to allocate char dev region\n");
-> +		pr_err("failed to allocate char dev region\n");
->  		return ret;
->  	}
->  
->  	ret = register_rpmsg_driver(&rpmsg_ctrldev_driver);
->  	if (ret < 0) {
-> -		pr_err("rpmsg ctrl: failed to register rpmsg driver\n");
-> +		pr_err("failed to register rpmsg driver\n");
->  		unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
->  	}
->  
-> -- 
-> 2.17.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
