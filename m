@@ -2,52 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0797493245
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jan 2022 02:24:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B331149375B
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jan 2022 10:33:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8952BC5EC57;
-	Wed, 19 Jan 2022 01:24:36 +0000 (UTC)
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FA87C5F1ED;
+	Wed, 19 Jan 2022 09:33:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3429FC5C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 319FDC5F1EB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jan 2022 01:24:35 +0000 (UTC)
-X-UUID: 99360b13b4844085a0d83d85c2b0a391-20220119
-X-UUID: 99360b13b4844085a0d83d85c2b0a391-20220119
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw01.mediatek.com (envelope-from <biao.huang@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 537623481; Wed, 19 Jan 2022 09:24:30 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.2.792.15; Wed, 19 Jan 2022 09:24:29 +0800
-Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 19 Jan 2022 09:24:28 +0800
-Message-ID: <6d9edd18e64a973265b92d98395f8ce7470e59e6.camel@mediatek.com>
-From: Biao Huang <biao.huang@mediatek.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>
-Date: Wed, 19 Jan 2022 09:24:28 +0800
-In-Reply-To: <20220117070706.17853-5-biao.huang@mediatek.com>
-References: <20220117070706.17853-1-biao.huang@mediatek.com>
- <20220117070706.17853-5-biao.huang@mediatek.com>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ Wed, 19 Jan 2022 09:33:35 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20J3l3fW008034;
+ Wed, 19 Jan 2022 10:33:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=+ehtLtX70tce80lzBmhHxiTVMfeIYIulAFgG6k5Hb1Y=;
+ b=Bd2rZYNTXDa3wfl79ZYAhTWvOwrZNIlvzImgiAU6ZHTZKcLxA4pECjMdBhJjTf+bQieC
+ rqJY73L487mZKjnNUXAGHGssDEMR391eSQajKdX+7Wif9DsesnU9OmKdXhRJfZS1++Mb
+ dbBrjr2RzdOce095s6sXyE4oMkWBJOPI8RQjFUXTiJUDdPrr4Z6BuSxQooK/7aU7mVAK
+ 7jWuU5wB55YdCIYLDCpk5NCSsO+61td+dluozbEbEuYy9EhV8nQ5yNo3MUr1uUaO7fpM
+ 9hYk3wSNWpQa8PTRIo6TGLdFyjsLCw6OcPwXUeIbFjb4Gf+9tz6oBox3z+6zpsiQS7Xm hg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dnsd0e3j6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 19 Jan 2022 10:33:15 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 78A9310002A;
+ Wed, 19 Jan 2022 10:33:14 +0100 (CET)
+Received: from Webmail-eu.st.com (gpxdag2node5.st.com [10.75.127.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 70E3220ED10;
+ Wed, 19 Jan 2022 10:33:14 +0100 (CET)
+Received: from localhost (10.75.127.48) by GPXDAG2NODE5.st.com (10.75.127.69)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26;
+ Wed, 19 Jan 2022 10:33:13 +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: <broonie@kernel.org>, <amelie.delaunay@foss.st.com>
+Date: Wed, 19 Jan 2022 10:32:43 +0100
+Message-ID: <20220119093245.624878-1-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MTK: N
-Cc: Jose Abreu <joabreu@synopsys.com>, srv_heupstream@mediatek.com,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- dkirjanov@suse.de, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, macpaul.lin@mediatek.com, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Giuseppe
- Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH net-next v12 4/7] arm64: dts: mt2712:
- update ethernet device node
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To GPXDAG2NODE5.st.com
+ (10.75.127.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-19_06,2022-01-18_01,2021-12-02_01
+Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] spi: stm32: comments & SIMPLEX_RX fixes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,94 +72,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear Matthias,
+This series contains 2 fixes within the spi-stm32.c driver.  One is
+removing comments regarding struct variables that do not exist and the
+second one correct a previous STM32F4 related commit for SIMPLEX_RX which
+happens to break SIMPLEX_RX for H7 since it enforces MUST_TX flags.
 
-	Any comments about this dts patch?
-	Thanks in advance.
+Alain Volmat (2):
+  spi: stm32: remove inexistant variables in struct stm32_spi_cfg
+    comment
+  spi: stm32: make SPI_MASTER_MUST_TX flags only specific to STM32F4
 
-Regards!
-Biao
+ drivers/spi/spi-stm32.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-On Mon, 2022-01-17 at 15:07 +0800, Biao Huang wrote:
-> Since there are some changes in ethernet driver:
-> update ethernet device node in dts to accommodate to it.
-> 
-> 1. stmmac_probe_config_dt() in stmmac_platform.c will initialize
-> specified
->    parameters according to compatible string "snps,dwmac-4.20a",
-> then,
->    dwmac-mediatek.c can skip the initialization if add compatible
-> string
->    "snps,dwmac-4.20a" in eth device node.
-> 2. commit 882007ed7832 ("net-next: dt-binding: dwmac-mediatek: add
-> more
->    description for RMII") added rmii internal support, we should add
->    corresponding clocks/clocks-names in eth device node.
-> 3. add "snps,reset-delays-us = <0 10000 10000>;" to ensure reset
-> delay
->    can meet PHY requirement.
-> 
-> Signed-off-by: Biao Huang <biao.huang@mediatek.com>
-> ---
->  arch/arm64/boot/dts/mediatek/mt2712-evb.dts |  1 +
->  arch/arm64/boot/dts/mediatek/mt2712e.dtsi   | 14 +++++++++-----
->  2 files changed, 10 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt2712-evb.dts
-> b/arch/arm64/boot/dts/mediatek/mt2712-evb.dts
-> index 7d369fdd3117..11aa135aa0f3 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt2712-evb.dts
-> +++ b/arch/arm64/boot/dts/mediatek/mt2712-evb.dts
-> @@ -110,6 +110,7 @@ &eth {
->  	phy-handle = <&ethernet_phy0>;
->  	mediatek,tx-delay-ps = <1530>;
->  	snps,reset-gpio = <&pio 87 GPIO_ACTIVE_LOW>;
-> +	snps,reset-delays-us = <0 10000 10000>;
->  	pinctrl-names = "default", "sleep";
->  	pinctrl-0 = <&eth_default>;
->  	pinctrl-1 = <&eth_sleep>;
-> diff --git a/arch/arm64/boot/dts/mediatek/mt2712e.dtsi
-> b/arch/arm64/boot/dts/mediatek/mt2712e.dtsi
-> index a9cca9c146fd..9e850e04fffb 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt2712e.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt2712e.dtsi
-> @@ -726,7 +726,7 @@ queue2 {
->  	};
->  
->  	eth: ethernet@1101c000 {
-> -		compatible = "mediatek,mt2712-gmac";
-> +		compatible = "mediatek,mt2712-gmac", "snps,dwmac-
-> 4.20a";
->  		reg = <0 0x1101c000 0 0x1300>;
->  		interrupts = <GIC_SPI 237 IRQ_TYPE_LEVEL_LOW>;
->  		interrupt-names = "macirq";
-> @@ -734,15 +734,19 @@ eth: ethernet@1101c000 {
->  		clock-names = "axi",
->  			      "apb",
->  			      "mac_main",
-> -			      "ptp_ref";
-> +			      "ptp_ref",
-> +			      "rmii_internal";
->  		clocks = <&pericfg CLK_PERI_GMAC>,
->  			 <&pericfg CLK_PERI_GMAC_PCLK>,
->  			 <&topckgen CLK_TOP_ETHER_125M_SEL>,
-> -			 <&topckgen CLK_TOP_ETHER_50M_SEL>;
-> +			 <&topckgen CLK_TOP_ETHER_50M_SEL>,
-> +			 <&topckgen CLK_TOP_ETHER_50M_RMII_SEL>;
->  		assigned-clocks = <&topckgen CLK_TOP_ETHER_125M_SEL>,
-> -				  <&topckgen CLK_TOP_ETHER_50M_SEL>;
-> +				  <&topckgen CLK_TOP_ETHER_50M_SEL>,
-> +				  <&topckgen
-> CLK_TOP_ETHER_50M_RMII_SEL>;
->  		assigned-clock-parents = <&topckgen
-> CLK_TOP_ETHERPLL_125M>,
-> -					 <&topckgen CLK_TOP_APLL1_D3>;
-> +					 <&topckgen CLK_TOP_APLL1_D3>,
-> +					 <&topckgen
-> CLK_TOP_ETHERPLL_50M>;
->  		power-domains = <&scpsys MT2712_POWER_DOMAIN_AUDIO>;
->  		mediatek,pericfg = <&pericfg>;
->  		snps,axi-config = <&stmmac_axi_setup>;
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
