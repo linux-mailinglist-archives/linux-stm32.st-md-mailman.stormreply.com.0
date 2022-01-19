@@ -2,63 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B89F949375A
-	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jan 2022 10:33:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BF20493D1E
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jan 2022 16:29:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62BA5C5AB61;
-	Wed, 19 Jan 2022 09:33:34 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2AAEC5AB61;
+	Wed, 19 Jan 2022 15:29:51 +0000 (UTC)
+Received: from bmailout1.hostsharing.net (bmailout1.hostsharing.net
+ [83.223.95.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F29EAC06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03622CFAC52
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 19 Jan 2022 09:33:33 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20J8MJq3014974;
- Wed, 19 Jan 2022 10:33:15 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=Vz5Z00wN5zPjPO1SANvL9AXqgyIwOm0yfPV4ilWMIWI=;
- b=yhCwni+ENghLAF4NeUwjEY26pxzdzd1+ZEGGXBI4PUPMGXprekNh+nYp+CDvw4o0kwoS
- bH8a+IB6AvuACGo3kmXfX58RUKXI3y64Fa+YIGS2BXdVvp/oPtWqK4u7PW1hH8eS1U+z
- +aVgr9dcbtcoxvUjVBocaSdFA24vmk9qY1lMmeW+KVfASguf/BBuJiYYjnMRzcqYVX8v
- dUAYzsYDWCSJ1kzA7X71dTlb4wOVA4Z9dGcB7mEpVrJFdrMhuoD4+hONSa3IXOPJd2DW
- W9xb55E2Kb8tRyx45vv8+4NiC7RYPBKUHZyydE+OD6TSbQOomYp5uwGNH98RrdNI70sK fQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dpf2v8f73-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Jan 2022 10:33:15 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 58B5F100038;
- Wed, 19 Jan 2022 10:33:15 +0100 (CET)
-Received: from Webmail-eu.st.com (gpxdag2node5.st.com [10.75.127.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4F26C20ED10;
- Wed, 19 Jan 2022 10:33:15 +0100 (CET)
-Received: from localhost (10.75.127.51) by GPXDAG2NODE5.st.com (10.75.127.69)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26;
- Wed, 19 Jan 2022 10:33:14 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: <broonie@kernel.org>, <amelie.delaunay@foss.st.com>
-Date: Wed, 19 Jan 2022 10:32:45 +0100
-Message-ID: <20220119093245.624878-3-alain.volmat@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220119093245.624878-1-alain.volmat@foss.st.com>
-References: <20220119093245.624878-1-alain.volmat@foss.st.com>
+ Wed, 19 Jan 2022 15:29:50 +0000 (UTC)
+Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "*.hostsharing.net",
+ Issuer "RapidSSL TLS DV RSA Mixed SHA256 2020 CA-1" (verified OK))
+ by bmailout1.hostsharing.net (Postfix) with ESMTPS id 419E030057E65;
+ Wed, 19 Jan 2022 16:29:50 +0100 (CET)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+ id 27C5F3ABB52; Wed, 19 Jan 2022 16:29:50 +0100 (CET)
+Date: Wed, 19 Jan 2022 16:29:50 +0100
+From: Lukas Wunner <lukas@wunner.de>
+To: patrice.chotard@foss.st.com
+Message-ID: <20220119152950.GA4445@wunner.de>
+References: <20220117121744.29729-1-patrice.chotard@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To GPXDAG2NODE5.st.com
- (10.75.127.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-19_06,2022-01-18_01,2021-12-02_01
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
- mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com, linux-spi@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <20220117121744.29729-1-patrice.chotard@foss.st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/2] spi: stm32: make SPI_MASTER_MUST_TX flags
-	only specific to STM32F4
+Subject: Re: [Linux-stm32] [PATCH v3] spi: stm32-qspi: Update spi registering
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,62 +52,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit 61367d0b8f5e ("spi: stm32: Add 'SPI_SIMPLEX_RX', 'SPI_3WIRE_RX' support for stm32f4")
-allowed to properly communicate with the st-gyro-spi even when
-there is no tx_buf provided by setting the flag SPI_MASTER_MUST_TX and
-thus forcing a dummy TX buffer to work in Full Duplex.
-This behavior should kept only for the STM32F4 and not for other
-compatible since the STM32H7 do support SIMPLEX_RX and SIMPLEX_TX.
-Add the flags variable within the struct stm32_spi_cfg so that flags
-used at master registration time are compatible specific.
+On Mon, Jan 17, 2022 at 01:17:44PM +0100, patrice.chotard@foss.st.com wrote:
+> Some device driver need to communicate to qspi device during the remove
+> process, qspi controller must be functional when spi_unregister_master()
+> is called.
+> 
+> To ensure this, replace devm_spi_register_master() by spi_register_master()
+> and spi_unregister_master() is called directly in .remove callback before
+> stopping the qspi controller.
+> 
+> This issue was put in evidence using kernel v5.11 and later
+> with a spi-nor which supports the software reset feature introduced
+> by commit d73ee7534cc5 ("mtd: spi-nor: core: perform a Soft Reset on
+> shutdown")
+> 
+> Fixes: c530cd1d9d5e ("spi: spi-mem: add stm32 qspi controller")
+> 
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> Cc: <stable@vger.kernel.org> # 5.8.x
 
-Fixes: 61367d0b8f5e ("spi: stm32: Add 'SPI_SIMPLEX_RX', 'SPI_3WIRE_RX' support for stm32f4")
+Reviewed-by: Lukas Wunner <lukas@wunner.de>
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
- drivers/spi/spi-stm32.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Thanks!
 
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index b5ef2470cefe..7fc24505a72c 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -231,6 +231,7 @@ struct stm32_spi;
-  * @baud_rate_div_min: minimum baud rate divisor
-  * @baud_rate_div_max: maximum baud rate divisor
-  * @has_fifo: boolean to know if fifo is used for driver
-+ * @flags: compatible specific SPI controller flags used at registration time
-  */
- struct stm32_spi_cfg {
- 	const struct stm32_spi_regspec *regs;
-@@ -251,6 +252,7 @@ struct stm32_spi_cfg {
- 	unsigned int baud_rate_div_min;
- 	unsigned int baud_rate_div_max;
- 	bool has_fifo;
-+	u16 flags;
- };
- 
- /**
-@@ -1720,6 +1722,7 @@ static const struct stm32_spi_cfg stm32f4_spi_cfg = {
- 	.baud_rate_div_min = STM32F4_SPI_BR_DIV_MIN,
- 	.baud_rate_div_max = STM32F4_SPI_BR_DIV_MAX,
- 	.has_fifo = false,
-+	.flags = SPI_MASTER_MUST_TX,
- };
- 
- static const struct stm32_spi_cfg stm32h7_spi_cfg = {
-@@ -1852,7 +1855,7 @@ static int stm32_spi_probe(struct platform_device *pdev)
- 	master->prepare_message = stm32_spi_prepare_msg;
- 	master->transfer_one = stm32_spi_transfer_one;
- 	master->unprepare_message = stm32_spi_unprepare_msg;
--	master->flags = SPI_MASTER_MUST_TX;
-+	master->flags = spi->cfg->flags;
- 
- 	spi->dma_tx = dma_request_chan(spi->dev, "tx");
- 	if (IS_ERR(spi->dma_tx)) {
--- 
-2.25.1
-
+Lukas
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
