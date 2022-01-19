@@ -2,62 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A17A493055
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jan 2022 23:11:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80E4649323F
+	for <lists+linux-stm32@lfdr.de>; Wed, 19 Jan 2022 02:21:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F44AC5EC57;
-	Tue, 18 Jan 2022 22:11:03 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38640C5EC57;
+	Wed, 19 Jan 2022 01:21:25 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47317C5AB61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9865C5C82B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jan 2022 22:11:02 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id C8BA68386E;
- Tue, 18 Jan 2022 23:11:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1642543861;
- bh=fqeXuE/XXckCu93jIWdmh4PNY5CzdbtbGiAytW9ROWU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=WVZquKiTV2WFiyKZt8pTsDiB3ai/OFk96h9GqpqbjpGwJ7vY3VbOsushJsPwvNt3C
- BOK+ffrVqhAkF5dp9IMBZGPKUTIFGtVu/7VsTSR0ILJ7WUyY8YJQHd44GGqv+kTXQw
- cLBH6ard8rJxB26DMW4nxfeWxRyv51Y3KVSzfLDQM6g8+F4+yHZ8IwsS6acMIpZbYU
- 18Semowie0hFEQL0yavuiiMg0cbNa3sHjPt2jnrjYeRJRCMLt4IR7Lmi+yF4LhyLZC
- d8j5yw7fG4O4lwqz/1cCU7zZm8zvDnPkhTe6mQXZzpASH0+yaXqe+snUcEJ3k04GIQ
- 96eF3hEYJhx0g==
-Message-ID: <8d02eb84-704e-ea67-0050-78c40f930094@denx.de>
-Date: Tue, 18 Jan 2022 23:11:00 +0100
+ Wed, 19 Jan 2022 01:21:23 +0000 (UTC)
+X-UUID: bf9e6ac19536479c95c34f0e9dfed317-20220119
+X-UUID: bf9e6ac19536479c95c34f0e9dfed317-20220119
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw02.mediatek.com (envelope-from <biao.huang@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 2129486808; Wed, 19 Jan 2022 09:21:18 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 19 Jan 2022 09:21:17 +0800
+Received: from mhfsdcap04 (10.17.3.154) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 19 Jan 2022 09:21:16 +0800
+Message-ID: <c6f990fdf047eb90acaeb29f9f9b2941d6b7bf30.camel@mediatek.com>
+From: Biao Huang <biao.huang@mediatek.com>
+To: Rob Herring <robh@kernel.org>
+Date: Wed, 19 Jan 2022 09:21:15 +0800
+In-Reply-To: <1642433742.934070.3923086.nullmailer@robh.at.kernel.org>
+References: <20220117070706.17853-1-biao.huang@mediatek.com>
+ <20220117070706.17853-8-biao.huang@mediatek.com>
+ <1642433742.934070.3923086.nullmailer@robh.at.kernel.org>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: "gabriel.fernandez@foss.st.com" <gabriel.fernandez@foss.st.com>,
- Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20210408185731.135511-1-marex@denx.de>
- <20210408185731.135511-2-marex@denx.de>
- <2b10f5d9-54cb-ce83-b7aa-f4ec8e67c001@foss.st.com>
- <92dd5798-8f5a-66e4-06bc-e3beb16690f5@denx.de>
- <d168aed8-aebd-1bee-aa72-3a3601718cad@foss.st.com>
- <e27dbccd-518f-7718-8cf7-cc9c8adb8a56@denx.de>
- <6416577a-ea06-a014-543a-9ef86aae603d@foss.st.com>
- <2281af74-33a0-df45-968b-baa1ddd9d6e0@denx.de>
- <8481872c-9ee0-c759-3ab0-5209165ad9b2@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <8481872c-9ee0-c759-3ab0-5209165ad9b2@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.2 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Stephen Boyd <swboyd@chromium.org>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 1/7] clk: stm32mp1: Split ETHCK_K into
- separate MUX and GATE clock
+X-MTK: N
+Cc: devicetree@vger.kernel.org, srv_heupstream@mediatek.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
+ linux-stm32@st-md-mailman.stormreply.com, dkirjanov@suse.de,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ macpaul.lin@mediatek.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH net-next v12 7/7] net: dt-bindings: dwmac:
+ add support for mt8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,24 +59,68 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 4/19/21 09:46, gabriel.fernandez@foss.st.com wrote:
+Dear Rob,
+	Thanks for your comments.
 
-Hello again,
+	If patch "[PATCH net-next v12 4/7] arm64: dts: mt2712: update
+ethernet device node" is applied with dt-binding patches, "make
+dtbs_check" will not report 
+such warnings.
+	Please review it kindly, thanks.
 
-[...]
+On Mon, 2022-01-17 at 09:35 -0600, Rob Herring wrote:
+> On Mon, 17 Jan 2022 15:07:06 +0800, Biao Huang wrote:
+> > Add binding document for the ethernet on mt8195.
+> > 
+> > Signed-off-by: Biao Huang <biao.huang@mediatek.com>
+> > ---
+> >  .../bindings/net/mediatek-dwmac.yaml          | 28
+> > ++++++++++++++++---
+> >  1 file changed, 24 insertions(+), 4 deletions(-)
+> > 
+> 
+> Running 'make dtbs_check' with the schema in this patch gives the
+> following warnings. Consider if they are expected or the schema is
+> incorrect. These may not be new warnings.
+> 
+> Note that it is not yet a requirement to have 0 warnings for
+> dtbs_check.
+> This will change in the future.
+> 
+> Full log is available here: 
+> https://patchwork.ozlabs.org/patch/1580608
+> 
+> 
+> ethernet@1101c000: clock-names: ['axi', 'apb', 'mac_main', 'ptp_ref']
+> is too short
+> 	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
+> 
+> ethernet@1101c000: clocks: [[27, 34], [27, 37], [6, 154], [6, 155]]
+> is too short
+> 	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
+> 
+> ethernet@1101c000: compatible: ['mediatek,mt2712-gmac'] does not
+> contain items matching the given schema
+> 	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
+> 
+> ethernet@1101c000: compatible: 'oneOf' conditional failed, one must
+> be fixed:
+> 	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
+> 
+> ethernet@1101c000: Unevaluated properties are not allowed
+> ('compatible', 'reg', 'interrupts', 'interrupt-names', 'mac-address', 
+> 'clock-names', 'clocks', 'power-domains', 'snps,axi-config',
+> 'snps,mtl-rx-config', 'snps,mtl-tx-config', 'snps,txpbl',
+> 'snps,rxpbl', 'clk_csr', 'phy-mode', 'phy-handle', 'snps,reset-gpio', 
+> 'mdio' were unexpected)
+> 	arch/arm64/boot/dts/mediatek/mt2712-evb.dt.yaml
+> 
 
-I sent out an rebased (and much shorter) patch series now:
-
-https://patchwork.kernel.org/project/linux-arm-kernel/list/?series=606380
-
--- 
-Best regards,
-Marek Vasut
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
