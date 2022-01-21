@@ -2,67 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81B0F495C83
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jan 2022 10:06:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E12B6495F7E
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jan 2022 14:12:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 032AFC5F1EB;
-	Fri, 21 Jan 2022 09:06:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8472EC5F1EB;
+	Fri, 21 Jan 2022 13:12:53 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16A40C57183
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD991C57183
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jan 2022 09:06:10 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20L8WfN1032350;
- Fri, 21 Jan 2022 10:05:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=g4rovonmGNLKjDUFtX2MlXR6+C/jkRKT9QGyIVbUt7g=;
- b=yoYpTSAI3LhjSiiiBPiksPDn9lh2Tpskri0wep7Zb40O0ZnYYo3QUjhrq+I0en6TGODq
- TMOCDALyaLrT0zhjcpjebT0s3YHMwa1qXsB9V2UG2dXDsBTTHkSjNoHExEn1KxC07S6l
- c+MpFPRw1utTn5GtcKF9uesANiZqGSxrlJmjnIpMwturvy/WCeWf9FIWeLV5pH4mBNZ5
- l+bTdrhWwHS2ob7RfDhgCEEmD1lSdTwcGKuNu0dlzuziEHCqPU3JQSyvGFrbPO8HHjTZ
- tz4LyJ0BxKRzKlRUJxQbQpA1XJdz1Xb0gI/pqiMVAC5XVHhJQ1F4J3+WciWzluc3Ko6l 9Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dqhx0j3mf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 21 Jan 2022 10:05:47 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id ABD4310002A;
- Fri, 21 Jan 2022 10:05:46 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node1.st.com [10.75.127.4])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A1EAD210F65;
- Fri, 21 Jan 2022 10:05:46 +0100 (CET)
-Received: from lmecxl0572.lme.st.com (10.75.127.47) by SFHDAG2NODE1.st.com
- (10.75.127.4) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 21 Jan
- 2022 10:05:04 +0100
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20220118202958.1840431-1-marex@denx.de>
- <20220118202958.1840431-2-marex@denx.de>
-From: "gabriel.fernandez@foss.st.com" <gabriel.fernandez@foss.st.com>
-Message-ID: <9c62790d-b6ee-1462-0a9f-9c5b0bd71a23@foss.st.com>
-Date: Fri, 21 Jan 2022 10:05:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Fri, 21 Jan 2022 13:12:52 +0000 (UTC)
+Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id C0A0180FDE;
+ Fri, 21 Jan 2022 14:12:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1642770772;
+ bh=gOK+KoEhV8IsdAelX1RAzCZ18FHAlg4FPukwYmI3h3s=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=dfiZbczjWnURcFUKrVbh1NvK3+/OK3rAACUbr03OT4mfbUH0cMFDYwrVZl/fKJtnZ
+ lxTpshd6TUAFNhBL5rqHahOY4SKgt/90jXJLmXBRLHbZ6NlJYLqYb5czupzgmDPo3D
+ vxOpPIeaJCe4KBj7+nZR0BT3f0AoNHFvbDivsq3ae1pfaoA3xqFzOo1VrepS3FmZ0f
+ FunJ5Vyec9tCAmH8Fr1Ik21gMCdxcBJWe/GNuGzYPb+3/XMWo90+cAbS6dBAIdVKuV
+ 5KdBZ4O6ItLVYW95hqS0xikmhdAKxwnU8vtpYhqX/q3XszqhpvFxhIWDSdxjBkBXrO
+ wfip5NHOzxsAQ==
+Message-ID: <6bf770a8-9a87-9806-d1a1-9564e018817c@denx.de>
+Date: Fri, 21 Jan 2022 14:12:51 +0100
 MIME-Version: 1.0
-In-Reply-To: <20220118202958.1840431-2-marex@denx.de>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
 Content-Language: en-US
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE1.st.com
- (10.75.127.4)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-21_06,2022-01-20_01,2021-12-02_01
-Cc: linux-stm32@st-md-mailman.stormreply.com, Stephen Boyd <sboyd@kernel.org>,
- linux-clk@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- jneuhauser@dh-electronics.com, Patrick Delaunay <patrick.delaunay@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH 2/5] clk: stm32mp1: Add parent_data to
-	ETHRX clock
+From: Marek Vasut <marex@denx.de>
+To: Stephen Boyd <sboyd@kernel.org>, linux-arm-kernel@lists.infradead.org
+References: <20220118202958.1840431-1-marex@denx.de>
+ <20220120220356.79C3CC340E0@smtp.kernel.org>
+ <2752700e-83ec-d844-e99e-73be8ff87ee9@denx.de>
+In-Reply-To: <2752700e-83ec-d844-e99e-73be8ff87ee9@denx.de>
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, jneuhauser@dh-electronics.com,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>
+Subject: Re: [Linux-stm32] [PATCH 1/5] clk: stm32mp1: Split ETHCK_K into
+ separate MUX and GATE clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,176 +61,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek,
-
-Thanks for the patchet.
-
-You can add
-
-Acked-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-
-
-
-
-On 1/18/22 9:29 PM, Marek Vasut wrote:
-> Pass parent_data to ETHRX clock with new fw_name = "ETH_RX_CLK/ETH_REF_CLK".
-> By default, this change has no impact on the operation of the clock driver.
-> However, due to the fw_name, it permits DT to override ETHRX clock parent,
-> which might be needed in case the ETHRX clock are supplied by external clock
-> source.
-> 
-> Example of MCO2 supplying clock to ETH_RX_CLK via external pad-to-pad wire:
-> &rcc {
->           clocks = <&rcc CK_MCO2>;
->           clock-names = "ETH_RX_CLK/ETH_REF_CLK";
-> };
-> 
-> Note that while this patch permits to implement this rare usecase, the issue
-> with ethernet RX and TX input clock modeling on MP1 is far more complex and
-> requires more core plumbing.
-> 
-> [1] STM32MP1 Reference Manual RM0436 Rev 3, Page 574,
->      Figure 83. Peripheral clock distribution for Ethernet
->      https://www.st.com/resource/en/reference_manual/dm00327659-stm32mp157-advanced-armbased-32bit-mpus-stmicroelectronics.pdf
-> 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-> Cc: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: linux-clk@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-arm-kernel@lists.infradead.org
-> ---
->   drivers/clk/clk-stm32mp1.c | 36 ++++++++++++++++++++++++++++++++----
->   1 file changed, 32 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/clk/clk-stm32mp1.c b/drivers/clk/clk-stm32mp1.c
-> index 23a34ab459a3b..7ad2e6203baef 100644
-> --- a/drivers/clk/clk-stm32mp1.c
-> +++ b/drivers/clk/clk-stm32mp1.c
-> @@ -155,6 +155,10 @@ static const char * const eth_src[] = {
->   	"pll4_p", "pll3_q"
->   };
->   
-> +const struct clk_parent_data ethrx_src[] = {
-> +	{ .name = "ethck_k", .fw_name = "ETH_RX_CLK/ETH_REF_CLK" },
-> +};
-> +
->   static const char * const rng_src[] = {
->   	"ck_csi", "pll4_r", "ck_lse", "ck_lsi"
->   };
-> @@ -317,6 +321,7 @@ struct clock_config {
->   	const char *name;
->   	const char *parent_name;
->   	const char * const *parent_names;
-> +	const struct clk_parent_data *parent_data;
->   	int num_parents;
->   	unsigned long flags;
->   	void *cfg;
-> @@ -576,6 +581,7 @@ static struct clk_hw *
->   clk_stm32_register_gate_ops(struct device *dev,
->   			    const char *name,
->   			    const char *parent_name,
-> +			    const struct clk_parent_data *parent_data,
->   			    unsigned long flags,
->   			    void __iomem *base,
->   			    const struct stm32_gate_cfg *cfg,
-> @@ -586,7 +592,10 @@ clk_stm32_register_gate_ops(struct device *dev,
->   	int ret;
->   
->   	init.name = name;
-> -	init.parent_names = &parent_name;
-> +	if (parent_name)
-> +		init.parent_names = &parent_name;
-> +	if (parent_data)
-> +		init.parent_data = parent_data;
->   	init.num_parents = 1;
->   	init.flags = flags;
->   
-> @@ -611,6 +620,7 @@ clk_stm32_register_gate_ops(struct device *dev,
->   static struct clk_hw *
->   clk_stm32_register_composite(struct device *dev,
->   			     const char *name, const char * const *parent_names,
-> +			     const struct clk_parent_data *parent_data,
->   			     int num_parents, void __iomem *base,
->   			     const struct stm32_composite_cfg *cfg,
->   			     unsigned long flags, spinlock_t *lock)
-> @@ -1135,6 +1145,7 @@ _clk_stm32_register_gate(struct device *dev,
->   	return clk_stm32_register_gate_ops(dev,
->   				    cfg->name,
->   				    cfg->parent_name,
-> +				    cfg->parent_data,
->   				    cfg->flags,
->   				    base,
->   				    cfg->cfg,
-> @@ -1148,8 +1159,8 @@ _clk_stm32_register_composite(struct device *dev,
->   			      const struct clock_config *cfg)
->   {
->   	return clk_stm32_register_composite(dev, cfg->name, cfg->parent_names,
-> -					    cfg->num_parents, base, cfg->cfg,
-> -					    cfg->flags, lock);
-> +					    cfg->parent_data, cfg->num_parents,
-> +					    base, cfg->cfg, cfg->flags, lock);
->   }
->   
->   #define GATE(_id, _name, _parent, _flags, _offset, _bit_idx, _gate_flags)\
-> @@ -1258,6 +1269,16 @@ _clk_stm32_register_composite(struct device *dev,
->   	.func		= _clk_stm32_register_gate,\
->   }
->   
-> +#define STM32_GATE_PDATA(_id, _name, _parent, _flags, _gate)\
-> +{\
-> +	.id		= _id,\
-> +	.name		= _name,\
-> +	.parent_data	= _parent,\
-> +	.flags		= _flags,\
-> +	.cfg		= (struct stm32_gate_cfg *) {_gate},\
-> +	.func		= _clk_stm32_register_gate,\
-> +}
-> +
->   #define _STM32_GATE(_gate_offset, _gate_bit_idx, _gate_flags, _mgate, _ops)\
->   	(&(struct stm32_gate_cfg) {\
->   		&(struct gate_cfg) {\
-> @@ -1291,6 +1312,10 @@ _clk_stm32_register_composite(struct device *dev,
->   	STM32_GATE(_id, _name, _parent, _flags,\
->   		   _STM32_MGATE(_mgate))
->   
-> +#define MGATE_MP1_PDATA(_id, _name, _parent, _flags, _mgate)\
-> +	STM32_GATE_PDATA(_id, _name, _parent, _flags,\
-> +		   _STM32_MGATE(_mgate))
-> +
->   #define _STM32_DIV(_div_offset, _div_shift, _div_width,\
->   		   _div_flags, _div_table, _ops)\
->   	.div = &(struct stm32_div_cfg) {\
-> @@ -1354,6 +1379,9 @@ _clk_stm32_register_composite(struct device *dev,
->   #define PCLK(_id, _name, _parent, _flags, _mgate)\
->   	MGATE_MP1(_id, _name, _parent, _flags, _mgate)
->   
-> +#define PCLK_PDATA(_id, _name, _parent, _flags, _mgate)\
-> +	MGATE_MP1_PDATA(_id, _name, _parent, _flags, _mgate)
-> +
->   #define KCLK(_id, _name, _parents, _flags, _mgate, _mmux)\
->   	     COMPOSITE(_id, _name, _parents, CLK_OPS_PARENT_ENABLE |\
->   		       CLK_SET_RATE_NO_REPARENT | _flags,\
-> @@ -1951,7 +1979,7 @@ static const struct clock_config stm32mp1_clock_cfg[] = {
->   	PCLK(MDMA, "mdma", "ck_axi", 0, G_MDMA),
->   	PCLK(GPU, "gpu", "ck_axi", 0, G_GPU),
->   	PCLK(ETHTX, "ethtx", "ck_axi", 0, G_ETHTX),
-> -	PCLK(ETHRX, "ethrx", "ck_axi", 0, G_ETHRX),
-> +	PCLK_PDATA(ETHRX, "ethrx", ethrx_src, 0, G_ETHRX),
->   	PCLK(ETHMAC, "ethmac", "ck_axi", 0, G_ETHMAC),
->   	PCLK(FMC, "fmc", "ck_axi", CLK_IGNORE_UNUSED, G_FMC),
->   	PCLK(QSPI, "qspi", "ck_axi", CLK_IGNORE_UNUSED, G_QSPI),
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMS8yMC8yMiAyMzozOSwgTWFyZWsgVmFzdXQgd3JvdGU6Cj4gT24gMS8yMC8yMiAyMzowMywg
+U3RlcGhlbiBCb3lkIHdyb3RlOgo+PiBRdW90aW5nIE1hcmVrIFZhc3V0ICgyMDIyLTAxLTE4IDEy
+OjI5OjU0KQo+Pj4gVGhlIEVUSENLX0sgYXJlIG1vZGVsZWQgYXMgY29tcG9zaXRlIGNsb2NrIG9m
+IE1VWCBhbmQgR0FURSwgaG93ZXZlciBwZXIKPj4+IFNUTTMyTVAxIFJlZmVyZW5jZSBNYW51YWwg
+Uk0wNDM2IFJldiAzLCBQYWdlIDU3NCwgRmlndXJlIDgzLiBQZXJpcGhlcmFsCj4+PiBjbG9jayBk
+aXN0cmlidXRpb24gZm9yIEV0aGVybmV0LCBFVEhQVFBESVYgZGl2aWRlciBpcyBhdHRhY2hlZCBw
+YXN0IHRoZQo+Pj4gRVRIQ0tfSyBtdXgsIGFuZCBFVEhfQ0xLL2V0aF9jbGtfZmIgY2xvY2sgYXJl
+IG91dHB1dCBwYXN0IEVUSENLRU4gZ2F0ZS4KPj4+IFRoZXJlZm9yZSwgaW4gY2FzZSBFVEhfQ0xL
+L2V0aF9jbGtfZmIgYXJlIG5vdCBpbiB1c2UgQU5EIFBUUCBjbG9jayBhcmUKPj4+IGluIHVzZSwg
+RVRIQ0tFTiBnYXRlIGNhbiBiZSB0dXJuZWQgb2ZmLiBDdXJyZW50IGRyaXZlciBkb2VzIG5vdCBw
+ZXJtaXQKPj4+IHRoYXQsIGZpeCBpdC4KPj4+Cj4+PiBUaGlzIHBhdGNoIGNvbnZlcnRzIEVUSENL
+X0sgZnJvbSBjb21wb3NpdGUgY2xvY2sgaW50byBhIEVUSENLRU4gZ2F0ZSwKPj4+IEVUSFBUUF9L
+IGZyb20gY29tcG9zaXRlIGNsb2NrIGludG8gRVRIUFRQRElWIGRpdmlkZXIsIGFuZCBhZGRzIGFu
+b3RoZXIKPj4+IE5PX0lEIGNsb2NrICJja19rZXJfZXRoIiB3aGljaCBtb2RlbHMgdGhlIEVUSFNS
+QyBtdXggYW5kIGlzIHBhcmVudCBjbG9jawo+Pj4gdG8gYm90aCBFVEhDS19LIGFuZCBFVEhQVFBf
+Sy4gVGhlcmVmb3JlLCBhbGwgcmVmZXJlbmNlcyB0byBFVEhDS19LIGFuZAo+Pj4gRVRIUFRQX0sg
+cmVtYWluIGZ1bmN0aW9uYWwgYXMgYmVmb3JlLgo+Pj4KPj4+IFsxXSBTVE0zMk1QMSBSZWZlcmVu
+Y2UgTWFudWFsIFJNMDQzNiBSZXYgMywgUGFnZSA1NzQsCj4+PiDCoMKgwqDCoCBGaWd1cmUgODMu
+IFBlcmlwaGVyYWwgY2xvY2sgZGlzdHJpYnV0aW9uIGZvciBFdGhlcm5ldAo+Pj4gICAgICAKPj4+
+IGh0dHBzOi8vd3d3LnN0LmNvbS9yZXNvdXJjZS9lbi9yZWZlcmVuY2VfbWFudWFsL2RtMDAzMjc2
+NTktc3RtMzJtcDE1Ny1hZHZhbmNlZC1hcm1iYXNlZC0zMmJpdC1tcHVzLXN0bWljcm9lbGVjdHJv
+bmljcy5wZGYgCj4+Pgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IE1hcmVrIFZhc3V0IDxtYXJleEBk
+ZW54LmRlPgo+Pj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVAZm9zcy5z
+dC5jb20+Cj4+PiBDYzogQ2hyaXN0b3BoZSBSb3VsbGllciA8Y2hyaXN0b3BoZS5yb3VsbGllckBm
+b3NzLnN0LmNvbT4KPj4+IENjOiBHYWJyaWVsIEZlcm5hbmRleiA8Z2FicmllbC5mZXJuYW5kZXpA
+Zm9zcy5zdC5jb20+Cj4+PiBDYzogUGF0cmljZSBDaG90YXJkIDxwYXRyaWNlLmNob3RhcmRAZm9z
+cy5zdC5jb20+Cj4+PiBDYzogUGF0cmljayBEZWxhdW5heSA8cGF0cmljay5kZWxhdW5heUBmb3Nz
+LnN0LmNvbT4KPj4+IENjOiBTdGVwaGVuIEJveWQgPHNib3lkQGtlcm5lbC5vcmc+Cj4+PiBDYzog
+bGludXgtY2xrQHZnZXIua2VybmVsLm9yZwo+Pj4gQ2M6IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KPj4+IFRvOiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVh
+ZC5vcmcKPj4+IC0tLQo+Pgo+PiBBbnkgY292ZXIgbGV0dGVyPwo+IAo+IElmIHRoZXJlIGlzIGEg
+bmVlZCBmb3IgVjIsIEkgd2lsbCBzZW5kIG9uZS4gQWRtaXR0ZWRseSwgSSBmb3Jnb3Qgb25lIGhl
+cmUuCj4gCj4+IFdoYXQgaXMgdGhlIG1lcmdlIHN0cmF0ZWd5IG9mIHRoaXMgcGF0Y2ggc2VyaWVz
+Pwo+IAo+IENsb2NrIGJpdHMgMS81IGFuZCAyLzUgY2FuIGdvIHRocm91Z2ggY2xvY2sgdHJlZSwg
+RFQgYml0cyB0aHJvdWdoIEFsZXgncyAKPiBTVCB0cmVlLgo+IAo+PiBEbyBJIG5lZWQgdG8gYWNr
+IHRoZSBwYXRjaGVzPwo+IAo+IEkgYW0gd2FpdGluZyBmb3IgQUIvUkIgZnJvbSBTVCwgdGhlbiB0
+aGV5IGNhbiBiZSBtZXJnZWQuCj4gCj4gSWYgeW91IHdhbnQgdG8gcmV2aWV3IHRoZSBmaXJzdCB0
+d28gcGF0Y2hlcywgc3VyZSwgdGhlIHRvcCBoYWxmIG9mIDIvNSAKPiBpcyBwcm9iYWJseSB0aGUg
+bW9zdCBpbnRlcmVzdGluZyBwYXJ0LCBiYXNlZCBvbiB5b3VyIHN1Z2dlc3Rpb24gZnJvbSAKPiBh
+bG1vc3QgYSB5ZWFyIGFnby4gVGhlIHJlc3QgYXJlIGNsb2NrIGNvbnRyb2xsZXIgaGFyZHdhcmUg
+ZGV0YWlscy4KClNvIGlmIHlvdSB3YW50IHRvIHBpY2sgMS81IGFuZCAyLzUgdmlhIGNsb2NrIHRy
+ZWUgd2l0aCBBLUIgZnJvbSBHYWJyaWVsLCAKcGxlYXNlIGRvLgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
