@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EFF1496E54
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 01:11:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EEC3496E7B
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 01:12:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE486C5F1EF;
-	Sun, 23 Jan 2022 00:11:30 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13866C5F1EF;
+	Sun, 23 Jan 2022 00:12:23 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DEA8C5F1ED
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1AEBC5F1ED
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jan 2022 00:11:29 +0000 (UTC)
+ Sun, 23 Jan 2022 00:12:21 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 20E30B8091E;
- Sun, 23 Jan 2022 00:11:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4D3BC340E5;
- Sun, 23 Jan 2022 00:11:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 55F0760FB5;
+ Sun, 23 Jan 2022 00:12:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079CFC36AEC;
+ Sun, 23 Jan 2022 00:12:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642896687;
+ s=k20201202; t=1642896740;
  bh=nxtaYekpVBFkHlh4jI55ddbaFFhM89Sm46JH25MlHJ4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=V394ZqO03cxC+V6r9cmbyVU5WeUDpap0fsz07+z+WOwDLubefISwXUVzpB6bj55XH
- 6y/J4HNdzukzOjO99Gf+iRlHXbBWKmSD3kpQBmSb+96jodue0h6u6bJ4h7OSp3zcDk
- ANi6zA6T6rf6RPu8R4CLG6C5Qk4EUMx4mzjxtlmiNhkIaAfKrX+fX4jnUjZ+3dNJsA
- UP/INCyQTjGxHCN5wuZXC817ZH7Hic9kg17AS48Jmd2hZKFSOYufZnqZ38NNh4o3F6
- 8xyCLzIR3tK6HUXHLUs+JWgNQuSCDbQRP5ML+5wO+RR30c7ap6Xtz9qggaulApO8kq
- +RI6n/1NW5E4A==
+ b=B0eUlOd6mi8MpR7CTb4xRm/we3QTttTTJSqKHiR2k6Ut3c9KVLf1MfTkDMuAWnPY7
+ ME4ulaCtdALP9McpGfPDlpZpG0FHFLxnnprsVvNwrTBpMdJyvJA49X3GEXwO7dLxn9
+ x7CM0F68RYwR002np2UrBBLD7881W4TRWk65xU9SfbA3ZZV2mmoN9daPjpRKhGwCVM
+ Tn+Qo+/2TvddvpgNTSLWaqEhI2OszfambN1nHiwJ10ME2I/BZTJ+b0SfbcoQSWG7e/
+ jF3uw5DMlI8mou8nU6SJvu8McsDTHb/LnhXCo4j4hPxWAZGgta7mFEETOdrKgNGXUP
+ 1x0T16gJuls3g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 22 Jan 2022 19:10:55 -0500
-Message-Id: <20220123001113.2460140-2-sashal@kernel.org>
+Date: Sat, 22 Jan 2022 19:12:01 -0500
+Message-Id: <20220123001216.2460383-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220123001113.2460140-1-sashal@kernel.org>
-References: <20220123001113.2460140-1-sashal@kernel.org>
+In-Reply-To: <20220123001216.2460383-1-sashal@kernel.org>
+References: <20220123001216.2460383-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -45,7 +45,7 @@ Cc: Sasha Levin <sashal@kernel.org>, ohad@wizery.com,
  linux-remoteproc@vger.kernel.org, alexandre.torgue@foss.st.com,
  Bjorn Andersson <bjorn.andersson@linaro.org>, mcoquelin.stm32@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.16 02/19] hwspinlock: stm32: enable
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 02/16] hwspinlock: stm32: enable
 	clock at probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
