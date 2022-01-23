@@ -2,42 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EEC3496E7B
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 01:12:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63A7F496E8D
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 01:13:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13866C5F1EF;
-	Sun, 23 Jan 2022 00:12:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 294BEC5F1EF;
+	Sun, 23 Jan 2022 00:13:10 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1AEBC5F1ED
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE383C5F1ED
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jan 2022 00:12:21 +0000 (UTC)
+ Sun, 23 Jan 2022 00:13:07 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 55F0760FB5;
- Sun, 23 Jan 2022 00:12:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079CFC36AEC;
- Sun, 23 Jan 2022 00:12:18 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8E05960F9D;
+ Sun, 23 Jan 2022 00:13:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BBAC004E1;
+ Sun, 23 Jan 2022 00:13:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642896740;
+ s=k20201202; t=1642896786;
  bh=nxtaYekpVBFkHlh4jI55ddbaFFhM89Sm46JH25MlHJ4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=B0eUlOd6mi8MpR7CTb4xRm/we3QTttTTJSqKHiR2k6Ut3c9KVLf1MfTkDMuAWnPY7
- ME4ulaCtdALP9McpGfPDlpZpG0FHFLxnnprsVvNwrTBpMdJyvJA49X3GEXwO7dLxn9
- x7CM0F68RYwR002np2UrBBLD7881W4TRWk65xU9SfbA3ZZV2mmoN9daPjpRKhGwCVM
- Tn+Qo+/2TvddvpgNTSLWaqEhI2OszfambN1nHiwJ10ME2I/BZTJ+b0SfbcoQSWG7e/
- jF3uw5DMlI8mou8nU6SJvu8McsDTHb/LnhXCo4j4hPxWAZGgta7mFEETOdrKgNGXUP
- 1x0T16gJuls3g==
+ h=From:To:Cc:Subject:Date:From;
+ b=JOStWGvzVypZnOeITP4Q7u4fm7plP7HhAD12Ak7f8mLdehQ2blaDCZ6vyiqlC9aN4
+ yYoDQaqfXK/0fe1WFdim7kpv1vUU1l9bYbj8Rjrc4jGfgbsk+X5DWAxvmegqHJJehv
+ JOivSbjx1OjE82HK7mDQJWt6FYNAWlNoJWQ9SbiLd70X07ZUhBcNFM6qz7P3yB069z
+ Nd0b9BEBm/EvOa+i/ZEjPX9g3s3aluUMWaTvG5xm6R1Z7L5MqppoY4VqEiH98kmwRz
+ wPH0jLsJmFEp1mCGr7ZATUb/KJAXHS9SYgizjxBxrUKmdFXZi9udxPY7Nh9pUpXctr
+ hRAlP4gFpfiGg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sat, 22 Jan 2022 19:12:01 -0500
-Message-Id: <20220123001216.2460383-2-sashal@kernel.org>
+Date: Sat, 22 Jan 2022 19:12:50 -0500
+Message-Id: <20220123001258.2460594-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220123001216.2460383-1-sashal@kernel.org>
-References: <20220123001216.2460383-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -45,7 +43,7 @@ Cc: Sasha Levin <sashal@kernel.org>, ohad@wizery.com,
  linux-remoteproc@vger.kernel.org, alexandre.torgue@foss.st.com,
  Bjorn Andersson <bjorn.andersson@linaro.org>, mcoquelin.stm32@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 02/16] hwspinlock: stm32: enable
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.10 1/9] hwspinlock: stm32: enable
 	clock at probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
