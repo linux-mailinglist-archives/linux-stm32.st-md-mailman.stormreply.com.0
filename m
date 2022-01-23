@@ -2,45 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54DB24972F7
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 17:17:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCB8D4972FA
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 17:23:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B7BEC5F1D6;
-	Sun, 23 Jan 2022 16:17:39 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C424C5F1D6;
+	Sun, 23 Jan 2022 16:23:01 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83A0CC5F1D3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE12AC5F1D3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jan 2022 16:17:37 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ Sun, 23 Jan 2022 16:23:00 +0000 (UTC)
+Received: from tr.lan (ip-89-176-112-137.net.upcbroadband.cz [89.176.112.137])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6699060F64;
- Sun, 23 Jan 2022 16:17:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41AC1C340E4;
- Sun, 23 Jan 2022 16:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1642954655;
- bh=hELyb+h7uSk5+7Ygl6ea4kQRUVcac7I/c9Y9TBwlsa4=;
- h=Subject:To:Cc:From:Date:From;
- b=PnkT5MpNkItHoFW4dP9CMbpV+v/+eK20DI1wuUCoZJD0NaURB5KEcIWqvqXzhVadZ
- g1PHbo2yo7z1EUMvtiVDWofoLbJhlU6+YrSWYs4qb45KSrmhIuCEbrAVIAWunhs5+9
- 9ZEp2dxwSjXcX3KgHuFWNiwxl42ZxxotB2td8g3c=
-To: alexandre.torgue@foss.st.com, fabien.dessenne@st.com,
- gregkh@linuxfoundation.org, herbert@gondor.apana.org.au,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- lionel.debieve@st.com, marex@denx.de, nicolas.toromanoff@foss.st.com,
- nicolas.toromanoff@st.com
-From: <gregkh@linuxfoundation.org>
-Date: Sun, 23 Jan 2022 17:17:22 +0100
-Message-ID: <1642954642151148@kroah.com>
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 9DF7A801FB;
+ Sun, 23 Jan 2022 17:22:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1642954980;
+ bh=mbsdXXgIXdMdv7JB7X9Uf0bxUsnnUq6EoJ9wXuDyG4Q=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=XfQzBwRgqo3Brq0Fa73ype5OaoYQIVj3d70oN1jvIu5DI6TQKEaYDUgavLsJFxbKY
+ Us4SpS7g6AtF+Pno0VU57aZB4By22TNIX/fSuZXLltRzdLQmU+a9cSu8dQ+TKUoZGF
+ TW1xuZBpoo8HTIIA3aDCAolvfA4R1YtrYhpZTaPWVveUEF6Gl7kPSOaCq84lsvFyKa
+ 3bYKnhgqjLcyUJnG2B0z6StFIDiEKfx3SAnkSU+ylnUSPRSLnHMBOBmq47HhxlCEKv
+ fezYNpuAdFA/DHNImaU4AnILS/C6Jy4+bXdznIZ/KKzMyfdI8Yr69npUm4YfZTrAvD
+ tC3cPZaA43cMw==
+From: Marek Vasut <marex@denx.de>
+To: stable@vger.kernel.org
+Date: Sun, 23 Jan 2022 17:22:40 +0100
+Message-Id: <20220123162240.5532-1-marex@denx.de>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <16429542415161@kroah.com>
+References: <16429542415161@kroah.com>
 MIME-Version: 1.0
-X-stable: commit
-X-Patchwork-Hint: ignore 
-Cc: stable-commits@vger.kernel.org
-Subject: [Linux-stm32] Patch "crypto: stm32/crc32 - Fix kernel BUG triggered
-	in probe()" has been added to the 5.10-stable tree
+X-Virus-Scanned: clamav-milter 0.103.5 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, Lionel Debieve <lionel.debieve@st.com>,
+ Nicolas Toromanoff <nicolas.toromanoff@st.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Fabien Dessenne <fabien.dessenne@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] crypto: stm32/crc32 - Fix kernel BUG
+	triggered in probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,31 +62,6 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-
-
-This is a note to let you know that I've just added the patch titled
-
-    crypto: stm32/crc32 - Fix kernel BUG triggered in probe()
-
-to the 5.10-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     crypto-stm32-crc32-fix-kernel-bug-triggered-in-probe.patch
-and it can be found in the queue-5.10 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From 29009604ad4e3ef784fd9b9fef6f23610ddf633d Mon Sep 17 00:00:00 2001
-From: Marek Vasut <marex@denx.de>
-Date: Mon, 20 Dec 2021 20:50:22 +0100
-Subject: crypto: stm32/crc32 - Fix kernel BUG triggered in probe()
-
-From: Marek Vasut <marex@denx.de>
-
-commit 29009604ad4e3ef784fd9b9fef6f23610ddf633d upstream.
 
 The include/linux/crypto.h struct crypto_alg field cra_driver_name description
 states "Unique name of the transformation provider. " ... " this contains the
@@ -112,14 +93,20 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 To: linux-crypto@vger.kernel.org
 Acked-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/crypto/stm32/stm32-crc32.c |    4 ++--
+Backport on 4.19.225, likely works on 4.14 too.
+The patch likely failed to apply because the hit 5.3:
+fdbd643a74efb ("crypto: stm32/crc32 - rename driver file")
+and renamed drivers/crypto/stm32/stm32{-,_}crc32.c
+---
+ drivers/crypto/stm32/stm32_crc32.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
---- a/drivers/crypto/stm32/stm32-crc32.c
-+++ b/drivers/crypto/stm32/stm32-crc32.c
-@@ -279,7 +279,7 @@ static struct shash_alg algs[] = {
+diff --git a/drivers/crypto/stm32/stm32_crc32.c b/drivers/crypto/stm32/stm32_crc32.c
+index 47d31335c2d42..6848f34a9e66a 100644
+--- a/drivers/crypto/stm32/stm32_crc32.c
++++ b/drivers/crypto/stm32/stm32_crc32.c
+@@ -230,7 +230,7 @@ static struct shash_alg algs[] = {
  		.digestsize     = CHKSUM_DIGEST_SIZE,
  		.base           = {
  			.cra_name               = "crc32",
@@ -128,7 +115,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  			.cra_priority           = 200,
  			.cra_flags		= CRYPTO_ALG_OPTIONAL_KEY,
  			.cra_blocksize          = CHKSUM_BLOCK_SIZE,
-@@ -301,7 +301,7 @@ static struct shash_alg algs[] = {
+@@ -252,7 +252,7 @@ static struct shash_alg algs[] = {
  		.digestsize     = CHKSUM_DIGEST_SIZE,
  		.base           = {
  			.cra_name               = "crc32c",
@@ -137,13 +124,9 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  			.cra_priority           = 200,
  			.cra_flags		= CRYPTO_ALG_OPTIONAL_KEY,
  			.cra_blocksize          = CHKSUM_BLOCK_SIZE,
+-- 
+2.34.1
 
-
-Patches currently in stable-queue which might be from marex@denx.de are
-
-queue-5.10/crypto-stm32-cryp-fix-double-pm-exit.patch
-queue-5.10/crypto-stm32-cryp-fix-bugs-and-crash-in-tests.patch
-queue-5.10/crypto-stm32-crc32-fix-kernel-bug-triggered-in-probe.patch
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
