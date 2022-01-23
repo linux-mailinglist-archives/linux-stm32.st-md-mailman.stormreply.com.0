@@ -2,160 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E431A4973DB
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 18:53:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30D5C49744C
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 19:29:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99A7AC5EC76;
-	Sun, 23 Jan 2022 17:53:10 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D40C4C5EC76;
+	Sun, 23 Jan 2022 18:29:55 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B960CC5AB61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24175C5AB61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jan 2022 17:53:09 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1nBh2H-0007aG-Mg; Sun, 23 Jan 2022 18:52:17 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nBh28-00BycE-Ac; Sun, 23 Jan 2022 18:52:07 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nBh26-000tzT-Dk; Sun, 23 Jan 2022 18:52:06 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Mark Brown <broonie@kernel.org>
-Date: Sun, 23 Jan 2022 18:51:56 +0100
-Message-Id: <20220123175201.34839-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.34.1
+ Sun, 23 Jan 2022 18:29:54 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id l16so14111196pjl.4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 23 Jan 2022 10:29:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=oUc8la+19Vm3AyI8hVo2ckW6JXVAW8jvTMpivK53mfg=;
+ b=Lb/Okjcs+U3vy7lYzUrFKd1EjDyv15UWcH5nP5ASmiTlbzquvoWme5BIU/aw73MnpE
+ vA2dzDLGRBd4pkJXZV+3EBTOSwGfFkd3rog6w2tXNnWDRe54DU8bgmsVtJsLiroWmmdF
+ uGf+Tlo0EGIjT2A0TpHDitc7/4aF0C7toql/MAB/E49TxgnpFxyckz7/0y4wt1dHt1SG
+ sl3jHGE2jRfQ1vxh9IZ9loLpIyri+2fODY6THk9H4JUIAlLVObGPBF30quJX2ewXVLB9
+ q6ZSmDegCjM0/hGHWqNcAFbI8MlgacYftve99jeoilxPbrGqQ0CJwslEVxOzFXOmsPLP
+ S2uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=oUc8la+19Vm3AyI8hVo2ckW6JXVAW8jvTMpivK53mfg=;
+ b=AlJ+XAhckG4qAhpKj6bLl7gHPSsgcrdwrwSYCKahvdGHFLa6OWmx4kXB0Qe/YHLhWC
+ 67n7UQi639hlTe25V93zg04cRI/m4t9+TizRn8xuI1lUXXToAa+kgEF65bta4W/5c7/x
+ fdsk0dqcECRiSnIVo1C+cZ1w6FuEQqMesqD/hgJs0odQYRdZIM2F0Q6GAYG5A/PtodIZ
+ 7XO2rDF33i2LYcfyaE87+rBWf8lBPGgTqtJgMxIM0QS9VNyrPkqLgpTa3pAC0mubr2YG
+ STH4FQ4CG9PTdGB62nZ2YmOmCig4mfZzmFJnvySIhoydh41SeexXrbNbA6tw9I5f3Gzq
+ nT/w==
+X-Gm-Message-State: AOAM533gb2lCAt0hJB0PbHfdtjvnS8ZFsIIUXE3TwfzZ5CHeOza34LZd
+ l5QwYcSeLY79ShMwiHOugFc=
+X-Google-Smtp-Source: ABdhPJywcS0ZTC5dSc8g3QSaQjWYmMszBsB0svShK9xFetZo8xT2YvbDX6+XNJFQlvxdZV2Rmxbltw==
+X-Received: by 2002:a17:902:8693:b0:148:a2e7:fb5a with SMTP id
+ g19-20020a170902869300b00148a2e7fb5amr11649910plo.155.1642962592531; 
+ Sun, 23 Jan 2022 10:29:52 -0800 (PST)
+Received: from ?IPV6:2600:8802:b00:4a48:5d89:db9e:1ac7:6fdc?
+ ([2600:8802:b00:4a48:5d89:db9e:1ac7:6fdc])
+ by smtp.gmail.com with ESMTPSA id g1sm13399612pfj.84.2022.01.23.10.29.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 23 Jan 2022 10:29:51 -0800 (PST)
+Message-ID: <22aac4ec-2a22-42ee-20ee-9e9d6097b9d9@gmail.com>
+Date: Sun, 23 Jan 2022 10:29:49 -0800
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13159; h=from:subject;
- bh=owUsrJiUxQg0WH9JiyxXcWg2QcQX/yEwEp5ObL2T9n0=;
- b=owGbwMvMwMV48I9IxdpTbzgZT6slMSS+nbpcuF1aSOHc7VvcKru0ItTvBT39tGSS6+W7Qqqsga+6
- XV/1dDIaszAwcjHIiimy1BVpiU2QWPPfrmQJN8wgViaQKQxcnAIwkQJ1DoZJL1o6pbJMnj7jmr4qUS
- z5cENAvodiUGgJM7vdWk2x1lkXfyiGhedIbP/1ivHDvGRTmXL/wIg7PG/WnKtj3+Cxw3vSTCnTOzOd
- yi9M2O48eVabWmdxdar48r4nD8SX8C08EDSTi+vRDt+c6nvV3NfNWBp1n+gr+KXecpB0EyurXNg2We
- Uo48mJf1OlAs7efhjiFRf3rvCxJsfV54c496b3NyuWHJzSmuayo0HlZt6l61nCfqtvRPNVJB6OfXdb
- hs8hRbB7TVzWu4TqJTmrVkWmKp/49rnOYBtTkkTTztLDU1/M/GPS5CYxR5hB+kNfXS1Xv6L8fpUOs7
- C3m3IdIjib3pfmHW2edIvrx04rAA==
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Andrew Lunn <andrew@lunn.ch>, Gwendal Grignou <gwendal@chromium.org>,
- Yasunari Takiguchi <Yasunari.Takiguchi@sony.com>, Claudius Heine <ch@denx.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Nanyong Sun <sunnanyong@huawei.com>, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Frieder Schrempf <frieder.schrempf@kontron.de>, Pavel Machek <pavel@ucw.cz>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Christian Lamparter <chunkeey@googlemail.com>,
- Ajay Singh <ajay.kathat@microchip.com>, linux-clk@vger.kernel.org,
- Stefan Schmidt <stefan@datenfreihafen.org>, Sidong Yang <realwakka@gmail.com>,
- libertas-dev@lists.infradead.org, linux-omap@vger.kernel.org,
- Antti Palosaari <crope@iki.fi>, Guenter Roeck <linux@roeck-us.net>,
- Jean Delvare <jdelvare@suse.com>, linux-serial@vger.kernel.org,
- =?utf-8?q?=C5=81ukasz_Stelmach?= <l.stelmach@samsung.com>,
- Mark Tomlinson <mark.tomlinson@alliedtelesis.co.nz>,
- James Schulman <james.schulman@cirrus.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Zhang Qilong <zhangqilong3@huawei.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Michael Walle <michael@walle.cc>,
- =?utf-8?q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mtd@lists.infradead.org,
- Andrew Morton <akpm@linux-foundation.org>, Vladimir Oltean <olteanv@gmail.com>,
- linux-wpan@vger.kernel.org, Claudiu Beznea <claudiu.beznea@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Dan Robertson <dan@dlrobertson.com>, Markuss Broks <markuss.broks@gmail.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>, David Airlie <airlied@linux.ie>,
- linux-wireless@vger.kernel.org, Marco Felsch <m.felsch@pengutronix.de>,
- David Rhodes <david.rhodes@cirrus.com>,
- Thierry Reding <thierry.reding@gmail.com>, Solomon Peachy <pizza@shaftnet.org>,
- =?utf-8?q?Marek_Beh=C3=BAn?= <kabel@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>,
- Jiri Slaby <jirislaby@kernel.org>, Helge Deller <deller@gmx.de>,
- Tudor Ambarus <tudor.ambarus@microchip.com>,
- Minghao Chi <chi.minghao@zte.com.cn>, Jon Hunter <jonathanh@nvidia.com>,
- dingsenjie <dingsenjie@yulong.com>, Heiko Schocher <hs@denx.de>,
- Wolfgang Grandegger <wg@grandegger.com>, Matt Kline <matt@bitbashing.io>,
- Woojung Huh <woojung.huh@microchip.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Mike Looijmans <mike.looijmans@topic.nl>,
- =?utf-8?q?Ronald_Tschal=C3=A4r?= <ronald@innovation.ch>,
- Daniel Thompson <daniel.thompson@linaro.org>,
- Maxime Ripard <mripard@kernel.org>, linux-can@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Hans de Goede <hdegoede@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
- Davidlohr Bueso <dbueso@suse.de>, UNGLinuxDriver@microchip.com,
- Jarkko Sakkinen <jarkko@kernel.org>, linux-usb@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-integrity@vger.kernel.org,
- Jonathan Cameron <jic23@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-staging@lists.linux.dev,
- linux-iio@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- alsa-devel@alsa-project.org, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- netdev@vger.kernel.org, Wei Yongjun <weiyongjun1@huawei.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- =?utf-8?b?SsOpcsO0bWUgUG91aWxsZXI=?= <jerome.pouiller@silabs.com>,
- linux-rtc@vger.kernel.org, Marcus Folkesson <marcus.folkesson@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>, Guenter Roeck <groeck@google.com>,
- Aditya Srivastava <yashsri421@gmail.com>,
- Varka Bhadram <varkabhadram@gmail.com>, wengjianfeng <wengjianfeng@yulong.com>,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>,
- =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Mark Greer <mgreer@animalcreek.com>, Mark Gross <markgross@kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-fbdev@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
- =?utf-8?q?Stefan_M=C3=A4tje?= <stefan.maetje@esd.eu>,
- linux-hwmon@vger.kernel.org, Felipe Balbi <balbi@kernel.org>,
- Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Julia Lawall <Julia.Lawall@inria.fr>,
- Yang Li <yang.lee@linux.alibaba.com>, Dan Carpenter <dan.carpenter@oracle.com>,
- patches@opensource.cirrus.com,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Kent Gustavsson <kent@minoris.se>, "David S. Miller" <davem@davemloft.net>,
- Charles-Antoine Couret <charles-antoine.couret@nexvision.fr>,
- Alexander Aring <alex.aring@gmail.com>, Jiri Prchal <jiri.prchal@aksignal.cz>,
- Vignesh Raghavendra <vigneshr@ti.com>, Emma Anholt <emma@anholt.net>,
- Peter Zijlstra <peterz@infradead.org>,
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Jisheng Zhang <jszhang@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+ Joakim Zhang <qiangqing.zhang@nxp.com>
+References: <20220123141245.1060-1-jszhang@kernel.org>
+ <Ye15va7tFWMgKPEE@lunn.ch> <Ye19bHxcQ5Plx0v9@xhacker>
+ <Ye19vpFWXR8wJQVH@xhacker>
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <Ye19vpFWXR8wJQVH@xhacker>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alexandru Ardelean <ardeleanalex@gmail.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Peter Huewe <peterhuewe@gmx.de>,
- Torin Cooper-Bennun <torin@maxiluxsystems.com>,
- Lee Jones <lee.jones@linaro.org>, linux-leds@vger.kernel.org,
- Eric Piel <eric.piel@tremplin-utc.net>, Stephan Gerhold <stephan@gerhold.net>,
- Noralf Tronnes <notro@tronnes.org>, Richard Weinberger <richard@nod.at>,
- Russell King <linux@armlinux.org.uk>, Jason Gunthorpe <jgg@ziepe.ca>,
- Thomas Kopp <thomas.kopp@microchip.com>, Jakub Kicinski <kuba@kernel.org>,
- Vivien Didelot <vivien.didelot@gmail.com>, platform-driver-x86@vger.kernel.org,
- Stefan Wahren <stefan.wahren@i2se.com>, Xue Liu <liuxuenetmail@gmail.com>,
- David Lechner <david@lechnology.com>, Will Deacon <will@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Kalle Valo <kvalo@kernel.org>,
- Rui Miguel Silva <rmfrfs@gmail.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Harry Morris <h.morris@cascoda.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>,
- Alessandro Zummo <a.zummo@towertech.it>, Yang Shen <shenyang39@huawei.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Takashi Iwai <tiwai@suse.com>,
- Cai Huoqing <caihuoqing@baidu.com>, Daniel Mack <daniel@zonque.org>,
- Daniel Vetter <daniel@ffwll.ch>, Colin Ian King <colin.king@intel.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Alan Ott <alan@signal11.us>
-Subject: [Linux-stm32] [PATCH 0/5] spi: make remove callback a void function
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: don't stop RXC during LPI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -167,238 +81,110 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8sCgp0aGlzIHNlcmllcyBnb2FsIGlzIHRvIGNoYW5nZSB0aGUgc3BpIHJlbW92ZSBjYWxs
-YmFjaydzIHJldHVybiB2YWx1ZSB0byB2b2lkLgpBZnRlciBudW1lcm91cyBwYXRjaGVzIG5lYXJs
-eSBhbGwgZHJpdmVycyBhbHJlYWR5IHJldHVybiAwIHVuY29uZGl0aW9uYWxseS4KVGhlIGZvdXIg
-Zmlyc3QgcGF0Y2hlcyBpbiB0aGlzIHNlcmllcyBjb252ZXJ0IHRoZSByZW1haW5pbmcgdGhyZWUg
-ZHJpdmVycyB0bwpyZXR1cm4gMCwgdGhlIGZpbmFsIHBhdGNoIGNoYW5nZXMgdGhlIHJlbW92ZSBw
-cm90b3R5cGUgYW5kIGNvbnZlcnRzIGFsbAppbXBsZW1lbnRlcnMuCgpUaGUgZHJpdmVyIGNvcmUg
-ZG9lc24ndCBzdXBwb3J0IGVycm9yIGhhbmRsaW5nIG9uIHJlbW92ZSwgdGhlIHNwaSBjb3JlIGlz
-c3Vlcwpvbmx5IGEgdmVyeSBnZW5lcmljIHdhcm5pbmcgd2hlbiBhIHJlbW92ZSBjYWxsYmFjayBy
-ZXR1cm5zIGFuIGVycm9yLiBJZiB0aGVyZQppcyByZWFsbHkgdGhlIG5lZWQgZm9yIGEgZnVuY3Rp
-b24gY2FsbCB0aGF0IGNhbiBmYWlsLCB0aGUgZHJpdmVyIGNhbiBpc3N1ZSBhCm1vcmUgaGVscGZ1
-bCBlcnJvciBtZXNzYWdlLiBJIGRpZG4ndCBmaW5kIGEgc2luZ2xlIGRyaXZlciB3aGVyZSByZXR1
-cm5pbmcKYW4gZXJyb3IgY29kZSBhbmQgZXJyb3IgaGFuZGxpbmcgaW4gdGhlIHNwaSBjb3JlIHdv
-dWxkIGhhdmUgYmVlbiBoZWxwZnVsLgoKU28gY2hhbmdlIHRoZSBwcm90b3R5cGUgb2YgdGhlIHJl
-bW92ZSBmdW5jdGlvbiB0byBtYWtlIGl0IG9idmlvdXMgZm9yIGRyaXZlcgphdXRob3JzIHRoYXQg
-dGhlcmUgaXMgbm8gZXJyb3IgaGFuZGxpbmcgaW4gdGhlIHNwaSBjb3JlLgoKVGhlIGZvdXIgcHJl
-cGFyYXRvcnkgcGF0Y2hlcyB3ZXJlIGFscmVhZHkgc2VuZCBvdXQsIGJ1dCBub3QgeWV0IHRha2Vu
-IGludG8KbmV4dC4KCkFzc3VtaW5nIE1hcmsgaXMgZmluZSB3aXRoIHRoaXMgY2hhbmdlIEknZCBs
-aWtlIHRvIGhhdmUgdGhpcyBnbyBpbiBkdXJpbmcgdGhlCm5leHQgbWVyZ2Ugd2luZG93LiBJIGd1
-ZXNzIHdlIG5lZWQgYSB0YWcgdGhhdCBjYW4gYmUgcHVsbGVkIGludG8gdHJlZXMgdGhhdCBhZGQK
-YSBuZXcgZHJpdmVyIGluIHRoZSBuZXh0IGN5Y2xlLiBJIGNhbiBwcm92aWRlIHN1Y2ggYSB0YWcs
-IGJ1dCBJJ20gb3BlbiB0bwphbHRlcm5hdGl2ZXMuCgpUaGUgcGF0Y2ggc2V0IHN1cnZpdmVkIGFu
-IGFsbG1vZGNvbmZpZyBidWlsZCBvbiB2YXJpb3VzIGFyY2hzIChhcm02NCBtNjhrCnBvd2VycGMg
-cmlzY3YgczM5MCBzcGFyYzY0IHg4Nl82NCkgYWZ0ZXIgdGhlIGZvbGxvd2luZyB0d28gY29tbWl0
-cyBmcm9tCm5leHQtMjAyMjAxMjEgd2VyZSBhZGRlZCB0byBmaXggYW4gdW5yZWxhdGVkIGJ1aWxk
-IHByb2JsZW06CgogICAgICAgIGJlOTczNDgxZGFhYSAoInBpbmN0cmw6IHRodW5kZXJiYXk6IHJl
-d29yayBsb29wcyBsb29raW5nIGZvciBncm91cHMgbmFtZXMiKQogICAgICAgIDg2ODc5OTllNDdk
-NCAoInBpbmN0cmw6IHRodW5kZXJiYXk6IGNvbW1lbnQgcHJvY2VzcyBvZiBidWlsZGluZyBmdW5j
-dGlvbnMgYSBiaXQiKQoKQmVzdCByZWdhcmRzClV3ZQoKVXdlIEtsZWluZS1Lw7ZuaWcgKDUpOgog
-IHN0YWdpbmc6IGZidGZ0OiBGaXggZXJyb3IgcGF0aCBpbiBmYnRmdF9kcml2ZXJfbW9kdWxlX2lu
-aXQoKQogIHN0YWdpbmc6IGZidGZ0OiBEZWR1cGxpY2F0ZSBkcml2ZXIgcmVnaXN0cmF0aW9uIG1h
-Y3JvcwogIHRwbTogc3QzM3pwMjQ6IE1ha2Ugc3QzM3pwMjRfcmVtb3ZlKCkgYSB2b2lkIGZ1bmN0
-aW9uCiAgcGxhdGZvcm0vY2hyb21lOiBjcm9zX2VjOiBNYWtlIGNyb3NfZWNfdW5yZWdpc3Rlcigp
-IHJldHVybiB2b2lkCiAgc3BpOiBtYWtlIHJlbW92ZSBjYWxsYmFjayBhIHZvaWQgZnVuY3Rpb24K
-CiBkcml2ZXJzL2J1cy9tb3h0ZXQuYyAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgNCArLQog
-ZHJpdmVycy9jaGFyL3RwbS9zdDMzenAyNC9pMmMuYyAgICAgICAgICAgICAgIHwgIDUgKy0KIGRy
-aXZlcnMvY2hhci90cG0vc3QzM3pwMjQvc3BpLmMgICAgICAgICAgICAgICB8ICA5ICstCiBkcml2
-ZXJzL2NoYXIvdHBtL3N0MzN6cDI0L3N0MzN6cDI0LmMgICAgICAgICAgfCAgMyArLQogZHJpdmVy
-cy9jaGFyL3RwbS9zdDMzenAyNC9zdDMzenAyNC5oICAgICAgICAgIHwgIDIgKy0KIGRyaXZlcnMv
-Y2hhci90cG0vdHBtX3Rpc19zcGlfbWFpbi5jICAgICAgICAgICB8ICAzICstCiBkcml2ZXJzL2Ns
-ay9jbGstbG1rMDQ4MzIuYyAgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9ncGlv
-L2dwaW8tNzR4MTY0LmMgICAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvZ3Bpby9n
-cGlvLW1heDMxOTF4LmMgICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2dwaW8vZ3Bp
-by1tYXg3MzAxLmMgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9ncGlvL2dwaW8t
-bWMzMzg4MC5jICAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvZ3Bpby9ncGlvLXBp
-c29zci5jICAgICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2dwdS9kcm0vcGFuZWwv
-cGFuZWwtYWJ0LXkwMzB4eDA2N2EuYyAgfCAgNCArLQogZHJpdmVycy9ncHUvZHJtL3BhbmVsL3Bh
-bmVsLWlsaXRlay1pbGk5MzIyLmMgIHwgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5l
-bC1pbGl0ZWstaWxpOTM0MS5jICB8ICAzICstCiBkcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwt
-aW5ub2x1eC1lajAzMG5hLmMgfCAgNCArLQogZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWxn
-LWxiMDM1cTAyLmMgICAgIHwgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1sZy1s
-ZzQ1NzMuYyAgICAgICB8ICA0ICstCiBkcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbmVjLW5s
-ODA0OGhsMTEuYyAgfCAgNCArLQogZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLW5vdmF0ZWst
-bnQzOTAxNi5jIHwgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1zYW1zdW5nLWRi
-NzQzMC5jICB8ICAzICstCiBkcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1sZDkw
-NDAuYyAgfCAgNCArLQogZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXNhbXN1bmctczZkMjdh
-MS5jIHwgIDMgKy0KIC4uLi9ncHUvZHJtL3BhbmVsL3BhbmVsLXNhbXN1bmctczZlNjNtMC1zcGku
-YyB8ICAzICstCiAuLi4vZ3B1L2RybS9wYW5lbC9wYW5lbC1zaXRyb25peC1zdDc3ODl2LmMgICAg
-fCAgNCArLQogZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXNvbnktYWN4NTY1YWttLmMgIHwg
-IDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC10cG8tdGQwMjh0dGVjMS5jICB8ICA0
-ICstCiBkcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtdHBvLXRkMDQzbXRlYTEuYyAgfCAgNCAr
-LQogZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXRwby10cGcxMTAuYyAgICAgIHwgIDMgKy0K
-IC4uLi9ncHUvZHJtL3BhbmVsL3BhbmVsLXdpZGVjaGlwcy13czI0MDEuYyAgICB8ICAzICstCiBk
-cml2ZXJzL2dwdS9kcm0vdGlueS9oeDgzNTdkLmMgICAgICAgICAgICAgICAgfCAgNCArLQogZHJp
-dmVycy9ncHUvZHJtL3RpbnkvaWxpOTE2My5jICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZl
-cnMvZ3B1L2RybS90aW55L2lsaTkyMjUuYyAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJz
-L2dwdS9kcm0vdGlueS9pbGk5MzQxLmMgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9n
-cHUvZHJtL3RpbnkvaWxpOTQ4Ni5jICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvZ3B1
-L2RybS90aW55L21pMDI4M3F0LmMgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2dwdS9k
-cm0vdGlueS9yZXBhcGVyLmMgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9ncHUvZHJt
-L3Rpbnkvc3Q3NTg2LmMgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS90
-aW55L3N0NzczNXIuYyAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2h3bW9uL2FkY3h4
-LmMgICAgICAgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9od21vbi9hZHQ3MzEw
-LmMgICAgICAgICAgICAgICAgICAgICAgIHwgIDMgKy0KIGRyaXZlcnMvaHdtb24vbWF4MTExMS5j
-ICAgICAgICAgICAgICAgICAgICAgICB8ICAzICstCiBkcml2ZXJzL2h3bW9uL21heDMxNzIyLmMg
-ICAgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9paW8vYWNjZWwvYm1hNDAwX3Nw
-aS5jICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvaWlvL2FjY2VsL2JtYzE1MC1hY2Nl
-bC1zcGkuYyAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2lpby9hY2NlbC9ibWkwODgtYWNjZWwt
-c3BpLmMgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9paW8vYWNjZWwva3hzZDktc3BpLmMgICAg
-ICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvaWlvL2FjY2VsL21tYTc0NTVfc3BpLmMgICAg
-ICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2lpby9hY2NlbC9zY2EzMDAwLmMgICAgICAgICAg
-ICAgICAgICAgfCAgNCArLQogZHJpdmVycy9paW8vYWRjL2FkNzI2Ni5jICAgICAgICAgICAgICAg
-ICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvaWlvL2FkYy9sdGMyNDk2LmMgICAgICAgICAgICAgICAg
-ICAgICB8ICA0ICstCiBkcml2ZXJzL2lpby9hZGMvbWNwMzIweC5jICAgICAgICAgICAgICAgICAg
-ICAgfCAgNCArLQogZHJpdmVycy9paW8vYWRjL21jcDM5MTEuYyAgICAgICAgICAgICAgICAgICAg
-IHwgIDQgKy0KIGRyaXZlcnMvaWlvL2FkYy90aS1hZGMxMjEzOC5jICAgICAgICAgICAgICAgICB8
-ICA0ICstCiBkcml2ZXJzL2lpby9hZGMvdGktYWRzNzk1MC5jICAgICAgICAgICAgICAgICAgfCAg
-NCArLQogZHJpdmVycy9paW8vYWRjL3RpLWFkczg2ODguYyAgICAgICAgICAgICAgICAgIHwgIDQg
-Ky0KIGRyaXZlcnMvaWlvL2FkYy90aS10bGM0NTQxLmMgICAgICAgICAgICAgICAgICB8ICA0ICst
-CiBkcml2ZXJzL2lpby9hbXBsaWZpZXJzL2FkODM2Ni5jICAgICAgICAgICAgICAgfCAgNCArLQog
-ZHJpdmVycy9paW8vY29tbW9uL3NzcF9zZW5zb3JzL3NzcF9kZXYuYyAgICAgIHwgIDQgKy0KIGRy
-aXZlcnMvaWlvL2RhYy9hZDUzNjAuYyAgICAgICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2
-ZXJzL2lpby9kYWMvYWQ1MzgwLmMgICAgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVy
-cy9paW8vZGFjL2FkNTQ0Ni5jICAgICAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMv
-aWlvL2RhYy9hZDU0NDkuYyAgICAgICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2lp
-by9kYWMvYWQ1NTA0LmMgICAgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9paW8v
-ZGFjL2FkNTU5MnIuYyAgICAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvaWlvL2Rh
-Yy9hZDU2MjRyX3NwaS5jICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2lpby9kYWMv
-YWQ1Njg2LXNwaS5jICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9paW8vZGFjL2Fk
-NTc2MS5jICAgICAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvaWlvL2RhYy9hZDU3
-NjQuYyAgICAgICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2lpby9kYWMvYWQ1Nzkx
-LmMgICAgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9paW8vZGFjL2FkODgwMS5j
-ICAgICAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvaWlvL2RhYy9sdGMxNjYwLmMg
-ICAgICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2lpby9kYWMvbHRjMjYzMi5jICAg
-ICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9paW8vZGFjL21jcDQ5MjIuYyAgICAg
-ICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvaWlvL2RhYy90aS1kYWMwODJzMDg1LmMg
-ICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2lpby9kYWMvdGktZGFjNzMxMS5jICAgICAg
-ICAgICAgICAgICAgfCAgMyArLQogZHJpdmVycy9paW8vZnJlcXVlbmN5L2FkZjQzNTAuYyAgICAg
-ICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvaWlvL2d5cm8vYm1nMTYwX3NwaS5jICAgICAgICAg
-ICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2lpby9neXJvL2Z4YXMyMTAwMmNfc3BpLmMgICAgICAg
-ICAgICAgfCAgNCArLQogZHJpdmVycy9paW8vaGVhbHRoL2FmZTQ0MDMuYyAgICAgICAgICAgICAg
-ICAgIHwgIDQgKy0KIGRyaXZlcnMvaWlvL21hZ25ldG9tZXRlci9ibWMxNTBfbWFnbl9zcGkuYyAg
-ICB8ICA0ICstCiBkcml2ZXJzL2lpby9tYWduZXRvbWV0ZXIvaG1jNTg0M19zcGkuYyAgICAgICAg
-fCAgNCArLQogZHJpdmVycy9paW8vcG90ZW50aW9tZXRlci9tYXg1NDg3LmMgICAgICAgICAgIHwg
-IDQgKy0KIGRyaXZlcnMvaWlvL3ByZXNzdXJlL21zNTYxMV9zcGkuYyAgICAgICAgICAgICB8ICA0
-ICstCiBkcml2ZXJzL2lpby9wcmVzc3VyZS96cGEyMzI2X3NwaS5jICAgICAgICAgICAgfCAgNCAr
-LQogZHJpdmVycy9pbnB1dC9rZXlib2FyZC9hcHBsZXNwaS5jICAgICAgICAgICAgIHwgIDQgKy0K
-IGRyaXZlcnMvaW5wdXQvbWlzYy9hZHhsMzR4LXNwaS5jICAgICAgICAgICAgICB8ICA0ICstCiBk
-cml2ZXJzL2lucHV0L3RvdWNoc2NyZWVuL2Fkczc4NDYuYyAgICAgICAgICAgfCAgNCArLQogZHJp
-dmVycy9pbnB1dC90b3VjaHNjcmVlbi9jeXR0c3A0X3NwaS5jICAgICAgIHwgIDQgKy0KIGRyaXZl
-cnMvaW5wdXQvdG91Y2hzY3JlZW4vdHNjMjAwNS5jICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJz
-L2xlZHMvbGVkcy1jcjAwMTQxMTQuYyAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9s
-ZWRzL2xlZHMtZGFjMTI0czA4NS5jICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbGVk
-cy9sZWRzLWVsMTUyMDMwMDAuYyAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL2xlZHMv
-bGVkcy1zcGktYnl0ZS5jICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9tZWRpYS9z
-cGkvY3hkMjg4MC1zcGkuYyAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbWVkaWEvc3Bp
-L2dzMTY2Mi5jICAgICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL21lZGlhL3R1bmVy
-cy9tc2kwMDEuYyAgICAgICAgICAgICAgICAgfCAgMyArLQogZHJpdmVycy9tZmQvYXJpem9uYS1z
-cGkuYyAgICAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbWZkL2RhOTA1Mi1zcGku
-YyAgICAgICAgICAgICAgICAgICAgICB8ICAzICstCiBkcml2ZXJzL21mZC9lengtcGNhcC5jICAg
-ICAgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9tZmQvbWFkZXJhLXNwaS5jICAg
-ICAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbWZkL21jMTN4eHgtc3BpLmMgICAg
-ICAgICAgICAgICAgICAgICB8ICAzICstCiBkcml2ZXJzL21mZC9yc211X3NwaS5jICAgICAgICAg
-ICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9tZmQvc3RtcGUtc3BpLmMgICAgICAgICAg
-ICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbWZkL3RwczY1OTEyLXNwaS5jICAgICAgICAg
-ICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL21pc2MvYWQ1MjV4X2Rwb3Qtc3BpLmMgICAgICAg
-ICAgICAgICAgfCAgMyArLQogZHJpdmVycy9taXNjL2VlcHJvbS9lZXByb21fOTN4eDQ2LmMgICAg
-ICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbWlzYy9sYXR0aWNlLWVjcDMtY29uZmlnLmMgICAgICAg
-ICAgICB8ICA0ICstCiBkcml2ZXJzL21pc2MvbGlzM2x2MDJkL2xpczNsdjAyZF9zcGkuYyAgICAg
-ICAgfCAgNCArLQogZHJpdmVycy9tbWMvaG9zdC9tbWNfc3BpLmMgICAgICAgICAgICAgICAgICAg
-IHwgIDMgKy0KIGRyaXZlcnMvbXRkL2RldmljZXMvbWNocDIzazI1Ni5jICAgICAgICAgICAgICB8
-ICA0ICstCiBkcml2ZXJzL210ZC9kZXZpY2VzL21jaHA0OGw2NDAuYyAgICAgICAgICAgICAgfCAg
-NCArLQogZHJpdmVycy9tdGQvZGV2aWNlcy9tdGRfZGF0YWZsYXNoLmMgICAgICAgICAgIHwgIDQg
-Ky0KIGRyaXZlcnMvbXRkL2RldmljZXMvc3N0MjVsLmMgICAgICAgICAgICAgICAgICB8ICA0ICst
-CiBkcml2ZXJzL25ldC9jYW4vbV9jYW4vdGNhbjR4NXgtY29yZS5jICAgICAgICAgfCAgNCArLQog
-ZHJpdmVycy9uZXQvY2FuL3NwaS9oaTMxMXguYyAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRy
-aXZlcnMvbmV0L2Nhbi9zcGkvbWNwMjUxeC5jICAgICAgICAgICAgICAgICB8ICA0ICstCiAuLi4v
-bmV0L2Nhbi9zcGkvbWNwMjUxeGZkL21jcDI1MXhmZC1jb3JlLmMgICAgfCAgNCArLQogZHJpdmVy
-cy9uZXQvZHNhL2I1My9iNTNfc3BpLmMgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMv
-bmV0L2RzYS9taWNyb2NoaXAva3N6ODc5NV9zcGkuYyAgICAgICB8ICA0ICstCiBkcml2ZXJzL25l
-dC9kc2EvbWljcm9jaGlwL2tzejk0Nzdfc3BpLmMgICAgICAgfCAgNCArLQogZHJpdmVycy9uZXQv
-ZHNhL3NqYTExMDUvc2phMTEwNV9tYWluLmMgICAgICAgIHwgIDYgKy0KIGRyaXZlcnMvbmV0L2Rz
-YS92aXRlc3NlLXZzYzczeHgtc3BpLmMgICAgICAgICB8ICA2ICstCiBkcml2ZXJzL25ldC9ldGhl
-cm5ldC9hc2l4L2F4ODg3OTZjX21haW4uYyAgICAgfCAgNCArLQogZHJpdmVycy9uZXQvZXRoZXJu
-ZXQvbWljcmVsL2tzODg1MV9zcGkuYyAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbmV0L2V0aGVybmV0
-L21pY3JvY2hpcC9lbmMyOGo2MC5jICAgICB8ICA0ICstCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9t
-aWNyb2NoaXAvZW5jeDI0ajYwMC5jICAgfCAgNCArLQogZHJpdmVycy9uZXQvZXRoZXJuZXQvcXVh
-bGNvbW0vcWNhX3NwaS5jICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbmV0L2V0aGVybmV0L3ZlcnRl
-eGNvbS9tc2UxMDJ4LmMgICAgICB8ICA0ICstCiBkcml2ZXJzL25ldC9ldGhlcm5ldC93aXpuZXQv
-dzUxMDAtc3BpLmMgICAgICAgfCAgNCArLQogZHJpdmVycy9uZXQvaWVlZTgwMjE1NC9hZGY3MjQy
-LmMgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbmV0L2llZWU4MDIxNTQvYXQ4NnJmMjMw
-LmMgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL25ldC9pZWVlODAyMTU0L2NhODIxMC5jICAg
-ICAgICAgICAgICAgfCAgNiArLQogZHJpdmVycy9uZXQvaWVlZTgwMjE1NC9jYzI1MjAuYyAgICAg
-ICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvbmV0L2llZWU4MDIxNTQvbWNyMjBhLmMgICAgICAg
-ICAgICAgICB8ICA0ICstCiBkcml2ZXJzL25ldC9pZWVlODAyMTU0L21yZjI0ajQwLmMgICAgICAg
-ICAgICAgfCAgNCArLQogZHJpdmVycy9uZXQvcGh5L3NwaV9rczg5OTUuYyAgICAgICAgICAgICAg
-ICAgIHwgIDQgKy0KIGRyaXZlcnMvbmV0L3dhbi9zbGljX2RzMjY1MjIuYyAgICAgICAgICAgICAg
-ICB8ICAzICstCiBkcml2ZXJzL25ldC93aXJlbGVzcy9pbnRlcnNpbC9wNTQvcDU0c3BpLmMgICAg
-fCAgNCArLQogLi4uL25ldC93aXJlbGVzcy9tYXJ2ZWxsL2xpYmVydGFzL2lmX3NwaS5jICAgIHwg
-IDQgKy0KIGRyaXZlcnMvbmV0L3dpcmVsZXNzL21pY3JvY2hpcC93aWxjMTAwMC9zcGkuYyB8ICA0
-ICstCiBkcml2ZXJzL25ldC93aXJlbGVzcy9zdC9jdzEyMDAvY3cxMjAwX3NwaS5jICAgfCAgNCAr
-LQogZHJpdmVycy9uZXQvd2lyZWxlc3MvdGkvd2wxMjUxL3NwaS5jICAgICAgICAgIHwgIDQgKy0K
-IGRyaXZlcnMvbmV0L3dpcmVsZXNzL3RpL3dsY29yZS9zcGkuYyAgICAgICAgICB8ICA0ICstCiBk
-cml2ZXJzL25mYy9uZmNtcnZsL3NwaS5jICAgICAgICAgICAgICAgICAgICAgfCAgMyArLQogZHJp
-dmVycy9uZmMvc3QtbmNpL3NwaS5jICAgICAgICAgICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZl
-cnMvbmZjL3N0OTVoZi9jb3JlLmMgICAgICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJz
-L25mYy90cmY3OTcwYS5jICAgICAgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9w
-bGF0Zm9ybS9jaHJvbWUvY3Jvc19lYy5jICAgICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvcGxh
-dGZvcm0vY2hyb21lL2Nyb3NfZWMuaCAgICAgICAgICAgICB8ICAyICstCiBkcml2ZXJzL3BsYXRm
-b3JtL2Nocm9tZS9jcm9zX2VjX2kyYy5jICAgICAgICAgfCAgNCArLQogZHJpdmVycy9wbGF0Zm9y
-bS9jaHJvbWUvY3Jvc19lY19scGMuYyAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvcGxhdGZvcm0v
-Y2hyb21lL2Nyb3NfZWNfc3BpLmMgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL3BsYXRmb3JtL29s
-cGMvb2xwYy14bzE3NS1lYy5jICAgICAgICAgfCAgNCArLQogZHJpdmVycy9ydGMvcnRjLWRzMTMw
-Mi5jICAgICAgICAgICAgICAgICAgICAgIHwgIDMgKy0KIGRyaXZlcnMvcnRjL3J0Yy1kczEzMDUu
-YyAgICAgICAgICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL3J0Yy9ydGMtZHMxMzQzLmMg
-ICAgICAgICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy9zcGkvc3BpLW1lbS5jICAgICAg
-ICAgICAgICAgICAgICAgICAgIHwgIDYgKy0KIGRyaXZlcnMvc3BpL3NwaS1zbGF2ZS1zeXN0ZW0t
-Y29udHJvbC5jICAgICAgICB8ICAzICstCiBkcml2ZXJzL3NwaS9zcGktc2xhdmUtdGltZS5jICAg
-ICAgICAgICAgICAgICAgfCAgMyArLQogZHJpdmVycy9zcGkvc3BpLXRsZTYyeDAuYyAgICAgICAg
-ICAgICAgICAgICAgIHwgIDMgKy0KIGRyaXZlcnMvc3BpL3NwaS5jICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICB8IDExICstLQogZHJpdmVycy9zcGkvc3BpZGV2LmMgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvc3RhZ2luZy9mYnRmdC9mYnRmdC5oICAgICAgICAg
-ICAgICAgICB8IDk3ICsrKysrKysrLS0tLS0tLS0tLS0KIGRyaXZlcnMvc3RhZ2luZy9waTQzMy9w
-aTQzM19pZi5jICAgICAgICAgICAgICB8ICA0ICstCiBkcml2ZXJzL3N0YWdpbmcvd2Z4L2J1c19z
-cGkuYyAgICAgICAgICAgICAgICAgfCAgMyArLQogZHJpdmVycy90dHkvc2VyaWFsL21heDMxMDAu
-YyAgICAgICAgICAgICAgICAgIHwgIDUgKy0KIGRyaXZlcnMvdHR5L3NlcmlhbC9tYXgzMTB4LmMg
-ICAgICAgICAgICAgICAgICB8ICAzICstCiBkcml2ZXJzL3R0eS9zZXJpYWwvc2MxNmlzN3h4LmMg
-ICAgICAgICAgICAgICAgfCAgNCArLQogZHJpdmVycy91c2IvZ2FkZ2V0L3VkYy9tYXgzNDIwX3Vk
-Yy5jICAgICAgICAgIHwgIDQgKy0KIGRyaXZlcnMvdXNiL2hvc3QvbWF4MzQyMS1oY2QuYyAgICAg
-ICAgICAgICAgICB8ICAzICstCiBkcml2ZXJzL3ZpZGVvL2JhY2tsaWdodC9hbXMzNjlmZzA2LmMg
-ICAgICAgICAgfCAgMyArLQogZHJpdmVycy92aWRlby9iYWNrbGlnaHQvY29yZ2lfbGNkLmMgICAg
-ICAgICAgIHwgIDMgKy0KIGRyaXZlcnMvdmlkZW8vYmFja2xpZ2h0L2lsaTkyMnguYyAgICAgICAg
-ICAgICB8ICAzICstCiBkcml2ZXJzL3ZpZGVvL2JhY2tsaWdodC9sNGYwMDI0MnQwMy5jICAgICAg
-ICAgfCAgMyArLQogZHJpdmVycy92aWRlby9iYWNrbGlnaHQvbG1zNTAxa2YwMy5jICAgICAgICAg
-IHwgIDMgKy0KIGRyaXZlcnMvdmlkZW8vYmFja2xpZ2h0L2x0djM1MHF2LmMgICAgICAgICAgICB8
-ICAzICstCiBkcml2ZXJzL3ZpZGVvL2JhY2tsaWdodC90ZG8yNG0uYyAgICAgICAgICAgICAgfCAg
-MyArLQogZHJpdmVycy92aWRlby9iYWNrbGlnaHQvdG9zYV9sY2QuYyAgICAgICAgICAgIHwgIDQg
-Ky0KIGRyaXZlcnMvdmlkZW8vYmFja2xpZ2h0L3ZnZzI0MzJhNC5jICAgICAgICAgICB8ICA0ICst
-CiBkcml2ZXJzL3ZpZGVvL2ZiZGV2L29tYXAvbGNkX21pcGlkLmMgICAgICAgICAgfCAgNCArLQog
-Li4uL2Rpc3BsYXlzL3BhbmVsLWxncGhpbGlwcy1sYjAzNXEwMi5jICAgICAgIHwgIDQgKy0KIC4u
-Li9vbWFwZmIvZGlzcGxheXMvcGFuZWwtbmVjLW5sODA0OGhsMTEuYyAgICB8ICA0ICstCiAuLi4v
-b21hcGZiL2Rpc3BsYXlzL3BhbmVsLXNvbnktYWN4NTY1YWttLmMgICAgfCAgNCArLQogLi4uL29t
-YXBmYi9kaXNwbGF5cy9wYW5lbC10cG8tdGQwMjh0dGVjMS5jICAgIHwgIDQgKy0KIC4uLi9vbWFw
-ZmIvZGlzcGxheXMvcGFuZWwtdHBvLXRkMDQzbXRlYTEuYyAgICB8ICA0ICstCiBpbmNsdWRlL2xp
-bnV4L3NwaS9zcGkuaCAgICAgICAgICAgICAgICAgICAgICAgfCAgMiArLQogc291bmQvcGNpL2hk
-YS9jczM1bDQxX2hkYV9zcGkuYyAgICAgICAgICAgICAgIHwgIDQgKy0KIHNvdW5kL3NvYy9jb2Rl
-Y3MvYWRhdTE3NjEtc3BpLmMgICAgICAgICAgICAgICB8ICAzICstCiBzb3VuZC9zb2MvY29kZWNz
-L2FkYXUxNzgxLXNwaS5jICAgICAgICAgICAgICAgfCAgMyArLQogc291bmQvc29jL2NvZGVjcy9j
-czM1bDQxLXNwaS5jICAgICAgICAgICAgICAgIHwgIDQgKy0KIHNvdW5kL3NvYy9jb2RlY3MvcGNt
-MzE2OGEtc3BpLmMgICAgICAgICAgICAgICB8ICA0ICstCiBzb3VuZC9zb2MvY29kZWNzL3BjbTUx
-Mngtc3BpLmMgICAgICAgICAgICAgICAgfCAgMyArLQogc291bmQvc29jL2NvZGVjcy90bHYzMjBh
-aWMzMng0LXNwaS5jICAgICAgICAgIHwgIDQgKy0KIHNvdW5kL3NvYy9jb2RlY3MvdGx2MzIwYWlj
-M3gtc3BpLmMgICAgICAgICAgICB8ICA0ICstCiBzb3VuZC9zb2MvY29kZWNzL3dtMDAxMC5jICAg
-ICAgICAgICAgICAgICAgICAgfCAgNCArLQogc291bmQvc29jL2NvZGVjcy93bTg4MDQtc3BpLmMg
-ICAgICAgICAgICAgICAgIHwgIDMgKy0KIHNvdW5kL3NwaS9hdDczYzIxMy5jICAgICAgICAgICAg
-ICAgICAgICAgICAgICB8ICA0ICstCiAxOTggZmlsZXMgY2hhbmdlZCwgMjQ4IGluc2VydGlvbnMo
-KyksIDYxNyBkZWxldGlvbnMoLSkKCgpiYXNlLWNvbW1pdDogZTc4MzM2MmViNTRjZDk5YjJjYWM4
-YjNhOWFlYWM5NDJlNmY2YWMwNwotLSAKMi4zNC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+
+On 1/23/2022 8:09 AM, Jisheng Zhang wrote:
+> On Mon, Jan 24, 2022 at 12:08:22AM +0800, Jisheng Zhang wrote:
+>> On Sun, Jan 23, 2022 at 04:52:29PM +0100, Andrew Lunn wrote:
+>>> On Sun, Jan 23, 2022 at 10:12:45PM +0800, Jisheng Zhang wrote:
+>>>> I met can't receive rx pkt issue with below steps:
+>>>> 0.plug in ethernet cable then boot normal and get ip from dhcp server
+>>>> 1.quickly hotplug out then hotplug in the ethernet cable
+>>>> 2.trigger the dhcp client to renew lease
+>>>>
+>>>> tcpdump shows that the request tx pkt is sent out successfully,
+>>>> but the mac can't receive the rx pkt.
+>>>>
+>>>> The issue can easily be reproduced on platforms with PHY_POLL external
+>>>> phy. If we don't allow the phy to stop the RXC during LPI, the issue
+>>>> is gone. I think it's unsafe to stop the RXC during LPI because the mac
+>>>> needs RXC clock to support RX logic.
+>>>>
+>>>> And the 2nd param clk_stop_enable of phy_init_eee() is a bool, so use
+>>>> false instead of 0.
+>>>>
+>>>> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+>>>> ---
+>>>>   drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>>>> index 6708ca2aa4f7..92a9b0b226b1 100644
+>>>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>>>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>>>> @@ -1162,7 +1162,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+>>>>   
+>>>>   	stmmac_mac_set(priv, priv->ioaddr, true);
+>>>>   	if (phy && priv->dma_cap.eee) {
+>>>> -		priv->eee_active = phy_init_eee(phy, 1) >= 0;
+>>>> +		priv->eee_active = phy_init_eee(phy, false) >= 0;
+>>>
+>>> This has not caused issues in the past. So i'm wondering if this is
+>>> somehow specific to your system? Does everybody else use a PHY which
+>>> does not implement this bit? Does your synthesis of the stmmac have a
+>>> different clock tree?
+>>>
+>>> By changing this value for every instance of the stmmac, you are
+>>> potentially causing a power regression for stmmac implementations
+>>> which don't need the clock. So we need a clear understanding, stopping
+>>> the clock is wrong in general and so the change is correct in
+>>
+>> I think this is a common issue because the MAC needs phy's RXC for RX
+>> logic. But it's better to let other stmmac users verify. The issue
+>> can easily be reproduced on platforms with PHY_POLL external phy.
+>> Or other platforms use a dedicated clock rather than clock from phy
+>> for MAC's RX logic?
+>>
+>> If the issue turns out specific to my system, then I will send out
+>> a new patch to adopt your suggestion.
+>>
+> 
+> + Joakim
+> 
+>> Hi Joakim, IIRC, you have stmmac + external RTL8211F phy platform, but
+>> I'm not sure whether your platform have an irq for the phy. could you
+>> help me to check whether you can reproduce the issue on your platform?
+>>
+>>> general. Or this is specific to your system, and you probably need to
+>>> add priv->dma_cap.keep_rx_clock_ticking, which you set in your glue
+>>> driver,and use here to decide what to pass to phy_init_eee().
+
+I suspect the problem is only or largely relevant in a RGMII 
+configuration whereby the TXC of the MAC is an input to the PHY which 
+then re-generates the RXC and feeds it back to the MAC as RXC (with the 
+configured delay). If the PHY stops its clock, then MAC no longer gets a 
+RXC and all sorts of problems would arise if the MAC logic on the RX 
+side is dependent upon getting the PHY's RXC to be re-sampled internally 
+within the MAC.
+
+Now, this would be symptomatic of a fairly naive design on the MAC side 
+to support EEE, also usually to really save power while in LPI you would 
+want to switch your MAC from its main or fast clock (which is presumably 
+at least 250MHz to support Gigabit rates and generate a 125MHz TXC) to a 
+slow clock (say 25 or 27MHz) in order to actually save power on the MAC 
+side (even if the bulk of the power is on the PHY's analog logic). When 
+the PHY signals that we are out of LPI the MAC switches back to its main 
+clock. This may occur with the help of the MAC driver, or this can be 
+done autonomously sometimes.
+
+So with all that theory and how should things be designed and so on, I 
+think you need to investigate this problem a bit more thoroughly.
+
+FWIW phy_init_eee()'s second argument is improperly designed. Before 
+deciding to stop the PHY's RX clock, you should first know whether the 
+PHY supports it to begin with, otherwise you are requesting something 
+the is not able to do, and there is no feedback mechanism. A while back 
+I had started this patch series which may still be relevant:
+
+https://github.com/ffainelli/linux/commits/phy-eee-tx-clk
+-- 
+Florian
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
