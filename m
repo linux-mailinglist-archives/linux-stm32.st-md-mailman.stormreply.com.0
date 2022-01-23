@@ -2,49 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76ADB496E9D
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 01:13:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27905497282
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 16:29:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E6AEC5F1EF;
-	Sun, 23 Jan 2022 00:13:40 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF326C5EC76;
+	Sun, 23 Jan 2022 15:29:07 +0000 (UTC)
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4890C5F1ED
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D1DAC5EC6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jan 2022 00:13:37 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A9DAF60F9D;
- Sun, 23 Jan 2022 00:13:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6331CC340E2;
- Sun, 23 Jan 2022 00:13:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1642896816;
- bh=GlF2L503/OqGfD7Suq/5l6l9pAHSlpCv5k6DE/Z4pWg=;
- h=From:To:Cc:Subject:Date:From;
- b=h1+gk24SBW7VPUFn5Sj7E7k/x0aoMG/DlHvrBlotOpfmatjo+7uh9SaRqd/eFIg7K
- x8DnGIFs4IbRkeTMEj7vD/rUZ0lHwG9j3/SVLfkn3ADaCskwfrLwj6peco73+IIphE
- 66HT/RgQ7o0tC918JljbEbNllMB1QhzdajYTfp0CVVrjFURVbg9+jZLcTjXkeaO7di
- XXVVgVtxpQcQWXy/JlT+gdF/PbtMmqG1dISc5e6hTKNYouaXsLbfQJhLVSuwK6r+sL
- ZEtxANuj/ENxm58HDj7tv7jdpkc32H73gxqzFzmnjPREVdRjGKeHlObeSxNEUCJyAI
- vEHs82QNbwPPg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Sat, 22 Jan 2022 19:13:16 -0500
-Message-Id: <20220123001323.2460719-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.34.1
+ Sun, 23 Jan 2022 15:29:06 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ z25-20020a0568301db900b005946f536d85so18769834oti.9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 23 Jan 2022 07:29:06 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=/c1j0fg99uD/B38L/tInQcHANZpluiK4u1HRJlmQQGI=;
+ b=MO//7ziETx3//E4BBH/jZukj3cUG9gq2W1Jfv7jZfWUThwXrrghqINPnsy7YM8NZNW
+ XpSIdSBf2wnn3ZcYMyE5cR/2O4TQpcpkLAHXFZ8A1nVW9NnEaBE0b1XTAFEu3IKvQTb4
+ w22WuuTt2bwubYQvW7UCn15gLvc7XJvVvebGu0xHgoTi9aKjmKD9qWkPjXni4+vCliab
+ mvL5FcXlf4Wx+WQvqdPQm7kLdAV7h4x0ONL8u2DvAY8sAidoMnM60s2jeXyBcQRm69Lf
+ pketpP0wv+CBgnb3eR7f6jfINEBPE3TSh+eI0P3kfFnXrxZSKw2gRFeQLh9CWIrf0ZkX
+ GubA==
+X-Gm-Message-State: AOAM531UZiyv3Qn4LL9S+xIl0XaldxidXwIV4zhfzX8G4+DabaiLg8F5
+ R+EwjRdLFnnu1yQEUEDLQA==
+X-Google-Smtp-Source: ABdhPJyjAPiiDh0sizp/c/0tSKvBUcIXWHz3iWLop//vFxT98EGZPiwyxU4l4guTFOeyotiEWfaTIQ==
+X-Received: by 2002:a9d:7388:: with SMTP id j8mr3340251otk.180.1642951744989; 
+ Sun, 23 Jan 2022 07:29:04 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id g2sm3709240oic.40.2022.01.23.07.29.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 23 Jan 2022 07:29:04 -0800 (PST)
+Received: (nullmailer pid 1428763 invoked by uid 1000);
+ Sun, 23 Jan 2022 15:29:03 -0000
+Date: Sun, 23 Jan 2022 09:29:03 -0600
+From: Rob Herring <robh@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <Ye10P+FlVPzsB7jR@robh.at.kernel.org>
+References: <20220119174407.3810088-1-robh@kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, ohad@wizery.com,
- linux-remoteproc@vger.kernel.org, alexandre.torgue@foss.st.com,
- Bjorn Andersson <bjorn.andersson@linaro.org>, mcoquelin.stm32@gmail.com,
+Content-Disposition: inline
+In-Reply-To: <20220119174407.3810088-1-robh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-i2c@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.4 1/8] hwspinlock: stm32: enable
-	clock at probe
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: i2c: stm32-i2c: Move st,
+ syscfg-fmp definition to top level
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,128 +71,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Fabien Dessenne <fabien.dessenne@foss.st.com>
+On Wed, 19 Jan 2022 11:44:07 -0600, Rob Herring wrote:
+> It is preferred to define all properties in the main schema and leave
+> if/then/else schemas to just be further constraints on properties.
+> 
+> Rework the schema to use be more specific for each cell. Previously,
+> multiple entries of 3 cells each was allowed.
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+>  .../devicetree/bindings/i2c/st,stm32-i2c.yaml | 24 ++++++++++---------
+>  1 file changed, 13 insertions(+), 11 deletions(-)
+> 
 
-[ Upstream commit 60630924bb5af8751adcecc896e7763c3783ca89 ]
-
-Set the clock during probe and keep its control during suspend / resume
-operations.
-This fixes an issue when CONFIG_PM is not set and where the clock is
-never enabled.
-
-Make use of devm_ functions to simplify the code.
-
-Signed-off-by: Fabien Dessenne <fabien.dessenne@foss.st.com>
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-Link: https://lore.kernel.org/r/20211011135836.1045437-1-fabien.dessenne@foss.st.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hwspinlock/stm32_hwspinlock.c | 58 +++++++++++++++++----------
- 1 file changed, 37 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/hwspinlock/stm32_hwspinlock.c b/drivers/hwspinlock/stm32_hwspinlock.c
-index c8eacf4f9692b..f1ca4717230ac 100644
---- a/drivers/hwspinlock/stm32_hwspinlock.c
-+++ b/drivers/hwspinlock/stm32_hwspinlock.c
-@@ -54,8 +54,23 @@ static const struct hwspinlock_ops stm32_hwspinlock_ops = {
- 	.relax		= stm32_hwspinlock_relax,
- };
- 
-+static void stm32_hwspinlock_disable_clk(void *data)
-+{
-+	struct platform_device *pdev = data;
-+	struct stm32_hwspinlock *hw = platform_get_drvdata(pdev);
-+	struct device *dev = &pdev->dev;
-+
-+	pm_runtime_get_sync(dev);
-+	pm_runtime_disable(dev);
-+	pm_runtime_set_suspended(dev);
-+	pm_runtime_put_noidle(dev);
-+
-+	clk_disable_unprepare(hw->clk);
-+}
-+
- static int stm32_hwspinlock_probe(struct platform_device *pdev)
- {
-+	struct device *dev = &pdev->dev;
- 	struct stm32_hwspinlock *hw;
- 	void __iomem *io_base;
- 	struct resource *res;
-@@ -68,41 +83,43 @@ static int stm32_hwspinlock_probe(struct platform_device *pdev)
- 		return PTR_ERR(io_base);
- 
- 	array_size = STM32_MUTEX_NUM_LOCKS * sizeof(struct hwspinlock);
--	hw = devm_kzalloc(&pdev->dev, sizeof(*hw) + array_size, GFP_KERNEL);
-+	hw = devm_kzalloc(dev, sizeof(*hw) + array_size, GFP_KERNEL);
- 	if (!hw)
- 		return -ENOMEM;
- 
--	hw->clk = devm_clk_get(&pdev->dev, "hsem");
-+	hw->clk = devm_clk_get(dev, "hsem");
- 	if (IS_ERR(hw->clk))
- 		return PTR_ERR(hw->clk);
- 
--	for (i = 0; i < STM32_MUTEX_NUM_LOCKS; i++)
--		hw->bank.lock[i].priv = io_base + i * sizeof(u32);
-+	ret = clk_prepare_enable(hw->clk);
-+	if (ret) {
-+		dev_err(dev, "Failed to prepare_enable clock\n");
-+		return ret;
-+	}
- 
- 	platform_set_drvdata(pdev, hw);
--	pm_runtime_enable(&pdev->dev);
- 
--	ret = hwspin_lock_register(&hw->bank, &pdev->dev, &stm32_hwspinlock_ops,
--				   0, STM32_MUTEX_NUM_LOCKS);
-+	pm_runtime_get_noresume(dev);
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+	pm_runtime_put(dev);
- 
--	if (ret)
--		pm_runtime_disable(&pdev->dev);
-+	ret = devm_add_action_or_reset(dev, stm32_hwspinlock_disable_clk, pdev);
-+	if (ret) {
-+		dev_err(dev, "Failed to register action\n");
-+		return ret;
-+	}
- 
--	return ret;
--}
-+	for (i = 0; i < STM32_MUTEX_NUM_LOCKS; i++)
-+		hw->bank.lock[i].priv = io_base + i * sizeof(u32);
- 
--static int stm32_hwspinlock_remove(struct platform_device *pdev)
--{
--	struct stm32_hwspinlock *hw = platform_get_drvdata(pdev);
--	int ret;
-+	ret = devm_hwspin_lock_register(dev, &hw->bank, &stm32_hwspinlock_ops,
-+					0, STM32_MUTEX_NUM_LOCKS);
- 
--	ret = hwspin_lock_unregister(&hw->bank);
- 	if (ret)
--		dev_err(&pdev->dev, "%s failed: %d\n", __func__, ret);
--
--	pm_runtime_disable(&pdev->dev);
-+		dev_err(dev, "Failed to register hwspinlock\n");
- 
--	return 0;
-+	return ret;
- }
- 
- static int __maybe_unused stm32_hwspinlock_runtime_suspend(struct device *dev)
-@@ -137,7 +154,6 @@ MODULE_DEVICE_TABLE(of, stm32_hwpinlock_ids);
- 
- static struct platform_driver stm32_hwspinlock_driver = {
- 	.probe		= stm32_hwspinlock_probe,
--	.remove		= stm32_hwspinlock_remove,
- 	.driver		= {
- 		.name	= "stm32_hwspinlock",
- 		.of_match_table = stm32_hwpinlock_ids,
--- 
-2.34.1
-
+Applied, thanks!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
