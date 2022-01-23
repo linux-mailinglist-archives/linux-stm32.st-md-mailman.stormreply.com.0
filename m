@@ -2,59 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27905497282
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 16:29:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 886B04972BA
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jan 2022 16:52:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF326C5EC76;
-	Sun, 23 Jan 2022 15:29:07 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30578C5EC76;
+	Sun, 23 Jan 2022 15:52:39 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D1DAC5EC6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2900AC5AB61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jan 2022 15:29:06 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- z25-20020a0568301db900b005946f536d85so18769834oti.9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jan 2022 07:29:06 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=/c1j0fg99uD/B38L/tInQcHANZpluiK4u1HRJlmQQGI=;
- b=MO//7ziETx3//E4BBH/jZukj3cUG9gq2W1Jfv7jZfWUThwXrrghqINPnsy7YM8NZNW
- XpSIdSBf2wnn3ZcYMyE5cR/2O4TQpcpkLAHXFZ8A1nVW9NnEaBE0b1XTAFEu3IKvQTb4
- w22WuuTt2bwubYQvW7UCn15gLvc7XJvVvebGu0xHgoTi9aKjmKD9qWkPjXni4+vCliab
- mvL5FcXlf4Wx+WQvqdPQm7kLdAV7h4x0ONL8u2DvAY8sAidoMnM60s2jeXyBcQRm69Lf
- pketpP0wv+CBgnb3eR7f6jfINEBPE3TSh+eI0P3kfFnXrxZSKw2gRFeQLh9CWIrf0ZkX
- GubA==
-X-Gm-Message-State: AOAM531UZiyv3Qn4LL9S+xIl0XaldxidXwIV4zhfzX8G4+DabaiLg8F5
- R+EwjRdLFnnu1yQEUEDLQA==
-X-Google-Smtp-Source: ABdhPJyjAPiiDh0sizp/c/0tSKvBUcIXWHz3iWLop//vFxT98EGZPiwyxU4l4guTFOeyotiEWfaTIQ==
-X-Received: by 2002:a9d:7388:: with SMTP id j8mr3340251otk.180.1642951744989; 
- Sun, 23 Jan 2022 07:29:04 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id g2sm3709240oic.40.2022.01.23.07.29.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 23 Jan 2022 07:29:04 -0800 (PST)
-Received: (nullmailer pid 1428763 invoked by uid 1000);
- Sun, 23 Jan 2022 15:29:03 -0000
-Date: Sun, 23 Jan 2022 09:29:03 -0600
-From: Rob Herring <robh@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <Ye10P+FlVPzsB7jR@robh.at.kernel.org>
-References: <20220119174407.3810088-1-robh@kernel.org>
+ Sun, 23 Jan 2022 15:52:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=EMC6Ft10JXwi16PGGMWQ1pe3LM0kkBsvwtaXhgSs0wM=; b=EO0tRbP4Cm6mmtzSNEUjPEe+fN
+ gEll1aTSwCLFqWNaKAehFMt6LO3f3TV6EsNHAZGABi4xyxeHb8Tpf+vbNq26LfSK0KL9iDpWUzJZI
+ +kQE8nHGPjqqqISIy1/DC/Yk4uQ+cxG41jqOjV8AQAKzMk3WcnoirV20gNJSx7do3ELU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1nBfAL-002OLT-JC; Sun, 23 Jan 2022 16:52:29 +0100
+Date: Sun, 23 Jan 2022 16:52:29 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jisheng Zhang <jszhang@kernel.org>
+Message-ID: <Ye15va7tFWMgKPEE@lunn.ch>
+References: <20220123141245.1060-1-jszhang@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220119174407.3810088-1-robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: i2c: stm32-i2c: Move st,
- syscfg-fmp definition to top level
+In-Reply-To: <20220123141245.1060-1-jszhang@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: don't stop RXC during LPI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,20 +55,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 19 Jan 2022 11:44:07 -0600, Rob Herring wrote:
-> It is preferred to define all properties in the main schema and leave
-> if/then/else schemas to just be further constraints on properties.
+On Sun, Jan 23, 2022 at 10:12:45PM +0800, Jisheng Zhang wrote:
+> I met can't receive rx pkt issue with below steps:
+> 0.plug in ethernet cable then boot normal and get ip from dhcp server
+> 1.quickly hotplug out then hotplug in the ethernet cable
+> 2.trigger the dhcp client to renew lease
 > 
-> Rework the schema to use be more specific for each cell. Previously,
-> multiple entries of 3 cells each was allowed.
+> tcpdump shows that the request tx pkt is sent out successfully,
+> but the mac can't receive the rx pkt.
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> The issue can easily be reproduced on platforms with PHY_POLL external
+> phy. If we don't allow the phy to stop the RXC during LPI, the issue
+> is gone. I think it's unsafe to stop the RXC during LPI because the mac
+> needs RXC clock to support RX logic.
+> 
+> And the 2nd param clk_stop_enable of phy_init_eee() is a bool, so use
+> false instead of 0.
+> 
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 > ---
->  .../devicetree/bindings/i2c/st,stm32-i2c.yaml | 24 ++++++++++---------
->  1 file changed, 13 insertions(+), 11 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 6708ca2aa4f7..92a9b0b226b1 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1162,7 +1162,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
+>  
+>  	stmmac_mac_set(priv, priv->ioaddr, true);
+>  	if (phy && priv->dma_cap.eee) {
+> -		priv->eee_active = phy_init_eee(phy, 1) >= 0;
+> +		priv->eee_active = phy_init_eee(phy, false) >= 0;
 
-Applied, thanks!
+This has not caused issues in the past. So i'm wondering if this is
+somehow specific to your system? Does everybody else use a PHY which
+does not implement this bit? Does your synthesis of the stmmac have a
+different clock tree?
+
+By changing this value for every instance of the stmmac, you are
+potentially causing a power regression for stmmac implementations
+which don't need the clock. So we need a clear understanding, stopping
+the clock is wrong in general and so the change is correct in
+general. Or this is specific to your system, and you probably need to
+add priv->dma_cap.keep_rx_clock_ticking, which you set in your glue
+driver,and use here to decide what to pass to phy_init_eee().
+
+	   Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
