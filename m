@@ -2,52 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 882CC498146
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 14:40:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13A404983AD
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 16:37:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EC20C5F1D5;
-	Mon, 24 Jan 2022 13:40:14 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95AB4C57B6C
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jan 2022 13:40:12 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C061BC5F1D5;
+	Mon, 24 Jan 2022 15:37:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5DE8761296;
- Mon, 24 Jan 2022 13:40:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C5D84C340E7;
- Mon, 24 Jan 2022 13:40:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643031610;
- bh=dee1fRxc4gg7X1d98rKG3dz7x+qLTHmpqKgRlioZx3g=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=h2mEx8o+BEPlMCVUTHG+pnmkatkvu5I+4wjyqIwzzLMIdHYasEa4uyufNVWptzNDD
- iBt0VYcXbAPNNBo7s/1Yj1E08FcJGPm5t/yJR7npXIK8wgp0oMhtcuWWGCEMqh379E
- KQj3P6bQSXqWhL1FVX+zfcWt3BRtKD9IndAM3OJpiQHsHjZ0tRmzh+OLbWealk6Un1
- 8nrECR1AZz9WmfKUUxneB1SK0L/vkIBO1GKdz2py63QFWZ4pf0qgekhbTwivs00Q5i
- alBKEpWSbraqdtm7TXiP34EwbEFMJLJKFfO+zgFYF8ZsImT+mKlcPX/sla5AvOfkNI
- Cpyhxc724sl3g==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- ACF72F60790; Mon, 24 Jan 2022 13:40:10 +0000 (UTC)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40890C57B6C
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 24 Jan 2022 15:37:33 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20OB7O48017654;
+ Mon, 24 Jan 2022 16:37:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=YFQ9tTL0GCvwjNHPdj3vGAxNfnI6+XMqAcYu8HfbEV0=;
+ b=aUl0wha/QmOjVz1oWoAQVmcYlR55vCGTkbN6bcTSti71AX0b5oh8XgwIqkuYSY7eWkhl
+ BiA44eMwnbwj00ZMQKEY2FR07AgwKqju6nA4s/qHEs+WdUHIdzGf5Yg5WHBkTGE8972R
+ CllZCxOfd3tAZHoeQBcvY8R4yHZtEAGl9KY1a6+z4G6dio59jKVJok12bT/nN+aVzzVi
+ sejND8uBm8352+u4a6AdYz4HXiztRPGWRef9A+Fa/3C2vAC6sA/AWmrLeIIstrZbXTLQ
+ FpJHWRkH1GwNp0heP46pssbsVHERQDT37Mar5aDeTemnxeru3etZSdikzivpQzmYv9my ug== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dsqbuawd0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Jan 2022 16:37:15 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2BB9210002A;
+ Mon, 24 Jan 2022 16:37:14 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1AF2F21ED2A;
+ Mon, 24 Jan 2022 16:37:14 +0100 (CET)
+Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 24 Jan 2022 16:37:13
+ +0100
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
+ <marex@denx.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Rob Herring <robh+dt@kernel.org>
+Date: Mon, 24 Jan 2022 16:35:25 +0100
+Message-ID: <20220124153525.17314-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <164303161069.21877.8559780902897550675.git-patchwork-notify@kernel.org>
-Date: Mon, 24 Jan 2022 13:40:10 +0000
-References: <20220123122758.2876-1-jszhang@kernel.org>
-In-Reply-To: <20220123122758.2876-1-jszhang@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, alexandre.torgue@foss.st.com,
- linux@armlinux.org.uk, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: remove unused members in
-	struct stmmac_priv
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-24_08,2022-01-24_02,2021-12-02_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 1/1] ARM: dts: stm32: fix AV96 board SAI2 pin
+	muxing on stm32mp15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,28 +74,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Replace sai2a-2 node name by sai2a-sleep-2, to avoid name
+duplication.
 
-This patch was applied to netdev/net.git (master)
-by David S. Miller <davem@davemloft.net>:
+Fixes: 1a9a9d226f0f ("ARM: dts: stm32: fix AV96 board SAI2 pin muxing on stm32mp15")
 
-On Sun, 23 Jan 2022 20:27:58 +0800 you wrote:
-> The tx_coalesce and mii_irq are not used at all now, so remove them.
-> 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h | 2 --
->  1 file changed, 2 deletions(-)
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Here is the summary with links:
-  - net: stmmac: remove unused members in struct stmmac_priv
-    https://git.kernel.org/netdev/net/c/de8a820df2ac
-
-You are awesome, thank you!
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index 3b65130affec..6161f5906ec1 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -1190,7 +1190,7 @@
+ 		};
+ 	};
+ 
+-	sai2a_sleep_pins_c: sai2a-2 {
++	sai2a_sleep_pins_c: sai2a-sleep-2 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('D', 13, ANALOG)>, /* SAI2_SCK_A */
+ 				 <STM32_PINMUX('D', 11, ANALOG)>, /* SAI2_SD_A */
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
