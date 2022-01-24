@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40B97499484
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 21:43:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08B8E49903A
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 21:03:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5F1BC5F1D5;
-	Mon, 24 Jan 2022 20:43:27 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2746C5F1D5;
+	Mon, 24 Jan 2022 20:03:21 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC1BBC5AB61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 588E9C57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jan 2022 20:43:25 +0000 (UTC)
+ Mon, 24 Jan 2022 20:03:20 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A6FEF608D4;
- Mon, 24 Jan 2022 20:43:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B936C340EA;
- Mon, 24 Jan 2022 20:43:23 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BCA72B80FA1;
+ Mon, 24 Jan 2022 20:03:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE73C340E5;
+ Mon, 24 Jan 2022 20:03:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1643057004;
+ s=korg; t=1643054598;
  bh=8FTpx20CPyOOXFtNwPoa4MCozejgitLRpKaNV6dHwN8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XE9StQPOKSAmQolOvjBhyGMyuLh3kBLupU8aBF9Q3ISApTLeVPvRGO5mPC7n+0oji
- JTJkO9ok965mtE4SaF+qx/HFyKR8ry5RwT1HzfL8dNHO4l778g2CGbJDKsJni/oLit
- A3UpJkoFgh1NgZo3kUAV19pzGOi2/EqmT/E0Mx8s=
+ b=2uXhrS5LYE7aqHTgB7Vo5vnahaQrEHrsLMtXU2KdGbMqgq4rD71hOJax6vk6AgXd4
+ 52KwkKF+wE5MsKD3bL+ok0xU+JaOVqgCfKdGMhZe2qD33XFh8jSUWjAkS/NvRT8+Md
+ DaGEaBsQ/McaZgTyxNDHqWgABllFAR6wpxgRbWSc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	linux-crypto@vger.kernel.org
-Date: Mon, 24 Jan 2022 19:43:07 +0100
-Message-Id: <20220124184124.185205895@linuxfoundation.org>
+Date: Mon, 24 Jan 2022 19:43:27 +0100
+Message-Id: <20220124184039.729742844@linuxfoundation.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220124184100.867127425@linuxfoundation.org>
-References: <20220124184100.867127425@linuxfoundation.org>
+In-Reply-To: <20220124184024.407936072@linuxfoundation.org>
+References: <20220124184024.407936072@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Lionel Debieve <lionel.debieve@st.com>,
@@ -44,7 +44,7 @@ Cc: Marek Vasut <marex@denx.de>, Lionel Debieve <lionel.debieve@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
  Fabien Dessenne <fabien.dessenne@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5.15 670/846] crypto: stm32/crc32 - Fix kernel
+Subject: [Linux-stm32] [PATCH 5.10 442/563] crypto: stm32/crc32 - Fix kernel
 	BUG triggered in probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
