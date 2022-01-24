@@ -2,79 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2283F497C37
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 10:41:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FF8E497C4F
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 10:44:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8543C5F1D3;
-	Mon, 24 Jan 2022 09:41:51 +0000 (UTC)
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07900C5F1D3;
+	Mon, 24 Jan 2022 09:44:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32D17C57B6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61DBCC57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jan 2022 09:41:50 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id F2A5358011C;
- Mon, 24 Jan 2022 04:41:48 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 24 Jan 2022 04:41:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; bh=8x6bDAxpoAORAyNxrYSGktt9aYhf6Lgv0WZx5W
- /s0fA=; b=hpoWvlxblC+aw669EVxhTx5CWQIsYMnD8uZ/NebCPZCmIHgNUjOZNH
- RljPmprtslMbrXLJNtr4JdRu2luHst2xW0R3bjzxY8EUrA4L3FLa870/cvCo5keO
- 9kRkZech5b95YNcd02bFSzdMx8NyG6U3YL+tUfe7lPWaPl/d7CMTUODyuzbmixWE
- S/noLE3I/mtphpq1QCa0yK4MqWD2Vj3EcV4GVusVNqj6qxObB/DGPf+eWrRz/tZN
- sam0U+N03ZeNqQL/XetgiOMI0Q/+0eL0BBig0SxwycAzNyDbWhJJzB+AnZRVa4f0
- xa+gHo548xRUaTGSEps3czLePldAhPag==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=8x6bDAxpoAORAyNxr
- YSGktt9aYhf6Lgv0WZx5W/s0fA=; b=nUE/R9LZ/u4Mgn8/mM53gbPZPmg/Nad6q
- xsRHZ3cRjJwg2O1ujPPRvmU8uZVbrx2Fo9Vwmj939z/YxxB17fukmVhjCrzqLjtE
- uuJZkrawwdOjzH1V8fU4N2F2544WvVQcVj83r16jqirs3nNDJ0SZK0VpL6K0+Wvl
- TmA9JlmHsiFItyH5kBiEc4NDjYe5GBeifDGBWsevyCmU41wdIX4KPyX52LHxb39D
- oe+RPtLzwjgsoBCq1//+DhyCelOFpViM+2/xqfjzrRUcVuDRd01T/zQRallcj8Lp
- VqEkXtf4D8/pJW24q1facACeYmqDvfwRCxmougFPE13Id3Jn7KfDw==
-X-ME-Sender: <xms:W3TuYQgfOYvznWfoe2KKVv6n5tPgU8EKsMxXl74WYB3T0nwqW_TvxA>
- <xme:W3TuYZCCiWxfrhIUEHFLXkhZw756SKW1jucua_6mbBZh10RyAIAKPo_uIcRz5NvYo
- rEZAcMGO4L40A>
-X-ME-Received: <xmr:W3TuYYFP-vVlJ8BUceiiTFNrHIcDH0mHa_i6iJ2q4uUeVDqzWeflxn-5QsXtKHpmiDESZYU7UoLk2cJ6MynM2cBtz6LFSun4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrvdeigddtjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghgucfm
- jfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepveeuheejgf
- ffgfeivddukedvkedtleelleeghfeljeeiueeggeevueduudekvdetnecuvehluhhsthgv
- rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrd
- gtohhm
-X-ME-Proxy: <xmx:W3TuYRQs0QxDwG_AdOX46ejOxFjGV1U4CAwxBmW28y2cA7RvaY-bmA>
- <xmx:W3TuYdyAXZmJFOLPK9vOtRUmXGdCXHp1UdvIUqwR57i_mRUQAMNaUg>
- <xmx:W3TuYf4hTGIq2i1ctypBXwmEyC2DD-58QM91wFkGN_G9R1XrxKlx2g>
- <xmx:XHTuYepOxczp1KDillIfd6UBJ3sj9g5ja5ETenX1IKbvzRVzjAC-sg>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 24 Jan 2022 04:41:47 -0500 (EST)
-Date: Mon, 24 Jan 2022 10:41:42 +0100
-From: Greg KH <greg@kroah.com>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <Ye50VjsyOdhxN/9W@kroah.com>
-References: <16429542415161@kroah.com>
- <20220123162240.5532-1-marex@denx.de>
+ Mon, 24 Jan 2022 09:44:23 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20O8bEb1017171;
+ Mon, 24 Jan 2022 10:44:16 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=urJnVRt2GLfzxAmXIu1Y7VPS8KGZiGKjYKwYWvWlBEs=;
+ b=PBkQjkyjwfM6F8f8fsBJ7jxMQ89nqN07RdAVWeLxpl68UJGTdzN49AEI0miwkHh4MBHG
+ W4lkJD6NhDKEW9x5QCMhqPx2hevJfNKOxcaBLFptuTbWdcpGr2Z5qKlosezh31XiQBx4
+ 0svdKkXPyViZtufO8yqyNaxk5X4YdWDUTr9bV3r8gJVDEyBdrpW8ZWlFQ3CfcbYtQ9GX
+ 3BnrC+VYW3odY82mdAPh8h5FvUI8W3qk7D11sfbuOllgyYmlN2DqNG07HRw+Z5LSwL14
+ l4bCOVbTRzeF3qjCYJxJI2NnMPhG/GQCxb7DbzNz9mR7FarlM5CGAVQQW/tTROhQz+Sx bg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dsrru0d3v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Jan 2022 10:44:15 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2267F10002A;
+ Mon, 24 Jan 2022 10:44:15 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 189F7210F83;
+ Mon, 24 Jan 2022 10:44:15 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 24 Jan 2022 10:44:14
+ +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: <hugues.fruchet@foss.st.com>, <mchehab@kernel.org>
+Date: Mon, 24 Jan 2022 10:44:14 +0100
+Message-ID: <20220124094414.875302-1-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220123162240.5532-1-marex@denx.de>
-Cc: Lionel Debieve <lionel.debieve@st.com>,
- Nicolas Toromanoff <nicolas.toromanoff@st.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
- Fabien Dessenne <fabien.dessenne@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] crypto: stm32/crc32 - Fix kernel BUG
-	triggered in probe()
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-24_06,2022-01-21_01,2021-12-02_01
+Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ mcoquelin.stm32@gmail.com, alain.volmat@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2] media: stm32: dcmi: create a dma
+	scatterlist based on DMA max_sg_burst value
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,49 +74,155 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Jan 23, 2022 at 05:22:40PM +0100, Marek Vasut wrote:
-> The include/linux/crypto.h struct crypto_alg field cra_driver_name description
-> states "Unique name of the transformation provider. " ... " this contains the
-> name of the chip or provider and the name of the transformation algorithm."
-> 
-> In case of the stm32-crc driver, field cra_driver_name is identical for all
-> registered transformation providers and set to the name of the driver itself,
-> which is incorrect. This patch fixes it by assigning a unique cra_driver_name
-> to each registered transformation provider.
-> 
-> The kernel crash is triggered when the driver calls crypto_register_shashes()
-> which calls crypto_register_shash(), which calls crypto_register_alg(), which
-> calls __crypto_register_alg(), which returns -EEXIST, which is propagated
-> back through this call chain. Upon -EEXIST from crypto_register_shash(), the
-> crypto_register_shashes() starts unregistering the providers back, and calls
-> crypto_unregister_shash(), which calls crypto_unregister_alg(), and this is
-> where the BUG() triggers due to incorrect cra_refcnt.
-> 
-> Fixes: b51dbe90912a ("crypto: stm32 - Support for STM32 CRC32 crypto module")
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: <stable@vger.kernel.org> # 4.12+
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Fabien Dessenne <fabien.dessenne@st.com>
-> Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> Cc: Lionel Debieve <lionel.debieve@st.com>
-> Cc: Nicolas Toromanoff <nicolas.toromanoff@st.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> To: linux-crypto@vger.kernel.org
-> Acked-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
-> Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-> ---
-> Backport on 4.19.225, likely works on 4.14 too.
-> The patch likely failed to apply because the hit 5.3:
-> fdbd643a74efb ("crypto: stm32/crc32 - rename driver file")
-> and renamed drivers/crypto/stm32/stm32{-,_}crc32.c
-> ---
->  drivers/crypto/stm32/stm32_crc32.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+Prior to submitting a transfer to the DMA, the client should first check
+the capabilities of the DMA channel in term of maximum of each segment.
+This is given by the max_sg_burst value reported by dma_get_slave_caps API.
+Based on that, if the transfer is larger than what can be handled by the
+DMA channel, we split the transfer into several scatterlist elements.
 
-Now queued up, thanks.
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+---
+v2: add sg_free_table as part of buf_cleanup
+    fix checkpatch alignment warning
 
-greg k-h
+ drivers/media/platform/stm32/stm32-dcmi.c | 60 ++++++++++++++++++-----
+ 1 file changed, 48 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
+index e1b17c05229c..5bc099c3dbca 100644
+--- a/drivers/media/platform/stm32/stm32-dcmi.c
++++ b/drivers/media/platform/stm32/stm32-dcmi.c
+@@ -113,7 +113,7 @@ struct dcmi_framesize {
+ struct dcmi_buf {
+ 	struct vb2_v4l2_buffer	vb;
+ 	bool			prepared;
+-	dma_addr_t		paddr;
++	struct sg_table		sgt;
+ 	size_t			size;
+ 	struct list_head	list;
+ };
+@@ -157,6 +157,7 @@ struct stm32_dcmi {
+ 	enum state			state;
+ 	struct dma_chan			*dma_chan;
+ 	dma_cookie_t			dma_cookie;
++	u32				dma_max_burst;
+ 	u32				misr;
+ 	int				errors_count;
+ 	int				overrun_count;
+@@ -326,13 +327,10 @@ static int dcmi_start_dma(struct stm32_dcmi *dcmi,
+ 	mutex_lock(&dcmi->dma_lock);
+ 
+ 	/* Prepare a DMA transaction */
+-	desc = dmaengine_prep_slave_single(dcmi->dma_chan, buf->paddr,
+-					   buf->size,
+-					   DMA_DEV_TO_MEM,
+-					   DMA_PREP_INTERRUPT);
++	desc = dmaengine_prep_slave_sg(dcmi->dma_chan, buf->sgt.sgl, buf->sgt.nents,
++				       DMA_DEV_TO_MEM, DMA_PREP_INTERRUPT);
+ 	if (!desc) {
+-		dev_err(dcmi->dev, "%s: DMA dmaengine_prep_slave_single failed for buffer phy=%pad size=%zu\n",
+-			__func__, &buf->paddr, buf->size);
++		dev_err(dcmi->dev, "%s: DMA dmaengine_prep_slave_sg failed\n", __func__);
+ 		mutex_unlock(&dcmi->dma_lock);
+ 		return -EINVAL;
+ 	}
+@@ -524,6 +522,10 @@ static int dcmi_buf_prepare(struct vb2_buffer *vb)
+ 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+ 	struct dcmi_buf *buf = container_of(vbuf, struct dcmi_buf, vb);
+ 	unsigned long size;
++	unsigned int num_sgs = 1;
++	dma_addr_t dma_buf;
++	struct scatterlist *sg;
++	int i, ret;
+ 
+ 	size = dcmi->fmt.fmt.pix.sizeimage;
+ 
+@@ -537,15 +539,33 @@ static int dcmi_buf_prepare(struct vb2_buffer *vb)
+ 
+ 	if (!buf->prepared) {
+ 		/* Get memory addresses */
+-		buf->paddr =
+-			vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
+ 		buf->size = vb2_plane_size(&buf->vb.vb2_buf, 0);
+-		buf->prepared = true;
++		if (buf->size > dcmi->dma_max_burst)
++			num_sgs = DIV_ROUND_UP(buf->size, dcmi->dma_max_burst);
+ 
+-		vb2_set_plane_payload(&buf->vb.vb2_buf, 0, buf->size);
++		ret = sg_alloc_table(&buf->sgt, num_sgs, GFP_ATOMIC);
++		if (ret) {
++			dev_err(dcmi->dev, "sg table alloc failed\n");
++			return ret;
++		}
++
++		dma_buf = vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
+ 
+ 		dev_dbg(dcmi->dev, "buffer[%d] phy=%pad size=%zu\n",
+-			vb->index, &buf->paddr, buf->size);
++			vb->index, &dma_buf, buf->size);
++
++		for_each_sg(buf->sgt.sgl, sg, num_sgs, i) {
++			size_t bytes = min_t(size_t, size, dcmi->dma_max_burst);
++
++			sg_dma_address(sg) = dma_buf;
++			sg_dma_len(sg) = bytes;
++			dma_buf += bytes;
++			size -= bytes;
++		}
++
++		buf->prepared = true;
++
++		vb2_set_plane_payload(&buf->vb.vb2_buf, 0, buf->size);
+ 	}
+ 
+ 	return 0;
+@@ -579,6 +599,15 @@ static void dcmi_buf_queue(struct vb2_buffer *vb)
+ 	spin_unlock_irq(&dcmi->irqlock);
+ }
+ 
++static void dcmi_buf_cleanup(struct vb2_buffer *vb)
++{
++	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
++	struct dcmi_buf *buf = container_of(vbuf, struct dcmi_buf, vb);
++
++	if (buf->prepared)
++		sg_free_table(&buf->sgt);
++}
++
+ static struct media_entity *dcmi_find_source(struct stm32_dcmi *dcmi)
+ {
+ 	struct media_entity *entity = &dcmi->vdev->entity;
+@@ -914,6 +943,7 @@ static const struct vb2_ops dcmi_video_qops = {
+ 	.buf_init		= dcmi_buf_init,
+ 	.buf_prepare		= dcmi_buf_prepare,
+ 	.buf_queue		= dcmi_buf_queue,
++	.buf_cleanup		= dcmi_buf_cleanup,
+ 	.start_streaming	= dcmi_start_streaming,
+ 	.stop_streaming		= dcmi_stop_streaming,
+ 	.wait_prepare		= vb2_ops_wait_prepare,
+@@ -1866,6 +1896,7 @@ static int dcmi_probe(struct platform_device *pdev)
+ 	struct stm32_dcmi *dcmi;
+ 	struct vb2_queue *q;
+ 	struct dma_chan *chan;
++	struct dma_slave_caps caps;
+ 	struct clk *mclk;
+ 	int irq;
+ 	int ret = 0;
+@@ -1953,6 +1984,11 @@ static int dcmi_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
++	dcmi->dma_max_burst = UINT_MAX;
++	ret = dma_get_slave_caps(chan, &caps);
++	if (!ret && caps.max_sg_burst)
++		dcmi->dma_max_burst = caps.max_sg_burst	* DMA_SLAVE_BUSWIDTH_4_BYTES;
++
+ 	spin_lock_init(&dcmi->irqlock);
+ 	mutex_init(&dcmi->lock);
+ 	mutex_init(&dcmi->dma_lock);
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
