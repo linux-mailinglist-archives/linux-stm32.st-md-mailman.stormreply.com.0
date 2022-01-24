@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2F3D497D12
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 11:27:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 188C0497D21
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 11:28:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A64AC60466;
-	Mon, 24 Jan 2022 10:27:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D31C6C60465;
+	Mon, 24 Jan 2022 10:28:00 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30CF6C60466
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3A8BC60460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jan 2022 10:26:59 +0000 (UTC)
+ Mon, 24 Jan 2022 10:27:59 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20O8bFn0017181;
- Mon, 24 Jan 2022 11:26:58 +0100
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20O8b40M017029;
+ Mon, 24 Jan 2022 11:27:59 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=/sEqJtFrncnE+piNwNuBsQ0Z2HMrBogHH+SSeP82OzI=;
- b=P1z86kaDyi5NyqiJ6XCI2kBS+fbHxop+GqVa3gT1CuIK+4My9S5aqOriFvr5hcJ1YrIc
- +3XFuGlHHY2rGlKxwwHAkuMArakxFJiMQ/iA4AGrG/Dw24IhSZnTkdd9R7rfFOM0dupK
- q4ByDM08AbhRys1gYURn5GWf58ThS2g9R+XuRUMC7N3kNOSmf5uZg+C04EJv7LR/4w+V
- ARzTVwmr3yNO/+CGK37sg/eT0sQj2R4tfkhLJehv83R/4FWo8NgqshLlkDn8+7o3IKNy
- 7jHRuIyJE2KVi04qJGVrzhQk3/5GKkA9LUB2NZDMmLNUQAPLbJLYA+J41NUhOTIatsC2 bw== 
+ bh=pOQvb7TljMbN/QHUp0xRGqe5Q0334fIGbULFTY7jihU=;
+ b=t6Y5C3qCLP5MUA9ODFOnt/ivtABwGyhN6K3+HqEkMkJqvgL08fpCO1ka/OUeCiy/ckOT
+ XVVOa9f70NqXqvGUe/Zet/6TVpeKBp4oavx4PcDjpFWucGiuvrJVMSknwsQOlvYMj5XW
+ 58G48Eqv5ImWrd8QTsDkChao4tP6UtXpa5nZ05mryGaKMzoJviqQvpYEP/QAK5XF2+O7
+ KIPEReoFOGzJIdvxb7hHkRALFj/WAwM5lkHMkfaiTAIs1srPpjI2G7H/zSXfsKNyEwCs
+ MENLaV9eDjZwC5QGUTYN5mz1NnMcvBYlp3s06QJryt0N4bgIkwEEdF+M7ayWmwwNf8zl Kw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dsrru0me8-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dsrru0mmf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Jan 2022 11:26:58 +0100
+ Mon, 24 Jan 2022 11:27:59 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 03FDC100034;
- Mon, 24 Jan 2022 11:26:58 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9BCD410002A;
+ Mon, 24 Jan 2022 11:27:58 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EF08C2128BF;
- Mon, 24 Jan 2022 11:26:57 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9365A2128C2;
+ Mon, 24 Jan 2022 11:27:58 +0100 (CET)
 Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 24 Jan 2022 11:26:57
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 24 Jan 2022 11:27:58
  +0100
 From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
  <mathieu.poirier@linaro.org>
-Date: Mon, 24 Jan 2022 11:25:22 +0100
-Message-ID: <20220124102524.295783-10-arnaud.pouliquen@foss.st.com>
+Date: Mon, 24 Jan 2022 11:25:23 +0100
+Message-ID: <20220124102524.295783-11-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220124102524.295783-1-arnaud.pouliquen@foss.st.com>
 References: <20220124102524.295783-1-arnaud.pouliquen@foss.st.com>
@@ -58,8 +58,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: julien.massot@iot.bzh, arnaud.pouliquen@foss.st.com,
  linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v9 09/11] rpmsg: char: Add possibility to use
-	default endpoint of the rpmsg device
+Subject: [Linux-stm32] [PATCH v9 10/11] rpmsg: char: Introduce the
+	"rpmsg-raw" channel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,99 +76,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Current implementation create/destroy a new endpoint on each
-rpmsg_eptdev_open/rpmsg_eptdev_release calls.
+For the rpmsg virtio backend, the current implementation of the rpmsg char
+only allows to instantiate static(i.e. prefixed source and destination
+addresses) end points, and only on the Linux user space initiative.
 
-For a rpmsg device created by the NS announcement a default endpoint is created.
-In this case we have to reuse the default rpmsg device endpoint associated to
-the channel instead of creating a new one.
-
-This patch prepares the introduction of a rpmsg channel device for the
-char device. The rpmsg channel device will require a default endpoint to
-communicate to the remote processor.
-
-Add the default_ept field in rpmsg_eptdev structure.This pointer
-determines the behavior on rpmsg_eptdev_open and rpmsg_eptdev_release call.
-
-- If default_ept == NULL:
-  Use the legacy behavior by creating a new endpoint each time
-  rpmsg_eptdev_open is called and release it when rpmsg_eptdev_release
-  is called on /dev/rpmsgX device open/close.
-
-- If default_ept is set:
-  use the rpmsg device default endpoint for the communication.
-
-Add protection in rpmsg_eptdev_ioctl to prevent to destroy a default endpoint.
+This patch defines the "rpmsg-raw" channel and registers it to the rpmsg bus.
+This registration allows:
+- To create the channel at the initiative of the remote processor
+  relying on the name service announcement mechanism. In other words the
+  /dev/rpmsgX interface is instantiate by the remote processor.
+- To use the channel object instead of the endpoint, thus preventing the
+  user space from having the knowledge of the remote processor's
+  endpoint addresses.
+- To rely on udev to be inform when a /dev/rpmsgX is created on remote
+  processor request, indicating that the remote processor is ready to
+  communicate.
 
 Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 ---
- drivers/rpmsg/rpmsg_char.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+Update vs previous revision:
+- rework commit message,
+- remove the use of the rpmsg_create_default_ept function.
+---
+ drivers/rpmsg/rpmsg_char.c | 60 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
 diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-index e7bc7dcdba63..97843838d960 100644
+index 97843838d960..6c1d9774b7b1 100644
 --- a/drivers/rpmsg/rpmsg_char.c
 +++ b/drivers/rpmsg/rpmsg_char.c
-@@ -50,6 +50,8 @@ static DEFINE_IDA(rpmsg_minor_ida);
-  * @queue_lock:	synchronization of @queue operations
-  * @queue:	incoming message queue
-  * @readq:	wait object for incoming queue
-+ * @default_ept: set to channel default endpoint if the default endpoint should be re-used
-+ *              on device open to prevent endpoint address update.
-  */
- struct rpmsg_eptdev {
- 	struct device dev;
-@@ -60,10 +62,12 @@ struct rpmsg_eptdev {
- 
- 	struct mutex ept_lock;
- 	struct rpmsg_endpoint *ept;
-+	struct rpmsg_endpoint *default_ept;
- 
- 	spinlock_t queue_lock;
- 	struct sk_buff_head queue;
- 	wait_queue_head_t readq;
-+
- };
- 
- int rpmsg_chrdev_eptdev_destroy(struct device *dev, void *data)
-@@ -121,7 +125,15 @@ static int rpmsg_eptdev_open(struct inode *inode, struct file *filp)
- 
- 	get_device(dev);
- 
--	ept = rpmsg_create_ept(rpdev, rpmsg_ept_cb, eptdev, eptdev->chinfo);
-+	/*
-+	 * If the default_ept is set, the rpmsg device default endpoint is used.
-+	 * Else a new endpoint is created on open that will be destroyed on release.
-+	 */
-+	if (eptdev->default_ept)
-+		ept = eptdev->default_ept;
-+	else
-+		ept = rpmsg_create_ept(rpdev, rpmsg_ept_cb, eptdev, eptdev->chinfo);
-+
- 	if (!ept) {
- 		dev_err(dev, "failed to open %s\n", eptdev->chinfo.name);
- 		put_device(dev);
-@@ -142,7 +154,8 @@ static int rpmsg_eptdev_release(struct inode *inode, struct file *filp)
- 	/* Close the endpoint, if it's not already destroyed by the parent */
- 	mutex_lock(&eptdev->ept_lock);
- 	if (eptdev->ept) {
--		rpmsg_destroy_ept(eptdev->ept);
-+		if (!eptdev->default_ept)
-+			rpmsg_destroy_ept(eptdev->ept);
- 		eptdev->ept = NULL;
- 	}
- 	mutex_unlock(&eptdev->ept_lock);
-@@ -269,6 +282,10 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
- 	if (cmd != RPMSG_DESTROY_EPT_IOCTL)
- 		return -EINVAL;
- 
-+	/* Don't allow to destroy a default endpoint. */
-+	if (eptdev->default_ept)
-+		return -EINVAL;
-+
- 	return rpmsg_chrdev_eptdev_destroy(&eptdev->dev, NULL);
+@@ -428,6 +428,54 @@ int rpmsg_chrdev_eptdev_create(struct rpmsg_device *rpdev, struct device *parent
  }
+ EXPORT_SYMBOL(rpmsg_chrdev_eptdev_create);
  
++static int rpmsg_chrdev_probe(struct rpmsg_device *rpdev)
++{
++	struct rpmsg_channel_info chinfo;
++	struct rpmsg_eptdev *eptdev;
++	struct device *dev = &rpdev->dev;
++
++	memcpy(chinfo.name, rpdev->id.name, RPMSG_NAME_SIZE);
++	chinfo.src = rpdev->src;
++	chinfo.dst = rpdev->dst;
++
++	eptdev = rpmsg_chrdev_eptdev_alloc(rpdev, dev);
++	if (IS_ERR(eptdev))
++		return PTR_ERR(eptdev);
++
++	/* Set the default_ept to the rpmsg device endpoint */
++	eptdev->default_ept = rpdev->ept;
++
++	/*
++	 * The rpmsg_ept_cb uses *priv parameter to get its rpmsg_eptdev context.
++	 * Storedit in default_ept *priv field.
++	 */
++	eptdev->default_ept->priv = eptdev;
++
++	return rpmsg_chrdev_eptdev_add(eptdev, chinfo);
++}
++
++static void rpmsg_chrdev_remove(struct rpmsg_device *rpdev)
++{
++	int ret;
++
++	ret = device_for_each_child(&rpdev->dev, NULL, rpmsg_chrdev_eptdev_destroy);
++	if (ret)
++		dev_warn(&rpdev->dev, "failed to destroy endpoints: %d\n", ret);
++}
++
++static struct rpmsg_device_id rpmsg_chrdev_id_table[] = {
++	{ .name	= "rpmsg-raw" },
++	{ },
++};
++
++static struct rpmsg_driver rpmsg_chrdev_driver = {
++	.probe = rpmsg_chrdev_probe,
++	.remove = rpmsg_chrdev_remove,
++	.callback = rpmsg_ept_cb,
++	.id_table = rpmsg_chrdev_id_table,
++	.drv.name = "rpmsg_chrdev",
++};
++
+ static int rpmsg_chrdev_init(void)
+ {
+ 	int ret;
+@@ -438,12 +486,24 @@ static int rpmsg_chrdev_init(void)
+ 		return ret;
+ 	}
+ 
++	ret = register_rpmsg_driver(&rpmsg_chrdev_driver);
++	if (ret < 0) {
++		pr_err("rpmsg: failed to register rpmsg raw driver\n");
++		goto free_region;
++	}
++
+ 	return 0;
++
++free_region:
++	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
++
++	return ret;
+ }
+ postcore_initcall(rpmsg_chrdev_init);
+ 
+ static void rpmsg_chrdev_exit(void)
+ {
++	unregister_rpmsg_driver(&rpmsg_chrdev_driver);
+ 	unregister_chrdev_region(rpmsg_major, RPMSG_DEV_MAX);
+ }
+ module_exit(rpmsg_chrdev_exit);
 -- 
 2.25.1
 
