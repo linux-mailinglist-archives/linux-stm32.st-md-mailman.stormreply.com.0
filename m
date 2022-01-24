@@ -2,57 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95B3B497C9D
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 11:01:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A24F497D03
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 11:26:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57DC0C5F1D8;
-	Mon, 24 Jan 2022 10:01:58 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16300C60460;
+	Mon, 24 Jan 2022 10:26:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19947C57B6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E8B9C57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jan 2022 10:01:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643018516; x=1674554516;
- h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=fcP5Mi3E+ddUCuSeWk/h23NjNWIPP76BCXW3Nop8uuI=;
- b=LoJlQpgzti2vBzivvph4QE1SWAk1AXrAGsTNL59iyWBEFEikTgHj3b4S
- af/i7dtZHHokIacIbJHuQz/qChL6KtlRKadjk/0586+24Phm1RIyhs/Jt
- +Kg75K0Q0NBgeH/mUiYUgm+0QJdnSZQ8DJfhPY7x2k7LaEw/hu9OCjY6y
- o2Ue8oNqNObzo1kwp3Xmv+9V5WcAsd7Y4EATw1pHffTemZzT+pL8VRF9t
- x7K3SjHIN/T1llMfV4rKjh/Oos1Yd/iR+12kc0ywH4FaV8ElfaOxBPeHZ
- s51gNYh5N7tGiyQmpG1YEMHDWuwbzby7/yiswpKhLptwoCH3jW05CXBqV w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10236"; a="225990650"
-X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="225990650"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2022 02:00:47 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,311,1635231600"; d="scan'208";a="519886979"
-Received: from mismail5-ilbpg0.png.intel.com ([10.88.229.13])
- by orsmga007.jf.intel.com with ESMTP; 24 Jan 2022 02:00:43 -0800
-From: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>,
- Wong Vee Khee <vee.khee.wong@intel.com>,
- Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 24 Jan 2022 17:59:51 +0800
-Message-Id: <20220124095951.23845-3-mohammad.athari.ismail@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220124095951.23845-1-mohammad.athari.ismail@intel.com>
-References: <20220124095951.23845-1-mohammad.athari.ismail@intel.com>
-Cc: netdev@vger.kernel.org, mohammad.athari.ismail@intel.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net 2/2] net: stmmac: skip only
-	stmmac_ptp_register when resume from suspend
+ Mon, 24 Jan 2022 10:26:03 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20O8b4xu017029;
+ Mon, 24 Jan 2022 11:25:55 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=WXEhodCTaPV15wxYqgczeKJF8fRdlp3DbWK1Syv5xxU=;
+ b=6LO45CXcPsyeenkMNWx0te67DfrR2sla9XrzLcAJXnLcrC0elcTETMOoNl/GJh0w+AES
+ Tw9URyxBuQZZj6QnuOA6hVAuFZmFkR5oMQQd2PJ6LODE6TUSqOVFyAD90L8FwrTI59G1
+ e2GuM/aiKhxuUTMfQePCRdsj2Ay1MkobyCxyOOftO08gLXZCavzsoy5kGmAtmpkDltlY
+ Wside9tqIuJFsfq8GHeaX1QuyOYv6UmRgCiuDUmj74T6tHRx0VKwmGJAIusklnEXfhPK
+ G5lOfPQXNpQysJVyIqGd+O1wz2kaHZMrvih7aWrBflTmnrgloekQXkH14JIwoe+mNq0V kA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3dsrru0m7s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 24 Jan 2022 11:25:55 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1E6BD10002A;
+ Mon, 24 Jan 2022 11:25:51 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EB3CA2128B5;
+ Mon, 24 Jan 2022 11:25:51 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 24 Jan 2022 11:25:51
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Mon, 24 Jan 2022 11:25:13 +0100
+Message-ID: <20220124102524.295783-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-24_06,2022-01-24_01,2021-12-02_01
+Cc: julien.massot@iot.bzh, arnaud.pouliquen@foss.st.com,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v9 00/11] Restructure the rpmsg_char driver
+	and introduce rpmsg_ctrl driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,79 +69,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When resume from suspend, besides skipping PTP registration, it also
-skipping PTP HW initialization. This could cause PTP clock not able to
-operate properly when resume from suspend.
+Updates from V8 [1]:
+- rebase on 5.17-rc1 + rpmsg char cdev release fixes[2][3]
+- updates based on Bjorn Andersson's comments:
+  - remove rpmsg_create_default_ept API, set directly the ept->priv in rpmsg_chrdev_probe
+    function.
+  - rework commit message in [8/9]rpmsg: char: Introduce the "rpmsg-raw" channel
 
-To fix this, only stmmac_ptp_register() is skipped when resume from
-suspend.
+Patchset description:
 
-Fixes: fe1319291150 ("stmmac: Don't init ptp again when resume from suspend/hibernation")
-Cc: <stable@vger.kernel.org> # 5.15.x
-Signed-off-by: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+The current rpmsg_char module implements a /dev/rpmsg_ctrl interface that provides the ability to
+instantiate char devices (/dev/rpmsgX) associated with an rpmsg endpoint for communication with the
+remote processor.
+This implementation fits with QCOM rpmsg backend but not with the magement by chanel implemented
+in the generic rpmsg virtio backend.
+This series restructures the rpmsg_char driver to decorrelate the control part from the data part
+in order to improve its compatible with the rpmsg virtio backend.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index d7e261768f73..cfea38a50a73 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -884,7 +884,7 @@ EXPORT_SYMBOL_GPL(stmmac_init_tstamp_counter);
-  * This is done by looking at the HW cap. register.
-  * This function also registers the ptp driver.
-  */
--static int stmmac_init_ptp(struct stmmac_priv *priv)
-+static int stmmac_init_ptp(struct stmmac_priv *priv, bool ptp_register)
- {
- 	bool xmac = priv->plat->has_gmac4 || priv->plat->has_xgmac;
- 	int ret;
-@@ -914,7 +914,8 @@ static int stmmac_init_ptp(struct stmmac_priv *priv)
- 	priv->hwts_tx_en = 0;
- 	priv->hwts_rx_en = 0;
- 
--	stmmac_ptp_register(priv);
-+	if (ptp_register)
-+		stmmac_ptp_register(priv);
- 
- 	return 0;
- }
-@@ -3251,7 +3252,7 @@ static int stmmac_fpe_start_wq(struct stmmac_priv *priv)
-  *  0 on success and an appropriate (-)ve integer as defined in errno.h
-  *  file on failure.
-  */
--static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
-+static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 	u32 rx_cnt = priv->plat->rx_queues_to_use;
-@@ -3308,13 +3309,11 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
- 
- 	stmmac_mmc_setup(priv);
- 
--	if (init_ptp) {
--		ret = stmmac_init_ptp(priv);
--		if (ret == -EOPNOTSUPP)
--			netdev_warn(priv->dev, "PTP not supported by HW\n");
--		else if (ret)
--			netdev_warn(priv->dev, "PTP init failed\n");
--	}
-+	ret = stmmac_init_ptp(priv, ptp_register);
-+	if (ret == -EOPNOTSUPP)
-+		netdev_warn(priv->dev, "PTP not supported by HW\n");
-+	else if (ret)
-+		netdev_warn(priv->dev, "PTP init failed\n");
- 
- 	priv->eee_tw_timer = STMMAC_DEFAULT_TWT_LS;
- 
+Objective:
+- Expose a /dev/rpmsg_ctrlX interface for the application that is no longer dedicated to the
+  rpmsg_char but generalized to all rpmsg services. This offers capability to create and destroy
+  rpmsg channels from a user's application initiative (using the new RPMSG_CREATE_DEV_IOCTL and
+  RPMSG_DESTROY_DEV_IOCTL controls).
+  An application will be able to create/establish an rpmsg communication channel to communicate
+  with the remote processor, and not only wait the remote processor initiative.
+  This is interesting for example to establish a temporary communication link for diagnosis,
+  calibration, debugging... or instantiate  new data flows on some user actions.
+- Add capability to probe the rpmsg_char device at the initiative of the remote processor
+ (rpmsg service announcement mechanism).
+  This allows platforms based on the rpmsg virtio backend to create the /dev/rpmgX interface with
+  a rpmsg name service announcement.
+
+Subsets:
+  - Extract the control part of the char dev and create the rpmsg_ctrl.c file (patches 1 to 6)
+  - Introduce the "rpmsg-raw" channel in rpmsg_char(patches 7 to 10)
+  - Introduce the RPMSG_CREATE_DEV_IOCTL IOCTL and RPMSG_DESTROY_DEV_IOCTL to instantiate RPMsg
+    devices (patch 11)
+    The application can then create or release a channel by specifying:
+       - the name service of the device to instantiate.   
+       - the source address.
+       - the destination address.
+
+This series has be applied and tested on 'commit e783362eb54c ("Linux 5.17-rc1") +
+rpmsg_char cdev release fixes [2][3]
+
+[1] https://lkml.org/lkml/2021/12/7/186
+[2] https://lkml.org/lkml/2022/1/10/1129
+[3] https://lkml.org/lkml/2022/1/10/1130
+
+Arnaud Pouliquen (11):
+  rpmsg: char: Export eptdev create and destroy functions
+  rpmsg: Create the rpmsg class in core instead of in rpmsg char
+  rpmsg: Move the rpmsg control device from rpmsg_char to rpmsg_ctrl
+  arm: configs: Configs that had RPMSG_CHAR now get RPMSG_CTRL
+  RISC-V: configs: Configs that had RPMSG_CHAR now get RPMSG_CTRL
+  arm64: defconfig: Config that had RPMSG_CHAR now gets RPMSG_CTRL
+  rpmsg: Update rpmsg_chrdev_register_device function
+  rpmsg: char: Refactor rpmsg_chrdev_eptdev_create function
+  rpmsg: char: Add possibility to use default endpoint of the rpmsg
+    device
+  rpmsg: char: Introduce the "rpmsg-raw" channel
+  rpmsg: ctrl: Introduce new RPMSG_CREATE/RELEASE_DEV_IOCTL controls
+
+ arch/arm/configs/qcom_defconfig   |   1 +
+ arch/arm64/configs/defconfig      |   1 +
+ arch/riscv/configs/defconfig      |   1 +
+ arch/riscv/configs/rv32_defconfig |   1 +
+ drivers/rpmsg/Kconfig             |   8 +
+ drivers/rpmsg/Makefile            |   1 +
+ drivers/rpmsg/qcom_glink_native.c |   2 +-
+ drivers/rpmsg/qcom_smd.c          |   2 +-
+ drivers/rpmsg/rpmsg_char.c        | 231 +++++++++++-----------------
+ drivers/rpmsg/rpmsg_char.h        |  46 ++++++
+ drivers/rpmsg/rpmsg_core.c        |  15 +-
+ drivers/rpmsg/rpmsg_ctrl.c        | 243 ++++++++++++++++++++++++++++++
+ drivers/rpmsg/rpmsg_internal.h    |  10 +-
+ drivers/rpmsg/virtio_rpmsg_bus.c  |   2 +-
+ include/uapi/linux/rpmsg.h        |  10 ++
+ 15 files changed, 419 insertions(+), 155 deletions(-)
+ create mode 100644 drivers/rpmsg/rpmsg_char.h
+ create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
+
 -- 
-2.17.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
