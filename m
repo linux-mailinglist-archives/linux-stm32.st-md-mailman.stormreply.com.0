@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 608A5498DA2
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 20:36:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC632498B0C
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 20:10:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15B91C5F1D5;
-	Mon, 24 Jan 2022 19:36:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7ACF8C5F1D5;
+	Mon, 24 Jan 2022 19:10:24 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46436C57B6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4518EC5AB61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jan 2022 19:36:52 +0000 (UTC)
+ Mon, 24 Jan 2022 19:10:23 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EDCB1614DA;
- Mon, 24 Jan 2022 19:36:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B55AC340E7;
- Mon, 24 Jan 2022 19:36:49 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 00AA660010;
+ Mon, 24 Jan 2022 19:10:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDCC4C340E5;
+ Mon, 24 Jan 2022 19:10:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1643053010;
- bh=OZWrIYlmNnJeEG49q0gkOrjQAqbKYs8wTiNAlmZYCOk=;
+ s=korg; t=1643051421;
+ bh=WO3Y96d8ujRmduRbZRHZ6fINYqgCWEHggCq4NSV+Gr0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=l/6rC2AADJeNwy/1WEL5C6PawFECLFilfmEAhJVXJsKKcIIP6WWgM3wszNxVxqJvr
- 7yf/I1LLZaMMFLS1AacRYtQi8Lh1u9JmvEYN0FfypNlMaIj5cW0SjtxJs9i3zK55aD
- ij6aLFJhQ+lapsy61Y0nNCA+3wYq2vZz9Izjgv/8=
+ b=120WpT3DMAm5gwTtnDcLqpTrylMDnHHv2SCS5IVegT57QiGZUqCGGfY53BFDfEp+f
+ DhwVq9WwZ76FAx4GjwiWEssvIgWxGmZKszJ+y5cK0FE3/G2biqzSq4KeanhgYgNUSm
+ NYJ5ZLH8fZXy9B/oA9TuNUgf/M1J49/GUF41dq40=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	linux-crypto@vger.kernel.org
-Date: Mon, 24 Jan 2022 19:43:51 +0100
-Message-Id: <20220124184002.395346406@linuxfoundation.org>
+Date: Mon, 24 Jan 2022 19:43:52 +0100
+Message-Id: <20220124183942.146431609@linuxfoundation.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220124183953.750177707@linuxfoundation.org>
-References: <20220124183953.750177707@linuxfoundation.org>
+In-Reply-To: <20220124183937.101330125@linuxfoundation.org>
+References: <20220124183937.101330125@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Marek Vasut <marex@denx.de>, Lionel Debieve <lionel.debieve@st.com>,
@@ -44,7 +44,7 @@ Cc: Marek Vasut <marex@denx.de>, Lionel Debieve <lionel.debieve@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
  Fabien Dessenne <fabien.dessenne@st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5.4 247/320] crypto: stm32/crc32 - Fix kernel
+Subject: [Linux-stm32] [PATCH 4.14 157/186] crypto: stm32/crc32 - Fix kernel
 	BUG triggered in probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -98,12 +98,12 @@ Acked-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/crypto/stm32/stm32-crc32.c |    4 ++--
+ drivers/crypto/stm32/stm32_crc32.c |    4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
---- a/drivers/crypto/stm32/stm32-crc32.c
-+++ b/drivers/crypto/stm32/stm32-crc32.c
-@@ -230,7 +230,7 @@ static struct shash_alg algs[] = {
+--- a/drivers/crypto/stm32/stm32_crc32.c
++++ b/drivers/crypto/stm32/stm32_crc32.c
+@@ -206,7 +206,7 @@ static struct shash_alg algs[] = {
  		.digestsize     = CHKSUM_DIGEST_SIZE,
  		.base           = {
  			.cra_name               = "crc32",
@@ -112,7 +112,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  			.cra_priority           = 200,
  			.cra_flags		= CRYPTO_ALG_OPTIONAL_KEY,
  			.cra_blocksize          = CHKSUM_BLOCK_SIZE,
-@@ -252,7 +252,7 @@ static struct shash_alg algs[] = {
+@@ -228,7 +228,7 @@ static struct shash_alg algs[] = {
  		.digestsize     = CHKSUM_DIGEST_SIZE,
  		.base           = {
  			.cra_name               = "crc32c",
