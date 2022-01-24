@@ -2,52 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55432498887
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 19:43:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40B97499484
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 21:43:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F278CC5F1D5;
-	Mon, 24 Jan 2022 18:43:56 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5F1BC5F1D5;
+	Mon, 24 Jan 2022 20:43:27 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E1FDC5AB61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC1BBC5AB61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jan 2022 18:43:55 +0000 (UTC)
+ Mon, 24 Jan 2022 20:43:25 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C986FB81219;
- Mon, 24 Jan 2022 18:43:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03F6C340E5;
- Mon, 24 Jan 2022 18:43:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643049833;
- bh=fjJSY7FugE5Gp1KTxk0Zobf8q54Y/LM7PG/4KE3Tjb4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=UCfBDborgjCRg9qTZ252s9MeFIaljnltkwv73lPNL5IDOBRJRNujJaZuSgRc4mbMG
- Xa0zNzG/X9lqY5RF4Nk273KuNDvTD7cUsbW7F6EcmHi+g5e6xvcoezUCb9bNmDmAL9
- X4VK6HcYU6JgH3x6u+nF5Snh4+868bjkaKeI3V39m/ByQAZ5DGfPxxkm0/lCgr0Oq7
- cc3Ln3jEKVpF6mCHFSeixXap8HeV+LVZjnt0APiJ2BWiDisFipoRtdp1h9GqTn0LGb
- Ot91vltjJd38nPLkBsIyKcwnmGgmBTKAZncplUAc352I6aCDDMDajSE7BDOpWlF8G7
- rOiwv+e5EilZg==
-Date: Mon, 24 Jan 2022 10:43:51 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Message-ID: <20220124104351.2d5cab46@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
-In-Reply-To: <20220123132805.758-1-jszhang@kernel.org>
-References: <20220123132805.758-1-jszhang@kernel.org>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A6FEF608D4;
+ Mon, 24 Jan 2022 20:43:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B936C340EA;
+ Mon, 24 Jan 2022 20:43:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1643057004;
+ bh=8FTpx20CPyOOXFtNwPoa4MCozejgitLRpKaNV6dHwN8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=XE9StQPOKSAmQolOvjBhyGMyuLh3kBLupU8aBF9Q3ISApTLeVPvRGO5mPC7n+0oji
+ JTJkO9ok965mtE4SaF+qx/HFyKR8ry5RwT1HzfL8dNHO4l778g2CGbJDKsJni/oLit
+ A3UpJkoFgh1NgZo3kUAV19pzGOi2/EqmT/E0Mx8s=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org
+Date: Mon, 24 Jan 2022 19:43:07 +0100
+Message-Id: <20220124184124.185205895@linuxfoundation.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220124184100.867127425@linuxfoundation.org>
+References: <20220124184100.867127425@linuxfoundation.org>
+User-Agent: quilt/0.66
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Ripard <mripard@kernel.org>, linux-sunxi@lists.linux.dev,
- Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S
- . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-sun8i: fix double
- disable and unprepare "stmmaceth" clk
+Cc: Marek Vasut <marex@denx.de>, Lionel Debieve <lionel.debieve@st.com>,
+ Nicolas Toromanoff <nicolas.toromanoff@st.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
+ Fabien Dessenne <fabien.dessenne@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 5.15 670/846] crypto: stm32/crc32 - Fix kernel
+	BUG triggered in probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,16 +62,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, 23 Jan 2022 21:28:05 +0800 Jisheng Zhang wrote:
-> Fix warnings on Allwinner D1 platform:
-> 
-> [    1.604695] ------------[ cut here ]------------
-> [    1.609328] bus-emac already disabled
+From: Marek Vasut <marex@denx.de>
 
-Reading Samuel's feedback it sounds like the change will have to be
-reposted with a different commit message (either explaining why the
-fixes indeed works or as a clean up not a fix). 
-Marking Changes Requested in patchwork.
+commit 29009604ad4e3ef784fd9b9fef6f23610ddf633d upstream.
+
+The include/linux/crypto.h struct crypto_alg field cra_driver_name description
+states "Unique name of the transformation provider. " ... " this contains the
+name of the chip or provider and the name of the transformation algorithm."
+
+In case of the stm32-crc driver, field cra_driver_name is identical for all
+registered transformation providers and set to the name of the driver itself,
+which is incorrect. This patch fixes it by assigning a unique cra_driver_name
+to each registered transformation provider.
+
+The kernel crash is triggered when the driver calls crypto_register_shashes()
+which calls crypto_register_shash(), which calls crypto_register_alg(), which
+calls __crypto_register_alg(), which returns -EEXIST, which is propagated
+back through this call chain. Upon -EEXIST from crypto_register_shash(), the
+crypto_register_shashes() starts unregistering the providers back, and calls
+crypto_unregister_shash(), which calls crypto_unregister_alg(), and this is
+where the BUG() triggers due to incorrect cra_refcnt.
+
+Fixes: b51dbe90912a ("crypto: stm32 - Support for STM32 CRC32 crypto module")
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: <stable@vger.kernel.org> # 4.12+
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Fabien Dessenne <fabien.dessenne@st.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Lionel Debieve <lionel.debieve@st.com>
+Cc: Nicolas Toromanoff <nicolas.toromanoff@st.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+To: linux-crypto@vger.kernel.org
+Acked-by: Nicolas Toromanoff <nicolas.toromanoff@foss.st.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/crypto/stm32/stm32-crc32.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/drivers/crypto/stm32/stm32-crc32.c
++++ b/drivers/crypto/stm32/stm32-crc32.c
+@@ -279,7 +279,7 @@ static struct shash_alg algs[] = {
+ 		.digestsize     = CHKSUM_DIGEST_SIZE,
+ 		.base           = {
+ 			.cra_name               = "crc32",
+-			.cra_driver_name        = DRIVER_NAME,
++			.cra_driver_name        = "stm32-crc32-crc32",
+ 			.cra_priority           = 200,
+ 			.cra_flags		= CRYPTO_ALG_OPTIONAL_KEY,
+ 			.cra_blocksize          = CHKSUM_BLOCK_SIZE,
+@@ -301,7 +301,7 @@ static struct shash_alg algs[] = {
+ 		.digestsize     = CHKSUM_DIGEST_SIZE,
+ 		.base           = {
+ 			.cra_name               = "crc32c",
+-			.cra_driver_name        = DRIVER_NAME,
++			.cra_driver_name        = "stm32-crc32-crc32c",
+ 			.cra_priority           = 200,
+ 			.cra_flags		= CRYPTO_ALG_OPTIONAL_KEY,
+ 			.cra_blocksize          = CHKSUM_BLOCK_SIZE,
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
