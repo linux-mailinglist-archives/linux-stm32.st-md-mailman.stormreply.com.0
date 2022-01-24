@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA4DF497C67
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 10:48:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC719497C6A
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jan 2022 10:48:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6072BC5F1D6;
-	Mon, 24 Jan 2022 09:48:26 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7348FC5F1D6;
+	Mon, 24 Jan 2022 09:48:55 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 173C5C57B6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61C2DC57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jan 2022 09:48:25 +0000 (UTC)
+ Mon, 24 Jan 2022 09:48:53 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 41592B80EDF;
- Mon, 24 Jan 2022 09:48:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B205C340E1;
- Mon, 24 Jan 2022 09:48:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3A75561257;
+ Mon, 24 Jan 2022 09:48:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ABE7C340E1;
+ Mon, 24 Jan 2022 09:48:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1643017703;
- bh=dGt0sggPuh2en3HgriA360RmwyyDNaU/OzLOAGLvPZI=;
+ s=korg; t=1643017731;
+ bh=8tMlu+QSDM/I8mCrORzfZeXolB9GZpjMb0nJreLRuOw=;
  h=Subject:To:Cc:From:Date:From;
- b=pFRuQwXVJO+Rs5I625fT25D09Req6h0gqun/rSucNAdIy8MzgZ0Nvk7CJ34yPt0RR
- KBxWcmnAO8wLXP8nswCZfFNG+Py+USO2YWelmqCi42eu6j9nJE9Eqy4C49qrcH+Lv9
- wPLr6S3LzVJ7IeaSE+wWXlLPZCYYz0+gw0hwrVUc=
+ b=eqERAGhl9yoSAu9phM2p96sqlkQB5nPW1yQn0+IFYScJte1k+WZP4yfDIdPG8KR/S
+ /7SIg7L3Bl5qlbQBunrPT7d8yBKfBEAUziYeONSFsCkg+92gIp2hnq/L/QpHf4sw56
+ usopaXAWIREO844QmJ7qyML2up5aax1TfUC/7vjI=
 To: alexandre.torgue@foss.st.com, fabien.dessenne@st.com,
  gregkh@linuxfoundation.org, herbert@gondor.apana.org.au,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  lionel.debieve@st.com, marex@denx.de, nicolas.toromanoff@foss.st.com,
  nicolas.toromanoff@st.com
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 24 Jan 2022 10:48:20 +0100
-Message-ID: <1643017700222194@kroah.com>
+Date: Mon, 24 Jan 2022 10:48:40 +0100
+Message-ID: <164301772032238@kroah.com>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
 Cc: stable-commits@vger.kernel.org
 Subject: [Linux-stm32] Patch "crypto: stm32/crc32 - Fix kernel BUG triggered
-	in probe()" has been added to the 4.14-stable tree
+	in probe()" has been added to the 4.19-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,12 +62,12 @@ This is a note to let you know that I've just added the patch titled
 
     crypto: stm32/crc32 - Fix kernel BUG triggered in probe()
 
-to the 4.14-stable tree which can be found at:
+to the 4.19-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      crypto-stm32-crc32-fix-kernel-bug-triggered-in-probe.patch
-and it can be found in the queue-4.14 subdirectory.
+and it can be found in the queue-4.19 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -119,7 +119,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/crypto/stm32/stm32_crc32.c
 +++ b/drivers/crypto/stm32/stm32_crc32.c
-@@ -206,7 +206,7 @@ static struct shash_alg algs[] = {
+@@ -230,7 +230,7 @@ static struct shash_alg algs[] = {
  		.digestsize     = CHKSUM_DIGEST_SIZE,
  		.base           = {
  			.cra_name               = "crc32",
@@ -128,7 +128,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  			.cra_priority           = 200,
  			.cra_flags		= CRYPTO_ALG_OPTIONAL_KEY,
  			.cra_blocksize          = CHKSUM_BLOCK_SIZE,
-@@ -228,7 +228,7 @@ static struct shash_alg algs[] = {
+@@ -252,7 +252,7 @@ static struct shash_alg algs[] = {
  		.digestsize     = CHKSUM_DIGEST_SIZE,
  		.base           = {
  			.cra_name               = "crc32c",
@@ -141,7 +141,8 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from marex@denx.de are
 
-queue-4.14/crypto-stm32-crc32-fix-kernel-bug-triggered-in-probe.patch
+queue-4.19/crypto-stm32-cryp-fix-double-pm-exit.patch
+queue-4.19/crypto-stm32-crc32-fix-kernel-bug-triggered-in-probe.patch
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
