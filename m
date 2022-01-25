@@ -2,55 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E107D49B8EC
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jan 2022 17:41:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5175A49B8F4
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jan 2022 17:46:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0A2FC5F1D6;
-	Tue, 25 Jan 2022 16:41:01 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06C08C5F1D5;
+	Tue, 25 Jan 2022 16:46:18 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FD27C5AB61
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 25 Jan 2022 16:46:16 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28105C5F1D3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jan 2022 16:41:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=yIXj+GnFuO9Y0oDa9eYMnuwIkI/j3llfYS7PwlkKWdA=; b=BqdGIo3sHuIQtbbQTIeSjUqw2n
- xqqLvRXtEbb6EtlN+3AyxtztEpcgwjonzUfM/BIcscQmLUZ3p898OM8p0Pr4qKvpwNsCfBGHyhW/e
- /FzcoDRG7uTtLbJrQiTFO6fXwhYfKTtR/4/MO1A3xY+cR0JRxVyygiXiwcQCguTP/s8narxUnNWXH
- M2/8+qfxbzLLHbYVdAR9M8p69Oz+NU8+L7cN4Xw8+3As2HLyW2c5gxnDOxa8bHXjCbCGi+qo+14or
- Za/qalarWvUY37Yi5MWXjqpCgSkO8UA3GwDpzJyVas0UCD4+1bVeZkADb/Is5//g5WchkrOMujAVK
- NGkhx/kw==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:57424 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <rmk@armlinux.org.uk>)
- id 1nCOsK-0002CX-Dc; Tue, 25 Jan 2022 16:40:56 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1nCOsJ-005LTB-R6; Tue, 25 Jan 2022 16:40:55 +0000
-In-Reply-To: <YfAnkuhiMoeFcVnb@shell.armlinux.org.uk>
-References: <YfAnkuhiMoeFcVnb@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6950E60B55;
+ Tue, 25 Jan 2022 16:46:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4CA27C340EC;
+ Tue, 25 Jan 2022 16:46:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643129174;
+ bh=E6nb9O5phzVJO80Rxm8R+fHyUvq0B/Pzt/JBMopH6iU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=Aj6lWgOhJpgv3x1BncmUdCyFRng8SiLmfGyPTCxHkfMUR1JMn6Twk+8WePAKRGPic
+ IbhUu7r5A8Ifu5WTwgFrBBgPhQUt5JfvELDSnKgXRpYaGYNnph6TIarRtiTYgWkD1G
+ VGG/aePlYwnTn/jf+y+NvCp7XweWNkBLAanmL7CFiBcggNrsdeUyXwWqYdp7uQMI9P
+ zgFapGX43/V2d2XrCNnJi29JVtcL5XH99FSxT8iU0fAFQ1R5VQ9fZAhcCH6y6EC/fl
+ GqIoiP3cDoLYacwhY+z/ezyJ/0bGrzAGVVgz623zzL1Qm9L6HCS8eeNNTBlLfQs22V
+ eqt7QKWi1WFNw==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 31E2FE5D087; Tue, 25 Jan 2022 16:46:14 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1nCOsJ-005LTB-R6@rmk-PC.armlinux.org.uk>
-Date: Tue, 25 Jan 2022 16:40:55 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH net-next 7/7] net: stmmac: use
-	.mac_select_pcs() interface
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <164312917420.15904.15680846947944122595.git-patchwork-notify@kernel.org>
+Date: Tue, 25 Jan 2022 16:46:14 +0000
+References: <20220123155458.2288-1-jszhang@kernel.org>
+In-Reply-To: <20220123155458.2288-1-jszhang@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: reduce unnecessary wakeups
+	from eee sw timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,57 +64,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert stmmac to use the mac_select_pcs() interface rather than using
-phylink_set_pcs(). The intention here is to unify the approach for PCS
-and eventually to remove phylink_set_pcs().
+Hello:
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+This patch was applied to netdev/net.git (master)
+by David S. Miller <davem@davemloft.net>:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 0fd96a98f489..e4381e13dae5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -936,6 +936,17 @@ static void stmmac_mac_flow_ctrl(struct stmmac_priv *priv, u32 duplex)
- 			priv->pause, tx_cnt);
- }
- 
-+static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
-+						 phy_interface_t interface)
-+{
-+	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
-+
-+	if (!priv->hw->xpcs)
-+		return NULL;
-+
-+	return &priv->hw->xpcs->pcs;
-+}
-+
- static void stmmac_mac_config(struct phylink_config *config, unsigned int mode,
- 			      const struct phylink_link_state *state)
- {
-@@ -1073,6 +1084,7 @@ static void stmmac_mac_link_up(struct phylink_config *config,
- 
- static const struct phylink_mac_ops stmmac_phylink_mac_ops = {
- 	.validate = phylink_generic_validate,
-+	.mac_select_pcs = stmmac_mac_select_pcs,
- 	.mac_config = stmmac_mac_config,
- 	.mac_link_down = stmmac_mac_link_down,
- 	.mac_link_up = stmmac_mac_link_up,
-@@ -1209,9 +1221,6 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
- 	if (IS_ERR(phylink))
- 		return PTR_ERR(phylink);
- 
--	if (priv->hw->xpcs)
--		phylink_set_pcs(phylink, &priv->hw->xpcs->pcs);
--
- 	priv->phylink = phylink;
- 	return 0;
- }
+On Sun, 23 Jan 2022 23:54:58 +0800 you wrote:
+> Currently, on EEE capable platforms, if EEE SW timer is used, the SW
+> timer cause 1 wakeup/s even if the TX has successfully entered EEE.
+> Remove this unnecessary wakeup by only calling mod_timer() if we
+> haven't successfully entered EEE.
+> 
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> 
+> [...]
+
+Here is the summary with links:
+  - net: stmmac: reduce unnecessary wakeups from eee sw timer
+    https://git.kernel.org/netdev/net/c/c74ead223deb
+
+You are awesome, thank you!
 -- 
-2.30.2
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
