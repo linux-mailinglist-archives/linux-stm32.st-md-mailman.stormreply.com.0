@@ -2,56 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85BC149CF39
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jan 2022 17:08:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB79049CF92
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jan 2022 17:24:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35988C5F1E1;
-	Wed, 26 Jan 2022 16:08:14 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B51FC5718D
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jan 2022 16:08:12 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70F01C60467;
+	Wed, 26 Jan 2022 16:24:26 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7B338B81EDF;
- Wed, 26 Jan 2022 16:08:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85BC5C340E6;
- Wed, 26 Jan 2022 16:08:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643213291;
- bh=olUcBg3FaL1fnk1cDciqRO5ZpKQRH3h5GR/QbkRPeRo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LbTLiB70ys6NKZX+KVQu5wfXONcysAOQLgBhB/R2f/YXUuPFHn8vmuF9LGYznN/Ol
- WPdTbRwDCZN1m4sj1STFBfAJwxkJDe2Mhslq0zL/WcpRs8nV1ax6ZVBOQqkvIDyWj4
- VmarIHU66955y9TPUrCoLnDosXB3yUexNEjXHmBmpfpIYjKGbLYsC/XeSv+FGow/jf
- ULJgpRb/0N7fTQtuaXfne4rLWlZb8YEeYq6aHvxbl5pMwS54KP8v1wZbza1mpOnEHU
- ni1xw1Nx9KS2qkV6lZM1U1OgiwpsCOgVSbfEy+vpDxSABy+dU2GYaya8/TBnkbuXsx
- 5J46yQOOQohPQ==
-Date: Thu, 27 Jan 2022 00:00:31 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Samuel Holland <samuel@sholland.org>,
- Joakim Zhang <qiangqing.zhang@nxp.com>
-Message-ID: <YfFwH9gHdN3fnx22@xhacker>
-References: <20220123132805.758-1-jszhang@kernel.org>
- <38c41c04-abde-4d55-ed7c-515b6bba9c54@sholland.org>
- <YfFkz1d9onk+ITGg@xhacker>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7DB0C60464
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 26 Jan 2022 16:24:24 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20QCbu9J017387;
+ Wed, 26 Jan 2022 17:24:14 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=Fiqxr9WvJc8dTYlWkypJHXgtIa3fflHuloS/kZK9mNg=;
+ b=dIM//TrRaau/P+Q11pVcDuNsRdx3Yg73c6Su4J3X/u2a7J5mvcbjI8BeAhuN7oXSalUX
+ V4/hBR6G94mBjP/nua0Jw9NDJIBtRMUVPMWi4pyW/XMKpS1BI2BsQiEPGNESmlaFC62d
+ H2IugLCvvOAnFOhNcaUtWZ4ayePZvnt2Er4pj0PROMhO4y/KRsl7bkRCrXfxMFs3blME
+ +WAiu2g6it/o9xmFnkloAfvkkxsPtpSpdHDtZkV4TjOqgTZLrpjjlrx2nYARA2c32MYA
+ Ogb7fWOopqdS3SBglmo0yEtT2hIVoNTwb0idlmb6pYwBiygJNR6FifENQXIUK4yyqjmk GQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3du26mjr11-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 26 Jan 2022 17:24:14 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 53FCD100038;
+ Wed, 26 Jan 2022 17:24:13 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 47B452291D2;
+ Wed, 26 Jan 2022 17:24:13 +0100 (CET)
+Received: from localhost (10.75.127.49) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 26 Jan 2022 17:24:12
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Wed, 26 Jan 2022 17:24:01 +0100
+Message-ID: <20220126162405.1131323-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YfFkz1d9onk+ITGg@xhacker>
-Cc: Joakim Zhang <qiangqing.zhang@nxp.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Ripard <mripard@kernel.org>, linux-sunxi@lists.linux.dev,
- Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-sun8i: fix double
- disable and unprepare "stmmaceth" clk
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-26_05,2022-01-26_01,2021-12-02_01
+Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
+ Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ arnaud.pouliquen@foss.st.com, Christoph Hellwig <hch@lst.de>
+Subject: [Linux-stm32] [RFC PATCH v3 0/4] remoteproc: restructure the
+	remoteproc VirtIO device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,154 +75,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 26, 2022 at 11:12:28PM +0800, Jisheng Zhang wrote:
-> On Sun, Jan 23, 2022 at 01:43:37PM -0600, Samuel Holland wrote:
-> > On 1/23/22 7:28 AM, Jisheng Zhang wrote:
-> > > Fix warnings on Allwinner D1 platform:
-> > > 
-> > > [    1.604695] ------------[ cut here ]------------
-> > > [    1.609328] bus-emac already disabled
-> > > [    1.613015] WARNING: CPU: 0 PID: 38 at drivers/clk/clk.c:952 clk_core_disable+0xcc/0xec
-> > > [    1.621039] CPU: 0 PID: 38 Comm: kworker/u2:1 Not tainted 5.14.0-rc4#1
-> > > [    1.627653] Hardware name: Allwinner D1 NeZha (DT)
-> > > [    1.632443] Workqueue: events_unbound deferred_probe_work_func
-> > > [    1.638286] epc : clk_core_disable+0xcc/0xec
-> > > [    1.642561]  ra : clk_core_disable+0xcc/0xec
-> > > [    1.646835] epc : ffffffff8023c2ec ra : ffffffff8023c2ec sp : ffffffd00411bb10
-> > > [    1.654054]  gp : ffffffff80ec9988 tp : ffffffe00143a800 t0 : ffffffff80ed6a6f
-> > > [    1.661272]  t1 : ffffffff80ed6a60 t2 : 0000000000000000 s0 : ffffffe001509e00
-> > > [    1.668489]  s1 : 0000000000000001 a0 : 0000000000000019 a1 : ffffffff80e80bd8
-> > > [    1.675707]  a2 : 00000000ffffefff a3 : 00000000000000f4 a4 : 0000000000000002
-> > > [    1.682924]  a5 : 0000000000000001 a6 : 0000000000000030 a7 : 00000000028f5c29
-> > > [    1.690141]  s2 : 0000000000000800 s3 : ffffffe001375000 s4 : ffffffe01fdf7a80
-> > > [    1.697358]  s5 : ffffffe001375010 s6 : ffffffff8001fc10 s7 : ffffffffffffffff
-> > > [    1.704577]  s8 : 0000000000000001 s9 : ffffffff80ecb248 s10: ffffffe001b80000
-> > > [    1.711794]  s11: ffffffe001b80760 t3 : 0000000000000062 t4 : ffffffffffffffff
-> > > [    1.719012]  t5 : ffffffff80e0f6d8 t6 : ffffffd00411b8f0
-> > > [    1.724321] status: 8000000201800100 badaddr: 0000000000000000 cause: 0000000000000003
-> > > [    1.732233] [<ffffffff8023c2ec>] clk_core_disable+0xcc/0xec
-> > > [    1.737810] [<ffffffff80240430>] clk_disable+0x38/0x78
-> > > [    1.742956] [<ffffffff8001fc0c>] worker_thread+0x1a8/0x4d8
-> > > [    1.748451] [<ffffffff8031a500>] stmmac_remove_config_dt+0x1c/0x4c
-> > > [    1.754646] [<ffffffff8031c8ec>] sun8i_dwmac_probe+0x378/0x82c
-> > > [    1.760484] [<ffffffff8001fc0c>] worker_thread+0x1a8/0x4d8
-> > > [    1.765975] [<ffffffff8029a6c8>] platform_probe+0x64/0xf0
-> > > [    1.771382] [<ffffffff8029833c>] really_probe.part.0+0x8c/0x30c
-> > > [    1.777305] [<ffffffff8029865c>] __driver_probe_device+0xa0/0x148
-> > > [    1.783402] [<ffffffff8029873c>] driver_probe_device+0x38/0x138
-> > > [    1.789324] [<ffffffff802989cc>] __device_attach_driver+0xd0/0x170
-> > > [    1.795508] [<ffffffff802988f8>] __driver_attach_async_helper+0xbc/0xc0
-> > > [    1.802125] [<ffffffff802965ac>] bus_for_each_drv+0x68/0xb4
-> > > [    1.807701] [<ffffffff80298d1c>] __device_attach+0xd8/0x184
-> > > [    1.813277] [<ffffffff802967b0>] bus_probe_device+0x98/0xbc
-> > > [    1.818852] [<ffffffff80297904>] deferred_probe_work_func+0x90/0xd4
-> > > [    1.825122] [<ffffffff8001f8b8>] process_one_work+0x1e4/0x390
-> > > [    1.830872] [<ffffffff8001fd80>] worker_thread+0x31c/0x4d8
-> > > [    1.836362] [<ffffffff80026bf4>] kthreadd+0x94/0x188
-> > > [    1.841335] [<ffffffff80026bf4>] kthreadd+0x94/0x188
-> > > [    1.846304] [<ffffffff8001fa60>] process_one_work+0x38c/0x390
-> > > [    1.852054] [<ffffffff80026564>] kthread+0x124/0x160
-> > > [    1.857021] [<ffffffff8002643c>] set_kthread_struct+0x5c/0x60
-> > > [    1.862770] [<ffffffff80001f08>] ret_from_syscall_rejected+0x8/0xc
-> > > [    1.868956] ---[ end trace 8d5c6046255f84a0 ]---
-> > > [    1.873675] ------------[ cut here ]------------
-> > > [    1.878366] bus-emac already unprepared
-> > > [    1.882378] WARNING: CPU: 0 PID: 38 at drivers/clk/clk.c:810 clk_core_unprepare+0xe4/0x168
-> > > [    1.890673] CPU: 0 PID: 38 Comm: kworker/u2:1 Tainted: G        W	5.14.0-rc4 #1
-> > > [    1.898674] Hardware name: Allwinner D1 NeZha (DT)
-> > > [    1.903464] Workqueue: events_unbound deferred_probe_work_func
-> > > [    1.909305] epc : clk_core_unprepare+0xe4/0x168
-> > > [    1.913840]  ra : clk_core_unprepare+0xe4/0x168
-> > > [    1.918375] epc : ffffffff8023d6cc ra : ffffffff8023d6cc sp : ffffffd00411bb10
-> > > [    1.925593]  gp : ffffffff80ec9988 tp : ffffffe00143a800 t0 : 0000000000000002
-> > > [    1.932811]  t1 : ffffffe01f743be0 t2 : 0000000000000040 s0 : ffffffe001509e00
-> > > [    1.940029]  s1 : 0000000000000001 a0 : 000000000000001b a1 : ffffffe00143a800
-> > > [    1.947246]  a2 : 0000000000000000 a3 : 00000000000000f4 a4 : 0000000000000001
-> > > [    1.954463]  a5 : 0000000000000000 a6 : 0000000005fce2a5 a7 : 0000000000000001
-> > > [    1.961680]  s2 : 0000000000000800 s3 : ffffffff80afeb90 s4 : ffffffe01fdf7a80
-> > > [    1.968898]  s5 : ffffffe001375010 s6 : ffffffff8001fc10 s7 : ffffffffffffffff
-> > > [    1.976115]  s8 : 0000000000000001 s9 : ffffffff80ecb248 s10: ffffffe001b80000
-> > > [    1.983333]  s11: ffffffe001b80760 t3 : ffffffff80b39120 t4 : 0000000000000001
-> > > [    1.990550]  t5 : 0000000000000000 t6 : ffffffe001600002
-> > > [    1.995859] status: 8000000201800120 badaddr: 0000000000000000 cause: 0000000000000003
-> > > [    2.003771] [<ffffffff8023d6cc>] clk_core_unprepare+0xe4/0x168
-> > > [    2.009609] [<ffffffff802403a0>] clk_unprepare+0x24/0x3c
-> > > [    2.014929] [<ffffffff8031a508>] stmmac_remove_config_dt+0x24/0x4c
-> > > [    2.021125] [<ffffffff8031c8ec>] sun8i_dwmac_probe+0x378/0x82c
-> > > [    2.026965] [<ffffffff8001fc0c>] worker_thread+0x1a8/0x4d8
-> > > [    2.032463] [<ffffffff8029a6c8>] platform_probe+0x64/0xf0
-> > > [    2.037871] [<ffffffff8029833c>] really_probe.part.0+0x8c/0x30c
-> > > [    2.043795] [<ffffffff8029865c>] __driver_probe_device+0xa0/0x148
-> > > [    2.049892] [<ffffffff8029873c>] driver_probe_device+0x38/0x138
-> > > [    2.055815] [<ffffffff802989cc>] __device_attach_driver+0xd0/0x170
-> > > [    2.061999] [<ffffffff802988f8>] __driver_attach_async_helper+0xbc/0xc0
-> > > [    2.068616] [<ffffffff802965ac>] bus_for_each_drv+0x68/0xb4
-> > > [    2.074193] [<ffffffff80298d1c>] __device_attach+0xd8/0x184
-> > > [    2.079769] [<ffffffff802967b0>] bus_probe_device+0x98/0xbc
-> > > [    2.085345] [<ffffffff80297904>] deferred_probe_work_func+0x90/0xd4
-> > > [    2.091616] [<ffffffff8001f8b8>] process_one_work+0x1e4/0x390
-> > > [    2.097367] [<ffffffff8001fd80>] worker_thread+0x31c/0x4d8
-> > > [    2.102858] [<ffffffff80026bf4>] kthreadd+0x94/0x188
-> > > [    2.107830] [<ffffffff80026bf4>] kthreadd+0x94/0x188
-> > > [    2.112800] [<ffffffff8001fa60>] process_one_work+0x38c/0x390
-> > > [    2.118551] [<ffffffff80026564>] kthread+0x124/0x160
-> > > [    2.123520] [<ffffffff8002643c>] set_kthread_struct+0x5c/0x60
-> > > [    2.129268] [<ffffffff80001f08>] ret_from_syscall_rejected+0x8/0xc
-> > > [    2.135455] ---[ end trace 8d5c6046255f84a1 ]---
-> > > 
-> > > the dwmmac-sun8i driver will get the "stmmaceth" clk as tx_clk during
-> > > driver initialization. If stmmac_dvr_probe() fails due to various
-> > > reasons, sun8i_dwmac_exit() will disable and unprepare the "stmmaceth"
-> > > clk, then stmmac_remove_config_dt() will disable and unprepare the
-> > > clk again.
-> > 
-> > This should still be balanced, because both stmmac_probe_config_dt and
-> > sun8i_dwmac_init prepare/enable the clock, so the dwmac-sun8i glue layer calls
-> > stmmac_dvr_probe with the clock having an enable count of 2. It looks like the
-> > underlying issue is that commit 5ec55823438e ("net: stmmac: add clocks
-> > management for gmac driver") introduces unbalanced runtime PM.
-> 
-> I added some printk then retested, the problem is triggered as below:
-> 
-> stmmac_probe_config_dt() enable the clk
-> sun8i_dwmac_init() enble the clk again
-> stmmac_dvr_probe() succeed, but it calls pm_runtime_put(), so rpm will
-> disable the clk
-> sun8i_dwmac_reset() fails due to various reason
-> sun8i_dwmac_exit() disable the clk, this is fine
-> stmmac_remove_config_dt() disable the clk again, so ccf complains.
-> 
-> The key here is: whether we should let stmmac_dvr_probe() calls
-> pm_runtime_put() or let stmmac users to determine whether we could
-> let rpm go?
-> If we keep current behavior: stmmac users need to take care
-> the code after stmmac_dvr_probe, including error handling code path,
-> if we touch access registers, we need to call pm_runtime_get_sync()
-> firstly.
-> 
-> Since the commit 5ec55823438e has been in for a long time, I'll submit
-> a patch to follow this way.
-> 
+Update from V2 [1]:
+In order to better handle error cases and to have something more symmetrical between
+the functions in charge of rvdev initialization/deletion, the patchset has been reworked.
+ - Introduction in the first patch, of rproc_vdev_data structure which allows to better
+   decorrelate the rproc from the management of the rvdev structure. This structure is reused
+   in the last patch of the series for the creation of the remoteproc virtio platform device.
+ - In addition to the previous version, the management of the vring lifecycle has been fully
+   migrated to the remoteproc_virtio.c (rproc_parse_vring, rproc_alloc_vring, rproc_free_vring)
 
-After reading the code and commit history, I found some users suffering
-from the runtimepm issues, for example, dwmac-rk.c, so I changed my
-idea. I think it's better to let stmmac users to call pm_runtime_put():
+[1] https://lkml.org/lkml/2021/12/22/111
 
-First of all, only the users know whether it's safe to finally
-keep the mac runtime suspended after probe.
+Patchset description:
 
-Secondly, if the users need to do platform specific operations after
-stmmac_dvr_probe(), especially needs to access some registers, we have
-to resume the mac firstly. The error handling code path also needs to
-take care of it. It looks a bit strange resume immediately resume the
-mac after suspending it.
+This series is a part of the work initiated a long time ago in 
+the series "remoteproc: Decorelate virtio from core"[2]
 
-Any suggestion is welcome.
+Objective of the work:
+- Update the remoteproc VirtIO device creation (use platform device)
+- Allow to declare remoteproc VirtIO device in DT
+    - declare resources associated to a remote proc VirtIO
+    - declare a list of VirtIO supported by the platform.
+- Prepare the enhancement to more VirtIO devices (e.g I2C, audio, video, ...).
+  For instance be able to declare a I2C device in a virtio-i2C node.
+- Keep the legacy working!
+- Try to improve the picture about concerns reported by Christoph Hellwing [3][4]
 
-PS: Since this would partially revert commit 5ec55823438e, I add Joakim
-into the email thread.
+[2] https://lkml.org/lkml/2020/4/16/1817
+[3] https://lkml.org/lkml/2021/6/23/607
+[4] https://patchwork.kernel.org/project/linux-remoteproc/patch/AOKowLclCbOCKxyiJ71WeNyuAAj2q8EUtxrXbyky5E@cp7-web-042.plabs.ch/
 
-Thanks
+In term of device tree this would result in such hiearchy (stm32mp1 example with 2 virtio RPMSG):
+
+	m4_rproc: m4@10000000 {
+		compatible = "st,stm32mp1-m4";
+		reg = <0x10000000 0x40000>,
+		      <0x30000000 0x40000>,
+		      <0x38000000 0x10000>;
+        memory-region = <&retram>, <&mcuram>,<&mcuram2>;
+        mboxes = <&ipcc 2>, <&ipcc 3>;
+        mbox-names = "shutdown", "detach";
+        status = "okay";
+
+        #address-cells = <1>;
+        #size-cells = <0>;
+        
+        vdev@0 {
+		compatible = "rproc-virtio";
+		reg = <0>;
+		virtio,id = <7>;  /* RPMSG */
+		memory-region = <&vdev0vring0>, <&vdev0vring1>, <&vdev0buffer>;
+		mboxes = <&ipcc 0>, <&ipcc 1>;
+		mbox-names = "vq0", "vq1";
+		status = "okay";
+        };
+
+        vdev@1 {
+		compatible = "rproc-virtio";
+		reg = <1>;
+		virtio,id = <7>;  /*RPMSG */
+		memory-region = <&vdev1vring0>, <&vdev1vring1>, <&vdev1buffer>;
+		mboxes = <&ipcc 4>, <&ipcc 5>;
+		mbox-names = "vq0", "vq1";
+		status = "okay";
+        };
+};
+
+I have divided the work in 4 steps to simplify the review, This series implements only
+the step 1:
+step 1:  redefine the remoteproc VirtIO device as a platform device
+  - migrate rvdev management in remoteproc virtio.c,
+  - create a remotproc virtio config ( can be disabled for platform that not use VirtIO IPC.
+step 2: add possibility to declare and prob a VirtIO sub node
+  - VirtIO bindings declaration,
+  - multi DT VirtIO devices support,
+  - introduction of a remote proc virtio bind device mechanism ,
+=> https://github.com/arnopo/linux/commits/step2-virtio-in-DT
+step 3: Add memory declaration in VirtIO subnode
+=> https://github.com/arnopo/linux/commits/step3-virtio-memories
+step 4: Add mailbox declaration in VirtIO subnode
+=> https://github.com/arnopo/linux/commits/step4-virtio-mailboxes
+
+Arnaud Pouliquen (4):
+  remoteproc: core: Introduce virtio device add/remove functions
+  remoteproc: core: Introduce rproc_register_rvdev function
+  remoteproc: Move rproc_vdev management to remoteproc_virtio.c
+  remoteproc: virtio: Create platform device for the remoteproc_virtio
+
+ drivers/remoteproc/remoteproc_core.c     | 159 +++----------------
+ drivers/remoteproc/remoteproc_internal.h |  33 +++-
+ drivers/remoteproc/remoteproc_virtio.c   | 193 ++++++++++++++++++++---
+ include/linux/remoteproc.h               |   6 +-
+ 4 files changed, 227 insertions(+), 164 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
