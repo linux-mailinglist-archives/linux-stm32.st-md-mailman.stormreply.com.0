@@ -2,53 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C7CC49C28F
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jan 2022 05:18:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32DB649C293
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jan 2022 05:18:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6904C5F1D5;
-	Wed, 26 Jan 2022 04:18:02 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C354CC5EC76
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jan 2022 04:18:01 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6AFBC5F1D5;
+	Wed, 26 Jan 2022 04:18:16 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id C9757CE194E;
- Wed, 26 Jan 2022 04:17:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B32C340E3;
- Wed, 26 Jan 2022 04:17:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643170678;
- bh=MaAuNjsFO8On+BGpUOJ4aK1T9MBVNUh+44P2Z4qFPYQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=cwQgwPJRdJ0WHqCqAeWadgK+l1IyR8R05fdGOpE3f90v/9Ocq2lw1LDrenpG8/++/
- 0bly1h4lIoY1v8CpsT7bVS4nLTaX4DPGQ6lnpLJKg3G0n0gqM9af7BGFVW94y75Y8n
- ZuJ7zuNkG5DK7zmOMxT2VCLsxahb9u6jfrgzLybhiWvhxkFjgx2weWPdnrD6i+6Anj
- d3Zzl0xzlwM0kjCF7uKvK+K6++Rn0uiiivlAX6fVtCZ7nhrdJRU0EsRolboOcSag92
- NJ8fq7P66AT8IjK0TVB21pjKjmAsa1QskuKMIpB+4MwlFPbwaYYSMRiW+g1pezaYWm
- vV9d8AgmG3u4Q==
-Date: Tue, 25 Jan 2022 20:17:56 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
-Message-ID: <20220125201756.1606e1c4@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
-In-Reply-To: <20220125032324.4055-3-mohammad.athari.ismail@intel.com>
-References: <20220125032324.4055-1-mohammad.athari.ismail@intel.com>
- <20220125032324.4055-3-mohammad.athari.ismail@intel.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 574E0C5EC76
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 26 Jan 2022 04:18:15 +0000 (UTC)
+X-UUID: bf269328d4f74b1ba8d5510d6c5114ba-20220126
+X-UUID: bf269328d4f74b1ba8d5510d6c5114ba-20220126
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw01.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 740193489; Wed, 26 Jan 2022 12:18:11 +0800
+Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.792.3; 
+ Wed, 26 Jan 2022 12:18:10 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by mtkexhb02.mediatek.inc
+ (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 26 Jan 2022 12:18:09 +0800
+Received: from mtksdccf07 (172.21.84.99) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 26 Jan 2022 12:18:09 +0800
+Message-ID: <54aa0b9c88cf421eb382def79f3e06ef93d33c02.camel@mediatek.com>
+From: Jason-JH Lin <jason-jh.lin@mediatek.com>
+To: CK Hu <ck.hu@mediatek.com>, Rob Herring <robh+dt@kernel.org>, "Matthias
+ Brugger" <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+Date: Wed, 26 Jan 2022 12:18:09 +0800
+In-Reply-To: <72aa6c751db15e4aac813247c309fae622180056.camel@mediatek.com>
+References: <20220107101425.6917-1-jason-jh.lin@mediatek.com>
+ <20220107101425.6917-9-jason-jh.lin@mediatek.com>
+ <72aa6c751db15e4aac813247c309fae622180056.camel@mediatek.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
- Voon Weifeng <weifeng.voon@intel.com>, Wong Vee Khee <vee.khee.wong@intel.com>,
- netdev@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S .
- Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2 2/2] net: stmmac: skip only
- stmmac_ptp_register when resume from suspend
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Jitao shi <jitao.shi@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, fshao@chromium.org,
+ David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
+ singo.chang@mediatek.com, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ roy-cw.yeh@mediatek.com, Fabien Parent <fparent@baylibre.com>,
+ moudy.ho@mediatek.com, linux-mediatek@lists.infradead.org,
+ Daniel Vetter <daniel@ffwll.ch>, hsinyi@chromium.org,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>, nancy.lin@mediatek.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v14 08/12] soc: mediatek: add mtk-mmsys
+ support for mt8195 vdosys0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,73 +70,170 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 25 Jan 2022 11:23:24 +0800 Mohammad Athari Bin Ismail wrote:
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index d7e261768f73..b8e5e19e6f7b 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -880,11 +880,12 @@ EXPORT_SYMBOL_GPL(stmmac_init_tstamp_counter);
->  /**
->   * stmmac_init_ptp - init PTP
->   * @priv: driver private structure
-> + * @ptp_register: register PTP if set
->   * Description: this is to verify if the HW supports the PTPv1 or PTPv2.
->   * This is done by looking at the HW cap. register.
->   * This function also registers the ptp driver.
->   */
-> -static int stmmac_init_ptp(struct stmmac_priv *priv)
-> +static int stmmac_init_ptp(struct stmmac_priv *priv, bool ptp_register)
->  {
->  	bool xmac = priv->plat->has_gmac4 || priv->plat->has_xgmac;
->  	int ret;
-> @@ -914,7 +915,8 @@ static int stmmac_init_ptp(struct stmmac_priv *priv)
->  	priv->hwts_tx_en = 0;
->  	priv->hwts_rx_en = 0;
->  
-> -	stmmac_ptp_register(priv);
-> +	if (ptp_register)
-> +		stmmac_ptp_register(priv);
+Hi CK,
 
-stmmac_init_ptp() only has one caller, and the registration step is last.
-Wouldn't it be better to move the stmmac_ptp_register() call out to
-stmmac_hw_setup()? That way we don't need to pass extra arguments to init.
+Thanks for the reviews.
 
->  	return 0;
->  }
-> @@ -3241,7 +3243,7 @@ static int stmmac_fpe_start_wq(struct stmmac_priv *priv)
->  /**
->   * stmmac_hw_setup - setup mac in a usable state.
->   *  @dev : pointer to the device structure.
-> - *  @init_ptp: initialize PTP if set
-> + *  @ptp_register: register PTP if set
->   *  Description:
->   *  this is the main function to setup the HW in a usable state because the
->   *  dma engine is reset, the core registers are configured (e.g. AXI,
-> @@ -3251,7 +3253,7 @@ static int stmmac_fpe_start_wq(struct stmmac_priv *priv)
->   *  0 on success and an appropriate (-)ve integer as defined in errno.h
->   *  file on failure.
->   */
-> -static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
-> +static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
->  {
->  	struct stmmac_priv *priv = netdev_priv(dev);
->  	u32 rx_cnt = priv->plat->rx_queues_to_use;
-> @@ -3308,13 +3310,11 @@ static int stmmac_hw_setup(struct net_device *dev, bool init_ptp)
->  
->  	stmmac_mmc_setup(priv);
->  
-> -	if (init_ptp) {
-> -		ret = stmmac_init_ptp(priv);
-> -		if (ret == -EOPNOTSUPP)
-> -			netdev_warn(priv->dev, "PTP not supported by HW\n");
-> -		else if (ret)
-> -			netdev_warn(priv->dev, "PTP init failed\n");
-> -	}
-> +	ret = stmmac_init_ptp(priv, ptp_register);
-> +	if (ret == -EOPNOTSUPP)
-> +		netdev_warn(priv->dev, "PTP not supported by HW\n");
-> +	else if (ret)
-> +		netdev_warn(priv->dev, "PTP init failed\n");
+On Tue, 2022-01-25 at 11:44 +0800, CK Hu wrote:
+> Hi, Jason:
+> 
+> On Fri, 2022-01-07 at 18:14 +0800, jason-jh.lin wrote:
+> > Add mt8195 vdosys0 clock driver name and routing table to
+> > the driver data of mtk-mmsys.
+> > 
+> > Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
+> > Acked-by: AngeloGioacchino Del Regno <
+> > angelogioacchino.delregno@collabora.com>
+> > ---
+> > The vdosys1 impelmentation patch [1] will be dependened on this
+> > patch.
+> > [1] soc: mediatek: add mtk-mmsys support for mt8195 vdosys1
+> > - 
+> > 
+https://patchwork.kernel.org/project/linux-mediatek/patch/20211208024426.15595-6-nancy.lin@mediatek.com/
+> > ---
+> >  drivers/soc/mediatek/mt8195-mmsys.h    | 220
+> > +++++++++++++++++++++++++
+> >  drivers/soc/mediatek/mtk-mmsys.c       |  11 ++
+> >  include/linux/soc/mediatek/mtk-mmsys.h |   9 +
+> >  3 files changed, 240 insertions(+)
+> >  create mode 100644 drivers/soc/mediatek/mt8195-mmsys.h
+> > 
+> > diff --git a/drivers/soc/mediatek/mt8195-mmsys.h
+> > b/drivers/soc/mediatek/mt8195-mmsys.h
+> > new file mode 100644
+> > index 000000000000..e04cabdfa2dc
+> > --- /dev/null
+> > +++ b/drivers/soc/mediatek/mt8195-mmsys.h
+> > @@ -0,0 +1,220 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +
+> > +#ifndef __SOC_MEDIATEK_MT8195_MMSYS_H
+> > +#define __SOC_MEDIATEK_MT8195_MMSYS_H
+> > +
+> > +#define MT8195_VDO0_OVL_MOUT_EN					
+> > 0xf14
+> > +/*
+> > + * MT8195_VDO0_OVL_MOUT[2:0]: DISP_OVL0
+> > + *   BIT(0) : DISP_RDMA0
+> > + *   BIT(1) : DISP_WDMA0
+> > + *   BIT(2): DISP_OVL1
+> 
+> I think these information is not necessary because we could get these
+> information from mmsys_mt8195_routing_table[].
+> 
+> Regards,
+> CK
+> 
+These comments was suggest by Fei at:
+
+https://patchwork.kernel.org/project/linux-mediatek/patch/20210921155218.10387-10-jason-jh.lin@mediatek.com/#24546317
+
+I've discussed with him that removing these information is fine.
+So' I'll remove it at the next version.
+
+> > + */
+> > +#define MT8195_MOUT_DISP_OVL0_TO_DISP_RDMA0			
+> > BIT(0)
+> > +#define MT8195_MOUT_DISP_OVL0_TO_DISP_WDMA0			
+> > BIT(1)
+> > +#define MT8195_MOUT_DISP_OVL0_TO_DISP_OVL1			BIT(2)
+> > +/*
+> > + * MT8195_VDO0_OVL_MOUT[6:4]: DISP_OVL1
+> > + *   BIT(0) : DISP_RDMA1
+> > + *   BIT(1) : DISP_WDMA1
+> > + *   BIT(2): DISP_OVL0
+> > + */
+> > 
+> 
+> [snip]
+> 
+> > +
+> > +static const struct mtk_mmsys_routes mmsys_mt8195_routing_table[]
+> > =
+> > {
+> > +	{
+> > +		DDP_COMPONENT_OVL0, DDP_COMPONENT_RDMA0,
+> > +		MT8195_VDO0_OVL_MOUT_EN,
+> > MT8195_MOUT_DISP_OVL0_TO_DISP_RDMA0,
+> > +		MT8195_MOUT_DISP_OVL0_TO_DISP_RDMA0
+> > +	}, {
+> > +		DDP_COMPONENT_OVL1, DDP_COMPONENT_RDMA1,
+> > +		MT8195_VDO0_OVL_MOUT_EN,
+> > MT8195_MOUT_DISP_OVL1_TO_DISP_RDMA1,
+> > +		MT8195_MOUT_DISP_OVL1_TO_DISP_RDMA1
+> > +	}, {
+> > +		DDP_COMPONENT_DSC0, DDP_COMPONENT_MERGE0,
+> > +		MT8195_VDO0_SEL_IN,
+> > MT8195_SEL_IN_VPP_MERGE_FROM_DSC_WRAP0_OUT,
+
+> Why this mask MT8195_SEL_IN_VPP_MERGE_FROM_DSC_WRAP0_OUT is 0?
+
+> > +		MT8195_SEL_IN_VPP_MERGE_FROM_DSC_WRAP0_OUT
+> > +	}, {
+> > +		DDP_COMPONENT_MERGE0, DDP_COMPONENT_DP_INTF0,
+> > +		MT8195_VDO0_SEL_IN,
+
+> Why this mask MT8195_SEL_IN_DP_INTF0_FROM_VPP_MERGE is 0?
+
+> > +		MT8195_SEL_IN_DP_INTF0_FROM_VPP_MERGE
+> > +	}, {
+> > +		DDP_COMPONENT_DITHER, DDP_COMPONENT_DSC0,
+> > +		MT8195_VDO0_SEL_IN,
+> > MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0,
+> > +		MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0
+> > +	}, {
+> > +		DDP_COMPONENT_DSC0, DDP_COMPONENT_DSI0,
+> > +		MT8195_VDO0_SEL_IN,
+> > MT8195_SEL_IN_DSI0_FROM_DSC_WRAP0_OUT,
+
+> Why this mask MT8195_SEL_IN_DSC_WRAP0_IN_FROM_DISP_DITHER0 is 0?
+
+> Regards,
+> CK
+
+I'll fix the 0 mask problem with the define of GENMASK(h, l) for each
+mux settings.
+
+Regards,
+Jason-JH.Lin
+
+> > +		MT8195_SEL_IN_DSI0_FROM_DSC_WRAP0_OUT
+> > +	}, {
+> > +		DDP_COMPONENT_DITHER, DDP_COMPONENT_DSI0,
+> > +		MT8195_VDO0_SEL_IN,
+> > MT8195_SEL_IN_DSI0_FROM_DISP_DITHER0,
+> > +		MT8195_SEL_IN_DSI0_FROM_DISP_DITHER0
+> > +	}, {
+> > +		DDP_COMPONENT_DITHER, DDP_COMPONENT_DSC0,
+> > +		MT8195_VDO0_SEL_OUT,
+> > MT8195_SOUT_DISP_DITHER0_TO_DSC_WRAP0_IN,
+> > +		MT8195_SOUT_DISP_DITHER0_TO_DSC_WRAP0_IN
+> > +	}, {
+> > +		DDP_COMPONENT_DITHER, DDP_COMPONENT_DSI0,
+> > +		MT8195_VDO0_SEL_OUT, MT8195_SOUT_DISP_DITHER0_TO_DSI0,
+> > +		MT8195_SOUT_DISP_DITHER0_TO_DSI0
+> > +	}, {
+> > +		DDP_COMPONENT_DSC0, DDP_COMPONENT_DSI0,
+> > +		MT8195_VDO0_SEL_OUT, MT8195_SOUT_DSC_WRAP0_OUT_TO_DSI0,
+> > +		MT8195_SOUT_DSC_WRAP0_OUT_TO_DSI0
+> > +	}, {
+> > +		DDP_COMPONENT_DSC0, DDP_COMPONENT_MERGE0,
+> > +		MT8195_VDO0_SEL_OUT,
+> > MT8195_SOUT_DSC_WRAP0_OUT_TO_VPP_MERGE,
+> > +		MT8195_SOUT_DSC_WRAP0_OUT_TO_VPP_MERGE
+> > +	}, {
+> > +		DDP_COMPONENT_MERGE0, DDP_COMPONENT_DP_INTF0,
+> > +		MT8195_VDO0_SEL_OUT, MT8195_SOUT_VPP_MERGE_TO_DP_INTF0,
+> > +		MT8195_SOUT_VPP_MERGE_TO_DP_INTF0
+> > +	}
+> > +};
+> > +
+> 
+> 
+-- 
+Jason-JH Lin <jason-jh.lin@mediatek.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
