@@ -2,63 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A17749C3ED
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jan 2022 07:58:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE71549C428
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jan 2022 08:19:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7A2DC5F1D8;
-	Wed, 26 Jan 2022 06:58:49 +0000 (UTC)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9758AC6046F;
+	Wed, 26 Jan 2022 07:19:45 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10F54C5AB61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B09FCC5718D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jan 2022 03:30:14 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id 71so11032361qkf.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jan 2022 19:30:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=E7anDpLimRE6bYis5gbdpa/RPki6eh1XfOHxrRk/P/4=;
- b=SXRlHFjRWC2Mv38MUu2FfMqDEb49bJZfxYE559Kw+D0Pn2YltH77SpBW3HH0YW5AsE
- m8kzbCMD9MZIkkdaMBt1JMXzZvL87DNz+apl6ePX/TZd6D1vEa2xLP9paVzPlpB014h9
- 6RZ8KymN/gMgkdABfFHWVpzVAjSf0rYQjS5yktG4rHR6VGF8OAEdq4nqpvvJE1pRreRm
- qEtmS903LkbFXgqIFXymoOB30fFzO7Q+H8PFLqPdEYHjfqzuqV+Z7QsD3pCwq/2lJ9gm
- h+TZI7RIh7QW5QG05fDEDYNnEhfg5DP4DhdGFoRo5ptPvIqzokYrOMe0xQ5f3KanUOae
- L9AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=E7anDpLimRE6bYis5gbdpa/RPki6eh1XfOHxrRk/P/4=;
- b=yZ7HtQzHoHAckwevHxY6EQiCWntggL6q6tGTFLVwqpJNXMjBVwKsLvPIIj6Nd6nekB
- LsSLCBWPZlCqpZkY8t0HWyfPXyEvNXfemXZH5MzdnnM88RL5GqUbdDF+sBvmmbEDXXWx
- f6YeULCGRR1u0WJKCFlLqfznXjdhXwstZXuzjJK2S1YzhH6S+ysA/eSjxT4mNzsBTQcS
- Dc9sgjkMLEtdA75nI7g0OOn2XYdRxeZaSTv2fuAErtn6OHLW4JaD5hwwr2FHWmEx8IgQ
- bb++BLCSf54i+9Z+DL6pTWKXX12o1KZUYswnUHHKevP8FkypBYvRKzJIDPqtVwF+uUvI
- LlXQ==
-X-Gm-Message-State: AOAM531zSIFqa2FJvXz0feAl9dqgLhkkpq1cTxxtUpTruu9xnNluOxYq
- V5ouZvbPVKA35RTVcuowFTsLZ4hA1fc0MvZYPEE=
-X-Google-Smtp-Source: ABdhPJzOxLW8ANKOJuqP39xeWiTHWhbAJym/4GNx7fbso6asTpJBhG97tat7EMYA2eWqagLzlBUDXMJW3yhDFcy0HzY=
-X-Received: by 2002:a05:620a:d95:: with SMTP id
- q21mr16790410qkl.74.1643167812983; 
- Tue, 25 Jan 2022 19:30:12 -0800 (PST)
+ Wed, 26 Jan 2022 07:19:42 +0000 (UTC)
+X-UUID: 4d50ccc30001450f929dc8541559183a-20220126
+X-UUID: 4d50ccc30001450f929dc8541559183a-20220126
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <jason-jh.lin@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 664170178; Wed, 26 Jan 2022 15:19:35 +0800
+Received: from mtkexhb02.mediatek.inc (172.21.101.103) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Wed, 26 Jan 2022 15:19:34 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by mtkexhb02.mediatek.inc
+ (172.21.101.103) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 26 Jan 2022 15:19:33 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Wed, 26 Jan 2022 15:19:33 +0800
+From: jason-jh.lin <jason-jh.lin@mediatek.com>
+To: Rob Herring <robh+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+Date: Wed, 26 Jan 2022 15:19:20 +0800
+Message-ID: <20220126071932.32615-1-jason-jh.lin@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-References: <20220125021353.GA29777@embeddedor>
-In-Reply-To: <20220125021353.GA29777@embeddedor>
-From: Baolin Wang <baolin.wang7@gmail.com>
-Date: Wed, 26 Jan 2022 11:30:55 +0800
-Message-ID: <CADBw62opvW1kdZbjxc0SBidjn0teYLsrfxTqfKoua6x9O84Neg@mail.gmail.com>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-X-Mailman-Approved-At: Wed, 26 Jan 2022 06:58:48 +0000
-Cc: Ohad Ben-Cohen <ohad@wizery.com>, LKML <linux-kernel@vger.kernel.org>,
- linux-remoteproc@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, linux-hardening@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH][next] hwspinlock: stm32: Use
-	struct_size() helper in devm_kzalloc()
+X-MTK: N
+Cc: devicetree@vger.kernel.org, Jitao shi <jitao.shi@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, fshao@chromium.org,
+ David Airlie <airlied@linux.ie>, "jason-jh . lin" <jason-jh.lin@mediatek.com>,
+ singo.chang@mediatek.com, Fabien Parent <fparent@baylibre.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, roy-cw.yeh@mediatek.com,
+ linux-kernel@vger.kernel.org, CK
+ Hu <ck.hu@mediatek.com>, moudy.ho@mediatek.com,
+ linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
+ hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v15 00/12] Add Mediatek Soc DRM (vdosys0)
+	support for mt8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,55 +68,162 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 25, 2022 at 10:07 AM Gustavo A. R. Silva
-<gustavoars@kernel.org> wrote:
->
-> Make use of the struct_size() helper instead of an open-coded version,
-> in order to avoid any potential type mistakes or integer overflows that,
-> in the worst scenario, could lead to heap overflows.
->
-> Also, address the following sparse warnings:
-> drivers/hwspinlock/stm32_hwspinlock.c:84:32: warning: using sizeof on a flexible structure
->
-> Link: https://github.com/KSPP/linux/issues/174
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+Change in v15:
+- remove mt8195-mmsys.h comment for mux settings
+- define the mask macro to replace using value as mask
+  to fix zero mask problem
+- add EOF setting comment for MUTEX sof register
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang7@gmail.com>
+Change in v14:
+- rebase on mediatek-drm-next-5.17
+- rebase on "Add mmsys and mutex support for MDP" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=602528
+- rebase on "media: mediatek: support mdp3 on mt8183 platform" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=602834
 
-> ---
->  drivers/hwspinlock/stm32_hwspinlock.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/hwspinlock/stm32_hwspinlock.c b/drivers/hwspinlock/stm32_hwspinlock.c
-> index 5bd11a7fab65..716ad4401249 100644
-> --- a/drivers/hwspinlock/stm32_hwspinlock.c
-> +++ b/drivers/hwspinlock/stm32_hwspinlock.c
-> @@ -73,15 +73,14 @@ static int stm32_hwspinlock_probe(struct platform_device *pdev)
->         struct device *dev = &pdev->dev;
->         struct stm32_hwspinlock *hw;
->         void __iomem *io_base;
-> -       size_t array_size;
->         int i, ret;
->
->         io_base = devm_platform_ioremap_resource(pdev, 0);
->         if (IS_ERR(io_base))
->                 return PTR_ERR(io_base);
->
-> -       array_size = STM32_MUTEX_NUM_LOCKS * sizeof(struct hwspinlock);
-> -       hw = devm_kzalloc(dev, sizeof(*hw) + array_size, GFP_KERNEL);
-> +       hw = devm_kzalloc(dev, struct_size(hw, bank.lock, STM32_MUTEX_NUM_LOCKS),
-> +                         GFP_KERNEL);
->         if (!hw)
->                 return -ENOMEM;
->
-> --
-> 2.27.0
->
+Change in v13:
+- remove dts patch
+- rebase on kernel-5.16-rc1
+- rebase on mediatek-drm-next
 
+Change in v12:
+- add clock-names property to merge yaml
+- using BIT(nr) macro to define the settings of mmsys routing table
+- fix clk_get and clk_prepare_enable error handling issue
+
+Change in v11:
+- rebase on kernel-5.15-rc1
+- change mbox label to gce0 for dts node of vdosys0
+- change ovl compatibale to mt8192 to set smi_id_en=true in driver data
+- move common module from display folder to common folder,
+  such as AAL, COCLOR, CCORR and MUTEX
+
+Change in v10:
+- rebase on "drm/mediatek: add support for mediatek SOC MT8192" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=529489
+- rebase on "soc: mediatek: mmsys: add mt8192 mmsys support" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=524857
+- fix some typo and "mediatek" start with capital in every dt-bindings
+- move mutex yaml from dfisplay folder to soc folder
+- separate merge additional propoerties to an individual dt-bindings patch
+
+Change in v9:
+- separate power and gce properties of mmsys into another dt-binding patch
+- rebase on "Separate aal module" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=516463
+- keep mtk_ddp_clk_enable/disable in the same place
+- change mtk_dsc_start config register to mtk_drm_ddp_write_mask
+- remove the 0 setting of merge fifo config function
+- add CCORR driver data for mt8195
+
+Change in v8:
+- add DP_INTF0 mux into mmsys routing table
+- add DP_INTF0 mutex mod and enum into add/remove comp function
+- remove bypass DSC enum in mtk_ddp_comp_init
+
+Change in v7:
+- add dt=binding of mmsys and disp path into this series
+- separate th modidfication of alphabetic order, remove unused define and
+  rename the define of register offset to individual patch
+- add comment for MERGE ultra and preultra setting
+
+Change in v6:
+- adjust alphabetic order for mediatek-drm
+- move the patch that add mt8195 support for mediatek-drm as
+  the lastest patch
+- add MERGE define for const varriable 
+
+Change in v5:
+- add power-domain property into vdosys0 and vdosys1 dts node.
+- add MT8195 prifix and remove unused VDO1 define in mt8195-mmsys.h
+
+Change in v4:
+- extract dt-binding patches to another patch series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=519597
+- squash DSC module into mtk_drm_ddp_comp.c
+- add coment and simplify MERGE config function
+
+Change in v3:
+- change mmsys and display dt-bindings document from txt to yaml
+- add MERGE additional description in display dt-bindings document
+- fix mboxes-cells number of vdosys0 node in dts
+- drop mutex eof convert define
+- remove pm_runtime apis in DSC and MERGE
+- change DSC and MERGE enum to alphabetic order
+
+Change in v2:
+- add DSC yaml file
+- add mt8195 drm driver porting parts in to one patch
+- remove useless define, variable, structure member and function
+- simplify DSC and MERGE file and switch threre order
+
+jason-jh.lin (12):
+  dt-bindings: arm: mediatek: mmsys: add power and gce properties
+  dt-bindings: arm: mediatek: mmsys: add mt8195 SoC binding
+  dt-bindings: display: mediatek: disp: split each block to individual
+    yaml
+  dt-bindings: display: mediatek: dsc: add yaml for mt8195 SoC binding
+  dt-bindings: display: mediatek: merge: add additional prop for mt8195
+  dt-bindings: display: mediatek: add mt8195 SoC binding for vdosys0
+  dt-bindings: arm: mediatek: move out common module from display folder
+  soc: mediatek: add mtk-mmsys support for mt8195 vdosys0
+  soc: mediatek: add mtk-mutex support for mt8195 vdosys0
+  drm/mediatek: add DSC support for mediatek-drm
+  drm/mediatek: add MERGE support for mediatek-drm
+  drm/mediatek: add mediatek-drm of vdosys0 support for mt8195
+
+ .../bindings/arm/mediatek/mediatek,mmsys.yaml |  32 ++-
+ .../display/mediatek/mediatek,disp.txt        | 219 ----------------
+ .../display/mediatek/mediatek,dither.yaml     |  76 ++++++
+ .../display/mediatek/mediatek,dsc.yaml        |  71 +++++
+ .../display/mediatek/mediatek,gamma.yaml      |  77 ++++++
+ .../display/mediatek/mediatek,merge.yaml      | 106 ++++++++
+ .../display/mediatek/mediatek,od.yaml         |  53 ++++
+ .../display/mediatek/mediatek,ovl-2l.yaml     |  88 +++++++
+ .../display/mediatek/mediatek,ovl.yaml        | 103 ++++++++
+ .../display/mediatek/mediatek,postmask.yaml   |  69 +++++
+ .../display/mediatek/mediatek,rdma.yaml       | 117 +++++++++
+ .../display/mediatek/mediatek,split.yaml      |  58 +++++
+ .../display/mediatek/mediatek,ufoe.yaml       |  61 +++++
+ .../bindings/soc/mediatek/mediatek,aal.yaml   |  72 +++++
+ .../bindings/soc/mediatek/mediatek,ccorr.yaml |  46 +++-
+ .../bindings/soc/mediatek/mediatek,color.yaml |  81 ++++++
+ .../bindings/soc/mediatek/mediatek,mutex.yaml |  77 ++++++
+ .../bindings/soc/mediatek/mediatek,wdma.yaml  |  47 +++-
+ drivers/gpu/drm/mediatek/Makefile             |   1 +
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |   8 +
+ drivers/gpu/drm/mediatek/mtk_disp_merge.c     | 246 ++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_disp_rdma.c      |   6 +
+ drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c   |  63 +++++
+ drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.h   |   2 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  32 ++-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   1 +
+ drivers/soc/mediatek/mt8195-mmsys.h           | 130 +++++++++
+ drivers/soc/mediatek/mtk-mmsys.c              |  11 +
+ drivers/soc/mediatek/mtk-mutex.c              | 103 +++++++-
+ include/linux/soc/mediatek/mtk-mmsys.h        |   9 +
+ 30 files changed, 1832 insertions(+), 233 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,disp.txt
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,aal.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,color.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_merge.c
+ create mode 100644 drivers/soc/mediatek/mt8195-mmsys.h
 
 -- 
-Baolin Wang
+2.18.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
