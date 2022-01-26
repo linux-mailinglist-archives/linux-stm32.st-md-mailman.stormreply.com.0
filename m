@@ -2,51 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4246649BB90
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jan 2022 19:53:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B8D049C236
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jan 2022 04:40:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5D2CC5F1D5;
-	Tue, 25 Jan 2022 18:53:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B782DC5F1D5;
+	Wed, 26 Jan 2022 03:40:43 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91C0FC5AB61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A623AC5EC76
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jan 2022 18:53:07 +0000 (UTC)
+ Wed, 26 Jan 2022 03:40:41 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D53D1B819FC;
- Tue, 25 Jan 2022 18:53:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2374EC340E0;
- Tue, 25 Jan 2022 18:53:05 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 00670B81074;
+ Wed, 26 Jan 2022 03:40:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B31C340E3;
+ Wed, 26 Jan 2022 03:40:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643136785;
- bh=iIsDIofxdHO/kYl3PGfWu5p5sOUN6/kd7s463fCVl+s=;
+ s=k20201202; t=1643168439;
+ bh=YILwlodCyd4mdH5DL4bOcMKvZ745VRwUzzjYehTweJ0=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=JzCi1WQCGXT/72UAF30/6rXvvR3VRVSBpDcUQ/NOszaqH16mdFmAz9u6aisDxLrAc
- xqw/tUTB0eR0GDC93SzPgAOKvJgP8Gv+HCfJmePqWBzoHQF1SBr0xSjWZT7vFECiFy
- YsvBwqrwMGODYqovueMCIe55tkYa75dH0m0MVN/BZ30YoDURD+KZm9EMeAXOvzhz0h
- JZC+ja2BlCwEz74Xidhr2ozLd1mnUBzaekNYrnsPFRlcVqe8+Q4TRKJvACg67oNu2T
- MX5LqAHDGeuvt3UV088rREbFxM3Mww1zdV/ZJvYdpdi08qQc8OBM2bqAuumiquzwb2
- SVjSmp7s8p8lw==
-Date: Tue, 25 Jan 2022 10:53:03 -0800
+ b=b2ywctUMiZxNPwLdRX94rGjTss4FNogBgcpctz7UZGex59ZECtuAheH6P3tkitkC+
+ 6EsGv2IsdX4ns8jcim7ao56cBbOF+ffvhEqLFg9uDuAXIZ2I8ViWdNENAKk2ikeDMP
+ xbmwiYST2aqX06zI9rUx6c4Oj0+NzT+zGJT9OIoRH+SsuBrX3T19kOfzmK3A1+e/fI
+ rFsJAt+/JuTTv4AzPhvC72v9uqgtJrnpeEuHMLuNG05Pbm+HauhS8XZFCytzC6EZCn
+ Lwm4TIc9/SolMY5aGrqfhnCXqB8iKqijr+EqEcJ+RGxPumv+ucypOBHaIWP4dlh6aT
+ BEZo20uNoHpcg==
+Date: Tue, 25 Jan 2022 19:40:38 -0800
 From: Jakub Kicinski <kuba@kernel.org>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <20220125105303.2025dfae@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
-In-Reply-To: <E1nCOs4-005LSp-HF@rmk-PC.armlinux.org.uk>
-References: <YfAnkuhiMoeFcVnb@shell.armlinux.org.uk>
- <E1nCOs4-005LSp-HF@rmk-PC.armlinux.org.uk>
+To: Jisheng Zhang <jszhang@kernel.org>
+Message-ID: <20220125194038.4bfa2007@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
+In-Reply-To: <20220123141245.1060-1-jszhang@kernel.org>
+References: <20220123141245.1060-1-jszhang@kernel.org>
 MIME-Version: 1.0
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David
- S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 4/7] net: stmmac/xpcs: convert to
- pcs_validate()
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S
+ . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: don't stop RXC during LPI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,21 +60,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 25 Jan 2022 16:40:40 +0000 Russell King (Oracle) wrote:
-> stmmac explicitly calls the xpcs driver to validate the ethtool
-> linkmodes. This is no longer necessary as phylink now supports
-> validation through a PCS method. Convert both drivers to use this
-> new mechanism.
+On Sun, 23 Jan 2022 22:12:45 +0800 Jisheng Zhang wrote:
+> I met can't receive rx pkt issue with below steps:
+> 0.plug in ethernet cable then boot normal and get ip from dhcp server
+> 1.quickly hotplug out then hotplug in the ethernet cable
+> 2.trigger the dhcp client to renew lease
 > 
-> Tested-by: Wong Vee Khee <vee.khee.wong@linux.intel.com> # Intel EHL            Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> tcpdump shows that the request tx pkt is sent out successfully,
+> but the mac can't receive the rx pkt.
+> 
+> The issue can easily be reproduced on platforms with PHY_POLL external
+> phy. If we don't allow the phy to stop the RXC during LPI, the issue
+> is gone. I think it's unsafe to stop the RXC during LPI because the mac
+> needs RXC clock to support RX logic.
+> 
+> And the 2nd param clk_stop_enable of phy_init_eee() is a bool, so use
+> false instead of 0.
 
-Sign-offs got scrambled.
-
-Transient warning from here to patch 6:
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:943:22: warning: unused variable 'priv' [-Wunused-variable]
-        struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
-                            ^
+FWIW this is marked Changes Requested in pw, TBH I'm not sure what 
+the conclusion is but if the patch is good please try to fold the
+information requested in the discussion into the commit msg and repost.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
