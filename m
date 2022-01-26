@@ -2,55 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB47049CAC5
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jan 2022 14:27:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC1349CDD7
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jan 2022 16:20:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69E41C5F1EC;
-	Wed, 26 Jan 2022 13:27:57 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CDF1C5F1E1;
+	Wed, 26 Jan 2022 15:20:01 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0BB6C57183
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 26 Jan 2022 15:19:59 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83FFCC5718D
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jan 2022 13:27:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ZAq7lphUj4ZBbT0ttD3I4ZX17HecYYp/WQ0M7GbtbZg=; b=eFfUhCblrGf2E9eacHO/gPRV0+
- zygiBNn0vwQXKqFymnCr9Q4qqkJ2UnBpzzmuIBdkSUViGWPMdfgBXbVWpq6hZELCjDLLtL5t8G17w
- /ZV8q0145pveahnMnBUbWiEUItdiWmGN7BuNEYfFqvMbF4wuWdvGPJaTrnGbLD3jblCcEj6q/ooH9
- 9+lkEKoXdzlvBjgZzs3Enc591b7BaAKvn/woO0JrL2OLOrV0zzmFRTtZTNzaU+f4sYOD5rLEKD/Im
- DZzdEClcdv/5wAZHjt36yv8j8tu4rHShQ5D+avIeu9MkMsoOZENA2n8ypE1TMEU7KLbfJK7s2kuXK
- GQrBBiIA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56888)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1nCiKu-0003K2-6Q; Wed, 26 Jan 2022 13:27:44 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1nCiKk-0004VA-3N; Wed, 26 Jan 2022 13:27:34 +0000
-Date: Wed, 26 Jan 2022 13:27:34 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Jisheng Zhang <jszhang@kernel.org>
-Message-ID: <YfFMRoLixWR/8spY@shell.armlinux.org.uk>
-References: <20220123141245.1060-1-jszhang@kernel.org>
- <Ye15va7tFWMgKPEE@lunn.ch> <Ye19bHxcQ5Plx0v9@xhacker>
- <Ye2SznI2rNKAUDIq@lunn.ch> <YfFEulZJKzuRQfeG@xhacker>
+ by ams.source.kernel.org (Postfix) with ESMTPS id C2FFFB81EA8;
+ Wed, 26 Jan 2022 15:19:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D746C340E3;
+ Wed, 26 Jan 2022 15:19:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643210397;
+ bh=n6r5NLPu48M24FdnE1DRwiL0ETeAUov3E04nHml1+OA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iR9aeJVCn3IY4N9J7ST0e4Sezv4Q73Kn2q9XpFbvsjfWvjaIsfcuLaBOXGCxBECDM
+ +ZrvFScmw/keHW4ZbZVZBWvnrVdA1KEB/Q823A4eQ8B3VTZRM096vK66kI4QfECcW+
+ 7rvwYuZWlQsFOsTjG2VMWoWGJhmADxRmp9E2Vv9kbygFrRJIhlf/FOj90b28oTMwPA
+ TRhIr0TEhK7vOHUcSiR5C3tYW8z8Lg3uFVA/Wnv8mt2gBdGESaUjXE2kve6JOPBHGM
+ JAj8sqlocrOmmR3WA9/RsCB54SrgWi491DLsoNpj8zu4xGMWT4bbxMEJCdyHVtiVAr
+ WD0dh0eVPBQyw==
+Date: Wed, 26 Jan 2022 23:12:15 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Samuel Holland <samuel@sholland.org>
+Message-ID: <YfFkz1d9onk+ITGg@xhacker>
+References: <20220123132805.758-1-jszhang@kernel.org>
+ <38c41c04-abde-4d55-ed7c-515b6bba9c54@sholland.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YfFEulZJKzuRQfeG@xhacker>
-Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+In-Reply-To: <38c41c04-abde-4d55-ed7c-515b6bba9c54@sholland.org>
+Cc: Joakim Zhang <qiangqing.zhang@nxp.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-sunxi@lists.linux.dev,
+ Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: don't stop RXC during LPI
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-sun8i: fix double
+ disable and unprepare "stmmaceth" clk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,33 +66,242 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 26, 2022 at 08:55:22PM +0800, Jisheng Zhang wrote:
-> On Sun, Jan 23, 2022 at 06:39:26PM +0100, Andrew Lunn wrote:
-> > > I think this is a common issue because the MAC needs phy's RXC for RX
-> > > logic. But it's better to let other stmmac users verify. The issue
-> > > can easily be reproduced on platforms with PHY_POLL external phy.
+On Sun, Jan 23, 2022 at 01:43:37PM -0600, Samuel Holland wrote:
+> On 1/23/22 7:28 AM, Jisheng Zhang wrote:
+> > Fix warnings on Allwinner D1 platform:
 > > 
-> > What is the relevance of PHY polling here? Are you saying if the PHY
-> > is using interrupts you do not see this issue?
+> > [    1.604695] ------------[ cut here ]------------
+> > [    1.609328] bus-emac already disabled
+> > [    1.613015] WARNING: CPU: 0 PID: 38 at drivers/clk/clk.c:952 clk_core_disable+0xcc/0xec
+> > [    1.621039] CPU: 0 PID: 38 Comm: kworker/u2:1 Not tainted 5.14.0-rc4#1
+> > [    1.627653] Hardware name: Allwinner D1 NeZha (DT)
+> > [    1.632443] Workqueue: events_unbound deferred_probe_work_func
+> > [    1.638286] epc : clk_core_disable+0xcc/0xec
+> > [    1.642561]  ra : clk_core_disable+0xcc/0xec
+> > [    1.646835] epc : ffffffff8023c2ec ra : ffffffff8023c2ec sp : ffffffd00411bb10
+> > [    1.654054]  gp : ffffffff80ec9988 tp : ffffffe00143a800 t0 : ffffffff80ed6a6f
+> > [    1.661272]  t1 : ffffffff80ed6a60 t2 : 0000000000000000 s0 : ffffffe001509e00
+> > [    1.668489]  s1 : 0000000000000001 a0 : 0000000000000019 a1 : ffffffff80e80bd8
+> > [    1.675707]  a2 : 00000000ffffefff a3 : 00000000000000f4 a4 : 0000000000000002
+> > [    1.682924]  a5 : 0000000000000001 a6 : 0000000000000030 a7 : 00000000028f5c29
+> > [    1.690141]  s2 : 0000000000000800 s3 : ffffffe001375000 s4 : ffffffe01fdf7a80
+> > [    1.697358]  s5 : ffffffe001375010 s6 : ffffffff8001fc10 s7 : ffffffffffffffff
+> > [    1.704577]  s8 : 0000000000000001 s9 : ffffffff80ecb248 s10: ffffffe001b80000
+> > [    1.711794]  s11: ffffffe001b80760 t3 : 0000000000000062 t4 : ffffffffffffffff
+> > [    1.719012]  t5 : ffffffff80e0f6d8 t6 : ffffffd00411b8f0
+> > [    1.724321] status: 8000000201800100 badaddr: 0000000000000000 cause: 0000000000000003
+> > [    1.732233] [<ffffffff8023c2ec>] clk_core_disable+0xcc/0xec
+> > [    1.737810] [<ffffffff80240430>] clk_disable+0x38/0x78
+> > [    1.742956] [<ffffffff8001fc0c>] worker_thread+0x1a8/0x4d8
+> > [    1.748451] [<ffffffff8031a500>] stmmac_remove_config_dt+0x1c/0x4c
+> > [    1.754646] [<ffffffff8031c8ec>] sun8i_dwmac_probe+0x378/0x82c
+> > [    1.760484] [<ffffffff8001fc0c>] worker_thread+0x1a8/0x4d8
+> > [    1.765975] [<ffffffff8029a6c8>] platform_probe+0x64/0xf0
+> > [    1.771382] [<ffffffff8029833c>] really_probe.part.0+0x8c/0x30c
+> > [    1.777305] [<ffffffff8029865c>] __driver_probe_device+0xa0/0x148
+> > [    1.783402] [<ffffffff8029873c>] driver_probe_device+0x38/0x138
+> > [    1.789324] [<ffffffff802989cc>] __device_attach_driver+0xd0/0x170
+> > [    1.795508] [<ffffffff802988f8>] __driver_attach_async_helper+0xbc/0xc0
+> > [    1.802125] [<ffffffff802965ac>] bus_for_each_drv+0x68/0xb4
+> > [    1.807701] [<ffffffff80298d1c>] __device_attach+0xd8/0x184
+> > [    1.813277] [<ffffffff802967b0>] bus_probe_device+0x98/0xbc
+> > [    1.818852] [<ffffffff80297904>] deferred_probe_work_func+0x90/0xd4
+> > [    1.825122] [<ffffffff8001f8b8>] process_one_work+0x1e4/0x390
+> > [    1.830872] [<ffffffff8001fd80>] worker_thread+0x31c/0x4d8
+> > [    1.836362] [<ffffffff80026bf4>] kthreadd+0x94/0x188
+> > [    1.841335] [<ffffffff80026bf4>] kthreadd+0x94/0x188
+> > [    1.846304] [<ffffffff8001fa60>] process_one_work+0x38c/0x390
+> > [    1.852054] [<ffffffff80026564>] kthread+0x124/0x160
+> > [    1.857021] [<ffffffff8002643c>] set_kthread_struct+0x5c/0x60
+> > [    1.862770] [<ffffffff80001f08>] ret_from_syscall_rejected+0x8/0xc
+> > [    1.868956] ---[ end trace 8d5c6046255f84a0 ]---
+> > [    1.873675] ------------[ cut here ]------------
+> > [    1.878366] bus-emac already unprepared
+> > [    1.882378] WARNING: CPU: 0 PID: 38 at drivers/clk/clk.c:810 clk_core_unprepare+0xe4/0x168
+> > [    1.890673] CPU: 0 PID: 38 Comm: kworker/u2:1 Tainted: G        W	5.14.0-rc4 #1
+> > [    1.898674] Hardware name: Allwinner D1 NeZha (DT)
+> > [    1.903464] Workqueue: events_unbound deferred_probe_work_func
+> > [    1.909305] epc : clk_core_unprepare+0xe4/0x168
+> > [    1.913840]  ra : clk_core_unprepare+0xe4/0x168
+> > [    1.918375] epc : ffffffff8023d6cc ra : ffffffff8023d6cc sp : ffffffd00411bb10
+> > [    1.925593]  gp : ffffffff80ec9988 tp : ffffffe00143a800 t0 : 0000000000000002
+> > [    1.932811]  t1 : ffffffe01f743be0 t2 : 0000000000000040 s0 : ffffffe001509e00
+> > [    1.940029]  s1 : 0000000000000001 a0 : 000000000000001b a1 : ffffffe00143a800
+> > [    1.947246]  a2 : 0000000000000000 a3 : 00000000000000f4 a4 : 0000000000000001
+> > [    1.954463]  a5 : 0000000000000000 a6 : 0000000005fce2a5 a7 : 0000000000000001
+> > [    1.961680]  s2 : 0000000000000800 s3 : ffffffff80afeb90 s4 : ffffffe01fdf7a80
+> > [    1.968898]  s5 : ffffffe001375010 s6 : ffffffff8001fc10 s7 : ffffffffffffffff
+> > [    1.976115]  s8 : 0000000000000001 s9 : ffffffff80ecb248 s10: ffffffe001b80000
+> > [    1.983333]  s11: ffffffe001b80760 t3 : ffffffff80b39120 t4 : 0000000000000001
+> > [    1.990550]  t5 : 0000000000000000 t6 : ffffffe001600002
+> > [    1.995859] status: 8000000201800120 badaddr: 0000000000000000 cause: 0000000000000003
+> > [    2.003771] [<ffffffff8023d6cc>] clk_core_unprepare+0xe4/0x168
+> > [    2.009609] [<ffffffff802403a0>] clk_unprepare+0x24/0x3c
+> > [    2.014929] [<ffffffff8031a508>] stmmac_remove_config_dt+0x24/0x4c
+> > [    2.021125] [<ffffffff8031c8ec>] sun8i_dwmac_probe+0x378/0x82c
+> > [    2.026965] [<ffffffff8001fc0c>] worker_thread+0x1a8/0x4d8
+> > [    2.032463] [<ffffffff8029a6c8>] platform_probe+0x64/0xf0
+> > [    2.037871] [<ffffffff8029833c>] really_probe.part.0+0x8c/0x30c
+> > [    2.043795] [<ffffffff8029865c>] __driver_probe_device+0xa0/0x148
+> > [    2.049892] [<ffffffff8029873c>] driver_probe_device+0x38/0x138
+> > [    2.055815] [<ffffffff802989cc>] __device_attach_driver+0xd0/0x170
+> > [    2.061999] [<ffffffff802988f8>] __driver_attach_async_helper+0xbc/0xc0
+> > [    2.068616] [<ffffffff802965ac>] bus_for_each_drv+0x68/0xb4
+> > [    2.074193] [<ffffffff80298d1c>] __device_attach+0xd8/0x184
+> > [    2.079769] [<ffffffff802967b0>] bus_probe_device+0x98/0xbc
+> > [    2.085345] [<ffffffff80297904>] deferred_probe_work_func+0x90/0xd4
+> > [    2.091616] [<ffffffff8001f8b8>] process_one_work+0x1e4/0x390
+> > [    2.097367] [<ffffffff8001fd80>] worker_thread+0x31c/0x4d8
+> > [    2.102858] [<ffffffff80026bf4>] kthreadd+0x94/0x188
+> > [    2.107830] [<ffffffff80026bf4>] kthreadd+0x94/0x188
+> > [    2.112800] [<ffffffff8001fa60>] process_one_work+0x38c/0x390
+> > [    2.118551] [<ffffffff80026564>] kthread+0x124/0x160
+> > [    2.123520] [<ffffffff8002643c>] set_kthread_struct+0x5c/0x60
+> > [    2.129268] [<ffffffff80001f08>] ret_from_syscall_rejected+0x8/0xc
+> > [    2.135455] ---[ end trace 8d5c6046255f84a1 ]---
+> > 
+> > the dwmmac-sun8i driver will get the "stmmaceth" clk as tx_clk during
+> > driver initialization. If stmmac_dvr_probe() fails due to various
+> > reasons, sun8i_dwmac_exit() will disable and unprepare the "stmmaceth"
+> > clk, then stmmac_remove_config_dt() will disable and unprepare the
+> > clk again.
 > 
-> I tried these two days, if the PHY is using interrupts, I can't
-> reproduce the issue. It looks a bit more complex. Any suggestions?
+> This should still be balanced, because both stmmac_probe_config_dt and
+> sun8i_dwmac_init prepare/enable the clock, so the dwmac-sun8i glue layer calls
+> stmmac_dvr_probe with the clock having an enable count of 2. It looks like the
+> underlying issue is that commit 5ec55823438e ("net: stmmac: add clocks
+> management for gmac driver") introduces unbalanced runtime PM.
 
-I suppose it could be that there is a delay between the PHY reporting
-the link loss, raising an interrupt, which is then processed to disable
-the receive side, and the PHY going into LPI. The problem with polling
-is, well, it's polling, and at a one second rate - which probably is too
-long between the PHY noticing the loss of link and going into LPI.
+I added some printk then retested, the problem is triggered as below:
 
-What this also probably means is that if interrupt latency is high
-enough, the same problem will occur.
+stmmac_probe_config_dt() enable the clk
+sun8i_dwmac_init() enble the clk again
+stmmac_dvr_probe() succeed, but it calls pm_runtime_put(), so rpm will
+disable the clk
+sun8i_dwmac_reset() fails due to various reason
+sun8i_dwmac_exit() disable the clk, this is fine
+stmmac_remove_config_dt() disable the clk again, so ccf complains.
 
-So maybe the EEE support to be a little more clever - so we only enable
-clock stop after the MAC driver has disabled the receive side.
+The key here is: whether we should let stmmac_dvr_probe() calls
+pm_runtime_put() or let stmmac users to determine whether we could
+let rpm go?
+If we keep current behavior: stmmac users need to take care
+the code after stmmac_dvr_probe, including error handling code path,
+if we touch access registers, we need to call pm_runtime_get_sync()
+firstly.
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+Since the commit 5ec55823438e has been in for a long time, I'll submit
+a patch to follow this way.
+
+Thanks
+>  - stmmac_dvr_probe calls pm_runtime_get_noresume and pm_runtime_set_active,
+> since it assumes the clocks are already enabled. This is fine.
+>  - If stmmac_dvr_probe fails, it calls stmmac_bus_clks_config(priv, false),
+> which drops the enable count down to 1. This is a bug, not just in this case,
+> but also because it will unbalance the clocks if runtime PM is disabled.
+>  - If stmmac_dvr_probe fails, it never calls pm_runtime_disable if the failure
+> occurs after the call to pm_runtime_enable. This is also a bug.
+> 
+> It looks like at some point stmmac_dvr_remove was expected to leave all of the
+> clocks disabled, but it must leave them enabled as of commit 8f269102baf7 ("net:
+> stmmac: disable clocks in stmmac_remove_config_dt()"), since
+> stmmac_remove_config_dt is called after stmmac_dvr_remove in stmmac_pltfr_remove.
+>  - If stmmac_dvr_probe succeeds, it calls pm_runtime_put. This allows runtime PM
+> to suspend the device, dropping the clock enable count to 1. This is fine.
+>  - But then stmmac_dvr_remove calls pm_runtime_put as well. It needs to do the
+> opposite. It must ensure the device is runtime resumed, so the clock enable
+> count matches what it was before stmmac_dvr_probe was called (in this case: 2).
+> 
+> > Currently, there's no other usage of tx_clk except preparing and
+> > enabling, we can fix the above warnings by simply removing the tx_clk
+> > and all its usage, we rely on the common stmmac_probe_config_dt()
+> > routine to prepare and enable the stmmaceth clk.
+> 
+> This is a good change to make, as indeed this code is now unnecessary, and
+> removing it will allow runtime PM to actually disable the clock. But I am not
+> sure how this resolves the warnings you are seeing, as the sun8i_dwmac_init/exit
+> calls should have been balanced already.
+> 
+> Can you check if the PHY regulator is also getting unbalanced? Unbalanced calls
+> to sun8i_dwmac_exit would also underflow the regulator use count, which should
+> trigger its own warning.
+> 
+> Regards,
+> Samuel
+> 
+> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> > ---
+> >  .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 20 +------------------
+> >  1 file changed, 1 insertion(+), 19 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> > index 617d0e4c6495..d97469825e53 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> > @@ -57,7 +57,6 @@ struct emac_variant {
+> >  };
+> >  
+> >  /* struct sunxi_priv_data - hold all sunxi private data
+> > - * @tx_clk:	reference to MAC TX clock
+> >   * @ephy_clk:	reference to the optional EPHY clock for the internal PHY
+> >   * @regulator:	reference to the optional regulator
+> >   * @rst_ephy:	reference to the optional EPHY reset for the internal PHY
+> > @@ -68,7 +67,6 @@ struct emac_variant {
+> >   * @mux_handle:	Internal pointer used by mdio-mux lib
+> >   */
+> >  struct sunxi_priv_data {
+> > -	struct clk *tx_clk;
+> >  	struct clk *ephy_clk;
+> >  	struct regulator *regulator;
+> >  	struct reset_control *rst_ephy;
+> > @@ -579,22 +577,14 @@ static int sun8i_dwmac_init(struct platform_device *pdev, void *priv)
+> >  		}
+> >  	}
+> >  
+> > -	ret = clk_prepare_enable(gmac->tx_clk);
+> > -	if (ret) {
+> > -		dev_err(&pdev->dev, "Could not enable AHB clock\n");
+> > -		goto err_disable_regulator;
+> > -	}
+> > -
+> >  	if (gmac->use_internal_phy) {
+> >  		ret = sun8i_dwmac_power_internal_phy(netdev_priv(ndev));
+> >  		if (ret)
+> > -			goto err_disable_clk;
+> > +			goto err_disable_regulator;
+> >  	}
+> >  
+> >  	return 0;
+> >  
+> > -err_disable_clk:
+> > -	clk_disable_unprepare(gmac->tx_clk);
+> >  err_disable_regulator:
+> >  	if (gmac->regulator)
+> >  		regulator_disable(gmac->regulator);
+> > @@ -1043,8 +1033,6 @@ static void sun8i_dwmac_exit(struct platform_device *pdev, void *priv)
+> >  	if (gmac->variant->soc_has_internal_phy)
+> >  		sun8i_dwmac_unpower_internal_phy(gmac);
+> >  
+> > -	clk_disable_unprepare(gmac->tx_clk);
+> > -
+> >  	if (gmac->regulator)
+> >  		regulator_disable(gmac->regulator);
+> >  }
+> > @@ -1167,12 +1155,6 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
+> >  		return -EINVAL;
+> >  	}
+> >  
+> > -	gmac->tx_clk = devm_clk_get(dev, "stmmaceth");
+> > -	if (IS_ERR(gmac->tx_clk)) {
+> > -		dev_err(dev, "Could not get TX clock\n");
+> > -		return PTR_ERR(gmac->tx_clk);
+> > -	}
+> > -
+> >  	/* Optional regulator for PHY */
+> >  	gmac->regulator = devm_regulator_get_optional(dev, "phy");
+> >  	if (IS_ERR(gmac->regulator)) {
+> > 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
