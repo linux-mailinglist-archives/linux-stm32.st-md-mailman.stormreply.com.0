@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27A1049E3F5
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jan 2022 15:00:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D82B49E3F6
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jan 2022 15:00:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB05EC60466;
-	Thu, 27 Jan 2022 14:00:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1778C0614D;
+	Thu, 27 Jan 2022 14:00:16 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E671C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5518FC0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jan 2022 14:00:12 +0000 (UTC)
+ Thu, 27 Jan 2022 14:00:13 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7DC2361CBB;
- Thu, 27 Jan 2022 14:00:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CA906C340E4;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 44A0E61CC0;
+ Thu, 27 Jan 2022 14:00:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ECE5FC36AE3;
  Thu, 27 Jan 2022 14:00:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643292010;
- bh=eAQ+ZorpGKfk4YxTRRSwqowyR4Lpeus8/2L3UKJOzZo=;
+ s=k20201202; t=1643292011;
+ bh=CYunBMddd9vXfgSmHRNWWiWCi6UBp8t/F0L+BGJTblw=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=nSMs0A6NL8HjicXZzgtpULYnN79C9GmBoywO4GZb/wVKQir7e7uBC42ZmI4pkrSMV
- OcjyQk3iiPu3I38X2Y18Gwlgrk/Gdbuhe/ce452/sWd87j0PWQJEzACKrhIdIV57oq
- jJZZvwQazUIqveW1TjnMdUiMUXiMxqMp8Ty+TUMcVoyEVF7IYpFKW8Sw9XIAje3D0I
- CwBdEIeynUwwePlKs5eX/af2Aj3D8WLwv6Mi61ISa3YdULBNl+4OYg7LjAtiCesXFw
- ov19CjGF59BDENZIGJqsxUbTHP9sQralxSPiZk0+C7cXLbM5bmIbvskTVlLp7ETd82
- 8nJ7D0RjXOjtA==
+ b=GDqCgLj/oQJw5bzxosAu+/6SPgVHY/PzrLOsoqJEaQ27fLnjjm/Zt5r8HDw0NAve5
+ blCbLhqGyU46Kk2AtJnw1oJcH7jzz+bSrawwRvDBxtFcuHoYdsEJpbBE9wnvc+50N+
+ Ku3j7xMWpbWoPXnK470dKEqOECp4/8XrVeMojq120wWUTHp1y/GidaI/1gzsRhdA8R
+ 1A7wTcYW5jnu0AuWO7jijjfePhauzP2ogYJ4gKEe0CUv0MnmAw/dbf7hU/eQHvdHu3
+ xPWePYCr7iU2M1PKz3/MDtuStZr34Lpj9kIV9gyC0XXWt/HwryHfy1qX4BAYiKT+Lh
+ Moax/0wzh0R/w==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- B3552E5D07E; Thu, 27 Jan 2022 14:00:10 +0000 (UTC)
+ D2AB1E5D084; Thu, 27 Jan 2022 14:00:10 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <164329201072.13469.12879802019146922568.git-patchwork-notify@kernel.org>
+Message-Id: <164329201085.13469.12025143259464894463.git-patchwork-notify@kernel.org>
 Date: Thu, 27 Jan 2022 14:00:10 +0000
-References: <20220126094723.11849-1-mohammad.athari.ismail@intel.com>
-In-Reply-To: <20220126094723.11849-1-mohammad.athari.ismail@intel.com>
-To: Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>
-Cc: linux-kernel@vger.kernel.org, alexandre.torgue@st.com,
- weifeng.voon@intel.com, vee.khee.wong@intel.com, netdev@vger.kernel.org,
- chenhuacai@kernel.org, alexandre.torgue@foss.st.com, stable@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, boon.leong.ong@intel.com,
- peppe.cavallaro@st.com, davem@davemloft.net,
+References: <20220126165215.1921-1-jszhang@kernel.org>
+In-Reply-To: <20220126165215.1921-1-jszhang@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ alexandre.torgue@foss.st.com, mripard@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, wens@csie.org, joabreu@synopsys.com,
+ jernej.skrabec@gmail.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, linux-sunxi@lists.linux.dev, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 0/2] Fix PTP issue in stmmac
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-sun8i: use return val
+ of readl_poll_timeout()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,25 +67,24 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This series was applied to netdev/net.git (master)
+This patch was applied to netdev/net.git (master)
 by David S. Miller <davem@davemloft.net>:
 
-On Wed, 26 Jan 2022 17:47:21 +0800 you wrote:
-> This patch series to fix PTP issue in stmmac related to:
-> 1/ PTP clock source configuration during initialization.
-> 2/ PTP initialization during resume from suspend.
+On Thu, 27 Jan 2022 00:52:15 +0800 you wrote:
+> When readl_poll_timeout() timeout, we'd better directly use its return
+> value.
 > 
-> Mohammad Athari Bin Ismail (2):
->   net: stmmac: configure PTP clock source prior to PTP initialization
->   net: stmmac: skip only stmmac_ptp_register when resume from suspend
+> Before this patch:
+> [    2.145528] dwmac-sun8i: probe of 4500000.ethernet failed with error -14
+> 
+> After this patch:
+> [    2.138520] dwmac-sun8i: probe of 4500000.ethernet failed with error -110
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,1/2] net: stmmac: configure PTP clock source prior to PTP initialization
-    https://git.kernel.org/netdev/net/c/94c82de43e01
-  - [net,v3,2/2] net: stmmac: skip only stmmac_ptp_register when resume from suspend
-    https://git.kernel.org/netdev/net/c/0735e639f129
+  - net: stmmac: dwmac-sun8i: use return val of readl_poll_timeout()
+    https://git.kernel.org/netdev/net/c/9e0db41e7a0b
 
 You are awesome, thank you!
 -- 
