@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BCE84A3E82
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jan 2022 09:12:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16A284A3EB3
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jan 2022 09:38:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12EFAC5EC55;
-	Mon, 31 Jan 2022 08:12:56 +0000 (UTC)
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2C62C5EC43;
+	Mon, 31 Jan 2022 08:38:04 +0000 (UTC)
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B83DC60468
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 591C6C57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jan 2022 15:36:54 +0000 (UTC)
+ Mon, 31 Jan 2022 08:38:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1643384214;
- x=1674920214;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1643618283;
+ x=1675154283;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=QRa1Eccx+diOP5X9GiLVxGI3Jr2Yst13CY1xK607F/4=;
- b=VhGBe/XNjTRr34aNbCHKY1gsSnQPSffnhzJYSjCxJo+RNkJTmBDCgWnP
- RkfyjFdZOdylOjXjcEGPYnRM0jDzJOmQcBvCB+rVsZgx++fOw7ilPTVqm
- Odxr9eXPn0iHPMaEXzwj8vISuPKKa6h/PEriA7xuEV37cDxMJg05wSobX
- kWgVqyMrdGEyKLtBuvOpO2+DTXIvfsiK08KhUUAOi7ThpCJaUMAMZbnoA
- U9jbVKtqbhgHCfX7P/rBxsrR5yo0pWiogR+ZjyELkXhvjS2vcUBtDtupF
- Mp7zT1+RAXCEnNq7puM8COSdr1uxOszLJpV4RHx5wxs3tMgkRrMpBVyj/ g==;
+ bh=jxljYyNjfpZP8zfj4i6WDdtObvA8GitwPZ+7kLxPR0U=;
+ b=Zd88Qgd453KLUgtfovHVd9keltZAjkYqGzDgE3jFJxstI9UF2w6Fl3Or
+ yTqizDc/oLOD4AQ0Y9eqN6t9C+fPZ3hSKXlcKJthvPgB411Euj3CNVjla
+ XtXCch8pTqZ+0QYZfGDhmtM8ZOk8ffhOb5moObk+Zz9s9nlTYsSzy5vaS
+ 3w0yMdnV1pQAncSQ8fkvujz6Dl9HXCdEofmbxTkq5gNw9pYfRtEiQIXrU
+ cVUIuqjQhJpbg61YdXaS2qrFVaSM/WTYQkJkmhN6P24yZYa8d7fAE11Ix
+ Uq5OBK0vBcqMKD/Oq1zmqiJ0rWiFWQ1WkbCFeETXH04+QMatAw/PWkGxL g==;
 From: Camel Guo <camel.guo@axis.com>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
  <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
  Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Maxime
  Coquelin <mcoquelin.stm32@gmail.com>
-Date: Fri, 28 Jan 2022 16:36:42 +0100
-Message-ID: <20220128153642.3129922-1-camel.guo@axis.com>
+Date: Mon, 31 Jan 2022 09:37:56 +0100
+Message-ID: <20220131083756.3346506-1-camel.guo@axis.com>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 31 Jan 2022 08:12:55 +0000
 Cc: Camel Guo <camelg@axis.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@axis.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ linux-kernel@vger.kernel.org, LABBE Corentin <clabbe.montjoie@gmail.com>,
+ kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Subject: [Linux-stm32] [PATCH] net: stmmac: dump gmac4 DMA registers
 	correctly
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -78,6 +78,7 @@ Write of size 4 at addr ffffffc010177100 by task ethtool/1839
  sock_ioctl+0x298/0x6c4
  ...
 
+Fixes: fbf68229ffe7 ("net: stmmac: unify registers dumps methods")
 Signed-off-by: Camel Guo <camelg@axis.com>
 ---
  .../net/ethernet/stmicro/stmmac/dwmac_dma.h   |  1 +
