@@ -2,62 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 515324A57EF
+	by mail.lfdr.de (Postfix) with ESMTPS id 657DD4A57F0
 	for <lists+linux-stm32@lfdr.de>; Tue,  1 Feb 2022 08:42:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0D6FC6046B;
-	Tue,  1 Feb 2022 07:42:52 +0000 (UTC)
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11595C6046E;
+	Tue,  1 Feb 2022 07:42:53 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 821A8C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3997C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Jan 2022 17:59:11 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- qe6-20020a17090b4f8600b001b7aaad65b9so8417684pjb.2
+ Mon, 31 Jan 2022 18:04:50 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ y5-20020a17090aca8500b001b8127e3d3aso3082pjt.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Jan 2022 09:59:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=networkplumber-org.20210112.gappssmtp.com; s=20210112;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=GTfk5dtnofD+DwQSBTggrf944TpHjURpGaUt6sHxP1Q=;
- b=zo7PV8Zd2Z7HIVMtmOiMcabS1N6sxBbjo3wwW81zQa4IENFd+3e1qlBJHlUZq9ntz+
- XqfG3FiwQvk7BkMKzEkrTK8KhKl8bZCQp61R1xdJf1S9wF/56YoXbTILPq45QQEx1fSh
- qDbMCmpmLx42v5eiBQi+snTnumsDFMmyNi7p2J7qmEpf/Q0W+tWRSYxd7R6rXO23yKNp
- eMGd4RXtD6PUL8AwbxNTR7tmpDMAYcRkYwTmmCgt3rFO3CXoS8g4hf8QkYIQwr1yPT2W
- YKmY+awyasNFLlw+dtDGpSReBp1a0X8b4c5W4Zbb1H5Li7iemUtlEkg083LPRVdpWVvw
- ce3Q==
+ Mon, 31 Jan 2022 10:04:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pensando.io; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=c4Q5GbHlG477GDu8eKVa3wxvGBbayrQI0q4Ora6UJKM=;
+ b=tqRPGJPSBTirucVoZRcW3Pfn8BwsifiN/2zFudpAcytP87mX6mRx+Z2+R8wpSJO6rJ
+ E21sG6i5x1UJi7SIERlnMvo8Jw0MLeFM6mvgDhxTj45ED5x+ylbmR3r1yaZ8mJx2fzpx
+ udWsOYVxp3K/E4/g+A1Uv/ovIRjY7g5AdBlMS01qOGp/RnNoU+KHggkPTU0eVD0DU8s9
+ 0BeQOAnHzHWADyIK4Vu+WAIlTn0apQDnBPfgCcsWeZOXKK9/5IWZ2oh4MKVGtqnRvPWe
+ 5941r9GmvDJ9BaTRBHT9nHnwJ9e+INLC12aBfS+Ob2isiRQG967ObJegi9wJYUDWinQX
+ qgZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=GTfk5dtnofD+DwQSBTggrf944TpHjURpGaUt6sHxP1Q=;
- b=tpLE6eaB0zvBTrzcZHwA7adiSOHYdQB8N5l8bMqKv3kTPX2oP8voqz7rRPaT3lHs8e
- EC9wM3Ci+8qk8PtM9yLdr7HqAbOUNbUwrtlFCz5tlJDtUO6SOpxSPVpXsMQ74ZynNM3/
- lIl8AAQhI7oRBWqGk2s9GPEj+CgwUfDn10NMr7NDrN1drsfPb7Jz6D1o13oVRqxSibDc
- IHTjclaQpKEQFhNmAXmi6o8TtxyZc/WbIe6mWVU/EQ60dvwUG6cte9AQzaxCkYympj87
- X9rL8Wj/syxVsfor/SvIU+FsfVMW3hXu1kS/40ffpEbd8JgxFHGj3QJXqyFuSZorjAUd
- Ftqw==
-X-Gm-Message-State: AOAM530xJ6rMrOYnOW9zEvnAtq0EBsyBoo0g3DgTKjdKHyZu9onx8zAq
- BR9Q1eeX+5RqdVfPzxgsMwoHRA==
-X-Google-Smtp-Source: ABdhPJwUpbKpp1BF/RE/P7pFaFs95WxKDdCWSlLhnXYDb8ikckCTeUYHjKtVxjHYzKFZsy5bOe8h5g==
-X-Received: by 2002:a17:90b:1d8d:: with SMTP id
- pf13mr35398210pjb.232.1643651949935; 
- Mon, 31 Jan 2022 09:59:09 -0800 (PST)
-Received: from hermes.local (204-195-112-199.wavecable.com. [204.195.112.199])
- by smtp.gmail.com with ESMTPSA id
- o1sm20431282pfu.88.2022.01.31.09.59.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jan 2022 09:59:09 -0800 (PST)
-Date: Mon, 31 Jan 2022 09:59:05 -0800
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: Saeed Mahameed <saeed@kernel.org>
-Message-ID: <20220131095905.08722670@hermes.local>
-In-Reply-To: <20220131172450.4905-1-saeed@kernel.org>
-References: <20220131172450.4905-1-saeed@kernel.org>
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=c4Q5GbHlG477GDu8eKVa3wxvGBbayrQI0q4Ora6UJKM=;
+ b=CbxneFEi7O/bxaohUqCU4YTWBdtO0H8csH+XugCtiwXCP4gNG9DnZTq99T7mk/Z7D8
+ oATRvI9hzhwNcZgCRKrX7+K1aqnOjFvg2bbgYwdHb93Sgo3h/eb9kf9jIe5FZcOdDWqy
+ ZNHiL3eqrNNBN9jQDnFHxveTuNhTMU/15pGyfa6vgZbo9/TSbFL+WYTg/DXH5TAy57sk
+ CH0eST1tceKeamyjiAHtwRqFFC7B3/FDcx5SRyfF5br/QyAWj4hoGyYjEpYW11R1UVH0
+ B2EYcAPKITACSwKnZVWBBBZvzwYgVFqhJsdrXbBQCRJx6IX6Hxw0P7ipsM4EQBw49+8Y
+ PJEA==
+X-Gm-Message-State: AOAM531zztsTvef28FYsDI6t+ioMCe7ZP8XPJUXf6TqlSs0l1LnnKN9H
+ WptiehvKqIiYetIIBIlZzLeSZg==
+X-Google-Smtp-Source: ABdhPJwiCZ3y7ls9K5IfS1T6T0ClceNUAK7SZtIbNYVDQUzoxeIbETevQnD06wi4x9WLSkmqa1d5tw==
+X-Received: by 2002:a17:902:d2c3:: with SMTP id
+ n3mr21984876plc.45.1643652289541; 
+ Mon, 31 Jan 2022 10:04:49 -0800 (PST)
+Received: from [192.168.0.2] ([50.53.47.17])
+ by smtp.gmail.com with ESMTPSA id y42sm19810173pfa.5.2022.01.31.10.04.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Jan 2022 10:04:49 -0800 (PST)
+Message-ID: <e9e124b0-4ea0-e84c-cd8e-1c6ad4df9d74@pensando.io>
+Date: Mon, 31 Jan 2022 10:04:40 -0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.5.0
+Content-Language: en-US
+To: Saeed Mahameed <saeed@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
+References: <20220131172450.4905-1-saeed@kernel.org>
+From: Shannon Nelson <snelson@pensando.io>
+In-Reply-To: <20220131172450.4905-1-saeed@kernel.org>
 X-Mailman-Approved-At: Tue, 01 Feb 2022 07:42:52 +0000
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  David Awogbemila <awogbemila@google.com>,
@@ -70,7 +73,6 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Jiri Pirko <jiri@resnulli.us>, l.stelmach@samsung.com,
  Shay Agroskin <shayagr@amazon.com>, Randy Dunlap <rdunlap@infradead.org>,
  linux-kernel@vger.kernel.org, Jon Mason <jdmason@kudzu.us>,
- Shannon Nelson <snelson@pensando.io>,
  Claudiu Beznea <claudiu.beznea@microchip.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Chris Snook <chris.snook@gmail.com>, Zhu Yanjun <zyjzyj2000@gmail.com>,
@@ -101,14 +103,13 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Salil Mehta <salil.mehta@huawei.com>, Sergey Shtylyov <s.shtylyov@omp.ru>,
  Oleksij Rempel <linux@rempel-privat.de>, Edward Cree <ecree.xilinx@gmail.com>,
  Saeed Bishara <saeedb@amazon.com>, Mark Einon <mark.einon@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Slark Xiao <slark_xiao@163.com>, Gary Guo <gary@garyguo.net>,
  Gerhard Engleder <gerhard@engleder-embedded.com>,
  Jeroen de Borst <jeroendb@google.com>, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
- intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
- Prabhakar Kushwaha <pkushwaha@marvell.com>,
+ intel-wired-lan@lists.osuosl.org, Prabhakar Kushwaha <pkushwaha@marvell.com>,
  Hans Ulli Kroll <ulli.kroll@googlemail.com>,
  Richard Cochran <richardcochran@gmail.com>, Marcin Wojtas <mw@semihalf.com>,
  David Thompson <davthompson@nvidia.com>,
@@ -128,30 +129,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 31 Jan 2022 09:24:50 -0800
-Saeed Mahameed <saeed@kernel.org> wrote:
-
-> From: Saeed Mahameed <saeedm@nvidia.com>
-> 
-> NET_VENDOR_XYZ were defaulted to 'y' for no technical reason.
-> 
-> Since all drivers belonging to a vendor are supposed to default to 'n',
-> defaulting all vendors to 'n' shouldn't be an issue, and aligns well
-> with the 'no new drivers' by default mentality.
-> 
-> Signed-off-by: Saeed Mahameed <saeedm@nvidia.com>
-
-This was done back when vendors were introduced in the network drivers tree.
-The default of Y allowed older configurations to just work.
-
-So there was a reason, not sure if it matters anymore.
-But it seems like useless repainting to change it now.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMS8zMS8yMiA5OjI0IEFNLCBTYWVlZCBNYWhhbWVlZCB3cm90ZToKPiBGcm9tOiBTYWVlZCBN
+YWhhbWVlZCA8c2FlZWRtQG52aWRpYS5jb20+Cj4KPiBORVRfVkVORE9SX1hZWiB3ZXJlIGRlZmF1
+bHRlZCB0byAneScgZm9yIG5vIHRlY2huaWNhbCByZWFzb24uCj4KPiBTaW5jZSBhbGwgZHJpdmVy
+cyBiZWxvbmdpbmcgdG8gYSB2ZW5kb3IgYXJlIHN1cHBvc2VkIHRvIGRlZmF1bHQgdG8gJ24nLAo+
+IGRlZmF1bHRpbmcgYWxsIHZlbmRvcnMgdG8gJ24nIHNob3VsZG4ndCBiZSBhbiBpc3N1ZSwgYW5k
+IGFsaWducyB3ZWxsCj4gd2l0aCB0aGUgJ25vIG5ldyBkcml2ZXJzJyBieSBkZWZhdWx0IG1lbnRh
+bGl0eS4KPgo+IFNpZ25lZC1vZmYtYnk6IFNhZWVkIE1haGFtZWVkIDxzYWVlZG1AbnZpZGlhLmNv
+bT4KPgoKSXMgdGhlcmUgYSBwYXJ0aWN1bGFyIHJlYXNvbiB0byBjaGFuZ2UgdGhpcz8KQnJva2Vu
+IGNvbXBpbGVzP8KgIEJhZCBkcml2ZXJzP8KgIE92ZXItc2l6ZWQgb3V0cHV0PwoKc2xuCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
