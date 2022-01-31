@@ -2,64 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C5164A4F43
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jan 2022 20:17:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA2EB4A4FD7
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jan 2022 21:10:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEFC3C5EC43;
-	Mon, 31 Jan 2022 19:17:21 +0000 (UTC)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 956AFC5EC43;
+	Mon, 31 Jan 2022 20:10:35 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C20BC5C82A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78B5DC0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Jan 2022 19:17:20 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id i186so11227232pfe.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Jan 2022 11:17:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=7wtjFpATqKxdnDVdQqBB52ek5BkdZ1ljUXCnQMzA+YE=;
- b=X8YBNplQcnUZETMeJkil7YzspkzyBjdzevD8S5EhCJDlexq9s5syiK29gaXExTCG9x
- cBTU4EIAqxFlGcVOy9dLDJTNSr8PAc4KzWn9FXQJCMazJQ14zhMbaFZmdKsT3ySvFcC5
- +r3lQiYQjSJ1Bqpk0g5MKjOK+eUXoYnoOQAyFGhH3u1XL9W7Xvaold+XHeW+20yzb+l/
- HhmEKhdp51lSJjNPWNl/R7wrixvFWjSroT2+z5gRPJ8Qp0ZGv6Dn+lVgXj1OCWm+Sm0V
- TO33xQ1scBCqlq/eQbn3dfG86QcgRdVDfAVm0dM/1ATO/ZU/p9KluVFrM9Y+mm2Oq9/E
- aRow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=7wtjFpATqKxdnDVdQqBB52ek5BkdZ1ljUXCnQMzA+YE=;
- b=WmWvtyp8qzxQuh79SWhiiOctWE8ysditKvTpBLMURtS4KjIntd74tsva2GXYsRZ6tM
- wP/Fg3fm0cm1obJwAagdiMvjr5Dpv54DvudovSJK8sCyPqKwZ4HNMKDoyarBLA3L9gkc
- dVhIh0Q+VZOwLOwArCnCDlpCxKSgtqZ3bjZGNlrnVZ3vDSHUg8AeKzQJJXHjmpMU/BFJ
- AaSxfI3LSWS+YTsj/WBEIfay/CwhAkfUJUE22HiwVwKEsfL9uFnAF7413yHp084C0OoD
- 8w/35Jnm+BAUIrlKFhcMRBehQMizAf3Pk7xIH89jNlyIzUwMNmc//XM3Qg1ItQNTNb9S
- lGow==
-X-Gm-Message-State: AOAM530/l/xnzzUG1OdJN20NTwKRzlVtWcXg0+ZBRgpeopquJipLVqur
- INUMKnPi2crYyzzjEv78Xg0=
-X-Google-Smtp-Source: ABdhPJw11SX7kE9IxFaA0cpVmnKqPcCpGWxwTpOmHd3nspKT1jSnGEI0CQL4NBBvb5g7vvfFUUbwng==
-X-Received: by 2002:a63:1d4a:: with SMTP id d10mr18068276pgm.92.1643656638979; 
- Mon, 31 Jan 2022 11:17:18 -0800 (PST)
-Received: from hoboy.vegasvil.org ([2601:640:8200:33:e2d5:5eff:fea5:802f])
- by smtp.gmail.com with ESMTPSA id j18sm19961074pfj.13.2022.01.31.11.17.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Jan 2022 11:17:18 -0800 (PST)
-Date: Mon, 31 Jan 2022 11:17:06 -0800
-From: Richard Cochran <richardcochran@gmail.com>
+ Mon, 31 Jan 2022 20:10:33 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1C2DE61449;
+ Mon, 31 Jan 2022 20:10:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CED1C340E8;
+ Mon, 31 Jan 2022 20:10:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1643659831;
+ bh=db3019ER3yHKwYvfr1vDrkC0pSuWFsBGKycjXxPwonk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=b0BjUSE02/Lk9W7l6kNn8GCVBmeFqqRvSdMJB07B0CUhVQyPW1NURhoB+dnhBiU+W
+ JBtWhDM36yQbPoBdEN96aO+suz6byn7zIJ6Eq6jO2bocu5K/blX9MyRaU/oaLJB92y
+ FIro4AT9qeG6/0KFZv/ZvSlzM9COMAqqAY9MkSpSUmHGDdcSwzONr1LAsQAXgUAgEo
+ 9wi374x5enP+6A2x50TIBWRdDa34SvB37UqbV2NfGYIcWDP1OykvHH5AlrFFKGZbyU
+ I7Zfogab/rvVHRDnpTn5D9o0mHdsCIV5+zCngZSy+ddRUPNUUW3TOomCt/K7JOMzTc
+ ljRqLy0jmlm9w==
+Date: Mon, 31 Jan 2022 12:10:27 -0800
+From: Jakub Kicinski <kuba@kernel.org>
 To: Florian Fainelli <f.fainelli@gmail.com>
-Message-ID: <20220131191706.GB24296@hoboy.vegasvil.org>
+Message-ID: <20220131121027.4fe3e8dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <30ed8220-e24d-4b40-c7a6-4b09c84f9a1f@gmail.com>
 References: <20220131172450.4905-1-saeed@kernel.org>
  <20220131095905.08722670@hermes.local>
  <CAMuHMdU17cBzivFm9q-VwF9EG5MX75Qct=is=F2h+Kc+VddZ4g@mail.gmail.com>
  <20220131183540.6ekn3z7tudy5ocdl@sx1>
  <30ed8220-e24d-4b40-c7a6-4b09c84f9a1f@gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <30ed8220-e24d-4b40-c7a6-4b09c84f9a1f@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  David Awogbemila <awogbemila@google.com>,
  Linus Walleij <linus.walleij@linaro.org>, rafal@milecki.pl,
@@ -109,9 +90,9 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Slark Xiao <slark_xiao@163.com>, Gary Guo <gary@garyguo.net>,
  Gerhard Engleder <gerhard@engleder-embedded.com>,
  Jeroen de Borst <jeroendb@google.com>, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
- intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
- Prabhakar Kushwaha <pkushwaha@marvell.com>,
- Hans Ulli Kroll <ulli.kroll@googlemail.com>, Marcin Wojtas <mw@semihalf.com>,
+ intel-wired-lan@lists.osuosl.org, Prabhakar Kushwaha <pkushwaha@marvell.com>,
+ Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+ Richard Cochran <richardcochran@gmail.com>, Marcin Wojtas <mw@semihalf.com>,
  David Thompson <davthompson@nvidia.com>,
  Lars Povlsen <lars.povlsen@microchip.com>, netdev@vger.kernel.org,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
@@ -135,22 +116,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 31, 2022 at 10:40:38AM -0800, Florian Fainelli wrote:
+On Mon, 31 Jan 2022 10:40:38 -0800 Florian Fainelli wrote:
+> >> And changing the defaults means all defconfigs must be updated first,
+> >> else the user's configs will end up without drivers needed.
+> >>  
+> > 
+> > As I understand correctly, at least for most common net drivers, having 
+> > NET_VENDOR_XYZ=y doesn't actually build anything, we have flags per
+> > module for each vendor and those are defaulted to N.  
+> 
+> Right, but once you start hiding NET_VENDOR_DRIVER_XYZ under a 
+> NET_VENDOR_XYZ Kconfig symbol dependency, if NET_VENDOR_XYZ is not set 
+> to Y, then you have no way to select NET_VENDOR_DRIVER_XYZ and so your 
+> old defconfig breaks.
 
-> Maybe the rule should go like this: any new driver vendor defaults to n, and
-> existing ones remain set to y, until we deprecate doing that and switching
-> them all off to n by 5.18?
+To be clear do we actually care about *old* configs or *def* configs?
 
-+1
+Breaking defconfigs seems bad, but I don't think we can break
+reasonable oldconfigs at this point?
 
-Actually, I wouldn't mind breaking old configs.  Why?  Because never
-once have MY configs ever survived a kernel upgrade.  Manual fix ups
-are always needed.
+> >> It might make sense to tune some of the defaults (i.e. change to
+> >> "default y if ARCH_*") for drivers with clear platform dependencies.
+> >>  
+> > 
+> > either set hard default to 'n' or just keep it as is, anything else is just
+> > more confusion.  
+> 
+> Maybe the rule should go like this: any new driver vendor defaults to n, 
+> and existing ones remain set to y, until we deprecate doing that and 
+> switching them all off to n by 5.18?
 
-Nobody cares about my configs, so why should I care about theirs?
-
-Thanks,
-Richard
+I'd be afraid that given the work of fixing up defconfigs is
+non-trivial we may end up never switching old drivers. And then we'd
+have a semi-random soup of defaults :(
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
