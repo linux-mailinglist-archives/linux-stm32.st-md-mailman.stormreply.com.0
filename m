@@ -2,51 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D298C4AC682
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 17:54:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 952FC4AC6B5
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 18:04:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96559C5EC43;
-	Mon,  7 Feb 2022 16:54:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 181C2C597BA
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Feb 2022 16:54:33 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 385BEC5EC43;
+	Mon,  7 Feb 2022 17:04:57 +0000 (UTC)
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 09C9560AE7;
- Mon,  7 Feb 2022 16:54:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FE54C004E1;
- Mon,  7 Feb 2022 16:54:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1644252871;
- bh=ZhCOMln0Zt5onmq74lvlwpZ3OfaHsYGRSVchu6lO+i0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EoH0Sklp/HpYS+1O2MEju3lzMw6MFoHYmoNUVkt7h71Xc3kOgUsdt/MF3jE9qG/fh
- SpPvDrOPpM1nSKu3WbxkPhHxacfSBUomPbOkV6CWJ5ytSZ0Oes7z7xsIssV+TJT+g0
- 7fn0OCTGl6IwBlXyqimlw19GqhMQodQYmpib6mnxJVca5Bb3e4fjB+cbDlDP7ylDEZ
- L/VEY4S5jrlU3/7SVPpAkrbseOMB1sy2hBABFDe+hC6pNHAqmwr6UDmvDZFRniIrux
- DsADCI7jjJ9ZawX77pU3m4V6vWufLfmsdDVKy0O+D0xKr+Mx2GFOPyXrt5uPPXM//O
- SAHEwT093ecGg==
-Date: Mon, 7 Feb 2022 09:54:26 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: yannick Fertre <yannick.fertre@foss.st.com>
-Message-ID: <YgFOwl896WjY6DHM@dev-arch.archlinux-ax161>
-References: <20211215214843.20703-1-yannick.fertre@foss.st.com>
- <Yfq3XwozrxYaFhgD@dev-arch.archlinux-ax161>
- <7bd0a0a9-4015-b54c-f745-f813496be61b@foss.st.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACF19C597BA
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  7 Feb 2022 17:04:55 +0000 (UTC)
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 212BrUQD124243;
+ Wed, 2 Feb 2022 05:53:30 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1643802810;
+ bh=ZCiOlYN6uGVwo49DCOPGVRgsHZSeZjio+2Askyn+jEU=;
+ h=Date:From:To:CC:Subject:References:In-Reply-To;
+ b=Oe8FV/lTfcLmVGZDXiBYYSuW6er4n7IOenQBNpF3uJA3Dliw3ACK1iPNIxt0N2QyQ
+ jh+YwlBhPdJpCiwuMEwjWK5yOKR3O7ipo1ZObkANAFh4AR+GmNoNVyOvaIqyGhE3Wx
+ O4O1XKiw/cpSgYNtNsnRfLK1U8nX9HHvKLsVAhTI=
+Received: from DLEE112.ent.ti.com (dlee112.ent.ti.com [157.170.170.23])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 212BrU9N004577
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 2 Feb 2022 05:53:30 -0600
+Received: from DLEE114.ent.ti.com (157.170.170.25) by DLEE112.ent.ti.com
+ (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Wed, 2
+ Feb 2022 05:53:28 -0600
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14 via
+ Frontend Transport; Wed, 2 Feb 2022 05:53:28 -0600
+Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 212BrRl5023205;
+ Wed, 2 Feb 2022 05:53:28 -0600
+Date: Wed, 2 Feb 2022 17:23:27 +0530
+From: Pratyush Yadav <p.yadav@ti.com>
+To: Christophe Kerello <christophe.kerello@foss.st.com>
+Message-ID: <20220202115327.53oqg5n7tx6b6q7u@ti.com>
+References: <20220131095755.8981-1-christophe.kerello@foss.st.com>
+ <20220131095755.8981-5-christophe.kerello@foss.st.com>
+ <20220131144309.0ffe7cc8@xps13>
+ <20220201104727.7xvcyexf3yucegcb@ti.com>
+ <eebfa629-ead2-d63f-9cfb-4cafc1534678@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <7bd0a0a9-4015-b54c-f745-f813496be61b@foss.st.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 5/5] drm/stm: ltdc: add support of ycbcr
-	pixel formats
+In-Reply-To: <eebfa629-ead2-d63f-9cfb-4cafc1534678@foss.st.com>
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: devicetree@vger.kernel.org, vigneshr@ti.com,
+ Khouloud Touil <ktouil@baylibre.com>,
+ Tudor Ambarus <Tudor.Ambarus@microchip.com>, richard@nod.at,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, robh+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ chenshumin86@sina.com
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] mtd: core: Fix a conflict between
+ MTD and NVMEM on wp-gpios property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,101 +77,143 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 07, 2022 at 11:00:34AM +0100, yannick Fertre wrote:
-> Hi Nathan,
++ Khouloud, Linus, Bartosz
+
+On 02/02/22 11:44AM, Christophe Kerello wrote:
+> Hi,
 > 
-> On 2/2/22 17:54, Nathan Chancellor wrote:
-> > Hi Yannick,
-> > 
-> > On Wed, Dec 15, 2021 at 10:48:43PM +0100, Yannick Fertre wrote:
-> > > This patch adds the following YCbCr input pixel formats on the latest
-> > > LTDC hardware version:
+> On 2/1/22 11:47, Pratyush Yadav wrote:
+> > On 31/01/22 02:43PM, Miquel Raynal wrote:
+> > > Hi Vignesh, Tudory, Pratyush,
 > > > 
-> > > 1 plane  (co-planar)  : YUYV, YVYU, UYVY, VYUY
-> > > 2 planes (semi-planar): NV12, NV21
-> > > 3 planes (full-planar): YU12=I420=DRM YUV420, YV12=DRM YVU420
+> > > + Tudor and Pratyush
 > > > 
-> > > Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
+> > > christophe.kerello@foss.st.com wrote on Mon, 31 Jan 2022 10:57:55 +0100:
+> > > 
+> > > > Wp-gpios property can be used on NVMEM nodes and the same property can
+> > > > be also used on MTD NAND nodes. In case of the wp-gpios property is
+> > > > defined at NAND level node, the GPIO management is done at NAND driver
+> > > > level. Write protect is disabled when the driver is probed or resumed
+> > > > and is enabled when the driver is released or suspended.
+> > > > 
+> > > > When no partitions are defined in the NAND DT node, then the NAND DT node
+> > > > will be passed to NVMEM framework. If wp-gpios property is defined in
+> > > > this node, the GPIO resource is taken twice and the NAND controller
+> > > > driver fails to probe.
+> > > > 
+> > > > A new Boolean flag named skip_wp_gpio has been added in nvmem_config.
+> > > > In case skip_wp_gpio is set, it means that the GPIO is handled by the
+> > > > provider. Lets set this flag in MTD layer to avoid the conflict on
+> > > > wp_gpios property.
+> > > > 
+> > > > Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+> > > > ---
+> > > >   drivers/mtd/mtdcore.c | 2 ++
+> > > >   1 file changed, 2 insertions(+)
+> > > > 
+> > > > diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+> > > > index 70f492dce158..e6d251594def 100644
+> > > > --- a/drivers/mtd/mtdcore.c
+> > > > +++ b/drivers/mtd/mtdcore.c
+> > > > @@ -546,6 +546,7 @@ static int mtd_nvmem_add(struct mtd_info *mtd)
+> > > >   	config.stride = 1;
+> > > >   	config.read_only = true;
+> > > >   	config.root_only = true;
+> > > > +	config.skip_wp_gpio = true;
+> > > >   	config.no_of_node = !of_device_is_compatible(node, "nvmem-cells");
+> > > >   	config.priv = mtd;
+> > > > @@ -833,6 +834,7 @@ static struct nvmem_device *mtd_otp_nvmem_register(struct mtd_info *mtd,
+> > > >   	config.owner = THIS_MODULE;
+> > > >   	config.type = NVMEM_TYPE_OTP;
+> > > >   	config.root_only = true;
+> > > > +	config.skip_wp_gpio = true;
+> > > >   	config.reg_read = reg_read;
+> > > >   	config.size = size;
+> > > >   	config.of_node = np;
+> > > 
+> > > TLDR: There is a conflict between MTD and NVMEM, who should handle the
+> > > WP pin when there is one? At least for raw NAND devices, I don't want
+> > > the NVMEM core to handle the wp pin. So we've introduced this
+> > > skip_wp_gpio nvmem config option. But there are two places where this
+> > > boolean can be set and one of these is for otp regions (see above). In
+> > > this case, I don't know if it is safe or if CFI/SPI-NOR rely on the
+> > > nvmem protection. Please tell us if you think this is fine for you.
 > > 
-> > <snip>
+> > Why does NVMEM touch hardware write protection in the first place? The
+> > purpose of the framework is to provide a way to retrieve config stored
+> > in memory. It has no business dealing with details of the chip like the
+> > WP line. That should be MTD's job (which it should delegate to SPI NOR,
+> > SPI NAND, etc.). If you want to write protect a cell then do it in
+> > software. I don't see why NVMEM should be dealing with hardware directly
+> > at all.
 > > 
-> > > +static inline void ltdc_set_ycbcr_config(struct drm_plane *plane, u32 drm_pix_fmt)
-> > > +{
-> > > +	struct ltdc_device *ldev = plane_to_ltdc(plane);
-> > > +	struct drm_plane_state *state = plane->state;
-> > > +	u32 lofs = plane->index * LAY_OFS;
-> > > +	u32 val;
-> > > +
-> > > +	switch (drm_pix_fmt) {
-> > > +	case DRM_FORMAT_YUYV:
-> > > +		val = (YCM_I << 4) | LxPCR_YF | LxPCR_CBF;
-> > > +		break;
-> > > +	case DRM_FORMAT_YVYU:
-> > > +		val = (YCM_I << 4) | LxPCR_YF;
-> > > +		break;
-> > > +	case DRM_FORMAT_UYVY:
-> > > +		val = (YCM_I << 4) | LxPCR_CBF;
-> > > +		break;
-> > > +	case DRM_FORMAT_VYUY:
-> > > +		val = (YCM_I << 4);
-> > > +		break;
-> > > +	case DRM_FORMAT_NV12:
-> > > +		val = (YCM_SP << 4) | LxPCR_CBF;
-> > > +		break;
-> > > +	case DRM_FORMAT_NV21:
-> > > +		val = (YCM_SP << 4);
-> > > +		break;
-> > > +	case DRM_FORMAT_YUV420:
-> > > +	case DRM_FORMAT_YVU420:
-> > > +		val = (YCM_FP << 4);
-> > > +		break;
-> > > +	default:
-> > > +		/* RGB or not a YCbCr supported format */
-> > > +		break;
-> > > +	}
-> > > +
-> > > +	/* Enable limited range */
-> > > +	if (state->color_range == DRM_COLOR_YCBCR_LIMITED_RANGE)
-> > > +		val |= LxPCR_YREN;
-> > > +
-> > > +	/* enable ycbcr conversion */
-> > > +	val |= LxPCR_YCEN;
-> > > +
-> > > +	regmap_write(ldev->regmap, LTDC_L1PCR + lofs, val);
-> > > +}
+> > That is my mental model of how things _should_ work. I have not spent
+> > much time digging into how things actually work currently.
 > > 
-> > This patch as commit 484e72d3146b ("drm/stm: ltdc: add support of ycbcr
-> > pixel formats") in -next introduced the following clang warning:
-> > 
-> > drivers/gpu/drm/stm/ltdc.c:625:2: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
-> >          default:
-> >          ^~~~~~~
-> > drivers/gpu/drm/stm/ltdc.c:635:2: note: uninitialized use occurs here
-> >          val |= LxPCR_YCEN;
-> >          ^~~
-> > drivers/gpu/drm/stm/ltdc.c:600:9: note: initialize the variable 'val' to silence this warning
-> >          u32 val;
-> >                 ^
-> >                  = 0
-> > 1 warning generated.
-> > 
-> > Would it be okay to just return in the default case (maybe with a
-> > message about an unsupported format?) or should there be another fix?
-> > 
-> > Cheers,
 > 
+> Wp-gpios property management was added in MVMEM framework in January 2020 =>
+> sha1: 2a127da461a9d8d97782d6e82b227041393eb4d2
+> "
+>     nvmem: add support for the write-protect pin
 > 
-> Thanks for your help.
-> It'okay for a message for unsupported format with a return in the default
-> case.
-> Do you want create & push the patch?
+>     The write-protect pin handling looks like a standard property that
+>     could benefit other users if available in the core nvmem framework.
+> 
+>     Instead of modifying all the memory drivers to check this pin, make
+>     the NVMEM subsystem check if the write-protect GPIO being passed
+>     through the nvmem_config or defined in the device tree and pull it
+>     low whenever writing to the memory.
+> "
+> 
+> And this modification was done for EEPROMs flashes => sha1:
+> 1c89074bf85068d1b86f2e0f0c2110fdd9b83c9f
+> "
+>     eeprom: at24: remove the write-protect pin support
+> 
+>     NVMEM framework is an interface for the at24 EEPROMs as well as for
+>     other drivers, instead of passing the wp-gpios over the different
+>     drivers each time, it would be better to pass it over the NVMEM
+>     subsystem once and for all.
+> 
+>     Removing the support for the write-protect pin after adding it to
+>     the NVMEM subsystem.
+> "
+> 
+> Current NVMEM framework implementation toggles the WP GPIO when reg_write
+> nvmem_config API is defined. In case of MTD framework, reg_write is not
+> defined in nvmem_config.
 
-Thank you for the input! I have sent a fix now, please take a look.
+Thanks for digging these up. I think this was the wrong decision to 
+make. NVMEM should just provide the APIs for handling read/write, and 
+leave the rest to the drivers.
 
-https://lore.kernel.org/r/20220207165304.1046867-1-nathan@kernel.org/
+It might be convenient for some drivers to put the WP GPIO handling to 
+NVMEM core but I just don't think it is the job of the framework to deal 
+with this, and it just does not know enough about the device to deal 
+with correctly and completely anyway. For example, wp-gpio is only one 
+of the ways to write protect a chip. SPI NOR flashes have a WP# pin that 
+is often toggled via the SPI controller. There could also be registers 
+that do the write protection.
 
-Cheers,
-Nathan
+One would have to make strong justifications for making nvmem directly 
+deal with hardware level details to convince me it is a good idea. IMHO 
+if AT24 EEPROM is the only driver relying on this as of now then we 
+should just revert the patches and not have to deal with the 
+skip_wp_gpio hackery.
+
+> 
+> Based on the comments made, it seems that we also agree that this write
+> protection should be handled by MTD subsystems or associated drivers and not
+> by MVMEN framework for MTD use cases.
+> 
+> The proposal implementation should solve this conflict for MTD framework
+> without breaking anything for others NVMEM users (EEPROMs flashes for
+> example).
+
+-- 
+Regards,
+Pratyush Yadav
+Texas Instruments Inc.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
