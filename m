@@ -2,54 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EB4F4AC41F
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 16:46:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EF9A4AC42B
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 16:46:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D84B9C6048A;
-	Mon,  7 Feb 2022 15:46:33 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11C34C60478;
+	Mon,  7 Feb 2022 15:41:01 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8A4DC5AB61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6054BC60476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Feb 2022 15:46:31 +0000 (UTC)
+ Mon,  7 Feb 2022 15:40:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C7568B835A5;
- Thu,  3 Feb 2022 20:32:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF328C340F2;
- Thu,  3 Feb 2022 20:32:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 77BB661ACE;
+ Thu,  3 Feb 2022 20:33:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E69EC340EB;
+ Thu,  3 Feb 2022 20:33:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1643920332;
- bh=cJz+WCKCtmXCo1AQ+BSDjP3riPuNHgmDjCEGV5+z4VY=;
+ s=k20201202; t=1643920438;
+ bh=dItdlAFft5uW1yYTm3sta6XlQkwbCGrYNnHS0imvbuQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C1Qzc6LbReGkGrWb2Eh4KjwhJIHkd9FNiCDVO3gZq4X/buOz9p4UjDWtoDRKcO5DG
- 1Zt+nJVcI/5NgBzMJQNsGPfvbcFq6YOeUqzU1bP+/0pNtWkQTCK9tcgESL+mR16LDI
- 1yudK/9YRNwuJqU1v7azd9HTLsnnjcqoy8VBZjoRd8uLWlZHg049fwsExyVf3FfZUY
- ZbYXV75gqsidxrSEEgoERl310R9s/2WYKjNw6FLb4aPyD+Mzi+X2bAiD6tIZT/XAoa
- oDAYy+X5ywAysi7UuGt5lHZrYDU+Js31Gb7l6e8Gq2DWMgtnZ2sCJPTrkBdCXAfetS
- WPs8A2yhdj8Uw==
+ b=jsgBQrfFVm8Keb6LY8MrO/CbIa2bPHvfNXhuvswdCGFQd+rR+3XX1oHDxQdNQXlHJ
+ ww3ZzkdHm7VbmBaBD+vQ8nF6PVOZCAK/RFwid0HE37zccF551wLJrHri525nHStqR/
+ ZJtyCuJGW6B0sheinxNy1g/MKcAqdyGQ28RsTa+XkRvlmegKqTs+wfVoM8sIpaLIzE
+ shyr1emK0FHUIiPe/LpUnggv+xf65fzFp6uIJlbvz3Z0pqE0FeAdDL/acpnd4rgd+f
+ 1Edtxhmt1AaoCaU0MargdAr4LBf8010ZgQYnEahkqJDcNfRi3cX06XgoN4CCchf2J/
+ ws3aB5tRqszyA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu,  3 Feb 2022 15:29:39 -0500
-Message-Id: <20220203202947.2304-45-sashal@kernel.org>
+Date: Thu,  3 Feb 2022 15:32:36 -0500
+Message-Id: <20220203203245.3007-32-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220203202947.2304-1-sashal@kernel.org>
-References: <20220203202947.2304-1-sashal@kernel.org>
+In-Reply-To: <20220203203245.3007-1-sashal@kernel.org>
+References: <20220203203245.3007-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
  netdev@vger.kernel.org, alexandre.torgue@foss.st.com,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, wens@csie.org, joabreu@synopsys.com,
- mripard@kernel.org, Jisheng Zhang <jszhang@kernel.org>, kuba@kernel.org,
- peppe.cavallaro@st.com, linux-sunxi@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
+ Jisheng Zhang <jszhang@kernel.org>, kuba@kernel.org, peppe.cavallaro@st.com,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.16 45/52] net: stmmac: dwmac-sun8i:
-	use return val of readl_poll_timeout()
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 32/41] net: stmmac: reduce
+	unnecessary wakeups from eee sw timer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,38 +66,71 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Jisheng Zhang <jszhang@kernel.org>
 
-[ Upstream commit 9e0db41e7a0b6f1271cbcfb16dbf5b8641b4e440 ]
+[ Upstream commit c74ead223deb88bdf18af8c772d7ca5a9b6c3c2b ]
 
-When readl_poll_timeout() timeout, we'd better directly use its return
-value.
-
-Before this patch:
-[    2.145528] dwmac-sun8i: probe of 4500000.ethernet failed with error -14
-
-After this patch:
-[    2.138520] dwmac-sun8i: probe of 4500000.ethernet failed with error -110
+Currently, on EEE capable platforms, if EEE SW timer is used, the SW
+timer cause 1 wakeup/s even if the TX has successfully entered EEE.
+Remove this unnecessary wakeup by only calling mod_timer() if we
+haven't successfully entered EEE.
 
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 Signed-off-by: David S. Miller <davem@davemloft.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 617d0e4c64958..09644ab0d87a7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -756,7 +756,7 @@ static int sun8i_dwmac_reset(struct stmmac_priv *priv)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 06e5431cf51df..50c910eadda71 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -400,7 +400,7 @@ static void stmmac_lpi_entry_timer_config(struct stmmac_priv *priv, bool en)
+  * Description: this function is to verify and enter in LPI mode in case of
+  * EEE.
+  */
+-static void stmmac_enable_eee_mode(struct stmmac_priv *priv)
++static int stmmac_enable_eee_mode(struct stmmac_priv *priv)
+ {
+ 	u32 tx_cnt = priv->plat->tx_queues_to_use;
+ 	u32 queue;
+@@ -410,13 +410,14 @@ static void stmmac_enable_eee_mode(struct stmmac_priv *priv)
+ 		struct stmmac_tx_queue *tx_q = &priv->tx_queue[queue];
  
- 	if (err) {
- 		dev_err(priv->device, "EMAC reset timeout\n");
--		return -EFAULT;
-+		return err;
+ 		if (tx_q->dirty_tx != tx_q->cur_tx)
+-			return; /* still unfinished work */
++			return -EBUSY; /* still unfinished work */
  	}
- 	return 0;
+ 
+ 	/* Check and enter in LPI mode */
+ 	if (!priv->tx_path_in_lpi_mode)
+ 		stmmac_set_eee_mode(priv, priv->hw,
+ 				priv->plat->en_tx_lpi_clockgating);
++	return 0;
  }
+ 
+ /**
+@@ -448,8 +449,8 @@ static void stmmac_eee_ctrl_timer(struct timer_list *t)
+ {
+ 	struct stmmac_priv *priv = from_timer(priv, t, eee_ctrl_timer);
+ 
+-	stmmac_enable_eee_mode(priv);
+-	mod_timer(&priv->eee_ctrl_timer, STMMAC_LPI_T(priv->tx_lpi_timer));
++	if (stmmac_enable_eee_mode(priv))
++		mod_timer(&priv->eee_ctrl_timer, STMMAC_LPI_T(priv->tx_lpi_timer));
+ }
+ 
+ /**
+@@ -2636,8 +2637,8 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
+ 
+ 	if (priv->eee_enabled && !priv->tx_path_in_lpi_mode &&
+ 	    priv->eee_sw_timer_en) {
+-		stmmac_enable_eee_mode(priv);
+-		mod_timer(&priv->eee_ctrl_timer, STMMAC_LPI_T(priv->tx_lpi_timer));
++		if (stmmac_enable_eee_mode(priv))
++			mod_timer(&priv->eee_ctrl_timer, STMMAC_LPI_T(priv->tx_lpi_timer));
+ 	}
+ 
+ 	/* We still have pending packets, let's call for a new scheduling */
 -- 
 2.34.1
 
