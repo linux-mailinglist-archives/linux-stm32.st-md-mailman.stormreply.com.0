@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD6B24AC42F
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CDE54AC42C
 	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 16:46:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5B4BC60470;
-	Mon,  7 Feb 2022 15:39:41 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A012AC6046A;
+	Mon,  7 Feb 2022 15:39:26 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D83ACC6046C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0464C60467
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Feb 2022 15:39:39 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 213Bqnrw011979;
- Thu, 3 Feb 2022 18:13:24 +0100
+ Mon,  7 Feb 2022 15:39:25 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 213FMfX9012526;
+ Thu, 3 Feb 2022 18:13:25 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-type; s=selector1;
- bh=cKk2cA2cmuKql7YjYE5zBV0uRlabMNQq+kXwcKiX/RM=;
- b=gBKyyK059I9uncSngLUv/+M25a1wHYalgUUWdRY5ckFx8oo6eqH4arvwLN/tbQJxTjYn
- pvPgAEpZpHj+smNiaBA6T4Ne1Y345sYLjVH+TatO0LWr5eQHGPjRTMgEoFHQ3AvgV0ug
- l4f7MnhA9zhMECCgZTX8009+mgMW8tBmz2z5+YAd7m7wolDfTIGTRTyUMLpjNUYY2fez
- 95b+zuTs3nvqsXswrZM02nK6wwFR1aA3B7U9Iml05F2Hg30ZD1bXqlGD0nFuk9P8fIUv
- LPV4Rr6kSPks3nMqotP93a1cr6l6Ge5nQkgf9fdDUQjL/bFUXiVr2nDoR7kVnoX0KM+j 6Q== 
+ bh=TXpXIlzV26pZ5NRPtk0I/4JOGJnFgINSPAo4W7gs0J0=;
+ b=wo/e7bkyhmL5oqsol9ApUPFNx2UpR98tKrg9iTPy6NnsuIlyEsB9WWBeymgYrweXAs5U
+ SVYA51MtEkcDhb4amfLIXlSGkefH+eSwem8pyY/O4l5zclKPxy4R0sj6/Usgsh5/Lr/e
+ WzRncwBArgpTQKY+MH3GsszL5QGx9Cgjc8Dw1XUhmGVvwgryUYpxjMQC8Y5XDmw8WACQ
+ DA5nlBXbIeDsPVbLT0URx2l7VasXvz7yrO+z5SqJ5y70u9OZNnJARK5jzxF1odcvkm10
+ ervxQszM0Ubsq+gEz15HLyssdcxbbiL5NQH5HAxIJusXuTP2uxvL7itgeCJKRdnndHHz Zw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e0ejj9gdp-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e0c4fjdm3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 03 Feb 2022 18:13:24 +0100
+ Thu, 03 Feb 2022 18:13:25 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 57E85100038;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D045110002A;
  Thu,  3 Feb 2022 18:13:24 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5133322F7AA;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C7E7822F7AB;
  Thu,  3 Feb 2022 18:13:24 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
  with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 3 Feb 2022 18:13:24
  +0100
 From: Erwan Le Ray <erwan.leray@foss.st.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 3 Feb 2022 18:11:09 +0100
-Message-ID: <20220203171114.10888-12-erwan.leray@foss.st.com>
+Date: Thu, 3 Feb 2022 18:11:10 +0100
+Message-ID: <20220203171114.10888-13-erwan.leray@foss.st.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220203171114.10888-1-erwan.leray@foss.st.com>
 References: <20220203171114.10888-1-erwan.leray@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
+X-Originating-IP: [10.75.127.45]
 X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
@@ -60,8 +60,8 @@ Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 11/16] ARM: dts: stm32: keep uart4 behavior on
-	stm32mp157c-odyssey
+Subject: [Linux-stm32] [PATCH 12/16] ARM: dts: stm32: keep uart nodes
+	behavior on stm32mp15xx-dhcom-drc02
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,21 +79,28 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 DMA configuration is added to uart nodes in stm32mp15x device tree.
-Delete uart4 DMA property in stm32mp157c-odyssey board device tree to
-keep console in irq mode, as DMA support for console has been removed
-from the driver by commit e359b4411c28 ("serial: stm32: fix threaded
-interrupt handling").
+Delete usart3 and uart8 nodes DMA property in stm32mp15xx-dhcom-drc02
+board device tree to keep current behavior.
 
 Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
 
-diff --git a/arch/arm/boot/dts/stm32mp157c-odyssey.dts b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
-index 554f5d3bcdc3..ed66d25b8bf3 100644
---- a/arch/arm/boot/dts/stm32mp157c-odyssey.dts
-+++ b/arch/arm/boot/dts/stm32mp157c-odyssey.dts
-@@ -81,6 +81,8 @@
- &uart4 {
+diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
+index 4b10b013ffd5..35b1034aa3cf 100644
+--- a/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
++++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi
+@@ -131,6 +131,8 @@
+ &usart3 {
  	pinctrl-names = "default";
- 	pinctrl-0 = <&uart4_pins_a>;
+ 	pinctrl-0 = <&usart3_pins_a>;
++	/delete-property/dmas;
++	/delete-property/dma-names;
+ 	status = "okay";
+ };
+ 
+@@ -144,6 +146,8 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart8_pins_a>;
+ 	rts-gpios = <&gpioe 6 GPIO_ACTIVE_HIGH>;
 +	/delete-property/dmas;
 +	/delete-property/dma-names;
  	status = "okay";
