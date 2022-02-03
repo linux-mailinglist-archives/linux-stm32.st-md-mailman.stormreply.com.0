@@ -2,61 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41DEB4AC634
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 17:44:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB4B44AC431
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 16:46:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F34FAC60465;
-	Mon,  7 Feb 2022 16:44:27 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27949C60460;
+	Mon,  7 Feb 2022 15:36:40 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FBA6C5F1EC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94B4BC0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Feb 2022 16:44:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jThIhFNBrb3xj2YQLkczkGqkTy9wIvQP7gVhgnzkrew=; b=zGqOR7+LqSrG510WGhf1Ch1m+Q
- zInXDUP+4zUsUrFPitgFSW+BwbHex8XmIlJT7thj0wp4BGrUyfHA+/mkPSu8CAYR2a8B7LsJpIVbA
- N5gpuO+O7H3tPq8CUi8kGBhgqdRTkcgxmXICWE+dL+up2T1R+KeuuXYuzT7Gp4Cuf1mw3+s6E46yj
- lg6bKHZlj4VFjSRnTYgs2sGXT/CoQbquXe3QK9Wwygp0lxg2M8kzhI/PcsZALiYg8Eqq511/Xxd+m
- yInasAcEDOvhjUF3etd1bOFnYK37Zl3SlsnaKMYrH5FZyOWqqY69AUQdLoYSsrGcGv+5TW1HIoyo+
- JgXhnVbQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57016)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1nFfDf-0002s5-AV; Thu, 03 Feb 2022 16:44:27 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1nFfDc-00049q-6H; Thu, 03 Feb 2022 16:44:24 +0000
-Date: Thu, 3 Feb 2022 16:44:24 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Yannick Vignon <yannick.vignon@oss.nxp.com>
-Message-ID: <YfwGaD06/3W1UFQ+@shell.armlinux.org.uk>
-References: <20220203160025.750632-1-yannick.vignon@oss.nxp.com>
- <YfwCnV2TV8fznZ33@shell.armlinux.org.uk>
- <13dc6f72-8ef4-6990-1c67-2b92c6894e87@oss.nxp.com>
+ Mon,  7 Feb 2022 15:36:38 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 213BqhKf011945;
+ Thu, 3 Feb 2022 18:11:20 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type; s=selector1;
+ bh=+3SMJdk/i10Ni8hFboTXLiEzVYQL+60qZcJKfQoAgCc=;
+ b=EnZLGX/kzXO4QKhpFjpHI3Iw1HpOvVvYldfcPtrue7M0Aojs5VIkzoKbM6ilqPkofdBs
+ IE4wkKIuFBUnIlWNNab9qDPyGQJVLBeRTuej+szjAC9559TUvn9qc7KRXjzsrYIc6zHh
+ tOWvEKcdlTaZPKibX3zCyToGUnvdjnN1Bjwx9nyf8vi7epGlyk7PZag4nRd4VPKmSzuC
+ C22nfLg1/eeJILL+mPUaMN/LMxU7een2KIEqzWdfGCwPWPy8vmvfyhPHudqIvbjmbtDR
+ F6rbZyWX04c3axqA1U6C+LOhtDEt9vB9CpgZS9Foz9JLyG7MIdp/BQSV1SyCUOe9nO7L xw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e0ejj9g4t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 03 Feb 2022 18:11:20 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7FD2F100034;
+ Thu,  3 Feb 2022 18:11:18 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6441F22F7A3;
+ Thu,  3 Feb 2022 18:11:18 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 3 Feb 2022 18:11:18
+ +0100
+From: Erwan Le Ray <erwan.leray@foss.st.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Thu, 3 Feb 2022 18:10:58 +0100
+Message-ID: <20220203171114.10888-1-erwan.leray@foss.st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <13dc6f72-8ef4-6990-1c67-2b92c6894e87@oss.nxp.com>
-Cc: Joakim Zhang <qiangqing.zhang@nxp.com>, linux-kernel@vger.kernel.org,
- Yannick Vignon <yannick.vignon@nxp.com>, netdev@vger.kernel.org,
- Xiaoliang Yang <xiaoliang.yang_1@nxp.com>, mingkai.hu@nxp.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, sebastien.laveze@oss.nxp.com,
- Jose Abreu <joabreu@synopsys.com>,
- Rayagond Kokatanur <rayagond@vayavyalabs.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: ensure PTP time register
- reads are consistent
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-02-03_06,2022-02-03_01,2021-12-02_01
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/16] STM32 configure UART nodes for DMA
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,34 +74,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 03, 2022 at 05:38:10PM +0100, Yannick Vignon wrote:
-> On 2/3/2022 5:28 PM, Russell King (Oracle) wrote:
-> > On Thu, Feb 03, 2022 at 05:00:25PM +0100, Yannick Vignon wrote:
-> > > From: Yannick Vignon <yannick.vignon@nxp.com>
-> > > 
-> > > Even if protected from preemption and interrupts, a small time window
-> > > remains when the 2 register reads could return inconsistent values,
-> > > each time the "seconds" register changes. This could lead to an about
-> > > 1-second error in the reported time.
-> > 
-> > Have you checked whether the hardware protects against this (i.o.w. the
-> > hardware latches the PTP_STSR value when PTP_STNSR is read, or vice
-> > versa? Several PTP devices I've looked at do this to allow consistent
-> > reading.
-> > 
-> 
-> It doesn't. I was able to observe inconsistent values doing reads in either
-> order, and we had already observed the issue with that same IP on another
-> device (Cortex-M based, not running Linux). It's not easy to reproduce, the
-> time window is small, but it's there.
+Add DMA configuration to UART nodes in stm32mp15x (SOC level) and
+remove it at board level to keep current PIO behavior when needed.
+For stm32-ed1 and stm32-dkx boards, UART4 (console) and UART7
+(no HW flow control pin available) are kept in PIO mode, while USART3
+is now configured in DMA mode.
+UART4 (console UART) has to be kept in irq mode, as DMA support for
+console has been removed from the driver by commit e359b4411c28 
+("serial: stm32: fix threaded interrupt handling"). 
 
-Okay, thanks.
+For other stm32mp15x-based boards, current configuration is kept for
+all UART instances.
 
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Erwan Le Ray (16):
+  ARM: dts: stm32: add DMA configuration to UART nodes on stm32mp151
+  ARM: dts: stm32: keep uart4 behavior on stm32mp157c-ed1
+  ARM: dts: stm32: keep uart4 and uart7 behavior on stm32mp15xx-dkx
+  ARM: dts: stm32: keep uart4 behavior on icore-stm32mp1-ctouch2
+  ARM: dts: stm32: keep uart4 behavior on icore-stm32mp1-edimm2.2
+  ARM: dts: stm32: keep uart4 behavior on stm32mp157a-iot-box
+  ARM: dts: stm32: keep uart nodes behavior on stm32mp1-microdev2.0-of7
+  ARM: dts: stm32: keep uart nodes behavior on stm32mp1-microdev2.0
+  ARM: dts: stm32: keep uart nodes behavior on stm32mp157a-stinger96
+  ARM: dts: stm32: keep uart4 behavior on stm32mp157c-lxa-mc1
+  ARM: dts: stm32: keep uart4 behavior on stm32mp157c-odyssey
+  ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-drc02
+  ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-pdk2
+  ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-picoitx
+  ARM: dts: stm32: keep uart4 behavior on stm32mp15xx-dhcom-som
+  ARM: dts: stm32: keep uart nodes behavior on
+    stm32mp15xx-dhcor-avenger96
+
+ arch/arm/boot/dts/stm32mp151.dtsi             | 21 +++++++++++++++++++
+ .../stm32mp157a-icore-stm32mp1-ctouch2.dts    |  2 ++
+ .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   |  2 ++
+ arch/arm/boot/dts/stm32mp157a-iot-box.dts     |  2 ++
+ ...157a-microgea-stm32mp1-microdev2.0-of7.dts |  4 ++++
+ ...32mp157a-microgea-stm32mp1-microdev2.0.dts |  4 ++++
+ arch/arm/boot/dts/stm32mp157a-stinger96.dtsi  |  6 ++++++
+ arch/arm/boot/dts/stm32mp157c-ed1.dts         |  2 ++
+ arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts     |  2 ++
+ arch/arm/boot/dts/stm32mp157c-odyssey.dts     |  2 ++
+ .../arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi |  4 ++++
+ arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi |  4 ++++
+ .../boot/dts/stm32mp15xx-dhcom-picoitx.dtsi   |  4 ++++
+ arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi  |  2 ++
+ .../boot/dts/stm32mp15xx-dhcor-avenger96.dtsi |  6 ++++++
+ arch/arm/boot/dts/stm32mp15xx-dkx.dtsi        |  4 ++++
+ 16 files changed, 71 insertions(+)
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
