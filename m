@@ -2,34 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 203054AC76F
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 18:30:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72AA74AC7B9
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 18:35:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAF46C5EC43;
-	Mon,  7 Feb 2022 17:30:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AC96C5EC43;
+	Mon,  7 Feb 2022 17:35:35 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EF76C0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05F00C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Feb 2022 17:30:34 +0000 (UTC)
+ Mon,  7 Feb 2022 17:35:33 +0000 (UTC)
 Received: from gallifrey.ext.pengutronix.de
  ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=[127.0.0.1])
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <a.fatoum@pengutronix.de>)
- id 1nFfrd-0002xF-6f; Thu, 03 Feb 2022 18:25:45 +0100
-Message-ID: <cc7633c5-de5f-0abf-4ac8-64a74633dfcc@pengutronix.de>
-Date: Thu, 3 Feb 2022 18:25:43 +0100
+ id 1nG0oa-00034l-Tz; Fri, 04 Feb 2022 16:48:00 +0100
+Message-ID: <4748285a-e554-0f7f-525c-efdea0003ab8@pengutronix.de>
+Date: Fri, 4 Feb 2022 16:47:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-To: Erwan Le Ray <erwan.leray@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20220203171114.10888-1-erwan.leray@foss.st.com>
 Content-Language: en-US
-In-Reply-To: <20220203171114.10888-1-erwan.leray@foss.st.com>
+To: Erwan LE RAY <erwan.leray@foss.st.com>,
+ Alexandre TORGUE <alexandre.torgue@foss.st.com>
+References: <20220203171114.10888-1-erwan.leray@foss.st.com>
+ <cc7633c5-de5f-0abf-4ac8-64a74633dfcc@pengutronix.de>
+ <f5aec360-c33c-0145-6596-541003e305b2@foss.st.com>
+ <98823363-710c-6286-8e63-ba8e5dcadeba@foss.st.com>
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+In-Reply-To: <98823363-710c-6286-8e63-ba8e5dcadeba@foss.st.com>
 X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
 X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
@@ -54,89 +57,105 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Erwan,
-
-On 03.02.22 18:10, Erwan Le Ray wrote:
-> Add DMA configuration to UART nodes in stm32mp15x (SOC level) and
-> remove it at board level to keep current PIO behavior when needed.
-> For stm32-ed1 and stm32-dkx boards, UART4 (console) and UART7
-> (no HW flow control pin available) are kept in PIO mode, while USART3
-> is now configured in DMA mode.
-> UART4 (console UART) has to be kept in irq mode, as DMA support for
-> console has been removed from the driver by commit e359b4411c28 
-> ("serial: stm32: fix threaded interrupt handling"). 
-
-Do I understand correctly that your first patch breaks consoles of
-most/all boards, because they will briefly use DMA, which is refused
-by the stm32-usart driver and then you add a patch for each board
-to fix that breakage?
-
-Such intermittent breakage makes bisection a hassle. /delete-property/
-is a no-op when the property doesn't exist, so you could move the first
-patch to the very end to avoid intermittent breakage.
-
-I also think that the driver's behavior is a bit harsh. I think it would
-be better for the UART driver to print a warning and fall back to
-PIO for console instead of outright refusing and rendering the system
-silent. That's not mutually exclusive with your patch series here, of course.
-
-Cheers,
-Ahmad
-
-> 
-> For other stm32mp15x-based boards, current configuration is kept for
-> all UART instances.
-> 
-> Erwan Le Ray (16):
->   ARM: dts: stm32: add DMA configuration to UART nodes on stm32mp151
->   ARM: dts: stm32: keep uart4 behavior on stm32mp157c-ed1
->   ARM: dts: stm32: keep uart4 and uart7 behavior on stm32mp15xx-dkx
->   ARM: dts: stm32: keep uart4 behavior on icore-stm32mp1-ctouch2
->   ARM: dts: stm32: keep uart4 behavior on icore-stm32mp1-edimm2.2
->   ARM: dts: stm32: keep uart4 behavior on stm32mp157a-iot-box
->   ARM: dts: stm32: keep uart nodes behavior on stm32mp1-microdev2.0-of7
->   ARM: dts: stm32: keep uart nodes behavior on stm32mp1-microdev2.0
->   ARM: dts: stm32: keep uart nodes behavior on stm32mp157a-stinger96
->   ARM: dts: stm32: keep uart4 behavior on stm32mp157c-lxa-mc1
->   ARM: dts: stm32: keep uart4 behavior on stm32mp157c-odyssey
->   ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-drc02
->   ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-pdk2
->   ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-picoitx
->   ARM: dts: stm32: keep uart4 behavior on stm32mp15xx-dhcom-som
->   ARM: dts: stm32: keep uart nodes behavior on
->     stm32mp15xx-dhcor-avenger96
-> 
->  arch/arm/boot/dts/stm32mp151.dtsi             | 21 +++++++++++++++++++
->  .../stm32mp157a-icore-stm32mp1-ctouch2.dts    |  2 ++
->  .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   |  2 ++
->  arch/arm/boot/dts/stm32mp157a-iot-box.dts     |  2 ++
->  ...157a-microgea-stm32mp1-microdev2.0-of7.dts |  4 ++++
->  ...32mp157a-microgea-stm32mp1-microdev2.0.dts |  4 ++++
->  arch/arm/boot/dts/stm32mp157a-stinger96.dtsi  |  6 ++++++
->  arch/arm/boot/dts/stm32mp157c-ed1.dts         |  2 ++
->  arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts     |  2 ++
->  arch/arm/boot/dts/stm32mp157c-odyssey.dts     |  2 ++
->  .../arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi |  4 ++++
->  arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi |  4 ++++
->  .../boot/dts/stm32mp15xx-dhcom-picoitx.dtsi   |  4 ++++
->  arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi  |  2 ++
->  .../boot/dts/stm32mp15xx-dhcor-avenger96.dtsi |  6 ++++++
->  arch/arm/boot/dts/stm32mp15xx-dkx.dtsi        |  4 ++++
->  16 files changed, 71 insertions(+)
-> 
-
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gRXJ3YW4sCgpPbiAwNC4wMi4yMiAxNjo0MSwgRXJ3YW4gTEUgUkFZIHdyb3RlOgo+IEhp
+IEFobWFkLAo+IAo+IAo+IE9uIDIvNC8yMiAyOjIyIFBNLCBBbGV4YW5kcmUgVE9SR1VFIHdyb3Rl
+Ogo+PiBIaSBBaG1hZAo+Pgo+PiBPbiAyLzMvMjIgMTg6MjUsIEFobWFkIEZhdG91bSB3cm90ZToK
+Pj4+IEhlbGxvIEVyd2FuLAo+Pj4KPj4+IE9uIDAzLjAyLjIyIDE4OjEwLCBFcndhbiBMZSBSYXkg
+d3JvdGU6Cj4+Pj4gQWRkIERNQSBjb25maWd1cmF0aW9uIHRvIFVBUlQgbm9kZXMgaW4gc3RtMzJt
+cDE1eCAoU09DIGxldmVsKSBhbmQKPj4+PiByZW1vdmUgaXQgYXQgYm9hcmQgbGV2ZWwgdG8ga2Vl
+cCBjdXJyZW50IFBJTyBiZWhhdmlvciB3aGVuIG5lZWRlZC4KPj4+PiBGb3Igc3RtMzItZWQxIGFu
+ZCBzdG0zMi1ka3ggYm9hcmRzLCBVQVJUNCAoY29uc29sZSkgYW5kIFVBUlQ3Cj4+Pj4gKG5vIEhX
+IGZsb3cgY29udHJvbCBwaW4gYXZhaWxhYmxlKSBhcmUga2VwdCBpbiBQSU8gbW9kZSwgd2hpbGUg
+VVNBUlQzCj4+Pj4gaXMgbm93IGNvbmZpZ3VyZWQgaW4gRE1BIG1vZGUuCj4+Pj4gVUFSVDQgKGNv
+bnNvbGUgVUFSVCkgaGFzIHRvIGJlIGtlcHQgaW4gaXJxIG1vZGUsIGFzIERNQSBzdXBwb3J0IGZv
+cgo+Pj4+IGNvbnNvbGUgaGFzIGJlZW4gcmVtb3ZlZCBmcm9tIHRoZSBkcml2ZXIgYnkgY29tbWl0
+IGUzNTliNDQxMWMyOAo+Pj4+ICgic2VyaWFsOiBzdG0zMjogZml4IHRocmVhZGVkIGludGVycnVw
+dCBoYW5kbGluZyIpLgo+Pj4KPj4+IERvIEkgdW5kZXJzdGFuZCBjb3JyZWN0bHkgdGhhdCB5b3Vy
+IGZpcnN0IHBhdGNoIGJyZWFrcyBjb25zb2xlcyBvZgo+Pj4gbW9zdC9hbGwgYm9hcmRzLCBiZWNh
+dXNlIHRoZXkgd2lsbCBicmllZmx5IHVzZSBETUEsIHdoaWNoIGlzIHJlZnVzZWQKPj4+IGJ5IHRo
+ZSBzdG0zMi11c2FydCBkcml2ZXIgYW5kIHRoZW4geW91IGFkZCBhIHBhdGNoIGZvciBlYWNoIGJv
+YXJkCj4+PiB0byBmaXggdGhhdCBicmVha2FnZT8KPj4KPj4gV2UgaGF2ZSB0d28gc29sdXRpb25z
+IGFuZCBib3RoIGhhdmUgcHJvL2RyYXdiYWNrcy4gVGhlIGZpcnN0IG9uZSAoRXJ3YW4gb25lcywg
+Y2FuIGJyZWFrIHRoZSBib290IGlmIHRoZSBwYXRjaCBpcyB0YWtlbiAiYWxvbmUiLiBZb3VyIHBy
+b3Bvc2l0aW9uIGF2b2lkcyB0aGlzIGJyZWFrYWdlIGJ1dCBkZWxldGVzIGEgbm9uIGRlZmluZSBw
+cm9wZXJ0eSAod2hpY2ggaXMgYSBiaXQgd2VpcmQpLiBIb3dldmVyIEkgcHJlZmVyIHRvIGtlZXAg
+YSBmdW5jdGlvbmFsIGJlaGF2aW9yLCBhbmQga2VlcCBBaG1hZCBwcm9wb3NpdGlvbi4gQWhtYWQs
+IGp1c3Qgb25lIHF1ZXN0aW9uLCBkdC1iaW5kaW5ncyBjaGVjayBkb2Vzbid0IGNvbXBsYWluIGFi
+b3V0IGl0ID8KPj4KPj4gQ2hlZXJzCj4+IEFsZXgKPj4KPj4+Cj4+PiBTdWNoIGludGVybWl0dGVu
+dCBicmVha2FnZSBtYWtlcyBiaXNlY3Rpb24gYSBoYXNzbGUuIC9kZWxldGUtcHJvcGVydHkvCj4+
+PiBpcyBhIG5vLW9wIHdoZW4gdGhlIHByb3BlcnR5IGRvZXNuJ3QgZXhpc3QsIHNvIHlvdSBjb3Vs
+ZCBtb3ZlIHRoZSBmaXJzdAo+Pj4gcGF0Y2ggdG8gdGhlIHZlcnkgZW5kIHRvIGF2b2lkIGludGVy
+bWl0dGVudCBicmVha2FnZS4KPj4+Cj4+PiBJIGFsc28gdGhpbmsgdGhhdCB0aGUgZHJpdmVyJ3Mg
+YmVoYXZpb3IgaXMgYSBiaXQgaGFyc2guIEkgdGhpbmsgaXQgd291bGQKPj4+IGJlIGJldHRlciBm
+b3IgdGhlIFVBUlQgZHJpdmVyIHRvIHByaW50IGEgd2FybmluZyBhbmQgZmFsbCBiYWNrIHRvCj4+
+PiBQSU8gZm9yIGNvbnNvbGUgaW5zdGVhZCBvZiBvdXRyaWdodCByZWZ1c2luZyBhbmQgcmVuZGVy
+aW5nIHRoZSBzeXN0ZW0KPj4+IHNpbGVudC4gVGhhdCdzIG5vdCBtdXR1YWxseSBleGNsdXNpdmUg
+d2l0aCB5b3VyIHBhdGNoIHNlcmllcyBoZXJlLCBvZiBjb3Vyc2UuCj4+Pgo+Pj4gQ2hlZXJzLAo+
+Pj4gQWhtYWQKPj4+Cj4gCj4gVGhlIGRyaXZlciBpbXBsZW1lbnRhdGlvbiB3aWxsIGNvbnNpZGVy
+IHRoZSByZXF1ZXN0IHRvIHByb2JlIHRoZSBVQVJUIGNvbnNvbGUgaW4gRE1BIG1vZGUgYXMgYW4g
+ZXJyb3IgKC1FTk9ERVYpLCBhbmQgd2lsbCBmYWxsYmFjayB0aGlzIFVBUlQgcHJvYmUgaW4gaXJx
+IG1vZGUuCj4gV2hhdGV2ZXIgdGhlIHBhdGNoIG9yZGVyaW5nLCB0aGUgYm9vdCB3aWxsIG5ldmVy
+IGJlIGJyb2tlbi4gVGhlIGJvYXJkIGR0IHBhdGNoZXMgYWltIHRvIGdldCBhICJwcm9wZXIiIGlt
+cGxlbWVudGF0aW9uLCBidXQgZnJvbSBmdW5jdGlvbmFsIHBlcnNwZWN0aXZlIHRoZSBkcml2ZXIg
+d2lsbCBtYW5hZ2UgYSByZXF1ZXN0IHRvIHByb2JlIGFuIFVBUlQgY29uc29sZSBpbiBETUEgbW9k
+ZSBhcyBhbiBlcnJvciBhbmQgZmFsbCBpdCBiYWNrIGluIGlycSBtb2RlLgoKVGhhbmtzIGZvciB0
+aGUgY2xhcmlmaWNhdGlvbi4gSW4gdGhhdCBjYXNlLCB5b3VyIGNoYW5nZXMgbG9vayBnb29kIHRv
+IG1lLgoKQ2hlZXJzLApBaG1hZAoKPiAKPiBDaGVlcnMsIEVyd2FuLgo+IAo+Pj4+Cj4+Pj4gRm9y
+IG90aGVyIHN0bTMybXAxNXgtYmFzZWQgYm9hcmRzLCBjdXJyZW50IGNvbmZpZ3VyYXRpb24gaXMg
+a2VwdCBmb3IKPj4+PiBhbGwgVUFSVCBpbnN0YW5jZXMuCj4+Pj4KPj4+PiBFcndhbiBMZSBSYXkg
+KDE2KToKPj4+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjogYWRkIERNQSBjb25maWd1cmF0aW9uIHRv
+IFVBUlQgbm9kZXMgb24gc3RtMzJtcDE1MQo+Pj4+IMKgwqAgQVJNOiBkdHM6IHN0bTMyOiBrZWVw
+IHVhcnQ0IGJlaGF2aW9yIG9uIHN0bTMybXAxNTdjLWVkMQo+Pj4+IMKgwqAgQVJNOiBkdHM6IHN0
+bTMyOiBrZWVwIHVhcnQ0IGFuZCB1YXJ0NyBiZWhhdmlvciBvbiBzdG0zMm1wMTV4eC1ka3gKPj4+
+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjoga2VlcCB1YXJ0NCBiZWhhdmlvciBvbiBpY29yZS1zdG0z
+Mm1wMS1jdG91Y2gyCj4+Pj4gwqDCoCBBUk06IGR0czogc3RtMzI6IGtlZXAgdWFydDQgYmVoYXZp
+b3Igb24gaWNvcmUtc3RtMzJtcDEtZWRpbW0yLjIKPj4+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjog
+a2VlcCB1YXJ0NCBiZWhhdmlvciBvbiBzdG0zMm1wMTU3YS1pb3QtYm94Cj4+Pj4gwqDCoCBBUk06
+IGR0czogc3RtMzI6IGtlZXAgdWFydCBub2RlcyBiZWhhdmlvciBvbiBzdG0zMm1wMS1taWNyb2Rl
+djIuMC1vZjcKPj4+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjoga2VlcCB1YXJ0IG5vZGVzIGJlaGF2
+aW9yIG9uIHN0bTMybXAxLW1pY3JvZGV2Mi4wCj4+Pj4gwqDCoCBBUk06IGR0czogc3RtMzI6IGtl
+ZXAgdWFydCBub2RlcyBiZWhhdmlvciBvbiBzdG0zMm1wMTU3YS1zdGluZ2VyOTYKPj4+PiDCoMKg
+IEFSTTogZHRzOiBzdG0zMjoga2VlcCB1YXJ0NCBiZWhhdmlvciBvbiBzdG0zMm1wMTU3Yy1seGEt
+bWMxCj4+Pj4gwqDCoCBBUk06IGR0czogc3RtMzI6IGtlZXAgdWFydDQgYmVoYXZpb3Igb24gc3Rt
+MzJtcDE1N2Mtb2R5c3NleQo+Pj4+IMKgwqAgQVJNOiBkdHM6IHN0bTMyOiBrZWVwIHVhcnQgbm9k
+ZXMgYmVoYXZpb3Igb24gc3RtMzJtcDE1eHgtZGhjb20tZHJjMDIKPj4+PiDCoMKgIEFSTTogZHRz
+OiBzdG0zMjoga2VlcCB1YXJ0IG5vZGVzIGJlaGF2aW9yIG9uIHN0bTMybXAxNXh4LWRoY29tLXBk
+azIKPj4+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjoga2VlcCB1YXJ0IG5vZGVzIGJlaGF2aW9yIG9u
+IHN0bTMybXAxNXh4LWRoY29tLXBpY29pdHgKPj4+PiDCoMKgIEFSTTogZHRzOiBzdG0zMjoga2Vl
+cCB1YXJ0NCBiZWhhdmlvciBvbiBzdG0zMm1wMTV4eC1kaGNvbS1zb20KPj4+PiDCoMKgIEFSTTog
+ZHRzOiBzdG0zMjoga2VlcCB1YXJ0IG5vZGVzIGJlaGF2aW9yIG9uCj4+Pj4gwqDCoMKgwqAgc3Rt
+MzJtcDE1eHgtZGhjb3ItYXZlbmdlcjk2Cj4+Pj4KPj4+PiDCoCBhcmNoL2FybS9ib290L2R0cy9z
+dG0zMm1wMTUxLmR0c2nCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyMSArKysrKysrKysrKysr
+KysrKysrCj4+Pj4gwqAgLi4uL3N0bTMybXAxNTdhLWljb3JlLXN0bTMybXAxLWN0b3VjaDIuZHRz
+wqDCoMKgIHzCoCAyICsrCj4+Pj4gwqAgLi4uL3N0bTMybXAxNTdhLWljb3JlLXN0bTMybXAxLWVk
+aW1tMi4yLmR0c8KgwqAgfMKgIDIgKysKPj4+PiDCoCBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1w
+MTU3YS1pb3QtYm94LmR0c8KgwqDCoMKgIHzCoCAyICsrCj4+Pj4gwqAgLi4uMTU3YS1taWNyb2dl
+YS1zdG0zMm1wMS1taWNyb2RldjIuMC1vZjcuZHRzIHzCoCA0ICsrKysKPj4+PiDCoCAuLi4zMm1w
+MTU3YS1taWNyb2dlYS1zdG0zMm1wMS1taWNyb2RldjIuMC5kdHMgfMKgIDQgKysrKwo+Pj4+IMKg
+IGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMybXAxNTdhLXN0aW5nZXI5Ni5kdHNpwqAgfMKgIDYgKysr
+KysrCj4+Pj4gwqAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1N2MtZWQxLmR0c8KgwqDCoMKg
+wqDCoMKgwqAgfMKgIDIgKysKPj4+PiDCoCBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1wMTU3Yy1s
+eGEtbWMxLmR0c8KgwqDCoMKgIHzCoCAyICsrCj4+Pj4gwqAgYXJjaC9hcm0vYm9vdC9kdHMvc3Rt
+MzJtcDE1N2Mtb2R5c3NleS5kdHPCoMKgwqDCoCB8wqAgMiArKwo+Pj4+IMKgIC4uLi9hcm0vYm9v
+dC9kdHMvc3RtMzJtcDE1eHgtZGhjb20tZHJjMDIuZHRzaSB8wqAgNCArKysrCj4+Pj4gwqAgYXJj
+aC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb20tcGRrMi5kdHNpIHzCoCA0ICsrKysKPj4+
+PiDCoCAuLi4vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb20tcGljb2l0eC5kdHNpwqDCoCB8wqAg
+NCArKysrCj4+Pj4gwqAgYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb20tc29tLmR0
+c2nCoCB8wqAgMiArKwo+Pj4+IMKgIC4uLi9ib290L2R0cy9zdG0zMm1wMTV4eC1kaGNvci1hdmVu
+Z2VyOTYuZHRzaSB8wqAgNiArKysrKysKPj4+PiDCoCBhcmNoL2FybS9ib290L2R0cy9zdG0zMm1w
+MTV4eC1ka3guZHRzacKgwqDCoMKgwqDCoMKgIHzCoCA0ICsrKysKPj4+PiDCoCAxNiBmaWxlcyBj
+aGFuZ2VkLCA3MSBpbnNlcnRpb25zKCspCj4+Pj4KPj4+Cj4+Pgo+Pgo+IAoKCi0tIApQZW5ndXRy
+b25peCBlLksuICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgfApTdGV1ZXJ3YWxkZXIgU3RyLiAyMSAgICAgICAgICAgICAgICAgICAgICAgfCBo
+dHRwOi8vd3d3LnBlbmd1dHJvbml4LmRlLyAgfAozMTEzNyBIaWxkZXNoZWltLCBHZXJtYW55ICAg
+ICAgICAgICAgICAgICAgfCBQaG9uZTogKzQ5LTUxMjEtMjA2OTE3LTAgICAgfApBbXRzZ2VyaWNo
+dCBIaWxkZXNoZWltLCBIUkEgMjY4NiAgICAgICAgICAgfCBGYXg6ICAgKzQ5LTUxMjEtMjA2OTE3
+LTU1NTUgfApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
