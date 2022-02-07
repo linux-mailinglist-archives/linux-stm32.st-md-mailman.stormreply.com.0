@@ -2,59 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73BA94AC9C9
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 20:45:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D647F4ACB86
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 22:45:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 231C8C5E2C5;
-	Mon,  7 Feb 2022 19:45:07 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E50DC5E2C5;
+	Mon,  7 Feb 2022 21:45:22 +0000 (UTC)
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AEA00C5AB61
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4C48C5AB61
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Feb 2022 19:45:06 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id o17so21263619ljp.1
+ Mon,  7 Feb 2022 21:45:20 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ g15-20020a9d6b0f000000b005a062b0dc12so11875609otp.4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 07 Feb 2022 11:45:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=lZDpDADdfwq40jZPbE/sznh7Bnymle3eu2MsiKyAnHI=;
- b=BdiDafPxAfgT1LadX6/qdSNo8n3l0Xa/GtCJEktDJMXEmp52SrE42F60zh+yNtgnej
- uafnZUT8MJqOawyMYksVSqsD8w5zXATUGodDDaf2n0OSYIP77vOHkN1WwPFv0stLOa78
- +4ATpfopW4dS5hdH2p54SyosNF1m7zjr8r+2YE4GWs0neqc92bzF3dIJD7hE8cA0PJPs
- kQu1XjE348Lq3znmdTjfrSq9FD04iuxmobdD48LoM7k4xW51/uiPDMkZVxL359FVEki8
- 6hN3NzqdifRAShPzrX73QDVc8Pe4IH8JQaohdbJyNHzgPOa0p/tQFkgSdDhkiO0KiTmj
- Kknw==
+ Mon, 07 Feb 2022 13:45:20 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=lZDpDADdfwq40jZPbE/sznh7Bnymle3eu2MsiKyAnHI=;
- b=W0JoWyoxEc9ZqpTzUgt1Udiwka9uu3ver/zcPWgdCnhLa1bdfEoNga1XtaCvxjmT3K
- tULOCZNf7MK9t5fh8wgrhsxwoTg5C6XZDc+xRLLqGJi5Sd9TyfdxnxeJTpZr9AGsNGYN
- VPZXYqIfUhZe/f1ir9B3lifa2A1UqwsgrdDe4s+9TXJrwfNnz5mygFmbKoy/WpAIc5tP
- EdU5yZp8pfyEcGi4u5I3ygoQL+qT2SMHBobczj2v78JJyJrjtORzCCO3WCAPtij9yF8m
- eyrma8pCzjWLHjB3+ziGhOezWDORcV7GHMUaBoTXwJTQA6C6QaBcziJ+Fkkki8h4k/dF
- akmA==
-X-Gm-Message-State: AOAM532lrXSVnN3fpG6ykGRVZymg4QDvaAFJd/ek5BCy+DX2VgFfwZdh
- HeoDbwNfQZ/zpPfnZPIu87QUCROwBuHAiN8j+H7Z+w==
-X-Google-Smtp-Source: ABdhPJwv1WF2F6ndc/bGUuNT+neSxWAOv6iXkCytc6pktYWRpfycPf6E/KpzZmQrd8aUu/NlJ8No19+iCvFMptVtXu4=
-X-Received: by 2002:a2e:7c0c:: with SMTP id x12mr648215ljc.526.1644263105665; 
- Mon, 07 Feb 2022 11:45:05 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=RTR0nFrp3s4BqIEjNWo3YoJyTs4shL49W7ioqon6aOI=;
+ b=BG9eP3XtxBG73C1T9Smu+BYv+a7e/EoOwx3XOEbiatSidXRjqObQSXOEHvKwifetQR
+ 16CbgSy94h94jxDERfwS6wZOGmjdIC9jtl/+49F7fW4rQFhrFvQDFqPAEvPuTD2WjKCr
+ Hb+WmIOX+BLWzacmDIbLlCe8KwmwIUTBtwMOytXxRmUCCb5lDjCIZgUvZJ+e4EH2emNd
+ 5fyAf1DrWrg34myZgQvFQfXuUfx9/CkqoDHu4Dl6+ZzqJxKcot/GT7cZfkRTJzLU0EL1
+ NaW3MxJ6w4Ex9V40jerfEBgZOZA6ebGdYNIqSBPaZ+4woI1p99KKTuSgxoY92QSlnDux
+ rDMg==
+X-Gm-Message-State: AOAM5319dGT7qNbOyl7+AHsIY2jVg/mh0+xIHGak6cg68P4tRRbteYSD
+ /sF2xluvmXkZ14Dbg98Zfw==
+X-Google-Smtp-Source: ABdhPJxLdm3APhJ37DTFNGxqX95hogQIoqUwXlXstkPJI3BHIac1nI2rUdV08uKnk1cUk3SKliVRVg==
+X-Received: by 2002:a9d:6f8d:: with SMTP id h13mr712005otq.309.1644270319682; 
+ Mon, 07 Feb 2022 13:45:19 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213])
+ by smtp.gmail.com with ESMTPSA id h9sm4542956otk.42.2022.02.07.13.45.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Feb 2022 13:45:19 -0800 (PST)
+Received: (nullmailer pid 977724 invoked by uid 1000);
+ Mon, 07 Feb 2022 21:45:17 -0000
+Date: Mon, 7 Feb 2022 15:45:17 -0600
+From: Rob Herring <robh@kernel.org>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <YgGS7YkSl+hGKx/1@robh.at.kernel.org>
+References: <20220202140005.860-1-alexandre.torgue@foss.st.com>
+ <20220202140005.860-2-alexandre.torgue@foss.st.com>
 MIME-Version: 1.0
-References: <20220207165304.1046867-1-nathan@kernel.org>
-In-Reply-To: <20220207165304.1046867-1-nathan@kernel.org>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Mon, 7 Feb 2022 11:44:53 -0800
-Message-ID: <CAKwvOdkXe8CB3QGe2e6Fhz8_SLOsOpcMumoKBiAzGE_VTXCkVg@mail.gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] drm/stm: Avoid using val uninitialized in
-	ltdc_set_ycbcr_config()
+Content-Disposition: inline
+In-Reply-To: <20220202140005.860-2-alexandre.torgue@foss.st.com>
+Cc: devicetree@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 1/3] dt-bindings: interrupt-controller:
+ stm32-exti: document st, stm32mp13-exti
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,66 +72,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 7, 2022 at 8:53 AM Nathan Chancellor <nathan@kernel.org> wrote:
->
-> Clang warns:
->
->   drivers/gpu/drm/stm/ltdc.c:625:2: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
->           default:
->           ^~~~~~~
->   drivers/gpu/drm/stm/ltdc.c:635:2: note: uninitialized use occurs here
->           val |= LxPCR_YCEN;
->           ^~~
->   drivers/gpu/drm/stm/ltdc.c:600:9: note: initialize the variable 'val' to silence this warning
->           u32 val;
->                  ^
->                   = 0
->   1 warning generated.
->
-> Use a return instead of break in the default case to fix the warning.
-> Add an error message so that this return is not silent, which could hide
-> issues in the future.
->
-> Fixes: 484e72d3146b ("drm/stm: ltdc: add support of ycbcr pixel formats")
-> Link: https://github.com/ClangBuiltLinux/linux/issues/1575
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
->  drivers/gpu/drm/stm/ltdc.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-> index 5eeb32c9c9ce..447ddde1786c 100644
-> --- a/drivers/gpu/drm/stm/ltdc.c
-> +++ b/drivers/gpu/drm/stm/ltdc.c
-> @@ -624,7 +624,8 @@ static inline void ltdc_set_ycbcr_config(struct drm_plane *plane, u32 drm_pix_fm
->                 break;
->         default:
->                 /* RGB or not a YCbCr supported format */
-> -               break;
-> +               drm_err(plane->dev, "Unsupported pixel format: %u\n", drm_pix_fmt);
+On Wed, 02 Feb 2022 15:00:03 +0100, Alexandre Torgue wrote:
+> Support of STM32MP13 SoC implies to create a new compatible in order to
+> manage EXTI/GIC mapping changes.
+> 
+> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> 
 
-This is fine, but in the future you should add an explicit
-#include <drm/drm_print.h>
-to avoid implicit header dependencies (like the ones that Mingo is
-trying to detangle) for the declaration of drm_err. `drm_vprintf`
-needs it, too.
-
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
-
-> +               return;
->         }
->
->         /* Enable limited range */
->
-> base-commit: 542898c5aa5c6a3179dffb1d1606884a63f75fed
-> --
-> 2.35.1
->
-
-
--- 
-Thanks,
-~Nick Desaulniers
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
