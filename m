@@ -2,65 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA2FB4AC42E
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 16:46:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AEB64AC475
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 16:55:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B63FCC6046D;
-	Mon,  7 Feb 2022 15:39:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC0ACC60465;
+	Mon,  7 Feb 2022 15:55:33 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBAA2C6046B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95564C60460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Feb 2022 15:39:39 +0000 (UTC)
+ Mon,  7 Feb 2022 15:55:32 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2179CjpK017130;
- Mon, 7 Feb 2022 10:50:04 +0100
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 2179CZSj016591;
+ Mon, 7 Feb 2022 11:00:37 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=aEfaC1/WWUunLgB1uYj+offKYggifNxEMCxtFYIJ1LQ=;
- b=JsYwCbDqGJc6J4SyqcYmFL5IlKWY03OR8uuMS2n3VYsJGRuK4iQvaD5H5YFl5XBwebyI
- m4y4oubIXc18evkSmysj+QaWx/uJkkcYU/ETLzr0FO14gf4dxdthxVC5fKGIiTKeOX+P
- W7jSkl4OQ35YVpiOMvIQt/U/CoboiAVIaqrRwTot1DeKZJegYZbxWOTdnGgAUFSMMxmJ
- PD5/2FN4asZbdRsT9S8j56h/5D4eG5ETkwjmaIUldBQScHQUgKQaXokpqe7SpgLqRIFZ
- R7AgQa71mDmNxY6lNysRj1/vyLW8GvCy2cXgFkQFXs2oL8VYu3ISSaHZNAxS++LjWOmE cw== 
+ bh=veZo0P/JfQdRJDIli6sGt4ZGDkxpZF8WrXm4WgcbFDs=;
+ b=LyOM7OE32aQxV9zw7duuPrfrJldOPTSzvtdbO7khQHp6VH6nsQS/1nDO1hXbZLmJq3nw
+ 7PsdcbDW2DruY7hmskH5TenmUVY9yx7uJ5i1DaUsAgLg+HOCJUkGv7VGwAMsVAtu4F96
+ sCJ/nB5vp27U2qF3aQGMcKiyNcnqc+aDARpliHA9q4KtKmWvBpM2371vS0moSutXQlXv
+ JD7nJX3nfnuqtwSrLyWpVfNb7yZ7m865ES71jT5FzTN6K3vYc11iMh0Vob87hfDscjJB
+ 3OMPkL/dsoItJkdZBEb9HLlQ9rzsqz2u0jZF322OtUadHKol830UF6t/NX5nkfrXyXfN /w== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e30kg06r6-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e30kg08hy-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 07 Feb 2022 10:50:04 +0100
+ Mon, 07 Feb 2022 11:00:37 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8EA3610002A;
- Mon,  7 Feb 2022 10:50:03 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5343C10002A;
+ Mon,  7 Feb 2022 11:00:35 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6D9902138EA;
- Mon,  7 Feb 2022 10:50:03 +0100 (CET)
-Received: from [10.48.0.252] (10.75.127.47) by SFHDAG2NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3EFD9212FC5;
+ Mon,  7 Feb 2022 11:00:35 +0100 (CET)
+Received: from [10.129.7.146] (10.75.127.49) by SFHDAG2NODE2.st.com
  (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 7 Feb
- 2022 10:50:02 +0100
-Message-ID: <de52d446-ef21-b13c-691d-de4b988d91ad@foss.st.com>
-Date: Mon, 7 Feb 2022 10:50:02 +0100
+ 2022 11:00:34 +0100
+Message-ID: <7bd0a0a9-4015-b54c-f745-f813496be61b@foss.st.com>
+Date: Mon, 7 Feb 2022 11:00:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
 Content-Language: en-US
-To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
-References: <20211220200733.1391088-1-marex@denx.de>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20211220200733.1391088-1-marex@denx.de>
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+To: Nathan Chancellor <nathan@kernel.org>
+References: <20211215214843.20703-1-yannick.fertre@foss.st.com>
+ <Yfq3XwozrxYaFhgD@dev-arch.archlinux-ax161>
+From: yannick Fertre <yannick.fertre@foss.st.com>
+In-Reply-To: <Yfq3XwozrxYaFhgD@dev-arch.archlinux-ax161>
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2022-02-07_03,2022-02-07_01,2021-12-02_01
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- Patrick Delaunay <patrick.delaunay@foss.st.com>, kernel@dh-electronics.com,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Drop duplicate status
- okay from DHCOM gpioc node
+Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 5/5] drm/stm: ltdc: add support of ycbcr
+	pixel formats
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,41 +80,95 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Marek
+Hi Nathan,
 
-On 12/20/21 21:07, Marek Vasut wrote:
-> The stm32mp15xxaa-pinctrl.dtsi included in stm32mp15xx-dhcom-som.dtsi
-> already sets status = "okay" in gpioc: gpio@50004000 node, drop the
-> duplicate from stm32mp15xx-dhcom-som.dtsi . No functional change.
+On 2/2/22 17:54, Nathan Chancellor wrote:
+> Hi Yannick,
 > 
-> Signed-off-by: Marek Vasut <marex@denx.de>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-> Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-> Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>
-> Cc: kernel@dh-electronics.com
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
->   arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi | 1 -
->   1 file changed, 1 deletion(-)
+> On Wed, Dec 15, 2021 at 10:48:43PM +0100, Yannick Fertre wrote:
+>> This patch adds the following YCbCr input pixel formats on the latest
+>> LTDC hardware version:
+>>
+>> 1 plane  (co-planar)  : YUYV, YVYU, UYVY, VYUY
+>> 2 planes (semi-planar): NV12, NV21
+>> 3 planes (full-planar): YU12=I420=DRM YUV420, YV12=DRM YVU420
+>>
+>> Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
 > 
-> diff --git a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-> index 724feba8a3df..4cb626b636cb 100644
-> --- a/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-> +++ b/arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi
-> @@ -226,7 +226,6 @@ &gpioc {
->   			  "", "", "DHCOM-E", "",
->   			  "", "", "", "",
->   			  "", "", "", "";
-> -	status = "okay";
->   };
->   
->   &gpiod {
+> <snip>
+> 
+>> +static inline void ltdc_set_ycbcr_config(struct drm_plane *plane, u32 drm_pix_fmt)
+>> +{
+>> +	struct ltdc_device *ldev = plane_to_ltdc(plane);
+>> +	struct drm_plane_state *state = plane->state;
+>> +	u32 lofs = plane->index * LAY_OFS;
+>> +	u32 val;
+>> +
+>> +	switch (drm_pix_fmt) {
+>> +	case DRM_FORMAT_YUYV:
+>> +		val = (YCM_I << 4) | LxPCR_YF | LxPCR_CBF;
+>> +		break;
+>> +	case DRM_FORMAT_YVYU:
+>> +		val = (YCM_I << 4) | LxPCR_YF;
+>> +		break;
+>> +	case DRM_FORMAT_UYVY:
+>> +		val = (YCM_I << 4) | LxPCR_CBF;
+>> +		break;
+>> +	case DRM_FORMAT_VYUY:
+>> +		val = (YCM_I << 4);
+>> +		break;
+>> +	case DRM_FORMAT_NV12:
+>> +		val = (YCM_SP << 4) | LxPCR_CBF;
+>> +		break;
+>> +	case DRM_FORMAT_NV21:
+>> +		val = (YCM_SP << 4);
+>> +		break;
+>> +	case DRM_FORMAT_YUV420:
+>> +	case DRM_FORMAT_YVU420:
+>> +		val = (YCM_FP << 4);
+>> +		break;
+>> +	default:
+>> +		/* RGB or not a YCbCr supported format */
+>> +		break;
+>> +	}
+>> +
+>> +	/* Enable limited range */
+>> +	if (state->color_range == DRM_COLOR_YCBCR_LIMITED_RANGE)
+>> +		val |= LxPCR_YREN;
+>> +
+>> +	/* enable ycbcr conversion */
+>> +	val |= LxPCR_YCEN;
+>> +
+>> +	regmap_write(ldev->regmap, LTDC_L1PCR + lofs, val);
+>> +}
+> 
+> This patch as commit 484e72d3146b ("drm/stm: ltdc: add support of ycbcr
+> pixel formats") in -next introduced the following clang warning:
+> 
+> drivers/gpu/drm/stm/ltdc.c:625:2: warning: variable 'val' is used uninitialized whenever switch default is taken [-Wsometimes-uninitialized]
+>          default:
+>          ^~~~~~~
+> drivers/gpu/drm/stm/ltdc.c:635:2: note: uninitialized use occurs here
+>          val |= LxPCR_YCEN;
+>          ^~~
+> drivers/gpu/drm/stm/ltdc.c:600:9: note: initialize the variable 'val' to silence this warning
+>          u32 val;
+>                 ^
+>                  = 0
+> 1 warning generated.
+> 
+> Would it be okay to just return in the default case (maybe with a
+> message about an unsupported format?) or should there be another fix?
+> 
+> Cheers,
 
-Applied on stm32-next.
 
-Cheers
-Alex
+Thanks for your help.
+It'okay for a message for unsupported format with a return in the 
+default case.
+Do you want create & push the patch?
+
+Best regards
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
