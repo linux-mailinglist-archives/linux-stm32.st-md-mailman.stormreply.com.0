@@ -2,49 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B41394AC4EA
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 17:11:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 607014AC490
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Feb 2022 16:59:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 793BBC60465;
-	Mon,  7 Feb 2022 16:11:00 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 657CFC60460
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Feb 2022 16:10:59 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25BB3C60465;
+	Mon,  7 Feb 2022 15:59:28 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BA9E161146;
- Sat,  5 Feb 2022 17:24:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03E90C340E8;
- Sat,  5 Feb 2022 17:24:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1644081885;
- bh=6w/99GRGMgWgYWe4X+KfojXSRYWk/PfNkbE0hES5fiM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=vEptM6qr2UhahzEMsHKHAI5fI/NvwY4hHTg5yr6Nwen7w0VGgwmS1F7ntE3krzCWJ
- EJX4oTvBObppZGwzwEMahBSyBLY/gPloCdWW1EqguPmwMkRTyW7kIbvHbRVvdRu6BV
- N9BARRQfKKvVPUQhd5/6xrZZGCxDqq2DhaPHDqC81mx1/d2Ua7yLXBepVOMyIhjQuS
- i3iRMYcPArqq+B68TBnTyFopBk9cNNvfh9q5JcEKcK3DeT/l0cV83F26XBGpR2Yobw
- RLPKjpYEiQx8Kk/UGGB2pTJBU+8Z/CY34M/R+Mv7+CVx5e3sMcWkitA58bohHPT6sK
- d8ay07M1QlJ7Q==
-Date: Sat, 5 Feb 2022 17:31:14 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <20220205173114.5a60fc47@jic23-huawei>
-In-Reply-To: <20220202204112.57095-1-andriy.shevchenko@linux.intel.com>
-References: <20220202204112.57095-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-pc-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15246C60464
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  7 Feb 2022 15:59:26 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21778x1Q010779;
+ Mon, 7 Feb 2022 10:15:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=Kkqvjurj574bD6gSsyenZFngomf2r4egE+kYpU9wKEE=;
+ b=5RJjR3tqCnt97bpxcyy+Jfq4LrcLWOw7zRdNgCz1Ly3ZIjEmiRymDYVlrTLwMfELyrVA
+ 05sHR8zK2e0GD7vh1ifN4HtvOW4rQCcNJO2zdhiD1lGgjTt1Dzflk4gd7rSSZGySh9rw
+ pLqYAbECREKnRHD/01y2o+jF4npbtUJjkMJtI2fedNCpAtz0JaGjdY5U4qllZLYZ+bXa
+ ryDbvT+5g8xlDnJt0x8jNTx72yxHFJwdYVdNkW31n3ao9ZVjgDxoz0yD0RoRQv81HWlW
+ U+6tk2udkrqD7c74cqFaqgCIcw7/d+MnF8NqcWJmbh+zQE5xWw71L10Myu9t4vObzr9g PQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e2fg5k7pr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 07 Feb 2022 10:15:19 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1227F10002A;
+ Mon,  7 Feb 2022 10:15:17 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E30B9212FDF;
+ Mon,  7 Feb 2022 10:15:17 +0100 (CET)
+Received: from [10.48.0.252] (10.75.127.46) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 7 Feb
+ 2022 10:15:16 +0100
+Message-ID: <6d60031b-2164-bdda-1048-ec047d9bd59e@foss.st.com>
+Date: Mon, 7 Feb 2022 10:15:15 +0100
 MIME-Version: 1.0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/1] iio: trigger: stm32-timer: Make
- use of device properties
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, <robh+dt@kernel.org>
+References: <1638959596-6656-1-git-send-email-fabrice.gasnier@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <1638959596-6656-1-git-send-email-fabrice.gasnier@foss.st.com>
+X-Originating-IP: [10.75.127.46]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-02-07_03,2022-02-07_01,2021-12-02_01
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 0/2] ARM: dts: stm32: remove timer
+ duplicate unit-address on stm32f4 series
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,75 +71,39 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed,  2 Feb 2022 22:41:12 +0200
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+Hi Fabrice
 
-> Convert the module to be property provider agnostic and allow
-> it to be used on non-OF platforms.
+On 12/8/21 11:33, Fabrice Gasnier wrote:
+> Remove a series of warnings seen when building with W=1, like:
+> Warning (unique_unit_address): /soc/timer@40000c00: duplicate unit-address
+> (also used in node /soc/timers@40000c00)
 > 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Looks fine to me.  The stm32 drivers are well maintained so I'll
-leave this one on list a little longer for feedback.
-
-+Cc: Fabrice
-
-> ---
-> v2: dropped depends on OF
->  drivers/iio/trigger/Kconfig               |  2 +-
->  drivers/iio/trigger/stm32-timer-trigger.c | 11 ++++++-----
->  2 files changed, 7 insertions(+), 6 deletions(-)
+> This approach is based on some discussions[1], to restructure the dtsi
+> and dts files.
+> [1] https://lore.kernel.org/linux-arm-kernel/Yaf4jiZIp8+ndaXs@robh.at.kernel.org/
 > 
-> diff --git a/drivers/iio/trigger/Kconfig b/drivers/iio/trigger/Kconfig
-> index 8cef2f7452e8..7ecb69725b1d 100644
-> --- a/drivers/iio/trigger/Kconfig
-> +++ b/drivers/iio/trigger/Kconfig
-> @@ -38,7 +38,7 @@ config IIO_STM32_LPTIMER_TRIGGER
->  
->  config IIO_STM32_TIMER_TRIGGER
->  	tristate "STM32 Timer Trigger"
-> -	depends on (ARCH_STM32 && OF && MFD_STM32_TIMERS) || COMPILE_TEST
-> +	depends on (ARCH_STM32 && MFD_STM32_TIMERS) || COMPILE_TEST
->  	help
->  	  Select this option to enable STM32 Timer Trigger
->  
-> diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
-> index 4f9461e1412c..5049d9ecfc1a 100644
-> --- a/drivers/iio/trigger/stm32-timer-trigger.c
-> +++ b/drivers/iio/trigger/stm32-timer-trigger.c
-> @@ -11,9 +11,10 @@
->  #include <linux/iio/timer/stm32-timer-trigger.h>
->  #include <linux/iio/trigger.h>
->  #include <linux/mfd/stm32-timers.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/module.h>
->  #include <linux/platform_device.h>
-> -#include <linux/of_device.h>
-> +#include <linux/property.h>
->  
->  #define MAX_TRIGGERS 7
->  #define MAX_VALIDS 5
-> @@ -771,11 +772,11 @@ static int stm32_timer_trigger_probe(struct platform_device *pdev)
->  	unsigned int index;
->  	int ret;
->  
-> -	if (of_property_read_u32(dev->of_node, "reg", &index))
-> -		return -EINVAL;
-> +	ret = device_property_read_u32(dev, "reg", &index);
-> +	if (ret)
-> +		return ret;
->  
-> -	cfg = (const struct stm32_timer_trigger_cfg *)
-> -		of_match_device(dev->driver->of_match_table, dev)->data;
-> +	cfg = device_get_match_data(dev);
->  
->  	if (index >= ARRAY_SIZE(triggers_table) ||
->  	    index >= cfg->num_valids_table)
+> Fabrice Gasnier (2):
+>    ARM: dts: stm32: remove some timer duplicate unit-address on stm32f4
+>      series
+>    ARM: dts: stm32: remove timer5 duplicate unit-address on stm32f4
+>      series
+> 
+>   arch/arm/boot/dts/stm32429i-eval.dts  | 12 +++++++++
+>   arch/arm/boot/dts/stm32f429-disco.dts | 12 +++++++++
+>   arch/arm/boot/dts/stm32f429.dtsi      | 47 -----------------------------------
+>   arch/arm/boot/dts/stm32f469-disco.dts | 12 +++++++++
+>   4 files changed, 36 insertions(+), 47 deletions(-)
+> 
 
+Series applied on stm32-next.
+
+Thanks
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
