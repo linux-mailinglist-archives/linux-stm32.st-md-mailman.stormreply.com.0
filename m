@@ -2,149 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 824984ADA25
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Feb 2022 14:40:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 698E34ADAEB
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Feb 2022 15:13:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2536EC5E2CC;
-	Tue,  8 Feb 2022 13:40:00 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EFC4C5E2CC;
+	Tue,  8 Feb 2022 14:13:46 +0000 (UTC)
+Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56366C57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D42B7C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Feb 2022 13:39:58 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B0775B81AF1;
- Tue,  8 Feb 2022 13:39:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BA8C340E9;
- Tue,  8 Feb 2022 13:39:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1644327596;
- bh=arWyuKrgF6+HTy5MGGr9g1ZYG3YqGe+bpPoKBhwDtjY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iRcMxm2NinrxP0/dQodYfHh7RziJJ6SzP7mzdIkPqhMs3k5TCjS1XddxBIZiBLRWe
- fwsdHqkyllv+f+u1X7HW1pRH236O9WBWXThRFXUZ3DGcllJJyj+jpn8NGzuMduVmt2
- VH9+3pdfzFM+wiZ3119U215A3SNS6eM4zENnhzdV2JsEUAIyTv0hA+0xyYGATs+knD
- eiR0PPJyCdHewwzmyv7KEe+xE2Y45P468g1Y7LTuTiliKkMrJXkeMtFJ3bAd55MtPd
- phoE2FDW40WGRPJHyNd45b9VSjxZK9ZOanjsJLzazKAr+DS4Zf4rcVtyQzybCN9V04
- WOeQ8tXUTVsFw==
-Date: Tue, 8 Feb 2022 13:39:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <YgJyiiLqLu44MWF1@sirena.org.uk>
-References: <20220123175201.34839-1-u.kleine-koenig@pengutronix.de>
- <20220123175201.34839-6-u.kleine-koenig@pengutronix.de>
+ Tue,  8 Feb 2022 14:13:43 +0000 (UTC)
+Received: (Authenticated sender: alexandre.belloni@bootlin.com)
+ by mail.gandi.net (Postfix) with ESMTPSA id B7B81240005;
+ Tue,  8 Feb 2022 14:13:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1644329623;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=RsIIehydz1EnqBffGxIHEb2hf94PLFF+1tb+pHejgxg=;
+ b=kQzEqm1bfJF4SG0N3cWKOzOX0ziEGDeEGXjPZdHwcGYHxS1yD6V15ZfKILI0r/nxxTd/qg
+ F+EGVmT3XpFuVHh513R4T5OFQXWE1s4lx0k8xtexzsmKjYms8CuruAkAexUeeoWWdSBwPY
+ O8hb66yxplwviprWuJBIhtXzRmpAsrF8k4U2h/0BMChCqL3jefHIxVWNSB5vK0/SDHR+Tr
+ 3f7hofbiRyVTJC3EGy4VZTt1J/owqwb9EgaOcTervQU0wctap6aFMTWAbbOD+uAGnxMoA8
+ umRPE4JkoSNe3bxPWWkQOfMcri+8qiAQnANo61TXrRo0uYDHtCOGRNfAJNeZDA==
+Date: Tue, 8 Feb 2022 15:13:40 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Carlos Bilbao <carlos.bilbao@amd.com>
+Message-ID: <YgJ6lH9aZOrZ0YcJ@piout.net>
+References: <20220126200749.12090-1-carlos.bilbao@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <20220123175201.34839-6-u.kleine-koenig@pengutronix.de>
-X-Cookie: You will forget that you ever knew me.
-Cc: Andrew Lunn <andrew@lunn.ch>, Gwendal Grignou <gwendal@chromium.org>,
- Yasunari Takiguchi <Yasunari.Takiguchi@sony.com>, Claudius Heine <ch@denx.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Nanyong Sun <sunnanyong@huawei.com>, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Frieder Schrempf <frieder.schrempf@kontron.de>, Pavel Machek <pavel@ucw.cz>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Christian Lamparter <chunkeey@googlemail.com>,
- Ajay Singh <ajay.kathat@microchip.com>, linux-clk@vger.kernel.org,
- Stefan Schmidt <stefan@datenfreihafen.org>, Sidong Yang <realwakka@gmail.com>,
- libertas-dev@lists.infradead.org, linux-omap@vger.kernel.org,
- Antti Palosaari <crope@iki.fi>, Guenter Roeck <linux@roeck-us.net>,
- Jean Delvare <jdelvare@suse.com>, linux-serial@vger.kernel.org,
- =?utf-8?Q?=C5=81ukasz?= Stelmach <l.stelmach@samsung.com>,
- Mark Tomlinson <mark.tomlinson@alliedtelesis.co.nz>,
- James Schulman <james.schulman@cirrus.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>, Zhang Qilong <zhangqilong3@huawei.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Michael Walle <michael@walle.cc>,
- Noralf =?iso-8859-1?Q?Tr=F8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mtd@lists.infradead.org,
- Andrew Morton <akpm@linux-foundation.org>, Vladimir Oltean <olteanv@gmail.com>,
- linux-wpan@vger.kernel.org, Claudiu Beznea <claudiu.beznea@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Dan Robertson <dan@dlrobertson.com>, Markuss Broks <markuss.broks@gmail.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>, David Airlie <airlied@linux.ie>,
- linux-wireless@vger.kernel.org, Marco Felsch <m.felsch@pengutronix.de>,
- David Rhodes <david.rhodes@cirrus.com>,
- Thierry Reding <thierry.reding@gmail.com>, Solomon Peachy <pizza@shaftnet.org>,
- Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>,
- Jiri Slaby <jirislaby@kernel.org>, Helge Deller <deller@gmx.de>,
- Tudor Ambarus <tudor.ambarus@microchip.com>,
- Minghao Chi <chi.minghao@zte.com.cn>, Jon Hunter <jonathanh@nvidia.com>,
- dingsenjie <dingsenjie@yulong.com>, Heiko Schocher <hs@denx.de>,
- Wolfgang Grandegger <wg@grandegger.com>, Matt Kline <matt@bitbashing.io>,
- Woojung Huh <woojung.huh@microchip.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Mike Looijmans <mike.looijmans@topic.nl>,
- Ronald =?iso-8859-1?Q?Tschal=E4r?= <ronald@innovation.ch>,
- Daniel Thompson <daniel.thompson@linaro.org>,
- Maxime Ripard <mripard@kernel.org>, linux-can@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Hans de Goede <hdegoede@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
- Davidlohr Bueso <dbueso@suse.de>, UNGLinuxDriver@microchip.com,
- Jarkko Sakkinen <jarkko@kernel.org>, linux-usb@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-integrity@vger.kernel.org,
- Jonathan Cameron <jic23@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, linux-staging@lists.linux.dev,
- linux-iio@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- alsa-devel@alsa-project.org, Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- netdev@vger.kernel.org, Wei Yongjun <weiyongjun1@huawei.com>,
- Sam Ravnborg <sam@ravnborg.org>,
- =?iso-8859-1?B?Suly9G1l?= Pouiller <jerome.pouiller@silabs.com>,
- linux-rtc@vger.kernel.org, Marcus Folkesson <marcus.folkesson@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Aditya Srivastava <yashsri421@gmail.com>,
- Varka Bhadram <varkabhadram@gmail.com>, wengjianfeng <wengjianfeng@yulong.com>,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- Arnd Bergmann <arnd@arndb.de>,
- Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
- Mark Greer <mgreer@animalcreek.com>, Mark Gross <markgross@kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, linux-fbdev@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
- Stefan =?iso-8859-1?Q?M=E4tje?= <stefan.maetje@esd.eu>,
- linux-hwmon@vger.kernel.org, Felipe Balbi <balbi@kernel.org>,
- Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-mmc@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Julia Lawall <Julia.Lawall@inria.fr>,
- Yang Li <yang.lee@linux.alibaba.com>, Dan Carpenter <dan.carpenter@oracle.com>,
- patches@opensource.cirrus.com, Kent Gustavsson <kent@minoris.se>,
- "David S. Miller" <davem@davemloft.net>,
- Charles-Antoine Couret <charles-antoine.couret@nexvision.fr>,
- Alexander Aring <alex.aring@gmail.com>, Jiri Prchal <jiri.prchal@aksignal.cz>,
- Vignesh Raghavendra <vigneshr@ti.com>, Emma Anholt <emma@anholt.net>,
- Peter Zijlstra <peterz@infradead.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alexandru Ardelean <ardeleanalex@gmail.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>, Peter Huewe <peterhuewe@gmx.de>,
- Torin Cooper-Bennun <torin@maxiluxsystems.com>,
- Lee Jones <lee.jones@linaro.org>, linux-leds@vger.kernel.org,
- Eric Piel <eric.piel@tremplin-utc.net>, Stephan Gerhold <stephan@gerhold.net>,
- Richard Weinberger <richard@nod.at>, Russell King <linux@armlinux.org.uk>,
- Jason Gunthorpe <jgg@ziepe.ca>, Thomas Kopp <thomas.kopp@microchip.com>,
- Jakub Kicinski <kuba@kernel.org>, Vivien Didelot <vivien.didelot@gmail.com>,
- platform-driver-x86@vger.kernel.org, Stefan Wahren <stefan.wahren@i2se.com>,
- Xue Liu <liuxuenetmail@gmail.com>, David Lechner <david@lechnology.com>,
- Will Deacon <will@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Kalle Valo <kvalo@kernel.org>, Rui Miguel Silva <rmfrfs@gmail.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Harry Morris <h.morris@cascoda.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>,
- Alessandro Zummo <a.zummo@towertech.it>, Yang Shen <shenyang39@huawei.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Takashi Iwai <tiwai@suse.com>,
- Cai Huoqing <caihuoqing@baidu.com>, Daniel Mack <daniel@zonque.org>,
- Daniel Vetter <daniel@ffwll.ch>, Colin Ian King <colin.king@intel.com>,
- Bartosz Golaszewski <brgl@bgdev.pl>, Alan Ott <alan@signal11.us>
-Subject: Re: [Linux-stm32] [PATCH 5/5] spi: make remove callback a void
-	function
+Content-Disposition: inline
+In-Reply-To: <20220126200749.12090-1-carlos.bilbao@amd.com>
+Cc: bilbao@vt.edu, linux-rtc@vger.kernel.org, linux-ia64@vger.kernel.org,
+ jgross@suse.com, sboyd@kernel.org, linux-kernel@vger.kernel.org,
+ rostedt@goodmis.org, linux-m68k@lists.linux-m68k.org, geert@linux-m68k.org,
+ mhiramat@kernel.org, boon.leong.ong@intel.com, john.stultz@linaro.org,
+ tglx@linutronix.de, linuxppc-dev@lists.ozlabs.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] include: linux: Reorganize timekeeping
+	and ktime headers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,62 +54,734 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5880824265766031088=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 26/01/2022 14:07:50-0600, Carlos Bilbao wrote:
+> The timekeeping subsystem could use some reorganization. Reorganize and
+> separate the headers by making ktime.h take care of the ktime_get()
+> family of functions, and reserve timekeeping.h for the actual timekeeping.
+> 
+> This also helps to avoid implicit function errors and strengthens the
+> header dependencies, since timekeeping.h was using ktime_to_ns(), a static
+> function defined in a header it does no include, ktime.h.
+> 
+> This patch also includes the header timekeeping.h wherever it is necessary
+> for a successful compilation after the header code reorganization for all
+> archs.
+> 
+> Signed-off-by: Carlos Bilbao <carlos.bilbao@amd.com>
+> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
---===============5880824265766031088==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ef2aNFzDYnZC/zcG"
-Content-Disposition: inline
+> ---
+>  arch/arm64/kvm/hypercalls.c    |   1 +
+>  arch/ia64/kernel/time.c        |   1 +
+>  arch/m68k/atari/time.c         |   1 +
+>  arch/m68k/hp300/time.c         |   2 +
+>  arch/m68k/mac/via.c            |   1 +
+>  arch/m68k/mvme16x/config.c     |   1 +
+>  arch/m68k/sun3/sun3ints.c      |   1 +
+>  arch/powerpc/kernel/time.c     |   1 +
+>  arch/x86/kernel/rtc.c          |   1 +
+>  arch/x86/kernel/tsc.c          |   1 +
+>  drivers/rtc/class.c            |   1 +
+>  include/linux/ktime.h          | 196 +++++++++++++++++++++++++++++++-
+>  include/linux/pps_kernel.h     |   1 +
+>  include/linux/sched_clock.h    |   2 +
+>  include/linux/stmmac.h         |   1 +
+>  include/linux/timekeeping.h    | 197 +--------------------------------
+>  init/main.c                    |   1 +
+>  kernel/time/ntp.c              |   1 +
+>  kernel/time/posix-timers.c     |   1 +
+>  kernel/time/tick-legacy.c      |   1 +
+>  kernel/time/time.c             |   1 +
+>  kernel/time/timekeeping.c      |   1 +
+>  sound/pci/hda/hda_controller.c |   1 +
+>  23 files changed, 218 insertions(+), 198 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/hypercalls.c b/arch/arm64/kvm/hypercalls.c
+> index 30da78f72b3b..41499c1d7379 100644
+> --- a/arch/arm64/kvm/hypercalls.c
+> +++ b/arch/arm64/kvm/hypercalls.c
+> @@ -3,6 +3,7 @@
+>  
+>  #include <linux/arm-smccc.h>
+>  #include <linux/kvm_host.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include <asm/kvm_emulate.h>
+>  
+> diff --git a/arch/ia64/kernel/time.c b/arch/ia64/kernel/time.c
+> index fa9c0ab8c6fc..85e79ff3c98e 100644
+> --- a/arch/ia64/kernel/time.c
+> +++ b/arch/ia64/kernel/time.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/efi.h>
+>  #include <linux/timex.h>
+>  #include <linux/timekeeper_internal.h>
+> +#include <linux/timekeeping.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/sched/cputime.h>
+>  
+> diff --git a/arch/m68k/atari/time.c b/arch/m68k/atari/time.c
+> index 7e44d0e9d0f8..b09d3ff40b36 100644
+> --- a/arch/m68k/atari/time.c
+> +++ b/arch/m68k/atari/time.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/clocksource.h>
+>  #include <linux/delay.h>
+>  #include <linux/export.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include <asm/atariints.h>
+>  #include <asm/machdep.h>
+> diff --git a/arch/m68k/hp300/time.c b/arch/m68k/hp300/time.c
+> index 1d1b7b3b5dd4..56c575096bcb 100644
+> --- a/arch/m68k/hp300/time.c
+> +++ b/arch/m68k/hp300/time.c
+> @@ -14,6 +14,8 @@
+>  #include <linux/sched.h>
+>  #include <linux/kernel_stat.h>
+>  #include <linux/interrupt.h>
+> +#include <linux/timekeeping.h>
+> +
+>  #include <asm/machdep.h>
+>  #include <asm/irq.h>
+>  #include <asm/io.h>
+> diff --git a/arch/m68k/mac/via.c b/arch/m68k/mac/via.c
+> index 3d11d6219cdd..6dd8f85288e4 100644
+> --- a/arch/m68k/mac/via.c
+> +++ b/arch/m68k/mac/via.c
+> @@ -31,6 +31,7 @@
+>  #include <linux/init.h>
+>  #include <linux/module.h>
+>  #include <linux/irq.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include <asm/macintosh.h>
+>  #include <asm/macints.h>
+> diff --git a/arch/m68k/mvme16x/config.c b/arch/m68k/mvme16x/config.c
+> index b4422c2dfbbf..ebe1dc3ebb4c 100644
+> --- a/arch/m68k/mvme16x/config.c
+> +++ b/arch/m68k/mvme16x/config.c
+> @@ -28,6 +28,7 @@
+>  #include <linux/rtc.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/module.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include <asm/bootinfo.h>
+>  #include <asm/bootinfo-vme.h>
+> diff --git a/arch/m68k/sun3/sun3ints.c b/arch/m68k/sun3/sun3ints.c
+> index 36cc280a4505..209dccc2aed6 100644
+> --- a/arch/m68k/sun3/sun3ints.c
+> +++ b/arch/m68k/sun3/sun3ints.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/sched.h>
+>  #include <linux/kernel_stat.h>
+>  #include <linux/interrupt.h>
+> +#include <linux/timekeeping.h>
+>  #include <asm/intersil.h>
+>  #include <asm/oplib.h>
+>  #include <asm/sun3ints.h>
+> diff --git a/arch/powerpc/kernel/time.c b/arch/powerpc/kernel/time.c
+> index cae8f03a44fe..b577a5a06621 100644
+> --- a/arch/powerpc/kernel/time.c
+> +++ b/arch/powerpc/kernel/time.c
+> @@ -54,6 +54,7 @@
+>  #include <linux/of_clk.h>
+>  #include <linux/suspend.h>
+>  #include <linux/processor.h>
+> +#include <linux/timekeeping.h>
+>  #include <asm/trace.h>
+>  
+>  #include <asm/interrupt.h>
+> diff --git a/arch/x86/kernel/rtc.c b/arch/x86/kernel/rtc.c
+> index 586f718b8e95..98ea05cc6aeb 100644
+> --- a/arch/x86/kernel/rtc.c
+> +++ b/arch/x86/kernel/rtc.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/export.h>
+>  #include <linux/pnp.h>
+>  #include <linux/of.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include <asm/vsyscall.h>
+>  #include <asm/x86_init.h>
+> diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
+> index a698196377be..add4388283c5 100644
+> --- a/arch/x86/kernel/tsc.c
+> +++ b/arch/x86/kernel/tsc.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/timex.h>
+>  #include <linux/static_key.h>
+>  #include <linux/static_call.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include <asm/hpet.h>
+>  #include <asm/timer.h>
+> diff --git a/drivers/rtc/class.c b/drivers/rtc/class.c
+> index 4b460c61f1d8..7e2bce8cf0b1 100644
+> --- a/drivers/rtc/class.c
+> +++ b/drivers/rtc/class.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/kdev_t.h>
+>  #include <linux/idr.h>
+>  #include <linux/slab.h>
+> +#include <linux/timekeeping.h>
+>  #include <linux/workqueue.h>
+>  
+>  #include "rtc-core.h"
+> diff --git a/include/linux/ktime.h b/include/linux/ktime.h
+> index 73f20deb497d..07971008b795 100644
+> --- a/include/linux/ktime.h
+> +++ b/include/linux/ktime.h
+> @@ -229,6 +229,198 @@ static inline ktime_t ms_to_ktime(u64 ms)
+>  	return ms * NSEC_PER_MSEC;
+>  }
+>  
+> -# include <linux/timekeeping.h>
+> +/*
+> + * ktime_get() family: read the current time in a multitude of ways,
+> + *
+> + * The default time reference is CLOCK_MONOTONIC, starting at
+> + * boot time but not counting the time spent in suspend.
+> + * For other references, use the functions with "real", "clocktai",
+> + * "boottime" and "raw" suffixes.
+> + *
+> + * To get the time in a different format, use the ones wit
+> + * "ns", "ts64" and "seconds" suffix.
+> + *
+> + * See Documentation/core-api/timekeeping.rst for more details.
+> + */
+>  
+> -#endif
+> +
+> +/*
+> + * timespec64 based interfaces
+> + */
+> +extern void ktime_get_raw_ts64(struct timespec64 *ts);
+> +extern void ktime_get_ts64(struct timespec64 *ts);
+> +extern void ktime_get_real_ts64(struct timespec64 *tv);
+> +extern void ktime_get_coarse_ts64(struct timespec64 *ts);
+> +extern void ktime_get_coarse_real_ts64(struct timespec64 *ts);
+> +
+> +void getboottime64(struct timespec64 *ts);
+> +
+> +/*
+> + * time64_t base interfaces
+> + */
+> +extern time64_t ktime_get_seconds(void);
+> +extern time64_t __ktime_get_real_seconds(void);
+> +extern time64_t ktime_get_real_seconds(void);
+> +
+> +/*
+> + * ktime_t based interfaces
+> + */
+> +
+> +enum tk_offsets {
+> +	TK_OFFS_REAL,
+> +	TK_OFFS_BOOT,
+> +	TK_OFFS_TAI,
+> +	TK_OFFS_MAX,
+> +};
+> +
+> +extern ktime_t ktime_get(void);
+> +extern ktime_t ktime_get_with_offset(enum tk_offsets offs);
+> +extern ktime_t ktime_get_coarse_with_offset(enum tk_offsets offs);
+> +extern ktime_t ktime_mono_to_any(ktime_t tmono, enum tk_offsets offs);
+> +extern ktime_t ktime_get_raw(void);
+> +extern u32 ktime_get_resolution_ns(void);
+> +
+> +/**
+> + * ktime_get_real - get the real (wall-) time in ktime_t format
+> + */
+> +static inline ktime_t ktime_get_real(void)
+> +{
+> +	return ktime_get_with_offset(TK_OFFS_REAL);
+> +}
+> +
+> +static inline ktime_t ktime_get_coarse_real(void)
+> +{
+> +	return ktime_get_coarse_with_offset(TK_OFFS_REAL);
+> +}
+> +
+> +/**
+> + * ktime_get_boottime - Returns monotonic time since boot in ktime_t format
+> + *
+> + * This is similar to CLOCK_MONTONIC/ktime_get, but also includes the
+> + * time spent in suspend.
+> + */
+> +static inline ktime_t ktime_get_boottime(void)
+> +{
+> +	return ktime_get_with_offset(TK_OFFS_BOOT);
+> +}
+> +
+> +static inline ktime_t ktime_get_coarse_boottime(void)
+> +{
+> +	return ktime_get_coarse_with_offset(TK_OFFS_BOOT);
+> +}
+> +
+> +/**
+> + * ktime_get_clocktai - Returns the TAI time of day in ktime_t format
+> + */
+> +static inline ktime_t ktime_get_clocktai(void)
+> +{
+> +	return ktime_get_with_offset(TK_OFFS_TAI);
+> +}
+> +
+> +static inline ktime_t ktime_get_coarse_clocktai(void)
+> +{
+> +	return ktime_get_coarse_with_offset(TK_OFFS_TAI);
+> +}
+> +
+> +static inline ktime_t ktime_get_coarse(void)
+> +{
+> +	struct timespec64 ts;
+> +
+> +	ktime_get_coarse_ts64(&ts);
+> +	return timespec64_to_ktime(ts);
+> +}
+> +
+> +static inline u64 ktime_get_coarse_ns(void)
+> +{
+> +	return ktime_to_ns(ktime_get_coarse());
+> +}
+> +
+> +static inline u64 ktime_get_coarse_real_ns(void)
+> +{
+> +	return ktime_to_ns(ktime_get_coarse_real());
+> +}
+> +
+> +static inline u64 ktime_get_coarse_boottime_ns(void)
+> +{
+> +	return ktime_to_ns(ktime_get_coarse_boottime());
+> +}
+> +
+> +static inline u64 ktime_get_coarse_clocktai_ns(void)
+> +{
+> +	return ktime_to_ns(ktime_get_coarse_clocktai());
+> +}
+> +
+> +/**
+> + * ktime_mono_to_real - Convert monotonic time to clock realtime
+> + */
+> +static inline ktime_t ktime_mono_to_real(ktime_t mono)
+> +{
+> +	return ktime_mono_to_any(mono, TK_OFFS_REAL);
+> +}
+> +
+> +static inline u64 ktime_get_ns(void)
+> +{
+> +	return ktime_to_ns(ktime_get());
+> +}
+> +
+> +static inline u64 ktime_get_real_ns(void)
+> +{
+> +	return ktime_to_ns(ktime_get_real());
+> +}
+> +
+> +static inline u64 ktime_get_boottime_ns(void)
+> +{
+> +	return ktime_to_ns(ktime_get_boottime());
+> +}
+> +
+> +static inline u64 ktime_get_clocktai_ns(void)
+> +{
+> +	return ktime_to_ns(ktime_get_clocktai());
+> +}
+> +
+> +static inline u64 ktime_get_raw_ns(void)
+> +{
+> +	return ktime_to_ns(ktime_get_raw());
+> +}
+> +
+> +extern u64 ktime_get_mono_fast_ns(void);
+> +extern u64 ktime_get_raw_fast_ns(void);
+> +extern u64 ktime_get_boot_fast_ns(void);
+> +extern u64 ktime_get_real_fast_ns(void);
+> +
+> +/*
+> + * timespec64/time64_t interfaces utilizing the ktime based ones
+> + * for API completeness, these could be implemented more efficiently
+> + * if needed.
+> + */
+> +static inline void ktime_get_boottime_ts64(struct timespec64 *ts)
+> +{
+> +	*ts = ktime_to_timespec64(ktime_get_boottime());
+> +}
+> +
+> +static inline void ktime_get_coarse_boottime_ts64(struct timespec64 *ts)
+> +{
+> +	*ts = ktime_to_timespec64(ktime_get_coarse_boottime());
+> +}
+> +
+> +static inline time64_t ktime_get_boottime_seconds(void)
+> +{
+> +	return ktime_divns(ktime_get_coarse_boottime(), NSEC_PER_SEC);
+> +}
+> +
+> +static inline void ktime_get_clocktai_ts64(struct timespec64 *ts)
+> +{
+> +	*ts = ktime_to_timespec64(ktime_get_clocktai());
+> +}
+> +
+> +static inline void ktime_get_coarse_clocktai_ts64(struct timespec64 *ts)
+> +{
+> +	*ts = ktime_to_timespec64(ktime_get_coarse_clocktai());
+> +}
+> +
+> +static inline time64_t ktime_get_clocktai_seconds(void)
+> +{
+> +	return ktime_divns(ktime_get_coarse_clocktai(), NSEC_PER_SEC);
+> +}
+> +
+> +#endif /* _LINUX_KTIME_H */
+> diff --git a/include/linux/pps_kernel.h b/include/linux/pps_kernel.h
+> index 78c8ac4951b5..24970c202ac6 100644
+> --- a/include/linux/pps_kernel.h
+> +++ b/include/linux/pps_kernel.h
+> @@ -12,6 +12,7 @@
+>  #include <linux/cdev.h>
+>  #include <linux/device.h>
+>  #include <linux/time.h>
+> +#include <linux/timekeeping.h>
+>  
+>  /*
+>   * Global defines
+> diff --git a/include/linux/sched_clock.h b/include/linux/sched_clock.h
+> index 835ee87ed792..f0fa287710da 100644
+> --- a/include/linux/sched_clock.h
+> +++ b/include/linux/sched_clock.h
+> @@ -5,6 +5,8 @@
+>  #ifndef LINUX_SCHED_CLOCK
+>  #define LINUX_SCHED_CLOCK
+>  
+> +#include <linux/timekeeping.h>
+> +
+>  #ifdef CONFIG_GENERIC_SCHED_CLOCK
+>  /**
+>   * struct clock_read_data - data required to read from sched_clock()
+> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> index a6f03b36fc4f..bf235ff101d5 100644
+> --- a/include/linux/stmmac.h
+> +++ b/include/linux/stmmac.h
+> @@ -14,6 +14,7 @@
+>  
+>  #include <linux/platform_device.h>
+>  #include <linux/phy.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #define MTL_MAX_RX_QUEUES	8
+>  #define MTL_MAX_TX_QUEUES	8
+> diff --git a/include/linux/timekeeping.h b/include/linux/timekeeping.h
+> index 78a98bdff76d..b1c54f5ff91e 100644
+> --- a/include/linux/timekeeping.h
+> +++ b/include/linux/timekeeping.h
+> @@ -19,201 +19,6 @@ extern void legacy_timer_tick(unsigned long ticks);
+>  extern int do_settimeofday64(const struct timespec64 *ts);
+>  extern int do_sys_settimeofday64(const struct timespec64 *tv,
+>  				 const struct timezone *tz);
+> -
+> -/*
+> - * ktime_get() family: read the current time in a multitude of ways,
+> - *
+> - * The default time reference is CLOCK_MONOTONIC, starting at
+> - * boot time but not counting the time spent in suspend.
+> - * For other references, use the functions with "real", "clocktai",
+> - * "boottime" and "raw" suffixes.
+> - *
+> - * To get the time in a different format, use the ones wit
+> - * "ns", "ts64" and "seconds" suffix.
+> - *
+> - * See Documentation/core-api/timekeeping.rst for more details.
+> - */
+> -
+> -
+> -/*
+> - * timespec64 based interfaces
+> - */
+> -extern void ktime_get_raw_ts64(struct timespec64 *ts);
+> -extern void ktime_get_ts64(struct timespec64 *ts);
+> -extern void ktime_get_real_ts64(struct timespec64 *tv);
+> -extern void ktime_get_coarse_ts64(struct timespec64 *ts);
+> -extern void ktime_get_coarse_real_ts64(struct timespec64 *ts);
+> -
+> -void getboottime64(struct timespec64 *ts);
+> -
+> -/*
+> - * time64_t base interfaces
+> - */
+> -extern time64_t ktime_get_seconds(void);
+> -extern time64_t __ktime_get_real_seconds(void);
+> -extern time64_t ktime_get_real_seconds(void);
+> -
+> -/*
+> - * ktime_t based interfaces
+> - */
+> -
+> -enum tk_offsets {
+> -	TK_OFFS_REAL,
+> -	TK_OFFS_BOOT,
+> -	TK_OFFS_TAI,
+> -	TK_OFFS_MAX,
+> -};
+> -
+> -extern ktime_t ktime_get(void);
+> -extern ktime_t ktime_get_with_offset(enum tk_offsets offs);
+> -extern ktime_t ktime_get_coarse_with_offset(enum tk_offsets offs);
+> -extern ktime_t ktime_mono_to_any(ktime_t tmono, enum tk_offsets offs);
+> -extern ktime_t ktime_get_raw(void);
+> -extern u32 ktime_get_resolution_ns(void);
+> -
+> -/**
+> - * ktime_get_real - get the real (wall-) time in ktime_t format
+> - */
+> -static inline ktime_t ktime_get_real(void)
+> -{
+> -	return ktime_get_with_offset(TK_OFFS_REAL);
+> -}
+> -
+> -static inline ktime_t ktime_get_coarse_real(void)
+> -{
+> -	return ktime_get_coarse_with_offset(TK_OFFS_REAL);
+> -}
+> -
+> -/**
+> - * ktime_get_boottime - Returns monotonic time since boot in ktime_t format
+> - *
+> - * This is similar to CLOCK_MONTONIC/ktime_get, but also includes the
+> - * time spent in suspend.
+> - */
+> -static inline ktime_t ktime_get_boottime(void)
+> -{
+> -	return ktime_get_with_offset(TK_OFFS_BOOT);
+> -}
+> -
+> -static inline ktime_t ktime_get_coarse_boottime(void)
+> -{
+> -	return ktime_get_coarse_with_offset(TK_OFFS_BOOT);
+> -}
+> -
+> -/**
+> - * ktime_get_clocktai - Returns the TAI time of day in ktime_t format
+> - */
+> -static inline ktime_t ktime_get_clocktai(void)
+> -{
+> -	return ktime_get_with_offset(TK_OFFS_TAI);
+> -}
+> -
+> -static inline ktime_t ktime_get_coarse_clocktai(void)
+> -{
+> -	return ktime_get_coarse_with_offset(TK_OFFS_TAI);
+> -}
+> -
+> -static inline ktime_t ktime_get_coarse(void)
+> -{
+> -	struct timespec64 ts;
+> -
+> -	ktime_get_coarse_ts64(&ts);
+> -	return timespec64_to_ktime(ts);
+> -}
+> -
+> -static inline u64 ktime_get_coarse_ns(void)
+> -{
+> -	return ktime_to_ns(ktime_get_coarse());
+> -}
+> -
+> -static inline u64 ktime_get_coarse_real_ns(void)
+> -{
+> -	return ktime_to_ns(ktime_get_coarse_real());
+> -}
+> -
+> -static inline u64 ktime_get_coarse_boottime_ns(void)
+> -{
+> -	return ktime_to_ns(ktime_get_coarse_boottime());
+> -}
+> -
+> -static inline u64 ktime_get_coarse_clocktai_ns(void)
+> -{
+> -	return ktime_to_ns(ktime_get_coarse_clocktai());
+> -}
+> -
+> -/**
+> - * ktime_mono_to_real - Convert monotonic time to clock realtime
+> - */
+> -static inline ktime_t ktime_mono_to_real(ktime_t mono)
+> -{
+> -	return ktime_mono_to_any(mono, TK_OFFS_REAL);
+> -}
+> -
+> -static inline u64 ktime_get_ns(void)
+> -{
+> -	return ktime_to_ns(ktime_get());
+> -}
+> -
+> -static inline u64 ktime_get_real_ns(void)
+> -{
+> -	return ktime_to_ns(ktime_get_real());
+> -}
+> -
+> -static inline u64 ktime_get_boottime_ns(void)
+> -{
+> -	return ktime_to_ns(ktime_get_boottime());
+> -}
+> -
+> -static inline u64 ktime_get_clocktai_ns(void)
+> -{
+> -	return ktime_to_ns(ktime_get_clocktai());
+> -}
+> -
+> -static inline u64 ktime_get_raw_ns(void)
+> -{
+> -	return ktime_to_ns(ktime_get_raw());
+> -}
+> -
+> -extern u64 ktime_get_mono_fast_ns(void);
+> -extern u64 ktime_get_raw_fast_ns(void);
+> -extern u64 ktime_get_boot_fast_ns(void);
+> -extern u64 ktime_get_real_fast_ns(void);
+> -
+> -/*
+> - * timespec64/time64_t interfaces utilizing the ktime based ones
+> - * for API completeness, these could be implemented more efficiently
+> - * if needed.
+> - */
+> -static inline void ktime_get_boottime_ts64(struct timespec64 *ts)
+> -{
+> -	*ts = ktime_to_timespec64(ktime_get_boottime());
+> -}
+> -
+> -static inline void ktime_get_coarse_boottime_ts64(struct timespec64 *ts)
+> -{
+> -	*ts = ktime_to_timespec64(ktime_get_coarse_boottime());
+> -}
+> -
+> -static inline time64_t ktime_get_boottime_seconds(void)
+> -{
+> -	return ktime_divns(ktime_get_coarse_boottime(), NSEC_PER_SEC);
+> -}
+> -
+> -static inline void ktime_get_clocktai_ts64(struct timespec64 *ts)
+> -{
+> -	*ts = ktime_to_timespec64(ktime_get_clocktai());
+> -}
+> -
+> -static inline void ktime_get_coarse_clocktai_ts64(struct timespec64 *ts)
+> -{
+> -	*ts = ktime_to_timespec64(ktime_get_coarse_clocktai());
+> -}
+> -
+> -static inline time64_t ktime_get_clocktai_seconds(void)
+> -{
+> -	return ktime_divns(ktime_get_coarse_clocktai(), NSEC_PER_SEC);
+> -}
+> -
+>  /*
+>   * RTC specific
+>   */
+> @@ -308,4 +113,4 @@ void read_persistent_wall_and_boot_offset(struct timespec64 *wall_clock,
+>  extern int update_persistent_clock64(struct timespec64 now);
+>  #endif
+>  
+> -#endif
+> +#endif /* _LINUX_TIMEKEEPING_H */
+> diff --git a/init/main.c b/init/main.c
+> index bb984ed79de0..6a6f85e9404f 100644
+> --- a/init/main.c
+> +++ b/init/main.c
+> @@ -99,6 +99,7 @@
+>  #include <linux/kcsan.h>
+>  #include <linux/init_syscalls.h>
+>  #include <linux/stackdepot.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include <asm/io.h>
+>  #include <asm/bugs.h>
+> diff --git a/kernel/time/ntp.c b/kernel/time/ntp.c
+> index 406dccb79c2b..804f06801737 100644
+> --- a/kernel/time/ntp.c
+> +++ b/kernel/time/ntp.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/module.h>
+>  #include <linux/rtc.h>
+>  #include <linux/audit.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include "ntp_internal.h"
+>  #include "timekeeping_internal.h"
+> diff --git a/kernel/time/posix-timers.c b/kernel/time/posix-timers.c
+> index 1cd10b102c51..410a9336748e 100644
+> --- a/kernel/time/posix-timers.c
+> +++ b/kernel/time/posix-timers.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/interrupt.h>
+>  #include <linux/slab.h>
+>  #include <linux/time.h>
+> +#include <linux/timekeeping.h>
+>  #include <linux/mutex.h>
+>  #include <linux/sched/task.h>
+>  
+> diff --git a/kernel/time/tick-legacy.c b/kernel/time/tick-legacy.c
+> index af225b32f5b3..9a534f716462 100644
+> --- a/kernel/time/tick-legacy.c
+> +++ b/kernel/time/tick-legacy.c
+> @@ -7,6 +7,7 @@
+>  #include <linux/irq.h>
+>  #include <linux/profile.h>
+>  #include <linux/timekeeper_internal.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include "tick-internal.h"
+>  
+> diff --git a/kernel/time/time.c b/kernel/time/time.c
+> index 29923b20e0e4..7292ed074742 100644
+> --- a/kernel/time/time.c
+> +++ b/kernel/time/time.c
+> @@ -29,6 +29,7 @@
+>  #include <linux/timex.h>
+>  #include <linux/capability.h>
+>  #include <linux/timekeeper_internal.h>
+> +#include <linux/timekeeping.h>
+>  #include <linux/errno.h>
+>  #include <linux/syscalls.h>
+>  #include <linux/security.h>
+> diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+> index b348749a9fc6..d234cb8a97fe 100644
+> --- a/kernel/time/timekeeping.c
+> +++ b/kernel/time/timekeeping.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/pvclock_gtod.h>
+>  #include <linux/compiler.h>
+>  #include <linux/audit.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #include "tick-internal.h"
+>  #include "ntp_internal.h"
+> diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+> index 930ae4002a81..8014f02e4443 100644
+> --- a/sound/pci/hda/hda_controller.c
+> +++ b/sound/pci/hda/hda_controller.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/module.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/slab.h>
+> +#include <linux/timekeeping.h>
+>  
+>  #ifdef CONFIG_X86
+>  /* for art-tsc conversion */
+> -- 
+> 2.27.0
+> 
 
-
---ef2aNFzDYnZC/zcG
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Jan 23, 2022 at 06:52:01PM +0100, Uwe Kleine-K=F6nig wrote:
-> The value returned by an spi driver's remove function is mostly ignored.
-> (Only an error message is printed if the value is non-zero that the
-> error is ignored.)
->=20
-> So change the prototype of the remove function to return no value. This
-> way driver authors are not tempted to assume that passing an error to
-> the upper layer is a good idea. All drivers are adapted accordingly.
-> There is no intended change of behaviour, all callbacks were prepared to
-> return 0 before.
-
-I was going to apply this but it needs rebasing against current code
-unfortunately.
-
---ef2aNFzDYnZC/zcG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmICcokACgkQJNaLcl1U
-h9DmcQf+LJZ969n1sCqmHKwy4lQ2Pxdy53x61CG2xi4rHMBDaahnhIqh6OONUbd+
-C69P1GRsp8evXqnMb8d4TH1pFPvi3X7mWWwRFhXalhZsYYw/b3jmnQNO7zN81ayi
-80hp04WF+UE2A+FJhiN9n9i47vM4FEBcuKxNp9AZNSxwiTfVHUoHAF3UddqF0oAo
-hThmCBaRZYCQ9dCX1glz8vfrfXVIqRVx30esuamogMGtZbM5bSDoPizzdk83trN4
-pfd594g2DUBkpQBHZvadCjp92MBULn5nNnlF5Ob5PAmP1T0NUVsTu7Ra/ZJTnUNb
-GfkUNfSvLNah+a6BUd3Jp6LazHu9Ew==
-=bpX2
------END PGP SIGNATURE-----
-
---ef2aNFzDYnZC/zcG--
-
---===============5880824265766031088==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5880824265766031088==--
