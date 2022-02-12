@@ -2,59 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D97794B2B2C
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Feb 2022 18:01:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B03A64B37C4
+	for <lists+linux-stm32@lfdr.de>; Sat, 12 Feb 2022 21:16:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 822F6C5F1D5;
-	Fri, 11 Feb 2022 17:01:38 +0000 (UTC)
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D110C5F1D5;
+	Sat, 12 Feb 2022 20:16:41 +0000 (UTC)
+Received: from mxout01.lancloud.ru (mxout01.lancloud.ru [45.84.86.81])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB911C5EC76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44B1EC5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Feb 2022 17:01:37 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id b5so9554703qtq.11
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Feb 2022 09:01:37 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=lTU4HbSouJ9dqPWmjI3l0Ew8QHUuA5sWoJVXgwwCRvA=;
- b=sqaSvA7yC66rS8AcJvcpIAOWgv+cPXJNwsmZDBBb00toPcRZo6Lvyt2VmatOVekVn6
- SvLpakyVkmI4PSpYsGm8WDsZb7aWSrW3HtbpHDNC5Ob+912AaoaA22z62dvu+uY61ID/
- rnG4EhUwZp0Ng4tZwzdeGUztqn0AOmiZsH7NBhVTCqDeDVVth6vBwtubhFyjLKdKzZTJ
- zmEV94R9whbrikd3KMkEUSiBL/CE02lyi7Is2LCEjHfJ7BeS21H7KeBcMYLx06uv5uto
- c5FKPrFr0f07vzUos/g+CfrdeNJsxydxtgR9PL8JZQvPvW4IwKd62EwsNx/BVDLqE2Q8
- r9OA==
-X-Gm-Message-State: AOAM532VI4r5qxvIcoj260HCTL7+Yl+t/nZXbFwQFqAF2ltwb0xHLQp9
- p1C5V5tIDFIuTF1VYkbZNw==
-X-Google-Smtp-Source: ABdhPJxar8bPh0jFhQ/T6PgRv8vQRRu79k9YmCed0Oo2PzGqPTvP1dPyOPbElhyV0I3YJZDBuvwn0A==
-X-Received: by 2002:a05:622a:411:: with SMTP id
- n17mr1774065qtx.466.1644598896394; 
- Fri, 11 Feb 2022 09:01:36 -0800 (PST)
-Received: from robh.at.kernel.org ([2607:fb90:5fee:dfce:b6df:c3e1:b1e5:d6d8])
- by smtp.gmail.com with ESMTPSA id
- j11sm13087720qtj.74.2022.02.11.09.01.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Feb 2022 09:01:35 -0800 (PST)
-Received: (nullmailer pid 521591 invoked by uid 1000);
- Fri, 11 Feb 2022 17:01:33 -0000
-Date: Fri, 11 Feb 2022 11:01:33 -0600
-From: Rob Herring <robh@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <YgaWbb11EEKSVEZZ@robh.at.kernel.org>
-References: <1644414747-22159-1-git-send-email-fabrice.gasnier@foss.st.com>
+ Sat, 12 Feb 2022 20:16:39 +0000 (UTC)
+Received: from LanCloud
+DKIM-Filter: OpenDKIM Filter v2.11.0 mxout01.lancloud.ru 380DE209AC65
+Received: from LanCloud
+Received: from LanCloud
+Received: from LanCloud
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, <linux-kernel@vger.kernel.org>
+Date: Sat, 12 Feb 2022 23:16:31 +0300
+Message-ID: <20220212201631.12648-3-s.shtylyov@omp.ru>
+X-Mailer: git-send-email 2.26.3
+In-Reply-To: <20220212201631.12648-1-s.shtylyov@omp.ru>
+References: <20220212201631.12648-1-s.shtylyov@omp.ru>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1644414747-22159-1-git-send-email-fabrice.gasnier@foss.st.com>
-Cc: devicetree@vger.kernel.org, daniel.lezcano@linaro.org,
- linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com, robh+dt@kernel.org,
- tglx@linutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: timer: armv7m-systick:
-	convert to dtschema
+X-Originating-IP: [192.168.11.198]
+X-ClientProxiedBy: LFEXT02.lancloud.ru (fd00:f066::142) To
+ LFEX1907.lancloud.ru (fd00:f066::207)
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ David Airlie <airlied@linux.ie>, linux-pci@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ dri-devel@lists.freedesktop.org, Aswath Govindraju <a-govindraju@ti.com>,
+ Thierry Reding <thierry.reding@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Florian Fainelli <f.fainelli@gmail.com>, lima@lists.freedesktop.org,
+ Kamal Dasu <kdasu.kdev@gmail.com>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Jose Abreu <joabreu@synopsys.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Jakub Kicinski <kuba@kernel.org>,
+ Vivien Didelot <vivien.didelot@gmail.com>, Wolfgang
+ Grandegger <wg@grandegger.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Pawel Laszczak <pawell@cadence.com>, linux-tegra@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Mathias Nyman <mathias.nyman@intel.com>,
+ linux-can@vger.kernel.org, Roger Quadros <rogerq@kernel.org>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Bjorn Helgaas <bhelgaas@google.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, Jingoo Han <jingoohan1@gmail.com>,
+ Peter Chen <peter.chen@kernel.org>, linux-usb@vger.kernel.org,
+ Joakim Zhang <qiangqing.zhang@nxp.com>, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Qiang Yu <yuq825@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+ linux-mediatek@lists.infradead.org, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH v2 2/2] platform: make
+	platform_get_irq_byname_optional() optional
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,20 +77,319 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 09 Feb 2022 14:52:27 +0100, Fabrice Gasnier wrote:
-> Convert the ARMv7-M system timer bindings to DT schema format.
-> 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> ---
->  .../bindings/timer/arm,armv7m-systick.txt          | 26 -----------
->  .../bindings/timer/arm,armv7m-systick.yaml         | 54 ++++++++++++++++++++++
->  2 files changed, 54 insertions(+), 26 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/timer/arm,armv7m-systick.txt
->  create mode 100644 Documentation/devicetree/bindings/timer/arm,armv7m-systick.yaml
-> 
+Currently platform_get_irq_byname_optional() returns an error code even
+if IRQ resource simply has not been found.  It prevents the callers from
+being error code agnostic in their error handling:
 
-Applied, thanks!
+	ret = platform_get_irq_byname_optional(...);
+	if (ret < 0 && ret != -ENXIO)
+		return ret; // respect deferred probe
+	if (ret > 0)
+		...we get an IRQ...
+
+All other *_optional() APIs seem to return 0 or NULL in case an optional
+resource is not available.  Let's follow this good example, so that the
+callers would look like:
+
+	ret = platform_get_irq_byname_optional(...);
+	if (ret < 0)
+		return ret;
+	if (ret > 0)
+		...we get an IRQ...
+
+Signed-off-by: Sergey Shtylyov <s.shtylyov@omp.ru>
+---
+Changes in version 2:
+- added the error check using dev_err_probe() to
+  platform_get_irq_byname_optional();
+- reformatted the patch description.
+
+ drivers/base/platform.c                         | 17 ++++++++++++++---
+ drivers/gpu/drm/lima/lima_device.c              |  2 +-
+ drivers/mailbox/tegra-hsp.c                     |  4 ++--
+ drivers/net/can/rcar/rcar_canfd.c               |  4 ++--
+ drivers/net/dsa/b53/b53_srab.c                  |  2 +-
+ drivers/net/ethernet/freescale/fec_main.c       |  2 +-
+ drivers/net/ethernet/freescale/fec_ptp.c        |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c   |  4 ++--
+ .../ethernet/stmicro/stmmac/stmmac_platform.c   |  4 ++--
+ .../pci/controller/dwc/pcie-designware-host.c   |  2 +-
+ drivers/spi/spi-bcm-qspi.c                      |  2 +-
+ drivers/spi/spi-rspi.c                          |  8 ++++----
+ drivers/usb/cdns3/cdns3-plat.c                  |  5 +----
+ drivers/usb/host/xhci-mtk.c                     |  2 +-
+ drivers/usb/mtu3/mtu3_core.c                    |  2 +-
+ 15 files changed, 35 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/base/platform.c b/drivers/base/platform.c
+index 52a8356f8261..c704d51a6dd5 100644
+--- a/drivers/base/platform.c
++++ b/drivers/base/platform.c
+@@ -500,14 +500,25 @@ EXPORT_SYMBOL_GPL(platform_get_irq_byname);
+  * @name: IRQ name
+  *
+  * Get an optional IRQ by name like platform_get_irq_byname(). Except that it
+- * does not print an error message if an IRQ can not be obtained.
++ * does not print an error message if an IRQ can not be obtained and returns
++ * 0 when IRQ resource has not been found.
+  *
+- * Return: non-zero IRQ number on success, negative error number on failure.
++ * Return: non-zero IRQ number on success, 0 if IRQ wasn't found, negative error
++ * number on failure.
+  */
+ int platform_get_irq_byname_optional(struct platform_device *dev,
+ 				     const char *name)
+ {
+-	return __platform_get_irq_byname(dev, name);
++	int ret;
++
++	ret = __platform_get_irq_byname(dev, name);
++	if (ret == -ENXIO)
++		return 0;
++	if (ret < 0)
++		return dev_err_probe(&dev->dev, ret, "IRQ %s not found\n",
++				     name);
++
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(platform_get_irq_byname_optional);
+ 
+diff --git a/drivers/gpu/drm/lima/lima_device.c b/drivers/gpu/drm/lima/lima_device.c
+index 02cef0cea657..08a86484ce6f 100644
+--- a/drivers/gpu/drm/lima/lima_device.c
++++ b/drivers/gpu/drm/lima/lima_device.c
+@@ -224,7 +224,7 @@ static int lima_init_ip(struct lima_device *dev, int index)
+ 	if (irq_name) {
+ 		err = must ? platform_get_irq_byname(pdev, irq_name) :
+ 			     platform_get_irq_byname_optional(pdev, irq_name);
+-		if (err < 0)
++		if (err <= 0)
+ 			goto out;
+ 		ip->irq = err;
+ 	}
+diff --git a/drivers/mailbox/tegra-hsp.c b/drivers/mailbox/tegra-hsp.c
+index acd0675da681..17aa88e31445 100644
+--- a/drivers/mailbox/tegra-hsp.c
++++ b/drivers/mailbox/tegra-hsp.c
+@@ -667,7 +667,7 @@ static int tegra_hsp_probe(struct platform_device *pdev)
+ 	hsp->num_si = (value >> HSP_nSI_SHIFT) & HSP_nINT_MASK;
+ 
+ 	err = platform_get_irq_byname_optional(pdev, "doorbell");
+-	if (err >= 0)
++	if (err > 0)
+ 		hsp->doorbell_irq = err;
+ 
+ 	if (hsp->num_si > 0) {
+@@ -687,7 +687,7 @@ static int tegra_hsp_probe(struct platform_device *pdev)
+ 				return -ENOMEM;
+ 
+ 			err = platform_get_irq_byname_optional(pdev, name);
+-			if (err >= 0) {
++			if (err > 0) {
+ 				hsp->shared_irqs[i] = err;
+ 				count++;
+ 			}
+diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
+index b7dc1c32875f..fa163ec0db80 100644
+--- a/drivers/net/can/rcar/rcar_canfd.c
++++ b/drivers/net/can/rcar/rcar_canfd.c
+@@ -1772,7 +1772,7 @@ static int rcar_canfd_probe(struct platform_device *pdev)
+ 
+ 	if (chip_id == RENESAS_RCAR_GEN3) {
+ 		ch_irq = platform_get_irq_byname_optional(pdev, "ch_int");
+-		if (ch_irq < 0) {
++		if (ch_irq <= 0) {
+ 			/* For backward compatibility get irq by index */
+ 			ch_irq = platform_get_irq(pdev, 0);
+ 			if (ch_irq < 0)
+@@ -1780,7 +1780,7 @@ static int rcar_canfd_probe(struct platform_device *pdev)
+ 		}
+ 
+ 		g_irq = platform_get_irq_byname_optional(pdev, "g_int");
+-		if (g_irq < 0) {
++		if (g_irq <= 0) {
+ 			/* For backward compatibility get irq by index */
+ 			g_irq = platform_get_irq(pdev, 1);
+ 			if (g_irq < 0)
+diff --git a/drivers/net/dsa/b53/b53_srab.c b/drivers/net/dsa/b53/b53_srab.c
+index 4591bb1c05d2..80b7c8f053ad 100644
+--- a/drivers/net/dsa/b53/b53_srab.c
++++ b/drivers/net/dsa/b53/b53_srab.c
+@@ -420,7 +420,7 @@ static int b53_srab_irq_enable(struct b53_device *dev, int port)
+ 	/* Interrupt is optional and was not specified, do not make
+ 	 * this fatal
+ 	 */
+-	if (p->irq == -ENXIO)
++	if (!p->irq)
+ 		return ret;
+ 
+ 	ret = request_threaded_irq(p->irq, b53_srab_port_isr,
+diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+index 796133de527e..93d1cca831dd 100644
+--- a/drivers/net/ethernet/freescale/fec_main.c
++++ b/drivers/net/ethernet/freescale/fec_main.c
+@@ -3941,7 +3941,7 @@ fec_probe(struct platform_device *pdev)
+ 	for (i = 0; i < irq_cnt; i++) {
+ 		snprintf(irq_name, sizeof(irq_name), "int%d", i);
+ 		irq = platform_get_irq_byname_optional(pdev, irq_name);
+-		if (irq < 0)
++		if (irq <= 0)
+ 			irq = platform_get_irq(pdev, i);
+ 		if (irq < 0) {
+ 			ret = irq;
+diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
+index de1d23808b6c..a7ef0aaaf2be 100644
+--- a/drivers/net/ethernet/freescale/fec_ptp.c
++++ b/drivers/net/ethernet/freescale/fec_ptp.c
+@@ -611,7 +611,7 @@ void fec_ptp_init(struct platform_device *pdev, int irq_idx)
+ 	INIT_DELAYED_WORK(&fep->time_keep, fec_time_keep);
+ 
+ 	irq = platform_get_irq_byname_optional(pdev, "pps");
+-	if (irq < 0)
++	if (irq <= 0)
+ 		irq = platform_get_irq_optional(pdev, irq_idx);
+ 	/* Failure to get an irq is not fatal,
+ 	 * only the PTP_CLOCK_PPS clock events should stop
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+index 2b38a499a404..5519b5b35365 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+@@ -342,7 +342,7 @@ static int stm32mp1_parse_data(struct stm32_dwmac *dwmac,
+ 	if (dwmac->irq_pwr_wakeup == -EPROBE_DEFER)
+ 		return -EPROBE_DEFER;
+ 
+-	if (!dwmac->clk_eth_ck && dwmac->irq_pwr_wakeup >= 0) {
++	if (!dwmac->clk_eth_ck && dwmac->irq_pwr_wakeup > 0) {
+ 		err = device_init_wakeup(&pdev->dev, true);
+ 		if (err) {
+ 			dev_err(&pdev->dev, "Failed to init wake up irq\n");
+@@ -426,7 +426,7 @@ static int stm32_dwmac_remove(struct platform_device *pdev)
+ 
+ 	stm32_dwmac_clk_disable(priv->plat->bsp_priv);
+ 
+-	if (dwmac->irq_pwr_wakeup >= 0) {
++	if (dwmac->irq_pwr_wakeup > 0) {
+ 		dev_pm_clear_wake_irq(&pdev->dev);
+ 		device_init_wakeup(&pdev->dev, false);
+ 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 5d29f336315b..33fdfab93aa6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -679,7 +679,7 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
+ 	 */
+ 	stmmac_res->wol_irq =
+ 		platform_get_irq_byname_optional(pdev, "eth_wake_irq");
+-	if (stmmac_res->wol_irq < 0) {
++	if (stmmac_res->wol_irq <= 0) {
+ 		if (stmmac_res->wol_irq == -EPROBE_DEFER)
+ 			return -EPROBE_DEFER;
+ 		dev_info(&pdev->dev, "IRQ eth_wake_irq not found\n");
+@@ -688,7 +688,7 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
+ 
+ 	stmmac_res->lpi_irq =
+ 		platform_get_irq_byname_optional(pdev, "eth_lpi");
+-	if (stmmac_res->lpi_irq < 0) {
++	if (stmmac_res->lpi_irq <= 0) {
+ 		if (stmmac_res->lpi_irq == -EPROBE_DEFER)
+ 			return -EPROBE_DEFER;
+ 		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
+diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
+index f4755f3a03be..00e1a33fd06d 100644
+--- a/drivers/pci/controller/dwc/pcie-designware-host.c
++++ b/drivers/pci/controller/dwc/pcie-designware-host.c
+@@ -364,7 +364,7 @@ int dw_pcie_host_init(struct pcie_port *pp)
+ 		} else if (pp->has_msi_ctrl) {
+ 			if (!pp->msi_irq) {
+ 				pp->msi_irq = platform_get_irq_byname_optional(pdev, "msi");
+-				if (pp->msi_irq < 0) {
++				if (pp->msi_irq <= 0) {
+ 					pp->msi_irq = platform_get_irq(pdev, 0);
+ 					if (pp->msi_irq < 0)
+ 						return pp->msi_irq;
+diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
+index c9a769b8594b..21fb80291d03 100644
+--- a/drivers/spi/spi-bcm-qspi.c
++++ b/drivers/spi/spi-bcm-qspi.c
+@@ -1627,7 +1627,7 @@ int bcm_qspi_probe(struct platform_device *pdev,
+ 			irq = platform_get_irq(pdev, 0);
+ 		}
+ 
+-		if (irq  >= 0) {
++		if (irq > 0) {
+ 			ret = devm_request_irq(&pdev->dev, irq,
+ 					       qspi_irq_tab[val].irq_handler, 0,
+ 					       name,
+diff --git a/drivers/spi/spi-rspi.c b/drivers/spi/spi-rspi.c
+index bd5708d7e5a1..1ddbd30e68d5 100644
+--- a/drivers/spi/spi-rspi.c
++++ b/drivers/spi/spi-rspi.c
+@@ -1355,16 +1355,16 @@ static int rspi_probe(struct platform_device *pdev)
+ 	ctlr->max_native_cs = rspi->ops->num_hw_ss;
+ 
+ 	ret = platform_get_irq_byname_optional(pdev, "rx");
+-	if (ret < 0) {
++	if (ret <= 0) {
+ 		ret = platform_get_irq_byname_optional(pdev, "mux");
+-		if (ret < 0)
++		if (ret <= 0)
+ 			ret = platform_get_irq(pdev, 0);
+-		if (ret >= 0)
++		if (ret > 0)
+ 			rspi->rx_irq = rspi->tx_irq = ret;
+ 	} else {
+ 		rspi->rx_irq = ret;
+ 		ret = platform_get_irq_byname(pdev, "tx");
+-		if (ret >= 0)
++		if (ret > 0)
+ 			rspi->tx_irq = ret;
+ 	}
+ 
+diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
+index dc068e940ed5..3a0bdf726af2 100644
+--- a/drivers/usb/cdns3/cdns3-plat.c
++++ b/drivers/usb/cdns3/cdns3-plat.c
+@@ -110,10 +110,7 @@ static int cdns3_plat_probe(struct platform_device *pdev)
+ 	cdns->wakeup_irq = platform_get_irq_byname_optional(pdev, "wakeup");
+ 	if (cdns->wakeup_irq == -EPROBE_DEFER)
+ 		return cdns->wakeup_irq;
+-	else if (cdns->wakeup_irq == 0)
+-		return -EINVAL;
+-
+-	if (cdns->wakeup_irq < 0) {
++	if (cdns->wakeup_irq <= 0) {
+ 		dev_dbg(dev, "couldn't get wakeup irq\n");
+ 		cdns->wakeup_irq = 0x0;
+ 	}
+diff --git a/drivers/usb/host/xhci-mtk.c b/drivers/usb/host/xhci-mtk.c
+index 91738af0ab14..19c742bf3ce0 100644
+--- a/drivers/usb/host/xhci-mtk.c
++++ b/drivers/usb/host/xhci-mtk.c
+@@ -493,7 +493,7 @@ static int xhci_mtk_probe(struct platform_device *pdev)
+ 		return ret;
+ 
+ 	irq = platform_get_irq_byname_optional(pdev, "host");
+-	if (irq < 0) {
++	if (irq <= 0) {
+ 		if (irq == -EPROBE_DEFER)
+ 			return irq;
+ 
+diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
+index c4a2c37abf62..08173c05a1d6 100644
+--- a/drivers/usb/mtu3/mtu3_core.c
++++ b/drivers/usb/mtu3/mtu3_core.c
+@@ -925,7 +925,7 @@ int ssusb_gadget_init(struct ssusb_mtk *ssusb)
+ 		return -ENOMEM;
+ 
+ 	mtu->irq = platform_get_irq_byname_optional(pdev, "device");
+-	if (mtu->irq < 0) {
++	if (mtu->irq <= 0) {
+ 		if (mtu->irq == -EPROBE_DEFER)
+ 			return mtu->irq;
+ 
+-- 
+2.26.3
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
