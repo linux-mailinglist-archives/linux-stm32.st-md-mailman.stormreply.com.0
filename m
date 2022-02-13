@@ -2,65 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B03A64B37C4
-	for <lists+linux-stm32@lfdr.de>; Sat, 12 Feb 2022 21:16:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5C534B3CC8
+	for <lists+linux-stm32@lfdr.de>; Sun, 13 Feb 2022 19:15:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D110C5F1D5;
-	Sat, 12 Feb 2022 20:16:41 +0000 (UTC)
-Received: from mxout01.lancloud.ru (mxout01.lancloud.ru [45.84.86.81])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83BF2C5F1F2;
+	Sun, 13 Feb 2022 18:15:45 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44B1EC5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA0C4C0614D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 12 Feb 2022 20:16:39 +0000 (UTC)
-Received: from LanCloud
-DKIM-Filter: OpenDKIM Filter v2.11.0 mxout01.lancloud.ru 380DE209AC65
-Received: from LanCloud
-Received: from LanCloud
-Received: from LanCloud
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Sat, 12 Feb 2022 23:16:31 +0300
-Message-ID: <20220212201631.12648-3-s.shtylyov@omp.ru>
-X-Mailer: git-send-email 2.26.3
-In-Reply-To: <20220212201631.12648-1-s.shtylyov@omp.ru>
-References: <20220212201631.12648-1-s.shtylyov@omp.ru>
+ Sun, 13 Feb 2022 18:15:43 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5673AB80B4C;
+ Sun, 13 Feb 2022 18:15:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF62C004E1;
+ Sun, 13 Feb 2022 18:15:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1644776141;
+ bh=/9+H4j9CNkoA0PauWus1aCeeU0uGh7nZTlRZF36Y6lc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=irYBWrUPCh9Z0yNMJwq02yyDHRElWuHRxCQzd8WYWSW1ByL7EnWJwCskD2ODfY/bz
+ f2OiiMXzOYw12ykSXkhvmAThkMQVjSbLetHhZSx4Wv4Nh1Sh5Jg5WQ+yjCoCVrJn97
+ th9ZTIG+Bkrea37dRMg50EsqBbrF5T4AhI883E7Prg4nn0Qw7PdQb2MbdbteeWs9Iv
+ aAImGW52TYeQyVILzp/aNPIOEQHYqPTKBR6ZuRIwFPNCDW2h4TkZ6xEXMtCCVl5HtQ
+ acg2ICRTpd60RX31stEhUTTH9YxTYqQI4kawkFMGM0MEzMpzhbrMhuh0ILZwuNhM2o
+ mcoRbOYuJthcw==
+Date: Sun, 13 Feb 2022 18:22:20 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <20220213182220.3c045159@jic23-huawei>
+In-Reply-To: <05babdec-fd9a-a674-23a5-c689ff8fa8e3@foss.st.com>
+References: <20220202204112.57095-1-andriy.shevchenko@linux.intel.com>
+ <20220205173114.5a60fc47@jic23-huawei>
+ <05babdec-fd9a-a674-23a5-c689ff8fa8e3@foss.st.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [192.168.11.198]
-X-ClientProxiedBy: LFEXT02.lancloud.ru (fd00:f066::142) To
- LFEX1907.lancloud.ru (fd00:f066::207)
-Cc: Andrew Lunn <andrew@lunn.ch>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- David Airlie <airlied@linux.ie>, linux-pci@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- dri-devel@lists.freedesktop.org, Aswath Govindraju <a-govindraju@ti.com>,
- Thierry Reding <thierry.reding@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>, lima@lists.freedesktop.org,
- Kamal Dasu <kdasu.kdev@gmail.com>, Jassi Brar <jassisinghbrar@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jose Abreu <joabreu@synopsys.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Jakub Kicinski <kuba@kernel.org>,
- Vivien Didelot <vivien.didelot@gmail.com>, Wolfgang
- Grandegger <wg@grandegger.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Pawel Laszczak <pawell@cadence.com>, linux-tegra@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Mathias Nyman <mathias.nyman@intel.com>,
- linux-can@vger.kernel.org, Roger Quadros <rogerq@kernel.org>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Bjorn Helgaas <bhelgaas@google.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, Jingoo Han <jingoohan1@gmail.com>,
- Peter Chen <peter.chen@kernel.org>, linux-usb@vger.kernel.org,
- Joakim Zhang <qiangqing.zhang@nxp.com>, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Qiang Yu <yuq825@gmail.com>,
+Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- linux-mediatek@lists.infradead.org, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH v2 2/2] platform: make
-	platform_get_irq_byname_optional() optional
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/1] iio: trigger: stm32-timer: Make
+ use of device properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,318 +64,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently platform_get_irq_byname_optional() returns an error code even
-if IRQ resource simply has not been found.  It prevents the callers from
-being error code agnostic in their error handling:
+On Wed, 9 Feb 2022 15:24:22 +0100
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-	ret = platform_get_irq_byname_optional(...);
-	if (ret < 0 && ret != -ENXIO)
-		return ret; // respect deferred probe
-	if (ret > 0)
-		...we get an IRQ...
+> On 2/5/22 6:31 PM, Jonathan Cameron wrote:
+> > On Wed,  2 Feb 2022 22:41:12 +0200
+> > Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+> >   
+> >> Convert the module to be property provider agnostic and allow
+> >> it to be used on non-OF platforms.
+> >>
+> >> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>  
+> > Looks fine to me.  The stm32 drivers are well maintained so I'll
+> > leave this one on list a little longer for feedback.
+> > 
+> > +Cc: Fabrice
+> >   
+> >> ---
+> >> v2: dropped depends on OF
+> >>  drivers/iio/trigger/Kconfig               |  2 +-
+> >>  drivers/iio/trigger/stm32-timer-trigger.c | 11 ++++++-----
+> >>  2 files changed, 7 insertions(+), 6 deletions(-)  
+> 
+> Hi Andy, Jonathan,
+> 
+> You can add my:
+> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Applied to the togreg branch of iio.git and pushed out as testing for
+0-day to poke at it and see if we missed anything.
 
-All other *_optional() APIs seem to return 0 or NULL in case an optional
-resource is not available.  Let's follow this good example, so that the
-callers would look like:
+Thanks,
 
-	ret = platform_get_irq_byname_optional(...);
-	if (ret < 0)
-		return ret;
-	if (ret > 0)
-		...we get an IRQ...
+Jonathan
 
-Signed-off-by: Sergey Shtylyov <s.shtylyov@omp.ru>
----
-Changes in version 2:
-- added the error check using dev_err_probe() to
-  platform_get_irq_byname_optional();
-- reformatted the patch description.
-
- drivers/base/platform.c                         | 17 ++++++++++++++---
- drivers/gpu/drm/lima/lima_device.c              |  2 +-
- drivers/mailbox/tegra-hsp.c                     |  4 ++--
- drivers/net/can/rcar/rcar_canfd.c               |  4 ++--
- drivers/net/dsa/b53/b53_srab.c                  |  2 +-
- drivers/net/ethernet/freescale/fec_main.c       |  2 +-
- drivers/net/ethernet/freescale/fec_ptp.c        |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-stm32.c   |  4 ++--
- .../ethernet/stmicro/stmmac/stmmac_platform.c   |  4 ++--
- .../pci/controller/dwc/pcie-designware-host.c   |  2 +-
- drivers/spi/spi-bcm-qspi.c                      |  2 +-
- drivers/spi/spi-rspi.c                          |  8 ++++----
- drivers/usb/cdns3/cdns3-plat.c                  |  5 +----
- drivers/usb/host/xhci-mtk.c                     |  2 +-
- drivers/usb/mtu3/mtu3_core.c                    |  2 +-
- 15 files changed, 35 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index 52a8356f8261..c704d51a6dd5 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -500,14 +500,25 @@ EXPORT_SYMBOL_GPL(platform_get_irq_byname);
-  * @name: IRQ name
-  *
-  * Get an optional IRQ by name like platform_get_irq_byname(). Except that it
-- * does not print an error message if an IRQ can not be obtained.
-+ * does not print an error message if an IRQ can not be obtained and returns
-+ * 0 when IRQ resource has not been found.
-  *
-- * Return: non-zero IRQ number on success, negative error number on failure.
-+ * Return: non-zero IRQ number on success, 0 if IRQ wasn't found, negative error
-+ * number on failure.
-  */
- int platform_get_irq_byname_optional(struct platform_device *dev,
- 				     const char *name)
- {
--	return __platform_get_irq_byname(dev, name);
-+	int ret;
-+
-+	ret = __platform_get_irq_byname(dev, name);
-+	if (ret == -ENXIO)
-+		return 0;
-+	if (ret < 0)
-+		return dev_err_probe(&dev->dev, ret, "IRQ %s not found\n",
-+				     name);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(platform_get_irq_byname_optional);
- 
-diff --git a/drivers/gpu/drm/lima/lima_device.c b/drivers/gpu/drm/lima/lima_device.c
-index 02cef0cea657..08a86484ce6f 100644
---- a/drivers/gpu/drm/lima/lima_device.c
-+++ b/drivers/gpu/drm/lima/lima_device.c
-@@ -224,7 +224,7 @@ static int lima_init_ip(struct lima_device *dev, int index)
- 	if (irq_name) {
- 		err = must ? platform_get_irq_byname(pdev, irq_name) :
- 			     platform_get_irq_byname_optional(pdev, irq_name);
--		if (err < 0)
-+		if (err <= 0)
- 			goto out;
- 		ip->irq = err;
- 	}
-diff --git a/drivers/mailbox/tegra-hsp.c b/drivers/mailbox/tegra-hsp.c
-index acd0675da681..17aa88e31445 100644
---- a/drivers/mailbox/tegra-hsp.c
-+++ b/drivers/mailbox/tegra-hsp.c
-@@ -667,7 +667,7 @@ static int tegra_hsp_probe(struct platform_device *pdev)
- 	hsp->num_si = (value >> HSP_nSI_SHIFT) & HSP_nINT_MASK;
- 
- 	err = platform_get_irq_byname_optional(pdev, "doorbell");
--	if (err >= 0)
-+	if (err > 0)
- 		hsp->doorbell_irq = err;
- 
- 	if (hsp->num_si > 0) {
-@@ -687,7 +687,7 @@ static int tegra_hsp_probe(struct platform_device *pdev)
- 				return -ENOMEM;
- 
- 			err = platform_get_irq_byname_optional(pdev, name);
--			if (err >= 0) {
-+			if (err > 0) {
- 				hsp->shared_irqs[i] = err;
- 				count++;
- 			}
-diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
-index b7dc1c32875f..fa163ec0db80 100644
---- a/drivers/net/can/rcar/rcar_canfd.c
-+++ b/drivers/net/can/rcar/rcar_canfd.c
-@@ -1772,7 +1772,7 @@ static int rcar_canfd_probe(struct platform_device *pdev)
- 
- 	if (chip_id == RENESAS_RCAR_GEN3) {
- 		ch_irq = platform_get_irq_byname_optional(pdev, "ch_int");
--		if (ch_irq < 0) {
-+		if (ch_irq <= 0) {
- 			/* For backward compatibility get irq by index */
- 			ch_irq = platform_get_irq(pdev, 0);
- 			if (ch_irq < 0)
-@@ -1780,7 +1780,7 @@ static int rcar_canfd_probe(struct platform_device *pdev)
- 		}
- 
- 		g_irq = platform_get_irq_byname_optional(pdev, "g_int");
--		if (g_irq < 0) {
-+		if (g_irq <= 0) {
- 			/* For backward compatibility get irq by index */
- 			g_irq = platform_get_irq(pdev, 1);
- 			if (g_irq < 0)
-diff --git a/drivers/net/dsa/b53/b53_srab.c b/drivers/net/dsa/b53/b53_srab.c
-index 4591bb1c05d2..80b7c8f053ad 100644
---- a/drivers/net/dsa/b53/b53_srab.c
-+++ b/drivers/net/dsa/b53/b53_srab.c
-@@ -420,7 +420,7 @@ static int b53_srab_irq_enable(struct b53_device *dev, int port)
- 	/* Interrupt is optional and was not specified, do not make
- 	 * this fatal
- 	 */
--	if (p->irq == -ENXIO)
-+	if (!p->irq)
- 		return ret;
- 
- 	ret = request_threaded_irq(p->irq, b53_srab_port_isr,
-diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
-index 796133de527e..93d1cca831dd 100644
---- a/drivers/net/ethernet/freescale/fec_main.c
-+++ b/drivers/net/ethernet/freescale/fec_main.c
-@@ -3941,7 +3941,7 @@ fec_probe(struct platform_device *pdev)
- 	for (i = 0; i < irq_cnt; i++) {
- 		snprintf(irq_name, sizeof(irq_name), "int%d", i);
- 		irq = platform_get_irq_byname_optional(pdev, irq_name);
--		if (irq < 0)
-+		if (irq <= 0)
- 			irq = platform_get_irq(pdev, i);
- 		if (irq < 0) {
- 			ret = irq;
-diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
-index de1d23808b6c..a7ef0aaaf2be 100644
---- a/drivers/net/ethernet/freescale/fec_ptp.c
-+++ b/drivers/net/ethernet/freescale/fec_ptp.c
-@@ -611,7 +611,7 @@ void fec_ptp_init(struct platform_device *pdev, int irq_idx)
- 	INIT_DELAYED_WORK(&fep->time_keep, fec_time_keep);
- 
- 	irq = platform_get_irq_byname_optional(pdev, "pps");
--	if (irq < 0)
-+	if (irq <= 0)
- 		irq = platform_get_irq_optional(pdev, irq_idx);
- 	/* Failure to get an irq is not fatal,
- 	 * only the PTP_CLOCK_PPS clock events should stop
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-index 2b38a499a404..5519b5b35365 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-@@ -342,7 +342,7 @@ static int stm32mp1_parse_data(struct stm32_dwmac *dwmac,
- 	if (dwmac->irq_pwr_wakeup == -EPROBE_DEFER)
- 		return -EPROBE_DEFER;
- 
--	if (!dwmac->clk_eth_ck && dwmac->irq_pwr_wakeup >= 0) {
-+	if (!dwmac->clk_eth_ck && dwmac->irq_pwr_wakeup > 0) {
- 		err = device_init_wakeup(&pdev->dev, true);
- 		if (err) {
- 			dev_err(&pdev->dev, "Failed to init wake up irq\n");
-@@ -426,7 +426,7 @@ static int stm32_dwmac_remove(struct platform_device *pdev)
- 
- 	stm32_dwmac_clk_disable(priv->plat->bsp_priv);
- 
--	if (dwmac->irq_pwr_wakeup >= 0) {
-+	if (dwmac->irq_pwr_wakeup > 0) {
- 		dev_pm_clear_wake_irq(&pdev->dev);
- 		device_init_wakeup(&pdev->dev, false);
- 	}
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 5d29f336315b..33fdfab93aa6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -679,7 +679,7 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 	 */
- 	stmmac_res->wol_irq =
- 		platform_get_irq_byname_optional(pdev, "eth_wake_irq");
--	if (stmmac_res->wol_irq < 0) {
-+	if (stmmac_res->wol_irq <= 0) {
- 		if (stmmac_res->wol_irq == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
- 		dev_info(&pdev->dev, "IRQ eth_wake_irq not found\n");
-@@ -688,7 +688,7 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 
- 	stmmac_res->lpi_irq =
- 		platform_get_irq_byname_optional(pdev, "eth_lpi");
--	if (stmmac_res->lpi_irq < 0) {
-+	if (stmmac_res->lpi_irq <= 0) {
- 		if (stmmac_res->lpi_irq == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
- 		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
-diff --git a/drivers/pci/controller/dwc/pcie-designware-host.c b/drivers/pci/controller/dwc/pcie-designware-host.c
-index f4755f3a03be..00e1a33fd06d 100644
---- a/drivers/pci/controller/dwc/pcie-designware-host.c
-+++ b/drivers/pci/controller/dwc/pcie-designware-host.c
-@@ -364,7 +364,7 @@ int dw_pcie_host_init(struct pcie_port *pp)
- 		} else if (pp->has_msi_ctrl) {
- 			if (!pp->msi_irq) {
- 				pp->msi_irq = platform_get_irq_byname_optional(pdev, "msi");
--				if (pp->msi_irq < 0) {
-+				if (pp->msi_irq <= 0) {
- 					pp->msi_irq = platform_get_irq(pdev, 0);
- 					if (pp->msi_irq < 0)
- 						return pp->msi_irq;
-diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
-index c9a769b8594b..21fb80291d03 100644
---- a/drivers/spi/spi-bcm-qspi.c
-+++ b/drivers/spi/spi-bcm-qspi.c
-@@ -1627,7 +1627,7 @@ int bcm_qspi_probe(struct platform_device *pdev,
- 			irq = platform_get_irq(pdev, 0);
- 		}
- 
--		if (irq  >= 0) {
-+		if (irq > 0) {
- 			ret = devm_request_irq(&pdev->dev, irq,
- 					       qspi_irq_tab[val].irq_handler, 0,
- 					       name,
-diff --git a/drivers/spi/spi-rspi.c b/drivers/spi/spi-rspi.c
-index bd5708d7e5a1..1ddbd30e68d5 100644
---- a/drivers/spi/spi-rspi.c
-+++ b/drivers/spi/spi-rspi.c
-@@ -1355,16 +1355,16 @@ static int rspi_probe(struct platform_device *pdev)
- 	ctlr->max_native_cs = rspi->ops->num_hw_ss;
- 
- 	ret = platform_get_irq_byname_optional(pdev, "rx");
--	if (ret < 0) {
-+	if (ret <= 0) {
- 		ret = platform_get_irq_byname_optional(pdev, "mux");
--		if (ret < 0)
-+		if (ret <= 0)
- 			ret = platform_get_irq(pdev, 0);
--		if (ret >= 0)
-+		if (ret > 0)
- 			rspi->rx_irq = rspi->tx_irq = ret;
- 	} else {
- 		rspi->rx_irq = ret;
- 		ret = platform_get_irq_byname(pdev, "tx");
--		if (ret >= 0)
-+		if (ret > 0)
- 			rspi->tx_irq = ret;
- 	}
- 
-diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
-index dc068e940ed5..3a0bdf726af2 100644
---- a/drivers/usb/cdns3/cdns3-plat.c
-+++ b/drivers/usb/cdns3/cdns3-plat.c
-@@ -110,10 +110,7 @@ static int cdns3_plat_probe(struct platform_device *pdev)
- 	cdns->wakeup_irq = platform_get_irq_byname_optional(pdev, "wakeup");
- 	if (cdns->wakeup_irq == -EPROBE_DEFER)
- 		return cdns->wakeup_irq;
--	else if (cdns->wakeup_irq == 0)
--		return -EINVAL;
--
--	if (cdns->wakeup_irq < 0) {
-+	if (cdns->wakeup_irq <= 0) {
- 		dev_dbg(dev, "couldn't get wakeup irq\n");
- 		cdns->wakeup_irq = 0x0;
- 	}
-diff --git a/drivers/usb/host/xhci-mtk.c b/drivers/usb/host/xhci-mtk.c
-index 91738af0ab14..19c742bf3ce0 100644
---- a/drivers/usb/host/xhci-mtk.c
-+++ b/drivers/usb/host/xhci-mtk.c
-@@ -493,7 +493,7 @@ static int xhci_mtk_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	irq = platform_get_irq_byname_optional(pdev, "host");
--	if (irq < 0) {
-+	if (irq <= 0) {
- 		if (irq == -EPROBE_DEFER)
- 			return irq;
- 
-diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
-index c4a2c37abf62..08173c05a1d6 100644
---- a/drivers/usb/mtu3/mtu3_core.c
-+++ b/drivers/usb/mtu3/mtu3_core.c
-@@ -925,7 +925,7 @@ int ssusb_gadget_init(struct ssusb_mtk *ssusb)
- 		return -ENOMEM;
- 
- 	mtu->irq = platform_get_irq_byname_optional(pdev, "device");
--	if (mtu->irq < 0) {
-+	if (mtu->irq <= 0) {
- 		if (mtu->irq == -EPROBE_DEFER)
- 			return mtu->irq;
- 
--- 
-2.26.3
+> 
+> Thanks,
+> Best Regards,
+> Fabrice
+> 
+> >>
+> >> diff --git a/drivers/iio/trigger/Kconfig b/drivers/iio/trigger/Kconfig
+> >> index 8cef2f7452e8..7ecb69725b1d 100644
+> >> --- a/drivers/iio/trigger/Kconfig
+> >> +++ b/drivers/iio/trigger/Kconfig
+> >> @@ -38,7 +38,7 @@ config IIO_STM32_LPTIMER_TRIGGER
+> >>  
+> >>  config IIO_STM32_TIMER_TRIGGER
+> >>  	tristate "STM32 Timer Trigger"
+> >> -	depends on (ARCH_STM32 && OF && MFD_STM32_TIMERS) || COMPILE_TEST
+> >> +	depends on (ARCH_STM32 && MFD_STM32_TIMERS) || COMPILE_TEST
+> >>  	help
+> >>  	  Select this option to enable STM32 Timer Trigger
+> >>  
+> >> diff --git a/drivers/iio/trigger/stm32-timer-trigger.c b/drivers/iio/trigger/stm32-timer-trigger.c
+> >> index 4f9461e1412c..5049d9ecfc1a 100644
+> >> --- a/drivers/iio/trigger/stm32-timer-trigger.c
+> >> +++ b/drivers/iio/trigger/stm32-timer-trigger.c
+> >> @@ -11,9 +11,10 @@
+> >>  #include <linux/iio/timer/stm32-timer-trigger.h>
+> >>  #include <linux/iio/trigger.h>
+> >>  #include <linux/mfd/stm32-timers.h>
+> >> +#include <linux/mod_devicetable.h>
+> >>  #include <linux/module.h>
+> >>  #include <linux/platform_device.h>
+> >> -#include <linux/of_device.h>
+> >> +#include <linux/property.h>
+> >>  
+> >>  #define MAX_TRIGGERS 7
+> >>  #define MAX_VALIDS 5
+> >> @@ -771,11 +772,11 @@ static int stm32_timer_trigger_probe(struct platform_device *pdev)
+> >>  	unsigned int index;
+> >>  	int ret;
+> >>  
+> >> -	if (of_property_read_u32(dev->of_node, "reg", &index))
+> >> -		return -EINVAL;
+> >> +	ret = device_property_read_u32(dev, "reg", &index);
+> >> +	if (ret)
+> >> +		return ret;
+> >>  
+> >> -	cfg = (const struct stm32_timer_trigger_cfg *)
+> >> -		of_match_device(dev->driver->of_match_table, dev)->data;
+> >> +	cfg = device_get_match_data(dev);
+> >>  
+> >>  	if (index >= ARRAY_SIZE(triggers_table) ||
+> >>  	    index >= cfg->num_valids_table)  
+> >   
 
 _______________________________________________
 Linux-stm32 mailing list
