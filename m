@@ -2,61 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 855A74B5213
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Feb 2022 14:46:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A20904B52BE
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Feb 2022 15:06:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36F44C5F1F9;
-	Mon, 14 Feb 2022 13:46:42 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 548FAC5F1F9;
+	Mon, 14 Feb 2022 14:06:48 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B30D6C5A4FE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 022DEC5A4FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Feb 2022 13:46:40 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id i14so26894188wrc.10
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Feb 2022 05:46:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=w7Y2pezxBsweg1F5I/VGY695nV4P7xVufo9MH/6yH4w=;
- b=xbBzSuDMBF4QcBOgUYmHXwtJ8dWcuIuUf140cvSkvLow8cj8kYcFB4do4WkalZa3XS
- 8d9s0BtXVhj3b8h6vy6UlCEgZBLcU1/Qom1uZyeHgFKh9kfdDacWzy1LL/pmKExd690W
- DETyv+xXrlYN2SNwheJSZM/VepnFWEYOloLT6xeK9Bw98s5hum78ZHjN6uh7GYctQI4a
- U3Rm5lvrfoTlw9jO4MeePvBBmUeo5GQsY0C27x0TzmhYHiUaaPw7f6MeL1bwOouJldMM
- 0QAC00Gg6se2kiBkKRFwpZ2P/QYpJ+5/64PI6ibT4QIq94fnmN4bLjEZbJrcmwrx3sek
- tXgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=w7Y2pezxBsweg1F5I/VGY695nV4P7xVufo9MH/6yH4w=;
- b=69nvodJvo6hmgl4xAdXrTQndhDdF2fjfN22LywPzRFfFi7rF4t9cwCUFuXj2DpCwLx
- wbZPd7+6KMzq4B1vb546W7kRiV7O9sOzocsUHo09+PRuxUT9i60Vls6PhLJf0+qqTg32
- /OzwmgChAvsF2uxAXVp+4dlQNKcxRwdCNbzXXo3v8bwpY2Wo+SdW8ejngZzXMQ/HuuLK
- FT6oGdXtB+2TYDNWVaptsiwCU978ZnWaPBlKIY5ia2aFe1W+STyVQzvpJsMGLWa9Zvcz
- t/emJwt73pXguV5g3opaP3cRmzNHr8uKgn35TQ1FV7WIymriF9wKswanwmOTj5paaQCF
- AThg==
-X-Gm-Message-State: AOAM533FeQ3HYWKfjrYqbuTmfHsWDcGqYEvXT27HWfPAAtTpxR4wJtOR
- +y7Y9i4bztuBc/Q/q9Sf3FK2GA==
-X-Google-Smtp-Source: ABdhPJzXEeknb6ILWxHf2R1dA6zSDZITWc+9hhismzIz4RJI7wlJaYVzhoqbDzYnJ6jvnEucUApvXw==
-X-Received: by 2002:a5d:4745:: with SMTP id o5mr11466614wrs.275.1644846400191; 
- Mon, 14 Feb 2022 05:46:40 -0800 (PST)
-Received: from google.com (cpc155339-bagu17-2-0-cust87.1-3.cable.virginm.net.
- [86.27.177.88])
- by smtp.gmail.com with ESMTPSA id b15sm25416656wri.96.2022.02.14.05.46.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Feb 2022 05:46:39 -0800 (PST)
-Date: Mon, 14 Feb 2022 13:46:37 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <YgpdPTDurgsvR9mk@google.com>
+ Mon, 14 Feb 2022 14:06:46 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nJc04-0008CA-9v; Mon, 14 Feb 2022 15:06:44 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nJc01-00GZ3m-7U; Mon, 14 Feb 2022 15:06:40 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1nJbzz-0038PK-5F; Mon, 14 Feb 2022 15:06:39 +0100
+Date: Mon, 14 Feb 2022 15:06:39 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Lee Jones <lee.jones@linaro.org>
+Message-ID: <20220214140639.jmdldyne6ffq4dlq@pengutronix.de>
 References: <20220207081709.27288-1-u.kleine-koenig@pengutronix.de>
+ <YgpdPTDurgsvR9mk@google.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220207081709.27288-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <YgpdPTDurgsvR9mk@google.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, kernel@pengutronix.de,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
@@ -73,52 +55,126 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4621261114823845974=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAwNyBGZWIgMjAyMiwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cgo+IFJldHVybmlu
-ZyBhIG5vbi16ZXJvIHZhbHVlIGluIGFuIGkyYyByZW1vdmUgY2FsbGJhY2sgcmVzdWx0cyBpbiB0
-aGUgaTJjCj4gY29yZSBlbWl0dGluZyBhIHZlcnkgZ2VuZXJpYyBlcnJvciBtZXNzYWdlICgicmVt
-b3ZlIGZhaWxlZCAoLUVTT01FVEhJTkcpLAo+IHdpbGwgYmUgaWdub3JlZCIpIGFuZCBhcyB0aGUg
-bWVzc2FnZSBpbmRpY2F0ZXMgbm90IGZ1cnRoZXIgZXJyb3IgaGFuZGxpbmcKPiBpcyBkb25lLgo+
-IAo+IEluc3RlYWQgZW1pdCBhIG1vcmUgc3BlY2lmaWMgZXJyb3IgbWVzc2FnZSBhbmQgdGhlbiBy
-ZXR1cm4gemVybyBpbgo+IC5yZW1vdmUoKS4KPiAKPiBUaGUgbG9uZy10ZXJtIGdvYWwgaXMgdG8g
-bWFrZSB0aGUgaTJjIHJlbW92ZSBwcm90b3R5cGUgcmV0dXJuIHZvaWQsIG1ha2luZwo+IGFsbCBp
-bXBsZW1lbnRhdGlvbnMgcmV0dXJuIDAgaXMgcHJlcGFyYXRvcnkgd29yayBmb3IgdGhpcyBjaGFu
-Z2UuCj4gCj4gU2lnbmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5p
-Z0BwZW5ndXRyb25peC5kZT4KPiAtLS0KPiAgZHJpdmVycy9tZmQvc3RtZnguYyB8IDE2ICsrKysr
-KysrKysrLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDUgZGVsZXRp
-b25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWZkL3N0bWZ4LmMgYi9kcml2ZXJzL21m
-ZC9zdG1meC5jCj4gaW5kZXggZTA5NWEzOTMwMTQyLi4xNjYzMWM2NzVmMmYgMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9tZmQvc3RtZnguYwo+ICsrKyBiL2RyaXZlcnMvbWZkL3N0bWZ4LmMKPiBAQCAt
-MzkyLDE3ICszOTIsMjEgQEAgc3RhdGljIGludCBzdG1meF9jaGlwX2luaXQoc3RydWN0IGkyY19j
-bGllbnQgKmNsaWVudCkKPiAgCXJldHVybiByZXQ7Cj4gIH0KPiAgCj4gLXN0YXRpYyBpbnQgc3Rt
-ZnhfY2hpcF9leGl0KHN0cnVjdCBpMmNfY2xpZW50ICpjbGllbnQpCj4gK3N0YXRpYyB2b2lkIHN0
-bWZ4X2NoaXBfZXhpdChzdHJ1Y3QgaTJjX2NsaWVudCAqY2xpZW50KQo+ICB7Cj4gIAlzdHJ1Y3Qg
-c3RtZnggKnN0bWZ4ID0gaTJjX2dldF9jbGllbnRkYXRhKGNsaWVudCk7Cj4gIAo+ICAJcmVnbWFw
-X3dyaXRlKHN0bWZ4LT5tYXAsIFNUTUZYX1JFR19JUlFfU1JDX0VOLCAwKTsKPiAgCXJlZ21hcF93
-cml0ZShzdG1meC0+bWFwLCBTVE1GWF9SRUdfU1lTX0NUUkwsIDApOwo+ICAKPiAtCWlmIChzdG1m
-eC0+dmRkKQo+IC0JCXJldHVybiByZWd1bGF0b3JfZGlzYWJsZShzdG1meC0+dmRkKTsKPiArCWlm
-IChzdG1meC0+dmRkKSB7Cj4gKwkJaW50IHJldCA9IHJlZ3VsYXRvcl9kaXNhYmxlKHN0bWZ4LT52
-ZGQpOwo+ICAKPiAtCXJldHVybiAwOwo+ICsJCWlmIChyZXQpCgpOaXQ6IFByZW1pc2Ugb2YgdGhl
-IHBhdGNoIGlzIGZpbmUsIGJ1dCBwbGVhc2UgY2FuIHlvdSB1c2UgdGhlIHN0YW5kYXJkCmZ1bmN0
-aW9uIGNhbGwsIGNoZWNrIHRoZSByZXR1cm4gdmFsdWUgZm9ybWF0IHBsZWFzZS4gIFNvbWV0aGlu
-ZyBhYm91dAp0aGlzIGlzIHRyaWdnZXJpbmcgbXkgT0NEISA6KQoKICAgICAJaW50IHJldDsKCgly
-ZXQgPSByZWd1bGF0b3JfZGlzYWJsZShzdG1meC0+dmRkKTsKCWlmIChyZXQpCgkJZG9fdGhpbmco
-KTsKCj4gKwkJCWRldl9lcnIoJmNsaWVudC0+ZGV2LAo+ICsJCQkJIkZhaWxlZCB0byBkaXNhYmxl
-IHZkZCByZWd1bGF0b3I6ICVwZVxuIiwKPiArCQkJCUVSUl9QVFIocmV0KSk7Cj4gKwl9Cj4gIH0K
-PiAgCj4gIHN0YXRpYyBpbnQgc3RtZnhfcHJvYmUoc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCwK
-PiBAQCAtNDY2LDcgKzQ3MCw5IEBAIHN0YXRpYyBpbnQgc3RtZnhfcmVtb3ZlKHN0cnVjdCBpMmNf
-Y2xpZW50ICpjbGllbnQpCj4gIHsKPiAgCXN0bWZ4X2lycV9leGl0KGNsaWVudCk7Cj4gIAo+IC0J
-cmV0dXJuIHN0bWZ4X2NoaXBfZXhpdChjbGllbnQpOwo+ICsJc3RtZnhfY2hpcF9leGl0KGNsaWVu
-dCk7Cj4gKwo+ICsJcmV0dXJuIDA7Cj4gIH0KPiAgCj4gICNpZmRlZiBDT05GSUdfUE1fU0xFRVAK
-PiAKPiBiYXNlLWNvbW1pdDogZGNiODVmODVmYTZmMTQyYWFlMWZlODZmMzk5ZDQ1MDNkNDlmMmI2
-MAoKLS0gCkxlZSBKb25lcyBb5p2O55C85pavXQpQcmluY2lwYWwgVGVjaG5pY2FsIExlYWQgLSBE
-ZXZlbG9wZXIgU2VydmljZXMKTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9y
-IEFybSBTb0NzCkZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
-bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
-Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
-MzIK
+
+--===============4621261114823845974==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="s563op37ko4b4dy6"
+Content-Disposition: inline
+
+
+--s563op37ko4b4dy6
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Feb 14, 2022 at 01:46:37PM +0000, Lee Jones wrote:
+> On Mon, 07 Feb 2022, Uwe Kleine-K=F6nig wrote:
+>=20
+> > Returning a non-zero value in an i2c remove callback results in the i2c
+> > core emitting a very generic error message ("remove failed (-ESOMETHING=
+),
+> > will be ignored") and as the message indicates not further error handli=
+ng
+> > is done.
+> >=20
+> > Instead emit a more specific error message and then return zero in
+> > .remove().
+> >=20
+> > The long-term goal is to make the i2c remove prototype return void, mak=
+ing
+> > all implementations return 0 is preparatory work for this change.
+> >=20
+> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+> > ---
+> >  drivers/mfd/stmfx.c | 16 +++++++++++-----
+> >  1 file changed, 11 insertions(+), 5 deletions(-)
+> >=20
+> > diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
+> > index e095a3930142..16631c675f2f 100644
+> > --- a/drivers/mfd/stmfx.c
+> > +++ b/drivers/mfd/stmfx.c
+> > @@ -392,17 +392,21 @@ static int stmfx_chip_init(struct i2c_client *cli=
+ent)
+> >  	return ret;
+> >  }
+> > =20
+> > -static int stmfx_chip_exit(struct i2c_client *client)
+> > +static void stmfx_chip_exit(struct i2c_client *client)
+> >  {
+> >  	struct stmfx *stmfx =3D i2c_get_clientdata(client);
+> > =20
+> >  	regmap_write(stmfx->map, STMFX_REG_IRQ_SRC_EN, 0);
+> >  	regmap_write(stmfx->map, STMFX_REG_SYS_CTRL, 0);
+> > =20
+> > -	if (stmfx->vdd)
+> > -		return regulator_disable(stmfx->vdd);
+> > +	if (stmfx->vdd) {
+> > +		int ret =3D regulator_disable(stmfx->vdd);
+> > =20
+> > -	return 0;
+> > +		if (ret)
+>=20
+> Nit: Premise of the patch is fine, but please can you use the standard
+> function call, check the return value format please.  Something about
+> this is triggering my OCD! :)
+>=20
+>      	int ret;
+>=20
+> 	ret =3D regulator_disable(stmfx->vdd);
+> 	if (ret)
+> 		do_thing();
+
+Not sure I understand you correctly. Do you want just:
+
+ 	regmap_write(stmfx->map, STMFX_REG_SYS_CTRL, 0);
+=20
+ 	if (stmfx->vdd) {
+-		int ret =3D regulator_disable(stmfx->vdd);
++		int ret;
++
++		ret =3D regulator_disable(stmfx->vdd);
+ 		if (ret)
+ ...
+
+squashed into the patch?
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--s563op37ko4b4dy6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmIKYesACgkQwfwUeK3K
+7Am/agf+Ox1j1cOxSuGwS+XoEjW3j9S/sI2S+1HQq/TZ5DMu7yrdIcQm+m157Xeh
+SXiqNFcmVbXHvSU+r8gQtq1nInt6JFwjpFLdt+K/aUPPOZUsxug+3CgL+zTTnhm+
+qBVhvWTGQoZ3tkxz4Ja4oSACEiYOHiM2NhQe3GVAFXNas6jwvZGDf6wBcwLhvQhK
+am4yU8fWiiV/Wa5m1OGRB+ELOBaooi4hagB0WZVviHo1LFhQXu+o/q8gV1X7xdAN
+f/4+8al/jfZJp5dkJGbj0fWPncQ7T0dZYtYvdSDAc6sapNWYlF9l0saS+r8iZbfb
+AGWtHFSKo8ukP4MdGWnoZaIaDWlrEA==
+=RA9W
+-----END PGP SIGNATURE-----
+
+--s563op37ko4b4dy6--
+
+--===============4621261114823845974==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4621261114823845974==--
