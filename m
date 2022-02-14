@@ -2,53 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A7244B4277
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Feb 2022 08:07:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 629F64B48DE
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Feb 2022 11:03:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FBD4C5F1F2;
-	Mon, 14 Feb 2022 07:07:12 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 099DDC5F1F2;
+	Mon, 14 Feb 2022 10:03:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAC36C5A4FE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8DD79C5A4FE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Feb 2022 07:07:10 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1nJVRQ-0005fD-S8; Mon, 14 Feb 2022 08:06:32 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nJVRK-00GUcs-Oc; Mon, 14 Feb 2022 08:06:26 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1nJVRJ-002o8C-8b; Mon, 14 Feb 2022 08:06:25 +0100
-Date: Mon, 14 Feb 2022 08:06:22 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Lino Sanfilippo <LinoSanfilippo@gmx.de>
-Message-ID: <20220214070622.rz5cv6yy3aarvrjv@pengutronix.de>
-References: <20220213222737.15709-1-LinoSanfilippo@gmx.de>
- <20220213222737.15709-2-LinoSanfilippo@gmx.de>
+ Mon, 14 Feb 2022 10:03:05 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21E86fcW022932;
+ Mon, 14 Feb 2022 11:02:34 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=zBXICPv5YGDXCve/KOSXwXFvMmf1sH/hj0bAI5GxYVo=;
+ b=EDzvvd/pFTWvooKLuYkeUIe99KBk+BJGKcjGoooMobeLklfhVE52vjADfET8qq9eMneR
+ tepiqHXGE8QIFRuWGM7cIrs78E0e1+xyb/W7y3nVcM2tjrjmBDJHcQKIaJqe+Jpb4UMy
+ 6wxW6+eAQgmRnhHtVnky7JpNNCvCAifMngR0OSSPTTaHGCT4LH9PQCZznxDD/L2ea35h
+ txGgky7AWYHxRUr4RhqDRXF4YQv7jociSHi5GDhQZLjo8KeTpixWTH+ufkn+qzdkC2f/
+ zgH5k9B7etZvNnZleKmO8QXfJ6Kqxnr+GvSCkXejVFnpNAvf3q3H2nT1vfpVQrcgiazh 7w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e72j13pam-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Feb 2022 11:02:34 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D243A10002A;
+ Mon, 14 Feb 2022 11:02:32 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C195D2194F3;
+ Mon, 14 Feb 2022 11:02:32 +0100 (CET)
+Received: from [10.48.0.252] (10.75.127.45) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 14 Feb
+ 2022 11:02:32 +0100
+Message-ID: <8e42cb99-a442-062a-cf0a-2f8d8aff0ab3@foss.st.com>
+Date: Mon, 14 Feb 2022 11:02:22 +0100
 MIME-Version: 1.0
-In-Reply-To: <20220213222737.15709-2-LinoSanfilippo@gmx.de>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: alexandre.belloni@bootlin.com, festevam@gmail.com,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de, richard.genoud@gmail.com,
- gregkh@linuxfoundation.org, s.hauer@pengutronix.de, linux@armlinux.org.uk,
- nicolas.ferre@microchip.com, alexandre.torgue@foss.st.com,
- ludovic.desroches@microchip.com, lukas@wunner.de, linux-imx@nxp.com,
- mcoquelin.stm32@gmail.com, linux-serial@vger.kernel.org, shawnguo@kernel.org,
- jirislaby@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/9] serial: core: move RS485
- configuration tasks from drivers into core
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Erwan Le Ray <erwan.leray@foss.st.com>
+References: <20220203171114.10888-1-erwan.leray@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20220203171114.10888-1-erwan.leray@foss.st.com>
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-02-14_02,2022-02-14_02,2021-12-02_01
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Marcin Sloniewski <marcin.sloniewski@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 00/16] STM32 configure UART nodes for DMA
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,119 +74,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4087030526080538373=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============4087030526080538373==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5shxigssusof4hd3"
-Content-Disposition: inline
-
-
---5shxigssusof4hd3
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Feb 13, 2022 at 11:27:29PM +0100, Lino Sanfilippo wrote:
-> Several drivers that support setting the RS485 configuration via userspace
-> implement on or more of the following tasks:
-
-s/on/one/
-
->=20
-> - in case of an invalid RTS configuration (both RTS after send and RTS on
->   send set or both unset) fall back to enable RTS on send and disable RTS
->   after send
->=20
-> - nullify the padding field of the returned serial_rs485 struct
->=20
-> - copy the configuration into the uart port struct
->=20
-> - limit RTS delays to 100 ms
->=20
-> Move these tasks into the serial core to make them generic and to provide
-> a consistent beheviour among all drivers.
-
-s/beheviour/behaviour/
-
-> Signed-off-by: Lino Sanfilippo <LinoSanfilippo@gmx.de>
-> ---
->  drivers/tty/serial/serial_core.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->=20
-> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial=
-_core.c
-> index 846192a7b4bf..3fab4070359c 100644
-> --- a/drivers/tty/serial/serial_core.c
-> +++ b/drivers/tty/serial/serial_core.c
-> @@ -1282,8 +1282,21 @@ static int uart_set_rs485_config(struct uart_port =
-*port,
->  	if (copy_from_user(&rs485, rs485_user, sizeof(*rs485_user)))
->  		return -EFAULT;
-> =20
-> +	/* pick sane settings if the user hasn't */
-> +	if (!(rs485.flags & SER_RS485_RTS_ON_SEND) =3D=3D
-> +	    !(rs485.flags & SER_RS485_RTS_AFTER_SEND)) {
-> +		rs485.flags |=3D SER_RS485_RTS_ON_SEND;
-> +		rs485.flags &=3D ~SER_RS485_RTS_AFTER_SEND;
-> +	}
-> +	/* clamp the delays to [0, 100ms] */
-> +	rs485.delay_rts_before_send =3D min(rs485.delay_rts_before_send, 100U);
-> +	rs485.delay_rts_after_send =3D min(rs485.delay_rts_after_send, 100U);
-> +	memset(rs485.padding, 0, sizeof(rs485.padding));
-> +
->  	spin_lock_irqsave(&port->lock, flags);
->  	ret =3D port->rs485_config(port, &rs485);
-> +	if (!ret)
-> +		port->rs485 =3D rs485;
-
-I was only Cc:d for the imx patch (patch #7) and tried to verify the
-claim there that "the serial core already assigns the passed
-configuration to the uart port". That failed when I looked at my kernel
-tree.
-
-So it would be great, if you sent dependencies (or at least a cover
-letter) to all recipients of a given patch to ease review. Also I want
-to suggest to mention uart_set_rs485_config() in the commit log of the
-imx patch (and probably the others) to simplify verifying the claim
-there.
+On 2/3/22 18:10, Erwan Le Ray wrote:
+> Add DMA configuration to UART nodes in stm32mp15x (SOC level) and
+> remove it at board level to keep current PIO behavior when needed.
+> For stm32-ed1 and stm32-dkx boards, UART4 (console) and UART7
+> (no HW flow control pin available) are kept in PIO mode, while USART3
+> is now configured in DMA mode.
+> UART4 (console UART) has to be kept in irq mode, as DMA support for
+> console has been removed from the driver by commit e359b4411c28
+> ("serial: stm32: fix threaded interrupt handling").
+> 
+> For other stm32mp15x-based boards, current configuration is kept for
+> all UART instances.
+> 
+> Erwan Le Ray (16):
+>    ARM: dts: stm32: add DMA configuration to UART nodes on stm32mp151
+>    ARM: dts: stm32: keep uart4 behavior on stm32mp157c-ed1
+>    ARM: dts: stm32: keep uart4 and uart7 behavior on stm32mp15xx-dkx
+>    ARM: dts: stm32: keep uart4 behavior on icore-stm32mp1-ctouch2
+>    ARM: dts: stm32: keep uart4 behavior on icore-stm32mp1-edimm2.2
+>    ARM: dts: stm32: keep uart4 behavior on stm32mp157a-iot-box
+>    ARM: dts: stm32: keep uart nodes behavior on stm32mp1-microdev2.0-of7
+>    ARM: dts: stm32: keep uart nodes behavior on stm32mp1-microdev2.0
+>    ARM: dts: stm32: keep uart nodes behavior on stm32mp157a-stinger96
+>    ARM: dts: stm32: keep uart4 behavior on stm32mp157c-lxa-mc1
+>    ARM: dts: stm32: keep uart4 behavior on stm32mp157c-odyssey
+>    ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-drc02
+>    ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-pdk2
+>    ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-picoitx
+>    ARM: dts: stm32: keep uart4 behavior on stm32mp15xx-dhcom-som
+>    ARM: dts: stm32: keep uart nodes behavior on
+>      stm32mp15xx-dhcor-avenger96
+> 
+>   arch/arm/boot/dts/stm32mp151.dtsi             | 21 +++++++++++++++++++
+>   .../stm32mp157a-icore-stm32mp1-ctouch2.dts    |  2 ++
+>   .../stm32mp157a-icore-stm32mp1-edimm2.2.dts   |  2 ++
+>   arch/arm/boot/dts/stm32mp157a-iot-box.dts     |  2 ++
+>   ...157a-microgea-stm32mp1-microdev2.0-of7.dts |  4 ++++
+>   ...32mp157a-microgea-stm32mp1-microdev2.0.dts |  4 ++++
+>   arch/arm/boot/dts/stm32mp157a-stinger96.dtsi  |  6 ++++++
+>   arch/arm/boot/dts/stm32mp157c-ed1.dts         |  2 ++
+>   arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts     |  2 ++
+>   arch/arm/boot/dts/stm32mp157c-odyssey.dts     |  2 ++
+>   .../arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi |  4 ++++
+>   arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi |  4 ++++
+>   .../boot/dts/stm32mp15xx-dhcom-picoitx.dtsi   |  4 ++++
+>   arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi  |  2 ++
+>   .../boot/dts/stm32mp15xx-dhcor-avenger96.dtsi |  6 ++++++
+>   arch/arm/boot/dts/stm32mp15xx-dkx.dtsi        |  4 ++++
+>   16 files changed, 71 insertions(+)
+> 
+Series applied on stm32-next.
 
 Thanks
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---5shxigssusof4hd3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAmIJ/2sACgkQwfwUeK3K
-7AkxRwf/b3f/DboNsFG5mzr/yWa7KUZT9A+zxiz+7iI+Gl/R3UndBgCYH0G4WnLL
-7MwSMvP+oKUYgZqWLQ+EO/B4cr+mIwjxaqmcKzRuz26E9FsPaDfvuyLW/vqvEBBQ
-ivXeHn3Uwr7DFKixX67XUwThUqxuxe40AV24L7Hm7F/Z8RkwwtAL/hlH8a4qLet/
-xL4BpeVAAFzCrorg+mwjwQx3LQrHyvft1z/4HuWiI6UBQ23O3ZIYC7uL3EURLbmT
-eLKoFaLA/zjjdDWfFEPseb+D9ve5ek+PA/PPOUBr1zPFHo4GJSOFT+In/LJ5KKxG
-cI48t2esb6pZZCOf/2kwqdevzevzdA==
-=Yr+Q
------END PGP SIGNATURE-----
-
---5shxigssusof4hd3--
-
---===============4087030526080538373==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4087030526080538373==--
