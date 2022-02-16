@@ -2,59 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18B044B82B0
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Feb 2022 09:15:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05BDC4B8336
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Feb 2022 09:46:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B47D9C5F1F9;
-	Wed, 16 Feb 2022 08:15:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE6F7C5F1F9;
+	Wed, 16 Feb 2022 08:46:54 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5863AC0614D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33E9EC5F1D7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Feb 2022 08:15:06 +0000 (UTC)
+ Wed, 16 Feb 2022 08:46:53 +0000 (UTC)
 Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21FMVftI005999;
- Wed, 16 Feb 2022 09:15:05 +0100
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21G8Sqeo005841;
+ Wed, 16 Feb 2022 09:46:20 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=selector1;
- bh=tXDN4IoanLCeWiPkxoxThdcyrsIF7Vx5q4hblSw40L4=;
- b=OX1mtoF9wh/t/4GSaB8FuYnHXXwH+PYVPbkpz9R7szWLVmSpa3wjVbJICz8YcTJbXlsl
- YLLwH4+TcHuEa4XTFXy3q6t6S1KL8ugM5/DQU7tBKCgQn0s83X7f1V3oZRn1PB4dI/PV
- hcKKEav6NMge9tWON1qWO/CXoAwhDktUmEjb8XiwncT1zmBpKTC2UQrb0aX3d6N//fZB
- iQeo83c2h0yYe5iQ4xyjOMIE3XPQ6DnSMOQ6/pIBivLI2ZK5YZPsPZOCztk91Lo9Dt+1
- /6r9foYiAyoa9mKkcgsl1A+Q7Grwn9UeQAJCUZKCFMrT2/mvX/NgofsM8pAT7NE0HK35 qA== 
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=/7nixD/n01nc+BoZwZ9R1YyOe5pCnVpSW4p/rLQTcvM=;
+ b=GMjvUOyE3cbd/56o+dFiFWF7O5Dm4Rd9Pir1K8KbyGzxeOhZS+kKeAp2+CVxHrOPXhow
+ s1L0wvso3CwX7ORZHpr5SoFOOCnkXCDs7f3u6ycQJ8wPfxeDoxGYfSRS3wdTTSIp9Awl
+ etgH2OJcCoc5/2rG9AadjREsVrSnbNhaxPL4hKZ5A6k21hEs2EtaLWeCouCx5h+iWiV/
+ CntlODSuAyrHnEWJivUGlX1NwVWKjsPuxVnu9agPoFWTd5Rda9JFftkyv3u6grT4SD8K
+ xFzcR0j56TDlOof8MdfxnVv5mazGJ6x72UtoXBw03aDYWC/zLlvX7gTbb2cCnZeTrZdE gA== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e8n20t90m-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e8n20tega-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Feb 2022 09:15:05 +0100
+ Wed, 16 Feb 2022 09:46:20 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 911B710003E;
- Wed, 16 Feb 2022 09:15:04 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 82FD110002A;
+ Wed, 16 Feb 2022 09:46:18 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7FBF82138CC;
- Wed, 16 Feb 2022 09:15:04 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 16 Feb 2022 09:15:04
- +0100
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <hminas@synopsys.com>, <gregkh@linuxfoundation.org>
-Date: Wed, 16 Feb 2022 09:12:15 +0100
-Message-ID: <1644999135-13478-1-git-send-email-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.7.4
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6C9E8214D3B;
+ Wed, 16 Feb 2022 09:46:18 +0100 (CET)
+Received: from [10.48.0.175] (10.75.127.46) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Wed, 16 Feb
+ 2022 09:46:17 +0100
+Message-ID: <f6687807-607c-f672-2394-ad463735d597@foss.st.com>
+Date: Wed, 16 Feb 2022 09:46:17 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Pratyush Yadav <p.yadav@ti.com>
+References: <20220131095755.8981-1-christophe.kerello@foss.st.com>
+ <20220131095755.8981-5-christophe.kerello@foss.st.com>
+ <20220131144309.0ffe7cc8@xps13> <20220201104727.7xvcyexf3yucegcb@ti.com>
+ <eebfa629-ead2-d63f-9cfb-4cafc1534678@foss.st.com>
+ <20220202115327.53oqg5n7tx6b6q7u@ti.com>
+From: Christophe Kerello <christophe.kerello@foss.st.com>
+In-Reply-To: <20220202115327.53oqg5n7tx6b6q7u@ti.com>
+X-Originating-IP: [10.75.127.46]
 X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-02-16_03,2022-02-14_04,2021-12-02_01
-Cc: linux-usb@vger.kernel.org, alexandre.torgue@foss.st.com,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v3] usb: dwc2: drd: fix soft connect when
-	gadget is unconfigured
+ definitions=2022-02-16_04,2022-02-14_04,2021-12-02_01
+Cc: devicetree@vger.kernel.org, vigneshr@ti.com,
+ Khouloud Touil <ktouil@baylibre.com>,
+ Tudor Ambarus <Tudor.Ambarus@microchip.com>, richard@nod.at,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, robh+dt@kernel.org,
+ srinivas.kandagatla@linaro.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-mtd@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ chenshumin86@sina.com
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] mtd: core: Fix a conflict between
+ MTD and NVMEM on wp-gpios property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,82 +81,163 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When the gadget driver hasn't been (yet) configured, and the cable is
-connected to a HOST, the SFTDISCON gets cleared unconditionally, so the
-HOST tries to enumerate it.
-At the host side, this can result in a stuck USB port or worse. When
-getting lucky, some dmesg can be observed at the host side:
- new high-speed USB device number ...
- device descriptor read/64, error -110
+Hi Miquel, Pratyush, Srinivas,
 
-Fix it in drd, by checking the enabled flag before calling
-dwc2_hsotg_core_connect(). It will be called later, once configured,
-by the normal flow:
-- udc_bind_to_driver
- - usb_gadget_connect
-   - dwc2_hsotg_pullup
-     - dwc2_hsotg_core_connect
+On 2/2/22 12:53, Pratyush Yadav wrote:
+> + Khouloud, Linus, Bartosz
+> 
+> On 02/02/22 11:44AM, Christophe Kerello wrote:
+>> Hi,
+>>
+>> On 2/1/22 11:47, Pratyush Yadav wrote:
+>>> On 31/01/22 02:43PM, Miquel Raynal wrote:
+>>>> Hi Vignesh, Tudory, Pratyush,
+>>>>
+>>>> + Tudor and Pratyush
+>>>>
+>>>> christophe.kerello@foss.st.com wrote on Mon, 31 Jan 2022 10:57:55 +0100:
+>>>>
+>>>>> Wp-gpios property can be used on NVMEM nodes and the same property can
+>>>>> be also used on MTD NAND nodes. In case of the wp-gpios property is
+>>>>> defined at NAND level node, the GPIO management is done at NAND driver
+>>>>> level. Write protect is disabled when the driver is probed or resumed
+>>>>> and is enabled when the driver is released or suspended.
+>>>>>
+>>>>> When no partitions are defined in the NAND DT node, then the NAND DT node
+>>>>> will be passed to NVMEM framework. If wp-gpios property is defined in
+>>>>> this node, the GPIO resource is taken twice and the NAND controller
+>>>>> driver fails to probe.
+>>>>>
+>>>>> A new Boolean flag named skip_wp_gpio has been added in nvmem_config.
+>>>>> In case skip_wp_gpio is set, it means that the GPIO is handled by the
+>>>>> provider. Lets set this flag in MTD layer to avoid the conflict on
+>>>>> wp_gpios property.
+>>>>>
+>>>>> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+>>>>> ---
+>>>>>    drivers/mtd/mtdcore.c | 2 ++
+>>>>>    1 file changed, 2 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+>>>>> index 70f492dce158..e6d251594def 100644
+>>>>> --- a/drivers/mtd/mtdcore.c
+>>>>> +++ b/drivers/mtd/mtdcore.c
+>>>>> @@ -546,6 +546,7 @@ static int mtd_nvmem_add(struct mtd_info *mtd)
+>>>>>    	config.stride = 1;
+>>>>>    	config.read_only = true;
+>>>>>    	config.root_only = true;
+>>>>> +	config.skip_wp_gpio = true;
+>>>>>    	config.no_of_node = !of_device_is_compatible(node, "nvmem-cells");
+>>>>>    	config.priv = mtd;
+>>>>> @@ -833,6 +834,7 @@ static struct nvmem_device *mtd_otp_nvmem_register(struct mtd_info *mtd,
+>>>>>    	config.owner = THIS_MODULE;
+>>>>>    	config.type = NVMEM_TYPE_OTP;
+>>>>>    	config.root_only = true;
+>>>>> +	config.skip_wp_gpio = true;
+>>>>>    	config.reg_read = reg_read;
+>>>>>    	config.size = size;
+>>>>>    	config.of_node = np;
+>>>>
+>>>> TLDR: There is a conflict between MTD and NVMEM, who should handle the
+>>>> WP pin when there is one? At least for raw NAND devices, I don't want
+>>>> the NVMEM core to handle the wp pin. So we've introduced this
+>>>> skip_wp_gpio nvmem config option. But there are two places where this
+>>>> boolean can be set and one of these is for otp regions (see above). In
+>>>> this case, I don't know if it is safe or if CFI/SPI-NOR rely on the
+>>>> nvmem protection. Please tell us if you think this is fine for you.
+>>>
+>>> Why does NVMEM touch hardware write protection in the first place? The
+>>> purpose of the framework is to provide a way to retrieve config stored
+>>> in memory. It has no business dealing with details of the chip like the
+>>> WP line. That should be MTD's job (which it should delegate to SPI NOR,
+>>> SPI NAND, etc.). If you want to write protect a cell then do it in
+>>> software. I don't see why NVMEM should be dealing with hardware directly
+>>> at all.
+>>>
+>>> That is my mental model of how things _should_ work. I have not spent
+>>> much time digging into how things actually work currently.
+>>>
+>>
+>> Wp-gpios property management was added in MVMEM framework in January 2020 =>
+>> sha1: 2a127da461a9d8d97782d6e82b227041393eb4d2
+>> "
+>>      nvmem: add support for the write-protect pin
+>>
+>>      The write-protect pin handling looks like a standard property that
+>>      could benefit other users if available in the core nvmem framework.
+>>
+>>      Instead of modifying all the memory drivers to check this pin, make
+>>      the NVMEM subsystem check if the write-protect GPIO being passed
+>>      through the nvmem_config or defined in the device tree and pull it
+>>      low whenever writing to the memory.
+>> "
+>>
+>> And this modification was done for EEPROMs flashes => sha1:
+>> 1c89074bf85068d1b86f2e0f0c2110fdd9b83c9f
+>> "
+>>      eeprom: at24: remove the write-protect pin support
+>>
+>>      NVMEM framework is an interface for the at24 EEPROMs as well as for
+>>      other drivers, instead of passing the wp-gpios over the different
+>>      drivers each time, it would be better to pass it over the NVMEM
+>>      subsystem once and for all.
+>>
+>>      Removing the support for the write-protect pin after adding it to
+>>      the NVMEM subsystem.
+>> "
+>>
+>> Current NVMEM framework implementation toggles the WP GPIO when reg_write
+>> nvmem_config API is defined. In case of MTD framework, reg_write is not
+>> defined in nvmem_config.
+> 
+> Thanks for digging these up. I think this was the wrong decision to
+> make. NVMEM should just provide the APIs for handling read/write, and
+> leave the rest to the drivers.
+> 
+> It might be convenient for some drivers to put the WP GPIO handling to
+> NVMEM core but I just don't think it is the job of the framework to deal
+> with this, and it just does not know enough about the device to deal
+> with correctly and completely anyway. For example, wp-gpio is only one
+> of the ways to write protect a chip. SPI NOR flashes have a WP# pin that
+> is often toggled via the SPI controller. There could also be registers
+> that do the write protection.
+> 
+> One would have to make strong justifications for making nvmem directly
+> deal with hardware level details to convince me it is a good idea. IMHO
+> if AT24 EEPROM is the only driver relying on this as of now then we
+> should just revert the patches and not have to deal with the
+> skip_wp_gpio hackery.
+> 
 
-Fixes: 17f934024e84 ("usb: dwc2: override PHY input signals with usb role switch support")
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
-Changes in v3:
-- remove extra () in dwc2_is_device_enabled() macro.
-Changes in v2:
-- Fix build error: 'struct dwc2_hsotg' has no member named 'enabled';
-  as reported by the kernel test robot.
-  https://lore.kernel.org/all/202202112236.AwoOTtHO-lkp@intel.com/
-  Add dwc2_is_device_enabled() macro to handle this.
----
- drivers/usb/dwc2/core.h | 2 ++
- drivers/usb/dwc2/drd.c  | 6 ++++--
- 2 files changed, 6 insertions(+), 2 deletions(-)
+Based on the  bindings documentation, AT24 EEPROM driver is not the only
+driver relying on this implementation. At least, AT25 EEPROM driver will
+have to be modified to handle the Write Protect management, and there is
+probably others drivers relying on this implementation.
 
-diff --git a/drivers/usb/dwc2/core.h b/drivers/usb/dwc2/core.h
-index 8a63da3..88c337b 100644
---- a/drivers/usb/dwc2/core.h
-+++ b/drivers/usb/dwc2/core.h
-@@ -1418,6 +1418,7 @@ void dwc2_hsotg_core_connect(struct dwc2_hsotg *hsotg);
- void dwc2_hsotg_disconnect(struct dwc2_hsotg *dwc2);
- int dwc2_hsotg_set_test_mode(struct dwc2_hsotg *hsotg, int testmode);
- #define dwc2_is_device_connected(hsotg) (hsotg->connected)
-+#define dwc2_is_device_enabled(hsotg) (hsotg->enabled)
- int dwc2_backup_device_registers(struct dwc2_hsotg *hsotg);
- int dwc2_restore_device_registers(struct dwc2_hsotg *hsotg, int remote_wakeup);
- int dwc2_gadget_enter_hibernation(struct dwc2_hsotg *hsotg);
-@@ -1454,6 +1455,7 @@ static inline int dwc2_hsotg_set_test_mode(struct dwc2_hsotg *hsotg,
- 					   int testmode)
- { return 0; }
- #define dwc2_is_device_connected(hsotg) (0)
-+#define dwc2_is_device_enabled(hsotg) (0)
- static inline int dwc2_backup_device_registers(struct dwc2_hsotg *hsotg)
- { return 0; }
- static inline int dwc2_restore_device_registers(struct dwc2_hsotg *hsotg,
-diff --git a/drivers/usb/dwc2/drd.c b/drivers/usb/dwc2/drd.c
-index 1b39c47..d8d6493 100644
---- a/drivers/usb/dwc2/drd.c
-+++ b/drivers/usb/dwc2/drd.c
-@@ -130,8 +130,10 @@ static int dwc2_drd_role_sw_set(struct usb_role_switch *sw, enum usb_role role)
- 		already = dwc2_ovr_avalid(hsotg, true);
- 	} else if (role == USB_ROLE_DEVICE) {
- 		already = dwc2_ovr_bvalid(hsotg, true);
--		/* This clear DCTL.SFTDISCON bit */
--		dwc2_hsotg_core_connect(hsotg);
-+		if (dwc2_is_device_enabled(hsotg)) {
-+			/* This clear DCTL.SFTDISCON bit */
-+			dwc2_hsotg_core_connect(hsotg);
-+		}
- 	} else {
- 		if (dwc2_is_device_mode(hsotg)) {
- 			if (!dwc2_ovr_bvalid(hsotg, false))
--- 
-2.7.4
+So, should we keep the legacy and apply the proposal patch to fix this
+conflict (I can send a V3 with a fixes tag on patch 3 and 4 as
+recommended by Miquel)?
+Or should we revert the Write Protect management in NVMEM framework
+but in this case I will not be able to handle such modifications (I am
+not able to test those drivers).
 
+Regards,
+Christophe Kerello.
+
+>>
+>> Based on the comments made, it seems that we also agree that this write
+>> protection should be handled by MTD subsystems or associated drivers and not
+>> by MVMEN framework for MTD use cases.
+>>
+>> The proposal implementation should solve this conflict for MTD framework
+>> without breaking anything for others NVMEM users (EEPROMs flashes for
+>> example).
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
