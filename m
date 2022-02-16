@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C22C4B7BB5
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Feb 2022 01:18:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DAF54B7BB6
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Feb 2022 01:18:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 370BFC6046E;
-	Wed, 16 Feb 2022 00:18:52 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4270CC60474;
+	Wed, 16 Feb 2022 00:18:53 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49AD4C6047B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 338A3C6046B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Feb 2022 00:18:50 +0000 (UTC)
+ Wed, 16 Feb 2022 00:18:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1644970724;
- bh=lQa+jzYKtWp6KPdLT/a3HxqzMlHwKAFbTOnPK9FsF40=;
+ s=badeba3b8450; t=1644970725;
+ bh=p8QMhzf5BXOGOgdpvzQpYcOARim4oxi/fBzc9Njmipc=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=XZQ+M+AO+wB74+I1fnj8BkEb+9CR3jpL3CTOnF2YHrX3pJ66yddgdz3mjzNT1UGgq
- oDrfImn6Dv0cHTzDLDEW6w47mTXazsKIAxLd1s2Ui4EQ/FyJAcswqSv14mj3INzMdU
- ctPus1IPg5EXKD+DDrzGEVLBs9hwk8Z3ai94w/pw=
+ b=CpVK4e7q8OypWMAKUrl1FHsiB2ucyfwSCBGbLCveYOvPBOtFsqNlO2ko3PRm1u+DC
+ wKV5Yqo2CZMDS0BHUe+gF58uUsdbiwKrflMwOIIQjmQLbSPnmDFucjsaE0yad3gCXw
+ JK5jdTSD/Vag8AO3jqSfeeMI99P52catderNOcFo=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
 Received: from Venus.fritz.box ([149.172.237.68]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1M2f9h-1nHfK93YRL-004DLI; Wed, 16
- Feb 2022 01:18:44 +0100
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1M7b6l-1nLXD617jZ-00835i; Wed, 16
+ Feb 2022 01:18:45 +0100
 From: Lino Sanfilippo <LinoSanfilippo@gmx.de>
 To: gregkh@linuxfoundation.org, jirislaby@kernel.org,
  u.kleine-koenig@pengutronix.de
-Date: Wed, 16 Feb 2022 01:18:00 +0100
-Message-Id: <20220216001803.637-7-LinoSanfilippo@gmx.de>
+Date: Wed, 16 Feb 2022 01:18:01 +0100
+Message-Id: <20220216001803.637-8-LinoSanfilippo@gmx.de>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220216001803.637-1-LinoSanfilippo@gmx.de>
 References: <20220216001803.637-1-LinoSanfilippo@gmx.de>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:28MycnKYVIB7UlJrdb5FGLVDDUI7YjCcJKyT8XyTdj3c1KUUJzM
- yHQYiA0dsl5qqPPMN1Cb3K5J18csfM44YW3gGHUDdUEP8UfU2F0y/O3WpJKfaqgdPrH0bsJ
- QW0mOmLfrK9F7f59Z7Uw6WlEetyWbFfcVZ0bQkpWI+nF16kGriZ8GzkDzCC1Dq6kOHEsXRM
- es/oIPpaWxTNtIODzYBOQ==
+X-Provags-ID: V03:K1:ifqonzAg/uOEZqJ5tzZdRX/mbDQweIG/xNMJGv13ZEz4LKelJp+
+ AVB9rxaJPrOXTC8FQFCMiv0QNx479OQdXZgsHF7YJJKPGI/r+2TdRrQRigWD88Kw3dU7xdj
+ l6uMtxsjlSdyxeYuZ3rj8e8mNAgCv7++KKHGEA7Nvu242Q0Qo0CmigcDtVpNXfWYMS2FTVM
+ qGy32Szlz3qnmwh7Yt2xA==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:2PraAB5/itw=:tiTHeVTo7ob0QfR/7R4HK/
- jZtFrlwS14tTg/dSVs4zj+8VMP1VlVYYCEi12Mr/LTKG2EkBUEKrq4vxOP1Hn0yJui7t59Dca
- WxrXIMsm23aIL358IhO1JSRnE4oNvFvEV+9swKKG6MSEaCLkHVrbUXeeco+5OxtyUVoK4qBwK
- qOJpr3cDFshGEVew++ZM3V1unvTOZXAKfwy0iwP6uW9WFEr7yEW6MIfs8r2cAbw5J6QwokkSl
- huTsO/kyx6l62dV9+jHEHeL6hSHxHFCzTPWS6aOFNIM2kL941XSDOtolzUC4zVxvsuIkpOzwE
- zU3qYZm4HjYpDHgirPtLVxNtNyPppkuR43IrBn+Nr3EIC/YtdJcDwcs0B9iZPw9Hyt3SVikM8
- +A0x51gb50Z6Bf3SRSJof85sjlGfPkHQBwaZiNPioHxzVITqBPcGbKeBWzORuEZj1KqOtuSPB
- jSWM+gU48wkstHvoIrLn/9QKKEU66k76xtfYO8yDzKwEZxKLn0jUaitj7NNrH2eW/+oWUQ1W1
- bvgtMjEK/bIMtzKqNcul9euXLUgG0RvnwXKudV7QfkQZukN4YXRIjv52hoFBzxlrzl6JzVOqR
- KgwCsVRiNbgxMg6vk7NlzKSBXhc4luADcrlkorfG8T3zfqB3+XXrTd/tDrxtsh7I+F1/CdVQV
- NLq9lhzvLm9fVdwKH8l0bdsuNDgdNHzOaKtKam75lvzURDMFociCKxz+fKTYbq4jrjxJajTA0
- kO7NpmoBcfiNBVXR3hjqtWztr3IU4k4LD4TKOGDmTIvK9C+Uc9QXHzrAW5GXvFZi8xwJBotYc
- mzeD5qfMNSZlI4qErtbYLKJG5lpSqKhH3tPuLCy5se4lmPmzAFryOi6b2OD9/ggDPyEfwPT6Z
- Yc8fTtaNLofjeLwYqPe/Z/AGs9OpBa/htBF0QcoiI9fyGhv0t2Je55mWTNlwb9QpW5uct/JM8
- MLu07J0hPwWxFEwDdJuu1yKGWhlwGHbQZN8xqR388Y6QJUNKOIkyni3XOdrLmXnG7vYvcCOeW
- +EIf4gEG3fXyuR5d/s5ftMahNH7WysBHqGgBaKn2iWii1t4QaNTC+OpZy2XGLxD/lQhbSWaa/
- fDsgft+HJFPxyA=
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Ix5KGaxI8GU=:a/XP+OGQKZMZgoHSmS2tK2
+ t+rYXpeNE4KPdUsdhJv8p8uAS7531rSr768CYZl/9JAP9qwORBpzs3JDnDEYjpdPRENmJkatZ
+ T+ZGFsjgkwlzcBSqNP2vftImjX8Go7Bm4SG48WBxK/XGzkCeFi/AskettlRfi/egXNIHQ9+c3
+ ZQDeyCsxVQAdCo1p5JvwnsOkgn/8/y1KsKcwmQ7luf22eByxSqqeUfxJmtYSMxT+6fDwuitJ8
+ nkDj4qRBtKRfldKmeS+7/1LWPX9IP0DebooSoqsaVvqIz03IXOiZEoGuBy5BSgNwHmA6ejLLk
+ t1EWpWsnlQGxCgH87p50GT3Box/+e93jm3orusdfYooWzbcTOgGGgibsat2uldFMRTRiHD2pm
+ eR1erqM086jSjDV3Qqsn0GtNU4fvGqZNl+WB82FjXHTtgwLfxZ1+NGjTdlJcix5yWAnDYVe6j
+ gBL9ylRelbKA+wygM7L2D0cBGAmRlVL5DuOGVBzDhdXX8n4WU5OEcz5MbmTPG6mTN7LBOlVZJ
+ 2T4dazfyfm8f9UPw1bPv0rgGsUSWUGCHS9yU+YN0RWT0xLYfb1EHjc6TuOJiueYQX0DWd1U0O
+ GvYeXOqsG1y+RFg1C3TlDS2nhY9EfgEKihnFk6khx7Qr4gbQ8y55m7IMzrTWun/VQqkx0y+H/
+ huuvuAsDjQT+0NKnVNQUANCHib1c7cqClRkSEigEWk3F8dQiJgycbQ1wfEb8ms4wlWyxSY/5d
+ RtJqor29Dqb+HUg9x8icqWd0sgN3OyJLMr/FrDI/JytHbQ1Qyi3klcT5f0Obpxr2NRKF0mZ2c
+ PkDdIo+I1yClRGjRWNgS2BnYKhs9clvK9S1+dhRrkoNDNWDomsxATfPs2PVdbghFdEVqHuQYY
+ xJ3G7KtV8/YRSS5cYEHuXuVQrMXFiZO/vQYC0rSaPvwu7yuUUtm2TNdv3dvPKi7vBaD/Fc8TX
+ INak2TvnmG6D5KZdMi335mz6AeZ/yMVMGrr7dkh7VItPl3/HuLrzKH8BdKiYi7BWsVAjTT8Cf
+ psbi0HqxkI8M+AKWtK3N7zcFDXn5Dhhl8kqxMzyhuJMFaGitvATK5C0M9NrRsMP+nSE+4mYTJ
+ moOCkvYcTX4n08=
 Cc: linux-arm-kernel@lists.infradead.org, alexandre.belloni@bootlin.com,
  mcoquelin.stm32@gmail.com, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
  richard.genoud@gmail.com, festevam@gmail.com, s.hauer@pengutronix.de,
@@ -63,8 +63,8 @@ Cc: linux-arm-kernel@lists.infradead.org, alexandre.belloni@bootlin.com,
  linux-imx@nxp.com, kernel@pengutronix.de, linux-serial@vger.kernel.org,
  shawnguo@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2 6/9] serial: max310: remove redundant memset
-	in rs485_config
+Subject: [Linux-stm32] [PATCH 2 7/9] serial: imx: remove redundant
+	assignment in rs485_config
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,29 +81,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In uart_set_rs485_config() the serial core already nullifies the padding
-field of the passed serial_rs485 struct before returning it to userspace.
+In uart_set_rs485_config() the serial core already assigns the passed
+serial_rs485 struct to the uart port.
 
-Doing the same in the drivers rs485_config() function is redundant, so
-remove the concerning memset in this function.
+So remove the assignment in the drivers rs485_config() function to avoid
+reduncancy.
 
 Signed-off-by: Lino Sanfilippo <LinoSanfilippo@gmx.de>
 ---
- drivers/tty/serial/max310x.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/tty/serial/imx.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-index dde0824b2fa5..2ecc5f66deaf 100644
---- a/drivers/tty/serial/max310x.c
-+++ b/drivers/tty/serial/max310x.c
-@@ -1037,7 +1037,6 @@ static int max310x_rs485_config(struct uart_port *port,
+diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
+index 0b467ce8d737..ab56ff23e8a9 100644
+--- a/drivers/tty/serial/imx.c
++++ b/drivers/tty/serial/imx.c
+@@ -1937,8 +1937,6 @@ static int imx_uart_rs485_config(struct uart_port *port,
+ 	    rs485conf->flags & SER_RS485_RX_DURING_TX)
+ 		imx_uart_start_rx(port);
  
- 	rs485->flags &= SER_RS485_RTS_ON_SEND | SER_RS485_RX_DURING_TX |
- 			SER_RS485_ENABLED;
--	memset(rs485->padding, 0, sizeof(rs485->padding));
- 	port->rs485 = *rs485;
+-	port->rs485 = *rs485conf;
+-
+ 	return 0;
+ }
  
- 	schedule_work(&one->rs_work);
 -- 
 2.34.1
 
