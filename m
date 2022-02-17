@@ -2,64 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 499CA4BA375
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Feb 2022 15:49:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B867B4BA3BF
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Feb 2022 15:55:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12058C6046C;
-	Thu, 17 Feb 2022 14:49:24 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7043FC6046C;
+	Thu, 17 Feb 2022 14:55:45 +0000 (UTC)
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B185C6046B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F36EC6046A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Feb 2022 14:49:21 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21HBatfR010860;
- Thu, 17 Feb 2022 15:49:03 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=uDBTaIhKiAzA8mTM+6OWIIjO0uszxvkCNaIBSKJuIPE=;
- b=cepx7Q01ybZURJgeAHcz2UECpj/Q9EsgWS4PVaF5dwaGrgoTsMzL7htjFyB8m5ejX1p8
- WYvFMuaT/HJ4DGehMlTtL2aL7b9uLABGuhnaOQKtTOFaEgfK3wCgcrmRv63SmM8M8X2+
- UBFI8SXObppvaFqdXNYtJFiUj0sxBOiaZTIcaiY/WuaszmB/Nz+ug0JikV48mz6xPDjX
- 9aVWlxV/5GxkL/GK41YpNhQVK9Fpwkjn2+rx8cyyaOwUvuyjwOt5lqc8Tkzwez3SgJJn
- T0pywHZdKhQeZZXieE7c5ZTGQWGFwLnW0pQLRJotZ/CnJ0LosPOU439bOoa3YfsGULWZ +Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3e9hvgjmpp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Feb 2022 15:49:03 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 509B710002A;
- Thu, 17 Feb 2022 15:49:03 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4722E2278A1;
- Thu, 17 Feb 2022 15:49:03 +0100 (CET)
-Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 17 Feb 2022 15:49:02
- +0100
-From: Christophe Kerello <christophe.kerello@foss.st.com>
-To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <robh+dt@kernel.org>, <srinivas.kandagatla@linaro.org>, <p.yadav@ti.com>
-Date: Thu, 17 Feb 2022 15:47:55 +0100
-Message-ID: <20220217144755.270679-5-christophe.kerello@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220217144755.270679-1-christophe.kerello@foss.st.com>
-References: <20220217144755.270679-1-christophe.kerello@foss.st.com>
+ Thu, 17 Feb 2022 14:55:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1645109743;
+ x=1676645743;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QxcUKmOttRZJLYW7ut8tqGGUV1itp+JVUMIR7K85mzc=;
+ b=HZo3dqhi8avz6UUYJM96zEZgIW8fyEDdcL2LU/5ndSXSKXH8rczCDKOI
+ gZJ8iDUMd+SNtk2OZfxsHSHSblBnU2cTDZAyXgsKj2CMK0wULce+IGeEK
+ jLr26JBl6w/CKbAcNMLckOqbL2C5BRsHtOXdO6a1zkFL6OUBvquXp6erV
+ 7gmre4p6ZIT++/pp/DQWST6kZNuMqBUigRHf6omXKywddAs2fVaBbBbun
+ SlxBxiniY+XF2O0QJerf88EySF6ZNEwfubSQQSU13NgRTM5sByFIkFeKb
+ atQwVqmyCqopFavK6mLB5cBl0ZQc8msuj1NKVy1BCF6ZE3VDiUD/7ogIb g==;
+From: Vincent Whitchurch <vincent.whitchurch@axis.com>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
+ Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>
+Date: Thu, 17 Feb 2022 15:55:26 +0100
+Message-ID: <20220217145527.2696444-1-vincent.whitchurch@axis.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.50]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-02-17_05,2022-02-17_01,2021-12-02_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, chenshumin86@sina.com
-Subject: [Linux-stm32] [PATCH v3 4/4] mtd: core: Fix a conflict between MTD
-	and NVMEM on wp-gpios property
+Cc: Srinivas Kandagatla <srinivas.kandagatla@st.com>, netdev@vger.kernel.org,
+ Vincent Whitchurch <vincent.whitchurch@axis.com>, linux-kernel@vger.kernel.org,
+ kernel@axis.com, Lars Persson <larper@axis.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: Enable NAPI before interrupts go
+	live
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,55 +56,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Wp-gpios property can be used on NVMEM nodes and the same property can
-be also used on MTD NAND nodes. In case of the wp-gpios property is
-defined at NAND level node, the GPIO management is done at NAND driver
-level. Write protect is disabled when the driver is probed or resumed
-and is enabled when the driver is released or suspended.
+From: Lars Persson <larper@axis.com>
 
-When no partitions are defined in the NAND DT node, then the NAND DT node
-will be passed to NVMEM framework. If wp-gpios property is defined in
-this node, the GPIO resource is taken twice and the NAND controller
-driver fails to probe.
+The stmmac_open function has a race window between enabling the RX
+path and its interrupt to the point where napi_enabled is called.
 
-A new Boolean flag named ignore_wp has been added in nvmem_config.
-In case ignore_wp is set, it means that the GPIO is handled by the
-provider. Lets set this flag in MTD layer to avoid the conflict on
-wp_gpios property.
+A chatty network with plenty of broadcast/multicast traffic has the
+potential to completely fill the RX ring before the interrupt handler
+is installed. In this scenario the single interrupt taken will find
+napi disabled and the RX ring will not be processed. No further RX
+interrupt will be delivered because the ring is full.
 
-Fixes: 2a127da461a9 ("nvmem: add support for the write-protect pin")
-Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-Cc: stable@vger.kernel.org
+The RX stall could eventually clear because the TX path will trigger a
+DMA interrupt once the tx_coal_frames threshold is reached and then
+NAPI becomes scheduled.
+
+Fixes: 523f11b5d4fd72efb ("net: stmmac: move hardware setup for stmmac_open to new function")
+Signed-off-by: Lars Persson <larper@axis.com>
+[vincent.whitchurch@axis.com: Forward-port to mainline, change xdp_open too]
+Signed-off-by: Vincent Whitchurch <vincent.whitchurch@axis.com>
 ---
-Changes in v3:
- - add a fixes tag
- - rename skip_wp_gpio by ignore_wp in nvmen_config.
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
- drivers/mtd/mtdcore.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index 70f492dce158..eef87b28d6c8 100644
---- a/drivers/mtd/mtdcore.c
-+++ b/drivers/mtd/mtdcore.c
-@@ -546,6 +546,7 @@ static int mtd_nvmem_add(struct mtd_info *mtd)
- 	config.stride = 1;
- 	config.read_only = true;
- 	config.root_only = true;
-+	config.ignore_wp = true;
- 	config.no_of_node = !of_device_is_compatible(node, "nvmem-cells");
- 	config.priv = mtd;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 6708ca2aa4f7..8bd4123515b0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3753,11 +3753,12 @@ static int stmmac_open(struct net_device *dev)
+ 	/* We may have called phylink_speed_down before */
+ 	phylink_speed_up(priv->phylink);
  
-@@ -833,6 +834,7 @@ static struct nvmem_device *mtd_otp_nvmem_register(struct mtd_info *mtd,
- 	config.owner = THIS_MODULE;
- 	config.type = NVMEM_TYPE_OTP;
- 	config.root_only = true;
-+	config.ignore_wp = true;
- 	config.reg_read = reg_read;
- 	config.size = size;
- 	config.of_node = np;
++	stmmac_enable_all_queues(priv);
++
+ 	ret = stmmac_request_irq(dev);
+ 	if (ret)
+ 		goto irq_error;
+ 
+-	stmmac_enable_all_queues(priv);
+ 	netif_tx_start_all_queues(priv->dev);
+ 
+ 	return 0;
+@@ -3768,6 +3769,7 @@ static int stmmac_open(struct net_device *dev)
+ 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+ 		hrtimer_cancel(&priv->tx_queue[chan].txtimer);
+ 
++	stmmac_disable_all_queues(priv);
+ 	stmmac_hw_teardown(dev);
+ init_error:
+ 	free_dma_desc_resources(priv);
+@@ -6562,12 +6564,13 @@ int stmmac_xdp_open(struct net_device *dev)
+ 	/* Start Rx & Tx DMA Channels */
+ 	stmmac_start_all_dma(priv);
+ 
++	/* Enable NAPI process*/
++	stmmac_enable_all_queues(priv);
++
+ 	ret = stmmac_request_irq(dev);
+ 	if (ret)
+ 		goto irq_error;
+ 
+-	/* Enable NAPI process*/
+-	stmmac_enable_all_queues(priv);
+ 	netif_carrier_on(dev);
+ 	netif_tx_start_all_queues(dev);
+ 
+@@ -6577,6 +6580,7 @@ int stmmac_xdp_open(struct net_device *dev)
+ 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+ 		hrtimer_cancel(&priv->tx_queue[chan].txtimer);
+ 
++	stmmac_disable_all_queues(priv);
+ 	stmmac_hw_teardown(dev);
+ init_error:
+ 	free_dma_desc_resources(priv);
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
