@@ -2,73 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E4134B9DDE
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Feb 2022 12:01:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3C474B9E9E
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Feb 2022 12:32:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDBDDC5F1F9;
-	Thu, 17 Feb 2022 11:01:24 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98BAFC5F1F9;
+	Thu, 17 Feb 2022 11:32:28 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B02FC5F1D7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4784BC57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Feb 2022 11:01:24 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- az26-20020a05600c601a00b0037c078db59cso3744943wmb.4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Feb 2022 03:01:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=QXC2GiLyRlkqPnLb5RTTqLhrVnBmNGVL+2tFHU8g1sI=;
- b=CtUdkgz2hg93fo3XUEKwndi79ezxDuyHljn03vTtZrEXhCgOIIegtqY8XTc8yN48Pz
- VIitZ95P+D9FHuit6ONJBVLLpHzqILZ19XOnVFgbJ6+7YT79pOwqRa9kC/iF6+ojhuJG
- /Wy8nrw/nYjUKUvr9oPVWdBiTv7hU4M1FtcUBxP/+PGJMZSVwcV1lJKebYNCLhzj2fdG
- axNpEkmz1RwlxzA9YIP2NhHZk2+GnIMVr1Q9VqaNlo9Q/83IwuOAx1eE3cuvULYt69Y6
- cz2SrSfdpbDaGYENK6PHTFxc+dz5dipVW3urJ4tvt8/q14yQYLlUfrnpWZDTq6B+Y6ZY
- bBkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=QXC2GiLyRlkqPnLb5RTTqLhrVnBmNGVL+2tFHU8g1sI=;
- b=3JseuJI0szQ+9ZoSEBLgivClGiL/60o4f4/CiW6VgJ69IZuIdUystelhKmcjqADiWn
- qrrxXxe0xZMzs3EyVNbMRwS+WDmV+I7vJ1FHeocPxlRAd1sFsuA4/cUfynTRK48yODFq
- QJxcekdNhGc6e6unHDb9tcD1wkljjWzJDVw14SIvNda+an/hM8n8fhbuzon6ILEpeocM
- p/fOZhK716TgHHhZfs+JCNk1AemGVAayLpTg3W95Qbt3iF5AoWFStcOcW2xDaO+iXGRw
- NVfJiGlqxb18BldSE/vpbFVVIcw4DPckCASwkxwcVf2skcWljA294rnhw2a62EjP/i7E
- m5sA==
-X-Gm-Message-State: AOAM530gcRP9789OjP1raieKDDg+Q8w3JK6ohV1l09BkIds120F7ZjXo
- BFbus+7FXiw87XWzSBXuossBMA==
-X-Google-Smtp-Source: ABdhPJwo6VBJNlSl7oeCrwIVAZva1FiIsBkDn9KyEqH3zZAZH3PrJSWbG1QTWYEUSOT0J0m0fv0Hng==
-X-Received: by 2002:a05:600c:224a:b0:37b:b620:77cf with SMTP id
- a10-20020a05600c224a00b0037bb62077cfmr5546414wmm.5.1645095683659; 
- Thu, 17 Feb 2022 03:01:23 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id m22sm968413wmq.35.2022.02.17.03.01.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Feb 2022 03:01:23 -0800 (PST)
-Message-ID: <1bd281d8-a576-26dc-79c3-b1a72a4a9691@linaro.org>
-Date: Thu, 17 Feb 2022 11:01:21 +0000
+ Thu, 17 Feb 2022 11:32:27 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6F943B820B5;
+ Thu, 17 Feb 2022 11:32:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B4FC340E8;
+ Thu, 17 Feb 2022 11:32:23 +0000 (UTC)
+Message-ID: <6908801a-75ac-8845-dd0e-33cd59ceb42e@xs4all.nl>
+Date: Thu, 17 Feb 2022 12:32:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
+ Thunderbird/91.5.1
 Content-Language: en-US
-To: Christophe Kerello <christophe.kerello@foss.st.com>,
- miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
- robh+dt@kernel.org
-References: <20220131095755.8981-1-christophe.kerello@foss.st.com>
- <20220131095755.8981-4-christophe.kerello@foss.st.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220131095755.8981-4-christophe.kerello@foss.st.com>
-Cc: devicetree@vger.kernel.org, chenshumin86@sina.com,
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 3/4] nvmem: core: Fix a conflict
- between MTD and NVMEM on wp-gpios property
+To: Alain Volmat <alain.volmat@foss.st.com>, hugues.fruchet@foss.st.com,
+ mchehab@kernel.org
+References: <20220127111802.976275-1-alain.volmat@foss.st.com>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+In-Reply-To: <20220127111802.976275-1-alain.volmat@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, alexandre.torgue@foss.st.com,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: create video dev once
+	sensor is binded
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,84 +47,178 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Alain,
 
+Some comments below:
 
-On 31/01/2022 09:57, Christophe Kerello wrote:
-> Wp-gpios property can be used on NVMEM nodes and the same property can
-> be also used on MTD NAND nodes. In case of the wp-gpios property is
-> defined at NAND level node, the GPIO management is done at NAND driver
-> level. Write protect is disabled when the driver is probed or resumed
-> and is enabled when the driver is released or suspended.
+On 27/01/2022 12:18, Alain Volmat wrote:
+> In case of an error during the initialization of the sensor,
+> the video device is still available since created at the
+> probe of the dcmi driver. Moreover the device wouldn't
+> be released even when removing the module since the release
+> is performed as part of the notifier unbind callback
+> (not called if no sensor is properly initialized).
 > 
-> When no partitions are defined in the NAND DT node, then the NAND DT node
-> will be passed to NVMEM framework. If wp-gpios property is defined in
-> this node, the GPIO resource is taken twice and the NAND controller
-> driver fails to probe.
+> This patch move the video device creation with the v4l2 notifier
+> complete handler in order to avoid having a video device created when
+> an error happen during the pipe (dcmi - sensor) initialization.
 > 
-> It would be possible to set config->wp_gpio at MTD level before calling
-> nvmem_register function but NVMEM framework will toggle this GPIO on
-> each write when this GPIO should only be controlled at NAND level driver
-> to ensure that the Write Protect has not been enabled.
+> This also makes the video device creation symmetric with the
+> release which is already done within the notifier unbind handler.
 > 
-> A way to fix this conflict is to add a new boolean flag in nvmem_config
-> named skip_wp_gpio. In case skip_wp_gpio is set, the GPIO resource will
-> be managed by the provider.
-> 
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 > ---
-> Changes in v2:
->   - rework the proposal done to fix a conflict between MTD and NVMEM on
->     wp-gpios property.
+> v1: this patch is the replacement patch of a previous attempt [1]
+> to move the register within the bound callback.
 > 
->   drivers/nvmem/core.c           | 2 +-
->   include/linux/nvmem-provider.h | 4 +++-
->   2 files changed, 4 insertions(+), 2 deletions(-)
+> [1] https://lore.kernel.org/linux-media/31ca9ccc-77d4-4368-1024-db70e8e1e7f2@xs4all.nl/
+>  drivers/media/platform/stm32/stm32-dcmi.c | 69 ++++++++++++-----------
+>  1 file changed, 35 insertions(+), 34 deletions(-)
 > 
-> diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-> index 23a38dcf0fc4..cb40dca6a51d 100644
-> --- a/drivers/nvmem/core.c
-> +++ b/drivers/nvmem/core.c
-> @@ -771,7 +771,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
->   
->   	if (config->wp_gpio)
->   		nvmem->wp_gpio = config->wp_gpio;
+> diff --git a/drivers/media/platform/stm32/stm32-dcmi.c b/drivers/media/platform/stm32/stm32-dcmi.c
+> index e1b17c05229c..80d0fbeabb4f 100644
+> --- a/drivers/media/platform/stm32/stm32-dcmi.c
+> +++ b/drivers/media/platform/stm32/stm32-dcmi.c
+> @@ -134,6 +134,7 @@ struct stm32_dcmi {
+>  	struct video_device		*vdev;
+>  	struct v4l2_async_notifier	notifier;
+>  	struct v4l2_subdev		*source;
+> +	struct v4l2_subdev		*remote;
+>  	struct v4l2_format		fmt;
+>  	struct v4l2_rect		crop;
+>  	bool				do_crop;
+> @@ -579,9 +580,9 @@ static void dcmi_buf_queue(struct vb2_buffer *vb)
+>  	spin_unlock_irq(&dcmi->irqlock);
+>  }
+>  
+> -static struct media_entity *dcmi_find_source(struct stm32_dcmi *dcmi)
+> +static struct media_entity *dcmi_find_source(struct v4l2_subdev *subdev)
+>  {
+> -	struct media_entity *entity = &dcmi->vdev->entity;
+> +	struct media_entity *entity = &subdev->entity;
+>  	struct media_pad *pad;
+>  
+>  	/* Walk searching for entity having no sink */
+> @@ -1721,6 +1722,7 @@ static int dcmi_framesizes_init(struct stm32_dcmi *dcmi)
+>  static int dcmi_graph_notify_complete(struct v4l2_async_notifier *notifier)
+>  {
+>  	struct stm32_dcmi *dcmi = notifier_to_dcmi(notifier);
+> +	int src_pad;
+>  	int ret;
+>  
+>  	/*
+> @@ -1728,7 +1730,7 @@ static int dcmi_graph_notify_complete(struct v4l2_async_notifier *notifier)
+>  	 * we search for the source subdevice
+>  	 * in order to expose it through V4L2 interface
+>  	 */
+> -	dcmi->source = media_entity_to_v4l2_subdev(dcmi_find_source(dcmi));
+> +	dcmi->source = media_entity_to_v4l2_subdev(dcmi_find_source(dcmi->remote));
+>  	if (!dcmi->source) {
+>  		dev_err(dcmi->dev, "Source subdevice not found\n");
+>  		return -ENODEV;
+> @@ -1768,6 +1770,34 @@ static int dcmi_graph_notify_complete(struct v4l2_async_notifier *notifier)
+>  		return ret;
+>  	}
+>  
+> +	ret = video_register_device(dcmi->vdev, VFL_TYPE_VIDEO, -1);
+> +	if (ret) {
+> +		dev_err(dcmi->dev, "Failed to register video device\n");
+> +		return ret;
+> +	}
+
+This is the right place, but it's not quite sufficient. You also need to allocate
+the vdev here. I.e. move the whole allocation/initialization of vdev from probe()
+to here.
+
+If the vdev is allocated in probe(), and the subdev is never bound, then vdev is
+never freed in the current code.
+
+Regards,
+
+	Hans
+
+> +
+> +	dev_dbg(dcmi->dev, "Device registered as %s\n",
+> +		video_device_node_name(dcmi->vdev));
+> +
+> +	/*
+> +	 * Link remote sub-device to DCMI, it could be
+> +	 * a parallel camera sensor or a bridge
+> +	 */
+> +	src_pad = media_entity_get_fwnode_pad(&dcmi->remote->entity,
+> +					      dcmi->remote->fwnode,
+> +					      MEDIA_PAD_FL_SOURCE);
+> +
+> +	ret = media_create_pad_link(&dcmi->remote->entity, src_pad,
+> +				    &dcmi->vdev->entity, 0,
+> +				    MEDIA_LNK_FL_IMMUTABLE |
+> +				    MEDIA_LNK_FL_ENABLED);
+> +	if (ret)
+> +		dev_err(dcmi->dev, "Failed to create media pad link with subdev \"%s\"\n",
+> +			dcmi->remote->name);
+> +	else
+> +		dev_dbg(dcmi->dev, "DCMI is now linked to \"%s\"\n",
+> +			dcmi->remote->name);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -1788,31 +1818,11 @@ static int dcmi_graph_notify_bound(struct v4l2_async_notifier *notifier,
+>  				   struct v4l2_async_subdev *asd)
+>  {
+>  	struct stm32_dcmi *dcmi = notifier_to_dcmi(notifier);
+> -	unsigned int ret;
+> -	int src_pad;
+>  
+>  	dev_dbg(dcmi->dev, "Subdev \"%s\" bound\n", subdev->name);
+> +	dcmi->remote = subdev;
+>  
+> -	/*
+> -	 * Link this sub-device to DCMI, it could be
+> -	 * a parallel camera sensor or a bridge
+> -	 */
+> -	src_pad = media_entity_get_fwnode_pad(&subdev->entity,
+> -					      subdev->fwnode,
+> -					      MEDIA_PAD_FL_SOURCE);
+> -
+> -	ret = media_create_pad_link(&subdev->entity, src_pad,
+> -				    &dcmi->vdev->entity, 0,
+> -				    MEDIA_LNK_FL_IMMUTABLE |
+> -				    MEDIA_LNK_FL_ENABLED);
+> -	if (ret)
+> -		dev_err(dcmi->dev, "Failed to create media pad link with subdev \"%s\"\n",
+> -			subdev->name);
 > -	else
-> +	else if (!config->skip_wp_gpio)
->   		nvmem->wp_gpio = gpiod_get_optional(config->dev, "wp",
->   						    GPIOD_OUT_HIGH);
->   	if (IS_ERR(nvmem->wp_gpio)) {
-> diff --git a/include/linux/nvmem-provider.h b/include/linux/nvmem-provider.h
-> index 98efb7b5660d..4b480023c265 100644
-> --- a/include/linux/nvmem-provider.h
-> +++ b/include/linux/nvmem-provider.h
-> @@ -70,7 +70,8 @@ struct nvmem_keepout {
->    * @word_size:	Minimum read/write access granularity.
->    * @stride:	Minimum read/write access stride.
->    * @priv:	User context passed to read/write callbacks.
-> - * @wp-gpio:   Write protect pin
-> + * @wp-gpio:	Write protect pin
-> + * @skip_wp_gpio: Write Protect pin is managed by the provider.
+> -		dev_dbg(dcmi->dev, "DCMI is now linked to \"%s\"\n",
+> -			subdev->name);
+> -
+> -	return ret;
+> +	return 0;
+>  }
+>  
+>  static const struct v4l2_async_notifier_operations dcmi_graph_notify_ops = {
+> @@ -2008,15 +2018,6 @@ static int dcmi_probe(struct platform_device *pdev)
+>  	}
+>  	dcmi->vdev->entity.flags |= MEDIA_ENT_FL_DEFAULT;
+>  
+> -	ret = video_register_device(dcmi->vdev, VFL_TYPE_VIDEO, -1);
+> -	if (ret) {
+> -		dev_err(dcmi->dev, "Failed to register video device\n");
+> -		goto err_media_entity_cleanup;
+> -	}
+> -
+> -	dev_dbg(dcmi->dev, "Device registered as %s\n",
+> -		video_device_node_name(dcmi->vdev));
+> -
+>  	/* Buffer queue */
+>  	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+>  	q->io_modes = VB2_MMAP | VB2_READ | VB2_DMABUF;
 
-Can we rename this to ingore_wp as suggested by Miquel.
-
---srini
-
->    *
->    * Note: A default "nvmem<id>" name will be assigned to the device if
->    * no name is specified in its configuration. In such case "<id>" is
-> @@ -92,6 +93,7 @@ struct nvmem_config {
->   	enum nvmem_type		type;
->   	bool			read_only;
->   	bool			root_only;
-> +	bool			skip_wp_gpio;
->   	struct device_node	*of_node;
->   	bool			no_of_node;
->   	nvmem_reg_read_t	reg_read;
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
