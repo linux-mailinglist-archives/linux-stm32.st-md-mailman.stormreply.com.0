@@ -2,51 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41BA34BB0CA
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Feb 2022 05:36:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0976E4BB4A2
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Feb 2022 09:56:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1CA4C5F1FA;
-	Fri, 18 Feb 2022 04:36:09 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A5B8C5F1F2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Feb 2022 04:36:08 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ADE12C5F1FB;
+	Fri, 18 Feb 2022 08:56:00 +0000 (UTC)
+Received: from msr9.hinet.net (msr9.hinet.net [168.95.4.109])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 8DCC9B82402;
- Fri, 18 Feb 2022 04:36:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7555C340E9;
- Fri, 18 Feb 2022 04:36:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645158966;
- bh=+l51Or4meOwBjDYBCyGfvqc9xDIc92UbsEMYwevC4GU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bhzOeCh+qbxrFrS19HvOwc/3b5/uRJOVdjviXbed4BOboHQCLykNMNnIm11/UEp4g
- JfsuFeZueOuuzgsZNacwAn/W1Gstm7Y76s3i1EL35oXAvOVDCN7YWGfzD9aGnwFOCF
- DG423bQqmu99o5m0uZAQ1ZSQ93J/O5Z6LAtamCBaDYHWlWfY6vb3vekbBtvY6/jzWM
- 1F6AsTOW3+nKFc50Ca8WJ8Ev09pRSR0CBdLaqt71RXftx/snsyVLKDxcq5KBBumKPo
- nvtk6CjyGzGgNiQem+gpeVaXFSq/rXZMjM3xCiz6mizVn6rCUXwVJipEioOiGsm/o+
- A0TKo2ruBhcSg==
-Date: Thu, 17 Feb 2022 20:36:04 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Vincent Whitchurch <vincent.whitchurch@axis.com>
-Message-ID: <20220217203604.39e318d0@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20220217145527.2696444-1-vincent.whitchurch@axis.com>
-References: <20220217145527.2696444-1-vincent.whitchurch@axis.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E03DBC57B6C
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 17 Feb 2022 16:07:27 +0000 (UTC)
+Received: from laptop.lan (111-253-217-22.dynamic-ip.hinet.net
+ [111.253.217.22])
+ by msr9.hinet.net (8.15.2/8.15.2) with ESMTP id 21HG6WIc096094;
+ Fri, 18 Feb 2022 00:06:32 +0800
+From: "Lin, Meng-Bo" <linmengbo0689@protonmail.com>
+To: linux-kernel@vger.kernel.org
+Date: Fri, 18 Feb 2022 01:06:24 +0900
+Message-Id: <20220217160624.20936-1-linmengbo0689@protonmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@st.com>, netdev@vger.kernel.org,
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.4 cv=Xvg/hXJ9 c=1 sm=1 tr=0 ts=620e728a
+ a=QmhVwYW7bC54/XG34QDJIg==:117 a=QmhVwYW7bC54/XG34QDJIg==:17
+ a=sfOm8-O8AAAA:8 a=fnsQhsnqeVFlupmvOtAA:9 a=TvTJqdcANYtsRzA46cdi:22
+X-Mailman-Approved-At: Fri, 18 Feb 2022 08:56:00 +0000
+Cc: Lin@protonmail.com, "Lin, Meng-Bo" <linmengbo0689@protonmail.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- kernel@axis.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Lars Persson <larper@axis.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David
- S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Enable NAPI before
-	interrupts go live
+ ~postmarketos/upstreaming@lists.sr.ht,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] input: stmfts: #define STMFTS_RETRY_COUNT 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,34 +51,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 17 Feb 2022 15:55:26 +0100 Vincent Whitchurch wrote:
-> From: Lars Persson <larper@axis.com>
-> 
-> The stmmac_open function has a race window between enabling the RX
-> path and its interrupt to the point where napi_enabled is called.
-> 
-> A chatty network with plenty of broadcast/multicast traffic has the
-> potential to completely fill the RX ring before the interrupt handler
-> is installed. In this scenario the single interrupt taken will find
-> napi disabled and the RX ring will not be processed. No further RX
-> interrupt will be delivered because the ring is full.
-> 
-> The RX stall could eventually clear because the TX path will trigger a
-> DMA interrupt once the tx_coal_frames threshold is reached and then
-> NAPI becomes scheduled.
+Add #define STMFTS_RETRY_COUNT 3 to retry stmfts_command() 3 times.
+Without it, STMFTS_SYSTEM_RESET or STMFTS_SLEEP_OUT may return -110 to
+failed attempt due to no event received for completion.
 
-LGTM, although now the ndo_open and ndo_stop paths are not symmetrical.
-Is there no way to mask the IRQs so that they don't fire immediately?
-More common flow (IMO) would be:
- - request irq
- - mask irq
- - populate rings
- - start dma
- - enable napi
- - unmask irq
-Other than the difference in flow between open/stop there may also be
-some unpleasantness around restarting tx queues twice with the patch
-as is.
+Signed-off-by: Lin, Meng-Bo <linmengbo0689@protonmail.com>
+---
+ drivers/input/touchscreen/stmfts.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index bc11203c9cf7..d36be85a980e 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -68,6 +68,7 @@
+ #define STMFTS_DATA_MAX_SIZE	(STMFTS_EVENT_SIZE * STMFTS_STACK_DEPTH)
+ #define STMFTS_MAX_FINGERS	10
+ #define STMFTS_DEV_NAME		"stmfts"
++#define STMFTS_RETRY_COUNT	3
+ 
+ enum stmfts_regulators {
+ 	STMFTS_REGULATOR_VDD,
+@@ -317,19 +318,20 @@ static irqreturn_t stmfts_irq_handler(int irq, void *dev)
+ 
+ static int stmfts_command(struct stmfts_data *sdata, const u8 cmd)
+ {
+-	int err;
++	int err, retry;
+ 
+ 	reinit_completion(&sdata->cmd_done);
+ 
+-	err = i2c_smbus_write_byte(sdata->client, cmd);
+-	if (err)
+-		return err;
+-
+-	if (!wait_for_completion_timeout(&sdata->cmd_done,
+-					 msecs_to_jiffies(1000)))
+-		return -ETIMEDOUT;
++	for (retry = 0; retry < STMFTS_RETRY_COUNT; retry++) {
++		err = i2c_smbus_write_byte(sdata->client, cmd);
++		if (err)
++			return err;
+ 
+-	return 0;
++		if (wait_for_completion_timeout(&sdata->cmd_done,
++						msecs_to_jiffies(1000)))
++			return 0;
++	}
++	return -ETIMEDOUT;
+ }
+ 
+ static int stmfts_input_open(struct input_dev *dev)
+-- 
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
