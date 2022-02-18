@@ -2,72 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CAB64BB5E7
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Feb 2022 10:46:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 377DD4BB6C7
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Feb 2022 11:23:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5ADAC6046A;
-	Fri, 18 Feb 2022 09:46:19 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3E0DC6046A;
+	Fri, 18 Feb 2022 10:23:05 +0000 (UTC)
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51AC7C23E53
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB5B1C23E53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Feb 2022 09:46:18 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id p9so13515311wra.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Feb 2022 01:46:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=TNPs3XUIKSJGHFJT31aKb5KrR4RIhs82BSGaW6p5+r8=;
- b=aMnVyUqa2iZNrnxcPBcAiBODjipAWB0m4PbyPEvAMm+dWL6d9x5uyTW2u76utu6bLk
- Ac0vPLp8pDxRVjmI1e+T8dQ6LmVsJSOnsSXvLXWVcz8kbZr+eNbQfdQ0dfzNcQWp7N/k
- mN9n/YgIb4eu+SY76EihV15a2Qm7HwADUzWPQ9cwJ/Bj8dAxBq0hbFCl66YLxWOOG+jj
- D3NLR5KJ4hYzhc//UhA0kqw8PSzm4TBFJVe5iqhk+d/t8L5l4nJqxEcb/ZG+W9uU13jI
- oUKolYaAoX4iTb1eCrmV1sAhc3KMqKNauyUiNbVxufjW2XOKe1cL8xOlMKEUrvZdCUcC
- 7uLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=TNPs3XUIKSJGHFJT31aKb5KrR4RIhs82BSGaW6p5+r8=;
- b=7/QtgqXQNJj5GzhuvgudggV+1RwKXLhHe7sElR/BNlZM9poauRCxU+rlHwxm5Xjk8G
- xWSQWLcNFQ+91iZCnXBYuFmsfU5A2FZYwEUlY7a3i7apRR2RuBocaCnLpQxt3GuQ4Sf7
- AmG7N1zji0koto/EyeE29vOh6TGszxgl7hBTQXRUYJN+vXBij/+Z+ZWN18Hqwh+kMQJZ
- gZNRlsN8gQaFHUvU5w+YqIQ46S9Auu3PWjEIg8WuHwP7fB2xymNlNS/cLm6n8jqwvQxs
- DLgG9dXSJYOQJBtewF3avDx5ZDKvSLSteAdWsa/Dxps7M/kA11XutLs1LE4hZ4yhyf6E
- yvgg==
-X-Gm-Message-State: AOAM533eetitRpov6wBzbUbHaBG7gRRxsgcTEIbTU35nPtKLlZCN6nie
- yvOMrgq43IjmOXzlNLqOHf17gw==
-X-Google-Smtp-Source: ABdhPJz+D9bmvjgoT8qq45YSNK+QUrJSJSkPVo+OcczsyGu5pCnQnNkzQok/8IEwR4pVbDWeRIo2Og==
-X-Received: by 2002:a5d:42ca:0:b0:1e6:2bf3:5c17 with SMTP id
- t10-20020a5d42ca000000b001e62bf35c17mr5254344wrr.621.1645177577821; 
- Fri, 18 Feb 2022 01:46:17 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id g22sm3649606wmh.12.2022.02.18.01.46.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Feb 2022 01:46:17 -0800 (PST)
-Message-ID: <f44ae992-5408-6f4c-2d03-6c0c64336fb1@linaro.org>
-Date: Fri, 18 Feb 2022 09:46:15 +0000
+ Fri, 18 Feb 2022 10:23:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1645179784;
+ x=1676715784; h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=0t0ig3q6Sp2mvoezO0JaagGhH+DGXuT456KDBH79FZ0=;
+ b=jZY8J99ME6oEMnW+UCLxnDd3mZwDb04XTUXfU5VPt462s79W59GRvkdi
+ RpAjCmyPKoNZTWr2g+B+jGZ3gyQVO+nHk+fI+3pzFrEmfZHTqo0zNk0Tj
+ XEjGHvh9Y9XmuYBngTZecVAEqANnsQnbCyRfB0klrhBkvmGkpRydjRQ+0
+ czxQmlCKQjyRPrfW3dExjx19ClLLdWeBWBXHSdDFJ2Png2ju57A/eKFzU
+ Ioq/SQrM+PQURiS3Kk5asUFI9X9ZVlo1hOt7y+ChBJuGKRRbrl+QOAy1n
+ PVtrczAlJCQ+soLlnSM9FRvl+JZra2w2Dep7nfOGbQIRpHfPEmH5DiKZZ g==;
+Date: Fri, 18 Feb 2022 11:23:03 +0100
+From: Vincent Whitchurch <vincent.whitchurch@axis.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <20220218102303.GA21458@axis.com>
+References: <20220217145527.2696444-1-vincent.whitchurch@axis.com>
+ <20220217203604.39e318d0@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Christophe Kerello <christophe.kerello@foss.st.com>,
- miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
- robh+dt@kernel.org, p.yadav@ti.com
-References: <20220217144755.270679-1-christophe.kerello@foss.st.com>
- <20220217144755.270679-5-christophe.kerello@foss.st.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220217144755.270679-5-christophe.kerello@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, chenshumin86@sina.com
-Subject: Re: [Linux-stm32] [PATCH v3 4/4] mtd: core: Fix a conflict between
- MTD and NVMEM on wp-gpios property
+Content-Disposition: inline
+In-Reply-To: <20220217203604.39e318d0@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@st.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
+ kernel <kernel@axis.com>, Lars Persson <Lars.Persson@axis.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S.
+ Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Enable NAPI before
+	interrupts go live
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,79 +58,143 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Miquel,
-
-
-On 17/02/2022 14:47, Christophe Kerello wrote:
-> Wp-gpios property can be used on NVMEM nodes and the same property can
-> be also used on MTD NAND nodes. In case of the wp-gpios property is
-> defined at NAND level node, the GPIO management is done at NAND driver
-> level. Write protect is disabled when the driver is probed or resumed
-> and is enabled when the driver is released or suspended.
+On Fri, Feb 18, 2022 at 05:36:04AM +0100, Jakub Kicinski wrote:
+> On Thu, 17 Feb 2022 15:55:26 +0100 Vincent Whitchurch wrote:
+> > The stmmac_open function has a race window between enabling the RX
+> > path and its interrupt to the point where napi_enabled is called.
+> > 
+> > A chatty network with plenty of broadcast/multicast traffic has the
+> > potential to completely fill the RX ring before the interrupt handler
+> > is installed. In this scenario the single interrupt taken will find
+> > napi disabled and the RX ring will not be processed. No further RX
+> > interrupt will be delivered because the ring is full.
+> > 
+> > The RX stall could eventually clear because the TX path will trigger a
+> > DMA interrupt once the tx_coal_frames threshold is reached and then
+> > NAPI becomes scheduled.
 > 
-> When no partitions are defined in the NAND DT node, then the NAND DT node
-> will be passed to NVMEM framework. If wp-gpios property is defined in
-> this node, the GPIO resource is taken twice and the NAND controller
-> driver fails to probe.
-> 
-> A new Boolean flag named ignore_wp has been added in nvmem_config.
-> In case ignore_wp is set, it means that the GPIO is handled by the
-> provider. Lets set this flag in MTD layer to avoid the conflict on
-> wp_gpios property.
-> 
-> Fixes: 2a127da461a9 ("nvmem: add support for the write-protect pin")
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-> Cc: stable@vger.kernel.org
-> ---
+> LGTM, although now the ndo_open and ndo_stop paths are not symmetrical.
+> Is there no way to mask the IRQs so that they don't fire immediately?
 
+The initial enabling of the DMA irqs is done as part of the
+->init_chan() callback inside the various variants.  We could use the
+->disable_dma_irq() callback to to disable the DMA irqs and only enable
+them at the end of the init sequence with a stmmac_enable_all_dma_irq().
 
-There seems to be already an mtd core patch [1] that is planned to go 
-via nvmem tree, do you want me to take 3/4 and 4/4 via nvmem tree as well?
-Or
-you can pick up both the series via mtd tree?
+This avoids having to change all the variants and there should be no
+problem in calling ->disable_dma_irq() after the interrupts have been
+momentarily enabled in ->stmmac_init_chan() since the DMA is reset
+before these calls and not started until later.
 
-Am okay either way.
+Note that I haven't added a symmetrical stmmac_disable_all_dma_irq() at
+the top of stmmac_release() before the NAPI disable since I can't see
+that it would do any good there since NAPI can re-enable DMA irqs.
 
+> More common flow (IMO) would be:
+>  - request irq
+>  - mask irq
+>  - populate rings
+>  - start dma
+>  - enable napi
+>  - unmask irq
 
+I don't think this driver has ever followed this exact sequence, but the
+request_irq() was done before the "start dma" and the "enable napi"
+before the commit mentioned in the Fixes: tag.  But that's quite a while
+ago and the driver has changed a lot since then and gotten support for a
+lot of variants and features which I can't test, so I didn't dare to
+rewrite the entire init sequence.
 
-[1] 
-https://patchwork.kernel.org/project/linux-usb/patch/20220104133843.44272-4-andriy.shevchenko@linux.intel.com/
+> Other than the difference in flow between open/stop there may also be
+> some unpleasantness around restarting tx queues twice with the patch
+> as is.
 
---srini
+New patch below, it works for me (though I don't have hardware with
+working suspend/resume support).  I will send it out as a v2 if there
+are no objections.  Thanks.
 
-
-> Changes in v3:
->   - add a fixes tag
->   - rename skip_wp_gpio by ignore_wp in nvmen_config.
-> 
->   drivers/mtd/mtdcore.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-> index 70f492dce158..eef87b28d6c8 100644
-> --- a/drivers/mtd/mtdcore.c
-> +++ b/drivers/mtd/mtdcore.c
-> @@ -546,6 +546,7 @@ static int mtd_nvmem_add(struct mtd_info *mtd)
->   	config.stride = 1;
->   	config.read_only = true;
->   	config.root_only = true;
-> +	config.ignore_wp = true;
->   	config.no_of_node = !of_device_is_compatible(node, "nvmem-cells");
->   	config.priv = mtd;
->   
-> @@ -833,6 +834,7 @@ static struct nvmem_device *mtd_otp_nvmem_register(struct mtd_info *mtd,
->   	config.owner = THIS_MODULE;
->   	config.type = NVMEM_TYPE_OTP;
->   	config.root_only = true;
-> +	config.ignore_wp = true;
->   	config.reg_read = reg_read;
->   	config.size = size;
->   	config.of_node = np;
+8<-----
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 6708ca2aa4f7..43978558d6c0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2260,6 +2260,23 @@ static void stmmac_stop_tx_dma(struct stmmac_priv *priv, u32 chan)
+ 	stmmac_stop_tx(priv, priv->ioaddr, chan);
+ }
+ 
++static void stmmac_enable_all_dma_irq(struct stmmac_priv *priv)
++{
++	u32 rx_channels_count = priv->plat->rx_queues_to_use;
++	u32 tx_channels_count = priv->plat->tx_queues_to_use;
++	u32 dma_csr_ch = max(rx_channels_count, tx_channels_count);
++	u32 chan;
++
++	for (chan = 0; chan < dma_csr_ch; chan++) {
++		struct stmmac_channel *ch = &priv->channel[chan];
++		unsigned long flags;
++
++		spin_lock_irqsave(&ch->lock, flags);
++		stmmac_enable_dma_irq(priv, priv->ioaddr, chan, 1, 1);
++		spin_unlock_irqrestore(&ch->lock, flags);
++	}
++}
++
+ /**
+  * stmmac_start_all_dma - start all RX and TX DMA channels
+  * @priv: driver private structure
+@@ -2902,8 +2919,10 @@ static int stmmac_init_dma_engine(struct stmmac_priv *priv)
+ 		stmmac_axi(priv, priv->ioaddr, priv->plat->axi);
+ 
+ 	/* DMA CSR Channel configuration */
+-	for (chan = 0; chan < dma_csr_ch; chan++)
++	for (chan = 0; chan < dma_csr_ch; chan++) {
+ 		stmmac_init_chan(priv, priv->ioaddr, priv->plat->dma_cfg, chan);
++		stmmac_disable_dma_irq(priv, priv->ioaddr, chan, 1, 1);
++	}
+ 
+ 	/* DMA RX Channel Configuration */
+ 	for (chan = 0; chan < rx_channels_count; chan++) {
+@@ -3759,6 +3778,7 @@ static int stmmac_open(struct net_device *dev)
+ 
+ 	stmmac_enable_all_queues(priv);
+ 	netif_tx_start_all_queues(priv->dev);
++	stmmac_enable_all_dma_irq(priv);
+ 
+ 	return 0;
+ 
+@@ -6508,8 +6528,10 @@ int stmmac_xdp_open(struct net_device *dev)
+ 	}
+ 
+ 	/* DMA CSR Channel configuration */
+-	for (chan = 0; chan < dma_csr_ch; chan++)
++	for (chan = 0; chan < dma_csr_ch; chan++) {
+ 		stmmac_init_chan(priv, priv->ioaddr, priv->plat->dma_cfg, chan);
++		stmmac_disable_dma_irq(priv, priv->ioaddr, chan, 1, 1);
++	}
+ 
+ 	/* Adjust Split header */
+ 	sph_en = (priv->hw->rx_csum > 0) && priv->sph;
+@@ -6570,6 +6592,7 @@ int stmmac_xdp_open(struct net_device *dev)
+ 	stmmac_enable_all_queues(priv);
+ 	netif_carrier_on(dev);
+ 	netif_tx_start_all_queues(dev);
++	stmmac_enable_all_dma_irq(priv);
+ 
+ 	return 0;
+ 
+@@ -7447,6 +7470,7 @@ int stmmac_resume(struct device *dev)
+ 	stmmac_restore_hw_vlan_rx_fltr(priv, ndev, priv->hw);
+ 
+ 	stmmac_enable_all_queues(priv);
++	stmmac_enable_all_dma_irq(priv);
+ 
+ 	mutex_unlock(&priv->lock);
+ 	rtnl_unlock();
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
