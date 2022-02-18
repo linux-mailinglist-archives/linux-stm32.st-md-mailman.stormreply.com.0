@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92C3F4BBA10
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Feb 2022 14:24:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BFC54BBA14
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Feb 2022 14:25:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32081C60474;
-	Fri, 18 Feb 2022 13:24:49 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40AF6C60474;
+	Fri, 18 Feb 2022 13:25:04 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EFC39C6046E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 242D6C6046E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Feb 2022 13:24:47 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id x5so9740589wrg.13
+ Fri, 18 Feb 2022 13:25:03 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ x3-20020a05600c21c300b0037c01ad715bso6424219wmj.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Feb 2022 05:24:47 -0800 (PST)
+ Fri, 18 Feb 2022 05:25:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=message-id:date:mime-version:user-agent:subject:content-language:to
  :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=ujmj8PwbJSvu47uw+CyCbxAA/eAxR/7pr/uKWTwQSVI=;
- b=d/5iEdmNQi1OPG/+LIV6gWpQUkUjCSHGIgH1D0FcX7ZyEgs8jS7MoQa4IJgJ2B6eqL
- FM4kzf/QUxUrCwUX2eIFNVmfzlNT63GrIWDj9FwpDaARAILH0RZ1/01qjCG0zSPh3dMJ
- HwvWOd6S8DF2OOneBoSwvAs0UzTJqknCOwwyfC3Om1DfojnRR+YPwbLY4hRuChuD+GNI
- TFnxA8s6wH7tGfns7Ivf21N8LvzoaL1LzjpjnDvBoGnfvN4KW+wm2FHcmLsKNwNcGnrB
- rOOOIDwBR598nXeua7jBinj0xTnuNLzO/uTX1BAaIh+fIw844Mqko7SZF1pi/5Zii1xs
- S8LQ==
+ bh=yrkYgpVIUXGnXP2wkyWmIbd2RYDJqfqs2Rsp+OtCt5o=;
+ b=uAAaFw6RHpsnW5DW+gQVrVkaLEzP2Xzhuy4W0EJdVj+v9QPUI1dBLADu063fihlOEu
+ SMmDL+vn0fseuUyOwz4U6ojcjnvO2AmogeBd02BQNAwHSuD2pcrlE/kh8xiGBAW74gk0
+ VLtxRzwtsIGpUyxapMkGGRS/4St+WSxs5Ah+5sMiXD+P009Tfy8QTxz2pi2Qkhqe+hxF
+ hv6LJMEvU1UKM3Gp4pilsMA012MvSbmPZjV8RfRX3qiQ03dZkCCo0OPtymcMqivDiXaK
+ 6WxgiHHGOQyo+j/OrC3DkLrUyDsYAju7NmHIHfHQEd1nUXxkf4Wm83SB5/0gRlrqW/3l
+ OVCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=ujmj8PwbJSvu47uw+CyCbxAA/eAxR/7pr/uKWTwQSVI=;
- b=zlZ6sopAN1TGFIUOTH7YYYOoH/5EcMnQuI8HeQTqOWaxUgqGp6BjDk3mVEFD1Uyy+S
- yN5lWFQeSRSQw8WyGwNueGb+ytj3c1NoEruGdTX/cI6ueSf1Rq68gc7BCKIzkqwakjtL
- 9x298dMHYlAoXp5xtRZVOc/kzqYWxZH40fwjSZYNbg25ISYeuwEDanX1jX9hYE38l7J/
- LhNUg5FCVdftEX90LekJWYrelIHfnYcBE9HXpwLRgU3OPiw+H3z3GpuXt+UySnoiymp3
- 2HACbNSNC/gW1Q3WFyBIQOOXGZuiCZqWqnzdTxGkMzMA0yR6cdjqX4+LozlkRx7UeTIq
- vIWQ==
-X-Gm-Message-State: AOAM531r9OC3Lvy1qBDc8oVDOxkMms4s6L7sj9eDESH5xpzgwzT545LM
- oTYVUjp7DEB0WCtel6R7R1f/bA==
-X-Google-Smtp-Source: ABdhPJy2nDo7yTxFYdHgagsn3pqhYbisII2MeTUOZhN6jb5RjapXtp3DM5vozRRBVGB3r4CtEsesrg==
-X-Received: by 2002:a05:6000:1e04:b0:1e4:9b64:8cab with SMTP id
- bj4-20020a0560001e0400b001e49b648cabmr6038845wrb.608.1645190687489; 
- Fri, 18 Feb 2022 05:24:47 -0800 (PST)
+ bh=yrkYgpVIUXGnXP2wkyWmIbd2RYDJqfqs2Rsp+OtCt5o=;
+ b=fWC2tyCD4V3cIJDvCjjzi06/dT5QmZ08Hi0k9cj3NkK+4VqEP1m6WW+20t0OohiUob
+ W3T2dH9PnYowtBpA4hKCOGWLv76bOlUyGWcT0FC1k5j1IZ4SCEzR2L9LsgtqtrGtSO+v
+ tPJCNj0w2KrgbdDwaaCsu0Hni/U/ojA3LSU87SG6KvyhWJc3YTp0myxlxViPf3ibrkMW
+ u3JD9/JP2DFkLBisbhsq74puJHlDOtz3See72Kjr+bkTiHZm2PSD7hll3IeKMvZ3sMwu
+ R9X6awhn6NkxRnYXBo8Y9rPIbixNWAy5MFP8gjTcVz4yfvVpw2sjv4b3JQBttinAP57z
+ l1uA==
+X-Gm-Message-State: AOAM530yeRNDR6wceyeLSJYfIspCboq15rEUAApDxZ9BdBmkBf4w/Baf
+ EbvSuZjFiOp5psKjHkJ6NJBY/Q==
+X-Google-Smtp-Source: ABdhPJyVAYzbgy/AAZpsXhPLMR1fBjvqb4Dg1MygToTm7RwGLTNkBP3nvxFtcdd/zIFp23yEwgJAXg==
+X-Received: by 2002:a05:600c:19ce:b0:37c:6fe:68b6 with SMTP id
+ u14-20020a05600c19ce00b0037c06fe68b6mr10451900wmq.90.1645190702754; 
+ Fri, 18 Feb 2022 05:25:02 -0800 (PST)
 Received: from [192.168.86.34]
  (cpc90716-aztw32-2-0-cust825.18-1.cable.virginm.net. [86.26.103.58])
- by smtp.googlemail.com with ESMTPSA id x18sm41464215wrw.17.2022.02.18.05.24.45
+ by smtp.googlemail.com with ESMTPSA id r2sm6039032wmq.24.2022.02.18.05.25.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Feb 2022 05:24:46 -0800 (PST)
-Message-ID: <6f3ff8f3-82fb-1bb1-d854-bb48f1ea9b1d@linaro.org>
-Date: Fri, 18 Feb 2022 13:24:45 +0000
+ Fri, 18 Feb 2022 05:25:02 -0800 (PST)
+Message-ID: <e451d814-2d10-6cb6-3402-6d1580ddbce2@linaro.org>
+Date: Fri, 18 Feb 2022 13:25:00 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
@@ -60,14 +61,14 @@ To: Christophe Kerello <christophe.kerello@foss.st.com>,
  miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
  robh+dt@kernel.org, p.yadav@ti.com
 References: <20220217144755.270679-1-christophe.kerello@foss.st.com>
- <20220217144755.270679-4-christophe.kerello@foss.st.com>
+ <20220217144755.270679-5-christophe.kerello@foss.st.com>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20220217144755.270679-4-christophe.kerello@foss.st.com>
+In-Reply-To: <20220217144755.270679-5-christophe.kerello@foss.st.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, chenshumin86@sina.com
-Subject: Re: [Linux-stm32] [PATCH v3 3/4] nvmem: core: Fix a conflict
- between MTD and NVMEM on wp-gpios property
+Subject: Re: [Linux-stm32] [PATCH v3 4/4] mtd: core: Fix a conflict between
+ MTD and NVMEM on wp-gpios property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,70 +99,48 @@ On 17/02/2022 14:47, Christophe Kerello wrote:
 > this node, the GPIO resource is taken twice and the NAND controller
 > driver fails to probe.
 > 
-> It would be possible to set config->wp_gpio at MTD level before calling
-> nvmem_register function but NVMEM framework will toggle this GPIO on
-> each write when this GPIO should only be controlled at NAND level driver
-> to ensure that the Write Protect has not been enabled.
-> 
-> A way to fix this conflict is to add a new boolean flag in nvmem_config
-> named ignore_wp. In case ignore_wp is set, the GPIO resource will
-> be managed by the provider.
+> A new Boolean flag named ignore_wp has been added in nvmem_config.
+> In case ignore_wp is set, it means that the GPIO is handled by the
+> provider. Lets set this flag in MTD layer to avoid the conflict on
+> wp_gpios property.
 > 
 > Fixes: 2a127da461a9 ("nvmem: add support for the write-protect pin")
 > Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
 > Cc: stable@vger.kernel.org
-> ---
-> Changes in v3:
->   - add a fixes tag.
->   - rename skip_wp_gpio by ignore_wp in nvmen_config.
+
 
 Applied thanks,
 
 --srini
+
+> ---
+> Changes in v3:
+>   - add a fixes tag
+>   - rename skip_wp_gpio by ignore_wp in nvmen_config.
 > 
-> Changes in v2:
->   - rework the proposal done to fix a conflict between MTD and NVMEM on
->     wp-gpios property.
+>   drivers/mtd/mtdcore.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
->   drivers/nvmem/core.c           | 2 +-
->   include/linux/nvmem-provider.h | 4 +++-
->   2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-> index 23a38dcf0fc4..9fd1602b539d 100644
-> --- a/drivers/nvmem/core.c
-> +++ b/drivers/nvmem/core.c
-> @@ -771,7 +771,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+> diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+> index 70f492dce158..eef87b28d6c8 100644
+> --- a/drivers/mtd/mtdcore.c
+> +++ b/drivers/mtd/mtdcore.c
+> @@ -546,6 +546,7 @@ static int mtd_nvmem_add(struct mtd_info *mtd)
+>   	config.stride = 1;
+>   	config.read_only = true;
+>   	config.root_only = true;
+> +	config.ignore_wp = true;
+>   	config.no_of_node = !of_device_is_compatible(node, "nvmem-cells");
+>   	config.priv = mtd;
 >   
->   	if (config->wp_gpio)
->   		nvmem->wp_gpio = config->wp_gpio;
-> -	else
-> +	else if (!config->ignore_wp)
->   		nvmem->wp_gpio = gpiod_get_optional(config->dev, "wp",
->   						    GPIOD_OUT_HIGH);
->   	if (IS_ERR(nvmem->wp_gpio)) {
-> diff --git a/include/linux/nvmem-provider.h b/include/linux/nvmem-provider.h
-> index 98efb7b5660d..c9a3ac9efeaa 100644
-> --- a/include/linux/nvmem-provider.h
-> +++ b/include/linux/nvmem-provider.h
-> @@ -70,7 +70,8 @@ struct nvmem_keepout {
->    * @word_size:	Minimum read/write access granularity.
->    * @stride:	Minimum read/write access stride.
->    * @priv:	User context passed to read/write callbacks.
-> - * @wp-gpio:   Write protect pin
-> + * @wp-gpio:	Write protect pin
-> + * @ignore_wp:  Write Protect pin is managed by the provider.
->    *
->    * Note: A default "nvmem<id>" name will be assigned to the device if
->    * no name is specified in its configuration. In such case "<id>" is
-> @@ -92,6 +93,7 @@ struct nvmem_config {
->   	enum nvmem_type		type;
->   	bool			read_only;
->   	bool			root_only;
-> +	bool			ignore_wp;
->   	struct device_node	*of_node;
->   	bool			no_of_node;
->   	nvmem_reg_read_t	reg_read;
+> @@ -833,6 +834,7 @@ static struct nvmem_device *mtd_otp_nvmem_register(struct mtd_info *mtd,
+>   	config.owner = THIS_MODULE;
+>   	config.type = NVMEM_TYPE_OTP;
+>   	config.root_only = true;
+> +	config.ignore_wp = true;
+>   	config.reg_read = reg_read;
+>   	config.size = size;
+>   	config.of_node = np;
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
