@@ -2,49 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 528014BBAAB
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Feb 2022 15:33:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35D884BC55A
+	for <lists+linux-stm32@lfdr.de>; Sat, 19 Feb 2022 05:33:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19E4FC60474;
-	Fri, 18 Feb 2022 14:33:10 +0000 (UTC)
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6CC4C60474;
+	Sat, 19 Feb 2022 04:33:33 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60D47C6046E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E90E2C23E53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Feb 2022 14:33:08 +0000 (UTC)
-Received: (Authenticated sender: miquel.raynal@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 9DFCA10000D;
- Fri, 18 Feb 2022 14:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1645194788;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=P8wreGlX9R9giHg9TtUZfMq1UzO5U2luCRSST3Eos5A=;
- b=PGeF6w9lBkT1hVEhEqQt/p7nOYy2rD2ee18sQ0smT3QRM0pbn3dBzpxRzQMp3L/QTwpKNS
- /m7RrOnm2IiqPOzBpG7O2a0bnQVRCI8+v94LwjRgZhr0g4dsyPAy6aJfZ9GlQAAnh/PanX
- wdlsX26q/F2+DNz5DQz2Dy8QbldHzxpf4v0Le6pYC+egD5qwRaiSmnD5iKHI/GmRYLcumG
- QkNq53+GA+Nc4QjD3tGSY6sdAeUGMo0CxTSVPZEnC1flmx0/zDwkQLNV1bs0Y1SjxaebtR
- 3trvHTIkc70ZyPM2hbeNTXVVK7+Rer4X/2TrmpAeR9WqNmkBwbSZSFubUfKzIQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Christophe Kerello <christophe.kerello@foss.st.com>,
- miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
- robh+dt@kernel.org, srinivas.kandagatla@linaro.org, p.yadav@ti.com
-Date: Fri, 18 Feb 2022 15:33:06 +0100
-Message-Id: <20220218143306.322284-1-miquel.raynal@bootlin.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20220217144755.270679-2-christophe.kerello@foss.st.com>
-References: 
+ Sat, 19 Feb 2022 04:33:31 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 329B9B81EF8;
+ Sat, 19 Feb 2022 04:33:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548C4C340EC;
+ Sat, 19 Feb 2022 04:33:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1645245209;
+ bh=Rs4cMPN9TM4IX/vQWrInXDPL6gf4BDqIhlJMXPdzig4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=tnRqV7FW16sCEwlmc039O5/sVLO6OtKxIdSxWPMTw9C1VWTL6uZw+6/6rf8C3Rr+R
+ Kdi6t/WHyF0xICWUasHPw+4wn1PhMz0c3HRijAgWVN9Zusq3OfRqmMufrw10Bfi7pQ
+ AwtM9aeciKHbL7Xn3q3raVYV24cdJwbcG033m23dXuVuo6Ggp4YBZQL8mtY5ZcYYaG
+ w+2LzSl5KFbB6CO42N2TtWP+aDVB3QGerlA50BiqyHUzyXrnOXYnpub6CZYYoeAqiM
+ hqt2LNCWhTBTDLVPs61sQ8JmSgbTDf4YVImbv8qtqo3k02kmmO97sZHcwXP3snNfdx
+ g5Um/TFMgvZRg==
+Date: Fri, 18 Feb 2022 20:33:28 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Message-ID: <20220218203328.20318a68@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20220218104504.62sfwbc4yoaceqdw@pengutronix.de>
+References: <20220217145527.2696444-1-vincent.whitchurch@axis.com>
+ <20220217203604.39e318d0@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <20220218104504.62sfwbc4yoaceqdw@pengutronix.de>
 MIME-Version: 1.0
-X-linux-mtd-patch-notification: thanks
-X-linux-mtd-patch-commit: b'cb57fae479be41d1233f5a49d4760de9a5692b6e'
-Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, chenshumin86@sina.com
-Subject: Re: [Linux-stm32] [PATCH v3 1/4] dt-binding: mtd: nand: Document
-	the wp-gpios property
+Cc: Srinivas Kandagatla <srinivas.kandagatla@st.com>, netdev@vger.kernel.org,
+ Vincent Whitchurch <vincent.whitchurch@axis.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ kernel@axis.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Lars Persson <larper@axis.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Enable NAPI before
+	interrupts go live
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,16 +64,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 2022-02-17 at 14:47:52 UTC, Christophe Kerello wrote:
-> A few drivers use this property to describe the GPIO pin used to protect
-> the NAND during program/erase operations.
+On Fri, 18 Feb 2022 11:45:04 +0100 Marc Kleine-Budde wrote:
+> >  - request irq
+> >  - mask irq  
 > 
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-> Acked-by: Rob Herring <robh@kernel.org>
+> I think you can merge these, to avoid a race condition, see:
+> 
+> | cbe16f35bee6 genirq: Add IRQF_NO_AUTOEN for request_irq/nmi()
 
-Applied to https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git nand/next, thanks.
-
-Miquel
+GTK, finally someone implemented it! :)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
