@@ -2,66 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 637084BEEDC
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Feb 2022 02:15:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E4194BEEE0
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Feb 2022 02:15:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05D74C6047A;
-	Tue, 22 Feb 2022 01:15:21 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60622C60473;
+	Tue, 22 Feb 2022 01:15:25 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63444C6046B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0ACC1C6046B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Feb 2022 01:15:18 +0000 (UTC)
+ Tue, 22 Feb 2022 01:15:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1645492505;
- bh=LnNDspWH53byTON8/DT1vsFZkFZ06dal6CobvbPniSU=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=ByOUBjvZ5qQCgwW/ZyCEAd8zOtBSQ+R25pr77kXNo9duIknzJd6BY9GEML++kj5kW
- FhH+TkSsPLSlenykp8j8AVcLkp42h9R/fgS4Uw/OoCXhm6a6QaasiNSWXJ2KvLgFko
- SlbO99BbprztNnvK3L/Ur4DMDnui7VLpner+Hkfk=
+ s=badeba3b8450; t=1645492506;
+ bh=VqDtjCu1On8E90PP+zcmUBiCFF/DRJ7DnsmAzRfKwqs=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=RNrqn3EGfsrYU7qAwyec8yYuxacsBA3JJj2OSnWGScS2QimbzXLMIK7d2XTnPvzz1
+ e/EoyrF7kRS915ouO1baNbEwCZptCjFGttoiweCVHkqTyEwUZT/YSHjb8071UQUelS
+ 4sUmoFj15lAavtgtD+p2fNSomniGai4/LanotcWo=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
 Received: from Venus.fritz.box ([149.172.237.68]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MA7GS-1nXpIZ1vHm-00Bff4; Tue, 22
- Feb 2022 02:15:05 +0100
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MiacH-1nqy1F0fOZ-00fkCh; Tue, 22
+ Feb 2022 02:15:06 +0100
 From: Lino Sanfilippo <LinoSanfilippo@gmx.de>
 To: gregkh@linuxfoundation.org, jirislaby@kernel.org,
  u.kleine-koenig@pengutronix.de
-Date: Tue, 22 Feb 2022 02:14:24 +0100
-Message-Id: <20220222011433.8761-1-LinoSanfilippo@gmx.de>
+Date: Tue, 22 Feb 2022 02:14:25 +0100
+Message-Id: <20220222011433.8761-2-LinoSanfilippo@gmx.de>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220222011433.8761-1-LinoSanfilippo@gmx.de>
+References: <20220222011433.8761-1-LinoSanfilippo@gmx.de>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:fwQhpe5itdtLuhIj4GdcRsArhXYdn4LSccPuJsacLIGEm/VTpGN
- NKVjX2InXVHVGuJSNyb6ZkEZBq9lDRgp1Kp1mp9NpSnjzNDlLcIIp69nDefA1qBOMAyMusU
- arpt1wDgkGzYZ633iMNBDfxEcLDv6h8ZaC8NvuTZAs32NfBg1gRudPEDTNgKNYcOgleJoQ4
- 8rumNGGyPJzeeystnF87Q==
+X-Provags-ID: V03:K1:SSsn/0UwWR3j7W6KX8VHiJO40uYcDYbhSEf6Uj+6iT5yAPMPiY2
+ DRtOInCigEKQmPnoKe2o/eI4N3ft3SFBNYY3rzbb4FqEShSJSAq0ZJut4p2B0+uFtki9HY8
+ O0g5SqO8bnSG9ZBK6IjSfYw6ZOxyTPOlYstuIej508E5Bg5nSVTtHF7+AksSve/UNN6w5/a
+ gwWSJT4IxjADoN+sTrxnQ==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:/J/4Umf8mTM=:2koxePhvpaurreLlmdVBi1
- cotdEguPZ/oyA28bLj20RGsxMiG3NFn1fYxfLM0gQTLKyRYJb77VVLWvk4jg0SO080DlgpWIo
- PNj8HC1Tu9AxEuC4l50vbxOIO0Aczka79ByThtk+9GVFTa7gVAJG/JIU9bvIkPbJitVcAFkMT
- 3t+JsToy55pEixIr+IkeNApaVFyFS2cbl9jSJtQrESM+GceUqALZhoBZVSqM6cJHbZ9elDuQv
- 35eeqHjZog1J0w0V7zNvRO2sb+IPNY9/1aDjvTuWJV4UK+jHR9EUkK7lYR7xLVdDdtF0vRCsE
- LGgWOh3zP2+L91coUFQFoiSVnLV5f0VnNJM0OwpVC0/vurdkdv5t5xNJTdxvO7E4oof6rTbOC
- WPmKv+0hdZsq3ofub/egPLND9PRFz7gb3RLE4Te7Tt70frNksGEQFeAExzLDyOiwpct1Eg1Ck
- +wqK2/a5n8K1zzTU6c9rVud47CMbPpvAywJQlx29oaH61LFLF/QvXHnt07AU1unFToJA0YmUS
- fwioZxEdrD7FPOzlKyufoP3t+J6jwawzdjmJ/wI9M1DAS2pUFWECCwt55hV/m5e9xFUAiKEsq
- fX50tKYYuG2GsMREyvYWRzKkuxpZWRjoQtUim6zzBIkcp1V6Q3aZnwQIudQzEjWZsezOvxn5Z
- mQ0kohW5l9xRa1x+CUUfdYj6ilVYw3ZbSe1Ya6yysWcN78a0banL6ALizXpIwh2btGssSk6yw
- Mov/1XVjEoIyzg/ewKtSvYirygAxc9rnVscK0u5jAdEZn2hx0d9cM9NynNA4aa50ZpYlE3Ly9
- PdNJEGdZBc05O8zP+ZGk+v4EPTR7BSblgLk/ngD4lE5X6wA1Vgfr7SSqUAKB1e0wiuH3RLNXp
- q0T8pDIVquS7dcb59q6JO7tFFlCvdExeu6UhizIP9ULUEooKVLAyzwdrk5q3rCI2HdSCJPGcm
- gfSL4sE8OSxX9AXsvb75/avee1MhZq3XF9jVPSdLHg7t77Twg4lINZj9/mQR85Hd4WpIEusLl
- k0zhSFFDpFN8UKT3jjmtJDeUuCwOHUtr20FU8H8rrRbREggZXf8HKwEQ+D6Yvr2mCPsje7XoN
- osSpPAhuR/+He4=
+X-UI-Out-Filterresults: notjunk:1;V03:K0:QmI32g1894s=:RsjLS1yif5G6gEPcRSo6AJ
+ +GufJ9SftvEz8xJ1dECRlgc5t4+2cUaR8CxxDi+4K6nQ2Mqoe4qXIYF7IX1crVxbKdElNurki
+ xyEz2dacQqAY8/I69QBbs8gu+IX9tAht7N9Y7Cquy8Rn2K/lVXBwl35iRzLLXVzDRcI2Ye9rc
+ rTSUPs6Tj6BAmITa2OiHIbXpW52QvccbPxXHq5GIRQCY+H6ZtFVDp0ON/aeu/zouD/qHVXK5Q
+ DVnUW30yEO0F3YIht3gVCylV1DIbnMp3XaRjIA+igDj0vMyRUmNfsGEK484zs6Le+NfKPXJY8
+ 2zp+sGNfhacpaMGW4mVbCj5ZlZq3pFBpOt1bKavMLd0/yJDZmtip0+9p48/WqLpBqhdOvPdGQ
+ IyechYq8cSwGaC6DeMzUd95h69h0fERuxWVtrGZclFXW3pSXeAjmL8cG0BNDFKl1Z1ZliofOM
+ tlRqGtSIgbGc3UuPh+wMYeYmyJOlHcAYUkLYjXhYC04c7ejWPFh/I61w/r8z0Dpx5jyZoUoIs
+ m5rWeTH019U1XsjAWAg5XYiYdtx+RMNcVjKnnVhgf38YmyNlCZG4x1ecny9vd1Nh8u5p23ln7
+ E23r3IjbTmOGx0VpX/T77YAI/TMayw9aY0EbDJPcyu/E82+wPOj9E1m7krj4BqpAS7aTQ30RV
+ SXwKUgnFlHjccFvJNb2/1su53GogUOdalfSCVEtyRCRrVPx2h6E7TuUfuzO/nKO4oQVlg+sk5
+ QIFrZrTWuodSul3xQ3qTn5MGRYKlfK16fPj/y2/h+2irH3OqhWEOLAHo9aeKlHuJaTF7iLv9a
+ zMGk46hg823+9E1bOr4IPGkk6ANrcry4vcJzXmLM2Y9ZuvQcJSBV7/XIaURMcRHoBz/8l31j6
+ pA8z4hLuPwUHa9esLbPDmkATaP54BMiBwS0FEgDcSIBM5r7N9MeZmPOqofOM1/PqDRctCru6K
+ 3weNt2ojBUjN69/ruP/olavuzCwM6rTHIP2Cxs18Y0sez3pJ2Y8C/WjHfoEv1X137lqqYtU/y
+ lDX9d5l2FF5JPbcoxhCfR2ZAE/0HFr/Ybu0r69Uy9S/sqKX+r6JHmbifbguik2kMjy6jlHDna
+ aAaAUmlkxhxbYM=
 Cc: linux-arm-kernel@lists.infradead.org, alexandre.belloni@bootlin.com,
- mcoquelin.stm32@gmail.com, richard.genoud@gmail.com, festevam@gmail.com,
- s.hauer@pengutronix.de, linux@armlinux.org.uk, nicolas.ferre@microchip.com,
+ mcoquelin.stm32@gmail.com, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
+ richard.genoud@gmail.com, festevam@gmail.com, s.hauer@pengutronix.de,
+ linux@armlinux.org.uk, nicolas.ferre@microchip.com,
  alexandre.torgue@foss.st.com, ludovic.desroches@microchip.com, lukas@wunner.de,
  linux-imx@nxp.com, kernel@pengutronix.de, linux-serial@vger.kernel.org,
  shawnguo@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, p.rosenberger@kunbus.com
-Subject: [Linux-stm32] Move RS485 implementation from drivers to serial core
-	(v3)
+Subject: [Linux-stm32] [PATCH v3 1/9] serial: core: move RS485 configuration
+	tasks from drivers into core
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,48 +81,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch series is an attempt to simplify rs485 implementation in drivers
-by moving the following tasks out of the drivers into the serial core:
+Several drivers that support setting the RS485 configuration via userspace
+implement one or more of the following tasks:
 
-- ensure sane RTS settings: in case of an invalid configuration (both RTS
-  after send and RTS on send set or both unset) enable RTS on send and
-  disable RTS after send
+- in case of an invalid RTS configuration (both RTS after send and RTS on
+  send set or both unset) fall back to enable RTS on send and disable RTS
+  after send
 
-- nullify the padding field of the serial_rs485 struct before it is
-  returned to userspace
+- nullify the padding field of the returned serial_rs485 struct
 
-- copy the configuration stored in the serial_rs485 struct to the port
-  configuration if setting the configuration in the driver was successfull
+- copy the configuration into the uart port struct
 
-- limit the RTS delay to 100ms
+- limit RTS delays to 100 ms
 
+Move these tasks into the serial core to make them generic and to provide
+a consistent behaviour among all drivers.
 
-Redundant code has been removed from the following drivers for now:
+Signed-off-by: Lino Sanfilippo <LinoSanfilippo@gmx.de>
+---
+ drivers/tty/serial/serial_core.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-- atmel
-- fsl_lpuart
-- amba
-- imx
-- max310x
-- omap-serial
-- sc16is7xx
-- stm32-usart
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 846192a7b4bf..2b3afe038c1c 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -42,6 +42,11 @@ static struct lock_class_key port_lock_key;
+ 
+ #define HIGH_BITS_OFFSET	((sizeof(long)-sizeof(int))*8)
+ 
++/*
++ * Max time with active RTS before/after data is sent.
++ */
++#define RS485_MAX_RTS_DELAY	100 /* msecs */
++
+ static void uart_change_speed(struct tty_struct *tty, struct uart_state *state,
+ 					struct ktermios *old_termios);
+ static void uart_wait_until_sent(struct tty_struct *tty, int timeout);
+@@ -1282,8 +1287,32 @@ static int uart_set_rs485_config(struct uart_port *port,
+ 	if (copy_from_user(&rs485, rs485_user, sizeof(*rs485_user)))
+ 		return -EFAULT;
+ 
++	/* pick sane settings if the user hasn't */
++	if (!(rs485.flags & SER_RS485_RTS_ON_SEND) ==
++	    !(rs485.flags & SER_RS485_RTS_AFTER_SEND)) {
++		pr_warn("invalid RTS setting, using RTS_ON_SEND instead\n");
++		rs485.flags |= SER_RS485_RTS_ON_SEND;
++		rs485.flags &= ~SER_RS485_RTS_AFTER_SEND;
++	}
++
++	if (rs485.delay_rts_before_send > RS485_MAX_RTS_DELAY) {
++		rs485.delay_rts_before_send = RS485_MAX_RTS_DELAY;
++		pr_warn("RTS delay before sending clamped to %u ms\n",
++			rs485.delay_rts_before_send);
++	}
++
++	if (rs485.delay_rts_after_send > RS485_MAX_RTS_DELAY) {
++		rs485.delay_rts_after_send = RS485_MAX_RTS_DELAY;
++		pr_warn("RTS delay after sending clamped to %u ms\n",
++			rs485.delay_rts_after_send);
++	}
++	/* Return clean padding area to userspace */
++	memset(rs485.padding, 0, sizeof(rs485.padding));
++
+ 	spin_lock_irqsave(&port->lock, flags);
+ 	ret = port->rs485_config(port, &rs485);
++	if (!ret)
++		port->rs485 = rs485;
+ 	spin_unlock_irqrestore(&port->lock, flags);
+ 	if (ret)
+ 		return ret;
 
-The code has been tested with the amba pl011 driver. This series applies
-against Gregs tty-testing branch.
-
-Changes in v2:
-- use a makro for max RTS delays and comment it (as requested by Jiri)
-- add a comment concerning the memset of a structures padding field
-- correct typos in the commit message (found by Uwe) 
-- rephrase all commit messages to make more clear that function 
-  uart_set_rs485_config() has been extended by checks and other
-  functionalities (as requested by Uwe)
-
-Changes in v3:
-- add warning messages if the serial core corrects RS485 values (as requested by Lukas Wunner)
-- dont expose the macro for max RTS delays to userspace (as requested by Greg) 
-
+base-commit: a603ca60cebff8589882427a67f870ed946b3fc8
+-- 
+2.35.1
 
 _______________________________________________
 Linux-stm32 mailing list
