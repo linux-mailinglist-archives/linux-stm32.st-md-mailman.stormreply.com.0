@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E4194BEEE0
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Feb 2022 02:15:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 087384BEED9
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Feb 2022 02:15:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60622C60473;
-	Tue, 22 Feb 2022 01:15:25 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B84B7C6046E;
+	Tue, 22 Feb 2022 01:15:20 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0ACC1C6046B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F0BBC60461
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Feb 2022 01:15:24 +0000 (UTC)
+ Tue, 22 Feb 2022 01:15:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1645492506;
- bh=VqDtjCu1On8E90PP+zcmUBiCFF/DRJ7DnsmAzRfKwqs=;
+ s=badeba3b8450; t=1645492507;
+ bh=KEo4sc077TnUumY/3jbiNcL70WXfdFpW/wOHZwtSo+c=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=RNrqn3EGfsrYU7qAwyec8yYuxacsBA3JJj2OSnWGScS2QimbzXLMIK7d2XTnPvzz1
- e/EoyrF7kRS915ouO1baNbEwCZptCjFGttoiweCVHkqTyEwUZT/YSHjb8071UQUelS
- 4sUmoFj15lAavtgtD+p2fNSomniGai4/LanotcWo=
+ b=R321iE05JyltOvTziTJucz7Aha2pQui3BMZ5o3fES3OdohzSi5OMoPakHVdjD1VlB
+ ZbT06e/aqiMoRzYJ3e2aRBl1G3gurFIxguG757H8IySbnvfX3EzmH8GUGjfUokgKe5
+ cbuUuEOFgTbGukGiaoI8e/pK0msdmRuDy+XckkkM=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
 Received: from Venus.fritz.box ([149.172.237.68]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MiacH-1nqy1F0fOZ-00fkCh; Tue, 22
- Feb 2022 02:15:06 +0100
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MysRk-1o9SNF0rOk-00vtVm; Tue, 22
+ Feb 2022 02:15:07 +0100
 From: Lino Sanfilippo <LinoSanfilippo@gmx.de>
 To: gregkh@linuxfoundation.org, jirislaby@kernel.org,
  u.kleine-koenig@pengutronix.de
-Date: Tue, 22 Feb 2022 02:14:25 +0100
-Message-Id: <20220222011433.8761-2-LinoSanfilippo@gmx.de>
+Date: Tue, 22 Feb 2022 02:14:26 +0100
+Message-Id: <20220222011433.8761-3-LinoSanfilippo@gmx.de>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220222011433.8761-1-LinoSanfilippo@gmx.de>
 References: <20220222011433.8761-1-LinoSanfilippo@gmx.de>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:SSsn/0UwWR3j7W6KX8VHiJO40uYcDYbhSEf6Uj+6iT5yAPMPiY2
- DRtOInCigEKQmPnoKe2o/eI4N3ft3SFBNYY3rzbb4FqEShSJSAq0ZJut4p2B0+uFtki9HY8
- O0g5SqO8bnSG9ZBK6IjSfYw6ZOxyTPOlYstuIej508E5Bg5nSVTtHF7+AksSve/UNN6w5/a
- gwWSJT4IxjADoN+sTrxnQ==
+X-Provags-ID: V03:K1:MRCzCFZwVGuHxJ4XCUOnuQ+k6jJA6DTfVK0pMx7+grgupk352jS
+ xmocgmDITGUQJKhjfKpuSW0zwubnakFfr3D4RUaDlmBh7Id8BQ/jPjHYzZS9elgY1WLACnc
+ 7tSOYpKJEnuoHPzUMbi5/BjccZodi+fjg76bLmAZZTVh5U2rhSRFwrdxTleHx83Xu9VKwqr
+ PX0IayxvHad2vb4qRBtSA==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:QmI32g1894s=:RsjLS1yif5G6gEPcRSo6AJ
- +GufJ9SftvEz8xJ1dECRlgc5t4+2cUaR8CxxDi+4K6nQ2Mqoe4qXIYF7IX1crVxbKdElNurki
- xyEz2dacQqAY8/I69QBbs8gu+IX9tAht7N9Y7Cquy8Rn2K/lVXBwl35iRzLLXVzDRcI2Ye9rc
- rTSUPs6Tj6BAmITa2OiHIbXpW52QvccbPxXHq5GIRQCY+H6ZtFVDp0ON/aeu/zouD/qHVXK5Q
- DVnUW30yEO0F3YIht3gVCylV1DIbnMp3XaRjIA+igDj0vMyRUmNfsGEK484zs6Le+NfKPXJY8
- 2zp+sGNfhacpaMGW4mVbCj5ZlZq3pFBpOt1bKavMLd0/yJDZmtip0+9p48/WqLpBqhdOvPdGQ
- IyechYq8cSwGaC6DeMzUd95h69h0fERuxWVtrGZclFXW3pSXeAjmL8cG0BNDFKl1Z1ZliofOM
- tlRqGtSIgbGc3UuPh+wMYeYmyJOlHcAYUkLYjXhYC04c7ejWPFh/I61w/r8z0Dpx5jyZoUoIs
- m5rWeTH019U1XsjAWAg5XYiYdtx+RMNcVjKnnVhgf38YmyNlCZG4x1ecny9vd1Nh8u5p23ln7
- E23r3IjbTmOGx0VpX/T77YAI/TMayw9aY0EbDJPcyu/E82+wPOj9E1m7krj4BqpAS7aTQ30RV
- SXwKUgnFlHjccFvJNb2/1su53GogUOdalfSCVEtyRCRrVPx2h6E7TuUfuzO/nKO4oQVlg+sk5
- QIFrZrTWuodSul3xQ3qTn5MGRYKlfK16fPj/y2/h+2irH3OqhWEOLAHo9aeKlHuJaTF7iLv9a
- zMGk46hg823+9E1bOr4IPGkk6ANrcry4vcJzXmLM2Y9ZuvQcJSBV7/XIaURMcRHoBz/8l31j6
- pA8z4hLuPwUHa9esLbPDmkATaP54BMiBwS0FEgDcSIBM5r7N9MeZmPOqofOM1/PqDRctCru6K
- 3weNt2ojBUjN69/ruP/olavuzCwM6rTHIP2Cxs18Y0sez3pJ2Y8C/WjHfoEv1X137lqqYtU/y
- lDX9d5l2FF5JPbcoxhCfR2ZAE/0HFr/Ybu0r69Uy9S/sqKX+r6JHmbifbguik2kMjy6jlHDna
- aAaAUmlkxhxbYM=
+X-UI-Out-Filterresults: notjunk:1;V03:K0:AqfelYdZ1ns=:8iaU/xOJxj2wUkOKaGPiZB
+ 8Dd0SAkrmad1IkGQa0bD7nKfMr8BinRUeEz0f5NOlassvDKA/zluwVnWC3a46driuBB2Au+sf
+ Xr0c9VJ+YhkyKYHw65wXQ1JSlS7++qA11IZVWUn151k2B7S1LTgxj9PGWVNXgSTTgmu1l6gVS
+ ZqXePddIOithJ5FregzycM6cjRXrxbR1mXM4ZPR/hrcHcjZblEOZljNf0k/Q4hJh2+wcUuLD4
+ oXIbRk9VYUAm7yDypPvcPEjdMl6xJPAYjV3zYWiA81YTFL5DZrFuBbz6VBZgn0G088ipgoW7G
+ wbj+ycT0rFPk3dJtrNsb5PoRcj45GG6xIOqpG5T9o3QlSFePCn7B9WQjh3xm58Xrpvkm6FgEi
+ JY5J582OcKsYSMT9dJXgRsZmjZZvRrX5Xpp2p5IC81EyU/u3Lp1zWGuCp1DTCKDRdPWZcsF0L
+ xEuI2jxkwgRaZRmYdcFCwpJTI/4GAuzwKJQCR2ReAttlNdbepVCk9pP3p2OXmqmZDzP/Fhqab
+ uua60ggBHPKPtIAi4BtYRHbLMiRh8vvLpq10qmvnEG1RygJPXl8V4ce2Xfcaai69z7PvwOuhb
+ 10DFNG7TAdxX07G5deC3sw9Th5uBQjBIGwZgta1pzV74hVgVbzr1ObItXeffijQnCn7rXALD/
+ Je56MshTG7CLoFiVajKUxtFotuGucKCiK8jfDWaikghiosPuR56L990VclwjjDtmFnj505q8S
+ swVQk3sPyX75Kq04YO7iZdHtvIe6CM0mYSed3EJt+uvLQhM8+SxrK/wQqJL38+4C6KcGDHiMH
+ WMdCbPaZc/TztadptmNOFLFT10lTY5aJx61Rcm+Pe9pik521NnwR5dAwXfeFuaUVoBLcMrPTh
+ X/mR8A6zYvNdiWwdSAJBWSlu8s7fLtd7xPVMnNH9ESFSoxMSbuvkOhKVlt+/7PFlGbuD9DpWK
+ gjLhBrJzakLmqgoBZmdEuEFLbQvWdYJq+/Sp2Hs2g3AyoVlXV0Qq3DU8CEJ+oJd4cCeGNuMa5
+ u3hJib2lLJncip04WArDNIxJWL1A1wWiWsIxYevSbvGTS6PxmybpMxkZ0JnDbjUFFLUAKTkjI
+ NBWMXhnMkbmiL0=
 Cc: linux-arm-kernel@lists.infradead.org, alexandre.belloni@bootlin.com,
  mcoquelin.stm32@gmail.com, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
  richard.genoud@gmail.com, festevam@gmail.com, s.hauer@pengutronix.de,
@@ -63,8 +63,8 @@ Cc: linux-arm-kernel@lists.infradead.org, alexandre.belloni@bootlin.com,
  linux-imx@nxp.com, kernel@pengutronix.de, linux-serial@vger.kernel.org,
  shawnguo@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, p.rosenberger@kunbus.com
-Subject: [Linux-stm32] [PATCH v3 1/9] serial: core: move RS485 configuration
-	tasks from drivers into core
+Subject: [Linux-stm32] [PATCH v3 2/9] serial: amba-pl011: remove redundant
+	code in rs485_config
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,78 +81,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Several drivers that support setting the RS485 configuration via userspace
-implement one or more of the following tasks:
+In uart_set_rs485_config() the serial core already
 
-- in case of an invalid RTS configuration (both RTS after send and RTS on
-  send set or both unset) fall back to enable RTS on send and disable RTS
-  after send
+- ensures that only one of both options RTS on send or RTS after send is
+  set
 
-- nullify the padding field of the returned serial_rs485 struct
+- nullifies the padding field of the passed serial_rs485 struct
 
-- copy the configuration into the uart port struct
+- clamps the RTS delays
 
-- limit RTS delays to 100 ms
+- assigns the passed serial_rs485 struct to the uart port
 
-Move these tasks into the serial core to make them generic and to provide
-a consistent behaviour among all drivers.
+So remove these tasks from the code of the drivers rs485_config() function
+to avoid redundancy.
 
 Signed-off-by: Lino Sanfilippo <LinoSanfilippo@gmx.de>
 ---
- drivers/tty/serial/serial_core.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ drivers/tty/serial/amba-pl011.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 846192a7b4bf..2b3afe038c1c 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -42,6 +42,11 @@ static struct lock_class_key port_lock_key;
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index ba053a68529f..35c633739975 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -2170,25 +2170,11 @@ static int pl011_rs485_config(struct uart_port *port,
+ 	struct uart_amba_port *uap =
+ 		container_of(port, struct uart_amba_port, port);
  
- #define HIGH_BITS_OFFSET	((sizeof(long)-sizeof(int))*8)
+-	/* pick sane settings if the user hasn't */
+-	if (!(rs485->flags & SER_RS485_RTS_ON_SEND) ==
+-	    !(rs485->flags & SER_RS485_RTS_AFTER_SEND)) {
+-		rs485->flags |= SER_RS485_RTS_ON_SEND;
+-		rs485->flags &= ~SER_RS485_RTS_AFTER_SEND;
+-	}
+-	/* clamp the delays to [0, 100ms] */
+-	rs485->delay_rts_before_send = min(rs485->delay_rts_before_send, 100U);
+-	rs485->delay_rts_after_send = min(rs485->delay_rts_after_send, 100U);
+-	memset(rs485->padding, 0, sizeof(rs485->padding));
+-
+ 	if (port->rs485.flags & SER_RS485_ENABLED)
+ 		pl011_rs485_tx_stop(uap);
  
-+/*
-+ * Max time with active RTS before/after data is sent.
-+ */
-+#define RS485_MAX_RTS_DELAY	100 /* msecs */
-+
- static void uart_change_speed(struct tty_struct *tty, struct uart_state *state,
- 					struct ktermios *old_termios);
- static void uart_wait_until_sent(struct tty_struct *tty, int timeout);
-@@ -1282,8 +1287,32 @@ static int uart_set_rs485_config(struct uart_port *port,
- 	if (copy_from_user(&rs485, rs485_user, sizeof(*rs485_user)))
- 		return -EFAULT;
+-	/* Set new configuration */
+-	port->rs485 = *rs485;
+-
+ 	/* Make sure auto RTS is disabled */
+-	if (port->rs485.flags & SER_RS485_ENABLED) {
++	if (rs485->flags & SER_RS485_ENABLED) {
+ 		u32 cr = pl011_read(uap, REG_CR);
  
-+	/* pick sane settings if the user hasn't */
-+	if (!(rs485.flags & SER_RS485_RTS_ON_SEND) ==
-+	    !(rs485.flags & SER_RS485_RTS_AFTER_SEND)) {
-+		pr_warn("invalid RTS setting, using RTS_ON_SEND instead\n");
-+		rs485.flags |= SER_RS485_RTS_ON_SEND;
-+		rs485.flags &= ~SER_RS485_RTS_AFTER_SEND;
-+	}
-+
-+	if (rs485.delay_rts_before_send > RS485_MAX_RTS_DELAY) {
-+		rs485.delay_rts_before_send = RS485_MAX_RTS_DELAY;
-+		pr_warn("RTS delay before sending clamped to %u ms\n",
-+			rs485.delay_rts_before_send);
-+	}
-+
-+	if (rs485.delay_rts_after_send > RS485_MAX_RTS_DELAY) {
-+		rs485.delay_rts_after_send = RS485_MAX_RTS_DELAY;
-+		pr_warn("RTS delay after sending clamped to %u ms\n",
-+			rs485.delay_rts_after_send);
-+	}
-+	/* Return clean padding area to userspace */
-+	memset(rs485.padding, 0, sizeof(rs485.padding));
-+
- 	spin_lock_irqsave(&port->lock, flags);
- 	ret = port->rs485_config(port, &rs485);
-+	if (!ret)
-+		port->rs485 = rs485;
- 	spin_unlock_irqrestore(&port->lock, flags);
- 	if (ret)
- 		return ret;
-
-base-commit: a603ca60cebff8589882427a67f870ed946b3fc8
+ 		cr &= ~UART011_CR_RTSEN;
 -- 
 2.35.1
 
