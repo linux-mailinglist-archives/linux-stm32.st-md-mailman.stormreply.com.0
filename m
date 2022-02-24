@@ -2,67 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015184C2448
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Feb 2022 08:05:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 147AA4C25F2
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Feb 2022 09:29:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F6BEC5F1D7;
-	Thu, 24 Feb 2022 07:05:10 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8251C5F1D7;
+	Thu, 24 Feb 2022 08:29:37 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1788C5A4FD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2156AC56630
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Feb 2022 21:28:36 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id p9so41703538wra.12
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Feb 2022 13:28:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=0YK7APaDiTPWfwD2QnORHvmLB5q84+dKOtRyftB0uhU=;
- b=WLpMmO9MRwflWvya8gR3yu5MLwDjHJMy/NtZOfH2MBKCM06xKgAT5PR2Hg4RjD5Dxx
- s2E3/6DOu4nwZzrSKn3vRbQlfCZw1dERZ61z5btlsd4dlCeFb0TCKG0tX9IK7wDNLfZl
- Tb4HdBt3/V8qyBysfwma4TVc4qpcDnR2bvEN+Fp3MPTh2aU0yNROilTWQvLGSu6ziSlt
- sY6r/7rPqpCRLYlh91U7sf6fBdsKqkI053dIvZnMegjpnC5kEEInWv3hhVcJVlzd/0S/
- niDpi+JsS4Whm0jkbOmlJviRTSZbKF4zmojmIJoeGo+xZXP7HUCUlRZRFPpaLGJeZnxI
- /7ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=0YK7APaDiTPWfwD2QnORHvmLB5q84+dKOtRyftB0uhU=;
- b=0PjVO17MqujCHI7dvqzgZicnpLGbGuPRzHyMPM7d++a7UGdgiemlDEhex20gMcq6Ew
- avQsCb7sx+HybsRhziQbwKgrnOApO8SM31th4MVisa/4jN8+/MyadP8qBl0B/zG1/DcP
- VmsKoHVMONhCplkYc1aCU5TJmDf9FcS0FUIlCwytn/ogALulmuLJ7491cLPKoG4HXkdH
- 3ebuhb468hEysbltOzRsr85loai+wkF/X06fQF4rWiez37ReBC/qF4+jZmuW5Hx9KThA
- IL0n659zeKiomzp4yWIxKhmA6cmQeAflRzk4FSC8m0gCJnd3oNBnGc/ty1L7B/qOTAeV
- VTUw==
-X-Gm-Message-State: AOAM532bZ/k9qrzBBeCsefWibj2K3doznClm9mmUstNLRG1oquoZHmeF
- BE4ZG4DHq1sbqiKfBJES1/s=
-X-Google-Smtp-Source: ABdhPJw7LZnXitIO3MYp14pRCaZMOD4GDLd8Ot3GC4uDtFYcc2pmomZdcQPO+2XrPQeSWhK4rxU1zA==
-X-Received: by 2002:a05:6000:12cc:b0:1ed:b776:a86b with SMTP id
- l12-20020a05600012cc00b001edb776a86bmr1130345wrx.307.1645651715942; 
- Wed, 23 Feb 2022 13:28:35 -0800 (PST)
-Received: from [192.168.2.122] (p578f0c28.dip0.t-ipconnect.de. [87.143.12.40])
- by smtp.gmail.com with ESMTPSA id
- i15sm713311wmq.23.2022.02.23.13.28.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Feb 2022 13:28:35 -0800 (PST)
-Message-ID: <ab97c2a5-7705-eae8-9bc2-908e7a9cb709@gmail.com>
-Date: Wed, 23 Feb 2022 22:28:06 +0100
+ Thu, 24 Feb 2022 08:29:36 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21O3wL0S007085;
+ Thu, 24 Feb 2022 09:29:27 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=5vxBlUo7IqSUsV8ak9FdX0a2AbnJY1ZznkqgwSpJMok=;
+ b=FD2xbYxeUb94ev/5iLRiUuaKg3IftMpVAhgnSJ1kEA928Ejy973Z8e9Aw1z8jsPLrlUK
+ La5oI0Nup18Olsc1hAJrJKWg/tsF9zaMXuwo/GU+S9zs/bPa3YSr5zGY1pGlDWDuMKfO
+ Bcs3beuVlZP7PfY3rHOwhghrQcaEEpnub53W0e9D0wmwdIoLaqjw/3knqI0r85+WbMkt
+ 0fAkJxScOWhpZGT1dt99SJ8S4LMr0hU6rlAqk5smlAajQYYlsoEXX7wn5dRsA1xvRMDE
+ 00LbEoJqV2Sh/JwXmXSr7Eh8+S2g7KHil6fbZXDgU8HuBo4GvlQEysEkrPcKhvMfGblB dw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3edfyaft40-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Feb 2022 09:29:27 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8FCA010002A;
+ Thu, 24 Feb 2022 09:29:26 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 87A2F216EDD;
+ Thu, 24 Feb 2022 09:29:26 +0100 (CET)
+Received: from [10.201.20.246] (10.75.127.49) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 24 Feb
+ 2022 09:29:25 +0100
+Message-ID: <670ee336-9ad4-401e-e3b2-02531e975e51@foss.st.com>
+Date: Thu, 24 Feb 2022 09:29:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
+ Thunderbird/91.5.0
 Content-Language: en-US
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Philipp Rossak <embed3d@gmail.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.org>
 References: <20220124102524.295783-1-arnaud.pouliquen@foss.st.com>
-From: Philipp Rossak <embed3d@gmail.com>
-In-Reply-To: <20220124102524.295783-1-arnaud.pouliquen@foss.st.com>
-X-Mailman-Approved-At: Thu, 24 Feb 2022 07:05:09 +0000
+ <ab97c2a5-7705-eae8-9bc2-908e7a9cb709@gmail.com>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+In-Reply-To: <ab97c2a5-7705-eae8-9bc2-908e7a9cb709@gmail.com>
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-02-23_09,2022-02-23_01,2022-02-23_01
 Cc: julien.massot@iot.bzh, linux-remoteproc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] [PATCH v9 00/11] Restructure the rpmsg_char
@@ -78,115 +73,124 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Arnaud,
-
-thanks for working on this! I'm currently testing/using this patch 
-series on my imx7d project because it adds the capability that the 
-remote processor can register it's endpoints dynamically (as mentioned 
-in the objectives).
-
-After a few tests, debugging, and checking the openamp specification [1] 
-I think that you missed the second ns_announcement that should be sent 
-from linux master to the slave after it created the channel/endpoint. 
-Without this second announcement the remote processor is not able to 
-send messages to the linux master because it doesn't know the 
-destination address until it receives a message from the linux master.
-
-Cheers,
-Philipp
-
-
-[1]: 
-https://github.com/OpenAMP/open-amp/blob/main/docs/img/coprocessor-rpmsg-ns.png
-
-On 24.01.22 11:25, Arnaud Pouliquen wrote:
-> Updates from V8 [1]:
-> - rebase on 5.17-rc1 + rpmsg char cdev release fixes[2][3]
-> - updates based on Bjorn Andersson's comments:
->    - remove rpmsg_create_default_ept API, set directly the ept->priv in rpmsg_chrdev_probe
->      function.
->    - rework commit message in [8/9]rpmsg: char: Introduce the "rpmsg-raw" channel
-> 
-> Patchset description:
-> 
-> The current rpmsg_char module implements a /dev/rpmsg_ctrl interface that provides the ability to
-> instantiate char devices (/dev/rpmsgX) associated with an rpmsg endpoint for communication with the
-> remote processor.
-> This implementation fits with QCOM rpmsg backend but not with the magement by chanel implemented
-> in the generic rpmsg virtio backend.
-> This series restructures the rpmsg_char driver to decorrelate the control part from the data part
-> in order to improve its compatible with the rpmsg virtio backend.
-> 
-> Objective:
-> - Expose a /dev/rpmsg_ctrlX interface for the application that is no longer dedicated to the
->    rpmsg_char but generalized to all rpmsg services. This offers capability to create and destroy
->    rpmsg channels from a user's application initiative (using the new RPMSG_CREATE_DEV_IOCTL and
->    RPMSG_DESTROY_DEV_IOCTL controls).
->    An application will be able to create/establish an rpmsg communication channel to communicate
->    with the remote processor, and not only wait the remote processor initiative.
->    This is interesting for example to establish a temporary communication link for diagnosis,
->    calibration, debugging... or instantiate  new data flows on some user actions.
-> - Add capability to probe the rpmsg_char device at the initiative of the remote processor
->   (rpmsg service announcement mechanism).
->    This allows platforms based on the rpmsg virtio backend to create the /dev/rpmgX interface with
->    a rpmsg name service announcement.
-> 
-> Subsets:
->    - Extract the control part of the char dev and create the rpmsg_ctrl.c file (patches 1 to 6)
->    - Introduce the "rpmsg-raw" channel in rpmsg_char(patches 7 to 10)
->    - Introduce the RPMSG_CREATE_DEV_IOCTL IOCTL and RPMSG_DESTROY_DEV_IOCTL to instantiate RPMsg
->      devices (patch 11)
->      The application can then create or release a channel by specifying:
->         - the name service of the device to instantiate.
->         - the source address.
->         - the destination address.
-> 
-> This series has be applied and tested on 'commit e783362eb54c ("Linux 5.17-rc1") +
-> rpmsg_char cdev release fixes [2][3]
-> 
-> [1] https://lkml.org/lkml/2021/12/7/186
-> [2] https://lkml.org/lkml/2022/1/10/1129
-> [3] https://lkml.org/lkml/2022/1/10/1130
-> 
-> Arnaud Pouliquen (11):
->    rpmsg: char: Export eptdev create and destroy functions
->    rpmsg: Create the rpmsg class in core instead of in rpmsg char
->    rpmsg: Move the rpmsg control device from rpmsg_char to rpmsg_ctrl
->    arm: configs: Configs that had RPMSG_CHAR now get RPMSG_CTRL
->    RISC-V: configs: Configs that had RPMSG_CHAR now get RPMSG_CTRL
->    arm64: defconfig: Config that had RPMSG_CHAR now gets RPMSG_CTRL
->    rpmsg: Update rpmsg_chrdev_register_device function
->    rpmsg: char: Refactor rpmsg_chrdev_eptdev_create function
->    rpmsg: char: Add possibility to use default endpoint of the rpmsg
->      device
->    rpmsg: char: Introduce the "rpmsg-raw" channel
->    rpmsg: ctrl: Introduce new RPMSG_CREATE/RELEASE_DEV_IOCTL controls
-> 
->   arch/arm/configs/qcom_defconfig   |   1 +
->   arch/arm64/configs/defconfig      |   1 +
->   arch/riscv/configs/defconfig      |   1 +
->   arch/riscv/configs/rv32_defconfig |   1 +
->   drivers/rpmsg/Kconfig             |   8 +
->   drivers/rpmsg/Makefile            |   1 +
->   drivers/rpmsg/qcom_glink_native.c |   2 +-
->   drivers/rpmsg/qcom_smd.c          |   2 +-
->   drivers/rpmsg/rpmsg_char.c        | 231 +++++++++++-----------------
->   drivers/rpmsg/rpmsg_char.h        |  46 ++++++
->   drivers/rpmsg/rpmsg_core.c        |  15 +-
->   drivers/rpmsg/rpmsg_ctrl.c        | 243 ++++++++++++++++++++++++++++++
->   drivers/rpmsg/rpmsg_internal.h    |  10 +-
->   drivers/rpmsg/virtio_rpmsg_bus.c  |   2 +-
->   include/uapi/linux/rpmsg.h        |  10 ++
->   15 files changed, 419 insertions(+), 155 deletions(-)
->   create mode 100644 drivers/rpmsg/rpmsg_char.h
->   create mode 100644 drivers/rpmsg/rpmsg_ctrl.c
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUGhpbGlwcCwKCk9uIDIvMjMvMjIgMjI6MjgsIFBoaWxpcHAgUm9zc2FrIHdyb3RlOgo+IEhp
+IEFybmF1ZCwKPiAKPiB0aGFua3MgZm9yIHdvcmtpbmcgb24gdGhpcyEgSSdtIGN1cnJlbnRseSB0
+ZXN0aW5nL3VzaW5nIHRoaXMgcGF0Y2gKPiBzZXJpZXMgb24gbXkgaW14N2QgcHJvamVjdCBiZWNh
+dXNlIGl0IGFkZHMgdGhlIGNhcGFiaWxpdHkgdGhhdCB0aGUKPiByZW1vdGUgcHJvY2Vzc29yIGNh
+biByZWdpc3RlciBpdCdzIGVuZHBvaW50cyBkeW5hbWljYWxseSAoYXMgbWVudGlvbmVkCj4gaW4g
+dGhlIG9iamVjdGl2ZXMpLgoKVGhhbmtzIGZvciB5b3VyIGZlZWRiYWNrIG9uIHRoaXMgd29yayEg
+CkRvbid0IGhlc2l0YXRlIHRvIGFkZCB5b3VyIHRlc3RlZC1ieSwgdGhpcyBoZWxwIG1haW50YWlu
+ZXJzIGZvciB0aGUgcmV2aWV3cy4gCgo+IAo+IEFmdGVyIGEgZmV3IHRlc3RzLCBkZWJ1Z2dpbmcs
+IGFuZCBjaGVja2luZyB0aGUgb3BlbmFtcCBzcGVjaWZpY2F0aW9uIFsxXQo+IEkgdGhpbmsgdGhh
+dCB5b3UgbWlzc2VkIHRoZSBzZWNvbmQgbnNfYW5ub3VuY2VtZW50IHRoYXQgc2hvdWxkIGJlIHNl
+bnQKPiBmcm9tIGxpbnV4IG1hc3RlciB0byB0aGUgc2xhdmUgYWZ0ZXIgaXQgY3JlYXRlZCB0aGUg
+Y2hhbm5lbC9lbmRwb2ludC4KPiBXaXRob3V0IHRoaXMgc2Vjb25kIGFubm91bmNlbWVudCB0aGUg
+cmVtb3RlIHByb2Nlc3NvciBpcyBub3QgYWJsZSB0bwo+IHNlbmQgbWVzc2FnZXMgdG8gdGhlIGxp
+bnV4IG1hc3RlciBiZWNhdXNlIGl0IGRvZXNuJ3Qga25vdyB0aGUKPiBkZXN0aW5hdGlvbiBhZGRy
+ZXNzIHVudGlsIGl0IHJlY2VpdmVzIGEgbWVzc2FnZSBmcm9tIHRoZSBsaW51eCBtYXN0ZXIuCgpZ
+ZXMgSSBkZXRlY3RlZCB0aGlzIGlzc3VlcywgaXQgaXMgbm90IHJlbGF0ZWQgdG8gdGhlIHNlcmll
+cwpidXQgdG8gdGhlIHJlbW90ZXByb2NfdmlydGlvIGJhY2tlbmQuCgpBcyB5b3UgbWVudGlvbmVk
+LCBhZnRlciB0aGUgbnMgYW5ub3VuY2VtZW50IGZyb20gTGludXgsIHRoZSByZW1vdGUgcHJvY2Vz
+c29yCnNlbmQgZmlyc3QgbWVzc2FnZXMuIEJ1dCB0aGUgTGludXggdmlydGlvIGRvZXMgbm90IGRv
+IHRoZSBtYXRjaCBiZXR3ZWVuIHRoZQpsb2NhbCBjaGFubmVsIGNyZWF0ZWQgYW5kIHRoZSByZW1v
+dGUgZW5kcG9pbnQuCgpUaGlzIGlzIGEgZmVhdHVyZSB0aGF0IGlzIG1pc3NpbmcgaW4gdGhlIHJw
+bXNnIHZpcnRpbywgYW5kIHBlcmhhcHMgaW4gcnBtc2cgcHJvdG9jb2wKaXRzZWxmIChhIG5zIGFu
+bm91Y2VtZW50IGFjayBtZXNzYWdlIG9yIHNvbWV0aGluZyBzaW1pbGFyKS4KCgpBIGZpeCBmb3Ig
+dGhlIHJlbW90ZXByb2MgdmlydGlvIGlzIGF2YWlsYWJsZSBoZXJlOgpodHRwczovL2dpdGh1Yi5j
+b20vYXJub3BvL21ldGEtc3Qtc3RtMzJtcC1vc3MvY29tbWl0LzNlNTdmZTczYmQxOWM5YmI4MzVh
+YzVhMTE4ZTUwNzI3NzU4YjBiOTYKCkRvbid0IGhlc2l0YXRlIHRvIGdpdmUgbWUgZmVlZGJhY2sg
+b24gdGhlIGZpeCwgaWYgeW91IHRlc3QgaXQuCgpJIHBsYW4gdG8gcHJvcG9zZSB0aGUgZml4IGFm
+dGVyIHRoaXMgc2VyaWVzLiAgICAKClRoYW5rcywKQXJuYXVkCgo+IAo+IENoZWVycywKPiBQaGls
+aXBwCj4gCj4gCj4gWzFdOgo+IGh0dHBzOi8vZ2l0aHViLmNvbS9PcGVuQU1QL29wZW4tYW1wL2Js
+b2IvbWFpbi9kb2NzL2ltZy9jb3Byb2Nlc3Nvci1ycG1zZy1ucy5wbmcKPiAKPiAKPiBPbiAyNC4w
+MS4yMiAxMToyNSwgQXJuYXVkIFBvdWxpcXVlbiB3cm90ZToKPj4gVXBkYXRlcyBmcm9tIFY4IFsx
+XToKPj4gLSByZWJhc2Ugb24gNS4xNy1yYzEgKyBycG1zZyBjaGFyIGNkZXYgcmVsZWFzZSBmaXhl
+c1syXVszXQo+PiAtIHVwZGF0ZXMgYmFzZWQgb24gQmpvcm4gQW5kZXJzc29uJ3MgY29tbWVudHM6
+Cj4+IMKgwqAgLSByZW1vdmUgcnBtc2dfY3JlYXRlX2RlZmF1bHRfZXB0IEFQSSwgc2V0IGRpcmVj
+dGx5IHRoZSBlcHQtPnByaXYKPj4gaW4gcnBtc2dfY2hyZGV2X3Byb2JlCj4+IMKgwqDCoMKgIGZ1
+bmN0aW9uLgo+PiDCoMKgIC0gcmV3b3JrIGNvbW1pdCBtZXNzYWdlIGluIFs4LzldcnBtc2c6IGNo
+YXI6IEludHJvZHVjZSB0aGUKPj4gInJwbXNnLXJhdyIgY2hhbm5lbAo+Pgo+PiBQYXRjaHNldCBk
+ZXNjcmlwdGlvbjoKPj4KPj4gVGhlIGN1cnJlbnQgcnBtc2dfY2hhciBtb2R1bGUgaW1wbGVtZW50
+cyBhIC9kZXYvcnBtc2dfY3RybCBpbnRlcmZhY2UKPj4gdGhhdCBwcm92aWRlcyB0aGUgYWJpbGl0
+eSB0bwo+PiBpbnN0YW50aWF0ZSBjaGFyIGRldmljZXMgKC9kZXYvcnBtc2dYKSBhc3NvY2lhdGVk
+IHdpdGggYW4gcnBtc2cKPj4gZW5kcG9pbnQgZm9yIGNvbW11bmljYXRpb24gd2l0aCB0aGUKPj4g
+cmVtb3RlIHByb2Nlc3Nvci4KPj4gVGhpcyBpbXBsZW1lbnRhdGlvbiBmaXRzIHdpdGggUUNPTSBy
+cG1zZyBiYWNrZW5kIGJ1dCBub3Qgd2l0aCB0aGUKPj4gbWFnZW1lbnQgYnkgY2hhbmVsIGltcGxl
+bWVudGVkCj4+IGluIHRoZSBnZW5lcmljIHJwbXNnIHZpcnRpbyBiYWNrZW5kLgo+PiBUaGlzIHNl
+cmllcyByZXN0cnVjdHVyZXMgdGhlIHJwbXNnX2NoYXIgZHJpdmVyIHRvIGRlY29ycmVsYXRlIHRo
+ZQo+PiBjb250cm9sIHBhcnQgZnJvbSB0aGUgZGF0YSBwYXJ0Cj4+IGluIG9yZGVyIHRvIGltcHJv
+dmUgaXRzIGNvbXBhdGlibGUgd2l0aCB0aGUgcnBtc2cgdmlydGlvIGJhY2tlbmQuCj4+Cj4+IE9i
+amVjdGl2ZToKPj4gLSBFeHBvc2UgYSAvZGV2L3JwbXNnX2N0cmxYIGludGVyZmFjZSBmb3IgdGhl
+IGFwcGxpY2F0aW9uIHRoYXQgaXMgbm8KPj4gbG9uZ2VyIGRlZGljYXRlZCB0byB0aGUKPj4gwqDC
+oCBycG1zZ19jaGFyIGJ1dCBnZW5lcmFsaXplZCB0byBhbGwgcnBtc2cgc2VydmljZXMuIFRoaXMg
+b2ZmZXJzCj4+IGNhcGFiaWxpdHkgdG8gY3JlYXRlIGFuZCBkZXN0cm95Cj4+IMKgwqAgcnBtc2cg
+Y2hhbm5lbHMgZnJvbSBhIHVzZXIncyBhcHBsaWNhdGlvbiBpbml0aWF0aXZlICh1c2luZyB0aGUg
+bmV3Cj4+IFJQTVNHX0NSRUFURV9ERVZfSU9DVEwgYW5kCj4+IMKgwqAgUlBNU0dfREVTVFJPWV9E
+RVZfSU9DVEwgY29udHJvbHMpLgo+PiDCoMKgIEFuIGFwcGxpY2F0aW9uIHdpbGwgYmUgYWJsZSB0
+byBjcmVhdGUvZXN0YWJsaXNoIGFuIHJwbXNnCj4+IGNvbW11bmljYXRpb24gY2hhbm5lbCB0byBj
+b21tdW5pY2F0ZQo+PiDCoMKgIHdpdGggdGhlIHJlbW90ZSBwcm9jZXNzb3IsIGFuZCBub3Qgb25s
+eSB3YWl0IHRoZSByZW1vdGUgcHJvY2Vzc29yCj4+IGluaXRpYXRpdmUuCj4+IMKgwqAgVGhpcyBp
+cyBpbnRlcmVzdGluZyBmb3IgZXhhbXBsZSB0byBlc3RhYmxpc2ggYSB0ZW1wb3JhcnkKPj4gY29t
+bXVuaWNhdGlvbiBsaW5rIGZvciBkaWFnbm9zaXMsCj4+IMKgwqAgY2FsaWJyYXRpb24sIGRlYnVn
+Z2luZy4uLiBvciBpbnN0YW50aWF0ZcKgIG5ldyBkYXRhIGZsb3dzIG9uIHNvbWUKPj4gdXNlciBh
+Y3Rpb25zLgo+PiAtIEFkZCBjYXBhYmlsaXR5IHRvIHByb2JlIHRoZSBycG1zZ19jaGFyIGRldmlj
+ZSBhdCB0aGUgaW5pdGlhdGl2ZSBvZgo+PiB0aGUgcmVtb3RlIHByb2Nlc3Nvcgo+PiDCoCAocnBt
+c2cgc2VydmljZSBhbm5vdW5jZW1lbnQgbWVjaGFuaXNtKS4KPj4gwqDCoCBUaGlzIGFsbG93cyBw
+bGF0Zm9ybXMgYmFzZWQgb24gdGhlIHJwbXNnIHZpcnRpbyBiYWNrZW5kIHRvIGNyZWF0ZQo+PiB0
+aGUgL2Rldi9ycG1nWCBpbnRlcmZhY2Ugd2l0aAo+PiDCoMKgIGEgcnBtc2cgbmFtZSBzZXJ2aWNl
+IGFubm91bmNlbWVudC4KPj4KPj4gU3Vic2V0czoKPj4gwqDCoCAtIEV4dHJhY3QgdGhlIGNvbnRy
+b2wgcGFydCBvZiB0aGUgY2hhciBkZXYgYW5kIGNyZWF0ZSB0aGUKPj4gcnBtc2dfY3RybC5jIGZp
+bGUgKHBhdGNoZXMgMSB0byA2KQo+PiDCoMKgIC0gSW50cm9kdWNlIHRoZSAicnBtc2ctcmF3IiBj
+aGFubmVsIGluIHJwbXNnX2NoYXIocGF0Y2hlcyA3IHRvIDEwKQo+PiDCoMKgIC0gSW50cm9kdWNl
+IHRoZSBSUE1TR19DUkVBVEVfREVWX0lPQ1RMIElPQ1RMIGFuZAo+PiBSUE1TR19ERVNUUk9ZX0RF
+Vl9JT0NUTCB0byBpbnN0YW50aWF0ZSBSUE1zZwo+PiDCoMKgwqDCoCBkZXZpY2VzIChwYXRjaCAx
+MSkKPj4gwqDCoMKgwqAgVGhlIGFwcGxpY2F0aW9uIGNhbiB0aGVuIGNyZWF0ZSBvciByZWxlYXNl
+IGEgY2hhbm5lbCBieSBzcGVjaWZ5aW5nOgo+PiDCoMKgwqDCoMKgwqDCoCAtIHRoZSBuYW1lIHNl
+cnZpY2Ugb2YgdGhlIGRldmljZSB0byBpbnN0YW50aWF0ZS4KPj4gwqDCoMKgwqDCoMKgwqAgLSB0
+aGUgc291cmNlIGFkZHJlc3MuCj4+IMKgwqDCoMKgwqDCoMKgIC0gdGhlIGRlc3RpbmF0aW9uIGFk
+ZHJlc3MuCj4+Cj4+IFRoaXMgc2VyaWVzIGhhcyBiZSBhcHBsaWVkIGFuZCB0ZXN0ZWQgb24gJ2Nv
+bW1pdCBlNzgzMzYyZWI1NGMgKCJMaW51eAo+PiA1LjE3LXJjMSIpICsKPj4gcnBtc2dfY2hhciBj
+ZGV2IHJlbGVhc2UgZml4ZXMgWzJdWzNdCj4+Cj4+IFsxXSBodHRwczovL2xrbWwub3JnL2xrbWwv
+MjAyMS8xMi83LzE4Ngo+PiBbMl0gaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMjIvMS8xMC8xMTI5
+Cj4+IFszXSBodHRwczovL2xrbWwub3JnL2xrbWwvMjAyMi8xLzEwLzExMzAKPj4KPj4gQXJuYXVk
+IFBvdWxpcXVlbiAoMTEpOgo+PiDCoMKgIHJwbXNnOiBjaGFyOiBFeHBvcnQgZXB0ZGV2IGNyZWF0
+ZSBhbmQgZGVzdHJveSBmdW5jdGlvbnMKPj4gwqDCoCBycG1zZzogQ3JlYXRlIHRoZSBycG1zZyBj
+bGFzcyBpbiBjb3JlIGluc3RlYWQgb2YgaW4gcnBtc2cgY2hhcgo+PiDCoMKgIHJwbXNnOiBNb3Zl
+IHRoZSBycG1zZyBjb250cm9sIGRldmljZSBmcm9tIHJwbXNnX2NoYXIgdG8gcnBtc2dfY3RybAo+
+PiDCoMKgIGFybTogY29uZmlnczogQ29uZmlncyB0aGF0IGhhZCBSUE1TR19DSEFSIG5vdyBnZXQg
+UlBNU0dfQ1RSTAo+PiDCoMKgIFJJU0MtVjogY29uZmlnczogQ29uZmlncyB0aGF0IGhhZCBSUE1T
+R19DSEFSIG5vdyBnZXQgUlBNU0dfQ1RSTAo+PiDCoMKgIGFybTY0OiBkZWZjb25maWc6IENvbmZp
+ZyB0aGF0IGhhZCBSUE1TR19DSEFSIG5vdyBnZXRzIFJQTVNHX0NUUkwKPj4gwqDCoCBycG1zZzog
+VXBkYXRlIHJwbXNnX2NocmRldl9yZWdpc3Rlcl9kZXZpY2UgZnVuY3Rpb24KPj4gwqDCoCBycG1z
+ZzogY2hhcjogUmVmYWN0b3IgcnBtc2dfY2hyZGV2X2VwdGRldl9jcmVhdGUgZnVuY3Rpb24KPj4g
+wqDCoCBycG1zZzogY2hhcjogQWRkIHBvc3NpYmlsaXR5IHRvIHVzZSBkZWZhdWx0IGVuZHBvaW50
+IG9mIHRoZSBycG1zZwo+PiDCoMKgwqDCoCBkZXZpY2UKPj4gwqDCoCBycG1zZzogY2hhcjogSW50
+cm9kdWNlIHRoZSAicnBtc2ctcmF3IiBjaGFubmVsCj4+IMKgwqAgcnBtc2c6IGN0cmw6IEludHJv
+ZHVjZSBuZXcgUlBNU0dfQ1JFQVRFL1JFTEVBU0VfREVWX0lPQ1RMIGNvbnRyb2xzCj4+Cj4+IMKg
+IGFyY2gvYXJtL2NvbmZpZ3MvcWNvbV9kZWZjb25maWfCoMKgIHzCoMKgIDEgKwo+PiDCoCBhcmNo
+L2FybTY0L2NvbmZpZ3MvZGVmY29uZmlnwqDCoMKgwqDCoCB8wqDCoCAxICsKPj4gwqAgYXJjaC9y
+aXNjdi9jb25maWdzL2RlZmNvbmZpZ8KgwqDCoMKgwqAgfMKgwqAgMSArCj4+IMKgIGFyY2gvcmlz
+Y3YvY29uZmlncy9ydjMyX2RlZmNvbmZpZyB8wqDCoCAxICsKPj4gwqAgZHJpdmVycy9ycG1zZy9L
+Y29uZmlnwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDggKwo+PiDCoCBkcml2ZXJzL3Jw
+bXNnL01ha2VmaWxlwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCAxICsKPj4gwqAgZHJpdmVy
+cy9ycG1zZy9xY29tX2dsaW5rX25hdGl2ZS5jIHzCoMKgIDIgKy0KPj4gwqAgZHJpdmVycy9ycG1z
+Zy9xY29tX3NtZC5jwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDIgKy0KPj4gwqAgZHJpdmVycy9y
+cG1zZy9ycG1zZ19jaGFyLmPCoMKgwqDCoMKgwqDCoCB8IDIzMSArKysrKysrKysrKy0tLS0tLS0t
+LS0tLS0tLS0tCj4+IMKgIGRyaXZlcnMvcnBtc2cvcnBtc2dfY2hhci5owqDCoMKgwqDCoMKgwqAg
+fMKgIDQ2ICsrKysrKwo+PiDCoCBkcml2ZXJzL3JwbXNnL3JwbXNnX2NvcmUuY8KgwqDCoMKgwqDC
+oMKgIHzCoCAxNSArLQo+PiDCoCBkcml2ZXJzL3JwbXNnL3JwbXNnX2N0cmwuY8KgwqDCoMKgwqDC
+oMKgIHwgMjQzICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+PiDCoCBkcml2ZXJzL3Jw
+bXNnL3JwbXNnX2ludGVybmFsLmjCoMKgwqAgfMKgIDEwICstCj4+IMKgIGRyaXZlcnMvcnBtc2cv
+dmlydGlvX3JwbXNnX2J1cy5jwqAgfMKgwqAgMiArLQo+PiDCoCBpbmNsdWRlL3VhcGkvbGludXgv
+cnBtc2cuaMKgwqDCoMKgwqDCoMKgIHzCoCAxMCArKwo+PiDCoCAxNSBmaWxlcyBjaGFuZ2VkLCA0
+MTkgaW5zZXJ0aW9ucygrKSwgMTU1IGRlbGV0aW9ucygtKQo+PiDCoCBjcmVhdGUgbW9kZSAxMDA2
+NDQgZHJpdmVycy9ycG1zZy9ycG1zZ19jaGFyLmgKPj4gwqAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRy
+aXZlcnMvcnBtc2cvcnBtc2dfY3RybC5jCj4+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
