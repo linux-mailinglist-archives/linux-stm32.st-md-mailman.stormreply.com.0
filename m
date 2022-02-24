@@ -2,51 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013894C2D65
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Feb 2022 14:41:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A81E54C30CA
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Feb 2022 17:02:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA855C5F1D7;
-	Thu, 24 Feb 2022 13:40:59 +0000 (UTC)
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69ADBC60463;
+	Thu, 24 Feb 2022 16:02:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6985EC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EFE23C60462
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Feb 2022 13:40:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1645710059;
- x=1677246059; h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=yj/Kubo401FMKbYI1pppYqnrVxPghG1puNDBjNlL3v4=;
- b=Ra+fdEorLZb12Zd8GZyWu5YpSrfod8a8ONsZmHhhI/w9q4HnzJYzIsv6
- n5snJmlk9oOvf5iJZRRwEFc4I08LCtCKHVeqnKhbjZcmdOnAorc5E5mre
- rQRaErw7jSrfPQL8rPhdbQ0rVdr98/dO/axEiRKhwuzo0xbJRV335Wso0
- nmS46IJlGjftuFVaTfYnoRGDiV10ugnVJXYCKgrFQtpSUX2Q6WxN8KyE8
- zyG5fit4xFBgZlVZV6vJvThhKWgQ8bON7/8DcvMu8cdhQ/g1FPhwpusWe
- AGEvg1a7Nnb5LA/0IjToQ0z08Kwr5Xz9nG0VoZBelL1lh7v0m+qF3zeIG A==;
-Date: Thu, 24 Feb 2022 14:40:57 +0100
-From: Vincent Whitchurch <vincent.whitchurch@axis.com>
-To: Denis Kirjanov <dkirjanov@suse.de>
-Message-ID: <20220224134057.GA4994@axis.com>
-References: <20220224113829.1092859-1-vincent.whitchurch@axis.com>
- <f62148d7-6f7a-3557-e3ca-3a261b61ac9d@suse.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f62148d7-6f7a-3557-e3ca-3a261b61ac9d@suse.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@st.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Thu, 24 Feb 2022 16:02:33 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21OFqe5i018312;
+ Thu, 24 Feb 2022 17:02:10 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=E3Ow4hgvVJpm2Kg+yAxOov+dlrfQEYMV60wWkQBS5mA=;
+ b=3711kNGZWOI/RcIHIa8Xx7RLHwn9QjBdBqpyj96jiCg5L+6csAnTGluvAmZvC+eGTSke
+ yHK9YuLKh+irI0c9KM1mFRUB78X2moTXt9V05vVcdrUSkAQMmG0oeFlvymUcJIxriTVL
+ POC3vVa0eQHN0kHtCWir9itseeFXT/4x/qQE9d2DeflU0ffeKF7/SEP+/IZWu1kGRxbk
+ U1rKhqmAnYKARGxBY5dywWhdoKTctmCWU+voCcxP298pSW0f4TiLW4uRWExZuxl+3B3z
+ VpXd4Gl0vr+m9oi16UeS2plw1pXbiY3Lx1m+UpWvV+4puOZ+77SXa/TKgsIRjmBS3Qf9 XQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ee7tka6v8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 24 Feb 2022 17:02:10 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5579F10002A;
+ Thu, 24 Feb 2022 17:02:09 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2D0E622A6FC;
+ Thu, 24 Feb 2022 17:02:09 +0100 (CET)
+Received: from localhost (10.75.127.50) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 24 Feb 2022 17:02:08
+ +0100
+From: <gabriel.fernandez@foss.st.com>
+To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@canonical.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
- kernel <kernel@axis.com>, Lars Persson <Lars.Persson@axis.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, "David S.
- Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: only enable DMA
-	interrupts when ready
+ Philipp Zabel <p.zabel@pengutronix.de>, Gabriel Fernandez
+ <gabriel.fernandez@foss.st.com>
+Date: Thu, 24 Feb 2022 17:01:28 +0100
+Message-ID: <20220224160141.455881-1-gabriel.fernandez@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.50]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-02-24_03,2022-02-24_01,2022-02-23_01
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 00/13] Introduction of STM32MP13 RCC driver
+	(Reset Clock Controller)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,47 +74,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBGZWIgMjQsIDIwMjIgYXQgMDE6NTM6MzNQTSArMDEwMCwgRGVuaXMgS2lyamFub3Yg
-d3JvdGU6Cj4gMi8yNC8yMiAxNDozOCwgVmluY2VudCBXaGl0Y2h1cmNoINC/0LjRiNC10YI6Cj4g
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFj
-X21haW4uYyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWlu
-LmMKPiA+IGluZGV4IDY3MDhjYTJhYTRmNy4uNDM5Nzg1NThkNmMwIDEwMDY0NAo+ID4gLS0tIGEv
-ZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwo+ID4gKysr
-IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwo+ID4g
-QEAgLTIyNjAsNiArMjI2MCwyMyBAQCBzdGF0aWMgdm9pZCBzdG1tYWNfc3RvcF90eF9kbWEoc3Ry
-dWN0IHN0bW1hY19wcml2ICpwcml2LCB1MzIgY2hhbikKPiA+ICAgCXN0bW1hY19zdG9wX3R4KHBy
-aXYsIHByaXYtPmlvYWRkciwgY2hhbik7Cj4gPiAgIH0KPiA+ICAgCj4gPiArc3RhdGljIHZvaWQg
-c3RtbWFjX2VuYWJsZV9hbGxfZG1hX2lycShzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYpCj4gPiAr
-ewo+ID4gKwl1MzIgcnhfY2hhbm5lbHNfY291bnQgPSBwcml2LT5wbGF0LT5yeF9xdWV1ZXNfdG9f
-dXNlOwo+ID4gKwl1MzIgdHhfY2hhbm5lbHNfY291bnQgPSBwcml2LT5wbGF0LT50eF9xdWV1ZXNf
-dG9fdXNlOwo+ID4gKwl1MzIgZG1hX2Nzcl9jaCA9IG1heChyeF9jaGFubmVsc19jb3VudCwgdHhf
-Y2hhbm5lbHNfY291bnQpOwo+ID4gKwl1MzIgY2hhbjsKPiA+ICsKPiA+ICsJZm9yIChjaGFuID0g
-MDsgY2hhbiA8IGRtYV9jc3JfY2g7IGNoYW4rKykgewo+ID4gKwkJc3RydWN0IHN0bW1hY19jaGFu
-bmVsICpjaCA9ICZwcml2LT5jaGFubmVsW2NoYW5dOwo+ID4gKwkJdW5zaWduZWQgbG9uZyBmbGFn
-czsKPiA+ICsKPiA+ICsJCXNwaW5fbG9ja19pcnFzYXZlKCZjaC0+bG9jaywgZmxhZ3MpOwo+ID4g
-KwkJc3RtbWFjX2VuYWJsZV9kbWFfaXJxKHByaXYsIHByaXYtPmlvYWRkciwgY2hhbiwgMSwgMSk7
-Cj4gPiArCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZjaC0+bG9jaywgZmxhZ3MpOwo+ID4gKwl9
-Cj4gPiArfQo+ID4gKwo+ID4gICAvKioKPiA+ICAgICogc3RtbWFjX3N0YXJ0X2FsbF9kbWEgLSBz
-dGFydCBhbGwgUlggYW5kIFRYIERNQSBjaGFubmVscwo+ID4gICAgKiBAcHJpdjogZHJpdmVyIHBy
-aXZhdGUgc3RydWN0dXJlCj4gPiBAQCAtMjkwMiw4ICsyOTE5LDEwIEBAIHN0YXRpYyBpbnQgc3Rt
-bWFjX2luaXRfZG1hX2VuZ2luZShzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYpCj4gPiAgIAkJc3Rt
-bWFjX2F4aShwcml2LCBwcml2LT5pb2FkZHIsIHByaXYtPnBsYXQtPmF4aSk7Cj4gPiAgIAo+ID4g
-ICAJLyogRE1BIENTUiBDaGFubmVsIGNvbmZpZ3VyYXRpb24gKi8KPiA+IC0JZm9yIChjaGFuID0g
-MDsgY2hhbiA8IGRtYV9jc3JfY2g7IGNoYW4rKykKPiA+ICsJZm9yIChjaGFuID0gMDsgY2hhbiA8
-IGRtYV9jc3JfY2g7IGNoYW4rKykgewo+ID4gICAJCXN0bW1hY19pbml0X2NoYW4ocHJpdiwgcHJp
-di0+aW9hZGRyLCBwcml2LT5wbGF0LT5kbWFfY2ZnLCBjaGFuKTsKPiBEaWQgeW91IG1pc3MgdG8g
-dGFrZSBhIGNoYW5uZWwgbG9jaz8KCkkgZGlkbid0IGFkZCBpdCBvbiBwdXJwb3NlLiAgQXQgdGhp
-cyBwb2ludCBkdXJpbmcgaW5pdGlhbGl6YXRpb24gdGhlcmUKaXMgbm8tb25lIHdobyBjYW4gcmFj
-ZSB3aXRoIHRoZSByZWdpc3RlciB3cml0ZSBpbgpzdG1tYWNfZGlzYWJsZV9kbWFfaXJxKCkuICBU
-aGUgY2FsbCB0byBzdG1tYWNfaW5pdF9jaGFuKCkgKGluIHRoZQpleGlzdGluZyBjb2RlKSB3cml0
-ZXMgdGhlIHNhbWUgcmVnaXN0ZXIgd2l0aG91dCB0aGUgbG9jay4gCgo+ID4gKwkJc3RtbWFjX2Rp
-c2FibGVfZG1hX2lycShwcml2LCBwcml2LT5pb2FkZHIsIGNoYW4sIDEsIDEpOwo+ID4gKwl9Cj4g
-PiAgIApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
-eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
-by9saW51eC1zdG0zMgo=
+From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+
+This patchset introduce the reset and clock driver of STM32MP13 SoC.
+It uses a clk-stm32-core module to manage stm32 gate, mux and divider
+for STM32MP13 and for new future STMP32 SoC.
+
+Gabriel Fernandez (13):
+  dt-bindings: rcc: stm32: add new compatible for STM32MP13 SoC
+  clk: stm32: Introduce STM32MP13 RCC drivers (Reset Clock Controller)
+  clk: stm32mp13: add stm32_mux clock management
+  clk: stm32mp13: add stm32_gate management
+  clk: stm32mp13: add stm32 divider clock
+  clk: stm32mp13: add composite clock
+  clk: stm32mp13: manage secured clocks
+  clk: stm32mp13: add all STM32MP13 peripheral clocks
+  clk: stm32mp13: add all STM32MP13 kernel clocks
+  clk: stm32mp13: add multi mux function
+  clk: stm32mp13: add safe mux management
+  ARM: dts: stm32: enable optee firmware and SCMI support on STM32MP13
+  ARM: dts: stm32: add RCC on STM32MP13x SoC family
+
+ .../bindings/clock/st,stm32mp1-rcc.yaml       |    2 +
+ arch/arm/boot/dts/stm32mp131.dtsi             |  128 +-
+ arch/arm/boot/dts/stm32mp133.dtsi             |    4 +-
+ arch/arm/boot/dts/stm32mp13xf.dtsi            |    3 +-
+ drivers/clk/Kconfig                           |    5 +
+ drivers/clk/Makefile                          |    1 +
+ drivers/clk/stm32/Makefile                    |    1 +
+ drivers/clk/stm32/clk-stm32-core.c            |  707 +++++++
+ drivers/clk/stm32/clk-stm32-core.h            |  239 +++
+ drivers/clk/stm32/clk-stm32mp13.c             | 1580 +++++++++++++++
+ drivers/clk/stm32/reset-stm32.c               |  122 ++
+ drivers/clk/stm32/reset-stm32.h               |    8 +
+ drivers/clk/stm32/stm32mp13_rcc.h             | 1748 +++++++++++++++++
+ include/dt-bindings/clock/stm32mp13-clks.h    |  229 +++
+ include/dt-bindings/reset/stm32mp13-resets.h  |  100 +
+ 15 files changed, 4817 insertions(+), 60 deletions(-)
+ create mode 100644 drivers/clk/stm32/Makefile
+ create mode 100644 drivers/clk/stm32/clk-stm32-core.c
+ create mode 100644 drivers/clk/stm32/clk-stm32-core.h
+ create mode 100644 drivers/clk/stm32/clk-stm32mp13.c
+ create mode 100644 drivers/clk/stm32/reset-stm32.c
+ create mode 100644 drivers/clk/stm32/reset-stm32.h
+ create mode 100644 drivers/clk/stm32/stm32mp13_rcc.h
+ create mode 100644 include/dt-bindings/clock/stm32mp13-clks.h
+ create mode 100644 include/dt-bindings/reset/stm32mp13-resets.h
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
