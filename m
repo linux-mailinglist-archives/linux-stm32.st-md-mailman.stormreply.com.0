@@ -2,66 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 147AA4C25F2
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Feb 2022 09:29:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3B634C280A
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Feb 2022 10:27:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8251C5F1D7;
-	Thu, 24 Feb 2022 08:29:37 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9466DC5F1D7;
+	Thu, 24 Feb 2022 09:27:34 +0000 (UTC)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2156AC56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19E40C23E53
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Feb 2022 08:29:36 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21O3wL0S007085;
- Thu, 24 Feb 2022 09:29:27 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=5vxBlUo7IqSUsV8ak9FdX0a2AbnJY1ZznkqgwSpJMok=;
- b=FD2xbYxeUb94ev/5iLRiUuaKg3IftMpVAhgnSJ1kEA928Ejy973Z8e9Aw1z8jsPLrlUK
- La5oI0Nup18Olsc1hAJrJKWg/tsF9zaMXuwo/GU+S9zs/bPa3YSr5zGY1pGlDWDuMKfO
- Bcs3beuVlZP7PfY3rHOwhghrQcaEEpnub53W0e9D0wmwdIoLaqjw/3knqI0r85+WbMkt
- 0fAkJxScOWhpZGT1dt99SJ8S4LMr0hU6rlAqk5smlAajQYYlsoEXX7wn5dRsA1xvRMDE
- 00LbEoJqV2Sh/JwXmXSr7Eh8+S2g7KHil6fbZXDgU8HuBo4GvlQEysEkrPcKhvMfGblB dw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3edfyaft40-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Feb 2022 09:29:27 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8FCA010002A;
- Thu, 24 Feb 2022 09:29:26 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 87A2F216EDD;
- Thu, 24 Feb 2022 09:29:26 +0100 (CET)
-Received: from [10.201.20.246] (10.75.127.49) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Thu, 24 Feb
- 2022 09:29:25 +0100
-Message-ID: <670ee336-9ad4-401e-e3b2-02531e975e51@foss.st.com>
-Date: Thu, 24 Feb 2022 09:29:25 +0100
+ Thu, 24 Feb 2022 09:27:33 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id a23so3007917eju.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 24 Feb 2022 01:27:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5+kUny2RZ0RuNdhH0rcF0HLlqfcfBOEW7obgNCv8j1s=;
+ b=mYHsOBAn5oGqkqGiL0olxjHcyHEPj4RpaseQt4OcNS3I5AbhfqU+nrzOwrN05KlqTv
+ nQySHUxq+GSoZYjKaPyVm5JTQP+GAMcYbc5xj1jSk5O4mrwqgKUUZbFvzcLnm9sl/AsL
+ rF3NYgIHCPwiRf0+i7kaMYWpFKnhUkMIdOuds=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5+kUny2RZ0RuNdhH0rcF0HLlqfcfBOEW7obgNCv8j1s=;
+ b=dTj7Hmufy2AkrpWqnSeQUtzI3MK4+y06wk7cYSWkQGte/ZcGEOjtLdIFgkQONXKyFR
+ U7fU5d3iOsR38YPFmfabCIC2s06zVnkZOghu+/uwkfJ09bJhHob3eKZRBTfmSdNRsviI
+ v4UcY3ZhEZIE/w+ZUXgc+vOzmO1rQdLZw6o9gjHz1nkMppSlh+YmGZX6XUQpCHortqYY
+ n7nbkHgZ40SAEyoUjN7pWkDpEGgvUj/usOyKyO4U5OhkFY8kAHwp1xQtbTFthVvrOsld
+ FNK0EAdv42AKuzh0FGwGxtWo5pvG3CCAt8MsDVhdeDYRg+sGhYiyN6m255iQvyHyqH3j
+ 3iSA==
+X-Gm-Message-State: AOAM530g3TdzX9Lhweqh8figjtZpWwynKW7LsrpdqfmLiMut8+A2QQum
+ 13j35jWzqwBRa1sKbDfw4AkVICzzC4d9vkyJfIebCg==
+X-Google-Smtp-Source: ABdhPJy7NWl6V7uQam8s7xz0z+Q+MYOsJR+U5qx3JJg14ZPkRQFjj+oSeW7E1FTEJBiFECOjP0PDKrc2HCoOW/rfY68=
+X-Received: by 2002:a17:906:4ccd:b0:6b7:75ca:3eac with SMTP id
+ q13-20020a1709064ccd00b006b775ca3eacmr1498686ejt.167.1645694852581; Thu, 24
+ Feb 2022 01:27:32 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Philipp Rossak <embed3d@gmail.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20220124102524.295783-1-arnaud.pouliquen@foss.st.com>
- <ab97c2a5-7705-eae8-9bc2-908e7a9cb709@gmail.com>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-In-Reply-To: <ab97c2a5-7705-eae8-9bc2-908e7a9cb709@gmail.com>
-X-Originating-IP: [10.75.127.49]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
- definitions=2022-02-23_09,2022-02-23_01,2022-02-23_01
-Cc: julien.massot@iot.bzh, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v9 00/11] Restructure the rpmsg_char
- driver and introduce rpmsg_ctrl driver
+References: <20211210174819.2250178-1-jagan@amarulasolutions.com>
+ <20211210174819.2250178-3-jagan@amarulasolutions.com>
+ <CACRpkdb4JGCNyjncqgh8=3wWi4BRCqGNuLyTBRzLiVLK38UzqA@mail.gmail.com>
+ <CAMty3ZDDdxkTiC2GByuiVW9obXW_jdBFK+R2-BAh0k_uB=GApQ@mail.gmail.com>
+In-Reply-To: <CAMty3ZDDdxkTiC2GByuiVW9obXW_jdBFK+R2-BAh0k_uB=GApQ@mail.gmail.com>
+From: Jagan Teki <jagan@amarulasolutions.com>
+Date: Thu, 24 Feb 2022 14:57:10 +0530
+Message-ID: <CAMty3ZC4FP31zAU5CE88iG3JtXYaKo6b43bKjWuLiorHsrYBgQ@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, dri-devel@lists.freedesktop.org,
+ Neil Armstrong <narmstrong@baylibre.com>, Robert Foss <robert.foss@linaro.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Michael Nazzareno Trimarchi <michael@amarulasolutions.com>,
+ Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-amarula@amarulasolutions.com
+Subject: Re: [Linux-stm32] [PATCH 3/3] drm: bridge: Switch to
+	devm_drm_of_get_bridge
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,124 +74,101 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgUGhpbGlwcCwKCk9uIDIvMjMvMjIgMjI6MjgsIFBoaWxpcHAgUm9zc2FrIHdyb3RlOgo+IEhp
-IEFybmF1ZCwKPiAKPiB0aGFua3MgZm9yIHdvcmtpbmcgb24gdGhpcyEgSSdtIGN1cnJlbnRseSB0
-ZXN0aW5nL3VzaW5nIHRoaXMgcGF0Y2gKPiBzZXJpZXMgb24gbXkgaW14N2QgcHJvamVjdCBiZWNh
-dXNlIGl0IGFkZHMgdGhlIGNhcGFiaWxpdHkgdGhhdCB0aGUKPiByZW1vdGUgcHJvY2Vzc29yIGNh
-biByZWdpc3RlciBpdCdzIGVuZHBvaW50cyBkeW5hbWljYWxseSAoYXMgbWVudGlvbmVkCj4gaW4g
-dGhlIG9iamVjdGl2ZXMpLgoKVGhhbmtzIGZvciB5b3VyIGZlZWRiYWNrIG9uIHRoaXMgd29yayEg
-CkRvbid0IGhlc2l0YXRlIHRvIGFkZCB5b3VyIHRlc3RlZC1ieSwgdGhpcyBoZWxwIG1haW50YWlu
-ZXJzIGZvciB0aGUgcmV2aWV3cy4gCgo+IAo+IEFmdGVyIGEgZmV3IHRlc3RzLCBkZWJ1Z2dpbmcs
-IGFuZCBjaGVja2luZyB0aGUgb3BlbmFtcCBzcGVjaWZpY2F0aW9uIFsxXQo+IEkgdGhpbmsgdGhh
-dCB5b3UgbWlzc2VkIHRoZSBzZWNvbmQgbnNfYW5ub3VuY2VtZW50IHRoYXQgc2hvdWxkIGJlIHNl
-bnQKPiBmcm9tIGxpbnV4IG1hc3RlciB0byB0aGUgc2xhdmUgYWZ0ZXIgaXQgY3JlYXRlZCB0aGUg
-Y2hhbm5lbC9lbmRwb2ludC4KPiBXaXRob3V0IHRoaXMgc2Vjb25kIGFubm91bmNlbWVudCB0aGUg
-cmVtb3RlIHByb2Nlc3NvciBpcyBub3QgYWJsZSB0bwo+IHNlbmQgbWVzc2FnZXMgdG8gdGhlIGxp
-bnV4IG1hc3RlciBiZWNhdXNlIGl0IGRvZXNuJ3Qga25vdyB0aGUKPiBkZXN0aW5hdGlvbiBhZGRy
-ZXNzIHVudGlsIGl0IHJlY2VpdmVzIGEgbWVzc2FnZSBmcm9tIHRoZSBsaW51eCBtYXN0ZXIuCgpZ
-ZXMgSSBkZXRlY3RlZCB0aGlzIGlzc3VlcywgaXQgaXMgbm90IHJlbGF0ZWQgdG8gdGhlIHNlcmll
-cwpidXQgdG8gdGhlIHJlbW90ZXByb2NfdmlydGlvIGJhY2tlbmQuCgpBcyB5b3UgbWVudGlvbmVk
-LCBhZnRlciB0aGUgbnMgYW5ub3VuY2VtZW50IGZyb20gTGludXgsIHRoZSByZW1vdGUgcHJvY2Vz
-c29yCnNlbmQgZmlyc3QgbWVzc2FnZXMuIEJ1dCB0aGUgTGludXggdmlydGlvIGRvZXMgbm90IGRv
-IHRoZSBtYXRjaCBiZXR3ZWVuIHRoZQpsb2NhbCBjaGFubmVsIGNyZWF0ZWQgYW5kIHRoZSByZW1v
-dGUgZW5kcG9pbnQuCgpUaGlzIGlzIGEgZmVhdHVyZSB0aGF0IGlzIG1pc3NpbmcgaW4gdGhlIHJw
-bXNnIHZpcnRpbywgYW5kIHBlcmhhcHMgaW4gcnBtc2cgcHJvdG9jb2wKaXRzZWxmIChhIG5zIGFu
-bm91Y2VtZW50IGFjayBtZXNzYWdlIG9yIHNvbWV0aGluZyBzaW1pbGFyKS4KCgpBIGZpeCBmb3Ig
-dGhlIHJlbW90ZXByb2MgdmlydGlvIGlzIGF2YWlsYWJsZSBoZXJlOgpodHRwczovL2dpdGh1Yi5j
-b20vYXJub3BvL21ldGEtc3Qtc3RtMzJtcC1vc3MvY29tbWl0LzNlNTdmZTczYmQxOWM5YmI4MzVh
-YzVhMTE4ZTUwNzI3NzU4YjBiOTYKCkRvbid0IGhlc2l0YXRlIHRvIGdpdmUgbWUgZmVlZGJhY2sg
-b24gdGhlIGZpeCwgaWYgeW91IHRlc3QgaXQuCgpJIHBsYW4gdG8gcHJvcG9zZSB0aGUgZml4IGFm
-dGVyIHRoaXMgc2VyaWVzLiAgICAKClRoYW5rcywKQXJuYXVkCgo+IAo+IENoZWVycywKPiBQaGls
-aXBwCj4gCj4gCj4gWzFdOgo+IGh0dHBzOi8vZ2l0aHViLmNvbS9PcGVuQU1QL29wZW4tYW1wL2Js
-b2IvbWFpbi9kb2NzL2ltZy9jb3Byb2Nlc3Nvci1ycG1zZy1ucy5wbmcKPiAKPiAKPiBPbiAyNC4w
-MS4yMiAxMToyNSwgQXJuYXVkIFBvdWxpcXVlbiB3cm90ZToKPj4gVXBkYXRlcyBmcm9tIFY4IFsx
-XToKPj4gLSByZWJhc2Ugb24gNS4xNy1yYzEgKyBycG1zZyBjaGFyIGNkZXYgcmVsZWFzZSBmaXhl
-c1syXVszXQo+PiAtIHVwZGF0ZXMgYmFzZWQgb24gQmpvcm4gQW5kZXJzc29uJ3MgY29tbWVudHM6
-Cj4+IMKgwqAgLSByZW1vdmUgcnBtc2dfY3JlYXRlX2RlZmF1bHRfZXB0IEFQSSwgc2V0IGRpcmVj
-dGx5IHRoZSBlcHQtPnByaXYKPj4gaW4gcnBtc2dfY2hyZGV2X3Byb2JlCj4+IMKgwqDCoMKgIGZ1
-bmN0aW9uLgo+PiDCoMKgIC0gcmV3b3JrIGNvbW1pdCBtZXNzYWdlIGluIFs4LzldcnBtc2c6IGNo
-YXI6IEludHJvZHVjZSB0aGUKPj4gInJwbXNnLXJhdyIgY2hhbm5lbAo+Pgo+PiBQYXRjaHNldCBk
-ZXNjcmlwdGlvbjoKPj4KPj4gVGhlIGN1cnJlbnQgcnBtc2dfY2hhciBtb2R1bGUgaW1wbGVtZW50
-cyBhIC9kZXYvcnBtc2dfY3RybCBpbnRlcmZhY2UKPj4gdGhhdCBwcm92aWRlcyB0aGUgYWJpbGl0
-eSB0bwo+PiBpbnN0YW50aWF0ZSBjaGFyIGRldmljZXMgKC9kZXYvcnBtc2dYKSBhc3NvY2lhdGVk
-IHdpdGggYW4gcnBtc2cKPj4gZW5kcG9pbnQgZm9yIGNvbW11bmljYXRpb24gd2l0aCB0aGUKPj4g
-cmVtb3RlIHByb2Nlc3Nvci4KPj4gVGhpcyBpbXBsZW1lbnRhdGlvbiBmaXRzIHdpdGggUUNPTSBy
-cG1zZyBiYWNrZW5kIGJ1dCBub3Qgd2l0aCB0aGUKPj4gbWFnZW1lbnQgYnkgY2hhbmVsIGltcGxl
-bWVudGVkCj4+IGluIHRoZSBnZW5lcmljIHJwbXNnIHZpcnRpbyBiYWNrZW5kLgo+PiBUaGlzIHNl
-cmllcyByZXN0cnVjdHVyZXMgdGhlIHJwbXNnX2NoYXIgZHJpdmVyIHRvIGRlY29ycmVsYXRlIHRo
-ZQo+PiBjb250cm9sIHBhcnQgZnJvbSB0aGUgZGF0YSBwYXJ0Cj4+IGluIG9yZGVyIHRvIGltcHJv
-dmUgaXRzIGNvbXBhdGlibGUgd2l0aCB0aGUgcnBtc2cgdmlydGlvIGJhY2tlbmQuCj4+Cj4+IE9i
-amVjdGl2ZToKPj4gLSBFeHBvc2UgYSAvZGV2L3JwbXNnX2N0cmxYIGludGVyZmFjZSBmb3IgdGhl
-IGFwcGxpY2F0aW9uIHRoYXQgaXMgbm8KPj4gbG9uZ2VyIGRlZGljYXRlZCB0byB0aGUKPj4gwqDC
-oCBycG1zZ19jaGFyIGJ1dCBnZW5lcmFsaXplZCB0byBhbGwgcnBtc2cgc2VydmljZXMuIFRoaXMg
-b2ZmZXJzCj4+IGNhcGFiaWxpdHkgdG8gY3JlYXRlIGFuZCBkZXN0cm95Cj4+IMKgwqAgcnBtc2cg
-Y2hhbm5lbHMgZnJvbSBhIHVzZXIncyBhcHBsaWNhdGlvbiBpbml0aWF0aXZlICh1c2luZyB0aGUg
-bmV3Cj4+IFJQTVNHX0NSRUFURV9ERVZfSU9DVEwgYW5kCj4+IMKgwqAgUlBNU0dfREVTVFJPWV9E
-RVZfSU9DVEwgY29udHJvbHMpLgo+PiDCoMKgIEFuIGFwcGxpY2F0aW9uIHdpbGwgYmUgYWJsZSB0
-byBjcmVhdGUvZXN0YWJsaXNoIGFuIHJwbXNnCj4+IGNvbW11bmljYXRpb24gY2hhbm5lbCB0byBj
-b21tdW5pY2F0ZQo+PiDCoMKgIHdpdGggdGhlIHJlbW90ZSBwcm9jZXNzb3IsIGFuZCBub3Qgb25s
-eSB3YWl0IHRoZSByZW1vdGUgcHJvY2Vzc29yCj4+IGluaXRpYXRpdmUuCj4+IMKgwqAgVGhpcyBp
-cyBpbnRlcmVzdGluZyBmb3IgZXhhbXBsZSB0byBlc3RhYmxpc2ggYSB0ZW1wb3JhcnkKPj4gY29t
-bXVuaWNhdGlvbiBsaW5rIGZvciBkaWFnbm9zaXMsCj4+IMKgwqAgY2FsaWJyYXRpb24sIGRlYnVn
-Z2luZy4uLiBvciBpbnN0YW50aWF0ZcKgIG5ldyBkYXRhIGZsb3dzIG9uIHNvbWUKPj4gdXNlciBh
-Y3Rpb25zLgo+PiAtIEFkZCBjYXBhYmlsaXR5IHRvIHByb2JlIHRoZSBycG1zZ19jaGFyIGRldmlj
-ZSBhdCB0aGUgaW5pdGlhdGl2ZSBvZgo+PiB0aGUgcmVtb3RlIHByb2Nlc3Nvcgo+PiDCoCAocnBt
-c2cgc2VydmljZSBhbm5vdW5jZW1lbnQgbWVjaGFuaXNtKS4KPj4gwqDCoCBUaGlzIGFsbG93cyBw
-bGF0Zm9ybXMgYmFzZWQgb24gdGhlIHJwbXNnIHZpcnRpbyBiYWNrZW5kIHRvIGNyZWF0ZQo+PiB0
-aGUgL2Rldi9ycG1nWCBpbnRlcmZhY2Ugd2l0aAo+PiDCoMKgIGEgcnBtc2cgbmFtZSBzZXJ2aWNl
-IGFubm91bmNlbWVudC4KPj4KPj4gU3Vic2V0czoKPj4gwqDCoCAtIEV4dHJhY3QgdGhlIGNvbnRy
-b2wgcGFydCBvZiB0aGUgY2hhciBkZXYgYW5kIGNyZWF0ZSB0aGUKPj4gcnBtc2dfY3RybC5jIGZp
-bGUgKHBhdGNoZXMgMSB0byA2KQo+PiDCoMKgIC0gSW50cm9kdWNlIHRoZSAicnBtc2ctcmF3IiBj
-aGFubmVsIGluIHJwbXNnX2NoYXIocGF0Y2hlcyA3IHRvIDEwKQo+PiDCoMKgIC0gSW50cm9kdWNl
-IHRoZSBSUE1TR19DUkVBVEVfREVWX0lPQ1RMIElPQ1RMIGFuZAo+PiBSUE1TR19ERVNUUk9ZX0RF
-Vl9JT0NUTCB0byBpbnN0YW50aWF0ZSBSUE1zZwo+PiDCoMKgwqDCoCBkZXZpY2VzIChwYXRjaCAx
-MSkKPj4gwqDCoMKgwqAgVGhlIGFwcGxpY2F0aW9uIGNhbiB0aGVuIGNyZWF0ZSBvciByZWxlYXNl
-IGEgY2hhbm5lbCBieSBzcGVjaWZ5aW5nOgo+PiDCoMKgwqDCoMKgwqDCoCAtIHRoZSBuYW1lIHNl
-cnZpY2Ugb2YgdGhlIGRldmljZSB0byBpbnN0YW50aWF0ZS4KPj4gwqDCoMKgwqDCoMKgwqAgLSB0
-aGUgc291cmNlIGFkZHJlc3MuCj4+IMKgwqDCoMKgwqDCoMKgIC0gdGhlIGRlc3RpbmF0aW9uIGFk
-ZHJlc3MuCj4+Cj4+IFRoaXMgc2VyaWVzIGhhcyBiZSBhcHBsaWVkIGFuZCB0ZXN0ZWQgb24gJ2Nv
-bW1pdCBlNzgzMzYyZWI1NGMgKCJMaW51eAo+PiA1LjE3LXJjMSIpICsKPj4gcnBtc2dfY2hhciBj
-ZGV2IHJlbGVhc2UgZml4ZXMgWzJdWzNdCj4+Cj4+IFsxXSBodHRwczovL2xrbWwub3JnL2xrbWwv
-MjAyMS8xMi83LzE4Ngo+PiBbMl0gaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMjIvMS8xMC8xMTI5
-Cj4+IFszXSBodHRwczovL2xrbWwub3JnL2xrbWwvMjAyMi8xLzEwLzExMzAKPj4KPj4gQXJuYXVk
-IFBvdWxpcXVlbiAoMTEpOgo+PiDCoMKgIHJwbXNnOiBjaGFyOiBFeHBvcnQgZXB0ZGV2IGNyZWF0
-ZSBhbmQgZGVzdHJveSBmdW5jdGlvbnMKPj4gwqDCoCBycG1zZzogQ3JlYXRlIHRoZSBycG1zZyBj
-bGFzcyBpbiBjb3JlIGluc3RlYWQgb2YgaW4gcnBtc2cgY2hhcgo+PiDCoMKgIHJwbXNnOiBNb3Zl
-IHRoZSBycG1zZyBjb250cm9sIGRldmljZSBmcm9tIHJwbXNnX2NoYXIgdG8gcnBtc2dfY3RybAo+
-PiDCoMKgIGFybTogY29uZmlnczogQ29uZmlncyB0aGF0IGhhZCBSUE1TR19DSEFSIG5vdyBnZXQg
-UlBNU0dfQ1RSTAo+PiDCoMKgIFJJU0MtVjogY29uZmlnczogQ29uZmlncyB0aGF0IGhhZCBSUE1T
-R19DSEFSIG5vdyBnZXQgUlBNU0dfQ1RSTAo+PiDCoMKgIGFybTY0OiBkZWZjb25maWc6IENvbmZp
-ZyB0aGF0IGhhZCBSUE1TR19DSEFSIG5vdyBnZXRzIFJQTVNHX0NUUkwKPj4gwqDCoCBycG1zZzog
-VXBkYXRlIHJwbXNnX2NocmRldl9yZWdpc3Rlcl9kZXZpY2UgZnVuY3Rpb24KPj4gwqDCoCBycG1z
-ZzogY2hhcjogUmVmYWN0b3IgcnBtc2dfY2hyZGV2X2VwdGRldl9jcmVhdGUgZnVuY3Rpb24KPj4g
-wqDCoCBycG1zZzogY2hhcjogQWRkIHBvc3NpYmlsaXR5IHRvIHVzZSBkZWZhdWx0IGVuZHBvaW50
-IG9mIHRoZSBycG1zZwo+PiDCoMKgwqDCoCBkZXZpY2UKPj4gwqDCoCBycG1zZzogY2hhcjogSW50
-cm9kdWNlIHRoZSAicnBtc2ctcmF3IiBjaGFubmVsCj4+IMKgwqAgcnBtc2c6IGN0cmw6IEludHJv
-ZHVjZSBuZXcgUlBNU0dfQ1JFQVRFL1JFTEVBU0VfREVWX0lPQ1RMIGNvbnRyb2xzCj4+Cj4+IMKg
-IGFyY2gvYXJtL2NvbmZpZ3MvcWNvbV9kZWZjb25maWfCoMKgIHzCoMKgIDEgKwo+PiDCoCBhcmNo
-L2FybTY0L2NvbmZpZ3MvZGVmY29uZmlnwqDCoMKgwqDCoCB8wqDCoCAxICsKPj4gwqAgYXJjaC9y
-aXNjdi9jb25maWdzL2RlZmNvbmZpZ8KgwqDCoMKgwqAgfMKgwqAgMSArCj4+IMKgIGFyY2gvcmlz
-Y3YvY29uZmlncy9ydjMyX2RlZmNvbmZpZyB8wqDCoCAxICsKPj4gwqAgZHJpdmVycy9ycG1zZy9L
-Y29uZmlnwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDggKwo+PiDCoCBkcml2ZXJzL3Jw
-bXNnL01ha2VmaWxlwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCAxICsKPj4gwqAgZHJpdmVy
-cy9ycG1zZy9xY29tX2dsaW5rX25hdGl2ZS5jIHzCoMKgIDIgKy0KPj4gwqAgZHJpdmVycy9ycG1z
-Zy9xY29tX3NtZC5jwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDIgKy0KPj4gwqAgZHJpdmVycy9y
-cG1zZy9ycG1zZ19jaGFyLmPCoMKgwqDCoMKgwqDCoCB8IDIzMSArKysrKysrKysrKy0tLS0tLS0t
-LS0tLS0tLS0tCj4+IMKgIGRyaXZlcnMvcnBtc2cvcnBtc2dfY2hhci5owqDCoMKgwqDCoMKgwqAg
-fMKgIDQ2ICsrKysrKwo+PiDCoCBkcml2ZXJzL3JwbXNnL3JwbXNnX2NvcmUuY8KgwqDCoMKgwqDC
-oMKgIHzCoCAxNSArLQo+PiDCoCBkcml2ZXJzL3JwbXNnL3JwbXNnX2N0cmwuY8KgwqDCoMKgwqDC
-oMKgIHwgMjQzICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+PiDCoCBkcml2ZXJzL3Jw
-bXNnL3JwbXNnX2ludGVybmFsLmjCoMKgwqAgfMKgIDEwICstCj4+IMKgIGRyaXZlcnMvcnBtc2cv
-dmlydGlvX3JwbXNnX2J1cy5jwqAgfMKgwqAgMiArLQo+PiDCoCBpbmNsdWRlL3VhcGkvbGludXgv
-cnBtc2cuaMKgwqDCoMKgwqDCoMKgIHzCoCAxMCArKwo+PiDCoCAxNSBmaWxlcyBjaGFuZ2VkLCA0
-MTkgaW5zZXJ0aW9ucygrKSwgMTU1IGRlbGV0aW9ucygtKQo+PiDCoCBjcmVhdGUgbW9kZSAxMDA2
-NDQgZHJpdmVycy9ycG1zZy9ycG1zZ19jaGFyLmgKPj4gwqAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRy
-aXZlcnMvcnBtc2cvcnBtc2dfY3RybC5jCj4+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Linus,
+
+On Sat, Dec 11, 2021 at 11:59 AM Jagan Teki <jagan@amarulasolutions.com> wrote:
+>
+> Hi Linus,
+>
+> On Sat, Dec 11, 2021 at 5:37 AM Linus Walleij <linus.walleij@linaro.org> wrote:
+> >
+> > On Fri, Dec 10, 2021 at 6:49 PM Jagan Teki <jagan@amarulasolutions.com> wrote:
+> > >
+> > > devm_drm_of_get_bridge is capable of looking up the downstream
+> > > bridge and panel and trying to add a panel bridge if the panel
+> > > is found.
+> > >
+> > > Replace explicit finding calls with devm_drm_of_get_bridge.
+> > >
+> > > Cc: Philipp Zabel <p.zabel@pengutronix.de>
+> > > Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+> > > Cc: Linus Walleij <linus.walleij@linaro.org>
+> > > Signed-off-by: Jagan Teki <jagan@amarulasolutions.com>
+> >
+> > Nice overall!
+> >
+> > > -       /* Look for a panel as a child to this node */
+> > > -       for_each_available_child_of_node(dev->of_node, child) {
+> > > -               panel = of_drm_find_panel(child);
+> > > -               if (IS_ERR(panel)) {
+> > > -                       dev_err(dev, "failed to find panel try bridge (%ld)\n",
+> > > -                               PTR_ERR(panel));
+> > > -                       panel = NULL;
+> > > -
+> > > -                       bridge = of_drm_find_bridge(child);
+> > > -                       if (!bridge) {
+> > > -                               dev_err(dev, "failed to find bridge\n");
+> > > -                               return -EINVAL;
+> > > -                       }
+> > > -               }
+> > > -       }
+> > > -       if (panel) {
+> > > -               bridge = drm_panel_bridge_add_typed(panel,
+> > > -                                                   DRM_MODE_CONNECTOR_DSI);
+> >
+> > And we are guaranteed that the right type of connector will be
+> > used here? (Just checking.)
+>
+> Yes. Each panel driver initialised the connector_type via
+> drm_panel_init and it will check during devm_drm_of_get_bridge.
+>
+> >
+> > > -               if (IS_ERR(bridge)) {
+> > > -                       dev_err(dev, "error adding panel bridge\n");
+> > > -                       return PTR_ERR(bridge);
+> > > -               }
+> > > -               dev_info(dev, "connected to panel\n");
+> > > -               d->panel = panel;
+> >
+> > How does this assignment happen after your patch?
+> > I'm using that...
+> >
+> > devm_drm_of_get_bridge() needs some more argument right?
+>
+> Yes, but I think we don't need to preserve the panel here. Yes I
+> didn't add that change, will take care in v2.
+>
+> >
+> > > -       } else if (bridge) {
+> > > -               /* TODO: AV8100 HDMI encoder goes here for example */
+> > > -               dev_info(dev, "connected to non-panel bridge (unsupported)\n");
+> > > -               return -ENODEV;
+> > > -       } else {
+> > > -               dev_err(dev, "no panel or bridge\n");
+> > > -               return -ENODEV;
+> > > +       bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
+> > > +       if (IS_ERR(bridge)) {
+> > > +               dev_err(dev, "error to get bridge\n");
+> > > +               return PTR_ERR(bridge);
+> >
+> > I'm gonna want to test this somehow on the hardware. But the TODO comment
+> > there wasn't supposed to be deleted if I will still need to take some special
+> > action whether this is a panel bridge or some other bridge.
+>
+> Agreed. Even I do like to add this prints, since
+> devm_drm_of_get_bridge is not able to return differentiated bridge so
+> it it not possible now. May be we can discuss this point.
+
+Any comments on this? I will try to send the next version based on it.
+
+Thanks,
+Jagan.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
