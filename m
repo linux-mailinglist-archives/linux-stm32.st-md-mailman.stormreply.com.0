@@ -2,72 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAF7C4C4961
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Feb 2022 16:43:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C663B4C50DC
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Feb 2022 22:46:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75DA1C60491;
-	Fri, 25 Feb 2022 15:43:26 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7ABDCC5F1F2;
+	Fri, 25 Feb 2022 21:46:00 +0000 (UTC)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08637C57B6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED220C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Feb 2022 15:43:24 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21PD6pq4031745;
- Fri, 25 Feb 2022 16:43:10 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=MBoowDQHPfD1JA5SFm2tPIXGpLPPrwVQpuzL9/QQv20=;
- b=OmyHVP7XKeH06zdmOAYu3zu/hZ/Nuja8/4COwZUTHGgwqGn+AWfahVMR+FeMrD7l5pt1
- NqdKTrEb2OnZe5u2bkgS8wQG5hLFdZmjgm1a/cUPb7gLFE1JBPBV4HgCQDd/LsyyTcXu
- GwzxOURKLINGKMVgQl8YaOS5Gx9f8Y5ZGLueE635n0SgGcEzcPPR5my+ZxN5HmKw0MBh
- fBH9O/ebNcfG6EBCfoQAsbeniNEMiKtIlLMVVVnPdaHqGOiOJmJwu7QLEtURoBe3mWVZ
- b0BrtWctGTanPYtYUyCS6TQF68pG2Btrt2ARESG/hzJPh+qpI/c1yJiRyaVzmryGevNb eA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3eetrf2y6q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 25 Feb 2022 16:43:10 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 31B5F10002A;
- Fri, 25 Feb 2022 16:43:09 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 28BDC22FA49;
- Fri, 25 Feb 2022 16:43:09 +0100 (CET)
-Received: from [10.201.22.79] (10.75.127.51) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 25 Feb
- 2022 16:43:08 +0100
-Message-ID: <7d1c5ef9-beca-9804-471f-92abd8a6e168@foss.st.com>
-Date: Fri, 25 Feb 2022 16:43:08 +0100
+ Fri, 25 Feb 2022 21:45:58 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id p14so13280107ejf.11
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 25 Feb 2022 13:45:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=WUC7V+O3XAxmaqtMnQJOVveRn6Cuhyncuw6K66dwUqc=;
+ b=J6IYE5vlhK+ylp2TLN0MIkJ7VkoKkzaDVW51e4oXPuRffwekpuI3j0SuhJhjDH4jsn
+ 89fRNsbZdw3Ot4NJQOumfJyErzdw8HPeBfQE/mJCJeoh5WXAFkjbXgnNNnaVdtOatA91
+ MKxUDHPxaLo87a8hRWH+1IBRcx87385sFXAJ90X4+CPG4kgBOhuck4jmH1kkGcpxIU5o
+ c56KIutfl9wIRasS7xNDicqvtFS1gBoFF65niO4E9QkdwceCFfY0r/dC6kZnoM5kPmCc
+ TU/0E5jmqWIKBXK4Rs1vcla+Ma5rfVAfZQBmOQwRDzWKLv/E8MhUaI5OHCvYuSII83ga
+ 5f2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=WUC7V+O3XAxmaqtMnQJOVveRn6Cuhyncuw6K66dwUqc=;
+ b=2eLFlEy7gZjD/8OIA//4hXKJrtV1vCBYw+OUpxOKI+EaK6Sj3c3woY8bo6k1OLV26s
+ hi+I771Jg024KjYjz+q2SPdeh+cIdZesNz4pAM9ohrKLlqVg6icVSI8HMlVmfXHK2qb8
+ v61wjmU2WfkceZsfBVO1MK4EyfGZxPrQS5K6Zv6hTLzZ0o3D27JENoUUDcw/WMrVacdk
+ Dn/Z8Jv97RHUDKw+SWugjlQjuJNRAZUcS61aLoxo3nhtTYnO+TvYqrQCOMLIeJtfPYDv
+ DgjY1qKmFSzaFwODo8yWVykENBUmpdLGL8yy/hODtac8Hq/KWaH10kXtR1/Quvt6HOjQ
+ 8zNw==
+X-Gm-Message-State: AOAM532D8e7X9+AyCmFzkLknqEXIzq3En91zzrdg8Ml2zsp5mMbFUjLS
+ 1tPqnsABNaRxL9DAysGZIckrUjCMGPNg4g==
+X-Google-Smtp-Source: ABdhPJwzHWtu2wcaSjUJUo74H7f7+j3BpIDWEyIIyY+Gn8nTEclUvyyXX2GyZNjkO0R+fazX83syow==
+X-Received: by 2002:a17:906:3bcb:b0:6cf:cf86:28d7 with SMTP id
+ v11-20020a1709063bcb00b006cfcf8628d7mr7652814ejf.274.1645825558357; 
+ Fri, 25 Feb 2022 13:45:58 -0800 (PST)
+Received: from [192.168.2.121] (p578f0c28.dip0.t-ipconnect.de. [87.143.12.40])
+ by smtp.gmail.com with ESMTPSA id
+ h3-20020aa7cdc3000000b00410b90f3ffesm1892707edw.56.2022.02.25.13.45.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 25 Feb 2022 13:45:57 -0800 (PST)
+Message-ID: <15be2f08-ba03-2b80-6f53-2056359d5c41@gmail.com>
+Date: Fri, 25 Feb 2022 22:45:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
+ Thunderbird/91.6.1
 Content-Language: en-US
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski@canonical.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-References: <20220225133137.813919-1-gabriel.fernandez@foss.st.com>
- <3e2f8cf8-3a41-d2e2-c9f1-6c1240b4a610@pengutronix.de>
-From: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
-In-Reply-To: <3e2f8cf8-3a41-d2e2-c9f1-6c1240b4a610@pengutronix.de>
-X-Originating-IP: [10.75.127.51]
-X-ClientProxiedBy: SFHDAG2NODE1.st.com (10.75.127.4) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
- definitions=2022-02-25_09,2022-02-25_01,2022-02-23_01
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 00/13] Introduction of STM32MP13 RCC
- driver (Reset Clock Controller)
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20220124102524.295783-1-arnaud.pouliquen@foss.st.com>
+ <ab97c2a5-7705-eae8-9bc2-908e7a9cb709@gmail.com>
+ <670ee336-9ad4-401e-e3b2-02531e975e51@foss.st.com>
+From: Philipp Rossak <embed3d@gmail.com>
+In-Reply-To: <670ee336-9ad4-401e-e3b2-02531e975e51@foss.st.com>
+Cc: julien.massot@iot.bzh, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v9 00/11] Restructure the rpmsg_char
+ driver and introduce rpmsg_ctrl driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,39 +84,102 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Ahmad,
+Hi Arnaud,
 
-many thanks for your review.
-
-I'll check linux-stm32 mailing list issue.
-
-Best Regards
-
-Gabriel
-
-On 2/25/22 16:28, Ahmad Fatoum wrote:
-> On 25.02.22 14:31, gabriel.fernandez@foss.st.com wrote:
->> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+On 24.02.22 09:29, Arnaud POULIQUEN wrote:
+> Hi Philipp,
+> 
+> On 2/23/22 22:28, Philipp Rossak wrote:
+>> Hi Arnaud,
 >>
->> This patchset introduce the reset and clock driver of STM32MP13 SoC.
->> It uses a clk-stm32-core module to manage stm32 gate, mux and divider
->> for STM32MP13 and for new future STMP32 SoC.
+>> thanks for working on this! I'm currently testing/using this patch
+>> series on my imx7d project because it adds the capability that the
+>> remote processor can register it's endpoints dynamically (as mentioned
+>> in the objectives).
+> 
+> Thanks for your feedback on this work!
+> Don't hesitate to add your tested-by, this help maintainers for the reviews.
+> 
+I will do this.
 >>
->> v2:
->>    - Resend because patch 9,10,12,13 has not been sent
->>    - add Reviewed by Krzysztof Kozlowski for patch 1
+>> After a few tests, debugging, and checking the openamp specification [1]
+>> I think that you missed the second ns_announcement that should be sent
+>> from linux master to the slave after it created the channel/endpoint.
+>> Without this second announcement the remote processor is not able to
+>> send messages to the linux master because it doesn't know the
+>> destination address until it receives a message from the linux master.
+> 
+> Yes I detected this issues, it is not related to the series
+> but to the remoteproc_virtio backend.
+> 
+> As you mentioned, after the ns announcement from Linux, the remote processor
+> send first messages. But the Linux virtio does not do the match between the
+> local channel created and the remote endpoint.
+> 
+
+I'm not sure if we talk about the same. I'm basically talking about the 
+dynamic binding, not dynamic endpoint creation.
+I think I already found the issue. I will try to get a bit more into detail.
+
+1. Linux: starts co-processor via remoteproc
+2. co-processor: boots and reaches the point where it creates the 
+endpoint like it is done in this ST example[1].
+Be aware the src address is RPMSG_ADDR_ANY
+3. co-processor: reaches the point where it sends the ns_announcement to 
+linux ns endpoint
+4. linux: receives the ns announcment, creates the channel, bindes the 
+endpoint and checks here [2] if the source address is not RPMSG_ADDR_ANY 
+and in this case it is not sending a ns_announcement (that's the issue 
+when we use dynamic endpoints)
+5. linux: according the openamp spec [3] it should now send the 
+ns_announcement to the co-processor (slave)
+6. co-processor: should receive the ns announcement and binds now the 
+endpoint
+7. co-processor: can now send messages to linux
+
+This is basically what I'm expecting.
+
+
+Do you think this is a bug or is the dynamic endpoint binding not 
+handled? This line is there since ever [4] ...
+
+Any other thoughts about this?
+
+> This is a feature that is missing in the rpmsg virtio, and perhaps in rpmsg protocol
+> itself (a ns annoucement ack message or something similar).
+> 
+> 
+> A fix for the remoteproc virtio is available here:
+> https://github.com/arnopo/meta-st-stm32mp-oss/commit/3e57fe73bd19c9bb835ac5a118e50727758b0b96
+> 
+> Don't hesitate to give me feedback on the fix, if you test it.
+
+I added it to my branch and till now I don't see any side effects
+> 
+> I plan to propose the fix after this series.
+> 
+> Thanks,
+> Arnaud
+> 
 >>
->> Gabriel Fernandez (13):
->>    dt-bindings: rcc: stm32: add new compatible for STM32MP13 SoC
->>    clk: stm32: Introduce STM32MP13 RCC drivers (Reset Clock Controller)
-> This patch seems to not have reached linux-stm32. It's not in my inbox
-> and https://st-md-mailman.stormreply.com/pipermail/linux-stm32/2022-February/014533.html
-> doesn't list it either. It's indexed by lore.kernel.org though.
->
-> Cheers,
-> Ahmad
->
->
+>> Cheers,
+>> Philipp
+>>
+
+Cheers,
+Philipp
+
+[1]: 
+https://github.com/STMicroelectronics/STM32CubeMP1/blob/master/Projects/STM32MP157C-DK2/Applications/OpenAMP/OpenAMP_raw/Src/openamp.c#L242
+
+[2]: 
+https://elixir.bootlin.com/linux/v5.17-rc5/source/drivers/rpmsg/virtio_rpmsg_bus.c#L425
+
+[3]: 
+https://github.com/OpenAMP/open-amp/blob/main/docs/img/coprocessor-rpmsg-ns.png
+
+[4]: 
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=bcabbccabffe7326f046f25737ba1084f463c65c
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
