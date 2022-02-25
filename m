@@ -2,69 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E2414C4693
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Feb 2022 14:34:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2243C4C484C
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Feb 2022 16:07:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2E81C60493;
-	Fri, 25 Feb 2022 13:34:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23623C60491;
+	Fri, 25 Feb 2022 15:07:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0BBBC60491
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10DE0C57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Feb 2022 13:34:34 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21PDGZ6f003206;
- Fri, 25 Feb 2022 14:34:16 +0100
+ Fri, 25 Feb 2022 15:07:16 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21P9aABH019266;
+ Fri, 25 Feb 2022 16:07:02 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=sJ1oIyVC/AnxmiVrqN8MoR+Qt7gRUBhnVNSOUHrRRO0=;
- b=6e5FrTw4Ac8VZgrHFwdO3b70pNpxFQMl0MUgqZy4OyytF2LM4kZmQCYLpyCUJlqhGdQ+
- tkReXgXf2EY7rlxFZSHoEGIwvtunIN6O22XCPH53LfHu7HUFpDZTL6dnWD4AxZTCjv40
- +JtfZvie53gqWmOFQgPKSMikFrvoLLy14ajd1VlxV2FlRc1yHilY9XKO1fx10F4G2+SO
- qGkNvSv4BpHfP/FLdcuqKcUiWfp/mxHxADGB9U8xXls7XN+SSf/U3e0qrnLpYC+CcWas
- jsSd45/oaWVs//ZOg6fnJN98G1P+IjwfhYEbt/mkf6WGfJ3an9lqaDdkYR8J2JP/ch5t CQ== 
+ h=message-id : date :
+ mime-version : from : subject : to : cc : content-type :
+ content-transfer-encoding; s=selector1;
+ bh=SrA8jjGV/T+X0b4zuHkyHeHKIysLC0xpT/wTU080xNE=;
+ b=jX89d0XPbGkRnMlO3k/ofR+HvCzTEkzHWTCdnhAIHUgW5s41mii6gQplTKaqHrxrsAxH
+ PThfpzrPFXOTCtGyVoNPL0O37T0zZuZmzXDsvggmzyrwhEwIAHOfk4HFU90pX+mXGJTw
+ EiOLmrhmh4r7u77m3AENpXsDJl25czlyisPpUhqQCXVo0ygUCEVQCECxy623VoWcIJcZ
+ QedIQxip65kuQZf8MgOFDgdnIQoOwMudfxWyeyyA/Xxax0bpErB1/zumngPRyO6FLMZQ
+ CIfiAHpII+P4T7dxCIapPhUIBTfWOuZHDSBcVy7MSHaGXsycMDV8LW/Uxp/OMAr9c0Bb Cw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3eetrn27ug-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3eevmgssyu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 25 Feb 2022 14:34:16 +0100
+ Fri, 25 Feb 2022 16:07:01 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A8555100034;
- Fri, 25 Feb 2022 14:34:15 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 52A06100034;
+ Fri, 25 Feb 2022 16:07:01 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9F0002278AA;
- Fri, 25 Feb 2022 14:34:15 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 25 Feb 2022 14:34:15
- +0100
-From: <gabriel.fernandez@foss.st.com>
-To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski@canonical.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Gabriel Fernandez
- <gabriel.fernandez@foss.st.com>
-Date: Fri, 25 Feb 2022 14:31:37 +0100
-Message-ID: <20220225133137.813919-14-gabriel.fernandez@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220225133137.813919-1-gabriel.fernandez@foss.st.com>
-References: <20220225133137.813919-1-gabriel.fernandez@foss.st.com>
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 30E9122ECEA;
+ Fri, 25 Feb 2022 16:07:01 +0100 (CET)
+Received: from [10.48.0.252] (10.75.127.48) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 25 Feb
+ 2022 16:07:00 +0100
+Message-ID: <893924a9-bcc4-9fa9-4f8e-7f56e77f6854@foss.st.com>
+Date: Fri, 25 Feb 2022 16:07:00 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Kevin
+ Hilman <khilman@baylibre.com>, SoC Team <soc@kernel.org>, arm-soc
+ <arm@kernel.org>
+X-Originating-IP: [10.75.127.48]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
  definitions=2022-02-25_08,2022-02-25_01,2022-02-23_01
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 13/13] ARM: dts: stm32: add RCC on
-	STM32MP13x SoC family
+Cc: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>
+Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v5.18 #1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,320 +73,179 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Hi ARM SoC maintainers,
 
-Enables Reset and Clocks Controller on STM32MP13
+Please consider this first round of STM32 DT updates for v5.18. A tiny 
+round2 will be sent next week.
+Note that this PR introduces a new DT validation warning:
 
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
----
- arch/arm/boot/dts/stm32mp131.dtsi  | 107 +++++++++++------------------
- arch/arm/boot/dts/stm32mp133.dtsi  |   4 +-
- arch/arm/boot/dts/stm32mp13xf.dtsi |   3 +-
- 3 files changed, 46 insertions(+), 68 deletions(-)
+arch/arm/boot/dts/stm32mp135f-dk.dt.yaml:0:0: 
+/soc/interrupt-controller@5000d000: failed to match any schema with 
+compatible: ['st,stm32mp13-exti', ...
 
-diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
-index 78eac53224d4..d7300b00ec19 100644
---- a/arch/arm/boot/dts/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/stm32mp131.dtsi
-@@ -4,6 +4,8 @@
-  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
-  */
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/stm32mp13-clks.h>
-+#include <dt-bindings/reset/stm32mp13-resets.h>
- 
- / {
- 	#address-cells = <1>;
-@@ -64,54 +66,8 @@ scmi_reset: protocol@16 {
- 			};
- 		};
- 	};
--	clocks {
--		clk_axi: clk-axi {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <266500000>;
--		};
--
--		clk_hse: clk-hse {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <24000000>;
--		};
--
--		clk_hsi: clk-hsi {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <64000000>;
--		};
--
--		clk_lsi: clk-lsi {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <32000>;
--		};
--
--		clk_pclk3: clk-pclk3 {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <104438965>;
--		};
- 
--		clk_pclk4: clk-pclk4 {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <133250000>;
--		};
--
--		clk_pll4_p: clk-pll4_p {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <50000000>;
--		};
--
--		clk_pll4_r: clk-pll4_r {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <99000000>;
--		};
-+	clocks {
- 	};
- 
- 	intc: interrupt-controller@a0021000 {
-@@ -148,7 +104,8 @@ uart4: serial@40010000 {
- 			compatible = "st,stm32h7-uart";
- 			reg = <0x40010000 0x400>;
- 			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&clk_hsi>;
-+			clocks = <&rcc UART4_K>;
-+			resets = <&rcc UART4_R>;
- 			status = "disabled";
- 		};
- 
-@@ -163,7 +120,8 @@ dma1: dma-controller@48000000 {
- 				     <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&clk_pclk4>;
-+			clocks = <&rcc DMA1>;
-+			resets = <&rcc DMA1_R>;
- 			#dma-cells = <4>;
- 			st,mem2mem;
- 			dma-requests = <8>;
-@@ -180,7 +138,8 @@ dma2: dma-controller@48001000 {
- 				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 70 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&clk_pclk4>;
-+			clocks = <&rcc DMA2>;
-+			resets = <&rcc DMA2_R>;
- 			#dma-cells = <4>;
- 			st,mem2mem;
- 			dma-requests = <8>;
-@@ -189,13 +148,29 @@ dma2: dma-controller@48001000 {
- 		dmamux1: dma-router@48002000 {
- 			compatible = "st,stm32h7-dmamux";
- 			reg = <0x48002000 0x40>;
--			clocks = <&clk_pclk4>;
-+			clocks = <&rcc DMAMUX1>;
-+			resets = <&rcc DMAMUX1_R>;
- 			#dma-cells = <3>;
- 			dma-masters = <&dma1 &dma2>;
- 			dma-requests = <128>;
- 			dma-channels = <16>;
- 		};
- 
-+		rcc: rcc@50000000 {
-+			compatible = "st,stm32mp13-rcc", "syscon";
-+			reg = <0x50000000 0x1000>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+
-+			clock-names = "hse", "hsi", "csi", "lse", "lsi";
-+
-+			clocks = <&scmi_clk CK_SCMI_HSE>,
-+				 <&scmi_clk CK_SCMI_HSI>,
-+				 <&scmi_clk CK_SCMI_CSI>,
-+				 <&scmi_clk CK_SCMI_LSE>,
-+				 <&scmi_clk CK_SCMI_LSI>;
-+		};
-+
- 		exti: interrupt-controller@5000d000 {
- 			compatible = "st,stm32mp13-exti", "syscon";
- 			interrupt-controller;
-@@ -206,14 +181,14 @@ exti: interrupt-controller@5000d000 {
- 		syscfg: syscon@50020000 {
- 			compatible = "st,stm32mp157-syscfg", "syscon";
- 			reg = <0x50020000 0x400>;
--			clocks = <&clk_pclk3>;
-+			clocks = <&rcc SYSCFG>;
- 		};
- 
- 		mdma: dma-controller@58000000 {
- 			compatible = "st,stm32h7-mdma";
- 			reg = <0x58000000 0x1000>;
- 			interrupts = <GIC_SPI 107 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&clk_pclk4>;
-+			clocks = <&rcc MDMA>;
- 			#dma-cells = <5>;
- 			dma-channels = <32>;
- 			dma-requests = <48>;
-@@ -225,8 +200,9 @@ sdmmc1: mmc@58005000 {
- 			reg = <0x58005000 0x1000>, <0x58006000 0x1000>;
- 			interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "cmd_irq";
--			clocks = <&clk_pll4_p>;
-+			clocks = <&rcc SDMMC1_K>;
- 			clock-names = "apb_pclk";
-+			resets = <&rcc SDMMC1_R>;
- 			cap-sd-highspeed;
- 			cap-mmc-highspeed;
- 			max-frequency = <130000000>;
-@@ -239,8 +215,9 @@ sdmmc2: mmc@58007000 {
- 			reg = <0x58007000 0x1000>, <0x58008000 0x1000>;
- 			interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "cmd_irq";
--			clocks = <&clk_pll4_p>;
-+			clocks = <&rcc SDMMC2_K>;
- 			clock-names = "apb_pclk";
-+			resets = <&rcc SDMMC2_R>;
- 			cap-sd-highspeed;
- 			cap-mmc-highspeed;
- 			max-frequency = <130000000>;
-@@ -250,7 +227,7 @@ sdmmc2: mmc@58007000 {
- 		iwdg2: watchdog@5a002000 {
- 			compatible = "st,stm32mp1-iwdg";
- 			reg = <0x5a002000 0x400>;
--			clocks = <&clk_pclk4>, <&clk_lsi>;
-+			clocks = <&rcc IWDG2>, <&scmi_clk CK_SCMI_LSI>;
- 			clock-names = "pclk", "lsi";
- 			status = "disabled";
- 		};
-@@ -289,7 +266,7 @@ gpioa: gpio@50002000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x0 0x400>;
--				clocks = <&clk_pclk4>;
-+				clocks = <&rcc GPIOA>;
- 				st,bank-name = "GPIOA";
- 				ngpios = <16>;
- 				gpio-ranges = <&pinctrl 0 0 16>;
-@@ -301,7 +278,7 @@ gpiob: gpio@50003000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x1000 0x400>;
--				clocks = <&clk_pclk4>;
-+				clocks = <&rcc GPIOB>;
- 				st,bank-name = "GPIOB";
- 				ngpios = <16>;
- 				gpio-ranges = <&pinctrl 0 16 16>;
-@@ -313,7 +290,7 @@ gpioc: gpio@50004000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x2000 0x400>;
--				clocks = <&clk_pclk4>;
-+				clocks = <&rcc GPIOC>;
- 				st,bank-name = "GPIOC";
- 				ngpios = <16>;
- 				gpio-ranges = <&pinctrl 0 32 16>;
-@@ -325,7 +302,7 @@ gpiod: gpio@50005000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x3000 0x400>;
--				clocks = <&clk_pclk4>;
-+				clocks = <&rcc GPIOD>;
- 				st,bank-name = "GPIOD";
- 				ngpios = <16>;
- 				gpio-ranges = <&pinctrl 0 48 16>;
-@@ -337,7 +314,7 @@ gpioe: gpio@50006000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x4000 0x400>;
--				clocks = <&clk_pclk4>;
-+				clocks = <&rcc GPIOE>;
- 				st,bank-name = "GPIOE";
- 				ngpios = <16>;
- 				gpio-ranges = <&pinctrl 0 64 16>;
-@@ -349,7 +326,7 @@ gpiof: gpio@50007000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x5000 0x400>;
--				clocks = <&clk_pclk4>;
-+				clocks = <&rcc GPIOF>;
- 				st,bank-name = "GPIOF";
- 				ngpios = <16>;
- 				gpio-ranges = <&pinctrl 0 80 16>;
-@@ -361,7 +338,7 @@ gpiog: gpio@50008000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x6000 0x400>;
--				clocks = <&clk_pclk4>;
-+				clocks = <&rcc GPIOG>;
- 				st,bank-name = "GPIOG";
- 				ngpios = <16>;
- 				gpio-ranges = <&pinctrl 0 96 16>;
-@@ -373,7 +350,7 @@ gpioh: gpio@50009000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x7000 0x400>;
--				clocks = <&clk_pclk4>;
-+				clocks = <&rcc GPIOH>;
- 				st,bank-name = "GPIOH";
- 				ngpios = <15>;
- 				gpio-ranges = <&pinctrl 0 112 15>;
-@@ -385,7 +362,7 @@ gpioi: gpio@5000a000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x8000 0x400>;
--				clocks = <&clk_pclk4>;
-+				clocks = <&rcc GPIOI>;
- 				st,bank-name = "GPIOI";
- 				ngpios = <8>;
- 				gpio-ranges = <&pinctrl 0 128 8>;
-diff --git a/arch/arm/boot/dts/stm32mp133.dtsi b/arch/arm/boot/dts/stm32mp133.dtsi
-index 0fb1386257cf..531c263c9f46 100644
---- a/arch/arm/boot/dts/stm32mp133.dtsi
-+++ b/arch/arm/boot/dts/stm32mp133.dtsi
-@@ -15,7 +15,7 @@ m_can1: can@4400e000 {
- 			interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "int0", "int1";
--			clocks = <&clk_hse>, <&clk_pll4_r>;
-+			clocks = <&scmi_clk CK_SCMI_HSE>, <&rcc FDCAN_K>;
- 			clock-names = "hclk", "cclk";
- 			bosch,mram-cfg = <0x0 0 0 32 0 0 2 2>;
- 			status = "disabled";
-@@ -28,7 +28,7 @@ m_can2: can@4400f000 {
- 			interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "int0", "int1";
--			clocks = <&clk_hse>, <&clk_pll4_r>;
-+			clocks = <&scmi_clk CK_SCMI_HSE>, <&rcc FDCAN_K>;
- 			clock-names = "hclk", "cclk";
- 			bosch,mram-cfg = <0x1400 0 0 32 0 0 2 2>;
- 			status = "disabled";
-diff --git a/arch/arm/boot/dts/stm32mp13xf.dtsi b/arch/arm/boot/dts/stm32mp13xf.dtsi
-index fa6889e30591..4d00e7592882 100644
---- a/arch/arm/boot/dts/stm32mp13xf.dtsi
-+++ b/arch/arm/boot/dts/stm32mp13xf.dtsi
-@@ -10,7 +10,8 @@ cryp: crypto@54002000 {
- 			compatible = "st,stm32mp1-cryp";
- 			reg = <0x54002000 0x400>;
- 			interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&clk_axi>;
-+			clocks = <&rcc CRYP1>;
-+			resets = <&rcc CRYP1_R>;
- 			status = "disabled";
- 		};
- 	};
--- 
-2.25.1
+Corresponding dt-binding patch has been merged into irqchip branch.
 
+regards
+Alex
+
+
+The following changes since commit 26291c54e111ff6ba87a164d85d4a4e134b7315c:
+
+   Linux 5.17-rc2 (2022-01-30 15:37:07 +0200)
+
+are available in the Git repository at:
+
+   git://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git 
+tags/stm32-dt-for-v5.18-1
+
+for you to fetch changes up to cb4b2d26c78a1707499bf60768e463032a221e3a:
+
+   ARM: dts: stm32: Correct masks for GIC PPI interrupts on stm32mp15 
+(2022-02-25 10:53:15 +0100)
+
+----------------------------------------------------------------
+STM32 DT for v5.18, round 1
+
+Highlights:
+----------
+
+-MCU:
+  -Fix W=1 warnings for timers (duplicate unit-address) for F4 and F7 
+series.
+  -Enable DMA2D on f469 disco.
+
+- MPU:
+  -General:
+   - Add new board support: emSBS-Argon.
+   - Add dma configuration for all U(S)ART nodes and disable them in 
+board files
+     when they are not needed in stm32mp15.
+   - Correct GIC PPI interrupts on stm32mp15 and stm32mp13.
+
+- ST boards:
+   - Add EXTI support on stm32mp13
+   - Add DMA, MDMA and DMAmux support to stm32mp13 (iso feature than MP15)
+   - Update SDMMC1/2 support on stm32mp13: sleep config, update version 
+to v2.2,
+     update the max frequency to 130 MHz.
+
+- DH boards:
+   - Enable rproc to control the CM4 and IPCC mailbox to interact with it.
+
+----------------------------------------------------------------
+Alexandre Torgue (4):
+       ARM: dts: stm32: use exti 19 as main interrupt to support RTC 
+wakeup on stm32mp157
+       ARM: dts: stm32: Enable EXTI on stm32mp13
+       ARM: dts: stm32: Correct masks for GIC PPI interrupts on stm32mp13
+       ARM: dts: stm32: Correct masks for GIC PPI interrupts on stm32mp15
+
+Amelie Delaunay (2):
+       ARM: dts: stm32: add DMA1, DMA2 and DMAMUX1 on STM32MP13x SoC family
+       ARM: dts: stm32: add MDMA on STM32MP13x SoC family
+
+Dillon Min (2):
+       ARM: dts: stm32: Add DMA2D support for STM32F429 series soc
+       ARM: dts: stm32: Enable DMA2D on STM32F469-DISCO board
+
+Erwan Le Ray (16):
+       ARM: dts: stm32: add DMA configuration to UART nodes on stm32mp151
+       ARM: dts: stm32: keep uart4 behavior on stm32mp157c-ed1
+       ARM: dts: stm32: keep uart4 and uart7 behavior on stm32mp15xx-dkx
+       ARM: dts: stm32: keep uart4 behavior on icore-stm32mp1-ctouch2
+       ARM: dts: stm32: keep uart4 behavior on icore-stm32mp1-edimm2.2
+       ARM: dts: stm32: keep uart4 behavior on stm32mp157a-iot-box
+       ARM: dts: stm32: keep uart nodes behavior on stm32mp1-microdev2.0-of7
+       ARM: dts: stm32: keep uart nodes behavior on stm32mp1-microdev2.0
+       ARM: dts: stm32: keep uart nodes behavior on stm32mp157a-stinger96
+       ARM: dts: stm32: keep uart4 behavior on stm32mp157c-lxa-mc1
+       ARM: dts: stm32: keep uart4 behavior on stm32mp157c-odyssey
+       ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-drc02
+       ARM: dts: stm32: keep uart nodes behavior on stm32mp15xx-dhcom-pdk2
+       ARM: dts: stm32: keep uart nodes behavior on 
+stm32mp15xx-dhcom-picoitx
+       ARM: dts: stm32: keep uart4 behavior on stm32mp15xx-dhcom-som
+       ARM: dts: stm32: keep uart nodes behavior on 
+stm32mp15xx-dhcor-avenger96
+
+Fabrice Gasnier (4):
+       ARM: dts: stm32: remove some timer duplicate unit-address on 
+stm32f4 series
+       ARM: dts: stm32: remove timer5 duplicate unit-address on stm32f4 
+series
+       ARM: dts: stm32: remove some timer duplicate unit-address on 
+stm32f7 series
+       ARM: dts: stm32: remove timer5 duplicate unit-address on stm32f7 
+series
+
+Gerald Baeza (1):
+       ARM: dts: stm32: update sdmmc slew-rate in stm32mp13 pinctrl
+
+Marek Vasut (2):
+       ARM: dts: stm32: Drop duplicate status okay from DHCOM gpioc node
+       ARM: dts: stm32: Add CM4 reserved memory, rproc and IPCC on DHCOR SoM
+
+Olivier Moysan (1):
+       ARM: dts: stm32: fix AV96 board SAI2 pin muxing on stm32mp15
+
+Reinhold Mueller (2):
+       dt-binding: arm/stm32: Add emtrion hardware emSBC-Argon
+       ARM: dts: stm32: Add support for the emtrion emSBC-Argon
+
+Yann Gautier (9):
+       ARM: dts: stm32: add st,stm32-sdmmc2 compatible on stm32mp151
+       ARM: dts: stm32: add st,stm32-sdmmc2 compatible on stm32mp131
+       ARM: dts: stm32: increase SDMMC max-frequency for STM32MP13
+       ARM: dts: stm32: update SDMMC clock slew-rate on STM32MP135F-DK board
+       ARM: dts: stm32: add sdmmc sleep pins for STM32MP13
+       ARM: dts: stm32: add sdmmc sleep config for STM32MP135F-DK
+       ARM: dts: stm32: update SDMMC version for STM32MP13
+       ARM: dts: stm32: add SDMMC2 in STM32MP13 DT
+       ARM: dts: stm32: add sdmmc2 pins for STM32MP13
+
+  .../devicetree/bindings/arm/stm32/stm32.yaml       |   6 +
+  arch/arm/boot/dts/Makefile                         |   1 +
+  arch/arm/boot/dts/stm32429i-eval.dts               |  12 +
+  arch/arm/boot/dts/stm32746g-eval.dts               |  12 +
+  arch/arm/boot/dts/stm32f429-disco.dts              |  12 +
+  arch/arm/boot/dts/stm32f429.dtsi                   |  57 +--
+  arch/arm/boot/dts/stm32f469-disco.dts              |  16 +
+  arch/arm/boot/dts/stm32f746-disco.dts              |  12 +
+  arch/arm/boot/dts/stm32f746.dtsi                   |  47 --
+  arch/arm/boot/dts/stm32f769-disco.dts              |  12 +
+  arch/arm/boot/dts/stm32mp13-pinctrl.dtsi           |  81 ++-
+  arch/arm/boot/dts/stm32mp131.dtsi                  |  89 +++-
+  arch/arm/boot/dts/stm32mp135f-dk.dts               |   7 +-
+  arch/arm/boot/dts/stm32mp15-pinctrl.dtsi           |  94 +++-
+  arch/arm/boot/dts/stm32mp151.dtsi                  |  37 +-
+  arch/arm/boot/dts/stm32mp153.dtsi                  |   7 +
+  .../dts/stm32mp157a-icore-stm32mp1-ctouch2.dts     |   2 +
+  .../dts/stm32mp157a-icore-stm32mp1-edimm2.2.dts    |   2 +
+  arch/arm/boot/dts/stm32mp157a-iot-box.dts          |   2 +
+  ...m32mp157a-microgea-stm32mp1-microdev2.0-of7.dts |   4 +
+  .../stm32mp157a-microgea-stm32mp1-microdev2.0.dts  |   4 +
+  arch/arm/boot/dts/stm32mp157a-stinger96.dtsi       |   6 +
+  arch/arm/boot/dts/stm32mp157c-ed1.dts              |   2 +
+  arch/arm/boot/dts/stm32mp157c-emsbc-argon.dts      |  53 ++
+  arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi   | 552 
++++++++++++++++++++++
+  arch/arm/boot/dts/stm32mp157c-lxa-mc1.dts          |   2 +
+  arch/arm/boot/dts/stm32mp157c-odyssey.dts          |   2 +
+  arch/arm/boot/dts/stm32mp15xx-dhcom-drc02.dtsi     |   4 +
+  arch/arm/boot/dts/stm32mp15xx-dhcom-pdk2.dtsi      |   4 +
+  arch/arm/boot/dts/stm32mp15xx-dhcom-picoitx.dtsi   |   4 +
+  arch/arm/boot/dts/stm32mp15xx-dhcom-som.dtsi       |   3 +-
+  arch/arm/boot/dts/stm32mp15xx-dhcor-avenger96.dtsi |   6 +
+  arch/arm/boot/dts/stm32mp15xx-dhcor-som.dtsi       |  56 +++
+  arch/arm/boot/dts/stm32mp15xx-dkx.dtsi             |   4 +
+  34 files changed, 1089 insertions(+), 125 deletions(-)
+  create mode 100644 arch/arm/boot/dts/stm32mp157c-emsbc-argon.dts
+  create mode 100644 arch/arm/boot/dts/stm32mp157c-emstamp-argon.dtsi
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
