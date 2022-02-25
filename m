@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 087B54C4691
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Feb 2022 14:34:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 191684C4692
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Feb 2022 14:34:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDE1BC60495;
-	Fri, 25 Feb 2022 13:34:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6445C60497;
+	Fri, 25 Feb 2022 13:34:27 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 023ECC60494
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27C3FC60493
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Feb 2022 13:34:24 +0000 (UTC)
+ Fri, 25 Feb 2022 13:34:26 +0000 (UTC)
 Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21PD4i3S003178;
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21PD9g12003198;
  Fri, 25 Feb 2022 14:34:15 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=T0hES+frT2cGbNMPSgvAWoyBLQHw6p0nNIHn15fvCf8=;
- b=MWoxmADL8l8GhfUqNaxopRTmLdg+nVAAm8nEuJ8l+gnt7Bd2qE/vQi0OJUCnoX0Fp6cu
- GcSJgwv6YMd7fV/sSv5BVjyHsvJo/88exa/EEtKvR60pYdytxkkXcSzoBRgyME3eqMm/
- TPEWYap1vFag0z+43gvugIO3zeO54K1kKCJoWsK5VVhhUjYLbRevGYsaTLpPw7vZFeTA
- SV5WqmJUADV1kxZ66DlQRTK3m8ExTqsDw29podWQK0MtfK9FLumbfISLBx4PECISv2f+
- ypkRIxS66h/UA+QZd8anMkXGTdt5TOk7phk3dzhmUYnuzvzZDDNlEExP51dKfOwPNIhv xg== 
+ bh=rdOjHgKJc4SCKXlLLQvRCdwRKO1UUKziVYt8Vm+fpww=;
+ b=vyq1tONAqpmVT/t6+X7Bj590/HrJtK3hvy07aJPaciaJhf07AUqzgGYN5R+GXurMi4Ka
+ S7AVghBVma03IZbOuQok0Pcat+TdWyyJofyGbEJsVr8vPfR7DqQ+rn/Zkbkg4o0muycg
+ iQ0flHnMBl/N2vFcPolgSEjhHCtmuPI4JD2ykNTyHVdGnOUpdA9ykhpaHOmAvUzS16Jv
+ SWWcdsCkyN8jAE6mF5DpDlFok2vmydEH4IvEND2iz0r5qcO5eik0zVD+vLlxhgFKrd+7
+ 8ici429SXr8lEIknz+T6S3Gq01uJnTA0rKGHTBvzduhyPdEyCKGftqDPdmxMTJc+1i8R Qg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3eetrn27uc-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3eetrn27ue-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Fri, 25 Feb 2022 14:34:15 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 883EC100034;
- Fri, 25 Feb 2022 14:34:14 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 11C1710002A;
+ Fri, 25 Feb 2022 14:34:15 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7F8FA2278AA;
- Fri, 25 Feb 2022 14:34:14 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0A1952278AA;
+ Fri, 25 Feb 2022 14:34:15 +0100 (CET)
+Received: from localhost (10.75.127.46) by SFHDAG2NODE2.st.com (10.75.127.5)
  with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 25 Feb 2022 14:34:14
  +0100
 From: <gabriel.fernandez@foss.st.com>
@@ -48,13 +48,13 @@ To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Philipp Zabel <p.zabel@pengutronix.de>, Gabriel Fernandez
  <gabriel.fernandez@foss.st.com>
-Date: Fri, 25 Feb 2022 14:31:35 +0100
-Message-ID: <20220225133137.813919-12-gabriel.fernandez@foss.st.com>
+Date: Fri, 25 Feb 2022 14:31:36 +0100
+Message-ID: <20220225133137.813919-13-gabriel.fernandez@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220225133137.813919-1-gabriel.fernandez@foss.st.com>
 References: <20220225133137.813919-1-gabriel.fernandez@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
+X-Originating-IP: [10.75.127.46]
 X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
@@ -63,8 +63,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2 11/13] clk: stm32mp13: add safe mux
-	management
+Subject: [Linux-stm32] [PATCH v2 12/13] ARM: dts: stm32: enable optee
+	firmware and SCMI support on STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,136 +83,61 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-Some muxes need to set a the safe position when clock is off.
+Enable optee and SCMI clocks support.
 
 Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 ---
- drivers/clk/stm32/clk-stm32-core.c | 55 ++++++++++++++++++++++++++++++
- drivers/clk/stm32/clk-stm32-core.h |  1 +
- drivers/clk/stm32/clk-stm32mp13.c  | 11 +++---
- 3 files changed, 63 insertions(+), 4 deletions(-)
+ arch/arm/boot/dts/stm32mp131.dtsi | 37 +++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/drivers/clk/stm32/clk-stm32-core.c b/drivers/clk/stm32/clk-stm32-core.c
-index 69cfa2d1b8e2..d1fe9e5dfdbb 100644
---- a/drivers/clk/stm32/clk-stm32-core.c
-+++ b/drivers/clk/stm32/clk-stm32-core.c
-@@ -397,6 +397,55 @@ const struct clk_ops clk_stm32_mux_ops = {
- 	.set_parent	= clk_stm32_mux_set_parent,
- };
+diff --git a/arch/arm/boot/dts/stm32mp131.dtsi b/arch/arm/boot/dts/stm32mp131.dtsi
+index 262de4eeb4ed..78eac53224d4 100644
+--- a/arch/arm/boot/dts/stm32mp131.dtsi
++++ b/arch/arm/boot/dts/stm32mp131.dtsi
+@@ -27,6 +27,43 @@ arm-pmu {
+ 		interrupt-parent = <&intc>;
+ 	};
  
-+#define MUX_SAFE_POSITION 0
++	scmi_sram: sram@2ffff000 {
++		compatible = "mmio-sram";
++		reg = <0x2ffff000 0x1000>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges = <0 0x2ffff000 0x1000>;
 +
-+static int clk_stm32_has_safe_mux(struct clk_hw *hw)
-+{
-+	struct clk_stm32_composite *composite = to_clk_stm32_composite(hw);
-+	const struct stm32_mux_cfg *mux = &composite->clock_data->muxes[composite->mux_id];
++		scmi_shm: scmi_shm@0 {
++			compatible = "arm,scmi-shmem";
++			reg = <0 0x80>;
++		};
++	};
 +
-+	return !!(mux->flags & MUX_SAFE);
-+}
++	firmware {
++		optee {
++			method = "smc";
++			compatible = "linaro,optee-tz";
++		};
 +
-+static void clk_stm32_set_safe_position_mux(struct clk_hw *hw)
-+{
-+	struct clk_stm32_composite *composite = to_clk_stm32_composite(hw);
++		scmi: scmi {
++			compatible = "linaro,scmi-optee";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			linaro,optee-channel-id = <0>;
++			shmem = <&scmi_shm>;
 +
-+	if (!clk_stm32_composite_is_enabled(hw)) {
-+		unsigned long flags = 0;
++			scmi_clk: protocol@14 {
++				reg = <0x14>;
++				#clock-cells = <1>;
++			};
 +
-+		if (composite->clock_data->is_multi_mux) {
-+			struct clk_hw *other_mux_hw = NULL;
-+
-+			other_mux_hw = composite->clock_data->is_multi_mux(hw);
-+
-+			if (!other_mux_hw || clk_stm32_composite_is_enabled(other_mux_hw))
-+				return;
-+		}
-+
-+		spin_lock_irqsave(composite->lock, flags);
-+
-+		clk_stm32_set_parent_mux(composite->base, composite->clock_data,
-+					 composite->mux_id, MUX_SAFE_POSITION);
-+
-+		spin_unlock_irqrestore(composite->lock, flags);
-+	}
-+}
-+
-+static void clk_stm32_safe_restore_position_mux(struct clk_hw *hw)
-+{
-+	struct clk_stm32_composite *composite = to_clk_stm32_composite(hw);
-+	int sel = clk_hw_get_parent_index(hw);
-+	unsigned long flags = 0;
-+
-+	spin_lock_irqsave(composite->lock, flags);
-+
-+	clk_stm32_set_parent_mux(composite->base, composite->clock_data,
-+				 composite->mux_id, sel);
-+
-+	spin_unlock_irqrestore(composite->lock, flags);
-+}
-+
- int clk_stm32_composite_set_rate(struct clk_hw *hw, unsigned long rate,
- 				 unsigned long parent_rate)
- {
-@@ -515,6 +564,9 @@ int clk_stm32_composite_gate_enable(struct clk_hw *hw)
- 
- 	clk_stm32_composite_gate_endisable(hw, 1);
- 
-+	if (composite->mux_id != NO_STM32_MUX && clk_stm32_has_safe_mux(hw))
-+		clk_stm32_safe_restore_position_mux(hw);
-+
- 	return 0;
- }
- 
-@@ -526,6 +578,9 @@ void clk_stm32_composite_gate_disable(struct clk_hw *hw)
- 		return;
- 
- 	clk_stm32_composite_gate_endisable(hw, 0);
-+
-+	if (composite->mux_id != NO_STM32_MUX && clk_stm32_has_safe_mux(hw))
-+		clk_stm32_set_safe_position_mux(hw);
- }
- 
- int clk_stm32_composite_is_enabled(struct clk_hw *hw)
-diff --git a/drivers/clk/stm32/clk-stm32-core.h b/drivers/clk/stm32/clk-stm32-core.h
-index 61a7b4bb6a19..5a99998c74d9 100644
---- a/drivers/clk/stm32/clk-stm32-core.h
-+++ b/drivers/clk/stm32/clk-stm32-core.h
-@@ -84,6 +84,7 @@ int stm32_rcc_init(struct device *dev, const struct of_device_id *match_data,
- 
- /* MUX define */
- #define MUX_NO_RDY		0xFF
-+#define MUX_SAFE		BIT(7)
- 
- /* DIV define */
- #define DIV_NO_RDY		0xFF
-diff --git a/drivers/clk/stm32/clk-stm32mp13.c b/drivers/clk/stm32/clk-stm32mp13.c
-index 783a54e08439..30ecf66f9529 100644
---- a/drivers/clk/stm32/clk-stm32mp13.c
-+++ b/drivers/clk/stm32/clk-stm32mp13.c
-@@ -359,6 +359,9 @@ enum enum_mux_cfg {
- #define CFG_MUX(_id, _offset, _shift, _witdh)\
- 	_CFG_MUX(_id, _offset, _shift, _witdh, MUX_NO_RDY, 0)
- 
-+#define CFG_MUX_SAFE(_id, _offset, _shift, _witdh)\
-+	_CFG_MUX(_id, _offset, _shift, _witdh, MUX_NO_RDY, MUX_SAFE)
-+
- static const struct stm32_mux_cfg stm32mp13_muxes[] = {
- 	CFG_MUX(MUX_I2C12,	RCC_I2C12CKSELR,	0, 3),
- 	CFG_MUX(MUX_LPTIM45,	RCC_LPTIM45CKSELR,	0, 3),
-@@ -394,10 +397,10 @@ static const struct stm32_mux_cfg stm32mp13_muxes[] = {
- 	CFG_MUX(MUX_UART6,	RCC_UART6CKSELR,	0, 3),
- 	CFG_MUX(MUX_USBO,	RCC_USBCKSELR,		4, 1),
- 	CFG_MUX(MUX_USBPHY,	RCC_USBCKSELR,		0, 2),
--	CFG_MUX(MUX_FMC,	RCC_FMCCKSELR,		0, 2),
--	CFG_MUX(MUX_QSPI,	RCC_QSPICKSELR,		0, 2),
--	CFG_MUX(MUX_SDMMC1,	RCC_SDMMC12CKSELR,	0, 3),
--	CFG_MUX(MUX_SDMMC2,	RCC_SDMMC12CKSELR,	3, 3),
-+	CFG_MUX_SAFE(MUX_FMC,	RCC_FMCCKSELR,		0, 2),
-+	CFG_MUX_SAFE(MUX_QSPI,	RCC_QSPICKSELR,		0, 2),
-+	CFG_MUX_SAFE(MUX_SDMMC1, RCC_SDMMC12CKSELR,	0, 3),
-+	CFG_MUX_SAFE(MUX_SDMMC2, RCC_SDMMC12CKSELR,	3, 3),
- };
- 
- struct clk_stm32_securiy {
++			scmi_reset: protocol@16 {
++				reg = <0x16>;
++				#reset-cells = <1>;
++			};
++		};
++	};
+ 	clocks {
+ 		clk_axi: clk-axi {
+ 			#clock-cells = <0>;
 -- 
 2.25.1
 
