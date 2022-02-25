@@ -2,55 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E13FD4C3BB6
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Feb 2022 03:27:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7245F4C416C
+	for <lists+linux-stm32@lfdr.de>; Fri, 25 Feb 2022 10:28:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A0AEC60463;
-	Fri, 25 Feb 2022 02:27:13 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F6EAC60491;
+	Fri, 25 Feb 2022 09:28:25 +0000 (UTC)
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05AE3C56630
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B90DC57B6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Feb 2022 02:27:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1645756032; x=1677292032;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=pGMxtqj6fQbBiqvL8b0jEE020+1PJHR6Ska29JmSylg=;
- b=EGgmTW5Be/XjEGt3AqyNcO1SGlorA50UaGvdfdbAK/rgK/qoO9PRwlEy
- x8b/H3LfPwJm1AWu53N2laCdxL2t7ovbfBwpZwx1J6XOh4ed6sf5q023f
- nHjTLv9v3amodZkT/49h8aP8GRsj5oGskoE9pIS9KzxjS/4YpirN2cOTN
- SJ6VA1x0MhKKWoOQnezqVX3PKytBmlCVilYOus+B5rSbvvmW7ZdtoHIlN
- Iu8vZ5TjEfN6zN89IysbOynE8hSUOmfibSaUHDPuO0GXgC3A1hTwA9OYU
- B9pr8dXxPLjrtsDw12mxmvQgA7vYXyYJmcNyqtC9D/htw3UTh3rVBvcqK w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10268"; a="252322840"
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="252322840"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2022 18:27:09 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,134,1643702400"; d="scan'208";a="509107432"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga006.jf.intel.com with ESMTP; 24 Feb 2022 18:27:09 -0800
-Received: from P12HL01TMIN.png.intel.com (P12HL01TMIN.png.intel.com
- [10.158.65.75])
- by linux.intel.com (Postfix) with ESMTP id CC0B5580A6C;
- Thu, 24 Feb 2022 18:27:06 -0800 (PST)
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Fri, 25 Feb 2022 10:33:25 +0800
-Message-Id: <20220225023325.474242-1-vee.khee.wong@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+ Fri, 25 Feb 2022 09:28:24 +0000 (UTC)
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 83FC53F1D9
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 25 Feb 2022 09:28:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1645781302;
+ bh=kGwkKU8L/fn7aVH4SNRnVpay291DKpyh1Xqm8qPEDW0=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=X7Eg2X55/6TfKmAePi5LbGiJOvzXiB2eyV8u4Pd228JsAQywYyzW3rdkrg7weCAnc
+ TmCEUljOpWfeX3foDevNn+ztUCK0cM6cYSxjK4XZRxWuKxcV3c4TdkK1wU6K9hLHdN
+ sEr2G2L4T9CaAyvT3fu/eDt+Je0breL1Sp+BB7UlbwsnDxm09QIQK8W8Ip9O/Pv7mR
+ +eHXWqFLSOA6hFVTm/URHGAx0S5pGSQx7IBLhf/mtfv6Cvn0g9isA4ygzLXpqfr0t+
+ DeJ63obxsHG0yurkvp8Fi3g2gqKnFEw5S+p8b3YH4iTdR/JtcRavoyYUJ4Po0nRD0P
+ wDuVAl1bgpEkA==
+Received: by mail-ej1-f70.google.com with SMTP id
+ qf24-20020a1709077f1800b006ce8c140d3dso2384927ejc.18
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 25 Feb 2022 01:28:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=kGwkKU8L/fn7aVH4SNRnVpay291DKpyh1Xqm8qPEDW0=;
+ b=Xpu8aOFazH5YNeXwmMkTLr8vMY6+V4tYxSVkuY7eDPN9djidWXtNpac+2BG2xJHbvg
+ MzTIuS/KFTpHGyNe/Z9ojh+A6muQ61xna7K0Z2FM8CEzNzvNC1hnOj3q4rsb+o1ZLNC4
+ 9H2FwmwYMTT50tTLQv9xX0er5C1IQmMH5dVF9SUI8EqtItapbcv9ASlqsP5zlj+nmxyj
+ FeTWJrckC/uM+UXxab6wPKALEwKQ0zXMqc/W6R2dQGpVzkmoW0M0PAzJxvL/Sq7URtaX
+ G5UwVpaVcquTbc1BKo74EMTU/bqagCu/T4dvTq9ZJhqcZX/ibgj2RHlf4T7klox2THY7
+ 1ucg==
+X-Gm-Message-State: AOAM530wYuUq4ccyJEX5oG4X9PYkda2sNbY4Xq2QUz3CKpWd14HI8BGX
+ rDBkGZ48QHIz2taPSpTB91JrhJNCnAWFGfsAt8Os1Zr9abeLXfM9ghAM/SWi2P4VyS7GWwODTls
+ 3lGnThNglwp8e94h9D0ddcFdDr8mWbQ2BGDHjKWLmu3kFrIKG9ARylpUGPA==
+X-Received: by 2002:a17:906:4d51:b0:6b8:78e0:565a with SMTP id
+ b17-20020a1709064d5100b006b878e0565amr5351327ejv.587.1645781302266; 
+ Fri, 25 Feb 2022 01:28:22 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJz8c3ZhY7jr+/X0AvJodZEzeopQeOKXYiLB34QdycL3m21MYR4q1dg62gQBFvoYHXY7gyalew==
+X-Received: by 2002:a17:906:4d51:b0:6b8:78e0:565a with SMTP id
+ b17-20020a1709064d5100b006b878e0565amr5351308ejv.587.1645781302107; 
+ Fri, 25 Feb 2022 01:28:22 -0800 (PST)
+Received: from [192.168.0.130] (xdsl-188-155-181-108.adslplus.ch.
+ [188.155.181.108]) by smtp.gmail.com with ESMTPSA id
+ d8-20020a170906304800b006cdf8a1e146sm770803ejd.217.2022.02.25.01.28.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 25 Feb 2022 01:28:21 -0800 (PST)
+Message-ID: <f77b2f7d-9a22-3e1f-a5f4-90766bdc232f@canonical.com>
+Date: Fri, 25 Feb 2022 10:28:20 +0100
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: Enable 2.5Gbps
-	for Intel AlderLake-S
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: gabriel.fernandez@foss.st.com, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>
+References: <20220224160141.455881-1-gabriel.fernandez@foss.st.com>
+ <20220224160141.455881-2-gabriel.fernandez@foss.st.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+In-Reply-To: <20220224160141.455881-2-gabriel.fernandez@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 01/13] dt-bindings: rcc: stm32: add new
+ compatible for STM32MP13 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,46 +100,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Intel AlderLake-S platform is capable of running on 2.5GBps link speed.
+On 24/02/2022 17:01, gabriel.fernandez@foss.st.com wrote:
+> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> 
+> New compatible to manage clock and reset of STM32MP13 SoC.
+> 
+> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+> ---
+>  .../bindings/clock/st,stm32mp1-rcc.yaml       |   2 +
+>  include/dt-bindings/clock/stm32mp13-clks.h    | 229 ++++++++++++++++++
+>  include/dt-bindings/reset/stm32mp13-resets.h  | 100 ++++++++
+>  3 files changed, 331 insertions(+)
+>  create mode 100644 include/dt-bindings/clock/stm32mp13-clks.h
+>  create mode 100644 include/dt-bindings/reset/stm32mp13-resets.h
+> 
 
-This patch enables 2.5Gbps link speed on AlderLake-S platform.
 
-Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 5943ff9f21c2..32ef3df4e266 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -721,6 +721,7 @@ static int tgl_common_data(struct pci_dev *pdev,
- 	plat->rx_queues_to_use = 6;
- 	plat->tx_queues_to_use = 4;
- 	plat->clk_ptp_rate = 200000000;
-+	plat->speed_mode_2500 = intel_speed_mode_2500;
- 
- 	plat->safety_feat_cfg->tsoee = 1;
- 	plat->safety_feat_cfg->mrxpee = 0;
-@@ -740,7 +741,6 @@ static int tgl_sgmii_phy0_data(struct pci_dev *pdev,
- {
- 	plat->bus_id = 1;
- 	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
--	plat->speed_mode_2500 = intel_speed_mode_2500;
- 	plat->serdes_powerup = intel_serdes_powerup;
- 	plat->serdes_powerdown = intel_serdes_powerdown;
- 	return tgl_common_data(pdev, plat);
-@@ -755,7 +755,6 @@ static int tgl_sgmii_phy1_data(struct pci_dev *pdev,
- {
- 	plat->bus_id = 2;
- 	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
--	plat->speed_mode_2500 = intel_speed_mode_2500;
- 	plat->serdes_powerup = intel_serdes_powerup;
- 	plat->serdes_powerdown = intel_serdes_powerdown;
- 	return tgl_common_data(pdev, plat);
--- 
-2.25.1
 
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
