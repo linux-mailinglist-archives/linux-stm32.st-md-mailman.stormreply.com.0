@@ -2,51 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36A694C5433
-	for <lists+linux-stm32@lfdr.de>; Sat, 26 Feb 2022 07:30:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37DB14C5F91
+	for <lists+linux-stm32@lfdr.de>; Sun, 27 Feb 2022 23:49:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC6EAC60491;
-	Sat, 26 Feb 2022 06:30:15 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38DFBC57B6C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C99E5C5F1F1;
+	Sun, 27 Feb 2022 22:49:02 +0000 (UTC)
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93ADDC5F1EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Feb 2022 06:30:14 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D254B60DB5;
- Sat, 26 Feb 2022 06:30:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9C1F3C340F1;
- Sat, 26 Feb 2022 06:30:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1645857011;
- bh=/K+I88kFOkeotgI9D4BFG3RofsTfjAhqd7KXqU4y6qw=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=Emu15xM8K5moMZczgPYnEUx4sphKNE03tKA6hoGeOp2h50mVmuvLrVND6cl1r0MfY
- kpnZRapYOs4yOsDze4Cwm3cJmEdU7dytrAuum3nYBhxPkkyE1YCS6V+SUvNWgPFpjB
- 1zLPG+jkcsn/9AnnDTCrrMkhPAmrp67NPdyD8uAmrBQYB8OsiwlihauJ3pV6R4Tk0T
- um6cQP+m+oxacpR63vJ8Q0O29e8Vhmp0L15upjtGofU2NsgjlmtZEtfUtTDkzdob20
- HcIHBR8U97Qj/X7pNpYHknibN8SP9kLTdxk7GO7SwG7I+uEjM3xkvGgFLaXpHswigN
- Spd+TTVjEiObw==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 7D41AEAC09B; Sat, 26 Feb 2022 06:30:11 +0000 (UTC)
-MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <164585701150.29742.14448723094715573192.git-patchwork-notify@kernel.org>
-Date: Sat, 26 Feb 2022 06:30:11 +0000
-References: <20220225023325.474242-1-vee.khee.wong@linux.intel.com>
-In-Reply-To: <20220225023325.474242-1-vee.khee.wong@linux.intel.com>
-To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- alexandre.torgue@foss.st.com, linux-stm32@st-md-mailman.stormreply.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- kuba@kernel.org, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: Enable
- 2.5Gbps for Intel AlderLake-S
+ Sun, 27 Feb 2022 22:49:00 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="5.90,142,1643641200"; d="scan'208";a="111725986"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 28 Feb 2022 07:48:57 +0900
+Received: from localhost.localdomain (unknown [10.226.36.204])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id C590C4006DFA;
+ Mon, 28 Feb 2022 07:48:54 +0900 (JST)
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Chris Brandt <chris.brandt@renesas.com>
+Date: Sun, 27 Feb 2022 22:48:44 +0000
+Message-Id: <20220227224845.27348-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: timer: renesas: ostm: Document
+	Renesas RZ/V2L OSTM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,35 +47,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Document the General Timer Module(a.k.a OSTM) found on the RZ/V2L SoC.
+OSTM module is identical to one found RZ/G2L SoC. No driver changes are
+required as generic compatible string "renesas,ostm" will be used as a
+fallback.
 
-This patch was applied to netdev/net-next.git (master)
-by Jakub Kicinski <kuba@kernel.org>:
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+DTSI changes have been posted as part of series [0]
 
-On Fri, 25 Feb 2022 10:33:25 +0800 you wrote:
-> Intel AlderLake-S platform is capable of running on 2.5GBps link speed.
-> 
-> This patch enables 2.5Gbps link speed on AlderLake-S platform.
-> 
-> Signed-off-by: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+[0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/
+20220227203744.18355-8-prabhakar.mahadev-lad.rj@bp.renesas.com/
+---
+ Documentation/devicetree/bindings/timer/renesas,ostm.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Here is the summary with links:
-  - [net-next,1/1] stmmac: intel: Enable 2.5Gbps for Intel AlderLake-S
-    https://git.kernel.org/netdev/net-next/c/23d743301198
-
-You are awesome, thank you!
+diff --git a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
+index 7fa7f977b44c..c399a019dde7 100644
+--- a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
++++ b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
+@@ -24,6 +24,7 @@ properties:
+           - renesas,r7s72100-ostm  # RZ/A1H
+           - renesas,r7s9210-ostm   # RZ/A2M
+           - renesas,r9a07g044-ostm # RZ/G2{L,LC}
++          - renesas,r9a07g054-ostm # RZ/V2L
+       - const: renesas,ostm        # Generic
+ 
+   reg:
+@@ -54,6 +55,7 @@ if:
+       contains:
+         enum:
+           - renesas,r9a07g044-ostm
++          - renesas,r9a07g054-ostm
+ then:
+   required:
+     - resets
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
