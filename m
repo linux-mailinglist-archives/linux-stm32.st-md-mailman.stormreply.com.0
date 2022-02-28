@@ -2,55 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF7F14C69DB
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Feb 2022 12:09:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAC1B4C6FBB
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Feb 2022 15:43:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5EFBDC5F1F1;
-	Mon, 28 Feb 2022 11:09:56 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5EC6FC60491;
+	Mon, 28 Feb 2022 14:43:20 +0000 (UTC)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
+ [209.85.221.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B0FBC5F1EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E061C5F1F0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Feb 2022 11:09:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646046595; x=1677582595;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=pPM+/dJeHfzqF2MwScC0enTLh1mKtTcaV6SSL4S9rYU=;
- b=LFvtzt1GIztvWWAnt54JQc91EAIZX1va/BQ3AEtKMzk3JM5nJBZ/IwZa
- Euz7tqgAH1J8fP6zyIZjD96L3lFjxSx8c/GqGzR+Au0hsnjPaEhlRxXf7
- BRpIvrOOcjDM6BrNhIfeqKh3jfCBqcM6ivfazcMfqlf1l+Zhsp8O4RHfh
- 8SEtWa110xcwhjRMbzUdbJefPRnnYYxfcaPViM5heioqO9klhdkGsQ61S
- ymIb9J8Vr4kFP2qm0EbiteDVLdZ3B2daXwqcMhDJtpgfud+tOjgt9YxKy
- S+WbRjZ6iL0SvrMYseaOto03IDRj622n4/zOcPy/ZqlyyqC2MKP6tE83Y A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10271"; a="236364156"
-X-IronPort-AV: E=Sophos;i="5.90,142,1643702400"; d="scan'208";a="236364156"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2022 03:09:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,142,1643702400"; d="scan'208";a="640854617"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga004.jf.intel.com with ESMTP; 28 Feb 2022 03:09:40 -0800
-Received: from P12HL01TMIN.png.intel.com (P12HL01TMIN.png.intel.com
- [10.158.65.75])
- by linux.intel.com (Postfix) with ESMTP id 6D3E85805A3;
- Mon, 28 Feb 2022 03:09:37 -0800 (PST)
-From: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Mon, 28 Feb 2022 19:15:58 +0800
-Message-Id: <20220228111558.3825974-1-vee.khee.wong@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+ Mon, 28 Feb 2022 14:43:19 +0000 (UTC)
+Received: by mail-vk1-f171.google.com with SMTP id b64so1918705vkf.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 28 Feb 2022 06:43:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Ns+Arg4klDnlGygzEk76LpslXMQxYcezrQQdYtWZQRM=;
+ b=54Ai58cLb8P8LaB2ugstukjGgkbZ5DTvuuiKbn2MbM1lTIF/INyifRDvGSax338sB1
+ fX8CiVa3/QlJ44KG8pUtIQ5n4wLyhsCiRtqXp5S221Xp3GP7fAWmQwsYGKozGK8GuEhY
+ TOxme/3uKoaJ8EqEIPLEtdvWhG0B2G3p8ypZtbPRjiL+kFXcWaI3+jfmGK63Za9DA8kw
+ ssPOV717bAFmskUa8Grgpvwd6FRBoEUE5iUKbzJFv0DCo1QBCycNOqigNMZxSrIjb139
+ lZ2lMuFHatDB9WsFZDO/CNEvillpgVyDA+weAaO625ZbYM7FYgsy3GJTT5tqu3oSNTnY
+ 6nOw==
+X-Gm-Message-State: AOAM533fGy+XOWnds3U8SGpFLYPNHqLSS9tgHYqMvHiVukFZkc9lOkOP
+ pdjEUIzTeW82LYc68PdXi6REh2zQQ1GWaQ==
+X-Google-Smtp-Source: ABdhPJwKFYlGMPKRFXPFf624RE97MAt4+r3Wq/MyPXPhF3JRysarJaEb2dANk5aK05u/zKMarU1Y8w==
+X-Received: by 2002:a05:6122:2151:b0:32d:a624:f5d0 with SMTP id
+ m17-20020a056122215100b0032da624f5d0mr8019092vkd.18.1646059398139; 
+ Mon, 28 Feb 2022 06:43:18 -0800 (PST)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com.
+ [209.85.217.51]) by smtp.gmail.com with ESMTPSA id
+ h79-20020a1f2152000000b0033176aaacb1sm1666488vkh.35.2022.02.28.06.43.16
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Feb 2022 06:43:17 -0800 (PST)
+Received: by mail-vs1-f51.google.com with SMTP id q9so13202537vsg.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 28 Feb 2022 06:43:16 -0800 (PST)
+X-Received: by 2002:a67:af08:0:b0:31b:9451:bc39 with SMTP id
+ v8-20020a67af08000000b0031b9451bc39mr7651662vsl.68.1646059396569; Mon, 28 Feb
+ 2022 06:43:16 -0800 (PST)
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, pei.lee.ling@intel.com,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- Jose Abreu <joabreu@synopsys.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 1/1] net: stmmac: Resolve poor line rate
-	after switching from TSO off to TSO on
+References: <20220227224845.27348-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20220227224845.27348-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 28 Feb 2022 15:43:05 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdV+AFpiYwgPN6F1=nx6ivFAU3YYtM1xu4jwyKZh+VNQHQ@mail.gmail.com>
+Message-ID: <CAMuHMdV+AFpiYwgPN6F1=nx6ivFAU3YYtM1xu4jwyKZh+VNQHQ@mail.gmail.com>
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Chris Brandt <chris.brandt@renesas.com>, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Prabhakar <prabhakar.csengg@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: timer: renesas: ostm:
+ Document Renesas RZ/V2L OSTM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,99 +80,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogTGluZyBQZWkgTGVlIDxwZWkubGVlLmxpbmdAaW50ZWwuY29tPgoKU2VxdWVudGlhbCBl
-eGVjdXRpb24gb2YgdGhlc2Ugc3RlcHM6CmkpIFRTTyBPTiDigJMgaXBlcmYzIGV4ZWN1dGlvbiwK
-aWkpIFRTTyBPRkYg4oCTIGlwZXJmMyBleGVjdXRpb24sCmlpaSkgVFNPIE9OIOKAkyBpcGVyZjMg
-ZXhlY3V0aW9uLCBpdCBsZWFkcyB0byBpcGVyZjMgMCBieXRlcyB0cmFuc2Zlci4KCkV4YW1wbGUg
-b2YgbWVudGlvbmVkIElzc3VlIGhhcHBlbmVkOgpyb290QFRHTEE6fiMgaXBlcmYzIC1jIDE2OS4y
-NTQuMTY4LjE5MQpDb25uZWN0aW5nIHRvIGhvc3QgMTY5LjI1NC4xNjguMTkxLCBwb3J0IDUyMDEK
-WyAgNV0gbG9jYWwgMTY5LjI1NC41MC4xMDggcG9ydCA0NTg0NiBjb25uZWN0ZWQgdG8gMTY5LjI1
-NC4xNjguMTkxCnBvcnQgNTIwMQpbIElEXSBJbnRlcnZhbCAgICAgICAgICAgVHJhbnNmZXIgICAg
-IEJpdHJhdGUgICAgICAgICBSZXRyICBDd25kClsgIDVdICAgMC4wMC0xLjAwICAgc2VjICAgMTEz
-IE1CeXRlcyAgIDk0NyBNYml0cy9zZWMgICAgMCAgICAzNzggS0J5dGVzClsgIDVdICAgMS4wMC0y
-LjAwICAgc2VjICAgMTExIE1CeXRlcyAgIDkzMyBNYml0cy9zZWMgICAgMCAgICAzNzggS0J5dGVz
-ClsgIDVdICAgMi4wMC0zLjAwICAgc2VjICAgMTExIE1CeXRlcyAgIDkzMyBNYml0cy9zZWMgICAg
-MCAgICAzNzggS0J5dGVzClsgIDVdICAgMy4wMC00LjAwICAgc2VjICAgMTExIE1CeXRlcyAgIDky
-OSBNYml0cy9zZWMgICAgMCAgICAzNzggS0J5dGVzClsgIDVdICAgNC4wMC01LjAwICAgc2VjICAg
-MTExIE1CeXRlcyAgIDkzNCBNYml0cy9zZWMgICAgMCAgICAzNzggS0J5dGVzClsgIDVdICAgNS4w
-MC02LjAwICAgc2VjICAgMTExIE1CeXRlcyAgIDkzMiBNYml0cy9zZWMgICAgMCAgICAzNzggS0J5
-dGVzClsgIDVdICAgNi4wMC03LjAwICAgc2VjICAgMTExIE1CeXRlcyAgIDkzMiBNYml0cy9zZWMg
-ICAgMCAgICAzNzggS0J5dGVzClsgIDVdICAgNy4wMC04LjAwICAgc2VjICAgMTExIE1CeXRlcyAg
-IDkzMiBNYml0cy9zZWMgICAgMCAgICAzNzggS0J5dGVzClsgIDVdICAgOC4wMC05LjAwICAgc2Vj
-ICAgMTExIE1CeXRlcyAgIDkzMSBNYml0cy9zZWMgICAgMCAgICAzNzggS0J5dGVzClsgIDVdICAg
-OS4wMC0xMC4wMCAgc2VjICAgMTExIE1CeXRlcyAgIDkzMiBNYml0cy9zZWMgICAgMCAgICAzNzgg
-S0J5dGVzCi0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0K
-WyBJRF0gSW50ZXJ2YWwgICAgICAgICAgIFRyYW5zZmVyICAgICBCaXRyYXRlICAgICAgICAgUmV0
-cgpbICA1XSAgIDAuMDAtMTAuMDAgIHNlYyAgMS4wOSBHQnl0ZXMgICA5MzMgTWJpdHMvc2VjICAg
-IDAgICAgc2VuZGVyClsgIDVdICAgMC4wMC0xMC4wMCAgc2VjICAxLjA5IEdCeXRlcyAgIDkzMiBN
-Yml0cy9zZWMgICAgICAgICByZWNlaXZlcgoKaXBlcmYgRG9uZS4Kcm9vdEBUR0xBOn4jIGV0aHRv
-b2wgLUsgZW5wMHMzMGY0IHRzbyBvZmYKcm9vdEBUR0xBOn4jIGlwZXJmMyAtYyAxNjkuMjU0LjE2
-OC4xOTEKQ29ubmVjdGluZyB0byBob3N0IDE2OS4yNTQuMTY4LjE5MSwgcG9ydCA1MjAxClsgIDVd
-IGxvY2FsIDE2OS4yNTQuNTAuMTA4IHBvcnQgNDU4NTQgY29ubmVjdGVkIHRvIDE2OS4yNTQuMTY4
-LjE5MQpwb3J0IDUyMDEKWyBJRF0gSW50ZXJ2YWwgICAgICAgICAgIFRyYW5zZmVyICAgICBCaXRy
-YXRlICAgICAgICAgUmV0ciAgQ3duZApbICA1XSAgIDAuMDAtMS4wMCAgIHNlYyAgIDEwNCBNQnl0
-ZXMgICA4NzAgTWJpdHMvc2VjICAgIDAgICAgMzUyIEtCeXRlcwpbICA1XSAgIDEuMDAtMi4wMCAg
-IHNlYyAgIDEwMSBNQnl0ZXMgICA4NTAgTWJpdHMvc2VjICAgIDAgICAgMzY5IEtCeXRlcwpbICA1
-XSAgIDIuMDAtMy4wMCAgIHNlYyAgIDEwMiBNQnl0ZXMgICA4NjAgTWJpdHMvc2VjICAgIDAgICAg
-MzY5IEtCeXRlcwpbICA1XSAgIDMuMDAtNC4wMCAgIHNlYyAgIDEwMiBNQnl0ZXMgICA4NTMgTWJp
-dHMvc2VjICAgIDAgICAgMzY5IEtCeXRlcwpbICA1XSAgIDQuMDAtNS4wMCAgIHNlYyAgIDEwMiBN
-Qnl0ZXMgICA4NTUgTWJpdHMvc2VjICAgIDAgICAgMzY5IEtCeXRlcwpbICA1XSAgIDUuMDAtNi4w
-MCAgIHNlYyAgIDEwMSBNQnl0ZXMgICA4NDkgTWJpdHMvc2VjICAgIDAgICAgMzY5IEtCeXRlcwpb
-ICA1XSAgIDYuMDAtNy4wMCAgIHNlYyAgIDEwMiBNQnl0ZXMgICA4NjAgTWJpdHMvc2VjICAgIDAg
-ICAgMzY5IEtCeXRlcwpbICA1XSAgIDcuMDAtOC4wMCAgIHNlYyAgIDEwMiBNQnl0ZXMgICA4NTMg
-TWJpdHMvc2VjICAgIDAgICAgMzY5IEtCeXRlcwpbICA1XSAgIDguMDAtOS4wMCAgIHNlYyAgIDEw
-MSBNQnl0ZXMgICA4NTEgTWJpdHMvc2VjICAgIDAgICAgMzY5IEtCeXRlcwpbICA1XSAgIDkuMDAt
-MTAuMDAgIHNlYyAgIDEwMiBNQnl0ZXMgICA4NTYgTWJpdHMvc2VjICAgIDAgICAgMzY5IEtCeXRl
-cwotIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtIC0gLSAtClsgSURd
-IEludGVydmFsICAgICAgICAgICBUcmFuc2ZlciAgICAgQml0cmF0ZSAgICAgICAgIFJldHIKWyAg
-NV0gICAwLjAwLTEwLjAwICBzZWMgIDEwMjAgTUJ5dGVzICAgODU2IE1iaXRzL3NlYyAgICAwICAg
-IHNlbmRlcgpbICA1XSAgIDAuMDAtMTAuMDAgIHNlYyAgMTAxOSBNQnl0ZXMgICA4NTQgTWJpdHMv
-c2VjICAgICAgICAgcmVjZWl2ZXIKCmlwZXJmIERvbmUuCnJvb3RAVEdMQTp+IyBldGh0b29sIC1L
-IGVucDBzMzBmNCB0c28gb24Kcm9vdEBUR0xBOn4jIGlwZXJmMyAtYyAxNjkuMjU0LjE2OC4xOTEK
-Q29ubmVjdGluZyB0byBob3N0IDE2OS4yNTQuMTY4LjE5MSwgcG9ydCA1MjAxClsgIDVdIGxvY2Fs
-IDE2OS4yNTQuNTAuMTA4IHBvcnQgNDU4NjAgY29ubmVjdGVkIHRvIDE2OS4yNTQuMTY4LjE5MQpw
-b3J0IDUyMDEKWyBJRF0gSW50ZXJ2YWwgICAgICAgICAgIFRyYW5zZmVyICAgICBCaXRyYXRlICAg
-ICAgICAgUmV0ciAgQ3duZApbICA1XSAgIDAuMDAtMS4wMCAgIHNlYyAgIDEwNyBLQnl0ZXMgICA4
-NzkgS2JpdHMvc2VjICAgIDAgICAxLjQxIEtCeXRlcwpbICA1XSAgIDEuMDAtMi4wMCAgIHNlYyAg
-MC4wMCBCeXRlcyAgMC4wMCBiaXRzL3NlYyAgICAwICAgMS40MSBLQnl0ZXMKWyAgNV0gICAyLjAw
-LTMuMDAgICBzZWMgIDAuMDAgQnl0ZXMgIDAuMDAgYml0cy9zZWMgICAgMCAgIDEuNDEgS0J5dGVz
-ClsgIDVdICAgMy4wMC00LjAwICAgc2VjICAwLjAwIEJ5dGVzICAwLjAwIGJpdHMvc2VjICAgIDAg
-ICAxLjQxIEtCeXRlcwpbICA1XSAgIDQuMDAtNS4wMCAgIHNlYyAgMC4wMCBCeXRlcyAgMC4wMCBi
-aXRzL3NlYyAgICAwICAgMS40MSBLQnl0ZXMKWyAgNV0gICA1LjAwLTYuMDAgICBzZWMgIDAuMDAg
-Qnl0ZXMgIDAuMDAgYml0cy9zZWMgICAgMCAgIDEuNDEgS0J5dGVzClsgIDVdICAgNi4wMC03LjAw
-ICAgc2VjICAwLjAwIEJ5dGVzICAwLjAwIGJpdHMvc2VjICAgIDAgICAxLjQxIEtCeXRlcwpbICA1
-XSAgIDcuMDAtOC4wMCAgIHNlYyAgMC4wMCBCeXRlcyAgMC4wMCBiaXRzL3NlYyAgICAwICAgMS40
-MSBLQnl0ZXMKCkNsZWFyIG1zcyBpbiBUREVTIGFuZCBjYWxsIHN0bW1hY19lbmFibGVfdHNvKCkg
-dG8gaW5kaWNhdGUKYSBuZXcgVFNPIHRyYW5zbWlzc2lvbiB3aGVuIGl0IGlzIGVuYWJsZWQgZnJv
-bSBUU08gb2ZmIHVzaW5nCmV0aHRvb2wgY29tbWFuZAoKRml4ZXM6IGY3NDhiZTUzMWQ3MCAoInN0
-bW1hYzogc3VwcG9ydCBuZXcgR01BQzQiKQpTaWduZWQtb2ZmLWJ5OiBMaW5nIFBlaSBMZWUgPHBl
-aS5sZWUubGluZ0BpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IFdvbmcgVmVlIEtoZWUgPHZlZS5r
-aGVlLndvbmdAbGludXguaW50ZWwuY29tPgotLS0KIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWlj
-cm8vc3RtbWFjL3N0bW1hY19tYWluLmMgfCAxMiArKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2Vk
-LCAxMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3Rt
-aWNyby9zdG1tYWMvc3RtbWFjX21haW4uYyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8v
-c3RtbWFjL3N0bW1hY19tYWluLmMKaW5kZXggYjc0NWQ2MjRiMmNiLi45ZTJlYTBlMGJkNjggMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWlu
-LmMKKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4u
-YwpAQCAtNTQ2MCw2ICs1NDYwLDggQEAgc3RhdGljIG5ldGRldl9mZWF0dXJlc190IHN0bW1hY19m
-aXhfZmVhdHVyZXMoc3RydWN0IG5ldF9kZXZpY2UgKmRldiwKIAkJCQkJICAgICBuZXRkZXZfZmVh
-dHVyZXNfdCBmZWF0dXJlcykKIHsKIAlzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYgPSBuZXRkZXZf
-cHJpdihkZXYpOworCXUzMiB0eF9jbnQgPSBwcml2LT5wbGF0LT50eF9xdWV1ZXNfdG9fdXNlOwor
-CXUzMiBjaGFuOwogCiAJaWYgKHByaXYtPnBsYXQtPnJ4X2NvZSA9PSBTVE1NQUNfUlhfQ09FX05P
-TkUpCiAJCWZlYXR1cmVzICY9IH5ORVRJRl9GX1JYQ1NVTTsKQEAgLTU0ODMsNiArNTQ4NSwxNiBA
-QCBzdGF0aWMgbmV0ZGV2X2ZlYXR1cmVzX3Qgc3RtbWFjX2ZpeF9mZWF0dXJlcyhzdHJ1Y3QgbmV0
-X2RldmljZSAqZGV2LAogCQkJcHJpdi0+dHNvID0gZmFsc2U7CiAJfQogCisJZm9yIChjaGFuID0g
-MDsgY2hhbiA8IHR4X2NudDsgY2hhbisrKSB7CisJCXN0cnVjdCBzdG1tYWNfdHhfcXVldWUgKnR4
-X3EgPSAmcHJpdi0+dHhfcXVldWVbY2hhbl07CisKKwkJLyogVFNPIGFuZCBUQlMgY2Fubm90IGNv
-LWV4aXN0ICovCisJCWlmICh0eF9xLT50YnMgJiBTVE1NQUNfVEJTX0FWQUlMKQorCQkJY29udGlu
-dWU7CisKKwkJdHhfcS0+bXNzID0gMDsKKwkJc3RtbWFjX2VuYWJsZV90c28ocHJpdiwgcHJpdi0+
-aW9hZGRyLCBwcml2LT50c28sIGNoYW4pOworCX0KIAlyZXR1cm4gZmVhdHVyZXM7CiB9CiAKLS0g
-CjIuMjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
-dGluZm8vbGludXgtc3RtMzIK
+On Sun, Feb 27, 2022 at 11:49 PM Lad Prabhakar
+<prabhakar.mahadev-lad.rj@bp.renesas.com> wrote:
+> Document the General Timer Module(a.k.a OSTM) found on the RZ/V2L SoC.
+> OSTM module is identical to one found RZ/G2L SoC. No driver changes are
+> required as generic compatible string "renesas,ostm" will be used as a
+> fallback.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
