@@ -2,69 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E26F64C6545
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Feb 2022 10:03:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 565064C65FC
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Feb 2022 10:47:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AC3BC5F1F1;
-	Mon, 28 Feb 2022 09:03:05 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1984C5F1F1;
+	Mon, 28 Feb 2022 09:47:46 +0000 (UTC)
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDD36C5F1EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 443F2C5EC47
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Feb 2022 09:03:03 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21S23AnE021067;
- Mon, 28 Feb 2022 10:02:54 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=r2K3KfZiBxSqGnFUFhrDt37OlVAmowgJ0HAxohwVpRI=;
- b=RRsSlEeSqc3ljzwyFUldtIOrW0rF3l/RpzpyKlo5WOIFX11yX2gncogfqU/EalUxpzue
- iAamm8nNmrSHyWr0BiJMem097ykCHKuQyOLJQIa4SiU3YIiP9eJPPJ3uI0uKiGGYXRzS
- UvEAtjwHcteYoeeIpz3VcgTtrW2MN+/59zjdp3uDZ7z/pSIOO/Maum/wgZMtqViccuh9
- usv8SyjgcShAxuzg5i/F1X4W6k4yYRzD/hRu+ETz2sk2EEGVBa8hpuSRyx7yPbIFFci8
- 2IKBeG05vm5l1tidomPMSrmmNt6PtG2Q6YfgKOHN2Xncd7ZdbUUakAzlf+vR4mhk+Zhy sQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3eg7pkvcyt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 28 Feb 2022 10:02:54 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E448B10002A;
- Mon, 28 Feb 2022 10:02:48 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D97362171E4;
- Mon, 28 Feb 2022 10:02:48 +0100 (CET)
-Received: from [10.211.4.83] (10.75.127.44) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 28 Feb
- 2022 10:02:48 +0100
-Message-ID: <f6c4ce33-cf94-6794-3825-06a7ffe0a472@foss.st.com>
-Date: Mon, 28 Feb 2022 10:02:47 +0100
+ Mon, 28 Feb 2022 09:47:46 +0000 (UTC)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 281163F1B7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 28 Feb 2022 09:47:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1646041664;
+ bh=0JbmlSAA0fNwnIooIgqlcG+0ARF2DXlxIL3bhnCTrKE=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=PrrGRHzBMfHObCvYQqig8k+EJydyl3OkKyYtFAxhlxp9U0Ywv4gmoKSdGAZQwJswA
+ wUoPeIkulNudVxJUL6emfzWAAXHXW/W2EHmFI0onycKcqEsnDr1GSKSF23DysKAOIk
+ TpgGQDE/1FjTkf4pJpICekHkCezxYXnk86omqTpvhokiRMREGDdzBT9VK26IsYfMOe
+ bS7Oz3CDtRGNcAtaYUpxsNGJ5ishWXmIHTUVjdp9CzkfOLy49k7nC/CfsB2cmWIlwx
+ dikjMDTtgTPLpMEacOi62Rr5BXItt6eYBbzJJd6Z3aMAZAbbhpRnoU5nnm0Rd6qmNT
+ T5IQNnv/Ga7Yw==
+Received: by mail-wr1-f72.google.com with SMTP id
+ t15-20020adfdc0f000000b001ef93643476so594435wri.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 28 Feb 2022 01:47:44 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=0JbmlSAA0fNwnIooIgqlcG+0ARF2DXlxIL3bhnCTrKE=;
+ b=mwX3vlJewK/uOVK88Y0QJUCx2mvYAkbTBDWSIFQTJnASGxao+HzqA8dj1lSR4PyRCB
+ +BryTElqsGYW/H2nb+Guba4yfUMvU4TXuhR3NQ3Dn5mL8Fm/285vmjKdK3PUWYs+iJp2
+ XNR5KOAhaisQGUvQUNoWcCxd3BAuhmoI5flx2CKq7UxaxPpaC3MxBBEMupJPMBDI670C
+ 1JQ/wWbefDkKIGbS0Y0dya5KPSy7Mn0z3ATEsq+6n6h2BsZ6jLNeqNDtcIAGTfudEQDv
+ S/uVWccNVl23MJkqRQJUkbAiMrwo9KfQ6HmjFZjNDt9M9EPog5oGc9Xo4ibMDUsXwaX+
+ Uzrg==
+X-Gm-Message-State: AOAM532B3aENGKxgbQwux/jxa93kjSxVTKp4kngMLSMCliWc9rXGaqKr
+ VqkQqgpN7i6yFDanDCaLs9E5yipiA/umvo00RxZjcGEBps7P6TUDtKgFoSyovxG/NF5Q/C2TntX
+ 7GUVjTUsVYTDZ6HhIB4PXHs6D9H1WnW42EnunK+VvtmkLudlpvQQT4kxV+w==
+X-Received: by 2002:a05:600c:4615:b0:381:c68:e8f8 with SMTP id
+ m21-20020a05600c461500b003810c68e8f8mr12570752wmo.117.1646041663883; 
+ Mon, 28 Feb 2022 01:47:43 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyYFWnSTQN2LNmgpLVDrQRcbyyaUOEPgYrj2AvMI2hTg1YmU0CB7RgwzVxUe1zibUvQepHT0w==
+X-Received: by 2002:a05:600c:4615:b0:381:c68:e8f8 with SMTP id
+ m21-20020a05600c461500b003810c68e8f8mr12570736wmo.117.1646041663731; 
+ Mon, 28 Feb 2022 01:47:43 -0800 (PST)
+Received: from [192.168.0.133] (xdsl-188-155-181-108.adslplus.ch.
+ [188.155.181.108]) by smtp.gmail.com with ESMTPSA id
+ i6-20020adfaac6000000b001e7f9a9498asm10267833wrc.50.2022.02.28.01.47.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Feb 2022 01:47:43 -0800 (PST)
+Message-ID: <b584b58f-a17a-e866-3054-64366dc7fec4@canonical.com>
+Date: Mon, 28 Feb 2022 10:47:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
 Content-Language: en-US
-To: Philipp Rossak <embed3d@gmail.com>, Bjorn Andersson
- <bjorn.andersson@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20220124102524.295783-1-arnaud.pouliquen@foss.st.com>
- <ab97c2a5-7705-eae8-9bc2-908e7a9cb709@gmail.com>
- <670ee336-9ad4-401e-e3b2-02531e975e51@foss.st.com>
- <15be2f08-ba03-2b80-6f53-2056359d5c41@gmail.com>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-In-Reply-To: <15be2f08-ba03-2b80-6f53-2056359d5c41@gmail.com>
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
- definitions=2022-02-28_03,2022-02-26_01,2022-02-23_01
-Cc: julien.massot@iot.bzh, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Xiang Xiao <xiaoxiang@xiaomi.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v9 00/11] Restructure the rpmsg_char
- driver and introduce rpmsg_ctrl driver
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Chris Brandt <chris.brandt@renesas.com>
+References: <20220227224845.27348-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+In-Reply-To: <20220227224845.27348-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+ Prabhakar <prabhakar.csengg@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: timer: renesas: ostm:
+ Document Renesas RZ/V2L OSTM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,144 +102,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Philipp,
-
-On 2/25/22 22:45, Philipp Rossak wrote:
-> Hi Arnaud,
+On 27/02/2022 23:48, Lad Prabhakar wrote:
+> Document the General Timer Module(a.k.a OSTM) found on the RZ/V2L SoC.
+> OSTM module is identical to one found RZ/G2L SoC. No driver changes are
+> required as generic compatible string "renesas,ostm" will be used as a
+> fallback.
 > 
-> On 24.02.22 09:29, Arnaud POULIQUEN wrote:
->> Hi Philipp,
->>
->> On 2/23/22 22:28, Philipp Rossak wrote:
->>> Hi Arnaud,
->>>
->>> thanks for working on this! I'm currently testing/using this patch
->>> series on my imx7d project because it adds the capability that the
->>> remote processor can register it's endpoints dynamically (as mentioned
->>> in the objectives).
->>
->> Thanks for your feedback on this work!
->> Don't hesitate to add your tested-by, this help maintainers for the
->> reviews.
->>
-> I will do this.
->>>
->>> After a few tests, debugging, and checking the openamp specification [1]
->>> I think that you missed the second ns_announcement that should be sent
->>> from linux master to the slave after it created the channel/endpoint.
->>> Without this second announcement the remote processor is not able to
->>> send messages to the linux master because it doesn't know the
->>> destination address until it receives a message from the linux master.
->>
->> Yes I detected this issues, it is not related to the series
->> but to the remoteproc_virtio backend.
->>
->> As you mentioned, after the ns announcement from Linux, the remote
->> processor
->> send first messages. But the Linux virtio does not do the match
->> between the
->> local channel created and the remote endpoint.
->>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> DTSI changes have been posted as part of series [0]
 > 
-> I'm not sure if we talk about the same. I'm basically talking about the
-> dynamic binding, not dynamic endpoint creation.
-
-Regarding your following description, yes it is not exactly the same issue.
-  
-
-> I think I already found the issue. I will try to get a bit more into
-> detail.
-> 
-> 1. Linux: starts co-processor via remoteproc
-> 2. co-processor: boots and reaches the point where it creates the
-> endpoint like it is done in this ST example[1].
-> Be aware the src address is RPMSG_ADDR_ANY
-> 3. co-processor: reaches the point where it sends the ns_announcement to
-> linux ns endpoint
-> 4. linux: receives the ns announcment, creates the channel, bindes the
-> endpoint and checks here [2] if the source address is not RPMSG_ADDR_ANY
-> and in this case it is not sending a ns_announcement (that's the issue
-> when we use dynamic endpoints)
-
-The ns annoucement is used to notify the remote processor that a new channel
-has been created locally. Today the ns anoucement is not used to inform that
-
-The local endpoint has been binded.
-
-This behavior is something that as already been identified as a limitation in
-the virtio rpmsg.
-
-Xiang Xiao had proposed some time ago a mechanism for the OpenAMP [5], the
-Linux part is missing. We need a common solution between Linux and OpenAMP, but
-that also compatible with legacy. 
-From MPOV Xiang's approach seem a good starting point.  
-If you are interesting on working on this enhancement of the rpmsg virtio, feel
-free to do so.
-
-> 5. linux: according the openamp spec [3] it should now send the
-> ns_announcement to the co-processor (slave)
-> 6. co-processor: should receive the ns announcement and binds now the
-> endpoint
-> 7. co-processor: can now send messages to linux
-> 
-> This is basically what I'm expecting.
-> 
-> 
-> Do you think this is a bug or is the dynamic endpoint binding not
-> handled? This line is there since ever [4] ...
-
-As you mentioned this is a legacy limitation that should be addressed.
-It is not related to this work.
-
-Thanks,
-Arnaud
-
-> 
-> Any other thoughts about this?
-> 
->> This is a feature that is missing in the rpmsg virtio, and perhaps in
->> rpmsg protocol
->> itself (a ns annoucement ack message or something similar).
->>
->>
->> A fix for the remoteproc virtio is available here:
->> https://github.com/arnopo/meta-st-stm32mp-oss/commit/3e57fe73bd19c9bb835ac5a118e50727758b0b96
->>
->>
->> Don't hesitate to give me feedback on the fix, if you test it.
-> 
-> I added it to my branch and till now I don't see any side effects
->>
->> I plan to propose the fix after this series.
->>
->> Thanks,
->> Arnaud
->>
->>>
->>> Cheers,
->>> Philipp
->>>
-> 
-> Cheers,
-> Philipp
-> 
-> [1]:
-> https://github.com/STMicroelectronics/STM32CubeMP1/blob/master/Projects/STM32MP157C-DK2/Applications/OpenAMP/OpenAMP_raw/Src/openamp.c#L242
-> 
-> 
-> [2]:
-> https://elixir.bootlin.com/linux/v5.17-rc5/source/drivers/rpmsg/virtio_rpmsg_bus.c#L425
-> 
-> 
-> [3]:
-> https://github.com/OpenAMP/open-amp/blob/main/docs/img/coprocessor-rpmsg-ns.png
-> 
-> 
-> [4]:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=bcabbccabffe7326f046f25737ba1084f463c65c
+> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/
+> 20220227203744.18355-8-prabhakar.mahadev-lad.rj@bp.renesas.com/
+> ---
+>  Documentation/devicetree/bindings/timer/renesas,ostm.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
-[5] https://github.com/OpenAMP/open-amp/pull/160
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
