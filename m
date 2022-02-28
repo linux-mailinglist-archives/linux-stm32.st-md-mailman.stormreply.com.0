@@ -2,40 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37DB14C5F91
-	for <lists+linux-stm32@lfdr.de>; Sun, 27 Feb 2022 23:49:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B36894C613C
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Feb 2022 03:40:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C99E5C5F1F1;
-	Sun, 27 Feb 2022 22:49:02 +0000 (UTC)
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93ADDC5F1EF
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 550C4C60495;
+	Mon, 28 Feb 2022 02:40:04 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33798C5F1EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Feb 2022 22:49:00 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="5.90,142,1643641200"; d="scan'208";a="111725986"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 28 Feb 2022 07:48:57 +0900
-Received: from localhost.localdomain (unknown [10.226.36.204])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id C590C4006DFA;
- Mon, 28 Feb 2022 07:48:54 +0900 (JST)
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Chris Brandt <chris.brandt@renesas.com>
-Date: Sun, 27 Feb 2022 22:48:44 +0000
-Message-Id: <20220227224845.27348-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.17.1
-Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] dt-bindings: timer: renesas: ostm: Document
-	Renesas RZ/V2L OSTM
+ Mon, 28 Feb 2022 02:40:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1646015990;
+ bh=V/wGp+G2pTyXDb4+jdBY8qODO5TCY8jft6x/5fyt1MI=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=MuHRnmktUX1JB7Kzq2uXcT/BLonc7pPkW1eropMd8wlVp5ZsGsh6+w4rgOzShZYNU
+ ach0CN12vdx8sVc/3mu0oZyJxLuBYLxM9RYvhQwwOUy5zDArvttWGvj8B05AWL4Vt8
+ 9nnZXE1jEw8cDZLWGVqesTQDL5083pjTbToTltCQ=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from Venus.fritz.box ([149.172.237.68]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MQvD5-1nbUDx1ry3-00O1Tz; Mon, 28
+ Feb 2022 03:39:50 +0100
+From: Lino Sanfilippo <LinoSanfilippo@gmx.de>
+To: gregkh@linuxfoundation.org, jirislaby@kernel.org,
+ u.kleine-koenig@pengutronix.de
+Date: Mon, 28 Feb 2022 03:39:19 +0100
+Message-Id: <20220228023928.1067-1-LinoSanfilippo@gmx.de>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+X-Provags-ID: V03:K1:Fd0ako0QTKO8TY2IaGJzF0tKjpC3R3VaGpiLtXqHh6ESVFhyIJ3
+ vdEnDEx9TLif8A1pKe5zI2v+rp460XCuRZQ33h1Jr0Ouf1RLt25hWh8aUqd05470v5qZRqb
+ llyQCTDfG5m3IK4T9tI1GrnQltF56Am4n3S/WMAC/hxWGmrwBiuyCkSC6HkaumeB2DuFJ5H
+ Xh1CGOoapemzcPa0LHD9w==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:YIy7rX8/a/A=:EFNEH3QlzSe5A3O9XR6qYL
+ WpKiT8W8rIvZ7HGI500FaIh6yMRxj07sgI2WzsNW9P5jeFYopkmY/VwMTSPQVnKPSL3DnyNn+
+ IbIUZfsd1uG6iYAAV9TXlHWio0vBSl8M3YXsRxpWYmmSrLIi9emyiuJkhewzXsOpcwW9fvU9X
+ qH8GszlmTaMX3fZMQdJAsKlMXHR57YqqVcfKwxUuX/sGwwe5TG4VKDM5tOK/nmn1J5rj+vZyn
+ vg7MzHoZX2ceWPvBEPRgc5eTBBcimVUN0njogtU3udj3VQJOf0r9qLMYYJLMemkbh9BXk0Rzs
+ iBogRNB4USr5QmwGpbmSN4MudUZ5gvX2w/CUWS22AcqocqR5C51IepzzYa3JTVjMmHVzhSUda
+ +QbPaSARKSWT5AkgLhdba1G5GE2+rUKmZobTKyeszWMmJVSAlWEhs7pixy6J14dEpC5T3xxE0
+ lnZVRmE5VfB6RtxXUOm/UY09GK8B52yg4GHoAlcDqtdqMCOnJDNquXcgwMBYXq29rBT676Oy8
+ P+tlKHQBNmpSDc2IzmxlBIQzikX2jbjw3m3Qj9CIQlDgEcSw1UkLHDOjiEV3dl3ED4sHCKfWm
+ X1K8M/8i4nN0N4Hkc20ihbSyDhBzNSmxFv7E4BbW5hzcbZnqK5nCieZgeIRsTx2aTWjbcOHq8
+ 7RbPdeYzXSVWRrfr453PdXahsjkPqPPRA3CGn7ovoRCZbOWSbSM/CevplCuJPcheaHN8FXGE5
+ ZcvYkv3LizNPId3Q/Muk3fOoN1WO31O1VgHgOux2ttHP4ZOb/Y0+1qm87C20eq26rHXEwPwpu
+ 3kokKiiu0+2SQmvB68CJreoOlK6Brmv6yaubvCjZfggLpNxVxBvYkuqAPwxdWKb5XCFUCHu7g
+ fKCaKgNeBwPrlMGpUht1bFu0SgIIFAyiOAwk7hU/fpSXzUnPKltV9/Ubj2uo39IKx/wDr5xLD
+ Jy87Dx+EPKc9pDhYrwuUupX44vmLNgrnf7yVfe3+JLikbzMzoHZY0Phnd+12kSipYfRFoK1UA
+ SzefRACCzuAsKXL4AYbnDDMLh/jVxK2ebplBvL8KiLToYEsuFKMLEdqQDgnHNth3sQj8EkJp+
+ p04qCeNe2e2FDQ=
+Cc: linux-arm-kernel@lists.infradead.org, alexandre.belloni@bootlin.com,
+ mcoquelin.stm32@gmail.com, richard.genoud@gmail.com, festevam@gmail.com,
+ s.hauer@pengutronix.de, linux@armlinux.org.uk, nicolas.ferre@microchip.com,
+ alexandre.torgue@foss.st.com, ludovic.desroches@microchip.com, lukas@wunner.de,
+ linux-imx@nxp.com, kernel@pengutronix.de, linux-serial@vger.kernel.org,
+ shawnguo@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, p.rosenberger@kunbus.com
+Subject: [Linux-stm32] Move RS485 implementation from drivers to serial core
+	(v4)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -47,50 +73,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Document the General Timer Module(a.k.a OSTM) found on the RZ/V2L SoC.
-OSTM module is identical to one found RZ/G2L SoC. No driver changes are
-required as generic compatible string "renesas,ostm" will be used as a
-fallback.
+This patch series is an attempt to simplify rs485 implementation in drivers
+by moving the following tasks out of the drivers into the serial core:
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-DTSI changes have been posted as part of series [0]
+- ensure sane RTS settings: in case of an invalid configuration (both RTS
+  after send and RTS on send set or both unset) enable RTS on send and
+  disable RTS after send
 
-[0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/
-20220227203744.18355-8-prabhakar.mahadev-lad.rj@bp.renesas.com/
----
- Documentation/devicetree/bindings/timer/renesas,ostm.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+- nullify the padding field of the serial_rs485 struct before it is
+  returned to userspace
 
-diff --git a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
-index 7fa7f977b44c..c399a019dde7 100644
---- a/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
-+++ b/Documentation/devicetree/bindings/timer/renesas,ostm.yaml
-@@ -24,6 +24,7 @@ properties:
-           - renesas,r7s72100-ostm  # RZ/A1H
-           - renesas,r7s9210-ostm   # RZ/A2M
-           - renesas,r9a07g044-ostm # RZ/G2{L,LC}
-+          - renesas,r9a07g054-ostm # RZ/V2L
-       - const: renesas,ostm        # Generic
- 
-   reg:
-@@ -54,6 +55,7 @@ if:
-       contains:
-         enum:
-           - renesas,r9a07g044-ostm
-+          - renesas,r9a07g054-ostm
- then:
-   required:
-     - resets
--- 
-2.17.1
+- copy the configuration stored in the serial_rs485 struct to the port
+  configuration if setting the configuration in the driver was successfull
+
+- limit the RTS delay to 100ms
+
+
+Redundant code has been removed from the following drivers for now:
+
+- atmel
+- fsl_lpuart
+- amba
+- imx
+- max310x
+- omap-serial
+- sc16is7xx
+- stm32-usart
+
+The code has been tested with the amba pl011 driver. This series applies
+against Gregs tty-testing branch.
+
+Changes in v2:
+- use a makro for max RTS delays and comment it (as requested by Jiri)
+- add a comment concerning the memset of a structures padding field - correct
+  typos in the commit message (found by Uwe) 
+- rephrase all commit messages to make more clear that function
+  uart_set_rs485_config() has been extended by checks and other functionalities
+  (as requested by Uwe)
+
+Changes in v3:
+- add warning messages if the serial core corrects RS485 values (as requested by
+  Lukas Wunner)
+- dont expose the macro for max RTS delays to userspace (as requested by Greg)
+
+Changes in v4:
+- use ratelimit warning messages and also print device, uart port name and line
+  (as requested by Jiri)
+
 
 _______________________________________________
 Linux-stm32 mailing list
