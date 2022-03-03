@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09BCB4CB711
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Mar 2022 07:32:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 553504CB781
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Mar 2022 08:10:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1EF5C5F1EE;
-	Thu,  3 Mar 2022 06:32:53 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6800C57B6F
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Mar 2022 06:32:51 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0502C5F1EE;
+	Thu,  3 Mar 2022 07:10:47 +0000 (UTC)
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 56FD7B823EC;
- Thu,  3 Mar 2022 06:32:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D724C004E1;
- Thu,  3 Mar 2022 06:32:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646289169;
- bh=1hdFwEApQ9grBt9oUPeinkV2LDuNqdSmho2UK/4xVWg=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=oE0YAJ2Oene2ROCb5HFP22eUFe02tXZLVohtit2VWvw+lApDzStQqPLHyFEPnIN99
- FLuNtuMOyuwJ8gPHNd4Cp6ctLXVn+fFhwcA3xeoMeu2W1TjE8FSDz2L+ktvc1coXV7
- maDaR4oLMlsRP+00H0E+qqcVasN8oOT3ER8TSPZ9ljU9rOuL6B42cfOgkVXeDRDcwI
- rfVko6YmOK+YL1WCixLdp1Ddmlk2QLpwhe7zHnf5m8ILqfxum4GquS/SkBb7h+DMMy
- uzcX4C+Hj3Vbj9ZgZJ+Ozm7pvCb92l0NpFC3NK+dNRKW9sq8IwF2HNyOgAU973pdgP
- 4G1/QbTXplyhQ==
-Date: Wed, 2 Mar 2022 22:32:48 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Wong Vee Khee <vee.khee.wong@linux.intel.com>
-Message-ID: <20220302223248.2492658e@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
-In-Reply-To: <20220228111558.3825974-1-vee.khee.wong@linux.intel.com>
-References: <20220228111558.3825974-1-vee.khee.wong@linux.intel.com>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E8A3C57B6F
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  3 Mar 2022 06:53:32 +0000 (UTC)
+X-UUID: af18788acb85456c969c0bee454fd03b-20220303
+X-UUID: af18788acb85456c969c0bee454fd03b-20220303
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <rex-bc.chen@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1881359395; Thu, 03 Mar 2022 14:53:23 +0800
+Received: from mtkcas11.mediatek.inc (172.21.101.40) by
+ mtkmbs07n2.mediatek.inc (172.21.101.141) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Thu, 3 Mar 2022 14:53:22 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Thu, 3 Mar 2022 14:53:22 +0800
+From: Rex-BC Chen <rex-bc.chen@mediatek.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, David Airlie <airlied@linux.ie>, Daniel Vetter
+ <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>
+Date: Thu, 3 Mar 2022 14:53:12 +0800
+Message-ID: <20220303065322.23132-1-rex-bc.chen@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- pei.lee.ling@intel.com, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Resolve poor line
- rate after switching from TSO off to TSO on
+X-MTK: N
+X-Mailman-Approved-At: Thu, 03 Mar 2022 07:10:47 +0000
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com,
+ linux-mediatek@lists.infradead.org, yongqiang.niu@mediatek.com,
+ hsinyi@chromium.org, Rex-BC Chen <rex-bc.chen@mediatek.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH V6 4/5] dt-bindings: display: mediatek: add
+	MT8186 SoC binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,24 +56,167 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAyOCBGZWIgMjAyMiAxOToxNTo1OCArMDgwMCBXb25nIFZlZSBLaGVlIHdyb3RlOgo+
-IEZyb206IExpbmcgUGVpIExlZSA8cGVpLmxlZS5saW5nQGludGVsLmNvbT4KPiAKPiBTZXF1ZW50
-aWFsIGV4ZWN1dGlvbiBvZiB0aGVzZSBzdGVwczoKPiBpKSBUU08gT04g4oCTIGlwZXJmMyBleGVj
-dXRpb24sCj4gaWkpIFRTTyBPRkYg4oCTIGlwZXJmMyBleGVjdXRpb24sCj4gaWlpKSBUU08gT04g
-4oCTIGlwZXJmMyBleGVjdXRpb24sIGl0IGxlYWRzIHRvIGlwZXJmMyAwIGJ5dGVzIHRyYW5zZmVy
-LgoKSU1ITyB0aGUgaXBlcmYgb3V0cHV0IGNhbiBiZSBkcm9wcGVkIGZyb20gdGhlIGNvbW1pdCBt
-ZXNzYWdlLCAKaXQgZG9lc24ndCBhZGQgbXVjaCBiZXlvbmQgdGhpcyBkZXNjcmlwdGlvbi4KCj4g
-Q2xlYXIgbXNzIGluIFRERVMgYW5kIGNhbGwgc3RtbWFjX2VuYWJsZV90c28oKSB0byBpbmRpY2F0
-ZQo+IGEgbmV3IFRTTyB0cmFuc21pc3Npb24gd2hlbiBpdCBpcyBlbmFibGVkIGZyb20gVFNPIG9m
-ZiB1c2luZwo+IGV0aHRvb2wgY29tbWFuZAoKSG93IGRvZXMgdGhlIFRTTyBnZXQgZGlzYWJsZWQg
-SSBkb24ndCBzZWUgYW55IC4uLmVuYWJsZV90c28oLCAwLCApCmNhbGxzIGluIHRoZSBkcml2ZXI/
-IEFuZCB3aHkgY2FsbCBlbmFibGUgaW4gZml4X2ZlYXR1cmVzIHJhdGhlciAKdGhhbiBzZXRfZmVh
-dHVyZXM/Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+Add MT8186 SoC binding to AAL, CCORR, COLOR, DITHER, GAMMA, MUTEX,
+OVL, POSTMASK and RDMA.
+
+Signed-off-by: Rex-BC Chen <rex-bc.chen@mediatek.com>
+---
+ .../devicetree/bindings/display/mediatek/mediatek,aal.yaml    | 4 ++++
+ .../devicetree/bindings/display/mediatek/mediatek,ccorr.yaml  | 4 ++++
+ .../devicetree/bindings/display/mediatek/mediatek,color.yaml  | 1 +
+ .../devicetree/bindings/display/mediatek/mediatek,dither.yaml | 1 +
+ .../devicetree/bindings/display/mediatek/mediatek,gamma.yaml  | 1 +
+ .../devicetree/bindings/display/mediatek/mediatek,mutex.yaml  | 1 +
+ .../devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml | 4 ++++
+ .../devicetree/bindings/display/mediatek/mediatek,ovl.yaml    | 4 ++++
+ .../bindings/display/mediatek/mediatek,postmask.yaml          | 4 ++++
+ .../devicetree/bindings/display/mediatek/mediatek,rdma.yaml   | 1 +
+ 10 files changed, 25 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
+index 1528b2486f8f..87ecfb3af8bf 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
+@@ -32,6 +32,10 @@ properties:
+               - mediatek,mt8192-disp-aal
+               - mediatek,mt8195-disp-aal
+           - const: mediatek,mt8173-disp-aal
++      - items:
++          - enum:
++              - mediatek,mt8186-disp-aal
++          - const: mediatek,mt8183-disp-aal
+ 
+   reg:
+     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
+index 1d8d2e214aca..6b55c769b9eb 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
+@@ -29,6 +29,10 @@ properties:
+           - enum:
+               - mediatek,mt8195-disp-ccorr
+           - const: mediatek,mt8192-disp-ccorr
++      - items:
++          - enum:
++              - mediatek,mt8186-disp-ccorr
++          - const: mediatek,mt8183-disp-ccorr
+ 
+   reg:
+     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
+index feb9999e4c00..6c9cc247ad50 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
+@@ -36,6 +36,7 @@ properties:
+       - items:
+           - enum:
+               - mediatek,mt8183-disp-color
++              - mediatek,mt8186-disp-color
+               - mediatek,mt8192-disp-color
+               - mediatek,mt8195-disp-color
+           - const: mediatek,mt8173-disp-color
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
+index 68e982bdee39..1188e4794eb0 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
+@@ -26,6 +26,7 @@ properties:
+           - const: mediatek,mt8183-disp-dither
+       - items:
+           - enum:
++              - mediatek,mt8186-disp-dither
+               - mediatek,mt8192-disp-dither
+               - mediatek,mt8195-disp-dither
+           - const: mediatek,mt8183-disp-dither
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
+index fd52995d8307..1b1622fb0aff 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
+@@ -27,6 +27,7 @@ properties:
+           - const: mediatek,mt8183-disp-gamma
+       - items:
+           - enum:
++              - mediatek,mt8186-disp-gamma
+               - mediatek,mt8192-disp-gamma
+               - mediatek,mt8195-disp-gamma
+           - const: mediatek,mt8183-disp-gamma
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml
+index 0378933201b4..edf5816cf7b4 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml
+@@ -29,6 +29,7 @@ properties:
+       - mediatek,mt8167-disp-mutex
+       - mediatek,mt8173-disp-mutex
+       - mediatek,mt8183-disp-mutex
++      - mediatek,mt8186-disp-mutex
+       - mediatek,mt8192-disp-mutex
+       - mediatek,mt8195-disp-mutex
+ 
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
+index 611a2dbdefa4..5acc1457db1b 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
+@@ -25,6 +25,10 @@ properties:
+           - const: mediatek,mt8183-disp-ovl-2l
+       - items:
+           - const: mediatek,mt8192-disp-ovl-2l
++      - items:
++          - enum:
++              - mediatek,mt8186-disp-ovl-2l
++          - const: mediatek,mt8192-disp-ovl-2l
+ 
+   reg:
+     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+index 84ee403dddd7..6024e6b73025 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+@@ -38,6 +38,10 @@ properties:
+           - enum:
+               - mediatek,mt8195-disp-ovl
+           - const: mediatek,mt8183-disp-ovl
++      - items:
++          - enum:
++              - mediatek,mt8186-disp-ovl
++          - const: mediatek,mt8192-disp-ovl
+ 
+   reg:
+     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
+index 6ac1da2e8871..c303e915241b 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
+@@ -23,6 +23,10 @@ properties:
+     oneOf:
+       - items:
+           - const: mediatek,mt8192-disp-postmask
++      - items:
++          - enum:
++              - mediatek,mt8186-disp-postmask
++          - const: mediatek,mt8192-disp-postmask
+ 
+   reg:
+     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
+index 30f89afd3ab9..d668c4c8e916 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
+@@ -38,6 +38,7 @@ properties:
+           - const: mediatek,mt2701-disp-rdma
+       - items:
+           - enum:
++              - mediatek,mt8186-disp-rdma
+               - mediatek,mt8192-disp-rdma
+           - const: mediatek,mt8183-disp-rdma
+ 
+-- 
+2.18.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
