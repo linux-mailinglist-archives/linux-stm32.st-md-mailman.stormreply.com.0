@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF094CD57F
+	by mail.lfdr.de (Postfix) with ESMTPS id 957774CD57D
 	for <lists+linux-stm32@lfdr.de>; Fri,  4 Mar 2022 14:52:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70605C6049A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CCE3C60492;
 	Fri,  4 Mar 2022 13:52:38 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA92EC5F1F1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1629C5F1EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri,  4 Mar 2022 13:52:36 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 224Bde9n009228;
- Fri, 4 Mar 2022 14:51:50 +0100
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 224BrQTP011332;
+ Fri, 4 Mar 2022 14:51:49 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=E9lwcKG1DlBq5u4AWYgkseFeV+BKpDz1KA6ijNiJ/GE=;
- b=s8yJpi+vIXOIhJCSOrLHc0WYyFDgBCMNZ+6NWlWMMymzV/cEgPP/ZKATKe/feTFzDxPi
- Nv+wrA4mPQ3vBekwNmtXnEE02i+N6XixdPxFbRvSv39/TkF3snEFg0N0HzG9I01U3KTk
- za1he2ioFpWdfwZSz7c2yBGx1thBSgVgbnJFPXte3V2EZerhtofWbfF/yNqX0u9Jdxet
- ojg+Zuk0qPxr8p/JrFH+eo3Sirvsgs5k6t/Ryt9Eet1rwSdm7oU29R+/ZwPha3fQI//f
- Nf5HiaQi3j/Uludd9uIOyCHqHsoaBQXtwTN6lm/++LuauSvSUEx7LKTWU0TAMTWMmmBM Nw== 
+ bh=tbU0qOc6Ayx6hnhXQ94zwIDGkMujBZbQs9NbPVdBY5A=;
+ b=xTD9vKiQCmfnFprZmglcB5VgO+UPllnPsraMHR7AjH/CQpzG459UvGxKnuppKF7l3phZ
+ O5DrbC4o7iq/H/OHufsZQu25IFcemolPNTOK+y3iprzO4ek4r7m0kqOFSGZX5XYIjjAb
+ AX4jJbPI9lpjQs0I9JEGu1LeMT3IddwRABqkJiMVBVNhnUCaUsnMQigYTy17CP/Mlvcr
+ 1Go75TThmKHtS8jbmBRCVHJhmQjNMkx2rsHpujwkyYwZFISvdr/Y9kOshHoV/T8Jpp+v
+ bGKh0kpEr7M1rx8PZ/g7guIEhZNtXz8V0waxHONJL24IYvNfBmpwj3GIza4raQAvZgi/ zQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ek4jgn288-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ek4k5d52b-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 04 Mar 2022 14:51:50 +0100
+ Fri, 04 Mar 2022 14:51:49 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D4AC4100039;
- Fri,  4 Mar 2022 14:51:44 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 59220100038;
+ Fri,  4 Mar 2022 14:51:45 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 747AC2291C3;
- Fri,  4 Mar 2022 14:51:44 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 4 Mar 2022 14:51:43
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2741C2291CC;
+ Fri,  4 Mar 2022 14:51:45 +0100 (CET)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 4 Mar 2022 14:51:44
  +0100
 From: Yann Gautier <yann.gautier@foss.st.com>
 To: Rob Herring <robh+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>
-Date: Fri, 4 Mar 2022 14:51:33 +0100
-Message-ID: <20220304135134.47827-3-yann.gautier@foss.st.com>
+Date: Fri, 4 Mar 2022 14:51:34 +0100
+Message-ID: <20220304135134.47827-4-yann.gautier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220304135134.47827-1-yann.gautier@foss.st.com>
 References: <20220304135134.47827-1-yann.gautier@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
+X-Originating-IP: [10.75.127.45]
 X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
@@ -63,8 +63,8 @@ Cc: Ludovic Barre <ludovic.barre@foss.st.com>, devicetree@vger.kernel.org,
  kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/3] mmc: mmci: stm32: manage st,
-	disable-dma-lli property
+Subject: [Linux-stm32] [PATCH 3/3] mmc: mmci: manage MMC_PM_KEEP_POWER per
+	variant config
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,60 +81,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This property is used to disable DMA LLI for an SDMMC instance. We cannot
-directly modify the variant struct as it will affect all MMC instances.
-The parameter is then copied in the struct sdmmc_idma, and force to 0
-if the st,disable-dma-lli property is set in DT.
+Add a disable_keep_power field in variant_data struct. The
+MMC_PM_KEEP_POWER flag will be enabled if disable_keep_power is not set.
+It is only set to true for stm32_sdmmc variants.
+
+The issue was seen on STM32MP157C-DK2 board, which embeds a wifi chip.
+It doesn't correctly support low power, and we need to unbind the wifi
+driver before a suspend sequence. But the wifi chip firmware is then
+lost, and the communication with SDIO fails if MMC_PM_KEEP_POWER is
+enabled.
+The flag can still be enabled through DT property: keep-power-in-suspend.
 
 Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
 ---
- drivers/mmc/host/mmci_stm32_sdmmc.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/mmc/host/mmci.c | 5 ++++-
+ drivers/mmc/host/mmci.h | 1 +
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-index 9c13f2c31365..02cb0929c465 100644
---- a/drivers/mmc/host/mmci_stm32_sdmmc.c
-+++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-@@ -43,6 +43,7 @@ struct sdmmc_lli_desc {
- struct sdmmc_idma {
- 	dma_addr_t sg_dma;
- 	void *sg_cpu;
-+	u8 dma_lli:1;
+diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+index 45b8608c935c..0e2f2f5d6a52 100644
+--- a/drivers/mmc/host/mmci.c
++++ b/drivers/mmc/host/mmci.c
+@@ -274,6 +274,7 @@ static struct variant_data variant_stm32_sdmmc = {
+ 	.busy_detect		= true,
+ 	.busy_detect_flag	= MCI_STM32_BUSYD0,
+ 	.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
++	.disable_keep_power	= true,
+ 	.init			= sdmmc_variant_init,
  };
  
- struct sdmmc_dlyb {
-@@ -118,6 +119,7 @@ static void sdmmc_idma_unprep_data(struct mmci_host *host,
+@@ -301,6 +302,7 @@ static struct variant_data variant_stm32_sdmmcv2 = {
+ 	.busy_detect		= true,
+ 	.busy_detect_flag	= MCI_STM32_BUSYD0,
+ 	.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
++	.disable_keep_power	= true,
+ 	.init			= sdmmc_variant_init,
+ };
  
- static int sdmmc_idma_setup(struct mmci_host *host)
- {
-+	struct device_node *np = host->mmc->parent->of_node;
- 	struct sdmmc_idma *idma;
- 	struct device *dev = mmc_dev(host->mmc);
+@@ -2172,7 +2174,8 @@ static int mmci_probe(struct amba_device *dev,
+ 	host->stop_abort.flags = MMC_RSP_R1B | MMC_CMD_AC;
  
-@@ -125,9 +127,13 @@ static int sdmmc_idma_setup(struct mmci_host *host)
- 	if (!idma)
- 		return -ENOMEM;
+ 	/* We support these PM capabilities. */
+-	mmc->pm_caps |= MMC_PM_KEEP_POWER;
++	if (!variant->disable_keep_power)
++		mmc->pm_caps |= MMC_PM_KEEP_POWER;
  
-+	idma->dma_lli = host->variant->dma_lli;
-+	if (of_get_property(np, "st,disable-dma-lli", NULL))
-+		idma->dma_lli = 0;
-+
- 	host->dma_priv = idma;
+ 	/*
+ 	 * We can do SGIO
+diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
+index e1a9b96a3396..2cad1ef9766a 100644
+--- a/drivers/mmc/host/mmci.h
++++ b/drivers/mmc/host/mmci.h
+@@ -361,6 +361,7 @@ struct variant_data {
+ 	u32			opendrain;
+ 	u8			dma_lli:1;
+ 	u32			stm32_idmabsize_mask;
++	u8			disable_keep_power:1;
+ 	void (*init)(struct mmci_host *host);
+ };
  
--	if (host->variant->dma_lli) {
-+	if (idma->dma_lli) {
- 		idma->sg_cpu = dmam_alloc_coherent(dev, SDMMC_LLI_BUF_LEN,
- 						   &idma->sg_dma, GFP_KERNEL);
- 		if (!idma->sg_cpu) {
-@@ -154,7 +160,7 @@ static int sdmmc_idma_start(struct mmci_host *host, unsigned int *datactrl)
- 	struct scatterlist *sg;
- 	int i;
- 
--	if (!host->variant->dma_lli || data->sg_len == 1) {
-+	if (!idma->dma_lli || data->sg_len == 1) {
- 		writel_relaxed(sg_dma_address(data->sg),
- 			       host->base + MMCI_STM32_IDMABASE0R);
- 		writel_relaxed(MMCI_STM32_IDMAEN,
 -- 
 2.25.1
 
