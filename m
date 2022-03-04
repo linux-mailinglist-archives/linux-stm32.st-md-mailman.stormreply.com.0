@@ -2,33 +2,33 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 311FB4CD1AB
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Mar 2022 10:55:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45D274CD1AC
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Mar 2022 10:55:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1285C60492;
-	Fri,  4 Mar 2022 09:55:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 079DAC60496;
+	Fri,  4 Mar 2022 09:55:07 +0000 (UTC)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F145C5F1F1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B3B1C5F1EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Mar 2022 09:55:05 +0000 (UTC)
+ Fri,  4 Mar 2022 09:55:06 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: kholk11) with ESMTPSA id F14D01F46484
+ (Authenticated sender: kholk11) with ESMTPSA id 3924D1F46486
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1646387705;
- bh=5NfY/OJo8jqAhMoYvWFCELHiFzPVbvYo7BtN/XmNlig=;
+ s=mail; t=1646387706;
+ bh=e4C8wnAcuL8k5FwceR/IW4yZe9+rSJuGVPXQwJtpD1U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DPnVo17AchbcX1D6AJFR5p0tyDHCjx99Esxk+83qV7geF2q0lS2SLQp7ICsRZEZHb
- 2O1WBR/t6S1KKLt4z05Bb28WIBfhQLkaqE7d7FSJJP5BtOMQW+yspONmpoz6SD8kwa
- mbw2HB9CHwyYwB1oOGgzbCG6zcFRLNnJbX0PwQOgzpnpmErvJtdqwxwI16I3h3AZ3L
- rmurszwu/YQhiMy1sy/pekCLuaLantfHqFCUxXYe7+Z5Sr9M21Z8kzZN+gPe3m5eOE
- NlXdWk5FVwohdv9m1p957p3qNgPrubrrPSkLCjbwAPTKZmNozxAYZygTNxQUAN5VTT
- B2nv9/mnJNOqQ==
+ b=aUR/YCFlNX2e6vMy8tlrinUWThnwSawU1hOBQWS4mR9lrCsnEdKiPotxuyZSznHoW
+ CuxSxQ+db6rQ/SknV8SZF4B3iV0XwDiQ7VKqxVuimOTDAJJRV5uJqj7oJHy/typqbs
+ qpx0Sm0URGHzD99/nutjEt2AYZ+C+5/7Fx2C+EHp5+2Tbvo6kGuF3qeLb0rOhmHpe2
+ VC1LRjx5/4DaxeSzPCai0uD5191p6KeXqNX7SEkK9ilbpTBR93J2YtkmYUVWUdHFWi
+ mNNw6yzpAgEawpwBqgjcOp6pwzn+NgIfg3vjuZ7S+mec55/ePOaFn6I9Jh5C6wNXX3
+ bCMDOHNO63iMw==
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
-Date: Fri,  4 Mar 2022 10:54:56 +0100
-Message-Id: <20220304095458.12409-2-angelogioacchino.delregno@collabora.com>
+Date: Fri,  4 Mar 2022 10:54:57 +0100
+Message-Id: <20220304095458.12409-3-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220304095458.12409-1-angelogioacchino.delregno@collabora.com>
 References: <20220304095458.12409-1-angelogioacchino.delregno@collabora.com>
@@ -41,8 +41,8 @@ Cc: devicetree@vger.kernel.org, jitao.shi@mediatek.com, daniel@ffwll.ch,
  matthias.bgg@gmail.com, p.zabel@pengutronix.de,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: [Linux-stm32] [PATCH 1/3] dt-bindings: display: mediatek,
-	mutex: Fix mediatek, gce-events type
+Subject: [Linux-stm32] [PATCH 2/3] dt-bindings: display: mediatek,
+	ovl: Fix 'iommu' required property typo
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,28 +59,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The mediatek,gce-events property needs as value an array of uint32
-corresponding to the CMDQ events to listen to, and not any phandle.
+The property is called 'iommus' and not 'iommu'. Fix this typo.
 
 Fixes: 4ed545e7d100 ("dt-bindings: display: mediatek: disp: split each block to individual yaml")
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/display/mediatek/mediatek,mutex.yaml    | 2 +-
+ .../devicetree/bindings/display/mediatek/mediatek,ovl.yaml      | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml
-index 6eca525eced0..842ba7b07a34 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mutex.yaml
-@@ -58,7 +58,7 @@ properties:
-       The event id which is mapping to the specific hardware event signal
-       to gce. The event id is defined in the gce header
-       include/dt-bindings/gce/<chip>-gce.h of each chips.
--    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+index 93d5c68a2dbd..fc691d00c60e 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+@@ -75,7 +75,7 @@ required:
+   - interrupts
+   - power-domains
+   - clocks
+-  - iommu
++  - iommus
  
- required:
-   - compatible
+ additionalProperties: false
+ 
 -- 
 2.35.1
 
