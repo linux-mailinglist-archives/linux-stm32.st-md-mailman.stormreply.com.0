@@ -2,87 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B3AB4CCEE0
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Mar 2022 08:10:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B91354CD0D9
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Mar 2022 10:09:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1901C5F1EF;
-	Fri,  4 Mar 2022 07:10:37 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 433B4C01577
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74182C5F1EF;
+	Fri,  4 Mar 2022 09:09:57 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 942ACC57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Mar 2022 22:09:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1646345345;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=dHndtgAkVUzdtahs5WkJJ2KEe50Gx7ThnVYvI1YkAUQ=;
- b=dG1IFL1wWaAfUeCViqaYWXOeR4uehG5BFUOhUruFZb/RvShbGZmjYK0Qld1YFlQwwmCF9M
- rrmFuvHyeP8RoNh5tJAmKR/RDnNqUnpACxis95KEHX0fKKsH6ltzdZU/3h95HsxD0a4JnF
- Kke2CdIxbsSVZJIkqAyGA4pMQvhvvSc=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-115-tbWVxmgJNHeNWYQZDd3D1A-1; Thu, 03 Mar 2022 17:09:04 -0500
-X-MC-Unique: tbWVxmgJNHeNWYQZDd3D1A-1
-Received: by mail-qt1-f198.google.com with SMTP id
- y1-20020ac87041000000b002c3db9c25f8so4617702qtm.5
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 03 Mar 2022 14:09:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=dHndtgAkVUzdtahs5WkJJ2KEe50Gx7ThnVYvI1YkAUQ=;
- b=MgqSAJZ1ipLyPaiNS1qvKd4r8/rFKh3z+EfimfVAFNU6Cq8tD0G1HY2jbYpuMB0z6q
- G5T4LB3HltjWktH9NPtSkfWwZCilPGj3HQdMjtjh0+h6lSRiTl1bm4BBmX3y1A8gZxWm
- AC+1AiF5U7MCHzRUP808b0d5LB/Esm8w5dAi1/knloH0vCmSznKWCk0pXG28PotExlKb
- G+dB6neNkW7zlAt59TYBxTyuuhW+TpGgceJc3Q1+yYZF4ZYMwOjHEdB2bJhEWSwNgXsr
- r2UOjrtRKdacJ6A1cmuXh5laqLpYQ8AjdV1FhoESicUx+1aGNFzdcN6p/IRtXlesoD3g
- E55A==
-X-Gm-Message-State: AOAM530+UiCfNWmoUC6hyuioUbsVnl+HA7q1swExN0cEwrz51azv9AEk
- 4vRxyO7MNdf/6JijOX9g1wmBbyf+yCHzWlC/AG6LOXSrQ1MDK+G8HMQknurN2wPMxpYmQditphU
- r0hHlgLppbu0Nct4dSvx9Rp7W0a7s1QT3e7Jr5hPK
-X-Received: by 2002:a05:6214:1d01:b0:432:563a:6c93 with SMTP id
- e1-20020a0562141d0100b00432563a6c93mr26030206qvd.78.1646345343400; 
- Thu, 03 Mar 2022 14:09:03 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJx/u0YAGXDJF1O4GLxwEGzadFGB3RX3Sn4fRB/wh30fqC35fZhpdisvZXayVY4Cans0UAawBw==
-X-Received: by 2002:a05:6214:1d01:b0:432:563a:6c93 with SMTP id
- e1-20020a0562141d0100b00432563a6c93mr26030186qvd.78.1646345343139; 
- Thu, 03 Mar 2022 14:09:03 -0800 (PST)
-Received: from [192.168.8.138] (pool-96-230-100-15.bstnma.fios.verizon.net.
- [96.230.100.15]) by smtp.gmail.com with ESMTPSA id
- a8-20020a05622a064800b002dd4f1eccc3sm2367464qtb.35.2022.03.03.14.09.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Mar 2022 14:09:02 -0800 (PST)
-Message-ID: <8896a29384e5ad10ee91453da8069821130c1e62.camel@redhat.com>
-From: Lyude Paul <lyude@redhat.com>
-To: Guo Zhengkui <guozhengkui@vivo.com>, Ben Skeggs <bskeggs@redhat.com>, 
- Karol Herbst <kherbst@redhat.com>, David Airlie <airlied@linux.ie>, Daniel
- Vetter <daniel@ffwll.ch>,  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, "open list:DRM DRIVER FOR
- NVIDIA GEFORCE/QUADRO GPUS" <dri-devel@lists.freedesktop.org>, "open
- list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS"
- <nouveau@lists.freedesktop.org>, "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, "moderated list:ARM/STM32
- ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, open list
- <linux-kernel@vger.kernel.org>
-Date: Thu, 03 Mar 2022 17:09:00 -0500
-In-Reply-To: <20220228142352.18006-1-guozhengkui@vivo.com>
-References: <20220228142352.18006-1-guozhengkui@vivo.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.42.4 (3.42.4-1.fc35)
+ Fri,  4 Mar 2022 09:09:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: kholk11) with ESMTPSA id 3718C1F463BA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1646384996;
+ bh=CcMBV0l5kr7q1bweV1wcu+vTnCpRH0j1xl0S1wsETtg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=GP3Rqx4BysrGeC3OgIgoS8mmJ79Jx/get+EPxdvRz+sxXIL3zKMYdXtNhs/IyKBfa
+ IEoUGqwEOuTeX1zhvs0c9R6Ts4h16EBjlAG5IN22qIqkSk8PqBZobCEvSS4C//gd+n
+ XQzfL5K8fYBFeAyYdm4jcX9VmFpvFBn9pZN8rqhi21zsMn4r8T49kJszP9ITmaktSR
+ RG82DC9HeRK/6cFuUEDMsTzkiDxTCTHGDvwboB0XYQudrqo5rwdY9AK0QHbzmbB8yp
+ 2n/uzvuSf3H9G8ZOCGw+LQLAspdBPE29YY9sjGtqzf64idsd5P6E1pjz1tDyVvTbKg
+ hcb2yUiPR/bLw==
+Message-ID: <2bdbe214-7add-f529-db8f-d0e998a540e5@collabora.com>
+Date: Fri, 4 Mar 2022 10:09:53 +0100
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=lyude@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Mailman-Approved-At: Fri, 04 Mar 2022 07:10:36 +0000
-Subject: Re: [Linux-stm32] [PATCH] drm/nouveau/instmem: fix
-	uninitialized_var.cocci warning
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+To: Jason-JH Lin <jason-jh.lin@mediatek.com>, Rob Herring <robh+dt@kernel.org>
+References: <20220126071932.32615-1-jason-jh.lin@mediatek.com>
+ <CAL_Jsq+6k5EqouAO2Xm=GpBz3Pi-wfB-ixGwfyC+Y+qOrjUFTg@mail.gmail.com>
+ <c103927d7dbc3217431c83dc22a44c656c561228.camel@mediatek.com>
+ <28098efc-1de1-b540-b1a3-bf7a92af9511@collabora.com>
+ <c19b14ab9a8879fc50d8bcc87745da48491be373.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <c19b14ab9a8879fc50d8bcc87745da48491be373.camel@mediatek.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ devicetree@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ singo.chang@mediatek.com,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Fabien Parent <fparent@baylibre.com>, Moudy Ho <moudy.ho@mediatek.com>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ "roy-cw.yeh" <roy-cw.yeh@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Hsin-Yi Wang <hsinyi@chromium.org>, CK Hu <ck.hu@mediatek.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, nancy.lin@mediatek.com,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v15 00/12] Add Mediatek Soc DRM (vdosys0)
+ support for mt8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,40 +67,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-UmV2aWV3ZWQtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhhdC5jb20+CgpXaWxsIHB1c2ggdGhp
-cyB0byB0aGUgYXBwcm9wcmlhdGUgZHJtLW1pc2MgcmVwb3NpdG9yeSBpbiBqdXN0IGEgbGl0dGxl
-IGJpdAoKT24gTW9uLCAyMDIyLTAyLTI4IGF0IDIyOjIzICswODAwLCBHdW8gWmhlbmdrdWkgd3Jv
-dGU6Cj4gRml4IGZvbGxvd2luZyBjb2NjaWNoZWNrIHdhcm5pbmc6Cj4gZHJpdmVycy9ncHUvZHJt
-L25vdXZlYXUvbnZrbS9zdWJkZXYvaW5zdG1lbS9udjUwLmM6MzE2OjExLTEyOgo+IFdBUk5JTkcg
-dGhpcyBraW5kIG9mIGluaXRpYWxpemF0aW9uIGlzIGRlcHJlY2F0ZWQuCj4gCj4gYHZvaWQgKm1h
-cCA9IG1hcGAgaGFzIHRoZSBzYW1lIGZvcm0gb2YKPiB1bmluaXRpYWxpemVkX3ZhcigpIG1hY3Jv
-LiBJIHJlbW92ZSB0aGUgcmVkdW5kYW50IGFzc2lnbmVtZW50LiBJdCBoYXMKPiBiZWVuIHRlc3Rl
-ZCB3aXRoIGdjYyAoRGViaWFuIDguMy4wLTYpIDguMy4wLgo+IAo+IFRoZSBwYXRjaCB3aGljaCBy
-ZW1vdmVkIHVuaW5pdGlhbGl6ZWRfdmFyKCkgaXM6Cj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcv
-YWxsLzIwMTIxMDI4MTAyMDA3LkdBNzU0N0BnbWFpbC5jb20vCj4gQW5kIHRoZXJlIGlzIHZlcnkg
-ZmV3ICIvKiBHQ0MgKi8iIGNvbW1lbnRzIGluIHRoZSBMaW51eCBrZXJuZWwgY29kZSBub3cuCj4g
-Cj4gU2lnbmVkLW9mZi1ieTogR3VvIFpoZW5na3VpIDxndW96aGVuZ2t1aUB2aXZvLmNvbT4KPiAt
-LS0KPiDCoGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L252a20vc3ViZGV2L2luc3RtZW0vbnY1MC5j
-IHwgMiArLQo+IMKgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0p
-Cj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L252a20vc3ViZGV2L2lu
-c3RtZW0vbnY1MC5jCj4gYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9udmttL3N1YmRldi9pbnN0
-bWVtL252NTAuYwo+IGluZGV4IDk2YWNhMGVkZmEzYy4uYzUxYmFjNzYxNzRjIDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L252a20vc3ViZGV2L2luc3RtZW0vbnY1MC5jCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbnZrbS9zdWJkZXYvaW5zdG1lbS9udjUwLmMK
-PiBAQCAtMzEzLDcgKzMxMyw3IEBAIG52NTBfaW5zdG9ial9kdG9yKHN0cnVjdCBudmttX21lbW9y
-eSAqbWVtb3J5KQo+IMKgwqDCoMKgwqDCoMKgwqBzdHJ1Y3QgbnY1MF9pbnN0b2JqICppb2JqID0g
-bnY1MF9pbnN0b2JqKG1lbW9yeSk7Cj4gwqDCoMKgwqDCoMKgwqDCoHN0cnVjdCBudmttX2luc3Rt
-ZW0gKmltZW0gPSAmaW9iai0+aW1lbS0+YmFzZTsKPiDCoMKgwqDCoMKgwqDCoMKgc3RydWN0IG52
-a21fdm1hICpiYXI7Cj4gLcKgwqDCoMKgwqDCoMKgdm9pZCAqbWFwID0gbWFwOwo+ICvCoMKgwqDC
-oMKgwqDCoHZvaWQgKm1hcDsKPiDCoAo+IMKgwqDCoMKgwqDCoMKgwqBtdXRleF9sb2NrKCZpbWVt
-LT5tdXRleCk7Cj4gwqDCoMKgwqDCoMKgwqDCoGlmIChsaWtlbHkoaW9iai0+bHJ1Lm5leHQpKQoK
-LS0gCkNoZWVycywKIEx5dWRlIFBhdWwgKHNoZS9oZXIpCiBTb2Z0d2FyZSBFbmdpbmVlciBhdCBS
-ZWQgSGF0CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+Il 04/03/22 06:26, Jason-JH Lin ha scritto:
+> Hi Angelo,
+> 
+> Because linux-next has applied these patches:
+> 
+> [v15,04/12] dt-bindings: display: mediatek: dsc: add yaml for mt8195
+> SoC binding
+> [v15,05/12] dt-bindings: display: mediatek: merge: add additional prop
+> for mt8195
+> [v15,06/12] dt-bindings: display: mediatek: add mt8195 SoC binding for
+> vdosys0
+> [v15,03/12] dt-bindings: display: mediatek: disp: split each block to
+> individual yaml
+> 
+> 
+> I'll rebase on the latest linux-next, and then send 1 path + 1 series:
+> [1] a fix up patch for all dt-schema error in each display dt-bindings
+> (If Rob wants me to split this patch into separate patches for each
+> file, then I'll resend it.)
+> [2] a series of remaining patches of this series
+> 
+> 
+> I would appreciate it if you would take the time to send [1] for me.
+> If you can help me to send [1], please let me know.
+> Thank you very much ;-)
+> 
+> 
+
+I will send fixes for [1] later today.
+
+Cheers,
+Angelo
+
+> Regards,
+> Jason-JH.Lin
+> 
+> On Thu, 2022-03-03 at 10:31 +0100, AngeloGioacchino Del Regno wrote:
+>> Il 03/03/22 05:25, Jason-JH Lin ha scritto:
+>>> Hi Rob,
+>>>
+>>> Thanks for the reviews.
+>>>
+>>> On Wed, 2022-03-02 at 17:50 -0600, Rob Herring wrote:
+>>>> On Wed, Jan 26, 2022 at 1:19 AM jason-jh.lin <
+>>>> jason-jh.lin@mediatek.com> wrote:
+>>>>>
+>>>
+>>> [snip]
+>>>
+>>
+>> Hello Rob, Jason-JH,
+>>
+>> I have just crafted a patch that fixes everything mentioned here,
+>> if it's easier like this, I can either send it for the maintainer(s)
+>> to apply on top, or squash in Jason-JH's original patch.
+>>
+>> If you'd like to get my patch, though, I have one question:
+>> this is touching literally all of the YAML files that Jason-JH is
+>> introducing, so, should I send this as one patch per file (which
+>> would be
+>> something around 16 patches) or is just one fixing them all fine?
+>>
+>> Cheers,
+>> Angelo
+>>
+>> _______________________________________________
+>> Linux-mediatek mailing list
+>> Linux-mediatek@lists.infradead.org
+>>
+> https://urldefense.com/v3/__http://lists.infradead.org/mailman/listinfo/linux-mediatek__;!!CTRNKA9wMg0ARbw!3tXE3T-t6I2GMILAOHpkTXhrLHwFAQtmhGqTBtKSY2SLWM2qBBMULlM17TtG6VwNR5yn$
+>>   
+
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
