@@ -2,69 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 957774CD57D
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Mar 2022 14:52:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7F944CD808
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Mar 2022 16:37:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CCE3C60492;
-	Fri,  4 Mar 2022 13:52:38 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C609C5F1EF;
+	Fri,  4 Mar 2022 15:37:24 +0000 (UTC)
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1629C5F1EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA272C5EC47
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Mar 2022 13:52:36 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 224BrQTP011332;
- Fri, 4 Mar 2022 14:51:49 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=tbU0qOc6Ayx6hnhXQ94zwIDGkMujBZbQs9NbPVdBY5A=;
- b=xTD9vKiQCmfnFprZmglcB5VgO+UPllnPsraMHR7AjH/CQpzG459UvGxKnuppKF7l3phZ
- O5DrbC4o7iq/H/OHufsZQu25IFcemolPNTOK+y3iprzO4ek4r7m0kqOFSGZX5XYIjjAb
- AX4jJbPI9lpjQs0I9JEGu1LeMT3IddwRABqkJiMVBVNhnUCaUsnMQigYTy17CP/Mlvcr
- 1Go75TThmKHtS8jbmBRCVHJhmQjNMkx2rsHpujwkyYwZFISvdr/Y9kOshHoV/T8Jpp+v
- bGKh0kpEr7M1rx8PZ/g7guIEhZNtXz8V0waxHONJL24IYvNfBmpwj3GIza4raQAvZgi/ zQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ek4k5d52b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 04 Mar 2022 14:51:49 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 59220100038;
- Fri,  4 Mar 2022 14:51:45 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2741C2291CC;
- Fri,  4 Mar 2022 14:51:45 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1497.26; Fri, 4 Mar 2022 14:51:44
- +0100
-From: Yann Gautier <yann.gautier@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>
-Date: Fri, 4 Mar 2022 14:51:34 +0100
-Message-ID: <20220304135134.47827-4-yann.gautier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220304135134.47827-1-yann.gautier@foss.st.com>
-References: <20220304135134.47827-1-yann.gautier@foss.st.com>
+ Fri,  4 Mar 2022 15:37:22 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id j2so8162169oie.7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 04 Mar 2022 07:37:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=PACe0xmx6r81EAuaFyvZQyZNTfONIujSTfg4d0qd68c=;
+ b=4X660TvFiih5Z6I8nfcKkdO3WAof9J3bs0UAv0+IGK4GrJkASg2tjPI1BRNibZ3LLJ
+ lxydTq3VqWLjTmdi5eGSZ0kBxF+TMdc4md9omP3W+NErFkpwT4dxXgjp4kSxhlNGCaLz
+ F69wq7CEx+6fwXhIpYVOwLyJxoLyGJXe5vbwpMoOTPjHLF4JizAZVuZ6/lZrwTtB/l3a
+ 4f45sRhe4S8kZXEbHc9aa/2VTgSYfDwRJ0hx3asqNhNFKgaBUwXGB2WMVR/dR5y8j0uO
+ Sv/NCxON9mizzMGvqVAjC9csSdaULklfBknkEszsPrZ00v4lfcWOHpJnrBekR2oYICMC
+ AjBw==
+X-Gm-Message-State: AOAM533bw6Vpgd8XTO01o74JqbQE23W46/E2qnZOzBSLF0wcxCfZybuo
+ K5T5pyXd8H2gi/ZTiRspRA==
+X-Google-Smtp-Source: ABdhPJyof2S988VwMuNZcB9U5XecU80emaNMSFoZxgT+mxIr6cGyJM+vro5tIuRKk2C7lcM5e49grw==
+X-Received: by 2002:a05:6808:1301:b0:2d5:4226:87e4 with SMTP id
+ y1-20020a056808130100b002d5422687e4mr9716207oiv.136.1646408241690; 
+ Fri, 04 Mar 2022 07:37:21 -0800 (PST)
+Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
+ [66.90.148.213]) by smtp.gmail.com with ESMTPSA id
+ m26-20020a05680806da00b002d797266870sm2690848oih.9.2022.03.04.07.37.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Mar 2022 07:37:21 -0800 (PST)
+Received: (nullmailer pid 3983773 invoked by uid 1000);
+ Fri, 04 Mar 2022 15:37:19 -0000
+Date: Fri, 4 Mar 2022 09:37:19 -0600
+From: Rob Herring <robh@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Message-ID: <YiIyL+Vd1zWiDKbm@robh.at.kernel.org>
+References: <20220304095458.12409-1-angelogioacchino.delregno@collabora.com>
+ <20220304095458.12409-2-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
- definitions=2022-03-04_06,2022-03-04_01,2022-02-23_01
-Cc: Ludovic Barre <ludovic.barre@foss.st.com>, devicetree@vger.kernel.org,
- Marek Vasut <marex@denx.de>, Philipp Zabel <p.zabel@pengutronix.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Grzegorz Szymaszek <gszymaszek@short.pl>, linux-mmc@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/3] mmc: mmci: manage MMC_PM_KEEP_POWER per
-	variant config
+Content-Disposition: inline
+In-Reply-To: <20220304095458.12409-2-angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, jitao.shi@mediatek.com, daniel@ffwll.ch,
+ krzysztof.kozlowski@canonical.com, airlied@linux.ie, jason-jh.lin@mediatek.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ alexandre.torgue@foss.st.com, ck.hu@mediatek.com, devicetree@vger.kernel.org,
+ robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, matthias.bgg@gmail.com, p.zabel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: display: mediatek,
+ mutex: Fix mediatek, gce-events type
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,68 +75,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a disable_keep_power field in variant_data struct. The
-MMC_PM_KEEP_POWER flag will be enabled if disable_keep_power is not set.
-It is only set to true for stm32_sdmmc variants.
+On Fri, 04 Mar 2022 10:54:56 +0100, AngeloGioacchino Del Regno wrote:
+> The mediatek,gce-events property needs as value an array of uint32
+> corresponding to the CMDQ events to listen to, and not any phandle.
+> 
+> Fixes: 4ed545e7d100 ("dt-bindings: display: mediatek: disp: split each block to individual yaml")
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../devicetree/bindings/display/mediatek/mediatek,mutex.yaml    | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-The issue was seen on STM32MP157C-DK2 board, which embeds a wifi chip.
-It doesn't correctly support low power, and we need to unbind the wifi
-driver before a suspend sequence. But the wifi chip firmware is then
-lost, and the communication with SDIO fails if MMC_PM_KEEP_POWER is
-enabled.
-The flag can still be enabled through DT property: keep-power-in-suspend.
-
-Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
----
- drivers/mmc/host/mmci.c | 5 ++++-
- drivers/mmc/host/mmci.h | 1 +
- 2 files changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index 45b8608c935c..0e2f2f5d6a52 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -274,6 +274,7 @@ static struct variant_data variant_stm32_sdmmc = {
- 	.busy_detect		= true,
- 	.busy_detect_flag	= MCI_STM32_BUSYD0,
- 	.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
-+	.disable_keep_power	= true,
- 	.init			= sdmmc_variant_init,
- };
- 
-@@ -301,6 +302,7 @@ static struct variant_data variant_stm32_sdmmcv2 = {
- 	.busy_detect		= true,
- 	.busy_detect_flag	= MCI_STM32_BUSYD0,
- 	.busy_detect_mask	= MCI_STM32_BUSYD0ENDMASK,
-+	.disable_keep_power	= true,
- 	.init			= sdmmc_variant_init,
- };
- 
-@@ -2172,7 +2174,8 @@ static int mmci_probe(struct amba_device *dev,
- 	host->stop_abort.flags = MMC_RSP_R1B | MMC_CMD_AC;
- 
- 	/* We support these PM capabilities. */
--	mmc->pm_caps |= MMC_PM_KEEP_POWER;
-+	if (!variant->disable_keep_power)
-+		mmc->pm_caps |= MMC_PM_KEEP_POWER;
- 
- 	/*
- 	 * We can do SGIO
-diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-index e1a9b96a3396..2cad1ef9766a 100644
---- a/drivers/mmc/host/mmci.h
-+++ b/drivers/mmc/host/mmci.h
-@@ -361,6 +361,7 @@ struct variant_data {
- 	u32			opendrain;
- 	u8			dma_lli:1;
- 	u32			stm32_idmabsize_mask;
-+	u8			disable_keep_power:1;
- 	void (*init)(struct mmci_host *host);
- };
- 
--- 
-2.25.1
-
+Acked-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
