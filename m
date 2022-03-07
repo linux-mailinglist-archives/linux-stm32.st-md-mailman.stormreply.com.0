@@ -2,54 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3A7F4CF03D
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Mar 2022 04:30:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3E894CF3DE
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Mar 2022 09:44:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA969C628A2;
-	Mon,  7 Mar 2022 03:30:09 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 842D8C5F1ED;
+	Mon,  7 Mar 2022 08:44:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8332C5EC6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C421C57B6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Mar 2022 03:30:06 +0000 (UTC)
-X-UUID: 3a7c52fd436848ba8a9218e47122289f-20220307
-X-UUID: 3a7c52fd436848ba8a9218e47122289f-20220307
-Received: from mtkcas11.mediatek.inc [(172.21.101.40)] by mailgw02.mediatek.com
- (envelope-from <jason-jh.lin@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1286458253; Mon, 07 Mar 2022 11:29:57 +0800
-Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Mon, 7 Mar 2022 11:29:56 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
- Frontend Transport; Mon, 7 Mar 2022 11:29:56 +0800
-From: jason-jh.lin <jason-jh.lin@mediatek.com>
-To: Rob Herring <robh+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>
-Date: Mon, 7 Mar 2022 11:28:59 +0800
-Message-ID: <20220307032859.3275-9-jason-jh.lin@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20220307032859.3275-1-jason-jh.lin@mediatek.com>
-References: <20220307032859.3275-1-jason-jh.lin@mediatek.com>
+ Mon,  7 Mar 2022 08:44:17 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22776UZi023274;
+ Mon, 7 Mar 2022 09:44:06 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=q9vM+JTYnx7Hnl3JnWzbyAG0hwnKWXbo3MEu8bb1W/o=;
+ b=axWHiPoiuWUzK8puQBCEcFwL6CoEXefL8RWgug0VGVv0e5A9Bvb2Uz9dzQWzezmliMRe
+ QCc+QkUF99wvNCoCVw+qcQ2k2dL2uwBuJBr78jxAMs8uoXfWz2TK8mZ3bOIHLrJufG2M
+ KW6DJbTwcNlB1zJZClYejDTa64I5X/b6SyO4I4yeSB8vOTLnNIDCqNQb/xOINGipoiSg
+ NTzlYvC/PWGmH6EuiWfPHMnPclf4XgH6VWwtCEu90yqg7UltMDSOHWLdxktdbqA23rIW
+ S42vFtF+rguokhOD6SdVGJycbPz67BQzTU21d2CznV8fpTWHtxHzPV/EYvo8hatw2aB4 hg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ekymm0yux-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 07 Mar 2022 09:44:06 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1F55110002A;
+ Mon,  7 Mar 2022 09:44:04 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7F74E21514B;
+ Mon,  7 Mar 2022 09:44:04 +0100 (CET)
+Received: from [10.211.3.43] (10.75.127.49) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 7 Mar
+ 2022 09:44:03 +0100
+Message-ID: <bb45f3c7-69de-c5f2-65d9-c36e574d3d8b@foss.st.com>
+Date: Mon, 7 Mar 2022 09:44:03 +0100
 MIME-Version: 1.0
-X-MTK: N
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, fshao@chromium.org,
- David Airlie <airlied@linux.ie>, "jason-jh
- . lin" <jason-jh.lin@mediatek.com>, singo.chang@mediatek.com,
- Fabien Parent <fparent@baylibre.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, roy-cw.yeh@mediatek.com,
- Project_Global_Chrome_Upstream_Group@mediatek.com, CK Hu <ck.hu@mediatek.com>,
- moudy.ho@mediatek.com, linux-mediatek@lists.infradead.org,
- Daniel Vetter <daniel@ffwll.ch>, hsinyi@chromium.org,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>, nancy.lin@mediatek.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v16 8/8] drm/mediatek: add mediatek-drm of
-	vdosys0 support for mt8195
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20220126162405.1131323-1-arnaud.pouliquen@foss.st.com>
+ <20220126162405.1131323-5-arnaud.pouliquen@foss.st.com>
+ <20220304185308.GD1660165@p14s>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20220304185308.GD1660165@p14s>
+X-Originating-IP: [10.75.127.49]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-03-07_01,2022-03-04_01,2022-02-23_01
+Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
+ Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [RFC PATCH v3 4/4] remoteproc: virtio: Create
+ platform device for the remoteproc_virtio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,123 +81,408 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add driver data of mt8195 vdosys0 to mediatek-drm and the sub driver.
+Hello Mathieu,
 
-Signed-off-by: jason-jh.lin <jason-jh.lin@mediatek.com>
-Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
----
- drivers/gpu/drm/mediatek/mtk_disp_rdma.c |  6 +++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c   | 28 ++++++++++++++++++++++++
- 2 files changed, 34 insertions(+)
+On 3/4/22 19:53, Mathieu Poirier wrote:
+> On Wed, Jan 26, 2022 at 05:24:05PM +0100, Arnaud Pouliquen wrote:
+>> Define a platform driver to manage the remoteproc virtio device as
+>> a platform devices.
+>>
+>> The platform device allows to pass rproc_vdev_data platform data to
+>> specify properties that are stored in the rproc_vdev structure.
+>>
+>> Such approach will allow to preserve legacy remoteproc virtio device
+>> creation but also to probe the device using device tree mechanism.
+>>
+>> remoteproc_virtio.c update:
+>>   - Add rproc_virtio_driver platform driver. The probe/remove ops replace
+>>     the rproc_rvdev_add_device/rproc_rvdev_remove_device functions.
+>>   - All reference to the rvdev->dev has been updated to rvdev-pdev->dev.
+>>   - rproc_rvdev_release is removed as associated to the rvdev device.
+>>   - The use of rvdev->kref counter is replaced by get/put_device on the
+>>     remoteproc virtio platform device.
+>>   - The vdev device no longer increments rproc device counter.
+>>     increment/decrement is done in rproc_virtio_probe/rproc_virtio_remove
+>>     function in charge of the vrings allocation/free.
+>>
+>> remoteproc_core.c update:
+>>   Migrate from the rvdev device to the rvdev platform device.
+>>   From this patch, when a vdev resource is found in the resource table
+>>   the remoteproc core register a platform device.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>> Update vs previous revision:
+>>   - squash following two patches
+>>     - [4/6] remoteproc: virtio: Create platform device for the remoteproc_virtio
+>>       https://lkml.org/lkml/2021/12/22/112
+>>     - [6/6] remoteproc: Instantiate the new remoteproc virtio platform device
+>>       https://lkml.org/lkml/2021/12/22/114
+>> ---
+>>  drivers/remoteproc/remoteproc_core.c     |  23 +++-
+>>  drivers/remoteproc/remoteproc_internal.h |   3 -
+>>  drivers/remoteproc/remoteproc_virtio.c   | 151 +++++++++++------------
+>>  include/linux/remoteproc.h               |   6 +-
+>>  4 files changed, 93 insertions(+), 90 deletions(-)
+>>
+>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+>> index eb6b43b71c2b..5b864c9c6244 100644
+>> --- a/drivers/remoteproc/remoteproc_core.c
+>> +++ b/drivers/remoteproc/remoteproc_core.c
+>> @@ -467,6 +467,7 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+>>  	struct device *dev = &rproc->dev;
+>>  	struct rproc_vdev *rvdev;
+>>  	struct rproc_vdev_data rvdev_data;
+>> +	struct platform_device *pdev;
+>>  
+>>  	/* make sure resource isn't truncated */
+>>  	if (struct_size(rsc, vring, rsc->num_of_vrings) + rsc->config_len >
+>> @@ -495,9 +496,23 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+>>  	rvdev_data.rsc_offset = offset;
+>>  	rvdev_data.rsc = rsc;
+>>  
+>> -	rvdev = rproc_rvdev_add_device(rproc, &rvdev_data);
+>> -	if (IS_ERR(rvdev))
+>> -		return PTR_ERR(rvdev);
+>> +	pdev = platform_device_register_data(dev, "rproc-virtio", rvdev_data.index, &rvdev_data,
+>> +					     sizeof(rvdev_data));
+>> +	if (IS_ERR(pdev)) {
+>> +		dev_err(rproc->dev.parent,
+>> +			"failed to create rproc-virtio device\n");
+>> +		return PTR_ERR(pdev);
+>> +	}
+>> +
+>> +	/*
+>> +	 * At this point the registered remoteproc virtio platform device should have been probed.
+>> +	 * Get the associated rproc_vdev struct to assign the vrings.
+>> +	 */
+>> +	rvdev = platform_get_drvdata(pdev);
+>> +	if (!rvdev) {
+>> +		platform_device_unregister(pdev);
+>> +		return -EINVAL;
+>> +	}
+> 
+> I can't find a reason to justify this check... Any error condition should be
+> handled in rproc_virtio_probe() and reported by IS_ERR(pdev) above.
+> 
+> Otherwise this patchset is holding together.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_rdma.c b/drivers/gpu/drm/mediatek/mtk_disp_rdma.c
-index 662e91d9d45f..8ce60371536e 100644
---- a/drivers/gpu/drm/mediatek/mtk_disp_rdma.c
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_rdma.c
-@@ -364,6 +364,10 @@ static const struct mtk_disp_rdma_data mt8192_rdma_driver_data = {
- 	.fifo_size = 5 * SZ_1K,
- };
- 
-+static const struct mtk_disp_rdma_data mt8195_rdma_driver_data = {
-+	.fifo_size = 1920,
-+};
-+
- static const struct of_device_id mtk_disp_rdma_driver_dt_match[] = {
- 	{ .compatible = "mediatek,mt2701-disp-rdma",
- 	  .data = &mt2701_rdma_driver_data},
-@@ -373,6 +377,8 @@ static const struct of_device_id mtk_disp_rdma_driver_dt_match[] = {
- 	  .data = &mt8183_rdma_driver_data},
- 	{ .compatible = "mediatek,mt8192-disp-rdma",
- 	  .data = &mt8192_rdma_driver_data},
-+	{ .compatible = "mediatek,mt8195-disp-rdma",
-+	  .data = &mt8195_rdma_driver_data},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtk_disp_rdma_driver_dt_match);
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index f54b650a2ea1..9581d55136cb 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -177,6 +177,19 @@ static const enum mtk_ddp_comp_id mt8192_mtk_ddp_ext[] = {
- 	DDP_COMPONENT_DPI0,
- };
- 
-+static const enum mtk_ddp_comp_id mt8195_mtk_ddp_main[] = {
-+	DDP_COMPONENT_OVL0,
-+	DDP_COMPONENT_RDMA0,
-+	DDP_COMPONENT_COLOR0,
-+	DDP_COMPONENT_CCORR,
-+	DDP_COMPONENT_AAL0,
-+	DDP_COMPONENT_GAMMA,
-+	DDP_COMPONENT_DITHER,
-+	DDP_COMPONENT_DSC0,
-+	DDP_COMPONENT_MERGE0,
-+	DDP_COMPONENT_DP_INTF0,
-+};
-+
- static const struct mtk_mmsys_driver_data mt2701_mmsys_driver_data = {
- 	.main_path = mt2701_mtk_ddp_main,
- 	.main_len = ARRAY_SIZE(mt2701_mtk_ddp_main),
-@@ -228,6 +241,11 @@ static const struct mtk_mmsys_driver_data mt8192_mmsys_driver_data = {
- 	.ext_len = ARRAY_SIZE(mt8192_mtk_ddp_ext),
- };
- 
-+static const struct mtk_mmsys_driver_data mt8195_vdosys0_driver_data = {
-+	.main_path = mt8195_mtk_ddp_main,
-+	.main_len = ARRAY_SIZE(mt8195_mtk_ddp_main),
-+};
-+
- static int mtk_drm_kms_init(struct drm_device *drm)
- {
- 	struct mtk_drm_private *private = drm->dev_private;
-@@ -445,12 +463,16 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_DITHER },
- 	{ .compatible = "mediatek,mt8183-disp-dither",
- 	  .data = (void *)MTK_DISP_DITHER },
-+	{ .compatible = "mediatek,mt8195-disp-dsc",
-+	  .data = (void *)MTK_DISP_DSC },
- 	{ .compatible = "mediatek,mt8167-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
- 	{ .compatible = "mediatek,mt8173-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
- 	{ .compatible = "mediatek,mt8183-disp-gamma",
- 	  .data = (void *)MTK_DISP_GAMMA, },
-+	{ .compatible = "mediatek,mt8195-disp-merge",
-+	  .data = (void *)MTK_DISP_MERGE },
- 	{ .compatible = "mediatek,mt2701-disp-mutex",
- 	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt2712-disp-mutex",
-@@ -463,6 +485,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt8192-disp-mutex",
- 	  .data = (void *)MTK_DISP_MUTEX },
-+	{ .compatible = "mediatek,mt8195-disp-mutex",
-+	  .data = (void *)MTK_DISP_MUTEX },
- 	{ .compatible = "mediatek,mt8173-disp-od",
- 	  .data = (void *)MTK_DISP_OD },
- 	{ .compatible = "mediatek,mt2701-disp-ovl",
-@@ -497,6 +521,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8192-disp-rdma",
- 	  .data = (void *)MTK_DISP_RDMA },
-+	{ .compatible = "mediatek,mt8195-disp-rdma",
-+	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8173-disp-ufoe",
- 	  .data = (void *)MTK_DISP_UFOE },
- 	{ .compatible = "mediatek,mt8173-disp-wdma",
-@@ -533,6 +559,8 @@ static const struct of_device_id mtk_drm_of_ids[] = {
- 	  .data = &mt8183_mmsys_driver_data},
- 	{ .compatible = "mediatek,mt8192-mmsys",
- 	  .data = &mt8192_mmsys_driver_data},
-+	{.compatible = "mediatek,mt8195-vdosys0",
-+	  .data = &mt8195_vdosys0_driver_data},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, mtk_drm_of_ids);
--- 
-2.18.0
+Thanks for the review! 
+I plan to send this week or next week a new version integrating all your comments.
 
+Regards,
+Arnaud
+
+> Thanks,
+> Mathieu
+> 
+>>  
+>>  	return 0;
+>>  }
+>> @@ -1237,7 +1252,7 @@ void rproc_resource_cleanup(struct rproc *rproc)
+>>  
+>>  	/* clean up remote vdev entries */
+>>  	list_for_each_entry_safe(rvdev, rvtmp, &rproc->rvdevs, node)
+>> -		kref_put(&rvdev->refcount, rproc_vdev_release);
+>> +		platform_device_unregister(rvdev->pdev);
+>>  
+>>  	rproc_coredump_cleanup(rproc);
+>>  }
+>> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
+>> index 7725b404afc6..175e64a1f3a1 100644
+>> --- a/drivers/remoteproc/remoteproc_internal.h
+>> +++ b/drivers/remoteproc/remoteproc_internal.h
+>> @@ -45,10 +45,7 @@ int rproc_of_parse_firmware(struct device *dev, int index,
+>>  			    const char **fw_name);
+>>  
+>>  /* from remoteproc_virtio.c */
+>> -struct rproc_vdev *rproc_rvdev_add_device(struct rproc *rproc, struct rproc_vdev_data *rvdev_data);
+>> -void rproc_rvdev_remove_device(struct rproc_vdev *rvdev);
+>>  irqreturn_t rproc_vq_interrupt(struct rproc *rproc, int vq_id);
+>> -void rproc_vdev_release(struct kref *ref);
+>>  
+>>  /* from remoteproc_debugfs.c */
+>>  void rproc_remove_trace_file(struct dentry *tfile);
+>> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+>> index 1c4fd79ac1c5..de9f12fcd044 100644
+>> --- a/drivers/remoteproc/remoteproc_virtio.c
+>> +++ b/drivers/remoteproc/remoteproc_virtio.c
+>> @@ -13,6 +13,7 @@
+>>  #include <linux/dma-map-ops.h>
+>>  #include <linux/dma-mapping.h>
+>>  #include <linux/export.h>
+>> +#include <linux/of_platform.h>
+>>  #include <linux/of_reserved_mem.h>
+>>  #include <linux/remoteproc.h>
+>>  #include <linux/virtio.h>
+>> @@ -46,7 +47,11 @@ static int copy_dma_range_map(struct device *to, struct device *from)
+>>  
+>>  static struct rproc_vdev *vdev_to_rvdev(struct virtio_device *vdev)
+>>  {
+>> -	return container_of(vdev->dev.parent, struct rproc_vdev, dev);
+>> +	struct platform_device *pdev;
+>> +
+>> +	pdev = container_of(vdev->dev.parent, struct platform_device, dev);
+>> +
+>> +	return platform_get_drvdata(pdev);
+>>  }
+>>  
+>>  static  struct rproc *vdev_to_rproc(struct virtio_device *vdev)
+>> @@ -341,13 +346,10 @@ static void rproc_virtio_dev_release(struct device *dev)
+>>  {
+>>  	struct virtio_device *vdev = dev_to_virtio(dev);
+>>  	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
+>> -	struct rproc *rproc = vdev_to_rproc(vdev);
+>>  
+>>  	kfree(vdev);
+>>  
+>> -	kref_put(&rvdev->refcount, rproc_vdev_release);
+>> -
+>> -	put_device(&rproc->dev);
+>> +	put_device(&rvdev->pdev->dev);
+>>  }
+>>  
+>>  /**
+>> @@ -363,7 +365,7 @@ static void rproc_virtio_dev_release(struct device *dev)
+>>  static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
+>>  {
+>>  	struct rproc *rproc = rvdev->rproc;
+>> -	struct device *dev = &rvdev->dev;
+>> +	struct device *dev = &rvdev->pdev->dev;
+>>  	struct virtio_device *vdev;
+>>  	struct rproc_mem_entry *mem;
+>>  	int ret;
+>> @@ -433,18 +435,8 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
+>>  	vdev->dev.parent = dev;
+>>  	vdev->dev.release = rproc_virtio_dev_release;
+>>  
+>> -	/*
+>> -	 * We're indirectly making a non-temporary copy of the rproc pointer
+>> -	 * here, because drivers probed with this vdev will indirectly
+>> -	 * access the wrapping rproc.
+>> -	 *
+>> -	 * Therefore we must increment the rproc refcount here, and decrement
+>> -	 * it _only_ when the vdev is released.
+>> -	 */
+>> -	get_device(&rproc->dev);
+>> -
+>>  	/* Reference the vdev and vring allocations */
+>> -	kref_get(&rvdev->refcount);
+>> +	get_device(dev);
+>>  
+>>  	ret = register_virtio_device(vdev);
+>>  	if (ret) {
+>> @@ -486,78 +478,57 @@ static int rproc_vdev_do_start(struct rproc_subdev *subdev)
+>>  static void rproc_vdev_do_stop(struct rproc_subdev *subdev, bool crashed)
+>>  {
+>>  	struct rproc_vdev *rvdev = container_of(subdev, struct rproc_vdev, subdev);
+>> +	struct device *dev = &rvdev->pdev->dev;
+>>  	int ret;
+>>  
+>> -	ret = device_for_each_child(&rvdev->dev, NULL, rproc_remove_virtio_dev);
+>> +	ret = device_for_each_child(dev, NULL, rproc_remove_virtio_dev);
+>>  	if (ret)
+>> -		dev_warn(&rvdev->dev, "can't remove vdev child device: %d\n", ret);
+>> -}
+>> -
+>> -/**
+>> - * rproc_rvdev_release() - release the existence of a rvdev
+>> - *
+>> - * @dev: the subdevice's dev
+>> - */
+>> -static void rproc_rvdev_release(struct device *dev)
+>> -{
+>> -	struct rproc_vdev *rvdev = container_of(dev, struct rproc_vdev, dev);
+>> -
+>> -	of_reserved_mem_device_release(dev);
+>> -
+>> -	kfree(rvdev);
+>> +		dev_warn(dev, "can't remove vdev child device: %d\n", ret);
+>>  }
+>>  
+>> -struct rproc_vdev *
+>> -rproc_rvdev_add_device(struct rproc *rproc, struct rproc_vdev_data *rvdev_data)
+>> +static int rproc_virtio_probe(struct platform_device *pdev)
+>>  {
+>> +	struct device *dev = &pdev->dev;
+>> +	struct rproc_vdev_data *rvdev_data = dev->platform_data;
+>>  	struct rproc_vdev *rvdev;
+>> -	struct fw_rsc_vdev *rsc = rvdev_data->rsc;
+>> -	char name[16];
+>> +	struct rproc *rproc = container_of(dev->parent, struct rproc, dev);
+>> +	struct fw_rsc_vdev *rsc;
+>>  	int i, ret;
+>>  
+>> -	rvdev = kzalloc(sizeof(*rvdev), GFP_KERNEL);
+>> -	if (!rvdev)
+>> -		return ERR_PTR(-ENOMEM);
+>> +	if (!rvdev_data)
+>> +		return -EINVAL;
+>>  
+>> -	kref_init(&rvdev->refcount);
+>> +	rvdev = devm_kzalloc(dev, sizeof(*rvdev), GFP_KERNEL);
+>> +	if (!rvdev)
+>> +		return -ENOMEM;
+>>  
+>>  	rvdev->id = rvdev_data->id;
+>>  	rvdev->rproc = rproc;
+>>  	rvdev->index = rvdev_data->index;
+>>  
+>> -	/* Initialise vdev subdevice */
+>> -	snprintf(name, sizeof(name), "vdev%dbuffer", rvdev->index);
+>> -	rvdev->dev.parent = &rproc->dev;
+>> -	rvdev->dev.release = rproc_rvdev_release;
+>> -	dev_set_name(&rvdev->dev, "%s#%s", dev_name(rvdev->dev.parent), name);
+>> -	dev_set_drvdata(&rvdev->dev, rvdev);
+>> -
+>> -	ret = device_register(&rvdev->dev);
+>> -	if (ret) {
+>> -		put_device(&rvdev->dev);
+>> -		return ERR_PTR(ret);
+>> -	}
+>> -
+>> -	ret = copy_dma_range_map(&rvdev->dev, rproc->dev.parent);
+>> +	ret = copy_dma_range_map(dev, rproc->dev.parent);
+>>  	if (ret)
+>> -		goto free_rvdev;
+>> +		return ret;
+>>  
+>>  	/* Make device dma capable by inheriting from parent's capabilities */
+>> -	set_dma_ops(&rvdev->dev, get_dma_ops(rproc->dev.parent));
+>> +	set_dma_ops(dev, get_dma_ops(rproc->dev.parent));
+>>  
+>> -	ret = dma_coerce_mask_and_coherent(&rvdev->dev,
+>> -					   dma_get_mask(rproc->dev.parent));
+>> +	ret = dma_coerce_mask_and_coherent(dev, dma_get_mask(rproc->dev.parent));
+>>  	if (ret) {
+>> -		dev_warn(&rvdev->dev,
+>> -			 "Failed to set DMA mask %llx. Trying to continue... (%pe)\n",
+>> +		dev_warn(dev, "Failed to set DMA mask %llx. Trying to continue... (%pe)\n",
+>>  			 dma_get_mask(rproc->dev.parent), ERR_PTR(ret));
+>>  	}
+>>  
+>> +	platform_set_drvdata(pdev, rvdev);
+>> +	rvdev->pdev = pdev;
+>> +
+>> +	rsc = rvdev_data->rsc;
+>> +
+>>  	/* parse the vrings */
+>>  	for (i = 0; i < rsc->num_of_vrings; i++) {
+>>  		ret = rproc_parse_vring(rvdev, rsc, i);
+>>  		if (ret)
+>> -			goto free_rvdev;
+>> +			return ret;
+>>  	}
+>>  
+>>  	/* remember the resource offset*/
+>> @@ -577,18 +548,30 @@ rproc_rvdev_add_device(struct rproc *rproc, struct rproc_vdev_data *rvdev_data)
+>>  
+>>  	rproc_add_subdev(rproc, &rvdev->subdev);
+>>  
+>> -	return rvdev;
+>> +	dev_dbg(dev, "virtio dev %d added\n",  rvdev->index);
+>> +
+>> +	/*
+>> +	 * We're indirectly making a non-temporary copy of the rproc pointer
+>> +	 * here, because the platform devicer or the vdev device will indirectly
+>> +	 * access the wrapping rproc.
+>> +	 *
+>> +	 * Therefore we must increment the rproc refcount here, and decrement
+>> +	 * it _only_ on platform remove.
+>> +	 */
+>> +	get_device(&rproc->dev);
+>> +
+>> +	return 0;
+>>  
+>>  unwind_vring_allocations:
+>>  	for (i--; i >= 0; i--)
+>>  		rproc_free_vring(&rvdev->vring[i]);
+>> -free_rvdev:
+>> -	device_unregister(&rvdev->dev);
+>> -	return ERR_PTR(ret);
+>> +
+>> +	return ret;
+>>  }
+>>  
+>> -void rproc_rvdev_remove_device(struct rproc_vdev *rvdev)
+>> +static int rproc_virtio_remove(struct platform_device *pdev)
+>>  {
+>> +	struct rproc_vdev *rvdev = dev_get_drvdata(&pdev->dev);
+>>  	struct rproc *rproc = rvdev->rproc;
+>>  	struct rproc_vring *rvring;
+>>  	int id;
+>> @@ -600,19 +583,29 @@ void rproc_rvdev_remove_device(struct rproc_vdev *rvdev)
+>>  
+>>  	rproc_remove_subdev(rproc, &rvdev->subdev);
+>>  	rproc_unregister_rvdev(rvdev);
+>> -	device_unregister(&rvdev->dev);
+>> -}
+>>  
+>> -void rproc_vdev_release(struct kref *ref)
+>> -{
+>> -	struct rproc_vdev *rvdev = container_of(ref, struct rproc_vdev, refcount);
+>> -	struct rproc_vring *rvring;
+>> -	int id;
+>> +	of_reserved_mem_device_release(&pdev->dev);
+>>  
+>> -	for (id = 0; id < ARRAY_SIZE(rvdev->vring); id++) {
+>> -		rvring = &rvdev->vring[id];
+>> -		rproc_free_vring(rvring);
+>> -	}
+>> +	dev_dbg(&pdev->dev, "virtio dev %d removed\n",  rvdev->index);
+>>  
+>> -	rproc_rvdev_remove_device(rvdev);
+>> +	/* The remote proc device can be removed */
+>> +	put_device(&rproc->dev);
+>> +
+>> +	return 0;
+>>  }
+>> +
+>> +/* Platform driver */
+>> +static const struct of_device_id rproc_virtio_match[] = {
+>> +	{ .compatible = "rproc-virtio", },
+>> +	{},
+>> +};
+>> +
+>> +static struct platform_driver rproc_virtio_driver = {
+>> +	.probe		= rproc_virtio_probe,
+>> +	.remove		= rproc_virtio_remove,
+>> +	.driver		= {
+>> +		.name	= "rproc-virtio",
+>> +		.of_match_table	= rproc_virtio_match,
+>> +	},
+>> +};
+>> +builtin_platform_driver(rproc_virtio_driver);
+>> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+>> index e0600e1e5c17..7951a3e2b62a 100644
+>> --- a/include/linux/remoteproc.h
+>> +++ b/include/linux/remoteproc.h
+>> @@ -614,9 +614,8 @@ struct rproc_vring {
+>>  
+>>  /**
+>>   * struct rproc_vdev - remoteproc state for a supported virtio device
+>> - * @refcount: reference counter for the vdev and vring allocations
+>>   * @subdev: handle for registering the vdev as a rproc subdevice
+>> - * @dev: device struct used for reference count semantics
+>> + * @pdev: remoteproc virtio platform device
+>>   * @id: virtio device id (as in virtio_ids.h)
+>>   * @node: list node
+>>   * @rproc: the rproc handle
+>> @@ -625,10 +624,9 @@ struct rproc_vring {
+>>   * @index: vdev position versus other vdev declared in resource table
+>>   */
+>>  struct rproc_vdev {
+>> -	struct kref refcount;
+>>  
+>>  	struct rproc_subdev subdev;
+>> -	struct device dev;
+>> +	struct platform_device *pdev;
+>>  
+>>  	unsigned int id;
+>>  	struct list_head node;
+>> -- 
+>> 2.25.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
