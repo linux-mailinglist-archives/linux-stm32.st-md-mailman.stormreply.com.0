@@ -2,49 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ED774CE667
-	for <lists+linux-stm32@lfdr.de>; Sat,  5 Mar 2022 19:35:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C7E64CF036
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Mar 2022 04:30:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20D60C60493;
-	Sat,  5 Mar 2022 18:35:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEC48C6049B;
+	Mon,  7 Mar 2022 03:30:06 +0000 (UTC)
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54C4CC6046D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33CC9C5EC6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Mar 2022 18:35:05 +0000 (UTC)
-X-UUID: f4bb02b4348442a490919c7c3bc193f3-20220306
-X-UUID: f4bb02b4348442a490919c7c3bc193f3-20220306
-Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
- mailgw02.mediatek.com (envelope-from <jason-jh.lin@mediatek.com>)
+ Mon,  7 Mar 2022 03:30:03 +0000 (UTC)
+X-UUID: 35b7788b7f474e04b6aefd6426c80963-20220307
+X-UUID: 35b7788b7f474e04b6aefd6426c80963-20220307
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <jason-jh.lin@mediatek.com>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1204001000; Sun, 06 Mar 2022 02:34:58 +0800
+ with ESMTP id 2028838931; Mon, 07 Mar 2022 11:29:57 +0800
 Received: from mtkcas11.mediatek.inc (172.21.101.40) by
- mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Sun, 6 Mar 2022 02:34:57 +0800
-Received: from mtksdccf07 (172.21.84.99) by mtkcas11.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Sun, 6 Mar 2022 02:34:57 +0800
-Message-ID: <84e2bb5d7047fc1291d765131ce3f6b265a5304e.camel@mediatek.com>
-From: Jason-JH Lin <jason-jh.lin@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- <chunkuang.hu@kernel.org>
-Date: Sun, 6 Mar 2022 02:34:57 +0800
-In-Reply-To: <20220304095458.12409-4-angelogioacchino.delregno@collabora.com>
-References: <20220304095458.12409-1-angelogioacchino.delregno@collabora.com>
- <20220304095458.12409-4-angelogioacchino.delregno@collabora.com>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.792.15; Mon, 7 Mar 2022 11:29:55 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by mtkcas11.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via
+ Frontend Transport; Mon, 7 Mar 2022 11:29:55 +0800
+From: jason-jh.lin <jason-jh.lin@mediatek.com>
+To: Rob Herring <robh+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+Date: Mon, 7 Mar 2022 11:28:51 +0800
+Message-ID: <20220307032859.3275-1-jason-jh.lin@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
 X-MTK: N
-Cc: devicetree@vger.kernel.org, jitao.shi@mediatek.com, daniel@ffwll.ch,
- krzysztof.kozlowski@canonical.com, airlied@linux.ie,
- alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, ck.hu@mediatek.com, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, mcoquelin.stm32@gmail.com,
- matthias.bgg@gmail.com, p.zabel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/3] dt-bindings: display: mediatek: Fix
- examples on new bindings
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, fshao@chromium.org,
+ David Airlie <airlied@linux.ie>, "jason-jh
+ . lin" <jason-jh.lin@mediatek.com>, singo.chang@mediatek.com,
+ jason-jh lin <jason-jh.lin@mediatek.corp-partner.google.com>,
+ Fabien Parent <fparent@baylibre.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, roy-cw.yeh@mediatek.com,
+ Project_Global_Chrome_Upstream_Group@mediatek.com, CK
+ Hu <ck.hu@mediatek.com>, moudy.ho@mediatek.com,
+ linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
+ hsinyi@chromium.org, Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ nancy.lin@mediatek.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v16 0/8] Add Mediatek Soc DRM (vdosys0)
+	support for mt8195
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,280 +67,143 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Angelo,
+From: jason-jh lin <jason-jh.lin@mediatek.corp-partner.google.com>
 
-Thanks you very much for fixing them all.
-I really appreciate it :-)
+Change in v16:
+- rebase on linu-next tag: 'next-20220303'
+- rebase on series: 'Fix MediaTek display dt-bindings issues'
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=620310
 
-I tested these patches and found some small problem.
+Change in v15:
+- remove mt8195-mmsys.h comment for mux settings
+- define the mask macro to replace using value as mask
+  to fix zero mask problem
+- add EOF setting comment for MUTEX sof register
 
+Change in v14:
+- rebase on mediatek-drm-next-5.17
+- rebase on "Add mmsys and mutex support for MDP" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=602528
+- rebase on "media: mediatek: support mdp3 on mt8183 platform" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=602834
 
-On Fri, 2022-03-04 at 10:54 +0100, AngeloGioacchino Del Regno wrote:
-> To avoid failure of dt_binding_check perform a slight refactoring
-> of the examples: the main block is kept, but that required fixing
-> the address and size cells, plus the inclusion of missing dt-bindings
-> headers, required to parse some of the values assigned to various
-> properties.
-> 
-> Fixes: 4ed545e7d100 ("dt-bindings: display: mediatek: disp: split
-> each block to individual yaml")
-> Signed-off-by: AngeloGioacchino Del Regno <
-> angelogioacchino.delregno@collabora.com>
-> ---
->  .../display/mediatek/mediatek,aal.yaml        | 24 +++--
->  .../display/mediatek/mediatek,ccorr.yaml      | 23 +++--
->  .../display/mediatek/mediatek,color.yaml      | 23 +++--
->  .../display/mediatek/mediatek,dither.yaml     | 23 +++--
->  .../display/mediatek/mediatek,dpi.yaml        |  3 +-
->  .../display/mediatek/mediatek,dsc.yaml        | 23 +++--
->  .../display/mediatek/mediatek,ethdr.yaml      | 99 ++++++++++-------
-> --
->  .../display/mediatek/mediatek,gamma.yaml      | 23 +++--
->  .../display/mediatek/mediatek,merge.yaml      | 49 +++++----
->  .../display/mediatek/mediatek,mutex.yaml      | 25 +++--
->  .../display/mediatek/mediatek,od.yaml         | 14 ++-
->  .../display/mediatek/mediatek,ovl-2l.yaml     | 26 +++--
->  .../display/mediatek/mediatek,ovl.yaml        | 26 +++--
->  .../display/mediatek/mediatek,postmask.yaml   | 23 +++--
->  .../display/mediatek/mediatek,rdma.yaml       | 28 ++++--
->  .../display/mediatek/mediatek,split.yaml      | 17 +++-
->  .../display/mediatek/mediatek,ufoe.yaml       | 19 ++--
->  .../display/mediatek/mediatek,wdma.yaml       | 26 +++--
->  18 files changed, 316 insertions(+), 178 deletions(-)
+Change in v13:
+- remove dts patch
+- rebase on kernel-5.16-rc1
+- rebase on mediatek-drm-next
 
-[snip]
+Change in v12:
+- add clock-names property to merge yaml
+- using BIT(nr) macro to define the settings of mmsys routing table
+- fix clk_get and clk_prepare_enable error handling issue
 
-> diff --git
-> a/Documentation/devicetree/bindings/display/mediatek/mediatek,ethdr.y
-> aml
-> b/Documentation/devicetree/bindings/display/mediatek/mediatek,ethdr.y
-> aml
-> index 131eed5eeeb7..e16deca0dc2b 100644
-> ---
-> a/Documentation/devicetree/bindings/display/mediatek/mediatek,ethdr.y
-> aml
-> +++
-> b/Documentation/devicetree/bindings/display/mediatek/mediatek,ethdr.y
-> aml
-> @@ -97,51 +97,62 @@ additionalProperties: false
->  
->  examples:
->    - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/mt8195-clk.h>
-> +    #include <dt-bindings/gce/mt8195-gce.h>
-> +    #include <dt-bindings/memory/mt8195-memory-port.h>
+Change in v11:
+- rebase on kernel-5.15-rc1
+- change mbox label to gce0 for dts node of vdosys0
+- change ovl compatibale to mt8192 to set smi_id_en=true in driver data
+- move common module from display folder to common folder,
+  such as AAL, COCLOR, CCORR and MUTEX
 
-This header file should base on [1].
-[1] dt-bindings: mediatek: mt8195: Add binding for MM IOMMU
+Change in v10:
+- rebase on "drm/mediatek: add support for mediatek SOC MT8192" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=529489
+- rebase on "soc: mediatek: mmsys: add mt8192 mmsys support" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=524857
+- fix some typo and "mediatek" start with capital in every dt-bindings
+- move mutex yaml from dfisplay folder to soc folder
+- separate merge additional propoerties to an individual dt-bindings patch
 
-https://patchwork.kernel.org/project/linux-mediatek/patch/20220217113453.13658-2-yong.wu@mediatek.com/
+Change in v9:
+- separate power and gce properties of mmsys into another dt-binding patch
+- rebase on "Separate aal module" series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=516463
+- keep mtk_ddp_clk_enable/disable in the same place
+- change mtk_dsc_start config register to mtk_drm_ddp_write_mask
+- remove the 0 setting of merge fifo config function
+- add CCORR driver data for mt8195
 
-> +    #include <dt-bindings/power/mt8195-power.h>
-> +    #include <dt-bindings/reset/mt8195-resets.h>
->  
-> -    disp_ethdr@1c114000 {
-> -            compatible = "mediatek,mt8195-disp-ethdr";
-> -            reg = <0 0x1c114000 0 0x1000>,
-> -                  <0 0x1c115000 0 0x1000>,
-> -                  <0 0x1c117000 0 0x1000>,
-> -                  <0 0x1c119000 0 0x1000>,
-> -                  <0 0x1c11A000 0 0x1000>,
-> -                  <0 0x1c11B000 0 0x1000>,
-> -                  <0 0x1c11C000 0 0x1000>;
-> -            reg-names = "mixer", "vdo_fe0", "vdo_fe1", "gfx_fe0",
-> "gfx_fe1",
-> -                        "vdo_be", "adl_ds";
-> -            mediatek,gce-client-reg = <&gce0 SUBSYS_1c11XXXX 0x4000
-> 0x1000>,
-> -                                      <&gce0 SUBSYS_1c11XXXX 0x5000
-> 0x1000>,
-> -                                      <&gce0 SUBSYS_1c11XXXX 0x7000
-> 0x1000>,
-> -                                      <&gce0 SUBSYS_1c11XXXX 0x9000
-> 0x1000>,
-> -                                      <&gce0 SUBSYS_1c11XXXX 0xA000
-> 0x1000>,
-> -                                      <&gce0 SUBSYS_1c11XXXX 0xB000
-> 0x1000>,
-> -                                      <&gce0 SUBSYS_1c11XXXX 0xC000
-> 0x1000>;
-> -            clocks = <&vdosys1 CLK_VDO1_DISP_MIXER>,
-> -                     <&vdosys1 CLK_VDO1_HDR_VDO_FE0>,
-> -                     <&vdosys1 CLK_VDO1_HDR_VDO_FE1>,
-> -                     <&vdosys1 CLK_VDO1_HDR_GFX_FE0>,
-> -                     <&vdosys1 CLK_VDO1_HDR_GFX_FE1>,
-> -                     <&vdosys1 CLK_VDO1_HDR_VDO_BE>,
-> -                     <&vdosys1 CLK_VDO1_26M_SLOW>,
-> -                     <&vdosys1 CLK_VDO1_HDR_VDO_FE0_DL_ASYNC>,
-> -                     <&vdosys1 CLK_VDO1_HDR_VDO_FE1_DL_ASYNC>,
-> -                     <&vdosys1 CLK_VDO1_HDR_GFX_FE0_DL_ASYNC>,
-> -                     <&vdosys1 CLK_VDO1_HDR_GFX_FE1_DL_ASYNC>,
-> -                     <&vdosys1 CLK_VDO1_HDR_VDO_BE_DL_ASYNC>,
-> -                     <&topckgen CLK_TOP_ETHDR_SEL>;
-> -            clock-names = "mixer", "vdo_fe0", "vdo_fe1", "gfx_fe0",
-> "gfx_fe1",
-> -                          "vdo_be", "adl_ds", "vdo_fe0_async",
-> "vdo_fe1_async",
-> -                          "gfx_fe0_async",
-> "gfx_fe1_async","vdo_be_async",
-> -                          "ethdr_top";
-> -            power-domains = <&spm MT8195_POWER_DOMAIN_VDOSYS1>;
-> -            iommus = <&iommu_vpp M4U_PORT_L3_HDR_DS>,
-> -                     <&iommu_vpp M4U_PORT_L3_HDR_ADL>;
-> -            interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH 0>; /*
-> disp mixer */
-> -            resets = <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_VDO_FE0_DL_ASYNC>,
-> -                     <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_VDO_FE1_DL_ASYNC>,
-> -                     <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_GFX_FE0_DL_ASYNC>,
-> -                     <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_GFX_FE1_DL_ASYNC>,
-> -                     <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_VDO_BE_DL_ASYNC>;
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        disp_ethdr@1c114000 {
-> +                compatible = "mediatek,mt8195-disp-ethdr";
-> +                reg = <0 0x1c114000 0 0x1000>,
-> +                      <0 0x1c115000 0 0x1000>,
-> +                      <0 0x1c117000 0 0x1000>,
-> +                      <0 0x1c119000 0 0x1000>,
-> +                      <0 0x1c11A000 0 0x1000>,
-> +                      <0 0x1c11B000 0 0x1000>,
-> +                      <0 0x1c11C000 0 0x1000>;
-> +                reg-names = "mixer", "vdo_fe0", "vdo_fe1",
-> "gfx_fe0", "gfx_fe1",
-> +                            "vdo_be", "adl_ds";
-> +                mediatek,gce-client-reg = <&gce0 SUBSYS_1c11XXXX
-> 0x4000 0x1000>,
-> +                                          <&gce0 SUBSYS_1c11XXXX
-> 0x5000 0x1000>,
-> +                                          <&gce0 SUBSYS_1c11XXXX
-> 0x7000 0x1000>,
-> +                                          <&gce0 SUBSYS_1c11XXXX
-> 0x9000 0x1000>,
-> +                                          <&gce0 SUBSYS_1c11XXXX
-> 0xA000 0x1000>,
-> +                                          <&gce0 SUBSYS_1c11XXXX
-> 0xB000 0x1000>,
-> +                                          <&gce0 SUBSYS_1c11XXXX
-> 0xC000 0x1000>;
-> +                clocks = <&vdosys1 CLK_VDO1_DISP_MIXER>,
-> +                         <&vdosys1 CLK_VDO1_HDR_VDO_FE0>,
-> +                         <&vdosys1 CLK_VDO1_HDR_VDO_FE1>,
-> +                         <&vdosys1 CLK_VDO1_HDR_GFX_FE0>,
-> +                         <&vdosys1 CLK_VDO1_HDR_GFX_FE1>,
-> +                         <&vdosys1 CLK_VDO1_HDR_VDO_BE>,
-> +                         <&vdosys1 CLK_VDO1_26M_SLOW>,
-> +                         <&vdosys1 CLK_VDO1_HDR_VDO_FE0_DL_ASYNC>,
-> +                         <&vdosys1 CLK_VDO1_HDR_VDO_FE1_DL_ASYNC>,
-> +                         <&vdosys1 CLK_VDO1_HDR_GFX_FE0_DL_ASYNC>,
-> +                         <&vdosys1 CLK_VDO1_HDR_GFX_FE1_DL_ASYNC>,
-> +                         <&vdosys1 CLK_VDO1_HDR_VDO_BE_DL_ASYNC>,
-> +                         <&topckgen CLK_TOP_ETHDR>;
-> +                clock-names = "mixer", "vdo_fe0", "vdo_fe1",
-> "gfx_fe0", "gfx_fe1",
-> +                              "vdo_be", "adl_ds", "vdo_fe0_async",
-> "vdo_fe1_async",
-> +                              "gfx_fe0_async",
-> "gfx_fe1_async","vdo_be_async",
-> +                              "ethdr_top";
-> +                power-domains = <&spm MT8195_POWER_DOMAIN_VDOSYS1>;
-> +                iommus = <&iommu_vpp M4U_PORT_L3_HDR_DS>,
-> +                         <&iommu_vpp M4U_PORT_L3_HDR_ADL>;
-> +                interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH 0>; /*
-> disp mixer */
-> +                resets = <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_VDO_FE0_DL_ASYNC>,
-> +                         <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_VDO_FE1_DL_ASYNC>,
-> +                         <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_GFX_FE0_DL_ASYNC>,
-> +                         <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_GFX_FE1_DL_ASYNC>,
-> +                         <&vdosys1
-> MT8195_VDOSYS1_SW1_RST_B_HDR_VDO_BE_DL_ASYNC>;
+Change in v8:
+- add DP_INTF0 mux into mmsys routing table
+- add DP_INTF0 mutex mod and enum into add/remove comp function
+- remove bypass DSC enum in mtk_ddp_comp_init
 
-These define should base on [2].
-[2] dt-bindings: reset: mt8195: add vdosys1 reset control bit
+Change in v7:
+- add dt=binding of mmsys and disp path into this series
+- separate th modidfication of alphabetic order, remove unused define and
+  rename the define of register offset to individual patch
+- add comment for MERGE ultra and preultra setting
 
-https://patchwork.kernel.org/project/linux-mediatek/patch/20220222100741.30138-5-nancy.lin@mediatek.com/
+Change in v6:
+- adjust alphabetic order for mediatek-drm
+- move the patch that add mt8195 support for mediatek-drm as
+  the lastest patch
+- add MERGE define for const varriable 
 
-+        };
->      };
->  
+Change in v5:
+- add power-domain property into vdosys0 and vdosys1 dts node.
+- add MT8195 prifix and remove unused VDO1 define in mt8195-mmsys.h
 
-[snip]
+Change in v4:
+- extract dt-binding patches to another patch series
+  https://patchwork.kernel.org/project/linux-mediatek/list/?series=519597
+- squash DSC module into mtk_drm_ddp_comp.c
+- add coment and simplify MERGE config function
 
-> diff --git
-> a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-
-> 2l.yaml
-> b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-
-> 2l.yaml
-> index e3cef99d0f98..25d2ac2a4f05 100644
-> ---
-> a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-
-> 2l.yaml
-> +++
-> b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-
-> 2l.yaml
-> @@ -66,13 +66,23 @@ additionalProperties: false
->  
->  examples:
->    - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/mt8173-clk.h>
-> +    #include <dt-bindings/power/mt8173-power.h>
-> +    #include <dt-bindings/gce/mt8173-gce.h>
-> +    #include <dt-bindings/memory/mt8173-larb-port.h>
+Change in v3:
+- change mmsys and display dt-bindings document from txt to yaml
+- add MERGE additional description in display dt-bindings document
+- fix mboxes-cells number of vdosys0 node in dts
+- drop mutex eof convert define
+- remove pm_runtime apis in DSC and MERGE
+- change DSC and MERGE enum to alphabetic order
 
-These should be mt8183 header files.
+Change in v2:
+- add DSC yaml file
+- add mt8195 drm driver porting parts in to one patch
+- remove useless define, variable, structure member and function
+- simplify DSC and MERGE file and switch threre order
 
-#include <dt-bindings/clock/mt8183-clk.h>
-#include <dt-bindings/power/mt8183-power.h>
-#include <dt-bindings/gce/mt8183-gce.h>
-#include <dt-bindings/memory/mt8183-larb-port.h>
+jason-jh lin (1):
+  dt-bindings: soc: mediatek: move out common module from display folder
 
-> -    ovl_2l0: ovl@14009000 {
-> -        compatible = "mediatek,mt8183-disp-ovl-2l";
-> -        reg = <0 0x14009000 0 0x1000>;
-> -        interrupts = <GIC_SPI 226 IRQ_TYPE_LEVEL_LOW>;
-> -        power-domains = <&spm MT8183_POWER_DOMAIN_DISP>;
-> -        clocks = <&mmsys CLK_MM_DISP_OVL0_2L>;
-> -        iommus = <&iommu M4U_PORT_DISP_2L_OVL0_LARB0>;
-> -        mediatek,gce-client-reg = <&gce SUBSYS_1400XXXX 0x9000
-> 0x1000>;
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        ovl_2l0: ovl@14009000 {
-> +            compatible = "mediatek,mt8183-disp-ovl-2l";
-> +            reg = <0 0x14009000 0 0x1000>;
-> +            interrupts = <GIC_SPI 226 IRQ_TYPE_LEVEL_LOW>;
-> +            power-domains = <&spm MT8183_POWER_DOMAIN_DISP>;
-> +            clocks = <&mmsys CLK_MM_DISP_OVL0_2L>;
-> +            iommus = <&iommu M4U_PORT_DISP_2L_OVL0_LARB0>;
-> +            mediatek,gce-client-reg = <&gce SUBSYS_1400XXXX 0x9000
-> 0x1000>;
-> +        };
->      };
+jason-jh.lin (7):
+  dt-bindings: arm: mediatek: mmsys: add power and gce properties
+  dt-bindings: arm: mediatek: mmsys: add mt8195 SoC binding
+  soc: mediatek: add mtk-mmsys support for mt8195 vdosys0
+  soc: mediatek: add mtk-mutex support for mt8195 vdosys0
+  drm/mediatek: add DSC support for mediatek-drm
+  drm/mediatek: add MERGE support for mediatek-drm
+  drm/mediatek: add mediatek-drm of vdosys0 support for mt8195
 
-[snip]
-
-Thanks again! 
-Tested-by: Jason-JH.Lin <jason-jh.lin@medaitek.com>
-
-Regards,
-Jason-JH.Lin
+ .../bindings/arm/mediatek/mediatek,mmsys.yaml |  33 +++
+ .../mediatek/mediatek,aal.yaml                |  13 +-
+ .../mediatek/mediatek,ccorr.yaml              |  13 +-
+ .../mediatek/mediatek,color.yaml              |  13 +-
+ .../mediatek/mediatek,mutex.yaml              |  12 +-
+ .../mediatek/mediatek,wdma.yaml               |   9 +-
+ drivers/gpu/drm/mediatek/Makefile             |   1 +
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |   8 +
+ drivers/gpu/drm/mediatek/mtk_disp_merge.c     | 246 ++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_disp_rdma.c      |   6 +
+ drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.c   |  63 +++++
+ drivers/gpu/drm/mediatek/mtk_drm_ddp_comp.h   |   2 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  32 ++-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   1 +
+ drivers/soc/mediatek/mt8195-mmsys.h           | 130 +++++++++
+ drivers/soc/mediatek/mtk-mmsys.c              |  11 +
+ drivers/soc/mediatek/mtk-mutex.c              | 103 +++++++-
+ include/linux/soc/mediatek/mtk-mmsys.h        |   9 +
+ 18 files changed, 658 insertions(+), 47 deletions(-)
+ rename Documentation/devicetree/bindings/{display => soc}/mediatek/mediatek,aal.yaml (81%)
+ rename Documentation/devicetree/bindings/{display => soc}/mediatek/mediatek,ccorr.yaml (80%)
+ rename Documentation/devicetree/bindings/{display => soc}/mediatek/mediatek,color.yaml (83%)
+ rename Documentation/devicetree/bindings/{display => soc}/mediatek/mediatek,mutex.yaml (82%)
+ rename Documentation/devicetree/bindings/{display => soc}/mediatek/mediatek,wdma.yaml (85%)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_merge.c
+ create mode 100644 drivers/soc/mediatek/mt8195-mmsys.h
 
 -- 
-Jason-JH Lin <jason-jh.lin@mediatek.com>
+2.18.0
 
 _______________________________________________
 Linux-stm32 mailing list
