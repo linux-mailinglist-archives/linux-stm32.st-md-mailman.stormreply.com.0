@@ -2,67 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2B254D154A
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Mar 2022 11:58:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A5324D1CE6
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Mar 2022 17:13:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75DD7C60469;
-	Tue,  8 Mar 2022 10:58:24 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DCF1C60496;
+	Tue,  8 Mar 2022 16:13:50 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 833C8C5F1ED
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6284EC5F1F1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Mar 2022 10:58:23 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id bt26so11707639lfb.3
+ Tue,  8 Mar 2022 16:13:48 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BE394B81AF5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Mar 2022 02:58:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4MO/RRuWikHJmBYuiJ+R2IrUU7oSQM4tuZv70kuUbRI=;
- b=k3G503hqW26oHasEdtGWNmqrChEPSR064D0K46cqUj1wayPtOGD/xufqe5xAva/q2z
- Ffqx6+329fNYW9gSOuqz2AAXgGMHll/goOEg9fZEiNOXJXN8f8TRAfB8+UO0rvWEEp4U
- Rada8pn/BfE4qTuiNtbOiPIZ98UZ1PeaMGHmCpvaIGNVHsTrVX7eRs+r2Fdwhj1flLyK
- PCNHcxe7N27lE1Ji7giCwvePKEoMIlX4Opu0W6g/YgQw1tx/OpyFKDMvY0b0lAhyiXHp
- Qi2hTE7F3assUB0/w+hogn/mpzP4x+Wd4/vMzE+ib2IsK9gr64AAZp2LZS6s1kvowSL3
- 22sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4MO/RRuWikHJmBYuiJ+R2IrUU7oSQM4tuZv70kuUbRI=;
- b=IvbYwiFCXr5/LyvvUZo4kC3f61FnONd8G2Uf9xBB1Gq9nIqbNMz35Bf7d53jbhem67
- tEGiwuHsV/FgQdYWWov9XuDltSTZXwKoSqi1PrS+D2eyR59AHjbsWU+5I3r2rEAkkDiK
- Fu8i2Zv9WPxHO9DAZ1Cf4lQFtYcbunMapbNmVn4VLAF6CTr0KwnVCzF8g5xIPAqTbSu8
- /iJiIkouy/qlGUQ8MoGl/N9Fb+doOwFDvTKvFR300nT69g0yZnEokB+WnhsclBxkR9jV
- +ia/mygFY8EheEeakn6pojfT5lQrY9b5oVhO+zoGoMXhnMNQ2tjIPqcUnKFiJ2xzS2hb
- zeXQ==
-X-Gm-Message-State: AOAM530DQDMkNGFSUedl7glgJFA5ASN5vqPgDR0mtiOcqDDNolaShHNT
- ZNHLM4RXJXqmmQK2rGm3a3VZ4A5d7CAKs0pxD24MzA==
-X-Google-Smtp-Source: ABdhPJw0ckIBbPI+QJkJYQsR/aHyPcFqI/Cbo2S1aK5o3fb6YXZSOQqQEvVnX9hlK1NxMKgitnE8GWNY+dSwqtFAvpc=
-X-Received: by 2002:a05:6512:3e0c:b0:448:3480:1fe5 with SMTP id
- i12-20020a0565123e0c00b0044834801fe5mr4512406lfv.358.1646737102778; Tue, 08
- Mar 2022 02:58:22 -0800 (PST)
+ Tue,  8 Mar 2022 16:13:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA18BC340F7
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  8 Mar 2022 16:13:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1646756025;
+ bh=jXBz2f9tChtMFtKyOyZ4Q3h2mhlA6Onv+Izw71UufzM=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=UnxR/RJqQQzmrMWTZA3iu/62twkicgqrZxqPlgt9nko9YFkMPdzqQdhKoUlmtE+sA
+ LsIrzYMHxXsjIhdqok6IGMj9Rq+1a6gWFNyB+Z+70KJtOOsqpOWNvFYljWZILzQJFj
+ LCxFHq/7Of/gQbIlyvcaL2wihl5o1JEWd4jIsnhVX/JV05yIIeslM8V9wzZWNaplmt
+ l79agZVVIiUMcMfcrko3HrLFLt+J5HqqOBuZ0IiRMIWFolhZ93VD/j8oJUDeiczv1Y
+ ubHFl6HiKUy6yf1IWu6VGT4SBvF3/AqCtwo8kPFLx0yRK8d3B/jrDwCqPJscQUbEO6
+ W1eCuj5HSAGvw==
+Received: by mail-ej1-f49.google.com with SMTP id kt27so40486774ejb.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 08 Mar 2022 08:13:45 -0800 (PST)
+X-Gm-Message-State: AOAM5311yPDxipWypZPK70XF5SYLIuzobiK+1tDEZu8znFf6JRsPckx9
+ tSRqanUfayjtYE7yiZ9dlUMKxVpi4zahPGsHRQ==
+X-Google-Smtp-Source: ABdhPJwgjUirqReFAL6N3dmjsf1cllJkmUJ+TfjKooqF93ar8SLKSqqP4oME9QxeInU2UXWZqXn7edss5wrmTCZW8Po=
+X-Received: by 2002:a17:906:181a:b0:6d0:ebf5:c064 with SMTP id
+ v26-20020a170906181a00b006d0ebf5c064mr13580319eje.82.1646756024055; Tue, 08
+ Mar 2022 08:13:44 -0800 (PST)
 MIME-Version: 1.0
-References: <20220304135134.47827-1-yann.gautier@foss.st.com>
- <20220304135134.47827-2-yann.gautier@foss.st.com>
-In-Reply-To: <20220304135134.47827-2-yann.gautier@foss.st.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 8 Mar 2022 11:57:46 +0100
-Message-ID: <CAPDyKFq_TsBLjW2WxC-Fvu6qDs9MJ1=QPo9gOLRykJ5p2pJbGw@mail.gmail.com>
-To: Yann Gautier <yann.gautier@foss.st.com>
-Cc: Ludovic Barre <ludovic.barre@foss.st.com>, devicetree@vger.kernel.org,
- Marek Vasut <marex@denx.de>, Philipp Zabel <p.zabel@pengutronix.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Grzegorz Szymaszek <gszymaszek@short.pl>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- kernel@dh-electronics.com, Rob Herring <robh+dt@kernel.org>,
+References: <20220304095458.12409-1-angelogioacchino.delregno@collabora.com>
+ <CAAOTY_8CTewRw2Le9RjXoCrqF8AyHD0_p01EMiJ2QQ63yf-HKQ@mail.gmail.com>
+In-Reply-To: <CAAOTY_8CTewRw2Le9RjXoCrqF8AyHD0_p01EMiJ2QQ63yf-HKQ@mail.gmail.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Tue, 8 Mar 2022 10:13:31 -0600
+X-Gmail-Original-Message-ID: <CAL_Jsq+qqCHvzg8uKx6xaD4cDJJq7hOUvJGME18V7cuLW5OPqQ@mail.gmail.com>
+Message-ID: <CAL_Jsq+qqCHvzg8uKx6xaD4cDJJq7hOUvJGME18V7cuLW5OPqQ@mail.gmail.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Cc: DTML <devicetree@vger.kernel.org>, Jitao Shi <jitao.shi@mediatek.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ David Airlie <airlied@linux.ie>, Jason-JH Lin <jason-jh.lin@mediatek.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: mmc: mmci: add a
-	property to disable DMA LLI
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH 0/3] Fix MediaTek display dt-bindings
+	issues
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,60 +81,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Yann,
-
-On Fri, 4 Mar 2022 at 14:52, Yann Gautier <yann.gautier@foss.st.com> wrote:
+On Fri, Mar 4, 2022 at 5:49 PM Chun-Kuang Hu <chunkuang.hu@kernel.org> wrote:
 >
-> On STMicroelectronics variant of PL18x, the DMA Linked Lists are supported
-> starting from revision v2 of the peripheral. But it has limitations,
-> as all the buffers should be aligned on block size (except the last one).
-> But this cannot be guaranteed with SDIO. We should then have a property
-> to disable the support of LLI.
-
-Indeed, the buffer handling with SDIO is somewhat special, which also
-has been discussed several times on LKML before. In principle, we need
-the SDIO func drivers to respect buffer limitations that should be
-specified by the mmc host drivers. Quite similar to what we already
-have for block devices, like ->max_seg_size, ->max_seg, etc, that is
-set per mmc host.
-
-I realize that implementing something like the above requires bigger
-changes, which is why mmc host drivers instead validates the sglists
-and the elements. In some cases that means returning an error code and
-in others it could mean falling back to a non-DMA based I/O mode.
-
-For the stm32_sdmmc variant, it looks like the sglist validation is
-being managed in sdmmc_idma_validate_data() already. Can it be
-extended to cover this case too, rather than using a DT property?
-
-Kind regards
-Uffe
-
+> Hi, Rob:
 >
-> Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> index 1e69a5a42439..309a2c0426e5 100644
-> --- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
-> @@ -145,6 +145,11 @@ properties:
->        driver to sample the receive data (for example with a voltage switch
->        transceiver).
->
-> +  st,disable-dma-lli:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description: ST Micro-specific property, disable DMA linked lists.
-> +      It is used for SDIO.
-> +
->    st,cmd-gpios:
->      maxItems: 1
->      description:
-> --
-> 2.25.1
->
+> Would you like to take this series into your tree, or I take this
+> series into my tree?
+
+I can't. I don't have the broken commits in my tree.
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
