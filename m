@@ -2,74 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FFFE4D2059
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Mar 2022 19:43:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 015CA4D263B
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Mar 2022 04:39:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3629FC60496;
-	Tue,  8 Mar 2022 18:43:04 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2AEFC60497;
+	Wed,  9 Mar 2022 03:39:04 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2C42C60469
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6552C5F1F1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Mar 2022 18:43:02 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- n33-20020a05600c3ba100b003832caf7f3aso1855030wms.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Mar 2022 10:43:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=message-id:date:mime-version:user-agent:content-language:to:cc:from
- :subject:content-transfer-encoding;
- bh=WPSR5Pt5CyT3sNl2ngwE6qDTVKse5DLOw/U1LDqYMBg=;
- b=W5xLQ/VvKJrQobnASIqIOUeXdu5LvZwL5CZjqip4x2czfPRBmOOle2igTyF5q/P1To
- 2Vpat+WamBy8TV67fwXu7DU39Ep47pZUdfCydEmv7JuoS5Gqk+2nz8aya3/ApMuxGLCa
- dYQ3zrlqVzgc236yc2n/vObRV69OiMI0UWJ1CyjIh521pB0+iCZ5VcPPp5kQ7wcU2Ex+
- JcqSx62AmINDi5urIeW1xz4R5+KUvgqtbQEpksKX+PICypBSXf0SYdFQ816hakCpJA7W
- tLGZ+NGP1UbsPG4jbqZygA0VO0RXBTrexH5o0mAj5Rk+/y/l9VMsggXKCMoasthupgVY
- RKUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent
- :content-language:to:cc:from:subject:content-transfer-encoding;
- bh=WPSR5Pt5CyT3sNl2ngwE6qDTVKse5DLOw/U1LDqYMBg=;
- b=2co7/WI4PPR1gz6bqNOz/Pxo6R/v9bONC9LTEI4+3AryfuS9bDdxGVmDv5iPNVoVVZ
- S7aU64mQgs5kfiuYKME+5LafDlmqhFEbuaoTKk8vqEZpjMoo8O4pqvjy5g/CB7GZcH1a
- TKTLCe0QMQ/E2Tm2QYqVCNQNZZXJ/prZvOQvcDIWYoPtv5tRC535ANOensIAAsi4nsgB
- HzZ9bUOE3geQR0nRzUgF4syyXH8QMDqsnMh4L2bKyS+Odk6SWJd+TA3rCRcvsTCumbBl
- g916YP4CeOfPkfDW58DsHFB9ya5cbYa9/GiksX3fcyCk/3jgDciMzQ8hKiJzo/HikjUR
- 53aQ==
-X-Gm-Message-State: AOAM530F8dWawM+XUC6Bum4fiVIetnauAQSfIPYMJArYd9+igWciLz97
- B3cXOt5embf9hZsTnzmSmbc=
-X-Google-Smtp-Source: ABdhPJwssyolF7w+4CyCS2TboMQECwBl9var3nzNWRK0sQ7ZDQ+b8NMYecp6FwF72IxyBfDn1//wVQ==
-X-Received: by 2002:a05:600c:4ec7:b0:389:bf36:ce3a with SMTP id
- g7-20020a05600c4ec700b00389bf36ce3amr509566wmq.118.1646764982229; 
- Tue, 08 Mar 2022 10:43:02 -0800 (PST)
-Received: from ?IPV6:2a01:c22:7b54:500:3175:f9ac:af86:a778?
- (dynamic-2a01-0c22-7b54-0500-3175-f9ac-af86-a778.c22.pool.telefonica.de.
- [2a01:c22:7b54:500:3175:f9ac:af86:a778])
- by smtp.googlemail.com with ESMTPSA id
- p2-20020a1c7402000000b0038159076d30sm2906185wmc.22.2022.03.08.10.43.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Mar 2022 10:43:01 -0800 (PST)
-Message-ID: <ee685745-f1ab-e9bf-f20e-077d55dff441@gmail.com>
-Date: Tue, 8 Mar 2022 19:42:57 +0100
+ Wed,  9 Mar 2022 03:39:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1646797142; x=1678333142;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=MllVgczf0c1TNdA75U5Rm2oYU7fpnZ5DVIRsDr6nA24=;
+ b=DRzH6fEYFf8j8cvEaHuqfaNJr8A0eehHMZBATFfaqAOmUl5z6Sc5+f6L
+ jfry/+8omWNigoLVuhRZ47odw/aKRUxgiBOsBGG88klNqEYHQDwZDXEcD
+ hvaGzBUrhEkU7YV7uSW7QqODeZbIYbdYOvROvcLhpgm5DTJyu6wGHL802
+ 0GfJCJLZ9oxRt4dDh0nG+Dh1uaftXh0UmMtoFCigMFiQDWUtXzgi0ND6B
+ f2F7zcjN3huQ8i0HWwOG2BQUIFUPPo18SA9DOKow93qBITHGUq30PIE5F
+ ip0uugMLg3fxkXSCDmJFOJRwmknjDKOb458zQzSgVLNCr3TczbEWumxrg Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10280"; a="242320602"
+X-IronPort-AV: E=Sophos;i="5.90,166,1643702400"; d="scan'208";a="242320602"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2022 19:39:00 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,166,1643702400"; d="scan'208";a="510345506"
+Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
+ by orsmga002.jf.intel.com with ESMTP; 08 Mar 2022 19:38:57 -0800
+From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Wed,  9 Mar 2022 11:34:15 +0800
+Message-Id: <20220309033415.3370250-1-michael.wei.hong.sit@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Content-Language: en-US
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski
- <kuba@kernel.org>, David Miller <davem@davemloft.net>
-From: Heiner Kallweit <hkallweit1@gmail.com>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: switch no PTP HW
- support message to info level
+Cc: Wong Vee Khee <vee.khee.wong@linux.intel.com>,
+ Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
+ Jose Abreu <joabreu@synopsys.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: Add ADL-N PCI ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,30 +63,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-If HW doesn't support PTP, then it doesn't support it. This is neither
-a problem nor can the user do something about it. Therefore change the
-message level to info.
+Add PCI ID for Ethernet TSN Controller on ADL-N.
 
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index cf4e077d2..c1bfd89a5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3275,7 +3275,7 @@ static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 32ef3df4e266..63754a9c4ba7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -1159,6 +1159,7 @@ static SIMPLE_DEV_PM_OPS(intel_eth_pm_ops, intel_eth_pci_suspend,
+ #define PCI_DEVICE_ID_INTEL_TGL_SGMII1G		0xa0ac
+ #define PCI_DEVICE_ID_INTEL_ADLS_SGMII1G_0	0x7aac
+ #define PCI_DEVICE_ID_INTEL_ADLS_SGMII1G_1	0x7aad
++#define PCI_DEVICE_ID_INTEL_ADLN_SGMII1G	0x54ac
  
- 	ret = stmmac_init_ptp(priv);
- 	if (ret == -EOPNOTSUPP)
--		netdev_warn(priv->dev, "PTP not supported by HW\n");
-+		netdev_info(priv->dev, "PTP not supported by HW\n");
- 	else if (ret)
- 		netdev_warn(priv->dev, "PTP init failed\n");
- 	else if (ptp_register)
+ static const struct pci_device_id intel_eth_pci_id_table[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, QUARK, &quark_info) },
+@@ -1176,6 +1177,7 @@ static const struct pci_device_id intel_eth_pci_id_table[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, TGLH_SGMII1G_1, &tgl_sgmii1g_phy1_info) },
+ 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_0, &adls_sgmii1g_phy0_info) },
+ 	{ PCI_DEVICE_DATA(INTEL, ADLS_SGMII1G_1, &adls_sgmii1g_phy1_info) },
++	{ PCI_DEVICE_DATA(INTEL, ADLN_SGMII1G, &tgl_sgmii1g_phy0_info) },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(pci, intel_eth_pci_id_table);
 -- 
-2.35.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
