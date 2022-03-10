@@ -2,51 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF6CC4D4011
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Mar 2022 05:00:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB1C64D4037
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Mar 2022 05:20:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B931C628A2;
-	Thu, 10 Mar 2022 04:00:14 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 818ECC628A2;
+	Thu, 10 Mar 2022 04:20:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77548C6049E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F33BC6049E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Mar 2022 04:00:13 +0000 (UTC)
+ Thu, 10 Mar 2022 04:20:14 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EF704B8248C;
- Thu, 10 Mar 2022 04:00:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2DCE6C340F4;
- Thu, 10 Mar 2022 04:00:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2EC4B6185C;
+ Thu, 10 Mar 2022 04:20:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 86FB1C340FB;
+ Thu, 10 Mar 2022 04:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1646884811;
- bh=6i4u6KwyCnCdAs0K5LYXId3Xf41NoIA1ge2xN62Ie18=;
+ s=k20201202; t=1646886011;
+ bh=yE8W9mRMdO2uhbRzLthfGmH4O4VZYLVLsEzAmz9J0xs=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=UTbkDwlRsthrC+p2lEF62kZHiIWjE94JnFTZ3tygRL7/qhslJbY+bl+hLqL4g0CxF
- MCVyz8xk3YMWuFkgx+Uuq7Y3PhI0pFqru2QmXw0ml3t3lDPRNxfpibCGl2+gqZWkGR
- n8TwKClhrpigm1CTsIZwhfu8QDfiaGJqWYAy0I6BxPQpaE2HP7680CTjoenKtnnB/E
- ubFvZOPfUcyI9rc04yap76L187yp5XCtxyAZXK47RRXPbMu10Dz2NjYb92iAzE7K+N
- ycCUX0eozR/BJ8VBAXTMUVPm7L3oxUiMrhe+iVDgjius/omRwVF2kV/LzBQVw8F2u1
- GSOGGUMlXWKLA==
+ b=YT1qdoIIInN5/ngTHS6Rjnr86nh+TWI6l0AeZOFVYGG3iYdllWNraUKdsPocdrHM/
+ dFwOCpWbqOxnI2RGC7s//0004qJePASFe0NntQsnfHx+BUBqZzkMsIkOy94i+3J2fi
+ 8FiaNH/oMkrCNnxOQ9ITg1IXc1OHqnldZ9lMk6iKV5ANGbuZlc45VunsbpPO8c5TxX
+ F0iGiU39UUrHdNKvT9/X+mVTPoUDERVDevBHH2hapQRJ4iDid10PoNhOvJgCrwXhfd
+ 2rv7vpf+NCnlHIUNKeTaIntJQhQwVGzMLglVivMSEPmaef75I4J/4Mea9lzgFL9OYe
+ lwIJxknqywxtQ==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 12A51E6D3DE; Thu, 10 Mar 2022 04:00:11 +0000 (UTC)
+ 66E40F03841; Thu, 10 Mar 2022 04:20:11 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <164688481107.32652.14646023342949413674.git-patchwork-notify@kernel.org>
-Date: Thu, 10 Mar 2022 04:00:11 +0000
-References: <ee685745-f1ab-e9bf-f20e-077d55dff441@gmail.com>
-In-Reply-To: <ee685745-f1ab-e9bf-f20e-077d55dff441@gmail.com>
-To: Heiner Kallweit <hkallweit1@gmail.com>
-Cc: netdev@vger.kernel.org, alexandre.torgue@foss.st.com,
+Message-Id: <164688601141.11305.7538223970424164595.git-patchwork-notify@kernel.org>
+Date: Thu, 10 Mar 2022 04:20:11 +0000
+References: <20220309033415.3370250-1-michael.wei.hong.sit@intel.com>
+In-Reply-To: <20220309033415.3370250-1-michael.wei.hong.sit@intel.com>
+To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+Cc: vee.khee.wong@linux.intel.com, linux-kernel@vger.kernel.org,
+ weifeng.voon@intel.com, netdev@vger.kernel.org, alexandre.torgue@foss.st.com,
  linux-stm32@st-md-mailman.stormreply.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, peppe.cavallaro@st.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com, kuba@kernel.org,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: switch no PTP HW
- support message to info level
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] stmmac: intel: Add ADL-N PCI
+	ID
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,19 +69,17 @@ Hello:
 This patch was applied to netdev/net-next.git (master)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Tue, 8 Mar 2022 19:42:57 +0100 you wrote:
-> If HW doesn't support PTP, then it doesn't support it. This is neither
-> a problem nor can the user do something about it. Therefore change the
-> message level to info.
+On Wed,  9 Mar 2022 11:34:15 +0800 you wrote:
+> Add PCI ID for Ethernet TSN Controller on ADL-N.
 > 
-> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+> Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
 Here is the summary with links:
-  - [net-next] net: stmmac: switch no PTP HW support message to info level
-    https://git.kernel.org/netdev/net-next/c/1a21277190c7
+  - [net-next,1/1] stmmac: intel: Add ADL-N PCI ID
+    https://git.kernel.org/netdev/net-next/c/30c5601fbf35
 
 You are awesome, thank you!
 -- 
