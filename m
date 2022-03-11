@@ -2,57 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98AC44D6582
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Mar 2022 16:59:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB5674D64D7
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Mar 2022 16:45:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52900C628AC;
-	Fri, 11 Mar 2022 15:59:08 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70604C628A8;
+	Fri, 11 Mar 2022 15:45:59 +0000 (UTC)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 127F6C628A4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CF0AC628A4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Mar 2022 14:09:41 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7F1B061F0F;
- Fri, 11 Mar 2022 14:09:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11959C34111;
- Fri, 11 Mar 2022 14:09:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647007778;
- bh=YDr+LkSJ9LsOY8UPhtMHd6OG6zfQyitjAjU4i6/8mwY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rstGkDpQYmG/gWcfzx7m3ztE18p618LViwjGLvAVyQrUhaOYOjdu6p1RneC4x5i8p
- NDnSl8BxCLxxSS+v+E5fd05wK+pYVt2ubPR92zmOdfU3jczzIEJmYZ4C68LPDG0imz
- CrhQHSJf0QXkCYlVKkaedfInLJNEHXoHPR9PZ7ey2n33sq6qOk4N0v6kX7aE3kFa6W
- XxX5UU0SL5+ofGfhXJF306xCPBkWtqaQgetS3Aaz7xZr4sxO6Q20sbcvojDsmFl0ky
- 2OZ2N7X1lPyXuety6phZ0A5kAa2x31fGVusPf/Ay43+AMUgm0q/G5to/Gk2PeYw2Ap
- s3cmdK66UwNJQ==
-Received: from mchehab by mail.kernel.org with local (Exim 4.94.2)
- (envelope-from <mchehab@kernel.org>)
- id 1nSfxX-000lI5-R3; Fri, 11 Mar 2022 15:09:35 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: 
-Date: Fri, 11 Mar 2022 15:07:40 +0100
-Message-Id: <b51a1c723370e000ef658dc8a17b8d3d34102dee.1647006877.git.mchehab@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <cover.1647006877.git.mchehab@kernel.org>
-References: <cover.1647006877.git.mchehab@kernel.org>
+ Fri, 11 Mar 2022 15:45:58 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id l12so12500126ljh.12
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 11 Mar 2022 07:45:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=10XF3Sb+t0GCaPOcQ9XoyXqUIC9CjyYdWscRYcObAxw=;
+ b=MqSyuOe34h+f5EWwR/oM3slrJ38qINF04yiqUGK9i44Eg7rBVyesJHW1EnFC5kq8Fz
+ lk+2YfR6+b43HpQckMotOid77fcXOQCYnCzxj1VBwif0v7RCPtuA/XLZTOUL3TGLQ5aP
+ rQQEfHcA3U6Ckvf/b/iG+3oXnpYqaTOumz8wAkXkJ28WbzSqpcBZIFq8ncUer5twWgks
+ FOJuSVG0lF2of7EiLc6kYvyyb0pg3ayR7my6BVOGNSBBms3Z+ikWZdLDJdqgvWdJqhJe
+ L4QlwgEkOq4Qz46/Q/RRjPefsiQTSwFPLy5q6vZRgKOnqEz3+Npwf2GWlZojgDZgRcgm
+ baow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=10XF3Sb+t0GCaPOcQ9XoyXqUIC9CjyYdWscRYcObAxw=;
+ b=PJDNgAkgWsvyWoY+1HOSkt56G4jqsdK+CB5VzNHGlrbtAHCcyKmpZlWUQYA/9yps5V
+ QyARRkVGWQc6Gg/uvSl+khxbAvaFOW4Y+A/dzL2Op1wLVZtJuIt563512FEpIrp0IU7i
+ k8D1dYebdJMm8SkTeMjxu8z8JyVvXVnheyGgdgcQSReiAL/ii4fuzDmUcCOXUwftMTj8
+ ydDoNlTiFqkOT+fwgxxE9OLoQrm4wr7Yp/mdd9MkmIoBmyX3zT02Jddz6EgJnuY5CEdB
+ jr31OOkkiZEGUs7AHyDJhTQ6GmoQxQ5VvaXhQoJkdnRXVUoyo2q0Oevt3odEmMGz/XrQ
+ LLlg==
+X-Gm-Message-State: AOAM531NMf48Vkq+LtqfXZq4Jsaefl7DjPNfIcj13IclV5gqvSBYWwI4
+ NJ6gQa2kcxurB/+WWHuM2tkFgPIce6zV7mi/AM2KTA==
+X-Google-Smtp-Source: ABdhPJyKLXL/cjixS70H+wB5WRjtfcEBo2CKEa89VicVYZWBqrQ7uCDzqe5Ilvrer3zvBAGc4wkBHELro4zTjGulY/w=
+X-Received: by 2002:a2e:8603:0:b0:246:24c:b79c with SMTP id
+ a3-20020a2e8603000000b00246024cb79cmr6543962lji.367.1647013557376; Fri, 11
+ Mar 2022 07:45:57 -0800 (PST)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 11 Mar 2022 15:59:07 +0000
-Cc: linux-arm-kernel@lists.infradead.org, =?UTF-8?q?Niklas=20S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, linux-kernel@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+References: <20220304135134.47827-1-yann.gautier@foss.st.com>
+ <20220304135134.47827-2-yann.gautier@foss.st.com>
+ <CAPDyKFq_TsBLjW2WxC-Fvu6qDs9MJ1=QPo9gOLRykJ5p2pJbGw@mail.gmail.com>
+ <b465353f-9291-f159-ba0b-4cd9577fc676@foss.st.com>
+In-Reply-To: <b465353f-9291-f159-ba0b-4cd9577fc676@foss.st.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Fri, 11 Mar 2022 16:45:21 +0100
+Message-ID: <CAPDyKFqu_Y2ixbw380t5qA_rXTPLMWasqpBmaMqP0nHUOqzQhw@mail.gmail.com>
+To: Yann Gautier <yann.gautier@foss.st.com>
+Cc: Ludovic Barre <ludovic.barre@foss.st.com>, devicetree@vger.kernel.org,
+ Marek Vasut <marex@denx.de>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Grzegorz Szymaszek <gszymaszek@short.pl>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ kernel@dh-electronics.com, Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>, Dmitry Osipenko <digetx@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Ming Qian <ming.qian@nxp.com>,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 27/38] media: platform: stm32: move config
-	to its own file
+ Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: mmc: mmci: add a
+	property to disable DMA LLI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,115 +81,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In order to better organize the platform/Kconfig, place
-stm32-specific config stuff on a separate Kconfig file.
+On Thu, 10 Mar 2022 at 17:00, Yann Gautier <yann.gautier@foss.st.com> wrote:
+>
+> On 3/8/22 11:57, Ulf Hansson wrote:
+> > Hi Yann,
+> >
+> > On Fri, 4 Mar 2022 at 14:52, Yann Gautier <yann.gautier@foss.st.com> wrote:
+> >>
+> >> On STMicroelectronics variant of PL18x, the DMA Linked Lists are supported
+> >> starting from revision v2 of the peripheral. But it has limitations,
+> >> as all the buffers should be aligned on block size (except the last one).
+> >> But this cannot be guaranteed with SDIO. We should then have a property
+> >> to disable the support of LLI.
+> >
+> > Indeed, the buffer handling with SDIO is somewhat special, which also
+> > has been discussed several times on LKML before. In principle, we need
+> > the SDIO func drivers to respect buffer limitations that should be
+> > specified by the mmc host drivers. Quite similar to what we already
+> > have for block devices, like ->max_seg_size, ->max_seg, etc, that is
+> > set per mmc host.
+> >
+> > I realize that implementing something like the above requires bigger
+> > changes, which is why mmc host drivers instead validates the sglists
+> > and the elements. In some cases that means returning an error code and
+> > in others it could mean falling back to a non-DMA based I/O mode.
+> >
+> > For the stm32_sdmmc variant, it looks like the sglist validation is
+> > being managed in sdmmc_idma_validate_data() already. Can it be
+> > extended to cover this case too, rather than using a DT property?
+> >
+> > Kind regards
+> > Uffe
+>
+> Hi Ulf,
+>
+> OK, I'll check what can be done for this. Patches 1 and 2 can be
+> dropped, they will be reworked.
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
----
+Okay.
 
-To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
-See [PATCH v2 00/38] at: https://lore.kernel.org/all/cover.1647006877.git.mchehab@kernel.org/
+> But patch 3 of this series could be taken, as not linked to LLI
+> management. Should I push it again alone, or could you review it directly?
 
- drivers/media/platform/Kconfig       | 29 +-------------------------
- drivers/media/platform/stm32/Kconfig | 31 ++++++++++++++++++++++++++++
- 2 files changed, 32 insertions(+), 28 deletions(-)
- create mode 100644 drivers/media/platform/stm32/Kconfig
+I have some comments/questions on it, but perhaps it makes it easier
+for people to follow the discussion if it is done separately. So
+please push it alone, then I will review it.
 
-diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
-index 7e2b120a2057..460ad793b89b 100644
---- a/drivers/media/platform/Kconfig
-+++ b/drivers/media/platform/Kconfig
-@@ -69,6 +69,7 @@ source "drivers/media/platform/rockchip/rga/Kconfig"
- source "drivers/media/platform/s3c-camif/Kconfig"
- source "drivers/media/platform/s5p-g2d/Kconfig"
- source "drivers/media/platform/sti/hva/Kconfig"
-+source "drivers/media/platform/stm32/Kconfig"
- 
- config VIDEO_MUX
- 	tristate "Video Multiplexer"
-@@ -84,21 +85,6 @@ config VIDEO_MUX
- 
- source "drivers/media/platform/intel/Kconfig"
- 
--config VIDEO_STM32_DCMI
--	tristate "STM32 Digital Camera Memory Interface (DCMI) support"
--	depends on V4L_PLATFORM_DRIVERS
--	depends on VIDEO_V4L2 && OF
--	depends on ARCH_STM32 || COMPILE_TEST
--	select VIDEOBUF2_DMA_CONTIG
--	select MEDIA_CONTROLLER
--	select V4L2_FWNODE
--	help
--	  This module makes the STM32 Digital Camera Memory Interface (DCMI)
--	  available as a v4l2 device.
--
--	  To compile this driver as a module, choose M here: the module
--	  will be called stm32-dcmi.
--
- config VIDEO_ROCKCHIP_ISP1
- 	tristate "Rockchip Image Signal Processing v1 Unit driver"
- 	depends on V4L_PLATFORM_DRIVERS
-@@ -233,19 +219,6 @@ config VIDEO_STI_DELTA_DRIVER
- 	select V4L2_MEM2MEM_DEV
- 	select RPMSG
- 
--config VIDEO_STM32_DMA2D
--	tristate "STM32 Chrom-Art Accelerator (DMA2D)"
--	depends on V4L_MEM2MEM_DRIVERS
--	depends on VIDEO_DEV && VIDEO_V4L2
--	depends on ARCH_STM32 || COMPILE_TEST
--	select VIDEOBUF2_DMA_CONTIG
--	select V4L2_MEM2MEM_DEV
--	help
--	  Enables DMA2D hardware support on stm32.
--
--	  The STM32 DMA2D is a memory-to-memory engine for pixel conversion
--	  and specialized DMA dedicated to image manipulation.
--
- config VIDEO_TI_VPE
- 	tristate "TI VPE (Video Processing Engine) driver"
- 	depends on V4L_MEM2MEM_DRIVERS
-diff --git a/drivers/media/platform/stm32/Kconfig b/drivers/media/platform/stm32/Kconfig
-new file mode 100644
-index 000000000000..f4726010ca14
---- /dev/null
-+++ b/drivers/media/platform/stm32/Kconfig
-@@ -0,0 +1,31 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+# V4L drivers
-+config VIDEO_STM32_DCMI
-+	tristate "STM32 Digital Camera Memory Interface (DCMI) support"
-+	depends on V4L_PLATFORM_DRIVERS
-+	depends on VIDEO_V4L2 && OF
-+	depends on ARCH_STM32 || COMPILE_TEST
-+	select VIDEOBUF2_DMA_CONTIG
-+	select MEDIA_CONTROLLER
-+	select V4L2_FWNODE
-+	help
-+	  This module makes the STM32 Digital Camera Memory Interface (DCMI)
-+	  available as a v4l2 device.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called stm32-dcmi.
-+
-+# Mem2mem drivers
-+config VIDEO_STM32_DMA2D
-+	tristate "STM32 Chrom-Art Accelerator (DMA2D)"
-+	depends on V4L_MEM2MEM_DRIVERS
-+	depends on VIDEO_DEV && VIDEO_V4L2
-+	depends on ARCH_STM32 || COMPILE_TEST
-+	select VIDEOBUF2_DMA_CONTIG
-+	select V4L2_MEM2MEM_DEV
-+	help
-+	  Enables DMA2D hardware support on stm32.
-+
-+	  The STM32 DMA2D is a memory-to-memory engine for pixel conversion
-+	  and specialized DMA dedicated to image manipulation.
--- 
-2.35.1
+[...]
 
+Kind regards
+Uffe
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
