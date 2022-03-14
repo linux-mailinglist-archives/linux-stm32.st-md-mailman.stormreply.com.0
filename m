@@ -2,73 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 154D04D8A26
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Mar 2022 17:52:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD08D4D8A42
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Mar 2022 18:01:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0B48C60467;
-	Mon, 14 Mar 2022 16:52:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59138C60467;
+	Mon, 14 Mar 2022 17:01:50 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0152C5F1F2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03A01C60462
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Mar 2022 16:52:28 +0000 (UTC)
+ Mon, 14 Mar 2022 17:01:48 +0000 (UTC)
 Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22EFW2gq028526;
- Mon, 14 Mar 2022 17:51:56 +0100
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22EFVXoY028181;
+ Mon, 14 Mar 2022 18:01:42 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=OgL45lCtzMLvFBjJYcMhcxi0KbvD1Hrix4VnKyQb4TM=;
- b=SfHbOVFJnQgkKxdEV3p6l49I5F05fQhDxkAtt0O2vxecr3ucpPvZMNzEsbNf/EYU1dso
- IlLlES1Jdqsi2Dq2ZFpS4FafD5gtOKsMEpLEb2XP+k/RawSWg6l57P6a21AoB+avWFNN
- kWHl6YNiYGidCDH5JChWbLNZd3N5U66K+4mzTn54gugfanmnDBdUXGTE2rz/lXvHJBhv
- VE/MC9RXuC5ZaqEFcHE2fnlDMplx/kX/OdtyUMhmiIpG6FLCEVC595PSe8mGP4BFo5G7
- qSODp0G/W0lIqx7sWjSl8tlHpRhrLBiahV6VXLvpKYGTwzcxQQSSOak+0Y2ioQQwwMCW Uw== 
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=FdgbXbbIob0VUo9uDWNJvJozkOm8ZjUabXR8n6veSEA=;
+ b=TyUKP3Hz7s+pTYvoRAVFD9SumqzIA2nuCU+Lnd1yrFNNmVyPhAoKWhG247zCvVEbhIq/
+ ZK7FmC/KsfqxefRfhumH/IYCSyYKCcAPhJdTjIZA7yKieK23xjxvR8KovJhGh8oJ+g76
+ OtMx5DbIOs6tLKOeqhv7n52fQMBvD7KB50lDH0oQM6FPg8Ncx609SuWpxm5fvSd8ZQAs
+ b78GTnElbMmP+4fJPnpFxlTGqHgu+WYGm4K5NDzF6D62uP/D0wXeKAlIkK0ziNJPX+Rb
+ V8QpvGyIUw/fEfyOwroPqYfTS7pM4sMCNKewZz7Oty3QL5jVJ4E1BxKiLsDqBC0CYaxy zw== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3et89dgnyk-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3et89dgrhc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Mar 2022 17:51:55 +0100
+ Mon, 14 Mar 2022 18:01:41 +0100
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2A1D610002A;
- Mon, 14 Mar 2022 17:51:55 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 363DF10002A;
+ Mon, 14 Mar 2022 18:01:41 +0100 (CET)
 Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1FDAD22FA5A;
- Mon, 14 Mar 2022 17:51:55 +0100 (CET)
-Received: from [10.201.21.172] (10.75.127.45) by SFHDAG2NODE2.st.com
- (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 14 Mar
- 2022 17:51:54 +0100
-Message-ID: <ce29e53a-59ff-000a-6b88-0b7ae538c515@foss.st.com>
-Date: Mon, 14 Mar 2022 17:51:53 +0100
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2A7A92309F1;
+ Mon, 14 Mar 2022 18:01:41 +0100 (CET)
+Received: from localhost (10.75.127.51) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 14 Mar 2022 18:01:40
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Mon, 14 Mar 2022 18:01:22 +0100
+Message-ID: <20220314170126.2333996-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: Ulf Hansson <ulf.hansson@linaro.org>
-References: <20220314095225.53563-1-yann.gautier@foss.st.com>
- <20220314125554.190574-1-yann.gautier@foss.st.com>
- <CAPDyKFruN9Xwk4uqFumwBdcn4SjKQcSQVBbALa3kVxY4mVzOnQ@mail.gmail.com>
- <9e4fbf6a-1309-3aee-fcb0-be7c2c683892@foss.st.com>
- <CAPDyKFq2Du1UWpvRFpVF_qL65SP0DfEV872U9Xe-9i7xKxXhqg@mail.gmail.com>
-From: Yann Gautier <yann.gautier@foss.st.com>
-In-Reply-To: <CAPDyKFq2Du1UWpvRFpVF_qL65SP0DfEV872U9Xe-9i7xKxXhqg@mail.gmail.com>
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+X-Originating-IP: [10.75.127.51]
+X-ClientProxiedBy: SFHDAG2NODE3.st.com (10.75.127.6) To SFHDAG2NODE2.st.com
  (10.75.127.5)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
  definitions=2022-03-14_12,2022-03-14_02,2022-02-23_01
-Cc: Ludovic Barre <ludovic.barre@foss.st.com>, Marek Vasut <marex@denx.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Grzegorz Szymaszek <gszymaszek@short.pl>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- kernel@dh-electronics.com, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2] mmc: mmci: manage MMC_PM_KEEP_POWER
-	per variant config
+Cc: Rob Herring <robh@kernel.org>, Bruce Ashfield <bruce.ashfield@xilinx.com>,
+ Stefano Stabellini <stefanos@xilinx.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ arnaud.pouliquen@foss.st.com, Christoph Hellwig <hch@lst.de>
+Subject: [Linux-stm32] [RFC PATCH v4 0/4] remoteproc: restructure the
+	remoteproc VirtIO device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,134 +70,101 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/14/22 17:18, Ulf Hansson wrote:
-> On Mon, 14 Mar 2022 at 15:34, Yann Gautier <yann.gautier@foss.st.com> wrote:
->>
->> On 3/14/22 14:03, Ulf Hansson wrote:
->>> On Mon, 14 Mar 2022 at 13:56, Yann Gautier <yann.gautier@foss.st.com> wrote:
->>>>
->>>> Add a disable_keep_power field in variant_data struct. The
->>>> MMC_PM_KEEP_POWER flag will be enabled if disable_keep_power is not set.
->>>> It is only set to true for stm32_sdmmc variants.
->>>>
->>>> The issue was seen on STM32MP157C-DK2 board, which embeds a wifi chip.
->>>> It doesn't correctly support low power on this board. The Wifi chip
->>>> awaits an always-on regulator, but it was connected to v3v3 which is off
->>>> in low-power sequence. MMC_PM_KEEP_POWER should then be disabled.
->>>
->>> Just to make sure I get this correct.
->>>
->>> Why can't the regulator stay on during system suspend? The point is,
->>> we don't need an always on regulator to cope with this.
->>>
->>> Kind regards
->>> Uffe
->>
->> Hi Ulf,
->>
->> This v3v3 regulator powers most of the devices on this board. So we need
->> to switch it off to gain power in suspend mode.
-> 
-> I see. Thanks for sharing that information.
-> 
-> The MMC_PM_KEEP_POWER flag is there to describe what is supported by
-> the platform/host. It doesn't mean that the card *must* stay powered
-> on during system suspend. Instead that depends on whether system
-> wakeup for the SDIO/WiFi is supported too - and if that is enabled by
-> userspace. If not, the regulator will be turned off for the SDIO card
-> during system suspend.
-> 
-> Assuming the regulator is implemented as a proper regulator and can
-> remain on during system suspend, the right thing would be to keep the
-> MMC_PM_KEEP_POWER flag around.
-> 
-> Kind regards
-> Uffe
-> 
+Update from V3 [1]:
+Minor updates based on Mathieu's comments.
+Updates are listed in the commit message of each patch.
 
-OK, but in the wifi driver we use on this platform (brcmfmac), the 
-suspend/resume functions (brcmf_ops_sdio_suspend/brcmf_ops_sdio_resume) 
-use the flag to check regu was off, and then call probe function during 
-resume, to re-init Wifi chip and reload its firmware.
+[1] https://lkml.org/lkml/2022/1/26/799
 
+Patchset description:
 
-Best regards,
-Yann
+This series is a part of the work initiated a long time ago in 
+the series "remoteproc: Decorelate virtio from core"[2]
 
->>
->>
->> Yann
->>
->>>
->>>>
->>>> The flag can still be enabled through DT property:
->>>> keep-power-in-suspend.
->>>>
->>>> Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
->>>> ---
->>>> Update in v2:
->>>> Reword commit message to better explain the issue.
->>>>
->>>> Resend the patch alone. It was previoulsy in a series [1] for which the
->>>> other patches will be reworked.
->>>>
->>>> [1] https://lore.kernel.org/lkml/20220304135134.47827-1-yann.gautier@foss.st.com/
->>>>
->>>>    drivers/mmc/host/mmci.c | 5 ++++-
->>>>    drivers/mmc/host/mmci.h | 1 +
->>>>    2 files changed, 5 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
->>>> index 45b8608c935c..0e2f2f5d6a52 100644
->>>> --- a/drivers/mmc/host/mmci.c
->>>> +++ b/drivers/mmc/host/mmci.c
->>>> @@ -274,6 +274,7 @@ static struct variant_data variant_stm32_sdmmc = {
->>>>           .busy_detect            = true,
->>>>           .busy_detect_flag       = MCI_STM32_BUSYD0,
->>>>           .busy_detect_mask       = MCI_STM32_BUSYD0ENDMASK,
->>>> +       .disable_keep_power     = true,
->>>>           .init                   = sdmmc_variant_init,
->>>>    };
->>>>
->>>> @@ -301,6 +302,7 @@ static struct variant_data variant_stm32_sdmmcv2 = {
->>>>           .busy_detect            = true,
->>>>           .busy_detect_flag       = MCI_STM32_BUSYD0,
->>>>           .busy_detect_mask       = MCI_STM32_BUSYD0ENDMASK,
->>>> +       .disable_keep_power     = true,
->>>>           .init                   = sdmmc_variant_init,
->>>>    };
->>>>
->>>> @@ -2172,7 +2174,8 @@ static int mmci_probe(struct amba_device *dev,
->>>>           host->stop_abort.flags = MMC_RSP_R1B | MMC_CMD_AC;
->>>>
->>>>           /* We support these PM capabilities. */
->>>> -       mmc->pm_caps |= MMC_PM_KEEP_POWER;
->>>> +       if (!variant->disable_keep_power)
->>>> +               mmc->pm_caps |= MMC_PM_KEEP_POWER;
->>>>
->>>>           /*
->>>>            * We can do SGIO
->>>> diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
->>>> index e1a9b96a3396..2cad1ef9766a 100644
->>>> --- a/drivers/mmc/host/mmci.h
->>>> +++ b/drivers/mmc/host/mmci.h
->>>> @@ -361,6 +361,7 @@ struct variant_data {
->>>>           u32                     opendrain;
->>>>           u8                      dma_lli:1;
->>>>           u32                     stm32_idmabsize_mask;
->>>> +       u8                      disable_keep_power:1;
->>>>           void (*init)(struct mmci_host *host);
->>>>    };
->>>>
->>>> --
->>>> 2.25.1
->>>>
->>
+Objective of the work:
+- Update the remoteproc VirtIO device creation (use platform device)
+- Allow to declare remoteproc VirtIO device in DT
+    - declare resources associated to a remote proc VirtIO
+    - declare a list of VirtIO supported by the platform.
+- Prepare the enhancement to more VirtIO devices (e.g I2C, audio, video, ...).
+  For instance be able to declare a I2C device in a virtio-i2C node.
+- Keep the legacy working!
+- Try to improve the picture about concerns reported by Christoph Hellwing [3][4]
+
+[2] https://lkml.org/lkml/2020/4/16/1817
+[3] https://lkml.org/lkml/2021/6/23/607
+[4] https://patchwork.kernel.org/project/linux-remoteproc/patch/AOKowLclCbOCKxyiJ71WeNyuAAj2q8EUtxrXbyky5E@cp7-web-042.plabs.ch/
+
+In term of device tree this would result in such hiearchy (stm32mp1 example with 2 virtio RPMSG):
+
+	m4_rproc: m4@10000000 {
+		compatible = "st,stm32mp1-m4";
+		reg = <0x10000000 0x40000>,
+		      <0x30000000 0x40000>,
+		      <0x38000000 0x10000>;
+        memory-region = <&retram>, <&mcuram>,<&mcuram2>;
+        mboxes = <&ipcc 2>, <&ipcc 3>;
+        mbox-names = "shutdown", "detach";
+        status = "okay";
+
+        #address-cells = <1>;
+        #size-cells = <0>;
+        
+        vdev@0 {
+		compatible = "rproc-virtio";
+		reg = <0>;
+		virtio,id = <7>;  /* RPMSG */
+		memory-region = <&vdev0vring0>, <&vdev0vring1>, <&vdev0buffer>;
+		mboxes = <&ipcc 0>, <&ipcc 1>;
+		mbox-names = "vq0", "vq1";
+		status = "okay";
+        };
+
+        vdev@1 {
+		compatible = "rproc-virtio";
+		reg = <1>;
+		virtio,id = <7>;  /*RPMSG */
+		memory-region = <&vdev1vring0>, <&vdev1vring1>, <&vdev1buffer>;
+		mboxes = <&ipcc 4>, <&ipcc 5>;
+		mbox-names = "vq0", "vq1";
+		status = "okay";
+        };
+};
+
+I have divided the work in 4 steps to simplify the review, This series implements only
+the step 1:
+step 1:  redefine the remoteproc VirtIO device as a platform device
+  - migrate rvdev management in remoteproc virtio.c,
+  - create a remotproc virtio config ( can be disabled for platform that not use VirtIO IPC.
+step 2: add possibility to declare and probe a VirtIO sub node
+  - VirtIO bindings declaration,
+  - multi DT VirtIO devices support,
+  - introduction of a remote proc virtio bind device mechanism ,
+=> https://github.com/arnopo/linux/commits/step2-virtio-in-DT
+step 3: Add memory declaration in VirtIO subnode
+=> https://github.com/arnopo/linux/commits/step3-virtio-memories
+step 4: Add mailbox declaration in VirtIO subnode
+=> https://github.com/arnopo/linux/commits/step4-virtio-mailboxes
+
+Arnaud Pouliquen (4):
+  remoteproc: core: Introduce virtio device add/remove functions
+  remoteproc: core: Introduce rproc_register_rvdev function
+  remoteproc: Move rproc_vdev management to remoteproc_virtio.c
+  remoteproc: virtio: Create platform device for the remoteproc_virtio
+
+ drivers/remoteproc/remoteproc_core.c     | 154 +++---------------
+ drivers/remoteproc/remoteproc_internal.h |  23 ++-
+ drivers/remoteproc/remoteproc_virtio.c   | 193 ++++++++++++++++++++---
+ include/linux/remoteproc.h               |   6 +-
+ 4 files changed, 215 insertions(+), 161 deletions(-)
+
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
