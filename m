@@ -2,64 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924404D85C2
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Mar 2022 14:10:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E1974D862F
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Mar 2022 14:46:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5052CC60468;
-	Mon, 14 Mar 2022 13:10:19 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1B2BC5F1F2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Mar 2022 13:10:18 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3108AC60467;
+	Mon, 14 Mar 2022 13:46:06 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6832061180;
- Mon, 14 Mar 2022 13:10:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD52C340F4;
- Mon, 14 Mar 2022 13:10:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647263416;
- bh=OBsH32SjfImTKdIFeqvuOy2qDlC46bBa8wDT6FSKdbM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=DAVj1ByBt79KtNtPHtU5zXvZRDutA5kApkHANV/eigsree1RcJAEuSX6H4IYyb2aW
- vYNIA52qquCy91eM4cnDHyMhx/806ak8xEjzbKL++6rzx+LSLP/ejxcu9ET/DVcNRp
- KBALhthOq0JA6VPFJrDRrvAAsxH/ZxmqSNV4MUphu1tJNCtSfHqTApO4PkYWGjwbMV
- Xp+zb+EdiqsR7Zx14HYkLLLiPFcM1c5ONLwazaLSSgoBbqDHyy4GFrnR60z360RqRA
- oCDCGrJ2oxrNDMUx6+KVJ5SUDAl+HBLpjSL4zFScwIBFW/NSYCKGVLPKoDN74lFdqA
- TkBaZomph875w==
-Date: Mon, 14 Mar 2022 14:10:08 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Hugues FRUCHET - FOSS <hugues.fruchet@foss.st.com>
-Message-ID: <20220314141008.13e32acd@coco.lan>
-In-Reply-To: <1122a956-0650-f948-512b-d3447e34df30@foss.st.com>
-References: <cover.1647167750.git.mchehab@kernel.org>
- <dc5be62a56ac19c6f49f4c8432558fd7b0efe7e6.1647167750.git.mchehab@kernel.org>
- <20220314083942.GA526468@gnbcxd0016.gnb.st.com>
- <20220314121454.7432e231@coco.lan>
- <1122a956-0650-f948-512b-d3447e34df30@foss.st.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-redhat-linux-gnu)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B243C5F1EB
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 14 Mar 2022 13:46:05 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22EDccH8021150;
+ Mon, 14 Mar 2022 14:45:31 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=ruqKKT2NdWphDUcRNwnUJkz/nzgzUFrDkEA5GEduIyI=;
+ b=H2mYSC5b8FayDBeMLRbmBaIYYNWLqCNnl+tSNE90iDr4r52/3SS+XVLQ5M7jwMqb5YDy
+ nu45mdy2phhCw5fvJsmNI1oKs8G7V+YErBb5PaDgyyfdUHTZXJOa8qv0UeAU0D+3hOpg
+ Yw1y5HER43DYsrcauOppisAPenfAOy6JXV4eBOGPYsslwW21lkN66T3NuUHk/bzIAMmF
+ IIpEIJrCphWaFGndgmEzABrZxYH1fcYIxRWBNTAQlUG6VOK51StKxy5XalUbEZ331KoH
+ DmQX3QteHr2o7PWNFOko+4nDh9qfcpfUSYZtOVuYKsWlNKj4888WGB3OQwHPdP/jeQoh UQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3et6eh072y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Mar 2022 14:45:31 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 78054100034;
+ Mon, 14 Mar 2022 14:45:30 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6F374222CB0;
+ Mon, 14 Mar 2022 14:45:30 +0100 (CET)
+Received: from [10.201.21.172] (10.75.127.47) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 14 Mar
+ 2022 14:45:29 +0100
+Message-ID: <29f2fe3a-9814-75ba-806f-b0e7dbb41e8f@foss.st.com>
+Date: Mon, 14 Mar 2022 14:45:28 +0100
 MIME-Version: 1.0
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Dmitry Osipenko <digetx@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alexey Khoroshilov <khoroshilov@ispras.ru>, Leon Romanovsky <leon@kernel.org>,
- Dmitriy Ulitin <ulitin@ispras.ru>, Alain Volmat <alain.volmat@foss.st.com>,
- linux-media@vger.kernel.org, Jacopo Mondi <jacopo@jmondi.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Dillon Min <dillon.minfei@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Niklas =?UTF-8?B?U8O2ZGVybHVu?= =?UTF-8?B?ZA==?=
- <niklas.soderlund+renesas@ragnatech.se>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Eugen Hristev <eugen.hristev@microchip.com>, Ming Qian <ming.qian@nxp.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [Linux-stm32] [PATCH 17/24] media: platform: rename stm32/ to
-	sti/stm32/
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Philipp Zabel <p.zabel@pengutronix.de>, Ulf Hansson
+ <ulf.hansson@linaro.org>
+References: <20220314095225.53563-1-yann.gautier@foss.st.com>
+ <20220314125554.190574-1-yann.gautier@foss.st.com>
+ <1e620fa18fa34ca1f65558e3a52f79f81ff20634.camel@pengutronix.de>
+From: Yann Gautier <yann.gautier@foss.st.com>
+In-Reply-To: <1e620fa18fa34ca1f65558e3a52f79f81ff20634.camel@pengutronix.de>
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-03-14_04,2022-03-14_01,2022-02-23_01
+Cc: Ludovic Barre <ludovic.barre@foss.st.com>, Marek Vasut <marex@denx.de>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Grzegorz Szymaszek <gszymaszek@short.pl>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2] mmc: mmci: manage MMC_PM_KEEP_POWER
+	per variant config
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,54 +78,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Em Mon, 14 Mar 2022 12:34:47 +0100
-Hugues FRUCHET - FOSS <hugues.fruchet@foss.st.com> escreveu:
-
-> Hi Mauro,
-> 
-> Ideally we would like to stick to sti/ and stm32/ at same level, as it 
-> is done in various other locations:
-> 
-> ./Documentation/arm/sti/
-> ./Documentation/arm/stm32/
-> 
-> ./arch/arm/mach-sti
-> ./arch/arm/mach-stm32
-> 
-> ./drivers/media/cec/platform/sti/
-> ./drivers/media/cec/platform/stm32/
-> 
-> ./drivers/gpu/drm/sti/
-> ./drivers/gpu/drm/stm/
-> 
-> ./sound/soc/sti/
-> ./sound/soc/stm/
-> 
-> Is this possible to keep those media folders as is ?
-
-If we add them under:
-	./drivers/media/platform/stm/sti/
-	./drivers/media/platform/stm/stm32/
-
-They'll both be at the same level. 
-
-It has been increasingly hard to maintain media/platform, as the file
-become too big and disorganized. Sorting it per-vendor seems to be the
-best thing, as it will keep things better organized. 
-
-As a side effect, with such kind of change, it is now possible to 
-have a MAINTAINERS entry that would point to a mailing list and/or 
-some SoC maintainers/reviewers that should be c/c to all patches 
-affecting drivers/media/platform/<vendor>.
-
-Thanks,
-Mauro
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMy8xNC8yMiAxNDowNSwgUGhpbGlwcCBaYWJlbCB3cm90ZToKPiBIaSBZYW5uLAo+IAo+IE9u
+IE1vLCAyMDIyLTAzLTE0IGF0IDEzOjU1ICswMTAwLCBZYW5uIEdhdXRpZXIgd3JvdGU6Cj4+IEFk
+ZCBhIGRpc2FibGVfa2VlcF9wb3dlciBmaWVsZCBpbiB2YXJpYW50X2RhdGEgc3RydWN0LiBUaGUK
+Pj4gTU1DX1BNX0tFRVBfUE9XRVIgZmxhZyB3aWxsIGJlIGVuYWJsZWQgaWYgZGlzYWJsZV9rZWVw
+X3Bvd2VyIGlzIG5vdAo+PiBzZXQuCj4+IEl0IGlzIG9ubHkgc2V0IHRvIHRydWUgZm9yIHN0bTMy
+X3NkbW1jIHZhcmlhbnRzLgo+Pgo+PiBUaGUgaXNzdWUgd2FzIHNlZW4gb24gU1RNMzJNUDE1N0Mt
+REsyIGJvYXJkLCB3aGljaCBlbWJlZHMgYSB3aWZpCj4+IGNoaXAuCj4+IEl0IGRvZXNuJ3QgY29y
+cmVjdGx5IHN1cHBvcnQgbG93IHBvd2VyIG9uIHRoaXMgYm9hcmQuIFRoZSBXaWZpIGNoaXAKPj4g
+YXdhaXRzIGFuIGFsd2F5cy1vbiByZWd1bGF0b3IsIGJ1dCBpdCB3YXMgY29ubmVjdGVkIHRvIHYz
+djMgd2hpY2ggaXMKPj4gb2ZmCj4+IGluIGxvdy1wb3dlciBzZXF1ZW5jZS4gTU1DX1BNX0tFRVBf
+UE9XRVIgc2hvdWxkIHRoZW4gYmUgZGlzYWJsZWQuCj4+Cj4+IFRoZSBmbGFnIGNhbiBzdGlsbCBi
+ZSBlbmFibGVkIHRocm91Z2ggRFQgcHJvcGVydHk6Cj4+IGtlZXAtcG93ZXItaW4tc3VzcGVuZC4K
+Pj4KPj4gU2lnbmVkLW9mZi1ieTogWWFubiBHYXV0aWVyIDx5YW5uLmdhdXRpZXJAZm9zcy5zdC5j
+b20+Cj4+IC0tLQo+PiBVcGRhdGUgaW4gdjI6Cj4+IFJld29yZCBjb21taXQgbWVzc2FnZSB0byBi
+ZXR0ZXIgZXhwbGFpbiB0aGUgaXNzdWUuCj4+Cj4+IFJlc2VuZCB0aGUgcGF0Y2ggYWxvbmUuIEl0
+IHdhcyBwcmV2aW91bHN5IGluIGEgc2VyaWVzIFsxXSBmb3Igd2hpY2gKPj4gdGhlCj4+IG90aGVy
+IHBhdGNoZXMgd2lsbCBiZSByZXdvcmtlZC4KPj4KPj4gWzFdCj4+IGh0dHBzOi8vbG9yZS5rZXJu
+ZWwub3JnL2xrbWwvMjAyMjAzMDQxMzUxMzQuNDc4MjctMS15YW5uLmdhdXRpZXJAZm9zcy5zdC5j
+b20vCj4+Cj4+ICDCoGRyaXZlcnMvbW1jL2hvc3QvbW1jaS5jIHwgNSArKysrLQo+PiAgwqBkcml2
+ZXJzL21tYy9ob3N0L21tY2kuaCB8IDEgKwo+PiAgwqAyIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0
+aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tbWMvaG9z
+dC9tbWNpLmMgYi9kcml2ZXJzL21tYy9ob3N0L21tY2kuYwo+PiBpbmRleCA0NWI4NjA4YzkzNWMu
+LjBlMmYyZjVkNmE1MiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMKPj4g
+KysrIGIvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMKPj4gQEAgLTI3NCw2ICsyNzQsNyBAQCBzdGF0
+aWMgc3RydWN0IHZhcmlhbnRfZGF0YSB2YXJpYW50X3N0bTMyX3NkbW1jID0KPj4gewo+PiAgwqDC
+oMKgwqDCoMKgwqDCoC5idXN5X2RldGVjdMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0gdHJ1ZSwK
+Pj4gIMKgwqDCoMKgwqDCoMKgwqAuYnVzeV9kZXRlY3RfZmxhZ8KgwqDCoMKgwqDCoMKgPSBNQ0lf
+U1RNMzJfQlVTWUQwLAo+PiAgwqDCoMKgwqDCoMKgwqDCoC5idXN5X2RldGVjdF9tYXNrwqDCoMKg
+wqDCoMKgwqA9IE1DSV9TVE0zMl9CVVNZRDBFTkRNQVNLLAo+PiArwqDCoMKgwqDCoMKgwqAuZGlz
+YWJsZV9rZWVwX3Bvd2VywqDCoMKgwqDCoD0gdHJ1ZSwKPj4gIMKgwqDCoMKgwqDCoMKgwqAuaW5p
+dMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgPSBzZG1tY192YXJpYW50X2lu
+aXQsCj4+ICDCoH07Cj4+ICAgCj4+IEBAIC0zMDEsNiArMzAyLDcgQEAgc3RhdGljIHN0cnVjdCB2
+YXJpYW50X2RhdGEgdmFyaWFudF9zdG0zMl9zZG1tY3YyCj4+ID0gewo+PiAgwqDCoMKgwqDCoMKg
+wqDCoC5idXN5X2RldGVjdMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoD0gdHJ1ZSwKPj4gIMKgwqDC
+oMKgwqDCoMKgwqAuYnVzeV9kZXRlY3RfZmxhZ8KgwqDCoMKgwqDCoMKgPSBNQ0lfU1RNMzJfQlVT
+WUQwLAo+PiAgwqDCoMKgwqDCoMKgwqDCoC5idXN5X2RldGVjdF9tYXNrwqDCoMKgwqDCoMKgwqA9
+IE1DSV9TVE0zMl9CVVNZRDBFTkRNQVNLLAo+PiArwqDCoMKgwqDCoMKgwqAuZGlzYWJsZV9rZWVw
+X3Bvd2VywqDCoMKgwqDCoD0gdHJ1ZSwKPj4gIMKgwqDCoMKgwqDCoMKgwqAuaW5pdMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgPSBzZG1tY192YXJpYW50X2luaXQsCj4+ICDC
+oH07Cj4+ICAgCj4+IEBAIC0yMTcyLDcgKzIxNzQsOCBAQCBzdGF0aWMgaW50IG1tY2lfcHJvYmUo
+c3RydWN0IGFtYmFfZGV2aWNlICpkZXYsCj4+ICDCoMKgwqDCoMKgwqDCoMKgaG9zdC0+c3RvcF9h
+Ym9ydC5mbGFncyA9IE1NQ19SU1BfUjFCIHwgTU1DX0NNRF9BQzsKPj4gICAKPj4gIMKgwqDCoMKg
+wqDCoMKgwqAvKiBXZSBzdXBwb3J0IHRoZXNlIFBNIGNhcGFiaWxpdGllcy4gKi8KPj4gLcKgwqDC
+oMKgwqDCoMKgbW1jLT5wbV9jYXBzIHw9IE1NQ19QTV9LRUVQX1BPV0VSOwo+PiArwqDCoMKgwqDC
+oMKgwqBpZiAoIXZhcmlhbnQtPmRpc2FibGVfa2VlcF9wb3dlcikKPj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoG1tYy0+cG1fY2FwcyB8PSBNTUNfUE1fS0VFUF9QT1dFUjsKPj4gICAK
+Pj4gIMKgwqDCoMKgwqDCoMKgwqAvKgo+PiAgwqDCoMKgwqDCoMKgwqDCoCAqIFdlIGNhbiBkbyBT
+R0lPCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21tYy9ob3N0L21tY2kuaCBiL2RyaXZlcnMvbW1j
+L2hvc3QvbW1jaS5oCj4+IGluZGV4IGUxYTliOTZhMzM5Ni4uMmNhZDFlZjk3NjZhIDEwMDY0NAo+
+PiAtLS0gYS9kcml2ZXJzL21tYy9ob3N0L21tY2kuaAo+PiArKysgYi9kcml2ZXJzL21tYy9ob3N0
+L21tY2kuaAo+PiBAQCAtMzYxLDYgKzM2MSw3IEBAIHN0cnVjdCB2YXJpYW50X2RhdGEgewo+PiAg
+wqDCoMKgwqDCoMKgwqDCoHUzMsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoG9wZW5kcmFpbjsKPj4gIMKgwqDCoMKgwqDCoMKgwqB1OMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgZG1hX2xsaToxOwo+PiAgwqDCoMKgwqDCoMKgwqDCoHUz
+MsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHN0bTMyX2lkbWFic2l6
+ZV9tYXNrOwo+PiArwqDCoMKgwqDCoMKgwqB1OMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgZGlzYWJsZV9rZWVwX3Bvd2VyOjE7Cj4gCj4gVGhlcmUgYXJlIGFscmVh
+ZHkgZm91ciBzZXBhcmF0ZSBiaXRmaWVsZHMgaW4gc3RydWN0IHZhcmlhbnRfZGF0YSwgd2h5Cj4g
+bm90IG1vdmUgdGhpcyB1cCBpbnRvIG9uZSBvZiB0aGVtPwo+IAo+IHJlZ2FyZHMKPiBQaGlsaXBw
+CgpIaSBQaGlsaXBwLAoKWW91J3JlIHJpZ2h0LCBJJ2xsIHB1dCBpdCB3aXRoIHRoZSBwcmV2aW91
+cyBiaXRmaWxlZCBpbiB2My4KCkJlc3QgcmVnYXJkcywKWWFubgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
