@@ -2,53 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 432294D85AA
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Mar 2022 14:06:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 924404D85C2
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Mar 2022 14:10:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03098C60468;
-	Mon, 14 Mar 2022 13:06:04 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5052CC60468;
+	Mon, 14 Mar 2022 13:10:19 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1B2BC5F1F2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 14 Mar 2022 13:10:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D319CC5F1F2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Mar 2022 13:06:02 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1nTkOc-00053S-TA; Mon, 14 Mar 2022 14:05:58 +0100
-Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1nTkOa-000eWs-KI; Mon, 14 Mar 2022 14:05:55 +0100
-Received: from pza by lupine with local (Exim 4.94.2)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1nTkOY-0007WY-D1; Mon, 14 Mar 2022 14:05:54 +0100
-Message-ID: <1e620fa18fa34ca1f65558e3a52f79f81ff20634.camel@pengutronix.de>
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Yann Gautier <yann.gautier@foss.st.com>, Ulf Hansson
- <ulf.hansson@linaro.org>
-Date: Mon, 14 Mar 2022 14:05:54 +0100
-In-Reply-To: <20220314125554.190574-1-yann.gautier@foss.st.com>
-References: <20220314095225.53563-1-yann.gautier@foss.st.com>
- <20220314125554.190574-1-yann.gautier@foss.st.com>
-User-Agent: Evolution 3.38.3-1 
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6832061180;
+ Mon, 14 Mar 2022 13:10:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CD52C340F4;
+ Mon, 14 Mar 2022 13:10:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1647263416;
+ bh=OBsH32SjfImTKdIFeqvuOy2qDlC46bBa8wDT6FSKdbM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=DAVj1ByBt79KtNtPHtU5zXvZRDutA5kApkHANV/eigsree1RcJAEuSX6H4IYyb2aW
+ vYNIA52qquCy91eM4cnDHyMhx/806ak8xEjzbKL++6rzx+LSLP/ejxcu9ET/DVcNRp
+ KBALhthOq0JA6VPFJrDRrvAAsxH/ZxmqSNV4MUphu1tJNCtSfHqTApO4PkYWGjwbMV
+ Xp+zb+EdiqsR7Zx14HYkLLLiPFcM1c5ONLwazaLSSgoBbqDHyy4GFrnR60z360RqRA
+ oCDCGrJ2oxrNDMUx6+KVJ5SUDAl+HBLpjSL4zFScwIBFW/NSYCKGVLPKoDN74lFdqA
+ TkBaZomph875w==
+Date: Mon, 14 Mar 2022 14:10:08 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Hugues FRUCHET - FOSS <hugues.fruchet@foss.st.com>
+Message-ID: <20220314141008.13e32acd@coco.lan>
+In-Reply-To: <1122a956-0650-f948-512b-d3447e34df30@foss.st.com>
+References: <cover.1647167750.git.mchehab@kernel.org>
+ <dc5be62a56ac19c6f49f4c8432558fd7b0efe7e6.1647167750.git.mchehab@kernel.org>
+ <20220314083942.GA526468@gnbcxd0016.gnb.st.com>
+ <20220314121454.7432e231@coco.lan>
+ <1122a956-0650-f948-512b-d3447e34df30@foss.st.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Ludovic Barre <ludovic.barre@foss.st.com>, Marek Vasut <marex@denx.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Grzegorz Szymaszek <gszymaszek@short.pl>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- kernel@dh-electronics.com, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2] mmc: mmci: manage MMC_PM_KEEP_POWER
- per variant config
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Dmitry Osipenko <digetx@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexey Khoroshilov <khoroshilov@ispras.ru>, Leon Romanovsky <leon@kernel.org>,
+ Dmitriy Ulitin <ulitin@ispras.ru>, Alain Volmat <alain.volmat@foss.st.com>,
+ linux-media@vger.kernel.org, Jacopo Mondi <jacopo@jmondi.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Dillon Min <dillon.minfei@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Niklas =?UTF-8?B?U8O2ZGVybHVu?= =?UTF-8?B?ZA==?=
+ <niklas.soderlund+renesas@ragnatech.se>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Eugen Hristev <eugen.hristev@microchip.com>, Ming Qian <ming.qian@nxp.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: [Linux-stm32] [PATCH 17/24] media: platform: rename stm32/ to
+	sti/stm32/
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,68 +71,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgWWFubiwKCk9uIE1vLCAyMDIyLTAzLTE0IGF0IDEzOjU1ICswMTAwLCBZYW5uIEdhdXRpZXIg
-d3JvdGU6Cj4gQWRkIGEgZGlzYWJsZV9rZWVwX3Bvd2VyIGZpZWxkIGluIHZhcmlhbnRfZGF0YSBz
-dHJ1Y3QuIFRoZQo+IE1NQ19QTV9LRUVQX1BPV0VSIGZsYWcgd2lsbCBiZSBlbmFibGVkIGlmIGRp
-c2FibGVfa2VlcF9wb3dlciBpcyBub3QKPiBzZXQuCj4gSXQgaXMgb25seSBzZXQgdG8gdHJ1ZSBm
-b3Igc3RtMzJfc2RtbWMgdmFyaWFudHMuCj4gCj4gVGhlIGlzc3VlIHdhcyBzZWVuIG9uIFNUTTMy
-TVAxNTdDLURLMiBib2FyZCwgd2hpY2ggZW1iZWRzIGEgd2lmaQo+IGNoaXAuCj4gSXQgZG9lc24n
-dCBjb3JyZWN0bHkgc3VwcG9ydCBsb3cgcG93ZXIgb24gdGhpcyBib2FyZC4gVGhlIFdpZmkgY2hp
-cAo+IGF3YWl0cyBhbiBhbHdheXMtb24gcmVndWxhdG9yLCBidXQgaXQgd2FzIGNvbm5lY3RlZCB0
-byB2M3YzIHdoaWNoIGlzCj4gb2ZmCj4gaW4gbG93LXBvd2VyIHNlcXVlbmNlLiBNTUNfUE1fS0VF
-UF9QT1dFUiBzaG91bGQgdGhlbiBiZSBkaXNhYmxlZC4KPiAKPiBUaGUgZmxhZyBjYW4gc3RpbGwg
-YmUgZW5hYmxlZCB0aHJvdWdoIERUIHByb3BlcnR5Ogo+IGtlZXAtcG93ZXItaW4tc3VzcGVuZC4K
-PiAKPiBTaWduZWQtb2ZmLWJ5OiBZYW5uIEdhdXRpZXIgPHlhbm4uZ2F1dGllckBmb3NzLnN0LmNv
-bT4KPiAtLS0KPiBVcGRhdGUgaW4gdjI6Cj4gUmV3b3JkIGNvbW1pdCBtZXNzYWdlIHRvIGJldHRl
-ciBleHBsYWluIHRoZSBpc3N1ZS4KPiAKPiBSZXNlbmQgdGhlIHBhdGNoIGFsb25lLiBJdCB3YXMg
-cHJldmlvdWxzeSBpbiBhIHNlcmllcyBbMV0gZm9yIHdoaWNoCj4gdGhlCj4gb3RoZXIgcGF0Y2hl
-cyB3aWxsIGJlIHJld29ya2VkLgo+IAo+IFsxXSAKPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9s
-a21sLzIwMjIwMzA0MTM1MTM0LjQ3ODI3LTEteWFubi5nYXV0aWVyQGZvc3Muc3QuY29tLwo+IAo+
-IMKgZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMgfCA1ICsrKystCj4gwqBkcml2ZXJzL21tYy9ob3N0
-L21tY2kuaCB8IDEgKwo+IMKgMiBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDEgZGVs
-ZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmMgYi9kcml2
-ZXJzL21tYy9ob3N0L21tY2kuYwo+IGluZGV4IDQ1Yjg2MDhjOTM1Yy4uMGUyZjJmNWQ2YTUyIDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvbW1jL2hvc3QvbW1jaS5jCj4gKysrIGIvZHJpdmVycy9tbWMv
-aG9zdC9tbWNpLmMKPiBAQCAtMjc0LDYgKzI3NCw3IEBAIHN0YXRpYyBzdHJ1Y3QgdmFyaWFudF9k
-YXRhIHZhcmlhbnRfc3RtMzJfc2RtbWMgPQo+IHsKPiDCoMKgwqDCoMKgwqDCoMKgLmJ1c3lfZGV0
-ZWN0wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgPSB0cnVlLAo+IMKgwqDCoMKgwqDCoMKgwqAuYnVz
-eV9kZXRlY3RfZmxhZ8KgwqDCoMKgwqDCoMKgPSBNQ0lfU1RNMzJfQlVTWUQwLAo+IMKgwqDCoMKg
-wqDCoMKgwqAuYnVzeV9kZXRlY3RfbWFza8KgwqDCoMKgwqDCoMKgPSBNQ0lfU1RNMzJfQlVTWUQw
-RU5ETUFTSywKPiArwqDCoMKgwqDCoMKgwqAuZGlzYWJsZV9rZWVwX3Bvd2VywqDCoMKgwqDCoD0g
-dHJ1ZSwKPiDCoMKgwqDCoMKgwqDCoMKgLmluaXTCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoD0gc2RtbWNfdmFyaWFudF9pbml0LAo+IMKgfTsKPiDCoAo+IEBAIC0zMDEsNiAr
-MzAyLDcgQEAgc3RhdGljIHN0cnVjdCB2YXJpYW50X2RhdGEgdmFyaWFudF9zdG0zMl9zZG1tY3Yy
-Cj4gPSB7Cj4gwqDCoMKgwqDCoMKgwqDCoC5idXN5X2RldGVjdMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoD0gdHJ1ZSwKPiDCoMKgwqDCoMKgwqDCoMKgLmJ1c3lfZGV0ZWN0X2ZsYWfCoMKgwqDCoMKg
-wqDCoD0gTUNJX1NUTTMyX0JVU1lEMCwKPiDCoMKgwqDCoMKgwqDCoMKgLmJ1c3lfZGV0ZWN0X21h
-c2vCoMKgwqDCoMKgwqDCoD0gTUNJX1NUTTMyX0JVU1lEMEVORE1BU0ssCj4gK8KgwqDCoMKgwqDC
-oMKgLmRpc2FibGVfa2VlcF9wb3dlcsKgwqDCoMKgwqA9IHRydWUsCj4gwqDCoMKgwqDCoMKgwqDC
-oC5pbml0wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqA9IHNkbW1jX3Zhcmlh
-bnRfaW5pdCwKPiDCoH07Cj4gwqAKPiBAQCAtMjE3Miw3ICsyMTc0LDggQEAgc3RhdGljIGludCBt
-bWNpX3Byb2JlKHN0cnVjdCBhbWJhX2RldmljZSAqZGV2LAo+IMKgwqDCoMKgwqDCoMKgwqBob3N0
-LT5zdG9wX2Fib3J0LmZsYWdzID0gTU1DX1JTUF9SMUIgfCBNTUNfQ01EX0FDOwo+IMKgCj4gwqDC
-oMKgwqDCoMKgwqDCoC8qIFdlIHN1cHBvcnQgdGhlc2UgUE0gY2FwYWJpbGl0aWVzLiAqLwo+IC3C
-oMKgwqDCoMKgwqDCoG1tYy0+cG1fY2FwcyB8PSBNTUNfUE1fS0VFUF9QT1dFUjsKPiArwqDCoMKg
-wqDCoMKgwqBpZiAoIXZhcmlhbnQtPmRpc2FibGVfa2VlcF9wb3dlcikKPiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgbW1jLT5wbV9jYXBzIHw9IE1NQ19QTV9LRUVQX1BPV0VSOwo+IMKg
-Cj4gwqDCoMKgwqDCoMKgwqDCoC8qCj4gwqDCoMKgwqDCoMKgwqDCoCAqIFdlIGNhbiBkbyBTR0lP
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbW1jL2hvc3QvbW1jaS5oIGIvZHJpdmVycy9tbWMvaG9z
-dC9tbWNpLmgKPiBpbmRleCBlMWE5Yjk2YTMzOTYuLjJjYWQxZWY5NzY2YSAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL21tYy9ob3N0L21tY2kuaAo+ICsrKyBiL2RyaXZlcnMvbW1jL2hvc3QvbW1jaS5o
-Cj4gQEAgLTM2MSw2ICszNjEsNyBAQCBzdHJ1Y3QgdmFyaWFudF9kYXRhIHsKPiDCoMKgwqDCoMKg
-wqDCoMKgdTMywqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgb3BlbmRy
-YWluOwo+IMKgwqDCoMKgwqDCoMKgwqB1OMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgZG1hX2xsaToxOwo+IMKgwqDCoMKgwqDCoMKgwqB1MzLCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBzdG0zMl9pZG1hYnNpemVfbWFzazsKPiArwqDC
-oMKgwqDCoMKgwqB1OMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-ZGlzYWJsZV9rZWVwX3Bvd2VyOjE7CgpUaGVyZSBhcmUgYWxyZWFkeSBmb3VyIHNlcGFyYXRlIGJp
-dGZpZWxkcyBpbiBzdHJ1Y3QgdmFyaWFudF9kYXRhLCB3aHkKbm90IG1vdmUgdGhpcyB1cCBpbnRv
-IG9uZSBvZiB0aGVtPwoKcmVnYXJkcwpQaGlsaXBwCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Em Mon, 14 Mar 2022 12:34:47 +0100
+Hugues FRUCHET - FOSS <hugues.fruchet@foss.st.com> escreveu:
+
+> Hi Mauro,
+> 
+> Ideally we would like to stick to sti/ and stm32/ at same level, as it 
+> is done in various other locations:
+> 
+> ./Documentation/arm/sti/
+> ./Documentation/arm/stm32/
+> 
+> ./arch/arm/mach-sti
+> ./arch/arm/mach-stm32
+> 
+> ./drivers/media/cec/platform/sti/
+> ./drivers/media/cec/platform/stm32/
+> 
+> ./drivers/gpu/drm/sti/
+> ./drivers/gpu/drm/stm/
+> 
+> ./sound/soc/sti/
+> ./sound/soc/stm/
+> 
+> Is this possible to keep those media folders as is ?
+
+If we add them under:
+	./drivers/media/platform/stm/sti/
+	./drivers/media/platform/stm/stm32/
+
+They'll both be at the same level. 
+
+It has been increasingly hard to maintain media/platform, as the file
+become too big and disorganized. Sorting it per-vendor seems to be the
+best thing, as it will keep things better organized. 
+
+As a side effect, with such kind of change, it is now possible to 
+have a MAINTAINERS entry that would point to a mailing list and/or 
+some SoC maintainers/reviewers that should be c/c to all patches 
+affecting drivers/media/platform/<vendor>.
+
+Thanks,
+Mauro
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
