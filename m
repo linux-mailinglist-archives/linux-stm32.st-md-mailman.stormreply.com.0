@@ -2,70 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C01A4D894C
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Mar 2022 17:35:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 154D04D8A26
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Mar 2022 17:52:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91C6EC628B2;
-	Mon, 14 Mar 2022 16:35:14 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E54D6C60467
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Mar 2022 16:35:11 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0B48C60467;
+	Mon, 14 Mar 2022 16:52:29 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0F5C2B80EC5;
- Mon, 14 Mar 2022 16:35:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08178C36B10;
- Mon, 14 Mar 2022 16:35:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647275710;
- bh=8JpXjjyF24k0hF8LjOuHvMt2VTG3d3BfEFsLdEg6D6g=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=S3OS2Ebm9WtiiKclLtao7kn7ub+rGbGD5uH7aEl1BXP4NyWTFMby0rUEKJ5ZqY3nJ
- Z0ZIJQE4TIjhobmt5LXe7oOe1OrJLAymsr/r0bwYKqZ8+r2Gyw8KxTfvCHKdIsflIQ
- Zwn4W0I2knPabgs5XDzRXoCalyhMYFbyldjsY55NXSsEe+V1vZZ2MYdIW2j1vEuO8K
- /YQZR53hADTKZsk2uI9SHnGK65TocUfv3gq2lZ9EE+2ELBAyR/t8+a+nLN0pG5rBKU
- hmnpsbPk9oYBV068MZRXFPNElNoNfxvd2Q51IQREZ/1vMURyJoO4lWcHNTM3cZaAaY
- EVY5rL/Ws11Og==
-Received: from mchehab by mail.kernel.org with local (Exim 4.94.2)
- (envelope-from <mchehab@kernel.org>)
- id 1nTnf1-001x4d-PI; Mon, 14 Mar 2022 17:35:07 +0100
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: 
-Date: Mon, 14 Mar 2022 17:34:59 +0100
-Message-Id: <4a598f62a03bd0e48f0be36cf32829291392cca8.1647274407.git.mchehab@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <cover.1647274406.git.mchehab@kernel.org>
-References: <cover.1647274406.git.mchehab@kernel.org>
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0152C5F1F2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 14 Mar 2022 16:52:28 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 22EFW2gq028526;
+ Mon, 14 Mar 2022 17:51:56 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=OgL45lCtzMLvFBjJYcMhcxi0KbvD1Hrix4VnKyQb4TM=;
+ b=SfHbOVFJnQgkKxdEV3p6l49I5F05fQhDxkAtt0O2vxecr3ucpPvZMNzEsbNf/EYU1dso
+ IlLlES1Jdqsi2Dq2ZFpS4FafD5gtOKsMEpLEb2XP+k/RawSWg6l57P6a21AoB+avWFNN
+ kWHl6YNiYGidCDH5JChWbLNZd3N5U66K+4mzTn54gugfanmnDBdUXGTE2rz/lXvHJBhv
+ VE/MC9RXuC5ZaqEFcHE2fnlDMplx/kX/OdtyUMhmiIpG6FLCEVC595PSe8mGP4BFo5G7
+ qSODp0G/W0lIqx7sWjSl8tlHpRhrLBiahV6VXLvpKYGTwzcxQQSSOak+0Y2ioQQwwMCW Uw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3et89dgnyk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Mar 2022 17:51:55 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2A1D610002A;
+ Mon, 14 Mar 2022 17:51:55 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1FDAD22FA5A;
+ Mon, 14 Mar 2022 17:51:55 +0100 (CET)
+Received: from [10.201.21.172] (10.75.127.45) by SFHDAG2NODE2.st.com
+ (10.75.127.5) with Microsoft SMTP Server (TLS) id 15.0.1497.26; Mon, 14 Mar
+ 2022 17:51:54 +0100
+Message-ID: <ce29e53a-59ff-000a-6b88-0b7ae538c515@foss.st.com>
+Date: Mon, 14 Mar 2022 17:51:53 +0100
 MIME-Version: 1.0
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>, linux-aspeed@lists.ozlabs.org,
- Eddie James <eajames@linux.ibm.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Michael Tretter <m.tretter@pengutronix.de>, openbmc@lists.ozlabs.org,
- Michal Simek <michal.simek@xilinx.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Andy Gross <agross@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
- Jacopo Mondi <jacopo@jmondi.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Hyun Kwon <hyun.kwon@xilinx.com>,
- Andrew Jeffery <andrew@aj.id.au>, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Robert Foss <robert.foss@linaro.org>, linux-kernel@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Eugen Hristev <eugen.hristev@microchip.com>
-Subject: [Linux-stm32] [PATCH v2 64/67] media: platform/*/Kconfig: make
-	manufacturer menus more uniform
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Ulf Hansson <ulf.hansson@linaro.org>
+References: <20220314095225.53563-1-yann.gautier@foss.st.com>
+ <20220314125554.190574-1-yann.gautier@foss.st.com>
+ <CAPDyKFruN9Xwk4uqFumwBdcn4SjKQcSQVBbALa3kVxY4mVzOnQ@mail.gmail.com>
+ <9e4fbf6a-1309-3aee-fcb0-be7c2c683892@foss.st.com>
+ <CAPDyKFq2Du1UWpvRFpVF_qL65SP0DfEV872U9Xe-9i7xKxXhqg@mail.gmail.com>
+From: Yann Gautier <yann.gautier@foss.st.com>
+In-Reply-To: <CAPDyKFq2Du1UWpvRFpVF_qL65SP0DfEV872U9Xe-9i7xKxXhqg@mail.gmail.com>
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.850,Hydra:6.0.425,FMLib:17.11.64.514
+ definitions=2022-03-14_12,2022-03-14_02,2022-02-23_01
+Cc: Ludovic Barre <ludovic.barre@foss.st.com>, Marek Vasut <marex@denx.de>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Grzegorz Szymaszek <gszymaszek@short.pl>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ kernel@dh-electronics.com, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2] mmc: mmci: manage MMC_PM_KEEP_POWER
+	per variant config
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,330 +80,134 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Do some adjustments at the per-vendor Kconfig, adding a comment at
-the beginning in order to identify the manufacturer, and adjust
-a few entries to make them look more uniform.
+On 3/14/22 17:18, Ulf Hansson wrote:
+> On Mon, 14 Mar 2022 at 15:34, Yann Gautier <yann.gautier@foss.st.com> wrote:
+>>
+>> On 3/14/22 14:03, Ulf Hansson wrote:
+>>> On Mon, 14 Mar 2022 at 13:56, Yann Gautier <yann.gautier@foss.st.com> wrote:
+>>>>
+>>>> Add a disable_keep_power field in variant_data struct. The
+>>>> MMC_PM_KEEP_POWER flag will be enabled if disable_keep_power is not set.
+>>>> It is only set to true for stm32_sdmmc variants.
+>>>>
+>>>> The issue was seen on STM32MP157C-DK2 board, which embeds a wifi chip.
+>>>> It doesn't correctly support low power on this board. The Wifi chip
+>>>> awaits an always-on regulator, but it was connected to v3v3 which is off
+>>>> in low-power sequence. MMC_PM_KEEP_POWER should then be disabled.
+>>>
+>>> Just to make sure I get this correct.
+>>>
+>>> Why can't the regulator stay on during system suspend? The point is,
+>>> we don't need an always on regulator to cope with this.
+>>>
+>>> Kind regards
+>>> Uffe
+>>
+>> Hi Ulf,
+>>
+>> This v3v3 regulator powers most of the devices on this board. So we need
+>> to switch it off to gain power in suspend mode.
+> 
+> I see. Thanks for sharing that information.
+> 
+> The MMC_PM_KEEP_POWER flag is there to describe what is supported by
+> the platform/host. It doesn't mean that the card *must* stay powered
+> on during system suspend. Instead that depends on whether system
+> wakeup for the SDIO/WiFi is supported too - and if that is enabled by
+> userspace. If not, the regulator will be turned off for the SDIO card
+> during system suspend.
+> 
+> Assuming the regulator is implemented as a proper regulator and can
+> remain on during system suspend, the right thing would be to keep the
+> MMC_PM_KEEP_POWER flag around.
+> 
+> Kind regards
+> Uffe
+> 
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
----
+OK, but in the wifi driver we use on this platform (brcmfmac), the 
+suspend/resume functions (brcmf_ops_sdio_suspend/brcmf_ops_sdio_resume) 
+use the flag to check regu was off, and then call probe function during 
+resume, to re-init Wifi chip and reload its firmware.
 
-To avoid mailbombing on a large number of people, only mailing lists were C/C on the cover.
-See [PATCH v2 00/67] at: https://lore.kernel.org/all/cover.1647274406.git.mchehab@kernel.org/
 
- drivers/media/platform/allegro-dvt/Kconfig |  3 +++
- drivers/media/platform/amlogic/Kconfig     |  3 +++
- drivers/media/platform/aspeed/Kconfig      |  3 +++
- drivers/media/platform/atmel/Kconfig       |  3 +++
- drivers/media/platform/cadence/Kconfig     | 13 +------------
- drivers/media/platform/chips-media/Kconfig |  3 +++
- drivers/media/platform/intel/Kconfig       |  3 +++
- drivers/media/platform/marvell/Kconfig     |  3 +++
- drivers/media/platform/mediatek/Kconfig    |  3 +++
- drivers/media/platform/nvidia/Kconfig      |  3 +++
- drivers/media/platform/nxp/Kconfig         | 22 +++++-----------------
- drivers/media/platform/qcom/Kconfig        |  2 ++
- drivers/media/platform/renesas/Kconfig     |  2 ++
- drivers/media/platform/rockchip/Kconfig    |  3 +++
- drivers/media/platform/samsung/Kconfig     |  3 +++
- drivers/media/platform/stm/Kconfig         |  2 ++
- drivers/media/platform/via/Kconfig         |  3 +++
- drivers/media/platform/xilinx/Kconfig      |  7 +++----
- 18 files changed, 51 insertions(+), 33 deletions(-)
+Best regards,
+Yann
 
-diff --git a/drivers/media/platform/allegro-dvt/Kconfig b/drivers/media/platform/allegro-dvt/Kconfig
-index dd528e9d0958..674d234be5de 100644
---- a/drivers/media/platform/allegro-dvt/Kconfig
-+++ b/drivers/media/platform/allegro-dvt/Kconfig
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Allegro DVT drivers"
-+
- config VIDEO_ALLEGRO_DVT
- 	tristate "Allegro DVT Video IP Core"
- 	depends on V4L_MEM2MEM_DRIVERS
-diff --git a/drivers/media/platform/amlogic/Kconfig b/drivers/media/platform/amlogic/Kconfig
-index c67e00df6202..c1376ec1fe23 100644
---- a/drivers/media/platform/amlogic/Kconfig
-+++ b/drivers/media/platform/amlogic/Kconfig
-@@ -1,2 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Amlogic drivers"
-+
- source "drivers/media/platform/amlogic/meson-ge2d/Kconfig"
-diff --git a/drivers/media/platform/aspeed/Kconfig b/drivers/media/platform/aspeed/Kconfig
-index 5025e892844c..153e3e5381d5 100644
---- a/drivers/media/platform/aspeed/Kconfig
-+++ b/drivers/media/platform/aspeed/Kconfig
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Aspeed drivers"
-+
- config VIDEO_ASPEED
- 	tristate "Aspeed AST2400 and AST2500 Video Engine driver"
- 	depends on V4L_PLATFORM_DRIVERS
-diff --git a/drivers/media/platform/atmel/Kconfig b/drivers/media/platform/atmel/Kconfig
-index 5122290729ae..cef12629f4ef 100644
---- a/drivers/media/platform/atmel/Kconfig
-+++ b/drivers/media/platform/atmel/Kconfig
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Atmel drivers"
-+
- config VIDEO_ATMEL_ISC
- 	tristate "ATMEL Image Sensor Controller (ISC) support"
- 	depends on V4L_PLATFORM_DRIVERS
-diff --git a/drivers/media/platform/cadence/Kconfig b/drivers/media/platform/cadence/Kconfig
-index 79a7e9fb2575..3ae6f4e51eec 100644
---- a/drivers/media/platform/cadence/Kconfig
-+++ b/drivers/media/platform/cadence/Kconfig
-@@ -1,15 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
--config VIDEO_CADENCE
--	bool "Cadence Video Devices"
--	depends on V4L_PLATFORM_DRIVERS
--	help
--	  If you have a media device designed by Cadence, say Y.
- 
--	  Note that this option doesn't include new drivers in the kernel:
--	  saying N will just cause Kconfig to skip all the questions about
--	  Cadence media devices.
--
--if VIDEO_CADENCE
-+comment "Cadence drivers"
- 
- config VIDEO_CADENCE_CSI2RX
- 	tristate "Cadence MIPI-CSI2 RX Controller"
-@@ -34,5 +25,3 @@ config VIDEO_CADENCE_CSI2TX
- 
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called cdns-csi2tx.
--
--endif
-diff --git a/drivers/media/platform/chips-media/Kconfig b/drivers/media/platform/chips-media/Kconfig
-index ae495fd7b25a..adf466a05699 100644
---- a/drivers/media/platform/chips-media/Kconfig
-+++ b/drivers/media/platform/chips-media/Kconfig
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Chips&Media drivers"
-+
- config VIDEO_CODA
- 	tristate "Chips&Media Coda multi-standard codec IP"
- 	depends on V4L_MEM2MEM_DRIVERS
-diff --git a/drivers/media/platform/intel/Kconfig b/drivers/media/platform/intel/Kconfig
-index aeda421f7248..8a730d9bcf52 100644
---- a/drivers/media/platform/intel/Kconfig
-+++ b/drivers/media/platform/intel/Kconfig
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Intel drivers"
-+
- config VIDEO_PXA27x
- 	tristate "PXA27x Quick Capture Interface driver"
- 	depends on V4L_PLATFORM_DRIVERS
-diff --git a/drivers/media/platform/marvell/Kconfig b/drivers/media/platform/marvell/Kconfig
-index bfe655b2cedd..626e0673f12c 100644
---- a/drivers/media/platform/marvell/Kconfig
-+++ b/drivers/media/platform/marvell/Kconfig
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Marvell drivers"
-+
- config VIDEO_CAFE_CCIC
- 	tristate "Marvell 88ALP01 (Cafe) CMOS Camera Controller support"
- 	depends on V4L_PLATFORM_DRIVERS
-diff --git a/drivers/media/platform/mediatek/Kconfig b/drivers/media/platform/mediatek/Kconfig
-index 6d74839df3d6..aa79626088ec 100644
---- a/drivers/media/platform/mediatek/Kconfig
-+++ b/drivers/media/platform/mediatek/Kconfig
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Mediatek drivers"
-+
- source "drivers/media/platform/mediatek/mtk-jpeg/Kconfig"
- source "drivers/media/platform/mediatek/mtk-mdp/Kconfig"
- source "drivers/media/platform/mediatek/mtk-vcodec/Kconfig"
-diff --git a/drivers/media/platform/nvidia/Kconfig b/drivers/media/platform/nvidia/Kconfig
-index 1162e272b5f9..597402090680 100644
---- a/drivers/media/platform/nvidia/Kconfig
-+++ b/drivers/media/platform/nvidia/Kconfig
-@@ -1,2 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "NVidia drivers"
-+
- source "drivers/media/platform/nvidia/tegra-vde/Kconfig"
-diff --git a/drivers/media/platform/nxp/Kconfig b/drivers/media/platform/nxp/Kconfig
-index df52d32ebe50..44a0d7c38936 100644
---- a/drivers/media/platform/nxp/Kconfig
-+++ b/drivers/media/platform/nxp/Kconfig
-@@ -2,20 +2,10 @@
- 
- # V4L drivers
- 
--menuconfig VIDEO_IMX
--	bool "V4L2 capture drivers for NXP i.MX devices"
--	depends on V4L_PLATFORM_DRIVERS
--	depends on ARCH_MXC || COMPILE_TEST
--	depends on VIDEO_DEV && VIDEO_V4L2
--	help
--	  Say yes here to enable support for capture drivers on i.MX SoCs.
--	  Support for the single SoC features are selectable in the sub-menu
--	  options.
--
--if VIDEO_IMX
-+comment "NXP drivers"
- 
- config VIDEO_IMX_MIPI_CSIS
--	tristate "MIPI CSI-2 CSIS receiver found on i.MX7 and i.MX8 models"
-+	tristate "NXP MIPI CSI-2 CSIS receiver found on i.MX7 and i.MX8 models"
- 	select MEDIA_CONTROLLER
- 	select V4L2_FWNODE
- 	select VIDEO_V4L2_SUBDEV_API
-@@ -24,10 +14,8 @@ config VIDEO_IMX_MIPI_CSIS
- 	  Video4Linux2 sub-device driver for the MIPI CSI-2 CSIS receiver
- 	  v3.3/v3.6.3 found on some i.MX7 and i.MX8 SoCs.
- 
--endif # VIDEO_IMX
--
- config VIDEO_VIU
--	tristate "Freescale/NXP VIU Video Driver"
-+	tristate "NXP VIU Video Driver"
- 	depends on V4L_PLATFORM_DRIVERS
- 	depends on VIDEO_V4L2 && (PPC_MPC512x || COMPILE_TEST) && I2C
- 	select VIDEOBUF_DMA_CONTIG
-@@ -42,7 +30,7 @@ config VIDEO_VIU
- # mem2mem drivers
- 
- config VIDEO_IMX_PXP
--	tristate "i.MX Pixel Pipeline (PXP)"
-+	tristate "NXP i.MX Pixel Pipeline (PXP)"
- 	depends on V4L_MEM2MEM_DRIVERS
- 	depends on VIDEO_DEV && VIDEO_V4L2 && (ARCH_MXC || COMPILE_TEST)
- 	select VIDEOBUF2_DMA_CONTIG
-@@ -52,7 +40,7 @@ config VIDEO_IMX_PXP
- 	  color space conversion, and rotation.
- 
- config VIDEO_MX2_EMMAPRP
--	tristate "Freescale/NXP MX2 eMMa-PrP support"
-+	tristate "NXP MX2 eMMa-PrP support"
- 	depends on V4L_MEM2MEM_DRIVERS
- 	depends on VIDEO_DEV && VIDEO_V4L2
- 	depends on SOC_IMX27 || COMPILE_TEST
-diff --git a/drivers/media/platform/qcom/Kconfig b/drivers/media/platform/qcom/Kconfig
-index 9f6c91cc95ca..4a89587e932d 100644
---- a/drivers/media/platform/qcom/Kconfig
-+++ b/drivers/media/platform/qcom/Kconfig
-@@ -1,4 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
-+comment "Qualcomm drivers"
-+
- source "drivers/media/platform/qcom/camss/Kconfig"
- source "drivers/media/platform/qcom/venus/Kconfig"
-diff --git a/drivers/media/platform/renesas/Kconfig b/drivers/media/platform/renesas/Kconfig
-index 3f35f1b5106d..2e3a66ea95bd 100644
---- a/drivers/media/platform/renesas/Kconfig
-+++ b/drivers/media/platform/renesas/Kconfig
-@@ -1,5 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
-+comment "Renesas drivers"
-+
- # V4L drivers
- 
- config VIDEO_RCAR_ISP
-diff --git a/drivers/media/platform/rockchip/Kconfig b/drivers/media/platform/rockchip/Kconfig
-index 2f97c0e0268a..4351e3258d14 100644
---- a/drivers/media/platform/rockchip/Kconfig
-+++ b/drivers/media/platform/rockchip/Kconfig
-@@ -1,3 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Rockchip drivers"
-+
- source "drivers/media/platform/rockchip/rga/Kconfig"
- source "drivers/media/platform/rockchip/rkisp1/Kconfig"
-diff --git a/drivers/media/platform/samsung/Kconfig b/drivers/media/platform/samsung/Kconfig
-index 94f30c1bca9b..c187cefbec5a 100644
---- a/drivers/media/platform/samsung/Kconfig
-+++ b/drivers/media/platform/samsung/Kconfig
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "Samsung drivers"
-+
- source "drivers/media/platform/samsung/exynos-gsc/Kconfig"
- source "drivers/media/platform/samsung/exynos4-is/Kconfig"
- source "drivers/media/platform/samsung/s3c-camif/Kconfig"
-diff --git a/drivers/media/platform/stm/Kconfig b/drivers/media/platform/stm/Kconfig
-index 27942626a630..58cbb6b888bf 100644
---- a/drivers/media/platform/stm/Kconfig
-+++ b/drivers/media/platform/stm/Kconfig
-@@ -1,4 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
-+comment "STMicroelectronics drivers"
-+
- source "drivers/media/platform/stm/sti/Kconfig"
- source "drivers/media/platform/stm/stm32/Kconfig"
-diff --git a/drivers/media/platform/via/Kconfig b/drivers/media/platform/via/Kconfig
-index 1dcf789dce96..f4f4293cf25c 100644
---- a/drivers/media/platform/via/Kconfig
-+++ b/drivers/media/platform/via/Kconfig
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+comment "VIA drivers"
-+
- config VIDEO_VIA_CAMERA
- 	tristate "VIAFB camera controller support"
- 	depends on V4L_PLATFORM_DRIVERS
-diff --git a/drivers/media/platform/xilinx/Kconfig b/drivers/media/platform/xilinx/Kconfig
-index a9531d5efd50..47f1eeb5d669 100644
---- a/drivers/media/platform/xilinx/Kconfig
-+++ b/drivers/media/platform/xilinx/Kconfig
-@@ -1,5 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- 
-+comment "Xilinx drivers"
-+
- config VIDEO_XILINX
- 	tristate "Xilinx Video IP (EXPERIMENTAL)"
- 	depends on V4L_PLATFORM_DRIVERS
-@@ -11,9 +13,8 @@ config VIDEO_XILINX
- 	help
- 	  Driver for Xilinx Video IP Pipelines
- 
--if VIDEO_XILINX
--
- config VIDEO_XILINX_CSI2RXSS
-+	depends on VIDEO_XILINX
- 	tristate "Xilinx CSI-2 Rx Subsystem"
- 	help
- 	  Driver for Xilinx MIPI CSI-2 Rx Subsystem. This is a V4L sub-device
-@@ -32,5 +33,3 @@ config VIDEO_XILINX_VTC
- 	depends on VIDEO_XILINX
- 	help
- 	   Driver for the Xilinx Video Timing Controller
--
--endif #VIDEO_XILINX
--- 
-2.35.1
+>>
+>>
+>> Yann
+>>
+>>>
+>>>>
+>>>> The flag can still be enabled through DT property:
+>>>> keep-power-in-suspend.
+>>>>
+>>>> Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
+>>>> ---
+>>>> Update in v2:
+>>>> Reword commit message to better explain the issue.
+>>>>
+>>>> Resend the patch alone. It was previoulsy in a series [1] for which the
+>>>> other patches will be reworked.
+>>>>
+>>>> [1] https://lore.kernel.org/lkml/20220304135134.47827-1-yann.gautier@foss.st.com/
+>>>>
+>>>>    drivers/mmc/host/mmci.c | 5 ++++-
+>>>>    drivers/mmc/host/mmci.h | 1 +
+>>>>    2 files changed, 5 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+>>>> index 45b8608c935c..0e2f2f5d6a52 100644
+>>>> --- a/drivers/mmc/host/mmci.c
+>>>> +++ b/drivers/mmc/host/mmci.c
+>>>> @@ -274,6 +274,7 @@ static struct variant_data variant_stm32_sdmmc = {
+>>>>           .busy_detect            = true,
+>>>>           .busy_detect_flag       = MCI_STM32_BUSYD0,
+>>>>           .busy_detect_mask       = MCI_STM32_BUSYD0ENDMASK,
+>>>> +       .disable_keep_power     = true,
+>>>>           .init                   = sdmmc_variant_init,
+>>>>    };
+>>>>
+>>>> @@ -301,6 +302,7 @@ static struct variant_data variant_stm32_sdmmcv2 = {
+>>>>           .busy_detect            = true,
+>>>>           .busy_detect_flag       = MCI_STM32_BUSYD0,
+>>>>           .busy_detect_mask       = MCI_STM32_BUSYD0ENDMASK,
+>>>> +       .disable_keep_power     = true,
+>>>>           .init                   = sdmmc_variant_init,
+>>>>    };
+>>>>
+>>>> @@ -2172,7 +2174,8 @@ static int mmci_probe(struct amba_device *dev,
+>>>>           host->stop_abort.flags = MMC_RSP_R1B | MMC_CMD_AC;
+>>>>
+>>>>           /* We support these PM capabilities. */
+>>>> -       mmc->pm_caps |= MMC_PM_KEEP_POWER;
+>>>> +       if (!variant->disable_keep_power)
+>>>> +               mmc->pm_caps |= MMC_PM_KEEP_POWER;
+>>>>
+>>>>           /*
+>>>>            * We can do SGIO
+>>>> diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
+>>>> index e1a9b96a3396..2cad1ef9766a 100644
+>>>> --- a/drivers/mmc/host/mmci.h
+>>>> +++ b/drivers/mmc/host/mmci.h
+>>>> @@ -361,6 +361,7 @@ struct variant_data {
+>>>>           u32                     opendrain;
+>>>>           u8                      dma_lli:1;
+>>>>           u32                     stm32_idmabsize_mask;
+>>>> +       u8                      disable_keep_power:1;
+>>>>           void (*init)(struct mmci_host *host);
+>>>>    };
+>>>>
+>>>> --
+>>>> 2.25.1
+>>>>
+>>
 
 _______________________________________________
 Linux-stm32 mailing list
