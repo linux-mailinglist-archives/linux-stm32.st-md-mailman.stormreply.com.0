@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E7CB4DB245
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Mar 2022 15:14:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 547F04DB25D
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Mar 2022 15:15:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F20BBC5F1F2;
-	Wed, 16 Mar 2022 14:14:19 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D051C5F1F2;
+	Wed, 16 Mar 2022 14:15:43 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACAD9C01577
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03EA0C01577
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Mar 2022 14:14:18 +0000 (UTC)
+ Wed, 16 Mar 2022 14:15:41 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 39B01B81B3E;
- Wed, 16 Mar 2022 14:14:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9BCC340E9;
- Wed, 16 Mar 2022 14:14:12 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BBB7F61209;
+ Wed, 16 Mar 2022 14:15:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A28C4C340F1;
+ Wed, 16 Mar 2022 14:15:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1647440056;
- bh=cmOGP0m+pkZjBJC0zI+CTqKgqlFbBneVJbZRza4TXBI=;
+ s=k20201202; t=1647440140;
+ bh=06CzfFreRm9dpfVdjhehEwrUJE4C9J41VTJAo+SAPec=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=N5hfQwxf33hqWYzZPW4VtGu+gPVX3PUCtwmVOuKvJ3tPXWh7ENeR3pvBJYRPE+PT/
- vgnr9uw+qzudOkUrgEWZ+yhMCE/RXvorqT+g2IibbVh2fKFulZhXlaS3aufP55fEp4
- ynZ9yr1A6WCPLivwEps5G3JGLRouq6Bx+7m3v71mDf6x0Pd/+zVWfI5v6LVljUGJ9/
- PempAwz13AcjQDliUBuv9Vem3htUGyIlSxC6NJBLm2vHKinCQyKJWigh4aAINfn4It
- y93548VLhjobvodibEMhTjimiBPCLWYIce2Tm4b36/6gY5Pmdhaavo4urZ6LB5j6Mv
- af99vvaJ+MOjw==
+ b=XSS+Iyyhe4BvpkdNxR+Mb7C4MNyVIK+B5sQuaEuzYbeNsPJ1urQJxyXrDaVjSniZJ
+ 5p00fsZQJ7qi8E4Q/Bx91bum5VLyH4HhZ+xNvZxoVlobh0s+9EHkmheYH1XbbLT4Zs
+ rzawl1c8yaP0/edyatVB3PyQhET1T0cmN8TlfZ82RGi3LCMNPCwmy08FPDB3+ZXO9I
+ jVPC/x8SC4FirGaABxCmNrjRA4tlCKqOL2SyIknVVk0oEa/LiNvqVW5NN6bfrUOXlJ
+ fL3EXRjQywGc/FyylQn7qu6/wwXrdkVEUxBF5ZwhV6OutB7tZrcvgiZw/0W6FOWicZ
+ KfwS2E/k9TS+w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 16 Mar 2022 10:13:44 -0400
-Message-Id: <20220316141354.247750-3-sashal@kernel.org>
+Date: Wed, 16 Mar 2022 10:15:03 -0400
+Message-Id: <20220316141513.247965-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220316141354.247750-1-sashal@kernel.org>
-References: <20220316141354.247750-1-sashal@kernel.org>
+In-Reply-To: <20220316141513.247965-1-sashal@kernel.org>
+References: <20220316141513.247965-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -46,7 +46,7 @@ Cc: Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org,
  benjamin.tissoires@redhat.com, mcoquelin.stm32@gmail.com,
  =?UTF-8?q?Michael=20H=C3=BCbner?= <michaelh.95@t-online.de>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.16 03/13] HID: Add support for open
+Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 03/13] HID: Add support for open
 	wheel and no attachment to T300
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -74,7 +74,7 @@ YSA8amtvc2luYUBzdXNlLmN6PgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtl
 cm5lbC5vcmc+Ci0tLQogZHJpdmVycy9oaWQvaGlkLXRocnVzdG1hc3Rlci5jIHwgMiArKwogMSBm
 aWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvaGlkL2hp
 ZC10aHJ1c3RtYXN0ZXIuYyBiL2RyaXZlcnMvaGlkL2hpZC10aHJ1c3RtYXN0ZXIuYwppbmRleCAw
-M2I5MzVmZjAyZDUuLmE0ZTIwZjllNTk4YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9oaWQvaGlkLXRo
+YzkyYjdmOWI4YjguLjgwNTgxNmJlODIyNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9oaWQvaGlkLXRo
 cnVzdG1hc3Rlci5jCisrKyBiL2RyaXZlcnMvaGlkL2hpZC10aHJ1c3RtYXN0ZXIuYwpAQCAtNjQs
 NyArNjQsOSBAQCBzdHJ1Y3QgdG1fd2hlZWxfaW5mbyB7CiAgKi8KIHN0YXRpYyBjb25zdCBzdHJ1
 Y3QgdG1fd2hlZWxfaW5mbyB0bV93aGVlbHNfaW5mb3NbXSA9IHsKIAl7MHgwMzA2LCAweDAwMDYs
